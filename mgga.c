@@ -64,6 +64,7 @@ void mgga(mgga_type *p, double *rho, double *grho, double *tau,
   case(XC_MGGA_X_TPSS):
     mgga_x_tpss(p, rho, grho, tau, e, dedd, dedgd, dedtau);
     break;
+
   case(XC_MGGA_C_TPSS):
     mgga_c_tpss(p, rho, grho, tau, e, dedd, dedgd, dedtau);
     break;

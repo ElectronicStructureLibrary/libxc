@@ -153,9 +153,13 @@ void gga_c_pbe(gga_type *p, double *rho, double *grho,
   drsdd   = -rs/(3.0*dens);
   dkfdd   =  kf/(3.0*dens);
   dksdd   = 0.5*ks*dkfdd/kf;
-  dzdd[1] =  (1.0 - zeta)/dens;
-  dzdd[2] = -(1.0 + zeta)/dens;
-  dpdz    = (1.0/3.0)*(1/pow(1 + zeta, 1.0/3.0) - 1/pow(1 - zeta, 1.0/3.0));
+  dzdd[0] =  (1.0 - zeta)/dens;
+  dzdd[1] = -(1.0 + zeta)/dens;
+  dpdz    = 0.0;
+  if(fabs(1.0 + zeta) >= MIN_DENS)
+    dpdz += (1.0/3.0)/pow(1.0 + zeta, 1.0/3.0);
+  if(fabs(1.0 - zeta) >= MIN_DENS)
+    dpdz -= (1.0/3.0)/pow(1.0 - zeta, 1.0/3.0);
   
   for(is=0; is<p->nspin; is++){
     double decudd, dpdd, dtdd;

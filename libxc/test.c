@@ -39,20 +39,19 @@ void test_tpss()
   mgga_type tpss;
   int i;
 
-  mgga_init(&tpss, XC_MGGA_X_TPSS, XC_UNPOLARIZED);
+  mgga_init(&tpss, XC_MGGA_C_TPSS, XC_UNPOLARIZED);
   
   for(i=0; i<100; i++){
     double n, gr[3], tau;
     double e, dedd, dedgd[3], dedtau;
 
     n = 0.1;
-    gr[0] = 0.1;
+    gr[0] = 0.01;
     gr[1] = 0.1;
     gr[2] = 0.1;
-    tau   = i/1000.0;
+    tau   = 0.01 + i/100.0;
 
     mgga(&tpss, &n, gr, &tau, &e, &dedd, dedgd, &dedtau);
-
     printf("%16.10lf\t%16.10lf\t%16.10lf\n", tau, n*e, dedtau);
   }
 

@@ -37,7 +37,6 @@ void mgga(mgga_type *p, double *rho, double *grho, double *tau,
 
 {
   double dens;
-  int i;
 
   assert(p!=NULL);
   

@@ -13,7 +13,7 @@ static func_type func_gga_lb = {
   XC_EXCHANGE_CORRELATION,
   "van Leeuwen & Baerends",
   "GGA",
-  {"R. van Leeuwen and E. J. Baerends, Phys. Rev. A. 49, 2421 (1994)", NULL}
+  "R. van Leeuwen and E. J. Baerends, Phys. Rev. A. 49, 2421 (1994)"
 };
 
 

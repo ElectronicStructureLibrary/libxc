@@ -16,7 +16,7 @@ static func_type func_mgga_x_tpss = {
   XC_EXCHANGE,
   "Perdew, Tao, Staroverov & Scuseria",
   "MGGA",
-  {"J.P.Perdew, Tao, Staroverov, and Scuseria, Phys. Rev. Lett. 91, 146401 (2003)", NULL}
+  "J.P.Perdew, Tao, Staroverov, and Scuseria, Phys. Rev. Lett. 91, 146401 (2003)"
 };
 
 

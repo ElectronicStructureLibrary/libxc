@@ -15,7 +15,7 @@ static func_type func_lda_c_pw = {
   XC_CORRELATION,
   "Perdew & Wang",
   "LDA",
-  {"J.P. Perdew and Y.Wang, Phys. Rev. B 45, 13244 (1992)", NULL}
+  "J.P. Perdew and Y.Wang, Phys. Rev. B 45, 13244 (1992)"
 };
 
 
@@ -30,9 +30,9 @@ static func_type func_lda_c_ob_pw = {
   XC_CORRELATION,
   "Ortiz & Ballone (PW parametrization)",
   "LDA",
-  {"Ortiz and Ballone, Phys. Rev. B 50, 1391 (1994)",
-   "Ortiz and Ballone, Phys. Rev. B 56, 9970(E) (1997)",
-   "J.P. Perdew and Y.Wang, Phys. Rev. B 45, 13244 (1992)", NULL}
+  "Ortiz and Ballone, Phys. Rev. B 50, 1391 (1994)\n"
+  "Ortiz and Ballone, Phys. Rev. B 56, 9970(E) (1997)\n"
+  "J.P. Perdew and Y.Wang, Phys. Rev. B 45, 13244 (1992)"
 };
 
 

@@ -13,8 +13,8 @@ static func_type func_lda_c_amgb = {
   XC_CORRELATION,
   "AMGB (for 2D systems)",
   "LDA",
-  {"C. Attacalite et al, Phys. Rev. Lett. 88, 256601 (2002)", 
-   "C. Attacalite, PhD thesis", NULL}
+  "C. Attacalite et al, Phys. Rev. Lett. 88, 256601 (2002)\n"
+  "C. Attacalite, PhD thesis"
 };
 
 

@@ -15,7 +15,7 @@ static func_type func_gga_x_pbe = {
   XC_EXCHANGE,
   "Perdew, Burke & Ernzerhof",
   "GGA",
-  {"J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)", NULL}
+  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)"
 };
 
 static func_type func_gga_c_pbe = {
@@ -23,7 +23,7 @@ static func_type func_gga_c_pbe = {
   XC_CORRELATION,
   "Perdew, Burke & Ernzerhof",
   "GGA",
-  {"J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)", NULL}
+  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)"
 };
 
 

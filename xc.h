@@ -41,17 +41,18 @@ typedef struct{
   func_type *func;      /* which functional did we chose   */
   int    nspin;         /* XC_UNPOLARIZED or XC_POLARIZED  */
   
-  int    relativistic;  /* necessary for the exchange      */
+  int    relativistic;  /* not used for the moment         */
   int    dim;
   
   double alpha;         /* parameter for Xalpha functional */
 } lda_type;
 
 void lda_init(lda_type *p, int functional, int nspin);
-void lda_x_init(lda_type *p, int nspin, int dim, int rel);
-void lda_c_xalpha_init(lda_type *p, int nspin, int dim, int rel, double alpha);
+void lda_x_init(lda_type *p, int nspin, int dim);
+void lda_c_xalpha_init(lda_type *p, int nspin, int dim, double alpha);
 
 void lda(lda_type *p, double *rho, double *ec, double *vc);
+void lda_fxc(lda_type *p, double *rho, double *fxc);
 
 
 /* the GGAs */

@@ -36,7 +36,7 @@ void gga_x_pbe_init(gga_type *p)
 {
   p->func = &func_gga_x_pbe;
   p->lda_aux = (lda_type *) malloc(sizeof(lda_type));
-  lda_x_init(p->lda_aux, XC_UNPOLARIZED, 3, XC_NON_RELATIVISTIC);
+  lda_x_init(p->lda_aux, XC_UNPOLARIZED, 3);
 }
 
 

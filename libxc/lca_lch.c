@@ -26,7 +26,9 @@ void lca_lch_init(lca_type *p)
 void lca_s_lch(double rs, double s, double dsdrs)
 {
   static double c[3] = {1.0, 0.028, -0.042};
-  
-  s     = (c[0] + c[1]*rs)*exp(c[2]*rs);
-  dsdrs = (c[1] + c[0]*c[2] + c[1]*c[2]*rs)*(c[2]*rs);
+  double tmp;
+
+  tmp   = exp(c[2]*rs);
+  s     = (c[0] + c[1]*rs)*tmp;
+  dsdrs = (c[1] + c[2]*(c[0] + c[1]*rs))*tmp;
 }

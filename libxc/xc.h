@@ -112,4 +112,20 @@ void mgga_end (mgga_type *p);
 void mgga     (mgga_type *p, double *rho, double *grho, double *tau,
 	       double *e, double *dedd, double *dedgd, double *dedtau);
 
+/* the LCAs */
+
+#define XC_LCA_OMC            301 /* Orestes, Marcasso & Capelle */
+#define XC_LCA_LCH            302 /* Lee, Colwell & Handy        */
+
+
+typedef struct{
+  func_type *func;       /* which functional did we chose   */
+  int        nspin;      /* XC_UNPOLARIZED or XC_POLARIZED  */
+
+} lca_type;
+
+void lca_init(lca_type *p, int functional, int nspin);
+void lca     (lca_type *p, double *rho, double *v, double *e, double *dedd, double *dedv);
+
 #endif
+

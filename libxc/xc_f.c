@@ -119,3 +119,24 @@ void FC_FUNC_(xc_gga, XC_GGA)
 {
   gga((gga_type *)(*p), rho, grho, e, dedd, dedgd);
 }
+
+
+/* the van Leeuwen & Baerends functional is special */
+void FC_FUNC_(xc_gga_lb_init, XC_GGA_LB_INIT)
+     (void **p, void **info,  int *nspin, int *modified, double *threshold)
+{
+  gga_type *gga_p;
+
+  *p = malloc(sizeof(gga_type));
+  gga_p = (gga_type *)(*p);
+  gga_lb_init(gga_p, *nspin, *modified, *threshold);
+  *info = (void *)(gga_p->func);
+}
+
+void FC_FUNC_(xc_gga_lb, XC_GGA_LB)
+     (void **p, double *rho, double *grho, double *r, double *ip, double *qtot,
+      double *dedd)
+{
+  gga_lb((gga_type *)(*p), rho, grho, *r, *ip, *qtot, dedd);
+}
+

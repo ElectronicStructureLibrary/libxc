@@ -10,6 +10,7 @@
 
 #define XC_EXCHANGE             0
 #define XC_CORRELATION          1
+#define XC_EXCHANGE_CORRELATION 2
 
 typedef struct{
   int   number; /* indentifier number */
@@ -57,17 +58,25 @@ void lda(lda_type *p, double *rho, double *ec, double *vc);
 
 #define XC_GGA_X_PBE          101 /* Perdew, Burke & Ernzerhof exchange    */
 #define XC_GGA_C_PBE          102 /* Perdew, Burke & Ernzerhof correlation */
+#define XC_GGA_XC_LB          103 /* van Leeuwen & Baerends                */
 
 typedef struct{
   func_type *func;       /* which functional did we chose   */
   int        nspin;      /* XC_UNPOLARIZED or XC_POLARIZED  */
   
   lda_type  *lda_aux;    /* most GGAs are based on a LDA    */
+
+  int modified;          /* parameters necessary to the lb functional */
+  double threshold;
 } gga_type;
 
 void gga_init(gga_type *p, int functional, int nspin);
-void gga_end(gga_type *p);
-void gga(gga_type *p, double *rho, double *grho,
-	 double *e, double *dedd, double *dedgd);
+void gga_end (gga_type *p);
+void gga     (gga_type *p, double *rho, double *grho,
+	      double *e, double *dedd, double *dedgd);
+
+void gga_lb_init(gga_type *p, int nspin, int modified, double threshold);
+void gga_lb     (gga_type *p, double *rho, double *grho, double r, double ip, double qtot,
+		 double *dedd);
 
 #endif

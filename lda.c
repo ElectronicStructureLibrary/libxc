@@ -140,12 +140,27 @@ void lda_work(lda_type *p, double *rho, double *ec, double *vc, double *fxc)
     lda_c_amgb(p, rho, ec, vc);
     break;
   }
+}
 
-  if(fxc!=NULL && got_fxc!=0){
-    /* get fxc through a numerical derivative */
+void lda(lda_type *p, double *rho, double *ec, double *vc)
+{
+  lda_work(p, rho, ec, vc, NULL);
+}
+
+void lda_fxc(lda_type *p, double *rho, double *fxc)
+{
+  if(p->func->number == XC_LDA_X ||
+     p->func->number == XC_LDA_C_XALPHA ||
+     p->func->number == XC_LDA_C_PW ||
+     p->func->number == XC_LDA_C_OB_PW){
+
+    double ec, vc[2];
+    lda_work(p, rho, &ec, vc, fxc);
+
+  }else{ /* get fxc through a numerical derivative */
     int i, j;
     double delta_rho = 1e-5;
-
+    
     for(i=0; i<p->nspin; i++){
       double rho2[2], e, vc1[2], vc2[2];
 
@@ -163,16 +178,4 @@ void lda_work(lda_type *p, double *rho, double *ec, double *vc, double *fxc)
 	fxc __(i,j) = (vc1[j] - vc2[j])/(2.0*delta_rho);
     }
   }
-}
-
-void lda(lda_type *p, double *rho, double *ec, double *vc)
-{
-  lda_work(p, rho, ec, vc, NULL);
-}
-
-void lda_fxc(lda_type *p, double *rho, double *fxc)
-{
-  double ec, vc[2];
-
-  lda_work(p, rho, &ec, vc, fxc);
 }

@@ -52,8 +52,8 @@ void lda_c_amgb  (lda_type *p, double *rho, double *ec, double *vc);
 void gga_x_pbe_init(gga_type *p);
 void gga_c_pbe_init(gga_type *p);
 
-void gga_pbe_end (gga_type *p);
-void gga_lb_end  (gga_type *p);
+void gga_pbe_end(gga_type *p);
+void gga_lb_end (gga_type *p);
 
 void gga_x_pbe(gga_type *p, double *rho, double *grho,
 	       double *e, double *dedd, double *dedgd);
@@ -63,10 +63,14 @@ void gga_c_pbe(gga_type *p, double *rho, double *grho,
 
 /* meta-GGAs */
 void mgga_x_tpss_init(mgga_type *p);
+void mgga_c_tpss_init(mgga_type *p);
 
 void mgga_x_tpss_end(mgga_type *p);
+void mgga_c_tpss_end(mgga_type *p);
 
 void mgga_x_tpss(mgga_type *p, double *rho, double *grho, double *tau,
+		 double *e, double *dedd, double *dedgd, double *dedtau);
+void mgga_c_tpss(mgga_type *p, double *rho, double *grho, double *tau,
 		 double *e, double *dedd, double *dedgd, double *dedtau);
 
 #endif

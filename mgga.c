@@ -18,6 +18,9 @@ void mgga_init(mgga_type *p, int functional, int nspin)
   case(XC_MGGA_X_TPSS):
     mgga_x_tpss_init(p);
     break;
+  case(XC_MGGA_C_TPSS):
+    mgga_c_tpss_init(p);
+    break;
   }
 }
 
@@ -27,6 +30,9 @@ void mgga_end(mgga_type *p)
   switch(p->func->number){
   case(XC_MGGA_X_TPSS) :
     mgga_x_tpss_end(p);
+    break;
+  case(XC_MGGA_C_TPSS) :
+    mgga_c_tpss_end(p);
     break;
   }
 }
@@ -57,6 +63,9 @@ void mgga(mgga_type *p, double *rho, double *grho, double *tau,
   switch(p->func->number){
   case(XC_MGGA_X_TPSS):
     mgga_x_tpss(p, rho, grho, tau, e, dedd, dedgd, dedtau);
+    break;
+  case(XC_MGGA_C_TPSS):
+    mgga_c_tpss(p, rho, grho, tau, e, dedd, dedgd, dedtau);
     break;
   }
 

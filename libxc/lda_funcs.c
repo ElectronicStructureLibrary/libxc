@@ -174,10 +174,10 @@ static func_type func_lda_c_xalpha = {
 };
 
 
-void lda_c_xalpha_init(lda_type *p, int nspin, int dim, int rel, double alpha)
+void lda_c_xalpha_init(lda_type *p, int nspin, int dim, double alpha)
 {
   p->alpha = alpha;
-  lda_x_init(p, nspin, dim, rel);
+  lda_x_init(p, nspin, dim);
   p->func = &func_lda_c_xalpha;
 }
 
@@ -185,11 +185,11 @@ void lda_c_xalpha_init(lda_type *p, int nspin, int dim, int rel, double alpha)
 a total exchange and correlation functional, Exc, equal to 3/2 * alpha * Ex 
 Setting alpha equal to one gives the *usual* Slater Xalpha functional,
 whereas alpha equal to 2/3 just leaves the exhange functional unchanged */
-void lda_c_xalpha(lda_type *p, double *rho, double *ec, double *vc)
+void lda_c_xalpha(lda_type *p, double *rho, double *ec, double *vc, double *fc)
 {
   int i;
 
-  lda_x(p, rho, ec, vc);
+  lda_x(p, rho, ec, vc, fc);
   (*ec) *= p->alpha;
   for(i=0; i<p->nspin; i++) vc[i] *= (1.5*p->alpha - 1.0);
 }

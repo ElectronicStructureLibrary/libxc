@@ -86,7 +86,7 @@ void FC_FUNC_(xc_lda, XC_LDA)
 
 /* exchange in the LDA */
 void FC_FUNC_(xc_lda_x_init, XC_LDA_X_INIT)
-     (void **p, void **info, int *functional, int *nspin, int *dim, int *rel)
+     (void **p, void **info, int *functional, int *nspin, int *dim)
 {
   lda_type *lda_p;
 
@@ -94,13 +94,13 @@ void FC_FUNC_(xc_lda_x_init, XC_LDA_X_INIT)
 
   *p = malloc(sizeof(lda_type));
   lda_p = (lda_type *)(*p);
-  lda_x_init(lda_p, *nspin, *dim, *rel);
+  lda_x_init(lda_p, *nspin, *dim);
   *info = (void *)(lda_p->func);
 }
 
 /* Slater's Xalpha */
 void FC_FUNC_(xc_lda_c_xalpha_init, XC_LDA_C_XALPHA_INIT)
-     (void **p, void **info, int *functional, int *nspin, int *dim, int *rel, double *alpha)
+     (void **p, void **info, int *functional, int *nspin, int *dim, double *alpha)
 {
   lda_type *lda_p;
 
@@ -108,7 +108,7 @@ void FC_FUNC_(xc_lda_c_xalpha_init, XC_LDA_C_XALPHA_INIT)
 
   *p = malloc(sizeof(lda_type));
   lda_p = (lda_type *)(*p);
-  lda_c_xalpha_init(lda_p, *nspin, *dim, *rel, *alpha);
+  lda_c_xalpha_init(lda_p, *nspin, *dim, *alpha);
   *info = (void *)(lda_p->func);
 }
 

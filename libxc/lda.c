@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 
@@ -71,10 +72,11 @@ void lda_init(lda_type *p, int functional, int nspin)
 }
 
 
-void lda(lda_type *p, double *rho, double *ec, double *vc)
+void lda_work(lda_type *p, double *rho, double *ec, double *vc, double *fxc)
 {
   double dens, zeta, rs;
-  
+  int got_fxc=0;
+
   assert(p!=NULL);
   
   /* get the trace and the polarization of the density */
@@ -93,7 +95,8 @@ void lda(lda_type *p, double *rho, double *ec, double *vc)
   
   switch(p->func->number){
   case(XC_LDA_X):
-    lda_x(p, rho, ec, vc);
+    lda_x(p, rho, ec, vc, fxc);
+    got_fxc = 1;
     break;
     
   case XC_LDA_C_WIGNER: 
@@ -110,7 +113,8 @@ void lda(lda_type *p, double *rho, double *ec, double *vc)
     break;
     
   case XC_LDA_C_XALPHA:
-    lda_c_xalpha(p, rho, ec, vc);
+    lda_c_xalpha(p, rho, ec, vc, fxc);
+    got_fxc = 1;
     break;
     
   case XC_LDA_C_VWN:
@@ -124,7 +128,8 @@ void lda(lda_type *p, double *rho, double *ec, double *vc)
     
   case XC_LDA_C_PW:
   case XC_LDA_C_OB_PW:
-    lda_c_pw(p, rs, zeta, ec, vc);
+    lda_c_pw(p, rs, dens, zeta, ec, vc, fxc);
+    got_fxc = 1;
     break;
     
   case XC_LDA_C_LYP:
@@ -135,4 +140,39 @@ void lda(lda_type *p, double *rho, double *ec, double *vc)
     lda_c_amgb(p, rho, ec, vc);
     break;
   }
+
+  if(fxc!=NULL && got_fxc!=0){
+    /* get fxc through a numerical derivative */
+    int i, j;
+    double delta_rho = 1e-5;
+
+    for(i=0; i<p->nspin; i++){
+      double rho2[2], e, vc1[2], vc2[2];
+
+      j = (i+1) % 2;
+
+      rho2[i] = rho[i] + delta_rho;
+      rho2[j] = rho[j];
+      lda_work(p, rho2, &e, vc1, NULL);
+
+      rho2[i] = rho[i] - delta_rho;
+      lda_work(p, rho2, &e, vc2, NULL);
+
+      fxc __(i,i) = (vc1[i] - vc2[i])/(2.0*delta_rho);
+      if(p->nspin == XC_POLARIZED)
+	fxc __(i,j) = (vc1[j] - vc2[j])/(2.0*delta_rho);
+    }
+  }
+}
+
+void lda(lda_type *p, double *rho, double *ec, double *vc)
+{
+  lda_work(p, rho, ec, vc, NULL);
+}
+
+void lda_fxc(lda_type *p, double *rho, double *fxc)
+{
+  double ec, vc[2];
+
+  lda_work(p, rho, &ec, vc, fxc);
 }

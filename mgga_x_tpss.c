@@ -175,6 +175,7 @@ x_tpss_para(mgga_type *pt, double rho, double *grho, double tau_,
     *energy = exunif*Fx;
     *dedd   = vxunif*Fx + exunif*dFxdx*(-(8.0/3.0)*p*dxdp - z*dxdz);
     *dedtau = a * (-z/tau*dxdz);
+
     for(i=0; i<3; i++)
       dedgd[i] = a * 2.0*grho[i]/gdms * (p*dxdp + z*dxdz);
   }
@@ -185,10 +186,10 @@ void
 mgga_x_tpss(mgga_type *p, double *rho, double *grho, double *tau,
 	    double *e, double *dedd, double *dedgd, double *dedtau)
 {
-  if(p->nspin == XC_UNPOLARIZED)
+  if(p->nspin == XC_UNPOLARIZED){
     x_tpss_para(p, rho[0], grho, tau[0], e, dedd, dedgd, dedtau);
 
-  else{ 
+  }else{ 
     /* The spin polarized version is handle using the exact spin scaling
           Ex[n1, n2] = (Ex[2*n1] + Ex[2*n2])/2
     */
@@ -198,8 +199,8 @@ mgga_x_tpss(mgga_type *p, double *rho, double *grho, double *tau,
     for(is=0; is<2; is++){
       double gr[3], e1;
       int i;
-      
       for(i=0; i<3; i++) gr[i] = 2.0*grho _(is, i);
+
       x_tpss_para(p, 2.0*rho[is], gr, 2.0*tau[is], &e1, 
 		  &(dedd[is]), &(dedgd _(is, 0)), &(dedtau[is]));
       *e += e1;

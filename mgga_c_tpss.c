@@ -223,19 +223,23 @@ mgga_c_tpss(mgga_type *p, double *rho, double *grho, double *tau,
     for(i=0; i<3; i++) gd[i] += grho _(is, i);
     taut += tau[is];
   }
-  taut = max(taut, MIN_TAU);
 
   /* get the modulos square of the gradient */
   gdms = gd[0]*gd[0] + gd[1]*gd[1] + gd[2]*gd[2];
   gdms = max(MIN_GRAD*MIN_GRAD, gdms);
   
   tauw = gdms/(8.0*dens);
-  z    = tauw/taut;
+
+  /* sometimes numerical errors makes taut negative :( */
+  if(taut < MIN_TAU)
+    taut = tauw;
+
+  z = tauw/taut;
 
   /* Equation (12) */
   c_tpss_12(p, rho, grho, z, dens, zeta,
 	    &e_PKZB, de_PKZBdd, de_PKZBdgd, &de_PKZBdz);
-
+  
   /* Equation (11) */
   {
     double z2 = z*z, z3 = z2*z;
@@ -254,12 +258,12 @@ mgga_c_tpss(mgga_type *p, double *rho, double *grho, double *tau,
       dedd[is]   = de_PKZBdd[is] * (1.0 + 2.0*d*e_PKZB*z3);
       dedd[is]  -= e_PKZB*e_PKZB * d * z3;
       dedd[is]  += dedz*dzdd;
-    
+      
       for(i=0; i<3; i++){
 	dedgd _(is, i) = de_PKZBdgd _(is, i) * (1.0 + 2.0*d*e_PKZB*z3);
 	dedgd _(is, i)+= dedz*dzdgd[i];
       }
-
+      
       dedtau[is] = dedz*dzdtau;
     }
   }

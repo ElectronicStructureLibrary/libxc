@@ -8,7 +8,7 @@
 #define XC_NON_RELATIVISTIC     0
 #define XC_RELATIVISTIC         1
 
-/* the LDA */
+/* the LDAs */
 
 #define XC_LDA_X                1   /* Exchange                   */
 #define XC_LDA_C_WIGNER         2   /* Wigner parametrization     */
@@ -25,20 +25,37 @@
 #define XC_LDA_C_AMGB          13   /* Attacalite et al           */
 
 typedef struct{
-	int    functional;    /* which functional did we chose   */
-	int    nspin;         /* XC_UNPOLARIZED or XC_POLARIZED  */
-
+  int    functional;    /* which functional did we chose   */
+  int    nspin;         /* XC_UNPOLARIZED or XC_POLARIZED  */
+  
   int    relativistic;  /* necessary for the exchange      */
-	int    dim;
-	
-	double alpha;         /* parameter for Xalpha functional */
+  int    dim;
+  
+  double alpha;         /* parameter for Xalpha functional */
 } lda_type;
 
-void lda_init(lda_type *p, int nspin, int functional);
+void lda_init(lda_type *p, int functional, int nspin);
 void lda_x_init(lda_type *p, int nspin, int dim, int rel);
 void lda_c_xalpha_init(lda_type *p, int nspin, int dim, int rel, double alpha);
 
 void lda(lda_type *p, double *rho, double *ec, double *vc);
 
+
+/* the GGAs */
+
+#define XC_GGA_X_PBE          101 /* Perdew, Burke & Ernzerhof exchange    */
+#define XC_GGA_C_PBE          102 /* Perdew, Burke & Ernzerhof correlation */
+
+typedef struct{
+  int    functional;    /* which functional did we chose   */
+  int    nspin;         /* XC_UNPOLARIZED or XC_POLARIZED  */
+  
+  lda_type *lda_aux;    /* most GGAs are based on a LDA    */
+} gga_type;
+
+void gga_init(gga_type *p, int functional, int nspin);
+void gga_end(gga_type *p);
+void gga(gga_type *p, double *rho, double *grho,
+	 double *e, double *dedd, double *dedgd);
 
 #endif

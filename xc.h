@@ -79,4 +79,24 @@ void gga_lb_init(gga_type *p, int nspin, int modified, double threshold);
 void gga_lb     (gga_type *p, double *rho, double *grho, double r, double ip, double qtot,
 		 double *dedd);
 
+/* the meta-GGAs */
+
+#define XC_MGGA_X_TPSS        201 /* Perdew, Tao, Staroverov & Scuseria exchange    */
+#define XC_MGGA_C_TPSS        202 /* Perdew, Tao, Staroverov & Scuseria correlation */
+
+typedef struct{
+  func_type *func;       /* which functional did we chose   */
+  int        nspin;      /* XC_UNPOLARIZED or XC_POLARIZED  */
+  
+  lda_type  *lda_aux;    /* most meta-GGAs are based on a LDA    */
+  gga_type  *gga_aux1;   /* or on a GGA                          */
+  gga_type  *gga_aux2;   /* or on a GGA                          */
+
+} mgga_type;
+
+void mgga_init(mgga_type *p, int functional, int nspin);
+void mgga_end (mgga_type *p);
+void mgga     (mgga_type *p, double *rho, double *grho, double *tau,
+	       double *e, double *dedd, double *dedgd, double *dedtau);
+
 #endif

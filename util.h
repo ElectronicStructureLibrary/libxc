@@ -12,6 +12,7 @@
 
 #define MIN_DENS             1.0e-14
 #define MIN_GRAD             1.0e-14
+#define MIN_TAU              1.0e-14
 
 #define _(is, x) [3*is + x]
 
@@ -53,4 +54,14 @@ void gga_x_pbe(gga_type *p, double *rho, double *grho,
 	       double *e, double *dedd, double *dedgd);
 void gga_c_pbe(gga_type *p, double *rho, double *grho,
 	       double *e, double *dedd, double *dedgd);
+
+
+/* meta-GGAs */
+void mgga_x_tpss_init(mgga_type *p);
+
+void mgga_x_tpss_end(mgga_type *p);
+
+void mgga_x_tpss(mgga_type *p, double *rho, double *grho, double *tau,
+		 double *e, double *dedd, double *dedgd, double *dedtau);
+
 #endif

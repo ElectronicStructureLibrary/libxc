@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 
 #include "xc.h"
 #include "config.h"
@@ -57,7 +58,7 @@ void FC_FUNC_(xc_info_ref, XC_INFO_REF)
 
 /* LDAs */
 
-void FC_FUNC_(xc_lda_init, XC_LDA_INIT)
+void FC_FUNC_(xc_lda_init_, XC_LDA_INIT_)
      (void **p, void **info, int *functional, int *nspin)
 {
   lda_type *lda_p;
@@ -85,10 +86,12 @@ void FC_FUNC_(xc_lda, XC_LDA)
 
 /* exchange in the LDA */
 void FC_FUNC_(xc_lda_x_init, XC_LDA_X_INIT)
-     (void **p, void **info, int *nspin, int *dim, int *rel)
+     (void **p, void **info, int *functional, int *nspin, int *dim, int *rel)
 {
   lda_type *lda_p;
-  
+
+  assert(*functional == XC_LDA_X);
+
   *p = malloc(sizeof(lda_type));
   lda_p = (lda_type *)(*p);
   lda_x_init(lda_p, *nspin, *dim, *rel);
@@ -97,9 +100,11 @@ void FC_FUNC_(xc_lda_x_init, XC_LDA_X_INIT)
 
 /* Slater's Xalpha */
 void FC_FUNC_(xc_lda_c_xalpha_init, XC_LDA_C_XALPHA_INIT)
-     (void **p, void **info, int *nspin, int *dim, int *rel, double *alpha)
+     (void **p, void **info, int *functional, int *nspin, int *dim, int *rel, double *alpha)
 {
   lda_type *lda_p;
+
+  assert(*functional == XC_LDA_C_XALPHA);
 
   *p = malloc(sizeof(lda_type));
   lda_p = (lda_type *)(*p);
@@ -110,7 +115,7 @@ void FC_FUNC_(xc_lda_c_xalpha_init, XC_LDA_C_XALPHA_INIT)
 
 /* GGAs */
 
-void FC_FUNC_(xc_gga_init, XC_GGA_INIT)
+void FC_FUNC_(xc_gga_init_, XC_GGA_INIT_)
      (void **p, void **info, int *functional, int *nspin)
 {
   gga_type *gga_p;
@@ -138,9 +143,11 @@ void FC_FUNC_(xc_gga, XC_GGA)
 
 /* the van Leeuwen & Baerends functional is special */
 void FC_FUNC_(xc_gga_lb_init, XC_GGA_LB_INIT)
-     (void **p, void **info,  int *nspin, int *modified, double *threshold)
+     (void **p, void **info,  int *functional, int *nspin, int *modified, double *threshold)
 {
   gga_type *gga_p;
+
+  assert(*functional == XC_GGA_XC_LB);
 
   *p = malloc(sizeof(gga_type));
   gga_p = (gga_type *)(*p);

@@ -155,3 +155,31 @@ void FC_FUNC_(xc_gga_lb, XC_GGA_LB)
   gga_lb((gga_type *)(*p), rho, grho, *r, *ip, *qtot, dedd);
 }
 
+
+/* meta-GGAs */
+
+void FC_FUNC_(xc_mgga_init, XC_MGGA_INIT)
+     (void **p, void **info, int *functional, int *nspin)
+{
+  mgga_type *mgga_p;
+
+  *p = malloc(sizeof(mgga_type));
+  mgga_p = (mgga_type *)(*p);
+  mgga_init(mgga_p, *functional, *nspin);
+  *info = (void *)(mgga_p->func);
+}
+
+void FC_FUNC_(xc_mgga_end, XC_MGGA_END)
+     (void **p)
+{
+  mgga_end((mgga_type *)(*p));
+  free(*p);
+}
+
+void FC_FUNC_(xc_mgga, XC_MGGA)
+  (void **p, double *rho, double *grho, double *tau,
+   double *e, double *dedd, double *dedgd, double *dedtau)
+{
+  mgga((mgga_type *)(*p), rho, grho, tau, e, dedd, dedgd, dedtau);
+}
+

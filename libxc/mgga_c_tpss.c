@@ -14,7 +14,7 @@
 static func_type func_mgga_c_tpss = {
   XC_MGGA_C_TPSS,
   XC_CORRELATION,
-  "Perdew, Burke & Ernzerhof",
+  "Perdew, Tao, Staroverov & Scuseria",
   "MGGA",
   "J.P.Perdew, Tao, Staroverov, and Scuseria, Phys. Rev. Lett. 91, 146401 (2003)"
 };

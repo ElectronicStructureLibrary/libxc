@@ -74,4 +74,12 @@ void mgga_x_tpss(mgga_type *p, double *rho, double *grho, double *tau,
 void mgga_c_tpss(mgga_type *p, double *rho, double *grho, double *tau,
 		 double *e, double *dedd, double *dedgd, double *dedtau);
 
+/* LCAs */
+void lca_lhc_init(lca_type *p);
+void lca_oms_init(lca_type *p);
+
+void lca_s_lch(double rs, double s, double dsdrs);
+void lca_s_oms(double rs, double s, double dsdrs);
+
+
 #endif

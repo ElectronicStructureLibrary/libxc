@@ -211,3 +211,29 @@ void FC_FUNC_(xc_mgga, XC_MGGA)
   mgga((mgga_type *)(*p), rho, grho, tau, e, dedd, dedgd, dedtau);
 }
 
+
+/* LCAs */
+
+void FC_FUNC_(xc_lca_init, XC_LCA_INIT)
+     (void **p, void **info, int *functional, int *nspin)
+{
+  lca_type *lca_p;
+
+  *p = malloc(sizeof(lca_type));
+  lca_p = (lca_type *)(*p);
+  lca_init(lca_p, *functional, *nspin);
+  *info = (void *)(lca_p->func);
+}
+
+void FC_FUNC_(xc_lca_end, XC_LCA_END)
+     (void **p)
+{
+  free(*p);
+}
+
+void FC_FUNC_(xc_lca, XC_LCA)
+     (void **p, double *rho, double *v, 
+      double *e, double *dedd, double *dedv)
+{
+  lca((lca_type *)(*p), rho, v, e, dedd, dedv);
+}

@@ -18,7 +18,7 @@ typedef struct{
 
   char *name;   /* name of the functional, e.g. PBE */
   char *family; /* type of the functional, e.g. GGA */
-  char *refs[];  /* references                       */
+  char *refs;  /* references                       */
 }func_type;
 
 /* the LDAs */

@@ -12,7 +12,7 @@ static func_type func_lda_c_wigner = {
   XC_CORRELATION,
   "Wigner",
   "LDA",
-  {"E.P. Wigner, Trans. Faraday Soc. 34, 678 (1938)", NULL}
+  "E.P. Wigner, Trans. Faraday Soc. 34, 678 (1938)"
 };
 
 
@@ -45,7 +45,7 @@ static func_type func_lda_c_rpa = {
   XC_CORRELATION,
   "Random Phase Approximation (RPA)",
   "LDA",
-  {"M. Gell-Mann and K.A. Brueckner, Phys. Rev. 106, 364 (1957)", NULL}
+  "M. Gell-Mann and K.A. Brueckner, Phys. Rev. 106, 364 (1957)"
 };
 
 
@@ -80,7 +80,7 @@ static func_type func_lda_c_hl = {
   "Hedin & Lundqvist",
   "LDA",
   /* can someone get me this paper, so I can find all coefficients? */
-  {"L. Hedin and B.I. Lundqvist,  J. Phys. C 4, 2064 (1971)", NULL}
+  "L. Hedin and B.I. Lundqvist,  J. Phys. C 4, 2064 (1971)"
 };
 
 
@@ -95,7 +95,7 @@ static func_type func_lda_c_gl = {
   XC_CORRELATION,
   "Gunnarson & Lundqvist",
   "LDA",
-  {"O. Gunnarsson and B. I. Lundqvist, PRB 13, 4274 (1976)", NULL}
+  "O. Gunnarsson and B. I. Lundqvist, PRB 13, 4274 (1976)"
 };
 
 
@@ -170,7 +170,7 @@ static func_type func_lda_c_xalpha = {
   XC_CORRELATION,
   "Slater's Xalpha",
   "LDA",
-  {NULL}
+  NULL
 };
 
 
@@ -201,7 +201,7 @@ static func_type func_lda_c_lyp = {
   XC_CORRELATION,
   "LDA part of LYP",
   "LDA",
-  {"C. Lee, W. Yang, and R.G. Parr, PRB 37, 785 (1988)", NULL}
+  "C. Lee, W. Yang, and R.G. Parr, PRB 37, 785 (1988)"
 };
 
 

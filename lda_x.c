@@ -34,7 +34,7 @@ static func_type func_lda_x = {
   XC_EXCHANGE,
   "Slater exchange",
   "LDA",
-  {NULL}
+  NULL
 };
 
 void lda_x_init(lda_type *p, int nspin, int dim, int rel)

@@ -1,6 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 
+#include "util.h"
 #include "xc.h"
 
 void test_lda()
@@ -58,7 +59,9 @@ void test_tpss()
 
 }
 
-void main()
+int main()
 {
   test_tpss();
+
+  return 0;
 }

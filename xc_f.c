@@ -35,15 +35,24 @@ void FC_FUNC_(xc_info_family, XC_INFO_FAMILY)
 }
 
 void FC_FUNC_(xc_info_ref, XC_INFO_REF)
-     (void **info, int *n, STR_F_TYPE s STR_ARG1)
+     (void **info, char **s, STR_F_TYPE ref_f STR_ARG1)
 {
+  char *c, ref[256]; /* hopefully no ref is longer than 256 characters ;) */
   func_type *func_p = (func_type *)(*info);
-  if(func_p->refs[*n] == NULL)
-    *n = -1;
-  else{
-    TO_F_STR1(func_p->refs[*n], s);
-    (*n)++;
+
+  if(*s == 0) *s = func_p->refs;
+
+  if(*s == NULL || **s == '\0'){
+    *s = (char *)(-1);
+    return;
   }
+
+  for(c=ref; **s!='\0' && **s!='\n'; (*s)++, c++)
+    *c = **s;
+  *c = '\0';
+  if(**s=='\n') (*s)++;
+
+  TO_F_STR1(ref, ref_f);
 }
 
 /* LDAs */

@@ -16,7 +16,7 @@ static func_type func_mgga_c_tpss = {
   XC_CORRELATION,
   "Perdew, Burke & Ernzerhof",
   "MGGA",
-  {"J.P.Perdew, Tao, Staroverov, and Scuseria, Phys. Rev. Lett. 91, 146401 (2003)", NULL}
+  "J.P.Perdew, Tao, Staroverov, and Scuseria, Phys. Rev. Lett. 91, 146401 (2003)"
 };
 
 
@@ -47,7 +47,7 @@ void mgga_c_tpss_end(mgga_type *p)
 
 
 /* some parameters */
-static double d=2.8;
+static double d = 2.8;
 
 
 /* Equation (14) */
@@ -151,7 +151,8 @@ static void c_tpss_12(mgga_type *p, double *rho, double *grho,
       dcsidgr _(0, i) =  rho[1]*aux;
       dcsidgr _(1, i) = -rho[0]*aux;
     }    
-  }
+  } /* get C(csi, zeta) */
+
 
   { /* end */
     double z2 = z*z, aux1 = 1.0 + C*z2;
@@ -182,7 +183,7 @@ static void c_tpss_12(mgga_type *p, double *rho, double *grho,
 
       *de_PKZBdz += (1.0 + C) * 2.0*z * e_til[is] * rho[is];
     }
-  }
+  } /* end */
 
 }
 

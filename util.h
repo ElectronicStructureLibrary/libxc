@@ -4,6 +4,11 @@
 #include <math.h>
 #include "xc.h"
 
+#if defined(__STRICT_ANSI__)
+# define M_PI           3.14159265358979323846  /* pi */
+double asinh(double x);
+#endif
+
 #define min(x,y)  ((x<y) ? x : y)
 #define max(x,y)  ((x<y) ? y : x)
 #define RS(x)     (pow((3.0/(4*M_PI*x)), 1.0/3.0))

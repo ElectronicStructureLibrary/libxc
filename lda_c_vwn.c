@@ -12,7 +12,7 @@ static func_type func_lda_c_vwn = {
   XC_CORRELATION,
   "Vosko, Wilk & Nusair",
   "LDA",
-  {"S.H. Vosko, L. Wilk, and M. Nusair, Can. J. Phys. 58, 1200 (1980)", NULL}
+  "S.H. Vosko, L. Wilk, and M. Nusair, Can. J. Phys. 58, 1200 (1980)"
 };
 
 /* some constants */

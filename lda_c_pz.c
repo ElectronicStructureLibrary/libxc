@@ -15,7 +15,7 @@ static func_type func_lda_c_pz = {
   XC_CORRELATION,
   "Perdew & Zunger",
   "LDA",
-  {"Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)", NULL}
+  "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)"
 };
 
 
@@ -30,9 +30,9 @@ static func_type func_lda_c_ob_pz = {
   XC_CORRELATION,
   "Ortiz & Ballone (PZ parametrization)",
   "LDA",
-  {"Ortiz and Ballone, Phys. Rev. B 50, 1391 (1994)",
-   "Ortiz and Ballone, Phys. Rev. B 56, 9970(E) (1997)",
-   "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)", NULL}
+  "Ortiz and Ballone, Phys. Rev. B 50, 1391 (1994)\n"
+  "Ortiz and Ballone, Phys. Rev. B 56, 9970(E) (1997)\n"
+  "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)"
 };
 
 

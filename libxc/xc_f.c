@@ -78,18 +78,24 @@ void FC_FUNC_(xc_lda, XC_LDA)
 void FC_FUNC_(xc_lda_x_init, XC_LDA_X_INIT)
      (void **p, void **info, int *nspin, int *dim, int *rel)
 {
+  lda_type *lda_p;
+  
   *p = malloc(sizeof(lda_type));
-  lda_x_init((lda_type *)(*p), *nspin, *dim, *rel);
-  *info = (void *)(((lda_type *) p)->func);
+  lda_p = (lda_type *)(*p);
+  lda_x_init(lda_p, *nspin, *dim, *rel);
+  *info = (void *)(lda_p->func);
 }
 
 /* Slater's Xalpha */
 void FC_FUNC_(xc_lda_c_xalpha_init, XC_LDA_C_XALPHA_INIT)
      (void **p, void **info, int *nspin, int *dim, int *rel, double *alpha)
 {
+  lda_type *lda_p;
+
   *p = malloc(sizeof(lda_type));
-  lda_c_xalpha_init((lda_type *)(*p), *nspin, *dim, *rel, *alpha);
-  *info = (void *)(((lda_type *) p)->func);
+  lda_p = (lda_type *)(*p);
+  lda_c_xalpha_init(lda_p, *nspin, *dim, *rel, *alpha);
+  *info = (void *)(lda_p->func);
 }
 
 

@@ -72,6 +72,21 @@ void FC_FUNC_(xc_lda_init_, XC_LDA_INIT_)
 void FC_FUNC_(xc_lda_end, XC_LDA_END)
      (void **p)
 {
+#if defined(LDA_SPEEDUP)
+  int k;
+  lda_type *lda_p;
+  lda_p = (lda_type *)(*p);
+
+  gsl_spline_free(  (*lda_p).pot[0]   );
+  gsl_spline_free( (*lda_p).energy[0] );
+  gsl_interp_accel_free( (*lda_p).acc );
+  if( !(lda_p->func->number == XC_LDA_X) && (lda_p->func->number == XC_POLARIZED)){
+      for(k=1;k<lda_p->zeta_npoints;k++){
+          gsl_spline_free(  (*lda_p).pot[k]   );
+          gsl_spline_free(  (*lda_p).potd[k]   );
+          gsl_spline_free( (*lda_p).energy[k] );}
+  }
+#endif
   free(*p);
 }
 

@@ -44,10 +44,54 @@ void lda_x_init(lda_type *p, int nspin, int dim)
   p->func = &func_lda_x;
 
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
-  p->nspin = nspin;
-  
   assert(dim>=2 && dim<=3);
   p->dim = dim;
+
+#if defined(LDA_SPEEDUP)
+  /* This is for the new interpolation scheme */
+  int i; int n = 600;
+  double *x, *y, *y2;
+  double alpha, factor;
+  double a, b, rpb, ea;
+
+  p->nspin = 1;
+  p->zeta_npoints = 1;
+
+  (*p).energy = malloc(sizeof(gsl_spline));
+  (*p).pot    = malloc(sizeof(gsl_spline));
+  (*p).energy = malloc(sizeof(gsl_spline));
+
+  alpha = (p->dim + 1.0)/p->dim;
+  factor = (nspin == XC_UNPOLARIZED) ? 1.0 : pow(2.0, alpha)/2.0;
+
+  a = 0.025;
+  b = 0.0000001;
+
+  x  = (double *)malloc(n*sizeof(double));
+  y  = (double *)malloc(n*sizeof(double));
+  y2 = (double *)malloc(n*sizeof(double));
+
+  x[0]  = -0.01; y[0]  = 0.0; y2[0] = 0.0;
+  x[1]  = 0.0;  y[1]  = 0.0;  y2[1] = 0.0;
+
+  rpb = b; ea = exp(a);
+  for (i = 2; i < n; i++){
+      x[i] = b* (exp(a*(i-1))-1.0);
+      lda_work(p, &(x[i]), &(y[i]), &(y2[i]), NULL);
+      y[i]  *= factor; y2[i] *= factor;}
+
+  printf("Max: %g\n",x[n-1]);
+
+  (*p).energy[0]     = gsl_spline_alloc (gsl_interp_linear, n);
+  (*p).pot[0]        = gsl_spline_alloc (gsl_interp_linear, n);
+  (*p).acc           = gsl_interp_accel_alloc ();
+  gsl_spline_init ((*p).energy[0], x, y, n);
+  gsl_spline_init ((*p).pot[0], x, y2, n);
+
+  free(x); free(y); free(y2);
+#endif
+
+  p->nspin = nspin;
 }
 
 

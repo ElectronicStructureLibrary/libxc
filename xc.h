@@ -1,3 +1,6 @@
+#include <gsl/gsl_errno.h>
+#include <gsl/gsl_spline.h>
+
 #ifndef _XC_H
 #define _XC_H
 
@@ -45,12 +48,21 @@ typedef struct{
   int    dim;
   
   double alpha;         /* parameter for Xalpha functional */
+
+#if defined(LDA_SPEEDUP)
+  int zeta_npoints;
+  gsl_spline **energy;
+  gsl_spline **pot;
+  gsl_spline **potd;
+  gsl_interp_accel *acc;
+#endif
 } lda_type;
 
 void lda_init(lda_type *p, int functional, int nspin);
 void lda_x_init(lda_type *p, int nspin, int dim);
 void lda_c_xalpha_init(lda_type *p, int nspin, int dim, double alpha);
 
+void lda_work(lda_type *p, double *rho, double *ec, double *vc, double *fxc);
 void lda(lda_type *p, double *rho, double *ec, double *vc);
 void lda_fxc(lda_type *p, double *rho, double *fxc);
 

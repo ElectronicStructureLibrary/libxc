@@ -8,7 +8,7 @@ libxc_a_SOURCES = util.c lda_x.c \
 	xc_f.c
 
 test_x_SOURCES = $(libxc_a_SOURCES) test.c
-test_x_LDADD   = -L../liboct_parser -loct_parser
+test_x_LDADD   = -L../liboct_parser -loct_parser @GSL_LIBS@
 
 noinst_HEADERS = util.h xc.h
 

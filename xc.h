@@ -8,6 +8,18 @@
 #define XC_NON_RELATIVISTIC     0
 #define XC_RELATIVISTIC         1
 
+#define XC_EXCHANGE             0
+#define XC_CORRELATION          1
+
+typedef struct{
+  int   number; /* indentifier number */
+  int   kind;   /* XC_EXCHANGE or XC_CORRELATION */
+
+  char *name;   /* name of the functional, e.g. PBE */
+  char *family; /* type of the functional, e.g. GGA */
+  char *refs[];  /* references                       */
+}func_type;
+
 /* the LDAs */
 
 #define XC_LDA_X                1   /* Exchange                   */
@@ -25,7 +37,7 @@
 #define XC_LDA_C_AMGB          13   /* Attacalite et al           */
 
 typedef struct{
-  int    functional;    /* which functional did we chose   */
+  func_type *func;      /* which functional did we chose   */
   int    nspin;         /* XC_UNPOLARIZED or XC_POLARIZED  */
   
   int    relativistic;  /* necessary for the exchange      */
@@ -47,10 +59,10 @@ void lda(lda_type *p, double *rho, double *ec, double *vc);
 #define XC_GGA_C_PBE          102 /* Perdew, Burke & Ernzerhof correlation */
 
 typedef struct{
-  int    functional;    /* which functional did we chose   */
-  int    nspin;         /* XC_UNPOLARIZED or XC_POLARIZED  */
+  func_type *func;       /* which functional did we chose   */
+  int        nspin;      /* XC_UNPOLARIZED or XC_POLARIZED  */
   
-  lda_type *lda_aux;    /* most GGAs are based on a LDA    */
+  lda_type  *lda_aux;    /* most GGAs are based on a LDA    */
 } gga_type;
 
 void gga_init(gga_type *p, int functional, int nspin);

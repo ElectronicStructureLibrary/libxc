@@ -7,10 +7,25 @@
 /************************************************************************
  Implements Perdew, Burke & Ernzerhof Generalized Gradient Approximation.
 
-   [1] J.P.Perdew, K.Burke & M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)
-
- I based this implementation on a rotine from L.C. Balbas and J.M. Soler
+ I based this implementation on a routine from L.C. Balbas and J.M. Soler
 ************************************************************************/
+
+static func_type func_gga_x_pbe = {
+  XC_GGA_X_PBE,
+  XC_EXCHANGE,
+  "Perdew, Burke & Ernzerhof",
+  "GGA",
+  {"J.P.Perdew, K.Burke & M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)", NULL}
+};
+
+static func_type func_gga_c_pbe = {
+  XC_GGA_C_PBE,
+  XC_CORRELATION,
+  "Perdew, Burke & Ernzerhof",
+  "GGA",
+  {"J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)", NULL}
+};
+
 
 /* some parameters */
 static const double beta = 0.066725, kappa = 0.8040;
@@ -19,6 +34,7 @@ static const double mu   = 0.2195164512208958; /* beta*M_PI*M_PI/3.0 */
 
 void gga_x_pbe_init(gga_type *p)
 {
+  p->func = &func_gga_x_pbe;
   p->lda_aux = (lda_type *) malloc(sizeof(lda_type));
   lda_x_init(p->lda_aux, XC_UNPOLARIZED, 3, XC_NON_RELATIVISTIC);
 }
@@ -26,6 +42,7 @@ void gga_x_pbe_init(gga_type *p)
 
 void gga_c_pbe_init(gga_type *p)
 {
+  p->func = &func_gga_c_pbe;
   p->lda_aux = (lda_type *) malloc(sizeof(lda_type));
   lda_init(p->lda_aux, XC_LDA_C_PW, p->nspin);
 }

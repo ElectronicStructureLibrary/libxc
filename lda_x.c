@@ -29,9 +29,17 @@
           in the spin polarized case.
 ************************************************************************/
 
+static func_type func_lda_x = {
+  XC_LDA_X,
+  XC_EXCHANGE,
+  "Slater exchange",
+  "LDA",
+  {NULL}
+};
+
 void lda_x_init(lda_type *p, int nspin, int dim, int rel)
 {
-	p->functional = XC_LDA_X;
+	p->func = &func_lda_x;
 
 	assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
 	p->nspin = nspin;

@@ -19,19 +19,53 @@ void lda_init(lda_type *p, int functional, int nspin)
 	 functional == XC_LDA_C_LYP    ||
 	 functional == XC_LDA_C_AMGB);
   
-  p->functional = functional;
-  
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
   p->nspin = nspin;
   
-  /* initialize the functionals that need it */
-  switch(p->functional){
+  /* initialize the functionals */
+  switch(functional){
+  case XC_LDA_C_WIGNER:
+    lda_c_wigner_init(p);
+    break;
+
+  case XC_LDA_C_RPA:
+    lda_c_rpa_init(p);
+    break;
+
+  case XC_LDA_C_HL:
+    lda_c_hl_init(p);
+    break;
+
+  case XC_LDA_C_GL:
+    lda_c_gl_init(p);
+    break;
+
   case XC_LDA_C_VWN:
-    lda_c_vwn_init();
+    lda_c_vwn_init(p);
     break;
     
+  case XC_LDA_C_PZ:
+    lda_c_pz_init(p);
+    break;
+    
+  case XC_LDA_C_OB_PZ:
+    lda_c_ob_pz_init(p);
+    break;
+    
+  case XC_LDA_C_PW:
+    lda_c_pw_init(p);
+    break;
+    
+  case XC_LDA_C_OB_PW:
+    lda_c_ob_pw_init(p);
+    break;
+    
+  case XC_LDA_C_LYP:
+    lda_c_lyp_init(p);
+    break;
+
   case XC_LDA_C_AMGB:
-    lda_c_amgb_init();
+    lda_c_amgb_init(p);
     break;
   }
 }
@@ -44,7 +78,7 @@ void lda(lda_type *p, double *rho, double *ec, double *vc)
   assert(p!=NULL);
   
   /* get the trace and the polarization of the density */
-  if(p->functional!=XC_LDA_X && p->functional!=XC_LDA_C_XALPHA ){
+  if(p->func->number!=XC_LDA_X && p->func->number!=XC_LDA_C_XALPHA ){
     rho2dzeta(p->nspin, rho, &dens, &zeta);
     
     if(dens <= MIN_DENS){
@@ -57,7 +91,7 @@ void lda(lda_type *p, double *rho, double *ec, double *vc)
     rs = RS(dens); /* Wigner radius */
   }
   
-  switch(p->functional){
+  switch(p->func->number){
   case(XC_LDA_X):
     lda_x(p, rho, ec, vc);
     break;
@@ -94,6 +128,7 @@ void lda(lda_type *p, double *rho, double *ec, double *vc)
     break;
     
   case XC_LDA_C_LYP:
+    lda_c_lyp(p, rs, ec, vc);
     break;
     
   case XC_LDA_C_AMGB:

@@ -4,9 +4,16 @@
 #include "util.h"
 
 /************************************************************************
- LDA parametrization of 
-   [1] S.H. Vosko, L. Wilk, and M. Nusair, Can. J. Phys. 58, 1200 (1980)
+ LDA parametrization of Vosko, Wilk & Nusair
 ************************************************************************/
+
+static func_type func_lda_c_vwn = {
+  XC_LDA_C_VWN,
+  XC_CORRELATION,
+  "Vosko, Wilk & Nusair",
+  "LDA",
+  {"S.H. Vosko, L. Wilk, and M. Nusair, Can. J. Phys. 58, 1200 (1980)", NULL}
+};
 
 /* some constants */
 static double  A[3] = { 0.0621841, 0.0310907, -0.033774 }; /* CHECK */
@@ -17,35 +24,37 @@ static double  Q[3] = { 0.0,       0.0,        0.0      };
 static double fpp   = 0.0;
 
 /* initialization */
-void lda_c_vwn_init()
+void lda_c_vwn_init(lda_type *p)
 {
-	int i;
+  int i;
+  
+  p->func = &func_lda_c_vwn;
 
-	for(i=0; i<3; i++){
-		Q[i] = sqrt(4.0*c[i] - b[i]*b[i]);
-		A[i] = A[i]/2.0; /* I believe these numbers are in Rydberg, so I convert to Hartree*/
-	}
-	fpp = 4.0/(9.0*(pow(2.0, 1.0/3.0)-1));
+  for(i=0; i<3; i++){
+    Q[i] = sqrt(4.0*c[i] - b[i]*b[i]);
+    A[i] = A[i]/2.0; /* I believe these numbers are in Rydberg, so I convert to Hartree*/
+  }
+  fpp = 4.0/(9.0*(pow(2.0, 1.0/3.0)-1));
 }
 
 /* useful functions */
 void ec_i(int i, double x, double *ec, double *decdrs)
 {
-	double f1, f2, f3, fx, qx, xx0, tx, tt;
-
+  double f1, f2, f3, fx, qx, xx0, tx, tt;
+  
   f1  = 2.0*b[i]/Q[i];
   f2  = b[i]*x0[i]/(x0[i]*x0[i] + b[i]*x0[i] + c[i]);
-	f3  = 2.0*(2.0*x0[i] + b[i])/Q[i];
+  f3  = 2.0*(2.0*x0[i] + b[i])/Q[i];
   fx  = x*x + b[i]*x + c[i];
   qx  = atan(Q[i]/(2.0*x + b[i]));
-	xx0 = x - x0[i];
-
-	*ec = A[i]*(log(x*x/fx) + f1*qx - f2*(log(xx0*xx0/fx) + f3*qx));
-
-	tx  = 2.0*x + b[i];
+  xx0 = x - x0[i];
+  
+  *ec = A[i]*(log(x*x/fx) + f1*qx - f2*(log(xx0*xx0/fx) + f3*qx));
+  
+  tx  = 2.0*x + b[i];
   tt  = tx*tx + Q[i]*Q[i];
   *decdrs = A[i]*(2.0/x - tx/fx - 4.0*b[i]/tt -
-									f2*(2.0/xx0 - tx/fx - 4.0*(2.0*x0[i] + b[i])/tt));
+		  f2*(2.0/xx0 - tx/fx - 4.0*(2.0*x0[i] + b[i])/tt));
 }
 
 /* the functional */

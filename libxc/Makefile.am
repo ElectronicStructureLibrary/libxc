@@ -7,8 +7,11 @@ libxc_a_SOURCES = util.c lda_x.c \
 	xc_f.c
 
 test_x_SOURCES = $(libxc_a_SOURCES) test.c
+test_x_LDADD   = -L../liboct_parser -loct_parser
 
 noinst_HEADERS = util.h xc.h
+
+AM_CPPFLAGS = -I../liboct_parser
 
 CLEANFILES = *~ *.bak
 DISTCLEANFILES = Makefile.in

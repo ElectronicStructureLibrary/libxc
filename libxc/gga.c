@@ -10,13 +10,11 @@ void gga_init(gga_type *p, int functional, int nspin)
   assert(functional == XC_GGA_X_PBE    ||
 	 functional == XC_GGA_C_PBE);
   
-  p->functional = functional;
-  
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
   p->nspin = nspin;
   
   /* initialize the functionals that need it */
-  switch(p->functional){
+  switch(functional){
   case(XC_GGA_X_PBE) :
     gga_x_pbe_init(p);
     break;
@@ -30,7 +28,7 @@ void gga_init(gga_type *p, int functional, int nspin)
 
 void gga_end(gga_type *p)
 {
-  switch(p->functional){
+  switch(p->func->number){
   case(XC_GGA_X_PBE) :
   case(XC_GGA_C_PBE) :
     gga_pbe_end(p);
@@ -59,7 +57,7 @@ void gga(gga_type *p, double *rho, double *grho,
     return;
   }
   
-  switch(p->functional){
+  switch(p->func->number){
   case(XC_GGA_X_PBE):
     gga_x_pbe(p, rho, grho, e, dedd, dedgd);
     break;

@@ -18,16 +18,27 @@
 void rho2dzeta(int nspin, double *rho, double *d, double *zeta);
 
 /* LDAs */
+void lda_c_wigner_init(lda_type *p);
+void lda_c_rpa_init   (lda_type *p);
+void lda_c_hl_init    (lda_type *p);
+void lda_c_gl_init    (lda_type *p);
+void lda_c_vwn_init   (lda_type *p);
+void lda_c_pz_init    (lda_type *p);
+void lda_c_ob_pz_init (lda_type *p);
+void lda_c_pw_init    (lda_type *p);
+void lda_c_ob_pw_init (lda_type *p);
+void lda_c_lyp_init   (lda_type *p);
+void lda_c_amgb_init  (lda_type *p);
+
 void lda_x       (lda_type *p, double *rho, double *ex, double *vx);
 void lda_c_wigner(lda_type *p, double rs, double *ec, double *vc);
 void lda_c_rpa   (lda_type *p, double rs, double *ec, double *vc);
 void lda_c_hl    (lda_type *p, double rs, double zeta, double *ec, double *vc);
 void lda_c_xalpha(lda_type *p, double *rho, double *ec, double *vc);
-void lda_c_vwn_init();
 void lda_c_vwn   (lda_type *p, double rs, double zeta, double *ec, double *vc);
 void lda_c_pz    (lda_type *p, double rs, double zeta, double *ec, double *vc);
 void lda_c_pw    (lda_type *p, double rs, double zeta, double *ec, double *vc);
-void lda_c_amgb_init();
+void lda_c_lyp   (lda_type *p, double rs, double *ec, double *vc);
 void lda_c_amgb  (lda_type *p, double *rho, double *ec, double *vc);
 
 

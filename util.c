@@ -1,7 +1,6 @@
 #include <assert.h>
 
 #include "util.h"
-#include "defs.h"
 
 /* this function converts the spin-density into total density and
 	 relative magnetization */

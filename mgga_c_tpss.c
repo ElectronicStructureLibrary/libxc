@@ -80,12 +80,18 @@ static void c_tpss_12(mgga_type *p, double *rho, double *grho,
 		 double dens, double zeta, double z,
 		 double *e_PKZB, double *de_PKZBdd, double *de_PKZBdgd, double *de_PKZBdz)
 {
-  double e_PBE, de_PBEdd[p->nspin], de_PBEdgd[p->nspin*3];
+  double e_PBE, *de_PBEdd, *de_PBEdgd;
   double e_til[2], de_tildd[2], de_tildgd[2*3];
 
   double C, dCdcsi, dCdzeta;
-  double dzetadd[p->nspin], dcsidd[p->nspin], dcsidgd[p->nspin*3];
+  double *dzetadd, *dcsidd, *dcsidgd;
   int i, is;
+
+  de_PBEdd  = (double *)malloc(p->nspin*sizeof(double));
+  de_PBEdgd = (double *)malloc(3*p->nspin*sizeof(double));
+  dzetadd   = (double *)malloc(p->nspin*sizeof(double));
+  dcsidd    = (double *)malloc(p->nspin*sizeof(double));
+  dcsidgd   = (double *)malloc(3*p->nspin*sizeof(double));
 
   { /* get the PBE stuff */
     gga_type *aux2 = (p->nspin == XC_UNPOLARIZED) ? p->gga_aux2 : p->gga_aux1;
@@ -151,7 +157,10 @@ static void c_tpss_12(mgga_type *p, double *rho, double *grho,
   } /* get C(csi, zeta) */
 
   { /* end */
-    double z2 = z*z, aux, dauxdd[p->nspin], dauxdgd[3*p->nspin];
+    double z2 = z*z, aux, *dauxdd, *dauxdgd;
+
+    dauxdd  = (double *)malloc(p->nspin*sizeof(double));
+    dauxdgd = (double *)malloc(3*p->nspin*sizeof(double));
 
     /* aux = sum_sigma n_sigma e_til */
     aux = 0.0;
@@ -209,8 +218,11 @@ mgga_c_tpss(mgga_type *p, double *rho, double *grho, double *tau,
 {
   double dens, zeta;
   double gd[3], gdms, taut, tauw, z;
-  double e_PKZB, de_PKZBdd[p->nspin], de_PKZBdgd[p->nspin*3], de_PKZBdz;
+  double e_PKZB, *de_PKZBdd, *de_PKZBdgd, de_PKZBdz;
   int i, is;
+
+  de_PKZBdd  = (double *)malloc(p->nspin*sizeof(double));
+  de_PKZBdgd = (double *)malloc(3*p->nspin*sizeof(double));
 
   /* change variables */
   rho2dzeta(p->nspin, rho, &dens, &zeta);

@@ -81,6 +81,12 @@ void FC_FUNC_(xc_lda, XC_LDA)
   lda((lda_type *)(*p), rho, e, v);
 }
 
+void FC_FUNC_(xc_lda_fxc, XC_LDA_FXC)
+     (void **p, double *rho, double *fxc)
+{
+  lda_fxc((lda_type *)(*p), rho, fxc);
+}
+
 
 /* Now come some special initializations */
 

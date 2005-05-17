@@ -1,3 +1,5 @@
+# $Id$
+
 noinst_LIBRARIES = libxc.a
 noinst_PROGRAMS = test.x
 

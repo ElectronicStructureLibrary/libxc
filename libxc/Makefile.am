@@ -19,8 +19,3 @@ AM_CPPFLAGS = -I../liboct_parser
 
 CLEANFILES = *~ *.bak
 DISTCLEANFILES = Makefile.in
-
-config.h:
-	ln -sf ../liboct/config.h .
-
-util.c: config.h

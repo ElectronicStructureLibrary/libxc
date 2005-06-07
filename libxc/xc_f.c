@@ -3,7 +3,7 @@
 #include <assert.h>
 
 #include "xc.h"
-#include "config.h"
+#include <config.h>
 #include <string_f.h>
 
 /* info */

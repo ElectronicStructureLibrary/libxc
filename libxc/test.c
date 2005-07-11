@@ -16,10 +16,10 @@ void test_lda()
   for(rs=0.01; rs<2; rs+=0.001){
     double dens, zeta, ec, vc[2], rho[2], fxc[4];
     
-    //dens = 1.0/(4.0/3.0*M_PI*pow(rs,3));
-    //zeta = 0.5;
-    //rho[0] = dens*(1.0 + zeta)/2.0;
-    //rho[1] = dens*(1.0 - zeta)/2.0;
+    /* dens = 1.0/(4.0/3.0*M_PI*pow(rs,3));
+       zeta = 0.5;
+       rho[0] = dens*(1.0 + zeta)/2.0;
+       rho[1] = dens*(1.0 - zeta)/2.0; */
 
     rho[0] = rs;
     rho[1] = 0.1;

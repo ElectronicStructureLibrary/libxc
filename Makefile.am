@@ -12,7 +12,7 @@ libxc_a_SOURCES = util.c lda_x.c \
 
 test_x_SOURCES = $(libxc_a_SOURCES) test.c
 test_x_LDADD   = -L../liboct_parser -loct_parser @GSL_LIBS@
-test_x_LINK = $(CC)
+test_x_LINK = $(CC) -o $@
 
 noinst_HEADERS = util.h xc.h
 

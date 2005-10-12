@@ -1,7 +1,6 @@
 # $Id$
 
 noinst_LIBRARIES = libxc.a
-noinst_PROGRAMS = test.x
 
 libxc_a_SOURCES = util.c lda_x.c \
 	lda.c lda_funcs.c lda_c_vwn.c lda_c_pz.c lda_c_pw.c lda_c_amgb.c \
@@ -9,10 +8,6 @@ libxc_a_SOURCES = util.c lda_x.c \
 	mgga.c mgga_x_tpss.c mgga_c_tpss.c \
 	lca.c lca_omc.c lca_lch.c \
 	xc_f.c
-
-test_x_SOURCES = $(libxc_a_SOURCES) test.c
-test_x_LDADD   = -L../liboct_parser -loct_parser @GSL_LIBS@
-test_x_LINK = $(CC) -o $@
 
 noinst_HEADERS = util.h xc.h
 

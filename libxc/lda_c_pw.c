@@ -104,6 +104,7 @@ void lda_c_pw(lda_type *p, double rs_, double dens, double zeta, double *ec, dou
   rs[0] = sqrt(rs[1]);
   rs[2] = rs[1]*rs[1];
   
+  /* ec(rs, 0) */
   dp = (fc == NULL) ? NULL : (&D2ec_Drs2);
   g(func, 0, rs, ec, &Dec_Drs, dp);
   
@@ -125,21 +126,27 @@ void lda_c_pw(lda_type *p, double rs_, double dens, double zeta, double *ec, dou
     fpz = DFZETA(zeta);
     z4  = pow(zeta, 4);
 
+    /* ec(rs, 1) */
     dp = (fc == NULL) ? NULL : (&D2ec1_Drs2);
     g(func, 1, rs, &ec1, &Dec1_Drs, dp);
 
+    /* -alpha_c(rs) */
     dp = (fc == NULL) ? NULL : (&D2alphac_Drs2);
     g(func, 2, rs, &alphac, &Dalphac_Drs, dp);
+
+    /* what is parametrized is -alpha, so we change signs */
+    alphac = -alphac; Dalphac_Drs = -Dalphac_Drs;
+    if(dp) D2alphac_Drs2 = -D2alphac_Drs2;
     
     /* save copies that will be needed later */
     ec0      = (*ec);
-    Dec0_Drs = Dec_Drs;  
+    Dec0_Drs = Dec_Drs;
 
     *ec     =  ec0 + z4*fz*(ec1 - ec0 - alphac/fz20) + fz*alphac/fz20;
 
     Dec_Drs = Dec0_Drs + z4*fz*(Dec1_Drs - Dec0_Drs - Dalphac_Drs/fz20) + fz*Dalphac_Drs/fz20;
-    Dec_Dz  = 4.0*pow(zeta, 3)*fz*(ec1 - ec0 - alphac/fz20) + 
-      fpz*z4*(ec1 - ec0 - alphac/fz20) + fpz*alphac/fz20;
+    Dec_Dz  = (4.0*pow(zeta, 3)*fz + z4*fpz)*(ec1 - ec0 - alphac/fz20)
+      + fpz*alphac/fz20;
     
     vc[0] = (*ec) - (rs[1]/3.0)*Dec_Drs - (zeta - 1.0)*Dec_Dz;
     vc[1] = (*ec) - (rs[1]/3.0)*Dec_Drs - (zeta + 1.0)*Dec_Dz;

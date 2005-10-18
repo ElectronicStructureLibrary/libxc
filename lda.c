@@ -294,3 +294,58 @@ void lda_fxc(lda_type *p, double *rho, double *fxc)
     }
   }
 }
+
+
+void lda_kxc(lda_type *p, double *rho, double *kxc)
+{
+  /* Kxc, this is a third order tensor with respect to the densities */
+
+  int i, j, k;
+  const double delta_rho = 1e-4;
+
+  for(i=0; i < p->nspin; i++){
+    for(j=0; j < p->nspin; j++){
+      for(k=0; k < p->nspin; k++){
+    
+
+	double rho2[2], e, vc1[2], vc2[2], vc3[2];
+	int n, der_dir, func_dir;
+
+	/* This is a bit tricky, we have to calculate a third mixed
+	   partial derivative, one is calculated analitically (Vxc)
+	   and the other two numerically. */
+	   
+	/* Here we reorder the indexes so that the numerical
+	   derivative is taken with respect to the same variable */
+
+	if(i!=j) {
+	  if(j==k){
+	    func_dir=i;
+	    der_dir=j;
+	  } else {
+	    func_dir=j;
+	    der_dir=i;
+	  }
+	} else {
+	  func_dir=k;
+	  der_dir=j;
+	}
+ 
+
+	for(n=0;n< p->nspin ; n++) rho2[n]=rho[n];
+
+	lda_work(p, rho , &e, vc2, NULL);
+
+	rho2[der_dir]+=delta_rho;
+	lda_work(p, rho2, &e, vc1, NULL);
+	
+	rho2[der_dir]-=2.0*delta_rho;
+	lda_work(p, rho2, &e, vc3, NULL);
+
+	kxc ___(i,j,k)=(vc1[func_dir] - 2.0*vc2[func_dir] + vc3[func_dir])/(delta_rho*delta_rho);
+	
+      }
+    }
+  }
+
+}

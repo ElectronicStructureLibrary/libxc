@@ -65,6 +65,7 @@ void lda_c_xalpha_init(lda_type *p, int nspin, int dim, double alpha);
 void lda_work(lda_type *p, double *rho, double *ec, double *vc, double *fxc);
 void lda(lda_type *p, double *rho, double *ec, double *vc);
 void lda_fxc(lda_type *p, double *rho, double *fxc);
+void lda_kxc(lda_type *p, double *rho, double *kxc);
 
 
 /* the GGAs */

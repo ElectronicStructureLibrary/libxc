@@ -20,8 +20,9 @@ double asinh(double x);
 #define MIN_GRAD             1.0e-14
 #define MIN_TAU              1.0e-14
 
-#define  _(is, x) [3*is + x]
-#define __(i, j)  [2*i + j] 
+#define   _(is, x)   [3*is + x]
+#define  __(i, j)    [2*i + j] 
+#define ___(i, j, k) [2*(2*i + j) + k] 
 
 void rho2dzeta(int nspin, double *rho, double *d, double *zeta);
 

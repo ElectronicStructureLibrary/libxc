@@ -274,12 +274,18 @@ void lda_fxc(lda_type *p, double *rho, double *fxc)
 
   }else{ /* get fxc through a numerical derivative */
     int i, j;
-    double delta_rho = 1e-5;
-    
+    double delta_rho = 1e-8;
+
     for(i=0; i<p->nspin; i++){
       double rho2[2], e, vc1[2], vc2[2];
 
       j = (i+1) % 2;
+
+      if(rho[i]<2.0*delta_rho){
+        fxc __(i, i) = 0.0;
+        if(p->nspin == XC_POLARIZED) fxc __(i, j) = 0.0;
+        break;
+      }
 
       rho2[i] = rho[i] + delta_rho;
       rho2[j] = rho[j];
@@ -288,9 +294,8 @@ void lda_fxc(lda_type *p, double *rho, double *fxc)
       rho2[i] = rho[i] - delta_rho;
       lda_work(p, rho2, &e, vc2, NULL);
 
-      fxc __(i,i) = (vc1[i] - vc2[i])/(2.0*delta_rho);
-      if(p->nspin == XC_POLARIZED)
-	fxc __(i,j) = (vc1[j] - vc2[j])/(2.0*delta_rho);
+      fxc __(i, i) = (vc1[i] - vc2[i])/(2.0*delta_rho);
+      if(p->nspin == XC_POLARIZED) fxc __(i,j) = (vc1[j] - vc2[j])/(2.0*delta_rho);
     }
   }
 }

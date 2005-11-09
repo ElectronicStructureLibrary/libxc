@@ -1,5 +1,9 @@
+#include "config.h"
+
+#if defined(LDA_SPEEDUP)
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_spline.h>
+#endif
 
 #ifndef _XC_H
 #define _XC_H

@@ -85,26 +85,28 @@ void lda_init(lda_type *p, int functional, int nspin)
   b = 0.0000001;
 
   x[0]  = -0.01; y[0]  = 0.0; y2[0] = 0.0; y2d[0] = 0.0;
-  x[1]  = 0.0; y[1]  = 0.0; y2[1] = 0.0; y2d[1] = 0.0;
+  x[1]  =  0.0;  y[1]  = 0.0; y2[1] = 0.0; y2d[1] = 0.0;
 
-  (*p).acc = gsl_interp_accel_alloc ();
+  p->acc = gsl_interp_accel_alloc();
 
   if(p->nspin == XC_UNPOLARIZED){
     p->zeta_npoints = 1;
 
-    (*p).energy = malloc(p->zeta_npoints*sizeof(gsl_spline));
-    (*p).pot    = malloc(p->zeta_npoints*sizeof(gsl_spline));
-    (*p).potd   = malloc(p->zeta_npoints*sizeof(gsl_spline));
+    p->energy = malloc(p->zeta_npoints*sizeof(gsl_spline));
+    p->pot    = malloc(p->zeta_npoints*sizeof(gsl_spline));
+    p->potd   = malloc(p->zeta_npoints*sizeof(gsl_spline));
 
     rpb = b; ea = exp(a);
-    for (i = 2; i < n; i++) {
-          x[i] = b* (exp(a*(i-1))-1.0);
-          lda_work(p, &(x[i]), &(y[i]), &(y2[i]), NULL);}
+    for (i = 2; i < n; i++){
+      x[i] = b*(exp(a*(i - 1)) - 1.0);
+      lda_work(p, &(x[i]), &(y[i]), &(y2[i]), NULL);
+    }
 
-    (*p).energy[0]     = gsl_spline_alloc (gsl_interp_linear, n);
-    (*p).pot[0]        = gsl_spline_alloc (gsl_interp_linear, n);
-    gsl_spline_init ((*p).energy[0], x, y, n);
-    gsl_spline_init ((*p).pot[0], x, y2, n);
+    p->energy[0] = gsl_spline_alloc(gsl_interp_linear, n);
+    p->pot[0]    = gsl_spline_alloc(gsl_interp_linear, n);
+
+    gsl_spline_init (p->energy[0], x, y, n);
+    gsl_spline_init (p->pot[0], x, y2, n);
 
   }else{
     p->zeta_npoints = 11;
@@ -114,22 +116,26 @@ void lda_init(lda_type *p, int functional, int nspin)
     (*p).potd   = malloc(p->zeta_npoints*sizeof(gsl_spline));
 
     for(k = 0; k < p->zeta_npoints; k++){
-      z = (1.0/(p->zeta_npoints-1))*k;
-      rpb = b; ea = exp(a);
-      for (i = 2; i < n; i++) {
-            x[i] = b* (exp(a*(i-1))-1.0);
-            rho[0] = 0.5*x[i]*(1.0+z);
-            rho[1] = 0.5*x[i]*(1.0-z);
-            lda_work(p, &(rho[0]), &(y[i]), &(vc[0]), NULL);
-            y2[i] = vc[0]; y2d[i] = vc[1];
-          }
+      z = k/(p->zeta_npoints - 1);
 
-      (*p).energy[k]     = gsl_spline_alloc (gsl_interp_linear, n);
-      (*p).pot[k]        = gsl_spline_alloc (gsl_interp_linear, n);
-      (*p).potd[k]       = gsl_spline_alloc (gsl_interp_linear, n);
-      gsl_spline_init ((*p).energy[k], x, y, n);
-      gsl_spline_init ((*p).pot[k], x, y2, n);
-      gsl_spline_init ((*p).potd[k], x, y2d, n);
+      rpb = b; ea = exp(a);
+      for(i = 2; i < n; i++){
+	x[i] = b*(exp(a*(i - 1)) - 1.0);
+
+	rho[0] = 0.5*x[i]*(1.0 + z);
+	rho[1] = 0.5*x[i]*(1.0 - z);
+
+	lda_work(p, rho, &(y[i]), vc, NULL);
+	y2[i] = vc[0]; y2d[i] = vc[1];
+      }
+
+      p->energy[k] = gsl_spline_alloc(gsl_interp_linear, n);
+      p->pot[k]    = gsl_spline_alloc(gsl_interp_linear, n);
+      p->potd[k]   = gsl_spline_alloc(gsl_interp_linear, n);
+
+      gsl_spline_init(p->energy[k], x, y,   n);
+      gsl_spline_init(p->pot[k],    x, y2,  n);
+      gsl_spline_init(p->potd[k],   x, y2d, n);
     }
 
   }
@@ -216,44 +222,56 @@ void lda(lda_type *p, double *rho, double *ec, double *vc)
   double dens, zeta, rs;
 
   if(p->nspin == XC_UNPOLARIZED){
-    *ec = gsl_spline_eval ( (*p).energy[0], rho[0],  (*p).acc );
-    *vc = gsl_spline_eval ( (*p).pot[0], rho[0],  (*p).acc );
-    return;}
+    *ec = gsl_spline_eval(p->energy[0], rho[0],  p->acc );
+    *vc = gsl_spline_eval(p->pot[0],    rho[0],  p->acc );
+    return;
+  }
 
   if(p->func->number == XC_LDA_X){
-      *ec = gsl_spline_eval ( (*p).energy[0], rho[0],  (*p).acc);
-       vc[0] = gsl_spline_eval ( (*p).pot[0], rho[0],  (*p).acc);
-      *ec += gsl_spline_eval ( (*p).energy[0], rho[1], (*p).acc);
-       vc[1] = gsl_spline_eval ( (*p).pot[0], rho[1],  (*p).acc);
-       return;}
+    *ec   = gsl_spline_eval(p->energy[0], rho[0],  p->acc);
+    vc[0] = gsl_spline_eval(p->pot[0],    rho[0],  p->acc);
+
+    *ec  += gsl_spline_eval(p->energy[0], rho[1], p->acc);
+    vc[1] = gsl_spline_eval(p->pot[0],    rho[1], p->acc);
+    return;
+  }
 
   rho2dzeta(p->nspin, rho, &dens, &zeta);
-  if(zeta>0.0){ j=0; k=1; }else{ j=1; k=0; zeta=-zeta; };
-  i = (int)zeta*(p->zeta_npoints -1);
+  if(zeta > 0.0){
+    j=0; k=1; 
+  }else{
+    j=1; k=0; 
+    zeta = -zeta; 
+  }
+  i = (int)(zeta*(p->zeta_npoints - 1));
 
-  if( zeta == 0.0){
-     *ec = gsl_spline_eval( (*p).energy[i], dens, (*p).acc);
-      vc[0] = gsl_spline_eval ( (*p).pot[i], dens, (*p).acc);
-      vc[1] = vc[0];
-      return;}
+  if(zeta == 0.0){
+    *ec   = gsl_spline_eval(p->energy[i], dens, p->acc);
+    vc[0] = gsl_spline_eval(p->pot[i],    dens, p->acc);
+    vc[1] = vc[0];
+    return;
+  }
 
-  if( i == p->zeta_npoints-1){
-     *ec = gsl_spline_eval( (*p).energy[i], dens, (*p).acc);
-      vc[j] = gsl_spline_eval ( (*p).pot[i], dens, (*p).acc);
-      vc[k] = gsl_spline_eval ( (*p).potd[i], dens, (*p).acc);
+  if(i == p->zeta_npoints - 1){
+    *ec   = gsl_spline_eval(p->energy[i], dens, p->acc);
+    vc[j] = gsl_spline_eval(p->pot[i],    dens, p->acc);
+    vc[k] = gsl_spline_eval(p->potd[i],   dens, p->acc);
       return;}
 
   double ec1, ec2, vcu1, vcu2, vcd1, vcd2, dr;
-  dr = zeta - i*(1.0/(p->zeta_npoints -1));
-  ec1  = gsl_spline_eval( (*p).energy[i], dens, (*p).acc);
-  vcu1 = gsl_spline_eval( (*p).pot[i],    dens, (*p).acc);
-  vcd1 = gsl_spline_eval( (*p).potd[i],   dens, (*p).acc);
-  ec2  = gsl_spline_eval( (*p).energy[i+1], dens, (*p).acc);
-  vcu2 = gsl_spline_eval( (*p).pot[i+1],    dens, (*p).acc);
-  vcd2 = gsl_spline_eval( (*p).potd[i+1],   dens, (*p).acc);
-  *ec = ec1 + dr*(ec2-ec1)*(p->zeta_npoints -1);
-  vc[j] = vcu1 + dr*(vcu2-vcu1)*(p->zeta_npoints -1);
-  vc[k] = vcd1 + dr*(vcd2-vcd1)*(p->zeta_npoints -1);
+  dr = zeta - i*(1.0/(p->zeta_npoints - 1));
+
+  ec1  = gsl_spline_eval(p->energy[i], dens, p->acc);
+  vcu1 = gsl_spline_eval(p->pot[i],    dens, p->acc);
+  vcd1 = gsl_spline_eval(p->potd[i],   dens, p->acc);
+
+  ec2  = gsl_spline_eval(p->energy[i+1], dens, p->acc);
+  vcu2 = gsl_spline_eval(p->pot[i+1],    dens, p->acc);
+  vcd2 = gsl_spline_eval(p->potd[i+1],   dens, p->acc);
+
+  *ec = ec1 + dr*(ec2-ec1)*(p->zeta_npoints - 1);
+  vc[j] = vcu1 + dr*(vcu2-vcu1)*(p->zeta_npoints - 1);
+  vc[k] = vcd1 + dr*(vcd2-vcd1)*(p->zeta_npoints - 1);
 
 #else
   lda_work(p, rho, ec, vc, NULL);
@@ -284,7 +302,7 @@ void lda_fxc(lda_type *p, double *rho, double *fxc)
       if(rho[i]<2.0*delta_rho){
         fxc __(i, i) = 0.0;
         if(p->nspin == XC_POLARIZED) fxc __(i, j) = 0.0;
-        break;
+        continue; /* we still want the cycle to go on */
       }
 
       rho2[i] = rho[i] + delta_rho;
@@ -295,7 +313,8 @@ void lda_fxc(lda_type *p, double *rho, double *fxc)
       lda_work(p, rho2, &e, vc2, NULL);
 
       fxc __(i, i) = (vc1[i] - vc2[i])/(2.0*delta_rho);
-      if(p->nspin == XC_POLARIZED) fxc __(i,j) = (vc1[j] - vc2[j])/(2.0*delta_rho);
+      if(p->nspin == XC_POLARIZED)
+	fxc __(i,j) = (vc1[j] - vc2[j])/(2.0*delta_rho);
     }
   }
 }
@@ -325,29 +344,29 @@ void lda_kxc(lda_type *p, double *rho, double *kxc)
 
 	if(i!=j) {
 	  if(j==k){
-	    func_dir=i;
-	    der_dir=j;
-	  } else {
-	    func_dir=j;
-	    der_dir=i;
+	    func_dir = i;
+	    der_dir  = j;
+	  }else{
+	    func_dir = j;
+	    der_dir  = i;
 	  }
-	} else {
-	  func_dir=k;
-	  der_dir=j;
+	}else{
+	  func_dir = k;
+	  der_dir  = j;
 	}
  
 
-	for(n=0;n< p->nspin ; n++) rho2[n]=rho[n];
+	for(n=0; n< p->nspin; n++) rho2[n] = rho[n];
 
 	lda_work(p, rho , &e, vc2, NULL);
 
-	rho2[der_dir]+=delta_rho;
+	rho2[der_dir] += delta_rho;
 	lda_work(p, rho2, &e, vc1, NULL);
 	
-	rho2[der_dir]-=2.0*delta_rho;
+	rho2[der_dir] -= 2.0*delta_rho;
 	lda_work(p, rho2, &e, vc3, NULL);
 
-	kxc ___(i,j,k)=(vc1[func_dir] - 2.0*vc2[func_dir] + vc3[func_dir])/(delta_rho*delta_rho);
+	kxc ___(i, j, k) = (vc1[func_dir] - 2.0*vc2[func_dir] + vc3[func_dir])/(delta_rho*delta_rho);
 	
       }
     }

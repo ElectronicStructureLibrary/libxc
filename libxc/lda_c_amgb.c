@@ -38,7 +38,7 @@ void lda_c_amgb_init(lda_type *p)
   p->func = &func_lda_c_amgb;
 
   /* initialize a couple of constants */
-  for(i=0; i<3; i++) d[i] = -a[i]/h[i];
+  for(i=0; i<3; i++) d[i] = -a[i]*h[i];
   ax = -4.0/(3.0*M_PI*sqrt(2.0));
 }
 

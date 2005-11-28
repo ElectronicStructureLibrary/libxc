@@ -299,22 +299,26 @@ void lda_fxc(lda_type *p, double *rho, double *fxc)
 
       j = (i+1) % 2;
 
-      if(rho[i]<2.0*delta_rho){
-        fxc __(i, i) = 0.0;
-        if(p->nspin == XC_POLARIZED) fxc __(i, j) = 0.0;
-        continue; /* we still want the cycle to go on */
-      }
-
       rho2[i] = rho[i] + delta_rho;
       rho2[j] = rho[j];
       lda_work(p, rho2, &e, vc1, NULL);
 
-      rho2[i] = rho[i] - delta_rho;
-      lda_work(p, rho2, &e, vc2, NULL);
+      if(rho[i]<2.0*delta_rho){ /* we have to use a forward difference */
+	lda_work(p, rho, &e, vc2, NULL);
+	
+	fxc __(i, i) = (vc1[i] - vc2[i])/(delta_rho);
+	if(p->nspin == XC_POLARIZED)
+	  fxc __(i, j) = (vc1[j] - vc2[j])/(delta_rho);
+	
+      }else{                    /* centered difference (more precise)  */
+	rho2[i] = rho[i] - delta_rho;
+	lda_work(p, rho2, &e, vc2, NULL);
+	
+	fxc __(i, i) = (vc1[i] - vc2[i])/(2.0*delta_rho);
+	if(p->nspin == XC_POLARIZED)
+	  fxc __(i, j) = (vc1[j] - vc2[j])/(2.0*delta_rho);
+      }
 
-      fxc __(i, i) = (vc1[i] - vc2[i])/(2.0*delta_rho);
-      if(p->nspin == XC_POLARIZED)
-	fxc __(i,j) = (vc1[j] - vc2[j])/(2.0*delta_rho);
     }
   }
 }

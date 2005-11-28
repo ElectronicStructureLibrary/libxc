@@ -115,8 +115,8 @@ void lda_x(lda_type *p, double *rho, double *ex, double *vx, double *fx)
     return;
   }
   
-  alpha = (p->dim + 1.0)/p->dim;
-  factor = (p->nspin == XC_UNPOLARIZED) ? 1.0 : pow(2.0, alpha)/2.0;
+  alpha   = (p->dim + 1.0)/p->dim;
+  factor  = (p->nspin == XC_UNPOLARIZED) ? 1.0 : pow(2.0, alpha)/2.0;
   factor *= a_x[p->dim-1];
 
   *ex = 0.0;

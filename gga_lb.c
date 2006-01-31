@@ -57,8 +57,8 @@ void gga_lb(gga_type *p, double *rho, double *grho, double r, double ip, double 
     gdm = sqrt(grho _(is, 0)*grho _(is, 0) +
 	       grho _(is, 1)*grho _(is, 1) +
 	       grho _(is, 2)*grho _(is, 2));
-    
-    if(!p->modified || (rho[is]>p->threshold && gdm>p->threshold)){
+
+    if(rho[is]>p->threshold && gdm>p->threshold){
       double f;
       
       x =  gdm/pow(rho[is], 4.0/3.0);

@@ -16,10 +16,12 @@ static func_type func_lda_c_vwn = {
 };
 
 /* some constants         e_c^P      e_c^F      alpha_c */
-static double  A[3] = { 0.0621814, 0.0310907, -0.033774 };
-static double  b[3] = { 3.72744,   7.06042,    1.13107  };
-static double  c[3] = {12.9352,   18.0578,    13.0045   };
-static double x0[3] = {-0.10498,  -0.32500,   -0.0047584};
+static const double  A[3] = { 0.0310907, 0.01554535, -0.016887}; /* These numbers are taken from the
+                                                              original reference, but divided by
+                                                              two to convet from Rydbergs to Hartrees */
+static const double  b[3] = { 3.72744,   7.06042,    1.13107  };
+static const double  c[3] = {12.9352,   18.0578,    13.0045   };
+static const double x0[3] = {-0.10498,  -0.32500,   -0.0047584};
 static double  Q[3] = { 0.0,       0.0,        0.0      };
 static double fpp   = 0.0;
 
@@ -32,7 +34,6 @@ void lda_c_vwn_init(lda_type *p)
 
   for(i=0; i<3; i++){
     Q[i] = sqrt(4.0*c[i] - b[i]*b[i]);
-    A[i] = A[i]/2.0; /* I believe these numbers are in Rydberg, so I convert to Hartree*/
   }
   fpp = 4.0/(9.0*(pow(2.0, 1.0/3.0)-1));
 }

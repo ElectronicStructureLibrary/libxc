@@ -22,6 +22,7 @@ void lda_init(lda_type *p, int functional, int nspin)
   
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
   p->nspin = nspin;
+  p->relativistic = 0;
   
   /* initialize the functionals */
   switch(functional){

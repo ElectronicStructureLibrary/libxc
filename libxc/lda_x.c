@@ -23,11 +23,8 @@
     a_x = -(4/3)*sqrt(2/pi) in 2D
     a_x = -(1/2) * \int_0^\infty (sin(x))**2/x**3
 
- If irel is not zero, relativistic correction factors have to be applied.
- These are however not implemented in 2D, so nothing is done in that case.
-
- WARNING: Check that the relativistic corrections are OK for the potential
-          in the spin polarized case.
+ If irel is not zero, a relativistic correction factor is applied.
+ This factor can only be aplied in 3D and for the spin-unpolarized case.
 ************************************************************************/
 
 static func_type func_lda_x = {
@@ -39,13 +36,15 @@ static func_type func_lda_x = {
 };
 
 
-void lda_x_init(lda_type *p, int nspin, int dim)
+void lda_x_init(lda_type *p, int nspin, int dim, int irel)
 {
   p->func = &func_lda_x;
 
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
   assert(dim>=2 && dim<=3);
+  assert(irel == 0 || (dim==3 && nspin==XC_UNPOLARIZED));
   p->dim = dim;
+  p->relativistic = irel;
 
 #if defined(LDA_SPEEDUP)
   /* This is for the new interpolation scheme */
@@ -99,7 +98,7 @@ void lda_x(lda_type *p, double *rho, double *ex, double *vx, double *fx)
 {
   static double a_x[3] = {-1.0, -1.06384608107049, -0.738558766382022};
 
-  double dens, alpha, factor;
+  double dens, alpha, factor, beta, phi, DphiDdens;
   int i;
   
   assert(p!=NULL);
@@ -130,4 +129,15 @@ void lda_x(lda_type *p, double *rho, double *ex, double *vx, double *fx)
       fx __(i,i) = factor*alpha*(alpha - 1.0)*pow(rho[i], alpha - 2.0);
   }
   *ex /= dens;
+
+  if(p->relativistic != 0){
+    // Relativistic corrections
+    beta = pow(3.0*pow(M_PI, 2.0)*dens, 1.0/3.0)/M_C;
+    phi = 1.0 - 3.0/2.0*pow(sqrt(1 + pow(beta, 2.0))/beta - asinh(beta)/pow(beta, 2.0), 2.0);
+    DphiDdens = -2.0/dens/pow(beta, 2.0) * (-1.0 + asinh(beta)*(pow(beta, 2.0) + 2)/(beta*sqrt(1.0 + pow(beta, 2.0))) -
+   			       pow(asinh(beta), 2.0)/pow(beta, 2.0));
+
+    vx[0] = vx[0]*phi + dens*DphiDdens*(*ex);
+    *ex *= phi;
+  };
 }

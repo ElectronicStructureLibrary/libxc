@@ -48,7 +48,7 @@ typedef struct{
   func_type *func;      /* which functional did we chose   */
   int    nspin;         /* XC_UNPOLARIZED or XC_POLARIZED  */
   
-  int    relativistic;  /* not used for the moment         */
+  int    relativistic;  /* XC_RELATIVISTIC or XC_NON_RELATIVISTIC */
   int    dim;
   
   double alpha;         /* parameter for Xalpha functional */
@@ -63,7 +63,7 @@ typedef struct{
 } lda_type;
 
 void lda_init(lda_type *p, int functional, int nspin);
-void lda_x_init(lda_type *p, int nspin, int dim);
+void lda_x_init(lda_type *p, int nspin, int dim, int irel);
 void lda_c_xalpha_init(lda_type *p, int nspin, int dim, double alpha);
 
 void lda_work(lda_type *p, double *rho, double *ec, double *vc, double *fxc);

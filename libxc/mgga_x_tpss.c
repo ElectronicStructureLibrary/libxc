@@ -24,7 +24,7 @@ void mgga_x_tpss_init(mgga_type *p)
 {
   p->func = &func_mgga_x_tpss;
   p->lda_aux = (lda_type *) malloc(sizeof(lda_type));
-  lda_x_init(p->lda_aux, XC_UNPOLARIZED, 3);
+  lda_x_init(p->lda_aux, XC_UNPOLARIZED, 3, XC_NON_RELATIVISTIC);
 }
 
 

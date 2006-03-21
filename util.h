@@ -9,6 +9,7 @@
 double asinh(double x);
 #endif
 
+#define M_C 137.0359996287515 /* speed of light */
 #define min(x,y)  ((x<y) ? x : y)
 #define max(x,y)  ((x<y) ? y : x)
 #define RS(x)     (pow((3.0/(4*M_PI*x)), 1.0/3.0))

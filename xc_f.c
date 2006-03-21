@@ -112,7 +112,7 @@ void FC_FUNC_(xc_lda_kxc, XC_LDA_KXC)
 
 /* exchange in the LDA */
 void FC_FUNC_(xc_lda_x_init, XC_LDA_X_INIT)
-     (void **p, void **info, int *functional, int *nspin, int *dim)
+     (void **p, void **info, int *functional, int *nspin, int *dim, int *irel)
 {
   lda_type *lda_p;
 
@@ -120,7 +120,7 @@ void FC_FUNC_(xc_lda_x_init, XC_LDA_X_INIT)
 
   *p = malloc(sizeof(lda_type));
   lda_p = (lda_type *)(*p);
-  lda_x_init(lda_p, *nspin, *dim);
+  lda_x_init(lda_p, *nspin, *dim, *irel);
   *info = (void *)(lda_p->func);
 }
 

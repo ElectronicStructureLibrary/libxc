@@ -177,7 +177,7 @@ static func_type func_lda_c_xalpha = {
 void lda_c_xalpha_init(lda_type *p, int nspin, int dim, double alpha)
 {
   p->alpha = alpha;
-  lda_x_init(p, nspin, dim);
+  lda_x_init(p, nspin, dim, XC_NON_RELATIVISTIC);
   p->func = &func_lda_c_xalpha;
 }
 

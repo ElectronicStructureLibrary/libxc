@@ -24,7 +24,7 @@ void gga_lb_init(gga_type *p, int nspin, int modified, double threshold)
   p->nspin = nspin;
   p->func = &func_gga_lb;
   p->lda_aux = (lda_type *) malloc(sizeof(lda_type));
-  lda_x_init(p->lda_aux, nspin, 3);
+  lda_x_init(p->lda_aux, nspin, 3, XC_NON_RELATIVISTIC);
   
   p->modified  = modified;
   p->threshold = threshold;

@@ -179,6 +179,9 @@ void lda_c_xalpha_init(lda_type *p, int nspin, int dim, double alpha)
   p->alpha = alpha;
   lda_x_init(p, nspin, dim, XC_NON_RELATIVISTIC);
   p->func = &func_lda_c_xalpha;
+#if defined(LDA_SPEEDUP)
+  lda_x_speedup(p, nspin, dim, XC_NON_RELATIVISTIC);
+#endif
 }
 
 /* This correlation functional, added to the exchange functional, produces

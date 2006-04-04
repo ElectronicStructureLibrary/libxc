@@ -65,6 +65,9 @@ typedef struct{
 void lda_init(lda_type *p, int functional, int nspin);
 void lda_x_init(lda_type *p, int nspin, int dim, int irel);
 void lda_c_xalpha_init(lda_type *p, int nspin, int dim, double alpha);
+#if defined(LDA_SPEEDUP)
+void lda_x_speedup(lda_type *p, int nspin, int dim, int irel);
+#endif
 
 void lda_work(lda_type *p, double *rho, double *ec, double *vc, double *fxc);
 void lda(lda_type *p, double *rho, double *ec, double *vc);

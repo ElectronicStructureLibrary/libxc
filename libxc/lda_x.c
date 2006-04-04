@@ -35,19 +35,9 @@ static func_type func_lda_x = {
   NULL
 };
 
-
-void lda_x_init(lda_type *p, int nspin, int dim, int irel)
-{
-  p->func = &func_lda_x;
-
-  assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
-  assert(dim>=2 && dim<=3);
-  assert(irel == 0 || (dim==3 && nspin==XC_UNPOLARIZED));
-  p->dim = dim;
-  p->relativistic = irel;
-
 #if defined(LDA_SPEEDUP)
-  /* This is for the new interpolation scheme */
+void lda_x_speedup(lda_type *p, int nspin, int dim, int irel)
+{
   int i; int n = 600;
   double *x, *y, *y2;
   double alpha, factor;
@@ -79,7 +69,7 @@ void lda_x_init(lda_type *p, int nspin, int dim, int irel)
       lda_work(p, &(x[i]), &(y[i]), &(y2[i]), NULL);
       y[i]  *= factor; y2[i] *= factor;}
 
-  printf("Max: %g\n",x[n-1]);
+  /*printf("Max: %g\n",x[n-1]);*/
 
   (*p).energy[0]     = gsl_spline_alloc (gsl_interp_linear, n);
   (*p).pot[0]        = gsl_spline_alloc (gsl_interp_linear, n);
@@ -88,8 +78,20 @@ void lda_x_init(lda_type *p, int nspin, int dim, int irel)
   gsl_spline_init ((*p).pot[0], x, y2, n);
 
   free(x); free(y); free(y2);
+
+  p->nspin = nspin;
+}
 #endif
 
+void lda_x_init(lda_type *p, int nspin, int dim, int irel)
+{
+  p->func = &func_lda_x;
+
+  assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
+  assert(dim>=2 && dim<=3);
+  assert(irel == 0 || (dim==3 && nspin==XC_UNPOLARIZED));
+  p->dim = dim;
+  p->relativistic = irel;
   p->nspin = nspin;
 }
 

@@ -228,7 +228,7 @@ void lda(lda_type *p, double *rho, double *ec, double *vc)
     return;
   }
 
-  if(p->func->number == XC_LDA_X){
+  if(p->func->number == XC_LDA_X || p->func->number == XC_LDA_C_XALPHA){
     *ec   = gsl_spline_eval(p->energy[0], rho[0],  p->acc);
     vc[0] = gsl_spline_eval(p->pot[0],    rho[0],  p->acc);
 

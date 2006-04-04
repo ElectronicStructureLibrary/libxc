@@ -121,6 +121,9 @@ void FC_FUNC_(xc_lda_x_init, XC_LDA_X_INIT)
   *p = malloc(sizeof(lda_type));
   lda_p = (lda_type *)(*p);
   lda_x_init(lda_p, *nspin, *dim, *irel);
+#if defined(LDA_SPEEDUP)
+  lda_x_speedup(lda_p, *nspin, *dim, *irel);
+#endif
   *info = (void *)(lda_p->func);
 }
 

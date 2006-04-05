@@ -71,21 +71,22 @@ void FC_FUNC_(xc_lda_init_, XC_LDA_INIT_)
 void FC_FUNC_(xc_lda_end, XC_LDA_END)
      (void **p)
 {
-#if defined(LDA_SPEEDUP)
-  int k;
-  lda_type *lda_p;
-  lda_p = (lda_type *)(*p);
+  if(speedup_lda){
+    int k;
+    lda_type *lda_p;
+    lda_p = (lda_type *)(*p);
 
-  gsl_spline_free(  (*lda_p).pot[0]   );
-  gsl_spline_free( (*lda_p).energy[0] );
-  gsl_interp_accel_free( (*lda_p).acc );
-  if( !(lda_p->func->number == XC_LDA_X) && (lda_p->func->number == XC_POLARIZED)){
+    gsl_spline_free(  (*lda_p).pot[0]   );
+    gsl_spline_free( (*lda_p).energy[0] );
+    gsl_interp_accel_free( (*lda_p).acc );
+    if( !(lda_p->func->number == XC_LDA_X) && (lda_p->func->number == XC_POLARIZED)){
       for(k=1;k<lda_p->zeta_npoints;k++){
           gsl_spline_free(  (*lda_p).pot[k]   );
           gsl_spline_free(  (*lda_p).potd[k]   );
           gsl_spline_free( (*lda_p).energy[k] );}
+    }
   }
-#endif
+
   free(*p);
 }
 
@@ -121,9 +122,7 @@ void FC_FUNC_(xc_lda_x_init, XC_LDA_X_INIT)
   *p = malloc(sizeof(lda_type));
   lda_p = (lda_type *)(*p);
   lda_x_init(lda_p, *nspin, *dim, *irel);
-#if defined(LDA_SPEEDUP)
-  lda_x_speedup(lda_p, *nspin, *dim, *irel);
-#endif
+  if(speedup_lda) lda_x_speedup(lda_p, *nspin, *dim, *irel);
   *info = (void *)(lda_p->func);
 }
 
@@ -244,4 +243,10 @@ void FC_FUNC_(xc_lca, XC_LCA)
       double *e, double *dedd, double *dedv)
 {
   lca((lca_type *)(*p), rho, v, e, dedd, dedv);
+}
+
+void FC_FUNC_(lda_speedup, LDA_SPEEDUP)
+     (int *i)
+{
+  speedup_lda = *i;
 }

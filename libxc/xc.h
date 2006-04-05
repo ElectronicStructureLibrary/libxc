@@ -1,13 +1,12 @@
 #include "config.h"
-
-#if defined(LDA_SPEEDUP)
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_spline.h>
-#endif
 
 #ifndef _XC_H
 #define _XC_H
 
+static int speedup_lda = 0;  /* If this is set to 1, the LDA functionals are interpolated
+	           		after they are initialized, and not calculated every time.*/
 
 #define XC_UNPOLARIZED          1
 #define XC_POLARIZED            2
@@ -53,23 +52,21 @@ typedef struct{
   
   double alpha;         /* parameter for Xalpha functional */
 
-#if defined(LDA_SPEEDUP)
   int zeta_npoints;
   gsl_spline **energy;
   gsl_spline **pot;
   gsl_spline **potd;
   gsl_interp_accel *acc;
-#endif
 } lda_type;
 
 void lda_init(lda_type *p, int functional, int nspin);
 void lda_x_init(lda_type *p, int nspin, int dim, int irel);
 void lda_c_xalpha_init(lda_type *p, int nspin, int dim, double alpha);
-#if defined(LDA_SPEEDUP)
 void lda_x_speedup(lda_type *p, int nspin, int dim, int irel);
-#endif
+void lda_c_speedup(lda_type *p, int nspin);
 
 void lda_work(lda_type *p, double *rho, double *ec, double *vc, double *fxc);
+void lda_interpolate(lda_type *p, double *rho, double *ec, double *vc);
 void lda(lda_type *p, double *rho, double *ec, double *vc);
 void lda_fxc(lda_type *p, double *rho, double *fxc);
 void lda_kxc(lda_type *p, double *rho, double *kxc);

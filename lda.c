@@ -71,7 +71,13 @@ void lda_init(lda_type *p, int functional, int nspin)
     break;
   }
 
-#if defined(LDA_SPEEDUP)
+  if(speedup_lda) lda_c_speedup(p, nspin);
+
+}
+
+
+void lda_c_speedup(lda_type *p, int nspin)
+{
   /* This is for the new interpolation scheme */
   int i, k; int n = 600;
   double *x, *y, *y2, *y2d;
@@ -121,13 +127,13 @@ void lda_init(lda_type *p, int functional, int nspin)
 
       rpb = b; ea = exp(a);
       for(i = 2; i < n; i++){
-	x[i] = b*(exp(a*(i - 1)) - 1.0);
+        x[i] = b*(exp(a*(i - 1)) - 1.0);
 
-	rho[0] = 0.5*x[i]*(1.0 + z);
-	rho[1] = 0.5*x[i]*(1.0 - z);
+        rho[0] = 0.5*x[i]*(1.0 + z);
+        rho[1] = 0.5*x[i]*(1.0 - z);
 
-	lda_work(p, rho, &(y[i]), vc, NULL);
-	y2[i] = vc[0]; y2d[i] = vc[1];
+        lda_work(p, rho, &(y[i]), vc, NULL);
+        y2[i] = vc[0]; y2d[i] = vc[1];
       }
 
       p->energy[k] = gsl_spline_alloc(gsl_interp_linear, n);
@@ -141,9 +147,7 @@ void lda_init(lda_type *p, int functional, int nspin)
 
   }
   free(x); free(y); free(y2); free(y2d);
-#endif
 }
-
 
 void lda_work(lda_type *p, double *rho, double *ec, double *vc, double *fxc)
 {
@@ -217,10 +221,19 @@ void lda_work(lda_type *p, double *rho, double *ec, double *vc, double *fxc)
 
 void lda(lda_type *p, double *rho, double *ec, double *vc)
 {
+  if(speedup_lda){
+    lda_interpolate(p, rho, ec, vc);
+  }else{
+    lda_work(p, rho, ec, vc, NULL);
+  }
+  return;
+}
 
-#if defined(LDA_SPEEDUP)
+void lda_interpolate(lda_type *p, double *rho, double *ec, double *vc)
+{
   int i, j, k;
   double dens, zeta, rs;
+  double ec1, ec2, vcu1, vcu2, vcd1, vcd2, dr;
 
   if(p->nspin == XC_UNPOLARIZED){
     *ec = gsl_spline_eval(p->energy[0], rho[0],  p->acc );
@@ -257,9 +270,8 @@ void lda(lda_type *p, double *rho, double *ec, double *vc)
     *ec   = gsl_spline_eval(p->energy[i], dens, p->acc);
     vc[j] = gsl_spline_eval(p->pot[i],    dens, p->acc);
     vc[k] = gsl_spline_eval(p->potd[i],   dens, p->acc);
-      return;}
+    return;}
 
-  double ec1, ec2, vcu1, vcu2, vcd1, vcd2, dr;
   dr = zeta - i*(1.0/(p->zeta_npoints - 1));
 
   ec1  = gsl_spline_eval(p->energy[i], dens, p->acc);
@@ -273,11 +285,6 @@ void lda(lda_type *p, double *rho, double *ec, double *vc)
   *ec = ec1 + dr*(ec2-ec1)*(p->zeta_npoints - 1);
   vc[j] = vcu1 + dr*(vcu2-vcu1)*(p->zeta_npoints - 1);
   vc[k] = vcd1 + dr*(vcd2-vcd1)*(p->zeta_npoints - 1);
-
-#else
-  lda_work(p, rho, ec, vc, NULL);
-  return;
-#endif
 
 }
 

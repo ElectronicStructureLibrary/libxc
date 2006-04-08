@@ -65,6 +65,7 @@ void FC_FUNC_(xc_lda_init_, XC_LDA_INIT_)
   *p = malloc(sizeof(lda_type));
   lda_p = (lda_type *)(*p);
   lda_init(lda_p, *functional, *nspin);
+  if(speedup_lda) lda_c_speedup(lda_p, *nspin);
   *info = (void *)(lda_p->func);
 }
 

@@ -10,12 +10,12 @@ void test_lda()
   double rs;
   
   lda_x_init(&l1, XC_POLARIZED, 3);
-#if defined(LDA_SPEEDUP)
   lda_x_speedup(&l1, XC_POLARIZED, 3);
-#endif
   lda_init(&l2, XC_LDA_C_PZ, XC_POLARIZED);
+  lda_c_speedup(%l2, XC_POLARIZED);
   lda_init(&l3, XC_LDA_C_VWN, XC_POLARIZED);
-  
+  lda_c_speedup(%l3, XC_POLARIZED);
+
   for(rs=10; rs>=0.1; rs-=0.01){
     double dens, zeta, rho[2];
     double ec1, vc1[2], fxc1[4];

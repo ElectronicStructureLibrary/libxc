@@ -71,8 +71,6 @@ void lda_init(lda_type *p, int functional, int nspin)
     break;
   }
 
-  if(speedup_lda) lda_c_speedup(p, nspin);
-
 }
 
 

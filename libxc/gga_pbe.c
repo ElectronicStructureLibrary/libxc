@@ -48,6 +48,7 @@ void gga_c_pbe_init(gga_type *p)
   p->func = &func_gga_c_pbe;
   p->lda_aux = (lda_type *) malloc(sizeof(lda_type));
   lda_init(p->lda_aux, XC_LDA_C_PW, p->nspin);
+  if(speedup_lda) lda_c_speedup(p->lda_aux, p->nspin);
 }
 
 

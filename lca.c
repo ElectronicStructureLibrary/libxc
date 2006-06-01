@@ -31,6 +31,8 @@ void lca_init(lca_type *p, int functional, int nspin)
 void lca(lca_type *p, double *rho, double *v, double *e, double *dedd, double *dedv)
 {
   int i;
+  int j;
+  double rs, drsdd, vs, vs2, kf, dkfdrs, f, s, dsdrs;
   double dens;
 
   assert(p!=NULL);
@@ -45,8 +47,6 @@ void lca(lca_type *p, double *rho, double *v, double *e, double *dedd, double *d
     return;
   }
 
-  int j;
-  double rs, drsdd, vs, vs2, kf, dkfdrs, f, s, dsdrs;
   for(i=0; i<  p->nspin; i++){
     
     rs = RS(rho[i]);

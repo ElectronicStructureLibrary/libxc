@@ -1,6 +1,8 @@
 # $Id$
 
-noinst_LIBRARIES = libxc.a
+ACLOCAL_AMFLAGS = -I m4
+
+lib_LIBRARIES = libxc.a
 
 libxc_a_SOURCES = util.c lda_x.c \
 	lda.c lda_funcs.c lda_c_vwn.c lda_c_pz.c lda_c_pw.c lda_c_amgb.c \
@@ -9,9 +11,10 @@ libxc_a_SOURCES = util.c lda_x.c \
 	lca.c lca_omc.c lca_lch.c \
 	xc_f.c
 
-noinst_HEADERS = util.h xc.h
+noinst_HEADERS = util.h
+include_HEADERS = xc.h
 
-AM_CPPFLAGS = -I$(top_srcdir)/liboct_parser
+AM_CPPFLAGS = -I../libstring_f
 
 CLEANFILES = *~ *.bak
 DISTCLEANFILES = Makefile.in

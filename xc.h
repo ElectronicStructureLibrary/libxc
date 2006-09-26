@@ -29,19 +29,21 @@ typedef struct{
 
 /* the LDAs */
 
-#define XC_LDA_X                1   /* Exchange                   */
-#define XC_LDA_C_WIGNER         2   /* Wigner parametrization     */
-#define XC_LDA_C_RPA            3   /* Random Phase Approximation */
-#define XC_LDA_C_HL             4   /* Hedin & Lundqvist          */
-#define XC_LDA_C_GL             5   /* Gunnarson & Lundqvist      */
-#define XC_LDA_C_XALPHA         6   /* Slater's Xalpha            */
-#define XC_LDA_C_VWN            7   /* Vosko, Wilk, & Nussair     */
-#define XC_LDA_C_PZ             8   /* Perdew & Zunger            */
-#define XC_LDA_C_OB_PZ          9   /* Ortiz & Ballone (PZ)       */
-#define XC_LDA_C_PW            10   /* Perdew & Wang              */
-#define XC_LDA_C_OB_PW         11   /* Ortiz & Ballone (PW)       */
-#define XC_LDA_C_LYP           12   /* Lee, Yang, & Parr LDA      */
-#define XC_LDA_C_AMGB          13   /* Attacalite et al           */
+#define XC_LDA_X                1   /* Exchange                     */
+#define XC_LDA_C_WIGNER         2   /* Wigner parametrization       */
+#define XC_LDA_C_RPA            3   /* Random Phase Approximation   */
+#define XC_LDA_C_HL             4   /* Hedin & Lundqvist            */
+#define XC_LDA_C_GL             5   /* Gunnarson & Lundqvist        */
+#define XC_LDA_C_XALPHA         6   /* Slater's Xalpha              */
+#define XC_LDA_C_VWN            7   /* Vosko, Wilk, & Nussair       */
+#define XC_LDA_C_VWN_RPA        8   /* Vosko, Wilk, & Nussair (RPA) */
+#define XC_LDA_C_PZ             9   /* Perdew & Zunger              */
+#define XC_LDA_C_PZ_MOD        10   /* Perdew & Zunger (Modified)   */
+#define XC_LDA_C_OB_PZ         11   /* Ortiz & Ballone (PZ)         */
+#define XC_LDA_C_PW            12   /* Perdew & Wang                */
+#define XC_LDA_C_OB_PW         13   /* Ortiz & Ballone (PW)         */
+#define XC_LDA_C_LYP           14   /* Lee, Yang, & Parr LDA        */
+#define XC_LDA_C_AMGB          15   /* Attacalite et al             */
 
 typedef struct{
   func_type *func;      /* which functional did we chose   */

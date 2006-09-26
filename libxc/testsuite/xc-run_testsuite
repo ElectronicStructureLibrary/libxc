@@ -1,0 +1,9 @@
+#!/bin/bash
+# $Id:  $
+
+for i in *.data; do
+  func=`basename $i .data`
+  echo -e "Testing functional \033[32;1m$func\033[31;1m"
+  ./xc-run_regression_test.pl -f $func
+  echo -e "\033[0m"
+done

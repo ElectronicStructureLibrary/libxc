@@ -8,16 +8,18 @@
 void lda_init(lda_type *p, int functional, int nspin)
 {
   /* sanity check */
-  assert(functional == XC_LDA_C_WIGNER ||
-	 functional == XC_LDA_C_RPA    ||
-	 functional == XC_LDA_C_HL     ||
-	 functional == XC_LDA_C_GL     ||
-	 functional == XC_LDA_C_VWN    ||
-	 functional == XC_LDA_C_PZ     ||
-	 functional == XC_LDA_C_OB_PZ  ||
-	 functional == XC_LDA_C_PW     ||
-	 functional == XC_LDA_C_OB_PW  ||
-	 functional == XC_LDA_C_LYP    ||
+  assert(functional == XC_LDA_C_WIGNER  ||
+	 functional == XC_LDA_C_RPA     ||
+	 functional == XC_LDA_C_HL      ||
+	 functional == XC_LDA_C_GL      ||
+	 functional == XC_LDA_C_VWN     ||
+	 functional == XC_LDA_C_VWN_RPA ||
+	 functional == XC_LDA_C_PZ      ||
+	 functional == XC_LDA_C_PZ_MOD  ||
+	 functional == XC_LDA_C_OB_PZ   ||
+	 functional == XC_LDA_C_PW      ||
+	 functional == XC_LDA_C_OB_PW   ||
+	 functional == XC_LDA_C_LYP     ||
 	 functional == XC_LDA_C_AMGB);
   
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
@@ -45,9 +47,17 @@ void lda_init(lda_type *p, int functional, int nspin)
   case XC_LDA_C_VWN:
     lda_c_vwn_init(p);
     break;
+
+  case XC_LDA_C_VWN_RPA:
+    lda_c_vwn_rpa_init(p);
+    break;
     
   case XC_LDA_C_PZ:
     lda_c_pz_init(p);
+    break;
+    
+  case XC_LDA_C_PZ_MOD:
+    lda_c_pz_mod_init(p);
     break;
     
   case XC_LDA_C_OB_PZ:
@@ -167,7 +177,7 @@ void lda_work(lda_type *p, double *rho, double *ec, double *vc, double *fxc)
     
     rs = RS(dens); /* Wigner radius */
   }
-  
+
   switch(p->func->number){
   case(XC_LDA_X):
     lda_x(p, rho, ec, vc, fxc);
@@ -193,10 +203,12 @@ void lda_work(lda_type *p, double *rho, double *ec, double *vc, double *fxc)
     break;
     
   case XC_LDA_C_VWN:
+  case XC_LDA_C_VWN_RPA:
     lda_c_vwn(p, rs, zeta, ec, vc);
     break;
     
   case XC_LDA_C_PZ:
+  case XC_LDA_C_PZ_MOD:
   case XC_LDA_C_OB_PZ:
     lda_c_pz(p, rs, zeta, ec, vc);
     break;

@@ -15,61 +15,109 @@ static func_type func_lda_c_vwn = {
   "S.H. Vosko, L. Wilk, and M. Nusair, Can. J. Phys. 58, 1200 (1980)"
 };
 
+static func_type func_lda_c_vwn_rpa = {
+  XC_LDA_C_VWN_RPA,
+  XC_CORRELATION,
+  "Vosko, Wilk & Nusair (parametrization of the RPA energy)",
+  "LDA",
+  "S.H. Vosko, L. Wilk, and M. Nusair, Can. J. Phys. 58, 1200 (1980)"
+};
+
 /* some constants         e_c^P      e_c^F      alpha_c */
-static const double  A[3] = { 0.0310907, 0.01554535, -0.016887}; /* These numbers are taken from the
-                                                              original reference, but divided by
-                                                              two to convet from Rydbergs to Hartrees */
-static const double  b[3] = { 3.72744,   7.06042,    1.13107  };
-static const double  c[3] = {12.9352,   18.0578,    13.0045   };
-static const double x0[3] = {-0.10498,  -0.32500,   -0.0047584};
-static double  Q[3] = { 0.0,       0.0,        0.0      };
-static double fpp   = 0.0;
+typedef struct {
+  double  A[3]; /* e_c^P, e_c^F, alpha_c */
+  double  b[3];
+  double  c[3];
+  double x0[3];
+  double  Q[3];
+  double  fpp;
+} vwn_consts_type;
+
+/* These numbers are taken from the original reference, but divided by
+     two to convert from Rydbergs to Hartrees */
+static vwn_consts_type vwn_consts[2] = {
+  /* VWN parametrization of the correlation energy */
+  {
+    { 0.0310907, 0.01554535,  0.0      }, /*  A */
+    { 3.72744,   7.06042,     1.13107  }, /*  b */
+    {12.9352,   18.0578,     13.0045   }, /*  c */
+    {-0.10498,  -0.32500,    -0.0047584}, /* x0 */
+    { 0.0,       0.0,         0.0      }, /*  Q */
+    0.0 /* fpp */
+  },
+  /* VWN RPA */
+  {
+    { 0.0310907, 0.01554535,  0.0      }, /*  A */
+    {13.0720,   20.1231,      1.06835  }, /*  b */
+    {42.7198,  101.578,      11.4813   }, /*  c */
+    {-0.409286, -0.743294,   -0.228344 }, /* x0 */
+    { 0.0,       0.0,         0.0      }, /*  Q */
+    0.0 /* fpp */
+  }
+};
 
 /* initialization */
-void lda_c_vwn_init(lda_type *p)
+void init_vwn_constants(vwn_consts_type *X)
 {
   int i;
-  
-  p->func = &func_lda_c_vwn;
 
+  X->A[2] = -1.0/(6.0*M_PI*M_PI);
   for(i=0; i<3; i++){
-    Q[i] = sqrt(4.0*c[i] - b[i]*b[i]);
+    X->Q[i] = sqrt(4.0*X->c[i] - X->b[i]*X->b[i]);
   }
-  fpp = 4.0/(9.0*(pow(2.0, 1.0/3.0)-1));
+  X->fpp = 4.0/(9.0*(pow(2.0, 1.0/3.0) - 1));
+}
+
+void lda_c_vwn_init(lda_type *p)
+{
+  p->func = &func_lda_c_vwn;
+  init_vwn_constants(&vwn_consts[0]);
+}
+
+void lda_c_vwn_rpa_init(lda_type *p)
+{
+  p->func = &func_lda_c_vwn_rpa;
+  init_vwn_constants(&vwn_consts[1]);
 }
 
 /* Eq. (4.4) of [1] */
-void ec_i(int i, double x, double *ec, double *decdrs)
+void ec_i(vwn_consts_type *X, int i, double x, double *ec, double *decdrs)
 {
   double f1, f2, f3, fx, qx, xx0, tx, tt;
   
-  f1  = 2.0*b[i]/Q[i];
-  f2  = b[i]*x0[i]/(x0[i]*x0[i] + b[i]*x0[i] + c[i]);
-  f3  = 2.0*(2.0*x0[i] + b[i])/Q[i];
-  fx  = x*x + b[i]*x + c[i];  /* X(x) */
-  qx  = atan(Q[i]/(2.0*x + b[i]));
-  xx0 = x - x0[i];
+  f1  = 2.0*X->b[i]/X->Q[i];
+  f2  = X->b[i]*X->x0[i]/(X->x0[i]*X->x0[i] + X->b[i]*X->x0[i] + X->c[i]);
+  f3  = 2.0*(2.0*X->x0[i] + X->b[i])/X->Q[i];
+  fx  = x*x + X->b[i]*x + X->c[i];  /* X(x) */
+  qx  = atan(X->Q[i]/(2.0*x + X->b[i]));
+  xx0 = x - X->x0[i];
   
-  *ec = A[i]*(log(x*x/fx) + f1*qx - f2*(log(xx0*xx0/fx) + f3*qx));
+  *ec = X->A[i]*(log(x*x/fx) + f1*qx - f2*(log(xx0*xx0/fx) + f3*qx));
   
-  tx  = 2.0*x + b[i];
-  tt  = tx*tx + Q[i]*Q[i];
-  *decdrs = A[i]*(2.0/x - tx/fx - 4.0*b[i]/tt -
-		  f2*(2.0/xx0 - tx/fx - 4.0*(2.0*x0[i] + b[i])/tt));
+  tx  = 2.0*x + X->b[i];
+  tt  = tx*tx + X->Q[i]*X->Q[i];
+  *decdrs = X->A[i]*(2.0/x - tx/fx - 4.0*X->b[i]/tt -
+		     f2*(2.0/xx0 - tx/fx - 4.0*(2.0*X->x0[i] + X->b[i])/tt));
 }
 
 /* the functional */
 void lda_c_vwn(lda_type *p, double rs_, double zeta, double *ec, double *vc)
 {
   double rs[2], ec_1, dec_1;
+  int func;
+  vwn_consts_type *X;
 
   assert(p!=NULL);
+
+  func = p->func->number - XC_LDA_C_VWN;
+  assert(func==0 || func==1);
+  X = &vwn_consts[func];
 
   /* Wigner radius */
   rs[1] = rs_;          /* rs          */
   rs[0] = sqrt(rs[1]);  /* sqrt(rs)    */
 
-  ec_i(0, rs[0], &ec_1, &dec_1);
+  ec_i(X, 0, rs[0], &ec_1, &dec_1);
   
   if(p->nspin == XC_UNPOLARIZED){
     *ec   = ec_1;
@@ -78,20 +126,20 @@ void lda_c_vwn(lda_type *p, double rs_, double zeta, double *ec, double *vc)
     double ec_2, ec_3, dec_2, dec_3, fz, dfz, decdx, decdz;
     double t1, t2, z3, z4;
     
-    ec_i(1, rs[0], &ec_2, &dec_2);
-    ec_i(2, rs[0], &ec_3, &dec_3);
+    ec_i(X, 1, rs[0], &ec_2, &dec_2);
+    ec_i(X, 2, rs[0], &ec_3, &dec_3);
     
     fz  =  FZETA(zeta);
     dfz = DFZETA(zeta);
     
     z3 = pow(zeta, 3);
     z4 = z3*zeta;
-    t1 = (fz/fpp)*(1.0 - z4);
+    t1 = (fz/X->fpp)*(1.0 - z4);
     t2 = fz*z4;
     
     *ec   =  ec_1 +  ec_3*t1 + ( ec_2 -  ec_1)*t2;
     decdx = dec_1 + dec_3*t1 + (dec_2 - dec_1)*t2;
-    decdz = (ec_3/fpp)*(dfz*(1.0 - z4) - 4.0*fz*z3) +
+    decdz = (ec_3/X->fpp)*(dfz*(1.0 - z4) - 4.0*fz*z3) +
       (ec_2 - ec_1)*(dfz*z4 + 4.0*fz*z3);
     
     t1 = *ec - rs[0]/6.0*decdx;

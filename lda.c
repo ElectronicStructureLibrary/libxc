@@ -4,83 +4,82 @@
 
 #include "util.h"
 
+/* If this is set to 1, the LDA functionals are interpolated
+   after they are initialized, and not calculated every time.*/
+int speedup_lda = 0;
+
+extern func_type /* these are the LDA functionals that I know */
+  func_lda_x,
+  func_lda_c_wigner, 
+  func_lda_c_rpa,
+  func_lda_c_hl,
+  func_lda_c_gl,
+  func_lda_c_xalpha,
+  func_lda_c_vwn,
+  func_lda_c_vwn_rpa,
+  func_lda_c_pz,
+  func_lda_c_pz_mod,
+  func_lda_c_ob_pz,
+  func_lda_c_pw,
+  func_lda_c_ob_pw,
+  func_lda_c_lyp,
+  func_lda_c_amgb;
+
+static func_type *known_funct[] = {
+  &func_lda_x,
+  &func_lda_c_wigner,
+  &func_lda_c_rpa,
+  &func_lda_c_hl,
+  &func_lda_c_gl,
+  &func_lda_c_xalpha,
+  &func_lda_c_vwn,
+  &func_lda_c_vwn_rpa,
+  &func_lda_c_pz,
+  &func_lda_c_pz_mod,
+  &func_lda_c_ob_pz,
+  &func_lda_c_pw,
+  &func_lda_c_ob_pw,
+  &func_lda_c_lyp,
+  &func_lda_c_amgb,
+  NULL
+};
+
+
 /* initialization */
-void lda_init(lda_type *p, int functional, int nspin)
+int lda_init(lda_type *p, int functional, int nspin)
 {
-  /* sanity check */
-  assert(functional == XC_LDA_C_WIGNER  ||
-	 functional == XC_LDA_C_RPA     ||
-	 functional == XC_LDA_C_HL      ||
-	 functional == XC_LDA_C_GL      ||
-	 functional == XC_LDA_C_VWN     ||
-	 functional == XC_LDA_C_VWN_RPA ||
-	 functional == XC_LDA_C_PZ      ||
-	 functional == XC_LDA_C_PZ_MOD  ||
-	 functional == XC_LDA_C_OB_PZ   ||
-	 functional == XC_LDA_C_PW      ||
-	 functional == XC_LDA_C_OB_PW   ||
-	 functional == XC_LDA_C_LYP     ||
-	 functional == XC_LDA_C_AMGB);
+  int i;
+
+  assert(p != NULL);
+
+  /* let us first find out if we know the functional */
+  for(i=0; known_funct[i]!=NULL; i++){
+    if(known_funct[i]->number == functional) break;
+  }
+  assert(known_funct[i] != NULL);
+  if(known_funct[i] == NULL) return -1; /* functional not found */
   
+  /* initialize structure */
+  p->func = known_funct[i];
+
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
   p->nspin = nspin;
   p->relativistic = 0;
-  
-  /* initialize the functionals */
-  switch(functional){
-  case XC_LDA_C_WIGNER:
-    lda_c_wigner_init(p);
-    break;
 
-  case XC_LDA_C_RPA:
-    lda_c_rpa_init(p);
-    break;
+  /* see if we need to initialize the functional */
+  if(p->func->init != NULL)
+    p->func->init(p);
+  return 0;
+}
 
-  case XC_LDA_C_HL:
-    lda_c_hl_init(p);
-    break;
 
-  case XC_LDA_C_GL:
-    lda_c_gl_init(p);
-    break;
+/* termination */
+void lda_end(lda_type *p)
+{
+  assert(p != NULL);
 
-  case XC_LDA_C_VWN:
-    lda_c_vwn_init(p);
-    break;
-
-  case XC_LDA_C_VWN_RPA:
-    lda_c_vwn_rpa_init(p);
-    break;
-    
-  case XC_LDA_C_PZ:
-    lda_c_pz_init(p);
-    break;
-    
-  case XC_LDA_C_PZ_MOD:
-    lda_c_pz_mod_init(p);
-    break;
-    
-  case XC_LDA_C_OB_PZ:
-    lda_c_ob_pz_init(p);
-    break;
-    
-  case XC_LDA_C_PW:
-    lda_c_pw_init(p);
-    break;
-    
-  case XC_LDA_C_OB_PW:
-    lda_c_ob_pw_init(p);
-    break;
-    
-  case XC_LDA_C_LYP:
-    lda_c_lyp_init(p);
-    break;
-
-  case XC_LDA_C_AMGB:
-    lda_c_amgb_init(p);
-    break;
-  }
-
+  if(p->func->end != NULL)
+    p->func->end(p);
 }
 
 
@@ -114,7 +113,7 @@ void lda_c_speedup(lda_type *p, int nspin)
     rpb = b; ea = exp(a);
     for (i = 2; i < n; i++){
       x[i] = b*(exp(a*(i - 1)) - 1.0);
-      lda_work(p, &(x[i]), &(y[i]), &(y2[i]), NULL);
+      lda(p, &(x[i]), &(y[i]), &(y2[i]), NULL);
     }
 
     p->energy[0] = gsl_spline_alloc(gsl_interp_linear, n);
@@ -140,7 +139,7 @@ void lda_c_speedup(lda_type *p, int nspin)
         rho[0] = 0.5*x[i]*(1.0 + z);
         rho[1] = 0.5*x[i]*(1.0 - z);
 
-        lda_work(p, rho, &(y[i]), vc, NULL);
+        lda(p, rho, &(y[i]), vc, NULL);
         y2[i] = vc[0]; y2d[i] = vc[1];
       }
 
@@ -157,92 +156,36 @@ void lda_c_speedup(lda_type *p, int nspin)
   free(x); free(y); free(y2); free(y2d);
 }
 
-void lda_work(lda_type *p, double *rho, double *ec, double *vc, double *fxc)
+void lda(lda_type *p, double *rho, double *ec, double *vc, double *fc)
 {
-  double dens, zeta, rs;
-  int got_fxc=0;
-
   assert(p!=NULL);
   
-  /* get the trace and the polarization of the density */
-  if(p->func->number!=XC_LDA_X && p->func->number!=XC_LDA_C_XALPHA ){
-    rho2dzeta(p->nspin, rho, &dens, &zeta);
-    
+  if(speedup_lda){
+    lda_interpolate(p, rho, ec, vc);
+
+  }else{
+    double dens;
+
+    dens = rho[0];
+    if(p->nspin == XC_POLARIZED) dens += rho[1];
+
     if(dens <= MIN_DENS){
       int i;
+      
       *ec = 0.0;
       for(i=0; i<p->nspin; i++) vc[i] = 0.0;
       return;
     }
     
-    rs = RS(dens); /* Wigner radius */
+    assert(p->func!=NULL && p->func->lda!=NULL);
+    p->func->lda(p, rho, ec, vc, fc);
   }
-
-  switch(p->func->number){
-  case(XC_LDA_X):
-    lda_x(p, rho, ec, vc, fxc);
-    got_fxc = 1;
-    break;
-    
-  case XC_LDA_C_WIGNER: 
-    lda_c_wigner(p, rs, ec, vc);
-    break;
-    
-  case XC_LDA_C_RPA:
-    lda_c_rpa(p, rs, ec, vc);
-    break;
-    
-  case XC_LDA_C_HL:
-  case XC_LDA_C_GL:
-    lda_c_hl(p, rs, zeta, ec, vc);
-    break;
-    
-  case XC_LDA_C_XALPHA:
-    lda_c_xalpha(p, rho, ec, vc, fxc);
-    got_fxc = 1;
-    break;
-    
-  case XC_LDA_C_VWN:
-  case XC_LDA_C_VWN_RPA:
-    lda_c_vwn(p, rs, zeta, ec, vc);
-    break;
-    
-  case XC_LDA_C_PZ:
-  case XC_LDA_C_PZ_MOD:
-  case XC_LDA_C_OB_PZ:
-    lda_c_pz(p, rs, zeta, ec, vc);
-    break;
-    
-  case XC_LDA_C_PW:
-  case XC_LDA_C_OB_PW:
-    lda_c_pw(p, rs, dens, zeta, ec, vc, fxc);
-    got_fxc = 1;
-    break;
-    
-  case XC_LDA_C_LYP:
-    lda_c_lyp(p, rs, ec, vc);
-    break;
-    
-  case XC_LDA_C_AMGB:
-    lda_c_amgb(p, rho, ec, vc);
-    break;
-  }
-}
-
-void lda(lda_type *p, double *rho, double *ec, double *vc)
-{
-  if(speedup_lda){
-    lda_interpolate(p, rho, ec, vc);
-  }else{
-    lda_work(p, rho, ec, vc, NULL);
-  }
-  return;
 }
 
 void lda_interpolate(lda_type *p, double *rho, double *ec, double *vc)
 {
   int i, j, k;
-  double dens, zeta, rs;
+  double dens, zeta;
   double ec1, ec2, vcu1, vcu2, vcd1, vcd2, dr;
 
   if(p->nspin == XC_UNPOLARIZED){
@@ -306,7 +249,7 @@ void lda_fxc(lda_type *p, double *rho, double *fxc)
      p->func->number == XC_LDA_C_OB_PW){
 
     double ec, vc[2];
-    lda_work(p, rho, &ec, vc, fxc);
+    lda(p, rho, &ec, vc, fxc);
 
   }else{ /* get fxc through a numerical derivative */
     int i, j;
@@ -319,10 +262,10 @@ void lda_fxc(lda_type *p, double *rho, double *fxc)
 
       rho2[i] = rho[i] + delta_rho;
       rho2[j] = rho[j];
-      lda_work(p, rho2, &e, vc1, NULL);
+      lda(p, rho2, &e, vc1, NULL);
 
       if(rho[i]<2.0*delta_rho){ /* we have to use a forward difference */
-	lda_work(p, rho, &e, vc2, NULL);
+	lda(p, rho, &e, vc2, NULL);
 	
 	fxc __(i, i) = (vc1[i] - vc2[i])/(delta_rho);
 	if(p->nspin == XC_POLARIZED)
@@ -330,7 +273,7 @@ void lda_fxc(lda_type *p, double *rho, double *fxc)
 	
       }else{                    /* centered difference (more precise)  */
 	rho2[i] = rho[i] - delta_rho;
-	lda_work(p, rho2, &e, vc2, NULL);
+	lda(p, rho2, &e, vc2, NULL);
 	
 	fxc __(i, i) = (vc1[i] - vc2[i])/(2.0*delta_rho);
 	if(p->nspin == XC_POLARIZED)
@@ -376,17 +319,16 @@ void lda_kxc(lda_type *p, double *rho, double *kxc)
 	  func_dir = k;
 	  der_dir  = j;
 	}
- 
 
 	for(n=0; n< p->nspin; n++) rho2[n] = rho[n];
 
-	lda_work(p, rho , &e, vc2, NULL);
+	lda(p, rho , &e, vc2, NULL);
 
 	rho2[der_dir] += delta_rho;
-	lda_work(p, rho2, &e, vc1, NULL);
+	lda(p, rho2, &e, vc1, NULL);
 	
 	rho2[der_dir] -= 2.0*delta_rho;
-	lda_work(p, rho2, &e, vc3, NULL);
+	lda(p, rho2, &e, vc3, NULL);
 
 	kxc ___(i, j, k) = (vc1[func_dir] - 2.0*vc2[func_dir] + vc3[func_dir])/(delta_rho*delta_rho);
 	

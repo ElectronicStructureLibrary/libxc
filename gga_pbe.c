@@ -92,7 +92,7 @@ void gga_x_pbe(gga_type *p, double *rho, double *sigma,
     f1   = 1.0 + mu*s*s/kappa;
     f    = 1.0 + kappa - kappa/f1;
 
-    lda(p->lda_aux, &ds, &exunif, &vxunif);
+    lda(p->lda_aux, &ds, &exunif, &vxunif, NULL);
     
     /* total energy per unit volume */
     *e += ds*exunif*f;
@@ -123,7 +123,7 @@ void gga_c_pbe(gga_type *p, double *rho, double *sigma,
   double drsdd, dkfdd, dksdd, dzdd[2], dpdz;
   int is;
 
-  lda(p->lda_aux, rho, &ecunif, vcunif);
+  lda(p->lda_aux, rho, &ecunif, vcunif, NULL);
   rho2dzeta(p->nspin, rho, &dens, &zeta);
   
   rs = RS(dens);

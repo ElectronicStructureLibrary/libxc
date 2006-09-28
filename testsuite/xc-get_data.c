@@ -112,7 +112,7 @@ int main(int argc, char *argv[])
       lda_init(&lda_func, xc.functional, xc.nspin);
     }
 
-    lda(&lda_func, xc.rho, &xc.zk, xc.vrho);
+    lda(&lda_func, xc.rho, &xc.zk, xc.vrho, NULL);
 
   }else if(xc.functional < 200){
     gga_init(&gga_func, xc.functional, xc.nspin);

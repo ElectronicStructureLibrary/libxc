@@ -48,7 +48,7 @@ void gga_x_b88(gga_type *p, double *rho, double *sigma,
   }else
     sfact     = 2.0;
 
-  lda(p->lda_aux, rho, e, vrho);
+  lda(p->lda_aux, rho, e, vrho, NULL);
 
   e1   = 0.0;
   dens = 0.0;

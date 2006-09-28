@@ -11,37 +11,6 @@
    Ortiz & Ballone
 ************************************************************************/
 
-static func_type func_lda_c_pw = {
-  XC_LDA_C_PW,
-  XC_CORRELATION,
-  "Perdew & Wang",
-  "LDA",
-  "J.P. Perdew and Y.Wang, Phys. Rev. B 45, 13244 (1992)"
-};
-
-
-void lda_c_pw_init(lda_type *p)
-{
-  p->func = &func_lda_c_pw;
-}
-
-
-static func_type func_lda_c_ob_pw = {
-  XC_LDA_C_OB_PW,
-  XC_CORRELATION,
-  "Ortiz & Ballone (PW parametrization)",
-  "LDA",
-  "Ortiz and Ballone, Phys. Rev. B 50, 1391 (1994)\n"
-  "Ortiz and Ballone, Phys. Rev. B 56, 9970(E) (1997)\n"
-  "J.P. Perdew and Y.Wang, Phys. Rev. B 45, 13244 (1992)"
-};
-
-
-void lda_c_ob_pw_init(lda_type *p)
-{
-  p->func = &func_lda_c_ob_pw;
-}
-
 
 /* Function g defined by Eq. 10 of the original paper,
    and it's derivative with respect to rs, Eq. A5 */
@@ -92,15 +61,18 @@ static void g(int func, int k, double *rs, double *f, double *dfdrs, double *d2f
 
 
 /* the functional */
-void lda_c_pw(lda_type *p, double rs_, double dens, double zeta, double *ec, double *vc, double *fc)
+void lda_c_pw(lda_type *p, double *rho, double *ec, double *vc, double *fc)
 {
+  double dens, zeta;
   double rs[3], Dec_Drs, D2ec_Drs2, *dp;
   int func = p->func->number - XC_LDA_C_PW;
   
   assert(func==0 || func==1);
   
+  rho2dzeta(p->nspin, rho, &dens, &zeta);
+
   /* Wigner radius */
-  rs[1] = rs_;
+  rs[1] = RS(dens);
   rs[0] = sqrt(rs[1]);
   rs[2] = rs[1]*rs[1];
   
@@ -185,3 +157,27 @@ void lda_c_pw(lda_type *p, double rs_, double dens, double zeta, double *ec, dou
     }
   }
 }
+
+func_type func_lda_c_pw = {
+  XC_LDA_C_PW,
+  XC_CORRELATION,
+  "Perdew & Wang",
+  "LDA",
+  "J.P. Perdew and Y.Wang, Phys. Rev. B 45, 13244 (1992)",
+  NULL,
+  NULL,
+  lda_c_pw
+};
+
+func_type func_lda_c_ob_pw = {
+  XC_LDA_C_OB_PW,
+  XC_CORRELATION,
+  "Ortiz & Ballone (PW parametrization)",
+  "LDA",
+  "Ortiz and Ballone, Phys. Rev. B 50, 1391 (1994)\n"
+  "Ortiz and Ballone, Phys. Rev. B 56, 9970(E) (1997)\n"
+  "J.P. Perdew and Y.Wang, Phys. Rev. B 45, 13244 (1992)",
+  NULL,
+  NULL,
+  lda_c_pw
+};

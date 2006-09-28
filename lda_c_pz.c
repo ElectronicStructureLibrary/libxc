@@ -10,52 +10,6 @@
    Ortiz & Ballone
 ************************************************************************/
 
-static func_type func_lda_c_pz = {
-  XC_LDA_C_PZ,
-  XC_CORRELATION,
-  "Perdew & Zunger",
-  "LDA",
-  "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)"
-};
-
-
-void lda_c_pz_init(lda_type *p)
-{
-  p->func = &func_lda_c_pz;
-}
-
-
-static func_type func_lda_c_pz_mod = {
-  XC_LDA_C_PZ_MOD,
-  XC_CORRELATION,
-  "Perdew & Zunger (Modified)",
-  "LDA",
-  "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)\n"
-  "Modified to improve the matching between the low and high rs parts"
-};
-
-void lda_c_pz_mod_init(lda_type *p)
-{
-  p->func = &func_lda_c_pz_mod;
-}
-
-
-static func_type func_lda_c_ob_pz = {
-  XC_LDA_C_OB_PZ,
-  XC_CORRELATION,
-  "Ortiz & Ballone (PZ parametrization)",
-  "LDA",
-  "Ortiz and Ballone, Phys. Rev. B 50, 1391 (1994)\n"
-  "Ortiz and Ballone, Phys. Rev. B 56, 9970(E) (1997)\n"
-  "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)"
-};
-
-
-void lda_c_ob_pz_init(lda_type *p)
-{
-  p->func = &func_lda_c_ob_pz;
-}
-
 typedef struct {
   double gamma[2];
   double beta1[2];
@@ -120,15 +74,17 @@ static void ec_pot_high(pz_consts_type *X, int i, double *rs, double *ec, double
 
 
 /* the functional */
-void lda_c_pz(lda_type *p, double rs_, double zeta, double *ec, double *vc)
+void lda_c_pz(lda_type *p, double *rho, double *ec, double *vc, double *fc)
 {
-  double rs[3];
+  double dens, zeta, rs[3];
   int func = p->func->number - XC_LDA_C_PZ;
   
   assert(func==0 || func==1 || func==2);
   
+  rho2dzeta(p->nspin, rho, &dens, &zeta);
+
   /* Wigner radius */
-  rs[1] = rs_;
+  rs[1] = RS(dens);
   rs[0] = sqrt(rs[1]);
   rs[2] = log(rs[1]);
   
@@ -155,3 +111,39 @@ void lda_c_pz(lda_type *p, double rs_, double zeta, double *ec, double *vc)
     *ec += fz*(ecp - (*ec));
   }
 }
+
+func_type func_lda_c_pz = {
+  XC_LDA_C_PZ,
+  XC_CORRELATION,
+  "Perdew & Zunger",
+  "LDA",
+  "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)",
+  NULL,
+  NULL,
+  lda_c_pz
+};
+
+func_type func_lda_c_pz_mod = {
+  XC_LDA_C_PZ_MOD,
+  XC_CORRELATION,
+  "Perdew & Zunger (Modified)",
+  "LDA",
+  "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)\n"
+  "Modified to improve the matching between the low and high rs parts",
+  NULL,
+  NULL,
+  lda_c_pz
+};
+
+func_type func_lda_c_ob_pz = {
+  XC_LDA_C_OB_PZ,
+  XC_CORRELATION,
+  "Ortiz & Ballone (PZ parametrization)",
+  "LDA",
+  "Ortiz and Ballone, Phys. Rev. B 50, 1391 (1994)\n"
+  "Ortiz and Ballone, Phys. Rev. B 56, 9970(E) (1997)\n"
+  "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)",
+  NULL,
+  NULL,
+  lda_c_pz
+};

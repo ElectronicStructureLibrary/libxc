@@ -39,7 +39,7 @@ void gga_lb_end(gga_type *p)
   free(p->lda_aux);
 }
 
-void gga_lb(gga_type *p, double *rho, double *grho, double r, double ip, double qtot,
+void gga_lb(gga_type *p, double *rho, double *sigma, double r, double ip, double qtot,
 	    double *dedd)
 {
   int is;
@@ -57,9 +57,7 @@ void gga_lb(gga_type *p, double *rho, double *grho, double r, double ip, double 
   }
 
   for(is=0; is<p->nspin; is++){
-    gdm = sqrt(grho _(is, 0)*grho _(is, 0) +
-	       grho _(is, 1)*grho _(is, 1) +
-	       grho _(is, 2)*grho _(is, 2));
+    gdm = sqrt(sigma[is==0 ? 0 : 2]);
 
     if(rho[is]>p->threshold && gdm>p->threshold){
       double f;

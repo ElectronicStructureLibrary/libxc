@@ -28,9 +28,10 @@ static func_type func_gga_c_pbe = {
 
 
 /* some parameters */
-static const double beta = 0.066725, kappa = 0.8040;
-static const double gamm = 0.0310906908696549; /* (1.0 - log(2.0))/(M_PI*M_PI) */
-static const double mu   = 0.2195164512208958; /* beta*M_PI*M_PI/3.0 */
+static const double beta  = 0.06672455060314922;
+static const double kappa = 0.8040;
+static const double gamm  = 0.03109076908696549; /* (1.0 - log(2.0))/(M_PI*M_PI) */
+static const double mu    = 0.2195149727645171;  /* beta*M_PI*M_PI/3.0 */
 
 void gga_x_pbe_init(gga_type *p)
 {
@@ -58,29 +59,32 @@ void gga_pbe_end(gga_type *p)
 }
 
 
-void gga_x_pbe(gga_type *p, double *rho, double *grho,
-	       double *e, double *dedd, double *dedgd)
+void gga_x_pbe(gga_type *p, double *rho, double *sigma,
+	       double *e, double *vrho, double *vsigma)
 {
   double dens, sfact;
-  int is, ix;
+  int is;
 
   *e   = 0.0;
   dens = 0.0;
-  sfact = (p->nspin == XC_POLARIZED) ? 2.0 : 1.0;
+  if(p->nspin == XC_POLARIZED){
+    sfact     = 2.0;
+    vsigma[1] = 0.0; /* there are no cross terms in this functional */
+  }else
+    sfact     = 1.0;
 
   for(is=0; is<p->nspin; is++){
-    double ds, gdms, kfs, s, f1, f;
+    double ds, gdms, kfs, s, f1, f, sig;
     double exunif, vxunif;
     double dkfdd, dsdd, df1dd, dfdd;
+    double dsdsig, df1dsig, dfdsig;
 
     dens = dens + rho[is];
     ds   = max(MIN_DENS, sfact*rho[is]);
 
     /* calculate |nabla rho| */
-    gdms = sqrt(grho _(is, 0)*grho _(is, 0) + 
-		grho _(is, 1)*grho _(is, 1) +
-		grho _(is, 2)*grho _(is, 2));
-    gdms = max(MIN_GRAD, sfact*gdms);
+    sig  = sfact*sfact*sigma[is==0 ? 0 : 2];
+    gdms = max(MIN_GRAD, sqrt(sig));
 
     kfs  = pow(3.0*M_PI*M_PI*ds, 1.0/3.0);
     s    = gdms/(2.0*kfs*ds);
@@ -98,31 +102,26 @@ void gga_x_pbe(gga_type *p, double *rho, double *grho,
     df1dd = 2.0*(f1 - 1.0)*dsdd/s;
     dfdd  = kappa*df1dd/(f1*f1);
 
-    dedd[is] = vxunif*f + ds*exunif*dfdd;
+    vrho[is] = vxunif*f + ds*exunif*dfdd;
     
-    for(ix=0; ix<3; ix++){
-      double gds, dsdgd, df1dgd, dfdgd;
-
-      gds    = sfact*grho _(is, ix);
-      dsdgd  = (s/gdms)*gds/gdms;
-      df1dgd = 2.0*mu*s*dsdgd/kappa;
-      dfdgd  = kappa*df1dgd/(f1*f1);
-
-      dedgd _(is,ix) = ds*exunif*dfdgd;
-    }
+    dsdsig  = s/(2.0*sig);
+    df1dsig = 2.0*mu*s*dsdsig/kappa;
+    dfdsig  = kappa*df1dsig/(f1*f1);
+    vsigma[is==0 ? 0 : 2] = sfact*ds*exunif*dfdsig;
   }
 
   *e = *e/(dens*sfact); /* we want energy per particle */
 }
 
-void gga_c_pbe(gga_type *p, double *rho, double *grho,
-	       double *e, double *dedd, double *dedgd)
+
+void gga_c_pbe(gga_type *p, double *rho, double *sigma,
+	       double *e, double *vrho, double *vsigma)
 {
   double dens, zeta, ecunif, vcunif[2];
   double rs, kf, ks, phi, phi3, gdmt, t, t2;
   double f1, f2, f3, f4, a, h;
   double drsdd, dkfdd, dksdd, dzdd[2], dpdz;
-  int is, ix;
+  int is;
 
   lda(p->lda_aux, rho, &ecunif, vcunif);
   rho2dzeta(p->nspin, rho, &dens, &zeta);
@@ -135,12 +134,8 @@ void gga_c_pbe(gga_type *p, double *rho, double *grho,
   phi3 = pow(phi, 3);
 
   /* get gdmt = |nabla n| */
-  gdmt = 0.0;
-  for(ix=0; ix<3; ix++){
-    double dd = grho _(0, ix);
-    if(p->nspin == XC_POLARIZED) dd += grho _(1, ix);
-    gdmt += dd*dd;
-  }
+  gdmt = sigma[0];
+  if(p->nspin == XC_POLARIZED) gdmt += 2.0*sigma[1] + sigma[2];
   gdmt = sqrt(gdmt);
 
   t  = gdmt/(2.0*phi*ks*dens);
@@ -179,20 +174,20 @@ void gga_c_pbe(gga_type *p, double *rho, double *grho,
     df4dd  = f4*(df3dd/f3 - (dadd*f3 + a*df3dd)/(1.0 + a*f3));
     dhdd   = 3.0*h*dpdd/phi;
     dhdd  += gamm*phi3*df4dd/(1.0 + f4);
-    dedd[is] = vcunif[is] + h + dens*dhdd;
+    vrho[is] = vcunif[is] + h + dens*dhdd;
+  }
 
-    for(ix=0; ix<3; ix++){
-      double gdt, dtdgd, df3dgd, df4dgd, dhdgd;
-
-      gdt = grho _(0, ix);
-      if(p->nspin == XC_POLARIZED) gdt += grho _(1, ix);
-
-      dtdgd  = t*gdt/(gdmt*gdmt);
-      df3dgd = dtdgd*t*(2.0 + 4.0*a*t2);
-      df4dgd = f4*df3dgd*(1.0/f3 - a/(1.0 + a*f3));
-      dhdgd  = gamm*phi3*df4dgd/(1.0 + f4);
-      dedgd _(is, ix) = dens*dhdgd;
+  { /* calculate now vsigma */
+    double dtdsig, df3dsig, df4dsig, dhdsig;
+    
+    dtdsig  = t/(2.0*gdmt*gdmt);
+    df3dsig = dtdsig*t*(2.0 + 4.0*a*t2);
+    df4dsig = f4*df3dsig*(1.0/f3 - a/(1.0 + a*f3));
+    dhdsig  = gamm*phi3*df4dsig/(1.0 + f4);
+    vsigma[0] = dens*dhdsig;
+    if(is == 2){
+      vsigma[1] = 2.0*vsigma[0];
+      vsigma[2] =     vsigma[0];
     }
   }
-   
 }

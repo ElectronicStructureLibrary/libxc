@@ -41,6 +41,11 @@ while(data_read(*DATA, \%data) != 0){
     data_read(*DATA2, \%data2) || die "Could not read data file '$tmp_file'";
     close DATA2;
 
+    if($pol == 1){
+      $data2{"vsigmaaa"} *= 2.0;
+      $data2{"vsigmabb"}  = $data2{"vsigmaaa"};
+    }
+
     cmp_data(\%data, \%data2);
   }
 }
@@ -108,7 +113,7 @@ sub cmp_data {
   my ($d1, $d2) = @_;
   my $tol = 1e-10;
 
-  foreach $var ("zk", "vrhoa", "vrhob"){
+  foreach $var ("zk", "vrhoa", "vrhob", "vsigmaaa", "vsigmaab", "vsigmabb"){
     $ok = ($$d1{$var} == 0 && $$d2{$var} == 0);
     if(!$ok){
       $ok = (abs($$d1{$var} - $$d2{$var}) <= $tol*abs($$d1{$var}));

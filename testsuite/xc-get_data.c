@@ -91,6 +91,7 @@ int main(int argc, char *argv[])
 {
   xc_values_type xc;
   lda_type lda_func;
+  gga_type gga_func;
 
   if(argc != 8){
     printf("Usage:\n%s funct pol rhoa rhob sigmaaa sigmaab sigmabb\n", argv[0]);
@@ -99,15 +100,25 @@ int main(int argc, char *argv[])
 
   init_values(&xc, argv);
 
-  if(xc.functional == XC_LDA_X){
-    lda_x_init(&lda_func, xc.nspin, 3, 0);
-  }else{
-    lda_init(&lda_func, xc.functional, xc.nspin);
+  if(xc.nspin == 1){
+    xc.rho[0]    += xc.rho[1];
+    xc.sigma[0] += 2.0*xc.sigma[1] + xc.sigma[2];
   }
-  if(xc.nspin == 1)
-    xc.rho[0] = xc.rho[0] +  xc.rho[1];
 
-  lda(&lda_func, xc.rho, &xc.zk, xc.vrho);
+  if(xc.functional < 100){
+    if(xc.functional == XC_LDA_X){
+      lda_x_init(&lda_func, xc.nspin, 3, 0);
+    }else{
+      lda_init(&lda_func, xc.functional, xc.nspin);
+    }
+
+    lda(&lda_func, xc.rho, &xc.zk, xc.vrho);
+
+  }else if(xc.functional < 200){
+    gga_init(&gga_func, xc.functional, xc.nspin);
+    gga(&gga_func, xc.rho, xc.sigma, &xc.zk, xc.vrho, xc.vsigma);
+    gga_end(&gga_func);
+  }
 
   if(xc.nspin == 1){
     xc.vrho[1] = xc.vrho[0];

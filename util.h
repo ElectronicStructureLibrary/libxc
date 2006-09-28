@@ -17,9 +17,9 @@ double asinh(double x);
 #define FZETA(x)  ((pow(1.0 + zeta, 4.0/3.0) + pow(1.0 - zeta, 4.0/3.0) - 2.0)/FZETAFACTOR)
 #define DFZETA(x) ((pow(1.0 + zeta, 1.0/3.0) - pow(1.0 - zeta, 1.0/3.0))*(4.0/3.0)/FZETAFACTOR)
 
-#define MIN_DENS             1.0e-14
-#define MIN_GRAD             1.0e-14
-#define MIN_TAU              1.0e-14
+#define MIN_DENS             1.0e-20
+#define MIN_GRAD             1.0e-20
+#define MIN_TAU              1.0e-20
 
 #define   _(is, x)   [3*is + x]
 #define  __(i, j)    [2*i + j] 
@@ -56,13 +56,17 @@ void lda_c_amgb  (lda_type *p, double *rho, double *ec, double *vc);
 /* GGAs */
 void gga_x_pbe_init(gga_type *p);
 void gga_c_pbe_init(gga_type *p);
+void gga_x_b88_init(gga_type *p);
 
 void gga_pbe_end(gga_type *p);
 void gga_lb_end (gga_type *p);
+void gga_x_b88_end(gga_type *p);
 
 void gga_x_pbe(gga_type *p, double *rho, double *grho,
 	       double *e, double *dedd, double *dedgd);
 void gga_c_pbe(gga_type *p, double *rho, double *grho,
+	       double *e, double *dedd, double *dedgd);
+void gga_x_b88(gga_type *p, double *rho, double *grho,
 	       double *e, double *dedd, double *dedgd);
 
 

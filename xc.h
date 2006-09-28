@@ -79,6 +79,7 @@ void lda_kxc(lda_type *p, double *rho, double *kxc);
 #define XC_GGA_X_PBE          101 /* Perdew, Burke & Ernzerhof exchange    */
 #define XC_GGA_C_PBE          102 /* Perdew, Burke & Ernzerhof correlation */
 #define XC_GGA_XC_LB          103 /* van Leeuwen & Baerends                */
+#define XC_GGA_X_B88          104 /* Becke 88                              */
 
 typedef struct{
   func_type *func;       /* which functional did we chose   */

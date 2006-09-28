@@ -5,9 +5,6 @@
 #ifndef _XC_H
 #define _XC_H
 
-static int speedup_lda = 0;  /* If this is set to 1, the LDA functionals are interpolated
-	           		after they are initialized, and not calculated every time.*/
-
 #define XC_UNPOLARIZED          1
 #define XC_POLARIZED            2
 
@@ -18,6 +15,12 @@ static int speedup_lda = 0;  /* If this is set to 1, the LDA functionals are int
 #define XC_CORRELATION          1
 #define XC_EXCHANGE_CORRELATION 2
 
+/* If this is set to 1, the LDA functionals are interpolated
+   after they are initialized, and not calculated every time.*/
+extern int speedup_lda;
+
+struct struct_lda_type;
+
 typedef struct{
   int   number; /* indentifier number */
   int   kind;   /* XC_EXCHANGE or XC_CORRELATION */
@@ -25,7 +28,12 @@ typedef struct{
   char *name;   /* name of the functional, e.g. PBE */
   char *family; /* type of the functional, e.g. GGA */
   char *refs;  /* references                       */
-}func_type;
+
+  void (*init)(struct struct_lda_type *p);
+  void (*end) (struct struct_lda_type *p);
+  void (*lda) (struct struct_lda_type *p, double *rho, double *ec, double *vc, double *fc);
+} func_type;
+
 
 /* the LDAs */
 
@@ -45,7 +53,7 @@ typedef struct{
 #define XC_LDA_C_LYP           14   /* Lee, Yang, & Parr LDA        */
 #define XC_LDA_C_AMGB          15   /* Attacalite et al             */
 
-typedef struct{
+struct struct_lda_type {
   func_type *func;      /* which functional did we chose   */
   int    nspin;         /* XC_UNPOLARIZED or XC_POLARIZED  */
   
@@ -59,17 +67,17 @@ typedef struct{
   gsl_spline **pot;
   gsl_spline **potd;
   gsl_interp_accel *acc;
-} lda_type;
+};
+typedef struct struct_lda_type lda_type;
 
-void lda_init(lda_type *p, int functional, int nspin);
+int  lda_init(lda_type *p, int functional, int nspin);
 void lda_x_init(lda_type *p, int nspin, int dim, int irel);
 void lda_c_xalpha_init(lda_type *p, int nspin, int dim, double alpha);
 void lda_x_speedup(lda_type *p, int nspin, int dim, int irel);
 void lda_c_speedup(lda_type *p, int nspin);
 
-void lda_work(lda_type *p, double *rho, double *ec, double *vc, double *fxc);
 void lda_interpolate(lda_type *p, double *rho, double *ec, double *vc);
-void lda(lda_type *p, double *rho, double *ec, double *vc);
+void lda(lda_type *p, double *rho, double *ec, double *vc, double *fc);
 void lda_fxc(lda_type *p, double *rho, double *fxc);
 void lda_kxc(lda_type *p, double *rho, double *kxc);
 

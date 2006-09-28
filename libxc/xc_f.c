@@ -94,7 +94,7 @@ void FC_FUNC_(xc_lda_end, XC_LDA_END)
 void FC_FUNC_(xc_lda, XC_LDA)
      (void **p, double *rho, double *e, double *v)
 {
-  lda((lda_type *)(*p), rho, e, v);
+  lda((lda_type *)(*p), rho, e, v, NULL);
 }
 
 void FC_FUNC_(xc_lda_fxc, XC_LDA_FXC)

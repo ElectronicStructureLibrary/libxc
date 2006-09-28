@@ -8,16 +8,6 @@
  gas in 2D, as parametrized by Attacalite et al.
 ************************************************************************/
 
-static func_type func_lda_c_amgb = {
-  XC_LDA_C_AMGB,
-  XC_CORRELATION,
-  "AMGB (for 2D systems)",
-  "LDA",
-  "C. Attacalite et al, Phys. Rev. Lett. 88, 256601 (2002)\n"
-  "C. Attacalite, PhD thesis"
-};
-
-
 /* parameters necessary to the calculation */
 static double a[3] = { -0.1925,     0.117331,    0.0234188 };
 static double b[3] = {  0.0863136, -3.394e-2,   -0.037093  };
@@ -35,8 +25,6 @@ void lda_c_amgb_init(lda_type *p)
 {
   int i;
   
-  p->func = &func_lda_c_amgb;
-
   /* initialize a couple of constants */
   for(i=0; i<3; i++) d[i] = -a[i]*h[i];
   ax = -4.0/(3.0*M_PI*sqrt(2.0));
@@ -64,7 +52,7 @@ static double dalphadrs(int i, double *rs)
 }
 
 
-void lda_c_amgb(lda_type *p, double *rho, double *ec, double *vc)
+void lda_c_amgb(lda_type *p, double *rho, double *ec, double *vc, double *fc)
 {
   double dens, zeta, rs[4];
   int i;
@@ -133,3 +121,15 @@ void lda_c_amgb(lda_type *p, double *rho, double *ec, double *vc)
     vc[1] = (*ec) - 0.5*rs[1]*decdrs - (zeta + 1.0)*decdz;		
   }
 }
+
+func_type func_lda_c_amgb = {
+  XC_LDA_C_AMGB,
+  XC_CORRELATION,
+  "AMGB (for 2D systems)",
+  "LDA",
+  "C. Attacalite et al, Phys. Rev. Lett. 88, 256601 (2002)\n"
+  "C. Attacalite, PhD thesis",
+  lda_c_amgb_init,
+  NULL,
+  lda_c_amgb
+};

@@ -149,7 +149,7 @@ x_tpss_para(mgga_type *pt, double rho, double *grho, double tau_,
   tau = max(tau_, MIN_TAU);
 
   /* get the uniform gas energy and potential */
-  lda(pt->lda_aux, &rho, &exunif, &vxunif);
+  lda(pt->lda_aux, &rho, &exunif, &vxunif, NULL);
 
   /* calculate |nabla rho|^2 */
   gdms = grho[0]*grho[0] + grho[1]*grho[1] + grho[2]*grho[2];

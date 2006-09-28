@@ -47,7 +47,7 @@ void gga_lb(gga_type *p, double *rho, double *sigma, double r, double ip, double
 
   static const double beta = 0.05;
 
-  lda(p->lda_aux, rho, &x, dedd);
+  lda(p->lda_aux, rho, &x, dedd, NULL);
   if(p->modified){
     alpha = (ip > 0.0) ? 2.0*sqrt(2.0*ip) : 0.5;
     gamm  = pow(qtot, 1.0/3.0)/(2.0*alpha);

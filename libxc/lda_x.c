@@ -27,28 +27,6 @@
  This factor can only be aplied in 3D and for the spin-unpolarized case.
 ************************************************************************/
 
-static func_type func_lda_x = {
-  XC_LDA_X,
-  XC_EXCHANGE,
-  "Slater exchange",
-  "LDA",
-  "P.A.M. Dirac, Proceedings of the Cambridge Philosophical Society 26, 376 (1930)\n"
-  "F. Bloch, Zeitschrift für Physik 57, 545 (1929)"
-};
-
-void lda_x_init(lda_type *p, int nspin, int dim, int irel)
-{
-  p->func = &func_lda_x;
-
-  assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
-  assert(dim>=2 && dim<=3);
-  assert(irel == 0 || (dim==3 && nspin==XC_UNPOLARIZED));
-  p->dim = dim;
-  p->relativistic = irel;
-  p->nspin = nspin;
-}
-
-
 void lda_x(lda_type *p, double *rho, double *ex, double *vx, double *fx)
 {
   static double a_x[3] = {-1.0, -1.06384608107049, -0.738558766382022};
@@ -98,6 +76,32 @@ void lda_x(lda_type *p, double *rho, double *ex, double *vx, double *fx)
   };
 }
 
+func_type func_lda_x = {
+  XC_LDA_X,
+  XC_EXCHANGE,
+  "Slater exchange",
+  "LDA",
+  "P.A.M. Dirac, Proceedings of the Cambridge Philosophical Society 26, 376 (1930)\n"
+  "F. Bloch, Zeitschrift für Physik 57, 545 (1929)",
+  NULL,
+  NULL,
+  lda_x
+};
+
+
+void lda_x_init(lda_type *p, int nspin, int dim, int irel)
+{
+  p->func = &func_lda_x;
+
+  assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
+  assert(dim>=2 && dim<=3);
+  assert(irel == 0 || (dim==3 && nspin==XC_UNPOLARIZED));
+  p->dim = dim;
+  p->relativistic = irel;
+  p->nspin = nspin;
+}
+
+
 void lda_x_speedup(lda_type *p, int nspin, int dim, int irel)
 {
   int i; int n = 600;
@@ -123,12 +127,12 @@ void lda_x_speedup(lda_type *p, int nspin, int dim, int irel)
   y2 = (double *)malloc(n*sizeof(double));
 
   x[0]  = -0.01; y[0]  = 0.0; y2[0] = 0.0;
-  x[1]  = 0.0;  y[1]  = 0.0;  y2[1] = 0.0;
+  x[1]  =  0.0;  y[1]  = 0.0; y2[1] = 0.0;
 
   rpb = b; ea = exp(a);
   for (i = 2; i < n; i++){
       x[i] = b* (exp(a*(i-1))-1.0);
-      lda_work(p, &(x[i]), &(y[i]), &(y2[i]), NULL);
+      lda(p, &(x[i]), &(y[i]), &(y2[i]), NULL);
       y[i]  *= factor; y2[i] *= factor;}
 
   (*p).energy[0]     = gsl_spline_alloc (gsl_interp_linear, n);

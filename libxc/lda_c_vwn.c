@@ -7,22 +7,6 @@
  LDA parametrization of Vosko, Wilk & Nusair
 ************************************************************************/
 
-static func_type func_lda_c_vwn = {
-  XC_LDA_C_VWN,
-  XC_CORRELATION,
-  "Vosko, Wilk & Nusair",
-  "LDA",
-  "S.H. Vosko, L. Wilk, and M. Nusair, Can. J. Phys. 58, 1200 (1980)"
-};
-
-static func_type func_lda_c_vwn_rpa = {
-  XC_LDA_C_VWN_RPA,
-  XC_CORRELATION,
-  "Vosko, Wilk & Nusair (parametrization of the RPA energy)",
-  "LDA",
-  "S.H. Vosko, L. Wilk, and M. Nusair, Can. J. Phys. 58, 1200 (1980)"
-};
-
 /* some constants         e_c^P      e_c^F      alpha_c */
 typedef struct {
   double  A[3]; /* e_c^P, e_c^F, alpha_c */
@@ -68,15 +52,13 @@ void init_vwn_constants(vwn_consts_type *X)
   X->fpp = 4.0/(9.0*(pow(2.0, 1.0/3.0) - 1));
 }
 
-void lda_c_vwn_init(lda_type *p)
+static void lda_c_vwn_init(lda_type *p)
 {
-  p->func = &func_lda_c_vwn;
   init_vwn_constants(&vwn_consts[0]);
 }
 
-void lda_c_vwn_rpa_init(lda_type *p)
+static void lda_c_vwn_rpa_init(lda_type *p)
 {
-  p->func = &func_lda_c_vwn_rpa;
   init_vwn_constants(&vwn_consts[1]);
 }
 
@@ -101,20 +83,23 @@ void ec_i(vwn_consts_type *X, int i, double x, double *ec, double *decdrs)
 }
 
 /* the functional */
-void lda_c_vwn(lda_type *p, double rs_, double zeta, double *ec, double *vc)
+void lda_c_vwn(lda_type *p, double *rho, double *ec, double *vc, double *fc)
 {
+  double dens, zeta;
   double rs[2], ec_1, dec_1;
   int func;
   vwn_consts_type *X;
 
   assert(p!=NULL);
 
+  rho2dzeta(p->nspin, rho, &dens, &zeta);
+
   func = p->func->number - XC_LDA_C_VWN;
   assert(func==0 || func==1);
   X = &vwn_consts[func];
 
   /* Wigner radius */
-  rs[1] = rs_;          /* rs          */
+  rs[1] = RS(dens);     /* rs          */
   rs[0] = sqrt(rs[1]);  /* sqrt(rs)    */
 
   ec_i(X, 0, rs[0], &ec_1, &dec_1);
@@ -149,3 +134,26 @@ void lda_c_vwn(lda_type *p, double rs_, double zeta, double *ec, double *vc)
   }
 	
 }
+
+func_type func_lda_c_vwn = {
+  XC_LDA_C_VWN,
+  XC_CORRELATION,
+  "Vosko, Wilk & Nusair",
+  "LDA",
+  "S.H. Vosko, L. Wilk, and M. Nusair, Can. J. Phys. 58, 1200 (1980)",
+  lda_c_vwn_init,
+  NULL,
+  lda_c_vwn
+};
+
+func_type func_lda_c_vwn_rpa = {
+  XC_LDA_C_VWN_RPA,
+  XC_CORRELATION,
+  "Vosko, Wilk & Nusair (parametrization of the RPA energy)",
+  "LDA",
+  "S.H. Vosko, L. Wilk, and M. Nusair, Can. J. Phys. 58, 1200 (1980)",
+  lda_c_vwn_rpa_init,
+  NULL,
+  lda_c_vwn 
+};
+

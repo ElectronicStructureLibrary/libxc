@@ -18,7 +18,7 @@
 ## $Id: configure.ac 2422 2006-09-23 20:43:15Z marques $
 
 AC_INIT([libxc],[0.9],[octopus-devel@tddft.org],[libxc])
-AC_CONFIG_SRCDIR([xc.h])
+AC_CONFIG_SRCDIR([src/xc.h])
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_HEADERS([config.h])
@@ -34,11 +34,6 @@ AC_LANG_PREPROC
 # Checks for header files.
 AC_HEADER_STDC
 AC_FUNC_ALLOCA
-
-dnl check for GSL
-AM_PATH_GSL([1.0], 
-  [CFLAGS="$CFLAGS $GSL_CFLAGS"], 
-  AC_MSG_ERROR([could not find required gsl library]))
 
 # Checks for size of pointer
 ACX_POINTER_SIZE
@@ -70,7 +65,7 @@ if test $ac_cv_build_fortran = yes; then
   AC_LANG_POP([Fortran])
 fi
 
-AC_CONFIG_FILES([Makefile testsuite/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile testsuite/Makefile])
 
 AC_OUTPUT
 

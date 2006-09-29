@@ -17,17 +17,21 @@
 ## Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 ## 02111-1307, USA.
 ##
-## $Id:  $
+## $Id: Makefile.am 2433 2006-09-28 11:06:54Z marques $
 
-check_PROGRAMS = xc-get_data
-dist_noinst_SCRIPTS = xc-run_testsuite xc-run_regression_test.pl
-TESTS = xc-run_testsuite
+lib_LIBRARIES = libxc.a
 
-xc_get_data_SOURCES = xc-get_data.c
-xc_get_data_LDADD = -L../src/ -lxc -lm
-xc_get_data_CPPFLAGS = -I../src/
+libxc_a_SOURCES = util.c lda_x.c \
+	lda.c lda_funcs.c lda_c_vwn.c lda_c_pz.c lda_c_pw.c lda_c_amgb.c \
+	gga.c gga_pbe.c gga_lb.c gga_x_b86.c gga_x_b88.c\
+	mgga.c mgga_x_tpss.c mgga_c_tpss.c \
+	lca.c lca_omc.c lca_lch.c \
+	xc_f.c
 
-dist_noinst_DATA = *.data
+noinst_HEADERS = util.h
+include_HEADERS = xc.h
+
+AM_CPPFLAGS = -I../../libstring_f
 
 CLEANFILES = *~ *.bak
 DISTCLEANFILES = Makefile.in

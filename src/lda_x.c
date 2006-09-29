@@ -27,10 +27,11 @@
  This factor can only be aplied in 3D and for the spin-unpolarized case.
 ************************************************************************/
 
-void lda_x(lda_type *p, double *rho, double *ex, double *vx, double *fx)
+void lda_x(void *p_, double *rho, double *ex, double *vx, double *fx)
 {
-  static double a_x[3] = {-1.0, -1.06384608107049, -0.738558766382022};
+  lda_type *p = (lda_type *)p_;
 
+  static double a_x[3] = {-1.0, -1.06384608107049, -0.738558766382022};
   double dens, alpha, factor, beta, phi, DphiDdens;
   int i;
   
@@ -96,53 +97,9 @@ void lda_x_init(lda_type *p, int nspin, int dim, int irel)
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
   assert(dim>=2 && dim<=3);
   assert(irel == 0 || (dim==3 && nspin==XC_UNPOLARIZED));
+
   p->dim = dim;
   p->relativistic = irel;
-  p->nspin = nspin;
-}
-
-
-void lda_x_speedup(lda_type *p, int nspin, int dim, int irel)
-{
-  int i; int n = 600;
-  double *x, *y, *y2;
-  double alpha, factor;
-  double a, b, rpb, ea;
-
-  p->nspin = 1;
-  p->zeta_npoints = 1;
-
-  (*p).energy = malloc(sizeof(gsl_spline));
-  (*p).pot    = malloc(sizeof(gsl_spline));
-  (*p).energy = malloc(sizeof(gsl_spline));
-
-  alpha = (p->dim + 1.0)/p->dim;
-  factor = (nspin == XC_UNPOLARIZED) ? 1.0 : pow(2.0, alpha)/2.0;
-
-  a = 0.025;
-  b = 0.0000001;
-
-  x  = (double *)malloc(n*sizeof(double));
-  y  = (double *)malloc(n*sizeof(double));
-  y2 = (double *)malloc(n*sizeof(double));
-
-  x[0]  = -0.01; y[0]  = 0.0; y2[0] = 0.0;
-  x[1]  =  0.0;  y[1]  = 0.0; y2[1] = 0.0;
-
-  rpb = b; ea = exp(a);
-  for (i = 2; i < n; i++){
-      x[i] = b* (exp(a*(i-1))-1.0);
-      lda(p, &(x[i]), &(y[i]), &(y2[i]), NULL);
-      y[i]  *= factor; y2[i] *= factor;}
-
-  (*p).energy[0]     = gsl_spline_alloc (gsl_interp_linear, n);
-  (*p).pot[0]        = gsl_spline_alloc (gsl_interp_linear, n);
-  (*p).acc           = gsl_interp_accel_alloc ();
-  gsl_spline_init ((*p).energy[0], x, y, n);
-  gsl_spline_init ((*p).pot[0], x, y2, n);
-
-  free(x); free(y); free(y2);
-
   p->nspin = nspin;
 }
 

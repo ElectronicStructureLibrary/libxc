@@ -28,24 +28,7 @@ double asinh(double x);
 void rho2dzeta(int nspin, double *rho, double *d, double *zeta);
 
 /* LDAs */
-void lda_x       (lda_type *p, double *rho, double *ex, double *vx, double *fx);
-
-/* GGAs */
-void gga_x_pbe_init(gga_type *p);
-void gga_c_pbe_init(gga_type *p);
-void gga_x_b88_init(gga_type *p);
-
-void gga_pbe_end(gga_type *p);
-void gga_lb_end (gga_type *p);
-void gga_x_b88_end(gga_type *p);
-
-void gga_x_pbe(gga_type *p, double *rho, double *grho,
-	       double *e, double *dedd, double *dedgd);
-void gga_c_pbe(gga_type *p, double *rho, double *grho,
-	       double *e, double *dedd, double *dedgd);
-void gga_x_b88(gga_type *p, double *rho, double *grho,
-	       double *e, double *dedd, double *dedgd);
-
+void lda_x(void *p, double *rho, double *ex, double *vx, double *fx);
 
 /* meta-GGAs */
 void mgga_x_tpss_init(mgga_type *p);

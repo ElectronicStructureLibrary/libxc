@@ -7,10 +7,11 @@
  Wigner's parametrization from the low density limit
 ************************************************************************/
 
-static void lda_c_wigner(lda_type *p, double *rho, double *ec, double *vc, double *fc)
+static void lda_c_wigner(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
+  lda_type *p = (lda_type *)p_;
+
   static double a = -0.44, b = 7.8;
-  
   double dens, zeta, rs;
   double t;
   
@@ -42,10 +43,11 @@ func_type func_lda_c_wigner = {
  Random Phase Approximation (RPA)
 ************************************************************************/
 
-static void lda_c_rpa(lda_type *p, double *rho, double *ec, double *vc, double *fc)
+static void lda_c_rpa(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
-  static double a = 0.0311, b = -0.047, c = 0.009, d = -0.017;
+  lda_type *p = (lda_type *)p_;
 
+  static double a = 0.0311, b = -0.047, c = 0.009, d = -0.017;
   double dens, zeta, rs;
   double lrs;
 
@@ -100,8 +102,10 @@ static void hl_f(int func, int i, double rs, double *ec, double *vc)
 }
 
 
-static void lda_c_hl(lda_type *p, double *rho, double *ec, double *vc, double *fc)
+static void lda_c_hl(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
+  lda_type *p = (lda_type *)p_;
+
   double ecp, vcp;
   double dens, zeta, rs;
   int func = p->func->number - XC_LDA_C_HL;
@@ -169,8 +173,9 @@ func_type func_lda_c_gl = {
 a total exchange and correlation functional, Exc, equal to 3/2 * alpha * Ex 
 Setting alpha equal to one gives the *usual* Slater Xalpha functional,
 whereas alpha equal to 2/3 just leaves the exchange functional unchanged */
-static void lda_c_xalpha(lda_type *p, double *rho, double *ec, double *vc, double *fc)
+static void lda_c_xalpha(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
+  lda_type *p = (lda_type *)p_;
   int i;
 
   lda_x(p, rho, ec, vc, fc);
@@ -194,9 +199,6 @@ void lda_c_xalpha_init(lda_type *p, int nspin, int dim, double alpha)
   p->alpha = alpha;
   lda_x_init(p, nspin, dim, XC_NON_RELATIVISTIC);
   p->func = &func_lda_c_xalpha;
-#if defined(LDA_SPEEDUP)
-  lda_x_speedup(p, nspin, dim, XC_NON_RELATIVISTIC);
-#endif
 }
 
 
@@ -204,8 +206,10 @@ void lda_c_xalpha_init(lda_type *p, int nspin, int dim, double alpha)
  LDA part of LYP's functional (translated from PWSCF)
 ************************************************************************/
 
-void lda_c_lyp(lda_type *p, double *rho, double *ec, double *vc, double *fc)
+void lda_c_lyp(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
+  lda_type *p = (lda_type *)p_;
+
   static const double a=0.04918, b=0.132*2.87123400018819108;
   /* pi43=(4pi/3)^(1/3)     0.2533*pi43             0.349*pi43 */
   static const double c=0.408317561952371851, d=0.56258519195174803;

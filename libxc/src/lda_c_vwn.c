@@ -52,12 +52,12 @@ void init_vwn_constants(vwn_consts_type *X)
   X->fpp = 4.0/(9.0*(pow(2.0, 1.0/3.0) - 1));
 }
 
-static void lda_c_vwn_init(lda_type *p)
+static void lda_c_vwn_init(void *p_)
 {
   init_vwn_constants(&vwn_consts[0]);
 }
 
-static void lda_c_vwn_rpa_init(lda_type *p)
+static void lda_c_vwn_rpa_init(void *p_)
 {
   init_vwn_constants(&vwn_consts[1]);
 }
@@ -83,8 +83,10 @@ void ec_i(vwn_consts_type *X, int i, double x, double *ec, double *decdrs)
 }
 
 /* the functional */
-void lda_c_vwn(lda_type *p, double *rho, double *ec, double *vc, double *fc)
+void lda_c_vwn(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
+  lda_type *p = (lda_type *)p_;
+
   double dens, zeta;
   double rs[2], ec_1, dec_1;
   int func;

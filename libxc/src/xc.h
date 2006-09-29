@@ -15,10 +15,6 @@
 #define XC_CORRELATION          1
 #define XC_EXCHANGE_CORRELATION 2
 
-/* If this is set to 1, the LDA functionals are interpolated
-   after they are initialized, and not calculated every time.*/
-extern int speedup_lda;
-
 struct struct_lda_type;
 
 typedef struct{
@@ -29,9 +25,10 @@ typedef struct{
   char *family; /* type of the functional, e.g. GGA */
   char *refs;  /* references                       */
 
-  void (*init)(struct struct_lda_type *p);
-  void (*end) (struct struct_lda_type *p);
-  void (*lda) (struct struct_lda_type *p, double *rho, double *ec, double *vc, double *fc);
+  void (*init)(void *p);
+  void (*end) (void *p);
+  void (*lda) (void *p, double *rho, double *ec, double *vc, double *fc);
+  void (*gga) (void *p, double *rho, double *sigma, double *ec, double *vc, double *vsigma);
 } func_type;
 
 
@@ -61,22 +58,13 @@ struct struct_lda_type {
   int    dim;
   
   double alpha;         /* parameter for Xalpha functional */
-
-  int zeta_npoints;
-  gsl_spline **energy;
-  gsl_spline **pot;
-  gsl_spline **potd;
-  gsl_interp_accel *acc;
 };
 typedef struct struct_lda_type lda_type;
 
 int  lda_init(lda_type *p, int functional, int nspin);
 void lda_x_init(lda_type *p, int nspin, int dim, int irel);
 void lda_c_xalpha_init(lda_type *p, int nspin, int dim, double alpha);
-void lda_x_speedup(lda_type *p, int nspin, int dim, int irel);
-void lda_c_speedup(lda_type *p, int nspin);
 
-void lda_interpolate(lda_type *p, double *rho, double *ec, double *vc);
 void lda(lda_type *p, double *rho, double *ec, double *vc, double *fc);
 void lda_fxc(lda_type *p, double *rho, double *fxc);
 void lda_kxc(lda_type *p, double *rho, double *kxc);
@@ -85,9 +73,13 @@ void lda_kxc(lda_type *p, double *rho, double *kxc);
 /* the GGAs */
 
 #define XC_GGA_X_PBE          101 /* Perdew, Burke & Ernzerhof exchange    */
-#define XC_GGA_C_PBE          102 /* Perdew, Burke & Ernzerhof correlation */
-#define XC_GGA_XC_LB          103 /* van Leeuwen & Baerends                */
+#define XC_GGA_X_B86          102 /* Becke 86 Xalfa,beta,gamma             */
+#define XC_GGA_X_B86_R        103 /* Becke 86 Xalfa,beta,gamma reoptimized */
 #define XC_GGA_X_B88          104 /* Becke 88                              */
+
+#define XC_GGA_C_PBE          130 /* Perdew, Burke & Ernzerhof correlation */
+
+#define XC_GGA_XC_LB          160 /* van Leeuwen & Baerends                */
 
 typedef struct{
   func_type *func;       /* which functional did we chose   */
@@ -99,7 +91,7 @@ typedef struct{
   double threshold;
 } gga_type;
 
-void gga_init(gga_type *p, int functional, int nspin);
+int  gga_init(gga_type *p, int functional, int nspin);
 void gga_end (gga_type *p);
 void gga     (gga_type *p, double *rho, double *grho,
 	      double *e, double *dedd, double *dedgd);

@@ -8,34 +8,10 @@
   Calculates van Leeuwen Baerends functional
 ************************************************************************/
 
-static func_type func_gga_lb = {
-  XC_GGA_XC_LB,
-  XC_EXCHANGE_CORRELATION,
-  "van Leeuwen & Baerends",
-  "GGA",
-  "R. van Leeuwen and E. J. Baerends, Phys. Rev. A. 49, 2421 (1994)"
-};
-
-
-void gga_lb_init(gga_type *p, int nspin, int modified, double threshold)
+void gga_lb_end(void *p_)
 {
-  assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
+  gga_type *p = p_;
 
-  p->nspin = nspin;
-  p->func = &func_gga_lb;
-  p->lda_aux = (lda_type *) malloc(sizeof(lda_type));
-  lda_x_init(p->lda_aux, nspin, 3, XC_NON_RELATIVISTIC);
-#if defined(LDA_SPEEDUP)
-  lda_x_speedup(p->lda_aux, nspin, 3, XC_NON_RELATIVISTIC);
-#endif
-  
-  p->modified  = modified;
-  p->threshold = threshold;
-}
-
-
-void gga_lb_end(gga_type *p)
-{
   free(p->lda_aux);
 }
 
@@ -73,4 +49,29 @@ void gga_lb(gga_type *p, double *rho, double *sigma, double r, double ip, double
       dedd[is] -= 1.0/x;
     }
   }
+}
+
+const func_type func_gga_lb = {
+  XC_GGA_XC_LB,
+  XC_EXCHANGE_CORRELATION,
+  "van Leeuwen & Baerends",
+  "GGA",
+  "R. van Leeuwen and E. J. Baerends, Phys. Rev. A. 49, 2421 (1994)",
+  NULL,
+  gga_lb_end,
+  NULL,
+  NULL /* we can not call this directly */
+};
+
+void gga_lb_init(gga_type *p, int nspin, int modified, double threshold)
+{
+  assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
+
+  p->nspin = nspin;
+  p->func = &func_gga_lb;
+  p->lda_aux = (lda_type *) malloc(sizeof(lda_type));
+  lda_x_init(p->lda_aux, nspin, 3, XC_NON_RELATIVISTIC);
+  
+  p->modified  = modified;
+  p->threshold = threshold;
 }

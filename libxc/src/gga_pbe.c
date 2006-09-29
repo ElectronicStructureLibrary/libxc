@@ -10,58 +10,33 @@
  I based this implementation on a routine from L.C. Balbas and J.M. Soler
 ************************************************************************/
 
-static func_type func_gga_x_pbe = {
-  XC_GGA_X_PBE,
-  XC_EXCHANGE,
-  "Perdew, Burke & Ernzerhof",
-  "GGA",
-  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)"
-};
 
-static func_type func_gga_c_pbe = {
-  XC_GGA_C_PBE,
-  XC_CORRELATION,
-  "Perdew, Burke & Ernzerhof",
-  "GGA",
-  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)"
-};
-
-
-/* some parameters */
-static const double beta  = 0.06672455060314922;
+/*                            exchange                                 */
 static const double kappa = 0.8040;
-static const double gamm  = 0.03109076908696549; /* (1.0 - log(2.0))/(M_PI*M_PI) */
 static const double mu    = 0.2195149727645171;  /* beta*M_PI*M_PI/3.0 */
 
-void gga_x_pbe_init(gga_type *p)
+void gga_x_pbe_init(void *p_)
 {
-  p->func = &func_gga_x_pbe;
+  gga_type *p = p_;
+
   p->lda_aux = (lda_type *) malloc(sizeof(lda_type));
   lda_x_init(p->lda_aux, XC_UNPOLARIZED, 3, XC_NON_RELATIVISTIC);
-#if defined(LDA_SPEEDUP)
-  lda_x_speedup(p->lda_aux, XC_UNPOLARIZED, 3, XC_NON_RELATIVISTIC);
-#endif
 }
 
 
-void gga_c_pbe_init(gga_type *p)
+void gga_x_pbe_end(void *p_)
 {
-  p->func = &func_gga_c_pbe;
-  p->lda_aux = (lda_type *) malloc(sizeof(lda_type));
-  lda_init(p->lda_aux, XC_LDA_C_PW, p->nspin);
-  if(speedup_lda) lda_c_speedup(p->lda_aux, p->nspin);
-}
+  gga_type *p = p_;
 
-
-void gga_pbe_end(gga_type *p)
-{
   free(p->lda_aux);
 }
 
 
-void gga_x_pbe(gga_type *p, double *rho, double *sigma,
+void gga_x_pbe(void *p_, double *rho, double *sigma,
 	       double *e, double *vrho, double *vsigma)
 {
+  gga_type *p = p_;
+
   double dens, sfact;
   int is;
 
@@ -114,9 +89,37 @@ void gga_x_pbe(gga_type *p, double *rho, double *sigma,
 }
 
 
-void gga_c_pbe(gga_type *p, double *rho, double *sigma,
+const func_type func_gga_x_pbe = {
+  XC_GGA_X_PBE,
+  XC_EXCHANGE,
+  "Perdew, Burke & Ernzerhof",
+  "GGA",
+  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)",
+  gga_x_pbe_init,
+  gga_x_pbe_end,
+  NULL,            /* this is not an LDA                   */
+  gga_x_pbe,
+};
+
+
+/*                            correlation                                 */
+static const double beta  = 0.06672455060314922;
+static const double gamm  = 0.03109076908696549; /* (1.0 - log(2.0))/(M_PI*M_PI) */
+
+void gga_c_pbe_init(void *p_)
+{
+  gga_type *p = p_;
+
+  p->lda_aux = (lda_type *) malloc(sizeof(lda_type));
+  lda_init(p->lda_aux, XC_LDA_C_PW, p->nspin);
+}
+
+
+void gga_c_pbe(void *p_, double *rho, double *sigma,
 	       double *e, double *vrho, double *vsigma)
 {
+  gga_type *p = p_;
+
   double dens, zeta, ecunif, vcunif[2];
   double rs, kf, ks, phi, phi3, gdmt, t, t2;
   double f1, f2, f3, f4, a, h;
@@ -191,3 +194,15 @@ void gga_c_pbe(gga_type *p, double *rho, double *sigma,
     }
   }
 }
+
+const func_type func_gga_c_pbe = {
+  XC_GGA_C_PBE,
+  XC_CORRELATION,
+  "Perdew, Burke & Ernzerhof",
+  "GGA",
+  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)",
+  gga_c_pbe_init,
+  gga_x_pbe_end,   /* we can use the same as exchange here */
+  NULL,            /* this is not an LDA                   */
+  gga_c_pbe,
+};

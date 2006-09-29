@@ -1,7 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "../xc.h"
+#include <xc.h>
 
 typedef struct {
   int functional;
@@ -108,14 +108,18 @@ int main(int argc, char *argv[])
   if(xc.functional < 100){
     if(xc.functional == XC_LDA_X){
       lda_x_init(&lda_func, xc.nspin, 3, 0);
-    }else{
-      lda_init(&lda_func, xc.functional, xc.nspin);
+    }else if(lda_init(&lda_func, xc.functional, xc.nspin) == -1){
+      fprintf(stderr, "GGA functional '%d' not found\n", xc.functional);
+      exit(1);
     }
 
     lda(&lda_func, xc.rho, &xc.zk, xc.vrho, NULL);
 
   }else if(xc.functional < 200){
-    gga_init(&gga_func, xc.functional, xc.nspin);
+    if(gga_init(&gga_func, xc.functional, xc.nspin) == -1){
+      fprintf(stderr, "GGA functional '%d' not found\n", xc.functional);
+      exit(1);
+    }
     gga(&gga_func, xc.rho, xc.sigma, &xc.zk, xc.vrho, xc.vsigma);
     gga_end(&gga_func);
   }

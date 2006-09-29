@@ -21,7 +21,7 @@ static double beta = 1.3386, ax = 0.0;
 
 
 /* Initialization */
-void lda_c_amgb_init(lda_type *p)
+void lda_c_amgb_init(void *p)
 {
   int i;
   
@@ -52,8 +52,10 @@ static double dalphadrs(int i, double *rs)
 }
 
 
-void lda_c_amgb(lda_type *p, double *rho, double *ec, double *vc, double *fc)
+void lda_c_amgb(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
+  lda_type *p = (lda_type *)p_;
+  
   double dens, zeta, rs[4];
   int i;
   

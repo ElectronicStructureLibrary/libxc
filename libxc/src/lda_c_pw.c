@@ -61,8 +61,10 @@ static void g(int func, int k, double *rs, double *f, double *dfdrs, double *d2f
 
 
 /* the functional */
-void lda_c_pw(lda_type *p, double *rho, double *ec, double *vc, double *fc)
+void lda_c_pw(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
+  lda_type *p = (lda_type *)p_;
+
   double dens, zeta;
   double rs[3], Dec_Drs, D2ec_Drs2, *dp;
   int func = p->func->number - XC_LDA_C_PW;

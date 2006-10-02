@@ -55,6 +55,14 @@ void FC_FUNC_(xc_info_ref, XC_INFO_REF)
   TO_F_STR1(ref, ref_f);
 }
 
+/* functionals */
+int FC_FUNC_(xc_family_from_id, XC_FAMILY_FROM_ID)
+  (int *functional)
+{
+  return family_from_id(*functional);
+}
+
+
 /* LDAs */
 
 void FC_FUNC_(xc_lda_init_, XC_LDA_INIT_)

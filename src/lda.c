@@ -18,10 +18,9 @@ extern func_type /* these are the LDA functionals that I know */
   func_lda_c_ob_pz,
   func_lda_c_pw,
   func_lda_c_ob_pw,
-  func_lda_c_lyp,
   func_lda_c_amgb;
 
-static func_type *lda_known_funct[] = {
+func_type *lda_known_funct[] = {
   &func_lda_x,
   &func_lda_c_wigner,
   &func_lda_c_rpa,
@@ -35,7 +34,6 @@ static func_type *lda_known_funct[] = {
   &func_lda_c_ob_pz,
   &func_lda_c_pw,
   &func_lda_c_ob_pw,
-  &func_lda_c_lyp,
   &func_lda_c_amgb,
   NULL
 };

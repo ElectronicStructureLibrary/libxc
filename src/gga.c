@@ -5,18 +5,24 @@
 
 extern func_type /* these are the GGA functionals that I know */
   func_gga_x_pbe,
+  func_gga_x_pbe_r,
   func_gga_x_b86,
   func_gga_x_b86_r,
+  func_gga_x_b86_mgc,
   func_gga_x_b88,
   func_gga_c_pbe,
+  func_gga_c_lyp,
   func_gga_lb;
 
-static func_type *gga_known_funct[] = {
+func_type *gga_known_funct[] = {
   &func_gga_x_pbe,
+  &func_gga_x_pbe_r,
   &func_gga_x_b86,
   &func_gga_x_b86_r,
+  &func_gga_x_b86_mgc,
   &func_gga_x_b88,
   &func_gga_c_pbe,
+  &func_gga_c_lyp,
   &func_gga_lb,
   NULL
 };

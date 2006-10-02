@@ -15,6 +15,13 @@
 #define XC_CORRELATION          1
 #define XC_EXCHANGE_CORRELATION 2
 
+#define XC_FAMILY_UNKNOWN      -1
+#define XC_FAMILY_LDA           1
+#define XC_FAMILY_GGA           2
+#define XC_FAMILY_MGGA          4
+#define XC_FAMILY_LCA           8
+#define XC_FAMILY_OEP          16
+
 struct struct_lda_type;
 
 typedef struct{
@@ -32,6 +39,10 @@ typedef struct{
 } func_type;
 
 
+/* functionals */
+int family_from_id(int functional);
+
+
 /* the LDAs */
 
 #define XC_LDA_X                1   /* Exchange                     */
@@ -47,8 +58,7 @@ typedef struct{
 #define XC_LDA_C_OB_PZ         11   /* Ortiz & Ballone (PZ)         */
 #define XC_LDA_C_PW            12   /* Perdew & Wang                */
 #define XC_LDA_C_OB_PW         13   /* Ortiz & Ballone (PW)         */
-#define XC_LDA_C_LYP           14   /* Lee, Yang, & Parr LDA        */
-#define XC_LDA_C_AMGB          15   /* Attacalite et al             */
+#define XC_LDA_C_AMGB          14   /* Attacalite et al             */
 
 struct struct_lda_type {
   func_type *func;      /* which functional did we chose   */
@@ -72,14 +82,18 @@ void lda_kxc(lda_type *p, double *rho, double *kxc);
 
 /* the GGAs */
 
-#define XC_GGA_X_PBE          101 /* Perdew, Burke & Ernzerhof exchange    */
-#define XC_GGA_X_B86          102 /* Becke 86 Xalfa,beta,gamma             */
-#define XC_GGA_X_B86_R        103 /* Becke 86 Xalfa,beta,gamma reoptimized */
-#define XC_GGA_X_B88          104 /* Becke 88                              */
+#define XC_GGA_X_PBE          101 /* Perdew, Burke & Ernzerhof exchange             */
+#define XC_GGA_X_PBE_R        102 /* Perdew, Burke & Ernzerhof exchange (revised)   */
+#define XC_GGA_X_B86          103 /* Becke 86 Xalfa,beta,gamma                      */
+#define XC_GGA_X_B86_R        104 /* Becke 86 Xalfa,beta,gamma (reoptimized)        */
+#define XC_GGA_X_B86_MGC      105 /* Becke 86 Xalfa,beta,gamma (with mod. grad. correction) */
+#define XC_GGA_X_B88          106 /* Becke 88                                       */
+#define XC_GGA_X_G96          107 /* Gill 96                                        */
 
-#define XC_GGA_C_PBE          130 /* Perdew, Burke & Ernzerhof correlation */
+#define XC_GGA_C_PBE          130 /* Perdew, Burke & Ernzerhof correlation          */
+#define XC_GGA_C_LYP          131 /* Lee, Yang & Parr                               */
 
-#define XC_GGA_XC_LB          160 /* van Leeuwen & Baerends                */
+#define XC_GGA_XC_LB          160 /* van Leeuwen & Baerends                         */
 
 typedef struct{
   func_type *func;       /* which functional did we chose   */

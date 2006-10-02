@@ -51,7 +51,7 @@ void gga_lb(gga_type *p, double *rho, double *sigma, double r, double ip, double
   }
 }
 
-const func_type func_gga_lb = {
+func_type func_gga_lb = {
   XC_GGA_XC_LB,
   XC_EXCHANGE_CORRELATION,
   "van Leeuwen & Baerends",

@@ -13,6 +13,7 @@ double asinh(double x);
 #define min(x,y)  ((x<y) ? x : y)
 #define max(x,y)  ((x<y) ? y : x)
 #define RS(x)     (pow((3.0/(4*M_PI*x)), 1.0/3.0))
+#define X_FACTOR_C  0.9305257363491           /* 3/8*cur(3/pi)*4^(2/3) */
 #define FZETAFACTOR 0.519842099789746380
 #define FZETA(x)  ((pow(1.0 + zeta, 4.0/3.0) + pow(1.0 - zeta, 4.0/3.0) - 2.0)/FZETAFACTOR)
 #define DFZETA(x) ((pow(1.0 + zeta, 1.0/3.0) - pow(1.0 - zeta, 1.0/3.0))*(4.0/3.0)/FZETAFACTOR)

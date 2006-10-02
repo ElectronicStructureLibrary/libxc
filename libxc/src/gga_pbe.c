@@ -12,7 +12,10 @@
 
 
 /*                            exchange                                 */
-static const double kappa = 0.8040;
+static const double kappa[2] = {
+  0.8040,
+  1.245
+};
 static const double mu    = 0.2195149727645171;  /* beta*M_PI*M_PI/3.0 */
 
 void gga_x_pbe_init(void *p_)
@@ -39,6 +42,9 @@ void gga_x_pbe(void *p_, double *rho, double *sigma,
 
   double dens, sfact;
   int is;
+  int func = p->func->number - XC_GGA_X_PBE;
+  
+  assert(func==0 || func==1);
 
   *e   = 0.0;
   dens = 0.0;
@@ -64,8 +70,8 @@ void gga_x_pbe(void *p_, double *rho, double *sigma,
     kfs  = pow(3.0*M_PI*M_PI*ds, 1.0/3.0);
     s    = gdms/(2.0*kfs*ds);
 
-    f1   = 1.0 + mu*s*s/kappa;
-    f    = 1.0 + kappa - kappa/f1;
+    f1   = 1.0 + mu*s*s/kappa[func];
+    f    = 1.0 + kappa[func] - kappa[func]/f1;
 
     lda(p->lda_aux, &ds, &exunif, &vxunif, NULL);
     
@@ -75,13 +81,13 @@ void gga_x_pbe(void *p_, double *rho, double *sigma,
     dkfdd = kfs/(3.0*ds);
     dsdd  = s*(-dkfdd/kfs - 1.0/ds);
     df1dd = 2.0*(f1 - 1.0)*dsdd/s;
-    dfdd  = kappa*df1dd/(f1*f1);
+    dfdd  = kappa[func]*df1dd/(f1*f1);
 
     vrho[is] = vxunif*f + ds*exunif*dfdd;
     
     dsdsig  = s/(2.0*sig);
-    df1dsig = 2.0*mu*s*dsdsig/kappa;
-    dfdsig  = kappa*df1dsig/(f1*f1);
+    df1dsig = 2.0*mu*s*dsdsig/kappa[func];
+    dfdsig  = kappa[func]*df1dsig/(f1*f1);
     vsigma[is==0 ? 0 : 2] = sfact*ds*exunif*dfdsig;
   }
 
@@ -101,6 +107,18 @@ const func_type func_gga_x_pbe = {
   gga_x_pbe,
 };
 
+const func_type func_gga_x_pbe_r = {
+  XC_GGA_X_PBE_R,
+  XC_EXCHANGE,
+  "Perdew, Burke & Ernzerhof",
+  "GGA",
+  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
+  "Y. Zhang and W. Yang, Phys. Rev. Lett 80, 890 (1998)",
+  gga_x_pbe_init,
+  gga_x_pbe_end,
+  NULL,            /* this is not an LDA                   */
+  gga_x_pbe,
+};
 
 /*                            correlation                                 */
 static const double beta  = 0.06672455060314922;

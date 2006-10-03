@@ -18,6 +18,7 @@ void gga_c_lyp(void *p_, double *rho_, double *sigma_,
   double t1, t2, t3, t4, t5, t6;
   int is;
 
+  /* convert input to spin-polarized case */
   if(p->nspin == XC_POLARIZED){
     sfact    = 1.0;
     rho[0]   = rho_[0];
@@ -36,27 +37,36 @@ void gga_c_lyp(void *p_, double *rho_, double *sigma_,
     sigmat   = sigma_[0];    
   }
 
+  /* some handy functions of the total density */
   rhot13   = pow(rhot, 1.0/3.0);
   rhot43   = rhot*rhot13;
   rho83[0] = pow(rho[0], 8.0/3.0);
   rho83[1] = pow(rho[1], 8.0/3.0);
 
-  ZZ     = 1.0/(1.0 + dd/rhot13);
+  ZZ     = rhot13/(rhot13 + dd);
   delta  = (cc + dd*ZZ)/rhot13;
   omega  = exp(-cc/rhot13) * ZZ * pow(rhot, -11.0/3.0);
 
+  /* and their derivatives */
   dZZdr    = dd*ZZ*ZZ/(3.0*rhot43);
   ddeltadr = -(cc + dd*ZZ - dd*dd*ZZ*ZZ/rhot13)/(3.0*rhot43);
   domegadr = omega*ZZ*(cc*dd + (cc-10.0*dd)*rhot13 - 11.0*rhot13*rhot13)/(3.0*rhot43*rhot13);
 
-  /* debug, please delete */
-  t1 = t2 = t3 = t4 = t5 = t6 = 0.0; 
+  /* we now add the terms of the xc energy one by one */
 
   /* t1 */
   {
-    t1 = -4.0*AA*rho[0]*rho[1]*ZZ/rhot;
-    for(is=0; is<p->nspin; is++)
-      vrho[is] = (t1/ZZ)*(ZZ/rho[is] - ZZ/rhot + dZZdr);
+    double aux1;
+
+    aux1 = -4.0*AA/rhot;
+
+    t1 = aux1*rho[0]*rho[1]*ZZ;
+
+    for(is=0; is<p->nspin; is++){
+      int js = (is==0) ? 1 : 0;
+
+      vrho[is] = aux1*(rho[js]*ZZ - rho[0]*rho[1]*(ZZ/rhot - dZZdr));
+    }
   }
 
   
@@ -182,6 +192,7 @@ void gga_c_lyp(void *p_, double *rho_, double *sigma_,
     }
   }
 
+  /* we add all contributions to the total energy */
   *e = (t1 + t2 + t3 + t4 + t5 + t6)/rhot;
 }
 

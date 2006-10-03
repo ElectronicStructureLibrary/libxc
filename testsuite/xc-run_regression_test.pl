@@ -24,13 +24,21 @@ $constants{"$opt_f"} || die "Functional '$opt_f' not found";
 my $data_file = "$data_dir/$opt_f.data";
 (-f $data_file && -r $data_file) || die "Could not read data file '$data_file'";
 open DATA, "<$data_file";
-my %data;
+
+my %data, $test_ok, $ntest;
+$test_ok = 0;
+$ntest   = 0;
+
 while(data_read(*DATA, \%data) != 0){
-  my $pol;
+  my $pol, @cmp;
+
+  $ntest++;
+
   $pol = ($data{"rhoa"}    == $data{"rhob"}    &&
 	  $data{"sigmaaa"} == $data{"sigmabb"} &&
 	  $data{"sigmaab"} == $data{"sigmabb"}) ? 1 : 2;
 
+  my $ok;
   for(;$pol<=2; $pol++){
     $cmd1  = "$exec_cmd ".$constants{"$opt_f"};
     $cmd2  = " ".$data{"rhoa"}." ".$data{"rhob"};
@@ -42,22 +50,32 @@ while(data_read(*DATA, \%data) != 0){
     data_read(*DATA2, \%data2) || die "Could not read data file '$tmp_file'";
     close DATA2;
 
+    @cmp = ("zk", "vrhoa", "vsigmaaa");
     if($pol == 1){
       my $tmp = $data{"vsigmaaa"};
       $data{"vsigmaaa"}  = ($data{"vsigmaaa"} + $data{"vsigmaab"} + $data{"vsigmabb"})/4.0;
 
-      my @cmp = ("zk", "vrhoa", "vsigmaaa");
-      cmp_data(\%data, \%data2, \@cmp);
+      $ok = cmp_data(\%data, \%data2, \@cmp);
 
       $data{"vsigmaaa"} = $tmp;
+
     }else{
-      my @cmp = ("zk", "vrhoa", "vrhob", "vsigmaaa", "vsigmaab", "vsigmabb");
-      cmp_data(\%data, \%data2, \@cmp);
+
+      if($data{"rhob"} != 0.0){
+	# compare both up and down channels
+	push @cmp, ("vrhob", "vsigmaab", "vsigmabb");
+      }
+
+      $ok = cmp_data(\%data, \%data2, \@cmp);
     }
   }
+  $ok && $test_ok++;
 }
 close DATA;
 unlink $tmp_file;
+
+exit ($ntest - $test_ok);
+ 
 
 ###########################################
 sub usage {
@@ -118,8 +136,9 @@ sub data_read {
 
 sub cmp_data {
   my ($d1, $d2, $what) = @_;
-  my $tol = 1e-10;
+  my $tol = 1e-10, $all_ok;
 
+  $all_ok = 1;
   foreach $var (@$what){
     $ok = (abs($$d1{$var}) < 1e-15 && abs($$d2{$var}) < 1e-15);
     if(!$ok){
@@ -128,5 +147,7 @@ sub cmp_data {
     if(!$ok){
       print "$var mismatch: ", $$d1{$var}, " != ", $$d2{$var}, "\n";
     }
+    $all_ok = $all_ok && $ok;
   }
+  return $all_ok;
 }

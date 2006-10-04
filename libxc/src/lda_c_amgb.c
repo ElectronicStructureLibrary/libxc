@@ -128,9 +128,10 @@ func_type func_lda_c_amgb = {
   XC_LDA_C_AMGB,
   XC_CORRELATION,
   "AMGB (for 2D systems)",
-  "LDA",
+  XC_FAMILY_LDA,
   "C. Attacalite et al, Phys. Rev. Lett. 88, 256601 (2002)\n"
   "C. Attacalite, PhD thesis",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   lda_c_amgb_init,
   NULL,
   lda_c_amgb

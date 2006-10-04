@@ -28,10 +28,10 @@ void FC_FUNC_(xc_info_name, XC_INFO_NAME)
 }
 
 
-void FC_FUNC_(xc_info_family, XC_INFO_FAMILY)
-     (void **info, STR_F_TYPE s STR_ARG1)
+int FC_FUNC_(xc_info_family, XC_INFO_FAMILY)
+     (void **info)
 {
-  TO_F_STR1(((func_type *)(*info))->family, s);
+  return ((func_type *)(*info))->family;
 }
 
 void FC_FUNC_(xc_info_ref, XC_INFO_REF)

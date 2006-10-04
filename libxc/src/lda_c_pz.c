@@ -114,37 +114,40 @@ void lda_c_pz(void *p_, double *rho, double *ec, double *vc, double *fc)
   }
 }
 
-func_type func_lda_c_pz = {
+const func_type func_lda_c_pz = {
   XC_LDA_C_PZ,
   XC_CORRELATION,
   "Perdew & Zunger",
-  "LDA",
+  XC_FAMILY_LDA,
   "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL,
   NULL,
   lda_c_pz
 };
 
-func_type func_lda_c_pz_mod = {
+const func_type func_lda_c_pz_mod = {
   XC_LDA_C_PZ_MOD,
   XC_CORRELATION,
   "Perdew & Zunger (Modified)",
-  "LDA",
+  XC_FAMILY_LDA,
   "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)\n"
   "Modified to improve the matching between the low and high rs parts",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL,
   NULL,
   lda_c_pz
 };
 
-func_type func_lda_c_ob_pz = {
+const func_type func_lda_c_ob_pz = {
   XC_LDA_C_OB_PZ,
   XC_CORRELATION,
   "Ortiz & Ballone (PZ parametrization)",
-  "LDA",
+  XC_FAMILY_LDA,
   "Ortiz and Ballone, Phys. Rev. B 50, 1391 (1994)\n"
   "Ortiz and Ballone, Phys. Rev. B 56, 9970(E) (1997)\n"
   "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL,
   NULL,
   lda_c_pz

@@ -141,11 +141,10 @@ func_type func_gga_x_b86 = {
   XC_GGA_X_B86,
   XC_EXCHANGE,
   "Becke 86",
-  "GGA",
-  "A. D. Becke, J. Chem. Phys 84, 4524 (1986)",
-  NULL,
-  NULL,
-  NULL,
+  XC_FAMILY_GGA,
+  "A.D. Becke, J. Chem. Phys 84, 4524 (1986)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL,
   gga_x_b86
 };
 
@@ -153,12 +152,11 @@ func_type func_gga_x_b86_r = {
   XC_GGA_X_B86_R,
   XC_EXCHANGE,
   "Becke 86 (reoptimized)",
-  "GGA",
-  "A. D. Becke, J. Chem. Phys 84, 4524 (1986)\n"
-  "A. D. Becke, J. Chem. Phys 107, 8554 (1997)",
-  NULL,
-  NULL,
-  NULL,
+  XC_FAMILY_GGA,
+  "A.D. Becke, J. Chem. Phys 84, 4524 (1986)\n"
+  "A.D. Becke, J. Chem. Phys 107, 8554 (1997)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL,
   gga_x_b86
 };
 
@@ -167,12 +165,11 @@ func_type func_gga_x_b86_mgc = {
   XC_GGA_X_B86_MGC,
   XC_EXCHANGE,
   "Becke 86 with modified gradient correction",
-  "GGA",
-  "A. D. Becke, J. Chem. Phys 84, 4524 (1986)\n"
-  "A. D. Becke, J. Chem. Phys 85, 7184 (1986)",
-  NULL,
-  NULL,
-  NULL,
+  XC_FAMILY_GGA,
+  "A.D. Becke, J. Chem. Phys 84, 4524 (1986)\n"
+  "A.D. Becke, J. Chem. Phys 85, 7184 (1986)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL,
   gga_x_b86
 };
 
@@ -180,11 +177,10 @@ const func_type func_gga_x_b88 = {
   XC_GGA_X_B88,
   XC_EXCHANGE,
   "Becke 88",
-  "GGA",
-  "A. D. Becke, Phys. Rev. A 38, 3098-3100 (1988)",
-  NULL,
-  NULL,
-  NULL,
+  XC_FAMILY_GGA,
+  "A.D. Becke, Phys. Rev. A 38, 3098-3100 (1988)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL,
   gga_x_b86
 };
 
@@ -192,10 +188,9 @@ const func_type func_gga_x_g96 = {
   XC_GGA_X_G96,
   XC_EXCHANGE,
   "Gill 96",
-  "GGA",
-  "P. M. W. Gill, Mol. Phys. 89, 433 (1996)",
-  NULL,
-  NULL,
-  NULL,
+  XC_FAMILY_GGA,
+  "P.M.W. Gill, Mol. Phys. 89, 433 (1996)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL,
   gga_x_b86
 };

@@ -15,8 +15,9 @@ static func_type func_mgga_c_tpss = {
   XC_MGGA_C_TPSS,
   XC_CORRELATION,
   "Perdew, Tao, Staroverov & Scuseria",
-  "MGGA",
-  "J.P.Perdew, Tao, Staroverov, and Scuseria, Phys. Rev. Lett. 91, 146401 (2003)"
+  XC_FAMILY_MGGA,
+  "J.P.Perdew, Tao, Staroverov, and Scuseria, Phys. Rev. Lett. 91, 146401 (2003)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC
 };
 
 
@@ -147,12 +148,12 @@ static void c_tpss_12(mgga_type *p, double *rho, double *grho,
     dcsidd [0] = -7.0*csi/(3.0*dens); 
     dcsidd [1] = dcsidd [0];
     for(i=0; i<3; i++){
-      double a = gzeta[i]/(sqrt(gzeta2)*a);
-      dcsidd[0] += -grho _(1, i)*a;
-      dcsidd[1] +=  grho _(0, i)*a;
+      double aa = gzeta[i]/(sqrt(gzeta2)*a);
+      dcsidd[0] += -grho _(1, i)*aa;
+      dcsidd[1] +=  grho _(0, i)*aa;
       
-      dcsidgd _(0, i) =  rho[1]*a;
-      dcsidgd _(1, i) = -rho[0]*a;
+      dcsidgd _(0, i) =  rho[1]*aa;
+      dcsidgd _(1, i) = -rho[0]*aa;
     }    
   } /* get C(csi, zeta) */
 

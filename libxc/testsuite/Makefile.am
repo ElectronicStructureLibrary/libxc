@@ -19,13 +19,17 @@
 ##
 ## $Id:  $
 
-check_PROGRAMS = xc-get_data
-dist_noinst_SCRIPTS = xc-run_testsuite xc-run_regression_test.pl
+check_PROGRAMS = xc-get_data xc-consistency
+dist_noinst_SCRIPTS = xc-run_testsuite xc-reference.pl
 TESTS = xc-run_testsuite
 
 xc_get_data_SOURCES = xc-get_data.c
 xc_get_data_LDADD = -L../src/ -lxc -lm
 xc_get_data_CPPFLAGS = -I../src/
+
+xc_consistency_SOURCES = xc-consistency.c
+xc_consistency_LDADD = -L../src/ -lxc -lm
+xc_consistency_CPPFLAGS = -I../src/
 
 dist_noinst_DATA = *.data
 

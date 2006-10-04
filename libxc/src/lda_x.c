@@ -77,13 +77,15 @@ void lda_x(void *p_, double *rho, double *ex, double *vx, double *fx)
   };
 }
 
-func_type func_lda_x = {
+
+const func_type func_lda_x = {
   XC_LDA_X,
   XC_EXCHANGE,
   "Slater exchange",
-  "LDA",
+  XC_FAMILY_LDA,
   "P.A.M. Dirac, Proceedings of the Cambridge Philosophical Society 26, 376 (1930)\n"
   "F. Bloch, Zeitschrift für Physik 57, 545 (1929)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL,
   NULL,
   lda_x

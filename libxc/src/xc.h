@@ -22,15 +22,22 @@
 #define XC_FAMILY_LCA           8
 #define XC_FAMILY_OEP          16
 
+#define XC_PROVIDES_EXC         1
+#define XC_PROVIDES_VXC         2
+#define XC_PROVIDES_FXC         4
+#define XC_PROVIDES_KXC         8
+
 struct struct_lda_type;
 
 typedef struct{
-  int   number; /* indentifier number */
-  int   kind;   /* XC_EXCHANGE or XC_CORRELATION */
+  int   number;   /* indentifier number */
+  int   kind;     /* XC_EXCHANGE or XC_CORRELATION */
 
-  char *name;   /* name of the functional, e.g. PBE */
-  char *family; /* type of the functional, e.g. GGA */
-  char *refs;  /* references                       */
+  char *name;     /* name of the functional, e.g. "PBE" */
+  int   family;   /* type of the functional, e.g. XC_FAMILY_GGA */
+  char *refs;     /* references                       */
+
+  int   provides; /* what the functional provides, e.g. XC_PROVIDES_EXC | XC_PROVIDES_VXC */
 
   void (*init)(void *p);
   void (*end) (void *p);
@@ -61,7 +68,7 @@ int family_from_id(int functional);
 #define XC_LDA_C_AMGB          14   /* Attacalite et al             */
 
 struct struct_lda_type {
-  func_type *func;      /* which functional did we chose   */
+  const func_type *func;      /* which functional did we chose   */
   int    nspin;         /* XC_UNPOLARIZED or XC_POLARIZED  */
   
   int    relativistic;  /* XC_RELATIVISTIC or XC_NON_RELATIVISTIC */
@@ -96,7 +103,7 @@ void lda_kxc(lda_type *p, double *rho, double *kxc);
 #define XC_GGA_XC_LB          160 /* van Leeuwen & Baerends                         */
 
 typedef struct{
-  func_type *func;       /* which functional did we chose   */
+  const func_type *func;       /* which functional did we chose   */
   int        nspin;      /* XC_UNPOLARIZED or XC_POLARIZED  */
   
   lda_type  *lda_aux;    /* most GGAs are based on a LDA    */
@@ -120,7 +127,7 @@ void gga_lb     (gga_type *p, double *rho, double *grho, double r, double ip, do
 #define XC_MGGA_C_TPSS        202 /* Perdew, Tao, Staroverov & Scuseria correlation */
 
 typedef struct{
-  func_type *func;       /* which functional did we chose   */
+  const func_type *func;       /* which functional did we chose   */
   int        nspin;      /* XC_UNPOLARIZED or XC_POLARIZED  */
   
   lda_type  *lda_aux;    /* most meta-GGAs are based on a LDA    */

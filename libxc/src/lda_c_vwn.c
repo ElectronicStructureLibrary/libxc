@@ -137,23 +137,25 @@ void lda_c_vwn(void *p_, double *rho, double *ec, double *vc, double *fc)
 	
 }
 
-func_type func_lda_c_vwn = {
+const func_type func_lda_c_vwn = {
   XC_LDA_C_VWN,
   XC_CORRELATION,
   "Vosko, Wilk & Nusair",
-  "LDA",
+  XC_FAMILY_LDA,
   "S.H. Vosko, L. Wilk, and M. Nusair, Can. J. Phys. 58, 1200 (1980)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   lda_c_vwn_init,
   NULL,
   lda_c_vwn
 };
 
-func_type func_lda_c_vwn_rpa = {
+const func_type func_lda_c_vwn_rpa = {
   XC_LDA_C_VWN_RPA,
   XC_CORRELATION,
   "Vosko, Wilk & Nusair (parametrization of the RPA energy)",
-  "LDA",
+  XC_FAMILY_LDA,
   "S.H. Vosko, L. Wilk, and M. Nusair, Can. J. Phys. 58, 1200 (1980)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   lda_c_vwn_rpa_init,
   NULL,
   lda_c_vwn 

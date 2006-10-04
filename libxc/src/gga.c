@@ -10,6 +10,7 @@ extern func_type /* these are the GGA functionals that I know */
   func_gga_x_b86_r,
   func_gga_x_b86_mgc,
   func_gga_x_b88,
+  func_gga_x_g96,
   func_gga_c_pbe,
   func_gga_c_lyp,
   func_gga_lb;
@@ -21,6 +22,7 @@ func_type *gga_known_funct[] = {
   &func_gga_x_b86_r,
   &func_gga_x_b86_mgc,
   &func_gga_x_b88,
+  &func_gga_x_g96,
   &func_gga_c_pbe,
   &func_gga_c_lyp,
   &func_gga_lb,
@@ -55,6 +57,7 @@ int gga_init(gga_type *p, int functional, int nspin)
 }
 
 
+/* Termination */
 void gga_end(gga_type *p)
 {
   assert(p != NULL);
@@ -62,6 +65,7 @@ void gga_end(gga_type *p)
   if(p->func->end != NULL)
     p->func->end(p);
 }
+
 
 /* Some useful formulas:
 

@@ -99,8 +99,9 @@ const func_type func_gga_x_pbe = {
   XC_GGA_X_PBE,
   XC_EXCHANGE,
   "Perdew, Burke & Ernzerhof",
-  "GGA",
+  XC_FAMILY_GGA,
   "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_x_pbe_init,
   gga_x_pbe_end,
   NULL,            /* this is not an LDA                   */
@@ -111,9 +112,10 @@ const func_type func_gga_x_pbe_r = {
   XC_GGA_X_PBE_R,
   XC_EXCHANGE,
   "Perdew, Burke & Ernzerhof",
-  "GGA",
+  XC_FAMILY_GGA,
   "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
   "Y. Zhang and W. Yang, Phys. Rev. Lett 80, 890 (1998)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_x_pbe_init,
   gga_x_pbe_end,
   NULL,            /* this is not an LDA                   */
@@ -217,8 +219,9 @@ const func_type func_gga_c_pbe = {
   XC_GGA_C_PBE,
   XC_CORRELATION,
   "Perdew, Burke & Ernzerhof",
-  "GGA",
+  XC_FAMILY_LDA,
   "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_c_pbe_init,
   gga_x_pbe_end,   /* we can use the same as exchange here */
   NULL,            /* this is not an LDA                   */

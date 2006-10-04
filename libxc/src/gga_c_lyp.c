@@ -200,12 +200,11 @@ void gga_c_lyp(void *p_, double *rho_, double *sigma_,
 const func_type func_gga_c_lyp = {
   XC_GGA_C_LYP,
   XC_CORRELATION,
-  "",
-  "GGA",
-  "C. Lee, W. Yang and R. G. Parr, Phys. Rev. B 37, 785 (1988)\n"
+  "Lee, Yang & Parr",
+  XC_FAMILY_GGA,
+  "C. Lee, W. Yang and R.G. Parr, Phys. Rev. B 37, 785 (1988)\n"
   "B. Miehlich, A. Savin, H. Stoll and H. Preuss, Chem. Phys. Letters 157, 200 (1989)",
-  NULL,
-  NULL,
-  NULL,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL,
   gga_c_lyp
 };

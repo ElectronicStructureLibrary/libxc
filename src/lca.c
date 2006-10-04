@@ -61,11 +61,11 @@ void lca(lca_type *p, double *rho, double *v, double *e, double *dedd, double *d
 
     switch(p->func->number){
     case XC_LCA_LCH:
-      lca_s_lch(rs, s, dsdrs);
+      lca_s_lch(rs, &s, &dsdrs);
       break;
 
     case XC_LCA_OMC:
-      lca_s_omc(rs, s, dsdrs);
+      lca_s_omc(rs, &s, &dsdrs);
       break;
     }
 

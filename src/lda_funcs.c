@@ -27,12 +27,13 @@ static void lda_c_wigner(void *p_, double *rho, double *ec, double *vc, double *
   if(p->nspin==XC_POLARIZED) vc[1] = vc[0]; /* have to return something */
 }
 
-func_type func_lda_c_wigner = {
+const func_type func_lda_c_wigner = {
   XC_LDA_C_WIGNER,
   XC_CORRELATION,
   "Wigner",
-  "LDA",
+  XC_FAMILY_LDA,
   "E.P. Wigner, Trans. Faraday Soc. 34, 678 (1938)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL,         /* init */
   NULL,         /* end  */
   lda_c_wigner, /* lda  */
@@ -63,12 +64,13 @@ static void lda_c_rpa(void *p_, double *rho, double *ec, double *vc, double *fc)
   if(p->nspin==XC_POLARIZED) vc[1] = vc[0]; /* have to erturn something */
 }
 
-func_type func_lda_c_rpa = {
+const func_type func_lda_c_rpa = {
   XC_LDA_C_RPA,
   XC_CORRELATION,
   "Random Phase Approximation (RPA)",
-  "LDA",
+  XC_FAMILY_LDA,
   "M. Gell-Mann and K.A. Brueckner, Phys. Rev. 106, 364 (1957)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL,         /* init */
   NULL,         /* end  */
   lda_c_rpa,    /* lda  */
@@ -138,29 +140,30 @@ static void lda_c_hl(void *p_, double *rho, double *ec, double *vc, double *fc)
   }
 }
 
-func_type func_lda_c_hl = {
+const func_type func_lda_c_hl = {
   XC_LDA_C_HL,
   XC_CORRELATION,
   "Hedin & Lundqvist",
-  "LDA",
+  XC_FAMILY_LDA,
   /* can someone get me this paper, so I can find all coefficients? */
   "L. Hedin and B.I. Lundqvist,  J. Phys. C 4, 2064 (1971)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL,         /* init */
   NULL,         /* end  */
   lda_c_hl,     /* lda  */
 };
 
-func_type func_lda_c_gl = {
+const func_type func_lda_c_gl = {
   XC_LDA_C_GL,
   XC_CORRELATION,
   "Gunnarson & Lundqvist",
-  "LDA",
+  XC_FAMILY_LDA,
   "O. Gunnarsson and B. I. Lundqvist, PRB 13, 4274 (1976)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL,         /* init */
   NULL,         /* end  */
   lda_c_hl,     /* lda  */
 };
-
 
 
 /************************************************************************
@@ -176,19 +179,27 @@ whereas alpha equal to 2/3 just leaves the exchange functional unchanged */
 static void lda_c_xalpha(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
   lda_type *p = (lda_type *)p_;
+  double a = 1.5*p->alpha - 1.0;
   int i;
 
   lda_x(p, rho, ec, vc, fc);
-  (*ec) *= p->alpha;
-  for(i=0; i<p->nspin; i++) vc[i] *= (1.5*p->alpha - 1.0);
+
+  (*ec) *= a;
+
+  for(i=0; i<p->nspin; i++) vc[i] *= a;
+
+  if(fc != NULL)
+    for(i=0; i<p->nspin*p->nspin; i++) fc[i] *= a;
+
 }
 
-func_type func_lda_c_xalpha = {
+const func_type func_lda_c_xalpha = {
   XC_LDA_C_XALPHA,
   XC_CORRELATION,
   "Slater's Xalpha",
-  "LDA",
+  XC_FAMILY_LDA,
   NULL,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL,         /* init */
   NULL,         /* end  */
   lda_c_xalpha  /* lda */

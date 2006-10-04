@@ -160,12 +160,14 @@ void lda_c_pw(void *p_, double *rho, double *ec, double *vc, double *fc)
   }
 }
 
-func_type func_lda_c_pw = {
+
+const func_type func_lda_c_pw = {
   XC_LDA_C_PW,
   XC_CORRELATION,
   "Perdew & Wang",
-  "LDA",
+  XC_FAMILY_LDA,
   "J.P. Perdew and Y.Wang, Phys. Rev. B 45, 13244 (1992)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL,
   NULL,
   lda_c_pw
@@ -175,10 +177,11 @@ func_type func_lda_c_ob_pw = {
   XC_LDA_C_OB_PW,
   XC_CORRELATION,
   "Ortiz & Ballone (PW parametrization)",
-  "LDA",
+  XC_FAMILY_LDA,
   "Ortiz and Ballone, Phys. Rev. B 50, 1391 (1994)\n"
   "Ortiz and Ballone, Phys. Rev. B 56, 9970(E) (1997)\n"
   "J.P. Perdew and Y.Wang, Phys. Rev. B 45, 13244 (1992)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL,
   NULL,
   lda_c_pw

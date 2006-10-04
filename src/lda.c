@@ -20,7 +20,7 @@ extern func_type /* these are the LDA functionals that I know */
   func_lda_c_ob_pw,
   func_lda_c_amgb;
 
-func_type *lda_known_funct[] = {
+const func_type *lda_known_funct[] = {
   &func_lda_x,
   &func_lda_c_wigner,
   &func_lda_c_rpa,
@@ -66,7 +66,6 @@ int lda_init(lda_type *p, int functional, int nspin)
   return 0;
 }
 
-
 /* termination */
 void lda_end(lda_type *p)
 {
@@ -98,14 +97,38 @@ void lda(lda_type *p, double *rho, double *ec, double *vc, double *fc)
   p->func->lda(p, rho, ec, vc, fc);
 }
 
+/* calculates the exchange-correlation potential using
+   finite-differences */
+void lda_vxc_fd(lda_type *p, double *rho, double *vxc)
+{
+  int i, j;
+  double delta_rho = 1e-8;
+
+  for(i=0; i<p->nspin; i++){
+    double rho2[2], e1, e2, vc[2];
+
+    j = (i+1) % 2;
+
+    rho2[i] = rho[i] + delta_rho;
+    rho2[j] = rho[j];
+    lda(p, rho2, &e1, vc, NULL);
+
+    if(rho[i]<2.0*delta_rho){ /* we have to use a forward difference */
+      lda(p, rho, &e2, vc, NULL);
+      vxc[i] = (e1 - e2)/(delta_rho);
+	
+    }else{                    /* centered difference (more precise)  */
+      rho2[i] = rho[i] - delta_rho;
+      lda(p, rho2, &e2, vc, NULL);
+	
+      vxc[i] = (e1 - e2)/(2.0*delta_rho);
+    }
+  }  
+}
 
 void lda_fxc(lda_type *p, double *rho, double *fxc)
 {
-  if(p->func->number == XC_LDA_X ||
-     p->func->number == XC_LDA_C_XALPHA ||
-     p->func->number == XC_LDA_C_PW ||
-     p->func->number == XC_LDA_C_OB_PW){
-
+  if(p->func->provides & XC_PROVIDES_FXC){
     double ec, vc[2];
     lda(p, rho, &ec, vc, fxc);
 

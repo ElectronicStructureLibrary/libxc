@@ -101,28 +101,28 @@ int main(int argc, char *argv[])
   init_values(&xc, argv);
 
   if(xc.nspin == 1){
-    xc.rho[0]    += xc.rho[1];
+    xc.rho[0]   += xc.rho[1];
     xc.sigma[0] += 2.0*xc.sigma[1] + xc.sigma[2];
   }
 
-  if(xc.functional < 100){
-    if(xc.functional == XC_LDA_X){
-      lda_x_init(&lda_func, xc.nspin, 3, 0);
-    }else if(lda_init(&lda_func, xc.functional, xc.nspin) == -1){
-      fprintf(stderr, "GGA functional '%d' not found\n", xc.functional);
+  switch(family_from_id(xc.functional))
+    {
+    case XC_FAMILY_LDA:
+      if(xc.functional == XC_LDA_X)
+	lda_x_init(&lda_func, xc.nspin, 3, 0);
+      else
+	lda_init(&lda_func, xc.functional, xc.nspin);
+      lda(&lda_func, xc.rho, &xc.zk, xc.vrho, NULL);
+      break;
+    case XC_FAMILY_GGA:
+      gga_init(&gga_func, xc.functional, xc.nspin);
+      gga(&gga_func, xc.rho, xc.sigma, &xc.zk, xc.vrho, xc.vsigma);
+      gga_end(&gga_func);
+      break;
+    default:
+      fprintf(stderr, "Functional '%d' not found\n", xc.functional);
       exit(1);
     }
-
-    lda(&lda_func, xc.rho, &xc.zk, xc.vrho, NULL);
-
-  }else if(xc.functional < 200){
-    if(gga_init(&gga_func, xc.functional, xc.nspin) == -1){
-      fprintf(stderr, "GGA functional '%d' not found\n", xc.functional);
-      exit(1);
-    }
-    gga(&gga_func, xc.rho, xc.sigma, &xc.zk, xc.vrho, xc.vsigma);
-    gga_end(&gga_func);
-  }
 
   if(xc.nspin == 1){
     xc.vrho[1] = xc.vrho[0];

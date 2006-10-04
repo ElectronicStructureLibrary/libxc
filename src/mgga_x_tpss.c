@@ -15,8 +15,9 @@ static func_type func_mgga_x_tpss = {
   XC_MGGA_X_TPSS,
   XC_EXCHANGE,
   "Perdew, Tao, Staroverov & Scuseria",
-  "MGGA",
-  "J.P.Perdew, Tao, Staroverov, and Scuseria, Phys. Rev. Lett. 91, 146401 (2003)"
+  XC_FAMILY_MGGA,
+  "J.P.Perdew, Tao, Staroverov, and Scuseria, Phys. Rev. Lett. 91, 146401 (2003)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC
 };
 
 

@@ -7,7 +7,7 @@
 void gga_c_lyp(void *p_, double *rho_, double *sigma_,
 	       double *e, double *vrho, double *vsigma)
 {
-  gga_type *p = p_;
+  xc_gga_type *p = p_;
   
   static double AA = 0.04918, BB = 0.132, cc = 0.2533, 
     dd = 0.349, ee = 36.462398978764767321; /* ee = 8*2^(2/3)*e */
@@ -197,7 +197,7 @@ void gga_c_lyp(void *p_, double *rho_, double *sigma_,
 }
 
 
-const func_type func_gga_c_lyp = {
+const xc_func_info_type func_info_gga_c_lyp = {
   XC_GGA_C_LYP,
   XC_CORRELATION,
   "Lee, Yang & Parr",

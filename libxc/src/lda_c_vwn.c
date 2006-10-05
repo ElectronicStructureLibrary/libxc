@@ -85,7 +85,7 @@ void ec_i(vwn_consts_type *X, int i, double x, double *ec, double *decdrs)
 /* the functional */
 void lda_c_vwn(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
-  lda_type *p = (lda_type *)p_;
+  xc_lda_type *p = (xc_lda_type *)p_;
 
   double dens, zeta;
   double rs[2], ec_1, dec_1;
@@ -96,7 +96,7 @@ void lda_c_vwn(void *p_, double *rho, double *ec, double *vc, double *fc)
 
   rho2dzeta(p->nspin, rho, &dens, &zeta);
 
-  func = p->func->number - XC_LDA_C_VWN;
+  func = p->info->number - XC_LDA_C_VWN;
   assert(func==0 || func==1);
   X = &vwn_consts[func];
 
@@ -137,7 +137,7 @@ void lda_c_vwn(void *p_, double *rho, double *ec, double *vc, double *fc)
 	
 }
 
-const func_type func_lda_c_vwn = {
+const xc_func_info_type func_info_lda_c_vwn = {
   XC_LDA_C_VWN,
   XC_CORRELATION,
   "Vosko, Wilk & Nusair",
@@ -149,7 +149,7 @@ const func_type func_lda_c_vwn = {
   lda_c_vwn
 };
 
-const func_type func_lda_c_vwn_rpa = {
+const xc_func_info_type func_info_lda_c_vwn_rpa = {
   XC_LDA_C_VWN_RPA,
   XC_CORRELATION,
   "Vosko, Wilk & Nusair (parametrization of the RPA energy)",

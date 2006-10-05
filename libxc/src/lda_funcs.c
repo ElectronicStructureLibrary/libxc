@@ -9,7 +9,7 @@
 
 static void lda_c_wigner(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
-  lda_type *p = (lda_type *)p_;
+  xc_lda_type *p = (xc_lda_type *)p_;
 
   static double a = -0.44, b = 7.8;
   double dens, zeta, rs;
@@ -27,7 +27,7 @@ static void lda_c_wigner(void *p_, double *rho, double *ec, double *vc, double *
   if(p->nspin==XC_POLARIZED) vc[1] = vc[0]; /* have to return something */
 }
 
-const func_type func_lda_c_wigner = {
+const xc_func_info_type func_info_lda_c_wigner = {
   XC_LDA_C_WIGNER,
   XC_CORRELATION,
   "Wigner",
@@ -46,7 +46,7 @@ const func_type func_lda_c_wigner = {
 
 static void lda_c_rpa(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
-  lda_type *p = (lda_type *)p_;
+  xc_lda_type *p = (xc_lda_type *)p_;
 
   static double a = 0.0311, b = -0.047, c = 0.009, d = -0.017;
   double dens, zeta, rs;
@@ -64,7 +64,7 @@ static void lda_c_rpa(void *p_, double *rho, double *ec, double *vc, double *fc)
   if(p->nspin==XC_POLARIZED) vc[1] = vc[0]; /* have to erturn something */
 }
 
-const func_type func_lda_c_rpa = {
+const xc_func_info_type func_info_lda_c_rpa = {
   XC_LDA_C_RPA,
   XC_CORRELATION,
   "Random Phase Approximation (RPA)",
@@ -106,11 +106,11 @@ static void hl_f(int func, int i, double rs, double *ec, double *vc)
 
 static void lda_c_hl(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
-  lda_type *p = (lda_type *)p_;
+  xc_lda_type *p = (xc_lda_type *)p_;
 
   double ecp, vcp;
   double dens, zeta, rs;
-  int func = p->func->number - XC_LDA_C_HL;
+  int func = p->info->number - XC_LDA_C_HL;
 
   /* sanity check */
   assert(func==0 || func==1);
@@ -140,7 +140,7 @@ static void lda_c_hl(void *p_, double *rho, double *ec, double *vc, double *fc)
   }
 }
 
-const func_type func_lda_c_hl = {
+const xc_func_info_type func_info_lda_c_hl = {
   XC_LDA_C_HL,
   XC_CORRELATION,
   "Hedin & Lundqvist",
@@ -153,7 +153,7 @@ const func_type func_lda_c_hl = {
   lda_c_hl,     /* lda  */
 };
 
-const func_type func_lda_c_gl = {
+const xc_func_info_type func_info_lda_c_gl = {
   XC_LDA_C_GL,
   XC_CORRELATION,
   "Gunnarson & Lundqvist",
@@ -178,7 +178,7 @@ Setting alpha equal to one gives the *usual* Slater Xalpha functional,
 whereas alpha equal to 2/3 just leaves the exchange functional unchanged */
 static void lda_c_xalpha(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
-  lda_type *p = (lda_type *)p_;
+  xc_lda_type *p = (xc_lda_type *)p_;
   double a = 1.5*p->alpha - 1.0;
   int i;
 
@@ -193,7 +193,7 @@ static void lda_c_xalpha(void *p_, double *rho, double *ec, double *vc, double *
 
 }
 
-const func_type func_lda_c_xalpha = {
+const xc_func_info_type func_info_lda_c_xalpha = {
   XC_LDA_C_XALPHA,
   XC_CORRELATION,
   "Slater's Xalpha",
@@ -205,9 +205,9 @@ const func_type func_lda_c_xalpha = {
   lda_c_xalpha  /* lda */
 };
 
-void lda_c_xalpha_init(lda_type *p, int nspin, int dim, double alpha)
+void xc_lda_c_xalpha_init(xc_lda_type *p, int nspin, int dim, double alpha)
 {
   p->alpha = alpha;
-  lda_x_init(p, nspin, dim, XC_NON_RELATIVISTIC);
-  p->func = &func_lda_c_xalpha;
+  xc_lda_x_init(p, nspin, dim, XC_NON_RELATIVISTIC);
+  p->info = &func_info_lda_c_xalpha;
 }

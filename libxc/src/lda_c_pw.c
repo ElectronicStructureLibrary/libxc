@@ -63,11 +63,11 @@ static void g(int func, int k, double *rs, double *f, double *dfdrs, double *d2f
 /* the functional */
 void lda_c_pw(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
-  lda_type *p = (lda_type *)p_;
+  xc_lda_type *p = (xc_lda_type *)p_;
 
   double dens, zeta;
   double rs[3], Dec_Drs, D2ec_Drs2, *dp;
-  int func = p->func->number - XC_LDA_C_PW;
+  int func = p->info->number - XC_LDA_C_PW;
   
   assert(func==0 || func==1);
   
@@ -161,7 +161,7 @@ void lda_c_pw(void *p_, double *rho, double *ec, double *vc, double *fc)
 }
 
 
-const func_type func_lda_c_pw = {
+const xc_func_info_type func_info_lda_c_pw = {
   XC_LDA_C_PW,
   XC_CORRELATION,
   "Perdew & Wang",
@@ -173,7 +173,7 @@ const func_type func_lda_c_pw = {
   lda_c_pw
 };
 
-func_type func_lda_c_ob_pw = {
+const xc_func_info_type func_info_lda_c_ob_pw = {
   XC_LDA_C_OB_PW,
   XC_CORRELATION,
   "Ortiz & Ballone (PW parametrization)",

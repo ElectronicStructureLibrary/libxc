@@ -5,7 +5,7 @@
 #include "util.h"
 
 
-static func_type func_lca_omc = {
+static xc_func_info_type func_info_lca_omc = {
   XC_LCA_OMC,
   XC_EXCHANGE_CORRELATION,
   "Orestes, Marcasso & Capelle parametrization",
@@ -14,9 +14,9 @@ static func_type func_lca_omc = {
   XC_PROVIDES_EXC | XC_PROVIDES_VXC
 };
 
-void lca_omc_init(lca_type *p)
+void lca_omc_init(xc_lca_type *p)
 {
-  p->func = &func_lca_omc;
+  p->info = &func_info_lca_omc;
 }
 
 

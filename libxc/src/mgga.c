@@ -4,7 +4,7 @@
 #include "util.h"
 
 /* initialization */
-void mgga_init(mgga_type *p, int functional, int nspin)
+void xc_mgga_init(xc_mgga_type *p, int functional, int nspin)
 {
   /* sanity check */
   assert(functional == XC_MGGA_X_TPSS    ||
@@ -25,9 +25,9 @@ void mgga_init(mgga_type *p, int functional, int nspin)
 }
 
 
-void mgga_end(mgga_type *p)
+void xc_mgga_end(xc_mgga_type *p)
 {
-  switch(p->func->number){
+  switch(p->info->number){
   case(XC_MGGA_X_TPSS) :
     mgga_x_tpss_end(p);
     break;
@@ -38,7 +38,7 @@ void mgga_end(mgga_type *p)
 }
 
 
-void mgga(mgga_type *p, double *rho, double *grho, double *tau,
+void xc_mgga(xc_mgga_type *p, double *rho, double *grho, double *tau,
 	  double *e, double *dedd, double *dedgd, double *dedtau)
 
 {
@@ -60,7 +60,7 @@ void mgga(mgga_type *p, double *rho, double *grho, double *tau,
     return;
   }
   
-  switch(p->func->number){
+  switch(p->info->number){
   case(XC_MGGA_X_TPSS):
     mgga_x_tpss(p, rho, grho, tau, e, dedd, dedgd, dedtau);
     break;

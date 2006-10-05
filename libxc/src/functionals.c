@@ -1,8 +1,8 @@
 #include "xc.h"
 
-extern func_type *lda_known_funct[], *gga_known_funct[];
+extern xc_func_info_type *lda_known_funct[], *gga_known_funct[];
 
-int family_from_id(int id)
+int xc_family_from_id(int id)
 {
   int i;
 

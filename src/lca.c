@@ -5,7 +5,7 @@
 #include "util.h"
 
 /* initialization */
-void lca_init(lca_type *p, int functional, int nspin)
+void xc_lca_init(xc_lca_type *p, int functional, int nspin)
 {
   /* sanity check */
   assert(functional == XC_LCA_LCH ||
@@ -28,7 +28,7 @@ void lca_init(lca_type *p, int functional, int nspin)
 }
 
 
-void lca(lca_type *p, double *rho, double *v, double *e, double *dedd, double *dedv)
+void xc_lca(xc_lca_type *p, double *rho, double *v, double *e, double *dedd, double *dedv)
 {
   int i;
   int j;
@@ -59,7 +59,7 @@ void lca(lca_type *p, double *rho, double *v, double *e, double *dedd, double *d
     kf = dkfdrs*rs;
     f = 24.0*M_PI*M_PI;
 
-    switch(p->func->number){
+    switch(p->info->number){
     case XC_LCA_LCH:
       lca_s_lch(rs, &s, &dsdrs);
       break;

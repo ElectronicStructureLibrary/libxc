@@ -76,10 +76,10 @@ static void ec_pot_high(pz_consts_type *X, int i, double *rs, double *ec, double
 /* the functional */
 void lda_c_pz(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
-  lda_type *p = (lda_type *)p_;
+  xc_lda_type *p = (xc_lda_type *)p_;
 
   double dens, zeta, rs[3];
-  int func = p->func->number - XC_LDA_C_PZ;
+  int func = p->info->number - XC_LDA_C_PZ;
   
   assert(func==0 || func==1 || func==2);
   
@@ -114,7 +114,7 @@ void lda_c_pz(void *p_, double *rho, double *ec, double *vc, double *fc)
   }
 }
 
-const func_type func_lda_c_pz = {
+const xc_func_info_type func_info_lda_c_pz = {
   XC_LDA_C_PZ,
   XC_CORRELATION,
   "Perdew & Zunger",
@@ -126,7 +126,7 @@ const func_type func_lda_c_pz = {
   lda_c_pz
 };
 
-const func_type func_lda_c_pz_mod = {
+const xc_func_info_type func_info_lda_c_pz_mod = {
   XC_LDA_C_PZ_MOD,
   XC_CORRELATION,
   "Perdew & Zunger (Modified)",
@@ -139,7 +139,7 @@ const func_type func_lda_c_pz_mod = {
   lda_c_pz
 };
 
-const func_type func_lda_c_ob_pz = {
+const xc_func_info_type func_info_lda_c_ob_pz = {
   XC_LDA_C_OB_PZ,
   XC_CORRELATION,
   "Ortiz & Ballone (PZ parametrization)",

@@ -29,7 +29,7 @@
 
 void lda_x(void *p_, double *rho, double *ex, double *vx, double *fx)
 {
-  lda_type *p = (lda_type *)p_;
+  xc_lda_type *p = (xc_lda_type *)p_;
 
   static double a_x[3] = {-1.0, -1.06384608107049, -0.738558766382022};
   double dens, alpha, factor, beta, phi, DphiDdens;
@@ -78,7 +78,7 @@ void lda_x(void *p_, double *rho, double *ex, double *vx, double *fx)
 }
 
 
-const func_type func_lda_x = {
+const xc_func_info_type func_info_lda_x = {
   XC_LDA_X,
   XC_EXCHANGE,
   "Slater exchange",
@@ -92,9 +92,9 @@ const func_type func_lda_x = {
 };
 
 
-void lda_x_init(lda_type *p, int nspin, int dim, int irel)
+void xc_lda_x_init(xc_lda_type *p, int nspin, int dim, int irel)
 {
-  p->func = &func_lda_x;
+  p->info = &func_info_lda_x;
 
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
   assert(dim>=2 && dim<=3);

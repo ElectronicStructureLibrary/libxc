@@ -54,7 +54,7 @@ static double dalphadrs(int i, double *rs)
 
 void lda_c_amgb(void *p_, double *rho, double *ec, double *vc, double *fc)
 {
-  lda_type *p = (lda_type *)p_;
+  xc_lda_type *p = (xc_lda_type *)p_;
   
   double dens, zeta, rs[4];
   int i;
@@ -124,7 +124,7 @@ void lda_c_amgb(void *p_, double *rho, double *ec, double *vc, double *fc)
   }
 }
 
-func_type func_lda_c_amgb = {
+const xc_func_info_type func_info_lda_c_amgb = {
   XC_LDA_C_AMGB,
   XC_CORRELATION,
   "AMGB (for 2D systems)",

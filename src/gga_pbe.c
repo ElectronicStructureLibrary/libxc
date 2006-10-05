@@ -5,140 +5,34 @@
 #include "util.h"
 
 /************************************************************************
- Implements Perdew, Burke & Ernzerhof Generalized Gradient Approximation.
+ Implements Perdew, Burke & Ernzerhof Generalized Gradient Approximation
+ correlation functional.
 
  I based this implementation on a routine from L.C. Balbas and J.M. Soler
 ************************************************************************/
 
-
-/*                            exchange                                 */
-static const double kappa[2] = {
-  0.8040,
-  1.245
-};
-static const double mu    = 0.2195149727645171;  /* beta*M_PI*M_PI/3.0 */
-
-void gga_x_pbe_init(void *p_)
-{
-  gga_type *p = p_;
-
-  p->lda_aux = (lda_type *) malloc(sizeof(lda_type));
-  lda_x_init(p->lda_aux, XC_UNPOLARIZED, 3, XC_NON_RELATIVISTIC);
-}
-
-
-void gga_x_pbe_end(void *p_)
-{
-  gga_type *p = p_;
-
-  free(p->lda_aux);
-}
-
-
-void gga_x_pbe(void *p_, double *rho, double *sigma,
-	       double *e, double *vrho, double *vsigma)
-{
-  gga_type *p = p_;
-
-  double dens, sfact;
-  int is;
-  int func = p->func->number - XC_GGA_X_PBE;
-  
-  assert(func==0 || func==1);
-
-  *e   = 0.0;
-  dens = 0.0;
-  if(p->nspin == XC_POLARIZED){
-    sfact     = 2.0;
-    vsigma[1] = 0.0; /* there are no cross terms in this functional */
-  }else
-    sfact     = 1.0;
-
-  for(is=0; is<p->nspin; is++){
-    double ds, gdms, kfs, s, f1, f, sig;
-    double exunif, vxunif;
-    double dkfdd, dsdd, df1dd, dfdd;
-    double dsdsig, df1dsig, dfdsig;
-
-    dens = dens + rho[is];
-    ds   = max(MIN_DENS, sfact*rho[is]);
-
-    /* calculate |nabla rho| */
-    sig  = sfact*sfact*sigma[is==0 ? 0 : 2];
-    gdms = max(MIN_GRAD, sqrt(sig));
-
-    kfs  = pow(3.0*M_PI*M_PI*ds, 1.0/3.0);
-    s    = gdms/(2.0*kfs*ds);
-
-    f1   = 1.0 + mu*s*s/kappa[func];
-    f    = 1.0 + kappa[func] - kappa[func]/f1;
-
-    lda(p->lda_aux, &ds, &exunif, &vxunif, NULL);
-    
-    /* total energy per unit volume */
-    *e += ds*exunif*f;
-    
-    dkfdd = kfs/(3.0*ds);
-    dsdd  = s*(-dkfdd/kfs - 1.0/ds);
-    df1dd = 2.0*(f1 - 1.0)*dsdd/s;
-    dfdd  = kappa[func]*df1dd/(f1*f1);
-
-    vrho[is] = vxunif*f + ds*exunif*dfdd;
-    
-    dsdsig  = s/(2.0*sig);
-    df1dsig = 2.0*mu*s*dsdsig/kappa[func];
-    dfdsig  = kappa[func]*df1dsig/(f1*f1);
-    vsigma[is==0 ? 0 : 2] = sfact*ds*exunif*dfdsig;
-  }
-
-  *e = *e/(dens*sfact); /* we want energy per particle */
-}
-
-
-const func_type func_gga_x_pbe = {
-  XC_GGA_X_PBE,
-  XC_EXCHANGE,
-  "Perdew, Burke & Ernzerhof",
-  XC_FAMILY_GGA,
-  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  gga_x_pbe_init,
-  gga_x_pbe_end,
-  NULL,            /* this is not an LDA                   */
-  gga_x_pbe,
-};
-
-const func_type func_gga_x_pbe_r = {
-  XC_GGA_X_PBE_R,
-  XC_EXCHANGE,
-  "Perdew, Burke & Ernzerhof",
-  XC_FAMILY_GGA,
-  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
-  "Y. Zhang and W. Yang, Phys. Rev. Lett 80, 890 (1998)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  gga_x_pbe_init,
-  gga_x_pbe_end,
-  NULL,            /* this is not an LDA                   */
-  gga_x_pbe,
-};
-
-/*                            correlation                                 */
 static const double beta  = 0.06672455060314922;
 static const double gamm  = 0.03109076908696549; /* (1.0 - log(2.0))/(M_PI*M_PI) */
 
 void gga_c_pbe_init(void *p_)
 {
-  gga_type *p = p_;
+  xc_gga_type *p = (xc_gga_type *)p_;
 
-  p->lda_aux = (lda_type *) malloc(sizeof(lda_type));
-  lda_init(p->lda_aux, XC_LDA_C_PW, p->nspin);
+  p->lda_aux = (xc_lda_type *) malloc(sizeof(xc_lda_type));
+  xc_lda_init(p->lda_aux, XC_LDA_C_PW, p->nspin);
 }
 
+void gga_c_pbe_end(void *p_)
+{
+  xc_gga_type *p = (xc_gga_type *)p_;
+
+  free(p->lda_aux);
+}
 
 void gga_c_pbe(void *p_, double *rho, double *sigma,
 	       double *e, double *vrho, double *vsigma)
 {
-  gga_type *p = p_;
+  xc_gga_type *p = (xc_gga_type *)p_;
 
   double dens, zeta, ecunif, vcunif[2];
   double rs, kf, ks, phi, phi3, gdmt, t, t2;
@@ -146,7 +40,7 @@ void gga_c_pbe(void *p_, double *rho, double *sigma,
   double drsdd, dkfdd, dksdd, dzdd[2], dpdz;
   int is;
 
-  lda(p->lda_aux, rho, &ecunif, vcunif, NULL);
+  xc_lda(p->lda_aux, rho, &ecunif, vcunif, NULL);
   rho2dzeta(p->nspin, rho, &dens, &zeta);
   
   rs = RS(dens);
@@ -184,20 +78,24 @@ void gga_c_pbe(void *p_, double *rho, double *sigma,
     dpdz -= (1.0/3.0)/pow(1.0 - zeta, 1.0/3.0);
   
   for(is=0; is<p->nspin; is++){
-    double decudd, dpdd, dtdd;
-    double df1dd, df2dd, df3dd, df4dd, dadd, dhdd;
+    if(rho[is] > MIN_DENS){
+      double decudd, dpdd, dtdd;
+      double df1dd, df2dd, df3dd, df4dd, dadd, dhdd;
 
-    decudd = (vcunif[is] - ecunif)/dens;
-    dpdd   = dpdz*dzdd[is];
-    dtdd   = (-t)*(dpdd/phi + dksdd/ks + 1.0/dens);
-    df1dd  = f1*(decudd/ecunif - 3.0*dpdd/phi);
-    df2dd  = (-f2)*df1dd;
-    dadd   = (-a)*df2dd/(f2 - 1.0);
-    df3dd  = t*(2.0 + 4.0*a*t2)*dtdd + dadd*t2*t2;
-    df4dd  = f4*(df3dd/f3 - (dadd*f3 + a*df3dd)/(1.0 + a*f3));
-    dhdd   = 3.0*h*dpdd/phi;
-    dhdd  += gamm*phi3*df4dd/(1.0 + f4);
-    vrho[is] = vcunif[is] + h + dens*dhdd;
+      decudd = (vcunif[is] - ecunif)/dens;
+      dpdd   = dpdz*dzdd[is];
+      dtdd   = (-t)*(dpdd/phi + dksdd/ks + 1.0/dens);
+      df1dd  = f1*(decudd/ecunif - 3.0*dpdd/phi);
+      df2dd  = (-f2)*df1dd;
+      dadd   = (-a)*df2dd/(f2 - 1.0);
+      df3dd  = t*(2.0 + 4.0*a*t2)*dtdd + dadd*t2*t2;
+      df4dd  = f4*(df3dd/f3 - (dadd*f3 + a*df3dd)/(1.0 + a*f3));
+      dhdd   = 3.0*h*dpdd/phi;
+      dhdd  += gamm*phi3*df4dd/(1.0 + f4);
+      vrho[is] = vcunif[is] + h + dens*dhdd;
+    }else{
+      vrho[is] = 0.0;
+    }
   }
 
   { /* calculate now vsigma */
@@ -215,7 +113,7 @@ void gga_c_pbe(void *p_, double *rho, double *sigma,
   }
 }
 
-const func_type func_gga_c_pbe = {
+const xc_func_info_type func_info_gga_c_pbe = {
   XC_GGA_C_PBE,
   XC_CORRELATION,
   "Perdew, Burke & Ernzerhof",
@@ -223,7 +121,7 @@ const func_type func_gga_c_pbe = {
   "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_c_pbe_init,
-  gga_x_pbe_end,   /* we can use the same as exchange here */
+  gga_c_pbe_end,   /* we can use the same as exchange here */
   NULL,            /* this is not an LDA                   */
   gga_c_pbe,
 };

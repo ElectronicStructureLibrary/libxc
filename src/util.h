@@ -32,20 +32,20 @@ void rho2dzeta(int nspin, double *rho, double *d, double *zeta);
 void lda_x(void *p, double *rho, double *ex, double *vx, double *fx);
 
 /* meta-GGAs */
-void mgga_x_tpss_init(mgga_type *p);
-void mgga_c_tpss_init(mgga_type *p);
+void mgga_x_tpss_init(xc_mgga_type *p);
+void mgga_c_tpss_init(xc_mgga_type *p);
 
-void mgga_x_tpss_end(mgga_type *p);
-void mgga_c_tpss_end(mgga_type *p);
+void mgga_x_tpss_end(xc_mgga_type *p);
+void mgga_c_tpss_end(xc_mgga_type *p);
 
-void mgga_x_tpss(mgga_type *p, double *rho, double *grho, double *tau,
+void mgga_x_tpss(xc_mgga_type *p, double *rho, double *grho, double *tau,
 		 double *e, double *dedd, double *dedgd, double *dedtau);
-void mgga_c_tpss(mgga_type *p, double *rho, double *grho, double *tau,
+void mgga_c_tpss(xc_mgga_type *p, double *rho, double *grho, double *tau,
 		 double *e, double *dedd, double *dedgd, double *dedtau);
 
 /* LCAs */
-void lca_lch_init(lca_type *p);
-void lca_omc_init(lca_type *p);
+void lca_lch_init(xc_lca_type *p);
+void lca_omc_init(xc_lca_type *p);
 
 void lca_s_lch(double rs, double *s, double *dsdrs);
 void lca_s_omc(double rs, double *s, double *dsdrs);

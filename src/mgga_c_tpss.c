@@ -11,7 +11,7 @@
   Correlation part
 ************************************************************************/
 
-static func_type func_mgga_c_tpss = {
+static xc_func_info_type func_info_mgga_c_tpss = {
   XC_MGGA_C_TPSS,
   XC_CORRELATION,
   "Perdew, Tao, Staroverov & Scuseria",
@@ -21,27 +21,27 @@ static func_type func_mgga_c_tpss = {
 };
 
 
-void mgga_c_tpss_init(mgga_type *p)
+void mgga_c_tpss_init(xc_mgga_type *p)
 {
-  p->func = &func_mgga_c_tpss;
+  p->info = &func_info_mgga_c_tpss;
 
-  p->gga_aux1 = (gga_type *) malloc(sizeof(gga_type));
-  gga_init(p->gga_aux1, XC_GGA_C_PBE, p->nspin);
+  p->gga_aux1 = (xc_gga_type *) malloc(sizeof(xc_gga_type));
+  xc_gga_init(p->gga_aux1, XC_GGA_C_PBE, p->nspin);
 
   if(p->nspin == XC_UNPOLARIZED){
-    p->gga_aux2 = (gga_type *) malloc(sizeof(gga_type));
-    gga_init(p->gga_aux2, XC_GGA_C_PBE, XC_POLARIZED);
+    p->gga_aux2 = (xc_gga_type *) malloc(sizeof(xc_gga_type));
+    xc_gga_init(p->gga_aux2, XC_GGA_C_PBE, XC_POLARIZED);
   }
 }
 
 
-void mgga_c_tpss_end(mgga_type *p)
+void mgga_c_tpss_end(xc_mgga_type *p)
 {
-  gga_end(p->gga_aux1);
+  xc_gga_end(p->gga_aux1);
   free(p->gga_aux1);
 
   if(p->nspin == XC_UNPOLARIZED) {
-    gga_end(p->gga_aux2);
+    xc_gga_end(p->gga_aux2);
     free(p->gga_aux2);
   }
 }
@@ -77,7 +77,7 @@ c_tpss_14(double csi, double zeta, double *C, double *dCdcsi, double *dCdzeta)
 
 
 /* Equation 12 */
-static void c_tpss_12(mgga_type *p, double *rho, double *grho, 
+static void c_tpss_12(xc_mgga_type *p, double *rho, double *grho, 
 		 double dens, double zeta, double z,
 		 double *e_PKZB, double *de_PKZBdd, double *de_PKZBdgd, double *de_PKZBdz)
 {
@@ -95,8 +95,8 @@ static void c_tpss_12(mgga_type *p, double *rho, double *grho,
   dcsidgd   = (double *)malloc(3*p->nspin*sizeof(double));
 
   { /* get the PBE stuff */
-    gga_type *aux2 = (p->nspin == XC_UNPOLARIZED) ? p->gga_aux2 : p->gga_aux1;
-    gga(p->gga_aux1, rho, grho, &e_PBE, de_PBEdd, de_PBEdgd);
+    xc_gga_type *aux2 = (p->nspin == XC_UNPOLARIZED) ? p->gga_aux2 : p->gga_aux1;
+    xc_gga(p->gga_aux1, rho, grho, &e_PBE, de_PBEdd, de_PBEdgd);
     
     for(is=0; is<p->nspin; is++){
       double r1[2], gr1[2*3], e1, de1dd[2], de1dgd[2*3];
@@ -113,7 +113,7 @@ static void c_tpss_12(mgga_type *p, double *rho, double *grho,
 
       /* call (polarized) PBE again */
       de1dd[0] = 0.0; de1dd[1] = 0.0;
-      gga(aux2, r1, gr1, &e1, de1dd, de1dgd);
+      xc_gga(aux2, r1, gr1, &e1, de1dd, de1dgd);
 
       e_til   [is] = e1;
       de_tildd[is] = de1dd[0];
@@ -214,7 +214,7 @@ static void c_tpss_12(mgga_type *p, double *rho, double *grho,
 
 
 void 
-mgga_c_tpss(mgga_type *p, double *rho, double *grho, double *tau,
+mgga_c_tpss(xc_mgga_type *p, double *rho, double *grho, double *tau,
 	    double *energy, double *dedd, double *dedgd, double *dedtau)
 {
   double dens, zeta;

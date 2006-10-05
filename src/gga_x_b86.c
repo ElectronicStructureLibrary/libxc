@@ -6,6 +6,23 @@
 
 /************************************************************************/
 
+static void pbe_f(int func, double x, double *f, double *dfdx, double *ldfdx)
+{
+  static const  double kappa[2] = {
+    0.8040,
+    1.245
+  };
+  static const double mu = 0.00361218645365094697; /* beta*(pi^2/(3^5*2^8))^(1/3) */
+  double dd;
+
+  dd     = 1.0/(kappa[func] + mu*x*x);
+
+  *f     = 1.0 + kappa[func]*(1.0 - kappa[func]*dd);
+  *dfdx  = 2.0*x*mu*kappa[func]*kappa[func]*dd*dd;
+  *ldfdx = mu;
+}
+
+
 static void b86_f(int func, double x, double *f, double *dfdx, double *ldfdx)
 {
   static const double beta[2]  = {
@@ -37,7 +54,6 @@ static void b86_mgc_f(double x, double *f, double *dfdx, double *ldfdx)
 
   *dfdx = beta/X_FACTOR_C*2.0*x*(5.0 + gamma*x*x)/(5.0*pow(f1, 9.0/5.0));
   *ldfdx= beta/X_FACTOR_C;
-
 }
 
 
@@ -71,7 +87,7 @@ static void g96_f(double x, double *f, double *dfdx, double *ldfdx)
 void gga_x_b86(void *p_, double *rho, double *sigma,
 	       double *e, double *vrho, double *vsigma)
 {
-  gga_type *p = p_;
+  xc_gga_type *p = p_;
 
   double sfact, dens;
   int is;
@@ -102,7 +118,13 @@ void gga_x_b86(void *p_, double *rho, double *sigma,
     rho13 = pow(ds, 1.0/3.0);
     x     = gdm/(ds*rho13);
 
-    switch(p->func->number){
+    switch(p->info->number){
+    case XC_GGA_X_PBE:
+      pbe_f(0, x, &f, &dfdx, &ldfdx);
+      break;
+    case XC_GGA_X_PBE_R:
+      pbe_f(1, x, &f, &dfdx, &ldfdx);
+      break;
     case XC_GGA_X_B86:
       b86_f(0, x, &f, &dfdx, &ldfdx);
       break;
@@ -137,7 +159,30 @@ void gga_x_b86(void *p_, double *rho, double *sigma,
 
 /************************************************************************/
 
-func_type func_gga_x_b86 = {
+const xc_func_info_type func_info_gga_x_pbe = {
+  XC_GGA_X_PBE,
+  XC_EXCHANGE,
+  "Perdew, Burke & Ernzerhof",
+  XC_FAMILY_GGA,
+  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL,
+  gga_x_b86
+};
+
+const xc_func_info_type func_info_gga_x_pbe_r = {
+  XC_GGA_X_PBE_R,
+  XC_EXCHANGE,
+  "Perdew, Burke & Ernzerhof",
+  XC_FAMILY_GGA,
+  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
+  "Y. Zhang and W. Yang, Phys. Rev. Lett 80, 890 (1998)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL,
+  gga_x_b86
+};
+
+const xc_func_info_type func_info_gga_x_b86 = {
   XC_GGA_X_B86,
   XC_EXCHANGE,
   "Becke 86",
@@ -148,7 +193,7 @@ func_type func_gga_x_b86 = {
   gga_x_b86
 };
 
-func_type func_gga_x_b86_r = {
+const xc_func_info_type func_info_gga_x_b86_r = {
   XC_GGA_X_B86_R,
   XC_EXCHANGE,
   "Becke 86 (reoptimized)",
@@ -160,8 +205,7 @@ func_type func_gga_x_b86_r = {
   gga_x_b86
 };
 
-
-func_type func_gga_x_b86_mgc = {
+const xc_func_info_type func_info_gga_x_b86_mgc = {
   XC_GGA_X_B86_MGC,
   XC_EXCHANGE,
   "Becke 86 with modified gradient correction",
@@ -173,7 +217,7 @@ func_type func_gga_x_b86_mgc = {
   gga_x_b86
 };
 
-const func_type func_gga_x_b88 = {
+const xc_func_info_type func_info_gga_x_b88 = {
   XC_GGA_X_B88,
   XC_EXCHANGE,
   "Becke 88",
@@ -184,7 +228,7 @@ const func_type func_gga_x_b88 = {
   gga_x_b86
 };
 
-const func_type func_gga_x_g96 = {
+const xc_func_info_type func_info_gga_x_g96 = {
   XC_GGA_X_G96,
   XC_EXCHANGE,
   "Gill 96",

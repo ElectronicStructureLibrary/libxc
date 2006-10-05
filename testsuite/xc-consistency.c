@@ -35,8 +35,8 @@ static double xc_trial_points[][5] = {
 typedef struct {
   int family;
 
-  lda_type lda_func;
-  gga_type gga_func;
+  xc_lda_type lda_func;
+  xc_gga_type gga_func;
 } functionals_type;
 
 
@@ -45,10 +45,10 @@ void get_point(functionals_type *func, double point[5], double *e, double der[5]
   switch(func->family)
     {
     case XC_FAMILY_LDA:
-      lda(&(func->lda_func), &(point[0]), e, &(der[0]), NULL);
+      xc_lda(&(func->lda_func), &(point[0]), e, &(der[0]), NULL);
       break;
     case XC_FAMILY_GGA:
-      gga(&(func->gga_func), &(point[0]), &(point[2]),
+      xc_gga(&(func->gga_func), &(point[0]), &(point[2]),
 	  e, &(der[0]), &(der[2]));
       break;
     }  
@@ -161,26 +161,26 @@ void print_error(char *what, double diff, functionals_type *func, double *p)
 void test_functional(int functional, int nspin)
 {
   functionals_type func;
-  const func_type *info;
+  const xc_func_info_type *info;
   int i, j, p_max[5];
   double max_diff[5], avg_diff[5];
 
   /* initialize functional */
-  func.family = family_from_id(functional);
+  func.family = xc_family_from_id(functional);
   switch(func.family)
     {
     case XC_FAMILY_LDA:
       if(functional == XC_LDA_X)
-	lda_x_init(&(func.lda_func), nspin, 3, 0);
+	xc_lda_x_init(&(func.lda_func), nspin, 3, 0);
       else
-	lda_init(&(func.lda_func), functional, nspin);
+	xc_lda_init(&(func.lda_func), functional, nspin);
 
-      info = func.lda_func.func;
+      info = func.lda_func.info;
       break;
     case XC_FAMILY_GGA:
-      gga_init(&(func.gga_func), functional, nspin);
+      xc_gga_init(&(func.gga_func), functional, nspin);
 
-      info = func.gga_func.func;
+      info = func.gga_func.info;
       break;
     default:
       fprintf(stderr, "Functional '%d' not found\n", functional);

@@ -3,35 +3,35 @@
 
 #include "util.h"
 
-extern func_type /* these are the GGA functionals that I know */
-  func_gga_x_pbe,
-  func_gga_x_pbe_r,
-  func_gga_x_b86,
-  func_gga_x_b86_r,
-  func_gga_x_b86_mgc,
-  func_gga_x_b88,
-  func_gga_x_g96,
-  func_gga_c_pbe,
-  func_gga_c_lyp,
-  func_gga_lb;
+extern xc_func_info_type /* these are the GGA functionals that I know */
+  func_info_gga_x_pbe,
+  func_info_gga_x_pbe_r,
+  func_info_gga_x_b86,
+  func_info_gga_x_b86_r,
+  func_info_gga_x_b86_mgc,
+  func_info_gga_x_b88,
+  func_info_gga_x_g96,
+  func_info_gga_c_pbe,
+  func_info_gga_c_lyp,
+  func_info_gga_lb;
 
-func_type *gga_known_funct[] = {
-  &func_gga_x_pbe,
-  &func_gga_x_pbe_r,
-  &func_gga_x_b86,
-  &func_gga_x_b86_r,
-  &func_gga_x_b86_mgc,
-  &func_gga_x_b88,
-  &func_gga_x_g96,
-  &func_gga_c_pbe,
-  &func_gga_c_lyp,
-  &func_gga_lb,
+xc_func_info_type *gga_known_funct[] = {
+  &func_info_gga_x_pbe,
+  &func_info_gga_x_pbe_r,
+  &func_info_gga_x_b86,
+  &func_info_gga_x_b86_r,
+  &func_info_gga_x_b86_mgc,
+  &func_info_gga_x_b88,
+  &func_info_gga_x_g96,
+  &func_info_gga_c_pbe,
+  &func_info_gga_c_lyp,
+  &func_info_gga_lb,
   NULL
 };
 
 
 /* initialization */
-int gga_init(gga_type *p, int functional, int nspin)
+int xc_gga_init(xc_gga_type *p, int functional, int nspin)
 {
   int i;
 
@@ -45,25 +45,25 @@ int gga_init(gga_type *p, int functional, int nspin)
   if(gga_known_funct[i] == NULL) return -1; /* functional not found */
 
   /* initialize structure */
-  p->func = gga_known_funct[i];
+  p->info = gga_known_funct[i];
 
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
   p->nspin = nspin;
   
   /* see if we need to initialize the functional */
-  if(p->func->init != NULL)
-    p->func->init(p);
+  if(p->info->init != NULL)
+    p->info->init(p);
   return 0;
 }
 
 
 /* Termination */
-void gga_end(gga_type *p)
+void xc_gga_end(xc_gga_type *p)
 {
   assert(p != NULL);
 
-  if(p->func->end != NULL)
-    p->func->end(p);
+  if(p->info->end != NULL)
+    p->info->end(p);
 }
 
 
@@ -77,8 +77,8 @@ if nspin == 2
    rho   = (rho_u, rho_d)
    sigma = (sigma_uu, sigma_du, sigma_dd)
 */
-void gga(gga_type *p, double *rho, double *sigma,
-	 double *e, double *vrho, double *vsigma)
+void xc_gga(xc_gga_type *p, double *rho, double *sigma,
+	    double *e, double *vrho, double *vsigma)
 {
   double dens;
 
@@ -100,6 +100,6 @@ void gga(gga_type *p, double *rho, double *sigma,
     return;
   }
 
-  assert(p->func!=NULL && p->func->gga!=NULL);
-  p->func->gga(p, rho, sigma, e, vrho, vsigma);
+  assert(p->info!=NULL && p->info->gga!=NULL);
+  p->info->gga(p, rho, sigma, e, vrho, vsigma);
 }

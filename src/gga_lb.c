@@ -10,12 +10,12 @@
 
 void gga_lb_end(void *p_)
 {
-  gga_type *p = p_;
+  xc_gga_type *p = p_;
 
   free(p->lda_aux);
 }
 
-void gga_lb(gga_type *p, double *rho, double *sigma, double r, double ip, double qtot,
+void xc_gga_lb(xc_gga_type *p, double *rho, double *sigma, double r, double ip, double qtot,
 	    double *dedd)
 {
   int is;
@@ -23,7 +23,7 @@ void gga_lb(gga_type *p, double *rho, double *sigma, double r, double ip, double
 
   static const double beta = 0.05;
 
-  lda(p->lda_aux, rho, &x, dedd, NULL);
+  xc_lda(p->lda_aux, rho, &x, dedd, NULL);
   if(p->modified){
     alpha = (ip > 0.0) ? 2.0*sqrt(2.0*ip) : 0.5;
     gamm  = pow(qtot, 1.0/3.0)/(2.0*alpha);
@@ -51,7 +51,7 @@ void gga_lb(gga_type *p, double *rho, double *sigma, double r, double ip, double
   }
 }
 
-func_type func_gga_lb = {
+xc_func_info_type func_info_gga_lb = {
   XC_GGA_XC_LB,
   XC_EXCHANGE_CORRELATION,
   "van Leeuwen & Baerends",
@@ -64,14 +64,14 @@ func_type func_gga_lb = {
   NULL /* we can not call this directly */
 };
 
-void gga_lb_init(gga_type *p, int nspin, int modified, double threshold)
+void xc_gga_lb_init(xc_gga_type *p, int nspin, int modified, double threshold)
 {
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
 
   p->nspin = nspin;
-  p->func = &func_gga_lb;
-  p->lda_aux = (lda_type *) malloc(sizeof(lda_type));
-  lda_x_init(p->lda_aux, nspin, 3, XC_NON_RELATIVISTIC);
+  p->info = &func_info_gga_lb;
+  p->lda_aux = (xc_lda_type *) malloc(sizeof(xc_lda_type));
+  xc_lda_x_init(p->lda_aux, nspin, 3, XC_NON_RELATIVISTIC);
   
   p->modified  = modified;
   p->threshold = threshold;

@@ -27,8 +27,6 @@
 #define XC_PROVIDES_FXC         4
 #define XC_PROVIDES_KXC         8
 
-struct struct_lda_type;
-
 typedef struct{
   int   number;   /* indentifier number */
   int   kind;     /* XC_EXCHANGE or XC_CORRELATION */
@@ -43,11 +41,11 @@ typedef struct{
   void (*end) (void *p);
   void (*lda) (void *p, double *rho, double *ec, double *vc, double *fc);
   void (*gga) (void *p, double *rho, double *sigma, double *ec, double *vc, double *vsigma);
-} func_type;
+} xc_func_info_type;
 
 
 /* functionals */
-int family_from_id(int functional);
+int xc_family_from_id(int functional);
 
 
 /* the LDAs */
@@ -67,24 +65,23 @@ int family_from_id(int functional);
 #define XC_LDA_C_OB_PW         13   /* Ortiz & Ballone (PW)         */
 #define XC_LDA_C_AMGB          14   /* Attacalite et al             */
 
-struct struct_lda_type {
-  const func_type *func;      /* which functional did we chose   */
-  int    nspin;         /* XC_UNPOLARIZED or XC_POLARIZED  */
+typedef struct struct_lda_type {
+  const xc_func_info_type *info;  /* which functional did we chose   */
+  int nspin;                /* XC_UNPOLARIZED or XC_POLARIZED  */
   
-  int    relativistic;  /* XC_RELATIVISTIC or XC_NON_RELATIVISTIC */
-  int    dim;
+  int relativistic;         /* XC_RELATIVISTIC or XC_NON_RELATIVISTIC */
+  int dim;
   
-  double alpha;         /* parameter for Xalpha functional */
-};
-typedef struct struct_lda_type lda_type;
+  double alpha;             /* parameter for Xalpha functional */
+} xc_lda_type;
 
-int  lda_init(lda_type *p, int functional, int nspin);
-void lda_x_init(lda_type *p, int nspin, int dim, int irel);
-void lda_c_xalpha_init(lda_type *p, int nspin, int dim, double alpha);
+int  xc_lda_init(xc_lda_type *p, int functional, int nspin);
+void xc_lda_x_init(xc_lda_type *p, int nspin, int dim, int irel);
+void xc_lda_c_xalpha_init(xc_lda_type *p, int nspin, int dim, double alpha);
 
-void lda(lda_type *p, double *rho, double *ec, double *vc, double *fc);
-void lda_fxc(lda_type *p, double *rho, double *fxc);
-void lda_kxc(lda_type *p, double *rho, double *kxc);
+void xc_lda(xc_lda_type *p, double *rho, double *ec, double *vc, double *fc);
+void xc_lda_fxc(xc_lda_type *p, double *rho, double *fxc);
+void xc_lda_kxc(xc_lda_type *p, double *rho, double *kxc);
 
 
 /* the GGAs */
@@ -103,22 +100,22 @@ void lda_kxc(lda_type *p, double *rho, double *kxc);
 #define XC_GGA_XC_LB          160 /* van Leeuwen & Baerends                         */
 
 typedef struct{
-  const func_type *func;       /* which functional did we chose   */
-  int        nspin;      /* XC_UNPOLARIZED or XC_POLARIZED  */
+  const xc_func_info_type *info;  /* which functional did we chose   */
+  int nspin;                /* XC_UNPOLARIZED or XC_POLARIZED  */
   
-  lda_type  *lda_aux;    /* most GGAs are based on a LDA    */
+  xc_lda_type *lda_aux;     /* most GGAs are based on a LDA    */
 
-  int modified;          /* parameters necessary to the lb functional */
+  int modified;             /* parameters necessary to the lb functional */
   double threshold;
-} gga_type;
+} xc_gga_type;
 
-int  gga_init(gga_type *p, int functional, int nspin);
-void gga_end (gga_type *p);
-void gga     (gga_type *p, double *rho, double *grho,
-	      double *e, double *dedd, double *dedgd);
+int  xc_gga_init(xc_gga_type *p, int functional, int nspin);
+void xc_gga_end (xc_gga_type *p);
+void xc_gga     (xc_gga_type *p, double *rho, double *grho,
+		 double *e, double *dedd, double *dedgd);
 
-void gga_lb_init(gga_type *p, int nspin, int modified, double threshold);
-void gga_lb     (gga_type *p, double *rho, double *grho, double r, double ip, double qtot,
+void xc_gga_lb_init(xc_gga_type *p, int nspin, int modified, double threshold);
+void xc_gga_lb     (xc_gga_type *p, double *rho, double *grho, double r, double ip, double qtot,
 		 double *dedd);
 
 /* the meta-GGAs */
@@ -127,19 +124,19 @@ void gga_lb     (gga_type *p, double *rho, double *grho, double r, double ip, do
 #define XC_MGGA_C_TPSS        202 /* Perdew, Tao, Staroverov & Scuseria correlation */
 
 typedef struct{
-  const func_type *func;       /* which functional did we chose   */
-  int        nspin;      /* XC_UNPOLARIZED or XC_POLARIZED  */
+  const xc_func_info_type *info;  /* which functional did we chose   */
+  int nspin;                /* XC_UNPOLARIZED or XC_POLARIZED  */
   
-  lda_type  *lda_aux;    /* most meta-GGAs are based on a LDA    */
-  gga_type  *gga_aux1;   /* or on a GGA                          */
-  gga_type  *gga_aux2;   /* or on a GGA                          */
+  xc_lda_type *lda_aux;     /* most meta-GGAs are based on a LDA    */
+  xc_gga_type *gga_aux1;    /* or on a GGA                          */
+  xc_gga_type *gga_aux2;    /* or on a GGA                          */
 
-} mgga_type;
+} xc_mgga_type;
 
-void mgga_init(mgga_type *p, int functional, int nspin);
-void mgga_end (mgga_type *p);
-void mgga     (mgga_type *p, double *rho, double *grho, double *tau,
-	       double *e, double *dedd, double *dedgd, double *dedtau);
+void xc_mgga_init(xc_mgga_type *p, int functional, int nspin);
+void xc_mgga_end (xc_mgga_type *p);
+void xc_mgga     (xc_mgga_type *p, double *rho, double *grho, double *tau,
+		  double *e, double *dedd, double *dedgd, double *dedtau);
 
 /* the LCAs */
 
@@ -148,13 +145,13 @@ void mgga     (mgga_type *p, double *rho, double *grho, double *tau,
 
 
 typedef struct{
-  func_type *func;       /* which functional did we chose   */
-  int        nspin;      /* XC_UNPOLARIZED or XC_POLARIZED  */
+  xc_func_info_type *info;  /* which functional did we chose   */
+  int nspin;                /* XC_UNPOLARIZED or XC_POLARIZED  */
 
-} lca_type;
+} xc_lca_type;
 
-void lca_init(lca_type *p, int functional, int nspin);
-void lca     (lca_type *p, double *rho, double *v, double *e, double *dedd, double *dedv);
+void xc_lca_init(xc_lca_type *p, int functional, int nspin);
+void xc_lca     (xc_lca_type *p, double *rho, double *v, double *e, double *dedd, double *dedv);
 
 #endif
 

@@ -3,21 +3,22 @@
 #include <assert.h>
 
 #include "xc.h"
+#include "config.h"
 #include <string_f.h>
 
 /* info */
 
-int FC_FUNC_(xc_f90_info_number, XC_F90_INFO_NUMBER)
+CC_FORTRAN_INT FC_FUNC_(xc_f90_info_number, XC_F90_INFO_NUMBER)
      (void **info)
 {
-  return ((xc_func_info_type *)(*info))->number;
+  return (CC_FORTRAN_INT) ((xc_func_info_type *)(*info))->number;
 }
 
 
-int FC_FUNC_(xc_f90_info_kind, XC_F90_INFO_KIND)
+CC_FORTRAN_INT FC_FUNC_(xc_f90_info_kind, XC_F90_INFO_KIND)
      (void **info)
 {
-  return ((xc_func_info_type *)(*info))->kind;
+  return (CC_FORTRAN_INT) ((xc_func_info_type *)(*info))->kind;
 }
 
 
@@ -28,10 +29,10 @@ void FC_FUNC_(xc_f90_info_name, XC_F90_INFO_NAME)
 }
 
 
-int FC_FUNC_(xc_f90_info_family, XC_F90_INFO_FAMILY)
+CC_FORTRAN_INT  FC_FUNC_(xc_f90_info_family, XC_F90_INFO_FAMILY)
      (void **info)
 {
-  return ((xc_func_info_type *)(*info))->family;
+  return (CC_FORTRAN_INT) ((xc_func_info_type *)(*info))->family;
 }
 
 void FC_FUNC_(xc_f90_info_ref, XC_F90_INFO_REF)
@@ -56,23 +57,23 @@ void FC_FUNC_(xc_f90_info_ref, XC_F90_INFO_REF)
 }
 
 /* functionals */
-int FC_FUNC_(xc_f90_family_from_id, XC_F90_FAMILY_FROM_ID)
-  (int *functional)
+CC_FORTRAN_INT  FC_FUNC_(xc_f90_family_from_id, XC_F90_FAMILY_FROM_ID)
+  (CC_FORTRAN_INT  *functional)
 {
-  return xc_family_from_id(*functional);
+  return (CC_FORTRAN_INT) xc_family_from_id((int) (*functional));
 }
 
 
 /* LDAs */
 
 void FC_FUNC_(xc_f90_lda_init_, XC_F90_LDA_INIT_)
-     (void **p, void **info, int *functional, int *nspin)
+     (void **p, void **info, CC_FORTRAN_INT *functional, CC_FORTRAN_INT *nspin)
 {
   xc_lda_type *lda_p;
   
   *p = malloc(sizeof(xc_lda_type));
   lda_p = (xc_lda_type *)(*p);
-  xc_lda_init(lda_p, *functional, *nspin);
+  xc_lda_init(lda_p, (int) (*functional), (int) (*nspin));
   *info = (void *)(lda_p->info);
 }
 
@@ -104,7 +105,8 @@ void FC_FUNC_(xc_f90_lda_kxc, XC_F90_LDA_KXC)
 
 /* exchange in the LDA */
 void FC_FUNC_(xc_f90_lda_x_init, XC_F90_LDA_X_INIT)
-     (void **p, void **info, int *functional, int *nspin, int *dim, int *irel)
+     (void **p, void **info, CC_FORTRAN_INT *functional, 
+      CC_FORTRAN_INT *nspin, CC_FORTRAN_INT *dim, CC_FORTRAN_INT *irel)
 {
   xc_lda_type *lda_p;
 
@@ -112,21 +114,22 @@ void FC_FUNC_(xc_f90_lda_x_init, XC_F90_LDA_X_INIT)
 
   *p = malloc(sizeof(xc_lda_type));
   lda_p = (xc_lda_type *)(*p);
-  xc_lda_x_init(lda_p, *nspin, *dim, *irel);
+  xc_lda_x_init(lda_p, (int) (*nspin), (int) (*dim), (int) (*irel));
   *info = (void *)(lda_p->info);
 }
 
 /* Slater's Xalpha */
 void FC_FUNC_(xc_f90_lda_c_xalpha_init, XC_F90_LDA_C_XALPHA_INIT)
-     (void **p, void **info, int *functional, int *nspin, int *dim, double *alpha)
+     (void **p, void **info, CC_FORTRAN_INT *functional, 
+      CC_FORTRAN_INT *nspin, CC_FORTRAN_INT *dim, double *alpha)
 {
   xc_lda_type *lda_p;
 
-  assert(*functional == XC_LDA_C_XALPHA);
+  assert((int) (*functional) == XC_LDA_C_XALPHA);
 
   *p = malloc(sizeof(xc_lda_type));
   lda_p = (xc_lda_type *)(*p);
-  xc_lda_c_xalpha_init(lda_p, *nspin, *dim, *alpha);
+  xc_lda_c_xalpha_init(lda_p, (int) (*nspin), (int) (*dim), *alpha);
   *info = (void *)(lda_p->info);
 }
 
@@ -134,13 +137,13 @@ void FC_FUNC_(xc_f90_lda_c_xalpha_init, XC_F90_LDA_C_XALPHA_INIT)
 /* GGAs */
 
 void FC_FUNC_(xc_f90_gga_init_, XC_F90_GGA_INIT_)
-     (void **p, void **info, int *functional, int *nspin)
+     (void **p, void **info, CC_FORTRAN_INT *functional, CC_FORTRAN_INT *nspin)
 {
   xc_gga_type *gga_p;
 
   *p = malloc(sizeof(xc_gga_type));
   gga_p = (xc_gga_type *)(*p);
-  xc_gga_init(gga_p, *functional, *nspin);
+  xc_gga_init(gga_p, (int) (*functional), (int) (*nspin));
   *info = (void *)(gga_p->info);
 }
 
@@ -161,7 +164,8 @@ void FC_FUNC_(xc_f90_gga, XC_F90_GGA)
 
 /* the van Leeuwen & Baerends functional is special */
 void FC_FUNC_(xc_f90_gga_lb_init, XC_F90_GGA_LB_INIT)
-     (void **p, void **info,  int *functional, int *nspin, int *modified, double *threshold)
+     (void **p, void **info, CC_FORTRAN_INT *functional, 
+      CC_FORTRAN_INT *nspin, CC_FORTRAN_INT *modified, double *threshold)
 {
   xc_gga_type *gga_p;
 
@@ -169,7 +173,7 @@ void FC_FUNC_(xc_f90_gga_lb_init, XC_F90_GGA_LB_INIT)
 
   *p = malloc(sizeof(xc_gga_type));
   gga_p = (xc_gga_type *)(*p);
-  xc_gga_lb_init(gga_p, *nspin, *modified, *threshold);
+  xc_gga_lb_init(gga_p, (int) (*nspin), (int) (*modified), (int) (*threshold));
   *info = (void *)(gga_p->info);
 }
 
@@ -184,13 +188,13 @@ void FC_FUNC_(xc_f90_gga_lb, XC_F90_GGA_LB)
 /* meta-GGAs */
 
 void FC_FUNC_(xc_f90_mgga_init, XC_F90_MGGA_INIT)
-     (void **p, void **info, int *functional, int *nspin)
+     (void **p, void **info, CC_FORTRAN_INT *functional, CC_FORTRAN_INT *nspin)
 {
   xc_mgga_type *mgga_p;
 
   *p = malloc(sizeof(xc_mgga_type));
   mgga_p = (xc_mgga_type *)(*p);
-  xc_mgga_init(mgga_p, *functional, *nspin);
+  xc_mgga_init(mgga_p, (int) (*functional), (int) (*nspin));
   *info = (void *)(mgga_p->info);
 }
 
@@ -212,13 +216,13 @@ void FC_FUNC_(xc_f90_mgga, XC_F90_MGGA)
 /* LCAs */
 
 void FC_FUNC_(xc_f90_lca_init, XC_F90_LCA_INIT)
-     (void **p, void **info, int *functional, int *nspin)
+     (void **p, void **info, CC_FORTRAN_INT *functional, CC_FORTRAN_INT *nspin)
 {
   xc_lca_type *lca_p;
 
   *p = malloc(sizeof(xc_lca_type));
   lca_p = (xc_lca_type *)(*p);
-  xc_lca_init(lca_p, *functional, *nspin);
+  xc_lca_init(lca_p, (int) (*functional), (int) (*nspin));
   *info = (void *)(lca_p->info);
 }
 

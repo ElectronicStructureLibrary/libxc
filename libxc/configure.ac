@@ -62,6 +62,11 @@ if test $ac_cv_build_fortran = yes; then
 
   dnl how Fortran mangles function names
   AC_FC_WRAPPERS
+
+  dnl Need to know the size of a Fortran integer
+  ACX_FC_INTEGER_SIZE
+  ACX_CC_FORTRAN_INT
+
   AC_LANG_POP([Fortran])
 fi
 

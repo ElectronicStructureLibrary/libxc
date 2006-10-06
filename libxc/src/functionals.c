@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "xc.h"
 
 extern xc_func_info_type *lda_known_funct[], *gga_known_funct[];

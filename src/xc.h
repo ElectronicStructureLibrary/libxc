@@ -1,7 +1,3 @@
-#include "config.h"
-#include <gsl/gsl_errno.h>
-#include <gsl/gsl_spline.h>
-
 #ifndef _XC_H
 #define _XC_H
 

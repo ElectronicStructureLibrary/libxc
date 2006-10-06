@@ -1,1 +1,23 @@
-../AUTHORS
+The main developing team of this program consists of (alphabetical
+order):
+
+ * Alberto Castro       (alberto.castro@tddft.org)
+ * Angel Rubio          (arubio@sc.ehu.es)
+ * Axel Thimm           (Axel.Thimm@physik.fu-berlin.de)
+ * Carlo Andrea Rozzi   (rozzi@unimo.it)
+ * Florian Lorenzen     (lorenzen@physik.fu-berlin.de)
+ * Heiko Appel          (appel@physik.fu-berlin.de)
+ * Micael Oliveira      (micael@teor.fis.uc.pt)
+ * Miguel A. L. Marques (marques@tddft.org)
+ * Xavier Andrade       (andrade@mirto.polytechnique.fr)
+
+octopus is based on a fixed-nucleus code written by:
+
+  * K. Yabana
+  * George F. Bertsch
+
+Other contributors are:
+
+  * Sebastien Hamel    - parallel version of oct-excite
+  * Eugene S. Kadantsev (ekadants@mjs1.phy.queensu.ca)
+                       - linear response code

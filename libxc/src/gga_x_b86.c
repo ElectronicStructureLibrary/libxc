@@ -23,6 +23,48 @@ static void pbe_f(int func, double x, double *f, double *dfdx, double *ldfdx)
 }
 
 
+static void pw86_f(double x, double *f, double *dfdx, double *ldfdx)
+{
+  const double x2s = 0.12827824385304220645; /* 1/(2^(4/3)*(3*pi^2)^(1/3)) */
+  const double aa = 1.296, bb = 14.0, cc = 0.2;
+  double ss, ss2, ss4, dd;
+
+  ss  = x2s*x;
+  ss2 = ss*ss;
+  ss4 = ss2*ss2;
+
+  dd = 1.0 + aa*ss2 + bb*ss4 + cc*ss4*ss2;
+
+  *f     = pow(dd, 1.0/15.0);
+  *dfdx  = x2s*ss*(2.0*aa + 4.0*bb*ss2 + 6.0*cc*ss4)/15.0 * pow(dd, -14.0/15.0);
+  *ldfdx = x2s*x2s*aa/15.0;
+}
+
+
+static void pw91_f(double x, double *f, double *dfdx, double *ldfdx)
+{
+  const double x2s = 0.12827824385304220645; /* 1/(2^(4/3)*(3*pi^2)^(1/3)) */
+  const double aa = 0.19645, bb = 7.7956, cc = 0.2743, dd=-0.1508, ff=0.004, alpha=100.0;
+  double ss, ss2, ss4;
+  double f1, f2, f3, f4;
+
+  ss  = x2s*x;
+  ss2 = ss*ss;
+  ss4 = ss2*ss2;
+
+  f1 = dd*exp(-alpha*ss2);
+  f2 = aa*asinh(bb*ss);
+  f3 = (cc + f1)*ss2 - ff*ss4;
+  f4 = 1.0 + ss*f2 + ff*ss4;
+
+  *f     = 1.0 + f3/f4;
+  *dfdx  = (2.0*ss*(cc + f1*(1.0 - alpha*ss2) - 2.0*ff*ss2)*f4 - 
+	    f3*(f2 + ss*(aa*bb/sqrt(1.0 + bb*bb*ss2) + 4.0*ff*ss2)))/(f4*f4);
+  *dfdx *= x2s;
+  *ldfdx = x2s*x2s*(cc + dd);
+}
+
+
 static void b86_f(int func, double x, double *f, double *dfdx, double *ldfdx)
 {
   static const double beta[2]  = {
@@ -140,6 +182,12 @@ void gga_x_b86(void *p_, double *rho, double *sigma,
     case XC_GGA_X_G96:
       g96_f(x, &f, &dfdx, &ldfdx);
       break;
+    case XC_GGA_X_PW86:
+      pw86_f(x, &f, &dfdx, &ldfdx);
+      break;
+    case XC_GGA_X_PW91:
+      pw91_f(x, &f, &dfdx, &ldfdx);
+      break;
    default:
       abort();
     }
@@ -234,6 +282,28 @@ const xc_func_info_type func_info_gga_x_g96 = {
   "Gill 96",
   XC_FAMILY_GGA,
   "P.M.W. Gill, Mol. Phys. 89, 433 (1996)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL,
+  gga_x_b86
+};
+
+const xc_func_info_type func_info_gga_x_pw86 = {
+  XC_GGA_X_PW86,
+  XC_EXCHANGE,
+  "Perdew & Wang 66",
+  XC_FAMILY_GGA,
+  "J.P. Perdew and Y. Wang, Phys. Rev. B 33, 8800 (1986).",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL,
+  gga_x_b86
+};
+
+const xc_func_info_type func_info_gga_x_pw91 = {
+  XC_GGA_X_PW91,
+  XC_EXCHANGE,
+  "Perdew & Wang 91",
+  XC_FAMILY_GGA,
+  "J.P. Perdew, J.A. Chevary, S.H. Vosko, K.A. Jackson, M.R. Pederson, and C. Fiolhais, Phys. Rev. B 46, 6671 (1992)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   gga_x_b86

@@ -37,6 +37,7 @@ AC_FUNC_ALLOCA
 
 # Checks for size of pointer
 ACX_POINTER_SIZE
+AC_DEFINE_UNQUOTED(C_POINTER, [integer(${ac_pointersize})], [The type of a C pointer])
 
 dnl build/install fortran bits unless --disable-fortran is used
 AC_ARG_ENABLE([fortran],

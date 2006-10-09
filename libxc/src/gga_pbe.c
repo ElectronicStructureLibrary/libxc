@@ -118,7 +118,8 @@ const xc_func_info_type func_info_gga_c_pbe = {
   XC_CORRELATION,
   "Perdew, Burke & Ernzerhof",
   XC_FAMILY_LDA,
-  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)",
+  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
+  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_c_pbe_init,
   gga_c_pbe_end,   /* we can use the same as exchange here */

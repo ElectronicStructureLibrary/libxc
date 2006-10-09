@@ -75,13 +75,13 @@ EOF
   ac_try='$FC $FCFLAGS -o intsizetest.x intsizetest.f90 1>&AC_FD_CC'
   if AC_TRY_EVAL(ac_try); then
     ac_try=""
+    ac_fcintegersize=`./intsizetest.x`;
   else
     echo "configure: failed program was:" >&AC_FD_CC
     cat intsizetest.f90 >&AC_FD_CC
-    rm -f intsizetest*
-    AC_MSG_ERROR(failed to compile f90 program to find the size of a Fortran integer)
+    AC_MSG_WARN(failed to compile f90 program to find the size of a Fortran integer)
+    ac_fcintegersize=4
   fi
-  ac_fcintegersize=`./intsizetest.x`;
   rm -f intsizetest*
   AC_DEFINE_UNQUOTED(FC_INTEGER_SIZE, ${ac_fcintegersize}, [The size of a Fortran integer])
   AC_MSG_RESULT([${ac_fcintegersize} bytes])

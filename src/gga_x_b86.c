@@ -124,6 +124,21 @@ static void g96_f(double x, double *f, double *dfdx, double *ldfdx)
 }
 
 
+static void optx_f(double x, double *f, double *dfdx, double *ldfdx)
+{
+  static const double a = 1.05151, b = 1.43169/X_FACTOR_C, gamma = 0.006;
+
+  double f1, u;
+
+  f1 = 1.0 + gamma*x*x;
+  u  = gamma*x*x/f1;
+
+  *f     = a + b*u*u;
+  *dfdx  = 2.0*b*u * 2.0*gamma*x/(f1*f1);
+  *ldfdx = 0.0;
+}
+
+
 /************************************************************************/
 
 void gga_x_b86(void *p_, double *rho, double *sigma,
@@ -187,6 +202,9 @@ void gga_x_b86(void *p_, double *rho, double *sigma,
       break;
     case XC_GGA_X_PW91:
       pw91_f(x, &f, &dfdx, &ldfdx);
+      break;
+    case XC_GGA_X_OPTX:
+      optx_f(x, &f, &dfdx, &ldfdx);
       break;
    default:
       abort();
@@ -306,6 +324,17 @@ const xc_func_info_type func_info_gga_x_pw91 = {
   "Perdew & Wang 91",
   XC_FAMILY_GGA,
   "J.P. Perdew, J.A. Chevary, S.H. Vosko, K.A. Jackson, M.R. Pederson, and C. Fiolhais, Phys. Rev. B 46, 6671 (1992)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL,
+  gga_x_b86
+};
+
+const xc_func_info_type func_info_gga_x_optx = {
+  XC_GGA_X_OPTX,
+  XC_EXCHANGE,
+  "Handy & Cohen OPTX 01",
+  XC_FAMILY_GGA,
+  "N.C. handy and A.J. Cohen, Mol. Phys. 99, 403-412 (2001)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   gga_x_b86

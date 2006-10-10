@@ -91,6 +91,7 @@ void xc_lda_kxc(xc_lda_type *p, double *rho, double *kxc);
 #define XC_GGA_X_G96          107 /* Gill 96                                        */
 #define XC_GGA_X_PW86         108 /* Perdew & Wang 86                               */
 #define XC_GGA_X_PW91         109 /* Perdew & Wang 91                               */
+#define XC_GGA_X_OPTX         110 /* Handy & Cohen OPTX 01                          */
 
 #define XC_GGA_C_PBE          130 /* Perdew, Burke & Ernzerhof correlation          */
 #define XC_GGA_C_LYP          131 /* Lee, Yang & Parr                               */

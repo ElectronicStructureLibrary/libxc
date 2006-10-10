@@ -13,6 +13,7 @@ extern xc_func_info_type /* these are the GGA functionals that I know */
   func_info_gga_x_g96,
   func_info_gga_x_pw86,
   func_info_gga_x_pw91,
+  func_info_gga_x_optx,
   func_info_gga_c_pbe,
   func_info_gga_c_lyp,
   func_info_gga_lb;
@@ -27,6 +28,7 @@ xc_func_info_type *gga_known_funct[] = {
   &func_info_gga_x_g96,
   &func_info_gga_x_pw86,
   &func_info_gga_x_pw91,
+  &func_info_gga_x_optx,
   &func_info_gga_c_pbe,
   &func_info_gga_c_lyp,
   &func_info_gga_lb,

@@ -25,7 +25,7 @@ static void pbe_f(int func, double x, double *f, double *dfdx, double *ldfdx)
 
 static void pw86_f(double x, double *f, double *dfdx, double *ldfdx)
 {
-  const double x2s = 0.12827824385304220645; /* 1/(2^(4/3)*(3*pi^2)^(1/3)) */
+  const double x2s = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
   const double aa = 1.296, bb = 14.0, cc = 0.2;
   double ss, ss2, ss4, dd;
 
@@ -43,7 +43,7 @@ static void pw86_f(double x, double *f, double *dfdx, double *ldfdx)
 
 static void pw91_f(double x, double *f, double *dfdx, double *ldfdx)
 {
-  const double x2s = 0.12827824385304220645; /* 1/(2^(4/3)*(3*pi^2)^(1/3)) */
+  const double x2s = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
   const double aa = 0.19645, bb = 7.7956, cc = 0.2743, dd=-0.1508, ff=0.004, alpha=100.0;
   double ss, ss2, ss4;
   double f1, f2, f3, f4;
@@ -139,6 +139,24 @@ static void optx_f(double x, double *f, double *dfdx, double *ldfdx)
 }
 
 
+static void dk87_f(int func, double x, double *f, double *dfdx, double *ldfdx)
+{
+  static const double a1[2] = {0.861504, 0.861213}, 
+    b1[2] = {0.044286, 0.042076}, alpha[2] = {1.0, 0.98};
+  static const double betag = 0.00132326681668994855/X_FACTOR_C; /* 7/(432*pi*(6*pi^2)^(1/3)) */
+  
+  double f0, f1, f2;
+
+  f0 = a1[func]*pow(x, alpha[func]);
+  f1 = 1.0 + f0;
+  f2 = 1.0 + b1[func]*x*x;
+  
+  *f     = 1.0 + betag*x*x*f1/f2;
+  *dfdx  = betag*(2.0*x*f1/f2 + x*(alpha[func]*f0*f2 - 2.0*b1[func]*x*x*f1)/(f2*f2));
+  *ldfdx = betag;
+}
+
+
 /************************************************************************/
 
 void gga_x_b86(void *p_, double *rho, double *sigma,
@@ -205,6 +223,12 @@ void gga_x_b86(void *p_, double *rho, double *sigma,
       break;
     case XC_GGA_X_OPTX:
       optx_f(x, &f, &dfdx, &ldfdx);
+      break;
+    case XC_GGA_X_DK87_R1:
+      dk87_f(0, x, &f, &dfdx, &ldfdx);
+      break;
+    case XC_GGA_X_DK87_R2:
+      dk87_f(1, x, &f, &dfdx, &ldfdx);
       break;
    default:
       abort();
@@ -339,3 +363,26 @@ const xc_func_info_type func_info_gga_x_optx = {
   NULL, NULL, NULL,
   gga_x_b86
 };
+
+const xc_func_info_type func_info_gga_x_dk87_r1 = {
+  XC_GGA_X_DK87_R1,
+  XC_EXCHANGE,
+  "dePristo & Kress 87 version R1",
+  XC_FAMILY_GGA,
+  "A.E. DePristo and J.D. Kress, J. Chem. Phys. 86, 1425 (1987)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL,
+  gga_x_b86
+};
+
+const xc_func_info_type func_info_gga_x_dk87_r2 = {
+  XC_GGA_X_DK87_R2,
+  XC_EXCHANGE,
+  "dePristo & Kress 87 version R2",
+  XC_FAMILY_GGA,
+  "A.E. DePristo and J.D. Kress, J. Chem. Phys. 86, 1425 (1987)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL,
+  gga_x_b86
+};
+

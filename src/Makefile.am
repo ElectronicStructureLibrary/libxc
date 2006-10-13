@@ -23,7 +23,7 @@ lib_LIBRARIES = libxc.a
 
 libxc_a_SOURCES = util.c \
 	lda.c lda_x.c lda_funcs.c lda_c_vwn.c lda_c_pz.c lda_c_pw.c lda_c_amgb.c \
-	gga.c gga_x_b86.c gga_pbe.c gga_lb.c gga_c_lyp.c gga_c_p86.c \
+	gga.c gga_x.c gga_lb.c gga_c_pbe.c gga_c_lyp.c gga_c_p86.c \
 	mgga.c mgga_x_tpss.c mgga_c_tpss.c \
 	lca.c lca_omc.c lca_lch.c \
 	functionals.c xc_f.c

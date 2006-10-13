@@ -117,7 +117,7 @@ const xc_func_info_type func_info_gga_c_pbe = {
   XC_GGA_C_PBE,
   XC_CORRELATION,
   "Perdew, Burke & Ernzerhof",
-  XC_FAMILY_LDA,
+  XC_FAMILY_GGA,
   "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
   "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,

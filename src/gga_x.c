@@ -162,7 +162,7 @@ static void lg93_f(double x, double *f, double *dfdx, double *ldfdx)
   static const double x2s = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
   static const double ad = 1e-8, b = 0.024974, a4 = 29.790, a6 = 22.417;
   static const double a8 = 12.119, a10 = 1570.1, a12 = 55.944;
-  static const double a2 = (ad + 0.1234)/b;
+  static const double a2 = 4.94113918475214219939; /* (ad + 0.1234)/b */
 
   double ss, ss2, ss4, ss6, ss8, ss10;
   double f1, f2, f3;

@@ -160,9 +160,9 @@ static void dk87_f(int func, double x, double *f, double *dfdx, double *ldfdx)
 static void lg93_f(double x, double *f, double *dfdx, double *ldfdx)
 {
   static const double x2s = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
-  static const double ad = 1e-8, b = 0.024974, a4 = 29.790, a6 = 22.417;
+  static const double ad = 1e-8, a4 = 29.790, a6 = 22.417;
   static const double a8 = 12.119, a10 = 1570.1, a12 = 55.944;
-  static const double a2 = 4.94113918475214219939; /* (ad + 0.1234)/b */
+  static const double a2 = 4.94113918475214219939; /* (ad + 0.1234)/b, b = 0.024974 */
 
   double ss, ss2, ss4, ss6, ss8, ss10;
   double f1, f2, f3;
@@ -182,6 +182,34 @@ static void lg93_f(double x, double *f, double *dfdx, double *ldfdx)
 }
 
 
+static void ft97_f(int func, double x, double sigma, double *f, double *dfdx, double *ldfdx, double *vsigma)
+{
+  static const double 
+    beta0 = 0.002913644, beta1 = 0.0009474169, beta2 = 6255746.320201; /* beta2 = 2501.149^2 ?? (Eq. (16a) */
+
+  double x2, beta, dbetadsigma, f1, f2, f3;
+
+  if(func == 0){
+    beta = 0.00293;
+    dbetadsigma = 0.0;
+  }else{
+    f1   = beta2 + sigma;
+    beta = beta0 + beta1*sigma/f1;
+    dbetadsigma = beta1*beta2/(f1*f1);
+  }
+
+  x2 = x*x;
+  f2 = beta*asinh(x2);
+  f3 = sqrt(1.0 + 9.0*x2*f2*f2);
+  *f = 1.0 + beta/X_FACTOR_C*x2/f3;
+ 
+  *dfdx = beta/X_FACTOR_C*2.0*x*( f3 - 9.0/2.0*x2/f3*(f2*f2 + 2.0*x2*beta*f2/sqrt(1 + x2*x2)) )/(f3*f3);
+  *ldfdx= beta0/X_FACTOR_C;
+
+  *vsigma = dbetadsigma*x2/(f3*X_FACTOR_C)*(1.0 - 9.0*x2*f2*f2/(f3*f3));
+}
+
+
 /************************************************************************/
 
 void gga_x_b86(void *p_, double *rho, double *sigma,
@@ -195,7 +223,7 @@ void gga_x_b86(void *p_, double *rho, double *sigma,
   *e   = 0.0;
   if(p->nspin == XC_POLARIZED){
     sfact     = 1.0;
-    vsigma[1] = 0.0; /* there are no cross terms in this functional */
+    vsigma[1] = 0.0; /* there are no cross terms in these functionals */
   }else
     sfact     = 2.0;
 
@@ -205,11 +233,9 @@ void gga_x_b86(void *p_, double *rho, double *sigma,
     double x, f, dfdx, ldfdx;
     int js = is==0 ? 0 : 2;
 
-    if(rho[is] < MIN_DENS){
-      vrho[is] = 0.0;
-      vsigma[js] = 0.0;
-      continue;
-    }
+    vrho[is]   = 0.0;
+    vsigma[js] = 0.0;
+    if(rho[is] < MIN_DENS) continue;
 
     dens += rho[is];
     gdm   = sqrt(sigma[js])/sfact;
@@ -258,15 +284,21 @@ void gga_x_b86(void *p_, double *rho, double *sigma,
     case XC_GGA_X_LG93:
       lg93_f(x, &f, &dfdx, &ldfdx);
       break;
-   default:
+    case XC_GGA_X_FT97_A:
+      ft97_f(0, x, gdm*gdm, &f, &dfdx, &ldfdx, &(vsigma[js]));
+      break;
+    case XC_GGA_X_FT97_B:
+      ft97_f(1, x, gdm*gdm, &f, &dfdx, &ldfdx, &(vsigma[js]));
+      break;
+    default:
       abort();
     }
     
     (*e) += -sfact*X_FACTOR_C*(ds*rho13)*f;
       
-    vrho[is]   = -4.0/3.0*X_FACTOR_C*rho13*(f - dfdx*x);
+    vrho[is] += -4.0/3.0*X_FACTOR_C*rho13*(f - dfdx*x);
     if(gdm>MIN_GRAD)
-      vsigma[js] = -sfact*X_FACTOR_C*(ds*rho13)*dfdx*x/(2.0*sigma[js]);
+      vsigma[js] = -sfact*X_FACTOR_C*(ds*rho13)*(vsigma[js]/(sfact*sfact) + dfdx*x/(2.0*sigma[js]));
     else
       vsigma[js] = -X_FACTOR_C/(sfact*(ds*rho13))*ldfdx;
   }
@@ -423,4 +455,24 @@ const xc_func_info_type func_info_gga_x_lg93 = {
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   gga_x_b86
+};
+
+const xc_func_info_type func_info_gga_x_ft97_a = {
+  XC_GGA_X_FT97_A,
+  XC_EXCHANGE,
+  "Filatov & Thiel 97 (version A)",
+  XC_FAMILY_GGA,
+  "M. Filatov and W. Thiel, Mol. Phys 91, 847-860 (1997)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL, gga_x_b86
+};
+
+const xc_func_info_type func_info_gga_x_ft97_b = {
+  XC_GGA_X_FT97_B,
+  XC_EXCHANGE,
+  "Filatov & Thiel 97 (version B)",
+  XC_FAMILY_GGA,
+  "M. Filatov and W. Thiel, Mol. Phys 91, 847-860 (1997)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL, gga_x_b86
 };

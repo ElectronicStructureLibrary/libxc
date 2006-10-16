@@ -92,9 +92,11 @@ void xc_lda_kxc(xc_lda_type *p, double *rho, double *kxc);
 #define XC_GGA_X_PW86         108 /* Perdew & Wang 86                               */
 #define XC_GGA_X_PW91         109 /* Perdew & Wang 91                               */
 #define XC_GGA_X_OPTX         110 /* Handy & Cohen OPTX 01                          */
-#define XC_GGA_X_DK87_R1      111 /* dePristo & Kress 87 version R1                 */
-#define XC_GGA_X_DK87_R2      112 /* dePristo & Kress 87 version R2                 */
+#define XC_GGA_X_DK87_R1      111 /* dePristo & Kress 87 (version R1)               */
+#define XC_GGA_X_DK87_R2      112 /* dePristo & Kress 87 (version R2)               */
 #define XC_GGA_X_LG93         113 /* Lacks & Gordon 93                              */
+#define XC_GGA_X_FT97_A       114 /* Filatov & Thiel 97 (version A)                 */
+#define XC_GGA_X_FT97_B       115 /* Filatov & Thiel 97 (version B)                 */
 
 #define XC_GGA_C_PBE          130 /* Perdew, Burke & Ernzerhof correlation          */
 #define XC_GGA_C_LYP          131 /* Lee, Yang & Parr                               */

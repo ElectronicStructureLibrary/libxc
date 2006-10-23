@@ -4,6 +4,11 @@
 
 #include "util.h"
 
+/* WARNING - this is all broken !! */
+#define   _(is, x)   [3*is + x]
+#define  __(i, j)    [2*i + j] 
+
+
 /************************************************************************
  Implements Perdew, Tao, Staroverov & Scuseria 
    meta-Generalized Gradient Approximation.

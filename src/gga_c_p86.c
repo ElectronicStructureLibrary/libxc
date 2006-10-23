@@ -33,7 +33,7 @@ void gga_c_p86(void *p_, double *rho, double *sigma,
   double rs, DD, dDDdzeta, CC, CCinf, dCCdd;
   double Phi, dPhidd, dPhidgdmt;
 
-  xc_lda(p->lda_aux, rho, &ecunif, vcunif, NULL);
+  xc_lda_vxc(p->lda_aux, rho, &ecunif, vcunif);
 
   rho2dzeta(p->nspin, rho, &dens, &zeta);
   dzdd[0] =  (1.0 - zeta)/dens;

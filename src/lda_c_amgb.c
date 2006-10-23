@@ -65,12 +65,6 @@ void lda_c_amgb(void *p_, double *rho, double *ec, double *vc, double *fc)
   /* get the trace and the polarization of the density */
   rho2dzeta(p->nspin, rho, &dens, &zeta);
   
-  if(dens <= MIN_DENS){
-    *ec = 0.0;
-    for(i=0; i<p->nspin; i++) vc[i] = 0.0;
-    return;
-  }
-  
   /* Wigner radius: formula for 2D, of course */
   rs[1] = sqrt(1.0/(M_PI*dens));
   rs[0] = sqrt(rs[1]);

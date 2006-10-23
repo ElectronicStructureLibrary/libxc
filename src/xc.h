@@ -35,8 +35,8 @@ typedef struct{
 
   void (*init)(void *p);
   void (*end) (void *p);
-  void (*lda) (void *p, double *rho, double *ec, double *vc, double *fc);
-  void (*gga) (void *p, double *rho, double *sigma, double *ec, double *vc, double *vsigma);
+  void (*lda) (void *p, double *rho, double *exc, double *vxc, double *fxc);
+  void (*gga) (void *p, double *rho, double *sigma, double *exc, double *vrho, double *vsigma);
 } xc_func_info_type;
 
 
@@ -58,24 +58,28 @@ int xc_family_from_id(int functional);
 #define XC_LDA_C_PZ_MOD        10   /* Perdew & Zunger (Modified)   */
 #define XC_LDA_C_OB_PZ         11   /* Ortiz & Ballone (PZ)         */
 #define XC_LDA_C_PW            12   /* Perdew & Wang                */
-#define XC_LDA_C_OB_PW         13   /* Ortiz & Ballone (PW)         */
-#define XC_LDA_C_AMGB          14   /* Attacalite et al             */
+#define XC_LDA_C_PW_MOD        13   /* Perdew & Wang (Modified)     */
+#define XC_LDA_C_OB_PW         14   /* Ortiz & Ballone (PW)         */
+#define XC_LDA_C_AMGB          15   /* Attacalite et al             */
 
 typedef struct struct_lda_type {
-  const xc_func_info_type *info;  /* which functional did we chose   */
-  int nspin;                /* XC_UNPOLARIZED or XC_POLARIZED  */
+  const xc_func_info_type *info;    /* which functional did we chose   */
+  int nspin;                        /* XC_UNPOLARIZED or XC_POLARIZED  */
   
-  int relativistic;         /* XC_RELATIVISTIC or XC_NON_RELATIVISTIC */
+  int relativistic;                 /* XC_RELATIVISTIC or XC_NON_RELATIVISTIC */
   int dim;
   
-  double alpha;             /* parameter for Xalpha functional */
+  struct struct_lda_type *lda_aux;  /* some LDAs are built on top of other LDAs */
+  double alpha;                     /* parameter for Xalpha functional */
 } xc_lda_type;
 
 int  xc_lda_init(xc_lda_type *p, int functional, int nspin);
 void xc_lda_x_init(xc_lda_type *p, int nspin, int dim, int irel);
 void xc_lda_c_xalpha_init(xc_lda_type *p, int nspin, int dim, double alpha);
 
-void xc_lda(xc_lda_type *p, double *rho, double *ec, double *vc, double *fc);
+void xc_lda(xc_lda_type *p, double *rho, double *exc, double *vxc, double *fxc, double *kxc);
+void xc_lda_exc(xc_lda_type *p, double *rho, double *exc);
+void xc_lda_vxc(xc_lda_type *p, double *rho, double *exc, double *vxc);
 void xc_lda_fxc(xc_lda_type *p, double *rho, double *fxc);
 void xc_lda_kxc(xc_lda_type *p, double *rho, double *kxc);
 

@@ -7,8 +7,12 @@
 /************************************************************************
  Correlation energy per-particle and potential of a HEG as parameterized 
  by 
-   J.P. Perdew & Y.Wang
+   J.P. Perdew & Y. Wang
    Ortiz & Ballone
+
+Note that the PW modified, corresponds to the version of PW used in the 
+original PBE routine. This amounts to adding some more digits in some of
+the constants of PW.
 ************************************************************************/
 
 
@@ -16,13 +20,25 @@
    and it's derivative with respect to rs, Eq. A5 */
 static void g(int func, int k, double *rs, double *f, double *dfdrs, double *d2fdrs2)
 {
-  static double a[2][3]     = {{0.031091, 0.015545, 0.016887},   /* PW */
-			       {0.031091, 0.015545, 0.016887}};  /* OB */
-  static double alpha[2][3] = {{0.21370,  0.20548,  0.11125},    /* PW */
-			       {0.026481, 0.022465, 0.11125}};   /* OB */
-  static double beta[2][3][4] = {
+  static double a[3][3]     = 
     {
-      { 7.5957,  3.5876,   1.6382,  0.49294}, /* PZ */
+      {0.031091,  0.015545,   0.016887},    /* PW */
+      {0.0310907, 0.01554535, 0.0168869},   /* PW (modified) */
+      {0.031091,  0.015545,   0.016887}     /* OB */
+  }; 
+  static double alpha[3][3] = 
+    {
+      {0.21370,  0.20548,  0.11125},    /* PW */
+      {0.21370,  0.20548,  0.11125},    /* PW (modified) */
+      {0.026481, 0.022465, 0.11125}     /* OB */
+    };
+  static double beta[3][3][4] = {
+    {
+      { 7.5957,  3.5876,   1.6382,  0.49294}, /* PW */
+      {14.1189,  6.1977,   3.3662,  0.62517},
+      {10.357,   3.6231,   0.88026, 0.49671}
+    },{
+      { 7.5957,  3.5876,   1.6382,  0.49294}, /* PW (modified) */
       {14.1189,  6.1977,   3.3662,  0.62517},
       {10.357,   3.6231,   0.88026, 0.49671}
     },{
@@ -66,10 +82,10 @@ void lda_c_pw(void *p_, double *rho, double *ec, double *vc, double *fc)
   xc_lda_type *p = (xc_lda_type *)p_;
 
   double dens, zeta;
-  double rs[3], Dec_Drs, D2ec_Drs2, *dp;
+  double rs[3], Dec_Drs, D2ec_Drs2, ec0, *dp;
   int func = p->info->number - XC_LDA_C_PW;
   
-  assert(func==0 || func==1);
+  assert(func==0 || func==1 || func==2);
   
   rho2dzeta(p->nspin, rho, &dens, &zeta);
 
@@ -80,21 +96,29 @@ void lda_c_pw(void *p_, double *rho, double *ec, double *vc, double *fc)
   
   /* ec(rs, 0) */
   dp = (fc == NULL) ? NULL : (&D2ec_Drs2);
-  g(func, 0, rs, ec, &Dec_Drs, dp);
+  g(func, 0, rs, &ec0, &Dec_Drs, dp);
   
   if(p->nspin == XC_UNPOLARIZED){
-    vc[0] = (*ec) - (rs[1]/3.0)*Dec_Drs;
+    if(ec != NULL)
+      *ec = ec0;
+
+    if(vc != NULL)
+      vc[0] = (*ec) - (rs[1]/3.0)*Dec_Drs;
     
     if(fc != NULL){
       double Drs = -(4.0*M_PI/9.0)*rs[2]*rs[2];
-      fc __(0,0) = (2.0*Dec_Drs - rs[1]*D2ec_Drs2)*Drs/3.0;
+      fc[0] = (2.0*Dec_Drs - rs[1]*D2ec_Drs2)*Drs/3.0;
     }
 
   }else{
-    static double fz20 = 1.709921;          /* = (d^2f/dz^2)(z=0) */
-    
+    static double fz20[3] = {
+      1.709921,                           /* PW */
+      1.709920934161365617563962776245,   /* PW (modified) */
+      1.709921                            /* OB */
+    };
+
     double fz, fpz, z4, ec1, alphac;
-    double ec0, Dec0_Drs, Dec1_Drs, D2ec1_Drs2, Dalphac_Drs, D2alphac_Drs2, Dec_Dz;
+    double ectmp, Dec0_Drs, Dec1_Drs, D2ec1_Drs2, Dalphac_Drs, D2alphac_Drs2, Dec_Dz;
     
     fz  =  FZETA(zeta);
     fpz = DFZETA(zeta);
@@ -113,49 +137,51 @@ void lda_c_pw(void *p_, double *rho, double *ec, double *vc, double *fc)
     if(dp) D2alphac_Drs2 = -D2alphac_Drs2;
     
     /* save copies that will be needed later */
-    ec0      = (*ec);
     Dec0_Drs = Dec_Drs;
 
-    *ec     =  ec0 + z4*fz*(ec1 - ec0 - alphac/fz20) + fz*alphac/fz20;
+    ectmp   =  ec0 + z4*fz*(ec1 - ec0 - alphac/fz20[func]) + fz*alphac/fz20[func];
 
-    Dec_Drs = Dec0_Drs + z4*fz*(Dec1_Drs - Dec0_Drs - Dalphac_Drs/fz20) + fz*Dalphac_Drs/fz20;
-    Dec_Dz  = (4.0*pow(zeta, 3)*fz + z4*fpz)*(ec1 - ec0 - alphac/fz20)
-      + fpz*alphac/fz20;
+    Dec_Drs = Dec0_Drs + z4*fz*(Dec1_Drs - Dec0_Drs - Dalphac_Drs/fz20[func]) + fz*Dalphac_Drs/fz20[func];
+    Dec_Dz  = (4.0*pow(zeta, 3)*fz + z4*fpz)*(ec1 - ec0 - alphac/fz20[func])
+      + fpz*alphac/fz20[func];
     
-    vc[0] = (*ec) - (rs[1]/3.0)*Dec_Drs - (zeta - 1.0)*Dec_Dz;
-    vc[1] = (*ec) - (rs[1]/3.0)*Dec_Drs - (zeta + 1.0)*Dec_Dz;
-    
+    if(ec != NULL)
+      *ec = ectmp;
+
+    if(vc != NULL){
+      vc[0] = ectmp - (rs[1]/3.0)*Dec_Drs - (zeta - 1.0)*Dec_Dz;
+      vc[1] = ectmp - (rs[1]/3.0)*Dec_Drs - (zeta + 1.0)*Dec_Dz;
+    }    
+
     if(fc != NULL){
       double tmp, fppz, D2ec_Dz2, D2ec_DrsDz;
       double Drs = -(4.0*M_PI/9.0)*rs[2]*rs[2];
-      int i;
 
       fppz = 0.0;
       if(zeta > -1.0) fppz += pow(1.0 + zeta, -2.0/3.0);
       if(zeta <  1.0) fppz += pow(1.0 - zeta, -2.0/3.0);
       fppz *= 4.0/(9.0*FZETAFACTOR);
 
-      D2ec_Drs2  = D2ec_Drs2 + z4*fz*(D2ec1_Drs2 - D2ec_Drs2 - D2alphac_Drs2/fz20) + fz*D2alphac_Drs2/fz20;
+      D2ec_Drs2  = D2ec_Drs2 + z4*fz*(D2ec1_Drs2 - D2ec_Drs2 - D2alphac_Drs2/fz20[func])
+	+ fz*D2alphac_Drs2/fz20[func];
 
-      D2ec_DrsDz = 4.0*pow(zeta, 3)*fz*(Dec1_Drs - Dec0_Drs - Dalphac_Drs/fz20) + 
-	fpz*(z4*(Dec1_Drs - Dec0_Drs) + (1.0 - z4)*Dalphac_Drs/fz20);
+      D2ec_DrsDz = 4.0*pow(zeta, 3)*fz*(Dec1_Drs - Dec0_Drs - Dalphac_Drs/fz20[func]) + 
+	fpz*(z4*(Dec1_Drs - Dec0_Drs) + (1.0 - z4)*Dalphac_Drs/fz20[func]);
 
-      D2ec_Dz2   = 4.0*pow(zeta, 2)*(ec1 - ec0 - alphac/fz20)*(3.0*fz + 2.0*zeta*fpz) + 
-	fppz*(z4*(ec1 - ec0) + (1.0 - z4)*alphac/fz20);
+      D2ec_Dz2   = 4.0*pow(zeta, 2)*(ec1 - ec0 - alphac/fz20[func])*(3.0*fz + 2.0*zeta*fpz) + 
+	fppz*(z4*(ec1 - ec0) + (1.0 - z4)*alphac/fz20[func]);
     
       tmp = (2.0*Dec_Drs - rs[1]*D2ec_Drs2)*Drs/3.0;
-      for(i=0; i<4; i++) fc[i]  = tmp;
 
-      fc __(0,0) += -D2ec_DrsDz*(zeta - 1.0)*Drs 
+      fc[0] = tmp - D2ec_DrsDz*(zeta - 1.0)*Drs 
 	+ (zeta - 1.0)/dens*(D2ec_DrsDz*rs[1]/3.0 + (zeta - 1.0)*D2ec_Dz2);
-
-      fc __(1,1) += -D2ec_DrsDz*(zeta + 1.0)*Drs 
-	+ (zeta + 1.0)/dens*(D2ec_DrsDz*rs[1]/3.0 + (zeta + 1.0)*D2ec_Dz2);
-
-      fc __(0,1) += -D2ec_DrsDz*(zeta - 1.0)*Drs 
+      
+      fc[1] = tmp - D2ec_DrsDz*(zeta - 1.0)*Drs 
 	+ (zeta + 1.0)/dens*(D2ec_DrsDz*rs[1]/3.0 + (zeta - 1.0)*D2ec_Dz2);
 
-      fc __(1,0)  = fc __(0,1);
+      fc[2] = tmp - D2ec_DrsDz*(zeta + 1.0)*Drs 
+	+ (zeta + 1.0)/dens*(D2ec_DrsDz*rs[1]/3.0 + (zeta + 1.0)*D2ec_Dz2);
+
     }
   }
 }
@@ -167,6 +193,20 @@ const xc_func_info_type func_info_lda_c_pw = {
   "Perdew & Wang",
   XC_FAMILY_LDA,
   "J.P. Perdew and Y.Wang, Phys. Rev. B 45, 13244 (1992)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  NULL,
+  NULL,
+  lda_c_pw
+};
+
+const xc_func_info_type func_info_lda_c_pw_mod = {
+  XC_LDA_C_PW_MOD,
+  XC_CORRELATION,
+  "Perdew & Wang (modified)",
+  XC_FAMILY_LDA,
+  "J.P. Perdew and Y.Wang, Phys. Rev. B 45, 13244 (1992)\n"
+  "Added extra digits to some constants as in the PBE routine\n"
+  "http://dft.rutgers.edu/pubs/PBE.asc",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL,
   NULL,

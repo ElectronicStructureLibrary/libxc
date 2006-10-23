@@ -27,6 +27,8 @@ void xc_lca_init(xc_lca_type *p, int functional, int nspin)
 
 }
 
+/* WARNING - should use new definition of input/output !! */
+#define   _(is, x)   [3*is + x]
 
 void xc_lca(xc_lca_type *p, double *rho, double *v, double *e, double *dedd, double *dedv)
 {

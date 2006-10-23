@@ -12,14 +12,14 @@
 ************************************************************************/
 
 static const double beta  = 0.06672455060314922;
-static const double gamm  = 0.03109076908696549; /* (1.0 - log(2.0))/(M_PI*M_PI) */
+static const double gamm  = 0.03109069086965489503494086371273; /* (1.0 - log(2.0))/(M_PI*M_PI) */
 
 void gga_c_pbe_init(void *p_)
 {
   xc_gga_type *p = (xc_gga_type *)p_;
 
   p->lda_aux = (xc_lda_type *) malloc(sizeof(xc_lda_type));
-  xc_lda_init(p->lda_aux, XC_LDA_C_PW, p->nspin);
+  xc_lda_init(p->lda_aux, XC_LDA_C_PW_MOD, p->nspin);
 }
 
 void gga_c_pbe_end(void *p_)
@@ -40,7 +40,7 @@ void gga_c_pbe(void *p_, double *rho, double *sigma,
   double drsdd, dkfdd, dksdd, dzdd[2], dpdz;
   int is;
 
-  xc_lda(p->lda_aux, rho, &ecunif, vcunif, NULL);
+  xc_lda_vxc(p->lda_aux, rho, &ecunif, vcunif);
   rho2dzeta(p->nspin, rho, &dens, &zeta);
   
   rs = RS(dens);

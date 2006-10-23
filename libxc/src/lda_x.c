@@ -32,7 +32,7 @@ void lda_x(void *p_, double *rho, double *ex, double *vx, double *fx)
   xc_lda_type *p = (xc_lda_type *)p_;
 
   static double a_x[3] = {-1.0, -1.06384608107049, -0.738558766382022};
-  double dens, alpha, factor, beta, phi, DphiDdens;
+  double dens, extmp, alpha, factor;
   int i;
   
   assert(p!=NULL);
@@ -40,41 +40,51 @@ void lda_x(void *p_, double *rho, double *ex, double *vx, double *fx)
   dens = 0.0;
   for(i=0; i<p->nspin; i++) dens += rho[i];
 
-  if(dens <= MIN_DENS){
-    *ex = 0.0;
-    for(i=0; i<p->nspin; i++) vx[i] = 0.0;
-    if(fx != NULL)
-      for(i=0; i<p->nspin*p->nspin; i++) fx[i] = 0.0;
-    return;
-  }
-  
   alpha   = (p->dim + 1.0)/p->dim;
   factor  = (p->nspin == XC_UNPOLARIZED) ? 1.0 : pow(2.0, alpha)/2.0;
   factor *= a_x[p->dim-1];
 
-  *ex = 0.0;
-  if(fx != NULL)
-    for(i=0; i<p->nspin*p->nspin; i++) fx[i] = 0.0;
-
+  extmp = 0.0;
   for(i=0; i<p->nspin; i++){
-    *ex   += factor*pow(rho[i], alpha);
-    vx[i]  = factor*alpha*pow(rho[i], alpha - 1.0);
-    if(fx!=NULL && rho[i]>0)
-      fx __(i,i) = factor*alpha*(alpha - 1.0)*pow(rho[i], alpha - 2.0);
+    extmp += factor*pow(rho[i], alpha)/dens;
+
+    if(vx != NULL)
+      vx[i]  = factor*alpha*pow(rho[i], alpha - 1.0);
+
+    if(fx!=NULL && rho[i]>0){
+      int js = (i==0) ? 0 : 2;
+      fx[js] = factor*alpha*(alpha - 1.0)*pow(rho[i], alpha - 2.0);
+    }
   }
-  *ex /= dens;
 
+  /* Relativistic corrections */
   if(p->relativistic != 0){
-    /* Relativistic corrections */
-    beta = pow(3.0*pow(M_PI, 2.0)*dens, 1.0/3.0)/M_C;
-    phi = 1.0 - 3.0/2.0*pow(sqrt(1 + pow(beta, 2.0))/beta - asinh(beta)/pow(beta, 2.0), 2.0);
-    DphiDdens = -2.0/dens/pow(beta, 2.0) * 
-      (-1.0 + asinh(beta)*(pow(beta, 2.0) + 2)/(beta*sqrt(1.0 + pow(beta, 2.0))) -
-       pow(asinh(beta), 2.0)/pow(beta, 2.0));
+    double beta, beta2, f1, f2, f3, phi;
+  
+    beta   = pow(3.0*M_PI*M_PI*dens, 1.0/3.0)/M_C;
+    beta2  = beta*beta;
+    f1     = sqrt(1.0 + beta2);
+    f2     = asinh(beta);
+    f3     = f1/beta - f2/beta2;
+    phi    = 1.0 - 3.0/2.0*f3*f3;
 
-    vx[0] = vx[0]*phi + dens*DphiDdens*(*ex);
-    *ex *= phi;
-  };
+    extmp *= phi;
+
+    if(vx != NULL){
+      double dphidbeta, dbetadd;
+      
+      dphidbeta = 6.0/(beta2*beta2*beta)*
+	(beta2 - beta*(2 + beta2)*f2/f1 + f2*f2);
+      dbetadd = M_PI*M_PI/(pow(M_C, 3)*beta2);
+    
+      vx[0]  = vx[0]*phi + dens*extmp*dphidbeta*dbetadd;
+    }
+
+    /* WARNING - missing fxc */
+  }
+
+  if(ex != NULL)
+    *ex = extmp;
 }
 
 

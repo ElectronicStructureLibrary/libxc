@@ -83,9 +83,15 @@ void FC_FUNC_(xc_f90_lda_end, XC_F90_LDA_END)
 }
 
 void FC_FUNC_(xc_f90_lda, XC_F90_LDA)
+  (void **p, double *rho, double *exc, double *vxc, double *fxc, double *kxc)
+{
+  xc_lda((xc_lda_type *)(*p), rho, exc, vxc, fxc, kxc);
+}
+
+void FC_FUNC_(xc_f90_lda_vxc, XC_F90_LDA_VXC)
      (void **p, double *rho, double *e, double *v)
 {
-  xc_lda((xc_lda_type *)(*p), rho, e, v, NULL);
+  xc_lda_vxc((xc_lda_type *)(*p), rho, e, v);
 }
 
 void FC_FUNC_(xc_f90_lda_fxc, XC_F90_LDA_FXC)

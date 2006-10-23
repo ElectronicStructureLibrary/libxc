@@ -113,7 +113,7 @@ int main(int argc, char *argv[])
 	xc_lda_x_init(&lda_func, xc.nspin, 3, 0);
       else
 	xc_lda_init(&lda_func, xc.functional, xc.nspin);
-      xc_lda(&lda_func, xc.rho, &xc.zk, xc.vrho, NULL);
+      xc_lda_vxc(&lda_func, xc.rho, &xc.zk, xc.vrho);
       break;
     case XC_FAMILY_GGA:
       xc_gga_init(&gga_func, xc.functional, xc.nspin);

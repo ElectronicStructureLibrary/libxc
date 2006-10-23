@@ -13,18 +13,23 @@ static void lda_c_wigner(void *p_, double *rho, double *ec, double *vc, double *
 
   static double a = -0.44, b = 7.8;
   double dens, zeta, rs;
-  double t;
+  double etmp, decdrs, t;
   
   rho2dzeta(p->nspin, rho, &dens, &zeta);
 
   rs    =  RS(dens); /* Wigner radius */
   t     =  b + rs;
 
-  *ec   =  a/t;
-  vc[0] = -a/(t*t);                         /* now contains d ec/d rs */
+  etmp   =  a/t;
+  decdrs = -a/(t*t);                         /* now contains d ec/d rs */
   
-  vc[0] = *ec - rs/3.0*vc[0];               /* and now d ec/d rho */
-  if(p->nspin==XC_POLARIZED) vc[1] = vc[0]; /* have to return something */
+  if(ec != NULL) *ec = etmp;
+
+  if(vc != NULL){
+    vc[0] = etmp - decdrs*rs/3.0;              /* and now d ec/d rho */
+    if(p->nspin==XC_POLARIZED) vc[1] = vc[0]; /* have to return something */
+  }
+
 }
 
 const xc_func_info_type func_info_lda_c_wigner = {
@@ -54,7 +59,7 @@ static void lda_c_rpa(void *p_, double *rho, double *ec, double *vc, double *fc)
 
   rho2dzeta(p->nspin, rho, &dens, &zeta);
 
-  rs    =  RS(dens); /* Wigner radius */
+  rs  =  RS(dens); /* Wigner radius */
   lrs = log(rs);
   
   *ec   = a*lrs + b + c*rs*lrs + d*rs;
@@ -182,15 +187,38 @@ static void lda_c_xalpha(void *p_, double *rho, double *ec, double *vc, double *
   double a = 1.5*p->alpha - 1.0;
   int i;
 
-  lda_x(p, rho, ec, vc, fc);
+  xc_lda(p->lda_aux, rho, ec, vc, fc, NULL);
 
-  (*ec) *= a;
+  if(ec != NULL)
+    (*ec) *= a;
 
-  for(i=0; i<p->nspin; i++) vc[i] *= a;
+  if(vc != NULL)
+    for(i=0; i<p->nspin; i++) vc[i] *= a;
 
   if(fc != NULL)
     for(i=0; i<p->nspin*p->nspin; i++) fc[i] *= a;
+}
 
+void xc_lda_c_xalpha_init(xc_lda_type *p, int nspin, int dim, double alpha)
+{
+  p->alpha = alpha;
+
+  p->lda_aux = (xc_lda_type *) malloc(sizeof(xc_lda_type));
+  xc_lda_x_init(p, nspin, dim, XC_NON_RELATIVISTIC);
+}
+
+void xc_lda_c_xalpha_init_default(void *p_)
+{
+  xc_lda_type *p = (xc_lda_type *)p_;
+
+  xc_lda_c_xalpha_init(p, p->nspin, 3, 1.0);
+}
+
+void xc_lda_c_xalpha_end(void *p_)
+{
+  xc_lda_type *p = (xc_lda_type *)p_;
+
+  free(p->lda_aux);
 }
 
 const xc_func_info_type func_info_lda_c_xalpha = {
@@ -200,14 +228,7 @@ const xc_func_info_type func_info_lda_c_xalpha = {
   XC_FAMILY_LDA,
   NULL,
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
-  NULL,         /* init */
-  NULL,         /* end  */
-  lda_c_xalpha  /* lda */
+  xc_lda_c_xalpha_init_default,  /* init */
+  xc_lda_c_xalpha_end,           /* end  */
+  lda_c_xalpha                   /* lda */
 };
-
-void xc_lda_c_xalpha_init(xc_lda_type *p, int nspin, int dim, double alpha)
-{
-  p->alpha = alpha;
-  xc_lda_x_init(p, nspin, dim, XC_NON_RELATIVISTIC);
-  p->info = &func_info_lda_c_xalpha;
-}

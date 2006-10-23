@@ -22,14 +22,11 @@ double asinh(double x);
 #define MIN_GRAD             1.0e-20
 #define MIN_TAU              1.0e-20
 
-#define   _(is, x)   [3*is + x]
-#define  __(i, j)    [2*i + j] 
-#define ___(i, j, k) [2*(2*i + j) + k] 
-
 void rho2dzeta(int nspin, double *rho, double *d, double *zeta);
 
 /* LDAs */
-void lda_x(void *p, double *rho, double *ex, double *vx, double *fx);
+void xc_lda_fxc_fd(xc_lda_type *p, double *rho, double *fxc);
+void xc_lda_kxc_fd(xc_lda_type *p, double *rho, double *kxc);
 
 /* meta-GGAs */
 void mgga_x_tpss_init(xc_mgga_type *p);

@@ -17,6 +17,7 @@ extern xc_func_info_type /* these are the LDA functionals that I know */
   func_info_lda_c_pz_mod,
   func_info_lda_c_ob_pz,
   func_info_lda_c_pw,
+  func_info_lda_c_pw_mod,
   func_info_lda_c_ob_pw,
   func_info_lda_c_amgb;
 
@@ -33,6 +34,7 @@ const xc_func_info_type *lda_known_funct[] = {
   &func_info_lda_c_pz_mod,
   &func_info_lda_c_ob_pz,
   &func_info_lda_c_pw,
+  &func_info_lda_c_pw_mod,
   &func_info_lda_c_ob_pw,
   &func_info_lda_c_amgb,
   NULL
@@ -76,69 +78,118 @@ void xc_lda_end(xc_lda_type *p)
 }
 
 /* get the lda functional */
-void xc_lda(xc_lda_type *p, double *rho, double *ec, double *vc, double *fc)
+void xc_lda(xc_lda_type *p, double *rho, double *exc, double *vxc, double *fxc, double *kxc)
 {
   double dens;
 
   assert(p!=NULL);
   
+  { /* initialize output to zero */
+    int i;
+
+    if(exc != NULL) *exc = 0.0;
+
+    if(vxc != NULL){
+      for(i=0; i<p->nspin; i++)
+	vxc[i] = 0.0;
+    }
+
+    if(fxc != NULL){
+      int n = (p->nspin == XC_UNPOLARIZED) ? 1 : 3;
+      for(i=0; i<n; i++)
+	fxc[i] = 0.0;
+    }
+
+    if(kxc != NULL){
+      int n = (p->nspin == XC_UNPOLARIZED) ? 1 : 4;
+      for(i=0; i<n; i++)
+	kxc[i] = 0.0;
+    }
+  }
+
   dens = rho[0];
   if(p->nspin == XC_POLARIZED) dens += rho[1];
 
-  if(dens <= MIN_DENS){
-    int i;
-      
-    *ec = 0.0;
-    for(i=0; i<p->nspin; i++) vc[i] = 0.0;
+  if(dens <= MIN_DENS)
     return;
-  }
-    
+
   assert(p->info!=NULL && p->info->lda!=NULL);
-  p->info->lda(p, rho, ec, vc, fc);
+  if((exc != NULL || vxc !=NULL) || 
+     (fxc != NULL && (p->info->provides & XC_PROVIDES_FXC)))
+    p->info->lda(p, rho, exc, vxc, fxc);
+
+  if(fxc != NULL && !(p->info->provides & XC_PROVIDES_FXC))
+    xc_lda_fxc_fd(p, rho, fxc);
+
+  if(kxc != NULL && !(p->info->provides & XC_PROVIDES_KXC))
+    xc_lda_kxc_fd(p, rho, kxc);
 }
 
-/* get the xc kernel */
+
+/* especializations */
+void xc_lda_exc(xc_lda_type *p, double *rho, double *exc)
+{
+  xc_lda(p, rho, exc, NULL, NULL, NULL);
+}
+
+void xc_lda_vxc(xc_lda_type *p, double *rho, double *exc, double *vxc)
+{
+  xc_lda(p, rho, exc, vxc, NULL, NULL);
+}
+
 void xc_lda_fxc(xc_lda_type *p, double *rho, double *fxc)
 {
-  if(p->info->provides & XC_PROVIDES_FXC){
-    double ec, vc[2];
-    xc_lda(p, rho, &ec, vc, fxc);
+  xc_lda(p, rho, NULL, NULL, fxc, NULL);
+}
 
-  }else{ /* get fxc through a numerical derivative */
-    int i, j;
-    double delta_rho = 1e-8;
+void xc_lda_kxc(xc_lda_type *p, double *rho, double *kxc)
+{
+  xc_lda(p, rho, NULL, NULL, NULL, kxc);
+}
 
-    for(i=0; i<p->nspin; i++){
-      double rho2[2], e, vc1[2], vc2[2];
 
-      j = (i+1) % 2;
+/* get the xc kernel through finite differences */
+/* maybe I should write down a higher derivative... */
+void xc_lda_fxc_fd(xc_lda_type *p, double *rho, double *fxc)
+{
+  static const double delta_rho = 1e-8;
+  int i;
 
-      rho2[i] = rho[i] + delta_rho;
-      rho2[j] = rho[j];
-      xc_lda(p, rho2, &e, vc1, NULL);
+  for(i=0; i<p->nspin; i++){
+    double rho2[2], e, vc1[2], vc2[2];
+    int j, js;
 
-      if(rho[i]<2.0*delta_rho){ /* we have to use a forward difference */
-	xc_lda(p, rho, &e, vc2, NULL);
+    j  = (i+1) % 2;
+    js = (i==0) ? 0 : 2;
+
+    rho2[i] = rho[i] + delta_rho;
+    rho2[j] = rho[j];
+    xc_lda_vxc(p, rho2, &e, vc1);
+
+    if(rho[i]<2.0*delta_rho){ /* we have to use a forward difference */
+      xc_lda_vxc(p, rho, &e, vc2);
 	
-	fxc __(i, i) = (vc1[i] - vc2[i])/(delta_rho);
-	if(p->nspin == XC_POLARIZED)
-	  fxc __(i, j) = (vc1[j] - vc2[j])/(delta_rho);
+      fxc[js] = (vc1[i] - vc2[i])/(delta_rho);
+      if(p->nspin == XC_POLARIZED && i==0)
+	fxc[1] = (vc1[j] - vc2[j])/(delta_rho);
 	
-      }else{                    /* centered difference (more precise)  */
-	rho2[i] = rho[i] - delta_rho;
-	xc_lda(p, rho2, &e, vc2, NULL);
-	
-	fxc __(i, i) = (vc1[i] - vc2[i])/(2.0*delta_rho);
-	if(p->nspin == XC_POLARIZED)
-	  fxc __(i, j) = (vc1[j] - vc2[j])/(2.0*delta_rho);
-      }
-
+    }else{                    /* centered difference (more precise)  */
+      rho2[i] = rho[i] - delta_rho;
+      xc_lda_vxc(p, rho2, &e, vc2);
+      
+      fxc[js] = (vc1[i] - vc2[i])/(2.0*delta_rho);
+      if(p->nspin == XC_POLARIZED && i==0)
+	fxc[1] = (vc1[j] - vc2[j])/(2.0*delta_rho);
     }
+    
   }
 }
 
 
-void xc_lda_kxc(xc_lda_type *p, double *rho, double *kxc)
+/* WANRNING - get rid of this by using new definition of output variable kxc */
+#define ___(i, j, k) [2*(2*i + j) + k] 
+
+void xc_lda_kxc_fd(xc_lda_type *p, double *rho, double *kxc)
 {
   /* Kxc, this is a third order tensor with respect to the densities */
 
@@ -175,13 +226,13 @@ void xc_lda_kxc(xc_lda_type *p, double *rho, double *kxc)
 
 	for(n=0; n< p->nspin; n++) rho2[n] = rho[n];
 
-	xc_lda(p, rho , &e, vc2, NULL);
+	xc_lda_vxc(p, rho , &e, vc2);
 
 	rho2[der_dir] += delta_rho;
-	xc_lda(p, rho2, &e, vc1, NULL);
+	xc_lda_vxc(p, rho2, &e, vc1);
 	
 	rho2[der_dir] -= 2.0*delta_rho;
-	xc_lda(p, rho2, &e, vc3, NULL);
+	xc_lda_vxc(p, rho2, &e, vc3);
 
 	kxc ___(i, j, k) = (vc1[func_dir] - 2.0*vc2[func_dir] + vc3[func_dir])/(delta_rho*delta_rho);
 	

@@ -23,7 +23,7 @@ void xc_gga_lb(xc_gga_type *p, double *rho, double *sigma, double r, double ip, 
 
   static const double beta = 0.05;
 
-  xc_lda(p->lda_aux, rho, &x, dedd, NULL);
+  xc_lda_vxc(p->lda_aux, rho, &x, dedd);
   if(p->modified){
     alpha = (ip > 0.0) ? 2.0*sqrt(2.0*ip) : 0.5;
     gamm  = pow(qtot, 1.0/3.0)/(2.0*alpha);

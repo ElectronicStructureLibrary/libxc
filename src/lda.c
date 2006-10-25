@@ -91,7 +91,7 @@ void xc_lda(xc_lda_type *p, double *rho, double *exc, double *vxc, double *fxc, 
 
     if(vxc != NULL){
       for(i=0; i<p->nspin; i++)
-	vxc[i] = 0.0;
+    	vxc[i] = 0.0;
     }
 
     if(fxc != NULL){
@@ -103,7 +103,7 @@ void xc_lda(xc_lda_type *p, double *rho, double *exc, double *vxc, double *fxc, 
     if(kxc != NULL){
       int n = (p->nspin == XC_UNPOLARIZED) ? 1 : 4;
       for(i=0; i<n; i++)
-	kxc[i] = 0.0;
+    	kxc[i] = 0.0;
     }
   }
 

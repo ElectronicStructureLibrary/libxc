@@ -45,6 +45,7 @@ void gga_c_p86(void *p_, double *rho, double *sigma,
   gdmt = sigma[0];
   if(p->nspin == XC_POLARIZED) gdmt += 2.0*sigma[1] + sigma[2];
   gdmt = sqrt(gdmt);
+  if(gdmt < MIN_GRAD) gdmt = MIN_GRAD;
 
 
   { /* Equation [1].(4) */ 

@@ -1,6 +1,10 @@
 #ifndef _XC_H
 #define _XC_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+  
 #define XC_UNPOLARIZED          1
 #define XC_POLARIZED            2
 
@@ -161,6 +165,10 @@ typedef struct{
 
 void xc_lca_init(xc_lca_type *p, int functional, int nspin);
 void xc_lca     (xc_lca_type *p, double *rho, double *v, double *e, double *dedd, double *dedv);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

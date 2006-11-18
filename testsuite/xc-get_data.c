@@ -23,6 +23,8 @@ typedef struct {
 /*----------------------------------------------------------*/
 void init_values(xc_values_type *xc_values, char *argv[])
 {
+  int i;
+
   xc_values->functional = atoi(argv[1]);
   xc_values->nspin      = atoi(argv[2]);
   xc_values->rho[0]     = atof(argv[3]);
@@ -31,7 +33,6 @@ void init_values(xc_values_type *xc_values, char *argv[])
   xc_values->sigma[1]   = atof(argv[6]);
   xc_values->sigma[2]   = atof(argv[7]);
 
-  int i;
   xc_values->zk = 0;
   for(i=0; i<2; i++){
     xc_values->vrho[i] = 0;

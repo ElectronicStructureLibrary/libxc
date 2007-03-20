@@ -1,16 +1,18 @@
 #!/bin/bash
 # $Id:  $
 
+datadir=${srcdir:-.}
+
 echo -e "\033[33;1mComparing against reference data\033[0m"
-for i in `ls *.data | sort`; do
+for i in `ls $datadir/*.data | sort`; do
   func=`basename $i .data`
   echo -e "\033[0m :: Testing \033[32;1m$func\033[31;1m"
-  ./xc-reference.pl -f $func
+  $srcdir/xc-reference.pl -f $func
 done
 echo -e "\033[0m"
 
 echo -e "\033[33;1mInternal consistency\033[0m"
-for i in `grep -E 'XC_LDA|XC_GGA' ../src/xc.h | awk '{printf("%s,%d\n",$2, $3)}'`; do
+for i in `grep -E 'XC_LDA|XC_GGA' $srcdir/../src/xc.h | awk '{printf("%s,%d\n",$2, $3)}'`; do
   func=`echo $i|sed 's/,.*//'`;
   number=`echo $i|sed 's/.*,//'`;
 

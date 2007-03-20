@@ -31,7 +31,6 @@ libxc_a_SOURCES = util.c \
 noinst_HEADERS = util.h
 include_HEADERS = xc.h
 
-AM_CPPFLAGS = -I../../libstring_f
+AM_CPPFLAGS = -I$(top_srcdir)/../libstring_f
 
 CLEANFILES = *~ *.bak
-DISTCLEANFILES = Makefile.in

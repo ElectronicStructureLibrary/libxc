@@ -11,7 +11,14 @@ $opt_f || usage();
 # Handle options
 $opt_f =~ s/(.*)/\L$1\E/;
 
-my $data_dir = ".";
+my $data_dir;
+if($ENV{srcdir}) {
+  $data_dir = $ENV{srcdir};
+}
+else {
+  $data_dir = ".";
+}
+
 my $tmp_file =  "/tmp/xc.tmp.$$";
 my $exec_cmd = "./xc-get_data";
 
@@ -98,7 +105,7 @@ EndOfUsage
 sub read_xc_h {
   my $c = shift;
 
-  open FILE, "<../src/xc.h";
+  open FILE, "<$ENV{srcdir}/../src/xc.h";
   while($_ = <FILE>){
     if(/^#define +(\S*) +(\S*)/){
       my $name = $1;

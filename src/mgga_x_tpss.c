@@ -198,13 +198,13 @@ mgga_x_tpss(xc_mgga_type *p, double *rho, double *grho, double *tau,
 
     *e = 0.0;
     for(is=0; is<2; is++){
-      //double gr[3], e1;
-      //int i;
-      //for(i=0; i<3; i++) gr[i] = 2.0*grho _(is, i);
+      /* double gr[3], e1;
+         int i;
+         for(i=0; i<3; i++) gr[i] = 2.0*grho _(is, i);
 
-      //x_tpss_para(p, 2.0*rho[is], gr, 2.0*tau[is], &e1, 
-      //	  &(dedd[is]), &(dedgd _(is, 0)), &(dedtau[is]));
-      //*e += e1;
+         x_tpss_para(p, 2.0*rho[is], gr, 2.0*tau[is], &e1, 
+      	 &(dedd[is]), &(dedgd _(is, 0)), &(dedtau[is]));
+	 *e += e1; */
     }
   }
 }

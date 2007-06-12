@@ -2,8 +2,11 @@
 #include <stdio.h>
 #include <assert.h>
 
-#include "xc.h"
 #include "config.h"
+
+#ifdef HAVE_FORTRAN
+
+#include "xc.h"
 #include <string_f.h>
 
 /* info */
@@ -244,3 +247,5 @@ void FC_FUNC_(xc_f90_lca, XC_F90_LCA)
 {
   xc_lca((xc_lca_type *)(*p), rho, v, e, dedd, dedv);
 }
+
+#endif

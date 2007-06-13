@@ -26,7 +26,11 @@ libxc_a_SOURCES = util.c \
 	gga.c gga_x.c gga_lb.c gga_c_pbe.c gga_c_lyp.c gga_c_p86.c \
 	mgga.c mgga_x_tpss.c mgga_c_tpss.c \
 	lca.c lca_omc.c lca_lch.c \
-	functionals.c xc_f.c
+	functionals.c 
+
+if COMPILE_FORTRAN
+libxc_a_SOURCES += xc_f.c libxc.f90
+endif
 
 noinst_HEADERS = util.h
 include_HEADERS = xc.h

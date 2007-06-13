@@ -47,8 +47,9 @@ AC_ARG_ENABLE([fortran],
 AM_CONDITIONAL([ENABLE_FORTRAN], [test $ac_cv_build_fortran = yes])
 
 if test $ac_cv_build_fortran = yes; then
-
+  HAVE_FORTRAN=1
   AC_DEFINE(HAVE_FORTRAN, [1], [Defined if libxc is compiled with fortran support])
+
   dnl try to find out what is the default FORTRAN 90 compiler
   acx_save_fcflags="${FCFLAGS}"
   AC_PROG_FC([], [Fortran 90])
@@ -71,7 +72,12 @@ if test $ac_cv_build_fortran = yes; then
   ACX_CC_FORTRAN_INT
 
   AC_LANG_POP([Fortran])
+
+else
+  HAVE_FORTRAN=0
 fi
+
+AM_CONDITIONAL(COMPILE_FORTRAN, test x${HAVE_FORTRAN} = x1)
 
 AC_CONFIG_FILES([Makefile src/Makefile testsuite/Makefile])
 

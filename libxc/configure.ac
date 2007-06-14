@@ -30,6 +30,7 @@ AC_PREFIX_DEFAULT([/opt/etsf])
 AC_PROG_CC
 AC_PROG_RANLIB
 AC_LANG_PREPROC
+AM_PROG_CC_C_O
 
 # Checks for header files.
 AC_HEADER_STDC
@@ -38,6 +39,18 @@ AC_FUNC_ALLOCA
 # Checks for size of pointer
 ACX_POINTER_SIZE
 AC_DEFINE_UNQUOTED(C_POINTER, [integer(${ac_pointersize})], [The type of a C pointer])
+
+dnl Allow user-specified location for libstring_f
+AC_ARG_WITH([string_f],
+            AS_HELP_STRING([--with-string_f],[Path to the string_f library]),
+            [string_f_path=$withval],
+            [string_f_path='$(top_srcdir)/../libstring_f'])
+
+string_f_include="-I${string_f_path}"
+string_f_ldflags="-L${string_f_path} -lstring_f"
+
+AC_SUBST(string_f_include)
+AC_SUBST(string_f_ldflags)
 
 dnl build/install fortran bits unless --disable-fortran is used
 AC_ARG_ENABLE([fortran],
@@ -72,7 +85,6 @@ if test $ac_cv_build_fortran = yes; then
   ACX_CC_FORTRAN_INT
 
   AC_LANG_POP([Fortran])
-
 else
   HAVE_FORTRAN=0
 fi

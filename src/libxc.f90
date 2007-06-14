@@ -214,13 +214,24 @@ module libxc
       type(xc_func), intent(inout) :: p
     end subroutine xc_f90_lda_end
 
-    subroutine xc_f90_lda(p, rho, e, v)
+    subroutine xc_f90_lda(p, rho, e, v, fxc, kxc)
       use xc_types
       type(xc_func), intent(in)  :: p
       real(8),       intent(in)  :: rho   ! rho(nspin) the density
       real(8),       intent(out) :: e     ! the energy per unit particle
       real(8),       intent(out) :: v     ! v(nspin) the potential
+      real(8),       intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
+      real(8),       intent(out) :: kxc   ! v(nspin,nspin,nspin) the derivative of xc kernel
     end subroutine xc_f90_lda
+
+
+    subroutine xc_f90_lda_vxc(p, rho, e, v)
+      use xc_types
+      type(xc_func), intent(in)  :: p
+      real(8),       intent(in)  :: rho   ! rho(nspin) the density
+      real(8),       intent(out) :: e     ! the energy per unit particle
+      real(8),       intent(out) :: v     ! v(nspin) the potential
+    end subroutine xc_f90_lda_vxc
 
     subroutine xc_f90_lda_fxc(p, rho, fxc)
       use xc_types

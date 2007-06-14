@@ -35,6 +35,6 @@ endif
 noinst_HEADERS = util.h
 include_HEADERS = xc.h
 
-AM_CPPFLAGS = -I$(top_srcdir)/../libstring_f
+AM_CPPFLAGS = $(string_f_include)
 
 CLEANFILES = *~ *.bak

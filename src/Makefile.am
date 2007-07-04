@@ -37,4 +37,4 @@ include_HEADERS = xc.h
 
 AM_CPPFLAGS = $(string_f_include)
 
-CLEANFILES = *~ *.bak
+CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc*

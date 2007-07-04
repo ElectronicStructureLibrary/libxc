@@ -1,6 +1,11 @@
 #!/bin/bash
 # $Id:  $
 
+if [ -n "$SKIP_CHECK" ]; then
+    echo "Skipping checks"
+    exit 0
+fi
+
 datadir=${srcdir:-.}
 
 echo -e "\033[33;1mComparing against reference data\033[0m"

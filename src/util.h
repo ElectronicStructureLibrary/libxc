@@ -6,6 +6,7 @@
 
 #if defined(__STRICT_ANSI__)
 # define M_PI           3.14159265358979323846  /* pi */
+# define M_SQRT2        1.41421356237309504880  /* sqrt(2) */
 double asinh(double x);
 #endif
 

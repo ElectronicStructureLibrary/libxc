@@ -132,10 +132,14 @@ int  xc_gga_init(xc_gga_type *p, int functional, int nspin);
 void xc_gga_end (xc_gga_type *p);
 void xc_gga     (xc_gga_type *p, double *rho, double *grho,
 		 double *e, double *dedd, double *dedgd);
+void xc_gga_sp  (xc_gga_type *p, float *rho, float *grho,
+		 float *e, float *dedd, float *dedgd);
 
 void xc_gga_lb_init(xc_gga_type *p, int nspin, int modified, double threshold);
 void xc_gga_lb     (xc_gga_type *p, double *rho, double *grho, double r, double ip, double qtot,
-		 double *dedd);
+		    double *dedd);
+void xc_gga_lb_sp  (xc_gga_type *p, float *rho, float *grho, float r, float ip, float qtot,
+		    float *dedd);
 
 /* the meta-GGAs */
 
@@ -156,6 +160,8 @@ void xc_mgga_init(xc_mgga_type *p, int functional, int nspin);
 void xc_mgga_end (xc_mgga_type *p);
 void xc_mgga     (xc_mgga_type *p, double *rho, double *grho, double *tau,
 		  double *e, double *dedd, double *dedgd, double *dedtau);
+void xc_mgga_sp  (xc_mgga_type *p, float *rho, float *grho, float *tau,
+		  float *e, float *dedd, float *dedgd, float *dedtau);
 
 /* the LCAs */
 
@@ -171,6 +177,7 @@ typedef struct{
 
 void xc_lca_init(xc_lca_type *p, int functional, int nspin);
 void xc_lca     (xc_lca_type *p, double *rho, double *v, double *e, double *dedd, double *dedv);
+void xc_lca_sp  (xc_lca_type *p, float *rho, float *v, float *e, float *dedd, float *dedv);
 
 #ifdef __cplusplus
 }

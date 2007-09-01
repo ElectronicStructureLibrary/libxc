@@ -77,7 +77,7 @@ static void g(int func, int k, double *rs, double *f, double *dfdrs, double *d2f
 
 
 /* the functional */
-void lda_c_pw(void *p_, double *rho, double *ec, double *vc, double *fc)
+void lda_c_pw(const void *p_, const double *rho, double *ec, double *vc, double *fc)
 {
   xc_lda_type *p = (xc_lda_type *)p_;
 

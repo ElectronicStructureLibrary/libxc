@@ -74,7 +74,7 @@ static void ec_pot_high(pz_consts_type *X, int i, double *rs, double *ec, double
 
 
 /* the functional */
-void lda_c_pz(void *p_, double *rho, double *ec, double *vc, double *fc)
+void lda_c_pz(const void *p_, const double *rho, double *ec, double *vc, double *fc)
 {
   xc_lda_type *p = (xc_lda_type *)p_;
 

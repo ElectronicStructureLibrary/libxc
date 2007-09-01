@@ -52,7 +52,7 @@ static double dalphadrs(int i, double *rs)
 }
 
 
-void lda_c_amgb(void *p_, double *rho, double *ec, double *vc, double *fc)
+void lda_c_amgb(const void *p_, const double *rho, double *ec, double *vc, double *fc)
 {
   xc_lda_type *p = (xc_lda_type *)p_;
   

@@ -8,7 +8,7 @@
  Wigner's parametrization from the low density limit
 ************************************************************************/
 
-static void lda_c_wigner(void *p_, double *rho, double *ec, double *vc, double *fc)
+static void lda_c_wigner(const void *p_, const double *rho, double *ec, double *vc, double *fc)
 {
   xc_lda_type *p = (xc_lda_type *)p_;
 
@@ -50,7 +50,7 @@ const xc_func_info_type func_info_lda_c_wigner = {
  Random Phase Approximation (RPA)
 ************************************************************************/
 
-static void lda_c_rpa(void *p_, double *rho, double *ec, double *vc, double *fc)
+static void lda_c_rpa(const void *p_, const double *rho, double *ec, double *vc, double *fc)
 {
   xc_lda_type *p = (xc_lda_type *)p_;
 
@@ -110,7 +110,7 @@ static void hl_f(int func, int i, double rs, double *ec, double *vc)
 }
 
 
-static void lda_c_hl(void *p_, double *rho, double *ec, double *vc, double *fc)
+static void lda_c_hl(const void *p_, const double *rho, double *ec, double *vc, double *fc)
 {
   xc_lda_type *p = (xc_lda_type *)p_;
 
@@ -182,7 +182,7 @@ const xc_func_info_type func_info_lda_c_gl = {
 a total exchange and correlation functional, Exc, equal to 3/2 * alpha * Ex 
 Setting alpha equal to one gives the *usual* Slater Xalpha functional,
 whereas alpha equal to 2/3 just leaves the exchange functional unchanged */
-static void lda_c_xalpha(void *p_, double *rho, double *ec, double *vc, double *fc)
+static void lda_c_xalpha(const void *p_, const double *rho, double *ec, double *vc, double *fc)
 {
   xc_lda_type *p = (xc_lda_type *)p_;
   double a = 1.5*p->alpha - 1.0;

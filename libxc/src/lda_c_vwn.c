@@ -83,9 +83,9 @@ void ec_i(vwn_consts_type *X, int i, double x, double *ec, double *decdrs)
 }
 
 /* the functional */
-void lda_c_vwn(void *p_, double *rho, double *ec, double *vc, double *fc)
+void lda_c_vwn(const void *p_, const double *rho, double *ec, double *vc, double *fc)
 {
-  xc_lda_type *p = (xc_lda_type *)p_;
+  const xc_lda_type *p = (xc_lda_type *)p_;
 
   double dens, zeta;
   double rs[2], ec_1, dec_1;

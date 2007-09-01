@@ -69,6 +69,7 @@ CC_FORTRAN_INT  FC_FUNC_(xc_f90_family_from_id, XC_F90_FAMILY_FROM_ID)
 
 /* LDAs */
 
+/* Standard initialization */
 void FC_FUNC_(xc_f90_lda_init_, XC_F90_LDA_INIT_)
      (void **p, void **info, CC_FORTRAN_INT *functional, CC_FORTRAN_INT *nspin)
 {
@@ -85,28 +86,56 @@ void FC_FUNC_(xc_f90_lda_end, XC_F90_LDA_END)
 {
 }
 
-void FC_FUNC_(xc_f90_lda, XC_F90_LDA)
+/* Double precision interfaces */
+
+void FC_FUNC_(xc_f90_lda_dp, XC_F90_LDA_DP)
   (void **p, double *rho, double *exc, double *vxc, double *fxc, double *kxc)
 {
   xc_lda((xc_lda_type *)(*p), rho, exc, vxc, fxc, kxc);
 }
 
-void FC_FUNC_(xc_f90_lda_vxc, XC_F90_LDA_VXC)
+void FC_FUNC_(xc_f90_lda_vxc_dp, XC_F90_LDA_VXC_DP)
      (void **p, double *rho, double *e, double *v)
 {
   xc_lda_vxc((xc_lda_type *)(*p), rho, e, v);
 }
 
-void FC_FUNC_(xc_f90_lda_fxc, XC_F90_LDA_FXC)
+void FC_FUNC_(xc_f90_lda_fxc_dp, XC_F90_LDA_FXC_DP)
      (void **p, double *rho, double *fxc)
 {
   xc_lda_fxc((xc_lda_type *)(*p), rho, fxc);
 }
 
-void FC_FUNC_(xc_f90_lda_kxc, XC_F90_LDA_KXC)
+void FC_FUNC_(xc_f90_lda_kxc_dp, XC_F90_LDA_KXC_DP)
      (void **p, double *rho, double *kxc)
 {
   xc_lda_kxc((xc_lda_type *)(*p), rho, kxc);
+}
+
+/* Single precision interfaces */
+
+void FC_FUNC_(xc_f90_lda_sp, XC_F90_LDA_SP)
+  (void **p, float *rho, float *exc, float *vxc, float *fxc, float *kxc)
+{
+  xc_lda_sp((xc_lda_type *)(*p), rho, exc, vxc, fxc, kxc);
+}
+
+void FC_FUNC_(xc_f90_lda_vxc_sp, XC_F90_LDA_VXC_SP)
+     (void **p, float *rho, float *e, float *v)
+{
+  xc_lda_vxc_sp((xc_lda_type *)(*p), rho, e, v);
+}
+
+void FC_FUNC_(xc_f90_lda_fxc_sp, XC_F90_LDA_FXC_SP)
+     (void **p, float *rho, float *fxc)
+{
+  xc_lda_fxc_sp((xc_lda_type *)(*p), rho, fxc);
+}
+
+void FC_FUNC_(xc_f90_lda_kxc_sp, XC_F90_LDA_KXC_SP)
+     (void **p, float *rho, float *kxc)
+{
+  xc_lda_kxc_sp((xc_lda_type *)(*p), rho, kxc);
 }
 
 
@@ -140,6 +169,17 @@ void FC_FUNC_(xc_f90_lda_c_xalpha_init, XC_F90_LDA_C_XALPHA_INIT)
   lda_p = (xc_lda_type *)(*p);
   xc_lda_c_xalpha_init(lda_p, (int) (*nspin), (int) (*dim), *alpha);
   *info = (void *)(lda_p->info);
+}
+
+/* single precision version of the previous */
+void FC_FUNC_(xc_f90_lda_c_xalpha_init_sp, XC_F90_LDA_C_XALPHA_INIT_SP)
+     (void **p, void **info, CC_FORTRAN_INT *functional, 
+      CC_FORTRAN_INT *nspin, CC_FORTRAN_INT *dim, float *alpha)
+{
+  double dalpha;
+  dalpha = alpha[0];
+  FC_FUNC_(xc_f90_lda_c_xalpha_init, XC_F90_LDA_C_XALPHA_INIT)
+    (p, info, functional, nspin, dim, &dalpha);
 }
 
 

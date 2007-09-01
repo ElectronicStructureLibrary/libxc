@@ -49,6 +49,7 @@ module libxc
     xc_f90_family_from_id,              &
     xc_f90_lda_init,                    &
     xc_f90_lda,                         &
+    xc_f90_lda_vxc,                     &
     xc_f90_lda_fxc,                     &
     xc_f90_lda_kxc,                     &
     xc_f90_lda_end,                     &
@@ -176,8 +177,8 @@ module libxc
     end function xc_f90_family_from_id
   end interface
 
-
-  ! We will use the same public interface (xc_lda_init) for the three C procedures
+  ! LDAs
+  ! We will use the same public interface (xc_lda_init) for the four C procedures
   interface xc_f90_lda_init
     subroutine xc_f90_lda_init_(p, info, functional, nspin)
       use xc_types
@@ -206,6 +207,16 @@ module libxc
       integer,       intent(in)  :: dim    ! 2 or 3 dimensions
       real(8),       intent(in)  :: alpha  ! Ec = alpha Ex
     end subroutine xc_f90_lda_c_xalpha_init
+
+    subroutine xc_f90_lda_c_xalpha_init_sp(p, info, functional, nspin, dim, alpha)
+      use xc_types
+      type(xc_func), intent(out) :: p
+      type(xc_info), intent(out) :: info
+      integer,       intent(in)  :: functional
+      integer,       intent(in)  :: nspin  ! XC_UNPOLARIZED or XC_POLARIZED
+      integer,       intent(in)  :: dim    ! 2 or 3 dimensions
+      real(4),       intent(in)  :: alpha  ! Ec = alpha Ex
+    end subroutine xc_f90_lda_c_xalpha_init_sp
   end interface
 
   interface
@@ -213,8 +224,11 @@ module libxc
       use xc_types
       type(xc_func), intent(inout) :: p
     end subroutine xc_f90_lda_end
+  end interface
 
-    subroutine xc_f90_lda(p, rho, e, v, fxc, kxc)
+  interface xc_f90_lda
+
+    subroutine xc_f90_lda_dp(p, rho, e, v, fxc, kxc)
       use xc_types
       type(xc_func), intent(in)  :: p
       real(8),       intent(in)  :: rho   ! rho(nspin) the density
@@ -222,34 +236,77 @@ module libxc
       real(8),       intent(out) :: v     ! v(nspin) the potential
       real(8),       intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
       real(8),       intent(out) :: kxc   ! v(nspin,nspin,nspin) the derivative of xc kernel
-    end subroutine xc_f90_lda
+    end subroutine xc_f90_lda_dp
 
+    subroutine xc_f90_lda_sp(p, rho, e, v, fxc, kxc)
+      use xc_types
+      type(xc_func), intent(in)  :: p
+      real(4),       intent(in)  :: rho   ! rho(nspin) the density
+      real(4),       intent(out) :: e     ! the energy per unit particle
+      real(4),       intent(out) :: v     ! v(nspin) the potential
+      real(4),       intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
+      real(4),       intent(out) :: kxc   ! v(nspin,nspin,nspin) the derivative of xc kernel
+    end subroutine xc_f90_lda_sp
 
-    subroutine xc_f90_lda_vxc(p, rho, e, v)
+  end interface
+
+  interface xc_f90_lda_vxc
+    
+    subroutine xc_f90_lda_vxc_dp(p, rho, e, v)
       use xc_types
       type(xc_func), intent(in)  :: p
       real(8),       intent(in)  :: rho   ! rho(nspin) the density
       real(8),       intent(out) :: e     ! the energy per unit particle
       real(8),       intent(out) :: v     ! v(nspin) the potential
-    end subroutine xc_f90_lda_vxc
+    end subroutine xc_f90_lda_vxc_dp
 
-    subroutine xc_f90_lda_fxc(p, rho, fxc)
+    subroutine xc_f90_lda_vxc_sp(p, rho, e, v)
+      use xc_types
+      type(xc_func), intent(in)  :: p
+      real(4),       intent(in)  :: rho   ! rho(nspin) the density
+      real(4),       intent(out) :: e     ! the energy per unit particle
+      real(4),       intent(out) :: v     ! v(nspin) the potential
+    end subroutine xc_f90_lda_vxc_sp
+
+  end interface
+
+  interface xc_f90_lda_fxc
+
+    subroutine xc_f90_lda_fxc_dp(p, rho, fxc)
       use xc_types
       type(xc_func), intent(in)  :: p
       real(8),       intent(in)  :: rho   ! rho(nspin) the density
       real(8),       intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
-    end subroutine xc_f90_lda_fxc
+    end subroutine xc_f90_lda_fxc_dp
 
-    subroutine xc_f90_lda_kxc(p, rho, kxc)
+    subroutine xc_f90_lda_fxc_sp(p, rho, fxc)
+      use xc_types
+      type(xc_func), intent(in)  :: p
+      real(4),       intent(in)  :: rho   ! rho(nspin) the density
+      real(4),       intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
+    end subroutine xc_f90_lda_fxc_sp
+
+  end interface
+  
+  interface xc_f90_lda_kxc
+
+    subroutine xc_f90_lda_kxc_dp(p, rho, kxc)
       use xc_types
       type(xc_func), intent(in)  :: p
       real(8),       intent(in)  :: rho   ! rho(nspin) the density
       real(8),       intent(out) :: kxc
-    end subroutine xc_f90_lda_kxc
+    end subroutine xc_f90_lda_kxc_dp
+
+    subroutine xc_f90_lda_kxc_sp(p, rho, kxc)
+      use xc_types
+      type(xc_func), intent(in)  :: p
+      real(4),       intent(in)  :: rho   ! rho(nspin) the density
+      real(4),       intent(out) :: kxc
+    end subroutine xc_f90_lda_kxc_sp
 
   end interface
-
-
+  
+  ! GGAs
   ! We will use the same public procedure for the two C procedures.
   interface xc_f90_gga_init
     subroutine xc_f90_gga_init_(p, info, functional, nspin)

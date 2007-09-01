@@ -39,7 +39,7 @@ typedef struct{
 
   void (*init)(void *p);
   void (*end) (void *p);
-  void (*lda) (void *p, double *rho, double *exc, double *vxc, double *fxc);
+  void (*lda) (const void *p, const double *rho, double *exc, double *vxc, double *fxc);
   void (*gga) (void *p, double *rho, double *sigma, double *exc, double *vrho, double *vsigma);
 } xc_func_info_type;
 
@@ -81,11 +81,17 @@ int  xc_lda_init(xc_lda_type *p, int functional, int nspin);
 void xc_lda_x_init(xc_lda_type *p, int nspin, int dim, int irel);
 void xc_lda_c_xalpha_init(xc_lda_type *p, int nspin, int dim, double alpha);
 
-void xc_lda(xc_lda_type *p, double *rho, double *exc, double *vxc, double *fxc, double *kxc);
-void xc_lda_exc(xc_lda_type *p, double *rho, double *exc);
-void xc_lda_vxc(xc_lda_type *p, double *rho, double *exc, double *vxc);
-void xc_lda_fxc(xc_lda_type *p, double *rho, double *fxc);
-void xc_lda_kxc(xc_lda_type *p, double *rho, double *kxc);
+void xc_lda(const xc_lda_type *p, const double *rho, double *exc, double *vxc, double *fxc, double *kxc);
+void xc_lda_exc(const xc_lda_type *p, const double *rho, double *exc);
+void xc_lda_vxc(const xc_lda_type *p, const double *rho, double *exc, double *vxc);
+void xc_lda_fxc(const xc_lda_type *p, const double *rho, double *fxc);
+void xc_lda_kxc(const xc_lda_type *p, const double *rho, double *kxc);
+
+void xc_lda_sp(const xc_lda_type *p, const float *rho, float *exc, float *vxc, float *fxc, float *kxc);
+void xc_lda_exc_sp(const xc_lda_type *p, const float *rho, float *exc);
+void xc_lda_vxc_sp(const xc_lda_type *p, const float *rho, float *exc, float *vxc);
+void xc_lda_fxc_sp(const xc_lda_type *p, const float *rho, float *fxc);
+void xc_lda_kxc_sp(const xc_lda_type *p, const float *rho, float *kxc);
 
 
 /* the GGAs */

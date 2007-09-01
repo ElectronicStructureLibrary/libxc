@@ -128,7 +128,7 @@ void xc_lda(const xc_lda_type *p, const double *rho, double *exc, double *vxc, d
 /* get the lda functional */
 void xc_lda_sp(const xc_lda_type *p, const float *rho, float *exc, float *vxc, float *fxc, float *kxc)
 {
-  double drho = rho[0];
+  double drho[2];
   double dexc;
 
   double * pexc = NULL;
@@ -139,6 +139,9 @@ void xc_lda_sp(const xc_lda_type *p, const float *rho, float *exc, float *vxc, f
   int ii;
   const int nspin = p->nspin;
 
+  drho[0] = rho[0];
+  if(nspin > 1) drho[1] = rho[1];
+  
   /* Allocate space for return values in double precision */
   if(!exc) pexc = &dexc;
   if(!vxc) pvxc = (double *) malloc(nspin * sizeof(double));
@@ -146,7 +149,7 @@ void xc_lda_sp(const xc_lda_type *p, const float *rho, float *exc, float *vxc, f
   if(!kxc) pkxc = (double *) malloc(nspin * nspin * nspin * sizeof(double));
   
   /* Call the double precision version */
-  xc_lda(p, &drho, pexc, pvxc, pfxc, pkxc);
+  xc_lda(p, drho, pexc, pvxc, pfxc, pkxc);
 
   /* Copy the result to the single precision return values */
   if(!exc) exc[0] = dexc;

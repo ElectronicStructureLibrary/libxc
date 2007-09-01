@@ -143,28 +143,28 @@ void xc_lda_sp(const xc_lda_type *p, const float *rho, float *exc, float *vxc, f
   if(nspin > 1) drho[1] = rho[1];
   
   /* Allocate space for return values in double precision */
-  if(!exc) pexc = &dexc;
-  if(!vxc) pvxc = (double *) malloc(nspin * sizeof(double));
-  if(!fxc) pfxc = (double *) malloc(nspin * nspin * sizeof(double));
-  if(!kxc) pkxc = (double *) malloc(nspin * nspin * nspin * sizeof(double));
-  
+  if(exc) pexc = &dexc;
+  if(vxc) pvxc = (double *) malloc(nspin * sizeof(double));
+  if(fxc) pfxc = (double *) malloc(nspin * nspin * sizeof(double));
+  if(kxc) pkxc = (double *) malloc(nspin * nspin * nspin * sizeof(double));
+
   /* Call the double precision version */
   xc_lda(p, drho, pexc, pvxc, pfxc, pkxc);
 
   /* Copy the result to the single precision return values */
-  if(!exc) exc[0] = dexc;
+  if(exc) exc[0] = dexc;
 
-  if(!vxc) {
+  if(vxc) {
     for(ii = 0; ii < nspin; ii++) vxc[ii] = pvxc[ii];
     free(pvxc);
   }
 
-  if(!fxc) {
+  if(fxc) {
     for(ii = 0; ii < nspin*nspin; ii++) fxc[ii] = pfxc[ii];
     free(pfxc);
   }
 
-  if(!kxc) {
+  if(kxc) {
     for(ii = 0; ii < nspin*nspin*nspin; ii++) kxc[ii] = pkxc[ii];
     free(pkxc);
   }

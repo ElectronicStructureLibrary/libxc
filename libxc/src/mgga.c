@@ -71,3 +71,25 @@ void xc_mgga(xc_mgga_type *p, double *rho, double *grho, double *tau,
   }
 
 }
+
+void xc_mgga_sp(xc_mgga_type *p, float *rho, float *grho, float *tau,
+		float *e, float *dedd, float *dedgd, float *dedtau){
+
+  double drho[2], dgrho[6], dtau[2];
+  double de[1], ddedd[2], ddedgd[6], ddedtau[2];
+  int ii;
+
+  for(ii=0; ii < p->nspin; ii++) drho[ii] = rho[ii];
+  for(ii=0; ii < 3*p->nspin; ii++) dgrho[ii] = grho[ii];
+  for(ii=0; ii < p->nspin; ii++) dtau[ii] = tau[ii];
+
+  xc_mgga(p, drho, dgrho, dtau,
+	  de, ddedd, ddedgd, ddedtau);
+  
+  e[0] = de[0];
+  for(ii=0; ii < p->nspin; ii++) dedd[ii] = ddedd[ii];
+  for(ii=0; ii < 3*p->nspin; ii++) dedgd[ii] = ddedgd[ii];
+  for(ii=0; ii < p->nspin; ii++) dedtau[ii] = ddedtau[ii];
+
+}
+

@@ -76,3 +76,18 @@ void xc_gga_lb_init(xc_gga_type *p, int nspin, int modified, double threshold)
   p->modified  = modified;
   p->threshold = threshold;
 }
+
+void xc_gga_lb_sp(xc_gga_type *p, float *rho, float *sigma, float r, float ip, float qtot,
+		  float *dedd){
+
+  double drho[2], dsigma[6];
+  int ii;
+  double ddedd[2];
+
+  for(ii=0; ii < p->nspin; ii++) drho[ii] = rho[ii];
+  for(ii=0; ii < 3*p->nspin; ii++) dsigma[ii] = sigma[ii];
+
+  xc_gga_lb(p, drho, dsigma, (double) r, (double) ip, (double) qtot, ddedd);
+
+  for(ii=0; ii < p->nspin; ii++) dedd[ii] = ddedd[ii];
+}

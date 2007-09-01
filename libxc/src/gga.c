@@ -121,3 +121,21 @@ void xc_gga(xc_gga_type *p, double *rho, double *sigma,
   assert(p->info!=NULL && p->info->gga!=NULL);
   p->info->gga(p, rho, sigma, e, vrho, vsigma);
 }
+
+void xc_gga_sp(xc_gga_type *p, float *rho, float *sigma,
+	       float *e, float *vrho, float *vsigma)
+{
+  double drho[2], dsigma[6];
+  double de[1], dvrho[2], dvsigma[6];
+  int ii;
+
+  for(ii=0; ii < p->nspin; ii++) drho[ii] = rho[ii];
+  for(ii=0; ii < 3*p->nspin; ii++) dsigma[ii] = sigma[ii];
+
+  xc_gga(p, drho, dsigma, de, dvrho, dvsigma);
+  
+  e[0] = de[0];
+  for(ii=0; ii < p->nspin; ii++) vrho[ii] = dvrho[ii];
+  for(ii=0; ii < 3*p->nspin; ii++) vsigma[ii] = dvsigma[ii];
+
+}

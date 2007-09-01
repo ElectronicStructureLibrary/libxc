@@ -54,6 +54,7 @@ module libxc
     xc_f90_lda_kxc,                     &
     xc_f90_lda_end,                     &
     xc_f90_lca_init,                    &
+    xc_f90_lca_end,                     &
     xc_f90_lca,                         &
     xc_f90_gga_init,                    &
     xc_f90_gga,                         &
@@ -326,6 +327,16 @@ module libxc
       integer,       intent(in)  :: modified
       real(8),       intent(in)  :: threshold
     end subroutine xc_f90_gga_lb_init
+
+    subroutine xc_f90_gga_lb_init_sp(p, info, functional, nspin, modified, threshold)
+      use xc_types
+      type(xc_func), intent(out) :: p
+      type(xc_info), intent(out) :: info
+      integer,       intent(in)  :: functional
+      integer,       intent(in)  :: nspin
+      integer,       intent(in)  :: modified
+      real(4),       intent(in)  :: threshold
+    end subroutine xc_f90_gga_lb_init_sp
   end interface
 
   interface
@@ -333,19 +344,37 @@ module libxc
       use xc_types
       type(xc_func), intent(inout) :: p
     end subroutine xc_f90_gga_end
+  end interface
 
-    subroutine xc_f90_gga(p, rho, grho, e, dedd, dedgd)
+  interface xc_f90_gga
+
+    subroutine xc_f90_gga_dp(p, rho, grho, e, dedd, dedgd)
       use xc_types
       type(xc_func), intent(in)  :: p
       real(8),       intent(in)  :: rho   ! rho(nspin) the density
       real(8),       intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
       real(8),       intent(out) :: e     ! the energy per unit particle
       real(8),       intent(out) :: dedd  ! dedd(nspin) the derivative of the energy
-      ! in terms of the density
+                                          ! in terms of the density
       real(8),       intent(out) :: dedgd ! and in terms of the gradient of the density
-    end subroutine xc_f90_gga
+    end subroutine xc_f90_gga_dp
 
-    subroutine xc_f90_gga_lb(p, rho, grho, r, ip, qtot, dedd)
+    subroutine xc_f90_gga_sp(p, rho, grho, e, dedd, dedgd)
+      use xc_types
+      type(xc_func), intent(in)  :: p
+      real(4),       intent(in)  :: rho   ! rho(nspin) the density
+      real(4),       intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
+      real(4),       intent(out) :: e     ! the energy per unit particle
+      real(4),       intent(out) :: dedd  ! dedd(nspin) the derivative of the energy
+                                          ! in terms of the density
+      real(4),       intent(out) :: dedgd ! and in terms of the gradient of the density
+    end subroutine xc_f90_gga_sp
+
+  end interface
+
+  interface xc_f90_gga_lb
+
+    subroutine xc_f90_gga_lb_dp(p, rho, grho, r, ip, qtot, dedd)
       use xc_types
       type(xc_func), intent(in)  :: p
       real(8),       intent(in)  :: rho   ! rho(nspin) the density
@@ -354,7 +383,19 @@ module libxc
       real(8),       intent(in)  :: ip    ! ionization potential
       real(8),       intent(in)  :: qtot  ! total charge
       real(8),       intent(out) :: dedd
-    end subroutine xc_f90_gga_lb
+    end subroutine xc_f90_gga_lb_dp
+
+    subroutine xc_f90_gga_lb_sp(p, rho, grho, r, ip, qtot, dedd)
+      use xc_types
+      type(xc_func), intent(in)  :: p
+      real(4),       intent(in)  :: rho   ! rho(nspin) the density
+      real(4),       intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
+      real(4),       intent(in)  :: r     ! distance from center of finite system
+      real(4),       intent(in)  :: ip    ! ionization potential
+      real(4),       intent(in)  :: qtot  ! total charge
+      real(4),       intent(out) :: dedd
+    end subroutine xc_f90_gga_lb_sp
+
   end interface
 
 
@@ -372,8 +413,11 @@ module libxc
       use xc_types
       type(xc_func), intent(inout) :: p
     end subroutine xc_f90_mgga_end
+  end interface
 
-    subroutine xc_f90_mgga(p, rho, grho, tau, e, dedd, dedgd, dedtau)
+  interface xc_f90_mgga
+
+    subroutine xc_f90_mgga_dp(p, rho, grho, tau, e, dedd, dedgd, dedtau)
       use xc_types
       type(xc_func), intent(in)  :: p
       real(8),       intent(in)  :: rho   ! rho(nspin) the density
@@ -384,7 +428,21 @@ module libxc
       ! in terms of the density
       real(8),       intent(out) :: dedgd ! in terms of the gradient of the density
       real(8),       intent(out) :: dedtau! and in terms of tau
-    end subroutine xc_f90_mgga
+    end subroutine xc_f90_mgga_dp
+
+    subroutine xc_f90_mgga_sp(p, rho, grho, tau, e, dedd, dedgd, dedtau)
+      use xc_types
+      type(xc_func), intent(in)  :: p
+      real(4),       intent(in)  :: rho   ! rho(nspin) the density
+      real(4),       intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
+      real(4),       intent(in)  :: tau   ! tau(nspin) the kinetic energy density
+      real(4),       intent(out) :: e     ! the energy per unit particle
+      real(4),       intent(out) :: dedd  ! dedd(nspin) the derivative of the energy
+                                          ! in terms of the density
+      real(4),       intent(out) :: dedgd ! in terms of the gradient of the density
+      real(4),       intent(out) :: dedtau! and in terms of tau
+    end subroutine xc_f90_mgga_sp
+
   end interface
 
   ! the LCAs
@@ -397,16 +455,36 @@ module libxc
       integer,       intent(in)  :: nspin
     end subroutine xc_f90_lca_init
 
-    subroutine xc_f90_lca(p, rho, v, e, dedd, dedv)
+    subroutine xc_f90_lca_end(p)
+      use xc_types
+      type(xc_func), intent(inout) :: p
+    end subroutine xc_f90_lca_end
+  end interface
+
+  interface xc_f90_lca
+
+    subroutine xc_f90_lca_dp(p, rho, v, e, dedd, dedv)
       use xc_types
       type(xc_func), intent(in)  :: p
       real(8),       intent(in)  :: rho   ! rho(nspin) the density
       real(8),       intent(in)  :: v     ! v(3,nspin) the vorticity
       real(8),       intent(out) :: e     ! the energy per unit particle
       real(8),       intent(out) :: dedd  ! dedd(nspin) the derivative of the energy
-      ! in terms of the density
+                                          ! in terms of the density
       real(8),       intent(out) :: dedv  ! and in terms of the vorticity
-    end subroutine xc_f90_lca
+    end subroutine xc_f90_lca_dp
+
+    subroutine xc_f90_lca_sp(p, rho, v, e, dedd, dedv)
+      use xc_types
+      type(xc_func), intent(in)  :: p
+      real(4),       intent(in)  :: rho   ! rho(nspin) the density
+      real(4),       intent(in)  :: v     ! v(3,nspin) the vorticity
+      real(4),       intent(out) :: e     ! the energy per unit particle
+      real(4),       intent(out) :: dedd  ! dedd(nspin) the derivative of the energy
+                                          ! in terms of the density
+      real(4),       intent(out) :: dedv  ! and in terms of the vorticity
+    end subroutine xc_f90_lca_sp
+
   end interface
 
 end module libxc

@@ -77,3 +77,20 @@ void xc_lca(xc_lca_type *p, double *rho, double *v, double *e, double *dedd, dou
   }
   
 }
+
+void xc_lca_sp(xc_lca_type *p, float *rho, float *v, 
+	       float *e, float *dedd, float *dedv)
+{
+  double drho[2], dv[6];
+  double de[1], ddedd[2], ddedv[6];
+  int ii;
+
+  for(ii=0; ii < p->nspin; ii++) drho[ii] = rho[ii];
+  for(ii=0; ii < 3*p->nspin; ii++) dv[ii] = v[ii];
+  
+  xc_lca(p, drho, dv, de, ddedd, ddedv);
+
+  e[0] = de[0];
+  for(ii=0; ii < p->nspin; ii++) dedd[ii] = ddedd[ii];
+  for(ii=0; ii < 3*p->nspin; ii++) dedv[ii] = ddedv[ii];
+}

@@ -114,7 +114,7 @@ int main(void)
   return 1;
 }
 EOF
-  ac_try='$CC $CCFLAGS -o ccfortranint.x ccfortranint.c 1>&AC_FD_CC'
+  ac_try='$CC $CFLAGS -o ccfortranint.x ccfortranint.c 1>&AC_FD_CC'
   if AC_TRY_EVAL(ac_try); then
     ac_try=""
   else

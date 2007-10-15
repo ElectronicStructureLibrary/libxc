@@ -6,6 +6,8 @@
 extern xc_func_info_type /* these are the GGA functionals that I know */
   func_info_gga_x_pbe,
   func_info_gga_x_pbe_r,
+  func_info_gga_x_pbe_sol,
+  func_info_gga_x_rpbe,
   func_info_gga_x_b86,
   func_info_gga_x_b86_r,
   func_info_gga_x_b86_mgc,
@@ -20,6 +22,7 @@ extern xc_func_info_type /* these are the GGA functionals that I know */
   func_info_gga_x_ft97_a,
   func_info_gga_x_ft97_b,
   func_info_gga_c_pbe,
+  func_info_gga_c_pbe_sol,
   func_info_gga_c_lyp,
   func_info_gga_c_p86,
   func_info_gga_lb;
@@ -27,6 +30,8 @@ extern xc_func_info_type /* these are the GGA functionals that I know */
 xc_func_info_type *gga_known_funct[] = {
   &func_info_gga_x_pbe,
   &func_info_gga_x_pbe_r,
+  &func_info_gga_x_pbe_sol,
+  &func_info_gga_x_rpbe,
   &func_info_gga_x_b86,
   &func_info_gga_x_b86_r,
   &func_info_gga_x_b86_mgc,
@@ -41,6 +46,7 @@ xc_func_info_type *gga_known_funct[] = {
   &func_info_gga_x_ft97_a,
   &func_info_gga_x_ft97_b,
   &func_info_gga_c_pbe,
+  &func_info_gga_c_pbe_sol,
   &func_info_gga_c_lyp,
   &func_info_gga_c_p86,
   &func_info_gga_lb,

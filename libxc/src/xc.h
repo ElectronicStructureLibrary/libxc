@@ -98,6 +98,8 @@ void xc_lda_kxc_sp(const xc_lda_type *p, const float *rho, float *kxc);
 
 #define XC_GGA_X_PBE          101 /* Perdew, Burke & Ernzerhof exchange             */
 #define XC_GGA_X_PBE_R        102 /* Perdew, Burke & Ernzerhof exchange (revised)   */
+#define XC_GGA_X_PBE_SOL      116 /* Perdew, Burke & Ernzerhof exchange (solids)    */
+#define XC_GGA_X_RPBE         117 /* Hammer, Hansen & Norskov PBE-like              */
 #define XC_GGA_X_B86          103 /* Becke 86 Xalfa,beta,gamma                      */
 #define XC_GGA_X_B86_R        104 /* Becke 86 Xalfa,beta,gamma (reoptimized)        */
 #define XC_GGA_X_B86_MGC      105 /* Becke 86 Xalfa,beta,gamma (with mod. grad. correction) */
@@ -113,6 +115,7 @@ void xc_lda_kxc_sp(const xc_lda_type *p, const float *rho, float *kxc);
 #define XC_GGA_X_FT97_B       115 /* Filatov & Thiel 97 (version B)                 */
 
 #define XC_GGA_C_PBE          130 /* Perdew, Burke & Ernzerhof correlation          */
+#define XC_GGA_C_PBE_SOL      133 /* Perdew, Burke & Ernzerhof correlation SOL      */
 #define XC_GGA_C_LYP          131 /* Lee, Yang & Parr                               */
 #define XC_GGA_C_P86          132 /* Perdew 86                                      */
 

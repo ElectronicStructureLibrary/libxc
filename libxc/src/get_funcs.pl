@@ -1,7 +1,9 @@
 #!/usr/bin/perl
 
-my $dir = $0;
-$dir =~ s#/[^/]*$##;
+$srcdir = shift;
+$top_builddir = shift;
+
+$builddir = "$top_builddir/src";
 
 my @funcs = ("lda", "gga");
 
@@ -10,7 +12,7 @@ foreach $func (@funcs){
   undef %deflist_f;
   undef %deflist_c;
 
-  read_file($dir, $func);
+  read_file($srcdir, $func);
 
   $s1 = ""; $s2 = "";
   foreach $key (sort { $a <=> $b } keys %deflist_f) {
@@ -27,7 +29,7 @@ foreach $func (@funcs){
     $s2 .= "  &func_info_$t,\n";
   }
 
-  open(OUT, ">$dir/funcs_$func.c");
+  open(OUT, ">$builddir/funcs_$func.c");
   print OUT <<EOF
 #include "util.h"
 
@@ -41,11 +43,12 @@ EOF
   close OUT;
 }
 
-open(OUT, ">$dir/xc_funcs.h");
+open(OUT, ">$builddir/xc_funcs.h");
 print OUT $s0;
+print $so;
 close OUT;
 
-open(OUT, ">$dir/libxc_funcs.f90");
+open(OUT, ">$builddir/libxc_funcs.f90");
 print OUT <<EOF
 module libxc_funcs
   implicit none
@@ -65,7 +68,7 @@ sub read_file() {
   my $TYPE = $type;
   $TYPE =~ s/(.*)/\U$1/;
 
-  opendir(DIR, "$dir/") || die "can’t opendir '$dir': $!";
+  opendir(DIR, "$dir/") || die "cannot opendir '$dir': $!";
   while($_ = readdir(DIR)){
     next if(!/^${type}_.*\.c$/);
 
@@ -80,5 +83,3 @@ sub read_file() {
   }
   closedir DIR;
 }
-
-

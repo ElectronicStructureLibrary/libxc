@@ -109,6 +109,8 @@ module libxc
   integer, public, parameter ::     &
     XC_GGA_X_PBE            = 101,  &  ! Perdew, Burke & Ernzerhof exchange
     XC_GGA_X_PBE_R          = 102,  &  ! Perdew, Burke & Ernzerhof exchange (revised)
+    XC_GGA_X_PBE_SOL        = 116,  &  ! Perdew, Burke & Ernzerhof exchange (solids)
+    XC_GGA_X_RPBE           = 117,  &  ! Hammer, Hansen & Norskov (PBE-like)
     XC_GGA_X_B86            = 103,  &  ! Becke 86 Xalpha,beta,gamma
     XC_GGA_X_B86_R          = 104,  &  ! Becke 86 Xalpha,beta,gamma reoptimized
     XC_GGA_X_B86_MGC        = 105,  &  ! Becke 88 Xalfa,beta,gamma (with mod. grad. correction)
@@ -123,6 +125,7 @@ module libxc
     XC_GGA_X_FT97_A         = 114,  &  ! Filatov & Thiel 97 (version A)
     XC_GGA_X_FT97_B         = 115,  &  ! Filatov & Thiel 97 (version B)
     XC_GGA_C_PBE            = 130,  &  ! Perdew, Burke & Ernzerhof correlation
+    XC_GGA_C_PBE_SOL        = 133,  &  ! Perdew, Burke & Ernzerhof correlation
     XC_GGA_C_LYP            = 131,  &  ! Lee, Yang & Parr
     XC_GGA_C_P86            = 132,  &  ! Perdew 86
     XC_GGA_XC_LB            = 160      ! van Leeuwen & Baerends

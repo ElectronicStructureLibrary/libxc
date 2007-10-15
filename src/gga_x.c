@@ -8,17 +8,50 @@
 
 static void pbe_f(int func, double x, double *f, double *dfdx, double *ldfdx)
 {
-  static const  double kappa[2] = {
-    0.8040,
-    1.245
+  static const double kappa[3] = {
+    0.8040, /* original PBE */
+    1.245,  /* PBE R */
+    0.8040  /* PBE sol */
   };
-  static const double mu = 0.00361218645365094697; /* beta*(pi^2/(3^5*2^8))^(1/3) */
+
+  /* 
+     the variable used in the original PBE paper is s = |grad n|/(2 k_f n)
+     while here we use x = |grad n_s|/n_s^(4/3). Therefore, the value of mu
+     we use here is he original mu multiplied by 
+
+       1/2^(2/3) * 1/(4*(3 pi^2)^(2/3))
+
+     where the first term comes from using the spin densities, and the second
+     from the constants of k_f = (3 pi^2 n)^(1/3)
+  */
+  static const double mu[3] = {
+    0.00361218645365094697,  /* PBE: mu = beta*pi^2/3, beta = 0.066725 (plus above mentioned constants) */
+    0.00361218645365094697,  /* PBE rev: as PBE */
+    0.00203151948716303243   /* PBE sol: 10/81 */
+  };
+
   double dd;
 
-  dd     = 1.0/(kappa[func] + mu*x*x);
+  dd     = 1.0/(kappa[func] + mu[func]*x*x);
 
   *f     = 1.0 + kappa[func]*(1.0 - kappa[func]*dd);
-  *dfdx  = 2.0*x*mu*kappa[func]*kappa[func]*dd*dd;
+  *dfdx  = 2.0*x*mu[func]*kappa[func]*kappa[func]*dd*dd;
+  *ldfdx = mu[func];
+}
+
+
+/* RPBE: see PBE for more details */
+static void rpbe_f(int func, double x, double *f, double *dfdx, double *ldfdx)
+{
+  static const double kappa = 0.8040;
+  static const double mu = 0.00361218645365094697;
+
+  double dd;
+
+  dd     = exp(-mu*x*x/kappa);
+
+  *f     = 1.0 + kappa*(1.0 - dd);
+  *dfdx  = 2.0*x*mu*dd;
   *ldfdx = mu;
 }
 
@@ -212,7 +245,7 @@ static void ft97_f(int func, double x, double sigma, double *f, double *dfdx, do
 
 /************************************************************************/
 
-void gga_x_b86(void *p_, double *rho, double *sigma,
+void gga_x_run(void *p_, double *rho, double *sigma,
 	       double *e, double *vrho, double *vsigma)
 {
   xc_gga_type *p = p_;
@@ -250,6 +283,12 @@ void gga_x_b86(void *p_, double *rho, double *sigma,
       break;
     case XC_GGA_X_PBE_R:
       pbe_f(1, x, &f, &dfdx, &ldfdx);
+      break;
+    case XC_GGA_X_PBE_SOL:
+      pbe_f(2, x, &f, &dfdx, &ldfdx);
+      break;
+    case XC_GGA_X_RPBE:
+      rpbe_f(2, x, &f, &dfdx, &ldfdx);
       break;
     case XC_GGA_X_B86:
       b86_f(0, x, &f, &dfdx, &ldfdx);
@@ -318,7 +357,7 @@ const xc_func_info_type func_info_gga_x_pbe = {
   "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
-  gga_x_b86
+  gga_x_run
 };
 
 const xc_func_info_type func_info_gga_x_pbe_r = {
@@ -331,7 +370,31 @@ const xc_func_info_type func_info_gga_x_pbe_r = {
   "Y. Zhang and W. Yang, Phys. Rev. Lett 80, 890 (1998)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
-  gga_x_b86
+  gga_x_run
+};
+
+const xc_func_info_type func_info_gga_x_pbe_sol = {
+  XC_GGA_X_PBE_SOL,
+  XC_EXCHANGE,
+  "Perdew, Burke & Ernzerhof SOL",
+  XC_FAMILY_GGA,
+  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
+  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)\n"
+  "J.P. Perdew, et al., arXiv:0707.2088v1",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL,
+  gga_x_run
+};
+
+const xc_func_info_type func_info_gga_x_rpbe = {
+  XC_GGA_X_RPBE,
+  XC_EXCHANGE,
+  "Hammer, Hansen, and Nørskov",
+  XC_FAMILY_GGA,
+  "B Hammer, LB Hansen and JK Nørskov, Phys. Rev. B 59, 7413 (1999)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  NULL, NULL, NULL,
+  gga_x_run
 };
 
 const xc_func_info_type func_info_gga_x_b86 = {
@@ -342,7 +405,7 @@ const xc_func_info_type func_info_gga_x_b86 = {
   "A.D. Becke, J. Chem. Phys 84, 4524 (1986)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
-  gga_x_b86
+  gga_x_run
 };
 
 const xc_func_info_type func_info_gga_x_b86_r = {
@@ -354,7 +417,7 @@ const xc_func_info_type func_info_gga_x_b86_r = {
   "A.D. Becke, J. Chem. Phys 107, 8554 (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
-  gga_x_b86
+  gga_x_run
 };
 
 const xc_func_info_type func_info_gga_x_b86_mgc = {
@@ -366,7 +429,7 @@ const xc_func_info_type func_info_gga_x_b86_mgc = {
   "A.D. Becke, J. Chem. Phys 85, 7184 (1986)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
-  gga_x_b86
+  gga_x_run
 };
 
 const xc_func_info_type func_info_gga_x_b88 = {
@@ -377,7 +440,7 @@ const xc_func_info_type func_info_gga_x_b88 = {
   "A.D. Becke, Phys. Rev. A 38, 3098-3100 (1988)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
-  gga_x_b86
+  gga_x_run
 };
 
 const xc_func_info_type func_info_gga_x_g96 = {
@@ -388,7 +451,7 @@ const xc_func_info_type func_info_gga_x_g96 = {
   "P.M.W. Gill, Mol. Phys. 89, 433 (1996)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
-  gga_x_b86
+  gga_x_run
 };
 
 const xc_func_info_type func_info_gga_x_pw86 = {
@@ -399,7 +462,7 @@ const xc_func_info_type func_info_gga_x_pw86 = {
   "J.P. Perdew and Y. Wang, Phys. Rev. B 33, 8800 (1986).",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
-  gga_x_b86
+  gga_x_run
 };
 
 const xc_func_info_type func_info_gga_x_pw91 = {
@@ -410,7 +473,7 @@ const xc_func_info_type func_info_gga_x_pw91 = {
   "J.P. Perdew, J.A. Chevary, S.H. Vosko, K.A. Jackson, M.R. Pederson, and C. Fiolhais, Phys. Rev. B 46, 6671 (1992)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
-  gga_x_b86
+  gga_x_run
 };
 
 const xc_func_info_type func_info_gga_x_optx = {
@@ -421,7 +484,7 @@ const xc_func_info_type func_info_gga_x_optx = {
   "N.C. handy and A.J. Cohen, Mol. Phys. 99, 403-412 (2001)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
-  gga_x_b86
+  gga_x_run
 };
 
 const xc_func_info_type func_info_gga_x_dk87_r1 = {
@@ -432,7 +495,7 @@ const xc_func_info_type func_info_gga_x_dk87_r1 = {
   "A.E. DePristo and J.D. Kress, J. Chem. Phys. 86, 1425 (1987)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
-  gga_x_b86
+  gga_x_run
 };
 
 const xc_func_info_type func_info_gga_x_dk87_r2 = {
@@ -443,7 +506,7 @@ const xc_func_info_type func_info_gga_x_dk87_r2 = {
   "A.E. DePristo and J.D. Kress, J. Chem. Phys. 86, 1425 (1987)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
-  gga_x_b86
+  gga_x_run
 };
 
 const xc_func_info_type func_info_gga_x_lg93 = {
@@ -454,7 +517,7 @@ const xc_func_info_type func_info_gga_x_lg93 = {
   "D.J. Lacks and R.G. Gordon, Phys. Rev. A 47, 4681-4690 (1993)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
-  gga_x_b86
+  gga_x_run
 };
 
 const xc_func_info_type func_info_gga_x_ft97_a = {
@@ -464,7 +527,8 @@ const xc_func_info_type func_info_gga_x_ft97_a = {
   XC_FAMILY_GGA,
   "M. Filatov and W. Thiel, Mol. Phys 91, 847-860 (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  NULL, NULL, NULL, gga_x_b86
+  NULL, NULL, NULL, 
+  gga_x_run
 };
 
 const xc_func_info_type func_info_gga_x_ft97_b = {
@@ -474,5 +538,6 @@ const xc_func_info_type func_info_gga_x_ft97_b = {
   XC_FAMILY_GGA,
   "M. Filatov and W. Thiel, Mol. Phys 91, 847-860 (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  NULL, NULL, NULL, gga_x_b86
+  NULL, NULL, NULL, 
+  gga_x_run
 };

@@ -11,7 +11,10 @@
  I based this implementation on a routine from L.C. Balbas and J.M. Soler
 ************************************************************************/
 
-static const double beta  = 0.06672455060314922;
+static const double beta[2]  = {
+  0.06672455060314922,  /* original PBE */
+  0.046                 /* PBE sol      */
+};
 static const double gamm  = 0.03109069086965489503494086371273; /* (1.0 - log(2.0))/(M_PI*M_PI) */
 
 void gga_c_pbe_init(void *p_)
@@ -38,7 +41,9 @@ void gga_c_pbe(void *p_, double *rho, double *sigma,
   double rs, kf, ks, phi, phi3, gdmt, t, t2;
   double f1, f2, f3, f4, a, h;
   double drsdd, dkfdd, dksdd, dzdd[2], dpdz;
-  int is;
+  int is, func;
+
+  func = (p->info->number == XC_GGA_C_PBE_SOL) ? 1 : 0;
 
   xc_lda_vxc(p->lda_aux, rho, &ecunif, vcunif);
   rho2dzeta(p->nspin, rho, &dens, &zeta);
@@ -61,9 +66,9 @@ void gga_c_pbe(void *p_, double *rho, double *sigma,
 
   f1 = ecunif/(gamm*phi3);
   f2 = exp(-f1);
-  a  = beta/(gamm*(f2 - 1.0));
+  a  = beta[func]/(gamm*(f2 - 1.0));
   f3 = t2 + a*t2*t2;
-  f4 = beta*f3/(gamm*(1.0 + a*f3));
+  f4 = beta[func]*f3/(gamm*(1.0 + a*f3));
   h  = gamm*phi3*log(1.0 + f4);
   *e = ecunif + h;
 
@@ -123,7 +128,22 @@ const xc_func_info_type func_info_gga_c_pbe = {
   "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_c_pbe_init,
-  gga_c_pbe_end,   /* we can use the same as exchange here */
+  gga_c_pbe_end,
+  NULL,            /* this is not an LDA                   */
+  gga_c_pbe,
+};
+
+const xc_func_info_type func_info_gga_c_pbe_sol = {
+  XC_GGA_C_PBE_SOL,
+  XC_CORRELATION,
+  "Perdew, Burke & Ernzerhof SOL",
+  XC_FAMILY_GGA,
+  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
+  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)"
+  "J.P. Perdew, et al., arXiv:0707.2088v1",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  gga_c_pbe_init,
+  gga_c_pbe_end,
   NULL,            /* this is not an LDA                   */
   gga_c_pbe,
 };

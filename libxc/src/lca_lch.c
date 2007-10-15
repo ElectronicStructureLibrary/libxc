@@ -4,6 +4,7 @@
 
 #include "util.h"
 
+#define XC_LCA_LCH       302   /* Lee, Colwell & Handy         */
 
 static xc_func_info_type func_info_lca_lch = {
   XC_LCA_LCH,

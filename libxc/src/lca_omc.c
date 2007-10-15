@@ -4,6 +4,7 @@
 
 #include "util.h"
 
+#define XC_LCA_OMC       301   /* Orestes, Marcasso & Capelle  */
 
 static xc_func_info_type func_info_lca_omc = {
   XC_LCA_OMC,

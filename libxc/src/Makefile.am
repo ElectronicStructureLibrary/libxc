@@ -48,5 +48,5 @@ CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h libxc_funcs.f9
 util.c: funcs.h
 libxc_funcs.f90: funcs.h
 funcs.h: get_funcs.pl
-	./get_funcs.pl
+	$(srcdir)/get_funcs.pl
 

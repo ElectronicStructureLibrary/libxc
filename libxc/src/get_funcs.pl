@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 
+my $dir = $0;
+$dir =~ s#/[^/]*$##;
+
 my @funcs = ("lda", "gga");
 
 $s0 = ""; $s3 = "";
@@ -7,7 +10,7 @@ foreach $func (@funcs){
   undef %deflist_f;
   undef %deflist_c;
 
-  read_file($func);
+  read_file($dir, $func);
 
   $s1 = ""; $s2 = "";
   foreach $key (sort { $a <=> $b } keys %deflist_f) {
@@ -24,7 +27,7 @@ foreach $func (@funcs){
     $s2 .= "  &func_info_$t,\n";
   }
 
-  open(OUT, ">funcs_$func.c");
+  open(OUT, ">$dir/funcs_$func.c");
   print OUT <<EOF
 #include "util.h"
 
@@ -38,11 +41,11 @@ EOF
   close OUT;
 }
 
-open(OUT, ">xc_funcs.h");
+open(OUT, ">$dir/xc_funcs.h");
 print OUT $s0;
 close OUT;
 
-open(OUT, ">libxc_funcs.f90");
+open(OUT, ">$dir/libxc_funcs.f90");
 print OUT <<EOF
 module libxc_funcs
   implicit none
@@ -56,17 +59,17 @@ EOF
 close OUT;
 
 sub read_file() {
-  my $type = $_[0];
+  my ($dir, $type) = @_;
   $type =~ s/(.*)/\L$1/;
 
   my $TYPE = $type;
   $TYPE =~ s/(.*)/\U$1/;
 
-  opendir(DIR, "./") || die "can’t opendir ./: $!";
+  opendir(DIR, "$dir/") || die "can’t opendir '$dir': $!";
   while($_ = readdir(DIR)){
     next if(!/^${type}_.*\.c$/);
 
-    open(IN, "<$_");
+    open(IN, "<$dir/$_");
     while($_=<IN>){
       if(/#define\s+(XC_${TYPE}_\S+)\s+(\S+)\s+\/\*(.*)\*\//){
 	$deflist_f{$2} = $1;

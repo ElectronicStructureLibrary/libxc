@@ -3,7 +3,6 @@
 #include <assert.h>
 
 #include "util.h"
-#include "xc_funcs.h"
 
 #define XC_GGA_C_P86 132 /* Perdew 86 */
 

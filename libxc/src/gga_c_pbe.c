@@ -3,7 +3,6 @@
 #include <assert.h>
 
 #include "util.h"
-#include "xc_funcs.h"
 
 /************************************************************************
  Implements Perdew, Burke & Ernzerhof Generalized Gradient Approximation

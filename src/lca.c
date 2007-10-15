@@ -4,6 +4,9 @@
 
 #include "util.h"
 
+#define XC_LCA_OMC       301   /* Orestes, Marcasso & Capelle  */
+#define XC_LCA_LCH       302   /* Lee, Colwell & Handy         */
+
 /* initialization */
 void xc_lca_init(xc_lca_type *p, int functional, int nspin)
 {

@@ -4,6 +4,8 @@
 
 #include "util.h"
 
+#define XC_MGGA_C_TPSS          202 /* Perdew, Tao, Staroverov & Scuseria correlation */
+
 /* WARNING - this is all broken !! */
 #define   _(is, x)   [3*is + x]
 #define  __(i, j)    [2*i + j] 

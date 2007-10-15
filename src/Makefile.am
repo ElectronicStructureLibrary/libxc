@@ -21,7 +21,7 @@
 
 lib_LIBRARIES = libxc.a
 
-libxc_a_SOURCES = util.c \
+libxc_a_FUNC_SOURCES = \
 	lda.c lda_x.c \
 	lda_c_wigner.c lda_c_rpa.c lda_c_hl.c lda_c_xalpha.c \
 	lda_c_vwn.c lda_c_pz.c lda_c_pw.c lda_c_amgb.c \
@@ -31,7 +31,10 @@ libxc_a_SOURCES = util.c \
 	gga_x_dk87.c gga_x_ft97.c \
 	gga_lb.c gga_c_pbe.c gga_c_lyp.c gga_c_p86.c \
 	mgga.c mgga_x_tpss.c mgga_c_tpss.c \
-	lca.c lca_omc.c lca_lch.c \
+	lca.c lca_omc.c lca_lch.c
+
+libxc_a_SOURCES = $(libxc_a_FUNC_SOURCES) \
+	util.c \
 	functionals.c 
 
 if COMPILE_FORTRAN
@@ -45,7 +48,7 @@ AM_CPPFLAGS = $(string_f_include)
 
 CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h libxc_funcs.f90 xc_funcs.h
 
-util.c: funcs.h
-libxc_funcs.f90: funcs.h
-funcs.h: get_funcs.pl
+xc.h: xc_funcs.h
+libxc_funcs.f90: xc_funcs.h
+xc_funcs.h: get_funcs.pl $(libxc_a_FUNC_SOURCES)
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)

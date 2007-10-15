@@ -11,6 +11,8 @@
   Exchange part
 ************************************************************************/
 
+#define XC_MGGA_X_TPSS          201 /* Perdew, Tao, Staroverov & Scuseria exchange */
+
 static xc_func_info_type func_info_mgga_x_tpss = {
   XC_MGGA_X_TPSS,
   XC_EXCHANGE,

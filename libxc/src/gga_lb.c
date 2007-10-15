@@ -4,6 +4,8 @@
 
 #include "util.h"
 
+#define XC_GGA_XC_LB 160 /* van Leeuwen & Baerends */
+
 /************************************************************************
   Calculates van Leeuwen Baerends functional
 ************************************************************************/

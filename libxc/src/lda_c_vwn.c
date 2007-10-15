@@ -7,6 +7,9 @@
  LDA parametrization of Vosko, Wilk & Nusair
 ************************************************************************/
 
+#define XC_LDA_C_VWN      7   /* Vosko, Wilk, & Nussair       */
+#define XC_LDA_C_VWN_RPA  8   /* Vosko, Wilk, & Nussair (RPA) */
+
 /* some constants         e_c^P      e_c^F      alpha_c */
 typedef struct {
   double  A[3]; /* e_c^P, e_c^F, alpha_c */

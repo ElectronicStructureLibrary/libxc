@@ -15,6 +15,10 @@ original PBE routine. This amounts to adding some more digits in some of
 the constants of PW.
 ************************************************************************/
 
+#define XC_LDA_C_PW     12   /* Perdew & Wang                */
+#define XC_LDA_C_PW_MOD 13   /* Perdew & Wang (Modified)     */
+#define XC_LDA_C_OB_PW  14   /* Ortiz & Ballone (PW)         */
+
 
 /* Function g defined by Eq. 10 of the original paper,
    and it's derivative with respect to rs, Eq. A5 */

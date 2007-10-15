@@ -10,6 +10,10 @@
    Ortiz & Ballone
 ************************************************************************/
 
+#define XC_LDA_C_PZ       9   /* Perdew & Zunger              */
+#define XC_LDA_C_PZ_MOD  10   /* Perdew & Zunger (Modified)   */
+#define XC_LDA_C_OB_PZ   11   /* Ortiz & Ballone (PZ)         */
+
 typedef struct {
   double gamma[2];
   double beta1[2];

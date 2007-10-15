@@ -27,6 +27,8 @@
  This factor can only be aplied in 3D and for the spin-unpolarized case.
 ************************************************************************/
 
+#define XC_LDA_X  1   /* Exchange                     */
+
 void lda_x(const void *p_, const double *rho, double *ex, double *vx, double *fx)
 {
   xc_lda_type *p = (xc_lda_type *)p_;

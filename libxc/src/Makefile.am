@@ -22,19 +22,31 @@
 lib_LIBRARIES = libxc.a
 
 libxc_a_SOURCES = util.c \
-	lda.c lda_x.c lda_funcs.c lda_c_vwn.c lda_c_pz.c lda_c_pw.c lda_c_amgb.c \
-	gga.c gga_x.c gga_lb.c gga_c_pbe.c gga_c_lyp.c gga_c_p86.c \
+	lda.c lda_x.c \
+	lda_c_wigner.c lda_c_rpa.c lda_c_hl.c lda_c_xalpha.c \
+	lda_c_vwn.c lda_c_pz.c lda_c_pw.c lda_c_amgb.c \
+	gga.c \
+	gga_x_lg93.c gga_x_pbe.c gga_x_rpbe.c gga_x_b86.c gga_x_b86_mgc.c \
+	gga_x_b88.c gga_x_g96.c gga_x_pw86.c gga_x_pw91.c gga_x_optx.c \
+	gga_x_dk87.c gga_x_ft97.c \
+	gga_lb.c gga_c_pbe.c gga_c_lyp.c gga_c_p86.c \
 	mgga.c mgga_x_tpss.c mgga_c_tpss.c \
 	lca.c lca_omc.c lca_lch.c \
 	functionals.c 
 
 if COMPILE_FORTRAN
-libxc_a_SOURCES += xc_f.c libxc.f90
+libxc_a_SOURCES += xc_f.c libxc_funcs.f90 libxc.f90
 endif
 
-noinst_HEADERS = util.h
+noinst_HEADERS = util.h work_gga_x.c
 include_HEADERS = xc.h
 
 AM_CPPFLAGS = $(string_f_include)
 
-CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc*
+CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h libxc_funcs.f90
+
+util.c: funcs.h
+libxc_funcs.f90: funcs.h
+funcs.h: get_funcs.pl
+	./get_funcs.pl
+

@@ -4,6 +4,8 @@
 
 #include "util.h"
 
+#define XC_GGA_C_LYP  131 /* Lee, Yang & Parr */
+
 void gga_c_lyp(void *p_, double *rho_, double *sigma_,
 	       double *e, double *vrho, double *vsigma)
 {

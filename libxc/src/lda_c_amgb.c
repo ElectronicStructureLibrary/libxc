@@ -8,6 +8,9 @@
  gas in 2D, as parametrized by Attacalite et al.
 ************************************************************************/
 
+#define XC_LDA_C_AMGB  15   /* Attacalite et al             */
+
+
 /* parameters necessary to the calculation */
 static double a[3] = { -0.1925,     0.117331,    0.0234188 };
 static double b[3] = {  0.0863136, -3.394e-2,   -0.037093  };

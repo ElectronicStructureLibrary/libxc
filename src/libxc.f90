@@ -34,6 +34,7 @@ end module xc_types
 module libxc
   
   use xc_types
+  use libxc_funcs
 
   implicit none
 
@@ -86,60 +87,6 @@ module libxc
     XC_EXCHANGE             =   0,  &
     XC_CORRELATION          =   1,  &
     XC_EXCHANGE_CORRELATION =   2
-
-  ! the LDAs
-  integer, public, parameter ::     &
-    XC_LDA_X                =   1,  &  ! Exchange
-    XC_LDA_C_WIGNER         =   2,  &  ! Wigner parametrization
-    XC_LDA_C_RPA            =   3,  &  ! Random Phase Approximation
-    XC_LDA_C_HL             =   4,  &  ! Hedin & Lundqvist
-    XC_LDA_C_GL             =   5,  &  ! Gunnarson & Lundqvist
-    XC_LDA_C_XALPHA         =   6,  &  ! Slaters Xalpha
-    XC_LDA_C_VWN            =   7,  &  ! Vosko, Wilk, & Nussair
-    XC_LDA_C_VWN_RPA        =   8,  &  ! Vosko, Wilk, & Nussair (RPA)
-    XC_LDA_C_PZ             =   9,  &  ! Perdew & Zunger
-    XC_LDA_C_PZ_MOD         =  10,  &  ! Perdew & Zunger (Modified)
-    XC_LDA_C_OB_PZ          =  11,  &  ! Ortiz & Ballone (PZ)
-    XC_LDA_C_PW             =  12,  &  ! Perdew & Wang
-    XC_LDA_C_PW_MOD         =  13,  &  ! Perdew & Wang (Modified)
-    XC_LDA_C_OB_PW          =  14,  &  ! Ortiz & Ballone (PW)
-    XC_LDA_C_AMGB           =  15      ! Attacalite et al
-
-  ! the GGAs
-  integer, public, parameter ::     &
-    XC_GGA_X_PBE            = 101,  &  ! Perdew, Burke & Ernzerhof exchange
-    XC_GGA_X_PBE_R          = 102,  &  ! Perdew, Burke & Ernzerhof exchange (revised)
-    XC_GGA_X_PBE_SOL        = 116,  &  ! Perdew, Burke & Ernzerhof exchange (solids)
-    XC_GGA_X_RPBE           = 117,  &  ! Hammer, Hansen & Norskov (PBE-like)
-    XC_GGA_X_B86            = 103,  &  ! Becke 86 Xalpha,beta,gamma
-    XC_GGA_X_B86_R          = 104,  &  ! Becke 86 Xalpha,beta,gamma reoptimized
-    XC_GGA_X_B86_MGC        = 105,  &  ! Becke 88 Xalfa,beta,gamma (with mod. grad. correction)
-    XC_GGA_X_B88            = 106,  &  ! Becke 88
-    XC_GGA_X_G96            = 107,  &  ! Gill 96
-    XC_GGA_X_PW86           = 108,  &  ! Perdew & Wang 86
-    XC_GGA_X_PW91           = 109,  &  ! Perdew & Wang 91
-    XC_GGA_X_OPTX           = 110,  &  ! Handy & Cohen OPTX 01
-    XC_GGA_X_DK87_R1        = 111,  &  ! dePristo & Kress 87 version R1
-    XC_GGA_X_DK87_R2        = 112,  &  ! dePristo & Kress 87 version R1
-    XC_GGA_X_LG93           = 113,  &  ! Lacks & Gordon 93
-    XC_GGA_X_FT97_A         = 114,  &  ! Filatov & Thiel 97 (version A)
-    XC_GGA_X_FT97_B         = 115,  &  ! Filatov & Thiel 97 (version B)
-    XC_GGA_C_PBE            = 130,  &  ! Perdew, Burke & Ernzerhof correlation
-    XC_GGA_C_PBE_SOL        = 133,  &  ! Perdew, Burke & Ernzerhof correlation
-    XC_GGA_C_LYP            = 131,  &  ! Lee, Yang & Parr
-    XC_GGA_C_P86            = 132,  &  ! Perdew 86
-    XC_GGA_XC_LB            = 160      ! van Leeuwen & Baerends
-
-
-  ! the meta-GGAs
-  integer, public, parameter ::     &
-    XC_MGGA_X_TPSS          = 201,  &  ! Perdew, Tao, Staroverov & Scuseria exchange
-    XC_MGGA_C_TPSS          = 202      ! Perdew, Tao, Staroverov & Scuseria correlation
-
-  ! the LCAs
-  integer, public, parameter ::     &
-    XC_LCA_OMC              = 301,  &  ! Orestes, Marcasso & Capelle
-    XC_LCA_LCH              = 302      ! Lee, Colwell & Handy
 
   ! info
   interface

@@ -11,13 +11,16 @@
  I based this implementation on a routine from L.C. Balbas and J.M. Soler
 ************************************************************************/
 
+#define XC_GGA_C_PBE          130 /* Perdew, Burke & Ernzerhof correlation     */
+#define XC_GGA_C_PBE_SOL      133 /* Perdew, Burke & Ernzerhof correlation SOL */
+
 static const double beta[2]  = {
   0.06672455060314922,  /* original PBE */
   0.046                 /* PBE sol      */
 };
 static const double gamm  = 0.03109069086965489503494086371273; /* (1.0 - log(2.0))/(M_PI*M_PI) */
 
-void gga_c_pbe_init(void *p_)
+static void gga_c_pbe_init(void *p_)
 {
   xc_gga_type *p = (xc_gga_type *)p_;
 
@@ -25,15 +28,15 @@ void gga_c_pbe_init(void *p_)
   xc_lda_init(p->lda_aux, XC_LDA_C_PW_MOD, p->nspin);
 }
 
-void gga_c_pbe_end(void *p_)
+static void gga_c_pbe_end(void *p_)
 {
   xc_gga_type *p = (xc_gga_type *)p_;
 
   free(p->lda_aux);
 }
 
-void gga_c_pbe(void *p_, double *rho, double *sigma,
-	       double *e, double *vrho, double *vsigma)
+static void gga_c_pbe(void *p_, double *rho, double *sigma,
+		      double *e, double *vrho, double *vsigma)
 {
   xc_gga_type *p = (xc_gga_type *)p_;
 

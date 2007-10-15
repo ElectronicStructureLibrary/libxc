@@ -4,6 +4,8 @@
 
 #include "util.h"
 
+#define XC_GGA_C_P86 132 /* Perdew 86 */
+
 /************************************************************************
  Implements Perdew 86 Generalized Gradient Approximation
  correlation functional.

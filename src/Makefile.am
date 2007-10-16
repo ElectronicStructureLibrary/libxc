@@ -33,12 +33,10 @@ libxc_a_FUNC_SOURCES = \
 	mgga.c mgga_x_tpss.c mgga_c_tpss.c \
 	lca.c lca_omc.c lca_lch.c
 
-libxc_a_SOURCES = $(libxc_a_FUNC_SOURCES) \
-	util.c \
-	functionals.c 
-
 if COMPILE_FORTRAN
-libxc_a_SOURCES += xc_f.c libxc_funcs.f90 libxc.f90
+libxc_a_SOURCES = libxc_funcs.f90 xc_f.c libxc.f90 $(libxc_a_FUNC_SOURCES) util.c functionals.c
+else
+libxc_a_SOURCES = $(libxc_a_FUNC_SOURCES) util.c functionals.c
 endif
 
 noinst_HEADERS = util.h work_gga_x.c

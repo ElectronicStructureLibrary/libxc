@@ -38,8 +38,8 @@ module libxc
 
   implicit none
 
-  private
-  public ::                         &
+  public
+  public ::                             &
     xc_func,                            &
     xc_info,                            &
     xc_f90_info_number,                 &

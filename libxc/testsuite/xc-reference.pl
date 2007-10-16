@@ -105,7 +105,7 @@ EndOfUsage
 sub read_xc_h {
   my $c = shift;
 
-  open FILE, "<$ENV{srcdir}/../src/xc_funcs.h";
+  open FILE, "<$data_dir/../src/xc_funcs.h";
   while($_ = <FILE>){
     if(/^#define +(\S*) +(\S*)/){
       my $name = $1;

@@ -53,7 +53,7 @@ void xc_gga_lb(xc_gga_type *p, double *rho, double *sigma, double r, double ip, 
   }
 }
 
-xc_func_info_type func_info_gga_lb = {
+xc_func_info_type func_info_gga_xc_lb = {
   XC_GGA_XC_LB,
   XC_EXCHANGE_CORRELATION,
   "van Leeuwen & Baerends",
@@ -71,7 +71,7 @@ void xc_gga_lb_init(xc_gga_type *p, int nspin, int modified, double threshold)
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
 
   p->nspin = nspin;
-  p->info = &func_info_gga_lb;
+  p->info = &func_info_gga_xc_lb;
   p->lda_aux = (xc_lda_type *) malloc(sizeof(xc_lda_type));
   xc_lda_x_init(p->lda_aux, nspin, 3, XC_NON_RELATIVISTIC);
   

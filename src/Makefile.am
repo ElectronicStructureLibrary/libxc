@@ -39,6 +39,9 @@ else
 libxc_a_SOURCES = $(libxc_a_FUNC_SOURCES) util.c functionals.c
 endif
 
+bin_SCRIPTS = get_funcs.pl
+EXTRA_DIST = get_funcs.pl
+
 noinst_HEADERS = util.h work_gga_x.c
 include_HEADERS = xc.h
 

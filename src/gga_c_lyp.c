@@ -24,19 +24,71 @@
 
 #define XC_GGA_C_LYP  131 /* Lee, Yang & Parr */
 
+typedef struct{
+  double A, B, c, d;
+} gga_c_lyp_params;
+
+
+void gga_c_lyp_init(void *p_)
+{
+  xc_gga_type *p = (xc_gga_type *)p_;
+  gga_c_lyp_params *params;
+
+  assert(p->params == NULL);
+
+  p->params = malloc(sizeof(gga_c_lyp_params));
+  params = (gga_c_lyp_params *) (p->params);
+
+  /* values of constants in standard LYP functional */
+  gga_c_lyp_set_params(p, 0.04918, 0.132, 0.2533, 0.349);
+}
+
+
+void gga_c_lyp_end(void *p_)
+{
+  xc_gga_type *p = (xc_gga_type *)p_;
+
+  assert(p->params != NULL);
+  free(p->params);
+}
+
+
+void gga_c_lyp_set_params(xc_gga_type *p, double A, double B, double c, double d)
+{
+  gga_c_lyp_params *params;
+
+  assert(p->params != NULL);
+  params = (gga_c_lyp_params *) (p->params);
+
+  params->A = A;
+  params->B = B;
+  params->c = c;
+  params->d = d;
+}
+
+
 void gga_c_lyp(void *p_, double *rho_, double *sigma_,
 	       double *e, double *vrho, double *vsigma)
 {
-  xc_gga_type *p = p_;
-  
-  static double AA = 0.04918, BB = 0.132, cc = 0.2533, 
-    dd = 0.349, ee = 36.462398978764767321; /* ee = 8*2^(2/3)*e */
+  xc_gga_type *p = (xc_gga_type *)p_;
+  gga_c_lyp_params *params;
+
+  static double ee = 36.462398978764767321; /* ee = 8*2^(2/3)*e */
 
   double rho[2], sigma[2], rhot, sigmat;
+  double AA, BB, cc, dd; /* sortcuts for parameters */
   double sfact, rhot13, rhot43, rho83[2], ZZ, delta, omega;
   double dZZdr, ddeltadr, domegadr;
   double t1, t2, t3, t4, t5, t6;
   int is;
+
+  assert(p->params != NULL);
+  params = (gga_c_lyp_params *)(p->params);
+
+  AA = params->A;
+  BB = params->B;
+  cc = params->c;
+  dd = params->d;
 
   /* convert input to spin-polarized case */
   if(p->nspin == XC_POLARIZED){
@@ -225,6 +277,8 @@ const xc_func_info_type func_info_gga_c_lyp = {
   "C. Lee, W. Yang and R.G. Parr, Phys. Rev. B 37, 785 (1988)\n"
   "B. Miehlich, A. Savin, H. Stoll and H. Preuss, Chem. Phys. Letters 157, 200 (1989)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  NULL, NULL, NULL,
+  gga_c_lyp_init, 
+  gga_c_lyp_end, 
+  NULL,
   gga_c_lyp
 };

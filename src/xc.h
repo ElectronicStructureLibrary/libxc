@@ -97,14 +97,14 @@ void xc_lda_kxc_sp(const xc_lda_type *p, const float *rho, float *kxc);
 
 
 /* the GGAs */
-typedef struct{
+typedef struct xc_gga_type{
   const xc_func_info_type *info;  /* which functional did we chose   */
-  int nspin;                /* XC_UNPOLARIZED or XC_POLARIZED  */
+  int nspin;                      /* XC_UNPOLARIZED or XC_POLARIZED  */
   
-  xc_lda_type *lda_aux;     /* most GGAs are based on a LDA    */
+  xc_lda_type *lda_aux;           /* most GGAs are based on a LDA    */
+  struct xc_gga_type **gga_aux;   /* and sometimes other GGAs */
 
-  int modified;             /* parameters necessary to the lb functional */
-  double threshold;
+  void *params;                   /* this allows to fix parameters in the functional */
 } xc_gga_type;
 
 int  xc_gga_init(xc_gga_type *p, int functional, int nspin);

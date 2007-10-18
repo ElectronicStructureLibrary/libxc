@@ -38,11 +38,12 @@ int xc_gga_init(xc_gga_type *p, int functional, int nspin)
   if(gga_known_funct[i] == NULL) return -1; /* functional not found */
 
   /* initialize structure */
+  p->params = NULL;
   p->info = gga_known_funct[i];
 
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
   p->nspin = nspin;
-  
+
   /* see if we need to initialize the functional */
   if(p->info->init != NULL)
     p->info->init(p);
@@ -74,24 +75,21 @@ void xc_gga(xc_gga_type *p, double *rho, double *sigma,
 	    double *e, double *vrho, double *vsigma)
 {
   double dens;
+  int i;
 
   assert(p!=NULL);
   
+  *e = 0.0;
+  for(i=0; i<p->nspin; i++) vrho [i] = 0.0;
+
+  vsigma[0] = 0.0;
+  if(p->nspin == XC_POLARIZED){
+    vsigma[1] = 0.0; vsigma[2] = 0.0;
+  }
+
   dens = rho[0];
   if(p->nspin == XC_POLARIZED) dens += rho[1];
-  
-  if(dens <= MIN_DENS){
-    int i;
-
-    *e = 0.0;
-    for(i=0; i<p->nspin; i++) vrho [i] = 0.0;
-
-    vsigma[0] = 0.0;
-    if(p->nspin == XC_POLARIZED){
-      vsigma[1] = 0.0; vsigma[2] = 0.0;
-    }
-    return;
-  }
+  if(dens <= MIN_DENS) return;
 
   assert(p->info!=NULL && p->info->gga!=NULL);
   p->info->gga(p, rho, sigma, e, vrho, vsigma);

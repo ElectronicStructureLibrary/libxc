@@ -47,6 +47,10 @@ void rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
 void xc_lda_fxc_fd(const xc_lda_type *p, const double *rho, double *fxc);
 void xc_lda_kxc_fd(const xc_lda_type *p, const double *rho, double *kxc);
 
+/* GGAs */
+void gga_x_b88_set_params(xc_gga_type *p, double beta);
+void gga_c_lyp_set_params(xc_gga_type *p, double A, double B, double c, double d);
+
 /* meta-GGAs */
 void mgga_x_tpss_init(xc_mgga_type *p);
 void mgga_c_tpss_init(xc_mgga_type *p);

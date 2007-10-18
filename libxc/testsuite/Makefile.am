@@ -25,11 +25,11 @@ TESTS = xc-run_testsuite
 
 xc_get_data_SOURCES = xc-get_data.c
 xc_get_data_LDADD = -L../src/ -lxc -lm
-xc_get_data_CPPFLAGS = -I$(srcdir)/../src/
+xc_get_data_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
 
 xc_consistency_SOURCES = xc-consistency.c
 xc_consistency_LDADD = -L../src/ -lxc -lm
-xc_consistency_CPPFLAGS = -I$(srcdir)/../src/
+xc_consistency_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
 
 dist_noinst_DATA =         \
 	gga_c_lyp.data     \

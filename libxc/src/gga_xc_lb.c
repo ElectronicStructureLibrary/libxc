@@ -24,6 +24,11 @@
 
 #define XC_GGA_XC_LB 160 /* van Leeuwen & Baerends */
 
+typedef struct{
+  int modified;
+  double threshold;
+} gga_xc_lb_params;
+
 /************************************************************************
   Calculates van Leeuwen Baerends functional
 ************************************************************************/
@@ -33,6 +38,7 @@ void gga_lb_end(void *p_)
   xc_gga_type *p = p_;
 
   free(p->lda_aux);
+  free(p->params);
 }
 
 void xc_gga_lb(xc_gga_type *p, double *rho, double *sigma, double r, double ip, double qtot,
@@ -40,11 +46,12 @@ void xc_gga_lb(xc_gga_type *p, double *rho, double *sigma, double r, double ip, 
 {
   int is;
   double alpha, gdm, gamm, x;
+  gga_xc_lb_params *params = (gga_xc_lb_params *) (p->params);
 
   static const double beta = 0.05;
 
   xc_lda_vxc(p->lda_aux, rho, &x, dedd);
-  if(p->modified){
+  if(params->modified){
     alpha = (ip > 0.0) ? 2.0*sqrt(2.0*ip) : 0.5;
     gamm  = pow(qtot, 1.0/3.0)/(2.0*alpha);
   }else{
@@ -55,7 +62,7 @@ void xc_gga_lb(xc_gga_type *p, double *rho, double *sigma, double r, double ip, 
   for(is=0; is<p->nspin; is++){
     gdm = sqrt(sigma[is==0 ? 0 : 2]);
 
-    if(rho[is]>p->threshold && gdm>p->threshold){
+    if(rho[is] > params->threshold && gdm > params->threshold){
       double f;
       
       x =  gdm/pow(rho[is], 4.0/3.0);
@@ -93,8 +100,14 @@ void xc_gga_lb_init(xc_gga_type *p, int nspin, int modified, double threshold)
   p->lda_aux = (xc_lda_type *) malloc(sizeof(xc_lda_type));
   xc_lda_x_init(p->lda_aux, nspin, 3, XC_NON_RELATIVISTIC);
   
-  p->modified  = modified;
-  p->threshold = threshold;
+  p->params = malloc(sizeof(gga_xc_lb_params));
+
+  {
+    gga_xc_lb_params *params = (gga_xc_lb_params *) (p->params);
+
+    params->modified  = modified;
+    params->threshold = threshold;
+  }
 }
 
 void xc_gga_lb_sp(xc_gga_type *p, float *rho, float *sigma, float r, float ip, float qtot,

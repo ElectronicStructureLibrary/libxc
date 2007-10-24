@@ -49,7 +49,7 @@ static void gga_c_pw91_end(void *p_)
 }
 
 
-inline void
+void
 A_eq14(double ec, double g, double *A, double *dec, double *dg)
 {
   double g2, g3, dd;
@@ -66,7 +66,7 @@ A_eq14(double ec, double g, double *A, double *dec, double *dg)
   *dg  = -(*A)/(dd - 1.0) * dd * (+6.0*pw91_alpha*ec/(g*g3*pw91_beta*pw91_beta));
 }
 
-inline void
+void
 H0_eq13(double   ec, double   g, double   t, double *H0,
 	double *dec, double *dg, double *dt)
 {
@@ -117,7 +117,7 @@ Rasold_Geldart_C_xc(double rs, double *C_xc, double *drs)
 }
 
 
-inline void 
+void 
 H1_eq15(double   rs, double   g, double   t, double   ks, double   kf, double *H1,
 	double *drs, double *dg, double *dt, double *dks, double *dkf)
 {

@@ -21,9 +21,9 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_GGA_XC_EDF1 165 /* Empirical functionals from Adamson, Gill, and Pople */
+#define XC_GGA_XC_XLYP 166 /* XLYP functional */
 
-void gga_xc_edf1_init(void *p_)
+void gga_xc_xlyp_init(void *p_)
 {
   xc_gga_type *p = (xc_gga_type *)p_;
   int i;
@@ -36,16 +36,11 @@ void gga_xc_edf1_init(void *p_)
     p->gga_aux[i] = (xc_gga_type *) malloc(sizeof(xc_gga_type));
 
   xc_gga_init(p->gga_aux[0], XC_GGA_X_B88, p->nspin);
-  gga_x_b88_set_params(p->gga_aux[0], 0.0035);
-
-  xc_gga_init(p->gga_aux[1], XC_GGA_X_B88, p->nspin);
-  gga_x_b88_set_params(p->gga_aux[1], 0.0042);
-
+  xc_gga_init(p->gga_aux[1], XC_GGA_X_PW91, p->nspin);
   xc_gga_init(p->gga_aux[2], XC_GGA_C_LYP, p->nspin);
-  gga_c_lyp_set_params(p->gga_aux[2], 0.055, 0.158, 0.25, 0.3505);
 }
 
-void gga_xc_edf1_end(void *p_)
+void gga_xc_xlyp_end(void *p_)
 {
   xc_gga_type *p = (xc_gga_type *)p_;
   int i;
@@ -58,18 +53,18 @@ void gga_xc_edf1_end(void *p_)
 }
 
 static void 
-gga_xc_edf1(void *p_, double *rho, double *sigma,
+gga_xc_xlyp(void *p_, double *rho, double *sigma,
             double *e, double *vrho, double *vsigma)
 {
-  static double cx    = 1.030952;
-  static double cc[3] = {10.4017, -8.44793, 1.0};
+  static double cc[3] = {0.722, 0.347, 1.0};
 
   xc_gga_type *p = p_;
   double dd, e1, vrho1[2], vsigma1[3];
   int ifunc, is, js;
 
+  dd = 1.0 - cc[0] - cc[1];
+
   xc_lda_vxc(p->lda_aux, rho, &e1, vrho1);
-  dd = cx - cc[0] - cc[1];
   *e = dd*e1;
   for(is=0; is<p->nspin; is++)
     vrho[is] = dd*vrho1[is];
@@ -88,18 +83,19 @@ gga_xc_edf1(void *p_, double *rho, double *sigma,
     for(is=0; is<js; is++)
       vsigma[is] += cc[ifunc]*vsigma1[is];
   }
-  
+ 
 }
 
-const xc_func_info_type func_info_gga_xc_edf1 = {
-  XC_GGA_XC_EDF1,
+
+const xc_func_info_type func_info_gga_xc_xlyp = {
+  XC_GGA_XC_XLYP,
   XC_EXCHANGE_CORRELATION,
-  "EDF1",
+  "XLYP",
   XC_FAMILY_GGA,
-  "RD Adamson, PMW Gill, and JA Pople, Chem. Phys. Lett. 284 6 (1998)",
+  "X Xu and WA Goddard, III, PNAS 101, 2673 (2004)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  gga_xc_edf1_init, 
-  gga_xc_edf1_end, 
+  gga_xc_xlyp_init, 
+  gga_xc_xlyp_end, 
   NULL,
-  gga_xc_edf1
+  gga_xc_xlyp
 };

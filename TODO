@@ -1,0 +1,21 @@
+Common interface to Perdew-like correlation functionals
+
+Add functionals:
+
+GGAs:
+  *) Langreth & Mehl
+       correlation
+       PRL 47, 446
+  *) Wilson & Levy
+       correlation
+       PRB 41, 12930
+  *) Filatov & Thiel
+       correlation
+       IJQC 62, 603; Mol Phys 91, 847
+  *) Tozer & Handy
+       exchange-correlation
+       JCP 108, 2545; JCP 109, 6264; JCP 112, 5639; JCP 115, 9233
+
+mGGAs:
+
+hybrids:

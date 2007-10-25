@@ -22,5 +22,7 @@
 ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = src testsuite
 
+EXTRA_DIST = TODO
+
 CLEANFILES = *~ *.bak
 

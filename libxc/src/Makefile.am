@@ -35,13 +35,12 @@ libxc_a_FUNC_SOURCES = \
 	lca.c lca_omc.c lca_lch.c
 
 if COMPILE_FORTRAN
-libxc_a_SOURCES = libxc_funcs.f90 xc_f.c libxc.f90 $(libxc_a_FUNC_SOURCES) util.c functionals.c
+libxc_a_SOURCES = xc_f.c libxc.f90 $(libxc_a_FUNC_SOURCES) util.c functionals.c
 else
 libxc_a_SOURCES = $(libxc_a_FUNC_SOURCES) util.c functionals.c
 endif
 
-bin_SCRIPTS = get_funcs.pl
-EXTRA_DIST = get_funcs.pl
+dist_noinst_SCRIPTS = get_funcs.pl
 
 noinst_HEADERS = util.h work_gga_x.c
 include_HEADERS = xc.h
@@ -50,7 +49,12 @@ AM_CPPFLAGS = $(string_f_include)
 
 CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h libxc_funcs.f90 xc_funcs.h
 
-lda.c: xc_funcs.h
+functionals.c: xc.h
+util.c: xc.h
+test.c: xc.h
+xc_f.c: xc.h
+xc.h: xc_funcs.h
 libxc.o: libxc_funcs.o
-xc_funcs.h, libxc_funcs.f90: get_funcs.pl
+libxc_funcs.f90: xc_funcs.h
+xc_funcs.h: get_funcs.pl $(libxc_a_FUNC_SOURCES)
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)

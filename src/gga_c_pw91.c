@@ -24,6 +24,17 @@
 
 #define XC_GGA_C_PW91 134 /* Perdew & Wang 91 */
 
+/* My implementation differs from the repository due to a constant in the
+   PW92 part of the functional. However, if the line (code from repository)
+   
+   t55 = 0.3799575D-1*t33*t44*t52
+
+   is replaced by
+
+   t55 = 0.3799574853701528D-1*t33*t44*t52
+
+   both results agree. I already mailed Huub van Dam to try to clarify the problem.
+*/
 static double pw91_nu, pw91_beta;
 static const double
   pw91_C_c0  = 4.235e-3, 
@@ -34,7 +45,7 @@ static void gga_c_pw91_init(void *p_)
   xc_gga_type *p = (xc_gga_type *)p_;
 
   p->lda_aux = (xc_lda_type *) malloc(sizeof(xc_lda_type));
-  xc_lda_init(p->lda_aux, XC_LDA_C_PW_MOD, p->nspin);
+  xc_lda_init(p->lda_aux, XC_LDA_C_PW, p->nspin);
 
   pw91_nu   = 16.0/M_PI * pow(3.0*M_PI*M_PI, 1.0/3.0);
   pw91_beta = pw91_nu*pw91_C_c0;
@@ -121,7 +132,7 @@ void
 H1_eq15(double   rs, double   g, double   t, double   ks, double   kf, double *H1,
 	double *drs, double *dg, double *dt, double *dks, double *dkf)
 {
-  const double C_xc0 = 2.568e-3, C_x = -0.001667212;
+  const double C_xc0 = 2.568e-3, C_x = -0.001667;
 
   double g3, g4, t2, kf2, ks2, dd1, dd2;
   double C_xc, dC_xc;
@@ -174,79 +185,14 @@ static void gga_c_pw91(void *p_, double *rho, double *sigma,
 		       double *e, double *vrho, double *vsigma)
 {
   xc_gga_type *p = (xc_gga_type *)p_;
+  perdew_t pt;
 
-  double dens, zeta, ecunif, vcunif[2];
-  double rs, kf, ks, phi, gdmt, t;
+  perdew_params(p, rho, sigma, &pt);
+  
+  ec_eq9(pt.ecunif, pt.rs, pt.t, pt.phi, pt.ks, pt.kf, e,
+	 &pt.decunif, &pt.drs, &pt.dt, &pt.dphi, &pt.dks, &pt.dkf);
 
-  xc_lda_vxc(p->lda_aux, rho, &ecunif, vcunif);
-  rho2dzeta(p->nspin, rho, &dens, &zeta);
-
-  rs = RS(dens);
-  kf = pow(3.0*M_PI*M_PI*dens, 1.0/3.0);
-  ks = sqrt(4.0*kf/M_PI);
-
-  phi  = 0.5*(pow(1.0 + zeta, 2.0/3.0) + pow(1.0 - zeta, 2.0/3.0));
-
-  /* get gdmt = |nabla n| */
-  gdmt = sigma[0];
-  if(p->nspin == XC_POLARIZED) gdmt += 2.0*sigma[1] + sigma[2];
-  gdmt = sqrt(gdmt);
-  if(gdmt < MIN_GRAD) gdmt = MIN_GRAD;
-
-  t = gdmt/(2.0*phi*ks*dens);
-
-  {
-    double e_gga, dec, drs, dt, dphi, dks, dkf;
-    double drsdd, dkfdd, dksdd, dzdd[2], dpdz;
-    int is;
-
-    ec_eq9(ecunif, rs, t, phi, ks, kf, &e_gga,
-	   &dec, &drs, &dt, &dphi, &dks, &dkf);
-    //fprintf(stderr, "%lf %.10lf %.10lf\n", ecunif, e_gga, dec);
-
-    *e = e_gga;
-
-    drsdd   = -rs/(3.0*dens);
-    dkfdd   =  kf/(3.0*dens);
-    dksdd   = 0.5*ks*dkfdd/kf;
-    dzdd[0] =  (1.0 - zeta)/dens;
-    dzdd[1] = -(1.0 + zeta)/dens;
-    dpdz    = 0.0;
-    if(fabs(1.0 + zeta) >= MIN_DENS)
-      dpdz += (1.0/3.0)/pow(1.0 + zeta, 1.0/3.0);
-    if(fabs(1.0 - zeta) >= MIN_DENS)
-      dpdz -= (1.0/3.0)/pow(1.0 - zeta, 1.0/3.0);
-    
-    /* add the t contributions to the other derivatives */
-    dphi += dt * (-t/phi);
-    dks  += dt * (-t/ks);
-
-    /* calculate vrho */
-    for(is=0; is<p->nspin; is++){
-      if(rho[is] > MIN_DENS){
-	double decudd;
-
-	vrho[is]  = e_gga;
-
-	decudd = (vcunif[is] - ecunif)/dens;
-	vrho[is] += dens * (dec*decudd + drs*drsdd + dkf*dkfdd + dks*dksdd - dt*t/dens);
-	vrho[is] += dens * dphi*dpdz*dzdd[is];
-      }else{
-	vrho[is] = 0.0;
-      }
-    }
-    
-    { /* calculate now vsigma */
-      double dtdsig;
-
-      dtdsig  = t/(2.0*gdmt*gdmt);
-      vsigma[0] = dens*dt*dtdsig;
-      if(is == 2){
-	vsigma[1] = 2.0*vsigma[0];
-	vsigma[2] =     vsigma[0];
-      }
-    }
-  }
+  perdew_potentials(&pt, rho, *e, vrho, vsigma);
 }
 
 const xc_func_info_type func_info_gga_c_pw91 = {

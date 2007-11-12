@@ -48,6 +48,17 @@ void xc_lda_fxc_fd(const xc_lda_type *p, const double *rho, double *fxc);
 void xc_lda_kxc_fd(const xc_lda_type *p, const double *rho, double *kxc);
 
 /* GGAs */
+typedef struct perdew_t {
+  int    nspin;
+  double dens, zeta, gdmt;
+  double ecunif, vcunif[2];
+
+  double  rs,  kf,  ks,  phi, t;
+  double drs, dkf, dks, dphi, dt, decunif;
+} perdew_t;
+
+void perdew_params(xc_gga_type *gga_p, double *rho, double *sigma, perdew_t *pp);
+void perdew_potentials(perdew_t *pt, double *rho, double e_gga, double *vrho, double *vsigma);
 void gga_x_b88_set_params(xc_gga_type *p, double beta);
 void gga_c_lyp_set_params(xc_gga_type *p, double A, double B, double c, double d);
 

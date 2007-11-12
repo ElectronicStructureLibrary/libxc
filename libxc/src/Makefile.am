@@ -49,12 +49,11 @@ AM_CPPFLAGS = $(string_f_include)
 
 CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h libxc_funcs.f90 xc_funcs.h
 
-functionals.c: xc.h
-util.c: xc.h
-test.c: xc.h
 xc_f.c: xc.h
-xc.h: xc_funcs.h
+functionals.c: xc.h
+lda.c: xc.h
 libxc.o: libxc_funcs.o
 libxc_funcs.f90: xc_funcs.h
-xc_funcs.h: get_funcs.pl #$(libxc_a_FUNC_SOURCES)
+xc.h: xc_funcs.h
+xc_funcs.h: get_funcs.pl
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)

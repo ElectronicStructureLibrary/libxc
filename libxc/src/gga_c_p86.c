@@ -29,6 +29,8 @@
  correlation functional.
 ************************************************************************/
 
+/* TODO: convert to perdew functionals */
+
 void gga_c_p86_init(void *p_)
 {
   xc_gga_type *p = (xc_gga_type *)p_;
@@ -139,7 +141,7 @@ const xc_func_info_type func_info_gga_c_p86 = {
   XC_CORRELATION,
   "Perdew 86",
   XC_FAMILY_GGA,
-  "J.P.Perdew, Phys. Rev. B 33, 8822 (1986)",
+  "JP Perdew, Phys. Rev. B 33, 8822 (1986)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_c_p86_init,
   gga_c_p86_end,   /* we can use the same as exchange here */

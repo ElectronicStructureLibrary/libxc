@@ -53,92 +53,81 @@ static void gga_c_pbe_end(void *p_)
   free(p->lda_aux);
 }
 
+
+inline void pbe_eq8(int func, double ecunif, double phi, 
+		    double *A, double *dec, double *dphi)
+{
+  double phi3, f1, f2, f3, dx;
+
+  phi3 = pow(phi, 3);
+  f1   = ecunif/(gamm*phi3);
+  f2   = exp(-f1);
+  f3   = f2 - 1.0;
+
+  *A   = beta[func]/(gamm*f3);
+
+  dx    = beta[func]*f2/(gamm*f3*f3);
+  *dec  =  dx/(gamm*phi3);
+  *dphi = -dx*3.0*ecunif/(gamm*phi*phi3);
+}
+
+
+inline void pbe_eq7(int func, double phi, double t, double A, 
+		    double *H, double *dphi, double *dt, double *dA)
+{
+  double t2, phi3, f1, f2, f3;
+
+  t2   = t*t;
+  phi3 = pow(phi, 3);
+
+  f1 = t2 + A*t2*t2;
+  f3 = 1.0 + A*f1;
+  f2 = beta[func]*f1/(gamm*f3);
+
+  *H = gamm*phi3*log(1.0 + f2);
+
+  {
+    double df1dt, df2dt, df1dA, df2dA;
+
+    *dphi = 3.0*gamm*phi*phi*log(1.0 + f2);
+    
+    df1dt = t*(2.0 + 4.0*A*t2);
+    df2dt = (beta[func]/gamm) / (f3*f3) * df1dt;
+    *dt   = gamm*phi3*df2dt/(1.0 + f2);
+    
+    df1dA = t2*t2;
+    df2dA = (beta[func]/gamm) / (f3*f3) * (df1dA - f1*f1);
+    *dA   = gamm*phi3*df2dA/(1.0 + f2);
+  }
+
+}
+
 static void gga_c_pbe(void *p_, double *rho, double *sigma,
 		      double *e, double *vrho, double *vsigma)
 {
   xc_gga_type *p = (xc_gga_type *)p_;
+  perdew_t pt;
 
-  double dens, zeta, ecunif, vcunif[2];
-  double rs, kf, ks, phi, phi3, gdmt, t, t2;
-  double f1, f2, f3, f4, a, h;
-  double drsdd, dkfdd, dksdd, dzdd[2], dpdz;
-  int is, func;
+  int func;
+  double A, dAdec, dAdphi;
+  double H, dHdphi, dHdt, dHdA;
 
   func = (p->info->number == XC_GGA_C_PBE_SOL) ? 1 : 0;
 
-  xc_lda_vxc(p->lda_aux, rho, &ecunif, vcunif);
-  rho2dzeta(p->nspin, rho, &dens, &zeta);
-  
-  rs = RS(dens);
-  kf = pow(3.0*M_PI*M_PI*dens, 1.0/3.0);
-  ks = sqrt(4.0*kf/M_PI);
+  perdew_params(p, rho, sigma, &pt);
 
-  phi  = 0.5*(pow(1.0 + zeta, 2.0/3.0) + pow(1.0 - zeta, 2.0/3.0));
-  phi3 = pow(phi, 3);
+  pbe_eq8(func, pt.ecunif, pt.phi, &A, &dAdec, &dAdphi);
+  pbe_eq7(func, pt.phi, pt.t, A, &H, &dHdphi, &dHdt, &dHdA);
 
-  /* get gdmt = |nabla n| */
-  gdmt = sigma[0];
-  if(p->nspin == XC_POLARIZED) gdmt += 2.0*sigma[1] + sigma[2];
-  gdmt = sqrt(gdmt);
-  if(gdmt < MIN_GRAD) gdmt = MIN_GRAD;
+  *e = pt.ecunif + H;
 
-  t  = gdmt/(2.0*phi*ks*dens);
-  t2 = t*t;
+  pt.dphi    = dHdphi + dHdA*dAdphi;
+  pt.dt      = dHdt;
+  pt.decunif = 1.0 + dHdA*dAdec;
 
-  f1 = ecunif/(gamm*phi3);
-  f2 = exp(-f1);
-  a  = beta[func]/(gamm*(f2 - 1.0));
-  f3 = t2 + a*t2*t2;
-  f4 = beta[func]*f3/(gamm*(1.0 + a*f3));
-  h  = gamm*phi3*log(1.0 + f4);
-  *e = ecunif + h;
-
-  drsdd   = -rs/(3.0*dens);
-  dkfdd   =  kf/(3.0*dens);
-  dksdd   = 0.5*ks*dkfdd/kf;
-  dzdd[0] =  (1.0 - zeta)/dens;
-  dzdd[1] = -(1.0 + zeta)/dens;
-  dpdz    = 0.0;
-  if(fabs(1.0 + zeta) >= MIN_DENS)
-    dpdz += (1.0/3.0)/pow(1.0 + zeta, 1.0/3.0);
-  if(fabs(1.0 - zeta) >= MIN_DENS)
-    dpdz -= (1.0/3.0)/pow(1.0 - zeta, 1.0/3.0);
-  
-  for(is=0; is<p->nspin; is++){
-    if(rho[is] > MIN_DENS){
-      double decudd, dpdd, dtdd;
-      double df1dd, df2dd, df3dd, df4dd, dadd, dhdd;
-
-      decudd = (vcunif[is] - ecunif)/dens;
-      dpdd   = dpdz*dzdd[is];
-      dtdd   = (-t)*(dpdd/phi + dksdd/ks + 1.0/dens);
-      df1dd  = f1*(decudd/ecunif - 3.0*dpdd/phi);
-      df2dd  = (-f2)*df1dd;
-      dadd   = (-a)*df2dd/(f2 - 1.0);
-      df3dd  = t*(2.0 + 4.0*a*t2)*dtdd + dadd*t2*t2;
-      df4dd  = f4*(df3dd/f3 - (dadd*f3 + a*df3dd)/(1.0 + a*f3));
-      dhdd   = 3.0*h*dpdd/phi;
-      dhdd  += gamm*phi3*df4dd/(1.0 + f4);
-      vrho[is] = vcunif[is] + h + dens*dhdd;
-    }else{
-      vrho[is] = 0.0;
-    }
-  }
-
-  { /* calculate now vsigma */
-    double dtdsig, df3dsig, df4dsig, dhdsig;
-    
-    dtdsig  = t/(2.0*gdmt*gdmt);
-    df3dsig = dtdsig*t*(2.0 + 4.0*a*t2);
-    df4dsig = f4*df3dsig*(1.0/f3 - a/(1.0 + a*f3));
-    dhdsig  = gamm*phi3*df4dsig/(1.0 + f4);
-    vsigma[0] = dens*dhdsig;
-    if(is == 2){
-      vsigma[1] = 2.0*vsigma[0];
-      vsigma[2] =     vsigma[0];
-    }
-  }
+  perdew_potentials(&pt, rho, *e, vrho, vsigma);
 }
+
 
 const xc_func_info_type func_info_gga_c_pbe = {
   XC_GGA_C_PBE,

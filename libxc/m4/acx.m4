@@ -32,7 +32,7 @@ void main()
   printf("%ld", sizeof(void *));
 }
 EOF
-  ac_try='$CC $CFLAGS -o pointertest.x pointertest.c 1>&AC_FD_CC'
+  ac_try='$CC $CFLAGS $LDFLAGS -o pointertest.x pointertest.c 1>&AC_FD_CC'
   if AC_TRY_EVAL(ac_try); then
     ac_try=""
   else
@@ -72,7 +72,7 @@ program integer_size
 
 end program integer_size
 EOF
-  ac_try='$FC $FCFLAGS -o intsizetest.x intsizetest.f90 1>&AC_FD_CC'
+  ac_try='$FC $FCFLAGS $LDFLAGS -o intsizetest.x intsizetest.f90 1>&AC_FD_CC'
   if AC_TRY_EVAL(ac_try); then
     ac_try=""
     ac_fcintegersize=`./intsizetest.x`;

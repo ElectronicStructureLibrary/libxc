@@ -17,31 +17,31 @@
 !!
 !! $Id$
 
-module xc_types
+module xc_types_m
 
-  type :: xc_func
-     private
-     integer, pointer :: func
-  end type xc_func
+  type xc_func_t
+    private
+    integer, pointer :: func
+  end type xc_func_t
 
-  type :: xc_info
-     private
-     integer, pointer :: info
-  end type xc_info
+  type xc_info_t
+    private
+    integer, pointer :: info
+  end type xc_info_t
 
-end module xc_types
+end module xc_types_m
 
-module libxc
+module libxc_m
   
-  use xc_types
-  use libxc_funcs
+  use xc_types_m
+  use libxc_funcs_m
 
   implicit none
 
   public
   public ::                             &
-    xc_func,                            &
-    xc_info,                            &
+    xc_func_t,                          &
+    xc_info_t,                          &
     xc_f90_info_number,                 &
     xc_f90_info_kind,                   &
     xc_f90_info_name,                   &
@@ -60,7 +60,8 @@ module libxc
     xc_f90_gga_init,                    &
     xc_f90_gga,                         &
     xc_f90_gga_end,                     &
-    xc_f90_gga_lb,                      &
+    xc_f90_gga_lb_set_params,           &
+    xc_f90_gga_lb_modified,             &
     xc_f90_mgga_init,                   &
     xc_f90_mgga,                        &
     xc_f90_mgga_end
@@ -88,288 +89,297 @@ module libxc
     XC_CORRELATION          =   1,  &
     XC_EXCHANGE_CORRELATION =   2
 
-  ! info
+
+  !----------------------------------------------------------------
   interface
     integer function xc_f90_info_number(info)
-      use xc_types
-      type(xc_info), intent(in) :: info
+      use xc_types_m
+      type(xc_info_t), intent(in) :: info
     end function xc_f90_info_number
     
     integer function xc_f90_info_kind(info)
-      use xc_types
-      type(xc_info), intent(in) :: info
+      use xc_types_m
+      type(xc_info_t), intent(in) :: info
     end function xc_f90_info_kind
 
     subroutine xc_f90_info_name(info, s)
-      use xc_types
-      type(xc_info),         intent(in)  :: info
-      character(len=*),      intent(out) :: s
+      use xc_types_m
+      type(xc_info_t),  intent(in)  :: info
+      character(len=*), intent(out) :: s
     end subroutine xc_f90_info_name
 
     integer function xc_f90_info_family(info)
-      use xc_types
-      type(xc_info), intent(in)  :: info
+      use xc_types_m
+      type(xc_info_t), intent(in)  :: info
     end function xc_f90_info_family
 
     subroutine xc_f90_info_refs(info, n, s)
-      use xc_types
-      type(xc_info),         intent(in)    :: info
-      integer,               intent(inout) :: n
-      character(len=*),      intent(out)   :: s
+      use xc_types_m
+      type(xc_info_t),  intent(in)    :: info
+      integer,          intent(inout) :: n
+      character(len=*), intent(out)   :: s
     end subroutine xc_f90_info_refs
   end interface
 
 
-  ! functionals
+  !----------------------------------------------------------------
   interface
     integer function xc_f90_family_from_id(id)
-      use xc_types
+      use xc_types_m
       integer, intent(in) :: id
     end function xc_f90_family_from_id
   end interface
 
+
   ! LDAs
   ! We will use the same public interface (xc_lda_init) for the four C procedures
+  !----------------------------------------------------------------
   interface xc_f90_lda_init
     subroutine xc_f90_lda_init_(p, info, functional, nspin)
-      use xc_types
-      type(xc_func),         intent(out) :: p
-      type(xc_info),         intent(out) :: info
-      integer,               intent(in)  :: functional
-      integer,               intent(in)  :: nspin
+      use xc_types_m
+      type(xc_func_t), intent(out) :: p
+      type(xc_info_t), intent(out) :: info
+      integer,         intent(in)  :: functional
+      integer,         intent(in)  :: nspin
     end subroutine xc_f90_lda_init_
 
     subroutine xc_f90_lda_x_init(p, info, functional, nspin, dim, irel)
-      use xc_types
-      type(xc_func), intent(out) :: p
-      type(xc_info), intent(out) :: info
-      integer,       intent(in)  :: functional
-      integer,       intent(in)  :: nspin  ! XC_UNPOLARIZED or XC_POLARIZED
-      integer,       intent(in)  :: dim    ! 2 or 3 dimensions
-      integer,       intent(in)  :: irel   ! XC_NON_RELATIVISTIC or XC_RELATIVISTIC
+      use xc_types_m
+      type(xc_func_t), intent(out) :: p
+      type(xc_info_t), intent(out) :: info
+      integer,         intent(in)  :: functional
+      integer,         intent(in)  :: nspin  ! XC_UNPOLARIZED or XC_POLARIZED
+      integer,         intent(in)  :: dim    ! 2 or 3 dimensions
+      integer,         intent(in)  :: irel   ! XC_NON_RELATIVISTIC or XC_RELATIVISTIC
     end subroutine xc_f90_lda_x_init
 
     subroutine xc_f90_lda_c_xalpha_init(p, info, functional, nspin, dim, alpha)
-      use xc_types
-      type(xc_func), intent(out) :: p
-      type(xc_info), intent(out) :: info
-      integer,       intent(in)  :: functional
-      integer,       intent(in)  :: nspin  ! XC_UNPOLARIZED or XC_POLARIZED
-      integer,       intent(in)  :: dim    ! 2 or 3 dimensions
-      real(8),       intent(in)  :: alpha  ! Ec = alpha Ex
+      use xc_types_m
+      type(xc_func_t), intent(out) :: p
+      type(xc_info_t), intent(out) :: info
+      integer,         intent(in)  :: functional
+      integer,         intent(in)  :: nspin  ! XC_UNPOLARIZED or XC_POLARIZED
+      integer,         intent(in)  :: dim    ! 2 or 3 dimensions
+      real(8),         intent(in)  :: alpha  ! Ec = alpha Ex
     end subroutine xc_f90_lda_c_xalpha_init
 
     subroutine xc_f90_lda_c_xalpha_init_sp(p, info, functional, nspin, dim, alpha)
-      use xc_types
-      type(xc_func), intent(out) :: p
-      type(xc_info), intent(out) :: info
-      integer,       intent(in)  :: functional
-      integer,       intent(in)  :: nspin  ! XC_UNPOLARIZED or XC_POLARIZED
-      integer,       intent(in)  :: dim    ! 2 or 3 dimensions
-      real(4),       intent(in)  :: alpha  ! Ec = alpha Ex
+      use xc_types_m
+      type(xc_func_t), intent(out) :: p
+      type(xc_info_t), intent(out) :: info
+      integer,         intent(in)  :: functional
+      integer,         intent(in)  :: nspin  ! XC_UNPOLARIZED or XC_POLARIZED
+      integer,         intent(in)  :: dim    ! 2 or 3 dimensions
+      real(4),         intent(in)  :: alpha  ! Ec = alpha Ex
     end subroutine xc_f90_lda_c_xalpha_init_sp
   end interface
 
+
+  !----------------------------------------------------------------
   interface
     subroutine xc_f90_lda_end(p)
-      use xc_types
-      type(xc_func), intent(inout) :: p
+      use xc_types_m
+      type(xc_func_t), intent(inout) :: p
     end subroutine xc_f90_lda_end
   end interface
 
-  interface xc_f90_lda
 
+  !----------------------------------------------------------------
+  interface xc_f90_lda
     subroutine xc_f90_lda_dp(p, rho, e, v, fxc, kxc)
-      use xc_types
-      type(xc_func), intent(in)  :: p
-      real(8),       intent(in)  :: rho   ! rho(nspin) the density
-      real(8),       intent(out) :: e     ! the energy per unit particle
-      real(8),       intent(out) :: v     ! v(nspin) the potential
-      real(8),       intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
-      real(8),       intent(out) :: kxc   ! v(nspin,nspin,nspin) the derivative of xc kernel
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      real(8),         intent(in)  :: rho   ! rho(nspin) the density
+      real(8),         intent(out) :: e     ! the energy per unit particle
+      real(8),         intent(out) :: v     ! v(nspin) the potential
+      real(8),         intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
+      real(8),         intent(out) :: kxc   ! v(nspin,nspin,nspin) the derivative of xc kernel
     end subroutine xc_f90_lda_dp
 
     subroutine xc_f90_lda_sp(p, rho, e, v, fxc, kxc)
-      use xc_types
-      type(xc_func), intent(in)  :: p
-      real(4),       intent(in)  :: rho   ! rho(nspin) the density
-      real(4),       intent(out) :: e     ! the energy per unit particle
-      real(4),       intent(out) :: v     ! v(nspin) the potential
-      real(4),       intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
-      real(4),       intent(out) :: kxc   ! v(nspin,nspin,nspin) the derivative of xc kernel
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      real(4),         intent(in)  :: rho   ! rho(nspin) the density
+      real(4),         intent(out) :: e     ! the energy per unit particle
+      real(4),         intent(out) :: v     ! v(nspin) the potential
+      real(4),         intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
+      real(4),         intent(out) :: kxc   ! v(nspin,nspin,nspin) the derivative of xc kernel
     end subroutine xc_f90_lda_sp
-
   end interface
 
-  interface xc_f90_lda_vxc
-    
+
+  !----------------------------------------------------------------
+  interface xc_f90_lda_vxc    
     subroutine xc_f90_lda_vxc_dp(p, rho, e, v)
-      use xc_types
-      type(xc_func), intent(in)  :: p
-      real(8),       intent(in)  :: rho   ! rho(nspin) the density
-      real(8),       intent(out) :: e     ! the energy per unit particle
-      real(8),       intent(out) :: v     ! v(nspin) the potential
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      real(8),         intent(in)  :: rho   ! rho(nspin) the density
+      real(8),         intent(out) :: e     ! the energy per unit particle
+      real(8),         intent(out) :: v     ! v(nspin) the potential
     end subroutine xc_f90_lda_vxc_dp
 
     subroutine xc_f90_lda_vxc_sp(p, rho, e, v)
-      use xc_types
-      type(xc_func), intent(in)  :: p
-      real(4),       intent(in)  :: rho   ! rho(nspin) the density
-      real(4),       intent(out) :: e     ! the energy per unit particle
-      real(4),       intent(out) :: v     ! v(nspin) the potential
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      real(4),         intent(in)  :: rho   ! rho(nspin) the density
+      real(4),         intent(out) :: e     ! the energy per unit particle
+      real(4),         intent(out) :: v     ! v(nspin) the potential
     end subroutine xc_f90_lda_vxc_sp
-
   end interface
 
-  interface xc_f90_lda_fxc
 
+  !----------------------------------------------------------------
+  interface xc_f90_lda_fxc
     subroutine xc_f90_lda_fxc_dp(p, rho, fxc)
-      use xc_types
-      type(xc_func), intent(in)  :: p
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
       real(8),       intent(in)  :: rho   ! rho(nspin) the density
       real(8),       intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
     end subroutine xc_f90_lda_fxc_dp
 
     subroutine xc_f90_lda_fxc_sp(p, rho, fxc)
-      use xc_types
-      type(xc_func), intent(in)  :: p
-      real(4),       intent(in)  :: rho   ! rho(nspin) the density
-      real(4),       intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      real(4),         intent(in)  :: rho   ! rho(nspin) the density
+      real(4),         intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
     end subroutine xc_f90_lda_fxc_sp
-
   end interface
   
-  interface xc_f90_lda_kxc
 
+  !----------------------------------------------------------------
+  interface xc_f90_lda_kxc
     subroutine xc_f90_lda_kxc_dp(p, rho, kxc)
-      use xc_types
-      type(xc_func), intent(in)  :: p
-      real(8),       intent(in)  :: rho   ! rho(nspin) the density
-      real(8),       intent(out) :: kxc
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      real(8),         intent(in)  :: rho   ! rho(nspin) the density
+      real(8),         intent(out) :: kxc
     end subroutine xc_f90_lda_kxc_dp
 
     subroutine xc_f90_lda_kxc_sp(p, rho, kxc)
-      use xc_types
-      type(xc_func), intent(in)  :: p
-      real(4),       intent(in)  :: rho   ! rho(nspin) the density
-      real(4),       intent(out) :: kxc
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      real(4),         intent(in)  :: rho   ! rho(nspin) the density
+      real(4),         intent(out) :: kxc
     end subroutine xc_f90_lda_kxc_sp
 
   end interface
   
+
   ! GGAs
   ! We will use the same public procedure for the two C procedures.
+  !----------------------------------------------------------------
   interface xc_f90_gga_init
     subroutine xc_f90_gga_init_(p, info, functional, nspin)
-      use xc_types
-      type(xc_func), intent(out) :: p
-      type(xc_info), intent(out) :: info
-      integer,   intent(in)  :: functional
-      integer,   intent(in)  :: nspin
+      use xc_types_m
+      type(xc_func_t), intent(out) :: p
+      type(xc_info_t), intent(out) :: info
+      integer,         intent(in)  :: functional
+      integer,         intent(in)  :: nspin
     end subroutine xc_f90_gga_init_
-
-    subroutine xc_f90_gga_lb_init(p, info, functional, nspin, modified, threshold)
-      use xc_types
-      type(xc_func), intent(out) :: p
-      type(xc_info), intent(out) :: info
-      integer,       intent(in)  :: functional
-      integer,       intent(in)  :: nspin
-      integer,       intent(in)  :: modified
-      real(8),       intent(in)  :: threshold
-    end subroutine xc_f90_gga_lb_init
-
-    subroutine xc_f90_gga_lb_init_sp(p, info, functional, nspin, modified, threshold)
-      use xc_types
-      type(xc_func), intent(out) :: p
-      type(xc_info), intent(out) :: info
-      integer,       intent(in)  :: functional
-      integer,       intent(in)  :: nspin
-      integer,       intent(in)  :: modified
-      real(4),       intent(in)  :: threshold
-    end subroutine xc_f90_gga_lb_init_sp
   end interface
 
+
+  !----------------------------------------------------------------
   interface
     subroutine xc_f90_gga_end(p)
-      use xc_types
-      type(xc_func), intent(inout) :: p
+      use xc_types_m
+      type(xc_func_t), intent(inout) :: p
     end subroutine xc_f90_gga_end
   end interface
 
-  interface xc_f90_gga
 
+  !----------------------------------------------------------------
+  interface xc_f90_gga
     subroutine xc_f90_gga_dp(p, rho, grho, e, dedd, dedgd)
-      use xc_types
-      type(xc_func), intent(in)  :: p
-      real(8),       intent(in)  :: rho   ! rho(nspin) the density
-      real(8),       intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
-      real(8),       intent(out) :: e     ! the energy per unit particle
-      real(8),       intent(out) :: dedd  ! dedd(nspin) the derivative of the energy
-                                          ! in terms of the density
-      real(8),       intent(out) :: dedgd ! and in terms of the gradient of the density
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      real(8),         intent(in)  :: rho   ! rho(nspin) the density
+      real(8),         intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
+      real(8),         intent(out) :: e     ! the energy per unit particle
+      real(8),         intent(out) :: dedd  ! dedd(nspin) the derivative of the energy
+                                            ! in terms of the density
+      real(8),         intent(out) :: dedgd ! and in terms of the gradient of the density
     end subroutine xc_f90_gga_dp
 
     subroutine xc_f90_gga_sp(p, rho, grho, e, dedd, dedgd)
-      use xc_types
-      type(xc_func), intent(in)  :: p
-      real(4),       intent(in)  :: rho   ! rho(nspin) the density
-      real(4),       intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
-      real(4),       intent(out) :: e     ! the energy per unit particle
-      real(4),       intent(out) :: dedd  ! dedd(nspin) the derivative of the energy
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      real(4),         intent(in)  :: rho   ! rho(nspin) the density
+      real(4),         intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
+      real(4),         intent(out) :: e     ! the energy per unit particle
+      real(4),         intent(out) :: dedd  ! dedd(nspin) the derivative of the energy
                                           ! in terms of the density
-      real(4),       intent(out) :: dedgd ! and in terms of the gradient of the density
+      real(4),         intent(out) :: dedgd ! and in terms of the gradient of the density
     end subroutine xc_f90_gga_sp
-
   end interface
 
-  interface xc_f90_gga_lb
 
-    subroutine xc_f90_gga_lb_dp(p, rho, grho, r, ip, qtot, dedd)
-      use xc_types
-      type(xc_func), intent(in)  :: p
-      real(8),       intent(in)  :: rho   ! rho(nspin) the density
-      real(8),       intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
-      real(8),       intent(in)  :: r     ! distance from center of finite system
-      real(8),       intent(in)  :: ip    ! ionization potential
-      real(8),       intent(in)  :: qtot  ! total charge
-      real(8),       intent(out) :: dedd
-    end subroutine xc_f90_gga_lb_dp
+  !----------------------------------------------------------------
+  interface xc_f90_gga_lb_set_params
+    subroutine xc_f90_gga_lb_set_params_dp(p, modified, threshold, ip, qtot)
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      integer,         intent(in)  :: modified   ! should we use the modified version
+      real(8),         intent(in)  :: threshold  ! if so, the threshold to use the asymtotic version
+      real(8),         intent(in)  :: ip         ! ionization potential
+      real(8),         intent(in)  :: qtot       ! total charge
+    end subroutine xc_f90_gga_lb_set_params_dp
 
-    subroutine xc_f90_gga_lb_sp(p, rho, grho, r, ip, qtot, dedd)
-      use xc_types
-      type(xc_func), intent(in)  :: p
-      real(4),       intent(in)  :: rho   ! rho(nspin) the density
-      real(4),       intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
-      real(4),       intent(in)  :: r     ! distance from center of finite system
-      real(4),       intent(in)  :: ip    ! ionization potential
-      real(4),       intent(in)  :: qtot  ! total charge
-      real(4),       intent(out) :: dedd
-    end subroutine xc_f90_gga_lb_sp
-
+    subroutine xc_f90_gga_lb_set_params_sp(p, modified, threshold, ip, qtot)
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      integer,         intent(in)  :: modified   ! should we use the modified version
+      real(4),         intent(in)  :: threshold  ! if so, the threshold to use the asymtotic version
+      real(4),         intent(in)  :: ip         ! ionization potential
+      real(4),         intent(in)  :: qtot       ! total charge
+    end subroutine xc_f90_gga_lb_set_params_sp
   end interface
 
+
+  !----------------------------------------------------------------
+  interface xc_f90_gga_lb_modified
+    subroutine xc_f90_gga_lb_modified_dp(p, rho,  grho, r, dedd)
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      real(8),         intent(in)  :: rho   ! rho(nspin) the density
+      real(8),         intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
+      real(8),         intent(in)  :: r     ! distance from center of finite system
+      real(8),         intent(out) :: dedd
+    end subroutine xc_f90_gga_lb_modified_dp
+
+    subroutine xc_f90_gga_lb_modified_sp(p, rho,  grho, r, dedd)
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      real(4),         intent(in)  :: rho   ! rho(nspin) the density
+      real(4),         intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
+      real(4),         intent(in)  :: r     ! distance from center of finite system
+      real(4),         intent(out) :: dedd
+    end subroutine xc_f90_gga_lb_modified_sp
+  end interface
 
   ! the meta-GGAs
+  !----------------------------------------------------------------
   interface
     subroutine xc_f90_mgga_init(p, info, functional, nspin)
-      use xc_types
-      type(xc_func), intent(out) :: p
-      type(xc_info), intent(out) :: info
+      use xc_types_m
+      type(xc_func_t), intent(out) :: p
+      type(xc_info_t), intent(out) :: info
       integer,       intent(in)  :: functional
       integer,       intent(in)  :: nspin
     end subroutine xc_f90_mgga_init
 
     subroutine xc_f90_mgga_end(p)
-      use xc_types
-      type(xc_func), intent(inout) :: p
+      use xc_types_m
+      type(xc_func_t), intent(inout) :: p
     end subroutine xc_f90_mgga_end
   end interface
 
-  interface xc_f90_mgga
 
+  !----------------------------------------------------------------
+  interface xc_f90_mgga
     subroutine xc_f90_mgga_dp(p, rho, grho, tau, e, dedd, dedgd, dedtau)
-      use xc_types
-      type(xc_func), intent(in)  :: p
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
       real(8),       intent(in)  :: rho   ! rho(nspin) the density
       real(8),       intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
       real(8),       intent(in)  :: tau   ! tau(nspin) the kinetic energy density
@@ -381,8 +391,8 @@ module libxc
     end subroutine xc_f90_mgga_dp
 
     subroutine xc_f90_mgga_sp(p, rho, grho, tau, e, dedd, dedgd, dedtau)
-      use xc_types
-      type(xc_func), intent(in)  :: p
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
       real(4),       intent(in)  :: rho   ! rho(nspin) the density
       real(4),       intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
       real(4),       intent(in)  :: tau   ! tau(nspin) the kinetic energy density
@@ -392,30 +402,32 @@ module libxc
       real(4),       intent(out) :: dedgd ! in terms of the gradient of the density
       real(4),       intent(out) :: dedtau! and in terms of tau
     end subroutine xc_f90_mgga_sp
-
   end interface
 
+
   ! the LCAs
+  !----------------------------------------------------------------
   interface
     subroutine xc_f90_lca_init(p, info, functional, nspin)
-      use xc_types
-      type(xc_func), intent(out) :: p
-      type(xc_info), intent(out) :: info
+      use xc_types_m
+      type(xc_func_t), intent(out) :: p
+      type(xc_info_t), intent(out) :: info
       integer,       intent(in)  :: functional
       integer,       intent(in)  :: nspin
     end subroutine xc_f90_lca_init
 
     subroutine xc_f90_lca_end(p)
-      use xc_types
-      type(xc_func), intent(inout) :: p
+      use xc_types_m
+      type(xc_func_t), intent(inout) :: p
     end subroutine xc_f90_lca_end
   end interface
 
-  interface xc_f90_lca
 
+  !----------------------------------------------------------------
+  interface xc_f90_lca
     subroutine xc_f90_lca_dp(p, rho, v, e, dedd, dedv)
-      use xc_types
-      type(xc_func), intent(in)  :: p
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
       real(8),       intent(in)  :: rho   ! rho(nspin) the density
       real(8),       intent(in)  :: v     ! v(3,nspin) the vorticity
       real(8),       intent(out) :: e     ! the energy per unit particle
@@ -425,8 +437,8 @@ module libxc
     end subroutine xc_f90_lca_dp
 
     subroutine xc_f90_lca_sp(p, rho, v, e, dedd, dedv)
-      use xc_types
-      type(xc_func), intent(in)  :: p
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
       real(4),       intent(in)  :: rho   ! rho(nspin) the density
       real(4),       intent(in)  :: v     ! v(3,nspin) the vorticity
       real(4),       intent(out) :: e     ! the energy per unit particle
@@ -434,10 +446,9 @@ module libxc
                                           ! in terms of the density
       real(4),       intent(out) :: dedv  ! and in terms of the vorticity
     end subroutine xc_f90_lca_sp
-
   end interface
 
-end module libxc
+end module libxc_m
 
 !! Local Variables:
 !! mode: f90

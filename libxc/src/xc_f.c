@@ -237,41 +237,29 @@ void FC_FUNC_(xc_f90_gga_sp, XC_F90_GGA_SP)
 
 
 /* the van Leeuwen & Baerends functional is special */
-void FC_FUNC_(xc_f90_gga_lb_init, XC_F90_GGA_LB_INIT)
-     (void **p, void **info, CC_FORTRAN_INT *functional, 
-      CC_FORTRAN_INT *nspin, CC_FORTRAN_INT *modified, double *threshold)
+void FC_FUNC_(xc_f90_gga_lb_set_params_dp, XC_F90_GGA_LB_SET_PARAMS_DP)
+  (void **p, CC_FORTRAN_INT *modified, double *threshold, double *ip, double *qtot)
 {
-  xc_gga_type *gga_p;
-
-  assert(*functional == XC_GGA_XC_LB);
-
-  *p = malloc(sizeof(xc_gga_type));
-  gga_p = (xc_gga_type *)(*p);
-  xc_gga_lb_init(gga_p, (int) (*nspin), (int) (*modified), (int) (*threshold));
-  *info = (void *)(gga_p->info);
+  xc_gga_lb_set_params((xc_gga_type *)(*p), *modified, *threshold, *ip, *qtot);
 }
 
-void FC_FUNC_(xc_f90_gga_lb_init_sp, XC_F90_GGA_LB_INIT_SP)
-     (void **p, void **info, CC_FORTRAN_INT *functional, 
-      CC_FORTRAN_INT *nspin, CC_FORTRAN_INT *modified, float *threshold)
+void FC_FUNC_(xc_f90_gga_lb_set_params_sp, XC_F90_GGA_LB_SET_PARAMS_SP)
+  (void **p, CC_FORTRAN_INT *modified, float *threshold, float *ip, float *qtot)
 {
-  double dthreshold = threshold[0];
-  FC_FUNC_(xc_f90_gga_lb_init, XC_F90_GGA_LB_INIT)
-    (p, info, functional, nspin, modified, &dthreshold);
+  printf("set params\n");
+  xc_gga_lb_set_params_sp((xc_gga_type *)(*p), *modified, *threshold, *ip, *qtot);
 }
 
-void FC_FUNC_(xc_f90_gga_lb_dp, XC_F90_GGA_LB_DP)
-     (void **p, double *rho, double *grho, double *r, double *ip, double *qtot,
-      double *dedd)
+void FC_FUNC_(xc_f90_gga_lb_modified_dp, XC_F90_GGA_LB_MODIFIED_DP)
+     (void **p, double *rho, double *grho, double *r, double *dedd)
 {
-  xc_gga_lb((xc_gga_type *)(*p), rho, grho, *r, *ip, *qtot, dedd);
+  xc_gga_lb_modified((xc_gga_type *)(*p), rho, grho, *r, dedd);
 }
 
-void FC_FUNC_(xc_f90_gga_lb_sp, XC_F90_GGA_LB_SP)
-     (void **p, float *rho, float *grho, float *r, float *ip, float *qtot,
-      float *dedd)
+void FC_FUNC_(xc_f90_gga_lb_modified_sp, XC_F90_GGA_LB_MODIFIED_SP)
+     (void **p, float *rho, float *grho, float *r, float *dedd)
 {
-  xc_gga_lb_sp((xc_gga_type *)(*p), rho, grho, *r, *ip, *qtot, dedd);
+  xc_gga_lb_modified_sp((xc_gga_type *)(*p), rho, grho, *r, dedd);
 }
 
 

@@ -66,13 +66,13 @@ close OUT;
 
 open(OUT, ">$builddir/libxc_funcs.f90");
 print OUT <<EOF
-module libxc_funcs
+module libxc_funcs_m
   implicit none
 
   public
 
 $s3
-end module libxc_funcs
+end module libxc_funcs_m
 EOF
   ;
 close OUT;

@@ -109,16 +109,13 @@ typedef struct xc_gga_type{
 
 int  xc_gga_init(xc_gga_type *p, int functional, int nspin);
 void xc_gga_end (xc_gga_type *p);
-void xc_gga     (xc_gga_type *p, double *rho, double *grho,
-		 double *e, double *dedd, double *dedgd);
-void xc_gga_sp  (xc_gga_type *p, float *rho, float *grho,
-		 float *e, float *dedd, float *dedgd);
+void xc_gga     (xc_gga_type *p, double *rho, double *grho, double *e, double *dedd, double *dedgd);
+void xc_gga_sp  (xc_gga_type *p,  float *rho,  float *grho,  float *e,  float *dedd,  float *dedgd);
 
-void xc_gga_lb_init(xc_gga_type *p, int nspin, int modified, double threshold);
-void xc_gga_lb     (xc_gga_type *p, double *rho, double *grho, double r, double ip, double qtot,
-		    double *dedd);
-void xc_gga_lb_sp  (xc_gga_type *p, float *rho, float *grho, float r, float ip, float qtot,
-		    float *dedd);
+void xc_gga_lb_set_params   (xc_gga_type *p, int modified, double threshold, double ip, double qtot);
+void xc_gga_lb_set_params_sp(xc_gga_type *p, int modified,  float threshold,  float ip,  float qtot);
+void xc_gga_lb_modified     (xc_gga_type *p, double *rho, double *grho, double r, double *dedd);
+void xc_gga_lb_modified_sp  (xc_gga_type *p,  float *rho,  float *grho,  float r,  float *dedd);
 
 /* the meta-GGAs */
 

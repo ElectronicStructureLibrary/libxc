@@ -31,6 +31,7 @@ libxc_a_FUNC_SOURCES = \
 	gga_x_dk87.c gga_x_ft97.c gga_x_wc.c \
 	gga_perdew.c gga_c_pbe.c gga_c_lyp.c gga_c_p86.c gga_c_pw91.c \
 	gga_xc_lb.c gga_xc_hcth.c gga_xc_edf1.c gga_xc_xlyp.c \
+	hyb_gga.c hyb_gga_b3pw91.c \
 	mgga.c mgga_x_tpss.c mgga_c_tpss.c \
 	lca.c lca_omc.c lca_lch.c
 

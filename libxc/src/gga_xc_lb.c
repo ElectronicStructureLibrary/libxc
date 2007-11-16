@@ -162,7 +162,7 @@ xc_func_info_type func_info_gga_xc_lb = {
   XC_EXCHANGE_CORRELATION,
   "van Leeuwen & Baerends",
   XC_FAMILY_GGA,
-  "R. van Leeuwen and E. J. Baerends, Phys. Rev. A. 49, 2421 (1994)",
+  "R van Leeuwen and EJ Baerends, Phys. Rev. A. 49, 2421 (1994)",
   XC_PROVIDES_VXC,
   gga_lb_init,
   gga_lb_end,

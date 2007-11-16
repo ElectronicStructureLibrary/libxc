@@ -39,6 +39,7 @@ extern "C" {
 #define XC_FAMILY_MGGA          4
 #define XC_FAMILY_LCA           8
 #define XC_FAMILY_OEP          16
+#define XC_FAMILY_HYB_GGA      32
 
 #define XC_PROVIDES_EXC         1
 #define XC_PROVIDES_VXC         2
@@ -116,6 +117,32 @@ void xc_gga_lb_set_params   (xc_gga_type *p, int modified, double threshold, dou
 void xc_gga_lb_set_params_sp(xc_gga_type *p, int modified,  float threshold,  float ip,  float qtot);
 void xc_gga_lb_modified     (xc_gga_type *p, double *rho, double *grho, double r, double *dedd);
 void xc_gga_lb_modified_sp  (xc_gga_type *p,  float *rho,  float *grho,  float r,  float *dedd);
+
+
+/* the GGAs hybrids */
+typedef struct xc_hyb_gga_type{
+  const xc_func_info_type *info;  /* which functional did we chose   */
+  int nspin;                      /* XC_UNPOLARIZED or XC_POLARIZED  */
+  
+  xc_lda_type **lda_aux;          /* the LDA components of the hybrid */
+  int           lda_n;            /* their number                     */
+  double       *lda_coef;         /* and their coefficients           */
+
+  xc_gga_type **gga_aux;          /* the GGA components               */
+  int           gga_n;            /* their number                     */
+  double       *gga_coef;         /* and their coefficients           */
+  double        exx_coef;         /* the exact exchange coefficient   */
+
+  void *params;                   /* this allows to fix parameters in the functional */
+} xc_hyb_gga_type;
+
+int  xc_hyb_gga_init(xc_hyb_gga_type *p, int functional, int nspin);
+void xc_hyb_gga_end(xc_hyb_gga_type *p);
+void xc_hyb_gga   (xc_hyb_gga_type *p, double *rho, double *sigma, double *e, double *vrho, double *vsigma);
+void xc_hyb_gga_sp(xc_hyb_gga_type *p,  float *rho,  float *sigma,  float *e,  float *vrho,  float *vsigma);
+double xc_hyb_gga_exx_coef   (xc_hyb_gga_type *p);
+float  xc_hyb_gga_exx_coef_sp(xc_hyb_gga_type *p);
+
 
 /* the meta-GGAs */
 

@@ -62,6 +62,9 @@ void perdew_potentials(perdew_t *pt, double *rho, double e_gga, double *vrho, do
 void gga_x_b88_set_params(xc_gga_type *p, double beta);
 void gga_c_lyp_set_params(xc_gga_type *p, double A, double B, double c, double d);
 
+/* hybrid GGAs */
+void xc_hyb_gga_alloc(xc_hyb_gga_type *p);
+
 /* meta-GGAs */
 void mgga_x_tpss_init(xc_mgga_type *p);
 void mgga_c_tpss_init(xc_mgga_type *p);

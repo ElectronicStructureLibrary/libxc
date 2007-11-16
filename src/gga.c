@@ -34,7 +34,6 @@ int xc_gga_init(xc_gga_type *p, int functional, int nspin)
   for(i=0; gga_known_funct[i]!=NULL; i++){
     if(gga_known_funct[i]->number == functional) break;
   }
-  assert(gga_known_funct[i] != NULL);
   if(gga_known_funct[i] == NULL) return -1; /* functional not found */
 
   /* initialize structure */

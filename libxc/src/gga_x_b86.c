@@ -55,7 +55,7 @@ const xc_func_info_type func_info_gga_x_b86 = {
   XC_EXCHANGE,
   "Becke 86",
   XC_FAMILY_GGA,
-  "A.D. Becke, J. Chem. Phys 84, 4524 (1986)",
+  "AD Becke, J. Chem. Phys 84, 4524 (1986)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   work_gga_x
@@ -66,8 +66,8 @@ const xc_func_info_type func_info_gga_x_b86_r = {
   XC_EXCHANGE,
   "Becke 86 (reoptimized)",
   XC_FAMILY_GGA,
-  "A.D. Becke, J. Chem. Phys 84, 4524 (1986)\n"
-  "A.D. Becke, J. Chem. Phys 107, 8554 (1997)",
+  "AD Becke, J. Chem. Phys 84, 4524 (1986)\n"
+  "AD Becke, J. Chem. Phys 107, 8554 (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   work_gga_x

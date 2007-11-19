@@ -118,8 +118,6 @@ void xc_hyb_gga(xc_hyb_gga_type *p, double *rho, double *sigma,
 
   assert(p!=NULL);
   
-  fflush(stdout);
-
   /* initialize all to zero */
   *e = 0.0;
   for(is=0; is<p->nspin; is++) vrho[is]   = 0.0;

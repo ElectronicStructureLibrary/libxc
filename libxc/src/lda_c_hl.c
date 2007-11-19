@@ -93,7 +93,7 @@ const xc_func_info_type func_info_lda_c_hl = {
   "Hedin & Lundqvist",
   XC_FAMILY_LDA,
   /* can someone get me this paper, so I can find all coefficients? */
-  "L. Hedin and B.I. Lundqvist,  J. Phys. C 4, 2064 (1971)",
+  "L Hedin and BI Lundqvist, J. Phys. C 4, 2064 (1971)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL,         /* init */
   NULL,         /* end  */
@@ -105,7 +105,7 @@ const xc_func_info_type func_info_lda_c_gl = {
   XC_CORRELATION,
   "Gunnarson & Lundqvist",
   XC_FAMILY_LDA,
-  "O. Gunnarsson and B. I. Lundqvist, PRB 13, 4274 (1976)",
+  "O Gunnarsson and BI Lundqvist, PRB 13, 4274 (1976)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL,         /* init */
   NULL,         /* end  */

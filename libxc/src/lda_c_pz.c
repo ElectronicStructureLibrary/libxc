@@ -166,8 +166,8 @@ const xc_func_info_type func_info_lda_c_ob_pz = {
   XC_CORRELATION,
   "Ortiz & Ballone (PZ parametrization)",
   XC_FAMILY_LDA,
-  "Ortiz and Ballone, Phys. Rev. B 50, 1391 (1994)\n"
-  "Ortiz and Ballone, Phys. Rev. B 56, 9970(E) (1997)\n"
+  "G Ortiz and P Ballone, Phys. Rev. B 50, 1391 (1994)\n"
+  "G Ortiz and P Ballone, Phys. Rev. B 56, 9970(E) (1997)\n"
   "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL,

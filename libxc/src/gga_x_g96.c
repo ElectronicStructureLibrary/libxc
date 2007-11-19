@@ -40,7 +40,7 @@ const xc_func_info_type func_info_gga_x_g96 = {
   XC_EXCHANGE,
   "Gill 96",
   XC_FAMILY_GGA,
-  "P.M.W. Gill, Mol. Phys. 89, 433 (1996)",
+  "PMW Gill, Mol. Phys. 89, 433 (1996)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   work_gga_x

@@ -274,8 +274,8 @@ const xc_func_info_type func_info_gga_c_lyp = {
   XC_CORRELATION,
   "Lee, Yang & Parr",
   XC_FAMILY_GGA,
-  "C. Lee, W. Yang and R.G. Parr, Phys. Rev. B 37, 785 (1988)\n"
-  "B. Miehlich, A. Savin, H. Stoll and H. Preuss, Chem. Phys. Letters 157, 200 (1989)",
+  "C Lee, W Yang and RG Parr, Phys. Rev. B 37, 785 (1988)\n"
+  "B Miehlich, A Savin, H Stoll and H Preuss, Chem. Phys. Lett. 157, 200 (1989)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_c_lyp_init, 
   gga_c_lyp_end, 

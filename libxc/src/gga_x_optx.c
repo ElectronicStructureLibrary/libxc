@@ -44,7 +44,7 @@ const xc_func_info_type func_info_gga_x_optx = {
   XC_EXCHANGE,
   "Handy & Cohen OPTX 01",
   XC_FAMILY_GGA,
-  "N.C. handy and A.J. Cohen, Mol. Phys. 99, 403-412 (2001)",
+  "NC Handy and AJ Cohen, Mol. Phys. 99, 403 (2001)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   work_gga_x

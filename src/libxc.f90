@@ -62,6 +62,10 @@ module libxc_m
     xc_f90_gga_end,                     &
     xc_f90_gga_lb_set_params,           &
     xc_f90_gga_lb_modified,             &
+    xc_f90_hyb_gga_init,                &
+    xc_f90_hyb_gga_end,                 &
+    xc_f90_hyb_gga,                     &
+    xc_f90_hyb_gga_exx_coef,            &
     xc_f90_mgga_init,                   &
     xc_f90_mgga,                        &
     xc_f90_mgga_end
@@ -69,18 +73,20 @@ module libxc_m
   ! Families of xc functionals
   integer, public, parameter ::     &
     XC_FAMILY_UNKNOWN       =  -1,  &
+    XC_FAMILY_NONE          =   0,  &
     XC_FAMILY_LDA           =   1,  &
     XC_FAMILY_GGA           =   2,  &
     XC_FAMILY_MGGA          =   4,  &
     XC_FAMILY_LCA           =   8,  &
-    XC_FAMILY_OEP           =  16
+    XC_FAMILY_OEP           =  16,  &
+    XC_FAMILY_HYB_GGA       =  32
 
   integer, public, parameter ::     &
     XC_UNPOLARIZED          =   1,  &  ! Spin unpolarized
     XC_POLARIZED            =   2      ! Spin polarized
 
   integer, public, parameter ::     &
-    XC_NON_RELATIVISTIC     =   0,  &  ! Functional includes or not realtivistic
+    XC_NON_RELATIVISTIC     =   0,  &  ! Functional includes or not relativistic
     XC_RELATIVISTIC         =   1      ! corrections. Only available in some functionals.
 
   ! Kinds
@@ -266,16 +272,15 @@ module libxc_m
   
 
   ! GGAs
-  ! We will use the same public procedure for the two C procedures.
   !----------------------------------------------------------------
-  interface xc_f90_gga_init
-    subroutine xc_f90_gga_init_(p, info, functional, nspin)
+  interface
+    subroutine xc_f90_gga_init(p, info, functional, nspin)
       use xc_types_m
       type(xc_func_t), intent(out) :: p
       type(xc_info_t), intent(out) :: info
       integer,         intent(in)  :: functional
       integer,         intent(in)  :: nspin
-    end subroutine xc_f90_gga_init_
+    end subroutine xc_f90_gga_init
   end interface
 
 
@@ -356,6 +361,71 @@ module libxc_m
       real(4),         intent(out) :: dedd
     end subroutine xc_f90_gga_lb_modified_sp
   end interface
+
+
+  ! Hybrids GGAs
+  !----------------------------------------------------------------
+  interface
+    subroutine xc_f90_hyb_gga_init(p, info, functional, nspin)
+      use xc_types_m
+      type(xc_func_t), intent(out) :: p
+      type(xc_info_t), intent(out) :: info
+      integer,         intent(in)  :: functional
+      integer,         intent(in)  :: nspin
+    end subroutine xc_f90_hyb_gga_init
+  end interface
+
+
+  !----------------------------------------------------------------
+  interface
+    subroutine xc_f90_hyb_gga_end(p)
+      use xc_types_m
+      type(xc_func_t), intent(inout) :: p
+    end subroutine xc_f90_hyb_gga_end
+  end interface
+
+
+  !----------------------------------------------------------------
+  interface xc_f90_hyb_gga
+    subroutine xc_f90_hyb_gga_dp(p, rho, grho, e, dedd, dedgd)
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      real(8),         intent(in)  :: rho   ! rho(nspin) the density
+      real(8),         intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
+      real(8),         intent(out) :: e     ! the energy per unit particle
+      real(8),         intent(out) :: dedd  ! dedd(nspin) the derivative of the energy
+                                            ! in terms of the density
+      real(8),         intent(out) :: dedgd ! and in terms of the gradient of the density
+    end subroutine xc_f90_hyb_gga_dp
+
+    subroutine xc_f90_hyb_gga_sp(p, rho, grho, e, dedd, dedgd)
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      real(4),         intent(in)  :: rho   ! rho(nspin) the density
+      real(4),         intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
+      real(4),         intent(out) :: e     ! the energy per unit particle
+      real(4),         intent(out) :: dedd  ! dedd(nspin) the derivative of the energy
+                                          ! in terms of the density
+      real(4),         intent(out) :: dedgd ! and in terms of the gradient of the density
+    end subroutine xc_f90_hyb_gga_sp
+  end interface
+
+
+  !----------------------------------------------------------------
+  interface xc_f90_hyb_gga_exx_coef
+    subroutine xc_f90_hyb_gga_exx_coef_dp(p, coef)
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      real(8),         intent(out) :: coef
+    end subroutine xc_f90_hyb_gga_exx_coef_dp
+
+    subroutine xc_f90_hyb_gga_exx_coef_sp(p, coef)
+      use xc_types_m
+      type(xc_func_t), intent(in)  :: p
+      real(4),         intent(out) :: coef
+    end subroutine xc_f90_hyb_gga_exx_coef_sp
+  end interface
+
 
   ! the meta-GGAs
   !----------------------------------------------------------------

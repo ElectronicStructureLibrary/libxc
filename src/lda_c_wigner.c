@@ -55,7 +55,7 @@ const xc_func_info_type func_info_lda_c_wigner = {
   XC_CORRELATION,
   "Wigner",
   XC_FAMILY_LDA,
-  "E.P. Wigner, Trans. Faraday Soc. 34, 678 (1938)",
+  "EP Wigner, Trans. Faraday Soc. 34, 678 (1938)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL,         /* init */
   NULL,         /* end  */

@@ -53,7 +53,7 @@ const xc_func_info_type func_info_gga_x_lg93 = {
   XC_EXCHANGE,
   "Lacks & Gordon 93",
   XC_FAMILY_GGA,
-  "D.J. Lacks and R.G. Gordon, Phys. Rev. A 47, 4681-4690 (1993)",
+  "DJ Lacks and RG Gordon, Phys. Rev. A 47, 4681 (1993)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   work_gga_x

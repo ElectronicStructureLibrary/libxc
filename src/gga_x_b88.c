@@ -86,7 +86,7 @@ const xc_func_info_type func_info_gga_x_b88 = {
   XC_EXCHANGE,
   "Becke 88",
   XC_FAMILY_GGA,
-  "A.D. Becke, Phys. Rev. A 38, 3098-3100 (1988)",
+  "AD Becke, Phys. Rev. A 38, 3098 (1988)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_x_b88_init, 
   gga_x_b88_end, 

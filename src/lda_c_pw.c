@@ -214,7 +214,7 @@ const xc_func_info_type func_info_lda_c_pw = {
   XC_CORRELATION,
   "Perdew & Wang",
   XC_FAMILY_LDA,
-  "J.P. Perdew and Y.Wang, Phys. Rev. B 45, 13244 (1992)",
+  "JP Perdew and Y Wang, Phys. Rev. B 45, 13244 (1992)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL,
   NULL,
@@ -226,7 +226,7 @@ const xc_func_info_type func_info_lda_c_pw_mod = {
   XC_CORRELATION,
   "Perdew & Wang (modified)",
   XC_FAMILY_LDA,
-  "J.P. Perdew and Y.Wang, Phys. Rev. B 45, 13244 (1992)\n"
+  "JP Perdew and Y Wang, Phys. Rev. B 45, 13244 (1992)\n"
   "Added extra digits to some constants as in the PBE routine\n"
   "http://dft.rutgers.edu/pubs/PBE.asc",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
@@ -240,9 +240,9 @@ const xc_func_info_type func_info_lda_c_ob_pw = {
   XC_CORRELATION,
   "Ortiz & Ballone (PW parametrization)",
   XC_FAMILY_LDA,
-  "Ortiz and Ballone, Phys. Rev. B 50, 1391 (1994)\n"
-  "Ortiz and Ballone, Phys. Rev. B 56, 9970(E) (1997)\n"
-  "J.P. Perdew and Y.Wang, Phys. Rev. B 45, 13244 (1992)",
+  "G Ortiz and P Ballone, Phys. Rev. B 50, 1391 (1994)\n"
+  "G Ortiz and P Ballone, Phys. Rev. B 56, 9970(E) (1997)\n"
+  "JP Perdew and Y Wang, Phys. Rev. B 45, 13244 (1992)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL,
   NULL,

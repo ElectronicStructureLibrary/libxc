@@ -65,7 +65,7 @@ const xc_func_info_type func_info_gga_x_ft97_a = {
   XC_EXCHANGE,
   "Filatov & Thiel 97 (version A)",
   XC_FAMILY_GGA,
-  "M. Filatov and W. Thiel, Mol. Phys 91, 847-860 (1997)",
+  "M Filatov and W Thiel, Mol. Phys 91, 847 (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL, 
   work_gga_x
@@ -76,7 +76,7 @@ const xc_func_info_type func_info_gga_x_ft97_b = {
   XC_EXCHANGE,
   "Filatov & Thiel 97 (version B)",
   XC_FAMILY_GGA,
-  "M. Filatov and W. Thiel, Mol. Phys 91, 847-860 (1997)",
+  "M Filatov and W Thiel, Mol. Phys 91, 847 (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL, 
   work_gga_x

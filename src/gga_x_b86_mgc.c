@@ -44,8 +44,8 @@ const xc_func_info_type func_info_gga_x_b86_mgc = {
   XC_EXCHANGE,
   "Becke 86 with modified gradient correction",
   XC_FAMILY_GGA,
-  "A.D. Becke, J. Chem. Phys 84, 4524 (1986)\n"
-  "A.D. Becke, J. Chem. Phys 85, 7184 (1986)",
+  "AD Becke, J. Chem. Phys 84, 4524 (1986)\n"
+  "AD Becke, J. Chem. Phys 85, 7184 (1986)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   work_gga_x

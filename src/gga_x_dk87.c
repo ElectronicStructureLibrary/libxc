@@ -54,7 +54,7 @@ const xc_func_info_type func_info_gga_x_dk87_r1 = {
   XC_EXCHANGE,
   "dePristo & Kress 87 version R1",
   XC_FAMILY_GGA,
-  "A.E. DePristo and J.D. Kress, J. Chem. Phys. 86, 1425 (1987)",
+  "AE DePristo and JD Kress, J. Chem. Phys. 86, 1425 (1987)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   work_gga_x
@@ -65,7 +65,7 @@ const xc_func_info_type func_info_gga_x_dk87_r2 = {
   XC_EXCHANGE,
   "dePristo & Kress 87 version R2",
   XC_FAMILY_GGA,
-  "A.E. DePristo and J.D. Kress, J. Chem. Phys. 86, 1425 (1987)",
+  "AE DePristo and JD Kress, J. Chem. Phys. 86, 1425 (1987)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   work_gga_x

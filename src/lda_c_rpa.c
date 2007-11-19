@@ -50,7 +50,7 @@ const xc_func_info_type func_info_lda_c_rpa = {
   XC_CORRELATION,
   "Random Phase Approximation (RPA)",
   XC_FAMILY_LDA,
-  "M. Gell-Mann and K.A. Brueckner, Phys. Rev. 106, 364 (1957)",
+  "M Gell-Mann and KA Brueckner, Phys. Rev. 106, 364 (1957)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL,         /* init */
   NULL,         /* end  */

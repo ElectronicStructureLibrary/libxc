@@ -53,7 +53,7 @@ const xc_func_info_type func_info_gga_x_pw91 = {
   XC_EXCHANGE,
   "Perdew & Wang 91",
   XC_FAMILY_GGA,
-  "J.P. Perdew, J.A. Chevary, S.H. Vosko, K.A. Jackson, M.R. Pederson, and C. Fiolhais, Phys. Rev. B 46, 6671 (1992)",
+  "JP Perdew, JA Chevary, SH Vosko, KA Jackson, MR Pederson, and C Fiolhais, Phys. Rev. B 46, 6671 (1992)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   work_gga_x

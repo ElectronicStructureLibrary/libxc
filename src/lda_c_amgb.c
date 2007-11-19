@@ -144,8 +144,8 @@ const xc_func_info_type func_info_lda_c_amgb = {
   XC_CORRELATION,
   "AMGB (for 2D systems)",
   XC_FAMILY_LDA,
-  "C. Attacalite et al, Phys. Rev. Lett. 88, 256601 (2002)\n"
-  "C. Attacalite, PhD thesis",
+  "C Attacalite et al, Phys. Rev. Lett. 88, 256601 (2002)\n"
+  "C Attacalite, PhD thesis",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   lda_c_amgb_init,
   NULL,

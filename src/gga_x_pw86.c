@@ -47,7 +47,7 @@ const xc_func_info_type func_info_gga_x_pw86 = {
   XC_EXCHANGE,
   "Perdew & Wang 86",
   XC_FAMILY_GGA,
-  "J.P. Perdew and Y. Wang, Phys. Rev. B 33, 8800 (1986).",
+  "JP Perdew and Y Wang, Phys. Rev. B 33, 8800 (1986)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   work_gga_x

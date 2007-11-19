@@ -113,8 +113,8 @@ const xc_func_info_type func_info_lda_x = {
   XC_EXCHANGE,
   "Slater exchange",
   XC_FAMILY_LDA,
-  "P.A.M. Dirac, Proceedings of the Cambridge Philosophical Society 26, 376 (1930)\n"
-  "F. Bloch, Zeitschrift fuer Physik 57, 545 (1929)",
+  "PAM Dirac, Proceedings of the Cambridge Philosophical Society 26, 376 (1930)\n"
+  "F Bloch, Zeitschrift fuer Physik 57, 545 (1929)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL,
   NULL,

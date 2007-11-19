@@ -72,8 +72,8 @@ const xc_func_info_type func_info_gga_x_pbe = {
   XC_EXCHANGE,
   "Perdew, Burke & Ernzerhof",
   XC_FAMILY_GGA,
-  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
-  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)",
+  "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
+  "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   work_gga_x
@@ -84,9 +84,9 @@ const xc_func_info_type func_info_gga_x_pbe_r = {
   XC_EXCHANGE,
   "Perdew, Burke & Ernzerhof",
   XC_FAMILY_GGA,
-  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
-  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)\n"
-  "Y. Zhang and W. Yang, Phys. Rev. Lett 80, 890 (1998)",
+  "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
+  "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)\n"
+  "Y Zhang and W Yang, Phys. Rev. Lett 80, 890 (1998)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   work_gga_x
@@ -97,9 +97,9 @@ const xc_func_info_type func_info_gga_x_pbe_sol = {
   XC_EXCHANGE,
   "Perdew, Burke & Ernzerhof SOL",
   XC_FAMILY_GGA,
-  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
-  "J.P.Perdew, K.Burke, and M.Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)\n"
-  "J.P. Perdew, et al., arXiv:0707.2088v1",
+  "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
+  "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)\n"
+  "JP Perdew, et al, arXiv:0707.2088v1",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   work_gga_x

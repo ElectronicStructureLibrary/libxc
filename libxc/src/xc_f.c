@@ -203,7 +203,7 @@ void FC_FUNC_(xc_f90_lda_c_xalpha_init_sp, XC_F90_LDA_C_XALPHA_INIT_SP)
 
 /* GGAs */
 
-void FC_FUNC_(xc_f90_gga_init_, XC_F90_GGA_INIT_)
+void FC_FUNC_(xc_f90_gga_init, XC_F90_GGA_INIT)
      (void **p, void **info, CC_FORTRAN_INT *functional, CC_FORTRAN_INT *nspin)
 {
   xc_gga_type *gga_p;
@@ -246,7 +246,6 @@ void FC_FUNC_(xc_f90_gga_lb_set_params_dp, XC_F90_GGA_LB_SET_PARAMS_DP)
 void FC_FUNC_(xc_f90_gga_lb_set_params_sp, XC_F90_GGA_LB_SET_PARAMS_SP)
   (void **p, CC_FORTRAN_INT *modified, float *threshold, float *ip, float *qtot)
 {
-  printf("set params\n");
   xc_gga_lb_set_params_sp((xc_gga_type *)(*p), *modified, *threshold, *ip, *qtot);
 }
 
@@ -260,6 +259,53 @@ void FC_FUNC_(xc_f90_gga_lb_modified_sp, XC_F90_GGA_LB_MODIFIED_SP)
      (void **p, float *rho, float *grho, float *r, float *dedd)
 {
   xc_gga_lb_modified_sp((xc_gga_type *)(*p), rho, grho, *r, dedd);
+}
+
+
+/* Hybrid GGAs */
+
+void FC_FUNC_(xc_f90_hyb_gga_init, XC_F90_HYB_GGA_INIT)
+     (void **p, void **info, CC_FORTRAN_INT *functional, CC_FORTRAN_INT *nspin)
+{
+  xc_hyb_gga_type *hyb_gga_p;
+
+  *p = malloc(sizeof(xc_hyb_gga_type));
+  hyb_gga_p = (xc_hyb_gga_type *)(*p);
+  xc_hyb_gga_init(hyb_gga_p, (int) (*functional), (int) (*nspin));
+  *info = (void *)(hyb_gga_p->info);
+}
+
+void FC_FUNC_(xc_f90_hyb_gga_end, XC_F90_HYB_GGA_END)
+     (void **p)
+{
+  xc_hyb_gga_end((xc_hyb_gga_type *)(*p));
+  free(*p);
+}
+
+void FC_FUNC_(xc_f90_hyb_gga_dp, XC_F90_HYB_GGA_DP)
+     (void **p, double *rho, double *grho, 
+      double *e, double *dedd, double *dedgd)
+{
+  xc_hyb_gga((xc_hyb_gga_type *)(*p), rho, grho, e, dedd, dedgd);
+}
+
+void FC_FUNC_(xc_f90_hyb_gga_sp, XC_F90_HYB_GGA_SP)
+     (void **p, float *rho, float *grho, 
+      float *e, float *dedd, float *dedgd)
+{
+  xc_hyb_gga_sp((xc_hyb_gga_type *)(*p), rho, grho, e, dedd, dedgd);
+}
+
+void FC_FUNC_(xc_f90_hyb_gga_exx_coef_dp, XC_F90_HYB_GGA_EXX_COEF_DP)
+  (void **p, double *coef)
+{
+  *coef = xc_hyb_gga_exx_coef((xc_hyb_gga_type *)(*p));
+}
+
+double FC_FUNC_(xc_f90_hyb_gga_exx_coef_sp, XC_F90_HYB_GGA_EXX_COEF_SP)
+  (void **p, float *coef)
+{
+  *coef = xc_hyb_gga_exx_coef((xc_hyb_gga_type *)(*p));
 }
 
 

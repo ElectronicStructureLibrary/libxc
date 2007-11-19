@@ -20,7 +20,10 @@
 
 #include "xc.h"
 
-extern xc_func_info_type *lda_known_funct[], *gga_known_funct[];
+extern xc_func_info_type 
+  *lda_known_funct[], 
+  *gga_known_funct[],
+  *hyb_gga_known_funct[];
 
 int xc_family_from_id(int id)
 {
@@ -34,6 +37,11 @@ int xc_family_from_id(int id)
   /* or is it a GGA? */
   for(i=0; gga_known_funct[i]!=NULL; i++){
     if(gga_known_funct[i]->number == id) return XC_FAMILY_GGA;
+  }
+
+  /* or is it a hybrid GGA? */
+  for(i=0; hyb_gga_known_funct[i]!=NULL; i++){
+    if(hyb_gga_known_funct[i]->number == id) return XC_FAMILY_HYB_GGA;
   }
 
   return XC_FAMILY_UNKNOWN;

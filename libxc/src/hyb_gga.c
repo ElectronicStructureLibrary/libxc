@@ -16,6 +16,7 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 
@@ -28,7 +29,7 @@ int xc_hyb_gga_init(xc_hyb_gga_type *p, int functional, int nspin)
 {
   int i;
 
-  assert(p != NULL);
+  assert(p!=NULL);
 
   /* let us first find out if we know the functional */
   for(i=0; hyb_gga_known_funct[i]!=NULL; i++){
@@ -45,9 +46,10 @@ int xc_hyb_gga_init(xc_hyb_gga_type *p, int functional, int nspin)
 
   p->lda_n = 0;
   p->gga_n = 0;
-  p->exx_coef = 0.0;
+  p->exx_coef = 1.0;
 
   /* we always need to initialize the functional */
+  assert(p->info->init != NULL);
   p->info->init(p);
   return 0;
 }
@@ -72,13 +74,14 @@ void xc_hyb_gga_alloc(xc_hyb_gga_type *p)
   }
 }
 
+
 /* Termination */
 /*****************************************************/
 void xc_hyb_gga_end(xc_hyb_gga_type *p)
 {
   int i;
 
-  assert(p != NULL);
+  assert(p!=NULL);
 
   if(p->info->end != NULL)
     p->info->end(p);
@@ -88,7 +91,7 @@ void xc_hyb_gga_end(xc_hyb_gga_type *p)
     for(i=0; i<p->lda_n; i++)
       free(p->lda_aux[i]);
     free(p->lda_aux);
-    free(p->gga_coef);
+    free(p->lda_coef);
   }
 
   /* free the GGA components */
@@ -110,10 +113,12 @@ void xc_hyb_gga(xc_hyb_gga_type *p, double *rho, double *sigma,
   double dens;
   int i;
 
-  assert(p!=NULL);
-  
   double e1, vrho1[2], vsigma1[3];
   int ii, is, js = (p->nspin == XC_UNPOLARIZED) ? 1 : 3;
+
+  assert(p!=NULL);
+  
+  fflush(stdout);
 
   /* initialize all to zero */
   *e = 0.0;

@@ -1,5 +1,3 @@
-Common interface to Perdew-like correlation functionals
-
 Add functionals:
 
 GGAs:
@@ -12,10 +10,16 @@ GGAs:
   *) Filatov & Thiel
        correlation
        IJQC 62, 603; Mol Phys 91, 847
-  *) Tozer & Handy
-       exchange-correlation
-       JCP 108, 2545; JCP 109, 6264; JCP 112, 5639; JCP 115, 9233
 
 mGGAs:
+  *) Local tau approximation
+  *) TPSS
 
 hybrids:
+  *) 405: mPW91PW91
+  *) 407: B97
+  *) 408: B97-1
+  *) 409: B97-1 revised
+  *) 410: B97-2
+  *) 412: SB98h
+  *) 413: B88+B95?

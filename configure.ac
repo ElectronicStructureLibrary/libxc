@@ -36,10 +36,6 @@ AM_PROG_CC_C_O
 AC_HEADER_STDC
 AC_FUNC_ALLOCA
 
-# Checks for size of pointer
-ACX_POINTER_SIZE
-AC_DEFINE_UNQUOTED(C_POINTER, [integer(${ac_pointersize})], [The type of a C pointer])
-
 dnl Allow user-specified location for libstring_f
 AC_ARG_WITH([string_f],
             AS_HELP_STRING([--with-string_f],[Path to the string_f library]),

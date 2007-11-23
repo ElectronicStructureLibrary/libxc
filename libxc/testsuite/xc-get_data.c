@@ -81,8 +81,12 @@ void print_values(xc_values_type *xc)
 	 " vsigmabb      = %#19.12E\n\n"
 	 " v2rhoa2       = %#19.12E\n"
 	 " v2rhoab       = %#19.12E\n"
-	 " v2rhob2       = %#19.12E\n\n"
-	 " v2rhoasigmaaa = %#19.12E\n"
+	 " v2rhob2       = %#19.12E\n\n",
+	 xc->zk, 
+	 xc->vrho[0], xc->vrho[1],
+	 xc->vsigma[0], xc->vsigma[1], xc->vsigma[2],
+	 xc->v2rho[0], xc->v2rho[1], xc->v2rho[2]);
+  printf(" v2rhoasigmaaa = %#19.12E\n"
 	 " v2rhoasigmaab = %#19.12E\n"
 	 " v2rhoasigmabb = %#19.12E\n"
 	 " v2rhobsigmaaa = %#19.12E\n"
@@ -94,10 +98,6 @@ void print_values(xc_values_type *xc)
 	 " v2sigmaab2    = %#19.12E\n"
 	 " v2sigmaabbb   = %#19.12E\n"
 	 " v2sigmabb2    = %#19.12E\n",
-	 xc->zk, 
-	 xc->vrho[0], xc->vrho[1],
-	 xc->vsigma[0], xc->vsigma[1], xc->vsigma[2],
-	 xc->v2rho[0], xc->v2rho[1], xc->v2rho[2],
 	 xc->v2rhosigma[0], xc->v2rhosigma[1], xc->v2rhosigma[2],
 	 xc->v2rhosigma[3], xc->v2rhosigma[4], xc->v2rhosigma[5],
 	 xc->v2sigma[0], xc->v2sigma[1], xc->v2sigma[2],

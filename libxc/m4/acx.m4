@@ -19,37 +19,6 @@
 ##
 
 ################################################
-# Check size of a pointer
-# ----------------------------------
-AC_DEFUN([ACX_POINTER_SIZE],
-[AC_MSG_CHECKING([for the size of a pointer])
-  AC_REQUIRE([AC_PROG_CC])
-  if test -z "$POINTER_SIZE"; then
-  cat >pointertest.c <<EOF
-#include <stdio.h>
-int main()
-{
-  printf("%ld", sizeof(void *));
-  return 0;
-}
-EOF
-  ac_try='$CC $CFLAGS $LDFLAGS -o pointertest.x pointertest.c 1>&AC_FD_CC'
-  if AC_TRY_EVAL(ac_try); then
-    ac_try=""
-  else
-    echo "configure: failed program was:" >&AC_FD_CC
-    cat pointertest.c >&AC_FD_CC
-    rm -f pointertest*
-    AC_MSG_ERROR(failed to compile c program to find the size of a pointer)
-  fi
-  ac_pointersize=`./pointertest.x`;
-  rm -f pointertest*
-  AC_DEFINE_UNQUOTED(POINTER_SIZE, ${ac_pointersize}, [The size of a C pointer])
-  AC_MSG_RESULT([${ac_pointersize} bytes])
-fi
-])
-
-################################################
 # Check size of a fortran integer
 # ----------------------------------
 AC_DEFUN([ACX_FC_INTEGER_SIZE],
@@ -110,8 +79,6 @@ int main(void)
     printf("int");
   else if(${ac_fcintegersize} == sizeof(long))
     printf("long");
-  else if(${ac_fcintegersize} == sizeof(long long))
-    printf("long long");
   return 1;
 }
 EOF

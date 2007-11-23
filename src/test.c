@@ -37,9 +37,9 @@ void test_lda()
     double ec2, vc2[2], fxc2[4];
     
     dens = 1.0/(4.0/3.0*M_PI*pow(rs,3));
-    //zeta = 1;
-    //rho[0] = dens*(1.0 + zeta)/2.0;
-    //rho[1] = dens*(1.0 - zeta)/2.0;
+    /* zeta = 1;
+       rho[0] = dens*(1.0 + zeta)/2.0;
+       rho[1] = dens*(1.0 - zeta)/2.0; */
 
     rho[0] = dens;
     rho[1] = 0;

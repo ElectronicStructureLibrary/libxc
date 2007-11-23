@@ -27,9 +27,10 @@ AC_DEFUN([ACX_POINTER_SIZE],
   if test -z "$POINTER_SIZE"; then
   cat >pointertest.c <<EOF
 #include <stdio.h>
-void main()
+int main()
 {
   printf("%ld", sizeof(void *));
+  return 0;
 }
 EOF
   ac_try='$CC $CFLAGS $LDFLAGS -o pointertest.x pointertest.c 1>&AC_FD_CC'

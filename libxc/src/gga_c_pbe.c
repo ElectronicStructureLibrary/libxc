@@ -58,6 +58,11 @@ inline void pbe_eq8(int func, double ecunif, double phi,
 		    double *A, double *dec, double *dphi)
 {
   double phi3, f1, f2, f3, dx;
+  static const double beta[2]  = {
+    0.06672455060314922,  /* original PBE */
+    0.046                 /* PBE sol      */
+  };
+  static const double gamm  = 0.03109069086965489503494086371273; /* (1.0 - log(2.0))/(M_PI*M_PI) */
 
   phi3 = pow(phi, 3);
   f1   = ecunif/(gamm*phi3);
@@ -76,6 +81,11 @@ inline void pbe_eq7(int func, double phi, double t, double A,
 		    double *H, double *dphi, double *dt, double *dA)
 {
   double t2, phi3, f1, f2, f3;
+  static const double beta[2]  = {
+    0.06672455060314922,  /* original PBE */
+    0.046                 /* PBE sol      */
+  };
+  static const double gamm  = 0.03109069086965489503494086371273; /* (1.0 - log(2.0))/(M_PI*M_PI) */
 
   t2   = t*t;
   phi3 = pow(phi, 3);

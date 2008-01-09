@@ -53,8 +53,9 @@ static double xc_trial_points[][5] = {
 typedef struct {
   int family;
 
-  xc_lda_type lda_func;
-  xc_gga_type gga_func;
+  xc_lda_type         lda_func;
+  xc_gga_type         gga_func;
+  xc_hyb_gga_type hyb_gga_func;
 } functionals_type;
 
 
@@ -68,6 +69,10 @@ void get_point(functionals_type *func, double point[5], double *e, double der[5]
     case XC_FAMILY_GGA:
       xc_gga(&(func->gga_func), &(point[0]), &(point[2]),
 	  e, &(der[0]), &(der[2]));
+      break;
+    case XC_FAMILY_HYB_GGA:
+      xc_hyb_gga(&(func->hyb_gga_func), &(point[0]), &(point[2]),
+          e, &(der[0]), &(der[2]));
       break;
     }  
 }
@@ -199,6 +204,11 @@ void test_functional(int functional, int nspin)
       xc_gga_init(&(func.gga_func), functional, nspin);
 
       info = func.gga_func.info;
+      break;
+    case XC_FAMILY_HYB_GGA:
+      xc_hyb_gga_init(&(func.hyb_gga_func), functional, nspin);
+
+      info = func.hyb_gga_func.info;
       break;
     default:
       fprintf(stderr, "Functional '%d' not found\n", functional);

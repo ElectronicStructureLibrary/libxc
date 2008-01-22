@@ -212,7 +212,7 @@ void xc_lda_fxc_fd(const xc_lda_type *p, const double *rho, double *fxc)
     js = (i==0) ? 0 : 2;
 
     rho2[i] = rho[i] + delta_rho;
-    rho2[j] = rho[j];
+    rho2[j] = (p->nspin == XC_POLARIZED) ? rho[j] : 0.0;
     xc_lda_vxc(p, rho2, &e, vc1);
 
     if(rho[i]<2.0*delta_rho){ /* we have to use a forward difference */

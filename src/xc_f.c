@@ -102,6 +102,9 @@ void FC_FUNC_(xc_f90_lda_init_, XC_F90_LDA_INIT_)
 void FC_FUNC_(xc_f90_lda_end, XC_F90_LDA_END)
      (void **p)
 {
+  /* xc_lda_end does not exist */
+  free(*p);
+  *p = NULL;
 }
 
 /* Double precision interfaces */
@@ -219,6 +222,7 @@ void FC_FUNC_(xc_f90_gga_end, XC_F90_GGA_END)
 {
   xc_gga_end((xc_gga_type *)(*p));
   free(*p);
+  *p = NULL;
 }
 
 void FC_FUNC_(xc_f90_gga_dp, XC_F90_GGA_DP)

@@ -45,7 +45,8 @@ endif
 dist_noinst_SCRIPTS = get_funcs.pl
 
 noinst_HEADERS = util.h work_gga_x.c
-include_HEADERS = xc.h xc_funcs.h
+include_HEADERS = xc.h
+nodist_include_HEADERS = xc_funcs.h
 
 AM_CPPFLAGS = $(string_f_include)
 

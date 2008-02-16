@@ -22,7 +22,7 @@
 #include <math.h>
 #include "util.h"
 
-inline void 
+void 
 perdew_params(xc_gga_type *gga_p, double *rho, double *sigma, perdew_t *pt)
 {
   pt->nspin = gga_p->nspin;
@@ -51,7 +51,7 @@ perdew_params(xc_gga_type *gga_p, double *rho, double *sigma, perdew_t *pt)
   pt->decunif = 0.0;
 }
 
-inline void 
+void 
 perdew_potentials(perdew_t *pt, double *rho, double e_gga, 
 		  double *vrho, double *vsigma)
 {

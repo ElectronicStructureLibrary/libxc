@@ -108,7 +108,7 @@ H0_eq13(double   ec, double   g, double   t, double *H0,
 /* pade parametrized form of C-xc found in
    M Rasolt & DJW Geldart, Phys. Rev. B 34, 1325 (1986)
 */
-inline void 
+static inline void 
 Rasold_Geldart_C_xc(double rs, double *C_xc, double *drs)
 {
   const double 
@@ -160,7 +160,7 @@ H1_eq15(double   rs, double   g, double   t, double   ks, double   kf, double *H
 }
 
 
-inline void 
+static inline void 
 ec_eq9(double   ec, double   rs, double   t, double   g, double   ks, double   kf, double  *ec_gga,
        double *dec, double *drs, double *dt, double *dg, double *dks, double *dkf)
 {

@@ -54,7 +54,7 @@ static void gga_c_pbe_end(void *p_)
 }
 
 
-inline void pbe_eq8(int func, double ecunif, double phi, 
+static inline void pbe_eq8(int func, double ecunif, double phi, 
 		    double *A, double *dec, double *dphi)
 {
   double phi3, f1, f2, f3, dx;
@@ -77,7 +77,7 @@ inline void pbe_eq8(int func, double ecunif, double phi,
 }
 
 
-inline void pbe_eq7(int func, double phi, double t, double A, 
+static inline void pbe_eq7(int func, double phi, double t, double A, 
 		    double *H, double *dphi, double *dt, double *dA)
 {
   double t2, phi3, f1, f2, f3;

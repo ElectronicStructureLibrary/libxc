@@ -41,9 +41,9 @@ static void gga_xc_hcth_end(void *p_)
   free(p->lda_aux);
 }
 
-void func_g(int func, int type, double s, double *g, double *dg, double *ldg)
+void func_g(int func, int type, FLOAT s, FLOAT *g, FLOAT *dg, FLOAT *ldg)
 {
-  const double c[4][3][5] = {
+  const FLOAT c[4][3][5] = {
     {      /* HCTH/93 */
       {1.09320,  -0.744056,    5.59920,   -6.78549,   4.49357}, /* X   */
       {0.222601, -0.0338622,  -0.0125170, -0.802496,  1.55396}, /* Css */
@@ -62,12 +62,12 @@ void func_g(int func, int type, double s, double *g, double *dg, double *ldg)
       {0.589076, 4.42374, -19.2218,  42.5721, -42.0052 }        /* Cab */
     }
   };
-  const double gamma[3] = {
+  const FLOAT gamma[3] = {
     0.004, 0.2, 0.006
   };
 
-  double s2, dd, x, dx;
-  const double *cc;
+  FLOAT s2, dd, x, dx;
+  const FLOAT *cc;
 
   s2 = s*s;
   dd = (1.0 + gamma[type]*s2);
@@ -83,13 +83,13 @@ void func_g(int func, int type, double s, double *g, double *dg, double *ldg)
 }
 
 static void 
-gga_xc_hcth(void *p_, double *rho, double *sigma,
-	    double *e, double *vrho, double *vsigma)
+gga_xc_hcth(void *p_, FLOAT *rho, FLOAT *sigma,
+	    FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
   xc_gga_type *p = p_;
 
-  double dens, mrho[2], ecunif, vcunif[2], x_avg, x[2];
-  double sfact;
+  FLOAT dens, mrho[2], ecunif, vcunif[2], x_avg, x[2];
+  FLOAT sfact;
   int func, is;
 
   switch(p->info->number){
@@ -118,9 +118,9 @@ gga_xc_hcth(void *p_, double *rho, double *sigma,
 
   x_avg = 0.0;
   for(is=0; is<p->nspin; is++){
-    double mrho2[2], gdm, ds, rho13;
-    double g_x, dg_x, ldg_x, g_ss, dg_ss, ldg_ss, e_x, e_ss;
-    double ecunif_s, vcunif_s[2];
+    FLOAT mrho2[2], gdm, ds, rho13;
+    FLOAT g_x, dg_x, ldg_x, g_ss, dg_ss, ldg_ss, e_x, e_ss;
+    FLOAT ecunif_s, vcunif_s[2];
     int js = is==0 ? 0 : 2;
 
     vrho[is]   = 0.0;
@@ -130,7 +130,7 @@ gga_xc_hcth(void *p_, double *rho, double *sigma,
     gdm   = sqrt(sigma[js])/sfact;
   
     ds    = rho[is]/sfact;
-    rho13 = pow(ds, 1.0/3.0);
+    rho13 = POW(ds, 1.0/3.0);
     x[is] = gdm/(ds*rho13);
     x_avg+= sfact*0.5*x[is]*x[is];
 
@@ -162,22 +162,22 @@ gga_xc_hcth(void *p_, double *rho, double *sigma,
   }
 
   { /* now the ab term */
-    double g_ab, dg_ab, ldg_ab;
+    FLOAT g_ab, dg_ab, ldg_ab;
 
     x_avg = sqrt(x_avg);
     func_g(func, 2, x_avg, &g_ab, &dg_ab, &ldg_ab);
     (*e) += ecunif*g_ab;
 
     for(is=0; is<p->nspin; is++){
-      double dd;
+      FLOAT dd;
       int js = is==0 ? 0 : 2;
 
       vrho[is] += vcunif[is]*g_ab;
 
-      dd = pow(dens, 4.0/3.0);
+      dd = POW(dens, 4.0/3.0);
       if(x_avg*dd > MIN_GRAD*MIN_GRAD && mrho[is] > MIN_DENS){
 	vrho[is]   -= 4.0/3.0*(ecunif/mrho[is])*dg_ab*x[is]*x[is]/(2.0*x_avg);
-	vsigma[js] += ecunif*dg_ab*pow(mrho[is], -8.0/3.0)/(sfact*4.0*x_avg);
+	vsigma[js] += ecunif*dg_ab*POW(mrho[is], -8.0/3.0)/(sfact*4.0*x_avg);
       }
     }
   }

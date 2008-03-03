@@ -24,19 +24,19 @@
 #define XC_GGA_X_mPW91        119 /* Modified form of PW91 by Adamo & Barone */
 
 static inline void 
-func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
+func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
-  const double x2s     = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
-  const double aa[2]   = {0.19645, 0.21516};
-  const double bb      = 7.7956;
-  const double cc[2]   = {0.2743, 0.30042};
-  const double dd[2]   = {-0.1508, -0.17696};
-  const double ff[2]   = {0.004, 0.002285};
-  const double alpha   = 100.0;
-  const double expo[2] = {4.0, 3.75};
+  const FLOAT x2s     = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
+  const FLOAT aa[2]   = {0.19645, 0.21516};
+  const FLOAT bb      = 7.7956;
+  const FLOAT cc[2]   = {0.2743, 0.30042};
+  const FLOAT dd[2]   = {-0.1508, -0.17696};
+  const FLOAT ff[2]   = {0.004, 0.002285};
+  const FLOAT alpha   = 100.0;
+  const FLOAT expo[2] = {4.0, 3.75};
 
-  double ss, ss2, ss4;
-  double f1, f2, f3, f4;
+  FLOAT ss, ss2, ss4;
+  FLOAT f1, f2, f3, f4;
 
   int func;
 
@@ -47,7 +47,7 @@ func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
 
   ss  = x2s*x;
   ss2 = ss*ss;
-  ss4 = pow(ss, expo[func]);
+  ss4 = POW(ss, expo[func]);
 
   f1 = dd[func]*exp(-alpha*ss2);
   f2 = aa[func]*asinh(bb*ss);
@@ -56,10 +56,10 @@ func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
 
   *f     = 1.0 + f3/f4;
   {
-    double df3, df4;
+    FLOAT df3, df4;
 
-    df3 = 2.0*ss*(cc[func] + f1*(1.0 - alpha*ss2) - expo[func]/2.0*ff[func]*pow(ss, expo[func]-2.0));
-    df4 = f2 + ss*(aa[func]*bb/sqrt(1.0 + bb*bb*ss2) + expo[func]*ff[func]*pow(ss, expo[func]-2.0));
+    df3 = 2.0*ss*(cc[func] + f1*(1.0 - alpha*ss2) - expo[func]/2.0*ff[func]*POW(ss, expo[func]-2.0));
+    df4 = f2 + ss*(aa[func]*bb/sqrt(1.0 + bb*bb*ss2) + expo[func]*ff[func]*POW(ss, expo[func]-2.0));
     *dfdx  = (df3*f4 - f3*df4)/(f4*f4);
     *ldfdx = cc[func] + dd[func];
   }

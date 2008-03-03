@@ -23,17 +23,17 @@
 #define XC_GGA_X_B86_MGC      105 /* Becke 86 Xalfa,beta,gamma (with mod. grad. correction) */
 
 static inline void
-func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
+func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
-  static const double beta  = 0.00375;
-  static const double gamma = 0.007;
+  static const FLOAT beta  = 0.00375;
+  static const FLOAT gamma = 0.007;
   
-  double f1;
+  FLOAT f1;
 
   f1    = (1.0 + gamma*x*x);
-  *f    = 1.0 + beta/X_FACTOR_C*x*x/pow(f1, 4.0/5.0);
+  *f    = 1.0 + beta/X_FACTOR_C*x*x/POW(f1, 4.0/5.0);
 
-  *dfdx = beta/X_FACTOR_C*2.0*x*(5.0 + gamma*x*x)/(5.0*pow(f1, 9.0/5.0));
+  *dfdx = beta/X_FACTOR_C*2.0*x*(5.0 + gamma*x*x)/(5.0*POW(f1, 9.0/5.0));
   *ldfdx= beta/X_FACTOR_C;
 }
 

@@ -25,9 +25,9 @@
 #define XC_GGA_X_PBE_SOL      116 /* Perdew, Burke & Ernzerhof exchange (solids)    */
 
 static inline void 
-func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
+func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
-  static const double kappa[3] = {
+  static const FLOAT kappa[3] = {
     0.8040, /* original PBE */
     1.245,  /* PBE R */
     0.8040  /* PBE sol */
@@ -43,13 +43,13 @@ func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
      where the first term comes from using the spin densities, and the second
      from the constants of k_f = (3 pi^2 n)^(1/3)
   */
-  static const double mu[3] = {
+  static const FLOAT mu[3] = {
     0.00361218645365094697,  /* PBE: mu = beta*pi^2/3, beta = 0.066725 (plus above mentioned constants) */
     0.00361218645365094697,  /* PBE rev: as PBE */
     0.00203151948716303243   /* PBE sol: 10/81 */
   };
 
-  double dd;
+  FLOAT dd;
   int func;
 
   switch(p->info->number){

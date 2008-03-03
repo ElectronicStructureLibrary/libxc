@@ -60,14 +60,14 @@ void xc_hyb_gga_alloc(xc_hyb_gga_type *p)
   int i;
 
   if(p->lda_n > 0){
-    p->lda_coef = (double *)       malloc(p->lda_n * sizeof(double));
+    p->lda_coef = (FLOAT *)       malloc(p->lda_n * sizeof(FLOAT));
     p->lda_aux  = (xc_lda_type **) malloc(p->lda_n * sizeof(xc_lda_type *));
     for(i=0; i<p->lda_n; i++)
       p->lda_aux[i] = (xc_lda_type *) malloc(sizeof(xc_lda_type));
   }
 
   if(p->gga_n > 0){
-    p->gga_coef = (double *)       malloc(p->gga_n * sizeof(double));
+    p->gga_coef = (FLOAT *)       malloc(p->gga_n * sizeof(FLOAT));
     p->gga_aux  = (xc_gga_type **) malloc(p->gga_n * sizeof(xc_gga_type *));
     for(i=0; i<p->gga_n; i++)
       p->gga_aux[i] = (xc_gga_type *) malloc(sizeof(xc_gga_type));
@@ -107,13 +107,10 @@ void xc_hyb_gga_end(xc_hyb_gga_type *p)
 
 
 /*****************************************************/
-void xc_hyb_gga(xc_hyb_gga_type *p, double *rho, double *sigma,
-		double *e, double *vrho, double *vsigma)
+void xc_hyb_gga(xc_hyb_gga_type *p, FLOAT *rho, FLOAT *sigma,
+		FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
-  double dens;
-  int i;
-
-  double e1, vrho1[2], vsigma1[3];
+  FLOAT e1, vrho1[2], vsigma1[3];
   int ii, is, js = (p->nspin == XC_UNPOLARIZED) ? 1 : 3;
 
   assert(p!=NULL);
@@ -152,37 +149,11 @@ void xc_hyb_gga(xc_hyb_gga_type *p, double *rho, double *sigma,
 }
 
 
-void xc_hyb_gga_sp(xc_hyb_gga_type *p, float *rho, float *sigma,
-		   float *e, float *vrho, float *vsigma)
-{
-  double drho[2], dsigma[6];
-  double de[1], dvrho[2], dvsigma[6];
-  int ii, nsig;
-
-  nsig = (p->nspin == XC_POLARIZED) ? 1 : 3;
-  for(ii=0; ii < p->nspin; ii++) drho[ii]   = (double) rho[ii];
-  for(ii=0; ii < nsig;     ii++) dsigma[ii] = (double) sigma[ii];
-
-  xc_hyb_gga(p, drho, dsigma, de, dvrho, dvsigma);
-  
-  e[0] = (float)de[0];
-  for(ii=0; ii < p->nspin; ii++) vrho[ii]   = (float)dvrho[ii];
-  for(ii=0; ii < nsig    ; ii++) vsigma[ii] = (float)dvsigma[ii];
-}
-
-
 /*****************************************************/
-double xc_hyb_gga_exx_coef(xc_hyb_gga_type *p)
+FLOAT xc_hyb_gga_exx_coef(xc_hyb_gga_type *p)
 {
   assert(p!=NULL);
 
   return p->exx_coef;
 }
 
-
-float xc_hyb_gga_exx_coef_sp(xc_hyb_gga_type *p)
-{
-  assert(p!=NULL);
-
-  return (float)p->exx_coef;
-}

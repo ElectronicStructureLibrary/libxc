@@ -24,13 +24,13 @@
 #define XC_GGA_X_DK87_R2      112 /* dePristo & Kress 87 (version R2)               */
 
 static inline void 
-func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
+func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
-  static const double a1[2] = {0.861504, 0.861213}, 
+  static const FLOAT a1[2] = {0.861504, 0.861213}, 
     b1[2] = {0.044286, 0.042076}, alpha[2] = {1.0, 0.98};
-  static const double betag = 0.00132326681668994855/X_FACTOR_C; /* 7/(432*pi*(6*pi^2)^(1/3)) */
+  static const FLOAT betag = 0.00132326681668994855/X_FACTOR_C; /* 7/(432*pi*(6*pi^2)^(1/3)) */
   
-  double f0, f1, f2;
+  FLOAT f0, f1, f2;
   int func;
 
   switch(p->info->number){
@@ -38,7 +38,7 @@ func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
   default:               func = 0; /* XC_GGA_X_DK87_R1 */
   }
 
-  f0 = a1[func]*pow(x, alpha[func]);
+  f0 = a1[func]*POW(x, alpha[func]);
   f1 = 1.0 + f0;
   f2 = 1.0 + b1[func]*x*x;
   

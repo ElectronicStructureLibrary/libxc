@@ -1,0 +1,11 @@
+#define _SINGLE_PREC_ @SINGLE_PRECISION@
+
+#if _SINGLE_PREC_
+#  define FLOAT float
+#  define POW   powf
+#  define ASINH asinhf
+#else
+#  define FLOAT double
+#  define POW   pow
+#  define ASINH asinh
+#endif

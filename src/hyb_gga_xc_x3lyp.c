@@ -25,11 +25,10 @@
 
 void gga_xc_x3lyp_init(void *p_)
 {
-  const double a1=0.675, a2=0.235;
-  const double a0=0.218, ax=0.709, ac=0.871;
+  const FLOAT a1=0.675, a2=0.235;
+  const FLOAT a0=0.218, ax=0.709, ac=0.871;
 
   xc_hyb_gga_type *p = (xc_hyb_gga_type *)p_;
-  int i;
 
   p->lda_n = 2;
   p->gga_n = 3;

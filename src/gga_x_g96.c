@@ -23,10 +23,10 @@
 #define XC_GGA_X_G96          107 /* Gill 96                                        */
 
 static inline void
-func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
+func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
-  static const double c1 = 1.0/137.0;
-  double sx = sqrt(x);
+  static const FLOAT c1 = 1.0/137.0;
+  FLOAT sx = sqrt(x);
 
   *f     = 1.0 + c1/X_FACTOR_C*x*sx;
   *dfdx  = 3.0*c1/(2.0*X_FACTOR_C)*sx;

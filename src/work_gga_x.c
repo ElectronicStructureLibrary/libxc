@@ -28,12 +28,12 @@
 #endif
 
 static void 
-work_gga_x(void *p_, double *rho, double *sigma,
-	   double *e, double *vrho, double *vsigma)
+work_gga_x(void *p_, FLOAT *rho, FLOAT *sigma,
+	   FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
   xc_gga_type *p = p_;
 
-  double sfact, dens;
+  FLOAT sfact, dens;
   int is;
 
   *e   = 0.0;
@@ -45,8 +45,8 @@ work_gga_x(void *p_, double *rho, double *sigma,
 
   dens = 0.0;
   for(is=0; is<p->nspin; is++){
-    double gdm, ds, rho13;
-    double x, f, dfdx, ldfdx;
+    FLOAT gdm, ds, rho13;
+    FLOAT x, f, dfdx, ldfdx;
     int js = is==0 ? 0 : 2;
 
     vrho[is]   = 0.0;
@@ -57,7 +57,7 @@ work_gga_x(void *p_, double *rho, double *sigma,
     gdm   = sqrt(sigma[js])/sfact;
   
     ds    = rho[is]/sfact;
-    rho13 = pow(ds, 1.0/3.0);
+    rho13 = POW(ds, 1.0/3.0);
     x     = gdm/(ds*rho13);
 
 #if   HEADER == 1

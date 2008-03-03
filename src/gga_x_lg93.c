@@ -22,15 +22,15 @@
 #define XC_GGA_X_LG93  113 /* Lacks & Gordon 93 */
 
 static inline void 
-func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
+func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
-  static const double x2s = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
-  static const double ad = 1e-8, a4 = 29.790, a6 = 22.417;
-  static const double a8 = 12.119, a10 = 1570.1, a12 = 55.944;
-  static const double a2 = 4.94113918475214219939; /* (ad + 0.1234)/b, b = 0.024974 */
+  static const FLOAT x2s = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
+  static const FLOAT ad = 1e-8, a4 = 29.790, a6 = 22.417;
+  static const FLOAT a8 = 12.119, a10 = 1570.1, a12 = 55.944;
+  static const FLOAT a2 = 4.94113918475214219939; /* (ad + 0.1234)/b, b = 0.024974 */
 
-  double ss, ss2, ss4, ss6, ss8, ss10;
-  double f1, f2, f3;
+  FLOAT ss, ss2, ss4, ss6, ss8, ss10;
+  FLOAT f1, f2, f3;
 
   ss  = x2s*x;    ss2  = ss*ss;
   ss4 = ss2*ss2;  ss6  = ss4*ss2;

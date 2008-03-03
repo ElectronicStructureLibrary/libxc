@@ -33,25 +33,23 @@
      from the constants of k_f = (3 pi^2 n)^(1/3)
 */
 
-static double wc_mu;
-static double wc_c, wc_fac;
+static FLOAT wc_mu;
+static FLOAT wc_c, wc_fac;
 
 void gga_x_wc_init(void *p_)
 {
-  static double beta = 0.066725;
-
   wc_mu  = 0.2195149727645171;
-  wc_fac = 1.0/(2.0*pow(6.0*M_PI*M_PI, 1.0/3.0));
+  wc_fac = 1.0/(2.0*POW(6.0*M_PI*M_PI, 1.0/3.0));
   wc_c   = (146.0/2025.0)*(4.0/9.0) - (73.0/405.0)*(2.0/3.0) + (wc_mu - 10.0/81.0);
 }
 
 static inline void 
-func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
+func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
-  const double kappa = 0.8040;
+  const FLOAT kappa = 0.8040;
 
-  double s, s2, xx, dxx;
-  double aux1, aux2, dd;
+  FLOAT s, s2, xx, dxx;
+  FLOAT aux1, aux2, dd;
 
   s  = wc_fac*x;
   s2 = s*s;

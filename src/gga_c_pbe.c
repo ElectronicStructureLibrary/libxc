@@ -32,11 +32,11 @@
 #define XC_GGA_C_PBE          130 /* Perdew, Burke & Ernzerhof correlation     */
 #define XC_GGA_C_PBE_SOL      133 /* Perdew, Burke & Ernzerhof correlation SOL */
 
-static const double beta[2]  = {
+static const FLOAT beta[2]  = {
   0.06672455060314922,  /* original PBE */
   0.046                 /* PBE sol      */
 };
-static const double gamm  = 0.03109069086965489503494086371273; /* (1.0 - log(2.0))/(M_PI*M_PI) */
+static const FLOAT gamm  = 0.03109069086965489503494086371273; /* (1.0 - log(2.0))/(M_PI*M_PI) */
 
 static void gga_c_pbe_init(void *p_)
 {
@@ -54,17 +54,17 @@ static void gga_c_pbe_end(void *p_)
 }
 
 
-static inline void pbe_eq8(int func, double ecunif, double phi, 
-		    double *A, double *dec, double *dphi)
+static inline void pbe_eq8(int func, FLOAT ecunif, FLOAT phi, 
+		    FLOAT *A, FLOAT *dec, FLOAT *dphi)
 {
-  double phi3, f1, f2, f3, dx;
-  static const double beta[2]  = {
+  FLOAT phi3, f1, f2, f3, dx;
+  static const FLOAT beta[2]  = {
     0.06672455060314922,  /* original PBE */
     0.046                 /* PBE sol      */
   };
-  static const double gamm  = 0.03109069086965489503494086371273; /* (1.0 - log(2.0))/(M_PI*M_PI) */
+  static const FLOAT gamm  = 0.03109069086965489503494086371273; /* (1.0 - log(2.0))/(M_PI*M_PI) */
 
-  phi3 = pow(phi, 3);
+  phi3 = POW(phi, 3);
   f1   = ecunif/(gamm*phi3);
   f2   = exp(-f1);
   f3   = f2 - 1.0;
@@ -77,18 +77,18 @@ static inline void pbe_eq8(int func, double ecunif, double phi,
 }
 
 
-static inline void pbe_eq7(int func, double phi, double t, double A, 
-		    double *H, double *dphi, double *dt, double *dA)
+static inline void pbe_eq7(int func, FLOAT phi, FLOAT t, FLOAT A, 
+		    FLOAT *H, FLOAT *dphi, FLOAT *dt, FLOAT *dA)
 {
-  double t2, phi3, f1, f2, f3;
-  static const double beta[2]  = {
+  FLOAT t2, phi3, f1, f2, f3;
+  static const FLOAT beta[2]  = {
     0.06672455060314922,  /* original PBE */
     0.046                 /* PBE sol      */
   };
-  static const double gamm  = 0.03109069086965489503494086371273; /* (1.0 - log(2.0))/(M_PI*M_PI) */
+  static const FLOAT gamm  = 0.03109069086965489503494086371273; /* (1.0 - log(2.0))/(M_PI*M_PI) */
 
   t2   = t*t;
-  phi3 = pow(phi, 3);
+  phi3 = POW(phi, 3);
 
   f1 = t2 + A*t2*t2;
   f3 = 1.0 + A*f1;
@@ -97,7 +97,7 @@ static inline void pbe_eq7(int func, double phi, double t, double A,
   *H = gamm*phi3*log(1.0 + f2);
 
   {
-    double df1dt, df2dt, df1dA, df2dA;
+    FLOAT df1dt, df2dt, df1dA, df2dA;
 
     *dphi = 3.0*gamm*phi*phi*log(1.0 + f2);
     
@@ -112,15 +112,15 @@ static inline void pbe_eq7(int func, double phi, double t, double A,
 
 }
 
-static void gga_c_pbe(void *p_, double *rho, double *sigma,
-		      double *e, double *vrho, double *vsigma)
+static void gga_c_pbe(void *p_, FLOAT *rho, FLOAT *sigma,
+		      FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
   xc_gga_type *p = (xc_gga_type *)p_;
   perdew_t pt;
 
   int func;
-  double A, dAdec, dAdphi;
-  double H, dHdphi, dHdt, dHdA;
+  FLOAT A, dAdec, dAdphi;
+  FLOAT H, dHdphi, dHdt, dHdA;
 
   func = (p->info->number == XC_GGA_C_PBE_SOL) ? 1 : 0;
 

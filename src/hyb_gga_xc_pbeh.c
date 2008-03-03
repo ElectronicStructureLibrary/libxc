@@ -25,10 +25,9 @@
 
 void gga_xc_pbeh_init(void *p_)
 {
-  const double a0 = 0.25;
+  const FLOAT a0 = 0.25;
 
   xc_hyb_gga_type *p = (xc_hyb_gga_type *)p_;
-  int i;
 
   p->lda_n = 0;
   p->gga_n = 2;

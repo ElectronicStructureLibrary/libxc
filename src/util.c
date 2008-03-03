@@ -22,7 +22,7 @@
 
 /* this function converts the spin-density into total density and
 	 relative magnetization */
-void rho2dzeta(int nspin, const double *rho, double *d, double *zeta)
+inline void rho2dzeta(int nspin, const FLOAT *rho, FLOAT *d, FLOAT *zeta)
 {
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
   

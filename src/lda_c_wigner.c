@@ -25,13 +25,13 @@
 
 #define XC_LDA_C_WIGNER  2   /* Wigner parametrization       */
 
-static void lda_c_wigner(const void *p_, const double *rho, double *ec, double *vc, double *fc)
+static void lda_c_wigner(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 {
   xc_lda_type *p = (xc_lda_type *)p_;
 
-  static double a = -0.44, b = 7.8;
-  double dens, zeta, rs;
-  double etmp, decdrs, t;
+  static FLOAT a = -0.44, b = 7.8;
+  FLOAT dens, zeta, rs;
+  FLOAT etmp, decdrs, t;
   
   rho2dzeta(p->nspin, rho, &dens, &zeta);
 

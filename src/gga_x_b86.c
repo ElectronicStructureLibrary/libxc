@@ -24,15 +24,15 @@
 #define XC_GGA_X_B86_R        104 /* Becke 86 Xalfa,beta,gamma (reoptimized)        */
 
 static inline void 
-func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
+func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
-  static const double beta[2]  = {
+  static const FLOAT beta[2]  = {
     0.0076,  /* beta from the original Becke paper */
     0.00787  /* reoptimized value used in part 3 of Becke 97 paper */
   };
-  static const double gamma = 0.004;
+  static const FLOAT gamma = 0.004;
 
-  double f1, f2;
+  FLOAT f1, f2;
   int func;
 
   switch(p->info->number){

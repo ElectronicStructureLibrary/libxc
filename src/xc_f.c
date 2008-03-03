@@ -107,56 +107,28 @@ void FC_FUNC_(xc_f90_lda_end, XC_F90_LDA_END)
   *p = NULL;
 }
 
-/* Double precision interfaces */
-
-void FC_FUNC_(xc_f90_lda_dp, XC_F90_LDA_DP)
-  (void **p, double *rho, double *exc, double *vxc, double *fxc, double *kxc)
+void FC_FUNC_(xc_f90_lda, XC_F90_LDA)
+  (void **p, FLOAT *rho, FLOAT *exc, FLOAT *vxc, FLOAT *fxc, FLOAT *kxc)
 {
   xc_lda((xc_lda_type *)(*p), rho, exc, vxc, fxc, kxc);
 }
 
-void FC_FUNC_(xc_f90_lda_vxc_dp, XC_F90_LDA_VXC_DP)
-     (void **p, double *rho, double *e, double *v)
+void FC_FUNC_(xc_f90_lda_vxc, XC_F90_LDA_VXC)
+     (void **p, FLOAT *rho, FLOAT *e, FLOAT *v)
 {
   xc_lda_vxc((xc_lda_type *)(*p), rho, e, v);
 }
 
-void FC_FUNC_(xc_f90_lda_fxc_dp, XC_F90_LDA_FXC_DP)
-     (void **p, double *rho, double *fxc)
+void FC_FUNC_(xc_f90_lda_fxc, XC_F90_LDA_FXC)
+     (void **p, FLOAT *rho, FLOAT *fxc)
 {
   xc_lda_fxc((xc_lda_type *)(*p), rho, fxc);
 }
 
-void FC_FUNC_(xc_f90_lda_kxc_dp, XC_F90_LDA_KXC_DP)
-     (void **p, double *rho, double *kxc)
+void FC_FUNC_(xc_f90_lda_kxc, XC_F90_LDA_KXC)
+     (void **p, FLOAT *rho, FLOAT *kxc)
 {
   xc_lda_kxc((xc_lda_type *)(*p), rho, kxc);
-}
-
-/* Single precision interfaces */
-
-void FC_FUNC_(xc_f90_lda_sp, XC_F90_LDA_SP)
-  (void **p, float *rho, float *exc, float *vxc, float *fxc, float *kxc)
-{
-  xc_lda_sp((xc_lda_type *)(*p), rho, exc, vxc, fxc, kxc);
-}
-
-void FC_FUNC_(xc_f90_lda_vxc_sp, XC_F90_LDA_VXC_SP)
-     (void **p, float *rho, float *e, float *v)
-{
-  xc_lda_vxc_sp((xc_lda_type *)(*p), rho, e, v);
-}
-
-void FC_FUNC_(xc_f90_lda_fxc_sp, XC_F90_LDA_FXC_SP)
-     (void **p, float *rho, float *fxc)
-{
-  xc_lda_fxc_sp((xc_lda_type *)(*p), rho, fxc);
-}
-
-void FC_FUNC_(xc_f90_lda_kxc_sp, XC_F90_LDA_KXC_SP)
-     (void **p, float *rho, float *kxc)
-{
-  xc_lda_kxc_sp((xc_lda_type *)(*p), rho, kxc);
 }
 
 
@@ -180,7 +152,7 @@ void FC_FUNC_(xc_f90_lda_x_init, XC_F90_LDA_X_INIT)
 /* Slater's Xalpha */
 void FC_FUNC_(xc_f90_lda_c_xalpha_init, XC_F90_LDA_C_XALPHA_INIT)
      (void **p, void **info, CC_FORTRAN_INT *functional, 
-      CC_FORTRAN_INT *nspin, CC_FORTRAN_INT *dim, double *alpha)
+      CC_FORTRAN_INT *nspin, CC_FORTRAN_INT *dim, FLOAT *alpha)
 {
   xc_lda_type *lda_p;
 
@@ -190,17 +162,6 @@ void FC_FUNC_(xc_f90_lda_c_xalpha_init, XC_F90_LDA_C_XALPHA_INIT)
   lda_p = (xc_lda_type *)(*p);
   xc_lda_c_xalpha_init(lda_p, (int) (*nspin), (int) (*dim), *alpha);
   *info = (void *)(lda_p->info);
-}
-
-/* single precision version of the previous */
-void FC_FUNC_(xc_f90_lda_c_xalpha_init_sp, XC_F90_LDA_C_XALPHA_INIT_SP)
-     (void **p, void **info, CC_FORTRAN_INT *functional, 
-      CC_FORTRAN_INT *nspin, CC_FORTRAN_INT *dim, float *alpha)
-{
-  double dalpha;
-  dalpha = alpha[0];
-  FC_FUNC_(xc_f90_lda_c_xalpha_init, XC_F90_LDA_C_XALPHA_INIT)
-    (p, info, functional, nspin, dim, &dalpha);
 }
 
 
@@ -225,44 +186,25 @@ void FC_FUNC_(xc_f90_gga_end, XC_F90_GGA_END)
   *p = NULL;
 }
 
-void FC_FUNC_(xc_f90_gga_dp, XC_F90_GGA_DP)
-     (void **p, double *rho, double *grho, 
-      double *e, double *dedd, double *dedgd)
+void FC_FUNC_(xc_f90_gga, XC_F90_GGA)
+     (void **p, FLOAT *rho, FLOAT *grho, 
+      FLOAT *e, FLOAT *dedd, FLOAT *dedgd)
 {
   xc_gga((xc_gga_type *)(*p), rho, grho, e, dedd, dedgd);
 }
 
-void FC_FUNC_(xc_f90_gga_sp, XC_F90_GGA_SP)
-     (void **p, float *rho, float *grho, 
-      float *e, float *dedd, float *dedgd)
-{
-  xc_gga_sp((xc_gga_type *)(*p), rho, grho, e, dedd, dedgd);
-}
-
 
 /* the van Leeuwen & Baerends functional is special */
-void FC_FUNC_(xc_f90_gga_lb_set_params_dp, XC_F90_GGA_LB_SET_PARAMS_DP)
-  (void **p, CC_FORTRAN_INT *modified, double *threshold, double *ip, double *qtot)
+void FC_FUNC_(xc_f90_gga_lb_set_params, XC_F90_GGA_LB_SET_PARAMS)
+  (void **p, CC_FORTRAN_INT *modified, FLOAT *threshold, FLOAT *ip, FLOAT *qtot)
 {
   xc_gga_lb_set_params((xc_gga_type *)(*p), *modified, *threshold, *ip, *qtot);
 }
 
-void FC_FUNC_(xc_f90_gga_lb_set_params_sp, XC_F90_GGA_LB_SET_PARAMS_SP)
-  (void **p, CC_FORTRAN_INT *modified, float *threshold, float *ip, float *qtot)
-{
-  xc_gga_lb_set_params_sp((xc_gga_type *)(*p), *modified, *threshold, *ip, *qtot);
-}
-
-void FC_FUNC_(xc_f90_gga_lb_modified_dp, XC_F90_GGA_LB_MODIFIED_DP)
-     (void **p, double *rho, double *grho, double *r, double *dedd)
+void FC_FUNC_(xc_f90_gga_lb_modified, XC_F90_GGA_LB_MODIFIED)
+     (void **p, FLOAT *rho, FLOAT *grho, FLOAT *r, FLOAT *dedd)
 {
   xc_gga_lb_modified((xc_gga_type *)(*p), rho, grho, *r, dedd);
-}
-
-void FC_FUNC_(xc_f90_gga_lb_modified_sp, XC_F90_GGA_LB_MODIFIED_SP)
-     (void **p, float *rho, float *grho, float *r, float *dedd)
-{
-  xc_gga_lb_modified_sp((xc_gga_type *)(*p), rho, grho, *r, dedd);
 }
 
 
@@ -286,28 +228,15 @@ void FC_FUNC_(xc_f90_hyb_gga_end, XC_F90_HYB_GGA_END)
   free(*p);
 }
 
-void FC_FUNC_(xc_f90_hyb_gga_dp, XC_F90_HYB_GGA_DP)
-     (void **p, double *rho, double *grho, 
-      double *e, double *dedd, double *dedgd)
+void FC_FUNC_(xc_f90_hyb_gga, XC_F90_HYB_GGA)
+     (void **p, FLOAT *rho, FLOAT *grho, 
+      FLOAT *e, FLOAT *dedd, FLOAT *dedgd)
 {
   xc_hyb_gga((xc_hyb_gga_type *)(*p), rho, grho, e, dedd, dedgd);
 }
 
-void FC_FUNC_(xc_f90_hyb_gga_sp, XC_F90_HYB_GGA_SP)
-     (void **p, float *rho, float *grho, 
-      float *e, float *dedd, float *dedgd)
-{
-  xc_hyb_gga_sp((xc_hyb_gga_type *)(*p), rho, grho, e, dedd, dedgd);
-}
-
-void FC_FUNC_(xc_f90_hyb_gga_exx_coef_dp, XC_F90_HYB_GGA_EXX_COEF_DP)
-  (void **p, double *coef)
-{
-  *coef = xc_hyb_gga_exx_coef((xc_hyb_gga_type *)(*p));
-}
-
-double FC_FUNC_(xc_f90_hyb_gga_exx_coef_sp, XC_F90_HYB_GGA_EXX_COEF_SP)
-  (void **p, float *coef)
+void FC_FUNC_(xc_f90_hyb_gga_exx_coef, XC_F90_HYB_GGA_EXX_COEF)
+  (void **p, FLOAT *coef)
 {
   *coef = xc_hyb_gga_exx_coef((xc_hyb_gga_type *)(*p));
 }
@@ -333,18 +262,11 @@ void FC_FUNC_(xc_f90_mgga_end, XC_F90_MGGA_END)
   free(*p);
 }
 
-void FC_FUNC_(xc_f90_mgga_dp, XC_F90_MGGA_DP)
-  (void **p, double *rho, double *grho, double *tau,
-   double *e, double *dedd, double *dedgd, double *dedtau)
+void FC_FUNC_(xc_f90_mgga, XC_F90_MGGA)
+  (void **p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
+   FLOAT *e, FLOAT *dedd, FLOAT *dedgd, FLOAT *dedtau)
 {
   xc_mgga((xc_mgga_type *)(*p), rho, grho, tau, e, dedd, dedgd, dedtau);
-}
-
-void FC_FUNC_(xc_f90_mgga_sp, XC_F90_MGGA_SP)
-  (void **p, float *rho, float *grho, float *tau,
-   float *e, float *dedd, float *dedgd, float *dedtau)
-{
-  xc_mgga_sp((xc_mgga_type *)(*p), rho, grho, tau, e, dedd, dedgd, dedtau);
 }
 
 
@@ -367,18 +289,11 @@ void FC_FUNC_(xc_f90_lca_end, XC_F90_LCA_END)
   free(*p);
 }
 
-void FC_FUNC_(xc_f90_lca_dp, XC_F90_LCA_DP)
-     (void **p, double *rho, double *v, 
-      double *e, double *dedd, double *dedv)
+void FC_FUNC_(xc_f90_lca, XC_F90_LCA)
+     (void **p, FLOAT *rho, FLOAT *v, 
+      FLOAT *e, FLOAT *dedd, FLOAT *dedv)
 {
   xc_lca((xc_lca_type *)(*p), rho, v, e, dedd, dedv);
-}
-
-void FC_FUNC_(xc_f90_lca_sp, XC_F90_LCA_SP)
-  (void **p, float *rho, float *v, 
-   float *e, float *dedd, float *dedv)
-{
-  xc_lca_sp((xc_lca_type *)(*p), rho, v, e, dedd, dedv);
 }
 
 #endif

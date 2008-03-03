@@ -33,10 +33,10 @@
 #define XC_LDA_C_OB_PZ   11   /* Ortiz & Ballone (PZ)         */
 
 typedef struct {
-  double gamma[2];
-  double beta1[2];
-  double beta2[2];
-  double a[2], b[2], c[2], d[2];
+  FLOAT gamma[2];
+  FLOAT beta1[2];
+  FLOAT beta2[2];
+  FLOAT a[2], b[2], c[2], d[2];
 } pz_consts_type;
 
 static pz_consts_type pz_consts[3] = {
@@ -71,9 +71,9 @@ static pz_consts_type pz_consts[3] = {
 
 
 /* Auxiliary functions to handle parametrizations */
-static void ec_pot_low(pz_consts_type *X, int i, double *rs, double *ec, double *pot)
+static void ec_pot_low(pz_consts_type *X, int i, FLOAT *rs, FLOAT *ec, FLOAT *pot)
 {
-  double b = 1.0/(1.0 + X->beta1[i]*rs[0] + X->beta2[i]*rs[1]);
+  FLOAT b = 1.0/(1.0 + X->beta1[i]*rs[0] + X->beta2[i]*rs[1]);
   
   /* Eq. C3 */
   *ec  = X->gamma[i]*b;
@@ -84,7 +84,7 @@ static void ec_pot_low(pz_consts_type *X, int i, double *rs, double *ec, double 
 }
 
 
-static void ec_pot_high(pz_consts_type *X, int i, double *rs, double *ec, double *pot)
+static void ec_pot_high(pz_consts_type *X, int i, FLOAT *rs, FLOAT *ec, FLOAT *pot)
 {
   /* Eq. [1].C5 */
   *ec  = X->a[i]*rs[2] + X->b[i] + X->c[i]*rs[1]*rs[2] + X->d[i]*rs[1];
@@ -96,11 +96,11 @@ static void ec_pot_high(pz_consts_type *X, int i, double *rs, double *ec, double
 
 
 /* the functional */
-void lda_c_pz(const void *p_, const double *rho, double *ec, double *vc, double *fc)
+void lda_c_pz(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 {
   xc_lda_type *p = (xc_lda_type *)p_;
 
-  double dens, zeta, rs[3];
+  FLOAT dens, zeta, rs[3];
   int func = p->info->number - XC_LDA_C_PZ;
   
   assert(func==0 || func==1 || func==2);
@@ -118,7 +118,7 @@ void lda_c_pz(const void *p_, const double *rho, double *ec, double *vc, double 
     ec_pot_high(&pz_consts[func], 0, rs, ec, &(vc[0]));
   
   if(p->nspin == XC_POLARIZED){
-    double fz, fzp, ecp, vcp, x;
+    FLOAT fz, fzp, ecp, vcp, x;
     
     fz  =  FZETA(zeta);
     fzp = DFZETA(zeta);

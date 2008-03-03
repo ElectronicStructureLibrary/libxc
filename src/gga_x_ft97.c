@@ -24,12 +24,12 @@
 #define XC_GGA_X_FT97_B       115 /* Filatov & Thiel 97 (version B) */
 
 static inline void
-func(xc_gga_type *p, double x, double sigma, double *f, double *dfdx, double *ldfdx, double *vsigma)
+func(xc_gga_type *p, FLOAT x, FLOAT sigma, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *vsigma)
 {
-  static const double 
+  static const FLOAT 
     beta0 = 0.002913644, beta1 = 0.0009474169, beta2 = 6255746.320201; /* beta2 = 2501.149^2 ?? (Eq. (16a) */
 
-  double x2, beta, dbetadsigma, f1, f2, f3;
+  FLOAT x2, beta, dbetadsigma, f1, f2, f3;
   int func;
 
   switch(p->info->number){

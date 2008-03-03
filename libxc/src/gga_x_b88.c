@@ -24,7 +24,7 @@
 #define XC_GGA_X_B88          106 /* Becke 88 */
 
 typedef struct{
-  double beta;
+  FLOAT beta;
 } gga_x_b88_params;
 
 
@@ -52,7 +52,7 @@ void gga_x_b88_end(void *p_)
 }
 
 
-void gga_x_b88_set_params(xc_gga_type *p, double beta)
+void gga_x_b88_set_params(xc_gga_type *p, FLOAT beta)
 {
   gga_x_b88_params *params;
 
@@ -64,10 +64,10 @@ void gga_x_b88_set_params(xc_gga_type *p, double beta)
 
 
 static inline void 
-func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
+func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
-  double f1;
-  double beta;
+  FLOAT f1;
+  FLOAT beta;
 
   assert(p->params != NULL);
   beta = ((gga_x_b88_params *) (p->params))->beta;

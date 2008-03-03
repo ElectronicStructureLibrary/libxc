@@ -40,21 +40,21 @@ the constants of PW.
 
 /* Function g defined by Eq. 10 of the original paper,
    and it's derivative with respect to rs, Eq. A5 */
-static void g(int func, int k, double *rs, double *f, double *dfdrs, double *d2fdrs2)
+static void g(int func, int k, FLOAT *rs, FLOAT *f, FLOAT *dfdrs, FLOAT *d2fdrs2)
 {
-  static double a[3][3]     = 
+  static FLOAT a[3][3]     = 
     {
       {0.031091,  0.015545,   0.016887},    /* PW */
       {0.0310907, 0.01554535, 0.0168869},   /* PW (modified) */
       {0.031091,  0.015545,   0.016887}     /* OB */
   }; 
-  static double alpha[3][3] = 
+  static FLOAT alpha[3][3] = 
     {
       {0.21370,  0.20548,  0.11125},    /* PW */
       {0.21370,  0.20548,  0.11125},    /* PW (modified) */
       {0.026481, 0.022465, 0.11125}     /* OB */
     };
-  static double beta[3][3][4] = {
+  static FLOAT beta[3][3][4] = {
     {
       { 7.5957,  3.5876,   1.6382,  0.49294}, /* PW */
       {14.1189,  6.1977,   3.3662,  0.62517},
@@ -69,7 +69,7 @@ static void g(int func, int k, double *rs, double *f, double *dfdrs, double *d2f
       {10.357,   3.6231,   0.88026, 0.49671}
     }};
   
-  double q0, q1, q1p, b, aux;
+  FLOAT q0, q1, q1p, b, aux;
   
   b = beta[func][k][0]*rs[0] + beta[func][k][1]*rs[1] + 
     beta[func][k][2]*rs[0]*rs[1] + beta[func][k][3]*rs[2];
@@ -88,7 +88,7 @@ static void g(int func, int k, double *rs, double *f, double *dfdrs, double *d2f
   *dfdrs = -2.0*a[func][k]*alpha[func][k]*log(1.0 + 1.0/q1) - (q0*q1p)*aux;
 
   if(d2fdrs2 != NULL){
-    double q1pp;
+    FLOAT q1pp;
 
     q1pp = a[func][k]*(-beta[func][k][0]/(2.0*rs[0]*rs[1]) +
 		       3.0*beta[func][k][2]/(2.0*rs[0]) + 4.0*beta[func][k][3]);
@@ -99,12 +99,12 @@ static void g(int func, int k, double *rs, double *f, double *dfdrs, double *d2f
 
 
 /* the functional */
-void lda_c_pw(const void *p_, const double *rho, double *ec, double *vc, double *fc)
+void lda_c_pw(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 {
   xc_lda_type *p = (xc_lda_type *)p_;
 
-  double dens, zeta;
-  double rs[3], Dec_Drs, D2ec_Drs2, ec0, *dp;
+  FLOAT dens, zeta;
+  FLOAT rs[3], Dec_Drs, D2ec_Drs2, ec0, *dp;
   int func = p->info->number - XC_LDA_C_PW;
   
   assert(func==0 || func==1 || func==2);
@@ -128,23 +128,23 @@ void lda_c_pw(const void *p_, const double *rho, double *ec, double *vc, double 
       vc[0] = (*ec) - (rs[1]/3.0)*Dec_Drs;
     
     if(fc != NULL){
-      double Drs = -(4.0*M_PI/9.0)*rs[2]*rs[2];
+      FLOAT Drs = -(4.0*M_PI/9.0)*rs[2]*rs[2];
       fc[0] = (2.0*Dec_Drs - rs[1]*D2ec_Drs2)*Drs/3.0;
     }
 
   }else{
-    static double fz20[3] = {
+    static FLOAT fz20[3] = {
       1.709921,                           /* PW */
       1.709920934161365617563962776245,   /* PW (modified) */
       1.709921                            /* OB */
     };
 
-    double fz, fpz, z4, ec1, alphac;
-    double ectmp, Dec0_Drs, Dec1_Drs, D2ec1_Drs2, Dalphac_Drs, D2alphac_Drs2, Dec_Dz;
+    FLOAT fz, fpz, z4, ec1, alphac;
+    FLOAT ectmp, Dec0_Drs, Dec1_Drs, D2ec1_Drs2, Dalphac_Drs, D2alphac_Drs2, Dec_Dz;
     
     fz  =  FZETA(zeta);
     fpz = DFZETA(zeta);
-    z4  = pow(zeta, 4);
+    z4  = POW(zeta, 4);
 
     /* ec(rs, 1) */
     dp = (fc == NULL) ? NULL : (&D2ec1_Drs2);
@@ -164,7 +164,7 @@ void lda_c_pw(const void *p_, const double *rho, double *ec, double *vc, double 
     ectmp   =  ec0 + z4*fz*(ec1 - ec0 - alphac/fz20[func]) + fz*alphac/fz20[func];
 
     Dec_Drs = Dec0_Drs + z4*fz*(Dec1_Drs - Dec0_Drs - Dalphac_Drs/fz20[func]) + fz*Dalphac_Drs/fz20[func];
-    Dec_Dz  = (4.0*pow(zeta, 3)*fz + z4*fpz)*(ec1 - ec0 - alphac/fz20[func])
+    Dec_Dz  = (4.0*POW(zeta, 3)*fz + z4*fpz)*(ec1 - ec0 - alphac/fz20[func])
       + fpz*alphac/fz20[func];
     
     if(ec != NULL)
@@ -176,21 +176,21 @@ void lda_c_pw(const void *p_, const double *rho, double *ec, double *vc, double 
     }    
 
     if(fc != NULL){
-      double tmp, fppz, D2ec_Dz2, D2ec_DrsDz;
-      double Drs = -(4.0*M_PI/9.0)*rs[2]*rs[2];
+      FLOAT tmp, fppz, D2ec_Dz2, D2ec_DrsDz;
+      FLOAT Drs = -(4.0*M_PI/9.0)*rs[2]*rs[2];
 
       fppz = 0.0;
-      if(zeta > -1.0) fppz += pow(1.0 + zeta, -2.0/3.0);
-      if(zeta <  1.0) fppz += pow(1.0 - zeta, -2.0/3.0);
+      if(zeta > -1.0) fppz += POW(1.0 + zeta, -2.0/3.0);
+      if(zeta <  1.0) fppz += POW(1.0 - zeta, -2.0/3.0);
       fppz *= 4.0/(9.0*FZETAFACTOR);
 
       D2ec_Drs2  = D2ec_Drs2 + z4*fz*(D2ec1_Drs2 - D2ec_Drs2 - D2alphac_Drs2/fz20[func])
 	+ fz*D2alphac_Drs2/fz20[func];
 
-      D2ec_DrsDz = 4.0*pow(zeta, 3)*fz*(Dec1_Drs - Dec0_Drs - Dalphac_Drs/fz20[func]) + 
+      D2ec_DrsDz = 4.0*POW(zeta, 3)*fz*(Dec1_Drs - Dec0_Drs - Dalphac_Drs/fz20[func]) + 
 	fpz*(z4*(Dec1_Drs - Dec0_Drs) + (1.0 - z4)*Dalphac_Drs/fz20[func]);
 
-      D2ec_Dz2   = 4.0*pow(zeta, 2)*(ec1 - ec0 - alphac/fz20[func])*(3.0*fz + 2.0*zeta*fpz) + 
+      D2ec_Dz2   = 4.0*POW(zeta, 2)*(ec1 - ec0 - alphac/fz20[func])*(3.0*fz + 2.0*zeta*fpz) + 
 	fppz*(z4*(ec1 - ec0) + (1.0 - z4)*alphac/fz20[func]);
     
       tmp = (2.0*Dec_Drs - rs[1]*D2ec_Drs2)*Drs/3.0;

@@ -70,10 +70,10 @@ if nspin == 2
    rho   = (rho_u, rho_d)
    sigma = (sigma_uu, sigma_du, sigma_dd)
 */
-void xc_gga(xc_gga_type *p, double *rho, double *sigma,
-	    double *e, double *vrho, double *vsigma)
+void xc_gga(xc_gga_type *p, FLOAT *rho, FLOAT *sigma,
+	    FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
-  double dens;
+  FLOAT dens;
   int i;
 
   assert(p!=NULL);
@@ -94,21 +94,3 @@ void xc_gga(xc_gga_type *p, double *rho, double *sigma,
   p->info->gga(p, rho, sigma, e, vrho, vsigma);
 }
 
-void xc_gga_sp(xc_gga_type *p, float *rho, float *sigma,
-	       float *e, float *vrho, float *vsigma)
-{
-  double drho[2], dsigma[6];
-  double de[1], dvrho[2], dvsigma[6];
-  int ii, nsig;
-
-  nsig = (p->nspin == XC_POLARIZED) ? 1 : 3;
-  for(ii=0; ii < p->nspin; ii++) drho[ii]   = (double) rho[ii];
-  for(ii=0; ii < nsig;     ii++) dsigma[ii] = (double) sigma[ii];
-
-  xc_gga(p, drho, dsigma, de, dvrho, dvsigma);
-  
-  e[0] = (float)de[0];
-  for(ii=0; ii < p->nspin; ii++) vrho[ii]   = (float)dvrho[ii];
-  for(ii=0; ii < nsig    ; ii++) vsigma[ii] = (float)dvsigma[ii];
-
-}

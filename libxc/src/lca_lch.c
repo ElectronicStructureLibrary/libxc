@@ -43,10 +43,10 @@ void lca_lch_init(xc_lca_type *p)
 
 /* This routine computes the ratio of the orbital susceptibilities fo the interactiog and 
    non-interacting electron gas and its derivative */
-void lca_s_lch(double rs, double *s, double *dsdrs)
+void lca_s_lch(FLOAT rs, FLOAT *s, FLOAT *dsdrs)
 {
-  static double c[3] = {1.0, 0.028, -0.042};
-  double tmp;
+  static FLOAT c[3] = {1.0, 0.028, -0.042};
+  FLOAT tmp;
 
   tmp    = exp(c[2]*rs);
   *s     = (c[0] + c[1]*rs)*tmp;

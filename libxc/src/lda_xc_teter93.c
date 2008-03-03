@@ -24,24 +24,24 @@
 
 #define XC_LDA_XC_TETER93     20   /* Teter 93 parametrization                */
 
-static double teter_a [4] = {0.4581652932831429, 2.217058676663745,  0.7405551735357053, 0.01968227878617998 };
-static double teter_ap[4] = {0.119086804055547,  0.6157402568883345, 0.1574201515892867, 0.003532336663397157};
-static double teter_b [4] = {1.0000000000000000, 4.504130959426697,  1.110667363742916,  0.02359291751427506 };
-static double teter_bp[4] = {0.000000000000000,  0.2673612973836267, 0.2052004607777787, 0.004200005045691381};
+static FLOAT teter_a [4] = {0.4581652932831429, 2.217058676663745,  0.7405551735357053, 0.01968227878617998 };
+static FLOAT teter_ap[4] = {0.119086804055547,  0.6157402568883345, 0.1574201515892867, 0.003532336663397157};
+static FLOAT teter_b [4] = {1.0000000000000000, 4.504130959426697,  1.110667363742916,  0.02359291751427506 };
+static FLOAT teter_bp[4] = {0.000000000000000,  0.2673612973836267, 0.2052004607777787, 0.004200005045691381};
   
 
 /* the functional */
-void lda_c_teter93(const void *p_, const double *rho, double *ec, double *vc, double *fc)
+void lda_c_teter93(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 {
   xc_lda_type *p = (xc_lda_type *)p_;
 
-  double dens, zeta;
-  double rs[5], aa[4], bb[4];
-  double fzeta, Dfzeta;
-  double Dec_Drs, Dec_Dz, ec0;
+  FLOAT dens, zeta;
+  FLOAT rs[5], aa[4], bb[4];
+  FLOAT fzeta, Dfzeta;
+  FLOAT Dec_Drs, Dec_Dz, ec0;
 
-  double num, denom;
-  double DnumDrs, DdenomDrs, DnumDzeta, DdenomDzeta;
+  FLOAT num, denom;
+  FLOAT DnumDrs, DdenomDrs, DnumDzeta, DdenomDzeta;
   int ii;
 
   rho2dzeta(p->nspin, rho, &dens, &zeta);

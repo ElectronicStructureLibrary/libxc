@@ -75,26 +75,26 @@ void mgga_c_tpss_end(xc_mgga_type *p)
 
 
 /* some parameters */
-static double d = 2.8;
+static FLOAT d = 2.8;
 
 
 /* Equation (14) */
 static void
-c_tpss_14(double csi, double zeta, double *C, double *dCdcsi, double *dCdzeta)
+c_tpss_14(FLOAT csi, FLOAT zeta, FLOAT *C, FLOAT *dCdcsi, FLOAT *dCdzeta)
 {
-  double fz, C0, dC0dz, dfzdz;
-  double z2 = zeta*zeta;
+  FLOAT fz, C0, dC0dz, dfzdz;
+  FLOAT z2 = zeta*zeta;
     
   /* Equation (13) */
   C0    = 0.53 + z2*(0.87 + z2*(0.50 + z2*2.26));
   dC0dz = zeta*(2.0*0.87 + z2*(4.0*0.5 + z2*6.0*2.26));
   
-  fz    = 0.5*(pow(1.0 + zeta, -4.0/3.0) + pow(1.0 - zeta, -4.0/3.0));
-  dfzdz = 0.5*(pow(1.0 + zeta, -7.0/3.0) - pow(1.0 - zeta, -7.0/3.0))*(-4.0/3.0);
+  fz    = 0.5*(POW(1.0 + zeta, -4.0/3.0) + POW(1.0 - zeta, -4.0/3.0));
+  dfzdz = 0.5*(POW(1.0 + zeta, -7.0/3.0) - POW(1.0 - zeta, -7.0/3.0))*(-4.0/3.0);
   
   { /* Equation (14) */
-    double csi2 = csi*csi;
-    double a = 1.0 + csi2*fz, a4 = pow(a, 4);
+    FLOAT csi2 = csi*csi;
+    FLOAT a = 1.0 + csi2*fz, a4 = POW(a, 4);
     
     *C      =  C0 / a4;
     *dCdcsi = -8.0*csi*fz/(a*a4);
@@ -104,30 +104,30 @@ c_tpss_14(double csi, double zeta, double *C, double *dCdcsi, double *dCdzeta)
 
 
 /* Equation 12 */
-static void c_tpss_12(xc_mgga_type *p, double *rho, double *grho, 
-		 double dens, double zeta, double z,
-		 double *e_PKZB, double *de_PKZBdd, double *de_PKZBdgd, double *de_PKZBdz)
+static void c_tpss_12(xc_mgga_type *p, FLOAT *rho, FLOAT *grho, 
+		 FLOAT dens, FLOAT zeta, FLOAT z,
+		 FLOAT *e_PKZB, FLOAT *de_PKZBdd, FLOAT *de_PKZBdgd, FLOAT *de_PKZBdz)
 {
-  double e_PBE, *de_PBEdd, *de_PBEdgd;
-  double e_til[2], de_tildd[2], de_tildgd[2*3];
+  FLOAT e_PBE, *de_PBEdd, *de_PBEdgd;
+  FLOAT e_til[2], de_tildd[2], de_tildgd[2*3];
 
-  double C, dCdcsi, dCdzeta;
-  double *dzetadd, *dcsidd, *dcsidgd;
+  FLOAT C, dCdcsi, dCdzeta;
+  FLOAT *dzetadd, *dcsidd, *dcsidgd;
   int i, is;
 
-  de_PBEdd  = (double *)malloc(p->nspin*sizeof(double));
-  de_PBEdgd = (double *)malloc(3*p->nspin*sizeof(double));
-  dzetadd   = (double *)malloc(p->nspin*sizeof(double));
-  dcsidd    = (double *)malloc(p->nspin*sizeof(double));
-  dcsidgd   = (double *)malloc(3*p->nspin*sizeof(double));
+  de_PBEdd  = (FLOAT *)malloc(p->nspin*sizeof(FLOAT));
+  de_PBEdgd = (FLOAT *)malloc(3*p->nspin*sizeof(FLOAT));
+  dzetadd   = (FLOAT *)malloc(p->nspin*sizeof(FLOAT));
+  dcsidd    = (FLOAT *)malloc(p->nspin*sizeof(FLOAT));
+  dcsidgd   = (FLOAT *)malloc(3*p->nspin*sizeof(FLOAT));
 
   { /* get the PBE stuff */
     xc_gga_type *aux2 = (p->nspin == XC_UNPOLARIZED) ? p->gga_aux2 : p->gga_aux1;
     xc_gga(p->gga_aux1, rho, grho, &e_PBE, de_PBEdd, de_PBEdgd);
     
     for(is=0; is<p->nspin; is++){
-      double r1[2], gr1[2*3], e1, de1dd[2], de1dgd[2*3];
-      double sfac = (p->nspin == XC_UNPOLARIZED) ? 0.5 : 1.0;
+      FLOAT r1[2], gr1[2*3], e1, de1dd[2], de1dgd[2*3];
+      FLOAT sfac = (p->nspin == XC_UNPOLARIZED) ? 0.5 : 1.0;
       
       /* build fully polarized density and gradient */
       r1[0] = rho[is] * sfac;
@@ -156,7 +156,7 @@ static void c_tpss_12(xc_mgga_type *p, double *rho, double *grho,
     for(i=0; i<3; i++) dcsidgd _(0, i) = 0.0;
 
   }else{ /* get C(csi, zeta) */
-    double gzeta[3], gzeta2, csi, a;
+    FLOAT gzeta[3], gzeta2, csi, a;
     
     for(i=0, gzeta2=0.0; i<3; i++){
       gzeta[i] = 2.0*(grho _(0, i)*rho[1] - grho _(1, i)*rho[0])/(dens*dens);
@@ -164,7 +164,7 @@ static void c_tpss_12(xc_mgga_type *p, double *rho, double *grho,
     }
     gzeta2 = max(gzeta2, MIN_GRAD*MIN_GRAD);
     
-    a = 2.0*pow(3.0*M_PI*M_PI*dens, 1.0/3.0);
+    a = 2.0*POW(3.0*M_PI*M_PI*dens, 1.0/3.0);
     csi = sqrt(gzeta2)/a;
   
     c_tpss_14(csi, zeta, &C, &dCdcsi, &dCdzeta);
@@ -175,7 +175,7 @@ static void c_tpss_12(xc_mgga_type *p, double *rho, double *grho,
     dcsidd [0] = -7.0*csi/(3.0*dens); 
     dcsidd [1] = dcsidd [0];
     for(i=0; i<3; i++){
-      double aa = gzeta[i]/(sqrt(gzeta2)*a);
+      FLOAT aa = gzeta[i]/(sqrt(gzeta2)*a);
       dcsidd[0] += -grho _(1, i)*aa;
       dcsidd[1] +=  grho _(0, i)*aa;
       
@@ -185,10 +185,10 @@ static void c_tpss_12(xc_mgga_type *p, double *rho, double *grho,
   } /* get C(csi, zeta) */
 
   { /* end */
-    double z2 = z*z, aux, *dauxdd, *dauxdgd;
+    FLOAT z2 = z*z, aux, *dauxdd, *dauxdgd;
 
-    dauxdd  = (double *)malloc(p->nspin*sizeof(double));
-    dauxdgd = (double *)malloc(3*p->nspin*sizeof(double));
+    dauxdd  = (FLOAT *)malloc(p->nspin*sizeof(FLOAT));
+    dauxdgd = (FLOAT *)malloc(3*p->nspin*sizeof(FLOAT));
 
     /* aux = sum_sigma n_sigma e_til */
     aux = 0.0;
@@ -221,7 +221,7 @@ static void c_tpss_12(xc_mgga_type *p, double *rho, double *grho,
     *e_PKZB    = e_PBE*(1 + C*z2) - (1.0 + C)*z2*aux;
     *de_PKZBdz = dens * 2.0*z * C * (e_PBE - aux);
     for(is=0; is<p->nspin; is++){
-      double dCdd;
+      FLOAT dCdd;
       
       dCdd = dCdzeta*dzetadd[is] + dCdcsi*dcsidd[is];
       
@@ -229,7 +229,7 @@ static void c_tpss_12(xc_mgga_type *p, double *rho, double *grho,
       de_PKZBdd[is]-= z2*(dCdd*aux + (1.0 + C)*dauxdd[is]);
 			  
       for(i=0; i<3; i++){
-	double dCdgd =  dCdcsi*dcsidgd _(is, i);
+	FLOAT dCdgd =  dCdcsi*dcsidgd _(is, i);
 	
 	de_PKZBdgd _(is, i) = de_PBEdgd _(is, i)*(1.0 + C*z2) + dens*e_PBE*dCdgd*z2;
 	de_PKZBdgd _(is, i)-= z2*(dCdgd*aux + (1.0 + C)*dauxdgd _(is, i));
@@ -241,16 +241,16 @@ static void c_tpss_12(xc_mgga_type *p, double *rho, double *grho,
 
 
 void 
-mgga_c_tpss(xc_mgga_type *p, double *rho, double *grho, double *tau,
-	    double *energy, double *dedd, double *dedgd, double *dedtau)
+mgga_c_tpss(xc_mgga_type *p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
+	    FLOAT *energy, FLOAT *dedd, FLOAT *dedgd, FLOAT *dedtau)
 {
-  double dens, zeta;
-  double gd[3], gdms, taut, tauw, z;
-  double e_PKZB, *de_PKZBdd, *de_PKZBdgd, de_PKZBdz;
+  FLOAT dens, zeta;
+  FLOAT gd[3], gdms, taut, tauw, z;
+  FLOAT e_PKZB, *de_PKZBdd, *de_PKZBdgd, de_PKZBdz;
   int i, is;
 
-  de_PKZBdd  = (double *)malloc(p->nspin*sizeof(double));
-  de_PKZBdgd = (double *)malloc(3*p->nspin*sizeof(double));
+  de_PKZBdd  = (FLOAT *)malloc(p->nspin*sizeof(FLOAT));
+  de_PKZBdgd = (FLOAT *)malloc(3*p->nspin*sizeof(FLOAT));
 
   /* change variables */
   rho2dzeta(p->nspin, rho, &dens, &zeta);
@@ -282,9 +282,9 @@ mgga_c_tpss(xc_mgga_type *p, double *rho, double *grho, double *tau,
   
   /* Equation (11) */
   {
-    double z2 = z*z, z3 = z2*z;
-    double dedz;
-    double dzdd, dzdgd[3], dzdtau;
+    FLOAT z2 = z*z, z3 = z2*z;
+    FLOAT dedz;
+    FLOAT dzdd, dzdgd[3], dzdtau;
 
     dzdd   = -z/dens;
     dzdtau = -z/taut;

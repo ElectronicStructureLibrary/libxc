@@ -24,12 +24,12 @@
 
 /* RPBE: see PBE for more details */
 static inline void 
-func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
+func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
-  static const double kappa = 0.8040;
-  static const double mu = 0.00361218645365094697;
+  static const FLOAT kappa = 0.8040;
+  static const FLOAT mu = 0.00361218645365094697;
 
-  double dd;
+  FLOAT dd;
 
   dd     = exp(-mu*x*x/kappa);
 

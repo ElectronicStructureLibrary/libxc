@@ -30,12 +30,12 @@
 
 /* some constants         e_c^P      e_c^F      alpha_c */
 typedef struct {
-  double  A[3]; /* e_c^P, e_c^F, alpha_c */
-  double  b[3];
-  double  c[3];
-  double x0[3];
-  double  Q[3];
-  double  fpp;
+  FLOAT  A[3]; /* e_c^P, e_c^F, alpha_c */
+  FLOAT  b[3];
+  FLOAT  c[3];
+  FLOAT x0[3];
+  FLOAT  Q[3];
+  FLOAT  fpp;
 } vwn_consts_type;
 
 /* These numbers are taken from the original reference, but divided by
@@ -70,7 +70,7 @@ void init_vwn_constants(vwn_consts_type *X)
   for(i=0; i<3; i++){
     X->Q[i] = sqrt(4.0*X->c[i] - X->b[i]*X->b[i]);
   }
-  X->fpp = 4.0/(9.0*(pow(2.0, 1.0/3.0) - 1));
+  X->fpp = 4.0/(9.0*(POW(2.0, 1.0/3.0) - 1));
 }
 
 static void lda_c_vwn_init(void *p_)
@@ -84,9 +84,9 @@ static void lda_c_vwn_rpa_init(void *p_)
 }
 
 /* Eq. (4.4) of [1] */
-void ec_i(vwn_consts_type *X, int i, double x, double *ec, double *decdrs)
+void ec_i(vwn_consts_type *X, int i, FLOAT x, FLOAT *ec, FLOAT *decdrs)
 {
-  double f1, f2, f3, fx, qx, xx0, tx, tt;
+  FLOAT f1, f2, f3, fx, qx, xx0, tx, tt;
   
   f1  = 2.0*X->b[i]/X->Q[i];
   f2  = X->b[i]*X->x0[i]/(X->x0[i]*X->x0[i] + X->b[i]*X->x0[i] + X->c[i]);
@@ -104,12 +104,12 @@ void ec_i(vwn_consts_type *X, int i, double x, double *ec, double *decdrs)
 }
 
 /* the functional */
-void lda_c_vwn(const void *p_, const double *rho, double *ec, double *vc, double *fc)
+void lda_c_vwn(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 {
   const xc_lda_type *p = (xc_lda_type *)p_;
 
-  double dens, zeta;
-  double rs[2], ec_1, dec_1;
+  FLOAT dens, zeta;
+  FLOAT rs[2], ec_1, dec_1;
   int func;
   vwn_consts_type *X;
 
@@ -131,8 +131,8 @@ void lda_c_vwn(const void *p_, const double *rho, double *ec, double *vc, double
     *ec   = ec_1;
     vc[0] = ec_1 - rs[0]/6.0*dec_1;
   }else{
-    double ec_2, ec_3, dec_2, dec_3, fz, dfz, decdx, decdz;
-    double t1, t2, z3, z4;
+    FLOAT ec_2, ec_3, dec_2, dec_3, fz, dfz, decdx, decdz;
+    FLOAT t1, t2, z3, z4;
     
     ec_i(X, 1, rs[0], &ec_2, &dec_2);
     ec_i(X, 2, rs[0], &ec_3, &dec_3);
@@ -140,7 +140,7 @@ void lda_c_vwn(const void *p_, const double *rho, double *ec, double *vc, double
     fz  =  FZETA(zeta);
     dfz = DFZETA(zeta);
     
-    z3 = pow(zeta, 3);
+    z3 = POW(zeta, 3);
     z4 = z3*zeta;
     t1 = (fz/X->fpp)*(1.0 - z4);
     t2 = fz*z4;

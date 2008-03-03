@@ -19,6 +19,8 @@
 #ifndef _XC_H
 #define _XC_H
 
+#include "xc_config.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -58,8 +60,8 @@ typedef struct{
 
   void (*init)(void *p);
   void (*end) (void *p);
-  void (*lda) (const void *p, const double *rho, double *exc, double *vxc, double *fxc);
-  void (*gga) (void *p, double *rho, double *sigma, double *exc, double *vrho, double *vsigma);
+  void (*lda) (const void *p, const FLOAT *rho, FLOAT *exc, FLOAT *vxc, FLOAT *fxc);
+  void (*gga) (void *p, FLOAT *rho, FLOAT *sigma, FLOAT *exc, FLOAT *vrho, FLOAT *vsigma);
 } xc_func_info_type;
 
 
@@ -77,25 +79,18 @@ typedef struct struct_lda_type {
   int dim;
   
   struct struct_lda_type *lda_aux;  /* some LDAs are built on top of other LDAs */
-  double alpha;                     /* parameter for Xalpha functional */
+  FLOAT alpha;                      /* parameter for Xalpha functional */
 } xc_lda_type;
 
 int  xc_lda_init(xc_lda_type *p, int functional, int nspin);
 void xc_lda_x_init(xc_lda_type *p, int nspin, int dim, int irel);
-void xc_lda_c_xalpha_init(xc_lda_type *p, int nspin, int dim, double alpha);
+void xc_lda_c_xalpha_init(xc_lda_type *p, int nspin, int dim, FLOAT alpha);
 
-void xc_lda(const xc_lda_type *p, const double *rho, double *exc, double *vxc, double *fxc, double *kxc);
-void xc_lda_exc(const xc_lda_type *p, const double *rho, double *exc);
-void xc_lda_vxc(const xc_lda_type *p, const double *rho, double *exc, double *vxc);
-void xc_lda_fxc(const xc_lda_type *p, const double *rho, double *fxc);
-void xc_lda_kxc(const xc_lda_type *p, const double *rho, double *kxc);
-
-void xc_lda_sp(const xc_lda_type *p, const float *rho, float *exc, float *vxc, float *fxc, float *kxc);
-void xc_lda_exc_sp(const xc_lda_type *p, const float *rho, float *exc);
-void xc_lda_vxc_sp(const xc_lda_type *p, const float *rho, float *exc, float *vxc);
-void xc_lda_fxc_sp(const xc_lda_type *p, const float *rho, float *fxc);
-void xc_lda_kxc_sp(const xc_lda_type *p, const float *rho, float *kxc);
-
+void xc_lda(const xc_lda_type *p, const FLOAT *rho, FLOAT *exc, FLOAT *vxc, FLOAT *fxc, FLOAT *kxc);
+void xc_lda_exc(const xc_lda_type *p, const FLOAT *rho, FLOAT *exc);
+void xc_lda_vxc(const xc_lda_type *p, const FLOAT *rho, FLOAT *exc, FLOAT *vxc);
+void xc_lda_fxc(const xc_lda_type *p, const FLOAT *rho, FLOAT *fxc);
+void xc_lda_kxc(const xc_lda_type *p, const FLOAT *rho, FLOAT *kxc);
 
 /* the GGAs */
 typedef struct xc_gga_type{
@@ -110,13 +105,10 @@ typedef struct xc_gga_type{
 
 int  xc_gga_init(xc_gga_type *p, int functional, int nspin);
 void xc_gga_end (xc_gga_type *p);
-void xc_gga     (xc_gga_type *p, double *rho, double *grho, double *e, double *dedd, double *dedgd);
-void xc_gga_sp  (xc_gga_type *p,  float *rho,  float *grho,  float *e,  float *dedd,  float *dedgd);
+void xc_gga     (xc_gga_type *p, FLOAT *rho, FLOAT *grho, FLOAT *e, FLOAT *dedd, FLOAT *dedgd);
 
-void xc_gga_lb_set_params   (xc_gga_type *p, int modified, double threshold, double ip, double qtot);
-void xc_gga_lb_set_params_sp(xc_gga_type *p, int modified,  float threshold,  float ip,  float qtot);
-void xc_gga_lb_modified     (xc_gga_type *p, double *rho, double *grho, double r, double *dedd);
-void xc_gga_lb_modified_sp  (xc_gga_type *p,  float *rho,  float *grho,  float r,  float *dedd);
+void xc_gga_lb_set_params   (xc_gga_type *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
+void xc_gga_lb_modified     (xc_gga_type *p, FLOAT *rho, FLOAT *grho, FLOAT r, FLOAT *dedd);
 
 
 /* the GGAs hybrids */
@@ -126,22 +118,20 @@ typedef struct xc_hyb_gga_type{
   
   xc_lda_type **lda_aux;          /* the LDA components of the hybrid */
   int           lda_n;            /* their number                     */
-  double       *lda_coef;         /* and their coefficients           */
+  FLOAT       *lda_coef;          /* and their coefficients           */
 
   xc_gga_type **gga_aux;          /* the GGA components               */
   int           gga_n;            /* their number                     */
-  double       *gga_coef;         /* and their coefficients           */
-  double        exx_coef;         /* the exact exchange coefficient   */
+  FLOAT       *gga_coef;          /* and their coefficients           */
+  FLOAT        exx_coef;          /* the exact exchange coefficient   */
 
   void *params;                   /* this allows to fix parameters in the functional */
 } xc_hyb_gga_type;
 
 int  xc_hyb_gga_init(xc_hyb_gga_type *p, int functional, int nspin);
 void xc_hyb_gga_end(xc_hyb_gga_type *p);
-void xc_hyb_gga   (xc_hyb_gga_type *p, double *rho, double *sigma, double *e, double *vrho, double *vsigma);
-void xc_hyb_gga_sp(xc_hyb_gga_type *p,  float *rho,  float *sigma,  float *e,  float *vrho,  float *vsigma);
-double xc_hyb_gga_exx_coef   (xc_hyb_gga_type *p);
-float  xc_hyb_gga_exx_coef_sp(xc_hyb_gga_type *p);
+void xc_hyb_gga   (xc_hyb_gga_type *p, FLOAT *rho, FLOAT *sigma, FLOAT *e, FLOAT *vrho, FLOAT *vsigma);
+FLOAT xc_hyb_gga_exx_coef   (xc_hyb_gga_type *p);
 
 
 /* the meta-GGAs */
@@ -161,10 +151,8 @@ typedef struct{
 
 void xc_mgga_init(xc_mgga_type *p, int functional, int nspin);
 void xc_mgga_end (xc_mgga_type *p);
-void xc_mgga     (xc_mgga_type *p, double *rho, double *grho, double *tau,
-		  double *e, double *dedd, double *dedgd, double *dedtau);
-void xc_mgga_sp  (xc_mgga_type *p, float *rho, float *grho, float *tau,
-		  float *e, float *dedd, float *dedgd, float *dedtau);
+void xc_mgga     (xc_mgga_type *p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
+		  FLOAT *e, FLOAT *dedd, FLOAT *dedgd, FLOAT *dedtau);
 
 /* the LCAs */
 
@@ -179,8 +167,7 @@ typedef struct{
 } xc_lca_type;
 
 void xc_lca_init(xc_lca_type *p, int functional, int nspin);
-void xc_lca     (xc_lca_type *p, double *rho, double *v, double *e, double *dedd, double *dedv);
-void xc_lca_sp  (xc_lca_type *p, float *rho, float *v, float *e, float *dedd, float *dedv);
+void xc_lca     (xc_lca_type *p, FLOAT *rho, FLOAT *v, FLOAT *e, FLOAT *dedd, FLOAT *dedv);
 
 #ifdef __cplusplus
 }

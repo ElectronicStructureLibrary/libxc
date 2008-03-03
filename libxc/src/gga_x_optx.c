@@ -23,11 +23,11 @@
 #define XC_GGA_X_OPTX         110 /* Handy & Cohen OPTX 01                          */
 
 static inline void
-func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
+func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
-  static const double a = 1.05151, b = 1.43169/X_FACTOR_C, gamma = 0.006;
+  static const FLOAT a = 1.05151, b = 1.43169/X_FACTOR_C, gamma = 0.006;
 
-  double f1, u;
+  FLOAT f1, u;
 
   f1 = 1.0 + gamma*x*x;
   u  = gamma*x*x/f1;

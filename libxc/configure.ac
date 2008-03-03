@@ -87,7 +87,23 @@ fi
 
 AM_CONDITIONAL(COMPILE_FORTRAN, test x${HAVE_FORTRAN} = x1)
 
-AC_CONFIG_FILES([Makefile src/Makefile testsuite/Makefile])
+dnl should I compile libxc in single precision?
+AC_ARG_ENABLE([single], 
+	      AS_HELP_STRING([--enable-single], [compile libxc in single precision]),
+              [ac_cv_single_prec=$enableval],
+	      [ac_cv_single_prec=no])
+
+if  test $ac_cv_single_prec = yes; then
+  SINGLE_PRECISION=1
+  LIBXC_KIND=4
+else
+  SINGLE_PRECISION=0
+  LIBXC_KIND=14
+fi
+AC_SUBST(SINGLE_PRECISION)
+AC_SUBST(LIBXC_KIND)
+
+AC_CONFIG_FILES([Makefile src/Makefile testsuite/Makefile src/xc_config.h src/libxc.f90])
 
 AC_OUTPUT
 

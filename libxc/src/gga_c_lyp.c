@@ -25,7 +25,7 @@
 #define XC_GGA_C_LYP  131 /* Lee, Yang & Parr */
 
 typedef struct{
-  double A, B, c, d;
+  FLOAT A, B, c, d;
 } gga_c_lyp_params;
 
 
@@ -53,7 +53,7 @@ void gga_c_lyp_end(void *p_)
 }
 
 
-void gga_c_lyp_set_params(xc_gga_type *p, double A, double B, double c, double d)
+void gga_c_lyp_set_params(xc_gga_type *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d)
 {
   gga_c_lyp_params *params;
 
@@ -67,19 +67,19 @@ void gga_c_lyp_set_params(xc_gga_type *p, double A, double B, double c, double d
 }
 
 
-void gga_c_lyp(void *p_, double *rho_, double *sigma_,
-	       double *e, double *vrho, double *vsigma)
+void gga_c_lyp(void *p_, FLOAT *rho_, FLOAT *sigma_,
+	       FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
   xc_gga_type *p = (xc_gga_type *)p_;
   gga_c_lyp_params *params;
 
-  static double ee = 36.462398978764767321; /* ee = 8*2^(2/3)*e */
+  static FLOAT ee = 36.462398978764767321; /* ee = 8*2^(2/3)*e */
 
-  double rho[2], sigma[2], rhot, sigmat;
-  double AA, BB, cc, dd; /* sortcuts for parameters */
-  double sfact, rhot13, rhot43, rho83[2], ZZ, delta, omega;
-  double dZZdr, ddeltadr, domegadr;
-  double t1, t2, t3, t4, t5, t6;
+  FLOAT rho[2], sigma[2], rhot, sigmat;
+  FLOAT AA, BB, cc, dd; /* sortcuts for parameters */
+  FLOAT sfact, rhot13, rhot43, rho83[2], ZZ, delta, omega;
+  FLOAT dZZdr, ddeltadr, domegadr;
+  FLOAT t1, t2, t3, t4, t5, t6;
   int is;
 
   assert(p->params != NULL);
@@ -110,14 +110,14 @@ void gga_c_lyp(void *p_, double *rho_, double *sigma_,
   }
 
   /* some handy functions of the total density */
-  rhot13   = pow(rhot, 1.0/3.0);
+  rhot13   = POW(rhot, 1.0/3.0);
   rhot43   = rhot*rhot13;
-  rho83[0] = pow(rho[0], 8.0/3.0);
-  rho83[1] = pow(rho[1], 8.0/3.0);
+  rho83[0] = POW(rho[0], 8.0/3.0);
+  rho83[1] = POW(rho[1], 8.0/3.0);
 
   ZZ     = rhot13/(rhot13 + dd);
   delta  = (cc + dd*ZZ)/rhot13;
-  omega  = exp(-cc/rhot13) * ZZ * pow(rhot, -11.0/3.0);
+  omega  = exp(-cc/rhot13) * ZZ * POW(rhot, -11.0/3.0);
 
   /* and their derivatives */
   dZZdr    = dd*ZZ*ZZ/(3.0*rhot43);
@@ -128,7 +128,7 @@ void gga_c_lyp(void *p_, double *rho_, double *sigma_,
 
   /* t1 */
   {
-    double aux1;
+    FLOAT aux1;
 
     aux1 = -4.0*AA/rhot;
 
@@ -144,7 +144,7 @@ void gga_c_lyp(void *p_, double *rho_, double *sigma_,
   
   /* t2 */
   {
-    double aux1, aux2, aux3, aux4;
+    FLOAT aux1, aux2, aux3, aux4;
 
     aux1 = -AA*BB;
     aux2 = rho[0]*rho[1];
@@ -162,7 +162,7 @@ void gga_c_lyp(void *p_, double *rho_, double *sigma_,
     }
 
     {
-      double aux5 = aux1*omega*(aux2*aux3 - aux4);
+      FLOAT aux5 = aux1*omega*(aux2*aux3 - aux4);
 
       vsigma[0] += aux5/sfact;
       if(p->nspin == XC_POLARIZED){
@@ -177,7 +177,7 @@ void gga_c_lyp(void *p_, double *rho_, double *sigma_,
 
   /* t3 */
   {
-    double aux1, aux2;
+    FLOAT aux1, aux2;
     aux1 = -AA*BB;
     aux2 = ee*(rho83[0] + rho83[1]);
 
@@ -194,7 +194,7 @@ void gga_c_lyp(void *p_, double *rho_, double *sigma_,
 
   /* t4 */
   {
-    double aux1, aux2, aux3, aux4;
+    FLOAT aux1, aux2, aux3, aux4;
 
     aux1 = AA*BB;
     aux2 = rho[0]*rho[1];
@@ -212,7 +212,7 @@ void gga_c_lyp(void *p_, double *rho_, double *sigma_,
     }
 
     {
-      double aux5 = aux1*omega*aux2*aux3;
+      FLOAT aux5 = aux1*omega*aux2*aux3;
 
       vsigma[0] += aux5/sfact;
       if(p->nspin == XC_POLARIZED)
@@ -223,7 +223,7 @@ void gga_c_lyp(void *p_, double *rho_, double *sigma_,
 
   /* t5 */
   {
-    double aux1, aux2, aux3, aux4;
+    FLOAT aux1, aux2, aux3, aux4;
 
     aux1 = AA*BB;
     aux2 = rho[0]*rho[1]/(9.0*rhot);
@@ -246,7 +246,7 @@ void gga_c_lyp(void *p_, double *rho_, double *sigma_,
   
   /* t6 */
   {
-    double aux1, aux2, aux3;
+    FLOAT aux1, aux2, aux3;
 
     aux1 = -AA*BB;
     aux2 = 2.0/3.0*rhot*rhot*(sigma[0] + sigma[1]);

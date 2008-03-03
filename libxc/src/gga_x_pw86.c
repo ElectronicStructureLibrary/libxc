@@ -23,11 +23,11 @@
 #define XC_GGA_X_PW86         108 /* Perdew & Wang 86 */
 
 static inline void
-func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
+func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
-  const double x2s = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
-  const double aa = 1.296, bb = 14.0, cc = 0.2;
-  double ss, ss2, ss4, dd;
+  const FLOAT x2s = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
+  const FLOAT aa = 1.296, bb = 14.0, cc = 0.2;
+  FLOAT ss, ss2, ss4, dd;
 
   ss  = x2s*x;
   ss2 = ss*ss;
@@ -35,8 +35,8 @@ func(xc_gga_type *p, double x, double *f, double *dfdx, double *ldfdx)
 
   dd = 1.0 + aa*ss2 + bb*ss4 + cc*ss4*ss2;
 
-  *f     = pow(dd, 1.0/15.0);
-  *dfdx  = x2s*ss*(2.0*aa + 4.0*bb*ss2 + 6.0*cc*ss4)/15.0 * pow(dd, -14.0/15.0);
+  *f     = POW(dd, 1.0/15.0);
+  *dfdx  = x2s*ss*(2.0*aa + 4.0*bb*ss2 + 6.0*cc*ss4)/15.0 * POW(dd, -14.0/15.0);
   *ldfdx = x2s*x2s*aa/15.0;
 }
 

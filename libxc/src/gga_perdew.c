@@ -23,17 +23,17 @@
 #include "util.h"
 
 void 
-perdew_params(xc_gga_type *gga_p, double *rho, double *sigma, perdew_t *pt)
+perdew_params(xc_gga_type *gga_p, FLOAT *rho, FLOAT *sigma, perdew_t *pt)
 {
   pt->nspin = gga_p->nspin;
   rho2dzeta(pt->nspin, rho, &(pt->dens), &(pt->zeta));
   xc_lda_vxc(gga_p->lda_aux, rho, &(pt->ecunif), pt->vcunif);
 
   pt->rs = RS(pt->dens);
-  pt->kf = pow(3.0*M_PI*M_PI*pt->dens, 1.0/3.0);
+  pt->kf = POW(3.0*M_PI*M_PI*pt->dens, 1.0/3.0);
   pt->ks = sqrt(4.0*pt->kf/M_PI);
 
-  pt->phi  = 0.5*(pow(1.0 + pt->zeta, 2.0/3.0) + pow(1.0 - pt->zeta, 2.0/3.0));
+  pt->phi  = 0.5*(POW(1.0 + pt->zeta, 2.0/3.0) + POW(1.0 - pt->zeta, 2.0/3.0));
 
   /* get gdmt = |nabla n| */
   pt->gdmt = sigma[0];
@@ -52,10 +52,10 @@ perdew_params(xc_gga_type *gga_p, double *rho, double *sigma, perdew_t *pt)
 }
 
 void 
-perdew_potentials(perdew_t *pt, double *rho, double e_gga, 
-		  double *vrho, double *vsigma)
+perdew_potentials(perdew_t *pt, FLOAT *rho, FLOAT e_gga, 
+		  FLOAT *vrho, FLOAT *vsigma)
 {
-  double drsdd, dkfdd, dksdd, dzdd[2], dpdz; 
+  FLOAT drsdd, dkfdd, dksdd, dzdd[2], dpdz; 
   int is;
  
   drsdd   = -pt->rs/(3.0*pt->dens);
@@ -65,9 +65,9 @@ perdew_potentials(perdew_t *pt, double *rho, double e_gga,
   dzdd[1] = -(1.0 + pt->zeta)/pt->dens;
   dpdz    = 0.0;
   if(fabs(1.0 + pt->zeta) >= MIN_DENS)
-    dpdz += (1.0/3.0)/pow(1.0 + pt->zeta, 1.0/3.0);
+    dpdz += (1.0/3.0)/POW(1.0 + pt->zeta, 1.0/3.0);
   if(fabs(1.0 - pt->zeta) >= MIN_DENS)
-    dpdz -= (1.0/3.0)/pow(1.0 - pt->zeta, 1.0/3.0);
+    dpdz -= (1.0/3.0)/POW(1.0 - pt->zeta, 1.0/3.0);
   
   /* add the t contributions to the other derivatives */
   pt->dphi += pt->dt * (-pt->t/pt->phi);
@@ -76,7 +76,7 @@ perdew_potentials(perdew_t *pt, double *rho, double e_gga,
   /* calculate vrho */
   for(is=0; is<pt->nspin; is++){
     if(rho[is] > MIN_DENS){
-      double decudd;
+      FLOAT decudd;
       
       vrho[is]  = e_gga;
       
@@ -93,7 +93,7 @@ perdew_potentials(perdew_t *pt, double *rho, double e_gga,
   }
     
   { /* calculate now vsigma */
-    double dtdsig;
+    FLOAT dtdsig;
     
     dtdsig  = pt->t/(2.0*pt->gdmt*pt->gdmt);
     vsigma[0] = pt->dens*pt->dt*dtdsig;

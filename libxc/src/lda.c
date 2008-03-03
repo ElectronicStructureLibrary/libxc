@@ -61,9 +61,10 @@ void xc_lda_end(xc_lda_type *p)
 }
 
 /* get the lda functional */
-void xc_lda(const xc_lda_type *p, const double *rho, double *exc, double *vxc, double *fxc, double *kxc)
+void xc_lda(const xc_lda_type *p, const FLOAT *rho, 
+	    FLOAT *exc, FLOAT *vxc, FLOAT *fxc, FLOAT *kxc)
 {
-  double dens;
+  FLOAT dens;
 
   assert(p!=NULL);
   
@@ -108,104 +109,41 @@ void xc_lda(const xc_lda_type *p, const double *rho, double *exc, double *vxc, d
     xc_lda_kxc_fd(p, rho, kxc);
 }
 
-/* get the lda functional */
-void xc_lda_sp(const xc_lda_type *p, const float *rho, float *exc, float *vxc, float *fxc, float *kxc)
-{
-  double drho[2];
-  double dexc;
-
-  double * pexc = NULL;
-  double * pvxc = NULL;
-  double * pfxc = NULL;
-  double * pkxc = NULL;
-
-  int ii;
-  const int nspin = p->nspin;
-
-  drho[0] = rho[0];
-  if(nspin > 1) drho[1] = rho[1];
-  
-  /* Allocate space for return values in double precision */
-  if(exc) pexc = &dexc;
-  if(vxc) pvxc = (double *) malloc(nspin * sizeof(double));
-  if(fxc) pfxc = (double *) malloc(nspin * nspin * sizeof(double));
-  if(kxc) pkxc = (double *) malloc(nspin * nspin * nspin * sizeof(double));
-
-  /* Call the double precision version */
-  xc_lda(p, drho, pexc, pvxc, pfxc, pkxc);
-
-  /* Copy the result to the single precision return values */
-  if(exc) exc[0] = dexc;
-
-  if(vxc) {
-    for(ii = 0; ii < nspin; ii++) vxc[ii] = pvxc[ii];
-    free(pvxc);
-  }
-
-  if(fxc) {
-    for(ii = 0; ii < nspin*nspin; ii++) fxc[ii] = pfxc[ii];
-    free(pfxc);
-  }
-
-  if(kxc) {
-    for(ii = 0; ii < nspin*nspin*nspin; ii++) kxc[ii] = pkxc[ii];
-    free(pkxc);
-  }
-
-}
-
 
 /* especializations */
-void xc_lda_exc(const xc_lda_type *p, const double *rho, double *exc)
+inline void xc_lda_exc(const xc_lda_type *p, const FLOAT *rho, FLOAT *exc)
 {
   xc_lda(p, rho, exc, NULL, NULL, NULL);
 }
 
-void xc_lda_vxc(const xc_lda_type *p, const double *rho, double *exc, double *vxc)
+inline void xc_lda_vxc(const xc_lda_type *p, const FLOAT *rho, FLOAT *exc, FLOAT *vxc)
 {
   xc_lda(p, rho, exc, vxc, NULL, NULL);
 }
 
-void xc_lda_fxc(const xc_lda_type *p, const double *rho, double *fxc)
+inline void xc_lda_fxc(const xc_lda_type *p, const FLOAT *rho, FLOAT *fxc)
 {
   xc_lda(p, rho, NULL, NULL, fxc, NULL);
 }
 
-void xc_lda_kxc(const xc_lda_type *p, const double *rho, double *kxc)
+inline void xc_lda_kxc(const xc_lda_type *p, const FLOAT *rho, FLOAT *kxc)
 {
   xc_lda(p, rho, NULL, NULL, NULL, kxc);
 }
 
-/* especialization in single precision */
-void xc_lda_exc_sp(const xc_lda_type *p, const float *rho, float *exc)
-{
-  xc_lda_sp(p, rho, exc, NULL, NULL, NULL);
-}
-
-void xc_lda_vxc_sp(const xc_lda_type *p, const float *rho, float *exc, float *vxc)
-{
-  xc_lda_sp(p, rho, exc, vxc, NULL, NULL);
-}
-
-void xc_lda_fxc_sp(const xc_lda_type *p, const float *rho, float *fxc)
-{
-  xc_lda_sp(p, rho, NULL, NULL, fxc, NULL);
-}
-
-void xc_lda_kxc_sp(const xc_lda_type *p, const float *rho, float *kxc)
-{
-  xc_lda_sp(p, rho, NULL, NULL, NULL, kxc);
-}
-
 
 /* get the xc kernel through finite differences */
-void xc_lda_fxc_fd(const xc_lda_type *p, const double *rho, double *fxc)
+void xc_lda_fxc_fd(const xc_lda_type *p, const FLOAT *rho, FLOAT *fxc)
 {
-  static const double delta_rho = 1e-8;
+#if _SINGLE_PREC_
+  static const FLOAT delta_rho = 1e-8;
+#else
+  static const FLOAT delta_rho = 1e-6;
+#endif
   int i;
 
   for(i=0; i<p->nspin; i++){
-    double rho2[2], e, vc1[2], vc2[2];
+    FLOAT rho2[2], e, vc1[2], vc2[2];
     int j, js;
 
     j  = (i+1) % 2;
@@ -238,19 +176,19 @@ void xc_lda_fxc_fd(const xc_lda_type *p, const double *rho, double *fxc)
 /* WANRNING - get rid of this by using new definition of output variable kxc */
 #define ___(i, j, k) [2*(2*i + j) + k] 
 
-void xc_lda_kxc_fd(const xc_lda_type *p, const double *rho, double *kxc)
+void xc_lda_kxc_fd(const xc_lda_type *p, const FLOAT *rho, FLOAT *kxc)
 {
   /* Kxc, this is a third order tensor with respect to the densities */
 
   int i, j, k;
-  const double delta_rho = 1e-4;
+  const FLOAT delta_rho = 1e-4;
 
   for(i=0; i < p->nspin; i++){
     for(j=0; j < p->nspin; j++){
       for(k=0; k < p->nspin; k++){
     
 
-	double rho2[2], e, vc1[2], vc2[2], vc3[2];
+	FLOAT rho2[2], e, vc1[2], vc2[2], vc3[2];
 	int n, der_dir, func_dir;
 
 	/* This is a bit tricky, we have to calculate a third mixed

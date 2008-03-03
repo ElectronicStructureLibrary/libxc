@@ -29,16 +29,16 @@
 #define XC_LDA_C_HL  4   /* Hedin & Lundqvist            */
 #define XC_LDA_C_GL  5   /* Gunnarson & Lundqvist        */
 
-static void hl_f(int func, int i, double rs, double *ec, double *vc)
+static void hl_f(int func, int i, FLOAT rs, FLOAT *ec, FLOAT *vc)
 {
   static const 
-    double r[2][2] = {{21.0,   21.0},     /* HL unpolarized only*/
+    FLOAT r[2][2] = {{21.0,   21.0},     /* HL unpolarized only*/
 		      {11.4,   15.9}};    /* GL */
   static const 
-    double c[2][2] = {{ 0.0225, 0.0225},  /* HL unpolarized only */
+    FLOAT c[2][2] = {{ 0.0225, 0.0225},  /* HL unpolarized only */
 		      { 0.0333, 0.0203}}; /* GL */
   
-  double a, x, x2, x3;
+  FLOAT a, x, x2, x3;
   
   x   = rs/r[func][i];
   x2  = x*x;
@@ -51,12 +51,12 @@ static void hl_f(int func, int i, double rs, double *ec, double *vc)
 }
 
 
-static void lda_c_hl(const void *p_, const double *rho, double *ec, double *vc, double *fc)
+static void lda_c_hl(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 {
   xc_lda_type *p = (xc_lda_type *)p_;
 
-  double ecp, vcp;
-  double dens, zeta, rs;
+  FLOAT ecp, vcp;
+  FLOAT dens, zeta, rs;
   int func = p->info->number - XC_LDA_C_HL;
 
   /* sanity check */
@@ -72,7 +72,7 @@ static void lda_c_hl(const void *p_, const double *rho, double *ec, double *vc, 
     vc[0] = vcp;
     
   }else{ /* XC_POLARIZED */
-    double ecf, vcf, fz, dfz, t1;
+    FLOAT ecf, vcf, fz, dfz, t1;
     
     fz  =  FZETA(zeta);
     dfz = DFZETA(zeta);

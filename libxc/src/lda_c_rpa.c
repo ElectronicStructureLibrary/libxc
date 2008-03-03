@@ -25,13 +25,13 @@
 
 #define XC_LDA_C_RPA  3   /* Random Phase Approximation   */
 
-static void lda_c_rpa(const void *p_, const double *rho, double *ec, double *vc, double *fc)
+static void lda_c_rpa(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 {
   xc_lda_type *p = (xc_lda_type *)p_;
 
-  static double a = 0.0311, b = -0.047, c = 0.009, d = -0.017;
-  double dens, zeta, rs;
-  double lrs;
+  static FLOAT a = 0.0311, b = -0.047, c = 0.009, d = -0.017;
+  FLOAT dens, zeta, rs;
+  FLOAT lrs;
 
   rho2dzeta(p->nspin, rho, &dens, &zeta);
 

@@ -58,14 +58,14 @@ void gga_xc_edf1_end(void *p_)
 }
 
 static void 
-gga_xc_edf1(void *p_, double *rho, double *sigma,
-            double *e, double *vrho, double *vsigma)
+gga_xc_edf1(void *p_, FLOAT *rho, FLOAT *sigma,
+            FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
-  static double cx    = 1.030952;
-  static double cc[3] = {10.4017, -8.44793, 1.0};
+  static FLOAT cx    = 1.030952;
+  static FLOAT cc[3] = {10.4017, -8.44793, 1.0};
 
   xc_gga_type *p = p_;
-  double dd, e1, vrho1[2], vsigma1[3];
+  FLOAT dd, e1, vrho1[2], vsigma1[3];
   int ifunc, is, js;
 
   xc_lda_vxc(p->lda_aux, rho, &e1, vrho1);

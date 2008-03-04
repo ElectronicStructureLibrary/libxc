@@ -41,8 +41,8 @@ foreach $func (@funcs){
     $t = $deflist_f{$key};
     $t =~ s/XC_(.*)/\L$1/;
 
-    $s1 .= "extern xc_func_info_type func_info_$t;\n";
-    $s2 .= "  &func_info_$t,\n";
+    $s1 .= "extern XC(func_info_type) XC(func_info_$t);\n";
+    $s2 .= "  &XC(func_info_$t),\n";
   }
 
   open(OUT, ">$builddir/funcs_$func.c");
@@ -51,7 +51,7 @@ foreach $func (@funcs){
 
 $s1
 
-const xc_func_info_type *${func}_known_funct[] = {
+const XC(func_info_type) *XC(${func}_known_funct)[] = {
 $s2  NULL
 };
 EOF

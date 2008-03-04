@@ -23,7 +23,7 @@
 #define XC_GGA_X_PW86         108 /* Perdew & Wang 86 */
 
 static inline void
-func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
   const FLOAT x2s = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
   const FLOAT aa = 1.296, bb = 14.0, cc = 0.2;
@@ -42,7 +42,7 @@ func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 
 #include "work_gga_x.c"
 
-const xc_func_info_type func_info_gga_x_pw86 = {
+const XC(func_info_type) XC(func_info_gga_x_pw86) = {
   XC_GGA_X_PW86,
   XC_EXCHANGE,
   "Perdew & Wang 86",

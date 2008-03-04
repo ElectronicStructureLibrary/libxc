@@ -23,27 +23,28 @@
 
 #define XC_HYB_GGA_XC_PBEH 406 /* aka PBE0 or PBE1PBE */
 
-void gga_xc_pbeh_init(void *p_)
+static void
+gga_xc_pbeh_init(void *p_)
 {
   const FLOAT a0 = 0.25;
 
-  xc_hyb_gga_type *p = (xc_hyb_gga_type *)p_;
+  XC(hyb_gga_type) *p = (XC(hyb_gga_type) *)p_;
 
   p->lda_n = 0;
   p->gga_n = 2;
 
-  xc_hyb_gga_alloc(p);
+  XC(hyb_gga_alloc)(p);
 
   p->exx_coef = a0;
 
-  xc_gga_init(p->gga_aux[0], XC_GGA_X_PBE, p->nspin);
+  XC(gga_init)(p->gga_aux[0], XC_GGA_X_PBE, p->nspin);
   p->gga_coef[0] = (1.0 - a0);
-  xc_gga_init(p->gga_aux[1], XC_GGA_C_PBE, p->nspin);
+  XC(gga_init)(p->gga_aux[1], XC_GGA_C_PBE, p->nspin);
   p->gga_coef[1] = 1.0;
 }
 
 
-const xc_func_info_type func_info_hyb_gga_xc_pbeh = {
+const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeh) = {
   XC_HYB_GGA_XC_PBEH,
   XC_EXCHANGE_CORRELATION,
   "PBEH (PBE0)",

@@ -24,7 +24,7 @@
 #define XC_GGA_X_B86_R        104 /* Becke 86 Xalfa,beta,gamma (reoptimized)        */
 
 static inline void 
-func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
   static const FLOAT beta[2]  = {
     0.0076,  /* beta from the original Becke paper */
@@ -50,7 +50,7 @@ func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 
 #include "work_gga_x.c"
 
-const xc_func_info_type func_info_gga_x_b86 = {
+const XC(func_info_type) XC(func_info_gga_x_b86) = {
   XC_GGA_X_B86,
   XC_EXCHANGE,
   "Becke 86",
@@ -61,7 +61,7 @@ const xc_func_info_type func_info_gga_x_b86 = {
   work_gga_x
 };
 
-const xc_func_info_type func_info_gga_x_b86_r = {
+const XC(func_info_type) XC(func_info_gga_x_b86_r) = {
   XC_GGA_X_B86_R,
   XC_EXCHANGE,
   "Becke 86 (reoptimized)",

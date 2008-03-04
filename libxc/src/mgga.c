@@ -22,7 +22,7 @@
 #include "util.h"
 
 /* initialization */
-void xc_mgga_init(xc_mgga_type *p, int functional, int nspin)
+void XC(mgga_init)(XC(mgga_type) *p, int functional, int nspin)
 {
   /* sanity check */
   assert(functional == XC_MGGA_X_TPSS    ||
@@ -34,29 +34,29 @@ void xc_mgga_init(xc_mgga_type *p, int functional, int nspin)
   /* initialize the functionals that need it */
   switch(functional){
   case(XC_MGGA_X_TPSS):
-    mgga_x_tpss_init(p);
+    XC(mgga_x_tpss_init)(p);
     break;
   case(XC_MGGA_C_TPSS):
-    mgga_c_tpss_init(p);
+    XC(mgga_c_tpss_init)(p);
     break;
   }
 }
 
 
-void xc_mgga_end(xc_mgga_type *p)
+void XC(mgga_end)(XC(mgga_type) *p)
 {
   switch(p->info->number){
   case(XC_MGGA_X_TPSS) :
-    mgga_x_tpss_end(p);
+    XC(mgga_x_tpss_end)(p);
     break;
   case(XC_MGGA_C_TPSS) :
-    mgga_c_tpss_end(p);
+    XC(mgga_c_tpss_end)(p);
     break;
   }
 }
 
 
-void xc_mgga(xc_mgga_type *p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
+void XC(mgga)(XC(mgga_type) *p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
 	  FLOAT *e, FLOAT *dedd, FLOAT *dedgd, FLOAT *dedtau)
 
 {
@@ -80,11 +80,11 @@ void xc_mgga(xc_mgga_type *p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
   
   switch(p->info->number){
   case(XC_MGGA_X_TPSS):
-    mgga_x_tpss(p, rho, grho, tau, e, dedd, dedgd, dedtau);
+    XC(mgga_x_tpss)(p, rho, grho, tau, e, dedd, dedgd, dedtau);
     break;
 
   case(XC_MGGA_C_TPSS):
-    mgga_c_tpss(p, rho, grho, tau, e, dedd, dedgd, dedtau);
+    XC(mgga_c_tpss)(p, rho, grho, tau, e, dedd, dedgd, dedtau);
     break;
   }
 

@@ -42,7 +42,8 @@ static FLOAT beta = 1.3386, ax = 0.0;
 
 
 /* Initialization */
-void lda_c_amgb_init(void *p)
+static void
+lda_c_amgb_init(void *p)
 {
   int i;
   
@@ -53,7 +54,8 @@ void lda_c_amgb_init(void *p)
 
 
 /* Equation [1].4 */
-static FLOAT alpha(int i, FLOAT *rs)
+static FLOAT
+alpha(int i, FLOAT *rs)
 {
   return a[i] + (b[i]*rs[1] + c[i]*rs[2] + d[i]*rs[3]) *
     log(1.0 + 1.0/(e[i]*rs[1] + f[i]*rs[0]*rs[1] + g[i]*rs[2] + h[i]*rs[3]));
@@ -61,7 +63,8 @@ static FLOAT alpha(int i, FLOAT *rs)
 
 
 /* Equation [1].C3 */
-static FLOAT dalphadrs(int i, FLOAT *rs)
+static FLOAT 
+dalphadrs(int i, FLOAT *rs)
 {
   FLOAT efe, efep, lg, x;
   
@@ -73,9 +76,10 @@ static FLOAT dalphadrs(int i, FLOAT *rs)
 }
 
 
-void lda_c_amgb(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
+static void
+lda_c_amgb(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 {
-  xc_lda_type *p = (xc_lda_type *)p_;
+  XC(lda_type) *p = (XC(lda_type) *)p_;
   
   FLOAT dens, zeta, rs[4];
   
@@ -83,7 +87,7 @@ void lda_c_amgb(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *f
   assert(ax != 0.0);
   
   /* get the trace and the polarization of the density */
-  rho2dzeta(p->nspin, rho, &dens, &zeta);
+  XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
   
   /* Wigner radius: formula for 2D, of course */
   rs[1] = sqrt(1.0/(M_PI*dens));
@@ -138,7 +142,7 @@ void lda_c_amgb(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *f
   }
 }
 
-const xc_func_info_type func_info_lda_c_amgb = {
+const XC(func_info_type) XC(func_info_lda_c_amgb) = {
   XC_LDA_C_AMGB,
   XC_CORRELATION,
   "AMGB (for 2D systems)",

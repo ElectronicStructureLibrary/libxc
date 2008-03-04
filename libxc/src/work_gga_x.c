@@ -31,7 +31,7 @@ static void
 work_gga_x(void *p_, FLOAT *rho, FLOAT *sigma,
 	   FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
-  xc_gga_type *p = p_;
+  XC(gga_type) *p = p_;
 
   FLOAT sfact, dens;
   int is;

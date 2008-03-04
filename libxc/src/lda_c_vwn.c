@@ -62,7 +62,8 @@ static vwn_consts_type vwn_consts[2] = {
 };
 
 /* initialization */
-void init_vwn_constants(vwn_consts_type *X)
+static void
+init_vwn_constants(vwn_consts_type *X)
 {
   int i;
 
@@ -73,18 +74,21 @@ void init_vwn_constants(vwn_consts_type *X)
   X->fpp = 4.0/(9.0*(POW(2.0, 1.0/3.0) - 1));
 }
 
-static void lda_c_vwn_init(void *p_)
+static void
+lda_c_vwn_init(void *p_)
 {
   init_vwn_constants(&vwn_consts[0]);
 }
 
-static void lda_c_vwn_rpa_init(void *p_)
+static void
+lda_c_vwn_rpa_init(void *p_)
 {
   init_vwn_constants(&vwn_consts[1]);
 }
 
 /* Eq. (4.4) of [1] */
-void ec_i(vwn_consts_type *X, int i, FLOAT x, FLOAT *ec, FLOAT *decdrs)
+static void
+ec_i(vwn_consts_type *X, int i, FLOAT x, FLOAT *ec, FLOAT *decdrs)
 {
   FLOAT f1, f2, f3, fx, qx, xx0, tx, tt;
   
@@ -104,9 +108,10 @@ void ec_i(vwn_consts_type *X, int i, FLOAT x, FLOAT *ec, FLOAT *decdrs)
 }
 
 /* the functional */
-void lda_c_vwn(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
+static void 
+lda_c_vwn(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 {
-  const xc_lda_type *p = (xc_lda_type *)p_;
+  const XC(lda_type) *p = (XC(lda_type) *)p_;
 
   FLOAT dens, zeta;
   FLOAT rs[2], ec_1, dec_1;
@@ -115,7 +120,7 @@ void lda_c_vwn(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc
 
   assert(p!=NULL);
 
-  rho2dzeta(p->nspin, rho, &dens, &zeta);
+  XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
 
   func = p->info->number - XC_LDA_C_VWN;
   assert(func==0 || func==1);
@@ -158,7 +163,7 @@ void lda_c_vwn(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc
 	
 }
 
-const xc_func_info_type func_info_lda_c_vwn = {
+const XC(func_info_type) XC(func_info_lda_c_vwn) = {
   XC_LDA_C_VWN,
   XC_CORRELATION,
   "Vosko, Wilk & Nusair",
@@ -170,7 +175,7 @@ const xc_func_info_type func_info_lda_c_vwn = {
   lda_c_vwn
 };
 
-const xc_func_info_type func_info_lda_c_vwn_rpa = {
+const XC(func_info_type) XC(func_info_lda_c_vwn_rpa) = {
   XC_LDA_C_VWN_RPA,
   XC_CORRELATION,
   "Vosko, Wilk & Nusair (parametrization of the RPA energy)",

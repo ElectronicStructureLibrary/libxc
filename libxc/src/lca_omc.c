@@ -24,7 +24,7 @@
 
 #define XC_LCA_OMC       301   /* Orestes, Marcasso & Capelle  */
 
-static xc_func_info_type func_info_lca_omc = {
+static XC(func_info_type) func_info_lca_omc = {
   XC_LCA_OMC,
   XC_EXCHANGE_CORRELATION,
   "Orestes, Marcasso & Capelle parametrization",
@@ -33,7 +33,7 @@ static xc_func_info_type func_info_lca_omc = {
   XC_PROVIDES_EXC | XC_PROVIDES_VXC
 };
 
-void lca_omc_init(xc_lca_type *p)
+void XC(lca_omc_init)(XC(lca_type) *p)
 {
   p->info = &func_info_lca_omc;
 }
@@ -41,7 +41,7 @@ void lca_omc_init(xc_lca_type *p)
 
 /* This routine computes the ratio of the orbital susceptibilities for the interacting and 
    non-interacting electron gas and its derivative */
-void lca_s_omc(FLOAT rs, FLOAT *s, FLOAT *dsdrs)
+void XC(lca_s_omc)(FLOAT rs, FLOAT *s, FLOAT *dsdrs)
 {
   static FLOAT c[5] = {1.1038, -0.4990, 0.4423, -0.06696, 0.0008432};
   FLOAT tmp;

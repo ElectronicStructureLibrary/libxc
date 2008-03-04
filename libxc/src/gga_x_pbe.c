@@ -25,7 +25,7 @@
 #define XC_GGA_X_PBE_SOL      116 /* Perdew, Burke & Ernzerhof exchange (solids)    */
 
 static inline void 
-func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
   static const FLOAT kappa[3] = {
     0.8040, /* original PBE */
@@ -67,7 +67,7 @@ func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 
 #include "work_gga_x.c"
 
-const xc_func_info_type func_info_gga_x_pbe = {
+const XC(func_info_type) XC(func_info_gga_x_pbe) = {
   XC_GGA_X_PBE,
   XC_EXCHANGE,
   "Perdew, Burke & Ernzerhof",
@@ -79,7 +79,7 @@ const xc_func_info_type func_info_gga_x_pbe = {
   work_gga_x
 };
 
-const xc_func_info_type func_info_gga_x_pbe_r = {
+const XC(func_info_type) XC(func_info_gga_x_pbe_r) = {
   XC_GGA_X_PBE_R,
   XC_EXCHANGE,
   "Perdew, Burke & Ernzerhof",
@@ -92,7 +92,7 @@ const xc_func_info_type func_info_gga_x_pbe_r = {
   work_gga_x
 };
 
-const xc_func_info_type func_info_gga_x_pbe_sol = {
+const XC(func_info_type) XC(func_info_gga_x_pbe_sol) = {
   XC_GGA_X_PBE_SOL,
   XC_EXCHANGE,
   "Perdew, Burke & Ernzerhof SOL",

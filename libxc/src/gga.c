@@ -24,21 +24,21 @@
 
 
 /* initialization */
-int xc_gga_init(xc_gga_type *p, int functional, int nspin)
+int XC(gga_init)(XC(gga_type) *p, int functional, int nspin)
 {
   int i;
 
   assert(p != NULL);
 
   /* let us first find out if we know the functional */
-  for(i=0; gga_known_funct[i]!=NULL; i++){
-    if(gga_known_funct[i]->number == functional) break;
+  for(i=0; XC(gga_known_funct)[i]!=NULL; i++){
+    if(XC(gga_known_funct)[i]->number == functional) break;
   }
-  if(gga_known_funct[i] == NULL) return -1; /* functional not found */
+  if(XC(gga_known_funct)[i] == NULL) return -1; /* functional not found */
 
   /* initialize structure */
   p->params = NULL;
-  p->info = gga_known_funct[i];
+  p->info = XC(gga_known_funct)[i];
 
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
   p->nspin = nspin;
@@ -51,7 +51,7 @@ int xc_gga_init(xc_gga_type *p, int functional, int nspin)
 
 
 /* Termination */
-void xc_gga_end(xc_gga_type *p)
+void XC(gga_end)(XC(gga_type) *p)
 {
   assert(p != NULL);
 
@@ -70,7 +70,7 @@ if nspin == 2
    rho   = (rho_u, rho_d)
    sigma = (sigma_uu, sigma_du, sigma_dd)
 */
-void xc_gga(xc_gga_type *p, FLOAT *rho, FLOAT *sigma,
+void XC(gga)(XC(gga_type) *p, FLOAT *rho, FLOAT *sigma,
 	    FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
   FLOAT dens;

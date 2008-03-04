@@ -24,7 +24,7 @@
 #define XC_GGA_X_mPW91        119 /* Modified form of PW91 by Adamo & Barone */
 
 static inline void 
-func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
   const FLOAT x2s     = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
   const FLOAT aa[2]   = {0.19645, 0.21516};
@@ -71,7 +71,7 @@ func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 
 #include "work_gga_x.c"
 
-const xc_func_info_type func_info_gga_x_pw91 = {
+const XC(func_info_type) XC(func_info_gga_x_pw91) = {
   XC_GGA_X_PW91,
   XC_EXCHANGE,
   "Perdew & Wang 91",
@@ -85,7 +85,7 @@ const xc_func_info_type func_info_gga_x_pw91 = {
 };
 
 
-const xc_func_info_type func_info_gga_x_mpw91 = {
+const XC(func_info_type) XC(func_info_gga_x_mpw91) = {
   XC_GGA_X_mPW91,
   XC_EXCHANGE,
   "mPW91 of Adamo & Barone",

@@ -27,13 +27,13 @@
 
 static void lda_c_wigner(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 {
-  xc_lda_type *p = (xc_lda_type *)p_;
+  XC(lda_type) *p = (XC(lda_type) *)p_;
 
   static FLOAT a = -0.44, b = 7.8;
   FLOAT dens, zeta, rs;
   FLOAT etmp, decdrs, t;
   
-  rho2dzeta(p->nspin, rho, &dens, &zeta);
+  XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
 
   rs    =  RS(dens); /* Wigner radius */
   t     =  b + rs;
@@ -50,7 +50,7 @@ static void lda_c_wigner(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc,
 
 }
 
-const xc_func_info_type func_info_lda_c_wigner = {
+const XC(func_info_type) XC(func_info_lda_c_wigner) = {
   XC_LDA_C_WIGNER,
   XC_CORRELATION,
   "Wigner",

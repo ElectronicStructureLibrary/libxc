@@ -27,13 +27,13 @@
 
 static void lda_c_rpa(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 {
-  xc_lda_type *p = (xc_lda_type *)p_;
+  XC(lda_type) *p = (XC(lda_type) *)p_;
 
   static FLOAT a = 0.0311, b = -0.047, c = 0.009, d = -0.017;
   FLOAT dens, zeta, rs;
   FLOAT lrs;
 
-  rho2dzeta(p->nspin, rho, &dens, &zeta);
+  XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
 
   rs  =  RS(dens); /* Wigner radius */
   lrs = log(rs);
@@ -45,7 +45,7 @@ static void lda_c_rpa(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FL
   if(p->nspin==XC_POLARIZED) vc[1] = vc[0]; /* have to erturn something */
 }
 
-const xc_func_info_type func_info_lda_c_rpa = {
+const XC(func_info_type) XC(func_info_lda_c_rpa) = {
   XC_LDA_C_RPA,
   XC_CORRELATION,
   "Random Phase Approximation (RPA)",

@@ -28,9 +28,9 @@ typedef struct{
 } gga_x_b88_params;
 
 
-void gga_x_b88_init(void *p_)
+static void gga_x_b88_init(void *p_)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
   gga_x_b88_params *params;
 
   assert(p->params == NULL);
@@ -39,20 +39,20 @@ void gga_x_b88_init(void *p_)
   params = (gga_x_b88_params *) (p->params);
 
   /* value of beta in standard Becke 88 functional */
-  gga_x_b88_set_params(p, 0.0042);
+  XC(gga_x_b88_set_params)(p, 0.0042);
 }
 
 
-void gga_x_b88_end(void *p_)
+static void gga_x_b88_end(void *p_)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   assert(p->params != NULL);
   free(p->params);
 }
 
 
-void gga_x_b88_set_params(xc_gga_type *p, FLOAT beta)
+void XC(gga_x_b88_set_params)(XC(gga_type) *p, FLOAT beta)
 {
   gga_x_b88_params *params;
 
@@ -64,7 +64,7 @@ void gga_x_b88_set_params(xc_gga_type *p, FLOAT beta)
 
 
 static inline void 
-func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
   FLOAT f1;
   FLOAT beta;
@@ -81,7 +81,7 @@ func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 
 #include "work_gga_x.c"
 
-const xc_func_info_type func_info_gga_x_b88 = {
+const XC(func_info_type) XC(func_info_gga_x_b88) = {
   XC_GGA_X_B88,
   XC_EXCHANGE,
   "Becke 88",

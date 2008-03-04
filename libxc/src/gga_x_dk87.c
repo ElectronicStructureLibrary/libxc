@@ -24,7 +24,7 @@
 #define XC_GGA_X_DK87_R2      112 /* dePristo & Kress 87 (version R2)               */
 
 static inline void 
-func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
   static const FLOAT a1[2] = {0.861504, 0.861213}, 
     b1[2] = {0.044286, 0.042076}, alpha[2] = {1.0, 0.98};
@@ -49,7 +49,7 @@ func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 
 #include "work_gga_x.c"
 
-const xc_func_info_type func_info_gga_x_dk87_r1 = {
+const XC(func_info_type) XC(func_info_gga_x_dk87_r1) = {
   XC_GGA_X_DK87_R1,
   XC_EXCHANGE,
   "dePristo & Kress 87 version R1",
@@ -60,7 +60,7 @@ const xc_func_info_type func_info_gga_x_dk87_r1 = {
   work_gga_x
 };
 
-const xc_func_info_type func_info_gga_x_dk87_r2 = {
+const XC(func_info_type) XC(func_info_gga_x_dk87_r2) = {
   XC_GGA_X_DK87_R2,
   XC_EXCHANGE,
   "dePristo & Kress 87 version R2",

@@ -31,33 +31,36 @@
 
 /* TODO: convert to perdew functionals */
 
-void gga_c_p86_init(void *p_)
+static void
+gga_c_p86_init(void *p_)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
-  p->lda_aux = (xc_lda_type *) malloc(sizeof(xc_lda_type));
-  xc_lda_init(p->lda_aux, XC_LDA_C_PZ, p->nspin);
+  p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
+  XC(lda_init)(p->lda_aux, XC_LDA_C_PZ, p->nspin);
 }
 
-void gga_c_p86_end(void *p_)
+static void
+gga_c_p86_end(void *p_)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   free(p->lda_aux);
 }
 
-void gga_c_p86(void *p_, FLOAT *rho, FLOAT *sigma,
-	       FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
+static void 
+gga_c_p86(void *p_, FLOAT *rho, FLOAT *sigma,
+	  FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   FLOAT dens, zeta, dzdd[2], gdmt, ecunif, vcunif[2];
   FLOAT rs, DD, dDDdzeta, CC, CCinf, dCCdd;
   FLOAT Phi, dPhidd, dPhidgdmt;
 
-  xc_lda_vxc(p->lda_aux, rho, &ecunif, vcunif);
+  XC(lda_vxc)(p->lda_aux, rho, &ecunif, vcunif);
 
-  rho2dzeta(p->nspin, rho, &dens, &zeta);
+  XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
   dzdd[0] =  (1.0 - zeta)/dens;
   dzdd[1] = -(1.0 + zeta)/dens;
     
@@ -136,7 +139,7 @@ void gga_c_p86(void *p_, FLOAT *rho, FLOAT *sigma,
   }
 }
 
-const xc_func_info_type func_info_gga_c_p86 = {
+const XC(func_info_type) XC(func_info_gga_c_p86) = {
   XC_GGA_C_P86,
   XC_CORRELATION,
   "Perdew 86",

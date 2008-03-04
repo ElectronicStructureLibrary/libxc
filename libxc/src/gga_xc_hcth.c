@@ -26,22 +26,25 @@
 #define XC_GGA_XC_HCTH_147 163 /* HCTH functional fitted to 147 molecules  */
 #define XC_GGA_XC_HCTH_407 164 /* HCTH functional fitted to 147 molecules  */
 
-static void gga_xc_hcth_init(void *p_)
+static void 
+gga_xc_hcth_init(void *p_)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
-  p->lda_aux = (xc_lda_type *) malloc(sizeof(xc_lda_type));
-  xc_lda_init(p->lda_aux, XC_LDA_C_PW, XC_POLARIZED);
+  p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
+  XC(lda_init)(p->lda_aux, XC_LDA_C_PW, XC_POLARIZED);
 }
 
-static void gga_xc_hcth_end(void *p_)
+static void 
+gga_xc_hcth_end(void *p_)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   free(p->lda_aux);
 }
 
-void func_g(int func, int type, FLOAT s, FLOAT *g, FLOAT *dg, FLOAT *ldg)
+static void 
+func_g(int func, int type, FLOAT s, FLOAT *g, FLOAT *dg, FLOAT *ldg)
 {
   const FLOAT c[4][3][5] = {
     {      /* HCTH/93 */
@@ -86,7 +89,7 @@ static void
 gga_xc_hcth(void *p_, FLOAT *rho, FLOAT *sigma,
 	    FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
-  xc_gga_type *p = p_;
+  XC(gga_type) *p = p_;
 
   FLOAT dens, mrho[2], ecunif, vcunif[2], x_avg, x[2];
   FLOAT sfact;
@@ -113,7 +116,7 @@ gga_xc_hcth(void *p_, FLOAT *rho, FLOAT *sigma,
     dens    = rho[0];
   }
 
-  xc_lda_vxc(p->lda_aux, mrho, &ecunif, vcunif);
+  XC(lda_vxc)(p->lda_aux, mrho, &ecunif, vcunif);
   ecunif *= dens;
 
   x_avg = 0.0;
@@ -143,7 +146,7 @@ gga_xc_hcth(void *p_, FLOAT *rho, FLOAT *sigma,
     /* the ss term */
     mrho2[0] = mrho[is];
     mrho2[1] = 0.0;
-    xc_lda_vxc(p->lda_aux, mrho2, &ecunif_s, vcunif_s);
+    XC(lda_vxc)(p->lda_aux, mrho2, &ecunif_s, vcunif_s);
     func_g(func, 1, x[is], &g_ss, &dg_ss, &ldg_ss);
 
     e_ss      = sfact*ds*ecunif_s;
@@ -186,7 +189,7 @@ gga_xc_hcth(void *p_, FLOAT *rho, FLOAT *sigma,
 }
 
 
-const xc_func_info_type func_info_gga_xc_hcth_93 = {
+const XC(func_info_type) XC(func_info_gga_xc_hcth_93) = {
   XC_GGA_XC_HCTH_93,
   XC_EXCHANGE_CORRELATION,
   "HCTH/93",
@@ -199,7 +202,7 @@ const xc_func_info_type func_info_gga_xc_hcth_93 = {
   gga_xc_hcth
 };
 
-const xc_func_info_type func_info_gga_xc_hcth_120 = {
+const XC(func_info_type) XC(func_info_gga_xc_hcth_120) = {
   XC_GGA_XC_HCTH_120,
   XC_EXCHANGE_CORRELATION,
   "HCTH/120",
@@ -212,7 +215,7 @@ const xc_func_info_type func_info_gga_xc_hcth_120 = {
   gga_xc_hcth
 };
 
-const xc_func_info_type func_info_gga_xc_hcth_147 = {
+const XC(func_info_type) XC(func_info_gga_xc_hcth_147) = {
   XC_GGA_XC_HCTH_147,
   XC_EXCHANGE_CORRELATION,
   "HCTH/147",
@@ -225,7 +228,7 @@ const xc_func_info_type func_info_gga_xc_hcth_147 = {
   gga_xc_hcth
 };
 
-const xc_func_info_type func_info_gga_xc_hcth_407 = {
+const XC(func_info_type) XC(func_info_gga_xc_hcth_407) = {
   XC_GGA_XC_HCTH_407,
   XC_EXCHANGE_CORRELATION,
   "HCTH/407",

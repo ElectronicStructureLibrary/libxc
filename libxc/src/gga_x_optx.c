@@ -23,7 +23,7 @@
 #define XC_GGA_X_OPTX         110 /* Handy & Cohen OPTX 01                          */
 
 static inline void
-func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
   static const FLOAT a = 1.05151, b = 1.43169/X_FACTOR_C, gamma = 0.006;
 
@@ -39,7 +39,7 @@ func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 
 #include "work_gga_x.c"
 
-const xc_func_info_type func_info_gga_x_optx = {
+const XC(func_info_type) XC(func_info_gga_x_optx) = {
   XC_GGA_X_OPTX,
   XC_EXCHANGE,
   "Handy & Cohen OPTX 01",

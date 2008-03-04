@@ -53,7 +53,7 @@ static void hl_f(int func, int i, FLOAT rs, FLOAT *ec, FLOAT *vc)
 
 static void lda_c_hl(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 {
-  xc_lda_type *p = (xc_lda_type *)p_;
+  XC(lda_type) *p = (XC(lda_type) *)p_;
 
   FLOAT ecp, vcp;
   FLOAT dens, zeta, rs;
@@ -62,7 +62,7 @@ static void lda_c_hl(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLO
   /* sanity check */
   assert(func==0 || func==1);
   
-  rho2dzeta(p->nspin, rho, &dens, &zeta);
+  XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
   rs = RS(dens); /* Wigner radius */  
 
   hl_f(func, 0, rs, &ecp, &vcp);
@@ -87,7 +87,7 @@ static void lda_c_hl(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLO
   }
 }
 
-const xc_func_info_type func_info_lda_c_hl = {
+const XC(func_info_type) XC(func_info_lda_c_hl) = {
   XC_LDA_C_HL,
   XC_CORRELATION,
   "Hedin & Lundqvist",
@@ -100,7 +100,7 @@ const xc_func_info_type func_info_lda_c_hl = {
   lda_c_hl,     /* lda  */
 };
 
-const xc_func_info_type func_info_lda_c_gl = {
+const XC(func_info_type) XC(func_info_lda_c_gl) = {
   XC_LDA_C_GL,
   XC_CORRELATION,
   "Gunnarson & Lundqvist",

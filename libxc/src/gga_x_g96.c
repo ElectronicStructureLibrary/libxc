@@ -23,7 +23,7 @@
 #define XC_GGA_X_G96          107 /* Gill 96                                        */
 
 static inline void
-func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
   static const FLOAT c1 = 1.0/137.0;
   FLOAT sx = sqrt(x);
@@ -35,7 +35,7 @@ func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 
 #include "work_gga_x.c"
 
-const xc_func_info_type func_info_gga_x_g96 = {
+const XC(func_info_type) XC(func_info_gga_x_g96) = {
   XC_GGA_X_G96,
   XC_EXCHANGE,
   "Gill 96",

@@ -23,30 +23,32 @@
 
 #define XC_GGA_XC_XLYP 166 /* XLYP functional */
 
-void gga_xc_xlyp_init(void *p_)
+static void
+gga_xc_xlyp_init(void *p_)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
   int i;
 
-  p->lda_aux = (xc_lda_type *) malloc(sizeof(xc_lda_type));
-  xc_lda_x_init(p->lda_aux, p->nspin, 3, XC_NON_RELATIVISTIC);
+  p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
+  XC(lda_x_init)(p->lda_aux, p->nspin, 3, XC_NON_RELATIVISTIC);
 
-  p->gga_aux = (xc_gga_type **) malloc(3*sizeof(xc_gga_type *));
+  p->gga_aux = (XC(gga_type) **) malloc(3*sizeof(XC(gga_type) *));
   for(i=0; i<3; i++)
-    p->gga_aux[i] = (xc_gga_type *) malloc(sizeof(xc_gga_type));
+    p->gga_aux[i] = (XC(gga_type) *) malloc(sizeof(XC(gga_type)));
 
-  xc_gga_init(p->gga_aux[0], XC_GGA_X_B88, p->nspin);
-  xc_gga_init(p->gga_aux[1], XC_GGA_X_PW91, p->nspin);
-  xc_gga_init(p->gga_aux[2], XC_GGA_C_LYP, p->nspin);
+  XC(gga_init)(p->gga_aux[0], XC_GGA_X_B88, p->nspin);
+  XC(gga_init)(p->gga_aux[1], XC_GGA_X_PW91, p->nspin);
+  XC(gga_init)(p->gga_aux[2], XC_GGA_C_LYP, p->nspin);
 }
 
-void gga_xc_xlyp_end(void *p_)
+static void
+gga_xc_xlyp_end(void *p_)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
   int i;
 
   for(i=0; i<3; i++){
-    xc_gga_end(p->gga_aux[i]);
+    XC(gga_end)(p->gga_aux[i]);
     free(p->gga_aux[i]);
   }
   free(p->gga_aux);
@@ -58,13 +60,13 @@ gga_xc_xlyp(void *p_, FLOAT *rho, FLOAT *sigma,
 {
   static FLOAT cc[3] = {0.722, 0.347, 1.0};
 
-  xc_gga_type *p = p_;
+  XC(gga_type) *p = p_;
   FLOAT dd, e1, vrho1[2], vsigma1[3];
   int ifunc, is, js;
 
   dd = 1.0 - cc[0] - cc[1];
 
-  xc_lda_vxc(p->lda_aux, rho, &e1, vrho1);
+  XC(lda_vxc)(p->lda_aux, rho, &e1, vrho1);
   *e = dd*e1;
   for(is=0; is<p->nspin; is++)
     vrho[is] = dd*vrho1[is];
@@ -74,7 +76,7 @@ gga_xc_xlyp(void *p_, FLOAT *rho, FLOAT *sigma,
     vsigma[is] = 0.0;
 
   for(ifunc=0; ifunc<3; ifunc++){
-    xc_gga(p->gga_aux[ifunc], rho, sigma, &e1, vrho1, vsigma1);
+    XC(gga)(p->gga_aux[ifunc], rho, sigma, &e1, vrho1, vsigma1);
 
     *e += cc[ifunc]*e1;
     for(is=0; is<p->nspin; is++)
@@ -87,7 +89,7 @@ gga_xc_xlyp(void *p_, FLOAT *rho, FLOAT *sigma,
 }
 
 
-const xc_func_info_type func_info_gga_xc_xlyp = {
+const XC(func_info_type) XC(func_info_gga_xc_xlyp) = {
   XC_GGA_XC_XLYP,
   XC_EXCHANGE_CORRELATION,
   "XLYP",

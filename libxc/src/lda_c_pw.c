@@ -99,9 +99,9 @@ static void g(int func, int k, FLOAT *rs, FLOAT *f, FLOAT *dfdrs, FLOAT *d2fdrs2
 
 
 /* the functional */
-void lda_c_pw(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
+static void lda_c_pw(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 {
-  xc_lda_type *p = (xc_lda_type *)p_;
+  XC(lda_type) *p = (XC(lda_type) *)p_;
 
   FLOAT dens, zeta;
   FLOAT rs[3], Dec_Drs, D2ec_Drs2, ec0, *dp;
@@ -109,7 +109,7 @@ void lda_c_pw(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
   
   assert(func==0 || func==1 || func==2);
   
-  rho2dzeta(p->nspin, rho, &dens, &zeta);
+  XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
 
   /* Wigner radius */
   rs[1] = RS(dens);
@@ -209,7 +209,7 @@ void lda_c_pw(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 }
 
 
-const xc_func_info_type func_info_lda_c_pw = {
+const XC(func_info_type) XC(func_info_lda_c_pw) = {
   XC_LDA_C_PW,
   XC_CORRELATION,
   "Perdew & Wang",
@@ -221,7 +221,7 @@ const xc_func_info_type func_info_lda_c_pw = {
   lda_c_pw
 };
 
-const xc_func_info_type func_info_lda_c_pw_mod = {
+const XC(func_info_type) XC(func_info_lda_c_pw_mod) = {
   XC_LDA_C_PW_MOD,
   XC_CORRELATION,
   "Perdew & Wang (modified)",
@@ -235,7 +235,7 @@ const xc_func_info_type func_info_lda_c_pw_mod = {
   lda_c_pw
 };
 
-const xc_func_info_type func_info_lda_c_ob_pw = {
+const XC(func_info_type) XC(func_info_lda_c_ob_pw) = {
   XC_LDA_C_OB_PW,
   XC_CORRELATION,
   "Ortiz & Ballone (PW parametrization)",

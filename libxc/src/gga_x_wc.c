@@ -36,7 +36,8 @@
 static FLOAT wc_mu;
 static FLOAT wc_c, wc_fac;
 
-void gga_x_wc_init(void *p_)
+static void
+gga_x_wc_init(void *p_)
 {
   wc_mu  = 0.2195149727645171;
   wc_fac = 1.0/(2.0*POW(6.0*M_PI*M_PI, 1.0/3.0));
@@ -44,7 +45,7 @@ void gga_x_wc_init(void *p_)
 }
 
 static inline void 
-func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
   const FLOAT kappa = 0.8040;
 
@@ -73,7 +74,7 @@ func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 #include "work_gga_x.c"
 
 
-const xc_func_info_type func_info_gga_x_wc = {
+const XC(func_info_type) XC(func_info_gga_x_wc) = {
   XC_GGA_X_WC,
   XC_EXCHANGE,
   "Wu & Cohen",

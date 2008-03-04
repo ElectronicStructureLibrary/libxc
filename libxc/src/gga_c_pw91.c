@@ -42,10 +42,10 @@ static const FLOAT
 
 static void gga_c_pw91_init(void *p_)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
-  p->lda_aux = (xc_lda_type *) malloc(sizeof(xc_lda_type));
-  xc_lda_init(p->lda_aux, XC_LDA_C_PW, p->nspin);
+  p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
+  XC(lda_init)(p->lda_aux, XC_LDA_C_PW, p->nspin);
 
   pw91_nu   = 16.0/M_PI * POW(3.0*M_PI*M_PI, 1.0/3.0);
   pw91_beta = pw91_nu*pw91_C_c0;
@@ -54,13 +54,13 @@ static void gga_c_pw91_init(void *p_)
 
 static void gga_c_pw91_end(void *p_)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   free(p->lda_aux);
 }
 
 
-void
+static void
 A_eq14(FLOAT ec, FLOAT g, FLOAT *A, FLOAT *dec, FLOAT *dg)
 {
   FLOAT g2, g3, dd;
@@ -77,7 +77,7 @@ A_eq14(FLOAT ec, FLOAT g, FLOAT *A, FLOAT *dec, FLOAT *dg)
   *dg  = -(*A)/(dd - 1.0) * dd * (+6.0*pw91_alpha*ec/(g*g3*pw91_beta*pw91_beta));
 }
 
-void
+static void
 H0_eq13(FLOAT   ec, FLOAT   g, FLOAT   t, FLOAT *H0,
 	FLOAT *dec, FLOAT *dg, FLOAT *dt)
 {
@@ -128,7 +128,7 @@ Rasold_Geldart_C_xc(FLOAT rs, FLOAT *C_xc, FLOAT *drs)
 }
 
 
-void 
+static void 
 H1_eq15(FLOAT   rs, FLOAT   g, FLOAT   t, FLOAT   ks, FLOAT   kf, FLOAT *H1,
 	FLOAT *drs, FLOAT *dg, FLOAT *dt, FLOAT *dks, FLOAT *dkf)
 {
@@ -181,21 +181,22 @@ ec_eq9(FLOAT   ec, FLOAT   rs, FLOAT   t, FLOAT   g, FLOAT   ks, FLOAT   kf, FLO
   *dkf    = dH1dkf;
 }
 
-static void gga_c_pw91(void *p_, FLOAT *rho, FLOAT *sigma,
-		       FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
+static void 
+gga_c_pw91(void *p_, FLOAT *rho, FLOAT *sigma,
+	   FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
-  perdew_t pt;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+  XC(perdew_t) pt;
 
-  perdew_params(p, rho, sigma, &pt);
+  XC(perdew_params)(p, rho, sigma, &pt);
   
   ec_eq9(pt.ecunif, pt.rs, pt.t, pt.phi, pt.ks, pt.kf, e,
 	 &pt.decunif, &pt.drs, &pt.dt, &pt.dphi, &pt.dks, &pt.dkf);
 
-  perdew_potentials(&pt, rho, *e, vrho, vsigma);
+  XC(perdew_potentials)(&pt, rho, *e, vrho, vsigma);
 }
 
-const xc_func_info_type func_info_gga_c_pw91 = {
+const XC(func_info_type) XC(func_info_gga_c_pw91) = {
   XC_GGA_C_PW91,
   XC_EXCHANGE,
   "Perdew & Wang 91",

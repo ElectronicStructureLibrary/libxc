@@ -22,7 +22,7 @@
 #define XC_GGA_X_LG93  113 /* Lacks & Gordon 93 */
 
 static inline void 
-func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
   static const FLOAT x2s = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
   static const FLOAT ad = 1e-8, a4 = 29.790, a6 = 22.417;
@@ -48,7 +48,7 @@ func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 
 #include "work_gga_x.c"
 
-const xc_func_info_type func_info_gga_x_lg93 = {
+const XC(func_info_type) XC(func_info_gga_x_lg93) = {
   XC_GGA_X_LG93,
   XC_EXCHANGE,
   "Lacks & Gordon 93",

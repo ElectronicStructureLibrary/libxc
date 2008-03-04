@@ -31,7 +31,7 @@
 
 #define XC_MGGA_X_TPSS          201 /* Perdew, Tao, Staroverov & Scuseria exchange */
 
-static xc_func_info_type func_info_mgga_x_tpss = {
+static XC(func_info_type) func_info_mgga_x_tpss = {
   XC_MGGA_X_TPSS,
   XC_EXCHANGE,
   "Perdew, Tao, Staroverov & Scuseria",
@@ -41,15 +41,15 @@ static xc_func_info_type func_info_mgga_x_tpss = {
 };
 
 
-void mgga_x_tpss_init(xc_mgga_type *p)
+void XC(mgga_x_tpss_init)(XC(mgga_type) *p)
 {
   p->info = &func_info_mgga_x_tpss;
-  p->lda_aux = (xc_lda_type *) malloc(sizeof(xc_lda_type));
-  xc_lda_x_init(p->lda_aux, XC_UNPOLARIZED, 3, XC_NON_RELATIVISTIC);
+  p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
+  XC(lda_x_init)(p->lda_aux, XC_UNPOLARIZED, 3, XC_NON_RELATIVISTIC);
 }
 
 
-void mgga_x_tpss_end(xc_mgga_type *p)
+void XC(mgga_x_tpss_end)(XC(mgga_type) *p)
 {
   free(p->lda_aux);
 }
@@ -156,7 +156,7 @@ void x_tpss_10(FLOAT p, FLOAT z,
 }
 
 static void 
-x_tpss_para(xc_mgga_type *pt, FLOAT rho, FLOAT *grho, FLOAT tau_,
+x_tpss_para(XC(mgga_type) *pt, FLOAT rho, FLOAT *grho, FLOAT tau_,
 	    FLOAT *energy, FLOAT *dedd, FLOAT *dedgd, FLOAT *dedtau)
 {
 
@@ -167,7 +167,7 @@ x_tpss_para(xc_mgga_type *pt, FLOAT rho, FLOAT *grho, FLOAT tau_,
   tau = max(tau_, MIN_TAU);
 
   /* get the uniform gas energy and potential */
-  xc_lda_vxc(pt->lda_aux, &rho, &exunif, &vxunif);
+  XC(lda_vxc)(pt->lda_aux, &rho, &exunif, &vxunif);
 
   /* calculate |nabla rho|^2 */
   gdms = grho[0]*grho[0] + grho[1]*grho[1] + grho[2]*grho[2];
@@ -204,7 +204,7 @@ x_tpss_para(xc_mgga_type *pt, FLOAT rho, FLOAT *grho, FLOAT tau_,
 
 
 void 
-mgga_x_tpss(xc_mgga_type *p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
+XC(mgga_x_tpss)(XC(mgga_type) *p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
 	    FLOAT *e, FLOAT *dedd, FLOAT *dedgd, FLOAT *dedtau)
 {
   if(p->nspin == XC_UNPOLARIZED){

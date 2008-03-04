@@ -23,11 +23,11 @@
 #include "util.h"
 
 void 
-perdew_params(xc_gga_type *gga_p, FLOAT *rho, FLOAT *sigma, perdew_t *pt)
+XC(perdew_params)(XC(gga_type) *gga_p, FLOAT *rho, FLOAT *sigma, XC(perdew_t) *pt)
 {
   pt->nspin = gga_p->nspin;
-  rho2dzeta(pt->nspin, rho, &(pt->dens), &(pt->zeta));
-  xc_lda_vxc(gga_p->lda_aux, rho, &(pt->ecunif), pt->vcunif);
+  XC(rho2dzeta)(pt->nspin, rho, &(pt->dens), &(pt->zeta));
+  XC(lda_vxc)(gga_p->lda_aux, rho, &(pt->ecunif), pt->vcunif);
 
   pt->rs = RS(pt->dens);
   pt->kf = POW(3.0*M_PI*M_PI*pt->dens, 1.0/3.0);
@@ -52,7 +52,7 @@ perdew_params(xc_gga_type *gga_p, FLOAT *rho, FLOAT *sigma, perdew_t *pt)
 }
 
 void 
-perdew_potentials(perdew_t *pt, FLOAT *rho, FLOAT e_gga, 
+XC(perdew_potentials)(XC(perdew_t) *pt, FLOAT *rho, FLOAT e_gga, 
 		  FLOAT *vrho, FLOAT *vsigma)
 {
   FLOAT drsdd, dkfdd, dksdd, dzdd[2], dpdz; 

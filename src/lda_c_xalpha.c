@@ -38,11 +38,11 @@ whereas alpha equal to 2/3 just leaves the exchange functional unchanged */
 
 static void lda_c_xalpha(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 {
-  xc_lda_type *p = (xc_lda_type *)p_;
+  XC(lda_type) *p = (XC(lda_type) *)p_;
   FLOAT a = 1.5*p->alpha - 1.0;
   int i;
 
-  xc_lda(p->lda_aux, rho, ec, vc, fc, NULL);
+  XC(lda)(p->lda_aux, rho, ec, vc, fc, NULL);
 
   if(ec != NULL)
     (*ec) *= a;
@@ -57,42 +57,42 @@ static void lda_c_xalpha(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc,
 }
 
 /* These prototypes are needed for the declaration of func_info_lda_c_xalpha */
-void xc_lda_c_xalpha_init_default(void *p_);
-void xc_lda_c_xalpha_end(void *p_);
+void XC(lda_c_xalpha_init_default)(void *p_);
+void XC(lda_c_xalpha_end)(void *p_);
 
-const xc_func_info_type func_info_lda_c_xalpha = {
+const XC(func_info_type) XC(func_info_lda_c_xalpha) = {
   XC_LDA_C_XALPHA,
   XC_CORRELATION,
   "Slater's Xalpha",
   XC_FAMILY_LDA,
   NULL,
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
-  xc_lda_c_xalpha_init_default,  /* init */
-  xc_lda_c_xalpha_end,           /* end  */
+  XC(lda_c_xalpha_init_default),  /* init */
+  XC(lda_c_xalpha_end),           /* end  */
   lda_c_xalpha                   /* lda */
 };
 
-void xc_lda_c_xalpha_init(xc_lda_type *p, int nspin, int dim, FLOAT alpha)
+void XC(lda_c_xalpha_init)(XC(lda_type) *p, int nspin, int dim, FLOAT alpha)
 {
-  p->info = &func_info_lda_c_xalpha;
+  p->info = &XC(func_info_lda_c_xalpha);
   p->nspin = nspin;
   p->dim   = dim;
   p->alpha = alpha;
 
-  p->lda_aux = (xc_lda_type *) malloc(sizeof(xc_lda_type));
-  xc_lda_x_init(p->lda_aux, nspin, dim, XC_NON_RELATIVISTIC);
+  p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
+  XC(lda_x_init)(p->lda_aux, nspin, dim, XC_NON_RELATIVISTIC);
 }
 
-void xc_lda_c_xalpha_init_default(void *p_)
+void XC(lda_c_xalpha_init_default)(void *p_)
 {
-  xc_lda_type *p = (xc_lda_type *)p_;
+  XC(lda_type) *p = (XC(lda_type) *)p_;
 
-  xc_lda_c_xalpha_init(p, p->nspin, 3, 1.0);
+  XC(lda_c_xalpha_init)(p, p->nspin, 3, 1.0);
 }
 
-void xc_lda_c_xalpha_end(void *p_)
+void XC(lda_c_xalpha_end)(void *p_)
 {
-  xc_lda_type *p = (xc_lda_type *)p_;
+  XC(lda_type) *p = (XC(lda_type) *)p_;
 
   free(p->lda_aux);
 }

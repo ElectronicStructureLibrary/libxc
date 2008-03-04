@@ -20,28 +20,28 @@
 
 #include "xc.h"
 
-extern xc_func_info_type 
-  *lda_known_funct[], 
-  *gga_known_funct[],
-  *hyb_gga_known_funct[];
+extern XC(func_info_type) 
+  *XC(lda_known_funct)[], 
+  *XC(gga_known_funct)[],
+  *XC(hyb_gga_known_funct)[];
 
-int xc_family_from_id(int id)
+int XC(family_from_id)(int id)
 {
   int i;
 
   /* first let us check if it is an LDA */
-  for(i=0; lda_known_funct[i]!=NULL; i++){
-    if(lda_known_funct[i]->number == id) return XC_FAMILY_LDA;
+  for(i=0; XC(lda_known_funct)[i]!=NULL; i++){
+    if(XC(lda_known_funct)[i]->number == id) return XC_FAMILY_LDA;
   }
 
   /* or is it a GGA? */
-  for(i=0; gga_known_funct[i]!=NULL; i++){
-    if(gga_known_funct[i]->number == id) return XC_FAMILY_GGA;
+  for(i=0; XC(gga_known_funct)[i]!=NULL; i++){
+    if(XC(gga_known_funct)[i]->number == id) return XC_FAMILY_GGA;
   }
 
   /* or is it a hybrid GGA? */
-  for(i=0; hyb_gga_known_funct[i]!=NULL; i++){
-    if(hyb_gga_known_funct[i]->number == id) return XC_FAMILY_HYB_GGA;
+  for(i=0; XC(hyb_gga_known_funct)[i]!=NULL; i++){
+    if(XC(hyb_gga_known_funct)[i]->number == id) return XC_FAMILY_HYB_GGA;
   }
 
   return XC_FAMILY_UNKNOWN;

@@ -24,7 +24,7 @@
 
 /* RPBE: see PBE for more details */
 static inline void 
-func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 {
   static const FLOAT kappa = 0.8040;
   static const FLOAT mu = 0.00361218645365094697;
@@ -40,7 +40,7 @@ func(xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
 
 #include "work_gga_x.c"
 
-const xc_func_info_type func_info_gga_x_rpbe = {
+const XC(func_info_type) XC(func_info_gga_x_rpbe) = {
   XC_GGA_X_RPBE,
   XC_EXCHANGE,
   "Hammer, Hansen, and Nørskov",

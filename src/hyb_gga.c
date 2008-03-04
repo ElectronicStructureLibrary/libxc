@@ -25,21 +25,21 @@
 
 /* initialization */
 /*****************************************************/
-int xc_hyb_gga_init(xc_hyb_gga_type *p, int functional, int nspin)
+int XC(hyb_gga_init)(XC(hyb_gga_type) *p, int functional, int nspin)
 {
   int i;
 
   assert(p!=NULL);
 
   /* let us first find out if we know the functional */
-  for(i=0; hyb_gga_known_funct[i]!=NULL; i++){
-    if(hyb_gga_known_funct[i]->number == functional) break;
+  for(i=0; XC(hyb_gga_known_funct)[i]!=NULL; i++){
+    if(XC(hyb_gga_known_funct)[i]->number == functional) break;
   }
-  if(hyb_gga_known_funct[i] == NULL) return -1; /* functional not found */
+  if(XC(hyb_gga_known_funct)[i] == NULL) return -1; /* functional not found */
 
   /* initialize structure */
   p->params = NULL;
-  p->info = hyb_gga_known_funct[i];
+  p->info = XC(hyb_gga_known_funct)[i];
 
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
   p->nspin = nspin;
@@ -55,29 +55,29 @@ int xc_hyb_gga_init(xc_hyb_gga_type *p, int functional, int nspin)
 }
 
 
-void xc_hyb_gga_alloc(xc_hyb_gga_type *p)
+void XC(hyb_gga_alloc)(XC(hyb_gga_type) *p)
 {
   int i;
 
   if(p->lda_n > 0){
-    p->lda_coef = (FLOAT *)       malloc(p->lda_n * sizeof(FLOAT));
-    p->lda_aux  = (xc_lda_type **) malloc(p->lda_n * sizeof(xc_lda_type *));
+    p->lda_coef = (FLOAT *)         malloc(p->lda_n * sizeof(FLOAT));
+    p->lda_aux  = (XC(lda_type) **) malloc(p->lda_n * sizeof(XC(lda_type) *));
     for(i=0; i<p->lda_n; i++)
-      p->lda_aux[i] = (xc_lda_type *) malloc(sizeof(xc_lda_type));
+      p->lda_aux[i] = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
   }
 
   if(p->gga_n > 0){
-    p->gga_coef = (FLOAT *)       malloc(p->gga_n * sizeof(FLOAT));
-    p->gga_aux  = (xc_gga_type **) malloc(p->gga_n * sizeof(xc_gga_type *));
+    p->gga_coef = (FLOAT *)         malloc(p->gga_n * sizeof(FLOAT));
+    p->gga_aux  = (XC(gga_type) **) malloc(p->gga_n * sizeof(XC(gga_type) *));
     for(i=0; i<p->gga_n; i++)
-      p->gga_aux[i] = (xc_gga_type *) malloc(sizeof(xc_gga_type));
+      p->gga_aux[i] = (XC(gga_type) *) malloc(sizeof(XC(gga_type)));
   }
 }
 
 
 /* Termination */
 /*****************************************************/
-void xc_hyb_gga_end(xc_hyb_gga_type *p)
+void XC(hyb_gga_end)(XC(hyb_gga_type) *p)
 {
   int i;
 
@@ -97,7 +97,7 @@ void xc_hyb_gga_end(xc_hyb_gga_type *p)
   /* free the GGA components */
   if(p->gga_n > 0){
     for(i=0; i<p->gga_n; i++){
-      xc_gga_end(p->gga_aux[i]);
+      XC(gga_end)(p->gga_aux[i]);
       free(p->gga_aux[i]);
     }
     free(p->gga_aux);
@@ -107,7 +107,7 @@ void xc_hyb_gga_end(xc_hyb_gga_type *p)
 
 
 /*****************************************************/
-void xc_hyb_gga(xc_hyb_gga_type *p, FLOAT *rho, FLOAT *sigma,
+void XC(hyb_gga)(XC(hyb_gga_type) *p, FLOAT *rho, FLOAT *sigma,
 		FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
   FLOAT e1, vrho1[2], vsigma1[3];
@@ -127,7 +127,7 @@ void xc_hyb_gga(xc_hyb_gga_type *p, FLOAT *rho, FLOAT *sigma,
 
   /* we now add the LDA components */
   for(ii=0; ii<p->lda_n; ii++){
-    xc_lda_vxc(p->lda_aux[ii], rho, &e1, vrho1);
+    XC(lda_vxc)(p->lda_aux[ii], rho, &e1, vrho1);
 
     *e += p->lda_coef[ii] * e1;
     for(is=0; is<p->nspin; is++)
@@ -136,7 +136,7 @@ void xc_hyb_gga(xc_hyb_gga_type *p, FLOAT *rho, FLOAT *sigma,
 
   /* and the GGA components */
   for(ii=0; ii<p->gga_n; ii++){
-    xc_gga(p->gga_aux[ii], rho, sigma, &e1, vrho1, vsigma1);
+    XC(gga)(p->gga_aux[ii], rho, sigma, &e1, vrho1, vsigma1);
 
     *e += p->gga_coef[ii] * e1;
     for(is=0; is<p->nspin; is++)
@@ -150,7 +150,7 @@ void xc_hyb_gga(xc_hyb_gga_type *p, FLOAT *rho, FLOAT *sigma,
 
 
 /*****************************************************/
-FLOAT xc_hyb_gga_exx_coef(xc_hyb_gga_type *p)
+FLOAT XC(hyb_gga_exx_coef)(XC(hyb_gga_type) *p)
 {
   assert(p!=NULL);
 

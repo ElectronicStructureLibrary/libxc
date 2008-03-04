@@ -73,6 +73,10 @@ if test $ac_cv_build_fortran = yes; then
   dnl Fortran default flags
   ACX_FCFLAGS
 
+  dnl libxc needs the preprocessor. The result goes to FCCPP
+  dnl this is a hack, and should be changed in the future
+  AC_LANG_PREPROC
+
   dnl how Fortran mangles function names
   AC_FC_WRAPPERS
 
@@ -93,17 +97,10 @@ AC_ARG_ENABLE([single],
               [ac_cv_single_prec=$enableval],
 	      [ac_cv_single_prec=no])
 
-if  test $ac_cv_single_prec = yes; then
-  SINGLE_PRECISION=1
-  LIBXC_KIND=4
-else
-  SINGLE_PRECISION=0
-  LIBXC_KIND=14
-fi
-AC_SUBST(SINGLE_PRECISION)
-AC_SUBST(LIBXC_KIND)
+AM_CONDITIONAL(COMPILE_SINGLE, test  $ac_cv_single_prec = yes)
 
-AC_CONFIG_FILES([Makefile src/Makefile testsuite/Makefile src/xc_config.h src/libxc.f90])
+
+AC_CONFIG_FILES([Makefile src/Makefile testsuite/Makefile])
 
 AC_OUTPUT
 

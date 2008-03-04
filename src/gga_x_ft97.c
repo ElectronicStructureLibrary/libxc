@@ -24,7 +24,7 @@
 #define XC_GGA_X_FT97_B       115 /* Filatov & Thiel 97 (version B) */
 
 static inline void
-func(xc_gga_type *p, FLOAT x, FLOAT sigma, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *vsigma)
+func(XC(gga_type) *p, FLOAT x, FLOAT sigma, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *vsigma)
 {
   static const FLOAT 
     beta0 = 0.002913644, beta1 = 0.0009474169, beta2 = 6255746.320201; /* beta2 = 2501.149^2 ?? (Eq. (16a) */
@@ -60,7 +60,7 @@ func(xc_gga_type *p, FLOAT x, FLOAT sigma, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, 
 #define HEADER 2
 #include "work_gga_x.c"
 
-const xc_func_info_type func_info_gga_x_ft97_a = {
+const XC(func_info_type) XC(func_info_gga_x_ft97_a) = {
   XC_GGA_X_FT97_A,
   XC_EXCHANGE,
   "Filatov & Thiel 97 (version A)",
@@ -71,7 +71,7 @@ const xc_func_info_type func_info_gga_x_ft97_a = {
   work_gga_x
 };
 
-const xc_func_info_type func_info_gga_x_ft97_b = {
+const XC(func_info_type) XC(func_info_gga_x_ft97_b) = {
   XC_GGA_X_FT97_B,
   XC_EXCHANGE,
   "Filatov & Thiel 97 (version B)",

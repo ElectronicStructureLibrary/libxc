@@ -24,7 +24,7 @@
 
 #define XC_LCA_LCH       302   /* Lee, Colwell & Handy         */
 
-static xc_func_info_type func_info_lca_lch = {
+static XC(func_info_type) func_info_lca_lch = {
   XC_LCA_LCH,
   XC_EXCHANGE_CORRELATION,
   "Lee, Colwell & Handy parametrization",
@@ -35,7 +35,7 @@ static xc_func_info_type func_info_lca_lch = {
 };
 
 
-void lca_lch_init(xc_lca_type *p)
+void XC(lca_lch_init)(XC(lca_type) *p)
 {
   p->info = &func_info_lca_lch;
 }
@@ -43,7 +43,7 @@ void lca_lch_init(xc_lca_type *p)
 
 /* This routine computes the ratio of the orbital susceptibilities fo the interactiog and 
    non-interacting electron gas and its derivative */
-void lca_s_lch(FLOAT rs, FLOAT *s, FLOAT *dsdrs)
+void XC(lca_s_lch)(FLOAT rs, FLOAT *s, FLOAT *dsdrs)
 {
   static FLOAT c[3] = {1.0, 0.028, -0.042};
   FLOAT tmp;

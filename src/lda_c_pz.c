@@ -39,7 +39,8 @@ typedef struct {
   FLOAT a[2], b[2], c[2], d[2];
 } pz_consts_type;
 
-static pz_consts_type pz_consts[3] = {
+static pz_consts_type
+pz_consts[3] = {
   {    /* PZ Original */
     {-0.1423, -0.0843},  /* gamma */
     { 1.0529,  1.3981},  /* beta1 */
@@ -71,7 +72,8 @@ static pz_consts_type pz_consts[3] = {
 
 
 /* Auxiliary functions to handle parametrizations */
-static void ec_pot_low(pz_consts_type *X, int i, FLOAT *rs, FLOAT *ec, FLOAT *pot)
+static void
+ec_pot_low(pz_consts_type *X, int i, FLOAT *rs, FLOAT *ec, FLOAT *pot)
 {
   FLOAT b = 1.0/(1.0 + X->beta1[i]*rs[0] + X->beta2[i]*rs[1]);
   
@@ -84,7 +86,8 @@ static void ec_pot_low(pz_consts_type *X, int i, FLOAT *rs, FLOAT *ec, FLOAT *po
 }
 
 
-static void ec_pot_high(pz_consts_type *X, int i, FLOAT *rs, FLOAT *ec, FLOAT *pot)
+static void 
+ec_pot_high(pz_consts_type *X, int i, FLOAT *rs, FLOAT *ec, FLOAT *pot)
 {
   /* Eq. [1].C5 */
   *ec  = X->a[i]*rs[2] + X->b[i] + X->c[i]*rs[1]*rs[2] + X->d[i]*rs[1];
@@ -96,16 +99,17 @@ static void ec_pot_high(pz_consts_type *X, int i, FLOAT *rs, FLOAT *ec, FLOAT *p
 
 
 /* the functional */
-void lda_c_pz(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
+static void
+lda_c_pz(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 {
-  xc_lda_type *p = (xc_lda_type *)p_;
+  XC(lda_type) *p = (XC(lda_type) *)p_;
 
   FLOAT dens, zeta, rs[3];
   int func = p->info->number - XC_LDA_C_PZ;
   
   assert(func==0 || func==1 || func==2);
   
-  rho2dzeta(p->nspin, rho, &dens, &zeta);
+  XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
 
   /* Wigner radius */
   rs[1] = RS(dens);
@@ -136,7 +140,7 @@ void lda_c_pz(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
   }
 }
 
-const xc_func_info_type func_info_lda_c_pz = {
+const XC(func_info_type) XC(func_info_lda_c_pz) = {
   XC_LDA_C_PZ,
   XC_CORRELATION,
   "Perdew & Zunger",
@@ -148,7 +152,7 @@ const xc_func_info_type func_info_lda_c_pz = {
   lda_c_pz
 };
 
-const xc_func_info_type func_info_lda_c_pz_mod = {
+const XC(func_info_type) XC(func_info_lda_c_pz_mod) = {
   XC_LDA_C_PZ_MOD,
   XC_CORRELATION,
   "Perdew & Zunger (Modified)",
@@ -161,7 +165,7 @@ const xc_func_info_type func_info_lda_c_pz_mod = {
   lda_c_pz
 };
 
-const xc_func_info_type func_info_lda_c_ob_pz = {
+const XC(func_info_type) XC(func_info_lda_c_ob_pz) = {
   XC_LDA_C_OB_PZ,
   XC_CORRELATION,
   "Ortiz & Ballone (PZ parametrization)",

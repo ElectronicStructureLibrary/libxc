@@ -29,9 +29,9 @@ typedef struct{
 } gga_c_lyp_params;
 
 
-void gga_c_lyp_init(void *p_)
+void XC(gga_c_lyp_init)(void *p_)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
   gga_c_lyp_params *params;
 
   assert(p->params == NULL);
@@ -40,20 +40,21 @@ void gga_c_lyp_init(void *p_)
   params = (gga_c_lyp_params *) (p->params);
 
   /* values of constants in standard LYP functional */
-  gga_c_lyp_set_params(p, 0.04918, 0.132, 0.2533, 0.349);
+  XC(gga_c_lyp_set_params)(p, 0.04918, 0.132, 0.2533, 0.349);
 }
 
 
-void gga_c_lyp_end(void *p_)
+static void
+gga_c_lyp_end(void *p_)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   assert(p->params != NULL);
   free(p->params);
 }
 
 
-void gga_c_lyp_set_params(xc_gga_type *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d)
+void XC(gga_c_lyp_set_params)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d)
 {
   gga_c_lyp_params *params;
 
@@ -67,10 +68,10 @@ void gga_c_lyp_set_params(xc_gga_type *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d)
 }
 
 
-void gga_c_lyp(void *p_, FLOAT *rho_, FLOAT *sigma_,
+static void gga_c_lyp(void *p_, FLOAT *rho_, FLOAT *sigma_,
 	       FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
   gga_c_lyp_params *params;
 
   static FLOAT ee = 36.462398978764767321; /* ee = 8*2^(2/3)*e */
@@ -269,7 +270,7 @@ void gga_c_lyp(void *p_, FLOAT *rho_, FLOAT *sigma_,
 }
 
 
-const xc_func_info_type func_info_gga_c_lyp = {
+const XC(func_info_type) XC(func_info_gga_c_lyp) = {
   XC_GGA_C_LYP,
   XC_CORRELATION,
   "Lee, Yang & Parr",
@@ -277,7 +278,7 @@ const xc_func_info_type func_info_gga_c_lyp = {
   "C Lee, W Yang and RG Parr, Phys. Rev. B 37, 785 (1988)\n"
   "B Miehlich, A Savin, H Stoll and H Preuss, Chem. Phys. Lett. 157, 200 (1989)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  gga_c_lyp_init, 
+  XC(gga_c_lyp_init), 
   gga_c_lyp_end, 
   NULL,
   gga_c_lyp

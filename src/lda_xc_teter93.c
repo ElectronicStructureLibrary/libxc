@@ -31,9 +31,9 @@ static FLOAT teter_bp[4] = {0.000000000000000,  0.2673612973836267, 0.2052004607
   
 
 /* the functional */
-void lda_c_teter93(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
+static void lda_c_teter93(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
 {
-  xc_lda_type *p = (xc_lda_type *)p_;
+  XC(lda_type) *p = (XC(lda_type) *)p_;
 
   FLOAT dens, zeta;
   FLOAT rs[5], aa[4], bb[4];
@@ -44,7 +44,7 @@ void lda_c_teter93(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT
   FLOAT DnumDrs, DdenomDrs, DnumDzeta, DdenomDzeta;
   int ii;
 
-  rho2dzeta(p->nspin, rho, &dens, &zeta);
+  XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
 
   /* Wigner radius */
   rs[0] = 1.0;
@@ -95,7 +95,7 @@ void lda_c_teter93(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT
 }
 
 
-const xc_func_info_type func_info_lda_xc_teter93 = {
+const XC(func_info_type) XC(func_info_lda_xc_teter93) = {
   XC_LDA_XC_TETER93,
   XC_EXCHANGE_CORRELATION,
   "Teter 93",

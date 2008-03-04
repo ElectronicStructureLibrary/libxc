@@ -33,42 +33,44 @@ typedef struct{
 
   FLOAT alpha;     /* the parameters of LB94 */
   FLOAT gamm;
-} gga_xc_lb_params;
+} XC(gga_xc_lb_params);
 
 /************************************************************************
   Calculates van Leeuwen Baerends functional
 ************************************************************************/
 
-void gga_lb_init(void *p_)
+static void
+gga_lb_init(void *p_)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   assert(p->params == NULL);
 
-  p->lda_aux = (xc_lda_type *) malloc(sizeof(xc_lda_type));
-  xc_lda_x_init(p->lda_aux, p->nspin, 3, XC_NON_RELATIVISTIC);
+  p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
+  XC(lda_x_init)(p->lda_aux, p->nspin, 3, XC_NON_RELATIVISTIC);
 
-  p->params = malloc(sizeof(gga_xc_lb_params));
-  xc_gga_lb_set_params(p, 0, 0.0, 0.0, 0.0);
+  p->params = malloc(sizeof(XC(gga_xc_lb_params)));
+  XC(gga_lb_set_params)(p, 0, 0.0, 0.0, 0.0);
 }
 
 
-void gga_lb_end(void *p_)
+static void
+gga_lb_end(void *p_)
 {
-  xc_gga_type *p = p_;
+  XC(gga_type) *p = p_;
 
   free(p->lda_aux);
   free(p->params);
 }
 
 
-void xc_gga_lb_set_params(xc_gga_type *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot)
+void XC(gga_lb_set_params)(XC(gga_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot)
 {
-  gga_xc_lb_params *params;
+  XC(gga_xc_lb_params) *params;
 
   fflush(stdout);
   assert(p->params != NULL);
-  params = (gga_xc_lb_params *) (p->params);
+  params = (XC(gga_xc_lb_params) *) (p->params);
 
   params->modified  = modified;
   params->threshold = threshold;
@@ -85,15 +87,15 @@ void xc_gga_lb_set_params(xc_gga_type *p, int modified, FLOAT threshold, FLOAT i
 }
 
 
-void xc_gga_lb_modified(xc_gga_type *p, FLOAT *rho, FLOAT *sigma, FLOAT r, FLOAT *dedd)
+void XC(gga_lb_modified)(XC(gga_type) *p, FLOAT *rho, FLOAT *sigma, FLOAT r, FLOAT *dedd)
 {
   int is;
   FLOAT gdm, x;
-  gga_xc_lb_params *params = (gga_xc_lb_params *) (p->params);
+  XC(gga_xc_lb_params) *params = (XC(gga_xc_lb_params) *) (p->params);
 
   static const FLOAT beta = 0.05;
 
-  xc_lda_vxc(p->lda_aux, rho, &x, dedd);
+  XC(lda_vxc)(p->lda_aux, rho, &x, dedd);
 
   for(is=0; is<p->nspin; is++){
     gdm = sqrt(sigma[is==0 ? 0 : 2]);
@@ -130,11 +132,11 @@ void xc_gga_lb_modified(xc_gga_type *p, FLOAT *rho, FLOAT *sigma, FLOAT r, FLOAT
 static void gga_xc_lb(void *p_, FLOAT *rho, FLOAT *sigma,
                       FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
-  xc_gga_lb_modified((xc_gga_type *)p_, rho, sigma, 0.0, vrho);
+  XC(gga_lb_modified)((XC(gga_type) *)p_, rho, sigma, 0.0, vrho);
 }
 
 
-xc_func_info_type func_info_gga_xc_lb = {
+XC(func_info_type) XC(func_info_gga_xc_lb) = {
   XC_GGA_XC_LB,
   XC_EXCHANGE_CORRELATION,
   "van Leeuwen & Baerends",

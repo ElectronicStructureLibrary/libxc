@@ -26,7 +26,7 @@
 #define XC_LCA_LCH       302   /* Lee, Colwell & Handy         */
 
 /* initialization */
-void xc_lca_init(xc_lca_type *p, int functional, int nspin)
+void XC(lca_init)(XC(lca_type) *p, int functional, int nspin)
 {
   /* sanity check */
   assert(functional == XC_LCA_LCH ||
@@ -38,11 +38,11 @@ void xc_lca_init(xc_lca_type *p, int functional, int nspin)
   /* initialize the functionals */
   switch(functional){
   case XC_LCA_LCH:
-    lca_lch_init(p);
+    XC(lca_lch_init)(p);
     break;
 
   case XC_LCA_OMC:
-    lca_omc_init(p);
+    XC(lca_omc_init)(p);
     break;
   }
 
@@ -51,7 +51,7 @@ void xc_lca_init(xc_lca_type *p, int functional, int nspin)
 /* WARNING - should use new definition of input/output !! */
 #define   _(is, x)   [3*is + x]
 
-void xc_lca(xc_lca_type *p, FLOAT *rho, FLOAT *v, FLOAT *e, FLOAT *dedd, FLOAT *dedv)
+void XC(lca)(XC(lca_type) *p, FLOAT *rho, FLOAT *v, FLOAT *e, FLOAT *dedd, FLOAT *dedv)
 {
   int i;
   int j;
@@ -84,11 +84,11 @@ void xc_lca(xc_lca_type *p, FLOAT *rho, FLOAT *v, FLOAT *e, FLOAT *dedd, FLOAT *
 
     switch(p->info->number){
     case XC_LCA_LCH:
-      lca_s_lch(rs, &s, &dsdrs);
+      XC(lca_s_lch)(rs, &s, &dsdrs);
       break;
 
     case XC_LCA_OMC:
-      lca_s_omc(rs, &s, &dsdrs);
+      XC(lca_s_omc)(rs, &s, &dsdrs);
       break;
     }
 

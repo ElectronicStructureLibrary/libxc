@@ -34,12 +34,21 @@ libxc_a_FUNC_SOURCES = \
 	hyb_gga.c hyb_gga_xc_b3pw91.c hyb_gga_xc_b3lyp.c hyb_gga_xc_b3p86.c \
 	hyb_gga_xc_o3lyp.c hyb_gga_xc_pbeh.c hyb_gga_xc_x3lyp.c \
 	mgga.c mgga_x_tpss.c mgga_c_tpss.c \
-	lca.c lca_omc.c lca_lch.c
+	lca.c lca_omc.c lca_lch.c \
+	util.c functionals.c
+
+libxc_a_FUNC_SINGLE_SOURCES = $(libxc_a_FUNC_SOURCES:.c=_s.c)
+
+libxc_a_SOURCES = $(libxc_a_FUNC_SOURCES)
 
 if COMPILE_FORTRAN
-libxc_a_SOURCES = xc_f.c libxc.f90 $(libxc_a_FUNC_SOURCES) util.c functionals.c
-else
-libxc_a_SOURCES = $(libxc_a_FUNC_SOURCES) util.c functionals.c
+  libxc_a_SOURCES += xc_f.c libxc.f90
+endif
+if COMPILE_SINGLE
+  libxc_a_SOURCES += $(libxc_a_FUNC_SINGLE_SOURCES)
+if COMPILE_FORTRAN
+    libxc_a_SOURCES += xc_f_s.c libxc_s.f90
+endif
 endif
 
 dist_noinst_SCRIPTS = get_funcs.pl
@@ -48,15 +57,25 @@ noinst_HEADERS = util.h work_gga_x.c
 include_HEADERS = xc.h
 nodist_include_HEADERS = xc_funcs.h
 
+if COMPILE_SINGLE
+  nodist_include_HEADERS += xc_s.h
+endif
+
 AM_CPPFLAGS = $(string_f_include)
 
-CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h libxc_funcs.f90 xc_funcs.h
+SUFFIXES = _s.c
+.c_s.c:
+	@CPP@ -D SINGLE_PRECISION=1 @CPPFLAGS@ $(INCLUDES) $(DEFAULT_INCLUDES) $(AM_CPPFLAGS) $< > $*_s.c
 
-xc_f.c: xc.h
-functionals.c: xc.h
-lda.c: xc.h
+CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
+	libxc.f90 libxc_funcs.f90 xc_funcs.h *_s.c *_s.f90
+
+lda.c: xc.h xc_s.h
 libxc.o: libxc_funcs.o
 libxc_funcs.f90: xc_funcs.h
-xc.h: xc_funcs.h
 xc_funcs.h: get_funcs.pl
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)
+libxc.f90: libxc.F90
+	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) $< > $*.f90
+libxc_s.f90: libxc.F90
+	@FCCPP@ -D SINGLE_PRECISION=1 @CPPFLAGS@ $(AM_CPPFLAGS) $< > $*.f90

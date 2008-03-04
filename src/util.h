@@ -26,8 +26,8 @@
 #if defined(__STRICT_ANSI__)
 # define M_PI           3.14159265358979323846  /* pi */
 # define M_SQRT2        1.41421356237309504880  /* sqrt(2) */
-double asinh(double x);
-float asinhf(float x);
+double asinh (double x);
+float  asinhf(float  x);
 #endif
 
 /* Very useful macros */
@@ -48,48 +48,48 @@ float asinhf(float x);
 
 #include "xc.h"
 
-void rho2dzeta(int nspin, const FLOAT *rho, FLOAT *d, FLOAT *zeta);
+void XC(rho2dzeta)(int nspin, const FLOAT *rho, FLOAT *d, FLOAT *zeta);
 
 /* LDAs */
-void xc_lda_fxc_fd(const xc_lda_type *p, const FLOAT *rho, FLOAT *fxc);
-void xc_lda_kxc_fd(const xc_lda_type *p, const FLOAT *rho, FLOAT *kxc);
+void XC(lda_fxc_fd)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *fxc);
+void XC(lda_kxc_fd)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *kxc);
 
 /* GGAs */
-typedef struct perdew_t {
+typedef struct XC(perdew_t) {
   int    nspin;
   FLOAT dens, zeta, gdmt;
   FLOAT ecunif, vcunif[2];
 
   FLOAT  rs,  kf,  ks,  phi, t;
   FLOAT drs, dkf, dks, dphi, dt, decunif;
-} perdew_t;
+} XC(perdew_t);
 
-void perdew_params(xc_gga_type *gga_p, FLOAT *rho, FLOAT *sigma, perdew_t *pp);
-void perdew_potentials(perdew_t *pt, FLOAT *rho, FLOAT e_gga, FLOAT *vrho, FLOAT *vsigma);
-void gga_x_b88_set_params(xc_gga_type *p, FLOAT beta);
-void gga_c_lyp_set_params(xc_gga_type *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
+void XC(perdew_params)(XC(gga_type) *gga_p, FLOAT *rho, FLOAT *sigma, XC(perdew_t) *pp);
+void XC(perdew_potentials)(XC(perdew_t) *pt, FLOAT *rho, FLOAT e_gga, FLOAT *vrho, FLOAT *vsigma);
+void XC(gga_x_b88_set_params)(XC(gga_type) *p, FLOAT beta);
+void XC(gga_c_lyp_set_params)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
 
 /* hybrid GGAs */
-void xc_hyb_gga_alloc(xc_hyb_gga_type *p);
+void XC(hyb_gga_alloc)(XC(hyb_gga_type) *p);
 
 /* meta-GGAs */
-void mgga_x_tpss_init(xc_mgga_type *p);
-void mgga_c_tpss_init(xc_mgga_type *p);
+void XC(mgga_x_tpss_init)(XC(mgga_type) *p);
+void XC(mgga_c_tpss_init)(XC(mgga_type) *p);
 
-void mgga_x_tpss_end(xc_mgga_type *p);
-void mgga_c_tpss_end(xc_mgga_type *p);
+void XC(mgga_x_tpss_end)(XC(mgga_type) *p);
+void XC(mgga_c_tpss_end)(XC(mgga_type) *p);
 
-void mgga_x_tpss(xc_mgga_type *p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
+void XC(mgga_x_tpss)(XC(mgga_type) *p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
 		 FLOAT *e, FLOAT *dedd, FLOAT *dedgd, FLOAT *dedtau);
-void mgga_c_tpss(xc_mgga_type *p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
+void XC(mgga_c_tpss)(XC(mgga_type) *p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
 		 FLOAT *e, FLOAT *dedd, FLOAT *dedgd, FLOAT *dedtau);
 
 /* LCAs */
-void lca_lch_init(xc_lca_type *p);
-void lca_omc_init(xc_lca_type *p);
+void XC(lca_lch_init)(XC(lca_type) *p);
+void XC(lca_omc_init)(XC(lca_type) *p);
 
-void lca_s_lch(FLOAT rs, FLOAT *s, FLOAT *dsdrs);
-void lca_s_omc(FLOAT rs, FLOAT *s, FLOAT *dsdrs);
+void XC(lca_s_lch)(FLOAT rs, FLOAT *s, FLOAT *dsdrs);
+void XC(lca_s_omc)(FLOAT rs, FLOAT *s, FLOAT *dsdrs);
 
 
 #endif

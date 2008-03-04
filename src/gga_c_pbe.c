@@ -40,15 +40,15 @@ static const FLOAT gamm  = 0.03109069086965489503494086371273; /* (1.0 - log(2.0
 
 static void gga_c_pbe_init(void *p_)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
-  p->lda_aux = (xc_lda_type *) malloc(sizeof(xc_lda_type));
-  xc_lda_init(p->lda_aux, XC_LDA_C_PW_MOD, p->nspin);
+  p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
+  XC(lda_init)(p->lda_aux, XC_LDA_C_PW_MOD, p->nspin);
 }
 
 static void gga_c_pbe_end(void *p_)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   free(p->lda_aux);
 }
@@ -115,8 +115,8 @@ static inline void pbe_eq7(int func, FLOAT phi, FLOAT t, FLOAT A,
 static void gga_c_pbe(void *p_, FLOAT *rho, FLOAT *sigma,
 		      FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
-  xc_gga_type *p = (xc_gga_type *)p_;
-  perdew_t pt;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+  XC(perdew_t) pt;
 
   int func;
   FLOAT A, dAdec, dAdphi;
@@ -124,7 +124,7 @@ static void gga_c_pbe(void *p_, FLOAT *rho, FLOAT *sigma,
 
   func = (p->info->number == XC_GGA_C_PBE_SOL) ? 1 : 0;
 
-  perdew_params(p, rho, sigma, &pt);
+  XC(perdew_params)(p, rho, sigma, &pt);
 
   pbe_eq8(func, pt.ecunif, pt.phi, &A, &dAdec, &dAdphi);
   pbe_eq7(func, pt.phi, pt.t, A, &H, &dHdphi, &dHdt, &dHdA);
@@ -135,11 +135,11 @@ static void gga_c_pbe(void *p_, FLOAT *rho, FLOAT *sigma,
   pt.dt      = dHdt;
   pt.decunif = 1.0 + dHdA*dAdec;
 
-  perdew_potentials(&pt, rho, *e, vrho, vsigma);
+  XC(perdew_potentials)(&pt, rho, *e, vrho, vsigma);
 }
 
 
-const xc_func_info_type func_info_gga_c_pbe = {
+const XC(func_info_type) XC(func_info_gga_c_pbe) = {
   XC_GGA_C_PBE,
   XC_CORRELATION,
   "Perdew, Burke & Ernzerhof",
@@ -153,7 +153,7 @@ const xc_func_info_type func_info_gga_c_pbe = {
   gga_c_pbe,
 };
 
-const xc_func_info_type func_info_gga_c_pbe_sol = {
+const XC(func_info_type) XC(func_info_gga_c_pbe_sol) = {
   XC_GGA_C_PBE_SOL,
   XC_CORRELATION,
   "Perdew, Burke & Ernzerhof SOL",

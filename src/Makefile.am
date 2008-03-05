@@ -70,7 +70,7 @@ SUFFIXES = _s.c
 CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 	libxc.f90 libxc_funcs.f90 xc_funcs.h *_s.c *_s.f90
 
-lda.c: xc.h xc_s.h
+lda.c: xc_funcs.h xc.h xc_s.h
 libxc.o: libxc_funcs.o
 libxc_funcs.f90: xc_funcs.h
 xc_funcs.h: get_funcs.pl

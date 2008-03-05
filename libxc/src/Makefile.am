@@ -42,7 +42,7 @@ libxc_a_FUNC_SINGLE_SOURCES = $(libxc_a_FUNC_SOURCES:.c=_s.c)
 libxc_a_SOURCES = $(libxc_a_FUNC_SOURCES)
 
 if COMPILE_FORTRAN
-  libxc_a_SOURCES += xc_f.c libxc.f90
+  libxc_a_SOURCES += xc_f.c libxc_funcs.f90 libxc.f90
 endif
 if COMPILE_SINGLE
   libxc_a_SOURCES += $(libxc_a_FUNC_SINGLE_SOURCES)
@@ -70,12 +70,11 @@ SUFFIXES = _s.c
 CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 	libxc.f90 libxc_funcs.f90 xc_funcs.h *_s.c *_s.f90
 
-lda.c: xc_funcs.h xc.h xc_s.h
-libxc.o: libxc_funcs.o
-libxc_funcs.f90: xc_funcs.h
+lda.o: xc_funcs.h xc.h xc_s.h
 xc_funcs.h: get_funcs.pl
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)
-libxc.f90: libxc.F90
+libxc_funcs.f90: xc_funcs.h
+libxc.f90: libxc.F90 xc_funcs.h
 	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) $< > $*.f90
 libxc_s.f90: libxc.F90
 	@FCCPP@ -D SINGLE_PRECISION=1 @CPPFLAGS@ $(AM_CPPFLAGS) $< > $*.f90

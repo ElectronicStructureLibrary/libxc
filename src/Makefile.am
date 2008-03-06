@@ -75,6 +75,6 @@ xc_funcs.h: get_funcs.pl
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)
 libxc_funcs.f90: xc_funcs.h
 libxc.f90: libxc.F90 xc_funcs.h
-	@FCCPP@                       @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc.F90 > $(builddir)/libxc.f90
+	@FCCPP@                       @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc.F90 > $(top_builddir)/src/libxc.f90
 libxc_s.f90: libxc.F90
-	@FCCPP@ -D SINGLE_PRECISION=1 @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc.F90 > $(builddir)/libxc_s.f90
+	@FCCPP@ -D SINGLE_PRECISION=1 @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc.F90 > $(top_builddir)/src/libxc_s.f90

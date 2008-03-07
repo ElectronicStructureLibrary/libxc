@@ -58,7 +58,7 @@ include_HEADERS = xc.h
 nodist_include_HEADERS = xc_funcs.h
 
 if COMPILE_SINGLE
-  nodist_include_HEADERS += xc_s.h
+  include_HEADERS += xc_s.h
 endif
 
 AM_CPPFLAGS = $(string_f_include)

@@ -35,8 +35,7 @@ libxc_a_FUNC_SOURCES = \
 	hyb_gga_xc_o3lyp.c hyb_gga_xc_pbeh.c hyb_gga_xc_x3lyp.c \
 	mgga.c mgga_x_tpss.c mgga_c_tpss.c \
 	lca.c lca_omc.c lca_lch.c \
-	util.c functionals.c \
-	libxc_master.F90
+	util.c functionals.c 
 
 libxc_a_FUNC_SINGLE_SOURCES = $(libxc_a_FUNC_SOURCES:.c=_s.c)
 
@@ -54,7 +53,7 @@ endif
 
 dist_noinst_SCRIPTS = get_funcs.pl
 
-noinst_HEADERS = util.h work_gga_x.c
+noinst_HEADERS = util.h work_gga_x.c libxc_master.F90
 include_HEADERS = xc.h xc_config.h
 nodist_include_HEADERS = xc_funcs.h
 

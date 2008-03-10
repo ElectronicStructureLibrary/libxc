@@ -36,7 +36,7 @@ libxc_a_FUNC_SOURCES = \
 	mgga.c mgga_x_tpss.c mgga_c_tpss.c \
 	lca.c lca_omc.c lca_lch.c \
 	util.c functionals.c \
-	libxc.F90
+	libxc_master.F90
 
 libxc_a_FUNC_SINGLE_SOURCES = $(libxc_a_FUNC_SOURCES:.c=_s.c)
 
@@ -75,7 +75,8 @@ lda.o: xc_funcs.h xc.h xc_s.h
 xc_funcs.h: get_funcs.pl
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)
 libxc_funcs.f90: xc_funcs.h
-libxc.f90: libxc.F90 xc_funcs.h
-	@FCCPP@                       @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc.F90 > $(top_builddir)/src/libxc.f90
-libxc_s.f90: libxc.F90
-	@FCCPP@ -D SINGLE_PRECISION=1 @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc.F90 > $(top_builddir)/src/libxc_s.f90
+libxc.f90: libxc_master.F90 xc_funcs.h
+	@FCCPP@                       @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc.f90
+libxc_s.f90: libxc_master.F90 xc_funcs.h
+	@FCCPP@ -D SINGLE_PRECISION=1 @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc_s.f90
+

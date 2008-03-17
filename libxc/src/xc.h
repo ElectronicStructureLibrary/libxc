@@ -60,8 +60,11 @@ typedef struct{
 
   void (*init)(void *p);
   void (*end) (void *p);
-  void (*lda) (const void *p, const FLOAT *rho, FLOAT *exc, FLOAT *vxc, FLOAT *fxc);
-  void (*gga) (void *p, FLOAT *rho, FLOAT *sigma, FLOAT *exc, FLOAT *vrho, FLOAT *vsigma);
+  void (*lda) (const void *p, const FLOAT *rho, 
+	       FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2);
+  void (*gga) (const void *p, const FLOAT *rho, const FLOAT *sigma, 
+	       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
+	       FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
 } XC(func_info_type);
 
 
@@ -105,7 +108,15 @@ typedef struct XC(struct_gga_type){
 
 int  XC(gga_init)(XC(gga_type) *p, int functional, int nspin);
 void XC(gga_end) (XC(gga_type) *p);
-void XC(gga)     (XC(gga_type) *p, FLOAT *rho, FLOAT *grho, FLOAT *e, FLOAT *dedd, FLOAT *dedgd);
+void XC(gga)     (const XC(gga_type) *p, const FLOAT *rho, const FLOAT *sigma, 
+		  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
+		  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
+void XC(gga_exc)(const XC(gga_type) *p, const FLOAT *rho, const FLOAT *sigma, 
+		 FLOAT *zk);
+void XC(gga_vxc)(const XC(gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
+		 FLOAT *zk, FLOAT *vrho, FLOAT *vsigma);
+void XC(gga_fxc)(const XC(gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
+		 FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
 
 void XC(gga_lb_set_params)   (XC(gga_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
 void XC(gga_lb_modified)     (XC(gga_type) *p, FLOAT *rho, FLOAT *grho, FLOAT r, FLOAT *dedd);

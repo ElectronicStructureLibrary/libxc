@@ -72,19 +72,30 @@ while(data_read(*DATA, \%data) != 0){
     close DATA2;
 
     @cmp = ("zk", "vrhoa", "vsigmaaa");
+    if($data2{"v2rhoa2"} != 0.0){
+      push @cmp, ("v2rhoa2", "v2rhoasigmaaa", "v2sigmaaa2");
+    }
+
     if($pol == 1){
       my $tmp = $data{"vsigmaaa"};
       $data{"vsigmaaa"}  = ($data{"vsigmaaa"} + $data{"vsigmaab"} + $data{"vsigmabb"})/4.0;
+
+      if($data2{"v2rhoa2"} != 0.0){
+      }
 
       $ok = cmp_data(\%data, \%data2, \@cmp);
 
       $data{"vsigmaaa"} = $tmp;
 
     }else{
-
       if($data{"rhob"} != 0.0){
 	# compare both up and down channels
 	push @cmp, ("vrhob", "vsigmaab", "vsigmabb");
+	if($data2{"v2rhoa2"} != 0.0){
+	  push @cmp, ("v2rhoab", "v2rhob2", 
+		      "v2rhoasigmaab", "v2rhoasigmabb", "v2rhobsigmaaa", "v2rhobsigmaab", "v2rhobsigmabb",
+		      "v2sigmaaaab", "v2sigmaaabb", "v2sigmaab2", "v2sigmaabbb", "v2sigmabb2");
+	}
       }
 
       $ok = cmp_data(\%data, \%data2, \@cmp);

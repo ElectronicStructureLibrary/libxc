@@ -23,7 +23,7 @@
 #define XC_GGA_X_OPTX         110 /* Handy & Cohen OPTX 01                          */
 
 static inline void
-func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   static const FLOAT a = 1.05151, b = 1.43169/X_FACTOR_C, gamma = 0.006;
 

@@ -23,7 +23,7 @@
 #define XC_GGA_X_G96          107 /* Gill 96                                        */
 
 static inline void
-func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2xdf2)
 {
   static const FLOAT c1 = 1.0/137.0;
   FLOAT sx = sqrt(x);

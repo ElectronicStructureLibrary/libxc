@@ -113,6 +113,8 @@ int main(int argc, char *argv[])
   xc_lda_type lda_func;
   xc_gga_type gga_func;
   xc_hyb_gga_type hyb_gga_func;
+  const xc_func_info_type *info;
+  FLOAT *pv2rho = NULL;
 
   if(argc != 8){
     printf("Usage:\n%s funct pol rhoa rhob sigmaaa sigmaab sigmabb\n", argv[0]);
@@ -126,6 +128,7 @@ int main(int argc, char *argv[])
     xc.sigma[0] += 2.0*xc.sigma[1] + xc.sigma[2];
   }
 
+  info = NULL;
   switch(xc_family_from_id(xc.functional))
     {
     case XC_FAMILY_LDA:
@@ -133,21 +136,38 @@ int main(int argc, char *argv[])
 	xc_lda_x_init(&lda_func, xc.nspin, 3, 0);
       else
 	xc_lda_init(&lda_func, xc.functional, xc.nspin);
-      xc_lda_vxc(&lda_func, xc.rho, &xc.zk, xc.vrho);
+      info = lda_func.info;
       break;
     case XC_FAMILY_GGA:
       xc_gga_init(&gga_func, xc.functional, xc.nspin);
-      xc_gga(&gga_func, xc.rho, xc.sigma, &xc.zk, xc.vrho, xc.vsigma);
-      xc_gga_end(&gga_func);
+      info = gga_func.info;
       break;
     case XC_FAMILY_HYB_GGA:
       xc_hyb_gga_init(&hyb_gga_func, xc.functional, xc.nspin);
-      xc_hyb_gga(&hyb_gga_func, xc.rho, xc.sigma, &xc.zk, xc.vrho, xc.vsigma);
-      xc_hyb_gga_end(&hyb_gga_func);
+      info = hyb_gga_func.info;
       break;
     default:
       fprintf(stderr, "Functional '%d' not found\n", xc.functional);
-      exit(1);
+      exit(1);  
+    }
+  if(info->provides & XC_PROVIDES_FXC){
+    pv2rho = xc.v2rho;
+  }
+
+  switch(xc_family_from_id(xc.functional))
+    {
+    case XC_FAMILY_LDA:
+      xc_lda(&lda_func, xc.rho, &xc.zk, xc.vrho, pv2rho, NULL);
+      break;
+    case XC_FAMILY_GGA:
+      xc_gga(&gga_func, xc.rho, xc.sigma, &xc.zk, 
+	     xc.vrho, xc.vsigma, pv2rho, xc.v2rhosigma, xc.v2sigma);
+      xc_gga_end(&gga_func);
+      break;
+    case XC_FAMILY_HYB_GGA:
+      xc_hyb_gga(&hyb_gga_func, xc.rho, xc.sigma, &xc.zk, xc.vrho, xc.vsigma);
+      xc_hyb_gga_end(&hyb_gga_func);
+      break;
     }
 
   if(xc.nspin == 1){

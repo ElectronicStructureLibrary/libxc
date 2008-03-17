@@ -108,27 +108,34 @@ void XC_FC_FUNC(f90_lda_end, F90_LDA_END)
 }
 
 void XC_FC_FUNC(f90_lda, F90_LDA)
-  (void **p, FLOAT *rho, FLOAT *exc, FLOAT *vxc, FLOAT *fxc, FLOAT *kxc)
+  (void **p, FLOAT *rho, 
+   FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3)
 {
-  XC(lda)((XC(lda_type) *)(*p), rho, exc, vxc, fxc, kxc);
+  XC(lda)((XC(lda_type) *)(*p), rho, zk, vrho, v2rho2, v3rho3);
+}
+
+void XC_FC_FUNC(f90_lda_exc, F90_LDA_EXC)
+     (void **p, FLOAT *rho, FLOAT *zk)
+{
+  XC(lda_exc)((XC(lda_type) *)(*p), rho, zk);
 }
 
 void XC_FC_FUNC(f90_lda_vxc, F90_LDA_VXC)
-     (void **p, FLOAT *rho, FLOAT *e, FLOAT *v)
+     (void **p, FLOAT *rho, FLOAT *zk, FLOAT *vrho)
 {
-  XC(lda_vxc)((XC(lda_type) *)(*p), rho, e, v);
+  XC(lda_vxc)((XC(lda_type) *)(*p), rho, zk, vrho);
 }
 
 void XC_FC_FUNC(f90_lda_fxc, F90_LDA_FXC)
-     (void **p, FLOAT *rho, FLOAT *fxc)
+     (void **p, FLOAT *rho, FLOAT *v2rho2)
 {
-  XC(lda_fxc)((XC(lda_type) *)(*p), rho, fxc);
+  XC(lda_fxc)((XC(lda_type) *)(*p), rho, v2rho2);
 }
 
 void XC_FC_FUNC(f90_lda_kxc, F90_LDA_KXC)
-     (void **p, FLOAT *rho, FLOAT *kxc)
+     (void **p, FLOAT *rho, FLOAT *v3rho3)
 {
-  XC(lda_kxc)((XC(lda_type) *)(*p), rho, kxc);
+  XC(lda_kxc)((XC(lda_type) *)(*p), rho, v3rho3);
 }
 
 
@@ -187,12 +194,33 @@ void XC_FC_FUNC(f90_gga_end, F90_GGA_END)
 }
 
 void XC_FC_FUNC(f90_gga, F90_GGA)
-     (void **p, FLOAT *rho, FLOAT *grho, 
-      FLOAT *e, FLOAT *dedd, FLOAT *dedgd)
+     (void **p, FLOAT *rho, FLOAT *sigma, 
+      FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
+      FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
-  XC(gga)((XC(gga_type) *)(*p), rho, grho, e, dedd, dedgd);
+  XC(gga)((XC(gga_type) *)(*p), rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
 }
 
+void XC_FC_FUNC(f90_gga_exc, F90_GGA_EXC)
+     (void **p, FLOAT *rho, FLOAT *sigma, 
+      FLOAT *zk)
+{
+  XC(gga_exc)((XC(gga_type) *)(*p), rho, sigma, zk);
+}
+
+void XC_FC_FUNC(f90_gga_vxc, F90_GGA_VXC)
+     (void **p, FLOAT *rho, FLOAT *sigma, 
+      FLOAT *zk, FLOAT *vrho, FLOAT *vsigma)
+{
+  XC(gga_vxc)((XC(gga_type) *)(*p), rho, sigma, zk, vrho, vsigma);
+}
+
+void XC_FC_FUNC(f90_gga_fxc, F90_GGA_FXC)
+     (void **p, FLOAT *rho, FLOAT *sigma, 
+      FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
+{
+  XC(gga_fxc)((XC(gga_type) *)(*p), rho, sigma, v2rho2, v2rhosigma, v2sigma2);
+}
 
 /* the van Leeuwen & Baerends functional is special */
 void XC_FC_FUNC(f90_gga_lb_set_params, F90_GGA_LB_SET_PARAMS)

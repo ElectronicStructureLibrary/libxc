@@ -28,29 +28,27 @@
 #endif
 
 static void 
-work_gga_x(void *p_, FLOAT *rho, FLOAT *sigma,
-	   FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
+work_gga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma,
+	   FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
+	   FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
-  XC(gga_type) *p = p_;
+  const XC(gga_type) *p = p_;
 
   FLOAT sfact, dens;
   int is;
 
-  *e   = 0.0;
   if(p->nspin == XC_POLARIZED){
     sfact     = 1.0;
-    vsigma[1] = 0.0; /* there are no cross terms in these functionals */
   }else
     sfact     = 2.0;
 
   dens = 0.0;
   for(is=0; is<p->nspin; is++){
     FLOAT gdm, ds, rho13;
-    FLOAT x, f, dfdx, ldfdx;
+    FLOAT x, f, dfdx, ldfdx, d2fdx2;
+    FLOAT *pdfdx, *pvsigma, *pd2fdx2;
     int js = is==0 ? 0 : 2;
 
-    vrho[is]   = 0.0;
-    vsigma[js] = 0.0;
     if(rho[is] < MIN_DENS) continue;
 
     dens += rho[is];
@@ -60,22 +58,50 @@ work_gga_x(void *p_, FLOAT *rho, FLOAT *sigma,
     rho13 = POW(ds, 1.0/3.0);
     x     = gdm/(ds*rho13);
 
+    if(vrho!=NULL){
+      pdfdx   = &dfdx;
+      pvsigma = &(vsigma[js]);
+    }else
+      pdfdx = pvsigma = NULL;
+
+    pd2fdx2 = (v2rho2!=NULL) ? &d2fdx2 : NULL;
+
 #if   HEADER == 1
-    func(p, x, &f, &dfdx, &ldfdx);
+    func(p, x, &f, pdfdx, &ldfdx, pd2fdx2);
 #elif HEADER == 2
     /* this second header is useful for functionals that depend
        explicitly both on s and on sigma */
-    func(p, x, gdm*gdm, &f, &dfdx, &ldfdx, &(vsigma[js]));
+    /* WARNING: This is not prepared for fxc */
+    func(p, x, gdm*gdm, &f, pdfdx, &ldfdx, pvsigma);
 #endif
 
-    (*e) += -sfact*X_FACTOR_C*(ds*rho13)*f;
+    if(zk != NULL)
+      *zk += -sfact*X_FACTOR_C*(ds*rho13)*f;
       
-    vrho[is] += -4.0/3.0*X_FACTOR_C*rho13*(f - dfdx*x);
-    if(gdm>MIN_GRAD)
-      vsigma[js] = -sfact*X_FACTOR_C*(ds*rho13)*(vsigma[js]/(sfact*sfact) + dfdx*x/(2.0*sigma[js]));
-    else
-      vsigma[js] = -X_FACTOR_C/(sfact*(ds*rho13))*ldfdx;
+    if(vrho != NULL){
+      vrho[is] += -4.0/3.0*X_FACTOR_C*rho13*(f - dfdx*x);
+      if(gdm>MIN_GRAD)
+	vsigma[js] = -sfact*X_FACTOR_C*(ds*rho13)*(vsigma[js]/(sfact*sfact) + dfdx*x/(2.0*sigma[js]));
+      else
+	vsigma[js] = -X_FACTOR_C/(sfact*(ds*rho13))*ldfdx;
+    }
+
+    if(v2rho2 != NULL){
+      int n;
+
+      v2rho2[js] = -4.0/3.0*X_FACTOR_C*rho13/(3.0*ds)*
+	(f - dfdx*x + 4.0*d2fdx2*x*x);
+
+      n = (is == 0) ? 0 : 5;
+      if(gdm>MIN_GRAD){
+	v2rhosigma[n] =  sfact*X_FACTOR_C * 4.0/3.0*rho13 * d2fdx2*x*x/(2.0*sigma[js]);
+	v2sigma2  [n] = -sfact*X_FACTOR_C*(ds*rho13)*
+	  (d2fdx2*x - dfdx)*x/(4.0*sigma[js]*sigma[js]);
+      }
+	
+    }
   }
 
-  *e /= dens; /* we want energy per particle */
+  if(zk != NULL)
+    *zk /= dens; /* we want energy per particle */
 }

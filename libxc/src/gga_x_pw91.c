@@ -24,7 +24,7 @@
 #define XC_GGA_X_mPW91        119 /* Modified form of PW91 by Adamo & Barone */
 
 static inline void 
-func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   const FLOAT x2s     = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
   const FLOAT aa[2]   = {0.19645, 0.21516};

@@ -64,19 +64,33 @@ void XC(gga_x_b88_set_params)(XC(gga_type) *p, FLOAT beta)
 
 
 static inline void 
-func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
-  FLOAT f1;
+  FLOAT f1, f2, df1, df2, d2f1, d2f2;
   FLOAT beta;
 
   assert(p->params != NULL);
   beta = ((gga_x_b88_params *) (p->params))->beta;
 
-  f1 = (1.0 + 6.0*beta*x*asinh(x));
-  *f = 1.0 + beta/X_FACTOR_C*x*x/f1;
+  f1 = beta/X_FACTOR_C*x*x;
+  f2 = 1.0 + 6.0*beta*x*asinh(x);
+  *f = 1.0 + f1/f2;
  
-  *dfdx = beta/X_FACTOR_C*x*(2.0 + 6.0*beta*(x*asinh(x) - x*x/sqrt(1.0+x*x)))/(f1*f1);
-  *ldfdx= beta/X_FACTOR_C;
+  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+
+  df1 = 2.0*beta/X_FACTOR_C*x;
+  df2 = 6.0*beta*(asinh(x) + x/sqrt(1.0 + x*x));
+  if(dfdx!=NULL){
+    *dfdx = (df1*f2 - f1*df2)/(f2*f2);
+    *ldfdx= beta/X_FACTOR_C;
+  }
+
+  if(d2fdx2==NULL) return; /* nothing else to do */
+
+  d2f1 = 2.0*beta/X_FACTOR_C;
+  d2f2 = 6.0*beta*(2.0 + x*x)/pow(1.0 + x*x, 3.0/2.0);
+
+  *d2fdx2 = (2*f1*df2*df2 + d2f1*f2*f2 - f2*(2*df1*df2 + f1*d2f2))/(f2*f2*f2);
 }
 
 #include "work_gga_x.c"
@@ -87,7 +101,7 @@ const XC(func_info_type) XC(func_info_gga_x_b88) = {
   "Becke 88",
   XC_FAMILY_GGA,
   "AD Becke, Phys. Rev. A 38, 3098 (1988)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   gga_x_b88_init, 
   gga_x_b88_end, 
   NULL,

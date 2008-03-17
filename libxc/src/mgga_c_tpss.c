@@ -123,7 +123,7 @@ static void c_tpss_12(XC(mgga_type) *p, FLOAT *rho, FLOAT *grho,
 
   { /* get the PBE stuff */
     XC(gga_type) *aux2 = (p->nspin == XC_UNPOLARIZED) ? p->gga_aux2 : p->gga_aux1;
-    XC(gga)(p->gga_aux1, rho, grho, &e_PBE, de_PBEdd, de_PBEdgd);
+    XC(gga_vxc)(p->gga_aux1, rho, grho, &e_PBE, de_PBEdd, de_PBEdgd);
     
     for(is=0; is<p->nspin; is++){
       FLOAT r1[2], gr1[2*3], e1, de1dd[2], de1dgd[2*3];
@@ -140,7 +140,7 @@ static void c_tpss_12(XC(mgga_type) *p, FLOAT *rho, FLOAT *grho,
 
       /* call (polarized) PBE again */
       de1dd[0] = 0.0; de1dd[1] = 0.0;
-      XC(gga)(aux2, r1, gr1, &e1, de1dd, de1dgd);
+      XC(gga_vxc)(aux2, r1, gr1, &e1, de1dd, de1dgd);
 
       e_til   [is] = e1;
       de_tildd[is] = de1dd[0];

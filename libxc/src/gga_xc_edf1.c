@@ -61,29 +61,29 @@ gga_xc_edf1_end(void *p_)
 
 static void 
 gga_xc_edf1(void *p_, FLOAT *rho, FLOAT *sigma,
-            FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
+            FLOAT *zk, FLOAT *vrho, FLOAT *vsigma)
 {
   static FLOAT cx    = 1.030952;
   static FLOAT cc[3] = {10.4017, -8.44793, 1.0};
 
-  XC(gga_type) *p = p_;
+  const XC(gga_type) *p = p_;
   FLOAT dd, e1, vrho1[2], vsigma1[3];
   int ifunc, is, js;
 
   XC(lda_vxc)(p->lda_aux, rho, &e1, vrho1);
   dd = cx - cc[0] - cc[1];
-  *e = dd*e1;
+  *zk = dd*e1;
   for(is=0; is<p->nspin; is++)
     vrho[is] = dd*vrho1[is];
   
   js = (p->nspin == XC_UNPOLARIZED) ? 1 : 3;
   for(is=0; is<js; is++)
     vsigma[is] = 0.0;
-
+  
   for(ifunc=0; ifunc<3; ifunc++){
-    XC(gga)(p->gga_aux[ifunc], rho, sigma, &e1, vrho1, vsigma1);
+    XC(gga_vxc)(p->gga_aux[ifunc], rho, sigma, &e1, vrho1, vsigma1);
 
-    *e += cc[ifunc]*e1;
+    *zk += cc[ifunc]*e1;
     for(is=0; is<p->nspin; is++)
       vrho[is] += cc[ifunc]*vrho1[is];
 

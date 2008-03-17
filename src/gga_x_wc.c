@@ -45,7 +45,7 @@ gga_x_wc_init(void *p_)
 }
 
 static inline void 
-func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   const FLOAT kappa = 0.8040;
 

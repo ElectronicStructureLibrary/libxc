@@ -24,7 +24,7 @@
 
 /* RPBE: see PBE for more details */
 static inline void 
-func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   static const FLOAT kappa = 0.8040;
   static const FLOAT mu = 0.00361218645365094697;

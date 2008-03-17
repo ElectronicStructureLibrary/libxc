@@ -24,7 +24,7 @@
 #define XC_GGA_X_DK87_R2      112 /* dePristo & Kress 87 (version R2)               */
 
 static inline void 
-func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   static const FLOAT a1[2] = {0.861504, 0.861213}, 
     b1[2] = {0.044286, 0.042076}, alpha[2] = {1.0, 0.98};

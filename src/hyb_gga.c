@@ -122,7 +122,7 @@ void XC(hyb_gga)(XC(hyb_gga_type) *p, FLOAT *rho, FLOAT *sigma,
 
   /* hybrid may want to add some term */
   if(p->info!=NULL && p->info->gga!=NULL){
-    p->info->gga(p, rho, sigma, e, vrho, vsigma);
+    p->info->gga(p, rho, sigma, e, vrho, vsigma, NULL, NULL, NULL);
   }
 
   /* we now add the LDA components */
@@ -136,7 +136,7 @@ void XC(hyb_gga)(XC(hyb_gga_type) *p, FLOAT *rho, FLOAT *sigma,
 
   /* and the GGA components */
   for(ii=0; ii<p->gga_n; ii++){
-    XC(gga)(p->gga_aux[ii], rho, sigma, &e1, vrho1, vsigma1);
+    XC(gga_vxc)(p->gga_aux[ii], rho, sigma, &e1, vrho1, vsigma1);
 
     *e += p->gga_coef[ii] * e1;
     for(is=0; is<p->nspin; is++)

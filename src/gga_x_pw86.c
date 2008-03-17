@@ -23,7 +23,7 @@
 #define XC_GGA_X_PW86         108 /* Perdew & Wang 86 */
 
 static inline void
-func(XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx)
+func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   const FLOAT x2s = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
   const FLOAT aa = 1.296, bb = 14.0, cc = 0.2;

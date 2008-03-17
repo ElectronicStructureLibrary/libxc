@@ -61,15 +61,16 @@ module XC_F90(lib_m)
     XC_F90(family_from_id),              &
     XC_F90(lda_init),                    &
     XC_F90(lda),                         &
+    XC_F90(lda_exc),                     &
     XC_F90(lda_vxc),                     &
     XC_F90(lda_fxc),                     &
     XC_F90(lda_kxc),                     &
     XC_F90(lda_end),                     &
-    XC_F90(lca_init),                    &
-    XC_F90(lca_end),                     &
-    XC_F90(lca),                         &
     XC_F90(gga_init),                    &
     XC_F90(gga),                         &
+    XC_F90(gga_exc),                     &
+    XC_F90(gga_vxc),                     &
+    XC_F90(gga_fxc),                     &
     XC_F90(gga_end),                     &
     XC_F90(gga_lb_set_params),           &
     XC_F90(gga_lb_modified),             &
@@ -77,6 +78,9 @@ module XC_F90(lib_m)
     XC_F90(hyb_gga_end),                 &
     XC_F90(hyb_gga),                     &
     XC_F90(hyb_gga_exx_coef),            &
+    XC_F90(lca_init),                    &
+    XC_F90(lca_end),                     &
+    XC_F90(lca),                         &
     XC_F90(mgga_init),                   &
     XC_F90(mgga),                        &
     XC_F90(mgga_end)
@@ -189,15 +193,22 @@ module XC_F90(lib_m)
 
   !----------------------------------------------------------------
   interface
-    subroutine XC_F90(lda)(p, rho, e, v, fxc, kxc)
+    subroutine XC_F90(lda)(p, rho, zk, vrho, fxc, kxc)
       use XC_F90(types_m)
       type(XC_F90(func_t)),   intent(in)  :: p
       real(xc_f90_kind), intent(in)  :: rho   ! rho(nspin) the density
-      real(xc_f90_kind), intent(out) :: e     ! the energy per unit particle
-      real(xc_f90_kind), intent(out) :: v     ! v(nspin) the potential
+      real(xc_f90_kind), intent(out) :: zk    ! the energy per unit particle
+      real(xc_f90_kind), intent(out) :: vrho  ! v(nspin) the potential
       real(xc_f90_kind), intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
       real(xc_f90_kind), intent(out) :: kxc   ! v(nspin,nspin,nspin) the derivative of xc kernel
     end subroutine XC_F90(lda)
+
+    subroutine XC_F90(lda_exc)(p, rho, zk)
+      use XC_F90(types_m)
+      type(XC_F90(func_t)),   intent(in)  :: p
+      real(xc_f90_kind), intent(in)  :: rho   ! rho(nspin) the density
+      real(xc_f90_kind), intent(out) :: zk    ! the energy per unit particle
+    end subroutine XC_F90(lda_exc)
 
     subroutine XC_F90(lda_vxc)(p, rho, e, v)
       use XC_F90(types_m)
@@ -247,18 +258,54 @@ module XC_F90(lib_m)
 
   !----------------------------------------------------------------
   interface
-    subroutine XC_F90(gga)(p, rho, grho, e, dedd, dedgd)
+    subroutine XC_F90(gga)(p, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2)
       use XC_F90(types_m)
-      type(XC_F90(func_t)),   intent(in)  :: p
-      real(xc_f90_kind), intent(in)  :: rho   ! rho(nspin) the density
-      real(xc_f90_kind), intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
-      real(xc_f90_kind), intent(out) :: e     ! the energy per unit particle
-      real(xc_f90_kind), intent(out) :: dedd  ! dedd(nspin) the derivative of the energy
-                                              ! in terms of the density
-      real(xc_f90_kind), intent(out) :: dedgd ! and in terms of the gradient of the density
+      type(XC_F90(func_t)), intent(in)  :: p
+      real(xc_f90_kind),    intent(in)  :: rho
+      real(xc_f90_kind),    intent(in)  :: sigma
+      real(xc_f90_kind),    intent(out) :: zk
+      real(xc_f90_kind),    intent(out) :: vrho
+      real(xc_f90_kind),    intent(out) :: vsigma
+      real(xc_f90_kind),    intent(out) :: v2rho2
+      real(xc_f90_kind),    intent(out) :: v2rhosigma
+      real(xc_f90_kind),    intent(out) :: v2sigma2
     end subroutine XC_F90(gga)
   end interface
 
+
+  interface
+    subroutine XC_F90(gga_exc)(p, rho, sigma, zk)
+      use XC_F90(types_m)
+      type(XC_F90(func_t)), intent(in)  :: p
+      real(xc_f90_kind),    intent(in)  :: rho
+      real(xc_f90_kind),    intent(in)  :: sigma
+      real(xc_f90_kind),    intent(out) :: zk
+    end subroutine XC_F90(gga_exc)
+  end interface
+
+  interface
+    subroutine XC_F90(gga_vxc)(p, rho, sigma, zk, vrho, vsigma)
+      use XC_F90(types_m)
+      type(XC_F90(func_t)), intent(in)  :: p
+      real(xc_f90_kind),    intent(in)  :: rho
+      real(xc_f90_kind),    intent(in)  :: sigma
+      real(xc_f90_kind),    intent(out) :: zk
+      real(xc_f90_kind),    intent(out) :: vrho
+      real(xc_f90_kind),    intent(out) :: vsigma
+    end subroutine XC_F90(gga_vxc)
+  end interface
+
+  interface
+    subroutine XC_F90(gga_fxc)(p, rho, sigma, v2rho2, v2rhosigma, v2sigma2)
+      use XC_F90(types_m)
+      type(XC_F90(func_t)), intent(in)  :: p
+      real(xc_f90_kind),    intent(in)  :: rho
+      real(xc_f90_kind),    intent(in)  :: sigma
+      real(xc_f90_kind),    intent(out) :: v2rho2
+      real(xc_f90_kind),    intent(out) :: v2rhosigma
+      real(xc_f90_kind),    intent(out) :: v2sigma2
+    end subroutine XC_F90(gga_fxc)
+  end interface
 
   !----------------------------------------------------------------
   interface

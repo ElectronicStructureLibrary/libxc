@@ -67,7 +67,7 @@ void get_point(functionals_type *func, double point[5], double *e, double der[5]
       xc_lda_vxc(&(func->lda_func), &(point[0]), e, &(der[0]));
       break;
     case XC_FAMILY_GGA:
-      xc_gga(&(func->gga_func), &(point[0]), &(point[2]),
+      xc_gga_vxc(&(func->gga_func), &(point[0]), &(point[2]),
 	  e, &(der[0]), &(der[2]));
       break;
     case XC_FAMILY_HYB_GGA:

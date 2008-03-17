@@ -76,7 +76,7 @@ gga_xc_xlyp(void *p_, FLOAT *rho, FLOAT *sigma,
     vsigma[is] = 0.0;
 
   for(ifunc=0; ifunc<3; ifunc++){
-    XC(gga)(p->gga_aux[ifunc], rho, sigma, &e1, vrho1, vsigma1);
+    XC(gga_vxc)(p->gga_aux[ifunc], rho, sigma, &e1, vrho1, vsigma1);
 
     *e += cc[ifunc]*e1;
     for(is=0; is<p->nspin; is++)

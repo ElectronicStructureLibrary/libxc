@@ -51,16 +51,16 @@ $test_ok = 0;
 $ntest   = 0;
 
 while(data_read(*DATA, \%data) != 0){
-  my $pol, @cmp;
+  my $mpol, @cmp;
 
   $ntest++;
 
-  $pol = ($data{"rhoa"}    == $data{"rhob"}    &&
-	  $data{"sigmaaa"} == $data{"sigmabb"} &&
-	  $data{"sigmaab"} == $data{"sigmabb"}) ? 1 : 2;
+  $mpol = ($data{"rhoa"}    == $data{"rhob"}    &&
+	   $data{"sigmaaa"} == $data{"sigmabb"} &&
+	   $data{"sigmaab"} == $data{"sigmabb"}) ? 1 : 2;
 
   my $ok;
-  for(;$pol<=2; $pol++){
+  for($pol=2;$pol>=$mpol; $pol--){
     $cmd1  = "$exec_cmd ".$constants{"$opt_f"};
     $cmd2  = " ".$data{"rhoa"}." ".$data{"rhob"};
     $cmd2 .= " ".$data{"sigmaaa"}." ".$data{"sigmaab"}." ".$data{"sigmabb"};
@@ -81,6 +81,9 @@ while(data_read(*DATA, \%data) != 0){
       $data{"vsigmaaa"}  = ($data{"vsigmaaa"} + $data{"vsigmaab"} + $data{"vsigmabb"})/4.0;
 
       if($data2{"v2rhoa2"} != 0.0){
+	#print $data{"v2rhoa2"}, "\n";
+	$data{"v2rhoa2"} = ($data{"v2rhoa2"} + $data{"v2rhoab"} + $data{"v2rhobb"})/2.0;
+	#print $data{"v2rhoa2"}, "\n";
       }
 
       $ok = cmp_data(\%data, \%data2, \@cmp);
@@ -92,7 +95,7 @@ while(data_read(*DATA, \%data) != 0){
 	# compare both up and down channels
 	push @cmp, ("vrhob", "vsigmaab", "vsigmabb");
 	if($data2{"v2rhoa2"} != 0.0){
-	  push @cmp, ("v2rhoab", "v2rhob2", 
+	  push @cmp, ("v2rhoab", "v2rhob2",
 		      "v2rhoasigmaab", "v2rhoasigmabb", "v2rhobsigmaaa", "v2rhobsigmaab", "v2rhobsigmabb",
 		      "v2sigmaaaab", "v2sigmaaabb", "v2sigmaab2", "v2sigmaabbb", "v2sigmabb2");
 	}

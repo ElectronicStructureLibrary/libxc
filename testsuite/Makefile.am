@@ -28,7 +28,7 @@ xc_get_data_LDADD = @GSL_LIBS@ -L../src/ -lxc -lm
 xc_get_data_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
 
 xc_consistency_SOURCES = xc-consistency.c
-xc_consistency_LDADD = @GSL_LIBS@ -L../src/ -lxc -lm
+xc_consistency_LDADD = -L../src/ -lxc -lm @GSL_LIBS@
 xc_consistency_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
 
 dist_noinst_DATA =         \

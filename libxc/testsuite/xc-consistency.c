@@ -58,8 +58,25 @@ typedef struct {
   xc_hyb_gga_type hyb_gga_func;
 } functionals_type;
 
+int nspin;
 
-void get_point(functionals_type *func, double point[5], double *e, double der[5])
+void get_val(double point[5], double val[5])
+{
+  if(nspin == 1){
+    val[0]  = point[0] + point[1];
+    val[1]  = 0;
+    val[2]  = point[2] + 2*point[3] + point[4];
+    val[3]  = 0;
+    val[4]  = 0;
+  }else{
+    int i;
+    for(i=0; i<5; i++){
+      val[i] = point[i];
+    }
+  }
+}
+
+double get_point(functionals_type *func, double point[5], double *e, double der[5], int which)
 {
   switch(func->family)
     {
@@ -74,10 +91,63 @@ void get_point(functionals_type *func, double point[5], double *e, double der[5]
       xc_hyb_gga(&(func->hyb_gga_func), &(point[0]), &(point[2]),
           e, &(der[0]), &(der[2]));
       break;
-    }  
+    }
+
+  if(which == 0)
+    return (*e)*(point[0] + point[1]);
+  else
+    return der[which-1];
 }
 
-void first_derivative(functionals_type *func, double point[5], double der[5])
+void get_vxc(functionals_type *func, double point[5], double *e, double der[5])
+{
+  get_point(func, point, e, der, 0);
+}
+
+void get_fxc(functionals_type *func, double point[5], double der[5][5])
+{
+  double v2rho[3], v2rhosigma[6], v2sigma[6];
+  int i;
+  
+  for(i=0; i<3; i++) v2rho[i] = 0.0;
+  for(i=0; i<6; i++){
+    v2rhosigma[i] = 0.0;
+    v2sigma[i]    = 0.0;
+  }
+
+  switch(func->family)
+    {
+    case XC_FAMILY_LDA:
+      xc_lda_fxc(&(func->lda_func), &(point[0]), v2rho);
+      break;
+    case XC_FAMILY_GGA:
+      xc_gga_fxc(&(func->gga_func), &(point[0]), &(point[2]),
+		 v2rho, v2rhosigma, v2sigma);
+      break;
+      //case XC_FAMILY_HYB_GGA:
+      //xc_hyb_gga(&(func->hyb_gga_func), &(point[0]), &(point[2]),
+      //    e, &(der[0]), &(der[2]));
+      //break;
+    }
+
+  der[0][0] = v2rho[0];
+  der[0][1] = der[1][0] = v2rho[1];
+  der[1][1] = v2rho[2];
+  der[0][2] = der[2][0] = v2rhosigma[0];
+  der[0][3] = der[3][0] = v2rhosigma[1];
+  der[0][4] = der[4][0] = v2rhosigma[2];
+  der[1][2] = der[2][1] = v2rhosigma[3];
+  der[1][3] = der[3][1] = v2rhosigma[4];
+  der[1][4] = der[4][1] = v2rhosigma[5];
+  der[2][2] = v2sigma[0];
+  der[2][3] = der[3][2] = v2sigma[1];
+  der[2][4] = der[4][2] = v2sigma[2];
+  der[3][3] = v2sigma[3];
+  der[3][4] = der[4][3] = v2sigma[4];
+  der[4][4] = v2sigma[5];
+}
+
+void first_derivative(functionals_type *func, double point[5], double der[5], int which)
 {
   int i;
 
@@ -87,29 +157,30 @@ void first_derivative(functionals_type *func, double point[5], double der[5])
     double dd, p[5], v[5];
     int j;
     
+    if(nspin==1 && (i!=0 && i!=2)){
+      der[i] = 0.0;
+      continue;
+    }
+
     dd = point[i]*delta;
     if(dd < delta) dd = delta;
 
     for(j=0; j<5; j++) p[j] = point[j];
 
     if(point[i]>=3.0*dd){ /* centered difference */
-      double em1, em2, ep1, ep2;
+      double e, em1, em2, ep1, ep2;
 
       p[i] = point[i] + dd;
-      get_point(func, p, &ep1, v);
-      ep1 *= (p[0] + p[1]);
+      ep1 = get_point(func, p, &e, v, which);
 
       p[i] = point[i] + 2*dd;
-      get_point(func, p, &ep2, v);
-      ep2 *= (p[0] + p[1]);
+      ep2 = get_point(func, p, &e, v, which);
 
       p[i] = point[i] - dd;  /* backward point */
-      get_point(func, p, &em1, v);
-      em1 *= (p[0] + p[1]);
+      em1 = get_point(func, p, &e, v, which);
 
       p[i] = point[i] - 2*dd;  /* backward point */
-      get_point(func, p, &em2, v);
-      em2 *= (p[0] + p[1]);
+      em2 = get_point(func, p, &e, v, which);
 
       der[i]  = 1.0/2.0*(ep1 - em1);
       der[i] += 1.0/12.0*(em2 - 2*em1 + 2*ep1 - ep2);
@@ -117,27 +188,22 @@ void first_derivative(functionals_type *func, double point[5], double der[5])
       der[i] /= dd;
 
     }else{                   /* we use a 5 point forward difference */
-      double e1, e2, e3, e4, e5;
+      double e, e1, e2, e3, e4, e5;
 
       p[i] = point[i];
-      get_point(func, p, &e1, v);
-      e1 *= (p[0] + p[1]);
+      e1 = get_point(func, p, &e, v, which);
 
       p[i] = point[i] + dd;
-      get_point(func, p, &e2, v);
-      e2 *= (p[0] + p[1]);     /* convert to energy per unit volume */
+      e2 = get_point(func, p, &e, v, which);
 
       p[i] = point[i] + 2.0*dd;
-      get_point(func, p, &e3, v);
-      e3 *= (p[0] + p[1]);
+      e3 = get_point(func, p, &e, v, which);
 
       p[i] = point[i] + 3.0*dd;
-      get_point(func, p, &e4, v);
-      e4 *= (p[0] + p[1]);
+      e4 = get_point(func, p, &e, v, which);
 
       p[i] = point[i] + 4.0*dd;
-      get_point(func, p, &e5, v);
-      e5 *= (p[0] + p[1]);
+      e5 = get_point(func, p, &e, v, which);
 
       der[i]  =          (-e1 + e2);
       der[i] -=  1.0/2.0*( e1 - 2*e2 + e3);
@@ -146,6 +212,20 @@ void first_derivative(functionals_type *func, double point[5], double der[5])
 
       der[i] /= dd;
     }
+  }
+}
+
+void second_derivatives(functionals_type *func, double point[5], double der[5][5])
+{
+  int i;
+
+  for(i=0; i<5; i++){
+    if(nspin==1 && (i!=0 && i!=2)){
+      int j;
+      for(j=0; j<5; j++) der[i][j] = 0.0;
+      continue;
+    }
+    first_derivative(func, point, der[i], i+1);
   }
 }
 
@@ -170,8 +250,8 @@ void print_error(char *what, double diff, functionals_type *func, double *p)
       v_fd[j] = v_an[j] = 0.0;
     }
 
-    get_point(func, p, &e, v_an);
-    first_derivative(func, p, v_fd);
+    get_vxc(func, p, &e, v_an);
+    first_derivative(func, p, v_fd, 0);
 
     printf("  analit (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n", 
 	   v_an[0], v_an[1], v_an[2], v_an[3], v_an[4]);
@@ -181,12 +261,12 @@ void print_error(char *what, double diff, functionals_type *func, double *p)
 }
 
 
-void test_functional(int functional, int nspin)
+void test_functional(int functional)
 {
   functionals_type func;
   const xc_func_info_type *info;
-  int i, j, p_max[5];
-  double max_diff[5], avg_diff[5];
+  int i, j, k, p_max[6][5];
+  double max_diff[6][5], avg_diff[6][5], val[5];
 
   /* initialize functional */
   func.family = xc_family_from_id(functional);
@@ -215,53 +295,77 @@ void test_functional(int functional, int nspin)
       exit(1);
     }
   
-  for(j=0; j<5; j++){
-    avg_diff[j] = 0.0;
-
-    p_max[j]    = 0;
-    max_diff[j] = -1.0;
-  }
+  for(k=0; k<6; k++)
+    for(j=0; j<5; j++){
+      avg_diff[k][j] = 0.0;
+      
+      p_max[k][j]    = 0;
+      max_diff[k][j] = -1.0;
+    }
 
   for(i=0; xc_trial_points[i][0]!=0.0; i++){
-    double e, v_fd[5], v_an[5];
+    double e, v_fd[5], f_fd[5][5], v_an[5], f_an[5][5];
 
     for(j=0; j<5; j++){
       v_fd[j] = v_an[j] = 0.0;
     }
 
+    get_val(xc_trial_points[i], val);
+
     /* first, get the analitic gradients */
-    get_point(&func, xc_trial_points[i], &e, v_an);
+    get_vxc(&func, val, &e, v_an);
 
     /* now get the numerical gradients */
-    first_derivative(&func, xc_trial_points[i], v_fd);
+    first_derivative(&func, val, v_fd, 0);
+
+    if(info->provides & XC_PROVIDES_FXC){
+      /* now get the second derivatives */
+      second_derivatives(&func, val, f_fd);
+      get_fxc(&func, val, f_an);
+    }
 
     /* make statistics */
     for(j=0; j<5; j++){
       double diff = fabs(v_an[j] - v_fd[j]);
 
-      avg_diff[j] += diff;
-      if(diff > max_diff[j]){
-	max_diff[j] = diff;
-	p_max[j] = i;
+      avg_diff[0][j] += diff;
+      if(diff > max_diff[0][j]){
+	max_diff[0][j] = diff;
+	p_max[0][j] = i;
       }
 
+      if(info->provides & XC_PROVIDES_FXC){
+	for(k=0; k<5; k++){
+	  diff = fabs(f_an[k][j] - f_fd[k][j]);
+
+	  avg_diff[k+1][j] += diff;
+	  if(diff > max_diff[k+1][j]){
+	    max_diff[k+1][j] = diff;
+	    p_max[k+1][j] = i;
+	  }
+	}
+      }
     }
+
   }
 
-  for(j=0; j<5; j++){
-    avg_diff[j] /= i;
-  }
+  for(k=0; k<6; k++)
+    for(j=0; j<5; j++){
+      avg_diff[k][j] /= i;
+    }
 
   /* print statistics */
   printf("Functional: %s\n", info->name);
-  print_error("Avg. error vrho", (avg_diff[0] + avg_diff[1])/2.0, NULL, NULL);
-  j = (max_diff[0] > max_diff[1]) ? 0 : 1;
-  print_error("Max. error vrho", max_diff[j], &func, xc_trial_points[p_max[j]]);
+  print_error("Avg. error vrho", (avg_diff[0][0] + avg_diff[0][1])/2.0, NULL, NULL);
+  j = (max_diff[0][0] > max_diff[0][1]) ? 0 : 1;
+  get_val(xc_trial_points[p_max[0][j]], val);
+  print_error("Max. error vrho", max_diff[0][j], &func, val);
 
-  print_error("Avg. error vsig", (avg_diff[2] + avg_diff[3] + avg_diff[4])/3.0, NULL, NULL);
-  j = (max_diff[2] > max_diff[3]) ? 2 : 3;
-  j = (max_diff[j] > max_diff[4]) ? j : 4;
-  print_error("Max. error vsig", max_diff[j], &func, xc_trial_points[p_max[j]]);
+  print_error("Avg. error vsig", (avg_diff[0][2] + avg_diff[0][3] + avg_diff[0][4])/3.0, NULL, NULL);
+  j = (max_diff[0][2] > max_diff[0][3]) ? 2 : 3;
+  j = (max_diff[0][j] > max_diff[0][4]) ? j : 4;
+  get_val(xc_trial_points[p_max[0][j]], val);
+  print_error("Max. error vsig", max_diff[0][j], &func, val);
 }
 
 /*----------------------------------------------------------*/
@@ -272,7 +376,8 @@ int main(int argc, char *argv[])
     return 1;
   }
   
-  test_functional(atoi(argv[1]), 2);
+  nspin = 2;
+  test_functional(atoi(argv[1]));
 
   return 0;
 }

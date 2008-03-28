@@ -49,15 +49,6 @@ string_f_ldflags="-L${string_f_path} -lstring_f"
 AC_SUBST(string_f_include)
 AC_SUBST(string_f_ldflags)
 
-AX_PATH_GSL([1.9], [ac_have_gsl=yes], [ac_have_gsl=no])
-if test $ac_have_gsl = yes; then
-  CFLAGS="$CFLAGS $GSL_CFLAGS"
-  AC_DEFINE(HAVE_GSL,1,[Defined if you have the GSL library.])
-else
-  AC_MSG_WARN([could not find GSL library])
-fi
-
-
 dnl build/install fortran bits unless --disable-fortran is used
 AC_ARG_ENABLE([fortran],
 	      AS_HELP_STRING([--disable-fortran], [don't build/install fortran components]),

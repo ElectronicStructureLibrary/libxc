@@ -35,7 +35,7 @@ libxc_a_FUNC_SOURCES = \
 	hyb_gga_xc_o3lyp.c hyb_gga_xc_pbeh.c hyb_gga_xc_x3lyp.c \
 	mgga.c mgga_x_tpss.c mgga_c_tpss.c \
 	lca.c lca_omc.c lca_lch.c \
-	util.c functionals.c 
+	special_functions.c util.c functionals.c 
 
 libxc_a_FUNC_SINGLE_SOURCES = $(libxc_a_FUNC_SOURCES:.c=_s.c)
 

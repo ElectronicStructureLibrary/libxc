@@ -24,11 +24,11 @@ dist_noinst_SCRIPTS = xc-run_testsuite xc-reference.pl
 TESTS = xc-run_testsuite
 
 xc_get_data_SOURCES = xc-get_data.c
-xc_get_data_LDADD = @GSL_LIBS@ -L../src/ -lxc -lm
+xc_get_data_LDADD = -L../src/ -lxc -lm
 xc_get_data_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
 
 xc_consistency_SOURCES = xc-consistency.c
-xc_consistency_LDADD = -L../src/ -lxc -lm @GSL_LIBS@
+xc_consistency_LDADD = -L../src/ -lxc -lm
 xc_consistency_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
 
 dist_noinst_DATA =         \

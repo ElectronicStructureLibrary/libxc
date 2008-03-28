@@ -58,12 +58,13 @@ work_gga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma,
     rho13 = POW(ds, 1.0/3.0);
     x     = gdm/(ds*rho13);
 
-    if(vrho!=NULL){
+    if(vrho!=NULL || v2rho2!=NULL){
       pdfdx   = &dfdx;
       pvsigma = &(vsigma[js]);
     }else
       pdfdx = pvsigma = NULL;
 
+    d2fdx2 = 0.0; /* avoids a compiler warning */
     pd2fdx2 = (v2rho2!=NULL) ? &d2fdx2 : NULL;
 
 #if   HEADER == 1
@@ -90,11 +91,11 @@ work_gga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma,
       int n;
 
       v2rho2[js] = -4.0/3.0*X_FACTOR_C*rho13/(3.0*ds)*
-	(f - dfdx*x + 4.0*d2fdx2*x*x);
+	(f - dfdx*x + 4.0*d2fdx2*x*x)/sfact;
 
       n = (is == 0) ? 0 : 5;
       if(gdm>MIN_GRAD){
-	v2rhosigma[n] =  sfact*X_FACTOR_C * 4.0/3.0*rho13 * d2fdx2*x*x/(2.0*sigma[js]);
+	v2rhosigma[n] =        X_FACTOR_C * 4.0/3.0*rho13 * d2fdx2*x*x/(2.0*sigma[js]);
 	v2sigma2  [n] = -sfact*X_FACTOR_C*(ds*rho13)*
 	  (d2fdx2*x - dfdx)*x/(4.0*sigma[js]*sigma[js]);
       }

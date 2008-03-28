@@ -17,9 +17,6 @@
 */
 
 #include <config.h>
-#if defined(HAVE_GSL)
-#include <gsl/gsl_sf_lambert.h>
-#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,16 +28,11 @@
 static void
 lambert(FLOAT x, FLOAT *w, FLOAT *dw)
 {
-#if defined(HAVE_GSL)
-  *w  = (FLOAT)gsl_sf_lambert_W0((double)x);
+  *w  = (FLOAT)lambert_w((double)x);
   if(x != 0.0)
     *dw = (*w)/(x*(1+(*w)));
   else
     *dw = 1.0;
-#else
-  fprintf(stderr, "Need the GSL library for this functional\n");
-  exit(1);
-#endif
 }
 
 static void /* Eq. (7) */
@@ -97,14 +89,15 @@ ex_LDA(FLOAT n, FLOAT *f, FLOAT *df)
 static void /* Eq. (3) */
 Fx_b(FLOAT s, FLOAT *f, FLOAT *df)
 {
-  FLOAT n0, dn0, z_tt, dz_tt, ex, dex;
+  FLOAT n0, dn0, z_t, dz_t, z_tt, dz_tt, ex, dex;
 
   n0_t(s, &n0, &dn0);
+  zeta_t(s, &z_t, &dz_t);
   zeta_tt(s, &z_tt, &dz_tt);
   ex_LDA(n0, &ex, &dex);
 
-  *f  = -1.0/(ex*2.0*z_tt);
-  *df = 2.0*(*f)*(*f) * (dex*dn0*z_tt + ex*dz_tt);
+  *f  = -1.0/(ex*4.0*z_tt);
+  *df = 4.0*(*f)*(*f) * (dex*dn0*z_tt + ex*dz_tt);
 }
 
 static void /* Eq. (12) */
@@ -142,25 +135,64 @@ F_LAA(FLOAT s, FLOAT *f, FLOAT *df)
 static inline void 
 func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
-  const FLOAT x2s     = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
-  double ss, xx, dxx, flaa, dflaa;
-   
-  if(x >= MIN_GRAD){
-    ss  = x2s*x;
+  const FLOAT am05_c     = 0.7168;
+  const FLOAT am05_alpha = 2.804;
 
-    XX(ss, &xx, &dxx);
-    F_LAA(ss, &flaa, &dflaa);
+  const FLOAT x2s        = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
+  const double z_tt_factor = POW(POW(4.0/3.0, 1.0/3.0) * 2.0*M_PI/3.0, 4);
 
-    *f     = xx + (1.0 - xx)*flaa;
-    *dfdx  = dxx*(1.0 - flaa) + dflaa*(1.0 - xx);
-  }else{
+  double ss, ss2, lam_x, ww;
+  double z_t, z_t2, z_tt, fx_b, xx, flaa_1, flaa_2, flaa;
+
+  if(x < MIN_GRAD){
     *f    = 1.0;
+    if(dfdx != NULL) *ldfdx = -am05_alpha*x2s*x2s;
+    return;
   }
 
-  *ldfdx = -2.804; /* -alpha?? */
+  ss  = x2s*x;
+  ss2 = ss*ss;
 
-  *dfdx  *= x2s;
-  *ldfdx *= x2s*x2s;
+  lam_x  = POW(ss, 1.5)/(2.0*sqrt(6.0));
+  ww     = (FLOAT)lambert_w((double)lam_x);
+
+  z_t    = POW(1.5*ww, 2.0/3.0);
+  z_t2   = z_t*z_t;
+
+  /* This is equal to sqrt(t_zeta) * tt_zeta} of the JCP*/
+  z_tt   = z_t * POW(z_tt_factor + z_t2, 1.0/4.0);
+
+  /* note that there is a factor of 2 missing in the JCP */
+  fx_b   = M_PI/3.0*ss/z_tt;
+
+  xx     = 1.0/(1.0 + am05_alpha*ss2);
+
+  flaa_1 = am05_c*ss2 + 1.0;
+  flaa_2 = am05_c*ss2/fx_b + 1.0;
+  flaa   = flaa_1/flaa_2;
+
+  *f     = xx + (1.0 - xx)*flaa;
+
+  if(dfdx != NULL){
+    double dww, dz_t, dz_tt, dfx_b, dxx, dflaa_1, dflaa_2, dflaa;
+
+    dww     = ww/(lam_x*(1.0 + ww));
+    dz_t    = POW(1.5, 1.0/6.0)*sqrt(ss)*dww/(4.0*POW(ww, 1.0/3.0));
+    dz_tt   = POW(z_tt_factor + z_t2, -3.0/4.0)*(z_tt_factor + 3.0*z_t2/2.0)*dz_t;
+    dfx_b   = M_PI/3.0*(z_tt - ss*dz_tt)/(z_tt*z_tt);
+
+    dxx     = -2.0*am05_alpha*ss * xx*xx;
+    dflaa_1 = 2.0*am05_c*ss;
+    dflaa_2 = am05_c*(2.0*ss*fx_b - dfx_b*ss2)/(fx_b*fx_b);
+    dflaa   = (dflaa_1*flaa_2 - flaa_1*dflaa_2)/(flaa_2*flaa_2);
+
+    *dfdx  = dxx*(1.0 - flaa) + dflaa*(1.0 - xx);
+    *ldfdx = -am05_alpha; /* -alpha?? */
+
+    *dfdx  *= x2s;
+    *ldfdx *= x2s*x2s;
+  }
+
 }
 
 #include "work_gga_x.c"

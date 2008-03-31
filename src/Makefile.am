@@ -29,7 +29,7 @@ libxc_a_FUNC_SOURCES = \
 	gga_x_lg93.c gga_x_pbe.c gga_x_rpbe.c gga_x_b86.c gga_x_b86_mgc.c \
 	gga_x_b88.c gga_x_g96.c gga_x_pw86.c gga_x_pw91.c gga_x_optx.c \
 	gga_x_dk87.c gga_x_ft97.c gga_x_wc.c gga_x_am05.c \
-	gga_perdew.c gga_c_pbe.c gga_c_lyp.c gga_c_p86.c gga_c_pw91.c \
+	gga_perdew.c gga_c_pbe.c gga_c_lyp.c gga_c_p86.c gga_c_pw91.c gga_c_am05.c \
 	gga_xc_lb.c gga_xc_hcth.c gga_xc_edf1.c gga_xc_xlyp.c \
 	hyb_gga.c hyb_gga_xc_b3pw91.c hyb_gga_xc_b3lyp.c hyb_gga_xc_b3p86.c \
 	hyb_gga_xc_o3lyp.c hyb_gga_xc_pbeh.c hyb_gga_xc_x3lyp.c \
@@ -73,9 +73,17 @@ CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 lda.o: xc_funcs.h xc.h xc_s.h
 xc_funcs.h: get_funcs.pl
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)
+
 libxc_funcs.f90: xc_funcs.h
 libxc.f90: libxc_master.F90 xc_funcs.h
 	@FCCPP@                       @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc.f90
+	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
+		grep -v "^#" $(top_builddir)/src/libxc.f90 > $(top_builddir)/src/libxc.f91; \
+		mv -f $(top_builddir)/src/libxc.f91 $(top_builddir)/src/libxc.f90; \
+	fi
 libxc_s.f90: libxc_master.F90 xc_funcs.h
 	@FCCPP@ -D SINGLE_PRECISION=1 @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc_s.f90
-
+	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
+		grep -v "^#" $(top_builddir)/src/libxc_s.f90 > $(top_builddir)/src/libxc_s.f91; \
+		mv -f $(top_builddir)/src/libxc_s.f91 $(top_builddir)/src/libxc_s.f90; \
+	fi

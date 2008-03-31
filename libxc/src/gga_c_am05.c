@@ -1,0 +1,136 @@
+/*
+ Copyright (C) 2006-2007 M.A.L. Marques
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 3 of the License, or
+ (at your option) any later version.
+  
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+  
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+#include "util.h"
+
+#define XC_GGA_C_AM05         135 /* Armiento & Mattsson 05 correlation             */
+
+static void
+gga_c_am05_init(void *p_)
+{
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+
+  p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
+  XC(lda_init)(p->lda_aux, XC_LDA_C_PW_MOD, p->nspin);
+}
+
+static void
+gga_c_am05_end(void *p_)
+{
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+
+  free(p->lda_aux);
+}
+
+static void 
+gga_c_am05(const void *p_, const FLOAT *rho, const FLOAT *sigma,
+	   FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
+	   FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
+{
+  const FLOAT am05_alpha = 2.804;
+  const FLOAT am05_gamma = 0.8098;
+  const FLOAT x2s        = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
+
+  FLOAT sfact, dens, m_zk, vrho_LDA[2];
+  int is;
+
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+
+  sfact = (p->nspin == XC_POLARIZED) ? 1.0 : 2.0;
+
+  dens = rho[0];
+  if(p->nspin == XC_POLARIZED) dens += rho[1];
+
+  XC(lda_vxc)(p->lda_aux, rho, &m_zk, vrho_LDA);
+
+  for(is=0; is<p->nspin; is++){
+    FLOAT gdm, ds, rho13;
+    FLOAT x, ss, XX, f;
+    int js = is==0 ? 0 : 2;
+
+    if(rho[is] < MIN_DENS){
+      /* This is how I think it should be */
+      /* f = (vsigma[js] < MIN_GRAD) ? 1.0 : am05_gamma; */
+
+      /* This is how it is in the reference implementation */
+      if(zk != NULL)
+	*zk += rho[is]*m_zk*am05_gamma;
+
+      if(vrho != NULL)
+	vrho[is] += (m_zk*(1.0 - rho[is]/dens) + rho[is]/dens*vrho_LDA[is])*am05_gamma;
+
+      continue;
+    }
+
+    gdm   = sqrt(sigma[js])/sfact;  
+    ds    = rho[is]/sfact;
+
+    rho13 = POW(ds, 1.0/3.0);
+    x     = gdm/(ds*rho13);
+
+    ss    = x*x2s;
+    
+    XX    = 1.0/(1.0 + am05_alpha*ss*ss);
+    f     = XX + (1.0 - XX)*am05_gamma;
+
+    if(zk != NULL)
+      *zk += sfact*m_zk*ds*f;
+
+    if(vrho != NULL){
+      int jj, n;
+      FLOAT dXX, df;
+
+      dXX = -2.0*am05_alpha*ss * XX*XX;
+      df  = dXX*(1.0 - am05_gamma)*x2s;
+
+      n = (p->nspin == XC_POLARIZED) ? 2 : 1;
+      for(jj=0; jj<n; jj++)
+	vrho[jj] += (m_zk*(1.0 - rho[jj]/dens) + rho[jj]/dens*vrho_LDA[jj])*f;
+
+      if(rho[is] >= MIN_DENS){
+	vrho[is] += sfact*rho[is]*m_zk*df*(-4.0/3.0*x/rho[is]);
+
+	if(gdm>MIN_GRAD)
+	  vsigma[js] = sfact*dens*m_zk*df*x/(2.0*sigma[js])/2.0;
+      }
+    }
+  }
+
+  if(zk != NULL)
+    *zk /= dens;  /* we want energy per particle */
+  
+}
+
+
+const XC(func_info_type) XC(func_info_gga_c_am05) = {
+  XC_GGA_C_AM05,
+  XC_CORRELATION,
+  "Armiento & Mattsson 05",
+  XC_FAMILY_GGA,
+  "R Armiento and AE Mattsson, Phys. Rev. B 72, 085108 (2005)\n"
+  "AE Mattsson, R Armiento, J Paier, G Kresse, JM Wills, and TR Mattsson, J. Chem. Phys. 128, 084714 (2008).",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  gga_c_am05_init,
+  gga_c_am05_end,
+  NULL,            /* this is not an LDA                   */
+  gga_c_am05,
+};

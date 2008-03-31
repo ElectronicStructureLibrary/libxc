@@ -37,10 +37,7 @@ work_gga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma,
   FLOAT sfact, dens;
   int is;
 
-  if(p->nspin == XC_POLARIZED){
-    sfact     = 1.0;
-  }else
-    sfact     = 2.0;
+  sfact = (p->nspin == XC_POLARIZED) ? 1.0 : 2.0;
 
   dens = 0.0;
   for(is=0; is<p->nspin; is++){

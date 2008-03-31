@@ -81,6 +81,12 @@ if test $ac_cv_build_fortran = yes; then
   dnl how Fortran mangles function names
   AC_FC_WRAPPERS
 
+  dnl check whether we have or not a compiler that allows for very long lines...
+  ACX_LONG_FORTRAN_LINES
+
+  dnl check whether the Fortran 90 compiler accepts line markers cast by the preprocessor.
+  ACX_F90_ACCEPTS_LINE_NUMBERS
+
   dnl Need to know the size of a Fortran integer
   ACX_FC_INTEGER_SIZE
   ACX_CC_FORTRAN_INT

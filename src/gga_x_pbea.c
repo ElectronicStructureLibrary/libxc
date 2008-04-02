@@ -24,7 +24,7 @@
 
 /* PBEA: see PBE for more details */
 static inline void 
-func(const xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   static const FLOAT kappa = 0.8040;
   static const FLOAT mu = 0.00361218645365094697;
@@ -35,8 +35,8 @@ func(const xc_gga_type *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *
 
   dd     = 1.0 + mu*x*x/(alpha*kappa);
 
-  *f     = 1.0 + kappa*(1.0 - 1.0/POW(dd,alpha));
-  *dfdx  = 2.0*mu*x/POW(dd, alpha+1);
+  *f     = 1.0 + kappa*(1.0 - 1.0/POW(dd, alpha));
+  *dfdx  = 2.0*mu*x/POW(dd, alpha + 1.0);
   *ldfdx = mu;
 }
 
@@ -47,7 +47,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbea) = {
   XC_EXCHANGE,
   "Madsen 07",
   XC_FAMILY_GGA,
-  "Madsen, Phys. Rev. B 75, 195108 (2007)",
+  "G Madsen, Phys. Rev. B 75, 195108 (2007)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL, NULL,
   work_gga_x

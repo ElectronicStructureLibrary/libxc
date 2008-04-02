@@ -64,33 +64,24 @@ gga_c_am05(const void *p_, const FLOAT *rho, const FLOAT *sigma,
 
   for(is=0; is<p->nspin; is++){
     FLOAT gdm, ds, rho13;
-    FLOAT x, ss, XX, f;
+    FLOAT x=0.0, ss=0.0, XX, f;
     int js = is==0 ? 0 : 2;
-
-    if(rho[is] < MIN_DENS){
-      /* This is how I think it should be */
-      /* f = (vsigma[js] < MIN_GRAD) ? 1.0 : am05_gamma; */
-
-      /* This is how it is in the reference implementation */
-      if(zk != NULL)
-	*zk += rho[is]*m_zk*am05_gamma;
-
-      if(vrho != NULL)
-	vrho[is] += (m_zk*(1.0 - rho[is]/dens) + rho[is]/dens*vrho_LDA[is])*am05_gamma;
-
-      continue;
-    }
 
     gdm   = sqrt(sigma[js])/sfact;  
     ds    = rho[is]/sfact;
-
     rho13 = POW(ds, 1.0/3.0);
-    x     = gdm/(ds*rho13);
 
-    ss    = x*x2s;
+    if(rho[is] < MIN_DENS){
+      /* This is how I think it should be */
+      XX = (vsigma[js] < MIN_GRAD) ? 1.0 : 0.0;
+    }else{
+      x  = gdm/(ds*rho13);
+      ss = x*x2s;
     
-    XX    = 1.0/(1.0 + am05_alpha*ss*ss);
-    f     = XX + (1.0 - XX)*am05_gamma;
+      XX = 1.0/(1.0 + am05_alpha*ss*ss);
+    }
+
+    f = XX + (1.0 - XX)*am05_gamma;
 
     if(zk != NULL)
       *zk += sfact*m_zk*ds*f;
@@ -99,19 +90,22 @@ gga_c_am05(const void *p_, const FLOAT *rho, const FLOAT *sigma,
       int jj, n;
       FLOAT dXX, df;
 
-      dXX = -2.0*am05_alpha*ss * XX*XX;
+      if(rho[is] >= MIN_DENS){
+	dXX = -2.0*am05_alpha*ss * XX*XX;
+      }else{
+	dXX = 0.0;
+      }
       df  = dXX*(1.0 - am05_gamma)*x2s;
 
       n = (p->nspin == XC_POLARIZED) ? 2 : 1;
       for(jj=0; jj<n; jj++)
-	vrho[jj] += (m_zk*(1.0 - rho[jj]/dens) + rho[jj]/dens*vrho_LDA[jj])*f;
+	vrho[jj] += sfact*(vrho_LDA[jj] - m_zk)/dens * ds*f;
+      vrho[is] += m_zk*f;
+      if(rho[is] >= MIN_DENS)
+	 vrho[is] += -4.0/3.0*m_zk*df*x;
 
-      if(rho[is] >= MIN_DENS){
-	vrho[is] += sfact*rho[is]*m_zk*df*(-4.0/3.0*x/rho[is]);
-
-	if(gdm>MIN_GRAD)
-	  vsigma[js] = sfact*dens*m_zk*df*x/(2.0*sigma[js])/2.0;
-      }
+      if(rho[is] >= MIN_DENS && gdm>MIN_GRAD)
+	vsigma[js] = sfact*m_zk*ds*df*x/(2.0*sigma[js]);
     }
   }
 

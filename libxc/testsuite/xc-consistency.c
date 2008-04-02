@@ -376,6 +376,11 @@ int main(int argc, char *argv[])
     return 1;
   }
   
+  printf("------------------------\nNspin = 1\n");
+  nspin = 1;
+  test_functional(atoi(argv[1]));
+
+  printf("------------------------\nNspin = 2\n");
   nspin = 2;
   test_functional(atoi(argv[1]));
 

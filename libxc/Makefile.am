@@ -24,5 +24,4 @@ SUBDIRS = src testsuite
 
 EXTRA_DIST = TODO
 
-CLEANFILES = *~ *.bak
-
+CLEANFILES = *~ *.ba

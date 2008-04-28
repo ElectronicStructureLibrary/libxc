@@ -47,7 +47,7 @@
 
 #define XC_LDA_X  1   /* Exchange                     */
 
-static void lda_x(const void *p_, const FLOAT *rho, FLOAT *ex, FLOAT *vx, FLOAT *fx)
+static void lda_x(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2)
 {
   XC(lda_type) *p = (XC(lda_type) *)p_;
 
@@ -68,12 +68,12 @@ static void lda_x(const void *p_, const FLOAT *rho, FLOAT *ex, FLOAT *vx, FLOAT 
   for(i=0; i<p->nspin; i++){
     extmp += factor*POW(rho[i], alpha)/dens;
 
-    if(vx != NULL)
-      vx[i]  = factor*alpha*POW(rho[i], alpha - 1.0);
+    if(vrho != NULL)
+      vrho[i]  = factor*alpha*POW(rho[i], alpha - 1.0);
 
-    if(fx!=NULL && rho[i]>0){
+    if(v2rho2!=NULL && rho[i]>0){
       int js = (i==0) ? 0 : 2;
-      fx[js] = factor*alpha*(alpha - 1.0)*POW(rho[i], alpha - 2.0);
+      v2rho2[js] = factor*alpha*(alpha - 1.0)*POW(rho[i], alpha - 2.0);
     }
   }
 
@@ -90,21 +90,21 @@ static void lda_x(const void *p_, const FLOAT *rho, FLOAT *ex, FLOAT *vx, FLOAT 
 
     extmp *= phi;
 
-    if(vx != NULL){
+    if(vrho != NULL){
       FLOAT dphidbeta, dbetadd;
       
       dphidbeta = 6.0/(beta2*beta2*beta)*
 	(beta2 - beta*(2 + beta2)*f2/f1 + f2*f2);
       dbetadd = M_PI*M_PI/(POW(M_C, 3)*beta2);
     
-      vx[0]  = vx[0]*phi + dens*extmp*dphidbeta*dbetadd;
+      vrho[0]  = vrho[0]*phi + dens*extmp*dphidbeta*dbetadd;
     }
 
     /* WARNING - missing fxc */
   }
 
-  if(ex != NULL)
-    *ex = extmp;
+  if(zk != NULL)
+    *zk = extmp;
 }
 
 

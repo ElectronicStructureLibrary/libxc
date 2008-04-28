@@ -49,6 +49,7 @@ static void gga_x_b88_end(void *p_)
 
   assert(p->params != NULL);
   free(p->params);
+  p->params = NULL;
 }
 
 
@@ -90,7 +91,7 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   d2f1 = 2.0*beta/X_FACTOR_C;
   d2f2 = 6.0*beta*(2.0 + x*x)/pow(1.0 + x*x, 3.0/2.0);
 
-  *d2fdx2 = (2*f1*df2*df2 + d2f1*f2*f2 - f2*(2*df1*df2 + f1*d2f2))/(f2*f2*f2);
+  *d2fdx2 = (2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
 }
 
 #include "work_gga_x.c"

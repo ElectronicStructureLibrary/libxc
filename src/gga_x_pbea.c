@@ -31,13 +31,25 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   /* hard-coded alpha*/
   static const FLOAT alpha = 0.5;
 
-  FLOAT dd;
+  FLOAT f0, df0, d2f0;
 
-  dd     = 1.0 + mu*x*x/(alpha*kappa);
+  f0 = 1.0 + mu*x*x/(alpha*kappa);
+  *f = 1.0 + kappa*(1.0 - POW(f0, -alpha));
 
-  *f     = 1.0 + kappa*(1.0 - 1.0/POW(dd, alpha));
-  *dfdx  = 2.0*mu*x/POW(dd, alpha + 1.0);
-  *ldfdx = mu;
+  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+
+  df0 = 2.0*mu*x/(alpha*kappa);
+
+  if(dfdx!=NULL){
+    *dfdx  = alpha*kappa*df0*POW(f0, -(alpha + 1.0));
+    *ldfdx = mu;
+  }
+
+  if(d2fdx2==NULL) return; /* nothing else to do */
+
+  d2f0 = 2.0*mu/(alpha*kappa);
+  *d2fdx2 = alpha*kappa*POW(f0, -alpha - 1.0)*
+    (d2f0 - (alpha + 1.0)*df0*df0/f0);
 }
 
 #include "work_gga_x.c"
@@ -48,7 +60,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbea) = {
   "Madsen 07",
   XC_FAMILY_GGA,
   "G Madsen, Phys. Rev. B 75, 195108 (2007)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL, NULL, NULL,
   work_gga_x
 };

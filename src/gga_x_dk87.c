@@ -30,7 +30,7 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
     b1[2] = {0.044286, 0.042076}, alpha[2] = {1.0, 0.98};
   static const FLOAT betag = 0.00132326681668994855/X_FACTOR_C; /* 7/(432*pi*(6*pi^2)^(1/3)) */
   
-  FLOAT f0, f1, f2;
+  FLOAT f0, f1, f2, df1, df2, d2f1, d2f2;
   int func;
 
   switch(p->info->number){
@@ -39,12 +39,27 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   }
 
   f0 = a1[func]*POW(x, alpha[func]);
-  f1 = 1.0 + f0;
+  f1 = betag*x*x*(1.0 + f0);
   f2 = 1.0 + b1[func]*x*x;
   
-  *f     = 1.0 + betag*x*x*f1/f2;
-  *dfdx  = betag*(2.0*x*f1/f2 + x*(alpha[func]*f0*f2 - 2.0*b1[func]*x*x*f1)/(f2*f2));
-  *ldfdx = betag;
+  *f     = 1.0 + f1/f2;
+
+  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+
+  df1 = betag*x*(2.0 + f0*(2.0 + alpha[func]));
+  df2 = 2.0*b1[func]*x;
+
+  if(dfdx!=NULL){
+    *dfdx  = (df1*f2 - f1*df2)/(f2*f2);
+    *ldfdx = betag;
+  }
+  
+  if(d2fdx2==NULL) return; /* nothing else to do */
+
+  d2f1 = betag*(2.0 + f0*(2.0 + alpha[func])*(1.0 + alpha[func]));
+  d2f2 = 2.0*b1[func];
+
+  *d2fdx2 = (2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
 }
 
 #include "work_gga_x.c"
@@ -55,7 +70,7 @@ const XC(func_info_type) XC(func_info_gga_x_dk87_r1) = {
   "dePristo & Kress 87 version R1",
   XC_FAMILY_GGA,
   "AE DePristo and JD Kress, J. Chem. Phys. 86, 1425 (1987)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL, NULL, NULL,
   work_gga_x
 };
@@ -66,7 +81,7 @@ const XC(func_info_type) XC(func_info_gga_x_dk87_r2) = {
   "dePristo & Kress 87 version R2",
   XC_FAMILY_GGA,
   "AE DePristo and JD Kress, J. Chem. Phys. 86, 1425 (1987)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL, NULL, NULL,
   work_gga_x
 };

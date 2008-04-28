@@ -82,22 +82,27 @@ typedef struct XC(struct_lda_type) {
   int dim;
   
   struct XC(struct_lda_type) *lda_aux;  /* some LDAs are built on top of other LDAs */
-  FLOAT alpha;                          /* parameter for Xalpha functional */
+
+  void *params;                         /* this allows to fix parameters in the functional */
+  FLOAT alpha;                          /* parameter for Xalpha functional (to disappear) */
 } XC(lda_type);
 
 int  XC(lda_init)(XC(lda_type) *p, int functional, int nspin);
 void XC(lda_x_init)(XC(lda_type) *p, int nspin, int dim, int irel);
 void XC(lda_c_xalpha_init)(XC(lda_type) *p, int nspin, int dim, FLOAT alpha);
 
-void XC(lda)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *exc, FLOAT *vxc, FLOAT *fxc, FLOAT *kxc);
-void XC(lda_exc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *exc);
-void XC(lda_vxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *exc, FLOAT *vxc);
-void XC(lda_fxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *fxc);
-void XC(lda_kxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *kxc);
+void XC(lda)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3);
+void XC(lda_exc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *zk);
+void XC(lda_vxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *zk, FLOAT *vrho);
+void XC(lda_fxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *v2rho2);
+void XC(lda_kxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *v3rho3);
+
+void XC(lda_c_prm08_set_params)(XC(lda_type) *p, FLOAT N);
+
 
 /* the GGAs */
 typedef struct XC(struct_gga_type){
-  const XC(func_info_type) *info;          /* which functional did we chose   */
+  const XC(func_info_type) *info;         /* which functional did we chose   */
   int nspin;                              /* XC_UNPOLARIZED or XC_POLARIZED  */
   
   XC(lda_type) *lda_aux;                  /* most GGAs are based on a LDA    */
@@ -119,7 +124,7 @@ void XC(gga_fxc)(const XC(gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
 		 FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
 
 void XC(gga_lb_set_params)   (XC(gga_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
-void XC(gga_lb_modified)     (XC(gga_type) *p, FLOAT *rho, FLOAT *grho, FLOAT r, FLOAT *dedd);
+void XC(gga_lb_modified)     (XC(gga_type) *p, FLOAT *rho, FLOAT *grho, FLOAT r, FLOAT *vrho);
 
 
 /* the GGAs hybrids */

@@ -6,6 +6,10 @@ if [ -n "$SKIP_CHECK" ]; then
     exit 0
 fi
 
+if [ -z "$srcdir" ]; then
+  srcdir="./"
+fi
+
 datadir=${srcdir:-.}
 
 echo -e "\033[33;1mComparing against reference data\033[0m"

@@ -16,6 +16,7 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 
@@ -92,6 +93,25 @@ void XC(gga)(const XC(gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
 
   assert(p!=NULL && p->info!=NULL);
   
+  /* sanity check */
+  if(zk != NULL && !(p->info->provides & XC_PROVIDES_EXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of Exc",
+	    p->info->name);
+    exit(1);
+  }
+
+  if(vrho != NULL && !(p->info->provides & XC_PROVIDES_VXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of vxc",
+	    p->info->name);
+    exit(1);
+  }
+
+  if(v2rho2 != NULL && !(p->info->provides & XC_PROVIDES_FXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of fxc",
+	    p->info->name);
+    exit(1);
+  }
+
   /* initialize output to zero */
   if(zk != NULL){
     assert(p->info->provides & XC_PROVIDES_EXC);
@@ -130,7 +150,7 @@ void XC(gga)(const XC(gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
   if(dens <= MIN_DENS) return;
 
   /* call functional */
-  assert(p->info->gga!=NULL);
+  assert(p->info->gga != NULL);
   p->info->gga(p, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
 }
 

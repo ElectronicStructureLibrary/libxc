@@ -80,12 +80,15 @@ static void g(int func, int k, FLOAT *rs, FLOAT *f, FLOAT *dfdrs, FLOAT *d2fdrs2
   /* the function */
   *f = q0*log(1.0 + 1.0/q1);
   
+  if(dfdrs==NULL && d2fdrs2==NULL) return; /* nothing else to do */
+
   /* and now the derivative */
   aux = 1.0/(q1*q1 + q1);
   q1p = a[func][k]*(beta[func][k][0]/rs[0] + 2.0*beta[func][k][1] + 
 		    3.0*beta[func][k][2]*rs[0] + 4.0*beta[func][k][3]*rs[1]);
 
-  *dfdrs = -2.0*a[func][k]*alpha[func][k]*log(1.0 + 1.0/q1) - (q0*q1p)*aux;
+  if(dfdrs!=NULL)
+    *dfdrs = -2.0*a[func][k]*alpha[func][k]*log(1.0 + 1.0/q1) - (q0*q1p)*aux;
 
   if(d2fdrs2 != NULL){
     FLOAT q1pp;

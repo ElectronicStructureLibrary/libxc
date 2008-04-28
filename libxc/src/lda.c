@@ -23,6 +23,7 @@
 #include "util.h"
 #include "funcs_lda.c"
 
+
 /* initialization */
 int XC(lda_init)(XC(lda_type) *p, int functional, int nspin)
 {
@@ -38,7 +39,8 @@ int XC(lda_init)(XC(lda_type) *p, int functional, int nspin)
   if(XC(lda_known_funct)[i] == NULL) return -1; /* functional not found */
   
   /* initialize structure */
-  p->info = XC(lda_known_funct)[i];
+  p->params = NULL;
+  p->info   = XC(lda_known_funct)[i];
 
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
   p->nspin = nspin;
@@ -50,6 +52,7 @@ int XC(lda_init)(XC(lda_type) *p, int functional, int nspin)
   return 0;
 }
 
+
 /* termination */
 void XC(lda_end)(XC(lda_type) *p)
 {
@@ -59,34 +62,48 @@ void XC(lda_end)(XC(lda_type) *p)
     p->info->end(p);
 }
 
+
 /* get the lda functional */
 void XC(lda)(const XC(lda_type) *p, const FLOAT *rho, 
-	    FLOAT *exc, FLOAT *vxc, FLOAT *fxc, FLOAT *kxc)
+	    FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3)
 {
   FLOAT dens;
 
   assert(p!=NULL);
   
+  /* sanity check */
+  if(zk != NULL && !(p->info->provides & XC_PROVIDES_EXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of Exc",
+	    p->info->name);
+    exit(1);
+  }
+
+  if(vrho != NULL && !(p->info->provides & XC_PROVIDES_VXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of vxc",
+	    p->info->name);
+    exit(1);
+  }
+
   { /* initialize output to zero */
     int i;
 
-    if(exc != NULL) *exc = 0.0;
+    if(zk != NULL) *zk = 0.0;
 
-    if(vxc != NULL){
+    if(vrho != NULL){
       for(i=0; i<p->nspin; i++)
-    	vxc[i] = 0.0;
+    	vrho[i] = 0.0;
     }
 
-    if(fxc != NULL){
+    if(v2rho2 != NULL){
       int n = (p->nspin == XC_UNPOLARIZED) ? 1 : 3;
       for(i=0; i<n; i++)
-	fxc[i] = 0.0;
+	v2rho2[i] = 0.0;
     }
 
-    if(kxc != NULL){
+    if(v3rho3 != NULL){
       int n = (p->nspin == XC_UNPOLARIZED) ? 1 : 4;
       for(i=0; i<n; i++)
-    	kxc[i] = 0.0;
+    	v3rho3[i] = 0.0;
     }
   }
 
@@ -97,37 +114,40 @@ void XC(lda)(const XC(lda_type) *p, const FLOAT *rho,
     return;
 
   assert(p->info!=NULL && p->info->lda!=NULL);
-  if((exc != NULL || vxc !=NULL) || 
-     (fxc != NULL && (p->info->provides & XC_PROVIDES_FXC)))
-    p->info->lda(p, rho, exc, vxc, fxc);
 
-  if(fxc != NULL && !(p->info->provides & XC_PROVIDES_FXC))
-    XC(lda_fxc_fd)(p, rho, fxc);
+  /* call the LDA routines */
+  if((zk != NULL || vrho !=NULL) || 
+     (v2rho2 != NULL && (p->info->provides & XC_PROVIDES_FXC)))
+    p->info->lda(p, rho, zk, vrho, v2rho2);
 
-  if(kxc != NULL && !(p->info->provides & XC_PROVIDES_KXC))
-    XC(lda_kxc_fd)(p, rho, kxc);
+  /* if necessary, call the finite difference routines */
+  if(v2rho2 != NULL && !(p->info->provides & XC_PROVIDES_FXC))
+    XC(lda_fxc_fd)(p, rho, v2rho2);
+
+  if(v3rho3 != NULL && !(p->info->provides & XC_PROVIDES_KXC))
+    XC(lda_kxc_fd)(p, rho, v3rho3);
 }
 
 
 /* especializations */
-inline void XC(lda_exc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *exc)
+inline void XC(lda_exc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *zk)
 {
-  XC(lda)(p, rho, exc, NULL, NULL, NULL);
+  XC(lda)(p, rho, zk, NULL, NULL, NULL);
 }
 
-inline void XC(lda_vxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *exc, FLOAT *vxc)
+inline void XC(lda_vxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *zk, FLOAT *vrho)
 {
-  XC(lda)(p, rho, exc, vxc, NULL, NULL);
+  XC(lda)(p, rho, zk, vrho, NULL, NULL);
 }
 
-inline void XC(lda_fxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *fxc)
+inline void XC(lda_fxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *v2rho2)
 {
-  XC(lda)(p, rho, NULL, NULL, fxc, NULL);
+  XC(lda)(p, rho, NULL, NULL, v2rho2, NULL);
 }
 
-inline void XC(lda_kxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *kxc)
+inline void XC(lda_kxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *v3rho3)
 {
-  XC(lda)(p, rho, NULL, NULL, NULL, kxc);
+  XC(lda)(p, rho, NULL, NULL, NULL, v3rho3);
 }
 
 

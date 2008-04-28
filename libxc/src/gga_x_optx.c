@@ -27,14 +27,26 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
 {
   static const FLOAT a = 1.05151, b = 1.43169/X_FACTOR_C, gamma = 0.006;
 
-  FLOAT f1, u;
+  FLOAT f1, u, du, d2u;
 
   f1 = 1.0 + gamma*x*x;
   u  = gamma*x*x/f1;
 
   *f     = a + b*u*u;
-  *dfdx  = 2.0*b*u * 2.0*gamma*x/(f1*f1);
-  *ldfdx = 0.0;
+  
+  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+
+  du  = 2.0*gamma*x/(f1*f1);
+
+  if(dfdx!=NULL){
+    *dfdx  = 2.0*b*u*du;
+    *ldfdx = 0.0;
+  }
+
+  if(d2fdx2==NULL) return; /* nothing else to do */
+
+  d2u = 2.0*gamma/(f1*f1)*(1.0 - 4.0*gamma*x*x/f1);
+  *d2fdx2 = 2.0*b*(du*du + u*d2u);
 }
 
 #include "work_gga_x.c"
@@ -45,7 +57,7 @@ const XC(func_info_type) XC(func_info_gga_x_optx) = {
   "Handy & Cohen OPTX 01",
   XC_FAMILY_GGA,
   "NC Handy and AJ Cohen, Mol. Phys. 99, 403 (2001)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL, NULL, NULL,
   work_gga_x
 };

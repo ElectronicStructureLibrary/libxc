@@ -1,0 +1,74 @@
+Symbol		  #	Exc	Vxc	Fxc	Comments
+--------------------------------------------------------
+LDA_X		  1	OK	OK	OK	| 2D and 3D; relativistic version not OK
+
+LDA_C_WIGNER	  2				|
+LDA_C_RPA	  3				|
+LDA_C_HL	  4				|
+LDA_C_GL	  5				|
+LDA_C_XALPHA	  6	OK	OK	OK	|
+LDA_C_VWN	  7				|
+LDA_C_VWN_RPA	  8				|
+LDA_C_PZ	  9				|
+LDA_C_PZ_MOD	 10				|
+LDA_C_OB_PZ	 11				|
+LDA_C_PW	 12				|
+LDA_C_PW_MOD	 13				|
+LDA_C_OB_PW	 14				|
+LDA_C_AMGB	 15				|
+LDA_C_PRM08	 16				| In the drawing board
+LDA_TETER93	 20				|
+
+----------------
+GGA_X_PBE	101	OK	OK	OK	|
+GGA_X_PBE_R	102	OK	OK	OK	|
+GGA_X_B86	103	OK	OK	OK	|
+GGA_X_B86_R	104	OK	OK	OK	|
+GGA_X_B86_MGC	105	OK	OK	OK	|
+GGA_X_B88	106	OK	OK	OK	|
+GGA_X_G96	107	OK	OK	OK	| This functional diverges for small x
+GGA_X_PW86	108	OK	OK	OK	|
+GGA_X_PW91	109				|
+GGA_X_OPTX	110	OK	OK	OK	|
+GGA_X_DK87_R1	111	OK	OK	OK	| vsig, and v2sig2 are unstable when sig is very small: maybe a bug?
+GGA_X_DK87_R2	112	OK	OK	OK	| idem
+GGA_X_LG93	113	OK	OK	OK	|
+GGA_X_FT97_A	114				|
+GGA_X_FT97_B	115				|
+GGA_X_PBE_SOL	116	OK	OK	OK	|
+GGA_X_RPBE	117	OK	OK	OK	|
+GGA_X_WC	118				|
+GGA_X_mPW91	119				|
+GGA_X_AM05	120				|
+GGA_X_PBEA	121	OK	OK	OK	|
+
+GGA_C_PBE	130				|
+GGA_C_LYP	131				|
+GGA_C_P86	132				|
+GGA_C_PBE_SOL	133				|
+GGA_C_PW91	134				|
+GGA_C_AM05	135				|
+
+GGA_LB		160				|
+GGA_HCTH_93	161				|
+GGA_HCTH_120	162				|
+GGA_HCTH_147	163				|
+GGA_HCTH_407	164				|
+GGA_EDF1	165				|
+GGA_XLYP	166				|
+
+----------------
+HYB_GGA_B3PW91	401				|
+HYB_GGA_B3LYP	402				|
+HYB_GGA_B3P86	403				|
+HYB_GGA_O3LYP	404				|
+HYB_GGA_PBEH	406				|
+HYB_GGA_X3LYP	411				|
+
+----------------
+MGGA_X_TPSS	201				|
+MGGA_C_TPSS	202				|
+
+----------------
+LCA_OMC		301				|
+LCA_LCH		302				|

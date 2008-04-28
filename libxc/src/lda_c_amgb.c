@@ -77,11 +77,11 @@ dalphadrs(int i, FLOAT *rs)
 
 
 static void
-lda_c_amgb(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
+lda_c_amgb(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *fc)
 {
   XC(lda_type) *p = (XC(lda_type) *)p_;
   
-  FLOAT dens, zeta, rs[4];
+  FLOAT dens, zeta, rs[4], eps_c;
   
   assert(p  != NULL);
   assert(ax != 0.0);
@@ -98,8 +98,13 @@ lda_c_amgb(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
   if(p->nspin == XC_UNPOLARIZED){
     /* In unpolarized cases, expressions are fairly simple. */
     
-    *ec = alpha(0, rs);
-    vc[0] = (*ec) - 0.5*rs[1]*dalphadrs(0, rs);
+    eps_c = alpha(0, rs);
+
+    if(zk != NULL)
+      *zk = eps_c;
+
+    if(vrho != NULL)
+      vrho[0] = eps_c - 0.5*rs[1]*dalphadrs(0, rs);
     
   }else{ /* XC_POLARIZED */
     /* In the case of spin-polarized calculations, all this is necessary... */
@@ -118,15 +123,20 @@ lda_c_amgb(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
     ex6 = ex - (1.0 + (3.0/8.0)*zeta2 + (3.0/128.0)*zeta4)*ex0;
 
     /* Correlation energy, Eq. [1] 3 */
-    *ec = alpha(0, rs) + alpha(1, rs)*zeta2 + alpha(2, rs)*zeta4 + (exp(-beta*rs[1]) - 1.0)*ex6;
+    eps_c = alpha(0, rs) + alpha(1, rs)*zeta2 + alpha(2, rs)*zeta4 + (exp(-beta*rs[1]) - 1.0)*ex6;
     
+    if(zk != NULL)
+      *zk = eps_c;
+
+    if(vrho == NULL) return;
+
     /* Function calf, Eq. [2] 4.10 */
     calf = POW(1.0 + zeta, 1.5) + POW(1.0 - zeta, 1.5) - 
       (2.0 + (3.0/4.0)*zeta2 + (3.0/64.0)*zeta4);
     
     /* Function calfp, Eq. [2] C8 */
     calfp = 1.5*(sqrt(1.0 + zeta) - sqrt(1.0 - zeta)) 
-			- 1.5*zeta - (3.0/16.0)*zeta*zeta2;
+      - 1.5*zeta - (3.0/16.0)*zeta*zeta2;
     
     /* Derivative of the correlation energy with respect to rs, Eq. [2] C2 */
     decdrs = ax*calf*(1.0 - exp(-beta*rs[1])*(1.0 + beta*rs[1]))/rs[2] + 
@@ -137,10 +147,13 @@ lda_c_amgb(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
       2.0*alpha(1, rs)*zeta + 4.0*alpha(2, rs)*zeta*zeta2;
     
     /* And finally, the potentials, Eq. [2] C1 */
-    vc[0] = (*ec) - 0.5*rs[1]*decdrs - (zeta - 1.0)*decdz;
-    vc[1] = (*ec) - 0.5*rs[1]*decdrs - (zeta + 1.0)*decdz;		
+    if(vrho != NULL){
+      vrho[0] = eps_c - 0.5*rs[1]*decdrs - (zeta - 1.0)*decdz;
+      vrho[1] = eps_c - 0.5*rs[1]*decdrs - (zeta + 1.0)*decdz;
+    }
   }
 }
+
 
 const XC(func_info_type) XC(func_info_lda_c_amgb) = {
   XC_LDA_C_AMGB,

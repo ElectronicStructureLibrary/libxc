@@ -32,7 +32,7 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   };
   static const FLOAT gamma = 0.004;
 
-  FLOAT f1, f2;
+  FLOAT f1, f2, df1, df2, d2f1, d2f2;
   int func;
 
   switch(p->info->number){
@@ -43,9 +43,23 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   f1    = (1.0 + beta[func]*x*x);
   f2    = (1.0 + gamma*x*x);
   *f    = f1/f2;
-    
-  *dfdx  = 2.0*x*(beta[func]*f2 - gamma*f1)/(f2*f2);
-  *ldfdx = (beta[func] - gamma);
+  
+  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+
+  df1   = 2.0*beta[func]*x;
+  df2   = 2.0*gamma     *x;
+
+  if(dfdx!=NULL){
+    *dfdx  = (df1*f2 - f1*df2)/(f2*f2);
+    *ldfdx = (beta[func] - gamma);
+  }
+
+  if(d2fdx2==NULL) return; /* nothing else to do */
+
+  d2f1 = 2.0*beta[func];
+  d2f2 = 2.0*gamma;
+
+  *d2fdx2 = (2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
 }
 
 #include "work_gga_x.c"
@@ -56,7 +70,7 @@ const XC(func_info_type) XC(func_info_gga_x_b86) = {
   "Becke 86",
   XC_FAMILY_GGA,
   "AD Becke, J. Chem. Phys 84, 4524 (1986)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL, NULL, NULL,
   work_gga_x
 };
@@ -68,7 +82,7 @@ const XC(func_info_type) XC(func_info_gga_x_b86_r) = {
   XC_FAMILY_GGA,
   "AD Becke, J. Chem. Phys 84, 4524 (1986)\n"
   "AD Becke, J. Chem. Phys 107, 8554 (1997)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL, NULL, NULL,
   work_gga_x
 };

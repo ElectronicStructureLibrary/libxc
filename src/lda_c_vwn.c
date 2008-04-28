@@ -28,6 +28,10 @@
 #define XC_LDA_C_VWN      7   /* Vosko, Wilk, & Nussair       */
 #define XC_LDA_C_VWN_RPA  8   /* Vosko, Wilk, & Nussair (RPA) */
 
+typedef struct{
+  int spin_interpolation; /* 0: VWN; 1: HL */
+} lda_c_vwn_params;
+
 /* some constants         e_c^P      e_c^F      alpha_c */
 typedef struct {
   FLOAT  A[3]; /* e_c^P, e_c^F, alpha_c */
@@ -77,14 +81,34 @@ init_vwn_constants(vwn_consts_type *X)
 static void
 lda_c_vwn_init(void *p_)
 {
-  init_vwn_constants(&vwn_consts[0]);
+  XC(lda_type) *p = (XC(lda_type) *)p_;
+  lda_c_vwn_params *params;
+  int func;
+
+  assert(p->params == NULL);
+
+  p->params = malloc(sizeof(lda_c_vwn_params));
+  params = (lda_c_vwn_params *) (p->params);
+
+  params->spin_interpolation = 0;
+
+  func = p->info->number - XC_LDA_C_VWN;
+  assert(func==0 || func==1);
+
+  init_vwn_constants(&vwn_consts[func]);
 }
 
-static void
-lda_c_vwn_rpa_init(void *p_)
+
+void XC(lda_c_vwn_set_params)(const XC(lda_type) *p, int spin_interpolation)
 {
-  init_vwn_constants(&vwn_consts[1]);
+  lda_c_vwn_params *params;
+
+  assert(p->params != NULL);
+  params = (lda_c_vwn_params *) (p->params);
+
+  params->spin_interpolation = spin_interpolation;
 }
+
 
 /* Eq. (4.4) of [1] */
 static void
@@ -137,9 +161,13 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
 {
   int func;
   vwn_consts_type *X;
+  lda_c_vwn_params *params;
 
   func = p->info->number - XC_LDA_C_VWN;
   assert(func==0 || func==1);
+
+  assert(p->params != NULL);
+  params = (lda_c_vwn_params *) (p->params);
 
   X = &vwn_consts[func];
 
@@ -165,19 +193,29 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
     if(d2edrs2 != NULL) fc3 = *d2edrs2;
     
     fz  = FZETA(zeta);
-    z3  = POW(zeta, 3);
-    z4  = z3*zeta;
-    t1  = (fz/X->fpp)*(1.0 - z4);
-    t2  = fz*z4;
+    if(params->spin_interpolation == 1){
+      t1 = 0.0;
+      t2 = fz;
+    }else{
+      z3  = POW(zeta, 3);
+      z4  = z3*zeta;
+      t1  = (fz/X->fpp)*(1.0 - z4);
+      t2  = fz*z4;
+    }
 
     *zk =  ec1 +  ec3*t1 + (ec2 -  ec1)*t2;
 
     if(dedrs==NULL && d2edrs2==NULL) return; /* nothing else to do */
 
     dfz  = DFZETA(zeta);
-    dt1  = dfz*(1.0 - z4) - 4.0*fz*z3;
-    dt1 /= X->fpp;
-    dt2  = dfz*z4 + 4.0*fz*z3;
+    if(params->spin_interpolation == 1){
+      dt1 = 0.0;
+      dt2 = dfz;
+    }else{
+      dt1  = dfz*(1.0 - z4) - 4.0*fz*z3;
+      dt1 /= X->fpp;
+      dt2  = dfz*z4 + 4.0*fz*z3;
+    }
 
     if(dedrs!=NULL){
       *dedrs = vc1 + vc3* t1 + (vc2 - vc1)* t2;
@@ -187,9 +225,14 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
     if(d2edrs2==NULL) return; /* nothing else to do */
 
     d2fz  = D2FZETA(zeta);
-    d2t1  = d2fz*(1.0 - z4) - 8.0*dfz*z3 - 4.0*3.0*fz*zeta*zeta;
-    d2t1 /= X->fpp;
-    d2t2  = d2fz*z4 + 8.0*dfz*z3 + 4.0*3.0*fz*zeta*zeta;
+    if(params->spin_interpolation == 1){
+      dt1 = 0.0;
+      dt2 = d2fz;
+    }else{
+      d2t1  = d2fz*(1.0 - z4) - 8.0*dfz*z3 - 4.0*3.0*fz*zeta*zeta;
+      d2t1 /= X->fpp;
+      d2t2  = d2fz*z4 + 8.0*dfz*z3 + 4.0*3.0*fz*zeta*zeta;
+    }
 
     *d2edrs2 = fc1 + fc3*  t1 + (fc2 - fc1)*  t2;
     *d2edrsz =       vc3* dt1 + (vc2 - vc1)* dt2;
@@ -219,7 +262,7 @@ const XC(func_info_type) XC(func_info_lda_c_vwn_rpa) = {
   XC_FAMILY_LDA,
   "SH Vosko, L Wilk, and M Nusair, Can. J. Phys. 58, 1200 (1980)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
-  lda_c_vwn_rpa_init,
+  lda_c_vwn_init,
   NULL,
   work_lda 
 };

@@ -97,6 +97,7 @@ void XC(lda_vxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *zk, FLOAT *vrho
 void XC(lda_fxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *v2rho2);
 void XC(lda_kxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *v3rho3);
 
+void XC(lda_c_vwn_set_params)(const XC(lda_type) *p, int spin_interpolation);
   /* void XC(lda_c_prm08_set_params)(XC(lda_type) *p, FLOAT N); */
 
 

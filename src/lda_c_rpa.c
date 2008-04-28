@@ -25,25 +25,30 @@
 
 #define XC_LDA_C_RPA  3   /* Random Phase Approximation   */
 
-static void lda_c_rpa(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
+static inline void 
+func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta, 
+     FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
+     FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
 {
-  XC(lda_type) *p = (XC(lda_type) *)p_;
-
   static FLOAT a = 0.0311, b = -0.047, c = 0.009, d = -0.017;
-  FLOAT dens, zeta, rs;
   FLOAT lrs;
 
-  XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
+  lrs = log(rs[1]);
+  *zk = a*lrs + b + c*rs[1]*lrs + d*rs[1];
 
-  rs  =  RS(dens); /* Wigner radius */
-  lrs = log(rs);
+  if(dedrs != NULL)  
+     *dedrs = a/rs[1] + c*(lrs + 1.0) + d;
+
+  if(d2edrs2 != NULL)
+    *d2edrs2 = -a/rs[2] + c/rs[1];
   
-  *ec   = a*lrs + b + c*rs*lrs + d*rs;
-  vc[0] = a/rs + c*(lrs + 1.0) + d;         /* now contains d ec/d rs */
-  
-  vc[0] = *ec - rs/3.0*vc[0];               /* and now d ec/d rho */
-  if(p->nspin==XC_POLARIZED) vc[1] = vc[0]; /* have to erturn something */
+  if(p->nspin==XC_POLARIZED){
+    if(dedrs   != NULL) *dedz = 0.0;
+    if(d2edrs2 != NULL) *d2edrsz = *d2edz2 = 0.0;
+  }
 }
+
+#include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_c_rpa) = {
   XC_LDA_C_RPA,
@@ -51,8 +56,8 @@ const XC(func_info_type) XC(func_info_lda_c_rpa) = {
   "Random Phase Approximation (RPA)",
   XC_FAMILY_LDA,
   "M Gell-Mann and KA Brueckner, Phys. Rev. 106, 364 (1957)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  NULL,         /* init */
-  NULL,         /* end  */
-  lda_c_rpa,    /* lda  */
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  NULL,     /* init */
+  NULL,     /* end  */
+  work_lda, /* lda  */
 };

@@ -2,12 +2,14 @@
 #  define FLOAT float
 #  define POW   powf
 #  define ASINH asinhf
+#  define ABS   fabsf
 #  define XC(x) xc_s_ ## x
 #  define XC_U(X) XC_S_ ## X
 #else
 #  define FLOAT double
 #  define POW   pow
 #  define ASINH asinh
+#  define ABS   fabs
 #  define XC(x) xc_ ## x
 #  define XC_U(X) XC_ ## X
 #endif

@@ -29,14 +29,14 @@
 #define XC_LDA_C_HL  4   /* Hedin & Lundqvist            */
 #define XC_LDA_C_GL  5   /* Gunnarson & Lundqvist        */
 
-static void hl_f(int func, int i, FLOAT rs, FLOAT *ec, FLOAT *vc)
+static void hl_f(int func, int i, FLOAT rs, FLOAT *zk, FLOAT *drs, FLOAT *d2rs)
 {
   static const 
     FLOAT r[2][2] = {{21.0,   21.0},     /* HL unpolarized only*/
-		      {11.4,   15.9}};    /* GL */
+		     {11.4,   15.9}};    /* GL */
   static const 
     FLOAT c[2][2] = {{ 0.0225, 0.0225},  /* HL unpolarized only */
-		      { 0.0333, 0.0203}}; /* GL */
+		     { 0.0333, 0.0203}}; /* GL */
   
   FLOAT a, x, x2, x3;
   
@@ -45,47 +45,66 @@ static void hl_f(int func, int i, FLOAT rs, FLOAT *ec, FLOAT *vc)
   x3  = x2*x;
   
   a   = log(1.0 + 1.0/x);
-  *ec = -c[func][i]*((1.0 + x3)*a - x2 + 0.5*x - 1.0/3.0);
+  *zk = -c[func][i]*((1.0 + x3)*a - x2 + 0.5*x - 1.0/3.0);
   
-  *vc = -c[func][i]*a;
+  if(drs != NULL)
+    *drs = -c[func][i]/r[func][i]*(3.0*x*(x*a - 1) - 1/x + 3.0/2.0);
+
+  if(d2rs != NULL)
+    *d2rs = -c[func][i]/(r[func][i]*r[func][i]*x2*(1.0 + x))*
+      (1.0 + x - 3.0*x2 - 6.0*x3*(1.0 - (1.0 + x)*a));
 }
 
 
-static void lda_c_hl(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
+static inline void 
+func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta, 
+     FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
+     FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
 {
-  XC(lda_type) *p = (XC(lda_type) *)p_;
-
-  FLOAT ecp, vcp;
-  FLOAT dens, zeta, rs;
   int func = p->info->number - XC_LDA_C_HL;
 
   /* sanity check */
   assert(func==0 || func==1);
   
-  XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
-  rs = RS(dens); /* Wigner radius */  
+  hl_f(func, 0, rs[1], zk, dedrs, d2edrs2);
 
-  hl_f(func, 0, rs, &ecp, &vcp);
-  
-  if(p->nspin==XC_UNPOLARIZED){
-    *ec   = ecp;
-    vc[0] = vcp;
+  if(p->nspin==XC_UNPOLARIZED) return; /* nothing else to do */
+
+  { /* XC_POLARIZED */
+    FLOAT ecp, vcp, fcp;
+    FLOAT ecf, vcf, fcf, fz, dfz, d2fz;
     
-  }else{ /* XC_POLARIZED */
-    FLOAT ecf, vcf, fz, dfz, t1;
+    /* store paramagnetic values */
+    ecp = *zk;
+    if(dedrs   != NULL) vcp = *dedrs;
+    if(d2edrs2 != NULL) fcp = *d2edrs2;
+
+    /* get ferromagnetic values */
+    hl_f(func, 1, rs[1], &ecf, dedrs, d2edrs2);
+    if(dedrs   != NULL) vcf = *dedrs;
+    if(d2edrs2 != NULL) fcf = *d2edrs2;
     
     fz  =  FZETA(zeta);
+    *zk = ecp + (ecf - ecp)*fz;
+
+    if(dedrs==NULL && d2edrs2==NULL) return; /* nothing else to do */
+
     dfz = DFZETA(zeta);
+    if(dedrs!=NULL){
+      *dedrs = vcp + (vcf - vcp)*fz;
+      *dedz  = (ecf - ecp)*dfz;
+    }
+
+    if(d2edrs2==NULL) return; /* nothing else to do */
     
-    hl_f(func, 1, rs, &ecf, &vcf);
-    
-    *ec = ecp + (ecf - ecp)*fz;                  /* the energy    */
-    t1  = vcp + (vcf - vcp)*fz;
-    
-    vc[0] = t1 + (ecf - ecp)*dfz*( 1.0 - zeta);  /* the potential */
-    vc[1] = t1 + (ecf - ecp)*dfz*(-1.0 - zeta);
+    d2fz = D2FZETA(zeta);
+    *d2edrs2 = fcp + (fcf - fcp)*fz;
+    *d2edrsz =       (vcf - vcp)*dfz;
+    *d2edz2  =       (ecf - ecp)*d2fz;
   }
 }
+
+#include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_c_hl) = {
   XC_LDA_C_HL,
@@ -94,10 +113,10 @@ const XC(func_info_type) XC(func_info_lda_c_hl) = {
   XC_FAMILY_LDA,
   /* can someone get me this paper, so I can find all coefficients? */
   "L Hedin and BI Lundqvist, J. Phys. C 4, 2064 (1971)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  NULL,         /* init */
-  NULL,         /* end  */
-  lda_c_hl,     /* lda  */
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  NULL,     /* init */
+  NULL,     /* end  */
+  work_lda, /* lda  */
 };
 
 const XC(func_info_type) XC(func_info_lda_c_gl) = {
@@ -106,8 +125,8 @@ const XC(func_info_type) XC(func_info_lda_c_gl) = {
   "Gunnarson & Lundqvist",
   XC_FAMILY_LDA,
   "O Gunnarsson and BI Lundqvist, PRB 13, 4274 (1976)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  NULL,         /* init */
-  NULL,         /* end  */
-  lda_c_hl,     /* lda  */
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  NULL,     /* init */
+  NULL,     /* end  */
+  work_lda, /* lda  */
 };

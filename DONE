@@ -2,10 +2,10 @@ Symbol		  #	Exc	Vxc	Fxc	Comments
 --------------------------------------------------------
 LDA_X		  1	OK	OK	OK	| 2D and 3D; relativistic version not OK
 
-LDA_C_WIGNER	  2				|
-LDA_C_RPA	  3				|
-LDA_C_HL	  4				|
-LDA_C_GL	  5				|
+LDA_C_WIGNER	  2	OK	OK	OK	|
+LDA_C_RPA	  3	OK	OK	OK	|
+LDA_C_HL	  4	OK	OK	OK	|
+LDA_C_GL	  5	OK	OK	OK	|
 LDA_C_XALPHA	  6	OK	OK	OK	|
 LDA_C_VWN	  7				|
 LDA_C_VWN_RPA	  8				|

@@ -62,8 +62,6 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
      FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
 {
   int func = p->info->number - XC_LDA_C_HL;
-
-  /* sanity check */
   assert(func==0 || func==1);
   
   hl_f(func, 0, rs[1], zk, dedrs, d2edrs2);

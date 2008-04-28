@@ -66,9 +66,7 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
   
   hl_f(func, 0, rs[1], zk, dedrs, d2edrs2);
 
-  if(p->nspin==XC_UNPOLARIZED) return; /* nothing else to do */
-
-  { /* XC_POLARIZED */
+  if(p->nspin==XC_POLARIZED){
     FLOAT ecp, vcp, fcp;
     FLOAT ecf, vcf, fcf, fz, dfz, d2fz;
     

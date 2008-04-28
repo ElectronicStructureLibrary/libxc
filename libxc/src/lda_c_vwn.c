@@ -138,9 +138,8 @@ ec_i(vwn_consts_type *X, int i, FLOAT x, FLOAT *zk, FLOAT *dedrs, FLOAT *d2edrs2
   drs *= -2.0*f2/xx0 + (f2*t1 + t2/x)/fx 
     - 2.0*X->Q[i]*(f1 - f2*f3)/t3;
 
-  if(dedrs != NULL){
+  if(dedrs != NULL)
     *dedrs = drs/(2.0*x); /* change of sqrt(rs) -> rs */
-  }
 
   if(d2edrs2==NULL) return; /* nothing else to do */
   
@@ -173,9 +172,7 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
 
   ec_i(X, 0, rs[0], zk, dedrs, d2edrs2);
   
-  if(p->nspin==XC_UNPOLARIZED) return; /* nothing else to do */
-
-  { /* XC_POLARIZED */
+  if(p->nspin==XC_POLARIZED){
     FLOAT ec1, ec2, ec3, vc1, vc2, vc3, fc1, fc2, fc3;
     FLOAT z3, z4, t1, dt1, d2t1, t2, dt2, d2t2, fz, dfz, d2fz;
     

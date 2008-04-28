@@ -39,9 +39,9 @@ gga_xc_b3lyp_init(void *p_)
 
   XC(lda_x_init)(p->lda_aux[0], p->nspin, 3, XC_NON_RELATIVISTIC);
   p->lda_coef[0] = 1.0 - a0 - ax;
-  /* Warning: the vwn used here has a different spin interpolation formula
-     than the original one implemented in Gaussian */
+  /* set the vwn part with the spin interpolation scheme originally used in Gaussian */
   XC(lda_init)  (p->lda_aux[1], XC_LDA_C_VWN_RPA, p->nspin);
+  XC(lda_c_vwn_set_params)(p, 1);
   p->lda_coef[1] = 1.0 - ac;
 
   XC(gga_init)(p->gga_aux[0], XC_GGA_X_B88, p->nspin);

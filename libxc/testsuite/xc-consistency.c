@@ -221,11 +221,6 @@ void second_derivatives(functionals_type *func, double point[5], double der[5][5
   int i;
 
   for(i=0; i<5; i++){
-    int j;
-    if((nspin==1 || point[1]==0.0) && (i!=0 && i!=2)){
-      for(j=0; j<5; j++) der[i][j] = 0.0;
-      continue;
-    }
     first_derivative(func, point, der[i], i+1);
   }
 }
@@ -373,6 +368,10 @@ void test_functional(int functional)
     for(j=0; j<5; j++){
       double diff = fabs(v_an[j] - v_fd[j]);
 
+      /* do not test in case of spin unpolarized or if spin down is zero */
+      if((nspin==1 || val[1]==0.0) && (j!=0 && j!=2))
+	continue;
+
       avg_diff[0][j] += diff;
       if(diff > max_diff[0][j]){
 	max_diff[0][j] = diff;
@@ -381,6 +380,10 @@ void test_functional(int functional)
 
       if(info->provides & XC_PROVIDES_FXC){
 	for(k=0; k<5; k++){
+	  /* do not test in case of spin unpolarized or if spin down is zero */
+	  if((nspin==1 || val[1]==0.0) && (k!=0 && k!=2))
+	    continue;
+
 	  diff = fabs(f_an[k][j] - f_fd[k][j]);
 
 	  avg_diff[k+1][j] += diff;

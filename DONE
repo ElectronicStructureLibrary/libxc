@@ -17,7 +17,7 @@ LDA_C_PW_MOD	 13	OK	OK	OK	|
 LDA_C_OB_PW	 14	OK	OK	OK	|
 LDA_C_AMGB	 15				|
 LDA_C_PRM08	 16				| In the drawing board
-LDA_TETER93	 20				|
+LDA_TETER93	 20	OK	OK	OK	|
 
 ----------------
 GGA_X_PBE	101	OK	OK	OK	|

@@ -31,7 +31,6 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   const FLOAT am05_c      = 0.7168;
   const FLOAT am05_alpha  = 2.804;
 
-  const FLOAT x2s         = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
   const FLOAT z_tt_factor = POW(POW(4.0/3.0, 1.0/3.0) * 2.0*M_PI/3.0, 4);
 
   FLOAT ss, ss2, lam_x, ww;
@@ -39,11 +38,11 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
 
   if(x < MIN_GRAD){
     *f    = 1.0;
-    if(dfdx != NULL) *ldfdx = -am05_alpha*x2s*x2s;
+    if(dfdx != NULL) *ldfdx = -am05_alpha*X2S*X2S;
     return;
   }
 
-  ss  = x2s*x;
+  ss  = X2S*x;
   ss2 = ss*ss;
 
   lam_x  = POW(ss, 1.5)/(2.0*sqrt(6.0));
@@ -82,8 +81,8 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
     *dfdx  = dxx*(1.0 - flaa) + dflaa*(1.0 - xx);
     *ldfdx = -am05_alpha; /* -alpha?? */
 
-    *dfdx  *= x2s;
-    *ldfdx *= x2s*x2s;
+    *dfdx  *= X2S;
+    *ldfdx *= X2S*X2S;
   }
 
 }

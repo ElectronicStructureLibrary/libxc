@@ -24,7 +24,6 @@
 static inline void 
 func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
-  static const FLOAT x2s = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
   static const FLOAT ad = 1e-8, a4 = 29.790, a6 = 22.417;
   static const FLOAT a8 = 12.119, a10 = 1570.1, a12 = 55.944;
   static const FLOAT a2 = 4.94113918475214219939; /* (ad + 0.1234)/b, b = 0.024974 */
@@ -33,7 +32,7 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   FLOAT ss, ss2, ss4, ss6, ss8, ss10;
   FLOAT f0, f1, f2, df0, df1, df2, d2f0, d2f1, d2f2;
 
-  ss  = x2s*x;    ss2  = ss*ss;
+  ss  = X2S*x;    ss2  = ss*ss;
   ss4 = ss2*ss2;  ss6  = ss4*ss2;
   ss8 = ss6*ss2;  ss10 = ss8*ss2;
 
@@ -51,8 +50,8 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   df2 = 2.0*ss*ad;
 
   if(dfdx!=NULL){
-    *dfdx  = x2s*(df1*f2 - f1*df2)/(f2*f2);
-    *ldfdx = x2s*x2s*(a2 - ad);
+    *dfdx  = X2S*(df1*f2 - f1*df2)/(f2*f2);
+    *ldfdx = X2S*X2S*(a2 - ad);
   }
 
   if(d2fdx2==NULL) return; /* nothing else to do */
@@ -62,7 +61,7 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   d2f1 = b*POW(f0, b-1.0)*(d2f0 + (b-1.0)*df0*df0/f0);
   d2f2 = 2.0*ad;
 
-  *d2fdx2 = x2s*x2s*(2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
+  *d2fdx2 = X2S*X2S*(2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
 }
 
 #include "work_gga_x.c"

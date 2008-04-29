@@ -29,14 +29,17 @@
  I based this implementation on a routine from L.C. Balbas and J.M. Soler
 ************************************************************************/
 
-#define XC_GGA_C_PBE          130 /* Perdew, Burke & Ernzerhof correlation     */
-#define XC_GGA_C_PBE_SOL      133 /* Perdew, Burke & Ernzerhof correlation SOL */
+#define XC_GGA_C_PBE          130 /* Perdew, Burke & Ernzerhof correlation          */
+#define XC_GGA_C_PBE_SOL      133 /* Perdew, Burke & Ernzerhof correlation SOL      */
+#define XC_GGA_C_XPBE         136 /* xPBE reparametrization by Xu & Goddard         */
 
-static const FLOAT beta[2]  = {
+static const FLOAT beta[3]  = {
   0.06672455060314922,  /* original PBE */
-  0.046                 /* PBE sol      */
+  0.046,                /* PBE sol      */
+  0.089809
 };
-static const FLOAT gamm  = 0.03109069086965489503494086371273; /* (1.0 - log(2.0))/(M_PI*M_PI) */
+static FLOAT gamm[3];
+
 
 static void gga_c_pbe_init(void *p_)
 {
@@ -44,7 +47,20 @@ static void gga_c_pbe_init(void *p_)
 
   p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
   XC(lda_init)(p->lda_aux, XC_LDA_C_PW_MOD, p->nspin);
+
+  switch(p->info->number){
+  case XC_GGA_C_XPBE:
+    gamm[2] = beta[2]*beta[2]/(2.0*0.197363);
+    break;
+  case XC_GGA_C_PBE_SOL:
+  default: /* the original PBE */
+    gamm[0] = gamm[1] = (1.0 - log(2.0))/(M_PI*M_PI);
+    break;
+  }  
+
+  printf("%f %f %f\n", gamm[0], gamm[1], gamm[2]);
 }
+
 
 static void gga_c_pbe_end(void *p_)
 {
@@ -58,22 +74,17 @@ static inline void pbe_eq8(int func, FLOAT ecunif, FLOAT phi,
 		    FLOAT *A, FLOAT *dec, FLOAT *dphi)
 {
   FLOAT phi3, f1, f2, f3, dx;
-  static const FLOAT beta[2]  = {
-    0.06672455060314922,  /* original PBE */
-    0.046                 /* PBE sol      */
-  };
-  static const FLOAT gamm  = 0.03109069086965489503494086371273; /* (1.0 - log(2.0))/(M_PI*M_PI) */
 
   phi3 = POW(phi, 3);
-  f1   = ecunif/(gamm*phi3);
+  f1   = ecunif/(gamm[func]*phi3);
   f2   = exp(-f1);
   f3   = f2 - 1.0;
 
-  *A   = beta[func]/(gamm*f3);
+  *A   = beta[func]/(gamm[func]*f3);
 
-  dx    = beta[func]*f2/(gamm*f3*f3);
-  *dec  =  dx/(gamm*phi3);
-  *dphi = -dx*3.0*ecunif/(gamm*phi*phi3);
+  dx    = beta[func]*f2/(gamm[func]*f3*f3);
+  *dec  =  dx/(gamm[func]*phi3);
+  *dphi = -dx*3.0*ecunif/(gamm[func]*phi*phi3);
 }
 
 
@@ -81,33 +92,28 @@ static inline void pbe_eq7(int func, FLOAT phi, FLOAT t, FLOAT A,
 		    FLOAT *H, FLOAT *dphi, FLOAT *dt, FLOAT *dA)
 {
   FLOAT t2, phi3, f1, f2, f3;
-  static const FLOAT beta[2]  = {
-    0.06672455060314922,  /* original PBE */
-    0.046                 /* PBE sol      */
-  };
-  static const FLOAT gamm  = 0.03109069086965489503494086371273; /* (1.0 - log(2.0))/(M_PI*M_PI) */
 
   t2   = t*t;
   phi3 = POW(phi, 3);
 
   f1 = t2 + A*t2*t2;
   f3 = 1.0 + A*f1;
-  f2 = beta[func]*f1/(gamm*f3);
+  f2 = beta[func]*f1/(gamm[func]*f3);
 
-  *H = gamm*phi3*log(1.0 + f2);
+  *H = gamm[func]*phi3*log(1.0 + f2);
 
   {
     FLOAT df1dt, df2dt, df1dA, df2dA;
 
-    *dphi = 3.0*gamm*phi*phi*log(1.0 + f2);
+    *dphi = 3.0*gamm[func]*phi*phi*log(1.0 + f2);
     
     df1dt = t*(2.0 + 4.0*A*t2);
-    df2dt = (beta[func]/gamm) / (f3*f3) * df1dt;
-    *dt   = gamm*phi3*df2dt/(1.0 + f2);
+    df2dt = (beta[func]/gamm[func]) / (f3*f3) * df1dt;
+    *dt   = gamm[func]*phi3*df2dt/(1.0 + f2);
     
     df1dA = t2*t2;
-    df2dA = (beta[func]/gamm) / (f3*f3) * (df1dA - f1*f1);
-    *dA   = gamm*phi3*df2dA/(1.0 + f2);
+    df2dA = (beta[func]/gamm[func]) / (f3*f3) * (df1dA - f1*f1);
+    *dA   = gamm[func]*phi3*df2dA/(1.0 + f2);
   }
 
 }
@@ -122,7 +128,11 @@ static void gga_c_pbe(void *p_, FLOAT *rho, FLOAT *sigma,
   FLOAT A, dAdec, dAdphi;
   FLOAT H, dHdphi, dHdt, dHdA;
 
-  func = (p->info->number == XC_GGA_C_PBE_SOL) ? 1 : 0;
+  switch(p->info->number){
+  case XC_GGA_C_PBE_SOL: func = 1; break;
+  case XC_GGA_C_XPBE:    func = 2; break;
+  default:               func = 0; /* original PBE */
+  }
 
   XC(perdew_params)(p, rho, sigma, &pt);
 
@@ -158,9 +168,20 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_sol) = {
   XC_CORRELATION,
   "Perdew, Burke & Ernzerhof SOL",
   XC_FAMILY_GGA,
-  "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
-  "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)"
-  "JP Perdew, et al, arXiv:0707.2088v1",
+  "JP Perdew, et al, Phys. Rev. Lett. 100, 136406 (2008)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  gga_c_pbe_init,
+  gga_c_pbe_end,
+  NULL,            /* this is not an LDA                   */
+  gga_c_pbe,
+};
+
+const XC(func_info_type) XC(func_info_gga_c_xpbe) = {
+  XC_GGA_C_XPBE,
+  XC_CORRELATION,
+  "Extended PBE by Xu & Goddard III",
+  XC_FAMILY_GGA,
+  "X Xu and WA Goddard III, J. Chem. Phys. 121, 4068 (2004)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_c_pbe_init,
   gga_c_pbe_end,

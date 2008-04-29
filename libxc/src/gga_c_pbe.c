@@ -57,8 +57,6 @@ static void gga_c_pbe_init(void *p_)
     gamm[0] = gamm[1] = (1.0 - log(2.0))/(M_PI*M_PI);
     break;
   }  
-
-  printf("%f %f %f\n", gamm[0], gamm[1], gamm[2]);
 }
 
 

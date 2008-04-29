@@ -31,69 +31,77 @@ static FLOAT teter_bp[4] = {0.000000000000000,  0.2673612973836267, 0.2052004607
   
 
 /* the functional */
-static void lda_c_teter93(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc)
+static inline void 
+func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta, 
+     FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
+     FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
 {
-  XC(lda_type) *p = (XC(lda_type) *)p_;
+  FLOAT mrs[5], aa[4], bb[4];
+  FLOAT fz, dfz, d2fz;
 
-  FLOAT dens, zeta;
-  FLOAT rs[5], aa[4], bb[4];
-  FLOAT fzeta, Dfzeta;
-  FLOAT Dec_Drs, Dec_Dz, ec0;
-
-  FLOAT num, denom;
-  FLOAT DnumDrs, DdenomDrs, DnumDzeta, DdenomDzeta;
+  FLOAT num, denom, denom2, denom3;
+  FLOAT DnumDrs, DdenomDrs, DnumDz, DdenomDz;
+  FLOAT D2numDrs2, D2numDz2, D2numDrsz, D2denomDrs2, D2denomDz2, D2denomDrsz;
   int ii;
 
-  XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
-
   /* Wigner radius */
-  rs[0] = 1.0;
-  rs[1] = RS(dens);
-  rs[2] = rs[1]*rs[1];
-  rs[3] = rs[1]*rs[2];
-  rs[4] = rs[1]*rs[3];
+  mrs[0] = 1.0;
+  mrs[1] = rs[1];
+  mrs[2] = rs[2];
+  mrs[3] = mrs[1]*mrs[2];
+  mrs[4] = mrs[1]*mrs[3];
   
-  fzeta = FZETA(zeta);
+  fz = FZETA(zeta);
   for(ii=0; ii<4; ii++){
-    aa[ii] = teter_a[ii] + teter_ap[ii]*fzeta;
-    bb[ii] = teter_b[ii] + teter_bp[ii]*fzeta;
+    aa[ii] = teter_a[ii] + teter_ap[ii]*fz;
+    bb[ii] = teter_b[ii] + teter_bp[ii]*fz;
   }
 
-  /* ec */
-  {
-    num   = aa[0]*rs[0] + aa[1]*rs[1] + aa[2]*rs[2] + aa[3]*rs[3];
-    denom = bb[0]*rs[1] + bb[1]*rs[2] + bb[2]*rs[3] + bb[3]*rs[4];
-    ec0 = -num/(denom);
+  num   = aa[0]*mrs[0] + aa[1]*mrs[1] + aa[2]*mrs[2] + aa[3]*mrs[3];
+  denom = bb[0]*mrs[1] + bb[1]*mrs[2] + bb[2]*mrs[3] + bb[3]*mrs[4];
+  *zk = -num/(denom);
 
-    if(ec != NULL)
-      *ec = ec0;
+  if(dedrs==NULL && d2edrs2==NULL) return; /* nothing else to do */
+
+  dfz       = DFZETA(zeta);
+  DnumDrs   = aa[1] + 2*aa[2]*mrs[1] + 3*aa[3]*mrs[2];
+  DdenomDrs = bb[0] + 2*bb[1]*mrs[1] + 3*bb[2]*mrs[2] + 4*bb[3]*mrs[3];
+
+  DnumDz    = (teter_ap[0]*mrs[0] + teter_ap[1]*mrs[1] + teter_ap[2]*mrs[2] + teter_ap[3]*mrs[3])*dfz;
+  DdenomDz  = (teter_bp[0]*mrs[1] + teter_bp[1]*mrs[2] + teter_bp[2]*mrs[3] + teter_bp[3]*mrs[4])*dfz;
+
+  denom2 = denom*denom;
+
+  if(dedrs!=NULL){
+    *dedrs = -(DnumDrs*denom - DdenomDrs*num)/denom2;
+    *dedz  = -(DnumDz*denom  - DdenomDz*num) /denom2;
   }
 
-  /* vc */
-  {
-    Dfzeta      = DFZETA(zeta);
+  if(d2edrs2==NULL) return; /* nothing else to do */
 
-    DnumDrs     = aa[1] + 2*aa[2]*rs[1] + 3*aa[3]*rs[2];
-    DdenomDrs   = bb[0] + 2*bb[1]*rs[1] + 3*bb[2]*rs[2] + 4*bb[3]*rs[3];
-    Dec_Drs     = -(DnumDrs*denom - DdenomDrs*num)/(denom*denom);
+  d2fz = D2FZETA(zeta);
 
-    DnumDzeta   = (teter_ap[0]*rs[0] + teter_ap[1]*rs[1] + teter_ap[2]*rs[2] + teter_ap[3]*rs[3])*Dfzeta;
-    DdenomDzeta = (teter_bp[0]*rs[1] + teter_bp[1]*rs[2] + teter_bp[2]*rs[3] + teter_bp[3]*rs[4])*Dfzeta;
-    Dec_Dz      = -(DnumDzeta*denom - DdenomDzeta*num)/(denom*denom);
+  D2numDrs2   = 2*aa[2] + 3*2*aa[3]*mrs[1];
+  D2denomDrs2 = 2*bb[1] + 3*2*bb[2]*mrs[1] + 4*3*bb[3]*mrs[2];
 
-    if(vc != NULL){
-      if(p->nspin == XC_UNPOLARIZED){
-	vc[0] = ec0 - (rs[1]/3.0)*Dec_Drs;
-      }else{
-	vc[0] = ec0 - (rs[1]/3.0)*Dec_Drs - (zeta - 1.0)*Dec_Dz;
-	vc[1] = ec0 - (rs[1]/3.0)*Dec_Drs - (zeta + 1.0)*Dec_Dz;
-      }
-    }
-  }
+  D2numDrsz   = (teter_ap[1] + 2*teter_ap[2]*mrs[1] + 3*teter_ap[3]*mrs[2])*dfz;
+  D2denomDrsz = (teter_bp[0] + 2*teter_bp[1]*mrs[1] + 3*teter_bp[2]*mrs[2] + 4*teter_bp[3]*mrs[3])*dfz;
 
+  D2numDz2    = (teter_ap[0]*mrs[0] + teter_ap[1]*mrs[1] + teter_ap[2]*mrs[2] + teter_ap[3]*mrs[3])*d2fz;
+  D2denomDz2  = (teter_bp[0]*mrs[1] + teter_bp[1]*mrs[2] + teter_bp[2]*mrs[3] + teter_bp[3]*mrs[4])*d2fz;
+
+  denom3      = denom*denom2;
+
+  *d2edrs2    = -((D2numDrs2*denom - D2denomDrs2*num)*denom -
+		  2*DdenomDrs*(DnumDrs*denom - DdenomDrs*num))/denom3;
+  *d2edz2     = -((D2numDz2*denom  - D2denomDz2*num)*denom -
+		  2*DdenomDz* (DnumDz*denom  - DdenomDz*num)) /denom3;
+  *d2edrsz    = -((D2numDrsz*denom + DnumDrs*DdenomDz - D2denomDrsz*num - DdenomDrs*DnumDz)*denom -
+		  2*DdenomDz* (DnumDrs*denom - DdenomDrs*num))/denom3;
 
 }
 
+#include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_xc_teter93) = {
   XC_LDA_XC_TETER93,
@@ -101,8 +109,8 @@ const XC(func_info_type) XC(func_info_lda_xc_teter93) = {
   "Teter 93",
   XC_FAMILY_LDA,
   "S Goedecker, M Teter, J Hutter, PRB 54, 1703 (1996)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  NULL,
-  NULL,
-  lda_c_teter93
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  NULL,     /* init */
+  NULL,     /* end  */
+  work_lda, /* lda  */
 };

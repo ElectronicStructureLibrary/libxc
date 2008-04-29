@@ -40,13 +40,14 @@ double lambert_w(double z);
 
 #define M_C 137.0359996287515 /* speed of light */
 
-#define RS(x)     (pow((3.0/(4*M_PI*x)), 1.0/3.0))
-#define X_FACTOR_C  0.9305257363491           /* 3/8*cur(3/pi)*4^(2/3) */
-#define FZETAFACTOR 0.519842099789746380
-#define FZETA(x)   ((pow(1.0 + zeta,  4.0/3.0) + pow(1.0 - zeta,  4.0/3.0) - 2.0)/FZETAFACTOR)
-#define DFZETA(x)  ((pow(1.0 + zeta,  1.0/3.0) - pow(1.0 - zeta,  1.0/3.0))*(4.0/3.0)/FZETAFACTOR)
-#define D2FZETA(x) ((4.0/9.0)/FZETAFACTOR)*(ABS(zeta)==1.0 ? (FLT_MAX) : \
-		        (pow(1.0 + zeta, -2.0/3.0) + pow(1.0 - zeta, -2.0/3.0)))
+#define RS(x)          (pow((3.0/(4*M_PI*x)), 1.0/3.0))
+#define X_FACTOR_C     0.9305257363491           /* 3/8*cur(3/pi)*4^(2/3) */
+#define X2S            0.12827824385304220645    /* 1/(2*(6*pi^2)^(1/3))  */
+#define FZETAFACTOR    0.519842099789746380
+#define FZETA(x)       ((pow(1.0 + zeta,  4.0/3.0) + pow(1.0 - zeta,  4.0/3.0) - 2.0)/FZETAFACTOR)
+#define DFZETA(x)      ((pow(1.0 + zeta,  1.0/3.0) - pow(1.0 - zeta,  1.0/3.0))*(4.0/3.0)/FZETAFACTOR)
+#define D2FZETA(x)     ((4.0/9.0)/FZETAFACTOR)*(ABS(zeta)==1.0 ? (FLT_MAX) : \
+			      (pow(1.0 + zeta, -2.0/3.0) + pow(1.0 - zeta, -2.0/3.0)))
 
 #define MIN_DENS             1.0e-20
 #define MIN_GRAD             1.0e-20

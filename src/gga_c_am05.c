@@ -48,7 +48,6 @@ gga_c_am05(const void *p_, const FLOAT *rho, const FLOAT *sigma,
 {
   const FLOAT am05_alpha = 2.804;
   const FLOAT am05_gamma = 0.8098;
-  const FLOAT x2s        = 0.12827824385304220645; /* 1/(2*(6*pi^2)^(1/3)) */
 
   FLOAT sfact, dens, m_zk, vrho_LDA[2];
   int is;
@@ -76,7 +75,7 @@ gga_c_am05(const void *p_, const FLOAT *rho, const FLOAT *sigma,
       XX = (vsigma[js] < MIN_GRAD) ? 1.0 : 0.0;
     }else{
       x  = gdm/(ds*rho13);
-      ss = x*x2s;
+      ss = x*X2S;
     
       XX = 1.0/(1.0 + am05_alpha*ss*ss);
     }
@@ -95,7 +94,7 @@ gga_c_am05(const void *p_, const FLOAT *rho, const FLOAT *sigma,
       }else{
 	dXX = 0.0;
       }
-      df  = dXX*(1.0 - am05_gamma)*x2s;
+      df  = dXX*(1.0 - am05_gamma)*X2S;
 
       n = (p->nspin == XC_POLARIZED) ? 2 : 1;
       for(jj=0; jj<n; jj++)

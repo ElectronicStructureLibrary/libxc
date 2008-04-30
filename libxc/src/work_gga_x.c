@@ -34,17 +34,19 @@ work_gga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma,
 {
   const XC(gga_type) *p = p_;
 
-  FLOAT sfact, dens;
+  FLOAT sfact, sfact2, dens;
   int is;
 
   sfact = (p->nspin == XC_POLARIZED) ? 1.0 : 2.0;
+  sfact2 = sfact*sfact;
 
   dens = 0.0;
   for(is=0; is<p->nspin; is++){
     FLOAT gdm, ds, rho13;
-    FLOAT x, f, dfdx, ldfdx, d2fdx2;
-    FLOAT *pdfdx, *pvsigma, *pd2fdx2;
-    int js = is==0 ? 0 : 2;
+    FLOAT x, f, dfdx, ldfdx, d2fdx2, lvsigma, lv2sigma2, lvsigmax;
+    FLOAT *pdfdx, *pd2fdx2;
+    int js = (is == 0) ? 0 : 2;
+    int ks = (is == 0) ? 0 : 5;
 
     if(rho[is] < MIN_DENS) continue;
 
@@ -55,23 +57,22 @@ work_gga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma,
     rho13 = POW(ds, 1.0/3.0);
     x     = gdm/(ds*rho13);
 
-    if(vrho!=NULL || v2rho2!=NULL){
-      pdfdx   = &dfdx;
-      pvsigma = &(vsigma[js]);
-    }else
-      pdfdx = pvsigma = NULL;
-
-    d2fdx2 = 0.0; /* avoids a compiler warning */
+    dfdx    = d2fdx2 = 0.0;
+    pdfdx   = (vrho!=NULL || v2rho2!=NULL) ? &dfdx : NULL;
     pd2fdx2 = (v2rho2!=NULL) ? &d2fdx2 : NULL;
 
 #if   HEADER == 1
     func(p, x, &f, pdfdx, &ldfdx, pd2fdx2);
+    lvsigma = lv2sigma2 = lvsigmax = 0.0;
 #elif HEADER == 2
     /* this second header is useful for functionals that depend
        explicitly both on s and on sigma */
-    /* WARNING: This is not prepared for fxc */
-    func(p, x, gdm*gdm, &f, pdfdx, &ldfdx, pvsigma);
+    func(p, x, gdm*gdm, &f, pdfdx, &ldfdx, &lvsigma, pd2fdx2, &lv2sigma2, &lvsigmax);
 #endif
+
+    lvsigma   /= sfact2;
+    lvsigmax  /= sfact2;
+    lv2sigma2 /= sfact2*sfact2;
 
     if(zk != NULL)
       *zk += -sfact*X_FACTOR_C*(ds*rho13)*f;
@@ -79,22 +80,19 @@ work_gga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma,
     if(vrho != NULL){
       vrho[is] += -4.0/3.0*X_FACTOR_C*rho13*(f - dfdx*x);
       if(gdm>MIN_GRAD)
-	vsigma[js] = -sfact*X_FACTOR_C*(ds*rho13)*(vsigma[js]/(sfact*sfact) + dfdx*x/(2.0*sigma[js]));
+	vsigma[js] = -sfact*X_FACTOR_C*(ds*rho13)*(lvsigma + dfdx*x/(2.0*sigma[js]));
       else
 	vsigma[js] = -X_FACTOR_C/(sfact*(ds*rho13))*ldfdx;
     }
 
     if(v2rho2 != NULL){
-      int n;
-
       v2rho2[js] = -4.0/3.0*X_FACTOR_C*rho13/(3.0*ds)*
 	(f - dfdx*x + 4.0*d2fdx2*x*x)/sfact;
 
-      n = (is == 0) ? 0 : 5;
       if(gdm>MIN_GRAD){
-	v2rhosigma[n] =        X_FACTOR_C * 4.0/3.0*rho13 * d2fdx2*x*x/(2.0*sigma[js]);
-	v2sigma2  [n] = -sfact*X_FACTOR_C*(ds*rho13)*
-	  (d2fdx2*x - dfdx)*x/(4.0*sigma[js]*sigma[js]);
+	v2rhosigma[ks] = -4.0/3.0*X_FACTOR_C*rho13*(lvsigma - lvsigmax*x - d2fdx2*x*x/(2.0*sigma[js]));
+	v2sigma2  [ks] = -sfact*X_FACTOR_C*(ds*rho13)*
+	  (lv2sigma2 + lvsigmax*x/sigma[js] + (d2fdx2*x - dfdx)*x/(4.0*sigma[js]*sigma[js]));
       }
 	
     }

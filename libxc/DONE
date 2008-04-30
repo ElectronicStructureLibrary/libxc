@@ -15,8 +15,8 @@ LDA_C_OB_PZ	 11	OK	OK	OK	|
 LDA_C_PW	 12	OK	OK	OK	|
 LDA_C_PW_MOD	 13	OK	OK	OK	|
 LDA_C_OB_PW	 14	OK	OK	OK	|
-LDA_C_AMGB	 15				|
-LDA_C_PRM08	 16				| In the drawing board
+LDA_C_AMGB	 15	OK	OK		|
+LDA_C_PRM08	 16	-	-	-	| In the drawing board
 LDA_TETER93	 20	OK	OK	OK	|
 
 ----------------
@@ -28,19 +28,21 @@ GGA_X_B86_MGC	105	OK	OK	OK	|
 GGA_X_B88	106	OK	OK	OK	|
 GGA_X_G96	107	OK	OK	OK	| This functional diverges for small x
 GGA_X_PW86	108	OK	OK	OK	|
-GGA_X_PW91	109				|
+GGA_X_PW91	109	OK	OK	OK	|
 GGA_X_OPTX	110	OK	OK	OK	|
 GGA_X_DK87_R1	111	OK	OK	OK	| vsig, and v2sig2 are unstable when sig is very small: maybe a bug?
 GGA_X_DK87_R2	112	OK	OK	OK	| idem
 GGA_X_LG93	113	OK	OK	OK	|
-GGA_X_FT97_A	114				|
-GGA_X_FT97_B	115				|
+GGA_X_FT97_A	114	OK	OK	OK	|
+GGA_X_FT97_B	115	OK	OK	OK	|
 GGA_X_PBE_SOL	116	OK	OK	OK	|
 GGA_X_RPBE	117	OK	OK	OK	|
-GGA_X_WC	118				|
-GGA_X_mPW91	119				|
-GGA_X_AM05	120				|
+GGA_X_WC	118	OK	OK	OK	|
+GGA_X_mPW91	119	OK	OK	OK	| numerical coefficients may not have sufficient accuracy!
+GGA_X_AM05	120	OK	OK	OK		|
 GGA_X_PBEA	121	OK	OK	OK	|
+GGA_X_MPBE	122	OK	OK	OK	|
+GGA_X_XPBE	123	OK	OK	OK	|
 
 GGA_C_PBE	130				|
 GGA_C_LYP	131				|
@@ -48,6 +50,7 @@ GGA_C_P86	132				|
 GGA_C_PBE_SOL	133				|
 GGA_C_PW91	134				|
 GGA_C_AM05	135				|
+GGA_C_XPBE	136				|
 
 GGA_LB		160				|
 GGA_HCTH_93	161				|

@@ -83,13 +83,19 @@ XC(perdew_potentials)(XC(perdew_t) *pt, const FLOAT *rho, FLOAT e_gga, int order
  
   if(order < 1) return;
 
-  dpdz    = 0.0;
-  if(fabs(1.0 + pt->zeta) >= MIN_DENS)
-    dpdz += (1.0/3.0)*POW(1.0 + pt->zeta, -1.0/3.0);
-  if(fabs(1.0 - pt->zeta) >= MIN_DENS)
-    dpdz -= (1.0/3.0)*POW(1.0 - pt->zeta, -1.0/3.0);
-  dzdd[0] =  (1.0 - pt->zeta)/pt->dens;
-  dzdd[1] = -(1.0 + pt->zeta)/pt->dens;
+  if(pt->nspin == XC_POLARIZED){
+    dpdz    = 0.0;
+    if(fabs(1.0 + pt->zeta) >= MIN_DENS)
+      dpdz += (1.0/3.0)*POW(1.0 + pt->zeta, -1.0/3.0);
+    if(fabs(1.0 - pt->zeta) >= MIN_DENS)
+      dpdz -= (1.0/3.0)*POW(1.0 - pt->zeta, -1.0/3.0);
+
+    dzdd[0] =  (1.0 - pt->zeta)/pt->dens;
+    dzdd[1] = -(1.0 + pt->zeta)/pt->dens;
+  }else{
+    dpdz    = 0.0;
+    dzdd[0] = 0.0;
+  }
 
   dFdalpha[0] = pt->drs;
   dFdalpha[1] = pt->dkf;
@@ -177,15 +183,20 @@ XC(perdew_potentials)(XC(perdew_t) *pt, const FLOAT *rho, FLOAT e_gga, int order
   d2Fdalpha2[5][5] = pt->d2ecunif2;
 
   /* now we sort d2alphadd2 */
-  d2pdz2 = 0.0;
-  if(fabs(1.0 + pt->zeta) >= MIN_DENS)
-    d2pdz2 += -(1.0/9.0)*POW(1.0 + pt->zeta, -4.0/3.0);
-  if(fabs(1.0 - pt->zeta) >= MIN_DENS)
-    d2pdz2 += -(1.0/9.0)*POW(1.0 - pt->zeta, -4.0/3.0);
+  if(pt->nspin == XC_POLARIZED){
+    d2pdz2 = 0.0;
+    if(fabs(1.0 + pt->zeta) >= MIN_DENS)
+      d2pdz2 += -(1.0/9.0)*POW(1.0 + pt->zeta, -4.0/3.0);
+    if(fabs(1.0 - pt->zeta) >= MIN_DENS)
+      d2pdz2 += -(1.0/9.0)*POW(1.0 - pt->zeta, -4.0/3.0);
 
-  d2zdd2[0] = -2.0*dzdd[0]/pt->dens;
-  d2zdd2[1] =  2.0*pt->zeta/(pt->dens*pt->dens);
-  d2zdd2[2] = -2.0*dzdd[1]/pt->dens;
+    d2zdd2[0] = -2.0*dzdd[0]/pt->dens;
+    d2zdd2[1] =  2.0*pt->zeta/(pt->dens*pt->dens);
+    d2zdd2[2] = -2.0*dzdd[1]/pt->dens;
+  }else{
+    d2pdz2    = 0.0;
+    d2zdd2[0] = 0.0;
+  }
 
   ns = (pt->nspin == XC_UNPOLARIZED) ? 0 : 2;
   for(ks=0; ks<=ns; ks++){

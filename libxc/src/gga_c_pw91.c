@@ -182,18 +182,19 @@ ec_eq9(FLOAT   ec, FLOAT   rs, FLOAT   t, FLOAT   g, FLOAT   ks, FLOAT   kf, FLO
 }
 
 static void 
-gga_c_pw91(void *p_, FLOAT *rho, FLOAT *sigma,
-	   FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
+gga_c_pw91(const void *p_, const FLOAT *rho, const FLOAT *sigma,
+	   FLOAT *e, FLOAT *vrho, FLOAT *vsigma,
+	   FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
   XC(perdew_t) pt;
 
-  XC(perdew_params)(p, rho, sigma, &pt);
+  XC(perdew_params)(p, rho, sigma, 1, &pt);
   
   ec_eq9(pt.ecunif, pt.rs, pt.t, pt.phi, pt.ks, pt.kf, e,
 	 &pt.decunif, &pt.drs, &pt.dt, &pt.dphi, &pt.dks, &pt.dkf);
 
-  XC(perdew_potentials)(&pt, rho, *e, vrho, vsigma);
+  XC(perdew_potentials)(&pt, rho, *e, 1, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
 }
 
 const XC(func_info_type) XC(func_info_gga_c_pw91) = {

@@ -422,7 +422,7 @@ void test_functional(int functional)
     }
 
     if(info->provides & XC_PROVIDES_FXC){
-      diff = avg_diff[1][1] + avg_diff[1][2] + avg_diff[2][2];
+      diff = avg_diff[1][0] + avg_diff[1][1] + avg_diff[2][1];
       diff = diff/3.0;
       print_error("Avg.", "v2rho2", diff, NULL, NULL);
       if(max_diff[1][0] > max_diff[1][1]) {i=1; j=0;} else {i=1; j=1;}

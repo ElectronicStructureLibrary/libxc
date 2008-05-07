@@ -65,14 +65,22 @@ void XC(lda_kxc_fd)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *kxc);
 typedef struct XC(perdew_t) {
   int    nspin;
   FLOAT dens, zeta, gdmt;
-  FLOAT ecunif, vcunif[2];
+  FLOAT ecunif, vcunif[2], fcunif[3];
 
   FLOAT  rs,  kf,  ks,  phi, t;
   FLOAT drs, dkf, dks, dphi, dt, decunif;
+
+  FLOAT d2rs2, d2rskf, d2rsks, d2rsphi,  d2rst,  d2rsecunif;
+  FLOAT        d2kf2,  d2kfks, d2kfphi,  d2kft,  d2kfecunif;
+  FLOAT                 d2ks2, d2ksphi,  d2kst,  d2ksecunif;
+  FLOAT                         d2phi2, d2phit, d2phiecunif;
+  FLOAT                                   d2t2,   d2tecunif;
+  FLOAT                                           d2ecunif2;
 } XC(perdew_t);
 
-void XC(perdew_params)(XC(gga_type) *gga_p, FLOAT *rho, FLOAT *sigma, XC(perdew_t) *pp);
-void XC(perdew_potentials)(XC(perdew_t) *pt, FLOAT *rho, FLOAT e_gga, FLOAT *vrho, FLOAT *vsigma);
+void XC(perdew_params)(const XC(gga_type) *gga_p, const FLOAT *rho, const FLOAT *sigma, int order, XC(perdew_t) *pp);
+void XC(perdew_potentials)(XC(perdew_t) *pt, const FLOAT *rho, FLOAT e_gga, int order, 
+			   FLOAT *vrho, FLOAT *vsigma, FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
 void XC(gga_x_b88_set_params)(XC(gga_type) *p, FLOAT beta);
 void XC(gga_c_lyp_set_params)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
 

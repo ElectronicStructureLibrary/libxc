@@ -312,6 +312,9 @@ void test_functional(int functional)
       else
 	xc_lda_init(&(func.lda_func), functional, nspin);
 
+      if(functional == XC_LDA_C_PRM08)
+	xc_lda_c_prm08_set_params(&(func.lda_func), 10.0);
+
       info = func.lda_func.info;
       break;
     case XC_FAMILY_GGA:

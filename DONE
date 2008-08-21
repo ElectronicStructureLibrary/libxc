@@ -51,6 +51,7 @@ GGA_C_PBE_SOL	133	OK	OK	OK	|
 GGA_C_PW91	134				|
 GGA_C_AM05	135				|
 GGA_C_XPBE	136	OK	OK	OK	|
+GGA_C_LM	137	OK	OK	OK	| xc-consistency complains for very small sigmas, probably numerical noise
 
 GGA_LB		160				|
 GGA_HCTH_93	161				|

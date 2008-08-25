@@ -26,17 +26,20 @@
    O. Gunnarsson and B. I. Lundqvist
 ************************************************************************/
 
-#define XC_LDA_C_HL  4   /* Hedin & Lundqvist            */
-#define XC_LDA_C_GL  5   /* Gunnarson & Lundqvist        */
+#define XC_LDA_C_HL   4   /* Hedin & Lundqvist            */
+#define XC_LDA_C_GL   5   /* Gunnarson & Lundqvist        */
+#define XC_LDA_C_vBH 17   /* von Barth & Hedin            */
 
 static void hl_f(int func, int i, FLOAT rs, FLOAT *zk, FLOAT *drs, FLOAT *d2rs)
 {
   static const 
-    FLOAT r[2][2] = {{21.0,   21.0},     /* HL unpolarized only*/
-		     {11.4,   15.9}};    /* GL */
+    FLOAT r[3][2] = {{21.0,   21.0},     /* HL unpolarized only*/
+		     {11.4,   15.9},     /* GL */
+                     {30,     75 }};     /* vBH */
   static const 
-    FLOAT c[2][2] = {{ 0.0225, 0.0225},  /* HL unpolarized only */
-		     { 0.0333, 0.0203}}; /* GL */
+    FLOAT c[3][2] = {{ 0.0225, 0.0225},  /* HL unpolarized only */
+		     { 0.0333, 0.0203},  /* GL */
+		     { 0.0252, 0.0127}}; /* vBH */
   
   FLOAT a, x, x2, x3;
   
@@ -61,9 +64,14 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
      FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
      FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
 {
-  int func = p->info->number - XC_LDA_C_HL;
-  assert(func==0 || func==1);
+  int func;
   
+  switch(p->info->number){
+  case XC_LDA_C_GL:  func = 1; break;
+  case XC_LDA_C_vBH: func = 2; break;
+  default:           func = 0; /* original HL */
+  }
+
   hl_f(func, 0, rs[1], zk, dedrs, d2edrs2);
 
   if(p->nspin==XC_POLARIZED){
@@ -121,6 +129,18 @@ const XC(func_info_type) XC(func_info_lda_c_gl) = {
   "Gunnarson & Lundqvist",
   XC_FAMILY_LDA,
   "O Gunnarsson and BI Lundqvist, PRB 13, 4274 (1976)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  NULL,     /* init */
+  NULL,     /* end  */
+  work_lda, /* lda  */
+};
+
+const XC(func_info_type) XC(func_info_lda_c_vbh) = {
+  XC_LDA_C_vBH,
+  XC_CORRELATION,
+  "von Barth & Hedin",
+  XC_FAMILY_LDA,
+  "U von Barth and L Hedin, J. Phys. C: Solid State Phys. 5, 1629 (1972)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL,     /* init */
   NULL,     /* end  */

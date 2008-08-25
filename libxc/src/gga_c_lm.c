@@ -35,7 +35,7 @@ gga_c_lm_init(void *p_)
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
   p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
-  XC(lda_init)(p->lda_aux, XC_LDA_C_PW_MOD, p->nspin);
+  XC(lda_init)(p->lda_aux, XC_LDA_C_vBH, p->nspin);
 }
 
 

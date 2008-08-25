@@ -299,9 +299,33 @@ void XC_FC_FUNC(f90_mgga_end, F90_MGGA_END)
 
 void XC_FC_FUNC(f90_mgga, F90_MGGA)
   (void **p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
-   FLOAT *e, FLOAT *dedd, FLOAT *dedgd, FLOAT *dedtau)
+   FLOAT *e, FLOAT *dedd, FLOAT *dedgd, FLOAT *dedtau,
+   FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
 {
-  XC(mgga)((XC(mgga_type) *)(*p), rho, grho, tau, e, dedd, dedgd, dedtau);
+  XC(mgga)((XC(mgga_type) *)(*p), rho, grho, tau, e, dedd, dedgd, dedtau,
+	   v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
+}
+
+
+void XC_FC_FUNC(f90_mgga_exc, F90_MGGA_EXC)
+  (void **p, FLOAT *rho, FLOAT *sigma, FLOAT *tau, 
+   FLOAT *zk)
+{
+  XC(mgga_exc)((XC(mgga_type) *)(*p), rho, sigma, tau, zk);
+}
+
+void XC_FC_FUNC(f90_mgga_vxc, F90_MGGA_VXC)
+  (void **p, FLOAT *rho, FLOAT *sigma, FLOAT *tau,
+   FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vtau)
+{
+  XC(mgga_vxc)((XC(mgga_type) *)(*p), rho, sigma, tau, zk, vrho, vsigma, vtau);
+}
+
+void XC_FC_FUNC(f90_mgga_fxc, F90_MGGA_FXC)
+  (void **p, FLOAT *rho, FLOAT *sigma, FLOAT *tau,
+   FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
+{
+  XC(mgga_fxc)((XC(mgga_type) *)(*p), rho, sigma, tau, v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
 }
 
 

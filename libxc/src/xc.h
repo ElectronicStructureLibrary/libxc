@@ -65,6 +65,9 @@ typedef struct{
   void (*gga) (const void *p, const FLOAT *rho, const FLOAT *sigma, 
 	       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 	       FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
+  void (*mgga)(const void *p, const FLOAT *rho, const FLOAT *sigma, const FLOAT *tau,
+	       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vtau,
+	       FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2);
 } XC(func_info_type);
 
 
@@ -152,10 +155,6 @@ FLOAT XC(hyb_gga_exx_coef)   (XC(hyb_gga_type) *p);
 
 
 /* the meta-GGAs */
-
-#define XC_MGGA_X_TPSS        201 /* Perdew, Tao, Staroverov & Scuseria exchange    */
-#define XC_MGGA_C_TPSS        202 /* Perdew, Tao, Staroverov & Scuseria correlation */
-
 typedef struct{
   const XC(func_info_type) *info;  /* which functional did we chose   */
   int nspin;                       /* XC_UNPOLARIZED or XC_POLARIZED  */
@@ -164,12 +163,21 @@ typedef struct{
   XC(gga_type) *gga_aux1;          /* or on a GGA                          */
   XC(gga_type) *gga_aux2;          /* or on a GGA                          */
 
+  void *params;                    /* this allows to fix parameters in the functional */
 } XC(mgga_type);
 
-void XC(mgga_init)(XC(mgga_type) *p, int functional, int nspin);
+int  XC(mgga_init)(XC(mgga_type) *p, int functional, int nspin);
 void XC(mgga_end) (XC(mgga_type) *p);
-void XC(mgga)     (XC(mgga_type) *p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
-		  FLOAT *e, FLOAT *dedd, FLOAT *dedgd, FLOAT *dedtau);
+void XC(mgga)(const XC(mgga_type) *p, const FLOAT *rho, const FLOAT *sigma, const FLOAT *tau,
+	      FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vtau,
+	      FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2);
+void XC(mgga_exc)(const XC(mgga_type) *p, const FLOAT *rho, const FLOAT *sigma, const FLOAT *tau, 
+		  FLOAT *zk);
+void XC(mgga_vxc)(const XC(mgga_type) *p, const FLOAT *rho, const FLOAT *sigma, const FLOAT *tau,
+		  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vtau);
+void XC(mgga_fxc)(const XC(mgga_type) *p, const FLOAT *rho, const FLOAT *sigma, const FLOAT *tau,
+		  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2);
+
 
 /* the LCAs */
 

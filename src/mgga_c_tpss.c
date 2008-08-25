@@ -22,7 +22,7 @@
 
 #include "util.h"
 
-#define XC_MGGA_C_TPSS          202 /* Perdew, Tao, Staroverov & Scuseria correlation */
+#define XC_MGGA_C_TPSS          231 /* Perdew, Tao, Staroverov & Scuseria correlation */
 
 /* WARNING - this is all broken !! */
 #define   _(is, x)   [3*is + x]
@@ -38,7 +38,7 @@
   Correlation part
 ************************************************************************/
 
-static XC(func_info_type) func_info_mgga_c_tpss = {
+XC(func_info_type) XC(func_info_mgga_c_tpss) = {
   XC_MGGA_C_TPSS,
   XC_CORRELATION,
   "Perdew, Tao, Staroverov & Scuseria",
@@ -50,7 +50,7 @@ static XC(func_info_type) func_info_mgga_c_tpss = {
 
 void XC(mgga_c_tpss_init)(XC(mgga_type) *p)
 {
-  p->info = &func_info_mgga_c_tpss;
+  p->info = &XC(func_info_mgga_c_tpss);
 
   p->gga_aux1 = (XC(gga_type) *) malloc(sizeof(XC(gga_type)));
   XC(gga_init)(p->gga_aux1, XC_GGA_C_PBE, p->nspin);

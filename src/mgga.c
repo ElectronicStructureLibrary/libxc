@@ -16,77 +16,144 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 
 #include "util.h"
+#include "funcs_mgga.c"
 
 /* initialization */
-void XC(mgga_init)(XC(mgga_type) *p, int functional, int nspin)
+int XC(mgga_init)(XC(mgga_type) *p, int functional, int nspin)
 {
+  int i;
+
   /* sanity check */
-  assert(functional == XC_MGGA_X_TPSS    ||
-	 functional == XC_MGGA_C_TPSS);
+  assert(p != NULL);
   
+  /* let us first find out if we know the functional */
+  for(i=0; XC(mgga_known_funct)[i]!=NULL; i++){
+    if(XC(mgga_known_funct)[i]->number == functional) break;
+  }
+  if(XC(mgga_known_funct)[i] == NULL) return -1; /* functional not found */
+
+  /* initialize structure */
+  p->params = NULL;
+  p->info = XC(mgga_known_funct)[i];
+
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
   p->nspin = nspin;
-  
-  /* initialize the functionals that need it */
-  switch(functional){
-  case(XC_MGGA_X_TPSS):
-    XC(mgga_x_tpss_init)(p);
-    break;
-  case(XC_MGGA_C_TPSS):
-    XC(mgga_c_tpss_init)(p);
-    break;
-  }
+
+  /* see if we need to initialize the functional */
+  if(p->info->init != NULL)
+    p->info->init(p);
+  return 0;
 }
 
 
 void XC(mgga_end)(XC(mgga_type) *p)
 {
-  switch(p->info->number){
-  case(XC_MGGA_X_TPSS) :
-    XC(mgga_x_tpss_end)(p);
-    break;
-  case(XC_MGGA_C_TPSS) :
-    XC(mgga_c_tpss_end)(p);
-    break;
-  }
+  assert(p != NULL);
+
+  if(p->info->end != NULL)
+    p->info->end(p);
 }
 
 
-void XC(mgga)(XC(mgga_type) *p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
-	  FLOAT *e, FLOAT *dedd, FLOAT *dedgd, FLOAT *dedtau)
-
+void XC(mgga)(const XC(mgga_type) *p, const FLOAT *rho, const FLOAT *sigma, const FLOAT *tau,
+	      FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vtau,
+	      FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
 {
   FLOAT dens;
+  int i, n;
 
-  assert(p!=NULL);
+  assert(p!=NULL && p->info!=NULL);
   
+  /* sanity check */
+  if(zk != NULL && !(p->info->provides & XC_PROVIDES_EXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of Exc",
+	    p->info->name);
+    exit(1);
+  }
+
+  if(vrho != NULL && !(p->info->provides & XC_PROVIDES_VXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of vxc",
+	    p->info->name);
+    exit(1);
+  }
+
+  if(v2rho2 != NULL && !(p->info->provides & XC_PROVIDES_FXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of fxc",
+	    p->info->name);
+    exit(1);
+  }
+
+  /* initialize output to zero */
+  if(zk != NULL){
+    assert(p->info->provides & XC_PROVIDES_EXC);
+    *zk = 0.0;
+  }
+
+  if(vrho != NULL){
+    assert(p->info->provides & XC_PROVIDES_VXC);
+    assert(vsigma != NULL);
+
+    for(i=0; i<p->nspin; i++){
+      vrho[i] = 0.0;
+      vtau[i] = 0.0;
+    }
+
+    n = (p->nspin == XC_UNPOLARIZED) ? 1 : 3;
+    for(i=0; i<n; i++)
+      vsigma[i] = 0.0;
+  }
+
+  if(v2rho2 != NULL){
+    assert(p->info->provides & XC_PROVIDES_FXC);
+    assert(v2rhosigma!=NULL && v2sigma2!=NULL && v2rhotau!=NULL && v2tausigma!=NULL && v2tau2!=NULL);
+
+    n = (p->nspin == XC_UNPOLARIZED) ? 1 : 3;
+    for(i=0; i<n; i++){
+      v2rho2[i] = 0.0;
+      v2tau2[i] = 0.0;
+    }
+
+    n = (p->nspin == XC_UNPOLARIZED) ? 1 : 6;
+    for(i=0; i<n; i++){
+      v2rhosigma[i] = 0.0;
+      v2tausigma[i] = 0.0;
+      v2sigma2[i]   = 0.0;
+    }
+  }
+
+  /* check if density is larger than threshold */
   dens = rho[0];
   if(p->nspin == XC_POLARIZED) dens += rho[1];
-  
-  if(dens <= MIN_DENS){
-    int i;
-    *e = 0.0;
-    for(i=0; i<  p->nspin; i++){
-      dedd  [i] = 0.0;
-      dedtau[i] = 0.0;
-    }
-    for(i=0; i<3*p->nspin; i++) dedgd[i] = 0.0;
-    return;
-  }
-  
-  switch(p->info->number){
-  case(XC_MGGA_X_TPSS):
-    XC(mgga_x_tpss)(p, rho, grho, tau, e, dedd, dedgd, dedtau);
-    break;
+  if(dens <= MIN_DENS) return;
 
-  case(XC_MGGA_C_TPSS):
-    XC(mgga_c_tpss)(p, rho, grho, tau, e, dedd, dedgd, dedtau);
-    break;
-  }
-
+  /* call functional */
+  assert(p->info->mgga != NULL);
+  p->info->mgga(p, rho, sigma, tau, zk, vrho, vsigma, vtau, 
+		v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
 }
+
+/* especializations */
+inline void XC(mgga_exc)(const XC(mgga_type) *p, const FLOAT *rho, const FLOAT *sigma, const FLOAT *tau, 
+			FLOAT *zk)
+{
+  XC(mgga)(p, rho, sigma, tau, zk, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+}
+
+inline void XC(mgga_vxc)(const XC(mgga_type) *p, const FLOAT *rho, const FLOAT *sigma, const FLOAT *tau,
+			FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vtau)
+{
+  XC(mgga)(p, rho, sigma, tau, zk, vrho, vsigma, vtau, NULL, NULL, NULL, NULL, NULL, NULL);
+}
+
+inline void XC(mgga_fxc)(const XC(mgga_type) *p, const FLOAT *rho, const FLOAT *sigma, const FLOAT *tau,
+			 FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
+{
+  XC(mgga)(p, rho, sigma, tau, NULL, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
+}
+
 

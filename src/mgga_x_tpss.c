@@ -29,9 +29,9 @@
   Exchange part
 ************************************************************************/
 
-#define XC_MGGA_X_TPSS          201 /* Perdew, Tao, Staroverov & Scuseria exchange */
+#define XC_MGGA_X_TPSS          202 /* Perdew, Tao, Staroverov & Scuseria exchange */
 
-static XC(func_info_type) func_info_mgga_x_tpss = {
+XC(func_info_type) XC(func_info_mgga_x_tpss) = {
   XC_MGGA_X_TPSS,
   XC_EXCHANGE,
   "Perdew, Tao, Staroverov & Scuseria",
@@ -43,7 +43,7 @@ static XC(func_info_type) func_info_mgga_x_tpss = {
 
 void XC(mgga_x_tpss_init)(XC(mgga_type) *p)
 {
-  p->info = &func_info_mgga_x_tpss;
+  p->info = &XC(func_info_mgga_x_tpss);
   p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
   XC(lda_x_init)(p->lda_aux, XC_UNPOLARIZED, 3, XC_NON_RELATIVISTIC);
 }

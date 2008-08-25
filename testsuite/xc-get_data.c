@@ -28,9 +28,11 @@ typedef struct {
 
   double rho[2];        /* rhoa, rhob */
   double sigma[3];      /* sigmaaa, sigmaab, sigmabb */
+  double tau[2];        /* taua, taub */
   double zk;            /* energy density per unit particle */
   double vrho[2];       /* vrhoa, vrhob */
   double vsigma[3];     /* vsigmaaa, vsigmaab, vsigmabb */
+  double vtau[2]  ;     /* vtaua, vtaub */
   double v2rho[3];      /* v2rhoa2, v2rhoab, v2rhob2 */
   double v2rhosigma[6]; /* v2rhoasigmaaa, v2rhoasigmaab, v2rhoasigmabb
 			   v2rhobsigmaaa, v2rhobsigmaab, v2rhobsigmabb */
@@ -113,6 +115,7 @@ int main(int argc, char *argv[])
   xc_lda_type lda_func;
   xc_gga_type gga_func;
   xc_hyb_gga_type hyb_gga_func;
+  xc_mgga_type mgga_func;
   const xc_func_info_type *info;
   FLOAT *pv2rho = NULL;
 
@@ -123,6 +126,7 @@ int main(int argc, char *argv[])
 
   init_values(&xc, argv);
 
+  xc.tau[0] = 0.0;
   if(xc.nspin == 1){
     xc.rho[0]   += xc.rho[1];
     xc.sigma[0] += 2.0*xc.sigma[1] + xc.sigma[2];
@@ -146,10 +150,15 @@ int main(int argc, char *argv[])
       xc_hyb_gga_init(&hyb_gga_func, xc.functional, xc.nspin);
       info = hyb_gga_func.info;
       break;
+    case XC_FAMILY_MGGA:
+      xc_mgga_init(&mgga_func, xc.functional, xc.nspin);
+      info = mgga_func.info;
+      break;
     default:
       fprintf(stderr, "Functional '%d' not found\n", xc.functional);
       exit(1);  
     }
+
   if(info->provides & XC_PROVIDES_FXC){
     pv2rho = xc.v2rho;
   }
@@ -167,6 +176,11 @@ int main(int argc, char *argv[])
     case XC_FAMILY_HYB_GGA:
       xc_hyb_gga(&hyb_gga_func, xc.rho, xc.sigma, &xc.zk, xc.vrho, xc.vsigma);
       xc_hyb_gga_end(&hyb_gga_func);
+      break;
+    case XC_FAMILY_MGGA:
+      xc_mgga(&mgga_func, xc.rho, xc.sigma, xc.tau, &xc.zk, 
+	      xc.vrho, xc.vsigma, xc.vtau, pv2rho, xc.v2rhosigma, xc.v2sigma, NULL, NULL, NULL);
+      xc_mgga_end(&mgga_func);
       break;
     }
 

@@ -59,7 +59,7 @@ work_mgga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
     pdfdx   = (vrho!=NULL || v2rho2!=NULL) ? &dfdx : NULL;
     pd2fdx2 = (v2rho2!=NULL) ? &d2fdx2 : NULL;
 
-    func(p, x, ltau, &f, pdfdx, &ldfdx, &dfdtau, pd2fdx2);
+    func(p, x, ltau, &f, pdfdx, &ldfdx, &dfdtau, pd2fdx2, NULL, NULL);
 
     if(zk != NULL)
       *zk += -sfact*X_FACTOR_C*(ds*rho13)*f;

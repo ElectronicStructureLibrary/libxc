@@ -63,10 +63,10 @@ work_mgga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
 
     if(zk != NULL)
       *zk += -sfact*X_FACTOR_C*(ds*rho13)*f;
-      
+ 
     if(vrho != NULL){
       vrho[is] += -4.0/3.0*X_FACTOR_C*rho13*(f - dfdx*x);
-      vtau[is] += X_FACTOR_C*dfdtau;
+      vtau[is] += X_FACTOR_C*(ds*rho13)*dfdtau;
 
       if(gdm>MIN_GRAD)
 	vsigma[js] = -sfact*X_FACTOR_C*(ds*rho13)*(lvsigma + dfdx*x/(2.0*sigma[js]));

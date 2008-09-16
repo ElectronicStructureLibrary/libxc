@@ -118,11 +118,15 @@ void XC(mgga)(const XC(mgga_type) *p, const FLOAT *rho, const FLOAT *sigma, cons
       v2tau2[i] = 0.0;
     }
 
+    n = (p->nspin == XC_UNPOLARIZED) ? 1 : 4;
+    for(i=0; i<n; i++){
+      v2rhotau[i] = 0.0;
+    }
+
     n = (p->nspin == XC_UNPOLARIZED) ? 1 : 6;
     for(i=0; i<n; i++){
       v2rhosigma[i] = 0.0;
       v2tausigma[i] = 0.0;
-      v2sigma2[i]   = 0.0;
     }
   }
 

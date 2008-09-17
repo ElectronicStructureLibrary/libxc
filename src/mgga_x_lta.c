@@ -24,10 +24,6 @@
 
 #define XC_MGGA_X_LTA          201 /* Local tau approximation of Ernzerhof & Scuseria */
 
-/* This functional is not written as LDA exchange times a factor
-   therefore we have to indicate this factor to the driver routine */
-#define NO_EXCHANGE_FACTOR
-
 static void
 mgga_x_lta(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *tau,
 	   FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vtau,

@@ -38,11 +38,10 @@ work_mgga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
 
   dens = 0.0;
   for(is=0; is<p->nspin; is++){
-    FLOAT gdm, ds, rho13;
-    FLOAT x, f, ltau, dfdx, ldfdx, d2fdx2, dfdtau, lvsigma, lv2sigma2, lvsigmax;
+    FLOAT gdm, ds, rho13, z;
+    FLOAT x, f, ltau, tauw, dfdx, dfdz, d2fdx2, d2fdxz, d2fdz2;
     FLOAT *pdfdx, *pd2fdx2;
     int js = (is == 0) ? 0 : 2;
-    int ks = (is == 0) ? 0 : 5;
 
     if(rho[is] < MIN_DENS) continue;
 
@@ -54,43 +53,30 @@ work_mgga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
     x     = gdm/(ds*rho13);
     
     ltau  = tau[is]/sfact;
+    tauw  = gdm*gdm/(8.0*ds);
+    z     = tauw/ltau;
 
     dfdx    = d2fdx2 = 0.0;
     pdfdx   = (vrho!=NULL || v2rho2!=NULL) ? &dfdx : NULL;
     pd2fdx2 = (v2rho2!=NULL) ? &d2fdx2 : NULL;
 
-    func(p, x, ltau, &f, pdfdx, &ldfdx, &dfdtau, pd2fdx2, NULL, NULL);
+    dfdz = 0.0;
+    func(p, x, z, &f, pdfdx, &dfdz, pd2fdx2, &d2fdxz, &d2fdz2);
 
     if(zk != NULL)
       *zk += -sfact*X_FACTOR_C*(ds*rho13)*f;
  
     if(vrho != NULL){
-      vrho[is] += -4.0/3.0*X_FACTOR_C*rho13*(f - dfdx*x);
-      vtau[is] += X_FACTOR_C*(ds*rho13)*dfdtau;
+      vrho[is] += -X_FACTOR_C*rho13*(4.0/3.0*(f - dfdx*x) - dfdz*z);
+      vtau[is] += -X_FACTOR_C*(ds*rho13)*dfdz*(-z/ltau);
 
-      if(gdm>MIN_GRAD)
-	vsigma[js] = -sfact*X_FACTOR_C*(ds*rho13)*(lvsigma + dfdx*x/(2.0*sigma[js]));
-      else
-	vsigma[js] = -X_FACTOR_C/(sfact*(ds*rho13))*ldfdx;
+      vsigma[js] = -sfact*X_FACTOR_C*rho13*
+	(ds*dfdx*x/(2.0*sigma[js]) + dfdz/(8.0*ltau*sfact*sfact));
     }
 
     if(v2rho2 != NULL){
       /* Missing terms here */
       exit(1);
-
-      /*
-      v2rho2[js] = -4.0/3.0*X_FACTOR_C*rho13/(3.0*ds)*
-	(f - dfdx*x + 4.0*d2fdx2*x*x)/sfact;
-      v2tau2[js] = X_FACTOR_C*d2fdtau2;
-
-
-      if(gdm>MIN_GRAD){
-	v2rhosigma[ks] = -4.0/3.0*X_FACTOR_C*rho13*(lvsigma - lvsigmax*x - d2fdx2*x*x/(2.0*sigma[js]));
-	v2sigma2  [ks] = -sfact*X_FACTOR_C*(ds*rho13)*
-	  (lv2sigma2 + lvsigmax*x/sigma[js] + (d2fdx2*x - dfdx)*x/(4.0*sigma[js]*sigma[js]));
-      }
-      */
-	
     }
   }
 

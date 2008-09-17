@@ -21,15 +21,16 @@
 
 #include "util.h"
 #include "xc.h"
+#include "util.h"
 
 void test_lda()
 {
-  lda_type l1, l2, l3;
+  XC(lda_type) l1, l2, l3;
   double rs;
   
-  lda_x_init(&l1, XC_POLARIZED, 3);
-  lda_init(&l2, XC_LDA_C_PZ, XC_POLARIZED);
-  lda_init(&l3, XC_LDA_C_VWN, XC_POLARIZED);
+  XC(lda_x_init)(&l1, XC_POLARIZED, 3, XC_NON_RELATIVISTIC);
+  XC(lda_init)(&l2, XC_LDA_C_PZ, XC_POLARIZED);
+  XC(lda_init)(&l3, XC_LDA_C_VWN, XC_POLARIZED);
 
   for(rs=10; rs>=0.1; rs-=0.01){
     double dens, zeta, rho[2];
@@ -46,10 +47,10 @@ void test_lda()
     dens   = (rho[0] + rho[1]);
     zeta   = (rho[0] - rho[1])/dens;
 
-    lda(&l2, rho, &ec1, vc1);
-    lda(&l3, rho, &ec2, vc2);
-    lda_fxc(&l1, rho, fxc1);
-    lda_fxc(&l3, rho, fxc2);
+    XC(lda_vxc)(&l2, rho, &ec1, vc1);
+    XC(lda_vxc)(&l3, rho, &ec2, vc2);
+    XC(lda_fxc)(&l1, rho, fxc1);
+    XC(lda_fxc)(&l3, rho, fxc2);
 
     printf("%e\t%e\t%e\t%e\t%e\n", dens, fxc1[0], fxc1[1], fxc1[2], fxc1[3]);
     
@@ -58,29 +59,34 @@ void test_lda()
 
 void test_tpss()
 {
-  mgga_type tpss;
+  XC(mgga_type) tpss;
   int i;
 
-  mgga_init(&tpss, XC_MGGA_C_TPSS, XC_UNPOLARIZED);
+  XC(mgga_init)(&tpss, XC_MGGA_X_TPSS, XC_POLARIZED);
   
-  for(i=0; i<100; i++){
-    double n, gr[3], tau;
-    double e, dedd, dedgd[3], dedtau;
+  for(i=0; i<1000; i++){
+    double rho[2], sigma[3], tau[2];
+    double zk, vrho[2], vsigma[3], vtau[2];
+    double v2rho2[3], v2rhosigma[6], v2sigma2[6], v2rhotau[4], v2tausigma[6], v2tau2[3];
 
-    n = 0.1;
-    gr[0] = 0.01;
-    gr[1] = 0.1;
-    gr[2] = 0.1;
-    tau   = 0.01 + i/100.0;
+    rho[0]   = 1.0;
+    rho[1]   = 0.5;
+    sigma[0] = 1.0;
+    sigma[1] = 0.1;
+    sigma[2] = 0.7;
+    tau[0]   = 0.1;
+    tau[1]   = 0.01 + i/1000.0;
 
-    mgga(&tpss, &n, gr, &tau, &e, &dedd, dedgd, &dedtau);
-    printf("%16.10lf\t%16.10lf\t%16.10lf\n", tau, n*e, dedtau);
+    XC(mgga)(&tpss, rho,  sigma,  tau, 
+	     &zk,  vrho, vsigma, vtau, 
+	     NULL, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
+    printf("%16.10lf\t%16.10lf\t%16.10lf\n", tau[1], (rho[0]+rho[1])*zk, vtau[1]);
   }
 }
 
 int main()
 {
-  test_lda();
+  test_tpss();
 
   return 0;
 }

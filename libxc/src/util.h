@@ -88,18 +88,6 @@ void XC(gga_c_lyp_set_params)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT 
 /* hybrid GGAs */
 void XC(hyb_gga_alloc)(XC(hyb_gga_type) *p);
 
-/* meta-GGAs */
-void XC(mgga_x_tpss_init)(XC(mgga_type) *p);
-void XC(mgga_c_tpss_init)(XC(mgga_type) *p);
-
-void XC(mgga_x_tpss_end)(XC(mgga_type) *p);
-void XC(mgga_c_tpss_end)(XC(mgga_type) *p);
-
-void XC(mgga_x_tpss)(XC(mgga_type) *p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
-		 FLOAT *e, FLOAT *dedd, FLOAT *dedgd, FLOAT *dedtau);
-void XC(mgga_c_tpss)(XC(mgga_type) *p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
-		 FLOAT *e, FLOAT *dedd, FLOAT *dedgd, FLOAT *dedtau);
-
 /* LCAs */
 void XC(lca_lch_init)(XC(lca_type) *p);
 void XC(lca_omc_init)(XC(lca_type) *p);

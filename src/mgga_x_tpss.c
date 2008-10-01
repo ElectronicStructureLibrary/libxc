@@ -138,18 +138,13 @@ void x_tpss_10(int order, FLOAT p, FLOAT z,
 
 
 static void 
-func(const XC(mgga_type) *pt, FLOAT x, FLOAT z,
+func(const XC(mgga_type) *pt, FLOAT x, FLOAT z, int order,
      FLOAT *f, FLOAT *dfdx, FLOAT *dfdz,
      FLOAT *d2fdx2, FLOAT *d2fdxz, FLOAT *d2fdz2)
 {
-  int order;
   FLOAT ss, pp, a1;
   FLOAT dxdp, dxdz;
   
-  order = 0;
-  if(dfdx   != NULL) order = 1;
-  if(d2fdx2 != NULL) order = 2;
-
   ss = X2S*x;
   pp = ss*ss;
 
@@ -165,20 +160,6 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT z,
 
   *dfdx = a1*a1*dxdp*2.0*ss*X2S;
   *dfdz = a1*a1*dxdz;
-
-  /* Eq. (3) */
-  /*
-  {
-    int i;
-    FLOAT a = rho*exunif*dFxdx;
-
-    *energy = exunif*Fx;
-    *dedd   = vxunif*Fx + exunif*dFxdx*(-(8.0/3.0)*p*dxdp - z*dxdz);
-    *dedtau = a * (-z/tau*dxdz);
-
-    for(i=0; i<3; i++)
-      dedgd[i] = a * 2.0*grho[i]/gdms * (p*dxdp + z*dxdz);
-  }*/
 }
 
 #include "work_mgga_x.c"
@@ -188,7 +169,8 @@ XC(func_info_type) XC(func_info_mgga_x_tpss) = {
   XC_EXCHANGE,
   "Tao, Perdew, Staroverov & Scuseria",
   XC_FAMILY_MGGA,
-  "J Tao, JP Perdew, VN Staroverov, and G Scuseria, Phys. Rev. Lett. 91, 146401 (2003)",
+  "J Tao, JP Perdew, VN Staroverov, and G Scuseria, Phys. Rev. Lett. 91, 146401 (2003)\n"
+  "JP Perdew, J Tao, VN Staroverov, and G Scuseria, J. Chem. Phys. 120, 6898 (2004)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL,
   NULL, NULL,        /* this is not an LDA                   */

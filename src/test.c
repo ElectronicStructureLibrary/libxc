@@ -62,25 +62,25 @@ void test_tpss()
   XC(mgga_type) tpss;
   int i;
 
-  XC(mgga_init)(&tpss, XC_MGGA_X_TPSS, XC_POLARIZED);
+  XC(mgga_init)(&tpss, XC_MGGA_C_TPSS, XC_POLARIZED);
   
   for(i=0; i<1000; i++){
     double rho[2], sigma[3], tau[2];
     double zk, vrho[2], vsigma[3], vtau[2];
     double v2rho2[3], v2rhosigma[6], v2sigma2[6], v2rhotau[4], v2tausigma[6], v2tau2[3];
 
-    rho[0]   = 1.0;
-    rho[1]   = 0.5;
-    sigma[0] = 1.0;
-    sigma[1] = 0.1;
+    rho[0]   = 0.01;
+    rho[1]   = 0.01 + i/1000.0;
+    sigma[0] = 0.23;
+    sigma[1] = 0.11;
     sigma[2] = 0.7;
-    tau[0]   = 0.1;
-    tau[1]   = 0.01 + i/1000.0;
+    tau[0]   = 0.23;
+    tau[1]   = 0.15;
 
     XC(mgga)(&tpss, rho,  sigma,  tau, 
 	     &zk,  vrho, vsigma, vtau, 
 	     NULL, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
-    printf("%16.10lf\t%16.10lf\t%16.10lf\n", tau[1], (rho[0]+rho[1])*zk, vtau[1]);
+    printf("%16.10lf\t%16.10lf\t%16.10lf\n", rho[1], (rho[0]+rho[1])*zk, vrho[1]);
   }
 }
 

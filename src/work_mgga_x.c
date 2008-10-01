@@ -31,7 +31,11 @@ work_mgga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
   const XC(mgga_type) *p = p_;
 
   FLOAT sfact, sfact2, dens;
-  int is;
+  int is, order;
+
+  order = 0;
+  if(vrho   != NULL) order = 1;
+  if(v2rho2 != NULL) order = 2;
 
   sfact = (p->nspin == XC_POLARIZED) ? 1.0 : 2.0;
   sfact2 = sfact*sfact;
@@ -40,7 +44,6 @@ work_mgga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
   for(is=0; is<p->nspin; is++){
     FLOAT gdm, ds, rho13, z;
     FLOAT x, f, ltau, tauw, dfdx, dfdz, d2fdx2, d2fdxz, d2fdz2;
-    FLOAT *pdfdx, *pd2fdx2;
     int js = (is == 0) ? 0 : 2;
 
     if(rho[is] < MIN_DENS) continue;
@@ -57,11 +60,9 @@ work_mgga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
     z     = tauw/ltau;
 
     dfdx    = d2fdx2 = 0.0;
-    pdfdx   = (vrho!=NULL || v2rho2!=NULL) ? &dfdx : NULL;
-    pd2fdx2 = (v2rho2!=NULL) ? &d2fdx2 : NULL;
 
     dfdz = 0.0;
-    func(p, x, z, &f, pdfdx, &dfdz, pd2fdx2, &d2fdxz, &d2fdz2);
+    func(p, x, z, order, &f, &dfdx, &dfdz, &d2fdx2, &d2fdxz, &d2fdz2);
 
     if(zk != NULL)
       *zk += -sfact*X_FACTOR_C*(ds*rho13)*f;

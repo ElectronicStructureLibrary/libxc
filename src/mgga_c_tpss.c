@@ -24,33 +24,16 @@
 
 #define XC_MGGA_C_TPSS          231 /* Perdew, Tao, Staroverov & Scuseria correlation */
 
-/* WARNING - this is all broken !! */
-#define   _(is, x)   [3*is + x]
-#define  __(i, j)    [2*i + j] 
-
-
 /************************************************************************
  Implements Perdew, Tao, Staroverov & Scuseria 
    meta-Generalized Gradient Approximation.
-   J. Chem. Phys. 120, 6898 (2004)
-   http://dx.doi.org/10.1063/1.1665298
-
-  Correlation part
+   Correlation part
 ************************************************************************/
 
-XC(func_info_type) XC(func_info_mgga_c_tpss) = {
-  XC_MGGA_C_TPSS,
-  XC_CORRELATION,
-  "Perdew, Tao, Staroverov & Scuseria",
-  XC_FAMILY_MGGA,
-  "J.P.Perdew, Tao, Staroverov, and Scuseria, Phys. Rev. Lett. 91, 146401 (2003)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC
-};
-
-
-void XC(mgga_c_tpss_init)(XC(mgga_type) *p)
+static void
+mgga_c_tpss_init(void *p_)
 {
-  p->info = &XC(func_info_mgga_c_tpss);
+  XC(mgga_type) *p = (XC(mgga_type) *)p_;
 
   p->gga_aux1 = (XC(gga_type) *) malloc(sizeof(XC(gga_type)));
   XC(gga_init)(p->gga_aux1, XC_GGA_C_PBE, p->nspin);
@@ -58,12 +41,17 @@ void XC(mgga_c_tpss_init)(XC(mgga_type) *p)
   if(p->nspin == XC_UNPOLARIZED){
     p->gga_aux2 = (XC(gga_type) *) malloc(sizeof(XC(gga_type)));
     XC(gga_init)(p->gga_aux2, XC_GGA_C_PBE, XC_POLARIZED);
+  }else{
+    p->gga_aux2 = p->gga_aux1;
   }
 }
 
 
-void XC(mgga_c_tpss_end)(XC(mgga_type) *p)
+static void
+mgga_c_tpss_end(void *p_)
 {
+  XC(mgga_type) *p = (XC(mgga_type) *)p_;
+
   XC(gga_end)(p->gga_aux1);
   free(p->gga_aux1);
 
@@ -75,237 +63,280 @@ void XC(mgga_c_tpss_end)(XC(mgga_type) *p)
 
 
 /* some parameters */
-static FLOAT d = 2.8;
+static FLOAT param_d = 2.8; /* Hartree^-1 */
 
-
-/* Equation (14) */
 static void
-c_tpss_14(FLOAT csi, FLOAT zeta, FLOAT *C, FLOAT *dCdcsi, FLOAT *dCdzeta)
+eq_13_14(FLOAT zeta, FLOAT csi, int order, FLOAT *C, FLOAT *dCdzeta, FLOAT *dCdcsi)
 {
-  FLOAT fz, C0, dC0dz, dfzdz;
-  FLOAT z2 = zeta*zeta;
-    
+  FLOAT fz, C0, dC0dz, dfzdz, aa, a4;
+  FLOAT z2=zeta*zeta, csi2=csi*csi;
+  
+  if(zeta==1.0 || zeta==-1.0){
+    *C = 0.0;
+    if(order > 0)
+      *dCdcsi = *dCdzeta = 0.0;
+    return;
+  }
+
   /* Equation (13) */
   C0    = 0.53 + z2*(0.87 + z2*(0.50 + z2*2.26));
-  dC0dz = zeta*(2.0*0.87 + z2*(4.0*0.5 + z2*6.0*2.26));
-  
   fz    = 0.5*(POW(1.0 + zeta, -4.0/3.0) + POW(1.0 - zeta, -4.0/3.0));
-  dfzdz = 0.5*(POW(1.0 + zeta, -7.0/3.0) - POW(1.0 - zeta, -7.0/3.0))*(-4.0/3.0);
+
+  /* Equation (14) */
+  aa = 1.0 + csi2*fz;
+  a4 = POW(aa, 4);
   
-  { /* Equation (14) */
-    FLOAT csi2 = csi*csi;
-    FLOAT a = 1.0 + csi2*fz, a4 = POW(a, 4);
-    
-    *C      =  C0 / a4;
-    *dCdcsi = -8.0*csi*fz/(a*a4);
-    *dCdzeta = (dC0dz*a - C0*4.0*csi2*dfzdz)/(a*a4);
+  *C =  C0 / a4;
+
+  if(order > 0){
+    /* Equation (13) */
+    dC0dz = zeta*(2.0*0.87 + z2*(4.0*0.5 + z2*6.0*2.26));
+    dfzdz = 0.5*(POW(1.0 + zeta, -7.0/3.0) - POW(1.0 - zeta, -7.0/3.0))*(-4.0/3.0);
+  
+    /* Equation (14) */
+    *dCdcsi = -8.0*C0*csi*fz/(aa*a4);
+    *dCdzeta = (dC0dz*aa - C0*4.0*csi2*dfzdz)/(aa*a4);
   }
 }
 
 
 /* Equation 12 */
-static void c_tpss_12(XC(mgga_type) *p, FLOAT *rho, FLOAT *grho, 
-		 FLOAT dens, FLOAT zeta, FLOAT z,
-		 FLOAT *e_PKZB, FLOAT *de_PKZBdd, FLOAT *de_PKZBdgd, FLOAT *de_PKZBdz)
+static void eq_12(const XC(mgga_type) *p, int order, const FLOAT *rho, const FLOAT *sigma, 
+		  FLOAT dens, FLOAT zeta, FLOAT z,
+		  FLOAT *f_PKZB, FLOAT *vrho_PKZB, FLOAT *vsigma_PKZB, FLOAT *vz_PKZB)
 {
-  FLOAT e_PBE, *de_PBEdd, *de_PBEdgd;
-  FLOAT e_til[2], de_tildd[2], de_tildgd[2*3];
+  FLOAT f_PBE,    vrho_PBE[2], vsigma_PBE[3];
+  FLOAT f_til[2], vrho_til[2][2], vsigma_til[2][3];
 
-  FLOAT C, dCdcsi, dCdzeta;
-  FLOAT *dzetadd, *dcsidd, *dcsidgd;
-  int i, is;
+  FLOAT C, dCdcsi=0.0, dCdzeta=0.0;
+  FLOAT dzetadd[2], dcsidd[2], dcsidsigma[3];
+  int is, sigs;
 
-  de_PBEdd  = (FLOAT *)malloc(p->nspin*sizeof(FLOAT));
-  de_PBEdgd = (FLOAT *)malloc(3*p->nspin*sizeof(FLOAT));
-  dzetadd   = (FLOAT *)malloc(p->nspin*sizeof(FLOAT));
-  dcsidd    = (FLOAT *)malloc(p->nspin*sizeof(FLOAT));
-  dcsidgd   = (FLOAT *)malloc(3*p->nspin*sizeof(FLOAT));
+  FLOAT z2 = z*z, f_aux, vrho_aux[2], vsigma_aux[3];
 
-  { /* get the PBE stuff */
-    XC(gga_type) *aux2 = (p->nspin == XC_UNPOLARIZED) ? p->gga_aux2 : p->gga_aux1;
-    XC(gga_vxc)(p->gga_aux1, rho, grho, &e_PBE, de_PBEdd, de_PBEdgd);
+  sigs = (p->nspin == XC_UNPOLARIZED) ? 1 : 3;
+
+  /* let us get the PBE stuff */
+  if(order == 0)
+    XC(gga_exc)(p->gga_aux1, rho, sigma, &f_PBE);
+  else
+    XC(gga_vxc)(p->gga_aux1, rho, sigma, &f_PBE, vrho_PBE, vsigma_PBE);
     
-    for(is=0; is<p->nspin; is++){
-      FLOAT r1[2], gr1[2*3], e1, de1dd[2], de1dgd[2*3];
-      FLOAT sfac = (p->nspin == XC_UNPOLARIZED) ? 0.5 : 1.0;
-      
-      /* build fully polarized density and gradient */
-      r1[0] = rho[is] * sfac;
-      r1[1] = 0.0;
-      
-      for(i=0; i<3; i++){
-	gr1 _(0, i) = grho _(is, i) * sfac;
-	gr1 _(1, i) = 0.0;
+  for(is=0; is<p->nspin; is++){
+    FLOAT r1[2], sigma1[3], f1, vrho1[2], vsigma1[3];
+    FLOAT sfac = (p->nspin == XC_UNPOLARIZED) ? 0.5 : 1.0;
+    int js = (is == 0) ? 0 : 2;
+
+    /* build fully polarized density and gradient */
+    r1[0] = rho[is] * sfac;
+    r1[1] = 0.0;
+
+    sigma1[0] = sigma[js] * sfac*sfac;
+    sigma1[1] = 0.0;
+    sigma1[2] = 0.0;
+
+    /* call (polarized) PBE */
+    if(order == 0)
+      XC(gga_exc)(p->gga_aux2, r1, sigma1, &f1);
+    else{
+      XC(gga_vxc)(p->gga_aux2, r1, sigma1, &f1, vrho1, vsigma1);
+
+      if(f1 > f_PBE){
+	if(rho[is] > MIN_DENS){
+	  vrho_til[is][is]   = f1 + (vrho1[0] - f1)*dens/rho[is];
+	  vsigma_til[is][js] = vsigma1[0]*dens/rho[is];
+	}else{
+	  vrho_til[is][is] = 0.0;
+	  vsigma_til[is][js] = 0.0;
+	}
+
+	if(p->nspin == XC_POLARIZED){
+	  int ns;
+
+	  ns = (is == 0) ? 1 : 0;
+	  vrho_til[is][ns] = 0.0;
+
+	  ns = (is == 0) ? 2 : 0;
+	  vsigma_til[is][ 1] = 0.0;
+	  vsigma_til[is][ns] = 0.0;
+	}else
+	  vsigma_til[is][js] /= 2.0;
+
+      }else{
+	int ks;
+
+	for(ks=0; ks<p->nspin; ks++)
+	  vrho_til[is][ks] = vrho_PBE[ks];
+	for(ks=0; ks<sigs; ks++)
+	  vsigma_til[is][ks] = vsigma_PBE[ks];
       }
-
-      /* call (polarized) PBE again */
-      de1dd[0] = 0.0; de1dd[1] = 0.0;
-      XC(gga_vxc)(aux2, r1, gr1, &e1, de1dd, de1dgd);
-
-      e_til   [is] = e1;
-      de_tildd[is] = de1dd[0];
-      for(i=0; i<3; i++) de_tildgd _(is, i) = de1dgd _(0, i);
     }
-  } /* end PBE stuff */
-
+    f_til[is] = (f1 > f_PBE) ? f1 : f_PBE;
+  }
 
   if(p->nspin == XC_UNPOLARIZED){
-    C          = 0.53;
-    dzetadd[0] = 0.0;
-    dcsidd [0] = 0.0;
-    for(i=0; i<3; i++) dcsidgd _(0, i) = 0.0;
+    C             = 0.53;
+    dzetadd[0]    = 0.0;
+    dcsidd [0]    = 0.0;
+    dcsidsigma[0] = 0.0;
 
   }else{ /* get C(csi, zeta) */
-    FLOAT gzeta[3], gzeta2, csi, a;
+    FLOAT gzeta, gzeta2, csi, aa;
     
-    for(i=0, gzeta2=0.0; i<3; i++){
-      gzeta[i] = 2.0*(grho _(0, i)*rho[1] - grho _(1, i)*rho[0])/(dens*dens);
-      gzeta2  += gzeta[i]*gzeta[i];
-    }
-    gzeta2 = max(gzeta2, MIN_GRAD*MIN_GRAD);
-    
-    a = 2.0*POW(3.0*M_PI*M_PI*dens, 1.0/3.0);
-    csi = sqrt(gzeta2)/a;
-  
-    c_tpss_14(csi, zeta, &C, &dCdcsi, &dCdzeta);
-    
-    dzetadd[0] =  (1.0 - zeta)/dens;
-    dzetadd[1] = -(1.0 + zeta)/dens;
+    gzeta2 = 
+      +     sigma[0]*(1.0 - zeta)*(1.0 - zeta)
+      - 2.0*sigma[1]*(1.0 + zeta)*(1.0 - zeta)
+      +     sigma[2]*(1.0 + zeta)*(1.0 + zeta);
 
-    dcsidd [0] = -7.0*csi/(3.0*dens); 
-    dcsidd [1] = dcsidd [0];
-    for(i=0; i<3; i++){
-      FLOAT aa = gzeta[i]/(sqrt(gzeta2)*a);
-      dcsidd[0] += -grho _(1, i)*aa;
-      dcsidd[1] +=  grho _(0, i)*aa;
+    gzeta2 = max(gzeta2, MIN_GRAD*MIN_GRAD);
+    gzeta  = sqrt(gzeta2);
+
+    aa  = 2.0*POW(3.0*M_PI*M_PI*dens, 1.0/3.0);
+    csi = gzeta/aa;
+  
+    eq_13_14(zeta, csi, order, &C, &dCdzeta, &dCdcsi);
+    
+    if(order > 0){
+      FLOAT bb;
       
-      dcsidgd _(0, i) =  rho[1]*aa;
-      dcsidgd _(1, i) = -rho[0]*aa;
-    }    
+      dzetadd[0] =  (1.0 - zeta)/dens;
+      dzetadd[1] = -(1.0 + zeta)/dens;
+      
+      bb = 2.0*sigma[0]*(zeta - 1.0) + 
+	4.0*sigma[1]*zeta + 2.0*sigma[2]*(zeta + 1.0);
+
+      dcsidd[0] = -1.0*csi/(3.0*dens) + bb/(2.0*aa*gzeta)*dzetadd[0];
+      dcsidd[1] = -1.0*csi/(3.0*dens) + bb/(2.0*aa*gzeta)*dzetadd[1];
+
+      dcsidsigma[0] =      (1.0 - zeta)*(1.0 - zeta)/(2.0*aa*gzeta);
+      dcsidsigma[1] = -2.0*(1.0 - zeta)*(1.0 + zeta)/(2.0*aa*gzeta);
+      dcsidsigma[2] =      (1.0 + zeta)*(1.0 + zeta)/(2.0*aa*gzeta);
+    }
   } /* get C(csi, zeta) */
 
-  { /* end */
-    FLOAT z2 = z*z, aux, *dauxdd, *dauxdgd;
+    /* f_aux = sum_sigma n_sigma/n e_til */
+  f_aux = 0.0;
+  for(is=0; is<p->nspin; is++)
+    f_aux += rho[is] * f_til[is];
+  f_aux /= dens;
 
-    dauxdd  = (FLOAT *)malloc(p->nspin*sizeof(FLOAT));
-    dauxdgd = (FLOAT *)malloc(3*p->nspin*sizeof(FLOAT));
-
-    /* aux = sum_sigma n_sigma e_til */
-    aux = 0.0;
-    for(is=0; is<p->nspin; is++){
-      aux += rho[is] * max(e_til[is], e_PBE);
-
-      dauxdd[is] = 0.0;
-    }
+  if(order > 0){
+    for(is=0; is<p->nspin; is++)
+      vrho_aux[is]  = (dens - rho[is])*f_til[is]/dens;
 
     for(is=0; is<p->nspin; is++){
-      int is2 = (is == 0) ? 1 : 0;
+      int ks;
+
+      for(ks=0; ks<p->nspin; ks++)
+	vrho_aux[ks] += vrho_til[is][ks]*rho[is]/dens;
       
-      dauxdd[is] -= aux/dens;
-      
-      if(e_til[is] > e_PBE){
-	dauxdd[is]  += e_til[is] + rho[is]*de_tildd[is]/dens;
-	for(i=0; i<3; i++){
-	  dauxdgd _(is, i) += rho[is]*de_tildgd _(is, i)/dens;
-	}
-      }else{
-	dauxdd[is]  += e_PBE + rho[is] * de_PBEdd[is];
-	dauxdd[is2] +=         rho[is] * de_PBEdd[is2];
-	for(i=0; i<3; i++){
-	  dauxdgd _(is, i)  += rho[is]*de_PBEdgd _(is,  i)/dens;
-	  dauxdgd _(is2, i) += rho[is]*de_PBEdgd _(is2, i)/dens;
-	}
-      }
+      for(ks=0; ks<sigs; ks++)
+	vsigma_aux[ks] = vsigma_til[is][ks]*rho[is]/dens;
     }
- 
-    *e_PKZB    = e_PBE*(1 + C*z2) - (1.0 + C)*z2*aux;
-    *de_PKZBdz = dens * 2.0*z * C * (e_PBE - aux);
+  }
+  
+  *f_PKZB  = f_PBE*(1 + C*z2) - (1.0 + C)*z2*f_aux;
+  
+  if(order > 0 ){
+    *vz_PKZB = dens * 2.0*z * (C*f_PBE - (1.0 + C)*f_aux);
+    
     for(is=0; is<p->nspin; is++){
       FLOAT dCdd;
       
       dCdd = dCdzeta*dzetadd[is] + dCdcsi*dcsidd[is];
       
-      de_PKZBdd[is] = de_PBEdd[is]*(1.0 + C*z2) + dens*e_PBE*dCdd*z2;
-      de_PKZBdd[is]-= z2*(dCdd*aux + (1.0 + C)*dauxdd[is]);
-			  
-      for(i=0; i<3; i++){
-	FLOAT dCdgd =  dCdcsi*dcsidgd _(is, i);
-	
-	de_PKZBdgd _(is, i) = de_PBEdgd _(is, i)*(1.0 + C*z2) + dens*e_PBE*dCdgd*z2;
-	de_PKZBdgd _(is, i)-= z2*(dCdgd*aux + (1.0 + C)*dauxdgd _(is, i));
-	
-      }
+      vrho_PKZB[is] = vrho_PBE[is]*(1.0 + C*z2) + dens*f_PBE*dCdd*z2;
+      vrho_PKZB[is]-= vrho_aux[is]*(1.0 + C)*z2 + dens*f_aux*dCdd*z2;
     }
-  } /* end */
+    for(is=0; is<sigs; is++){
+      FLOAT dCdsigma;
+      
+      dCdsigma =  dCdcsi*dcsidsigma[is];
+
+      vsigma_PKZB[is] = vsigma_PBE[is]*(1.0 + C*z2) + dens*f_PBE*dCdsigma*z2;
+      vsigma_PKZB[is]-= vsigma_aux[is]*(1.0 + C)*z2 + dens*f_aux*dCdsigma*z2;
+    }
+  }
 }
 
 
-void 
-XC(mgga_c_tpss)(XC(mgga_type) *p, FLOAT *rho, FLOAT *grho, FLOAT *tau,
-	    FLOAT *energy, FLOAT *dedd, FLOAT *dedgd, FLOAT *dedtau)
+static void 
+mgga_c_tpss(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *tau,
+	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vtau,
+	    FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
 {
-  FLOAT dens, zeta;
-  FLOAT gd[3], gdms, taut, tauw, z;
-  FLOAT e_PKZB, *de_PKZBdd, *de_PKZBdgd, de_PKZBdz;
-  int i, is;
+  const XC(mgga_type) *p = p_;
 
-  de_PKZBdd  = (FLOAT *)malloc(p->nspin*sizeof(FLOAT));
-  de_PKZBdgd = (FLOAT *)malloc(3*p->nspin*sizeof(FLOAT));
+  int is, sigs, order;
+  FLOAT dens, zeta, sigmat;
+  FLOAT taut, tauw, z, z2, z3;
+  FLOAT f_PKZB, vrho_PKZB[2], vsigma_PKZB[3], vz_PKZB;
+  FLOAT dfdz, dzdd, dzdsigma[3], dzdtau;
 
-  /* change variables */
+  order = 0;
+  if(vrho   != NULL) order = 1;
+  if(v2rho2 != NULL) order = 2;  
+
+  /* get spin-summed variables */
   XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
-
-  /* sum tau and grho over spin */
-  for(i=0; i<3; i++) gd[i] = grho _(0, i);
-  taut = tau[0];
-
-  for(is=1; is<p->nspin; is++){
-    for(i=0; i<3; i++) gd[i] += grho _(is, i);
-    taut += tau[is];
+  taut   = tau[0];
+  sigmat = sigma[0];
+  if(p->nspin == XC_POLARIZED){
+    taut   += tau[1];
+    sigmat += 2.0*sigma[1] + sigma[2];
   }
+  tauw = sigmat/(8.0*dens);
+  if(taut < MIN_TAU) taut = tauw; /* sometimes numerical errors makes taut negative :( */
 
-  /* get the modulos square of the gradient */
-  gdms = gd[0]*gd[0] + gd[1]*gd[1] + gd[2]*gd[2];
-  gdms = max(MIN_GRAD*MIN_GRAD, gdms);
-  
-  tauw = gdms/(8.0*dens);
-
-  /* sometimes numerical errors makes taut negative :( */
-  if(taut < MIN_TAU)
-    taut = tauw;
-
-  z = tauw/taut;
+  z  = tauw/taut;
+  z2 = z*z;
+  z3 = z2*z;
 
   /* Equation (12) */
-  c_tpss_12(p, rho, grho, z, dens, zeta,
-	    &e_PKZB, de_PKZBdd, de_PKZBdgd, &de_PKZBdz);
+  eq_12(p, order, rho, sigma, dens, zeta, z,
+	&f_PKZB, vrho_PKZB, vsigma_PKZB, &vz_PKZB);
   
   /* Equation (11) */
-  {
-    FLOAT z2 = z*z, z3 = z2*z;
-    FLOAT dedz;
-    FLOAT dzdd, dzdgd[3], dzdtau;
+  *zk  = f_PKZB*(1.0 + param_d*f_PKZB*z3);
 
-    dzdd   = -z/dens;
-    dzdtau = -z/taut;
-    for(i=0; i<3; i++) dzdgd[i] = gd[i]/(4.0*dens*taut);
+  if(order < 1) return;
 
-    *energy = e_PKZB*(1.0 + d*e_PKZB*z3);
-    dedz    = de_PKZBdz*(1.0 + 2.0*d*e_PKZB*z3) +
-      dens * e_PKZB*e_PKZB * d * 3.0*z2;  
-
-    for(is=0; is<p->nspin; is++){
-      dedd[is]   = de_PKZBdd[is] * (1.0 + 2.0*d*e_PKZB*z3);
-      dedd[is]  -= e_PKZB*e_PKZB * d * z3;
-      dedd[is]  += dedz*dzdd;
-      
-      for(i=0; i<3; i++){
-	dedgd _(is, i) = de_PKZBdgd _(is, i) * (1.0 + 2.0*d*e_PKZB*z3);
-	dedgd _(is, i)+= dedz*dzdgd[i];
-      }
-      
-      dedtau[is] = dedz*dzdtau;
-    }
+  dzdd        = -z/dens;
+  dzdtau      = -z/taut;
+  dzdsigma[0] = 1.0/(8.0*dens*taut);
+  if(p->nspin == XC_POLARIZED){
+    dzdsigma[1] = 2.0*dzdsigma[0];
+    dzdsigma[2] =     dzdsigma[0];
   }
 
+  dfdz = vz_PKZB*(1.0 + 2.0*param_d*f_PKZB*z3) +
+    dens * f_PKZB*f_PKZB * param_d * 3.0*z2;
+
+  for(is=0; is<p->nspin; is++){
+    vrho[is]  = vrho_PKZB[is]*(1.0 + 2.0*param_d*f_PKZB*z3);
+    vrho[is] -= f_PKZB*f_PKZB * param_d * z3;
+    vrho[is] += dfdz*dzdd;
+
+    vtau[is] = dfdz*dzdtau;
+  }
+
+  sigs = (p->nspin==XC_UNPOLARIZED) ? 1 : 3;
+  for(is=0; is<sigs; is++){
+    vsigma[is] = vsigma_PKZB[is] * (1.0 + 2.0*param_d*f_PKZB*z3);
+    vsigma[is] += dfdz*dzdsigma[is];
+  }
 }
+
+XC(func_info_type) XC(func_info_mgga_c_tpss) = {
+  XC_MGGA_C_TPSS,
+  XC_EXCHANGE,
+  "Tao, Perdew, Staroverov & Scuseria",
+  XC_FAMILY_MGGA,
+  "J Tao, JP Perdew, VN Staroverov, and G Scuseria, Phys. Rev. Lett. 91, 146401 (2003)\n"
+  "JP Perdew, J Tao, VN Staroverov, and G Scuseria, J. Chem. Phys. 120, 6898 (2004)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  mgga_c_tpss_init,
+  mgga_c_tpss_end,
+  NULL, NULL,        /* this is not an LDA                   */
+  mgga_c_tpss,
+};

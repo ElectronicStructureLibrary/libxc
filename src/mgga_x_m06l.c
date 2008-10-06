@@ -55,37 +55,6 @@ mgga_x_m06l_end(void *p_)
 }
 
 
-/* calculate h and h derivatives with respect to rho, grho and tau: Equation (5) */
-static 
-void x_m06l_h(int order, FLOAT x, FLOAT z, FLOAT *h, FLOAT *dhdx, FLOAT *dhdz)
-{
-  /* parameters for h(x_sigma,z_sigma) of Eq. (5)*/
-  static FLOAT d0=0.6012244, d1=0.004748822, d2=-0.008635108, d3=-0.000009308062, d4=0.00004482811, d5=0.0;
-  /*set alpha of Eq. (4)*/
-  static FLOAT alpha = 0.00186726;
-
-  FLOAT gam, gam2, x2, dhdgam;
-  FLOAT n1, n2, n3;
-  
-  x2   = x*x;
-  gam  = 1.0 + alpha*(x2 + z);
-  gam2 = gam*gam;
-
-  n1 = d0;
-  n2 = d1*x2 + d2*z;
-  n3 = d3*x2*x2 + d4*x2*z + d5*z*z;
-
-  *h = n1/gam + n2/gam2 + n3/(gam*gam2);
-
-  if(order < 1) return;
-  
-  dhdgam = -n1/gam2 - 2.0*n2/(gam*gam2) - 3.0*n3/(gam2*gam2);
-
-  *dhdx = 2.0*d1*x/gam2 + (4.0*d3*x*x2 + 2.0*d4*x*z)/(gam*gam2) +
-    dhdgam*(2.0*alpha*x);
-  *dhdz = d2/gam2 + (d4*x2 + 2.0*d5*z)/(gam*gam2) +
-    dhdgam*alpha;
-}
 
 
 /* Eq. (8) */
@@ -123,6 +92,8 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,
      FLOAT *f, FLOAT *dfdx, FLOAT *dfdt,
      FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
 {
+  const FLOAT d[6] = {0.6012244, 0.004748822, -0.008635108, -0.000009308062, 0.00004482811, 0.0};
+  const FLOAT alpha = 0.00186726;   /* set alpha of Eq. (4) */
 
   FLOAT f_pbe, dfdx_pbe, ldfdx_pbe;
   FLOAT h, dhdx, dhdz, fw, dfwdt;
@@ -132,7 +103,7 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,
   x_m06l_fw(order, t, &fw, &dfwdt);
 
   /* there is a factor if 2 in the definition of z, as in Theor. Chem. Account 120, 215 (2008) */
-  x_m06l_h (order, x, 2.0*t - CFermi, &h, &dhdx, &dhdz);
+  XC(mgga_x_gvt4_func)(order, x, 2.0*t - CFermi, alpha, d, &h, &dhdx, &dhdz);
 
   /* A MINUS was missing in Eq. (7) of the paper */
   *f = f_pbe*fw + h;

@@ -72,6 +72,11 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   *d2fdx2 = X2S*X2S*kappa[func]*kappa[func]/(f0*f0)*(d2f0 - 2.0*df0*df0/f0);
 }
 
+void 
+XC(gga_x_pbe_enhance)(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+{
+  func(p, x, f, dfdx, ldfdx, d2fdx2);
+}
 
 #include "work_gga_x.c"
 

@@ -138,18 +138,20 @@ void x_tpss_10(int order, FLOAT p, FLOAT z,
 
 
 static void 
-func(const XC(mgga_type) *pt, FLOAT x, FLOAT z, int order,
-     FLOAT *f, FLOAT *dfdx, FLOAT *dfdz,
-     FLOAT *d2fdx2, FLOAT *d2fdxz, FLOAT *d2fdz2)
+func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,
+     FLOAT *f, FLOAT *dfdx, FLOAT *dfdt,
+     FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
 {
-  FLOAT ss, pp, a1;
+  FLOAT ss, pp, a1, zz;
   FLOAT dxdp, dxdz;
   
   ss = X2S*x;
   pp = ss*ss;
 
+  zz = x*x/(8.0*t);
+
   /* Eq. 10 */
-  x_tpss_10(order, pp, z, &x, &dxdp, &dxdz);
+  x_tpss_10(order, pp, zz, &x, &dxdp, &dxdz);
 
   /* Eq. (5) */
   a1 = kappa/(kappa + x);
@@ -158,8 +160,8 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT z, int order,
 
   if(order < 1) return;
 
-  *dfdx = a1*a1*dxdp*2.0*ss*X2S;
-  *dfdz = a1*a1*dxdz;
+  *dfdx = a1*a1*(dxdp*2.0*ss*X2S + dxdz*x/(4.0*t));
+  *dfdt = a1*a1*dxdz*(-zz/t);
 }
 
 #include "work_mgga_x.c"

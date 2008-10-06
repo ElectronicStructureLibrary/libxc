@@ -33,7 +33,9 @@ libxc_a_FUNC_SOURCES = \
 	gga_xc_lb.c gga_xc_hcth.c gga_xc_edf1.c gga_xc_xlyp.c \
 	hyb_gga.c hyb_gga_xc_b3pw91.c hyb_gga_xc_b3lyp.c hyb_gga_xc_b3p86.c \
 	hyb_gga_xc_o3lyp.c hyb_gga_xc_pbeh.c hyb_gga_xc_x3lyp.c hyb_gga_xc_b1wc.c \
-	mgga.c mgga_x_lta.c mgga_x_tpss.c mgga_c_tpss.c \
+	mgga.c \
+	mgga_x_lta.c mgga_x_tpss.c mgga_x_m06l.c \
+	mgga_c_tpss.c \
 	lca.c lca_omc.c lca_lch.c \
 	special_functions.c util.c functionals.c 
 

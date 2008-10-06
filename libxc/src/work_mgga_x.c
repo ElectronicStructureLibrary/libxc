@@ -42,8 +42,8 @@ work_mgga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
 
   dens = 0.0;
   for(is=0; is<p->nspin; is++){
-    FLOAT gdm, ds, rho13, z;
-    FLOAT x, f, ltau, tauw, dfdx, dfdz, d2fdx2, d2fdxz, d2fdz2;
+    FLOAT gdm, ds, rho13;
+    FLOAT x, t, f, ltau, dfdx, dfdt, d2fdx2, d2fdxt, d2fdt2;
     int js = (is == 0) ? 0 : 2;
 
     if(rho[is] < MIN_DENS) continue;
@@ -55,24 +55,21 @@ work_mgga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
     rho13 = POW(ds, 1.0/3.0);
     x     = gdm/(ds*rho13);
     
-    ltau  = tau[is]/sfact;
-    tauw  = gdm*gdm/(8.0*ds);
-    z     = tauw/ltau;
+    ltau  = max(tau[is]/sfact, MIN_TAU);
+    t     = ltau/(ds*rho13*rho13);  /* tau/rho^(5/3) */
 
-    dfdx    = d2fdx2 = 0.0;
+    dfdx  = d2fdx2 = 0.0;
 
-    dfdz = 0.0;
-    func(p, x, z, order, &f, &dfdx, &dfdz, &d2fdx2, &d2fdxz, &d2fdz2);
+    dfdt = 0.0;
+    func(p, x, t, order, &f, &dfdx, &dfdt, &d2fdx2, &d2fdxt, &d2fdt2);
 
     if(zk != NULL)
       *zk += -sfact*X_FACTOR_C*(ds*rho13)*f;
  
     if(vrho != NULL){
-      vrho[is] += -X_FACTOR_C*rho13*(4.0/3.0*(f - dfdx*x) - dfdz*z);
-      vtau[is] += -X_FACTOR_C*(ds*rho13)*dfdz*(-z/ltau);
-
-      vsigma[js] = -sfact*X_FACTOR_C*rho13*
-	(ds*dfdx*x/(2.0*sigma[js]) + dfdz/(8.0*ltau*sfact*sfact));
+      vrho[is]   = -X_FACTOR_C*rho13*(4.0/3.0*(f - dfdx*x) - 5.0/3.0*dfdt*t);
+      vtau[is]   = -X_FACTOR_C*dfdt/rho13;
+      vsigma[js] = -sfact*X_FACTOR_C*(rho13*ds)*dfdx*x/(2.0*sigma[js]);
     }
 
     if(v2rho2 != NULL){

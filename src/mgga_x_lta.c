@@ -24,41 +24,29 @@
 
 #define XC_MGGA_X_LTA          201 /* Local tau approximation of Ernzerhof & Scuseria */
 
-static void
-mgga_x_lta(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *tau,
-	   FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vtau,
-	   FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
+static void 
+func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,
+     FLOAT *f, FLOAT *dfdx, FLOAT *dfdt,
+     FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
 {
-  const XC(mgga_type) *p = p_;
-
   /*C_x* POW(10.0/(3.0*POW(3.0*M_PI*M_PI, 2.0/3.0)), 4.0/5.0) */
   const FLOAT a1 = -X_FACTOR_C*0.430075922439080216009;
 
-  FLOAT sfact, ltau, dens;
-  int is;
+  *f += a1*POW(t, 4.0/5.0);
 
-  sfact = (p->nspin == XC_POLARIZED) ? 1.0 : 2.0;
-
-  dens = 0.0;
-  for(is=0; is<p->nspin; is++){
-    int js = (is == 0) ? 0 : 2;
-
-    dens += rho[is];
-    ltau  = tau[is]/sfact;
-
-    if(zk != NULL)
-      *zk += a1*POW(ltau, 4.0/5.0);
-
-    if(vrho != NULL)
-      vtau[is] = a1*4.0/5.0*POW(ltau, -1.0/5.0);
-
-    if(v2rho2 != NULL)
-      v2tau2[js] = -a1*4.0/25.0*POW(ltau, -6.0/5.0)/sfact;
-  }
+  if(order < 1) return;
   
-  if(zk != NULL)
-    *zk /= dens; /* we want energy per particle */
+  *dfdx = 0.0;
+  *dfdt = a1*4.0/5.0*POW(t, -1.0/5.0);
+
+  if(order < 2) return;
+  
+  *d2fdx2 = 0.0;
+  *d2fdxt = 0.0;
+  *d2fdt2 = -a1*4.0/25.0*POW(t, -6.0/5.0);
 }
+
+#include "work_mgga_x.c"
 
 const XC(func_info_type) XC(func_info_mgga_x_lta) = {
   XC_MGGA_X_LTA,
@@ -69,5 +57,5 @@ const XC(func_info_type) XC(func_info_mgga_x_lta) = {
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL, NULL,
   NULL, NULL,        /* this is not an LDA                   */
-  mgga_x_lta,
+  work_mgga_x,
 };

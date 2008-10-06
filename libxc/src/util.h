@@ -91,6 +91,10 @@ void XC(gga_x_pbe_enhance)(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx
 /* hybrid GGAs */
 void XC(hyb_gga_alloc)(XC(hyb_gga_type) *p);
 
+/* meta GGAs */
+void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT *d, 
+			  FLOAT *h, FLOAT *dhdx, FLOAT *dhdz);
+
 /* LCAs */
 void XC(lca_lch_init)(XC(lca_type) *p);
 void XC(lca_omc_init)(XC(lca_type) *p);

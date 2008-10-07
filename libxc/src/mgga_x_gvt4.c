@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2008 Lara Ferrigni, Georg Madsen, M.A.L. Marques
+ Copyright (C) 2008 M.A.L. Marques
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by

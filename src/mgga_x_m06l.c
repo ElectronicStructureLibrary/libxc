@@ -54,9 +54,6 @@ mgga_x_m06l_end(void *p_)
   free(p->gga_aux1);
 }
 
-
-
-
 /* Eq. (8) */
 static void 
 x_m06l_fw(int order, FLOAT t, FLOAT *fw, FLOAT *dfwdt)

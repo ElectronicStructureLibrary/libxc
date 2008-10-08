@@ -50,6 +50,7 @@ work_mgga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
 
     dens += rho[is];
     gdm   = sqrt(sigma[js])/sfact;
+    gdm   = max(MIN_GRAD, gdm); 
   
     ds    = rho[is]/sfact;
     rho13 = POW(ds, 1.0/3.0);

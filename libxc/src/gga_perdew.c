@@ -84,11 +84,18 @@ XC(perdew_potentials)(XC(perdew_t) *pt, const FLOAT *rho, FLOAT e_gga, int order
   if(order < 1) return;
 
   if(pt->nspin == XC_POLARIZED){
+    FLOAT aux;
+
     dpdz    = 0.0;
-    if(fabs(1.0 + pt->zeta) >= MIN_DENS)
-      dpdz += (1.0/3.0)*POW(1.0 + pt->zeta, -1.0/3.0);
-    if(fabs(1.0 - pt->zeta) >= MIN_DENS)
-      dpdz -= (1.0/3.0)*POW(1.0 - pt->zeta, -1.0/3.0);
+    /* This is written like this to workaround a problem with xlf compilers */
+    if(fabs(1.0 + pt->zeta) >= MIN_DENS){
+      aux   = POW(1.0 + pt->zeta, 1.0/3.0);
+      dpdz += 1.0/(3.0*aux);
+    }
+    if(fabs(1.0 - pt->zeta) >= MIN_DENS){
+      aux   = POW(1.0 - pt->zeta, 1.0/3.0);
+      dpdz -= 1.0/(3.0*aux);
+    }
 
     dzdd[0] =  (1.0 - pt->zeta)/pt->dens;
     dzdd[1] = -(1.0 + pt->zeta)/pt->dens;
@@ -184,11 +191,17 @@ XC(perdew_potentials)(XC(perdew_t) *pt, const FLOAT *rho, FLOAT e_gga, int order
 
   /* now we sort d2alphadd2 */
   if(pt->nspin == XC_POLARIZED){
+    int aux;
+
     d2pdz2 = 0.0;
-    if(fabs(1.0 + pt->zeta) >= MIN_DENS)
-      d2pdz2 += -(1.0/9.0)*POW(1.0 + pt->zeta, -4.0/3.0);
-    if(fabs(1.0 - pt->zeta) >= MIN_DENS)
-      d2pdz2 += -(1.0/9.0)*POW(1.0 - pt->zeta, -4.0/3.0);
+    if(fabs(1.0 + pt->zeta) >= MIN_DENS){
+      aux     = POW(1.0 + pt->zeta, 4.0/3.0);
+      d2pdz2 += -1.0/(9.0*aux);
+    }
+    if(fabs(1.0 - pt->zeta) >= MIN_DENS){
+      aux     = POW(1.0 - pt->zeta, 4.0/3.0);
+      d2pdz2 += -1.0/(9.0*aux);
+    }
 
     d2zdd2[0] = -2.0*dzdd[0]/pt->dens;
     d2zdd2[1] =  2.0*pt->zeta/(pt->dens*pt->dens);

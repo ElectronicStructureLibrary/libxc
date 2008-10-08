@@ -285,8 +285,12 @@ mgga_c_tpss(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
     taut   += tau[1];
     sigmat += 2.0*sigma[1] + sigma[2];
   }
-  tauw = sigmat/(8.0*dens);
-  if(taut < MIN_TAU) taut = tauw; /* sometimes numerical errors makes taut negative :( */
+
+  /* sometimes numerical errors create problems */
+  sigmat = max(MIN_GRAD*MIN_GRAD, sigmat);
+
+  tauw   = sigmat/(8.0*dens);
+  taut   = max(taut, tauw);
 
   z  = tauw/taut;
   z2 = z*z;

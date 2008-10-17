@@ -22,7 +22,8 @@
 
 #include "util.h"
 
-#define XC_MGGA_X_GVT4          204 /* GVT4 from Van Voorhis and Scuseria exchange */
+#define XC_MGGA_X_GVT4          204 /* GVT4 from Van Voorhis and Scuseria (exchange part)    */
+#define XC_MGGA_C_VSXC          232 /* VSxc from Van Voorhis and Scuseria (correlation part) */
 
 /* calculate h and h derivatives with respect to rho, grho and tau: Equation (5) */
 void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT *d, 
@@ -51,17 +52,18 @@ void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT 
     dhdgam*alpha;
 }
 
+static const FLOAT vsxc_d[6] = {-0.9800, -0.003557, 0.006250, -0.00002354, -0.0001283, 0.0003575};
+static const FLOAT vsxc_alpha = 0.001867;
+/* WARNING: this needs more significative digits */
+static const FLOAT vsxc_CFermi = 9.115599746; /*(3.0/5.0) * POW(6.0*M_PI*M_PI, 2.0/3.0);*/
+
 static void 
 func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,
      FLOAT *f, FLOAT *dfdx, FLOAT *dfdt,
      FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
 {
-  const FLOAT d[6] = {-0.9800, -0.003557, 0.006250, -0.00002354, -0.0001283, 0.0003575};
-  const FLOAT alpha = 0.001867;
-  const FLOAT CFermi = (3.0/5.0) * POW(6.0*M_PI*M_PI, 2.0/3.0);
-
   /* Eq. (14) */
-  XC(mgga_x_gvt4_func)(order, x, t - CFermi, alpha, d, f, dfdx, dfdt);
+  XC(mgga_x_gvt4_func)(order, x, t - vsxc_CFermi, vsxc_alpha, vsxc_d, f, dfdx, dfdt);
  
   *f /= -X_FACTOR_C;
 
@@ -69,6 +71,30 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,
 
   *dfdx /= -X_FACTOR_C;
   *dfdt /= -X_FACTOR_C;
+}
+
+static void 
+func_c_parallel(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,
+		FLOAT *f, FLOAT *dfdx, FLOAT *dfdt,
+		FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
+{
+  FLOAT dd, f1, df1dx, df1dt;
+  /* Eq. (14) */
+  XC(mgga_x_gvt4_func)(order, x, t - vsxc_CFermi, vsxc_alpha, vsxc_d, &f1, &df1dx, &df1dt);
+
+  dd    = 1.0 - x*x/(4.0*t);
+  *f    = dd*f1; /* multiply by D_sigma */
+  *dfdx = -x*f1/(2.0*t) + dd*df1dx;
+  *dfdt = x*x*f1/(4.0*t*t) + dd*df1dt;
+}
+
+static void 
+func_c_opposite(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,
+		FLOAT *f, FLOAT *dfdx, FLOAT *dfdt,
+		FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
+{
+  /* Eq. (14) */
+  XC(mgga_x_gvt4_func)(order, x, t - 2.0*vsxc_CFermi, vsxc_alpha, vsxc_d, f, dfdx, dfdt);
 }
 
 #include "work_mgga_x.c"
@@ -83,4 +109,19 @@ const XC(func_info_type) XC(func_info_mgga_x_gvt4) = {
   NULL, NULL,
   NULL, NULL,        /* this is not an LDA                   */
   work_mgga_x,
+};
+
+#include "work_mgga_c.c"
+
+const XC(func_info_type) XC(func_info_mgga_c_vsxc) = {
+  XC_MGGA_C_VSXC,
+  XC_CORRELATION,
+  "VSXC (correlation part)",
+  XC_FAMILY_MGGA,
+  "T Van Voorhis and GE Scuseria, JCP 109, 400 (1998)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  work_mgga_c_init,
+  work_mgga_c_end,
+  NULL, NULL,        /* this is not an LDA                   */
+  work_mgga_c,
 };

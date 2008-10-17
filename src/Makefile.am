@@ -24,17 +24,19 @@ lib_LIBRARIES = libxc.a
 libxc_a_FUNC_SOURCES = \
 	lda.c lda_x.c \
 	lda_c_wigner.c lda_c_rpa.c lda_c_hl.c lda_c_xalpha.c \
-	lda_c_vwn.c lda_c_pz.c lda_c_pw.c lda_xc_teter93.c lda_c_amgb.c lda_c_prm08.c \
+	lda_c_vwn.c lda_c_pz.c lda_c_pw.c lda_xc_teter93.c \
+	lda_c_amgb.c lda_c_prm08.c \
 	gga.c \
 	gga_x_lg93.c gga_x_pbe.c gga_x_rpbe.c gga_x_pbea.c gga_x_mpbe.c gga_x_b86.c gga_x_b86_mgc.c \
 	gga_x_b88.c gga_x_g96.c gga_x_pw86.c gga_x_pw91.c gga_x_optx.c \
 	gga_x_dk87.c gga_x_ft97.c gga_x_wc.c gga_x_am05.c \
 	gga_perdew.c gga_c_pbe.c gga_c_lyp.c gga_c_p86.c gga_c_pw91.c gga_c_am05.c gga_c_lm.c \
 	gga_xc_lb.c gga_xc_hcth.c gga_xc_edf1.c gga_xc_xlyp.c \
+	gga_x_2D_b86_mgc.c \
 	hyb_gga.c hyb_gga_xc_b3pw91.c hyb_gga_xc_b3lyp.c hyb_gga_xc_b3p86.c \
 	hyb_gga_xc_o3lyp.c hyb_gga_xc_pbeh.c hyb_gga_xc_x3lyp.c hyb_gga_xc_b1wc.c \
 	mgga.c \
-	mgga_x_lta.c mgga_x_tpss.c mgga_x_gvt4.c mgga_x_m06l.c mgga_x_tau_hcth.c \
+	mgga_x_lta.c mgga_x_tpss.c mgga_xc_vsxc.c mgga_x_m06l.c mgga_x_tau_hcth.c \
 	mgga_c_tpss.c \
 	lca.c lca_omc.c lca_lch.c \
 	special_functions.c util.c functionals.c 
@@ -55,7 +57,7 @@ endif
 
 dist_noinst_SCRIPTS = get_funcs.pl
 
-noinst_HEADERS = util.h work_lda.c work_gga_x.c work_mgga_x.c libxc_master.F90
+noinst_HEADERS = util.h work_lda.c work_gga_x.c work_gga_x_2D.c work_mgga_x.c work_mgga_c.c libxc_master.F90
 include_HEADERS = xc.h xc_config.h
 nodist_include_HEADERS = xc_funcs.h
 

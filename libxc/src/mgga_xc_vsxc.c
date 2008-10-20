@@ -54,8 +54,9 @@ void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT 
 
 static const FLOAT vsxc_d[6] = {-0.9800, -0.003557, 0.006250, -0.00002354, -0.0001283, 0.0003575};
 static const FLOAT vsxc_alpha = 0.001867;
-/* WARNING: this needs more significative digits */
-static const FLOAT vsxc_CFermi = 9.115599746; /*(3.0/5.0) * POW(6.0*M_PI*M_PI, 2.0/3.0);*/
+
+/* (3.0/5.0) * POW(6.0*M_PI*M_PI, 2.0/3.0) */
+static const FLOAT vsxc_CFermi = 9.115599744691194274576327519198610717031;
 
 static void 
 func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,

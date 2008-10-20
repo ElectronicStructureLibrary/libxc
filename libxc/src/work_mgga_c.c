@@ -67,13 +67,14 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
     FLOAT f, ltau, dfdx, dfdt, d2fdx2, d2fdxt, d2fdt2;
     int js = (is == 0) ? 0 : 2;
 
+    ds[is] = rho[is]/sfact;
+
     if(rho[is] < MIN_DENS) continue;
 
     dens  += rho[is];
     gdm    = sqrt(sigma[js])/sfact;
     gdm    = max(MIN_GRAD, gdm); 
   
-    ds[is] = rho[is]/sfact;
     rho13  = POW(ds[is], 1.0/3.0);
     x [is] = gdm/(ds[is]*rho13);
     

@@ -61,14 +61,14 @@ func(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2
   *d2fdx2 = (2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
 }
 
-#include "work_gga_x_2D.c"
+#include "work_gga_x_2d.c"
 
 const XC(func_info_type) XC(func_info_gga_x_2d_b86_mgc) = {
   XC_GGA_X_2D_B86_MGC,
   XC_EXCHANGE,
   "Becke 86 with modified gradient correction for 2D",
   XC_FAMILY_GGA,
-  "AD Becke, J. Chem. Phys 84, 4524 (1986)\n"
+  "S Pittalis, E Rasanen, JG Vilhena, and MAL Marques, to be submitted (2008)\n"
   "AD Becke, J. Chem. Phys 85, 7184 (1986)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   func_init, NULL, NULL,

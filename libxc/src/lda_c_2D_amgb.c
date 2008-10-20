@@ -26,7 +26,7 @@
  gas in 2D, as parametrized by Attacalite et al.
 ************************************************************************/
 
-#define XC_LDA_C_AMGB  15   /* Attacalite et al             */
+#define XC_LDA_C_2D_AMGB  15   /* Attacalite et al             */
 
 
 /* parameters necessary to the calculation */
@@ -43,7 +43,7 @@ static FLOAT beta = 1.3386, ax = 0.0;
 
 /* Initialization */
 static void
-lda_c_amgb_init(void *p)
+lda_c_2d_amgb_init(void *p)
 {
   int i;
   
@@ -77,7 +77,7 @@ dalphadrs(int i, FLOAT *rs)
 
 
 static void
-lda_c_amgb(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *fc)
+lda_c_2d_amgb(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *fc)
 {
   XC(lda_type) *p = (XC(lda_type) *)p_;
   
@@ -155,15 +155,15 @@ lda_c_amgb(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *fc)
 }
 
 
-const XC(func_info_type) XC(func_info_lda_c_amgb) = {
-  XC_LDA_C_AMGB,
+const XC(func_info_type) XC(func_info_lda_c_2d_amgb) = {
+  XC_LDA_C_2D_AMGB,
   XC_CORRELATION,
   "AMGB (for 2D systems)",
   XC_FAMILY_LDA,
   "C Attacalite et al, Phys. Rev. Lett. 88, 256601 (2002)\n"
   "C Attacalite, PhD thesis",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  lda_c_amgb_init,
+  lda_c_2d_amgb_init,
   NULL,
-  lda_c_amgb
+  lda_c_2d_amgb
 };

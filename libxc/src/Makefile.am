@@ -25,7 +25,7 @@ libxc_a_FUNC_SOURCES = \
 	lda.c lda_x.c \
 	lda_c_wigner.c lda_c_rpa.c lda_c_hl.c lda_c_xalpha.c \
 	lda_c_vwn.c lda_c_pz.c lda_c_pw.c lda_xc_teter93.c \
-	lda_c_amgb.c lda_c_prm08.c \
+	lda_c_2D_amgb.c lda_c_2D_prm08.c \
 	gga.c \
 	gga_x_lg93.c gga_x_pbe.c gga_x_rpbe.c gga_x_pbea.c gga_x_mpbe.c gga_x_b86.c gga_x_b86_mgc.c \
 	gga_x_b88.c gga_x_g96.c gga_x_pw86.c gga_x_pw91.c gga_x_optx.c \
@@ -57,7 +57,7 @@ endif
 
 dist_noinst_SCRIPTS = get_funcs.pl
 
-noinst_HEADERS = util.h work_lda.c work_gga_x.c work_gga_x_2D.c work_mgga_x.c work_mgga_c.c libxc_master.F90
+noinst_HEADERS = util.h work_lda.c work_gga_x.c work_gga_x_2d.c work_mgga_x.c work_mgga_c.c libxc_master.F90
 include_HEADERS = xc.h xc_config.h
 nodist_include_HEADERS = xc_funcs.h
 

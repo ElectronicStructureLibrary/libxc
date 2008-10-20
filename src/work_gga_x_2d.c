@@ -24,7 +24,7 @@
 ************************************************************************/
 
 static void 
-work_gga_x_2D(const void *p_, const FLOAT *rho, const FLOAT *sigma,
+work_gga_x_2d(const void *p_, const FLOAT *rho, const FLOAT *sigma,
 	      FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 	      FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
@@ -60,7 +60,7 @@ work_gga_x_2D(const void *p_, const FLOAT *rho, const FLOAT *sigma,
 
     f = dfdx = d2fdx2 = 0.0;
 
-    func(p, order, x, &f, &dfdx, &d2fdx2);
+    func_2d(p, order, x, &f, &dfdx, &d2fdx2);
 
     if(zk != NULL)
       *zk += -sfact*X_FACTOR_2D_C*(ds*rho12)*f;

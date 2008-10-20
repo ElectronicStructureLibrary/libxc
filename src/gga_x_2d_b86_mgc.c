@@ -35,7 +35,7 @@ void func_init(void *p_)
 }
 
 static inline void
-func(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
+func_2d(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   FLOAT dd, ddp, f1, f2, df1, df2, d2f1, d2f2;
 
@@ -72,5 +72,5 @@ const XC(func_info_type) XC(func_info_gga_x_2d_b86_mgc) = {
   "AD Becke, J. Chem. Phys 85, 7184 (1986)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   func_init, NULL, NULL,
-  work_gga_x_2D
+  work_gga_x_2d
 };

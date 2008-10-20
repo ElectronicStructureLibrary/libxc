@@ -26,7 +26,7 @@
 Correlation functional by Pittalis, Rasanen & Marques for the 2D electron gas
 ************************************************************************/
 
-#define XC_LDA_C_PRM08  16   /* Pittalis, Rasanen & Marques correlation in 2D */
+#define XC_LDA_C_2D_PRM08  16   /* Pittalis, Rasanen & Marques correlation in 2D */
 
 typedef struct{
   FLOAT N;
@@ -35,12 +35,10 @@ typedef struct{
 
 /* parameters necessary to the calculation */
 static FLOAT prm08_q = 3.9274; /* 2.258 */
-static FLOAT prm08_alpha;
-
 
 /* Initialization */
 static void
-lda_c_prm08_init(void *p_)
+lda_c_2d_prm08_init(void *p_)
 {
   XC(lda_type) *p = (XC(lda_type) *)p_;
   lda_c_prm08_params *params;
@@ -55,7 +53,7 @@ lda_c_prm08_init(void *p_)
 
 
 static void 
-lda_c_prm08_end(void *p_)
+lda_c_2d_prm08_end(void *p_)
 {
   XC(lda_type) *p = (XC(lda_type) *)p_;
 
@@ -66,7 +64,7 @@ lda_c_prm08_end(void *p_)
 
 
 void 
-XC(lda_c_prm08_set_params)(XC(lda_type) *p, FLOAT N)
+XC(lda_c_2d_prm08_set_params)(XC(lda_type) *p, FLOAT N)
 {
   lda_c_prm08_params *params;
 
@@ -84,7 +82,7 @@ XC(lda_c_prm08_set_params)(XC(lda_type) *p, FLOAT N)
 
 
 static void
-lda_c_prm08(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2)
+lda_c_2d_prm08(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2)
 {
   XC(lda_type) *p = (XC(lda_type) *)p_;
   lda_c_prm08_params *params;
@@ -144,14 +142,14 @@ lda_c_prm08(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *v2r
 }
 
 
-const XC(func_info_type) XC(func_info_lda_c_prm08) = {
-  XC_LDA_C_PRM08,
+const XC(func_info_type) XC(func_info_lda_c_2d_prm08) = {
+  XC_LDA_C_2D_PRM08,
   XC_CORRELATION,
   "PRM08 (for 2D systems)",
   XC_FAMILY_LDA,
-  "S Pittalis, E Rasanen, and MAL Marques, to be submitted (2008)",
+  "S Pittalis, E Rasanen, and MAL Marques, submitted (2008)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  lda_c_prm08_init,
-  lda_c_prm08_end,
-  lda_c_prm08
+  lda_c_2d_prm08_init,
+  lda_c_2d_prm08_end,
+  lda_c_2d_prm08
 };

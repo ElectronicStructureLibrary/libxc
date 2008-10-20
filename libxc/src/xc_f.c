@@ -142,10 +142,10 @@ void XC_FC_FUNC(f90_lda_kxc, F90_LDA_KXC)
 /* Now come some special initializations */
 
 /* parameter of PRM08 */
-void XC_FC_FUNC(f90_lda_c_prm08_set_params, F90_LDA_C_PRM08_SET_PARAMS)
+void XC_FC_FUNC(f90_lda_c_2d_prm08_set_params, F90_LDA_C_2D_PRM08_SET_PARAMS)
   (void **p, FLOAT *N)
 {
-  XC(lda_c_prm08_set_params)((XC(lda_type) *)(*p), *N);
+  XC(lda_c_2d_prm08_set_params)((XC(lda_type) *)(*p), *N);
 }
 
 /* exchange in the LDA */

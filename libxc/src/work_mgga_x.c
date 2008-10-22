@@ -23,6 +23,8 @@
   and of rho.
 ************************************************************************/
 
+#include <stdio.h>
+
 static void 
 work_mgga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *tau,
 	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vtau,

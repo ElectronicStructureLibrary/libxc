@@ -125,10 +125,11 @@ void get_fxc(functionals_type *func, double point[5], double der[5][5])
       xc_gga_fxc(&(func->gga_func), &(point[0]), &(point[2]),
 		 v2rho, v2rhosigma, v2sigma);
       break;
-      //case XC_FAMILY_HYB_GGA:
-      //xc_hyb_gga(&(func->hyb_gga_func), &(point[0]), &(point[2]),
-      //    e, &(der[0]), &(der[2]));
-      //break;
+      /*
+      case XC_FAMILY_HYB_GGA:
+      xc_hyb_gga(&(func->hyb_gga_func), &(point[0]), &(point[2]),
+          e, &(der[0]), &(der[2]));
+	  break;*/
     }
 
   der[0][0] = v2rho[0];
@@ -312,8 +313,8 @@ void test_functional(int functional)
       else
 	xc_lda_init(&(func.lda_func), functional, nspin);
 
-      if(functional == XC_LDA_C_PRM08)
-	xc_lda_c_prm08_set_params(&(func.lda_func), 10.0);
+      if(functional == XC_LDA_C_2D_PRM08)
+	xc_lda_c_2d_prm08_set_params(&(func.lda_func), 10.0);
 
       info = func.lda_func.info;
       break;

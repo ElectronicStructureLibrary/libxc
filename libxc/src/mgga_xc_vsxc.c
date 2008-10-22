@@ -52,9 +52,6 @@ void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT 
     dhdgam*alpha;
 }
 
-static const FLOAT vsxc_d[6] = {-0.9800, -0.003557, 0.006250, -0.00002354, -0.0001283, 0.0003575};
-static const FLOAT vsxc_alpha = 0.001867;
-
 /* (3.0/5.0) * POW(6.0*M_PI*M_PI, 2.0/3.0) */
 static const FLOAT vsxc_CFermi = 9.115599744691194274576327519198610717031;
 
@@ -63,8 +60,10 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,
      FLOAT *f, FLOAT *dfdx, FLOAT *dfdt,
      FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
 {
-  /* Eq. (14) */
-  XC(mgga_x_gvt4_func)(order, x, t - vsxc_CFermi, vsxc_alpha, vsxc_d, f, dfdx, dfdt);
+  static const FLOAT abcd[6] = {-0.9800, -0.003557, 0.006250, -0.00002354, -0.0001283, 0.0003575};
+  static const FLOAT alpha = 0.001867;
+
+  XC(mgga_x_gvt4_func)(order, x, t - vsxc_CFermi, alpha, abcd, f, dfdx, dfdt);
  
   *f /= -X_FACTOR_C;
 
@@ -79,14 +78,19 @@ func_c_parallel(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,
 		FLOAT *f, FLOAT *dfdx, FLOAT *dfdt,
 		FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
 {
-  FLOAT dd, f1, df1dx, df1dt;
-  /* Eq. (14) */
-  XC(mgga_x_gvt4_func)(order, x, t - vsxc_CFermi, vsxc_alpha, vsxc_d, &f1, &df1dx, &df1dt);
+  static const FLOAT abcd[6] = {0.3271, -0.03229, -0.02942, 0.002134, -0.005452, 0.01578};
+  static const FLOAT alpha = 0.005151;
 
-  dd    = 1.0 - x*x/(4.0*t);
-  *f    = dd*f1; /* multiply by D_sigma */
-  *dfdx = -x*f1/(2.0*t) + dd*df1dx;
-  *dfdt = x*x*f1/(4.0*t*t) + dd*df1dt;
+  XC(mgga_x_gvt4_func)(order, x, t - vsxc_CFermi, alpha, abcd, f, dfdx, dfdt);
+
+  if(t > 1e-10){
+    FLOAT dd, f1=*f;
+
+    dd     = 1.0 - x*x/(4.0*t);
+    *f     = dd*f1;                     /* multiply by D_sigma */
+    *dfdx  =  -x*f1/(2.0*t)   + dd*(*dfdx);
+    *dfdt  = x*x*f1/(4.0*t*t) + dd*(*dfdt);
+  }
 }
 
 static void 
@@ -94,8 +98,10 @@ func_c_opposite(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,
 		FLOAT *f, FLOAT *dfdx, FLOAT *dfdt,
 		FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
 {
-  /* Eq. (14) */
-  XC(mgga_x_gvt4_func)(order, x, t - 2.0*vsxc_CFermi, vsxc_alpha, vsxc_d, f, dfdx, dfdt);
+  static const FLOAT abcd[6] = {0.7035, 0.007695, 0.05153, 0.00003394, -0.001269, 0.001296};
+  static const FLOAT alpha = 0.003050;
+
+  XC(mgga_x_gvt4_func)(order, x, t - 2.0*vsxc_CFermi, alpha, abcd, f, dfdx, dfdt);
 }
 
 #include "work_mgga_x.c"

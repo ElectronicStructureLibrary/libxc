@@ -51,7 +51,7 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
   const XC(mgga_type) *p = p_;
 
   FLOAT sfact, sfact2, dens;
-  FLOAT ds[2], x[2], t[2], f_LDA[2], vrho_LDA[2];
+  FLOAT ds[2], sigmas[2], x[2], t[2], f_LDA[2], vrho_LDA[2];
   int is, order;
 
   order = 0;
@@ -61,19 +61,22 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
   sfact = (p->nspin == XC_POLARIZED) ? 1.0 : 2.0;
   sfact2 = sfact*sfact;
 
+  if(p->nspin == XC_UNPOLARIZED)
+    ds[1] = rho[0]/2.0;
+
   dens = 0.0;
   for(is=0; is<p->nspin; is++){
     FLOAT gdm, rho13;
     FLOAT f, ltau, dfdx, dfdt, d2fdx2, d2fdxt, d2fdt2;
     int js = (is == 0) ? 0 : 2;
 
+    dens  += rho[is];
     ds[is] = rho[is]/sfact;
 
     if(rho[is] < MIN_DENS) continue;
 
-    dens  += rho[is];
-    gdm    = sqrt(sigma[js])/sfact;
-    gdm    = max(MIN_GRAD, gdm); 
+    sigmas[is] = max(MIN_GRAD*MIN_GRAD, sigma[js]/sfact2);
+    gdm        = sqrt(sigmas[is]);
   
     rho13  = POW(ds[is], 1.0/3.0);
     x [is] = gdm/(ds[is]*rho13);
@@ -109,9 +112,10 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
       *zk += sfact*ds[is]*f_LDA[is]*f;
  
     if(vrho != NULL){
-      vrho[is]   = vrho_LDA[is]*f - f_LDA[is]*(4.0*dfdx*x[is] + 5.0*dfdt*t[is])/3.0;
-      vtau[is]   = f_LDA[is]*dfdt/(rho13*rho13);
-      vsigma[js] = sfact*ds[is]*f_LDA[is]*dfdx*x[is]/(2.0*sigma[js]);
+      vrho[is]    = vrho_LDA[is]*f - f_LDA[is]*(4.0*dfdx*x[is] + 5.0*dfdt*t[is])/3.0;
+      vtau[is]    = f_LDA[is]*dfdt/(rho13*rho13);
+
+      vsigma[js]  = ds[is]*f_LDA[is]*dfdx*x[is]/(2.0*sfact*sigmas[is]);
     }
 
     if(v2rho2 != NULL){
@@ -119,7 +123,7 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
       exit(1);
     }
   }
-  /* *zk /= dens; return; */ /* DEBUG */
+  /* *zk /= dens; return; */  /* DEBUG */
 
   /* We are now missing the opposite-spin part */
   {
@@ -147,8 +151,8 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
 	}
       xt = sqrt(xt);
     }else{
-      xt = 2.0*x[0];
-      tt = 2.0*t[0];
+      xt = sqrt(2.0)*x[0];
+      tt =      2.0 *t[0];
     }
 
     func_c_opposite(p, xt, tt, order, &f, &dfdx, &dfdt, &d2fdx2, &d2fdxt, &d2fdt2);
@@ -164,7 +168,7 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
 
 	vrho[is]   += vrho_LDA_opp[is]*f - dens*f_LDA_opp*(4.0*dfdx*x[is]*x[is]/xt + 5.0*dfdt*t[is])/(3.0*ds[is]);
 	vtau[is]   += f_LDA_opp*dfdt*dens/POW(ds[is], 5.0/3.0);
-	vsigma[js] += sfact*dens*f_LDA_opp*dfdx*x[is]*x[is]/(2.0*xt*sigma[js]);
+	vsigma[js] += dens*f_LDA_opp*dfdx*x[is]*x[is]/(2.0*xt*sfact*sigmas[is]);
       }
     }
   }

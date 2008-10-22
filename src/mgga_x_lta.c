@@ -37,13 +37,13 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,
   if(order < 1) return;
   
   *dfdx = 0.0;
-  *dfdt = a1*4.0/5.0*POW(t, -1.0/5.0);
+  *dfdt = (t > 1e-10) ? a1*4.0/5.0*POW(t, -1.0/5.0) : 0.0;
 
   if(order < 2) return;
   
   *d2fdx2 = 0.0;
   *d2fdxt = 0.0;
-  *d2fdt2 = -a1*4.0/25.0*POW(t, -6.0/5.0);
+  *d2fdt2 = (t > 1e-10) ? -a1*4.0/25.0*POW(t, -6.0/5.0) : 0.0;
 }
 
 #include "work_mgga_x.c"

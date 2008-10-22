@@ -306,7 +306,6 @@ void XC_FC_FUNC(f90_mgga, F90_MGGA)
 	   v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
 }
 
-
 void XC_FC_FUNC(f90_mgga_exc, F90_MGGA_EXC)
   (void **p, FLOAT *rho, FLOAT *sigma, FLOAT *tau, 
    FLOAT *zk)

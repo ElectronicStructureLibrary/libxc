@@ -39,16 +39,16 @@ if test -z "${FCFLAGS}"; then
     efc*|ifc*|ifort*)
       case "${host}" in
         x86_64*)
-          FCFLAGS="-u -fpp1 -nbs -pc80 -pad -align -unroll -O3 -ip -fno-port-no-fp-port -mno-ieee-fp -vec-report0 -no-prec-div"
+          FCFLAGS="-u -fpp1 -nbs -pc80 -pad -align -unroll -O3 -ip -no-fp-port -mno-ieee-fp -vec-report0 -no-prec-div"
           ;;
         i?86*linux*)
-          FCFLAGS="-u -fpp1 -nbs -pc80 -pad -align -unroll -O3 -ip -fno-port-no-fp-port -mno-ieee-fp -vec-report0 -no-prec-div"
+          FCFLAGS="-u -fpp1 -nbs -pc80 -pad -align -unroll -O3 -ip -no-fp-port -mno-ieee-fp -vec-report0 -no-prec-div"
           a=`echo $host | sed "s/^i//" | sed "s/86.*//"`
           if test "$a" -gt 5 ; then
             FCFLAGS="$FCFLAGS -tpp7 -xW"
           fi
           ;;	
-        efc*|ifort*)
+        ia64*)
           FCFLAGS="-O3 -ip -IPF_fp_relaxed -ftz -fpp -u -align all -pad"
          ;;
       esac
@@ -73,7 +73,7 @@ if test -z "${FCFLAGS}"; then
       FCFLAGS="-O3 -YEXT_NAMES=LCS -YEXT_SFX=_"
       ;;
     xlf*)
-      FCFLAGS="-bmaxdata:0x80000000 -qmaxmem=-1 -qsuffix=f=f90 -Q -O5 -qtune=auto -qarch=auto -qhot -qipa"
+      FCFLAGS="-O3 -qarch=auto -qtune=auto -qcache=auto -qxlf90=autodealloc"
       ;;
     f9*)
       case "${host}" in

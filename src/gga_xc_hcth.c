@@ -26,6 +26,8 @@
 #define XC_GGA_XC_HCTH_147 163 /* HCTH functional fitted to 147 molecules  */
 #define XC_GGA_XC_HCTH_407 164 /* HCTH functional fitted to 147 molecules  */
 #define XC_GGA_XC_B97      167 /* Becke 97                                 */
+#define XC_GGA_XC_B97_1    168 /* Becke 97-1                               */
+#define XC_GGA_XC_B97_2    169 /* Becke 97-2                               */
 
 static void 
 gga_xc_hcth_init(void *p_)
@@ -47,7 +49,7 @@ gga_xc_hcth_end(void *p_)
 static void 
 func_g(int func, int type, FLOAT s, FLOAT *g, FLOAT *dg, FLOAT *ldg)
 {
-  const FLOAT c[5][3][5] = {
+  const FLOAT c[7][3][5] = {
     {      /* HCTH/93 */
       {1.09320,  -0.744056,    5.59920,   -6.78549,   4.49357}, /* X   */
       {0.222601, -0.0338622,  -0.0125170, -0.802496,  1.55396}, /* Css */
@@ -68,6 +70,14 @@ func_g(int func, int type, FLOAT s, FLOAT *g, FLOAT *dg, FLOAT *ldg)
       {0.8094, 0.5073,  0.7481, 0.0, 0.0},       /* X   */
       {0.1737, 2.3487, -2.4868, 0.0, 0.0},       /* Css */
       {0.9454, 0.7471, -4.5961, 0.0, 0.0}        /* Cab */
+    }, {   /* Becke 97-1 */
+      {0.789518, 0.573805,  0.660975, 0.0, 0.0},       /* X   */
+      {0.0820011, 2.71681, -2.87103,  0.0, 0.0},       /* Css */
+      {0.955689, 0.788552, -5.47869,  0.0, 0.0}        /* Cab */
+    }, {   /* Becke 97-2 */
+      {0.827642,  0.0478400, 1.76125,  0.0, 0.0},       /* X   */
+      {0.585808, -0.691682,  0.394796, 0.0, 0.0},       /* Css */
+      {0.999849,  1.40626,  -7.44060,  0.0, 0.0}        /* Cab */
     }
   };
   const FLOAT gamma[3] = {
@@ -105,6 +115,8 @@ gga_xc_hcth(void *p_, FLOAT *rho, FLOAT *sigma,
   case XC_GGA_XC_HCTH_147: func = 2; break;
   case XC_GGA_XC_HCTH_407: func = 3; break;
   case XC_GGA_XC_B97:      func = 4; break;
+  case XC_GGA_XC_B97_1:    func = 5; break;
+  case XC_GGA_XC_B97_2:    func = 6; break;
   default:                 func = 0; /* XC_GGA_XC_HCTH_93 */
   }
 
@@ -252,6 +264,34 @@ const XC(func_info_type) XC(func_info_gga_xc_b97) = {
   XC_EXCHANGE_CORRELATION,
   "Becke 97",
   XC_FAMILY_GGA,
+  "AD Becke, J. Chem. Phys. 107, 8554-8560 (1997)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  gga_xc_hcth_init, 
+  gga_xc_hcth_end, 
+  NULL,
+  gga_xc_hcth
+};
+
+const XC(func_info_type) XC(func_info_gga_xc_b97_1) = {
+  XC_GGA_XC_B97_1,
+  XC_EXCHANGE_CORRELATION,
+  "Becke 97-1",
+  XC_FAMILY_GGA,
+  "FA Hamprecht, AJ Cohen, DJ Tozer, and NC Handy, J. Chem. Phys. 109, 6264 (1998)\n"
+  "AD Becke, J. Chem. Phys. 107, 8554-8560 (1997)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  gga_xc_hcth_init, 
+  gga_xc_hcth_end, 
+  NULL,
+  gga_xc_hcth
+};
+
+const XC(func_info_type) XC(func_info_gga_xc_b97_2) = {
+  XC_GGA_XC_B97_2,
+  XC_EXCHANGE_CORRELATION,
+  "Becke 97-2",
+  XC_FAMILY_GGA,
+  "\n"
   "AD Becke, J. Chem. Phys. 107, 8554-8560 (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_xc_hcth_init, 

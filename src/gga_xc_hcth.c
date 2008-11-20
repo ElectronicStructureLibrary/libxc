@@ -25,6 +25,7 @@
 #define XC_GGA_XC_HCTH_120 162 /* HCTH functional fitted to 120 molecules  */
 #define XC_GGA_XC_HCTH_147 163 /* HCTH functional fitted to 147 molecules  */
 #define XC_GGA_XC_HCTH_407 164 /* HCTH functional fitted to 147 molecules  */
+#define XC_GGA_XC_B97      167 /* Becke 97                                 */
 
 static void 
 gga_xc_hcth_init(void *p_)
@@ -46,7 +47,7 @@ gga_xc_hcth_end(void *p_)
 static void 
 func_g(int func, int type, FLOAT s, FLOAT *g, FLOAT *dg, FLOAT *ldg)
 {
-  const FLOAT c[4][3][5] = {
+  const FLOAT c[5][3][5] = {
     {      /* HCTH/93 */
       {1.09320,  -0.744056,    5.59920,   -6.78549,   4.49357}, /* X   */
       {0.222601, -0.0338622,  -0.0125170, -0.802496,  1.55396}, /* Css */
@@ -63,6 +64,10 @@ func_g(int func, int type, FLOAT s, FLOAT *g, FLOAT *dg, FLOAT *ldg)
       {1.08184, -0.518339,  3.42562, -2.62901,  2.28855},       /* X   */
       {1.18777, -2.40292,   5.61741, -9.17923,  6.24798},       /* Css */
       {0.589076, 4.42374, -19.2218,  42.5721, -42.0052 }        /* Cab */
+    }, {   /* Becke 97 */
+      {0.8094, 0.5073,  0.7481, 0.0, 0.0},       /* X   */
+      {0.1737, 2.3487, -2.4868, 0.0, 0.0},       /* Css */
+      {0.9454, 0.7471, -4.5961, 0.0, 0.0}        /* Cab */
     }
   };
   const FLOAT gamma[3] = {
@@ -99,6 +104,7 @@ gga_xc_hcth(void *p_, FLOAT *rho, FLOAT *sigma,
   case XC_GGA_XC_HCTH_120: func = 1; break;
   case XC_GGA_XC_HCTH_147: func = 2; break;
   case XC_GGA_XC_HCTH_407: func = 3; break;
+  case XC_GGA_XC_B97:      func = 4; break;
   default:                 func = 0; /* XC_GGA_XC_HCTH_93 */
   }
 
@@ -234,6 +240,19 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_407) = {
   "HCTH/407",
   XC_FAMILY_GGA,
   "AD Boese, and NC Handy, J. Chem. Phys. 114, 5497 (2001)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  gga_xc_hcth_init, 
+  gga_xc_hcth_end, 
+  NULL,
+  gga_xc_hcth
+};
+
+const XC(func_info_type) XC(func_info_gga_xc_b97) = {
+  XC_GGA_XC_B97,
+  XC_EXCHANGE_CORRELATION,
+  "Becke 97",
+  XC_FAMILY_GGA,
+  "AD Becke, J. Chem. Phys. 107, 8554-8560 (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_xc_hcth_init, 
   gga_xc_hcth_end, 

@@ -25,7 +25,7 @@
 #define XC_HYB_GGA_XC_B97_1    408 /* Becke 97-1                               */
 #define XC_HYB_GGA_XC_B97_2    410 /* Becke 97-2                               */
 #define XC_HYB_GGA_XC_B97_K    413 /* Boese-Martin for Kinetics                */
-#define XC_HYB_GGA_XC_B97_3    414 /* Boese-Martin for Kinetics                */
+#define XC_HYB_GGA_XC_B97_3    414 /* Becke 97-3                               */
 
 static void
 hyb_gga_xc_b97_init(void *p_)
@@ -60,7 +60,7 @@ hyb_gga_xc_b97_init(void *p_)
 }
 
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_b1wc) = {
+const XC(func_info_type) XC(func_info_hyb_gga_xc_b97) = {
   XC_HYB_GGA_XC_B97,
   XC_EXCHANGE_CORRELATION,
   "Becke 97",

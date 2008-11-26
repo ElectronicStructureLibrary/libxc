@@ -61,6 +61,73 @@ void XC(gga_end)(XC(gga_type) *p)
 }
 
 
+inline int
+XC(gga_input_init)(const XC(func_info_type) *info, int nspin, const FLOAT *rho,
+		   FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
+		   FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
+{
+  FLOAT dens;
+  int i, n;
+
+  /* sanity check */
+  if(zk != NULL && !(info->provides & XC_PROVIDES_EXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of Exc",
+	    info->name);
+    exit(1);
+  }
+
+  if(vrho != NULL && !(info->provides & XC_PROVIDES_VXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of vxc",
+	    info->name);
+    exit(1);
+  }
+
+  if(v2rho2 != NULL && !(info->provides & XC_PROVIDES_FXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of fxc",
+	    info->name);
+    exit(1);
+  }
+
+  /* initialize output to zero */
+  if(zk != NULL){
+    assert(info->provides & XC_PROVIDES_EXC);
+    *zk = 0.0;
+  }
+
+  if(vrho != NULL){
+    assert(info->provides & XC_PROVIDES_VXC);
+    assert(vsigma != NULL);
+    
+    for(i=0; i<nspin; i++) vrho [i] = 0.0;
+    
+    n = (nspin == XC_UNPOLARIZED) ? 1 : 3;
+    for(i=0; i<n; i++)
+      vsigma[i] = 0.0;
+  }
+
+  if(v2rho2 != NULL){
+    assert(info->provides & XC_PROVIDES_FXC);
+    assert(v2rhosigma!=NULL && v2sigma2!=NULL);
+
+    n = (nspin == XC_UNPOLARIZED) ? 1 : 3;
+    for(i=0; i<n; i++)
+      v2rho2[i] = 0.0;
+
+    n = (nspin == XC_UNPOLARIZED) ? 1 : 6;
+    for(i=0; i<n; i++){
+      v2rhosigma[i] = 0.0;
+      v2sigma2[i]   = 0.0;
+    }
+  }
+
+  /* check if density is larger than threshold */
+  dens = rho[0];
+  if(nspin == XC_POLARIZED) dens += rho[1];
+  return (dens > MIN_DENS);
+ 
+}
+
+
 /* Some useful formulas:
 
    sigma_st       = grad rho_s . grad rho_t
@@ -88,66 +155,10 @@ void XC(gga)(const XC(gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
 	     FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 	     FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
-  FLOAT dens;
-  int i, n;
-
   assert(p!=NULL && p->info!=NULL);
   
-  /* sanity check */
-  if(zk != NULL && !(p->info->provides & XC_PROVIDES_EXC)){
-    fprintf(stderr, "Functional '%s' does not provide an implementation of Exc",
-	    p->info->name);
-    exit(1);
-  }
-
-  if(vrho != NULL && !(p->info->provides & XC_PROVIDES_VXC)){
-    fprintf(stderr, "Functional '%s' does not provide an implementation of vxc",
-	    p->info->name);
-    exit(1);
-  }
-
-  if(v2rho2 != NULL && !(p->info->provides & XC_PROVIDES_FXC)){
-    fprintf(stderr, "Functional '%s' does not provide an implementation of fxc",
-	    p->info->name);
-    exit(1);
-  }
-
-  /* initialize output to zero */
-  if(zk != NULL){
-    assert(p->info->provides & XC_PROVIDES_EXC);
-    *zk = 0.0;
-  }
-
-  if(vrho != NULL){
-    assert(p->info->provides & XC_PROVIDES_VXC);
-    assert(vsigma != NULL);
-
-    for(i=0; i<p->nspin; i++) vrho [i] = 0.0;
-
-    n = (p->nspin == XC_UNPOLARIZED) ? 1 : 3;
-    for(i=0; i<n; i++)
-      vsigma[i] = 0.0;
-  }
-
-  if(v2rho2 != NULL){
-    assert(p->info->provides & XC_PROVIDES_FXC);
-    assert(v2rhosigma!=NULL && v2sigma2!=NULL);
-
-    n = (p->nspin == XC_UNPOLARIZED) ? 1 : 3;
-    for(i=0; i<n; i++)
-      v2rho2[i] = 0.0;
-
-    n = (p->nspin == XC_UNPOLARIZED) ? 1 : 6;
-    for(i=0; i<n; i++){
-      v2rhosigma[i] = 0.0;
-      v2sigma2[i]   = 0.0;
-    }
-  }
-
-  /* check if density is larger than threshold */
-  dens = rho[0];
-  if(p->nspin == XC_POLARIZED) dens += rho[1];
-  if(dens <= MIN_DENS) return;
+  if(!XC(gga_input_init)(p->info, p->nspin, rho, zk, vrho, vsigma,
+			 v2rho2, v2rhosigma, v2sigma2)) return;
 
   /* call functional */
   assert(p->info->gga != NULL);

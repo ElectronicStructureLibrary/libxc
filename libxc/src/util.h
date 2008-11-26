@@ -83,6 +83,9 @@ typedef struct XC(perdew_t) {
 void XC(perdew_params)(const XC(gga_type) *gga_p, const FLOAT *rho, const FLOAT *sigma, int order, XC(perdew_t) *pp);
 void XC(perdew_potentials)(XC(perdew_t) *pt, const FLOAT *rho, FLOAT e_gga, int order, 
 			   FLOAT *vrho, FLOAT *vsigma, FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
+int XC(gga_input_init)(const XC(func_info_type) *info, int nspin, const FLOAT *rho,
+		       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
+		       FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
 void XC(gga_x_b88_set_params)(XC(gga_type) *p, FLOAT beta);
 void XC(gga_c_lyp_set_params)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
 

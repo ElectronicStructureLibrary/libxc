@@ -157,10 +157,6 @@ work_gga_becke(const void *p_, const FLOAT *rho, const FLOAT *sigma,
 	x[is]/(4.0*sfact2*sfact2*sigmas[is]*sigmas[is]);
 
       f_LDA_opp[js] -= f_LDA[0]/sfact;
-
-      //*zk = 0;
-      //vsigma[js] = 0;
-      //v2sigma2[js] = 0;
     }
   }
 

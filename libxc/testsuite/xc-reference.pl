@@ -58,6 +58,7 @@ while(data_read(*DATA, \%data) != 0){
   $mpol = ($data{"rhoa"}    == $data{"rhob"}    &&
 	   $data{"sigmaaa"} == $data{"sigmabb"} &&
 	   $data{"sigmaab"} == $data{"sigmabb"}) ? 1 : 2;
+  $mpol = 2;
 
   my $ok;
   for($pol=2;$pol>=$mpol; $pol--){

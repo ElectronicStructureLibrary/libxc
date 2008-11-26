@@ -107,45 +107,93 @@ void XC(hyb_gga_end)(XC(hyb_gga_type) *p)
 
 
 /*****************************************************/
-void XC(hyb_gga)(XC(hyb_gga_type) *p, FLOAT *rho, FLOAT *sigma,
-		FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
+void XC(hyb_gga)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
+		 FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
+		 FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
-  FLOAT e1, vrho1[2], vsigma1[3];
-  int ii, is, js = (p->nspin == XC_UNPOLARIZED) ? 1 : 3;
+  FLOAT zk_, vrho_[2], vsigma_[3], v2rho2_[6], v2rhosigma_[6], v2sigma2_[6];
+  FLOAT *pzk, *pvrho, *pv2rho2;
+  int ii, is, js;
 
-  assert(p!=NULL);
+  assert(p!=NULL && p->info!=NULL);
   
-  /* initialize all to zero */
-  *e = 0.0;
-  for(is=0; is<p->nspin; is++) vrho[is]   = 0.0;
-  for(is=0; is<js;       is++) vsigma[is] = 0.0;
+  if(!XC(gga_input_init)(p->info, p->nspin, rho, zk, vrho, vsigma,
+			 v2rho2, v2rhosigma, v2sigma2)) return; 
 
   /* hybrid may want to add some term */
-  if(p->info!=NULL && p->info->gga!=NULL){
-    p->info->gga(p, rho, sigma, e, vrho, vsigma, NULL, NULL, NULL);
-  }
+  if(p->info->gga!=NULL)
+    p->info->gga(p, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
+
+  pzk     = (zk     == NULL) ? NULL : &zk_;
+  pvrho   = (vrho   == NULL) ? NULL : vrho_;
+  pv2rho2 = (v2rho2 == NULL) ? NULL : v2rho2_;
 
   /* we now add the LDA components */
   for(ii=0; ii<p->lda_n; ii++){
-    XC(lda_vxc)(p->lda_aux[ii], rho, &e1, vrho1);
+    XC(lda)(p->lda_aux[ii], rho, pzk, pvrho, pv2rho2, NULL);
 
-    *e += p->lda_coef[ii] * e1;
-    for(is=0; is<p->nspin; is++)
-      vrho[is] += p->lda_coef[ii] * vrho1[is];
+    if(zk != NULL)
+      *zk += p->lda_coef[ii] * zk_;
+
+    if(vrho != NULL)
+      for(is=0; is<p->nspin; is++)
+	vrho[is] += p->lda_coef[ii] * vrho_[is];
+
+    if(v2rho2 != NULL){
+      js = (p->nspin == XC_POLARIZED) ? 6 : 1;
+      for(is=0; is<js; is++)
+	v2rho2[is] += p->lda_coef[ii] * v2rho2_[is];
+    }
   }
 
   /* and the GGA components */
   for(ii=0; ii<p->gga_n; ii++){
-    XC(gga_vxc)(p->gga_aux[ii], rho, sigma, &e1, vrho1, vsigma1);
+    XC(gga)(p->gga_aux[ii], rho, sigma, pzk, pvrho, vsigma_, pv2rho2,  v2rhosigma_, v2sigma2_);
 
-    *e += p->gga_coef[ii] * e1;
-    for(is=0; is<p->nspin; is++)
-      vrho[is] += p->gga_coef[ii] * vrho1[is];
+    if(zk != NULL)
+      *zk += p->gga_coef[ii] * zk_; 
 
-    for(is=0; is<js; is++)
-      vsigma[is] += p->gga_coef[ii] * vsigma1[is];
+    if(vrho != NULL){
+      for(is=0; is<p->nspin; is++)
+	vrho[is] += p->gga_coef[ii] * vrho_[is];
+
+      js = (p->nspin == XC_POLARIZED) ? 3 : 1;
+      for(is=0; is<js; is++)
+	vsigma[is] += p->gga_coef[ii] * vsigma_[is];
+    }
+
+    if(v2rho2 != NULL){
+      js = (p->nspin == XC_POLARIZED) ? 6 : 1;
+      for(is=0; is<js; is++){
+	v2rho2[is]     += p->gga_coef[ii] * v2rho2_[is];
+	v2rhosigma[is] += p->gga_coef[ii] * v2rhosigma_[is];
+	v2sigma2[is]   += p->gga_coef[ii] * v2sigma2_[is];
+      }
+    }
   }
 
+}
+
+/* especializations */
+inline void 
+XC(hyb_gga_exc)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma, 
+		FLOAT *zk)
+{
+  XC(hyb_gga)(p, rho, sigma, zk, NULL, NULL, NULL, NULL, NULL);
+}
+
+inline void 
+XC(hyb_gga_vxc)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
+		FLOAT *zk, FLOAT *vrho, FLOAT *vsigma)
+{
+  XC(hyb_gga)(p, rho, sigma, zk, vrho, vsigma, NULL, NULL, NULL);
+}
+
+inline void 
+XC(hyb_gga_fxc)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
+		FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
+{
+  XC(hyb_gga)(p, rho, sigma, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2);
 }
 
 
@@ -156,4 +204,3 @@ FLOAT XC(hyb_gga_exx_coef)(XC(hyb_gga_type) *p)
 
   return p->exx_coef;
 }
-

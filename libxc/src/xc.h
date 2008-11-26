@@ -150,8 +150,16 @@ typedef struct XC(struct_hyb_gga_type){
 
 int  XC(hyb_gga_init)(XC(hyb_gga_type) *p, int functional, int nspin);
 void XC(hyb_gga_end)(XC(hyb_gga_type) *p);
-void XC(hyb_gga)   (XC(hyb_gga_type) *p, FLOAT *rho, FLOAT *sigma, FLOAT *e, FLOAT *vrho, FLOAT *vsigma);
-FLOAT XC(hyb_gga_exx_coef)   (XC(hyb_gga_type) *p);
+void XC(hyb_gga)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma, 
+		 FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
+		 FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
+void XC(hyb_gga_exc)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma, 
+		     FLOAT *zk);
+void XC(hyb_gga_vxc)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
+		     FLOAT *zk, FLOAT *vrho, FLOAT *vsigma);
+void XC(hyb_gga_fxc)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
+		     FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
+FLOAT XC(hyb_gga_exx_coef)(XC(hyb_gga_type) *p);
 
 
 /* the meta-GGAs */

@@ -87,6 +87,7 @@ func_g(const XC(gga_type) *p, int type, FLOAT s, int order, FLOAT *g, FLOAT *dgd
   int func;
 
   switch(p->info->number){
+  case XC_GGA_XC_HCTH_93:  func = 0; break;
   case XC_GGA_XC_HCTH_120: func = 1; break;
   case XC_GGA_XC_HCTH_147: func = 2; break;
   case XC_GGA_XC_HCTH_407: func = 3; break;
@@ -96,7 +97,10 @@ func_g(const XC(gga_type) *p, int type, FLOAT s, int order, FLOAT *g, FLOAT *dgd
   case XC_GGA_XC_B97_D:    func = 7; break;
   case XC_GGA_XC_B97_K:    func = 8; break;
   case XC_GGA_XC_B97_3:    func = 9; break;
-  default:                 func = 0; /* XC_GGA_XC_HCTH_93 */
+  default:
+    fprintf(stderr, "Internal error in gga_b97\n");
+    exit(1);
+    break;
   }
 
   cc = c[func][type];
@@ -146,7 +150,7 @@ const XC(func_info_type) XC(func_info_gga_xc_b97) = {
   XC_EXCHANGE_CORRELATION,
   "Becke 97",
   XC_FAMILY_GGA,
-  "AD Becke, J. Chem. Phys. 107, 8554-8560 (1997)",
+  "AD Becke, J. Chem. Phys. 107, 8554 (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   work_gga_becke_init, 
   work_gga_becke_end, 
@@ -160,7 +164,7 @@ const XC(func_info_type) XC(func_info_gga_xc_b97_1) = {
   "Becke 97-1",
   XC_FAMILY_GGA,
   "FA Hamprecht, AJ Cohen, DJ Tozer, and NC Handy, J. Chem. Phys. 109, 6264 (1998)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   work_gga_becke_init,
   work_gga_becke_end, 
   NULL,
@@ -173,7 +177,7 @@ const XC(func_info_type) XC(func_info_gga_xc_b97_2) = {
   "Becke 97-2",
   XC_FAMILY_GGA,
   "PJ Wilson, TJ Bradley, and DJ Tozer, J. Chem. Phys. 115, 9233 (2001)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   work_gga_becke_init, 
   work_gga_becke_end, 
   NULL,
@@ -186,7 +190,7 @@ const XC(func_info_type) XC(func_info_gga_xc_b97_d) = {
   "Becke 97-D",
   XC_FAMILY_GGA,
   "S Grimme, J. Comput. Chem. 27, 1787 (2006)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   work_gga_becke_init, 
   work_gga_becke_end, 
   NULL,
@@ -199,7 +203,7 @@ const XC(func_info_type) XC(func_info_gga_xc_b97_k) = {
   "Boese-Martin for Kinetics",
   XC_FAMILY_GGA,
   "AD Boese and JML Martin, J. Chem. Phys., Vol. 121, 3405 (2004)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   work_gga_becke_init, 
   work_gga_becke_end, 
   NULL,
@@ -212,7 +216,7 @@ const XC(func_info_type) XC(func_info_gga_xc_b97_3) = {
   "Becke 97-3",
   XC_FAMILY_GGA,
   "TW Keal and DJ Tozer, J. Chem. Phys. 123, 121103 (2005)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   work_gga_becke_init, 
   work_gga_becke_end, 
   NULL,
@@ -225,7 +229,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_93) = {
   "HCTH/93",
   XC_FAMILY_GGA,
   "FA Hamprecht, AJ Cohen, DJ Tozer, and NC Handy, J. Chem. Phys. 109, 6264 (1998)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   work_gga_becke_init, 
   work_gga_becke_end, 
   NULL,
@@ -238,7 +242,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_120) = {
   "HCTH/120",
   XC_FAMILY_GGA,
   "AD Boese, NL Doltsinis, NC Handy, and M Sprik, J. Chem. Phys. 112, 1670 (2000)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   work_gga_becke_init, 
   work_gga_becke_end, 
   NULL,
@@ -251,7 +255,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_147) = {
   "HCTH/147",
   XC_FAMILY_GGA,
   "AD Boese, NL Doltsinis, NC Handy, and M Sprik, J. Chem. Phys. 112, 1670 (2000)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   work_gga_becke_init, 
   work_gga_becke_end, 
   NULL,
@@ -264,7 +268,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_407) = {
   "HCTH/407",
   XC_FAMILY_GGA,
   "AD Boese and NC Handy, J. Chem. Phys. 114, 5497 (2001)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   work_gga_becke_init, 
   work_gga_becke_end, 
   NULL,

@@ -54,12 +54,18 @@ GGA_C_XPBE	136	OK	OK	OK	|
 GGA_C_LM	137	OK	OK	OK	| xc-consistency complains for very small sigmas, probably numerical noise
 
 GGA_LB		160				|
-GGA_HCTH_93	161				|
-GGA_HCTH_120	162				|
-GGA_HCTH_147	163				|
+GGA_HCTH_93	161	OK	OK	OK	|
+GGA_HCTH_120	162	OK	OK	OK	|
+GGA_HCTH_147	163	OK	OK	OK	|
 GGA_HCTH_407	164				|
 GGA_EDF1	165				|
 GGA_XLYP	166				|
+GGA_XC_B97	167	OK	OK	OK	| slight discrepancy with repository for a couple of cases
+GGA_XC_B97_1	168	OK	OK	OK	|
+GGA_XC_B97_2	169	OK	OK	OK	|
+GGA_XC_B97_D	170	OK	OK	OK	|
+GGA_XC_B97_K	171	OK	OK	OK	|
+GGA_XC_B97_3	172	OK	OK	OK	|
 
 ----------------
 HYB_GGA_B3PW91	401				|

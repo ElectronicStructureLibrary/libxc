@@ -24,7 +24,7 @@
 #define XC_HYB_GGA_XC_B1WC 412 /* Becke 1-parameter mixture of WC and EXX */
 
 static void
-gga_xc_b1wc_init(void *p_)
+hyb_gga_xc_b1wc_init(void *p_)
 {
   const FLOAT a0 = 0.16;
 
@@ -51,7 +51,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1wc) = {
   XC_FAMILY_HYB_GGA,
   "DI Bilc, R Orlando, R Shaltaf, G-M Rignanese, J Iniguez, and Ph Ghosez, Phys. Rev. B 77, 165107 (2008)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  gga_xc_b1wc_init,
+  hyb_gga_xc_b1wc_init,
   NULL, 
   NULL,
   NULL /* this is taken care by the generic routine */

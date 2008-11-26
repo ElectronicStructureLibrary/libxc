@@ -174,7 +174,8 @@ int main(int argc, char *argv[])
       xc_gga_end(&gga_func);
       break;
     case XC_FAMILY_HYB_GGA:
-      xc_hyb_gga(&hyb_gga_func, xc.rho, xc.sigma, &xc.zk, xc.vrho, xc.vsigma);
+      xc_hyb_gga(&hyb_gga_func, xc.rho, xc.sigma, &xc.zk, 
+		 xc.vrho, xc.vsigma, pv2rho, xc.v2rhosigma, xc.v2sigma);
       xc_hyb_gga_end(&hyb_gga_func);
       break;
     case XC_FAMILY_MGGA:

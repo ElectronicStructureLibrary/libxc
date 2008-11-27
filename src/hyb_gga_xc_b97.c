@@ -48,15 +48,16 @@ hyb_gga_xc_b97_init(void *p_)
     break;
   }
 
-  p->lda_n = 0;
-  p->gga_n = 1;
+  p->mix = (XC(mix_func_type) *) malloc(sizeof(XC(mix_func_type)));
+  XC(mix_func_init)(p->mix, XC_FAMILY_GGA, p->nspin);
 
-  XC(hyb_gga_alloc)(p);
+  p->mix->gga_n = 1;
+  XC(mix_func_alloc)(p->mix);
 
   p->exx_coef = a0[func];
 
-  XC(gga_init)(p->gga_aux[0], iGGA[func], p->nspin);
-  p->gga_coef[0] = 1.0;
+  XC(gga_init)(&p->mix->gga_mix[0], iGGA[func], p->nspin);
+  p->mix->gga_coef[0] = 1.0;
 }
 
 

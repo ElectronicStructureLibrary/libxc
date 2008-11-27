@@ -31,7 +31,7 @@ libxc_a_FUNC_SOURCES = \
 	gga_x_b88.c gga_x_g96.c gga_x_pw86.c gga_x_pw91.c gga_x_optx.c \
 	gga_x_dk87.c gga_x_ft97.c gga_x_wc.c gga_x_am05.c \
 	gga_perdew.c gga_c_pbe.c gga_c_lyp.c gga_c_p86.c gga_c_pw91.c gga_c_am05.c gga_c_lm.c \
-	gga_xc_lb.c gga_xc_b97.c gga_xc_edf1.c gga_xc_xlyp.c \
+	gga_xc_lb.c gga_xc_b97.c gga_xc_edf1.c gga_xc_xlyp.c gga_xc_1w.c \
 	gga_x_2d_b86_mgc.c \
 	hyb_gga.c hyb_gga_xc_b3pw91.c hyb_gga_xc_b3lyp.c hyb_gga_xc_b3p86.c \
 	hyb_gga_xc_o3lyp.c hyb_gga_xc_pbeh.c hyb_gga_xc_x3lyp.c hyb_gga_xc_b1wc.c \
@@ -40,7 +40,7 @@ libxc_a_FUNC_SOURCES = \
 	mgga_x_lta.c mgga_x_tpss.c mgga_xc_vsxc.c mgga_x_m06l.c mgga_x_tau_hcth.c \
 	mgga_c_tpss.c \
 	lca.c lca_omc.c lca_lch.c \
-	special_functions.c util.c functionals.c 
+	mix_func.c special_functions.c util.c functionals.c 
 
 libxc_a_FUNC_SINGLE_SOURCES = $(libxc_a_FUNC_SOURCES:.c=_s.c)
 

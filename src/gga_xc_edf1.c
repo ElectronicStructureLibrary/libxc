@@ -27,70 +27,28 @@ static void
 gga_xc_edf1_init(void *p_)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
-  int i;
 
-  p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
-  XC(lda_x_init)(p->lda_aux, p->nspin, 3, XC_NON_RELATIVISTIC);
+  p->mix = (XC(mix_func_type) *) malloc(sizeof(XC(mix_func_type)));
+  XC(mix_func_init)(p->mix, XC_FAMILY_GGA, p->nspin);
 
-  p->gga_aux = (XC(gga_type) **) malloc(3*sizeof(XC(gga_type) *));
-  for(i=0; i<3; i++)
-    p->gga_aux[i] = (XC(gga_type) *) malloc(sizeof(XC(gga_type)));
+  p->mix->lda_n = 1;
+  p->mix->gga_n = 3;
+  XC(mix_func_alloc)(p->mix);
 
-  XC(gga_init)(p->gga_aux[0], XC_GGA_X_B88, p->nspin);
-  XC(gga_x_b88_set_params)(p->gga_aux[0], 0.0035);
+  XC(lda_x_init)(&p->mix->lda_mix[0], p->nspin, 3, XC_NON_RELATIVISTIC);
+  p->mix->lda_coef[0] = (1.030952 - 10.4017 + 8.44793);
 
-  XC(gga_init)(p->gga_aux[1], XC_GGA_X_B88, p->nspin);
-  XC(gga_x_b88_set_params)(p->gga_aux[1], 0.0042);
+  XC(gga_init)(&p->mix->gga_mix[0], XC_GGA_X_B88, p->nspin);
+  XC(gga_x_b88_set_params)(&p->mix->gga_mix[0], 0.0035);
+  p->mix->gga_coef[0] = 10.4017;
 
-  XC(gga_init)(p->gga_aux[2], XC_GGA_C_LYP, p->nspin);
-  XC(gga_c_lyp_set_params)(p->gga_aux[2], 0.055, 0.158, 0.25, 0.3505);
-}
+  XC(gga_init)(&p->mix->gga_mix[1], XC_GGA_X_B88, p->nspin);
+  XC(gga_x_b88_set_params)(&p->mix->gga_mix[1], 0.0042);
+  p->mix->gga_coef[1] = -8.44793;
 
-static void
-gga_xc_edf1_end(void *p_)
-{
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-  int i;
-
-  for(i=0; i<3; i++){
-    XC(gga_end)(p->gga_aux[i]);
-    free(p->gga_aux[i]);
-  }
-  free(p->gga_aux);
-}
-
-static void 
-gga_xc_edf1(void *p_, FLOAT *rho, FLOAT *sigma,
-            FLOAT *zk, FLOAT *vrho, FLOAT *vsigma)
-{
-  static FLOAT cx    = 1.030952;
-  static FLOAT cc[3] = {10.4017, -8.44793, 1.0};
-
-  const XC(gga_type) *p = p_;
-  FLOAT dd, e1, vrho1[2], vsigma1[3];
-  int ifunc, is, js;
-
-  XC(lda_vxc)(p->lda_aux, rho, &e1, vrho1);
-  dd = cx - cc[0] - cc[1];
-  *zk = dd*e1;
-  for(is=0; is<p->nspin; is++)
-    vrho[is] = dd*vrho1[is];
-  
-  js = (p->nspin == XC_UNPOLARIZED) ? 1 : 3;
-  for(is=0; is<js; is++)
-    vsigma[is] = 0.0;
-  
-  for(ifunc=0; ifunc<3; ifunc++){
-    XC(gga_vxc)(p->gga_aux[ifunc], rho, sigma, &e1, vrho1, vsigma1);
-
-    *zk += cc[ifunc]*e1;
-    for(is=0; is<p->nspin; is++)
-      vrho[is] += cc[ifunc]*vrho1[is];
-
-    for(is=0; is<js; is++)
-      vsigma[is] += cc[ifunc]*vsigma1[is];
-  }
-  
+  XC(gga_init)(&p->mix->gga_mix[2], XC_GGA_C_LYP, p->nspin);
+  XC(gga_c_lyp_set_params)(&p->mix->gga_mix[2], 0.055, 0.158, 0.25, 0.3505);
+  p->mix->gga_coef[2] = 1.0;
 }
 
 const XC(func_info_type) XC(func_info_gga_xc_edf1) = {
@@ -101,7 +59,5 @@ const XC(func_info_type) XC(func_info_gga_xc_edf1) = {
   "RD Adamson, PMW Gill, and JA Pople, Chem. Phys. Lett. 284 6 (1998)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_xc_edf1_init, 
-  gga_xc_edf1_end, 
-  NULL,
-  gga_xc_edf1
+  NULL, NULL, NULL
 };

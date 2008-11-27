@@ -30,17 +30,18 @@ hyb_gga_xc_b1wc_init(void *p_)
 
   XC(hyb_gga_type) *p = (XC(hyb_gga_type) *)p_;
 
-  p->lda_n = 0;
-  p->gga_n = 2;
+  p->mix = (XC(mix_func_type) *) malloc(sizeof(XC(mix_func_type)));
+  XC(mix_func_init)(p->mix, XC_FAMILY_GGA, p->nspin);
 
-  XC(hyb_gga_alloc)(p);
+  p->mix->gga_n = 2;
+  XC(mix_func_alloc)(p->mix);
 
   p->exx_coef = a0;
 
-  XC(gga_init)(p->gga_aux[0], XC_GGA_X_WC, p->nspin);
-  p->gga_coef[0] = (1.0 - a0);
-  XC(gga_init)(p->gga_aux[1], XC_GGA_C_PBE, p->nspin);
-  p->gga_coef[1] = 1.0;
+  XC(gga_init)(&p->mix->gga_mix[0], XC_GGA_X_WC, p->nspin);
+  p->mix->gga_coef[0] = (1.0 - a0);
+  XC(gga_init)(&p->mix->gga_mix[1], XC_GGA_C_PBE, p->nspin);
+  p->mix->gga_coef[1] = 1.0;
 }
 
 
@@ -52,7 +53,5 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1wc) = {
   "DI Bilc, R Orlando, R Shaltaf, G-M Rignanese, J Iniguez, and Ph Ghosez, Phys. Rev. B 77, 165107 (2008)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   hyb_gga_xc_b1wc_init,
-  NULL, 
-  NULL,
-  NULL /* this is taken care by the generic routine */
+  NULL, NULL, NULL
 };

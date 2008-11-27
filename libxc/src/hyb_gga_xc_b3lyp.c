@@ -30,24 +30,27 @@ gga_xc_b3lyp_init(void *p_)
 
   XC(hyb_gga_type) *p = (XC(hyb_gga_type) *)p_;
 
-  p->lda_n = 2;
-  p->gga_n = 2;
+  p->mix = (XC(mix_func_type) *) malloc(sizeof(XC(mix_func_type)));
+  XC(mix_func_init)(p->mix, XC_FAMILY_GGA, p->nspin);
 
-  XC(hyb_gga_alloc)(p);
+  p->mix->lda_n = 2;
+  p->mix->gga_n = 2;
+  XC(mix_func_alloc)(p->mix);
 
   p->exx_coef = a0;
 
-  XC(lda_x_init)(p->lda_aux[0], p->nspin, 3, XC_NON_RELATIVISTIC);
-  p->lda_coef[0] = 1.0 - a0 - ax;
-  /* set the vwn part with the spin interpolation scheme originally used in Gaussian */
-  XC(lda_init)  (p->lda_aux[1], XC_LDA_C_VWN_RPA, p->nspin);
-  XC(lda_c_vwn_set_params)(p, 1);
-  p->lda_coef[1] = 1.0 - ac;
+  XC(lda_x_init)(&p->mix->lda_mix[0], p->nspin, 3, XC_NON_RELATIVISTIC);
+  p->mix->lda_coef[0] = 1.0 - a0 - ax;
 
-  XC(gga_init)(p->gga_aux[0], XC_GGA_X_B88, p->nspin);
-  p->gga_coef[0] = ax;
-  XC(gga_init)(p->gga_aux[1], XC_GGA_C_LYP, p->nspin);
-  p->gga_coef[1] = ac;
+  /* set the vwn part with the spin interpolation scheme originally used in Gaussian */
+  XC(lda_init)  (&p->mix->lda_mix[1], XC_LDA_C_VWN_RPA, p->nspin);
+  XC(lda_c_vwn_set_params)(&p->mix->lda_mix[1], 1);
+  p->mix->lda_coef[1] = 1.0 - ac;
+
+  XC(gga_init)(&p->mix->gga_mix[0], XC_GGA_X_B88, p->nspin);
+  p->mix->gga_coef[0] = ax;
+  XC(gga_init)(&p->mix->gga_mix[1], XC_GGA_C_LYP, p->nspin);
+  p->mix->gga_coef[1] = ac;
 }
 
 
@@ -59,7 +62,5 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b3lyp) = {
   "PJ Stephens, FJ Devlin, CF Chabalowski, MJ Frisch, J. Phys. Chem. 98 11623 (1994)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_xc_b3lyp_init,
-  NULL, 
-  NULL,
-  NULL /* this is taken care by the generic routine */
+  NULL, NULL, NULL
 };

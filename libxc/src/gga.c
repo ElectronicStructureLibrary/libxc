@@ -38,6 +38,7 @@ int XC(gga_init)(XC(gga_type) *p, int functional, int nspin)
   if(XC(gga_known_funct)[i] == NULL) return -1; /* functional not found */
 
   /* initialize structure */
+  p->mix    = NULL;
   p->params = NULL;
   p->info = XC(gga_known_funct)[i];
 
@@ -58,6 +59,10 @@ void XC(gga_end)(XC(gga_type) *p)
 
   if(p->info->end != NULL)
     p->info->end(p);
+
+  if(p->mix != NULL)
+    XC(mix_func_free)(p->mix);
+  free(p->mix); p->mix = NULL;
 }
 
 
@@ -161,8 +166,11 @@ void XC(gga)(const XC(gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
 			 v2rho2, v2rhosigma, v2sigma2)) return;
 
   /* call functional */
-  assert(p->info->gga != NULL);
-  p->info->gga(p, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
+  if(p->info->gga != NULL)
+    p->info->gga(p, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
+
+  if(p->mix != NULL)
+    XC(mix_func)(p->mix, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
 }
 
 /* especializations */

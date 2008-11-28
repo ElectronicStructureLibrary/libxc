@@ -22,7 +22,10 @@
 #include "util.h"
 
 #define XC_HYB_GGA_XC_O3LYP 404 /* hybrid using the optx functional */
+#define XC_HYB_GGA_XC_X3LYP 411 /* maybe the best hybrid */
 
+
+/*************************************************************/
 static void
 gga_xc_o3lyp_init(void *p_)
 {
@@ -41,9 +44,9 @@ gga_xc_o3lyp_init(void *p_)
 
   XC(lda_x_init)(&p->mix->lda_mix[0], p->nspin, 3, XC_NON_RELATIVISTIC);
   p->mix->lda_coef[0] = b0 - ax;
-  /* Warning: the vwn used here has a different spin interpolation formula
-     than the original one implemented in Gaussian */
+
   XC(lda_init)  (&p->mix->lda_mix[1], XC_LDA_C_VWN, p->nspin);
+  XC(lda_c_vwn_set_params)(&p->mix->lda_mix[1], 1);
   p->mix->lda_coef[1] = 1.0 - ac;
 
   XC(gga_init)(&p->mix->gga_mix[0], XC_GGA_X_OPTX, p->nspin);
@@ -51,7 +54,6 @@ gga_xc_o3lyp_init(void *p_)
   XC(gga_init)(&p->mix->gga_mix[1], XC_GGA_C_LYP, p->nspin);
   p->mix->gga_coef[1] = ac;
 }
-
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_o3lyp) = {
   XC_HYB_GGA_XC_O3LYP,
@@ -61,5 +63,50 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_o3lyp) = {
   "AJ Cohen, NC Handy, Mol. Phys. 99 607 (2001)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_xc_o3lyp_init,
+  NULL, NULL, NULL
+};
+
+
+/*************************************************************/
+static void
+gga_xc_x3lyp_init(void *p_)
+{
+  const FLOAT a1=0.675, a2=0.235;
+  const FLOAT a0=0.218, ax=0.709, ac=0.871;
+
+  XC(hyb_gga_type) *p = (XC(hyb_gga_type) *)p_;
+
+  p->mix = (XC(mix_func_type) *) malloc(sizeof(XC(mix_func_type)));
+  XC(mix_func_init)(p->mix, XC_FAMILY_GGA, p->nspin);
+
+  p->mix->lda_n = 2;
+  p->mix->gga_n = 3;
+  XC(mix_func_alloc)(p->mix);
+
+  p->exx_coef = a0;
+
+  XC(lda_x_init)(&p->mix->lda_mix[0], p->nspin, 3, XC_NON_RELATIVISTIC);
+  p->mix->lda_coef[0] = 1.0 - a0 - ax*(a1 + a2);
+
+  XC(lda_init)  (&p->mix->lda_mix[1], XC_LDA_C_VWN_RPA, p->nspin);
+  XC(lda_c_vwn_set_params)(&p->mix->lda_mix[1], 1);
+  p->mix->lda_coef[1] = 1.0 - ac;
+
+  XC(gga_init)(&p->mix->gga_mix[0], XC_GGA_X_B88, p->nspin);
+  p->mix->gga_coef[0] = ax*a1;
+  XC(gga_init)(&p->mix->gga_mix[1], XC_GGA_X_PW91, p->nspin);
+  p->mix->gga_coef[1] = ax*a2;
+  XC(gga_init)(&p->mix->gga_mix[2], XC_GGA_C_LYP, p->nspin);
+  p->mix->gga_coef[2] = ac;
+}
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_x3lyp) = {
+  XC_HYB_GGA_XC_X3LYP,
+  XC_EXCHANGE_CORRELATION,
+  "X3LYP",
+  XC_FAMILY_HYB_GGA,
+  "X Xu, WA Goddard, III, PNAS 101, 2673 (2004)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  gga_xc_x3lyp_init,
   NULL, NULL, NULL
 };

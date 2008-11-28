@@ -26,13 +26,27 @@
 static inline void 
 func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
-  const FLOAT aa[2]   = {0.19645, 0.21516};
-  const FLOAT bb      = 7.7956;
-  const FLOAT cc[2]   = {0.2743, 0.30042};
-  const FLOAT dd[2]   = {-0.1508, -0.17696};
-  const FLOAT ff[2]   = {0.004, 0.00228};
+  const FLOAT b_mPW91    = 0.0046;
+  const FLOAT beta_mPW91 = 0.00189038116669992621307212706745; /* 5*(36 pi)^(-5/3) */
+
+  /* The parameters, written in terms of b and beta=5*(36 pi)^(-5/3), are
+     aa = 6*b/X2S
+     bb = 1/X2S
+     cc = b/(X_FACTOR_C*X2S*X2S)
+     dd = (b-beta)/(X_FACTOR_C*X2S^2)
+     ff = 1e-6/(X_FACTOR_C*X2S^expo)
+
+     with b_PW91~0.0042 and b_mPW91=0.0046
+  */
+     
+
+  const FLOAT aa[]   = {0.19645,  0.215157295352585598013916978744};
+  const FLOAT bb[]   = { 7.7956,  7.795554179441507081094187014969};
+  const FLOAT cc[]   = { 0.2743,  0.300416257087080973420256668760};
+  const FLOAT dd[]   = {-0.1508, -0.176959466963624190150028425705};
+  const FLOAT ff[]   = {  0.004,  0.002279611815362395620121471751};
   const FLOAT alpha   = 100.0;
-  const FLOAT expo[2] = {4.0, 3.75};
+  const FLOAT expo[] = {4.0, 3.73};
 
   FLOAT ss, ss2, ss4;
   FLOAT f1, df1, d2f1, f2, df2, d2f2, f3, df3, d2f3, f4, df4, d2f4;
@@ -49,7 +63,7 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   ss4 = POW(ss, expo[func]);
 
   f1 = dd[func]*exp(-alpha*ss2);
-  f2 = aa[func]*asinh(bb*ss);
+  f2 = aa[func]*asinh(bb[func]*ss);
   f3 = (cc[func] + f1)*ss2 - ff[func]*ss4;
   f4 = 1.0 + ss*f2 + ff[func]*ss4;
 
@@ -58,7 +72,7 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
 
   df1 = -2.0*alpha*ss*f1;
-  df2 = aa[func]*bb/sqrt(1.0 + bb*bb*ss2);
+  df2 = aa[func]*bb[func]/sqrt(1.0 + bb[func]*bb[func]*ss2);
   df3 = 2.0*ss*(cc[func] + f1) + ss2*df1 - expo[func]*ff[func]*POW(ss, expo[func] - 1.0);
   df4 = f2 + ss*df2 + expo[func]*ff[func]*POW(ss, expo[func] - 1.0);
 
@@ -73,7 +87,7 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   if(d2fdx2==NULL) return; /* nothing else to do */
 
   d2f1 = -2.0*alpha*(f1 + ss*df1);
-  d2f2 = -aa[func]*bb*bb*bb*ss/POW(1.0 + bb*bb*ss2, 3.0/2.0);
+  d2f2 = -aa[func]*bb[func]*bb[func]*bb[func]*ss/POW(1.0 + bb[func]*bb[func]*ss2, 3.0/2.0);
   d2f3 = 2.0*(cc[func] + f1 + 2.0*ss*df1) + ss2*d2f1 - 
     expo[func]*(expo[func]-1)*ff[func]*POW(ss, expo[func] - 2.0);
   d2f4 = 2.0*df2 + ss*d2f2 + 

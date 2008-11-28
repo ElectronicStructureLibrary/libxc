@@ -22,21 +22,11 @@
 
 #define XC_GGA_X_2D_B86_MGC      124 /* Becke 86 MGC for 2D systems */
 
-/* WARNING: This can clearly be combined with the 3D version */
-static FLOAT beta, gam;
-
-void func_init(void *p_)
-{
-  FILE *f;
-  f = fopen("2d_b86_mgc_params", "r");
-  fscanf(f, "%lf %lf", &beta, &gam);
-  fclose(f);
-  printf("MGC params = %lf, %lf\n", beta, gam); 
-}
-
 static inline void
 func_2d(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
+  static const FLOAT beta=0.003317, gam=0.008323;
+
   FLOAT dd, ddp, f1, f2, df1, df2, d2f1, d2f2;
 
   dd    = 1.0 + gam*x*x;
@@ -68,9 +58,9 @@ const XC(func_info_type) XC(func_info_gga_x_2d_b86_mgc) = {
   XC_EXCHANGE,
   "Becke 86 with modified gradient correction for 2D",
   XC_FAMILY_GGA,
-  "S Pittalis, E Rasanen, JG Vilhena, and MAL Marques, to be submitted (2008)\n"
+  "S Pittalis, E Rasanen, JG Vilhena, and MAL Marques, accepted in Phys. Rev. A (2008)\n"
   "AD Becke, J. Chem. Phys 85, 7184 (1986)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
-  func_init, NULL, NULL,
+  NULL, NULL, NULL,
   work_gga_x_2d
 };

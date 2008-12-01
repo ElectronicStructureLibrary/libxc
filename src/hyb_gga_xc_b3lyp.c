@@ -71,7 +71,7 @@ gga_xc_b3_init(void *p_)
   p->mix->lda_coef[1] = 1.0 - par[func].ac;
 
   /* set the vwn part with the spin interpolation scheme originally used in Gaussian */
-  if(func==1 || func==2) /* b3lyp and b3p86 */
+  if(par[func].fldac == XC_LDA_C_VWN_RPA) /* b3lyp like functionals */
     XC(lda_c_vwn_set_params)(&p->mix->lda_mix[1], 1);
 
   XC(gga_init)(&p->mix->gga_mix[0], par[func].fggax, p->nspin);

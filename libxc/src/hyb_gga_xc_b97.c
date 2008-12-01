@@ -26,22 +26,46 @@
 #define XC_HYB_GGA_XC_B97_2    410 /* Becke 97-2                               */
 #define XC_HYB_GGA_XC_B97_K    413 /* Boese-Martin for Kinetics                */
 #define XC_HYB_GGA_XC_B97_3    414 /* Becke 97-3                               */
+#define XC_HYB_GGA_XC_SB98_1a  420 /* Schmider-Becke 98 parameterization 1a    */
+#define XC_HYB_GGA_XC_SB98_1b  421 /* Schmider-Becke 98 parameterization 1b    */
+#define XC_HYB_GGA_XC_SB98_1c  422 /* Schmider-Becke 98 parameterization 1c    */
+#define XC_HYB_GGA_XC_SB98_2a  423 /* Schmider-Becke 98 parameterization 2a    */
+#define XC_HYB_GGA_XC_SB98_2b  424 /* Schmider-Becke 98 parameterization 2b    */
+#define XC_HYB_GGA_XC_SB98_2c  425 /* Schmider-Becke 98 parameterization 2c    */
 
 static void
 hyb_gga_xc_b97_init(void *p_)
 {
-  const int iGGA[] = {XC_GGA_XC_B97, XC_GGA_XC_B97_1, XC_GGA_XC_B97_2, XC_GGA_XC_B97_K, XC_GGA_XC_B97_3};
-  const FLOAT a0[] = {       0.1943,            0.21,            0.21,            0.42,    2.692880E-01};
+  const struct { int iGGA; FLOAT a0; } par[] = {
+    {XC_GGA_XC_B97,     0.1943},
+    {XC_GGA_XC_B97_1,   0.21},
+    {XC_GGA_XC_B97_2,   0.21},
+    {XC_GGA_XC_B97_K,   0.42},
+    {XC_GGA_XC_B97_3,   2.692880E-01},
+    {XC_GGA_XC_SB98_1a, 0.229015},
+    {XC_GGA_XC_SB98_1b, 0.199352},
+    {XC_GGA_XC_SB98_1c, 0.192416},
+    {XC_GGA_XC_SB98_2a, 0.232055},
+    {XC_GGA_XC_SB98_2b, 0.237978},
+    {XC_GGA_XC_SB98_2c, 0.219847},
+  };
+
   int func;
 
   XC(hyb_gga_type) *p = (XC(hyb_gga_type) *)p_;
 
   switch(p->info->number){
-  case XC_HYB_GGA_XC_B97:      func = 0; break;
-  case XC_HYB_GGA_XC_B97_1:    func = 1; break;
-  case XC_HYB_GGA_XC_B97_2:    func = 2; break;
-  case XC_HYB_GGA_XC_B97_K:    func = 3; break;
-  case XC_HYB_GGA_XC_B97_3:    func = 4; break;
+  case XC_HYB_GGA_XC_B97:      func =  0; break;
+  case XC_HYB_GGA_XC_B97_1:    func =  1; break;
+  case XC_HYB_GGA_XC_B97_2:    func =  2; break;
+  case XC_HYB_GGA_XC_B97_K:    func =  3; break;
+  case XC_HYB_GGA_XC_B97_3:    func =  4; break;
+  case XC_HYB_GGA_XC_SB98_1a:  func =  5; break;
+  case XC_HYB_GGA_XC_SB98_1b:  func =  6; break;
+  case XC_HYB_GGA_XC_SB98_1c:  func =  7; break;
+  case XC_HYB_GGA_XC_SB98_2a:  func =  8; break;
+  case XC_HYB_GGA_XC_SB98_2b:  func =  9; break;
+  case XC_HYB_GGA_XC_SB98_2c:  func = 10; break;
   default:
     fprintf(stderr, "Internal error in hyb_gga_xc_b97_init\n");
     exit(1);
@@ -54,9 +78,9 @@ hyb_gga_xc_b97_init(void *p_)
   p->mix->gga_n = 1;
   XC(mix_func_alloc)(p->mix);
 
-  p->exx_coef = a0[func];
+  p->exx_coef = par[func].a0;
 
-  XC(gga_init)(&p->mix->gga_mix[0], iGGA[func], p->nspin);
+  XC(gga_init)(&p->mix->gga_mix[0], par[func].iGGA, p->nspin);
   p->mix->gga_coef[0] = 1.0;
 }
 
@@ -111,6 +135,72 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_3) = {
   "Becke 97-3",
   XC_FAMILY_GGA,
   "TW Keal and DJ Tozer, J. Chem. Phys. 123, 121103 (2005)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  hyb_gga_xc_b97_init, 
+  NULL, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1a) = {
+  XC_HYB_GGA_XC_SB98_1a,
+  XC_EXCHANGE_CORRELATION,
+  "SB98 (1a)",
+  XC_FAMILY_GGA,
+  "HL Schmider and AD Becke, J. Chem. Phys. 108, 9624 (1998)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  hyb_gga_xc_b97_init, 
+  NULL, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1b) = {
+  XC_HYB_GGA_XC_SB98_1b,
+  XC_EXCHANGE_CORRELATION,
+  "SB98 (1b)",
+  XC_FAMILY_GGA,
+  "HL Schmider and AD Becke, J. Chem. Phys. 108, 9624 (1998)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  hyb_gga_xc_b97_init, 
+  NULL, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1c) = {
+  XC_HYB_GGA_XC_SB98_1c,
+  XC_EXCHANGE_CORRELATION,
+  "SB98 (1c)",
+  XC_FAMILY_GGA,
+  "HL Schmider and AD Becke, J. Chem. Phys. 108, 9624 (1998)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  hyb_gga_xc_b97_init, 
+  NULL, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2a) = {
+  XC_HYB_GGA_XC_SB98_2a,
+  XC_EXCHANGE_CORRELATION,
+  "SB98 (2a)",
+  XC_FAMILY_GGA,
+  "HL Schmider and AD Becke, J. Chem. Phys. 108, 9624 (1998)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  hyb_gga_xc_b97_init, 
+  NULL, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2b) = {
+  XC_HYB_GGA_XC_SB98_2b,
+  XC_EXCHANGE_CORRELATION,
+  "SB98 (2b)",
+  XC_FAMILY_GGA,
+  "HL Schmider and AD Becke, J. Chem. Phys. 108, 9624 (1998)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  hyb_gga_xc_b97_init, 
+  NULL, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2c) = {
+  XC_HYB_GGA_XC_SB98_2c,
+  XC_EXCHANGE_CORRELATION,
+  "SB98 (2c)",
+  XC_FAMILY_GGA,
+  "HL Schmider and AD Becke, J. Chem. Phys. 108, 9624 (1998)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   hyb_gga_xc_b97_init, 
   NULL, NULL, NULL

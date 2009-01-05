@@ -15,9 +15,7 @@ mGGAs:
 
 hybrids:
   *) 409: B97-1 revised ?
-  *) 412: SB98h
   *) 413: B88+B95?
-  *) mpw1k (51, 65)
 
 hybrid meta:
   *) pw6b95 (38, 51, 60)
@@ -30,7 +28,6 @@ hybrid meta:
 60: Becke, A. D. J. Chem. Phys. 1996, 104, 1040.
 51: Adamo, C.; Barone, V. J. Chem. Phys. 1998, 108, 664.
 66: Zhao, Y.; Truhlar, D. G. J. Phys. Chem. A 2004, 108, 6908.
-65: Lynch, B. J.; Fast, P. L.; Harris, M.; Truhlar, D. G. J. Phys. Chem. A 2000, 104, 4811
 38: Zhao, Y.; Truhlar, D. G. J. Phys. Chem. A, in press.
 60: Becke, A. D. J. Chem. Phys. 1996, 104, 1040.
 66: Zhao, Y.; Truhlar, D. G. J. Phys. Chem. A 2004, 108, 6908.
@@ -41,4 +38,4 @@ hybrid meta:
   Plenum: New York, 1999; p 463.
 69: Toulouse, J.; Savin, A.; Adamo, C. J. Chem. Phys. 2002, 117, 1441.
 54: Becke, A. D. Phys. ReV. A 1988, 38, 3098.
-
+ 

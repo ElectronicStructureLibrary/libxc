@@ -16,7 +16,7 @@ LDA_C_PW	 12	OK	OK	OK	|
 LDA_C_PW_MOD	 13	OK	OK	OK	|
 LDA_C_OB_PW	 14	OK	OK	OK	|
 LDA_C_AMGB	 15	OK	OK		|
-LDA_C_PRM08	 16	-	-	-	| In the drawing board
+LDA_C_PRM08	 16	-	-	-	|
 LDA_TETER93	 20	OK	OK	OK	|
 
 ----------------
@@ -38,7 +38,7 @@ GGA_X_FT97_B	115	OK	OK	OK	|
 GGA_X_PBE_SOL	116	OK	OK	OK	|
 GGA_X_RPBE	117	OK	OK	OK	|
 GGA_X_WC	118	OK	OK	OK	|
-GGA_X_mPW91	119	OK	OK	OK	| numerical coefficients may not have sufficient accuracy!
+GGA_X_mPW91	119	OK	OK	OK	|
 GGA_X_AM05	120	OK	OK	OK	|
 GGA_X_PBEA	121	OK	OK	OK	|
 GGA_X_MPBE	122	OK	OK	OK	|
@@ -57,7 +57,7 @@ GGA_LB		160				|
 GGA_HCTH_93	161	OK	OK	OK	|
 GGA_HCTH_120	162	OK	OK	OK	|
 GGA_HCTH_147	163	OK	OK	OK	|
-GGA_HCTH_407	164				|
+GGA_HCTH_407	164	OK	OK	OK	|
 GGA_EDF1	165				|
 GGA_XLYP	166				|
 GGA_XC_B97	167	OK	OK	OK	| slight discrepancy with repository for a couple of cases
@@ -69,7 +69,7 @@ GGA_XC_B97_3	172	OK	OK	OK	|
 
 ----------------
 HYB_GGA_B3PW91	401				|
-HYB_GGA_B3LYP	402				|
+HYB_GGA_B3LYP	402	OK	OK		|
 HYB_GGA_B3P86	403				|
 HYB_GGA_O3LYP	404				|
 HYB_GGA_PBEH	406				|

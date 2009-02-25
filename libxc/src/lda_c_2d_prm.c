@@ -26,34 +26,34 @@
 Correlation functional by Pittalis, Rasanen & Marques for the 2D electron gas
 ************************************************************************/
 
-#define XC_LDA_C_2D_PRM08  16   /* Pittalis, Rasanen & Marques correlation in 2D */
+#define XC_LDA_C_2D_PRM  16   /* Pittalis, Rasanen & Marques correlation in 2D */
 
 typedef struct{
   FLOAT N;
   FLOAT c;
-} lda_c_prm08_params;
+} lda_c_prm_params;
 
 /* parameters necessary to the calculation */
-static FLOAT prm08_q = 3.9274; /* 2.258 */
+static FLOAT prm_q = 3.9274; /* 2.258 */
 
 /* Initialization */
 static void
-lda_c_2d_prm08_init(void *p_)
+lda_c_2d_prm_init(void *p_)
 {
   XC(lda_type) *p = (XC(lda_type) *)p_;
-  lda_c_prm08_params *params;
+  lda_c_prm_params *params;
 
   assert(p->params == NULL);
 
-  p->params = malloc(sizeof(lda_c_prm08_params));
-  params = (lda_c_prm08_params *) (p->params);
+  p->params = malloc(sizeof(lda_c_prm_params));
+  params = (lda_c_prm_params *) (p->params);
 
   params->N = 0.0;
 }
 
 
 static void 
-lda_c_2d_prm08_end(void *p_)
+lda_c_2d_prm_end(void *p_)
 {
   XC(lda_type) *p = (XC(lda_type) *)p_;
 
@@ -64,28 +64,28 @@ lda_c_2d_prm08_end(void *p_)
 
 
 void 
-XC(lda_c_2d_prm08_set_params)(XC(lda_type) *p, FLOAT N)
+XC(lda_c_2d_prm_set_params)(XC(lda_type) *p, FLOAT N)
 {
-  lda_c_prm08_params *params;
+  lda_c_prm_params *params;
 
   assert(p->params != NULL);
-  params = (lda_c_prm08_params *) (p->params);
+  params = (lda_c_prm_params *) (p->params);
 
   if(N <= 1){
-    fprintf(stderr, "PRM08 functional can not be used for N_electrons <= 1\n");
+    fprintf(stderr, "PRM functional can not be used for N_electrons <= 1\n");
     exit(1);
   }
 
   params->N = N;
-  params->c = M_PI/(2.0*(N - 1.0)*prm08_q*prm08_q); /* Eq. (13) */
+  params->c = M_PI/(2.0*(N - 1.0)*prm_q*prm_q); /* Eq. (13) */
 }
 
 
 static void
-lda_c_2d_prm08(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2)
+lda_c_2d_prm(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2)
 {
   XC(lda_type) *p = (XC(lda_type) *)p_;
-  lda_c_prm08_params *params;
+  lda_c_prm_params *params;
 
   FLOAT dens, beta, phi, c;
   FLOAT sqpi, t1, t2, t3, dt1dbeta, dt1dphi, dt3dphi, dbetadn, dphidn;
@@ -99,7 +99,7 @@ lda_c_2d_prm08(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *
   dens = rho[0];
   if(p->nspin == XC_POLARIZED) dens += rho[1];
 
-  beta = prm08_q*sqrt(dens); /* Eq. (4) */
+  beta = prm_q*sqrt(dens); /* Eq. (4) */
 
   sqpi = sqrt(M_PI);
   c    = params->c;
@@ -107,7 +107,7 @@ lda_c_2d_prm08(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *
   phi = beta/(beta + sqpi/2.0);
 
   t3  = phi - 1.0; /* original version has (phi-1)^2 */
-  t2  = M_PI/(2.0*prm08_q*prm08_q);
+  t2  = M_PI/(2.0*prm_q*prm_q);
 
   t1  = sqpi*beta*t3/(2.0*sqrt(2.0 + c));
   t1 += phi*(phi - 1.0)/(2.0 + c);
@@ -134,7 +134,7 @@ lda_c_2d_prm08(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *
   dt1dphi  += 1.0/(1.0 + c);
   dt1dphi  *= t2;
 
-  dbetadn   = prm08_q/(2.0*sqrt(dens));
+  dbetadn   = prm_q/(2.0*sqrt(dens));
   dphidn    = sqpi/(2.0*(beta + sqpi/2.0)*(beta + sqpi/2.0));
   dphidn   *= dbetadn;
 
@@ -142,14 +142,14 @@ lda_c_2d_prm08(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *
 }
 
 
-const XC(func_info_type) XC(func_info_lda_c_2d_prm08) = {
-  XC_LDA_C_2D_PRM08,
+const XC(func_info_type) XC(func_info_lda_c_2d_prm) = {
+  XC_LDA_C_2D_PRM,
   XC_CORRELATION,
-  "PRM08 (for 2D systems)",
+  "PRM (for 2D systems)",
   XC_FAMILY_LDA,
   "S Pittalis, E Rasanen, and MAL Marques, submitted (2008)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  lda_c_2d_prm08_init,
-  lda_c_2d_prm08_end,
-  lda_c_2d_prm08
+  lda_c_2d_prm_init,
+  lda_c_2d_prm_end,
+  lda_c_2d_prm
 };

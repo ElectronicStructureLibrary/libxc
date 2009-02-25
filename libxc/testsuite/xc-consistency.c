@@ -312,8 +312,8 @@ void test_functional(int functional)
       else
 	xc_lda_init(&(func.lda_func), functional, nspin);
 
-      if(functional == XC_LDA_C_2D_PRM08)
-	xc_lda_c_2d_prm08_set_params(&(func.lda_func), 10.0);
+      if(functional == XC_LDA_C_2D_PRM)
+	xc_lda_c_2d_prm_set_params(&(func.lda_func), 10.0);
 
       info = func.lda_func.info;
       break;

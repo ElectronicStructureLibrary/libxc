@@ -93,6 +93,7 @@ typedef struct XC(struct_lda_type) {
 } XC(lda_type);
 
 int  XC(lda_init)(XC(lda_type) *p, int functional, int nspin);
+void XC(lda_end) (XC(lda_type) *p);
 void XC(lda_x_init)(XC(lda_type) *p, int nspin, int dim, int irel);
 void XC(lda_c_xalpha_init)(XC(lda_type) *p, int nspin, int dim, FLOAT alpha);
 
@@ -102,8 +103,9 @@ void XC(lda_vxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *zk, FLOAT *vrho
 void XC(lda_fxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *v2rho2);
 void XC(lda_kxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *v3rho3);
 
-void XC(lda_c_vwn_set_params)(const XC(lda_type) *p, int spin_interpolation);
+void XC(lda_c_1d_csc_set_params)  (XC(lda_type) *p, FLOAT bb);
 void XC(lda_c_2d_prm08_set_params)(XC(lda_type) *p, FLOAT N);
+void XC(lda_c_vwn_set_params)     (const XC(lda_type) *p, int spin_interpolation);
 
 
 /* the GGAs */

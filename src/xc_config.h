@@ -1,6 +1,7 @@
 #if SINGLE_PRECISION
 #  define FLOAT float
 #  define POW   powf
+#  define LOG   logf
 #  define ASINH asinhf
 #  define ABS   fabsf
 #  define XC(x) xc_s_ ## x
@@ -8,6 +9,7 @@
 #else
 #  define FLOAT double
 #  define POW   pow
+#  define LOG   log
 #  define ASINH asinh
 #  define ABS   fabs
 #  define XC(x) xc_ ## x

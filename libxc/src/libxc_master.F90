@@ -66,7 +66,8 @@ module XC_F90(lib_m)
     XC_F90(lda_fxc),                     &
     XC_F90(lda_kxc),                     &
     XC_F90(lda_end),                     &
-    XC_F90(lda_c_prm08_set_params),      &
+    XC_F90(lda_c_1d_csc_set_params),     &
+    XC_F90(lda_c_2d_prm08_set_params),   &
     XC_F90(gga_init),                    &
     XC_F90(gga),                         &
     XC_F90(gga_exc),                     &
@@ -242,11 +243,19 @@ module XC_F90(lib_m)
   
 
   interface
-    subroutine XC_F90(lda_c_prm08_set_params)(p, N)
+    subroutine XC_F90(lda_c_1d_csc_set_params)(p, bb)
+      use XC_F90(types_m)
+      type(XC_F90(func_t)), intent(inout)  :: p
+      real(xc_f90_kind),    intent(in)     :: bb
+    end subroutine XC_F90(lda_c_1d_csc_set_params)
+  end interface
+
+  interface
+    subroutine XC_F90(lda_c_2d_prm08_set_params)(p, N)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(inout)  :: p
       real(xc_f90_kind),    intent(in)     :: N
-    end subroutine XC_F90(lda_c_prm08_set_params)
+    end subroutine XC_F90(lda_c_2d_prm08_set_params)
   end interface
 
   ! GGAs

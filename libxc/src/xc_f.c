@@ -141,8 +141,15 @@ void XC_FC_FUNC(f90_lda_kxc, F90_LDA_KXC)
 
 /* Now come some special initializations */
 
+/* parameter of CSC */
+void XC_FC_FUNC(f90_lda_c_1d_csc_set_params, F90_LDA_C_1D_CSC_SET_PARAMS)
+  (void **p, FLOAT *bb)
+{
+  XC(lda_c_1d_csc_set_params)((XC(lda_type) *)(*p), *bb);
+}
+
 /* parameter of PRM08 */
-void XC_FC_FUNC(f90_lda_c_2d_prm08_set_par, F90_LDA_C_2D_PRM08_SET_PARAMS)
+void XC_FC_FUNC(f90_lda_c_2d_prm08_set_params, F90_LDA_C_2D_PRM08_SET_PARAMS)
   (void **p, FLOAT *N)
 {
   XC(lda_c_2d_prm08_set_params)((XC(lda_type) *)(*p), *N);

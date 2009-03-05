@@ -112,7 +112,7 @@ void XC(lda_c_vwn_set_params)(const XC(lda_type) *p, int spin_interpolation)
 
 /* Eq. (4.4) of [1] */
 static void
-ec_i(vwn_consts_type *X, int i, FLOAT x, FLOAT *zk, FLOAT *dedrs, FLOAT *d2edrs2)
+ec_i(vwn_consts_type *X, int order, int i, FLOAT x, FLOAT *zk, FLOAT *dedrs, FLOAT *d2edrs2)
 {
   FLOAT f1, f2, f3, fx, qx, xx0, drs, t1, t2, t3;
   
@@ -128,7 +128,7 @@ ec_i(vwn_consts_type *X, int i, FLOAT x, FLOAT *zk, FLOAT *dedrs, FLOAT *d2edrs2
   
   *zk = X->A[i]*(log(x*x/fx) + (f1 - f2*f3)*qx - f2*log(xx0*xx0/fx));
   
-  if(dedrs==NULL && d2edrs2==NULL) return; /* nothing else to do */
+  if(order < 1) return; /* nothing else to do */
 
   t1 = 2.0*x + X->b[i];
   t2 = 2.0*X->c[i] + X->b[i]*x;
@@ -138,10 +138,9 @@ ec_i(vwn_consts_type *X, int i, FLOAT x, FLOAT *zk, FLOAT *dedrs, FLOAT *d2edrs2
   drs *= -2.0*f2/xx0 + (f2*t1 + t2/x)/fx 
     - 2.0*X->Q[i]*(f1 - f2*f3)/t3;
 
-  if(dedrs != NULL)
-    *dedrs = drs/(2.0*x); /* change of sqrt(rs) -> rs */
+  *dedrs = drs/(2.0*x); /* change of sqrt(rs) -> rs */
 
-  if(d2edrs2==NULL) return; /* nothing else to do */
+  if(order < 2) return; /* nothing else to do */
   
   *d2edrs2  = X->A[i];
   *d2edrs2 *= -f2*t1*t1/(fx*fx) - t1*t2/(x*fx*fx) + 2.0*f2/fx
@@ -154,7 +153,7 @@ ec_i(vwn_consts_type *X, int i, FLOAT x, FLOAT *zk, FLOAT *dedrs, FLOAT *d2edrs2
 
 /* the functional */
 static inline void 
-func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta, 
+func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta, 
      FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
      FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
 {
@@ -170,7 +169,7 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
 
   X = &vwn_consts[func];
 
-  ec_i(X, 0, rs[0], zk, dedrs, d2edrs2);
+  ec_i(X, order, 0, rs[0], zk, dedrs, d2edrs2);
   
   if(p->nspin==XC_POLARIZED){
     FLOAT ec1, ec2, ec3, vc1, vc2, vc3, fc1, fc2, fc3;
@@ -178,16 +177,11 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
     
     /* store paramagnetic values */
     ec1 = *zk;
-    if(dedrs   != NULL) vc1 = *dedrs;
-    if(d2edrs2 != NULL) fc1 = *d2edrs2;
+    if(order >= 1) vc1 = *dedrs;
+    if(order >= 2) fc1 = *d2edrs2;
     
-    ec_i(X, 1, rs[0], &ec2, dedrs, d2edrs2);
-    if(dedrs   != NULL) vc2 = *dedrs;
-    if(d2edrs2 != NULL) fc2 = *d2edrs2;
-    
-    ec_i(X, 2, rs[0], &ec3, dedrs, d2edrs2);
-    if(dedrs   != NULL) vc3 = *dedrs;
-    if(d2edrs2 != NULL) fc3 = *d2edrs2;
+    ec_i(X, order, 1, rs[0], &ec2, &vc2, &fc2);
+    ec_i(X, order, 2, rs[0], &ec3, &vc3, &fc3);
     
     fz  = FZETA(zeta);
     if(params->spin_interpolation == 1){
@@ -202,7 +196,7 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
 
     *zk =  ec1 +  ec3*t1 + (ec2 -  ec1)*t2;
 
-    if(dedrs==NULL && d2edrs2==NULL) return; /* nothing else to do */
+    if(order < 1) return; /* nothing else to do */
 
     dfz  = DFZETA(zeta);
     if(params->spin_interpolation == 1){
@@ -214,12 +208,10 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
       dt2  = dfz*z4 + 4.0*fz*z3;
     }
 
-    if(dedrs!=NULL){
-      *dedrs = vc1 + vc3* t1 + (vc2 - vc1)* t2;
-      *dedz  =       ec3*dt1 + (ec2 - ec1)*dt2;
-    }
+    *dedrs = vc1 + vc3* t1 + (vc2 - vc1)* t2;
+    *dedz  =       ec3*dt1 + (ec2 - ec1)*dt2;
 
-    if(d2edrs2==NULL) return; /* nothing else to do */
+    if(order < 2) return; /* nothing else to do */
 
     d2fz  = D2FZETA(zeta);
     if(params->spin_interpolation == 1){

@@ -26,7 +26,7 @@
 #define XC_LDA_C_RPA  3   /* Random Phase Approximation   */
 
 static inline void 
-func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta, 
+func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta, 
      FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
      FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
 {
@@ -36,16 +36,13 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
   lrs = log(rs[1]);
   *zk = a*lrs + b + c*rs[1]*lrs + d*rs[1];
 
-  if(dedrs != NULL)  
-     *dedrs = a/rs[1] + c*(lrs + 1.0) + d;
+  if(order < 1) return;
 
-  if(d2edrs2 != NULL)
-    *d2edrs2 = -a/rs[2] + c/rs[1];
-  
-  if(p->nspin==XC_POLARIZED){
-    if(dedrs   != NULL) *dedz = 0.0;
-    if(d2edrs2 != NULL) *d2edrsz = *d2edz2 = 0.0;
-  }
+  *dedrs = a/rs[1] + c*(lrs + 1.0) + d;
+
+  if(order < 2) return;
+
+  *d2edrs2 = -a/rs[2] + c/rs[1];
 }
 
 #include "work_lda.c"

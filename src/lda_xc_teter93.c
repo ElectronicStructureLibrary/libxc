@@ -32,7 +32,7 @@ static FLOAT teter_bp[4] = {0.000000000000000,  0.2673612973836267, 0.2052004607
 
 /* the functional */
 static inline void 
-func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta, 
+func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta, 
      FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
      FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
 {
@@ -61,7 +61,7 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
   denom = bb[0]*mrs[1] + bb[1]*mrs[2] + bb[2]*mrs[3] + bb[3]*mrs[4];
   *zk = -num/(denom);
 
-  if(dedrs==NULL && d2edrs2==NULL) return; /* nothing else to do */
+  if(order < 1) return; /* nothing else to do */
 
   dfz       = DFZETA(zeta);
   DnumDrs   = aa[1] + 2*aa[2]*mrs[1] + 3*aa[3]*mrs[2];
@@ -72,12 +72,10 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
 
   denom2 = denom*denom;
 
-  if(dedrs!=NULL){
-    *dedrs = -(DnumDrs*denom - DdenomDrs*num)/denom2;
-    *dedz  = -(DnumDz*denom  - DdenomDz*num) /denom2;
-  }
+  *dedrs = -(DnumDrs*denom - DdenomDrs*num)/denom2;
+  *dedz  = -(DnumDz*denom  - DdenomDz*num) /denom2;
 
-  if(d2edrs2==NULL) return; /* nothing else to do */
+  if(order < 2) return; /* nothing else to do */
 
   d2fz = D2FZETA(zeta);
 

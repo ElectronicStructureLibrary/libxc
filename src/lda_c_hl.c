@@ -30,7 +30,7 @@
 #define XC_LDA_C_GL   5   /* Gunnarson & Lundqvist        */
 #define XC_LDA_C_vBH 17   /* von Barth & Hedin            */
 
-static void hl_f(int func, int i, FLOAT rs, FLOAT *zk, FLOAT *drs, FLOAT *d2rs)
+static void hl_f(int func, int order, int i, FLOAT rs, FLOAT *zk, FLOAT *drs, FLOAT *d2rs)
 {
   static const 
     FLOAT r[3][2] = {{21.0,   21.0},     /* HL unpolarized only*/
@@ -50,17 +50,19 @@ static void hl_f(int func, int i, FLOAT rs, FLOAT *zk, FLOAT *drs, FLOAT *d2rs)
   a   = log(1.0 + 1.0/x);
   *zk = -c[func][i]*((1.0 + x3)*a - x2 + 0.5*x - 1.0/3.0);
   
-  if(drs != NULL)
-    *drs = -c[func][i]/r[func][i]*(3.0*x*(x*a - 1) - 1/x + 3.0/2.0);
+  if(order < 1) return;
 
-  if(d2rs != NULL)
-    *d2rs = -c[func][i]/(r[func][i]*r[func][i]*x2*(1.0 + x))*
-      (1.0 + x - 3.0*x2 - 6.0*x3*(1.0 - (1.0 + x)*a));
+  *drs = -c[func][i]/r[func][i]*(3.0*x*(x*a - 1) - 1/x + 3.0/2.0);
+
+  if(order < 2) return;
+
+  *d2rs = -c[func][i]/(r[func][i]*r[func][i]*x2*(1.0 + x))*
+    (1.0 + x - 3.0*x2 - 6.0*x3*(1.0 - (1.0 + x)*a));
 }
 
 
 static inline void 
-func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta, 
+func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta, 
      FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
      FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
 {
@@ -72,7 +74,7 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
   default:           func = 0; /* original HL */
   }
 
-  hl_f(func, 0, rs[1], zk, dedrs, d2edrs2);
+  hl_f(func, order, 0, rs[1], zk, dedrs, d2edrs2);
 
   if(p->nspin==XC_POLARIZED){
     FLOAT ecp, vcp, fcp;
@@ -80,26 +82,24 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
     
     /* store paramagnetic values */
     ecp = *zk;
-    if(dedrs   != NULL) vcp = *dedrs;
-    if(d2edrs2 != NULL) fcp = *d2edrs2;
+    if(order >= 1) vcp = *dedrs;
+    if(order >= 2) fcp = *d2edrs2;
 
     /* get ferromagnetic values */
-    hl_f(func, 1, rs[1], &ecf, dedrs, d2edrs2);
-    if(dedrs   != NULL) vcf = *dedrs;
-    if(d2edrs2 != NULL) fcf = *d2edrs2;
+    hl_f(func, order, 1, rs[1], &ecf, dedrs, d2edrs2);
+    if(order >= 1) vcf = *dedrs;
+    if(order >= 2) fcf = *d2edrs2;
     
     fz  =  FZETA(zeta);
     *zk = ecp + (ecf - ecp)*fz;
 
-    if(dedrs==NULL && d2edrs2==NULL) return; /* nothing else to do */
+    if(order < 1) return; /* nothing else to do */
 
     dfz = DFZETA(zeta);
-    if(dedrs!=NULL){
-      *dedrs = vcp + (vcf - vcp)*fz;
-      *dedz  = (ecf - ecp)*dfz;
-    }
+    *dedrs = vcp + (vcf - vcp)*fz;
+    *dedz  = (ecf - ecp)*dfz;
 
-    if(d2edrs2==NULL) return; /* nothing else to do */
+    if(order < 2) return;
     
     d2fz = D2FZETA(zeta);
     *d2edrs2 = fcp + (fcf - fcp)*fz;

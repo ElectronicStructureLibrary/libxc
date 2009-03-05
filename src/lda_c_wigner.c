@@ -26,7 +26,7 @@
 #define XC_LDA_C_WIGNER  2   /* Wigner parametrization       */
 
 static inline void 
-func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta, 
+func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta, 
      FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
      FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
 {
@@ -36,17 +36,13 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
   t   =  b + rs[1];
   *zk =  a/t;
 
-  if(dedrs != NULL)
-    *dedrs = -a/(t*t);
+  if(order < 1) return;
 
-  if(d2edrs2 != NULL)
-    *d2edrs2 = 2.0*a/(t*t*t);
-  
-  if(p->nspin==XC_POLARIZED){
-    if(dedrs   != NULL) *dedz = 0.0;
-    if(d2edrs2 != NULL) *d2edrsz = *d2edz2 = 0.0;
-  }
+  *dedrs = -a/(t*t);
 
+  if(order < 2) return;
+
+  *d2edrs2 = 2.0*a/(t*t*t);  
 }
 
 #include "work_lda.c"

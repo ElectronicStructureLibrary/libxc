@@ -73,7 +73,8 @@ pz_consts[3] = {
 
 /* Auxiliary functions to handle parametrizations */
 static void
-ec_pot_low(pz_consts_type *X, int i, FLOAT *rs, FLOAT *zk, FLOAT *dedrs, FLOAT *d2edrs2)
+ec_pot_low(pz_consts_type *X, int order, int i, 
+	   FLOAT *rs, FLOAT *zk, FLOAT *dedrs, FLOAT *d2edrs2)
 {
   FLOAT f1;
 
@@ -81,44 +82,43 @@ ec_pot_low(pz_consts_type *X, int i, FLOAT *rs, FLOAT *zk, FLOAT *dedrs, FLOAT *
   f1  = 1.0 + X->beta1[i]*rs[0] + X->beta2[i]*rs[1];  
   *zk = X->gamma[i]/f1;
 
-  if(dedrs==NULL && d2edrs2==NULL) return; /* nothing else to do */
+  if(order < 1) return; /* nothing else to do */
 
-  if(dedrs != NULL){
-    *dedrs  = -X->gamma[i];
-    *dedrs *= X->beta1[i]/(2.0*rs[0]) + X->beta2[i];
-    *dedrs /= f1*f1;
-  }
+  *dedrs  = -X->gamma[i];
+  *dedrs *= X->beta1[i]/(2.0*rs[0]) + X->beta2[i];
+  *dedrs /= f1*f1;
 
-  if(d2edrs2 != NULL){
-    *d2edrs2  = X->gamma[i];
-    *d2edrs2 *= X->beta1[i] + 3.0*X->beta1[i]*X->beta1[i]*rs[0] +
-      9.0*X->beta1[i]*X->beta2[i]*rs[1] + 8.0*X->beta2[i]*X->beta2[i]*rs[0]*rs[1];
-    *d2edrs2 /= 4.0*rs[0]*rs[1]*f1*f1*f1;
-  }
+  if(order < 2) return;
+
+  *d2edrs2  = X->gamma[i];
+  *d2edrs2 *= X->beta1[i] + 3.0*X->beta1[i]*X->beta1[i]*rs[0] +
+    9.0*X->beta1[i]*X->beta2[i]*rs[1] + 8.0*X->beta2[i]*X->beta2[i]*rs[0]*rs[1];
+  *d2edrs2 /= 4.0*rs[0]*rs[1]*f1*f1*f1;
 }
 
 
 static void 
-ec_pot_high(pz_consts_type *X, int i, FLOAT *rs, FLOAT *zk, FLOAT *dedrs, FLOAT *d2edrs2)
+ec_pot_high(pz_consts_type *X, int order, int i, 
+	    FLOAT *rs, FLOAT *zk, FLOAT *dedrs, FLOAT *d2edrs2)
 {
   FLOAT lrs = log(rs[1]);
 
   /* Eq. [1].C5 */
   *zk  = X->a[i]*lrs + X->b[i] + X->c[i]*rs[1]*lrs + X->d[i]*rs[1];
 
-  if(dedrs != NULL){
-    *dedrs = X->a[i]/rs[1] + (X->c[i] + X->d[i]) + X->c[i]*lrs;
-  }
+  if(order < 1) return;
 
-  if(d2edrs2 != NULL){
-    *d2edrs2 = -X->a[i]/rs[2] + X->c[i]/rs[1];
-  }
+  *dedrs = X->a[i]/rs[1] + (X->c[i] + X->d[i]) + X->c[i]*lrs;
+
+  if(order <2) return;
+
+  *d2edrs2 = -X->a[i]/rs[2] + X->c[i]/rs[1];
 }
 
 
 /* the functional */
 static inline void 
-func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta, 
+func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta, 
      FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
      FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
 {
@@ -128,9 +128,9 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
   assert(func==0 || func==1 || func==2);
   
   if(rs[1] >= 1.0)
-    ec_pot_low (&pz_consts[func], 0, rs, zk, dedrs, d2edrs2);
+    ec_pot_low (&pz_consts[func], order, 0, rs, zk, dedrs, d2edrs2);
   else
-    ec_pot_high(&pz_consts[func], 0, rs, zk, dedrs, d2edrs2);
+    ec_pot_high(&pz_consts[func], order, 0, rs, zk, dedrs, d2edrs2);
   
   if(p->nspin == XC_POLARIZED){
     FLOAT ecp, vcp, fcp;
@@ -138,29 +138,25 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
     
     /* store paramagnetic values */
     ecp = *zk;
-    if(dedrs   != NULL) vcp = *dedrs;
-    if(d2edrs2 != NULL) fcp = *d2edrs2;
+    if(order >= 1) vcp = *dedrs;
+    if(order >= 2) fcp = *d2edrs2;
 
     /* get ferromagnetic values */
     if(rs[1] >= 1.0)
-      ec_pot_low (&pz_consts[func], 1, rs, &ecf, dedrs, d2edrs2);
+      ec_pot_low (&pz_consts[func], order, 1, rs, &ecf, &vcf, &fcf);
     else
-      ec_pot_high(&pz_consts[func], 1, rs, &ecf, dedrs, d2edrs2);
-    if(dedrs   != NULL) vcf = *dedrs;
-    if(d2edrs2 != NULL) fcf = *d2edrs2;
+      ec_pot_high(&pz_consts[func], order, 1, rs, &ecf, &vcf, &fcf);
 
     fz  =  FZETA(zeta);
     *zk = ecp + (ecf - ecp)*fz;
 
-    if(dedrs==NULL && d2edrs2==NULL) return; /* nothing else to do */
+    if(order < 1) return; /* nothing else to do */
 
     dfz = DFZETA(zeta);
-    if(dedrs!=NULL){
-      *dedrs = vcp + (vcf - vcp)*fz;
-      *dedz  = (ecf - ecp)*dfz;
-    }
+    *dedrs = vcp + (vcf - vcp)*fz;
+    *dedz  = (ecf - ecp)*dfz;
 
-    if(d2edrs2==NULL) return; /* nothing else to do */
+    if(order < 2) return; /* nothing else to do */
     
     d2fz = D2FZETA(zeta);
     *d2edrs2 = fcp + (fcf - fcp)*fz;

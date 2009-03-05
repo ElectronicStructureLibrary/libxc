@@ -40,7 +40,8 @@ the constants of PW.
 
 /* Function g defined by Eq. 10 of the original paper,
    and it's derivative with respect to rs, Eq. A5 */
-static void g(int func, int k, FLOAT *rs, FLOAT *f, FLOAT *dfdrs, FLOAT *d2fdrs2)
+static void g(int func, int order, int k, FLOAT *rs, 
+	      FLOAT *f, FLOAT *dfdrs, FLOAT *d2fdrs2)
 {
   static FLOAT a[3][3]     = 
     {
@@ -70,6 +71,7 @@ static void g(int func, int k, FLOAT *rs, FLOAT *f, FLOAT *dfdrs, FLOAT *d2fdrs2
     }};
   
   FLOAT q0, dq0, q1, dq1, q2;
+  FLOAT d2q1;
   
   q0  = -2.0*a[func][k]*(1.0 + alpha[func][k]*rs[1]);
   q1  =  2.0*a[func][k];
@@ -80,30 +82,27 @@ static void g(int func, int k, FLOAT *rs, FLOAT *f, FLOAT *dfdrs, FLOAT *d2fdrs2
   /* the function */
   *f = q0*q2;
   
-  if(dfdrs==NULL && d2fdrs2==NULL) return; /* nothing else to do */
+  if(order < 1) return; /* nothing else to do */
 
   /* and now the derivative */
   dq0 = -2.0*a[func][k]*alpha[func][k];
   dq1 = a[func][k]*(beta[func][k][0]/rs[0] + 2.0*beta[func][k][1] + 
 		    3.0*beta[func][k][2]*rs[0] + 4.0*beta[func][k][3]*rs[1]);
 
-  if(dfdrs!=NULL)
-    *dfdrs = dq0*q2 - q0*dq1/(q1*(1.0 + q1));
+  *dfdrs = dq0*q2 - q0*dq1/(q1*(1.0 + q1));
 
-  if(d2fdrs2 != NULL){
-    FLOAT d2q1;
+  if(order < 2) return;
 
-    d2q1 = a[func][k]*(-beta[func][k][0]/(2.0*rs[0]*rs[1]) +
-		       3.0*beta[func][k][2]/(2.0*rs[0]) + 4.0*beta[func][k][3]);
+  d2q1 = a[func][k]*(-beta[func][k][0]/(2.0*rs[0]*rs[1]) +
+		     3.0*beta[func][k][2]/(2.0*rs[0]) + 4.0*beta[func][k][3]);
 
-    *d2fdrs2 = 1.0/(q1*(1.0 + q1))*(-2*dq0*dq1 - q0*d2q1 + q0*(2.0*q1 + 1.0)*dq1*dq1/(q1*(1.0 + q1)));
-  }
+  *d2fdrs2 = 1.0/(q1*(1.0 + q1))*(-2*dq0*dq1 - q0*d2q1 + q0*(2.0*q1 + 1.0)*dq1*dq1/(q1*(1.0 + q1)));
 }
 
 
 /* the functional */
 static inline void 
-func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta, 
+func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta, 
      FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
      FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
 {
@@ -113,7 +112,7 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
   assert(func==0 || func==1 || func==2);
   
   /* ec(rs, 0) */
-  g(func, 0, rs, zk, dedrs, d2edrs2);
+  g(func, order, 0, rs, zk, dedrs, d2edrs2);
   
   if(p->nspin == XC_POLARIZED){
     static FLOAT fz20[3] = {
@@ -127,19 +126,17 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
     
     /* store paramagnetic values */
     ecp = *zk;
-    if(dedrs   != NULL) vcp = *dedrs;
-    if(d2edrs2 != NULL) fcp = *d2edrs2;   
+    if(order >= 1) vcp = *dedrs;
+    if(order >= 2) fcp = *d2edrs2;   
 
     /* get ferromagnetic values */
-    g(func, 1, rs, &ecf, dedrs, d2edrs2);
-    if(dedrs   != NULL) vcf = *dedrs;
-    if(d2edrs2 != NULL) fcf = *d2edrs2;
+    g(func, order, 1, rs, &ecf, &vcf, &fcf);
 
     /* get alpha_c */
-    g(func, 2, rs, &alpha, dedrs, d2edrs2);
-    alpha = -alpha;
-    if(dedrs   != NULL) dalpha  = -(*dedrs);
-    if(d2edrs2 != NULL) d2alpha = -(*d2edrs2);
+    g(func, order, 2, rs, &alpha, &dalpha, &d2alpha);
+    alpha *= -1.0;
+    if(order >= 1) dalpha  *= -1.0;
+    if(order >= 2) d2alpha *= -1.0;
 
     fz  = FZETA(zeta);
     z2  = zeta*zeta;
@@ -147,23 +144,21 @@ func(const XC(lda_type) *p, FLOAT *rs, FLOAT zeta,
     z4  = zeta*z3;
     *zk = ecp + z4*fz*(ecf - ecp - alpha/fz20[func]) + fz*alpha/fz20[func];
 
-    if(dedrs==NULL && d2edrs2==NULL) return; /* nothing else to do */
+    if(order < 1) return; /* nothing else to do */
 
     dfz = DFZETA(zeta);
-    if(dedrs!=NULL){
-      *dedrs = vcp + z4*fz*(vcf - vcp - dalpha/fz20[func]) + fz*dalpha/fz20[func];
-      *dedz  = (4.0*z3*fz + z4*dfz)*(ecf - ecp - alpha/fz20[func])
-	+ dfz*alpha/fz20[func];
-    }
+    *dedrs = vcp + z4*fz*(vcf - vcp - dalpha/fz20[func]) + fz*dalpha/fz20[func];
+    *dedz  = (4.0*z3*fz + z4*dfz)*(ecf - ecp - alpha/fz20[func])
+      + dfz*alpha/fz20[func];
 
-    if(d2edrs2==NULL) return; /* nothing else to do */
+    if(order < 2) return; /* nothing else to do */
     
     d2fz = D2FZETA(zeta);
     *d2edrs2 = fcp + z4*fz*(fcf - fcp - d2alpha/fz20[func]) + fz*d2alpha/fz20[func];
     *d2edrsz = (4.0*z3*fz + z4*dfz)*(vcf - vcp - dalpha/fz20[func])
-	+ dfz*dalpha/fz20[func];
+      + dfz*dalpha/fz20[func];
     *d2edz2  = (4.0*3.0*z2*fz + 8.0*z3*dfz + z4*d2fz)*(ecf - ecp - alpha/fz20[func])
-	+ d2fz*alpha/fz20[func];
+      + d2fz*alpha/fz20[func];
   }
 }
 

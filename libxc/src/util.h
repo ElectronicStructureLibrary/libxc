@@ -46,10 +46,10 @@ double lambert_w(double z);
 #define X_FACTOR_2D_C  1.504505556127350098528211870828726895584      /* 8/(3*sqrt(pi))        */
 #define X2S            0.1282782438530421943003109254455883701296     /* 1/(2*(6*pi^2)^(1/3))  */
 #define FZETAFACTOR    0.519842099789746380
-#define FZETA(x)       ((pow(1.0 + zeta,  4.0/3.0) + pow(1.0 - zeta,  4.0/3.0) - 2.0)/FZETAFACTOR)
-#define DFZETA(x)      ((pow(1.0 + zeta,  1.0/3.0) - pow(1.0 - zeta,  1.0/3.0))*(4.0/3.0)/FZETAFACTOR)
-#define D2FZETA(x)     ((4.0/9.0)/FZETAFACTOR)*(ABS(zeta)==1.0 ? (FLT_MAX) : \
-			      (pow(1.0 + zeta, -2.0/3.0) + pow(1.0 - zeta, -2.0/3.0)))
+#define FZETA(x)       ((pow(1.0 + (x),  4.0/3.0) + pow(1.0 - (x),  4.0/3.0) - 2.0)/FZETAFACTOR)
+#define DFZETA(x)      ((pow(1.0 + (x),  1.0/3.0) - pow(1.0 - (x),  1.0/3.0))*(4.0/3.0)/FZETAFACTOR)
+#define D2FZETA(x)     ((4.0/9.0)/FZETAFACTOR)* \
+  (ABS(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -2.0/3.0) + pow(1.0 - (x), -2.0/3.0)))
 
 #define MIN_DENS             1.0e-20
 #define MIN_GRAD             1.0e-20
@@ -60,6 +60,16 @@ double lambert_w(double z);
 void XC(rho2dzeta)(int nspin, const FLOAT *rho, FLOAT *d, FLOAT *zeta);
 
 /* LDAs */
+typedef struct XC(lda_rs_zeta) {
+  int   order; /* to which order should I return the derivatives */
+  FLOAT rs[3], zeta;
+
+  FLOAT zk;
+  FLOAT dedrs, dedz;                           /*  first derivatives of zk */
+  FLOAT d2edrs2, d2edrsz, d2edz2;              /* second derivatives of zk */
+  FLOAT d3edrs3, d3edrs2dz, d3edrsdz2, d3edz3; /*  third derivatives of zk */
+} XC(lda_rs_zeta);
+
 void XC(lda_fxc_fd)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *fxc);
 void XC(lda_kxc_fd)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *kxc);
 

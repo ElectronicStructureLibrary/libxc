@@ -26,23 +26,28 @@
 #define XC_LDA_C_RPA  3   /* Random Phase Approximation   */
 
 static inline void 
-func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta, 
-     FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
-     FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
+func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   static FLOAT a = 0.0311, b = -0.047, c = 0.009, d = -0.017;
   FLOAT lrs;
 
-  lrs = log(rs[1]);
-  *zk = a*lrs + b + c*rs[1]*lrs + d*rs[1];
+  lrs = log(r->rs[1]);
+  r->zk = a*lrs + b + c*r->rs[1]*lrs + d*r->rs[1];
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
-  *dedrs = a/rs[1] + c*(lrs + 1.0) + d;
+  r->dedrs = a/r->rs[1] + c*(lrs + 1.0) + d;
+  r->dedz  = 0.0;
 
-  if(order < 2) return;
+  if(r->order < 2) return;
 
-  *d2edrs2 = -a/rs[2] + c/rs[1];
+  r->d2edrs2 = -a/r->rs[2] + c/r->rs[1];
+  r->d2edrsz = r->d2edz2 = 0.0;
+
+  if(r->order < 3) return;
+
+  r->d3edrs3 = 2.0*a/(r->rs[1]*r->rs[2]) - c/r->rs[2];
+  r->d3edrs2dz = r->d3edrsdz2 = r->d3edz3 = 0.0;
 }
 
 #include "work_lda.c"
@@ -53,7 +58,7 @@ const XC(func_info_type) XC(func_info_lda_c_rpa) = {
   "Random Phase Approximation (RPA)",
   XC_FAMILY_LDA,
   "M Gell-Mann and KA Brueckner, Phys. Rev. 106, 364 (1957)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC | XC_PROVIDES_KXC,
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */

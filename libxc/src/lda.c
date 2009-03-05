@@ -116,14 +116,12 @@ void XC(lda)(const XC(lda_type) *p, const FLOAT *rho,
   assert(p->info!=NULL && p->info->lda!=NULL);
 
   /* call the LDA routines */
-  if((zk != NULL || vrho !=NULL) || 
-     (v2rho2 != NULL && (p->info->provides & XC_PROVIDES_FXC)))
-    p->info->lda(p, rho, zk, vrho, v2rho2);
+  p->info->lda(p, rho, zk, vrho, v2rho2, v3rho3);
 
   /* if necessary, call the finite difference routines */
   if(v2rho2 != NULL && !(p->info->provides & XC_PROVIDES_FXC))
     XC(lda_fxc_fd)(p, rho, v2rho2);
-
+  
   if(v3rho3 != NULL && !(p->info->provides & XC_PROVIDES_KXC))
     XC(lda_kxc_fd)(p, rho, v3rho3);
 }

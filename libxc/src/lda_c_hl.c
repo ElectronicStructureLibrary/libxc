@@ -62,9 +62,7 @@ static void hl_f(int func, int order, int i, FLOAT rs, FLOAT *zk, FLOAT *drs, FL
 
 
 static inline void 
-func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta, 
-     FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
-     FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
+func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   int func;
   
@@ -74,37 +72,35 @@ func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta,
   default:           func = 0; /* original HL */
   }
 
-  hl_f(func, order, 0, rs[1], zk, dedrs, d2edrs2);
+  hl_f(func, r->order, 0, r->rs[1], &r->zk, &r->dedrs, &r->d2edrs2);
 
   if(p->nspin==XC_POLARIZED){
     FLOAT ecp, vcp, fcp;
     FLOAT ecf, vcf, fcf, fz, dfz, d2fz;
     
     /* store paramagnetic values */
-    ecp = *zk;
-    if(order >= 1) vcp = *dedrs;
-    if(order >= 2) fcp = *d2edrs2;
+    ecp = r->zk;
+    if(r->order >= 1) vcp = r->dedrs;
+    if(r->order >= 2) fcp = r->d2edrs2;
 
     /* get ferromagnetic values */
-    hl_f(func, order, 1, rs[1], &ecf, dedrs, d2edrs2);
-    if(order >= 1) vcf = *dedrs;
-    if(order >= 2) fcf = *d2edrs2;
+    hl_f(func, r->order, 1, r->rs[1], &ecf, &vcf, &fcf);
     
-    fz  =  FZETA(zeta);
-    *zk = ecp + (ecf - ecp)*fz;
+    fz  =  FZETA(r->zeta);
+    r->zk = ecp + (ecf - ecp)*fz;
 
-    if(order < 1) return; /* nothing else to do */
+    if(r->order < 1) return; /* nothing else to do */
 
-    dfz = DFZETA(zeta);
-    *dedrs = vcp + (vcf - vcp)*fz;
-    *dedz  = (ecf - ecp)*dfz;
+    dfz = DFZETA(r->zeta);
+    r->dedrs = vcp + (vcf - vcp)*fz;
+    r->dedz  = (ecf - ecp)*dfz;
 
-    if(order < 2) return;
+    if(r->order < 2) return;
     
-    d2fz = D2FZETA(zeta);
-    *d2edrs2 = fcp + (fcf - fcp)*fz;
-    *d2edrsz =       (vcf - vcp)*dfz;
-    *d2edz2  =       (ecf - ecp)*d2fz;
+    d2fz = D2FZETA(r->zeta);
+    r->d2edrs2 = fcp + (fcf - fcp)*fz;
+    r->d2edrsz =       (vcf - vcp)*dfz;
+    r->d2edz2  =       (ecf - ecp)*d2fz;
   }
 }
 

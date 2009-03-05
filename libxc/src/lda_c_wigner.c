@@ -26,23 +26,29 @@
 #define XC_LDA_C_WIGNER  2   /* Wigner parametrization       */
 
 static inline void 
-func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta, 
-     FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
-     FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
+func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   static FLOAT a = -0.44, b = 7.8;
-  FLOAT t;
+  FLOAT t, t2;
   
-  t   =  b + rs[1];
-  *zk =  a/t;
+  t   =  b + r->rs[1];
+  r->zk =  a/t;
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
-  *dedrs = -a/(t*t);
+  t2       = t*t;
+  r->dedrs = -a/t2;
+  r->dedz  = 0.0;
 
-  if(order < 2) return;
+  if(r->order < 2) return;
 
-  *d2edrs2 = 2.0*a/(t*t*t);  
+  r->d2edrs2 = 2.0*a/(t2*t);
+  r->d2edrsz = r->d2edz2 = 0.0;
+
+  if(r->order < 3) return;
+
+  r->d3edrs3 = -2.0*3.0*a/(t2*t2);
+  r->d3edrs2dz = r->d3edrsdz2 = r->d3edz3 = 0.0;
 }
 
 #include "work_lda.c"
@@ -53,7 +59,7 @@ const XC(func_info_type) XC(func_info_lda_c_wigner) = {
   "Wigner",
   XC_FAMILY_LDA,
   "EP Wigner, Trans. Faraday Soc. 34, 678 (1938)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC | XC_PROVIDES_KXC,
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */

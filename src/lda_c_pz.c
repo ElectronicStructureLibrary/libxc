@@ -118,50 +118,48 @@ ec_pot_high(pz_consts_type *X, int order, int i,
 
 /* the functional */
 static inline void 
-func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta, 
-     FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
-     FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
+func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   int func;
 
   func= p->info->number - XC_LDA_C_PZ;
   assert(func==0 || func==1 || func==2);
   
-  if(rs[1] >= 1.0)
-    ec_pot_low (&pz_consts[func], order, 0, rs, zk, dedrs, d2edrs2);
+  if(r->rs[1] >= 1.0)
+    ec_pot_low (&pz_consts[func], r->order, 0, r->rs, &r->zk, &r->dedrs, &r->d2edrs2);
   else
-    ec_pot_high(&pz_consts[func], order, 0, rs, zk, dedrs, d2edrs2);
+    ec_pot_high(&pz_consts[func], r->order, 0, r->rs, &r->zk, &r->dedrs, &r->d2edrs2);
   
   if(p->nspin == XC_POLARIZED){
     FLOAT ecp, vcp, fcp;
     FLOAT ecf, vcf, fcf, fz, dfz, d2fz;
     
     /* store paramagnetic values */
-    ecp = *zk;
-    if(order >= 1) vcp = *dedrs;
-    if(order >= 2) fcp = *d2edrs2;
+    ecp = r->zk;
+    if(r->order >= 1) vcp = r->dedrs;
+    if(r->order >= 2) fcp = r->d2edrs2;
 
     /* get ferromagnetic values */
-    if(rs[1] >= 1.0)
-      ec_pot_low (&pz_consts[func], order, 1, rs, &ecf, &vcf, &fcf);
+    if(r->rs[1] >= 1.0)
+      ec_pot_low (&pz_consts[func], r->order, 1, r->rs, &ecf, &vcf, &fcf);
     else
-      ec_pot_high(&pz_consts[func], order, 1, rs, &ecf, &vcf, &fcf);
+      ec_pot_high(&pz_consts[func], r->order, 1, r->rs, &ecf, &vcf, &fcf);
 
-    fz  =  FZETA(zeta);
-    *zk = ecp + (ecf - ecp)*fz;
+    fz  =  FZETA(r->zeta);
+    r->zk = ecp + (ecf - ecp)*fz;
 
-    if(order < 1) return; /* nothing else to do */
+    if(r->order < 1) return; /* nothing else to do */
 
-    dfz = DFZETA(zeta);
-    *dedrs = vcp + (vcf - vcp)*fz;
-    *dedz  = (ecf - ecp)*dfz;
+    dfz = DFZETA(r->zeta);
+    r->dedrs = vcp + (vcf - vcp)*fz;
+    r->dedz  = (ecf - ecp)*dfz;
 
-    if(order < 2) return; /* nothing else to do */
+    if(r->order < 2) return; /* nothing else to do */
     
-    d2fz = D2FZETA(zeta);
-    *d2edrs2 = fcp + (fcf - fcp)*fz;
-    *d2edrsz =       (vcf - vcp)*dfz;
-    *d2edz2  =       (ecf - ecp)*d2fz;   
+    d2fz = D2FZETA(r->zeta);
+    r->d2edrs2 = fcp + (fcf - fcp)*fz;
+    r->d2edrsz =       (vcf - vcp)*dfz;
+    r->d2edz2  =       (ecf - ecp)*d2fz;   
   }
 }
 

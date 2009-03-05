@@ -32,9 +32,7 @@ static FLOAT teter_bp[4] = {0.000000000000000,  0.2673612973836267, 0.2052004607
 
 /* the functional */
 static inline void 
-func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta, 
-     FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
-     FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
+func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   FLOAT mrs[5], aa[4], bb[4];
   FLOAT fz, dfz, d2fz;
@@ -46,12 +44,12 @@ func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta,
 
   /* Wigner radius */
   mrs[0] = 1.0;
-  mrs[1] = rs[1];
-  mrs[2] = rs[2];
+  mrs[1] = r->rs[1];
+  mrs[2] = r->rs[2];
   mrs[3] = mrs[1]*mrs[2];
   mrs[4] = mrs[1]*mrs[3];
   
-  fz = FZETA(zeta);
+  fz = FZETA(r->zeta);
   for(ii=0; ii<4; ii++){
     aa[ii] = teter_a[ii] + teter_ap[ii]*fz;
     bb[ii] = teter_b[ii] + teter_bp[ii]*fz;
@@ -59,11 +57,11 @@ func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta,
 
   num   = aa[0]*mrs[0] + aa[1]*mrs[1] + aa[2]*mrs[2] + aa[3]*mrs[3];
   denom = bb[0]*mrs[1] + bb[1]*mrs[2] + bb[2]*mrs[3] + bb[3]*mrs[4];
-  *zk = -num/(denom);
+  r->zk = -num/(denom);
 
-  if(order < 1) return; /* nothing else to do */
+  if(r->order < 1) return; /* nothing else to do */
 
-  dfz       = DFZETA(zeta);
+  dfz       = DFZETA(r->zeta);
   DnumDrs   = aa[1] + 2*aa[2]*mrs[1] + 3*aa[3]*mrs[2];
   DdenomDrs = bb[0] + 2*bb[1]*mrs[1] + 3*bb[2]*mrs[2] + 4*bb[3]*mrs[3];
 
@@ -72,12 +70,12 @@ func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta,
 
   denom2 = denom*denom;
 
-  *dedrs = -(DnumDrs*denom - DdenomDrs*num)/denom2;
-  *dedz  = -(DnumDz*denom  - DdenomDz*num) /denom2;
+  r->dedrs = -(DnumDrs*denom - DdenomDrs*num)/denom2;
+  r->dedz  = -(DnumDz*denom  - DdenomDz*num) /denom2;
 
-  if(order < 2) return; /* nothing else to do */
+  if(r->order < 2) return; /* nothing else to do */
 
-  d2fz = D2FZETA(zeta);
+  d2fz = D2FZETA(r->zeta);
 
   D2numDrs2   = 2*aa[2] + 3*2*aa[3]*mrs[1];
   D2denomDrs2 = 2*bb[1] + 3*2*bb[2]*mrs[1] + 4*3*bb[3]*mrs[2];
@@ -90,12 +88,12 @@ func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta,
 
   denom3      = denom*denom2;
 
-  *d2edrs2    = -((D2numDrs2*denom - D2denomDrs2*num)*denom -
-		  2*DdenomDrs*(DnumDrs*denom - DdenomDrs*num))/denom3;
-  *d2edz2     = -((D2numDz2*denom  - D2denomDz2*num)*denom -
-		  2*DdenomDz* (DnumDz*denom  - DdenomDz*num)) /denom3;
-  *d2edrsz    = -((D2numDrsz*denom + DnumDrs*DdenomDz - D2denomDrsz*num - DdenomDrs*DnumDz)*denom -
-		  2*DdenomDz* (DnumDrs*denom - DdenomDrs*num))/denom3;
+  r->d2edrs2    = -((D2numDrs2*denom - D2denomDrs2*num)*denom -
+		    2*DdenomDrs*(DnumDrs*denom - DdenomDrs*num))/denom3;
+  r->d2edz2     = -((D2numDz2*denom  - D2denomDz2*num)*denom -
+		    2*DdenomDz* (DnumDz*denom  - DdenomDz*num)) /denom3;
+  r->d2edrsz    = -((D2numDrsz*denom + DnumDrs*DdenomDz - D2denomDrsz*num - DdenomDrs*DnumDz)*denom -
+		    2*DdenomDz* (DnumDrs*denom - DdenomDrs*num))/denom3;
 
 }
 

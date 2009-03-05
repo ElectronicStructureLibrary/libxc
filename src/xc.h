@@ -61,7 +61,7 @@ typedef struct{
   void (*init)(void *p);
   void (*end) (void *p);
   void (*lda) (const void *p, const FLOAT *rho, 
-	       FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2);
+	       FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3);
   void (*gga) (const void *p, const FLOAT *rho, const FLOAT *sigma, 
 	       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 	       FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);

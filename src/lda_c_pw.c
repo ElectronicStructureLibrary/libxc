@@ -102,9 +102,7 @@ static void g(int func, int order, int k, FLOAT *rs,
 
 /* the functional */
 static inline void 
-func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta, 
-     FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
-     FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
+func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   int func;
 
@@ -112,7 +110,7 @@ func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta,
   assert(func==0 || func==1 || func==2);
   
   /* ec(rs, 0) */
-  g(func, order, 0, rs, zk, dedrs, d2edrs2);
+  g(func, r->order, 0, r->rs, &r->zk, &r->dedrs, &r->d2edrs2);
   
   if(p->nspin == XC_POLARIZED){
     static FLOAT fz20[3] = {
@@ -125,39 +123,39 @@ func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta,
     FLOAT z2, z3, z4, fz, dfz, d2fz;
     
     /* store paramagnetic values */
-    ecp = *zk;
-    if(order >= 1) vcp = *dedrs;
-    if(order >= 2) fcp = *d2edrs2;   
+    ecp = r->zk;
+    if(r->order >= 1) vcp = r->dedrs;
+    if(r->order >= 2) fcp = r->d2edrs2;   
 
     /* get ferromagnetic values */
-    g(func, order, 1, rs, &ecf, &vcf, &fcf);
+    g(func, r->order, 1, r->rs, &ecf, &vcf, &fcf);
 
     /* get alpha_c */
-    g(func, order, 2, rs, &alpha, &dalpha, &d2alpha);
+    g(func, r->order, 2, r->rs, &alpha, &dalpha, &d2alpha);
     alpha *= -1.0;
-    if(order >= 1) dalpha  *= -1.0;
-    if(order >= 2) d2alpha *= -1.0;
+    if(r->order >= 1) dalpha  *= -1.0;
+    if(r->order >= 2) d2alpha *= -1.0;
 
-    fz  = FZETA(zeta);
-    z2  = zeta*zeta;
-    z3  = zeta*z2;
-    z4  = zeta*z3;
-    *zk = ecp + z4*fz*(ecf - ecp - alpha/fz20[func]) + fz*alpha/fz20[func];
+    fz  = FZETA(r->zeta);
+    z2  = r->zeta*r->zeta;
+    z3  = r->zeta*z2;
+    z4  = r->zeta*z3;
+    r->zk = ecp + z4*fz*(ecf - ecp - alpha/fz20[func]) + fz*alpha/fz20[func];
 
-    if(order < 1) return; /* nothing else to do */
+    if(r->order < 1) return; /* nothing else to do */
 
-    dfz = DFZETA(zeta);
-    *dedrs = vcp + z4*fz*(vcf - vcp - dalpha/fz20[func]) + fz*dalpha/fz20[func];
-    *dedz  = (4.0*z3*fz + z4*dfz)*(ecf - ecp - alpha/fz20[func])
+    dfz = DFZETA(r->zeta);
+    r->dedrs = vcp + z4*fz*(vcf - vcp - dalpha/fz20[func]) + fz*dalpha/fz20[func];
+    r->dedz  = (4.0*z3*fz + z4*dfz)*(ecf - ecp - alpha/fz20[func])
       + dfz*alpha/fz20[func];
 
-    if(order < 2) return; /* nothing else to do */
+    if(r->order < 2) return; /* nothing else to do */
     
-    d2fz = D2FZETA(zeta);
-    *d2edrs2 = fcp + z4*fz*(fcf - fcp - d2alpha/fz20[func]) + fz*d2alpha/fz20[func];
-    *d2edrsz = (4.0*z3*fz + z4*dfz)*(vcf - vcp - dalpha/fz20[func])
+    d2fz = D2FZETA(r->zeta);
+    r->d2edrs2 = fcp + z4*fz*(fcf - fcp - d2alpha/fz20[func]) + fz*d2alpha/fz20[func];
+    r->d2edrsz = (4.0*z3*fz + z4*dfz)*(vcf - vcp - dalpha/fz20[func])
       + dfz*dalpha/fz20[func];
-    *d2edz2  = (4.0*3.0*z2*fz + 8.0*z3*dfz + z4*d2fz)*(ecf - ecp - alpha/fz20[func])
+    r->d2edz2  = (4.0*3.0*z2*fz + 8.0*z3*dfz + z4*d2fz)*(ecf - ecp - alpha/fz20[func])
       + d2fz*alpha/fz20[func];
   }
 }

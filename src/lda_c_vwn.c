@@ -153,9 +153,7 @@ ec_i(vwn_consts_type *X, int order, int i, FLOAT x, FLOAT *zk, FLOAT *dedrs, FLO
 
 /* the functional */
 static inline void 
-func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta, 
-     FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
-     FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
+func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   int func;
   vwn_consts_type *X;
@@ -169,36 +167,36 @@ func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta,
 
   X = &vwn_consts[func];
 
-  ec_i(X, order, 0, rs[0], zk, dedrs, d2edrs2);
+  ec_i(X, r->order, 0, r->rs[0], &r->zk, &r->dedrs, &r->d2edrs2);
   
   if(p->nspin==XC_POLARIZED){
     FLOAT ec1, ec2, ec3, vc1, vc2, vc3, fc1, fc2, fc3;
     FLOAT z3, z4, t1, dt1, d2t1, t2, dt2, d2t2, fz, dfz, d2fz;
     
     /* store paramagnetic values */
-    ec1 = *zk;
-    if(order >= 1) vc1 = *dedrs;
-    if(order >= 2) fc1 = *d2edrs2;
+    ec1 = r->zk;
+    if(r->order >= 1) vc1 = r->dedrs;
+    if(r->order >= 2) fc1 = r->d2edrs2;
     
-    ec_i(X, order, 1, rs[0], &ec2, &vc2, &fc2);
-    ec_i(X, order, 2, rs[0], &ec3, &vc3, &fc3);
+    ec_i(X, r->order, 1, r->rs[0], &ec2, &vc2, &fc2);
+    ec_i(X, r->order, 2, r->rs[0], &ec3, &vc3, &fc3);
     
-    fz  = FZETA(zeta);
+    fz  = FZETA(r->zeta);
     if(params->spin_interpolation == 1){
       t1 = 0.0;
       t2 = fz;
     }else{
-      z3  = POW(zeta, 3);
-      z4  = z3*zeta;
+      z3  = POW(r->zeta, 3);
+      z4  = z3*r->zeta;
       t1  = (fz/X->fpp)*(1.0 - z4);
       t2  = fz*z4;
     }
 
-    *zk =  ec1 +  ec3*t1 + (ec2 -  ec1)*t2;
+    r->zk =  ec1 +  ec3*t1 + (ec2 -  ec1)*t2;
 
-    if(order < 1) return; /* nothing else to do */
+    if(r->order < 1) return; /* nothing else to do */
 
-    dfz  = DFZETA(zeta);
+    dfz  = DFZETA(r->zeta);
     if(params->spin_interpolation == 1){
       dt1 = 0.0;
       dt2 = dfz;
@@ -208,24 +206,24 @@ func(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta,
       dt2  = dfz*z4 + 4.0*fz*z3;
     }
 
-    *dedrs = vc1 + vc3* t1 + (vc2 - vc1)* t2;
-    *dedz  =       ec3*dt1 + (ec2 - ec1)*dt2;
+    r->dedrs = vc1 + vc3* t1 + (vc2 - vc1)* t2;
+    r->dedz  =       ec3*dt1 + (ec2 - ec1)*dt2;
 
-    if(order < 2) return; /* nothing else to do */
+    if(r->order < 2) return; /* nothing else to do */
 
-    d2fz  = D2FZETA(zeta);
+    d2fz  = D2FZETA(r->zeta);
     if(params->spin_interpolation == 1){
       dt1 = 0.0;
       dt2 = d2fz;
     }else{
-      d2t1  = d2fz*(1.0 - z4) - 8.0*dfz*z3 - 4.0*3.0*fz*zeta*zeta;
+      d2t1  = d2fz*(1.0 - z4) - 8.0*dfz*z3 - 4.0*3.0*fz*r->zeta*r->zeta;
       d2t1 /= X->fpp;
-      d2t2  = d2fz*z4 + 8.0*dfz*z3 + 4.0*3.0*fz*zeta*zeta;
+      d2t2  = d2fz*z4 + 8.0*dfz*z3 + 4.0*3.0*fz*r->zeta*r->zeta;
     }
 
-    *d2edrs2 = fc1 + fc3*  t1 + (fc2 - fc1)*  t2;
-    *d2edrsz =       vc3* dt1 + (vc2 - vc1)* dt2;
-    *d2edz2  =       ec3*d2t1 + (ec2 - ec1)*d2t2;
+    r->d2edrs2 = fc1 + fc3*  t1 + (fc2 - fc1)*  t2;
+    r->d2edrsz =       vc3* dt1 + (vc2 - vc1)* dt2;
+    r->d2edz2  =       ec3*d2t1 + (ec2 - ec1)*d2t2;
   }
 	
 }

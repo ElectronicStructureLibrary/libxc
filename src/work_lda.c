@@ -24,55 +24,71 @@
 ************************************************************************/
 
 static void 
-work_lda(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2)
+work_lda(const void *p_, const FLOAT *rho, 
+	 FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3)
 {
   const XC(lda_type) *p = p_;
 
-  int order;
-  FLOAT dens, zeta, rs[3], drs;
-  FLOAT zk0, dedrs, dedz, d2edrs2, d2edz2, d2edrsz;
+  XC(lda_rs_zeta) r;
+  FLOAT dens, dcnst, drs, rs4, d2rs;
 
-  XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
+  r.order = -1;
+  if(zk     != NULL) r.order = 0;
+  if(vrho   != NULL) r.order = 1;
+  if(v2rho2 != NULL) r.order = 2;
+  if(v3rho3 != NULL) r.order = 3;
+  if(r.order < 0) return;
+
+  XC(rho2dzeta)(p->nspin, rho, &dens, &r.zeta);
 
   /* Wigner radius */
-  rs[1] = RS(dens);
-  rs[0] = sqrt(rs[1]);
-  rs[2] = rs[1]*rs[1];
+  r.rs[1] = RS(dens);
+  r.rs[0] = sqrt(r.rs[1]);
+  r.rs[2] = r.rs[1]*r.rs[1];
 
-  order = 0;
-  if(vrho   != NULL) order = 1;
-  if(v2rho2 != NULL) order = 2;
+  func(p, &r);
+
+  if(zk != NULL && (p->info->provides & XC_PROVIDES_EXC))
+    *zk = r.zk;
+
+  if(r.order < 1) return;
+
+  if(vrho != NULL && (p->info->provides & XC_PROVIDES_VXC)){
+    vrho[0] = r.zk - (r.rs[1]/3.0)*r.dedrs;
+
+    if(p->nspin == XC_POLARIZED){
+      vrho[1] = vrho[0] - (r.zeta + 1.0)*r.dedz;
+      vrho[0] = vrho[0] - (r.zeta - 1.0)*r.dedz;
+    }
+  }
   
-  dedrs = dedz = 0.0;
-  d2edrs2 = d2edrsz = d2edz2 = 0.0;
-  func(p, order, rs, zeta, &zk0, &dedrs, &dedz, &d2edrs2, &d2edrsz, &d2edz2);
+  if(r.order < 2) return;
 
-  if(zk != NULL)
-    *zk = zk0;
+  dcnst = 4.0*M_PI/3.0;
+  rs4   = r.rs[2]*r.rs[2];
+  drs   = -dcnst*rs4/3.0;
 
-  if(vrho != NULL){
-    vrho[0] = zk0 - (rs[1]/3.0)*dedrs;
-
-    if(p->nspin == XC_POLARIZED){
-      vrho[1] = vrho[0] - (zeta + 1.0)*dedz;
-      vrho[0] = vrho[0] - (zeta - 1.0)*dedz;
-    }
-  }
-    
-  if(v2rho2 != NULL){
-    drs = -(4.0*M_PI/9.0)*rs[2]*rs[2];
-    v2rho2[0] = (2.0*dedrs - rs[1]*d2edrs2)*drs/3.0;
+  if(v2rho2 != NULL && (p->info->provides & XC_PROVIDES_FXC)){
+    v2rho2[0] = (2.0*r.dedrs - r.rs[1]*r.d2edrs2)*drs/3.0;
 
     if(p->nspin == XC_POLARIZED){
-      v2rho2[1] = v2rho2[0] - d2edrsz*(zeta - 1.0)*drs 
-	+ (zeta + 1.0)/dens*(d2edrsz*rs[1]/3.0 + (zeta - 1.0)*d2edz2);
+      v2rho2[1] = v2rho2[0] - r.d2edrsz*(r.zeta - 1.0)*drs 
+	+ (r.zeta + 1.0)/dens*(r.d2edrsz*r.rs[1]/3.0 + (r.zeta - 1.0)*r.d2edz2);
       
-      v2rho2[2] = v2rho2[0] - d2edrsz*(zeta + 1.0)*drs
-	+ (zeta + 1.0)/dens*(d2edrsz*rs[1]/3.0 + (zeta + 1.0)*d2edz2);
+      v2rho2[2] = v2rho2[0] - r.d2edrsz*(r.zeta + 1.0)*drs
+	+ (r.zeta + 1.0)/dens*(r.d2edrsz*r.rs[1]/3.0 + (r.zeta + 1.0)*r.d2edz2);
       
-      v2rho2[0] = v2rho2[0] - d2edrsz*(zeta - 1.0)*drs 
-	+ (zeta - 1.0)/dens*(d2edrsz*rs[1]/3.0 + (zeta - 1.0)*d2edz2);
+      v2rho2[0] = v2rho2[0] - r.d2edrsz*(r.zeta - 1.0)*drs 
+	+ (r.zeta - 1.0)/dens*(r.d2edrsz*r.rs[1]/3.0 + (r.zeta - 1.0)*r.d2edz2);
     }
   }
 
+  if(r.order < 3) return;
+
+  if(v3rho3 != NULL && (p->info->provides & XC_PROVIDES_KXC)){
+    d2rs = (4.0/9.0) * dcnst*dcnst * rs4*r.rs[2]*r.rs[1];
+
+    v3rho3[0]  = (r.d2edrs2 - r.rs[1]*r.d3edrs3)*drs*drs + (2.0*r.dedrs - r.rs[1]*r.d2edrs2)*d2rs;
+    v3rho3[0] /= 3.0;
+  }
 }

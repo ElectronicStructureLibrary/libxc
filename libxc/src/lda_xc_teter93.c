@@ -35,11 +35,12 @@ static inline void
 func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   FLOAT mrs[5], aa[4], bb[4];
-  FLOAT fz, dfz, d2fz;
+  FLOAT fz, dfz, d2fz, d3fz;
 
-  FLOAT num, denom, denom2, denom3;
-  FLOAT DnumDrs, DdenomDrs, DnumDz, DdenomDz;
-  FLOAT D2numDrs2, D2numDz2, D2numDrsz, D2denomDrs2, D2denomDz2, D2denomDrsz;
+  FLOAT nn, dd, dd2, dd3;
+  FLOAT DnnDrs, DddDrs, DnnDz, DddDz;
+  FLOAT D2nnDrs2, D2nnDz2, D2nnDrsz, D2ddDrs2, D2ddDz2, D2ddDrsz;
+  FLOAT D3nnDrs3, D3nnDrs2z, D3nnDrsz2, D3nnDz3, D3ddDrs3, D3ddDrs2z, D3ddDrsz2, D3ddDz3;
   int ii;
 
   /* Wigner radius */
@@ -55,46 +56,81 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
     bb[ii] = teter_b[ii] + teter_bp[ii]*fz;
   }
 
-  num   = aa[0]*mrs[0] + aa[1]*mrs[1] + aa[2]*mrs[2] + aa[3]*mrs[3];
-  denom = bb[0]*mrs[1] + bb[1]*mrs[2] + bb[2]*mrs[3] + bb[3]*mrs[4];
-  r->zk = -num/(denom);
+  nn = aa[0]*mrs[0] + aa[1]*mrs[1] + aa[2]*mrs[2] + aa[3]*mrs[3];
+  dd = bb[0]*mrs[1] + bb[1]*mrs[2] + bb[2]*mrs[3] + bb[3]*mrs[4];
+  r->zk = -nn/dd;
 
   if(r->order < 1) return; /* nothing else to do */
 
-  dfz       = DFZETA(r->zeta);
-  DnumDrs   = aa[1] + 2*aa[2]*mrs[1] + 3*aa[3]*mrs[2];
-  DdenomDrs = bb[0] + 2*bb[1]*mrs[1] + 3*bb[2]*mrs[2] + 4*bb[3]*mrs[3];
+  dfz    = DFZETA(r->zeta);
+  DnnDrs = aa[1] + 2*aa[2]*mrs[1] + 3*aa[3]*mrs[2];
+  DddDrs = bb[0] + 2*bb[1]*mrs[1] + 3*bb[2]*mrs[2] + 4*bb[3]*mrs[3];
 
-  DnumDz    = (teter_ap[0]*mrs[0] + teter_ap[1]*mrs[1] + teter_ap[2]*mrs[2] + teter_ap[3]*mrs[3])*dfz;
-  DdenomDz  = (teter_bp[0]*mrs[1] + teter_bp[1]*mrs[2] + teter_bp[2]*mrs[3] + teter_bp[3]*mrs[4])*dfz;
+  DnnDz  = (teter_ap[0]*mrs[0] + teter_ap[1]*mrs[1] + teter_ap[2]*mrs[2] + teter_ap[3]*mrs[3])*dfz;
+  DddDz  = (teter_bp[0]*mrs[1] + teter_bp[1]*mrs[2] + teter_bp[2]*mrs[3] + teter_bp[3]*mrs[4])*dfz;
 
-  denom2 = denom*denom;
+  dd2 = dd*dd;
 
-  r->dedrs = -(DnumDrs*denom - DdenomDrs*num)/denom2;
-  r->dedz  = -(DnumDz*denom  - DdenomDz*num) /denom2;
+  r->dedrs = -(DnnDrs*dd - DddDrs*nn)/dd2;
+  r->dedz  = -(DnnDz*dd  - DddDz*nn) /dd2;
 
   if(r->order < 2) return; /* nothing else to do */
 
   d2fz = D2FZETA(r->zeta);
 
-  D2numDrs2   = 2*aa[2] + 3*2*aa[3]*mrs[1];
-  D2denomDrs2 = 2*bb[1] + 3*2*bb[2]*mrs[1] + 4*3*bb[3]*mrs[2];
+  D2nnDrs2 = 2*aa[2] + 3*2*aa[3]*mrs[1];
+  D2ddDrs2 = 2*bb[1] + 3*2*bb[2]*mrs[1] + 4*3*bb[3]*mrs[2];
 
-  D2numDrsz   = (teter_ap[1] + 2*teter_ap[2]*mrs[1] + 3*teter_ap[3]*mrs[2])*dfz;
-  D2denomDrsz = (teter_bp[0] + 2*teter_bp[1]*mrs[1] + 3*teter_bp[2]*mrs[2] + 4*teter_bp[3]*mrs[3])*dfz;
+  D2nnDrsz = (teter_ap[1] + 2*teter_ap[2]*mrs[1] + 3*teter_ap[3]*mrs[2])*dfz;
+  D2ddDrsz = (teter_bp[0] + 2*teter_bp[1]*mrs[1] + 3*teter_bp[2]*mrs[2] + 4*teter_bp[3]*mrs[3])*dfz;
 
-  D2numDz2    = (teter_ap[0]*mrs[0] + teter_ap[1]*mrs[1] + teter_ap[2]*mrs[2] + teter_ap[3]*mrs[3])*d2fz;
-  D2denomDz2  = (teter_bp[0]*mrs[1] + teter_bp[1]*mrs[2] + teter_bp[2]*mrs[3] + teter_bp[3]*mrs[4])*d2fz;
+  D2nnDz2  = (teter_ap[0]*mrs[0] + teter_ap[1]*mrs[1] + teter_ap[2]*mrs[2] + teter_ap[3]*mrs[3])*d2fz;
+  D2ddDz2  = (teter_bp[0]*mrs[1] + teter_bp[1]*mrs[2] + teter_bp[2]*mrs[3] + teter_bp[3]*mrs[4])*d2fz;
 
-  denom3      = denom*denom2;
+  dd3      = dd*dd2;
 
-  r->d2edrs2    = -((D2numDrs2*denom - D2denomDrs2*num)*denom -
-		    2*DdenomDrs*(DnumDrs*denom - DdenomDrs*num))/denom3;
-  r->d2edz2     = -((D2numDz2*denom  - D2denomDz2*num)*denom -
-		    2*DdenomDz* (DnumDz*denom  - DdenomDz*num)) /denom3;
-  r->d2edrsz    = -((D2numDrsz*denom + DnumDrs*DdenomDz - D2denomDrsz*num - DdenomDrs*DnumDz)*denom -
-		    2*DdenomDz* (DnumDrs*denom - DdenomDrs*num))/denom3;
+  r->d2edrs2  = -((D2nnDrs2*dd - D2ddDrs2*nn)*dd -
+		  2*DddDrs*(DnnDrs*dd - DddDrs*nn))/dd3;
+  r->d2edz2   = -((D2nnDz2*dd  - D2ddDz2*nn)*dd -
+		  2*DddDz* (DnnDz*dd  - DddDz*nn)) /dd3;
+  r->d2edrsz  = -((D2nnDrsz*dd + DnnDrs*DddDz - D2ddDrsz*nn - DddDrs*DnnDz)*dd -
+		  2*DddDz* (DnnDrs*dd - DddDrs*nn))/dd3;
 
+  if(r->order < 3) return; /* nothing else to do */
+
+  d3fz = D3FZETA(r->zeta);
+
+  D3nnDrs3  = 3*2*aa[3];
+  D3ddDrs3  = 3*2*bb[2] + 4*3*2*bb[3]*mrs[1];
+  
+  D3nnDrs2z = (2*teter_ap[2] + 3*2*teter_ap[3]*mrs[1])*dfz;
+  D3ddDrs2z = (2*teter_bp[1] + 3*2*teter_bp[2]*mrs[1] + 4*3*teter_bp[3]*mrs[2])*dfz;
+
+  D3nnDrsz2 = (teter_ap[1] + 2*teter_ap[2]*mrs[1] + 3*teter_ap[3]*mrs[2])*d2fz;
+  D3ddDrsz2 = (teter_bp[0] + 2*teter_bp[1]*mrs[1] + 3*teter_bp[2]*mrs[2] + 4*teter_bp[3]*mrs[3])*d2fz;
+
+  D3nnDz3   = (teter_ap[0]*mrs[0] + teter_ap[1]*mrs[1] + teter_ap[2]*mrs[2] + teter_ap[3]*mrs[3])*d3fz;
+  D3ddDz3   = (teter_bp[0]*mrs[1] + teter_bp[1]*mrs[2] + teter_bp[2]*mrs[3] + teter_bp[3]*mrs[4])*d3fz;
+
+  r->d3edrs3   = (- nn*(6.0*DddDrs*DddDrs*DddDrs - 6.0*dd*DddDrs*D2ddDrs2 + dd2*D3ddDrs3)
+		  + dd*(6.0*DddDrs*DddDrs*DnnDrs - 3.0*dd*DddDrs*D2nnDrs2 +
+			dd*(-3.0*DnnDrs*D2ddDrs2 + dd*D3nnDrs3)));
+  r->d3edrs3  /= -dd3*dd;
+
+  r->d3edz3    = (- nn*(6.0*DddDz*DddDz*DddDz - 6.0*dd*DddDz*D2ddDz2 + dd2*D3ddDz3)
+		  + dd*(6.0*DddDz*DddDz*DnnDz - 3.0*dd*DddDz*D2nnDz2 +
+			dd*(-3.0*DnnDz*D2ddDz2 + dd*D3nnDz3)));
+  r->d3edz3   /= -dd3*dd;
+  
+  r->d3edrs2z  = -(nn*(DddDz*(6.0*DddDrs*DddDrs - 2.0*dd*D2ddDrs2) + dd*(-4.0*DddDrs*D2ddDrsz + dd*D3ddDrs2z))
+		   + dd*(DnnDz*(-2.0*DddDrs*DddDrs + dd*D2ddDrs2) + DddDz*(-4.0*DddDrs*DnnDrs + dd*D2nnDrs2) 
+			 + dd*(2.0*DnnDrs*D2ddDrsz + 2.0*DddDrs*D2nnDrsz - dd*D3nnDrs2z)));
+  r->d3edrs2z /= -dd3*dd;
+  
+  r->d3edrsz2  = -(nn*(DddDrs*(6.0*DddDz*DddDz - 2.0*dd*D2ddDz2) + dd*(-4.0*DddDz*D2ddDrsz + dd*D3ddDrsz2))
+		   + dd*(DnnDrs*(-2.0*DddDz*DddDz + dd*D2ddDz2) + DddDrs*(-4.0*DddDz*DnnDz + dd*D2nnDz2) 
+			 + dd*(2.0*DnnDz*D2ddDrsz + 2.0*DddDz*D2nnDrsz - dd*D3nnDrsz2)));
+  r->d3edrsz2 /= -dd3*dd;
 }
 
 #include "work_lda.c"
@@ -105,7 +141,7 @@ const XC(func_info_type) XC(func_info_lda_xc_teter93) = {
   "Teter 93",
   XC_FAMILY_LDA,
   "S Goedecker, M Teter, J Hutter, PRB 54, 1703 (1996)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC | XC_PROVIDES_KXC,
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */

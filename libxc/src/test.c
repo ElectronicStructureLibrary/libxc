@@ -26,35 +26,40 @@
 void test_lda()
 {
   XC(lda_type) l1, l2, l3;
-  double rs;
+  int i;
   
   XC(lda_x_init)(&l1, XC_POLARIZED, 3, XC_NON_RELATIVISTIC);
-  XC(lda_init)(&l2, XC_LDA_C_WIGNER, XC_UNPOLARIZED);
-  XC(lda_init)(&l3, XC_LDA_C_VWN, XC_POLARIZED);
+  XC(lda_init)(&l2, XC_LDA_XC_TETER93, XC_POLARIZED);
+  XC(lda_init)(&l3, XC_LDA_XC_TETER93, XC_UNPOLARIZED);
 
-  for(rs=10; rs>=0.1; rs-=0.01){
-    double dens, zeta, rho[2];
-    double ec1, vc1[2], fxc1[4], kxc1[6];
-    double ec2, vc2[2], fxc2[4], kxc2[6];
+  for(i=0; i<1000; i++){
+    double dens, rs, zeta, rho[2];
+    double ec1, vc1[2], fxc1[3], kxc1[4];
+    double ec2, vc2[2], fxc2[3], kxc2[4];
+    double ec3, vc3[2], fxc3[3], kxc3[4];
     
-    /* dens = 1.0/(4.0/3.0*M_PI*POW(rs,3)); */ /* 3D */
-    dens = 1.0/(2.0*rs); /* 1D */
+    rs   = 1.0;
+    zeta = -1.0 + 2.0*i/1000.0;
 
-    /* zeta = 1;
-       rho[0] = dens*(1.0 + zeta)/2.0;
-       rho[1] = dens*(1.0 - zeta)/2.0; */
+    dens = 1.0/(4.0/3.0*M_PI*POW(rs,3)); /* 3D */
+    //dens = 1.0/(2.0*rs); /* 1D */
 
-    rho[0] = dens;
-    rho[1] = 0;
-    dens   = (rho[0] + rho[1]);
-    zeta   = (rho[0] - rho[1])/dens;
+    //rho[0] = dens*(1.0 + zeta)/2.0;
+    //rho[1] = dens*(1.0 - zeta)/2.0;
+
+    rho[0] = 0.01 + i/1000.0;
+    rho[1] = 0.21;
 
     XC(lda)(&l2, rho, &ec1, vc1, fxc1, kxc1);
     XC(lda_kxc_fd)(&l2, rho, kxc2);
-    //XC(lda_fxc)(&l3, rho, fxc2);
 
-    printf("%e\t%e\t%e\n", dens, kxc1[0], kxc2[0]);
-    
+    //rho[0] = dens; rho[1] = 0.0;
+    //XC(lda)(&l3, rho, &ec3, vc3, fxc3, kxc3);
+
+    // printf("%e\t%e\t%e\n", dens, (fxc1[0]+2.0*fxc1[1]+fxc1[2])/4.0, fxc3[0]);
+    // printf("%e\t%e\t%e\n", dens, (kxc1[0]+3.0*kxc1[1]+3.0*kxc1[2]+kxc1[3])/8.0, kxc3[0]);
+
+    printf("%e\t%e\t%e\n", rho[0], kxc1[1], kxc2[1]);
   }
 }
 

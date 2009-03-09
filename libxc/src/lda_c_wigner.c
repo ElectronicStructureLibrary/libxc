@@ -48,7 +48,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   if(r->order < 3) return;
 
   r->d3edrs3 = -2.0*3.0*a/(t2*t2);
-  r->d3edrs2dz = r->d3edrsdz2 = r->d3edz3 = 0.0;
+  r->d3edrs2z = r->d3edrsz2 = r->d3edz3 = 0.0;
 }
 
 #include "work_lda.c"

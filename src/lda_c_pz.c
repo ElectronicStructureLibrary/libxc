@@ -73,16 +73,16 @@ pz_consts[3] = {
 
 /* Auxiliary functions to handle parametrizations */
 static void
-ec_pot_low(pz_consts_type *X, int order, int i, 
-	   FLOAT *rs, FLOAT *zk, FLOAT *dedrs, FLOAT *d2edrs2)
+ec_pot_low(pz_consts_type *X, int order, int i, FLOAT *rs, 
+	   FLOAT *zk, FLOAT *dedrs, FLOAT *d2edrs2, FLOAT *d3edrs3)
 {
-  FLOAT f1;
+  FLOAT f1, f12, beta12, beta22;
 
   /* Eq. C3 */
   f1  = 1.0 + X->beta1[i]*rs[0] + X->beta2[i]*rs[1];  
   *zk = X->gamma[i]/f1;
 
-  if(order < 1) return; /* nothing else to do */
+  if(order < 1) return;
 
   *dedrs  = -X->gamma[i];
   *dedrs *= X->beta1[i]/(2.0*rs[0]) + X->beta2[i];
@@ -90,16 +90,28 @@ ec_pot_low(pz_consts_type *X, int order, int i,
 
   if(order < 2) return;
 
+  f12    = f1*f1;
+  beta12 = X->beta1[i]*X->beta1[i];
+  beta22 = X->beta2[i]*X->beta2[i];
+
   *d2edrs2  = X->gamma[i];
-  *d2edrs2 *= X->beta1[i] + 3.0*X->beta1[i]*X->beta1[i]*rs[0] +
-    9.0*X->beta1[i]*X->beta2[i]*rs[1] + 8.0*X->beta2[i]*X->beta2[i]*rs[0]*rs[1];
-  *d2edrs2 /= 4.0*rs[0]*rs[1]*f1*f1*f1;
+  *d2edrs2 *= X->beta1[i] + 3.0*beta12*rs[0] +
+    9.0*X->beta1[i]*X->beta2[i]*rs[1] + 8.0*beta22*rs[0]*rs[1];
+  *d2edrs2 /= 4.0*rs[0]*rs[1]*f12*f1;
+
+  if(order < 3) return;
+
+  *d3edrs3  = -3.0*X->gamma[i];
+  *d3edrs3 *= 5.0*beta12*X->beta1[i]*rs[1] + 16.0*beta22*X->beta2[i]*rs[0]*rs[2]
+    + 4.0*beta12*rs[0]*(1.0 + 5.0*X->beta2[i]*rs[1])
+    + X->beta1[i]*(1.0 + X->beta2[i]*rs[1]*(6.0 + 29.0*X->beta2[i]*rs[1]));
+  *d3edrs3 /= 8.0*rs[0]*rs[2]*f12*f12;
 }
 
 
 static void 
-ec_pot_high(pz_consts_type *X, int order, int i, 
-	    FLOAT *rs, FLOAT *zk, FLOAT *dedrs, FLOAT *d2edrs2)
+ec_pot_high(pz_consts_type *X, int order, int i, FLOAT *rs, 
+	    FLOAT *zk, FLOAT *dedrs, FLOAT *d2edrs2, FLOAT *d3edrs3)
 {
   FLOAT lrs = log(rs[1]);
 
@@ -110,9 +122,13 @@ ec_pot_high(pz_consts_type *X, int order, int i,
 
   *dedrs = X->a[i]/rs[1] + (X->c[i] + X->d[i]) + X->c[i]*lrs;
 
-  if(order <2) return;
+  if(order < 2) return;
 
   *d2edrs2 = -X->a[i]/rs[2] + X->c[i]/rs[1];
+
+  if(order < 3) return;
+
+  *d3edrs3 = 2.0*X->a[i]/(rs[1]*rs[2]) - X->c[i]/rs[2];
 }
 
 
@@ -121,46 +137,67 @@ static inline void
 func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   int func;
+  FLOAT ecp, vcp, fcp, kcp;
+  FLOAT ecf, vcf, fcf, kcf;
+  FLOAT fz, dfz, d2fz, d3fz;
 
   func= p->info->number - XC_LDA_C_PZ;
   assert(func==0 || func==1 || func==2);
   
   if(r->rs[1] >= 1.0)
-    ec_pot_low (&pz_consts[func], r->order, 0, r->rs, &r->zk, &r->dedrs, &r->d2edrs2);
+    ec_pot_low (&pz_consts[func], r->order, 0, r->rs, &ecp, &vcp, &fcp, &kcp);
   else
-    ec_pot_high(&pz_consts[func], r->order, 0, r->rs, &r->zk, &r->dedrs, &r->d2edrs2);
-  
-  if(p->nspin == XC_POLARIZED){
-    FLOAT ecp, vcp, fcp;
-    FLOAT ecf, vcf, fcf, fz, dfz, d2fz;
-    
-    /* store paramagnetic values */
-    ecp = r->zk;
-    if(r->order >= 1) vcp = r->dedrs;
-    if(r->order >= 2) fcp = r->d2edrs2;
+    ec_pot_high(&pz_consts[func], r->order, 0, r->rs, &ecp, &vcp, &fcp, &kcp);
+
+  if(p->nspin == XC_UNPOLARIZED)
+    r->zk = ecp;
+  else{
+    fz  =  FZETA(r->zeta);
 
     /* get ferromagnetic values */
     if(r->rs[1] >= 1.0)
-      ec_pot_low (&pz_consts[func], r->order, 1, r->rs, &ecf, &vcf, &fcf);
+      ec_pot_low (&pz_consts[func], r->order, 1, r->rs, &ecf, &vcf, &fcf, &kcf);
     else
-      ec_pot_high(&pz_consts[func], r->order, 1, r->rs, &ecf, &vcf, &fcf);
+      ec_pot_high(&pz_consts[func], r->order, 1, r->rs, &ecf, &vcf, &fcf, &kcf);
 
-    fz  =  FZETA(r->zeta);
     r->zk = ecp + (ecf - ecp)*fz;
+  }
 
-    if(r->order < 1) return; /* nothing else to do */
+  if(r->order < 1) return;
 
+  if(p->nspin == XC_UNPOLARIZED)
+    r->dedrs = vcp;
+  else{
     dfz = DFZETA(r->zeta);
+
     r->dedrs = vcp + (vcf - vcp)*fz;
     r->dedz  = (ecf - ecp)*dfz;
-
-    if(r->order < 2) return; /* nothing else to do */
+  }
     
+  if(r->order < 2) return;
+
+  if(p->nspin == XC_UNPOLARIZED)
+    r->d2edrs2 = fcp;
+  else{
     d2fz = D2FZETA(r->zeta);
+
     r->d2edrs2 = fcp + (fcf - fcp)*fz;
     r->d2edrsz =       (vcf - vcp)*dfz;
-    r->d2edz2  =       (ecf - ecp)*d2fz;   
-  }
+    r->d2edz2  =       (ecf - ecp)*d2fz;
+  }  
+
+  if(r->order < 3) return;
+
+  if(p->nspin == XC_UNPOLARIZED)
+    r->d3edrs3 = kcp;
+  else{
+    d3fz = D3FZETA(r->zeta);
+
+    r->d3edrs3  = kcp + (kcf - kcp)*fz;
+    r->d3edrs2z =       (fcf - fcp)*dfz;
+    r->d3edrsz2 =       (vcf - vcp)*d2fz;
+    r->d3edz3   =       (ecf - ecp)*d3fz;
+  }  
 }
 
 #include "work_lda.c"
@@ -171,7 +208,7 @@ const XC(func_info_type) XC(func_info_lda_c_pz) = {
   "Perdew & Zunger",
   XC_FAMILY_LDA,
   "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC | XC_PROVIDES_KXC,
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
@@ -184,7 +221,7 @@ const XC(func_info_type) XC(func_info_lda_c_pz_mod) = {
   XC_FAMILY_LDA,
   "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)\n"
   "Modified to improve the matching between the low and high rs parts",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC | XC_PROVIDES_KXC,
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
@@ -198,7 +235,7 @@ const XC(func_info_type) XC(func_info_lda_c_ob_pz) = {
   "G Ortiz and P Ballone, Phys. Rev. B 50, 1391 (1994)\n"
   "G Ortiz and P Ballone, Phys. Rev. B 56, 9970(E) (1997)\n"
   "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC | XC_PROVIDES_KXC,
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */

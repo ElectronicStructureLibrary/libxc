@@ -50,6 +50,8 @@ double lambert_w(double z);
 #define DFZETA(x)      ((pow(1.0 + (x),  1.0/3.0) - pow(1.0 - (x),  1.0/3.0))*(4.0/3.0)/FZETAFACTOR)
 #define D2FZETA(x)     ((4.0/9.0)/FZETAFACTOR)* \
   (ABS(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -2.0/3.0) + pow(1.0 - (x), -2.0/3.0)))
+#define D3FZETA(x)     (-(8.0/27.0)/FZETAFACTOR)* \
+  (ABS(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -5.0/3.0) - pow(1.0 - (x), -5.0/3.0)))
 
 #define MIN_DENS             1.0e-20
 #define MIN_GRAD             1.0e-20
@@ -65,9 +67,9 @@ typedef struct XC(lda_rs_zeta) {
   FLOAT rs[3], zeta;
 
   FLOAT zk;
-  FLOAT dedrs, dedz;                           /*  first derivatives of zk */
-  FLOAT d2edrs2, d2edrsz, d2edz2;              /* second derivatives of zk */
-  FLOAT d3edrs3, d3edrs2dz, d3edrsdz2, d3edz3; /*  third derivatives of zk */
+  FLOAT dedrs, dedz;                         /*  first derivatives of zk */
+  FLOAT d2edrs2, d2edrsz, d2edz2;            /* second derivatives of zk */
+  FLOAT d3edrs3, d3edrs2z, d3edrsz2, d3edz3; /*  third derivatives of zk */
 } XC(lda_rs_zeta);
 
 void XC(lda_fxc_fd)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *fxc);

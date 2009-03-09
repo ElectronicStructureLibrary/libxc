@@ -190,58 +190,26 @@ void XC(lda_fxc_fd)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *fxc)
 }
 
 
-/* WANRNING - get rid of this by using new definition of output variable kxc */
-#define ___(i, j, k) [2*(2*i + j) + k] 
-
 void XC(lda_kxc_fd)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *kxc)
 {
   /* Kxc, this is a third order tensor with respect to the densities */
 
-  int i, j, k;
+  int i, j, n;
   const FLOAT delta_rho = 1e-4;
 
-  for(i=0; i < p->nspin; i++){
-    for(j=0; j < p->nspin; j++){
-      for(k=0; k < p->nspin; k++){
+  for(i=0; i<p->nspin; i++){
+    FLOAT rho2[2], e, vc1[2], vc2[2], vc3[2];
+
+    for(n=0; n<p->nspin; n++) rho2[n] = rho[n];
+    XC(lda_vxc)(p, rho , &e, vc2);
+
+    rho2[i] += delta_rho;
+    XC(lda_vxc)(p, rho2, &e, vc1);
+	
+    rho2[i] -= 2.0*delta_rho;
+    XC(lda_vxc)(p, rho2, &e, vc3);    
     
-
-	FLOAT rho2[2], e, vc1[2], vc2[2], vc3[2];
-	int n, der_dir, func_dir;
-
-	/* This is a bit tricky, we have to calculate a third mixed
-	   partial derivative, one is calculated analitically (Vxc)
-	   and the other two numerically. */
-	   
-	/* Here we reorder the indexes so that the numerical
-	   derivative is taken with respect to the same variable */
-
-	if(i!=j) {
-	  if(j==k){
-	    func_dir = i;
-	    der_dir  = j;
-	  }else{
-	    func_dir = j;
-	    der_dir  = i;
-	  }
-	}else{
-	  func_dir = k;
-	  der_dir  = j;
-	}
-
-	for(n=0; n< p->nspin; n++) rho2[n] = rho[n];
-
-	XC(lda_vxc)(p, rho , &e, vc2);
-
-	rho2[der_dir] += delta_rho;
-	XC(lda_vxc)(p, rho2, &e, vc1);
-	
-	rho2[der_dir] -= 2.0*delta_rho;
-	XC(lda_vxc)(p, rho2, &e, vc3);
-
-	kxc ___(i, j, k) = (vc1[func_dir] - 2.0*vc2[func_dir] + vc3[func_dir])/(delta_rho*delta_rho);
-	
-      }
-    }
+    for(j=0; j<p->nspin; j++)
+      kxc[i*p->nspin + j] = (vc1[j] - 2.0*vc2[j] + vc3[j])/(delta_rho*delta_rho);
   }
-
 }

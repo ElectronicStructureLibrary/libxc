@@ -41,7 +41,7 @@ dnl Allow user-specified location for libstring_f
 AC_ARG_WITH([string_f],
             AS_HELP_STRING([--with-string_f],[Path to the string_f library]),
             [string_f_path=$withval],
-            [string_f_path='$(top_srcdir)/../libstring_f'])
+            [string_f_path='$(top_srcdir)/../liboct_parser'])
 
 string_f_include="-I${string_f_path}"
 string_f_ldflags="-L${string_f_path} -lstring_f"

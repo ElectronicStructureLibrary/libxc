@@ -70,8 +70,6 @@ if COMPILE_SINGLE
   include_HEADERS += xc_s.h
 endif
 
-AM_CPPFLAGS = $(string_f_include)
-
 SUFFIXES = _s.c
 .c_s.c:
 	@CPP@ -D SINGLE_PRECISION=1 @CPPFLAGS@ $(INCLUDES) $(DEFAULT_INCLUDES) $(AM_CPPFLAGS) $< > $*_s.c

@@ -25,7 +25,7 @@
 #ifdef HAVE_FORTRAN
 
 #include "xc.h"
-#include <string_f.h>
+#include "string_f.h"
 
 /* info */
 

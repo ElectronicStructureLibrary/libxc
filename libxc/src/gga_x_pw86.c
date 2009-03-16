@@ -23,7 +23,8 @@
 #define XC_GGA_X_PW86         108 /* Perdew & Wang 86 */
 
 static inline void
-func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+func(const XC(gga_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   const FLOAT aa = 1.296, bb = 14.0, cc = 0.2;
   FLOAT ss, ss2, ss4, dd, d2dd, d3dd;
@@ -35,16 +36,14 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   dd     = 1.0 + aa*ss2 + bb*ss4 + cc*ss4*ss2;
   *f     = POW(dd, 1.0/15.0);
 
-  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 1) return;
 
   d2dd   = ss*(2.0*aa + 4.0*bb*ss2 + 6.0*cc*ss4);
 
-  if(dfdx!=NULL){
-    *dfdx  = X2S*d2dd/15.0 * POW(dd, -14.0/15.0);
-    *ldfdx = X2S*X2S*aa/15.0;
-  }
+  *dfdx  = X2S*d2dd/15.0 * POW(dd, -14.0/15.0);
+  *ldfdx = X2S*X2S*aa/15.0;
 
-  if(d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 2) return;
 
   d3dd    = 2.0*aa + 4.0*3.0*bb*ss2 + 6.0*5.0*cc*ss4;
   *d2fdx2 = X2S*X2S/15.0 * POW(dd, -14.0/15.0) *

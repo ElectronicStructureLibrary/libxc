@@ -24,7 +24,8 @@
 #define XC_GGA_X_FT97_B       115 /* Filatov & Thiel 97 (version B) */
 
 static inline void
-func(const XC(gga_type) *p, FLOAT x, FLOAT sigma, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, 
+func(const XC(gga_type) *p, int order, FLOAT x, FLOAT sigma, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, 
      FLOAT *vsigma, FLOAT *d2fdx2, FLOAT *v2sigma2, FLOAT *v2sigmax)
 {
   static const FLOAT 
@@ -52,7 +53,7 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT sigma, FLOAT *f, FLOAT *dfdx, FLOAT *
   f3 = sqrt(1.0 + 9.0*x2*f2*f2);
   *f = 1.0 + beta/X_FACTOR_C*x2/f3;
  
-  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 1) return;
 
   f0  = sqrt(1.0 + x2*x2);
   df2 = beta*2.0*x/f0;
@@ -60,15 +61,13 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT sigma, FLOAT *f, FLOAT *dfdx, FLOAT *
 
   dbetadsigma = (func == 0) ? 0.0 : beta1*beta2/(f1*f1);
 
-  if(dfdx!=NULL){
-    *dfdx = beta/X_FACTOR_C*x*(2.0*f3 - x*df3)/(f3*f3);
-    *ldfdx= beta0/X_FACTOR_C;
+  *dfdx = beta/X_FACTOR_C*x*(2.0*f3 - x*df3)/(f3*f3);
+  *ldfdx= beta0/X_FACTOR_C;
 
-    df3df2  = 9.0*x2*f2/f3;
-    *vsigma = dbetadsigma*x2/(f3*X_FACTOR_C)*(1.0 - f2*df3df2/f3);
-  }
+  df3df2  = 9.0*x2*f2/f3;
+  *vsigma = dbetadsigma*x2/(f3*X_FACTOR_C)*(1.0 - f2*df3df2/f3);
 
-  if(d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 2) return;
 
   d2f2 = beta*2.0*(1.0 - x2*x2)/(f0*f0*f0);
   d2f3 = 9.0*(x2*f3*df2*df2 + f2*f2*(f3 - x*df3) + x*f2*(df2*(4.0*f3 - x*df3) + x*f3*d2f2)) /

@@ -22,7 +22,8 @@
 #define XC_GGA_X_LG93  113 /* Lacks & Gordon 93 */
 
 static inline void 
-func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+func(const XC(gga_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   static const FLOAT ad = 1e-8, a4 = 29.790, a6 = 22.417;
   static const FLOAT a8 = 12.119, a10 = 1570.1, a12 = 55.944;
@@ -42,19 +43,16 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
 
   *f = f1/f2;
 
-  /* now come the first derivatives */
-  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 1) return;
 
   df0 = ss*(2.0*a2 + 4.0*a4*ss2 + 6.0*a6*ss4 + 8.0*a8*ss6 + 10.0*a10*ss8 + 12.0*a12*ss10);
   df1 = b*df0*POW(f0, b-1.0);
   df2 = 2.0*ss*ad;
 
-  if(dfdx!=NULL){
-    *dfdx  = X2S*(df1*f2 - f1*df2)/(f2*f2);
-    *ldfdx = X2S*X2S*(a2 - ad);
-  }
+  *dfdx  = X2S*(df1*f2 - f1*df2)/(f2*f2);
+  *ldfdx = X2S*X2S*(a2 - ad);
 
-  if(d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 2) return;
   
   d2f0 = 2.0*1.0*a2 + 4.0*3.0*a4*ss2 + 6.0*5.0*a6*ss4 + 8.0*7.0*a8*ss6 + 
     10.0*9.0*a10*ss8 + 12.0*11.0*a12*ss10;

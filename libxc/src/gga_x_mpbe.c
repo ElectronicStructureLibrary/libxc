@@ -23,7 +23,8 @@
 #define XC_GGA_X_MPBE         122 /* Adamo & Barone modification to PBE             */
 
 static inline void 
-func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+func(const XC(gga_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   static FLOAT a = 0.157;
   static FLOAT c1 = 0.21951, c2 = -0.015;
@@ -37,16 +38,14 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   f0 = ss2/f1;
   *f = 1.0 + c1*f0 + c2*f0*f0;
 
-  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 1) return;
 
   df0 = 2.0*ss/(f1*f1);
 
-  if(dfdx!=NULL){
-    *dfdx  = X2S*(c1 + 2.0*c2*f0)*df0;
-    *ldfdx = X2S*X2S*c1;
-  }
+  *dfdx  = X2S*(c1 + 2.0*c2*f0)*df0;
+  *ldfdx = X2S*X2S*c1;
 
-  if(d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 2) return;
 
   d2f0 = (2.0 - 6.0*a*ss*ss)/(f1*f1*f1);
   *d2fdx2 = X2S*X2S*((c1 + 2.0*c2*f0)*d2f0 + 2.0*c2*df0*df0);

@@ -65,7 +65,8 @@ void XC(gga_x_b88_set_params)(XC(gga_type) *p, FLOAT beta)
 
 
 static inline void 
-func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+func(const XC(gga_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   FLOAT f1, f2, df1, df2, d2f1, d2f2;
   FLOAT beta;
@@ -77,16 +78,15 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   f2 = 1.0 + 6.0*beta*x*asinh(x);
   *f = 1.0 + f1/f2;
  
-  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 1) return;
 
   df1 = 2.0*beta/X_FACTOR_C*x;
   df2 = 6.0*beta*(asinh(x) + x/sqrt(1.0 + x*x));
-  if(dfdx!=NULL){
-    *dfdx = (df1*f2 - f1*df2)/(f2*f2);
-    *ldfdx= beta/X_FACTOR_C;
-  }
 
-  if(d2fdx2==NULL) return; /* nothing else to do */
+  *dfdx = (df1*f2 - f1*df2)/(f2*f2);
+  *ldfdx= beta/X_FACTOR_C;
+
+  if(order < 2) return;
 
   d2f1 = 2.0*beta/X_FACTOR_C;
   d2f2 = 6.0*beta*(2.0 + x*x)/pow(1.0 + x*x, 3.0/2.0);

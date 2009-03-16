@@ -35,16 +35,21 @@ work_gga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma,
   const XC(gga_type) *p = p_;
 
   FLOAT sfact, sfact2, dens;
-  int is;
+  int is, order;
 
   sfact = (p->nspin == XC_POLARIZED) ? 1.0 : 2.0;
   sfact2 = sfact*sfact;
+
+  order = -1;
+  if(zk     != NULL) order = 0;
+  if(vrho   != NULL) order = 1;
+  if(v2rho2 != NULL) order = 2;
+  if(order < 0) return;
 
   dens = 0.0;
   for(is=0; is<p->nspin; is++){
     FLOAT gdm, ds, rho13;
     FLOAT x, f, dfdx, ldfdx, d2fdx2, lvsigma, lv2sigma2, lvsigmax;
-    FLOAT *pdfdx, *pd2fdx2;
     int js = (is == 0) ? 0 : 2;
     int ks = (is == 0) ? 0 : 5;
 
@@ -57,27 +62,25 @@ work_gga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma,
     rho13 = POW(ds, 1.0/3.0);
     x     = gdm/(ds*rho13);
 
-    dfdx    = d2fdx2 = 0.0;
-    pdfdx   = (vrho!=NULL || v2rho2!=NULL) ? &dfdx : NULL;
-    pd2fdx2 = (v2rho2!=NULL) ? &d2fdx2 : NULL;
-
+    dfdx = ldfdx = d2fdx2 = 0.0;
 #if   HEADER == 1
-    func(p, x, &f, pdfdx, &ldfdx, pd2fdx2);
+    func(p, order, x, &f, &dfdx, &ldfdx, &d2fdx2);
     lvsigma = lv2sigma2 = lvsigmax = 0.0;
 #elif HEADER == 2
     /* this second header is useful for functionals that depend
        explicitly both on s and on sigma */
-    func(p, x, gdm*gdm, &f, pdfdx, &ldfdx, &lvsigma, pd2fdx2, &lv2sigma2, &lvsigmax);
+    lvsigma = lv2sigma2 = lvsigmax = 0.0;
+    func(p, order, x, gdm*gdm, &f, &dfdx, &ldfdx, &lvsigma, &d2fdx2, &lv2sigma2, &lvsigmax);
 #endif
 
     lvsigma   /= sfact2;
     lvsigmax  /= sfact2;
     lv2sigma2 /= sfact2*sfact2;
 
-    if(zk != NULL)
+    if(zk != NULL && (p->info->provides & XC_PROVIDES_EXC))
       *zk += -sfact*X_FACTOR_C*(ds*rho13)*f;
       
-    if(vrho != NULL){
+    if(vrho != NULL && (p->info->provides & XC_PROVIDES_VXC)){
       vrho[is] += -4.0/3.0*X_FACTOR_C*rho13*(f - dfdx*x);
       if(gdm>MIN_GRAD)
 	vsigma[js] = -sfact*X_FACTOR_C*(ds*rho13)*(lvsigma + dfdx*x/(2.0*sigma[js]));
@@ -85,7 +88,7 @@ work_gga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma,
 	vsigma[js] = -X_FACTOR_C/(sfact*(ds*rho13))*ldfdx;
     }
 
-    if(v2rho2 != NULL){
+    if(v2rho2 != NULL && (p->info->provides & XC_PROVIDES_FXC)){
       v2rho2[js] = -4.0/3.0*X_FACTOR_C*rho13/(3.0*ds)*
 	(f - dfdx*x + 4.0*d2fdx2*x*x)/sfact;
 
@@ -98,6 +101,6 @@ work_gga_x(const void *p_, const FLOAT *rho, const FLOAT *sigma,
     }
   }
 
-  if(zk != NULL)
+  if(zk != NULL && (p->info->provides & XC_PROVIDES_EXC))
     *zk /= dens; /* we want energy per particle */
 }

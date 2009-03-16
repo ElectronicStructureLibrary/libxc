@@ -24,7 +24,8 @@
 #define XC_GGA_X_DK87_R2      112 /* dePristo & Kress 87 (version R2)               */
 
 static inline void 
-func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+func(const XC(gga_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   static const FLOAT a1[2] = {0.861504, 0.861213}, 
     b1[2] = {0.044286, 0.042076}, alpha[2] = {1.0, 0.98};
@@ -44,17 +45,15 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   
   *f     = 1.0 + f1/f2;
 
-  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 1) return;
 
   df1 = betag*x*(2.0 + f0*(2.0 + alpha[func]));
   df2 = 2.0*b1[func]*x;
 
-  if(dfdx!=NULL){
-    *dfdx  = (df1*f2 - f1*df2)/(f2*f2);
-    *ldfdx = betag;
-  }
+  *dfdx  = (df1*f2 - f1*df2)/(f2*f2);
+  *ldfdx = betag;
   
-  if(d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 2) return;
 
   d2f1 = betag*(2.0 + f0*(2.0 + alpha[func])*(1.0 + alpha[func]));
   d2f2 = 2.0*b1[func];

@@ -24,11 +24,9 @@
 #define XC_GGA_X_mPW91        119 /* Modified form of PW91 by Adamo & Barone */
 
 static inline void 
-func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+func(const XC(gga_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
-  const FLOAT b_mPW91    = 0.0046;
-  const FLOAT beta_mPW91 = 0.00189038116669992621307212706745; /* 5*(36 pi)^(-5/3) */
-
   /* The parameters, written in terms of b and beta=5*(36 pi)^(-5/3), are
      aa = 6*b/X2S
      bb = 1/X2S
@@ -69,22 +67,20 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
 
   *f = 1.0 + f3/f4;
 
-  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 1) return;
 
   df1 = -2.0*alpha*ss*f1;
   df2 = aa[func]*bb[func]/sqrt(1.0 + bb[func]*bb[func]*ss2);
   df3 = 2.0*ss*(cc[func] + f1) + ss2*df1 - expo[func]*ff[func]*POW(ss, expo[func] - 1.0);
   df4 = f2 + ss*df2 + expo[func]*ff[func]*POW(ss, expo[func] - 1.0);
 
-  if(dfdx!=NULL){
-    *dfdx  = (df3*f4 - f3*df4)/(f4*f4);
-    *ldfdx = cc[func] + dd[func];
+  *dfdx  = (df3*f4 - f3*df4)/(f4*f4);
+  *ldfdx = cc[func] + dd[func];
 
-    *dfdx  *= X2S;
-    *ldfdx *= X2S*X2S;
-  }
+  *dfdx  *= X2S;
+  *ldfdx *= X2S*X2S;
 
-  if(d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 2) return;
 
   d2f1 = -2.0*alpha*(f1 + ss*df1);
   d2f2 = -aa[func]*bb[func]*bb[func]*bb[func]*ss/POW(1.0 + bb[func]*bb[func]*ss2, 3.0/2.0);

@@ -23,21 +23,22 @@
 #define XC_GGA_X_G96          107 /* Gill 96                                        */
 
 static inline void
-func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+func(const XC(gga_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   static const FLOAT c1 = 1.0/137.0;
   FLOAT sx = sqrt(x);
 
   *f     = 1.0 + c1/X_FACTOR_C*x*sx;
 
-  if(dfdx!=NULL){
-    *dfdx  = 3.0*c1/(2.0*X_FACTOR_C)*sx;
-    *ldfdx = 0.0; /* This is not true, but I think this functional diverges */
-  }
+  if(order < 1) return;
 
-  if(d2fdx2!=NULL){
-    *d2fdx2 = 3.0*c1/(4.0*X_FACTOR_C)/sx;
-  }
+  *dfdx  = 3.0*c1/(2.0*X_FACTOR_C)*sx;
+  *ldfdx = 0.0; /* This is not true, but I think this functional diverges */
+
+  if(order < 2) return;
+
+  *d2fdx2 = 3.0*c1/(4.0*X_FACTOR_C)/sx;
 }
 
 #include "work_gga_x.c"

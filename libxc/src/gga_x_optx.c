@@ -23,7 +23,8 @@
 #define XC_GGA_X_OPTX         110 /* Handy & Cohen OPTX 01                          */
 
 static inline void
-func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+func(const XC(gga_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   static const FLOAT a = 1.05151, b = 1.43169/X_FACTOR_C, gamma = 0.006;
 
@@ -34,16 +35,14 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
 
   *f     = a + b*u*u;
   
-  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 1) return;
 
   du  = 2.0*gamma*x/(f1*f1);
 
-  if(dfdx!=NULL){
-    *dfdx  = 2.0*b*u*du;
-    *ldfdx = 0.0;
-  }
+  *dfdx  = 2.0*b*u*du;
+  *ldfdx = 0.0;
 
-  if(d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 2) return;
 
   d2u = 2.0*gamma/(f1*f1)*(1.0 - 4.0*gamma*x*x/f1);
   *d2fdx2 = 2.0*b*(du*du + u*d2u);

@@ -23,7 +23,8 @@
 #define XC_GGA_X_BAYESIAN          125 /* Bayesian best fit for the enhancement factor */
 
 static inline void 
-func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+func(const XC(gga_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   static const FLOAT theta[3] = {
     1.0008, 0.1926, 1.8962
@@ -37,16 +38,14 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
 
   *f = theta[0] + f0*f0*(theta[1] + f0*f0*theta[2]);
 
-  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 1) return;
 
   df0 = 1.0/((1.0 + ss)*(1.0 + ss));
 
-  if(dfdx!=NULL){
-    *dfdx  = X2S*f0*(2.0*theta[1] + 4.0*f0*f0*theta[2])*df0;
-    *ldfdx = X2S*X2S*theta[1];
-  }
+  *dfdx  = X2S*f0*(2.0*theta[1] + 4.0*f0*f0*theta[2])*df0;
+  *ldfdx = X2S*X2S*theta[1];
 
-  if(d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 2) return;
 
   d2f0 = -2.0*df0/(1.0 + ss);
   *d2fdx2 = X2S*X2S*

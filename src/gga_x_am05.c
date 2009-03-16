@@ -26,7 +26,8 @@
 #define XC_GGA_X_AM05         120 /* Armiento & Mattsson 05 exchange                */
 
 static inline void 
-func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+func(const XC(gga_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   const FLOAT am05_c      = 0.7168;
   const FLOAT am05_alpha  = 2.804;
@@ -40,8 +41,8 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
 
   if(x < MIN_GRAD){
     *f    = 1.0;
-    if(dfdx   != NULL)  *ldfdx = -am05_alpha*X2S*X2S;
-    if(d2fdx2 != NULL) *d2fdx2 = 0.0;
+    if(order >= 1) *ldfdx = -am05_alpha*X2S*X2S;
+    if(order >= 2) *d2fdx2 = 0.0;
     return;
   }
 
@@ -68,7 +69,7 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
 
   *f     = xx + (1.0 - xx)*flaa;
 
-  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 1) return;
 
   dlam_x  = 1.5*lam_x/ss;
   dww     = ww/(lam_x*(1.0 + ww))*dlam_x;
@@ -81,15 +82,13 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   dflaa_2 = am05_c*(2.0*ss*fx_b - dfx_b*ss2)/(fx_b*fx_b);
   dflaa   = (dflaa_1*flaa_2 - flaa_1*dflaa_2)/(flaa_2*flaa_2);
 
-  if(dfdx!=NULL){
-    *dfdx  = dxx*(1.0 - flaa) + dflaa*(1.0 - xx);
-    *ldfdx = -am05_alpha; /* -alpha?? */
+  *dfdx  = dxx*(1.0 - flaa) + dflaa*(1.0 - xx);
+  *ldfdx = -am05_alpha; /* -alpha?? */
 
-    *dfdx  *= X2S;
-    *ldfdx *= X2S*X2S;
-  }
+  *dfdx  *= X2S;
+  *ldfdx *= X2S*X2S;
 
-  if(d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 2) return;
 
   d2lam_x  = 0.5*dlam_x/ss;
   d2ww     = (dww*lam_x*dlam_x + ww*(1.0 + ww)*lam_x*d2lam_x - ww*(1.0 + ww)*dlam_x*dlam_x) /

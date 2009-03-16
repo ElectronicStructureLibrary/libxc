@@ -32,7 +32,8 @@ gga_x_wc_init(void *p_)
 }
 
 static inline void 
-func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+func(const XC(gga_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   const FLOAT kappa = 0.8040;
 
@@ -48,16 +49,14 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   f0 = kappa + 10.0/81.0*s2 + s2*aux1*aux2 + log(1.0 + wc_c*s2*s2);
   *f = 1.0 + kappa*(1.0 - kappa/f0);
 
-  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 1) return;
 
   df0 = 20.0/81.0*s + 2.0*s*aux1*aux2*(1.0 - s2) + 4.0*wc_c*s*s2/(1.0 + wc_c*s2*s2);
 
-  if(dfdx!=NULL){
-    *dfdx  = X2S*kappa*kappa*df0/(f0*f0);
-    *ldfdx = X2S*X2S*wc_mu;
-  }
+  *dfdx  = X2S*kappa*kappa*df0/(f0*f0);
+  *ldfdx = X2S*X2S*wc_mu;
 
-  if(d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 2) return;
 
   dd   = 1.0 + wc_c*s2*s2;
   d2f0 = 20.0/81.0 + 2.0*aux1*aux2*(1.0 - 5.0*s2 + 2.0*s2*s2)

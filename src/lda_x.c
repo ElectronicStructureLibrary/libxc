@@ -47,7 +47,8 @@
 
 #define XC_LDA_X  1   /* Exchange                     */
 
-static void lda_x(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2)
+static void lda_x(const void *p_, const FLOAT *rho, 
+		  FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *)
 {
   XC(lda_type) *p = (XC(lda_type) *)p_;
 

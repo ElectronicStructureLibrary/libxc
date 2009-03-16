@@ -26,7 +26,8 @@
 #define XC_GGA_X_XPBE         123 /* xPBE reparametrization by Xu & Goddard         */
 
 static inline void 
-func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+func(const XC(gga_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   static const FLOAT kappa[4] = {
     0.8040,  /* original PBE */
@@ -57,25 +58,24 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   f0 = kappa[func] + mu[func]*ss*ss;
   *f = 1.0 + kappa[func]*(1.0 - kappa[func]/f0);
 
-  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 1) return;
 
   df0 = 2.0*ss*mu[func];
 
-  if(dfdx!=NULL){
-    *dfdx  = X2S*kappa[func]*kappa[func]*df0/(f0*f0);
-    *ldfdx = X2S*X2S*mu[func];
-  }
+  *dfdx  = X2S*kappa[func]*kappa[func]*df0/(f0*f0);
+  *ldfdx = X2S*X2S*mu[func];
 
-  if(d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 2) return;
 
   d2f0 = 2.0*mu[func];
   *d2fdx2 = X2S*X2S*kappa[func]*kappa[func]/(f0*f0)*(d2f0 - 2.0*df0*df0/f0);
 }
 
 void 
-XC(gga_x_pbe_enhance)(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+XC(gga_x_pbe_enhance)(const XC(gga_type) *p, int order, FLOAT x, 
+		      FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
-  func(p, x, f, dfdx, ldfdx, d2fdx2);
+  func(p, x, order, f, dfdx, ldfdx, d2fdx2);
 }
 
 #include "work_gga_x.c"

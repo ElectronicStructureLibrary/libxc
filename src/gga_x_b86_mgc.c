@@ -23,7 +23,8 @@
 #define XC_GGA_X_B86_MGC      105 /* Becke 86 Xalfa,beta,gamma (with mod. grad. correction) */
 
 static inline void
-func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+func(const XC(gga_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   static const FLOAT beta  = 0.00375;
   static const FLOAT gamma = 0.007;
@@ -36,18 +37,16 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   f2    = POW(dd, 4.0/5.0);
   *f    = 1.0 + f1/f2;
 
-  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 1) return;
 
   df1 = beta/X_FACTOR_C*2.0*x;
   ddp = gamma*2.0*4.0/5.0*f2/dd;
   df2 = ddp*x;
 
-  if(dfdx!=NULL){
-    *dfdx = (df1*f2 - f1*df2)/(f2*f2);
-    *ldfdx= beta/X_FACTOR_C;
-  }
+  *dfdx = (df1*f2 - f1*df2)/(f2*f2);
+  *ldfdx= beta/X_FACTOR_C;
 
-  if(d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 2) return;
 
   d2f1 = beta/X_FACTOR_C*2.0;
   d2f2 = ddp*(1.0 - 2.0/5.0*gamma*x*x/dd);

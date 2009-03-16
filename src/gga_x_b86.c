@@ -24,7 +24,8 @@
 #define XC_GGA_X_B86_R        104 /* Becke 86 Xalfa,beta,gamma (reoptimized)        */
 
 static inline void 
-func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+func(const XC(gga_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   static const FLOAT beta[2]  = {
     0.0076,  /* beta from the original Becke paper */
@@ -44,17 +45,15 @@ func(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT 
   f2    = (1.0 + gamma*x*x);
   *f    = f1/f2;
   
-  if(dfdx==NULL && d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 1) return;
 
   df1   = 2.0*beta[func]*x;
   df2   = 2.0*gamma     *x;
 
-  if(dfdx!=NULL){
-    *dfdx  = (df1*f2 - f1*df2)/(f2*f2);
-    *ldfdx = (beta[func] - gamma);
-  }
+  *dfdx  = (df1*f2 - f1*df2)/(f2*f2);
+  *ldfdx = (beta[func] - gamma);
 
-  if(d2fdx2==NULL) return; /* nothing else to do */
+  if(order < 2) return;
 
   d2f1 = 2.0*beta[func];
   d2f2 = 2.0*gamma;

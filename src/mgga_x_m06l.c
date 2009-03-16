@@ -95,7 +95,7 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,
   FLOAT f_pbe, dfdx_pbe, ldfdx_pbe;
   FLOAT h, dhdx, dhdz, fw, dfwdt;
 
-  XC(gga_x_pbe_enhance)(pt->gga_aux1, x, &f_pbe, &dfdx_pbe, &ldfdx_pbe, NULL);
+  XC(gga_x_pbe_enhance)(pt->gga_aux1, x, order, &f_pbe, &dfdx_pbe, &ldfdx_pbe, NULL);
 
   x_m06l_fw(order, t, &fw, &dfwdt);
 

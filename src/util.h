@@ -101,7 +101,7 @@ int XC(gga_input_init)(const XC(func_info_type) *info, int nspin, const FLOAT *r
 void XC(gga_x_b88_set_params)(XC(gga_type) *p, FLOAT beta);
 void XC(gga_c_lyp_set_params)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
 
-void XC(gga_x_pbe_enhance)(const XC(gga_type) *p, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2);
+void XC(gga_x_pbe_enhance)(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2);
 
 
 /* hybrid GGAs */

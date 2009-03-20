@@ -30,16 +30,17 @@
 #define XC_LDA_C_GL   5   /* Gunnarson & Lundqvist        */
 #define XC_LDA_C_vBH 17   /* von Barth & Hedin            */
 
-static void hl_f(int func, int order, int i, FLOAT rs, FLOAT *zk, FLOAT *drs, FLOAT *d2rs)
+static void 
+hl_f(int func, int order, int i, FLOAT rs, FLOAT *zk, FLOAT *drs, FLOAT *d2rs, FLOAT *d3rs)
 {
   static const 
     FLOAT r[3][2] = {{21.0,   21.0},     /* HL unpolarized only*/
 		     {11.4,   15.9},     /* GL */
                      {30,     75 }};     /* vBH */
   static const 
-    FLOAT c[3][2] = {{ 0.0225, 0.0225},  /* HL unpolarized only */
-		     { 0.0333, 0.0203},  /* GL */
-		     { 0.0252, 0.0127}}; /* vBH */
+    FLOAT c[3][2] = {{0.0225, 0.0225},  /* HL unpolarized only */
+		     {0.0333, 0.0203},  /* GL */
+		     {0.0252, 0.0127}}; /* vBH */
   
   FLOAT a, x, x2, x3;
   
@@ -52,12 +53,18 @@ static void hl_f(int func, int order, int i, FLOAT rs, FLOAT *zk, FLOAT *drs, FL
   
   if(order < 1) return;
 
-  *drs = -c[func][i]/r[func][i]*(3.0*x*(x*a - 1) - 1/x + 3.0/2.0);
+  *drs  = 3.0*x*(x*a - 1) - 1/x + 3.0/2.0;
+  *drs *= -c[func][i]/r[func][i];
 
   if(order < 2) return;
 
-  *d2rs = -c[func][i]/(r[func][i]*r[func][i]*x2*(1.0 + x))*
-    (1.0 + x - 3.0*x2 - 6.0*x3*(1.0 - (1.0 + x)*a));
+  *d2rs  = -3.0 + 1.0/x2 - 3.0*x/(1.0 + x) + 6.0*x*a;
+  *d2rs *= -c[func][i]/(r[func][i]*r[func][i]);
+
+  if(order < 3) return;
+
+  *d3rs = -2.0/x3 + 3.0*x/((1.0 + x)*(1.0 + x)) - 9.0/(1.0 + x) + 6.0*a;
+  *d3rs *= -c[func][i]/(r[func][i]*r[func][i]*r[func][i]);
 }
 
 
@@ -65,42 +72,59 @@ static inline void
 func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   int func;
-  
+  FLOAT ecp, vcp, fcp, kcp;
+  FLOAT ecf, vcf, fcf, kcf;
+  FLOAT fz, dfz, d2fz, d3fz;
+
   switch(p->info->number){
   case XC_LDA_C_GL:  func = 1; break;
   case XC_LDA_C_vBH: func = 2; break;
   default:           func = 0; /* original HL */
   }
 
-  hl_f(func, r->order, 0, r->rs[1], &r->zk, &r->dedrs, &r->d2edrs2);
+  hl_f(func, r->order, 0, r->rs[1], &ecp, &vcp, &fcp, &kcp);
 
-  if(p->nspin==XC_POLARIZED){
-    FLOAT ecp, vcp, fcp;
-    FLOAT ecf, vcf, fcf, fz, dfz, d2fz;
-    
-    /* store paramagnetic values */
-    ecp = r->zk;
-    if(r->order >= 1) vcp = r->dedrs;
-    if(r->order >= 2) fcp = r->d2edrs2;
-
+  if(p->nspin == XC_UNPOLARIZED)
+    r->zk = ecp;
+  else{
     /* get ferromagnetic values */
-    hl_f(func, r->order, 1, r->rs[1], &ecf, &vcf, &fcf);
-    
-    fz  =  FZETA(r->zeta);
+    hl_f(func, r->order, 1, r->rs[1], &ecf, &vcf, &fcf, &kcf);
+
+    fz = FZETA(r->zeta);
     r->zk = ecp + (ecf - ecp)*fz;
+  }
 
-    if(r->order < 1) return; /* nothing else to do */
+  if(r->order < 1) return;
 
+  if(p->nspin == XC_UNPOLARIZED)
+    r->dedrs = vcp;
+  else{
     dfz = DFZETA(r->zeta);
     r->dedrs = vcp + (vcf - vcp)*fz;
-    r->dedz  = (ecf - ecp)*dfz;
+    r->dedz  =       (ecf - ecp)*dfz;
+  }
 
-    if(r->order < 2) return;
-    
+  if(r->order < 2) return;
+  
+  if(p->nspin == XC_UNPOLARIZED)
+    r->d2edrs2 = fcp;
+  else{
     d2fz = D2FZETA(r->zeta);
     r->d2edrs2 = fcp + (fcf - fcp)*fz;
     r->d2edrsz =       (vcf - vcp)*dfz;
     r->d2edz2  =       (ecf - ecp)*d2fz;
+  }
+  
+  if(r->order < 3) return;
+
+  if(p->nspin == XC_UNPOLARIZED)
+    r->d3edrs3 = kcp;
+  else{
+    d3fz = D3FZETA(r->zeta);
+    r->d3edrs3  = kcp + (kcf - kcp)*fz;
+    r->d3edrs2z =       (fcf - fcp)*dfz;
+    r->d3edrsz2 =       (vcf - vcp)*d2fz;
+    r->d3edz3   =       (ecf - ecp)*d3fz;
   }
 }
 
@@ -113,7 +137,7 @@ const XC(func_info_type) XC(func_info_lda_c_hl) = {
   XC_FAMILY_LDA,
   /* can someone get me this paper, so I can find all coefficients? */
   "L Hedin and BI Lundqvist, J. Phys. C 4, 2064 (1971)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC | XC_PROVIDES_KXC,
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
@@ -125,7 +149,7 @@ const XC(func_info_type) XC(func_info_lda_c_gl) = {
   "Gunnarson & Lundqvist",
   XC_FAMILY_LDA,
   "O Gunnarsson and BI Lundqvist, PRB 13, 4274 (1976)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC | XC_PROVIDES_KXC,
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
@@ -137,7 +161,7 @@ const XC(func_info_type) XC(func_info_lda_c_vbh) = {
   "von Barth & Hedin",
   XC_FAMILY_LDA,
   "U von Barth and L Hedin, J. Phys. C: Solid State Phys. 5, 1629 (1972)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC | XC_PROVIDES_KXC,
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */

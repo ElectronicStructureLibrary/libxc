@@ -23,6 +23,10 @@
   of rho.
 ************************************************************************/
 
+#ifndef XC_DIMENSIONS
+#define XC_DIMENSIONS 3
+#endif
+
 static void 
 work_lda(const void *p_, const FLOAT *rho, 
 	 FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3)
@@ -31,7 +35,7 @@ work_lda(const void *p_, const FLOAT *rho,
 
   XC(lda_rs_zeta) r;
   int is;
-  FLOAT dens, dcnst, drs, rs4, d2rs;
+  FLOAT cnst_rs, dens, drs, d2rs, d3rs;
 
   r.order = -1;
   if(zk     != NULL) r.order = 0;
@@ -43,7 +47,15 @@ work_lda(const void *p_, const FLOAT *rho,
   XC(rho2dzeta)(p->nspin, rho, &dens, &r.zeta);
 
   /* Wigner radius */
-  r.rs[1] = RS(dens);
+# if   XC_DIMENSIONS == 1
+  cnst_rs = 1.0/2.0;
+# elif XC_DIMENSIONS == 2
+  cnst_rs = 1.0/sqrt(M_PI);
+# else /* three dimensions */
+  cnst_rs = POW(3.0/(4*M_PI), 1.0/3.0);
+# endif
+
+  r.rs[1] = cnst_rs*POW(dens, -1.0/XC_DIMENSIONS);
   r.rs[0] = sqrt(r.rs[1]);
   r.rs[2] = r.rs[1]*r.rs[1];
 
@@ -54,8 +66,10 @@ work_lda(const void *p_, const FLOAT *rho,
 
   if(r.order < 1) return;
 
+  drs = -r.rs[1]/(XC_DIMENSIONS*dens);
+
   if(vrho != NULL && (p->info->provides & XC_PROVIDES_VXC)){
-    vrho[0] = r.zk - (r.rs[1]/3.0)*r.dedrs;
+    vrho[0] = r.zk + dens*r.dedrs*drs;
 
     if(p->nspin == XC_POLARIZED){
       vrho[1] = vrho[0] - (r.zeta + 1.0)*r.dedz;
@@ -65,29 +79,28 @@ work_lda(const void *p_, const FLOAT *rho,
   
   if(r.order < 2) return;
 
-  dcnst = 4.0*M_PI/3.0;
-  rs4   = r.rs[2]*r.rs[2];
-  drs   = -dcnst*rs4/3.0;
+  d2rs = -drs*(1.0 + XC_DIMENSIONS)/(XC_DIMENSIONS*dens);
 
   if(v2rho2 != NULL && (p->info->provides & XC_PROVIDES_FXC)){
-    v2rho2[0] = (2.0*r.dedrs - r.rs[1]*r.d2edrs2)*drs/3.0;
-    
+    v2rho2[0] = r.dedrs*(2.0*drs + dens*d2rs) + dens*r.d2edrs2*drs*drs;
+
     if(p->nspin == XC_POLARIZED){
       FLOAT sign[3][2] = {{-1.0, -1.0}, {-1.0, +1.0}, {+1.0, +1.0}};
 
-      for(is=2; is>=0; is--)
-	v2rho2[is] = v2rho2[0] - r.d2edrsz*(r.zeta + sign[is][0])*drs
-	  + (r.zeta + sign[is][1])/dens*(r.d2edrsz*r.rs[1]/3.0 + (r.zeta + sign[is][0])*r.d2edz2);
+      for(is=2; is>=0; is--){
+	v2rho2[is] = v2rho2[0] - r.d2edrsz*(2.0*r.zeta + sign[is][0] + sign[is][1])*drs
+	  + (r.zeta + sign[is][0])*(r.zeta + sign[is][1])*r.d2edz2/dens;
+      }
     }
   }
 
   if(r.order < 3) return;
 
-  if(v3rho3 != NULL && (p->info->provides & XC_PROVIDES_KXC)){
-    d2rs = (4.0/9.0) * dcnst*dcnst * rs4*r.rs[2]*r.rs[1];
+  d3rs = -d2rs*(1.0 + 2.0*XC_DIMENSIONS)/(XC_DIMENSIONS*dens);
 
-    v3rho3[0]  = (r.d2edrs2 - r.rs[1]*r.d3edrs3)*drs*drs + (2.0*r.dedrs - r.rs[1]*r.d2edrs2)*d2rs;
-    v3rho3[0] /= 3.0;
+  if(v3rho3 != NULL && (p->info->provides & XC_PROVIDES_KXC)){
+    v3rho3[0] = r.dedrs*(3.0*d2rs + dens*d3rs) + 
+      3.0*r.d2edrs2*drs*(drs + dens*d2rs) + r.d3edrs3*dens*drs*drs*drs;
 
     if(p->nspin == XC_POLARIZED){
       FLOAT sign[4][3] = {{-1.0, -1.0, -1.0}, {-1.0, -1.0, +1.0}, {-1.0, +1.0, +1.0}, {+1.0, +1.0, +1.0}};
@@ -95,18 +108,13 @@ work_lda(const void *p_, const FLOAT *rho,
       for(is=3; is>=0; is--){
 	FLOAT ff;
 
-	v3rho3[is]  = v3rho3[0] - (r.zeta + sign[is][0])*(r.d3edrs2z*drs*drs + r.d2edrsz*d2rs);
+	v3rho3[is]  = v3rho3[0] - (2.0*r.zeta  + sign[is][0] + sign[is][1])*(d2rs*r.d2edrsz + drs*drs*r.d3edrs2z);
+	v3rho3[is] += (r.zeta + sign[is][0])*(r.zeta + sign[is][1])*(-r.d2edz2/dens + r.d3edrsz2*drs)/dens;
 
-	v3rho3[is] += (r.zeta + sign[is][1])/dens*
-	  (r.d3edrs2z*r.rs[1]/3.0 + r.d2edrsz/3.0 + (r.zeta + sign[is][0])*r.d3edrsz2)*drs;
-
-	v3rho3[is] += -(r.zeta + sign[is][1])/(dens*dens)*
-	  (r.d2edrsz*r.rs[1]/3.0 + (r.zeta + sign[is][0])*r.d2edz2);
-
-	ff  = (2.0*r.d2edrsz - r.rs[1]*r.d3edrs2z)*drs/3.0;
-	ff += -(r.d3edrsz2*(r.zeta + sign[is][0]) + r.d2edrsz)*drs;
-	ff += (r.d2edrsz*r.rs[1]/3.0 + (r.zeta + sign[is][0])*r.d2edz2)/dens;
-	ff += (r.zeta + sign[is][1])/dens*(r.d3edrsz2*r.rs[1]/3.0 + r.d2edz2 + (r.zeta + sign[is][0])*r.d3edz3);
+	ff  = r.d2edrsz*(2.0*drs + dens*d2rs) + dens*r.d3edrs2z*drs*drs;
+	ff += -2.0*r.d2edrsz*drs - r.d3edrsz2*(2.0*r.zeta + sign[is][0] + sign[is][1])*drs;
+	ff += (r.zeta + sign[is][0])*(r.zeta + sign[is][1])*r.d3edz3/dens;
+	ff += (2.0*r.zeta  + sign[is][0] + sign[is][1])*r.d2edz2/dens;
 
 	v3rho3[is] += -ff*(r.zeta + sign[is][2])/dens;
       }

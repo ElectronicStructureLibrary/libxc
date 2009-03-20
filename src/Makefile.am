@@ -22,7 +22,7 @@
 lib_LIBRARIES = libxc.a
 
 libxc_a_FUNC_SOURCES = \
-	lda.c lda_x.c \
+	lda.c lda_x.c lda_x_2d.c \
 	lda_c_wigner.c lda_c_rpa.c lda_c_hl.c lda_c_xalpha.c \
 	lda_c_vwn.c lda_c_pz.c lda_c_pw.c lda_xc_teter93.c \
 	lda_c_1d_csc.c \
@@ -59,7 +59,7 @@ endif
 dist_noinst_SCRIPTS = get_funcs.pl
 
 noinst_HEADERS = \
-	util.h work_lda_1d.c work_lda.c \
+	util.h work_lda.c \
 	work_gga_x.c work_gga_becke.c work_gga_x_2d.c \
 	work_mgga_x.c work_mgga_c.c \
 	libxc_master.F90

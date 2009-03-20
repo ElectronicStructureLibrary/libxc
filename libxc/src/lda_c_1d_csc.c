@@ -75,9 +75,7 @@ XC(lda_c_1d_csc_set_params)(XC(lda_type) *p, FLOAT bb)
 }
 
 static inline void
-func_lda_1d(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta, 
-     FLOAT *zk, FLOAT *dedrs, FLOAT *dedz, 
-     FLOAT *d2edrs2, FLOAT *d2edrsz, FLOAT *d2edz2)
+func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   static const struct {
     FLOAT A, B, C, n, alpha, beta, m;
@@ -98,33 +96,34 @@ func_lda_1d(const XC(lda_type) *p, int order, FLOAT *rs, FLOAT zeta,
   assert(p->params != NULL);
   ii = *((int *)p->params);
 
-  rs_n = POW(rs[1], pp[ii].n);
-  rs_m = POW(rs[1], pp[ii].m);
+  rs_n = POW(r->rs[1], pp[ii].n);
+  rs_m = POW(r->rs[1], pp[ii].m);
 
-  arg  = 1.0 + pp[ii].alpha*rs[1] + pp[ii].beta*rs_m;
+  arg  = 1.0 + pp[ii].alpha*r->rs[1] + pp[ii].beta*rs_m;
   larg = LOG(arg);
 
-  den  = pp[ii].A + pp[ii].B*rs_n + pp[ii].C*rs[2];
+  den  = pp[ii].A + pp[ii].B*rs_n + pp[ii].C*r->rs[2];
 
-  *zk  = -rs[1]*larg/den;
-  *zk /= 2.0; /* conversion from Ry to Hartree */
+  r->zk  = -r->rs[1]*larg/den;
+  r->zk /= 2.0; /* conversion from Ry to Hartree */
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
-  darg = pp[ii].alpha*rs[1] + pp[ii].beta*pp[ii].m*rs_m; /* times rs */
-  dden = pp[ii].B*pp[ii].n*rs_n + 2.0*pp[ii].C*rs[2];    /* times rs */
+  darg = pp[ii].alpha*r->rs[1] + pp[ii].beta*pp[ii].m*rs_m; /* times rs */
+  dden = pp[ii].B*pp[ii].n*rs_n + 2.0*pp[ii].C*r->rs[2];    /* times rs */
 
-  *dedrs  = -((larg + darg/arg)*den - dden*larg)/(den*den);
-  *dedrs /= 2.0; /* conversion from Ry to Hartree */
+  r->dedrs  = -((larg + darg/arg)*den - dden*larg)/(den*den);
+  r->dedrs /= 2.0; /* conversion from Ry to Hartree */
 
-  *dedz  = 0.0; /* apparently the function is spin-unpolarized only */
+  r->dedz   = 0.0; /* apparently the function is spin-unpolarized only */
 
-  if(order < 2) return;
+  if(r->order < 2) return;
 
   /* TODO : second derivatives */
 }
 
-#include "work_lda_1d.c"
+#define XC_DIMENSIONS 1
+#include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_c_1d_csc) = {
   XC_LDA_C_1D_CSC,
@@ -135,5 +134,5 @@ const XC(func_info_type) XC(func_info_lda_c_1d_csc) = {
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   lda_c_1d_csc_init,    /* init */
   lda_c_1d_csc_end,     /* end  */
-  work_lda_1d,          /* lda  */
+  work_lda,             /* lda  */
 };

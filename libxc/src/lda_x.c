@@ -22,63 +22,61 @@
 
 #include "util.h"
 
-/************************************************************************
- Calculates the exchange energy and exchange potential for a homogeneous
- electron gas (LDA for exchange).
- It works in both the 3D and 2D cases
- (1D not yet implemented, although one) only has to find out the a_x constant,
- but I do not know what is the value of \int_0^\infty sin**2(x)/x**3 )
-
- The basic formulae are (Hartree atomic units are assumed):
-
-    p = ((dim+1)/dim)
-    ex(n) = a_x*n**(1/dim)
-    ex(n,z) = ex(n)*f(z)
-    vx_up(n, z) = ex(n)*( p*f(z) + (df/dz)(z)*(1-z) )
-    vx_do(n, z) = ex(n)*( p*f(z) - (df/dz)(z)*(1+z) )
-    f(z) = (1/2)*( (1+z)**p + (1-z)**p)
-    a_x = -(3/(4*pi))*(3*pi**2)**(1/3) in 3D
-    a_x = -(4/3)*sqrt(2/pi) in 2D
-    a_x = -(1/2) * \int_0^\infty (sin(x))**2/x**3
-
- If irel is not zero, a relativistic correction factor is applied.
- This factor can only be aplied in 3D and for the spin-unpolarized case.
-************************************************************************/
-
 #define XC_LDA_X  1   /* Exchange                     */
 
-static void lda_x(const void *p_, const FLOAT *rho, 
-		  FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2) /*, FLOAT *) */
+static inline void 
+func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
-  XC(lda_type) *p = (XC(lda_type) *)p_;
+  const FLOAT ax = -0.458165293283142893475554485052; /* -3/4*POW(3/(2*M_PI), 2/3) */
+  FLOAT fz, dfz, d2fz, d3fz;
 
-  static FLOAT a_x[3] = {-1.0, -1.06384608107049, -0.738558766382022};
-  FLOAT dens, extmp, alpha, factor;
-  int i;
+  r->zk = ax/r->rs[1];
+  if(p->nspin == XC_POLARIZED){
+    fz  = 0.5*(pow(1.0 + r->zeta,  4.0/3.0) + pow(1.0 - r->zeta,  4.0/3.0));
+    r->zk *= fz;
+  }
+
+  if(r->order < 1) return;
   
-  assert(p!=NULL);
-  
-  dens = 0.0;
-  for(i=0; i<p->nspin; i++) dens += rho[i];
+  r->dedrs = -ax/r->rs[2];
+  if(p->nspin == XC_POLARIZED){
+    dfz = 2.0/3.0*(pow(1.0 + r->zeta,  1.0/3.0) - pow(1.0 - r->zeta,  1.0/3.0));
 
-  alpha   = (p->dim + 1.0)/p->dim;
-  factor  = (p->nspin == XC_UNPOLARIZED) ? 1.0 : POW(2.0, alpha)/2.0;
-  factor *= a_x[p->dim-1];
+    r->dedrs *= fz;
+    r->dedz   = ax/r->rs[1]*dfz;
+  }
 
-  extmp = 0.0;
-  for(i=0; i<p->nspin; i++){
-    extmp += factor*POW(rho[i], alpha)/dens;
+  if(r->order < 2) return;
+    
+  r->d2edrs2 = 2.0*ax/(r->rs[1]*r->rs[2]);
+  if(p->nspin == XC_POLARIZED){
+    if(ABS(r->zeta) == 1.0)
+      d2fz = FLT_MAX;
+    else
+      d2fz = 2.0/9.0*(pow(1.0 + r->zeta,  -2.0/3.0) + pow(1.0 - r->zeta,  -2.0/3.0));
+    
+    r->d2edrs2 *= fz;
+    r->d2edrsz = -ax/r->rs[2]*dfz;
+    r->d2edz2  =  ax/r->rs[1]*d2fz;
+  }
 
-    if(vrho != NULL)
-      vrho[i]  = factor*alpha*POW(rho[i], alpha - 1.0);
+  if(r->order < 3) return;
 
-    if(v2rho2!=NULL && rho[i]>0){
-      int js = (i==0) ? 0 : 2;
-      v2rho2[js] = factor*alpha*(alpha - 1.0)*POW(rho[i], alpha - 2.0);
-    }
+  r->d3edrs3 = -6.0*ax/(r->rs[2]*r->rs[2]);
+  if(p->nspin == XC_POLARIZED){
+    if(ABS(r->zeta) == 1.0)
+      d3fz = FLT_MAX;
+    else
+      d3fz = -4.0/27.0*(pow(1.0 + r->zeta,  -5.0/3.0) - pow(1.0 - r->zeta,  -5.0/3.0));
+
+    r->d3edrs3 *= fz;
+    r->d3edrs2z = 2.0*ax/(r->rs[1]*r->rs[2])*dfz;
+    r->d3edrsz2 =    -ax/r->rs[2]           *d2fz;
+    r->d3edz3   =     ax/r->rs[1]           *d3fz;
   }
 
   /* Relativistic corrections */
+  /*
   if(p->relativistic != 0){
     FLOAT beta, beta2, f1, f2, f3, phi;
   
@@ -100,14 +98,11 @@ static void lda_x(const void *p_, const FLOAT *rho,
     
       vrho[0]  = vrho[0]*phi + dens*extmp*dphidbeta*dbetadd;
     }
-
-    /* WARNING - missing fxc */
   }
-
-  if(zk != NULL)
-    *zk = extmp;
+  */
 }
 
+#include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_x) = {
   XC_LDA_X,
@@ -116,10 +111,9 @@ const XC(func_info_type) XC(func_info_lda_x) = {
   XC_FAMILY_LDA,
   "PAM Dirac, Proceedings of the Cambridge Philosophical Society 26, 376 (1930)\n"
   "F Bloch, Zeitschrift fuer Physik 57, 545 (1929)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
-  NULL,
-  NULL,
-  lda_x
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC | XC_PROVIDES_KXC,
+  NULL, NULL,
+  work_lda
 };
 
 

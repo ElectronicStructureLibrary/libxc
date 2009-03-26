@@ -22,6 +22,16 @@
 ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = src testsuite
 
-EXTRA_DIST = TODO
+EXTRA_DIST = Changelog PACKAGING TODO DONE
 
-CLEANFILES = *~ *.ba
+MAINTAINERCLEANFILES = ChangeLog
+CLEANFILES = *~ *.bak
+
+.PHONY: ChangeLog
+
+ChangeLog:
+	(svn2cl -i -o .changelog.tmp \$(top_srcdir) && \
+	mv .changelog.tmp ChangeLog) || (rm -f .changelog.tmp; touch ChangeLog; \
+	echo 'svn2cl command not found: installing possibly empty changelog.' >&2)
+
+dist-hook: ChangeLog

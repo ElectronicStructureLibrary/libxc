@@ -1,3 +1,13 @@
+2009-03-26 10:27  marques
+
+	* [r5116] ChangeLog, Makefile.am, PACKAGING, configure.ac,
+	  m4/acx.m4: Several details necessary to package libxc.
+	  *) There is now a PACKAGING file
+	  *) FCCPP explanation now appears in ./configure --help
+	  *) Automatic generation of ChangeLog file -- maybe it would be
+	  better to
+	  separate it per years, but I don't know how to do it well...
+
 2009-03-20 14:40  marques
 
 	* [r5092] src/lda_x_2d.c: Forgot this file... sorry.

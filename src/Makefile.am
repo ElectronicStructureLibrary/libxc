@@ -50,16 +50,16 @@ if COMPILE_FORTRAN
   libxc_a_SOURCES += xc_f.c libxc_funcs.f90 libxc.f90
 endif
 if COMPILE_SINGLE
-  libxc_a_SOURCES += $(libxc_a_FUNC_SINGLE_SOURCES)
+  nodist_libxc_a_SOURCES = $(libxc_a_FUNC_SINGLE_SOURCES)
 if COMPILE_FORTRAN
-    libxc_a_SOURCES += xc_f_s.c libxc_s.f90
+    nodist_libxc_a_SOURCES += xc_f_s.c libxc_s.f90
 endif
 endif
 
 dist_noinst_SCRIPTS = get_funcs.pl
 
 noinst_HEADERS = \
-	util.h work_lda.c \
+	string_f.h util.h work_lda.c \
 	work_gga_x.c work_gga_becke.c work_gga_x_2d.c \
 	work_mgga_x.c work_mgga_c.c \
 	libxc_master.F90

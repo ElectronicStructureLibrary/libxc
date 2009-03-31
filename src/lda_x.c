@@ -76,6 +76,10 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   }
 
   /* Relativistic corrections */
+  /*  A. K. Rajagopal, J. Phys. C 11, L943 (1978).
+      A. H. MacDonald and S. H. Vosko, J. Phys. C 12, 2977 (1979).
+      E. Engel, S. Keller, A. Facco Bonetti, H. Müller, and R. M. Dreizler, Phys. Rev. A 52, 2750 (1995).
+  */
   /*
   if(p->relativistic != 0){
     FLOAT beta, beta2, f1, f2, f3, phi;

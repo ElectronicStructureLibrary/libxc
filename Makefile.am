@@ -24,7 +24,7 @@ SUBDIRS = src testsuite
 
 EXTRA_DIST = ChangeLog PACKAGING TODO DONE
 
-MAINTAINERCLEANFILES = ChangeLog
+DISTCLEANFILES = ChangeLog
 CLEANFILES = *~ *.bak
 
 .PHONY: ChangeLog

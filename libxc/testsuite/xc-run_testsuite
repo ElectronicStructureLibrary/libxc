@@ -20,14 +20,14 @@ for i in `ls $datadir/*.data | sort`; do
 done
 echo -e "\033[0m"
 
-echo -e "\033[33;1mInternal consistency\033[0m"
-for i in `grep -E 'XC_LDA|XC_GGA' $srcdir/../src/xc_funcs.h | awk '{printf("%s,%d\n",$2, $3)}'`; do
-  func=`echo $i|sed 's/,.*//'`;
-  number=`echo $i|sed 's/.*,//'`;
-
-  if [ $number -ne 6 -a $number -ne 160 ]; then
-    echo -e "\033[0m :: Testing \033[32;1m$func\033[0m ($number)"
-    ./xc-consistency $number
-  fi
-  echo
-done
+#echo -e "\033[33;1mInternal consistency\033[0m"
+#for i in `grep -E 'XC_LDA|XC_GGA' $srcdir/../src/xc_funcs.h | awk '{printf("%s,%d\n",$2, $3)}'`; do
+#  func=`echo $i|sed 's/,.*//'`;
+#  number=`echo $i|sed 's/.*,//'`;
+#
+#  if [ $number -ne 6 -a $number -ne 160 ]; then
+#    echo -e "\033[0m :: Testing \033[32;1m$func\033[0m ($number)"
+#    ./xc-consistency $number
+#  fi
+#  echo
+#done

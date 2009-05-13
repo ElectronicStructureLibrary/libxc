@@ -24,33 +24,37 @@
 #define XC_GGA_X_PBE_R        102 /* Perdew, Burke & Ernzerhof exchange (revised)   */
 #define XC_GGA_X_PBE_SOL      116 /* Perdew, Burke & Ernzerhof exchange (solids)    */
 #define XC_GGA_X_XPBE         123 /* xPBE reparametrization by Xu & Goddard         */
+#define XC_GGA_X_PBE_JSJR     126 /* JSJR reparametrization by Pedroza, Silva & Capelle */
 
 static inline void 
 func(const XC(gga_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
-  static const FLOAT kappa[4] = {
+  static const FLOAT kappa[5] = {
     0.8040,  /* original PBE */
     1.245,   /* PBE R */
     0.8040,  /* PBE sol */
-    0.91954  /* xPBE */
+    0.91954, /* xPBE */
+    0.8040,  /* PBE_JSJR */
   };
 
-  static const FLOAT mu[4] = {
-    0.2195149727645171,  /* PBE: mu = beta*pi^2/3, beta = 0.066725 */
-    0.2195149727645171,  /* PBE rev: as PBE */
-    10.0/81.0,           /* PBE sol */
-    0.23214              /* xPBE */
+  static const FLOAT mu[5] = {
+    0.2195149727645171,   /* PBE: mu = beta*pi^2/3, beta = 0.066725 */
+    0.2195149727645171,   /* PBE rev: as PBE */
+    10.0/81.0,            /* PBE sol */
+    0.23214,              /* xPBE */
+    M_PI*M_PI*0.046/3.0,  /* PBE_JSJR */
   };
 
   FLOAT ss, f0, df0, d2f0;
   int func;
 
   switch(p->info->number){
-  case XC_GGA_X_PBE_R:   func = 1; break;
-  case XC_GGA_X_PBE_SOL: func = 2; break;
-  case XC_GGA_X_XPBE:    func = 3; break;
-  default:               func = 0; /* original PBE */
+  case XC_GGA_X_PBE_R:    func = 1; break;
+  case XC_GGA_X_PBE_SOL:  func = 2; break;
+  case XC_GGA_X_XPBE:     func = 3; break;
+  case XC_GGA_X_PBE_JSJR: func = 4; break;
+  default:                func = 0; /* original PBE */
   }
 
   ss = X2S*x;
@@ -124,3 +128,15 @@ const XC(func_info_type) XC(func_info_gga_x_xpbe) = {
   NULL, NULL, NULL,
   work_gga_x
 };
+
+const XC(func_info_type) XC(func_info_gga_x_pbe_jsjr) = {
+  XC_GGA_X_PBE_JSJR,
+  XC_EXCHANGE,
+  "Reparametrized PBE by Pedroza, Silva & Capelle",
+  XC_FAMILY_GGA,
+  "LS Pedroza, AJR da Silva, and K. Capelle, arxiv:0905.1925",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  NULL, NULL, NULL,
+  work_gga_x
+};
+

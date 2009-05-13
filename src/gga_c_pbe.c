@@ -32,31 +32,29 @@
 #define XC_GGA_C_PBE          130 /* Perdew, Burke & Ernzerhof correlation          */
 #define XC_GGA_C_PBE_SOL      133 /* Perdew, Burke & Ernzerhof correlation SOL      */
 #define XC_GGA_C_XPBE         136 /* xPBE reparametrization by Xu & Goddard         */
+#define XC_GGA_C_PBE_JRGX     138 /* JRGX reparametrization by Pedroza, Silva & Capelle */
 
-static const FLOAT beta[3]  = {
-  0.06672455060314922,  /* original PBE */
-  0.046,                /* PBE sol      */
-  0.089809
+static const FLOAT beta[4]  = {
+  0.06672455060314922,       /* original PBE */
+  0.046,                     /* PBE sol      */
+  0.089809,                  /* xPBE */
+  3.0*10.0/(81.0*M_PI*M_PI)  /* PBE_JRGX */
 };
-static FLOAT gamm[3];
+static FLOAT gamm[4];
 
 
 static void gga_c_pbe_init(void *p_)
 {
+  int ii;
+
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
   p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
   XC(lda_init)(p->lda_aux, XC_LDA_C_PW_MOD, p->nspin);
 
-  switch(p->info->number){
-  case XC_GGA_C_XPBE:
-    gamm[2] = beta[2]*beta[2]/(2.0*0.197363);
-    break;
-  case XC_GGA_C_PBE_SOL:
-  default: /* the original PBE */
-    gamm[0] = gamm[1] = (1.0 - log(2.0))/(M_PI*M_PI);
-    break;
-  }  
+  for(ii=0; ii<4; ii++)
+    gamm[ii] = (1.0 - log(2.0))/(M_PI*M_PI);
+  gamm[2] = beta[2]*beta[2]/(2.0*0.197363);
 }
 
 
@@ -163,9 +161,10 @@ gga_c_pbe(const void *p_, const FLOAT *rho, const FLOAT *sigma,
   FLOAT H, dHdphi, dHdt, dHdA, d2Hdphi2, d2Hdphit, d2HdphiA, d2Hdt2, d2HdtA, d2HdA2;
 
   switch(p->info->number){
-  case XC_GGA_C_PBE_SOL: func = 1; break;
-  case XC_GGA_C_XPBE:    func = 2; break;
-  default:               func = 0; /* original PBE */
+  case XC_GGA_C_PBE_SOL:  func = 1; break;
+  case XC_GGA_C_XPBE:     func = 2; break;
+  case XC_GGA_C_PBE_JRGX: func = 3; break;
+  default:                func = 0; /* original PBE */
   }
 
   order = 0;
@@ -237,6 +236,19 @@ const XC(func_info_type) XC(func_info_gga_c_xpbe) = {
   "Extended PBE by Xu & Goddard III",
   XC_FAMILY_GGA,
   "X Xu and WA Goddard III, J. Chem. Phys. 121, 4068 (2004)",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  gga_c_pbe_init,
+  gga_c_pbe_end,
+  NULL,            /* this is not an LDA                   */
+  gga_c_pbe,
+};
+
+const XC(func_info_type) XC(func_info_gga_c_pbe_jrgx) = {
+  XC_GGA_C_PBE_JRGX,
+  XC_EXCHANGE,
+  "Reparametrized PBE by Pedroza, Silva & Capelle",
+  XC_FAMILY_GGA,
+  "LS Pedroza, AJR da Silva, and K. Capelle, arxiv:0905.1925",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   gga_c_pbe_init,
   gga_c_pbe_end,

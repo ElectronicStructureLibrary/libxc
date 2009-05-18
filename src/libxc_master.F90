@@ -66,15 +66,15 @@ module XC_F90(lib_m)
     XC_F90(lda_fxc),                     &
     XC_F90(lda_kxc),                     &
     XC_F90(lda_end),                     &
-    XC_F90(lda_c_1d_csc_set_params),     &
-    XC_F90(lda_c_2d_prm_set_params),     &
+    XC_F90(lda_c_1d_csc_set_par),        &
+    XC_F90(lda_c_2d_prm_set_par),        &
     XC_F90(gga_init),                    &
     XC_F90(gga),                         &
     XC_F90(gga_exc),                     &
     XC_F90(gga_vxc),                     &
     XC_F90(gga_fxc),                     &
     XC_F90(gga_end),                     &
-    XC_F90(gga_lb_set_params),           &
+    XC_F90(gga_lb_set_par),              &
     XC_F90(gga_lb_modified),             &
     XC_F90(hyb_gga_init),                &
     XC_F90(hyb_gga_end),                 &
@@ -243,19 +243,19 @@ module XC_F90(lib_m)
   
 
   interface
-    subroutine XC_F90(lda_c_1d_csc_set_params)(p, bb)
+    subroutine XC_F90(lda_c_1d_csc_set_par)(p, bb)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(inout)  :: p
       real(xc_f90_kind),    intent(in)     :: bb
-    end subroutine XC_F90(lda_c_1d_csc_set_params)
+    end subroutine XC_F90(lda_c_1d_csc_set_par)
   end interface
 
   interface
-    subroutine XC_F90(lda_c_2d_prm_set_params)(p, N)
+    subroutine XC_F90(lda_c_2d_prm_set_par)(p, N)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(inout)  :: p
       real(xc_f90_kind),    intent(in)     :: N
-    end subroutine XC_F90(lda_c_2d_prm_set_params)
+    end subroutine XC_F90(lda_c_2d_prm_set_par)
   end interface
 
   ! GGAs
@@ -333,14 +333,14 @@ module XC_F90(lib_m)
 
   !----------------------------------------------------------------
   interface
-    subroutine XC_F90(gga_lb_set_params)(p, modified, threshold, ip, qtot)
+    subroutine XC_F90(gga_lb_set_par)(p, modified, threshold, ip, qtot)
       use XC_F90(types_m)
       type(XC_F90(func_t)),   intent(in)  :: p
       integer,           intent(in)  :: modified   ! should we use the modified version
       real(xc_f90_kind), intent(in)  :: threshold  ! if so, the threshold to use the asymtotic version
       real(xc_f90_kind), intent(in)  :: ip         ! ionization potential
       real(xc_f90_kind), intent(in)  :: qtot       ! total charge
-    end subroutine XC_F90(gga_lb_set_params)
+    end subroutine XC_F90(gga_lb_set_par)
   end interface
 
 

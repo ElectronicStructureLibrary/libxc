@@ -142,14 +142,14 @@ void XC_FC_FUNC(f90_lda_kxc, F90_LDA_KXC)
 /* Now come some special initializations */
 
 /* parameter of CSC */
-void XC_FC_FUNC(f90_lda_c_1d_csc_set_params, F90_LDA_C_1D_CSC_SET_PARAMS)
+void XC_FC_FUNC(f90_lda_c_1d_csc_set_par, F90_LDA_C_1D_CSC_SET_PAR)
   (void **p, FLOAT *bb)
 {
   XC(lda_c_1d_csc_set_params)((XC(lda_type) *)(*p), *bb);
 }
 
 /* parameter of PRM */
-void XC_FC_FUNC(f90_lda_c_2d_prm_set_params, F90_LDA_C_2D_PRM_SET_PARAMS)
+void XC_FC_FUNC(f90_lda_c_2d_prm_set_par, F90_LDA_C_2D_PRM_SET_PAR)
   (void **p, FLOAT *N)
 {
   XC(lda_c_2d_prm_set_params)((XC(lda_type) *)(*p), *N);
@@ -237,7 +237,7 @@ void XC_FC_FUNC(f90_gga_fxc, F90_GGA_FXC)
 }
 
 /* the van Leeuwen & Baerends functional is special */
-void XC_FC_FUNC(f90_gga_lb_set_params, F90_GGA_LB_SET_PARAMS)
+void XC_FC_FUNC(f90_gga_lb_set_par, F90_GGA_LB_SET_PAR)
   (void **p, CC_FORTRAN_INT *modified, FLOAT *threshold, FLOAT *ip, FLOAT *qtot)
 {
   XC(gga_lb_set_params)((XC(gga_type) *)(*p), *modified, *threshold, *ip, *qtot);

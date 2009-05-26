@@ -1,3 +1,14 @@
+2009-05-18 08:25  marques
+
+	* [r5417] ChangeLog, src/libxc_master.F90, src/xc_f.c: Changes
+	  necessary to compile octopus in single precision more. Alberto,
+	  I guess I made a disaster in your opt-control code (that now will
+	  not
+	  wortk in single precision). The problem are the minimizing
+	  routines that
+	  do not have interfaces in single precision more. One should add
+	  it...
+
 2009-05-13 10:54  marques
 
 	* [r5380] src/gga_c_pbe.c, src/gga_x_pbe.c: Added a couple of

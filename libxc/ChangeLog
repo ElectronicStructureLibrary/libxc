@@ -1,3 +1,10 @@
+2009-05-26 09:23  marques
+
+	* [r5495] ChangeLog: *) Added a MemoryLimit variable. Octopus will
+	  stop if this variable is set and if the total memory depasses its
+	  value
+	  *) Octopus was not compiling in 4D due to array mismatches
+
 2009-05-18 08:25  marques
 
 	* [r5417] ChangeLog, src/libxc_master.F90, src/xc_f.c: Changes

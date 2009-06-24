@@ -25,8 +25,8 @@
 #define XC_MGGA_X_LTA          201 /* Local tau approximation of Ernzerhof & Scuseria */
 
 static void 
-func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,
-     FLOAT *f, FLOAT *dfdx, FLOAT *dfdt,
+func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
+     FLOAT *f, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
      FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
 {
   /* POW(10.0/(3.0*POW(6.0*M_PI*M_PI, 2.0/3.0)), 4.0/5.0) = (2/C_F)^(4/5) */
@@ -39,6 +39,7 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,
   
   *dfdx = 0.0;
   *dfdt = (t > 1e-10) ? a1*4.0/5.0*POW(t, -1.0/5.0)/2.0 : 0.0;
+  *dfdu = 0.0;
 
   if(order < 2) return;
   

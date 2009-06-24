@@ -33,7 +33,7 @@ XC(perdew_params)(const XC(gga_type) *gga_p, const FLOAT *rho, const FLOAT *sigm
     XC(lda_exc) (gga_p->lda_aux, rho, &(pt->ecunif));
     break;
   case 1:
-    XC(lda_vxc)(gga_p->lda_aux, rho, &(pt->ecunif), pt->vcunif);
+    XC(lda_exc_vxc)(gga_p->lda_aux, rho, &(pt->ecunif), pt->vcunif);
     break;
   case 2:
     XC(lda)(gga_p->lda_aux, rho, &(pt->ecunif), pt->vcunif, pt->fcunif, NULL);

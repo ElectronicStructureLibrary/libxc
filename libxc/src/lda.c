@@ -133,9 +133,14 @@ inline void XC(lda_exc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *zk)
   XC(lda)(p, rho, zk, NULL, NULL, NULL);
 }
 
-inline void XC(lda_vxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *zk, FLOAT *vrho)
+inline void XC(lda_exc_vxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *zk, FLOAT *vrho)
 {
   XC(lda)(p, rho, zk, vrho, NULL, NULL);
+}
+
+inline void XC(lda_vxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *vrho)
+{
+  XC(lda)(p, rho, NULL, vrho, NULL, NULL);
 }
 
 inline void XC(lda_fxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *v2rho2)
@@ -160,7 +165,7 @@ void XC(lda_fxc_fd)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *fxc)
   int i;
 
   for(i=0; i<p->nspin; i++){
-    FLOAT rho2[2], e, vc1[2], vc2[2];
+    FLOAT rho2[2], vc1[2], vc2[2];
     int j, js;
 
     j  = (i+1) % 2;
@@ -168,10 +173,10 @@ void XC(lda_fxc_fd)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *fxc)
 
     rho2[i] = rho[i] + delta_rho;
     rho2[j] = (p->nspin == XC_POLARIZED) ? rho[j] : 0.0;
-    XC(lda_vxc)(p, rho2, &e, vc1);
+    XC(lda_vxc)(p, rho2, vc1);
 
     if(rho[i]<2.0*delta_rho){ /* we have to use a forward difference */
-      XC(lda_vxc)(p, rho, &e, vc2);
+      XC(lda_vxc)(p, rho, vc2);
 	
       fxc[js] = (vc1[i] - vc2[i])/(delta_rho);
       if(p->nspin == XC_POLARIZED && i==0)
@@ -179,7 +184,7 @@ void XC(lda_fxc_fd)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *fxc)
 	
     }else{                    /* centered difference (more precise)  */
       rho2[i] = rho[i] - delta_rho;
-      XC(lda_vxc)(p, rho2, &e, vc2);
+      XC(lda_vxc)(p, rho2, vc2);
       
       fxc[js] = (vc1[i] - vc2[i])/(2.0*delta_rho);
       if(p->nspin == XC_POLARIZED && i==0)
@@ -198,16 +203,16 @@ void XC(lda_kxc_fd)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *kxc)
   const FLOAT delta_rho = 1e-4;
 
   for(i=0; i<p->nspin; i++){
-    FLOAT rho2[2], e, vc1[2], vc2[2], vc3[2];
+    FLOAT rho2[2], vc1[2], vc2[2], vc3[2];
 
     for(n=0; n<p->nspin; n++) rho2[n] = rho[n];
-    XC(lda_vxc)(p, rho , &e, vc2);
+    XC(lda_vxc)(p, rho, vc2);
 
     rho2[i] += delta_rho;
-    XC(lda_vxc)(p, rho2, &e, vc1);
+    XC(lda_vxc)(p, rho2, vc1);
 	
     rho2[i] -= 2.0*delta_rho;
-    XC(lda_vxc)(p, rho2, &e, vc3);    
+    XC(lda_vxc)(p, rho2, vc3);    
     
     for(j=0; j<p->nspin; j++)
       kxc[i*p->nspin + j] = (vc1[j] - 2.0*vc2[j] + vc3[j])/(delta_rho*delta_rho);

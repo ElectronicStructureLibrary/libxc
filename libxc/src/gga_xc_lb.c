@@ -95,7 +95,7 @@ void XC(gga_lb_modified)(XC(gga_type) *p, FLOAT *rho, FLOAT *sigma, FLOAT r, FLO
 
   static const FLOAT beta = 0.05;
 
-  XC(lda_vxc)(p->lda_aux, rho, &x, dedd);
+  XC(lda_exc_vxc)(p->lda_aux, rho, &x, dedd);
 
   for(is=0; is<p->nspin; is++){
     gdm = sqrt(sigma[is==0 ? 0 : 2]);

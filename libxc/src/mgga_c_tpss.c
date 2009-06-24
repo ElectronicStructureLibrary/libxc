@@ -120,7 +120,7 @@ static void eq_12(const XC(mgga_type) *p, int order, const FLOAT *rho, const FLO
   if(order == 0)
     XC(gga_exc)(p->gga_aux1, rho, sigma, &f_PBE);
   else
-    XC(gga_vxc)(p->gga_aux1, rho, sigma, &f_PBE, vrho_PBE, vsigma_PBE);
+    XC(gga_exc_vxc)(p->gga_aux1, rho, sigma, &f_PBE, vrho_PBE, vsigma_PBE);
     
   for(is=0; is<p->nspin; is++){
     FLOAT r1[2], sigma1[3], f1, vrho1[2], vsigma1[3];
@@ -139,7 +139,7 @@ static void eq_12(const XC(mgga_type) *p, int order, const FLOAT *rho, const FLO
     if(order == 0)
       XC(gga_exc)(p->gga_aux2, r1, sigma1, &f1);
     else{
-      XC(gga_vxc)(p->gga_aux2, r1, sigma1, &f1, vrho1, vsigma1);
+      XC(gga_exc_vxc)(p->gga_aux2, r1, sigma1, &f1, vrho1, vsigma1);
 
       if(f1 > f_PBE){
 	if(rho[is] > MIN_DENS){
@@ -261,8 +261,9 @@ static void eq_12(const XC(mgga_type) *p, int order, const FLOAT *rho, const FLO
 
 
 static void 
-mgga_c_tpss(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *tau,
-	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vtau,
+mgga_c_tpss(const void *p_, 
+	    const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
+	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau,
 	    FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
 {
   const XC(mgga_type) *p = p_;

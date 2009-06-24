@@ -174,18 +174,28 @@ void XC(gga)(const XC(gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
 }
 
 /* especializations */
+/* returns only energy */
 inline void XC(gga_exc)(const XC(gga_type) *p, const FLOAT *rho, const FLOAT *sigma, 
 			FLOAT *zk)
 {
   XC(gga)(p, rho, sigma, zk, NULL, NULL, NULL, NULL, NULL);
 }
 
+/* returns only potential */
 inline void XC(gga_vxc)(const XC(gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
-			FLOAT *zk, FLOAT *vrho, FLOAT *vsigma)
+			FLOAT *vrho, FLOAT *vsigma)
+{
+  XC(gga)(p, rho, sigma, NULL, vrho, vsigma, NULL, NULL, NULL);
+}
+
+/* returns both energy and potential (the most common call usually) */
+inline void XC(gga_exc_vxc)(const XC(gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
+			    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma)
 {
   XC(gga)(p, rho, sigma, zk, vrho, vsigma, NULL, NULL, NULL);
 }
 
+/* returns second derivatives */
 inline void XC(gga_fxc)(const XC(gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
 			FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {

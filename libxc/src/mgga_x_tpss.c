@@ -138,8 +138,8 @@ void x_tpss_10(int order, FLOAT p, FLOAT z,
 
 
 static void 
-func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, int order,
-     FLOAT *f, FLOAT *dfdx, FLOAT *dfdt,
+func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
+     FLOAT *f, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
      FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
 {
   FLOAT ss, pp, a1, zz;

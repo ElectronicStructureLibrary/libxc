@@ -62,7 +62,7 @@ eq_29(int order, FLOAT x, FLOAT *ux, FLOAT *duxdx)
 
 static void 
 func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
-     FLOAT *f, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
+     FLOAT *f, FLOAT *vrho0, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
      FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
 {
   const FLOAT cx_local [4] = {1.10734, -1.0534, 6.3491, -2.5531};

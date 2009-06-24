@@ -104,9 +104,9 @@ void XC(lda_vxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *vrho);
 void XC(lda_fxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *v2rho2);
 void XC(lda_kxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *v3rho3);
 
-void XC(lda_c_1d_csc_set_params)  (XC(lda_type) *p, FLOAT bb);
-void XC(lda_c_2d_prm_set_params)(XC(lda_type) *p, FLOAT N);
-void XC(lda_c_vwn_set_params)     (const XC(lda_type) *p, int spin_interpolation);
+void XC(lda_c_1d_csc_set_params) (XC(lda_type) *p, FLOAT bb);
+void XC(lda_c_2d_prm_set_params) (XC(lda_type) *p, FLOAT N);
+void XC(lda_c_vwn_set_params)    (const XC(lda_type) *p, int spin_interpolation);
 
 
 /* the GGAs */
@@ -198,6 +198,8 @@ void XC(mgga_vxc)(const XC(mgga_type) *p, const FLOAT *rho,
 void XC(mgga_fxc)(const XC(mgga_type) *p, const FLOAT *rho,
 		  const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
 		  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2);
+
+void XC(mgga_x_tb09_set_params)(XC(mgga_type) *p, FLOAT c);
 
 /* Functionals that are defined as mixtures of others */
 typedef struct XC(struct_mix_func_type){

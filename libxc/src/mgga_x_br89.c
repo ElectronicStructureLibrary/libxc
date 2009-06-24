@@ -18,16 +18,58 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 #include <math.h>
 
 #include "util.h"
 
 #define XC_MGGA_X_BR89         206 /* Becke-Roussel 89  */
+#define XC_MGGA_X_BJ06         207 /* Becke & Johnson correction to Becke-Roussel 89  */
+#define XC_MGGA_X_TB09         208 /* Tran & Blaha correction to Becke & Johnson  */
+
+typedef struct{
+  FLOAT c;
+} mgga_x_tb09_params;
 
 static FLOAT br89_gamma = 0.8;
 
-/* This code follows the inversion done in the PINY_MD package */
 
+static void mgga_x_tb09_init(void *p_)
+{
+  XC(mgga_type) *p = (XC(mgga_type) *)p_;
+  mgga_x_tb09_params *params;
+
+  assert(p->params == NULL);
+
+  p->params = malloc(sizeof(mgga_x_tb09_params));
+  params = (mgga_x_tb09_params *) (p->params);
+
+  /* value of c in Becke-Johnson */
+  XC(mgga_x_tb09_set_params)(p, 1.0);
+}
+
+
+static void mgga_x_tb09_end(void *p_)
+{
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+
+  assert(p->params != NULL);
+  free(p->params);
+  p->params = NULL;
+}
+
+
+void XC(mgga_x_tb09_set_params)(XC(mgga_type) *p, FLOAT c)
+{
+  mgga_x_tb09_params *params;
+
+  assert(p->params != NULL);
+  params = (mgga_x_tb09_params *) (p->params);
+
+  params->c = c;
+}
+
+/* This code follows the inversion done in the PINY_MD package */
 FLOAT inline 
 br_newt_raph(FLOAT a, FLOAT tol, int *ierr)
 {
@@ -136,12 +178,19 @@ FLOAT XC(mgga_x_br89_get_x)(FLOAT Q)
 
 static void 
 func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
-     FLOAT *f, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
+     FLOAT *f, FLOAT *vrho0, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
      FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
 {
-  FLOAT Q, br_x, dfdbx, dxdu, ff, dff;
+  FLOAT Q, br_x, dfdbx, dxdu, ff, dff, v_BR;
   FLOAT cnst, exp1, exp2;
- 
+  int func;
+
+  switch(pt->info->number){
+  case XC_MGGA_X_BJ06:  func = 1; break;
+  case XC_MGGA_X_TB09:  func = 1; break;
+  default:              func = 0; /* original Becke-Roussel */
+  }
+
   Q  = (u - 2.0*br89_gamma*t + 0.5*br89_gamma*x*x)/6.0;
   br_x = XC(mgga_x_br89_get_x)(Q);
 
@@ -150,21 +199,35 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
   exp1 = exp(br_x/3.0);
   exp2 = exp(-br_x);
 
-  *f = cnst*exp1*(1.0 - exp2*(1.0 + br_x/2.0))/br_x;
+  v_BR = cnst*exp1*(1.0 - exp2*(1.0 + br_x/2.0))/br_x;
+  
+  if(func == 0) /* XC_MGGA_X_BR89 */
+    *f = v_BR;
+  else /* XC_MGGA_X_BJ06 & XC_MGGA_X_TB09 */
+    *f = 0.0;
 
   if(order < 1) return;
 
-  dfdbx = cnst*(3.0 + br_x*(br_x + 2.0) + (br_x - 3.0)/exp2) /
-    (3.0*exp1*exp1*br_x*br_x);
+  if(func == 0){ /* XC_MGGA_X_BR89 */
+    dfdbx = cnst*(3.0 + br_x*(br_x + 2.0) + (br_x - 3.0)/exp2) /
+      (3.0*exp1*exp1*br_x*br_x);
   
-  ff  = br_x*exp(-2.0/3.0*br_x)/(br_x - 2);
-  dff = -2.0/3.0 + 1.0/br_x - 1.0/(br_x - 2.0); /* dff / ff */
+    ff  = br_x*exp(-2.0/3.0*br_x)/(br_x - 2);
+    dff = -2.0/3.0 + 1.0/br_x - 1.0/(br_x - 2.0); /* dff / ff */
 
-  dxdu  = -1.0/(6.0*Q*dff);
+    dxdu  = -1.0/(6.0*Q*dff);
 
-  *dfdx =    x*br89_gamma*dfdbx*dxdu;
-  *dfdt = -2.0*br89_gamma*dfdbx*dxdu;
-  *dfdu =                 dfdbx*dxdu;
+    *dfdx =    x*br89_gamma*dfdbx*dxdu;
+    *dfdt = -2.0*br89_gamma*dfdbx*dxdu;
+    *dfdu =                 dfdbx*dxdu;
+  }else{ /* XC_MGGA_X_BJ0 & XC_MGGA_X_TB09 */
+    FLOAT c;
+
+    assert(pt->params != NULL);
+    c = ((mgga_x_tb09_params *) (pt->params))->c;
+
+    *vrho0 = c*2.0*v_BR + (3.0*c - 2.0)*sqrt(5.0/12.0)*sqrt(t)/M_PI;
+  } 
 }
 
 #include "work_mgga_x.c"
@@ -177,6 +240,32 @@ const XC(func_info_type) XC(func_info_mgga_x_br89) = {
   "AD Becke and MR Roussel, Phys. Rev. A 39, 3761 (1989)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   NULL, NULL,
+  NULL, NULL,        /* this is not an LDA                   */
+  work_mgga_x,
+};
+
+const XC(func_info_type) XC(func_info_mgga_x_bj06) = {
+  XC_MGGA_X_BJ06,
+  XC_EXCHANGE,
+  "Becke & Johnson 06",
+  XC_FAMILY_MGGA,
+  "AD Becke and ER Johnson, J. Chem. Phys. 124, 221101 (2006)",
+  XC_PROVIDES_VXC,
+  mgga_x_tb09_init,
+  mgga_x_tb09_end,
+  NULL, NULL,        /* this is not an LDA                   */
+  work_mgga_x,
+};
+
+const XC(func_info_type) XC(func_info_mgga_x_tb09) = {
+  XC_MGGA_X_TB09,
+  XC_EXCHANGE,
+  "Tran & Blaha 89",
+  XC_FAMILY_MGGA,
+  "F Tran and P Blaha, Phys. Rev. Lett. 102, 226401 (2009)",
+  XC_PROVIDES_VXC,
+  mgga_x_tb09_init,
+  mgga_x_tb09_end,
   NULL, NULL,        /* this is not an LDA                   */
   work_mgga_x,
 };

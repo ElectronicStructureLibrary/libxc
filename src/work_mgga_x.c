@@ -46,7 +46,7 @@ work_mgga_x(const void *p_,
   dens = 0.0;
   for(is=0; is<p->nspin; is++){
     FLOAT gdm, ds, rho13, sigmas;
-    FLOAT x, t, u, f, lnr2, ltau, dfdx, dfdt, dfdu, d2fdx2, d2fdxt, d2fdt2;
+    FLOAT x, t, u, f, lnr2, ltau, vrho0, dfdx, dfdt, dfdu, d2fdx2, d2fdxt, d2fdt2;
     int js = (is == 0) ? 0 : 2;
 
     if(rho[is] < MIN_DENS) continue;
@@ -66,15 +66,16 @@ work_mgga_x(const void *p_,
     u     = lnr2/(ds*rho13*rho13);  /* lapl_rho/rho^(5/3) */
 
     dfdx = d2fdx2 = 0.0;
-    dfdt = dfdu = 0.0;
 
-    func(p, x, t, u, order, &f, &dfdx, &dfdt, &dfdu, &d2fdx2, &d2fdxt, &d2fdt2);
+    vrho0 = 0.0;
+    func(p, x, t, u, order, &f, &vrho0,
+	 &dfdx, &dfdt, &dfdu, &d2fdx2, &d2fdxt, &d2fdt2);
 
     if(zk != NULL)
       *zk += -sfact*X_FACTOR_C*(ds*rho13)*f;
 
     if(vrho != NULL){
-      vrho[is]      = -X_FACTOR_C*rho13*(4.0/3.0*(f - dfdx*x) - 5.0/3.0*(dfdt*t + dfdu*u));
+      vrho[is]      = -X_FACTOR_C*rho13*(vrho0 + 4.0/3.0*(f - dfdx*x) - 5.0/3.0*(dfdt*t + dfdu*u));
       vtau[is]      = -X_FACTOR_C*dfdt/rho13;
       vlapl_rho[is] = -X_FACTOR_C*dfdu/rho13;
       vsigma[js]    = -X_FACTOR_C*(rho13*ds)*dfdx*x/(2.0*sfact*sigmas);

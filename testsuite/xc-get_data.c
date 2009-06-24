@@ -179,8 +179,8 @@ int main(int argc, char *argv[])
       xc_hyb_gga_end(&hyb_gga_func);
       break;
     case XC_FAMILY_MGGA:
-      xc_mgga(&mgga_func, xc.rho, xc.sigma, xc.tau, &xc.zk, 
-	      xc.vrho, xc.vsigma, xc.vtau, pv2rho, xc.v2rhosigma, xc.v2sigma, NULL, NULL, NULL);
+      //xc_mgga(&mgga_func, xc.rho, xc.sigma, xc.tau, &xc.zk, 
+      //      xc.vrho, xc.vsigma, xc.vtau, pv2rho, xc.v2rhosigma, xc.v2sigma, NULL, NULL, NULL);
       xc_mgga_end(&mgga_func);
       break;
     }

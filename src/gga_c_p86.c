@@ -58,7 +58,7 @@ gga_c_p86(void *p_, FLOAT *rho, FLOAT *sigma,
   FLOAT rs, DD, dDDdzeta, CC, CCinf, dCCdd;
   FLOAT Phi, dPhidd, dPhidgdmt;
 
-  XC(lda_vxc)(p->lda_aux, rho, &ecunif, vcunif);
+  XC(lda_exc_vxc)(p->lda_aux, rho, &ecunif, vcunif);
 
   XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
   dzdd[0] =  (1.0 - zeta)/dens;

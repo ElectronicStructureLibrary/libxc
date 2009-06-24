@@ -59,7 +59,7 @@ gga_c_am05(const void *p_, const FLOAT *rho, const FLOAT *sigma,
   dens = rho[0];
   if(p->nspin == XC_POLARIZED) dens += rho[1];
 
-  XC(lda_vxc)(p->lda_aux, rho, &m_zk, vrho_LDA);
+  XC(lda_exc_vxc)(p->lda_aux, rho, &m_zk, vrho_LDA);
 
   for(is=0; is<p->nspin; is++){
     FLOAT gdm, ds, rho13;

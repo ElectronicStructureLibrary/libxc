@@ -98,10 +98,17 @@ XC(hyb_gga_exc)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
 }
 
 inline void 
-XC(hyb_gga_vxc)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
-		FLOAT *zk, FLOAT *vrho, FLOAT *vsigma)
+XC(hyb_gga_exc_vxc)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
+		    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma)
 {
   XC(hyb_gga)(p, rho, sigma, zk, vrho, vsigma, NULL, NULL, NULL);
+}
+
+inline void 
+XC(hyb_gga_vxc)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
+		FLOAT *vrho, FLOAT *vsigma)
+{
+  XC(hyb_gga)(p, rho, sigma, NULL, vrho, vsigma, NULL, NULL, NULL);
 }
 
 inline void 

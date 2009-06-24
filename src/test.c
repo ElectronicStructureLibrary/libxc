@@ -72,35 +72,40 @@ void test_tpss()
   XC(gga_type) agga;
   int i;
 
-  //XC(mgga_init)(&tpss, XC_MGGA_X_LTA, XC_POLARIZED);
-  XC(gga_init)(&agga, XC_GGA_XC_B97, XC_UNPOLARIZED);
+  XC(mgga_init)(&tpss, XC_MGGA_X_BR89, XC_UNPOLARIZED);
+  //XC(gga_init)(&agga, XC_GGA_XC_B97, XC_UNPOLARIZED);
   
   for(i=0; i<1000; i++){
-    double rho[2], sigma[3], tau[2];
-    double zk, vrho[2], vsigma[3], vtau[2];
+    double rho[2], sigma[3], tau[2], lrho[2];
+    double zk,   vrho[2],  vsigma[3],  vtau[2],  vlrho[2];
+    double zk2, vrho2[2], vsigma2[3], vtau2[2], vlrho2[2];
     double v2rho2[3], v2rhosigma[6], v2sigma2[6], v2rhotau[4], v2tausigma[6], v2tau2[3];
 
-    rho[0]   = 0.23;
+    rho[0]   = 0.01 + i/1000.0;
     rho[1]   = 0.15;
-    sigma[0] = 0.01 + i/1000.0;
+    sigma[0] = 0.22;
     sigma[1] = 0.11;
     sigma[2] = 0.7;
-    tau[0]   = 0.22;
+    tau[0]   = 0.23;
     tau[1]   = 0.15;
+    lrho[0]  = 0.2;
+    lrho[1]  = 0.12;
 
-    //XC(mgga)(&agga, rho,  sigma,  tau, 
-    //	     &zk,  vrho, vsigma, vtau, 
-    //	     v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
-    XC(gga)(&agga, rho,  sigma,
-	    &zk,  vrho, vsigma,
-	    v2rho2, v2rhosigma, v2sigma2);
-    printf("%16.10lf\t%16.10lf\t%16.10lf\t%16.10lf\n", sigma[0], (rho[0]+rho[1])*zk, vrho[0], v2rhosigma[0]);
+    XC(mgga)(&tpss, rho,  sigma, lrho, tau, 
+    	     &zk,  vrho, vsigma, vlrho, vtau, 
+    	     NULL, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
+    brx89_lda(rho[0], sigma[0], lrho[0], tau[0], &zk2, vrho2, vsigma2, vlrho2, vtau2);
+
+    //XC(gga)(&agga, rho,  sigma,
+    //&zk,  vrho, vsigma,
+    //	    v2rho2, v2rhosigma, v2sigma2);
+    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[0], rho[0]*zk, zk2);
   }
 }
 
 int main()
 {
-  test_lda();
+  test_tpss();
 
   return 0;
 }

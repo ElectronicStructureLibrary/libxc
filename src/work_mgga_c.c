@@ -44,14 +44,14 @@ work_mgga_c_end(void *p_)
 
 
 static void 
-work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *tau,
-	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vtau,
+work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
+	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau,
 	    FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
 {
   const XC(mgga_type) *p = p_;
 
   FLOAT sfact, sfact2, dens;
-  FLOAT ds[2], sigmas[2], x[2], t[2], f_LDA[2], vrho_LDA[2];
+  FLOAT ds[2], sigmas[2], x[2], t[2], u[2], f_LDA[2], vrho_LDA[2];
   int is, order;
 
   order = 0;
@@ -67,7 +67,7 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
   dens = 0.0;
   for(is=0; is<p->nspin; is++){
     FLOAT gdm, rho13;
-    FLOAT f, ltau, dfdx, dfdt, d2fdx2, d2fdxt, d2fdt2;
+    FLOAT f, ltau, lnr2, dfdx, dfdt, dfdu, d2fdx2, d2fdxt, d2fdt2;
     int js = (is == 0) ? 0 : 2;
 
     dens  += rho[is];
@@ -84,10 +84,14 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
     ltau   = max(tau[is]/sfact, MIN_TAU);
     t [is] = ltau/(ds[is]*rho13*rho13);  /* tau/rho^(5/3) */
 
+    lnr2   = max(MIN_TAU, lapl_rho[is]/sfact);
+    u [is] = lnr2/(ds[is]*rho13*rho13);  /* lapl_rho/rho^(5/3) */
+
     dfdx  = d2fdx2 = 0.0;
 
-    dfdt = 0.0;
-    func_c_parallel(p, x[is], t[is], order, &f, &dfdx, &dfdt, &d2fdx2, &d2fdxt, &d2fdt2);
+    dfdt = dfdu = 0.0;
+    func_c_parallel(p, x[is], t[is], u[is], order, 
+		    &f, &dfdx, &dfdt, &dfdu, &d2fdx2, &d2fdxt, &d2fdt2);
 
     { /* get parallel spin LDA energy */
       FLOAT tmp_rho[2], tmp_vrho[2];
@@ -100,7 +104,7 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
 	XC(lda_exc)(p->lda_aux, tmp_rho, &(f_LDA[is]));
 	break;
       case 1:
-	XC(lda_vxc)(p->lda_aux, tmp_rho, &(f_LDA[is]), tmp_vrho);
+	XC(lda_exc_vxc)(p->lda_aux, tmp_rho, &(f_LDA[is]), tmp_vrho);
 	vrho_LDA[is] = tmp_vrho[0];
 	break;
       case 2: /* to be implemented */
@@ -112,10 +116,12 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
       *zk += sfact*ds[is]*f_LDA[is]*f;
  
     if(vrho != NULL){
-      vrho[is]    = vrho_LDA[is]*f - f_LDA[is]*(4.0*dfdx*x[is] + 5.0*dfdt*t[is])/3.0;
-      vtau[is]    = f_LDA[is]*dfdt/(rho13*rho13);
+      vrho[is]      = vrho_LDA[is]*f - f_LDA[is]*
+	(4.0*dfdx*x[is] + 5.0*(dfdt*t[is] + dfdu*u[is]))/3.0;
+      vtau[is]      = f_LDA[is]*dfdt/(rho13*rho13);
+      vlapl_rho[is] = f_LDA[is]*dfdu/(rho13*rho13);
 
-      vsigma[js]  = ds[is]*f_LDA[is]*dfdx*x[is]/(2.0*sfact*sigmas[is]);
+      vsigma[js]    = ds[is]*f_LDA[is]*dfdx*x[is]/(2.0*sfact*sigmas[is]);
     }
 
     if(v2rho2 != NULL){
@@ -128,34 +134,37 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
   /* We are now missing the opposite-spin part */
   {
     FLOAT f_LDA_opp, vrho_LDA_opp[2];
-    FLOAT f, dfdx, dfdt, d2fdx2, d2fdxt, d2fdt2;
-    FLOAT xt, tt;
+    FLOAT f, dfdx, dfdt, dfdu, d2fdx2, d2fdxt, d2fdt2;
+    FLOAT xt, tt, uu;
 
     switch (order){
     case 0:
       XC(lda_exc)(p->lda_aux, ds, &f_LDA_opp);
       break;
     case 1:
-      XC(lda_vxc)(p->lda_aux, ds, &f_LDA_opp, vrho_LDA_opp);
+      XC(lda_exc_vxc)(p->lda_aux, ds, &f_LDA_opp, vrho_LDA_opp);
       break;
     case 2: /* to be implemented */
       break; 
     }
 
     if(p->nspin == XC_POLARIZED){
-      xt = tt = 0.0;
+      xt = tt = uu = 0.0;
       for(is=0; is<p->nspin; is++)
 	if(rho[is] > MIN_DENS){
 	  xt += x[is]*x[is];
 	  tt += t[is];
+	  uu += u[is];
 	}
       xt = sqrt(xt);
     }else{
       xt = sqrt(2.0)*x[0];
       tt =      2.0 *t[0];
+      uu =      2.0 *u[0];
     }
 
-    func_c_opposite(p, xt, tt, order, &f, &dfdx, &dfdt, &d2fdx2, &d2fdxt, &d2fdt2);
+    dfdt = dfdu = 0.0;
+    func_c_opposite(p, xt, tt, uu, order, &f, &dfdx, &dfdt, &dfdu, &d2fdx2, &d2fdxt, &d2fdt2);
 
     if(zk != NULL)
       *zk += dens*f_LDA_opp*f;
@@ -166,8 +175,10 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *t
 
 	if(rho[is] < MIN_DENS) continue;
 
-	vrho[is]   += vrho_LDA_opp[is]*f - dens*f_LDA_opp*(4.0*dfdx*x[is]*x[is]/xt + 5.0*dfdt*t[is])/(3.0*ds[is]);
-	vtau[is]   += f_LDA_opp*dfdt*dens/POW(ds[is], 5.0/3.0);
+	vrho[is]      += vrho_LDA_opp[is]*f - dens*f_LDA_opp*
+	  (4.0*dfdx*x[is]*x[is]/xt + 5.0*(dfdt*t[is] + dfdu*u[is]))/(3.0*ds[is]);
+	vtau[is]      += f_LDA_opp*dfdt*dens/POW(ds[is], 5.0/3.0);
+	vlapl_rho[is] += f_LDA_opp*dfdu*dens/POW(ds[is], 5.0/3.0);
 	vsigma[js] += dens*f_LDA_opp*dfdx*x[is]*x[is]/(2.0*xt*sfact*sigmas[is]);
       }
     }

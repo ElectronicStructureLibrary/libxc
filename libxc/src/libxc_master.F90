@@ -532,6 +532,7 @@ module XC_F90(lib_m)
       type(XC_F90(func_t)), intent(in)  :: p
       real(xc_f90_kind),    intent(in)  :: rho
       real(xc_f90_kind),    intent(in)  :: sigma
+      real(xc_f90_kind),    intent(in)  :: lrho
       real(xc_f90_kind),    intent(in)  :: tau
       real(xc_f90_kind),    intent(out) :: v2rho2
       real(xc_f90_kind),    intent(out) :: v2rhosigma

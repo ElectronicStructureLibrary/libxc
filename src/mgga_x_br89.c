@@ -226,7 +226,7 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
     assert(pt->params != NULL);
     c = ((mgga_x_tb09_params *) (pt->params))->c;
 
-    *vrho0 = c*2.0*v_BR + (3.0*c - 2.0)*sqrt(5.0/12.0)*sqrt(t)/M_PI;
+    *vrho0 = c*2.0*v_BR + (3.0*c - 2.0)*sqrt(5.0/12.0)*sqrt(t)/(X_FACTOR_C*M_PI);
   } 
 }
 

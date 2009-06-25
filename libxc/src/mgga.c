@@ -92,12 +92,10 @@ XC(mgga)(const XC(mgga_type) *p,
 
   /* initialize output to zero */
   if(zk != NULL){
-    assert(p->info->provides & XC_PROVIDES_EXC);
     *zk = 0.0;
   }
 
   if(vrho != NULL){
-    assert(p->info->provides & XC_PROVIDES_VXC);
     assert(vsigma != NULL);
 
     for(i=0; i<p->nspin; i++){
@@ -111,7 +109,6 @@ XC(mgga)(const XC(mgga_type) *p,
   }
 
   if(v2rho2 != NULL){
-    assert(p->info->provides & XC_PROVIDES_FXC);
     assert(v2rhosigma!=NULL && v2sigma2!=NULL && v2rhotau!=NULL && v2tausigma!=NULL && v2tau2!=NULL);
 
     n = (p->nspin == XC_UNPOLARIZED) ? 1 : 3;

@@ -67,7 +67,7 @@ work_mgga_x(const void *p_,
 
     dfdx = d2fdx2 = 0.0;
 
-    vrho0 = 0.0;
+    dfdx = dfdt = dfdu = vrho0 = 0.0;
     func(p, x, t, u, order, &f, &vrho0,
 	 &dfdx, &dfdt, &dfdu, &d2fdx2, &d2fdxt, &d2fdt2);
 

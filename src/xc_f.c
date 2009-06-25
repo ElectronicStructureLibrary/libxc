@@ -56,6 +56,12 @@ CC_FORTRAN_INT  XC_FC_FUNC(f90_info_family, F90_INFO_FAMILY)
   return (CC_FORTRAN_INT) ((XC(func_info_type) *)(*info))->family;
 }
 
+CC_FORTRAN_INT  XC_FC_FUNC(f90_info_provides, F90_INFO_PROVIDES)
+     (void **info)
+{
+  return (CC_FORTRAN_INT) ((XC(func_info_type) *)(*info))->provides;
+}
+
 void XC_FC_FUNC(f90_info_ref, F90_INFO_REF)
      (void **info, char **s, STR_F_TYPE ref_f STR_ARG1)
 {
@@ -382,6 +388,13 @@ void XC_FC_FUNC(f90_mgga_fxc, F90_MGGA_FXC)
    FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
 {
   XC(mgga_fxc)((XC(mgga_type) *)(*p), rho, sigma, lapl_rho, tau, v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
+}
+
+/* parameter of TP09 */
+void XC_FC_FUNC(f90_mgga_x_tb09_set_par, F90_MGGA_X_TB09_SET_PAR)
+  (void **p, FLOAT *cc)
+{
+  XC(mgga_x_tb09_set_params)((XC(mgga_type) *)(*p), *cc);
 }
 
 

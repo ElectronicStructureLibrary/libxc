@@ -57,6 +57,7 @@ module XC_F90(lib_m)
     XC_F90(info_kind),                   &
     XC_F90(info_name),                   &
     XC_F90(info_family),                 &
+    XC_F90(info_provides),               &
     XC_F90(info_refs),                   &
     XC_F90(family_from_id),              &
     XC_F90(lda_init),                    &
@@ -122,6 +123,12 @@ module XC_F90(lib_m)
     XC_CORRELATION          =   1,  &
     XC_EXCHANGE_CORRELATION =   2
 
+  integer, public, parameter ::     &
+    XC_PROVIDES_EXC         =   1,  &
+    XC_PROVIDES_VXC         =   2,  &
+    XC_PROVIDES_FXC         =   4,  &
+    XC_PROVIDES_KXC         =   8
+ 
 
   !----------------------------------------------------------------
   interface
@@ -145,6 +152,11 @@ module XC_F90(lib_m)
       use XC_F90(types_m)
       type(XC_F90(info_t)), intent(in)  :: info
     end function XC_F90(info_family)
+
+    integer function XC_F90(info_provides)(info)
+      use XC_F90(types_m)
+      type(XC_F90(info_t)), intent(in)  :: info
+    end function XC_F90(info_provides)
 
     subroutine XC_F90(info_refs)(info, n, s)
       use XC_F90(types_m)
@@ -542,6 +554,15 @@ module XC_F90(lib_m)
       real(xc_f90_kind),    intent(out) :: v2tau2
     end subroutine XC_F90(mgga_fxc)
   end interface
+
+  interface
+    subroutine XC_F90(mgga_x_tb09_set_par)(p, cc)
+      use XC_F90(types_m)
+      type(XC_F90(func_t)), intent(inout)  :: p
+      real(xc_f90_kind),    intent(in)     :: cc
+    end subroutine XC_F90(mgga_x_tb09_set_par)
+  end interface
+
 
   ! the LCAs
   !----------------------------------------------------------------

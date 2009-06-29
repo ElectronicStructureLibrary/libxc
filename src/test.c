@@ -99,7 +99,7 @@ void test_tpss()
     //XC(gga)(&agga, rho,  sigma,
     //&zk,  vrho, vsigma,
     //	    v2rho2, v2rhosigma, v2sigma2);
-    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[0], rho[0]*zk, zk2);
+    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[0], vrho[0], vrho2[0]);
   }
 }
 

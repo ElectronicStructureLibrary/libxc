@@ -75,19 +75,14 @@ br_newt_raph(FLOAT a, FLOAT tol, int *ierr)
 {
   int count;
   double x, f;
-  static int max_iter = 100;
+  static int max_iter = 50;
 
    *ierr = 1;
    if(a == 0.0)
      return 0.0;
    
    /* starting point */
-   if(a < 0.0)
-     x = 2.0 - tol;
-   else{ /* a > 0 */
-     x = -0.375*(log(a) - 5.0);
-     if(x <= 2.0) x = 2.0 + tol;
-   }
+   x = (a < 0.0) ? 1.0 : 3.0;
 
    count = 0;
    do {
@@ -166,15 +161,13 @@ FLOAT XC(mgga_x_br89_get_x)(FLOAT Q)
      Remember we use a different definition of tau */
   rhs = 2.0/3.0*POW(M_PI, 2.0/3.0)/Q;
 
-  if(rhs <= 0.0) return 0.0;
-
   br_x = br_newt_raph(rhs, tol, &ierr);
   if(ierr == 0 || isnan(br_x) != 0)
     br_x = br_bisect(rhs, tol, &ierr);
   if(ierr == 0){
     fprintf(stderr, 
 	    "Warning: Convergence not reached in Becke-Roussel functional\n"
-	    "For rhs = %lf\n", rhs);
+	    "For rhs = %20.14lf\n", rhs);
   }
 
   return br_x;
@@ -198,42 +191,46 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
   Q  = (u - 2.0*br89_gamma*t + 0.5*br89_gamma*x*x)/6.0;
   br_x = XC(mgga_x_br89_get_x)(Q);
 
-  if(br_x > MIN_TAU){
+  cnst = 2.0*POW(M_PI, 1.0/3.0)/X_FACTOR_C;
+  exp1 = exp(br_x/3.0);
+  exp2 = exp(-br_x);
+
+  v_BR = (ABS(br_x) > MIN_TAU) ?
+    exp1*(1.0 - exp2*(1.0 + br_x/2.0))/br_x :
+    1.0/2.0 + br_x/6.0 - br_x*br_x/18.0;
+
+  v_BR *= cnst;
+
+  if(func == 0){ /* XC_MGGA_X_BR89 */
     /* we have also to include the factor 1/2 from Eq. (9) */
-    cnst = POW(M_PI, 1.0/3.0)/X_FACTOR_C;
-    exp1 = exp(br_x/3.0);
-    exp2 = exp(-br_x);
-
-    v_BR = cnst*exp1*(1.0 - exp2*(1.0 + br_x/2.0))/br_x;
-  }else
-    v_BR = 1.0;
-
-  if(func == 0) /* XC_MGGA_X_BR89 */
-    *f = v_BR;
-  else /* XC_MGGA_X_BJ06 & XC_MGGA_X_TB09 */
+    *f = v_BR / 2.0;
+  }else{ /* XC_MGGA_X_BJ06 & XC_MGGA_X_TB09 */
     *f = 0.0;
+  }
 
   if(order < 1) return;
 
   if(func == 0){ /* XC_MGGA_X_BR89 */
-    dfdbx = cnst*(3.0 + br_x*(br_x + 2.0) + (br_x - 3.0)/exp2) /
-      (3.0*exp1*exp1*br_x*br_x);
+    dfdbx = (ABS(br_x) > MIN_TAU) ?
+      (3.0 + br_x*(br_x + 2.0) + (br_x - 3.0)/exp2) / (3.0*exp1*exp1*br_x*br_x) :
+      1.0/6.0 - br_x/9.0;
+    dfdbx *= cnst;
   
     ff  = br_x*exp(-2.0/3.0*br_x)/(br_x - 2);
     dff = -2.0/3.0 + 1.0/br_x - 1.0/(br_x - 2.0); /* dff / ff */
 
     dxdu  = -1.0/(6.0*Q*dff);
 
-    *dfdx =    x*br89_gamma*dfdbx*dxdu;
-    *dfdt = -2.0*br89_gamma*dfdbx*dxdu;
-    *dfdu =                 dfdbx*dxdu;
+    *dfdx =    x*br89_gamma*dfdbx*dxdu / 2.0;
+    *dfdt = -2.0*br89_gamma*dfdbx*dxdu / 2.0;
+    *dfdu =                 dfdbx*dxdu / 2.0;
   }else{ /* XC_MGGA_X_BJ0 & XC_MGGA_X_TB09 */
     FLOAT c;
 
     assert(pt->params != NULL);
     c = ((mgga_x_tb09_params *) (pt->params))->c;
 
-    *vrho0 = c*v_BR + (3.0*c - 2.0)*sqrt(5.0/12.0)*sqrt(t)/(X_FACTOR_C*M_PI);
+    *vrho0 = c*v_BR - (3.0*c - 2.0)*sqrt(5.0/12.0)*sqrt(t)/(X_FACTOR_C*M_PI);
   } 
 }
 

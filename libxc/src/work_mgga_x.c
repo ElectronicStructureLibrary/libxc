@@ -65,9 +65,9 @@ work_mgga_x(const void *p_,
     lnr2  = lapl_rho[is]/sfact;     /* this can be negative */
     u     = lnr2/(ds*rho13*rho13);  /* lapl_rho/rho^(5/3) */
 
-    dfdx = d2fdx2 = 0.0;
+    d2fdx2 = 0.0;
+    vrho0 = dfdx = dfdt = dfdu = 0.0;
 
-    dfdx = dfdt = dfdu = vrho0 = 0.0;
     func(p, x, t, u, order, &f, &vrho0,
 	 &dfdx, &dfdt, &dfdu, &d2fdx2, &d2fdxt, &d2fdt2);
 

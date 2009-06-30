@@ -64,7 +64,7 @@ gga_xc_b3_init(void *p_)
 
   p->exx_coef = par[func].a0;
 
-  XC(lda_x_init)(&p->mix->lda_mix[0], p->nspin, 3, XC_NON_RELATIVISTIC);
+  XC(lda_init)(&p->mix->lda_mix[0], XC_LDA_X, p->nspin);
   p->mix->lda_coef[0] = 1.0 - par[func].a0 - par[func].ax;
 
   XC(lda_init)  (&p->mix->lda_mix[1], par[func].fldac, p->nspin);

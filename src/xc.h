@@ -60,7 +60,7 @@ typedef struct{
 
   void (*init)(void *p);
   void (*end) (void *p);
-  void (*lda) (const void *p, const FLOAT *rho, 
+  void (*lda) (const void *p, int np, const FLOAT *rho, 
 	       FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3);
   void (*gga) (const void *p, const FLOAT *rho, const FLOAT *sigma, 
 	       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
@@ -82,20 +82,17 @@ typedef struct XC(struct_lda_type) {
   const XC(func_info_type) *info;       /* which functional did we chose   */
   int nspin;                            /* XC_UNPOLARIZED or XC_POLARIZED  */
   
-  int relativistic;                     /* XC_RELATIVISTIC or XC_NON_RELATIVISTIC */
-  int dim;
-  
   struct XC(struct_lda_type) *lda_aux;  /* some LDAs are built on top of other LDAs */
   struct XC(struct_mix_func_type) *mix; /* others are mixtures of LDAs */
 
+  int func;                             /* Shortcut in case of several functionals sharing the same interface */
+  int n_rho, n_zk, n_vrho, n_v2rho2, n_v3rho3; /* spin dimensions of arguments */
+
   void *params;                         /* this allows to fix parameters in the functional */
-  FLOAT alpha;                          /* parameter for Xalpha functional (to disappear) */
 } XC(lda_type);
 
 int  XC(lda_init)(XC(lda_type) *p, int functional, int nspin);
 void XC(lda_end) (XC(lda_type) *p);
-void XC(lda_x_init)(XC(lda_type) *p, int nspin, int dim, int irel);
-void XC(lda_c_xalpha_init)(XC(lda_type) *p, int nspin, int dim, FLOAT alpha);
 
 void XC(lda)(const XC(lda_type) *p, int np, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3);
 void XC(lda_exc)(const XC(lda_type) *p, int np, const FLOAT *rho, FLOAT *zk);
@@ -104,6 +101,7 @@ void XC(lda_vxc)(const XC(lda_type) *p, int np, const FLOAT *rho, FLOAT *vrho);
 void XC(lda_fxc)(const XC(lda_type) *p, int np, const FLOAT *rho, FLOAT *v2rho2);
 void XC(lda_kxc)(const XC(lda_type) *p, int np, const FLOAT *rho, FLOAT *v3rho3);
 
+void XC(lda_c_xalpha_set_params) (XC(lda_type) *p, FLOAT alpha);
 void XC(lda_c_1d_csc_set_params) (XC(lda_type) *p, FLOAT bb);
 void XC(lda_c_2d_prm_set_params) (XC(lda_type) *p, FLOAT N);
 void XC(lda_c_vwn_set_params)    (const XC(lda_type) *p, int spin_interpolation);

@@ -35,7 +35,7 @@ gga_xc_edf1_init(void *p_)
   p->mix->gga_n = 3;
   XC(mix_func_alloc)(p->mix);
 
-  XC(lda_x_init)(&p->mix->lda_mix[0], p->nspin, 3, XC_NON_RELATIVISTIC);
+  XC(lda_init)(&p->mix->lda_mix[0], XC_LDA_X, p->nspin);
   p->mix->lda_coef[0] = (1.030952 - 10.4017 + 8.44793);
 
   XC(gga_init)(&p->mix->gga_mix[0], XC_GGA_X_B88, p->nspin);

@@ -94,7 +94,7 @@ CC_FORTRAN_INT  XC_FC_FUNC(f90_family_from_id, F90_FAMILY_FROM_ID)
 /* LDAs */
 
 /* Standard initialization */
-void XC_FC_FUNC(f90_lda_init_, F90_LDA_INIT_)
+void XC_FC_FUNC(f90_lda_init, F90_LDA_INIT)
      (void **p, void **info, CC_FORTRAN_INT *functional, CC_FORTRAN_INT *nspin)
 {
   XC(lda_type) *lda_p;
@@ -158,6 +158,13 @@ void XC_FC_FUNC(f90_lda_kxc, F90_LDA_KXC)
 
 /* Now come some special initializations */
 
+/* parameter of Xalpha */
+void XC_FC_FUNC(f90_lda_c_xalpha_set_par, F90_LDA_C_1D_CSC_SET_PAR)
+  (void **p, FLOAT *alpha)
+{
+  XC(lda_c_xalpha_set_params)((XC(lda_type) *)(*p), *alpha);
+}
+
 /* parameter of CSC */
 void XC_FC_FUNC(f90_lda_c_1d_csc_set_par, F90_LDA_C_1D_CSC_SET_PAR)
   (void **p, FLOAT *bb)
@@ -170,36 +177,6 @@ void XC_FC_FUNC(f90_lda_c_2d_prm_set_par, F90_LDA_C_2D_PRM_SET_PAR)
   (void **p, FLOAT *N)
 {
   XC(lda_c_2d_prm_set_params)((XC(lda_type) *)(*p), *N);
-}
-
-/* exchange in the LDA */
-void XC_FC_FUNC(f90_lda_x_init, F90_LDA_X_INIT)
-     (void **p, void **info, CC_FORTRAN_INT *functional, 
-      CC_FORTRAN_INT *nspin, CC_FORTRAN_INT *dim, CC_FORTRAN_INT *irel)
-{
-  XC(lda_type) *lda_p;
-
-  assert(*functional == XC_LDA_X);
-
-  *p = malloc(sizeof(XC(lda_type)));
-  lda_p = (XC(lda_type) *)(*p);
-  XC(lda_x_init)(lda_p, (int) (*nspin), (int) (*dim), (int) (*irel));
-  *info = (void *)(lda_p->info);
-}
-
-/* Slater's Xalpha */
-void XC_FC_FUNC(f90_lda_c_xalpha_init, F90_LDA_C_XALPHA_INIT)
-     (void **p, void **info, CC_FORTRAN_INT *functional, 
-      CC_FORTRAN_INT *nspin, CC_FORTRAN_INT *dim, FLOAT *alpha)
-{
-  XC(lda_type) *lda_p;
-
-  assert((int) (*functional) == XC_LDA_C_XALPHA);
-
-  *p = malloc(sizeof(XC(lda_type)));
-  lda_p = (XC(lda_type) *)(*p);
-  XC(lda_c_xalpha_init)(lda_p, (int) (*nspin), (int) (*dim), *alpha);
-  *info = (void *)(lda_p->info);
 }
 
 

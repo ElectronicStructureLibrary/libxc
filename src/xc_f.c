@@ -114,40 +114,45 @@ void XC_FC_FUNC(f90_lda_end, F90_LDA_END)
 }
 
 void XC_FC_FUNC(f90_lda, F90_LDA)
-  (void **p, FLOAT *rho, 
-   FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3)
+     (void **p, int *np, FLOAT *rho, 
+      FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3)
 {
-  XC(lda)((XC(lda_type) *)(*p), rho, zk, vrho, v2rho2, v3rho3);
+  XC(lda)((XC(lda_type) *)(*p), *np, rho, zk, vrho, v2rho2, v3rho3);
 }
 
 void XC_FC_FUNC(f90_lda_exc, F90_LDA_EXC)
-     (void **p, FLOAT *rho, FLOAT *zk)
+     (void **p, int *np, FLOAT *rho,
+      FLOAT *zk)
 {
-  XC(lda_exc)((XC(lda_type) *)(*p), rho, zk);
+  XC(lda)((XC(lda_type) *)(*p), *np, rho, zk, NULL, NULL, NULL);
 }
 
 void XC_FC_FUNC(f90_lda_exc_vxc, F90_LDA_EXC_VXC)
-     (void **p, FLOAT *rho, FLOAT *zk, FLOAT *vrho)
+     (void **p, int *np, FLOAT *rho, 
+      FLOAT *zk, FLOAT *vrho)
 {
-  XC(lda_exc_vxc)((XC(lda_type) *)(*p), rho, zk, vrho);
+  XC(lda)((XC(lda_type) *)(*p), *np, rho, zk, vrho, NULL, NULL);
 }
 
 void XC_FC_FUNC(f90_lda_vxc, F90_LDA_VXC)
-     (void **p, FLOAT *rho, FLOAT *vrho)
+     (void **p, int *np, FLOAT *rho, 
+      FLOAT *vrho)
 {
-  XC(lda_vxc)((XC(lda_type) *)(*p), rho, vrho);
+  XC(lda)((XC(lda_type) *)(*p), *np, rho, NULL, vrho, NULL, NULL);
 }
 
 void XC_FC_FUNC(f90_lda_fxc, F90_LDA_FXC)
-     (void **p, FLOAT *rho, FLOAT *v2rho2)
+     (void **p, int *np, FLOAT *rho,
+      FLOAT *v2rho2)
 {
-  XC(lda_fxc)((XC(lda_type) *)(*p), rho, v2rho2);
+  XC(lda)((XC(lda_type) *)(*p), *np, rho, NULL, NULL, v2rho2, NULL);
 }
 
 void XC_FC_FUNC(f90_lda_kxc, F90_LDA_KXC)
-     (void **p, FLOAT *rho, FLOAT *v3rho3)
+     (void **p, int *np, FLOAT *rho,
+      FLOAT *v3rho3)
 {
-  XC(lda_kxc)((XC(lda_type) *)(*p), rho, v3rho3);
+  XC(lda)((XC(lda_type) *)(*p), *np, rho, NULL, NULL, NULL, v3rho3);
 }
 
 

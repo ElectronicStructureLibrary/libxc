@@ -73,13 +73,13 @@ work_gga_becke(const void *p_, const FLOAT *rho, const FLOAT *sigma,
   /* get spin-polarized LDA */
   switch (order){
   case 0:
-    XC(lda_exc)(p->lda_aux, ds, &e_LDA_opp);
+    XC(lda_exc)(p->lda_aux, 1, ds, &e_LDA_opp);
     break;
   case 1:
-    XC(lda_exc_vxc)(p->lda_aux, ds, &e_LDA_opp, v_LDA_opp);
+    XC(lda_exc_vxc)(p->lda_aux, 1, ds, &e_LDA_opp, v_LDA_opp);
     break;
   case 2: /* to be implemented */
-    XC(lda)(p->lda_aux, ds, &e_LDA_opp, v_LDA_opp, f_LDA_opp, NULL);
+    XC(lda)(p->lda_aux, 1, ds, &e_LDA_opp, v_LDA_opp, f_LDA_opp, NULL);
     break; 
   }
   e_LDA_opp *= dens;
@@ -113,13 +113,13 @@ work_gga_becke(const void *p_, const FLOAT *rho, const FLOAT *sigma,
     mrho[1] = 0.0;
     switch (order){
     case 0:
-      XC(lda_exc)(p->lda_aux, mrho, &e_LDA);
+      XC(lda_exc)(p->lda_aux, 1, mrho, &e_LDA);
       break;
     case 1:
-      XC(lda_exc_vxc)(p->lda_aux, mrho, &e_LDA, v_LDA);
+      XC(lda_exc_vxc)(p->lda_aux, 1, mrho, &e_LDA, v_LDA);
       break;
     case 2:
-      XC(lda)(p->lda_aux, mrho, &e_LDA, v_LDA, f_LDA, NULL);
+      XC(lda)(p->lda_aux, 1, mrho, &e_LDA, v_LDA, f_LDA, NULL);
       break;
     }
 

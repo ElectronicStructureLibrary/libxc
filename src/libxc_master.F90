@@ -217,9 +217,10 @@ module XC_F90(lib_m)
 
   !----------------------------------------------------------------
   interface
-    subroutine XC_F90(lda)(p, rho, zk, vrho, fxc, kxc)
+    subroutine XC_F90(lda)(p, np, rho, zk, vrho, fxc, kxc)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
       real(xc_f90_kind),    intent(in)  :: rho   ! rho(nspin) the density
       real(xc_f90_kind),    intent(out) :: zk    ! the energy per unit particle
       real(xc_f90_kind),    intent(out) :: vrho  ! v(nspin) the potential
@@ -227,38 +228,43 @@ module XC_F90(lib_m)
       real(xc_f90_kind),    intent(out) :: kxc   ! v(nspin,nspin,nspin) the derivative of xc kernel
     end subroutine XC_F90(lda)
 
-    subroutine XC_F90(lda_exc)(p, rho, zk)
+    subroutine XC_F90(lda_exc)(p, np, rho, zk)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
       real(xc_f90_kind),    intent(in)  :: rho   ! rho(nspin) the density
       real(xc_f90_kind),    intent(out) :: zk    ! the energy per unit particle
     end subroutine XC_F90(lda_exc)
 
-    subroutine XC_F90(lda_exc_vxc)(p, rho, e, v)
+    subroutine XC_F90(lda_exc_vxc)(p, np, rho, e, v)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
       real(xc_f90_kind),    intent(in)  :: rho   ! rho(nspin) the density
       real(xc_f90_kind),    intent(out) :: e     ! the energy per unit particle
       real(xc_f90_kind),    intent(out) :: v     ! v(nspin) the potential
     end subroutine XC_F90(lda_exc_vxc)
 
-    subroutine XC_F90(lda_vxc)(p, rho, v)
+    subroutine XC_F90(lda_vxc)(p, np, rho, v)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
       real(xc_f90_kind),    intent(in)  :: rho   ! rho(nspin) the density
       real(xc_f90_kind),    intent(out) :: v     ! v(nspin) the potential
     end subroutine XC_F90(lda_vxc)
 
-    subroutine XC_F90(lda_fxc)(p, rho, fxc)
+    subroutine XC_F90(lda_fxc)(p, np, rho, fxc)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
       real(xc_f90_kind),    intent(in)  :: rho   ! rho(nspin) the density
       real(xc_f90_kind),    intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
     end subroutine XC_F90(lda_fxc)
 
-    subroutine XC_F90(lda_kxc)(p, rho, kxc)
+    subroutine XC_F90(lda_kxc)(p, np, rho, kxc)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
       real(xc_f90_kind),    intent(in)  :: rho   ! rho(nspin) the density
       real(xc_f90_kind),    intent(out) :: kxc
     end subroutine XC_F90(lda_kxc)

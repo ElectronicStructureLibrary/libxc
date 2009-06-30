@@ -166,7 +166,7 @@ int main(int argc, char *argv[])
   switch(xc_family_from_id(xc.functional))
     {
     case XC_FAMILY_LDA:
-      xc_lda(&lda_func, xc.rho, &xc.zk, xc.vrho, pv2rho, NULL);
+      xc_lda(&lda_func, 1, xc.rho, &xc.zk, xc.vrho, pv2rho, NULL);
       break;
     case XC_FAMILY_GGA:
       xc_gga(&gga_func, xc.rho, xc.sigma, &xc.zk, 

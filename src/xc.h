@@ -97,12 +97,12 @@ void XC(lda_end) (XC(lda_type) *p);
 void XC(lda_x_init)(XC(lda_type) *p, int nspin, int dim, int irel);
 void XC(lda_c_xalpha_init)(XC(lda_type) *p, int nspin, int dim, FLOAT alpha);
 
-void XC(lda)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3);
-void XC(lda_exc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *zk);
-void XC(lda_exc_vxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *zk, FLOAT *vrho);
-void XC(lda_vxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *vrho);
-void XC(lda_fxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *v2rho2);
-void XC(lda_kxc)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *v3rho3);
+void XC(lda)(const XC(lda_type) *p, int np, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3);
+void XC(lda_exc)(const XC(lda_type) *p, int np, const FLOAT *rho, FLOAT *zk);
+void XC(lda_exc_vxc)(const XC(lda_type) *p, int np, const FLOAT *rho, FLOAT *zk, FLOAT *vrho);
+void XC(lda_vxc)(const XC(lda_type) *p, int np, const FLOAT *rho, FLOAT *vrho);
+void XC(lda_fxc)(const XC(lda_type) *p, int np, const FLOAT *rho, FLOAT *v2rho2);
+void XC(lda_kxc)(const XC(lda_type) *p, int np, const FLOAT *rho, FLOAT *v3rho3);
 
 void XC(lda_c_1d_csc_set_params) (XC(lda_type) *p, FLOAT bb);
 void XC(lda_c_2d_prm_set_params) (XC(lda_type) *p, FLOAT N);

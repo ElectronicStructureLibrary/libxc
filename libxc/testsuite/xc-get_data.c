@@ -136,10 +136,7 @@ int main(int argc, char *argv[])
   switch(xc_family_from_id(xc.functional))
     {
     case XC_FAMILY_LDA:
-      if(xc.functional == XC_LDA_X)
-	xc_lda_x_init(&lda_func, xc.nspin, 3, 0);
-      else
-	xc_lda_init(&lda_func, xc.functional, xc.nspin);
+      xc_lda_init(&lda_func, xc.functional, xc.nspin);
       info = lda_func.info;
       break;
     case XC_FAMILY_GGA:

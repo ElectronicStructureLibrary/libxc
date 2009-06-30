@@ -42,7 +42,7 @@ gga_xc_o3lyp_init(void *p_)
 
   p->exx_coef = a0;
 
-  XC(lda_x_init)(&p->mix->lda_mix[0], p->nspin, 3, XC_NON_RELATIVISTIC);
+  XC(lda_init)(&p->mix->lda_mix[0], XC_LDA_X, p->nspin);
   p->mix->lda_coef[0] = b0 - ax;
 
   XC(lda_init)  (&p->mix->lda_mix[1], XC_LDA_C_VWN, p->nspin);
@@ -85,7 +85,7 @@ gga_xc_x3lyp_init(void *p_)
 
   p->exx_coef = a0;
 
-  XC(lda_x_init)(&p->mix->lda_mix[0], p->nspin, 3, XC_NON_RELATIVISTIC);
+  XC(lda_init)(&p->mix->lda_mix[0], XC_LDA_X, p->nspin);
   p->mix->lda_coef[0] = 1.0 - a0 - ax*(a1 + a2);
 
   XC(lda_init)  (&p->mix->lda_mix[1], XC_LDA_C_VWN_RPA, p->nspin);

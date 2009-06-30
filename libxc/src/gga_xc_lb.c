@@ -47,7 +47,7 @@ gga_lb_init(void *p_)
   assert(p->params == NULL);
 
   p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
-  XC(lda_x_init)(p->lda_aux, p->nspin, 3, XC_NON_RELATIVISTIC);
+  XC(lda_init)(p->lda_aux, XC_LDA_X, p->nspin);
 
   p->params = malloc(sizeof(XC(gga_xc_lb_params)));
   XC(gga_lb_set_params)(p, 0, 0.0, 0.0, 0.0);

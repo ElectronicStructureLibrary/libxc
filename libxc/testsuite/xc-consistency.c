@@ -307,10 +307,7 @@ void test_functional(int functional)
   switch(func.family)
     {
     case XC_FAMILY_LDA:
-      if(functional == XC_LDA_X)
-	xc_lda_x_init(&(func.lda_func), nspin, 3, 0);
-      else
-	xc_lda_init(&(func.lda_func), functional, nspin);
+      xc_lda_init(&(func.lda_func), functional, nspin);
 
       if(functional == XC_LDA_C_2D_PRM)
 	xc_lda_c_2d_prm_set_params(&(func.lda_func), 10.0);

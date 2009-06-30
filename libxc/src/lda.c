@@ -44,7 +44,18 @@ int XC(lda_init)(XC(lda_type) *p, int functional, int nspin)
 
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
   p->nspin = nspin;
-  p->relativistic = 0;
+
+  /* initialize spin counters */
+  p->n_rho  = p->nspin;
+  p->n_zk   = 1;
+  p->n_vrho = p->nspin;
+  if(nspin == XC_UNPOLARIZED){
+    p->n_v2rho2 = 1;
+    p->n_v3rho3 = 1;
+  }else{
+    p->n_v2rho2 = 3;
+    p->n_v3rho3 = 4;
+  }
 
   /* see if we need to initialize the functional */
   if(p->info->init != NULL)
@@ -67,7 +78,7 @@ void XC(lda_end)(XC(lda_type) *p)
 void XC(lda)(const XC(lda_type) *p, int np, const FLOAT *rho, 
 	     FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3)
 {
-  int ii, n_rho, n_zk, n_vrho, n_v2rho2, n_v3rho3;
+  int ii;
 
   assert(p!=NULL);
   
@@ -84,49 +95,36 @@ void XC(lda)(const XC(lda_type) *p, int np, const FLOAT *rho,
     exit(1);
   }
 
-  /* initialize counters and output */
-  n_rho = p->nspin;
+  /* initialize output */
+  if(zk != NULL)
+    for(ii=0; ii<p->n_zk*np; ii++)
+      zk[ii] = 0.0;
 
-  n_zk = (zk == NULL) ? 0 : 1;
-  for(ii=0; ii<n_zk*np; ii++)
-    zk[ii] = 0.0;
+  if(vrho != NULL)
+    for(ii=0; ii<p->n_vrho*np; ii++)
+      vrho[ii] = 0.0;
 
-  n_vrho = (vrho == NULL) ? 0 : p->nspin;
-  for(ii=0; ii<n_vrho*np; ii++)
-    vrho[ii] = 0.0;
+  if(v2rho2 != NULL)
+    for(ii=0; ii<p->n_v2rho2*np; ii++)
+      v2rho2[ii] = 0.0;
 
-  n_v2rho2 = (v2rho2 == NULL) ? 0 : ((p->nspin == XC_UNPOLARIZED) ? 1 : 3);
-  for(ii=0; ii<n_v2rho2*np; ii++)
-    v2rho2[ii] = 0.0;
-
-  n_v3rho3 = (v3rho3 == NULL) ? 0 : ((p->nspin == XC_UNPOLARIZED) ? 1 : 4);
-  for(ii=0; ii<n_v3rho3*np; ii++)
-    v3rho3[ii] = 0.0;
-
-  /*
-  dens = rho[0];
-  if(p->nspin == XC_POLARIZED) dens += rho[1];
-
-  if(dens <= MIN_DENS)
-    return;
-  */
+  if(v3rho3 != NULL)
+    for(ii=0; ii<p->n_v3rho3*np; ii++)
+      v3rho3[ii] = 0.0;
 
   assert(p->info!=NULL && p->info->lda!=NULL);
 
   /* call the LDA routines */
-  {
-    for(ii=0; ii<np; ii++){
-      p->info->lda(p, rho + ii*n_rho, zk + ii*n_zk, 
-		   vrho + ii*n_vrho, v2rho2 + ii*n_v2rho2, v3rho3 + ii*n_v3rho3);
+  p->info->lda(p, np, rho, zk, vrho, v2rho2, v3rho3);
 
-      /* if necessary, call the finite difference routines */
-      if(v2rho2 != NULL && !(p->info->provides & XC_PROVIDES_FXC))
-	XC(lda_fxc_fd)(p, rho + ii*n_rho, v2rho2 + ii*n_v2rho2);
+  /* if necessary, call the finite difference routines */
+  if(v2rho2 != NULL && !(p->info->provides & XC_PROVIDES_FXC))
+    for(ii=0; ii<np; ii++)
+      XC(lda_fxc_fd)(p, rho + ii*p->n_rho, v2rho2 + ii*p->n_v2rho2);
   
-      if(v3rho3 != NULL && !(p->info->provides & XC_PROVIDES_KXC))
-	XC(lda_kxc_fd)(p, rho + ii*n_rho, v3rho3 + ii*n_v3rho3);
-    }
-  }
+  if(v3rho3 != NULL && !(p->info->provides & XC_PROVIDES_KXC))
+    for(ii=0; ii<np; ii++)
+      XC(lda_kxc_fd)(p, rho + ii*p->n_rho, v3rho3 + ii*p->n_v3rho3);
 }
 
 

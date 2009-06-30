@@ -173,38 +173,16 @@ module XC_F90(lib_m)
 
 
   ! LDAs
-  ! We will use the same public interface (xc_lda_init) for the 3 C procedures
   !----------------------------------------------------------------
-  interface XC_F90(lda_init)
-    subroutine XC_F90(lda_init_)(p, info, functional, nspin)
+  interface
+    subroutine XC_F90(lda_init)(p, info, functional, nspin)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(out) :: p
       type(XC_F90(info_t)), intent(out) :: info
       integer,         intent(in)  :: functional
       integer,         intent(in)  :: nspin
-    end subroutine XC_F90(lda_init_)
-
-    subroutine XC_F90(lda_x_init)(p, info, functional, nspin, dim, irel)
-      use XC_F90(types_m)
-      type(XC_F90(func_t)), intent(out) :: p
-      type(XC_F90(info_t)), intent(out) :: info
-      integer,         intent(in)  :: functional
-      integer,         intent(in)  :: nspin  ! XC_UNPOLARIZED or XC_POLARIZED
-      integer,         intent(in)  :: dim    ! 2 or 3 dimensions
-      integer,         intent(in)  :: irel   ! XC_NON_RELATIVISTIC or XC_RELATIVISTIC
-    end subroutine XC_F90(lda_x_init)
-
-    subroutine XC_F90(lda_c_xalpha_init)(p, info, functional, nspin, dim, alpha)
-      use XC_F90(types_m)
-      type(XC_F90(func_t)),   intent(out) :: p
-      type(XC_F90(info_t)),   intent(out) :: info
-      integer,           intent(in)  :: functional
-      integer,           intent(in)  :: nspin  ! XC_UNPOLARIZED or XC_POLARIZED
-      integer,           intent(in)  :: dim    ! 2 or 3 dimensions
-      real(xc_f90_kind), intent(in)  :: alpha  ! Ec = alpha Ex
-    end subroutine XC_F90(lda_c_xalpha_init)
+    end subroutine XC_F90(lda_init)
   end interface
-
 
   !----------------------------------------------------------------
   interface
@@ -272,14 +250,18 @@ module XC_F90(lib_m)
   
 
   interface
+    subroutine XC_F90(lda_c_xalpha_set_par)(p, alpha)
+      use XC_F90(types_m)
+      type(XC_F90(func_t)), intent(inout)  :: p
+      real(xc_f90_kind),    intent(in)     :: alpha
+    end subroutine XC_F90(lda_c_xalpha_set_par)
+
     subroutine XC_F90(lda_c_1d_csc_set_par)(p, bb)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(inout)  :: p
       real(xc_f90_kind),    intent(in)     :: bb
     end subroutine XC_F90(lda_c_1d_csc_set_par)
-  end interface
 
-  interface
     subroutine XC_F90(lda_c_2d_prm_set_par)(p, N)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(inout)  :: p

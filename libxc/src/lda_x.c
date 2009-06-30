@@ -22,14 +22,74 @@
 
 #include "util.h"
 
-#define XC_LDA_X  1   /* Exchange                     */
+#define XC_LDA_X         1   /* Exchange                     */
+#define XC_LDA_C_XALPHA  6   /* Slater's Xalpha              */
+
+/*  
+    Slater's Xalpha functional (Exc = alpha Ex)
+    
+    Note: this is to be added to the exchange
+
+    This correlation functional, added to the exchange functional, produces
+    a total exchange and correlation functional, Exc, equal to 3/2 * alpha * Ex 
+    Setting alpha equal to one gives the *usual* Slater Xalpha functional,
+    whereas alpha equal to 2/3 just leaves the exchange functional unchanged 
+*/
+
+static void 
+lda_x_init(void *p_)
+{
+  XC(lda_type) *p = (XC(lda_type) *)p_;
+
+  assert(p->params == NULL);
+  p->params = malloc(sizeof(float));
+
+  /* exchange is equal to xalpha with a parameter of 4/3 */
+  XC(lda_c_xalpha_set_params)(p, 4.0/3.0);
+}
+
+static void 
+lda_c_xalpha_init(void *p_)
+{
+  XC(lda_type) *p = (XC(lda_type) *)p_;
+
+  assert(p->params == NULL);
+  p->params = malloc(sizeof(float));
+
+  /* This gives the usual Xalpha functional */
+  XC(lda_c_xalpha_set_params)(p, 1.0);
+}
+
+static void 
+lda_x_end(void *p_)
+{
+  XC(lda_type) *p = (XC(lda_type) *)p_;
+
+  assert(p->params != NULL);
+  free(p->params);
+  p->params = NULL;
+}
+
+
+void 
+XC(lda_c_xalpha_set_params)(XC(lda_type) *p, FLOAT alpha)
+{
+  assert(p->params != NULL);
+
+  *((FLOAT *)p->params) = 1.5*alpha - 1.0;
+}
+
 
 static inline void 
 func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
-  const FLOAT ax = -0.458165293283142893475554485052; /* -3/4*POW(3/(2*M_PI), 2/3) */
-  FLOAT fz, dfz, d2fz, d3fz;
+  FLOAT alpha, ax, fz, dfz, d2fz, d3fz;
 
+  assert(p->params != NULL);
+  alpha = *((FLOAT *)p->params);
+  
+  ax = -alpha*0.458165293283142893475554485052; /* -alpha * 3/4*POW(3/(2*M_PI), 2/3) */
+  
   r->zk = ax/r->rs[1];
   if(p->nspin == XC_POLARIZED){
     fz  = 0.5*(pow(1.0 + r->zeta,  4.0/3.0) + pow(1.0 - r->zeta,  4.0/3.0));
@@ -116,22 +176,20 @@ const XC(func_info_type) XC(func_info_lda_x) = {
   "PAM Dirac, Proceedings of the Cambridge Philosophical Society 26, 376 (1930)\n"
   "F Bloch, Zeitschrift fuer Physik 57, 545 (1929)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC | XC_PROVIDES_KXC,
-  NULL, NULL,
+  lda_x_init,
+  lda_x_end,
   work_lda
 };
 
-
-void XC(lda_x_init)(XC(lda_type) *p, int nspin, int dim, int irel)
-{
-  p->info = &XC(func_info_lda_x);
-
-  assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
-  assert(dim>=2 && dim<=3);
-  assert(irel == 0 || (dim==3 && nspin==XC_UNPOLARIZED));
-
-  p->dim = dim;
-  p->relativistic = irel;
-  p->nspin = nspin;
-}
-
+const XC(func_info_type) XC(func_info_lda_c_xalpha) = {
+  XC_LDA_C_XALPHA,
+  XC_CORRELATION,
+  "Slater's Xalpha",
+  XC_FAMILY_LDA,
+  NULL,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  lda_c_xalpha_init,
+  lda_x_end,
+  work_lda
+};
 

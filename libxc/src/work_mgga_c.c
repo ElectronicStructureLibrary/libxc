@@ -101,10 +101,10 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *l
 
       switch (order){
       case 0:
-	XC(lda_exc)(p->lda_aux, tmp_rho, &(f_LDA[is]));
+	XC(lda_exc)(p->lda_aux, 1, tmp_rho, &(f_LDA[is]));
 	break;
       case 1:
-	XC(lda_exc_vxc)(p->lda_aux, tmp_rho, &(f_LDA[is]), tmp_vrho);
+	XC(lda_exc_vxc)(p->lda_aux, 1, tmp_rho, &(f_LDA[is]), tmp_vrho);
 	vrho_LDA[is] = tmp_vrho[0];
 	break;
       case 2: /* to be implemented */
@@ -139,10 +139,10 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *l
 
     switch (order){
     case 0:
-      XC(lda_exc)(p->lda_aux, ds, &f_LDA_opp);
+      XC(lda_exc)(p->lda_aux, 1, ds, &f_LDA_opp);
       break;
     case 1:
-      XC(lda_exc_vxc)(p->lda_aux, ds, &f_LDA_opp, vrho_LDA_opp);
+      XC(lda_exc_vxc)(p->lda_aux, 1, ds, &f_LDA_opp, vrho_LDA_opp);
       break;
     case 2: /* to be implemented */
       break; 

@@ -102,7 +102,7 @@ XC(mix_func)(XC(mix_func_type) *p, const FLOAT *rho, const FLOAT *sigma,
 
   /* we now add the LDA components */
   for(ii=0; ii<p->lda_n; ii++){
-    XC(lda)(&p->lda_mix[ii], rho, pzk, pvrho, pv2rho2, NULL);
+    XC(lda)(&p->lda_mix[ii], 1, rho, pzk, pvrho, pv2rho2, NULL);
 
     if(zk != NULL)
       *zk += p->lda_coef[ii] * zk_;

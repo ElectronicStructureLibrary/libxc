@@ -36,23 +36,24 @@ whereas alpha equal to 2/3 just leaves the exchange functional unchanged */
 
 #define XC_LDA_C_XALPHA  6   /* Slater's Xalpha              */
 
-static void lda_c_xalpha(const void *p_, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc, FLOAT *kc)
+static void
+lda_c_xalpha(const void *p_, int np, const FLOAT *rho, FLOAT *ec, FLOAT *vc, FLOAT *fc, FLOAT *kc)
 {
   XC(lda_type) *p = (XC(lda_type) *)p_;
   FLOAT a = 1.5*p->alpha - 1.0;
   int i;
 
-  XC(lda)(p->lda_aux, rho, ec, vc, fc, NULL);
+  XC(lda)(p->lda_aux, np, rho, ec, vc, fc, NULL);
 
   if(ec != NULL)
-    (*ec) *= a;
+    for(i=0; i<p->nspin*np; i++) (*ec) *= a;
 
   if(vc != NULL)
-    for(i=0; i<p->nspin; i++) vc[i] *= a;
+    for(i=0; i<p->nspin*np; i++) vc[i] *= a;
 
   if(fc != NULL){
     int n = (p->nspin == XC_UNPOLARIZED) ? 1 : 3;
-    for(i=0; i<n; i++) fc[i] *= a;
+    for(i=0; i<n*np; i++) fc[i] *= a;
   }
 }
 

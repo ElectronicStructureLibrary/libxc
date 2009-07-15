@@ -166,12 +166,12 @@ int main(int argc, char *argv[])
       xc_lda(&lda_func, 1, xc.rho, &xc.zk, xc.vrho, pv2rho, NULL);
       break;
     case XC_FAMILY_GGA:
-      xc_gga(&gga_func, xc.rho, xc.sigma, &xc.zk, 
+      xc_gga(&gga_func, 1, xc.rho, xc.sigma, &xc.zk, 
 	     xc.vrho, xc.vsigma, pv2rho, xc.v2rhosigma, xc.v2sigma);
       xc_gga_end(&gga_func);
       break;
     case XC_FAMILY_HYB_GGA:
-      xc_hyb_gga(&hyb_gga_func, xc.rho, xc.sigma, &xc.zk, 
+      xc_hyb_gga(&hyb_gga_func, 1, xc.rho, xc.sigma, &xc.zk, 
 		 xc.vrho, xc.vsigma, pv2rho, xc.v2rhosigma, xc.v2sigma);
       xc_hyb_gga_end(&hyb_gga_func);
       break;

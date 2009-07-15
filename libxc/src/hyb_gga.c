@@ -18,6 +18,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 
 #include "util.h"
@@ -70,52 +71,87 @@ void XC(hyb_gga_end)(XC(hyb_gga_type) *p)
 
 
 /*****************************************************/
-void XC(hyb_gga)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
+void XC(hyb_gga)(const XC(hyb_gga_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 		 FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 		 FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
   assert(p!=NULL && p->info!=NULL);
   
-  if(!XC(gga_input_init)(p->info, p->nspin, rho, zk, vrho, vsigma,
-			 v2rho2, v2rhosigma, v2sigma2)) return; 
+  /* sanity check */
+  if(zk != NULL && !(p->info->provides & XC_PROVIDES_EXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of Exc",
+	    p->info->name);
+    exit(1);
+  }
+
+  if(vrho != NULL && !(p->info->provides & XC_PROVIDES_VXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of vxc",
+	    p->info->name);
+    exit(1);
+  }
+
+  if(v2rho2 != NULL && !(p->info->provides & XC_PROVIDES_FXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of fxc",
+	    p->info->name);
+    exit(1);
+  }
+
+  /* initialize output to zero */
+  if(zk != NULL)
+    memset(zk, 0.0, p->n_zk*np*sizeof(FLOAT));
+
+  if(vrho != NULL){
+    assert(vsigma != NULL);
+    
+    memset(vrho,   0.0, p->n_vrho  *np*sizeof(FLOAT));
+    memset(vsigma, 0.0, p->n_vsigma*np*sizeof(FLOAT));
+  }
+
+  if(v2rho2 != NULL){
+    assert(v2rhosigma!=NULL && v2sigma2!=NULL);
+
+    memset(v2rho2,     0.0, p->n_v2rho2      *np*sizeof(FLOAT));
+    memset(v2rhosigma, 0.0, p->n_v2rhosigma  *np*sizeof(FLOAT));
+    memset(v2sigma2,   0.0, p->n_v2sigma2    *np*sizeof(FLOAT));
+  }  
 
   /* hybrid may want to add some term */
   if(p->info->gga!=NULL)
-    p->info->gga(p, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
+    p->info->gga(p, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
 
   /* and now we have the general mixture of GGAs */
   if(p->mix != NULL)
-    XC(mix_func)(p->mix, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
+    XC(mix_func)(p->mix, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
 }
 
 
 /* especializations */
 inline void 
-XC(hyb_gga_exc)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma, 
+XC(hyb_gga_exc)(const XC(hyb_gga_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
 		FLOAT *zk)
 {
-  XC(hyb_gga)(p, rho, sigma, zk, NULL, NULL, NULL, NULL, NULL);
+  XC(hyb_gga)(p, np, rho, sigma, zk, NULL, NULL, NULL, NULL, NULL);
 }
 
 inline void 
-XC(hyb_gga_exc_vxc)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
+XC(hyb_gga_exc_vxc)(const XC(hyb_gga_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 		    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma)
 {
-  XC(hyb_gga)(p, rho, sigma, zk, vrho, vsigma, NULL, NULL, NULL);
+  XC(hyb_gga)(p, np, rho, sigma, zk, vrho, vsigma, NULL, NULL, NULL);
 }
 
 inline void 
-XC(hyb_gga_vxc)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
+XC(hyb_gga_vxc)(const XC(hyb_gga_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 		FLOAT *vrho, FLOAT *vsigma)
 {
-  XC(hyb_gga)(p, rho, sigma, NULL, vrho, vsigma, NULL, NULL, NULL);
+  XC(hyb_gga)(p, np, rho, sigma, NULL, vrho, vsigma, NULL, NULL, NULL);
 }
 
 inline void 
-XC(hyb_gga_fxc)(const XC(hyb_gga_type) *p, const FLOAT *rho, const FLOAT *sigma,
+XC(hyb_gga_fxc)(const XC(hyb_gga_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 		FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
-  XC(hyb_gga)(p, rho, sigma, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2);
+  XC(hyb_gga)(p, np, rho, sigma, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2);
 }
 
 

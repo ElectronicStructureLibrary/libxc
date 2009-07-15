@@ -42,7 +42,7 @@ gga_c_am05_end(void *p_)
 }
 
 static void 
-gga_c_am05(const void *p_, const FLOAT *rho, const FLOAT *sigma,
+my_gga_c_am05(const void *p_, const FLOAT *rho, const FLOAT *sigma,
 	   FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 	   FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
@@ -113,6 +113,37 @@ gga_c_am05(const void *p_, const FLOAT *rho, const FLOAT *sigma,
   
 }
 
+/* Warning: this is a workaround to support blocks while waiting for the next interface */
+static void 
+gga_c_am05(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
+	  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
+	  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
+{
+  int ip;
+  const XC(gga_type) *p = p_;
+
+  for(ip=0; ip<np; ip++){
+    my_gga_c_am05(p_, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
+
+    /* increment pointers */
+    rho   += p->n_rho;
+    sigma += p->n_sigma;
+    
+    if(zk != NULL)
+      zk += p->n_zk;
+    
+    if(vrho != NULL){
+      vrho   += p->n_vrho;
+      vsigma += p->n_vsigma;
+    }
+
+    if(v2rho2 != NULL){
+      v2rho2     += p->n_v2rho2;
+      v2rhosigma += p->n_v2rhosigma;
+      v2sigma2   += p->n_v2sigma2;
+    }
+  }
+}
 
 const XC(func_info_type) XC(func_info_gga_c_am05) = {
   XC_GGA_C_AM05,

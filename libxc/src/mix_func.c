@@ -88,13 +88,15 @@ XC(mix_func_free)(XC(mix_func_type) *p)
 
 /*****************************************************/
 void 
-XC(mix_func)(XC(mix_func_type) *p, const FLOAT *rho, const FLOAT *sigma,
+XC(mix_func)(XC(mix_func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 	     FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 	     FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
   FLOAT zk_, vrho_[2], vsigma_[3], v2rho2_[6], v2rhosigma_[6], v2sigma2_[6];
   FLOAT *pzk, *pvrho, *pv2rho2;
-  int ii, is, js;
+  int ip, ii, is, js;
+
+  exit(1); /* NP HAS TO BE TAKEN INTO ACCOUNT */
 
   pzk     = (zk     == NULL) ? NULL : &zk_;
   pvrho   = (vrho   == NULL) ? NULL : vrho_;
@@ -122,7 +124,7 @@ XC(mix_func)(XC(mix_func_type) *p, const FLOAT *rho, const FLOAT *sigma,
 
   /* and the GGA components */
   for(ii=0; ii<p->gga_n; ii++){
-    XC(gga)(&p->gga_mix[ii], rho, sigma, pzk, pvrho, vsigma_, pv2rho2,  v2rhosigma_, v2sigma2_);
+    XC(gga)(&p->gga_mix[ii], 1, rho, sigma, pzk, pvrho, vsigma_, pv2rho2,  v2rhosigma_, v2sigma2_);
 
     if(zk != NULL)
       *zk += p->gga_coef[ii] * zk_; 

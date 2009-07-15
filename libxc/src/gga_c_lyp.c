@@ -68,8 +68,9 @@ void XC(gga_c_lyp_set_params)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT 
 }
 
 
-static void gga_c_lyp(void *p_, FLOAT *rho_, FLOAT *sigma_,
-	       FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
+static void 
+my_gga_c_lyp(void *p_, const FLOAT *rho_, const FLOAT *sigma_,
+	     FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
   gga_c_lyp_params *params;
@@ -269,6 +270,35 @@ static void gga_c_lyp(void *p_, FLOAT *rho_, FLOAT *sigma_,
   *e = (t1 + t2 + t3 + t4 + t5 + t6)/rhot;
 }
 
+gga_c_lyp(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
+	  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
+	  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
+{
+  int ip;
+  const XC(gga_type) *p = p_;
+
+  for(ip=0; ip<np; ip++){
+    my_gga_c_lyp(p_, rho, sigma, zk, vrho, vsigma);
+
+    /* increment pointers */
+    rho   += p->n_rho;
+    sigma += p->n_sigma;
+    
+    if(zk != NULL)
+      zk += p->n_zk;
+    
+    if(vrho != NULL){
+      vrho   += p->n_vrho;
+      vsigma += p->n_vsigma;
+    }
+
+    if(v2rho2 != NULL){
+      v2rho2     += p->n_v2rho2;
+      v2rhosigma += p->n_v2rhosigma;
+      v2sigma2   += p->n_v2sigma2;
+    }
+  }
+}
 
 const XC(func_info_type) XC(func_info_gga_c_lyp) = {
   XC_GGA_C_LYP,

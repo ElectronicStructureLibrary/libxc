@@ -139,7 +139,8 @@ void XC(gga_fxc)(const XC(gga_type) *p, int np, const FLOAT *rho, const FLOAT *s
 		 FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
 
 void XC(gga_lb_set_params)(XC(gga_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
-void XC(gga_lb_modified)  (XC(gga_type) *p, int np, FLOAT *rho, FLOAT *grho, FLOAT r, FLOAT *vrho);
+void XC(gga_lb_modified)  (const XC(gga_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
+			   FLOAT r, FLOAT *vrho);
 
 
 /* the GGAs hybrids */

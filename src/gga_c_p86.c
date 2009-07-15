@@ -49,7 +49,7 @@ gga_c_p86_end(void *p_)
 }
 
 static void 
-my_gga_c_p86(void *p_, const FLOAT *rho, const FLOAT *sigma,
+my_gga_c_p86(const void *p_, const FLOAT *rho, const FLOAT *sigma,
 	  FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;

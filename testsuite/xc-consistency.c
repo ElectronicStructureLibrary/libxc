@@ -85,11 +85,11 @@ double get_point(functionals_type *func, double point[5], double *e, double der[
       xc_lda_exc_vxc(&(func->lda_func), 1, &(point[0]), e, &(der[0]));
       break;
     case XC_FAMILY_GGA:
-      xc_gga_exc_vxc(&(func->gga_func), &(point[0]), &(point[2]),
+      xc_gga_exc_vxc(&(func->gga_func), 1, &(point[0]), &(point[2]),
 	  e, &(der[0]), &(der[2]));
       break;
     case XC_FAMILY_HYB_GGA:
-      xc_hyb_gga_exc_vxc(&(func->hyb_gga_func), &(point[0]), &(point[2]),
+      xc_hyb_gga_exc_vxc(&(func->hyb_gga_func), 1, &(point[0]), &(point[2]),
           e, &(der[0]), &(der[2]));
       break;
     }
@@ -122,11 +122,11 @@ void get_fxc(functionals_type *func, double point[5], double der[5][5])
       xc_lda_fxc(&(func->lda_func), 1, &(point[0]), v2rho);
       break;
     case XC_FAMILY_GGA:
-      xc_gga_fxc(&(func->gga_func), &(point[0]), &(point[2]),
+      xc_gga_fxc(&(func->gga_func), 1, &(point[0]), &(point[2]),
 		 v2rho, v2rhosigma, v2sigma);
       break;
     case XC_FAMILY_HYB_GGA:
-      xc_hyb_gga_fxc(&(func->hyb_gga_func), &(point[0]), &(point[2]),
+      xc_hyb_gga_fxc(&(func->hyb_gga_func), 1, &(point[0]), &(point[2]),
 		     v2rho, v2rhosigma, v2sigma);
       break;
     }

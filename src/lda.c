@@ -41,17 +41,16 @@ int XC(lda_init)(XC(lda_type) *p, int functional, int nspin)
   /* initialize structure */
   p->params = NULL;
   p->info   = XC(lda_known_funct)[i];
+  p->func   = 0;
 
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
   p->nspin = nspin;
 
   /* initialize spin counters */
-  p->n_rho  = p->nspin;
-  p->n_zk   = 1;
-  p->n_vrho = p->nspin;
+  p->n_rho = p->n_vrho = p->nspin;
+  p->n_zk  = 1;
   if(nspin == XC_UNPOLARIZED){
-    p->n_v2rho2 = 1;
-    p->n_v3rho3 = 1;
+    p->n_v2rho2 = p->n_v3rho3 = 1;
   }else{
     p->n_v2rho2 = 3;
     p->n_v3rho3 = 4;
@@ -91,6 +90,18 @@ void XC(lda)(const XC(lda_type) *p, int np, const FLOAT *rho,
 
   if(vrho != NULL && !(p->info->provides & XC_PROVIDES_VXC)){
     fprintf(stderr, "Functional '%s' does not provide an implementation of vxc",
+	    p->info->name);
+    exit(1);
+  }
+
+  if(v2rho2 != NULL && !(p->info->provides & XC_PROVIDES_FXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of fxc",
+	    p->info->name);
+    exit(1);
+  }
+
+  if(v3rho3 != NULL && !(p->info->provides & XC_PROVIDES_KXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of kxc",
 	    p->info->name);
     exit(1);
   }

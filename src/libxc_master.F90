@@ -289,9 +289,10 @@ module XC_F90(lib_m)
 
   !----------------------------------------------------------------
   interface
-    subroutine XC_F90(gga)(p, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2)
+    subroutine XC_F90(gga)(p, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
       real(xc_f90_kind),    intent(in)  :: rho
       real(xc_f90_kind),    intent(in)  :: sigma
       real(xc_f90_kind),    intent(out) :: zk
@@ -302,17 +303,19 @@ module XC_F90(lib_m)
       real(xc_f90_kind),    intent(out) :: v2sigma2
     end subroutine XC_F90(gga)
 
-    subroutine XC_F90(gga_exc)(p, rho, sigma, zk)
+    subroutine XC_F90(gga_exc)(p, np, rho, sigma, zk)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
       real(xc_f90_kind),    intent(in)  :: rho
       real(xc_f90_kind),    intent(in)  :: sigma
       real(xc_f90_kind),    intent(out) :: zk
     end subroutine XC_F90(gga_exc)
 
-    subroutine XC_F90(gga_exc_vxc)(p, rho, sigma, zk, vrho, vsigma)
+    subroutine XC_F90(gga_exc_vxc)(p, np, rho, sigma, zk, vrho, vsigma)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
       real(xc_f90_kind),    intent(in)  :: rho
       real(xc_f90_kind),    intent(in)  :: sigma
       real(xc_f90_kind),    intent(out) :: zk
@@ -320,18 +323,20 @@ module XC_F90(lib_m)
       real(xc_f90_kind),    intent(out) :: vsigma
     end subroutine XC_F90(gga_exc_vxc)
 
-    subroutine XC_F90(gga_vxc)(p, rho, sigma, vrho, vsigma)
+    subroutine XC_F90(gga_vxc)(p, np, rho, sigma, vrho, vsigma)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
       real(xc_f90_kind),    intent(in)  :: rho
       real(xc_f90_kind),    intent(in)  :: sigma
       real(xc_f90_kind),    intent(out) :: vrho
       real(xc_f90_kind),    intent(out) :: vsigma
     end subroutine XC_F90(gga_vxc)
 
-    subroutine XC_F90(gga_fxc)(p, rho, sigma, v2rho2, v2rhosigma, v2sigma2)
+    subroutine XC_F90(gga_fxc)(p, np, rho, sigma, v2rho2, v2rhosigma, v2sigma2)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
       real(xc_f90_kind),    intent(in)  :: rho
       real(xc_f90_kind),    intent(in)  :: sigma
       real(xc_f90_kind),    intent(out) :: v2rho2
@@ -344,24 +349,25 @@ module XC_F90(lib_m)
   interface
     subroutine XC_F90(gga_lb_set_par)(p, modified, threshold, ip, qtot)
       use XC_F90(types_m)
-      type(XC_F90(func_t)),   intent(in)  :: p
-      integer,           intent(in)  :: modified   ! should we use the modified version
-      real(xc_f90_kind), intent(in)  :: threshold  ! if so, the threshold to use the asymtotic version
-      real(xc_f90_kind), intent(in)  :: ip         ! ionization potential
-      real(xc_f90_kind), intent(in)  :: qtot       ! total charge
+      type(XC_F90(func_t)), intent(in)  :: p
+      integer,              intent(in)  :: modified   ! should we use the modified version
+      real(xc_f90_kind),    intent(in)  :: threshold  ! if so, the threshold to use the asymtotic version
+      real(xc_f90_kind),    intent(in)  :: ip         ! ionization potential
+      real(xc_f90_kind),    intent(in)  :: qtot       ! total charge
     end subroutine XC_F90(gga_lb_set_par)
   end interface
 
 
   !----------------------------------------------------------------
   interface
-    subroutine XC_F90(gga_lb_modified)(p, rho,  grho, r, dedd)
+    subroutine XC_F90(gga_lb_modified)(p, np, rho, grho, r, dedd)
       use XC_F90(types_m)
-      type(XC_F90(func_t)),   intent(in)  :: p
-      real(xc_f90_kind), intent(in)  :: rho   ! rho(nspin) the density
-      real(xc_f90_kind), intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
-      real(xc_f90_kind), intent(in)  :: r     ! distance from center of finite system
-      real(xc_f90_kind), intent(out) :: dedd
+      type(XC_F90(func_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
+      real(xc_f90_kind),    intent(in)  :: rho   ! rho(nspin) the density
+      real(xc_f90_kind),    intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
+      real(xc_f90_kind),    intent(in)  :: r     ! distance from center of finite system
+      real(xc_f90_kind),    intent(out) :: dedd
     end subroutine XC_F90(gga_lb_modified)
   end interface
 

@@ -87,15 +87,16 @@ void XC(gga_lb_set_params)(XC(gga_type) *p, int modified, FLOAT threshold, FLOAT
 }
 
 
-void XC(gga_lb_modified)(XC(gga_type) *p, FLOAT *rho, FLOAT *sigma, FLOAT r, FLOAT *dedd)
+void 
+XC(gga_lb_modified)(XC(gga_type) *p, int np, FLOAT *rho, FLOAT *sigma, FLOAT r, FLOAT *dedd)
 {
-  int is;
+  int ip, is;
   FLOAT gdm, x;
   XC(gga_xc_lb_params) *params = (XC(gga_xc_lb_params) *) (p->params);
 
   static const FLOAT beta = 0.05;
 
-  XC(lda_exc_vxc)(p->lda_aux, 1, rho, &x, dedd);
+  XC(lda_exc_vxc)(p->lda_aux, np, rho, &x, dedd);
 
   for(is=0; is<p->nspin; is++){
     gdm = sqrt(sigma[is==0 ? 0 : 2]);
@@ -132,7 +133,7 @@ void XC(gga_lb_modified)(XC(gga_type) *p, FLOAT *rho, FLOAT *sigma, FLOAT r, FLO
 static void gga_xc_lb(void *p_, FLOAT *rho, FLOAT *sigma,
                       FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
-  XC(gga_lb_modified)((XC(gga_type) *)p_, rho, sigma, 0.0, vrho);
+  XC(gga_lb_modified)((XC(gga_type) *)p_, 1, rho, sigma, 0.0, vrho);
 }
 
 

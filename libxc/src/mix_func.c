@@ -103,51 +103,69 @@ XC(mix_func)(XC(mix_func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
   pv2rho2 = (v2rho2 == NULL) ? NULL : v2rho2_;
 
   /* we now add the LDA components */
-  for(ii=0; ii<p->lda_n; ii++){
-    XC(lda)(&p->lda_mix[ii], 1, rho, pzk, pvrho, pv2rho2, NULL);
+  for(ip=0; ip<np; ip++){
+    for(ii=0; ii<p->lda_n; ii++){
+      XC(lda)(&p->lda_mix[ii], 1, rho, pzk, pvrho, pv2rho2, NULL);
 
-    if(zk != NULL)
-      *zk += p->lda_coef[ii] * zk_;
+      if(zk != NULL)
+	*zk += p->lda_coef[ii] * zk_;
 
-    if(vrho != NULL)
-      for(is=0; is<p->nspin; is++)
-	vrho[is] += p->lda_coef[ii] * vrho_[is];
+      if(vrho != NULL)
+	for(is=0; is<p->nspin; is++)
+	  vrho[is] += p->lda_coef[ii] * vrho_[is];
 
-    if(v2rho2 != NULL){
-      js = (p->nspin == XC_POLARIZED) ? 6 : 1;
-      for(is=0; is<js; is++)
-	v2rho2[is] += p->lda_coef[ii] * v2rho2_[is];
-    }
-  }
-
-  if(p->level == XC_FAMILY_LDA) return;
-
-  /* and the GGA components */
-  for(ii=0; ii<p->gga_n; ii++){
-    XC(gga)(&p->gga_mix[ii], 1, rho, sigma, pzk, pvrho, vsigma_, pv2rho2,  v2rhosigma_, v2sigma2_);
-
-    if(zk != NULL)
-      *zk += p->gga_coef[ii] * zk_; 
-
-    if(vrho != NULL){
-      for(is=0; is<p->nspin; is++)
-	vrho[is] += p->gga_coef[ii] * vrho_[is];
-
-      js = (p->nspin == XC_POLARIZED) ? 3 : 1;
-      for(is=0; is<js; is++)
-	vsigma[is] += p->gga_coef[ii] * vsigma_[is];
-    }
-
-    if(v2rho2 != NULL){
-      js = (p->nspin == XC_POLARIZED) ? 6 : 1;
-      for(is=0; is<js; is++){
-	v2rho2[is]     += p->gga_coef[ii] * v2rho2_[is];
-	v2rhosigma[is] += p->gga_coef[ii] * v2rhosigma_[is];
-	v2sigma2[is]   += p->gga_coef[ii] * v2sigma2_[is];
+      if(v2rho2 != NULL){
+	js = (p->nspin == XC_POLARIZED) ? 6 : 1;
+	for(is=0; is<js; is++)
+	  v2rho2[is] += p->lda_coef[ii] * v2rho2_[is];
       }
     }
+
+    if(p->level == XC_FAMILY_LDA) goto end_ip_loop;
+    
+    /* and the GGA components */
+    for(ii=0; ii<p->gga_n; ii++){
+      XC(gga)(&p->gga_mix[ii], 1, rho, sigma, pzk, pvrho, vsigma_, pv2rho2,  v2rhosigma_, v2sigma2_);
+      
+      if(zk != NULL)
+	*zk += p->gga_coef[ii] * zk_; 
+
+      if(vrho != NULL){
+	for(is=0; is<p->nspin; is++)
+	  vrho[is] += p->gga_coef[ii] * vrho_[is];
+	
+	js = (p->nspin == XC_POLARIZED) ? 3 : 1;
+	for(is=0; is<js; is++)
+	  vsigma[is] += p->gga_coef[ii] * vsigma_[is];
+      }
+      
+      if(v2rho2 != NULL){
+	js = (p->nspin == XC_POLARIZED) ? 6 : 1;
+	for(is=0; is<js; is++){
+	  v2rho2[is]     += p->gga_coef[ii] * v2rho2_[is];
+	  v2rhosigma[is] += p->gga_coef[ii] * v2rhosigma_[is];
+	  v2sigma2[is]   += p->gga_coef[ii] * v2sigma2_[is];
+	}
+      }
+    }
+
+    if(p->level == XC_FAMILY_GGA) goto end_ip_loop;
+
+  end_ip_loop:
+
+    /* increment pointers */
+    rho += p->lda_mix[0].n_rho;
+    if(zk     != NULL) zk     += p->lda_mix[0].n_zk;
+    if(vrho   != NULL) vrho   += p->lda_mix[0].n_vrho;
+    if(v2rho2 != NULL) v2rho2 += p->lda_mix[0].n_v2rho2;
+
+    if(p->level == XC_FAMILY_LDA) continue;
+
+    sigma += p->gga_mix[0].n_sigma;
+    if(vrho != NULL) vsigma += p->gga_mix[0].n_vsigma;
+    if(v2rho2 != NULL){
+      v2rhosigma += p->gga_mix[0].n_v2rhosigma;
+      v2sigma2   += p->gga_mix[0].n_v2sigma2;
+    }
   }
-
-  if(p->level == XC_FAMILY_GGA) return;
-
 }

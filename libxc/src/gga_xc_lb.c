@@ -88,7 +88,7 @@ void XC(gga_lb_set_params)(XC(gga_type) *p, int modified, FLOAT threshold, FLOAT
 
 
 void 
-XC(gga_lb_modified)(XC(gga_type) *p, int np, FLOAT *rho, FLOAT *sigma, FLOAT r, FLOAT *dedd)
+XC(gga_lb_modified)(const XC(gga_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, FLOAT r, FLOAT *vrho)
 {
   int ip, is;
   FLOAT gdm, x;
@@ -96,44 +96,57 @@ XC(gga_lb_modified)(XC(gga_type) *p, int np, FLOAT *rho, FLOAT *sigma, FLOAT r, 
 
   static const FLOAT beta = 0.05;
 
-  XC(lda_exc_vxc)(p->lda_aux, np, rho, &x, dedd);
+  XC(lda_vxc)(p->lda_aux, np, rho, vrho);
 
-  for(is=0; is<p->nspin; is++){
-    gdm = sqrt(sigma[is==0 ? 0 : 2]);
+  for(ip=0; ip<np; ip++){
+    for(is=0; is<p->nspin; is++){
+      gdm = sqrt(sigma[is==0 ? 0 : 2]);
 
-    if(params->modified == 0 || 
-       (rho[is] > params->threshold && gdm > params->threshold)){
-      FLOAT f;
+      if(params->modified == 0 || 
+	 (rho[is] > params->threshold && gdm > params->threshold)){
+	FLOAT f;
       
-      if(rho[is] <= MIN_DENS) continue;
+	if(rho[is] <= MIN_DENS) continue;
+	
+	x =  gdm/POW(rho[is], 4.0/3.0);
+	
+	/* dirty fix, destroys -1/r, but results will not run wild */
+	if(params->modified == 0 && x > 500.0) continue;
+	   
+	/* the actual functional */
+	f = -beta*POW(rho[is], 1.0/3.0)*
+	  x*x/(1.0 + 3.0*beta*x*asinh(params->gamm*x));
+	vrho[is] += f;
+	
+      }else if(r > 0.0){
+	/* the aymptotic expansion of LB94 */
+	x = r + (3.0/params->alpha)*
+	  log(2.0*params->gamm * params->alpha * POW(params->qtot, -1.0/3.0));
+	
+	/* x = x + POW(qtot*exp(-alpha*r), 1.0/3.0)/(beta*alpha*alpha); */
+	
+	vrho[is] -= 1.0/x;
+      }
 
-      x =  gdm/POW(rho[is], 4.0/3.0);
+      /* increment pointers */
+      rho   += p->n_rho;
+      sigma += p->n_sigma;
 
-      /* dirty fix, destroys -1/r, but results will not run wild */
-      if(params->modified == 0 && x > 500.0) continue;
+      if(vrho != NULL){
+	vrho   += p->n_vrho;
+      }
 
-      /* the actual functional */
-      f = -beta*POW(rho[is], 1.0/3.0)*
-	x*x/(1.0 + 3.0*beta*x*asinh(params->gamm*x));
-      dedd[is] += f;
-
-    }else if(r > 0.0){
-      /* the aymptotic expansion of LB94 */
-      x = r + (3.0/params->alpha)*
-	log(2.0*params->gamm * params->alpha * POW(params->qtot, -1.0/3.0));
-
-      /* x = x + POW(qtot*exp(-alpha*r), 1.0/3.0)/(beta*alpha*alpha); */
-
-      dedd[is] -= 1.0/x;
-    }
+    } /* ip loop */
   }
 }
 
 
-static void gga_xc_lb(void *p_, FLOAT *rho, FLOAT *sigma,
-                      FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
+static void 
+gga_xc_lb(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
+	  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
+	  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
-  XC(gga_lb_modified)((XC(gga_type) *)p_, 1, rho, sigma, 0.0, vrho);
+  XC(gga_lb_modified)((XC(gga_type) *)p_, np, rho, sigma, 0.0, vrho);
 }
 
 

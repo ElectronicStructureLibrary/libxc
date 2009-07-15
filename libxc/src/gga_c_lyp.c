@@ -69,7 +69,7 @@ void XC(gga_c_lyp_set_params)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT 
 
 
 static void 
-my_gga_c_lyp(void *p_, const FLOAT *rho_, const FLOAT *sigma_,
+my_gga_c_lyp(const void *p_, const FLOAT *rho_, const FLOAT *sigma_,
 	     FLOAT *e, FLOAT *vrho, FLOAT *vsigma)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
@@ -270,6 +270,7 @@ my_gga_c_lyp(void *p_, const FLOAT *rho_, const FLOAT *sigma_,
   *e = (t1 + t2 + t3 + t4 + t5 + t6)/rhot;
 }
 
+static void
 gga_c_lyp(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 	  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)

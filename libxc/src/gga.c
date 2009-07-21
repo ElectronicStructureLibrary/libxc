@@ -142,15 +142,14 @@ void XC(gga)(const XC(gga_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
   if(v2rho2 != NULL){
     assert(v2rhosigma!=NULL && v2sigma2!=NULL);
 
-    memset(v2rho2,     0.0, p->n_v2rho2      *np*sizeof(FLOAT));
-    memset(v2rhosigma, 0.0, p->n_v2rhosigma  *np*sizeof(FLOAT));
-    memset(v2sigma2,   0.0, p->n_v2sigma2    *np*sizeof(FLOAT));
+    memset(v2rho2,     0.0, p->n_v2rho2    *np*sizeof(FLOAT));
+    memset(v2rhosigma, 0.0, p->n_v2rhosigma*np*sizeof(FLOAT));
+    memset(v2sigma2,   0.0, p->n_v2sigma2  *np*sizeof(FLOAT));
   }
 
   /* call functional */
   if(p->info->gga != NULL)
-    for(ii=0; ii<np; ii++)
-      p->info->gga(p, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
+    p->info->gga(p, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
 
   if(p->mix != NULL)
     XC(mix_func)(p->mix, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);

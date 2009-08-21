@@ -167,9 +167,9 @@ void XC_FC_FUNC(f90_lda_c_xalpha_set_par, F90_LDA_C_1D_CSC_SET_PAR)
 
 /* parameter of CSC */
 void XC_FC_FUNC(f90_lda_c_1d_csc_set_par, F90_LDA_C_1D_CSC_SET_PAR)
-  (void **p, FLOAT *bb)
+  (void **p, CC_FORTRAN_INT *interaction, FLOAT *bb)
 {
-  XC(lda_c_1d_csc_set_params)((XC(lda_type) *)(*p), *bb);
+  XC(lda_c_1d_csc_set_params)((XC(lda_type) *)(*p), *interaction, *bb);
 }
 
 /* parameter of PRM */

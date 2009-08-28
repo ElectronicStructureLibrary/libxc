@@ -79,7 +79,7 @@ struct XC(struct_mix_func_type);
 
 /* the LDAs */
 typedef struct XC(struct_lda_type) {
-  const XC(func_info_type) *info;       /* which functional did we chose   */
+  const XC(func_info_type) *info;       /* which functional did we choose   */
   int nspin;                            /* XC_UNPOLARIZED or XC_POLARIZED  */
   
   struct XC(struct_lda_type) *lda_aux;  /* some LDAs are built on top of other LDAs */
@@ -88,7 +88,7 @@ typedef struct XC(struct_lda_type) {
   int func;                             /* Shortcut in case of several functionals sharing the same interface */
   int n_rho, n_zk, n_vrho, n_v2rho2, n_v3rho3; /* spin dimensions of arguments */
 
-  void *params;                         /* this allows to fix parameters in the functional */
+  void *params;                         /* this allows us to fix parameters in the functional */
 } XC(lda_type);
 
 int  XC(lda_init)(XC(lda_type) *p, int functional, int nspin);
@@ -110,7 +110,7 @@ void XC(lda_c_vwn_set_params)    (XC(lda_type) *p, int spin_interpolation);
 
 /* the GGAs */
 typedef struct XC(struct_gga_type){
-  const XC(func_info_type) *info;       /* which functional did we chose   */
+  const XC(func_info_type) *info;       /* which functional did we choose   */
   int nspin;                            /* XC_UNPOLARIZED or XC_POLARIZED  */
   
   XC(lda_type) *lda_aux;                /* most GGAs are based on a LDA    */
@@ -122,7 +122,7 @@ typedef struct XC(struct_gga_type){
   int n_rho, n_zk, n_vrho, n_v2rho2;    /* spin dimensions of arguments */
   int n_sigma, n_vsigma, n_v2rhosigma, n_v2sigma2;
 
-  void *params;                         /* this allows to fix parameters in the functional */
+  void *params;                         /* this allows us to fix parameters in the functional */
 } XC(gga_type);
 
 int  XC(gga_init)(XC(gga_type) *p, int functional, int nspin);
@@ -146,7 +146,7 @@ void XC(gga_lb_modified)  (const XC(gga_type) *p, int np, const FLOAT *rho, cons
 
 /* the GGAs hybrids */
 typedef struct XC(struct_hyb_gga_type){
-  const XC(func_info_type) *info;  /* which functional did we chose   */
+  const XC(func_info_type) *info;  /* which functional did we choose   */
   int nspin;                       /* XC_UNPOLARIZED or XC_POLARIZED  */
   
   struct XC(struct_mix_func_type) *mix; /* these functionals are usually 
@@ -157,7 +157,7 @@ typedef struct XC(struct_hyb_gga_type){
   int n_sigma, n_vsigma, n_v2rhosigma, n_v2sigma2;
 
   FLOAT exx_coef;                  /* the Hartree-Fock mixing parameter */
-  void *params;                    /* this allows to fix parameters in the functional */
+  void *params;                    /* this allows us to fix parameters in the functional */
 } XC(hyb_gga_type);
 
 int  XC(hyb_gga_init)(XC(hyb_gga_type) *p, int functional, int nspin);
@@ -178,14 +178,14 @@ FLOAT XC(hyb_gga_exx_coef)(XC(hyb_gga_type) *p);
 
 /* the meta-GGAs */
 typedef struct{
-  const XC(func_info_type) *info;  /* which functional did we chose   */
+  const XC(func_info_type) *info;  /* which functional did we choose   */
   int nspin;                       /* XC_UNPOLARIZED or XC_POLARIZED  */
   
   XC(lda_type) *lda_aux;           /* most meta-GGAs are based on a LDA    */
   XC(gga_type) *gga_aux1;          /* or on a GGA                          */
   XC(gga_type) *gga_aux2;          /* or on a GGA                          */
 
-  void *params;                    /* this allows to fix parameters in the functional */
+  void *params;                    /* this allows us to fix parameters in the functional */
 } XC(mgga_type);
 
 int  XC(mgga_init)(XC(mgga_type) *p, int functional, int nspin);
@@ -240,7 +240,7 @@ void XC(mix_func)(XC(mix_func_type) *p, int np, const FLOAT *rho, const FLOAT *s
 
 
 typedef struct{
-  XC(func_info_type) *info;  /* which functional did we chose   */
+  XC(func_info_type) *info;  /* which functional did we choose   */
   int nspin;                 /* XC_UNPOLARIZED or XC_POLARIZED  */
 
 } XC(lca_type);

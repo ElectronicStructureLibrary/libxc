@@ -38,7 +38,19 @@ float  asinhf(float  x);
 
 /* special functions */
 double lambert_w(double z);
+double bessi0(double x);
+double bessi1(double x);
+double bessk0(double x);
+double bessk1(double x);
 
+/* integration */
+typedef void integr_fn(FLOAT *x, int n, void *ex);
+FLOAT integrate(integr_fn func, void *ex, FLOAT a, FLOAT b);
+void rdqagse(integr_fn f, void *ex, FLOAT *a, FLOAT *b, 
+	     FLOAT *epsabs, FLOAT *epsrel, int *limit, FLOAT *result,
+	     FLOAT *abserr, int *neval, int *ier, FLOAT *alist__,
+	     FLOAT *blist, FLOAT *rlist, FLOAT *elist, int *iord, int *last);
+  
 #define M_C 137.0359996287515 /* speed of light */
 
 #define RS(x)          (pow((3.0/(4*M_PI*x)), 1.0/3.0))

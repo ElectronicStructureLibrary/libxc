@@ -18,19 +18,40 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "util.h"
 #include "xc.h"
 #include "util.h"
+
+void func(double *x, int n, void *ex)
+{
+  int i;
+  for(i=0; i<n;i++)
+    x[i] = cos(x[i]);
+}
+
+void test_integration()
+{
+  double a, b, result;
+
+  for(b=1e-8; b<5; b+=0.001){
+    result = integrate(func, NULL, a, b);
+    printf("%lf %lf\n", b, result);
+  }
+}
 
 void test_lda()
 {
   XC(lda_type) l1, l2, l3;
   int i;
   
-  XC(lda_x_init)(&l1, XC_POLARIZED, 3, XC_NON_RELATIVISTIC);
-  XC(lda_init)(&l2, XC_LDA_C_VWN, XC_POLARIZED);
+  XC(lda_init)(&l1, XC_LDA_X_1D, XC_UNPOLARIZED);
+  XC(lda_init)(&l2, XC_LDA_C_1D_CSC, XC_POLARIZED);
   XC(lda_init)(&l3, XC_LDA_X, XC_UNPOLARIZED);
+
+  XC(lda_x_1d_set_params)(&l1, 1, 1.0);
+  XC(lda_c_1d_csc_set_params)(&l2, 1, 1.0);
 
   for(i=0; i<1000; i++){
     double dens, rs, zeta, rho[2];
@@ -38,8 +59,8 @@ void test_lda()
     double ec2, vc2[2], fxc2[3], kxc2[4];
     double ec3, vc3[2], fxc3[3], kxc3[4];
     
-    rs   = 1.0;
-    zeta = -1.0 + 2.0*i/1000.0;
+    rs   = 0.1 + 5.0*i/1000.0;
+    zeta = 0.0; //-1.0 + 2.0*i/1000.0;
 
     //dens = 1.0/(4.0/3.0*M_PI*POW(rs,3)); /* 3D */
     //dens = 1.0/(2.0*rs); /* 1D */
@@ -47,14 +68,18 @@ void test_lda()
     //rho[0] = dens*(1.0 + zeta)/2.0;
     //rho[1] = dens*(1.0 - zeta)/2.0;
 
-    rho[0] = 0.01 + i/1000.0;
-    rho[1] = 0.21;
+    //rho[0] = 0.01 + i/1000.0;
+    //rho[1] = 0.21;
+
+    rho[0] = 1.0/(2.0*rs);
+    rho[1] = 0.0;
 
     dens = rho[0] + rho[1];
 
-    XC(lda)(&l2, rho, &ec1, vc1, fxc1, kxc1);
-    XC(lda_fxc_fd)(&l2, rho, fxc2);
-    XC(lda_kxc_fd)(&l2, rho, kxc2);
+    XC(lda)(&l1, 1, rho, &ec1, vc1, NULL, NULL);
+    XC(lda)(&l2, 1, rho, &ec2, vc2, NULL, NULL);
+    //XC(lda_fxc_fd)(&l2, rho, fxc2);
+    //XC(lda_kxc_fd)(&l2, rho, kxc2);
 
     //rho[0] = dens; rho[1] = 0.0;
     //XC(lda)(&l3, rho, &ec3, vc3, fxc3, kxc3);
@@ -62,7 +87,7 @@ void test_lda()
     // printf("%e\t%e\t%e\n", dens, (fxc1[0]+2.0*fxc1[1]+fxc1[2])/4.0, fxc3[0]);
     // printf("%e\t%e\t%e\n", dens, (kxc1[0]+3.0*kxc1[1]+3.0*kxc1[2]+kxc1[3])/8.0, kxc3[0]);
 
-    printf("%e\t%e\t%e\n", rho[0], kxc1[2], kxc2[2]);
+    printf("%e\t%e\t%e\n", rs, ec1, ec2);
   }
 }
 
@@ -94,7 +119,7 @@ void test_tpss()
     XC(mgga)(&tpss, rho,  sigma, lrho, tau, 
     	     &zk,  vrho, vsigma, vlrho, vtau, 
     	     NULL, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
-    brx89_lda(rho[0], sigma[0], lrho[0], tau[0], &zk2, vrho2, vsigma2, vlrho2, vtau2);
+    //brx89_lda(rho[0], sigma[0], lrho[0], tau[0], &zk2, vrho2, vsigma2, vlrho2, vtau2);
 
     //XC(gga)(&agga, rho,  sigma,
     //&zk,  vrho, vsigma,
@@ -105,7 +130,9 @@ void test_tpss()
 
 int main()
 {
-  test_tpss();
+  //test_tpss();
+  //test_integration();
+  test_lda();
 
   return 0;
 }

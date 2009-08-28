@@ -51,7 +51,7 @@ static void mgga_x_tb09_init(void *p_)
 
 static void mgga_x_tb09_end(void *p_)
 {
-  XC(gga_type) *p = (XC(gga_type) *)p_;
+  XC(mgga_type) *p = (XC(mgga_type) *)p_;
 
   assert(p->params != NULL);
   free(p->params);

@@ -99,7 +99,7 @@ lda_c_vwn_init(void *p_)
 }
 
 
-void XC(lda_c_vwn_set_params)(const XC(lda_type) *p, int spin_interpolation)
+void XC(lda_c_vwn_set_params)(XC(lda_type) *p, int spin_interpolation)
 {
   lda_c_vwn_params *params;
 

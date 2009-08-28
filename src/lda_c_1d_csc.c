@@ -95,33 +95,34 @@ static inline void
 func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   static const struct {
-    FLOAT A, B, C, D, n, alpha, beta, m;
+    FLOAT A, B, C, D, n1, n2, alpha, beta, m;
   } pp[] = {
-    {  4.66,  2.092, 3.735, 0.0, 1.379, 23.63,  109.9,    1.837}, /* exponentially screened interaction */
-    {  9.5,   1.85,  5.64,  0.0, 0.882,  5.346,   6.69,   3.110},
-    { 16.40,  2.90,  6.235, 0.0, 0.908,  3.323,   2.23,   3.368},
-    { 22.53,  2.09,  7.363, 0.0, 0.906,  2.029,   0.394,  4.070},
-    { 32.1,   3.77,  7.576, 0.0, 0.941,  1.63,    0.198,  4.086},
-    {110.5,   7.90,  8.37,  0.0, 1.287,  1.399,   0.0481, 4.260},
-    {413.0,  10.8,   7.99,  0.0, 1.549,  1.308,   0.0120, 4.165},
+    {  4.66,  2.092, 3.735, 0.0, 1.379, 2.0, 23.63,  109.9,    1.837}, /* exponentially screened interaction */
+    {  9.5,   1.85,  5.64,  0.0, 0.882, 2.0,  5.346,   6.69,   3.110},
+    { 16.40,  2.90,  6.235, 0.0, 0.908, 2.0,  3.323,   2.23,   3.368},
+    { 22.53,  2.09,  7.363, 0.0, 0.906, 2.0,  2.029,   0.394,  4.070},
+    { 32.1,   3.77,  7.576, 0.0, 0.941, 2.0,  1.63,    0.198,  4.086},
+    {110.5,   7.90,  8.37,  0.0, 1.287, 2.0,  1.399,   0.0481, 4.260},
+    {413.0,  10.8,   7.99,  0.0, 1.549, 2.0,  1.308,   0.0120, 4.165},
 
-    {18.40, 7.501, 0.10185, 0.012827, 1.0, 1.511, 0.258, 4.424}, /* soft-Coulomb interaction */
+    {18.40, 7.501, 0.10185, 0.012827, 2.0, 3.0, 1.511, 0.258, 4.424}, /* soft-Coulomb interaction */
   };
 
   int ii;
-  FLOAT rs_n, rs_m, arg, larg, den, num;
+  FLOAT rs_n1, rs_n2, rs_m, arg, larg, den, num;
   FLOAT darg, dden, dnum;
 
   assert(p->params != NULL);
   ii = ((lda_c_1d_csc_params *)p->params)->ii;
 
-  rs_n = POW(r->rs[1], pp[ii].n);
-  rs_m = POW(r->rs[1], pp[ii].m);
+  rs_n1 = POW(r->rs[1], pp[ii].n1);
+  rs_n2 = POW(r->rs[1], pp[ii].n2);
+  rs_m  = POW(r->rs[1], pp[ii].m);
 
   arg  = 1.0 + pp[ii].alpha*r->rs[1] + pp[ii].beta*rs_m;
   larg = LOG(arg);
 
-  den  = pp[ii].A + pp[ii].B*rs_n + pp[ii].C*r->rs[2];
+  den  = pp[ii].A + pp[ii].B*rs_n1 + pp[ii].C*rs_n2;
   num  = r->rs[1] + pp[ii].D*r->rs[2];
 
   r->zk  = -num*larg/den;
@@ -130,7 +131,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   if(r->order < 1) return;
 
   darg = pp[ii].alpha + pp[ii].beta*pp[ii].m*rs_m/r->rs[1];
-  dden = pp[ii].B*pp[ii].n*rs_n/r->rs[1] + 2.0*pp[ii].C*r->rs[1];
+  dden = pp[ii].B*pp[ii].n1*rs_n1/r->rs[1] + pp[ii].C*pp[ii].n2*rs_n2/r->rs[1];
   dnum = 2.0*pp[ii].D*r->rs[1];
 
   r->dedrs  = -((dnum*larg + num*darg/arg)*den - dden*num*larg)/(den*den);

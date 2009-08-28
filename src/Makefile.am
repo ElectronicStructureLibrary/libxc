@@ -22,7 +22,7 @@
 lib_LIBRARIES = libxc.a
 
 libxc_a_FUNC_SOURCES = \
-	lda.c lda_x.c lda_x_2d.c \
+	lda.c lda_x.c lda_x_1d.c lda_x_2d.c \
 	lda_c_wigner.c lda_c_rpa.c lda_c_hl.c \
 	lda_c_vwn.c lda_c_pz.c lda_c_pw.c lda_xc_teter93.c \
 	lda_c_1d_csc.c \
@@ -40,7 +40,7 @@ libxc_a_FUNC_SOURCES = \
 	mgga_x_lta.c mgga_x_tpss.c mgga_x_br89.c mgga_xc_vsxc.c mgga_x_m06l.c mgga_x_tau_hcth.c \
 	mgga_c_tpss.c\
 	lca.c lca_omc.c lca_lch.c \
-	mix_func.c special_functions.c util.c functionals.c 
+	mix_func.c special_functions.c integrate.c util.c functionals.c 
 
 libxc_a_FUNC_SINGLE_SOURCES = $(libxc_a_FUNC_SOURCES:.c=_s.c)
 

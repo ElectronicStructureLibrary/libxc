@@ -46,35 +46,35 @@ void test_lda()
   XC(lda_type) l1, l2, l3;
   int i;
   
-  XC(lda_init)(&l1, XC_LDA_X_1D, XC_UNPOLARIZED);
+  XC(lda_init)(&l1, XC_LDA_X_1D, XC_POLARIZED);
   XC(lda_init)(&l2, XC_LDA_C_1D_CSC, XC_POLARIZED);
   XC(lda_init)(&l3, XC_LDA_X, XC_UNPOLARIZED);
 
-  XC(lda_x_1d_set_params)(&l1, 1, 1.0);
+  XC(lda_x_1d_set_params)(&l1, 0, 1.0);
   XC(lda_c_1d_csc_set_params)(&l2, 1, 1.0);
 
-  for(i=0; i<1000; i++){
+  for(i=0; i<100; i++){
     double dens, rs, zeta, rho[2];
     double ec1, vc1[2], fxc1[3], kxc1[4];
     double ec2, vc2[2], fxc2[3], kxc2[4];
     double ec3, vc3[2], fxc3[3], kxc3[4];
     
-    rs   = 0.1 + 5.0*i/1000.0;
+    rs   = 0.1 + 5.0*i/100.0;
     zeta = 0.0; //-1.0 + 2.0*i/1000.0;
 
     //dens = 1.0/(4.0/3.0*M_PI*POW(rs,3)); /* 3D */
-    //dens = 1.0/(2.0*rs); /* 1D */
+    dens = 1.0/(2.0*rs); /* 1D */
 
-    //rho[0] = dens*(1.0 + zeta)/2.0;
-    //rho[1] = dens*(1.0 - zeta)/2.0;
+    rho[0] = dens*(1.0 + zeta)/2.0;
+    rho[1] = dens*(1.0 - zeta)/2.0;
 
     //rho[0] = 0.01 + i/1000.0;
     //rho[1] = 0.21;
 
-    rho[0] = 1.0/(2.0*rs);
-    rho[1] = 0.0;
+    //rho[0] = 1.0/(2.0*rs);
+    //rho[1] = 0.0;
 
-    dens = rho[0] + rho[1];
+    //dens = rho[0] + rho[1];
 
     XC(lda)(&l1, 1, rho, &ec1, vc1, NULL, NULL);
     XC(lda)(&l2, 1, rho, &ec2, vc2, NULL, NULL);
@@ -87,7 +87,7 @@ void test_lda()
     // printf("%e\t%e\t%e\n", dens, (fxc1[0]+2.0*fxc1[1]+fxc1[2])/4.0, fxc3[0]);
     // printf("%e\t%e\t%e\n", dens, (kxc1[0]+3.0*kxc1[1]+3.0*kxc1[2]+kxc1[3])/8.0, kxc3[0]);
 
-    printf("%e\t%e\t%e\n", rs, ec1, ec2);
+    printf("%e\t%e\t%e\n", rs, 2.0*ec1, 2.0*ec2);
   }
 }
 

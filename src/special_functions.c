@@ -16,18 +16,17 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/*
-Lambert W function. 
-
-Corless, Gonnet, Hare, Jeffrey, and Knuth (1996), 
-         Adv. in Comp. Math. 5(4):329-359. 
-
-Implementation based on the Fortran code of Rickard Armiento
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "util.h"
+
+/*
+  Lambert W function. 
+  adapted from the Fortran code of Rickard Armiento
+
+  Corless, Gonnet, Hare, Jeffrey, and Knuth (1996), 
+         Adv. in Comp. Math. 5(4):329-359. 
+*/
 
 double lambert_w(double z)
 {
@@ -220,5 +219,44 @@ double bessk1(double x)
 			      ti * (0.00325614 +
 				    ti * -0.00068245)))));
     return (u * exp(-x) / sqrt(x));
+  }
+}
+
+
+/* Exponential integral
+   adapted from Abramowitz and Stegun, sec 5.1
+   adapted from nemo_3.2.4/usr/boily/magalie/magalie.f
+*/
+
+double expint(double x)
+{
+  if(x <= 0.0){
+    fprintf(stderr, "bad arguments in %s (x = %lf)\n", __FUNCTION__, x);
+    exit(1);
+  }
+
+  if(x <= 1.0){
+    return -log(x) - 0.57721566 + 
+      x * (0.99999193 +
+	   x * (-0.24991055 +
+		x * (0.05519968 +
+		     x * (-0.00976004 + 
+			  x * 0.00107857))));
+  }else{
+    double aux1, aux2;
+
+    aux1 = 0.2677737343 + 
+      x * (8.6347608925 + 
+	   x * (18.0590169730 +
+		x * (8.5733287401 + 
+		     x)));
+      
+    aux2 = 3.9584969228 +
+      x * (21.0996530827 +
+	   x * (25.6329561486 +
+		x * (9.5733223454 +
+		     x)));
+
+    return aux1/(aux2*exp(x)*x);
   }
 }

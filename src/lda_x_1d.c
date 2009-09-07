@@ -23,8 +23,6 @@
 
 #define XC_LDA_X_1D          21 /* Exchange in 1D     */
 
-/* Warning: spin is missing! */
-
 typedef struct{
   int interaction;  /* 0: exponentially screened; 1: soft-Coulomb */
   FLOAT bb;         /* screening parameter beta */
@@ -66,10 +64,13 @@ XC(lda_x_1d_set_params)(XC(lda_type) *p, int interaction, FLOAT bb)
 
 static inline FLOAT FT_inter(FLOAT x, int interaction)
 {
-  if(interaction == 1)
+  assert(interaction==0 || interaction == 1);
+
+  if(interaction == 0){
+    FLOAT x2 = x*x;
+    return expint(x2)*exp(x2);
+  }else
     return 2.0*bessk0(x); 
-  
-  return 0.0;
 }
 
 
@@ -96,29 +97,66 @@ static void func2(FLOAT *x, int n, void *ex)
 static inline void
 func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
-  int interaction;
-  FLOAT bb, bb2, R, int1, int2;
+  static int spin_sign[2] = {+1, -1};
+  static int spin_fact[2] = { 2,  1};
+
+  int interaction, is;
+  FLOAT bb, bb2, R, int1[2], int2[2];
 
   assert(p->params != NULL);
   interaction = ((lda_x_1d_params *)p->params)->interaction;
   bb  =         ((lda_x_1d_params *)p->params)->bb;
   bb2 = bb*bb;
 
-  R = M_PI*bb/(2.0*r->rs[1]);
+  r->zk = 0.0;
+  for(is=0; is<p->nspin; is++){
+    R = M_PI*bb*(1.0 + spin_sign[is]*r->zeta)/(2.0*r->rs[1]);
 
-  int1 = integrate(func1, (void *)(&interaction), 0.0, R);
-  int2 = integrate(func2, (void *)(&interaction), 0.0, R);
+    if(R == 0.0) continue;
 
-  r->zk = -1.0/(2.0*M_PI*bb)*(int1 - int2/R);
+    int1[is] = integrate(func1, (void *)(&interaction), 0.0, R);
+    int2[is] = integrate(func2, (void *)(&interaction), 0.0, R);
+
+    r->zk -= (1.0 + spin_sign[is]*r->zeta) *
+      (int1[is] - int2[is]/R);
+  }
+  r->zk *= spin_fact[p->nspin]/(4.0*M_PI*bb);
 
   if(r->order < 1) return;
+  
+  r->dedrs = 0.0;
+  r->dedz  = 0.0;
+  for(is=0; is<p->nspin; is++){
+    if(1.0 + spin_sign[is]*r->zeta == 0.0) continue;
 
-  r->dedrs = 1.0/(r->rs[2]*bb2) * FT_inter(R, interaction) * (1.0 - 1.0/bb2)
-    + int2/(M_PI*M_PI*bb2);
+    r->dedrs +=               int2[is];
+    r->dedz  -= spin_sign[is]*int1[is];
+  }
+  r->dedrs *= spin_fact[p->nspin]/(2.0*M_PI*M_PI*bb*bb);
+  r->dedz  *= spin_fact[p->nspin]/(4.0*M_PI*bb);
 
   if(r->order < 2) return;
 
-  /* TODO : second derivatives */
+  r->d2edrs2 = r->d2edrsz = r->d2edz2  = 0.0;
+  for(is=0; is<p->nspin; is++){
+    FLOAT ft, aux = 1.0 + spin_sign[is]*r->zeta;
+
+    if(aux == 0.0) continue;
+
+    R  = M_PI*bb*aux/(2.0*r->rs[1]);
+    ft = FT_inter(R, interaction);
+ 
+    r->d2edrs2 -= aux*aux*ft;
+    r->d2edrsz += spin_sign[is]*aux*ft;
+    r->d2edz2  -= ft;
+  }
+  r->d2edrs2 *= spin_fact[p->nspin]/(8.0*r->rs[2]*r->rs[1]);
+  r->d2edrsz *= spin_fact[p->nspin]/(8.0*r->rs[2]);
+  r->d2edz2  *= spin_fact[p->nspin]/(8.0*r->rs[1]);
+
+  if(r->order < 3) return;
+
+  /* TODO : third derivatives */
 }
 
 #define XC_DIMENSIONS 1
@@ -127,10 +165,10 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 const XC(func_info_type) XC(func_info_lda_x_1d) = {
   XC_LDA_X_1D,
   XC_EXCHANGE,
-  "Echange in 1D",
+  "Exchange in 1D",
   XC_FAMILY_LDA,
   "Unpublished",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   lda_x_1d_init,    /* init */
   lda_x_1d_end,     /* end  */
   work_lda,         /* lda  */

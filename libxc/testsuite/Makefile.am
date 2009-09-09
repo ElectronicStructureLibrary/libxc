@@ -19,7 +19,7 @@
 ##
 ## $Id$
 
-check_PROGRAMS = xc-get_data xc-consistency
+noinst_PROGRAMS = xc-get_data xc-consistency
 dist_noinst_SCRIPTS = xc-run_testsuite xc-reference.pl
 #TESTS = xc-run_testsuite
 

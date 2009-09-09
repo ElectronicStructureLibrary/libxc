@@ -56,6 +56,7 @@ XC(lda_x_1d_set_params)(XC(lda_type) *p, int interaction, FLOAT bb)
   lda_x_1d_params *params = (lda_x_1d_params *)(p->params);
 
   assert(params != NULL);
+  assert(interaction == 0 || interaction == 1);
 
   params->interaction = interaction;
   params->bb          = bb;
@@ -64,7 +65,7 @@ XC(lda_x_1d_set_params)(XC(lda_type) *p, int interaction, FLOAT bb)
 
 static inline FLOAT FT_inter(FLOAT x, int interaction)
 {
-  assert(interaction==0 || interaction == 1);
+  assert(interaction == 0 || interaction == 1);
 
   if(interaction == 0){
     FLOAT x2 = x*x;

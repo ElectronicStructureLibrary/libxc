@@ -158,8 +158,15 @@ void XC_FC_FUNC(f90_lda_kxc, F90_LDA_KXC)
 
 /* Now come some special initializations */
 
+/* parameter of LDA_1D */
+void XC_FC_FUNC(f90_lda_x_1d_set_par, F90_LDA_X_1D_SET_PAR)
+  (void **p, CC_FORTRAN_INT *interaction, FLOAT *bb)
+{
+  XC(lda_x_1d_set_params)((XC(lda_type) *)(*p), *interaction, *bb);
+}
+
 /* parameter of Xalpha */
-void XC_FC_FUNC(f90_lda_c_xalpha_set_par, F90_LDA_C_1D_CSC_SET_PAR)
+void XC_FC_FUNC(f90_lda_c_xalpha_set_par, F90_LDA_C_XALPHA_SET_PAR)
   (void **p, FLOAT *alpha)
 {
   XC(lda_c_xalpha_set_params)((XC(lda_type) *)(*p), *alpha);

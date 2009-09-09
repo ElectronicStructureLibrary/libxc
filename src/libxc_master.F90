@@ -68,6 +68,7 @@ module XC_F90(lib_m)
     XC_F90(lda_fxc),                     &
     XC_F90(lda_kxc),                     &
     XC_F90(lda_end),                     &
+    XC_F90(lda_x_1d_set_par),            &
     XC_F90(lda_c_1d_csc_set_par),        &
     XC_F90(lda_c_2d_prm_set_par),        &
     XC_F90(gga_init),                    &
@@ -250,6 +251,13 @@ module XC_F90(lib_m)
   
 
   interface
+    subroutine XC_F90(lda_x_1d_set_par)(p, interaction, bb)
+      use XC_F90(types_m)
+      type(XC_F90(func_t)), intent(inout)  :: p
+      integer,              intent(in)     :: interaction
+      real(xc_f90_kind),    intent(in)     :: bb
+    end subroutine XC_F90(lda_x_1d_set_par)
+
     subroutine XC_F90(lda_c_xalpha_set_par)(p, alpha)
       use XC_F90(types_m)
       type(XC_F90(func_t)), intent(inout)  :: p

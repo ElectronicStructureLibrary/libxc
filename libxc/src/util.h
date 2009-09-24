@@ -85,8 +85,15 @@ typedef struct XC(lda_rs_zeta) {
   FLOAT d3edrs3, d3edrs2z, d3edrsz2, d3edz3; /*  third derivatives of zk */
 } XC(lda_rs_zeta);
 
-void XC(lda_fxc_fd)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *fxc);
-void XC(lda_kxc_fd)(const XC(lda_type) *p, const FLOAT *rho, FLOAT *kxc);
+void XC(lda_fxc_fd)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *fxc);
+void XC(lda_kxc_fd)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *kxc);
+
+/* internal versions of set_params routines */
+void XC(lda_x_1d_set_params_)     (XC(lda_type) *p, int interaction, FLOAT bb);
+void XC(lda_c_1d_csc_set_params_) (XC(lda_type) *p, int interaction, FLOAT bb);
+void XC(lda_c_xalpha_set_params_) (XC(lda_type) *p, FLOAT alpha);
+void XC(lda_c_2d_prm_set_params_) (XC(lda_type) *p, FLOAT N);
+void XC(lda_c_vwn_set_params_)    (XC(lda_type) *p, int spin_interpolation);
 
 /* GGAs */
 typedef struct XC(perdew_t) {
@@ -116,11 +123,18 @@ void XC(gga_c_lyp_set_params)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT 
 
 void XC(gga_x_pbe_enhance)(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2);
 
+/* internal versions of set_params routines */
+void XC(gga_lb_set_params_)(XC(gga_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
+
 
 /* hybrid GGAs */
 void XC(hyb_gga_alloc)(XC(hyb_gga_type) *p);
 
 /* meta GGAs */
+
+/* internal versions of set_params routines */
+void XC(mgga_x_tb09_set_params_)(XC(mgga_type) *p, FLOAT c);
+
 void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT *d, 
 			  FLOAT *h, FLOAT *dhdx, FLOAT *dhdz);
 

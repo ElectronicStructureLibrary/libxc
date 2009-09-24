@@ -28,18 +28,11 @@ work_mgga_c_init(void *p_)
 {
   XC(mgga_type) *p = (XC(mgga_type) *)p_;
 
-  p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
-  XC(lda_init)(p->lda_aux, XC_LDA_C_PW, XC_POLARIZED);
-}
+  p->n_func_aux  = 1;
+  p->func_aux    = (XC(func_type) **) malloc(sizeof(XC(func_type) *)*p->n_func_aux);
+  p->func_aux[0] = (XC(func_type) *)  malloc(sizeof(XC(func_type)));
 
-
-static void
-work_mgga_c_end(void *p_)
-{
-  XC(mgga_type) *p = (XC(mgga_type) *)p_;
-
-  /* XC(lda_end)(p->lda_aux); */
-  free(p->lda_aux);
+  XC(func_init)(p->func_aux[0], XC_LDA_C_PW, XC_POLARIZED);
 }
 
 
@@ -101,10 +94,10 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *l
 
       switch (order){
       case 0:
-	XC(lda_exc)(p->lda_aux, 1, tmp_rho, &(f_LDA[is]));
+	XC(lda_exc)(p->func_aux[0], 1, tmp_rho, &(f_LDA[is]));
 	break;
       case 1:
-	XC(lda_exc_vxc)(p->lda_aux, 1, tmp_rho, &(f_LDA[is]), tmp_vrho);
+	XC(lda_exc_vxc)(p->func_aux[0], 1, tmp_rho, &(f_LDA[is]), tmp_vrho);
 	vrho_LDA[is] = tmp_vrho[0];
 	break;
       case 2: /* to be implemented */
@@ -139,10 +132,10 @@ work_mgga_c(const void *p_, const FLOAT *rho, const FLOAT *sigma, const FLOAT *l
 
     switch (order){
     case 0:
-      XC(lda_exc)(p->lda_aux, 1, ds, &f_LDA_opp);
+      XC(lda_exc)(p->func_aux[0], 1, ds, &f_LDA_opp);
       break;
     case 1:
-      XC(lda_exc_vxc)(p->lda_aux, 1, ds, &f_LDA_opp, vrho_LDA_opp);
+      XC(lda_exc_vxc)(p->func_aux[0], 1, ds, &f_LDA_opp, vrho_LDA_opp);
       break;
     case 2: /* to be implemented */
       break; 

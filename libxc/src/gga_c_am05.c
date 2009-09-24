@@ -29,8 +29,10 @@ gga_c_am05_init(void *p_)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
-  p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
-  XC(lda_init)(p->lda_aux, XC_LDA_C_PW_MOD, p->nspin);
+  p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
+  p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
+
+  XC(func_init)(p->func_aux[0], XC_LDA_C_PW_MOD, p->nspin);
 }
 
 static void
@@ -38,7 +40,8 @@ gga_c_am05_end(void *p_)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
-  free(p->lda_aux);
+  free(p->func_aux[0]);
+  free(p->func_aux);
 }
 
 static void 
@@ -59,7 +62,7 @@ my_gga_c_am05(const void *p_, const FLOAT *rho, const FLOAT *sigma,
   dens = rho[0];
   if(p->nspin == XC_POLARIZED) dens += rho[1];
 
-  XC(lda_exc_vxc)(p->lda_aux, 1, rho, &m_zk, vrho_LDA);
+  XC(lda_exc_vxc)(p->func_aux[0], 1, rho, &m_zk, vrho_LDA);
 
   for(is=0; is<p->nspin; is++){
     FLOAT gdm, ds, rho13;

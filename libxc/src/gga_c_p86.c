@@ -36,17 +36,13 @@ gga_c_p86_init(void *p_)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
-  p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
-  XC(lda_init)(p->lda_aux, XC_LDA_C_PZ, p->nspin);
+  p->n_func_aux  = 1;
+  p->func_aux    = (XC(func_type) **) malloc(sizeof(XC(func_type) *)*p->n_func_aux);
+  p->func_aux[0] = (XC(func_type) *)  malloc(sizeof(XC(func_type)));
+
+  XC(func_init)(p->func_aux[0], XC_LDA_C_PZ, p->nspin);
 }
 
-static void
-gga_c_p86_end(void *p_)
-{
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-
-  free(p->lda_aux);
-}
 
 static void 
 my_gga_c_p86(const void *p_, const FLOAT *rho, const FLOAT *sigma,
@@ -58,7 +54,7 @@ my_gga_c_p86(const void *p_, const FLOAT *rho, const FLOAT *sigma,
   FLOAT rs, DD, dDDdzeta, CC, CCinf, dCCdd;
   FLOAT Phi, dPhidd, dPhidgdmt;
 
-  XC(lda_exc_vxc)(p->lda_aux, 1, rho, &ecunif, vcunif);
+  XC(lda_exc_vxc)(p->func_aux[0], 1, rho, &ecunif, vcunif);
 
   XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
   dzdd[0] =  (1.0 - zeta)/dens;
@@ -180,7 +176,7 @@ const XC(func_info_type) XC(func_info_gga_c_p86) = {
   "JP Perdew, Phys. Rev. B 33, 8822 (1986)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_c_p86_init,
-  gga_c_p86_end,   /* we can use the same as exchange here */
-  NULL,            /* this is not an LDA                   */
+  NULL,
+  NULL,
   gga_c_p86
 };

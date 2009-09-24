@@ -51,13 +51,6 @@ static double xc_trial_points[][5] = {
   {0.0, 0.0, 0.0, 0.0, 0.0}
 };
 
-typedef struct {
-  int family;
-
-  xc_lda_type         lda_func;
-  xc_gga_type         gga_func;
-  xc_hyb_gga_type hyb_gga_func;
-} functionals_type;
 
 int nspin;
 
@@ -77,19 +70,19 @@ void get_val(double point[5], double val[5])
   }
 }
 
-double get_point(functionals_type *func, double point[5], double *e, double der[5], int which)
+double get_point(xc_func_type *func, double point[5], double *e, double der[5], int which)
 {
-  switch(func->family)
+  switch(func->info->family)
     {
     case XC_FAMILY_LDA:
-      xc_lda_exc_vxc(&(func->lda_func), 1, &(point[0]), e, &(der[0]));
+      xc_lda_exc_vxc(func, 1, &(point[0]), e, &(der[0]));
       break;
     case XC_FAMILY_GGA:
-      xc_gga_exc_vxc(&(func->gga_func), 1, &(point[0]), &(point[2]),
-	  e, &(der[0]), &(der[2]));
+      xc_gga_exc_vxc(func, 1, &(point[0]), &(point[2]),
+		     e, &(der[0]), &(der[2]));
       break;
     case XC_FAMILY_HYB_GGA:
-      xc_hyb_gga_exc_vxc(&(func->hyb_gga_func), 1, &(point[0]), &(point[2]),
+      xc_hyb_gga_exc_vxc(func->hyb_gga, 1, &(point[0]), &(point[2]),
           e, &(der[0]), &(der[2]));
       break;
     }
@@ -100,12 +93,12 @@ double get_point(functionals_type *func, double point[5], double *e, double der[
     return der[which-1];
 }
 
-void get_vxc(functionals_type *func, double point[5], double *e, double der[5])
+void get_vxc(xc_func_type *func, double point[5], double *e, double der[5])
 {
   get_point(func, point, e, der, 0);
 }
 
-void get_fxc(functionals_type *func, double point[5], double der[5][5])
+void get_fxc(xc_func_type *func, double point[5], double der[5][5])
 {
   double v2rho[3], v2rhosigma[6], v2sigma[6];
   int i;
@@ -116,17 +109,17 @@ void get_fxc(functionals_type *func, double point[5], double der[5][5])
     v2sigma[i]    = 0.0;
   }
 
-  switch(func->family)
+  switch(func->info->family)
     {
     case XC_FAMILY_LDA:
-      xc_lda_fxc(&(func->lda_func), 1, &(point[0]), v2rho);
+      xc_lda_fxc(func, 1, &(point[0]), v2rho);
       break;
     case XC_FAMILY_GGA:
-      xc_gga_fxc(&(func->gga_func), 1, &(point[0]), &(point[2]),
+      xc_gga_fxc(func, 1, &(point[0]), &(point[2]),
 		 v2rho, v2rhosigma, v2sigma);
       break;
     case XC_FAMILY_HYB_GGA:
-      xc_hyb_gga_fxc(&(func->hyb_gga_func), 1, &(point[0]), &(point[2]),
+      xc_hyb_gga_fxc(func->hyb_gga, 1, &(point[0]), &(point[2]),
 		     v2rho, v2rhosigma, v2sigma);
       break;
     }
@@ -148,7 +141,7 @@ void get_fxc(functionals_type *func, double point[5], double der[5][5])
   der[4][4] = v2sigma[5];
 }
 
-void first_derivative(functionals_type *func, double point[5], double der[5], int which)
+void first_derivative(xc_func_type *func, double point[5], double der[5], int which)
 {
   int i;
 
@@ -216,7 +209,7 @@ void first_derivative(functionals_type *func, double point[5], double der[5], in
   }
 }
 
-void second_derivatives(functionals_type *func, double point[5], double der[5][5])
+void second_derivatives(xc_func_type *func, double point[5], double der[5][5])
 {
   int i;
 
@@ -226,7 +219,7 @@ void second_derivatives(functionals_type *func, double point[5], double der[5][5
 }
 
 
-void print_error(char *type, char *what, double diff, functionals_type *func, double *p)
+void print_error(char *type, char *what, double diff, xc_func_type *func, double *p)
 {
   static char *red="\033[31;1m", *norm="\033[0m";
   char *color;
@@ -297,37 +290,21 @@ void print_error(char *type, char *what, double diff, functionals_type *func, do
 
 void test_functional(int functional)
 {
-  functionals_type func;
+  xc_func_type func;
   const xc_func_info_type *info;
   int i, j, k, p_max[6][5];
   double max_diff[6][5], avg_diff[6][5], val[5];
 
   /* initialize functional */
-  func.family = xc_family_from_id(functional);
-  switch(func.family)
-    {
-    case XC_FAMILY_LDA:
-      xc_lda_init(&(func.lda_func), functional, nspin);
+  if(xc_func_init(&func, functional, nspin) != 0){
+    fprintf(stderr, "Functional '%d' not found\n", functional);
+    exit(1);    
+  }
 
-      if(functional == XC_LDA_C_2D_PRM)
-	xc_lda_c_2d_prm_set_params(&(func.lda_func), 10.0);
+  info = func.info;
 
-      info = func.lda_func.info;
-      break;
-    case XC_FAMILY_GGA:
-      xc_gga_init(&(func.gga_func), functional, nspin);
-
-      info = func.gga_func.info;
-      break;
-    case XC_FAMILY_HYB_GGA:
-      xc_hyb_gga_init(&(func.hyb_gga_func), functional, nspin);
-
-      info = func.hyb_gga_func.info;
-      break;
-    default:
-      fprintf(stderr, "Functional '%d' not found\n", functional);
-      exit(1);
-    }
+  if(functional == XC_LDA_C_2D_PRM)
+    xc_lda_c_2d_prm_set_params(&func, 10.0);
   
   for(k=0; k<6; k++)
     for(j=0; j<5; j++){
@@ -413,7 +390,7 @@ void test_functional(int functional)
     get_val(xc_trial_points[p_max[0][j]], val);
     print_error("Max.", "vrho", max_diff[0][j], &func, val);
 
-    if(func.family > XC_FAMILY_LDA){
+    if(info->family > XC_FAMILY_LDA){
       print_error("Avg.", "vsig", (avg_diff[0][2] + avg_diff[0][3] + avg_diff[0][4])/3.0, NULL, NULL);
       j = (max_diff[0][2] > max_diff[0][3]) ? 2 : 3;
       j = (max_diff[0][j] > max_diff[0][4]) ? j : 4;
@@ -430,7 +407,7 @@ void test_functional(int functional)
       get_val(xc_trial_points[p_max[i][j]], val);
       print_error("Max.", "v2rho2", max_diff[i][j], &func, val);
 
-      if(func.family > XC_FAMILY_LDA){
+      if(info->family > XC_FAMILY_LDA){
 	diff = avg_diff[3][0] + avg_diff[4][0] + avg_diff[5][0] + avg_diff[3][1] + avg_diff[4][1] + avg_diff[5][1];
 	diff = diff/6.0;
 	print_error("Avg.", "v2rhosig", diff, NULL, NULL);

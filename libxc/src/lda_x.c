@@ -45,7 +45,7 @@ lda_x_init(void *p_)
   p->params = malloc(sizeof(float));
 
   /* exchange is equal to xalpha with a parameter of 4/3 */
-  XC(lda_c_xalpha_set_params)(p, 4.0/3.0);
+  XC(lda_c_xalpha_set_params_)(p, 4.0/3.0);
 }
 
 static void 
@@ -57,7 +57,7 @@ lda_c_xalpha_init(void *p_)
   p->params = malloc(sizeof(float));
 
   /* This gives the usual Xalpha functional */
-  XC(lda_c_xalpha_set_params)(p, 1.0);
+  XC(lda_c_xalpha_set_params_)(p, 1.0);
 }
 
 static void 
@@ -72,7 +72,14 @@ lda_x_end(void *p_)
 
 
 void 
-XC(lda_c_xalpha_set_params)(XC(lda_type) *p, FLOAT alpha)
+XC(lda_c_xalpha_set_params)(XC(func_type) *p, FLOAT alpha)
+{
+  assert(p != NULL && p->lda != NULL);
+  XC(lda_c_xalpha_set_params_)(p->lda, alpha);
+}
+
+void 
+XC(lda_c_xalpha_set_params_)(XC(lda_type) *p, FLOAT alpha)
 {
   assert(p->params != NULL);
 

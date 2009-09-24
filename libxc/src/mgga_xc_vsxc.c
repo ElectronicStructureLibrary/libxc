@@ -128,7 +128,7 @@ const XC(func_info_type) XC(func_info_mgga_c_vsxc) = {
   "T Van Voorhis and GE Scuseria, JCP 109, 400 (1998)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   work_mgga_c_init,
-  work_mgga_c_end,
+  NULL,
   NULL, NULL,        /* this is not an LDA                   */
   work_mgga_c,
 };

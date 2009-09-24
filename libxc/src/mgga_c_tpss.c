@@ -35,30 +35,13 @@ mgga_c_tpss_init(void *p_)
 {
   XC(mgga_type) *p = (XC(mgga_type) *)p_;
 
-  p->gga_aux1 = (XC(gga_type) *) malloc(sizeof(XC(gga_type)));
-  XC(gga_init)(p->gga_aux1, XC_GGA_C_PBE, p->nspin);
+  p->n_func_aux  = 2;
+  p->func_aux    = (XC(func_type) **) malloc(sizeof(XC(func_type) *)*p->n_func_aux);
+  p->func_aux[0] = (XC(func_type) *)  malloc(sizeof(XC(func_type)));
+  p->func_aux[1] = (XC(func_type) *)  malloc(sizeof(XC(func_type)));
 
-  if(p->nspin == XC_UNPOLARIZED){
-    p->gga_aux2 = (XC(gga_type) *) malloc(sizeof(XC(gga_type)));
-    XC(gga_init)(p->gga_aux2, XC_GGA_C_PBE, XC_POLARIZED);
-  }else{
-    p->gga_aux2 = p->gga_aux1;
-  }
-}
-
-
-static void
-mgga_c_tpss_end(void *p_)
-{
-  XC(mgga_type) *p = (XC(mgga_type) *)p_;
-
-  XC(gga_end)(p->gga_aux1);
-  free(p->gga_aux1);
-
-  if(p->nspin == XC_UNPOLARIZED) {
-    XC(gga_end)(p->gga_aux2);
-    free(p->gga_aux2);
-  }
+  XC(func_init)(p->func_aux[0], XC_GGA_C_PBE, p->nspin);
+  XC(func_init)(p->func_aux[1], XC_GGA_C_PBE, XC_POLARIZED);
 }
 
 
@@ -118,9 +101,9 @@ static void eq_12(const XC(mgga_type) *p, int order, const FLOAT *rho, const FLO
 
   /* let us get the PBE stuff */
   if(order == 0)
-    XC(gga_exc)(p->gga_aux1, 1, rho, sigma, &f_PBE);
+    XC(gga_exc)(p->func_aux[0], 1, rho, sigma, &f_PBE);
   else
-    XC(gga_exc_vxc)(p->gga_aux1, 1, rho, sigma, &f_PBE, vrho_PBE, vsigma_PBE);
+    XC(gga_exc_vxc)(p->func_aux[0], 1, rho, sigma, &f_PBE, vrho_PBE, vsigma_PBE);
     
   for(is=0; is<p->nspin; is++){
     FLOAT r1[2], sigma1[3], f1, vrho1[2], vsigma1[3];
@@ -137,9 +120,9 @@ static void eq_12(const XC(mgga_type) *p, int order, const FLOAT *rho, const FLO
 
     /* call (polarized) PBE */
     if(order == 0)
-      XC(gga_exc)(p->gga_aux2, 1, r1, sigma1, &f1);
+      XC(gga_exc)(p->func_aux[1], 1, r1, sigma1, &f1);
     else{
-      XC(gga_exc_vxc)(p->gga_aux2, 1, r1, sigma1, &f1, vrho1, vsigma1);
+      XC(gga_exc_vxc)(p->func_aux[1], 1, r1, sigma1, &f1, vrho1, vsigma1);
 
       if(f1 > f_PBE){
 	if(rho[is] > MIN_DENS){
@@ -341,7 +324,7 @@ XC(func_info_type) XC(func_info_mgga_c_tpss) = {
   "JP Perdew, J Tao, VN Staroverov, and G Scuseria, J. Chem. Phys. 120, 6898 (2004)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   mgga_c_tpss_init,
-  mgga_c_tpss_end,
+  NULL,
   NULL, NULL,        /* this is not an LDA                   */
   mgga_c_tpss,
 };

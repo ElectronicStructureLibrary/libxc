@@ -44,8 +44,10 @@ static void gga_c_pw91_init(void *p_)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
-  p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
-  XC(lda_init)(p->lda_aux, XC_LDA_C_PW, p->nspin);
+  p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
+  p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
+
+  XC(func_init)(p->func_aux[0], XC_LDA_C_PW, p->nspin);
 
   pw91_nu   = 16.0/M_PI * POW(3.0*M_PI*M_PI, 1.0/3.0);
   pw91_beta = pw91_nu*pw91_C_c0;
@@ -56,7 +58,8 @@ static void gga_c_pw91_end(void *p_)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
-  free(p->lda_aux);
+  free(p->func_aux[0]);
+  free(p->func_aux);
 }
 
 

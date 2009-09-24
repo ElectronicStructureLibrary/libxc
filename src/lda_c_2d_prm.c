@@ -64,7 +64,14 @@ lda_c_2d_prm_end(void *p_)
 
 
 void 
-XC(lda_c_2d_prm_set_params)(XC(lda_type) *p, FLOAT N)
+XC(lda_c_2d_prm_set_params)(XC(func_type) *p, FLOAT N)
+{
+  assert(p != NULL && p->lda != NULL);
+  XC(lda_c_2d_prm_set_params_)(p->lda, N);
+}
+
+void 
+XC(lda_c_2d_prm_set_params_)(XC(lda_type) *p, FLOAT N)
 {
   lda_c_prm_params *params;
 
@@ -82,7 +89,7 @@ XC(lda_c_2d_prm_set_params)(XC(lda_type) *p, FLOAT N)
 
 
 static void
-lda_c_2d_prm(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2)
+lda_c_2d_prm(const void *p_, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3)
 {
   XC(lda_type) *p = (XC(lda_type) *)p_;
   lda_c_prm_params *params;

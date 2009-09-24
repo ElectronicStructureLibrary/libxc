@@ -37,7 +37,7 @@ lda_x_1d_init(void *p_)
   p->params = malloc(sizeof(lda_x_1d_params));
 
   /* default value is soft-Coulomb with beta=1.0 */
-  XC(lda_x_1d_set_params)(p, 1, 1.0);
+  XC(lda_x_1d_set_params_)(p, 1, 1.0);
 }
 
 static void 
@@ -51,7 +51,14 @@ lda_x_1d_end(void *p_)
 }
 
 void 
-XC(lda_x_1d_set_params)(XC(lda_type) *p, int interaction, FLOAT bb)
+XC(lda_x_1d_set_params)(XC(func_type) *p, int interaction, FLOAT bb)
+{
+  assert(p != NULL && p->lda != NULL);
+  XC(lda_x_1d_set_params_)(p->lda, interaction, bb);
+}
+
+void 
+XC(lda_x_1d_set_params_)(XC(lda_type) *p, int interaction, FLOAT bb)
 {
   lda_x_1d_params *params = (lda_x_1d_params *)(p->params);
 

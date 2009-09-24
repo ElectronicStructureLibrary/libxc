@@ -44,16 +44,6 @@ void XC(gga_c_lyp_init)(void *p_)
 }
 
 
-static void
-gga_c_lyp_end(void *p_)
-{
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-
-  assert(p->params != NULL);
-  free(p->params);
-}
-
-
 void XC(gga_c_lyp_set_params)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d)
 {
   gga_c_lyp_params *params;
@@ -310,7 +300,7 @@ const XC(func_info_type) XC(func_info_gga_c_lyp) = {
   "B Miehlich, A Savin, H Stoll and H Preuss, Chem. Phys. Lett. 157, 200 (1989)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   XC(gga_c_lyp_init), 
-  gga_c_lyp_end, 
+  NULL,
   NULL,
   gga_c_lyp
 };

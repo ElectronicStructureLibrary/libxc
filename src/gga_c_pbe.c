@@ -49,20 +49,14 @@ static void gga_c_pbe_init(void *p_)
 
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
-  p->lda_aux = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
-  XC(lda_init)(p->lda_aux, XC_LDA_C_PW_MOD, p->nspin);
+  p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
+  p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
+
+  XC(func_init)(p->func_aux[0], XC_LDA_C_PW_MOD, p->nspin);
 
   for(ii=0; ii<4; ii++)
     gamm[ii] = (1.0 - log(2.0))/(M_PI*M_PI);
   gamm[2] = beta[2]*beta[2]/(2.0*0.197363);
-}
-
-
-static void gga_c_pbe_end(void *p_)
-{
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-
-  free(p->lda_aux);
 }
 
 
@@ -243,7 +237,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe) = {
   "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   gga_c_pbe_init,
-  gga_c_pbe_end,
+  NULL,
   NULL,            /* this is not an LDA                   */
   gga_c_pbe,
 };
@@ -256,7 +250,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_sol) = {
   "JP Perdew, et al, Phys. Rev. Lett. 100, 136406 (2008)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   gga_c_pbe_init,
-  gga_c_pbe_end,
+  NULL,
   NULL,            /* this is not an LDA                   */
   gga_c_pbe,
 };
@@ -269,7 +263,7 @@ const XC(func_info_type) XC(func_info_gga_c_xpbe) = {
   "X Xu and WA Goddard III, J. Chem. Phys. 121, 4068 (2004)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   gga_c_pbe_init,
-  gga_c_pbe_end,
+  NULL,
   NULL,            /* this is not an LDA                   */
   gga_c_pbe,
 };
@@ -282,7 +276,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_jrgx) = {
   "LS Pedroza, AJR da Silva, and K. Capelle, arxiv:0905.1925",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   gga_c_pbe_init,
-  gga_c_pbe_end,
+  NULL,
   NULL,            /* this is not an LDA                   */
   gga_c_pbe,
 };

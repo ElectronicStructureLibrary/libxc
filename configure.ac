@@ -37,6 +37,9 @@ AC_C_INLINE
 AC_HEADER_STDC
 AC_FUNC_ALLOCA
 
+# Checks for typedefs, structures, and compiler characteristics.
+AC_CHECK_SIZEOF(void*)
+
 dnl build/install fortran bits unless --disable-fortran is used
 AC_ARG_ENABLE([fortran],
 	      AS_HELP_STRING([--disable-fortran], [don't build/install fortran components]),

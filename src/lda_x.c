@@ -31,9 +31,9 @@
     Note: this is to be added to the exchange
 
     This correlation functional, added to the exchange functional, produces
-    a total exchange and correlation functional, Exc, equal to 3/2 * alpha * Ex 
+    a total exchange-correlation functional, Exc, equal to 3/2 * alpha * Ex 
     Setting alpha equal to one gives the *usual* Slater Xalpha functional,
-    whereas alpha equal to 2/3 just leaves the exchange functional unchanged 
+    whereas alpha equal to 2/3 just leaves the exchange functional unchanged.
 */
 
 static void 

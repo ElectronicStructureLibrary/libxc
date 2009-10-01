@@ -42,7 +42,7 @@ int XC(mgga_init)(XC(func_type) *p, const XC(func_info_type) *info, int nspin)
 
   /* see if we need to initialize the functional */
   if(func->info->init != NULL)
-    func->info->init(p);
+    func->info->init(func);
   return 0;
 }
 

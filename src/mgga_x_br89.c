@@ -64,6 +64,7 @@ static void mgga_x_tb09_end(void *p_)
   assert(p->params != NULL);
   free(p->params);
   p->params = NULL;
+
 }
 
 
@@ -96,7 +97,7 @@ br_newt_raph(FLOAT a, FLOAT tol, int *ierr)
      return 0.0;
    
    /* starting point */
-   x = (a < 0.0) ? 1.0 : 3.0;
+   x = (a < 0.0) ? -1.0 : 1.0;
 
    count = 0;
    do {

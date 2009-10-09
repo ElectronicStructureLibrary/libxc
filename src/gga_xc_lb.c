@@ -63,7 +63,6 @@ gga_lb_end(void *p_)
 
   free(p->func_aux[0]);
   free(p->func_aux);
-  free(p->params);
 }
 
 
@@ -99,18 +98,16 @@ XC(gga_lb_set_params_)(XC(gga_type) *p, int modified, FLOAT threshold, FLOAT ip,
 
 
 void 
-XC(gga_lb_modified)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, FLOAT r, FLOAT *vrho)
+XC(gga_lb_modified)(const XC(gga_type) *func, int np, const FLOAT *rho, const FLOAT *sigma, FLOAT r, FLOAT *vrho)
 {
   int ip, is;
   FLOAT gdm, x;
 
-  XC(gga_type) *func;
   XC(gga_xc_lb_params) *params;
 
   static const FLOAT beta = 0.05;
 
-  assert(p != NULL && p->gga != NULL);
-  func = p->gga;
+  assert(func != NULL);
 
   assert(func->params != NULL);
   params = (XC(gga_xc_lb_params) *) (func->params);
@@ -165,7 +162,7 @@ gga_xc_lb(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 	  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
-  XC(gga_lb_modified)((XC(func_type) *)p_, np, rho, sigma, 0.0, vrho);
+  XC(gga_lb_modified)((XC(gga_type) *)p_, np, rho, sigma, 0.0, vrho);
 }
 
 

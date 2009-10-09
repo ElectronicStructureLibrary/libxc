@@ -217,7 +217,7 @@ void XC_FC_FUNC(f90_gga_exc_vxc, F90_GGA_EXC_VXC)
 
 void XC_FC_FUNC(f90_gga_vxc, F90_GGA_VXC)
      (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, 
-      FLOAT *zk, FLOAT *vrho, FLOAT *vsigma)
+      FLOAT *vrho, FLOAT *vsigma)
 {
   XC(gga)((XC(func_type) *)(*p), *np, rho, sigma, NULL, vrho, vsigma, NULL, NULL, NULL);
 }

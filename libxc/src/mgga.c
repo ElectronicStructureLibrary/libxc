@@ -56,7 +56,7 @@ void XC(mgga_end)(XC(func_type) *p)
 
   /* call internal termination routine */
   if(func->info->end != NULL)
-    func->info->end(p);
+    func->info->end(func);
 
   /* terminate any auxiliary functional */
   if(func->n_func_aux > 0){
@@ -70,9 +70,9 @@ void XC(mgga_end)(XC(func_type) *p)
   }
 
   /* deallocate any used parameter */
-  if(func->params != NULL){
-    free(func->params);
-    func->params = NULL;
+    if(func->params != NULL){
+      free(func->params);
+      func->params = NULL;
   }
 }
 

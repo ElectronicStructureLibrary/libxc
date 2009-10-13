@@ -126,13 +126,12 @@ XC(gga_lb_modified)(const XC(gga_type) *func, int np, const FLOAT *rho, const FL
 	
 	x =  gdm/POW(rho[is], 4.0/3.0);
 	
-	/* dirty fix, destroys -1/r, but results will not run wild */
-	if(params->modified == 0 && x > 500.0) continue;
-	   
-	/* the actual functional */
-	f = -beta*POW(rho[is], 1.0/3.0)*
-	  x*x/(1.0 + 3.0*beta*x*asinh(params->gamm*x));
-	vrho[is] += f;
+	if(x < 300.0) /* the actual functional */	   
+	  f = -beta*x*x/(1.0 + 3.0*beta*x*asinh(params->gamm*x));
+	else          /* asymptotic expansion */
+	  f = -x/(3.0*log(2.0*params->gamm*x));
+
+	vrho[is] += f * POW(rho[is], 1.0/3.0);
 	
       }else if(r > 0.0){
 	/* the aymptotic expansion of LB94 */

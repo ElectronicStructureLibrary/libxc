@@ -24,25 +24,14 @@
 #define XC_HYB_GGA_XC_PBEH 406 /* aka PBE0 or PBE1PBE */
 
 static void
-gga_xc_pbeh_init(void *p_)
+hyb_gga_xc_pbeh_init(void *p_)
 {
-  const FLOAT a0 = 0.25;
+  static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
+  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
-  XC(hyb_gga_type) *p = (XC(hyb_gga_type) *)p_;
-
-  p->mix = (XC(mix_func_type) *) malloc(sizeof(XC(mix_func_type)));
-  XC(mix_func_init)(p->mix, XC_FAMILY_GGA, p->nspin);
-
-  p->mix->lda_n = 0;
-  p->mix->gga_n = 2;
-  XC(mix_func_alloc)(p->mix);
-
-  p->exx_coef = a0;
-
-  XC(gga_init)(&p->mix->gga_mix[0], XC_GGA_X_PBE, p->nspin);
-  p->mix->gga_coef[0] = (1.0 - a0);
-  XC(gga_init)(&p->mix->gga_mix[1], XC_GGA_C_PBE, p->nspin);
-  p->mix->gga_coef[1] = 1.0;
+  gga_init_mix(p, 2, funcs_id, funcs_coef);
+  p->exx_coef = 0.25;
 }
 
 
@@ -53,8 +42,6 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeh) = {
   XC_FAMILY_HYB_GGA,
   "M. Ernzerhof, G. E. Scuseria, J. Chem. Phys. 110, 5029 (1999)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  gga_xc_pbeh_init,
-  NULL, 
-  NULL,
-  NULL /* this is taken care by the generic routine */
+  hyb_gga_xc_pbeh_init,
+  NULL, NULL, NULL /* this is taken care by the generic routine */
 };

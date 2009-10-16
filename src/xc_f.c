@@ -243,48 +243,10 @@ void XC_FC_FUNC(f90_gga_lb_modified, F90_GGA_LB_MODIFIED)
 }
 
 
-/* Hybrid GGAs */
-
-void XC_FC_FUNC(f90_hyb_gga, F90_HYB_GGA)
-     (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, 
-      FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-      FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
-{
-  XC(hyb_gga)((XC(hyb_gga_type) *)(*p), *np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
-}
-
-void XC_FC_FUNC(f90_hyb_gga_exc, F90_HYB_GGA_EXC)
-     (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, 
-      FLOAT *zk)
-{
-  XC(hyb_gga)((XC(hyb_gga_type) *)(*p), *np, rho, sigma, zk, NULL, NULL, NULL, NULL, NULL);
-}
-
-void XC_FC_FUNC(f90_hyb_gga_exc_vxc, F90_HYB_GGA_EXC_VXC)
-     (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, 
-      FLOAT *zk, FLOAT *vrho, FLOAT *vsigma)
-{
-  XC(hyb_gga)((XC(hyb_gga_type) *)(*p), *np, rho, sigma, zk, vrho, vsigma, NULL, NULL, NULL);
-}
-
-void XC_FC_FUNC(f90_hyb_gga_vxc, F90_HYB_GGA_VXC)
-     (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, 
-      FLOAT *vrho, FLOAT *vsigma)
-{
-  XC(hyb_gga)((XC(hyb_gga_type) *)(*p), *np, rho, sigma, NULL, vrho, vsigma, NULL, NULL, NULL);
-}
-
-void XC_FC_FUNC(f90_hyb_gga_fxc, F90_HYB_GGA_FXC)
-     (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, 
-      FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
-{
-  XC(hyb_gga)((XC(hyb_gga_type) *)(*p), *np, rho, sigma, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2);
-}
-
 void XC_FC_FUNC(f90_hyb_gga_exx_coef, F90_HYB_GGA_EXX_COEF)
   (void **p, FLOAT *coef)
 {
-  *coef = XC(hyb_gga_exx_coef)((XC(hyb_gga_type) *)(*p));
+  *coef = XC(hyb_gga_exx_coef)((XC(gga_type) *)(*p));
 }
 
 

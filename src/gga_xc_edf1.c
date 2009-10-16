@@ -26,29 +26,15 @@
 static void
 gga_xc_edf1_init(void *p_)
 {
+  static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_GGA_X_B88, XC_GGA_C_LYP};
+  static FLOAT funcs_coef[4] = {1.030952 - 10.4017 + 8.44793, 10.4017, -8.44793, 1.0};
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
-  p->mix = (XC(mix_func_type) *) malloc(sizeof(XC(mix_func_type)));
-  XC(mix_func_init)(p->mix, XC_FAMILY_GGA, p->nspin);
+  gga_init_mix(p, 4, funcs_id, funcs_coef);  
 
-  p->mix->lda_n = 1;
-  p->mix->gga_n = 3;
-  XC(mix_func_alloc)(p->mix);
-
-  XC(lda_init)(&p->mix->lda_mix[0], XC_LDA_X, p->nspin);
-  p->mix->lda_coef[0] = (1.030952 - 10.4017 + 8.44793);
-
-  XC(gga_init)(&p->mix->gga_mix[0], XC_GGA_X_B88, p->nspin);
-  XC(gga_x_b88_set_params)(&p->mix->gga_mix[0], 0.0035);
-  p->mix->gga_coef[0] = 10.4017;
-
-  XC(gga_init)(&p->mix->gga_mix[1], XC_GGA_X_B88, p->nspin);
-  XC(gga_x_b88_set_params)(&p->mix->gga_mix[1], 0.0042);
-  p->mix->gga_coef[1] = -8.44793;
-
-  XC(gga_init)(&p->mix->gga_mix[2], XC_GGA_C_LYP, p->nspin);
-  XC(gga_c_lyp_set_params)(&p->mix->gga_mix[2], 0.055, 0.158, 0.25, 0.3505);
-  p->mix->gga_coef[2] = 1.0;
+  XC(gga_x_b88_set_params)(p->func_aux[1], 0.0035);
+  XC(gga_x_b88_set_params)(p->func_aux[2], 0.0042);
+  XC(gga_c_lyp_set_params)(p->func_aux[3], 0.055, 0.158, 0.25, 0.3505);
 }
 
 const XC(func_info_type) XC(func_info_gga_xc_edf1) = {

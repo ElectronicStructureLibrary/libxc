@@ -33,8 +33,8 @@ float  asinhf(float  x);
 #endif
 
 /* Very useful macros */
-#define min(x,y)  ((x<y) ? x : y)
-#define max(x,y)  ((x<y) ? y : x)
+#define min(x,y)  ((x<y) ? (x) : (y))
+#define max(x,y)  ((x<y) ? (y) : (x))
 
 /* special functions */
 double lambert_w(double z);
@@ -115,20 +115,17 @@ typedef struct XC(perdew_t) {
 void XC(perdew_params)(const XC(gga_type) *gga_p, const FLOAT *rho, const FLOAT *sigma, int order, XC(perdew_t) *pp);
 void XC(perdew_potentials)(XC(perdew_t) *pt, const FLOAT *rho, FLOAT e_gga, int order, 
 			   FLOAT *vrho, FLOAT *vsigma, FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
-int XC(gga_input_init)(const XC(func_info_type) *info, int nspin, const FLOAT *rho,
-		       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-		       FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
-void XC(gga_x_b88_set_params)(XC(gga_type) *p, FLOAT beta);
-void XC(gga_c_lyp_set_params)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
+
 
 void XC(gga_x_pbe_enhance)(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2);
 
+void gga_init_mix(XC(gga_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix_coef);
+
 /* internal versions of set_params routines */
-void XC(gga_lb_set_params_)(XC(gga_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
+void XC(gga_x_b88_set_params_)(XC(gga_type) *p, FLOAT beta);
+void XC(gga_c_lyp_set_params_)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
+void XC(gga_lb_set_params_)   (XC(gga_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
 
-
-/* hybrid GGAs */
-void XC(hyb_gga_alloc)(XC(hyb_gga_type) *p);
 
 /* meta GGAs */
 

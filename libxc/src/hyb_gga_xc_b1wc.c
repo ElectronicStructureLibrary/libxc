@@ -27,47 +27,17 @@
 #define XC_HYB_GGA_XC_mPW1PW 418 /* Becke 1-parameter mixture of mPW91 and PW91 */
 #define XC_HYB_GGA_XC_mPW1K  405 /* mixture of mPW91 and PW91 optimized for kinetics */
 
-static void
-hyb_gga_xc_b1_init(void *p_)
+void
+hyb_gga_xc_b1wc_init(void *p_)
 {
-  const struct { FLOAT a0; int fx, fc; } 
-  par[] = {
-    {0.16,  XC_GGA_X_WC,    XC_GGA_C_PBE},  /* B1WC   */
-    {0.25,  XC_GGA_X_B88,   XC_GGA_C_LYP},  /* B1LYP  */
-    {0.25,  XC_GGA_X_B88,   XC_GGA_C_PW91}, /* B1PW91 */
-    {0.25,  XC_GGA_X_mPW91, XC_GGA_C_PW91}, /* mPW1PW */
-    {0.428, XC_GGA_X_mPW91, XC_GGA_C_PW91}  /* mPW1K  */
-  };
-  int func;
+  static int   funcs_id  [2] = {XC_GGA_X_WC, XC_GGA_C_PBE};
+  static FLOAT funcs_coef[2] = {1.0 - 0.16, 1.0};
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
-  XC(hyb_gga_type) *p = (XC(hyb_gga_type) *)p_;
-
-  switch(p->info->number){
-  case XC_HYB_GGA_XC_B1WC:   func = 0; break;
-  case XC_HYB_GGA_XC_B1LYP:  func = 1; break;
-  case XC_HYB_GGA_XC_B1PW91: func = 2; break;
-  case XC_HYB_GGA_XC_mPW1PW: func = 3; break;
-  case XC_HYB_GGA_XC_mPW1K:  func = 4; break;
-  default:
-    fprintf(stderr, "Internal error in gga_b97\n");
-    exit(1);
-    break;
-  }
-
-  p->mix = (XC(mix_func_type) *) malloc(sizeof(XC(mix_func_type)));
-  XC(mix_func_init)(p->mix, XC_FAMILY_GGA, p->nspin);
-
-  p->mix->gga_n = 2;
-  XC(mix_func_alloc)(p->mix);
-
-  p->exx_coef = par[func].a0;
-
-  XC(gga_init)(&p->mix->gga_mix[0], par[func].fx, p->nspin);
-  p->mix->gga_coef[0] = (1.0 - par[func].a0);
-  XC(gga_init)(&p->mix->gga_mix[1], par[func].fc, p->nspin);
-  p->mix->gga_coef[1] = 1.0;
+  gga_init_mix(p, 2, funcs_id, funcs_coef);
+  XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
+  p->exx_coef = 0.16;
 }
-
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_b1wc) = {
   XC_HYB_GGA_XC_B1WC,
@@ -76,9 +46,22 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1wc) = {
   XC_FAMILY_HYB_GGA,
   "DI Bilc, R Orlando, R Shaltaf, G-M Rignanese, J Iniguez, and Ph Ghosez, Phys. Rev. B 77, 165107 (2008)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  hyb_gga_xc_b1_init,
+  hyb_gga_xc_b1wc_init,
   NULL, NULL, NULL
 };
+
+
+void
+hyb_gga_xc_b1lyp_init(void *p_)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_LYP};
+  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+
+  gga_init_mix(p, 2, funcs_id, funcs_coef);
+  XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
+  p->exx_coef = 0.25;
+}
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_b1lyp) = {
   XC_HYB_GGA_XC_B1LYP,
@@ -87,9 +70,22 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1lyp) = {
   XC_FAMILY_HYB_GGA,
   "C. Adamo, V. Barone, Chem. Phys. Lett. 274, 242 (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  hyb_gga_xc_b1_init,
+  hyb_gga_xc_b1lyp_init,
   NULL, NULL, NULL
 };
+
+
+void
+hyb_gga_xc_b1pw91_init(void *p_)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_PW91};
+  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+
+  gga_init_mix(p, 2, funcs_id, funcs_coef);
+  XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
+  p->exx_coef = 0.25;
+}
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_b1pw91) = {
   XC_HYB_GGA_XC_B1PW91,
@@ -98,9 +94,22 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1pw91) = {
   XC_FAMILY_HYB_GGA,
   "C. Adamo, V. Barone, Chem. Phys. Lett. 274, 242 (1997)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  hyb_gga_xc_b1_init,
+  hyb_gga_xc_b1pw91_init,
   NULL, NULL, NULL
 };
+
+
+void
+hyb_gga_xc_mpw1pw_init(void *p_)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_mPW91, XC_GGA_C_PW91};
+  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+
+  gga_init_mix(p, 2, funcs_id, funcs_coef);
+  XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
+  p->exx_coef = 0.25;
+}
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1pw) = {
   XC_HYB_GGA_XC_mPW1PW,
@@ -109,9 +118,22 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1pw) = {
   XC_FAMILY_HYB_GGA,
   "C. Adamo, V. Barone, J. Chem. Phys. 108, 664 (1998)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  hyb_gga_xc_b1_init,
+  hyb_gga_xc_mpw1pw_init,
   NULL, NULL, NULL
 };
+
+
+void
+hyb_gga_xc_mpw1k_init(void *p_)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_mPW91, XC_GGA_C_PW91};
+  static FLOAT funcs_coef[2] = {1.0 - 0.428, 1.0};
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+
+  gga_init_mix(p, 2, funcs_id, funcs_coef);
+  XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
+  p->exx_coef = 0.428;
+}
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1k) = {
   XC_HYB_GGA_XC_mPW1K,
@@ -120,6 +142,6 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1k) = {
   XC_FAMILY_HYB_GGA,
   "BJ Lynch, PL Fast, M Harris, DGJ Truhlar, Phys. Chem. A 104, 4811 (2000)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
-  hyb_gga_xc_b1_init,
+  hyb_gga_xc_mpw1k_init,
   NULL, NULL, NULL
 };

@@ -80,6 +80,8 @@ int XC(func_init)(XC(func_type) *p, int functional, int nspin)
   assert(p != NULL);
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
 
+  p->nspin = nspin;
+
   switch(XC(family_from_id)(functional, NULL, &number)){
   case(XC_FAMILY_LDA):
     p->lda  = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
@@ -92,8 +94,9 @@ int XC(func_init)(XC(func_type) *p, int functional, int nspin)
     return XC(gga_init)(p, p->info, nspin);
 
   case(XC_FAMILY_HYB_GGA):
-    p->hyb_gga = (XC(hyb_gga_type) *) malloc(sizeof(XC(hyb_gga_type)));
-    return XC(hyb_gga_init)(p->hyb_gga, functional, nspin);
+    p->gga = (XC(gga_type) *) malloc(sizeof(XC(gga_type)));
+    p->info = XC(hyb_gga_known_funct)[number];
+    return XC(gga_init)(p, p->info, nspin);
 
   case(XC_FAMILY_MGGA):
     p->mgga = (XC(mgga_type) *) malloc(sizeof(XC(mgga_type)));
@@ -118,13 +121,9 @@ void XC(func_end)(XC(func_type) *p)
     break;
 
   case(XC_FAMILY_GGA):
+  case(XC_FAMILY_HYB_GGA):
     XC(gga_end)(p);
     free(p->gga);
-    break;
-
-  case(XC_FAMILY_HYB_GGA):
-    XC(hyb_gga_end)(p->hyb_gga);
-    free(p->hyb_gga);
     break;
 
   case(XC_FAMILY_MGGA):

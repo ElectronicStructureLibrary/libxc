@@ -39,7 +39,7 @@ static void gga_x_b88_init(void *p_)
   params = (gga_x_b88_params *) (p->params);
 
   /* value of beta in standard Becke 88 functional */
-  XC(gga_x_b88_set_params)(p, 0.0042);
+  XC(gga_x_b88_set_params_)(p, 0.0042);
 }
 
 
@@ -53,7 +53,14 @@ static void gga_x_b88_end(void *p_)
 }
 
 
-void XC(gga_x_b88_set_params)(XC(gga_type) *p, FLOAT beta)
+void XC(gga_x_b88_set_params)(XC(func_type) *p, FLOAT beta)
+{
+  assert(p != NULL && p->gga != NULL);
+  XC(gga_x_b88_set_params_)(p->gga, beta);
+}
+
+
+void XC(gga_x_b88_set_params_)(XC(gga_type) *p, FLOAT beta)
 {
   gga_x_b88_params *params;
 

@@ -51,8 +51,9 @@ hyb_gga_xc_b97_init(void *p_)
   };
 
   int func;
+  FLOAT one = 1.0;
 
-  XC(hyb_gga_type) *p = (XC(hyb_gga_type) *)p_;
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   switch(p->info->number){
   case XC_HYB_GGA_XC_B97:      func =  0; break;
@@ -72,16 +73,8 @@ hyb_gga_xc_b97_init(void *p_)
     break;
   }
 
-  p->mix = (XC(mix_func_type) *) malloc(sizeof(XC(mix_func_type)));
-  XC(mix_func_init)(p->mix, XC_FAMILY_GGA, p->nspin);
-
-  p->mix->gga_n = 1;
-  XC(mix_func_alloc)(p->mix);
-
+  gga_init_mix(p, 1, &(par[func].iGGA), &one);
   p->exx_coef = par[func].a0;
-
-  XC(gga_init)(&p->mix->gga_mix[0], par[func].iGGA, p->nspin);
-  p->mix->gga_coef[0] = 1.0;
 }
 
 

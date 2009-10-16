@@ -73,16 +73,15 @@ typedef struct{
 
 struct XC(struct_lda_type);
 struct XC(struct_gga_type);
-struct XC(struct_hyb_gga_type);
 struct XC(struct_mgga_type);
 
 typedef struct XC(struct_func_type){
   const XC(func_info_type) *info;       /* all the information concerning this functional */
+  int nspin;                            /* this is a copy from the underlying functional */
 
-  struct XC(struct_lda_type)      *lda;
-  struct XC(struct_gga_type)      *gga;
-  struct XC(struct_hyb_gga_type)  *hyb_gga;
-  struct XC(struct_mgga_type)     *mgga;
+  struct XC(struct_lda_type)  *lda;
+  struct XC(struct_gga_type)  *gga;
+  struct XC(struct_mgga_type) *mgga;
 } XC(func_type);
 
 
@@ -92,8 +91,6 @@ int  XC(func_init)(XC(func_type) *p, int functional, int nspin);
 void XC(func_end)(XC(func_type) *p);
 
 #include "xc_funcs.h"
-
-struct XC(struct_mix_func_type);
 
 /* the LDAs */
 typedef struct XC(struct_lda_type) {
@@ -130,7 +127,9 @@ typedef struct XC(struct_gga_type){
   
   int n_func_aux;                       /* how many auxiliary functions we need */
   XC(func_type) **func_aux;             /* most GGAs are based on a LDA or other GGAs  */
-  struct XC(struct_mix_func_type) *mix; /* others are mixtures of LDAs and GGAs */
+  FLOAT *mix_coef;                      /* coefficients for the mixing */
+
+  FLOAT exx_coef;                       /* the Hartree-Fock mixing parameter for the hybrids */
 
   int func;                             /* Shortcut in case of several functionals sharing the same interface */
   int n_rho, n_zk, n_vrho, n_v2rho2;    /* spin dimensions of arguments */
@@ -153,41 +152,14 @@ void XC(gga_vxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *
 void XC(gga_fxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 		 FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
 
-void XC(gga_lb_set_params)(XC(func_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
 void XC(gga_lb_modified)  (const XC(gga_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
 			   FLOAT r, FLOAT *vrho);
 
+void XC(gga_x_b88_set_params)(XC(func_type) *p, FLOAT beta);
+void XC(gga_c_lyp_set_params)(XC(func_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
+void XC(gga_lb_set_params)   (XC(func_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
 
-/* the GGAs hybrids */
-typedef struct XC(struct_hyb_gga_type){
-  const XC(func_info_type) *info;  /* which functional did we choose   */
-  int nspin;                       /* XC_UNPOLARIZED or XC_POLARIZED  */
-  
-  struct XC(struct_mix_func_type) *mix; /* these functionals are usually 
-					   mixtures of LDAs and GGAs */
-
-  int func;                             /* Shortcut in case of several functionals sharing the same interface */
-  int n_rho, n_zk, n_vrho, n_v2rho2;    /* spin dimensions of arguments */
-  int n_sigma, n_vsigma, n_v2rhosigma, n_v2sigma2;
-
-  FLOAT exx_coef;                  /* the Hartree-Fock mixing parameter */
-  void *params;                    /* this allows us to fix parameters in the functional */
-} XC(hyb_gga_type);
-
-int  XC(hyb_gga_init)(XC(hyb_gga_type) *p, int functional, int nspin);
-void XC(hyb_gga_end)(XC(hyb_gga_type) *p);
-void XC(hyb_gga)(const XC(hyb_gga_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
-		 FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-		 FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
-void XC(hyb_gga_exc)(const XC(hyb_gga_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
-		     FLOAT *zk);
-void XC(hyb_gga_exc_vxc)(const XC(hyb_gga_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
-			 FLOAT *zk, FLOAT *vrho, FLOAT *vsigma);
-void XC(hyb_gga_vxc)(const XC(hyb_gga_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
-		     FLOAT *vrho, FLOAT *vsigma);
-void XC(hyb_gga_fxc)(const XC(hyb_gga_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
-		     FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
-FLOAT XC(hyb_gga_exx_coef)(XC(hyb_gga_type) *p);
+FLOAT XC(hyb_gga_exx_coef)(XC(gga_type) *p);
 
 
 /* the meta-GGAs */
@@ -197,7 +169,6 @@ typedef struct XC(struct_mgga_type){
   
   int n_func_aux;                       /* how many auxiliary functions we need */
   XC(func_type) **func_aux;             /* most GGAs are based on a LDA or other GGAs  */
-  struct XC(struct_mix_func_type) *mix; /* others are mixtures of LDAs and GGAs */
 
   int func;                             /* Shortcut in case of several functionals sharing the same interface */
 
@@ -226,29 +197,11 @@ void XC(mgga_fxc)(const XC(func_type) *p, const FLOAT *rho,
 void XC(mgga_x_tb09_set_params)(XC(func_type) *p, FLOAT c);
 
 /* Functionals that are defined as mixtures of others */
-typedef struct XC(struct_mix_func_type){
-  int level; /* LDA, GGA, MGGA */
-  int nspin; /* POLARIZED, UNPOLARIZED */
-
-  int            lda_n;
-  XC(lda_type)  *lda_mix;
-  FLOAT         *lda_coef;
-
-  int            gga_n;
-  XC(gga_type)  *gga_mix;
-  FLOAT         *gga_coef;
-
-  int            mgga_n;
-  XC(mgga_type) *mgga_mix;
-  FLOAT         *mgga_coef;
-} XC(mix_func_type);
-
-void XC(mix_func_init)(XC(mix_func_type) *p, int level, int nspin);
-void XC(mix_func_alloc)(XC(mix_func_type) *p);
-void XC(mix_func_free)(XC(mix_func_type) *p);
-void XC(mix_func)(XC(mix_func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
-		  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
-
+void XC(mix_func)(const XC(func_type) *dest_func, int n_func_aux, XC(func_type) **func_aux, FLOAT *mix_coef,
+		  int np, const FLOAT *rho, const FLOAT *sigma,
+		  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
+		  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
+  
 /* the LCAs */
 
 #define XC_LCA_OMC            301 /* Orestes, Marcasso & Capelle */

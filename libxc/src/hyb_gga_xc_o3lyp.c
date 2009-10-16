@@ -30,29 +30,18 @@ static void
 gga_xc_o3lyp_init(void *p_)
 {
   const FLOAT a0 = 0.1161, b0 = 0.9262, ax = 0.8133, ac = 0.81;
+  static int funcs_id  [4] = {XC_LDA_X, XC_GGA_X_OPTX, XC_LDA_C_VWN, XC_GGA_C_LYP};
+  FLOAT funcs_coef[4];
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
-  XC(hyb_gga_type) *p = (XC(hyb_gga_type) *)p_;
+  funcs_coef[0] = b0 - ax;
+  funcs_coef[1] = ax;
+  funcs_coef[2] = 1.0 - ac;
+  funcs_coef[3] = ac;
 
-  p->mix = (XC(mix_func_type) *) malloc(sizeof(XC(mix_func_type)));
-  XC(mix_func_init)(p->mix, XC_FAMILY_GGA, p->nspin);
-
-  p->mix->lda_n = 2;
-  p->mix->gga_n = 2;
-  XC(mix_func_alloc)(p->mix);
-
+  gga_init_mix(p, 4, funcs_id, funcs_coef);
+  XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
   p->exx_coef = a0;
-
-  XC(lda_init)(&p->mix->lda_mix[0], XC_LDA_X, p->nspin);
-  p->mix->lda_coef[0] = b0 - ax;
-
-  XC(lda_init)  (&p->mix->lda_mix[1], XC_LDA_C_VWN, p->nspin);
-  XC(lda_c_vwn_set_params)(&p->mix->lda_mix[1], 1);
-  p->mix->lda_coef[1] = 1.0 - ac;
-
-  XC(gga_init)(&p->mix->gga_mix[0], XC_GGA_X_OPTX, p->nspin);
-  p->mix->gga_coef[0] = ax;
-  XC(gga_init)(&p->mix->gga_mix[1], XC_GGA_C_LYP, p->nspin);
-  p->mix->gga_coef[1] = ac;
 }
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_o3lyp) = {
@@ -74,30 +63,19 @@ gga_xc_x3lyp_init(void *p_)
   const FLOAT a1=0.675, a2=0.235;
   const FLOAT a0=0.218, ax=0.709, ac=0.871;
 
-  XC(hyb_gga_type) *p = (XC(hyb_gga_type) *)p_;
+  static int funcs_id[5] = {XC_LDA_X, XC_GGA_X_B88, XC_GGA_X_PW91, XC_LDA_C_VWN_RPA, XC_GGA_C_LYP};
+  FLOAT funcs_coef[5];
+  XC(gga_type) *p = (XC(gga_type) *)p_;
 
-  p->mix = (XC(mix_func_type) *) malloc(sizeof(XC(mix_func_type)));
-  XC(mix_func_init)(p->mix, XC_FAMILY_GGA, p->nspin);
+  funcs_coef[0] = 1.0 - a0 - ax*(a1 + a2);;
+  funcs_coef[1] = ax*a1;
+  funcs_coef[2] = ax*a2;
+  funcs_coef[3] = 1.0 - ac;
+  funcs_coef[4] = ac;
 
-  p->mix->lda_n = 2;
-  p->mix->gga_n = 3;
-  XC(mix_func_alloc)(p->mix);
-
+  gga_init_mix(p, 5, funcs_id, funcs_coef);
+  XC(lda_c_vwn_set_params)(p->func_aux[3], 1);
   p->exx_coef = a0;
-
-  XC(lda_init)(&p->mix->lda_mix[0], XC_LDA_X, p->nspin);
-  p->mix->lda_coef[0] = 1.0 - a0 - ax*(a1 + a2);
-
-  XC(lda_init)  (&p->mix->lda_mix[1], XC_LDA_C_VWN_RPA, p->nspin);
-  XC(lda_c_vwn_set_params)(&p->mix->lda_mix[1], 1);
-  p->mix->lda_coef[1] = 1.0 - ac;
-
-  XC(gga_init)(&p->mix->gga_mix[0], XC_GGA_X_B88, p->nspin);
-  p->mix->gga_coef[0] = ax*a1;
-  XC(gga_init)(&p->mix->gga_mix[1], XC_GGA_X_PW91, p->nspin);
-  p->mix->gga_coef[1] = ax*a2;
-  XC(gga_init)(&p->mix->gga_mix[2], XC_GGA_C_LYP, p->nspin);
-  p->mix->gga_coef[2] = ac;
 }
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_x3lyp) = {

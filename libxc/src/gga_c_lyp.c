@@ -40,11 +40,17 @@ void XC(gga_c_lyp_init)(void *p_)
   params = (gga_c_lyp_params *) (p->params);
 
   /* values of constants in standard LYP functional */
-  XC(gga_c_lyp_set_params)(p, 0.04918, 0.132, 0.2533, 0.349);
+  XC(gga_c_lyp_set_params_)(p, 0.04918, 0.132, 0.2533, 0.349);
 }
 
 
-void XC(gga_c_lyp_set_params)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d)
+void XC(gga_c_lyp_set_params)(XC(func_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d)
+{
+  assert(p != NULL && p->gga != NULL);
+  XC(gga_c_lyp_set_params_)(p->gga, A, B, c, d);
+}
+
+void XC(gga_c_lyp_set_params_)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d)
 {
   gga_c_lyp_params *params;
 

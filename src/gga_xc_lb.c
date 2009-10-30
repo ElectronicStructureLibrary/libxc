@@ -116,7 +116,7 @@ XC(gga_lb_modified)(const XC(gga_type) *func, int np, const FLOAT *rho, const FL
 
   for(ip=0; ip<np; ip++){
     for(is=0; is<func->nspin; is++){
-      gdm = sqrt(sigma[is==0 ? 0 : 2]);
+      gdm = sqrt(sigma[(is==0) ? 0 : 2]);
 
       if(params->modified == 0 || 
 	 (rho[is] > params->threshold && gdm > params->threshold)){
@@ -142,17 +142,15 @@ XC(gga_lb_modified)(const XC(gga_type) *func, int np, const FLOAT *rho, const FL
 	
 	vrho[is] -= 1.0/x;
       }
+    }
+    /* increment pointers */
+    rho   += func->n_rho;
+    sigma += func->n_sigma;
+    
+    if(vrho != NULL)
+      vrho   += func->n_vrho;
 
-      /* increment pointers */
-      rho   += func->n_rho;
-      sigma += func->n_sigma;
-
-      if(vrho != NULL){
-	vrho   += func->n_vrho;
-      }
-
-    } /* ip loop */
-  }
+  } /* ip loop */
 }
 
 

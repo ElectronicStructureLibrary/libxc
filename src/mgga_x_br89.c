@@ -243,7 +243,7 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
       *vrho0 = - c*v_BR - (3.0*c - 2.0)*sqrt(5.0/12.0)*sqrt(t)/(X_FACTOR_C*M_PI);
 
     }else{ /* XC_MGGA_X_RPP09 */
-      *vrho0 = - v_BR - sqrt(5.0/12.0)*sqrt(t - x*x/4.0)/(X_FACTOR_C*M_PI);
+      *vrho0 = - v_BR - sqrt(5.0/12.0)*sqrt(max(t - x*x/4.0, 0.0))/(X_FACTOR_C*M_PI);
     }
   }
 }

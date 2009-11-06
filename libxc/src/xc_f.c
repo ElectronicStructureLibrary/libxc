@@ -237,9 +237,12 @@ void XC_FC_FUNC(f90_gga_lb_set_par, F90_GGA_LB_SET_PAR)
 }
 
 void XC_FC_FUNC(f90_gga_lb_modified, F90_GGA_LB_MODIFIED)
-     (void **p, CC_FORTRAN_INT np, FLOAT *rho, FLOAT *grho, FLOAT *r, FLOAT *dedd)
+     (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, FLOAT *r, FLOAT *vrho)
 {
-  XC(gga_lb_modified)((XC(func_type) *)(*p), np, rho, grho, *r, dedd);
+  const XC(gga_type) *gga = ((XC(func_type) *)(*p))->gga;
+  assert(gga != NULL);
+
+  XC(gga_lb_modified)(gga, *np, rho, sigma, *r, vrho);
 }
 
 

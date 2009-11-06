@@ -23,66 +23,90 @@
   and of rho.
 ************************************************************************/
 
+/* TODO: merge this with 3D routine */
+
 static void 
-work_gga_x_2d(const void *p_, const FLOAT *rho, const FLOAT *sigma,
+work_gga_x_2d(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	      FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 	      FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
   const XC(gga_type) *p = p_;
 
   FLOAT sfact, sfact2, dens;
-  int is, order;
+  int ip, is, order;
 
   sfact = (p->nspin == XC_POLARIZED) ? 1.0 : 2.0;
   sfact2 = sfact*sfact;
 
-  order = 0;
+  order = -1;
+  if(zk     != NULL) order = 0;
   if(vrho   != NULL) order = 1;
   if(v2rho2 != NULL) order = 2;
+  if(order < 0) return;
 
-  dens = 0.0;
-  for(is=0; is<p->nspin; is++){
-    FLOAT gdm, ds, sigmas, rho12;
-    FLOAT x, f, dfdx, d2fdx2;
-    int js = (is == 0) ? 0 : 2;
-    int ks = (is == 0) ? 0 : 5;
+  for(ip = 0; ip < np; ip++){
+    dens = (p->nspin == XC_UNPOLARIZED) ? rho[0] : rho[0] + rho[1];
+    if(dens < MIN_DENS) goto end_ip_loop;
 
-    if(rho[is] < MIN_DENS) continue;
+    for(is=0; is<p->nspin; is++){
+      FLOAT gdm, ds, sigmas, rho12;
+      FLOAT x, f, dfdx, d2fdx2;
+      int js = (is == 0) ? 0 : 2;
+      int ks = (is == 0) ? 0 : 5;
 
-    dens += rho[is];
+      if(rho[is] < MIN_DENS) continue;
 
-    sigmas = max(sigma[js], MIN_GRAD);
-    gdm    = sqrt(sigmas)/sfact;
+      sigmas = max(sigma[js], MIN_GRAD);
+      gdm    = sqrt(sigmas)/sfact;
 
-    ds    = rho[is]/sfact;
-    rho12 = sqrt(ds);
-    x     = gdm/(ds*rho12);
+      ds    = rho[is]/sfact;
+      rho12 = sqrt(ds);
+      x     = gdm/(ds*rho12);
 
-    f = dfdx = d2fdx2 = 0.0;
+      f = dfdx = d2fdx2 = 0.0;
 
-    func_2d(p, order, x, &f, &dfdx, &d2fdx2);
+      func_2d(p, order, x, &f, &dfdx, &d2fdx2);
 
-    if(zk != NULL)
-      *zk += -sfact*X_FACTOR_2D_C*(ds*rho12)*f;
+      if(zk != NULL)
+	*zk += -sfact*X_FACTOR_2D_C*(ds*rho12)*f;
       
+      if(vrho != NULL){
+	vrho  [is] += -3.0/2.0*X_FACTOR_2D_C*rho12*(f - dfdx*x);
+	vsigma[js]  = -sfact*X_FACTOR_2D_C*(ds*rho12)*dfdx*x/(2.0*sigmas);
+      }
+      
+      if(v2rho2 != NULL){
+	v2rho2[js] = -3.0/4.0*X_FACTOR_2D_C/rho12*
+	  (f - dfdx*x + 3.0*d2fdx2*x*x)/sfact;
+	
+	if(gdm>MIN_GRAD){
+	  v2rhosigma[ks] = -3.0/2.0*X_FACTOR_2D_C*rho12*(-d2fdx2*x*x/(2.0*sigmas));
+	  v2sigma2  [ks] = -sfact*X_FACTOR_2D_C*(ds*rho12)*
+	    (d2fdx2*x - dfdx)*x/(4.0*sigmas*sigmas);
+	}
+      }
+    }
+    
+    if(zk != NULL)
+      *zk /= dens; /* we want energy per particle */
+
+  end_ip_loop:
+    /* increment pointers */
+    rho   += p->n_rho;
+    sigma += p->n_sigma;
+    
+    if(zk != NULL)
+      zk += p->n_zk;
+    
     if(vrho != NULL){
-      vrho  [is] += -3.0/2.0*X_FACTOR_2D_C*rho12*(f - dfdx*x);
-      vsigma[js]  = -sfact*X_FACTOR_2D_C*(ds*rho12)*dfdx*x/(2.0*sigmas);
+      vrho   += p->n_vrho;
+      vsigma += p->n_vsigma;
     }
 
     if(v2rho2 != NULL){
-      v2rho2[js] = -3.0/4.0*X_FACTOR_2D_C/rho12*
-	(f - dfdx*x + 3.0*d2fdx2*x*x)/sfact;
-
-      if(gdm>MIN_GRAD){
-	v2rhosigma[ks] = -3.0/2.0*X_FACTOR_2D_C*rho12*(-d2fdx2*x*x/(2.0*sigmas));
-	v2sigma2  [ks] = -sfact*X_FACTOR_2D_C*(ds*rho12)*
-	  (d2fdx2*x - dfdx)*x/(4.0*sigmas*sigmas);
-      }
-	
+      v2rho2     += p->n_v2rho2;
+      v2rhosigma += p->n_v2rhosigma;
+      v2sigma2   += p->n_v2sigma2;
     }
   }
-
-  if(zk != NULL)
-    *zk /= dens; /* we want energy per particle */
 }

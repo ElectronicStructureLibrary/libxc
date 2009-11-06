@@ -58,7 +58,7 @@ const XC(func_info_type) XC(func_info_gga_x_2d_b86_mgc) = {
   XC_EXCHANGE,
   "Becke 86 with modified gradient correction for 2D",
   XC_FAMILY_GGA,
-  "S Pittalis, E Rasanen, JG Vilhena, and MAL Marques, accepted in Phys. Rev. A (2008)\n"
+  "S Pittalis, E Rasanen, JG Vilhena, and MAL Marques, 79, 012503 (2009)\n"
   "AD Becke, J. Chem. Phys 85, 7184 (1986)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL, NULL, NULL,

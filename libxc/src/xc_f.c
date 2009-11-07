@@ -176,6 +176,13 @@ void XC_FC_FUNC(f90_lda_c_xalpha_set_par, F90_LDA_C_XALPHA_SET_PAR)
   XC(lda_c_xalpha_set_params)((XC(func_type) *)(*p), *alpha);
 }
 
+/* relativistic option of LDA_X */
+void XC_FC_FUNC(f90_lda_x_set_par, F90_LDA_X_SET_PAR)
+  (void **p, CC_FORTRAN_INT *relativistic)
+{
+  XC(lda_x_set_params)((XC(func_type) *)(*p), *relativistic);
+}
+
 /* parameter of CSC */
 void XC_FC_FUNC(f90_lda_c_1d_csc_set_par, F90_LDA_C_1D_CSC_SET_PAR)
   (void **p, CC_FORTRAN_INT *interaction, FLOAT *bb)

@@ -116,6 +116,7 @@ void XC(lda_kxc)    (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *v3
 void XC(lda_x_1d_set_params)     (XC(func_type) *p, int interaction, FLOAT bb);
 void XC(lda_c_1d_csc_set_params) (XC(func_type) *p, int interaction, FLOAT bb);
 void XC(lda_c_xalpha_set_params) (XC(func_type) *p, FLOAT alpha);
+void XC(lda_x_set_params)        (XC(func_type) *p, int relativistic);
 void XC(lda_c_2d_prm_set_params) (XC(func_type) *p, FLOAT N);
 void XC(lda_c_vwn_set_params)    (XC(func_type) *p, int spin_interpolation);
 

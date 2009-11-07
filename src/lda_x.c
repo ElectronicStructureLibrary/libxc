@@ -36,16 +36,27 @@
     whereas alpha equal to 2/3 just leaves the exchange functional unchanged.
 */
 
+/* Relativistic corrections */
+/*  A. K. Rajagopal, J. Phys. C 11, L943 (1978).
+    A. H. MacDonald and S. H. Vosko, J. Phys. C 12, 2977 (1979).
+    E. Engel, S. Keller, A. Facco Bonetti, H. Müller, and R. M. Dreizler, Phys. Rev. A 52, 2750 (1995).
+*/
+
+typedef struct{
+  FLOAT alpha;         /* parameter for Xalpha functional */
+  int relativistic;  /* use the relativistic version of the functional or not */
+} XC(lda_x_params);
+
 static void 
 lda_x_init(void *p_)
 {
   XC(lda_type) *p = (XC(lda_type) *)p_;
 
   assert(p->params == NULL);
-  p->params = malloc(sizeof(float));
+  p->params = malloc(sizeof(XC(lda_x_params)));
 
   /* exchange is equal to xalpha with a parameter of 4/3 */
-  XC(lda_c_xalpha_set_params_)(p, 4.0/3.0);
+  XC(lda_x_set_params_)(p, 4.0/3.0, XC_NON_RELATIVISTIC);
 }
 
 static void 
@@ -54,10 +65,10 @@ lda_c_xalpha_init(void *p_)
   XC(lda_type) *p = (XC(lda_type) *)p_;
 
   assert(p->params == NULL);
-  p->params = malloc(sizeof(float));
+  p->params = malloc(sizeof(XC(lda_x_params)));
 
   /* This gives the usual Xalpha functional */
-  XC(lda_c_xalpha_set_params_)(p, 1.0);
+  XC(lda_x_set_params_)(p, 1.0, XC_NON_RELATIVISTIC);
 }
 
 static void 
@@ -75,29 +86,55 @@ void
 XC(lda_c_xalpha_set_params)(XC(func_type) *p, FLOAT alpha)
 {
   assert(p != NULL && p->lda != NULL);
-  XC(lda_c_xalpha_set_params_)(p->lda, alpha);
+  XC(lda_x_set_params_)(p->lda, alpha, XC_NON_RELATIVISTIC);
 }
 
 void 
-XC(lda_c_xalpha_set_params_)(XC(lda_type) *p, FLOAT alpha)
+XC(lda_x_set_params)(XC(func_type) *p, int relativistic)
 {
-  assert(p->params != NULL);
+  assert(p != NULL && p->lda != NULL);
+  XC(lda_x_set_params_)(p->lda, 4.0/3.0, relativistic);
+}
 
-  *((FLOAT *)p->params) = 1.5*alpha - 1.0;
+void 
+XC(lda_x_set_params_)(XC(lda_type) *p, FLOAT alpha, int relativistic)
+{
+  XC(lda_x_params) *params;
+
+  assert(p->params != NULL);
+  params = (XC(lda_x_params) *) (p->params);
+
+  params->alpha = 1.5*alpha - 1.0;
+  params->relativistic = relativistic;
+  
 }
 
 
 static inline void 
 func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
-  FLOAT alpha, ax, fz, dfz, d2fz, d3fz;
+  FLOAT ax, fz, dfz, d2fz, d3fz;
+  FLOAT beta, beta2, f1, f2, f3, phi, dphidbeta, dbetadrs;
+  XC(lda_x_params) *params;
 
   assert(p->params != NULL);
-  alpha = *((FLOAT *)p->params);
-  
-  ax = -alpha*0.458165293283142893475554485052; /* -alpha * 3/4*POW(3/(2*M_PI), 2/3) */
+  params = (XC(lda_x_params) *) (p->params);  
+
+  ax = -params->alpha*0.458165293283142893475554485052; /* -alpha * 3/4*POW(3/(2*M_PI), 2/3) */
   
   r->zk = ax/r->rs[1];
+  if(params->relativistic == XC_RELATIVISTIC){
+    beta   = POW(9.0*M_PI/4.0, 1.0/3.0)/(r->rs[1]*M_C);
+    beta2  = beta*beta;
+    f1     = sqrt(1.0 + beta2);
+    f2     = asinh(beta);
+    f3     = f1/beta - f2/beta2;
+    phi    = 1.0 - 3.0/2.0*f3*f3;
+    dphidbeta = 6.0/(beta2*beta2*beta)*(beta2 - beta*(2 + beta2)*f2/f1 + f2*f2);
+    dbetadrs = -beta/r->rs[1];
+
+    r->zk *= phi;
+  }
   if(p->nspin == XC_POLARIZED){
     fz  = 0.5*(pow(1.0 + r->zeta,  4.0/3.0) + pow(1.0 - r->zeta,  4.0/3.0));
     r->zk *= fz;
@@ -106,6 +143,9 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   if(r->order < 1) return;
   
   r->dedrs = -ax/r->rs[2];
+  if(params->relativistic == XC_RELATIVISTIC){
+    r->dedrs = r->dedrs*phi + r->zk*dphidbeta*dbetadrs;
+  }
   if(p->nspin == XC_POLARIZED){
     dfz = 2.0/3.0*(pow(1.0 + r->zeta,  1.0/3.0) - pow(1.0 - r->zeta,  1.0/3.0));
 
@@ -142,35 +182,6 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
     r->d3edz3   =     ax/r->rs[1]           *d3fz;
   }
 
-  /* Relativistic corrections */
-  /*  A. K. Rajagopal, J. Phys. C 11, L943 (1978).
-      A. H. MacDonald and S. H. Vosko, J. Phys. C 12, 2977 (1979).
-      E. Engel, S. Keller, A. Facco Bonetti, H. Müller, and R. M. Dreizler, Phys. Rev. A 52, 2750 (1995).
-  */
-  /*
-  if(p->relativistic != 0){
-    FLOAT beta, beta2, f1, f2, f3, phi;
-  
-    beta   = POW(3.0*M_PI*M_PI*dens, 1.0/3.0)/M_C;
-    beta2  = beta*beta;
-    f1     = sqrt(1.0 + beta2);
-    f2     = asinh(beta);
-    f3     = f1/beta - f2/beta2;
-    phi    = 1.0 - 3.0/2.0*f3*f3;
-
-    extmp *= phi;
-
-    if(vrho != NULL){
-      FLOAT dphidbeta, dbetadd;
-      
-      dphidbeta = 6.0/(beta2*beta2*beta)*
-	(beta2 - beta*(2 + beta2)*f2/f1 + f2*f2);
-      dbetadd = M_PI*M_PI/(POW(M_C, 3)*beta2);
-    
-      vrho[0]  = vrho[0]*phi + dens*extmp*dphidbeta*dbetadd;
-    }
-  }
-  */
 }
 
 #include "work_lda.c"

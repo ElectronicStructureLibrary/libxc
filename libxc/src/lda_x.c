@@ -114,7 +114,9 @@ static inline void
 func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   FLOAT ax, fz, dfz, d2fz, d3fz;
-  FLOAT beta, beta2, f1, f2, f3, phi, dphidbeta, dbetadrs;
+  FLOAT beta, beta2, beta4, beta6, f1, f1_3, f1_5, f2, f3;
+  FLOAT phi, dphi, d2phi, d3phi, dphidbeta, d2phidbeta2, d3phidbeta3, dbetadrs, d2betadrs2, d3betadrs3;
+  FLOAT zk_nr, dedrs_nr, dedz_nr, d2edrs2_nr, d2edrsz_nr, d2edz2_nr;
   XC(lda_x_params) *params;
 
   assert(p->params != NULL);
@@ -123,6 +125,12 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   ax = -params->alpha*0.458165293283142893475554485052; /* -alpha * 3/4*POW(3/(2*M_PI), 2/3) */
   
   r->zk = ax/r->rs[1];
+
+  if(p->nspin == XC_POLARIZED){
+    fz  = 0.5*(pow(1.0 + r->zeta,  4.0/3.0) + pow(1.0 - r->zeta,  4.0/3.0));
+    r->zk *= fz;
+  }
+
   if(params->relativistic == XC_RELATIVISTIC){
     beta   = POW(9.0*M_PI/4.0, 1.0/3.0)/(r->rs[1]*M_C);
     beta2  = beta*beta;
@@ -130,22 +138,15 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
     f2     = asinh(beta);
     f3     = f1/beta - f2/beta2;
     phi    = 1.0 - 3.0/2.0*f3*f3;
-    dphidbeta = 6.0/(beta2*beta2*beta)*(beta2 - beta*(2 + beta2)*f2/f1 + f2*f2);
-    dbetadrs = -beta/r->rs[1];
 
+    zk_nr  = r->zk;
     r->zk *= phi;
-  }
-  if(p->nspin == XC_POLARIZED){
-    fz  = 0.5*(pow(1.0 + r->zeta,  4.0/3.0) + pow(1.0 - r->zeta,  4.0/3.0));
-    r->zk *= fz;
   }
 
   if(r->order < 1) return;
   
   r->dedrs = -ax/r->rs[2];
-  if(params->relativistic == XC_RELATIVISTIC){
-    r->dedrs = r->dedrs*phi + r->zk*dphidbeta*dbetadrs;
-  }
+
   if(p->nspin == XC_POLARIZED){
     dfz = 2.0/3.0*(pow(1.0 + r->zeta,  1.0/3.0) - pow(1.0 - r->zeta,  1.0/3.0));
 
@@ -153,9 +154,26 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
     r->dedz   = ax/r->rs[1]*dfz;
   }
 
+  if(params->relativistic == XC_RELATIVISTIC){
+    beta4 = beta2*beta2;
+    dphidbeta = 6.0/(beta4*beta)*(beta2 - beta*(2 + beta2)*f2/f1 + f2*f2);
+    dbetadrs = -beta/r->rs[1];
+
+    dedrs_nr = r->dedrs;
+    dphi     = dphidbeta*dbetadrs;
+
+    r->dedrs = r->dedrs*phi + zk_nr*dphi;
+    if(p->nspin == XC_POLARIZED){
+      dedz_nr = r->dedz;
+      r->dedz = r->dedz*phi;
+    }
+  }
+
+
   if(r->order < 2) return;
     
   r->d2edrs2 = 2.0*ax/(r->rs[1]*r->rs[2]);
+
   if(p->nspin == XC_POLARIZED){
     if(ABS(r->zeta) == 1.0)
       d2fz = FLT_MAX;
@@ -167,9 +185,31 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
     r->d2edz2  =  ax/r->rs[1]*d2fz;
   }
 
+  if(params->relativistic == XC_RELATIVISTIC){
+    f1_3 = f1*f1*f1;
+    d2phidbeta2 = -(beta2*f1*(5.0 + 4.0*beta2) - 
+		    beta*(10.0 + 14.0*beta2 + 3.0*beta4)*f2 +
+		    5.0*f1_3*f2*f2) * 6.0/(beta4*beta2*f1_3);
+    d2betadrs2 = -2.0*dbetadrs/r->rs[1];
+
+    d2edrs2_nr = r->d2edrs2;
+    d2phi      = d2phidbeta2*dbetadrs*dbetadrs + dphidbeta*d2betadrs2;
+
+    r->d2edrs2 = r->d2edrs2*phi + 2.0*dedrs_nr*dphi + zk_nr*d2phi;
+    if(p->nspin == XC_POLARIZED){
+      d2edz2_nr  = r->d2edz2;
+      d2edrsz_nr = r->d2edrsz;
+
+      r->d2edrsz = r->d2edrsz*phi + dedz_nr*dphi;
+      r->d2edz2  = r->d2edz2*phi;
+      
+    }
+  }
+
   if(r->order < 3) return;
 
   r->d3edrs3 = -6.0*ax/(r->rs[2]*r->rs[2]);
+
   if(p->nspin == XC_POLARIZED){
     if(ABS(r->zeta) == 1.0)
       d3fz = FLT_MAX;
@@ -180,6 +220,26 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
     r->d3edrs2z = 2.0*ax/(r->rs[1]*r->rs[2])*dfz;
     r->d3edrsz2 =    -ax/r->rs[2]           *d2fz;
     r->d3edz3   =     ax/r->rs[1]           *d3fz;
+  }
+
+  if(params->relativistic == XC_RELATIVISTIC){
+    beta6 = beta4*beta2;
+    f1_5  = f1_3*f1*f1;
+
+    d3phidbeta3 = (beta2*f1*(30.0 + 52.0*beta2 + 19.0*beta4) -
+		   beta*f2*(60.0 + 142.0*beta2 + 97.0*beta4 + 12.0*beta6) +
+		   30.0*f1_5*f2*f2) * 6.0/(beta6*beta*f1_5);
+    d3betadrs3 = -3.0*d2betadrs2/r->rs[1];
+
+    d3phi = d3phidbeta3*dbetadrs*dbetadrs*dbetadrs + 3.0*d2phidbeta2*dbetadrs*d2betadrs2 +
+      dphidbeta*d3betadrs3;
+
+    r->d3edrs3 = r->d3edrs3*phi + 3.0*d2edrs2_nr*dphi + 3.0*dedrs_nr*d2phi + zk_nr*d3phi;
+    if(p->nspin == XC_POLARIZED){
+      r->d3edrs2z = r->d3edrs2z*phi + 2.0*d2edrsz_nr*dphi + dedz_nr*d2phi;
+      r->d3edrsz2 = r->d3edrsz2*phi + d2edz2_nr*dphi;
+      r->d3edz3   = r->d3edz3*phi;
+    }
   }
 
 }

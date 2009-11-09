@@ -267,7 +267,7 @@ void XC_FC_FUNC(f90_mgga, F90_MGGA)
       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau,
       FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
 {
-  XC(mgga)((XC(mgga_type) *)(*p), rho, sigma, lapl_rho, tau, 
+  XC(mgga)((XC(func_type) *)(*p), rho, sigma, lapl_rho, tau, 
 	   zk, vrho, vsigma, vlapl_rho, vtau,
 	   v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
 }
@@ -276,35 +276,35 @@ void XC_FC_FUNC(f90_mgga_exc, F90_MGGA_EXC)
      (void **p, FLOAT *rho, FLOAT *sigma, FLOAT *lapl_rho, FLOAT *tau, 
       FLOAT *zk)
 {
-  XC(mgga_exc)((XC(mgga_type) *)(*p), rho, sigma, lapl_rho, tau, zk);
+  XC(mgga_exc)((XC(func_type) *)(*p), rho, sigma, lapl_rho, tau, zk);
 }
 
 void XC_FC_FUNC(f90_mgga_exc_vxc, F90_MGGA_EXC_VXC)
   (void **p, FLOAT *rho, FLOAT *sigma, FLOAT *lapl_rho, FLOAT *tau,
    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau)
 {
-  XC(mgga_exc_vxc)((XC(mgga_type) *)(*p), rho, sigma, lapl_rho, tau, zk, vrho, vsigma, vlapl_rho, vtau);
+  XC(mgga_exc_vxc)((XC(func_type) *)(*p), rho, sigma, lapl_rho, tau, zk, vrho, vsigma, vlapl_rho, vtau);
 }
 
 void XC_FC_FUNC(f90_mgga_vxc, F90_MGGA_VXC)
   (void **p, FLOAT *rho, FLOAT *sigma, FLOAT *lapl_rho, FLOAT *tau,
    FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau)
 {
-  XC(mgga_vxc)((XC(mgga_type) *)(*p), rho, sigma, lapl_rho, tau, vrho, vsigma, vlapl_rho, vtau);
+  XC(mgga_vxc)((XC(func_type) *)(*p), rho, sigma, lapl_rho, tau, vrho, vsigma, vlapl_rho, vtau);
 }
 
 void XC_FC_FUNC(f90_mgga_fxc, F90_MGGA_FXC)
   (void **p, FLOAT *rho, FLOAT *sigma, FLOAT *lapl_rho, FLOAT *tau,
    FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
 {
-  XC(mgga_fxc)((XC(mgga_type) *)(*p), rho, sigma, lapl_rho, tau, v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
+  XC(mgga_fxc)((XC(func_type) *)(*p), rho, sigma, lapl_rho, tau, v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
 }
 
 /* parameter of TP09 */
 void XC_FC_FUNC(f90_mgga_x_tb09_set_par, F90_MGGA_X_TB09_SET_PAR)
   (void **p, FLOAT *cc)
 {
-  XC(mgga_x_tb09_set_params)((XC(mgga_type) *)(*p), *cc);
+  XC(mgga_x_tb09_set_params)((XC(func_type) *)(*p), *cc);
 }
 
 

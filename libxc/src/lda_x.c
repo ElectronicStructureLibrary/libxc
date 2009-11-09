@@ -39,7 +39,7 @@
 /* Relativistic corrections */
 /*  A. K. Rajagopal, J. Phys. C 11, L943 (1978).
     A. H. MacDonald and S. H. Vosko, J. Phys. C 12, 2977 (1979).
-    E. Engel, S. Keller, A. Facco Bonetti, H. Müller, and R. M. Dreizler, Phys. Rev. A 52, 2750 (1995).
+    E. Engel, S. Keller, A. Facco Bonetti, H. Mueller, and R. M. Dreizler, Phys. Rev. A 52, 2750 (1995).
 */
 
 typedef struct{

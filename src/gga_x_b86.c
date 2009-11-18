@@ -41,8 +41,8 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   default:               func = 0; /* original B86 */
   }
 
-  f1    = (1.0 + beta[func]*x*x);
-  f2    = (1.0 + gamma*x*x);
+  f1    = 1.0 + beta[func]*x*x;
+  f2    = 1.0 + gamma*x*x;
   *f    = f1/f2;
   
   if(order < 1) return;

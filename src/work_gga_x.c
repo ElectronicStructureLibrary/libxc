@@ -27,6 +27,10 @@
 #  define HEADER 1
 #endif
 
+#ifndef XC_DIMENSIONS
+#  define XC_DIMENSIONS 3
+#endif
+
 static void 
 work_gga_x(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	   FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
@@ -34,8 +38,14 @@ work_gga_x(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 {
   const XC(gga_type) *p = p_;
 
-  FLOAT sfact, sfact2, dens;
+  FLOAT sfact, sfact2, x_factor_c, dens;
   int is, ip, order;
+
+#if XC_DIMENSIONS == 2
+  x_factor_c = X_FACTOR_2D_C;
+#else /* three dimensions */
+  x_factor_c = X_FACTOR_C;
+#endif
 
   sfact = (p->nspin == XC_POLARIZED) ? 1.0 : 2.0;
   sfact2 = sfact*sfact;
@@ -51,7 +61,7 @@ work_gga_x(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
     if(dens < MIN_DENS) goto end_ip_loop;
 
     for(is=0; is<p->nspin; is++){
-      FLOAT gdm, ds, rho13;
+      FLOAT gdm, ds, rho1D;
       FLOAT x, f, dfdx, ldfdx, d2fdx2, lvsigma, lv2sigma2, lvsigmax;
       int js = (is == 0) ? 0 : 2;
       int ks = (is == 0) ? 0 : 5;
@@ -60,8 +70,8 @@ work_gga_x(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 
       gdm   = sqrt(sigma[js])/sfact;      
       ds    = rho[is]/sfact;
-      rho13 = POW(ds, 1.0/3.0);
-      x     = gdm/(ds*rho13);
+      rho1D = POW(ds, 1.0/XC_DIMENSIONS);
+      x     = gdm/(ds*rho1D);
       
       dfdx = ldfdx = d2fdx2 = 0.0;
       lvsigma = lv2sigma2 = lvsigmax = 0.0;
@@ -79,23 +89,24 @@ work_gga_x(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 #endif
 
       if(zk != NULL && (p->info->provides & XC_PROVIDES_EXC))
-	*zk += -sfact*X_FACTOR_C*(ds*rho13)*f;
+	*zk += -sfact*x_factor_c*(ds*rho1D)*f;
       
       if(vrho != NULL && (p->info->provides & XC_PROVIDES_VXC)){
-	vrho[is] += -4.0/3.0*X_FACTOR_C*rho13*(f - dfdx*x);
+	vrho[is] += -(XC_DIMENSIONS + 1.0)/(XC_DIMENSIONS)*x_factor_c*rho1D*(f - dfdx*x);
 	if(gdm>MIN_GRAD)
-	  vsigma[js] = -sfact*X_FACTOR_C*(ds*rho13)*(lvsigma + dfdx*x/(2.0*sigma[js]));
+	  vsigma[js] = -sfact*x_factor_c*(ds*rho1D)*(lvsigma + dfdx*x/(2.0*sigma[js]));
 	else
-	  vsigma[js] = -X_FACTOR_C/(sfact*(ds*rho13))*ldfdx;
+	  vsigma[js] = -x_factor_c/(sfact*(ds*rho1D))*ldfdx;
       }
       
       if(v2rho2 != NULL && (p->info->provides & XC_PROVIDES_FXC)){
-	v2rho2[js] = -4.0/3.0*X_FACTOR_C*rho13/(3.0*ds)*
-	  (f - dfdx*x + 4.0*d2fdx2*x*x)/sfact;
+	v2rho2[js] = -(XC_DIMENSIONS + 1.0)/(XC_DIMENSIONS*XC_DIMENSIONS)*x_factor_c*rho1D/ds*
+	  (f - dfdx*x + (XC_DIMENSIONS + 1.0)*d2fdx2*x*x)/sfact;
 	
 	if(gdm>MIN_GRAD){
-	  v2rhosigma[ks] = -4.0/3.0*X_FACTOR_C*rho13*(lvsigma - lvsigmax*x - d2fdx2*x*x/(2.0*sigma[js]));
-	  v2sigma2  [ks] = -sfact*X_FACTOR_C*(ds*rho13)*
+	  v2rhosigma[ks] = -(XC_DIMENSIONS + 1.0)/(XC_DIMENSIONS)*x_factor_c*rho1D *
+	    (lvsigma - lvsigmax*x - d2fdx2*x*x/(2.0*sigma[js]));
+	  v2sigma2  [ks] = -sfact*x_factor_c*(ds*rho1D)*
 	    (lv2sigma2 + lvsigmax*x/sigma[js] + (d2fdx2*x - dfdx)*x/(4.0*sigma[js]*sigma[js]));
 	}
 	

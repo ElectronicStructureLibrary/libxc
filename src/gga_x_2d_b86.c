@@ -20,34 +20,32 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_GGA_X_2D_B86_MGC      124 /* Becke 86 MGC for 2D systems */
+#define XC_GGA_X_2D_B86          128 /* Becke 86 Xalfa,beta,gamma                      */
 
-static inline void
-func(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+static inline void 
+func(const XC(gga_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
-  static const FLOAT beta=0.003317, gam=0.008323;
+  FLOAT beta=0.002105, gamma=0.000119;
 
-  FLOAT dd, ddp, f1, f2, df1, df2, d2f1, d2f2;
+  FLOAT f1, f2, df1, df2, d2f1, d2f2;
 
-  dd    = 1.0 + gam*x*x;
+  f1    = 1.0 + beta*x*x;
+  f2    = 1.0 + gamma*x*x;
+  *f    = f1/f2;
+  
+  if(order < 1) return;
 
-  f1    = beta/X_FACTOR_C*x*x;
-  f2    = POW(dd, 3.0/4.0);
-  *f    = 1.0 + f1/f2;
-
-  if(order < 1) return; /* nothing else to do */
-
-  df1 = beta/X_FACTOR_C*2.0*x;
-  ddp = gam*2.0*3.0/4.0*f2/dd;
-  df2 = ddp*x;
+  df1   = 2.0*beta*x;
+  df2   = 2.0*gamma*x;
 
   *dfdx  = (df1*f2 - f1*df2)/(f2*f2);
-  *ldfdx = beta/X_FACTOR_C;
+  *ldfdx = (beta - gamma);
 
-  if(order < 2) return; /* nothing else to do */
+  if(order < 2) return;
 
-  d2f1 = beta/X_FACTOR_C*2.0;
-  d2f2 = ddp*(1.0 - 2.0/4.0*gam*x*x/dd);
+  d2f1 = 2.0*beta;
+  d2f2 = 2.0*gamma;
 
   *d2fdx2 = (2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
 }
@@ -55,14 +53,15 @@ func(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ld
 #define XC_DIMENSIONS 2
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_2d_b86_mgc) = {
-  XC_GGA_X_2D_B86_MGC,
+const XC(func_info_type) XC(func_info_gga_x_2d_b86) = {
+  XC_GGA_X_2D_B86,
   XC_EXCHANGE,
-  "Becke 86 with modified gradient correction for 2D",
+  "Becke 86 in 2D",
   XC_FAMILY_GGA,
-  "S Pittalis, E Rasanen, JG Vilhena, and MAL Marques, 79, 012503 (2009)\n"
-  "AD Becke, J. Chem. Phys 85, 7184 (1986)",
+  "G Vilhena and MAL Marques, unpublished\n"
+  "AD Becke, J. Chem. Phys 84, 4524 (1986)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   NULL, NULL, NULL,
   work_gga_x
 };
+

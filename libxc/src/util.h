@@ -58,6 +58,7 @@ void rdqagse(integr_fn f, void *ex, FLOAT *a, FLOAT *b,
 #define X_FACTOR_C     0.9305257363491000250020102180716672510262     /* 3/8*cur(3/pi)*4^(2/3) */
 #define X_FACTOR_2D_C  1.504505556127350098528211870828726895584      /* 8/(3*sqrt(pi))        */
 #define X2S            0.1282782438530421943003109254455883701296     /* 1/(2*(6*pi^2)^(1/3))  */
+#define X2S_2D         0.141047395886939071                           /* 1/(2*(4*pi)^(1/2)     */
 #define FZETAFACTOR    0.519842099789746380
 #define FZETA(x)       ((pow(1.0 + (x),  4.0/3.0) + pow(1.0 - (x),  4.0/3.0) - 2.0)/FZETAFACTOR)
 #define DFZETA(x)      ((pow(1.0 + (x),  1.0/3.0) - pow(1.0 - (x),  1.0/3.0))*(4.0/3.0)/FZETAFACTOR)

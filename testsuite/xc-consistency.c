@@ -238,12 +238,12 @@ void print_error(char *type, char *what, double diff, xc_func_type *func, double
     first_derivative(func, p, v_fd, 0);
 
     if(strcmp(what, "vrho") == 0){
-      printf("  analit (% 8.2e, % 8.2e)\n", v_an[0], v_an[1]);
+      printf("  analyt (% 8.2e, % 8.2e)\n", v_an[0], v_an[1]);
       printf("      fd (% 8.2e, % 8.2e)\n", v_fd[0], v_fd[1]);
     }
 
     if(strcmp(what, "vsig") == 0){
-      printf("  analit (% 8.2e, % 8.2e, % 8.2e)\n", v_an[2], v_an[3], v_an[4]);
+      printf("  analyt (% 8.2e, % 8.2e, % 8.2e)\n", v_an[2], v_an[3], v_an[4]);
       printf("      fd (% 8.2e, % 8.2e, % 8.2e)\n", v_fd[2], v_fd[3], v_fd[4]);
     }
   }
@@ -260,19 +260,19 @@ void print_error(char *type, char *what, double diff, xc_func_type *func, double
     second_derivatives(func, p, f_fd);
 
     if(strcmp(what, "v2rho2") == 0){
-      printf("  analit (% 8.2e, % 8.2e, % 8.2e)\n", f_an[0][0], f_an[0][1], f_an[1][1]);
+      printf("  analyt (% 8.2e, % 8.2e, % 8.2e)\n", f_an[0][0], f_an[0][1], f_an[1][1]);
       printf("      fd (% 8.2e, % 8.2e, % 8.2e)\n", f_fd[0][0], f_fd[0][1], f_fd[1][1]);
     }
 
     if(strcmp(what, "v2rhosig") == 0){
-      printf("  analit (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n", 
+      printf("  analyt (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n", 
 	     f_an[2][0], f_an[3][0], f_an[4][0], f_an[2][1], f_an[3][1], f_an[4][1]);
       printf("      fd (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n", 
 	     f_fd[2][0], f_fd[3][0], f_fd[4][0], f_fd[2][1], f_fd[3][1], f_fd[4][1]);
     }
 
     if(strcmp(what, "v2sig2") == 0){
-      printf("  analit (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n", 
+      printf("  analyt (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n", 
 	     f_an[2][2], f_an[3][2], f_an[4][2], f_an[3][3], f_an[4][3], f_an[4][4]);
       printf("      fd (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n", 
 	     f_fd[2][2], f_fd[3][2], f_fd[4][2], f_fd[3][3], f_fd[4][3], f_fd[4][4]);
@@ -316,7 +316,7 @@ void test_functional(int functional)
 
     get_val(xc_trial_points[i], val);
 
-    /* first, get the analitic gradients */
+    /* first, get the analytic gradients */
     get_vxc(&func, val, &e, v_an);
 
     /* now get the numerical gradients */

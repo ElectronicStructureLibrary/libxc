@@ -26,8 +26,8 @@
 #define XC_GGA_XC_LB 160 /* van Leeuwen & Baerends */
 
 typedef struct{
-  int    modified;  /* shall we used a modified version */
-  FLOAT threshold; /* when to start using the analitic form */
+  int    modified; /* shall we use a modified version */
+  FLOAT threshold; /* when to start using the analytic form */
   FLOAT ip;        /* ionization potential of the species */
   FLOAT qtot;      /* total charge in the region */
 

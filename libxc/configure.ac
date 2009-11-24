@@ -28,6 +28,7 @@ AC_PREFIX_DEFAULT([/opt/etsf])
 
 # Checks for programs.
 AC_PROG_CC
+AC_PROG_CC_C99
 AC_PROG_RANLIB
 AC_LANG_PREPROC
 AM_PROG_CC_C_O

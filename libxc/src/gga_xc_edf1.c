@@ -32,8 +32,8 @@ gga_xc_edf1_init(void *p_)
 
   gga_init_mix(p, 4, funcs_id, funcs_coef);  
 
-  XC(gga_x_b88_set_params)(p->func_aux[1], 0.0035);
-  XC(gga_x_b88_set_params)(p->func_aux[2], 0.0042);
+  XC(gga_x_b88_set_params)(p->func_aux[1], 0.0035, 6.0);
+  XC(gga_x_b88_set_params)(p->func_aux[2], 0.0042, 6.0);
   XC(gga_c_lyp_set_params)(p->func_aux[3], 0.055, 0.158, 0.25, 0.3505);
 }
 

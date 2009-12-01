@@ -22,13 +22,15 @@
 #include "util.h"
 
 #define XC_GGA_X_B88          106 /* Becke 88 */
+#define XC_GGA_X_OPTB88_VDW   139 /* Becke 88 reoptimized to be used with vdW functional of Dion et al*/
 
 typedef struct{
-  FLOAT beta;
+  FLOAT beta, gamma;
 } gga_x_b88_params;
 
 
-static void gga_x_b88_init(void *p_)
+static void 
+gga_x_b88_init(void *p_)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
   gga_x_b88_params *params;
@@ -39,11 +41,21 @@ static void gga_x_b88_init(void *p_)
   params = (gga_x_b88_params *) (p->params);
 
   /* value of beta in standard Becke 88 functional */
-  XC(gga_x_b88_set_params_)(p, 0.0042);
+  switch(p->info->number){
+  case XC_GGA_X_OPTB88_VDW:
+    p->func = 1; 
+    XC(gga_x_b88_set_params_)(p, 0.00336864, 6.9814);
+    break;
+  default: /* XC_GGA_X_B88 */
+    p->func = 0; 
+    XC(gga_x_b88_set_params_)(p, 0.0042, 6.0);
+    break;
+  }
 }
 
 
-static void gga_x_b88_end(void *p_)
+static void 
+gga_x_b88_end(void *p_)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
@@ -53,21 +65,24 @@ static void gga_x_b88_end(void *p_)
 }
 
 
-void XC(gga_x_b88_set_params)(XC(func_type) *p, FLOAT beta)
+void 
+XC(gga_x_b88_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma)
 {
   assert(p != NULL && p->gga != NULL);
-  XC(gga_x_b88_set_params_)(p->gga, beta);
+  XC(gga_x_b88_set_params_)(p->gga, beta, gamma);
 }
 
 
-void XC(gga_x_b88_set_params_)(XC(gga_type) *p, FLOAT beta)
+void 
+XC(gga_x_b88_set_params_)(XC(gga_type) *p, FLOAT beta, FLOAT gamma)
 {
   gga_x_b88_params *params;
 
   assert(p->params != NULL);
   params = (gga_x_b88_params *) (p->params);
 
-  params->beta = beta;
+  params->beta  = beta;
+  params->gamma = gamma;
 }
 
 
@@ -76,19 +91,20 @@ func(const XC(gga_type) *p, int order, FLOAT x,
      FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   FLOAT f1, f2, df1, df2, d2f1, d2f2;
-  FLOAT beta;
+  FLOAT beta, gamma;
 
   assert(p->params != NULL);
-  beta = ((gga_x_b88_params *) (p->params))->beta;
+  beta  = ((gga_x_b88_params *) (p->params))->beta;
+  gamma = ((gga_x_b88_params *) (p->params))->gamma;
 
   f1 = beta/X_FACTOR_C*x*x;
-  f2 = 1.0 + 6.0*beta*x*asinh(x);
+  f2 = 1.0 + gamma*beta*x*asinh(x);
   *f = 1.0 + f1/f2;
  
   if(order < 1) return;
 
   df1 = 2.0*beta/X_FACTOR_C*x;
-  df2 = 6.0*beta*(asinh(x) + x/sqrt(1.0 + x*x));
+  df2 = gamma*beta*(asinh(x) + x/sqrt(1.0 + x*x));
 
   *dfdx = (df1*f2 - f1*df2)/(f2*f2);
   *ldfdx= beta/X_FACTOR_C;
@@ -96,7 +112,7 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   if(order < 2) return;
 
   d2f1 = 2.0*beta/X_FACTOR_C;
-  d2f2 = 6.0*beta*(2.0 + x*x)/pow(1.0 + x*x, 3.0/2.0);
+  d2f2 = gamma*beta*(2.0 + x*x)/pow(1.0 + x*x, 3.0/2.0);
 
   *d2fdx2 = (2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
 }
@@ -111,6 +127,19 @@ const XC(func_info_type) XC(func_info_gga_x_b88) = {
   "AD Becke, Phys. Rev. A 38, 3098 (1988)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   gga_x_b88_init, 
+  gga_x_b88_end, 
+  NULL,
+  work_gga_x
+};
+
+const XC(func_info_type) XC(func_info_gga_x_optb88_vdw) = {
+  XC_GGA_X_OPTB88_VDW,
+  XC_EXCHANGE,
+  "opt-Becke 88 for vdW",
+  XC_FAMILY_GGA,
+  "J Klimes, DR Bowler, and A Michaelides, arxiv:0910.0438",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  gga_x_b88_init,
   gga_x_b88_end, 
   NULL,
   work_gga_x

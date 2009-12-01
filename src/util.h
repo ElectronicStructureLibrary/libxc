@@ -123,7 +123,7 @@ void XC(gga_x_pbe_enhance)(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, 
 void gga_init_mix(XC(gga_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix_coef);
 
 /* internal versions of set_params routines */
-void XC(gga_x_b88_set_params_)(XC(gga_type) *p, FLOAT beta);
+void XC(gga_x_b88_set_params_)(XC(gga_type) *p, FLOAT beta, FLOAT gamma);
 void XC(gga_c_lyp_set_params_)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
 void XC(gga_lb_set_params_)   (XC(gga_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
 

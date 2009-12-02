@@ -114,16 +114,16 @@ XC(lda)(const XC(func_type) *p, int np, const FLOAT *rho,
 
   /* initialize output */
   if(zk != NULL)
-    memset(zk,     0.0, np*sizeof(FLOAT)*func->n_zk);
+    memset(zk,     0, np*sizeof(FLOAT)*func->n_zk);
 
   if(vrho != NULL)
-    memset(vrho,   0.0, np*sizeof(FLOAT)*func->n_vrho);
+    memset(vrho,   0, np*sizeof(FLOAT)*func->n_vrho);
 
   if(v2rho2 != NULL)
-    memset(v2rho2, 0.0, np*sizeof(FLOAT)*func->n_v2rho2);
+    memset(v2rho2, 0, np*sizeof(FLOAT)*func->n_v2rho2);
 
   if(v3rho3 != NULL)
-    memset(v3rho3, 0.0, np*sizeof(FLOAT)*func->n_v3rho3);
+    memset(v3rho3, 0, np*sizeof(FLOAT)*func->n_v3rho3);
 
 
   assert(func->info!=NULL && func->info->lda!=NULL);

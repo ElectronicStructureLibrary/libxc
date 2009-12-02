@@ -28,6 +28,8 @@ XC(perdew_params)(const XC(gga_type) *gga_p, const FLOAT *rho, const FLOAT *sigm
   pt->nspin = gga_p->nspin;
   XC(rho2dzeta)(pt->nspin, rho, &(pt->dens), &(pt->zeta));
 
+  if(pt->dens < MIN_DENS) return;
+
   switch (order){
   case 0:
     XC(lda_exc) (gga_p->func_aux[0], 1, rho, &(pt->ecunif));

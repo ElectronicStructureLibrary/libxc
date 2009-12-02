@@ -193,7 +193,8 @@ my_gga_c_pw91(const void *p_, const FLOAT *rho, const FLOAT *sigma,
   XC(perdew_t) pt;
 
   XC(perdew_params)(p, rho, sigma, 1, &pt);
-  
+  if(pt.dens < MIN_DENS) return;
+
   ec_eq9(pt.ecunif, pt.rs, pt.t, pt.phi, pt.ks, pt.kf, e,
 	 &pt.decunif, &pt.drs, &pt.dt, &pt.dphi, &pt.dks, &pt.dkf);
 

@@ -44,7 +44,7 @@ gga_x_b88_init(void *p_)
   switch(p->info->number){
   case XC_GGA_X_OPTB88_VDW:
     p->func = 1; 
-    XC(gga_x_b88_set_params_)(p, 0.00336864, 6.9814);
+    XC(gga_x_b88_set_params_)(p, 0.00336865923905927, 6.98131700797731);
     break;
   default: /* XC_GGA_X_B88 */
     p->func = 0; 

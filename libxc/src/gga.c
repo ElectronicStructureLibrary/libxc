@@ -151,21 +151,21 @@ void XC(gga)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigm
 
   /* initialize output to zero */
   if(zk != NULL)
-    memset(zk, 0.0, func->n_zk*np*sizeof(FLOAT));
+    memset(zk, 0, func->n_zk*np*sizeof(FLOAT));
 
   if(vrho != NULL){
     assert(vsigma != NULL);
     
-    memset(vrho,   0.0, func->n_vrho  *np*sizeof(FLOAT));
-    memset(vsigma, 0.0, func->n_vsigma*np*sizeof(FLOAT));
+    memset(vrho,   0, func->n_vrho  *np*sizeof(FLOAT));
+    memset(vsigma, 0, func->n_vsigma*np*sizeof(FLOAT));
   }
 
   if(v2rho2 != NULL){
     assert(v2rhosigma!=NULL && v2sigma2!=NULL);
 
-    memset(v2rho2,     0.0, func->n_v2rho2    *np*sizeof(FLOAT));
-    memset(v2rhosigma, 0.0, func->n_v2rhosigma*np*sizeof(FLOAT));
-    memset(v2sigma2,   0.0, func->n_v2sigma2  *np*sizeof(FLOAT));
+    memset(v2rho2,     0, func->n_v2rho2    *np*sizeof(FLOAT));
+    memset(v2rhosigma, 0, func->n_v2rhosigma*np*sizeof(FLOAT));
+    memset(v2sigma2,   0, func->n_v2sigma2  *np*sizeof(FLOAT));
   }
 
   /* call functional */

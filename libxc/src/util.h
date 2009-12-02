@@ -67,9 +67,9 @@ void rdqagse(integr_fn f, void *ex, FLOAT *a, FLOAT *b,
 #define D3FZETA(x)     (-(8.0/27.0)/FZETAFACTOR)* \
   (ABS(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -5.0/3.0) - pow(1.0 - (x), -5.0/3.0)))
 
-#define MIN_DENS             1.0e-20
-#define MIN_GRAD             1.0e-20
-#define MIN_TAU              1.0e-20
+#define MIN_DENS             5.0e-13
+#define MIN_GRAD             5.0e-13
+#define MIN_TAU              5.0e-13
 
 #include "xc.h"
 

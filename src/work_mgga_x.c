@@ -49,7 +49,7 @@ work_mgga_x(const void *p_,
     FLOAT x, t, u, f, lnr2, ltau, vrho0, dfdx, dfdt, dfdu, d2fdx2, d2fdxt, d2fdt2;
     int js = (is == 0) ? 0 : 2;
 
-    if(rho[is] < MIN_DENS) continue;
+    if(tau[is] < MIN_TAU) continue;
 
     dens  += rho[is];
     sigmas = max(MIN_GRAD*MIN_GRAD, sigma[js]/sfact2); 
@@ -59,7 +59,7 @@ work_mgga_x(const void *p_,
     rho13 = POW(ds, 1.0/3.0);
     x     = gdm/(ds*rho13);
     
-    ltau  = max(MIN_TAU, tau[is]/sfact);
+    ltau  = tau[is]/sfact;
     t     = ltau/(ds*rho13*rho13);  /* tau/rho^(5/3) */
 
     lnr2  = lapl_rho[is]/sfact;     /* this can be negative */

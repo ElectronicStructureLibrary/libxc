@@ -95,8 +95,6 @@ work_gga_x(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	vrho[is] += -(XC_DIMENSIONS + 1.0)/(XC_DIMENSIONS)*x_factor_c*rho1D*(f - dfdx*x);
 	if(gdm>MIN_GRAD)
 	  vsigma[js] = -sfact*x_factor_c*(ds*rho1D)*(lvsigma + dfdx*x/(2.0*sigma[js]));
-	else
-	  vsigma[js] = -x_factor_c/(sfact*(ds*rho1D))*ldfdx;
       }
       
       if(v2rho2 != NULL && (p->info->provides & XC_PROVIDES_FXC)){

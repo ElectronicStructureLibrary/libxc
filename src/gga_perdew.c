@@ -51,8 +51,7 @@ XC(perdew_params)(const XC(gga_type) *gga_p, const FLOAT *rho, const FLOAT *sigm
 
   /* get gdmt = |nabla n| */
   pt->gdmt = sigma[0];
-  if(pt->nspin == XC_POLARIZED) pt->gdmt += 2.0*sigma[1] + sigma[2];
-  if(pt->gdmt < MIN_GRAD*MIN_GRAD) pt->gdmt = MIN_GRAD*MIN_GRAD;
+  if(pt->nspin == XC_POLARIZED) pt->gdmt += max(2.0*sigma[1] + sigma[2], 0.0);
   pt->gdmt = sqrt(pt->gdmt);
 
   pt->t = pt->gdmt/(2.0 * pt->phi * pt->ks * pt->dens);
@@ -136,13 +135,15 @@ XC(perdew_potentials)(XC(perdew_t) *pt, const FLOAT *rho, FLOAT e_gga, int order
       }
     }
 
-  dtdsig  = pt->t/(2.0*pt->gdmt*pt->gdmt);
+  if(pt->gdmt > MIN_GRAD){
+    dtdsig  = pt->t/(2.0*pt->gdmt*pt->gdmt);
 
-  if(vrho != NULL){ /* calculate now vsigma */
-    vsigma[0] = pt->dens*pt->dt*dtdsig;
-    if(pt->nspin == XC_POLARIZED){
-      vsigma[1] = 2.0*vsigma[0];
-      vsigma[2] =     vsigma[0];
+    if(vrho != NULL){ /* calculate now vsigma */
+      vsigma[0] = pt->dens*pt->dt*dtdsig;
+      if(pt->nspin == XC_POLARIZED){
+	vsigma[1] = 2.0*vsigma[0];
+	vsigma[2] =     vsigma[0];
+      }
     }
   }
 
@@ -258,34 +259,36 @@ XC(perdew_potentials)(XC(perdew_t) *pt, const FLOAT *rho, FLOAT e_gga, int order
   }
 
   /* now we handle v2rhosigma */
-  for(is=0; is<pt->nspin; is++){
-    int j;
-    ks = (is == 0) ? 0 : 5;
+  if(pt->gdmt > MIN_GRAD){
+    for(is=0; is<pt->nspin; is++){
+      int j;
+      ks = (is == 0) ? 0 : 5;
+      
+      v2rhosigma[ks] = dFdalpha[4]*dtdsig;
 
-    v2rhosigma[ks] = dFdalpha[4]*dtdsig;
+      for(j=0; j<6; j++)
+	v2rhosigma[ks] += pt->dens * d2Fdalpha2[4][j]*dalphadd[j][is]*dtdsig;
 
-    for(j=0; j<6; j++)
-      v2rhosigma[ks] += pt->dens * d2Fdalpha2[4][j]*dalphadd[j][is]*dtdsig;
+      v2rhosigma[ks] += pt->dens * dFdalpha[4]*dalphadd[4][is]/(2.0*pt->gdmt*pt->gdmt);
+    }
 
-    v2rhosigma[ks] += pt->dens * dFdalpha[4]*dalphadd[4][is]/(2.0*pt->gdmt*pt->gdmt);
-  }
+    if(pt->nspin == XC_POLARIZED){
+      v2rhosigma[1] = 2.0*v2rhosigma[0];
+      v2rhosigma[2] =     v2rhosigma[0];
+      v2rhosigma[3] =     v2rhosigma[5];
+      v2rhosigma[4] = 2.0*v2rhosigma[5];
+    }
 
-  if(pt->nspin == XC_POLARIZED){
-    v2rhosigma[1] = 2.0*v2rhosigma[0];
-    v2rhosigma[2] =     v2rhosigma[0];
-    v2rhosigma[3] =     v2rhosigma[5];
-    v2rhosigma[4] = 2.0*v2rhosigma[5];
-  }
-
-  /* now wwe take care of v2sigma2 */
-  d2tdsig2 = -dtdsig/(2.0*pt->gdmt*pt->gdmt);
-  v2sigma2[0] = pt->dens*(pt->d2t2*dtdsig*dtdsig + pt->dt*d2tdsig2);
-  if(pt->nspin == XC_POLARIZED){
-    v2sigma2[1] = 2.0*v2sigma2[0]; /* aa_ab */
-    v2sigma2[2] =     v2sigma2[0]; /* aa_bb */
-    v2sigma2[3] = 4.0*v2sigma2[0]; /* ab_ab */
-    v2sigma2[4] = 2.0*v2sigma2[0]; /* ab_bb */
-    v2sigma2[5] =     v2sigma2[0]; /* bb_bb */
+    /* now wwe take care of v2sigma2 */
+    d2tdsig2 = -dtdsig/(2.0*pt->gdmt*pt->gdmt);
+    v2sigma2[0] = pt->dens*(pt->d2t2*dtdsig*dtdsig + pt->dt*d2tdsig2);
+    if(pt->nspin == XC_POLARIZED){
+      v2sigma2[1] = 2.0*v2sigma2[0]; /* aa_ab */
+      v2sigma2[2] =     v2sigma2[0]; /* aa_bb */
+      v2sigma2[3] = 4.0*v2sigma2[0]; /* ab_ab */
+      v2sigma2[4] = 2.0*v2sigma2[0]; /* ab_bb */
+      v2sigma2[5] =     v2sigma2[0]; /* bb_bb */
+    }
   }
   
 }

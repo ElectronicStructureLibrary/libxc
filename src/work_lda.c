@@ -64,10 +64,8 @@ work_lda(const void *p_, int np, const FLOAT *rho,
 
     func(p, &r);
 
-    if(zk != NULL && (p->info->provides & XC_PROVIDES_EXC)){
+    if(zk != NULL && (p->info->provides & XC_PROVIDES_EXC))
       *zk = r.zk;
-      zk += p->n_zk;
-    }
 
     if(r.order < 1) goto end_ip_loop;
 
@@ -80,8 +78,6 @@ work_lda(const void *p_, int np, const FLOAT *rho,
 	vrho[1] = vrho[0] - (r.zeta + 1.0)*r.dedz;
 	vrho[0] = vrho[0] - (r.zeta - 1.0)*r.dedz;
       }
-
-      vrho += p->n_vrho;
     }
   
     if(r.order < 2) goto end_ip_loop;
@@ -99,8 +95,6 @@ work_lda(const void *p_, int np, const FLOAT *rho,
 	    + (r.zeta + sign[is][0])*(r.zeta + sign[is][1])*r.d2edz2/dens;
 	}
       }
-
-      v2rho2 += p->n_v2rho2;
     }
     
     if(r.order < 3) goto end_ip_loop;
@@ -128,11 +122,22 @@ work_lda(const void *p_, int np, const FLOAT *rho,
 	  v3rho3[is] += -ff*(r.zeta + sign[is][2])/dens;
 	}
       }
-
-      v3rho3 += p->n_v3rho3;
     }
 
   end_ip_loop:
     rho += p->n_rho;
+
+    if(zk != NULL)
+      zk += p->n_zk;
+    
+    if(vrho != NULL)
+      vrho += p->n_vrho;
+
+    if(v2rho2 != NULL)
+      v2rho2 += p->n_v2rho2;
+
+    if(v3rho3 != NULL)
+      v3rho3 += p->n_v3rho3;
+
   } /* for(ip) */
 }

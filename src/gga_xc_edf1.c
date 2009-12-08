@@ -21,7 +21,8 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_GGA_XC_EDF1 165 /* Empirical functionals from Adamson, Gill, and Pople */
+#define XC_GGA_XC_EDF1        165 /* Empirical functionals from Adamson, Gill, and Pople */
+#define XC_GGA_X_OPTPBE_VDW   141 /* PBE reparametrization for vdW */
 
 static void
 gga_xc_edf1_init(void *p_)
@@ -45,5 +46,30 @@ const XC(func_info_type) XC(func_info_gga_xc_edf1) = {
   "RD Adamson, PMW Gill, and JA Pople, Chem. Phys. Lett. 284 6 (1998)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC,
   gga_xc_edf1_init, 
+  NULL, NULL, NULL
+};
+
+
+static void
+gga_x_optpbe_vdw_init(void *p_)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_X_RPBE};
+  static FLOAT funcs_coef[2] = {1.0 - 0.054732, 0.054732};
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+
+  gga_init_mix(p, 2, funcs_id, funcs_coef);  
+
+  XC(gga_x_pbe_set_params) (p->func_aux[0], 1.04804, 0.175519);
+  XC(gga_x_rpbe_set_params)(p->func_aux[1], 1.04804, 0.175519);
+}
+
+const XC(func_info_type) XC(func_info_gga_x_optpbe_vdw) = {
+  XC_GGA_X_OPTPBE_VDW,
+  XC_EXCHANGE,
+  "Reparametrized PBE for vdW",
+  XC_FAMILY_GGA,
+  "J Klimes, DR Bowler, and A Michaelides, arxiv:0910.0438",
+  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  gga_x_optpbe_vdw_init, 
   NULL, NULL, NULL
 };

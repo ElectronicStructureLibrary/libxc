@@ -17,20 +17,61 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 #include "util.h"
 
 #define XC_GGA_X_RPBE  117 /* Hammer, Hansen & Norskov (PBE-like) */
+
+
+typedef struct{
+  FLOAT kappa, mu;
+} gga_x_rpbe_params;
+
+
+static void 
+gga_x_rpbe_init(void *p_)
+{
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+
+  assert(p->params == NULL);
+  p->params = malloc(sizeof(gga_x_rpbe_params));
+
+  XC(gga_x_rpbe_set_params_)(p, 0.8040, 0.00361218645365094697);
+}
+
+
+void 
+XC(gga_x_rpbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu)
+{
+  assert(p != NULL && p->gga != NULL);
+  XC(gga_x_rpbe_set_params_)(p->gga, kappa, mu);
+}
+
+
+void 
+XC(gga_x_rpbe_set_params_)(XC(gga_type) *p, FLOAT kappa, FLOAT mu)
+{
+  gga_x_rpbe_params *params;
+
+  assert(p->params != NULL);
+  params = (gga_x_rpbe_params *) (p->params);
+
+  params->kappa = kappa;
+  params->mu    = mu;
+}
+
 
 /* RPBE: see PBE for more details */
 static inline void 
 func(const XC(gga_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
-  static const FLOAT kappa = 0.8040;
-  static const FLOAT mu = 0.00361218645365094697;
+  FLOAT kappa, mu, f0, df0, d2f0;
 
-  FLOAT f0, df0, d2f0;
+  assert(p->params != NULL);
+  kappa = ((gga_x_rpbe_params *) (p->params))->kappa;
+  mu    = ((gga_x_rpbe_params *) (p->params))->mu;
 
   f0 = exp(-mu*x*x/kappa);
   *f = 1.0 + kappa*(1.0 - f0);
@@ -48,6 +89,7 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   *d2fdx2 = -kappa*d2f0;
 }
 
+
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_rpbe) = {
@@ -57,6 +99,7 @@ const XC(func_info_type) XC(func_info_gga_x_rpbe) = {
   XC_FAMILY_GGA,
   "B Hammer, LB Hansen and JK Nørskov, Phys. Rev. B 59, 7413 (1999)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
-  NULL, NULL, NULL,
+  gga_x_rpbe_init, 
+  NULL, NULL,
   work_gga_x
 };

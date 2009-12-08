@@ -61,7 +61,7 @@ XC(mix_func)(const XC(func_type) *dest_func, int n_func_aux, XC(func_type) **fun
   }
 
   if(v2rho2 != NULL){
-    v2rho2 = (FLOAT *) malloc(sizeof(FLOAT)*n_v2rho2);
+    v2rho2_ = (FLOAT *) malloc(sizeof(FLOAT)*n_v2rho2);
     if(dest_func->info->family >  XC_FAMILY_LDA){
       v2rhosigma_ = (FLOAT *) malloc(sizeof(FLOAT)*n_v2rhosigma);
       v2sigma2_   = (FLOAT *) malloc(sizeof(FLOAT)*n_v2sigma2);

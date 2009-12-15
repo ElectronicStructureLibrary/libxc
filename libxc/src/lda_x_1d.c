@@ -40,15 +40,6 @@ lda_x_1d_init(void *p_)
   XC(lda_x_1d_set_params_)(p, 1, 1.0);
 }
 
-static void 
-lda_x_1d_end(void *p_)
-{
-  XC(lda_type) *p = (XC(lda_type) *)p_;
-
-  assert(p->params != NULL);
-  free(p->params);
-  p->params = NULL;
-}
 
 void 
 XC(lda_x_1d_set_params)(XC(func_type) *p, int interaction, FLOAT bb)
@@ -56,6 +47,7 @@ XC(lda_x_1d_set_params)(XC(func_type) *p, int interaction, FLOAT bb)
   assert(p != NULL && p->lda != NULL);
   XC(lda_x_1d_set_params_)(p->lda, interaction, bb);
 }
+
 
 void 
 XC(lda_x_1d_set_params_)(XC(lda_type) *p, int interaction, FLOAT bb)
@@ -128,7 +120,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
     r->zk -= (1.0 + spin_sign[is]*r->zeta) *
       (int1[is] - int2[is]/R);
   }
-  r->zk *= spin_fact[p->nspin]/(4.0*M_PI*bb);
+  r->zk *= spin_fact[p->nspin-1]/(4.0*M_PI*bb);
 
   if(r->order < 1) return;
   
@@ -140,8 +132,8 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
     r->dedrs +=               int2[is];
     r->dedz  -= spin_sign[is]*int1[is];
   }
-  r->dedrs *= spin_fact[p->nspin]/(2.0*M_PI*M_PI*bb*bb);
-  r->dedz  *= spin_fact[p->nspin]/(4.0*M_PI*bb);
+  r->dedrs *= spin_fact[p->nspin-1]/(2.0*M_PI*M_PI*bb*bb);
+  r->dedz  *= spin_fact[p->nspin-1]/(4.0*M_PI*bb);
 
   if(r->order < 2) return;
 
@@ -158,9 +150,9 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
     r->d2edrsz += spin_sign[is]*aux*ft;
     r->d2edz2  -= ft;
   }
-  r->d2edrs2 *= spin_fact[p->nspin]/(8.0*r->rs[2]*r->rs[1]);
-  r->d2edrsz *= spin_fact[p->nspin]/(8.0*r->rs[2]);
-  r->d2edz2  *= spin_fact[p->nspin]/(8.0*r->rs[1]);
+  r->d2edrs2 *= spin_fact[p->nspin-1]/(8.0*r->rs[2]*r->rs[1]);
+  r->d2edrsz *= spin_fact[p->nspin-1]/(8.0*r->rs[2]);
+  r->d2edz2  *= spin_fact[p->nspin-1]/(8.0*r->rs[1]);
 
   if(r->order < 3) return;
 
@@ -178,6 +170,6 @@ const XC(func_info_type) XC(func_info_lda_x_1d) = {
   "Unpublished",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   lda_x_1d_init,    /* init */
-  lda_x_1d_end,     /* end  */
+  NULL,             /* end  */
   work_lda,         /* lda  */
 };

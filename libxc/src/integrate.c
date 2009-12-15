@@ -57,6 +57,12 @@ FLOAT integrate(integr_fn func, void *ex, FLOAT a, FLOAT b)
   rdqagse(func, ex, &a, &b, &epsabs, &epsrel, &limit, &result, &abserr, &neval, &ierr,
 	    alist, blist, rlist, elist, iord, &last);
 
+  free(alist);
+  free(blist);
+  free(rlist);
+  free(elist);
+  free(iord);
+
   return result;
 }
 

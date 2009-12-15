@@ -33,12 +33,9 @@ static void
 gga_x_b88_init(void *p_)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
-  gga_x_b88_params *params;
 
   assert(p->params == NULL);
-
   p->params = malloc(sizeof(gga_x_b88_params));
-  params = (gga_x_b88_params *) (p->params);
 
   /* value of beta in standard Becke 88 functional */
   switch(p->info->number){

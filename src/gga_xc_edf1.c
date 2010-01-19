@@ -68,7 +68,7 @@ const XC(func_info_type) XC(func_info_gga_x_optpbe_vdw) = {
   XC_EXCHANGE,
   "Reparametrized PBE for vdW",
   XC_FAMILY_GGA,
-  "J Klimes, DR Bowler, and A Michaelides, arxiv:0910.0438",
+  "J Klimes, DR Bowler, and A Michaelides, J. Phys.: Condens. Matter 22, 022201 (2010)",
   XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
   gga_x_optpbe_vdw_init, 
   NULL, NULL, NULL

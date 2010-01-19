@@ -189,16 +189,20 @@ my_gga_c_pw91(const void *p_, const FLOAT *rho, const FLOAT *sigma,
 	   FLOAT *e, FLOAT *vrho, FLOAT *vsigma,
 	   FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
+  int order;
   XC(gga_type) *p = (XC(gga_type) *)p_;
   XC(perdew_t) pt;
 
-  XC(perdew_params)(p, rho, sigma, 1, &pt);
+  order = 0;
+  if(vrho   != NULL) order = 1;
+
+  XC(perdew_params)(p, rho, sigma, order, &pt);
   if(pt.dens < MIN_DENS) return;
 
   ec_eq9(pt.ecunif, pt.rs, pt.t, pt.phi, pt.ks, pt.kf, e,
 	 &pt.decunif, &pt.drs, &pt.dt, &pt.dphi, &pt.dks, &pt.dkf);
 
-  XC(perdew_potentials)(&pt, rho, *e, 1, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
+  XC(perdew_potentials)(&pt, rho, *e, order, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
 }
 
 /* Warning: this is a workaround to support blocks while waiting for the next interface */
@@ -235,7 +239,7 @@ gga_c_pw91(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 
 const XC(func_info_type) XC(func_info_gga_c_pw91) = {
   XC_GGA_C_PW91,
-  XC_EXCHANGE,
+  XC_CORRELATION,
   "Perdew & Wang 91",
   XC_FAMILY_GGA,
   "JP Perdew, JA Chevary, SH Vosko, KA Jackson, MR Pederson, DJ Singh, and C Fiolhais, Phys. Rev. B 46, 6671 (1992)\n"

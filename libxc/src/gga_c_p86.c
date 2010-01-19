@@ -124,13 +124,15 @@ my_gga_c_p86(const void *p_, const FLOAT *rho, const FLOAT *sigma,
 
     *e = ecunif + f3/(DD*dens);
 
-    vrho[0]   = vcunif[0] + (df3 - (f3/DD)*dDDdzeta*dzdd[0])/DD;
-    vsigma[0] = df3dgdmt/(DD*2.0*gdmt);
+    if(vrho != NULL){
+      vrho[0]   = vcunif[0] + (df3 - (f3/DD)*dDDdzeta*dzdd[0])/DD;
+      vsigma[0] = df3dgdmt/(DD*2.0*gdmt);
 
-    if(p->nspin == XC_POLARIZED){
-      vrho[1]   = vcunif[1] + (df3 - (f3/DD)*dDDdzeta*dzdd[1])/DD;
-      vsigma[1] = 2.0*vsigma[0];
-      vsigma[2] =     vsigma[0];
+      if(p->nspin == XC_POLARIZED){
+	vrho[1]   = vcunif[1] + (df3 - (f3/DD)*dDDdzeta*dzdd[1])/DD;
+	vsigma[1] = 2.0*vsigma[0];
+	vsigma[2] =     vsigma[0];
+      }
     }
   }
 }

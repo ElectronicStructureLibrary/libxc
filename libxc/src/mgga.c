@@ -120,6 +120,7 @@ XC(mgga)(const XC(func_type) *p,
     for(i=0; i<func->nspin; i++){
       vrho[i] = 0.0;
       vtau[i] = 0.0;
+      vlapl_rho[i] = 0.0;
     }
 
     n = (func->nspin == XC_UNPOLARIZED) ? 1 : 3;

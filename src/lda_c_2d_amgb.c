@@ -197,7 +197,7 @@ const XC(func_info_type) XC(func_info_lda_c_2d_amgb) = {
   XC_FAMILY_LDA,
   "C Attacalite et al, Phys. Rev. Lett. 88, 256601 (2002)\n"
   "C Attacalite, PhD thesis",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC | XC_PROVIDES_KXC,
+  XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   lda_c_2d_amgb_init,
   NULL,
   work_lda

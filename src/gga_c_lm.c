@@ -143,7 +143,7 @@ const XC(func_info_type) XC(func_info_gga_c_lm) = {
   "Langreth & Mehl",
   XC_FAMILY_GGA,
   "DC Langreth and MJ Mehl, Phys. Rev. Lett. 47, 446 (1981)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_c_lm_init,
   gga_c_lm_end,
   NULL,            /* this is not an LDA                   */

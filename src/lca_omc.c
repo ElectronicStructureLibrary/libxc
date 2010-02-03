@@ -30,7 +30,7 @@ static XC(func_info_type) func_info_lca_omc = {
   "Orestes, Marcasso & Capelle parametrization",
   XC_FAMILY_LCA,
   "E. Orestes, T. Marcasso, and K. Capelle, Phys. Rev. A 68, 022105 (2003)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC
+  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC
 };
 
 void XC(lca_omc_init)(XC(lca_type) *p)

@@ -244,7 +244,7 @@ const XC(func_info_type) XC(func_info_gga_c_pw91) = {
   XC_FAMILY_GGA,
   "JP Perdew, JA Chevary, SH Vosko, KA Jackson, MR Pederson, DJ Singh, and C Fiolhais, Phys. Rev. B 46, 6671 (1992)\n"
   "JP Perdew, JA Chevary, SH Vosko, KA Jackson, MR Pederson, DJ Singh, and C Fiolhais, Phys. Rev. B 48, 4978(E) (1993)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   gga_c_pw91_init,
   gga_c_pw91_end,
   NULL,            /* this is not an LDA                   */

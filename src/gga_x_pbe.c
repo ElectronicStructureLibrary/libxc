@@ -141,7 +141,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbe) = {
   XC_FAMILY_GGA,
   "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
   "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_x_pbe_init, 
   NULL, NULL,
   work_gga_x
@@ -153,7 +153,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_r) = {
   "Revised PBE from Zhang & Yang",
   XC_FAMILY_GGA,
   "Y Zhang and W Yang, Phys. Rev. Lett 80, 890 (1998)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_x_pbe_init, 
   NULL, NULL,
   work_gga_x
@@ -165,7 +165,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_sol) = {
   "Perdew, Burke & Ernzerhof SOL",
   XC_FAMILY_GGA,
   "JP Perdew, et al, Phys. Rev. Lett. 100, 136406 (2008)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_x_pbe_init, 
   NULL, NULL,
   work_gga_x
@@ -177,7 +177,7 @@ const XC(func_info_type) XC(func_info_gga_x_xpbe) = {
   "Extended PBE by Xu & Goddard III",
   XC_FAMILY_GGA,
   "X Xu and WA Goddard III, J. Chem. Phys. 121, 4068 (2004)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_x_pbe_init, 
   NULL, NULL,
   work_gga_x
@@ -189,7 +189,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_jsjr) = {
   "Reparametrized PBE by Pedroza, Silva & Capelle",
   XC_FAMILY_GGA,
   "LS Pedroza, AJR da Silva, and K. Capelle, arxiv:0905.1925",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_x_pbe_init, 
   NULL, NULL,
   work_gga_x
@@ -201,7 +201,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbek1_vdw) = {
   "Reparametrized PBE for vdW",
   XC_FAMILY_GGA,
   "J Klimes, DR Bowler, and A Michaelides, J. Phys.: Condens. Matter 22, 022201 (2010)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_x_pbe_init, 
   NULL, NULL,
   work_gga_x

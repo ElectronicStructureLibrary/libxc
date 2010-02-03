@@ -75,11 +75,17 @@ module XC_F90(lib_m)
     XC_CORRELATION          =   1,  &
     XC_EXCHANGE_CORRELATION =   2
 
-  integer, parameter ::     &
-    XC_PROVIDES_EXC         =   1,  &
-    XC_PROVIDES_VXC         =   2,  &
-    XC_PROVIDES_FXC         =   4,  &
-    XC_PROVIDES_KXC         =   8
+  integer, parameter ::             &
+    XC_FLAGS_HAVE_EXC       =    1,  &
+    XC_FLAGS_HAVE_VXC       =    2,  &
+    XC_FLAGS_HAVE_FXC       =    4,  &
+    XC_FLAGS_HAVE_KXC       =    8,  &
+    XC_FLAGS_HAVE_LXC       =   16,  &
+    XC_FLAGS_1D             =   32,  &
+    XC_FLAGS_2D             =   64,  &
+    XC_FLAGS_3D             =  128,  &
+    XC_FLAGS_STABLE         =  512,  &
+    XC_FLAGS_DEVELOPMENT    = 1024
  
 
   !----------------------------------------------------------------
@@ -105,10 +111,10 @@ module XC_F90(lib_m)
       type(XC_F90(pointer_t)), intent(in)  :: info
     end function XC_F90(info_family)
 
-    integer function XC_F90(info_provides)(info)
+    integer function XC_F90(info_flags)(info)
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(in)  :: info
-    end function XC_F90(info_provides)
+    end function XC_F90(info_flags)
 
     subroutine XC_F90(info_refs)(info, number, str, s)
       use XC_F90(types_m)
@@ -332,11 +338,12 @@ module XC_F90(lib_m)
   ! the meta-GGAs
   !----------------------------------------------------------------
   interface
-    subroutine XC_F90(mgga)(p, rho, sigma, lrho, tau, zk, vrho, vsigma, vlrho, vtau, &
+    subroutine XC_F90(mgga)(p, np, rho, sigma, lrho, tau, zk, vrho, vsigma, vlrho, vtau, &
       v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2)
 
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
       real(xc_f90_kind),    intent(in)  :: rho   
       real(xc_f90_kind),    intent(in)  :: sigma 
       real(xc_f90_kind),    intent(in)  :: lrho
@@ -354,9 +361,10 @@ module XC_F90(lib_m)
       real(xc_f90_kind),    intent(out) :: v2tau2
     end subroutine XC_F90(mgga)
 
-    subroutine XC_F90(mgga_exc)(p, rho, sigma, lrho, tau, zk)
+    subroutine XC_F90(mgga_exc)(p, np, rho, sigma, lrho, tau, zk)
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
       real(xc_f90_kind),    intent(in)  :: rho
       real(xc_f90_kind),    intent(in)  :: sigma
       real(xc_f90_kind),    intent(in)  :: lrho
@@ -364,9 +372,10 @@ module XC_F90(lib_m)
       real(xc_f90_kind),    intent(out) :: zk
     end subroutine XC_F90(mgga_exc)
 
-    subroutine XC_F90(mgga_exc_vxc)(p, rho, sigma, lrho, tau, zk, vrho, vsigma, vlrho, vtau)
+    subroutine XC_F90(mgga_exc_vxc)(p, np, rho, sigma, lrho, tau, zk, vrho, vsigma, vlrho, vtau)
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
       real(xc_f90_kind),    intent(in)  :: rho   
       real(xc_f90_kind),    intent(in)  :: sigma 
       real(xc_f90_kind),    intent(in)  :: lrho   
@@ -378,9 +387,10 @@ module XC_F90(lib_m)
       real(xc_f90_kind),    intent(out) :: vtau
     end subroutine XC_F90(mgga_exc_vxc)
 
-    subroutine XC_F90(mgga_vxc)(p, rho, sigma, lrho, tau, vrho, vsigma, vlrho, vtau)
+    subroutine XC_F90(mgga_vxc)(p, np, rho, sigma, lrho, tau, vrho, vsigma, vlrho, vtau)
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
       real(xc_f90_kind),    intent(in)  :: rho   
       real(xc_f90_kind),    intent(in)  :: sigma 
       real(xc_f90_kind),    intent(in)  :: lrho
@@ -391,11 +401,12 @@ module XC_F90(lib_m)
       real(xc_f90_kind),    intent(out) :: vtau
     end subroutine XC_F90(mgga_vxc)
 
-    subroutine XC_F90(mgga_fxc)(p, rho, sigma, lrho, tau, &
+    subroutine XC_F90(mgga_fxc)(p, np, rho, sigma, lrho, tau, &
       v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2)
 
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
       real(xc_f90_kind),    intent(in)  :: rho
       real(xc_f90_kind),    intent(in)  :: sigma
       real(xc_f90_kind),    intent(in)  :: lrho

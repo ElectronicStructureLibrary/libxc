@@ -60,7 +60,7 @@ const XC(func_info_type) XC(func_info_gga_x_mpbe) = {
   "Adamo & Barone modification to PBE",
   XC_FAMILY_GGA,
   "C Adamo and V Barone, J. Chem. Phys. 116, 5933 (2002)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   NULL, NULL, NULL,
   work_gga_x
 };

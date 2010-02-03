@@ -169,7 +169,7 @@ XC(func_info_type) XC(func_info_gga_xc_lb) = {
   "van Leeuwen & Baerends",
   XC_FAMILY_GGA,
   "R van Leeuwen and EJ Baerends, Phys. Rev. A. 49, 2421 (1994)",
-  XC_PROVIDES_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
   gga_lb_init,
   gga_lb_end,
   NULL,

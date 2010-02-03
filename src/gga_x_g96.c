@@ -49,7 +49,7 @@ const XC(func_info_type) XC(func_info_gga_x_g96) = {
   "Gill 96",
   XC_FAMILY_GGA,
   "PMW Gill, Mol. Phys. 89, 433 (1996)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   NULL, NULL, NULL,
   work_gga_x
 };

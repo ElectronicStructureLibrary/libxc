@@ -160,7 +160,7 @@ const XC(func_info_type) XC(func_info_lda_c_1d_csc) = {
   "Casula, Sorella & Senatore",
   XC_FAMILY_LDA,
   "M Casula, S Sorella, and G Senatore, Phys. Rev. B 74, 245427 (2006)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_1D |  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   lda_c_1d_csc_init,    /* init */
   lda_c_1d_csc_end,     /* end  */
   work_lda,             /* lda  */

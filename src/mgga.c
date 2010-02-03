@@ -18,6 +18,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 
 #include "util.h"
@@ -39,6 +40,20 @@ int XC(mgga_init)(XC(func_type) *p, const XC(func_info_type) *info, int nspin)
 
   func->n_func_aux = 0;
   func->func_aux   = NULL;
+  func->mix_coef   = NULL;
+
+  /* initialize spin counters */
+  func->n_zk  = 1;
+  func->n_rho = func->n_vrho = func->nspin;
+  func->n_tau = func->n_vtau = func->nspin;
+  func->n_lapl_rho = func->n_vlapl_rho = func->nspin;
+  if(func->nspin == XC_UNPOLARIZED){
+    func->n_sigma  = func->n_vsigma = 1;
+    func->n_v2rho2 = func->n_v2rhosigma = func->n_v2sigma2 = 1;
+  }else{
+    func->n_sigma      = func->n_vsigma = func->n_v2rho2 = 3;
+    func->n_v2rhosigma = func->n_v2sigma2 = 6;
+  }
 
   /* see if we need to initialize the functional */
   if(func->info->init != NULL)
@@ -69,128 +84,118 @@ void XC(mgga_end)(XC(func_type) *p)
     free(func->func_aux);
   }
 
+  if(func->mix_coef != NULL){
+    free(func->mix_coef);
+    func->mix_coef = NULL;
+  }
+
   /* deallocate any used parameter */
-    if(func->params != NULL){
-      free(func->params);
-      func->params = NULL;
+  if(func->params != NULL){
+    free(func->params);
+    func->params = NULL;
   }
 }
 
 
 void 
-XC(mgga)(const XC(func_type) *p, 
+XC(mgga)(const XC(func_type) *p, int np,
 	 const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
 	 FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau,
 	 FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
 {
-  FLOAT dens;
-  int i, n;
   XC(mgga_type) *func;
 
   assert(p != NULL && p->mgga != NULL);
   func = p->mgga;
 
   /* sanity check */
-  if(zk != NULL && !(func->info->provides & XC_PROVIDES_EXC)){
+  if(zk != NULL && !(func->info->flags & XC_FLAGS_HAVE_EXC)){
     fprintf(stderr, "Functional '%s' does not provide an implementation of Exc",
 	    func->info->name);
     exit(1);
   }
 
-  if(vrho != NULL && !(func->info->provides & XC_PROVIDES_VXC)){
+  if(vrho != NULL && !(func->info->flags & XC_FLAGS_HAVE_VXC)){
     fprintf(stderr, "Functional '%s' does not provide an implementation of vxc",
 	    func->info->name);
     exit(1);
   }
 
-  if(v2rho2 != NULL && !(func->info->provides & XC_PROVIDES_FXC)){
+  if(v2rho2 != NULL && !(func->info->flags & XC_FLAGS_HAVE_FXC)){
     fprintf(stderr, "Functional '%s' does not provide an implementation of fxc",
 	    func->info->name);
     exit(1);
   }
 
   /* initialize output to zero */
-  if(zk != NULL){
-    *zk = 0.0;
-  }
+  if(zk != NULL)
+    memset(zk, 0, func->n_zk*np*sizeof(FLOAT));
 
   if(vrho != NULL){
     assert(vsigma != NULL);
 
-    for(i=0; i<func->nspin; i++){
-      vrho[i] = 0.0;
-      vtau[i] = 0.0;
-      vlapl_rho[i] = 0.0;
-    }
-
-    n = (func->nspin == XC_UNPOLARIZED) ? 1 : 3;
-    for(i=0; i<n; i++)
-      vsigma[i] = 0.0;
+    memset(vrho,      0, func->n_vrho     *np*sizeof(FLOAT));
+    memset(vsigma,    0, func->n_vsigma   *np*sizeof(FLOAT));
+    memset(vtau,      0, func->n_vtau     *np*sizeof(FLOAT));
+    memset(vlapl_rho, 0, func->n_vlapl_rho*np*sizeof(FLOAT));
   }
 
   if(v2rho2 != NULL){
+    /* warning : lapl_rho terms missing here */
     assert(v2rhosigma!=NULL && v2sigma2!=NULL && v2rhotau!=NULL && v2tausigma!=NULL && v2tau2!=NULL);
 
-    n = (func->nspin == XC_UNPOLARIZED) ? 1 : 3;
-    for(i=0; i<n; i++){
-      v2rho2[i] = 0.0;
-      v2tau2[i] = 0.0;
-    }
-
-    n = (func->nspin == XC_UNPOLARIZED) ? 1 : 4;
-    for(i=0; i<n; i++){
-      v2rhotau[i] = 0.0;
-    }
-
-    n = (func->nspin == XC_UNPOLARIZED) ? 1 : 6;
-    for(i=0; i<n; i++){
-      v2rhosigma[i] = 0.0;
-      v2tausigma[i] = 0.0;
-    }
+    memset(v2rho2,     0, func->n_v2rho2    *np*sizeof(FLOAT));
+    memset(v2rhosigma, 0, func->n_v2rhosigma*np*sizeof(FLOAT));
+    memset(v2sigma2,   0, func->n_v2sigma2  *np*sizeof(FLOAT));
+    memset(v2rhotau,   0, func->n_v2rhotau  *np*sizeof(FLOAT));
+    memset(v2tausigma, 0, func->n_v2tausigma*np*sizeof(FLOAT));
+    memset(v2tau2,     0, func->n_v2tau2    *np*sizeof(FLOAT));
   }
 
-  /* check if density is larger than threshold */
-  dens = rho[0];
-  if(func->nspin == XC_POLARIZED) dens += rho[1];
-  if(dens <= MIN_DENS) return;
-
   /* call functional */
-  assert(func->info->mgga != NULL);
-  func->info->mgga(func, rho, sigma, lapl_rho, tau, zk, vrho, vsigma, vlapl_rho, vtau, 
-		v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
+  if(func->info->mgga != NULL)
+    func->info->mgga(func, np, rho, sigma, lapl_rho, tau, zk, vrho, vsigma, vlapl_rho, vtau, 
+		     v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
+
+  /* Mixing still not implemented for mggas
+  if(func->mix_coef != NULL){
+    XC(mix_func)(p, func->n_func_aux, func->func_aux, func->mix_coef, 
+		 np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
+  }
+  */
 }
 
 /* especializations */
 inline void 
-XC(mgga_exc)(const XC(func_type) *p, const FLOAT *rho, 
-	     const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
+XC(mgga_exc)(const XC(func_type) *p, int np, 
+	     const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
 	     FLOAT *zk)
 {
-  XC(mgga)(p, rho, sigma, tau, zk, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+  XC(mgga)(p, np, rho, sigma, tau, zk, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 inline void 
-XC(mgga_exc_vxc)(const XC(func_type) *p, const FLOAT *rho,
-		 const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
+XC(mgga_exc_vxc)(const XC(func_type) *p, int np,
+		 const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
 		 FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau)
 {
-  XC(mgga)(p, rho, sigma, lapl_rho, tau, zk, vrho, vsigma, vlapl_rho, vtau, NULL, NULL, NULL, NULL, NULL, NULL);
+  XC(mgga)(p, np, rho, sigma, lapl_rho, tau, zk, vrho, vsigma, vlapl_rho, vtau, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 inline void 
-XC(mgga_vxc)(const XC(func_type) *p, const FLOAT *rho, 
-	     const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
+XC(mgga_vxc)(const XC(func_type) *p, int np,
+	     const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
 	     FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau)
 {
-  XC(mgga)(p, rho, sigma, lapl_rho, tau, NULL, vrho, vsigma, vlapl_rho, vtau, NULL, NULL, NULL, NULL, NULL, NULL);
+  XC(mgga)(p, np, rho, sigma, lapl_rho, tau, NULL, vrho, vsigma, vlapl_rho, vtau, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 inline void 
-XC(mgga_fxc)(const XC(func_type) *p, const FLOAT *rho, const FLOAT *sigma,
-	     const FLOAT *lapl_rho, const FLOAT *tau,
+XC(mgga_fxc)(const XC(func_type) *p, int np,
+	     const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
 	     FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
 {
-  XC(mgga)(p, rho, sigma, lapl_rho, tau, NULL, NULL, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
+  XC(mgga)(p, np, rho, sigma, lapl_rho, tau, NULL, NULL, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
 }
 
 

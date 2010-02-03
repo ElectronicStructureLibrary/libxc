@@ -168,7 +168,7 @@ const XC(func_info_type) XC(func_info_lda_x_1d) = {
   "Exchange in 1D",
   XC_FAMILY_LDA,
   "Unpublished",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_1D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   lda_x_1d_init,    /* init */
   NULL,             /* end  */
   work_lda,         /* lda  */

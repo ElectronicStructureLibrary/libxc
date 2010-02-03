@@ -119,7 +119,7 @@ const XC(func_info_type) XC(func_info_gga_x_am05) = {
   XC_FAMILY_GGA,
   "R Armiento and AE Mattsson, Phys. Rev. B 72, 085108 (2005)\n"
   "AE Mattsson, R Armiento, J Paier, G Kresse, JM Wills, and TR Mattsson, J. Chem. Phys. 128, 084714 (2008).",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   NULL, NULL, NULL,
   work_gga_x
 };

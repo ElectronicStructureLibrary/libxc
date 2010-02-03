@@ -112,7 +112,7 @@ const XC(func_info_type) XC(func_info_mgga_x_gvt4) = {
   "GVT4 (X part of VSXC)",
   XC_FAMILY_MGGA,
   "T Van Voorhis and GE Scuseria, JCP 109, 400 (1998)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   NULL, NULL,
   NULL, NULL,        /* this is not an LDA                   */
   work_mgga_x,
@@ -126,7 +126,7 @@ const XC(func_info_type) XC(func_info_mgga_c_vsxc) = {
   "VSXC (correlation part)",
   XC_FAMILY_MGGA,
   "T Van Voorhis and GE Scuseria, JCP 109, 400 (1998)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   work_mgga_c_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */

@@ -98,7 +98,7 @@ const XC(func_info_type) XC(func_info_gga_x_rpbe) = {
   "Hammer, Hansen, and Nørskov",
   XC_FAMILY_GGA,
   "B Hammer, LB Hansen and JK Nørskov, Phys. Rev. B 59, 7413 (1999)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_x_rpbe_init, 
   NULL, NULL,
   work_gga_x

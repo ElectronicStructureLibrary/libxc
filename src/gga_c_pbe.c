@@ -236,7 +236,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe) = {
   XC_FAMILY_GGA,
   "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
   "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_c_pbe_init,
   NULL,
   NULL,            /* this is not an LDA                   */
@@ -249,7 +249,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_sol) = {
   "Perdew, Burke & Ernzerhof SOL",
   XC_FAMILY_GGA,
   "JP Perdew, et al, Phys. Rev. Lett. 100, 136406 (2008)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_c_pbe_init,
   NULL,
   NULL,            /* this is not an LDA                   */
@@ -262,7 +262,7 @@ const XC(func_info_type) XC(func_info_gga_c_xpbe) = {
   "Extended PBE by Xu & Goddard III",
   XC_FAMILY_GGA,
   "X Xu and WA Goddard III, J. Chem. Phys. 121, 4068 (2004)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_c_pbe_init,
   NULL,
   NULL,            /* this is not an LDA                   */
@@ -275,7 +275,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_jrgx) = {
   "Reparametrized PBE by Pedroza, Silva & Capelle",
   XC_FAMILY_GGA,
   "LS Pedroza, AJR da Silva, and K. Capelle, arxiv:0905.1925",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_c_pbe_init,
   NULL,
   NULL,            /* this is not an LDA                   */

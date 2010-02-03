@@ -68,7 +68,7 @@ work_gga_x(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 
       if(rho[is] < MIN_DENS) continue;
 
-      gdm   = sqrt(sigma[js])/sfact;      
+      gdm   = sqrt(sigma[js])/sfact;
       ds    = rho[is]/sfact;
       rho1D = POW(ds, 1.0/XC_DIMENSIONS);
       x     = gdm/(ds*rho1D);
@@ -88,16 +88,16 @@ work_gga_x(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
       lv2sigma2 /= sfact2*sfact2;
 #endif
 
-      if(zk != NULL && (p->info->provides & XC_PROVIDES_EXC))
+      if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
 	*zk += -sfact*x_factor_c*(ds*rho1D)*f;
       
-      if(vrho != NULL && (p->info->provides & XC_PROVIDES_VXC)){
+      if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
 	vrho[is] += -(XC_DIMENSIONS + 1.0)/(XC_DIMENSIONS)*x_factor_c*rho1D*(f - dfdx*x);
 	if(gdm>MIN_GRAD)
 	  vsigma[js] = -sfact*x_factor_c*(ds*rho1D)*(lvsigma + dfdx*x/(2.0*sigma[js]));
       }
       
-      if(v2rho2 != NULL && (p->info->provides & XC_PROVIDES_FXC)){
+      if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){
 	v2rho2[js] = -(XC_DIMENSIONS + 1.0)/(XC_DIMENSIONS*XC_DIMENSIONS)*x_factor_c*rho1D/ds*
 	  (f - dfdx*x + (XC_DIMENSIONS + 1.0)*d2fdx2*x*x)/sfact;
 	
@@ -111,7 +111,7 @@ work_gga_x(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
       }
     }
 
-    if(zk != NULL && (p->info->provides & XC_PROVIDES_EXC))
+    if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
       *zk /= dens; /* we want energy per particle */
     
   end_ip_loop:

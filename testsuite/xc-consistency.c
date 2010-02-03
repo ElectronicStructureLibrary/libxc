@@ -322,7 +322,7 @@ void test_functional(int functional)
     /* now get the numerical gradients */
     first_derivative(&func, val, v_fd, 0);
 
-    if(info->provides & XC_PROVIDES_FXC){
+    if(info->flags & XC_FLAGS_HAVE_FXC){
       int i, j;
       
       /* initialize */
@@ -349,7 +349,7 @@ void test_functional(int functional)
 	p_max[0][j] = i;
       }
 
-      if(info->provides & XC_PROVIDES_FXC){
+      if(info->flags & XC_FLAGS_HAVE_FXC){
 	for(k=0; k<5; k++){
 	  /* do not test in case of spin unpolarized or if spin down is zero */
 	  if((nspin==1 || val[1]==0.0) && (k!=0 && k!=2))
@@ -392,7 +392,7 @@ void test_functional(int functional)
       print_error("Max.", "vsig", max_diff[0][j], &func, val);
     }
 
-    if(info->provides & XC_PROVIDES_FXC){
+    if(info->flags & XC_FLAGS_HAVE_FXC){
       diff = avg_diff[1][0] + avg_diff[1][1] + avg_diff[2][1];
       diff = diff/3.0;
       print_error("Avg.", "v2rho2", diff, NULL, NULL);

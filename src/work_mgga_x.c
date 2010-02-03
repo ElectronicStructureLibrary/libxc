@@ -26,7 +26,7 @@
 #include <stdio.h>
 
 static void 
-work_mgga_x(const void *p_, 
+work_mgga_x(const void *p_, int np,
 	    const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
 	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau,
 	    FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
@@ -34,59 +34,87 @@ work_mgga_x(const void *p_,
   const XC(mgga_type) *p = p_;
 
   FLOAT sfact, sfact2, dens;
-  int is, order;
+  int is, ip, order;
 
-  order = 0;
+  order = -1;
+  if(zk     != NULL) order = 0;
   if(vrho   != NULL) order = 1;
   if(v2rho2 != NULL) order = 2;
+  if(order < 0) return;
 
   sfact = (p->nspin == XC_POLARIZED) ? 1.0 : 2.0;
   sfact2 = sfact*sfact;
 
-  dens = 0.0;
-  for(is=0; is<p->nspin; is++){
-    FLOAT gdm, ds, rho13, sigmas;
-    FLOAT x, t, u, f, lnr2, ltau, vrho0, dfdx, dfdt, dfdu, d2fdx2, d2fdxt, d2fdt2;
-    int js = (is == 0) ? 0 : 2;
+  for(ip = 0; ip < np; ip++){
+    dens = (p->nspin == XC_UNPOLARIZED) ? rho[0] : rho[0] + rho[1];
+    if(dens < MIN_DENS) goto end_ip_loop;
 
-    if(tau[is] < MIN_TAU) continue;
+    for(is=0; is<p->nspin; is++){
+      FLOAT gdm, ds, rho13;
+      FLOAT x, t, u, f, lnr2, ltau, vrho0, dfdx, dfdt, dfdu, d2fdx2, d2fdxt, d2fdt2;
+      int js = (is == 0) ? 0 : 2;
 
-    dens  += rho[is];
-    sigmas = max(MIN_GRAD*MIN_GRAD, sigma[js]/sfact2); 
-    gdm    = sqrt(sigmas);
-  
-    ds    = rho[is]/sfact;
-    rho13 = POW(ds, 1.0/3.0);
-    x     = gdm/(ds*rho13);
+      if(rho[is] < MIN_DENS || tau[is] < MIN_TAU) continue;
+
+      gdm   = sqrt(sigma[js])/sfact;
+      ds    = rho[is]/sfact;
+      rho13 = POW(ds, 1.0/3.0);
+      x     = gdm/(ds*rho13);
     
-    ltau  = tau[is]/sfact;
-    t     = ltau/(ds*rho13*rho13);  /* tau/rho^(5/3) */
+      ltau  = tau[is]/sfact;
+      t     = ltau/(ds*rho13*rho13);  /* tau/rho^(5/3) */
 
-    lnr2  = lapl_rho[is]/sfact;     /* this can be negative */
-    u     = lnr2/(ds*rho13*rho13);  /* lapl_rho/rho^(5/3) */
+      lnr2  = lapl_rho[is]/sfact;     /* this can be negative */
+      u     = lnr2/(ds*rho13*rho13);  /* lapl_rho/rho^(5/3) */
 
-    d2fdx2 = 0.0;
-    vrho0 = dfdx = dfdt = dfdu = 0.0;
+      vrho0 = dfdx = dfdt = dfdu = 0.0;
+      d2fdx2 = d2fdxt = d2fdt2 = 0.0;
 
-    func(p, x, t, u, order, &f, &vrho0,
-	 &dfdx, &dfdt, &dfdu, &d2fdx2, &d2fdxt, &d2fdt2);
+      func(p, x, t, u, order, &f, &vrho0,
+	   &dfdx, &dfdt, &dfdu, &d2fdx2, &d2fdxt, &d2fdt2);
 
+      if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
+	*zk += -sfact*X_FACTOR_C*(ds*rho13)*f;
+
+      if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
+	vrho[is]      = -X_FACTOR_C*rho13*(vrho0 + 4.0/3.0*(f - dfdx*x) - 5.0/3.0*(dfdt*t + dfdu*u));
+	vtau[is]      = -X_FACTOR_C*dfdt/rho13;
+	vlapl_rho[is] = -X_FACTOR_C*dfdu/rho13;
+	if(gdm>MIN_GRAD)
+	  vsigma[js]    = -sfact*X_FACTOR_C*(rho13*ds)*dfdx*x/(2.0*sigma[js]);
+      }
+
+      if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){
+	/* Missing terms here */
+	exit(1);
+      }
+    }
+    
     if(zk != NULL)
-      *zk += -sfact*X_FACTOR_C*(ds*rho13)*f;
+      *zk /= dens; /* we want energy per particle */
 
+  end_ip_loop:
+    /* increment pointers */
+    rho      += p->n_rho;
+    sigma    += p->n_sigma;
+    tau      += p->n_tau;
+    lapl_rho += p->n_lapl_rho;
+    
+    if(zk != NULL)
+      zk += p->n_zk;
+    
     if(vrho != NULL){
-      vrho[is]      = -X_FACTOR_C*rho13*(vrho0 + 4.0/3.0*(f - dfdx*x) - 5.0/3.0*(dfdt*t + dfdu*u));
-      vtau[is]      = -X_FACTOR_C*dfdt/rho13;
-      vlapl_rho[is] = -X_FACTOR_C*dfdu/rho13;
-      vsigma[js]    = -X_FACTOR_C*(rho13*ds)*dfdx*x/(2.0*sfact*sigmas);
+      vrho      += p->n_vrho;
+      vsigma    += p->n_vsigma;
+      vtau      += p->n_vtau;
+      vlapl_rho += p->n_vlapl_rho;
     }
 
     if(v2rho2 != NULL){
-      /* Missing terms here */
-      exit(1);
+      v2rho2     += p->n_v2rho2;
+      v2rhosigma += p->n_v2rhosigma;
+      v2sigma2   += p->n_v2sigma2;
+      /* warning: extra termns missing */
     }
   }
-
-  if(zk != NULL)
-    *zk /= dens; /* we want energy per particle */
 }

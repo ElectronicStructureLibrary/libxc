@@ -44,7 +44,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b3pw91) = {
   "B3PW91",
   XC_FAMILY_HYB_GGA,
   "AD Becke, J. Chem. Phys. 98, 5648 (1993)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   hyb_gga_xc_b3pw91_init,
   NULL, NULL, NULL
 };
@@ -68,7 +68,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b3lyp) = {
   "B3LYP",
   XC_FAMILY_HYB_GGA,
   "PJ Stephens, FJ Devlin, CF Chabalowski, MJ Frisch, J. Phys. Chem. 98 11623 (1994)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   hyb_gga_xc_b3lyp_init,
   NULL, NULL, NULL
 };
@@ -92,7 +92,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b3p86) = {
   "B3P86",
   XC_FAMILY_HYB_GGA,
   "Defined through Gaussian implementation",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   hyb_gga_xc_b3p86_init,
   NULL, NULL, NULL
 };
@@ -116,7 +116,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw3pw) = {
   "mPW3PW of Adamo & Barone",
   XC_FAMILY_GGA,
   "C Adamo and V Barone, J. Chem. Phys. 108, 664 (1998)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_mpw3pw_init, 
   NULL, NULL, NULL
 };
@@ -140,7 +140,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw3lyp) = {
   "mPW3LYP",
   XC_FAMILY_GGA,
   "Y Zhao and DGJ Truhlar, Phys. Chem. A 108, 6908 (2004)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   hyb_gga_xc_mpw3lyp_init, 
   NULL, NULL, NULL
 };

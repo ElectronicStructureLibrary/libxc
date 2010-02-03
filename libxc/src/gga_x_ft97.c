@@ -94,7 +94,7 @@ const XC(func_info_type) XC(func_info_gga_x_ft97_a) = {
   "Filatov & Thiel 97 (version A)",
   XC_FAMILY_GGA,
   "M Filatov and W Thiel, Mol. Phys 91, 847 (1997)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   NULL, NULL, NULL, 
   work_gga_x
 };
@@ -105,7 +105,7 @@ const XC(func_info_type) XC(func_info_gga_x_ft97_b) = {
   "Filatov & Thiel 97 (version B)",
   XC_FAMILY_GGA,
   "M Filatov and W Thiel, Mol. Phys 91, 847 (1997)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   NULL, NULL, NULL, 
   work_gga_x
 };

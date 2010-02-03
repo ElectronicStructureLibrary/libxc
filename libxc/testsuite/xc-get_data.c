@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
   }
   info = func.info;
 
-  if(info->provides & XC_PROVIDES_FXC){
+  if(info->flags & XC_FLAGS_HAVE_FXC){
     pv2rho = xc.v2rho;
   }
 

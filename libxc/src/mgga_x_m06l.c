@@ -115,7 +115,7 @@ const XC(func_info_type) XC(func_info_mgga_x_m06l) = {
   XC_FAMILY_MGGA,
   "Y Zhao and DG Truhlar, JCP 125, 194101 (2006)\n"
   "Y Zhao and DG Truhlar, Theor. Chem. Account 120, 215 (2008)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   mgga_x_m06l_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */

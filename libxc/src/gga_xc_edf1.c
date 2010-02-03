@@ -44,7 +44,7 @@ const XC(func_info_type) XC(func_info_gga_xc_edf1) = {
   "EDF1",
   XC_FAMILY_GGA,
   "RD Adamson, PMW Gill, and JA Pople, Chem. Phys. Lett. 284 6 (1998)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   gga_xc_edf1_init, 
   NULL, NULL, NULL
 };
@@ -69,7 +69,7 @@ const XC(func_info_type) XC(func_info_gga_x_optpbe_vdw) = {
   "Reparametrized PBE for vdW",
   XC_FAMILY_GGA,
   "J Klimes, DR Bowler, and A Michaelides, J. Phys.: Condens. Matter 22, 022201 (2010)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC | XC_PROVIDES_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_x_optpbe_vdw_init, 
   NULL, NULL, NULL
 };

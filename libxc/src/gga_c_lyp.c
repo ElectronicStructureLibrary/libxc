@@ -321,7 +321,7 @@ const XC(func_info_type) XC(func_info_gga_c_lyp) = {
   XC_FAMILY_GGA,
   "C Lee, W Yang and RG Parr, Phys. Rev. B 37, 785 (1988)\n"
   "B Miehlich, A Savin, H Stoll and H Preuss, Chem. Phys. Lett. 157, 200 (1989)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   XC(gga_c_lyp_init), 
   NULL,
   NULL,

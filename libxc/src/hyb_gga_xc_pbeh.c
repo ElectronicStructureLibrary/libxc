@@ -41,7 +41,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeh) = {
   "PBEH (PBE0)",
   XC_FAMILY_HYB_GGA,
   "M. Ernzerhof, G. E. Scuseria, J. Chem. Phys. 110, 5029 (1999)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   hyb_gga_xc_pbeh_init,
   NULL, NULL, NULL /* this is taken care by the generic routine */
 };

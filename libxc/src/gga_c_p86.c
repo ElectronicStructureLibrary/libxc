@@ -176,7 +176,7 @@ const XC(func_info_type) XC(func_info_gga_c_p86) = {
   "Perdew 86",
   XC_FAMILY_GGA,
   "JP Perdew, Phys. Rev. B 33, 8822 (1986)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   gga_c_p86_init,
   NULL,
   NULL,

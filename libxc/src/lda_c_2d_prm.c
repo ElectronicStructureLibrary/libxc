@@ -156,7 +156,7 @@ const XC(func_info_type) XC(func_info_lda_c_2d_prm) = {
   "PRM (for 2D systems)",
   XC_FAMILY_LDA,
   "S Pittalis, E Rasanen, and MAL Marques, Phys. Rev. B 78, 195322 (2008)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   lda_c_2d_prm_init,
   lda_c_2d_prm_end,
   work_lda

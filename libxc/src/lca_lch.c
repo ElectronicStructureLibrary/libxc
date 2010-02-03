@@ -31,7 +31,7 @@ static XC(func_info_type) func_info_lca_lch = {
   XC_FAMILY_LCA,
   "A.M. Lee, S.M. Colwell and N.C. Handy, Chem. Phys. Lett. 229, 225 (1994)"
   "A.M. Lee, S.M. Colwell and N.C. Handy, J. Chem. Phys. 103, 10095 (1995)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC
+  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC
 };
 
 

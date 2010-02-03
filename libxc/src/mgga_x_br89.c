@@ -256,7 +256,7 @@ const XC(func_info_type) XC(func_info_mgga_x_br89) = {
   "Becke-Roussel 89",
   XC_FAMILY_MGGA,
   "AD Becke and MR Roussel, Phys. Rev. A 39, 3761 (1989)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   NULL, NULL,
   NULL, NULL,        /* this is not an LDA                   */
   work_mgga_x,
@@ -268,7 +268,7 @@ const XC(func_info_type) XC(func_info_mgga_x_bj06) = {
   "Becke & Johnson 06",
   XC_FAMILY_MGGA,
   "AD Becke and ER Johnson, J. Chem. Phys. 124, 221101 (2006)",
-  XC_PROVIDES_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
   mgga_x_tb09_init,
   mgga_x_tb09_end,
   NULL, NULL,        /* this is not an LDA                   */
@@ -281,7 +281,7 @@ const XC(func_info_type) XC(func_info_mgga_x_tb09) = {
   "Tran & Blaha 89",
   XC_FAMILY_MGGA,
   "F Tran and P Blaha, Phys. Rev. Lett. 102, 226401 (2009)",
-  XC_PROVIDES_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
   mgga_x_tb09_init,
   mgga_x_tb09_end,
   NULL, NULL,        /* this is not an LDA                   */
@@ -294,7 +294,7 @@ const XC(func_info_type) XC(func_info_mgga_x_rpp09) = {
   "Rasanen, Pittalis & Proetto 09",
   XC_FAMILY_MGGA,
   "E Rasanen, S Pittalis & C Proetto, arXiv:0909.1477 (2009)",
-  XC_PROVIDES_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
   mgga_x_tb09_init,
   mgga_x_tb09_end,
   NULL, NULL,        /* this is not an LDA                   */

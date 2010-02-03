@@ -132,11 +132,12 @@ void XC(gga_lb_set_params_)    (XC(gga_type) *p, int modified, FLOAT threshold, 
 
 /* meta GGAs */
 
+void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT *d, 
+			  FLOAT *h, FLOAT *dhdx, FLOAT *dhdz);
+
 /* internal versions of set_params routines */
 void XC(mgga_x_tb09_set_params_)(XC(mgga_type) *p, FLOAT c);
 
-void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT *d, 
-			  FLOAT *h, FLOAT *dhdx, FLOAT *dhdz);
 
 /* LCAs */
 void XC(lca_lch_init)(XC(lca_type) *p);

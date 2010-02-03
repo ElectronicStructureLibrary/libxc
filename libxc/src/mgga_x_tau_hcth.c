@@ -97,7 +97,7 @@ const XC(func_info_type) XC(func_info_mgga_x_tau_hcth) = {
   "tau-HCTH",
   XC_FAMILY_MGGA,
   "AD Boese and NC Handy, JCP 116, 9559 (2002)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   NULL, NULL,
   NULL, NULL,        /* this is not an LDA                   */
   work_mgga_x,

@@ -64,14 +64,14 @@ work_lda(const void *p_, int np, const FLOAT *rho,
 
     func(p, &r);
 
-    if(zk != NULL && (p->info->provides & XC_PROVIDES_EXC))
+    if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
       *zk = r.zk;
 
     if(r.order < 1) goto end_ip_loop;
 
     drs = -r.rs[1]/(XC_DIMENSIONS*dens);
     
-    if(vrho != NULL && (p->info->provides & XC_PROVIDES_VXC)){
+    if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
       vrho[0] = r.zk + dens*r.dedrs*drs;
 
       if(p->nspin == XC_POLARIZED){
@@ -84,7 +84,7 @@ work_lda(const void *p_, int np, const FLOAT *rho,
     
     d2rs = -drs*(1.0 + XC_DIMENSIONS)/(XC_DIMENSIONS*dens);
     
-    if(v2rho2 != NULL && (p->info->provides & XC_PROVIDES_FXC)){
+    if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){
       v2rho2[0] = r.dedrs*(2.0*drs + dens*d2rs) + dens*r.d2edrs2*drs*drs;
       
       if(p->nspin == XC_POLARIZED){
@@ -101,7 +101,7 @@ work_lda(const void *p_, int np, const FLOAT *rho,
 
     d3rs = -d2rs*(1.0 + 2.0*XC_DIMENSIONS)/(XC_DIMENSIONS*dens);
     
-    if(v3rho3 != NULL && (p->info->provides & XC_PROVIDES_KXC)){
+    if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC)){
       v3rho3[0] = r.dedrs*(3.0*d2rs + dens*d3rs) + 
 	3.0*r.d2edrs2*drs*(drs + dens*d2rs) + r.d3edrs3*dens*drs*drs*drs;
       

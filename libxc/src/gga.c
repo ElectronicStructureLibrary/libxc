@@ -131,19 +131,19 @@ void XC(gga)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigm
   func = p->gga;
   
   /* sanity check */
-  if(zk != NULL && !(func->info->provides & XC_PROVIDES_EXC)){
+  if(zk != NULL && !(func->info->flags & XC_FLAGS_HAVE_EXC)){
     fprintf(stderr, "Functional '%s' does not provide an implementation of Exc",
 	    func->info->name);
     exit(1);
   }
 
-  if(vrho != NULL && !(func->info->provides & XC_PROVIDES_VXC)){
+  if(vrho != NULL && !(func->info->flags & XC_FLAGS_HAVE_VXC)){
     fprintf(stderr, "Functional '%s' does not provide an implementation of vxc",
 	    func->info->name);
     exit(1);
   }
 
-  if(v2rho2 != NULL && !(func->info->provides & XC_PROVIDES_FXC)){
+  if(v2rho2 != NULL && !(func->info->flags & XC_FLAGS_HAVE_FXC)){
     fprintf(stderr, "Functional '%s' does not provide an implementation of fxc",
 	    func->info->name);
     exit(1);

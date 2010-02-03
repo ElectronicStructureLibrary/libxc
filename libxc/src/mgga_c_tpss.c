@@ -244,7 +244,7 @@ static void eq_12(const XC(mgga_type) *p, int order, const FLOAT *rho, const FLO
 
 
 static void 
-mgga_c_tpss(const void *p_, 
+my_mgga_c_tpss(const void *p_, 
 	    const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
 	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau,
 	    FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
@@ -315,6 +315,47 @@ mgga_c_tpss(const void *p_,
   }
 }
 
+/* Warning: this is a workaround to support blocks while waiting for the next interface */
+static void 
+mgga_c_tpss(const void *p_, int np,
+	    const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
+	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau,
+	    FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
+{
+  int ip;
+  const XC(mgga_type) *p = p_;
+
+  for(ip=0; ip<np; ip++){
+    my_mgga_c_tpss(p_, rho, sigma, lapl_rho, tau,
+		   zk, vrho, vsigma, vlapl_rho, vtau,
+		   v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
+
+    /* increment pointers */
+    rho      += p->n_rho;
+    sigma    += p->n_sigma;
+    tau      += p->n_tau;
+    lapl_rho += p->n_lapl_rho;
+    
+    if(zk != NULL)
+      zk += p->n_zk;
+    
+    if(vrho != NULL){
+      vrho      += p->n_vrho;
+      vsigma    += p->n_vsigma;
+      vtau      += p->n_vtau;
+      vlapl_rho += p->n_vlapl_rho;
+    }
+
+    if(v2rho2 != NULL){
+      v2rho2     += p->n_v2rho2;
+      v2rhosigma += p->n_v2rhosigma;
+      v2sigma2   += p->n_v2sigma2;
+      /* warning: extra terms missing */
+    }
+  }
+}
+
+
 XC(func_info_type) XC(func_info_mgga_c_tpss) = {
   XC_MGGA_C_TPSS,
   XC_EXCHANGE,
@@ -322,7 +363,7 @@ XC(func_info_type) XC(func_info_mgga_c_tpss) = {
   XC_FAMILY_MGGA,
   "J Tao, JP Perdew, VN Staroverov, and G Scuseria, Phys. Rev. Lett. 91, 146401 (2003)\n"
   "JP Perdew, J Tao, VN Staroverov, and G Scuseria, J. Chem. Phys. 120, 6898 (2004)",
-  XC_PROVIDES_EXC | XC_PROVIDES_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   mgga_c_tpss_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */

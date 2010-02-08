@@ -43,27 +43,27 @@ void test_integration()
 
 void test_lda()
 {
-  XC(lda_type) l1, l2, l3;
+  XC(func_type) l1, l2, l3;
   int i;
   
-  XC(lda_init)(&l1, XC_LDA_X_1D, XC_POLARIZED);
-  XC(lda_init)(&l2, XC_LDA_C_1D_CSC, XC_POLARIZED);
-  XC(lda_init)(&l3, XC_LDA_X, XC_UNPOLARIZED);
+  XC(func_init)(&l1, XC_LDA_C_PS94, XC_POLARIZED);
+  XC(func_init)(&l2, XC_LDA_C_PW, XC_POLARIZED);
+  XC(func_init)(&l3, XC_LDA_X, XC_UNPOLARIZED);
 
-  XC(lda_x_1d_set_params)(&l1, 0, 1.0);
-  XC(lda_c_1d_csc_set_params)(&l2, 1, 1.0);
+  //XC(lda_x_1d_set_params)(&l1, 0, 1.0);
+  //XC(lda_c_1d_csc_set_params)(&l2, 1, 1.0);
 
-  for(i=0; i<100; i++){
+  for(i=0; i<6; i++){
     double dens, rs, zeta, rho[2];
     double ec1, vc1[2], fxc1[3], kxc1[4];
     double ec2, vc2[2], fxc2[3], kxc2[4];
     double ec3, vc3[2], fxc3[3], kxc3[4];
     
-    rs   = 0.1 + 5.0*i/100.0;
-    zeta = 0.0; //-1.0 + 2.0*i/1000.0;
+    rs   = 2.0;
+    zeta = 0.2*i;
 
-    //dens = 1.0/(4.0/3.0*M_PI*POW(rs,3)); /* 3D */
-    dens = 1.0/(2.0*rs); /* 1D */
+    dens = 1.0/(4.0/3.0*M_PI*POW(rs,3)); /* 3D */
+    //dens = 1.0/(2.0*rs); /* 1D */
 
     rho[0] = dens*(1.0 + zeta)/2.0;
     rho[1] = dens*(1.0 - zeta)/2.0;
@@ -87,17 +87,17 @@ void test_lda()
     // printf("%e\t%e\t%e\n", dens, (fxc1[0]+2.0*fxc1[1]+fxc1[2])/4.0, fxc3[0]);
     // printf("%e\t%e\t%e\n", dens, (kxc1[0]+3.0*kxc1[1]+3.0*kxc1[2]+kxc1[3])/8.0, kxc3[0]);
 
-    printf("%e\t%e\t%e\n", rs, 2.0*ec1, 2.0*ec2);
+    printf("%e\t%e\t%e\n", zeta, ec1, ec2);
   }
 }
 
 void test_tpss()
 {
-  XC(mgga_type) tpss;
-  XC(gga_type) agga;
+  XC(func_type) tpss;
+  XC(func_type) agga;
   int i;
 
-  XC(mgga_init)(&tpss, XC_MGGA_X_BR89, XC_UNPOLARIZED);
+  XC(func_init)(&tpss, XC_MGGA_X_BR89, XC_UNPOLARIZED);
   //XC(gga_init)(&agga, XC_GGA_XC_B97, XC_UNPOLARIZED);
   
   for(i=0; i<1000; i++){
@@ -116,7 +116,7 @@ void test_tpss()
     lrho[0]  = 0.2;
     lrho[1]  = 0.12;
 
-    XC(mgga)(&tpss, rho,  sigma, lrho, tau, 
+    XC(mgga)(&tpss, 1, rho,  sigma, lrho, tau, 
     	     &zk,  vrho, vsigma, vlrho, vtau, 
     	     NULL, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
     //brx89_lda(rho[0], sigma[0], lrho[0], tau[0], &zk2, vrho2, vsigma2, vlrho2, vtau2);

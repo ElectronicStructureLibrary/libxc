@@ -35,7 +35,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   static FLOAT b[6] = {2.763169, 1.757515, 1.741397, 0.568985, 1.572202, 1.885389};
 
   FLOAT cnst_rs, zp3, zm3, alpha, k, Q;
-  FLOAT dQ, dkdrs
+  FLOAT dQ, dkdrs;
 
   cnst_rs = POW(3.0/(4*M_PI), 1.0/3.0);
 

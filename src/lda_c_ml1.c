@@ -25,13 +25,28 @@
  Correlation energy of Proynov and Salahub
 ************************************************************************/
 
-#define XC_LDA_C_PS94    22   /* Perdew & Zunger              */
+#define XC_LDA_C_ML1    22   /* Modified LSD (version 1) of Proynov and Salahub */
+#define XC_LDA_C_ML2    23   /* Modified LSD (version 2) of Proynov and Salahub */
+
+static void 
+lda_c_ml1_init(void *p_)
+{
+  XC(lda_type) *p = (XC(lda_type) *)p_;
+
+  switch(p->info->number){
+  case XC_LDA_C_ML2:
+    p->func = 1; break;
+  default:
+    p->func = 0; break;
+  }
+}
+
 
 /* the functional */
 static inline void 
 func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
-  static FLOAT fc = 0.2026, q = 0.084, C = 6.187335;
+  static FLOAT fc[2] = {0.2026, 0.266}, q[2] = {0.084, 0.5}, C = 6.187335;
   static FLOAT b[6] = {2.763169, 1.757515, 1.741397, 0.568985, 1.572202, 1.885389};
 
   FLOAT cnst_rs, nn, zp3, zm3, alpha, beta, gamma, k, Q;
@@ -39,7 +54,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 
   cnst_rs = POW(3.0/(4*M_PI), 1.0/3.0);
 
-  alpha = fc*(pow(1 + r->zeta, q) + pow(1.0 - r->zeta, q));
+  alpha = fc[p->func]*(pow(1 + r->zeta, q[p->func]) + pow(1.0 - r->zeta, q[p->func]));
 
   zp3   = pow(1.0 + r->zeta,  1.0/3.0);
   zm3   = pow(1.0 - r->zeta,  1.0/3.0);
@@ -63,7 +78,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   if(ABS(r->zeta) == 1.0)
     dalpha = dbeta = 0.0;
   else{
-    dalpha = fc*q*(pow(1 + r->zeta, q - 1.0) - pow(1.0 - r->zeta, q - 1.0));
+    dalpha = fc[p->func]*q[p->func]*(pow(1 + r->zeta, q[p->func] - 1.0) - pow(1.0 - r->zeta, q[p->func] - 1.0));
     dbeta  = (-2.0*r->zeta - zm3*zm3*zp3 + zm3*zp3*zp3)/(3.0*zm3*zm3*zp3*zp3*(zp3 + zm3));
   }
   dkdz   = C*(dalpha*beta + alpha*dbeta)*cnst_rs/r->rs[1];
@@ -74,14 +89,26 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_c_ps94) = {
-  XC_LDA_C_PS94,
+const XC(func_info_type) XC(func_info_lda_c_ml1) = {
+  XC_LDA_C_ML1,
   XC_CORRELATION,
-  "Proynov and Salahub 94",
+  "Modified LSD (version 1) of Proynov and Salahub",
   XC_FAMILY_LDA,
   "EI Proynov and D Salahub, Phys. Rev. B 49, 7874 (1994)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  NULL,     /* init */
-  NULL,     /* end  */
-  work_lda, /* lda  */
+  lda_c_ml1_init,
+  NULL,
+  work_lda,
+};
+
+const XC(func_info_type) XC(func_info_lda_c_ml2) = {
+  XC_LDA_C_ML2,
+  XC_CORRELATION,
+  "Modified LSD (version 2) of Proynov and Salahub",
+  XC_FAMILY_LDA,
+  "EI Proynov and D Salahub, Phys. Rev. B 49, 7874 (1994)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  lda_c_ml1_init,
+  NULL,
+  work_lda,
 };

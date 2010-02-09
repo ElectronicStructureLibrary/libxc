@@ -53,14 +53,14 @@ void test_lda()
   //XC(lda_x_1d_set_params)(&l1, 0, 1.0);
   //XC(lda_c_1d_csc_set_params)(&l2, 1, 1.0);
 
-  for(i=0; i<6; i++){
+  for(i=0; i<=1000; i++){
     double dens, rs, zeta, rho[2];
     double ec1, vc1[2], fxc1[3], kxc1[4];
     double ec2, vc2[2], fxc2[3], kxc2[4];
     double ec3, vc3[2], fxc3[3], kxc3[4];
     
-    rs   = 2.0;
-    zeta = 0.2*i;
+    rs   = 2.5;
+    zeta = -1.0 + 2.0*i/1000000000.0;
 
     dens = 1.0/(4.0/3.0*M_PI*POW(rs,3)); /* 3D */
     //dens = 1.0/(2.0*rs); /* 1D */
@@ -87,7 +87,7 @@ void test_lda()
     // printf("%e\t%e\t%e\n", dens, (fxc1[0]+2.0*fxc1[1]+fxc1[2])/4.0, fxc3[0]);
     // printf("%e\t%e\t%e\n", dens, (kxc1[0]+3.0*kxc1[1]+3.0*kxc1[2]+kxc1[3])/8.0, kxc3[0]);
 
-    printf("%e\t%e\t%e\n", zeta, ec1, ec2);
+    //printf("%e\t%e\t%e\n", zeta, ec1, ec2);
   }
 }
 

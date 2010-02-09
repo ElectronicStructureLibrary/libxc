@@ -34,8 +34,8 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   static FLOAT fc = 0.2026, q = 0.084, C = 6.187335;
   static FLOAT b[6] = {2.763169, 1.757515, 1.741397, 0.568985, 1.572202, 1.885389};
 
-  FLOAT cnst_rs, zp3, zm3, alpha, k, Q;
-  FLOAT dQ, dkdrs;
+  FLOAT cnst_rs, nn, zp3, zm3, alpha, beta, gamma, k, Q;
+  FLOAT dalpha, dbeta, dQ, dkdrs, dkdz;
 
   cnst_rs = POW(3.0/(4*M_PI), 1.0/3.0);
 
@@ -43,19 +43,33 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 
   zp3   = pow(1.0 + r->zeta,  1.0/3.0);
   zm3   = pow(1.0 - r->zeta,  1.0/3.0);
-  k     = C*alpha*cnst_rs/r->rs[1]*(zp3*zm3/(zp3 + zm3));
+  beta  = zp3*zm3/(zp3 + zm3);
 
-  Q = (k == 0.0) ? 0.0 : -b[0]/(1.0 + b[1]*k) + b[2]/k*log(1.0 + b[3]/k) + b[4]/k - b[5]/(k*k);
+  k     = C*alpha*beta*cnst_rs/r->rs[1];
 
-  r->zk = pow(cnst_rs/r->rs[1], 3) * (1 - r->zeta*r->zeta)/4.0 * Q;
+  Q = (k == 0.0) ? -FLT_MAX : -b[0]/(1.0 + b[1]*k) + b[2]/k*log(1.0 + b[3]/k) + b[4]/k - b[5]/(k*k);
+
+  gamma = (1 - r->zeta*r->zeta)/4.0;
+  nn    = pow(cnst_rs/r->rs[1], 3);
+  r->zk = nn*gamma*Q;
 
   if(r->order < 1) return;
 
-  dQ = b[0]*b[1]/((1.0 + b[1]*k)*(1.0 + b[1]*k)) + b[2]*b[3]/((b[3] + k)*(k*k))
+  dQ = (k == 0.0) ? FLT_MAX : b[0]*b[1]/((1.0 + b[1]*k)*(1.0 + b[1]*k)) - b[2]*b[3]/((b[3] + k)*(k*k))
     - b[2]*log(1.0 + b[3]/k)/(k*k) - b[4]/(k*k) + 2.0*b[5]/(k*k*k);
+
   dkdrs = -k/r->rs[1];
 
-  r->dedrs = pow(cnst_rs/r->rs[1], 3)*(1 - r->zeta*r->zeta)/4.0 * (dQ*dkdrs + 3.0*Q/r->rs[1]);
+  if(ABS(r->zeta) == 1.0)
+    dalpha = dbeta = 0.0;
+  else{
+    dalpha = fc*q*(pow(1 + r->zeta, q - 1.0) - pow(1.0 - r->zeta, q - 1.0));
+    dbeta  = (-2.0*r->zeta - zm3*zm3*zp3 + zm3*zp3*zp3)/(3.0*zm3*zm3*zp3*zp3*(zp3 + zm3));
+  }
+  dkdz   = C*(dalpha*beta + alpha*dbeta)*cnst_rs/r->rs[1];
+
+  r->dedrs = nn*gamma*(dQ*dkdrs - 3.0*Q/r->rs[1]);
+  r->dedz  = nn*(-r->zeta*Q/2.0 + gamma*dQ*dkdz);
 }
 
 #include "work_lda.c"

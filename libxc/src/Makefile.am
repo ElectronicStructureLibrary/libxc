@@ -57,9 +57,9 @@ if COMPILE_FORTRAN
 endif
 endif
 
-# linbtoll stuff
+# linbtool stuff
 libxc_la_LDFLAGS = -version-info 0:9:0
-libxc_la_LIBTOOLFLAGS = --tag=F77
+AM_LIBTOOLFLAGS = --tag=F77
 
 dist_noinst_SCRIPTS = get_funcs.pl
 

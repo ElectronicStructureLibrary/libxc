@@ -19,9 +19,10 @@
 ##
 ## $Id: Makefile.am 2433 2006-09-28 11:06:54Z marques $
 
-lib_LIBRARIES = libxc.a
+#lib_LIBRARIES = libxc.a
+lib_LTLIBRARIES = libxc.la
 
-libxc_a_FUNC_SOURCES = \
+libxc_la_FUNC_SOURCES = \
 	lda.c lda_x.c lda_x_1d.c lda_x_2d.c \
 	lda_c_wigner.c lda_c_rpa.c lda_c_hl.c \
 	lda_c_vwn.c lda_c_pz.c lda_c_pw.c lda_c_ml1.c lda_xc_teter93.c \
@@ -42,19 +43,23 @@ libxc_a_FUNC_SOURCES = \
 	lca.c lca_omc.c lca_lch.c \
 	mix_func.c special_functions.c integrate.c util.c functionals.c 
 
-libxc_a_FUNC_SINGLE_SOURCES = $(libxc_a_FUNC_SOURCES:.c=_s.c)
+libxc_la_FUNC_SINGLE_SOURCES = $(libxc_la_FUNC_SOURCES:.c=_s.c)
 
-libxc_a_SOURCES = $(libxc_a_FUNC_SOURCES)
+libxc_la_SOURCES = $(libxc_la_FUNC_SOURCES)
 
 if COMPILE_FORTRAN
-  libxc_a_SOURCES += xc_f.c libxc_funcs.f90 libxc.f90
+  libxc_la_SOURCES += xc_f.c libxc_funcs.f90 libxc.f90
 endif
 if COMPILE_SINGLE
-  nodist_libxc_a_SOURCES = $(libxc_a_FUNC_SINGLE_SOURCES)
+  nodist_libxc_la_SOURCES = $(libxc_la_FUNC_SINGLE_SOURCES)
 if COMPILE_FORTRAN
-    nodist_libxc_a_SOURCES += xc_f_s.c libxc_s.f90
+    nodist_libxc_la_SOURCES += xc_f_s.c libxc_s.f90
 endif
 endif
+
+# linbtoll stuff
+libxc_la_LDFLAGS = -version-info 0:9:0
+libxc_la_LIBTOOLFLAGS = --tag=F77
 
 dist_noinst_SCRIPTS = get_funcs.pl
 
@@ -77,13 +82,14 @@ SUFFIXES = _s.c
 CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 	libxc.f90 libxc_funcs.f90 xc_funcs.h *_s.c *_s.f90
 
-lda.o: xc_funcs.h xc.h xc_s.h
+lda.lo: xc_funcs.h xc.h xc_s.h
 xc_funcs.h: get_funcs.pl
+	echo $(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)
 
 libxc_funcs.f90: xc_funcs.h
 libxc.f90: libxc_master.F90 xc_funcs.h
-	@FCCPP@                       @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc.f90
+	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc.f90
 	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
 		grep -v "^#" $(top_builddir)/src/libxc.f90 > $(top_builddir)/src/libxc.f91; \
 		mv -f $(top_builddir)/src/libxc.f91 $(top_builddir)/src/libxc.f90; \

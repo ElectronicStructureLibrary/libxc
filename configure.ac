@@ -17,7 +17,7 @@
 ##
 ## $Id: configure.ac 2422 2006-09-23 20:43:15Z marques $
 
-AC_INIT([libxc],[1.0-alpha],[octopus-users@tddft.org],[libxc])
+AC_INIT([libxc],[1.0_alpha],[octopus-users@tddft.org],[libxc])
 AC_CONFIG_SRCDIR([src/xc.h])
 AM_INIT_AUTOMAKE
 
@@ -29,6 +29,7 @@ AC_PREFIX_DEFAULT([/opt/etsf])
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_RANLIB
+AM_PROG_LIBTOOL
 AC_LANG_PREPROC
 AM_PROG_CC_C_O
 AC_C_INLINE
@@ -98,7 +99,13 @@ AC_ARG_ENABLE([single],
 AM_CONDITIONAL(COMPILE_SINGLE, test  $ac_cv_single_prec = yes)
 
 
-AC_CONFIG_FILES([Makefile src/Makefile testsuite/Makefile])
+AC_CONFIG_FILES([Makefile
+  src/Makefile
+  testsuite/Makefile
+  build/Makefile
+  build/libxc.pc
+  build/libxc.spec
+])
 
 AC_OUTPUT
 

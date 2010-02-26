@@ -20,7 +20,7 @@
 ## $Id$
 
 ACLOCAL_AMFLAGS = -I m4
-SUBDIRS = src testsuite
+SUBDIRS = build src testsuite
 
 EXTRA_DIST = ChangeLog PACKAGING TODO DONE
 
@@ -35,3 +35,16 @@ ChangeLog:
 	echo 'svn2cl command not found: installing possibly empty changelog.' >&2)
 
 dist-hook: ChangeLog
+
+rpm: dist
+	@topdir=`rpmbuild --showrc | @GREP@ ': *_topdir' | cut -f 2`; \
+	mv -f $(PACKAGE)-$(VERSION).tar.gz $$topdir/SOURCES; \
+	cp build/$(PACKAGE).spec $$topdir/SPECS; \
+	rpmbuild -ba $$topdir/SPECS/$(PACKAGE).spec; \
+	echo "-------------------------------------------------------------"; \
+        echo "  RPMs are built, and are located under:"; \
+        echo "       $$topdir/RPMS/<arch>"; \
+        echo "       $$topdir/SRPMS"; \
+        echo "-------------------------------------------------------------"
+#       scp $(RPM_DIR)/RPMS/*/libxc*.rpm \
+                marques@www.tddft.org:/server/www/tddft.org/programs/octopus/download/

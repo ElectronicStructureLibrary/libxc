@@ -57,9 +57,13 @@ if COMPILE_FORTRAN
 endif
 endif
 
-# linbtool stuff
+# libtool stuff
 libxc_la_LDFLAGS = -version-info 0:9:0
-AM_LIBTOOLFLAGS = --tag=F77
+# this is a hack to go around buggy libtool/automake versions
+LTFCCOMPILE = $(LIBTOOL) --mode=compile --tag=F77 $(FC) $(AM_FCFLAGS) $(FCFLAGS)
+FCLINK = $(LIBTOOL) --mode=link --tag=F77 $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) \
+        $(AM_LDFLAGS) $(LDFLAGS) -o $@
+
 
 dist_noinst_SCRIPTS = get_funcs.pl
 

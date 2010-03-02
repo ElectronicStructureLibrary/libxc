@@ -60,6 +60,7 @@ endif
 # libtool stuff
 libxc_la_LDFLAGS = -version-info 0:9:0
 # this is a hack to go around buggy libtool/automake versions
+libxc_la_LIBTOOLFLAGS = --tag=F77
 LTFCCOMPILE = $(LIBTOOL) --mode=compile --tag=F77 $(FC) $(AM_FCFLAGS) $(FCFLAGS)
 FCLINK = $(LIBTOOL) --mode=link --tag=F77 $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) \
         $(AM_LDFLAGS) $(LDFLAGS) -o $@

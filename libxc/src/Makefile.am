@@ -80,6 +80,16 @@ if COMPILE_SINGLE
   include_HEADERS += xc_s.h
 endif
 
+## declare fortran modules so they are installed
+if COMPILE_FORTRAN
+  nodist_include_HEADERS += libxc_funcs_m.@ax_f90_modext@
+if COMPILE_SINGLE
+  nodist_include_HEADERS += xc_s_f90_lib_m.@ax_f90_modext@ xc_s_f90_types_m.@ax_f90_modext@
+else
+  nodist_include_HEADERS += xc_f90_lib_m.@ax_f90_modext@ xc_f90_types_m.@ax_f90_modext@
+endif
+endif
+
 SUFFIXES = _s.c
 .c_s.c:
 	@CPP@ -D SINGLE_PRECISION=1 @CPPFLAGS@ $(INCLUDES) $(DEFAULT_INCLUDES) $(AM_CPPFLAGS) $< > $*_s.c

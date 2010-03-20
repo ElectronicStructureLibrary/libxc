@@ -78,6 +78,8 @@ if test $ac_cv_build_fortran = yes; then
   dnl check whether the Fortran 90 compiler accepts line markers cast by the preprocessor.
   ACX_F90_ACCEPTS_LINE_NUMBERS
 
+  AX_F90_MODULE_EXTENSION
+
   dnl Need to know the size of a Fortran integer
   ACX_FC_INTEGER_SIZE
   ACX_CC_FORTRAN_INT
@@ -86,6 +88,7 @@ if test $ac_cv_build_fortran = yes; then
 else
   HAVE_FORTRAN=0
 fi
+AC_SUBST(ax_f90_modext)
 
 AM_CONDITIONAL(COMPILE_FORTRAN, test x${HAVE_FORTRAN} = x1)
 

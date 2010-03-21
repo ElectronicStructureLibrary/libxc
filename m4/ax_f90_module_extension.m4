@@ -13,6 +13,7 @@ AC_DEFUN([AX_F90_MODULE_EXTENSION],[
 AC_CACHE_CHECK([fortran 90 modules extension],
 ax_f90_modext,
 [AC_LANG_PUSH(Fortran)
+ax_f90_mod_uppercase=no
 i=0
 while test \( -f tmpdir_$i \) -o \( -d tmpdir_$i \) ; do
   i=`expr $i + 1`
@@ -32,6 +33,8 @@ dnl Some F90 compilers put module filename in uppercase letters
      ax_f90_modext=`ls | sed -n 's,CONFTEST_MODULE\.,,p'`
      if test x$ax_f90_modext = x ; then
        ax_f90_modext=unknown
+     else
+       ax_f90_mod_uppercase=yes
      fi
    fi
   ],

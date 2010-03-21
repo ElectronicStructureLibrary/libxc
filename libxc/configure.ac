@@ -89,7 +89,7 @@ else
   HAVE_FORTRAN=0
 fi
 AC_SUBST(ax_f90_modext)
-
+AM_CONDITIONAL(F90_MOD_UPPERCASE, [test x$ax_f90_mod_uppercase = xyes])
 AM_CONDITIONAL(COMPILE_FORTRAN, test x${HAVE_FORTRAN} = x1)
 
 dnl should I compile libxc in single precision?

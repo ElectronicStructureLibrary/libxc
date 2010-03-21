@@ -82,11 +82,29 @@ endif
 
 ## declare fortran modules so they are installed
 if COMPILE_FORTRAN
+
+if F90_MOD_UPPERCASE
+  nodist_include_HEADERS += LIBXC_FUNCS_M.@ax_f90_modext@
+else
   nodist_include_HEADERS += libxc_funcs_m.@ax_f90_modext@
+endif
+
 if COMPILE_SINGLE
+
+if F90_MOD_UPPERCASE
+  nodist_include_HEADERS += XC_S_F90_LIB_M.@ax_f90_modext@ XC_S_F90_TYPES_M.@ax_f90_modext@
+else
   nodist_include_HEADERS += xc_s_f90_lib_m.@ax_f90_modext@ xc_s_f90_types_m.@ax_f90_modext@
+endif
+
+else
+
+if F90_MOD_UPPERCASE
+  nodist_include_HEADERS += XC_F90_LIB_M.@ax_f90_modext@ XC_F90_TYPES_M.@ax_f90_modext@
 else
   nodist_include_HEADERS += xc_f90_lib_m.@ax_f90_modext@ xc_f90_types_m.@ax_f90_modext@
+endif
+
 endif
 endif
 

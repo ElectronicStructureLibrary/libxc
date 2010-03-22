@@ -1,7 +1,7 @@
 dnl @synopsis AX_F90_MODULE_EXTENSION
 dnl
 dnl Find Fortran 90 modules file extension. The module extension is
-dnl stored in the cached variable ax_f90_modext, or "unknown" if the
+dnl stored in the cached variable ax_cv_f90_modext, or "unknown" if the
 dnl extension cannot be found.
 dnl
 dnl @category Fortran
@@ -11,7 +11,7 @@ dnl @license AllPermissive
 
 AC_DEFUN([AX_F90_MODULE_EXTENSION],[
 AC_CACHE_CHECK([fortran 90 modules extension],
-ax_f90_modext,
+ax_cv_f90_modext,
 [AC_LANG_PUSH(Fortran)
 ax_f90_mod_uppercase=no
 i=0
@@ -27,18 +27,18 @@ AC_COMPILE_IFELSE([module conftest_module
    end subroutine conftest_routine
    end module conftest_module
   ],
-  [ax_f90_modext=`ls | sed -n 's,conftest_module\.,,p'`
-   if test x$ax_f90_modext = x ; then
+  [ax_cv_f90_modext=`ls | sed -n 's,conftest_module\.,,p'`
+   if test x$ax_cv_f90_modext = x ; then
 dnl Some F90 compilers put module filename in uppercase letters
-     ax_f90_modext=`ls | sed -n 's,CONFTEST_MODULE\.,,p'`
-     if test x$ax_f90_modext = x ; then
-       ax_f90_modext=unknown
+     ax_cv_f90_modext=`ls | sed -n 's,CONFTEST_MODULE\.,,p'`
+     if test x$ax_cv_f90_modext = x ; then
+       ax_cv_f90_modext=unknown
      else
        ax_f90_mod_uppercase=yes
      fi
    fi
   ],
-  [ax_f90_modext=unknown])
+  [ax_cv_f90_modext=unknown])
 cd ..
 rm -fr tmpdir_$i
 AC_LANG_POP(Fortran)

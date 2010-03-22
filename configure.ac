@@ -22,6 +22,7 @@ AC_CONFIG_SRCDIR([src/xc.h])
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_MACRO_DIR([m4])
 
 # Installation prefix by default
 AC_PREFIX_DEFAULT([/opt/etsf])
@@ -88,7 +89,7 @@ if test $ac_cv_build_fortran = yes; then
 else
   HAVE_FORTRAN=0
 fi
-AC_SUBST(ax_f90_modext)
+AC_SUBST(ax_cv_f90_modext)
 AM_CONDITIONAL(F90_MOD_UPPERCASE, [test x$ax_f90_mod_uppercase = xyes])
 AM_CONDITIONAL(COMPILE_FORTRAN, test x${HAVE_FORTRAN} = x1)
 

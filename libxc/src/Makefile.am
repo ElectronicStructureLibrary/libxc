@@ -115,9 +115,8 @@ SUFFIXES = _s.c
 CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 	libxc.f90 libxc_funcs.f90 xc_funcs.h *_s.c *_s.f90
 
-lda.lo: xc_funcs.h xc.h xc_s.h
+lda.c: xc_funcs.h xc.h xc_s.h
 xc_funcs.h: get_funcs.pl
-	echo $(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)
 
 libxc_funcs.f90: xc_funcs.h

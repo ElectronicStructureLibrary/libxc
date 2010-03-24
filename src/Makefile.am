@@ -19,7 +19,6 @@
 ##
 ## $Id: Makefile.am 2433 2006-09-28 11:06:54Z marques $
 
-#lib_LIBRARIES = libxc.a
 lib_LTLIBRARIES = libxc.la
 
 libxc_la_FUNC_SOURCES = \
@@ -80,6 +79,8 @@ if COMPILE_SINGLE
   include_HEADERS += xc_s.h
 endif
 
+BUILT_SOURCES = xc_funcs.h
+
 ## declare fortran modules so they are installed
 if COMPILE_FORTRAN
 
@@ -115,19 +116,16 @@ SUFFIXES = _s.c
 CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 	libxc.f90 libxc_funcs.f90 xc_funcs.h *_s.c *_s.f90
 
-lda.o: xc_funcs.h xc.h xc_s.h
-lda.lo: xc_funcs.h xc.h xc_s.h
 xc_funcs.h: get_funcs.pl
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)
 
-libxc_funcs.f90: xc_funcs.h
-libxc.f90: libxc_master.F90 xc_funcs.h
+libxc.f90: libxc_master.F90
 	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc.f90
 	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
 		grep -v "^#" $(top_builddir)/src/libxc.f90 > $(top_builddir)/src/libxc.f91; \
 		mv -f $(top_builddir)/src/libxc.f91 $(top_builddir)/src/libxc.f90; \
 	fi
-libxc_s.f90: libxc_master.F90 xc_funcs.h
+libxc_s.f90: libxc_master.F90
 	@FCCPP@ -D SINGLE_PRECISION=1 @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc_s.f90
 	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
 		grep -v "^#" $(top_builddir)/src/libxc_s.f90 > $(top_builddir)/src/libxc_s.f91; \

@@ -87,7 +87,7 @@ XC(lda_c_1d_csc_set_params_)(XC(lda_type) *p, int interaction, FLOAT bb)
   }else if(interaction == 1){
     if     (bb == 0.5)
       params->ii = 7 + 0;
-    if     (bb == 1.0)
+    else if(bb == 1.0)
       params->ii = 7 + 1;
   }
 

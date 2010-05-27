@@ -86,7 +86,7 @@ void XC(mgga_x_tb09_set_params_)(XC(mgga_type) *p, FLOAT c)
 
 /* This code follows the inversion done in the PINY_MD package */
 FLOAT inline 
-br_newt_raph(FLOAT a, FLOAT tol, int *ierr)
+br_newt_raph(FLOAT a, FLOAT tol,  FLOAT * res, int *ierr)
 {
   int count;
   double x, f;
@@ -105,57 +105,17 @@ br_newt_raph(FLOAT a, FLOAT tol, int *ierr)
 
      xm2 = x - 2.0;
      arg = 2.0*x/3.0;
-     eee = exp(-arg);
+     eee = exp(-arg)/a;
 
-     f  = x*eee - a*xm2;
-     fp = eee*(1.0 - 2.0/3.0*x) - a;
+     f  = x*eee - xm2;
+     fp = eee*(1.0 - 2.0/3.0*x) - 1.0;
 
      x -= f/fp;
      x  = fabs(x);
 
      count ++;
-   }while((fabs(f) > tol) && (count < max_iter));
-
-   if(count == max_iter) *ierr=0; 
-   return x;
-}
-
-
-FLOAT inline
-br_bisect(FLOAT a, FLOAT tol, int *ierr)
-{
-   int count;
-   FLOAT f, x, x1, x2;
-   static int max_iter = 500;
-
-   *ierr = 1;
-   if(a == 0.0)
-     return 0.0;
-
-   /* starting interval */
-   if(a > 0.0) {
-     x1 = 2.0 + tol;
-     x2 = 10.0;
-   }else{
-     x2 = 2.0 - tol;
-     x1 = 0.0;
-   }
-
-   /* bisection */
-   count = 0;
-   do{
-     FLOAT arg, eee, xm2;
-     x   = 0.5*(x1 + x2);
-     xm2 = x - 2.0;
-     arg = 2.0*x/3.0;
-     eee = exp(-arg);
-     f   = x*eee - a*xm2;
-
-     if(f > 0.0) x1 = x;
-     if(f < 0.0) x2 = x;
-
-     count++;
-   }while((fabs(f) > tol)  && (count < max_iter));
+     *res = fabs(f);
+   } while((*res > tol) && (count < max_iter));
 
    if(count == max_iter) *ierr=0; 
    return x;
@@ -163,7 +123,7 @@ br_bisect(FLOAT a, FLOAT tol, int *ierr)
 
 FLOAT XC(mgga_x_br89_get_x)(FLOAT Q)
 {
-  FLOAT rhs, br_x, tol;
+  FLOAT rhs, br_x, tol, res;
   int ierr;
 
 #if SINGLE_PRECISION
@@ -176,13 +136,11 @@ FLOAT XC(mgga_x_br89_get_x)(FLOAT Q)
      Remember we use a different definition of tau */
   rhs = 2.0/3.0*POW(M_PI, 2.0/3.0)/Q;
 
-  br_x = br_newt_raph(rhs, tol, &ierr);
-  if(ierr == 0 || isnan(br_x) != 0)
-    br_x = br_bisect(rhs, tol, &ierr);
+  br_x = br_newt_raph(rhs, tol, &res, &ierr);
   if(ierr == 0){
     fprintf(stderr, 
 	    "Warning: Convergence not reached in Becke-Roussel functional\n"
-	    "For rhs = %20.14lf\n", rhs);
+	    "For rhs = %20.14lf (residual = %e)\n", rhs, res);
   }
 
   return br_x;

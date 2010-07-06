@@ -27,6 +27,7 @@
 #define XC_GGA_X_XPBE         123 /* xPBE reparametrization by Xu & Goddard         */
 #define XC_GGA_X_PBE_JSJR     126 /* JSJR reparametrization by Pedroza, Silva & Capelle */
 #define XC_GGA_X_PBEK1_VDW    140 /* PBE reparametrization for vdW */
+#define XC_GGA_X_RGE2         142 /* Regularized PBE */
 
 
 typedef struct{
@@ -37,22 +38,24 @@ typedef struct{
 static void 
 gga_x_pbe_init(void *p_)
 {
-  static const FLOAT kappa[6] = {
+  static const FLOAT kappa[7] = {
     0.8040,  /* original PBE */
     1.245,   /* PBE R */
     0.8040,  /* PBE sol */
     0.91954, /* xPBE */
     0.8040,  /* PBE_JSJR */
     1.0,     /* PBEK1_VDW */
+    0.804    /* RGE2 */
   };
 
-  static const FLOAT mu[6] = {
+  static const FLOAT mu[7] = {
     0.2195149727645171,   /* PBE: mu = beta*pi^2/3, be ta = 0.066725 */
     0.2195149727645171,   /* PBE rev: as PBE */
     10.0/81.0,            /* PBE sol */
     0.23214,              /* xPBE */
     M_PI*M_PI*0.046/3.0,  /* PBE_JSJR */
     0.2195149727645171,   /* PBEK1_VDW: as PBE */
+    10.0/81.0             /* RGE2 */
   };
 
   XC(gga_type) *p = (XC(gga_type) *)p_;
@@ -67,6 +70,7 @@ gga_x_pbe_init(void *p_)
   case XC_GGA_X_PBE_JSJR:   p->func = 4; break;
   case XC_GGA_X_PBEK1_VDW:  p->func = 5; break;
   case XC_GGA_X_OPTPBE_VDW: p->func = 6; break;
+  case XC_GGA_X_RGE2:       p->func = 7; break;
   default:                  p->func = 0; /* original PBE */
   }
 
@@ -99,20 +103,26 @@ static inline void
 func(const XC(gga_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
-  FLOAT kappa, mu, ss, f0, df0, d2f0;
+  FLOAT kappa, mu, ss, ss2, f0, df0, d2f0;
 
   assert(p->params != NULL);
   kappa = ((gga_x_pbe_params *) (p->params))->kappa;
   mu    = ((gga_x_pbe_params *) (p->params))->mu;
 
-  ss = X2S*x;
+  ss  = X2S*x;
+  ss2 = ss*ss;
+ 
+  f0 = kappa + mu*ss2;
+  if(p->info->number == XC_GGA_X_RGE2)
+    f0 += mu*mu*ss2*ss2/kappa;
 
-  f0 = kappa + mu*ss*ss;
   *f = 1.0 + kappa*(1.0 - kappa/f0);
 
   if(order < 1) return;
 
-  df0 = 2.0*ss*mu;
+  df0 = 2.0*mu*ss;
+  if(p->info->number == XC_GGA_X_RGE2)
+    df0 += 4.0*mu*mu*ss2*ss/kappa;
 
   *dfdx  = X2S*kappa*kappa*df0/(f0*f0);
   *ldfdx = X2S*X2S*mu;
@@ -120,6 +130,9 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   if(order < 2) return;
 
   d2f0 = 2.0*mu;
+  if(p->info->number == XC_GGA_X_RGE2)
+    d2f0 += 4.0*3.0*mu*mu*ss2/kappa;
+
   *d2fdx2 = X2S*X2S*kappa*kappa/(f0*f0)*(d2f0 - 2.0*df0*df0/f0);
 }
 
@@ -203,6 +216,18 @@ const XC(func_info_type) XC(func_info_gga_x_pbek1_vdw) = {
   "J Klimes, DR Bowler, and A Michaelides, J. Phys.: Condens. Matter 22, 022201 (2010)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_x_pbe_init, 
+  NULL, NULL,
+  work_gga_x
+};
+
+const XC(func_info_type) XC(func_info_gga_x_rge2) = {
+  XC_GGA_X_RGE2,
+  XC_EXCHANGE,
+  "Regularized PBE",
+  XC_FAMILY_GGA,
+  "A Ruzsinszky, GI Csonka, and G Scuseria, J. Chem. Theory Comput. 5, 763 (2009)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_x_pbe_init,
   NULL, NULL,
   work_gga_x
 };

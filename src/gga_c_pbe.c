@@ -33,14 +33,16 @@
 #define XC_GGA_C_PBE_SOL      133 /* Perdew, Burke & Ernzerhof correlation SOL      */
 #define XC_GGA_C_XPBE         136 /* xPBE reparametrization by Xu & Goddard         */
 #define XC_GGA_C_PBE_JRGX     138 /* JRGX reparametrization by Pedroza, Silva & Capelle */
+#define XC_GGA_C_RGE2         143 /* Regularized PBE */
 
-static const FLOAT beta[4]  = {
+static const FLOAT beta[5]  = {
   0.06672455060314922,       /* original PBE */
   0.046,                     /* PBE sol      */
   0.089809,                  /* xPBE */
-  3.0*10.0/(81.0*M_PI*M_PI)  /* PBE_JRGX */
+  3.0*10.0/(81.0*M_PI*M_PI), /* PBE_JRGX */
+  0.053,                     /* RGE2 */
 };
-static FLOAT gamm[4];
+static FLOAT gamm[5];
 
 
 static void gga_c_pbe_init(void *p_)
@@ -54,7 +56,7 @@ static void gga_c_pbe_init(void *p_)
 
   XC(func_init)(p->func_aux[0], XC_LDA_C_PW_MOD, p->nspin);
 
-  for(ii=0; ii<4; ii++)
+  for(ii=0; ii<5; ii++)
     gamm[ii] = (1.0 - log(2.0))/(M_PI*M_PI);
   gamm[2] = beta[2]*beta[2]/(2.0*0.197363);
 }
@@ -158,6 +160,7 @@ my_gga_c_pbe(const void *p_, const FLOAT *rho, const FLOAT *sigma,
   case XC_GGA_C_PBE_SOL:  func = 1; break;
   case XC_GGA_C_XPBE:     func = 2; break;
   case XC_GGA_C_PBE_JRGX: func = 3; break;
+  case XC_GGA_C_RGE2:     func = 4; break;
   default:                func = 0; /* original PBE */
   }
 
@@ -280,4 +283,16 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_jrgx) = {
   NULL,
   NULL,            /* this is not an LDA                   */
   gga_c_pbe,
+};
+
+const XC(func_info_type) XC(func_info_gga_c_rge2) = {
+  XC_GGA_C_RGE2,
+  XC_EXCHANGE,
+  "Regularized PBE",
+  XC_FAMILY_GGA,
+  "A Ruzsinszky, GI Csonka, and G Scuseria, J. Chem. Theory Comput. 5, 763 (2009)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_c_pbe_init,
+  NULL, NULL,
+  gga_c_pbe
 };

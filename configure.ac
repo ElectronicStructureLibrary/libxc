@@ -17,7 +17,7 @@
 ##
 ## $Id: configure.ac 2422 2006-09-23 20:43:15Z marques $
 
-AC_INIT([libxc],[1.0_alpha],[octopus-users@tddft.org],[libxc])
+AC_INIT([libxc],[1.0],[octopus-users@tddft.org],[libxc])
 AC_CONFIG_SRCDIR([src/xc.h])
 AM_INIT_AUTOMAKE
 
@@ -27,9 +27,10 @@ AC_CONFIG_MACRO_DIR([m4])
 # Installation prefix by default
 AC_PREFIX_DEFAULT([/opt/etsf])
 
+LT_INIT
+
 # Checks for programs.
 AC_PROG_CC
-AC_PROG_LIBTOOL
 AC_LANG_PREPROC
 AM_PROG_CC_C_O
 AC_C_INLINE

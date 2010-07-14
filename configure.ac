@@ -19,6 +19,7 @@
 
 AC_INIT([libxc],[ordinarius],[octopus-users@tddft.org],[libxc])
 AC_CONFIG_SRCDIR([src/xc.h])
+AC_PROG_LIBTOOL
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_HEADERS([config.h])

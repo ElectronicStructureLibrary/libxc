@@ -254,9 +254,10 @@ void XC_FC_FUNC(f90_gga_lb_modified, F90_GGA_LB_MODIFIED)
 
 
 void XC_FC_FUNC(f90_hyb_gga_exx_coef, F90_HYB_GGA_EXX_COEF)
-  (void **p, FLOAT *coef)
+   (void **p, FLOAT *coef)
 {
-  *coef = XC(hyb_gga_exx_coef)((XC(gga_type) *)(*p));
+   const XC(gga_type) *gga = ((XC(func_type) *)(*p))->gga;
+   *coef = XC(hyb_gga_exx_coef)(gga);
 }
 
 

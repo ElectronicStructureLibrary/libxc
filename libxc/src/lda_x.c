@@ -264,7 +264,7 @@ const XC(func_info_type) XC(func_info_lda_c_xalpha) = {
   XC_CORRELATION,
   "Slater's Xalpha",
   XC_FAMILY_LDA,
-  NULL,
+  "JC Slater, Phys. Rev. 81, 385 (1951)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   lda_c_xalpha_init,
   lda_x_end,

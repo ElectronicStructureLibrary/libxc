@@ -133,7 +133,7 @@ FLOAT inline br_bisect(FLOAT a, FLOAT tol, int *ierr) {
   /* starting interval */ 
   if(a > 0.0) { 
     x1 = 2.0 + tol; 
-    x2 = 1.0/a;
+    x2 = 1.0/a + 2.0;
   }else{ 
     x2 = 2.0 - tol; 
     x1 = 0.0; 
@@ -177,7 +177,6 @@ FLOAT XC(mgga_x_br89_get_x)(FLOAT Q)
   br_x = br_newt_raph(rhs, tol, &res, &ierr);
   if(ierr == 0){
     br_x = br_bisect(rhs, tol, &ierr);
-    printf("rhs = %e  br_x = %e\n", rhs, br_x);
     if(ierr == 0){
       fprintf(stderr, 
 	      "Warning: Convergence not reached in Becke-Roussel functional\n"

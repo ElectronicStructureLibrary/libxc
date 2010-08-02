@@ -35,6 +35,7 @@ work_mgga_x(const void *p_, int np,
 
   FLOAT sfact, sfact2, dens;
   int is, ip, order;
+  int has_tail;
 
   order = -1;
   if(zk     != NULL) order = 0;
@@ -45,6 +46,16 @@ work_mgga_x(const void *p_, int np,
   sfact = (p->nspin == XC_POLARIZED) ? 1.0 : 2.0;
   sfact2 = sfact*sfact;
 
+  has_tail = 0;
+  switch(p->info->number){
+  case XC_MGGA_X_BR89:
+  case XC_MGGA_X_BJ06:
+  case XC_MGGA_X_TB09:
+  case XC_MGGA_X_RPP09:
+    has_tail = 1;
+    break;
+  }
+  
   for(ip = 0; ip < np; ip++){
     dens = (p->nspin == XC_UNPOLARIZED) ? rho[0] : rho[0] + rho[1];
     if(dens < MIN_DENS) goto end_ip_loop;
@@ -54,7 +65,7 @@ work_mgga_x(const void *p_, int np,
       FLOAT x, t, u, f, lnr2, ltau, vrho0, dfdx, dfdt, dfdu, d2fdx2, d2fdxt, d2fdt2;
       int js = (is == 0) ? 0 : 2;
 
-      if(rho[is] < MIN_DENS || tau[is] < MIN_TAU) continue;
+      if(!has_tail && (rho[is] < MIN_DENS || tau[is] < MIN_TAU)) continue;
 
       gdm   = sqrt(sigma[js])/sfact;
       ds    = rho[is]/sfact;

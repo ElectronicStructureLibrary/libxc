@@ -121,6 +121,44 @@ br_newt_raph(FLOAT a, FLOAT tol,  FLOAT * res, int *ierr)
    return x;
 }
 
+FLOAT inline br_bisect(FLOAT a, FLOAT tol, int *ierr) { 
+  int count; 
+  FLOAT f, x, x1, x2; 
+  static int max_iter = 500; 
+ 	 
+  *ierr = 1; 
+  if(a == 0.0) 
+    return 0.0; 
+		   
+  /* starting interval */ 
+  if(a > 0.0) { 
+    x1 = 2.0 + tol; 
+    x2 = 1.0/a;
+  }else{ 
+    x2 = 2.0 - tol; 
+    x1 = 0.0; 
+  } 
+	 	 
+  /* bisection */ 
+  count = 0; 
+  do{ 
+    FLOAT arg, eee, xm2; 
+    x   = 0.5*(x1 + x2); 
+    xm2 = x - 2.0; 
+    arg = 2.0*x/3.0; 
+    eee = exp(-arg); 
+    f   = x*eee - a*xm2; 
+	 	 
+    if(f > 0.0) x1 = x; 
+    if(f < 0.0) x2 = x; 
+	 	 
+    count++; 
+  }while((fabs(f) > tol)  && (count < max_iter)); 
+ 	 
+  if(count == max_iter) *ierr=0;  
+  return x; 
+} 
+	 	 
 FLOAT XC(mgga_x_br89_get_x)(FLOAT Q)
 {
   FLOAT rhs, br_x, tol, res;
@@ -138,9 +176,13 @@ FLOAT XC(mgga_x_br89_get_x)(FLOAT Q)
 
   br_x = br_newt_raph(rhs, tol, &res, &ierr);
   if(ierr == 0){
-    fprintf(stderr, 
-	    "Warning: Convergence not reached in Becke-Roussel functional\n"
-	    "For rhs = %20.14lf (residual = %e)\n", rhs, res);
+    br_x = br_bisect(rhs, tol, &ierr);
+    printf("rhs = %e  br_x = %e\n", rhs, br_x);
+    if(ierr == 0){
+      fprintf(stderr, 
+	      "Warning: Convergence not reached in Becke-Roussel functional\n"
+	      "For rhs = %e (residual = %e)\n", rhs, res);
+    }
   }
 
   return br_x;

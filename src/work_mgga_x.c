@@ -25,6 +25,10 @@
 
 #include <stdio.h>
 
+#ifndef XC_DIMENSIONS
+#  define XC_DIMENSIONS 3
+#endif
+
 static void 
 work_mgga_x(const void *p_, int np,
 	    const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
@@ -33,9 +37,15 @@ work_mgga_x(const void *p_, int np,
 {
   const XC(mgga_type) *p = p_;
 
-  FLOAT sfact, sfact2, dens;
+  FLOAT sfact, sfact2, dens, x_factor_c;
   int is, ip, order;
   int has_tail;
+
+  #if XC_DIMENSIONS == 2
+  x_factor_c = X_FACTOR_2D_C;
+  #else /* three dimensions */
+  x_factor_c = X_FACTOR_C;
+  #endif
 
   order = -1;
   if(zk     != NULL) order = 0;
@@ -61,7 +71,7 @@ work_mgga_x(const void *p_, int np,
     if(dens < MIN_DENS) goto end_ip_loop;
 
     for(is=0; is<p->nspin; is++){
-      FLOAT gdm, ds, rho13;
+      FLOAT gdm, ds, rho1D;
       FLOAT x, t, u, f, lnr2, ltau, vrho0, dfdx, dfdt, dfdu, d2fdx2, d2fdxt, d2fdt2;
       int js = (is == 0) ? 0 : 2;
 
@@ -69,14 +79,14 @@ work_mgga_x(const void *p_, int np,
 
       gdm   = sqrt(sigma[js])/sfact;
       ds    = rho[is]/sfact;
-      rho13 = POW(ds, 1.0/3.0);
-      x     = gdm/(ds*rho13);
+      rho1D = POW(ds, 1.0/XC_DIMENSIONS);
+      x     = gdm/(ds*rho1D);
     
       ltau  = tau[is]/sfact;
-      t     = ltau/(ds*rho13*rho13);  /* tau/rho^(5/3) */
+      t     = ltau/(ds*rho1D*rho1D);  /* tau/rho^((2+D)/D) */
 
       lnr2  = lapl_rho[is]/sfact;     /* this can be negative */
-      u     = lnr2/(ds*rho13*rho13);  /* lapl_rho/rho^(5/3) */
+      u     = lnr2/(ds*rho1D*rho1D);  /* lapl_rho/rho^((2+D)/D) */
 
       vrho0 = dfdx = dfdt = dfdu = 0.0;
       d2fdx2 = d2fdxt = d2fdt2 = 0.0;
@@ -85,14 +95,14 @@ work_mgga_x(const void *p_, int np,
 	   &dfdx, &dfdt, &dfdu, &d2fdx2, &d2fdxt, &d2fdt2);
 
       if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-	*zk += -sfact*X_FACTOR_C*(ds*rho13)*f;
+	*zk += -sfact*x_factor_c*(ds*rho1D)*f;
 
       if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
-	vrho[is]      = -X_FACTOR_C*rho13*(vrho0 + 4.0/3.0*(f - dfdx*x) - 5.0/3.0*(dfdt*t + dfdu*u));
-	vtau[is]      = -X_FACTOR_C*dfdt/rho13;
-	vlapl_rho[is] = -X_FACTOR_C*dfdu/rho13;
+	vrho[is]      = -x_factor_c*rho1D*(vrho0 + 4.0/3.0*(f - dfdx*x) - 5.0/3.0*(dfdt*t + dfdu*u));
+	vtau[is]      = -x_factor_c*dfdt/rho1D;
+	vlapl_rho[is] = -x_factor_c*dfdu/rho1D;
 	if(gdm>MIN_GRAD)
-	  vsigma[js]    = -sfact*X_FACTOR_C*(rho13*ds)*dfdx*x/(2.0*sigma[js]);
+	  vsigma[js]    = -sfact*x_factor_c*(rho1D*ds)*dfdx*x/(2.0*sigma[js]);
       }
 
       if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){

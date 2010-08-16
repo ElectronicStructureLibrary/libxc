@@ -132,7 +132,7 @@ func(const XC(mgga_type) *p, FLOAT x, FLOAT t, FLOAT u, int order,
     *f = v_PRHG / 2.0;
   }
   else if (p->info->number == XC_MGGA_X_2D_PRHG07_PRP10) {
-    *vrho0 = (v_PRHG + ((2.0*sqrt_two)/(3.0*M_PI))*sqrt(max(t - 0.25*x*x,0.0))/X_FACTOR_2D_C)*(1.0 / 3.0);
+    *vrho0 = (v_PRHG - ((2.0*sqrt_two)/(3.0*M_PI))*sqrt(max(t - 0.25*x*x,0.0))/X_FACTOR_2D_C)*(1.0 / 3.0);
     *f = *vrho0 * (3.0 / 2.0);
   }
   else

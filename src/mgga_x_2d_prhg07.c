@@ -37,8 +37,8 @@ prhg_newt(FLOAT c, FLOAT tol, FLOAT * res, int *ierr)
   static int max_iter = 50;
 
    *ierr = 1;
-   if(c < 1.00000001)
-     return 1.0;
+   if(c < -1.0)
+     return 0.0;
      
    count = 0;
    

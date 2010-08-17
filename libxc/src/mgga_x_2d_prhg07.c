@@ -43,7 +43,7 @@ prhg_newt(FLOAT c, FLOAT tol, FLOAT * res, int *ierr)
    count = 0;
    
    /** We need to calculate y in different ways in different regions
-   because of numberical problems. (y-1)*exp(y) is very nasty at high y
+   because of numerical problems. (y-1)*exp(y) is very nasty at high y
    and log(y-1)+y is very nasty at low y. **/
    if (c < 4.0) {
      y = 2.0;

@@ -75,7 +75,7 @@ work_mgga_x(const void *p_, int np,
       FLOAT x, t, u, f, lnr2, ltau, vrho0, dfdx, dfdt, dfdu, d2fdx2, d2fdxt, d2fdt2;
       int js = (is == 0) ? 0 : 2;
 
-      if(!has_tail && (rho[is] < MIN_DENS || tau[is] < MIN_TAU)) continue;
+      if((!has_tail && (rho[is] < MIN_DENS || tau[is] < MIN_TAU)) || (rho[is] == 0.0)) continue;
 
       gdm   = sqrt(sigma[js])/sfact;
       ds    = rho[is]/sfact;

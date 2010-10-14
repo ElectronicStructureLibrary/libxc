@@ -292,7 +292,7 @@ const XC(func_info_type) XC(func_info_mgga_x_rpp09) = {
   XC_EXCHANGE,
   "Rasanen, Pittalis & Proetto 09",
   XC_FAMILY_MGGA,
-  "E Rasanen, S Pittalis & C Proetto, arXiv:0909.1477 (2009)",
+  "E Rasanen, S Pittalis & C Proetto, J. Chem. Phys. 132, 044112 (2010)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
   mgga_x_tb09_init,
   mgga_x_tb09_end,

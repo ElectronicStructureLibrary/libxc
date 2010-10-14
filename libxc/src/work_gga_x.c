@@ -38,13 +38,22 @@ work_gga_x(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 {
   const XC(gga_type) *p = p_;
 
-  FLOAT sfact, sfact2, x_factor_c, dens;
+  FLOAT sfact, sfact2, x_factor_c, power, dens;
   int is, ip, order;
 
-#if XC_DIMENSIONS == 2
-  x_factor_c = X_FACTOR_2D_C;
-#else /* three dimensions */
-  x_factor_c = X_FACTOR_C;
+#ifndef XC_KINETIC_FUNCTIONAL
+  power = 1.0/XC_DIMENSIONS;
+#  if XC_DIMENSIONS == 2
+  x_factor_c = -X_FACTOR_2D_C;
+#  else /* three dimensions */
+  x_factor_c = -X_FACTOR_C;
+#  endif
+#else
+#  if XC_DIMENSIONS == 2
+#  else /* three dimensions */
+  power = 2.0/3.0;
+  x_factor_c = K_FACTOR_C;
+#  endif
 #endif
 
   sfact = (p->nspin == XC_POLARIZED) ? 1.0 : 2.0;
@@ -70,7 +79,7 @@ work_gga_x(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 
       gdm   = sqrt(sigma[js])/sfact;
       ds    = rho[is]/sfact;
-      rho1D = POW(ds, 1.0/XC_DIMENSIONS);
+      rho1D = POW(ds, power);
       x     = gdm/(ds*rho1D);
       
       dfdx = ldfdx = d2fdx2 = 0.0;
@@ -93,24 +102,24 @@ work_gga_x(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 #endif
 
       if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-	*zk += -sfact*x_factor_c*(ds*rho1D)*f;
+	*zk += sfact*x_factor_c*(ds*rho1D)*f;
       
       if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
-	vrho[is] += -(XC_DIMENSIONS + 1.0)/(XC_DIMENSIONS)*x_factor_c*rho1D*(f - dfdx*x)
-	  -x_factor_c*(ds*rho1D)*lvrho;
+	vrho[is] += (power + 1.0)*x_factor_c*rho1D*(f - dfdx*x)
+	  + x_factor_c*(ds*rho1D)*lvrho;
 	
 	if(gdm>MIN_GRAD)
-	  vsigma[js] = -sfact*x_factor_c*(ds*rho1D)*(lvsigma + dfdx*x/(2.0*sigma[js]));
+	  vsigma[js] = sfact*x_factor_c*(ds*rho1D)*(lvsigma + dfdx*x/(2.0*sigma[js]));
       }
       
       if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){
-	v2rho2[js] = -(XC_DIMENSIONS + 1.0)/(XC_DIMENSIONS*XC_DIMENSIONS)*x_factor_c*rho1D/ds*
-	  (f - dfdx*x + (XC_DIMENSIONS + 1.0)*d2fdx2*x*x)/sfact;
+	v2rho2[js] = power*(power + 1.0)*x_factor_c*rho1D/ds*
+	  (f - dfdx*x + (power + 1.0)/power*d2fdx2*x*x)/sfact;
 	
 	if(gdm>MIN_GRAD){
-	  v2rhosigma[ks] = -(XC_DIMENSIONS + 1.0)/(XC_DIMENSIONS)*x_factor_c*rho1D *
+	  v2rhosigma[ks] = (power + 1.0)*x_factor_c*rho1D *
 	    (lvsigma - lvsigmax*x - d2fdx2*x*x/(2.0*sigma[js]));
-	  v2sigma2  [ks] = -sfact*x_factor_c*(ds*rho1D)*
+	  v2sigma2  [ks] = sfact*x_factor_c*(ds*rho1D)*
 	    (lv2sigma2 + lvsigmax*x/sigma[js] + (d2fdx2*x - dfdx)*x/(4.0*sigma[js]*sigma[js]));
 	}
 	

@@ -277,7 +277,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_jrgx) = {
   XC_CORRELATION,
   "Reparametrized PBE by Pedroza, Silva & Capelle",
   XC_FAMILY_GGA,
-  "LS Pedroza, AJR da Silva, and K. Capelle, arxiv:0905.1925",
+  "LS Pedroza, AJR da Silva, and K. Capelle, Phys. Rev. B 79, 201106(R) (2009)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_c_pbe_init,
   NULL,

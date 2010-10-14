@@ -34,6 +34,7 @@ extern "C" {
 #define XC_EXCHANGE             0
 #define XC_CORRELATION          1
 #define XC_EXCHANGE_CORRELATION 2
+#define XC_KINETIC              3
 
 #define XC_FAMILY_UNKNOWN      -1
 #define XC_FAMILY_LDA           1
@@ -54,6 +55,9 @@ extern "C" {
 #define XC_FLAGS_3D               (1 <<  7) /*  128 */
 #define XC_FLAGS_STABLE           (1 <<  9) /*  512 */
 #define XC_FLAGS_DEVELOPMENT      (1 << 10) /* 1024 */
+
+#define XC_TAU_EXPLICIT         0
+#define XC_TAU_EXPANSION        1
 
 typedef struct{
   int   number;   /* indentifier number */
@@ -181,6 +185,9 @@ typedef struct XC(struct_mgga_type){
   XC(func_type) **func_aux;             /* most GGAs are based on a LDA or other GGAs  */
   FLOAT *mix_coef;                      /* coefficients for the mixing */
 
+  int handle_tau;                       /* decides if tau should be handled explicitly (0) or
+					   though a gradient expansion (1) */
+
   int func;                             /* Shortcut in case of several functionals sharing the same interface */
   int n_rho, n_zk, n_vrho, n_v2rho2;    /* spin dimensions of arguments */
   int n_sigma, n_vsigma, n_v2rhosigma, n_v2sigma2;
@@ -209,6 +216,7 @@ void XC(mgga_fxc)    (const XC(func_type) *p, int np,
 		      const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
 		      FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2);
 
+void XC(mgga_set_handle_tau)(XC(func_type) *p, int handle_tau);
 void XC(mgga_x_tb09_set_params)(XC(func_type) *p, FLOAT c);
 
 /* Functionals that are defined as mixtures of others */

@@ -62,7 +62,7 @@ work_gga_x(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 
     for(is=0; is<p->nspin; is++){
       FLOAT gdm, ds, rho1D;
-      FLOAT x, f, dfdx, ldfdx, d2fdx2, lvsigma, lv2sigma2, lvsigmax;
+      FLOAT x, f, dfdx, ldfdx, d2fdx2, lvsigma, lv2sigma2, lvsigmax, lvrho;
       int js = (is == 0) ? 0 : 2;
       int ks = (is == 0) ? 0 : 5;
 
@@ -74,25 +74,31 @@ work_gga_x(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
       x     = gdm/(ds*rho1D);
       
       dfdx = ldfdx = d2fdx2 = 0.0;
-      lvsigma = lv2sigma2 = lvsigmax = 0.0;
+      lvsigma = lv2sigma2 = lvsigmax = lvrho = 0.0;
 
 #if   HEADER == 1
       func(p, order, x, &f, &dfdx, &ldfdx, &d2fdx2);
 #elif HEADER == 2
       /* this second header is useful for functionals that depend
-	 explicitly both on s and on sigma */
+	 explicitly both on x and on sigma */
       func(p, order, x, gdm*gdm, &f, &dfdx, &ldfdx, &lvsigma, &d2fdx2, &lv2sigma2, &lvsigmax);
       
       lvsigma   /= sfact2;
       lvsigmax  /= sfact2;
       lv2sigma2 /= sfact2*sfact2;
+#elif HEADER == 3
+      /* this second header is useful for functionals that depend
+	 explicitly both on x and on rho*/
+      func(p, order, x, ds, &f, &dfdx, &lvrho);
 #endif
 
       if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
 	*zk += -sfact*x_factor_c*(ds*rho1D)*f;
       
       if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
-	vrho[is] += -(XC_DIMENSIONS + 1.0)/(XC_DIMENSIONS)*x_factor_c*rho1D*(f - dfdx*x);
+	vrho[is] += -(XC_DIMENSIONS + 1.0)/(XC_DIMENSIONS)*x_factor_c*rho1D*(f - dfdx*x)
+	  -x_factor_c*(ds*rho1D)*lvrho;
+	
 	if(gdm>MIN_GRAD)
 	  vsigma[js] = -sfact*x_factor_c*(ds*rho1D)*(lvsigma + dfdx*x/(2.0*sigma[js]));
       }

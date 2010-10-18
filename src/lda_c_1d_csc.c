@@ -100,54 +100,94 @@ XC(lda_c_1d_csc_set_params_)(XC(lda_type) *p, int interaction, FLOAT bb)
   params->bb          = bb;
 }
 
+typedef struct {
+  FLOAT A, B, C, D, E, n1, n2, alpha, beta, m;
+} lda_csc_param_t;
+
+
+static void
+csc_func(lda_csc_param_t *pp, XC(lda_rs_zeta) *r, FLOAT *func, FLOAT *dfunc)
+{
+  FLOAT rs_n1, rs_n2, rs_m, arg, larg, den, num;
+  FLOAT darg, dden, dnum;
+
+  rs_n1 = POW(r->rs[1], pp->n1);
+  rs_n2 = POW(r->rs[1], pp->n2);
+  rs_m  = POW(r->rs[1], pp->m);
+
+  arg  = 1.0 + pp->alpha*r->rs[1] + pp->beta*rs_m;
+  larg = LOG(arg);
+
+  den  = pp->A + pp->B*r->rs[1] + pp->C*rs_n1 + pp->D*rs_n2;
+  num  = r->rs[1] + pp->E*r->rs[2];
+ 
+  *func = -num*larg/den;
+  *func /= 2.0; /* conversion from Ry to Hartree */
+
+  if(r->order < 1) return;
+
+  darg = pp->alpha + pp->beta*pp->m*rs_m/r->rs[1];
+  dden = pp->B + pp->C*pp->n1*rs_n1/r->rs[1] + pp->D*pp->n2*rs_n2/r->rs[1];
+  dnum = 1.0 + 2.0*pp->E*r->rs[1];
+
+  *dfunc  = -((dnum*larg + num*darg/arg)*den - dden*num*larg)/(den*den);
+  *dfunc /= 2.0; /* conversion from Ry to Hartree */
+}
+
 static inline void
 func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
-  static const struct {
-    FLOAT A, B, C, D, E, n1, n2, alpha, beta, m;
-  } pp[] = {
-    {  4.66,  0.0,  2.092, 3.735, 0.0, 1.379, 2.0, 23.63,  109.9,    1.837}, /* exponentially screened interaction */
-    {  9.5,   0.0,  1.85,  5.64,  0.0, 0.882, 2.0,  5.346,   6.69,   3.110},
-    { 16.40,  0.0,  2.90,  6.235, 0.0, 0.908, 2.0,  3.323,   2.23,   3.368},
-    { 22.53,  0.0,  2.09,  7.363, 0.0, 0.906, 2.0,  2.029,   0.394,  4.070},
-    { 32.1,   0.0,  3.77,  7.576, 0.0, 0.941, 2.0,  1.63,    0.198,  4.086},
-    {110.5,   0.0,  7.90,  8.37,  0.0, 1.287, 2.0,  1.399,   0.0481, 4.260},
-    {413.0,   0.0, 10.8,   7.99,  0.0, 1.549, 2.0,  1.308,   0.0120, 4.165},
+  lda_csc_param_t pp[2][9] = {
+    { /* paramagnetic */
+      {  4.66,  0.0,  2.092, 3.735, 0.0, 1.379, 2.0, 23.63,  109.9,    1.837}, /* exponentially screened interaction */
+      {  9.5,   0.0,  1.85,  5.64,  0.0, 0.882, 2.0,  5.346,   6.69,   3.110},
+      { 16.40,  0.0,  2.90,  6.235, 0.0, 0.908, 2.0,  3.323,   2.23,   3.368},
+      { 22.53,  0.0,  2.09,  7.363, 0.0, 0.906, 2.0,  2.029,   0.394,  4.070},
+      { 32.1,   0.0,  3.77,  7.576, 0.0, 0.941, 2.0,  1.63,    0.198,  4.086},
+      {110.5,   0.0,  7.90,  8.37,  0.0, 1.287, 2.0,  1.399,   0.0481, 4.260},
+      {413.0,   0.0, 10.8,   7.99,  0.0, 1.549, 2.0,  1.308,   0.0120, 4.165},
 
-    { 7.40, 1.120, 1.890, 0.0964,  0.0250,   2.0, 3.0, 2.431, 0.0142, 2.922}, /* soft-Coulomb interaction */
-    {18.40, 0.0,   7.501, 0.10185, 0.012827, 2.0, 3.0, 1.511, 0.258,  4.424},
+      { 7.40, 1.120, 1.890, 0.0964,  0.0250,   2.0, 3.0, 2.431, 0.0142, 2.922}, /* soft-Coulomb interaction */
+      {18.40, 0.0,   7.501, 0.10185, 0.012827, 2.0, 3.0, 1.511, 0.258,  4.424}
+    },{ /* ferromagnetic */
+      {  4.66,  0.0,  2.092, 3.735, 0.0, 1.379, 2.0, 23.63,  109.9,    1.837}, /* exponentially screened interaction */
+      {  9.5,   0.0,  1.85,  5.64,  0.0, 0.882, 2.0,  5.346,   6.69,   3.110},
+      { 16.40,  0.0,  2.90,  6.235, 0.0, 0.908, 2.0,  3.323,   2.23,   3.368},
+      { 22.53,  0.0,  2.09,  7.363, 0.0, 0.906, 2.0,  2.029,   0.394,  4.070},
+      { 32.1,   0.0,  3.77,  7.576, 0.0, 0.941, 2.0,  1.63,    0.198,  4.086},
+      {110.5,   0.0,  7.90,  8.37,  0.0, 1.287, 2.0,  1.399,   0.0481, 4.260},
+      {413.0,   0.0, 10.8,   7.99,  0.0, 1.549, 2.0,  1.308,   0.0120, 4.165},
+
+      { 7.40, 1.120, 1.890, 0.0964,  0.0250,   2.0, 3.0, 2.431, 0.0142, 2.922}, /* soft-Coulomb interaction */
+      { 5.24, 0.0,   1.568, 0.12856, 0.003201, 2.0, 3.0, 0.0538, 1.56e-5, 2.958}
+    }
   };
 
   int ii;
   FLOAT rs_n1, rs_n2, rs_m, arg, larg, den, num;
   FLOAT darg, dden, dnum;
+  FLOAT zk_p, zk_f, dzk_p, dzk_f;
 
   assert(p->params != NULL);
   ii = ((lda_c_1d_csc_params *)p->params)->ii;
 
-  rs_n1 = POW(r->rs[1], pp[ii].n1);
-  rs_n2 = POW(r->rs[1], pp[ii].n2);
-  rs_m  = POW(r->rs[1], pp[ii].m);
+  csc_func(&(pp[0][ii]), r, &zk_p, &dzk_p);
+  r->zk = zk_p;
 
-  arg  = 1.0 + pp[ii].alpha*r->rs[1] + pp[ii].beta*rs_m;
-  larg = LOG(arg);
+  if(p->nspin == XC_POLARIZED){
+    csc_func(&(pp[1][ii]), r, &zk_f, &dzk_f);
 
-  den  = pp[ii].A + pp[ii].B*r->rs[1] + pp[ii].C*rs_n1 + pp[ii].D*rs_n2;
-  num  = r->rs[1] + pp[ii].E*r->rs[2];
-
-  r->zk  = -num*larg/den;
-  r->zk /= 2.0; /* conversion from Ry to Hartree */
+    r->zk += (zk_f - zk_p)*r->zeta*r->zeta;
+  }
 
   if(r->order < 1) return;
 
-  darg = pp[ii].alpha + pp[ii].beta*pp[ii].m*rs_m/r->rs[1];
-  dden = pp[ii].B + pp[ii].C*pp[ii].n1*rs_n1/r->rs[1] + pp[ii].D*pp[ii].n2*rs_n2/r->rs[1];
-  dnum = 2.0*pp[ii].E*r->rs[1];
-
-  r->dedrs  = -((dnum*larg + num*darg/arg)*den - dden*num*larg)/(den*den);
-  r->dedrs /= 2.0; /* conversion from Ry to Hartree */
-
-  r->dedz   = 0.0; /* apparently the function is spin-unpolarized only */
+  r->dedrs = dzk_p;
+  if(p->nspin == XC_POLARIZED){
+    r->dedrs += (dzk_f - dzk_p)*r->zeta*r->zeta;
+    r->dedz   = 2.0*(zk_f - zk_p)*r->zeta;
+  }else
+    r->dedz  = 0.0;
 
   if(r->order < 2) return;
 

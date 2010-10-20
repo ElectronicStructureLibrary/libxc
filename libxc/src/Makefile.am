@@ -87,28 +87,31 @@ BUILT_SOURCES = xc_funcs.h
 if COMPILE_FORTRAN
 
 if F90_MOD_UPPERCASE
-  nodist_include_HEADERS += LIBXC_FUNCS_M.@ax_cv_f90_modext@
+  LIBFUNCMOD = LIBXC_FUNCS_M.@ax_cv_f90_modext@
 else
-  nodist_include_HEADERS += libxc_funcs_m.@ax_cv_f90_modext@
+  LIBFUNCMOD = libxc_funcs_m.@ax_cv_f90_modext@
 endif
+nodist_include_HEADERS += $(LIBFUNCMOD)
 
 if COMPILE_SINGLE
 
 if F90_MOD_UPPERCASE
-  nodist_include_HEADERS += XC_S_F90_LIB_M.@ax_cv_f90_modext@ XC_S_F90_TYPES_M.@ax_cv_f90_modext@
+  XCLIBMODS = XC_S_F90_LIB_M.@ax_cv_f90_modext@ XC_S_F90_TYPES_M.@ax_cv_f90_modext@
 else
-  nodist_include_HEADERS += xc_s_f90_lib_m.@ax_cv_f90_modext@ xc_s_f90_types_m.@ax_cv_f90_modext@
+  XCLIBMODS = xc_s_f90_lib_m.@ax_cv_f90_modext@ xc_s_f90_types_m.@ax_cv_f90_modext@
 endif
 
 else
 
 if F90_MOD_UPPERCASE
-  nodist_include_HEADERS += XC_F90_LIB_M.@ax_cv_f90_modext@ XC_F90_TYPES_M.@ax_cv_f90_modext@
+  XCLIBMODS = XC_F90_LIB_M.@ax_cv_f90_modext@ XC_F90_TYPES_M.@ax_cv_f90_modext@
 else
-  nodist_include_HEADERS += xc_f90_lib_m.@ax_cv_f90_modext@ xc_f90_types_m.@ax_cv_f90_modext@
+  XCLIBMODS = xc_f90_lib_m.@ax_cv_f90_modext@ xc_f90_types_m.@ax_cv_f90_modext@
 endif
 
 endif
+
+nodist_include_HEADERS += $(XCLIBMODS)
 endif
 
 SUFFIXES = _s.c
@@ -118,16 +121,19 @@ SUFFIXES = _s.c
 CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 	libxc.f90 libxc_funcs.f90 xc_funcs.h *_s.c *_s.f90
 
-xc_funcs.h: get_funcs.pl
+xc_funcs.h libxc_funcs.f90: get_funcs.pl
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)
 
-libxc.f90: libxc_master.F90
+$(LIBFUNCMOD):
+	$(MAKE) libxc_funcs.o
+
+libxc.f90 $(XCLIBMODS): libxc_master.F90
 	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc.f90
 	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
 		grep -v "^#" $(top_builddir)/src/libxc.f90 > $(top_builddir)/src/libxc.f91; \
 		mv -f $(top_builddir)/src/libxc.f91 $(top_builddir)/src/libxc.f90; \
 	fi
-libxc_s.f90: libxc_master.F90
+libxc_s.f90 $(XCLIBMODS): libxc_master.F90
 	@FCCPP@ -D SINGLE_PRECISION=1 @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc_s.f90
 	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
 		grep -v "^#" $(top_builddir)/src/libxc_s.f90 > $(top_builddir)/src/libxc_s.f91; \

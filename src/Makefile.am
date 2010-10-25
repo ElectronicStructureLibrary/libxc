@@ -96,10 +96,11 @@ nodist_include_HEADERS += $(LIBFUNCMOD)
 if COMPILE_SINGLE
 
 if F90_MOD_UPPERCASE
-  XCLIBMODS = XC_S_F90_LIB_M.@ax_cv_f90_modext@ XC_S_F90_TYPES_M.@ax_cv_f90_modext@
+  XCLIBMODS_S = XC_S_F90_LIB_M.@ax_cv_f90_modext@ XC_S_F90_TYPES_M.@ax_cv_f90_modext@
 else
-  XCLIBMODS = xc_s_f90_lib_m.@ax_cv_f90_modext@ xc_s_f90_types_m.@ax_cv_f90_modext@
+  XCLIBMODS_S = xc_s_f90_lib_m.@ax_cv_f90_modext@ xc_s_f90_types_m.@ax_cv_f90_modext@
 endif
+nodist_include_HEADERS += $(XCLIBMODS_S)
 
 else
 
@@ -108,10 +109,10 @@ if F90_MOD_UPPERCASE
 else
   XCLIBMODS = xc_f90_lib_m.@ax_cv_f90_modext@ xc_f90_types_m.@ax_cv_f90_modext@
 endif
+nodist_include_HEADERS += $(XCLIBMODS)
 
 endif
 
-nodist_include_HEADERS += $(XCLIBMODS)
 endif
 
 SUFFIXES = _s.c
@@ -133,7 +134,7 @@ libxc.f90 $(XCLIBMODS): libxc_master.F90
 		grep -v "^#" $(top_builddir)/src/libxc.f90 > $(top_builddir)/src/libxc.f91; \
 		mv -f $(top_builddir)/src/libxc.f91 $(top_builddir)/src/libxc.f90; \
 	fi
-libxc_s.f90 $(XCLIBMODS): libxc_master.F90
+libxc_s.f90 $(XCLIBMODS_S): libxc_master.F90
 	@FCCPP@ -D SINGLE_PRECISION=1 @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc_s.f90
 	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
 		grep -v "^#" $(top_builddir)/src/libxc_s.f90 > $(top_builddir)/src/libxc_s.f91; \

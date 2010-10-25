@@ -32,19 +32,18 @@ func(const XC(gga_type) *p, int order, FLOAT x, FLOAT ds,
 {
   FLOAT gamma = -0.006, delta = 0.1;
 
-  FLOAT f1, dd, n13, n43;
+  FLOAT dd, n13, n43;
 
-  f1  = 1.0 - gamma/X_FACTOR_C;
   n13 = POW(ds, 1.0/3.0);
   n43 = ds*n13;
   dd  = 1.0/(n43 + delta);
  
-  *f = f1*x*x*dd;
+  *f = 1.0 - gamma/X_FACTOR_C * x*x * n43*dd;
 
   if(order < 1) return;
 
-  *dfdx  = 2.0*f1*x*dd;
-  *lvrho = -f1*x*x * (4.0/3.0)*n13 * dd*dd;
+  *dfdx  = - gamma/X_FACTOR_C * 2.0*x * n43*dd;
+  *lvrho = - gamma/X_FACTOR_C * x*x * (4.0/3.0)*n13 * delta * dd*dd;
 
   if(order < 2) return;
 

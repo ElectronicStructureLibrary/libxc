@@ -358,7 +358,7 @@ mgga_c_tpss(const void *p_, int np,
 
 XC(func_info_type) XC(func_info_mgga_c_tpss) = {
   XC_MGGA_C_TPSS,
-  XC_EXCHANGE,
+  XC_CORRELATION,
   "Tao, Perdew, Staroverov & Scuseria",
   XC_FAMILY_MGGA,
   "J Tao, JP Perdew, VN Staroverov, and G Scuseria, Phys. Rev. Lett. 91, 146401 (2003)\n"

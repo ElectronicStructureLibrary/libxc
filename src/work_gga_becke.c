@@ -64,6 +64,8 @@ work_gga_becke(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
       dens  = rho[0];
     }
 
+    if(dens <= 0.0) continue;
+
     /* get spin-polarized LDA */
     switch (order){
     case 0:
@@ -180,7 +182,7 @@ work_gga_becke(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	  vsigma[js] += e_LDA_opp*dg_ab*POW(ds[is], -8.0/3.0)/(sfact*4.0*x_avg);
 	}
       }
-      
+
       if(v2rho2 != NULL){
 	int ks, ncomp;
 	

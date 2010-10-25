@@ -45,7 +45,7 @@ gga_x_pbe_init(void *p_)
     0.91954, /* xPBE */
     0.8040,  /* PBE_JSJR */
     1.0,     /* PBEK1_VDW */
-    0.804    /* RGE2 */
+    0.8040   /* RGE2 */
   };
 
   static const FLOAT mu[7] = {
@@ -69,8 +69,7 @@ gga_x_pbe_init(void *p_)
   case XC_GGA_X_XPBE:       p->func = 3; break;
   case XC_GGA_X_PBE_JSJR:   p->func = 4; break;
   case XC_GGA_X_PBEK1_VDW:  p->func = 5; break;
-  case XC_GGA_X_OPTPBE_VDW: p->func = 6; break;
-  case XC_GGA_X_RGE2:       p->func = 7; break;
+  case XC_GGA_X_RGE2:       p->func = 6; break;
   default:                  p->func = 0; /* original PBE */
   }
 

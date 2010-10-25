@@ -37,6 +37,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   if(r->order < 1) return;
 
   r->dedrs = a/r->rs[1] + c*(lrs + 1.0) + d;
+  /* no spin polarization for the moment */
   r->dedz  = 0.0;
 
   if(r->order < 2) return;

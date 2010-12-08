@@ -194,7 +194,7 @@ XC(perdew_potentials)(XC(perdew_t) *pt, const FLOAT *rho, FLOAT e_gga, int order
 
   /* now we sort d2alphadd2 */
   if(pt->nspin == XC_POLARIZED){
-    int aux;
+    FLOAT aux;
 
     d2pdz2 = 0.0;
     if(fabs(1.0 + pt->zeta) >= MIN_DENS){

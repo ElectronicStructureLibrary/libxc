@@ -50,7 +50,7 @@ x_tpss_7(int order, FLOAT p, FLOAT z,
   alpha = h1*a1*p;
 
   /* Eq. (7) */
-  a2    = sqrt(1.0 + b*alpha*(alpha-1.0));
+  a2    = sqrt(1.0 + b*alpha*(alpha - 1.0));
   h2    = 9.0/20.0;
 
   *qb   = h2*(alpha - 1.0)/a2 + 2.0*p/3.0;
@@ -142,8 +142,8 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
      FLOAT *f, FLOAT *vrho0, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
      FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
 {
-  FLOAT ss, pp, a1, zz;
-  FLOAT dxdp, dxdz;
+  FLOAT ss, pp, xx, a1, zz;
+  FLOAT dxxdp, dxxdz;
   
   ss = X2S*x;
   pp = ss*ss;
@@ -151,17 +151,17 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
   zz = x*x/(8.0*t);
 
   /* Eq. 10 */
-  x_tpss_10(order, pp, zz, &x, &dxdp, &dxdz);
+  x_tpss_10(order, pp, zz, &xx, &dxxdp, &dxxdz);
 
   /* Eq. (5) */
-  a1 = kappa/(kappa + x);
+  a1 = kappa/(kappa + xx);
   
   *f = 1.0 + kappa*(1.0 - a1);
 
   if(order < 1) return;
 
-  *dfdx = a1*a1*(dxdp*2.0*ss*X2S + dxdz*x/(4.0*t));
-  *dfdt = a1*a1*dxdz*(-zz/t);
+  *dfdx = a1*a1*(dxxdp*2.0*ss*X2S + dxxdz*x/(4.0*t));
+  *dfdt = a1*a1*dxxdz*(-zz/t);
 }
 
 #include "work_mgga_x.c"

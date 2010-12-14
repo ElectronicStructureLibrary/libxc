@@ -135,7 +135,7 @@ work_mgga_x(const void *p_, int np,
       v2rho2     += p->n_v2rho2;
       v2rhosigma += p->n_v2rhosigma;
       v2sigma2   += p->n_v2sigma2;
-      /* warning: extra termns missing */
+      /* warning: extra terms missing */
     }
   }
 }

@@ -41,6 +41,7 @@ work_mgga_x(const void *p_, int np,
   int is, ip, order;
   int has_tail;
 
+  /* WARNING: derivatives are _not_ OK for 2 dimensions */
   #if XC_DIMENSIONS == 2
   x_factor_c = X_FACTOR_2D_C;
   #else /* three dimensions */
@@ -71,18 +72,20 @@ work_mgga_x(const void *p_, int np,
     if(dens < MIN_DENS) goto end_ip_loop;
 
     for(is=0; is<p->nspin; is++){
-      FLOAT gdm, ds, rho1D, rho2pD_D;
+      FLOAT lrho, rho1D, rho2pD_D, lsigma, gdm;
       FLOAT x, t, u, f, lnr2, ltau, vrho0, dfdx, dfdt, dfdu;
       FLOAT d2fdx2, d2fdt2, d2fdu2, d2fdxt, d2fdxu, d2fdtu;
       int js = (is == 0) ? 0 : 2;
+      int ks = (is == 0) ? 0 : 5;
 
       if((!has_tail && (rho[is] < MIN_DENS || tau[is] < MIN_TAU)) || (rho[is] == 0.0)) continue;
 
-      gdm   = sqrt(sigma[js])/sfact;
-      ds    = rho[is]/sfact;
-      rho1D = POW(ds, 1.0/XC_DIMENSIONS);
-      rho2pD_D = ds*rho1D*rho1D;
-      x     = gdm/(ds*rho1D);
+      lsigma= sigma[js]/sfact2;
+      gdm   = sqrt(lsigma);
+      lrho  = rho[is]/sfact;
+      rho1D = POW(lrho, 1.0/XC_DIMENSIONS);
+      rho2pD_D = lrho*rho1D*rho1D;
+      x     = gdm/(lrho*rho1D);
     
       ltau  = tau[is]/sfact;
       t     = ltau/rho2pD_D;  /* tau/rho^((2+D)/D) */
@@ -98,23 +101,35 @@ work_mgga_x(const void *p_, int np,
 	   &d2fdx2, &d2fdt2, &d2fdu2, &d2fdxt, &d2fdxu, &d2fdtu);
 
       if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-	*zk += -sfact*x_factor_c*(ds*rho1D)*f;
+	*zk += -sfact*x_factor_c*(lrho*rho1D)*f;
 
       if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
 	vrho[is]      = -x_factor_c*rho1D*(vrho0 + 4.0/3.0*(f - dfdx*x) - 5.0/3.0*(dfdt*t + dfdu*u));
 	vtau[is]      = -x_factor_c*dfdt/rho1D;
 	vlapl_rho[is] = -x_factor_c*dfdu/rho1D;
 	if(gdm>MIN_GRAD)
-	  vsigma[js] = -sfact*x_factor_c*(rho1D*ds)*dfdx*x/(2.0*sigma[js]);
+	  vsigma[js] = -x_factor_c*(rho1D*lrho)*dfdx*x/(2.0*sfact*lsigma);
       }
 
       if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){
 	v2rho2[js]        = -x_factor_c/(9.0*sfact*rho1D*rho1D)*
 	  (4.0*f - 4.0*x*dfdx + 4.0*4.0*x*x*d2fdx2 + 5.0*5.0*t*t*d2fdt2 + 5.0*5.0*u*u*d2fdu2 +
 	   2.0*5.0*(4.0*x*t*d2fdxt + 4.0*x*u*d2fdxu + 5.0*t*u*d2fdtu));
-	v2tau2[js]        = -x_factor_c*d2fdt2/(ds*ds);
-	//v2lapl_rho2[js]   = -x_factor_c*d2fdu2/(ds*ds);
-	//v2taulapl_rho[js] = -x_factor_c*d2fdtu/(ds*ds);
+	v2tau2[js]        = -x_factor_c*d2fdt2/(lrho*lrho);
+	//v2lapl_rho2[js]   = -x_factor_c*d2fdu2/(rho1D*rho2pD_D);
+	v2rhotau[js]      = -x_factor_c*rho1D/(3.0*sfact*rho2pD_D)*
+	  (4.0*dfdt - 4.0*x*d2fdxt - 5.0*u*d2fdtu - 5.0*(dfdt + t*d2fdt2));
+	//v2rholapl_rho[js] = -x_factor_c*rho1D/(3.0*sfact*rho2pD_D)*
+	//  (4.0*dfdu - 4.0*x*d2fdxu - 5.0*u*d2fdtu - 5.0*(dfdu + u*d2fdu2));
+	//v2taulapl_rho[js] = -x_factor_c*d2fdtu/(rho1D*rho2pD_D);
+	if(gdm>MIN_GRAD){
+	  v2sigma2[ks]   =  -x_factor_c*(rho1D*lrho)/(4.0*sfact2*sfact*lsigma*lsigma)*
+	    (d2fdx2*x*x - dfdx*x);
+	  v2rhosigma[ks] = -x_factor_c*rho1D*x/(3.0*2.0*sfact2*lsigma)*
+	    (-4.0*x*d2fdx2 - 5.0*t*d2fdxt - 5.0*u*d2fdxu);
+	  v2tausigma[ks] = -x_factor_c*x/(2.0*sfact2*lsigma*rho1D)*d2fdxt;
+	  //v2sigmalapl_rho[ks] = -x_factor_c*x/(2.0*sfact2*lsigma*rho1D)*d2fdut;
+	}
       }
     }
     

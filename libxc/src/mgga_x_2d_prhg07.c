@@ -111,7 +111,7 @@ FLOAT XC(mgga_x_2d_prhg_get_y)(FLOAT C)
 static void 
 func(const XC(mgga_type) *p, FLOAT x, FLOAT t, FLOAT u, int order,
      FLOAT *f, FLOAT *vrho0, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
-     FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
+     FLOAT *d2fdx2, FLOAT *d2fdt2, FLOAT *d2fdu2, FLOAT *d2fdxt, FLOAT *d2fdxu, FLOAT *d2fdtu)
 {
   FLOAT y;
   FLOAT vrho, v_PRHG, C;

@@ -190,7 +190,7 @@ FLOAT XC(mgga_x_br89_get_x)(FLOAT Q)
 static void 
 func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
      FLOAT *f, FLOAT *vrho0, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
-     FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
+     FLOAT *d2fdx2, FLOAT *d2fdt2, FLOAT *d2fdu2, FLOAT *d2fdxt, FLOAT *d2fdxu, FLOAT *d2fdtu)
 {
   FLOAT Q, br_x, dfdbx, dxdu, ff, dff, v_BR;
   FLOAT cnst, exp1, exp2;

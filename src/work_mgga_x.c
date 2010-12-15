@@ -71,8 +71,9 @@ work_mgga_x(const void *p_, int np,
     if(dens < MIN_DENS) goto end_ip_loop;
 
     for(is=0; is<p->nspin; is++){
-      FLOAT gdm, ds, rho1D;
-      FLOAT x, t, u, f, lnr2, ltau, vrho0, dfdx, dfdt, dfdu, d2fdx2, d2fdxt, d2fdt2;
+      FLOAT gdm, ds, rho1D, rho2pD_D;
+      FLOAT x, t, u, f, lnr2, ltau, vrho0, dfdx, dfdt, dfdu;
+      FLOAT d2fdx2, d2fdt2, d2fdu2, d2fdxt, d2fdxu, d2fdtu;
       int js = (is == 0) ? 0 : 2;
 
       if((!has_tail && (rho[is] < MIN_DENS || tau[is] < MIN_TAU)) || (rho[is] == 0.0)) continue;
@@ -80,19 +81,21 @@ work_mgga_x(const void *p_, int np,
       gdm   = sqrt(sigma[js])/sfact;
       ds    = rho[is]/sfact;
       rho1D = POW(ds, 1.0/XC_DIMENSIONS);
+      rho2pD_D = ds*rho1D*rho1D;
       x     = gdm/(ds*rho1D);
     
       ltau  = tau[is]/sfact;
-      t     = ltau/(ds*rho1D*rho1D);  /* tau/rho^((2+D)/D) */
+      t     = ltau/rho2pD_D;  /* tau/rho^((2+D)/D) */
 
       lnr2  = lapl_rho[is]/sfact;     /* this can be negative */
-      u     = lnr2/(ds*rho1D*rho1D);  /* lapl_rho/rho^((2+D)/D) */
+      u     = lnr2/rho2pD_D;  /* lapl_rho/rho^((2+D)/D) */
 
       vrho0 = dfdx = dfdt = dfdu = 0.0;
-      d2fdx2 = d2fdxt = d2fdt2 = 0.0;
+      d2fdx2 = d2fdt2 = d2fdu2 = d2fdxt = d2fdxu = d2fdtu = 0.0;
 
       func(p, x, t, u, order, &f, &vrho0,
-	   &dfdx, &dfdt, &dfdu, &d2fdx2, &d2fdxt, &d2fdt2);
+	   &dfdx, &dfdt, &dfdu, 
+	   &d2fdx2, &d2fdt2, &d2fdu2, &d2fdxt, &d2fdxu, &d2fdtu);
 
       if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
 	*zk += -sfact*x_factor_c*(ds*rho1D)*f;
@@ -102,12 +105,16 @@ work_mgga_x(const void *p_, int np,
 	vtau[is]      = -x_factor_c*dfdt/rho1D;
 	vlapl_rho[is] = -x_factor_c*dfdu/rho1D;
 	if(gdm>MIN_GRAD)
-	  vsigma[js]    = -sfact*x_factor_c*(rho1D*ds)*dfdx*x/(2.0*sigma[js]);
+	  vsigma[js] = -sfact*x_factor_c*(rho1D*ds)*dfdx*x/(2.0*sigma[js]);
       }
 
       if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){
-	/* Missing terms here */
-	exit(1);
+	v2rho2[js]        = -x_factor_c/(9.0*sfact*rho1D*rho1D)*
+	  (4.0*f - 4.0*x*dfdx + 4.0*4.0*x*x*d2fdx2 + 5.0*5.0*t*t*d2fdt2 + 5.0*5.0*u*u*d2fdu2 +
+	   2.0*5.0*(4.0*x*t*d2fdxt + 4.0*x*u*d2fdxu + 5.0*t*u*d2fdtu));
+	v2tau2[js]        = -x_factor_c*d2fdt2/(ds*ds);
+	//v2lapl_rho2[js]   = -x_factor_c*d2fdu2/(ds*ds);
+	//v2taulapl_rho[js] = -x_factor_c*d2fdtu/(ds*ds);
       }
     }
     

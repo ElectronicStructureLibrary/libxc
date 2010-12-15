@@ -27,7 +27,7 @@
 static void 
 func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
      FLOAT *f, FLOAT *vrho0, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
-     FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
+     FLOAT *d2fdx2, FLOAT *d2fdt2, FLOAT *d2fdu2, FLOAT *d2fdxt, FLOAT *d2fdxu, FLOAT *d2fdtu)
 {
   /* POW(10.0/(3.0*POW(6.0*M_PI*M_PI, 2.0/3.0)), 4.0/5.0) = (2/C_F)^(4/5) */
   const FLOAT a1 = 0.297163728291293581339216378935;
@@ -44,8 +44,11 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
   if(order < 2) return;
   
   *d2fdx2 = 0.0;
-  *d2fdxt = 0.0;
   *d2fdt2 = (t > 1e-10) ? -a1*4.0/25.0*POW(t, -6.0/5.0)/4.0 : 0.0;
+  *d2fdu2 = 0.0;
+  *d2fdxt = 0.0;
+  *d2fdxu = 0.0;
+  *d2fdtu = 0.0;
 }
 
 #include "work_mgga_x.c"

@@ -245,9 +245,11 @@ static void eq_12(const XC(mgga_type) *p, int order, const FLOAT *rho, const FLO
 
 static void 
 my_mgga_c_tpss(const void *p_, 
-	    const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
-	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau,
-	    FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
+	       const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
+	       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau,
+	       FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2lapl2, FLOAT *v2tau2,
+	       FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
+	       FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
 {
   const XC(mgga_type) *p = p_;
 
@@ -318,39 +320,48 @@ my_mgga_c_tpss(const void *p_,
 /* Warning: this is a workaround to support blocks while waiting for the next interface */
 static void 
 mgga_c_tpss(const void *p_, int np,
-	    const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
-	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau,
-	    FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
+	    const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
+	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau,
+	    FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2lapl2, FLOAT *v2tau2,
+	    FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
+	    FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
 {
   int ip;
   const XC(mgga_type) *p = p_;
 
   for(ip=0; ip<np; ip++){
-    my_mgga_c_tpss(p_, rho, sigma, lapl_rho, tau,
-		   zk, vrho, vsigma, vlapl_rho, vtau,
-		   v2rho2, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
+    my_mgga_c_tpss(p_, rho, sigma, lapl, tau,
+		   zk, vrho, vsigma, vlapl, vtau,
+		   v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
+		   v2sigmalapl, v2sigmatau, v2lapltau);
 
     /* increment pointers */
-    rho      += p->n_rho;
-    sigma    += p->n_sigma;
-    tau      += p->n_tau;
-    lapl_rho += p->n_lapl_rho;
+    rho   += p->n_rho;
+    sigma += p->n_sigma;
+    tau   += p->n_tau;
+    lapl  += p->n_lapl;
     
     if(zk != NULL)
       zk += p->n_zk;
     
     if(vrho != NULL){
-      vrho      += p->n_vrho;
-      vsigma    += p->n_vsigma;
-      vtau      += p->n_vtau;
-      vlapl_rho += p->n_vlapl_rho;
+      vrho   += p->n_vrho;
+      vsigma += p->n_vsigma;
+      vtau   += p->n_vtau;
+      vlapl  += p->n_vlapl;
     }
 
     if(v2rho2 != NULL){
-      v2rho2     += p->n_v2rho2;
-      v2rhosigma += p->n_v2rhosigma;
-      v2sigma2   += p->n_v2sigma2;
-      /* warning: extra terms missing */
+      v2rho2      += p->n_v2rho2;
+      v2sigma2    += p->n_v2sigma2;
+      v2tau2      += p->n_v2tau2;
+      v2lapl2     += p->n_v2lapl2;
+      v2rhosigma  += p->n_v2rhosigma;
+      v2rhotau    += p->n_v2rhotau;
+      v2rholapl   += p->n_v2rholapl;
+      v2sigmatau  += p->n_v2sigmatau;
+      v2sigmalapl += p->n_v2sigmalapl;
+      v2lapltau   += p->n_v2lapltau;
     }
   }
 }

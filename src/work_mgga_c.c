@@ -37,9 +37,11 @@ work_mgga_c_init(void *p_)
 
 
 static void 
-work_mgga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
-	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau,
-	    FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
+work_mgga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
+	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau,
+	    FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2lapl2, FLOAT *v2tau2,
+	    FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
+	    FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
 {
   const XC(mgga_type) *p = p_;
 
@@ -81,8 +83,8 @@ work_mgga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma, const 
       ltau   = max(tau[is]/sfact, MIN_TAU);
       t [is] = ltau/(ds[is]*rho13*rho13);  /* tau/rho^(5/3) */
 
-      lnr2   = max(MIN_TAU, lapl_rho[is]/sfact);
-      u [is] = lnr2/(ds[is]*rho13*rho13);  /* lapl_rho/rho^(5/3) */
+      lnr2   = max(MIN_TAU, lapl[is]/sfact);
+      u [is] = lnr2/(ds[is]*rho13*rho13);  /* lapl/rho^(5/3) */
 
       dfdx  = d2fdx2 = 0.0;
       dfdt = dfdu = 0.0;
@@ -113,12 +115,12 @@ work_mgga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma, const 
 	*zk += sfact*ds[is]*f_LDA[is]*f;
  
       if(vrho != NULL){
-	vrho[is]      = vrho_LDA[is]*f - f_LDA[is]*
+	vrho[is]   = vrho_LDA[is]*f - f_LDA[is]*
 	  (4.0*dfdx*x[is] + 5.0*(dfdt*t[is] + dfdu*u[is]))/3.0;
-	vtau[is]      = f_LDA[is]*dfdt/(rho13*rho13);
-	vlapl_rho[is] = f_LDA[is]*dfdu/(rho13*rho13);
+	vtau[is]   = f_LDA[is]*dfdt/(rho13*rho13);
+	vlapl[is]  = f_LDA[is]*dfdu/(rho13*rho13);
 	
-	vsigma[js]    = ds[is]*f_LDA[is]*dfdx*x[is]/(2.0*sfact*sigmas[is]);
+	vsigma[js] = ds[is]*f_LDA[is]*dfdx*x[is]/(2.0*sfact*sigmas[is]);
       }
 
       if(v2rho2 != NULL){
@@ -172,10 +174,10 @@ work_mgga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma, const 
 	  
 	  if(rho[is] < MIN_DENS) continue;
 	  
-	  vrho[is]      += vrho_LDA_opp[is]*f - dens*f_LDA_opp*
+	  vrho[is]   += vrho_LDA_opp[is]*f - dens*f_LDA_opp*
 	    (4.0*dfdx*x[is]*x[is]/xt + 5.0*(dfdt*t[is] + dfdu*u[is]))/(3.0*ds[is]);
-	  vtau[is]      += f_LDA_opp*dfdt*dens/POW(ds[is], 5.0/3.0);
-	  vlapl_rho[is] += f_LDA_opp*dfdu*dens/POW(ds[is], 5.0/3.0);
+	  vtau[is]   += f_LDA_opp*dfdt*dens/POW(ds[is], 5.0/3.0);
+	  vlapl[is]  += f_LDA_opp*dfdu*dens/POW(ds[is], 5.0/3.0);
 	  vsigma[js] += dens*f_LDA_opp*dfdx*x[is]*x[is]/(2.0*xt*sfact*sigmas[is]);
 	}
       }
@@ -186,26 +188,32 @@ work_mgga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma, const 
 
   end_ip_loop:
     /* increment pointers */
-    rho      += p->n_rho;
-    sigma    += p->n_sigma;
-    tau      += p->n_tau;
-    lapl_rho += p->n_lapl_rho;
+    rho   += p->n_rho;
+    sigma += p->n_sigma;
+    tau   += p->n_tau;
+    lapl  += p->n_lapl;
     
     if(zk != NULL)
       zk += p->n_zk;
     
     if(vrho != NULL){
-      vrho      += p->n_vrho;
-      vsigma    += p->n_vsigma;
-      vtau      += p->n_vtau;
-      vlapl_rho += p->n_vlapl_rho;
+      vrho   += p->n_vrho;
+      vsigma += p->n_vsigma;
+      vtau   += p->n_vtau;
+      vlapl  += p->n_vlapl;
     }
 
     if(v2rho2 != NULL){
-      v2rho2     += p->n_v2rho2;
-      v2rhosigma += p->n_v2rhosigma;
-      v2sigma2   += p->n_v2sigma2;
-      /* warning: extra terms missing */
+      v2rho2      += p->n_v2rho2;
+      v2sigma2    += p->n_v2sigma2;
+      v2tau2      += p->n_v2tau2;
+      v2lapl2     += p->n_v2lapl2;
+      v2rhosigma  += p->n_v2rhosigma;
+      v2rhotau    += p->n_v2rhotau;
+      v2rholapl   += p->n_v2rholapl;
+      v2sigmatau  += p->n_v2sigmatau;
+      v2sigmalapl += p->n_v2sigmalapl;
+      v2lapltau   += p->n_v2lapltau;
     }
   }
 }

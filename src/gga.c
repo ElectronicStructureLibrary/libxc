@@ -234,7 +234,7 @@ gga_init_mix(XC(gga_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix
 }
 
 /* returns the mixing coefficient for the hybrid GGAs */
-FLOAT XC(hyb_gga_exx_coef)(XC(gga_type) *p)
+FLOAT XC(hyb_gga_exx_coef)(const XC(gga_type) *p)
 {
   assert(p!=NULL);
 

@@ -31,9 +31,11 @@
 
 static void 
 work_mgga_x(const void *p_, int np,
-	    const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
-	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau,
-	    FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2, FLOAT *v2rhotau, FLOAT *v2tausigma, FLOAT *v2tau2)
+	    const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
+	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau,
+	    FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2lapl2, FLOAT *v2tau2,
+	    FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
+	    FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
 {
   const XC(mgga_type) *p = p_;
 
@@ -90,8 +92,8 @@ work_mgga_x(const void *p_, int np,
       ltau  = tau[is]/sfact;
       t     = ltau/rho2pD_D;  /* tau/rho^((2+D)/D) */
 
-      lnr2  = lapl_rho[is]/sfact;     /* this can be negative */
-      u     = lnr2/rho2pD_D;  /* lapl_rho/rho^((2+D)/D) */
+      lnr2  = lapl[is]/sfact;     /* this can be negative */
+      u     = lnr2/rho2pD_D;  /* lapl/rho^((2+D)/D) */
 
       vrho0 = dfdx = dfdt = dfdu = 0.0;
       d2fdx2 = d2fdt2 = d2fdu2 = d2fdxt = d2fdxu = d2fdtu = 0.0;
@@ -104,31 +106,43 @@ work_mgga_x(const void *p_, int np,
 	*zk += -sfact*x_factor_c*(lrho*rho1D)*f;
 
       if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
-	vrho[is]      = -x_factor_c*rho1D*(vrho0 + 4.0/3.0*(f - dfdx*x) - 5.0/3.0*(dfdt*t + dfdu*u));
-	vtau[is]      = -x_factor_c*dfdt/rho1D;
-	vlapl_rho[is] = -x_factor_c*dfdu/rho1D;
+	vrho[is]  = -x_factor_c*rho1D*(vrho0 + 4.0/3.0*(f - dfdx*x) - 5.0/3.0*(dfdt*t + dfdu*u));
+
+	vtau[is]  = -x_factor_c*dfdt/rho1D;
+
+	vlapl[is] = -x_factor_c*dfdu/rho1D;
+
 	if(gdm>MIN_GRAD)
 	  vsigma[js] = -x_factor_c*(rho1D*lrho)*dfdx*x/(2.0*sfact*lsigma);
       }
 
       if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){
-	v2rho2[js]        = -x_factor_c/(9.0*sfact*rho1D*rho1D)*
+	v2rho2[js]    = -x_factor_c/(9.0*sfact*rho1D*rho1D)*
 	  (4.0*f - 4.0*x*dfdx + 4.0*4.0*x*x*d2fdx2 + 5.0*5.0*t*t*d2fdt2 + 5.0*5.0*u*u*d2fdu2 +
 	   2.0*5.0*(4.0*x*t*d2fdxt + 4.0*x*u*d2fdxu + 5.0*t*u*d2fdtu));
-	v2tau2[js]        = -x_factor_c*d2fdt2/(lrho*lrho);
-	//v2lapl_rho2[js]   = -x_factor_c*d2fdu2/(rho1D*rho2pD_D);
-	v2rhotau[js]      = -x_factor_c*rho1D/(3.0*sfact*rho2pD_D)*
+
+	v2lapl2[js]   = -x_factor_c*d2fdu2/(sfact*rho1D*rho2pD_D);
+
+	v2tau2[js]    = -x_factor_c*d2fdt2/(sfact*rho1D*rho2pD_D);
+
+	v2rholapl[js] = -x_factor_c*rho1D/(3.0*sfact*rho2pD_D)*
+	  (4.0*dfdu - 4.0*x*d2fdxu - 5.0*u*d2fdtu - 5.0*(dfdu + u*d2fdu2));
+
+	v2rhotau[js]  = -x_factor_c*rho1D/(3.0*sfact*rho2pD_D)*
 	  (4.0*dfdt - 4.0*x*d2fdxt - 5.0*u*d2fdtu - 5.0*(dfdt + t*d2fdt2));
-	//v2rholapl_rho[js] = -x_factor_c*rho1D/(3.0*sfact*rho2pD_D)*
-	//  (4.0*dfdu - 4.0*x*d2fdxu - 5.0*u*d2fdtu - 5.0*(dfdu + u*d2fdu2));
-	//v2taulapl_rho[js] = -x_factor_c*d2fdtu/(rho1D*rho2pD_D);
+
+	v2lapltau[js] = -x_factor_c*d2fdtu/(rho1D*rho2pD_D);
+
 	if(gdm>MIN_GRAD){
-	  v2sigma2[ks]   =  -x_factor_c*(rho1D*lrho)/(4.0*sfact2*sfact*lsigma*lsigma)*
+	  v2sigma2[ks]    =  -x_factor_c*(rho1D*lrho)/(4.0*sfact2*sfact*lsigma*lsigma)*
 	    (d2fdx2*x*x - dfdx*x);
-	  v2rhosigma[ks] = -x_factor_c*rho1D*x/(3.0*2.0*sfact2*lsigma)*
+
+	  v2rhosigma[ks]  = -x_factor_c*rho1D*x/(3.0*2.0*sfact2*lsigma)*
 	    (-4.0*x*d2fdx2 - 5.0*t*d2fdxt - 5.0*u*d2fdxu);
-	  v2tausigma[ks] = -x_factor_c*x/(2.0*sfact2*lsigma*rho1D)*d2fdxt;
-	  //v2sigmalapl_rho[ks] = -x_factor_c*x/(2.0*sfact2*lsigma*rho1D)*d2fdut;
+
+	  v2sigmalapl[ks] = -x_factor_c*x/(2.0*sfact2*lsigma*rho1D)*d2fdxu;
+
+	  v2sigmatau[ks]  = -x_factor_c*x/(2.0*sfact2*lsigma*rho1D)*d2fdxt;
 	}
       }
     }
@@ -138,26 +152,32 @@ work_mgga_x(const void *p_, int np,
 
   end_ip_loop:
     /* increment pointers */
-    rho      += p->n_rho;
-    sigma    += p->n_sigma;
-    tau      += p->n_tau;
-    lapl_rho += p->n_lapl_rho;
+    rho   += p->n_rho;
+    sigma += p->n_sigma;
+    tau   += p->n_tau;
+    lapl  += p->n_lapl;
     
     if(zk != NULL)
       zk += p->n_zk;
     
     if(vrho != NULL){
-      vrho      += p->n_vrho;
-      vsigma    += p->n_vsigma;
-      vtau      += p->n_vtau;
-      vlapl_rho += p->n_vlapl_rho;
+      vrho   += p->n_vrho;
+      vsigma += p->n_vsigma;
+      vtau   += p->n_vtau;
+      vlapl  += p->n_vlapl;
     }
 
     if(v2rho2 != NULL){
-      v2rho2     += p->n_v2rho2;
-      v2rhosigma += p->n_v2rhosigma;
-      v2sigma2   += p->n_v2sigma2;
-      /* warning: extra terms missing */
+      v2rho2      += p->n_v2rho2;
+      v2sigma2    += p->n_v2sigma2;
+      v2tau2      += p->n_v2tau2;
+      v2lapl2     += p->n_v2lapl2;
+      v2rhosigma  += p->n_v2rhosigma;
+      v2rhotau    += p->n_v2rhotau;
+      v2rholapl   += p->n_v2rholapl;
+      v2sigmatau  += p->n_v2sigmatau;
+      v2sigmalapl += p->n_v2sigmalapl;
+      v2lapltau   += p->n_v2lapltau;
     }
   }
 }

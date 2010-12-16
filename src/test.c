@@ -91,48 +91,57 @@ void test_lda()
   }
 }
 
+//void 
+//XC(mgga_x_tpss_lara)(XC(mgga_type) *p, FLOAT *rho, FLOAT *sigma, FLOAT *tau,
+//		     FLOAT *e, FLOAT *dedd, FLOAT *vsigma, FLOAT *dedtau);
+
 void test_tpss()
 {
-  XC(func_type) tpss;
+  XC(func_type) tpss, tpss2;
   XC(func_type) agga;
   int i;
 
-  XC(func_init)(&tpss, XC_MGGA_X_BR89, XC_UNPOLARIZED);
-  //XC(gga_init)(&agga, XC_GGA_XC_B97, XC_UNPOLARIZED);
+  XC(func_init)(&tpss, XC_MGGA_X_TPSS, XC_POLARIZED);
+  //XC(func_init)(&tpss2, XC_MGGA_X_TPSS_LARA, XC_UNPOLARIZED);
+  //XC(mgga_x_tpss_init)(tpss2.mgga);
   
-  for(i=0; i<1000; i++){
-    double rho[2], sigma[3], tau[2], lrho[2];
-    double zk,   vrho[2],  vsigma[3],  vtau[2],  vlrho[2];
-    double zk2, vrho2[2], vsigma2[3], vtau2[2], vlrho2[2];
-    double v2rho2[3], v2rhosigma[6], v2sigma2[6], v2rhotau[4], v2tausigma[6], v2tau2[3];
+  for(i=0; i<=1000; i++){
+    double rho[2], sigma[3], tau[2], lapl[2];
+    double zk,   vrho[2],  vsigma[3],  vtau[2],  vlapl[2];
+    double zk2, vrho2[2], vsigma2[3], vtau2[2], vlapl2[2];
+    double v2rho2[3], v2sigma2[6], v2lapl2[3], v2tau2[3];
+    double v2rhosigma[6], v2rholapl[3], v2rhotau[3];
+    double v2sigmalapl[6], v2sigmatau[6], v2lapltau[3];
 
-    rho[0]   = 0.01 + i/1000.0;
-    rho[1]   = 0.15;
-    sigma[0] = 0.22;
+    rho[0]   = 0.1;
+    rho[1]   = 0.15 + i/1000.0;
+    sigma[0] = 0.1;
     sigma[1] = 0.11;
     sigma[2] = 0.7;
-    tau[0]   = 0.23;
+    tau[0]   = 0.03;
     tau[1]   = 0.15;
-    lrho[0]  = 0.2;
-    lrho[1]  = 0.12;
+    lapl[0]  = 0.2;
+    lapl[1]  = 0.12;
 
-    XC(mgga)(&tpss, 1, rho,  sigma, lrho, tau, 
-    	     &zk,  vrho, vsigma, vlrho, vtau, 
-    	     NULL, v2rhosigma, v2sigma2, v2rhotau, v2tausigma, v2tau2);
-    //brx89_lda(rho[0], sigma[0], lrho[0], tau[0], &zk2, vrho2, vsigma2, vlrho2, vtau2);
+    XC(mgga)(&tpss, 1, rho,  sigma, lapl, tau, 
+    	     &zk,  vrho, vsigma, vlapl, vtau, 
+    	     v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
+	     v2sigmalapl, v2sigmatau, v2lapltau);
+    //XC(mgga_x_tpss_lara)(tpss2.mgga, rho, sigma, tau,
+    //	    &zk2,  vrho2, vsigma2, vtau2);
 
     //XC(gga)(&agga, rho,  sigma,
     //&zk,  vrho, vsigma,
     //	    v2rho2, v2rhosigma, v2sigma2);
-    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[0], vrho[0], vrho2[0]);
+    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[1], vrho[1], v2rho2[2]);
   }
 }
 
 int main()
 {
-  //test_tpss();
+  test_tpss();
   //test_integration();
-  test_lda();
+  //test_lda();
 
   return 0;
 }

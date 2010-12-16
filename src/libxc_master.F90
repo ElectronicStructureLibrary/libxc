@@ -408,7 +408,7 @@ module XC_F90(lib_m)
 
     subroutine XC_F90(mgga_fxc)(p, np, rho, sigma, lapl, tau, &
       v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
-      v2sigmalapl, v2sigmatau, v2lapltau);
+      v2sigmalapl, v2sigmatau, v2lapltau)
 
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(in)  :: p

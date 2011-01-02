@@ -19,18 +19,15 @@
 
 AC_INIT([libxc],[ordinarius],[octopus-users@tddft.org],[libxc])
 AC_CONFIG_SRCDIR([src/xc.h])
-AC_PROG_LIBTOOL
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
-LT_INIT
-
 # Installation prefix by default
 AC_PREFIX_DEFAULT([/opt/etsf])
 
-LT_INIT
+LT_INIT([disable-shared])
 
 # Checks for programs.
 AC_PROG_CC

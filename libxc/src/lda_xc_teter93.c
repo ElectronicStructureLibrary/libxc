@@ -35,7 +35,7 @@ static inline void
 func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   FLOAT mrs[5], aa[4], bb[4];
-  FLOAT fz, dfz, d2fz, d3fz;
+  FLOAT fz[4];
 
   FLOAT nn, dd, dd2, dd3;
   FLOAT DnnDrs, DddDrs, DnnDz, DddDz;
@@ -50,24 +50,33 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   mrs[3] = mrs[1]*mrs[2];
   mrs[4] = mrs[1]*mrs[3];
   
-  fz = FZETA(r->zeta);
-  for(ii=0; ii<4; ii++){
-    aa[ii] = teter_a[ii] + teter_ap[ii]*fz;
-    bb[ii] = teter_b[ii] + teter_bp[ii]*fz;
+  /* This "if" is to avoid the function call that has a significant cost
+     for this functional */
+  if(p->nspin != XC_UNPOLARIZED){
+    XC(fast_fzeta)(r->zeta, p->nspin, r->order, fz);
+  } else {
+   fz[0] = 0.0;
+   fz[1] = 0.0;
+   fz[2] = (8.0/9.0)/FZETAFACTOR;
+   fz[3] = 0.0;
   }
 
+  for(ii=0; ii < 4; ii++){
+    aa[ii] = teter_a[ii] + teter_ap[ii]*fz[0];
+    bb[ii] = teter_b[ii] + teter_bp[ii]*fz[0];
+  }
+  
   nn = aa[0]*mrs[0] + aa[1]*mrs[1] + aa[2]*mrs[2] + aa[3]*mrs[3];
   dd = bb[0]*mrs[1] + bb[1]*mrs[2] + bb[2]*mrs[3] + bb[3]*mrs[4];
   r->zk = -nn/dd;
 
   if(r->order < 1) return; /* nothing else to do */
 
-  dfz    = DFZETA(r->zeta);
   DnnDrs = aa[1] + 2*aa[2]*mrs[1] + 3*aa[3]*mrs[2];
   DddDrs = bb[0] + 2*bb[1]*mrs[1] + 3*bb[2]*mrs[2] + 4*bb[3]*mrs[3];
 
-  DnnDz  = (teter_ap[0]*mrs[0] + teter_ap[1]*mrs[1] + teter_ap[2]*mrs[2] + teter_ap[3]*mrs[3])*dfz;
-  DddDz  = (teter_bp[0]*mrs[1] + teter_bp[1]*mrs[2] + teter_bp[2]*mrs[3] + teter_bp[3]*mrs[4])*dfz;
+  DnnDz  = (teter_ap[0]*mrs[0] + teter_ap[1]*mrs[1] + teter_ap[2]*mrs[2] + teter_ap[3]*mrs[3])*fz[1];
+  DddDz  = (teter_bp[0]*mrs[1] + teter_bp[1]*mrs[2] + teter_bp[2]*mrs[3] + teter_bp[3]*mrs[4])*fz[1];
 
   dd2 = dd*dd;
 
@@ -76,16 +85,14 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 
   if(r->order < 2) return; /* nothing else to do */
 
-  d2fz = D2FZETA(r->zeta);
-
   D2nnDrs2 = 2*aa[2] + 3*2*aa[3]*mrs[1];
   D2ddDrs2 = 2*bb[1] + 3*2*bb[2]*mrs[1] + 4*3*bb[3]*mrs[2];
 
-  D2nnDrsz = (teter_ap[1] + 2*teter_ap[2]*mrs[1] + 3*teter_ap[3]*mrs[2])*dfz;
-  D2ddDrsz = (teter_bp[0] + 2*teter_bp[1]*mrs[1] + 3*teter_bp[2]*mrs[2] + 4*teter_bp[3]*mrs[3])*dfz;
+  D2nnDrsz = (teter_ap[1] + 2*teter_ap[2]*mrs[1] + 3*teter_ap[3]*mrs[2])*fz[1];
+  D2ddDrsz = (teter_bp[0] + 2*teter_bp[1]*mrs[1] + 3*teter_bp[2]*mrs[2] + 4*teter_bp[3]*mrs[3])*fz[1];
 
-  D2nnDz2  = (teter_ap[0]*mrs[0] + teter_ap[1]*mrs[1] + teter_ap[2]*mrs[2] + teter_ap[3]*mrs[3])*d2fz;
-  D2ddDz2  = (teter_bp[0]*mrs[1] + teter_bp[1]*mrs[2] + teter_bp[2]*mrs[3] + teter_bp[3]*mrs[4])*d2fz;
+  D2nnDz2  = (teter_ap[0]*mrs[0] + teter_ap[1]*mrs[1] + teter_ap[2]*mrs[2] + teter_ap[3]*mrs[3])*fz[2];
+  D2ddDz2  = (teter_bp[0]*mrs[1] + teter_bp[1]*mrs[2] + teter_bp[2]*mrs[3] + teter_bp[3]*mrs[4])*fz[2];
 
   dd3      = dd*dd2;
 
@@ -98,19 +105,17 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 
   if(r->order < 3) return; /* nothing else to do */
 
-  d3fz = D3FZETA(r->zeta);
-
   D3nnDrs3  = 3*2*aa[3];
   D3ddDrs3  = 3*2*bb[2] + 4*3*2*bb[3]*mrs[1];
   
-  D3nnDrs2z = (2*teter_ap[2] + 3*2*teter_ap[3]*mrs[1])*dfz;
-  D3ddDrs2z = (2*teter_bp[1] + 3*2*teter_bp[2]*mrs[1] + 4*3*teter_bp[3]*mrs[2])*dfz;
+  D3nnDrs2z = (2*teter_ap[2] + 3*2*teter_ap[3]*mrs[1])*fz[1];
+  D3ddDrs2z = (2*teter_bp[1] + 3*2*teter_bp[2]*mrs[1] + 4*3*teter_bp[3]*mrs[2])*fz[1];
 
-  D3nnDrsz2 = (teter_ap[1] + 2*teter_ap[2]*mrs[1] + 3*teter_ap[3]*mrs[2])*d2fz;
-  D3ddDrsz2 = (teter_bp[0] + 2*teter_bp[1]*mrs[1] + 3*teter_bp[2]*mrs[2] + 4*teter_bp[3]*mrs[3])*d2fz;
+  D3nnDrsz2 = (teter_ap[1] + 2*teter_ap[2]*mrs[1] + 3*teter_ap[3]*mrs[2])*fz[2];
+  D3ddDrsz2 = (teter_bp[0] + 2*teter_bp[1]*mrs[1] + 3*teter_bp[2]*mrs[2] + 4*teter_bp[3]*mrs[3])*fz[2];
 
-  D3nnDz3   = (teter_ap[0]*mrs[0] + teter_ap[1]*mrs[1] + teter_ap[2]*mrs[2] + teter_ap[3]*mrs[3])*d3fz;
-  D3ddDz3   = (teter_bp[0]*mrs[1] + teter_bp[1]*mrs[2] + teter_bp[2]*mrs[3] + teter_bp[3]*mrs[4])*d3fz;
+  D3nnDz3   = (teter_ap[0]*mrs[0] + teter_ap[1]*mrs[1] + teter_ap[2]*mrs[2] + teter_ap[3]*mrs[3])*fz[3];
+  D3ddDz3   = (teter_bp[0]*mrs[1] + teter_bp[1]*mrs[2] + teter_bp[2]*mrs[3] + teter_bp[3]*mrs[4])*fz[3];
 
   r->d3edrs3   = (- nn*(6.0*DddDrs*DddDrs*DddDrs - 6.0*dd*DddDrs*D2ddDrs2 + dd2*D3ddDrs3)
 		  + dd*(6.0*DddDrs*DddDrs*DnnDrs - 3.0*dd*DddDrs*D2nnDrs2 +

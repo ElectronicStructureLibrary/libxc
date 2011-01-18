@@ -21,7 +21,7 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_GGA_K_TFLW          201 /* Thomas-Fermi-von Weizsaecker like functionals */
+#define XC_GGA_K_TFLW          201 /* Thomas-Fermi-von Weizsaecker-like functionals */
 
 typedef struct{
   FLOAT lambda;

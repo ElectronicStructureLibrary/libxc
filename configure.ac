@@ -27,7 +27,8 @@ AC_CONFIG_MACRO_DIR([m4])
 # Installation prefix by default
 AC_PREFIX_DEFAULT([/opt/etsf])
 
-LT_INIT([disable-shared])
+AC_DISABLE_SHARED
+AC_PROG_LIBTOOL
 
 # Checks for programs.
 AC_PROG_CC

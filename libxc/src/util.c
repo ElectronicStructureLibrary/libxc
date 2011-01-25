@@ -34,8 +34,8 @@ XC(rho2dzeta)(int nspin, const FLOAT *rho, FLOAT *d, FLOAT *zeta)
   }
 }
 
-inline
-void XC(fast_fzeta)(const FLOAT x, const int nspin, const int order, FLOAT * fz){
+/* inline */ void
+XC(fast_fzeta)(const FLOAT x, const int nspin, const int order, FLOAT * fz){
 
   FLOAT aa, bb, aa2, bb2;
 

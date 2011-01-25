@@ -101,7 +101,7 @@ void test_tpss()
   XC(func_type) agga;
   int i;
 
-  XC(func_init)(&tpss, XC_MGGA_X_TPSS, XC_POLARIZED);
+  XC(func_init)(&tpss, XC_MGGA_X_BR89, XC_UNPOLARIZED);
   //XC(func_init)(&tpss2, XC_MGGA_X_TPSS_LARA, XC_UNPOLARIZED);
   //XC(mgga_x_tpss_init)(tpss2.mgga);
   

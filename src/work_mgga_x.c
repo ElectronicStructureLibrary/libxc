@@ -92,7 +92,7 @@ work_mgga_x(const void *p_, int np,
       ltau  = tau[is]/sfact;
       t     = ltau/rho2pD_D;  /* tau/rho^((2+D)/D) */
 
-      lnr2  = lapl[is]/sfact;     /* this can be negative */
+      lnr2  = lapl[is]/sfact; /* this can be negative */
       u     = lnr2/rho2pD_D;  /* lapl/rho^((2+D)/D) */
 
       vrho0 = dfdx = dfdt = dfdu = 0.0;

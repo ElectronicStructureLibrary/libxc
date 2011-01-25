@@ -22,6 +22,7 @@
 lib_LTLIBRARIES = libxc.la
 
 libxc_la_FUNC_SOURCES = \
+	special_functions.c integrate.c util.c mix_func.c functionals.c \
 	lda.c lda_x.c lda_x_1d.c lda_x_2d.c \
 	lda_c_wigner.c lda_c_rpa.c lda_c_hl.c \
 	lda_c_vwn.c lda_c_pz.c lda_c_pw.c lda_c_ml1.c lda_xc_teter93.c \
@@ -41,8 +42,7 @@ libxc_la_FUNC_SOURCES = \
 	mgga.c \
 	mgga_x_lta.c mgga_x_tpss.c mgga_x_br89.c mgga_xc_vsxc.c mgga_x_m06l.c mgga_x_tau_hcth.c \
 	mgga_c_tpss.c mgga_x_2d_prhg07.c\
-	lca.c lca_omc.c lca_lch.c \
-	mix_func.c special_functions.c integrate.c util.c functionals.c 
+	lca.c lca_omc.c lca_lch.c
 
 libxc_la_FUNC_SINGLE_SOURCES = $(libxc_la_FUNC_SOURCES:.c=_s.c)
 

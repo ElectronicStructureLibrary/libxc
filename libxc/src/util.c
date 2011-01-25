@@ -22,7 +22,7 @@
 
 /* this function converts the spin-density into total density and
 	 relative magnetization */
-inline void
+/* inline */ void
 XC(rho2dzeta)(int nspin, const FLOAT *rho, FLOAT *d, FLOAT *zeta)
 {
   if(nspin==XC_UNPOLARIZED){

@@ -142,10 +142,10 @@ XC(mgga)(const XC(func_type) *p, int np,
   if(vrho != NULL){
     assert(vsigma != NULL);
 
-    memset(vrho,   0, func->n_vrho     *np*sizeof(FLOAT));
-    memset(vsigma, 0, func->n_vsigma   *np*sizeof(FLOAT));
-    memset(vtau,   0, func->n_vtau     *np*sizeof(FLOAT));
-    memset(vlapl,  0, func->n_vlapl*np*sizeof(FLOAT));
+    memset(vrho,   0, func->n_vrho  *np*sizeof(FLOAT));
+    memset(vsigma, 0, func->n_vsigma*np*sizeof(FLOAT));
+    memset(vtau,   0, func->n_vtau  *np*sizeof(FLOAT));
+    memset(vlapl,  0, func->n_vlapl *np*sizeof(FLOAT));
   }
 
   if(v2rho2 != NULL){

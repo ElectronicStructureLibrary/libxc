@@ -74,8 +74,9 @@ void rdqagse(integr_fn f, void *ex, FLOAT *a, FLOAT *b,
 
 #include "xc.h"
 
+/* The following inlines confuse the xlc compiler */
 /* inline */ void XC(rho2dzeta)(int nspin, const FLOAT *rho, FLOAT *d, FLOAT *zeta);
-inline void XC(fast_fzeta)(const FLOAT x, const int nspin, const int order, FLOAT * fz);
+/* inline */ void XC(fast_fzeta)(const FLOAT x, const int nspin, const int order, FLOAT * fz);
 
 /* LDAs */
 typedef struct XC(lda_rs_zeta) {

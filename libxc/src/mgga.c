@@ -182,7 +182,7 @@ XC(mgga)(const XC(func_type) *p, int np,
   */
 }
 
-/* especializations */
+/* specializations */
 inline void 
 XC(mgga_exc)(const XC(func_type) *p, int np, 
 	     const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,

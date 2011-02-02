@@ -133,7 +133,7 @@ XC(lda)(const XC(func_type) *p, int np, const FLOAT *rho,
 }
 
 
-/* especializations */
+/* specializations */
 inline void 
 XC(lda_exc)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *zk)
 {

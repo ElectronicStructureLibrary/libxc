@@ -178,7 +178,7 @@ void XC(gga)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigm
   }
 }
 
-/* especializations */
+/* specializations */
 /* returns only energy */
 inline void 
 XC(gga_exc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 

@@ -195,9 +195,6 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
   FLOAT Q, br_x, v_BR, dv_BRdbx, d2v_BRdbx2, dxdQ, d2xdQ2, ff, dffdx, d2ffdx2;
   FLOAT cnst, c_TB09, c_HEG, exp1, exp2;
 
-  order = 2;
-  for(t = 1; t < 100.0; t+=0.001){
-
   Q  = (u - 2.0*br89_gamma*t + 0.5*br89_gamma*x*x)/6.0;
 
   br_x = XC(mgga_x_br89_get_x)(Q);
@@ -276,9 +273,6 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
     
   }
 
-  printf("%le %le %le\n", t, *dfdu, *d2fdtu);
-  }
-  exit(1);
 }
 
 #include "work_mgga_x.c"

@@ -84,7 +84,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97) = {
   "Becke 97",
   XC_FAMILY_GGA,
   "AD Becke, J. Chem. Phys. 107, 8554 (1997)",
-  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_b97_init,
   NULL, NULL, NULL /* this is taken care by the generic routine */
 };
@@ -95,7 +95,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_1) = {
   "Becke 97-1",
   XC_FAMILY_GGA,
   "FA Hamprecht, AJ Cohen, DJ Tozer, and NC Handy, J. Chem. Phys. 109, 6264 (1998)",
-  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_b97_init,
   NULL, NULL, NULL
 };
@@ -106,7 +106,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_2) = {
   "Becke 97-2",
   XC_FAMILY_GGA,
   "PJ Wilson, TJ Bradley, and DJ Tozer, J. Chem. Phys. 115, 9233 (2001)",
-  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_b97_init, 
   NULL, NULL, NULL
 };
@@ -117,7 +117,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_k) = {
   "Boese-Martin for Kinetics",
   XC_FAMILY_GGA,
   "AD Boese and JML Martin, J. Chem. Phys., Vol. 121, 3405 (2004)",
-  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_b97_init, 
   NULL, NULL, NULL
 };
@@ -128,7 +128,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_3) = {
   "Becke 97-3",
   XC_FAMILY_GGA,
   "TW Keal and DJ Tozer, J. Chem. Phys. 123, 121103 (2005)",
-  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_b97_init, 
   NULL, NULL, NULL
 };
@@ -139,7 +139,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1a) = {
   "SB98 (1a)",
   XC_FAMILY_GGA,
   "HL Schmider and AD Becke, J. Chem. Phys. 108, 9624 (1998)",
-  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_b97_init, 
   NULL, NULL, NULL
 };
@@ -150,7 +150,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1b) = {
   "SB98 (1b)",
   XC_FAMILY_GGA,
   "HL Schmider and AD Becke, J. Chem. Phys. 108, 9624 (1998)",
-  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_b97_init, 
   NULL, NULL, NULL
 };
@@ -161,7 +161,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1c) = {
   "SB98 (1c)",
   XC_FAMILY_GGA,
   "HL Schmider and AD Becke, J. Chem. Phys. 108, 9624 (1998)",
-  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_b97_init, 
   NULL, NULL, NULL
 };
@@ -172,7 +172,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2a) = {
   "SB98 (2a)",
   XC_FAMILY_GGA,
   "HL Schmider and AD Becke, J. Chem. Phys. 108, 9624 (1998)",
-  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_b97_init, 
   NULL, NULL, NULL
 };
@@ -183,7 +183,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2b) = {
   "SB98 (2b)",
   XC_FAMILY_GGA,
   "HL Schmider and AD Becke, J. Chem. Phys. 108, 9624 (1998)",
-  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_b97_init, 
   NULL, NULL, NULL
 };
@@ -194,7 +194,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2c) = {
   "SB98 (2c)",
   XC_FAMILY_GGA,
   "HL Schmider and AD Becke, J. Chem. Phys. 108, 9624 (1998)",
-  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_b97_init, 
   NULL, NULL, NULL
 };

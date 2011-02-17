@@ -32,7 +32,7 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   const FLOAT am05_c      = 0.7168;
   const FLOAT am05_alpha  = 2.804;
 
-  const FLOAT z_tt_factor = POW(POW(4.0/3.0, 1.0/3.0) * 2.0*M_PI/3.0, 4);
+  const FLOAT z_tt_factor = POW(CBRT(4.0/3.0) * 2.0*M_PI/3.0, 4);
 
   FLOAT ss, ss2, lam_x, dlam_x, d2lam_x;
   FLOAT ww, z_t, z_t2, z_tt, fx_b, xx, flaa_1, flaa_2, flaa;
@@ -49,14 +49,14 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   ss  = X2S*x;
   ss2 = ss*ss;
 
-  lam_x  = POW(ss, 1.5)/(2.0*sqrt(6.0));
+  lam_x  = POW(ss, 1.5)/(2.0*SQRT(6.0));
   ww     = (FLOAT)lambert_w((double)lam_x);
 
   z_t    = POW(1.5*ww, 2.0/3.0);
   z_t2   = z_t*z_t;
 
   /* This is equal to sqrt(t_zeta) * tt_zeta of the JCP*/
-  z_tt   = z_t * POW(z_tt_factor + z_t2, 1.0/4.0);
+  z_tt   = z_t * SQRT(SQRT(z_tt_factor + z_t2));
 
   /* note that there is a factor of 2 missing in the JCP */
   fx_b   = M_PI/3.0*ss/z_tt;
@@ -73,7 +73,7 @@ func(const XC(gga_type) *p, int order, FLOAT x,
 
   dlam_x  = 1.5*lam_x/ss;
   dww     = ww/(lam_x*(1.0 + ww))*dlam_x;
-  dz_t    = POW(1.5, 2.0/3.0)*2.0/3.0*POW(ww, -1.0/3.0)*dww;
+  dz_t    = POW(1.5, 2.0/3.0) * 2.0/3.0 * dww/CBRT(ww);
   dz_tt   = POW(z_tt_factor + z_t2, -3.0/4.0)*(z_tt_factor + 3.0*z_t2/2.0)*dz_t;
   dfx_b   = M_PI/3.0*(z_tt - ss*dz_tt)/(z_tt*z_tt);
 
@@ -93,7 +93,7 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   d2lam_x  = 0.5*dlam_x/ss;
   d2ww     = (dww*lam_x*dlam_x + ww*(1.0 + ww)*lam_x*d2lam_x - ww*(1.0 + ww)*dlam_x*dlam_x) /
     (lam_x*lam_x*(1+ww)*(1+ww));
-  d2z_t    = POW(1.5, 2.0/3.0)*2.0/3.0*(-POW(ww, -4.0/3.0)*dww*dww/3.0 + POW(ww, -1.0/3.0)*d2ww);
+  d2z_t    = POW(1.5, 2.0/3.0)*2.0/3.0*(-POW(ww, -4.0/3.0)*dww*dww/3.0 + d2ww/CBRT(ww));
 
   d2z_tt   = POW(z_tt_factor + z_t2, -7.0/4.0)*
     ((d2z_t*(z_tt_factor + z_t2) - 3.0/2.0*z_t*dz_t*dz_t)*(z_tt_factor + 3.0*z_t2/2.0) + 

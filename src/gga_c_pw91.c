@@ -49,7 +49,7 @@ static void gga_c_pw91_init(void *p_)
 
   XC(func_init)(p->func_aux[0], XC_LDA_C_PW, p->nspin);
 
-  pw91_nu   = 16.0/M_PI * POW(3.0*M_PI*M_PI, 1.0/3.0);
+  pw91_nu   = 16.0/M_PI * CBRT(3.0*M_PI*M_PI);
   pw91_beta = pw91_nu*pw91_C_c0;
 }
 

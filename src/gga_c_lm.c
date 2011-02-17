@@ -76,7 +76,7 @@ my_gga_c_lm(const void *p_, const FLOAT *rho, const FLOAT *sigma,
   XC(perdew_params)(p, rho, sigma, order, &pt);
   if(pt.dens < MIN_DENS) return;
 
-  grad_to_t = sqrt(4.0/M_PI)*POW(3*M_PI*M_PI, 1.0/6.0);
+  grad_to_t = SQRT(4.0/M_PI)*POW(3*M_PI*M_PI, 1.0/6.0);
   x1 = 2.0*grad_to_t*pt.phi*pt.t;
 
   H = a1*x1*x1*(exp(a2*x1) - a3);

@@ -172,9 +172,9 @@ static void eq_12(const XC(mgga_type) *p, int order, const FLOAT *rho, const FLO
       +     sigma[2]*(1.0 + zeta)*(1.0 + zeta);
 
     gzeta2 = max(gzeta2, MIN_GRAD*MIN_GRAD);
-    gzeta  = sqrt(gzeta2);
+    gzeta  = SQRT(gzeta2);
 
-    aa  = 2.0*POW(3.0*M_PI*M_PI*dens, 1.0/3.0);
+    aa  = 2.0*CBRT(3.0*M_PI*M_PI*dens);
     csi = gzeta/aa;
   
     eq_13_14(zeta, csi, order, &C, &dCdzeta, &dCdcsi);

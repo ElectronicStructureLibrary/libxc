@@ -199,7 +199,7 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
 
   br_x = XC(mgga_x_br89_get_x)(Q);
 
-  cnst = -2.0*POW(M_PI, 1.0/3.0)/X_FACTOR_C;
+  cnst = -2.0*CBRT(M_PI)/X_FACTOR_C;
   exp1 = exp(br_x/3.0);
   exp2 = exp(-br_x);
 
@@ -239,12 +239,12 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
     c_TB09 = ((mgga_x_tb09_params *) (pt->params))->c;
 
     *vrho0 = -c_TB09*v_BR;
-    c_HEG  = (3.0*c_TB09 - 2.0)*sqrt(5.0/12.0)/(X_FACTOR_C*M_PI);
+    c_HEG  = (3.0*c_TB09 - 2.0)*SQRT(5.0/12.0)/(X_FACTOR_C*M_PI);
     
     if(pt->func == 1 || pt->func == 2) /* XC_MGGA_X_BJ0 & XC_MGGA_X_TB09 */
-      *vrho0 -= c_HEG*sqrt(t);
+      *vrho0 -= c_HEG*SQRT(t);
     else /* XC_MGGA_X_RPP09 */
-      *vrho0 -= c_HEG*sqrt(max(t - x*x/4.0, 0.0));
+      *vrho0 -= c_HEG*SQRT(max(t - x*x/4.0, 0.0));
   }
 
   if(order < 2) return;

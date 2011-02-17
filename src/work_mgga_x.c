@@ -83,7 +83,7 @@ work_mgga_x(const void *p_, int np,
       if((!has_tail && (rho[is] < MIN_DENS || tau[is] < MIN_TAU)) || (rho[is] == 0.0)) continue;
 
       lsigma= sigma[js]/sfact2;
-      gdm   = sqrt(lsigma);
+      gdm   = SQRT(lsigma);
       lrho  = rho[is]/sfact;
       rho1D = POW(lrho, 1.0/XC_DIMENSIONS);
       rho2pD_D = lrho*rho1D*rho1D;

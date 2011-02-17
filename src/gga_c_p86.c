@@ -67,12 +67,12 @@ my_gga_c_p86(const void *p_, const FLOAT *rho, const FLOAT *sigma,
   /* get gdmt = |nabla n| */
   gdmt = sigma[0];
   if(p->nspin == XC_POLARIZED) gdmt += 2.0*sigma[1] + sigma[2];
-  gdmt = sqrt(gdmt);
+  gdmt = SQRT(gdmt);
   if(gdmt < MIN_GRAD) gdmt = MIN_GRAD;
 
 
   { /* Equation [1].(4) */ 
-    DD       = sqrt(POW(1.0 + zeta, 5.0/3.0) + POW(1.0 - zeta, 5.0/3.0))/M_SQRT2;
+    DD       = SQRT(POW(1.0 + zeta, 5.0/3.0) + POW(1.0 - zeta, 5.0/3.0))/M_SQRT2;
     dDDdzeta = 5.0/(3.0*4.0*DD)*(POW(1.0 + zeta, 2.0/3.0) - POW(1.0 - zeta, 2.0/3.0));
   }
 

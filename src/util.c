@@ -40,8 +40,8 @@ XC(fast_fzeta)(const FLOAT x, const int nspin, const int order, FLOAT * fz){
   FLOAT aa, bb, aa2, bb2;
 
   if(nspin != XC_UNPOLARIZED){
-    aa = cbrt(1.0 + x);
-    bb = cbrt(1.0 - x);
+    aa = CBRT(1.0 + x);
+    bb = CBRT(1.0 - x);
     
     aa2 = aa*aa;
     bb2 = bb*bb;

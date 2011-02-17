@@ -43,8 +43,8 @@ XC(perdew_params)(const XC(gga_type) *gga_p, const FLOAT *rho, const FLOAT *sigm
   }
 
   pt->rs = RS(pt->dens);
-  pt->kf = POW(3.0*M_PI*M_PI*pt->dens, 1.0/3.0);
-  pt->ks = sqrt(4.0*pt->kf/M_PI);
+  pt->kf = CBRT(3.0*M_PI*M_PI*pt->dens);
+  pt->ks = SQRT(4.0*pt->kf/M_PI);
 
   /* phi is bounded between 2^(-1/3) and 1 */
   pt->phi  = 0.5*(POW(1.0 + pt->zeta, 2.0/3.0) + POW(1.0 - pt->zeta, 2.0/3.0));
@@ -52,7 +52,7 @@ XC(perdew_params)(const XC(gga_type) *gga_p, const FLOAT *rho, const FLOAT *sigm
   /* get gdmt = |nabla n| */
   pt->gdmt = sigma[0];
   if(pt->nspin == XC_POLARIZED) pt->gdmt += 2.0*sigma[1] + sigma[2];
-  pt->gdmt = sqrt(max(pt->gdmt, 0.0));
+  pt->gdmt = SQRT(max(pt->gdmt, 0.0));
 
   pt->t = pt->gdmt/(2.0 * pt->phi * pt->ks * pt->dens);
 
@@ -90,11 +90,11 @@ XC(perdew_potentials)(XC(perdew_t) *pt, const FLOAT *rho, FLOAT e_gga, int order
     dpdz    = 0.0;
     /* This is written like this to workaround a problem with xlf compilers */
     if(fabs(1.0 + pt->zeta) >= MIN_DENS){
-      aux   = POW(1.0 + pt->zeta, 1.0/3.0);
+      aux   = CBRT(1.0 + pt->zeta);
       dpdz += 1.0/(3.0*aux);
     }
     if(fabs(1.0 - pt->zeta) >= MIN_DENS){
-      aux   = POW(1.0 - pt->zeta, 1.0/3.0);
+      aux   = CBRT(1.0 - pt->zeta);
       dpdz -= 1.0/(3.0*aux);
     }
 

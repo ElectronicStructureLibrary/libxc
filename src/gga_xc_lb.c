@@ -88,8 +88,8 @@ XC(gga_lb_set_params_)(XC(gga_type) *p, int modified, FLOAT threshold, FLOAT ip,
   params->qtot      = qtot;
 
   if(params->modified){
-    params->alpha = (params->ip > 0.0) ? 2.0*sqrt(2.0*params->ip) : 0.5;
-    params->gamm  = POW(params->qtot, 1.0/3.0)/(2.0*params->alpha);
+    params->alpha = (params->ip > 0.0) ? 2.0*SQRT(2.0*params->ip) : 0.5;
+    params->gamm  = CBRT(params->qtot)/(2.0*params->alpha);
   }else{
     params->alpha = 0.5;
     params->gamm  = 1.0;
@@ -116,7 +116,7 @@ XC(gga_lb_modified)(const XC(gga_type) *func, int np, const FLOAT *rho, const FL
 
   for(ip=0; ip<np; ip++){
     for(is=0; is<func->nspin; is++){
-      gdm = sqrt(sigma[(is==0) ? 0 : 2]);
+      gdm = SQRT(sigma[(is==0) ? 0 : 2]);
 
       if(params->modified == 0 || 
 	 (rho[is] > params->threshold && gdm > params->threshold)){
@@ -131,12 +131,12 @@ XC(gga_lb_modified)(const XC(gga_type) *func, int np, const FLOAT *rho, const FL
 	else          /* asymptotic expansion */
 	  f = -x/(3.0*log(2.0*params->gamm*x));
 
-	vrho[is] += f * POW(rho[is], 1.0/3.0);
+	vrho[is] += f * CBRT(rho[is]);
 	
       }else if(r > 0.0){
 	/* the aymptotic expansion of LB94 */
 	x = r + (3.0/params->alpha)*
-	  log(2.0*params->gamm * params->alpha * POW(params->qtot, -1.0/3.0));
+	  log(2.0*params->gamm * params->alpha * 1.0 / CBRT(params->qtot));
 	
 	/* x = x + POW(qtot*exp(-alpha*r), 1.0/3.0)/(beta*alpha*alpha); */
 	

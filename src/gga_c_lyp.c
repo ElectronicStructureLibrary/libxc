@@ -111,7 +111,7 @@ my_gga_c_lyp(const void *p_, const FLOAT *rho_, const FLOAT *sigma_,
   if(rhot < MIN_DENS) return;
 
   /* some handy functions of the total density */
-  rhot13   = POW(rhot, 1.0/3.0);
+  rhot13   = CBRT(rhot);
   rhot43   = rhot*rhot13;
   rho83[0] = POW(rho[0], 8.0/3.0);
   rho83[1] = POW(rho[1], 8.0/3.0);

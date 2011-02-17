@@ -90,7 +90,7 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   if(order < 1) return;
 
   df1 = 2.0*beta/X_FACTOR_2D_C*x;
-  df2 = csi*beta*(asinh(x) + x/sqrt(1.0 + x*x));
+  df2 = csi*beta*(asinh(x) + x/SQRT(1.0 + x*x));
 
   *dfdx = (df1*f2 - f1*df2)/(f2*f2);
   *ldfdx= beta/X_FACTOR_2D_C;
@@ -98,7 +98,7 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   if(order < 2) return;
 
   d2f1 = 2.0*beta/X_FACTOR_2D_C;
-  d2f2 = csi*beta*(2.0 + x*x)/pow(1.0 + x*x, 3.0/2.0);
+  d2f2 = csi*beta*(2.0 + x*x)/POW(1.0 + x*x, 3.0/2.0);
 
   *d2fdx2 = (2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
 }

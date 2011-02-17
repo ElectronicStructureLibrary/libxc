@@ -74,11 +74,11 @@ void XC(lca)(XC(lca_type) *p, FLOAT *rho, FLOAT *v, FLOAT *e, FLOAT *dedd, FLOAT
     
     rs = RS(rho[i]);
     drsdd = -rs/(3.0*rho[i]);
-    vs = sqrt(v _(i, 0)*v _(i, 0) + 
+    vs = SQRT(v _(i, 0)*v _(i, 0) + 
 	      v _(i, 1)*v _(i, 1) +
 	      v _(i, 2)*v _(i, 2));
     vs2 = vs*vs;
-    dkfdrs = POW(9.0*M_PI/4.0, 1.0/3.0);
+    dkfdrs = CBRT(9.0*M_PI/4.0);
     kf = dkfdrs*rs;
     f = 24.0*M_PI*M_PI;
 

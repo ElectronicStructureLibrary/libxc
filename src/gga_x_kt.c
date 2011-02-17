@@ -34,7 +34,7 @@ func(const XC(gga_type) *p, int order, FLOAT x, FLOAT ds,
 
   FLOAT dd, n13, n43;
 
-  n13 = POW(ds, 1.0/3.0);
+  n13 = CBRT(ds);
   n43 = ds*n13;
   dd  = 1.0/(n43 + delta);
  

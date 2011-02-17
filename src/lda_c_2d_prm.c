@@ -104,7 +104,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   assert(params->N > 1.0);
   assert(p->nspin == XC_UNPOLARIZED);
   
-  sqpi = sqrt(M_PI);
+  sqpi = SQRT(M_PI);
 
   beta = prm_q/(sqpi*r->rs[1]); /* Eq. (4) */
   c    = params->c;
@@ -114,26 +114,26 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   t3  = phi - 1.0; /* original version has (phi-1)^2 */
   t2  = M_PI/(2.0*prm_q*prm_q);
     
-  t1  = sqpi*beta*t3/(2.0*sqrt(2.0 + c));
+  t1  = sqpi*beta*t3/(2.0*SQRT(2.0 + c));
   t1 += phi*(phi - 1.0)/(2.0 + c);
   t1 += sqpi*phi*phi/(4.0*beta*POW(2.0 + c, 1.5));
-  t1 += sqpi*beta*(phi - 1.0)/sqrt(1.0 + c);
+  t1 += sqpi*beta*(phi - 1.0)/SQRT(1.0 + c);
   t1 += phi/(1.0 + c);
   t1 *= t2;
     
   r->zk = t1;
   if(r->order < 1) return;
 
-  dt1dbeta  = sqpi*t3/(2.0*sqrt(2.0 + c));
+  dt1dbeta  = sqpi*t3/(2.0*SQRT(2.0 + c));
   dt1dbeta -= sqpi*phi*phi/(4.0*beta*beta*POW(2.0 + c, 1.5));
-  dt1dbeta += sqpi*(phi - 1.0)/sqrt(1.0 + c);
+  dt1dbeta += sqpi*(phi - 1.0)/SQRT(1.0 + c);
   dt1dbeta *= t2;
 
   dt3dphi   = 1.0;
-  dt1dphi   = sqpi*beta/(2.0*sqrt(2.0 + c))*dt3dphi;
+  dt1dphi   = sqpi*beta/(2.0*SQRT(2.0 + c))*dt3dphi;
   dt1dphi  += (2.0*phi - 1.0)/(2.0 + c);
   dt1dphi  += sqpi*2.0*phi/(4.0*beta*POW(2.0 + c, 1.5));
-  dt1dphi  += sqpi*beta/sqrt(1.0 + c);
+  dt1dphi  += sqpi*beta/SQRT(1.0 + c);
   dt1dphi  += 1.0/(1.0 + c);
   dt1dphi  *= t2;
 

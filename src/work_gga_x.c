@@ -77,7 +77,7 @@ work_gga_x(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 
       if(rho[is] < MIN_DENS) continue;
 
-      gdm   = sqrt(sigma[js])/sfact;
+      gdm   = SQRT(sigma[js])/sfact;
       ds    = rho[is]/sfact;
       rho1D = POW(ds, power);
       x     = gdm/(ds*rho1D);

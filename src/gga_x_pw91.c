@@ -70,7 +70,7 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   if(order < 1) return;
 
   df1 = -2.0*alpha*ss*f1;
-  df2 = aa[func]*bb[func]/sqrt(1.0 + bb[func]*bb[func]*ss2);
+  df2 = aa[func]*bb[func]/SQRT(1.0 + bb[func]*bb[func]*ss2);
   df3 = 2.0*ss*(cc[func] + f1) + ss2*df1 - expo[func]*ff[func]*POW(ss, expo[func] - 1.0);
   df4 = f2 + ss*df2 + expo[func]*ff[func]*POW(ss, expo[func] - 1.0);
 

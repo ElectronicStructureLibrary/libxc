@@ -75,9 +75,9 @@ work_mgga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma, const 
       if(rho[is] < MIN_DENS) continue;
 
       sigmas[is] = max(MIN_GRAD*MIN_GRAD, sigma[js]/sfact2);
-      gdm        = sqrt(sigmas[is]);
+      gdm        = SQRT(sigmas[is]);
   
-      rho13  = POW(ds[is], 1.0/3.0);
+      rho13  = CBRT(ds[is]);
       x [is] = gdm/(ds[is]*rho13);
     
       ltau   = max(tau[is]/sfact, MIN_TAU);
@@ -155,9 +155,9 @@ work_mgga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma, const 
 	    tt += t[is];
 	    uu += u[is];
 	  }
-	xt = sqrt(xt);
+	xt = SQRT(xt);
       }else{
-	xt = sqrt(2.0)*x[0];
+	xt = M_SQRT2*x[0];
 	tt =      2.0 *t[0];
 	uu =      2.0 *u[0];
       }

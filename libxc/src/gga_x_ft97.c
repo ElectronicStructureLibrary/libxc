@@ -50,12 +50,12 @@ func(const XC(gga_type) *p, int order, FLOAT x, FLOAT sigma,
 
   x2 = x*x;
   f2 = beta*asinh(x2);
-  f3 = sqrt(1.0 + 9.0*x2*f2*f2);
+  f3 = SQRT(1.0 + 9.0*x2*f2*f2);
   *f = 1.0 + beta/X_FACTOR_C*x2/f3;
  
   if(order < 1) return;
 
-  f0  = sqrt(1.0 + x2*x2);
+  f0  = SQRT(1.0 + x2*x2);
   df2 = beta*2.0*x/f0;
   df3 = 9.0*x*f2*(f2 + x*df2)/f3;
 

@@ -127,14 +127,14 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   r->zk = ax/r->rs[1];
 
   if(p->nspin == XC_POLARIZED){
-    fz  = 0.5*(pow(1.0 + r->zeta,  4.0/3.0) + pow(1.0 - r->zeta,  4.0/3.0));
+    fz  = 0.5*(POW(1.0 + r->zeta,  4.0/3.0) + POW(1.0 - r->zeta,  4.0/3.0));
     r->zk *= fz;
   }
 
   if(params->relativistic == XC_RELATIVISTIC){
-    beta   = POW(9.0*M_PI/4.0, 1.0/3.0)/(r->rs[1]*M_C);
+    beta   = CBRT(9.0*M_PI/4.0)/(r->rs[1]*M_C);
     beta2  = beta*beta;
-    f1     = sqrt(1.0 + beta2);
+    f1     = SQRT(1.0 + beta2);
     f2     = asinh(beta);
     f3     = f1/beta - f2/beta2;
     phi    = 1.0 - 3.0/2.0*f3*f3;
@@ -148,7 +148,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   r->dedrs = -ax/r->rs[2];
 
   if(p->nspin == XC_POLARIZED){
-    dfz = 2.0/3.0*(pow(1.0 + r->zeta,  1.0/3.0) - pow(1.0 - r->zeta,  1.0/3.0));
+    dfz = 2.0/3.0*(CBRT(1.0 + r->zeta) - CBRT(1.0 - r->zeta));
 
     r->dedrs *= fz;
     r->dedz   = ax/r->rs[1]*dfz;
@@ -178,7 +178,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
     if(ABS(r->zeta) == 1.0)
       d2fz = FLT_MAX;
     else
-      d2fz = 2.0/9.0*(pow(1.0 + r->zeta,  -2.0/3.0) + pow(1.0 - r->zeta,  -2.0/3.0));
+      d2fz = 2.0/9.0*(POW(1.0 + r->zeta,  -2.0/3.0) + POW(1.0 - r->zeta,  -2.0/3.0));
     
     r->d2edrs2 *= fz;
     r->d2edrsz = -ax/r->rs[2]*dfz;
@@ -214,7 +214,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
     if(ABS(r->zeta) == 1.0)
       d3fz = FLT_MAX;
     else
-      d3fz = -4.0/27.0*(pow(1.0 + r->zeta,  -5.0/3.0) - pow(1.0 - r->zeta,  -5.0/3.0));
+      d3fz = -4.0/27.0*(POW(1.0 + r->zeta,  -5.0/3.0) - POW(1.0 - r->zeta,  -5.0/3.0));
 
     r->d3edrs3 *= fz;
     r->d3edrs2z = 2.0*ax/(r->rs[1]*r->rs[2])*dfz;

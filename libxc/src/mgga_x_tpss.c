@@ -51,7 +51,7 @@ x_tpss_7(int order, FLOAT p, FLOAT z,
   alpha = h1*a1*p;
 
   /* Eq. (7) */
-  a2    = sqrt(1.0 + b*alpha*(alpha - 1.0));
+  a2    = SQRT(1.0 + b*alpha*(alpha - 1.0));
   h2    = 9.0/20.0;
 
   *qb   = h2*(alpha - 1.0)/a2 + 2.0*p/3.0;
@@ -113,20 +113,20 @@ void x_tpss_10(int order, FLOAT p, FLOAT z,
   a2 = 146.0/2025.0;                           /* second term */
   x1 += a2*qb*qb;
 
-  a3 = sqrt(0.5*(aux2*z2 + p2));               /* third term  */
+  a3 = SQRT(0.5*(aux2*z2 + p2));               /* third term  */
   h3 = -73.0/405;
   x1 += h3*qb*a3;
 
   a4 = aux1*aux1/kappa;                        /* forth term  */
   x1 += a4*p2;
 
-  a5 = 2.0*sqrt(e)*aux1*aux2;                  /* fifth term  */
+  a5 = 2.0*SQRT(e)*aux1*aux2;                  /* fifth term  */
   x1 += a5*z2;
 
   a6 = e*mu;                                   /* sixth term  */
   x1 += a6*p*p2;
 
-  d1   = 1.0 + sqrt(e)*p;                      /* denominator */
+  d1   = 1.0 + SQRT(e)*p;                      /* denominator */
   d1_2 = d1*d1;
   *x   = x1/d1_2;
 
@@ -149,7 +149,7 @@ void x_tpss_10(int order, FLOAT p, FLOAT z,
   
   dxdp1 += a6*3.0*p2;                          /* sixth term  */
   
-  *dxdp = (dxdp1*d1 - 2.0*sqrt(e)*x1)/(d1*d1_2);   /* denominator */
+  *dxdp = (dxdp1*d1 - 2.0*SQRT(e)*x1)/(d1*d1_2);   /* denominator */
   *dxdz = dxdz1/d1_2;
 
   if(order < 2) return;
@@ -174,8 +174,8 @@ void x_tpss_10(int order, FLOAT p, FLOAT z,
 
   d2xdp1 += a6*6.0*p;                          /* sixth term  */
 
-  *d2xdp2 = (6.0*e*x1 + d1*(-4.0*sqrt(e)*dxdp1 + d1*d2xdp1))/(d1_2*d1_2);
-  *d2xdpz = (d2xdpz1*d1 - 2.0*sqrt(e)*dxdz1)/(d1*d1_2);
+  *d2xdp2 = (6.0*e*x1 + d1*(-4.0*SQRT(e)*dxdp1 + d1*d2xdp1))/(d1_2*d1_2);
+  *d2xdpz = (d2xdpz1*d1 - 2.0*SQRT(e)*dxdz1)/(d1*d1_2);
   *d2xdz2 = d2xdz1/d1_2;
 }
 

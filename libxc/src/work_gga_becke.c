@@ -93,9 +93,9 @@ work_gga_becke(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
       if(rho[is] < MIN_DENS) continue;
       
       sigmas[is] = max(MIN_GRAD*MIN_GRAD, sigma[js]/sfact2);
-      gdm    = sqrt(sigmas[is]);
+      gdm    = SQRT(sigmas[is]);
   
-      rho13 = POW(ds[is], 1.0/3.0);
+      rho13 = CBRT(ds[is]);
       x[is] = gdm/(ds[is]*rho13);
       x_avg+= sfact*0.5*x[is]*x[is];
 
@@ -160,7 +160,7 @@ work_gga_becke(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
     {
       FLOAT g_ab, dg_ab, d2g_ab, dx_avg[2];
       
-      x_avg = sqrt(x_avg);
+      x_avg = SQRT(x_avg);
       func_gga_becke_opposite(p, x_avg, order, &g_ab, &dg_ab, &d2g_ab);
       
       if(zk != NULL)

@@ -69,9 +69,9 @@ my_gga_c_am05(const void *p_, const FLOAT *rho, const FLOAT *sigma,
     FLOAT x=0.0, ss=0.0, XX, f;
     int js = is==0 ? 0 : 2;
 
-    gdm   = sqrt(sigma[js])/sfact;  
+    gdm   = SQRT(sigma[js])/sfact;  
     ds    = rho[is]/sfact;
-    rho13 = POW(ds, 1.0/3.0);
+    rho13 = CBRT(ds);
 
     if(rho[is] < MIN_DENS){
       /* This is how I think it should be */

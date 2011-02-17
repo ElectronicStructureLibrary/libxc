@@ -52,12 +52,12 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   FLOAT cnst_rs, nn, zp3, zm3, alpha, beta, gamma, k, Q;
   FLOAT dalpha, dbeta, dQ, dkdrs, dkdz;
 
-  cnst_rs = POW(3.0/(4*M_PI), 1.0/3.0);
+  cnst_rs = CBRT(3.0/(4*M_PI));
 
-  alpha = fc[p->func]*(pow(1 + r->zeta, q[p->func]) + pow(1.0 - r->zeta, q[p->func]));
+  alpha = fc[p->func]*(POW(1 + r->zeta, q[p->func]) + POW(1.0 - r->zeta, q[p->func]));
 
-  zp3   = pow(1.0 + r->zeta,  1.0/3.0);
-  zm3   = pow(1.0 - r->zeta,  1.0/3.0);
+  zp3   = CBRT(1.0 + r->zeta);
+  zm3   = CBRT(1.0 - r->zeta);
   beta  = zp3*zm3/(zp3 + zm3);
 
   k     = C*alpha*beta*cnst_rs/r->rs[1];
@@ -65,7 +65,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   Q = (k == 0.0) ? -FLT_MAX : -b[0]/(1.0 + b[1]*k) + b[2]/k*log(1.0 + b[3]/k) + b[4]/k - b[5]/(k*k);
 
   gamma = (1 - r->zeta*r->zeta)/4.0;
-  nn    = pow(cnst_rs/r->rs[1], 3);
+  nn    = POW(cnst_rs/r->rs[1], 3);
   r->zk = nn*gamma*Q;
 
   if(r->order < 1) return;
@@ -78,7 +78,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   if(ABS(r->zeta) == 1.0)
     dalpha = dbeta = 0.0;
   else{
-    dalpha = fc[p->func]*q[p->func]*(pow(1 + r->zeta, q[p->func] - 1.0) - pow(1.0 - r->zeta, q[p->func] - 1.0));
+    dalpha = fc[p->func]*q[p->func]*(POW(1 + r->zeta, q[p->func] - 1.0) - POW(1.0 - r->zeta, q[p->func] - 1.0));
     dbeta  = (-2.0*r->zeta - zm3*zm3*zp3 + zm3*zp3*zp3)/(3.0*zm3*zm3*zp3*zp3*(zp3 + zm3));
   }
   dkdz   = C*(dalpha*beta + alpha*dbeta)*cnst_rs/r->rs[1];

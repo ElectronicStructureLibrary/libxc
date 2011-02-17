@@ -33,7 +33,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   r->zk = ax/r->rs[2];
 
   if(p->nspin == XC_POLARIZED){
-    fz  = 0.5*(pow(1.0 + r->zeta,  5.0/3.0) + pow(1.0 - r->zeta,  5.0/3.0));
+    fz  = 0.5*(POW(1.0 + r->zeta,  5.0/3.0) + POW(1.0 - r->zeta,  5.0/3.0));
     r->zk *= fz;
   }
 
@@ -42,7 +42,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   r->dedrs = -2.0*ax/(r->rs[1]*r->rs[2]);
 
   if(p->nspin == XC_POLARIZED){
-    dfz = 5.0/(2.0*3.0)*(pow(1.0 + r->zeta,  2.0/3.0) - pow(1.0 - r->zeta,  2.0/3.0));
+    dfz = 5.0/(2.0*3.0)*(POW(1.0 + r->zeta,  2.0/3.0) - POW(1.0 - r->zeta,  2.0/3.0));
 
     r->dedrs *=             fz;
     r->dedz   = ax/r->rs[2]*dfz;
@@ -56,7 +56,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
     if(ABS(r->zeta) == 1.0)
       d2fz = FLT_MAX;
     else
-      d2fz = 10.0/(2.0*9.0)*(pow(1.0 + r->zeta,  -1.0/3.0) + pow(1.0 - r->zeta,  -1.0/3.0));
+      d2fz = 10.0/(2.0*9.0)*(1.0/CBRT(1.0 + r->zeta) + 1.0/CBRT(1.0 - r->zeta));
     
     r->d2edrs2 *=                             fz;
     r->d2edrsz  = -2.0*ax/(r->rs[1]*r->rs[2])*dfz;
@@ -71,7 +71,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
     if(ABS(r->zeta) == 1.0)
       d3fz = FLT_MAX;
     else
-      d3fz = -10.0/(2.0*27.0)*(pow(1.0 + r->zeta,  -4.0/3.0) - pow(1.0 - r->zeta,  -4.0/3.0));
+      d3fz = -10.0/(2.0*27.0)*(POW(1.0 + r->zeta,  -4.0/3.0) - POW(1.0 - r->zeta,  -4.0/3.0));
 
     r->d3edrs3 *= fz;
     r->d3edrs2z = 2.0*3.0*ax/(r->rs[2]*r->rs[2])*dfz;

@@ -46,5 +46,4 @@ rpm: dist
         echo "       $$topdir/RPMS/<arch>"; \
         echo "       $$topdir/SRPMS"; \
         echo "-------------------------------------------------------------"
-#       scp $(RPM_DIR)/RPMS/*/libxc*.rpm \
-                marques@www.tddft.org:/server/www/tddft.org/programs/octopus/download/
+#       scp $(RPM_DIR)/RPMS/*/libxc*.rpm marques@www.tddft.org:/server/www/tddft.org/programs/octopus/download/

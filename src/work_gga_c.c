@@ -125,13 +125,13 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
       }
 
       if(p->nspin == XC_POLARIZED){
-        // LOAT sign[3][2] = {{-1.0, -1.0}, {-1.0, +1.0}, {+1.0, +1.0}};
-        //FLOAT dzdn[2];
+        /*FLOAT sign[3][2] = {{-1.0, -1.0}, {-1.0, +1.0}, {+1.0, +1.0}};
+        FLOAT dzdn[2];
 
-        //for(is=2; is>=0; is--){
-        //  v2rho2[is] = v2rho2[0] - r.d2edrsz*(2.0*r.zeta + sign[is][0] + sign[is][1])*drs
-        //    + (r.zeta + sign[is][0])*(r.zeta + sign[is][1])*r.d2edz2/dens;
-        //}
+        for(is=2; is>=0; is--){
+          v2rho2[is] = v2rho2[0] - r.d2edrsz*(2.0*r.zeta + sign[is][0] + sign[is][1])*drs
+            + (r.zeta + sign[is][0])*(r.zeta + sign[is][1])*r.d2edz2/dens;
+	    }*/
 	
       }else{
 	v2rho2[0] += -8.0*xs[0]/(3.0*dens) * (dfdxs[0] + 2.0*dens*(d2fdrsxs[0]*drs + d2fdxtxs[0]*dxt))

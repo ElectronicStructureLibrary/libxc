@@ -106,7 +106,6 @@ XC(lda_x_set_params_)(XC(lda_type) *p, FLOAT alpha, int relativistic)
 
   params->alpha = 1.5*alpha - 1.0;
   params->relativistic = relativistic;
-  
 }
 
 

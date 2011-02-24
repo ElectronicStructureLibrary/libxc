@@ -64,8 +64,7 @@ pz_consts[3] = {
     { 0.031091,  0.015545},
     {-0.046644, -0.025599},
     { 0.00419,   0.00329},  /* the sign of c[0] and c[1] is different from [2], but is consistent
-			       with PWSCF. There is nothing in [3] about this, but I assume that PWSCF 
-			       is correct as it has the same sign as the PZ parametrizations */
+			       with the continuity requirement. There is nothing in [3] about this. */
     {-0.00983,  -0.00300}
   }
 };

@@ -66,7 +66,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 
   gamma = (1 - r->zeta*r->zeta)/4.0;
   nn    = POW(cnst_rs/r->rs[1], 3);
-  r->zk = nn*gamma*Q;
+  r->zk = 0.5*nn*gamma*Q;
 
   if(r->order < 1) return;
 
@@ -83,8 +83,8 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   }
   dkdz   = C*(dalpha*beta + alpha*dbeta)*cnst_rs/r->rs[1];
 
-  r->dedrs = nn*gamma*(dQ*dkdrs - 3.0*Q/r->rs[1]);
-  r->dedz  = nn*(-r->zeta*Q/2.0 + gamma*dQ*dkdz);
+  r->dedrs = 0.5*nn*gamma*(dQ*dkdrs - 3.0*Q/r->rs[1]);
+  r->dedz  = 0.5*nn*(-r->zeta*Q/2.0 + gamma*dQ*dkdz);
 }
 
 #include "work_lda.c"

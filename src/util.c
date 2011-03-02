@@ -26,11 +26,13 @@
 XC(rho2dzeta)(int nspin, const FLOAT *rho, FLOAT *d, FLOAT *zeta)
 {
   if(nspin==XC_UNPOLARIZED){
-    *d    = rho[0];
+    *d    = max(rho[0], 0.0);
     *zeta = 0.0;
   }else{
-    *d    = rho[0] + rho[1];
+    *d    = max(rho[0] + rho[1], 0.0);
     *zeta = (*d > MIN_DENS) ? (rho[0] - rho[1])/(*d) : 0.0;
+    *zeta = min(*zeta,  1.0);
+    *zeta = max(*zeta, -1.0);
   }
 }
 

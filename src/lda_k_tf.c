@@ -27,7 +27,7 @@
 static inline void 
 func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
-  static FLOAT ax = 1.68647019984114545015767914666; /* 3/5*POW(3*M_PI/2, 2/3) */
+  static FLOAT ax = 2.20990113141172000419766415904; /* 3/5*POW(9*M_PI/4, 2/3) */
                       
 
   FLOAT fz, dfz, d2fz, d3fz;

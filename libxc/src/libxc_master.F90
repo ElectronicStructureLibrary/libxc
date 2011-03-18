@@ -73,7 +73,8 @@ module XC_F90(lib_m)
   integer, parameter ::             &
     XC_EXCHANGE             =   0,  &
     XC_CORRELATION          =   1,  &
-    XC_EXCHANGE_CORRELATION =   2
+    XC_EXCHANGE_CORRELATION =   2,  &
+    XC_KINETIC              =   3
 
   integer, parameter ::             &
     XC_FLAGS_HAVE_EXC       =    1,  &

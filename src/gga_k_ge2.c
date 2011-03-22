@@ -36,6 +36,7 @@ gga_k_ge2_init(void *p_)
   default: /* XC_GGA_K_GE2 */
     p->func = 0; break;
   }
+}
 
 static inline void
 func(const XC(gga_type) *p, int order, FLOAT x,

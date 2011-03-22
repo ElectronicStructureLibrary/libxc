@@ -57,7 +57,7 @@ void rdqagse(integr_fn f, void *ex, FLOAT *a, FLOAT *b,
 #define RS(x)          (CBRT((3.0/(4*M_PI*x))))
 #define X_FACTOR_C     0.9305257363491000250020102180716672510262     /* 3/8*cur(3/pi)*4^(2/3) */
 #define X_FACTOR_2D_C  1.504505556127350098528211870828726895584      /* 8/(3*sqrt(pi))        */
-#define K_FACTOR_C     4.557799872345597137288163759599305358515      /* 3/10*(6*pi^2)^(2/3)   */
+#define K_FACTOR_C     5.742468000376383631884993318907439344463      /* 3/5*(2*pi^2)^(2/3) (note the factor of 2 in the definition of tau) */
 #define X2S            0.1282782438530421943003109254455883701296     /* 1/(2*(6*pi^2)^(1/3))  */
 #define X2S_2D         0.141047395886939071                           /* 1/(2*(4*pi)^(1/2)     */
 #define FZETAFACTOR    0.519842099789746380

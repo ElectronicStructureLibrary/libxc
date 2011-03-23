@@ -174,6 +174,7 @@ void XC(gga_x_pbe_set_params) (XC(func_type) *p, FLOAT kappa, FLOAT mu);
 void XC(gga_x_rpbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu);
 void XC(gga_c_lyp_set_params) (XC(func_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
 void XC(gga_lb_set_params)    (XC(func_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
+void XC(gga_k_tflw_set_params)(XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N);
 
 FLOAT XC(hyb_gga_exx_coef)(const XC(gga_type) *p);
 

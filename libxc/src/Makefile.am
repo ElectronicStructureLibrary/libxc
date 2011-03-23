@@ -36,7 +36,7 @@ libxc_la_FUNC_SOURCES = \
 	gga_perdew.c gga_c_pbe.c gga_c_lyp.c gga_c_p86.c gga_c_pw91.c gga_c_am05.c gga_c_lm.c gga_c_wl.c gga_c_wi.c \
 	gga_xc_lb.c gga_xc_b97.c gga_xc_edf1.c gga_xc_1w.c \
 	gga_x_2d_b86.c gga_x_2d_b86_mgc.c gga_x_2d_b88.c gga_x_2d_pbe.c \
-	gga_k_ge2.c gga_k_tflw.c gga_k_pearson.c gga_k_llp.c \
+	gga_k_tflw.c gga_k_pearson.c gga_k_llp.c \
 	hyb_gga_xc_b3lyp.c hyb_gga_xc_o3lyp.c hyb_gga_xc_pbeh.c hyb_gga_xc_b1wc.c \
 	hyb_gga_xc_b97.c \
 	mgga.c \

@@ -158,7 +158,7 @@ const XC(func_info_type) XC(func_info_gga_k_vw) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_k_tflw_init, 
   NULL, NULL,
-  work_gga_x
+  work_gga_k
 };
 
 const XC(func_info_type) XC(func_info_gga_k_ge2) = {
@@ -171,7 +171,7 @@ const XC(func_info_type) XC(func_info_gga_k_ge2) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_x
+  work_gga_k
 };
 
 const XC(func_info_type) XC(func_info_gga_k_golden) = {
@@ -183,7 +183,7 @@ const XC(func_info_type) XC(func_info_gga_k_golden) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_x
+  work_gga_k
 };
 
 const XC(func_info_type) XC(func_info_gga_k_yt65) = {
@@ -195,7 +195,7 @@ const XC(func_info_type) XC(func_info_gga_k_yt65) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_x
+  work_gga_k
 };
 
 const XC(func_info_type) XC(func_info_gga_k_baltin) = {
@@ -207,7 +207,7 @@ const XC(func_info_type) XC(func_info_gga_k_baltin) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_x
+  work_gga_k
 };
 
 const XC(func_info_type) XC(func_info_gga_k_lieb) = {
@@ -219,7 +219,7 @@ const XC(func_info_type) XC(func_info_gga_k_lieb) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_x
+  work_gga_k
 };
 
 const XC(func_info_type) XC(func_info_gga_k_absr1) = {
@@ -231,7 +231,7 @@ const XC(func_info_type) XC(func_info_gga_k_absr1) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_x
+  work_gga_k
 };
 
 const XC(func_info_type) XC(func_info_gga_k_absr2) = {
@@ -243,7 +243,7 @@ const XC(func_info_type) XC(func_info_gga_k_absr2) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_x
+  work_gga_k
 };
 
 const XC(func_info_type) XC(func_info_gga_k_gr) = {
@@ -255,7 +255,7 @@ const XC(func_info_type) XC(func_info_gga_k_gr) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_x
+  work_gga_k
 };
 
 const XC(func_info_type) XC(func_info_gga_k_ludena) = {
@@ -267,7 +267,7 @@ const XC(func_info_type) XC(func_info_gga_k_ludena) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_x
+  work_gga_k
 };
 
 const XC(func_info_type) XC(func_info_gga_k_gp85) = {
@@ -279,5 +279,5 @@ const XC(func_info_type) XC(func_info_gga_k_gp85) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_x
+  work_gga_k
 };

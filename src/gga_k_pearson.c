@@ -21,7 +21,7 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_GGA_K_PEARSON          202 /* Pearson */
+#define XC_GGA_K_PEARSON          511 /* Pearson */
 
 static inline void 
 func(const XC(gga_type) *p, int order, FLOAT x, 

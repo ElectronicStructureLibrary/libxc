@@ -21,7 +21,7 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_GGA_K_LLP          203 /* Lee, Lee & Parr */
+#define XC_GGA_K_LLP          512 /* Lee, Lee & Parr */
 
 static inline void 
 func(const XC(gga_type) *p, int order, FLOAT x, 

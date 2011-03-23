@@ -57,7 +57,7 @@ void rdqagse(integr_fn f, void *ex, FLOAT *a, FLOAT *b,
 #define RS(x)          (CBRT((3.0/(4*M_PI*x))))
 #define X_FACTOR_C     0.9305257363491000250020102180716672510262     /* 3/8*cur(3/pi)*4^(2/3) */
 #define X_FACTOR_2D_C  1.504505556127350098528211870828726895584      /* 8/(3*sqrt(pi))        */
-#define K_FACTOR_C     5.742468000376383631884993318907439344463      /* 3/5*(3*pi^2)^(2/3) (note the factor of 2 in the definition of tau) */
+#define K_FACTOR_C     9.115599744691194274576327519198610717031      /* 3/5*(6*pi^2)^(2/3) (note the factor of 2 in the definition of tau) */
 #define X2S            0.1282782438530421943003109254455883701296     /* 1/(2*(6*pi^2)^(1/3))  */
 #define X2S_2D         0.141047395886939071                           /* 1/(2*(4*pi)^(1/2)     */
 #define FZETAFACTOR    0.519842099789746380
@@ -131,7 +131,7 @@ void XC(gga_x_pbe_set_params_) (XC(gga_type) *p, FLOAT kappa, FLOAT mu);
 void XC(gga_x_rpbe_set_params_)(XC(gga_type) *p, FLOAT kappa, FLOAT mu);
 void XC(gga_c_lyp_set_params_) (XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
 void XC(gga_lb_set_params_)    (XC(gga_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
-void XC(gga_k_tflw_set_params_)(XC(gga_type) *p, FLOAT lambda);
+void XC(gga_k_tflw_set_params_)(XC(gga_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N);
 
 
 /* meta GGAs */

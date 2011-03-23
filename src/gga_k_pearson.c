@@ -58,5 +58,5 @@ const XC(func_info_type) XC(func_info_gga_k_pearson) = {
   "E Pearson, Ph.D. thesis, Harvard University (1992)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   NULL, NULL, NULL,
-  work_gga_x
+  work_gga_k
 };

@@ -23,6 +23,7 @@
 
 #define XC_GGA_X_B88          106 /* Becke 88 */
 #define XC_GGA_X_OPTB88_VDW   139 /* Becke 88 reoptimized to be used with vdW functional of Dion et al*/
+#define XC_GGA_K_LLP          512 /* Lee, Lee & Parr */
 
 typedef struct{
   FLOAT beta, gamma;
@@ -42,6 +43,10 @@ gga_x_b88_init(void *p_)
   case XC_GGA_X_OPTB88_VDW:
     p->func = 1; 
     XC(gga_x_b88_set_params_)(p, 0.00336865923905927, 6.98131700797731);
+    break;
+  case XC_GGA_K_LLP:
+    p->func = 2;
+    XC(gga_x_b88_set_params_)(p, X_FACTOR_C*4.4188e-3, 0.0253/(X_FACTOR_C*4.4188e-3));
     break;
   default: /* XC_GGA_X_B88 */
     p->func = 0; 
@@ -97,7 +102,7 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   f1 = beta/X_FACTOR_C*x*x;
   f2 = 1.0 + gamma*beta*x*asinh(x);
   *f = 1.0 + f1/f2;
- 
+
   if(order < 1) return;
 
   df1 = 2.0*beta/X_FACTOR_C*x;
@@ -140,4 +145,20 @@ const XC(func_info_type) XC(func_info_gga_x_optb88_vdw) = {
   gga_x_b88_end, 
   NULL,
   work_gga_x
+};
+
+#define XC_KINETIC_FUNCTIONAL
+#include "work_gga_x.c"
+
+const XC(func_info_type) XC(func_info_gga_k_llp) = {
+  XC_GGA_K_LLP,
+  XC_EXCHANGE,
+  "Becke 88",
+  XC_FAMILY_GGA,
+  "H Lee, C Lee, and RG Parr ",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_x_b88_init,
+  gga_x_b88_end,
+  NULL,
+  work_gga_k
 };

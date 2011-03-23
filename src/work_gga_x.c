@@ -31,10 +31,15 @@
 #  define XC_DIMENSIONS 3
 #endif
 
-static void 
-work_gga_x(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
-	   FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-	   FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
+static void
+#ifdef XC_KINETIC_FUNCTIONAL
+work_gga_k
+#else
+work_gga_x
+#endif
+(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
+ FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
+ FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
   const XC(gga_type) *p = p_;
 

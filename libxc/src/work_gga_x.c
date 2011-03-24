@@ -57,7 +57,7 @@ work_gga_x
 #  if XC_DIMENSIONS == 2
 #  else /* three dimensions */
   power = 2.0/3.0;
-  x_factor_c = K_FACTOR_C;
+  x_factor_c = K_FACTOR_C/2.0; /* the 2.0 is due to our definition of tau */
 #  endif
 #endif
 

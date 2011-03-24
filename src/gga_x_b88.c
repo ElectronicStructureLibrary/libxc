@@ -46,7 +46,7 @@ gga_x_b88_init(void *p_)
     break;
   case XC_GGA_K_LLP:
     p->func = 2;
-    XC(gga_x_b88_set_params_)(p, X_FACTOR_C*4.4188e-3, 0.0253/(X_FACTOR_C*4.4188e-3));
+    XC(gga_x_b88_set_params_)(p, X_FACTOR_C*0.0044188, 0.0253/(X_FACTOR_C*0.0044188));
     break;
   default: /* XC_GGA_X_B88 */
     p->func = 0; 

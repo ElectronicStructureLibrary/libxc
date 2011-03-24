@@ -23,14 +23,26 @@
 #include "util.h"
 
 #define XC_LDA_K_TF      50   /* Thomas-Fermi kinetic energy functional */
+#define XC_LDA_K_LP      51   /* Lee and Parr Gaussian ansatz           */
+
+/* do not forget that our definition of the kinetic energy is |nabla n|^2,
+   therefore, all formulas must multiplied by a factor of 2 */
 
 static inline void 
 func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
-  /* K_FACTOR_C*(3/4 pi)^(2/3) = 3/5*POW(9*M_PI/4, 2/3) */
-  static FLOAT ax = 2.20990113141172000419766415904;
+  FLOAT ax, fz, dfz, d2fz, d3fz;
 
-  FLOAT fz, dfz, d2fz, d3fz;
+  switch(p->info->number){
+  case XC_LDA_K_LP:\
+    /* 2 * 3*M_PI/2^(5/3) * (3/4 pi)^(2/3) = 3*M_PI*POW(3/(8*M_PI), 2/3)*/
+    ax = 2.284855419517333351288618503355783851342;
+    break;
+  case XC_LDA_K_TF:
+    /* 2 * 3/10*(3*M_PI^2)^(2/3) * (3/4 pi)^(2/3) = 3/5*POW(9*M_PI/4, 2/3) */
+    ax = 2.209901131411720004197664159039271385884;
+    break;
+  }
 
   r->zk = ax/r->rs[2];
 
@@ -92,6 +104,18 @@ const XC(func_info_type) XC(func_info_lda_k_tf) = {
   XC_FAMILY_LDA,
   "LH Thomas, Proc. Cambridge Phil. Soc. 23,  542–548 (1927)\n"
   "E Fermi. Rend. Accad. Naz. Lincei 6, 602–607 (1927)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  NULL,
+  NULL,
+  work_lda
+};
+
+const XC(func_info_type) XC(func_info_lda_k_lp) = {
+  XC_LDA_K_LP,
+  XC_KINETIC,
+  "Lee and Parr Gaussian ansatz for the kinetic energy",
+  XC_FAMILY_LDA,
+  "CL and RG Parr, Phys. Rev. A 35, 2377–2383 (1987)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   NULL,
   NULL,

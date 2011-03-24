@@ -32,6 +32,8 @@ double asinh (double x);
 float  asinhf(float  x);
 #endif
 
+#define M_CBRT2         1.259921049894873164767210607278228350570
+
 /* Very useful macros */
 #define min(x,y)  ((x<y) ? (x) : (y))
 #define max(x,y)  ((x<y) ? (y) : (x))

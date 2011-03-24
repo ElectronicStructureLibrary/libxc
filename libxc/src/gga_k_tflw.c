@@ -150,7 +150,7 @@ func(const XC(gga_type) *p, int order, FLOAT x,
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_k_vw) = {
-  XC_GGA_K_GE2,
+  XC_GGA_K_VW,
   XC_KINETIC,
   "von Weiszaecker correction to Thomas-Fermi",
   XC_FAMILY_GGA,

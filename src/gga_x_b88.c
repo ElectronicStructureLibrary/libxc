@@ -155,7 +155,7 @@ const XC(func_info_type) XC(func_info_gga_k_llp) = {
   XC_EXCHANGE,
   "Becke 88",
   XC_FAMILY_GGA,
-  "H Lee, C Lee, and RG Parr ",
+  "H Lee, C Lee, and RG Parr, Phys. Rev. A 44, 768 (1991)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_x_b88_init,
   gga_x_b88_end,

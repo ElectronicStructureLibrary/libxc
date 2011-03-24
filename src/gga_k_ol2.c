@@ -21,41 +21,40 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_GGA_K_PEARSON          511 /* Pearson */
+#define XC_GGA_K_OL2          513 /* Ou-Yang and Levy v.2 */
 
 static inline void 
 func(const XC(gga_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
-  FLOAT ss, ss2, ss6, denom;
+  const FLOAT c4 = 0.00887;
+  FLOAT ss, ss2, denom;
 
-  ss  = X2S*x;
-  ss2 = ss*ss;
-  ss6 = ss2*ss2*ss2;
-  denom = 1.0 + ss6;
+  ss    = x/M_CBRT2;
+  ss2   = ss*ss;
+  denom = 1.0 + 4.0*ss;
 
-  *f = 1.0 + 5.0/27.0 * ss2/denom;
+  *f = 1.0 + (ss2/72.0 + c4*ss/denom)/K_FACTOR_C;
 
   if(order < 1) return;
 
-  *dfdx = X2S*5.0/27.0 * 2.0*ss*(1.0 - 2.0*ss6)/(denom*denom);
-  *ldfdx= X2S*X2S*5.0/27.0;
+  *dfdx = (2.0*ss/72.0 + c4/(denom*denom))/(K_FACTOR_C*M_CBRT2);
+  *ldfdx= 1.0/(72.0*K_FACTOR_C*M_CBRT2*M_CBRT2);
   
   if(order < 2) return;
 
-  *d2fdx2 = X2S*X2S*5.0/27.0 * (2.0 - 50.0*ss6 + 20.0*ss6*ss6)/(denom*denom*denom);
+  *d2fdx2 = (2.0/72.0 - 8.0*c4/(denom*denom*denom))/(K_FACTOR_C*M_CBRT2*M_CBRT2);
 }
 
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_k_pearson) = {
-  XC_GGA_K_PEARSON,
+const XC(func_info_type) XC(func_info_gga_k_ol2) = {
+  XC_GGA_K_OL2,
   XC_KINETIC,
-  "Pearson 1992",
+  "Ou-Yang and Levy v.2",
   XC_FAMILY_GGA,
-  "DJ Lacks and RG Gordon, J. Chem. Phys. 100, 4446 (1994)\n"
-  "E Pearson, Ph.D. thesis, Harvard University (1992)",
+  "H Ou-Yang, M Levy, Int. J. of Quant. Chem. 40, 379–388 (1991)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   NULL, NULL, NULL,
   work_gga_k

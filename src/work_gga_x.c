@@ -43,22 +43,31 @@ work_gga_x
 {
   const XC(gga_type) *p = p_;
 
-  FLOAT sfact, sfact2, x_factor_c, power, dens;
+  FLOAT sfact, sfact2, x_factor_c, alpha, beta, dens;
   int is, ip, order;
 
+  /* alpha is the power of rho the the corresponding LDA
+     beta  is the power opf rho in the expression for x */
+
+  beta = 1.0 + 1.0/XC_DIMENSIONS; /* exponent of the density in expression for x */
+
 #ifndef XC_KINETIC_FUNCTIONAL
-  power = 1.0/XC_DIMENSIONS;
+  alpha = beta;
+
 #  if XC_DIMENSIONS == 2
   x_factor_c = -X_FACTOR_2D_C;
 #  else /* three dimensions */
   x_factor_c = -X_FACTOR_C;
 #  endif
+
 #else
+
 #  if XC_DIMENSIONS == 2
 #  else /* three dimensions */
-  power = 2.0/3.0;
-  x_factor_c = K_FACTOR_C/2.0; /* the 2.0 is due to our definition of tau */
+  alpha = 5.0/3.0;
+  x_factor_c = 2.0*K_FACTOR_C; /* the 2.0 is due to our definition of tau */
 #  endif
+
 #endif
 
   sfact = (p->nspin == XC_POLARIZED) ? 1.0 : 2.0;
@@ -75,17 +84,17 @@ work_gga_x
     if(dens < MIN_DENS) goto end_ip_loop;
 
     for(is=0; is<p->nspin; is++){
-      FLOAT gdm, ds, rho1D;
+      FLOAT gdm, ds, rhoLDA;
       FLOAT x, f, dfdx, ldfdx, d2fdx2, lvsigma, lv2sigma2, lvsigmax, lvrho;
       int js = (is == 0) ? 0 : 2;
       int ks = (is == 0) ? 0 : 5;
 
       if(rho[is] < MIN_DENS) continue;
 
-      gdm   = SQRT(sigma[js])/sfact;
-      ds    = rho[is]/sfact;
-      rho1D = POW(ds, power);
-      x     = gdm/(ds*rho1D);
+      gdm    = SQRT(sigma[js])/sfact;
+      ds     = rho[is]/sfact;
+      rhoLDA = POW(ds, alpha);
+      x      = gdm/POW(ds, beta);
       
       dfdx = ldfdx = d2fdx2 = 0.0;
       lvsigma = lv2sigma2 = lvsigmax = lvrho = 0.0;
@@ -107,24 +116,24 @@ work_gga_x
 #endif
 
       if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-	*zk += sfact*x_factor_c*(ds*rho1D)*f;
+	*zk += sfact*x_factor_c*rhoLDA*f;
       
       if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
-	vrho[is] += (power + 1.0)*x_factor_c*rho1D*(f - dfdx*x)
-	  + x_factor_c*(ds*rho1D)*lvrho;
+	vrho[is] += x_factor_c*(rhoLDA/ds)*(alpha*f - beta*dfdx*x)
+	  + x_factor_c*rhoLDA*lvrho;
 	
 	if(gdm>MIN_GRAD)
-	  vsigma[js] = sfact*x_factor_c*(ds*rho1D)*(lvsigma + dfdx*x/(2.0*sigma[js]));
+	  vsigma[js] = sfact*x_factor_c*rhoLDA*(lvsigma + dfdx*x/(2.0*sigma[js]));
       }
       
       if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){
-	v2rho2[js] = power*(power + 1.0)*x_factor_c*rho1D/ds*
-	  (f - dfdx*x + (power + 1.0)/power*d2fdx2*x*x)/sfact;
+	v2rho2[js] = x_factor_c*rhoLDA/(ds*ds) *
+	  ((alpha - 1.0)*alpha*f + beta*(beta - 2.0*alpha + 1.0)*x*dfdx + beta*beta*x*x*d2fdx2)/sfact;
 	
 	if(gdm>MIN_GRAD){
-	  v2rhosigma[ks] = (power + 1.0)*x_factor_c*rho1D *
-	    (lvsigma - lvsigmax*x - d2fdx2*x*x/(2.0*sigma[js]));
-	  v2sigma2  [ks] = sfact*x_factor_c*(ds*rho1D)*
+	  v2rhosigma[ks] = x_factor_c*(rhoLDA/ds) *
+	    (alpha*lvsigma - beta*x*lvsigmax + ((alpha - beta)*x*dfdx - beta*x*x*d2fdx2)/(2.0*sigma[js]));
+	  v2sigma2  [ks] = sfact*x_factor_c*rhoLDA*
 	    (lv2sigma2 + lvsigmax*x/sigma[js] + (d2fdx2*x - dfdx)*x/(4.0*sigma[js]*sigma[js]));
 	}
 	

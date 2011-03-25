@@ -24,6 +24,7 @@
 #define XC_GGA_X_B88          106 /* Becke 88 */
 #define XC_GGA_X_OPTB88_VDW   139 /* Becke 88 reoptimized to be used with vdW functional of Dion et al*/
 #define XC_GGA_K_LLP          512 /* Lee, Lee & Parr */
+#define XC_GGA_K_FR_B88       514 /* Fuentealba & Reyes (B88 version) */
 
 typedef struct{
   FLOAT beta, gamma;
@@ -47,6 +48,10 @@ gga_x_b88_init(void *p_)
   case XC_GGA_K_LLP:
     p->func = 2;
     XC(gga_x_b88_set_params_)(p, X_FACTOR_C*0.0044188, 0.0253/(X_FACTOR_C*0.0044188));
+    break;
+  case XC_GGA_K_FR_B88:
+    p->func = 2;
+    XC(gga_x_b88_set_params_)(p, X_FACTOR_C*0.004596, 0.02774/(X_FACTOR_C*0.0044188));
     break;
   default: /* XC_GGA_X_B88 */
     p->func = 0; 
@@ -156,6 +161,19 @@ const XC(func_info_type) XC(func_info_gga_k_llp) = {
   "Becke 88",
   XC_FAMILY_GGA,
   "H Lee, C Lee, and RG Parr, Phys. Rev. A 44, 768 (1991)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_x_b88_init,
+  gga_x_b88_end,
+  NULL,
+  work_gga_k
+};
+
+const XC(func_info_type) XC(func_info_gga_k_fr_b88) = {
+  XC_GGA_K_FR_B88,
+  XC_EXCHANGE,
+  "Fuentealba & Reyes (B88 version)",
+  XC_FAMILY_GGA,
+  "P Fuentealba and O Reyes, Chem. Phys. Lett. 232, 31-34 (1995)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_x_b88_init,
   gga_x_b88_end,

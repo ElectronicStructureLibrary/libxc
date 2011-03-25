@@ -50,8 +50,8 @@ gga_x_b88_init(void *p_)
     XC(gga_x_b88_set_params_)(p, X_FACTOR_C*0.0044188, 0.0253/(X_FACTOR_C*0.0044188));
     break;
   case XC_GGA_K_FR_B88:
-    p->func = 2;
-    XC(gga_x_b88_set_params_)(p, X_FACTOR_C*0.004596, 0.02774/(X_FACTOR_C*0.0044188));
+    p->func = 3;
+    XC(gga_x_b88_set_params_)(p, X_FACTOR_C*0.004596, 0.02774/(X_FACTOR_C*0.004596));
     break;
   default: /* XC_GGA_X_B88 */
     p->func = 0; 

@@ -22,7 +22,7 @@
 
 #include "util.h"
 
-#define XC_GGA_C_WL  147 /* Lee, Yang & Parr */
+#define XC_GGA_C_WL  147 /* Wilson & Levy */
 
 static inline void 
 func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs,

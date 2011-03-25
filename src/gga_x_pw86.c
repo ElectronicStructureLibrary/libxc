@@ -22,6 +22,7 @@
 
 #define XC_GGA_X_PW86         108 /* Perdew & Wang 86 */
 #define XC_GGA_X_RPW86        144 /* refitted Perdew & Wang 86 */
+#define XC_GGA_K_FR_PW86      515 /* Fuentealba & Reyes (PW86 version) */
 
 typedef struct{
   FLOAT aa, bb, cc;
@@ -34,6 +35,7 @@ gga_x_pw86_init(void *p_)
 
   switch(p->info->number){
   case XC_GGA_X_RPW86:      p->func = 1; break;
+  case XC_GGA_K_FR_PW86:    p->func = 2; break;
   default:                  p->func = 0; /* original PW86 */
   }
 }
@@ -42,9 +44,10 @@ static inline void
 func(const XC(gga_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
-  static const gga_x_pw86_params par[2] = {
+  static const gga_x_pw86_params par[3] = {
     {    1.296, 14.0,  0.2},
-    {15*0.1234, 17.33, 0.163}
+    {15*0.1234, 17.33, 0.163},
+    {    2.208, 9.27,  0.2}
   };
   FLOAT ss, ss2, ss4, dd, d2dd, d3dd;
 
@@ -96,3 +99,16 @@ const XC(func_info_type) XC(func_info_gga_x_rpw86) = {
   work_gga_x
 };
 
+#define XC_KINETIC_FUNCTIONAL
+#include "work_gga_x.c"
+
+const XC(func_info_type) XC(func_info_gga_k_fr_pw86) = {
+  XC_GGA_K_FR_PW86,
+  XC_EXCHANGE,
+  "Fuentealba & Reyes (PW86 version)",
+  XC_FAMILY_GGA,
+  "P Fuentealba and O Reyes, Chem. Phys. Lett. 232, 31-34 (1995)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_x_pw86_init, NULL, NULL,
+  work_gga_k
+};

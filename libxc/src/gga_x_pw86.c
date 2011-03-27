@@ -51,7 +51,7 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   };
   FLOAT ss, ss2, ss4, dd, d2dd, d3dd;
 
-  /* sanety check: do we have a valid functional */
+  /* sanity check: do we have a valid functional */
   assert(p->func==0 || p->func==1 || p->func==2);
 
   ss     = X2S*x;

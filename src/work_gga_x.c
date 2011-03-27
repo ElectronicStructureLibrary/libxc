@@ -46,8 +46,8 @@ work_gga_x
   FLOAT sfact, sfact2, x_factor_c, alpha, beta, dens;
   int is, ip, order;
 
-  /* alpha is the power of rho the the corresponding LDA
-     beta  is the power opf rho in the expression for x */
+  /* alpha is the power of rho in the corresponding LDA
+     beta  is the power of rho in the expression for x */
 
   beta = 1.0 + 1.0/XC_DIMENSIONS; /* exponent of the density in expression for x */
 

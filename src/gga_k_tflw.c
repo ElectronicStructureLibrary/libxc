@@ -103,19 +103,19 @@ XC(gga_k_tflw_set_params_)(XC(gga_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N)
   }else{
     switch(p->info->number){
     case XC_GGA_K_GE2:
-      lambda = 1.0/9.0;
+      params->lambda = 1.0/9.0;
       break;
     case XC_GGA_K_GOLDEN:     /* Ref. 33 */
-      lambda = 13.0/45.0;
+      params->lambda = 13.0/45.0;
       break;
     case XC_GGA_K_YT65:       /* Ref. 57 */
-      lambda = 1.0/5.0;
+      params->lambda = 1.0/5.0;
       break;
     case XC_GGA_K_BALTIN:     /* Ref. 66 */
-      lambda = 5.0/9.0;
+      params->lambda = 5.0/9.0;
       break;
     case XC_GGA_K_LIEB:       /* Ref. 12 */
-      lambda = 0.185909191;   /* 1/5.37897... */
+      params->lambda = 0.185909191;   /* 1/5.37897... */
       break;
     }
   }
@@ -133,7 +133,7 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   gamma   = ((gga_k_tflw_params *) (p->params))->gamma;
 
   lambda /= 8.0; /* the von Weiszaecker coefficient */
-
+  
   *f = gamma + lambda*x*x/K_FACTOR_C;
 
   if(order < 1) return;

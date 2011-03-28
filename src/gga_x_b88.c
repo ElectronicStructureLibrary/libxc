@@ -157,7 +157,7 @@ const XC(func_info_type) XC(func_info_gga_x_optb88_vdw) = {
 
 const XC(func_info_type) XC(func_info_gga_k_llp) = {
   XC_GGA_K_LLP,
-  XC_EXCHANGE,
+  XC_KINETIC,
   "Becke 88",
   XC_FAMILY_GGA,
   "H Lee, C Lee, and RG Parr, Phys. Rev. A 44, 768 (1991)",
@@ -170,7 +170,7 @@ const XC(func_info_type) XC(func_info_gga_k_llp) = {
 
 const XC(func_info_type) XC(func_info_gga_k_fr_b88) = {
   XC_GGA_K_FR_B88,
-  XC_EXCHANGE,
+  XC_KINETIC,
   "Fuentealba & Reyes (B88 version)",
   XC_FAMILY_GGA,
   "P Fuentealba and O Reyes, Chem. Phys. Lett. 232, 31-34 (1995)",

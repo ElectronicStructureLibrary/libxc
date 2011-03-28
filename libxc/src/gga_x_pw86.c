@@ -104,7 +104,7 @@ const XC(func_info_type) XC(func_info_gga_x_rpw86) = {
 
 const XC(func_info_type) XC(func_info_gga_k_fr_pw86) = {
   XC_GGA_K_FR_PW86,
-  XC_EXCHANGE,
+  XC_KINETIC,
   "Fuentealba & Reyes (PW86 version)",
   XC_FAMILY_GGA,
   "P Fuentealba and O Reyes, Chem. Phys. Lett. 232, 31-34 (1995)",

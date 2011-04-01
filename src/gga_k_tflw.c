@@ -27,7 +27,7 @@ Celebration of the Contributions of Robert G. Parr, edited by KD Sen
 (World Scientific, Singapore, 2002), p. 612.
  */
 
-#define XC_GGA_K_VW            500 /* von Weiszaecker correction to Thomas-Fermi */
+#define XC_GGA_K_VW            500 /* von Weiszaecker functional */
 #define XC_GGA_K_GE2           501 /* Second-order gradient expansion (l = 1/9) */
 #define XC_GGA_K_GOLDEN        502 /* TF-lambda-vW form by Golden (l = 13/45) */
 #define XC_GGA_K_YT65          503 /* TF-lambda-vW form by Yonei and Tomishima (l = 1/5) */
@@ -78,6 +78,9 @@ XC(gga_k_tflw_set_params_)(XC(gga_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N)
     params->gamma = gamma;
   }else if(N > 0.0){
     switch(p->info->number){
+    case XC_GGA_K_VW:
+      params->gamma = 0.0;
+      break;
     case XC_GGA_K_ABSR1:      /* Ref. 79 */
       params->gamma = 1.0 - 1.412/CBRT(N);
       break;

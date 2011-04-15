@@ -182,7 +182,7 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
 const XC(func_info_type) XC(func_info_gga_c_lyp) = {
   XC_GGA_C_LYP,
   XC_CORRELATION,
-  "Lee, Yang & Parr 2",
+  "Lee, Yang & Parr",
   XC_FAMILY_GGA,
   "C Lee, W Yang and RG Parr, Phys. Rev. B 37, 785 (1988)\n"
   "B Miehlich, A Savin, H Stoll and H Preuss, Chem. Phys. Lett. 157, 200 (1989)",

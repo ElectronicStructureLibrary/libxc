@@ -94,8 +94,8 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	vsigma[0] = dens*dfdxt*xt/(2.0*sigmat);
 
       if(p->nspin == XC_POLARIZED){
-        vrho[1] = vrho[0] - (zeta + 1.0)*dfdz + 4.0/3.0*xs[1]*dfdxs[1] * 2.0/(zeta - 1.0);
-        vrho[0] = vrho[0] - (zeta - 1.0)*dfdz - 4.0/3.0*xs[0]*dfdxs[0] * 2.0/(zeta + 1.0);
+        vrho[1] = vrho[0] - (zeta + 1.0)*dfdz - 4.0/3.0*xs[1]*dfdxs[1] * 2.0/(1.0 - zeta);
+        vrho[0] = vrho[0] - (zeta - 1.0)*dfdz - 4.0/3.0*xs[0]*dfdxs[0] * 2.0/(1.0 + zeta);
 
 	if(sigmas[2] > min_grad2)
 	  vsigma[2] = vsigma[0] + dens*dfdxs[1]*xs[1]/(2.0*sigmas[2]);
@@ -125,14 +125,36 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
       }
 
       if(p->nspin == XC_POLARIZED){
-        /*FLOAT sign[3][2] = {{-1.0, -1.0}, {-1.0, +1.0}, {+1.0, +1.0}};
-        FLOAT dzdn[2];
+        FLOAT sign[3][2] = {{1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}};
+	int is;
 
         for(is=2; is>=0; is--){
-          v2rho2[is] = v2rho2[0] - r.d2edrsz*(2.0*r.zeta + sign[is][0] + sign[is][1])*drs
-            + (r.zeta + sign[is][0])*(r.zeta + sign[is][1])*r.d2edz2/dens;
-	    }*/
-	
+	  int s1 = (is > 1) ?  1 :  0;         /* {0, 0, 1}[is] */
+	  int s2 = (is > 0) ?  1 :  0;         /* {0, 1, 1}[is] */
+	  FLOAT delta = (is == 1) ? 0.0 : 1.0; /* delta_{s1,s2} */
+
+	  /* derivative wrt rs and xt */
+	  v2rho2[is] = v2rho2[0] +
+	    (- (zeta - sign[is][0])*(d2fdrsz*drs + d2fdzxt*dxt) 
+	     -  4.0/3.0*xs[s1]*2.0/(1.0 + sign[is][0]*zeta)*(d2fdrsxs[s1]*drs + d2fdxtxs[s1]*dxt));
+
+	  /* derivative wrt zeta */
+          v2rho2[is] += -(zeta - sign[is][1])/dens *
+	    (+ dens*(d2fdrsz*drs + d2fdzxt*dxt)
+	     - (zeta - sign[is][0])*d2fdz2
+	     - 4.0/3.0*xs[s1]*(d2fdzxs[s1] - dfdxs[s1]*sign[is][0]/(1.0 + sign[is][0]*zeta))*2.0/(1.0 + sign[is][0]*zeta)
+	     );
+
+	  /* derivative wrt xs */
+	  v2rho2[is] += -4.0/3.0*xs[s2]*2.0/(1.0 + sign[is][1]*zeta)/dens *
+	    (dfdxs[s2] + dens*(d2fdrsxs[s2]*drs + d2fdxtxs[s2]*dxt)
+	     - (zeta - sign[is][0])*d2fdzxs[s2]
+	     - 4.0/3.0*2.0/(1.0 + sign[is][0]*zeta)*(delta*dfdxs[s1] + xs[s1]*d2fdxs2[is])
+	     );
+
+	  /* WARNING: v2sigma and v2rhosigma missing */
+	}
+
       }else{
 	v2rho2[0] += -8.0*xs[0]/(3.0*dens) * (dfdxs[0] + 2.0*dens*(d2fdrsxs[0]*drs + d2fdxtxs[0]*dxt))
 	  + (8.0*4.0)/(3.0*3.0)*(dfdxs[0] + 2.0*xs[0]*d2fdxs2[0])*xs[0]/dens;

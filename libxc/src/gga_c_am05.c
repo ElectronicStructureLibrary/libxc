@@ -61,6 +61,7 @@ my_gga_c_am05(const void *p_, const FLOAT *rho, const FLOAT *sigma,
 
   dens = rho[0];
   if(p->nspin == XC_POLARIZED) dens += rho[1];
+  if(dens < MIN_DENS) return;
 
   XC(lda_exc_vxc)(p->func_aux[0], 1, rho, &m_zk, vrho_LDA);
 

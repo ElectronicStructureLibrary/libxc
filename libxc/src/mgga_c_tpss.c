@@ -275,7 +275,7 @@ my_mgga_c_tpss(const void *p_,
   /* sometimes numerical errors create problems */
   sigmat = max(MIN_GRAD*MIN_GRAD, sigmat);
 
-  tauw   = sigmat/(8.0*dens);
+  tauw   = max(sigmat/(8.0*dens), 1.0e-12);
   taut   = max(taut, tauw);
 
   z  = tauw/taut;

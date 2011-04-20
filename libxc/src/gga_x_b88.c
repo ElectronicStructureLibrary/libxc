@@ -156,8 +156,8 @@ const XC(func_info_type) XC(func_info_gga_x_optb88_vdw) = {
   work_gga_x
 };
 
-const XC(func_info_type) XC(func_info_gga_x_b88) = {
-  XC_GGA_X_B88,
+const XC(func_info_type) XC(func_info_gga_x_mb88) = {
+  XC_GGA_X_MB88,
   XC_EXCHANGE,
   "Modified Becke 88 for proton transfer",
   XC_FAMILY_GGA,

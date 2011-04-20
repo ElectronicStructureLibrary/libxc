@@ -23,6 +23,7 @@
 
 #define XC_GGA_X_B88          106 /* Becke 88 */
 #define XC_GGA_X_OPTB88_VDW   139 /* Becke 88 reoptimized to be used with vdW functional of Dion et al*/
+#define XC_GGA_X_MB88         149 /* Modified Becke 88 for proton transfer */
 #define XC_GGA_K_LLP          522 /* Lee, Lee & Parr */
 #define XC_GGA_K_FR_B88       514 /* Fuentealba & Reyes (B88 version) */
 
@@ -41,6 +42,10 @@ gga_x_b88_init(void *p_)
 
   /* value of beta in standard Becke 88 functional */
   switch(p->info->number){
+  case XC_GGA_X_B88:
+    p->func = 0; 
+    XC(gga_x_b88_set_params_)(p, 0.0042, 6.0);
+    break;
   case XC_GGA_X_OPTB88_VDW:
     p->func = 1; 
     XC(gga_x_b88_set_params_)(p, 0.00336865923905927, 6.98131700797731);
@@ -53,10 +58,9 @@ gga_x_b88_init(void *p_)
     p->func = 3;
     XC(gga_x_b88_set_params_)(p, X_FACTOR_C*0.004596, 0.02774/(X_FACTOR_C*0.004596));
     break;
-  default: /* XC_GGA_X_B88 */
-    p->func = 0; 
-    XC(gga_x_b88_set_params_)(p, 0.0042, 6.0);
-    break;
+  case XC_GGA_X_MB88:
+    p->func = 4;
+    XC(gga_x_b88_set_params_)(p, 0.0011, 6.0);
   }
 }
 
@@ -147,6 +151,19 @@ const XC(func_info_type) XC(func_info_gga_x_optb88_vdw) = {
   "J Klimes, DR Bowler, and A Michaelides, J. Phys.: Condens. Matter 22, 022201 (2010)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_x_b88_init,
+  gga_x_b88_end, 
+  NULL,
+  work_gga_x
+};
+
+const XC(func_info_type) XC(func_info_gga_x_b88) = {
+  XC_GGA_X_B88,
+  XC_EXCHANGE,
+  "Modified Becke 88 for proton transfer",
+  XC_FAMILY_GGA,
+  "V Tognetti and C Adamo, J. Phys. Chem. A 113, 14415-14419 (2009)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_x_b88_init, 
   gga_x_b88_end, 
   NULL,
   work_gga_x

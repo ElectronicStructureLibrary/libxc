@@ -151,10 +151,18 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	     - (zeta - sign[is][0])*d2fdzxs[s2]
 	     - 4.0/3.0*2.0/(1.0 + sign[is][0]*zeta)*(delta*dfdxs[s1] + xs[s1]*d2fdxs2[is])
 	     );
-
-	  /* WARNING: v2sigma and v2rhosigma missing */
 	}
 
+	/* WARNING: v2sigma and v2rhosigma missing */
+	if(sigmat > min_grad2){
+	  v2sigma2[5] = v2sigma2[0] + dens*
+	    (2.0*d2fdxtxs[1]*xt/sigmat - dfdxs[1]*xs[1]/sigma[1])*xs[1]/(4.0*sigma[1]);
+	  v2sigma2[4] = 0.0;
+	  v2sigma2[3] = 4.0*v2sigma2[0];
+	  v2sigma2[2] = 0.0;
+	  v2sigma2[1] = 0.0;
+	  v2sigma2[0] = 0.0;
+	}
       }else{
 	v2rho2[0] += -8.0*xs[0]/(3.0*dens) * (dfdxs[0] + 2.0*dens*(d2fdrsxs[0]*drs + d2fdxtxs[0]*dxt))
 	  + (8.0*4.0)/(3.0*3.0)*(dfdxs[0] + 2.0*xs[0]*d2fdxs2[0])*xs[0]/dens;

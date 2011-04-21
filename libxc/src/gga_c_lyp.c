@@ -77,7 +77,7 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   FLOAT omega, delta, domega, ddelta;
   FLOAT aux4, aux5, aux6;
   FLOAT t1, t2, t3, t4, t5, t6;
-  FLOAT dt1drs, dt2drs, dt3drs, dt4drs, dt5drs;
+  FLOAT dt1drs, dt2drs, dt4drs, dt5drs;
   FLOAT dt1dz, dt2dz, dt3dz, dt4dz, dt5dz, dt6dz;
 
   assert(p->params != NULL);
@@ -127,7 +127,7 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   dt2drs =  xt2*(1.0 - zeta2)*7.0*ddelta/(4.0*18.0);
   dt4drs = -aux4*(1.0 - zeta2)*ddelta/18.0*(xs[0]*xs[0]*opz83 + xs[1]*xs[1]*omz83);
   dt5drs =  aux5*(1.0 - zeta2)*ddelta*(xs[0]*xs[0]*opz*opz83 + xs[1]*xs[1]*omz*omz83);
-  *dfdrs =  AA*(dt1drs + domega*(t2 + t3 + t4 + t5 + t6) + omega*(dt2drs + dt3drs + dt4drs + dt5drs));
+  *dfdrs =  AA*(dt1drs + domega*(t2 + t3 + t4 + t5 + t6) + omega*(dt2drs + dt4drs + dt5drs));
   
   dt1dz =  2.0*zeta/(1.0 + dd*rs);
   dt2dz =  xt2*2.0*zeta*(47.0 - 7.0*delta)/(4.0*18.0);

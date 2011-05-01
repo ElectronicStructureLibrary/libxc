@@ -46,6 +46,7 @@ gga_c_lm_end(void *p_)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
+  XC(func_end)(p->func_aux[0]);
   free(p->func_aux[0]);
   free(p->func_aux);
 }

@@ -61,6 +61,14 @@ static void gga_c_pbe_init(void *p_)
   gamm[2] = beta[2]*beta[2]/(2.0*0.197363);
 }
 
+static void gga_c_pbe_end(void *p_)
+{
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+
+  XC(func_end)(p->func_aux[0]);
+  free(p->func_aux[0]);
+  free(p->func_aux);
+}
 
 static inline void 
 pbe_eq8(int func, int order, FLOAT ecunif, FLOAT phi, 
@@ -241,7 +249,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe) = {
   "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_c_pbe_init,
-  NULL,
+  gga_c_pbe_end,
   NULL,            /* this is not an LDA                   */
   gga_c_pbe,
 };
@@ -254,7 +262,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_sol) = {
   "JP Perdew, et al, Phys. Rev. Lett. 100, 136406 (2008)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_c_pbe_init,
-  NULL,
+  gga_c_pbe_end,
   NULL,            /* this is not an LDA                   */
   gga_c_pbe,
 };
@@ -267,7 +275,7 @@ const XC(func_info_type) XC(func_info_gga_c_xpbe) = {
   "X Xu and WA Goddard III, J. Chem. Phys. 121, 4068 (2004)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_c_pbe_init,
-  NULL,
+  gga_c_pbe_end,
   NULL,            /* this is not an LDA                   */
   gga_c_pbe,
 };
@@ -280,7 +288,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_jrgx) = {
   "LS Pedroza, AJR da Silva, and K. Capelle, Phys. Rev. B 79, 201106(R) (2009)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_c_pbe_init,
-  NULL,
+  gga_c_pbe_end,
   NULL,            /* this is not an LDA                   */
   gga_c_pbe,
 };
@@ -293,6 +301,7 @@ const XC(func_info_type) XC(func_info_gga_c_rge2) = {
   "A Ruzsinszky, GI Csonka, and G Scuseria, J. Chem. Theory Comput. 5, 763 (2009)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_c_pbe_init,
-  NULL, NULL,
+  gga_c_pbe_end, 
+  NULL,            /* this is not an LDA                   */ 
   gga_c_pbe
 };

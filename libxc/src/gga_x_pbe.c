@@ -30,6 +30,10 @@
 #define XC_GGA_X_RGE2         142 /* Regularized PBE */
 #define XC_GGA_X_APBE         184 /* mu fixed from the semiclassical neutral atom   */
 #define XC_GGA_K_APBE         185 /* mu fixed from the semiclassical neutral atom   */
+#define XC_GGA_K_TW1          187 /* Tran and Wesolowski set 1 (Table II)           */
+#define XC_GGA_K_TW2          188 /* Tran and Wesolowski set 2 (Table II)           */
+#define XC_GGA_K_TW3          189 /* Tran and Wesolowski set 3 (Table II)           */
+#define XC_GGA_K_TW4          190 /* Tran and Wesolowski set 4 (Table II)           */
 
 
 typedef struct{
@@ -40,28 +44,36 @@ typedef struct{
 static void 
 gga_x_pbe_init(void *p_)
 {
-  static const FLOAT kappa[9] = {
+  static const FLOAT kappa[13] = {
     0.8040,  /* original PBE */
-    1.245,   /* PBE R */
-    0.8040,  /* PBE sol */
-    0.91954, /* xPBE */
-    0.8040,  /* PBE_JSJR */
+    1.245,   /* PBE R     */
+    0.8040,  /* PBE sol   */
+    0.91954, /* xPBE      */
+    0.8040,  /* PBE_JSJR  */
     1.0,     /* PBEK1_VDW */
-    0.8040,  /* RGE2 */
-    0.8040,  /* APBE (X) */
-    0.8040   /* APBE (K) */
+    0.8040,  /* RGE2      */
+    0.8040,  /* APBE (X)  */
+    0.8040,  /* APBE (K)  */
+    0.8209,  /* TW1       */
+    0.6774,  /* TW2       */
+    0.8438,  /* TW3       */
+    0.8589   /* TW4       */
   };
 
-  static const FLOAT mu[9] = {
-    0.2195149727645171,   /* PBE: mu = beta*pi^2/3, beta = 0.066725 */
-    0.2195149727645171,   /* PBE rev: as PBE */
-    10.0/81.0,            /* PBE sol */
-    0.23214,              /* xPBE */
-    M_PI*M_PI*0.046/3.0,  /* PBE_JSJR */
-    0.2195149727645171,   /* PBEK1_VDW: as PBE */
-    10.0/81.0,            /* RGE2 */
-    0.260,                /* APBE (X) */
-    0.23889               /* APBE (K) */
+  static const FLOAT mu[13] = {
+    0.066725*M_PI*M_PI/3.0, /* PBE: mu = beta*pi^2/3, beta = 0.066725 */
+    0.066725*M_PI*M_PI/3.0, /* PBE rev: as PBE */
+    10.0/81.0,              /* PBE sol */
+    0.23214,                /* xPBE */
+    0.046*M_PI*M_PI/3.0,    /* PBE_JSJR */
+    0.066725*M_PI*M_PI/3.0, /* PBEK1_VDW: as PBE */
+    10.0/81.0,              /* RGE2      */
+    0.260,                  /* APBE (X)  */
+    0.23889,                /* APBE (K)  */
+    0.2335,                 /* TW1       */
+    0.2371,                 /* TW2       */
+    0.2319,                 /* TW3       */
+    0.2309                  /* TW4       */
   };
 
   XC(gga_type) *p = (XC(gga_type) *)p_;
@@ -70,15 +82,19 @@ gga_x_pbe_init(void *p_)
   p->params = malloc(sizeof(gga_x_pbe_params));
  
   switch(p->info->number){
-  case XC_GGA_X_PBE:        p->func = 0; break;
-  case XC_GGA_X_PBE_R:      p->func = 1; break;
-  case XC_GGA_X_PBE_SOL:    p->func = 2; break;
-  case XC_GGA_X_XPBE:       p->func = 3; break;
-  case XC_GGA_X_PBE_JSJR:   p->func = 4; break;
-  case XC_GGA_X_PBEK1_VDW:  p->func = 5; break;
-  case XC_GGA_X_RGE2:       p->func = 6; break;
-  case XC_GGA_X_APBE:       p->func = 7; break;
-  case XC_GGA_K_APBE:       p->func = 8; break;
+  case XC_GGA_X_PBE:        p->func = 0;  break;
+  case XC_GGA_X_PBE_R:      p->func = 1;  break;
+  case XC_GGA_X_PBE_SOL:    p->func = 2;  break;
+  case XC_GGA_X_XPBE:       p->func = 3;  break;
+  case XC_GGA_X_PBE_JSJR:   p->func = 4;  break;
+  case XC_GGA_X_PBEK1_VDW:  p->func = 5;  break;
+  case XC_GGA_X_RGE2:       p->func = 6;  break;
+  case XC_GGA_X_APBE:       p->func = 7;  break;
+  case XC_GGA_K_APBE:       p->func = 8;  break;
+  case XC_GGA_K_TW1:        p->func = 9;  break;
+  case XC_GGA_K_TW2:        p->func = 10; break;
+  case XC_GGA_K_TW3:        p->func = 11; break;
+  case XC_GGA_K_TW4:        p->func = 12; break;
   default:
     fprintf(stderr, "Internal error in gga_x_pbe\n");
     exit(1);
@@ -259,7 +275,7 @@ const XC(func_info_type) XC(func_info_gga_x_apbe) = {
 
 const XC(func_info_type) XC(func_info_gga_k_apbe) = {
   XC_GGA_K_APBE,
-  XC_EXCHANGE,
+  XC_KINETIC,
   "mu fixed from the semiclassical neutral atom",
   XC_FAMILY_GGA,
   "LA Constantin, E Fabiano, S Laricchia, and F Della Sala, Phys. Rev. Lett. 106, 186406 (2011)",
@@ -269,3 +285,50 @@ const XC(func_info_type) XC(func_info_gga_k_apbe) = {
   work_gga_k
 };
 
+const XC(func_info_type) XC(func_info_gga_k_tw1) = {
+  XC_GGA_K_TW1,
+  XC_KINETIC,
+  "Tran and Wesolowski set 1 (Table II)",
+  XC_FAMILY_GGA,
+  "F Tran and TA Wesolowski, Int. J. Quant. Chem. 89, 441-446 (2002)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_x_pbe_init,
+  NULL, NULL,
+  work_gga_k
+};
+
+const XC(func_info_type) XC(func_info_gga_k_tw2) = {
+  XC_GGA_K_TW2,
+  XC_KINETIC,
+  "Tran and Wesolowski set 1 (Table II)",
+  XC_FAMILY_GGA,
+  "F Tran and TA Wesolowski, Int. J. Quant. Chem. 89, 441-446 (2002)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_x_pbe_init,
+  NULL, NULL,
+  work_gga_k
+};
+
+const XC(func_info_type) XC(func_info_gga_k_tw3) = {
+  XC_GGA_K_TW3,
+  XC_KINETIC,
+  "Tran and Wesolowski set 1 (Table II)",
+  XC_FAMILY_GGA,
+  "F Tran and TA Wesolowski, Int. J. Quant. Chem. 89, 441-446 (2002)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_x_pbe_init,
+  NULL, NULL,
+  work_gga_k
+};
+
+const XC(func_info_type) XC(func_info_gga_k_tw4) = {
+  XC_GGA_K_TW4,
+  XC_KINETIC,
+  "Tran and Wesolowski set 1 (Table II)",
+  XC_FAMILY_GGA,
+  "F Tran and TA Wesolowski, Int. J. Quant. Chem. 89, 441-446 (2002)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_x_pbe_init,
+  NULL, NULL,
+  work_gga_k
+};

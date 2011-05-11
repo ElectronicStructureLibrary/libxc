@@ -29,7 +29,7 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   static const FLOAT beta  = 0.0036/X_FACTOR_C;
   static const FLOAT gamma = 0.004;
 
-  FLOAT bb, f1, f2, df1, df2, d2f1, d2f2;
+  FLOAT f1, f2, df1, df2, d2f1, d2f2;
 
   f1 = beta*x*x;
   f2 = 1.0 + gamma*x*x;

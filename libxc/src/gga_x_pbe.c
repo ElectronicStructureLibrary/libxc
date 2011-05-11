@@ -28,6 +28,8 @@
 #define XC_GGA_X_PBE_JSJR     126 /* JSJR reparametrization by Pedroza, Silva & Capelle */
 #define XC_GGA_X_PBEK1_VDW    140 /* PBE reparametrization for vdW */
 #define XC_GGA_X_RGE2         142 /* Regularized PBE */
+#define XC_GGA_X_APBE         184 /* mu fixed from the semiclassical neutral atom   */
+#define XC_GGA_K_APBE         185 /* mu fixed from the semiclassical neutral atom   */
 
 
 typedef struct{
@@ -38,39 +40,48 @@ typedef struct{
 static void 
 gga_x_pbe_init(void *p_)
 {
-  static const FLOAT kappa[7] = {
+  static const FLOAT kappa[8] = {
     0.8040,  /* original PBE */
     1.245,   /* PBE R */
     0.8040,  /* PBE sol */
     0.91954, /* xPBE */
     0.8040,  /* PBE_JSJR */
     1.0,     /* PBEK1_VDW */
-    0.8040   /* RGE2 */
+    0.8040,  /* RGE2 */
+    0.8040,  /* APBE (X) */
+    0.8040   /* APBE (K) */
   };
 
-  static const FLOAT mu[7] = {
-    0.2195149727645171,   /* PBE: mu = beta*pi^2/3, be ta = 0.066725 */
+  static const FLOAT mu[8] = {
+    0.2195149727645171,   /* PBE: mu = beta*pi^2/3, beta = 0.066725 */
     0.2195149727645171,   /* PBE rev: as PBE */
     10.0/81.0,            /* PBE sol */
     0.23214,              /* xPBE */
     M_PI*M_PI*0.046/3.0,  /* PBE_JSJR */
     0.2195149727645171,   /* PBEK1_VDW: as PBE */
-    10.0/81.0             /* RGE2 */
+    10.0/81.0,            /* RGE2 */
+    0.260,                /* APBE (X) */
+    0.23889               /* APBE (K) */
   };
 
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_x_pbe_params));
-
+ 
   switch(p->info->number){
+  case XC_GGA_X_PBE:        p->func = 0; break;
   case XC_GGA_X_PBE_R:      p->func = 1; break;
   case XC_GGA_X_PBE_SOL:    p->func = 2; break;
   case XC_GGA_X_XPBE:       p->func = 3; break;
   case XC_GGA_X_PBE_JSJR:   p->func = 4; break;
   case XC_GGA_X_PBEK1_VDW:  p->func = 5; break;
   case XC_GGA_X_RGE2:       p->func = 6; break;
-  default:                  p->func = 0; /* original PBE */
+  case XC_GGA_X_APBE:       p->func = 7; break;
+  case XC_GGA_K_APBE:       p->func = 8; break;
+  default:
+    fprintf(stderr, "Internal error in gga_x_pbe\n");
+    exit(1);
   }
 
   XC(gga_x_pbe_set_params_)(p, kappa[p->func], mu[p->func]);
@@ -229,5 +240,32 @@ const XC(func_info_type) XC(func_info_gga_x_rge2) = {
   gga_x_pbe_init,
   NULL, NULL,
   work_gga_x
+};
+
+const XC(func_info_type) XC(func_info_gga_x_apbe) = {
+  XC_GGA_X_APBE,
+  XC_EXCHANGE,
+  "mu fixed from the semiclassical neutral atom",
+  XC_FAMILY_GGA,
+  "LA Constantin, E Fabiano, S Laricchia, and F Della Sala, Phys. Rev. Lett. 106, 186406 (2011)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_x_pbe_init,
+  NULL, NULL,
+  work_gga_x
+};
+
+#define XC_KINETIC_FUNCTIONAL
+#include "work_gga_x.c"
+
+const XC(func_info_type) XC(func_info_gga_k_apbe) = {
+  XC_GGA_K_APBE,
+  XC_EXCHANGE,
+  "mu fixed from the semiclassical neutral atom",
+  XC_FAMILY_GGA,
+  "LA Constantin, E Fabiano, S Laricchia, and F Della Sala, Phys. Rev. Lett. 106, 186406 (2011)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_x_pbe_init,
+  NULL, NULL,
+  work_gga_k
 };
 

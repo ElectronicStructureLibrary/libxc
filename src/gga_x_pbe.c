@@ -40,7 +40,7 @@ typedef struct{
 static void 
 gga_x_pbe_init(void *p_)
 {
-  static const FLOAT kappa[8] = {
+  static const FLOAT kappa[9] = {
     0.8040,  /* original PBE */
     1.245,   /* PBE R */
     0.8040,  /* PBE sol */
@@ -52,7 +52,7 @@ gga_x_pbe_init(void *p_)
     0.8040   /* APBE (K) */
   };
 
-  static const FLOAT mu[8] = {
+  static const FLOAT mu[9] = {
     0.2195149727645171,   /* PBE: mu = beta*pi^2/3, beta = 0.066725 */
     0.2195149727645171,   /* PBE rev: as PBE */
     10.0/81.0,            /* PBE sol */

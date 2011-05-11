@@ -26,6 +26,7 @@
 #define XC_GGA_X_MB88         149 /* Modified Becke 88 for proton transfer */
 #define XC_GGA_K_LLP          522 /* Lee, Lee & Parr */
 #define XC_GGA_K_FR_B88       514 /* Fuentealba & Reyes (B88 version) */
+#define XC_GGA_K_THAKKAR      523 /* Thakkar 1992 */
 
 typedef struct{
   FLOAT beta, gamma;
@@ -61,6 +62,14 @@ gga_x_b88_init(void *p_)
   case XC_GGA_X_MB88:
     p->func = 4;
     XC(gga_x_b88_set_params_)(p, 0.0011, 6.0);
+    break;
+  case XC_GGA_K_THAKKAR:
+    p->func = 5;
+    XC(gga_x_b88_set_params_)(p, X_FACTOR_C*0.0055, 0.0253/(X_FACTOR_C*0.0055));
+    break;
+  default:
+    fprintf(stderr, "Internal error in gga_x_b88\n");
+    exit(1);
   }
 }
 
@@ -101,7 +110,7 @@ static inline void
 func(const XC(gga_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
-  FLOAT f1, f2, df1, df2, d2f1, d2f2;
+  FLOAT f1, f2, df1, df2, d2f1, d2f2, dd;
   FLOAT beta, gamma;
 
   assert(p->params != NULL);
@@ -112,20 +121,33 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   f2 = 1.0 + gamma*beta*x*asinh(x);
   *f = 1.0 + f1/f2;
 
-  if(order < 1) return;
-
+  if(p->func == 5) /* k_thakkar */
   df1 = 2.0*beta/X_FACTOR_C*x;
   df2 = gamma*beta*(asinh(x) + x/SQRT(1.0 + x*x));
 
   *dfdx = (df1*f2 - f1*df2)/(f2*f2);
   *ldfdx= beta/X_FACTOR_C;
 
+  if(p->func == 5){ /* k_thakkar */
+    dd  = 1.0/(1.0 + 2.0*CBRT(4.0)*x);
+    *f += -0.072*x*dd;
+  }
+
+  if(order < 1) return;
+
+
+  if(p->func == 5) /* k_thakkar */
+    *dfdx += -0.072*dd*dd;
+    
   if(order < 2) return;
 
   d2f1 = 2.0*beta/X_FACTOR_C;
   d2f2 = gamma*beta*(2.0 + x*x)/POW(1.0 + x*x, 3.0/2.0);
 
   *d2fdx2 = (2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
+
+  if(p->func == 5) /* k_thakkar */
+    *d2fdx2 += 0.072*4.0*CBRT(4.0)*dd*dd*dd;
 }
 
 #include "work_gga_x.c"
@@ -191,6 +213,19 @@ const XC(func_info_type) XC(func_info_gga_k_fr_b88) = {
   "Fuentealba & Reyes (B88 version)",
   XC_FAMILY_GGA,
   "P Fuentealba and O Reyes, Chem. Phys. Lett. 232, 31-34 (1995)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_x_b88_init,
+  gga_x_b88_end,
+  NULL,
+  work_gga_k
+};
+
+const XC(func_info_type) XC(func_info_gga_k_thakkar) = {
+  XC_GGA_K_THAKKAR,
+  XC_KINETIC,
+  "Thakkar 1992",
+  XC_FAMILY_GGA,
+  "AJ Thakkar, Phys. Rev. A 46, 6920-6924 (1992)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_x_b88_init,
   gga_x_b88_end,

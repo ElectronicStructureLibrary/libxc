@@ -22,7 +22,13 @@
 
 #include "util.h"
 
-/* Note: Do not forget to add a correlation (LDA) functional to the LB94 */
+/* Note: Do not forget to add a correlation (LDA) functional to the
+   LB94.
+   
+   Note 2: The 160 value is hardcoded in xc.h and libxc_master.F90 to
+   define XC_GGA_XC_LB to keep backwards compatibility.
+
+*/
 #define XC_GGA_X_LB  160 /* van Leeuwen & Baerends */
 #define XC_GGA_X_LBM 182 /* van Leeuwen & Baerends modified*/
 

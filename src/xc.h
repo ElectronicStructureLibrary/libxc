@@ -59,6 +59,10 @@ extern "C" {
 #define XC_TAU_EXPLICIT         0
 #define XC_TAU_EXPANSION        1
 
+  /* This value was redefined as XC_GGA_X_LB, we define it here to
+     keep compatibility. */
+#define XC_GGA_XC_LB          160
+
 typedef struct{
   int   number;   /* indentifier number */
   int   kind;     /* XC_EXCHANGE or XC_CORRELATION */

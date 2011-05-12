@@ -88,6 +88,9 @@ module XC_F90(lib_m)
     XC_FLAGS_STABLE         =  512,  &
     XC_FLAGS_DEVELOPMENT    = 1024
  
+  ! This value was redefined as XC_GGA_X_LB, we define it here to keep
+  ! compatibility.
+  integer, parameter :: XC_GGA_XC_LB = 160
 
   !----------------------------------------------------------------
   interface

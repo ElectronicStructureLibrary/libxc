@@ -17,7 +17,7 @@
 ##
 ## $Id: configure.ac 2422 2006-09-23 20:43:15Z marques $
 
-AC_INIT([libxc],[ordinarius],[octopus-users@tddft.org],[libxc])
+AC_INIT([libxc],[diurnus],[octopus-devel@tddft.org],[libxc])
 AC_CONFIG_SRCDIR([src/xc.h])
 AM_INIT_AUTOMAKE
 

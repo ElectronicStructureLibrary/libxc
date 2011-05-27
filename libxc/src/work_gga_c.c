@@ -175,12 +175,11 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	  (2.0*d2fdxtxs[1]*dxtds*dxsds[1] + d2fdxs2[2]*dxsds[1]*dxsds[1] + dfdxs[1]*d2xsds2[1]);
 	v2sigma2[4] = 2.0*v2sigma2[0] + dens*
 	  (2.0*d2fdxtxs[1]*dxtds*dxsds[1]);
-	v2sigma2[3] = 4.0*v2sigma2[0] + dens*
-	  (4.0*d2fdxtxs[1]*dxtds*dxsds[1]);
+	v2sigma2[3] = 4.0*v2sigma2[0];
 	v2sigma2[2] =     v2sigma2[0] + dens*
 	  (    d2fdxtxs[0]*dxtds*dxsds[2] + dxtds*(d2fdxtxs[0]*dxsds[1] + d2fdxtxs[1]*dxsds[0]) + d2fdxs2[1]*dxsds[0]*dxsds[1]);
 	v2sigma2[1] =  2.0*v2sigma2[0] + dens*
-	  (    d2fdxtxs[0]*dxtds*dxsds[1]);
+	  (2.0*d2fdxtxs[0]*dxtds*dxsds[0]);
 	v2sigma2[0] =     v2sigma2[0] + dens*
 	  (2.0*d2fdxtxs[0]*dxtds*dxsds[0] + d2fdxs2[0]*dxsds[0]*dxsds[0] + dfdxs[0]*d2xsds2[0]);
 
@@ -204,7 +203,8 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	  2.0*dens*d2fdxtxs[0]*dxsdn[0]*dxtds;
 	
 	v2rhosigma[0] =    v2rhosigma[0] + dfdxs[0]*dxsds[0] + ndzdn[0]*(d2fdzxt*dxtds + d2fdzxs[0]*dxsds[0]) + 
-	  dens*(d2fdrsxs[0]*drs*dxsds[0] + d2fdxtxs[0]*dxsdn[0]*dxtds + d2fdxs2[0]*dxsdn[0]*dxsds[0] + dfdxs[0]*d2xsdns[0]);
+	  dens*(d2fdrsxs[0]*drs*dxsds[0] + d2fdxtxs[0]*(dxsdn[0]*dxtds + dxsds[0]*dxt) + 
+		d2fdxs2[0]*dxsdn[0]*dxsds[0] + dfdxs[0]*d2xsdns[0]);
 
       }else{
 	v2rho2[0] += -8.0*xs[0]/(3.0*dens) * (dfdxs[0] + 2.0*dens*(d2fdrsxs[0]*drs + d2fdxtxs[0]*dxt))

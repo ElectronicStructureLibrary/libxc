@@ -34,12 +34,6 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
 
   FLOAT aux, num, den;
 
-  //rs = 0.2;
-  //zeta = -0.1;
-  //xt = 0.3;
-  xs[0] = 0.4;
-  xs[1] = 0.5;
-
   aux = SQRT(1.0 - zeta*zeta);
   num = a + b*xt;
   den = c + d*(xs[0] + xs[1]) + rs;
@@ -51,26 +45,26 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   *dfdrs   = -(*f)/den;
   *dfdz    = -zeta/aux * num/den;
   *dfdxt   = b*aux/den;
-  dfdxs[0] = 0;//-d*(*f)/den;
-  dfdxs[1] = 0;//dfdxs[0];
+  dfdxs[0] = -d*(*f)/den;
+  dfdxs[1] = dfdxs[0];
 
   if(order < 2) return;
 
   *d2fdrs2    = -2.0*(*dfdrs)/den;
   *d2fdrsz    = zeta/aux * num/(den*den);
   *d2fdrsxt   = -b*aux/(den*den);
-  d2fdrsxs[0] = 0;//-2.0*d*(*dfdrs)/den;
-  d2fdrsxs[1] = 0;//d2fdrsxs[0];
+  d2fdrsxs[0] = -2.0*d*(*dfdrs)/den;
+  d2fdrsxs[1] = d2fdrsxs[0];
   *d2fdz2     = -num/(den*aux*aux*aux);
   *d2fdzxt    = -zeta/aux * b/den;
-  d2fdzxs[0]  = 0;//zeta/aux * d*num/(den*den);
-  d2fdzxs[1]  = 0;//d2fdzxs[0];
+  d2fdzxs[0]  = zeta/aux * d*num/(den*den);
+  d2fdzxs[1]  = d2fdzxs[0];
   *d2fdxt2    = 0.0;
-  d2fdxtxs[0] = 0;//-b*d*aux/(den*den);
-  d2fdxtxs[1] = 0;//d2fdxtxs[0];
-  d2fdxs2[0]  = 0;//-2.0*d*dfdxs[0]/den;
-  d2fdxs2[1]  = 0;//d2fdxs2[0];
-  d2fdxs2[2]  = 0;//d2fdxs2[0];
+  d2fdxtxs[0] = -b*d*aux/(den*den);
+  d2fdxtxs[1] = d2fdxtxs[0];
+  d2fdxs2[0]  = -2.0*d*dfdxs[0]/den;
+  d2fdxs2[1]  = d2fdxs2[0];
+  d2fdxs2[2]  = d2fdxs2[0];
 }
 
 #include "work_gga_c.c"

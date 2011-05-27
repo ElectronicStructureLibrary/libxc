@@ -61,14 +61,6 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   FLOAT sfact;
   int is;
 
-  //rs = 0.2;
-  //zeta = 0.1;
-  //xt = 0.1;
-  //xs[0] = 0.15;
-  //xs[1] = 0.19;
-
-  //for(xs[0] = 0.01; xs[0]<5; xs[0] +=0.01){
-
   pw.order = order;
   pw.rs[0] = SQRT(rs);
   pw.rs[1] = rs;
@@ -128,9 +120,6 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
       d2fdzxs[is] = 0.0;
       
   }
-  //printf("%le %le %le\n", xs[0], dfdxs[0], d2fdxs2[0]);
-  //}
-  //exit(1);
 }
 
 #include "work_gga_c.c"

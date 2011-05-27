@@ -257,6 +257,8 @@ void XC_FC_FUNC(f90_hyb_gga_exx_coef, F90_HYB_GGA_EXX_COEF)
    (void **p, FLOAT *coef)
 {
    const XC(gga_type) *gga = ((XC(func_type) *)(*p))->gga;
+   assert(gga != NULL);
+
    *coef = XC(hyb_gga_exx_coef)(gga);
 }
 

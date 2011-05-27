@@ -43,6 +43,8 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
     FLOAT dens, zeta, rs, ds[2], sigmat, sigmas[3], xt, xs[2];
     FLOAT f, drs, dxt, dfdrs, dfdz, dfdxt, dfdxs[2];
     FLOAT d2rs, d2xt, d2fdrs2, d2fdrsz, d2fdrsxt, d2fdrsxs[2], d2fdz2, d2fdzxt, d2fdzxs[2], d2fdxt2, d2fdxtxs[2], d2fdxs2[3];
+    FLOAT ndzdn[2], dxsdn[2];
+    FLOAT dxtds, d2xtds2, d2xtdns, dxsds[2], d2xsds2[2], d2xsdns[2];
 
     XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
 
@@ -90,23 +92,32 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 
     if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
       vrho[0]   = f + dens*(dfdrs*drs + dfdxt*dxt);
-      if(sigmat > min_grad2)
-	vsigma[0] = dens*dfdxt*xt/(2.0*sigmat);
+
+      dxtds = xt/(2.0*sigmat);
+      vsigma[0] = dens*dfdxt*dxtds;
 
       if(p->nspin == XC_POLARIZED){
-        vrho[1] = vrho[0] - (zeta + 1.0)*dfdz - 4.0/3.0*xs[1]*dfdxs[1] * 2.0/(1.0 - zeta);
-        vrho[0] = vrho[0] - (zeta - 1.0)*dfdz - 4.0/3.0*xs[0]*dfdxs[0] * 2.0/(1.0 + zeta);
+	/* vrho */
+	ndzdn[1] = -(zeta + 1.0);
+	ndzdn[0] = -(zeta - 1.0);
 
-	if(sigmas[2] > min_grad2)
-	  vsigma[2] = vsigma[0] + dens*dfdxs[1]*xs[1]/(2.0*sigmas[2]);
+	dxsdn[1] = -4.0/3.0*xs[1]/ds[1];
+	dxsdn[0] = -4.0/3.0*xs[0]/ds[0];
+
+        vrho[1] = vrho[0] + dfdz*ndzdn[1] + dens*dfdxs[1]*dxsdn[1];
+        vrho[0] = vrho[0] + dfdz*ndzdn[0] + dens*dfdxs[0]*dxsdn[0];;
+
+	/* vsigma */
+	dxsds[1] = xs[1]/(2.0*sigmas[2]);
+	dxsds[0] = xs[0]/(2.0*sigmas[0]);
+
+	vsigma[2] = vsigma[0] + dens*dfdxs[1]*dxsds[1];
 	vsigma[1] = 2.0*vsigma[0];
-	if(sigmas[0] > min_grad2)
-	  vsigma[0] = vsigma[0] + dens*dfdxs[0]*xs[0]/(2.0*sigmas[0]);
+	vsigma[0] = vsigma[0] + dens*dfdxs[0]*dxsds[0];
 
       }else{
-	vrho[0] += -8.0/3.0*xs[0]*dfdxs[0];
-	if(sigmas[0] > min_grad2)
-	  vsigma[0] += dens*dfdxs[0]*xs[0]/(4.0*sigmas[0]);
+	vrho[0]   += -8.0/3.0*xs[0]*dfdxs[0];
+	vsigma[0] += dens*dfdxs[0]*xs[0]/(4.0*sigmas[0]);
       }
     }
 
@@ -119,10 +130,11 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
       v2rho2[0] = 2.0*dfdrs*drs + 2.0*dfdxt*dxt +
 	dens*(d2fdrs2*drs*drs + d2fdxt2*dxt*dxt + dfdrs*d2rs + dfdxt*d2xt + 2.0*d2fdrsxt*drs*dxt);
 
-      if(sigmat > min_grad2){
-	v2sigma2[0]   = dens*(d2fdxt2*xt - dfdxt)*xt/(4.0*sigmat*sigmat);
-	v2rhosigma[0] = (dfdxt*xt + dens*(d2fdrsxt*drs*xt + d2fdxt2*dxt*xt + dfdxt*dxt))/(2.0*sigmat);
-      }
+      d2xtds2       = -dxtds/(2.0*sigmat);
+      v2sigma2[0]   = dens*(d2fdxt2*dxtds*dxtds + dfdxt*d2xtds2);
+
+      d2xtdns       = dxt/(2.0*sigmat);
+      v2rhosigma[0] = dfdxt*dxtds + dens*(d2fdrsxt*drs*dxtds + d2fdxt2*dxt*dxtds + dfdxt*d2xtdns);
 
       if(p->nspin == XC_POLARIZED){
         FLOAT sign[3][2] = {{1.0, 1.0}, {1.0, -1.0}, {-1.0, -1.0}};
@@ -132,6 +144,8 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	  int s1 = (is > 1) ?  1 :  0;         /* {0, 0, 1}[is] */
 	  int s2 = (is > 0) ?  1 :  0;         /* {0, 1, 1}[is] */
 	  FLOAT delta = (is == 1) ? 0.0 : 1.0; /* delta_{s1,s2} */
+
+	  /* I have to simplify this! */
 
 	  /* derivative wrt rs and xt */
 	  v2rho2[is] = v2rho2[0] +
@@ -153,27 +167,54 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	     );
 	}
 
-	/* WARNING: v2sigma and v2rhosigma missing */
-	if(sigmat > min_grad2){
-	  v2sigma2[5] = v2sigma2[0] + dens*
-	    (2.0*d2fdxtxs[1]*xt/sigmat - dfdxs[1]*xs[1]/sigma[1])*xs[1]/(4.0*sigma[1]);
-	  v2sigma2[4] = 0.0;
-	  v2sigma2[3] = 4.0*v2sigma2[0];
-	  v2sigma2[2] = 0.0;
-	  v2sigma2[1] = 0.0;
-	  v2sigma2[0] = 0.0;
-	}
+	/* v2sigma */
+	d2xsds2[1] = -dxsds[1]/(2.0*sigmas[2]);
+	d2xsds2[0] = -dxsds[0]/(2.0*sigmas[0]);
+
+	v2sigma2[5] =     v2sigma2[0] + dens*
+	  (2.0*d2fdxtxs[1]*dxtds*dxsds[1] + d2fdxs2[2]*dxsds[1]*dxsds[1] + dfdxs[1]*d2xsds2[1]);
+	v2sigma2[4] = 2.0*v2sigma2[0] + dens*
+	  (2.0*d2fdxtxs[1]*dxtds*dxsds[1]);
+	v2sigma2[3] = 4.0*v2sigma2[0] + dens*
+	  (4.0*d2fdxtxs[1]*dxtds*dxsds[1]);
+	v2sigma2[2] =     v2sigma2[0] + dens*
+	  (    d2fdxtxs[0]*dxtds*dxsds[2] + dxtds*(d2fdxtxs[0]*dxsds[1] + d2fdxtxs[1]*dxsds[0]) + d2fdxs2[1]*dxsds[0]*dxsds[1]);
+	v2sigma2[1] =  2.0*v2sigma2[0] + dens*
+	  (    d2fdxtxs[0]*dxtds*dxsds[1]);
+	v2sigma2[0] =     v2sigma2[0] + dens*
+	  (2.0*d2fdxtxs[0]*dxtds*dxsds[0] + d2fdxs2[0]*dxsds[0]*dxsds[0] + dfdxs[0]*d2xsds2[0]);
+
+	/* v2rhosigma */
+	d2xsdns[1] = -4.0/3.0*dxsds[1]/ds[1];
+	d2xsdns[0] = -4.0/3.0*dxsds[0]/ds[0];
+
+	v2rhosigma[5] =    v2rhosigma[0] + dfdxs[1]*dxsds[1] + ndzdn[1]*(d2fdzxt*dxtds + d2fdzxs[1]*dxsds[1]) + 
+	  dens*(d2fdrsxs[1]*drs*dxsds[1] + d2fdxtxs[1]*dxsdn[1]*dxtds + d2fdxs2[2]*dxsdn[1]*dxsds[1] + dfdxs[1]*d2xsdns[1]);
+
+	v2rhosigma[4] = 2.0*v2rhosigma[0] + 2.0*ndzdn[1]*d2fdzxt*dxtds + 
+	  2.0*dens*d2fdxtxs[1]*dxsdn[1]*dxtds;
+
+	v2rhosigma[3] =    v2rhosigma[0] + dfdxs[0]*dxsds[0] + ndzdn[1]*(d2fdzxt*dxtds + d2fdzxs[0]*dxsds[0]) + 
+	  dens*(d2fdrsxs[0]*drs*dxsds[0] + d2fdxtxs[1]*dxsdn[1]*dxtds + d2fdxs2[1]*dxsdn[1]*dxsds[0]);
+
+	v2rhosigma[2] =    v2rhosigma[0] + dfdxs[1]*dxsds[1] + ndzdn[0]*(d2fdzxt*dxtds + d2fdzxs[1]*dxsds[1]) + 
+	  dens*(d2fdrsxs[1]*drs*dxsds[1] + d2fdxtxs[0]*dxsdn[0]*dxtds + d2fdxs2[1]*dxsdn[0]*dxsds[1]);
+
+	v2rhosigma[1] = 2.0*v2rhosigma[0] + 2.0*ndzdn[0]*d2fdzxt*dxtds + 
+	  2.0*dens*d2fdxtxs[0]*dxsdn[0]*dxtds;
+	
+	v2rhosigma[0] =    v2rhosigma[0] + dfdxs[0]*dxsds[0] + ndzdn[0]*(d2fdzxt*dxtds + d2fdzxs[0]*dxsds[0]) + 
+	  dens*(d2fdrsxs[0]*drs*dxsds[0] + d2fdxtxs[0]*dxsdn[0]*dxtds + d2fdxs2[0]*dxsdn[0]*dxsds[0] + dfdxs[0]*d2xsdns[0]);
+
       }else{
 	v2rho2[0] += -8.0*xs[0]/(3.0*dens) * (dfdxs[0] + 2.0*dens*(d2fdrsxs[0]*drs + d2fdxtxs[0]*dxt))
 	  + (8.0*4.0)/(3.0*3.0)*(dfdxs[0] + 2.0*xs[0]*d2fdxs2[0])*xs[0]/dens;
 
-	if(sigmat > min_grad2){
-	  v2sigma2[0]   += dens*(2.0*d2fdxtxs[0]*xt*xs[0]/(8.0*sigmat*sigmas[0]) +
-				 xs[0]/(16.0*sigmas[0]*sigmas[0])*(d2fdxs2[0]*xs[0] - dfdxs[0]/2.0));
-	  v2rhosigma[0] += xs[0]/(2.0*sigmat) * 
-	    (-8.0/3.0*(xt*d2fdxtxs[0] + dfdxs[0] + 2.0*xs[0]*d2fdxs2[0]) +
-	     2.0*(dfdxs[0] + dens*(d2fdrsxs[0]*drs + d2fdxtxs[0]*dxt)));
-	}
+	v2sigma2[0]   += dens*(2.0*d2fdxtxs[0]*xt*xs[0]/(8.0*sigmat*sigmas[0]) +
+			       xs[0]/(32.0*sigmas[0]*sigmas[0])*(d2fdxs2[0]*xs[0] - dfdxs[0]));
+	v2rhosigma[0] += xs[0]/(4.0*sigmas[0]) * 
+	  (-4.0/3.0*(xt*d2fdxtxs[0] + dfdxs[0]/4.0 + xs[0]*d2fdxs2[0]) +
+	   dens*(d2fdrsxs[0]*drs + d2fdxtxs[0]*dxt));
       }
     }
 

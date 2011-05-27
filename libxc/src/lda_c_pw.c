@@ -113,8 +113,8 @@ static void g(int func, int order, int k, FLOAT *rs,
 
 
 /* the functional */
-static inline void 
-func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
+inline void 
+XC(lda_c_pw_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   static FLOAT fz20[3] = {
     1.709921,                           /* PW */
@@ -153,9 +153,10 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 
   if(r->order < 1) return;
 
-  if(p->nspin == XC_UNPOLARIZED)
+  if(p->nspin == XC_UNPOLARIZED){
     r->dedrs = vcp;
-  else{
+    r->dedz  = 0.0;
+  }else{
     dalpha *= -1.0;
 
     dfz = DFZETA(r->zeta);
@@ -166,9 +167,11 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 
   if(r->order < 2) return;
 
-  if(p->nspin == XC_UNPOLARIZED)
+  if(p->nspin == XC_UNPOLARIZED){
     r->d2edrs2 = fcp;
-  else{
+    r->d2edrsz = 0.0;
+    r->d2edz2  = 0.0;
+  }else{
     d2alpha *= -1.0;
 
     d2fz = D2FZETA(r->zeta);
@@ -181,9 +184,12 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 
   if(r->order < 3) return;
 
-  if(p->nspin == XC_UNPOLARIZED)
-    r->d3edrs3 = kcp;
-  else{
+  if(p->nspin == XC_UNPOLARIZED){
+    r->d3edrs3  = kcp;
+    r->d3edrs2z = 0.0;
+    r->d3edrsz2 = 0.0;
+    r->d3edz3   = 0.0;
+  }else{
     d3alpha *= -1.0;
 
     d3fz = D3FZETA(r->zeta);
@@ -198,6 +204,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   }
 }
 
+#define func XC(lda_c_pw_func)
 #include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_c_pw) = {

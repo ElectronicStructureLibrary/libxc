@@ -101,6 +101,9 @@ void XC(lda_x_set_params_)        (XC(lda_type) *p, FLOAT alpha, int relativisti
 void XC(lda_c_2d_prm_set_params_) (XC(lda_type) *p, FLOAT N);
 void XC(lda_c_vwn_set_params_)    (XC(lda_type) *p, int spin_interpolation);
 
+/* dircet access to the internal functions */
+inline void XC(lda_c_pw_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r);
+
 /* GGAs */
 typedef struct XC(perdew_t) {
   int    nspin;

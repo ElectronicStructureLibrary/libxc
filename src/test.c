@@ -106,8 +106,8 @@ void test_gga()
     double zk2, vrho2[2], vsigma2[3];
     double v2rho2[3], v2sigma2[6], v2rhosigma[6];
 
-    rho[0]   = 0.1;
-    rho[1]   = 0.5 + i/10000.0;
+    rho[0]   = 0.1 + i/10000.0;
+    rho[1]   = 0.5;
     sigma[0] = 0.1;
     sigma[1] = 0.11;
     sigma[2] = 0.7;
@@ -115,8 +115,8 @@ void test_gga()
     XC(gga)(&gga,  1, rho, sigma, &zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
     // XC(gga)(&gga2, 1, rho, sigma, &zk2, vrho2, vsigma2, v2rho2, v2rhosigma, v2sigma2);
     
-    //fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[0], (rho[0]+rho[1])*zk, vrho[0]);
-    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[1], vsigma[2], v2rhosigma[5]);
+    //fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[0], (rho[0])*zk, vsigma[0]);
+    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[0], vrho[0], v2rho2[0]);
     //fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[1], vrho[1], v2rho2[2]);
   }
 }

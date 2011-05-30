@@ -37,17 +37,6 @@ gga_c_am05_init(void *p_)
 }
 
 
-static void
-gga_c_am05_end(void *p_)
-{
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-
-  XC(func_end)(p->func_aux[0]);
-  free(p->func_aux[0]);
-  free(p->func_aux);
-}
-
-
 static inline void 
 func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs,
      FLOAT *f, FLOAT *dfdrs, FLOAT *dfdz, FLOAT *dfdxt, FLOAT *dfdxs,
@@ -133,7 +122,7 @@ const XC(func_info_type) XC(func_info_gga_c_am05) = {
   "AE Mattsson, R Armiento, J Paier, G Kresse, JM Wills, and TR Mattsson, J. Chem. Phys. 128, 084714 (2008).",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_c_am05_init,
-  gga_c_am05_end,
+  NULL,
   NULL,            /* this is not an LDA                   */
   work_gga_c,
 };

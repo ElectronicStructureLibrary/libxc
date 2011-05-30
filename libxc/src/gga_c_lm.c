@@ -34,6 +34,7 @@ gga_c_lm_init(void *p_)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
+  p->n_func_aux  = 1;
   p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
 
@@ -41,102 +42,73 @@ gga_c_lm_init(void *p_)
 }
 
 
-static void 
-gga_c_lm_end(void *p_)
+static inline void 
+func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs,
+     FLOAT *f, FLOAT *dfdrs, FLOAT *dfdz, FLOAT *dfdxt, FLOAT *dfdxs,
+     FLOAT *d2fdrs2, FLOAT *d2fdrsz, FLOAT *d2fdrsxt, FLOAT *d2fdrsxs, FLOAT *d2fdz2, 
+     FLOAT *d2fdzxt, FLOAT *d2fdzxs, FLOAT *d2fdxt2, FLOAT *d2fdxtxs, FLOAT *d2fdxs2)
 {
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-
-  XC(func_end)(p->func_aux[0]);
-  free(p->func_aux[0]);
-  free(p->func_aux);
-}
-
-
-static void 
-my_gga_c_lm(const void *p_, const FLOAT *rho, const FLOAT *sigma,
-	 FLOAT *e, FLOAT *vrho, FLOAT *vsigma,
-	 FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
-{
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-  XC(perdew_t) pt;
-
-  int order;
-  FLOAT me;
-  FLOAT H, dHdx1, d2Hdx12, dx1dt, dx1dphi;
-  FLOAT grad_to_t;
-  FLOAT x1;
-
   const FLOAT a1 = 4.28e-3/2.0; /* The factor of 2 converts from Rydberg to Hartree */
   const FLOAT a2 = -0.262;
   const FLOAT a3 = 7.0/9.0;
 
-  order = 0;
-  if(vrho   != NULL) order = 1;
-  if(v2rho2 != NULL) order = 2;
+  FLOAT alpha;
+  FLOAT H, dHdx1, d2Hdx12, dx1drs, dx1dxt, d2x1drs2, d2x1drsxt;
+  FLOAT x1;
 
-  XC(perdew_params)(p, rho, sigma, order, &pt);
-  if(pt.dens < MIN_DENS) return;
+  XC(lda_rs_zeta) pw;
 
-  grad_to_t = SQRT(4.0/M_PI)*POW(3*M_PI*M_PI, 1.0/6.0);
-  x1 = 2.0*grad_to_t*pt.phi*pt.t;
+  alpha = POW(4.0*M_PI/3.0, 1.0/6.0);
 
+  pw.order = order;
+  pw.rs[0] = SQRT(rs);
+  pw.rs[1] = rs;
+  pw.rs[2] = rs*rs;
+  pw.zeta  = zeta;
+
+  XC(lda_c_hl_func)(p->func_aux[0]->lda, &pw);
+
+  x1 = xt/(alpha*pw.rs[0]);
+  
   H = a1*x1*x1*(exp(a2*x1) - a3);
+  *f = pw.zk + H;
 
-  me = pt.ecunif + H;
-  if(e != NULL) *e = me;
+  if(order < 1) return;
 
-  if(order >= 1){
-    dHdx1      = a1*x1*((2.0 + x1*a2)*exp(a2*x1) - 2.0*a3);
-    dx1dphi    = 2.0*grad_to_t*  pt.t;
-    dx1dt      = 2.0*grad_to_t*pt.phi;
+  dx1drs = -xt/(2.0*alpha*rs*pw.rs[0]);
+  dx1dxt = 1.0/(alpha*pw.rs[0]);
+  dHdx1  = a1*x1*((2.0 + a2*x1)*exp(a2*x1) - 2.0*a3);
 
-    pt.dphi    = dHdx1 * dx1dphi;
-    pt.dt      = dHdx1 * dx1dt;
-    pt.decunif = 1.0;
-  }
+  *dfdrs   = pw.dedrs + dHdx1*dx1drs;
+  *dfdz    = pw.dedz;
+  *dfdxt   = dHdx1*dx1dxt;
+  dfdxs[0] = 0.0;
+  dfdxs[1] = 0.0;
 
-  if(order >= 2){
-    d2Hdx12 = a1*((2.0 + a2*x1*(4.0 + a2*x1))*exp(a2*x1) - 2.0*a3);
+  if(order < 2) return;
 
-    pt.d2phi2 = d2Hdx12*dx1dphi*dx1dphi;
-    pt.d2phit = 2.0*grad_to_t*dHdx1 + d2Hdx12*dx1dphi*dx1dt;
-    pt.d2t2   = d2Hdx12*dx1dt*dx1dt;
-  }
+  d2x1drs2  = 3.0*xt/(4.0*alpha*pw.rs[2]*pw.rs[0]);
+  d2x1drsxt = -1.0/(2.0*alpha*rs*pw.rs[0]);
+  d2Hdx12   = a1*((2.0 + a2*x1*(4.0 + a2*x1))*exp(a2*x1) - 2.0*a3);
 
-  XC(perdew_potentials)(&pt, rho, me, order, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
+  *d2fdrs2    = pw.d2edrs2 + d2Hdx12*dx1drs*dx1drs + dHdx1*d2x1drs2;
+  *d2fdrsz    = pw.d2edrsz;
+  *d2fdrsxt   = d2Hdx12*dx1drs*dx1dxt + dHdx1*d2x1drsxt;
+  d2fdrsxs[0] = 0.0;
+  d2fdrsxs[1] = 0.0;
+  *d2fdz2     = pw.d2edz2;
+  *d2fdzxt    = 0.0;
+  d2fdzxs[0]  = 0.0;
+  d2fdzxs[1]  = 0.0;
+  *d2fdxt2    = d2Hdx12*dx1dxt*dx1dxt;
+  d2fdxtxs[0] = 0.0;
+  d2fdxtxs[1] = 0.0;
+  d2fdxs2[0]  = 0.0;
+  d2fdxs2[1]  = 0.0;
+  d2fdxs2[2]  = 0.0;
 }
 
-/* Warning: this is a workaround to support blocks while waiting for the next interface */
-static void 
-gga_c_lm(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
-	  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-	  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
-{
-  int ip;
-  const XC(gga_type) *p = p_;
-
-  for(ip=0; ip<np; ip++){
-    my_gga_c_lm(p_, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
-
-    /* increment pointers */
-    rho   += p->n_rho;
-    sigma += p->n_sigma;
-    
-    if(zk != NULL)
-      zk += p->n_zk;
-    
-    if(vrho != NULL){
-      vrho   += p->n_vrho;
-      vsigma += p->n_vsigma;
-    }
-
-    if(v2rho2 != NULL){
-      v2rho2     += p->n_v2rho2;
-      v2rhosigma += p->n_v2rhosigma;
-      v2sigma2   += p->n_v2sigma2;
-    }
-  }
-}
+#include "work_gga_c.c"
 
 const XC(func_info_type) XC(func_info_gga_c_lm) = {
   XC_GGA_C_LM,
@@ -146,8 +118,8 @@ const XC(func_info_type) XC(func_info_gga_c_lm) = {
   "DC Langreth and MJ Mehl, Phys. Rev. Lett. 47, 446 (1981)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_c_lm_init,
-  gga_c_lm_end,
+  NULL,
   NULL,            /* this is not an LDA                   */
-  gga_c_lm,
+  work_gga_c,
 };
 

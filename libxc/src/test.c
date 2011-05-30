@@ -96,27 +96,28 @@ void test_gga()
   XC(func_type) gga, gga2;
   int i;
 
-  //XC(func_init)(&gga, XC_GGA_C_AM05, XC_POLARIZED);
-  XC(func_init)(&gga, XC_GGA_C_WL, XC_POLARIZED);
+  XC(func_init)(&gga,  XC_GGA_C_LM,  XC_POLARIZED);
+  XC(func_init)(&gga2, XC_GGA_C_LM2, XC_POLARIZED);
   //XC(func_init)(&gga2, XC_GGA_C_AM052, XC_UNPOLARIZED);
   
   for(i=0; i<=10000; i++){
     double rho[2], sigma[3], tau[2], lapl[2];
     double zk,   vrho[2],  vsigma[3];
-    double zk2, vrho2[2], vsigma2[3];
-    double v2rho2[3], v2sigma2[6], v2rhosigma[6];
+    double zkp, vrhop[2], vsigmap[3];
+    double v2rho2[3],  v2sigma2[6],  v2rhosigma[6];
+    double v2rho2p[3], v2sigma2p[6], v2rhosigmap[6];
 
-    rho[0]   = 0.1 + i/10000.0;
+    rho[0]   = 0.1;
     rho[1]   = 0.5;
-    sigma[0] = 0.1;
+    sigma[0] = 0.1 + i/10000.0;
     sigma[1] = 0.11;
     sigma[2] = 0.7;
 
-    XC(gga)(&gga,  1, rho, sigma, &zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
-    // XC(gga)(&gga2, 1, rho, sigma, &zk2, vrho2, vsigma2, v2rho2, v2rhosigma, v2sigma2);
+    XC(gga)(&gga,  1, rho, sigma, &zk,  vrho,  vsigma,  v2rho2,  v2rhosigma,  v2sigma2);
+    XC(gga)(&gga2, 1, rho, sigma, &zkp, vrhop, vsigmap, v2rho2p, v2rhosigmap, v2sigma2p);
     
     //fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[0], (rho[0])*zk, vsigma[0]);
-    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[0], vrho[0], v2rho2[0]);
+    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[0], vsigmap[1], v2sigma2p[1]);
     //fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[1], vrho[1], v2rho2[2]);
   }
 }

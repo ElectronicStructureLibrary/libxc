@@ -68,8 +68,8 @@ hl_f(int func, int order, int i, FLOAT rs, FLOAT *zk, FLOAT *drs, FLOAT *d2rs, F
 }
 
 
-static inline void 
-func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
+inline void 
+XC(lda_c_hl_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   int func;
   FLOAT ecp, vcp, fcp, kcp;
@@ -128,6 +128,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   }
 }
 
+#define func XC(lda_c_hl_func)
 #include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_c_hl) = {

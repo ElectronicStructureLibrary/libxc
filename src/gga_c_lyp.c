@@ -73,12 +73,15 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   gga_c_lyp_params *params;
 
   FLOAT AA, BB, cc, dd, Cf; /* sortcuts for parameters */
-  FLOAT cnst_rs, xt2, opz, omz, opz53, omz53, opz83, omz83, zeta2, opdrs;
-  FLOAT omega, delta, domega, ddelta;
+  FLOAT cnst_rs, xt2, opz, omz, opz23, omz23, opz53, omz53, opz83, omz83, zeta2, opdrs;
+  FLOAT omega, delta, domega, ddelta, d2omega, d2delta;
   FLOAT aux4, aux5, aux6;
   FLOAT t1, t2, t3, t4, t5, t6;
   FLOAT dt1drs, dt2drs, dt4drs, dt5drs;
   FLOAT dt1dz, dt2dz, dt3dz, dt4dz, dt5dz, dt6dz;
+  FLOAT d2t1drs2, d2t2drs2, d2t4drs2, d2t5drs2;
+  FLOAT d2t1drsz, d2t2drsz, d2t4drsz, d2t5drsz;
+  FLOAT d2t1dz2, d2t2dz2, d2t3dz2, d2t4dz2, d2t5dz2, d2t6dz2;
 
   assert(p->params != NULL);
   params = (gga_c_lyp_params *)(p->params);
@@ -95,8 +98,10 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   zeta2 = zeta*zeta;
   opz = 1.0 + zeta;
   omz = 1.0 - zeta;
-  opz53 = POW(opz, 5.0/3.0);
-  omz53 = POW(omz, 5.0/3.0);   
+  opz23 = POW(opz, 2.0/3.0);
+  omz23 = POW(omz, 2.0/3.0);
+  opz53 = opz*opz23;
+  omz53 = omz*omz23;
   opz83 = opz*opz53;
   omz83 = omz*omz53;
 
@@ -121,10 +126,10 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   if(order < 1) return;
 
   domega = -omega*(cc + dd*opdrs);
-  ddelta = cc + dd*opdrs*(1.0 - dd*rs*opdrs);
+  ddelta = cc + dd*opdrs*opdrs;
 
   dt1drs = -dd*t1/(1.0 + dd*rs);
-  dt2drs =  xt2*(1.0 - zeta2)*7.0*ddelta/(4.0*18.0);
+  dt2drs =  xt2 *(1.0 - zeta2)*ddelta*7.0/(4.0*18.0);
   dt4drs = -aux4*(1.0 - zeta2)*ddelta/18.0*(xs[0]*xs[0]*opz83 + xs[1]*xs[1]*omz83);
   dt5drs =  aux5*(1.0 - zeta2)*ddelta*(xs[0]*xs[0]*opz*opz83 + xs[1]*xs[1]*omz*omz83);
   *dfdrs =  AA*(dt1drs + domega*(t2 + t3 + t4 + t5 + t6) + omega*(dt2drs + dt4drs + dt5drs));
@@ -136,10 +141,10 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
     (-2.0*zeta*(xs[0]*xs[0]*opz83 + xs[1]*xs[1]*omz83) + (1.0 - zeta2)*8.0/3.0*(xs[0]*xs[0]*opz53 - xs[1]*xs[1]*omz53));
   dt5dz =  aux5*(delta - 11.0)*
     (-2.0*zeta*(xs[0]*xs[0]*opz*opz83 + xs[1]*xs[1]*omz*omz83) + (1.0 - zeta2)*11/3.0*(xs[0]*xs[0]*opz83 - xs[1]*xs[1]*omz83));
-  dt6dz = -aux6*(2.0/3.0*8.0/3.0*(xs[0]*xs[0]*opz53 - xs[1]*xs[1]*omz53)
-		 - xs[1]*xs[1]/4.0*opz*( 2.0*omz83 - opz*8.0/3.0*omz53)
-		 - xs[0]*xs[0]/4.0*omz*(-2.0*opz83 + omz*8.0/3.0*opz53));
-  *dfdz =  AA*(dt1dz + omega*(dt2dz + dt3dz + dt4dz + dt5dz + dt6dz));
+  dt6dz = -aux6*(16.0/9.0*(xs[0]*xs[0]*opz53 - xs[1]*xs[1]*omz53) - 
+		 1.0/2.0*(opz*xs[1]*xs[1]*omz83 - omz*xs[0]*xs[0]*opz83) +
+		 2.0/3.0*(opz*opz*xs[1]*xs[1]*omz53 - omz*omz*xs[0]*xs[0]*opz53));
+  *dfdz = AA*(dt1dz + omega*(dt2dz + dt3dz + dt4dz + dt5dz + dt6dz));
 
   *dfdxt = -2.0*AA*omega*xt*((1.0 - zeta2)*(47.0 - 7.0*delta)/(4.0*18.0) - 2.0/3.0);
 
@@ -148,7 +153,7 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
      aux5*(1.0 - zeta2)*(delta - 11.0)*opz*opz83 -
      aux6*(2.0/3.0*opz83 - omz*omz*opz83/4.0)
      );
-  dfdxs[1] = AA*omega*2*xs[1]*
+  dfdxs[1] = AA*omega*2.0*xs[1]*
     (aux4*(1.0 - zeta2)*(5.0/2.0 - delta/18.0)*omz83 +
      aux5*(1.0 - zeta2)*(delta - 11.0)*omz*omz83 -
      aux6*(2.0/3.0*omz83 - opz*opz*omz83/4.0)
@@ -156,25 +161,67 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
 
   if(order < 2) return;
 
-  /*
-  *d2fdrs2    = -2.0*(1.0 + d*cnst_rs*xt72)*(*dfdrs)/den;
-  *d2fdrsz    = 0.0;
-  *d2fdrsxt   = -7.0*d*cnst_rs*rs*xt52*(*dfdrs)/den - 7.0/2.0*d*cnst_rs*xt52*(*f)/den
-    - 2.0*b*xt*exp(-k*xt2)*(1.0 - k*xt2)*(1.0 + d*cnst_rs*xt72)/(den*den);
-  d2fdrsxs[0] = 0.0;
-  d2fdrsxs[1] = 0.0;
-  *d2fdz2     = 0.0;
-  *d2fdzxt    = 0.0;
-  d2fdzxs[0]  = 0.0;
-  d2fdzxs[1]  = 0.0;
-  *d2fdxt2    = (49.0/2.0*d*cnst_rs*rs*xt2*xt2/den - 35.0/4.0*xt0)*(*f)*d*cnst_rs*rs*xt/den
-    + (-7.0*d*cnst_rs*rs*xt72*(1.0 - k*xt2)/den + 1.0 - 5.0*k*xt2 + 2.0*k*k*xt2*xt2)*2.0*b*exp(-k*xt2)/den;
+  d2omega = -domega*(cc + dd*opdrs) + dd*dd*omega*opdrs*opdrs;
+  d2delta = -2.0*dd*dd*opdrs*opdrs*opdrs;
+
+  d2t1drs2 = -2.0*dd*dt1drs/(1.0 + dd*rs);
+  d2t2drs2 =  xt2 *(1.0 - zeta2)*d2delta*7.0/(4.0*18.0);
+  d2t4drs2 = -aux4*(1.0 - zeta2)*d2delta/18.0*(xs[0]*xs[0]*opz83 + xs[1]*xs[1]*omz83);
+  d2t5drs2 =  aux5*(1.0 - zeta2)*d2delta*(xs[0]*xs[0]*opz*opz83 + xs[1]*xs[1]*omz*omz83);
+  *d2fdrs2 = AA*(d2t1drs2 + d2omega*(t2 + t3 + t4 + t5 + t6) + 
+		 2.0*domega*(dt2drs + dt4drs + dt5drs) + omega*(d2t2drs2 + d2t4drs2 + d2t5drs2));
+  
+  d2t1drsz = -dd*dt1dz/(1.0 + dd*rs); 
+  d2t2drsz = -xt2*2.0*zeta*7.0*ddelta/(4.0*18.0);
+  d2t4drsz = -aux4*ddelta/18.0*
+    (-2.0*zeta*(xs[0]*xs[0]*opz83 + xs[1]*xs[1]*omz83) + (1.0 - zeta2)*8.0/3.0*(xs[0]*xs[0]*opz53 - xs[1]*xs[1]*omz53));
+  d2t5drsz =  aux5*ddelta*
+    (-2.0*zeta*(xs[0]*xs[0]*opz*opz83 + xs[1]*xs[1]*omz*omz83) + (1.0 - zeta2)*11/3.0*(xs[0]*xs[0]*opz83 - xs[1]*xs[1]*omz83));
+
+  *d2fdrsz = AA*(d2t1drsz + domega*(dt2dz + dt3dz + dt4dz + dt5dz + dt6dz) + omega*(d2t2drsz + d2t4drsz + d2t5drsz));
+
+  *d2fdrsxt = -2.0*AA*xt*(domega*((1.0 - zeta2)*(47.0 - 7.0*delta)/(4.0*18.0) - 2.0/3.0) -
+			  omega*(1.0 - zeta2)*7.0*ddelta/(4.0*18.0));
+
+  d2fdrsxs[0] = dfdxs[0]*domega/omega + AA*omega*2.0*xs[0]*ddelta*
+    (-aux4*(1.0 - zeta2)/18.0*opz83 + aux5*(1.0 - zeta2)*opz*opz83);
+  d2fdrsxs[1] = dfdxs[1]*domega/omega + AA*omega*2.0*xs[1]*ddelta*
+    (-aux4*(1.0 - zeta2)/18.0*omz83 + aux5*(1.0 - zeta2)*omz*omz83);
+
+  d2t1dz2 =  2.0/(1.0 + dd*rs);
+  d2t2dz2 =  xt2*2.0*(47.0 - 7.0*delta)/(4.0*18.0);
+  d2t3dz2 = -Cf/2.0*(-2.0*(opz83 + omz83) - 4.0*zeta*8.0/3.0*(opz53 - omz53) + (1.0 - zeta2)*40.0/9.0*(opz23 + omz23));
+  d2t4dz2 =  aux4*(5.0/2.0 - delta/18.0)*
+    (-2.0*(xs[0]*xs[0]*opz83 + xs[1]*xs[1]*omz83) - 4.0*zeta*8.0/3.0*(xs[0]*xs[0]*opz53 - xs[1]*xs[1]*omz53) +
+     (1.0 - zeta2)*40.0/9.0*(xs[0]*xs[0]*opz23 + xs[1]*xs[1]*omz23));
+  d2t5dz2 =  aux5*(delta - 11.0)*
+    (-2.0*(xs[0]*xs[0]*opz*opz83 + xs[1]*xs[1]*omz*omz83) - 4.0*zeta*11.0/3.0*(xs[0]*xs[0]*opz83 - xs[1]*xs[1]*omz83) +
+     (1.0 - zeta2)*88.0/9.0*(xs[0]*xs[0]*opz53 + xs[1]*xs[1]*omz53));
+  d2t6dz2 = -aux6*(80.0/27.0*(xs[0]*xs[0]*opz23 + xs[1]*xs[1]*omz23) - 
+		   1.0/2.0*(xs[1]*xs[1]*omz83 + xs[0]*xs[0]*opz83) +
+		   8.0/3.0*(opz*xs[1]*xs[1]*omz53 + omz*xs[0]*xs[0]*opz53) -
+		   10.0/9.0*(opz*opz*xs[1]*xs[1]*omz23 + omz*omz*xs[0]*xs[0]*opz23));
+  *d2fdz2 = AA*(d2t1dz2 + omega*(d2t2dz2 + d2t3dz2 + d2t4dz2 + d2t5dz2 + d2t6dz2));
+  
+  *d2fdzxt = 4.0*AA*omega*xt*zeta*(47.0 - 7.0*delta)/(4.0*18.0);
+
+  d2fdzxs[0]  = 2.0*AA*omega*xs[0]*
+    (aux4*(5.0/2.0 - delta/18.0)*(-2.0*zeta*opz83 + (1.0 - zeta2)*8.0/3.0*opz53) +
+     aux5*(delta - 11.0)*(-2.0*zeta*opz*opz83 + (1.0 - zeta2)*11.0/3.0*opz83) -
+     aux6*(16.0/9.0*opz53 + 1.0/2.0*omz*opz83 - 2.0/3.0*omz*omz*opz53));
+  d2fdzxs[1]  = 2.0*AA*omega*xs[1]*
+    (aux4*(5.0/2.0 - delta/18.0)*(-2.0*zeta*omz83 - (1.0 - zeta2)*8.0/3.0*omz53) +
+     aux5*(delta - 11.0)*(-2.0*zeta*omz*omz83 - (1.0 - zeta2)*11/3.0*omz83) +
+     aux6*(16.0/9.0*omz53 + 1.0/2.0*opz*omz83 - 2.0/3.0*opz*opz*omz53));
+
+  *d2fdxt2 = *dfdxt/xt;
+
   d2fdxtxs[0] = 0.0;
   d2fdxtxs[1] = 0.0;
-  d2fdxs2[0]  = 0.0;
+
+  d2fdxs2[0]  = dfdxs[0]/xs[0];
   d2fdxs2[1]  = 0.0;
-  d2fdxs2[2]  = 0.0;
-  */
+  d2fdxs2[2]  = dfdxs[1]/xs[1];
 }
 
 #include "work_gga_c.c"
@@ -186,7 +233,7 @@ const XC(func_info_type) XC(func_info_gga_c_lyp) = {
   XC_FAMILY_GGA,
   "C Lee, W Yang and RG Parr, Phys. Rev. B 37, 785 (1988)\n"
   "B Miehlich, A Savin, H Stoll and H Preuss, Chem. Phys. Lett. 157, 200 (1989)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC, // | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   XC(gga_c_lyp_init), 
   NULL,
   NULL,

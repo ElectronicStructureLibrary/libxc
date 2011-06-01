@@ -101,8 +101,8 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
       dxsds[1] = xs[1]/(2.0*sigmas[2]);
       dxsds[0] = xs[0]/(2.0*sigmas[0]);
     }else{
-      dxsdn[0] = 2.0*M_CBRT2*dxt;
-      dxsds[0] = 2.0*M_CBRT2*dxtds;
+      dxsdn[0] = M_CBRT2*dxt;
+      dxsds[0] = M_CBRT2*dxtds;
     }
 
     if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
@@ -118,8 +118,8 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	vsigma[0] = vsigma[0] + dens*dfdxs[0]*dxsds[0];
 	
       }else{
-	vrho[0]   += dens*dfdxs[0]*dxsdn[0];
-	vsigma[0] += dens*dfdxs[0]*dxsds[0];
+	vrho[0]   += 2.0*dens*dfdxs[0]*dxsdn[0]; /* factor of 2 comes from sum over sigma */
+	vsigma[0] += 2.0*dens*dfdxs[0]*dxsds[0];
       }
     }
 
@@ -140,9 +140,9 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
       d2xsds2[0] = -dxsds[0]/(2.0*sigmas[0]);
       d2xsds2[1] = -dxsds[1]/(2.0*sigmas[2]);
     }else{
-      d2xsdn2[0] = 2.0*M_CBRT2*d2xt;
-      d2xsdns[0] = 2.0*M_CBRT2*d2xtdns;
-      d2xsds2[0] = 2.0*M_CBRT2*d2xtds2;
+      d2xsdn2[0] = M_CBRT2*d2xt;
+      d2xsdns[0] = M_CBRT2*d2xtdns;
+      d2xsds2[0] = M_CBRT2*d2xtds2;
     }
 
     if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){
@@ -211,14 +211,15 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 		dfdxs[0]*d2xsdns[0]);
 
       }else{
-	v2rho2[0]     += dxsdn[0]*(2.0*dfdxs[0] + dens*(2.0*d2fdrsxs[0]*drs + 2.0*d2fdxtxs[0]*dxt + d2fdxs2[0]*dxsdn[0]))
-	  + dens*dfdxs[0]*d2xsdn2[0];
+	v2rho2[0]     += 2.0*dxsdn[0]*
+	  (2.0*dfdxs[0] + dens*(2.0*d2fdrsxs[0]*drs + 2.0*d2fdxtxs[0]*dxt + (d2fdxs2[0] + d2fdxs2[1])*dxsdn[0]))
+	  + 2.0*dens*dfdxs[0]*d2xsdn2[0];
 
-	v2sigma2[0]   += dens*(d2fdxs2[0]*dxsds[0]*dxsds[0] + dfdxs[0]*d2xsds2[0] + 2.0*d2fdxtxs[0]*dxtds*dxsds[0]);
+	v2sigma2[0]   += 2.0*dens*((d2fdxs2[0] + d2fdxs2[1])*dxsds[0]*dxsds[0] + dfdxs[0]*d2xsds2[0] + 2.0*d2fdxtxs[0]*dxtds*dxsds[0]);
 
-	v2rhosigma[0] += dens*d2fdxtxs[0]*(dxsdn[0]*dxtds + dxt*dxsds[0]) + 
-	  (dfdxs[0] + dens*(d2fdrsxs[0]*drs + d2fdxs2[0]*dxsdn[0]))*dxsds[0] 
-	  + dens*dfdxs[0]*d2xsdns[0];
+	v2rhosigma[0] += 2.0*dens*d2fdxtxs[0]*(dxsdn[0]*dxtds + dxt*dxsds[0]) +
+	  2.0*(dfdxs[0] + dens*(d2fdrsxs[0]*drs + (d2fdxs2[0] + d2fdxs2[1])*dxsdn[0]))*dxsds[0]
+	  + 2.0*dens*dfdxs[0]*d2xsdns[0];
       }
     }
 

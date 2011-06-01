@@ -44,7 +44,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b3pw91) = {
   "B3PW91",
   XC_FAMILY_HYB_GGA,
   "AD Becke, J. Chem. Phys. 98, 5648 (1993)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_b3pw91_init,
   NULL, NULL, NULL
 };
@@ -68,7 +68,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b3lyp) = {
   "B3LYP",
   XC_FAMILY_HYB_GGA,
   "PJ Stephens, FJ Devlin, CF Chabalowski, MJ Frisch, J. Phys. Chem. 98 11623 (1994)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_b3lyp_init,
   NULL, NULL, NULL
 };
@@ -140,7 +140,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw3lyp) = {
   "mPW3LYP",
   XC_FAMILY_GGA,
   "Y Zhao and DGJ Truhlar, Phys. Chem. A 108, 6908 (2004)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_mpw3lyp_init, 
   NULL, NULL, NULL
 };

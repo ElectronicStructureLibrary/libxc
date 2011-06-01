@@ -96,8 +96,8 @@ void test_gga()
   XC(func_type) gga, gga2;
   int i;
 
-  XC(func_init)(&gga,  XC_GGA_C_LM,  XC_POLARIZED);
-  XC(func_init)(&gga2, XC_GGA_C_LM2, XC_POLARIZED);
+  XC(func_init)(&gga,  XC_GGA_C_LYP, XC_UNPOLARIZED);
+  //XC(func_init)(&gga2, XC_GGA_C_LM, XC_POLARIZED);
   //XC(func_init)(&gga2, XC_GGA_C_AM052, XC_UNPOLARIZED);
   
   for(i=0; i<=10000; i++){
@@ -114,10 +114,10 @@ void test_gga()
     sigma[2] = 0.7;
 
     XC(gga)(&gga,  1, rho, sigma, &zk,  vrho,  vsigma,  v2rho2,  v2rhosigma,  v2sigma2);
-    XC(gga)(&gga2, 1, rho, sigma, &zkp, vrhop, vsigmap, v2rho2p, v2rhosigmap, v2sigma2p);
+    //XC(gga)(&gga2, 1, rho, sigma, &zkp, vrhop, vsigmap, v2rho2p, v2rhosigmap, v2sigma2p);
     
     //fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[0], (rho[0])*zk, vsigma[0]);
-    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[0], vsigmap[1], v2sigma2p[1]);
+    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[0], vsigma[0], v2sigma2[0]);
     //fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[1], vrho[1], v2rho2[2]);
   }
 }

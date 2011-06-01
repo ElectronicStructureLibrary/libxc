@@ -45,7 +45,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1wc) = {
   "B1WC",
   XC_FAMILY_HYB_GGA,
   "DI Bilc, R Orlando, R Shaltaf, G-M Rignanese, J Iniguez, and Ph Ghosez, Phys. Rev. B 77, 165107 (2008)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_b1wc_init,
   NULL, NULL, NULL
 };
@@ -69,7 +69,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1lyp) = {
   "B1LYP",
   XC_FAMILY_HYB_GGA,
   "C. Adamo, V. Barone, Chem. Phys. Lett. 274, 242 (1997)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_b1lyp_init,
   NULL, NULL, NULL
 };
@@ -93,7 +93,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1pw91) = {
   "B1PW91",
   XC_FAMILY_HYB_GGA,
   "C. Adamo, V. Barone, Chem. Phys. Lett. 274, 242 (1997)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_b1pw91_init,
   NULL, NULL, NULL
 };
@@ -117,7 +117,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1pw) = {
   "mPW1PW",
   XC_FAMILY_HYB_GGA,
   "C. Adamo, V. Barone, J. Chem. Phys. 108, 664 (1998)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_mpw1pw_init,
   NULL, NULL, NULL
 };
@@ -141,7 +141,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1k) = {
   "mPW1K",
   XC_FAMILY_HYB_GGA,
   "BJ Lynch, PL Fast, M Harris, DGJ Truhlar, Phys. Chem. A 104, 4811 (2000)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   hyb_gga_xc_mpw1k_init,
   NULL, NULL, NULL
 };

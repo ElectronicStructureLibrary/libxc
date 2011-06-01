@@ -44,7 +44,7 @@ const XC(func_info_type) XC(func_info_gga_xc_edf1) = {
   "EDF1",
   XC_FAMILY_GGA,
   "RD Adamson, PMW Gill, and JA Pople, Chem. Phys. Lett. 284 6 (1998)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_xc_edf1_init, 
   NULL, NULL, NULL
 };

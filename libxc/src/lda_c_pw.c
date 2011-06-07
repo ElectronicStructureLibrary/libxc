@@ -113,7 +113,7 @@ static void g(int func, int order, int k, FLOAT *rs,
 
 
 /* the functional */
-inline void 
+void 
 XC(lda_c_pw_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   static FLOAT fz20[3] = {

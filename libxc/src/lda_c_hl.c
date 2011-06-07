@@ -68,7 +68,7 @@ hl_f(int func, int order, int i, FLOAT rs, FLOAT *zk, FLOAT *drs, FLOAT *d2rs, F
 }
 
 
-inline void 
+void 
 XC(lda_c_hl_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   int func;

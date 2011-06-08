@@ -103,7 +103,7 @@ gga_k_dk_init(void *p_)
 
     aa[0] =  1.0;
     aa[1] =  0.8944 *ff;
-    aa[3] = -bb[2];
+    aa[3] = -bb[2]  *ff;
 
     break;
 

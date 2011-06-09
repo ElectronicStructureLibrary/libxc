@@ -125,9 +125,9 @@ XC(gga_x_pbe_set_params_)(XC(gga_type) *p, FLOAT kappa, FLOAT mu)
 }
 
 
-static inline void 
-func(const XC(gga_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+void XC(gga_x_pbe_enhance) 
+  (const XC(gga_type) *p, int order, FLOAT x, 
+   FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   FLOAT kappa, mu, ss, ss2, f0, df0, d2f0;
 
@@ -163,15 +163,9 @@ func(const XC(gga_type) *p, int order, FLOAT x,
 }
 
 
-void 
-XC(gga_x_pbe_enhance)(const XC(gga_type) *p, int order, FLOAT x, 
-		      FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
-{
-  func(p, x, order, f, dfdx, ldfdx, d2fdx2);
-}
-
-
+#define func XC(gga_x_pbe_enhance)
 #include "work_gga_x.c"
+
 
 const XC(func_info_type) XC(func_info_gga_x_pbe) = {
   XC_GGA_X_PBE,

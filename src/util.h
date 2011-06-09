@@ -104,6 +104,7 @@ void XC(lda_c_vwn_set_params_)    (XC(lda_type) *p, int spin_interpolation);
 /* direct access to the internal functions */
 inline void XC(lda_c_hl_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r);
 inline void XC(lda_c_pw_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r);
+inline void XC(lda_c_pz_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r);
 
 /* GGAs */
 typedef struct XC(perdew_t) {
@@ -127,7 +128,10 @@ void XC(perdew_potentials)(XC(perdew_t) *pt, const FLOAT *rho, FLOAT e_gga, int 
 			   FLOAT *vrho, FLOAT *vsigma, FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
 
 
-void XC(gga_x_pbe_enhance)(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2);
+void XC(gga_x_wc_enhance)  (const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2);
+void XC(gga_x_pbe_enhance) (const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2);
+void XC(gga_x_rpbe_enhance)(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2);
+void XC(gga_x_htbs_enhance)(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2);
 
 void gga_init_mix(XC(gga_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix_coef);
 

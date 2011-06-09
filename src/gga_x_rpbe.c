@@ -63,9 +63,9 @@ XC(gga_x_rpbe_set_params_)(XC(gga_type) *p, FLOAT kappa, FLOAT mu)
 
 
 /* RPBE: see PBE for more details */
-static inline void 
-func(const XC(gga_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+void XC(gga_x_rpbe_enhance) 
+  (const XC(gga_type) *p, int order, FLOAT x, 
+   FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
   FLOAT kappa, mu, f0, df0, d2f0;
 
@@ -90,7 +90,9 @@ func(const XC(gga_type) *p, int order, FLOAT x,
 }
 
 
+#define func XC(gga_x_rpbe_enhance)
 #include "work_gga_x.c"
+
 
 const XC(func_info_type) XC(func_info_gga_x_rpbe) = {
   XC_GGA_X_RPBE,

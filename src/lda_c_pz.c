@@ -132,8 +132,8 @@ ec_pot_high(pz_consts_type *X, int order, int i, FLOAT *rs,
 
 
 /* the functional */
-static inline void 
-func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
+void 
+XC(lda_c_pz_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
   int func;
   FLOAT ecp, vcp, fcp, kcp;
@@ -199,6 +199,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   }  
 }
 
+#define func XC(lda_c_pz_func)
 #include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_c_pz) = {

@@ -26,7 +26,7 @@ static inline void
 func(const XC(gga_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
 {
-  FILE *fin;
+  //FILE *fin;
   static const FLOAT kappa[1] = {
     0.4604,  /* original PBE */
   };

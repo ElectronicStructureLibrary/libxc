@@ -183,7 +183,7 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	  (2.0*d2fdxtxs[1]*dxtds*dxsds[1]);
 	v2sigma2[3] = 4.0*v2sigma2[0];
 	v2sigma2[2] =     v2sigma2[0] + dens*
-	  (    d2fdxtxs[0]*dxtds*dxsds[2] + dxtds*(d2fdxtxs[0]*dxsds[1] + d2fdxtxs[1]*dxsds[0]) + d2fdxs2[1]*dxsds[0]*dxsds[1]);
+	  (    dxtds*(d2fdxtxs[0]*dxsds[0] + d2fdxtxs[1]*dxsds[1]) + d2fdxs2[1]*dxsds[0]*dxsds[1]);
 	v2sigma2[1] =  2.0*v2sigma2[0] + dens*
 	  (2.0*d2fdxtxs[0]*dxtds*dxsds[0]);
 	v2sigma2[0] =     v2sigma2[0] + dens*

@@ -61,12 +61,12 @@ gga_x_pbe_init(void *p_)
   };
 
   static const FLOAT mu[13] = {
-    0.066725*M_PI*M_PI/3.0, /* PBE: mu = beta*pi^2/3, beta = 0.066725 */
-    0.066725*M_PI*M_PI/3.0, /* PBE rev: as PBE */
+    0.2195149727645171,     /* PBE: mu = beta*pi^2/3, beta = 0.06672455060314922 */
+    0.2195149727645171,     /* PBE rev: as PBE */
     10.0/81.0,              /* PBE sol */
     0.23214,                /* xPBE */
     0.046*M_PI*M_PI/3.0,    /* PBE_JSJR */
-    0.066725*M_PI*M_PI/3.0, /* PBEK1_VDW: as PBE */
+    0.2195149727645171,     /* PBEK1_VDW: as PBE */
     10.0/81.0,              /* RGE2      */
     0.260,                  /* APBE (X)  */
     0.23889,                /* APBE (K)  */

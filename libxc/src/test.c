@@ -144,8 +144,8 @@ void test_tpss()
   XC(func_type) agga;
   int i;
 
-  XC(func_init)(&tpss, XC_MGGA_C_TPSS, XC_UNPOLARIZED);
-  //XC(func_init)(&tpss2, XC_MGGA_C_TPSS_LARA, XC_UNPOLARIZED);
+  XC(func_init)(&tpss,  XC_MGGA_X_TPSS, XC_UNPOLARIZED);
+  XC(func_init)(&tpss2, XC_MGGA_C_TPSS, XC_UNPOLARIZED);
   //XC(mgga_c_tpss_init)(tpss2.mgga);
   
   for(i=0; i<=1000; i++){
@@ -156,27 +156,29 @@ void test_tpss()
     double v2rhosigma[6], v2rholapl[3], v2rhotau[3];
     double v2sigmalapl[6], v2sigmatau[6], v2lapltau[3];
 
-    rho[0]   = 0.1 + i/1000.0;
+    rho[0]   = 0.60775363329505661 + i/1000.0;
     rho[1]   = 0.15;
-    sigma[0] = 0.1;
+    sigma[0] = 0.0;//1.2032882206468622;
     sigma[1] = 0.11;
     sigma[2] = 0.7;
-    tau[0]   = 0.03;
+    tau[0]   = 0.24779036624605069;
     tau[1]   = 0.15;
-    lapl[0]  = 0.2;
+    lapl[0]  = -18.518421131246519;
     lapl[1]  = 0.12;
 
-    XC(mgga)(&tpss, 1, rho,  sigma, lapl, tau, 
+    XC(mgga)(&tpss, 1, rho, sigma, lapl, tau, 
     	     &zk,  vrho, vsigma, vlapl, vtau, 
     	     NULL, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
 	     v2sigmalapl, v2sigmatau, v2lapltau);
-    //XC(mgga_c_tpss_lara)(tpss2.mgga, rho, sigma, tau,
-    //	    &zk2,  vrho2, vsigma2, vtau2);
+    XC(mgga)(&tpss2, 1, rho, sigma, lapl, tau, 
+    	     &zk2,  vrho2, vsigma2, vlapl2, vtau2, 
+    	     NULL, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
+	     v2sigmalapl, v2sigmatau, v2lapltau);
 
     //XC(gga)(&agga, rho,  sigma,
     //&zk,  vrho, vsigma,
     //	    v2rho2, v2rhosigma, v2sigma2);
-    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[0], zk, zk2);
+    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[0], rho[0]*(zk2), vrho[0] + vrho2[0]);
   }
 }
 
@@ -238,8 +240,10 @@ int main()
   //test_neg_rho();
 
   //test_lda();
-  test_gga();
+  //test_gga();
   //test_tpss();
+
+  printf("number = '%d'; key = '%s'", 25, XC(functional_get_name)(25));
 
   return 0;
 }

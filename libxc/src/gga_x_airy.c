@@ -21,6 +21,22 @@
 #include "util.h"
 
 #define XC_GGA_X_AIRY  192 /* Constantin et al based on the Airy gas */
+#define XC_GGA_X_LAG   193 /* Local Airy Gas */
+
+static void 
+gga_x_airy_init(void *p_)
+{
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+
+  switch(p->info->number){
+  case XC_GGA_X_AIRY:       p->func = 0;  break;
+  case XC_GGA_X_LAG:        p->func = 1;  break;
+  default:
+    fprintf(stderr, "Internal error in gga_x_pbe\n");
+    exit(1);
+  }
+}
+
 
 static inline void 
 func(const XC(gga_type) *p, int order, FLOAT x, 
@@ -53,10 +69,14 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   aux1 = 1.0 + a3*ssa2;
   den1 = POW(aux1, a4);
 
-  num2 = 1.0 - a5*ssa6 + a7*ssa8;
-  den2 = 1.0 + a9*ssa10;
+  *f = num1/den1;
 
-  *f = num1/den1 + num2/den2;
+  if(p->func == 0){
+    num2 = 1.0 - a5*ssa6 + a7*ssa8;
+    den2 = 1.0 + a9*ssa10;
+
+    *f += num2/den2;
+  }
 
   if(order < 1) return;
 
@@ -64,11 +84,15 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   daux1 = a3*a2*ssa2/ss;
   dden1 = a4*daux1*den1/aux1;
 
-  dnum2 = -a5*a6*ssa6/ss + a7*a8*ssa8/ss;
-  dden2 = a9*a10*ssa10/ss;
+  *dfdx  = (dnum1*den1 - num1*dden1)/(den1*den1);
 
-  *dfdx  = (dnum1*den1 - num1*dden1)/(den1*den1)
-    + (dnum2*den2 - num2*dden2)/(den2*den2);
+  if(p->func == 0){
+    dnum2 = -a5*a6*ssa6/ss + a7*a8*ssa8/ss;
+    dden2 = a9*a10*ssa10/ss;
+
+    *dfdx += (dnum2*den2 - num2*dden2)/(den2*den2);
+  }
+
   *dfdx *= X2S;
   *ldfdx = 0.0;
 
@@ -78,12 +102,15 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   d2aux1 = (a2 - 1.0)*daux1/ss;
   d2den1 = a4*d2aux1*den1/aux1 + (a4 - 1.0)*daux1*dden1/aux1;
 
-  d2num2 = -a5*a6*(a6 - 1.0)*ssa6/(ss*ss) + a7*a8*(a8 - 1.0)*ssa8/(ss*ss);
-  d2den2 = (a10 - 1.0)*dden2/ss;
+  *d2fdx2 = (2.0*num1*dden1*dden1 - 2.0*den1*dden1*dnum1 - den1*num1*d2den1 + den1*den1*d2num1)/(den1*den1*den1);
 
-  *d2fdx2  = 
-    (2.0*num1*dden1*dden1 - 2.0*den1*dden1*dnum1 - den1*num1*d2den1 + den1*den1*d2num1)/(den1*den1*den1) +
-    (2.0*num2*dden2*dden2 - 2.0*den2*dden2*dnum2 - den2*num2*d2den2 + den2*den2*d2num2)/(den2*den2*den2);
+  if(p->func == 0){
+    d2num2 = -a5*a6*(a6 - 1.0)*ssa6/(ss*ss) + a7*a8*(a8 - 1.0)*ssa8/(ss*ss);
+    d2den2 = (a10 - 1.0)*dden2/ss;
+
+    *d2fdx2 += (2.0*num2*dden2*dden2 - 2.0*den2*dden2*dnum2 - den2*num2*d2den2 + den2*den2*d2num2)/(den2*den2*den2);
+  }
+  
   *d2fdx2 *= X2S*X2S;
 }
 
@@ -96,6 +123,19 @@ const XC(func_info_type) XC(func_info_gga_x_airy) = {
   XC_FAMILY_GGA,
   "LA Constantin, A Ruzsinszky, and JP Perdew, Phys. Rev. B 80, 035125 (2009)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  NULL, NULL, NULL,
+  gga_x_airy_init,
+  NULL, NULL,
+  work_gga_x
+};
+
+const XC(func_info_type) XC(func_info_gga_x_lag) = {
+  XC_GGA_X_LAG,
+  XC_EXCHANGE,
+  "Local Airy Gas",
+  XC_FAMILY_GGA,
+  "L Vitos, B Johansson, J Kollar, and HL Skriver, Phys. Rev. B 62, 10046-10050 (2000)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_x_airy_init,
+  NULL, NULL,
   work_gga_x
 };

@@ -91,7 +91,7 @@ work_gga_x
 
       if(rho[is] < MIN_DENS) continue;
 
-      gdm    = SQRT(sigma[js])/sfact;
+      gdm    = max(SQRT(sigma[js])/sfact, MIN_GRAD);
       ds     = rho[is]/sfact;
       rhoLDA = POW(ds, alpha);
       x      = gdm/POW(ds, beta);

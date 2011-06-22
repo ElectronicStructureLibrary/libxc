@@ -17,15 +17,48 @@
 */
 
 #include <stdlib.h>
+#include <string.h>
+#include <strings.h>
 #include <assert.h>
 
 #include "xc.h"
+#include "funcs_key.c"
 
 extern XC(func_info_type) 
   *XC(lda_known_funct)[], 
   *XC(gga_known_funct)[],
   *XC(hyb_gga_known_funct)[],
   *XC(mgga_known_funct)[];
+
+
+/*------------------------------------------------------*/
+int XC(functional_get_number)(char *name)
+{
+  int ii;
+
+  for(ii=0;;ii++){
+    if(XC(functional_keys)[ii].number == -1)
+      return -1;
+    if(strncasecmp(XC(functional_keys)[ii].name, name, 256) == 0) 
+      return XC(functional_keys)[ii].number;
+  }
+}
+
+
+/*------------------------------------------------------*/
+char *XC(functional_get_name)(int number)
+{
+  int ii;
+
+  for(ii=0;;ii++){
+    if(XC(functional_keys)[ii].number == -1)
+      return NULL;
+    if(XC(functional_keys)[ii].number == number)
+      /* return duplicated: caller has the responsability to dealloc string */
+      return strdup(XC(functional_keys)[ii].name);
+  }
+}
+
 
 /*------------------------------------------------------*/
 int XC(family_from_id)(int id, int *family, int *number)

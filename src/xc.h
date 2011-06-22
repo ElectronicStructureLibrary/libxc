@@ -103,9 +103,11 @@ typedef struct XC(struct_func_type){
 
 
 /* functionals */
-int  XC(family_from_id)(int id, int *family, int *number);
-int  XC(func_init)(XC(func_type) *p, int functional, int nspin);
-void XC(func_end)(XC(func_type) *p);
+int   XC(functional_get_number)(char *name);
+char *XC(functional_get_name)(int number);
+int   XC(family_from_id)(int id, int *family, int *number);
+int   XC(func_init)(XC(func_type) *p, int functional, int nspin);
+void  XC(func_end)(XC(func_type) *p);
 
 #include "xc_funcs.h"
 

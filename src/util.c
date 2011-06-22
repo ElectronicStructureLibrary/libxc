@@ -20,6 +20,7 @@
 
 #include "util.h"
 
+
 /* this function converts the spin-density into total density and
 	 relative magnetization */
 /* inline */ void

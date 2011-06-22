@@ -54,6 +54,12 @@ void rdqagse(integr_fn f, void *ex, FLOAT *a, FLOAT *b,
 	     FLOAT *abserr, int *neval, int *ier, FLOAT *alist__,
 	     FLOAT *blist, FLOAT *rlist, FLOAT *elist, int *iord, int *last);
   
+typedef struct XC(functional_key_t) {
+  char name[256];
+  int  number;
+} XC(functional_key_t);
+
+
 #define M_C 137.0359996287515 /* speed of light */
 
 #define RS(x)          (CBRT((3.0/(4*M_PI*x))))

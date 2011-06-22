@@ -32,7 +32,7 @@ gga_x_airy_init(void *p_)
   case XC_GGA_X_AIRY:       p->func = 0;  break;
   case XC_GGA_X_LAG:        p->func = 1;  break;
   default:
-    fprintf(stderr, "Internal error in gga_x_pbe\n");
+    fprintf(stderr, "Internal error in gga_x_airy\n");
     exit(1);
   }
 }

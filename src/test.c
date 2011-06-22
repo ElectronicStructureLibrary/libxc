@@ -93,12 +93,24 @@ void test_lda()
 
 void test_gga()
 {
-  XC(func_type) gga, gga2;
+  XC(func_type) gga, gga2, gga3, gga4;
   int i;
 
-  XC(func_init)(&gga,  XC_GGA_C_LYP, XC_UNPOLARIZED);
-  //XC(func_init)(&gga2, XC_GGA_C_LM, XC_POLARIZED);
-  //XC(func_init)(&gga2, XC_GGA_C_AM052, XC_UNPOLARIZED);
+  XC(func_init)(&gga,  XC_GGA_X_AIRY, XC_POLARIZED);
+  XC(func_init)(&gga2, XC_GGA_X_WC, XC_POLARIZED);
+
+  /*
+  for(i=0; i<=10000; i++){
+    double s = 4.0*i/(10000.0);
+
+    XC(gga_x_rpbe_enhance)(gga.gga,  2, s/X2S, &a, &da, &dummy, &d2a);
+    XC(gga_x_wc_enhance)  (gga2.gga, 2, s/X2S, &b, &db, &dummy, &d2b);
+    XC(gga_x_pbe_enhance) (gga3.gga, 2, s/X2S, &c, &da, &dummy, &d2a);
+    XC(gga_x_htbs_enhance)(gga4.gga, 2, s/X2S, &d, &dd, &dummy, &d2d);
+    
+    printf("%20.14e %20.14e %20.14e %20.14e %20.14e\n", s, a, b, c, d);
+  }
+  */
   
   for(i=0; i<=10000; i++){
     double rho[2], sigma[3], tau[2], lapl[2];
@@ -109,16 +121,16 @@ void test_gga()
 
     rho[0]   = 0.1;
     rho[1]   = 0.5;
-    sigma[0] = 0.1 + i/10000.0;
-    sigma[1] = 0.11;
+    sigma[0] = 0.001 + i/10000.0;
+    sigma[1] = 0.2;
     sigma[2] = 0.7;
 
     XC(gga)(&gga,  1, rho, sigma, &zk,  vrho,  vsigma,  v2rho2,  v2rhosigma,  v2sigma2);
-    //XC(gga)(&gga2, 1, rho, sigma, &zkp, vrhop, vsigmap, v2rho2p, v2rhosigmap, v2sigma2p);
+    //XC(gga)(&gga2, 1, rho, sigma, &zkp, vrhop, vsigmap, NULL, v2rhosigmap, v2sigma2p);
     
     //fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[0], (rho[0])*zk, vsigma[0]);
+    //fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[0], vsigma[0], vsigmap[0]);
     fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[0], vsigma[0], v2sigma2[0]);
-    //fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[1], vrho[1], v2rho2[2]);
   }
 }
 

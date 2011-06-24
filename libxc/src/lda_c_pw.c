@@ -41,7 +41,7 @@ the constants of PW.
 static void 
 lda_c_pw_init(void *p_)
 {
-  XC(gga_type) *p = (XC(gga_type) *)p_;
+  XC(lda_type) *p = (XC(lda_type) *)p_;
 
   switch(p->info->number){
   case XC_LDA_C_PW:       p->func = 0;  break;

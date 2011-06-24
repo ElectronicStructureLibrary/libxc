@@ -65,9 +65,9 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
     *dfdrs = *dfdz = *dfdxt = 0.0;
   if(order > 1){
     *d2fdrs2 = *d2fdrsz = *d2fdrsxt = *d2fdz2 = *d2fdzxt = *d2fdxt2 = 0.0;
-    if(p->nspin == XC_POLARIZED) d2fdxs2[1] = 0.0;
+    d2fdxs2[1] = 0.0;
   }
-
+  
   for(is=0; is<p->nspin; is++){
     FLOAT ss, ff, dff, d2ff, XX, dXX, d2XX;
     FLOAT sign[2] = {1.0, -1.0};
@@ -92,7 +92,7 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
     if(order < 2) continue;
 
     js = (is == 0) ? 0 : 2;
-
+    
     d2XX = 2.0*am05_alpha*(3.0*am05_alpha*ss*ss - 1.0)*(XX*XX*XX)*(X2S*X2S);
     d2ff = d2XX*(1.0 - am05_gamma);
 
@@ -107,7 +107,7 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
       d2fdzxs[is] = (pw.dedz   *(1.0 + sign[is]*zeta) +     pw.zk   *sign[is])*dff/2.0;
     }else
       d2fdzxs[is] = 0.0;
-      
+    
   }
 }
 

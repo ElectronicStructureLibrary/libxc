@@ -98,8 +98,12 @@ void get_vxc(xc_func_type *func, double point[5], double *e, double der[5])
 void get_fxc(xc_func_type *func, double point[5], double der[5][5])
 {
   double v2rho[3], v2rhosigma[6], v2sigma[6];
-  int i;
-  
+  int i, j;
+
+  for(i=0; i<5; i++)
+    for(j=0; j<5; j++)
+      der[i][j] = 0.0;
+
   for(i=0; i<3; i++) v2rho[i] = 0.0;
   for(i=0; i<6; i++){
     v2rhosigma[i] = 0.0;
@@ -251,10 +255,6 @@ void print_error(char *type, char *what, double diff, xc_func_type *func, double
   if(strcmp(what, "v2rho2")==0 || strcmp(what, "v2rhosig")==0 || strcmp(what, "v2sig2")==0){
     double f_an[5][5], f_fd[5][5];
     int i, j;
-
-    for(i=0; i<5; i++)
-      for(j=0; j<5; j++)
-	f_an[i][j] = f_fd[i][j] = 0.0;
 
     get_fxc(func, p, f_an);
     second_derivatives(func, p, f_fd);

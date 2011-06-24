@@ -158,8 +158,7 @@ int main(int argc, char *argv[])
   xc_func_end(&func);
 
   if(xc.nspin == 1){
-    xc.vrho[1] = xc.vrho[0];
-    xc.zk *= xc.rho[0] ;
+    xc.zk *= xc.rho[0];
   }else{
     xc.zk *= (xc.rho[0] + xc.rho[1]);
   }

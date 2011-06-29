@@ -53,7 +53,7 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   static const FLOAT ftilde = 1.745*0.11;
 
   FLOAT rsconv, x1, dx1drs, dx1dxt, d2x1drs2, d2x1drsxt;
-  FLOAT f1, f2, H, df1, df2, dHdx1, dHdrs, d2f1, d2f2, d2Hdx12, d2Hdrsx1;
+  FLOAT f1, f2, H, df1, df2, dHdx1, dHdrs, d2f1, d2f2, d2Hdrs2, d2Hdx12, d2Hdrsx1;
   FLOAT DD, dDDdzeta, d2DDdzeta2, CC, CCinf, dCCdrs, d2CCdrs2;
   FLOAT Phi, dPhidx1, dPhidrs, d2Phidrs2, d2Phidrsx1;
 
@@ -101,9 +101,9 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   dPhidrs = -dCCdrs*Phi/CC;
 
   dHdx1   =  x1*exp(-Phi)*CC/DD*(2.0 - x1*dPhidx1);
-  dHdrs   =  x1*x1*exp(-Phi)*dCCdrs/DD - H*dPhidrs + dHdx1*dx1drs;
+  dHdrs   =  x1*x1*exp(-Phi)/DD*(dCCdrs - dPhidrs*CC);
 
-  *dfdrs   = pw.dedrs + dHdrs;
+  *dfdrs   = pw.dedrs + dHdrs + dHdx1*dx1drs;
   *dfdz    = pw.dedz - H*dDDdzeta/DD;
   *dfdxt   = dHdx1*dx1dxt;
   dfdxs[0] = 0.0;
@@ -130,10 +130,11 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   d2x1drsxt = -1.0/(2.0*rsconv*rs*pw.rs[0]);
   
   d2Hdx12   = exp(-Phi)*CC/DD*(2.0 + x1*dPhidx1*(x1*dPhidx1 - 4.0));
-  d2Hdrsx1  = exp(-Phi)*x1/DD*((dCCdrs - CC*dPhidrs)*(2.0 - x1*dPhidx1) - CC*x1*d2Phidrsx1);
+  d2Hdrs2   = x1*x1*exp(-Phi)/DD*(d2CCdrs2 - d2Phidrs2*CC - dPhidrs*(2.0*dCCdrs - dPhidrs*CC));
+  d2Hdrsx1  =    x1*exp(-Phi)/DD*((dCCdrs - CC*dPhidrs)*(2.0 - x1*dPhidx1) - CC*x1*d2Phidrsx1);
 
-  *d2fdrs2    = pw.d2edrs2 + d2Hdx12*dx1drs*dx1drs + dHdx1*d2x1drs2;
-  *d2fdrsz    = pw.d2edrsz - dHdrs*dDDdzeta/DD;
+  *d2fdrs2    = pw.d2edrs2 + d2Hdrs2 + 2.0*d2Hdrsx1*dx1drs + d2Hdx12*dx1drs*dx1drs + dHdx1*d2x1drs2;
+  *d2fdrsz    = pw.d2edrsz - (dHdrs + dHdx1*dx1drs)*dDDdzeta/DD;
   *d2fdrsxt   = d2Hdrsx1*dx1dxt + d2Hdx12*dx1drs*dx1dxt + dHdx1*d2x1drsxt;
   d2fdrsxs[0] = 0.0;
   d2fdrsxs[1] = 0.0;

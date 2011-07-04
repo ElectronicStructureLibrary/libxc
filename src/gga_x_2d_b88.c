@@ -32,12 +32,10 @@ void XC(gga_x_2d_b88_set_params_)(XC(gga_type) *p, FLOAT beta);
 static void gga_x_2d_b88_init(void *p_)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
-  gga_x_2d_b88_params *params;
 
   assert(p->params == NULL);
 
   p->params = malloc(sizeof(gga_x_2d_b88_params));
-  params = (gga_x_2d_b88_params *) (p->params);
 
   /* value of beta in standard Becke 88 2D functional */
   XC(gga_x_2d_b88_set_params_)(p, 0.018641);

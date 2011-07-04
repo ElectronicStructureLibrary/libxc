@@ -38,7 +38,6 @@ static FLOAT br89_gamma = 0.8;
 static void mgga_x_tb09_init(void *p_)
 {
   XC(mgga_type) *p = (XC(mgga_type) *)p_;
-  mgga_x_tb09_params *params;
 
   assert(p->params == NULL);
 
@@ -50,7 +49,6 @@ static void mgga_x_tb09_init(void *p_)
   }
 
   p->params = malloc(sizeof(mgga_x_tb09_params));
-  params = (mgga_x_tb09_params *) (p->params);
 
   /* value of c in Becke-Johnson */
   XC(mgga_x_tb09_set_params_)(p, 1.0);

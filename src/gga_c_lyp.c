@@ -31,12 +31,10 @@ typedef struct{
 void XC(gga_c_lyp_init)(void *p_)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
-  gga_c_lyp_params *params;
 
   assert(p->params == NULL);
 
   p->params = malloc(sizeof(gga_c_lyp_params));
-  params = (gga_c_lyp_params *) (p->params);
 
   /* values of constants in standard LYP functional */
   XC(gga_c_lyp_set_params_)(p, 0.04918, 0.132, 0.2533, 0.349);

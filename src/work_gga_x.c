@@ -43,9 +43,11 @@ work_gga_x
 {
   const XC(gga_type) *p = p_;
 
-  FLOAT sfact, sfact2, x_factor_c, alpha, beta, dens;
+  FLOAT sfact, x_factor_c, alpha, beta, dens;
   int is, ip, order;
-
+#if HEADER == 2
+  FLOAT sfact2;
+#endif
   /* alpha is the power of rho in the corresponding LDA
      beta  is the power of rho in the expression for x */
 
@@ -71,7 +73,9 @@ work_gga_x
 #endif
 
   sfact = (p->nspin == XC_POLARIZED) ? 1.0 : 2.0;
+#if HEADER == 2
   sfact2 = sfact*sfact;
+#endif
 
   order = -1;
   if(zk     != NULL) order = 0;

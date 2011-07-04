@@ -42,9 +42,8 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   static const FLOAT aa[2] = {    1.0,            M_CBRT2*0.07064/X_FACTOR_C};
   static const FLOAT bb[2] = {    1.0/K_FACTOR_C, M_CBRT2*0.07064/X_FACTOR_C};
   static const FLOAT cc[2] = {0.00887/K_FACTOR_C, M_CBRT2*M_CBRT2*0.07064*34.0135/X_FACTOR_C};
-  FLOAT x2, denom;
+  FLOAT denom;
 
-  x2   = x*x;
   denom = M_CBRT2 + 4.0*x;
 
   *f = aa[p->func] + bb[p->func]*x*x/72.0 + cc[p->func]*x/denom;

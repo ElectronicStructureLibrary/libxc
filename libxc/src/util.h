@@ -79,6 +79,7 @@ typedef struct XC(functional_key_t) {
 #define MIN_DENS             5.0e-13
 #define MIN_GRAD             5.0e-13
 #define MIN_TAU              5.0e-13
+#define MIN_ZETA             5.0e-13
 
 #include "xc.h"
 

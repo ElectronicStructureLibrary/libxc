@@ -35,7 +35,6 @@ hyb_gga_xc_b1wc_init(void *p_)
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
   gga_init_mix(p, 2, funcs_id, funcs_coef);
-  XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
   p->exx_coef = 0.16;
 }
 
@@ -59,7 +58,6 @@ hyb_gga_xc_b1lyp_init(void *p_)
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
   gga_init_mix(p, 2, funcs_id, funcs_coef);
-  XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
   p->exx_coef = 0.25;
 }
 
@@ -83,7 +81,6 @@ hyb_gga_xc_b1pw91_init(void *p_)
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
   gga_init_mix(p, 2, funcs_id, funcs_coef);
-  XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
   p->exx_coef = 0.25;
 }
 
@@ -107,7 +104,6 @@ hyb_gga_xc_mpw1pw_init(void *p_)
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
   gga_init_mix(p, 2, funcs_id, funcs_coef);
-  XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
   p->exx_coef = 0.25;
 }
 
@@ -131,7 +127,6 @@ hyb_gga_xc_mpw1k_init(void *p_)
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
   gga_init_mix(p, 2, funcs_id, funcs_coef);
-  XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
   p->exx_coef = 0.428;
 }
 

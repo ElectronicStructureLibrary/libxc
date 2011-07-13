@@ -121,13 +121,6 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   f2 = 1.0 + gamma*beta*x*asinh(x);
   *f = 1.0 + f1/f2;
 
-  if(p->func == 5) /* k_thakkar */
-  df1 = 2.0*beta/X_FACTOR_C*x;
-  df2 = gamma*beta*(asinh(x) + x/SQRT(1.0 + x*x));
-
-  *dfdx = (df1*f2 - f1*df2)/(f2*f2);
-  *ldfdx= beta/X_FACTOR_C;
-
   if(p->func == 5){ /* k_thakkar */
     dd  = 1.0/(1.0 + 2.0*CBRT(4.0)*x);
     *f += -0.072*x*dd;
@@ -135,6 +128,11 @@ func(const XC(gga_type) *p, int order, FLOAT x,
 
   if(order < 1) return;
 
+  df1 = 2.0*beta/X_FACTOR_C*x;
+  df2 = gamma*beta*(asinh(x) + x/SQRT(1.0 + x*x));
+
+  *dfdx = (df1*f2 - f1*df2)/(f2*f2);
+  *ldfdx= beta/X_FACTOR_C;
 
   if(p->func == 5) /* k_thakkar */
     *dfdx += -0.072*dd*dd;

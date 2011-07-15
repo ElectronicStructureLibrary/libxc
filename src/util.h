@@ -114,10 +114,10 @@ inline void XC(lda_c_pw_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r);
 inline void XC(lda_c_pz_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r);
 
 /* GGAs */
-void XC(gga_x_wc_enhance)  (const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2);
-void XC(gga_x_pbe_enhance) (const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2);
-void XC(gga_x_rpbe_enhance)(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2);
-void XC(gga_x_htbs_enhance)(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2);
+void XC(gga_x_wc_enhance)  (const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2);
+void XC(gga_x_pbe_enhance) (const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2);
+void XC(gga_x_rpbe_enhance)(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2);
+void XC(gga_x_htbs_enhance)(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2);
 
 void gga_init_mix(XC(gga_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix_coef);
 

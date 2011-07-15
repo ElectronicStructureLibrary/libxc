@@ -25,7 +25,7 @@
 
 static inline void
 func(const XC(gga_type) *p, int order, FLOAT x, FLOAT sigma, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, 
+     FLOAT *f, FLOAT *dfdx,
      FLOAT *vsigma, FLOAT *d2fdx2, FLOAT *v2sigma2, FLOAT *v2sigmax)
 {
   static const FLOAT 
@@ -62,7 +62,6 @@ func(const XC(gga_type) *p, int order, FLOAT x, FLOAT sigma,
   dbetadsigma = (func == 0) ? 0.0 : beta1*beta2/(f1*f1);
 
   *dfdx = beta/X_FACTOR_C*x*(2.0*f3 - x*df3)/(f3*f3);
-  *ldfdx= beta0/X_FACTOR_C;
 
   df3df2  = 9.0*x2*f2/f3;
   *vsigma = dbetadsigma*x2/(f3*X_FACTOR_C)*(1.0 - f2*df3df2/f3);

@@ -89,7 +89,7 @@ work_gga_x
 
     for(is=0; is<p->nspin; is++){
       FLOAT gdm, ds, rhoLDA;
-      FLOAT x, f, dfdx, ldfdx, d2fdx2, lvsigma, lv2sigma2, lvsigmax, lvrho;
+      FLOAT x, f, dfdx, d2fdx2, lvsigma, lv2sigma2, lvsigmax, lvrho;
       int js = (is == 0) ? 0 : 2;
       int ks = (is == 0) ? 0 : 5;
 
@@ -100,15 +100,15 @@ work_gga_x
       rhoLDA = POW(ds, alpha);
       x      = gdm/POW(ds, beta);
       
-      dfdx = ldfdx = d2fdx2 = 0.0;
+      dfdx = d2fdx2 = 0.0;
       lvsigma = lv2sigma2 = lvsigmax = lvrho = 0.0;
 
 #if   HEADER == 1
-      func(p, order, x, &f, &dfdx, &ldfdx, &d2fdx2);
+      func(p, order, x, &f, &dfdx, &d2fdx2);
 #elif HEADER == 2
       /* this second header is useful for functionals that depend
 	 explicitly both on x and on sigma */
-      func(p, order, x, gdm*gdm, &f, &dfdx, &ldfdx, &lvsigma, &d2fdx2, &lv2sigma2, &lvsigmax);
+      func(p, order, x, gdm*gdm, &f, &dfdx, &lvsigma, &d2fdx2, &lv2sigma2, &lvsigmax);
       
       lvsigma   /= sfact2;
       lvsigmax  /= sfact2;

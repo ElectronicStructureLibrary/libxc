@@ -42,7 +42,7 @@ gga_x_pw86_init(void *p_)
 
 static inline void
 func(const XC(gga_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   static const gga_x_pw86_params par[3] = {
     {    1.296, 14.0,  0.2},
@@ -66,7 +66,6 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   d2dd   = ss*(2.0*par[p->func].aa + 4.0*par[p->func].bb*ss2 + 6.0*par[p->func].cc*ss4);
 
   *dfdx  = X2S*d2dd/15.0 * POW(dd, -14.0/15.0);
-  *ldfdx = X2S*X2S*par[p->func].aa/15.0;
 
   if(order < 2) return;
 

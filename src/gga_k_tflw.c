@@ -127,7 +127,7 @@ XC(gga_k_tflw_set_params_)(XC(gga_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N)
 
 static inline void 
 func(const XC(gga_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   FLOAT lambda, gamma;
 
@@ -142,7 +142,6 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   if(order < 1) return;
 
   *dfdx = 2.0*lambda*x/K_FACTOR_C;
-  *ldfdx= lambda/K_FACTOR_C;
   
   if(order < 2) return;
 

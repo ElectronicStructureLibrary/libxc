@@ -41,7 +41,7 @@ gga_x_airy_init(void *p_)
 
 static inline void 
 func(const XC(gga_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   static FLOAT 
     a1  =   0.041106, 
@@ -95,7 +95,6 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   }
 
   *dfdx *= X2S;
-  *ldfdx = 0.0;
 
   if(order < 2) return;
 

@@ -69,16 +69,16 @@ gga_x_htbs_init(void *p_)
 
 void XC(gga_x_htbs_enhance)
   (const XC(gga_type) *p, int order, FLOAT x, 
-   FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
-  FLOAT s, g, dg, d2g, a, da, d2a, b, db, d2b, dummy;
+  FLOAT s, g, dg, d2g, a, da, d2a, b, db, d2b;
 
   s  = X2S*x;
   
   if(s > s1)
-    XC(gga_x_rpbe_enhance)(p->func_aux[0]->gga, order, x, &a, &da, &dummy, &d2a);
+    XC(gga_x_rpbe_enhance)(p->func_aux[0]->gga, order, x, &a, &da, &d2a);
   if(s < s2)
-    XC(gga_x_wc_enhance)  (p->func_aux[1]->gga, order, x, &b, &db, &dummy, &d2b);
+    XC(gga_x_wc_enhance)  (p->func_aux[1]->gga, order, x, &b, &db, &d2b);
 
   if(s < s1)
     *f = b;
@@ -101,8 +101,6 @@ void XC(gga_x_htbs_enhance)
 
     *dfdx = dg*(a - b) + g*(da - db) + db;
   }
-
-  *ldfdx = X2S*X2S;
 
   if(order < 2) return;
   

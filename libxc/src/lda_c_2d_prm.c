@@ -50,7 +50,7 @@ lda_c_2d_prm_init(void *p_)
   p->params = malloc(sizeof(lda_c_prm_params));
   params = (lda_c_prm_params *) (p->params);
 
-  params->N = 0.0;
+  params->N = 2.0; /* Random value. This should be set by the caller */
 }
 
 
@@ -102,7 +102,6 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   params = p->params;
 
   assert(params->N > 1.0);
-  assert(p->nspin == XC_UNPOLARIZED);
   
   sqpi = SQRT(M_PI);
 

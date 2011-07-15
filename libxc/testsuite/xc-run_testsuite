@@ -13,7 +13,7 @@ fi
 datadir=${srcdir:-.}
 
 echo -e "\033[33;1mComparing against reference data\033[0m"
-for i in `ls $datadir/*.data | sort`; do
+for i in `ls $datadir/regression/*.data | sort`; do
   func=`basename $i .data`
   echo -e "\033[0m :: Testing \033[32;1m$func\033[31;1m"
   $srcdir/xc-reference.pl -f $func

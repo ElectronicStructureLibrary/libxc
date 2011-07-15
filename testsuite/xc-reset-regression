@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ -z "$srcdir" ]; then
+  srcdir="./"
+fi
+
+for i in `awk '{print $2}' $(srcdir)../src/xc_funcs.h`; do
+  func=`echo $i | perl -e '$_=<>; s/XC_(.*)/\L\1/; print;'`
+
+  echo "processing $func"
+
+  $srcdir/xc-regression $func > $srcdir/regression/$func.data
+  rm -f $srcdir/regression/$func.data.bz2
+  bzip2 $srcdir/regression/$func.data
+done

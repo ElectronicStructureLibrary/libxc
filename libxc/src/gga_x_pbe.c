@@ -127,7 +127,7 @@ XC(gga_x_pbe_set_params_)(XC(gga_type) *p, FLOAT kappa, FLOAT mu)
 
 void XC(gga_x_pbe_enhance) 
   (const XC(gga_type) *p, int order, FLOAT x, 
-   FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   FLOAT kappa, mu, ss, ss2, f0, df0, d2f0;
 
@@ -151,7 +151,6 @@ void XC(gga_x_pbe_enhance)
     df0 += 4.0*mu*mu*ss2*ss/kappa;
 
   *dfdx  = X2S*kappa*kappa*df0/(f0*f0);
-  *ldfdx = X2S*X2S*mu;
 
   if(order < 2) return;
 

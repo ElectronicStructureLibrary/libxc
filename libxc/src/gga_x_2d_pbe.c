@@ -24,7 +24,7 @@
 
 static inline void 
 func(const XC(gga_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   //FILE *fin;
   static const FLOAT kappa[1] = {
@@ -56,7 +56,6 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   df0 = 2.0*ss*mu[func];
 
   *dfdx  = X2S_2D*kappa[func]*kappa[func]*df0/(f0*f0);
-  *ldfdx = X2S_2D*X2S_2D*mu[func];
 
   if(order < 2) return;
 

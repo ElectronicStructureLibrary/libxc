@@ -38,7 +38,7 @@ gga_x_pw91_init(void *p_)
 
 static inline void 
 func(const XC(gga_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   /* The parameters, written in terms of b and beta=5*(36 pi)^(-5/3), are
      aa = 6*b/X2S
@@ -80,10 +80,7 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   df4 = f2 + ss*df2 + expo[p->func]*ff[p->func]*POW(ss, expo[p->func] - 1.0);
 
   *dfdx  = (df3*f4 - f3*df4)/(f4*f4);
-  *ldfdx = cc[p->func] + dd[p->func];
-
-  *dfdx  *= X2S;
-  *ldfdx *= X2S*X2S;
+  *dfdx *= X2S;
 
   if(order < 2) return;
 

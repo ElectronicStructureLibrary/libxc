@@ -25,7 +25,7 @@
 
 static inline void 
 func(const XC(gga_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   FLOAT ss, ss2, ss6, denom;
 
@@ -39,7 +39,6 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   if(order < 1) return;
 
   *dfdx = X2S*5.0/27.0 * 2.0*ss*(1.0 - 2.0*ss6)/(denom*denom);
-  *ldfdx= X2S*X2S*5.0/27.0;
   
   if(order < 2) return;
 

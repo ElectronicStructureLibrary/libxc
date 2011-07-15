@@ -86,10 +86,10 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
   const FLOAT d[6] = {0.6012244, 0.004748822, -0.008635108, -0.000009308062, 0.00004482811, 0.0};
   const FLOAT alpha = 0.00186726;   /* set alpha of Eq. (4) */
 
-  FLOAT f_pbe, dfdx_pbe, ldfdx_pbe;
+  FLOAT f_pbe, dfdx_pbe;
   FLOAT h, dhdx, dhdz, fw, dfwdt;
 
-  XC(gga_x_pbe_enhance)(pt->func_aux[0]->gga, x, order, &f_pbe, &dfdx_pbe, &ldfdx_pbe, NULL);
+  XC(gga_x_pbe_enhance)(pt->func_aux[0]->gga, x, order, &f_pbe, &dfdx_pbe, NULL);
 
   x_m06l_fw(order, t, &fw, &dfwdt);
 

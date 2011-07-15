@@ -25,7 +25,7 @@
 /* PBEA: see PBE for more details */
 static inline void 
 func(const XC(gga_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   static const FLOAT kappa = 0.8040;
   static const FLOAT mu = 0.00361218645365094697;
@@ -42,7 +42,6 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   df0 = 2.0*mu*x/(alpha*kappa);
 
   *dfdx  = alpha*kappa*df0*POW(f0, -(alpha + 1.0));
-  *ldfdx = mu;
 
   if(order < 2) return;
 

@@ -33,7 +33,7 @@ gga_x_wc_init(void *p_)
 
 void 
 XC(gga_x_wc_enhance) (const XC(gga_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   const FLOAT kappa = 0.8040;
 
@@ -54,7 +54,6 @@ XC(gga_x_wc_enhance) (const XC(gga_type) *p, int order, FLOAT x,
   df0 = 20.0/81.0*s + 2.0*s*aux1*aux2*(1.0 - s2) + 4.0*wc_c*s*s2/(1.0 + wc_c*s2*s2);
 
   *dfdx  = X2S*kappa*kappa*df0/(f0*f0);
-  *ldfdx = X2S*X2S*wc_mu;
 
   if(order < 2) return;
 

@@ -24,7 +24,7 @@
 
 static inline void
 func(const XC(gga_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   static const FLOAT c1 = 1.0/137.0;
   FLOAT sx = SQRT(x);
@@ -34,11 +34,10 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   if(order < 1) return;
 
   *dfdx  = 3.0*c1/(2.0*X_FACTOR_C)*sx;
-  *ldfdx = 0.0; /* This is not true, but I think this functional diverges */
 
   if(order < 2) return;
 
-  *d2fdx2 = 3.0*c1/(4.0*X_FACTOR_C)/sx;
+  *d2fdx2 = 3.0*c1/(4.0*X_FACTOR_C*sx);
 }
 
 #include "work_gga_x.c"

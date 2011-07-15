@@ -65,7 +65,7 @@ XC(gga_x_rpbe_set_params_)(XC(gga_type) *p, FLOAT kappa, FLOAT mu)
 /* RPBE: see PBE for more details */
 void XC(gga_x_rpbe_enhance) 
   (const XC(gga_type) *p, int order, FLOAT x, 
-   FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   FLOAT kappa, mu, f0, df0, d2f0;
 
@@ -81,7 +81,6 @@ void XC(gga_x_rpbe_enhance)
   df0 = -2.0*x*mu/kappa*f0;
   
   *dfdx  = -kappa*df0;
-  *ldfdx = mu;
 
   if(order < 2) return;
 

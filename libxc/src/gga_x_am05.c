@@ -27,7 +27,7 @@
 
 static inline void 
 func(const XC(gga_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   const FLOAT am05_c      = 0.7168;
   const FLOAT am05_alpha  = 2.804;
@@ -41,8 +41,6 @@ func(const XC(gga_type) *p, int order, FLOAT x,
 
   if(x < MIN_GRAD){
     *f    = 1.0;
-    if(order >= 1) *ldfdx = -am05_alpha*X2S*X2S;
-    if(order >= 2) *d2fdx2 = 0.0;
     return;
   }
 
@@ -83,10 +81,7 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   dflaa   = (dflaa_1*flaa_2 - flaa_1*dflaa_2)/(flaa_2*flaa_2);
 
   *dfdx  = dxx*(1.0 - flaa) + dflaa*(1.0 - xx);
-  *ldfdx = -am05_alpha; /* -alpha?? */
-
-  *dfdx  *= X2S;
-  *ldfdx *= X2S*X2S;
+  *dfdx *= X2S;
 
   if(order < 2) return;
 

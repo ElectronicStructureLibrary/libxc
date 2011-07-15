@@ -24,7 +24,7 @@
 
 static inline void
 func(const XC(gga_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   static const FLOAT beta  = 0.00375;
   static const FLOAT gamma = 0.007;
@@ -44,7 +44,6 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   df2 = ddp*x;
 
   *dfdx = (df1*f2 - f1*df2)/(f2*f2);
-  *ldfdx= beta/X_FACTOR_C;
 
   if(order < 2) return;
 

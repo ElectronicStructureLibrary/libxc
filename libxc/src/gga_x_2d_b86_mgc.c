@@ -23,7 +23,8 @@
 #define XC_GGA_X_2D_B86_MGC      124 /* Becke 86 MGC for 2D systems */
 
 static inline void
-func(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ldfdx, FLOAT *d2fdx2)
+func(const XC(gga_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   static const FLOAT beta=0.003317, gam=0.008323;
 
@@ -42,7 +43,6 @@ func(const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *ld
   df2 = ddp*x;
 
   *dfdx  = (df1*f2 - f1*df2)/(f2*f2);
-  *ldfdx = beta/X_FACTOR_C;
 
   if(order < 2) return; /* nothing else to do */
 

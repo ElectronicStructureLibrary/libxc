@@ -1,3 +1,700 @@
+2011-06-08 15:09  marques
+
+	* [r7994] src/gga_k_dk.c: I believe that there was a ff factor
+	  missing. Can you check it Micael?
+
+2011-06-07 12:47  xavier
+
+	* [r7985] src/lda_c_pw.c: Another fix for libxc and xlc. Now it
+	  should compile.
+
+2011-06-07 12:30  xavier
+
+	* [r7984] src/lda_c_hl.c: It seems that xlc doesn't like to call an
+	  static function from an
+	  inline one.
+
+2011-06-01 13:46  marques
+
+	* [r7963] src/gga_xc_1w.c, src/gga_xc_edf1.c,
+	  src/hyb_gga_xc_b1wc.c, src/hyb_gga_xc_b3lyp.c,
+	  src/hyb_gga_xc_o3lyp.c, src/test.c: Several functionals that
+	  denpended on LYP have now also fxc
+
+2011-06-01 13:42  marques
+
+	* [r7962] src/gga_c_lyp.c, src/work_gga_c.c: LYP now has fxc.
+
+2011-05-30 14:04  marques
+
+	* [r7952] src/gga_c_am05.c, src/gga_c_lm.c, src/lda_c_hl.c,
+	  src/test.c, src/util.h: Langreth and Mehl converted to new
+	  framework
+
+2011-05-30 13:06  marques
+
+	* [r7951] src/test.c, src/work_gga_c.c: Several bugs corrected and
+	  code simplified. Now it really seems to work (fingers crossed)
+
+2011-05-27 15:28  marques
+
+	* [r7948] src/test.c, src/work_gga_c.c: Sopke too soon ;) v2sigma2
+	  is fine, but v2rhosigma still has a bug for some spins...
+
+2011-05-27 13:56  marques
+
+	* [r7947] src/gga_c_am05.c, src/gga_c_wl.c: Sorry, left some debug
+	  stuff around
+
+2011-05-27 13:55  marques
+
+	* [r7946] src/gga_c_am05.c, src/gga_c_wl.c, src/lda_c_pw.c,
+	  src/test.c, src/util.h, src/work_gga_c.c, src/xc_f.c: Second
+	  derivatives are now working for AM05 and WL. I will still spend
+	  some time trying to simplify the code.
+
+2011-05-18 08:10  micael
+
+	* [r7906] src/gga_k_dk.c: * Bug fix: corrected the parameters of
+	  two KED functionals.
+
+2011-05-13 02:30  xavier
+
+	* [r7896] configure.ac: Updated the versions for trunk, octopus
+	  nocturnus, and, libxc diurnus.
+
+2011-05-12 15:57  xavier
+
+	* [r7881] src/gga_x_lb.c, src/libxc_master.F90, src/xc.h: Libxc now
+	  defines XC_GGA_XC_LB to point to XC_GGA_X_LB. This keeps
+	  compatibility.
+
+2011-05-11 12:46  marques
+
+	* [r7863] src/gga_x_b88.c: Added the Thakkar approximation to the
+	  kinetic energy density. I believe that this concludes the GGAs
+	  for tau (at least I do not have any further on my list)
+
+2011-05-11 10:19  marques
+
+	* [r7862] src/gga_x_b86.c, src/gga_x_pbe.c: The 4 versions of the
+	  PBE for kinetics by Tran and Wesolowski
+
+2011-05-11 10:01  marques
+
+	* [r7861] src/gga_x_pbe.c: Small bug corrected
+
+2011-05-11 09:57  marques
+
+	* [r7860] src/gga_c_pbe.c: The correlation version of the previous
+	  functional
+
+2011-05-11 09:17  marques
+
+	* [r7859] src/gga_x_pbe.c: Added the APBE functional (both X and K,
+	  I will implement C now)
+
+2011-05-01 01:17  xavier
+
+	* [r7827] src/gga_c_am05.c, src/gga_c_lm.c, src/gga_c_pw91.c:
+	  Missing deallocations in libxc.
+
+2011-05-01 00:07  xavier
+
+	* [r7826] src/gga_c_pbe.c: The destructor of the gga_c_pbe
+	  functional was missing.
+
+2011-04-21 13:26  marques
+
+	* [r7739] src/gga_c_lyp.c: An unused variable was left behind.
+	  Thanks David.
+
+2011-04-20 20:04  marques
+
+	* [r7733] src/Makefile.am: Sorry for the mess. Let's see if it
+	  compiles now.
+
+2011-04-20 14:04  marques
+
+	* [r7731] src/gga_x_b88.c: Sorry forgot two "M"
+
+2011-04-20 14:02  marques
+
+	* [r7730] src/Makefile.am, src/gga_x_b88.c, src/mgga_c_tpss.c,
+	  src/test.c, src/work_gga_c.c: New functional, a modified Becke 88
+	  for proton transfer reactions.
+
+2011-04-18 14:18  micael
+
+	* [r7720] src/gga_x_b88.c: * Two functionals had the same
+	  identifier.
+
+2011-04-16 19:12  micael
+
+	* [r7711] src/gga_c_am05.c: * Fixed AM05 correlation for very small
+	  densities.
+
+2011-04-15 10:06  marques
+
+	* [r7707] src/gga_c_lyp.c, src/work_gga_c.c: Also v2rho2 is well
+	  calculated in spin polarized mode. Now it is only missing
+	  v2sigma2 and v2rhosigma
+
+2011-04-01 09:42  marques
+
+	* [r7659] src/gga_k_tflw.c: Now the VW term is defined withour the
+	  TF part as requested by Micael
+
+2011-04-01 08:59  marques
+
+	* [r7658] src/gga_x_pw91.c: Sorry I had left some bugs around
+
+2011-04-01 08:57  marques
+
+	* [r7657] src/gga_x_pw91.c: Added the kinetic counterpart of PW91
+
+2011-03-31 15:22  marques
+
+	* [r7653] src/gga_k_dk.c: Another bunch of functionals for the
+	  kinetic energy. These ones are all absed on a Pade approximant.
+
+2011-03-30 13:02  marques
+
+	* [r7647] src/Makefile.am, src/gga_k_dk.c: Added the dePristo and
+	  Kress GGA for the kinetic energy density
+
+2011-03-30 12:17  marques
+
+	* [r7646] src/gga_k_ol2.c: Bug fix in K_OL2. The formula was not
+	  correct.
+	  Added the functional X_OL2, but I have very strong reasons to
+	  believe that the formula in the paper is wrong.
+
+2011-03-28 16:15  micael
+
+	* [r7635] src/gga_k_tflw.c: * The lambda parameter in the TflW
+	  functionals was not set correctly.
+
+2011-03-28 15:30  micael
+
+	* [r7633] src/gga_x_pw86.c: * Another KED functional that was
+	  labeled as exchange.
+
+2011-03-28 15:06  micael
+
+	* [r7629] src/gga_x_b88.c: * A couple of KED functionals were
+	  labeled as exchange functionals.
+
+2011-03-28 15:02  marques
+
+	* [r7628] src/Makefile.am, src/gga_x_lb.c, src/gga_xc_lb.c: Rename
+	  the LB functional as "exchange", otherwise octopus can not sum
+	  the PW92 correlation to it.
+	  Added a modified LB potential by the Amsterdam group
+
+2011-03-27 05:10  dstrubbe
+
+	* [r7626] src/gga_x_pw86.c, src/lda_k_tf.c, src/work_gga_x.c: Fixed
+	  typos and funny characters in libxc.
+
+2011-03-25 13:23  marques
+
+	* [r7615] src/gga_x_pw86.c: An assert was wrong
+
+2011-03-25 13:23  marques
+
+	* [r7614] src/gga_c_wl.c, src/gga_x_pw86.c: Added a kinetic version
+	  of the PW86 exchange functional
+
+2011-03-25 13:05  marques
+
+	* [r7613] src/gga_x_b88.c: Sorry, a factor was wrong
+
+2011-03-25 13:04  marques
+
+	* [r7612] src/gga_x_b88.c: Another version of becke 88 for the
+	  kinetic energy density
+
+2011-03-25 11:30  marques
+
+	* [r7611] src/work_gga_x.c: Bug fix: in the case of the kinetic
+	  energy density, I was using the wrong power in the definition of
+	  x. It should always be 4/3 and not 5/3
+
+2011-03-24 14:14  marques
+
+	* [r7604] src/lda_k_tf.c: Added a new LDA functional for the
+	  kinetic energy
+
+2011-03-24 13:24  marques
+
+	* [r7603] src/util.h, src/work_gga_x.c: Again problems with the
+	  pre-factors. Hopefully this way of doing things is a bit more
+	  robust.
+
+2011-03-24 11:01  marques
+
+	* [r7602] src/Makefile.am, src/gga_k_ol1.c, src/gga_k_ol2.c,
+	  src/gga_k_pearson.c, src/gga_x_b88.c, src/util.h: Two more
+	  kinetic functionals OL1 and OL2
+	  Fixed one reference (thanks Tobias)
+
+2011-03-24 08:46  marques
+
+	* [r7601] src/gga_k_tflw.c, src/gga_x_b88.c: Yes, you were right
+	  Tobias. Thanks.
+
+2011-03-23 14:33  marques
+
+	* [r7598] src/Makefile.am, src/gga_k_llp.c, src/gga_k_pearson.c,
+	  src/gga_k_tflw.c, src/gga_x_b88.c, src/work_gga_x.c: Now the LLP
+	  kinetic functional shares the same routine as B88
+
+2011-03-23 14:11  marques
+
+	* [r7597] src/Makefile.am, src/gga_k_ge2.c, src/gga_k_llp.c,
+	  src/gga_k_pearson.c, src/gga_k_tflw.c, src/lda_k_tf.c,
+	  src/util.h, src/xc.h: Added a bunch of functionals of the form
+	  gamma T_TF + lambda T_vW
+
+2011-03-22 16:09  marques
+
+	* [r7590] src/gga_k_ge2.c, src/util.h: Sorry, forgot an } and had
+	  an error in a comment
+
+2011-03-22 16:00  marques
+
+	* [r7589] src/gga_k_ge2.c, src/util.h: Corrected the value of
+	  K_FACTOR_C to the correct spin-polarized and including the factor
+	  of 2 from our definition of tau.
+	  Added the von Weiszaecker functional
+
+2011-03-21 15:45  marques
+
+	* [r7588] src/Makefile.am, src/gga_k_llp.c: New kinetic energy GGA
+	  (actually the first of all), the Lee, Lee and Parr functional
+
+2011-03-18 15:15  micael
+
+	* [r7573] src/lda_k_tf.c: * Now I think the constant in the
+	  Thomas-Fermi functional is finally correct.
+
+2011-03-18 10:24  micael
+
+	* [r7572] src/lda_k_tf.c, src/libxc_master.F90: * A constant was
+	  wrong in the Thomas-Fermi kinetic energy functional.
+	  * Definition of XC_KINETIC was missing from libxc_master.F90.
+
+2011-03-03 13:23  marques
+
+	* [r7533] src/Makefile.am, src/gga_x_herman.c: Added a very simple
+	  exchange functional, the Herman X\alpha\beta functional. This is
+	  perhaps the first GGA for the exhange
+
+2011-03-02 12:42  marques
+
+	* [r7521] src/gga_c_lyp.c, src/test.c: I rewrote lyp to the new
+	  framework. Now the file is half the size as before, and it will
+	  be easy to get the second derivatives.
+
+2011-03-02 12:42  marques
+
+	* [r7520] src/gga_x_b86.c: There was a problem in the b86
+	  functional. First, what I called b86_r was in fact b86. Then my
+	  b86 had a wrong coefficient. So I deleted b86_r and rewrote in a
+	  clearer way b86.
+
+2011-03-02 12:41  marques
+
+	* [r7519] src/util.c: Some programs pass negative densities to
+	  libxc. This commit should fix many of the functionals in this
+	  case.
+
+2011-02-28 11:11  marques
+
+	* [r7507] src/Makefile.am, src/gga_c_wi.c: Added a new GGA
+	  correlation functional: Wilson and Ivanov. Note that this
+	  functional only has a spin-unpolarized version
+
+2011-02-24 15:26  marques
+
+	* [r7493] src/Makefile.am, src/lda_c_gombas.c, src/lda_c_ml1.c,
+	  src/lda_c_pz.c, src/lda_c_rpa.c, src/lda_x.c: *) Added the Gombas
+	  interpolation of the correlation energy
+	  *) Corrected a numerical coefficient in the RPA functional
+	  *) A factor of 1/2 was missing in the ML functional
+
+2011-02-23 10:29  marques
+
+	* [r7490] src/work_gga_c.c: Sorry, just realized that I used //
+	  comments...
+
+2011-02-23 10:28  marques
+
+	* [r7489] src/Makefile.am, src/gga_c_wl.c, src/work_gga_c.c: Added
+	  a new GGA functional (WL) and more importantly, added a new
+	  framework for GGA correlations. Most GGA correlations will be
+	  adapted to this new framework in the future. Note: the second
+	  derivatives in the spin polarized case are still missing.
+
+2011-02-18 11:33  xavier
+
+	* [r7479] Makefile.am: An attempt to fix the libxc problem in
+	  nowii.
+
+2011-02-17 13:10  marques
+
+	* [r7471] configure.ac, src/gga_c_am05.c, src/gga_c_lm.c,
+	  src/gga_c_lyp.c, src/gga_c_p86.c, src/gga_c_pw91.c,
+	  src/gga_perdew.c, src/gga_x_2d_b88.c, src/gga_x_am05.c,
+	  src/gga_x_b88.c, src/gga_x_ft97.c, src/gga_x_g96.c,
+	  src/gga_x_kt.c, src/gga_x_pw91.c, src/gga_xc_lb.c,
+	  src/integrate.c, src/lca.c, src/lca_omc.c, src/lda_c_2d_amgb.c,
+	  src/lda_c_2d_prm.c, src/lda_c_ml1.c, src/lda_c_vwn.c,
+	  src/lda_k_tf.c, src/lda_x.c, src/lda_x_2d.c, src/mgga_c_tpss.c,
+	  src/mgga_x_2d_prhg07.c, src/mgga_x_br89.c, src/mgga_x_tpss.c,
+	  src/util.c, src/util.h, src/work_gga_becke.c, src/work_gga_x.c,
+	  src/work_lda.c, src/work_mgga_c.c, src/work_mgga_x.c,
+	  src/xc_config.h: Patch by Janne.Blomqvist@tkk.fi:
+	  
+	  The attached patch does some minor optimizations and cleanups,
+	  mostly
+	  replacing usage of pow() with cbrt() as pow() can be somewhat
+	  expensive.
+	  
+	  - Add tests for sqrtf, cbrtf, cbrt in configure.ac
+	  - Add SQRT and CBRT macros to xc_config.h
+	  - pow => POW if argument is FLOAT
+	  - sqrt => SQRT if argument is FLOAT
+	  - cbrt => CBRT
+	  - POW(x, 1.0/3.0) => CBRT(x)
+	  - POW(x, -1.0/3.0) => 1.0/CBRT(x)
+	  - POW(x, 1.0/2.0) => SQRT(x)
+	  - POX(x, -1.0/2.0) => 1.0/SQRT(x)
+	  - POW(x, 1.0/4.0) => SQRT(SQRT(x))
+	  - sqrt(2.0) => M_SQRT2
+	  
+	  Some of the pow(x,y) optimizations above can be done
+	  automatically by
+	  the compiler if one enables -ffast-math (or equivalent) but due
+	  to
+	  different corner-case behavior the compiler cannot enable them
+	  otherwise (e.g. sqrt(-0.0) == -0.0 != pow(-0.0, 1.0/2.0) ==
+	  +0.0). See
+	  e.g.
+	  
+	  http://gcc.gnu.org/bugzilla/show_bug.cgi?id=25620
+	  
+	  http://gcc.gnu.org/bugzilla/show_bug.cgi?id=43419
+	  
+	  http://gcc.gnu.org/bugzilla/show_bug.cgi?id=42694
+	  
+	  http://gcc.gnu.org/bugzilla/show_bug.cgi?id=28252
+	  
+	  
+	  I ran the testsuite, and while I did get some failures I also got
+	  exactly the same failures with the trunk, so as far as the
+	  testsuite
+	  is concerned the patch does not affect the numerics in any way.
+
+2011-02-14 13:12  marques
+
+	* [r7456] src/hyb_gga_xc_b1wc.c, src/hyb_gga_xc_b3lyp.c,
+	  src/hyb_gga_xc_b97.c, src/hyb_gga_xc_o3lyp.c,
+	  src/hyb_gga_xc_pbeh.c: Flag XC_FLAGS_3D was missing from the
+	  hybrid functionals
+
+2011-02-02 13:14  marques
+
+	* [r7394] src/mgga_x_br89.c: Some debug lines were forgotten...
+
+2011-02-02 00:37  dstrubbe
+
+	* [r7388] src/gga.c, src/lda.c, src/mgga.c: Corrected typos.
+
+2011-01-25 12:59  marques
+
+	* [r7329] src/util.c, src/util.h: There was still one inline left.
+	  This seems to be the source of the confusion of the xlc
+	  compiler...
+
+2011-01-25 12:49  marques
+
+	* [r7328] src/util.c, src/util.h: Tried to remove inline to see if
+	  nowii compiles libxc
+
+2011-01-25 12:45  marques
+
+	* [r7327] src/Makefile.am, src/mgga.c, src/mgga_x_br89.c,
+	  src/test.c, src/work_mgga_x.c: *) changed the order of files in
+	  makefile.am to see if it helps with nowii
+	  *) Added fxc for the BR functional
+
+2011-01-19 23:21  xavier
+
+	* [r7287] configure.ac: Changed the macro used to initialize libxc
+	  so it works with old
+	  libtool versions.
+
+2011-01-18 20:46  dstrubbe
+
+	* [r7285] src/gga_k_tflw.c, src/util.h: Fixed PGI compilation error
+	  via missing prototype.
+	  PGC-S-0043-Redefinition of symbol, xc_gga_k_tflw_set_params_
+	  (gga_k_tflw.c: 55)
+
+2011-01-18 19:39  dstrubbe
+
+	* [r7284] src/Makefile.am, src/gga_k_tflw.c: * Added hyphen,
+	  changed m-dash to hyphen (for page numbers) which could render
+	  strangely.
+	  * The new file was missing .c in the Makefile.
+
+2011-01-18 15:34  marques
+
+	* [r7283] src/Makefile.am, src/gga_k_pearson.c: Another kinetic
+	  energy functional
+
+2011-01-18 15:13  marques
+
+	* [r7282] src/Makefile.am, src/gga_k_tflw.c: Added a new kinetic
+	  energy functional
+
+2011-01-16 05:52  xavier
+
+	* [r7277] src/lda_xc_teter93.c, src/work_lda.c: Some optimization
+	  for lda_xc_teter93.
+
+2011-01-16 04:18  xavier
+
+	* [r7276] src/lda_xc_teter93.c, src/util.c, src/util.h: Some
+	  optimizations for libxc:
+	  
+	  * Defined a faster function calculate to f(z). It calculates all
+	  the
+	  required derivatives at once, and avoids the calculation if the
+	  system
+	  is unpolarized.
+	  
+	  * The new function is used by the lda_xc_teter93 functional.
+
+2011-01-02 04:53  xavier
+
+	* [r7217] configure.ac: By default libxc is now compiled
+	  statically. This will probably save a
+	  lot of problems for users (and for us).
+
+2010-12-16 14:01  marques
+
+	* [r7190] src/libxc_master.F90: Had a misplaced ';'
+
+2010-12-16 13:47  marques
+
+	* [r7189] src/gga.c, src/libxc_master.F90, src/mgga.c,
+	  src/mgga_c_tpss.c, src/test.c, src/work_mgga_c.c,
+	  src/work_mgga_x.c, src/xc.h, src/xc_f.c: Finished the interface
+	  for the fxcs in the meta-ggas. Moreover, I think now that the
+	  TPSS exchange fxc is correct.
+
+2010-12-15 16:19  marques
+
+	* [r7179] src/work_mgga_x.c: The rest of the derivatives are there.
+	  I will test it more thoroughly tomorrow, and finish to change the
+	  interface to include also the derivatives of the laplacian of
+	  rho.
+
+2010-12-15 15:39  marques
+
+	* [r7177] src/mgga_x_2d_prhg07.c, src/mgga_x_br89.c,
+	  src/mgga_x_lta.c, src/mgga_x_m06l.c, src/mgga_x_tau_hcth.c,
+	  src/mgga_x_tpss.c, src/mgga_xc_vsxc.c, src/work_mgga_x.c: First
+	  steps at the second derivatives of the meta-GGAs. Several things
+	  are already OK for the tpss (exchange) but there are still some
+	  terms missing.
+
+2010-12-14 09:54  marques
+
+	* [r7172] src/gga_c_am05.c, src/mgga_x_tpss.c, src/work_mgga_x.c:
+	  BUG fixes:
+	  *) Fxc was missing from AM05 flags (thanks to Gian-Marco
+	  Rignanese)
+	  *) Vxc was wrong for x TPSS. Now I get exactly the same results
+	  as GPAW
+
+2010-12-08 13:40  marques
+
+	* [r7147] src/gga_perdew.c: Bug fix. Thanks to Gian-Marco Rignanese
+	  for this!
+
+2010-11-02 19:24  olivares
+
+	* [r7067] configure.ac: Had to correct the safe_allocate_A calls
+	  that sometimes certain compilers go crazy about when commented
+
+2010-10-29 20:55  marques
+
+	* [r7056] src/test.c: test
+
+2010-10-29 08:55  marques
+
+	* [r7055] src/test.c: test
+
+2010-10-29 08:25  
+
+	* [r7054] src/test.c: test
+
+2010-10-25 18:29  dstrubbe
+
+	* [r7049] src/Makefile.am: A correction to my r7041: now the right
+	  modules are associated in the single/double precision cases. This
+	  solves the warnings about redefining a rule for these targets.
+
+2010-10-25 16:52  micael
+
+	* [r7048] src/mgga_c_tpss.c: TPSS correlation is not an exchange
+	  functional ;)
+
+2010-10-25 13:15  marques
+
+	* [r7046] src/gga_c_p86.c, src/lda_c_rpa.c: Should not divide by
+	  zero in P86
+
+2010-10-25 12:04  marques
+
+	* [r7045] src/work_gga_becke.c: Becke functionals should not divide
+	  by zero when the density is zero ;)
+
+2010-10-25 11:37  marques
+
+	* [r7044] src/gga_x_kt.c: Bug fix: KT1 and KT2 were completely
+	  wrong.
+
+2010-10-25 11:13  marques
+
+	* [r7043] src/gga_x_pbe.c: Bug fix: rge2 was not working.
+
+2010-10-20 20:19  dstrubbe
+
+	* [r7041] src/Makefile.am: Added some missing rules and
+	  dependencies in libxc. Running a parallel make failed miserably
+	  before this, although evidently it just happened to work anyway
+	  in serial. Something is still not perfect since I get these
+	  warnings after "make -j install":
+	  Makefile:817: warning: overriding commands for target
+	  `xc_f90_lib_m.mod'
+	  Makefile:811: warning: ignoring old commands for target
+	  `xc_f90_lib_m.mod'
+	  Makefile:817: warning: overriding commands for target
+	  `xc_f90_types_m.mod'
+	  Makefile:811: warning: ignoring old commands for target
+	  `xc_f90_types_m.mod'
+
+2010-10-18 14:40  marques
+
+	* [r7034] src/lda_c_1d_csc.c: Now the 1D CSC for beta=1 has a spin
+	  dependence
+
+2010-10-14 15:10  marques
+
+	* [r7032] src/Makefile.am, src/gga_k_ge2.c, src/util.h,
+	  src/work_gga_x.c: Added the second-order gradient expansion of
+	  the kinetic energy functional.
+
+2010-10-14 14:19  marques
+
+	* [r7031] src/gga_c_pbe.c, src/gga_x_2d_b86_mgc.c, src/gga_x_pbe.c,
+	  src/mgga_x_br89.c: Updated the citations. Thanks Tobias!
+
+2010-10-14 14:14  marques
+
+	* [r7030] src/Makefile.am, src/lda_k_tf.c, src/xc.h: Added the
+	  Thomas-Fermi functional for the kinetic energy density.
+
+2010-10-14 12:27  marques
+
+	* [r7029] src/Makefile.am, src/gga_x_kt.c, src/work_gga_x.c: Added
+	  two new functionals, Keal and Tozer version 1 and 2.
+
+2010-10-05 12:42  marques
+
+	* [r7023] src/gga_x_pw86.c: Added a new functional: a
+	  reparemetrization of PW86 to be used in vdW calculations.
+
+2010-09-28 16:34  micael
+
+	* [r7022] src/work_mgga_x.c: The exchange potential of the
+	  Becke-Johnson MGGA type should be zero if the density is zero in
+	  order to avoid getting some NaN.
+
+2010-08-17 17:57  dstrubbe
+
+	* [r6939] src/mgga_x_2d_prhg07.c: *) Made two tests run for MPI as
+	  well as serial. There doesn't seem to be any reason they
+	  shouldn't be run in parallel.
+	  *) Updated Coordinates block to only have the appropriate number
+	  of dimensions in these tests.
+	  *) Typo.
+
+2010-08-17 07:14  juho
+
+	* [r6938] src/mgga_x_2d_prhg07.c: Wrong sign (the equation is
+	  solvable down to -1), wrong return value. Returning zero gives us
+	  an effective lda approximation. See PRB 76, 235314, page 4.
+
+2010-08-16 11:54  juho
+
+	* [r6934] src/mgga_x_2d_prhg07.c: Corrected the sign of the PRP10
+	  correction
+
+2010-08-16 11:01  juho
+
+	* [r6933] src/Makefile.am, src/mgga_x_2d_prhg07.c,
+	  src/work_mgga_x.c: PRHG10 2D exchange functional along with
+	  optional PRP10 exchange correction. See:
+	  http://prb.aps.org/abstract/PRB/v76/i23/e235314 and
+	  http://prb.aps.org/abstract/PRB/v81/i11/e115108
+
+2010-08-02 23:26  xavier
+
+	* [r6898] src/mgga_x_br89.c: * Removed some debugging output.
+	  
+
+2010-08-02 20:04  xavier
+
+	* [r6897] src/mgga_x_br89.c, src/work_mgga_x.c: * The XC potential
+	  for BR89 class of functionals is not set to zero
+	  for low density and tau. This fixes the problem with the cusp.
+	  The
+	  problem for low densities remains.
+	  
+	  * The solution of the non-linear equation in the BR89 functionals
+	  works properly for small positive values.
+
+2010-07-29 14:10  marques
+
+	* [r6880] src/lda_x.c: Added reference to Slater's Xalpha method.
+
+2010-07-26 08:30  marques
+
+	* [r6859] src/xc_f.c: Bug fix in the Fortran interface of
+	  f90_hyb_gga_exx_coef. Thanks to Tyrel M. McQueen and John Kay
+	  Dewhurst for this one ;)
+
+2010-07-14 19:04  dstrubbe
+
+	* [r6819] configure.ac: autoconf on libxc is failing on some
+	  systems and demanding this line.
+
+2010-07-09 12:49  marques
+
+	* [r6804] configure.ac: As octopus is vulgaris, then libxc can be
+	  ordinarius
+
+2010-07-09 12:43  marques
+
+	* [r6801] ChangeLog, INSTALL, configure.ac: Changed the version
+	  number to 1.0
+
 2010-07-06 12:02  marques
 
 	* [r6781] src/gga_c_pbe.c, src/gga_x_pbe.c: Added another

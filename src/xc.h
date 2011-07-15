@@ -43,6 +43,7 @@ extern "C" {
 #define XC_FAMILY_LCA           8
 #define XC_FAMILY_OEP          16
 #define XC_FAMILY_HYB_GGA      32
+#define XC_FAMILY_HYB_MGGA     64
 
 /* flags that can be used in info.flags */
 #define XC_FLAGS_HAVE_EXC         (1 <<  0) /*    1 */
@@ -237,21 +238,6 @@ void XC(mix_func)(const XC(func_type) *dest_func, int n_func_aux, XC(func_type) 
 		  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 		  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
   
-/* the LCAs */
-
-#define XC_LCA_OMC            301 /* Orestes, Marcasso & Capelle */
-#define XC_LCA_LCH            302 /* Lee, Colwell & Handy        */
-
-
-typedef struct{
-  XC(func_info_type) *info;  /* which functional did we choose   */
-  int nspin;                 /* XC_UNPOLARIZED or XC_POLARIZED  */
-
-} XC(lca_type);
-
-void XC(lca_init)(XC(lca_type) *p, int functional, int nspin);
-void XC(lca)     (XC(lca_type) *p, FLOAT *rho, FLOAT *v, FLOAT *e, FLOAT *dedd, FLOAT *dedv);
-
 #ifdef __cplusplus
 }
 #endif

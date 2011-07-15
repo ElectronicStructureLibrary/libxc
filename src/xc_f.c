@@ -326,13 +326,4 @@ void XC_FC_FUNC(f90_mgga_x_tb09_set_par, F90_MGGA_X_TB09_SET_PAR)
 }
 
 
-/* LCAs */
-
-void XC_FC_FUNC(f90_lca, F90_LCA)
-     (void **p, FLOAT *rho, FLOAT *v, 
-      FLOAT *e, FLOAT *dedd, FLOAT *dedv)
-{
-  XC(lca)((XC(lca_type) *)(*p), rho, v, e, dedd, dedv);
-}
-
 #endif

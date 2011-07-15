@@ -139,12 +139,5 @@ void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT 
 void XC(mgga_x_tb09_set_params_)(XC(mgga_type) *p, FLOAT c);
 
 
-/* LCAs */
-void XC(lca_lch_init)(XC(lca_type) *p);
-void XC(lca_omc_init)(XC(lca_type) *p);
-
-void XC(lca_s_lch)(FLOAT rs, FLOAT *s, FLOAT *dsdrs);
-void XC(lca_s_omc)(FLOAT rs, FLOAT *s, FLOAT *dsdrs);
-
 
 #endif

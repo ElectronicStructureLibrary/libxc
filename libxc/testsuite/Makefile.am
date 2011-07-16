@@ -35,6 +35,6 @@ xc_regression_SOURCES = xc-regression.c
 xc_regression_LDADD = -L../src/ -lxc -lm
 xc_regression_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
 
-dist_noinst_DATA = df_repo/*.data regression/*.data.bz2
+dist_noinst_DATA = $(srcdir)/df_repo/*.data $(srcdir)/regression/*.data.bz2
 
 CLEANFILES = *~ *.bak

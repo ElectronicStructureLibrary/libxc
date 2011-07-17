@@ -125,6 +125,7 @@ void gga_init_mix(XC(gga_type) *p, int n_funcs, const int *funcs_id, const FLOAT
 void XC(gga_x_b88_set_params_) (XC(gga_type) *p, FLOAT beta, FLOAT gamma);
 void XC(gga_x_pbe_set_params_) (XC(gga_type) *p, FLOAT kappa, FLOAT mu);
 void XC(gga_x_rpbe_set_params_)(XC(gga_type) *p, FLOAT kappa, FLOAT mu);
+void XC(gga_x_optx_set_params_)(XC(gga_type) *p, FLOAT a, FLOAT b, FLOAT gamma);
 void XC(gga_c_lyp_set_params_) (XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
 void XC(gga_lb_set_params_)    (XC(gga_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
 void XC(gga_k_tflw_set_params_)(XC(gga_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N);

@@ -23,6 +23,8 @@
 
 #define XC_GGA_XC_EDF1        165 /* Empirical functionals from Adamson, Gill, and Pople */
 #define XC_GGA_X_OPTPBE_VDW   141 /* PBE reparametrization for vdW */
+#define XC_GGA_XC_MOHLYP      194 /* Functional for organometallic chemistry */
+#define XC_GGA_XC_MOHLYP2     195 /* Functional for barrier heights */
 
 static void
 gga_xc_edf1_init(void *p_)
@@ -73,3 +75,51 @@ const XC(func_info_type) XC(func_info_gga_x_optpbe_vdw) = {
   gga_x_optpbe_vdw_init, 
   NULL, NULL, NULL
 };
+
+
+static void
+gga_xc_mohlyp_init(void *p_)
+{
+  static int   funcs_id  [3] = {XC_GGA_X_OPTX, XC_LDA_C_VWN, XC_GGA_C_LYP};
+  static FLOAT funcs_coef[3] = {1.0, 0.5, 0.5};
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+
+  gga_init_mix(p, 3, funcs_id, funcs_coef);
+
+  XC(gga_x_optx_set_params)(p->func_aux[0], 1.0, 1.292/X_FACTOR_C, 0.006);
+}
+
+const XC(func_info_type) XC(func_info_gga_xc_mohlyp) = {
+  XC_GGA_XC_MOHLYP,
+  XC_EXCHANGE_CORRELATION,
+  "Functional for organometallic chemistry",
+  XC_FAMILY_GGA,
+  "NE Schultz, Y Zhao, DGJ Truhlar, Phys. Chem. A, 109, 11127 (2005)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_xc_mohlyp_init,
+  NULL, NULL, NULL
+};
+
+static void
+gga_xc_mohlyp2_init(void *p_)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_OPTX, XC_GGA_C_LYP};
+  static FLOAT funcs_coef[2] = {1.0, 0.5};
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+
+  gga_init_mix(p, 2, funcs_id, funcs_coef);
+
+  XC(gga_x_optx_set_params)(p->func_aux[0], 1.05151, 1.8497564/X_FACTOR_C, 0.006);
+}
+
+const XC(func_info_type) XC(func_info_gga_xc_mohlyp2) = {
+  XC_GGA_XC_MOHLYP2,
+  XC_EXCHANGE_CORRELATION,
+  "Functional for barrier heights",
+  XC_FAMILY_GGA,
+  "J Zheng, Y Zhao, DGJ Truhlar, Chem. Theory. Comput. 5, 808 (2009)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_xc_mohlyp2_init,
+  NULL, NULL, NULL
+};
+

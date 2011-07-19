@@ -37,7 +37,8 @@ gga_x_rpbe_init(void *p_)
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_x_rpbe_params));
 
-  XC(gga_x_rpbe_set_params_)(p, 0.8040, 0.00361218645365094697);
+  /* same parameters as standard PBE */
+  XC(gga_x_rpbe_set_params_)(p, 0.8040, 0.2195149727645171);
 }
 
 
@@ -71,7 +72,7 @@ void XC(gga_x_rpbe_enhance)
 
   assert(p->params != NULL);
   kappa = ((gga_x_rpbe_params *) (p->params))->kappa;
-  mu    = ((gga_x_rpbe_params *) (p->params))->mu;
+  mu    = ((gga_x_rpbe_params *) (p->params))->mu*X2S*X2S;
 
   f0 = exp(-mu*x*x/kappa);
   *f = 1.0 + kappa*(1.0 - f0);

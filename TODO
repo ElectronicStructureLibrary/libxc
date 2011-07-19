@@ -1,5 +1,9 @@
 Add functionals:
 
+LDA:
+  *) Short range c http://www.molpro.net/info/current/doc/manual/node752.html
+  *) Short range x http://www.molpro.net/info/current/doc/manual/node753.html
+
 GGAs:
   *) Filatov & Thiel
        correlation
@@ -7,6 +11,9 @@ GGAs:
   *) From Airy gas arXiv:0906.5032
 
 mGGAs:
+  *) Colle and Salvetti http://www.molpro.net/info/current/doc/manual/node750.html
+  *) MK00 http://www.molpro.net/info/current/doc/manual/node760.html
+  *) MK00B http://www.molpro.net/info/current/doc/manual/node761.html
   *) Cancio & Chou Phys. Rev. B 74, 081202(R) (2006)
   *) tau-HTCH
   *) becke 95 (60)

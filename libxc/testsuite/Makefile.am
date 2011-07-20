@@ -22,6 +22,7 @@
 noinst_PROGRAMS = xc-get_data xc-consistency xc-regression
 dist_noinst_SCRIPTS = xc-run_testsuite xc-reference.pl
 TESTS = xc-run_testsuite
+TESTS_ENVIRONMENT = buildir=$(top_builddir)/testsuite
 
 xc_get_data_SOURCES = xc-get_data.c
 xc_get_data_LDADD = -L../src/ -lxc -lm

@@ -28,8 +28,10 @@ void XC(gga_x_sogga11_enhance)
   (const XC(gga_type) *p, int order, FLOAT x, 
    FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
-  static const FLOAT kappa = 0.552, mu = 10.0/81.0, alpha = mu*X2S*X2S/kappa;
-  static const FLOAT 
+  const FLOAT kappa = 0.552;
+  const FLOAT mu = 10.0/81.0;
+  const FLOAT alpha = mu*X2S*X2S/kappa;
+  const FLOAT 
     aa[] = {0.50000, -2.95535,  15.7974, -91.1804,  96.2030,  0.18683},
     bb[] = {0.50000,  3.50743, -12.9523,  49.7870, -33.2545, -11.1396};
     

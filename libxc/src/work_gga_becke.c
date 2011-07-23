@@ -90,7 +90,7 @@ work_gga_becke(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
       FLOAT g_x, dg_x, d2g_x, g_ss, dg_ss, d2g_ss;
       int js = (is == 0) ? 0 : 2;
 
-      if(rho[is] < MIN_DENS) continue;
+      if(rho[is] < MIN_DENS) goto end_ip_loop;
       
       sigmas[is] = max(MIN_GRAD*MIN_GRAD, sigma[js]/sfact2);
       gdm    = SQRT(sigmas[is]);
@@ -122,6 +122,8 @@ work_gga_becke(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
       e_ss       = sfact*ds[is]*e_LDA;
       e_LDA_opp -= e_ss;
 
+    end_ip_loop:
+      /* increment pointers */
       if(zk != NULL)
 	*zk += e_x*g_x + e_ss*g_ss;
  

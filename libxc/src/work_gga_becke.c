@@ -122,8 +122,6 @@ work_gga_becke(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
       e_ss       = sfact*ds[is]*e_LDA;
       e_LDA_opp -= e_ss;
 
-    end_ip_loop:
-      /* increment pointers */
       if(zk != NULL)
 	*zk += e_x*g_x + e_ss*g_ss;
  
@@ -234,6 +232,7 @@ work_gga_becke(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
     if(zk != NULL)
       *zk /= dens; /* we want energy per particle */
 
+    end_ip_loop:
     /* increment pointers */
     rho   += p->n_rho;
     sigma += p->n_sigma;

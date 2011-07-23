@@ -76,7 +76,8 @@ const XC(func_info_type) XC(func_info_gga_x_sogga11) = {
   XC_EXCHANGE,
   "Second-order generalized gradient approximation 2011",
   XC_FAMILY_GGA,
-  "R Peverati, Y Zhao, and DG Truhlar, J. Phys. Chem. Lett. DOI: 10.1021/jz200616w",
+  "R Peverati, Y Zhao, and DG Truhlar, J. Phys. Chem. Lett. DOI: 10.1021/jz200616w\n"
+  "http://comp.chem.umn.edu/mfm/index.html",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   NULL, NULL, NULL,
   work_gga_x

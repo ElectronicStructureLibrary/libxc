@@ -142,7 +142,8 @@ const XC(func_info_type) XC(func_info_gga_x_sogga) = {
   XC_EXCHANGE,
   "Second-order generalized gradient approximation",
   XC_FAMILY_GGA,
-  "Y Zhao and DG Truhlar, J. Chem. Phys. 128, 184109 (2008)",
+  "Y Zhao and DG Truhlar, J. Chem. Phys. 128, 184109 (2008)\n"
+  "http://comp.chem.umn.edu/mfm/index.html",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_x_sogga_init,
   NULL, NULL, NULL

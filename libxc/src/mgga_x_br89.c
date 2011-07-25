@@ -35,7 +35,8 @@ typedef struct{
 static FLOAT br89_gamma = 0.8;
 
 
-static void mgga_x_tb09_init(void *p_)
+static void 
+mgga_x_tb09_init(void *p_)
 {
   XC(mgga_type) *p = (XC(mgga_type) *)p_;
 
@@ -55,7 +56,8 @@ static void mgga_x_tb09_init(void *p_)
 }
 
 
-static void mgga_x_tb09_end(void *p_)
+static void 
+mgga_x_tb09_end(void *p_)
 {
   XC(mgga_type) *p = (XC(mgga_type) *)p_;
 
@@ -83,7 +85,7 @@ void XC(mgga_x_tb09_set_params_)(XC(mgga_type) *p, FLOAT c)
 }
 
 /* This code follows the inversion done in the PINY_MD package */
-FLOAT inline 
+static FLOAT
 br_newt_raph(FLOAT a, FLOAT tol,  FLOAT * res, int *ierr)
 {
   int count;
@@ -119,7 +121,8 @@ br_newt_raph(FLOAT a, FLOAT tol,  FLOAT * res, int *ierr)
    return x;
 }
 
-FLOAT inline br_bisect(FLOAT a, FLOAT tol, int *ierr) { 
+static FLOAT
+br_bisect(FLOAT a, FLOAT tol, int *ierr) { 
   int count; 
   FLOAT f, x, x1, x2; 
   static int max_iter = 500; 

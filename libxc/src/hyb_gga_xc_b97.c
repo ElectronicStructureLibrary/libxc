@@ -73,7 +73,7 @@ hyb_gga_xc_b97_init(void *p_)
     break;
   }
 
-  gga_init_mix(p, 1, &(par[func].iGGA), &one);
+  XC(gga_init_mix)(p, 1, &(par[func].iGGA), &one);
   p->exx_coef = par[func].a0;
 }
 

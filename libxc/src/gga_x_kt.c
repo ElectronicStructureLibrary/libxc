@@ -60,7 +60,7 @@ gga_xc_kt2_init(void *p_)
   static FLOAT funcs_coef[3] = {1.07173 - 1.0, 1.0, 0.576727};
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
-  gga_init_mix(p, 2, funcs_id, funcs_coef);  
+  XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);  
 }
 
 

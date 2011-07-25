@@ -213,7 +213,7 @@ XC(gga_fxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
 
 /* initializes the mixing for GGAs */
 void 
-gga_init_mix(XC(gga_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix_coef)
+XC(gga_init_mix)(XC(gga_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix_coef)
 {
   int ii;
 

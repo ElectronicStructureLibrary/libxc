@@ -39,7 +39,7 @@ gga_xc_o3lyp_init(void *p_)
   funcs_coef[2] = 1.0 - ac;
   funcs_coef[3] = ac;
 
-  gga_init_mix(p, 4, funcs_id, funcs_coef);
+  XC(gga_init_mix)(p, 4, funcs_id, funcs_coef);
   XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
   p->exx_coef = a0;
 }
@@ -73,7 +73,7 @@ gga_xc_x3lyp_init(void *p_)
   funcs_coef[3] = 1.0 - ac;
   funcs_coef[4] = ac;
 
-  gga_init_mix(p, 5, funcs_id, funcs_coef);
+  XC(gga_init_mix)(p, 5, funcs_id, funcs_coef);
   XC(lda_c_vwn_set_params)(p->func_aux[3], 1);
   p->exx_coef = a0;
 }

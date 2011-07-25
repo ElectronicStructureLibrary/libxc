@@ -28,7 +28,7 @@
 
 
 /* Standard Newton's method */
-FLOAT inline 
+static FLOAT
 prhg_newt(FLOAT c, FLOAT tol, FLOAT * res, int *ierr)
 {
   int count;

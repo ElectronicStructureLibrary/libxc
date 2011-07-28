@@ -66,7 +66,7 @@ extern "C" {
 
 typedef struct{
   int   number;   /* indentifier number */
-  int   kind;     /* XC_EXCHANGE or XC_CORRELATION */
+  int   kind;     /* XC_EXCHANGE, XC_CORRELATION, or XC_EXCHANGE_CORRELATION */
 
   char *name;     /* name of the functional, e.g. "PBE" */
   int   family;   /* type of the functional, e.g. XC_FAMILY_GGA */

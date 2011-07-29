@@ -96,7 +96,7 @@ void test_gga()
   XC(func_type) gga, gga2, gga3, gga4;
   int i;
 
-  XC(func_init)(&gga,  XC_GGA_C_PW912,  XC_POLARIZED);
+  XC(func_init)(&gga,  XC_GGA_C_LM2,  XC_POLARIZED);
   //XC(func_init)(&gga2, XC_GGA_C_PW912, XC_POLARIZED);
 
   /*
@@ -119,11 +119,11 @@ void test_gga()
     double v2rho2[3],  v2sigma2[6],  v2rhosigma[6];
     double v2rho2p[3], v2sigma2p[6], v2rhosigmap[6];
 
-    rho[0]   = .05 + i/10000.0;
+    rho[0]   = .1 + i/10000.0;
     rho[1]   = 0.2;
     sigma[0] = 0.3;
     sigma[1] = 0.4;
-    sigma[2] = 0.5;
+    sigma[2] = 0.00005;
 
     XC(gga)(&gga,  1, rho, sigma, &zk,  vrho,  vsigma,  v2rho2,  v2rhosigma,  v2sigma2);
     //XC(gga)(&gga2, 1, rho, sigma, &zkp, vrhop, vsigmap, NULL, v2rhosigmap, v2sigma2p);

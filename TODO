@@ -1,6 +1,10 @@
 Add functionals:
 
 LDA:
+  *) McWeeny c (cited in JCP 69, 1177)
+     R. McWeeny, in The New World of Quantum Chemistry, edited by B. Pullman and R. Parr (Reidel, Boston, 1976), p. 3.
+  *) Handler x (JCP 61, 4824) 
+  *) Rae self-energy correction to x (CPL 18, 574 (1973))
   *) Short range c http://www.molpro.net/info/current/doc/manual/node752.html
   *) Short range x http://www.molpro.net/info/current/doc/manual/node753.html
 

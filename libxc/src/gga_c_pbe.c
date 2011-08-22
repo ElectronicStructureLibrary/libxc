@@ -318,7 +318,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_jrgx) = {
 
 const XC(func_info_type) XC(func_info_gga_c_rge2) = {
   XC_GGA_C_RGE2,
-  XC_EXCHANGE,
+  XC_CORRELATION,
   "Regularized PBE",
   XC_FAMILY_GGA,
   "A Ruzsinszky, GI Csonka, and G Scuseria, J. Chem. Theory Comput. 5, 763 (2009)",
@@ -330,7 +330,7 @@ const XC(func_info_type) XC(func_info_gga_c_rge2) = {
 
 const XC(func_info_type) XC(func_info_gga_c_apbe) = {
   XC_GGA_C_APBE,
-  XC_EXCHANGE,
+  XC_CORRELATION,
   "mu fixed from the semiclassical neutral atom",
   XC_FAMILY_GGA,
   "LA Constantin, E Fabiano, S Laricchia, and F Della Sala, Phys. Rev. Lett. 106, 186406 (2011)",

@@ -54,7 +54,8 @@ const XC(func_info_type) XC(func_info_gga_k_pearson) = {
   "Pearson 1992",
   XC_FAMILY_GGA,
   "DJ Lacks and RG Gordon, J. Chem. Phys. 100, 4446 (1994)\n"
-  "E Pearson, Ph.D. thesis, Harvard University (1992)",
+  "E W Pearson and R G Gordon, J. Chem. Phys. 82, 881 (1985)\n"
+  "E W Pearson, Ph.D. thesis, Harvard University (1983)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   NULL, NULL, NULL,
   work_gga_k

@@ -41,7 +41,7 @@ work_gga_x
  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
-  const XC(gga_type) *p = p_;
+  const XC(gga_type) *p = (const XC(gga_type) *) p_;
 
   FLOAT sfact, x_factor_c, alpha, beta, dens;
   int is, ip, order;

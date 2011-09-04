@@ -99,7 +99,7 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   FLOAT sqpi, t1, t2, t3, dt1dbeta, dt1dphi, dt3dphi, dbetadrs, dphidrs;
 
   assert(p->params != NULL);
-  params = p->params;
+  params = (lda_c_prm_params *) (p->params);
 
   assert(params->N > 1.0);
   

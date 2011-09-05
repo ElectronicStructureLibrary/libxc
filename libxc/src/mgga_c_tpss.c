@@ -251,7 +251,7 @@ my_mgga_c_tpss(const void *p_,
 	       FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
 	       FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
 {
-  const XC(mgga_type) *p = p_;
+  const XC(mgga_type) *p = (const XC(mgga_type) *) p_;
 
   int is, sigs, order;
   FLOAT dens, zeta, sigmat;
@@ -327,7 +327,7 @@ mgga_c_tpss(const void *p_, int np,
 	    FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
 {
   int ip;
-  const XC(mgga_type) *p = p_;
+  const XC(mgga_type) *p = (const XC(mgga_type) *) p_;
 
   for(ip=0; ip<np; ip++){
     my_mgga_c_tpss(p_, rho, sigma, lapl, tau,

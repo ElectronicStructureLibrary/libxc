@@ -210,7 +210,7 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   FLOAT d2dens, d2XXdxs2[2], d2XXdzxs[2], d2YYdxt2;
 
   assert(p->params != NULL);
-  params = p->params;
+  params = (gga_xc_th_params *) p->params;
 
   dens  = 3.0/(4.0*M_PI*rs*rs*rs);
   opz   = 1.0 + zeta;

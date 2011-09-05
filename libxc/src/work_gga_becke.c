@@ -41,7 +41,7 @@ work_gga_becke(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 	       FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
-  const XC(gga_type) *p = p_;
+  const XC(gga_type) *p = (const XC(gga_type) *) p_;
 
   FLOAT sfact, sfact2, dens;
   FLOAT ds[2], sigmas[2], x[2], x_avg;

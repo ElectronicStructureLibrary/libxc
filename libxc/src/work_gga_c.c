@@ -27,7 +27,7 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	   FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 	   FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
-  const XC(gga_type) *p = p_;
+  const XC(gga_type) *p = (const XC(gga_type) *) p_;
 
   FLOAT min_grad2 = MIN_GRAD*MIN_GRAD;
   int ip, order;

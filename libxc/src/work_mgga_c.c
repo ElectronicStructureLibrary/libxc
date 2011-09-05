@@ -43,7 +43,7 @@ work_mgga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma, const 
 	    FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
 	    FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
 {
-  const XC(mgga_type) *p = p_;
+  const XC(mgga_type) *p = (const XC(mgga_type) *) p_;
 
   FLOAT sfact, sfact2, dens;
   FLOAT ds[2], sigmas[2], x[2], t[2], u[2], f_LDA[2], vrho_LDA[2];

@@ -52,7 +52,7 @@ EOF
     AC_MSG_WARN(failed to compile f90 program to find the size of a Fortran integer)
     ac_fcintegersize=4
   fi
-  rm -f intsizetest*
+  rm -rf intsizetest*
 else
   ac_fcintegersize=$FC_INTEGER_SIZE
 fi
@@ -90,11 +90,11 @@ EOF
   else
     echo "configure: failed program was:" >&AC_FD_CC
     cat ccfortranint.c >&AC_FD_CC
-    rm -f ccfortranint*
+    rm -rf ccfortranint*
     AC_MSG_ERROR(failed to compile C program to find the C type of a Fortran integer)
   fi
   ac_ccfortranint=`./ccfortranint.x`;
-  rm -f ccfortranint*
+  rm -rf ccfortranint*
 else
  ac_ccfortranint=$CC_FORTRAN_INT
 fi

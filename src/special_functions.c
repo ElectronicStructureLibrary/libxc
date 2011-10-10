@@ -59,7 +59,7 @@ double lambert_w(double z)
       t = 0.0;
 
     result = result - t;
-    if(fabs(t) < (2.48e-14)*(1.0 + abs(result)))
+    if(fabs(t) < (2.48e-14)*(1.0 + fabs(result)))
       return result;
   }
 

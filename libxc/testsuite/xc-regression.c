@@ -28,7 +28,7 @@ static double trial_rho[]   = {0.12E-02,  0.88E-01,  0.17E+01,  0.82E+02,  0.18E
 static double trial_sigma[] = {     0.0,  0.81E-11,  0.87E-01,  0.17E+01,  0.86E+04,  0.29E+10};
 static double trial_lapl[]  = {     0.0, -0.18E+04, -0.17E+01, -0.12E-02,  0.12E-02,  0.17E+01,  0.18E+04};
 static double trial_tau[]   = {     0.0,  0.12E-02,  0.88E-01,  0.17E+01,  0.82E+02,  0.18E+04,  0.53E+05};
-//static int n_rho=6, n_sigma=6, n_lrho=7, n_tau=7;
+/* static int n_rho=6, n_sigma=6, n_lrho=7, n_tau=7; */
 static int n_rho=2, n_sigma=2, n_lapl=2, n_tau=2;
 
 typedef struct values_t {

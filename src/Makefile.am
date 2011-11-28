@@ -128,13 +128,13 @@ xc_funcs.h libxc_funcs.f90: get_funcs.pl
 $(LIBFUNCMOD):
 	$(MAKE) libxc_funcs.o
 
-libxc.f90 $(XCLIBMODS): libxc_master.F90
+libxc.f90 $(XCLIBMODS): libxc_master.F90 libxc_funcs.o
 	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc.f90
 	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
 		grep -v "^#" $(top_builddir)/src/libxc.f90 > $(top_builddir)/src/libxc.f91; \
 		mv -f $(top_builddir)/src/libxc.f91 $(top_builddir)/src/libxc.f90; \
 	fi
-libxc_s.f90 $(XCLIBMODS_S): libxc_master.F90
+libxc_s.f90 $(XCLIBMODS_S): libxc_master.F90 libxc_funcs.o
 	@FCCPP@ -D SINGLE_PRECISION=1 @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc_s.f90
 	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
 		grep -v "^#" $(top_builddir)/src/libxc_s.f90 > $(top_builddir)/src/libxc_s.f91; \

@@ -98,9 +98,12 @@ sub read_file() {
   my $TYPE = $type;
   $TYPE =~ s/(.*)/\U$1/;
 
+  # we remove the hyb from the filenames
+  $type =~ s/^hyb_//;
+
   opendir(DIR, "$dir/") || die "cannot opendir '$dir': $!";
   while($_ = readdir(DIR)){
-    next if(!/^${type}_.*\.c$/);
+    next if(!/^${type}_.*\.c$/ && !/^hyb_${type}_.*\.c$/ );
 
     open(IN, "<$dir/$_");
     while($_=<IN>){

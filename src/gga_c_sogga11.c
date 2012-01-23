@@ -23,6 +23,7 @@
 #include "util.h"
 
 #define XC_GGA_C_SOGGA11       152 /* Second-order generalized gradient approximation 2011 */
+#define XC_GGA_C_SOGGA11_X     159 /* To be used with hyb_gga_x_SOGGA11-X  */
 
 static void 
 gga_c_sogga11_init(void *p_)
@@ -34,6 +35,14 @@ gga_c_sogga11_init(void *p_)
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
 
   XC(func_init)(p->func_aux[0], XC_LDA_C_PW_MOD, p->nspin);
+
+  switch(p->info->number){
+  case XC_GGA_C_SOGGA11:   p->func = 0; break;
+  case XC_GGA_C_SOGGA11_X: p->func = 1; break;
+  default:
+    fprintf(stderr, "Internal error in gga_c_sogga11\n");
+    exit(1);
+  } 
 }
 
 
@@ -44,9 +53,14 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
      FLOAT *d2fdzxt, FLOAT *d2fdzxs, FLOAT *d2fdxt2, FLOAT *d2fdxtxs, FLOAT *d2fdxs2)
 {
   static FLOAT beta = 15.75592*0.004235; /* the usual value of 0.066726 */
-  const FLOAT 
-    aa[] = {0.50000, -4.62334, 8.00410, -130.226,  38.2685,  69.5599},
-    bb[] = {0.50000,  3.62334, 9.36393,  34.5114, -18.5684, -0.16519};
+  const FLOAT aa[][6] = {
+    {0.50000, -4.62334,  8.00410, -130.226,  38.2685,   69.5599},
+    {0.50000, 78.2439,  25.7211,   -13.8830, -9.87375, -14.1357}
+  };
+  const FLOAT bb[][6] = {
+    {0.50000,   3.62334, 9.36393, 34.5114, -18.5684,   -0.16519},
+    {0.50000, -79.2439, 16.3725,   2.08129,  7.50769, -10.1861}
+  };
 
   FLOAT phi, dphidz, d2phidz2;
   FLOAT y, dydrs, dydxt, dydz, d2ydrs2, d2ydrsxt, d2ydrsz, d2ydxt2, d2ydxtz, d2ydz2;
@@ -79,8 +93,8 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   den1 = -exp(-y);
   f1   = 1.0 + den1;
 
-  t0  = aa[0] + f0*(aa[1] + f0*(aa[2] + f0*(aa[3] + f0*(aa[4] + f0*aa[5]))));
-  t1  = bb[0] + f1*(bb[1] + f1*(bb[2] + f1*(bb[3] + f1*(bb[4] + f1*bb[5]))));
+  t0  = aa[p->func][0] + f0*(aa[p->func][1] + f0*(aa[p->func][2] + f0*(aa[p->func][3] + f0*(aa[p->func][4] + f0*aa[p->func][5]))));
+  t1  = bb[p->func][0] + f1*(bb[p->func][1] + f1*(bb[p->func][2] + f1*(bb[p->func][3] + f1*(bb[p->func][4] + f1*bb[p->func][5]))));
   *f = pw.zk*(t0 + t1);
 
   if(order < 1) return;
@@ -104,8 +118,8 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   df0 =  den0*den0;
   df1 = -den1;
 
-  dt0 = aa[1] + f0*(2.0*aa[2] + f0*(3.0*aa[3] + f0*(4.0*aa[4] + f0*5.0*aa[5])));
-  dt1 = bb[1] + f1*(2.0*bb[2] + f1*(3.0*bb[3] + f1*(4.0*bb[4] + f1*5.0*bb[5])));
+  dt0 = aa[p->func][1] + f0*(2.0*aa[p->func][2] + f0*(3.0*aa[p->func][3] + f0*(4.0*aa[p->func][4] + f0*5.0*aa[p->func][5])));
+  dt1 = bb[p->func][1] + f1*(2.0*bb[p->func][2] + f1*(3.0*bb[p->func][3] + f1*(4.0*bb[p->func][4] + f1*5.0*bb[p->func][5])));
 
   dfdy = dt0*df0 + dt1*df1;
 
@@ -142,8 +156,8 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   d2f0 = 2.0*den0*df0;
   d2f1 = -df1;
 
-  d2t0 = 2.0*aa[2] + f0*(6.0*aa[3] + f0*(12.0*aa[4] + f0*20.0*aa[5]));
-  d2t1 = 2.0*bb[2] + f1*(6.0*bb[3] + f1*(12.0*bb[4] + f1*20.0*bb[5]));
+  d2t0 = 2.0*aa[p->func][2] + f0*(6.0*aa[p->func][3] + f0*(12.0*aa[p->func][4] + f0*20.0*aa[p->func][5]));
+  d2t1 = 2.0*bb[p->func][2] + f1*(6.0*bb[p->func][3] + f1*(12.0*bb[p->func][4] + f1*20.0*bb[p->func][5]));
 
   d2fdy2 = d2t0*df0*df0 + dt0*d2f0 + d2t1*df1*df1 + dt1*d2f1;
 
@@ -172,7 +186,7 @@ const XC(func_info_type) XC(func_info_gga_c_sogga11) = {
   XC_CORRELATION,
   "Second-order generalized gradient approximation 2011",
   XC_FAMILY_GGA,
-  "R Peverati, Y Zhao, and DG Truhlar, J. Phys. Chem. Lett. DOI: 10.1021/jz200616w\n"
+  "R Peverati, Y Zhao, and DG Truhlar, J. Phys. Chem. Lett. 2, 1911-1997 (2011)\n"
   "http://comp.chem.umn.edu/mfm/index.html",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   gga_c_sogga11_init,
@@ -180,3 +194,15 @@ const XC(func_info_type) XC(func_info_gga_c_sogga11) = {
   work_gga_c,
 };
 
+const XC(func_info_type) XC(func_info_gga_c_sogga11_x) = {
+  XC_GGA_C_SOGGA11_X,
+  XC_CORRELATION,
+  "To be used with hyb_gga_x_SOGGA11-X",
+  XC_FAMILY_GGA,
+  "R Peverati and DG Truhlar, J. Chem. Phys. 135, 191102 (2011)\n"
+  "http://comp.chem.umn.edu/mfm/index.html",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  gga_c_sogga11_init, 
+  NULL, NULL,
+  work_gga_c
+};

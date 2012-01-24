@@ -79,9 +79,7 @@ x_m06l_fw(int order, FLOAT t, FLOAT *fw, FLOAT *dfwdt)
 
 
 static void 
-func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
-     FLOAT *f, FLOAT *vrho0, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
-     FLOAT *d2fdx2, FLOAT *d2fdt2, FLOAT *d2fdu2, FLOAT *d2fdxt, FLOAT *d2fdxu, FLOAT *d2fdtu)
+func(const XC(mgga_type) *pt, XC(work_mgga_x_params) *r)
 {
   const FLOAT d[6] = {0.6012244, 0.004748822, -0.008635108, -0.000009308062, 0.00004482811, 0.0};
   const FLOAT alpha = 0.00186726;   /* set alpha of Eq. (4) */
@@ -89,20 +87,20 @@ func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
   FLOAT f_pbe, dfdx_pbe;
   FLOAT h, dhdx, dhdz, fw, dfwdt;
 
-  XC(gga_x_pbe_enhance)(pt->func_aux[0]->gga, x, order, &f_pbe, &dfdx_pbe, NULL);
+  XC(gga_x_pbe_enhance)(pt->func_aux[0]->gga, r->x, r->order, &f_pbe, &dfdx_pbe, NULL);
 
-  x_m06l_fw(order, t, &fw, &dfwdt);
+  x_m06l_fw(r->order, r->t, &fw, &dfwdt);
 
   /* there is a factor if 2 in the definition of z, as in Theor. Chem. Account 120, 215 (2008) */
-  XC(mgga_x_gvt4_func)(order, x, 2.0*t - CFermi, alpha, d, &h, &dhdx, &dhdz);
+  XC(mgga_x_gvt4_func)(r->order, r->x, 2.0*r->t - CFermi, alpha, d, &h, &dhdx, &dhdz);
 
   /* A MINUS was missing in Eq. (7) of the paper */
-  *f = f_pbe*fw + h;
+  r->f = f_pbe*fw + h;
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
-  *dfdx = dfdx_pbe*fw + dhdx;
-  *dfdt = f_pbe*dfwdt + 2.0*dhdz;
+  r->dfdx = dfdx_pbe*fw + dhdx;
+  r->dfdt = f_pbe*dfwdt + 2.0*dhdz;
 }
 
 

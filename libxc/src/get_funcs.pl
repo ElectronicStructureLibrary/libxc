@@ -21,7 +21,7 @@ $top_builddir = shift;
 
 $builddir = "$top_builddir/src";
 
-my @funcs = ("lda", "gga", "hyb_gga", "mgga");
+my @funcs = ("lda", "gga", "hyb_gga", "mgga", "hyb_mgga");
 
 $s0 = ""; $s3 = ""; $s4 = ""; $s5 = "";
 foreach $func (@funcs){

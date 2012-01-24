@@ -196,8 +196,9 @@ typedef struct XC(struct_mgga_type){
   XC(func_type) **func_aux;             /* most GGAs are based on a LDA or other GGAs  */
   FLOAT *mix_coef;                      /* coefficients for the mixing */
 
-  int func;                             /* Shortcut in case of several functionals sharing the same interface */
+  FLOAT exx_coef;                       /* the Hartree-Fock mixing parameter for the hybrids */
 
+  int func;                             /* Shortcut in case of several functionals sharing the same interface */
   int n_rho, n_sigma, n_tau, n_lapl,    /* spin dimensions of the arrays */
     n_zk, n_vrho, n_vsigma, n_vtau, n_vlapl,
     n_v2rho2, n_v2sigma2, n_v2tau2, n_v2lapl2,
@@ -232,6 +233,8 @@ void XC(mgga_fxc)    (const XC(func_type) *p, int np,
 
 void XC(mgga_set_handle_tau)(XC(func_type) *p, int handle_tau);
 void XC(mgga_x_tb09_set_params)(XC(func_type) *p, FLOAT c);
+
+FLOAT XC(hyb_mgga_exx_coef)(const XC(mgga_type) *p);
 
 /* Functionals that are defined as mixtures of others */
 void XC(mix_func)(const XC(func_type) *dest_func, int n_func_aux, XC(func_type) **func_aux, FLOAT *mix_coef,

@@ -109,7 +109,7 @@ work_mgga_x(const void *p_, int np,
 	*zk += -sfact*x_factor_c*(lrho*rho1D)*r.f;
 
       if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
-	vrho[is]  = -x_factor_c*rho1D*(r.vrho0 - r.rs*r.dfdrs + 4.0/3.0*(r.f - r.dfdx*r.x) - 5.0/3.0*(r.dfdt*r.t + r.dfdu*r.u));
+	vrho[is]  = -x_factor_c*rho1D*(-r.rs*r.dfdrs + 4.0/3.0*(r.f - r.dfdx*r.x) - 5.0/3.0*(r.dfdt*r.t + r.dfdu*r.u));
 
 	vtau[is]  = -x_factor_c*r.dfdt/rho1D;
 
@@ -119,6 +119,7 @@ work_mgga_x(const void *p_, int np,
 	  vsigma[js] = -x_factor_c*(rho1D*lrho)*r.dfdx*r.x/(2.0*sfact*lsigma);
       }
 
+      /* WARNING: terms with rs not implemented yet */
       if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){
 	v2rho2[js]    = -x_factor_c/(9.0*sfact*rho1D*rho1D)*
 	  (4.0*r.f - 4.0*r.x*r.dfdx + 4.0*4.0*r.x*r.x*r.d2fdx2 + 5.0*5.0*r.t*r.t*r.d2fdt2 + 5.0*5.0*r.u*r.u*r.d2fdu2 +

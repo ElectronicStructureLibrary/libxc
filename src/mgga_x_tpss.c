@@ -181,54 +181,49 @@ void x_tpss_10(int order, FLOAT p, FLOAT z,
 
 
 static void 
-func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
-     FLOAT *f, FLOAT *vrho0, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
-     FLOAT *d2fdx2, FLOAT *d2fdt2, FLOAT *d2fdu2, FLOAT *d2fdxt, FLOAT *d2fdxu, FLOAT *d2fdtu)
+func(const XC(mgga_type) *pt, XC(work_mgga_x_params) *r)
 {
   FLOAT ss, pp, xx, a1, a1_2, zz;
   FLOAT dxxdp, dxxdz, d2xxdp2, d2xxdpz, d2xxdz2;
   FLOAT dpdx, dzdx, dzdt, d2pdx2, d2zdx2, d2zdxt, d2zdt2;
   
-  ss = X2S*x;
+  ss = X2S*r->x;
   pp = ss*ss;
 
-  zz = x*x/(8.0*t);
+  zz = r->x*r->x/(8.0*r->t);
 
   /* Eq. 10 */
-  x_tpss_10(order, pp, zz, &xx, &dxxdp, &dxxdz, &d2xxdp2, &d2xxdpz, &d2xxdz2);
+  x_tpss_10(r->order, pp, zz, &xx, &dxxdp, &dxxdz, &d2xxdp2, &d2xxdpz, &d2xxdz2);
 
   /* Eq. (5) */
   a1 = kappa/(kappa + xx);
   a1_2 = a1*a1;
   
-  *f = 1.0 + kappa*(1.0 - a1);
+  r->f = 1.0 + kappa*(1.0 - a1);
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
   dpdx = 2.0*ss*X2S;
-  dzdx = x/(4.0*t);
-  dzdt = -zz/t;
+  dzdx = r->x/(4.0*r->t);
+  dzdt = -zz/r->t;
 
-  *dfdx = a1_2*(dxxdp*dpdx + dxxdz*dzdx);
-  *dfdt = a1_2*dxxdz*dzdt;
-  *dfdu = 0.0;
+  r->dfdx = a1_2*(dxxdp*dpdx + dxxdz*dzdx);
+  r->dfdt = a1_2*dxxdz*dzdt;
+  r->dfdu = 0.0;
 
-  if(order < 2) return;
+  if(r->order < 2) return;
 
   d2pdx2 = 2.0*X2S*X2S;
-  d2zdx2 = 1.0/(4.0*t);
-  d2zdxt = -dzdx/t;
-  d2zdt2 = -2.0*dzdt/t;
+  d2zdx2 = 1.0/(4.0*r->t);
+  d2zdxt = -dzdx/r->t;
+  d2zdt2 = -2.0*dzdt/r->t;
 
-  *d2fdx2 = -2.0*(*dfdx)*(*dfdx)/(kappa*a1) +
+  r->d2fdx2 = -2.0*(r->dfdx)*(r->dfdx)/(kappa*a1) +
     a1_2*(d2xxdp2*dpdx*dpdx + 2.0*d2xxdpz*dpdx*dzdx + dxxdp*d2pdx2 + d2xxdz2*dzdx*dzdx + dxxdz*d2zdx2);
-  *d2fdt2 = -2.0*(*dfdt)*(*dfdt)/(kappa*a1) +
+  r->d2fdt2 = -2.0*(r->dfdt)*(r->dfdt)/(kappa*a1) +
     a1_2*(d2xxdz2*dzdt*dzdt + dxxdz*d2zdt2);
-  *d2fdu2 = 0.0;
-  *d2fdxt = -2.0*a1*(*dfdx)*dxxdz*dzdt/kappa +
+  r->d2fdxt = -2.0*a1*(r->dfdx)*dxxdz*dzdt/kappa +
     a1_2*(d2xxdpz*dpdx*dzdt + d2xxdz2*dzdx*dzdt + dxxdz*d2zdxt);
-  *d2fdxu = 0.0;
-  *d2fdtu = 0.0;
 }
 
 #include "work_mgga_x.c"

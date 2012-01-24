@@ -109,9 +109,9 @@ void XC(lda_c_2d_prm_set_params_) (XC(lda_type) *p, FLOAT N);
 void XC(lda_c_vwn_set_params_)    (XC(lda_type) *p, int spin_interpolation);
 
 /* direct access to the internal functions */
-/*inline*/ void XC(lda_c_hl_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r);
-/*inline*/ void XC(lda_c_pw_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r);
-/*inline*/ void XC(lda_c_pz_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r);
+void XC(lda_c_hl_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r);
+void XC(lda_c_pw_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r);
+void XC(lda_c_pz_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r);
 
 /* GGAs */
 void XC(gga_x_wc_enhance)  (const XC(gga_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2);
@@ -132,7 +132,19 @@ void XC(gga_k_tflw_set_params_) (XC(gga_type) *p, FLOAT gamma, FLOAT lambda, FLO
 
 
 /* meta GGAs */
+typedef struct XC(work_mgga_x_params) {
+  int   order; /* to which order should I return the derivatives */
+  FLOAT rs, zeta, x, t, u;
 
+  FLOAT f;                                   /* enhancement factor       */
+  FLOAT vrho0;                               /* direct return of the potential */
+  FLOAT dfdrs, dfdx, dfdt, dfdu;             /* first derivatives of f  */
+  FLOAT d2fdrs2, d2fdx2, d2fdt2, d2fdu2;     /* second derivatives of zk */
+  FLOAT d2fdrsx, d2fdrst, d2fdrsu, d2fdxt, d2fdxu, d2fdtu;
+} XC(work_mgga_x_params);
+
+
+/* direct access to the internal functions */
 void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT *d, 
 			  FLOAT *h, FLOAT *dhdx, FLOAT *dhdz);
 

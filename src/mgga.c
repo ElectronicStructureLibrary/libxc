@@ -23,6 +23,7 @@
 
 #include "util.h"
 #include "funcs_mgga.c"
+#include "funcs_hyb_mgga.c"
 
 /* initialization */
 int XC(mgga_init)(XC(func_type) *p, const XC(func_info_type) *info, int nspin)
@@ -223,3 +224,10 @@ XC(mgga_fxc)(const XC(func_type) *p, int np,
 }
 
 
+/* returns the mixing coefficient for the hybrid GGAs */
+FLOAT XC(hyb_mgga_exx_coef)(const XC(mgga_type) *p)
+{
+  assert(p!=NULL);
+
+  return p->exx_coef;
+}

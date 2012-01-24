@@ -56,21 +56,19 @@ void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT 
 static const FLOAT vsxc_CFermi = 9.115599744691194274576327519198610717031;
 
 static void 
-func(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
-     FLOAT *f, FLOAT *vrho0, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
-     FLOAT *d2fdx2, FLOAT *d2fdt2, FLOAT *d2fdu2, FLOAT *d2fdxt, FLOAT *d2fdxu, FLOAT *d2fdtu)
+func(const XC(mgga_type) *pt, XC(work_mgga_x_params) *r)
 {
   static const FLOAT abcd[6] = {-0.9800, -0.003557, 0.006250, -0.00002354, -0.0001283, 0.0003575};
   static const FLOAT alpha = 0.001867;
 
-  XC(mgga_x_gvt4_func)(order, x, t - vsxc_CFermi, alpha, abcd, f, dfdx, dfdt);
+  XC(mgga_x_gvt4_func)(r->order, r->x, r->t - vsxc_CFermi, alpha, abcd, &r->f, &r->dfdx, &r->dfdt);
  
-  *f /= -X_FACTOR_C;
+  r->f /= -X_FACTOR_C;
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
-  *dfdx /= -X_FACTOR_C;
-  *dfdt /= -X_FACTOR_C;
+  r->dfdx /= -X_FACTOR_C;
+  r->dfdt /= -X_FACTOR_C;
 }
 
 static void 

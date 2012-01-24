@@ -109,16 +109,14 @@ FLOAT XC(mgga_x_2d_prhg_get_y)(FLOAT C)
 }
 
 static void 
-func(const XC(mgga_type) *p, FLOAT x, FLOAT t, FLOAT u, int order,
-     FLOAT *f, FLOAT *vrho, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
-     FLOAT *d2fdx2, FLOAT *d2fdt2, FLOAT *d2fdu2, FLOAT *d2fdxt, FLOAT *d2fdxu, FLOAT *d2fdtu)
+func(const XC(mgga_type) *p, XC(work_mgga_x_params) *r)
 {
   FLOAT y;
   FLOAT v_PRHG, C;
 
   assert(p != NULL);
   
-  C = 0.25*(u - 2.0*t + 0.5*x*x);
+  C = 0.25*(r->u - 2.0*r->t + 0.5*r->x*r->x);
   
   y = XC(mgga_x_2d_prhg_get_y)(C);
   
@@ -126,15 +124,12 @@ func(const XC(mgga_type) *p, FLOAT x, FLOAT t, FLOAT u, int order,
   v_PRHG /= X_FACTOR_2D_C;
 
   if (p->info->number == XC_MGGA_X_2D_PRHG07) {
-    *vrho = v_PRHG*(1.0 / 3.0); // This factor is here in order to get the correct potential through work_mgga_x.c
-    *f = v_PRHG / 2.0;
+    r->vrho0 = v_PRHG*(1.0 / 3.0); // This factor is here in order to get the correct potential through work_mgga_x.c
+    r->f = v_PRHG / 2.0;
+  }else if (p->info->number == XC_MGGA_X_2D_PRHG07_PRP10) {
+    r->vrho0 = (v_PRHG - ((2.0*M_SQRT2)/(3.0*M_PI))*SQRT(max(r->t - 0.25*r->x*r->x,0.0))/X_FACTOR_2D_C)*(1.0 / 3.0);
+    r->f = r->vrho0 * (3.0 / 2.0);
   }
-  else if (p->info->number == XC_MGGA_X_2D_PRHG07_PRP10) {
-    *vrho = (v_PRHG - ((2.0*M_SQRT2)/(3.0*M_PI))*SQRT(max(t - 0.25*x*x,0.0))/X_FACTOR_2D_C)*(1.0 / 3.0);
-    *f = *vrho * (3.0 / 2.0);
-  }
-  else
-    *vrho = 0;
   
   return;
 }

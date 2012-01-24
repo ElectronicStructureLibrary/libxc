@@ -137,7 +137,6 @@ typedef struct XC(work_mgga_x_params) {
   FLOAT rs, zeta, x, t, u;
 
   FLOAT f;                                   /* enhancement factor       */
-  FLOAT vrho0;                               /* direct return of the potential */
   FLOAT dfdrs, dfdx, dfdt, dfdu;             /* first derivatives of f  */
   FLOAT d2fdrs2, d2fdx2, d2fdt2, d2fdu2;     /* second derivatives of zk */
   FLOAT d2fdrsx, d2fdrst, d2fdrsu, d2fdxt, d2fdxu, d2fdtu;

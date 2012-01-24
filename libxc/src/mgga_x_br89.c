@@ -237,14 +237,16 @@ func(const XC(mgga_type) *pt, XC(work_mgga_x_params) *r)
     assert(pt->params != NULL);
     c_TB09 = ((mgga_x_tb09_params *) (pt->params))->c;
 
-    r->vrho0 = -c_TB09*v_BR;
+    r->dfdrs = -c_TB09*v_BR;
 
     c_HEG  = (3.0*c_TB09 - 2.0)*SQRT(5.0/12.0)/(X_FACTOR_C*M_PI);
     
     if(pt->func == 1 || pt->func == 2) /* XC_MGGA_X_BJ0 & XC_MGGA_X_TB09 */
-      r->vrho0 -= c_HEG*SQRT(r->t);
+      r->dfdrs -= c_HEG*SQRT(r->t);
     else /* XC_MGGA_X_RPP09 */
-      r->vrho0 -= c_HEG*SQRT(max(r->t - r->x*r->x/4.0, 0.0));
+      r->dfdrs -= c_HEG*SQRT(max(r->t - r->x*r->x/4.0, 0.0));
+
+    r->dfdrs /= -r->rs; /* due to the definition of dfdrs */
   }
 
   if(r->order < 2) return;

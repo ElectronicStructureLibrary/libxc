@@ -100,8 +100,8 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   if(order < 1) return;
 
   dphidz = 0.0;
-  if(auxp > MIN_ZETA) dphidz += 1/auxp;
-  if(auxm > MIN_ZETA) dphidz -= 1/auxm;
+  if(auxp > p->info->min_zeta) dphidz += 1/auxp;
+  if(auxm > p->info->min_zeta) dphidz -= 1/auxm;
   dphidz *= 1.0/3.0;
 
   /* partial derivatives */
@@ -132,8 +132,8 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   if(order < 2) return;
   
   d2phidz2 = 0.0;
-  if(auxp > MIN_ZETA) d2phidz2 += 1.0/((1.0 + zeta)*auxp);
-  if(auxm > MIN_ZETA) d2phidz2 += 1.0/((1.0 - zeta)*auxm);
+  if(auxp > p->info->min_zeta) d2phidz2 += 1.0/((1.0 + zeta)*auxp);
+  if(auxm > p->info->min_zeta) d2phidz2 += 1.0/((1.0 - zeta)*auxm);
   d2phidz2 *= -1.0/9.0;
 
   p2yprs2   = -2.0*pyprs/rs;
@@ -189,6 +189,7 @@ const XC(func_info_type) XC(func_info_gga_c_sogga11) = {
   "R Peverati, Y Zhao, and DG Truhlar, J. Phys. Chem. Lett. 2, 1911-1997 (2011)\n"
   "http://comp.chem.umn.edu/mfm/index.html",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_c_sogga11_init,
   NULL, NULL,
   work_gga_c,
@@ -202,6 +203,7 @@ const XC(func_info_type) XC(func_info_gga_c_sogga11_x) = {
   "R Peverati and DG Truhlar, J. Chem. Phys. 135, 191102 (2011)\n"
   "http://comp.chem.umn.edu/mfm/index.html",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_c_sogga11_init, 
   NULL, NULL,
   work_gga_c

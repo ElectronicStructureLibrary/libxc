@@ -29,7 +29,7 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 {
   const XC(gga_type) *p = (const XC(gga_type) *) p_;
 
-  FLOAT min_grad2 = MIN_GRAD*MIN_GRAD;
+  FLOAT min_grad2 = p->info->min_grad*p->info->min_grad;
   int ip, order;
 
   order = -1;
@@ -48,7 +48,7 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 
     XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
 
-    if(dens < MIN_DENS) goto end_ip_loop;
+    if(dens < p->info->min_dens) goto end_ip_loop;
 
     rs = RS(dens);
     if(p->nspin == XC_UNPOLARIZED){
@@ -65,8 +65,8 @@ work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
       xs[0]  = CBRT(2.0)*xt;
       xs[1]  = xs[0];
     }else{
-      ds[0]  = max(MIN_DENS, rho[0]);
-      ds[1]  = max(MIN_DENS, rho[1]);
+      ds[0]  = max(p->info->min_dens, rho[0]);
+      ds[1]  = max(p->info->min_dens, rho[1]);
       
       sigmat = max(min_grad2, sigma[0] + 2.0*sigma[1] + sigma[2]);
       xt     = SQRT(sigmat)/ POW(dens, 4.0/3.0);

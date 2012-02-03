@@ -56,7 +56,7 @@ work_lda(const void *p_, int np, const FLOAT *rho,
   for(ip = 0; ip < np; ip++){
     XC(rho2dzeta)(p->nspin, rho, &dens, &r.zeta);
 
-    if(dens < MIN_DENS) goto end_ip_loop;
+    if(dens < p->info->min_dens) goto end_ip_loop;
 
     r.rs[1] = cnst_rs*POW(dens, -1.0/XC_DIMENSIONS);
     r.rs[0] = SQRT(r.rs[1]);

@@ -145,6 +145,7 @@ const XC(func_info_type) XC(func_info_mgga_x_2d_prhg07) = {
   XC_FAMILY_MGGA,
   "S. Pittalis, E. Rasanen, N. Helbig, and E. K. U. Gross, Phys. Rev. B 76, 235314 (2007)",
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   NULL, NULL, 
   NULL, NULL,
   work_mgga_x,
@@ -158,6 +159,7 @@ const XC(func_info_type) XC(func_info_mgga_x_2d_prhg07_prp10) = {
   "S. Pittalis, E. Rasanen, N. Helbig, and E. K. U. Gross, Phys. Rev. B 76, 235314 (2007)\n"
   "S. Pittalis, E. Rasanen, C.R. Proetto, Phys. Rev. B. 81, 115108 (2010)",
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   NULL,
   NULL,
   NULL, NULL,

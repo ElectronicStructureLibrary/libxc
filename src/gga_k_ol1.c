@@ -54,6 +54,7 @@ const XC(func_info_type) XC(func_info_gga_k_ol1) = {
   XC_FAMILY_GGA,
   "H Ou-Yang, M Levy, Int. J. of Quant. Chem. 40, 379–388 (1991)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   NULL, NULL, NULL,
   work_gga_k
 };

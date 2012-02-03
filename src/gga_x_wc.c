@@ -75,6 +75,7 @@ const XC(func_info_type) XC(func_info_gga_x_wc) = {
   XC_FAMILY_GGA,
   "Z Wu and RE Cohen, Phys. Rev. B 73, 235116 (2006)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_x_wc_init, 
   NULL, NULL,
   work_gga_x

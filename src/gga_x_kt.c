@@ -71,6 +71,7 @@ const XC(func_info_type) XC(func_info_gga_x_kt1) = {
   XC_FAMILY_GGA,
   "TW Keal and DJ Tozer, J. Chem. Phys. 119, 3015 (2003)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   NULL, 
   NULL, NULL,
   work_gga_x
@@ -84,6 +85,7 @@ const XC(func_info_type) XC(func_info_gga_xc_kt2) = {
   XC_FAMILY_GGA,
   "TW Keal and DJ Tozer, J. Chem. Phys. 119, 3015 (2003)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_xc_kt2_init, 
   NULL, NULL, NULL
 };

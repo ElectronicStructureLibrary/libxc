@@ -43,6 +43,7 @@ const XC(func_info_type) XC(func_info_gga_xc_xlyp) = {
   XC_FAMILY_GGA,
   "X Xu and WA Goddard, III, PNAS 101, 2673 (2004)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_xc_xlyp_init, 
   NULL, NULL, NULL
 };
@@ -65,6 +66,7 @@ const XC(func_info_type) XC(func_info_gga_xc_pbe1w) = {
   XC_FAMILY_GGA,
   "EE Dahlke and DG Truhlar, J. Phys. Chem. B 109, 15677 (2005)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_xc_pbe1w_init, 
   NULL, NULL, NULL
 };
@@ -87,6 +89,7 @@ const XC(func_info_type) XC(func_info_gga_xc_mpwlyp1w) = {
   XC_FAMILY_GGA,
   "EE Dahlke and DG Truhlar, J. Phys. Chem. B 109, 15677 (2005)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_xc_mpwlyp1w_init, 
   NULL, NULL, NULL
 };
@@ -109,6 +112,7 @@ const XC(func_info_type) XC(func_info_gga_xc_pbelyp1w) = {
   XC_FAMILY_GGA,
   "EE Dahlke and DG Truhlar, J. Phys. Chem. B 109, 15677 (2005)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_xc_pbelyp1w_init, 
   NULL, NULL, NULL
 };

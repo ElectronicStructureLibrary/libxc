@@ -123,6 +123,7 @@ const XC(func_info_type) XC(func_info_gga_x_airy) = {
   XC_FAMILY_GGA,
   "LA Constantin, A Ruzsinszky, and JP Perdew, Phys. Rev. B 80, 035125 (2009)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_x_airy_init,
   NULL, NULL,
   work_gga_x
@@ -135,6 +136,7 @@ const XC(func_info_type) XC(func_info_gga_x_lag) = {
   XC_FAMILY_GGA,
   "L Vitos, B Johansson, J Kollar, and HL Skriver, Phys. Rev. B 62, 10046-10050 (2000)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_x_airy_init,
   NULL, NULL,
   work_gga_x

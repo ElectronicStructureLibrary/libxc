@@ -157,6 +157,7 @@ const XC(func_info_type) XC(func_info_gga_c_lm) = {
   "DC Langreth and MJ Mehl, Phys. Rev. Lett. 47, 446 (1981)\n"
   "CD Hu and DC Langreth, Phys. Scr. 32, 391 (1985)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_c_lm_init,
   NULL,
   NULL,            /* this is not an LDA                   */

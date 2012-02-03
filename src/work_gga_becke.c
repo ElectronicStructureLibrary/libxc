@@ -90,9 +90,9 @@ work_gga_becke(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
       FLOAT g_x, dg_x, d2g_x, g_ss, dg_ss, d2g_ss;
       int js = (is == 0) ? 0 : 2;
 
-      if(rho[is] < MIN_DENS) goto end_ip_loop;
+      if(rho[is] < p->info->min_dens) goto end_ip_loop;
       
-      sigmas[is] = max(MIN_GRAD*MIN_GRAD, sigma[js]/sfact2);
+      sigmas[is] = max(p->info->min_grad*p->info->min_grad, sigma[js]/sfact2);
       gdm    = SQRT(sigmas[is]);
   
       rho13 = CBRT(ds[is]);
@@ -174,7 +174,7 @@ work_gga_becke(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	  vrho[is] += v_LDA_opp[is]*g_ab;
 	  
 	  dd = POW(dens, 4.0/3.0);
-	  if(x_avg*dd < MIN_GRAD*MIN_GRAD || ds[is] < MIN_DENS) continue;
+	  if(x_avg*dd < p->info->min_grad*p->info->min_grad || ds[is] < p->info->min_dens) continue;
 	  
 	  dx_avg[is]  = -2.0*x[is]*x[is]/(3.0*x_avg*ds[is]);
 	  

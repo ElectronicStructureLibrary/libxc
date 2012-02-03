@@ -106,6 +106,7 @@ const XC(func_info_type) XC(func_info_gga_x_pw91) = {
   "JP Perdew, JA Chevary, SH Vosko, KA Jackson, MR Pederson, DJ Singh, and C Fiolhais, Phys. Rev. B 46, 6671 (1992)\n"
   "JP Perdew, JA Chevary, SH Vosko, KA Jackson, MR Pederson, DJ Singh, and C Fiolhais, Phys. Rev. B 48, 4978(E) (1993)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_x_pw91_init,
   NULL, NULL,
   work_gga_x
@@ -118,6 +119,7 @@ const XC(func_info_type) XC(func_info_gga_x_mpw91) = {
   XC_FAMILY_GGA,
   "C Adamo and V Barone, J. Chem. Phys. 108, 664 (1998)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_x_pw91_init,
   NULL, NULL,
   work_gga_x
@@ -133,6 +135,7 @@ const XC(func_info_type) XC(func_info_gga_k_lc94) = {
   XC_FAMILY_GGA,
   "A Lembarki and H Chermette, Phys. Rev. A 50, 5328–5331 (1994)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_x_pw91_init,
   NULL, NULL,
   work_gga_k

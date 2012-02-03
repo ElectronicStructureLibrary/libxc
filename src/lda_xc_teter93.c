@@ -159,6 +159,7 @@ const XC(func_info_type) XC(func_info_lda_xc_teter93) = {
   XC_FAMILY_LDA,
   "S Goedecker, M Teter, J Hutter, PRB 54, 1703 (1996)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  MIN_DENS, 0.0, 0.0, 0.0,
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */

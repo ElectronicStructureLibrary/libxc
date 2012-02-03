@@ -105,6 +105,7 @@ const XC(func_info_type) XC(func_info_lda_k_tf) = {
   "LH Thomas, Proc. Cambridge Phil. Soc. 23,  542-548 (1927)\n"
   "E Fermi. Rend. Accad. Naz. Lincei 6, 602-607 (1927)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  MIN_DENS, 0.0, 0.0, 0.0,
   NULL,
   NULL,
   work_lda
@@ -117,6 +118,7 @@ const XC(func_info_type) XC(func_info_lda_k_lp) = {
   XC_FAMILY_LDA,
   "CL and RG Parr, Phys. Rev. A 35, 2377-2383 (1987)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  MIN_DENS, 0.0, 0.0, 0.0,
   NULL,
   NULL,
   work_lda

@@ -208,8 +208,8 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   dfdec  = 1.0 + dHdA*dAdec;
 
   dphidz = 0.0;
-  if(auxp > MIN_ZETA) dphidz += 1/auxp;
-  if(auxm > MIN_ZETA) dphidz -= 1/auxm;
+  if(auxp > p->info->min_zeta) dphidz += 1/auxp;
+  if(auxm > p->info->min_zeta) dphidz -= 1/auxm;
   dphidz *= 1.0/3.0;
 
   dtdrs  = -xt/(2.0*tconv*phi*rs*pw.rs[0]);
@@ -233,8 +233,8 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   d2fdec2   = d2HdA2*dAdec*dAdec + dHdA*d2Adec2;
 
   d2phidz2 = 0.0;
-  if(auxp > MIN_ZETA) d2phidz2 += 1.0/((1.0 + zeta)*auxp);
-  if(auxm > MIN_ZETA) d2phidz2 += 1.0/((1.0 - zeta)*auxm);
+  if(auxp > p->info->min_zeta) d2phidz2 += 1.0/((1.0 + zeta)*auxp);
+  if(auxm > p->info->min_zeta) d2phidz2 += 1.0/((1.0 - zeta)*auxm);
   d2phidz2 *= -1.0/9.0;
 
   d2tdrs2   =  3.0*xt/(4.0*tconv*phi*pw.rs[2]*pw.rs[0]);
@@ -273,6 +273,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe) = {
   "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
   "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_c_pbe_init,
   NULL, NULL,
   work_gga_c,
@@ -286,6 +287,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_sol) = {
   XC_FAMILY_GGA,
   "JP Perdew, et al, Phys. Rev. Lett. 100, 136406 (2008)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_c_pbe_init,
   NULL, NULL,
   work_gga_c,
@@ -299,6 +301,7 @@ const XC(func_info_type) XC(func_info_gga_c_xpbe) = {
   XC_FAMILY_GGA,
   "X Xu and WA Goddard III, J. Chem. Phys. 121, 4068 (2004)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_c_pbe_init,
   NULL, NULL,
   work_gga_c,
@@ -311,6 +314,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_jrgx) = {
   XC_FAMILY_GGA,
   "LS Pedroza, AJR da Silva, and K. Capelle, Phys. Rev. B 79, 201106(R) (2009)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_c_pbe_init,
   NULL, NULL,
   work_gga_c,
@@ -323,6 +327,7 @@ const XC(func_info_type) XC(func_info_gga_c_rge2) = {
   XC_FAMILY_GGA,
   "A Ruzsinszky, GI Csonka, and G Scuseria, J. Chem. Theory Comput. 5, 763 (2009)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_c_pbe_init,
   NULL, NULL,
   work_gga_c,
@@ -335,6 +340,7 @@ const XC(func_info_type) XC(func_info_gga_c_apbe) = {
   XC_FAMILY_GGA,
   "LA Constantin, E Fabiano, S Laricchia, and F Della Sala, Phys. Rev. Lett. 106, 186406 (2011)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_c_pbe_init,
   NULL, NULL,
   work_gga_c,

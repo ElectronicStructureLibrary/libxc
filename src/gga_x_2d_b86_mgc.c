@@ -63,6 +63,7 @@ const XC(func_info_type) XC(func_info_gga_x_2d_b86_mgc) = {
   "S Pittalis, E Rasanen, JG Vilhena, and MAL Marques, Phys. Rev. A 79, 012503 (2009)\n"
   "AD Becke, J. Chem. Phys 85, 7184 (1986)",
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   NULL, NULL, NULL,
   work_gga_x
 };

@@ -166,6 +166,7 @@ const XC(func_info_type) XC(func_info_gga_k_dk) = {
   XC_FAMILY_GGA,
   "AE DePristo and JD Kress, Phys. Rev. A 35, 438-441 (1987)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_k_dk_init,
   NULL, NULL,
   work_gga_k
@@ -178,6 +179,7 @@ const XC(func_info_type) XC(func_info_gga_k_perdew) = {
   XC_FAMILY_GGA,
   "JP Perdew, Phys. Lett. A 165, 79 (1992)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_k_dk_init,
   NULL, NULL,
   work_gga_k
@@ -190,6 +192,7 @@ const XC(func_info_type) XC(func_info_gga_k_vsk) = {
   XC_FAMILY_GGA,
   "L Vitos, HL Skriver, and J. Kollár, Phys. Rev. B 57, 12611-12615 (1998)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_k_dk_init,
   NULL, NULL,
   work_gga_k
@@ -202,6 +205,7 @@ const XC(func_info_type) XC(func_info_gga_k_vjks) = {
   XC_FAMILY_GGA,
   "L Vitos, B Johansson, J. Kollár, and HL Skriver, Phys. Rev. A 61, 052511 (2000)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_k_dk_init,
   NULL, NULL,
   work_gga_k
@@ -214,6 +218,7 @@ const XC(func_info_type) XC(func_info_gga_k_ernzerhof) = {
   XC_FAMILY_GGA,
   "M Ernzerhof, J. Mol. Struct.:THEOCHEM 501-502, 59 (2000)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_k_dk_init,
   NULL, NULL,
   work_gga_k

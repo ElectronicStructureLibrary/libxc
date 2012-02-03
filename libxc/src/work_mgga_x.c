@@ -79,7 +79,7 @@ work_mgga_x(const void *p_, int np,
   for(ip = 0; ip < np; ip++){
     XC(rho2dzeta)(p->nspin, rho, &dens, &r.zeta);
 
-    if(dens < MIN_DENS) goto end_ip_loop;
+    if(dens < p->info->min_dens) goto end_ip_loop;
 
     r.rs = cnst_rs*POW(dens, -1.0/XC_DIMENSIONS);
 
@@ -88,9 +88,9 @@ work_mgga_x(const void *p_, int np,
       int js = (is == 0) ? 0 : 2;
       int ks = (is == 0) ? 0 : 5;
 
-      if((!has_tail && (rho[is] < MIN_DENS || tau[is] < MIN_TAU)) || (rho[is] == 0.0)) continue;
+      if((!has_tail && (rho[is] < p->info->min_dens || tau[is] < p->info->min_tau)) || (rho[is] == 0.0)) continue;
 
-      lsigma= max(sigma[js]/sfact2, MIN_GRAD*MIN_GRAD);
+      lsigma= max(sigma[js]/sfact2, p->info->min_grad*p->info->min_grad);
       gdm   = SQRT(lsigma);
       lrho  = rho[is]/sfact;
       rho1D = POW(lrho, 1.0/XC_DIMENSIONS);
@@ -115,7 +115,7 @@ work_mgga_x(const void *p_, int np,
 
 	vlapl[is] = -x_factor_c*r.dfdu/rho1D;
 
-	if(gdm>MIN_GRAD)
+	if(gdm>p->info->min_grad)
 	  vsigma[js] = -x_factor_c*(rho1D*lrho)*r.dfdx*r.x/(2.0*sfact*lsigma);
       }
 
@@ -137,7 +137,7 @@ work_mgga_x(const void *p_, int np,
 
 	v2lapltau[js] = -x_factor_c*r.d2fdtu/(rho1D*rho2pD_D);
 
-	if(gdm>MIN_GRAD){
+	if(gdm>p->info->min_grad){
 	  v2sigma2[ks]    =  -x_factor_c*(rho1D*lrho)/(4.0*sfact2*sfact*lsigma*lsigma)*
 	    (r.d2fdx2*r.x*r.x - r.dfdx*r.x);
 

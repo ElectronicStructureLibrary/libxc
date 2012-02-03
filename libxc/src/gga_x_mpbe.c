@@ -60,6 +60,7 @@ const XC(func_info_type) XC(func_info_gga_x_mpbe) = {
   XC_FAMILY_GGA,
   "C Adamo and V Barone, J. Chem. Phys. 116, 5933 (2002)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   NULL, NULL, NULL,
   work_gga_x
 };

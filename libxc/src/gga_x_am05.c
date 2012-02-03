@@ -39,7 +39,7 @@ func(const XC(gga_type) *p, int order, FLOAT x,
   FLOAT dww, dz_t, dz_tt, dfx_b, dxx, dflaa_1, dflaa_2, dflaa;
   FLOAT d2ww, d2z_t, d2z_tt, d2fx_b, d2xx, d2flaa_1, d2flaa_2, d2flaa;;
 
-  if(x < MIN_GRAD){
+  if(x < p->info->min_grad){
     *f    = 1.0;
     return;
   }
@@ -115,6 +115,7 @@ const XC(func_info_type) XC(func_info_gga_x_am05) = {
   "R Armiento and AE Mattsson, Phys. Rev. B 72, 085108 (2005)\n"
   "AE Mattsson, R Armiento, J Paier, G Kresse, JM Wills, and TR Mattsson, J. Chem. Phys. 128, 084714 (2008).",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   NULL, NULL, NULL,
   work_gga_x
 };

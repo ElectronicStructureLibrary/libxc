@@ -268,8 +268,8 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   if(order < 1) return;
 
   dgdz = 0.0;
-  if(auxp > MIN_ZETA) dgdz += 1/auxp;
-  if(auxm > MIN_ZETA) dgdz -= 1/auxm;
+  if(auxp > p->info->min_zeta) dgdz += 1/auxp;
+  if(auxm > p->info->min_zeta) dgdz -= 1/auxm;
   dgdz *= 1.0/3.0;
 
   dtdrs = -xt/(2.0*tconv*g*rs*pw.rs[0]);
@@ -285,8 +285,8 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   if(order < 2) return;
 
   d2gdz2 = 0.0;
-  if(auxp > MIN_ZETA) d2gdz2 += 1.0/((1.0 + zeta)*auxp);
-  if(auxm > MIN_ZETA) d2gdz2 += 1.0/((1.0 - zeta)*auxm);
+  if(auxp > p->info->min_zeta) d2gdz2 += 1.0/((1.0 + zeta)*auxp);
+  if(auxm > p->info->min_zeta) d2gdz2 += 1.0/((1.0 - zeta)*auxm);
   d2gdz2 *= -1.0/9.0;
 
   d2tdrs2  =  3.0*xt/(4.0*tconv*g*pw.rs[2]*pw.rs[0]);
@@ -327,6 +327,7 @@ const XC(func_info_type) XC(func_info_gga_c_pw91) = {
   "JP Perdew, JA Chevary, SH Vosko, KA Jackson, MR Pederson, DJ Singh, and C Fiolhais, Phys. Rev. B 46, 6671 (1992)\n"
   "JP Perdew, JA Chevary, SH Vosko, KA Jackson, MR Pederson, DJ Singh, and C Fiolhais, Phys. Rev. B 48, 4978(E) (1993)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   gga_c_pw91_init,
   NULL, NULL,
   work_gga_c,

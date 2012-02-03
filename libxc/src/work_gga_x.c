@@ -85,7 +85,7 @@ work_gga_x
 
   for(ip = 0; ip < np; ip++){
     dens = (p->nspin == XC_UNPOLARIZED) ? rho[0] : rho[0] + rho[1];
-    if(dens < MIN_DENS) goto end_ip_loop;
+    if(dens < p->info->min_dens) goto end_ip_loop;
 
     for(is=0; is<p->nspin; is++){
       FLOAT gdm, ds, rhoLDA;
@@ -93,9 +93,9 @@ work_gga_x
       int js = (is == 0) ? 0 : 2;
       int ks = (is == 0) ? 0 : 5;
 
-      if(rho[is] < MIN_DENS) continue;
+      if(rho[is] < p->info->min_dens) continue;
 
-      gdm    = max(SQRT(sigma[js])/sfact, MIN_GRAD);
+      gdm    = max(SQRT(sigma[js])/sfact, p->info->min_grad);
       ds     = rho[is]/sfact;
       rhoLDA = POW(ds, alpha);
       x      = gdm/POW(ds, beta);
@@ -126,7 +126,7 @@ work_gga_x
 	vrho[is] += x_factor_c*(rhoLDA/ds)*(alpha*f - beta*dfdx*x)
 	  + x_factor_c*rhoLDA*lvrho;
 	
-	if(gdm>MIN_GRAD)
+	if(gdm>p->info->min_grad)
 	  vsigma[js] = sfact*x_factor_c*rhoLDA*(lvsigma + dfdx*x/(2.0*sigma[js]));
       }
       
@@ -134,7 +134,7 @@ work_gga_x
 	v2rho2[js] = x_factor_c*rhoLDA/(ds*ds) *
 	  ((alpha - 1.0)*alpha*f + beta*(beta - 2.0*alpha + 1.0)*x*dfdx + beta*beta*x*x*d2fdx2)/sfact;
 	
-	if(gdm>MIN_GRAD){
+	if(gdm>p->info->min_grad){
 	  v2rhosigma[ks] = x_factor_c*(rhoLDA/ds) *
 	    (alpha*lvsigma - beta*x*lvsigmax + ((alpha - beta)*x*dfdx - beta*x*x*d2fdx2)/(2.0*sigma[js]));
 	  v2sigma2  [ks] = sfact*x_factor_c*rhoLDA*

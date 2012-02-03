@@ -60,7 +60,7 @@ work_mgga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma, const 
 
   for(ip = 0; ip < np; ip++){
     dens = (p->nspin == XC_UNPOLARIZED) ? rho[0] : rho[0] + rho[1];
-    if(dens < MIN_DENS) goto end_ip_loop;
+    if(dens < p->info->min_dens) goto end_ip_loop;
 
     if(p->nspin == XC_UNPOLARIZED)
       ds[1] = rho[0]/2.0;
@@ -72,18 +72,18 @@ work_mgga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma, const 
 
       ds[is] = rho[is]/sfact;
 
-      if(rho[is] < MIN_DENS) continue;
+      if(rho[is] < p->info->min_dens) continue;
 
-      sigmas[is] = max(MIN_GRAD*MIN_GRAD, sigma[js]/sfact2);
+      sigmas[is] = max(p->info->min_grad*p->info->min_grad, sigma[js]/sfact2);
       gdm        = SQRT(sigmas[is]);
   
       rho13  = CBRT(ds[is]);
       x [is] = gdm/(ds[is]*rho13);
     
-      ltau   = max(tau[is]/sfact, MIN_TAU);
+      ltau   = max(tau[is]/sfact, p->info->min_tau);
       t [is] = ltau/(ds[is]*rho13*rho13);  /* tau/rho^(5/3) */
 
-      lnr2   = max(MIN_TAU, lapl[is]/sfact);
+      lnr2   = max(p->info->min_tau, lapl[is]/sfact);
       u [is] = lnr2/(ds[is]*rho13*rho13);  /* lapl/rho^(5/3) */
 
       dfdx  = d2fdx2 = 0.0;
@@ -150,7 +150,7 @@ work_mgga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma, const 
       if(p->nspin == XC_POLARIZED){
 	xt = tt = uu = 0.0;
 	for(is=0; is<p->nspin; is++)
-	  if(rho[is] > MIN_DENS){
+	  if(rho[is] > p->info->min_dens){
 	    xt += x[is]*x[is];
 	    tt += t[is];
 	    uu += u[is];
@@ -172,7 +172,7 @@ work_mgga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma, const 
 	for(is=0; is<p->nspin; is++){
 	  int js = (is == 0) ? 0 : 2;
 	  
-	  if(rho[is] < MIN_DENS) continue;
+	  if(rho[is] < p->info->min_dens) continue;
 	  
 	  vrho[is]   += vrho_LDA_opp[is]*f - dens*f_LDA_opp*
 	    (4.0*dfdx*x[is]*x[is]/xt + 5.0*(dfdt*t[is] + dfdu*u[is]))/(3.0*ds[is]);

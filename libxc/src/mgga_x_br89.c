@@ -202,7 +202,7 @@ func(const XC(mgga_type) *pt, XC(work_mgga_x_params) *r)
   exp1 = exp(br_x/3.0);
   exp2 = exp(-br_x);
 
-  v_BR = (ABS(br_x) > MIN_TAU) ?
+  v_BR = (ABS(br_x) > pt->info->min_tau) ?
     exp1*(1.0 - exp2*(1.0 + br_x/2.0))/br_x :
     1.0/2.0 + br_x/6.0 - br_x*br_x/18.0;
 
@@ -218,7 +218,7 @@ func(const XC(mgga_type) *pt, XC(work_mgga_x_params) *r)
   if(r->order < 1) return;
 
   if(pt->func == 0 || r->order > 1){
-    dv_BRdbx = (ABS(br_x) > MIN_TAU) ?
+    dv_BRdbx = (ABS(br_x) > pt->info->min_tau) ?
       (3.0 + br_x*(br_x + 2.0) + (br_x - 3.0)/exp2) / (3.0*exp1*exp1*br_x*br_x) :
       1.0/6.0 - br_x/9.0;
     dv_BRdbx *= cnst;
@@ -252,7 +252,7 @@ func(const XC(mgga_type) *pt, XC(work_mgga_x_params) *r)
   if(r->order < 2) return;
   
   if(pt->func == 0 || r->order > 2){
-    d2v_BRdbx2 = (ABS(br_x) > MIN_TAU) ?
+    d2v_BRdbx2 = (ABS(br_x) > pt->info->min_tau) ?
       ((18.0 + (br_x - 6.0)*br_x)/exp2 - 2.0*(9.0 + br_x*(6.0 + br_x*(br_x + 2.0)))) 
       / (9.0*exp1*exp1*br_x*br_x*br_x) :
       -1.0/9.0;
@@ -286,6 +286,7 @@ const XC(func_info_type) XC(func_info_mgga_x_br89) = {
   XC_FAMILY_MGGA,
   "AD Becke and MR Roussel, Phys. Rev. A 39, 3761 (1989)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   NULL, NULL,
   NULL, NULL,        /* this is not an LDA                   */
   work_mgga_x,
@@ -298,6 +299,7 @@ const XC(func_info_type) XC(func_info_mgga_x_bj06) = {
   XC_FAMILY_MGGA,
   "AD Becke and ER Johnson, J. Chem. Phys. 124, 221101 (2006)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
+  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   mgga_x_tb09_init,
   mgga_x_tb09_end,
   NULL, NULL,        /* this is not an LDA                   */
@@ -311,6 +313,7 @@ const XC(func_info_type) XC(func_info_mgga_x_tb09) = {
   XC_FAMILY_MGGA,
   "F Tran and P Blaha, Phys. Rev. Lett. 102, 226401 (2009)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
+  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   mgga_x_tb09_init,
   mgga_x_tb09_end,
   NULL, NULL,        /* this is not an LDA                   */
@@ -324,6 +327,7 @@ const XC(func_info_type) XC(func_info_mgga_x_rpp09) = {
   XC_FAMILY_MGGA,
   "E Rasanen, S Pittalis & C Proetto, J. Chem. Phys. 132, 044112 (2010)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
+  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   mgga_x_tb09_init,
   mgga_x_tb09_end,
   NULL, NULL,        /* this is not an LDA                   */

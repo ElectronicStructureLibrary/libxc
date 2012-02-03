@@ -76,6 +76,7 @@ const XC(func_info_type) XC(func_info_gga_c_wl) = {
   XC_FAMILY_GGA,
   "LC Wilson and M Levy, Phys. Rev. B 41, 12930 (1990)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
   NULL, NULL, NULL,
   work_gga_c
 };

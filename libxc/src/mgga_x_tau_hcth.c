@@ -96,6 +96,7 @@ const XC(func_info_type) XC(func_info_mgga_x_tau_hcth) = {
   XC_FAMILY_MGGA,
   "AD Boese and NC Handy, JCP 116, 9559 (2002)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   NULL, NULL,
   NULL, NULL,        /* this is not an LDA                   */
   work_mgga_x,

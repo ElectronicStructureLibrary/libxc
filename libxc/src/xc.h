@@ -74,6 +74,11 @@ typedef struct{
 
   int   flags;    /* see above for a list of possible flags */
 
+  FLOAT min_dens;
+  FLOAT min_grad;
+  FLOAT min_tau;
+  FLOAT min_zeta;
+
   void (*init)(void *p);
   void (*end) (void *p);
   void (*lda) (const void *p, int np, const FLOAT *rho, 

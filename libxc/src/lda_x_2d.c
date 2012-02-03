@@ -81,6 +81,7 @@ const XC(func_info_type) XC(func_info_lda_x_2d) = {
   "PAM Dirac, Proceedings of the Cambridge Philosophical Society 26, 376 (1930)\n"
   "F Bloch, Zeitschrift fuer Physik 57, 545 (1929)",
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  MIN_DENS, 0.0, 0.0, 0.0,
   NULL, NULL,
   work_lda
 };

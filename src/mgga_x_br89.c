@@ -242,9 +242,7 @@ func(const XC(mgga_type) *pt, XC(work_mgga_x_params) *r)
     c_HEG  = (3.0*c_TB09 - 2.0)*SQRT(5.0/12.0)/(X_FACTOR_C*M_PI);
     
     if(pt->func == 1 || pt->func == 2) /* XC_MGGA_X_BJ0 & XC_MGGA_X_TB09 */
-      r->dfdrs -= (r->t > pt->info->min_tau) ? 
-	c_HEG*SQRT(r->t) :
-	0.0;
+      r->dfdrs -= c_HEG*SQRT(r->t);
     else /* XC_MGGA_X_RPP09 */
       r->dfdrs -= c_HEG*SQRT(max(r->t - r->x*r->x/4.0, 0.0));
 

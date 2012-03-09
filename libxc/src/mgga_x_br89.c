@@ -242,7 +242,9 @@ func(const XC(mgga_type) *pt, XC(work_mgga_x_params) *r)
     c_HEG  = (3.0*c_TB09 - 2.0)*SQRT(5.0/12.0)/(X_FACTOR_C*M_PI);
     
     if(pt->func == 1 || pt->func == 2) /* XC_MGGA_X_BJ0 & XC_MGGA_X_TB09 */
-      r->dfdrs -= c_HEG*SQRT(r->t);
+      r->dfdrs -= (r->t > pt->info->min_tau) ? 
+	c_HEG*SQRT(r->t) :
+	0.0;
     else /* XC_MGGA_X_RPP09 */
       r->dfdrs -= c_HEG*SQRT(max(r->t - r->x*r->x/4.0, 0.0));
 
@@ -299,7 +301,7 @@ const XC(func_info_type) XC(func_info_mgga_x_bj06) = {
   XC_FAMILY_MGGA,
   "AD Becke and ER Johnson, J. Chem. Phys. 124, 221101 (2006)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
-  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  1e-22, 1e-32, 1e-22, 1e-22,
   mgga_x_tb09_init,
   mgga_x_tb09_end,
   NULL, NULL,        /* this is not an LDA                   */
@@ -327,7 +329,7 @@ const XC(func_info_type) XC(func_info_mgga_x_rpp09) = {
   XC_FAMILY_MGGA,
   "E Rasanen, S Pittalis & C Proetto, J. Chem. Phys. 132, 044112 (2010)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
-  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  1e-22, 1e-22, 1e-22, 1e-22,
   mgga_x_tb09_init,
   mgga_x_tb09_end,
   NULL, NULL,        /* this is not an LDA                   */

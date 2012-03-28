@@ -194,7 +194,8 @@ func(const XC(mgga_type) *pt, XC(work_mgga_x_params) *r)
   FLOAT Q, br_x, v_BR, dv_BRdbx, d2v_BRdbx2, dxdQ, d2xdQ2, ff, dffdx, d2ffdx2;
   FLOAT cnst, c_TB09, c_HEG, exp1, exp2;
 
-  Q  = (r->u - 2.0*br89_gamma*r->t + 0.5*br89_gamma*r->x*r->x)/6.0;
+  Q = (r->u - 2.0*br89_gamma*r->t + 0.5*br89_gamma*r->x*r->x)/6.0;
+  if(abs(Q) < MIN_DENS) Q = (Q < 0) ? -MIN_DENS : MIN_DENS;
 
   br_x = XC(mgga_x_br89_get_x)(Q);
 

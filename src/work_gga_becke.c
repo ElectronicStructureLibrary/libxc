@@ -219,7 +219,7 @@ work_gga_becke(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
 	  is = sp[ks][0]; js = sp[ks][1];
 	  if(is==-1) continue;
 	  
-	  tmp1 = x[js]/(2.0*sigma[js==0 ? 0 : 2]);
+	  tmp1 = x[js]/(2.0*sigmas[js==0 ? 0 : 2]);
 	  if(is == js)
 	    v2rhosigma[ks] += -4.0*e_LDA_opp*dg_ab*x[is]*tmp1/(3.0*x_avg*ds[is]);
 	  

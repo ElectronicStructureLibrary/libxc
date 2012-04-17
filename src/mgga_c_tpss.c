@@ -271,6 +271,8 @@ my_mgga_c_tpss(const void *p_,
     taut   += tau[1];
     sigmat += 2.0*sigma[1] + sigma[2];
   }
+  
+  if(dens < p->info->min_dens) return;
 
   /* sometimes numerical errors create problems */
   sigmat = max(p->info->min_grad*p->info->min_grad, sigmat);

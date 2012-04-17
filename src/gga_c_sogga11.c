@@ -189,7 +189,7 @@ const XC(func_info_type) XC(func_info_gga_c_sogga11) = {
   "R Peverati, Y Zhao, and DG Truhlar, J. Phys. Chem. Lett. 2, 1911-1997 (2011)\n"
   "http://comp.chem.umn.edu/mfm/index.html",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-27, 1e-32, 0.0, 1e-32,
   gga_c_sogga11_init,
   NULL, NULL,
   work_gga_c,
@@ -203,7 +203,7 @@ const XC(func_info_type) XC(func_info_gga_c_sogga11_x) = {
   "R Peverati and DG Truhlar, J. Chem. Phys. 135, 191102 (2011)\n"
   "http://comp.chem.umn.edu/mfm/index.html",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-26, 1e-32, 0.0, 1e-32,
   gga_c_sogga11_init, 
   NULL, NULL,
   work_gga_c

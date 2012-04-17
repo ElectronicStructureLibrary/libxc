@@ -128,7 +128,7 @@ const XC(func_info_type) XC(func_info_gga_x_htbs) = {
   XC_FAMILY_GGA,
   "P Haas, F Tran, P Blaha, and K Schwarz, Phys. Rev. B 83, 205117 (2011)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_x_htbs_init, 
   NULL, NULL,
   work_gga_x

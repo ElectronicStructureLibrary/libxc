@@ -409,7 +409,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th_fl) = {
   XC_FAMILY_GGA,
   "DJ Tozer, NC Handy, amd WH Green, Chem. Phys. Lett. 273, 183-194 (1997)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_xc_th_init, 
   NULL, NULL,
   work_gga_c
@@ -422,7 +422,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th_fc) = {
   XC_FAMILY_GGA,
   "DJ Tozer, NC Handy, amd WH Green, Chem. Phys. Lett. 273, 183-194 (1997)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_xc_th_init, 
   NULL, NULL,
   work_gga_c
@@ -435,7 +435,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th_fcfo) = {
   XC_FAMILY_GGA,
   "DJ Tozer, NC Handy, amd WH Green, Chem. Phys. Lett. 273, 183-194 (1997)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_xc_th_init, 
   NULL, NULL,
   work_gga_c
@@ -448,7 +448,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th_fco) = {
   XC_FAMILY_GGA,
   "DJ Tozer, NC Handy, amd WH Green, Chem. Phys. Lett. 273, 183-194 (1997)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_xc_th_init, 
   NULL, NULL,
   work_gga_c
@@ -461,7 +461,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th1) = {
   XC_FAMILY_GGA,
   "DJ Tozer and NC Handy, J. Chem. Phys. 108, 2545 (1998)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_xc_th_init, 
   NULL, NULL,
   work_gga_c
@@ -474,7 +474,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th2) = {
   XC_FAMILY_GGA,
   "DJ Tozer and NC Handy, J. Phys. Chem. A 102, 3162 (1998)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_xc_th_init, 
   NULL, NULL,
   work_gga_c
@@ -487,7 +487,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th3) = {
   XC_FAMILY_GGA,
   "DJ Tozer and NC Handy, Mol. Phys. 94, 707 (1998)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_xc_th_init, 
   NULL, NULL,
   work_gga_c
@@ -500,7 +500,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th4) = {
   XC_FAMILY_GGA,
   "DJ Tozer and NC Handy, Mol. Phys. 94, 707 (1998)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_xc_th_init, 
   NULL, NULL,
   work_gga_c

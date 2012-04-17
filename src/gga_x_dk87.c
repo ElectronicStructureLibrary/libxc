@@ -69,7 +69,7 @@ const XC(func_info_type) XC(func_info_gga_x_dk87_r1) = {
   XC_FAMILY_GGA,
   "AE DePristo and JD Kress, J. Chem. Phys. 86, 1425 (1987)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-24, 1e-24, 0.0, 1e-32,
   NULL, NULL, NULL,
   work_gga_x
 };
@@ -81,7 +81,7 @@ const XC(func_info_type) XC(func_info_gga_x_dk87_r2) = {
   XC_FAMILY_GGA,
   "AE DePristo and JD Kress, J. Chem. Phys. 86, 1425 (1987)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,
   work_gga_x
 };

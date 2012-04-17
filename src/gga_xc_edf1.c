@@ -48,7 +48,7 @@ const XC(func_info_type) XC(func_info_gga_xc_edf1) = {
   XC_FAMILY_GGA,
   "RD Adamson, PMW Gill, and JA Pople, Chem. Phys. Lett. 284 6 (1998)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_xc_edf1_init, 
   NULL, NULL, NULL
 };
@@ -74,7 +74,7 @@ const XC(func_info_type) XC(func_info_gga_x_optpbe_vdw) = {
   XC_FAMILY_GGA,
   "J Klimes, DR Bowler, and A Michaelides, J. Phys.: Condens. Matter 22, 022201 (2010)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_x_optpbe_vdw_init, 
   NULL, NULL, NULL
 };
@@ -99,7 +99,7 @@ const XC(func_info_type) XC(func_info_gga_xc_mohlyp) = {
   XC_FAMILY_GGA,
   "NE Schultz, Y Zhao, DGJ Truhlar, Phys. Chem. A, 109, 11127 (2005)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_xc_mohlyp_init,
   NULL, NULL, NULL
 };
@@ -123,7 +123,7 @@ const XC(func_info_type) XC(func_info_gga_xc_mohlyp2) = {
   XC_FAMILY_GGA,
   "J Zheng, Y Zhao, DGJ Truhlar, Chem. Theory. Comput. 5, 808 (2009)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_xc_mohlyp2_init,
   NULL, NULL, NULL
 };
@@ -149,7 +149,7 @@ const XC(func_info_type) XC(func_info_gga_x_sogga) = {
   "Y Zhao and DG Truhlar, J. Chem. Phys. 128, 184109 (2008)\n"
   "http://comp.chem.umn.edu/mfm/index.html",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-31, 1e-32, 0.0, 1e-32,
   gga_x_sogga_init,
   NULL, NULL, NULL
 };

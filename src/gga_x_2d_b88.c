@@ -111,7 +111,7 @@ const XC(func_info_type) XC(func_info_gga_x_2d_b88) = {
   "G Vilhena, MAL Marques, unpublished\n"
   "AD Becke, Phys. Rev. A 38, 3098 (1988)",
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_x_2d_b88_init, 
   gga_x_2d_b88_end, 
   NULL,

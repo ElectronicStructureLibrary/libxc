@@ -45,7 +45,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b3pw91) = {
   XC_FAMILY_HYB_GGA,
   "AD Becke, J. Chem. Phys. 98, 5648 (1993)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   XC(hyb_gga_xc_b3pw91_init),
   NULL, NULL, NULL
 };
@@ -70,7 +70,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b3lyp) = {
   XC_FAMILY_HYB_GGA,
   "PJ Stephens, FJ Devlin, CF Chabalowski, MJ Frisch, J. Phys. Chem. 98 11623 (1994)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   XC(hyb_gga_xc_b3lyp_init),
   NULL, NULL, NULL
 };
@@ -95,7 +95,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b3p86) = {
   XC_FAMILY_HYB_GGA,
   "Defined through Gaussian implementation",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   XC(hyb_gga_xc_b3p86_init),
   NULL, NULL, NULL
 };
@@ -120,7 +120,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw3pw) = {
   XC_FAMILY_GGA,
   "C Adamo and V Barone, J. Chem. Phys. 108, 664 (1998)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   XC(hyb_gga_xc_mpw3pw_init), 
   NULL, NULL, NULL
 };
@@ -145,7 +145,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw3lyp) = {
   XC_FAMILY_GGA,
   "Y Zhao and DGJ Truhlar, Phys. Chem. A 108, 6908 (2004)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   XC(hyb_gga_xc_mpw3lyp_init), 
   NULL, NULL, NULL
 };

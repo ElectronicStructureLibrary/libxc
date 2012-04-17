@@ -253,7 +253,7 @@ const XC(func_info_type) XC(func_info_lda_x) = {
   "PAM Dirac, Proceedings of the Cambridge Philosophical Society 26, 376 (1930)\n"
   "F Bloch, Zeitschrift fuer Physik 57, 545 (1929)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  MIN_DENS, 0.0, 0.0, 0.0,
+  1e-29, 0.0, 0.0, 1e-32,
   lda_x_init,
   lda_x_end,
   work_lda
@@ -266,7 +266,7 @@ const XC(func_info_type) XC(func_info_lda_c_xalpha) = {
   XC_FAMILY_LDA,
   "JC Slater, Phys. Rev. 81, 385 (1951)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, 0.0, 0.0, 0.0,
+  1e-29, 0.0, 0.0, 1e-32,
   lda_c_xalpha_init,
   lda_x_end,
   work_lda

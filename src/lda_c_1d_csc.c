@@ -224,7 +224,7 @@ const XC(func_info_type) XC(func_info_lda_c_1d_csc) = {
   XC_FAMILY_LDA,
   "M Casula, S Sorella, and G Senatore, Phys. Rev. B 74, 245427 (2006)",
   XC_FLAGS_1D |  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, 0.0, 0.0, 0.0,
+  1e-32, 0.0, 0.0, 1e-32,
   lda_c_1d_csc_init,    /* init */
   lda_c_1d_csc_end,     /* end  */
   work_lda,             /* lda  */

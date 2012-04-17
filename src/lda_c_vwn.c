@@ -289,7 +289,7 @@ const XC(func_info_type) XC(func_info_lda_c_vwn) = {
   XC_FAMILY_LDA,
   "SH Vosko, L Wilk, and M Nusair, Can. J. Phys. 58, 1200 (1980)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  MIN_DENS, 0.0, 0.0, 0.0,
+  1e-32, 0.0, 0.0, 1e-32,
   lda_c_vwn_init,
   NULL,
   work_lda
@@ -302,7 +302,7 @@ const XC(func_info_type) XC(func_info_lda_c_vwn_rpa) = {
   XC_FAMILY_LDA,
   "SH Vosko, L Wilk, and M Nusair, Can. J. Phys. 58, 1200 (1980)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  MIN_DENS, 0.0, 0.0, 0.0,
+  1e-32, 0.0, 0.0, 1e-32,
   lda_c_vwn_init,
   NULL,
   work_lda 

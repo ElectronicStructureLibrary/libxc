@@ -245,7 +245,7 @@ const XC(func_info_type) XC(func_info_lda_c_pw) = {
   XC_FAMILY_LDA,
   "JP Perdew and Y Wang, Phys. Rev. B 45, 13244 (1992)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  MIN_DENS, 0.0, 0.0, 0.0,
+  1e-25, 0.0, 0.0, 1e-32,
   lda_c_pw_init, /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
@@ -260,7 +260,7 @@ const XC(func_info_type) XC(func_info_lda_c_pw_mod) = {
   "Added extra digits to some constants as in the PBE routine\n"
   "http://dft.rutgers.edu/pubs/PBE.asc",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  MIN_DENS, 0.0, 0.0, 0.0,
+  1e-26, 0.0, 0.0, 1e-32,
   lda_c_pw_init, /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
@@ -275,7 +275,7 @@ const XC(func_info_type) XC(func_info_lda_c_ob_pw) = {
   "G Ortiz and P Ballone, Phys. Rev. B 56, 9970(E) (1997)\n"
   "JP Perdew and Y Wang, Phys. Rev. B 45, 13244 (1992)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  MIN_DENS, 0.0, 0.0, 0.0,
+  1e-26, 0.0, 0.0, 1e-32,
   lda_c_pw_init, /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
@@ -288,7 +288,7 @@ const XC(func_info_type) XC(func_info_lda_c_pw_rpa) = {
   XC_FAMILY_LDA,
   "JP Perdew and Y Wang, Phys. Rev. B 45, 13244 (1992)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  MIN_DENS, 0.0, 0.0, 0.0,
+  1e-27, 0.0, 0.0, 1e-32,
   lda_c_pw_init, /* init */
   NULL,     /* end  */
   work_lda, /* lda  */

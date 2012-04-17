@@ -100,7 +100,7 @@ const XC(func_info_type) XC(func_info_gga_x_optx) = {
   XC_FAMILY_GGA,
   "NC Handy and AJ Cohen, Mol. Phys. 99, 403 (2001)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_x_optx_init,
   NULL, NULL,
   work_gga_x

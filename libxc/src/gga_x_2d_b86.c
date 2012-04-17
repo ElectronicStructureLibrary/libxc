@@ -60,7 +60,7 @@ const XC(func_info_type) XC(func_info_gga_x_2d_b86) = {
   "G Vilhena and MAL Marques, unpublished\n"
   "AD Becke, J. Chem. Phys 84, 4524 (1986)",
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-18, 0.0, 1e-32,
   NULL, NULL, NULL,
   work_gga_x
 };

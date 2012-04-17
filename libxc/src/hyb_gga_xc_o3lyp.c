@@ -51,7 +51,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_o3lyp) = {
   XC_FAMILY_HYB_GGA,
   "AJ Cohen, NC Handy, Mol. Phys. 99 607 (2001)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_xc_o3lyp_init,
   NULL, NULL, NULL
 };
@@ -86,7 +86,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_x3lyp) = {
   XC_FAMILY_HYB_GGA,
   "X Xu, WA Goddard, III, PNAS 101, 2673 (2004)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_xc_x3lyp_init,
   NULL, NULL, NULL
 };

@@ -42,7 +42,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeh) = {
   XC_FAMILY_HYB_GGA,
   "M. Ernzerhof, G. E. Scuseria, J. Chem. Phys. 110, 5029 (1999)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_pbeh_init,
   NULL, NULL, NULL /* this is taken care by the generic routine */
 };

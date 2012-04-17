@@ -232,7 +232,7 @@ const XC(func_info_type) XC(func_info_gga_c_lyp) = {
   "C Lee, W Yang and RG Parr, Phys. Rev. B 37, 785 (1988)\n"
   "B Miehlich, A Savin, H Stoll and H Preuss, Chem. Phys. Lett. 157, 200 (1989)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   XC(gga_c_lyp_init), 
   NULL,
   NULL,

@@ -104,7 +104,7 @@ const XC(func_info_type) XC(func_info_gga_c_wi0) = {
   XC_FAMILY_GGA,
   "LC Wilson & S Ivanov, Int. J. Quantum Chem. 69, 523-532 (1998)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_c_wi_init,
   NULL, NULL,
   work_gga_c
@@ -117,7 +117,7 @@ const XC(func_info_type) XC(func_info_gga_c_wi) = {
   XC_FAMILY_GGA,
   "LC Wilson & S Ivanov, Int. J. Quantum Chem. 69, 523-532 (1998)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_c_wi_init,
   NULL, NULL,
   work_gga_c

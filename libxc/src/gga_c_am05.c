@@ -121,7 +121,7 @@ const XC(func_info_type) XC(func_info_gga_c_am05) = {
   "R Armiento and AE Mattsson, Phys. Rev. B 72, 085108 (2005)\n"
   "AE Mattsson, R Armiento, J Paier, G Kresse, JM Wills, and TR Mattsson, J. Chem. Phys. 128, 084714 (2008).",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, 0.0, MIN_ZETA,
+  1e-27, 1e-32, 0.0, 1e-32,
   gga_c_am05_init,
   NULL,
   NULL,            /* this is not an LDA                   */

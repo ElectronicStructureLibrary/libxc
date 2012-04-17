@@ -75,8 +75,10 @@ work_lda(const void *p_, int np, const FLOAT *rho,
       vrho[0] = r.zk + dens*r.dedrs*drs;
 
       if(p->nspin == XC_POLARIZED){
-	vrho[1] = vrho[0] - (r.zeta + 1.0)*r.dedz;
-	vrho[0] = vrho[0] - (r.zeta - 1.0)*r.dedz;
+	vrho[1] = (rho[1] > p->info->min_dens) ?
+	  vrho[0] - (r.zeta + 1.0)*r.dedz : 0.0;
+	vrho[0] = (rho[0] > p->info->min_dens) ?
+	  vrho[0] - (r.zeta - 1.0)*r.dedz : 0.0;
       }
     }
   
@@ -88,7 +90,7 @@ work_lda(const void *p_, int np, const FLOAT *rho,
       v2rho2[0] = r.dedrs*(2.0*drs + dens*d2rs) + dens*r.d2edrs2*drs*drs;
       
       if(p->nspin == XC_POLARIZED){
-	FLOAT sign[3][2] = {{-1.0, -1.0}, {-1.0, +1.0}, {+1.0, +1.0}};
+        FLOAT sign[3][2] = {{-1.0, -1.0}, {-1.0, +1.0}, {+1.0, +1.0}};
 	
 	for(is=2; is>=0; is--){
 	  v2rho2[is] = v2rho2[0] - r.d2edrsz*(2.0*r.zeta + sign[is][0] + sign[is][1])*drs

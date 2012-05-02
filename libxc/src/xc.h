@@ -138,10 +138,10 @@ void XC(lda_vxc)    (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *vr
 void XC(lda_fxc)    (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *v2rho2);
 void XC(lda_kxc)    (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *v3rho3);
 
+void XC(lda_x_set_params)        (XC(func_type) *p, int relativistic, FLOAT omega);
 void XC(lda_x_1d_set_params)     (XC(func_type) *p, int interaction, FLOAT bb);
 void XC(lda_c_1d_csc_set_params) (XC(func_type) *p, int interaction, FLOAT bb);
 void XC(lda_c_xalpha_set_params) (XC(func_type) *p, FLOAT alpha);
-void XC(lda_x_set_params)        (XC(func_type) *p, int relativistic);
 void XC(lda_c_2d_prm_set_params) (XC(func_type) *p, FLOAT N);
 void XC(lda_c_vwn_set_params)    (XC(func_type) *p, int spin_interpolation);
 
@@ -187,7 +187,8 @@ void XC(gga_x_rpbe_set_params) (XC(func_type) *p, FLOAT kappa, FLOAT mu);
 void XC(gga_x_optx_set_params) (XC(func_type) *p, FLOAT a, FLOAT b, FLOAT gamma);
 void XC(gga_c_lyp_set_params)  (XC(func_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
 void XC(gga_lb_set_params)     (XC(func_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
-void XC(gga_k_tflw_set_params)(XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N);
+void XC(gga_k_tflw_set_params) (XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N);
+void XC(hyb_gga_x_hse_set_params)(XC(func_type) *p, FLOAT omega);
 
 FLOAT XC(hyb_gga_exx_coef)(const XC(gga_type) *p);
 

@@ -223,10 +223,11 @@ module XC_F90(lib_m)
       real(xc_f90_kind),      intent(in)     :: alpha
     end subroutine XC_F90(lda_c_xalpha_set_par)
 
-    subroutine XC_F90(lda_x_set_par)(p, relativistic)
+    subroutine XC_F90(lda_x_set_par)(p, relativistic, omega)
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(inout)  :: p
       integer,                 intent(in)     :: relativistic
+      real(xc_f90_kind),       intent(in)     :: omega
     end subroutine XC_F90(lda_x_set_par)
 
     subroutine XC_F90(lda_c_1d_csc_set_par)(p, interaction, bb)

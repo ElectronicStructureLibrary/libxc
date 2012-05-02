@@ -190,7 +190,10 @@ func(const XC(gga_type) *p, int order, FLOAT x, FLOAT ds,
 
   /* now we calculate F(s) */
   {
-    static const FLOAT Fc1=4.0*AA*AA/(9.0*CC) + (BB - AA*DD)/CC, Fc2=-4.0/(3.0*36.0*CC);
+    FLOAT Fc1, Fc2;
+
+    Fc1 = 4.0*AA*AA/(9.0*CC) + (BB - AA*DD)/CC;
+    Fc2 = -4.0/(3.0*36.0*CC);
 
     F = Fc1*H + Fc2;
   }

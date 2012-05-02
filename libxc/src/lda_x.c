@@ -43,7 +43,8 @@
 */
 
 typedef struct{
-  FLOAT alpha;         /* parameter for Xalpha functional */
+  FLOAT alpha;       /* parameter for Xalpha functional */
+  FLOAT omega;       /* parameter for range separation (0 means normal LDA) */
   int relativistic;  /* use the relativistic version of the functional or not */
 } XC(lda_x_params);
 
@@ -56,7 +57,7 @@ lda_x_init(void *p_)
   p->params = malloc(sizeof(XC(lda_x_params)));
 
   /* exchange is equal to xalpha with a parameter of 4/3 */
-  XC(lda_x_set_params_)(p, 4.0/3.0, XC_NON_RELATIVISTIC);
+  XC(lda_x_set_params_)(p, 4.0/3.0, XC_NON_RELATIVISTIC, 0.0);
 }
 
 static void 
@@ -68,36 +69,25 @@ lda_c_xalpha_init(void *p_)
   p->params = malloc(sizeof(XC(lda_x_params)));
 
   /* This gives the usual Xalpha functional */
-  XC(lda_x_set_params_)(p, 1.0, XC_NON_RELATIVISTIC);
+  XC(lda_x_set_params_)(p, 1.0, XC_NON_RELATIVISTIC, 0.0);
 }
-
-static void 
-lda_x_end(void *p_)
-{
-  XC(lda_type) *p = (XC(lda_type) *)p_;
-
-  assert(p->params != NULL);
-  free(p->params);
-  p->params = NULL;
-}
-
 
 void 
 XC(lda_c_xalpha_set_params)(XC(func_type) *p, FLOAT alpha)
 {
   assert(p != NULL && p->lda != NULL);
-  XC(lda_x_set_params_)(p->lda, alpha, XC_NON_RELATIVISTIC);
+  XC(lda_x_set_params_)(p->lda, alpha, XC_NON_RELATIVISTIC, 0.0);
 }
 
 void 
-XC(lda_x_set_params)(XC(func_type) *p, int relativistic)
+XC(lda_x_set_params)(XC(func_type) *p, int relativistic, FLOAT omega)
 {
   assert(p != NULL && p->lda != NULL);
-  XC(lda_x_set_params_)(p->lda, 4.0/3.0, relativistic);
+  XC(lda_x_set_params_)(p->lda, 4.0/3.0, relativistic, omega);
 }
 
 void 
-XC(lda_x_set_params_)(XC(lda_type) *p, FLOAT alpha, int relativistic)
+XC(lda_x_set_params_)(XC(lda_type) *p, FLOAT alpha, int relativistic, FLOAT omega)
 {
   XC(lda_x_params) *params;
 
@@ -106,8 +96,44 @@ XC(lda_x_set_params_)(XC(lda_type) *p, FLOAT alpha, int relativistic)
 
   params->alpha = 1.5*alpha - 1.0;
   params->relativistic = relativistic;
+  params->omega = omega;
 }
 
+
+void
+XC(lda_x_attenuation_function)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
+{
+  FLOAT aa2, aa3, aa4, aa5, aa6, aa7, aa8, aux1, aux2, aux3;
+
+  aa2 = aa*aa;
+  aa3 = aa*aa2;
+  aux1 = M_SQRTPI*erf(1.0/(2.0*aa));
+  aux2 = exp(-1.0/(4.0*aa));
+
+  *f = 1.0 - 8.0/3.0*aa*(aux1 - 3.0*aa + 4.0*aa3 + (2.0*aa - 4*aa3)*aux2);
+
+  if(order < 1) return;
+
+  aux3 = exp(-1.0/(4.0*aa2));
+
+  *df = (4.0*aa*(-1.0 + 2.0*aa*(-4.0 + aa + 16.0*aa2))*aux2 + 
+	 8.0*(aux3 - aa*(-6.0*aa + 16.0*aa3 + aux1)))/(3.0*aa);
+
+  if(order < 2) return;
+
+  aa4 = aa*aa3;
+  aa5 = aa*aa4;
+  aa6 = aa*aa5;
+
+  *d2f = (4.0*aux3 + 48.0*aa4 - 384*aa6 + aux2*(-aa2 - 8.0*aa3 - 30.0*aa4 + 48.0*aa5 + 384*aa6))/(3.0*aa4);
+
+  if(order < 2) return;
+
+  aa7 = aa*aa6;
+  aa8 = aa*aa7;
+
+  *d3f = ((8.0 - 64.0*aa2)*aux3 - 3072*aa8 + aux2*(576*aa7 - aa3 + 2.0*aa5 + 48.0*aa6 + 3072*aa8))/(12.0*aa7);
+}
 
 static inline void 
 func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
@@ -118,11 +144,15 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   FLOAT zk_nr, dedrs_nr, dedz_nr, d2edrs2_nr, d2edrsz_nr, d2edz2_nr;
   XC(lda_x_params) *params;
 
+  FLOAT fa, dfa, d2fa, d3fa;
+
   assert(p->params != NULL);
   params = (XC(lda_x_params) *) (p->params);  
 
   ax = -params->alpha*0.458165293283142893475554485052; /* -alpha * 3/4*POW(3/(2*M_PI), 2/3) */
   
+  //XC(lda_x_attenuation_function)(2, 0.1, &fa, &dfa, &d2fa, &d3fa);
+
   r->zk = ax/r->rs[1];
 
   if(p->nspin == XC_POLARIZED){
@@ -255,7 +285,7 @@ const XC(func_info_type) XC(func_info_lda_x) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-29, 0.0, 0.0, 1e-32,
   lda_x_init,
-  lda_x_end,
+  NULL,
   work_lda
 };
 
@@ -268,7 +298,7 @@ const XC(func_info_type) XC(func_info_lda_c_xalpha) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-29, 0.0, 0.0, 1e-32,
   lda_c_xalpha_init,
-  lda_x_end,
+  NULL,
   work_lda
 };
 

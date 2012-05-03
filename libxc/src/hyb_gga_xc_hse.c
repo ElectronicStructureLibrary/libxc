@@ -54,11 +54,12 @@ hyb_gga_x_hse_init(void *p_)
    */
   switch(p->info->number){
   case XC_HYB_GGA_X_HSE03:
-    /* in this case one should use omega^HF = 0.15/sqrt(2) */
+    /* in this case one should use omega^HF = 0.15/sqrt(2) and
+       omega^PBE = 0.15*CBRT(2.0)*/
     XC(hyb_gga_x_hse_set_params_)(p, 0.15*CBRT(2.0));
     break;
   case XC_HYB_GGA_X_HSE06:
-    /* in this case one should use omega^HF = omega^PBE */
+    /* in this case one should use omega^HF = omega^PBE = 0.11 */
     XC(hyb_gga_x_hse_set_params_)(p, 0.11);
     break;
   default:

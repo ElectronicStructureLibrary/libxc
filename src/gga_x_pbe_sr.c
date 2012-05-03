@@ -425,7 +425,7 @@ func(const XC(gga_type) *p, int order, FLOAT x, FLOAT ds,
       df8   = ea7*M_SQRTPI*(135.0/(64.0*Hsbw72) + 729.0/(256.0*Hsbw32*AA2)
 			    - 243.0/(128.0*Hsbw52*AA) - 105.0*AA/(32.0*DHsbw92));
       df8ds = df8*dHsbwds;
-      df8ds = df8*dHsbwdw;
+      df8dw = df8*dHsbwdw;
 
       df9   =  -81.0*ea6*eb1/(16.0*Hsbw3*AA) +
 	ea8*(27.0/(4.0*Hsbw4) + 729.0/(128.0*Hsbw2*AA2) - 81.0/(16.0*Hsbw3*AA) - 12.0*AA/DHsbw5);

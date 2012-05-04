@@ -57,7 +57,7 @@ int XC(mgga_init)(XC(func_type) *p, const XC(func_info_type) *info, int nspin)
   }else{
     func->n_sigma = func->n_vsigma = 3;
     func->n_v2rho2 = func->n_v2tau2 = func->n_v2lapl2 = 3;
-    func->n_v2rhotau = func->n_v2rholapl = func->n_v2lapltau = 3;
+    func->n_v2rhotau = func->n_v2rholapl = func->n_v2lapltau = 4;
     func->n_v2sigma2 = 6;
     func->n_v2rhosigma = func->n_v2sigmatau = func->n_v2sigmalapl = 6;
   }

@@ -141,7 +141,7 @@ func(const XC(mgga_type) *p, XC(work_mgga_x_params) *r)
 const XC(func_info_type) XC(func_info_mgga_x_2d_prhg07) = {
   XC_MGGA_X_2D_PRHG07,
   XC_EXCHANGE,
-  "Pittalis-Rasanen-Helbig-Gross 2010",
+  "Pittalis-Rasanen-Helbig-Gross 2007",
   XC_FAMILY_MGGA,
   "S. Pittalis, E. Rasanen, N. Helbig, and E. K. U. Gross, Phys. Rev. B 76, 235314 (2007)",
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

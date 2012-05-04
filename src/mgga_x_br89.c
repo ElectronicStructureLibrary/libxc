@@ -310,7 +310,7 @@ const XC(func_info_type) XC(func_info_mgga_x_bj06) = {
 const XC(func_info_type) XC(func_info_mgga_x_tb09) = {
   XC_MGGA_X_TB09,
   XC_EXCHANGE,
-  "Tran & Blaha 89",
+  "Tran & Blaha 09",
   XC_FAMILY_MGGA,
   "F Tran and P Blaha, Phys. Rev. Lett. 102, 226401 (2009)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,

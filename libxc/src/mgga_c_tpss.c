@@ -289,7 +289,8 @@ my_mgga_c_tpss(const void *p_,
 	&f_PKZB, vrho_PKZB, vsigma_PKZB, &vz_PKZB);
   
   /* Equation (11) */
-  *zk  = f_PKZB*(1.0 + param_d*f_PKZB*z3);
+  if(zk != NULL)
+    *zk  = f_PKZB*(1.0 + param_d*f_PKZB*z3);
 
   if(order < 1) return;
 

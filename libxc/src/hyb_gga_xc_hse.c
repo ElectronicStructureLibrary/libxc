@@ -21,11 +21,11 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_HYB_GGA_X_HSE03 427 /* the 2003 version of the screened hybrid HSE */
-#define XC_HYB_GGA_X_HSE06 428 /* the 2006 version of the screened hybrid HSE */
+#define XC_HYB_GGA_XC_HSE03 427 /* the 2003 version of the screened hybrid HSE */
+#define XC_HYB_GGA_XC_HSE06 428 /* the 2006 version of the screened hybrid HSE */
 
 static void
-hyb_gga_x_hse_init(void *p_)
+hyb_gga_xc_hse_init(void *p_)
 {
   static int   funcs_id  [3] = {XC_GGA_X_PBE, XC_GGA_X_PBE_SR, XC_GGA_C_PBE};
   static FLOAT funcs_coef[3] = {1.0, -0.25, 1.0};  
@@ -53,17 +53,17 @@ hyb_gga_x_hse_init(void *p_)
      We try to follow the original definition of the functional.
    */
   switch(p->info->number){
-  case XC_HYB_GGA_X_HSE03:
+  case XC_HYB_GGA_XC_HSE03:
     /* in this case one should use omega^HF = 0.15/sqrt(2) and
        omega^PBE = 0.15*CBRT(2.0)*/
-    XC(hyb_gga_x_hse_set_params_)(p, 0.15*CBRT(2.0));
+    XC(hyb_gga_xc_hse_set_params_)(p, 0.15*CBRT(2.0));
     break;
-  case XC_HYB_GGA_X_HSE06:
+  case XC_HYB_GGA_XC_HSE06:
     /* in this case one should use omega^HF = omega^PBE = 0.11 */
-    XC(hyb_gga_x_hse_set_params_)(p, 0.11);
+    XC(hyb_gga_xc_hse_set_params_)(p, 0.11);
     break;
   default:
-    fprintf(stderr, "Internal error in hyb_gga_x_hse\n");
+    fprintf(stderr, "Internal error in hyb_gga_xc_hse\n");
     exit(1);
   }
 
@@ -72,39 +72,39 @@ hyb_gga_x_hse_init(void *p_)
 
 
 void 
-XC(hyb_gga_x_hse_set_params)(XC(func_type) *p, FLOAT omega)
+XC(hyb_gga_xc_hse_set_params)(XC(func_type) *p, FLOAT omega)
 {
   assert(p != NULL && p->gga != NULL);
-  XC(hyb_gga_x_hse_set_params_)(p->gga, omega);
+  XC(hyb_gga_xc_hse_set_params_)(p->gga, omega);
 }
 
 
 void 
-XC(hyb_gga_x_hse_set_params_)(XC(gga_type) *p, FLOAT omega)
+XC(hyb_gga_xc_hse_set_params_)(XC(gga_type) *p, FLOAT omega)
 {
   assert(p->func_aux[1] != NULL);
    (p->params);
 
-   XC(gga_x_pbe_sr_set_params)(p->func_aux[1], omega);
+   XC(gga_xc_pbe_sr_set_params)(p->func_aux[1], omega);
 }
 
 
-const XC(func_info_type) XC(func_info_hyb_gga_x_hse03) = {
-  XC_HYB_GGA_X_HSE03,
-  XC_EXCHANGE,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_hse03) = {
+  XC_HYB_GGA_XC_HSE03,
+  XC_EXCHANGE_CORRELATION,
   "HSE03",
   XC_FAMILY_HYB_GGA,
   "J Heyd, GE Scuseria, and M Ernzerhof, J. Chem. Phys. 118, 8207 (2003)\n"
   "J Heyd, GE Scuseria, and M Ernzerhof, J. Chem. Phys. 124, 219906 (2006)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  hyb_gga_x_hse_init,
+  hyb_gga_xc_hse_init,
   NULL, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_x_hse06) = {
-  XC_HYB_GGA_X_HSE06,
-  XC_EXCHANGE,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_hse06) = {
+  XC_HYB_GGA_XC_HSE06,
+  XC_EXCHANGE_CORRELATION,
   "HSE06",
   XC_FAMILY_HYB_GGA,
   "J Heyd, GE Scuseria, and M Ernzerhof, J. Chem. Phys. 118, 8207 (2003)\n"
@@ -112,6 +112,6 @@ const XC(func_info_type) XC(func_info_hyb_gga_x_hse06) = {
   "AV Krukau, OA Vydrov, AF Izmaylov, and GE Scuseria, J. Chem. Phys. 125, 224106 (2006)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  hyb_gga_x_hse_init,
+  hyb_gga_xc_hse_init,
   NULL, NULL, NULL
 };

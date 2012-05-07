@@ -85,7 +85,7 @@ XC(hyb_gga_xc_hse_set_params_)(XC(gga_type) *p, FLOAT omega)
   assert(p->func_aux[1] != NULL);
    (p->params);
 
-   XC(gga_xc_pbe_sr_set_params)(p->func_aux[1], omega);
+   XC(gga_x_pbe_sr_set_params)(p->func_aux[1], omega);
 }
 
 

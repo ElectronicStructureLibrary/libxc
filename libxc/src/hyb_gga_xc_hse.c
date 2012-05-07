@@ -28,7 +28,7 @@ static void
 hyb_gga_x_hse_init(void *p_)
 {
   static int   funcs_id  [3] = {XC_GGA_X_PBE, XC_GGA_X_PBE_SR, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[3] = {1.0, -1.0, 1.0};  
+  static FLOAT funcs_coef[3] = {1.0, -0.25, 1.0};  
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
   XC(gga_init_mix)(p, 3, funcs_id, funcs_coef);

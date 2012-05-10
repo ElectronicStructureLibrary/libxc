@@ -27,7 +27,7 @@
 static void
 hyb_gga_xc_hse_init(void *p_)
 {
-  static int   funcs_id  [3] = {XC_GGA_X_PBE, XC_GGA_X_PBE_SR, XC_GGA_C_PBE};
+  static int   funcs_id  [3] = {XC_GGA_X_WPBEH, XC_GGA_X_WPBEH, XC_GGA_C_PBE};
   static FLOAT funcs_coef[3] = {1.0, -0.25, 1.0};  
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
@@ -50,7 +50,9 @@ hyb_gga_xc_hse_init(void *p_)
      for HSE03 the same value omega^HF = omega^PBE = 0.3 (A^-1) ~
      0.1587 and for HSE06 omega^HF = omega^PBE = 0.2 (A^-1) ~ 0.1058.
 
-     We try to follow the original definition of the functional.
+     We try to follow the original definition of the functional. The
+     default omega for XC_GGA_X_WPBEH is zero, so WPBEh reduces to
+     PBEh
    */
   switch(p->info->number){
   case XC_HYB_GGA_XC_HSE03:

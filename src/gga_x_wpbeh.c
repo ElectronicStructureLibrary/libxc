@@ -21,39 +21,39 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_GGA_X_PBE_SR 524 /* short-range version of the PBE */
+#define XC_GGA_X_WPBEH 524 /* short-range version of the PBE */
 
 typedef struct{
   FLOAT omega;
-} gga_x_pbe_sr_params;
+} gga_x_wpbeh_params;
 
 static void
-gga_x_pbe_sr_init(void *p_)
+gga_x_wpbeh_init(void *p_)
 {
   XC(gga_type) *p = (XC(gga_type) *)p_;
 
   assert(p->params == NULL);
-  p->params = malloc(sizeof(gga_x_pbe_sr_params));
+  p->params = malloc(sizeof(gga_x_wpbeh_params));
 
-  /* some (not so random) value */
-  XC(gga_x_pbe_sr_set_params_)(p, 0.11);
+  /* The default value is actually PBEh */
+  XC(gga_x_wpbeh_set_params_)(p, 0.0);
 }
 
 void 
-XC(gga_x_pbe_sr_set_params)(XC(func_type) *p, FLOAT omega)
+XC(gga_x_wpbeh_set_params)(XC(func_type) *p, FLOAT omega)
 {
   assert(p != NULL && p->gga != NULL);
-  XC(gga_x_pbe_sr_set_params_)(p->gga, omega);
+  XC(gga_x_wpbeh_set_params_)(p->gga, omega);
 }
 
 
 void 
-XC(gga_x_pbe_sr_set_params_)(XC(gga_type) *p, FLOAT omega)
+XC(gga_x_wpbeh_set_params_)(XC(gga_type) *p, FLOAT omega)
 {
-  gga_x_pbe_sr_params *params;
+  gga_x_wpbeh_params *params;
 
   assert(p->params != NULL);
-  params = (gga_x_pbe_sr_params *) (p->params);
+  params = (gga_x_wpbeh_params *) (p->params);
 
   params->omega = omega;
 }
@@ -103,7 +103,7 @@ func(const XC(gga_type) *p, int order, FLOAT x, FLOAT ds,
   FLOAT dt10ds, dt10dw, dpiexperfds, dpiexperfdw, dexpeids, dexpeidw;
 
   assert(p->params != NULL);
-  omega = ((gga_x_pbe_sr_params *)(p->params))->omega;
+  omega = ((gga_x_wpbeh_params *)(p->params))->omega;
 
   kF  = POW(3.0*M_PI*M_PI*ds, 1.0/3.0);
   ww  = omega/kF;
@@ -454,15 +454,15 @@ func(const XC(gga_type) *p, int order, FLOAT x, FLOAT ds,
 
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_pbe_sr) = {
-  XC_GGA_X_PBE_SR,
+const XC(func_info_type) XC(func_info_gga_x_wpbeh) = {
+  XC_GGA_X_WPBEH,
   XC_EXCHANGE,
-  "short-range part of the PBE",
+  "short-range part of the PBE (default w=0 gives PBEh)",
   XC_FAMILY_GGA,
   "J Heyd, GE Scuseria, and M Ernzerhof, J. Chem. Phys. 118, 8207 (2003)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  gga_x_pbe_sr_init,
+  gga_x_wpbeh_init,
   NULL, NULL, 
   work_gga_x
 };

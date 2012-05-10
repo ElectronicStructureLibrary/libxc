@@ -130,7 +130,7 @@ void XC(gga_x_optx_set_params_) (XC(gga_type) *p, FLOAT a, FLOAT b, FLOAT gamma)
 void XC(gga_c_lyp_set_params_)  (XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
 void XC(gga_lb_set_params_)     (XC(gga_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
 void XC(gga_k_tflw_set_params_) (XC(gga_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N);
-void XC(gga_x_pbe_sr_set_params_) (XC(gga_type) *p, FLOAT omega);
+void XC(gga_x_wpbeh_set_params_) (XC(gga_type) *p, FLOAT omega);
 void XC(hyb_gga_xc_hse_set_params_)(XC(gga_type) *p, FLOAT omega);
 
 

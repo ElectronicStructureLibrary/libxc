@@ -252,6 +252,17 @@ void XC_FC_FUNC(f90_gga_lb_modified, F90_GGA_LB_MODIFIED)
   XC(gga_lb_modified)(gga, *np, rho, sigma, *r, vrho);
 }
 
+void XC_FC_FUNC(f90_gga_x_wpbeh_set_par, F90_GGA_X_WPBEH_SET_PAR)
+  (void **p, FLOAT *omega)
+{
+  XC(gga_x_wpbeh_set_params)((XC(func_type) *)(*p), *omega);
+}
+
+void XC_FC_FUNC(f90_hyb_gga_xc_hse_set_par, F90_HYB_GGA_XC_HSE_SET_PAR)
+  (void **p, FLOAT *omega)
+{
+  XC(hyb_gga_xc_hse_set_params)((XC(func_type) *)(*p), *omega);
+}
 
 void XC_FC_FUNC(f90_hyb_gga_exx_coef, F90_HYB_GGA_EXX_COEF)
    (void **p, FLOAT *coef)

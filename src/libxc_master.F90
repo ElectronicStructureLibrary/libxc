@@ -340,6 +340,26 @@ module XC_F90(lib_m)
   end interface
 
 
+  !----------------------------------------------------------------
+  interface
+    subroutine XC_F90(gga_x_wpbeh_set_par)(p, omega)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(in)  :: p
+      real(xc_f90_kind),       intent(in)  :: omega       ! range separation
+    end subroutine XC_F90(gga_x_wpbeh_set_par)
+  end interface
+  
+
+  !----------------------------------------------------------------
+  interface
+    subroutine XC_F90(hyb_gga_xc_hse_set_par)(p, omega)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(in)  :: p
+      real(xc_f90_kind),       intent(in)  :: omega       ! range separation
+    end subroutine XC_F90(hyb_gga_xc_hse_set_par)
+  end interface
+
+
   ! the meta-GGAs
   !----------------------------------------------------------------
   interface

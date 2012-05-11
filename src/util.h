@@ -39,13 +39,23 @@ float  asinhf(float  x);
 #define min(x,y)  ((x<y) ? (x) : (y))
 #define max(x,y)  ((x<y) ? (y) : (x))
 
+/* some constants stolen from the GSL */
+#define GSL_LOG_DBL_MIN   (-7.0839641853226408e+02)
+#define GSL_LOG_DBL_MAX    7.0978271289338397e+02
+#define GSL_SQRT_DBL_EPSILON   1.4901161193847656e-08
+#define GSL_DBL_MIN        2.2250738585072014e-308
+
 /* special functions */
 double lambert_w(double z);
-double bessi0(double x);
-double bessi1(double x);
-double bessk0(double x);
-double bessk1(double x);
-double expint_e1(double x);
+
+inline double cheb_eval(const double x, const double *cs, const int N);
+double bessel_I0_scaled(const double x);
+double bessel_I0(const double x);
+double bessel_K0_scaled(const double x);
+double bessel_K0(const double x);
+double bessel_K1_scaled(const double x);
+double bessel_K1(const double x);
+double expint_e1(const double x);
 
 /* integration */
 typedef void integr_fn(FLOAT *x, int n, void *ex);

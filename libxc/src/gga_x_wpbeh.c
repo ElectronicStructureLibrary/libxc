@@ -152,8 +152,11 @@ func(const XC(gga_type) *p, int order, FLOAT x, FLOAT ds,
   {
     FLOAT Fc1, Fc2;
 
-    Fc1 = 4.0*AA*AA/(9.0*CC) + (BB - AA*DD)/CC;
-    Fc2 = -4.0/(3.0*36.0*CC);
+    //Fc1 = 4.0*AA*AA/(9.0*CC) + (BB - AA*DD)/CC;
+    //Fc2 = -4.0/(3.0*36.0*CC);
+
+    Fc1 = 6.4753871;
+    Fc2 = 0.47965830;
 
     F = Fc1*H + Fc2;
 
@@ -298,7 +301,7 @@ func(const XC(gga_type) *p, int order, FLOAT x, FLOAT ds,
   /* Calculate exp(x)*f(x) depending on size of x */
   if(HsbwA94 < expfcutoff){
     piexperf = M_PI*exp(HsbwA94)*erfc(HsbwA9412);
-    expei    = exp(HsbwA94)*(-expint(HsbwA94));
+    expei    = exp(HsbwA94)*(-expint_e1(HsbwA94));
   }else{
     static const FLOAT expei1=4.03640, expei2=1.15198, expei3=5.03627, expei4=4.19160;
 

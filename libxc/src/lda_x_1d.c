@@ -68,7 +68,7 @@ static inline FLOAT FT_inter(FLOAT x, int interaction)
 
   if(interaction == 0){
     FLOAT x2 = x*x;
-    return expint(x2)*exp(x2);
+    return expint_e1(x2)*exp(x2);
   }else
     return 2.0*bessk0(x); 
 }

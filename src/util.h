@@ -45,7 +45,7 @@ double bessi0(double x);
 double bessi1(double x);
 double bessk0(double x);
 double bessk1(double x);
-double expint(double x);
+double expint_e1(double x);
 
 /* integration */
 typedef void integr_fn(FLOAT *x, int n, void *ex);

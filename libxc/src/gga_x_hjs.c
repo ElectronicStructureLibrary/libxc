@@ -21,7 +21,10 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_GGA_X_HJS_PBE 525 /* HJS screened exchange PBE version */
+#define XC_GGA_X_HJS_PBE     525 /* HJS screened exchange PBE version */
+#define XC_GGA_X_HJS_PBE_SOL 526 /* HJS screened exchange PBE_SOL version */
+#define XC_GGA_X_HJS_B88     527 /* HJS screened exchange B88 version */
+#define XC_GGA_X_HJS_B97X    528 /* HJS screened exchange B97x version */
 
 typedef struct{
   FLOAT omega;
@@ -29,8 +32,25 @@ typedef struct{
   const FLOAT *a, *b; /* pointers to the a and b parameters */
 } gga_x_hjs_params;
 
-static const FLOAT a_PBE[] = {0.0159941, 0.0852995, -0.160368, 0.152645, -0.0971263, 0.0422061};
-static const FLOAT b_PBE[] = {5.33319, -12.4780, 11.0988, -5.11013, 1.71468, -0.610380, 0.307555, -0.0770547, 0.0334840};
+static const FLOAT a_PBE[] = 
+  {0.0159941, 0.0852995, -0.160368, 0.152645, -0.0971263, 0.0422061};
+static const FLOAT b_PBE[] = 
+  {5.33319, -12.4780, 11.0988, -5.11013, 1.71468, -0.610380, 0.307555, -0.0770547, 0.0334840};
+
+static const FLOAT a_PBE_sol[] = 
+  {0.0047333, 0.0403304, -0.0574615, 0.0435395, -0.0216251, 0.0063721};
+static const FLOAT b_PBE_sol[] = 
+  {8.52056, -13.9885, 9.28583, -3.27287, 0.843499, -0.235543, 0.0847074, -0.0171561, 0.0050552};
+
+static const FLOAT a_B88[] =
+  {0.00968615, -0.0242498, 0.0259009, -0.0136606, 0.00309606, -7.32583e-5};
+static const FLOAT b_B88[] =
+  {-2.50356, 2.79656, -1.79401, 0.714888, -0.165924, 0.0118379, 0.0037806, -1.57905e-4, 1.45323e-6};
+
+static const FLOAT a_B97x[] =
+  {0.0027355, 0.0432970, -0.0669379, 0.0699060, -0.0474635, 0.0153092};
+static const FLOAT b_B97x[] =
+  {15.8279, -26.8145, 17.8127, -5.98246, 1.25408, -0.270783, 0.0919536, -0.0140960, 0.0045466};
 
 static void
 gga_x_hjs_init(void *p_)
@@ -46,6 +66,18 @@ gga_x_hjs_init(void *p_)
   case XC_GGA_X_HJS_PBE:
     ((gga_x_hjs_params *)(p->params))->a = a_PBE;
     ((gga_x_hjs_params *)(p->params))->b = b_PBE;
+    break;
+  case XC_GGA_X_HJS_PBE_SOL:
+    ((gga_x_hjs_params *)(p->params))->a = a_PBE_sol;
+    ((gga_x_hjs_params *)(p->params))->b = b_PBE_sol;
+    break;
+  case XC_GGA_X_HJS_B88:
+    ((gga_x_hjs_params *)(p->params))->a = a_B88;
+    ((gga_x_hjs_params *)(p->params))->b = b_B88;
+    break;
+  case XC_GGA_X_HJS_B97X:
+    ((gga_x_hjs_params *)(p->params))->a = a_B97x;
+    ((gga_x_hjs_params *)(p->params))->b = b_B97x;
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_hjs_init\n");
@@ -81,8 +113,7 @@ static inline void
 func(const XC(gga_type) *p, int order, FLOAT x, FLOAT ds,
      FLOAT *f, FLOAT *dfdx, FLOAT *lvrho)
 {
-  static const FLOAT AA=0.757211, BB=-0.106364, CC=-0.118649, DD=0.609650, EE=-0.0477963;
-  static const FLOAT m89=-8.0/9.0;
+  static const FLOAT AA=0.757211, BB=-0.106364, CC=-0.118649, DD=0.609650;
 
   FLOAT omega, kF, ss, ss2;
   FLOAT H, F, EG;
@@ -91,7 +122,7 @@ func(const XC(gga_type) *p, int order, FLOAT x, FLOAT ds,
   FLOAT term1, term2, term3, term4, term5, term6;
 
   FLOAT dnudrho, dssdx, dHds, dFds, dEGds;
-  FLOAT dzeta, dchi, dchids, dchidnu;
+  FLOAT dzeta, dchids, dchidnu;
 
   assert(p->params != NULL);
   omega = ((gga_x_hjs_params *)(p->params))->omega;
@@ -232,6 +263,45 @@ const XC(func_info_type) XC(func_info_gga_x_hjs_pbe) = {
   XC_GGA_X_HJS_PBE,
   XC_EXCHANGE,
   "HJS screened exchange PBE version",
+  XC_FAMILY_GGA,
+  "TM Henderson, BG Janesko, and GE Scuseria, J. Chem. Phys. 128, 194105 (2008)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_x_hjs_init,
+  NULL, NULL, 
+  work_gga_x
+};
+
+const XC(func_info_type) XC(func_info_gga_x_hjs_pbe_sol) = {
+  XC_GGA_X_HJS_PBE_SOL,
+  XC_EXCHANGE,
+  "HJS screened exchange PBE_SOL version",
+  XC_FAMILY_GGA,
+  "TM Henderson, BG Janesko, and GE Scuseria, J. Chem. Phys. 128, 194105 (2008)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_x_hjs_init,
+  NULL, NULL, 
+  work_gga_x
+};
+
+const XC(func_info_type) XC(func_info_gga_x_hjs_b88) = {
+  XC_GGA_X_HJS_B88,
+  XC_EXCHANGE,
+  "HJS screened exchange B88 version",
+  XC_FAMILY_GGA,
+  "TM Henderson, BG Janesko, and GE Scuseria, J. Chem. Phys. 128, 194105 (2008)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_x_hjs_init,
+  NULL, NULL, 
+  work_gga_x
+};
+
+const XC(func_info_type) XC(func_info_gga_x_hjs_b97x) = {
+  XC_GGA_X_HJS_B97X,
+  XC_EXCHANGE,
+  "HJS screened exchange B97x version",
   XC_FAMILY_GGA,
   "TM Henderson, BG Janesko, and GE Scuseria, J. Chem. Phys. 128, 194105 (2008)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

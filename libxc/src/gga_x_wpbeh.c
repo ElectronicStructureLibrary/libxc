@@ -110,7 +110,6 @@ s_scaling(int version, int order, FLOAT s1, FLOAT *s2, FLOAT *ds2ds1)
       *s2 = smax;
     else
       *s2  = s1 - LOG(1.0 + expmsmax/expms1);
-    *s2  = s1 - LOG(1.0 + exp(s1 - smax));
     break;
 
   case 3:/* second version of the scaling by TM Henderson */

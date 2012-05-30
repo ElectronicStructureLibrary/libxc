@@ -89,11 +89,6 @@ s_scaling(int version, int order, FLOAT s1, FLOAT *s2, FLOAT *ds2ds1)
 
   FLOAT expms1, expmsmax;
 
-  if(version == 2 || version == 3){
-    expms1   = exp(-s1);
-    expmsmax = exp(-smax);
-  }
-
   switch(version){
   case 0: /* no scaling */
     *s2 = s1;
@@ -108,11 +103,16 @@ s_scaling(int version, int order, FLOAT s1, FLOAT *s2, FLOAT *ds2ds1)
       *s2 = s1;
     else if(s1 > 15.0)
       *s2 = smax;
-    else
+    else{
+      expms1   = exp(-s1);
+      expmsmax = exp(-smax);
       *s2  = s1 - LOG(1.0 + expmsmax/expms1);
+    }
     break;
 
-  case 3:/* second version of the scaling by TM Henderson */
+  case 3: /* second version of the scaling by TM Henderson */
+    expms1   = exp(-s1);
+    expmsmax = exp(-smax);
     *s2 = s1 - (1.0 - expms1)*LOG(1.0 + expmsmax/expms1);
     break;
 

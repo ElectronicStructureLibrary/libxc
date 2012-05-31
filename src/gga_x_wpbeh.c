@@ -86,8 +86,10 @@ s_scaling(int version, int order, FLOAT s1, FLOAT *s2, FLOAT *ds2ds1)
 {
   /* parameters for the re-scaling of s */
   static const FLOAT strans=8.3, smax=8.572844, sconst=18.79622316;
+  static const FLOAT s0=8.572844, p4=0.615482, p5=1.136921, p6=-0.449154,
+    q4=1.229195, q5=-0.0269253, q6=0.313417, q7=-0.0508314, q8=0.0175739;
 
-  FLOAT expms1, expmsmax;
+  FLOAT expms1, expmsmax, s12, s14, num, den, dnum, dden;
 
   switch(version){
   case 0: /* no scaling */
@@ -116,6 +118,16 @@ s_scaling(int version, int order, FLOAT s1, FLOAT *s2, FLOAT *ds2ds1)
     *s2 = s1 - (1.0 - expms1)*LOG(1.0 + expmsmax/expms1);
     break;
 
+  case 4: /* appendix of JCP 128, 194105 (2008) */
+    s12 = s1*s1;
+    s14 = s12*s12;
+
+    num = s1*(1.0 + s14*(p4 + s1*(p5 + s1*(p6 + s1*q8*s0))));
+    den = 1.0 + s14*(q4 + s1*(q5 + s1*(q6 + s1*(q7 + s1*q8))));
+
+    *s2 = num/den;
+    break;
+
   default:
     fprintf(stderr, "Internal error in gga_x_hse\n");
     exit(1);
@@ -138,11 +150,17 @@ s_scaling(int version, int order, FLOAT s1, FLOAT *s2, FLOAT *ds2ds1)
     else if(s1 > 15.0)
       *ds2ds1 = 0.0;
     else
-      *ds2ds1  = expms1/(expms1 + expmsmax);
+      *ds2ds1 = expms1/(expms1 + expmsmax);
     break;
 
   case 3:
-    *ds2ds1  = expms1*(1.0 + expmsmax)/(expms1 + expmsmax) - expms1*LOG(1.0 + expmsmax/expms1);
+    *ds2ds1 = expms1*(1.0 + expmsmax)/(expms1 + expmsmax) - expms1*LOG(1.0 + expmsmax/expms1);
+
+  case 4: /* appendix of JCP 128, 194105 (2008) */
+    dnum = 1.0 + s14*(5.0*p4 + s1*(6.0*p5 + s1*(7.0*p6 + s1*8.0*q8*s0)));
+    dden = s12*s1*(4.0*q4 + s1*(5.0*q5 + s1*(6.0*q6 + s1*(7.0*q7 + s1*8.0*q8))));
+
+    *ds2ds1 = (dnum*den - num*dden)/(den*den);
   }
 }
 

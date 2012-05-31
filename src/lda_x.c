@@ -42,6 +42,15 @@
     E. Engel, S. Keller, A. Facco Bonetti, H. Mueller, and R. M. Dreizler, Phys. Rev. A 52, 2750 (1995).
 */
 
+/* Range separation */
+/* J. Toulouse, A. Savin, H.-J. Flad, Int. J. of Quant. Chem. 100, 1047-1056 (2004).
+
+**** This is hack that should get a proper interface soon ****
+   0 = ERF interaction
+   1 = ERF_GAU
+*/
+static int interaction = 0;
+
 typedef struct{
   FLOAT alpha;       /* parameter for Xalpha functional */
   FLOAT omega;       /* parameter for range separation (0 means normal LDA) */
@@ -103,62 +112,101 @@ XC(lda_x_set_params_)(XC(lda_type) *p, FLOAT alpha, int relativistic, FLOAT omeg
 void
 XC(lda_x_attenuation_function)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
 {
-  FLOAT aa2, aa3, aa4, aa5, aa6, aa7, aa8, aux1, aux2, aux3;
+  FLOAT aa2, aa3, auxa1, auxa2;
+  FLOAT bb, bb2, bb3, auxb1, auxb2;
 
   aa2 = aa*aa;
   aa3 = aa*aa2;
-  aux1 = M_SQRTPI*erf(1.0/(2.0*aa));
-  aux2 = exp(-1.0/(4.0*aa));
+  auxa1 = M_SQRTPI*erf(1.0/(2.0*aa));
+  auxa2 = exp(-1.0/(4.0*aa2));
 
-  *f = 1.0 - 8.0/3.0*aa*(aux1 - 3.0*aa + 4.0*aa3 + (2.0*aa - 4*aa3)*aux2);
+  *f = 1.0 - 8.0/3.0*aa*(auxa1 - 3.0*aa + 4.0*aa3 + (2.0*aa - 4*aa3)*auxa2);
+
+  if(interaction == 1){ /* erfgau */
+    bb  = aa/M_SQRT3;
+    bb2 = bb*bb;
+    bb3 = bb*bb2;
+    auxb1 = M_SQRTPI*erf(1.0/(2.0*bb));
+    auxb2 = exp(-1.0/(4.0*bb2));
+    
+    *f += 8.0/M_SQRT3*bb*(auxb1 - 6.0*bb + 16.0*bb3 + (2.0*bb - 16*bb3)*auxb2);
+  }
 
   if(order < 1) return;
 
-  aux3 = exp(-1.0/(4.0*aa2));
+  *df = 8.0/3.0 * (2.0*aa*(3.0 - 8.0*aa2 - (1.0 - 8.0*aa2)*auxa2) - auxa1);
 
-  *df = (4.0*aa*(-1.0 + 2.0*aa*(-4.0 + aa + 16.0*aa2))*aux2 + 
-	 8.0*(aux3 - aa*(-6.0*aa + 16.0*aa3 + aux1)))/(3.0*aa);
-
-  if(order < 2) return;
-
-  aa4 = aa*aa3;
-  aa5 = aa*aa4;
-  aa6 = aa*aa5;
-
-  *d2f = (4.0*aux3 + 48.0*aa4 - 384*aa6 + aux2*(-aa2 - 8.0*aa3 - 30.0*aa4 + 48.0*aa5 + 384*aa6))/(3.0*aa4);
+  if(interaction == 1)  /* erfgau */
+    *df -= 8.0/3.0*(4.0*bb*(3.0 - 16.0*bb2 + (1.0 + 16.0*bb2)*auxb2) - auxb1);
 
   if(order < 2) return;
 
-  aa7 = aa*aa6;
-  aa8 = aa*aa7;
+  *d2f = 16.0*(1.0 - 8*aa2 +(1.0 + 8.0*aa2)*auxa2);
 
-  *d3f = ((8.0 - 64.0*aa2)*aux3 - 3072*aa8 + aux2*(576*aa7 - aa3 + 2.0*aa5 + 48.0*aa6 + 3072*aa8))/(12.0*aa7);
+  if(interaction == 1)  /* erfgau */
+    *d2f -= 8.0/(3.0*M_SQRT3)*(12.0 - 192.0*bb2 + 3.0*(1.0/bb2 + 12.0 + 64.0*bb2)*auxb2);
+
+  if(order < 3) return;
+
+  *d3f = -256.0*aa + 8.0*(1.0 + 8.0*aa2 + 32.0*aa2*aa2)*auxa2/aa3;
+
+  if(interaction == 1)  /* erfgau */
+    *d3f -=  8.0/9.0*(-384.0*bb + 3.0*(1.0 + 8.0*bb2*(1.0 + bb2*(8.0 + bb2*32.0))*auxb2/(2.0*bb2*bb2*bb)));
+
 }
+
 
 static inline void 
 func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 {
-  FLOAT ax, fz, dfz, d2fz, d3fz;
+  FLOAT ax, omz, cbrtomz, opz, cbrtopz, fz, dfzdz, dfzdrs, d2fzdz2, d2fzdrsz, d2fzdrs2;
+  FLOAT d3fzdz3, d3fzdrsz2, d3fzdrs2z, d3fzdrs3;
   FLOAT beta, beta2, beta4, beta6, f1, f1_3, f1_5, f2, f3;
   FLOAT phi, dphi, d2phi, d3phi, dphidbeta, d2phidbeta2, d3phidbeta3, dbetadrs, d2betadrs2, d3betadrs3;
   FLOAT zk_nr, dedrs_nr, dedz_nr, d2edrs2_nr, d2edrsz_nr, d2edz2_nr;
   XC(lda_x_params) *params;
 
-  FLOAT fa, dfa, d2fa, d3fa;
+  FLOAT a_cnst, fa_u, dfa_u, d2fa_u, d3fa_u, fa_d, dfa_d, d2fa_d, d3fa_d;
 
   assert(p->params != NULL);
   params = (XC(lda_x_params) *) (p->params);  
 
-  ax = -params->alpha*0.458165293283142893475554485052; /* -alpha * 3/4*POW(3/(2*M_PI), 2/3) */
-  
-  //XC(lda_x_attenuation_function)(2, 0.1, &fa, &dfa, &d2fa, &d3fa);
-
-  r->zk = ax/r->rs[1];
+  ax    = -params->alpha*0.458165293283142893475554485052; /* -alpha * 3/4*POW(3/(2*M_PI), 2/3) */
 
   if(p->nspin == XC_POLARIZED){
-    fz  = 0.5*(POW(1.0 + r->zeta,  4.0/3.0) + POW(1.0 - r->zeta,  4.0/3.0));
-    r->zk *= fz;
+    opz = 1.0 + r->zeta;
+    omz = 1.0 - r->zeta;
+    cbrtopz = CBRT(opz);
+    cbrtomz = CBRT(omz);
   }
+
+  if(params->omega == 0.0){
+    fa_u = fa_d = 1.0;
+
+  }else{
+    a_cnst = CBRT(4.0/(9.0*M_PI))*params->omega/2.0;
+
+    if(p->nspin == XC_UNPOLARIZED){
+      XC(lda_x_attenuation_function)(r->order, a_cnst*r->rs[1], &fa_u, &dfa_u, &d2fa_u, &d3fa_u);
+    }else{
+      if(cbrtopz > 0.0)
+	XC(lda_x_attenuation_function)(r->order, a_cnst*r->rs[1]/cbrtopz, &fa_u, &dfa_u, &d2fa_u, &d3fa_u);
+      else
+	fa_u = dfa_u = d2fa_u = d3fa_u = 0.0;
+
+      if(cbrtomz > 0.0)
+	XC(lda_x_attenuation_function)(r->order, a_cnst*r->rs[1]/cbrtomz, &fa_d, &dfa_d, &d2fa_d, &d3fa_d);
+      else
+	fa_d = dfa_d = d2fa_d = d3fa_d = 0.0;
+    }
+  }
+
+  if(p->nspin == XC_UNPOLARIZED)
+    fz = fa_u;
+  else
+    fz = 0.5*(opz*cbrtopz*fa_u + omz*cbrtomz*fa_d);
+
+  r->zk = ax*fz/r->rs[1];
 
   if(params->relativistic == XC_RELATIVISTIC){
     beta   = CBRT(9.0*M_PI/4.0)/(r->rs[1]*M_C);
@@ -176,12 +224,19 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
   
   r->dedrs = -ax/r->rs[2];
 
-  if(p->nspin == XC_POLARIZED){
-    dfz = 2.0/3.0*(CBRT(1.0 + r->zeta) - CBRT(1.0 - r->zeta));
+  if(params->omega == 0.0)
+    dfa_u = dfa_d = 0.0;
 
-    r->dedrs *= fz;
-    r->dedz   = ax/r->rs[1]*dfz;
+  if(p->nspin == XC_POLARIZED){
+    dfzdz  = 1.0/6.0*(4.0*cbrtopz*fa_u - 4.0*cbrtomz*fa_d - a_cnst*r->rs[1]*(dfa_u - dfa_d));
+    dfzdrs = 0.5*a_cnst*(opz*dfa_u + omz*dfa_d);
+  }else{
+    dfzdrs = a_cnst*dfa_u;
   }
+
+  r->dedrs =  ax*(-fz/r->rs[2] + dfzdrs/r->rs[1]);
+  if(p->nspin == XC_POLARIZED)
+    r->dedz   = ax*dfzdz/r->rs[1];
 
   if(params->relativistic == XC_RELATIVISTIC){
     beta4 = beta2*beta2;
@@ -201,17 +256,29 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 
   if(r->order < 2) return;
     
-  r->d2edrs2 = 2.0*ax/(r->rs[1]*r->rs[2]);
+  if(params->omega == 0.0)
+    d2fa_u = d2fa_d = 0.0;
 
   if(p->nspin == XC_POLARIZED){
-    if(ABS(r->zeta) == 1.0)
-      d2fz = FLT_MAX;
-    else
-      d2fz = 2.0/9.0*(POW(1.0 + r->zeta,  -2.0/3.0) + POW(1.0 - r->zeta,  -2.0/3.0));
-    
-    r->d2edrs2 *= fz;
-    r->d2edrsz = -ax/r->rs[2]*dfz;
-    r->d2edz2  =  ax/r->rs[1]*d2fz;
+    d2fzdrs2 = 0.5*a_cnst*a_cnst*(cbrtopz*cbrtopz*d2fa_u + cbrtomz*cbrtomz*d2fa_d);
+    if(ABS(r->zeta) == 1.0){
+      d2fzdz2 = d2fzdrsz = FLT_MAX;
+    }else{
+      d2fzdrsz = a_cnst/6.0*(3.0*(dfa_u - dfa_d) - a_cnst*r->rs[1]*(d2fa_u/cbrtopz - d2fa_d/cbrtomz));
+      d2fzdz2  = 1.0/18.0*
+	(+ 4.0*(fa_u/(cbrtopz*cbrtopz) + fa_d/(cbrtomz*cbrtomz))
+	 - 4.0*a_cnst*r->rs[1]*(dfa_u/opz + dfa_d/omz)
+	 + a_cnst*a_cnst*r->rs[2]*(d2fa_u/(opz*cbrtopz) + d2fa_d/(omz*cbrtomz)));
+    }
+  }else{
+    d2fzdrs2 = a_cnst*a_cnst*d2fa_u;
+  }
+
+  r->d2edrs2 = ax*(2.0*fz/(r->rs[1]*r->rs[2]) - 2.0*dfzdrs/r->rs[2] + d2fzdrs2/r->rs[1]);
+
+  if(p->nspin == XC_POLARIZED){
+    r->d2edrsz = ax*(-dfzdz/r->rs[2] + d2fzdrsz/r->rs[1]);
+    r->d2edz2  = ax*d2fzdz2/r->rs[1];
   }
 
   if(params->relativistic == XC_RELATIVISTIC){
@@ -237,19 +304,36 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
 
   if(r->order < 3) return;
 
-  r->d3edrs3 = -6.0*ax/(r->rs[2]*r->rs[2]);
+  if(params->omega == 0.0)
+    d3fa_u = d3fa_d = 0.0;
 
   if(p->nspin == XC_POLARIZED){
-    if(ABS(r->zeta) == 1.0)
-      d3fz = FLT_MAX;
-    else
-      d3fz = -4.0/27.0*(POW(1.0 + r->zeta,  -5.0/3.0) - POW(1.0 - r->zeta,  -5.0/3.0));
+    d3fzdrs3 = 0.5*a_cnst*a_cnst*a_cnst*(cbrtopz*d3fa_u + cbrtomz*d3fa_d);
+    if(ABS(r->zeta) == 1.0){
+      d3fzdz3 = d3fzdrs2z = d3fzdrsz2 = FLT_MAX;
+    }else{
+      d3fzdrs2z = a_cnst*a_cnst/6.0*
+	(2.0*(d2fa_u/cbrtopz - d2fa_d/cbrtomz) - a_cnst*r->rs[1]*(d3fa_u/(cbrtopz*cbrtopz) - d3fa_d/(cbrtomz*cbrtomz)));
+      d3fzdrsz2 = 1.0/18.0*
+	(-2.0*a_cnst*a_cnst*r->rs[1]*(d2fa_u/(opz*cbrtopz) + d2fa_d/(omz*cbrtomz))
+	 +a_cnst*a_cnst*a_cnst*r->rs[2]*(d3fa_u/(opz*cbrtopz*cbrtopz) + d2fa_d/(omz*cbrtomz*cbrtomz)));
+      d3fzdz3   = 1.0/54.0*
+	(-8.0*(fa_u/(opz*cbrtopz*cbrtopz) - fa_d/(omz*cbrtomz*cbrtomz))
+	 +8.0*a_cnst*r->rs[1]*(dfa_u/(opz*opz) - dfa_d/(omz*omz))
+	 -a_cnst*a_cnst*a_cnst*r->rs[1]*r->rs[2]*(d3fa_u/(opz*opz*cbrtopz*cbrtopz) - d3fa_d/(omz*omz*cbrtomz*cbrtomz)));
+    }
+  }else
+    d3fzdrs3 = a_cnst*a_cnst*a_cnst*d2fa_u;
 
-    r->d3edrs3 *= fz;
-    r->d3edrs2z = 2.0*ax/(r->rs[1]*r->rs[2])*dfz;
-    r->d3edrsz2 =    -ax/r->rs[2]           *d2fz;
-    r->d3edz3   =     ax/r->rs[1]           *d3fz;
+  r->d3edrs3 = ax*(-6.0*fz/(r->rs[2]*r->rs[2]) + 6.0*dfzdrs/(r->rs[1]*r->rs[2])
+		   -3.0*d2fzdrs2/r->rs[2] + d3fzdrs3/r->rs[1]);
+
+  if(p->nspin == XC_POLARIZED){
+    r->d3edrs2z = ax*(2.0*dfzdz/(r->rs[1]*r->rs[2]) - 2.0*d2fzdrsz/r->rs[2] + d3fzdrs2z/r->rs[1]);
+    r->d3edrsz2 = ax*(-d2fzdz2/r->rs[2]+ d3fzdrsz2/r->rs[1]);
+    r->d3edz3   = ax*d3fzdz3/r->rs[1];
   }
+
 
   if(params->relativistic == XC_RELATIVISTIC){
     beta6 = beta4*beta2;
@@ -270,7 +354,6 @@ func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
       r->d3edz3   = r->d3edz3*phi;
     }
   }
-
 }
 
 #include "work_lda.c"

@@ -34,6 +34,7 @@ float  asinhf(float  x);
 
 #define M_CBRT2         1.259921049894873164767210607278228350570
 #define M_SQRTPI        1.772453850905516027298167483341145182798
+#define M_SQRT3         1.732050807568877293527446341505872366943
 
 /* Very useful macros */
 #define min(x,y)  ((x<y) ? (x) : (y))

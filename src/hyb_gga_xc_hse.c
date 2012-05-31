@@ -21,8 +21,12 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_HYB_GGA_XC_HSE03 427 /* the 2003 version of the screened hybrid HSE */
-#define XC_HYB_GGA_XC_HSE06 428 /* the 2006 version of the screened hybrid HSE */
+#define XC_HYB_GGA_XC_HSE03       427 /* the 2003 version of the screened hybrid HSE */
+#define XC_HYB_GGA_XC_HSE06       428 /* the 2006 version of the screened hybrid HSE */
+#define XC_HYB_GGA_XC_HJS_PBE     429 /* HJS hybrid screened exchange PBE version */
+#define XC_HYB_GGA_XC_HJS_PBE_SOL 430 /* HJS hybrid screened exchange PBE_SOL version */
+#define XC_HYB_GGA_XC_HJS_B88     431 /* HJS hybrid screened exchange B88 version */
+#define XC_HYB_GGA_XC_HJS_B97X    432 /* HJS hybrid screened exchange B97x version */
 
 static void
 hyb_gga_xc_hse_init(void *p_)
@@ -68,8 +72,6 @@ hyb_gga_xc_hse_init(void *p_)
     fprintf(stderr, "Internal error in hyb_gga_xc_hse\n");
     exit(1);
   }
-
-  p->exx_coef = 0.25;
 }
 
 
@@ -85,9 +87,7 @@ void
 XC(hyb_gga_xc_hse_set_params_)(XC(gga_type) *p, FLOAT omega)
 {
   assert(p->func_aux[1] != NULL);
-   (p->params);
-
-   XC(gga_x_wpbeh_set_params)(p->func_aux[1], omega);
+  XC(gga_x_wpbeh_set_params)(p->func_aux[1], omega);
 }
 
 
@@ -115,5 +115,86 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hse06) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_hse_init,
+  NULL, NULL, NULL
+};
+
+
+static void
+hyb_gga_xc_hjs_init(void *p_)
+{
+  static int   funcs_id  [3] = {-1, -1, XC_GGA_C_PBE};
+  static FLOAT funcs_coef[3] = {1.0, -0.25, 1.0};  
+  XC(gga_type) *p = (XC(gga_type) *)p_;
+
+  switch(p->info->number){
+  case XC_HYB_GGA_XC_HJS_PBE:
+    funcs_id[0] = funcs_id[1] = XC_GGA_X_HJS_PBE;
+    break;
+  case XC_HYB_GGA_XC_HJS_PBE_SOL:
+    funcs_id[0] = funcs_id[1] = XC_GGA_X_HJS_PBE_SOL;
+    break;
+  case XC_HYB_GGA_XC_HJS_B88:
+    funcs_id[0] = funcs_id[1] = XC_GGA_X_HJS_B88;
+    break;
+  case XC_HYB_GGA_XC_HJS_B97X:
+    funcs_id[0] = funcs_id[1] = XC_GGA_X_HJS_B97X;
+    break;
+  default:
+    fprintf(stderr, "Internal error in hyb_gga_xc_hjs\n");
+    exit(1);
+  }
+
+  XC(gga_init_mix)(p, 3, funcs_id, funcs_coef);
+
+  XC(gga_x_hjs_set_params)(p->func_aux[0], 0.0);
+
+  p->exx_coef = 0.25;
+}
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_hjs_pbe) = {
+  XC_HYB_GGA_XC_HJS_PBE,
+  XC_EXCHANGE_CORRELATION,
+  "HJS hybrid screened exchange PBE version",
+  XC_FAMILY_HYB_GGA,
+  "TM Henderson, BG Janesko, and GE Scuseria, J. Chem. Phys. 128, 194105 (2008)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  hyb_gga_xc_hjs_init,
+  NULL, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_hjs_pbe_sol) = {
+  XC_HYB_GGA_XC_HJS_PBE_SOL,
+  XC_EXCHANGE_CORRELATION,
+  "HJS hybrid screened exchange PBE_SOL version",
+  XC_FAMILY_HYB_GGA,
+  "TM Henderson, BG Janesko, and GE Scuseria, J. Chem. Phys. 128, 194105 (2008)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  hyb_gga_xc_hjs_init,
+  NULL, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_hjs_b88) = {
+  XC_HYB_GGA_XC_HJS_B88,
+  XC_EXCHANGE_CORRELATION,
+  "HJS hybrid screened exchange B88 version",
+  XC_FAMILY_HYB_GGA,
+  "TM Henderson, BG Janesko, and GE Scuseria, J. Chem. Phys. 128, 194105 (2008)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  hyb_gga_xc_hjs_init,
+  NULL, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_hjs_b97x) = {
+  XC_HYB_GGA_XC_HJS_B97X,
+  XC_EXCHANGE_CORRELATION,
+  "HJS hybrid screened exchange B97x version",
+  XC_FAMILY_HYB_GGA,
+  "TM Henderson, BG Janesko, and GE Scuseria, J. Chem. Phys. 128, 194105 (2008)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  hyb_gga_xc_hjs_init,
   NULL, NULL, NULL
 };

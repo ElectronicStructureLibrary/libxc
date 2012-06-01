@@ -33,7 +33,7 @@ gga_x_sogga11_init(XC(func_type) *p)
     break;
   case XC_HYB_GGA_X_SOGGA11_X:
     p->func = 1;
-    p->exx_coef = 0.4015;
+    p->cam_alpha = 0.4015;
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_sogga11\n");

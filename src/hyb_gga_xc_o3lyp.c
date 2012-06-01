@@ -40,7 +40,7 @@ gga_xc_o3lyp_init(XC(func_type) *p)
 
   XC(gga_init_mix)(p, 4, funcs_id, funcs_coef);
   XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
-  p->exx_coef = a0;
+  p->cam_alpha = a0;
 }
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_o3lyp) = {
@@ -74,7 +74,7 @@ gga_xc_x3lyp_init(XC(func_type) *p)
 
   XC(gga_init_mix)(p, 5, funcs_id, funcs_coef);
   XC(lda_c_vwn_set_params)(p->func_aux[3], 1);
-  p->exx_coef = a0;
+  p->cam_alpha = a0;
 }
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_x3lyp) = {

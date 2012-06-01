@@ -166,5 +166,16 @@ FLOAT XC(hyb_exx_coef)(const XC(func_type) *p)
 {
   assert(p!=NULL);
 
-  return p->exx_coef;
+  return p->cam_alpha;
+}
+
+
+/* returns the mixing coefficient for the hybrid GGAs */
+void *XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT *beta)
+{
+  assert(p!=NULL);
+
+  *omega = p->cam_omega;
+  *alpha = p->cam_alpha;
+  *beta  = p->cam_beta;
 }

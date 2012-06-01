@@ -72,7 +72,7 @@ hyb_gga_xc_b97_init(XC(func_type) *p)
   }
 
   XC(gga_init_mix)(p, 1, &(par[func].iGGA), &one);
-  p->exx_coef = par[func].a0;
+  p->cam_alpha = par[func].a0;
 }
 
 

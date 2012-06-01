@@ -44,10 +44,6 @@
 
 /* Range separation */
 /* J. Toulouse, A. Savin, H.-J. Flad, Int. J. of Quant. Chem. 100, 1047-1056 (2004).
-
-**** This is hack that should get a proper interface soon ****
-   0 = ERF interaction
-   1 = ERF_GAU
 */
 static int interaction = 0;
 
@@ -68,10 +64,8 @@ lda_x_init(XC(func_type) *p)
 }
 
 static void 
-lda_c_xalpha_init(void *p_)
+lda_c_xalpha_init(XC(func_type) *p)
 {
-  XC(func_type) *p = (XC(func_type) *)p_;
-
   assert(p->params == NULL);
   p->params = malloc(sizeof(XC(lda_x_params)));
 
@@ -100,8 +94,10 @@ XC(lda_x_set_params)(XC(func_type) *p, FLOAT alpha, int relativistic, FLOAT omeg
 }
 
 
+/* interaction = 0 -> ERF interaction
+               = 1 -> ERF_GAU          */
 void
-XC(lda_x_attenuation_function)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
+XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
 {
   FLOAT aa2, aa3, auxa1, auxa2;
   FLOAT bb, bb2, bb3, auxb1, auxb2;
@@ -178,15 +174,15 @@ func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
     a_cnst = CBRT(4.0/(9.0*M_PI))*params->omega/2.0;
 
     if(p->nspin == XC_UNPOLARIZED){
-      XC(lda_x_attenuation_function)(r->order, a_cnst*r->rs[1], &fa_u, &dfa_u, &d2fa_u, &d3fa_u);
+      XC(lda_x_attenuation_function)(0, r->order, a_cnst*r->rs[1], &fa_u, &dfa_u, &d2fa_u, &d3fa_u);
     }else{
       if(cbrtopz > 0.0)
-	XC(lda_x_attenuation_function)(r->order, a_cnst*r->rs[1]/cbrtopz, &fa_u, &dfa_u, &d2fa_u, &d3fa_u);
+	XC(lda_x_attenuation_function)(0, r->order, a_cnst*r->rs[1]/cbrtopz, &fa_u, &dfa_u, &d2fa_u, &d3fa_u);
       else
 	fa_u = dfa_u = d2fa_u = d3fa_u = 0.0;
 
       if(cbrtomz > 0.0)
-	XC(lda_x_attenuation_function)(r->order, a_cnst*r->rs[1]/cbrtomz, &fa_d, &dfa_d, &d2fa_d, &d3fa_d);
+	XC(lda_x_attenuation_function)(0, r->order, a_cnst*r->rs[1]/cbrtomz, &fa_d, &dfa_d, &d2fa_d, &d3fa_d);
       else
 	fa_d = dfa_d = d2fa_d = d3fa_d = 0.0;
     }

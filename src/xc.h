@@ -170,17 +170,18 @@ void XC(gga_fxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *
 void XC(gga_lb_modified)  (const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
 			   FLOAT r, FLOAT *vrho);
 
-void XC(gga_x_b88_set_params)  (XC(func_type) *p, FLOAT beta, FLOAT gamma);
-void XC(gga_x_pbe_set_params)  (XC(func_type) *p, FLOAT kappa, FLOAT mu);
-void XC(gga_x_rpbe_set_params) (XC(func_type) *p, FLOAT kappa, FLOAT mu);
-void XC(gga_x_optx_set_params) (XC(func_type) *p, FLOAT a, FLOAT b, FLOAT gamma);
-void XC(gga_c_lyp_set_params)  (XC(func_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
-void XC(gga_lb_set_params)     (XC(func_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
-void XC(gga_k_tflw_set_params) (XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N);
-void XC(gga_x_2d_b88_set_params)(XC(func_type) *p, FLOAT beta);
-void XC(gga_x_wpbeh_set_params)(XC(func_type) *p, FLOAT omega);
-void XC(gga_x_hjs_set_params)  (XC(func_type) *p, FLOAT omega);
+void XC(gga_x_b88_set_params)     (XC(func_type) *p, FLOAT beta, FLOAT gamma);
+void XC(gga_x_pbe_set_params)     (XC(func_type) *p, FLOAT kappa, FLOAT mu);
+void XC(gga_x_rpbe_set_params)    (XC(func_type) *p, FLOAT kappa, FLOAT mu);
+void XC(gga_x_optx_set_params)    (XC(func_type) *p, FLOAT a, FLOAT b, FLOAT gamma);
+void XC(gga_c_lyp_set_params)     (XC(func_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
+void XC(gga_lb_set_params)        (XC(func_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
+void XC(gga_k_tflw_set_params)    (XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N);
+void XC(gga_x_2d_b88_set_params)  (XC(func_type) *p, FLOAT beta);
+void XC(gga_x_wpbeh_set_params)   (XC(func_type) *p, FLOAT omega);
+void XC(gga_x_hjs_set_params)     (XC(func_type) *p, FLOAT omega);
 void XC(hyb_gga_xc_hse_set_params)(XC(func_type) *p, FLOAT omega);
+void XC(gga_x_ityh_set_params)    (XC(func_type) *p, int func_id, FLOAT omega);
 
 FLOAT XC(hyb_exx_coef)(const XC(func_type) *p);
 

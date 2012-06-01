@@ -24,10 +24,8 @@
 ************************************************************************/
 
 static void
-work_mgga_c_init(void *p_)
+work_mgga_c_init(XC(func_type) *p)
 {
-  XC(mgga_type) *p = (XC(mgga_type) *)p_;
-
   p->n_func_aux  = 1;
   p->func_aux    = (XC(func_type) **) malloc(sizeof(XC(func_type) *)*p->n_func_aux);
   p->func_aux[0] = (XC(func_type) *)  malloc(sizeof(XC(func_type)));
@@ -37,14 +35,12 @@ work_mgga_c_init(void *p_)
 
 
 static void 
-work_mgga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
+work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
 	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau,
 	    FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2lapl2, FLOAT *v2tau2,
 	    FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
 	    FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
 {
-  const XC(mgga_type) *p = (const XC(mgga_type) *) p_;
-
   FLOAT sfact, sfact2, dens;
   FLOAT ds[2], sigmas[2], x[2], t[2], u[2], f_LDA[2], vrho_LDA[2];
   int ip, is, order;

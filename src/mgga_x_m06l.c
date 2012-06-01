@@ -34,10 +34,8 @@
 static FLOAT CFermi;
 
 static void
-mgga_x_m06l_init(void *p_)
+mgga_x_m06l_init(XC(func_type) *p)
 {
-  XC(mgga_type) *p = (XC(mgga_type) *)p_;
-
   p->n_func_aux  = 1;
   p->func_aux    = (XC(func_type) **) malloc(sizeof(XC(func_type) *)*p->n_func_aux);
   p->func_aux[0] = (XC(func_type) *)  malloc(sizeof(XC(func_type)));
@@ -79,7 +77,7 @@ x_m06l_fw(int order, FLOAT t, FLOAT *fw, FLOAT *dfwdt)
 
 
 static void 
-func(const XC(mgga_type) *pt, XC(work_mgga_x_params) *r)
+func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
 {
   const FLOAT d[6] = {0.6012244, 0.004748822, -0.008635108, -0.000009308062, 0.00004482811, 0.0};
   const FLOAT alpha = 0.00186726;   /* set alpha of Eq. (4) */
@@ -87,7 +85,7 @@ func(const XC(mgga_type) *pt, XC(work_mgga_x_params) *r)
   FLOAT f_pbe, dfdx_pbe;
   FLOAT h, dhdx, dhdz, fw, dfwdt;
 
-  XC(gga_x_pbe_enhance)(pt->func_aux[0]->gga, r->order, r->x, &f_pbe, &dfdx_pbe, NULL);
+  XC(gga_x_pbe_enhance)(pt->func_aux[0], r->order, r->x, &f_pbe, &dfdx_pbe, NULL);
 
   x_m06l_fw(r->order, r->t, &fw, &dfwdt);
 

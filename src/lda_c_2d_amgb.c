@@ -43,7 +43,7 @@ static FLOAT beta = 1.3386, ax = 0.0;
 
 /* Initialization */
 static void
-lda_c_2d_amgb_init(void *p)
+lda_c_2d_amgb_init(XC(func_type) *p)
 {
   int i;
   
@@ -98,7 +98,7 @@ malpha(int order, int i, FLOAT *rs,
 
 
 static void
-func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
+func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
 {
   FLOAT ecp, vcp, fcp, kcp;
   FLOAT ecf, vcf, fcf, kcf;

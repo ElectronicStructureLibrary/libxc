@@ -40,12 +40,11 @@ static FLOAT prm_q = 3.9274; /* 2.258 */
 
 /* Initialization */
 static void
-lda_c_2d_prm_init(void *p_)
+lda_c_2d_prm_init(XC(func_type) *p)
 {
-  XC(lda_type) *p = (XC(lda_type) *)p_;
   lda_c_prm_params *params;
 
-  assert(p->params == NULL);
+  assert(p != NULL && p->params == NULL);
 
   p->params = malloc(sizeof(lda_c_prm_params));
   params = (lda_c_prm_params *) (p->params);
@@ -54,30 +53,12 @@ lda_c_2d_prm_init(void *p_)
 }
 
 
-static void 
-lda_c_2d_prm_end(void *p_)
-{
-  XC(lda_type) *p = (XC(lda_type) *)p_;
-
-  assert(p->params != NULL);
-  free(p->params);
-  p->params = NULL;
-}
-
-
 void 
 XC(lda_c_2d_prm_set_params)(XC(func_type) *p, FLOAT N)
 {
-  assert(p != NULL && p->lda != NULL);
-  XC(lda_c_2d_prm_set_params_)(p->lda, N);
-}
-
-void 
-XC(lda_c_2d_prm_set_params_)(XC(lda_type) *p, FLOAT N)
-{
   lda_c_prm_params *params;
 
-  assert(p->params != NULL);
+  assert(p != NULL && p->params != NULL);
   params = (lda_c_prm_params *) (p->params);
 
   if(N <= 1){
@@ -91,7 +72,7 @@ XC(lda_c_2d_prm_set_params_)(XC(lda_type) *p, FLOAT N)
 
 
 static inline void 
-func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
+func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
 {
   lda_c_prm_params *params;
 
@@ -158,6 +139,6 @@ const XC(func_info_type) XC(func_info_lda_c_2d_prm) = {
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 0.0, 0.0, 1e-32,
   lda_c_2d_prm_init,
-  lda_c_2d_prm_end,
+  NULL,
   work_lda
 };

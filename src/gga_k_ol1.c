@@ -24,7 +24,7 @@
 #define XC_GGA_K_OL1          512 /* Ou-Yang and Levy v.1 */
 
 static inline void 
-func(const XC(gga_type) *p, int order, FLOAT x, 
+func(const XC(func_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   const FLOAT c4 = 0.00677;

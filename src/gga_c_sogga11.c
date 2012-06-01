@@ -26,10 +26,8 @@
 #define XC_GGA_C_SOGGA11_X     159 /* To be used with hyb_gga_x_SOGGA11-X  */
 
 static void 
-gga_c_sogga11_init(void *p_)
+gga_c_sogga11_init(XC(func_type) *p)
 {
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-
   p->n_func_aux  = 1;
   p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
@@ -47,7 +45,7 @@ gga_c_sogga11_init(void *p_)
 
 
 static inline void 
-func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs,
+func(const XC(func_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs,
      FLOAT *f, FLOAT *dfdrs, FLOAT *dfdz, FLOAT *dfdxt, FLOAT *dfdxs,
      FLOAT *d2fdrs2, FLOAT *d2fdrsz, FLOAT *d2fdrsxt, FLOAT *d2fdrsxs, FLOAT *d2fdz2, 
      FLOAT *d2fdzxt, FLOAT *d2fdzxs, FLOAT *d2fdxt2, FLOAT *d2fdxtxs, FLOAT *d2fdxs2)
@@ -78,7 +76,7 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   pw.rs[2] = rs*rs;
   pw.zeta  = zeta;
 
-  XC(lda_c_pw_func)(p->func_aux[0]->lda, &pw);
+  XC(lda_c_pw_func)(p->func_aux[0], &pw);
 
   alpha = beta/(16.0*M_CBRT2*M_CBRT2);
 

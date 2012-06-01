@@ -115,9 +115,8 @@ static FLOAT omega_TH4[] =
 
 
 static void 
-gga_xc_th_init(void *p_)
+gga_xc_th_init(XC(func_type) *p)
 {
-  XC(gga_type) *p = (XC(gga_type) *)p_;
   gga_xc_th_params *params;
 
   assert(p->params == NULL);
@@ -183,7 +182,7 @@ gga_xc_th_init(void *p_)
 
   case XC_GGA_XC_TH4:
     p->func = 7;
-    params->n = n_TH3;
+    params->n = n_TH4;
     params->a = a_TH3;
     params->b = b_TH3;
     params->c = c_TH3;
@@ -198,7 +197,7 @@ gga_xc_th_init(void *p_)
 }
 
 static inline void 
-func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs,
+func(const XC(func_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs,
      FLOAT *f, FLOAT *dfdrs, FLOAT *dfdz, FLOAT *dfdxt, FLOAT *dfdxs,
      FLOAT *d2fdrs2, FLOAT *d2fdrsz, FLOAT *d2fdrsxt, FLOAT *d2fdrsxs, FLOAT *d2fdz2, 
      FLOAT *d2fdzxt, FLOAT *d2fdzxs, FLOAT *d2fdxt2, FLOAT *d2fdxtxs, FLOAT *d2fdxs2)
@@ -245,7 +244,7 @@ func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs
   }
 
   for(ii=0; ii<params->n; ii++){
-    FLOAT fz[2], Rid, Ri, Si, Xi, Yi, XXC[2];
+    FLOAT fz[2], Rid, Ri, Si, Xi, Yi;
     FLOAT dfz[2], dRidrs, dRidz, dSidz, dXidz, dXidxs[2], dYidz, dYidxs[2], dYidxt;
     FLOAT d2fz[2], d2Ridrs2, d2Ridrsz, d2Ridz2, d2Sidz2, d2Xidz2, d2Xidxs2[2], d2Xidzxs[2], d2Yidxt2, d2Yidxs2[2], d2Yidzxs[2];
 

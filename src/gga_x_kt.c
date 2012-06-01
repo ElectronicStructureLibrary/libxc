@@ -27,7 +27,7 @@
 #define HEADER 3
 
 static inline void 
-func(const XC(gga_type) *p, int order, FLOAT x, FLOAT ds,
+func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
      FLOAT *f, FLOAT *dfdx, FLOAT *lvrho)
 {
   FLOAT gamma = -0.006, delta = 0.1;
@@ -54,11 +54,10 @@ func(const XC(gga_type) *p, int order, FLOAT x, FLOAT ds,
 #include "work_gga_x.c"
 
 static void
-gga_xc_kt2_init(void *p_)
+gga_xc_kt2_init(XC(func_type) *p)
 {
   static int   funcs_id  [3] = {XC_LDA_X, XC_GGA_X_KT1, XC_LDA_C_VWN};
   static FLOAT funcs_coef[3] = {1.07173 - 1.0, 1.0, 0.576727};
-  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);  
 }

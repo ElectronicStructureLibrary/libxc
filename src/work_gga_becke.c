@@ -24,10 +24,8 @@
 ************************************************************************/
 
 static void
-work_gga_becke_init(void *p_)
+work_gga_becke_init(XC(func_type) *p)
 {
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-
   p->n_func_aux  = 1;
   p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
@@ -37,12 +35,10 @@ work_gga_becke_init(void *p_)
 
 
 static void 
-work_gga_becke(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
+work_gga_becke(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 	       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 	       FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
-  const XC(gga_type) *p = (const XC(gga_type) *) p_;
-
   FLOAT sfact, sfact2, dens;
   FLOAT ds[2], sigmas[2], x[2], x_avg;
   FLOAT e_LDA_opp, v_LDA_opp[2], f_LDA_opp[3];

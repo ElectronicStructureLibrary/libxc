@@ -29,7 +29,7 @@
    therefore, all formulas must multiplied by a factor of 2 */
 
 static inline void 
-func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
+func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
 {
   FLOAT ax, fz, dfz, d2fz, d3fz;
 

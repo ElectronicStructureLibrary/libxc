@@ -53,14 +53,12 @@ static const FLOAT b_B97x[] =
   {15.8279, -26.8145, 17.8127, -5.98246, 1.25408, -0.270783, 0.0919536, -0.0140960, 0.0045466};
 
 static void
-gga_x_hjs_init(void *p_)
+gga_x_hjs_init(XC(func_type) *p)
 {
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_x_hjs_params));
 
-  XC(gga_x_hjs_set_params_)(p, 0.2);
+  XC(gga_x_hjs_set_params)(p, 0.0);
 
   switch(p->info->number){
   case XC_GGA_X_HJS_PBE:
@@ -88,17 +86,9 @@ gga_x_hjs_init(void *p_)
 void 
 XC(gga_x_hjs_set_params)(XC(func_type) *p, FLOAT omega)
 {
-  assert(p != NULL && p->gga != NULL);
-  XC(gga_x_hjs_set_params_)(p->gga, omega);
-}
-
-
-void 
-XC(gga_x_hjs_set_params_)(XC(gga_type) *p, FLOAT omega)
-{
   gga_x_hjs_params *params;
 
-  assert(p->params != NULL);
+  assert(p != NULL && p->params != NULL);
   params = (gga_x_hjs_params *) (p->params);
 
   params->omega = omega;
@@ -110,7 +100,7 @@ XC(gga_x_hjs_set_params_)(XC(gga_type) *p, FLOAT omega)
 /* This implementation follows the one from nwchem */
 
 static inline void 
-func(const XC(gga_type) *p, int order, FLOAT x, FLOAT ds,
+func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
      FLOAT *f, FLOAT *dfdx, FLOAT *lvrho)
 {
   static const FLOAT AA=0.757211, BB=-0.106364, CC=-0.118649, DD=0.609650;

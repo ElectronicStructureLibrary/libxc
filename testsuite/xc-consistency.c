@@ -281,6 +281,8 @@ void print_error(char *type, char *what, double diff, xc_func_type *func, double
 
 }
 
+#define _GNU_SOURCE         /* See feature_test_macros(7) */
+#include <fenv.h>
 
 void test_functional(int functional)
 {
@@ -288,6 +290,8 @@ void test_functional(int functional)
   const xc_func_info_type *info;
   int i, j, k, p_max[6][5];
   double max_diff[6][5], avg_diff[6][5], val[5];
+
+  feenableexcept(FE_INVALID | FE_OVERFLOW);
 
   /* initialize functional */
   if(xc_func_init(&func, functional, nspin) != 0){

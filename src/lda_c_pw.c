@@ -39,10 +39,8 @@ the constants of PW.
 #define XC_LDA_C_PW_RPA 25   /* Perdew & Wang fit of the RPA */
 
 static void 
-lda_c_pw_init(void *p_)
+lda_c_pw_init(XC(func_type) *p)
 {
-  XC(lda_type) *p = (XC(lda_type) *)p_;
-
   switch(p->info->number){
   case XC_LDA_C_PW:       p->func = 0;  break;
   case XC_LDA_C_PW_MOD:   p->func = 1;  break;
@@ -148,7 +146,7 @@ static void g(int func, int order, int k, FLOAT *rs,
 
 /* the functional */
 void 
-XC(lda_c_pw_func)(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
+XC(lda_c_pw_func)(const XC(func_type) *p, XC(lda_rs_zeta) *r)
 {
   static FLOAT fz20[4] = {
     1.709921,                           /* PW */

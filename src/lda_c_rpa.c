@@ -26,7 +26,7 @@
 #define XC_LDA_C_RPA  3   /* Random Phase Approximation   */
 
 static inline void 
-func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
+func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
 {
   static FLOAT a = 0.0311, b = -0.048, c = 0.009, d = -0.017;
   FLOAT lrs;

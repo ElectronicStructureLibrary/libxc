@@ -25,25 +25,14 @@
 
 /*****************************************************/
 void 
-XC(mix_func)(const XC(func_type) *dest_func, int n_func_aux, XC(func_type) **func_aux, FLOAT *mix_coef,
+XC(mix_func)(const XC(func_type) *func,
 	     int np, const FLOAT *rho, const FLOAT *sigma,
 	     FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 	     FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
+  const XC(func_type) *aux;
   FLOAT *zk_, *vrho_, *vsigma_, *v2rho2_, *v2rhosigma_, *v2sigma2_;
-  int n_zk, n_vrho, n_vsigma, n_v2rho2, n_v2rhosigma, n_v2sigma2;
   int ip, ii;
-
-  /* initialize spin counters */
-  n_zk  = 1;
-  n_vrho = dest_func->nspin;
-  if(dest_func->nspin == XC_UNPOLARIZED){
-    n_vsigma = 1;
-    n_v2rho2 = n_v2rhosigma = n_v2sigma2 = 1;
-  }else{
-    n_vsigma = n_v2rho2 = 3;
-    n_v2rhosigma = n_v2sigma2 = 6;
-  }
 
   /* prepare buffers that will hold the results from the individual functionals */
   zk_ = NULL;
@@ -51,57 +40,58 @@ XC(mix_func)(const XC(func_type) *dest_func, int n_func_aux, XC(func_type) **fun
   v2rho2_ = v2rhosigma_ = v2sigma2_ = NULL;
 
   if(zk != NULL)
-    zk_ = (FLOAT *) malloc(sizeof(FLOAT)*np*n_zk);
+    zk_ = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_zk);
 
   if(vrho != NULL){
-    vrho_ = (FLOAT *) malloc(sizeof(FLOAT)*np*n_vrho);
-    if(dest_func->info->family >  XC_FAMILY_LDA){
-      vsigma_ = (FLOAT *) malloc(sizeof(FLOAT)*np*n_vsigma);
+    vrho_ = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_vrho);
+    if(func->info->family >  XC_FAMILY_LDA){
+      vsigma_ = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_vsigma);
     }
   }
 
   if(v2rho2 != NULL){
-    v2rho2_ = (FLOAT *) malloc(sizeof(FLOAT)*np*n_v2rho2);
-    if(dest_func->info->family >  XC_FAMILY_LDA){
-      v2rhosigma_ = (FLOAT *) malloc(sizeof(FLOAT)*np*n_v2rhosigma);
-      v2sigma2_   = (FLOAT *) malloc(sizeof(FLOAT)*np*n_v2sigma2);
+    v2rho2_ = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_v2rho2);
+    if(func->info->family >  XC_FAMILY_LDA){
+      v2rhosigma_ = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_v2rhosigma);
+      v2sigma2_   = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_v2sigma2);
     }
   }
 
   /* we now add the different components */
-  for(ii=0; ii<n_func_aux; ii++){
-    switch(func_aux[ii]->info->family){
+  for(ii=0; ii<func->n_func_aux; ii++){
+    aux = func->func_aux[ii];
+    switch(aux->info->family){
     case XC_FAMILY_LDA:
-      XC(lda)(func_aux[ii], np, rho, zk_, vrho_, v2rho2_, NULL);
+      XC(lda)(aux, np, rho, zk_, vrho_, v2rho2_, NULL);
       break;
     case XC_FAMILY_GGA:
-      XC(gga)(func_aux[ii], np, rho, sigma, zk_, vrho_, vsigma_, v2rho2_, v2rhosigma_, v2sigma2_);
+      XC(gga)(aux, np, rho, sigma, zk_, vrho_, vsigma_, v2rho2_, v2rhosigma_, v2sigma2_);
       break;
     }
 
     if(zk != NULL)
-      for(ip = 0; ip < np*n_zk; ip++)
-	zk[ip] += mix_coef[ii] * zk_[ip];
+      for(ip = 0; ip < np*func->n_zk; ip++)
+	zk[ip] += func->mix_coef[ii] * zk_[ip];
 
     if(vrho != NULL){
-      for(ip = 0; ip < np*n_vrho; ip++)
-	vrho[ip] += mix_coef[ii] * vrho_[ip];
+      for(ip = 0; ip < np*func->n_vrho; ip++)
+	vrho[ip] += func->mix_coef[ii] * vrho_[ip];
 
-      if(dest_func->info->family > XC_FAMILY_LDA && func_aux[ii]->info->family > XC_FAMILY_LDA)
-	for(ip = 0; ip < np*n_vsigma; ip++)
-	  vsigma[ip] += mix_coef[ii] * vsigma_[ip];
+      if(func->info->family > XC_FAMILY_LDA && aux->info->family > XC_FAMILY_LDA)
+	for(ip = 0; ip < np*func->n_vsigma; ip++)
+	  vsigma[ip] += func->mix_coef[ii] * vsigma_[ip];
     }
 
     if(v2rho2 != NULL){
-      for(ip = 0; ip < np*n_v2rho2; ip++)
-	v2rho2[ip] += mix_coef[ii] * v2rho2_[ip];
+      for(ip = 0; ip < np*func->n_v2rho2; ip++)
+	v2rho2[ip] += func->mix_coef[ii] * v2rho2_[ip];
 
-      if(dest_func->info->family > XC_FAMILY_LDA && func_aux[ii]->info->family > XC_FAMILY_LDA){
-	for(ip = 0; ip < np*n_v2rhosigma; ip++)
-	  v2rhosigma[ip] += mix_coef[ii] * v2rhosigma_[ip];
+      if(func->info->family > XC_FAMILY_LDA && aux->info->family > XC_FAMILY_LDA){
+	for(ip = 0; ip < np*func->n_v2rhosigma; ip++)
+	  v2rhosigma[ip] += func->mix_coef[ii] * v2rhosigma_[ip];
 
-	for(ip = 0; ip < np*n_v2sigma2; ip++)
-	  v2sigma2[ip] += mix_coef[ii] * v2sigma2_[ip];
+	for(ip = 0; ip < np*func->n_v2sigma2; ip++)
+	  v2sigma2[ip] += func->mix_coef[ii] * v2sigma2_[ip];
       }
     }
   }

@@ -32,7 +32,7 @@ static FLOAT teter_bp[4] = {0.000000000000000,  0.2673612973836267, 0.2052004607
 
 /* the functional */
 static inline void 
-func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
+func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
 {
   FLOAT mrs0, mrs1, mrs2, mrs3, mrs4;
   FLOAT aa[4], bb[4];

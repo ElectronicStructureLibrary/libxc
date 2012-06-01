@@ -28,11 +28,10 @@
 #define XC_GGA_X_SOGGA        150 /* Second-order generalized gradient approximation */
 
 static void
-gga_xc_edf1_init(void *p_)
+gga_xc_edf1_init(XC(func_type) *p)
 {
   static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_GGA_X_B88, XC_GGA_C_LYP};
   static FLOAT funcs_coef[4] = {1.030952 - 10.4017 + 8.44793, 10.4017, -8.44793, 1.0};
-  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   XC(gga_init_mix)(p, 4, funcs_id, funcs_coef);  
 
@@ -55,11 +54,10 @@ const XC(func_info_type) XC(func_info_gga_xc_edf1) = {
 
 
 static void
-gga_x_optpbe_vdw_init(void *p_)
+gga_x_optpbe_vdw_init(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_X_RPBE};
   static FLOAT funcs_coef[2] = {1.0 - 0.054732, 0.054732};
-  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);  
 
@@ -81,11 +79,10 @@ const XC(func_info_type) XC(func_info_gga_x_optpbe_vdw) = {
 
 
 static void
-gga_xc_mohlyp_init(void *p_)
+gga_xc_mohlyp_init(XC(func_type) *p)
 {
   static int   funcs_id  [3] = {XC_GGA_X_OPTX, XC_LDA_C_VWN, XC_GGA_C_LYP};
   static FLOAT funcs_coef[3] = {1.0, 0.5, 0.5};
-  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   XC(gga_init_mix)(p, 3, funcs_id, funcs_coef);
 
@@ -105,11 +102,10 @@ const XC(func_info_type) XC(func_info_gga_xc_mohlyp) = {
 };
 
 static void
-gga_xc_mohlyp2_init(void *p_)
+gga_xc_mohlyp2_init(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_OPTX, XC_GGA_C_LYP};
   static FLOAT funcs_coef[2] = {1.0, 0.5};
-  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
 
@@ -129,11 +125,10 @@ const XC(func_info_type) XC(func_info_gga_xc_mohlyp2) = {
 };
 
 static void
-gga_x_sogga_init(void *p_)
+gga_x_sogga_init(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_X_RPBE};
   static FLOAT funcs_coef[2] = {0.5, 0.5};
-  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
 

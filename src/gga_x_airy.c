@@ -25,10 +25,8 @@
 #define XC_GGA_X_LAG   193 /* Local Airy Gas */
 
 static void 
-gga_x_airy_init(void *p_)
+gga_x_airy_init(XC(func_type) *p)
 {
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-
   switch(p->info->number){
   case XC_GGA_X_AIRY:       p->func = 0;  break;
   case XC_GGA_X_LAG:        p->func = 1;  break;
@@ -40,7 +38,7 @@ gga_x_airy_init(void *p_)
 
 
 static inline void 
-func(const XC(gga_type) *p, int order, FLOAT x, 
+func(const XC(func_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   static FLOAT 

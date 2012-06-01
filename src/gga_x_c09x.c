@@ -23,7 +23,7 @@
 #define XC_GGA_X_C09X         158 /* C09x to be used with the VdW of Rutgers-Chalmers     */
 
 static inline void 
-func(const XC(gga_type) *p, int order, FLOAT x, 
+func(const XC(func_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   static FLOAT mu = 0.0617, kappa = 1.245, alpha = 0.0483;

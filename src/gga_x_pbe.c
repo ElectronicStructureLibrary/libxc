@@ -42,7 +42,7 @@ typedef struct{
 
 
 static void 
-gga_x_pbe_init(void *p_)
+gga_x_pbe_init(XC(func_type) *p)
 {
   static const FLOAT kappa[13] = {
     0.8040,  /* original PBE */
@@ -76,9 +76,7 @@ gga_x_pbe_init(void *p_)
     0.2309                  /* TW4       */
   };
 
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-
-  assert(p->params == NULL);
+  assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_x_pbe_params));
  
   switch(p->info->number){
@@ -100,24 +98,16 @@ gga_x_pbe_init(void *p_)
     exit(1);
   }
 
-  XC(gga_x_pbe_set_params_)(p, kappa[p->func], mu[p->func]);
+  XC(gga_x_pbe_set_params)(p, kappa[p->func], mu[p->func]);
 }
 
 
 void 
 XC(gga_x_pbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu)
 {
-  assert(p != NULL && p->gga != NULL);
-  XC(gga_x_pbe_set_params_)(p->gga, kappa, mu);
-}
-
-
-void 
-XC(gga_x_pbe_set_params_)(XC(gga_type) *p, FLOAT kappa, FLOAT mu)
-{
   gga_x_pbe_params *params;
 
-  assert(p->params != NULL);
+  assert(p != NULL && p->params != NULL);
   params = (gga_x_pbe_params *) (p->params);
 
   params->kappa = kappa;
@@ -126,7 +116,7 @@ XC(gga_x_pbe_set_params_)(XC(gga_type) *p, FLOAT kappa, FLOAT mu)
 
 
 void XC(gga_x_pbe_enhance) 
-  (const XC(gga_type) *p, int order, FLOAT x, 
+  (const XC(func_type) *p, int order, FLOAT x, 
    FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   FLOAT kappa, mu, ss, ss2, f0, df0, d2f0;

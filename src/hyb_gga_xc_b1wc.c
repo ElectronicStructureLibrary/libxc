@@ -28,11 +28,10 @@
 #define XC_HYB_GGA_XC_mPW1K  405 /* mixture of mPW91 and PW91 optimized for kinetics */
 
 void
-XC(hyb_gga_xc_b1wc_init)(void *p_)
+XC(hyb_gga_xc_b1wc_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_WC, XC_GGA_C_PBE};
   static FLOAT funcs_coef[2] = {1.0 - 0.16, 1.0};
-  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
   p->exx_coef = 0.16;
@@ -52,11 +51,10 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1wc) = {
 
 
 void
-XC(hyb_gga_xc_b1lyp_init)(void *p_)
+XC(hyb_gga_xc_b1lyp_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_LYP};
   static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
-  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
   p->exx_coef = 0.25;
@@ -76,11 +74,10 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1lyp) = {
 
 
 void
-XC(hyb_gga_xc_b1pw91_init)(void *p_)
+XC(hyb_gga_xc_b1pw91_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_PW91};
   static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
-  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
   p->exx_coef = 0.25;
@@ -100,11 +97,10 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1pw91) = {
 
 
 void
-XC(hyb_gga_xc_mpw1pw_init)(void *p_)
+XC(hyb_gga_xc_mpw1pw_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_mPW91, XC_GGA_C_PW91};
   static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
-  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
   p->exx_coef = 0.25;
@@ -124,11 +120,10 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1pw) = {
 
 
 void
-XC(hyb_gga_xc_mpw1k_init)(void *p_)
+XC(hyb_gga_xc_mpw1k_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_mPW91, XC_GGA_C_PW91};
   static FLOAT funcs_coef[2] = {1.0 - 0.428, 1.0};
-  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
   p->exx_coef = 0.428;

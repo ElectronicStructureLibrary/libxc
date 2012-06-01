@@ -34,7 +34,7 @@
 #define XC_HYB_GGA_XC_SB98_2c  425 /* Schmider-Becke 98 parameterization 2c    */
 
 static void
-hyb_gga_xc_b97_init(void *p_)
+hyb_gga_xc_b97_init(XC(func_type) *p)
 {
   const struct { int iGGA; FLOAT a0; } par[] = {
     {XC_GGA_XC_B97,     0.1943},
@@ -52,8 +52,6 @@ hyb_gga_xc_b97_init(void *p_)
 
   int func;
   FLOAT one = 1.0;
-
-  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   switch(p->info->number){
   case XC_HYB_GGA_XC_B97:      func =  0; break;

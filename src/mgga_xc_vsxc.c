@@ -56,7 +56,7 @@ void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT 
 static const FLOAT vsxc_CFermi = 9.115599744691194274576327519198610717031;
 
 static void 
-func(const XC(mgga_type) *pt, XC(work_mgga_x_params) *r)
+func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
 {
   static const FLOAT abcd[6] = {-0.9800, -0.003557, 0.006250, -0.00002354, -0.0001283, 0.0003575};
   static const FLOAT alpha = 0.001867;
@@ -72,7 +72,7 @@ func(const XC(mgga_type) *pt, XC(work_mgga_x_params) *r)
 }
 
 static void 
-func_c_parallel(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
+func_c_parallel(const XC(func_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
 		FLOAT *f, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
 		FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
 {
@@ -92,7 +92,7 @@ func_c_parallel(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
 }
 
 static void 
-func_c_opposite(const XC(mgga_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
+func_c_opposite(const XC(func_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
 		FLOAT *f, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
 		FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
 {

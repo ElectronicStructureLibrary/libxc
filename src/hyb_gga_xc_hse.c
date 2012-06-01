@@ -29,11 +29,10 @@
 #define XC_HYB_GGA_XC_HJS_B97X    432 /* HJS hybrid screened exchange B97x version */
 
 static void
-hyb_gga_xc_hse_init(void *p_)
+hyb_gga_xc_hse_init(XC(func_type) *p)
 {
   static int   funcs_id  [3] = {XC_GGA_X_WPBEH, XC_GGA_X_WPBEH, XC_GGA_C_PBE};
   static FLOAT funcs_coef[3] = {1.0, -0.25, 1.0};  
-  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   XC(gga_init_mix)(p, 3, funcs_id, funcs_coef);
   p->exx_coef = 0.25;
@@ -62,11 +61,11 @@ hyb_gga_xc_hse_init(void *p_)
   case XC_HYB_GGA_XC_HSE03:
     /* in this case one should use omega^HF = 0.15/sqrt(2) and
        omega^PBE = 0.15*CBRT(2.0)*/
-    XC(hyb_gga_xc_hse_set_params_)(p, 0.15*CBRT(2.0));
+    XC(hyb_gga_xc_hse_set_params)(p, 0.15*CBRT(2.0));
     break;
   case XC_HYB_GGA_XC_HSE06:
     /* in this case one should use omega^HF = omega^PBE = 0.11 */
-    XC(hyb_gga_xc_hse_set_params_)(p, 0.11);
+    XC(hyb_gga_xc_hse_set_params)(p, 0.11);
     break;
   default:
     fprintf(stderr, "Internal error in hyb_gga_xc_hse\n");
@@ -78,15 +77,8 @@ hyb_gga_xc_hse_init(void *p_)
 void 
 XC(hyb_gga_xc_hse_set_params)(XC(func_type) *p, FLOAT omega)
 {
-  assert(p != NULL && p->gga != NULL);
-  XC(hyb_gga_xc_hse_set_params_)(p->gga, omega);
-}
+  assert(p != NULL && p->func_aux[1] != NULL);
 
-
-void 
-XC(hyb_gga_xc_hse_set_params_)(XC(gga_type) *p, FLOAT omega)
-{
-  assert(p->func_aux[1] != NULL);
   XC(gga_x_wpbeh_set_params)(p->func_aux[1], omega);
 }
 
@@ -120,11 +112,10 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hse06) = {
 
 
 static void
-hyb_gga_xc_hjs_init(void *p_)
+hyb_gga_xc_hjs_init(XC(func_type) *p)
 {
   static int   funcs_id  [3] = {-1, -1, XC_GGA_C_PBE};
   static FLOAT funcs_coef[3] = {1.0, -0.25, 1.0};  
-  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   switch(p->info->number){
   case XC_HYB_GGA_XC_HJS_PBE:
@@ -146,7 +137,7 @@ hyb_gga_xc_hjs_init(void *p_)
 
   XC(gga_init_mix)(p, 3, funcs_id, funcs_coef);
 
-  XC(gga_x_hjs_set_params)(p->func_aux[0], 0.0);
+  XC(gga_x_hjs_set_params)(p->func_aux[1], 0.11);
 
   p->exx_coef = 0.25;
 }

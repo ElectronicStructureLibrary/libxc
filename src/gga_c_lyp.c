@@ -28,31 +28,22 @@ typedef struct{
   FLOAT A, B, c, d;
 } gga_c_lyp_params;
 
-void XC(gga_c_lyp_init)(void *p_)
+void XC(gga_c_lyp_init)(XC(func_type) *p)
 {
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-
   assert(p->params == NULL);
 
   p->params = malloc(sizeof(gga_c_lyp_params));
 
   /* values of constants in standard LYP functional */
-  XC(gga_c_lyp_set_params_)(p, 0.04918, 0.132, 0.2533, 0.349);
+  XC(gga_c_lyp_set_params)(p, 0.04918, 0.132, 0.2533, 0.349);
 }
 
 
 void XC(gga_c_lyp_set_params)(XC(func_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d)
 {
-  assert(p != NULL && p->gga != NULL);
-  XC(gga_c_lyp_set_params_)(p->gga, A, B, c, d);
-}
-
-
-void XC(gga_c_lyp_set_params_)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d)
-{
   gga_c_lyp_params *params;
 
-  assert(p->params != NULL);
+  assert(p != NULL && p->params != NULL);
   params = (gga_c_lyp_params *) (p->params);
 
   params->A = A;
@@ -63,7 +54,7 @@ void XC(gga_c_lyp_set_params_)(XC(gga_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT
 
 
 static inline void 
-func(const XC(gga_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs,
+func(const XC(func_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs,
      FLOAT *f, FLOAT *dfdrs, FLOAT *dfdz, FLOAT *dfdxt, FLOAT *dfdxs,
      FLOAT *d2fdrs2, FLOAT *d2fdrsz, FLOAT *d2fdrsxt, FLOAT *d2fdrsxs, FLOAT *d2fdz2, 
      FLOAT *d2fdzxt, FLOAT *d2fdzxs, FLOAT *d2fdxt2, FLOAT *d2fdxtxs, FLOAT *d2fdxs2)

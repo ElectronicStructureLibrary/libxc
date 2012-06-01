@@ -30,7 +30,7 @@ hyb_gga_xc_pbeh_init(XC(func_type) *p)
   static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
 
   XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
-  p->exx_coef = 0.25;
+  p->cam_alpha = 0.25;
 }
 
 

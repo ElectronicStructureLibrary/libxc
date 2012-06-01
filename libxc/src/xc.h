@@ -54,6 +54,7 @@ extern "C" {
 #define XC_FLAGS_1D               (1 <<  5) /*   32 */
 #define XC_FLAGS_2D               (1 <<  6) /*   64 */
 #define XC_FLAGS_3D               (1 <<  7) /*  128 */
+#define XC_FLAGS_HYB_CAM          (1 <<  8) /*  256 */
 #define XC_FLAGS_STABLE           (1 <<  9) /*  512 */
 #define XC_FLAGS_DEVELOPMENT      (1 << 10) /* 1024 */
 
@@ -107,7 +108,9 @@ struct XC(func_type){
   struct XC(func_type) **func_aux;      /* most GGAs are based on a LDA or other GGAs  */
   FLOAT *mix_coef;                      /* coefficients for the mixing */
 
-  FLOAT exx_coef;                       /* the Hartree-Fock mixing parameter for the hybrids */
+  FLOAT cam_omega;                      /* range separation parameter for hybrids */
+  FLOAT cam_alpha;                      /* the Hartree-Fock mixing parameter for the hybrids */
+  FLOAT cam_beta;                       /* idem, but for the screened hybrid */
 
   int func;                             /* Shortcut in case of several functionals sharing the same interface */
   int n_rho, n_sigma, n_tau, n_lapl;    /* spin dimensions of the arrays */
@@ -174,6 +177,7 @@ void XC(gga_x_optx_set_params) (XC(func_type) *p, FLOAT a, FLOAT b, FLOAT gamma)
 void XC(gga_c_lyp_set_params)  (XC(func_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
 void XC(gga_lb_set_params)     (XC(func_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
 void XC(gga_k_tflw_set_params) (XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N);
+void XC(gga_x_2d_b88_set_params)(XC(func_type) *p, FLOAT beta);
 void XC(gga_x_wpbeh_set_params)(XC(func_type) *p, FLOAT omega);
 void XC(gga_x_hjs_set_params)  (XC(func_type) *p, FLOAT omega);
 void XC(hyb_gga_xc_hse_set_params)(XC(func_type) *p, FLOAT omega);

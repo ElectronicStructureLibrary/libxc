@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
   char *label_nspin[] = {"UNPOLARIZED", "POLARIZED"};
   char *label_kind[]  = {"EXCHANGE", "CORRELATION", "EXCHANGE_CORRELATION", "KINETIC"};
   char *label_family[]= {"LDA", "GGA", "MGGA", "LCA", "OEP", "HYB_GGA", "HYB_MGGA"};
-  char *label_flags[] = {"HAVE_EXC", "HAVE_VXC", "HAVE_FXC", "HAVE_KXC", "HAVE_LXC", "1D", "2D", "3D", "STABLE", "DEVELOPMENT"};
+  char *label_flags[] = {"HAVE_EXC", "HAVE_VXC", "HAVE_FXC", "HAVE_KXC", "HAVE_LXC", "1D", "2D", "3D", "HYB_CAM", "STABLE", "DEVELOPMENT"};
 
   if(argc != 2){
     fprintf(stderr, "Usage:\n%s funct\n", argv[0]);
@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
 
     /* print some information */
     if(nspin == 1){
-      char flags[256] = "";      
+      char flags[512] = "";      
       int ii;
 
       for(ii=0; ii<32; ii++)

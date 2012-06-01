@@ -37,12 +37,10 @@ work_gga_k
 #else
 work_gga_x
 #endif
-(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
+(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
-  const XC(gga_type) *p = (const XC(gga_type) *) p_;
-
   FLOAT sfact, x_factor_c, alpha, beta, dens;
   int is, ip, order;
 #if HEADER == 2

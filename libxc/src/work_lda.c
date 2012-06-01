@@ -28,11 +28,9 @@
 #endif
 
 static void 
-work_lda(const void *p_, int np, const FLOAT *rho, 
+work_lda(const XC(func_type) *p, int np, const FLOAT *rho, 
 	 FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3)
 {
-  const XC(lda_type) *p = (const XC(lda_type) *) p_;
-
   XC(lda_rs_zeta) r;
   int is, ip;
   FLOAT dens, drs, d2rs, d3rs;

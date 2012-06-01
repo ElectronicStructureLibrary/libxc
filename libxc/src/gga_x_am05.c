@@ -26,7 +26,7 @@
 #define XC_GGA_X_AM05         120 /* Armiento & Mattsson 05 exchange                */
 
 static inline void 
-func(const XC(gga_type) *p, int order, FLOAT x, 
+func(const XC(func_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   const FLOAT am05_c      = 0.7168;

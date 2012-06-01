@@ -29,31 +29,21 @@ typedef struct{
 
 
 static void 
-gga_x_optx_init(void *p_)
+gga_x_optx_init(XC(func_type) *p)
 {
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-
-  assert(p->params == NULL);
+  assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_x_optx_params));
 
-  XC(gga_x_optx_set_params_)(p, 1.05151, 1.43169/X_FACTOR_C, 0.006);
+  XC(gga_x_optx_set_params)(p, 1.05151, 1.43169/X_FACTOR_C, 0.006);
 }
 
 
 void 
 XC(gga_x_optx_set_params)(XC(func_type) *p, FLOAT a, FLOAT b, FLOAT gamma)
 {
-  assert(p != NULL && p->gga != NULL);
-  XC(gga_x_optx_set_params_)(p->gga, a, b, gamma);
-}
-
-
-void 
-XC(gga_x_optx_set_params_)(XC(gga_type) *p, FLOAT a, FLOAT b, FLOAT gamma)
-{
   gga_x_optx_params *params;
 
-  assert(p->params != NULL);
+  assert(p != NULL && p->params != NULL);
   params = (gga_x_optx_params *) (p->params);
 
   params->a     = a;
@@ -63,7 +53,7 @@ XC(gga_x_optx_set_params_)(XC(gga_type) *p, FLOAT a, FLOAT b, FLOAT gamma)
 
 
 static inline void
-func(const XC(gga_type) *p, int order, FLOAT x, 
+func(const XC(func_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   FLOAT a, b, gamma;

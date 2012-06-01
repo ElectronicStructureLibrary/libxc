@@ -30,32 +30,22 @@ typedef struct{
 
 
 static void 
-gga_x_rpbe_init(void *p_)
+gga_x_rpbe_init(XC(func_type) *p)
 {
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-
-  assert(p->params == NULL);
+  assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_x_rpbe_params));
 
   /* same parameters as standard PBE */
-  XC(gga_x_rpbe_set_params_)(p, 0.8040, 0.2195149727645171);
+  XC(gga_x_rpbe_set_params)(p, 0.8040, 0.2195149727645171);
 }
 
 
 void 
 XC(gga_x_rpbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu)
 {
-  assert(p != NULL && p->gga != NULL);
-  XC(gga_x_rpbe_set_params_)(p->gga, kappa, mu);
-}
-
-
-void 
-XC(gga_x_rpbe_set_params_)(XC(gga_type) *p, FLOAT kappa, FLOAT mu)
-{
   gga_x_rpbe_params *params;
 
-  assert(p->params != NULL);
+  assert(p != NULL && p->params != NULL);
   params = (gga_x_rpbe_params *) (p->params);
 
   params->kappa = kappa;
@@ -65,7 +55,7 @@ XC(gga_x_rpbe_set_params_)(XC(gga_type) *p, FLOAT kappa, FLOAT mu)
 
 /* RPBE: see PBE for more details */
 void XC(gga_x_rpbe_enhance) 
-  (const XC(gga_type) *p, int order, FLOAT x, 
+  (const XC(func_type) *p, int order, FLOAT x, 
    FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   FLOAT kappa, mu, f0, df0, d2f0;

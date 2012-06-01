@@ -26,6 +26,9 @@ mGGAs:
 hybrids:
   *) 409: B97-1 revised ?
   *) 413: B88+B95?
+  *) http://arxiv.org/abs/1205.4999 (versions of HSE)
+  *) http://link.aip.org/link/doi/10.1063/1.3524336 (HSE_sol)
+  *) doi:10.1021/ct800530u (LR-omegaPBE08)
 
 hybrid meta:
   *) pw6b95 (38, 51, 60)

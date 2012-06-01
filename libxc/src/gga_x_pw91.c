@@ -25,10 +25,8 @@
 #define XC_GGA_K_LC94         521 /* Lembarki & Chermette */
 
 static void 
-gga_x_pw91_init(void *p_)
+gga_x_pw91_init(XC(func_type) *p)
 {
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-
   switch(p->info->number){
   case XC_GGA_X_PW91:    p->func = 0; break;
   case XC_GGA_X_mPW91:   p->func = 1; break;
@@ -37,7 +35,7 @@ gga_x_pw91_init(void *p_)
 }
 
 static inline void 
-func(const XC(gga_type) *p, int order, FLOAT x, 
+func(const XC(func_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   /* The parameters, written in terms of b and beta=5*(36 pi)^(-5/3), are

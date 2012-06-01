@@ -36,10 +36,8 @@ static FLOAT br89_gamma = 0.8;
 
 
 static void 
-mgga_x_tb09_init(void *p_)
+mgga_x_tb09_init(XC(func_type) *p)
 {
-  XC(mgga_type) *p = (XC(mgga_type) *)p_;
-
   assert(p->params == NULL);
 
   switch(p->info->number){
@@ -52,33 +50,15 @@ mgga_x_tb09_init(void *p_)
   p->params = malloc(sizeof(mgga_x_tb09_params));
 
   /* value of c in Becke-Johnson */
-  XC(mgga_x_tb09_set_params_)(p, 1.0);
-}
-
-
-static void 
-mgga_x_tb09_end(void *p_)
-{
-  XC(mgga_type) *p = (XC(mgga_type) *)p_;
-
-  assert(p->params != NULL);
-  free(p->params);
-  p->params = NULL;
-
+  XC(mgga_x_tb09_set_params)(p, 1.0);
 }
 
 
 void XC(mgga_x_tb09_set_params)(XC(func_type) *p, FLOAT c)
 {
-  assert(p != NULL && p->mgga != NULL);
-  XC(mgga_x_tb09_set_params_)(p->mgga, c);
-}
-
-void XC(mgga_x_tb09_set_params_)(XC(mgga_type) *p, FLOAT c)
-{
   mgga_x_tb09_params *params;
 
-  assert(p->params != NULL);
+  assert(p != NULL && p->params != NULL);
   params = (mgga_x_tb09_params *) (p->params);
 
   params->c = c;
@@ -189,7 +169,7 @@ FLOAT XC(mgga_x_br89_get_x)(FLOAT Q)
 }
 
 static void 
-func(const XC(mgga_type) *pt, XC(work_mgga_x_params) *r)
+func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
 {
   FLOAT Q, br_x, v_BR, dv_BRdbx, d2v_BRdbx2, dxdQ, d2xdQ2, ff, dffdx, d2ffdx2;
   FLOAT cnst, c_TB09, c_HEG, exp1, exp2;
@@ -302,7 +282,7 @@ const XC(func_info_type) XC(func_info_mgga_x_bj06) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
   1e-22, 1e-32, 1e-22, 1e-22,
   mgga_x_tb09_init,
-  mgga_x_tb09_end,
+  NULL,
   NULL, NULL,        /* this is not an LDA                   */
   work_mgga_x,
 };
@@ -316,7 +296,7 @@ const XC(func_info_type) XC(func_info_mgga_x_tb09) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   mgga_x_tb09_init,
-  mgga_x_tb09_end,
+  NULL,
   NULL, NULL,        /* this is not an LDA                   */
   work_mgga_x,
 };
@@ -330,7 +310,7 @@ const XC(func_info_type) XC(func_info_mgga_x_rpp09) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
   1e-22, 1e-22, 1e-22, 1e-22,
   mgga_x_tb09_init,
-  mgga_x_tb09_end,
+  NULL,
   NULL, NULL,        /* this is not an LDA                   */
   work_mgga_x,
 };

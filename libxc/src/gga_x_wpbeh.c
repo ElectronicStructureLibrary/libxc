@@ -28,31 +28,21 @@ typedef struct{
 } gga_x_wpbeh_params;
 
 static void
-gga_x_wpbeh_init(void *p_)
+gga_x_wpbeh_init(XC(func_type) *p)
 {
-  XC(gga_type) *p = (XC(gga_type) *)p_;
-
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_x_wpbeh_params));
 
   /* The default value is actually PBEh */
-  XC(gga_x_wpbeh_set_params_)(p, 0.0);
+  XC(gga_x_wpbeh_set_params)(p, 0.0);
 }
 
 void 
 XC(gga_x_wpbeh_set_params)(XC(func_type) *p, FLOAT omega)
 {
-  assert(p != NULL && p->gga != NULL);
-  XC(gga_x_wpbeh_set_params_)(p->gga, omega);
-}
-
-
-void 
-XC(gga_x_wpbeh_set_params_)(XC(gga_type) *p, FLOAT omega)
-{
   gga_x_wpbeh_params *params;
 
-  assert(p->params != NULL);
+  assert(p != NULL && p->params != NULL);
   params = (gga_x_wpbeh_params *) (p->params);
 
   params->omega = omega;
@@ -165,7 +155,7 @@ s_scaling(int version, int order, FLOAT s1, FLOAT *s2, FLOAT *ds2ds1)
 }
 
 static inline void 
-func(const XC(gga_type) *p, int order, FLOAT x, FLOAT ds,
+func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
      FLOAT *f, FLOAT *dfdx, FLOAT *lvrho)
 {
   static const FLOAT AA=1.0161144, BB=-0.37170836, CC=-0.077215461, DD=0.57786348, EE=-0.051955731;

@@ -23,7 +23,7 @@
 #define XC_GGA_X_BAYESIAN          125 /* Bayesian best fit for the enhancement factor */
 
 static inline void 
-func(const XC(gga_type) *p, int order, FLOAT x, 
+func(const XC(func_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   static const FLOAT theta[3] = {

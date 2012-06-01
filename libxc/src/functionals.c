@@ -117,22 +117,18 @@ int XC(func_init)(XC(func_type) *p, int functional, int nspin)
 
   switch(XC(family_from_id)(functional, NULL, &number)){
   case(XC_FAMILY_LDA):
-    p->lda  = (XC(lda_type) *) malloc(sizeof(XC(lda_type)));
     p->info = XC(lda_known_funct)[number];
     return XC(lda_init)(p, p->info, nspin);
 
   case(XC_FAMILY_GGA):
-    p->gga = (XC(gga_type) *) malloc(sizeof(XC(gga_type)));
     p->info = XC(gga_known_funct)[number];
     return XC(gga_init)(p, p->info, nspin);
 
   case(XC_FAMILY_HYB_GGA):
-    p->gga = (XC(gga_type) *) malloc(sizeof(XC(gga_type)));
     p->info = XC(hyb_gga_known_funct)[number];
     return XC(gga_init)(p, p->info, nspin);
 
   case(XC_FAMILY_MGGA):
-    p->mgga = (XC(mgga_type) *) malloc(sizeof(XC(mgga_type)));
     p->info = XC(mgga_known_funct)[number];
     return XC(mgga_init)(p, p->info, nspin);
 
@@ -150,20 +146,25 @@ void XC(func_end)(XC(func_type) *p)
   switch(p->info->family){
   case(XC_FAMILY_LDA):
     XC(lda_end)(p);
-    free(p->lda);
     break;
 
   case(XC_FAMILY_GGA):
   case(XC_FAMILY_HYB_GGA):
     XC(gga_end)(p);
-    free(p->gga);
     break;
 
   case(XC_FAMILY_MGGA):
     XC(mgga_end)(p);
-    free(p->mgga);
     break;
   }
 
   p->info = NULL;  
+}
+
+/* returns the mixing coefficient for the hybrid GGAs */
+FLOAT XC(hyb_exx_coef)(const XC(func_type) *p)
+{
+  assert(p!=NULL);
+
+  return p->exx_coef;
 }

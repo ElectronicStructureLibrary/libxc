@@ -79,9 +79,8 @@ init_vwn_constants(vwn_consts_type *X)
 }
 
 static void
-lda_c_vwn_init(void *p_)
+lda_c_vwn_init(XC(func_type) *p)
 {
-  XC(lda_type) *p = (XC(lda_type) *)p_;
   lda_c_vwn_params *params;
   int func;
 
@@ -101,15 +100,9 @@ lda_c_vwn_init(void *p_)
 
 void XC(lda_c_vwn_set_params)(XC(func_type) *p, int spin_interpolation)
 {
-  assert(p != NULL && p->lda != NULL);
-  XC(lda_c_vwn_set_params_)(p->lda, spin_interpolation);
-}
-
-void XC(lda_c_vwn_set_params_)(XC(lda_type) *p, int spin_interpolation)
-{
   lda_c_vwn_params *params;
 
-  assert(p->params != NULL);
+  assert(p != NULL && p->params != NULL);
   params = (lda_c_vwn_params *) (p->params);
 
   params->spin_interpolation = spin_interpolation;
@@ -175,7 +168,7 @@ ec_i(vwn_consts_type *X, int order, int i, FLOAT x,
 
 /* the functional */
 static inline void 
-func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
+func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
 {
   int func;
   vwn_consts_type *X;

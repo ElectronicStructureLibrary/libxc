@@ -32,12 +32,10 @@ typedef struct{
 } gga_k_dk_params;
 
 static void 
-gga_k_dk_init(void *p_)
+gga_k_dk_init(XC(func_type) *p)
 {
   int i;
   FLOAT ff, *aa, *bb;
-
-  XC(gga_type) *p = (XC(gga_type) *)p_;
 
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_k_dk_params));
@@ -123,7 +121,7 @@ gga_k_dk_init(void *p_)
 
 
 static inline void 
-func(const XC(gga_type) *p, int order, FLOAT x, 
+func(const XC(func_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   FLOAT xx2, xx4, num, denom, dnum, ddenom, d2num, d2denom;

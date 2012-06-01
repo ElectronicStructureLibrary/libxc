@@ -23,12 +23,10 @@
 #include "util.h"
 
 static void 
-work_gga_c(const void *p_, int np, const FLOAT *rho, const FLOAT *sigma,
+work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 	   FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 	   FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
-  const XC(gga_type) *p = (const XC(gga_type) *) p_;
-
   FLOAT min_grad2 = p->info->min_grad*p->info->min_grad;
   int ip, order;
 

@@ -23,7 +23,7 @@
 #define XC_GGA_X_2D_PBE          129 /* Perdew, Burke & Ernzerhof exchange in 2D          */
 
 static inline void 
-func(const XC(gga_type) *p, int order, FLOAT x, 
+func(const XC(func_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   //FILE *fin;

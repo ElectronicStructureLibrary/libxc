@@ -25,7 +25,7 @@
 #define XC_LDA_X_2D  19 /* Exchange in 2D */
 
 static inline void 
-func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
+func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
 {
   const FLOAT ax = -0.600210877438070713036799460671; /* -4/3*SQRT(2)/M_PI */
   FLOAT fz, dfz, d2fz, d3fz;

@@ -39,7 +39,7 @@
 #define XC_GGA_XC_SB98_2c  181 /* Schmider-Becke 98 parameterization 2c    */
 
 static void 
-func_g(const XC(gga_type) *p, int type, FLOAT s, int order, FLOAT *g, FLOAT *dgds, FLOAT *d2gds2)
+func_g(const XC(func_type) *p, int type, FLOAT s, int order, FLOAT *g, FLOAT *dgds, FLOAT *d2gds2)
 {
   static const FLOAT c[][3][5] = {
     {      /* HCTH/93 */
@@ -162,19 +162,19 @@ func_g(const XC(gga_type) *p, int type, FLOAT s, int order, FLOAT *g, FLOAT *dgd
 }
 
 static inline void
-func_gga_becke_exchange(const XC(gga_type) *p, FLOAT xt, int order, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
+func_gga_becke_exchange(const XC(func_type) *p, FLOAT xt, int order, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   func_g(p, 0, xt, order, f, dfdx, d2fdx2);
 }
 
 static inline void
-func_gga_becke_parallel(const XC(gga_type) *p, FLOAT xt, int order, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
+func_gga_becke_parallel(const XC(func_type) *p, FLOAT xt, int order, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   func_g(p, 1, xt, order, f, dfdx, d2fdx2);
 }
 
 static inline void
-func_gga_becke_opposite(const XC(gga_type) *p, FLOAT xt, int order, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
+func_gga_becke_opposite(const XC(func_type) *p, FLOAT xt, int order, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   func_g(p, 2, xt, order, f, dfdx, d2fdx2);
 }

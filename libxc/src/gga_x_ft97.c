@@ -24,7 +24,7 @@
 #define XC_GGA_X_FT97_B       115 /* Filatov & Thiel 97 (version B) */
 
 static inline void
-func(const XC(gga_type) *p, int order, FLOAT x, FLOAT sigma, 
+func(const XC(func_type) *p, int order, FLOAT x, FLOAT sigma, 
      FLOAT *f, FLOAT *dfdx,
      FLOAT *vsigma, FLOAT *d2fdx2, FLOAT *v2sigma2, FLOAT *v2sigmax)
 {

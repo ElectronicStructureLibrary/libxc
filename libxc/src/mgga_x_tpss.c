@@ -181,7 +181,7 @@ void x_tpss_10(int order, FLOAT p, FLOAT z,
 
 
 static void 
-func(const XC(mgga_type) *pt, XC(work_mgga_x_params) *r)
+func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
 {
   FLOAT ss, pp, xx, a1, a1_2, zz;
   FLOAT dxxdp, dxxdz, d2xxdp2, d2xxdpz, d2xxdz2;

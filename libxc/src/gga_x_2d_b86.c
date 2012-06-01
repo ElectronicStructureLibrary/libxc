@@ -23,7 +23,7 @@
 #define XC_GGA_X_2D_B86          128 /* Becke 86 Xalfa,beta,gamma                      */
 
 static inline void 
-func(const XC(gga_type) *p, int order, FLOAT x, 
+func(const XC(func_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   FLOAT beta=0.002105, gamma=0.000119;

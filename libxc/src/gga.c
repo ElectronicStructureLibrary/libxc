@@ -26,12 +26,9 @@
 #include "funcs_hyb_gga.c"
 
 /* initialization */
-int XC(gga_init)(XC(func_type) *p, const XC(func_info_type) *info, int nspin)
+int XC(gga_init)(XC(func_type) *func, const XC(func_info_type) *info, int nspin)
 {
-  XC(gga_type) *func;
-
-  assert(p != NULL && p->gga != NULL);
-  func = p->gga;
+  assert(func != NULL);
 
   /* initialize structure */
   func->info   = info;
@@ -63,12 +60,9 @@ int XC(gga_init)(XC(func_type) *p, const XC(func_info_type) *info, int nspin)
 
 
 /* Termination */
-void XC(gga_end)(XC(func_type) *p)
+void XC(gga_end)(XC(func_type) *func)
 {
-  XC(gga_type) *func;
-
-  assert(p != NULL && p->gga != NULL);
-  func = p->gga;
+  assert(func != NULL);
 
   /* call internal termination routine */
   if(func->info->end != NULL)
@@ -121,14 +115,11 @@ if nspin == 2
    v2rhosigma(6) = (u_uu, u_ud, u_dd, d_uu, d_ud, d_dd)
    v2sigma2(6)   = (uu_uu, uu_ud, uu_dd, ud_ud, ud_dd, dd_dd)
 */
-void XC(gga)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
+void XC(gga)(const XC(func_type) *func, int np, const FLOAT *rho, const FLOAT *sigma,
 	     FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 	     FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
-  XC(gga_type) *func;
-
-  assert(p != NULL && p->gga != NULL);
-  func = p->gga;
+  assert(func != NULL);
   
   /* sanity check */
   if(zk != NULL && !(func->info->flags & XC_FLAGS_HAVE_EXC)){
@@ -173,8 +164,7 @@ void XC(gga)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigm
     func->info->gga(func, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
 
   if(func->mix_coef != NULL){
-    XC(mix_func)(p, func->n_func_aux, func->func_aux, func->mix_coef, 
-		 np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
+    XC(mix_func)(func, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
   }
 }
 
@@ -213,7 +203,7 @@ XC(gga_fxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
 
 /* initializes the mixing for GGAs */
 void 
-XC(gga_init_mix)(XC(gga_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix_coef)
+XC(gga_init_mix)(XC(func_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix_coef)
 {
   int ii;
 
@@ -231,12 +221,4 @@ XC(gga_init_mix)(XC(gga_type) *p, int n_funcs, const int *funcs_id, const FLOAT 
     XC(func_init) (p->func_aux[ii], funcs_id[ii], p->nspin);
   }
   
-}
-
-/* returns the mixing coefficient for the hybrid GGAs */
-FLOAT XC(hyb_gga_exx_coef)(const XC(gga_type) *p)
-{
-  assert(p!=NULL);
-
-  return p->exx_coef;
 }

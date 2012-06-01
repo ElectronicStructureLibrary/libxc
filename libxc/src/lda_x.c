@@ -58,45 +58,36 @@ typedef struct{
 } XC(lda_x_params);
 
 static void 
-lda_x_init(void *p_)
+lda_x_init(XC(func_type) *p)
 {
-  XC(lda_type) *p = (XC(lda_type) *)p_;
-
   assert(p->params == NULL);
   p->params = malloc(sizeof(XC(lda_x_params)));
 
   /* exchange is equal to xalpha with a parameter of 4/3 */
-  XC(lda_x_set_params_)(p, 4.0/3.0, XC_NON_RELATIVISTIC, 0.0);
+  XC(lda_x_set_params)(p, 4.0/3.0, XC_NON_RELATIVISTIC, 0.0);
 }
 
 static void 
 lda_c_xalpha_init(void *p_)
 {
-  XC(lda_type) *p = (XC(lda_type) *)p_;
+  XC(func_type) *p = (XC(func_type) *)p_;
 
   assert(p->params == NULL);
   p->params = malloc(sizeof(XC(lda_x_params)));
 
   /* This gives the usual Xalpha functional */
-  XC(lda_x_set_params_)(p, 1.0, XC_NON_RELATIVISTIC, 0.0);
+  XC(lda_x_set_params)(p, 1.0, XC_NON_RELATIVISTIC, 0.0);
 }
 
 void 
-XC(lda_c_xalpha_set_params)(XC(func_type) *p, FLOAT alpha)
+XC(lda_c_xalpha_set_params)(XC(func_type) *func, FLOAT alpha)
 {
-  assert(p != NULL && p->lda != NULL);
-  XC(lda_x_set_params_)(p->lda, alpha, XC_NON_RELATIVISTIC, 0.0);
+  assert(func != NULL);
+  XC(lda_x_set_params)(func, alpha, XC_NON_RELATIVISTIC, 0.0);
 }
 
 void 
-XC(lda_x_set_params)(XC(func_type) *p, int relativistic, FLOAT omega)
-{
-  assert(p != NULL && p->lda != NULL);
-  XC(lda_x_set_params_)(p->lda, 4.0/3.0, relativistic, omega);
-}
-
-void 
-XC(lda_x_set_params_)(XC(lda_type) *p, FLOAT alpha, int relativistic, FLOAT omega)
+XC(lda_x_set_params)(XC(func_type) *p, FLOAT alpha, int relativistic, FLOAT omega)
 {
   XC(lda_x_params) *params;
 
@@ -157,7 +148,7 @@ XC(lda_x_attenuation_function)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *
 
 
 static inline void 
-func(const XC(lda_type) *p, XC(lda_rs_zeta) *r)
+func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
 {
   FLOAT ax, omz, cbrtomz, opz, cbrtopz, fz, dfzdz, dfzdrs, d2fzdz2, d2fzdrsz, d2fzdrs2;
   FLOAT d3fzdz3, d3fzdrsz2, d3fzdrs2z, d3fzdrs3;

@@ -23,7 +23,7 @@
 #define XC_GGA_X_MPBE         122 /* Adamo & Barone modification to PBE             */
 
 static inline void 
-func(const XC(gga_type) *p, int order, FLOAT x, 
+func(const XC(func_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   static FLOAT a = 0.157;

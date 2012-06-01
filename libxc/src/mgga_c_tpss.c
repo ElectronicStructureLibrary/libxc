@@ -31,10 +31,8 @@
 ************************************************************************/
 
 static void
-mgga_c_tpss_init(void *p_)
+mgga_c_tpss_init(XC(func_type) *p)
 {
-  XC(mgga_type) *p = (XC(mgga_type) *)p_;
-
   p->n_func_aux  = 2;
   p->func_aux    = (XC(func_type) **) malloc(sizeof(XC(func_type) *)*p->n_func_aux);
   p->func_aux[0] = (XC(func_type) *)  malloc(sizeof(XC(func_type)));
@@ -84,7 +82,7 @@ eq_13_14(FLOAT zeta, FLOAT csi, int order, FLOAT *C, FLOAT *dCdzeta, FLOAT *dCdc
 
 
 /* Equation 12 */
-static void eq_12(const XC(mgga_type) *p, int order, const FLOAT *rho, const FLOAT *sigma, 
+static void eq_12(const XC(func_type) *p, int order, const FLOAT *rho, const FLOAT *sigma, 
 		  FLOAT dens, FLOAT zeta, FLOAT z,
 		  FLOAT *f_PKZB, FLOAT *vrho_PKZB, FLOAT *vsigma_PKZB, FLOAT *vz_PKZB)
 {
@@ -244,15 +242,13 @@ static void eq_12(const XC(mgga_type) *p, int order, const FLOAT *rho, const FLO
 
 
 static void 
-my_mgga_c_tpss(const void *p_, 
+my_mgga_c_tpss(const XC(func_type) *p, 
 	       const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
 	       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau,
 	       FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2lapl2, FLOAT *v2tau2,
 	       FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
 	       FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
 {
-  const XC(mgga_type) *p = (const XC(mgga_type) *) p_;
-
   int is, sigs, order;
   FLOAT dens, zeta, sigmat;
   FLOAT taut, tauw, z, z2, z3;
@@ -322,7 +318,7 @@ my_mgga_c_tpss(const void *p_,
 
 /* Warning: this is a workaround to support blocks while waiting for the next interface */
 static void 
-mgga_c_tpss(const void *p_, int np,
+mgga_c_tpss(const XC(func_type) *p, int np,
 	    const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
 	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau,
 	    FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2lapl2, FLOAT *v2tau2,
@@ -330,10 +326,9 @@ mgga_c_tpss(const void *p_, int np,
 	    FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
 {
   int ip;
-  const XC(mgga_type) *p = (const XC(mgga_type) *) p_;
 
   for(ip=0; ip<np; ip++){
-    my_mgga_c_tpss(p_, rho, sigma, lapl, tau,
+    my_mgga_c_tpss(p, rho, sigma, lapl, tau,
 		   zk, vrho, vsigma, vlapl, vtau,
 		   v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
 		   v2sigmalapl, v2sigmatau, v2lapltau);

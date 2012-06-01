@@ -85,9 +85,9 @@ XC(gga_x_b88_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma)
 }
 
 
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
+void 
+XC(gga_x_b88_enhance)(const XC(func_type) *p, int order, FLOAT x, 
+		      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   FLOAT f1, f2, df1, df2, d2f1, d2f2, dd;
   FLOAT beta, gamma;
@@ -126,6 +126,7 @@ func(const XC(func_type) *p, int order, FLOAT x,
     *d2fdx2 += 0.072*4.0*CBRT(4.0)*dd*dd*dd;
 }
 
+#define func XC(gga_x_b88_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_b88) = {

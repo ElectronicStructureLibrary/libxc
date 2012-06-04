@@ -430,6 +430,8 @@ void test_functional(int functional)
       }
     }
   }
+
+  xc_func_end(&func);
 }
 
 /*----------------------------------------------------------*/

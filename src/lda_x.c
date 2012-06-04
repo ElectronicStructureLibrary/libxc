@@ -49,14 +49,13 @@ static int interaction = 0;
 
 typedef struct{
   FLOAT alpha;       /* parameter for Xalpha functional */
-  FLOAT omega;       /* parameter for range separation (0 means normal LDA) */
   int relativistic;  /* use the relativistic version of the functional or not */
 } XC(lda_x_params);
 
 static void 
 lda_x_init(XC(func_type) *p)
 {
-  assert(p->params == NULL);
+  assert(p != NULL && p->params == NULL);
   p->params = malloc(sizeof(XC(lda_x_params)));
 
   /* exchange is equal to xalpha with a parameter of 4/3 */
@@ -66,7 +65,7 @@ lda_x_init(XC(func_type) *p)
 static void 
 lda_c_xalpha_init(XC(func_type) *p)
 {
-  assert(p->params == NULL);
+  assert(p != NULL && p->params == NULL);
   p->params = malloc(sizeof(XC(lda_x_params)));
 
   /* This gives the usual Xalpha functional */
@@ -74,10 +73,9 @@ lda_c_xalpha_init(XC(func_type) *p)
 }
 
 void 
-XC(lda_c_xalpha_set_params)(XC(func_type) *func, FLOAT alpha)
+XC(lda_c_xalpha_set_params)(XC(func_type) *p, FLOAT alpha)
 {
-  assert(func != NULL);
-  XC(lda_x_set_params)(func, alpha, XC_NON_RELATIVISTIC, 0.0);
+  XC(lda_x_set_params)(p, alpha, XC_NON_RELATIVISTIC, 0.0);
 }
 
 void 
@@ -85,12 +83,12 @@ XC(lda_x_set_params)(XC(func_type) *p, FLOAT alpha, int relativistic, FLOAT omeg
 {
   XC(lda_x_params) *params;
 
-  assert(p->params != NULL);
+  assert(p != NULL && p->params != NULL);
   params = (XC(lda_x_params) *) (p->params);
 
   params->alpha = 1.5*alpha - 1.0;
   params->relativistic = relativistic;
-  params->omega = omega;
+  p->cam_omega = omega;
 }
 
 
@@ -167,11 +165,11 @@ func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
     cbrtomz = CBRT(omz);
   }
 
-  if(params->omega == 0.0){
+  if(p->cam_omega == 0.0){
     fa_u = fa_d = 1.0;
 
   }else{
-    a_cnst = CBRT(4.0/(9.0*M_PI))*params->omega/2.0;
+    a_cnst = CBRT(4.0/(9.0*M_PI))*p->cam_omega/2.0;
 
     if(p->nspin == XC_UNPOLARIZED){
       XC(lda_x_attenuation_function)(0, r->order, a_cnst*r->rs[1], &fa_u, &dfa_u, &d2fa_u, &d3fa_u);
@@ -211,7 +209,7 @@ func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
   
   r->dedrs = -ax/r->rs[2];
 
-  if(params->omega == 0.0)
+  if(p->cam_omega == 0.0)
     dfa_u = dfa_d = 0.0;
 
   if(p->nspin == XC_POLARIZED){
@@ -243,7 +241,7 @@ func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
 
   if(r->order < 2) return;
     
-  if(params->omega == 0.0)
+  if(p->cam_omega == 0.0)
     d2fa_u = d2fa_d = 0.0;
 
   if(p->nspin == XC_POLARIZED){
@@ -291,7 +289,7 @@ func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
 
   if(r->order < 3) return;
 
-  if(params->omega == 0.0)
+  if(p->cam_omega == 0.0)
     d3fa_u = d3fa_d = 0.0;
 
   if(p->nspin == XC_POLARIZED){

@@ -264,7 +264,7 @@ void XC_FC_FUNC(f90_hyb_gga_xc_hse_set_par, F90_HYB_GGA_XC_HSE_SET_PAR)
 void XC_FC_FUNC(f90_hyb_exx_coef, F90_HYB_EXX_COEF)
    (void **p, FLOAT *coef)
 {
-   *coef = XC(hyb_exx_coef)((XC(func_type) *)(*p));
+   XC(hyb_exx_coef)((XC(func_type) *)(*p), *coef);
 }
 
 

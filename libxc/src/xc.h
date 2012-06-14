@@ -183,7 +183,7 @@ void XC(gga_x_hjs_set_params)     (XC(func_type) *p, FLOAT omega);
 void XC(hyb_gga_xc_hse_set_params)(XC(func_type) *p, FLOAT omega);
 void XC(gga_x_ityh_set_params)    (XC(func_type) *p, int func_id, FLOAT omega);
 
-FLOAT XC(hyb_exx_coef)(const XC(func_type) *p);
+void XC(hyb_exx_coef)(const XC(func_type) *p, FLOAT coef);
 
 /* the meta-GGAs */
 int  XC(mgga_init)(XC(func_type) *p, const XC(func_info_type) *info, int nspin);

@@ -127,7 +127,7 @@ struct XC(func_type){
 typedef struct XC(func_type) XC(func_type);
 
 /* functionals */
-int   XC(functional_get_number)(char *name);
+int   XC(functional_get_number)(const char *name);
 char *XC(functional_get_name)(int number);
 int   XC(family_from_id)(int id, int *family, int *number);
 int   XC(func_init)(XC(func_type) *p, int functional, int nspin);

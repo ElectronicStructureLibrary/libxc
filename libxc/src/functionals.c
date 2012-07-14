@@ -32,7 +32,7 @@ extern XC(func_info_type)
 
 
 /*------------------------------------------------------*/
-int XC(functional_get_number)(char *name)
+int XC(functional_get_number)(const char *name)
 {
   int ii;
 

@@ -27,11 +27,9 @@
 void
 XC(hyb_gga_xc_cam_b3lyp_init)(XC(func_type) *p)
 {
-  static FLOAT ax = 0.72, ac = 0.81;
-  static int   funcs_id  [6] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_X, XC_GGA_X_ITYH, XC_LDA_C_VWN_RPA, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[6];
-
-  XC(gga_init_mix)(p, 6, funcs_id, funcs_coef);
+  static FLOAT ac = 0.81;
+  static int   funcs_id  [4] = {XC_GGA_X_B88, XC_GGA_X_ITYH, XC_LDA_C_VWN, XC_GGA_C_LYP};
+  static FLOAT funcs_coef[4];
 
   switch(p->info->number){
   case XC_HYB_GGA_XC_CAM_B3LYP:
@@ -40,20 +38,19 @@ XC(hyb_gga_xc_cam_b3lyp_init)(XC(func_type) *p)
     p->cam_beta  = 0.46;
     break;
   case XC_HYB_GGA_XC_TD_CAM_B3LYP:
-    p->cam_omega = 0.33;
-    p->cam_alpha = 0.19;
-    p->cam_beta  = 0.46;
+    p->cam_omega = 0.150;
+    p->cam_alpha = 0.0799;
+    p->cam_beta  = 0.9201;
     break;
   }
 
-  funcs_coef[0] = 1.0 - p->cam_alpha - ax;
-  funcs_coef[1] = ax;
-  funcs_coef[2] = -p->cam_beta - ax;
-  funcs_coef[3] = ax;
+  funcs_coef[0] = 1.0 - p->cam_alpha - p->cam_beta;
+  funcs_coef[1] = p->cam_beta;
   funcs_coef[4] = 1.0 - ac;
   funcs_coef[5] = ac;
 
-  XC(lda_x_set_params)(p->func_aux[2], 1.0, XC_NON_RELATIVISTIC, p->cam_omega);
+  XC(gga_init_mix)(p, 4, funcs_id, funcs_coef);
+
   XC(gga_x_ityh_set_params)(p->func_aux[3], XC_GGA_X_B88, p->cam_omega);
 }
 

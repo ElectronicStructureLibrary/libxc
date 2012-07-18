@@ -26,6 +26,8 @@
 #define XC_HYB_GGA_XC_B1PW91 417 /* Becke 1-parameter mixture of B88 and PW91 */
 #define XC_HYB_GGA_XC_mPW1PW 418 /* Becke 1-parameter mixture of mPW91 and PW91 */
 #define XC_HYB_GGA_XC_mPW1K  405 /* mixture of mPW91 and PW91 optimized for kinetics */
+#define XC_HYB_GGA_XC_BHANDH 435 /* Becke half-and-half */
+#define XC_HYB_GGA_XC_BHANDHLYP 436 /* Becke half-and-half with B88 exchange*/
 
 void
 XC(hyb_gga_xc_b1wc_init)(XC(func_type) *p)
@@ -138,5 +140,51 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1k) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   XC(hyb_gga_xc_mpw1k_init),
+  NULL, NULL, NULL
+};
+
+
+void
+XC(hyb_gga_xc_bhandh_init)(XC(func_type) *p)
+{
+  static int   funcs_id  [2] = {XC_LDA_X, XC_GGA_C_LYP};
+  static FLOAT funcs_coef[2] = {0.5, 1.0};
+
+  XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
+  p->cam_alpha = 0.5;
+}
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_bhandh) = {
+  XC_HYB_GGA_XC_BHANDH,
+  XC_EXCHANGE_CORRELATION,
+  "BHandH",
+  XC_FAMILY_HYB_GGA,
+  "AD Becke, J. Chem. Phys., 98 1372-77 (1993)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  XC(hyb_gga_xc_bhandh_init),
+  NULL, NULL, NULL
+};
+
+
+void
+XC(hyb_gga_xc_bhandhlyp_init)(XC(func_type) *p)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_LYP};
+  static FLOAT funcs_coef[2] = {0.5, 1.0};
+
+  XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
+  p->cam_alpha = 0.5;
+}
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_bhandhlyp) = {
+  XC_HYB_GGA_XC_BHANDHLYP,
+  XC_EXCHANGE_CORRELATION,
+  "BHandHLYP",
+  XC_FAMILY_HYB_GGA,
+  "AD Becke, J. Chem. Phys., 98 1372-77 (1993)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  XC(hyb_gga_xc_bhandh_init),
   NULL, NULL, NULL
 };

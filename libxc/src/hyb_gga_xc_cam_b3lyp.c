@@ -46,12 +46,12 @@ XC(hyb_gga_xc_cam_b3lyp_init)(XC(func_type) *p)
 
   funcs_coef[0] = 1.0 - p->cam_alpha - p->cam_beta;
   funcs_coef[1] = p->cam_beta;
-  funcs_coef[4] = 1.0 - ac;
-  funcs_coef[5] = ac;
+  funcs_coef[2] = 1.0 - ac;
+  funcs_coef[3] = ac;
 
   XC(gga_init_mix)(p, 4, funcs_id, funcs_coef);
 
-  XC(gga_x_ityh_set_params)(p->func_aux[3], XC_GGA_X_B88, p->cam_omega);
+  XC(gga_x_ityh_set_params)(p->func_aux[1], XC_GGA_X_B88, p->cam_omega);
 }
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_cam_b3lyp) = {

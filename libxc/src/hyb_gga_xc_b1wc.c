@@ -185,6 +185,6 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_bhandhlyp) = {
   "AD Becke, J. Chem. Phys., 98 1372-77 (1993)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  XC(hyb_gga_xc_bhandh_init),
+  XC(hyb_gga_xc_bhandhlyp_init),
   NULL, NULL, NULL
 };

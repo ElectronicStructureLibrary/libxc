@@ -226,8 +226,8 @@ H1_eq15(int order, FLOAT   rs, FLOAT   g, FLOAT   t, FLOAT *H1,
 }
 
 
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs,
+void 
+XC(gga_c_pw91_func) (const XC(func_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs,
      FLOAT *f, FLOAT *dfdrs, FLOAT *dfdz, FLOAT *dfdxt, FLOAT *dfdxs,
      FLOAT *d2fdrs2, FLOAT *d2fdrsz, FLOAT *d2fdrsxt, FLOAT *d2fdrsxs, FLOAT *d2fdz2, 
      FLOAT *d2fdzxt, FLOAT *d2fdzxs, FLOAT *d2fdxt2, FLOAT *d2fdxtxs, FLOAT *d2fdxs2)
@@ -315,6 +315,7 @@ func(const XC(func_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *x
   d2fdxs2[2]  = 0.0;
 }
 
+#define func XC(gga_c_pw91_func)
 #include "work_gga_c.c"
 
 const XC(func_info_type) XC(func_info_gga_c_pw91) = {

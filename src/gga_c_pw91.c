@@ -227,10 +227,7 @@ H1_eq15(int order, FLOAT   rs, FLOAT   g, FLOAT   t, FLOAT *H1,
 
 
 void 
-XC(gga_c_pw91_func) (const XC(func_type) *p, int order, FLOAT rs, FLOAT zeta, FLOAT xt, FLOAT *xs,
-     FLOAT *f, FLOAT *dfdrs, FLOAT *dfdz, FLOAT *dfdxt, FLOAT *dfdxs,
-     FLOAT *d2fdrs2, FLOAT *d2fdrsz, FLOAT *d2fdrsxt, FLOAT *d2fdrsxs, FLOAT *d2fdz2, 
-     FLOAT *d2fdzxt, FLOAT *d2fdzxs, FLOAT *d2fdxt2, FLOAT *d2fdxtxs, FLOAT *d2fdxs2)
+XC(gga_c_pw91_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
 {
   FLOAT g, dgdz, d2gdz2;
   FLOAT t, dtdrs, dtdxt, dtdg, d2tdrs2, d2tdrsxt, d2tdg2, d2tdgrs, d2tdxtg;
@@ -240,79 +237,79 @@ XC(gga_c_pw91_func) (const XC(func_type) *p, int order, FLOAT rs, FLOAT zeta, FL
   XC(lda_rs_zeta) pw;
   FLOAT tconv, auxp, auxm;
 
-  pw.order = order;
-  pw.rs[0] = SQRT(rs);
-  pw.rs[1] = rs;
-  pw.rs[2] = rs*rs;
-  pw.zeta  = zeta;
+  pw.order = r->order;
+  pw.rs[0] = SQRT(r->rs);
+  pw.rs[1] = r->rs;
+  pw.rs[2] = r->rs*r->rs;
+  pw.zeta  = r->zeta;
 
   XC(lda_c_pw_func)(p->func_aux[0], &pw);
 
   tconv = 4.0*M_CBRT2;
 
-  auxp = CBRT(1.0 + zeta);
-  auxm = CBRT(1.0 - zeta);
+  auxp = CBRT(1.0 + r->zeta);
+  auxm = CBRT(1.0 - r->zeta);
 
   g    = 0.5*(auxp*auxp + auxm*auxm); /* g is called phi in PBE */
-  t    = xt/(tconv*g*pw.rs[0]);
+  t    = r->xt/(tconv*g*pw.rs[0]);
 
-  H0_eq13(order, pw.zk, g, t, &H0, &dH0dec, &dH0dg, &dH0dt,
+  H0_eq13(r->order, pw.zk, g, t, &H0, &dH0dec, &dH0dg, &dH0dt,
 	  &d2H0dec2, &d2H0dg2, &d2H0dt2, &d2H0dgec, &d2H0dtec, &d2H0dgt);
-  H1_eq15(order, rs, g, t, &H1, &dH1drs, &dH1dg, &dH1dt,
+  H1_eq15(r->order, r->rs, g, t, &H1, &dH1drs, &dH1dg, &dH1dt,
 	  &d2H1drs2, &d2H1dg2, &d2H1dt2, &d2H1dgrs, &d2H1dtrs, &d2H1dgt);
 
-  *f = pw.zk + H0 + H1;
+  r->f = pw.zk + H0 + H1;
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
   dgdz = 0.0;
   if(auxp > p->info->min_zeta) dgdz += 1/auxp;
   if(auxm > p->info->min_zeta) dgdz -= 1/auxm;
   dgdz *= 1.0/3.0;
 
-  dtdrs = -xt/(2.0*tconv*g*rs*pw.rs[0]);
-  dtdxt =  t/xt;
+  dtdrs = -r->xt/(2.0*tconv*g*r->rs*pw.rs[0]);
+  dtdxt =  t/r->xt;
   dtdg  = -t/g;
 
-  *dfdrs   = dH1drs + (1.0 + dH0dec)*pw.dedrs + (dH0dt + dH1dt)*dtdrs;
-  *dfdz    = (1.0 + dH0dec)*pw.dedz  + (dH0dg + dH1dg + (dH0dt + dH1dt)*dtdg)*dgdz;
-  *dfdxt   = (dH0dt + dH1dt)*dtdxt;
-  dfdxs[0] = 0.0;
-  dfdxs[1] = 0.0;
+  r->dfdrs    = dH1drs + (1.0 + dH0dec)*pw.dedrs + (dH0dt + dH1dt)*dtdrs;
+  r->dfdz     = (1.0 + dH0dec)*pw.dedz  + (dH0dg + dH1dg + (dH0dt + dH1dt)*dtdg)*dgdz;
+  r->dfdxt    = (dH0dt + dH1dt)*dtdxt;
+  r->dfdxs[0] = 0.0;
+  r->dfdxs[1] = 0.0;
 
-  if(order < 2) return;
+  if(r->order < 2) return;
 
   d2gdz2 = 0.0;
-  if(auxp > p->info->min_zeta) d2gdz2 += 1.0/((1.0 + zeta)*auxp);
-  if(auxm > p->info->min_zeta) d2gdz2 += 1.0/((1.0 - zeta)*auxm);
+  if(auxp > p->info->min_zeta) d2gdz2 += 1.0/((1.0 + r->zeta)*auxp);
+  if(auxm > p->info->min_zeta) d2gdz2 += 1.0/((1.0 - r->zeta)*auxm);
   d2gdz2 *= -1.0/9.0;
 
-  d2tdrs2  =  3.0*xt/(4.0*tconv*g*pw.rs[2]*pw.rs[0]);
-  d2tdrsxt =  dtdrs/xt;
+  d2tdrs2  =  3.0*r->xt/(4.0*tconv*g*pw.rs[2]*pw.rs[0]);
+  d2tdrsxt =  dtdrs/r->xt;
   d2tdg2   = -2.0*dtdg/g;
   d2tdgrs  = -dtdrs/g;
-  d2tdxtg  =  dtdg/xt;
+  d2tdxtg  =  dtdg/r->xt;
   
-  *d2fdrs2    = d2H1drs2 + d2H1dtrs*dtdrs + (1.0 + dH0dec)*pw.d2edrs2 + d2H0dec2*pw.dedrs*pw.dedrs
+  r->d2fdrs2     = d2H1drs2 + d2H1dtrs*dtdrs + (1.0 + dH0dec)*pw.d2edrs2 + d2H0dec2*pw.dedrs*pw.dedrs
     + 2.0*d2H0dtec*pw.dedrs*dtdrs + (d2H0dt2 + d2H1dt2)*dtdrs*dtdrs + (dH0dt + dH1dt)*d2tdrs2;
-  *d2fdrsz    = (1.0 + dH0dec)*pw.d2edrsz + pw.dedrs*(d2H0dec2*pw.dedz + dgdz*(d2H0dtec*dtdg + d2H0dgec))
+  r->d2fdrsz     = (1.0 + dH0dec)*pw.d2edrsz + pw.dedrs*(d2H0dec2*pw.dedz + dgdz*(d2H0dtec*dtdg + d2H0dgec))
     + (d2H1dgrs + d2H1dtrs*dtdg)*dgdz + (dH0dt + dH1dt)*dgdz*d2tdgrs + 
     dtdrs*(d2H0dtec*pw.dedz + dgdz*((d2H0dt2 + d2H1dt2)*dtdg + d2H0dgt + d2H1dgt));
-  *d2fdrsxt   = d2H1dtrs*dtdxt + dtdxt*(d2H0dtec*pw.dedrs + (d2H0dt2 + d2H1dt2)*dtdrs) + (dH0dt + dH1dt)*d2tdrsxt;
-  d2fdrsxs[0] = 0.0;
-  d2fdrsxs[1] = 0.0;
-  *d2fdz2     = (1.0 + dH0dec)*pw.d2edz2 + d2H0dec2*pw.dedz*pw.dedz + (dH0dt + dH1dt)*(dtdg*d2gdz2 + d2tdg2*dgdz*dgdz)
+  r->d2fdrsxt    = d2H1dtrs*dtdxt + dtdxt*(d2H0dtec*pw.dedrs + (d2H0dt2 + d2H1dt2)*dtdrs) + (dH0dt + dH1dt)*d2tdrsxt;
+  r->d2fdrsxs[0] = 0.0;
+  r->d2fdrsxs[1] = 0.0;
+  r->d2fdz2      = (1.0 + dH0dec)*pw.d2edz2 + d2H0dec2*pw.dedz*pw.dedz + (dH0dt + dH1dt)*(dtdg*d2gdz2 + d2tdg2*dgdz*dgdz)
     + (dH0dg + dH1dg)*d2gdz2 + 2.0*dgdz*pw.dedz*(d2H0dtec*dtdg + d2H0dgec)
     + dgdz*dgdz*((d2H0dt2 + d2H1dt2)*dtdg*dtdg + 2.0*(d2H0dgt + d2H1dgt)*dtdg + d2H0dg2 + d2H1dg2);
-  *d2fdzxt    = (dH0dt + dH1dt)*d2tdxtg*dgdz + dtdxt*(d2H0dtec*pw.dedz + dgdz*((d2H0dt2 + d2H1dt2)*dtdg + d2H0dgt + d2H1dgt));
-  d2fdzxs[0]  = 0.0;
-  d2fdzxs[1]  = 0.0;
-  *d2fdxt2    = (d2H0dt2 + d2H1dt2)*dtdxt*dtdxt;
-  d2fdxtxs[0] = 0.0;
-  d2fdxtxs[1] = 0.0;
-  d2fdxs2[0]  = 0.0;
-  d2fdxs2[1]  = 0.0;
-  d2fdxs2[2]  = 0.0;
+  r->d2fdzxt     = (dH0dt + dH1dt)*d2tdxtg*dgdz + dtdxt*(d2H0dtec*pw.dedz + dgdz*((d2H0dt2 + d2H1dt2)*dtdg + d2H0dgt + d2H1dgt));
+  r->d2fdzxs[0]  = 0.0;
+  r->d2fdzxs[1]  = 0.0;
+  r->d2fdxt2     = (d2H0dt2 + d2H1dt2)*dtdxt*dtdxt;
+  r->d2fdxtxs[0] = 0.0;
+  r->d2fdxtxs[1] = 0.0;
+  r->d2fdxs2[0]  = 0.0;
+  r->d2fdxs2[1]  = 0.0;
+  r->d2fdxs2[2]  = 0.0;
 }
 
 #define func XC(gga_c_pw91_func)

@@ -190,7 +190,7 @@ func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
   ss = X2S*r->x;
   pp = ss*ss;
 
-  zz = r->x*r->x/(8.0*r->t);
+  zz = r->x*r->x/(4.0*r->t);
 
   /* Eq. 10 */
   x_tpss_10(r->order, pp, zz, &xx, &dxxdp, &dxxdz, &d2xxdp2, &d2xxdpz, &d2xxdz2);
@@ -204,7 +204,7 @@ func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
   if(r->order < 1) return;
 
   dpdx = 2.0*ss*X2S;
-  dzdx = r->x/(4.0*r->t);
+  dzdx = r->x/(2.0*r->t);
   dzdt = -zz/r->t;
 
   r->dfdx = a1_2*(dxxdp*dpdx + dxxdz*dzdx);
@@ -214,7 +214,7 @@ func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
   if(r->order < 2) return;
 
   d2pdx2 = 2.0*X2S*X2S;
-  d2zdx2 = 1.0/(4.0*r->t);
+  d2zdx2 = 1.0/(2.0*r->t);
   d2zdxt = -dzdx/r->t;
   d2zdt2 = -2.0*dzdt/r->t;
 
@@ -236,7 +236,7 @@ XC(func_info_type) XC(func_info_mgga_x_tpss) = {
   "J Tao, JP Perdew, VN Staroverov, and G Scuseria, Phys. Rev. Lett. 91, 146401 (2003)\n"
   "JP Perdew, J Tao, VN Staroverov, and G Scuseria, J. Chem. Phys. 120, 6898 (2004)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  1e-32, 1e-32, 1e-32, 1e-32,
   NULL, NULL,
   NULL, NULL,        /* this is not an LDA                   */
   work_mgga_x,

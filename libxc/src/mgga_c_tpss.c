@@ -168,6 +168,7 @@ static void eq_12(const XC(func_type) *p, int order, const FLOAT *rho, const FLO
       +     sigma[0]*(1.0 - zeta)*(1.0 - zeta)
       - 2.0*sigma[1]*(1.0 + zeta)*(1.0 - zeta)
       +     sigma[2]*(1.0 + zeta)*(1.0 + zeta);
+    gzeta2 /= dens*dens;
 
     gzeta2 = max(gzeta2, p->info->min_grad*p->info->min_grad);
     gzeta  = SQRT(gzeta2);
@@ -186,12 +187,12 @@ static void eq_12(const XC(func_type) *p, int order, const FLOAT *rho, const FLO
       bb = 2.0*sigma[0]*(zeta - 1.0) + 
 	4.0*sigma[1]*zeta + 2.0*sigma[2]*(zeta + 1.0);
 
-      dcsidd[0] = -1.0*csi/(3.0*dens) + bb/(2.0*aa*gzeta)*dzetadd[0];
-      dcsidd[1] = -1.0*csi/(3.0*dens) + bb/(2.0*aa*gzeta)*dzetadd[1];
+      dcsidd[0] = -1.0*csi/(3.0*dens) + bb/(2.0*aa*gzeta*dens)*dzetadd[0];
+      dcsidd[1] = -1.0*csi/(3.0*dens) + bb/(2.0*aa*gzeta*dens)*dzetadd[1];
 
-      dcsidsigma[0] =      (1.0 - zeta)*(1.0 - zeta)/(2.0*aa*gzeta);
-      dcsidsigma[1] = -2.0*(1.0 - zeta)*(1.0 + zeta)/(2.0*aa*gzeta);
-      dcsidsigma[2] =      (1.0 + zeta)*(1.0 + zeta)/(2.0*aa*gzeta);
+      dcsidsigma[0] =      (1.0 - zeta)*(1.0 - zeta)/(2.0*aa*gzeta*dens);
+      dcsidsigma[1] = -2.0*(1.0 - zeta)*(1.0 + zeta)/(2.0*aa*gzeta*dens);
+      dcsidsigma[2] =      (1.0 + zeta)*(1.0 + zeta)/(2.0*aa*gzeta*dens);
     }
   } /* get C(csi, zeta) */
 
@@ -205,6 +206,9 @@ static void eq_12(const XC(func_type) *p, int order, const FLOAT *rho, const FLO
     for(is=0; is<p->nspin; is++)
       vrho_aux[is]  = (dens - rho[is])*f_til[is]/dens;
 
+    for(is=0; is<sigs; is++)
+      vsigma_aux[is] = 0.0;
+
     for(is=0; is<p->nspin; is++){
       int ks;
 
@@ -212,10 +216,10 @@ static void eq_12(const XC(func_type) *p, int order, const FLOAT *rho, const FLO
 	vrho_aux[ks] += vrho_til[is][ks]*rho[is]/dens;
       
       for(ks=0; ks<sigs; ks++)
-	vsigma_aux[ks] = vsigma_til[is][ks]*rho[is]/dens;
+	vsigma_aux[ks] += vsigma_til[is][ks]*rho[is]/dens;
     }
   }
-  
+
   *f_PKZB  = f_PBE*(1 + C*z2) - (1.0 + C)*z2*f_aux;
   
   if(order > 0 ){
@@ -273,10 +277,10 @@ my_mgga_c_tpss(const XC(func_type) *p,
   /* sometimes numerical errors create problems */
   sigmat = max(p->info->min_grad*p->info->min_grad, sigmat);
 
-  tauw   = max(sigmat/(8.0*dens), 1.0e-12);
+  tauw   = max(sigmat/(8.0*dens), p->info->min_tau);
   taut   = max(taut, tauw);
 
-  z  = tauw/taut;
+  z  = 2.0*tauw/taut;
   z2 = z*z;
   z3 = z2*z;
 
@@ -292,7 +296,7 @@ my_mgga_c_tpss(const XC(func_type) *p,
 
   dzdd        = -z/dens;
   dzdtau      = -z/taut;
-  dzdsigma[0] = 1.0/(8.0*dens*taut);
+  dzdsigma[0] = 1.0/(4.0*dens*taut);
   if(p->nspin == XC_POLARIZED){
     dzdsigma[1] = 2.0*dzdsigma[0];
     dzdsigma[2] =     dzdsigma[0];
@@ -373,7 +377,7 @@ XC(func_info_type) XC(func_info_mgga_c_tpss) = {
   "J Tao, JP Perdew, VN Staroverov, and G Scuseria, Phys. Rev. Lett. 91, 146401 (2003)\n"
   "JP Perdew, J Tao, VN Staroverov, and G Scuseria, J. Chem. Phys. 120, 6898 (2004)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  1e-32, 1e-32, 1e-32, 1e-32,
   mgga_c_tpss_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */

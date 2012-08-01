@@ -26,7 +26,7 @@ libxc_la_FUNC_SOURCES = \
 	lda.c lda_x.c lda_x_1d.c lda_x_2d.c \
 	lda_c_wigner.c lda_c_gombas.c lda_c_rpa.c lda_c_hl.c \
 	lda_c_vwn.c lda_c_pz.c lda_c_pw.c lda_c_ml1.c lda_xc_teter93.c \
-	lda_c_1d_csc.c \
+	lda_c_1d_csc.c lda_c_1d_loos.c \
 	lda_c_2d_amgb.c lda_c_2d_prm.c \
 	lda_k_tf.c \
 	gga.c \

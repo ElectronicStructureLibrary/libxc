@@ -105,8 +105,8 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
 {
   gga_x_ityh_params *params;
   FLOAT e_f, e_dfdx, e_d2fdx2;
-  FLOAT kGGA, aa, f_aa, df_aa, d2f_aa, d3f_aa;
-  FLOAT dkGGAdr, dkGGAdx, daadr, daadx;
+  FLOAT k_GGA, K_GGA, aa, f_aa, df_aa, d2f_aa, d3f_aa;
+  FLOAT dk_GGAdr, dk_GGAdx, daadr, daadx;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_ityh_params *) (p->params);
@@ -114,8 +114,10 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
   /* call enhancement factor */
   params->enhancement_factor(p->func_aux[0], order, x, &e_f, &e_dfdx, &e_d2fdx2);
 
-  kGGA = SQRT(9.0*M_PI/e_f)*CBRT(ds);
-  aa = p->cam_omega/(2.0*kGGA);
+  K_GGA = 2.0*X_FACTOR_C*e_f;
+  k_GGA = SQRT(9.0*M_PI/K_GGA)*CBRT(ds);
+
+  aa = p->cam_omega/(2.0*k_GGA);
 
   XC(lda_x_attenuation_function)(0, order, aa, &f_aa, &df_aa, &d2f_aa, &d3f_aa);
 
@@ -123,11 +125,11 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
 
   if(order < 1) return;
 
-  dkGGAdr =  kGGA/(3.0*ds);
-  dkGGAdx = -kGGA*e_dfdx/(2.0*e_f);
+  dk_GGAdr =  k_GGA/(3.0*ds);
+  dk_GGAdx = -k_GGA*e_dfdx/(2.0*e_f);
 
-  daadr   = -aa*dkGGAdr/kGGA;
-  daadx   = -aa*dkGGAdx/kGGA;
+  daadr   = -aa*dk_GGAdr/k_GGA;
+  daadx   = -aa*dk_GGAdx/k_GGA;
 
   *dfdx   = e_dfdx*f_aa + e_f*df_aa*daadx;
   *lvrho  = e_f*df_aa*daadr; 

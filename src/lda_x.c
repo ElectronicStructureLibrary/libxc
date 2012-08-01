@@ -93,19 +93,28 @@ XC(lda_x_set_params)(XC(func_type) *p, FLOAT alpha, int relativistic, FLOAT omeg
 
 
 /* interaction = 0 -> ERF interaction
-               = 1 -> ERF_GAU          */
+               = 1 -> ERF_GAU          
+
+see also J. Chem. Phys. 120, 8425 (2004)
+*/
 void
 XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
 {
-  FLOAT aa2, aa3, auxa1, auxa2;
+  FLOAT aa2, aa3, auxa1, auxa2, auxa3;
   FLOAT bb, bb2, bb3, auxb1, auxb2;
 
   aa2 = aa*aa;
   aa3 = aa*aa2;
   auxa1 = M_SQRTPI*erf(1.0/(2.0*aa));
-  auxa2 = exp(-1.0/(4.0*aa2));
 
-  *f = 1.0 - 8.0/3.0*aa*(auxa1 - 3.0*aa + 4.0*aa3 + (2.0*aa - 4*aa3)*auxa2);
+  if(aa < 1.0e6) 
+    auxa2 = exp(-1.0/(4.0*aa2)) - 1.0;
+  else
+    auxa2 = -1.0/(4.0*aa2);
+
+  auxa3 = 2.0*aa2*auxa2 + 0.5;
+
+  *f = 1.0 - 8.0/3.0*aa*(auxa1 + 2.0*aa*(auxa2 - auxa3));
 
   if(interaction == 1){ /* erfgau */
     bb  = aa/M_SQRT3;
@@ -119,21 +128,21 @@ XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, F
 
   if(order < 1) return;
 
-  *df = 8.0/3.0 * (2.0*aa*(3.0 - 8.0*aa2 - (1.0 - 8.0*aa2)*auxa2) - auxa1);
+  *df = 8.0/3.0 * (4.0*aa - 2.0*(1.0 - 8.0*aa2)*aa*auxa2 - auxa1);
 
   if(interaction == 1)  /* erfgau */
     *df -= 8.0/3.0*(4.0*bb*(3.0 - 16.0*bb2 + (1.0 + 16.0*bb2)*auxb2) - auxb1);
 
   if(order < 2) return;
 
-  *d2f = 16.0*(1.0 - 8*aa2 +(1.0 + 8.0*aa2)*auxa2);
+  *d2f = 16.0*(2.0 + (1.0 + 8.0*aa2)*auxa2);
 
   if(interaction == 1)  /* erfgau */
     *d2f -= 8.0/(3.0*M_SQRT3)*(12.0 - 192.0*bb2 + 3.0*(1.0/bb2 + 12.0 + 64.0*bb2)*auxb2);
 
   if(order < 3) return;
 
-  *d3f = -256.0*aa + 8.0*(1.0 + 8.0*aa2 + 32.0*aa2*aa2)*auxa2/aa3;
+  *d3f = -256.0*aa + 8.0*(1.0 + 8.0*aa2 + 32.0*aa2*aa2)*(auxa2 + 1.0)/aa3;
 
   if(interaction == 1)  /* erfgau */
     *d3f -=  8.0/9.0*(-384.0*bb + 3.0*(1.0 + 8.0*bb2*(1.0 + bb2*(8.0 + bb2*32.0))*auxb2/(2.0*bb2*bb2*bb)));

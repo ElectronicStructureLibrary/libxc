@@ -62,7 +62,7 @@ const XC(func_info_type) XC(func_info_gga_x_ol2) = {
   "Exchange form based on Ou-Yang and Levy v.2",
   XC_FAMILY_GGA,
   "P Fuentealba and O Reyes, Chem. Phys. Lett. 232, 31-34 (1995)\n"
-  "H Ou-Yang, M Levy, Int. J. of Quant. Chem. 40, 379–388 (1991)",
+  "H Ou-Yang, M Levy, Int. J. of Quant. Chem. 40, 379-388 (1991)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_ol2_init,
@@ -79,7 +79,7 @@ const XC(func_info_type) XC(func_info_gga_k_ol2) = {
   XC_KINETIC,
   "Ou-Yang and Levy v.2",
   XC_FAMILY_GGA,
-  "H Ou-Yang, M Levy, Int. J. of Quant. Chem. 40, 379–388 (1991)",
+  "H Ou-Yang, M Levy, Int. J. of Quant. Chem. 40, 379-388 (1991)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_ol2_init, 

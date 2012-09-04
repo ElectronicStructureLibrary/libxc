@@ -131,7 +131,7 @@ const XC(func_info_type) XC(func_info_gga_k_lc94) = {
   XC_KINETIC,
   "Lembarki & Chermette",
   XC_FAMILY_GGA,
-  "A Lembarki and H Chermette, Phys. Rev. A 50, 5328–5331 (1994)",
+  "A Lembarki and H Chermette, Phys. Rev. A 50, 5328-5331 (1994)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-30, 1e-30, 0.0, 1e-32,
   gga_x_pw91_init,

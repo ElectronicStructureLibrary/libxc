@@ -29,14 +29,14 @@ work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 {
   XC(gga_work_c_t) r;
   FLOAT min_grad2 = p->info->min_grad*p->info->min_grad;
-  int ip, order;
+  int ip;
 
   r.order = -1;
   if(zk     != NULL) r.order = 0;
   if(vrho   != NULL) r.order = 1;
   if(v2rho2 != NULL) r.order = 2;
 
-  if(order < 0) return;
+  if(r.order < 0) return;
 
   for(ip = 0; ip < np; ip++){
     FLOAT drs, dxt;

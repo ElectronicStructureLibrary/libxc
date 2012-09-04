@@ -54,7 +54,7 @@ char *XC(functional_get_name)(int number)
     if(XC(functional_keys)[ii].number == -1)
       return NULL;
     if(XC(functional_keys)[ii].number == number)
-      /* return duplicated: caller has the responsability to dealloc string */
+      /* return duplicated: caller has the responsibility to dealloc string */
       return strdup(XC(functional_keys)[ii].name);
   }
 }
@@ -171,7 +171,7 @@ FLOAT XC(hyb_exx_coef)(const XC(func_type) *p)
 
 
 /* returns the mixing coefficient for the hybrid GGAs */
-void *XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT *beta)
+void XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT *beta)
 {
   assert(p!=NULL);
 

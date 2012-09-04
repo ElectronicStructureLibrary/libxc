@@ -49,7 +49,25 @@ float  asinhf(float  x);
 /* special functions */
 double lambert_w(double z);
 
-inline double cheb_eval(const double x, const double *cs, const int N);
+/* we define this function here, so it can be properly inlined by all compilers */
+static inline double
+cheb_eval(const double x, const double *cs, const int N)
+{
+  int i;
+  double twox, b0, b1, b2;
+
+  b2 = b1 = b0 = 0.0;
+
+  twox = 2.0*x;
+  for(i=N-1; i>=0; i--){
+    b2 = b1;
+    b1 = b0;
+    b0 = twox*b1 - b2 + cs[i];
+  }
+
+  return 0.5*(b0 - b2);
+}
+
 double bessel_I0_scaled(const double x);
 double bessel_I0(const double x);
 double bessel_K0_scaled(const double x);

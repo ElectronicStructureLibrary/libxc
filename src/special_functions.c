@@ -79,20 +79,4 @@ struct cheb_series_struct {
 };
 typedef struct cheb_series_struct cheb_series;
 
-inline double
-cheb_eval(const double x, const double *cs, const int N)
-{
-  int i;
-  double twox, b0, b1, b2;
-
-  b2 = b1 = b0 = 0.0;
-
-  twox = 2.0*x;
-  for(i=N-1; i>=0; i--){
-    b2 = b1;
-    b1 = b0;
-    b0 = twox*b1 - b2 + cs[i];
-  }
-
-  return 0.5*(b0 - b2);
-}
+/* cheb_eval is defined in util.h */

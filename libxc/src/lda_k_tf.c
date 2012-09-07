@@ -25,9 +25,6 @@
 #define XC_LDA_K_TF      50   /* Thomas-Fermi kinetic energy functional */
 #define XC_LDA_K_LP      51   /* Lee and Parr Gaussian ansatz           */
 
-/* do not forget that our definition of the kinetic energy is |nabla n|^2,
-   therefore, all formulas must multiplied by a factor of 2 */
-
 static inline void 
 func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
 {
@@ -35,12 +32,12 @@ func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
 
   switch(p->info->number){
   case XC_LDA_K_LP:\
-    /* 2 * 3*M_PI/2^(5/3) * (3/4 pi)^(2/3) = 3*M_PI*POW(3/(8*M_PI), 2/3)*/
-    ax = 2.284855419517333351288618503355783851342;
+    /* 3*M_PI/2^(5/3) * (3/4 pi)^(2/3) = 3*M_PI*POW(3/(8*M_PI), 2/3)*/
+    ax = 1.142427709758666675644309251677891925671;
     break;
   case XC_LDA_K_TF:
-    /* 2 * 3/10*(3*M_PI^2)^(2/3) * (3/4 pi)^(2/3) = 3/5*POW(9*M_PI/4, 2/3) */
-    ax = 2.209901131411720004197664159039271385884;
+    /* 3/10*(3*M_PI^2)^(2/3) * (3/4 pi)^(2/3) = 3/10*POW(9*M_PI/4, 2/3) */
+    ax = 1.104950565705860002098832079519635692942;
     break;
   }
 

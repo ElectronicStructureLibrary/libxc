@@ -21,6 +21,8 @@
 #include <assert.h>
 #include "util.h"
 
+/* WARNING: These functionals should be checked!!! */
+
 #define XC_GGA_XC_TH_FL        196 /* Tozer and Handy v. FL  */
 #define XC_GGA_XC_TH_FC        197 /* Tozer and Handy v. FC  */
 #define XC_GGA_XC_TH_FCFO      198 /* Tozer and Handy v. FCFO */

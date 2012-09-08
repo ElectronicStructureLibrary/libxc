@@ -25,7 +25,7 @@
 static FLOAT wc_mu, wc_c;
 
 static void
-gga_x_wc_init(void *p_)
+gga_x_wc_init(XC(func_type) *p_)
 {
   wc_mu  = 0.2195149727645171;
   wc_c   = (146.0/2025.0)*(4.0/9.0) - (73.0/405.0)*(2.0/3.0) + (wc_mu - 10.0/81.0);

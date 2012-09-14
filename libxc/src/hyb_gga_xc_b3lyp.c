@@ -21,11 +21,12 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_HYB_GGA_XC_B3PW91  401 /* The original hybrid proposed by Becke */
-#define XC_HYB_GGA_XC_B3LYP   402 /* The (in)famous B3LYP                  */
-#define XC_HYB_GGA_XC_B3P86   403 /* Perdew 86 hybrid similar to B3PW91    */
-#define XC_HYB_GGA_XC_mPW3PW  415 /* mixture with the mPW functional */
-#define XC_HYB_GGA_XC_mPW3LYP 419 /* mixture of mPW and LYP */
+#define XC_HYB_GGA_XC_B3PW91        401 /* The original hybrid proposed by Becke */
+#define XC_HYB_GGA_XC_B3LYP         402 /* The (in)famous B3LYP                  */
+#define XC_HYB_GGA_XC_B3P86         403 /* Perdew 86 hybrid similar to B3PW91    */
+#define XC_HYB_GGA_XC_mPW3PW        415 /* mixture with the mPW functional       */
+#define XC_HYB_GGA_XC_mPW3LYP       419 /* mixture of mPW and LYP                */
+#define XC_HYB_GGA_XC_mB3LYP_RC04   437 /* B3LYP with RC04 LDA                   */
 
 void
 XC(hyb_gga_xc_b3pw91_init)(XC(func_type) *p)
@@ -142,5 +143,27 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw3lyp) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   XC(hyb_gga_xc_mpw3lyp_init), 
+  NULL, NULL, NULL
+};
+
+void
+XC(hyb_gga_xc_mb3lyp_rc04_init)(XC(func_type) *p)
+{
+  static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_RC04, XC_GGA_C_LYP};
+  static FLOAT funcs_coef[4] = {1.0 - 0.20 - 0.72, 0.72, 1.0 - 0.57*0.81, 0.81};
+
+  XC(gga_init_mix)(p, 4, funcs_id, funcs_coef);
+  p->cam_alpha = 0.20;
+}
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_mb3lyp_rc04) = {
+  XC_HYB_GGA_XC_mB3LYP_RC04,
+  XC_EXCHANGE_CORRELATION,
+  "B3LYP with RC04 LDA",
+  XC_FAMILY_HYB_GGA,
+  "V Tognetti, P Cortona, and C Adamo, Chem. Phys. Lett. 439, 381-385 (2007)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  XC(hyb_gga_xc_mb3lyp_rc04_init),
   NULL, NULL, NULL
 };

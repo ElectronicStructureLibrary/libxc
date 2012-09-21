@@ -34,9 +34,9 @@ gga_x_pw91_init(XC(func_type) *p)
   } 
 }
 
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
+void XC(gga_x_pw91_enhance)
+  (const XC(func_type) *p, int order, FLOAT x, 
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   /* The parameters, written in terms of b and beta=5*(36 pi)^(-5/3), are
      aa = 6*b/X2S
@@ -93,6 +93,7 @@ func(const XC(func_type) *p, int order, FLOAT x,
   *d2fdx2 *= X2S*X2S;
 }
 
+#define func XC(gga_x_pw91_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_pw91) = {

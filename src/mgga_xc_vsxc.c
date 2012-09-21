@@ -52,8 +52,8 @@ void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT 
     dhdgam*alpha;
 }
 
-/* (3.0/5.0) * POW(6.0*M_PI*M_PI, 2.0/3.0) */
-static const FLOAT vsxc_CFermi = 9.115599744691194274576327519198610717031;
+/* (3.0/10.0) * POW(6.0*M_PI*M_PI, 2.0/3.0) */
+static const FLOAT vsxc_CFermi = 4.557799872345597137288163759599305358516;
 
 static void 
 func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
@@ -61,14 +61,14 @@ func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
   static const FLOAT abcd[6] = {-0.9800, -0.003557, 0.006250, -0.00002354, -0.0001283, 0.0003575};
   static const FLOAT alpha = 0.001867;
 
-  XC(mgga_x_gvt4_func)(r->order, r->x, r->t - vsxc_CFermi, alpha, abcd, &r->f, &r->dfdx, &r->dfdt);
+  XC(mgga_x_gvt4_func)(r->order, r->x, 2.0*(r->t - vsxc_CFermi), alpha, abcd, &r->f, &r->dfdx, &r->dfdt);
  
   r->f /= -X_FACTOR_C;
 
   if(r->order < 1) return;
 
   r->dfdx /= -X_FACTOR_C;
-  r->dfdt /= -X_FACTOR_C;
+  r->dfdt /= -X_FACTOR_C/2.0;
 }
 
 static void 
@@ -79,17 +79,26 @@ func_c_parallel(const XC(func_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
   static const FLOAT abcd[6] = {0.3271, -0.03229, -0.02942, 0.002134, -0.005452, 0.01578};
   static const FLOAT alpha = 0.005151;
 
-  XC(mgga_x_gvt4_func)(order, x, t - vsxc_CFermi, alpha, abcd, f, dfdx, dfdt);
+  FLOAT dd, f1;
+  const FLOAT tmin = 0.5e-10;
 
-  if(t > 1e-10){
-    FLOAT dd, f1=*f;
+  XC(mgga_x_gvt4_func)(order, x, 2.0*(t - vsxc_CFermi), alpha, abcd, f, dfdx, dfdt);
 
-    dd     = 1.0 - x*x/(4.0*t);
-    *f     = dd*f1;                     /* multiply by D_sigma */
-    *dfdx  =  -x*f1/(2.0*t)   + dd*(*dfdx);
-    *dfdt  = x*x*f1/(4.0*t*t) + dd*(*dfdt);
+  f1 = *f;
+
+  dd = (t > tmin) ? 1.0 - x*x/(8.0*t) : 0.0;
+  *f = dd*f1;                     /* multiply by D_sigma */
+
+  if(order < 1) return;
+
+  if(t > tmin){
+    *dfdx  =  -x*f1/(4.0*t)   +     dd*(*dfdx);
+    *dfdt  = x*x*f1/(8.0*t*t) + 2.0*dd*(*dfdt);
+  }else{
+    *dfdx = *dfdt = 0.0;
   }
 }
+
 
 static void 
 func_c_opposite(const XC(func_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
@@ -99,7 +108,11 @@ func_c_opposite(const XC(func_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
   static const FLOAT abcd[6] = {0.7035, 0.007695, 0.05153, 0.00003394, -0.001269, 0.001296};
   static const FLOAT alpha = 0.003050;
 
-  XC(mgga_x_gvt4_func)(order, x, t - 2.0*vsxc_CFermi, alpha, abcd, f, dfdx, dfdt);
+  XC(mgga_x_gvt4_func)(order, x, 2.0*(t - 2.0*vsxc_CFermi), alpha, abcd, f, dfdx, dfdt);
+
+  if(order < 1) return;
+
+  *dfdt *= 2.0;
 }
 
 #include "work_mgga_x.c"
@@ -126,7 +139,7 @@ const XC(func_info_type) XC(func_info_mgga_c_vsxc) = {
   XC_FAMILY_MGGA,
   "T Van Voorhis and GE Scuseria, JCP 109, 400 (1998)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  MIN_DENS, MIN_GRAD, MIN_TAU/2.0, MIN_ZETA,
   work_mgga_c_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */

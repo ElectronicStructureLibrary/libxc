@@ -265,10 +265,10 @@ my_mgga_c_tpss(const XC(func_type) *p,
 
   /* get spin-summed variables */
   XC(rho2dzeta)(p->nspin, rho, &dens, &zeta);
-  taut   = tau[0];
+  taut   = 2.0*tau[0];
   sigmat = sigma[0];
   if(p->nspin == XC_POLARIZED){
-    taut   += tau[1];
+    taut   += 2.0*tau[1];
     sigmat += 2.0*sigma[1] + sigma[2];
   }
   
@@ -277,7 +277,7 @@ my_mgga_c_tpss(const XC(func_type) *p,
   /* sometimes numerical errors create problems */
   sigmat = max(p->info->min_grad*p->info->min_grad, sigmat);
 
-  tauw   = max(sigmat/(8.0*dens), p->info->min_tau);
+  tauw   = max(sigmat/(4.0*dens), p->info->min_tau);
   taut   = max(taut, tauw);
 
   z  = 2.0*tauw/taut;

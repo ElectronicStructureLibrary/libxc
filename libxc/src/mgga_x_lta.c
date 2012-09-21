@@ -31,16 +31,16 @@ func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
   const FLOAT a1 = 0.297163728291293581339216378935;
   FLOAT t;
 
-  t  = r->t/2.0; /* we use a different definition of t */
+  t  = r->t; /* we use a different definition of t */
   r->f = a1*POW(t, 4.0/5.0);
 
   if(r->order < 1) return;
   
-  r->dfdt = (t > 1e-10) ? a1*4.0/5.0*POW(t, -1.0/5.0)/2.0 : 0.0;
+  r->dfdt = (t > 1e-10) ? a1*4.0/5.0*POW(t, -1.0/5.0) : 0.0;
 
   if(r->order < 2) return;
   
-  r->d2fdt2 = (t > 1e-10) ? -a1*4.0/25.0*POW(t, -6.0/5.0)/4.0 : 0.0;
+  r->d2fdt2 = (t > 1e-10) ? -a1*4.0/25.0*POW(t, -6.0/5.0) : 0.0;
 }
 
 #include "work_mgga_x.c"

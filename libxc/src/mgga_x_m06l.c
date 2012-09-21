@@ -42,7 +42,7 @@ mgga_x_m06l_init(XC(func_type) *p)
 
   XC(func_init)(p->func_aux[0], XC_GGA_X_PBE, p->nspin);
 
-  CFermi = (3.0/5.0) * POW(6.0*M_PI*M_PI, 2.0/3.0);
+  CFermi = (3.0/10.0) * POW(6.0*M_PI*M_PI, 2.0/3.0);
 }
 
 
@@ -58,7 +58,7 @@ x_m06l_fw(int order, FLOAT t, FLOAT *fw, FLOAT *dfwdt)
   FLOAT w, wp;
   int i;
 
-  w = (CFermi - 2.0*t)/(CFermi + 2.0*t);
+  w = (CFermi - t)/(CFermi + t);
 
   *fw = 0.0;
   if(order>0) *dfwdt = 0.0;
@@ -71,7 +71,7 @@ x_m06l_fw(int order, FLOAT t, FLOAT *fw, FLOAT *dfwdt)
   }
   if (order>0){
     *dfwdt /= w;
-    *dfwdt *= -4.0*CFermi/((CFermi + 2.0*t)*(CFermi + 2.0*t));
+    *dfwdt *= -2.0*CFermi/((CFermi + t)*(CFermi + t));
   }
 }
 
@@ -90,7 +90,7 @@ func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
   x_m06l_fw(r->order, r->t, &fw, &dfwdt);
 
   /* there is a factor if 2 in the definition of z, as in Theor. Chem. Account 120, 215 (2008) */
-  XC(mgga_x_gvt4_func)(r->order, r->x, 2.0*r->t - CFermi, alpha, d, &h, &dhdx, &dhdz);
+  XC(mgga_x_gvt4_func)(r->order, r->x, 2.0*(r->t - CFermi), alpha, d, &h, &dhdx, &dhdz);
 
   /* A MINUS was missing in Eq. (7) of the paper */
   r->f = f_pbe*fw + h;

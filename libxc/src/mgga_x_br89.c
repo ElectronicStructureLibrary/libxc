@@ -174,7 +174,7 @@ func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
   FLOAT Q, br_x, v_BR, dv_BRdbx, d2v_BRdbx2, dxdQ, d2xdQ2, ff, dffdx, d2ffdx2;
   FLOAT cnst, c_TB09, c_HEG, exp1, exp2;
 
-  Q = (r->u - 2.0*br89_gamma*r->t + 0.5*br89_gamma*r->x*r->x)/6.0;
+  Q = (r->u - 4.0*br89_gamma*r->t + 0.5*br89_gamma*r->x*r->x)/6.0;
   if(abs(Q) < MIN_DENS) Q = (Q < 0) ? -MIN_DENS : MIN_DENS;
 
   br_x = XC(mgga_x_br89_get_x)(Q);
@@ -211,7 +211,7 @@ func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
 
   if(pt->func == 0){ /* XC_MGGA_X_BR89 */
     r->dfdx = -r->x*br89_gamma*dv_BRdbx*dxdQ/12.0;
-    r->dfdt =   2.0*br89_gamma*dv_BRdbx*dxdQ/12.0;
+    r->dfdt =   4.0*br89_gamma*dv_BRdbx*dxdQ/12.0;
     r->dfdu =                 -dv_BRdbx*dxdQ/12.0;
 
   }else{
@@ -247,10 +247,10 @@ func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
     FLOAT aux1 = d2v_BRdbx2*dxdQ*dxdQ + dv_BRdbx*d2xdQ2;
 
     r->d2fdx2 = -(aux1*br89_gamma*r->x*r->x/6.0 + dv_BRdbx*dxdQ)*br89_gamma/12.0;
-    r->d2fdxt =  aux1*br89_gamma*br89_gamma*r->x/36.0;
+    r->d2fdxt =  aux1*br89_gamma*br89_gamma*r->x/18.0;
     r->d2fdxu = -aux1*br89_gamma*r->x/72.0;
-    r->d2fdt2 = -aux1*br89_gamma*br89_gamma/18.0;
-    r->d2fdtu =  aux1*br89_gamma/36.0;
+    r->d2fdt2 = -aux1*2.0*br89_gamma*br89_gamma/9.0;
+    r->d2fdtu =  aux1*br89_gamma/18.0;
     r->d2fdu2 = -aux1/72.0;
   }else{
     

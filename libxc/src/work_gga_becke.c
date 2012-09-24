@@ -23,7 +23,7 @@
   and of rho.
 ************************************************************************/
 
-static void
+void
 work_gga_becke_init(XC(func_type) *p)
 {
   p->n_func_aux  = 1;

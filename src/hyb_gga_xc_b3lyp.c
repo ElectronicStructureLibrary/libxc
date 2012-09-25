@@ -58,7 +58,6 @@ XC(hyb_gga_xc_b3lyp_init)(XC(func_type) *p)
   static FLOAT funcs_coef[4] = {1.0 - 0.20 - 0.72, 0.72, 1.0 - 0.81, 0.81};
 
   XC(gga_init_mix)(p, 4, funcs_id, funcs_coef);
-  XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
   p->cam_alpha = 0.20;
 }
 
@@ -82,7 +81,6 @@ XC(hyb_gga_xc_b3p86_init)(XC(func_type) *p)
   static FLOAT funcs_coef[4] = {1.0 - 0.20 - 0.72, 0.72, 1.0 - 0.81, 0.81};
 
   XC(gga_init_mix)(p, 4, funcs_id, funcs_coef);
-  XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
   p->cam_alpha = 0.20;
 }
 
@@ -106,7 +104,6 @@ XC(hyb_gga_xc_mpw3pw_init)(XC(func_type) *p)
   static FLOAT funcs_coef[4] = {1.0 - 0.20 - 0.72, 0.72, 1.0 - 0.81, 0.81};
 
   XC(gga_init_mix)(p, 4, funcs_id, funcs_coef);
-  XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
   p->cam_alpha = 0.20;
 }
 
@@ -130,7 +127,6 @@ XC(hyb_gga_xc_mpw3lyp_init)(XC(func_type) *p)
   static FLOAT funcs_coef[4] = {1.0 - 0.218 - 0.709, 0.709, 1.0 - 0.871, 0.871};
 
   XC(gga_init_mix)(p, 4, funcs_id, funcs_coef);
-  XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
   p->cam_alpha = 0.218;
 }
 

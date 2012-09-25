@@ -147,7 +147,6 @@ gga_xc_b97_init(XC(func_type) *p)
   p->params = malloc(sizeof(gga_xc_b97_params));
   params = (gga_xc_b97_params *)(p->params);
 
-  /* value of beta in standard Becke 88 functional */
   switch(p->info->number){
   case XC_GGA_XC_HCTH_93:   p->func   =  0;  break;
   case XC_GGA_XC_HCTH_120:  p->func   =  1;  break;

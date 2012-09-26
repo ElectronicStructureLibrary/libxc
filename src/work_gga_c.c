@@ -40,7 +40,7 @@ work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 
   for(ip = 0; ip < np; ip++){
     FLOAT drs, dxt;
-    FLOAT d2rs, d2xt, d2fdrs2, d2fdrsz, d2fdrsxt, d2fdrsxs[2], d2fdz2, d2fdzxt, d2fdzxs[2], d2fdxt2, d2fdxtxs[2], d2fdxs2[3];
+    FLOAT d2rs, d2xt;
     FLOAT ndzdn[2], dxsdn[2];
     FLOAT dxtds, d2xtds2, d2xtdns, dxsds[2], d2xsdn2[2], d2xsds2[2], d2xsdns[2];
 

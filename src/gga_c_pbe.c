@@ -29,22 +29,24 @@
  I based this implementation on a routine from L.C. Balbas and J.M. Soler
 ************************************************************************/
 
-#define XC_GGA_C_PBE          130 /* Perdew, Burke & Ernzerhof correlation          */
-#define XC_GGA_C_PBE_SOL      133 /* Perdew, Burke & Ernzerhof correlation SOL      */
-#define XC_GGA_C_XPBE         136 /* xPBE reparametrization by Xu & Goddard         */
+#define XC_GGA_C_PBE          130 /* Perdew, Burke & Ernzerhof correlation              */
+#define XC_GGA_C_PBE_SOL      133 /* Perdew, Burke & Ernzerhof correlation SOL          */
+#define XC_GGA_C_XPBE         136 /* xPBE reparametrization by Xu & Goddard             */
 #define XC_GGA_C_PBE_JRGX     138 /* JRGX reparametrization by Pedroza, Silva & Capelle */
-#define XC_GGA_C_RGE2         143 /* Regularized PBE */
-#define XC_GGA_C_APBE         186 /* mu fixed from the semiclassical neutral atom   */
+#define XC_GGA_C_RGE2         143 /* Regularized PBE                                    */
+#define XC_GGA_C_APBE         186 /* mu fixed from the semiclassical neutral atom       */
+#define XC_GGA_C_SPBE          89 /* PBE correlation to be used with the SSB exchange   */
 
-static const FLOAT beta[6]  = {
+static const FLOAT beta[7]  = {
   0.06672455060314922,                /* original PBE */
   0.046,                              /* PBE sol      */
   0.089809,                           /* xPBE         */
   3.0*10.0/(81.0*M_PI*M_PI),          /* PBE_JRGX     */
   0.053,                              /* RGE2         */
-  3.0*0.260/(M_PI*M_PI)               /* APBE (C)     */
+  3.0*0.260/(M_PI*M_PI),               /* APBE (C)     */
+  0.06672455060314922,                /* sPBE         */
 };
-static FLOAT gamm[6];
+static FLOAT gamm[7];
 
 
 static void gga_c_pbe_init(XC(func_type) *p)
@@ -64,12 +66,13 @@ static void gga_c_pbe_init(XC(func_type) *p)
   case XC_GGA_C_PBE_JRGX: p->func = 3; break;
   case XC_GGA_C_RGE2:     p->func = 4; break;
   case XC_GGA_C_APBE:     p->func = 5; break;
+  case XC_GGA_C_SPBE:     p->func = 6; break;
   default:
     fprintf(stderr, "Internal error in gga_c_pbe\n");
     exit(1);
   }
 
-  for(ii=0; ii<6; ii++)
+  for(ii=0; ii<7; ii++)
     gamm[ii] = (1.0 - log(2.0))/(M_PI*M_PI);
   gamm[2] = beta[2]*beta[2]/(2.0*0.197363);
 }
@@ -108,7 +111,7 @@ pbe_eq8(int func, int order, FLOAT ecunif, FLOAT phi,
 
 
 static void 
-pbe_eq7(int func, int order, FLOAT phi, FLOAT t, FLOAT A, 
+pbe_eq7(int func, int order, FLOAT phi, FLOAT t, FLOAT A, FLOAT B,
 	FLOAT *H, FLOAT *dphi, FLOAT *dt, FLOAT *dA,
 	FLOAT *d2phi, FLOAT *d2phit, FLOAT *d2phiA, FLOAT *d2t2, FLOAT *d2tA, FLOAT *d2A2)
 {
@@ -119,7 +122,7 @@ pbe_eq7(int func, int order, FLOAT phi, FLOAT t, FLOAT A,
   t2   = t*t;
   phi3 = POW(phi, 3);
 
-  f1 = t2 + A*t2*t2;
+  f1 = t2 + B*A*t2*t2;
   f3 = 1.0 + A*f1;
   f2 = beta[func]*f1/(gamm[func]*f3);
 
@@ -129,11 +132,11 @@ pbe_eq7(int func, int order, FLOAT phi, FLOAT t, FLOAT A,
 
   *dphi  = 3.0*(*H)/phi;
     
-  df1dt  = t*(2.0 + 4.0*A*t2);
+  df1dt  = t*(2.0 + 4.0*B*A*t2);
   df2dt  = beta[func]/(gamm[func]*f3*f3) * df1dt;
   *dt    = gamm[func]*phi3*df2dt/(1.0 + f2);
     
-  df1dA  = t2*t2;
+  df1dA  = B*t2*t2;
   df2dA  = beta[func]/(gamm[func]*f3*f3) * (df1dA - f1*f1);
   *dA    = gamm[func]*phi3*df2dA/(1.0 + f2);
 
@@ -143,11 +146,11 @@ pbe_eq7(int func, int order, FLOAT phi, FLOAT t, FLOAT A,
   *d2phit = 3.0*(*dt)/phi;
   *d2phiA = 3.0*(*dA)/phi;
 
-  d2f1dt2 = 2.0 + 4.0*3.0*A*t2;
+  d2f1dt2 = 2.0 + 4.0*3.0*B*A*t2;
   d2f2dt2 = beta[func]/(gamm[func]*f3*f3) * (d2f1dt2 - 2.0*A/f3*df1dt*df1dt);
   *d2t2   = gamm[func]*phi3*(d2f2dt2*(1.0 + f2) - df2dt*df2dt)/((1.0 + f2)*(1.0 + f2));
 
-  d2f1dtA = 4.0*t*t2;
+  d2f1dtA = 4.0*B*t*t2;
   d2f2dtA = beta[func]/(gamm[func]*f3*f3) * 
     (d2f1dtA - 2.0*df1dt*(f1 + A*df1dA)/f3);
   *d2tA   = gamm[func]*phi3*(d2f2dtA*(1.0 + f2) - df2dt*df2dA)/((1.0 + f2)*(1.0 + f2));
@@ -167,6 +170,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   FLOAT dfdphi, dfdec, dfdt, dtdrs, dtdxt, dtdphi, dphidz;
   FLOAT d2fdphi2, d2fdphit, d2fdphiec, d2fdt2, d2fdtec, d2fdec2;
   FLOAT d2tdrs2, d2tdrsxt, d2tdphi2, d2tdrsphi, d2tdxtphi, d2phidz2;
+  FLOAT B;
 
   XC(lda_rs_zeta) pw;
   FLOAT tconv, auxp, auxm;
@@ -190,7 +194,9 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   pbe_eq8(p->func, r->order, pw.zk, phi,
 	  &A, &dAdec, &dAdphi, &d2Adec2, &d2Adecphi, &d2Adphi2);
 
-  pbe_eq7(p->func, r->order, phi, t, A, 
+  /* the sPBE functional contains one term less than the original PBE, so we set it to zero */
+  B = (p->func == 6) ? 0.0 : 1.0;
+  pbe_eq7(p->func, r->order, phi, t, A, B,
 	  &H, &dHdphi, &dHdt, &dHdA, &d2Hdphi2, &d2Hdphit, &d2HdphiA, &d2Hdt2, &d2HdtA, &d2HdA2);
 
   r->f = pw.zk + H;
@@ -334,6 +340,19 @@ const XC(func_info_type) XC(func_info_gga_c_apbe) = {
   "mu fixed from the semiclassical neutral atom",
   XC_FAMILY_GGA,
   "LA Constantin, E Fabiano, S Laricchia, and F Della Sala, Phys. Rev. Lett. 106, 186406 (2011)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-12, 1e-32, 0.0, 1e-32,
+  gga_c_pbe_init,
+  NULL, NULL,
+  work_gga_c,
+};
+
+const XC(func_info_type) XC(func_info_gga_c_spbe) = {
+  XC_GGA_C_SPBE,
+  XC_CORRELATION,
+  "PBE correlation to be used with the SSB exchange",
+  XC_FAMILY_GGA,
+  "M Swart, M Sola, and FM Bickelhaupt, J. Chem. Phys. 131, 094103 (2009)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-12, 1e-32, 0.0, 1e-32,
   gga_c_pbe_init,

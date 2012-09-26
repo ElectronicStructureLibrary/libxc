@@ -182,6 +182,8 @@ void XC(gga_x_wpbeh_set_params)   (XC(func_type) *p, FLOAT omega);
 void XC(gga_x_hjs_set_params)     (XC(func_type) *p, FLOAT omega);
 void XC(hyb_gga_xc_hse_set_params)(XC(func_type) *p, FLOAT omega);
 void XC(gga_x_ityh_set_params)    (XC(func_type) *p, int func_id, FLOAT omega);
+void XC(gga_x_ssb_sw_set_params)  (XC(func_type) *p, FLOAT A, FLOAT B, FLOAT C, FLOAT D, FLOAT E);
+void XC(gga_x_kt_set_params)      (XC(func_type) *p, FLOAT gamma, FLOAT delta);
 
 FLOAT XC(hyb_exx_coef)(const XC(func_type) *p);
 

@@ -42,19 +42,25 @@ void XC(gga_x_pw91_enhance)
      aa = 6*b/X2S
      bb = 1/X2S
      cc = b/(X_FACTOR_C*X2S*X2S)
-     dd = (b-beta)/(X_FACTOR_C*X2S^2)
+     dd = -(b-beta)/(X_FACTOR_C*X2S^2)
      ff = 1e-6/(X_FACTOR_C*X2S^expo)
 
-     with b_PW91~0.0042 and b_mPW91=0.0046
+     with b_PW91~0.0042 and b_mPW91=0.00426
+
+     === from nwchem source (xc_xmpw91.F) ===
+     C. Adamo confirmed that there is a typo in the JCP paper
+     b_mPW91 is 0.00426 instead of 0.0046
+
+     also the power seems to be 3.72 and not 3.73
   */
 
-  const FLOAT aa[]   = {0.19645,  0.215157295352585598013916978744,  0.093907};
-  const FLOAT bb[]   = { 7.7956,  7.795554179441507081094187014969, 76.320};
-  const FLOAT cc[]   = { 0.2743,  0.300416257087080973420256668760,  0.26608};
-  const FLOAT dd[]   = {-0.1508, -0.176959466963624190150028425705, -0.0809615};
-  const FLOAT ff[]   = {  0.004,  0.002279611815362395620121471751,  0.000057767};
+  const FLOAT aa[]   = {0.19645,  0.199254364826524942382212633318,   0.093907};
+  const FLOAT bb[]   = { 7.7956,  7.79555417944150791792694183560,   76.320};
+  const FLOAT cc[]   = { 0.2743,  0.278211577215427224719138086332,   0.26608};
+  const FLOAT dd[]   = {-0.1508, -0.154754787091970434595681296209,  -0.0809615};
+  const FLOAT ff[]   = {  0.004,  0.00223327615711445316366555108607, 0.000057767};
   const FLOAT alpha  = 100.0;
-  const FLOAT expo[] = {4.0, 3.73, 4.0};
+  const FLOAT expo[] = {4.0, 3.72, 4.0};
 
   FLOAT ss, ss2, ss4;
   FLOAT f1, df1, d2f1, f2, df2, d2f2, f3, df3, d2f3, f4, df4, d2f4;

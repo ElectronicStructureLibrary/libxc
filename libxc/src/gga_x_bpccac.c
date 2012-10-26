@@ -17,6 +17,7 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "util.h"
 
 #define XC_GGA_X_BPCCAC  98 /* BPCCAC (GRAC for the energy) */

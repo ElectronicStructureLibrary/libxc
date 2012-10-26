@@ -46,7 +46,7 @@ func(const XC(func_type) *p, int order, FLOAT x,
   FLOAT aux, den, fab, dfab, d2fab;
 
   XC(gga_x_rpbe_enhance)(p->func_aux[0], order, x, &f1, &df1dx, &d2f1dx2);
-  XC(gga_x_pw91_enhance)(p->func_aux[1], order, x, &f1, &df1dx, &d2f1dx2);
+  XC(gga_x_pw91_enhance)(p->func_aux[1], order, x, &f2, &df2dx, &d2f2dx2);
 
   aux = exp(-(alpha*(x - beta)));
   den = 1.0 + aux;

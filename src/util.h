@@ -74,7 +74,12 @@ double bessel_K0_scaled(const double x);
 double bessel_K0(const double x);
 double bessel_K1_scaled(const double x);
 double bessel_K1(const double x);
-double expint_e1(const double x);
+
+double expint_e1_impl(const double x, const int scale);
+static inline double expint_e1(const double x)         { return  expint_e1_impl( x, 0); }
+static inline double expint_e1_scaled(const double x)  { return  expint_e1_impl( x, 1); }
+static inline double expint_Ei(const double x)         { return -expint_e1_impl(-x, 0); }
+static inline double expint_Ei_scaled(const double x)  { return -expint_e1_impl(-x, 1); }
 
 /* integration */
 typedef void integr_fn(FLOAT *x, int n, void *ex);

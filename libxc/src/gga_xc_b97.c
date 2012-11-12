@@ -132,7 +132,7 @@ static const FLOAT b97_params[][3][5] = {
 };
 
 typedef struct{
-  FLOAT (*cc)[5];
+  const FLOAT (*cc)[5];
 } gga_xc_b97_params;
 
 

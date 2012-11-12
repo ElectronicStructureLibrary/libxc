@@ -21,8 +21,8 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_HYB_GGA_XC_CAM_B3LYP     433 /* CAM version of B3LYP */
-#define XC_HYB_GGA_XC_TD_CAM_B3LYP  434 /* CAM version of B3LYP tunes for excitations*/
+#define XC_HYB_GGA_XC_CAM_B3LYP        433 /* CAM version of B3LYP */
+#define XC_HYB_GGA_XC_TUNED_CAM_B3LYP  434 /* CAM version of B3LYP tunes for excitations*/
 
 void
 XC(hyb_gga_xc_cam_b3lyp_init)(XC(func_type) *p)
@@ -37,7 +37,7 @@ XC(hyb_gga_xc_cam_b3lyp_init)(XC(func_type) *p)
     p->cam_alpha = 0.19;
     p->cam_beta  = 0.46;
     break;
-  case XC_HYB_GGA_XC_TD_CAM_B3LYP:
+  case XC_HYB_GGA_XC_TUNED_CAM_B3LYP:
     p->cam_omega = 0.150;
     p->cam_alpha = 0.0799;
     p->cam_beta  = 0.9201;
@@ -67,8 +67,8 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_cam_b3lyp) = {
 };
 
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_td_cam_b3lyp) = {
-  XC_HYB_GGA_XC_TD_CAM_B3LYP,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_tuned_cam_b3lyp) = {
+  XC_HYB_GGA_XC_TUNED_CAM_B3LYP,
   XC_EXCHANGE_CORRELATION,
   "CAM version of B3LYP",
   XC_FAMILY_HYB_GGA,

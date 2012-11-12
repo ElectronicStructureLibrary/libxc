@@ -89,7 +89,6 @@ static void
 lda_c_vwn_init(XC(func_type) *p)
 {
   lda_c_vwn_params *params;
-  int func;
 
   assert(p->params == NULL);
 
@@ -199,7 +198,6 @@ ec_i(vwn_consts_type *X, int order, int i, FLOAT x,
 static inline void 
 func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
 {
-  int func;
   lda_c_vwn_params *params;
 
   FLOAT ec1, ec2, ec3, ec4, ec5, vc1, vc2, vc3, vc4, vc5, fc1, fc2, fc3, fc4, fc5, kc1, kc2, kc3, kc4, kc5;
@@ -330,6 +328,7 @@ func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
   if(p->nspin == XC_UNPOLARIZED)
     r->d3edrs3 = kc1;
   else{
+    d3DMC = kc2 - kc1;
     d3fz  = D3FZETA(r->zeta);
 
     if(params->spin_interpolation == 1){

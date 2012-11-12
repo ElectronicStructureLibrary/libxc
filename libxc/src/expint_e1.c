@@ -20,10 +20,9 @@
 #include <stdlib.h>
 #include "util.h"
 
-/* expint_E1 calculates the single precision exponential integral, E1(X), for
-   positive single precision argument X and the Cauchy principal value
-   for negative X.  If principal values are used everywhere, then, for
-   all X,
+/* expint_E1 calculates the exponential integral, E1(X), for positive
+   argument X and the Cauchy principal value for negative X.  If
+   principal values are used everywhere, then, for all X,
    
      E1(X) = -Ei(-X)
    or
@@ -81,28 +80,36 @@ static double AE14_data[26] = {
   -0.00000000000000005
 };
 
-double expint_e1(const double x){
+/* implementation for E1, allowing for scaling by exp(x) */
+double expint_e1_impl(const double x, const int scale){
   const double xmaxt = -GSL_LOG_DBL_MIN;      /* XMAXT = -LOG (R1MACH(1)) */
   const double xmax  = xmaxt - log(xmaxt);    /* XMAX = XMAXT - LOG(XMAXT) */
 
   double e1 = 0.0;
 
-  if(x <= -10.0)
-    e1 = exp(-x)/x * (1.0 + cheb_eval (20.0/x + 1.0, AE11_data, 39));
-  else if(x <= -4.0)
-    e1 = exp(-x)/x * (1.0 + cheb_eval((40./x + 7.0)/3.0, AE12_data, 25));
-  else if(x <= -1.0)
-    e1 = -log(fabs(x)) + cheb_eval((2.0*x + 5.0)/3.0, E11_data, 19);
-  else if(x == 0.0)
+  if(x <= -10.0){
+    const double s = 1.0/x * ( scale ? 1.0 : exp(-x) );
+    e1 = s * (1.0 + cheb_eval (20.0/x + 1.0, AE11_data, 39));
+  }else if(x <= -4.0){
+    const double s = 1.0/x * ( scale ? 1.0 : exp(-x) );
+    e1 = s * (1.0 + cheb_eval((40./x + 7.0)/3.0, AE12_data, 25));
+  }else if(x <= -1.0){
+    const double scale_factor = ( scale ? exp(x) : 1.0 );
+    e1 = scale_factor * (-log(fabs(x)) + cheb_eval((2.0*x + 5.0)/3.0, E11_data, 19));
+  }else if(x == 0.0)
     fprintf(stderr, "Argument can not be 0.0 in expint_e1\n");
-  else if(x <= 1.0)
-    e1 = (-log(fabs(x)) - 0.6875 + x) + cheb_eval(x, E12_data, 16);
-  else if(x <= 4.0)
-    e1 = exp(-x)/x * (1.0 + cheb_eval((8.0/x - 5.0)/3.0, AE13_data, 25));
-  else if(x <= xmax)
-    e1 = exp(-x)/x * (1.0 + cheb_eval(8.0/x - 1.0, AE14_data, 26));
-  else
+  else if(x <= 1.0){
+    const double scale_factor = ( scale ? exp(x) : 1.0 );
+    e1 = scale_factor*(-log(fabs(x)) - 0.6875 + x + cheb_eval(x, E12_data, 16));
+  }else if(x <= 4.0){
+    const double s = 1.0/x * ( scale ? 1.0 : exp(-x) );
+    e1 = s * (1.0 + cheb_eval((8.0/x - 5.0)/3.0, AE13_data, 25));
+  }else if(x <= xmax || scale){
+    const double s = 1.0/x * ( scale ? 1.0 : exp(-x) );
+    e1 = s * (1.0 + cheb_eval(8.0/x - 1.0, AE14_data, 26));
+  }else
     fprintf(stderr, "Argument is larger than xmax in expint_e1\n");
 
   return e1;
 }
+

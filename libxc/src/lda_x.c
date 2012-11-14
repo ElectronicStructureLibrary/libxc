@@ -45,7 +45,6 @@
 /* Range separation */
 /* J. Toulouse, A. Savin, H.-J. Flad, Int. J. of Quant. Chem. 100, 1047-1056 (2004).
 */
-static int interaction = 0;
 
 typedef struct{
   FLOAT alpha;       /* parameter for Xalpha functional */

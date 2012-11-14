@@ -22,8 +22,8 @@
 
 #define XC_GGA_X_G96          107 /* Gill 96                                        */
 
-static inline void
-func(const XC(func_type) *p, int order, FLOAT x, 
+void
+XC(gga_x_g96_enhance)(const XC(func_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   static const FLOAT c1 = 1.0/137.0;
@@ -40,6 +40,7 @@ func(const XC(func_type) *p, int order, FLOAT x,
   *d2fdx2 = 3.0*c1/(4.0*X_FACTOR_C*sx);
 }
 
+#define func XC(gga_x_g96_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_g96) = {

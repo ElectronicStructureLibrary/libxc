@@ -52,16 +52,14 @@ void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT 
     dhdgam*alpha;
 }
 
-/* (3.0/10.0) * POW(6.0*M_PI*M_PI, 2.0/3.0) */
-static const FLOAT vsxc_CFermi = 4.557799872345597137288163759599305358516;
-
 static void 
 func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
 {
-  static const FLOAT abcd[6] = {-0.9800, -0.003557, 0.006250, -0.00002354, -0.0001283, 0.0003575};
-  static const FLOAT alpha = 0.001867;
+  static const FLOAT abcd[6] = 
+    {-9.800683e-01, -3.556788e-03, 6.250326e-03, -2.354518e-05, -1.282732e-04, 3.574822e-04};
+  static const FLOAT alpha = 0.00186726;
 
-  XC(mgga_x_gvt4_func)(r->order, r->x, 2.0*(r->t - vsxc_CFermi), alpha, abcd, &r->f, &r->dfdx, &r->dfdt);
+  XC(mgga_x_gvt4_func)(r->order, r->x, 2.0*(r->t - K_FACTOR_C), alpha, abcd, &r->f, &r->dfdx, &r->dfdt);
  
   r->f /= -X_FACTOR_C;
 
@@ -82,7 +80,7 @@ func_c_parallel(const XC(func_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
   FLOAT dd, f1;
   const FLOAT tmin = 0.5e-10;
 
-  XC(mgga_x_gvt4_func)(order, x, 2.0*(t - vsxc_CFermi), alpha, abcd, f, dfdx, dfdt);
+  XC(mgga_x_gvt4_func)(order, x, 2.0*(t - K_FACTOR_C), alpha, abcd, f, dfdx, dfdt);
 
   f1 = *f;
 
@@ -108,7 +106,7 @@ func_c_opposite(const XC(func_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
   static const FLOAT abcd[6] = {0.7035, 0.007695, 0.05153, 0.00003394, -0.001269, 0.001296};
   static const FLOAT alpha = 0.003050;
 
-  XC(mgga_x_gvt4_func)(order, x, 2.0*(t - 2.0*vsxc_CFermi), alpha, abcd, f, dfdx, dfdt);
+  XC(mgga_x_gvt4_func)(order, x, 2.0*(t - 2.0*K_FACTOR_C), alpha, abcd, f, dfdx, dfdt);
 
   if(order < 1) return;
 

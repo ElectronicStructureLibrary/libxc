@@ -33,7 +33,7 @@ static void Eq_14(FLOAT pp, FLOAT qt, int order, FLOAT *xx, FLOAT *dxxdpp, FLOAT
     a1 = 10.0/81.0, 
     a2 = 146.0/2025.0, 
     a3 = -73.0/405.0,
-    a4 = 0.131957187845257783997965361777; /* DD + 100.0/(81.0*81.0*kappa); */
+    a4 = 0.131957187845257783631757384393; /* DD + 100.0/(81.0*81.0*kappa); */
 
   *xx = a1*pp + a2*qt*qt + a3*qt*pp + a4*pp*pp;
 

@@ -65,7 +65,7 @@ void test_lda()
   XC(func_type) l1, l2, l3;
   int i;
   
-  XC(func_init)(&l1, XC_LDA_C_RC04, XC_POLARIZED);
+  XC(func_init)(&l1, XC_LDA_C_VWN_2, XC_POLARIZED);
   XC(func_init)(&l2, XC_LDA_C_PW, XC_POLARIZED);
   XC(func_init)(&l3, XC_LDA_X, XC_UNPOLARIZED);
 
@@ -154,17 +154,13 @@ void test_gga()
 }
 
 
-//void 
-//XC(mgga_c		     FLOAT *e, FLOAT *dedd, FLOAT *vsigma, FLOAT *dedtau);
-
-void test_tpss()
+void test_mgga()
 {
-  XC(func_type) tpss, tpss2;
-  XC(func_type) agga;
+  XC(func_type) mgga1, mgga2;
   int i;
 
-  XC(func_init)(&tpss,  XC_MGGA_X_TPSS, XC_UNPOLARIZED);
-  XC(func_init)(&tpss2, XC_MGGA_C_TPSS, XC_UNPOLARIZED);
+  XC(func_init)(&mgga1, XC_MGGA_X_PKZB, XC_POLARIZED);
+  XC(func_init)(&mgga2, XC_MGGA_C_TPSS, XC_POLARIZED);
   //XC(mgga_c_tpss_init)(tpss2.mgga);
   
   for(i=0; i<=1000; i++){
@@ -175,29 +171,26 @@ void test_tpss()
     double v2rhosigma[6], v2rholapl[3], v2rhotau[3];
     double v2sigmalapl[6], v2sigmatau[6], v2lapltau[3];
 
-    rho[0]   = 0.60775363329505661 + i/1000.0;
+    rho[0]   = 0.60775363329505661;
     rho[1]   = 0.15;
-    sigma[0] = 0.0;//1.2032882206468622;
+    sigma[0] = 1.2032882206468622;
     sigma[1] = 0.11;
     sigma[2] = 0.7;
-    tau[0]   = 0.24779036624605069;
+    tau[0]   = 10 + i/1000.0;
     tau[1]   = 0.15;
     lapl[0]  = -18.518421131246519;
     lapl[1]  = 0.12;
 
-    XC(mgga)(&tpss, 1, rho, sigma, lapl, tau, 
+    XC(mgga)(&mgga1, 1, rho, sigma, lapl, tau, 
     	     &zk,  vrho, vsigma, vlapl, vtau, 
     	     NULL, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
 	     v2sigmalapl, v2sigmatau, v2lapltau);
-    XC(mgga)(&tpss2, 1, rho, sigma, lapl, tau, 
+    XC(mgga)(&mgga2, 1, rho, sigma, lapl, tau, 
     	     &zk2,  vrho2, vsigma2, vlapl2, vtau2, 
     	     NULL, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
 	     v2sigmalapl, v2sigmatau, v2lapltau);
 
-    //XC(gga)(&agga, rho,  sigma,
-    //&zk,  vrho, vsigma,
-    //	    v2rho2, v2rhosigma, v2sigma2);
-    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[0], rho[0]*(zk2), vrho[0] + vrho2[0]);
+    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", tau[0], (rho[0] + rho[1])*zk, vtau[0]);
   }
 }
 
@@ -260,8 +253,8 @@ int main()
   //test_neg_rho();
 
   //test_lda();
-  test_gga();
-  //test_tpss();
+  //test_gga();
+  test_mgga();
 
   //printf("number = '%d'; key = '%s'", 25, XC(functional_get_name)(25));
 

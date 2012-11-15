@@ -24,6 +24,7 @@
 
 #define XC_MGGA_X_M05          214 /* M05 functional of Minnesota */
 #define XC_MGGA_X_M05_2X       215 /* M05-2X functional of Minnesota */
+#define XC_MGGA_X_M06_2X       218 /* M06-2X functional of Minnesota */
 
 static const FLOAT a_m05[12] = 
   {1.0, 0.08151, -0.43956, -3.22422, 2.01819, 8.79431, -0.00295,
@@ -32,6 +33,10 @@ static const FLOAT a_m05[12] =
 static const FLOAT a_m05_2x[12] =
   {1.0, -0.56833, -1.30057, 5.50070, 9.06402, -32.21075, -23.73298,
    70.22996, 29.88614, -60.25778, -13.22205, 15.23694};
+
+static const FLOAT a_m06_2x[12] =
+  {4.600000e-01, -2.206052e-01, -9.431788e-02,  2.164494e+00, -2.556466e+00, -1.422133e+01,
+   1.555044e+01,  3.598078e+01, -2.722754e+01, -3.924093e+01,  1.522808e+01,  1.522227e+01};
 
 typedef struct{
   int n;
@@ -65,6 +70,10 @@ mgga_x_m05_init(XC(func_type) *p)
     params->n = 12;
     params->a = a_m05_2x;
     break;
+  case XC_MGGA_X_M06_2X:
+    params->n = 12;
+    params->a = a_m06_2x;
+    break;
   default:
     fprintf(stderr, "Internal error in mgga_x_tpss\n");
     exit(1);
@@ -78,41 +87,21 @@ func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
   mgga_x_m05_params *params;
 
   FLOAT e_f, e_dfdx, e_d2fdx2;
-  FLOAT w, w_den, wi, factor;
-  FLOAT dwdt, dfactordw;
-  int i;
+  FLOAT fw, dfwdt;
 
   assert(pt != NULL && pt->params != NULL);
   params = (mgga_x_m05_params *) (pt->params);
   
   XC(gga_x_pbe_enhance)(pt->func_aux[0], r->order, r->x, &e_f, &e_dfdx, &e_d2fdx2);
+  
+  XC(mgga_series_w)(r->order, params->n, params->a, r->t, &fw, &dfwdt);
 
-  w_den = K_FACTOR_C + r->t;
-  w = (K_FACTOR_C - r->t)/w_den;
-
-  factor = 0.0;
-  wi     = 1.0;
-
-  for(i=0; i<params->n; i++){
-    factor += params->a[i]*wi;
-    wi *= w;
-  }
-
-  r->f = e_f*factor;
+  r->f = e_f*fw;
 
   if(r->order < 1) return;
 
-  dwdt = -2.0*K_FACTOR_C/(w_den*w_den);
-
-  dfactordw = 0.0;
-  wi        = 1.0;
-  for(i=1; i<params->n; i++){
-    dfactordw += i*params->a[i]*wi;
-    wi *= w;
-  }
-
-  r->dfdx = e_dfdx*factor;
-  r->dfdt = e_f*dfactordw*dwdt;
+  r->dfdx = e_dfdx*fw;
+  r->dfdt = e_f*dfwdt;
   r->dfdu = 0.0;
 
   if(r->order < 2) return;
@@ -147,5 +136,19 @@ XC(func_info_type) XC(func_info_mgga_x_m05_2x) = {
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_x_m05_init,
   NULL, NULL, NULL,
+  work_mgga_x,
+};
+
+const XC(func_info_type) XC(func_info_mgga_x_m06_2x) = {
+  XC_MGGA_X_M06_2X,
+  XC_EXCHANGE,
+  "M06-2X functional of Minnesota",
+  XC_FAMILY_MGGA,
+  "Theor. Chem. Acc. 120, 215 (2008)\n",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  mgga_x_m05_init,
+  NULL,
+  NULL, NULL,        /* this is not an LDA                   */
   work_mgga_x,
 };

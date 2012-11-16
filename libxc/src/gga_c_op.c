@@ -67,6 +67,7 @@ static void gga_c_op_init(XC(func_type) *p)
   case XC_GGA_C_OP_XALPHA:
     params->enhancement_factor = NULL;
     params->qOPab = 2.5654;
+    break;
   default:
     fprintf(stderr, "Internal error in gga_c_op\n");
     exit(1);

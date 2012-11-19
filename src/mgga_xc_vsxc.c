@@ -103,7 +103,10 @@ func_c_opposite(const XC(func_type) *pt, FLOAT x, FLOAT t, FLOAT u, int order,
 		FLOAT *f, FLOAT *dfdx, FLOAT *dfdt, FLOAT *dfdu,
 		FLOAT *d2fdx2, FLOAT *d2fdxt, FLOAT *d2fdt2)
 {
-  static const FLOAT abcd[6] = {0.7035, 0.007695, 0.05153, 0.00003394, -0.001269, 0.001296};
+  //static const FLOAT abcd[6] = {0.7035, 0.007695, 0.05153, 0.00003394, -0.001269, 0.001296};
+  static const FLOAT abcd[6] = 
+    {7.035010e-01, 7.694574e-03, 5.152765e-02, 3.394308e-05, -1.269420e-03, 1.296118e-03};
+
   static const FLOAT alpha = 0.003050;
 
   XC(mgga_x_gvt4_func)(order, x, 2.0*(t - 2.0*K_FACTOR_C), alpha, abcd, f, dfdx, dfdt);

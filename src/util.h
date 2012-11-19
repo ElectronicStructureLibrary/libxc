@@ -137,6 +137,7 @@ void XC(lda_fxc_fd)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *fxc
 void XC(lda_kxc_fd)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *kxc);
 
 void XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f);
+void XC(lda_stoll)(const XC(func_type) *pw, FLOAT dens, FLOAT zeta, int order, XC(lda_rs_zeta) res[3]);
 
 /* direct access to the internal functions */
 void XC(lda_c_hl_func)  (const XC(func_type) *p, XC(lda_rs_zeta) *r);

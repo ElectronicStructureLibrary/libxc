@@ -82,7 +82,7 @@ mgga_x_m05_init(XC(func_type) *p)
 
 
 static void 
-func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
+func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 {
   mgga_x_m05_params *params;
 

@@ -51,7 +51,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   FLOAT aux1, aux2, daux1drs, daux1dxt, d2aux1drs2, d2aux1dxt2, d2aux1drsxt;
   FLOAT t1, t2, dt1drs, dt1dz, dt1dxt, dt2dz, d2t1drs2, d2t1dxt2, d2t1dz2, d2t2dz2, d2t1drsz, d2t1drsxt, d2t1dzxt;
 
-  XC(lda_rs_zeta) pw;
+  XC(lda_work_t) pw;
 
   alpha = POW(4.0*M_PI/3.0, 1.0/6.0);
   a1    = M_PI/(16.0*POW(3*M_PI*M_PI, 4/3)); /* 4.28e-3/2.0, where the 2 comes from the covertion from Ryd. to Hartree */

@@ -234,7 +234,7 @@ XC(gga_c_pw91_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   FLOAT H0, dH0dec, dH0dg, dH0dt, d2H0dec2, d2H0dg2, d2H0dt2, d2H0dgec, d2H0dtec, d2H0dgt;
   FLOAT H1, dH1drs, dH1dg, dH1dt, d2H1drs2, d2H1dg2, d2H1dt2, d2H1dgrs, d2H1dtrs, d2H1dgt;
 
-  XC(lda_rs_zeta) pw;
+  XC(lda_work_t) pw;
   FLOAT tconv, auxp, auxm;
 
   pw.order = r->order;

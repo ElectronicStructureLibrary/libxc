@@ -87,7 +87,7 @@ static void func2(FLOAT *x, int n, void *ex)
 
 
 static inline void
-func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
+func(const XC(func_type) *p, XC(lda_work_t) *r)
 {
   static int spin_sign[2] = {+1, -1};
   static int spin_fact[2] = { 2,  1};

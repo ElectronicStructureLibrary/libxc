@@ -73,7 +73,7 @@ XC(lda_c_2d_prm_set_params)(XC(func_type) *p, FLOAT N)
 
 
 static inline void 
-func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
+func(const XC(func_type) *p, XC(lda_work_t) *r)
 {
   lda_c_prm_params *params;
 

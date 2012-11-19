@@ -123,7 +123,7 @@ typedef struct XC(functional_key_t) {
 /* inline */ void XC(fast_fzeta)(const FLOAT x, const int nspin, const int order, FLOAT * fz);
 
 /* LDAs */
-typedef struct XC(lda_rs_zeta) {
+typedef struct XC(lda_work_t) {
   int   order; /* to which order should I return the derivatives */
   FLOAT rs[3], zeta;
 
@@ -131,19 +131,19 @@ typedef struct XC(lda_rs_zeta) {
   FLOAT dedrs, dedz;                         /*  first derivatives of zk */
   FLOAT d2edrs2, d2edrsz, d2edz2;            /* second derivatives of zk */
   FLOAT d3edrs3, d3edrs2z, d3edrsz2, d3edz3; /*  third derivatives of zk */
-} XC(lda_rs_zeta);
+} XC(lda_work_t);
 
 void XC(lda_fxc_fd)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *fxc);
 void XC(lda_kxc_fd)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *kxc);
 
 void XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f);
-void XC(lda_stoll)(const XC(func_type) *pw, FLOAT dens, FLOAT zeta, int order, XC(lda_rs_zeta) res[3]);
+void XC(lda_stoll)(const XC(func_type) *pw, FLOAT dens, FLOAT zeta, int order, XC(lda_work_t) res[3]);
 
 /* direct access to the internal functions */
-void XC(lda_c_hl_func)  (const XC(func_type) *p, XC(lda_rs_zeta) *r);
-void XC(lda_c_pw_func)  (const XC(func_type) *p, XC(lda_rs_zeta) *r);
-void XC(lda_c_pz_func)  (const XC(func_type) *p, XC(lda_rs_zeta) *r);
-void XC(lda_c_rc04_func)(const XC(func_type) *p, XC(lda_rs_zeta) *r);
+void XC(lda_c_hl_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
+void XC(lda_c_pw_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
+void XC(lda_c_pz_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
+void XC(lda_c_rc04_func)(const XC(func_type) *p, XC(lda_work_t) *r);
 
 /* GGAs */
 void work_gga_becke_init(XC(func_type) *p);
@@ -177,7 +177,7 @@ XC(gga_c_pw91_func) (const XC(func_type) *p, XC(gga_work_c_t) *r);
 void XC(gga_init_mix)(XC(func_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix_coef);
 
 /* meta GGAs */
-typedef struct XC(work_mgga_x_params) {
+typedef struct XC(mgga_work_x_t) {
   int   order; /* to which order should I return the derivatives */
   FLOAT rs, zeta, x, t, u;
 
@@ -185,7 +185,24 @@ typedef struct XC(work_mgga_x_params) {
   FLOAT dfdrs, dfdx, dfdt, dfdu;             /* first derivatives of f  */
   FLOAT d2fdrs2, d2fdx2, d2fdt2, d2fdu2;     /* second derivatives of zk */
   FLOAT d2fdrsx, d2fdrst, d2fdrsu, d2fdxt, d2fdxu, d2fdtu;
-} XC(work_mgga_x_params);
+} XC(mgga_work_x_t);
+
+typedef struct XC(mgga_work_c_t) {
+  int   order; /* to which order should I return the derivatives */
+
+  FLOAT dens, ds[2], sigmat, sigmas[3];
+  FLOAT rs, zeta, xt, xs[2], ts[2], us[2];
+
+  FLOAT f;
+  FLOAT dfdrs, dfdz, dfdxt, dfdxs[2], dfdts[2], dfdus[2];
+  FLOAT d2fdrs2, d2fdrsz, d2fdrsxt, d2fdrsxs[2], d2fdrsts[2], d2fdrsus[2];
+  FLOAT d2fdz2, d2fdzxt, d2fdzxs[2], d2fdzts[2], d2fdzus[2];
+  FLOAT d2fdxt2, d2fdxtxs[2], d2fdxtts[2], d2fdxtus[2];
+  FLOAT d2fdxs2[3], d2fxsts[4], d2fxsus[4];
+  FLOAT d2dts2[3], d2fdtsus[4];
+  FLOAT d2fdus2[3];
+} XC(mgga_work_c_t);
+
 
 void XC(mgga_series_w)(int order, int n, const FLOAT *a, FLOAT t, FLOAT *fw, FLOAT *dfwdt);
 

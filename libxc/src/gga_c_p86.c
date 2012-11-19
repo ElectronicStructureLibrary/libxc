@@ -52,7 +52,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   FLOAT DD, dDDdzeta, d2DDdzeta2, CC, CCinf, dCCdrs, d2CCdrs2;
   FLOAT Phi, dPhidx1, dPhidrs, d2Phidrs2, d2Phidrsx1;
 
-  XC(lda_rs_zeta) pw;
+  XC(lda_work_t) pw;
 
   rsconv = POW(4.0*M_PI/3.0, 1.0/6.0);
 

@@ -172,7 +172,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   FLOAT d2tdrs2, d2tdrsxt, d2tdphi2, d2tdrsphi, d2tdxtphi, d2phidz2;
   FLOAT B;
 
-  XC(lda_rs_zeta) pw;
+  XC(lda_work_t) pw;
   FLOAT tconv, auxp, auxm;
 
   pw.order = r->order;

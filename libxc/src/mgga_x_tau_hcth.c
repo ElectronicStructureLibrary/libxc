@@ -61,7 +61,7 @@ eq_29(int order, FLOAT x, FLOAT *ux, FLOAT *duxdx)
 }
 
 static void 
-func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
+func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 {
   const FLOAT cx_local [4] = {1.10734, -1.0534, 6.3491, -2.5531};
   const FLOAT cx_nlocal[4] = {0.00110, -0.3041, 6.9543, -0.7235};

@@ -222,9 +222,9 @@ func_g(const XC(func_type) *p, int type, FLOAT s, int order, FLOAT *g, FLOAT *dg
 static inline void
 func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 {
-  static FLOAT sign[2] = {1.0, -1.0};
+  static const FLOAT sign[2] = {1.0, -1.0};
 
-  XC(lda_rs_zeta) LDA[3];
+  XC(lda_work_t) LDA[3];
   FLOAT cnst, ldax, x_avg;
   FLOAT fx, dfxdx, d2fxdx2, fcpar, dfcpardx, d2fcpardx2, fcper, dfcperdx, d2fcperdx2;
   FLOAT opz, opz13, dldaxdrs, dldaxdz, d2ldaxdrs2, d2ldaxdrsz, d2ldaxdz2, aux, aux12;

@@ -64,7 +64,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   FLOAT dfdy, d2fdy2;
   FLOAT den0, den1, t0, dt0, d2t0, t1, dt1, d2t1, f0, df0, d2f0, f1, df1, d2f1;
 
-  XC(lda_rs_zeta) pw;
+  XC(lda_work_t) pw;
   FLOAT alpha, auxp, auxm;
 
   pw.order = r->order;

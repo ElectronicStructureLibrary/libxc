@@ -46,7 +46,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   FLOAT zeta2, zeta4, aa, arg, dargdrs, dargdxt, sinc, dsinc, DD, dDDdz, dDDdrs, dDDdxt;
   FLOAT d2sinc, d2argdrs2, d2argdrsxt, d2DDdrs2, d2DDdrsz, d2DDdrsxt, d2DDdz2, d2DDdzxt, d2DDdxt2;
 
-  XC(lda_rs_zeta) pw;
+  XC(lda_work_t) pw;
 
   pw.order = r->order;
   pw.rs[0] = SQRT(r->rs);

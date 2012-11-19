@@ -41,7 +41,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   const FLOAT am05_alpha = 2.804;
   const FLOAT am05_gamma = 0.8098;
 
-  XC(lda_rs_zeta) pw;
+  XC(lda_work_t) pw;
   FLOAT sfact;
   int is;
 

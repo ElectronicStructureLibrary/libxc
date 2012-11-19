@@ -141,9 +141,15 @@ gga_xc_b97_init(XC(func_type) *p)
 {
   gga_xc_b97_params *params;
 
-  work_gga_becke_init(p);
+  assert(p != NULL);
 
-  assert(p!=NULL && p->params == NULL);
+  p->n_func_aux  = 1;
+  p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
+  p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
+
+  XC(func_init)(p->func_aux[0], XC_LDA_C_PW, p->nspin);
+
+  assert(p->params == NULL);
   p->params = malloc(sizeof(gga_xc_b97_params));
   params = (gga_xc_b97_params *)(p->params);
 
@@ -178,6 +184,7 @@ gga_xc_b97_init(XC(func_type) *p)
   params->cc = b97_params[p->func];
 }
 
+
 static void 
 func_g(const XC(func_type) *p, int type, FLOAT s, int order, FLOAT *g, FLOAT *dgds, FLOAT *d2gds2)
 {
@@ -211,25 +218,114 @@ func_g(const XC(func_type) *p, int type, FLOAT s, int order, FLOAT *g, FLOAT *dg
   *d2gds2 = d2gdx2*dxds*dxds + dgdx*d2xds2;
 }
 
-static inline void
-func_gga_becke_exchange(const XC(func_type) *p, FLOAT xt, int order, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
-{
-  func_g(p, 0, xt, order, f, dfdx, d2fdx2);
-}
 
 static inline void
-func_gga_becke_parallel(const XC(func_type) *p, FLOAT xt, int order, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
+func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 {
-  func_g(p, 1, xt, order, f, dfdx, d2fdx2);
+  static FLOAT sign[2] = {1.0, -1.0};
+
+  XC(lda_rs_zeta) LDA[3];
+  FLOAT cnst, ldax, x_avg;
+  FLOAT fx, dfxdx, d2fxdx2, fcpar, dfcpardx, d2fcpardx2, fcper, dfcperdx, d2fcperdx2;
+  FLOAT opz, opz13, dldaxdrs, dldaxdz, d2ldaxdrs2, d2ldaxdrsz, d2ldaxdz2, aux, aux12;
+  FLOAT dx_avgdxs[2], d2x_avgdxs2[3];
+  int is, js;
+ 
+  cnst = CBRT(4.0*M_PI/3.0);
+
+  /* first we get the parallel and perpendicular LDAS */
+  XC(lda_stoll) (p->func_aux[0], r->dens, r->zeta, r->order, LDA);
+
+  /* initialize to zero */
+  r->f = 0.0;
+  if(r->order >= 1){
+    r->dfdrs = r->dfdz = r->dfdxs[0] = r->dfdxs[1] = r->dfdxt = 0.0;
+  }
+  if(r->order >= 2){
+    r->d2fdrs2 = r->d2fdrsz = r->d2fdrsxt = r->d2fdrsxs[0] = r->d2fdrsxs[1] = 0.0;
+    r->d2fdz2 = r->d2fdzxt = r->d2fdzxs[0] = r->d2fdzxs[1] = r->d2fdxt2 = 0.0;
+    r->d2fdxtxs[0] = r->d2fdxtxs[1] = r->d2fdxs2[0] = r->d2fdxs2[1] = r->d2fdxs2[2] = 0.0;
+  }
+
+  /* now we calculate the g functions for exchange and parallel correlation */
+  for(is = 0; is < 2; is++){
+    opz   = 1.0 + sign[is]*r->zeta;
+
+    if(r->dens*opz < 2.0*p->info->min_dens) continue;
+
+    func_g(p, 0, r->xs[is], r->order, &fx, &dfxdx, &d2fxdx2);
+    func_g(p, 1, r->xs[is], r->order, &fcpar, &dfcpardx, &d2fcpardx2);
+
+    opz13 = CBRT(opz);
+
+    ldax = -X_FACTOR_C*opz*opz13/(2.0*M_CBRT2*cnst*r->rs);
+
+    r->f += ldax*fx + LDA[is].zk*fcpar;
+
+    if(r->order < 1) continue;
+
+    dldaxdrs = -ldax/r->rs;
+    dldaxdz  = sign[is]*4.0*ldax/(3.0*opz);
+
+    r->dfdrs     += dldaxdrs*fx + LDA[is].dedrs*fcpar;
+    r->dfdz      += dldaxdz *fx + LDA[is].dedz *fcpar;
+    r->dfdxs[is] += ldax*dfxdx + LDA[is].zk*dfcpardx;
+
+    if(r->order < 2) continue;
+    
+    js = (is == 0) ? 0 : 2;
+
+    d2ldaxdrs2 = -2.0*dldaxdrs/r->rs;
+    d2ldaxdrsz = -dldaxdz/r->rs;
+    d2ldaxdz2  = sign[is]*dldaxdz/(3.0*opz);
+
+    r->d2fdrs2      += d2ldaxdrs2*fx  + LDA[is].d2edrs2*fcpar;
+    r->d2fdrsz      += d2ldaxdrsz*fx  + LDA[is].d2edrsz*fcpar;
+    r->d2fdrsxs[is] += dldaxdrs*dfxdx + LDA[is].dedrs*dfcpardx;
+    r->d2fdz2       += d2ldaxdz2*fx   + LDA[is].d2edz2*fcpar;
+    r->d2fdzxs[is]  += dldaxdz*dfxdx  + LDA[is].dedz*dfcpardx;
+    r->d2fdxs2[js]  += ldax*d2fxdx2   + LDA[is].zk*d2fcpardx2;
+  }
+
+  /* and now we add the opposite-spin contribution */
+  aux   = r->xs[0]*r->xs[0] + r->xs[1]*r->xs[1];
+  aux12 = SQRT(aux);
+  x_avg = aux12/M_SQRT2;
+
+  func_g(p, 2, x_avg, r->order, &fcper, &dfcperdx, &d2fcperdx2);
+
+  r->f += LDA[2].zk*fcper;
+
+  if(r->order < 1) return;
+
+  dx_avgdxs[0] = r->xs[0]/(aux12*M_SQRT2);
+  dx_avgdxs[1] = r->xs[1]/(aux12*M_SQRT2);
+
+  r->dfdrs    += LDA[2].dedrs*fcper;
+  r->dfdz     += LDA[2].dedz *fcper;
+  r->dfdxs[0] += LDA[2].zk*dfcperdx*dx_avgdxs[0];
+  r->dfdxs[1] += LDA[2].zk*dfcperdx*dx_avgdxs[1];
+
+  if(r->order < 2) return;
+
+  d2x_avgdxs2[0] =  r->xs[1]*r->xs[1]/(aux*aux12*M_SQRT2);
+  d2x_avgdxs2[1] = -r->xs[0]*r->xs[1]/(aux*aux12*M_SQRT2);
+  d2x_avgdxs2[2] =  r->xs[0]*r->xs[0]/(aux*aux12*M_SQRT2);
+
+  r->d2fdrs2     += LDA[2].d2edrs2*fcper;
+  r->d2fdrsz     += LDA[2].d2edrsz*fcper;
+  r->d2fdrsxs[0] += LDA[2].dedrs*dfcperdx*dx_avgdxs[0];
+  r->d2fdrsxs[1] += LDA[2].dedrs*dfcperdx*dx_avgdxs[1];
+  r->d2fdz2      += LDA[2].d2edz2*fcper;
+  r->d2fdzxs[0]  += LDA[2].dedz*dfcperdx*dx_avgdxs[0];
+  r->d2fdzxs[1]  += LDA[2].dedz*dfcperdx*dx_avgdxs[1];
+  r->d2fdxs2[0]  += LDA[2].zk*(d2fcperdx2*dx_avgdxs[0]*dx_avgdxs[0] + dfcperdx*d2x_avgdxs2[0]);
+  r->d2fdxs2[1]  += LDA[2].zk*(d2fcperdx2*dx_avgdxs[0]*dx_avgdxs[1] + dfcperdx*d2x_avgdxs2[1]);
+  r->d2fdxs2[2]  += LDA[2].zk*(d2fcperdx2*dx_avgdxs[1]*dx_avgdxs[1] + dfcperdx*d2x_avgdxs2[2]);
 }
 
-static inline void
-func_gga_becke_opposite(const XC(func_type) *p, FLOAT xt, int order, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
-{
-  func_g(p, 2, xt, order, f, dfdx, d2fdx2);
-}
 
-#include "work_gga_becke.c"
+#include "work_gga_c.c"
 
 const XC(func_info_type) XC(func_info_gga_xc_b97) = {
   XC_GGA_XC_B97,
@@ -242,7 +338,7 @@ const XC(func_info_type) XC(func_info_gga_xc_b97) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_b97_1) = {
@@ -256,7 +352,7 @@ const XC(func_info_type) XC(func_info_gga_xc_b97_1) = {
   gga_xc_b97_init,
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_b97_2) = {
@@ -270,7 +366,7 @@ const XC(func_info_type) XC(func_info_gga_xc_b97_2) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_b97_d) = {
@@ -284,7 +380,7 @@ const XC(func_info_type) XC(func_info_gga_xc_b97_d) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_b97_k) = {
@@ -298,7 +394,7 @@ const XC(func_info_type) XC(func_info_gga_xc_b97_k) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_b97_3) = {
@@ -312,7 +408,7 @@ const XC(func_info_type) XC(func_info_gga_xc_b97_3) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_hcth_93) = {
@@ -326,7 +422,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_93) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_hcth_120) = {
@@ -340,7 +436,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_120) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_hcth_147) = {
@@ -354,7 +450,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_147) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_hcth_407) = {
@@ -368,7 +464,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_407) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_sb98_1a) = {
@@ -382,7 +478,7 @@ const XC(func_info_type) XC(func_info_gga_xc_sb98_1a) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_sb98_1b) = {
@@ -396,7 +492,7 @@ const XC(func_info_type) XC(func_info_gga_xc_sb98_1b) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_sb98_1c) = {
@@ -410,7 +506,7 @@ const XC(func_info_type) XC(func_info_gga_xc_sb98_1c) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_sb98_2a) = {
@@ -424,7 +520,7 @@ const XC(func_info_type) XC(func_info_gga_xc_sb98_2a) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_sb98_2b) = {
@@ -438,7 +534,7 @@ const XC(func_info_type) XC(func_info_gga_xc_sb98_2b) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_sb98_2c) = {
@@ -452,7 +548,7 @@ const XC(func_info_type) XC(func_info_gga_xc_sb98_2c) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_hcth_a) = {
@@ -466,7 +562,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_a) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_b97_gga1) = {
@@ -480,7 +576,7 @@ const XC(func_info_type) XC(func_info_gga_xc_b97_gga1) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_hcth_p14) = {
@@ -494,7 +590,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_p14) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_hcth_p76) = {
@@ -508,7 +604,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_p76) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };
 
 const XC(func_info_type) XC(func_info_gga_xc_hcth_407p) = {
@@ -522,5 +618,5 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_407p) = {
   gga_xc_b97_init, 
   NULL,
   NULL,
-  work_gga_becke
+  work_gga_c
 };

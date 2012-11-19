@@ -90,7 +90,7 @@ typedef struct {
 
 
 static void
-csc_func(lda_csc_param_t *pp, XC(lda_rs_zeta) *r, FLOAT *func, FLOAT *dfunc, FLOAT *d2func)
+csc_func(lda_csc_param_t *pp, XC(lda_work_t) *r, FLOAT *func, FLOAT *dfunc, FLOAT *d2func)
 {
   FLOAT rs_n1, rs_n2, rs_m, arg, larg, den, aux, num;
   FLOAT darg, dnum, dden, daux;
@@ -132,7 +132,7 @@ csc_func(lda_csc_param_t *pp, XC(lda_rs_zeta) *r, FLOAT *func, FLOAT *dfunc, FLO
 }
 
 static inline void
-func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
+func(const XC(func_type) *p, XC(lda_work_t) *r)
 {
   lda_csc_param_t pp[2][9] = {
     { /* paramagnetic */

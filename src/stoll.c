@@ -23,7 +23,7 @@
 #include "util.h"
 
 void 
-XC(lda_stoll) (const XC(func_type) *pw, FLOAT dens, FLOAT zeta, int order, XC(lda_rs_zeta) res[3])
+XC(lda_stoll) (const XC(func_type) *pw, FLOAT dens, FLOAT zeta, int order, XC(lda_work_t) res[3])
 {
   static const FLOAT sign[2] = {1.0, -1.0};
   int is;

@@ -44,7 +44,7 @@ static void Eq_14(FLOAT pp, FLOAT qt, int order, FLOAT *xx, FLOAT *dxxdpp, FLOAT
 }
 
 static void 
-func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
+func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 {
   FLOAT x2s2, pp, rr, qt, xx, dxxdpp, dxxdqt;
   FLOAT kpxx, k2, dqtdrr, dqtdpp, dfdxx;

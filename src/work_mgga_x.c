@@ -38,7 +38,7 @@ work_mgga_x(const XC(func_type) *p, int np,
 	    FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
 	    FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
 {
-  XC(work_mgga_x_params) r;
+  XC(mgga_work_x_t) r;
   FLOAT sfact, sfact2, dens, x_factor_c;
   int is, ip;
   int has_tail;

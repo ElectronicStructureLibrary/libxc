@@ -159,7 +159,7 @@ void test_mgga()
   XC(func_type) mgga1, mgga2;
   int i;
 
-  XC(func_init)(&mgga1, XC_MGGA_X_PKZB, XC_POLARIZED);
+  XC(func_init)(&mgga1, XC_MGGA_C_VSXC, XC_UNPOLARIZED);
   XC(func_init)(&mgga2, XC_MGGA_C_TPSS, XC_POLARIZED);
   //XC(mgga_c_tpss_init)(tpss2.mgga);
   
@@ -171,12 +171,12 @@ void test_mgga()
     double v2rhosigma[6], v2rholapl[3], v2rhotau[3];
     double v2sigmalapl[6], v2sigmatau[6], v2lapltau[3];
 
-    rho[0]   = 0.60775363329505661;
+    rho[0]   = 0.20775363329505661;
     rho[1]   = 0.15;
     sigma[0] = 1.2032882206468622;
     sigma[1] = 0.11;
     sigma[2] = 0.7;
-    tau[0]   = 10 + i/1000.0;
+    tau[0]   = 1.0 + i/1000.0;
     tau[1]   = 0.15;
     lapl[0]  = -18.518421131246519;
     lapl[1]  = 0.12;
@@ -190,7 +190,7 @@ void test_mgga()
     	     NULL, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
 	     v2sigmalapl, v2sigmatau, v2lapltau);
 
-    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", tau[0], (rho[0] + rho[1])*zk, vtau[0]);
+    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", tau[0], rho[0]*zk, vtau[0]);
   }
 }
 

@@ -196,7 +196,7 @@ ec_i(vwn_consts_type *X, int order, int i, FLOAT x,
 
 /* the functional */
 static inline void 
-func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
+func(const XC(func_type) *p, XC(lda_work_t) *r)
 {
   lda_c_vwn_params *params;
 

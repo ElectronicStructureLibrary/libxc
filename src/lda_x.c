@@ -150,7 +150,7 @@ XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, F
 
 
 static inline void 
-func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
+func(const XC(func_type) *p, XC(lda_work_t) *r)
 {
   FLOAT ax, omz, cbrtomz, opz, cbrtopz, fz, dfzdz, dfzdrs, d2fzdz2, d2fzdrsz, d2fzdrs2;
   FLOAT d3fzdz3, d3fzdrsz2, d3fzdrs2z, d3fzdrs3;

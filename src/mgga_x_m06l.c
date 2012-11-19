@@ -111,7 +111,7 @@ XC(mgga_series_w)(int order, int n, const FLOAT *a, FLOAT t, FLOAT *fw, FLOAT *d
 
 
 static void 
-func(const XC(func_type) *pt, XC(work_mgga_x_params) *r)
+func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 {
   const FLOAT alpha = 0.00186726;   /* set alpha of Eq. (4) */
 

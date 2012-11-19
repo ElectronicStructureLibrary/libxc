@@ -43,7 +43,7 @@ lda_c_1d_loos_init(XC(func_type) *p)
 }
 
 static inline void
-func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
+func(const XC(func_type) *p, XC(lda_work_t) *r)
 {
   FLOAT aux, tt, tt2, tt3, omtt, omtt2, omtt3;
   FLOAT dttdrs, dfdtt, d2ttdrs2, d2fdtt2;

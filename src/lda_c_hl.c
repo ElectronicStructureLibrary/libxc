@@ -69,7 +69,7 @@ hl_f(int func, int order, int i, FLOAT rs, FLOAT *zk, FLOAT *drs, FLOAT *d2rs, F
 
 
 void 
-XC(lda_c_hl_func)(const XC(func_type) *p, XC(lda_rs_zeta) *r)
+XC(lda_c_hl_func)(const XC(func_type) *p, XC(lda_work_t) *r)
 {
   int func;
   FLOAT ecp, vcp, fcp, kcp;

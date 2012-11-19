@@ -42,7 +42,7 @@ lda_c_ml1_init(XC(func_type) *p)
 
 /* the functional */
 static inline void 
-func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
+func(const XC(func_type) *p, XC(lda_work_t) *r)
 {
   static FLOAT fc[2] = {0.2026, 0.266}, q[2] = {0.084, 0.5}, C = 6.187335;
   static FLOAT b[6] = {2.763169, 1.757515, 1.741397, 0.568985, 1.572202, 1.885389};

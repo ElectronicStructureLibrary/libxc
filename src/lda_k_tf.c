@@ -26,7 +26,7 @@
 #define XC_LDA_K_LP      51   /* Lee and Parr Gaussian ansatz           */
 
 static inline void 
-func(const XC(func_type) *p, XC(lda_rs_zeta) *r)
+func(const XC(func_type) *p, XC(lda_work_t) *r)
 {
   FLOAT ax, fz, dfz, d2fz, d3fz;
 

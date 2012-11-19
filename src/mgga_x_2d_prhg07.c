@@ -109,7 +109,7 @@ FLOAT XC(mgga_x_2d_prhg_get_y)(FLOAT C)
 }
 
 static void 
-func(const XC(func_type) *p, XC(work_mgga_x_params) *r)
+func(const XC(func_type) *p, XC(mgga_work_x_t) *r)
 {
   FLOAT y;
   FLOAT v_PRHG, C;

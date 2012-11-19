@@ -25,7 +25,7 @@
 #define XC_LDA_C_RC04          27 /* Ragot-Cortona */
 
 void 
-XC(lda_c_rc04_func)(const XC(func_type) *p, XC(lda_rs_zeta) *r)
+XC(lda_c_rc04_func)(const XC(func_type) *p, XC(lda_work_t) *r)
 {
   static FLOAT AA=-0.655868, BB=4.888270, CC=3.177037, DD=0.897889;
 

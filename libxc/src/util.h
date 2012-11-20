@@ -205,9 +205,7 @@ typedef struct XC(mgga_work_c_t) {
 
 
 void XC(mgga_series_w)(int order, int n, const FLOAT *a, FLOAT t, FLOAT *fw, FLOAT *dfwdt);
-
-/* direct access to the internal functions */
-void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT *d, 
-			  FLOAT *h, FLOAT *dhdx, FLOAT *dhdz);
+void XC(mgga_b97_func_g)(const FLOAT *cc, FLOAT gamma, FLOAT s, int order, FLOAT *g, FLOAT *dgds, FLOAT *d2gds2);
+void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT *d, FLOAT *h, FLOAT *dhdx, FLOAT *dhdz);
 
 #endif

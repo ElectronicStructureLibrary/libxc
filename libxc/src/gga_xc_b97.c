@@ -185,36 +185,27 @@ gga_xc_b97_init(XC(func_type) *p)
 }
 
 
-static void 
-func_g(const XC(func_type) *p, int type, FLOAT s, int order, FLOAT *g, FLOAT *dgds, FLOAT *d2gds2)
+void 
+XC(mgga_b97_func_g)(const FLOAT *cc, FLOAT gamma, FLOAT s, int order, FLOAT *g, FLOAT *dgds, FLOAT *d2gds2)
 {
-  const gga_xc_b97_params *params;
-  const FLOAT gamma[3] = {
-    0.004, 0.2, 0.006
-  };
-
   FLOAT s2, dd, x, dxds, d2xds2, dgdx, d2gdx2;
-  const FLOAT *cc;
 
-  params = (gga_xc_b97_params *)(p->params);
-
-  cc = params->cc[type];
   s2 = s*s;
-  dd = 1.0 + gamma[type]*s2;
-  x  = gamma[type] * s2/dd;
+  dd = 1.0 + gamma*s2;
+  x  = gamma * s2/dd;
 
   *g = cc[0] + x*(cc[1] + x*(cc[2] + x*(cc[3] + x*cc[4])));
 
   if(order < 1) return;
 
-  dxds  = gamma[type] * 2.0*s/(dd*dd);
+  dxds  = gamma * 2.0*s/(dd*dd);
   dgdx  = cc[1] + x*(2.0*cc[2] + x*(3.0*cc[3] + x*4.0*cc[4]));
   *dgds = dgdx*dxds;
 
   if(order < 2) return;
   
   d2gdx2  = 2.0*cc[2] + x*(6.0*cc[3] + x*12.0*cc[4]);
-  d2xds2  = 2.0*gamma[type]*(1.0 - 3.0*gamma[type]*s2)/(dd*dd*dd);
+  d2xds2  = 2.0*gamma*(1.0 - 3.0*gamma*s2)/(dd*dd*dd);
   *d2gds2 = d2gdx2*dxds*dxds + dgdx*d2xds2;
 }
 
@@ -223,14 +214,18 @@ static inline void
 func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 {
   static const FLOAT sign[2] = {1.0, -1.0};
+  const FLOAT gamma[3] = {0.004, 0.2, 0.006};
 
   XC(lda_work_t) LDA[3];
+  const gga_xc_b97_params *params;
   FLOAT cnst, ldax, x_avg;
   FLOAT fx, dfxdx, d2fxdx2, fcpar, dfcpardx, d2fcpardx2, fcper, dfcperdx, d2fcperdx2;
   FLOAT opz, opz13, dldaxdrs, dldaxdz, d2ldaxdrs2, d2ldaxdrsz, d2ldaxdz2, aux, aux12;
   FLOAT dx_avgdxs[2], d2x_avgdxs2[3];
   int is, js;
  
+  params = (gga_xc_b97_params *)(p->params);
+
   cnst = CBRT(4.0*M_PI/3.0);
 
   /* first we get the parallel and perpendicular LDAS */
@@ -253,8 +248,8 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
     if(r->dens*opz < 2.0*p->info->min_dens) continue;
 
-    func_g(p, 0, r->xs[is], r->order, &fx, &dfxdx, &d2fxdx2);
-    func_g(p, 1, r->xs[is], r->order, &fcpar, &dfcpardx, &d2fcpardx2);
+    XC(mgga_b97_func_g)(params->cc[0], gamma[0], r->xs[is], r->order, &fx, &dfxdx, &d2fxdx2);
+    XC(mgga_b97_func_g)(params->cc[1], gamma[1], r->xs[is], r->order, &fcpar, &dfcpardx, &d2fcpardx2);
 
     opz13 = CBRT(opz);
 
@@ -292,7 +287,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   aux12 = SQRT(aux);
   x_avg = aux12/M_SQRT2;
 
-  func_g(p, 2, x_avg, r->order, &fcper, &dfcperdx, &d2fcperdx2);
+  XC(mgga_b97_func_g)(params->cc[2], gamma[2], x_avg, r->order, &fcper, &dfcperdx, &d2fcperdx2);
 
   r->f += LDA[2].zk*fcper;
 

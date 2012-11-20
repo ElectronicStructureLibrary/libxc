@@ -175,8 +175,8 @@ int main(int argc, char *argv[])
 
     /* print now all values */
     {
-      int i1, i2, n_p1, n_p2;
-      values_t *p, *p1, *p2;
+      int i1,  n_p1;
+      values_t *p, *p1;
       
       /* first we add rho */
       n_p1 = n_rho;

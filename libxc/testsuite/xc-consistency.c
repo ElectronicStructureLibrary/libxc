@@ -254,7 +254,6 @@ void print_error(char *type, char *what, double diff, xc_func_type *func, double
 
   if(strcmp(what, "v2rho2")==0 || strcmp(what, "v2rhosig")==0 || strcmp(what, "v2sig2")==0){
     double f_an[5][5], f_fd[5][5];
-    int i, j;
 
     get_fxc(func, p, f_an);
     second_derivatives(func, p, f_fd);
@@ -331,8 +330,6 @@ void test_functional(int functional)
     first_derivative(&func, val, v_fd, 0);
 
     if(info->flags & XC_FLAGS_HAVE_FXC){
-      int i, j;
-      
       /* initialize */
       for(i=0; i<5; i++)
 	for(j=0; j<5; j++)
@@ -384,7 +381,6 @@ void test_functional(int functional)
   /* print statistics */
   {
     double diff;
-    int i, j;
 
     printf("Functional: %s\n", info->name);
     print_error("Avg.", "vrho", (avg_diff[0][0] + avg_diff[0][1])/2.0, NULL, NULL);

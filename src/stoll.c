@@ -98,3 +98,69 @@ XC(lda_stoll) (const XC(func_type) *pw, FLOAT dens, FLOAT zeta, int order, XC(ld
   res[2].d2edrsz -= res[0].d2edrsz + res[1].d2edrsz;
   res[2].d2edz2  -= res[0].d2edz2  + res[1].d2edz2;
 }
+
+
+void 
+XC(pbe_c_stoll) (const XC(func_type) *pbe, const XC(mgga_work_c_t) *in, XC(gga_work_c_t) out[3])
+{
+  static const FLOAT sign[2] = {1.0, -1.0};
+  int is;
+  FLOAT opz[2] = {1.0 + in->zeta, 1.0 - in->zeta};
+
+  /* first we get the parallel contributions */
+  for(is=0; is<2; is++){
+    FLOAT opz13;
+
+    if(in->ds[is] < pbe->info->min_dens){
+      out[is].f = 0.0;
+      if(in->order >= 1){
+	out[is].dfdrs = out[is].dfdz = out[is].dfdxt = 0.0;
+	out[is].dfdxs[0] = out[is].dfdxs[1] = 0.0;
+      }
+    }else{
+      FLOAT drssdrs, drssdz;
+      FLOAT GGA_f, GGA_dfdrs;
+
+      opz13 = CBRT(opz[is]);
+
+      out[is].order = in->order;
+      out[is].dens  = in->ds[is];
+      out[is].rs    = RS(out[is].dens);
+      out[is].zeta  = sign[is];
+      out[is].xt    = (is == 0) ? in->xs[0] : in->xs[1];
+      out[is].xs[0] = (is == 0) ? in->xs[0] : 0.0;
+      out[is].xs[1] = (is == 1) ? in->xs[1] : 0.0;
+  
+      XC(gga_c_pbe_func) (pbe, &(out[is]));
+
+      GGA_f = out[is].f;
+
+      out[is].f *= opz[is]/2.0;
+      
+      if(in->order < 1) continue;
+
+      GGA_dfdrs = out[is].dfdrs;
+      drssdrs   = M_CBRT2/opz13;
+      drssdz    = -sign[is]*out[is].rs/(3.0*opz[is]);
+
+      out[is].dfdrs    = GGA_dfdrs*drssdrs*opz[is]/2.0;
+      out[is].dfdz     = GGA_f*sign[is]/2.0 + GGA_dfdrs*drssdz*opz[is]/2.0;
+      out[is].dfdxs[0] = (is == 0) ? (out[is].dfdxs[0] + out[is].dfdxt)*opz[is]/2.0 : 0.0;
+      out[is].dfdxs[1] = (is == 1) ? (out[is].dfdxs[1] + out[is].dfdxt)*opz[is]/2.0 : 0.0;
+      out[is].dfdxt    = 0.0;
+
+      if(in->order < 2) continue;
+    }
+  }
+
+  /* and now the perpendicular */
+  out[2].order = in->order;
+  out[2].dens  = in->dens;
+  out[2].rs    = in->rs;
+  out[2].zeta  = in->zeta;
+  out[2].xt    = in->xt;
+  out[2].xs[0] = in->xs[0];
+  out[2].xs[1] = in->xs[1];
+
+  XC(gga_c_pbe_func) (pbe, &(out[2]));
+}

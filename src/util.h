@@ -171,8 +171,8 @@ typedef struct XC(gga_work_c_t) {
     d2fdzxt, d2fdzxs[2], d2fdxt2, d2fdxtxs[2], d2fdxs2[3];
 } XC(gga_work_c_t);
 
-void 
-XC(gga_c_pw91_func) (const XC(func_type) *p, XC(gga_work_c_t) *r);
+void XC(gga_c_pw91_func)(const XC(func_type) *p, XC(gga_work_c_t) *r);
+void XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r);
 
 void XC(gga_init_mix)(XC(func_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix_coef);
 
@@ -203,6 +203,8 @@ typedef struct XC(mgga_work_c_t) {
   FLOAT d2fdus2[3];
 } XC(mgga_work_c_t);
 
+
+void XC(pbe_c_stoll) (const XC(func_type) *pbe, const XC(mgga_work_c_t) *in, XC(gga_work_c_t) out[3]);
 
 void XC(mgga_series_w)(int order, int n, const FLOAT *a, FLOAT t, FLOAT *fw, FLOAT *dfwdt);
 void XC(mgga_b97_func_g)(const FLOAT *cc, FLOAT gamma, FLOAT s, int order, FLOAT *g, FLOAT *dgds, FLOAT *d2gds2);

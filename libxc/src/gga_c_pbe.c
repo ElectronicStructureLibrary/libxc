@@ -160,8 +160,8 @@ pbe_eq7(int func, int order, FLOAT phi, FLOAT t, FLOAT A, FLOAT B,
 }
 
 
-static inline void 
-func(const XC(func_type) *p, XC(gga_work_c_t) *r)
+inline void 
+XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
 {
   FLOAT phi, t;
 
@@ -264,6 +264,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   r->d2fdxs2[2]  = 0.0;
 }
 
+#define func XC(gga_c_pbe_func)
 #include "work_gga_c.c"
 
 const XC(func_info_type) XC(func_info_gga_c_pbe) = {

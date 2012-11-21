@@ -23,14 +23,21 @@
 #include "util.h"
 
 #define XC_MGGA_C_VSXC          232 /* VSxc from Van Voorhis and Scuseria (correlation part) */
+#define XC_MGGA_C_M05           237 /* M05 functional of Minnesota */
+#define XC_MGGA_C_M05_2X        238 /* M05-2X functional of Minnesota */
 #define XC_MGGA_C_M06_L         233 /* M06-Local functional of Minnesota */
 #define XC_MGGA_C_M06_HF        234 /* M06-HF functional of Minnesota */
 #define XC_MGGA_C_M06           235 /* M06 functional of Minnesota */
 #define XC_MGGA_C_M06_2X        236 /* M06-2X functional of Minnesota */
 
-
 static const FLOAT vsxc_dab[6]  = { 7.035010e-01,  7.694574e-03,  5.152765e-02,  3.394308e-05, -1.269420e-03,  1.296118e-03};
 static const FLOAT vsxc_dss[6]  = { 3.270912e-01, -3.228915e-02, -2.942406e-02,  2.134222e-03, -5.451559e-03,  1.577575e-02};
+
+static const FLOAT m05_cab[5]   = { 1.00000e0,  3.78569e0, -14.15261e0, -7.46589e0, 17.94491e0};
+static const FLOAT m05_css[5]   = { 1.00000e0,  3.77344e0, -26.04463e0, 30.69913e0, -9.22695e0};
+
+static const FLOAT m052x_cab[5] = { 1.00000e0,  1.09297e0, -3.79171e0,  2.82810e0, -10.58909e0};
+static const FLOAT m052x_css[5] = { 1.00000e0, -3.05430e0,  7.61854e0,  1.47665e0, -11.92365e0};
 
 static const FLOAT m06l_cab[5]  = { 6.042374e-01,  1.776783e+02, -2.513252e+02,  7.635173e+01, -1.255699e+01};
 static const FLOAT m06l_css[5]  = { 5.349466e-01,  5.396620e-01, -3.161217e+01,  5.149592e+01, -2.919613e+01};
@@ -82,6 +89,20 @@ mgga_c_vsxc_init(XC(func_type) *p)
     params->dab = vsxc_dab;
     params->alpha_ss = 0.00515088;
     params->dss = vsxc_dss;
+    break;
+  case XC_MGGA_C_M05:
+    params->gamma_ab = 0.0031;
+    params->cab = m05_cab;
+    params->gamma_ss = 0.06;
+    params->css = m05_css;
+    params->dab = params->dss = NULL;
+    break;
+  case XC_MGGA_C_M05_2X:
+    params->gamma_ab = 0.0031;
+    params->cab = m052x_cab;
+    params->gamma_ss = 0.06;
+    params->css = m052x_css;
+    params->dab = params->dss = NULL;
     break;
   case XC_MGGA_C_M06_L:
     params->gamma_ab = 0.0031;
@@ -165,8 +186,12 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
     if(r->dens*opz < 2.0*pt->info->min_dens) continue;
 
-    XC(mgga_x_gvt4_func)(r->order, r->xs[is], 2.0*(r->ts[is] - K_FACTOR_C), 
-			 params->alpha_ss, params->dss, &h, &dhdx, &dhdt);
+    if(params->dss == NULL){
+      h = dhdx = dhdt = 0.0;
+    }else{
+      XC(mgga_x_gvt4_func)(r->order, r->xs[is], 2.0*(r->ts[is] - K_FACTOR_C), 
+			   params->alpha_ss, params->dss, &h, &dhdx, &dhdt);
+    }
 
     if(params->css == NULL){
       g = dgdx = 0.0;
@@ -196,8 +221,12 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   aux   = r->xs[0]*r->xs[0] + r->xs[1]*r->xs[1];
   x_tot = SQRT(aux);
 
-  XC(mgga_x_gvt4_func)(r->order, x_tot, 2.0*(r->ts[0] + r->ts[1] - 2.0*K_FACTOR_C), 
-		       params->alpha_ab, params->dab, &h, &dhdx, &dhdt);
+  if(params->dab == NULL){
+    h = dhdx = dhdt = 0.0;
+  }else{
+    XC(mgga_x_gvt4_func)(r->order, x_tot, 2.0*(r->ts[0] + r->ts[1] - 2.0*K_FACTOR_C), 
+			 params->alpha_ab, params->dab, &h, &dhdx, &dhdt);
+  }
 
   if(params->cab == NULL){
     g = dgdx = 0.0;
@@ -221,6 +250,33 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 }
 
 #include "work_mgga_c.c"
+
+XC(func_info_type) XC(func_info_mgga_c_m05) = {
+  XC_MGGA_C_M05,
+  XC_CORRELATION,
+  "M05 functional of Minnesota",
+  XC_FAMILY_MGGA,
+  "Y Zhao, NE Schultz, and DG Truhlar, J. Chem. Phys. 123, 161103 (2005)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 1e-32, 1e-32,
+  mgga_c_vsxc_init,
+  NULL, NULL, NULL,
+  work_mgga_c,
+};
+
+
+XC(func_info_type) XC(func_info_mgga_c_m05_2x) = {
+  XC_MGGA_C_M05_2X,
+  XC_CORRELATION,
+  "M05-2X functional of Minnesota",
+  XC_FAMILY_MGGA,
+  "Y Zhao, NE Schultz, and DG Truhlar, J. Chem. Theory Comput. 2, 364 (2006)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 1e-32, 1e-32,
+  mgga_c_vsxc_init,
+  NULL, NULL, NULL,
+  work_mgga_c,
+};
 
 const XC(func_info_type) XC(func_info_mgga_c_vsxc) = {
   XC_MGGA_C_VSXC,

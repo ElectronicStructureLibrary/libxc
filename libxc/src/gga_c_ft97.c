@@ -33,7 +33,7 @@ static const FLOAT
 static const FLOAT big = 1e4;
 
 
-inline void func_kssp0(FLOAT rs, int order, FLOAT *kssp0, FLOAT *dkssp0)
+void func_kssp0(FLOAT rs, int order, FLOAT *kssp0, FLOAT *dkssp0)
 {
   /* calculate kssp0(rs) Eq. (39) */
   static FLOAT k0 = 1.291551074, k1 = 0.349064173, r1 = 0.083275880;
@@ -59,7 +59,7 @@ inline void func_kssp0(FLOAT rs, int order, FLOAT *kssp0, FLOAT *dkssp0)
 }
 
 
-inline void func_fssp(FLOAT rs, FLOAT gr, int order, FLOAT *fssp, FLOAT *dfsspdrs, FLOAT *dfsspdgr)
+void func_fssp(FLOAT rs, FLOAT gr, int order, FLOAT *fssp, FLOAT *dfsspdrs, FLOAT *dfsspdgr)
 {
   /* calculate fssp(rs, gr) Eq. (45) */
   static const FLOAT A1=1.622118767, A2=0.489958076, A3=1.379021941;  
@@ -87,7 +87,7 @@ inline void func_fssp(FLOAT rs, FLOAT gr, int order, FLOAT *fssp, FLOAT *dfsspdr
 }
 
 
-inline void func_factor(FLOAT rs, int order, FLOAT *fa, FLOAT *dfa)
+void func_factor(FLOAT rs, int order, FLOAT *fa, FLOAT *dfa)
 {
   /* factor: see Eq. (34) */
   static const FLOAT fa_a1 = 0.939016, fa_a2 = 1.733170;
@@ -108,7 +108,7 @@ inline void func_factor(FLOAT rs, int order, FLOAT *fa, FLOAT *dfa)
 }
 
 
-inline void func_kss0(FLOAT rs, int order, FLOAT *kss0, FLOAT *dkss0)
+void func_kss0(FLOAT rs, int order, FLOAT *kss0, FLOAT *dkss0)
 {
   /* calculate kss0(rs) Eq. (40) */
   static const FLOAT k0 = 1.200801774, k1 = 0.859614445, k2 = -0.812904345, r1 = 1.089338848, r2 = 0.655638823;
@@ -135,7 +135,7 @@ inline void func_kss0(FLOAT rs, int order, FLOAT *kss0, FLOAT *dkss0)
 }
 
 
-inline void func_fss(FLOAT rs, FLOAT gr, int order, FLOAT *fss, FLOAT *dfssdrs, FLOAT *dfssdgr)
+void func_fss(FLOAT rs, FLOAT gr, int order, FLOAT *fss, FLOAT *dfssdrs, FLOAT *dfssdgr)
 {
   static const FLOAT A4 = 4.946281353, A5 = 3.600612059;
 
@@ -162,7 +162,7 @@ inline void func_fss(FLOAT rs, FLOAT gr, int order, FLOAT *fss, FLOAT *dfssdrs, 
 }
 
 
-inline void func_eab(FLOAT mu, int order, FLOAT *eab, FLOAT *deabdmu)
+void func_eab(FLOAT mu, int order, FLOAT *eab, FLOAT *deabdmu)
 {
   FLOAT mu12, eei, eei1, ff_n, ff_d, ff, deeidmu, deei1dmu, dffdmu;
 
@@ -190,7 +190,7 @@ inline void func_eab(FLOAT mu, int order, FLOAT *eab, FLOAT *deabdmu)
 }
 
 
-static inline void 
+void 
 func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 {
   /* numerical curoff for mu_aa, mu_ab, mu_ba, mu_bb, see Eqs.(13) and (33) */

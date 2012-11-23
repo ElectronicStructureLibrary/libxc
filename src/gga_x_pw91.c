@@ -21,7 +21,7 @@
 #include "util.h"
 
 #define XC_GGA_X_PW91         109 /* Perdew & Wang 91 */
-#define XC_GGA_X_mPW91        119 /* Modified form of PW91 by Adamo & Barone */
+#define XC_GGA_X_MPW91        119 /* Modified form of PW91 by Adamo & Barone */
 #define XC_GGA_K_LC94         521 /* Lembarki & Chermette */
 
 static void 
@@ -29,7 +29,7 @@ gga_x_pw91_init(XC(func_type) *p)
 {
   switch(p->info->number){
   case XC_GGA_X_PW91:    p->func = 0; break;
-  case XC_GGA_X_mPW91:   p->func = 1; break;
+  case XC_GGA_X_MPW91:   p->func = 1; break;
   case XC_GGA_K_LC94:    p->func = 2; break;
   } 
 }
@@ -118,7 +118,7 @@ const XC(func_info_type) XC(func_info_gga_x_pw91) = {
 };
 
 const XC(func_info_type) XC(func_info_gga_x_mpw91) = {
-  XC_GGA_X_mPW91,
+  XC_GGA_X_MPW91,
   XC_EXCHANGE,
   "mPW91 of Adamo & Barone",
   XC_FAMILY_GGA,

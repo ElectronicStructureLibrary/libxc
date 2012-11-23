@@ -73,7 +73,7 @@ const XC(func_info_type) XC(func_info_gga_xc_pbe1w) = {
 static void
 gga_xc_mpwlyp1w_init(XC(func_type) *p)
 {
-  static int   funcs_id  [3] = {XC_LDA_C_VWN, XC_GGA_X_mPW91, XC_GGA_C_LYP};
+  static int   funcs_id  [3] = {XC_LDA_C_VWN, XC_GGA_X_MPW91, XC_GGA_C_LYP};
   static FLOAT funcs_coef[3] = {1.0 - 88.0/100.0, 1.0, 88.0/100.0};
 
   XC(mix_init)(p, 3, funcs_id, funcs_coef);

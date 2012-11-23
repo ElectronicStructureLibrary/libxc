@@ -75,7 +75,7 @@ mgga_x_m05_init(XC(func_type) *p)
     params->a = a_m06_2x;
     break;
   default:
-    fprintf(stderr, "Internal error in mgga_x_tpss\n");
+    fprintf(stderr, "Internal error in mgga_x_m05\n");
     exit(1);
   }
 }

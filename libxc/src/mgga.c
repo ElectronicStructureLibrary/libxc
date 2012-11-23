@@ -164,14 +164,11 @@ XC(mgga)(const XC(func_type) *func, int np,
 		     v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
 		     v2sigmalapl, v2sigmatau, v2lapltau);
 
-  /* Mixing still not implemented for mggas
-  if(func->mix_coef != NULL){
-    XC(mix_func)(p, func->n_func_aux, func->func_aux, func->mix_coef, 
-		 np, rho, sigma, zk, vrho, vsigma,
-		  v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
-		  v2sigmalapl, v2sigmatau, v2lapltau);
-  }
-  */
+  if(func->mix_coef != NULL)
+    XC(mix_func)(func, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, 
+		 v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
+		 v2sigmalapl, v2sigmatau, v2lapltau);
+
 }
 
 /* specializations */

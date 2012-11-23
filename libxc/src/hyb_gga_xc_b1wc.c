@@ -35,7 +35,7 @@ XC(hyb_gga_xc_b1wc_init)(XC(func_type) *p)
   static int   funcs_id  [2] = {XC_GGA_X_WC, XC_GGA_C_PBE};
   static FLOAT funcs_coef[2] = {1.0 - 0.16, 1.0};
 
-  XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.16;
 }
 
@@ -58,7 +58,7 @@ XC(hyb_gga_xc_b1lyp_init)(XC(func_type) *p)
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_LYP};
   static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
 
-  XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
 }
 
@@ -81,7 +81,7 @@ XC(hyb_gga_xc_b1pw91_init)(XC(func_type) *p)
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_PW91};
   static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
 
-  XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
 }
 
@@ -104,7 +104,7 @@ XC(hyb_gga_xc_mpw1pw_init)(XC(func_type) *p)
   static int   funcs_id  [2] = {XC_GGA_X_mPW91, XC_GGA_C_PW91};
   static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
 
-  XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
 }
 
@@ -127,7 +127,7 @@ XC(hyb_gga_xc_mpw1k_init)(XC(func_type) *p)
   static int   funcs_id  [2] = {XC_GGA_X_mPW91, XC_GGA_C_PW91};
   static FLOAT funcs_coef[2] = {1.0 - 0.428, 1.0};
 
-  XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.428;
 }
 
@@ -150,7 +150,7 @@ XC(hyb_gga_xc_bhandh_init)(XC(func_type) *p)
   static int   funcs_id  [2] = {XC_LDA_X, XC_GGA_C_LYP};
   static FLOAT funcs_coef[2] = {0.5, 1.0};
 
-  XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.5;
 }
 
@@ -173,7 +173,7 @@ XC(hyb_gga_xc_bhandhlyp_init)(XC(func_type) *p)
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_LYP};
   static FLOAT funcs_coef[2] = {0.5, 1.0};
 
-  XC(gga_init_mix)(p, 2, funcs_id, funcs_coef);
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.5;
 }
 

@@ -23,15 +23,17 @@
 
 #define XC_HYB_MGGA_XC_M05      438 /* M05 functional of Minnesota                      */
 #define XC_HYB_MGGA_XC_M05_2X   439 /* M05-2X functional of Minnesota                   */
-#define XC_HYB_MGGA_XC_BX88B95  440 /* Mixture of B88 with BC95 (B1B95)                 */
-#define XC_HYB_MGGA_XC_BX86B95  441 /* Mixture of B86 with BC95                         */
-#define XC_HYB_MGGA_XC_PWX86B95 442 /* Mixture of PW86 with BC95                        */
+#define XC_HYB_MGGA_XC_B88B95   440 /* Mixture of B88 with BC95 (B1B95)                 */
+#define XC_HYB_MGGA_XC_B86B95   441 /* Mixture of B86 with BC95                         */
+#define XC_HYB_MGGA_XC_PW86B95  442 /* Mixture of PW86 with BC95                        */
 #define XC_HYB_MGGA_XC_BB1K     443 /* Mixture of B88 with BC95 from Zhao and Truhlar   */
 #define XC_HYB_MGGA_XC_MPW1B95  445 /* Mixture of mPW91 with BC95 from Zhao and Truhlar */
 #define XC_HYB_MGGA_XC_MPWB1K   446 /* Mixture of mPW91 with BC95 for kinetics          */
 #define XC_HYB_MGGA_XC_X1B95    447 /* Mixture of X with BC95                           */
 #define XC_HYB_MGGA_XC_XB1K     448 /* Mixture of X with BC95 for kinetics              */
-#define XC_HYB_MGGA_XC_VSXC     444 /* */
+#define XC_HYB_MGGA_XC_M06_HF   444 /* M06-HF functional of Minnesota                   */
+#define XC_HYB_MGGA_XC_M06      449 /* M06 functional of Minnesota                      */
+#define XC_HYB_MGGA_XC_M06_2X   450 /* M06-2X functional of Minnesota                   */
 
 /*************************************************************/
 void
@@ -83,7 +85,7 @@ XC(func_info_type) XC(func_info_hyb_mgga_xc_m05_2x) = {
 
 /*************************************************************/
 void
-XC(hyb_mgga_xc_bx88bc95_init)(XC(func_type) *p)
+XC(hyb_mgga_xc_b88b95_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_MGGA_C_BC95};
   static FLOAT funcs_coef[2] = {1.0 - 0.28, 1.0};
@@ -92,22 +94,22 @@ XC(hyb_mgga_xc_bx88bc95_init)(XC(func_type) *p)
   p->cam_alpha = 0.28;
 }
 
-XC(func_info_type) XC(func_info_hyb_mgga_xc_bx88bc95) = {
-  XC_HYB_MGGA_XC_BX88B95,
+XC(func_info_type) XC(func_info_hyb_mgga_xc_b88b95) = {
+  XC_HYB_MGGA_XC_B88B95,
   XC_EXCHANGE_CORRELATION,
   "Mixture of B88 with BC95 (B1B95)",
   XC_FAMILY_HYB_MGGA,
   "A Becke, J. Chem. Phys. 104, 1040 (1996)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
-  XC(hyb_mgga_xc_bx88bc95_init),
+  XC(hyb_mgga_xc_b88b95_init),
   NULL, NULL, NULL, NULL,
 };
 
 
 /*************************************************************/
 void
-XC(hyb_mgga_xc_bx86bc95_init)(XC(func_type) *p)
+XC(hyb_mgga_xc_b86b95_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B86, XC_MGGA_C_BC95};
   static FLOAT funcs_coef[2] = {1.0 - 0.28, 1.0};
@@ -116,22 +118,22 @@ XC(hyb_mgga_xc_bx86bc95_init)(XC(func_type) *p)
   p->cam_alpha = 0.28;
 }
 
-XC(func_info_type) XC(func_info_hyb_mgga_xc_bx86bc95) = {
-  XC_HYB_MGGA_XC_BX86B95,
+XC(func_info_type) XC(func_info_hyb_mgga_xc_b86b95) = {
+  XC_HYB_MGGA_XC_B86B95,
   XC_EXCHANGE_CORRELATION,
   "Mixture of B86 with BC95",
   XC_FAMILY_HYB_MGGA,
   "A Becke, J. Chem. Phys. 104, 1040 (1996)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
-  XC(hyb_mgga_xc_bx86bc95_init),
+  XC(hyb_mgga_xc_b86b95_init),
   NULL, NULL, NULL, NULL,
 };
 
 
 /*************************************************************/
 void
-XC(hyb_mgga_xc_pwx86bc95_init)(XC(func_type) *p)
+XC(hyb_mgga_xc_pw86b95_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PW86, XC_MGGA_C_BC95};
   static FLOAT funcs_coef[2] = {1.0 - 0.29, 1.0};
@@ -140,15 +142,15 @@ XC(hyb_mgga_xc_pwx86bc95_init)(XC(func_type) *p)
   p->cam_alpha = 0.29;
 }
 
-XC(func_info_type) XC(func_info_hyb_mgga_xc_pwx86bc95) = {
-  XC_HYB_MGGA_XC_PWX86B95,
+XC(func_info_type) XC(func_info_hyb_mgga_xc_pw86b95) = {
+  XC_HYB_MGGA_XC_PW86B95,
   XC_EXCHANGE_CORRELATION,
   "Mixture of PW86 with BC95",
   XC_FAMILY_HYB_MGGA,
   "A Becke, J. Chem. Phys. 104, 1040 (1996)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
-  XC(hyb_mgga_xc_pwx86bc95_init),
+  XC(hyb_mgga_xc_pw86b95_init),
   NULL, NULL, NULL, NULL,
 };
 
@@ -283,3 +285,77 @@ XC(func_info_type) XC(func_info_hyb_mgga_xc_xb1k) = {
   XC(hyb_mgga_xc_xb1k_init),
   NULL, NULL, NULL, NULL,
 };
+
+
+/*************************************************************/
+void
+XC(hyb_mgga_xc_m06_hf_init)(XC(func_type) *p)
+{
+  static int   funcs_id  [2] = {XC_MGGA_X_M06_HF, XC_MGGA_C_M06_HF};
+  FLOAT funcs_coef[2] = {1.0, 1.0};
+
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  p->cam_alpha = 1.0;
+}
+
+const XC(func_info_type) XC(func_info_hyb_mgga_xc_m06_hf) = {
+  XC_HYB_MGGA_XC_M06_HF,
+  XC_EXCHANGE_CORRELATION,
+  "M06-HF functional of Minnesota",
+  XC_FAMILY_HYB_MGGA,
+  "Y Zhao and DG Truhlar, J. Phys. Chem. A 110, 13126 (2006)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  XC(hyb_mgga_xc_m06_hf_init),
+  NULL, NULL, NULL, NULL
+};
+
+
+/*************************************************************/
+void
+XC(hyb_mgga_xc_m06_init)(XC(func_type) *p)
+{
+  static int   funcs_id  [2] = {XC_MGGA_X_M06, XC_MGGA_C_M06};
+  FLOAT funcs_coef[2] = {1.0, 1.0};
+
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  p->cam_alpha = 0.27;
+}
+
+const XC(func_info_type) XC(func_info_hyb_mgga_xc_m06) = {
+  XC_HYB_MGGA_XC_M06,
+  XC_EXCHANGE_CORRELATION,
+  "M06 functional of Minnesota",
+  XC_FAMILY_HYB_MGGA,
+  "Y Zhao and DG Truhlar, Theor. Chem. Acc. 120, 215 (2008)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  XC(hyb_mgga_xc_m06_init),
+  NULL, NULL, NULL, NULL
+};
+
+
+/*************************************************************/
+void
+XC(hyb_mgga_xc_m06_2x_init)(XC(func_type) *p)
+{
+  static int   funcs_id  [2] = {XC_MGGA_X_M06_2X, XC_MGGA_C_M06_2X};
+  FLOAT funcs_coef[2] = {1.0, 1.0};
+
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  p->cam_alpha = 0.54;
+}
+
+const XC(func_info_type) XC(func_info_hyb_mgga_xc_m06_2x) = {
+  XC_HYB_MGGA_XC_M06_2X,
+  XC_EXCHANGE_CORRELATION,
+  "M06-2X functional of Minnesota",
+  XC_FAMILY_HYB_MGGA,
+  "Y Zhao and DG Truhlar, Theor. Chem. Acc. 120, 215 (2008)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  XC(hyb_mgga_xc_m06_2x_init),
+  NULL, NULL, NULL, NULL
+};
+
+

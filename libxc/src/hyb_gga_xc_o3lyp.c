@@ -21,8 +21,8 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_HYB_GGA_XC_O3LYP 404 /* hybrid using the optx functional */
-#define XC_HYB_GGA_XC_X3LYP 411 /* maybe the best hybrid */
+#define XC_HYB_GGA_XC_O3LYP   404 /* hybrid using the optx functional */
+#define XC_HYB_GGA_XC_X3LYP   411 /* maybe the best hybrid */
 
 
 /*************************************************************/

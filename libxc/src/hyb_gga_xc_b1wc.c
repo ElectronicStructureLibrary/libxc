@@ -101,7 +101,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1pw91) = {
 void
 XC(hyb_gga_xc_mpw1pw_init)(XC(func_type) *p)
 {
-  static int   funcs_id  [2] = {XC_GGA_X_mPW91, XC_GGA_C_PW91};
+  static int   funcs_id  [2] = {XC_GGA_X_MPW91, XC_GGA_C_PW91};
   static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
@@ -124,7 +124,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1pw) = {
 void
 XC(hyb_gga_xc_mpw1k_init)(XC(func_type) *p)
 {
-  static int   funcs_id  [2] = {XC_GGA_X_mPW91, XC_GGA_C_PW91};
+  static int   funcs_id  [2] = {XC_GGA_X_MPW91, XC_GGA_C_PW91};
   static FLOAT funcs_coef[2] = {1.0 - 0.428, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);

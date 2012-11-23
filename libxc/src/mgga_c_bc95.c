@@ -22,10 +22,10 @@
 
 #include "util.h"
 
-#define XC_MGGA_C_B95          240 /* Becke 95 */
+#define XC_MGGA_C_BC95          240 /* Becke correlation 95 */
 
 static void 
-mgga_c_b95_init(XC(func_type) *p)
+mgga_c_bc95_init(XC(func_type) *p)
 {
   assert(p != NULL);
 
@@ -103,15 +103,15 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
 #include "work_mgga_c.c"
 
-XC(func_info_type) XC(func_info_mgga_c_b95) = {
-  XC_MGGA_C_B95,
+XC(func_info_type) XC(func_info_mgga_c_bc95) = {
+  XC_MGGA_C_BC95,
   XC_CORRELATION,
-  "Becke 95",
+  "Becke correlation 95",
   XC_FAMILY_MGGA,
   "AD Becke, J. Chem. Phys. 104, 1040 (1996)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
-  mgga_c_b95_init,
+  mgga_c_bc95_init,
   NULL, NULL, NULL,
   work_mgga_c,
 };

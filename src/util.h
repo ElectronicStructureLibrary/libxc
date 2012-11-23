@@ -119,8 +119,9 @@ typedef struct XC(functional_key_t) {
 #include "xc.h"
 
 /* The following inlines confuse the xlc compiler */
-/* inline */ void XC(rho2dzeta)(int nspin, const FLOAT *rho, FLOAT *d, FLOAT *zeta);
-/* inline */ void XC(fast_fzeta)(const FLOAT x, const int nspin, const int order, FLOAT * fz);
+void XC(rho2dzeta)(int nspin, const FLOAT *rho, FLOAT *d, FLOAT *zeta);
+void XC(fast_fzeta)(const FLOAT x, const int nspin, const int order, FLOAT * fz);
+void XC(mix_init)(XC(func_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix_coef);
 
 /* LDAs */
 typedef struct XC(lda_work_t) {
@@ -173,8 +174,6 @@ typedef struct XC(gga_work_c_t) {
 
 void XC(gga_c_pw91_func)(const XC(func_type) *p, XC(gga_work_c_t) *r);
 void XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r);
-
-void XC(gga_init_mix)(XC(func_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix_coef);
 
 /* meta GGAs */
 typedef struct XC(mgga_work_x_t) {

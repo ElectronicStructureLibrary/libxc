@@ -49,7 +49,7 @@ XC(hyb_gga_xc_cam_b3lyp_init)(XC(func_type) *p)
   funcs_coef[2] = 1.0 - ac;
   funcs_coef[3] = ac;
 
-  XC(gga_init_mix)(p, 4, funcs_id, funcs_coef);
+  XC(mix_init)(p, 4, funcs_id, funcs_coef);
 
   XC(gga_x_ityh_set_params)(p->func_aux[1], XC_GGA_X_B88, p->cam_omega);
 }

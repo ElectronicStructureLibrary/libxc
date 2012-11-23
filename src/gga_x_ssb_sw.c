@@ -99,7 +99,7 @@ gga_x_ssb_init(XC(func_type) *p)
   static int   funcs_id  [3] = {XC_LDA_X, XC_GGA_X_SSB_SW, XC_GGA_X_KT1};
   static FLOAT funcs_coef[3] = {-1.0, 1.0, 1.0};
 
-  XC(gga_init_mix)(p, 3, funcs_id, funcs_coef);  
+  XC(mix_init)(p, 3, funcs_id, funcs_coef);  
 
   XC(gga_x_ssb_sw_set_params)(p->func_aux[1], 1.071769, 0.137574, 0.187883, 0.137574*(1.0 + 1.205643), 6.635315);
   XC(gga_x_kt_set_params)(p->func_aux[2], u*F*X_FACTOR_C*B*(X2S*X2S), 0.1);
@@ -114,7 +114,7 @@ gga_x_ssb_d_init(XC(func_type) *p)
   static int   funcs_id  [3] = {XC_LDA_X, XC_GGA_X_SSB_SW, XC_GGA_X_KT1};
   static FLOAT funcs_coef[3] = {-1.0, 1.0, 1.0};
 
-  XC(gga_init_mix)(p, 3, funcs_id, funcs_coef);  
+  XC(mix_init)(p, 3, funcs_id, funcs_coef);  
 
   XC(gga_x_ssb_sw_set_params)(p->func_aux[1], 1.079966, 0.197465, 0.272729, 0.197465*(1.0 + 0.749940), 5.873645);
   XC(gga_x_kt_set_params)(p->func_aux[2], u*F*X_FACTOR_C*B*(X2S*X2S), 0.1);

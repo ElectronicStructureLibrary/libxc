@@ -91,7 +91,7 @@ gga_xc_kt2_init(XC(func_type) *p)
   static int   funcs_id  [3] = {XC_LDA_X, XC_GGA_X_KT1, XC_LDA_C_VWN};
   static FLOAT funcs_coef[3] = {1.07173 - 1.0, 1.0, 0.576727};
 
-  XC(gga_init_mix)(p, 3, funcs_id, funcs_coef);  
+  XC(mix_init)(p, 3, funcs_id, funcs_coef);  
 }
 
 

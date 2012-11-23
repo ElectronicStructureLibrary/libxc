@@ -163,9 +163,10 @@ void XC(gga)(const XC(func_type) *func, int np, const FLOAT *rho, const FLOAT *s
   if(func->info->gga != NULL)
     func->info->gga(func, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
 
-  if(func->mix_coef != NULL){
-    XC(mix_func)(func, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
-  }
+  if(func->mix_coef != NULL)
+    XC(mix_func)(func, np, rho, sigma, NULL, NULL, zk, vrho, vsigma, NULL, NULL,
+		 v2rho2, v2sigma2, NULL, NULL, v2rhosigma, NULL, NULL, NULL, NULL, NULL);
+
 }
 
 /* specializations */
@@ -199,26 +200,4 @@ XC(gga_fxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
 	    FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
   XC(gga)(p, np, rho, sigma, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2);
-}
-
-/* initializes the mixing for GGAs */
-void 
-XC(gga_init_mix)(XC(func_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix_coef)
-{
-  int ii;
-
-  assert(p != NULL);
-  assert(p->func_aux == NULL && p->mix_coef == NULL);
-
-  /* allocate structures needed for */
-  p->n_func_aux = n_funcs;
-  p->mix_coef   = (FLOAT *) malloc(n_funcs*sizeof(FLOAT));
-  p->func_aux   = (XC(func_type) **) malloc(n_funcs*sizeof(XC(func_type) *));
-
-  for(ii=0; ii<n_funcs; ii++){
-    p->mix_coef[ii] = mix_coef[ii];
-    p->func_aux[ii] = (XC(func_type) *) malloc(sizeof(XC(func_type)));
-    XC(func_init) (p->func_aux[ii], funcs_id[ii], p->nspin);
-  }
-  
 }

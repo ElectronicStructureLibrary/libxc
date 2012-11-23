@@ -34,7 +34,7 @@ hyb_gga_xc_hse_init(XC(func_type) *p)
   static int   funcs_id  [3] = {XC_GGA_X_WPBEH, XC_GGA_X_WPBEH, XC_GGA_C_PBE};
   static FLOAT funcs_coef[3] = {1.0, -0.25, 1.0};  
 
-  XC(gga_init_mix)(p, 3, funcs_id, funcs_coef);
+  XC(mix_init)(p, 3, funcs_id, funcs_coef);
   p->cam_beta = 0.25;
   
   /* Note that there is an enormous mess in the literature concerning
@@ -140,7 +140,7 @@ hyb_gga_xc_hjs_init(XC(func_type) *p)
     exit(1);
   }
 
-  XC(gga_init_mix)(p, 3, funcs_id, funcs_coef);
+  XC(mix_init)(p, 3, funcs_id, funcs_coef);
   XC(gga_x_hjs_set_params)(p->func_aux[1], p->cam_omega);
 }
 

@@ -23,6 +23,7 @@ lib_LTLIBRARIES = libxc.la
 
 libxc_la_FUNC_SOURCES = \
 	special_functions.c bessel.c expint_e1.c integrate.c util.c mix_func.c functionals.c \
+	version.c \
 	lda.c lda_x.c lda_x_1d.c lda_x_2d.c \
 	lda_c_wigner.c lda_c_gombas.c lda_c_rpa.c lda_c_hl.c \
 	lda_c_vwn.c lda_c_pz.c lda_c_pw.c lda_c_ml1.c lda_c_rc04.c lda_xc_teter93.c \
@@ -62,7 +63,7 @@ endif
 endif
 
 # libtool stuff
-libxc_la_LDFLAGS = -version-info 0:9:0
+libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)
 # this is a hack to go around buggy libtool/automake versions
 libxc_la_LIBTOOLFLAGS = --tag=F77
 LTFCCOMPILE = $(LIBTOOL) --mode=compile --tag=F77 $(FC) $(AM_FCFLAGS) $(FCFLAGS)

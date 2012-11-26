@@ -22,6 +22,7 @@
 ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = build src testsuite
 
+include_HEADERS = xc_version.h
 EXTRA_DIST = ChangeLog PACKAGING TODO
 
 DISTCLEANFILES = ChangeLog

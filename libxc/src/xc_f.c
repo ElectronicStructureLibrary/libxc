@@ -27,6 +27,13 @@
 #include "xc.h"
 #include "string_f.h"
 
+/* version */
+void XC_FC_FUNC(f90_version, F90_VERSION)
+     (int *major, int *minor)
+{
+  XC(version)(major, minor);
+}
+
 /* info */
 
 CC_FORTRAN_INT XC_FC_FUNC(f90_info_number, F90_INFO_NUMBER)

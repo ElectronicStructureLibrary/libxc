@@ -1,3 +1,1059 @@
+2012-11-26 13:02  micael
+
+	* [r9690] Makefile.am, configure.ac, src/Makefile.am,
+	  src/version.c, src/xc.h, src/xc_f.c, xc_version.h.in: * Added
+	  function to return the version information.
+	  * Version information is now also available in a header file.
+	  * Set version number to 2.x
+	  * Added proper libtool versioning. Note that this one works in a
+	  different way than the libxc version number.
+
+2012-11-23 12:37  marques
+
+	* [r9686] TODO, src/mgga_x_m05.c, src/mgga_x_m06l.c,
+	  testsuite/regression/gga_c_ft97.data.bz2,
+	  testsuite/regression/mgga_x_m06.data.bz2,
+	  testsuite/regression/mgga_x_m06_2x.data.bz2,
+	  testsuite/regression/mgga_x_m06_hf.data.bz2: Small change in the
+	  references
+
+2012-11-23 12:29  marques
+
+	* [r9685] testsuite/regression/hyb_gga_xc_td_cam_b3lyp.data.bz2,
+	  testsuite/regression/mgga_x_m06l.data.bz2: These two functionals
+	  had changed name
+
+2012-11-23 12:28  marques
+
+	* [r9684] src/functionals.c: There were some bits missing for the
+	  hyb_mgga family
+
+2012-11-23 12:28  marques
+
+	* [r9683] testsuite/regression/gga_c_ft97.data.bz2,
+	  testsuite/regression/gga_c_op_b88.data.bz2,
+	  testsuite/regression/gga_c_op_g96.data.bz2,
+	  testsuite/regression/gga_c_op_pbe.data.bz2,
+	  testsuite/regression/gga_c_op_xalpha.data.bz2,
+	  testsuite/regression/gga_c_spbe.data.bz2,
+	  testsuite/regression/gga_x_bpccac.data.bz2,
+	  testsuite/regression/gga_x_lb.data.bz2,
+	  testsuite/regression/gga_x_lbm.data.bz2,
+	  testsuite/regression/gga_x_mpw91.data.bz2,
+	  testsuite/regression/gga_x_ssb.data.bz2,
+	  testsuite/regression/gga_x_ssb_d.data.bz2,
+	  testsuite/regression/gga_x_ssb_sw.data.bz2,
+	  testsuite/regression/gga_xc_b97.data.bz2,
+	  testsuite/regression/gga_xc_b97_1.data.bz2,
+	  testsuite/regression/gga_xc_b97_2.data.bz2,
+	  testsuite/regression/gga_xc_b97_3.data.bz2,
+	  testsuite/regression/gga_xc_b97_d.data.bz2,
+	  testsuite/regression/gga_xc_b97_gga1.data.bz2,
+	  testsuite/regression/gga_xc_b97_k.data.bz2,
+	  testsuite/regression/gga_xc_hcth_120.data.bz2,
+	  testsuite/regression/gga_xc_hcth_147.data.bz2,
+	  testsuite/regression/gga_xc_hcth_407.data.bz2,
+	  testsuite/regression/gga_xc_hcth_407p.data.bz2,
+	  testsuite/regression/gga_xc_hcth_93.data.bz2,
+	  testsuite/regression/gga_xc_hcth_a.data.bz2,
+	  testsuite/regression/gga_xc_hcth_p14.data.bz2,
+	  testsuite/regression/gga_xc_hcth_p76.data.bz2,
+	  testsuite/regression/gga_xc_kt2.data.bz2,
+	  testsuite/regression/gga_xc_mpwlyp1w.data.bz2,
+	  testsuite/regression/gga_xc_sb98_1a.data.bz2,
+	  testsuite/regression/gga_xc_sb98_1b.data.bz2,
+	  testsuite/regression/gga_xc_sb98_1c.data.bz2,
+	  testsuite/regression/gga_xc_sb98_2a.data.bz2,
+	  testsuite/regression/gga_xc_sb98_2b.data.bz2,
+	  testsuite/regression/gga_xc_sb98_2c.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b3pw91.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_1.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_2.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_3.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_k.data.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw1k.data.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw1pw.data.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw3lyp.data.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw3pw.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1a.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1b.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1c.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2a.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2b.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2c.data.bz2,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_b86b95.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_b88b95.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_bb1k.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_m05.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_m05_2x.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_m06.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_m06_2x.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_m06_hf.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_mpw1b95.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_mpwb1k.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_pw86b95.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_x1b95.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_xb1k.data.bz2,
+	  testsuite/regression/mgga_c_bc95.data.bz2,
+	  testsuite/regression/mgga_c_m05.data.bz2,
+	  testsuite/regression/mgga_c_m05_2x.data.bz2,
+	  testsuite/regression/mgga_c_m06.data.bz2,
+	  testsuite/regression/mgga_c_m06_2x.data.bz2,
+	  testsuite/regression/mgga_c_m06_hf.data.bz2,
+	  testsuite/regression/mgga_c_m06_l.data.bz2,
+	  testsuite/regression/mgga_c_pkzb.data.bz2,
+	  testsuite/regression/mgga_c_tpss.data.bz2,
+	  testsuite/regression/mgga_c_vsxc.data.bz2,
+	  testsuite/regression/mgga_x_2d_prhg07.data.bz2,
+	  testsuite/regression/mgga_x_2d_prhg07_prp10.data.bz2,
+	  testsuite/regression/mgga_x_bj06.data.bz2,
+	  testsuite/regression/mgga_x_br89.data.bz2,
+	  testsuite/regression/mgga_x_gvt4.data.bz2,
+	  testsuite/regression/mgga_x_lta.data.bz2,
+	  testsuite/regression/mgga_x_m05.data.bz2,
+	  testsuite/regression/mgga_x_m05_2x.data.bz2,
+	  testsuite/regression/mgga_x_m06.data.bz2,
+	  testsuite/regression/mgga_x_m06_2x.data.bz2,
+	  testsuite/regression/mgga_x_m06_hf.data.bz2,
+	  testsuite/regression/mgga_x_m06_l.data.bz2,
+	  testsuite/regression/mgga_x_m08_hx.data.bz2,
+	  testsuite/regression/mgga_x_m08_so.data.bz2,
+	  testsuite/regression/mgga_x_pkzb.data.bz2,
+	  testsuite/regression/mgga_x_revtpss.data.bz2,
+	  testsuite/regression/mgga_x_rpp09.data.bz2,
+	  testsuite/regression/mgga_x_tau_hcth.data.bz2,
+	  testsuite/regression/mgga_x_tb09.data.bz2,
+	  testsuite/regression/mgga_x_tpss.data.bz2: Reset the regression
+	  tests, and added the new functionals
+
+2012-11-23 12:18  marques
+
+	* [r9682] src/hyb_mgga_xc_m05.c: Sorry, some names were wrong.
+
+2012-11-23 10:43  marques
+
+	* [r9681] src/hyb_mgga_xc_m05.c: Seems that I forgot this file
+
+2012-11-23 10:37  marques
+
+	* [r9680] src/Makefile.am, src/gga_x_ityh.c, src/gga_x_pw91.c,
+	  src/gga_xc_1w.c, src/hyb_gga_xc_b1wc.c, src/hyb_gga_xc_b3lyp.c,
+	  src/hyb_gga_xc_o3lyp.c, src/mgga_c_b95.c, src/mgga_c_bc95.c,
+	  src/mgga_x_m05.c: Added a series of hybrid meta-ggas, namely
+	  XC_HYB_MGGA_XC_M05, XC_HYB_MGGA_XC_M05_2X,
+	  XC_HYB_MGGA_XC_BX88B95, XC_HYB_MGGA_XC_BX86B95,
+	  XC_HYB_MGGA_XC_PWX86B95, XC_HYB_MGGA_XC_BB1K,
+	  XC_HYB_MGGA_XC_MPW1B95, XC_HYB_MGGA_XC_MPWB1K,
+	  XC_HYB_MGGA_XC_X1B95, XC_HYB_MGGA_XC_XB1K.
+
+2012-11-23 08:18  marques
+
+	* [r9679] src/gga.c, src/gga_x_kt.c, src/gga_x_ssb_sw.c,
+	  src/gga_xc_1w.c, src/gga_xc_edf1.c, src/hyb_gga_xc_b1wc.c,
+	  src/hyb_gga_xc_b3lyp.c, src/hyb_gga_xc_b97.c,
+	  src/hyb_gga_xc_cam_b3lyp.c, src/hyb_gga_xc_hse.c,
+	  src/hyb_gga_xc_o3lyp.c, src/hyb_gga_xc_pbeh.c, src/mgga.c,
+	  src/mix_func.c, src/util.c, src/util.h, src/xc.h: Added the
+	  possibility of having MGGAs that are mixtures of other
+	  functionals
+
+2012-11-22 15:23  marques
+
+	* [r9678] src/work_mgga_x.c: Bug correction: v2rhotau and friends
+	  should ahve 4 entries, not 3, and it is the last one that is the
+	  down-down.
+
+2012-11-22 14:55  marques
+
+	* [r9677] src/Makefile.am, src/mgga_c_b95.c: Added B95 correlation
+
+2012-11-22 13:22  marques
+
+	* [r9676] src/Makefile.am, src/gga_c_ft97.c, src/mgga_c_pkzb.c,
+	  src/mgga_c_tpss.c, src/stoll.c, src/util.h: Rewrote the TPSS
+	  correlation.
+
+2012-11-21 14:21  marques
+
+	* [r9666] src/Makefile.am, src/gga_c_pbe.c, src/mgga_c_pkzb.c,
+	  src/stoll.c, src/util.h: Added the correlation part of PKZB
+
+2012-11-21 08:41  marques
+
+	* [r9664] src/mgga_c_vsxc.c: Added the correlation part of M05 and
+	  M05-2X.
+
+2012-11-20 21:42  dstrubbe
+
+	* [r9661] testsuite/xc-consistency.c, testsuite/xc-regression.c:
+	  Removing superfluous and redundant declarations, flagged by
+	  ifort.
+
+2012-11-20 13:44  marques
+
+	* [r9651] src/gga_xc_b97.c, src/mgga_c_vsxc.c, src/util.h: Added
+	  the correlation part of M06, M06-L, M06-HF, and M06-2x
+
+2012-11-19 14:31  marques
+
+	* [r9650] src/Makefile.am, src/gga_c_am05.c, src/gga_c_lm.c,
+	  src/gga_c_p86.c, src/gga_c_pbe.c, src/gga_c_pw91.c,
+	  src/gga_c_sogga11.c, src/gga_c_tca.c, src/gga_xc_b97.c,
+	  src/lda_c_1d_csc.c, src/lda_c_1d_loos.c, src/lda_c_2d_amgb.c,
+	  src/lda_c_2d_prm.c, src/lda_c_gombas.c, src/lda_c_hl.c,
+	  src/lda_c_ml1.c, src/lda_c_pw.c, src/lda_c_pz.c,
+	  src/lda_c_rc04.c, src/lda_c_rpa.c, src/lda_c_vwn.c,
+	  src/lda_c_wigner.c, src/lda_k_tf.c, src/lda_x.c, src/lda_x_1d.c,
+	  src/lda_x_2d.c, src/lda_xc_teter93.c, src/mgga_c_vsxc.c,
+	  src/mgga_x_2d_prhg07.c, src/mgga_x_br89.c, src/mgga_x_gvt4.c,
+	  src/mgga_x_lta.c, src/mgga_x_m05.c, src/mgga_x_m06l.c,
+	  src/mgga_x_m08.c, src/mgga_x_pkzb.c, src/mgga_x_tau_hcth.c,
+	  src/mgga_x_tpss.c, src/mgga_xc_vsxc.c, src/stoll.c, src/test.c,
+	  src/util.h, src/work_lda.c, src/work_mgga_c.c, src/work_mgga_x.c:
+	  Rewrote vsxc (correlation part)
+
+2012-11-19 09:57  marques
+
+	* [r9649] src/Makefile.am, src/gga_xc_b97.c, src/mgga_xc_vsxc.c,
+	  src/stoll.c, src/util.h, src/work_gga_becke.c: Rewrote becke 97
+	  in order to remove the ugly work_gga_becke that was only used by
+	  one family of functionals.
+
+2012-11-16 14:10  marques
+
+	* [r9645] src/gga_c_op.c: Silly mistake.
+
+2012-11-16 08:39  marques
+
+	* [r9644] src/Makefile.am, src/mgga_x_m08.c: Added two M08
+	  variants, _HX and _SO
+
+2012-11-15 15:07  marques
+
+	* [r9638] src/mgga_x_m05.c, src/mgga_x_m06l.c, src/util.h:
+	  Reorganize the M05/06 echange functionals and added the exchange
+	  part of m06, m06-hf, and m06-2x
+
+2012-11-15 13:38  marques
+
+	* [r9637] src/mgga_xc_vsxc.c: Updated constants in vsxc by
+	  comparison with nwchem
+
+2012-11-15 13:25  marques
+
+	* [r9636] src/Makefile.am, src/mgga_x_m05.c: Added the exchange
+	  part of M05 and M05-2X.
+
+2012-11-15 09:41  marques
+
+	* [r9635] src/mgga_x_pkzb.c: Sorry the previous constant seemed to
+	  be wrong
+
+2012-11-15 09:38  marques
+
+	* [r9634] src/mgga_x_pkzb.c: Semms that g95 does not understand
+	  what a constant expression is.
+
+2012-11-15 08:43  marques
+
+	* [r9633] src/util.h: Missing declaration. Thanks David.
+
+2012-11-15 08:41  marques
+
+	* [r9632] src/Makefile.am, src/mgga_x_pkzb.c, src/test.c: Added the
+	  exchange part of the PKZB meta-GGA. As a curious notice, I do
+	  remember trying to implement this in 2000, and giving up after
+	  200 or 300 lines of code because it was too complicated (and did
+	  not give any significant difference in the potential). Today's
+	  routine is 50 lines long and took a couple fo hours to implement.
+
+2012-11-14 20:16  dstrubbe
+
+	* [r9627] src/lda_x.c: Unused variables.
+
+2012-11-14 14:28  marques
+
+	* [r9624] src/Makefile.am, src/gga_c_op.c, src/gga_x_g96.c,
+	  src/gga_x_ityh.c, src/util.h: Added a new family of functionals
+	  (one parameter GGAs)
+
+2012-11-13 07:54  marques
+
+	* [r9607] src/gga_x_lb.c: We treat LB as an exchange functional,
+	  even if technically this is not exactly the case.
+
+2012-11-12 21:10  marques
+
+	* [r9598] src/hyb_gga_xc_b3lyp.c, src/hyb_gga_xc_b97.c, src/xc.h:
+	  Small inconsistencies found by Tiago Cerqueira.
+
+2012-11-12 20:23  marques
+
+	* [r9597] src/gga_xc_b97.c, src/lda_c_vwn.c: Two bugs (one large
+	  one small) found by David. Can you please check that your icc
+	  does not complain now? Thanks.
+
+2012-11-12 14:59  marques
+
+	* [r9596] TODO, src/Makefile.am, src/expint_e1.c, src/gga_c_ft97.c,
+	  src/util.h, src/xc_config.h: Added the Fitalov & Thiel
+	  correlation (GGA).
+
+2012-11-12 11:09  marques
+
+	* [r9595] src/hyb_gga_xc_cam_b3lyp.c: Renamed TD_CAM_B3LYP to the
+	  correct TUNED_CAM_B3LYP. Thanks Fabien (again).
+
+2012-10-26 19:31  marques
+
+	* [r9532] src/gga_x_bpccac.c: Very silly mistake. Thanks David.
+
+2012-10-26 14:26  marques
+
+	* [r9531] src/gga_x_bpccac.c, src/gga_x_pw91.c: According to nwchem
+	  that seems to have contacted directly Carlo Adamo, there is a
+	  small misprint in the mpw91 constants in the original paper. I am
+	  now using the corrected constants.
+
+2012-10-22 15:54  marques
+
+	* [r9516] src/mgga_x_br89.c: I forgot a couple of factors of 2 in
+	  tb09. Thanks to Marjus Meitern for pointing it out.
+
+2012-09-26 14:25  marques
+
+	* [r9471] src/gga_c_pbe.c, src/work_gga_c.c: Added functional
+	  XC_GGA_C_SPBE
+
+2012-09-26 13:34  marques
+
+	* [r9470] src/Makefile.am, src/gga_x_kt.c, src/gga_x_ssb_sw.c,
+	  src/xc.h: Corrected bug in gga_xc_kt2
+	  Added functionals XC_GGA_X_SSB_SW, XC_GGA_X_SSB, and
+	  XC_GGA_X_SSB_D
+
+2012-09-25 07:57  marques
+
+	* [r9466] src/hyb_gga_xc_b3lyp.c, src/hyb_gga_xc_o3lyp.c: As I
+	  changed the default interpolation for the VWN_RPA one does not
+	  need to set it explicitly in the hybrids
+
+2012-09-25 07:56  marques
+
+	* [r9465] testsuite/regression/gga_xc_b97_gga1.data.bz2,
+	  testsuite/regression/gga_xc_hcth_407p.data.bz2,
+	  testsuite/regression/gga_xc_hcth_a.data.bz2,
+	  testsuite/regression/gga_xc_hcth_p14.data.bz2,
+	  testsuite/regression/gga_xc_hcth_p76.data.bz2,
+	  testsuite/regression/lda_c_vwn.data.bz2,
+	  testsuite/regression/lda_c_vwn_1.data.bz2,
+	  testsuite/regression/lda_c_vwn_2.data.bz2,
+	  testsuite/regression/lda_c_vwn_3.data.bz2,
+	  testsuite/regression/lda_c_vwn_4.data.bz2,
+	  testsuite/regression/lda_c_vwn_rpa.data.bz2: Added tests for the
+	  new functional from yesterday and today, and updated the VWN
+	  tests that had changed slightly the title
+
+2012-09-25 07:52  marques
+
+	* [r9464] src/gga_xc_b97.c, src/lda_c_vwn.c: Implemented all other
+	  versions of VWN (VWN1, VWN2, VWN3, VWN4), besides the 5 and the
+	  RPA that were already there.
+
+2012-09-24 12:01  marques
+
+	* [r9462] src/gga_xc_b97.c, src/util.h, src/work_gga_becke.c:
+	  Cleaned a bit the B97 functionals and added the functionals
+	  HCTH_A, B97_GGA1, HCTH_P14, HCTH_P76, and HCTH_407P
+
+2012-09-21 09:45  marques
+
+	* [r9459] testsuite/regression/gga_c_revtca.data.bz2,
+	  testsuite/regression/gga_c_tca.data.bz2,
+	  testsuite/regression/gga_x_bpccac.data.bz2,
+	  testsuite/regression/hyb_gga_xc_mb3lyp_rc04.data.bz2,
+	  testsuite/regression/lda_c_rc04.data.bz2,
+	  testsuite/regression/mgga_c_tpss.data.bz2,
+	  testsuite/regression/mgga_c_vsxc.data.bz2,
+	  testsuite/regression/mgga_x_bj06.data.bz2,
+	  testsuite/regression/mgga_x_br89.data.bz2,
+	  testsuite/regression/mgga_x_m06l.data.bz2,
+	  testsuite/regression/mgga_x_revtpss.data.bz2,
+	  testsuite/regression/mgga_x_rpp09.data.bz2,
+	  testsuite/regression/mgga_x_tb09.data.bz2: I reset the regression
+	  tests. They are not very well chosen for the meta-GGAs, I have to
+	  say...
+
+2012-09-21 09:42  marques
+
+	* [r9458] src/mgga_c_tpss.c, src/mgga_x_2d_prhg07.c,
+	  src/mgga_x_br89.c, src/mgga_x_lta.c, src/mgga_x_m06l.c,
+	  src/mgga_x_tau_hcth.c, src/mgga_x_tpss.c, src/mgga_xc_vsxc.c,
+	  src/test.c: Changed the definition of tau. Now tau_new =
+	  tau_old/2
+
+2012-09-21 09:03  marques
+
+	* [r9457] src/Makefile.am, src/gga_x_bpccac.c, src/gga_x_ityh.c,
+	  src/gga_x_pw91.c, src/util.h: Added a new functional, bpccac
+
+2012-09-17 09:18  marques
+
+	* [r9434] src/Makefile.am, src/gga_c_tca.c: Added two new GGA
+	  correlation functionals, LTA and revLTA
+
+2012-09-14 11:30  marques
+
+	* [r9411] src/hyb_gga_xc_b3lyp.c: Added a b3lyp-like hybrid based
+	  on rc04
+
+2012-09-14 09:43  marques
+
+	* [r9410] src/Makefile.am, src/lda_c_rc04.c: Added a new lda
+	  correlation functional, Ragot-Cortona
+
+2012-09-08 15:37  marques
+
+	* [r9376] src/gga_x_wc.c: This should fix the warning David was
+	  getting.
+
+2012-09-07 13:40  marques
+
+	* [r9365] src/lda_k_tf.c, src/work_gga_x.c,
+	  testsuite/regression/gga_k_absr1.data.bz2,
+	  testsuite/regression/gga_k_absr2.data.bz2,
+	  testsuite/regression/gga_k_apbe.data.bz2,
+	  testsuite/regression/gga_k_baltin.data.bz2,
+	  testsuite/regression/gga_k_dk.data.bz2,
+	  testsuite/regression/gga_k_ernzerhof.data.bz2,
+	  testsuite/regression/gga_k_fr_b88.data.bz2,
+	  testsuite/regression/gga_k_fr_pw86.data.bz2,
+	  testsuite/regression/gga_k_ge2.data.bz2,
+	  testsuite/regression/gga_k_golden.data.bz2,
+	  testsuite/regression/gga_k_gp85.data.bz2,
+	  testsuite/regression/gga_k_gr.data.bz2,
+	  testsuite/regression/gga_k_lc94.data.bz2,
+	  testsuite/regression/gga_k_lieb.data.bz2,
+	  testsuite/regression/gga_k_llp.data.bz2,
+	  testsuite/regression/gga_k_ludena.data.bz2,
+	  testsuite/regression/gga_k_ol1.data.bz2,
+	  testsuite/regression/gga_k_ol2.data.bz2,
+	  testsuite/regression/gga_k_pearson.data.bz2,
+	  testsuite/regression/gga_k_perdew.data.bz2,
+	  testsuite/regression/gga_k_thakkar.data.bz2,
+	  testsuite/regression/gga_k_tw1.data.bz2,
+	  testsuite/regression/gga_k_tw2.data.bz2,
+	  testsuite/regression/gga_k_tw3.data.bz2,
+	  testsuite/regression/gga_k_tw4.data.bz2,
+	  testsuite/regression/gga_k_vjks.data.bz2,
+	  testsuite/regression/gga_k_vsk.data.bz2,
+	  testsuite/regression/gga_k_vw.data.bz2,
+	  testsuite/regression/gga_k_yt65.data.bz2,
+	  testsuite/regression/lda_k_lp.data.bz2,
+	  testsuite/regression/lda_k_tf.data.bz2: Started changing the
+	  definition of tau in libxc. The new tau is the old tau/2, i.e.
+	  now our tau is the correct kinetic energy density.
+
+2012-09-07 13:28  marques
+
+	* [r9364] src/gga_xc_th.c,
+	  testsuite/regression/gga_c_optc.data.bz2,
+	  testsuite/regression/gga_k_golden.data.bz2,
+	  testsuite/regression/gga_k_lc94.data.bz2,
+	  testsuite/regression/gga_k_lieb.data.bz2,
+	  testsuite/regression/gga_k_ol1.data.bz2,
+	  testsuite/regression/gga_k_ol2.data.bz2,
+	  testsuite/regression/gga_x_ityh.data.bz2,
+	  testsuite/regression/gga_x_ol2.data.bz2,
+	  testsuite/regression/gga_x_rpw86.data.bz2,
+	  testsuite/regression/gga_xc_th1.data.bz2,
+	  testsuite/regression/gga_xc_th2.data.bz2,
+	  testsuite/regression/gga_xc_th3.data.bz2,
+	  testsuite/regression/gga_xc_th4.data.bz2,
+	  testsuite/regression/gga_xc_th_fc.data.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.data.bz2,
+	  testsuite/regression/gga_xc_th_fco.data.bz2,
+	  testsuite/regression/gga_xc_th_fl.data.bz2,
+	  testsuite/regression/hyb_gga_xc_bhandh.data.bz2,
+	  testsuite/regression/hyb_gga_xc_bhandhlyp.data.bz2,
+	  testsuite/regression/hyb_gga_xc_cam_b3lyp.data.bz2,
+	  testsuite/regression/hyb_gga_xc_td_cam_b3lyp.data.bz2,
+	  testsuite/regression/lda_c_1d_loos.data.bz2,
+	  testsuite/regression/mgga_c_tpss.data.bz2,
+	  testsuite/regression/mgga_x_tpss.data.bz2: Reset the regression
+	  tests. Most of the failing cases were trivial (the funny
+	  characters in the reference), but I do not trust much the _th
+	  family for now.
+
+2012-09-05 18:51  dstrubbe
+
+	* [r9336] m4/fc_integer.m4: m4/fc_integer.m4 in libxc is an exact
+	  copy of the one in Octopus. Therefore, I am backporting my
+	  changes in r9308 and r9309 to libxc, for improved robustness and
+	  ability to cross-compile.
+
+2012-09-04 23:00  dstrubbe
+
+	* [r9319] src/functionals.c, src/work_gga_c.c: Libxc:
+	  * Fixing an apparent bug from r9215 -- one occurrence of 'order'
+	  was not changed to 'r.order' and as a result was a variable being
+	  used without initialization (which could cause the function to
+	  return without computing).
+	  * Misspelling.
+	  * Fixing apparent mistake in return type, as signalled by the
+	  compiler warning 'missing return statement at end of non-void
+	  function' for xc_hyb_cam_coef.
+
+2012-09-04 22:29  dstrubbe
+
+	* [r9316] src/gga_k_ol1.c, src/gga_k_ol2.c, src/gga_k_tflw.c,
+	  src/gga_x_pw86.c, src/gga_x_pw91.c: Fixing some peculiar
+	  characters in place of dashes in libxc, which cause this warning
+	  from ifort: invalid multibyte character sequence
+
+2012-09-04 22:13  xavier
+
+	* [r9314] src/special_functions.c, src/util.h: Moved the definition
+	  of cheb_eval to util.h, so xlc is happy.
+
+2012-08-01 13:53  marques
+
+	* [r9221] src/lda_x.c: According to some people, one has to write
+	  the attenuation function
+	  differently in order to limit the numerical errors...
+
+2012-08-01 08:10  marques
+
+	* [r9220] src/gga_x_ityh.c: Corrected what seemed to me as a bug...
+
+2012-08-01 07:51  marques
+
+	* [r9219] src/Makefile.am, src/lda_c_1d_loos.c: Added a new LDA
+	  functional for 1D systems
+
+2012-07-27 07:57  micael
+
+	* [r9216] src/mgga_c_tpss.c, src/mgga_x_tpss.c: * Fixed several
+	  bugs in the TPSS functional.
+
+2012-07-27 07:54  marques
+
+	* [r9215] src/gga_c_am05.c, src/gga_c_lm.c, src/gga_c_lyp.c,
+	  src/gga_c_optc.c, src/gga_c_p86.c, src/gga_c_pbe.c,
+	  src/gga_c_pw91.c, src/gga_c_sogga11.c, src/gga_c_wi.c,
+	  src/gga_c_wl.c, src/gga_xc_th.c, src/util.h, src/work_gga_c.c:
+	  Simplyfied the interfaces to the GGA correlation functionals.
+	  There were
+	  too many arguments, and if one day I do implement kxc, then the
+	  interface would probably be more than 10 lines long!
+
+2012-07-26 08:18  marques
+
+	* [r9214] src/Makefile.am, src/gga_c_optc.c, src/gga_c_pw91.c,
+	  src/util.h: Added the opc_c GGA functional.
+
+2012-07-19 11:53  marques
+
+	* [r9205] src/hyb_gga_xc_b1wc.c: Another bug found by Fabien
+
+2012-07-18 14:02  marques
+
+	* [r9203] src/hyb_gga_xc_cam_b3lyp.c: Bugs found by Fabien.
+
+2012-07-18 10:55  marques
+
+	* [r9202] src/hyb_gga_xc_b1wc.c: Added Becke Half-and-Half and a
+	  variation of it. These functionals are in Gaussian.
+
+2012-07-18 08:38  marques
+
+	* [r9201] src/hyb_gga_xc_cam_b3lyp.c: With the debugging of Fabien
+	  maybe CM-B3LYP will work now.
+
+2012-07-14 21:29  marques
+
+	* [r9199] src/functionals.c, src/xc.h: functional_get_number needs
+	  only a const char * not a char *. Thanks to Jussi Lehtola for
+	  this.
+
+2012-06-14 13:11  mjv500
+
+	* [r9123] src/functionals.c, src/xc.h, src/xc_f.c: back to function
+	  for hyb_exx_coeff
+
+2012-06-14 06:14  mjv500
+
+	* [r9122] src/functionals.c, src/xc.h, src/xc_f.c: intermediate
+	  patch for libxc interface of hyb_exx_coef - still not fixed.
+	  Miguel, please have a look
+
+2012-06-06 12:33  marques
+
+	* [r9107] TODO, configure.ac, testsuite/xc-consistency.c: Now
+	  feenableexcept is checked for, to make all your apple lovers
+	  happy.
+
+2012-06-04 10:22  marques
+
+	* [r9105] src/Makefile.am, src/hyb_gga_xc_cam_b3lyp.c: Added
+	  CAM-B3LYP. Please handle with care, as I am not sure at all of
+	  the actual definition of the functional.
+
+2012-06-04 07:32  marques
+
+	* [r9103] src/lda_c_2d_prm.c, src/lda_x.c,
+	  testsuite/xc-consistency.c: Small fixes
+
+2012-06-01 21:30  marques
+
+	* [r9094] src/Makefile.am, src/gga_x_b88.c, src/gga_x_ityh.c,
+	  src/lda_x.c, src/util.h, src/xc.h: Added a generic way to make
+	  short-range exchange GGAs.
+
+2012-06-01 14:25  marques
+
+	* [r9091] src/functionals.c, src/gga.c, src/gga_x_sogga11.c,
+	  src/hyb_gga_xc_b1wc.c, src/hyb_gga_xc_b3lyp.c,
+	  src/hyb_gga_xc_b97.c, src/hyb_gga_xc_hse.c,
+	  src/hyb_gga_xc_o3lyp.c, src/hyb_gga_xc_pbeh.c, src/xc.h,
+	  testsuite/regression/hyb_gga_xc_hjs_b88.data.bz2,
+	  testsuite/regression/hyb_gga_xc_hjs_b97x.data.bz2,
+	  testsuite/regression/hyb_gga_xc_hjs_pbe.data.bz2,
+	  testsuite/regression/hyb_gga_xc_hjs_pbe_sol.data.bz2,
+	  testsuite/regression/hyb_gga_xc_hse03.data.bz2,
+	  testsuite/regression/hyb_gga_xc_hse06.data.bz2,
+	  testsuite/xc-regression.c: Hope this fixes compilation.
+	  Better interface to CAM functionals
+
+2012-06-01 13:49  marques
+
+	* [r9090] TODO, src/functionals.c, src/gga.c, src/gga_c_am05.c,
+	  src/gga_c_lm.c, src/gga_c_lyp.c, src/gga_c_p86.c,
+	  src/gga_c_pbe.c, src/gga_c_pw91.c, src/gga_c_sogga11.c,
+	  src/gga_c_wi.c, src/gga_c_wl.c, src/gga_k_dk.c, src/gga_k_ol1.c,
+	  src/gga_k_ol2.c, src/gga_k_pearson.c, src/gga_k_tflw.c,
+	  src/gga_x_2d_b86.c, src/gga_x_2d_b86_mgc.c, src/gga_x_2d_b88.c,
+	  src/gga_x_2d_pbe.c, src/gga_x_airy.c, src/gga_x_am05.c,
+	  src/gga_x_b86.c, src/gga_x_b86_mgc.c, src/gga_x_b88.c,
+	  src/gga_x_bayesian.c, src/gga_x_c09x.c, src/gga_x_dk87.c,
+	  src/gga_x_ft97.c, src/gga_x_g96.c, src/gga_x_herman.c,
+	  src/gga_x_hjs.c, src/gga_x_htbs.c, src/gga_x_kt.c,
+	  src/gga_x_lb.c, src/gga_x_lg93.c, src/gga_x_mpbe.c,
+	  src/gga_x_optx.c, src/gga_x_pbe.c, src/gga_x_pbea.c,
+	  src/gga_x_pw86.c, src/gga_x_pw91.c, src/gga_x_rpbe.c,
+	  src/gga_x_sogga11.c, src/gga_x_wc.c, src/gga_x_wpbeh.c,
+	  src/gga_xc_1w.c, src/gga_xc_b97.c, src/gga_xc_edf1.c,
+	  src/gga_xc_th.c, src/hyb_gga_xc_b1wc.c, src/hyb_gga_xc_b3lyp.c,
+	  src/hyb_gga_xc_b97.c, src/hyb_gga_xc_hse.c,
+	  src/hyb_gga_xc_o3lyp.c, src/hyb_gga_xc_pbeh.c, src/lda.c,
+	  src/lda_c_1d_csc.c, src/lda_c_2d_amgb.c, src/lda_c_2d_prm.c,
+	  src/lda_c_gombas.c, src/lda_c_hl.c, src/lda_c_ml1.c,
+	  src/lda_c_pw.c, src/lda_c_pz.c, src/lda_c_rpa.c, src/lda_c_vwn.c,
+	  src/lda_c_wigner.c, src/lda_k_tf.c, src/lda_x.c, src/lda_x_1d.c,
+	  src/lda_x_2d.c, src/lda_xc_teter93.c, src/libxc_master.F90,
+	  src/mgga.c, src/mgga_c_tpss.c, src/mgga_x_2d_prhg07.c,
+	  src/mgga_x_br89.c, src/mgga_x_lta.c, src/mgga_x_m06l.c,
+	  src/mgga_x_tau_hcth.c, src/mgga_x_tpss.c, src/mgga_xc_vsxc.c,
+	  src/mix_func.c, src/util.h, src/work_gga_becke.c,
+	  src/work_gga_c.c, src/work_gga_x.c, src/work_lda.c,
+	  src/work_mgga_c.c, src/work_mgga_x.c, src/xc.h, src/xc_f.c,
+	  testsuite/regression/gga_x_hjs_b88.data.bz2,
+	  testsuite/regression/gga_x_hjs_b97x.data.bz2,
+	  testsuite/regression/gga_x_hjs_pbe.data.bz2,
+	  testsuite/regression/gga_x_hjs_pbe_sol.data.bz2,
+	  testsuite/regression/hyb_gga_xc_hjs_b88.data.bz2,
+	  testsuite/regression/hyb_gga_xc_hjs_b97x.data.bz2,
+	  testsuite/regression/hyb_gga_xc_hjs_pbe.data.bz2,
+	  testsuite/regression/hyb_gga_xc_hjs_pbe_sol.data.bz2,
+	  testsuite/xc-consistency.c: Spring cleaning in libxc. Got rid of
+	  several code and simplified the structure of the library.
+	  Changed the default screening of the HJS.
+
+2012-05-31 14:35  marques
+
+	* [r9089] src/gga_x_wpbeh.c: Added another rescaling function (not
+	  used by now)
+
+2012-05-31 13:08  marques
+
+	* [r9088] testsuite/regression/gga_c_am05.data.bz2,
+	  testsuite/regression/gga_c_apbe.data.bz2,
+	  testsuite/regression/gga_c_lm.data.bz2,
+	  testsuite/regression/gga_c_lyp.data.bz2,
+	  testsuite/regression/gga_c_p86.data.bz2,
+	  testsuite/regression/gga_c_pbe.data.bz2,
+	  testsuite/regression/gga_c_pbe_jrgx.data.bz2,
+	  testsuite/regression/gga_c_pbe_sol.data.bz2,
+	  testsuite/regression/gga_c_pw91.data.bz2,
+	  testsuite/regression/gga_c_rge2.data.bz2,
+	  testsuite/regression/gga_c_sogga11.data.bz2,
+	  testsuite/regression/gga_c_sogga11_x.data.bz2,
+	  testsuite/regression/gga_c_wi.data.bz2,
+	  testsuite/regression/gga_c_wi0.data.bz2,
+	  testsuite/regression/gga_c_wl.data.bz2,
+	  testsuite/regression/gga_c_xpbe.data.bz2,
+	  testsuite/regression/gga_k_gp85.data.bz2,
+	  testsuite/regression/gga_k_ludena.data.bz2,
+	  testsuite/regression/gga_k_ol1.data.bz2,
+	  testsuite/regression/gga_k_ol2.data.bz2,
+	  testsuite/regression/gga_k_thakkar.data.bz2,
+	  testsuite/regression/gga_k_vw.data.bz2,
+	  testsuite/regression/gga_x_am05.data.bz2,
+	  testsuite/regression/gga_x_hjs_b88.data.bz2,
+	  testsuite/regression/gga_x_hjs_b97x.data.bz2,
+	  testsuite/regression/gga_x_hjs_pbe.data.bz2,
+	  testsuite/regression/gga_x_hjs_pbe_sol.data.bz2,
+	  testsuite/regression/gga_x_lag.data.bz2,
+	  testsuite/regression/gga_x_ol2.data.bz2,
+	  testsuite/regression/gga_x_wpbeh.data.bz2,
+	  testsuite/regression/gga_xc_b97.data.bz2,
+	  testsuite/regression/gga_xc_b97_1.data.bz2,
+	  testsuite/regression/gga_xc_b97_2.data.bz2,
+	  testsuite/regression/gga_xc_b97_3.data.bz2,
+	  testsuite/regression/gga_xc_b97_d.data.bz2,
+	  testsuite/regression/gga_xc_b97_k.data.bz2,
+	  testsuite/regression/gga_xc_edf1.data.bz2,
+	  testsuite/regression/gga_xc_hcth_120.data.bz2,
+	  testsuite/regression/gga_xc_hcth_147.data.bz2,
+	  testsuite/regression/gga_xc_hcth_407.data.bz2,
+	  testsuite/regression/gga_xc_hcth_93.data.bz2,
+	  testsuite/regression/gga_xc_mohlyp.data.bz2,
+	  testsuite/regression/gga_xc_mohlyp2.data.bz2,
+	  testsuite/regression/gga_xc_mpwlyp1w.data.bz2,
+	  testsuite/regression/gga_xc_pbe1w.data.bz2,
+	  testsuite/regression/gga_xc_pbelyp1w.data.bz2,
+	  testsuite/regression/gga_xc_sb98_1a.data.bz2,
+	  testsuite/regression/gga_xc_sb98_1b.data.bz2,
+	  testsuite/regression/gga_xc_sb98_1c.data.bz2,
+	  testsuite/regression/gga_xc_sb98_2a.data.bz2,
+	  testsuite/regression/gga_xc_sb98_2b.data.bz2,
+	  testsuite/regression/gga_xc_sb98_2c.data.bz2,
+	  testsuite/regression/gga_xc_th1.data.bz2,
+	  testsuite/regression/gga_xc_th2.data.bz2,
+	  testsuite/regression/gga_xc_th3.data.bz2,
+	  testsuite/regression/gga_xc_th4.data.bz2,
+	  testsuite/regression/gga_xc_th_fc.data.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.data.bz2,
+	  testsuite/regression/gga_xc_th_fco.data.bz2,
+	  testsuite/regression/gga_xc_xlyp.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b1lyp.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b1pw91.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b1wc.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyp.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b3p86.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b3pw91.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_1.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_2.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_3.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_k.data.bz2,
+	  testsuite/regression/hyb_gga_xc_hjs_b88.data.bz2,
+	  testsuite/regression/hyb_gga_xc_hjs_b97x.data.bz2,
+	  testsuite/regression/hyb_gga_xc_hjs_pbe.data.bz2,
+	  testsuite/regression/hyb_gga_xc_hjs_pbe_sol.data.bz2,
+	  testsuite/regression/hyb_gga_xc_hse03.data.bz2,
+	  testsuite/regression/hyb_gga_xc_hse06.data.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw1k.data.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw1pw.data.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw3lyp.data.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw3pw.data.bz2,
+	  testsuite/regression/hyb_gga_xc_o3lyp.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1a.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1b.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1c.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2a.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2b.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2c.data.bz2,
+	  testsuite/regression/hyb_gga_xc_x3lyp.data.bz2,
+	  testsuite/regression/lda_c_xalpha.data.bz2,
+	  testsuite/regression/lda_x.data.bz2,
+	  testsuite/regression/lda_x_1d.data.bz2,
+	  testsuite/regression/mgga_x_2d_prhg07.data.bz2,
+	  testsuite/regression/mgga_x_2d_prhg07_prp10.data.bz2,
+	  testsuite/regression/mgga_x_m06l.data.bz2,
+	  testsuite/regression/mgga_x_tb09.data.bz2: I reset the regression
+	  tests that changed after Micael changed the thresholds for the
+	  functionals. Please next do not forget to reset the regression
+	  tests.
+
+2012-05-31 12:48  marques
+
+	* [r9087] src/hyb_gga_xc_hse.c: Added the hybrid forms of hjs
+
+2012-05-31 12:25  marques
+
+	* [r9086] src/lda_x.c, src/util.h: Added the range-separated
+	  exchange LDA
+
+2012-05-30 09:29  marques
+
+	* [r9085] src/gga_x_wpbeh.c, src/libxc_master.F90: Added fortran
+	  interface to HJS
+
+2012-05-23 13:03  marques
+
+	* [r9074] src/gga_x_wpbeh.c: Sorry had left a debug line
+
+2012-05-23 12:45  marques
+
+	* [r9073] src/gga_x_wpbeh.c: A few bugs corrected in HSE
+
+2012-05-16 14:27  marques
+
+	* [r9071] src/gga_x_hjs.c: Added other versions of this functional.
+
+2012-05-16 14:14  marques
+
+	* [r9070] src/Makefile.am, src/gga_x_hjs.c, src/util.h, src/xc.h:
+	  Added another short-range form of the PBE
+
+2012-05-11 15:10  marques
+
+	* [r9069] src/Makefile.am, src/bessel.c, src/expint_e1.c,
+	  src/lda_x_1d.c, src/mgga_x_2d_prhg07.c, src/special_functions.c,
+	  src/test.c, src/util.h: Rewrote the bessel functions in order to
+	  have proper double precision
+
+2012-05-11 09:08  marques
+
+	* [r9068] src/gga_x_wpbeh.c, src/lda_x_1d.c,
+	  src/special_functions.c, src/util.h: Implemented a more precise
+	  version of the exponential integral
+
+2012-05-10 11:39  marques
+
+	* [r9065] src/libxc_master.F90, src/xc_f.c: Added Fortran interface
+	  to hse set par routines
+
+2012-05-10 11:33  marques
+
+	* [r9064] src/hyb_gga_xc_hse.c, src/util.h, src/xc.h: Forgot to
+	  rename a couple of routines
+
+2012-05-10 11:31  marques
+
+	* [r9063] src/Makefile.am, src/gga_x_pbe_sr.c, src/gga_x_wpbeh.c,
+	  src/hyb_gga_xc_hse.c: Renamed pbe_sr to wpbeh as it is commonly
+	  called.
+	  Now HSE if based on PBEh and not on PBE
+
+2012-05-07 22:18  marques
+
+	* [r9061] src/hyb_gga_xc_hse.c: Sorry, one c too much
+
+2012-05-07 21:58  marques
+
+	* [r9060] src/hyb_gga_xc_hse.c, src/util.h, src/xc.h: HSE is an xc
+	  functional, not an x functional
+
+2012-05-07 09:50  marques
+
+	* [r9059] src/hyb_gga_xc_hse.c: Bug found by F. Bruneval fixed
+
+2012-05-04 10:00  marques
+
+	* [r9057] src/lda_x.c, src/mgga.c: A couple of bugs found by Micael
+
+2012-05-04 09:43  marques
+
+	* [r9056] src/mgga_c_tpss.c, src/mgga_x_2d_prhg07.c,
+	  src/mgga_x_br89.c, src/mgga_x_m06l.c: Small bug fixes
+
+2012-05-03 14:36  marques
+
+	* [r9055] src/hyb_gga_xc_hse.c: Clarified a comment
+
+2012-05-03 14:07  marques
+
+	* [r9054] src/gga_x_pbe_sr.c: Now xc-consistency tells me that the
+	  derivatives are OK. There was a small bug that I fixed.
+
+2012-05-03 13:13  marques
+
+	* [r9053] src/Makefile.am, src/gga_x_pbe_sr.c, src/hyb_gga_x_hse.c,
+	  src/hyb_gga_xc_hse.c, src/util.h, src/xc.h: Copied the first
+	  derivatives from espresso and rearranged the code. I still do not
+	  trust the first derivatives, so beware!
+
+2012-05-02 15:23  marques
+
+	* [r9052] src/hyb_gga_x_hse.c: This should make some C compilers
+	  happy
+
+2012-05-02 14:31  marques
+
+	* [r9051] src/lda_x.c, src/libxc_master.F90, src/xc_f.c: I better
+	  add some work I had some in the range seperated LDAs, or libxc
+	  will not compile. WARNING, there is a change in the API in order
+	  to add the range separation */
+
+2012-05-02 14:29  marques
+
+	* [r9050] src/Makefile.am, src/hyb_gga_x_hse.c, src/util.h,
+	  src/xc.h: Added the exc for the local part of HSE. I shamelessly
+	  adapted the code from espresso.
+
+2012-04-26 12:36  micael
+
+	* [r9041] README: * More information and some cosmetic changes to
+	  the libxc README file.
+
+2012-04-25 09:51  marques
+
+	* [r9040] README: Some comments on how the files are organized in
+	  libxc
+
+2012-04-17 14:48  micael
+
+	* [r9025] src/work_lda.c: * Reverted r9022, as that change is only
+	  valid for exchange functionals.
+
+2012-04-17 09:56  micael
+
+	* [r9024] testsuite/xc-get_data.c: * Updated xc-get_data utility to
+	  work with MGGA's.
+
+2012-04-17 08:46  micael
+
+	* [r9023] src/gga_c_am05.c, src/gga_c_lm.c, src/gga_c_lyp.c,
+	  src/gga_c_p86.c, src/gga_c_pbe.c, src/gga_c_pw91.c,
+	  src/gga_c_sogga11.c, src/gga_c_wi.c, src/gga_c_wl.c,
+	  src/gga_k_dk.c, src/gga_k_ol1.c, src/gga_k_ol2.c,
+	  src/gga_k_pearson.c, src/gga_k_tflw.c, src/gga_x_2d_b86.c,
+	  src/gga_x_2d_b86_mgc.c, src/gga_x_2d_b88.c, src/gga_x_2d_pbe.c,
+	  src/gga_x_airy.c, src/gga_x_am05.c, src/gga_x_b86.c,
+	  src/gga_x_b86_mgc.c, src/gga_x_b88.c, src/gga_x_bayesian.c,
+	  src/gga_x_c09x.c, src/gga_x_dk87.c, src/gga_x_ft97.c,
+	  src/gga_x_g96.c, src/gga_x_herman.c, src/gga_x_htbs.c,
+	  src/gga_x_kt.c, src/gga_x_lb.c, src/gga_x_lg93.c,
+	  src/gga_x_mpbe.c, src/gga_x_optx.c, src/gga_x_pbe.c,
+	  src/gga_x_pbea.c, src/gga_x_pw86.c, src/gga_x_pw91.c,
+	  src/gga_x_rpbe.c, src/gga_x_sogga11.c, src/gga_x_wc.c,
+	  src/gga_xc_1w.c, src/gga_xc_b97.c, src/gga_xc_edf1.c,
+	  src/gga_xc_th.c, src/hyb_gga_xc_b1wc.c, src/hyb_gga_xc_b3lyp.c,
+	  src/hyb_gga_xc_b97.c, src/hyb_gga_xc_o3lyp.c,
+	  src/hyb_gga_xc_pbeh.c: Updated GGA and hybrids thresholds.
+
+2012-04-17 08:45  micael
+
+	* [r9022] src/work_lda.c: * Now vxc[is] is zero if rho[is] is below
+	  threshold.
+
+2012-04-17 08:43  micael
+
+	* [r9021] src/util.c: * The value of the density is not checked
+	  anymore when calculating zeta, as this should be done outside
+	  this routine.
+
+2012-04-17 08:40  micael
+
+	* [r9020] src/lda_c_1d_csc.c, src/lda_c_2d_amgb.c,
+	  src/lda_c_2d_prm.c, src/lda_c_gombas.c, src/lda_c_hl.c,
+	  src/lda_c_ml1.c, src/lda_c_pw.c, src/lda_c_pz.c, src/lda_c_rpa.c,
+	  src/lda_c_vwn.c, src/lda_c_wigner.c, src/lda_k_tf.c, src/lda_x.c,
+	  src/lda_x_1d.c, src/lda_x_2d.c, src/lda_xc_teter93.c: * Updated
+	  thresholds for the LDA functionals.
+
+2012-04-17 08:39  micael
+
+	* [r9019] src/mgga_c_tpss.c: * Bug fix: TPSS correlation was
+	  returning NAN's when the density was zero.
+
+2012-03-28 13:22  marques
+
+	* [r8942] src/work_gga_becke.c,
+	  testsuite/regression/gga_xc_b97.data.bz2,
+	  testsuite/regression/gga_xc_b97_1.data.bz2,
+	  testsuite/regression/gga_xc_b97_2.data.bz2,
+	  testsuite/regression/gga_xc_b97_3.data.bz2,
+	  testsuite/regression/gga_xc_b97_d.data.bz2,
+	  testsuite/regression/gga_xc_b97_k.data.bz2,
+	  testsuite/regression/gga_xc_hcth_120.data.bz2,
+	  testsuite/regression/gga_xc_hcth_147.data.bz2,
+	  testsuite/regression/gga_xc_hcth_407.data.bz2,
+	  testsuite/regression/gga_xc_hcth_93.data.bz2,
+	  testsuite/regression/gga_xc_sb98_1a.data.bz2,
+	  testsuite/regression/gga_xc_sb98_1b.data.bz2,
+	  testsuite/regression/gga_xc_sb98_1c.data.bz2,
+	  testsuite/regression/gga_xc_sb98_2a.data.bz2,
+	  testsuite/regression/gga_xc_sb98_2b.data.bz2,
+	  testsuite/regression/gga_xc_sb98_2c.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_1.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_2.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_3.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_k.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1a.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1b.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1c.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2a.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2b.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2c.data.bz2: Still one bug
+	  (not the last one, for sure)
+
+2012-03-28 13:07  marques
+
+	* [r8941] src/mgga_x_br89.c, src/work_gga_becke.c,
+	  testsuite/regression/gga_x_am05.data.bz2,
+	  testsuite/regression/gga_xc_b97.data.bz2,
+	  testsuite/regression/gga_xc_b97_1.data.bz2,
+	  testsuite/regression/gga_xc_b97_2.data.bz2,
+	  testsuite/regression/gga_xc_b97_3.data.bz2,
+	  testsuite/regression/gga_xc_b97_d.data.bz2,
+	  testsuite/regression/gga_xc_b97_k.data.bz2,
+	  testsuite/regression/gga_xc_hcth_120.data.bz2,
+	  testsuite/regression/gga_xc_hcth_147.data.bz2,
+	  testsuite/regression/gga_xc_hcth_407.data.bz2,
+	  testsuite/regression/gga_xc_hcth_93.data.bz2,
+	  testsuite/regression/gga_xc_sb98_1a.data.bz2,
+	  testsuite/regression/gga_xc_sb98_1b.data.bz2,
+	  testsuite/regression/gga_xc_sb98_1c.data.bz2,
+	  testsuite/regression/gga_xc_sb98_2a.data.bz2,
+	  testsuite/regression/gga_xc_sb98_2b.data.bz2,
+	  testsuite/regression/gga_xc_sb98_2c.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_1.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_2.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_3.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_k.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1a.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1b.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1c.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2a.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2b.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2c.data.bz2,
+	  testsuite/regression/mgga_x_bj06.data.bz2,
+	  testsuite/regression/mgga_x_br89.data.bz2,
+	  testsuite/regression/mgga_x_rpp09.data.bz2,
+	  testsuite/regression/mgga_x_tb09.data.bz2: Solved a couple of
+	  bugs that were leading to NaNs in the values of
+	  functionals
+
+2012-03-27 20:37  dstrubbe
+
+	* [r8933] src/get_funcs.pl, testsuite/xc-reset-regression,
+	  testsuite/xc-run_testsuite: Using the more portable /usr/bin/env
+	  for first line of scripts. Most are doing this already.
+
+2012-03-22 15:52  micael
+
+	* [r8926] Makefile.am: * Removed DONE file from Makefile.
+
+2012-03-22 15:31  micael
+
+	* [r8925] PACKAGING, README: * Updated PACKAGING and README files
+
+2012-03-22 15:30  micael
+
+	* [r8924] AUTHORS, DONE, NEWS: * Updated NEWS and AUTHORS files and
+	  removed the very outdated DONE file.
+
+2012-03-22 14:05  marques
+
+	* [r8923] ChangeLog: New changelog
+
 2012-03-09 09:32  micael
 
 	* [r8910] src/mgga_x_br89.c: * Reverted unintended changed.

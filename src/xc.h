@@ -23,6 +23,7 @@
 extern "C" {
 #endif
 
+#include <xc_version.h>
 #include "xc_config.h"
   
 #define XC_UNPOLARIZED          1
@@ -64,6 +65,8 @@ extern "C" {
   /* This value was redefined as XC_GGA_X_LB, we define it here to
      keep compatibility. */
 #define XC_GGA_XC_LB          160
+
+void XC(version)(int *major, int *minor);
 
 struct XC(func_type);
 

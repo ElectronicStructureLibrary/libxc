@@ -94,6 +94,13 @@ module XC_F90(lib_m)
 
   !----------------------------------------------------------------
   interface
+    subroutine XC_F90(version)(major, minor)
+      integer, intent(out) :: major, minor
+    end subroutine XC_F90(version)
+  end interface
+
+  !----------------------------------------------------------------
+  interface
     integer function XC_F90(info_number)(info)
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(in) :: info

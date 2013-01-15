@@ -147,7 +147,7 @@ gga_xc_b97_init(XC(func_type) *p)
   p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
 
-  XC(func_init)(p->func_aux[0], XC_LDA_C_PW, p->nspin);
+  XC(func_init)(p->func_aux[0], XC_LDA_C_PW, XC_POLARIZED);
 
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_xc_b97_params));
@@ -264,7 +264,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
     r->dfdrs     += dldaxdrs*fx + LDA[is].dedrs*fcpar;
     r->dfdz      += dldaxdz *fx + LDA[is].dedz *fcpar;
-    r->dfdxs[is] += ldax*dfxdx + LDA[is].zk*dfcpardx;
+    r->dfdxs[is] += ldax*dfxdx  + LDA[is].zk*dfcpardx;
 
     if(r->order < 2) continue;
     

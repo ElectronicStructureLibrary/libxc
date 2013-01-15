@@ -34,7 +34,7 @@ mgga_c_pkzb_init(XC(func_type) *p)
   p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
 
-  XC(func_init)(p->func_aux[0], XC_GGA_C_PBE, p->nspin);
+  XC(func_init)(p->func_aux[0], XC_GGA_C_PBE, XC_POLARIZED);
 }
 
 

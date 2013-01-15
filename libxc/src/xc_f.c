@@ -268,6 +268,12 @@ void XC_FC_FUNC(f90_hyb_gga_xc_hse_set_par, F90_HYB_GGA_XC_HSE_SET_PAR)
   XC(hyb_gga_xc_hse_set_params)((XC(func_type) *)(*p), *omega);
 }
 
+void XC_FC_FUNC(f90_gga_x_hjs_set_par, F90_GGA_X_HJS_SET_PAR)
+  (void **p, FLOAT *omega)
+{
+  XC(gga_x_hjs_set_params)((XC(func_type) *)(*p), *omega);
+}
+
 void XC_FC_FUNC(f90_hyb_exx_coef, F90_HYB_EXX_COEF)
    (void **p, FLOAT *coef)
 {

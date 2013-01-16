@@ -190,7 +190,7 @@ void func_eab(FLOAT mu, int order, FLOAT *eab, FLOAT *deabdmu)
 }
 
 
-void 
+static void 
 func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 {
   /* numerical curoff for mu_aa, mu_ab, mu_ba, mu_bb, see Eqs.(13) and (33) */

@@ -24,8 +24,8 @@
 
 #define XC_MGGA_X_M08_HX       219 /* M08-HX functional of Minnesota */
 #define XC_MGGA_X_M08_SO       220 /* M08-SO functional of Minnesota */
-/*#define XC_MGGA_X_M11          221 *//* M11 functional of Minnesota */
-/*#define XC_MGGA_X_M11_L        222 *//* M11-L functional of Minnesota */
+/*#define XC_MGGA_X_M11          225 *//* M11 functional of Minnesota */
+/*#define XC_MGGA_X_M11_L        226 *//* M11-L functional of Minnesota */
 
 static const FLOAT a_m08_hx[12] = {
    1.3340172e+00, -9.4751087e+00, -1.2541893e+01,  9.1369974e+00,  3.4717204e+01,  5.8831807e+01,

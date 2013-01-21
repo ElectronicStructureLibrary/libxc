@@ -252,7 +252,7 @@ XC(func_info_type) XC(func_info_mgga_c_pkzb) = {
   XC_FAMILY_MGGA,
   "JP Perdew, S Kurth, A Zupan, and P. Blaha, Phys. Rev. Lett. 82, 2544-2547 (1999)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32, 1e-32, 1e-32,
+  1e-26, 1e-32, 1e-32, 1e-32, /* densities smaller than 1e-26 give NaNs */
   mgga_c_pkzb_init,
   NULL, NULL, NULL,
   work_mgga_c,
@@ -266,7 +266,7 @@ XC(func_info_type) XC(func_info_mgga_c_tpss) = {
   "J Tao, JP Perdew, VN Staroverov, and G Scuseria, Phys. Rev. Lett. 91, 146401 (2003)\n"
   "JP Perdew, J Tao, VN Staroverov, and G Scuseria, J. Chem. Phys. 120, 6898 (2004)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32, 1e-32, 1e-32,
+  1e-26, 1e-32, 1e-32, 1e-32, /* densities smaller than 1e-26 give NaNs */
   mgga_c_pkzb_init,
   NULL, NULL, NULL,
   work_mgga_c,

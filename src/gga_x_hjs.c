@@ -284,7 +284,7 @@ const XC(func_info_type) XC(func_info_gga_x_hjs_b88) = {
   XC_FAMILY_GGA,
   "TM Henderson, BG Janesko, and GE Scuseria, J. Chem. Phys. 128, 194105 (2008)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1.1e-7, 1e-32, 0.0, 1e-32, /* densities smaller than 1.1e-7 yield NaNs */
+  1e-6, 1e-11, 0.0, 0.0, /* densities smaller than 1.1e-7 yield NaNs */
   gga_x_hjs_init,
   NULL, NULL, 
   work_gga_x

@@ -60,24 +60,40 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   XC(gga_c_pw91_func) (p->func_aux[0],  &f_anti);
 
   /* now the spin up */
-  f_par[0].order = r->order;
-  f_par[0].rs    = r->rs*M_CBRT2*copz;
-  f_par[0].zeta  = 1.0;
-  f_par[0].xt    = r->xs[0];
-  f_par[0].xs[0] = r->xs[0];
-  f_par[0].xs[1] = 0.0;
+  if(opz > p->info->min_zeta){
+    f_par[0].order = r->order;
+    f_par[0].rs    = r->rs*M_CBRT2*copz;
+    f_par[0].zeta  = 1.0;
+    f_par[0].xt    = r->xs[0];
+    f_par[0].xs[0] = r->xs[0];
+    f_par[0].xs[1] = 0.0;
 
-  XC(gga_c_pw91_func) (p->func_aux[0],  &(f_par[0]));
+    XC(gga_c_pw91_func) (p->func_aux[0],  &(f_par[0]));
+  }else{
+    f_par[0].f = 0.0;
+    if(r->order >= 1) f_par[0].dfdrs = f_par[0].dfdxt = f_par[0].dfdxs[0] = 0.0;
+    if(r->order >= 2) f_par[0].d2fdrs2 = f_par[0].d2fdrsxt = f_par[0].d2fdrsxs[0] =
+      f_par[0].d2fdxt2 = f_par[0].d2fdxtxs[0] = f_par[0].d2fdxs2[0] = 0.0;
+  }
+
 
   /* now the spin down */
-  f_par[1].order = r->order;
-  f_par[1].rs    = r->rs*M_CBRT2*comz;
-  f_par[1].zeta  = -1.0;
-  f_par[1].xt    = r->xs[1];
-  f_par[1].xs[0] = 0.0;
-  f_par[1].xs[1] = r->xs[1];
+  if(omz > p->info->min_zeta){
+    f_par[1].order = r->order;
+    f_par[1].rs    = r->rs*M_CBRT2*comz;
+    f_par[1].zeta  = -1.0;
+    f_par[1].xt    = r->xs[1];
+    f_par[1].xs[0] = 0.0;
+    f_par[1].xs[1] = r->xs[1];
 
-  XC(gga_c_pw91_func) (p->func_aux[0],  &(f_par[1]));
+    XC(gga_c_pw91_func) (p->func_aux[0],  &(f_par[1]));
+  }else{
+    f_par[1].f = 0.0;
+    if(r->order >= 1) f_par[1].dfdrs = f_par[1].dfdxt = f_par[1].dfdxs[0] = 0.0;
+    if(r->order >= 2) f_par[1].d2fdrs2 = f_par[1].d2fdrsxt = f_par[1].d2fdrsxs[1] =
+      f_par[1].d2fdxt2 = f_par[1].d2fdxtxs[1] = f_par[1].d2fdxs2[2] = 0.0;
+  }
+    
 
   /* now we add everything */
   
@@ -85,13 +101,13 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   if(r->order < 1) return;
 
-  if(ABS(opz) < p->info->min_zeta){
+  if(opz >= p->info->min_zeta){
     o_opz  = 1.0/opz;
     o_copz = 1.0/copz;
   }else
     o_opz = o_copz = 0.0;
 
-  if(ABS(omz) < p->info->min_zeta){
+  if(omz >= p->info->min_zeta){
     o_omz  = 1.0/omz;
     o_comz = 1.0/comz;
   }else

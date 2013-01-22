@@ -36,23 +36,20 @@
 #define XC_GGA_C_RGE2         143 /* Regularized PBE                                    */
 #define XC_GGA_C_APBE         186 /* mu fixed from the semiclassical neutral atom       */
 #define XC_GGA_C_SPBE          89 /* PBE correlation to be used with the SSB exchange   */
+#define XC_GGA_C_VPBE          83 /* variant PBE                                        */
 
-static const FLOAT beta[7]  = {
+static const FLOAT cnst_beta[7]  = {
   0.06672455060314922,                /* original PBE */
   0.046,                              /* PBE sol      */
   0.089809,                           /* xPBE         */
   3.0*10.0/(81.0*M_PI*M_PI),          /* PBE_JRGX     */
   0.053,                              /* RGE2         */
-  3.0*0.260/(M_PI*M_PI),               /* APBE (C)     */
-  0.06672455060314922,                /* sPBE         */
+  3.0*0.260/(M_PI*M_PI),              /* APBE (C)     */
+  0.06672455060314922                 /* sPBE         */
 };
-static FLOAT gamm[7];
-
 
 static void gga_c_pbe_init(XC(func_type) *p)
 {
-  int ii;
-
   p->n_func_aux  = 1;
   p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
@@ -67,37 +64,35 @@ static void gga_c_pbe_init(XC(func_type) *p)
   case XC_GGA_C_RGE2:     p->func = 4; break;
   case XC_GGA_C_APBE:     p->func = 5; break;
   case XC_GGA_C_SPBE:     p->func = 6; break;
+  case XC_GGA_C_VPBE:     p->func = 7; break;
   default:
     fprintf(stderr, "Internal error in gga_c_pbe\n");
     exit(1);
   }
-
-  for(ii=0; ii<7; ii++)
-    gamm[ii] = (1.0 - log(2.0))/(M_PI*M_PI);
-  gamm[2] = beta[2]*beta[2]/(2.0*0.197363);
 }
 
 
 static inline void 
-pbe_eq8(int func, int order, FLOAT ecunif, FLOAT phi, 
-	FLOAT *A, FLOAT *dec, FLOAT *dphi,
+pbe_eq8(int order, FLOAT beta, FLOAT gamm, FLOAT ecunif, FLOAT phi, 
+	FLOAT *A, FLOAT *dbeta, FLOAT *dec, FLOAT *dphi,
 	FLOAT *dec2, FLOAT *decphi, FLOAT *dphi2)
 {
   FLOAT phi3, f1, df1dphi, d2f1dphi2, f2, f3, dx, d2x;
 
   phi3 = POW(phi, 3);
-  f1   = ecunif/(gamm[func]*phi3);
+  f1   = ecunif/(gamm*phi3);
   f2   = exp(-f1);
   f3   = f2 - 1.0;
 
-  *A   = beta[func]/(gamm[func]*f3);
+  *A   = beta/(gamm*f3);
 
   if(order < 1) return;
 
   df1dphi = -3.0*f1/phi;
   dx      = (*A)*f2/f3;
 
-  *dec    = dx/(gamm[func]*phi3);
+  *dbeta  = 1.0/(gamm*f3);
+  *dec    = dx/(gamm*phi3);
   *dphi   = dx*df1dphi;
 
   if(order < 2) return;
@@ -106,17 +101,17 @@ pbe_eq8(int func, int order, FLOAT ecunif, FLOAT phi,
   d2x       = dx*(2.0*f2 - f3)/f3;
   *dphi2    = d2x*df1dphi*df1dphi + dx*d2f1dphi2;
   *decphi   = (d2x*df1dphi*f1 + dx*df1dphi)/ecunif;
-  *dec2     = d2x/(gamm[func]*gamm[func]*phi3*phi3);
+  *dec2     = d2x/(gamm*gamm*phi3*phi3);
 }
 
 
-static void 
-pbe_eq7(int func, int order, FLOAT phi, FLOAT t, FLOAT A, FLOAT B,
-	FLOAT *H, FLOAT *dphi, FLOAT *dt, FLOAT *dA,
+static inline void 
+pbe_eq7(int order, FLOAT beta, FLOAT gamm, FLOAT phi, FLOAT t, FLOAT A, FLOAT B,
+	FLOAT *H, FLOAT *dbeta, FLOAT *dphi, FLOAT *dt, FLOAT *dA,
 	FLOAT *d2phi, FLOAT *d2phit, FLOAT *d2phiA, FLOAT *d2t2, FLOAT *d2tA, FLOAT *d2A2)
 {
   FLOAT t2, phi3, f1, f2, f3;
-  FLOAT df1dt, df2dt, df1dA, df2dA;
+  FLOAT df2dbeta, df1dt, df2dt, df1dA, df2dA;
   FLOAT d2f1dt2, d2f2dt2, d2f2dA2, d2f1dtA, d2f2dtA;
 
   t2   = t*t;
@@ -124,21 +119,24 @@ pbe_eq7(int func, int order, FLOAT phi, FLOAT t, FLOAT A, FLOAT B,
 
   f1 = t2 + B*A*t2*t2;
   f3 = 1.0 + A*f1;
-  f2 = beta[func]*f1/(gamm[func]*f3);
+  f2 = beta*f1/(gamm*f3);
 
-  *H = gamm[func]*phi3*log(1.0 + f2);
+  *H = gamm*phi3*log(1.0 + f2);
 
   if(order < 1) return;
 
   *dphi  = 3.0*(*H)/phi;
     
-  df1dt  = t*(2.0 + 4.0*B*A*t2);
-  df2dt  = beta[func]/(gamm[func]*f3*f3) * df1dt;
-  *dt    = gamm[func]*phi3*df2dt/(1.0 + f2);
+  df2dbeta = f2/beta;
+  *dbeta   = gamm*phi3*df2dbeta/(1.0 + f2);
+
+  df1dt    = t*(2.0 + 4.0*B*A*t2);
+  df2dt    = beta/(gamm*f3*f3) * df1dt;
+  *dt      = gamm*phi3*df2dt/(1.0 + f2);
     
-  df1dA  = B*t2*t2;
-  df2dA  = beta[func]/(gamm[func]*f3*f3) * (df1dA - f1*f1);
-  *dA    = gamm[func]*phi3*df2dA/(1.0 + f2);
+  df1dA    = B*t2*t2;
+  df2dA    = beta/(gamm*f3*f3) * (df1dA - f1*f1);
+  *dA      = gamm*phi3*df2dA/(1.0 + f2);
 
   if(order < 2) return;
 
@@ -147,33 +145,36 @@ pbe_eq7(int func, int order, FLOAT phi, FLOAT t, FLOAT A, FLOAT B,
   *d2phiA = 3.0*(*dA)/phi;
 
   d2f1dt2 = 2.0 + 4.0*3.0*B*A*t2;
-  d2f2dt2 = beta[func]/(gamm[func]*f3*f3) * (d2f1dt2 - 2.0*A/f3*df1dt*df1dt);
-  *d2t2   = gamm[func]*phi3*(d2f2dt2*(1.0 + f2) - df2dt*df2dt)/((1.0 + f2)*(1.0 + f2));
+  d2f2dt2 = beta/(gamm*f3*f3) * (d2f1dt2 - 2.0*A/f3*df1dt*df1dt);
+  *d2t2   = gamm*phi3*(d2f2dt2*(1.0 + f2) - df2dt*df2dt)/((1.0 + f2)*(1.0 + f2));
 
   d2f1dtA = 4.0*B*t*t2;
-  d2f2dtA = beta[func]/(gamm[func]*f3*f3) * 
+  d2f2dtA = beta/(gamm*f3*f3) * 
     (d2f1dtA - 2.0*df1dt*(f1 + A*df1dA)/f3);
-  *d2tA   = gamm[func]*phi3*(d2f2dtA*(1.0 + f2) - df2dt*df2dA)/((1.0 + f2)*(1.0 + f2));
+  *d2tA   = gamm*phi3*(d2f2dtA*(1.0 + f2) - df2dt*df2dA)/((1.0 + f2)*(1.0 + f2));
 
-  d2f2dA2 = beta[func]/(gamm[func]*f3*f3*f3) *(-2.0)*(2.0*f1*df1dA - f1*f1*f1 + A*df1dA*df1dA);
-  *d2A2   = gamm[func]*phi3*(d2f2dA2*(1.0 + f2) - df2dA*df2dA)/((1.0 + f2)*(1.0 + f2));
+  d2f2dA2 = beta/(gamm*f3*f3*f3) *(-2.0)*(2.0*f1*df1dA - f1*f1*f1 + A*df1dA*df1dA);
+  *d2A2   = gamm*phi3*(d2f2dA2*(1.0 + f2) - df2dA*df2dA)/((1.0 + f2)*(1.0 + f2));
 }
 
 
 inline void 
 XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
 {
+  /* parameter for beta of VPBE */
+  static FLOAT b_1 = 0.066725, b_2 = 0.1, b_3 = 0.1778;
+
   FLOAT phi, t;
 
-  FLOAT A, dAdec, dAdphi, d2Adec2, d2Adecphi, d2Adphi2;
-  FLOAT H, dHdphi, dHdt, dHdA, d2Hdphi2, d2Hdphit, d2HdphiA, d2Hdt2, d2HdtA, d2HdA2;
-  FLOAT dfdphi, dfdec, dfdt, dtdrs, dtdxt, dtdphi, dphidz;
+  FLOAT A, dAdbeta, dAdec, dAdphi, d2Adec2, d2Adecphi, d2Adphi2;
+  FLOAT H, dHdbeta, dHdphi, dHdt, dHdA, d2Hdphi2, d2Hdphit, d2HdphiA, d2Hdt2, d2HdtA, d2HdA2;
+  FLOAT dfdbeta, dfdphi, dfdec, dfdt, dtdrs, dtdxt, dtdphi, dphidz;
   FLOAT d2fdphi2, d2fdphit, d2fdphiec, d2fdt2, d2fdtec, d2fdec2;
   FLOAT d2tdrs2, d2tdrsxt, d2tdphi2, d2tdrsphi, d2tdxtphi, d2phidz2;
   FLOAT B;
 
   XC(lda_work_t) pw;
-  FLOAT tconv, auxp, auxm;
+  FLOAT tconv, auxp, auxm, beta, gamm, beta_den, dbetadrs;
 
   pw.order = r->order;
   pw.rs[0] = SQRT(r->rs);
@@ -191,19 +192,36 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   phi  = 0.5*(auxp*auxp + auxm*auxm);
   t    = r->xt/(tconv*phi*pw.rs[0]);
 
-  pbe_eq8(p->func, r->order, pw.zk, phi,
-	  &A, &dAdec, &dAdphi, &d2Adec2, &d2Adecphi, &d2Adphi2);
+  if(p->func == 2)
+    gamm = cnst_beta[2]*cnst_beta[2]/(2.0*0.197363); /* for xPBE */
+  else
+    gamm = (1.0 - log(2.0))/(M_PI*M_PI);
+
+  if(p->func == 7){
+    beta_den = (1.0 + b_3*r->rs);
+    beta = b_1 * (1.0 + b_2*r->rs)/beta_den;
+  }else
+    beta = cnst_beta[p->func];
+
+  pbe_eq8(r->order, beta, gamm, pw.zk, phi,
+	  &A, &dAdbeta, &dAdec, &dAdphi, &d2Adec2, &d2Adecphi, &d2Adphi2);
 
   /* the sPBE functional contains one term less than the original PBE, so we set it to zero */
   B = (p->func == 6) ? 0.0 : 1.0;
-  pbe_eq7(p->func, r->order, phi, t, A, B,
-	  &H, &dHdphi, &dHdt, &dHdA, &d2Hdphi2, &d2Hdphit, &d2HdphiA, &d2Hdt2, &d2HdtA, &d2HdA2);
+  pbe_eq7(r->order, beta, gamm, phi, t, A, B,
+	  &H, &dHdbeta, &dHdphi, &dHdt, &dHdA, &d2Hdphi2, &d2Hdphit, &d2HdphiA, &d2Hdt2, &d2HdtA, &d2HdA2);
 
   r->f = pw.zk + H;
 
   if(r->order < 1) return;
 
-  /* full derivatives of functional with respect to phi and zk */
+  if(p->func == 7){
+    dbetadrs = b_1*(b_2 - b_3)/(beta_den*beta_den);
+  }else
+    dbetadrs = 0.0;
+
+  /* full derivatives of functional */
+  dfdbeta= dHdbeta + dHdA*dAdbeta;
   dfdphi = dHdphi + dHdA*dAdphi;
   dfdt   = dHdt;
   dfdec  = 1.0 + dHdA*dAdec;
@@ -217,9 +235,9 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   dtdxt  =  t/r->xt;
   dtdphi = -t/phi;
 
-  r->dfdrs   = dfdec*pw.dedrs + dHdt*dtdrs;
+  r->dfdrs   = dfdec*pw.dedrs + dfdt*dtdrs + dfdbeta*dbetadrs;
   r->dfdz    = dfdec*pw.dedz + (dfdphi + dfdt*dtdphi)*dphidz;
-  r->dfdxt   = dHdt*dtdxt;
+  r->dfdxt   = dfdt*dtdxt;
   r->dfdxs[0] = 0.0;
   r->dfdxs[1] = 0.0;
 
@@ -355,6 +373,20 @@ const XC(func_info_type) XC(func_info_gga_c_spbe) = {
   XC_FAMILY_GGA,
   "M Swart, M Sola, and FM Bickelhaupt, J. Chem. Phys. 131, 094103 (2009)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-12, 1e-32, 0.0, 1e-32,
+  gga_c_pbe_init,
+  NULL, NULL,
+  work_gga_c,
+};
+
+
+const XC(func_info_type) XC(func_info_gga_c_vpbe) = {
+  XC_GGA_C_VPBE,
+  XC_CORRELATION,
+  "variant PBE",
+  XC_FAMILY_GGA,
+  "JP Perdew, A Ruzsinszky, GI Csonka, LA Constantin1, and J Sun, Phys. Rev. Lett. 103, 026403 (2009)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-12, 1e-32, 0.0, 1e-32,
   gga_c_pbe_init,
   NULL, NULL,

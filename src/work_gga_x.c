@@ -97,7 +97,7 @@ work_gga_x
       ds     = rho[is]/sfact;
       rhoLDA = POW(ds, alpha);
       x      = gdm/POW(ds, beta);
-      
+
       dfdx = d2fdx2 = 0.0;
       lvsigma = lv2sigma2 = lvsigmax = lvrho = 0.0;
 

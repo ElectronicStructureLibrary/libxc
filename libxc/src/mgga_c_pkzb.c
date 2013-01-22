@@ -24,22 +24,49 @@
 
 #define XC_MGGA_C_TPSS          231 /* Perdew, Tao, Staroverov & Scuseria correlation */
 #define XC_MGGA_C_PKZB          239 /* Perdew, Kurth, Zupan, and Blaha */
+#define XC_MGGA_C_REVTPSS       241 /* revised TPSS correlation */
+
+static FLOAT C0_c_pkzb   [4] = {0.53, 0.87,   0.50,   2.26};
+static FLOAT C0_c_revtpss[4] = {0.59, 0.9269, 0.6225, 2.1540};
+
+typedef struct{
+  const FLOAT *C0_c;
+} mgga_c_pkzb_params;
+
 
 static void 
 mgga_c_pkzb_init(XC(func_type) *p)
 {
-  assert(p != NULL);
+  mgga_c_pkzb_params *params;
+
+  assert(p != NULL && p->params == NULL);
 
   p->n_func_aux  = 1;
   p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
 
   XC(func_init)(p->func_aux[0], XC_GGA_C_PBE, XC_POLARIZED);
+
+  p->params = malloc(sizeof(mgga_c_pkzb_params));
+  params = (mgga_c_pkzb_params *)p->params;
+
+  switch(p->info->number){
+  case XC_MGGA_C_PKZB:
+  case XC_MGGA_C_TPSS:
+    params->C0_c = C0_c_pkzb;
+    break;
+  case XC_MGGA_C_REVTPSS:
+    params->C0_c = C0_c_revtpss;
+    break;
+  default:
+    fprintf(stderr, "Internal error in mgga_c_tpss\n");
+    exit(1);
+  }
 }
 
 
 static void
-tpss_eq_13_14(FLOAT zeta, FLOAT csi2, int order, FLOAT *C, FLOAT *dCdzeta, FLOAT *dCdcsi2)
+tpss_eq_13_14(const FLOAT *C0_c, FLOAT zeta, FLOAT csi2, int order, FLOAT *C, FLOAT *dCdzeta, FLOAT *dCdcsi2)
 {
   FLOAT fz, C0, dC0dz, dfzdz, aa, a4;
   FLOAT z2=zeta*zeta;
@@ -51,7 +78,7 @@ tpss_eq_13_14(FLOAT zeta, FLOAT csi2, int order, FLOAT *C, FLOAT *dCdzeta, FLOAT
   }
 
   /* Equation (13) */
-  C0    = 0.53 + z2*(0.87 + z2*(0.50 + z2*2.26));
+  C0    = C0_c[0] + z2*(C0_c[1] + z2*(C0_c[2] + z2*C0_c[3]));
   fz    = 0.5*(POW(1.0 + zeta, -4.0/3.0) + POW(1.0 - zeta, -4.0/3.0));
 
   /* Equation (14) */
@@ -62,7 +89,7 @@ tpss_eq_13_14(FLOAT zeta, FLOAT csi2, int order, FLOAT *C, FLOAT *dCdzeta, FLOAT
 
   if(order > 0){
     /* Equation (13) */
-    dC0dz = zeta*(2.0*0.87 + z2*(4.0*0.5 + z2*6.0*2.26));
+    dC0dz = zeta*(2.0*C0_c[1] + z2*(4.0*C0_c[2] + z2*6.0*C0_c[3]));
     dfzdz = 0.5*(POW(1.0 + zeta, -7.0/3.0) - POW(1.0 - zeta, -7.0/3.0))*(-4.0/3.0);
   
     /* Equation (14) */
@@ -79,15 +106,20 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   static const FLOAT tmin = 0.5e-10;
 
   XC(gga_work_c_t) PBE[3];
+  mgga_c_pkzb_params *params;
+
   FLOAT opz, omz, opz13, omz13, opz23, omz23, taut, xtot, dd, dd2, ddt, ddt2;
   FLOAT C, dCdz, dCdxt, dCdxs[2];
   FLOAT dtautdz, dtautdts[2], dxtotdz, dxtotdxt, dxtotdxs[2];
   FLOAT ddddz, ddddxt, ddddxs[2], ddddts[2], dddtdz, dddtdxt, dddtdxs[2], dddtdts[2];
-  int is, get_max;
+  int is, is_tpss;
+
+  assert(pt!=NULL && pt->params != NULL);
+  params = (mgga_c_pkzb_params *)pt->params;  
 
   /* first we get the parallel and perpendicular PBE */
-  get_max = (pt->info->number == XC_MGGA_C_TPSS) ? 1 : 0;
-  XC(pbe_c_stoll) (pt->func_aux[0], get_max, r, PBE);
+  is_tpss = (pt->info->number == XC_MGGA_C_TPSS || pt->info->number == XC_MGGA_C_REVTPSS) ? 1 : 0;
+  XC(pbe_c_stoll) (pt->func_aux[0], is_tpss, r, PBE);
 
   opz = 1.0 + r->zeta;
   omz = 1.0 - r->zeta;
@@ -99,7 +131,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   omz23 = omz13*omz13;
 
   /* get value of C */
-  if(pt->info->number == XC_MGGA_C_TPSS){
+  if(is_tpss){
     FLOAT z2, cnst, aux, csi2;
     FLOAT dCdcsi2,dauxdz, dcsi2dz, dcsi2dxt, dcsi2dxs[2];
 
@@ -109,7 +141,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
     aux  = -r->xt*r->xt + (r->xs[0]*r->xs[0]*opz*opz23 + r->xs[1]*r->xs[1]*omz*omz23)/(2.0*M_CBRT2*M_CBRT2);
     csi2 = (1.0 - z2)*aux/(cnst*cnst);
 
-    tpss_eq_13_14(r->zeta, csi2, r->order, &C, &dCdz, &dCdcsi2);
+    tpss_eq_13_14(params->C0_c, r->zeta, csi2, r->order, &C, &dCdz, &dCdcsi2);
 
     if(r->order >= 1){
       dauxdz   = 5.0*(r->xs[0]*r->xs[0]*opz23 - r->xs[1]*r->xs[1]*omz23)/(6.0*M_CBRT2*M_CBRT2);
@@ -133,7 +165,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   /* we get the spin compensated part */
   taut = (r->ts[0]*opz*opz23 + r->ts[1]*omz*omz23)/(2.0*M_CBRT2*M_CBRT2);
 
-  if(pt->info->number == XC_MGGA_C_TPSS)
+  if(is_tpss)
     xtot = r->xt*r->xt;
   else
     xtot = (r->xs[0]*r->xs[0]*opz*opz23 + r->xs[1]*r->xs[1]*omz*omz23)/(2.0*M_CBRT2*M_CBRT2);
@@ -151,7 +183,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
       dtautdts[0] = opz*opz23/(2.0*M_CBRT2*M_CBRT2);
       dtautdts[1] = omz*omz23/(2.0*M_CBRT2*M_CBRT2);
 
-      if(pt->info->number == XC_MGGA_C_TPSS){
+      if(is_tpss){
 	dxtotdz     = 0.0;
 	dxtotdxt    = 2.0*r->xt;
 	dxtotdxs[0] = 0.0;
@@ -189,7 +221,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   for(is = 0; is < 2; is++){
     int js = (is == 0) ? 1 : 0;
 
-    if(pt->info->number == XC_MGGA_C_TPSS){
+    if(is_tpss){
       dd  = ddt;
       dd2 = ddt2;
     }else{
@@ -201,7 +233,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
     if(r->order < 1) continue;
 
-    if(pt->info->number == XC_MGGA_C_TPSS){
+    if(is_tpss){
       ddddz     = dddtdz;
       ddddxt    = dddtdxt;
       ddddxs[0] = dddtdxs[0];
@@ -226,7 +258,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
     r->dfdts[1] += -(1.0 + C)*2.0*dd*ddddts[1]*PBE[is].f;
   }
 
-  if(pt->info->number == XC_MGGA_C_TPSS){
+  if(is_tpss){
     r->f = r->f*(1.0 + param_d*r->f*ddt*ddt2);
 
     if(r->order >= 1){
@@ -271,3 +303,17 @@ XC(func_info_type) XC(func_info_mgga_c_tpss) = {
   NULL, NULL, NULL,
   work_mgga_c,
 };
+
+XC(func_info_type) XC(func_info_mgga_c_revtpss) = {
+  XC_MGGA_C_REVTPSS,
+  XC_CORRELATION,
+  "revised TPSS correlation",
+  XC_FAMILY_MGGA,
+  "JP Perdew, A Ruzsinszky, GI Csonka, LA Constantin1, and J Sun, Phys. Rev. Lett. 103, 026403 (2009)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-26, 1e-32, 1e-32, 1e-32, /* densities smaller than 1e-26 give NaNs */
+  mgga_c_pkzb_init,
+  NULL, NULL, NULL,
+  work_mgga_c,
+};
+

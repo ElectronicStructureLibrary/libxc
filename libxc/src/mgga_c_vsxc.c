@@ -68,6 +68,8 @@ typedef struct{
 static void 
 mgga_c_vsxc_init(XC(func_type) *p)
 {
+  mgga_c_m06l_params *params;
+
   assert(p != NULL);
 
   p->n_func_aux  = 1;
@@ -75,8 +77,6 @@ mgga_c_vsxc_init(XC(func_type) *p)
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
 
   XC(func_init)(p->func_aux[0], XC_LDA_C_PW_MOD, XC_POLARIZED);
-
-  mgga_c_m06l_params *params;
 
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(mgga_c_m06l_params));
@@ -145,7 +145,7 @@ mgga_c_vsxc_init(XC(func_type) *p)
     params->dss = m062x_dss;
     break;    
   default:
-    fprintf(stderr, "Internal error in mgga_c_m06l\n");
+    fprintf(stderr, "Internal error in mgga_c_vsxc\n");
     exit(1);
   }  
 }

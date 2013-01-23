@@ -381,10 +381,10 @@ module XC_F90(lib_m)
       real(xc_f90_kind),       intent(in)  :: omega       ! range separation
     end subroutine XC_F90(hyb_gga_xc_hse_set_par)
 
-    subroutine XC_F90(hyb_gga_xc_pbeh_set_par)(p, omega)
+    subroutine XC_F90(hyb_gga_xc_pbeh_set_par)(p, alpha)
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(in)  :: p
-      real(xc_f90_kind),       intent(in)  :: omega       ! range separation
+      real(xc_f90_kind),       intent(in)  :: alpha       ! mixing
     end subroutine XC_F90(hyb_gga_xc_pbeh_set_par)
   end interface
 

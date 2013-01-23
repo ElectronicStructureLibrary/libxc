@@ -184,14 +184,6 @@ FLOAT XC(hyb_exx_coef)(const XC(func_type) *p)
   return p->cam_alpha;
 }
 
-/* sets the mixing coefficient for hybrids */
-void XC(hyb_set_exx_coef)(XC(func_type) *p, FLOAT alpha)
-{
-  assert(p!=NULL);
-  p->cam_alpha = alpha;
-}
-
-
 /* returns the CAM parameters for screened hybrids */
 void XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT *beta)
 {
@@ -200,15 +192,4 @@ void XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT 
   *omega = p->cam_omega;
   *alpha = p->cam_alpha;
   *beta  = p->cam_beta;
-}
-
-
-/* sets the CAM parameters for screened hybrids */
-void XC(hyb_set_cam_coef)(XC(func_type) *p, FLOAT omega, FLOAT alpha, FLOAT beta)
-{
-  assert(p!=NULL);
-
-  p->cam_omega = omega;
-  p->cam_alpha = alpha;
-  p->cam_beta = beta;
 }

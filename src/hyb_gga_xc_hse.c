@@ -35,7 +35,6 @@ hyb_gga_xc_hse_init(XC(func_type) *p)
   static FLOAT funcs_coef[3] = {1.0, -0.25, 1.0};  
 
   XC(mix_init)(p, 3, funcs_id, funcs_coef);
-  p->cam_beta = 0.25;
   
   /* Note that there is an enormous mess in the literature concerning
      the values of omega in HSE. This is due to an error in the
@@ -62,12 +61,12 @@ hyb_gga_xc_hse_init(XC(func_type) *p)
     /* in this case one should use omega^HF = 0.15/sqrt(2) and
        omega^PBE = 0.15*CBRT(2.0)*/
     p->cam_omega = 0.15/M_SQRT2;
-    XC(hyb_gga_xc_hse_set_params)(p, 0.15*CBRT(2.0));
+    XC(hyb_gga_xc_hse_set_params)(p, 0.25, 0.15*CBRT(2.0));
     break;
   case XC_HYB_GGA_XC_HSE06:
     /* in this case one should use omega^HF = omega^PBE = 0.11 */
     p->cam_omega = 0.11;
-    XC(hyb_gga_xc_hse_set_params)(p, 0.11);
+    XC(hyb_gga_xc_hse_set_params)(p, 0.25, 0.11);
     break;
   default:
     fprintf(stderr, "Internal error in hyb_gga_xc_hse\n");
@@ -77,10 +76,13 @@ hyb_gga_xc_hse_init(XC(func_type) *p)
 
 
 void 
-XC(hyb_gga_xc_hse_set_params)(XC(func_type) *p, FLOAT omega)
+XC(hyb_gga_xc_hse_set_params)(XC(func_type) *p, FLOAT beta, FLOAT omega)
 {
   assert(p != NULL && p->func_aux[1] != NULL);
+  assert(beta>=0.0 && beta<=1.0);
 
+  p->cam_beta    =  beta;
+  p->mix_coef[1] = -beta;
   XC(gga_x_wpbeh_set_params)(p->func_aux[1], omega);
 }
 

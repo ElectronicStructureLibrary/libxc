@@ -183,15 +183,15 @@ void XC(gga_k_tflw_set_params)    (XC(func_type) *p, FLOAT gamma, FLOAT lambda, 
 void XC(gga_x_2d_b88_set_params)  (XC(func_type) *p, FLOAT beta);
 void XC(gga_x_wpbeh_set_params)   (XC(func_type) *p, FLOAT omega);
 void XC(gga_x_hjs_set_params)     (XC(func_type) *p, FLOAT omega);
-void XC(hyb_gga_xc_hse_set_params)(XC(func_type) *p, FLOAT omega);
 void XC(gga_x_ityh_set_params)    (XC(func_type) *p, int func_id, FLOAT omega);
 void XC(gga_x_ssb_sw_set_params)  (XC(func_type) *p, FLOAT A, FLOAT B, FLOAT C, FLOAT D, FLOAT E);
 void XC(gga_x_kt_set_params)      (XC(func_type) *p, FLOAT gamma, FLOAT delta);
 
 FLOAT XC(hyb_exx_coef)(const XC(func_type) *p);
-void XC(hyb_set_exx_coef)(XC(func_type) *p, FLOAT alpha);
-void XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT *beta);
-void XC(hyb_set_cam_coef)(XC(func_type) *p, FLOAT omega, FLOAT alpha, FLOAT beta);
+void  XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT *beta);
+
+void XC(hyb_gga_xc_hse_set_params) (XC(func_type) *p, FLOAT alpha, FLOAT omega);
+void XC(hyb_gga_xc_pbeh_set_params)(XC(func_type) *p, FLOAT alpha);
 
 /* the meta-GGAs */
 int  XC(mgga_init)(XC(func_type) *p, const XC(func_info_type) *info, int nspin);

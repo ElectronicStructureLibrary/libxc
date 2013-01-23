@@ -33,6 +33,14 @@ hyb_gga_xc_pbeh_init(XC(func_type) *p)
   p->cam_alpha = 0.25;
 }
 
+void 
+XC(hyb_gga_xc_pbeh_set_params)(XC(func_type) *p, FLOAT alpha)
+{
+  assert(alpha>=0 && alpha<=1.0);
+
+  p->cam_alpha   = alpha;
+  p->mix_coef[0] = 1.0 - alpha;
+}
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeh) = {
   XC_HYB_GGA_XC_PBEH,

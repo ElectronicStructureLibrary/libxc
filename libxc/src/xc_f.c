@@ -262,12 +262,6 @@ void XC_FC_FUNC(f90_gga_x_wpbeh_set_par, F90_GGA_X_WPBEH_SET_PAR)
   XC(gga_x_wpbeh_set_params)((XC(func_type) *)(*p), *omega);
 }
 
-void XC_FC_FUNC(f90_hyb_gga_xc_hse_set_par, F90_HYB_GGA_XC_HSE_SET_PAR)
-  (void **p, FLOAT *omega)
-{
-  XC(hyb_gga_xc_hse_set_params)((XC(func_type) *)(*p), *omega);
-}
-
 void XC_FC_FUNC(f90_gga_x_hjs_set_par, F90_GGA_X_HJS_SET_PAR)
   (void **p, FLOAT *omega)
 {
@@ -280,24 +274,23 @@ void XC_FC_FUNC(f90_hyb_exx_coef, F90_HYB_EXX_COEF)
   *coef = XC(hyb_exx_coef)((XC(func_type) *)(*p));
 }
 
-void XC_FC_FUNC(f90_hyb_set_exx_coef, F90_HYB_SET_EXX_COEF)
-   (void **p, FLOAT *coef)
-{
-  XC(hyb_set_exx_coef)((XC(func_type) *)(*p), *coef);
-}
-
 void XC_FC_FUNC(f90_hyb_cam_coef, F90_HYB_CAM_COEF)
   (void **p, FLOAT *omega, FLOAT *alpha, FLOAT *beta)
 {
   XC(hyb_cam_coef)((XC(func_type) *)(*p), omega, alpha, beta);
 }
 
-void XC_FC_FUNC(f90_hyb_set_cam_coef, F90_HYB_SET_CAM_COEF)
-  (void **p, FLOAT *omega, FLOAT *alpha, FLOAT *beta)
+void XC_FC_FUNC(f90_hyb_gga_xc_hse_set_par, F90_HYB_GGA_XC_HSE_SET_PAR)
+  (void **p, FLOAT *beta, FLOAT *omega)
 {
-  XC(hyb_set_cam_coef)((XC(func_type) *)(*p), *omega, *alpha, *beta);
+  XC(hyb_gga_xc_hse_set_params)((XC(func_type) *)(*p), *beta, *omega);
 }
 
+void XC_FC_FUNC(f90_hyb_gga_xc_pbeh_set_par, F90_HYB_GGA_XC_PBEH_SET_PAR)
+  (void **p, FLOAT *alpha)
+{
+  XC(hyb_gga_xc_pbeh_set_params)((XC(func_type) *)(*p), *alpha);
+}
 
 /* meta-GGAs */
 

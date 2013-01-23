@@ -340,34 +340,6 @@ module XC_F90(lib_m)
 
   !----------------------------------------------------------------
   interface
-    subroutine XC_F90(hyb_exx_coef)(p, coef)
-      use XC_F90(types_m)
-      type(XC_F90(pointer_t)), intent(in)  :: p
-      real(xc_f90_kind),       intent(out) :: coef
-    end subroutine XC_F90(hyb_exx_coef)
-
-    subroutine XC_F90(hyb_set_exx_coef)(p, coef)
-      use XC_F90(types_m)
-      type(XC_F90(pointer_t)), intent(in)  :: p
-      real(xc_f90_kind),       intent(in)  :: coef
-    end subroutine XC_F90(hyb_set_exx_coef)
-
-    subroutine XC_F90(hyb_cam_coef)(p, omega, alpha, beta)
-      use XC_F90(types_m)
-      type(XC_F90(pointer_t)), intent(in)  :: p
-      real(xc_f90_kind),       intent(out) :: omega, alpha, beta
-    end subroutine XC_F90(hyb_cam_coef)
-
-    subroutine XC_F90(hyb_set_cam_coef)(p, omega, alpha, beta)
-      use XC_F90(types_m)
-      type(XC_F90(pointer_t)), intent(in)  :: p
-      real(xc_f90_kind),       intent(in)  :: omega, alpha, beta
-    end subroutine XC_F90(hyb_set_cam_coef)
-  end interface
-
-
-  !----------------------------------------------------------------
-  interface
     subroutine XC_F90(gga_x_wpbeh_set_par)(p, omega)
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(in)  :: p
@@ -386,11 +358,34 @@ module XC_F90(lib_m)
 
   !----------------------------------------------------------------
   interface
-    subroutine XC_F90(hyb_gga_xc_hse_set_par)(p, omega)
+    subroutine XC_F90(hyb_exx_coef)(p, coef)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(in)  :: p
+      real(xc_f90_kind),       intent(out) :: coef
+    end subroutine XC_F90(hyb_exx_coef)
+
+    subroutine XC_F90(hyb_cam_coef)(p, omega, alpha, beta)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(in)  :: p
+      real(xc_f90_kind),       intent(out) :: omega, alpha, beta
+    end subroutine XC_F90(hyb_cam_coef)
+  end interface
+
+
+  !----------------------------------------------------------------
+  interface
+    subroutine XC_F90(hyb_gga_xc_hse_set_par)(p, beta, omega)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(in)  :: p
+      real(xc_f90_kind),       intent(in)  :: beta        ! mixing
+      real(xc_f90_kind),       intent(in)  :: omega       ! range separation
+    end subroutine XC_F90(hyb_gga_xc_hse_set_par)
+
+    subroutine XC_F90(hyb_gga_xc_pbeh_set_par)(p, omega)
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(in)  :: p
       real(xc_f90_kind),       intent(in)  :: omega       ! range separation
-    end subroutine XC_F90(hyb_gga_xc_hse_set_par)
+    end subroutine XC_F90(hyb_gga_xc_pbeh_set_par)
   end interface
 
 

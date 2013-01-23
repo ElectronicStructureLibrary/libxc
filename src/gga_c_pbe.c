@@ -385,7 +385,7 @@ const XC(func_info_type) XC(func_info_gga_c_vpbe) = {
   XC_CORRELATION,
   "variant PBE",
   XC_FAMILY_GGA,
-  "JP Perdew, A Ruzsinszky, GI Csonka, LA Constantin1, and J Sun, Phys. Rev. Lett. 103, 026403 (2009)",
+  "JP Perdew, A Ruzsinszky, GI Csonka, LA Constantin, and J Sun, Phys. Rev. Lett. 103, 026403 (2009)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-12, 1e-32, 0.0, 1e-32,
   gga_c_pbe_init,

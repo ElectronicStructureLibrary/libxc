@@ -21,10 +21,10 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_GGA_XC_XLYP     166  /* XLYP functional */
-#define XC_GGA_XC_PBE1W    173  /* Functionals fitted for water */
-#define XC_GGA_XC_MPWLYP1W 174  /* Functionals fitted for water */
-#define XC_GGA_XC_PBELYP1W 175  /* Functionals fitted for water */
+#define XC_GGA_XC_XLYP       166  /* XLYP functional */
+#define XC_GGA_XC_PBE1W      173  /* Functionals fitted for water */
+#define XC_GGA_XC_MPWLYP1W   174  /* Functionals fitted for water */
+#define XC_GGA_XC_PBELYP1W   175  /* Functionals fitted for water */
 
 static void
 gga_xc_xlyp_init(XC(func_type) *p)

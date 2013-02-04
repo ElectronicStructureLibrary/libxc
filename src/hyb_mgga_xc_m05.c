@@ -34,6 +34,8 @@
 #define XC_HYB_MGGA_XC_M06_HF   444 /* M06-HF functional of Minnesota                   */
 #define XC_HYB_MGGA_XC_M06      449 /* M06 functional of Minnesota                      */
 #define XC_HYB_MGGA_XC_M06_2X   450 /* M06-2X functional of Minnesota                   */
+#define XC_HYB_MGGA_XC_PW6B95   451 /* Mixture of PW91 with BC95 from Zhao and Truhlar  */
+#define XC_HYB_MGGA_XC_PWB6K    452 /* Mixture of PW91 with BC95 from Zhao and Truhlar for kinetics */
 
 /*************************************************************/
 void
@@ -359,3 +361,53 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_m06_2x) = {
 };
 
 
+/*************************************************************/
+void
+XC(hyb_mgga_xc_pw6b95_init)(XC(func_type) *p)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_PW91, XC_MGGA_C_BC95};
+  static FLOAT funcs_coef[2] = {1.0 - 0.28, 1.0};
+
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  XC(gga_x_pw91_set_params2)(p->func_aux[0], 0.00538, 1.7382/(X2S*X2S), 3.8901);
+  XC(mgga_c_bc95_set_params)(p->func_aux[1], 0.03668, 0.00262);
+  p->cam_alpha = 0.28;
+}
+
+XC(func_info_type) XC(func_info_hyb_mgga_xc_pw6b95) = {
+  XC_HYB_MGGA_XC_PW6B95,
+  XC_EXCHANGE_CORRELATION,
+  "Mixture of PW91 with BC95 from Zhao and Truhlar",
+  XC_FAMILY_HYB_MGGA,
+  "Y Zhao and DG Truhlar, J. Phys. Chem. A 109, 5656-5667 (2005)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 1e-32, 1e-32,
+  XC(hyb_mgga_xc_pw6b95_init),
+  NULL, NULL, NULL, NULL,
+};
+
+
+/*************************************************************/
+void
+XC(hyb_mgga_xc_pwb6k_init)(XC(func_type) *p)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_PW91, XC_MGGA_C_BC95};
+  static FLOAT funcs_coef[2] = {1.0 - 0.46, 1.0};
+
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  XC(gga_x_pw91_set_params2)(p->func_aux[0], 0.00539, 1.7077/(X2S*X2S), 4.0876);
+  XC(mgga_c_bc95_set_params)(p->func_aux[1], 0.04120, 0.00353);
+  p->cam_alpha = 0.46;
+}
+
+XC(func_info_type) XC(func_info_hyb_mgga_xc_pwb6k) = {
+  XC_HYB_MGGA_XC_PWB6K,
+  XC_EXCHANGE_CORRELATION,
+  "Mixture of PW91 with BC95 from Zhao and Truhlar for kinetics",
+  XC_FAMILY_HYB_MGGA,
+  "Y Zhao and DG Truhlar, J. Phys. Chem. A 109, 5656-5667 (2005)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 1e-32, 1e-32,
+  XC(hyb_mgga_xc_pwb6k_init),
+  NULL, NULL, NULL, NULL,
+};

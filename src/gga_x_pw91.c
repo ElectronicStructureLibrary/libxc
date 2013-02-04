@@ -49,7 +49,7 @@ gga_x_pw91_init(XC(func_type) *p)
       
       also the power seems to be 3.72 and not 3.73
     */
-    XC(gga_x_pw91_set_params2)(p, 0.00426, 100, 3.72);
+    XC(gga_x_pw91_set_params2)(p, 0.00426, 100.0, 3.72);
     break;
   case XC_GGA_K_LC94:
     XC(gga_x_pw91_set_params)(p, 0.093907, 76.320, 0.26608, -0.0809615, 0.000057767, 100.0, 4.0);

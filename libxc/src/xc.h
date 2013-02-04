@@ -220,6 +220,7 @@ void XC(mgga_fxc)    (const XC(func_type) *p, int np,
 		      FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau);
 
 void XC(mgga_x_tb09_set_params)(XC(func_type) *p, FLOAT c);
+void XC(mgga_c_bc95_set_params)(XC(func_type) *p, FLOAT css, FLOAT copp);
 
 /* Functionals that are defined as mixtures of others */
 void XC(mix_func)

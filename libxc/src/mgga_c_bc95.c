@@ -24,10 +24,18 @@
 
 #define XC_MGGA_C_BC95          240 /* Becke correlation 95 */
 
+typedef struct{
+  FLOAT css, copp;
+} mgga_c_bc95_params;
+
+
 static void 
 mgga_c_bc95_init(XC(func_type) *p)
 {
-  assert(p != NULL);
+  assert(p!=NULL && p->params == NULL);
+  p->params = malloc(sizeof(mgga_c_bc95_params));
+
+  XC(mgga_c_bc95_set_params)(p, 0.038, 0.0031);
 
   p->n_func_aux  = 1;
   p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
@@ -37,18 +45,34 @@ mgga_c_bc95_init(XC(func_type) *p)
 }
 
 
+void 
+XC(mgga_c_bc95_set_params)(XC(func_type) *p, FLOAT css, FLOAT copp)
+{
+  mgga_c_bc95_params *params;
+
+  assert(p != NULL && p->params != NULL);
+  params = (mgga_c_bc95_params *) (p->params);
+
+  params->css  = css;
+  params->copp = copp;
+}
+
+
 static void 
-func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
+func(const XC(func_type) *p, XC(mgga_work_c_t) *r)
 {
   static const FLOAT sign[2] = {1.0, -1.0};
-  static const FLOAT css = 0.038, copp = 0.0031;
+  mgga_c_bc95_params *params;
 
   XC(lda_work_t) LDA[3];
   FLOAT opz, dd, g, g2, dgdxs, ddddxs, ddddts;
   int is;
 
+  assert(p != NULL && p->params != NULL);
+  params = (mgga_c_bc95_params *) (p->params);  
+
   /* first we get the parallel and perpendicular LDAS */
-  XC(lda_stoll) (pt->func_aux[0], r->dens, r->zeta, r->order, LDA);
+  XC(lda_stoll) (p->func_aux[0], r->dens, r->zeta, r->order, LDA);
 
   /* initialize to zero */
   r->f = 0.0;
@@ -66,9 +90,9 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   for(is = 0; is < 2; is++){
     opz   = 1.0 + sign[is]*r->zeta;
 
-    if(r->dens*opz < 2.0*pt->info->min_dens) continue;
+    if(r->dens*opz < 2.0*p->info->min_dens) continue;
 
-    g  = 1.0 + css*r->xs[is]*r->xs[is];
+    g  = 1.0 + params->css*r->xs[is]*r->xs[is];
     g2 = g*g;
 
     dd = (r->ts[is] - r->xs[is]*r->xs[is]/8.0)/K_FACTOR_C;
@@ -77,7 +101,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
     if(r->order < 1) continue;
 
-    dgdxs  = 2.0*css*r->xs[is];
+    dgdxs  = 2.0*params->css*r->xs[is];
     ddddxs = -r->xs[is]/(4.0*K_FACTOR_C);
     ddddts = 1.0/K_FACTOR_C;
 
@@ -88,7 +112,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   }
 
   /* and now we add the opposite-spin contribution */
-  g     = 1.0 + copp*(r->xs[0]*r->xs[0] + r->xs[1]*r->xs[1]);
+  g     = 1.0 + params->copp*(r->xs[0]*r->xs[0] + r->xs[1]*r->xs[1]);
   g2    = g*g;
 
   r->f += LDA[2].zk/g;
@@ -97,8 +121,8 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
   r->dfdrs    +=  LDA[2].dedrs/g;
   r->dfdz     +=  LDA[2].dedz/g;
-  r->dfdxs[0] += -LDA[2].zk*2.0*copp*r->xs[0]/g2;
-  r->dfdxs[1] += -LDA[2].zk*2.0*copp*r->xs[1]/g2;
+  r->dfdxs[0] += -LDA[2].zk*2.0*params->copp*r->xs[0]/g2;
+  r->dfdxs[1] += -LDA[2].zk*2.0*params->copp*r->xs[1]/g2;
 }
 
 #include "work_mgga_c.c"

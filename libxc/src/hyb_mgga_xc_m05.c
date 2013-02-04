@@ -21,21 +21,22 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_HYB_MGGA_XC_M05      438 /* M05 functional of Minnesota                      */
-#define XC_HYB_MGGA_XC_M05_2X   439 /* M05-2X functional of Minnesota                   */
-#define XC_HYB_MGGA_XC_B88B95   440 /* Mixture of B88 with BC95 (B1B95)                 */
-#define XC_HYB_MGGA_XC_B86B95   441 /* Mixture of B86 with BC95                         */
-#define XC_HYB_MGGA_XC_PW86B95  442 /* Mixture of PW86 with BC95                        */
-#define XC_HYB_MGGA_XC_BB1K     443 /* Mixture of B88 with BC95 from Zhao and Truhlar   */
-#define XC_HYB_MGGA_XC_MPW1B95  445 /* Mixture of mPW91 with BC95 from Zhao and Truhlar */
-#define XC_HYB_MGGA_XC_MPWB1K   446 /* Mixture of mPW91 with BC95 for kinetics          */
-#define XC_HYB_MGGA_XC_X1B95    447 /* Mixture of X with BC95                           */
-#define XC_HYB_MGGA_XC_XB1K     448 /* Mixture of X with BC95 for kinetics              */
-#define XC_HYB_MGGA_XC_M06_HF   444 /* M06-HF functional of Minnesota                   */
-#define XC_HYB_MGGA_XC_M06      449 /* M06 functional of Minnesota                      */
-#define XC_HYB_MGGA_XC_M06_2X   450 /* M06-2X functional of Minnesota                   */
-#define XC_HYB_MGGA_XC_PW6B95   451 /* Mixture of PW91 with BC95 from Zhao and Truhlar  */
-#define XC_HYB_MGGA_XC_PWB6K    452 /* Mixture of PW91 with BC95 from Zhao and Truhlar for kinetics */
+#define XC_HYB_MGGA_XC_M05      438  /* M05 functional of Minnesota                      */
+#define XC_HYB_MGGA_XC_M05_2X   439  /* M05-2X functional of Minnesota                   */
+#define XC_HYB_MGGA_XC_B88B95   440  /* Mixture of B88 with BC95 (B1B95)                 */
+#define XC_HYB_MGGA_XC_B86B95   441  /* Mixture of B86 with BC95                         */
+#define XC_HYB_MGGA_XC_PW86B95  442  /* Mixture of PW86 with BC95                        */
+#define XC_HYB_MGGA_XC_BB1K     443  /* Mixture of B88 with BC95 from Zhao and Truhlar   */
+#define XC_HYB_MGGA_XC_MPW1B95  445  /* Mixture of mPW91 with BC95 from Zhao and Truhlar */
+#define XC_HYB_MGGA_XC_MPWB1K   446  /* Mixture of mPW91 with BC95 for kinetics          */
+#define XC_HYB_MGGA_XC_X1B95    447  /* Mixture of X with BC95                           */
+#define XC_HYB_MGGA_XC_XB1K     448  /* Mixture of X with BC95 for kinetics              */
+#define XC_HYB_MGGA_XC_M06_HF   444  /* M06-HF functional of Minnesota                   */
+#define XC_HYB_MGGA_XC_M06      449  /* M06 functional of Minnesota                      */
+#define XC_HYB_MGGA_XC_M06_2X   450  /* M06-2X functional of Minnesota                   */
+#define XC_HYB_MGGA_XC_PW6B95   451  /* Mixture of PW91 with BC95 from Zhao and Truhlar  */
+#define XC_HYB_MGGA_XC_PWB6K    452  /* Mixture of PW91 with BC95 from Zhao and Truhlar for kinetics */
+#define XC_MGGA_XC_TPSSLYP1W    242  /* Functionals fitted for water */
 
 /*************************************************************/
 void
@@ -410,4 +411,27 @@ XC(func_info_type) XC(func_info_hyb_mgga_xc_pwb6k) = {
   1e-32, 1e-32, 1e-32, 1e-32,
   XC(hyb_mgga_xc_pwb6k_init),
   NULL, NULL, NULL, NULL,
+};
+
+
+/*************************************************************/
+static void
+mgga_xc_tpsslyp1w_init(XC(func_type) *p)
+{
+  static int   funcs_id  [3] = {XC_LDA_C_VWN, XC_MGGA_X_TPSS, XC_GGA_C_LYP};
+  static FLOAT funcs_coef[3] = {1.0 - 74.0/100.0, 1.0, 74.0/100.0};
+
+  XC(mix_init)(p, 3, funcs_id, funcs_coef);
+}
+
+const XC(func_info_type) XC(func_info_mgga_xc_tpsslyp1w) = {
+  XC_MGGA_XC_TPSSLYP1W,
+  XC_EXCHANGE_CORRELATION,
+  "TPSSLYP1W",
+  XC_FAMILY_MGGA,
+  "EE Dahlke and DG Truhlar, J. Phys. Chem. B 109, 15677 (2005)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  mgga_xc_tpsslyp1w_init, 
+  NULL, NULL, NULL
 };

@@ -24,8 +24,8 @@
 
 #define XC_MGGA_X_M08_HX       219 /* M08-HX functional of Minnesota */
 #define XC_MGGA_X_M08_SO       220 /* M08-SO functional of Minnesota */
-/*#define XC_MGGA_X_M11          225 *//* M11 functional of Minnesota */
-/*#define XC_MGGA_X_M11_L        226 *//* M11-L functional of Minnesota */
+#define XC_HYB_MGGA_X_M11      225 /* M11 functional of Minnesota */
+#define XC_MGGA_X_M11_L        226 /* M11-L functional of Minnesota */
 
 static const FLOAT a_m08_hx[12] = {
    1.3340172e+00, -9.4751087e+00, -1.2541893e+01,  9.1369974e+00,  3.4717204e+01,  5.8831807e+01,
@@ -73,6 +73,7 @@ static const FLOAT d_m11_l[12] = {
 
 typedef struct{
   const FLOAT *a, *b;
+  int LC;
 } mgga_x_m08_params;
 
 
@@ -91,7 +92,8 @@ mgga_x_m08_init(XC(func_type) *p)
   XC(func_init)(p->func_aux[0], XC_GGA_X_PBE,  p->nspin);
   XC(func_init)(p->func_aux[1], XC_GGA_X_RPBE, p->nspin);
 
-  XC(gga_x_pbe_set_params) (p->func_aux[1], 0.552, 10.0/81.0);
+  XC(gga_x_pbe_set_params)  (p->func_aux[0], 0.804, 0.21951);
+  XC(gga_x_rpbe_set_params) (p->func_aux[1], 0.552, 10.0/81.0);
 
   assert(p->params == NULL);
   p->params = malloc(sizeof(mgga_x_m08_params));
@@ -99,23 +101,28 @@ mgga_x_m08_init(XC(func_type) *p)
 
   switch(p->info->number){
   case XC_MGGA_X_M08_HX: 
-    params->a = a_m08_hx;
-    params->b = b_m08_hx;
+    params->a  = a_m08_hx;
+    params->b  = b_m08_hx;
+    params->LC = 0;
     break;
   case XC_MGGA_X_M08_SO:
-    params->a = a_m08_so;
-    params->b = b_m08_so;
+    params->a  = a_m08_so;
+    params->b  = b_m08_so;
+    params->LC = 0;
     break;
-    /*
-  case XC_MGGA_X_M11:
-    params->a = a_m11;
-    params->b = b_m11;
+  case XC_HYB_MGGA_X_M11:
+    params->a  = a_m11;
+    params->b  = b_m11;
+    params->LC = 1;
+    p->cam_alpha = 1.0;
+    p->cam_beta  = -(1.0 - 0.428);
+    p->cam_omega = 0.25;
     break;
   case XC_MGGA_X_M11_L:
-    params->a = a_m11_l;
-    params->b = b_m11_l;
+    params->a  = a_m11_l;
+    params->b  = b_m11_l;
+    params->LC = 1;
     break;
-    */
   default:
     fprintf(stderr, "Internal error in mgga_x_m08\n");
     exit(1);
@@ -124,36 +131,94 @@ mgga_x_m08_init(XC(func_type) *p)
 
 
 static void 
-func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
+func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 {
+  const FLOAT sign[2] = {1.0, -1.0};
   mgga_x_m08_params *params;
 
+  int is;
   FLOAT ep_f, ep_dfdx, ep_d2fdx2, er_f, er_dfdx, er_d2fdx2;
-  FLOAT fw1, fw2, dfw1dt, dfw2dt;
+  FLOAT fw1, fw2, fw3, fw4, dfw1dt, dfw2dt, dfw3dt, dfw4dt;
+  FLOAT cnst_rs, opz, opz13, rss, ex, drssdrs, drssdz, dexdrss, dexdz;
+  FLOAT a_cnst, f_aa, df_aa;
 
   assert(pt != NULL && pt->params != NULL);
   params = (mgga_x_m08_params *) (pt->params);
   
-  XC(gga_x_pbe_enhance)(pt->func_aux[0], r->order, r->x, &ep_f, &ep_dfdx, &ep_d2fdx2);
-  XC(gga_x_pbe_enhance)(pt->func_aux[1], r->order, r->x, &er_f, &er_dfdx, &er_d2fdx2);
+  cnst_rs = CBRT(4.0*M_PI/3.0);
+
+  r->f = 0.0;
+  if(r->order >= 1)
+    r->dfdrs = r->dfdz = r->dfdxt = r->dfdxs[0] = r->dfdxs[1] = r->dfdts[0] = r->dfdts[1] = 0.0;
+
+  for(is = 0; is < 2; is++){
+    opz = 1.0 + sign[is]*r->zeta;
+    if(opz < pt->info->min_zeta) continue;
+
+    opz13 = CBRT(opz);
+    rss   = r->rs*M_CBRT2/opz13;
+
+    XC(gga_x_pbe_enhance) (pt->func_aux[0], r->order, r->xs[is], &ep_f, &ep_dfdx, &ep_d2fdx2);
+    XC(gga_x_rpbe_enhance)(pt->func_aux[1], r->order, r->xs[is], &er_f, &er_dfdx, &er_d2fdx2);
   
-  XC(mgga_series_w)(r->order, 12, params->a, r->t, &fw1, &dfw1dt);
-  XC(mgga_series_w)(r->order, 12, params->b, r->t, &fw2, &dfw2dt);
+    XC(mgga_series_w)(r->order, 12, params->a, r->ts[is], &fw1, &dfw1dt);
+    XC(mgga_series_w)(r->order, 12, params->b, r->ts[is], &fw2, &dfw2dt);
 
-  r->f = ep_f*fw1 + er_f*fw2 ;
+    if(pt->info->number == XC_MGGA_X_M11_L){
+      XC(mgga_series_w)(r->order, 12, c_m11_l, r->ts[is], &fw3, &dfw3dt);
+      XC(mgga_series_w)(r->order, 12, d_m11_l, r->ts[is], &fw4, &dfw4dt);
+    }
 
-  if(r->order < 1) return;
+    if(params->LC == 1){
+      a_cnst = CBRT(2.0/(9.0*M_PI))*pt->cam_omega/2.0;
+      XC(lda_x_attenuation_function)(0, r->order, a_cnst*rss, &f_aa, &df_aa, NULL, NULL);
+      
+      /* the rest of the SR is evaluated at the HF level */
+      if(pt->info->number == XC_HYB_MGGA_X_M11){
+	f_aa  *= -pt->cam_beta;
+	df_aa *= -pt->cam_beta;
+      }
 
-  r->dfdx = ep_dfdx*fw1 + er_dfdx*fw2;
-  r->dfdt = ep_f*dfw1dt + er_f*dfw2dt;
-  r->dfdu = 0.0;
+      df_aa *= a_cnst;
+    }else{
+      f_aa  = 1.0;
+      df_aa = 0.0;
+    }
 
-  if(r->order < 2) return;
+    ex    = -X_FACTOR_C*opz/(2.0*cnst_rs*rss);
+    r->f += ex*f_aa*(ep_f*fw1 + er_f*fw2);
 
+    if(pt->info->number == XC_MGGA_X_M11_L){
+      r->f += ex*(1.0 - f_aa)*(ep_f*fw3 + er_f*fw4);
+    }
+
+    if(r->order < 1) continue;
+   
+    drssdrs = M_CBRT2/opz13;
+    drssdz  = -sign[is]*rss/(3.0*opz);
+
+    dexdrss = -ex/rss;
+    dexdz   = sign[is]*ex/opz;
+
+    r->dfdrs    += (dexdrss*f_aa + ex*df_aa)*drssdrs*(ep_f*fw1 + er_f*fw2);
+    r->dfdz     += (dexdz*f_aa + (dexdrss*f_aa + ex*df_aa)*drssdz) *(ep_f*fw1 + er_f*fw2);
+    r->dfdxs[is] = ex*f_aa*(ep_dfdx*fw1 + er_dfdx*fw2);
+    r->dfdts[is] = ex*f_aa*(ep_f*dfw1dt + er_f*dfw2dt);
+
+    if(pt->info->number == XC_MGGA_X_M11_L){
+      r->dfdrs     += (dexdrss*(1.0 - f_aa) - ex*df_aa)*drssdrs*(ep_f*fw3 + er_f*fw4);
+      r->dfdz      += (dexdz*(1.0 - f_aa) + (dexdrss*(1.0 - f_aa) - ex*df_aa)*drssdz) *(ep_f*fw3 + er_f*fw4);
+      r->dfdxs[is] += ex*(1.0 - f_aa)*(ep_dfdx*fw3 + er_dfdx*fw4);
+      r->dfdts[is] += ex*(1.0 - f_aa)*(ep_f*dfw3dt + er_f*dfw4dt);
+    }
+
+
+    if(r->order < 2) continue;
+  }
 }
 
 
-#include "work_mgga_x.c"
+#include "work_mgga_c.c"
 
 
 XC(func_info_type) XC(func_info_mgga_x_m08_hx) = {
@@ -166,7 +231,7 @@ XC(func_info_type) XC(func_info_mgga_x_m08_hx) = {
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_x_m08_init,
   NULL, NULL, NULL,
-  work_mgga_x,
+  work_mgga_c,
 };
 
 XC(func_info_type) XC(func_info_mgga_x_m08_so) = {
@@ -179,21 +244,20 @@ XC(func_info_type) XC(func_info_mgga_x_m08_so) = {
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_x_m08_init,
   NULL, NULL, NULL,
-  work_mgga_x,
+  work_mgga_c,
 };
 
-/* Warning: to be added in the future
-XC(func_info_type) XC(func_info_mgga_x_m11) = {
-  XC_MGGA_X_M11,
+XC(func_info_type) XC(func_info_hyb_mgga_x_m11) = {
+  XC_HYB_MGGA_X_M11,
   XC_EXCHANGE,
   "M11 functional of Minnesota",
   XC_FAMILY_MGGA,
   "R Peverati, and DG Truhlar, J. Phys. Chem. Lett. 2, 2810 (2011)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_x_m08_init,
   NULL, NULL, NULL,
-  work_mgga_x,
+  work_mgga_c,
 };
 
 XC(func_info_type) XC(func_info_mgga_x_m11_l) = {
@@ -206,7 +270,5 @@ XC(func_info_type) XC(func_info_mgga_x_m11_l) = {
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_x_m08_init,
   NULL, NULL, NULL,
-  work_mgga_x,
+  work_mgga_c,
 };
-
-*/

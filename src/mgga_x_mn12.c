@@ -22,8 +22,8 @@
 
 #include "util.h"
 
-#define XC_MGGA_X_MN12_L        227 /* MN12-L functional from Minnesotta  */
-#define XC_MGGA_X_MN12_SX       228 /* MN12-SX functional from Minnesotta */
+#define XC_MGGA_X_MN12_L        227 /* MN12-L functional from Minnesota  */
+#define XC_MGGA_X_MN12_SX       228 /* MN12-SX functional from Minnesota */
 
 /* the ordering is 
 CC000 [ 0], CC001 [ 1], CC002 [ 2], CC003 [ 3], CC004 [ 4], CC005 [ 5]
@@ -166,7 +166,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 XC(func_info_type) XC(func_info_mgga_x_mn12_l) = {
   XC_MGGA_X_MN12_L,
   XC_EXCHANGE,
-  "MN12-L functional of Minnesotta",
+  "MN12-L functional of Minnesota",
   XC_FAMILY_MGGA,
   "R Peverati and DG Truhlar, Phys. Chem. Chem. Phys. 14, 13171-13174 (2012)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -179,7 +179,7 @@ XC(func_info_type) XC(func_info_mgga_x_mn12_l) = {
 XC(func_info_type) XC(func_info_mgga_x_mn12_sx) = {
   XC_MGGA_X_MN12_SX,
   XC_EXCHANGE,
-  "MN12-SX functional of Minnesotta",
+  "MN12-SX functional of Minnesota",
   XC_FAMILY_MGGA,
   "R Peverati and DG Truhlar, Phys. Chem. Chem. Phys. 14, accepted (2012)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

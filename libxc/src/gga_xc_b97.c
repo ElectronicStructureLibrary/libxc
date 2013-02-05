@@ -42,6 +42,8 @@
 #define XC_GGA_XC_HCTH_P14  95 /* HCTH p=1/4                               */
 #define XC_GGA_XC_HCTH_P76  94 /* HCTH p=7/6                               */
 #define XC_GGA_XC_HCTH_407P 93 /* HCTH/407+                                */
+#define XC_GGA_C_N12        80 /* N12 functional from Minnesota            */
+#define XC_GGA_C_N12_SX     79 /* N12-SX functional from Minnesota         */
 
 static const FLOAT b97_params[][3][5] = {
   {      /* HCTH/93 */
@@ -128,6 +130,14 @@ static const FLOAT b97_params[][3][5] = {
     { 1.08018, -0.4117,   2.4368,   1.3890, -1.3529},  /* X   */
     { 0.80302, -1.0479,   4.9807, -12.890,   9.6446},  /* Css */
     { 0.73604,  3.0270, -10.075,   20.611, -29.418}    /* Cab */
+  }, {   /* N12  */
+    { 0.0,          0.0,          0.0,          0.0,          0.0},          /* X   */
+    { 1.00000e+00,  3.24511e+00, -2.52893e+01,  1.44407e+01,  1.96870e+01},  /* Css */
+    { 1.00000e+00, -5.53170e+00,  3.07958e+01, -5.64196e+01,  3.21250e+01}   /* Cab */
+  }, {   /* N12-SX  */
+    { 0.0,          0.0,          0.0,          0.0,          0.0},          /* X   */
+    { 8.33615e-01,  3.24128e+00, -1.06407e+01, -1.60471e+01,  2.51047e+01},  /* Css */
+    { 2.63373e+00, -1.05450e+00, -7.29853e-01,  4.94024e+00, -7.31760e+00}   /* Cab */
   },
 };
 
@@ -154,27 +164,29 @@ gga_xc_b97_init(XC(func_type) *p)
   params = (gga_xc_b97_params *)(p->params);
 
   switch(p->info->number){
-  case XC_GGA_XC_HCTH_93:   p->func   =  0;  break;
-  case XC_GGA_XC_HCTH_120:  p->func   =  1;  break;
-  case XC_GGA_XC_HCTH_147:  p->func   =  2;  break;
-  case XC_GGA_XC_HCTH_407:  p->func   =  3;  break;
-  case XC_GGA_XC_B97:       p->func   =  4;  break;
-  case XC_GGA_XC_B97_1:     p->func   =  5;  break;
-  case XC_GGA_XC_B97_2:     p->func   =  6;  break;
-  case XC_GGA_XC_B97_D:     p->func   =  7;  break;
-  case XC_GGA_XC_B97_K:     p->func   =  8;  break;
-  case XC_GGA_XC_B97_3:     p->func   =  9;  break;
-  case XC_GGA_XC_SB98_1a:   p->func   = 10;  break;
-  case XC_GGA_XC_SB98_1b:   p->func   = 11;  break;
-  case XC_GGA_XC_SB98_1c:   p->func   = 12;  break;
-  case XC_GGA_XC_SB98_2a:   p->func   = 13;  break;
-  case XC_GGA_XC_SB98_2b:   p->func   = 14;  break;
-  case XC_GGA_XC_SB98_2c:   p->func   = 15;  break;
-  case XC_GGA_XC_HCTH_A:    p->func   = 16;  break;
-  case XC_GGA_XC_B97_GGA1:  p->func   = 17;  break;
-  case XC_GGA_XC_HCTH_P14:  p->func   = 18;  break;
-  case XC_GGA_XC_HCTH_P76:  p->func   = 19;  break;
-  case XC_GGA_XC_HCTH_407P: p->func   = 20;  break;
+  case XC_GGA_XC_HCTH_93:   p->func =  0;  break;
+  case XC_GGA_XC_HCTH_120:  p->func =  1;  break;
+  case XC_GGA_XC_HCTH_147:  p->func =  2;  break;
+  case XC_GGA_XC_HCTH_407:  p->func =  3;  break;
+  case XC_GGA_XC_B97:       p->func =  4;  break;
+  case XC_GGA_XC_B97_1:     p->func =  5;  break;
+  case XC_GGA_XC_B97_2:     p->func =  6;  break;
+  case XC_GGA_XC_B97_D:     p->func =  7;  break;
+  case XC_GGA_XC_B97_K:     p->func =  8;  break;
+  case XC_GGA_XC_B97_3:     p->func =  9;  break;
+  case XC_GGA_XC_SB98_1a:   p->func = 10;  break;
+  case XC_GGA_XC_SB98_1b:   p->func = 11;  break;
+  case XC_GGA_XC_SB98_1c:   p->func = 12;  break;
+  case XC_GGA_XC_SB98_2a:   p->func = 13;  break;
+  case XC_GGA_XC_SB98_2b:   p->func = 14;  break;
+  case XC_GGA_XC_SB98_2c:   p->func = 15;  break;
+  case XC_GGA_XC_HCTH_A:    p->func = 16;  break;
+  case XC_GGA_XC_B97_GGA1:  p->func = 17;  break;
+  case XC_GGA_XC_HCTH_P14:  p->func = 18;  break;
+  case XC_GGA_XC_HCTH_P76:  p->func = 19;  break;
+  case XC_GGA_XC_HCTH_407P: p->func = 20;  break;
+  case XC_GGA_C_N12:        p->func = 21;  break;
+  case XC_GGA_C_N12_SX:     p->func = 22;  break;
   default:
     fprintf(stderr, "Internal error in gga_b97\n");
     exit(1);
@@ -615,3 +627,30 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_407p) = {
   NULL,
   work_gga_c
 };
+
+XC(func_info_type) XC(func_info_gga_c_n12) = {
+  XC_GGA_C_N12,
+  XC_CORRELATION,
+  "N12 functional of Minnesota",
+  XC_FAMILY_GGA,
+  "R Peverati and DG Truhlar, J. Chem. Theory Comput. 8, 2310-2319 (2012)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 1e-32, 1e-32,
+  gga_xc_b97_init,
+  NULL, NULL,
+  work_gga_c,
+};
+
+XC(func_info_type) XC(func_info_gga_c_n12_sx) = {
+  XC_GGA_C_N12_SX,
+  XC_CORRELATION,
+  "N12-SX functional of Minnesota",
+  XC_FAMILY_GGA,
+  "R Peverati and DG Truhlar, Phys. Chem. Chem. Phys. 14, 16187-16191 (2012)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 1e-32, 1e-32,
+  gga_xc_b97_init,
+  NULL, NULL,
+  work_gga_c,
+};
+

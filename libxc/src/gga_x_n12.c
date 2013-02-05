@@ -22,8 +22,8 @@
 
 #include "util.h"
 
-#define XC_GGA_X_N12          82 /* N12 functional from Minnesotta  */
-#define XC_GGA_X_N12_SX       81 /* N12-SX functional from Minnesotta */
+#define XC_GGA_X_N12          82 /* N12 functional from Minnesota    */
+#define XC_GGA_X_N12_SX       81 /* N12-SX functional from Minnesota */
 
 static const FLOAT CC_N12[4][4] = {
   { 1.00000e+00,  5.07880e-01,  1.68233e-01,  1.28887e-01},
@@ -121,7 +121,7 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
 XC(func_info_type) XC(func_info_gga_x_n12) = {
   XC_GGA_X_N12,
   XC_EXCHANGE,
-  "N12 functional of Minnesotta",
+  "N12 functional of Minnesota",
   XC_FAMILY_GGA,
   "R Peverati and DG Truhlar, J. Chem. Theory Comput. 8, 2310-2319 (2012)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -134,9 +134,9 @@ XC(func_info_type) XC(func_info_gga_x_n12) = {
 XC(func_info_type) XC(func_info_gga_x_n12_sx) = {
   XC_GGA_X_N12_SX,
   XC_EXCHANGE,
-  "N12-SX functional of Minnesotta",
+  "N12-SX functional of Minnesota",
   XC_FAMILY_GGA,
-  "",
+  "R Peverati and DG Truhlar, Phys. Chem. Chem. Phys. 14, 16187-16191 (2012)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   NULL,

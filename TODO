@@ -12,22 +12,19 @@ mGGAs:
   *) Colle and Salvetti http://www.molpro.net/info/current/doc/manual/node750.html
   *) MK00 http://www.molpro.net/info/current/doc/manual/node760.html
   *) MK00B http://www.molpro.net/info/current/doc/manual/node761.html
-  *) Cancio & Chou Phys. Rev. B 74, 081202(R) (2006)
   *) tau-HTCH
+  *) KCIS, B0KCIS, B1KCIS http://jcp.aip.org/resource/1/jcpsa6/v117/i23/p10465_s1
 
 hybrids:
-  *) 409: B97-1 revised ?
-  *) 413: B88+B95?
   *) http://arxiv.org/abs/1205.4999 (versions of HSE)
   *) http://link.aip.org/link/doi/10.1063/1.3524336 (HSE_sol)
   *) doi:10.1021/ct800530u (LR-omegaPBE08)
   *) http://arxiv.org/abs/1211.0387
 
 hybrid meta:
-  *) pw6b95, pwb6k: JPCA 2005, 109, 5656 (the x part is simply pw91 gga with different constants)
-  *) mpwb1k (51, 60, 66)
-  *) mpw1b95 (51, 60, 66)
-  *) pbe1kcis (37, 67-69)
+  *) TPSS1KCIS http://pubs.rsc.org/en/content/articlelanding/2005/cp/b416937a
+  *) MPWKCIS1K MPW1KCIS http://pubs.acs.org/doi/pdf/10.1021/jp045141s
+  *) PBE1KCIS http://pubs.acs.org/doi/pdf/10.1021/ct049851d
   *) b1b95 (54, 60)
   *) tpsslyp1w (1w class of functionals)
 

@@ -129,7 +129,7 @@ work_mgga_x(const XC(func_type) *p, int np,
 	v2tau2[js]    = -x_factor_c*r.d2fdt2/(sfact*rho1D*rho2pD_D);
 
 	v2rholapl[ls] = -x_factor_c*rho1D/(3.0*sfact*rho2pD_D)*
-	  (4.0*r.dfdu - 4.0*r.x*r.d2fdxu - 5.0*r.u*r.d2fdtu - 5.0*(r.dfdu + r.u*r.d2fdu2));
+	  (4.0*r.dfdu - 4.0*r.x*r.d2fdxu - 5.0*r.t*r.d2fdtu - 5.0*(r.dfdu + r.u*r.d2fdu2));
 
 	v2rhotau[ls]  = -x_factor_c*rho1D/(3.0*sfact*rho2pD_D)*
 	  (4.0*r.dfdt - 4.0*r.x*r.d2fdxt - 5.0*r.u*r.d2fdtu - 5.0*(r.dfdt + r.t*r.d2fdt2));

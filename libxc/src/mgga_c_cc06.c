@@ -101,7 +101,7 @@ XC(func_info_type) XC(func_info_mgga_c_cc06) = {
   XC_CORRELATION,
   "Cancio and Chou 2006",
   XC_FAMILY_MGGA,
-  "AC Cancio, and MY Chou",
+  "AC Cancio, and MY Chou, Phys. Rev. B 74, 081202(R) (2006)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_c_cc06_init,

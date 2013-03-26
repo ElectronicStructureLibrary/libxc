@@ -22,10 +22,10 @@
 
 #include "util.h"
 
-#define XC_GGA_C_OP_B88      87 /* one-parameter progressive functional (B88 version) */
-#define XC_GGA_C_OP_PBE      86 /* one-parameter progressive functional (PBE version)  */
-#define XC_GGA_C_OP_G96      85 /* one-parameter progressive functional (G96 version)  */
-#define XC_GGA_C_OP_XALPHA   84 /* one-parameter progressive functional (G96 version)  */
+#define XC_GGA_C_OP_B88      87 /* one-parameter progressive functional (B88 version)     */
+#define XC_GGA_C_OP_PBE      86 /* one-parameter progressive functional (PBE version)     */
+#define XC_GGA_C_OP_G96      85 /* one-parameter progressive functional (G96 version)     */
+#define XC_GGA_C_OP_XALPHA   84 /* one-parameter progressive functional (XALPHA version)  */
 
 typedef struct{
   FLOAT qOPab;

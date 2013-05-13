@@ -174,6 +174,7 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
   }
 
   if(p->cam_omega == 0.0){
+    a_cnst = 0.0;
     fa_u = fa_d = 1.0;
 
   }else{

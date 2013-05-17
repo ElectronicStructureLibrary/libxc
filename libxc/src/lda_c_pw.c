@@ -28,7 +28,7 @@
    J.P. Perdew & Y. Wang
    Ortiz & Ballone
 
-Note that the PW modified, corresponds to the version of PW used in the 
+Note that the PW modified corresponds to the version of PW used in the 
 original PBE routine. This amounts to adding some more digits in some of
 the constants of PW.
 ************************************************************************/
@@ -54,7 +54,7 @@ lda_c_pw_init(XC(func_type) *p)
 
 
 /* Function g defined by Eq. 10 of the original paper,
-   and it's derivative with respect to rs, Eq. A5 */
+   and its derivative with respect to rs, Eq. A5 */
 static void g(int func, int order, int k, FLOAT *rs, 
 	      FLOAT *f, FLOAT *dfdrs, FLOAT *d2fdrs2, FLOAT *d3fdrs3)
 {

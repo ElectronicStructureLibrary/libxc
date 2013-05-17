@@ -129,7 +129,7 @@ x_tpss_7(mgga_x_tpss_params *params, int order, FLOAT p, FLOAT z,
 }
 
 
-/* Equation (10) in all it's glory */
+/* Equation (10) in all its glory */
 static 
 void x_tpss_10(mgga_x_tpss_params *params, int order, FLOAT p, FLOAT z, 
 	       FLOAT *x, FLOAT *dxdp, FLOAT *dxdz, FLOAT *d2xdp2, FLOAT *d2xdpz, FLOAT *d2xdz2)
@@ -178,7 +178,7 @@ void x_tpss_10(mgga_x_tpss_params *params, int order, FLOAT p, FLOAT z,
   h3 = -73.0/405;
   x1 += h3*qb*a3;
 
-  a4 = aux1*aux1/params->kappa;                /* forth term  */
+  a4 = aux1*aux1/params->kappa;                /* fourth term */
   x1 += a4*p2;
 
   a5 = 2.0*SQRT(params->e)*aux1*aux2;          /* fifth term  */
@@ -207,7 +207,7 @@ void x_tpss_10(mgga_x_tpss_params *params, int order, FLOAT p, FLOAT z,
   dxdp1 += h3*(a3*dqbdp + 0.5*qb*p/a3);        /* third term  */
   dxdz1 += h3*(a3*dqbdz + 0.5*qb*aux2*z/a3);
   
-  dxdp1 += a4*2.0*p;                           /* forth term  */
+  dxdp1 += a4*2.0*p;                           /* fourth term */
 
   dxdz1 += a5*2.0*z;                           /* fifth term  */
   
@@ -233,7 +233,7 @@ void x_tpss_10(mgga_x_tpss_params *params, int order, FLOAT p, FLOAT z,
   d2xdpz1+= h3*(-aux2*p*z*qb + (p2 + aux2*z2)*(aux2*z*dqbdp + p*dqbdz + (p2 + aux2*z2)*d2qbdpz))/(4.0*a3*a3*a3);
   d2xdz1 += h3*( aux2*p2*qb  + (p2 + aux2*z2)*(2.0*aux2*z*dqbdz       + (p2 + aux2*z2)*d2qbdz2))/(4.0*a3*a3*a3);
 
-  d2xdp1 += a4*2.0;                            /* forth term  */
+  d2xdp1 += a4*2.0;                            /* fourth term */
 
   d2xdz1 += a5*2.0;                            /* fifth term  */
 

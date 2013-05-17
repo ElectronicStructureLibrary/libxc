@@ -31,6 +31,7 @@
 
 #define XC_MGGA_X_TPSS          202 /* Perdew, Tao, Staroverov & Scuseria exchange */
 #define XC_MGGA_X_REVTPSS       212 /* revised Perdew, Tao, Staroverov & Scuseria exchange */
+#define XC_MGGA_X_BLOC          244 /* functional with balanced localization */
 
 typedef struct{
   int func;
@@ -63,6 +64,14 @@ mgga_x_tpss_init(XC(func_type) *p)
     params->e = 2.16769874;
     params->kappa = 0.804;
     params->mu = 0.14;
+    break;
+  case XC_MGGA_X_BLOC:
+    params->func = p->func = 2;
+    params->b = 0.40;
+    params->c = 1.59096;
+    params->e = 1.537;
+    params->kappa = 0.804;
+    params->mu = 0.21951;
     break;
   default:
     fprintf(stderr, "Internal error in mgga_x_tpss\n");
@@ -125,7 +134,9 @@ static
 void x_tpss_10(mgga_x_tpss_params *params, int order, FLOAT p, FLOAT z, 
 	       FLOAT *x, FLOAT *dxdp, FLOAT *dxdz, FLOAT *d2xdp2, FLOAT *d2xdpz, FLOAT *d2xdz2)
 {
-  FLOAT x1, dxdp1, dxdz1, d2xdp1, d2xdpz1, d2xdz1;
+  static FLOAT BLOC_a = 4.0, BLOC_b = -3.3;
+
+  FLOAT x1, dxdp1, dxdz1, d2xdp1, d2xdpz1, d2xdz1, zlogz, ff, dff, zff;
   FLOAT aux1, aux2, z2, p2;
   FLOAT qb, dqbdp, dqbdz, d2qbdp2, d2qbdpz, d2qbdz2;
   
@@ -145,10 +156,20 @@ void x_tpss_10(mgga_x_tpss_params *params, int order, FLOAT p, FLOAT z,
 
   a1 = 1.0 + z2;                               /* first term  */
   a1_2 = a1*a1;
-  if(params->func == 0)       /* TPSS */
-    x1 += (aux1 + params->c*z2/a1_2)*p;
-  else if(params->func == 1) /* revTPSS */
-    x1 += (aux1 + params->c*z*z2/a1_2)*p;
+
+  switch(params->func){
+  case 0: /* TPSS */
+    ff = 2.0; break;
+  case 1: /* revTPSS */
+    ff = 3.0; break;
+  case 2: /* BLOC */
+    ff = BLOC_a + BLOC_b * z;
+    break;
+  }
+
+  zff = POW(z, ff);
+
+  x1 += (aux1 + params->c*zff/a1_2)*p;
 
   a2 = 146.0/2025.0;                           /* second term */
   x1 += a2*qb*qb;
@@ -174,13 +195,11 @@ void x_tpss_10(mgga_x_tpss_params *params, int order, FLOAT p, FLOAT z,
 
   dxdp1 = dxdz1 = 0.0;
 
-  if(params->func == 0){       /* TPSS */
-    dxdp1 += aux1 + params->c*z2/a1_2;         /* first term  */
-    dxdz1 += 2.0*params->c*z*(1.0 - z2)*p/(a1*a1_2);
-  }else if(params->func == 1){ /* revTPSS */
-    dxdp1 += aux1 + params->c*z*z2/a1_2;       /* first term  */
-    dxdz1 += params->c*z2*(3.0 - z2)*p/(a1*a1_2);
-  }  
+  dff   = (params->func != 2) ? 0.0 : BLOC_b;
+  zlogz = z*LOG(z)*dff;
+
+  dxdp1 += aux1 + params->c*zff/a1_2;         /* first term  */
+  dxdz1 += params->c*p*zff*(zlogz*a1 + a1*ff - 4.0*z2)/(z*a1*a1_2);
 
   dxdp1 += 2.0*a2*qb*dqbdp;                    /* second term */
   dxdz1 += 2.0*a2*qb*dqbdz;
@@ -201,13 +220,9 @@ void x_tpss_10(mgga_x_tpss_params *params, int order, FLOAT p, FLOAT z,
 
   d2xdp1 = d2xdz1 = d2xdpz1 = 0.0;
 
-  if(params->func == 0){       /* TPSS */
-    d2xdpz1+= 2.0*params->c*z*(1.0 - z2)/(a1*a1_2);   /* first term  */
-    d2xdz1 += 2.0*params->c*p*(1.0 - 8.0*z2 + 3.0*z2*z2)/(a1_2*a1_2);
-  }else if(params->func == 1){ /* revTPSS */
-    d2xdpz1+= params->c*z2*(3.0 - z2)/(a1*a1_2);      /* first term  */
-    d2xdz1 += 2.0*params->c*p*z*(3.0 - 8.0*z2 + z2*z2)/(a1_2*a1_2);    
-  }
+  d2xdpz1+= params->c*zff*(zlogz*a1 + a1*ff - 4.0*z2)/(z*a1*a1_2);
+  d2xdz1 += params->c*p*zff/(a1_2*a1_2) * 
+    (24.0*z2 - 4.0*a1*(2.0*zlogz + 2.0*ff + 1.0) + a1_2/z2 * (2.0*dff*z - ff + (zlogz + ff)*(zlogz + ff)));
 
   d2xdp1 += 2.0*a2*(dqbdp*dqbdp + qb*d2qbdp2); /* second term */
   d2xdpz1+= 2.0*a2*(dqbdp*dqbdz + qb*d2qbdpz);
@@ -304,6 +319,19 @@ XC(func_info_type) XC(func_info_mgga_x_revtpss) = {
   XC_FAMILY_MGGA,
   "JP Perdew, A Ruzsinszky, GI Csonka, LA Constantin, and J Sun, Phys. Rev. Lett. 103, 026403 (2009)\n"
   "JP Perdew, A Ruzsinszky, GI Csonka, LA Constantin, and J Sun, Phys. Rev. Lett. 106, 179902(E) (2011)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 1e-32, 1e-32,
+  mgga_x_tpss_init,
+  NULL, NULL, NULL,
+  work_mgga_x,
+};
+
+XC(func_info_type) XC(func_info_mgga_x_bloc) = {
+  XC_MGGA_X_BLOC,
+  XC_EXCHANGE,
+  "functional with balanced localization",
+  XC_FAMILY_MGGA,
+  "LA Constantin, E Fabiano, F Della Sala, J. Chem. Theory Comput. 9, 2256 (2013)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_x_tpss_init,

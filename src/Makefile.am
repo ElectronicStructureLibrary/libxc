@@ -129,8 +129,7 @@ CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 xc_funcs.h libxc_funcs.f90: get_funcs.pl
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)
 
-$(LIBFUNCMOD):
-	$(MAKE) libxc_funcs.o
+$(LIBFUNCMOD) libxc_funcs.o : libxc_funcs.f90
 
 libxc.f90 $(XCLIBMODS): libxc_master.F90 libxc_funcs.o
 	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc.f90

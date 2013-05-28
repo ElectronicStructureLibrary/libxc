@@ -70,10 +70,12 @@ endif
 
   # this is a hack to go around buggy libtool/automake versions
   libxcf90_la_LIBTOOLFLAGS = --tag=F77
-  # LTFCCOMPILE = $(LIBTOOL) --mode=compile --tag=F77 $(FC) $(AM_FCFLAGS) $(FCFLAGS)
-  # FCLINK = $(LIBTOOL) --mode=link --tag=F77 $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) \
-  #      $(AM_LDFLAGS) $(LDFLAGS) -o $@
 endif
+
+# this is a hack to go around buggy libtool/automake versions
+LTFCCOMPILE = $(LIBTOOL) --mode=compile --tag=F77 $(FC) $(AM_FCFLAGS) $(FCFLAGS)
+FCLINK = $(LIBTOOL) --mode=link --tag=F77 $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) \
+         $(AM_LDFLAGS) $(LDFLAGS) -o $@
 
 dist_noinst_SCRIPTS = get_funcs.pl
 

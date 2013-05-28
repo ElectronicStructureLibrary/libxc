@@ -135,6 +135,15 @@ module XC_F90(lib_m)
       character(len=*),         intent(out)   :: s      ! the string that is output
     end subroutine XC_F90(info_refs)
 
+    subroutine XC_F90(functional_get_name)(func_number, func_string)
+      integer, intent(in) :: func_number
+      character(len=256), intent(out) :: func_string
+    end subroutine XC_F90(functional_get_name)
+
+    integer function XC_F90(functional_get_number)(func_string)
+      character(len=*), intent(in) :: func_string
+    end function XC_F90(functional_get_number)
+
     integer function XC_F90(family_from_id)(id)
       use XC_F90(types_m)
       integer, intent(in) :: id

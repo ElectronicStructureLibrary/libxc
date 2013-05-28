@@ -70,8 +70,8 @@ endif
 
   # this is a hack to go around buggy libtool/automake versions
   libxcf_la_LIBTOOLFLAGS = --tag=F77
-  #LTFCCOMPILE = $(LIBTOOL) --mode=compile --tag=F77 $(FC) $(AM_FCFLAGS) $(FCFLAGS)
-  #FCLINK = $(LIBTOOL) --mode=link --tag=F77 $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) \
+  # LTFCCOMPILE = $(LIBTOOL) --mode=compile --tag=F77 $(FC) $(AM_FCFLAGS) $(FCFLAGS)
+  # FCLINK = $(LIBTOOL) --mode=link --tag=F77 $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) \
   #      $(AM_LDFLAGS) $(LDFLAGS) -o $@
 endif
 

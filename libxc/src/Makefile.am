@@ -53,24 +53,26 @@ libxc_la_FUNC_SINGLE_SOURCES = $(libxc_la_FUNC_SOURCES:.c=_s.c)
 
 libxc_la_SOURCES = $(libxc_la_FUNC_SOURCES)
 
-if COMPILE_FORTRAN
-  libxc_la_SOURCES += xc_f.c libxc_funcs.f90 libxc.f90
-endif
 if COMPILE_SINGLE
   nodist_libxc_la_SOURCES = $(libxc_la_FUNC_SINGLE_SOURCES)
+endif
+
 if COMPILE_FORTRAN
-    nodist_libxc_la_SOURCES += xc_f_s.c libxc_s.f90
-endif
+  lib_LTLIBRARIES += libxcf.la
+
+  libxcf_la_SOURCES = xc_f.c libxc_funcs.f90 libxc.f90
+if COMPILE_SINGLE
+    nodist_libxcf_la_SOURCES = xc_f_s.c libxc_s.f90
 endif
 
-# libtool stuff
-libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)
-# this is a hack to go around buggy libtool/automake versions
-libxc_la_LIBTOOLFLAGS = --tag=F77
-LTFCCOMPILE = $(LIBTOOL) --mode=compile --tag=F77 $(FC) $(AM_FCFLAGS) $(FCFLAGS)
-FCLINK = $(LIBTOOL) --mode=link --tag=F77 $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) \
-        $(AM_LDFLAGS) $(LDFLAGS) -o $@
-
+  # libtool stuff
+  libxcf_la_LDFLAGS = -version-info $(XC_LT_VERSION)
+  # this is a hack to go around buggy libtool/automake versions
+#  libxc_la_LIBTOOLFLAGS = --tag=F77
+#  LTFCCOMPILE = $(LIBTOOL) --mode=compile --tag=F77 $(FC) $(AM_FCFLAGS) $(FCFLAGS)
+#  FCLINK = $(LIBTOOL) --mode=link --tag=F77 $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) \
+#        $(AM_LDFLAGS) $(LDFLAGS) -o $@
+endif
 
 dist_noinst_SCRIPTS = get_funcs.pl
 

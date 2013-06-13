@@ -30,6 +30,7 @@
 ************************************************************************/
 
 #define XC_MGGA_X_TPSS          202 /* Perdew, Tao, Staroverov & Scuseria exchange */
+#define XC_MGGA_X_MODTPSS       245 /* Modified Perdew, Tao, Staroverov & Scuseria exchange */
 #define XC_MGGA_X_REVTPSS       212 /* revised Perdew, Tao, Staroverov & Scuseria exchange */
 #define XC_MGGA_X_BLOC          244 /* functional with balanced localization */
 
@@ -51,32 +52,40 @@ mgga_x_tpss_init(XC(func_type) *p)
   switch(p->info->number){
   case XC_MGGA_X_TPSS:
     params->func = p->func = 0;
-    params->b = 0.40;
-    params->c = 1.59096;
-    params->e = 1.537;
-    params->kappa = 0.804;
-    params->mu = 0.21951;
+    XC(mgga_x_tpss_set_params)(p, 0.40, 1.59096, 1.537, 0.804, 0.21951);
+    break;
+  case XC_MGGA_X_MODTPSS:
+    params->func = p->func = 0; /* this has exactly the same form as TPSS */
+    XC(mgga_x_tpss_set_params)(p, 0.40, 1.39660, 1.38, 0.804, 0.250);
     break;
   case XC_MGGA_X_REVTPSS:
     params->func = p->func = 1;
-    params->b = 0.40;
-    params->c = 2.35203946;
-    params->e = 2.16769874;
-    params->kappa = 0.804;
-    params->mu = 0.14;
+    XC(mgga_x_tpss_set_params)(p, 0.40, 2.35203946, 2.16769874, 0.804, 0.14);
     break;
   case XC_MGGA_X_BLOC:
     params->func = p->func = 2;
-    params->b = 0.40;
-    params->c = 1.59096;
-    params->e = 1.537;
-    params->kappa = 0.804;
-    params->mu = 0.21951;
+    XC(mgga_x_tpss_set_params)(p, 0.40, 1.59096, 1.537, 0.804, 0.21951);
     break;
   default:
     fprintf(stderr, "Internal error in mgga_x_tpss\n");
     exit(1);
   }
+}
+
+
+void
+XC(mgga_x_tpss_set_params)(XC(func_type) *p, FLOAT b, FLOAT c, FLOAT e, FLOAT kappa, FLOAT mu)
+{
+  mgga_x_tpss_params *params;
+
+  assert(p != NULL && p->params != NULL);
+  params = (mgga_x_tpss_params *) (p->params);
+
+  params->b     = b;
+  params->c     = c;
+  params->e     = e;
+  params->kappa = kappa;
+  params->mu    = mu;
 }
 
 
@@ -305,6 +314,19 @@ XC(func_info_type) XC(func_info_mgga_x_tpss) = {
   XC_FAMILY_MGGA,
   "J Tao, JP Perdew, VN Staroverov, and G Scuseria, Phys. Rev. Lett. 91, 146401 (2003)\n"
   "JP Perdew, J Tao, VN Staroverov, and G Scuseria, J. Chem. Phys. 120, 6898 (2004)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 1e-32, 1e-32,
+  mgga_x_tpss_init,
+  NULL, NULL, NULL,
+  work_mgga_x,
+};
+
+XC(func_info_type) XC(func_info_mgga_x_modtpss) = {
+  XC_MGGA_X_MODTPSS,
+  XC_EXCHANGE,
+  "Modified Tao, Perdew, Staroverov & Scuseria",
+  XC_FAMILY_MGGA,
+  "JP Perdew, A Ruzsinszky, J Tao, GI Csonka, and GE Scuseria, Phys. Rev. A 76, 042506 (2007)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_x_tpss_init,

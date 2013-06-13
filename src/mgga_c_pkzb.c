@@ -26,11 +26,9 @@
 #define XC_MGGA_C_PKZB          239 /* Perdew, Kurth, Zupan, and Blaha */
 #define XC_MGGA_C_REVTPSS       241 /* revised TPSS correlation */
 
-static FLOAT C0_c_pkzb   [4] = {0.53, 0.87,   0.50,   2.26};
-static FLOAT C0_c_revtpss[4] = {0.59, 0.9269, 0.6225, 2.1540};
-
 typedef struct{
-  const FLOAT *C0_c;
+  FLOAT C0_c[4];
+  FLOAT d, beta;
 } mgga_c_pkzb_params;
 
 
@@ -48,20 +46,37 @@ mgga_c_pkzb_init(XC(func_type) *p)
   XC(func_init)(p->func_aux[0], XC_GGA_C_PBE, XC_POLARIZED);
 
   p->params = malloc(sizeof(mgga_c_pkzb_params));
-  params = (mgga_c_pkzb_params *)p->params;
 
   switch(p->info->number){
   case XC_MGGA_C_PKZB:
   case XC_MGGA_C_TPSS:
-    params->C0_c = C0_c_pkzb;
+    XC(mgga_c_pkzb_set_params)(p, 0.06672455060314922, 2.8, 0.53, 0.87, 0.50, 2.26);
     break;
   case XC_MGGA_C_REVTPSS:
-    params->C0_c = C0_c_revtpss;
+    XC(mgga_c_pkzb_set_params)(p, 0.06672455060314922, 2.8, 0.59, 0.9269, 0.6225, 2.1540);
     break;
   default:
     fprintf(stderr, "Internal error in mgga_c_tpss\n");
     exit(1);
   }
+}
+
+void
+XC(mgga_c_pkzb_set_params)(XC(func_type) *p, FLOAT beta, FLOAT d, FLOAT C0_0, FLOAT C0_1, FLOAT C0_2, FLOAT C0_3)
+{
+  mgga_c_pkzb_params *params;
+
+  assert(p != NULL && p->params != NULL);
+  params = (mgga_c_pkzb_params *) (p->params);
+
+  params->beta    = beta;
+  params->d       = d;
+  params->C0_c[0] = C0_0;
+  params->C0_c[1] = C0_1;
+  params->C0_c[2] = C0_2;
+  params->C0_c[3] = C0_3;
+
+  XC(gga_c_pbe_set_params) (p->func_aux[0], beta);
 }
 
 
@@ -102,7 +117,6 @@ tpss_eq_13_14(const FLOAT *C0_c, FLOAT zeta, FLOAT csi2, int order, FLOAT *C, FL
 static void 
 func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 {
-  static FLOAT param_d = 2.8; /* Hartree^-1 */
   static const FLOAT tmin = 0.5e-10;
 
   XC(gga_work_c_t) PBE[3];
@@ -259,16 +273,16 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   }
 
   if(is_tpss){
-    r->f = r->f*(1.0 + param_d*r->f*ddt*ddt2);
+    r->f = r->f*(1.0 + params->d*r->f*ddt*ddt2);
 
     if(r->order >= 1){
-      r->dfdrs = r->dfdrs*(1.0 + 2.0*param_d*r->f*ddt*ddt2);
-      r->dfdz  = r->dfdz *(1.0 + 2.0*param_d*r->f*ddt*ddt2) + 3.0*r->f*r->f*param_d*dddtdz *ddt2;
-      r->dfdxt = r->dfdxt*(1.0 + 2.0*param_d*r->f*ddt*ddt2) + 3.0*r->f*r->f*param_d*dddtdxt*ddt2;
-      r->dfdxs[0] = r->dfdxs[0]*(1.0 + 2.0*param_d*r->f*ddt*ddt2) + 3.0*r->f*r->f*param_d*dddtdxs[0]*ddt2;
-      r->dfdxs[1] = r->dfdxs[1]*(1.0 + 2.0*param_d*r->f*ddt*ddt2) + 3.0*r->f*r->f*param_d*dddtdxs[1]*ddt2;
-      r->dfdts[0] = r->dfdts[0]*(1.0 + 2.0*param_d*r->f*ddt*ddt2) + 3.0*r->f*r->f*param_d*dddtdts[0]*ddt2;
-      r->dfdts[1] = r->dfdts[1]*(1.0 + 2.0*param_d*r->f*ddt*ddt2) + 3.0*r->f*r->f*param_d*dddtdts[1]*ddt2;
+      r->dfdrs = r->dfdrs*(1.0 + 2.0*params->d*r->f*ddt*ddt2);
+      r->dfdz  = r->dfdz *(1.0 + 2.0*params->d*r->f*ddt*ddt2) + 3.0*r->f*r->f*params->d*dddtdz *ddt2;
+      r->dfdxt = r->dfdxt*(1.0 + 2.0*params->d*r->f*ddt*ddt2) + 3.0*r->f*r->f*params->d*dddtdxt*ddt2;
+      r->dfdxs[0] = r->dfdxs[0]*(1.0 + 2.0*params->d*r->f*ddt*ddt2) + 3.0*r->f*r->f*params->d*dddtdxs[0]*ddt2;
+      r->dfdxs[1] = r->dfdxs[1]*(1.0 + 2.0*params->d*r->f*ddt*ddt2) + 3.0*r->f*r->f*params->d*dddtdxs[1]*ddt2;
+      r->dfdts[0] = r->dfdts[0]*(1.0 + 2.0*params->d*r->f*ddt*ddt2) + 3.0*r->f*r->f*params->d*dddtdts[0]*ddt2;
+      r->dfdts[1] = r->dfdts[1]*(1.0 + 2.0*params->d*r->f*ddt*ddt2) + 3.0*r->f*r->f*params->d*dddtdts[1]*ddt2;
     }
   }
 }

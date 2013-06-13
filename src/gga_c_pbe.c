@@ -38,18 +38,26 @@
 #define XC_GGA_C_SPBE          89 /* PBE correlation to be used with the SSB exchange   */
 #define XC_GGA_C_VPBE          83 /* variant PBE                                        */
 
-static const FLOAT cnst_beta[7]  = {
-  0.06672455060314922,                /* original PBE */
-  0.046,                              /* PBE sol      */
-  0.089809,                           /* xPBE         */
-  3.0*10.0/(81.0*M_PI*M_PI),          /* PBE_JRGX     */
-  0.053,                              /* RGE2         */
-  3.0*0.260/(M_PI*M_PI),              /* APBE (C)     */
-  0.06672455060314922                 /* sPBE         */
-};
+typedef struct{
+  FLOAT beta;
+} gga_c_pbe_params;
+
 
 static void gga_c_pbe_init(XC(func_type) *p)
 {
+  static const FLOAT beta[7]  = {
+    0.06672455060314922,                /* original PBE */
+    0.046,                              /* PBE sol      */
+    0.089809,                           /* xPBE         */
+    3.0*10.0/(81.0*M_PI*M_PI),          /* PBE_JRGX     */
+    0.053,                              /* RGE2         */
+    3.0*0.260/(M_PI*M_PI),              /* APBE (C)     */
+    0.06672455060314922                 /* sPBE         */
+  };
+
+  assert(p!=NULL && p->params == NULL);
+  p->params = malloc(sizeof(gga_c_pbe_params));
+
   p->n_func_aux  = 1;
   p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
@@ -69,6 +77,20 @@ static void gga_c_pbe_init(XC(func_type) *p)
     fprintf(stderr, "Internal error in gga_c_pbe\n");
     exit(1);
   }
+
+  XC(gga_c_pbe_set_params)(p, beta[p->func]);
+}
+
+
+void 
+XC(gga_c_pbe_set_params)(XC(func_type) *p, FLOAT beta)
+{
+  gga_c_pbe_params *params;
+
+  assert(p != NULL && p->params != NULL);
+  params = (gga_c_pbe_params *) (p->params);
+
+  params->beta = beta;
 }
 
 
@@ -164,7 +186,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   /* parameter for beta of VPBE */
   static FLOAT b_1 = 0.066725, b_2 = 0.1, b_3 = 0.1778;
 
-  FLOAT phi, t;
+  FLOAT cnst_beta, phi, t;
 
   FLOAT A, dAdbeta, dAdec, dAdphi, d2Adec2, d2Adecphi, d2Adphi2;
   FLOAT H, dHdbeta, dHdphi, dHdt, dHdA, d2Hdphi2, d2Hdphit, d2HdphiA, d2Hdt2, d2HdtA, d2HdA2;
@@ -175,6 +197,9 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   XC(lda_work_t) pw;
   FLOAT tconv, auxp, auxm, beta, gamm, beta_den, dbetadrs;
+
+  assert(p->params != NULL);
+  cnst_beta = ((gga_c_pbe_params *) (p->params))->beta;
 
   pw.order = r->order;
   pw.rs[0] = SQRT(r->rs);
@@ -193,7 +218,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   t    = r->xt/(tconv*phi*pw.rs[0]);
 
   if(p->func == 2)
-    gamm = cnst_beta[2]*cnst_beta[2]/(2.0*0.197363); /* for xPBE */
+    gamm = cnst_beta*cnst_beta/(2.0*0.197363); /* for xPBE */
   else
     gamm = (1.0 - log(2.0))/(M_PI*M_PI);
 
@@ -201,7 +226,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
     beta_den = (1.0 + b_3*r->rs);
     beta = b_1 * (1.0 + b_2*r->rs)/beta_den;
   }else
-    beta = cnst_beta[p->func];
+    beta = cnst_beta;
 
   pbe_eq8(r->order, beta, gamm, pw.zk, phi,
 	  &A, &dAdbeta, &dAdec, &dAdphi, &d2Adec2, &d2Adecphi, &d2Adphi2);

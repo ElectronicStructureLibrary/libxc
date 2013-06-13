@@ -175,6 +175,7 @@ void XC(gga_lb_modified)  (const XC(func_type) *p, int np, const FLOAT *rho, con
 
 void XC(gga_x_b88_set_params)     (XC(func_type) *p, FLOAT beta, FLOAT gamma);
 void XC(gga_x_pbe_set_params)     (XC(func_type) *p, FLOAT kappa, FLOAT mu);
+void XC(gga_c_pbe_set_params)     (XC(func_type) *p, FLOAT beta);
 void XC(gga_x_pw91_set_params)    (XC(func_type) *p, FLOAT a, FLOAT b, FLOAT c, FLOAT d, FLOAT f, FLOAT alpha, FLOAT expo);
 void XC(gga_x_pw91_set_params2)   (XC(func_type) *p, FLOAT bt, FLOAT alpha, FLOAT expo);
 void XC(gga_x_rpbe_set_params)    (XC(func_type) *p, FLOAT kappa, FLOAT mu);
@@ -220,7 +221,9 @@ void XC(mgga_fxc)    (const XC(func_type) *p, int np,
 		      FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau);
 
 void XC(mgga_x_tb09_set_params)(XC(func_type) *p, FLOAT c);
+void XC(mgga_x_pkzb_set_params)(XC(func_type) *p, FLOAT b, FLOAT c, FLOAT e, FLOAT kappa, FLOAT mu);
 void XC(mgga_c_bc95_set_params)(XC(func_type) *p, FLOAT css, FLOAT copp);
+void XC(mgga_c_pkzb_set_params)(XC(func_type) *p, FLOAT beta, FLOAT d, FLOAT C0_0, FLOAT C0_1, FLOAT C0_2, FLOAT C0_3);
 
 /* Functionals that are defined as mixtures of others */
 void XC(mix_func)

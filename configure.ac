@@ -113,8 +113,7 @@ if test $ac_cv_build_fortran = yes; then
   ACX_FCFLAGS
 
   dnl libxc needs the preprocessor. The result goes to FCCPP
-  dnl this is a hack, and should be changed in the future
-  AC_LANG_PREPROC
+  ACX_FCCPP
 
   dnl how Fortran mangles function names
   AC_FC_WRAPPERS

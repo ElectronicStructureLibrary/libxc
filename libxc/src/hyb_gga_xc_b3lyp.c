@@ -27,6 +27,7 @@
 #define XC_HYB_GGA_XC_MPW3PW        415 /* mixture with the mPW functional       */
 #define XC_HYB_GGA_XC_MPW3LYP       419 /* mixture of mPW and LYP                */
 #define XC_HYB_GGA_XC_MB3LYP_RC04   437 /* B3LYP with RC04 LDA                   */
+#define XC_HYB_GGA_XC_REVB3LYP      454 /* Revised B3LYP                         */
 
 /*************************************************************/
 void
@@ -168,5 +169,28 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mb3lyp_rc04) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   XC(hyb_gga_xc_mb3lyp_rc04_init),
+  NULL, NULL, NULL
+};
+
+/*************************************************************/
+void
+XC(hyb_gga_xc_revb3lyp_init)(XC(func_type) *p)
+{
+  static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_VWN_RPA, XC_GGA_C_LYP};
+  static FLOAT funcs_coef[4] = {1.0 - 0.20 - 0.67, 0.67, 1.0 - 0.84, 0.84};
+
+  XC(mix_init)(p, 4, funcs_id, funcs_coef);
+  p->cam_alpha = 0.20;
+}
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_revb3lyp) = {
+  XC_HYB_GGA_XC_REVB3LYP,
+  XC_EXCHANGE_CORRELATION,
+  "Revised B3LYP",
+  XC_FAMILY_HYB_GGA,
+  "L Lua, H Hua, H Houa, B Wang, Comput. Theor. Chem. 1015, 64-71 (2013)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  XC(hyb_gga_xc_revb3lyp_init),
   NULL, NULL, NULL
 };

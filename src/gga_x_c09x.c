@@ -33,17 +33,17 @@ func(const XC(func_type) *p, int order, FLOAT x,
   ss  = X2S*x;
   ss2 = ss*ss;
 
-  aux = exp(-alpha*ss2);
+  aux = exp(-0.5*alpha*ss2);
 
-  *f = 1.0 + mu*ss2*aux + kappa*(1.0 - aux);
+  *f = 1.0 + mu*ss2*aux*aux + kappa*(1.0 - aux);
 
   if(order < 1) return;
 
-  *dfdx = X2S * 2.0*ss*aux*(mu + alpha*(kappa - mu*ss2));
+  *dfdx = X2S * (2.0*ss*mu*aux*aux*(1.0 - alpha*ss2) + alpha*kappa*ss*aux);
 
   if(order < 2) return;
 
-  *d2fdx2 = X2S*X2S * 2.0*aux*(mu + alpha*(kappa - (2.0*alpha*kappa + 5.0*mu)*ss2 + 2.0*alpha*mu*ss2*ss2));
+  *d2fdx2 = X2S*X2S * (2.0*mu*aux*aux*(1.0 - 5.0*alpha*ss2 + 2.0*alpha*alpha*ss2*ss2) + alpha*kappa*aux*(1.0 - alpha*ss2));
 }
 
 
@@ -54,7 +54,7 @@ const XC(func_info_type) XC(func_info_gga_x_c09x) = {
   XC_EXCHANGE,
   "C09x to be used with the VdW of Rutgers-Chalmers",
   XC_FAMILY_GGA,
-  "VR Cooper, PRB 81, 161104(R) (2010)",
+  "VR Cooper, Phys. Rev. B 81, 161104(R) (2010)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,

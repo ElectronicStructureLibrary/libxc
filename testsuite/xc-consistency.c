@@ -331,9 +331,9 @@ void test_functional(int functional)
 
     if(info->flags & XC_FLAGS_HAVE_FXC){
       /* initialize */
-      for(i=0; i<5; i++)
+      for(k=0; k<5; k++)
 	for(j=0; j<5; j++)
-	  f_an[i][j] = f_fd[i][j] = 0.0;
+	  f_an[k][j] = f_fd[k][j] = 0.0;
 
       /* now get the second derivatives */
       second_derivatives(&func, val, f_fd);

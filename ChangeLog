@@ -1,3 +1,114 @@
+2013-07-03 11:40  micael
+
+	* [r10939] src/lda_c_2d_amgb.c: Backport of 10911 to
+	  branches/libxc-2.0.x:
+	  ------------------------------------------------------------------------
+	  r10911 | askhl | 2013-06-26 17:46:28 +0100 (Wed, 26 Jun 2013) | 1
+	  line
+	  
+	  spelling
+	  ------------------------------------------------------------------------
+
+2013-07-03 11:40  micael
+
+	* [r10938] src/gga_x_c09x.c, testsuite/xc-consistency.c: Backport
+	  of 10928 to branches/libxc-2.0.x:
+	  ------------------------------------------------------------------------
+	  r10928 | marques | 2013-07-01 14:15:08 +0100 (Mon, 01 Jul 2013) |
+	  3 lines
+	  
+	  *) Corrected vug in c09x as reported by Lampros Andrinopoulos
+	  *) Corrected bug in xc-consistency
+	  
+	  ------------------------------------------------------------------------
+
+2013-07-03 11:38  micael
+
+	* [r10937] src/util.c: Backport of 10929 to branches/libxc-2.0.x:
+	  ------------------------------------------------------------------------
+	  r10929 | marques | 2013-07-01 14:20:43 +0100 (Mon, 01 Jul 2013) |
+	  2 lines
+	  
+	  Making sure we never divide by zero. Reported by Vittorio Zecca
+	  and David.
+	  
+	  ------------------------------------------------------------------------
+
+2013-05-27 10:50  micael
+
+	* [r10726] src/Makefile.am: Backport of 10468 to
+	  branches/libxc-2.0.x:
+	  ------------------------------------------------------------------------
+	  r10468 | dstrubbe | 2013-04-29 17:59:14 +0100 (Mon, 29 Apr 2013)
+	  | 2 lines
+	  
+	  libxc: Fixing dependency that was poorly written (by me) and
+	  could cause "make -j install" to fail.
+	  
+	  ------------------------------------------------------------------------
+
+2013-05-27 10:50  micael
+
+	* [r10725] src/lda_x.c: Backport of 10585 to branches/libxc-2.0.x:
+	  ------------------------------------------------------------------------
+	  r10585 | marques | 2013-05-13 08:31:19 +0100 (Mon, 13 May 2013) |
+	  2 lines
+	  
+	  Bug found by Toon Verstraelen fixed.
+	  
+	  ------------------------------------------------------------------------
+
+2013-01-21 16:37  micael
+
+	* [r9874] configure.ac: * Tagging Libxc version 2.0.1.
+
+2013-01-21 14:41  micael
+
+	* [r9873] src/gga_c_optc.c, src/gga_c_wl.c, src/gga_x_hjs.c,
+	  src/mgga_c_pkzb.c: * Backport of 9868 to 9872.
+
+2013-01-18 10:08  micael
+
+	* [r9840] src/gga_c_ft97.c, src/gga_c_optc.c, src/gga_x_hjs.c,
+	  src/mgga_c_bc95.c: * Backport of bugfixes from 9839 and 9832.
+
+2013-01-16 09:02  micael
+
+	* [r9830] src/mgga_c_pkzb.c, src/mgga_c_vsxc.c: * Backport of r9827
+	  and r9828.
+
+2013-01-15 13:19  micael
+
+	* [r9826] src/gga_xc_b97.c, src/xc_f.c: * Backport of 9825 and
+	  9826.
+
+2012-12-20 16:06  micael
+
+	* [r9790] src/libxc_master.F90: * Added missing Fortran interface
+	  for xc_f90_version.
+
+2012-12-03 08:57  micael
+
+	* [r9722] src/util.c: * Backport of 9721.
+
+2012-11-28 09:05  micael
+
+	* [r9695] NEWS, PACKAGING, configure.ac: * Tagging version 2.0.0 of
+	  Libxc.
+
+2012-11-26 14:06  micael
+
+	* [r9694] m4/ac_prog_sed.m4: * The ac_prog_sed.m4 macro was not
+	  included in libxc.
+
+2012-11-26 13:27  micael
+
+	* [r9692] ChangeLog: * Update libxc ChangeLog.
+
+2012-11-26 13:04  micael
+
+	* [r9691] .: * Created libxc-2.0.x branch.
+
 2012-11-26 13:02  micael
 
 	* [r9690] Makefile.am, configure.ac, src/Makefile.am,

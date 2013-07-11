@@ -35,7 +35,6 @@ typedef struct{
 static void 
 mgga_c_pkzb_init(XC(func_type) *p)
 {
-  mgga_c_pkzb_params *params;
 
   assert(p != NULL && p->params == NULL);
 

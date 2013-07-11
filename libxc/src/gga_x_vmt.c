@@ -69,7 +69,7 @@ void XC(gga_x_vmt_enhance)
   (const XC(func_type) *p, int order, FLOAT x, 
    FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
-  FLOAT mu, alpha, ss, ss2, ss4, ss6, ss8, ss10, f0, f1, df0, d2f0, g0, g1;
+  FLOAT mu, alpha, ss, ss2, ss4, ss6, ss8, ss10, f0, f1, g0;
 
   assert(p->params != NULL);
   mu    = ((gga_x_vmt_params *) (p->params))->mu;

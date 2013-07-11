@@ -78,7 +78,7 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
   lda_c_prm_params *params;
 
   FLOAT beta, phi, c;
-  FLOAT sqpi, t1, t2, t3, dt1dbeta, dt1dphi, dt3dphi, dbetadrs, dphidrs;
+  FLOAT t1, t2, t3, dt1dbeta, dt1dphi, dt3dphi, dbetadrs, dphidrs;
 
   assert(p->params != NULL);
   params = (lda_c_prm_params *) (p->params);

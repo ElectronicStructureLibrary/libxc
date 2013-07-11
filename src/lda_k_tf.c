@@ -105,7 +105,9 @@ const XC(func_info_type) XC(func_info_lda_k_tf) = {
   1e-29, 0.0, 0.0, 1e-32,
   NULL,
   NULL,
-  work_lda
+  work_lda,
+  NULL,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_k_lp) = {
@@ -118,6 +120,8 @@ const XC(func_info_type) XC(func_info_lda_k_lp) = {
   1e-29, 0.0, 0.0, 1e-32,
   NULL,
   NULL,
-  work_lda
+  work_lda,
+  NULL,
+  NULL
 };
 

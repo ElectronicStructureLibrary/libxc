@@ -327,4 +327,5 @@ const XC(func_info_type) XC(func_info_gga_c_pw91) = {
   gga_c_pw91_init,
   NULL, NULL,
   work_gga_c,
+  NULL
 };

@@ -95,5 +95,6 @@ const XC(func_info_type) XC(func_info_gga_x_2d_b88) = {
   gga_x_2d_b88_init, 
   NULL,
   NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };

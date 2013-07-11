@@ -363,7 +363,9 @@ const XC(func_info_type) XC(func_info_lda_x) = {
   1e-29, 0.0, 0.0, 1e-32,
   lda_x_init,
   NULL,
-  work_lda
+  work_lda,
+  NULL,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_c_xalpha) = {
@@ -376,6 +378,8 @@ const XC(func_info_type) XC(func_info_lda_c_xalpha) = {
   1e-29, 0.0, 0.0, 1e-32,
   lda_c_xalpha_init,
   NULL,
-  work_lda
+  work_lda,
+  NULL,
+  NULL
 };
 

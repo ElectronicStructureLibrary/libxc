@@ -158,5 +158,6 @@ const XC(func_info_type) XC(func_info_gga_c_p86) = {
   gga_c_p86_init,
   NULL,
   NULL,
-  work_gga_c
+  work_gga_c,
+  NULL
 };

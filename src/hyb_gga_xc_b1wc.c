@@ -49,7 +49,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1wc) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   XC(hyb_gga_xc_b1wc_init),
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 
@@ -72,7 +72,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1lyp) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   XC(hyb_gga_xc_b1lyp_init),
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 
@@ -95,7 +95,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1pw91) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   XC(hyb_gga_xc_b1pw91_init),
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 
@@ -118,7 +118,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1pw) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   XC(hyb_gga_xc_mpw1pw_init),
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 
@@ -141,7 +141,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1k) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   XC(hyb_gga_xc_mpw1k_init),
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 
@@ -164,7 +164,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_bhandh) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   XC(hyb_gga_xc_bhandh_init),
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 
@@ -187,7 +187,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_bhandhlyp) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   XC(hyb_gga_xc_bhandhlyp_init),
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 
@@ -210,5 +210,5 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpwlyp1m) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   XC(hyb_gga_xc_mpwlyp1m_init),
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };

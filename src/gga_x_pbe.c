@@ -167,7 +167,8 @@ const XC(func_info_type) XC(func_info_gga_x_pbe) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init, 
   NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_pbe_r) = {
@@ -180,7 +181,8 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_r) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init, 
   NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_pbe_sol) = {
@@ -193,7 +195,8 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_sol) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init, 
   NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_xpbe) = {
@@ -206,7 +209,8 @@ const XC(func_info_type) XC(func_info_gga_x_xpbe) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init, 
   NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_pbe_jsjr) = {
@@ -219,7 +223,8 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_jsjr) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init, 
   NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_pbek1_vdw) = {
@@ -232,7 +237,8 @@ const XC(func_info_type) XC(func_info_gga_x_pbek1_vdw) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init, 
   NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_rge2) = {
@@ -245,7 +251,8 @@ const XC(func_info_type) XC(func_info_gga_x_rge2) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_apbe) = {
@@ -258,7 +265,8 @@ const XC(func_info_type) XC(func_info_gga_x_apbe) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 #define XC_KINETIC_FUNCTIONAL
@@ -274,7 +282,8 @@ const XC(func_info_type) XC(func_info_gga_k_apbe) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_tw1) = {
@@ -287,7 +296,8 @@ const XC(func_info_type) XC(func_info_gga_k_tw1) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_tw2) = {
@@ -300,7 +310,8 @@ const XC(func_info_type) XC(func_info_gga_k_tw2) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_tw3) = {
@@ -313,7 +324,8 @@ const XC(func_info_type) XC(func_info_gga_k_tw3) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_tw4) = {
@@ -326,5 +338,6 @@ const XC(func_info_type) XC(func_info_gga_k_tw4) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };

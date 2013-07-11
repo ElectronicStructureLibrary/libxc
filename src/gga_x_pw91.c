@@ -155,7 +155,8 @@ const XC(func_info_type) XC(func_info_gga_x_pw91) = {
   1e-25, 1e-25, 0.0, 1e-32,
   gga_x_pw91_init,
   NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_mpw91) = {
@@ -168,7 +169,8 @@ const XC(func_info_type) XC(func_info_gga_x_mpw91) = {
   1e-31, 1e-31, 0.0, 1e-32,
   gga_x_pw91_init,
   NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 #define XC_KINETIC_FUNCTIONAL
@@ -184,5 +186,6 @@ const XC(func_info_type) XC(func_info_gga_k_lc94) = {
   1e-30, 1e-30, 0.0, 1e-32,
   gga_x_pw91_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };

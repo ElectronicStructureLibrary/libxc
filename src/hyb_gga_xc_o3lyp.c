@@ -52,7 +52,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_o3lyp) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_xc_o3lyp_init,
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 
@@ -85,5 +85,5 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_x3lyp) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_xc_x3lyp_init,
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };

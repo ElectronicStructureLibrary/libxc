@@ -83,7 +83,8 @@ const XC(func_info_type) XC(func_info_gga_x_pw86) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pw86_init, NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_rpw86) = {
@@ -95,7 +96,8 @@ const XC(func_info_type) XC(func_info_gga_x_rpw86) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pw86_init, NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 #define XC_KINETIC_FUNCTIONAL
@@ -110,5 +112,6 @@ const XC(func_info_type) XC(func_info_gga_k_fr_pw86) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pw86_init, NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };

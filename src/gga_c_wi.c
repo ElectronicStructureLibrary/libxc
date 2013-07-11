@@ -103,7 +103,8 @@ const XC(func_info_type) XC(func_info_gga_c_wi0) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_c_wi_init,
   NULL, NULL,
-  work_gga_c
+  work_gga_c,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_wi) = {
@@ -116,5 +117,6 @@ const XC(func_info_type) XC(func_info_gga_c_wi) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_c_wi_init,
   NULL, NULL,
-  work_gga_c
+  work_gga_c,
+  NULL
 };

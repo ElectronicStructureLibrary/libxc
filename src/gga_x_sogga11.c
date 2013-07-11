@@ -103,7 +103,8 @@ const XC(func_info_type) XC(func_info_gga_x_sogga11) = {
   1e-31, 1e-32, 0.0, 1e-32,
   gga_x_sogga11_init, 
   NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_hyb_gga_x_sogga11_x) = {
@@ -117,5 +118,6 @@ const XC(func_info_type) XC(func_info_hyb_gga_x_sogga11_x) = {
   1e-31, 1e-32, 0.0, 1e-32,
   gga_x_sogga11_init, 
   NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };

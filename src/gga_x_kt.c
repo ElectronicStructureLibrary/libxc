@@ -34,7 +34,6 @@ typedef struct{
 static void 
 gga_x_kt_init(XC(func_type) *p)
 {
-  gga_x_kt_params *params;
 
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_x_kt_params));

@@ -29,7 +29,6 @@ static const FLOAT kappa = 0.804;
 static void Eq_14(FLOAT pp, FLOAT qt, int order, FLOAT *xx, FLOAT *dxxdpp, FLOAT *dxxdqt)
 {
   static const FLOAT 
-    DD = 0.113,
     a1 = 10.0/81.0, 
     a2 = 146.0/2025.0, 
     a3 = -73.0/405.0,

@@ -179,7 +179,8 @@ XC(func_info_type) XC(func_info_gga_x_lb) = {
   gga_lb_init,
   NULL,
   NULL,
-  gga_x_lb
+  gga_x_lb,
+  NULL
 };
 
 XC(func_info_type) XC(func_info_gga_x_lbm) = {
@@ -194,6 +195,7 @@ XC(func_info_type) XC(func_info_gga_x_lbm) = {
   gga_lb_init,
   NULL,
   NULL,
-  gga_x_lb
+  gga_x_lb,
+  NULL
 };
 

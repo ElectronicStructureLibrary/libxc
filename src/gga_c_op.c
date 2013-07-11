@@ -172,6 +172,7 @@ const XC(func_info_type) XC(func_info_gga_c_op_b88) = {
   gga_c_op_init,
   NULL, NULL,
   work_gga_c,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_op_pbe) = {
@@ -185,6 +186,7 @@ const XC(func_info_type) XC(func_info_gga_c_op_pbe) = {
   gga_c_op_init,
   NULL, NULL,
   work_gga_c,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_op_g96) = {
@@ -198,6 +200,7 @@ const XC(func_info_type) XC(func_info_gga_c_op_g96) = {
   gga_c_op_init,
   NULL, NULL,
   work_gga_c,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_op_xalpha) = {
@@ -211,4 +214,5 @@ const XC(func_info_type) XC(func_info_gga_c_op_xalpha) = {
   gga_c_op_init,
   NULL, NULL,
   work_gga_c,
+  NULL
 };

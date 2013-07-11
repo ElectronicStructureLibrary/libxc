@@ -155,4 +155,5 @@ const XC(func_info_type) XC(func_info_gga_c_optc) = {
   gga_c_optc_init,
   NULL, NULL,
   work_gga_c,
+  NULL
 };

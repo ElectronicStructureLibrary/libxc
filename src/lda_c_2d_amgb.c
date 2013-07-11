@@ -201,5 +201,7 @@ const XC(func_info_type) XC(func_info_lda_c_2d_amgb) = {
   1e-9, 0.0, 0.0, 1e-32,
   lda_c_2d_amgb_init,
   NULL,
-  work_lda
+  work_lda,
+  NULL,
+  NULL
 };

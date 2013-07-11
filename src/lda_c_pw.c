@@ -247,6 +247,8 @@ const XC(func_info_type) XC(func_info_lda_c_pw) = {
   lda_c_pw_init, /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
+  NULL,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_c_pw_mod) = {
@@ -262,6 +264,8 @@ const XC(func_info_type) XC(func_info_lda_c_pw_mod) = {
   lda_c_pw_init, /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
+  NULL,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_c_ob_pw) = {
@@ -277,6 +281,8 @@ const XC(func_info_type) XC(func_info_lda_c_ob_pw) = {
   lda_c_pw_init, /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
+  NULL,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_c_pw_rpa) = {
@@ -290,4 +296,6 @@ const XC(func_info_type) XC(func_info_lda_c_pw_rpa) = {
   lda_c_pw_init, /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
+  NULL,
+  NULL
 };

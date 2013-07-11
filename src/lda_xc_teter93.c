@@ -163,4 +163,6 @@ const XC(func_info_type) XC(func_info_lda_xc_teter93) = {
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
+  NULL,
+  NULL
 };

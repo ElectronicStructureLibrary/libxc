@@ -213,6 +213,8 @@ const XC(func_info_type) XC(func_info_lda_c_pz) = {
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
+  NULL,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_c_pz_mod) = {
@@ -227,6 +229,8 @@ const XC(func_info_type) XC(func_info_lda_c_pz_mod) = {
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
+  NULL,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_c_ob_pz) = {
@@ -242,4 +246,6 @@ const XC(func_info_type) XC(func_info_lda_c_ob_pz) = {
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
+  NULL,
+  NULL
 };

@@ -167,7 +167,8 @@ const XC(func_info_type) XC(func_info_gga_k_dk) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_dk_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_perdew) = {
@@ -180,7 +181,8 @@ const XC(func_info_type) XC(func_info_gga_k_perdew) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_dk_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_vsk) = {
@@ -193,7 +195,8 @@ const XC(func_info_type) XC(func_info_gga_k_vsk) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_dk_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_vjks) = {
@@ -206,7 +209,8 @@ const XC(func_info_type) XC(func_info_gga_k_vjks) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_dk_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_ernzerhof) = {
@@ -219,5 +223,6 @@ const XC(func_info_type) XC(func_info_gga_k_ernzerhof) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_dk_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };

@@ -67,7 +67,8 @@ const XC(func_info_type) XC(func_info_gga_x_ol2) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_ol2_init,
   NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 
@@ -84,5 +85,6 @@ const XC(func_info_type) XC(func_info_gga_k_ol2) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_ol2_init, 
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };

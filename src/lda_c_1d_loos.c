@@ -91,4 +91,6 @@ const XC(func_info_type) XC(func_info_lda_c_1d_loos) = {
   lda_c_1d_loos_init,    /* init */
   NULL,                 /* end  */
   work_lda,             /* lda  */
+  NULL,
+  NULL
 };

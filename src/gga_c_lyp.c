@@ -228,5 +228,6 @@ const XC(func_info_type) XC(func_info_gga_c_lyp) = {
   XC(gga_c_lyp_init), 
   NULL,
   NULL,
-  work_gga_c
+  work_gga_c,
+  NULL
 };

@@ -51,5 +51,5 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeh) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_pbeh_init,
-  NULL, NULL, NULL /* this is taken care by the generic routine */
+  NULL, NULL, NULL, NULL /* this is taken care by the generic routine */
 };

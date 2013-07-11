@@ -316,5 +316,6 @@ const XC(func_info_type) XC(func_info_gga_c_ft97) = {
   NULL,
   NULL,
   NULL,
-  work_gga_c
+  work_gga_c,
+  NULL
 };

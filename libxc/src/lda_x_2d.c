@@ -82,7 +82,10 @@ const XC(func_info_type) XC(func_info_lda_x_2d) = {
   "F Bloch, Zeitschrift fuer Physik 57, 545 (1929)",
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
-  NULL, NULL,
-  work_lda
+  NULL, 
+  NULL,
+  work_lda,
+  NULL, 
+  NULL
 };
 

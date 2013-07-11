@@ -322,6 +322,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe) = {
   gga_c_pbe_init,
   NULL, NULL,
   work_gga_c,
+  NULL
 };
 
 
@@ -336,6 +337,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_sol) = {
   gga_c_pbe_init,
   NULL, NULL,
   work_gga_c,
+  NULL
 };
 
 
@@ -350,6 +352,7 @@ const XC(func_info_type) XC(func_info_gga_c_xpbe) = {
   gga_c_pbe_init,
   NULL, NULL,
   work_gga_c,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_pbe_jrgx) = {
@@ -363,6 +366,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_jrgx) = {
   gga_c_pbe_init,
   NULL, NULL,
   work_gga_c,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_rge2) = {
@@ -376,6 +380,7 @@ const XC(func_info_type) XC(func_info_gga_c_rge2) = {
   gga_c_pbe_init,
   NULL, NULL,
   work_gga_c,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_apbe) = {
@@ -389,6 +394,7 @@ const XC(func_info_type) XC(func_info_gga_c_apbe) = {
   gga_c_pbe_init,
   NULL, NULL,
   work_gga_c,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_spbe) = {
@@ -402,6 +408,7 @@ const XC(func_info_type) XC(func_info_gga_c_spbe) = {
   gga_c_pbe_init,
   NULL, NULL,
   work_gga_c,
+  NULL
 };
 
 
@@ -416,5 +423,6 @@ const XC(func_info_type) XC(func_info_gga_c_vpbe) = {
   gga_c_pbe_init,
   NULL, NULL,
   work_gga_c,
+  NULL
 };
 

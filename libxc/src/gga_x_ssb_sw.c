@@ -131,7 +131,8 @@ const XC(func_info_type) XC(func_info_gga_x_ssb_sw) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_ssb_sw_init,
   NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_ssb) = {
@@ -144,6 +145,7 @@ const XC(func_info_type) XC(func_info_gga_x_ssb) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_ssb_init,
   NULL, NULL,
+  NULL,
   NULL
 };
 
@@ -157,6 +159,7 @@ const XC(func_info_type) XC(func_info_gga_x_ssb_d) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_ssb_d_init,
   NULL, NULL,
+  NULL,
   NULL
 };
 

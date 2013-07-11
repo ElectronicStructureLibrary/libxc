@@ -153,7 +153,8 @@ const XC(func_info_type) XC(func_info_gga_k_vw) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init, 
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_ge2) = {
@@ -167,7 +168,8 @@ const XC(func_info_type) XC(func_info_gga_k_ge2) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_golden) = {
@@ -180,7 +182,8 @@ const XC(func_info_type) XC(func_info_gga_k_golden) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_yt65) = {
@@ -193,7 +196,8 @@ const XC(func_info_type) XC(func_info_gga_k_yt65) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_baltin) = {
@@ -206,7 +210,8 @@ const XC(func_info_type) XC(func_info_gga_k_baltin) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_lieb) = {
@@ -219,7 +224,8 @@ const XC(func_info_type) XC(func_info_gga_k_lieb) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_absr1) = {
@@ -232,7 +238,8 @@ const XC(func_info_type) XC(func_info_gga_k_absr1) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_absr2) = {
@@ -245,7 +252,8 @@ const XC(func_info_type) XC(func_info_gga_k_absr2) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_gr) = {
@@ -258,7 +266,8 @@ const XC(func_info_type) XC(func_info_gga_k_gr) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_ludena) = {
@@ -271,7 +280,8 @@ const XC(func_info_type) XC(func_info_gga_k_ludena) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_gp85) = {
@@ -284,5 +294,6 @@ const XC(func_info_type) XC(func_info_gga_k_gp85) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
   NULL, NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };

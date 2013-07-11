@@ -140,7 +140,8 @@ const XC(func_info_type) XC(func_info_gga_x_b88) = {
   gga_x_b88_init, 
   NULL, 
   NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_optb88_vdw) = {
@@ -154,7 +155,8 @@ const XC(func_info_type) XC(func_info_gga_x_optb88_vdw) = {
   gga_x_b88_init,
   NULL, 
   NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_mb88) = {
@@ -168,7 +170,8 @@ const XC(func_info_type) XC(func_info_gga_x_mb88) = {
   gga_x_b88_init, 
   NULL, 
   NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 #define XC_KINETIC_FUNCTIONAL
@@ -185,7 +188,8 @@ const XC(func_info_type) XC(func_info_gga_k_llp) = {
   gga_x_b88_init,
   NULL,
   NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_fr_b88) = {
@@ -199,7 +203,8 @@ const XC(func_info_type) XC(func_info_gga_k_fr_b88) = {
   gga_x_b88_init,
   NULL,
   NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_thakkar) = {
@@ -213,5 +218,6 @@ const XC(func_info_type) XC(func_info_gga_k_thakkar) = {
   gga_x_b88_init,
   NULL,
   NULL,
-  work_gga_k
+  work_gga_k,
+  NULL
 };

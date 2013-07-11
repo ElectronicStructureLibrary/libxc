@@ -98,6 +98,8 @@ const XC(func_info_type) XC(func_info_lda_c_ml1) = {
   lda_c_ml1_init,
   NULL,
   work_lda,
+  NULL,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_c_ml2) = {
@@ -111,4 +113,6 @@ const XC(func_info_type) XC(func_info_lda_c_ml2) = {
   lda_c_ml1_init,
   NULL,
   work_lda,
+  NULL,
+  NULL
 };

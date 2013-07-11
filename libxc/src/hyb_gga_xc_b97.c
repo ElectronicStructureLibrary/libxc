@@ -85,7 +85,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_b97_init,
-  NULL, NULL, NULL /* this is taken care by the generic routine */
+  NULL, NULL, NULL, NULL /* this is taken care by the generic routine */
 };
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_1) = {
@@ -97,7 +97,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_1) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_b97_init,
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_2) = {
@@ -109,7 +109,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_2) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_b97_init, 
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_k) = {
@@ -121,7 +121,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_k) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_b97_init, 
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_3) = {
@@ -133,7 +133,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_3) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_b97_init, 
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1a) = {
@@ -145,7 +145,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1a) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_b97_init, 
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1b) = {
@@ -157,7 +157,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1b) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_b97_init, 
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1c) = {
@@ -169,7 +169,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1c) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_b97_init, 
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2a) = {
@@ -181,7 +181,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2a) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_b97_init, 
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2b) = {
@@ -193,7 +193,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2b) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_b97_init, 
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2c) = {
@@ -205,5 +205,5 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2c) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_b97_init, 
-  NULL, NULL, NULL
+  NULL, NULL, NULL, NULL
 };

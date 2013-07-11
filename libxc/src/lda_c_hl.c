@@ -143,6 +143,8 @@ const XC(func_info_type) XC(func_info_lda_c_hl) = {
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
+  NULL,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_c_gl) = {
@@ -156,6 +158,8 @@ const XC(func_info_type) XC(func_info_lda_c_gl) = {
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
+  NULL,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_c_vbh) = {
@@ -169,4 +173,6 @@ const XC(func_info_type) XC(func_info_lda_c_vbh) = {
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
+  NULL,
+  NULL
 };

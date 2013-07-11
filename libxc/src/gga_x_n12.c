@@ -129,6 +129,7 @@ XC(func_info_type) XC(func_info_gga_x_n12) = {
   NULL,
   NULL, NULL,
   work_gga_c,
+  NULL
 };
 
 XC(func_info_type) XC(func_info_gga_x_n12_sx) = {
@@ -142,5 +143,6 @@ XC(func_info_type) XC(func_info_gga_x_n12_sx) = {
   NULL,
   NULL, NULL,
   work_gga_c,
+  NULL
 };
 

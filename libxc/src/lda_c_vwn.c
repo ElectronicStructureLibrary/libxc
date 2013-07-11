@@ -384,7 +384,9 @@ const XC(func_info_type) XC(func_info_lda_c_vwn) = {
   1e-32, 0.0, 0.0, 1e-32,
   lda_c_vwn_init,
   NULL,
-  work_lda
+  work_lda,
+  NULL,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_c_vwn_1) = {
@@ -397,7 +399,9 @@ const XC(func_info_type) XC(func_info_lda_c_vwn_1) = {
   1e-32, 0.0, 0.0, 1e-32,
   lda_c_vwn_init,
   NULL,
-  work_lda
+  work_lda,
+  NULL,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_c_vwn_2) = {
@@ -410,7 +414,9 @@ const XC(func_info_type) XC(func_info_lda_c_vwn_2) = {
   1e-32, 0.0, 0.0, 1e-32,
   lda_c_vwn_init,
   NULL,
-  work_lda
+  work_lda,
+  NULL,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_c_vwn_3) = {
@@ -423,7 +429,9 @@ const XC(func_info_type) XC(func_info_lda_c_vwn_3) = {
   1e-32, 0.0, 0.0, 1e-32,
   lda_c_vwn_init,
   NULL,
-  work_lda
+  work_lda,
+  NULL,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_c_vwn_4) = {
@@ -436,7 +444,9 @@ const XC(func_info_type) XC(func_info_lda_c_vwn_4) = {
   1e-32, 0.0, 0.0, 1e-32,
   lda_c_vwn_init,
   NULL,
-  work_lda
+  work_lda,
+  NULL,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_c_vwn_rpa) = {
@@ -449,6 +459,8 @@ const XC(func_info_type) XC(func_info_lda_c_vwn_rpa) = {
   1e-32, 0.0, 0.0, 1e-32,
   lda_c_vwn_init,
   NULL,
-  work_lda 
+  work_lda,
+  NULL,
+  NULL
 };
 

@@ -121,4 +121,5 @@ const XC(func_info_type) XC(func_info_gga_c_am05) = {
   NULL,
   NULL,            /* this is not an LDA                   */
   work_gga_c,
+  NULL
 };

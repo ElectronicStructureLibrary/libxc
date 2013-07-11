@@ -261,7 +261,8 @@ const XC(func_info_type) XC(func_info_gga_x_hjs_pbe) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_hjs_init,
   NULL, NULL, 
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_hjs_pbe_sol) = {
@@ -274,7 +275,8 @@ const XC(func_info_type) XC(func_info_gga_x_hjs_pbe_sol) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_hjs_init,
   NULL, NULL, 
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_hjs_b88) = {
@@ -287,7 +289,8 @@ const XC(func_info_type) XC(func_info_gga_x_hjs_b88) = {
   1e-6, 1e-11, 0.0, 0.0, /* densities smaller than 1e-6 yield NaNs */
   gga_x_hjs_init,
   NULL, NULL, 
-  work_gga_x
+  work_gga_x,
+  NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_hjs_b97x) = {
@@ -300,5 +303,6 @@ const XC(func_info_type) XC(func_info_gga_x_hjs_b97x) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_hjs_init,
   NULL, NULL, 
-  work_gga_x
+  work_gga_x,
+  NULL
 };

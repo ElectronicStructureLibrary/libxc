@@ -64,4 +64,6 @@ const XC(func_info_type) XC(func_info_lda_c_wigner) = {
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
+  NULL,
+  NULL
 };

@@ -135,17 +135,25 @@ CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 xc_funcs.h libxc_funcs.f90 funcs_lda.c funcs_gga.c funcs_hyb_gga.c funcs_mgga.c funcs_hyb_mgga.c funcs_key.c: get_funcs.pl
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)
 
-$(LIBFUNCMOD) libxc_funcs.o : libxc_funcs.f90
+LTPREF = libxcf90_la-
 
-libxc.f90 $(XCLIBMODS): libxc_master.F90 libxc_funcs.o
+$(LIBFUNCMOD) : $(LTPREF)libxc_funcs.lo
+
+libxc.f90 : libxc_master.F90
 	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc.f90
 	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
 		grep -v "^#" $(top_builddir)/src/libxc.f90 > $(top_builddir)/src/libxc.f91; \
 		mv -f $(top_builddir)/src/libxc.f91 $(top_builddir)/src/libxc.f90; \
 	fi
-libxc_s.f90 $(XCLIBMODS_S): libxc_master.F90 libxc_funcs.o
+libxc_s.f90 : libxc_master.F90
 	@FCCPP@ -D SINGLE_PRECISION=1 @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc_s.f90
 	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
 		grep -v "^#" $(top_builddir)/src/libxc_s.f90 > $(top_builddir)/src/libxc_s.f91; \
 		mv -f $(top_builddir)/src/libxc_s.f91 $(top_builddir)/src/libxc_s.f90; \
 	fi
+
+$(LTPREF)libxc.lo   $(LTPREF)libxc.o   : $(LIBFUNCMOD)
+$(LTPREF)libxc_s.lo $(LTPREF)libxc_s.o : $(LIBFUNCMOD)
+
+$(XCLIBMODS)   : $(LTPREF)libxc.lo
+$(XCLIBMODS_S) : $(LTPREF)libxc_s.lo

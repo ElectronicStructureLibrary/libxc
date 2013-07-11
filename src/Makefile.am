@@ -135,7 +135,12 @@ CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 xc_funcs.h libxc_funcs.f90 funcs_lda.c funcs_gga.c funcs_hyb_gga.c funcs_mgga.c funcs_hyb_mgga.c funcs_key.c: get_funcs.pl
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)
 
-LTPREF = libxcf90_la-
+LTPREF = $(subst xc_f.lo,,$(firstword $(am_libxcf90_la_OBJECTS)))
+# Surprisingly, libtool/automake do not seem to provide a macro or variable for what the object names will be,
+# so we have to extract it ourselves. LTPREF=libxcf90_la-, or blank for older libtool/automake versions.
+# Produces these warnings on some systems. Does not seem to matter.
+#src/Makefile.am:140: subst xc_f.lo,,$(firstword $(am_libxcf90_la_OBJECTS: non-POSIX variable name
+#src/Makefile.am:140: (probably a GNU make extension)
 
 $(LIBFUNCMOD) : $(LTPREF)libxc_funcs.lo
 

@@ -18,6 +18,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <assert.h>
 
 #include "config.h"
@@ -103,11 +104,7 @@ void XC_FC_FUNC(f90_functional_get_name, F90_FUNCTIONAL_GET_NAME)
   char *name;
 
   name = XC(functional_get_name)(*func_number);
-  if ( name == NULL )
-  {
-    name = (char *) malloc(256);
-    sprintf(name, "unknown\0");
-  }
+  if ( name == NULL ) name = strdup("unknown");
 
   TO_F_STR1(name, func_string);
   free(name);
@@ -121,7 +118,7 @@ CC_FORTRAN_INT  XC_FC_FUNC(f90_functional_get_number, F90_FUNCTIONAL_GET_NUMBER)
   int ret;
 
   TO_C_STR1(func_string, name);
-
+  
   ret = XC(functional_get_number)(name);
   free(name);
 

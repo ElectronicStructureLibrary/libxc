@@ -99,55 +99,60 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
   D2nnDrs2 = 2*aa[2] + 3*2*aa[3]*mrs1;
   D2ddDrs2 = 2*bb[1] + 3*2*bb[2]*mrs1 + 4*3*bb[3]*mrs2;
 
-  D2nnDrsz = (teter_ap[1] + 2*teter_ap[2]*mrs1 + 3*teter_ap[3]*mrs2)*fz[1];
-  D2ddDrsz = (teter_bp[0] + 2*teter_bp[1]*mrs1 + 3*teter_bp[2]*mrs2 + 4*teter_bp[3]*mrs3)*fz[1];
-
-  D2nnDz2  = (teter_ap[0]*mrs0 + teter_ap[1]*mrs1 + teter_ap[2]*mrs2 + teter_ap[3]*mrs3)*fz[2];
-  D2ddDz2  = (teter_bp[0]*mrs1 + teter_bp[1]*mrs2 + teter_bp[2]*mrs3 + teter_bp[3]*mrs4)*fz[2];
-
   dd2      = dd*dd;
   dd3      = dd*dd2;
 
   r->d2edrs2  = -((D2nnDrs2*dd - D2ddDrs2*nn)*dd -
 		  2*DddDrs*(DnnDrs*dd - DddDrs*nn))/dd3;
-  r->d2edz2   = -((D2nnDz2*dd  - D2ddDz2*nn)*dd -
-		  2*DddDz* (DnnDz*dd  - DddDz*nn)) /dd3;
-  r->d2edrsz  = -((D2nnDrsz*dd + DnnDrs*DddDz - D2ddDrsz*nn - DddDrs*DnnDz)*dd -
-		  2*DddDz* (DnnDrs*dd - DddDrs*nn))/dd3;
+
+  if(p->nspin == XC_POLARIZED){
+    D2nnDrsz = (teter_ap[1] + 2*teter_ap[2]*mrs1 + 3*teter_ap[3]*mrs2)*fz[1];
+    D2ddDrsz = (teter_bp[0] + 2*teter_bp[1]*mrs1 + 3*teter_bp[2]*mrs2 + 4*teter_bp[3]*mrs3)*fz[1];
+
+    D2nnDz2  = (teter_ap[0]*mrs0 + teter_ap[1]*mrs1 + teter_ap[2]*mrs2 + teter_ap[3]*mrs3)*fz[2];
+    D2ddDz2  = (teter_bp[0]*mrs1 + teter_bp[1]*mrs2 + teter_bp[2]*mrs3 + teter_bp[3]*mrs4)*fz[2];
+
+    r->d2edz2   = -((D2nnDz2*dd  - D2ddDz2*nn)*dd -
+		    2*DddDz* (DnnDz*dd  - DddDz*nn)) /dd3;
+    r->d2edrsz  = -((D2nnDrsz*dd + DnnDrs*DddDz - D2ddDrsz*nn - DddDrs*DnnDz)*dd -
+		    2*DddDz* (DnnDrs*dd - DddDrs*nn))/dd3;
+  }
 
   if(r->order < 3) return; /* nothing else to do */
 
   D3nnDrs3  = 3*2*aa[3];
   D3ddDrs3  = 3*2*bb[2] + 4*3*2*bb[3]*mrs1;
   
-  D3nnDrs2z = (2*teter_ap[2] + 3*2*teter_ap[3]*mrs1)*fz[1];
-  D3ddDrs2z = (2*teter_bp[1] + 3*2*teter_bp[2]*mrs1 + 4*3*teter_bp[3]*mrs2)*fz[1];
-
-  D3nnDrsz2 = (teter_ap[1] + 2*teter_ap[2]*mrs1 + 3*teter_ap[3]*mrs2)*fz[2];
-  D3ddDrsz2 = (teter_bp[0] + 2*teter_bp[1]*mrs1 + 3*teter_bp[2]*mrs2 + 4*teter_bp[3]*mrs3)*fz[2];
-
-  D3nnDz3   = (teter_ap[0]*mrs0 + teter_ap[1]*mrs1 + teter_ap[2]*mrs2 + teter_ap[3]*mrs3)*fz[3];
-  D3ddDz3   = (teter_bp[0]*mrs1 + teter_bp[1]*mrs2 + teter_bp[2]*mrs3 + teter_bp[3]*mrs4)*fz[3];
-
   r->d3edrs3   = (- nn*(6.0*DddDrs*DddDrs*DddDrs - 6.0*dd*DddDrs*D2ddDrs2 + dd2*D3ddDrs3)
 		  + dd*(6.0*DddDrs*DddDrs*DnnDrs - 3.0*dd*DddDrs*D2nnDrs2 +
 			dd*(-3.0*DnnDrs*D2ddDrs2 + dd*D3nnDrs3)));
   r->d3edrs3  /= -dd3*dd;
 
-  r->d3edz3    = (- nn*(6.0*DddDz*DddDz*DddDz - 6.0*dd*DddDz*D2ddDz2 + dd2*D3ddDz3)
-		  + dd*(6.0*DddDz*DddDz*DnnDz - 3.0*dd*DddDz*D2nnDz2 +
-			dd*(-3.0*DnnDz*D2ddDz2 + dd*D3nnDz3)));
-  r->d3edz3   /= -dd3*dd;
+  if(p->nspin == XC_POLARIZED){
+    D3nnDrs2z = (2*teter_ap[2] + 3*2*teter_ap[3]*mrs1)*fz[1];
+    D3ddDrs2z = (2*teter_bp[1] + 3*2*teter_bp[2]*mrs1 + 4*3*teter_bp[3]*mrs2)*fz[1];
+
+    D3nnDrsz2 = (teter_ap[1] + 2*teter_ap[2]*mrs1 + 3*teter_ap[3]*mrs2)*fz[2];
+    D3ddDrsz2 = (teter_bp[0] + 2*teter_bp[1]*mrs1 + 3*teter_bp[2]*mrs2 + 4*teter_bp[3]*mrs3)*fz[2];
+
+    D3nnDz3   = (teter_ap[0]*mrs0 + teter_ap[1]*mrs1 + teter_ap[2]*mrs2 + teter_ap[3]*mrs3)*fz[3];
+    D3ddDz3   = (teter_bp[0]*mrs1 + teter_bp[1]*mrs2 + teter_bp[2]*mrs3 + teter_bp[3]*mrs4)*fz[3];
+
+    r->d3edz3    = (- nn*(6.0*DddDz*DddDz*DddDz - 6.0*dd*DddDz*D2ddDz2 + dd2*D3ddDz3)
+		    + dd*(6.0*DddDz*DddDz*DnnDz - 3.0*dd*DddDz*D2nnDz2 +
+			  dd*(-3.0*DnnDz*D2ddDz2 + dd*D3nnDz3)));
+    r->d3edz3   /= -dd3*dd;
   
-  r->d3edrs2z  = -(nn*(DddDz*(6.0*DddDrs*DddDrs - 2.0*dd*D2ddDrs2) + dd*(-4.0*DddDrs*D2ddDrsz + dd*D3ddDrs2z))
-		   + dd*(DnnDz*(-2.0*DddDrs*DddDrs + dd*D2ddDrs2) + DddDz*(-4.0*DddDrs*DnnDrs + dd*D2nnDrs2) 
-			 + dd*(2.0*DnnDrs*D2ddDrsz + 2.0*DddDrs*D2nnDrsz - dd*D3nnDrs2z)));
-  r->d3edrs2z /= -dd3*dd;
-  
-  r->d3edrsz2  = -(nn*(DddDrs*(6.0*DddDz*DddDz - 2.0*dd*D2ddDz2) + dd*(-4.0*DddDz*D2ddDrsz + dd*D3ddDrsz2))
-		   + dd*(DnnDrs*(-2.0*DddDz*DddDz + dd*D2ddDz2) + DddDrs*(-4.0*DddDz*DnnDz + dd*D2nnDz2) 
-			 + dd*(2.0*DnnDz*D2ddDrsz + 2.0*DddDz*D2nnDrsz - dd*D3nnDrsz2)));
-  r->d3edrsz2 /= -dd3*dd;
+    r->d3edrs2z  = -(nn*(DddDz*(6.0*DddDrs*DddDrs - 2.0*dd*D2ddDrs2) + dd*(-4.0*DddDrs*D2ddDrsz + dd*D3ddDrs2z))
+		     + dd*(DnnDz*(-2.0*DddDrs*DddDrs + dd*D2ddDrs2) + DddDz*(-4.0*DddDrs*DnnDrs + dd*D2nnDrs2) 
+			   + dd*(2.0*DnnDrs*D2ddDrsz + 2.0*DddDrs*D2nnDrsz - dd*D3nnDrs2z)));
+    r->d3edrs2z /= -dd3*dd;
+    
+    r->d3edrsz2  = -(nn*(DddDrs*(6.0*DddDz*DddDz - 2.0*dd*D2ddDz2) + dd*(-4.0*DddDz*D2ddDrsz + dd*D3ddDrsz2))
+		     + dd*(DnnDrs*(-2.0*DddDz*DddDz + dd*D2ddDz2) + DddDrs*(-4.0*DddDz*DnnDz + dd*D2nnDz2) 
+			   + dd*(2.0*DnnDz*D2ddDrsz + 2.0*DddDz*D2nnDrsz - dd*D3nnDrsz2)));
+    r->d3edrsz2 /= -dd3*dd;
+  }
 }
 
 #include "work_lda.c"

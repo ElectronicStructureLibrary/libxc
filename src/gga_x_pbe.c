@@ -29,6 +29,7 @@
 #define XC_GGA_X_PBEK1_VDW    140 /* PBE reparametrization for vdW */
 #define XC_GGA_X_RGE2         142 /* Regularized PBE */
 #define XC_GGA_X_APBE         184 /* mu fixed from the semiclassical neutral atom   */
+#define XC_GGA_X_PBEINT        60 /* PBE for hybrid interfaces                      */
 #define XC_GGA_K_APBE         185 /* mu fixed from the semiclassical neutral atom   */
 #define XC_GGA_K_TW1          187 /* Tran and Wesolowski set 1 (Table II)           */
 #define XC_GGA_K_TW2          188 /* Tran and Wesolowski set 2 (Table II)           */
@@ -44,7 +45,7 @@ typedef struct{
 static void 
 gga_x_pbe_init(XC(func_type) *p)
 {
-  static const FLOAT kappa[13] = {
+  static const FLOAT kappa[14] = {
     0.8040,  /* original PBE */
     1.245,   /* PBE R     */
     0.8040,  /* PBE sol   */
@@ -57,10 +58,11 @@ gga_x_pbe_init(XC(func_type) *p)
     0.8209,  /* TW1       */
     0.6774,  /* TW2       */
     0.8438,  /* TW3       */
-    0.8589   /* TW4       */
+    0.8589,  /* TW4       */
+    0.8040,  /* PBEint    */
   };
 
-  static const FLOAT mu[13] = {
+  static const FLOAT mu[14] = {
     0.2195149727645171,     /* PBE: mu = beta*pi^2/3, beta = 0.06672455060314922 */
     0.2195149727645171,     /* PBE rev: as PBE */
     10.0/81.0,              /* PBE sol */
@@ -73,7 +75,8 @@ gga_x_pbe_init(XC(func_type) *p)
     0.2335,                 /* TW1       */
     0.2371,                 /* TW2       */
     0.2319,                 /* TW3       */
-    0.2309                  /* TW4       */
+    0.2309,                 /* TW4       */
+    0.0                     /* PBEint (to be set later */
   };
 
   assert(p!=NULL && p->params == NULL);
@@ -93,6 +96,7 @@ gga_x_pbe_init(XC(func_type) *p)
   case XC_GGA_K_TW2:        p->func = 10; break;
   case XC_GGA_K_TW3:        p->func = 11; break;
   case XC_GGA_K_TW4:        p->func = 12; break;
+  case XC_GGA_X_PBEINT:     p->func = 13; break;
   default:
     fprintf(stderr, "Internal error in gga_x_pbe\n");
     exit(1);
@@ -119,15 +123,21 @@ void XC(gga_x_pbe_enhance)
   (const XC(func_type) *p, int order, FLOAT x, 
    FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
-  FLOAT kappa, mu, ss, ss2, f0, df0, d2f0;
+  static FLOAT alpha = 0.197;
+  FLOAT kappa, auxmu, mu, dmu, d2mu, ss, ss2, f0, df0, d2f0;
 
   assert(p->params != NULL);
   kappa = ((gga_x_pbe_params *) (p->params))->kappa;
-  mu    = ((gga_x_pbe_params *) (p->params))->mu;
 
   ss  = X2S*x;
   ss2 = ss*ss;
  
+  if(p->func == 13){ /* PBEint */
+    auxmu = 1.0 + alpha*ss2;
+    mu = alpha*ss2/auxmu;
+  }else
+    mu = ((gga_x_pbe_params *) (p->params))->mu;
+
   f0 = kappa + mu*ss2;
   if(p->info->number == XC_GGA_X_RGE2)
     f0 += mu*mu*ss2*ss2/kappa;
@@ -136,7 +146,12 @@ void XC(gga_x_pbe_enhance)
 
   if(order < 1) return;
 
-  df0 = 2.0*mu*ss;
+  if(p->func == 13) /* PBEint*/
+    dmu = 2.0*alpha*ss/(auxmu*auxmu);
+  else
+    dmu = 0.0;
+
+  df0 = 2.0*mu*ss + dmu*ss2;
   if(p->info->number == XC_GGA_X_RGE2)
     df0 += 4.0*mu*mu*ss2*ss/kappa;
 
@@ -144,7 +159,12 @@ void XC(gga_x_pbe_enhance)
 
   if(order < 2) return;
 
-  d2f0 = 2.0*mu;
+  if(p->func == 13) /* PBEint*/
+    d2mu = 2.0*alpha*(1.0 - 3.0*alpha*ss2)/(auxmu*auxmu*auxmu);
+  else
+    d2mu = 0.0;
+
+  d2f0 = 2.0*mu + 4.0*dmu*ss + d2mu*ss2;
   if(p->info->number == XC_GGA_X_RGE2)
     d2f0 += 4.0*3.0*mu*mu*ss2/kappa;
 
@@ -269,6 +289,21 @@ const XC(func_info_type) XC(func_info_gga_x_apbe) = {
   NULL
 };
 
+const XC(func_info_type) XC(func_info_gga_x_pbeint) = {
+  XC_GGA_X_PBEINT,
+  XC_EXCHANGE,
+  "PBE for hybrid interfaces",
+  XC_FAMILY_GGA,
+  "E. Fabiano, LA Constantin, and F. Della Sala, Phys. Rev. B 82, 113104 (2010)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-12, 1e-32, 0.0, 1e-32,
+  gga_x_pbe_init,
+  NULL, NULL,
+  work_gga_x,
+  NULL
+};
+
+
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
@@ -341,3 +376,4 @@ const XC(func_info_type) XC(func_info_gga_k_tw4) = {
   work_gga_k,
   NULL
 };
+

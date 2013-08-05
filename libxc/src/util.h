@@ -21,6 +21,10 @@
 
 #include <math.h>
 #include <float.h>
+
+#include "xc.h"
+
+/* xc_config.h needs to be included to use FLOAT and related macros*/
 #include "xc_config.h"
 
 /* If strict ANSI, then some useful macros are not defined */
@@ -115,8 +119,6 @@ typedef struct XC(functional_key_t) {
 #define MIN_GRAD             5.0e-13
 #define MIN_TAU              5.0e-13
 #define MIN_ZETA             5.0e-13
-
-#include "xc.h"
 
 /* The following inlines confuse the xlc compiler */
 void XC(rho2dzeta)(int nspin, const FLOAT *rho, FLOAT *d, FLOAT *zeta);

@@ -1,0 +1,11 @@
+#undef FLOAT
+#undef POW
+#undef LOG
+#undef ASINH
+#undef ABS
+#undef EXP
+#undef SQRT
+#undef FLOAT_EPSILON 
+#undef FLOAT_MIN 
+#undef FLOAT_MAX
+#undef CBRT

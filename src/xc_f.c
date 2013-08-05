@@ -28,6 +28,8 @@
 #include "xc.h"
 #include "string_f.h"
 
+/* xc_config.h needs to be included to use FLOAT and related macros*/
+#include "xc_config.h"
 
 /* version */
 void XC_FC_FUNC(f90_version, F90_VERSION)

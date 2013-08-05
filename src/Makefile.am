@@ -84,7 +84,7 @@ noinst_HEADERS = \
 	work_gga_x.c work_gga_c.c \
 	work_mgga_x.c work_mgga_c.c \
 	libxc_master.F90
-include_HEADERS = xc.h xc_config.h
+include_HEADERS = xc.h xc_config.h xc_unconfig.h
 nodist_include_HEADERS = xc_funcs.h
 
 if COMPILE_SINGLE

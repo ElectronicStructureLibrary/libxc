@@ -30,7 +30,7 @@ func(const XC(func_type) *p, int order, FLOAT x,
   static const FLOAT kappa = 0.8040;
   static const FLOAT mu = 0.00361218645365094697;
   /* hard-coded alpha*/
-  static const FLOAT alpha = 0.5;
+  static const FLOAT alpha = 0.52;
 
   FLOAT f0, df0, d2f0;
 

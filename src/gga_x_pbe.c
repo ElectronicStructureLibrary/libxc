@@ -30,6 +30,7 @@
 #define XC_GGA_X_RGE2         142 /* Regularized PBE */
 #define XC_GGA_X_APBE         184 /* mu fixed from the semiclassical neutral atom   */
 #define XC_GGA_X_PBEINT        60 /* PBE for hybrid interfaces                      */
+#define XC_GGA_X_PBE_TCA       59 /* PBE revised by Tognetti et al                  */
 #define XC_GGA_K_APBE         185 /* mu fixed from the semiclassical neutral atom   */
 #define XC_GGA_K_TW1          187 /* Tran and Wesolowski set 1 (Table II)           */
 #define XC_GGA_K_TW2          188 /* Tran and Wesolowski set 2 (Table II)           */
@@ -45,7 +46,7 @@ typedef struct{
 static void 
 gga_x_pbe_init(XC(func_type) *p)
 {
-  static const FLOAT kappa[14] = {
+  static const FLOAT kappa[15] = {
     0.8040,  /* original PBE */
     1.245,   /* PBE R     */
     0.8040,  /* PBE sol   */
@@ -60,9 +61,10 @@ gga_x_pbe_init(XC(func_type) *p)
     0.8438,  /* TW3       */
     0.8589,  /* TW4       */
     0.8040,  /* PBEint    */
+    1.227,   /* PBE TCA   */
   };
 
-  static const FLOAT mu[14] = {
+  static const FLOAT mu[15] = {
     0.2195149727645171,     /* PBE: mu = beta*pi^2/3, beta = 0.06672455060314922 */
     0.2195149727645171,     /* PBE rev: as PBE */
     10.0/81.0,              /* PBE sol */
@@ -76,7 +78,8 @@ gga_x_pbe_init(XC(func_type) *p)
     0.2371,                 /* TW2       */
     0.2319,                 /* TW3       */
     0.2309,                 /* TW4       */
-    0.0                     /* PBEint (to be set later */
+    0.0,                    /* PBEint (to be set later */
+    0.2195149727645171,     /* PBE TCA: as PBE */
   };
 
   assert(p!=NULL && p->params == NULL);
@@ -97,6 +100,7 @@ gga_x_pbe_init(XC(func_type) *p)
   case XC_GGA_K_TW3:        p->func = 11; break;
   case XC_GGA_K_TW4:        p->func = 12; break;
   case XC_GGA_X_PBEINT:     p->func = 13; break;
+  case XC_GGA_X_PBE_TCA:    p->func = 14; break;
   default:
     fprintf(stderr, "Internal error in gga_x_pbe\n");
     exit(1);
@@ -297,6 +301,21 @@ const XC(func_info_type) XC(func_info_gga_x_pbeint) = {
   "E. Fabiano, LA Constantin, and F. Della Sala, Phys. Rev. B 82, 113104 (2010)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-12, 1e-32, 0.0, 1e-32,
+  gga_x_pbe_init,
+  NULL, NULL,
+  work_gga_x,
+  NULL
+};
+
+
+const XC(func_info_type) XC(func_info_gga_x_pbe_tca) = {
+  XC_GGA_X_PBE_TCA,
+  XC_EXCHANGE,
+  "PBE revised by Tognetti et al",
+  XC_FAMILY_GGA,
+  "V Tognetti, P Cortona, and C Adamo, Chem. Phys. Lett. 460, 536-539 (2008)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
   work_gga_x,

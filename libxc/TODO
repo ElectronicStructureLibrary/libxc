@@ -5,8 +5,10 @@ LDA:
      R. McWeeny, in The New World of Quantum Chemistry, edited by B. Pullman and R. Parr (Reidel, Boston, 1976), p. 3.
   *) Handler x (JCP 61, 4824) 
   *) Rae self-energy correction to x (CPL 18, 574 (1973))
+  *) ZLP x (Phys. Rev. A, 47 (1993), p. 918) and k (Chem. Phys. Lett. 232, 31)
 
 GGAs:
+  *) functionals of Della Salla (http://www.theory-nnl.it/software.php)
 
 mGGAs:
   *) Colle and Salvetti http://www.molpro.net/info/current/doc/manual/node750.html

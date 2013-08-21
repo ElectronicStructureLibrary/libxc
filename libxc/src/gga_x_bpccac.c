@@ -30,7 +30,7 @@ gga_x_bpccac_init(XC(func_type) *p)
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
   p->func_aux[1] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
 
-  XC(func_init)(p->func_aux[0], XC_GGA_X_RPBE, p->nspin);
+  XC(func_init)(p->func_aux[0], XC_GGA_X_PBE_TCA, p->nspin);
   XC(func_init)(p->func_aux[1], XC_GGA_X_PW91, p->nspin);
 }
 
@@ -45,7 +45,7 @@ func(const XC(func_type) *p, int order, FLOAT x,
   FLOAT f2, df2dx, d2f2dx2;
   FLOAT aux, den, fab, dfab, d2fab;
 
-  XC(gga_x_rpbe_enhance)(p->func_aux[0], order, x, &f1, &df1dx, &d2f1dx2);
+  XC(gga_x_pbe_enhance) (p->func_aux[0], order, x, &f1, &df1dx, &d2f1dx2);
   XC(gga_x_pw91_enhance)(p->func_aux[1], order, x, &f2, &df2dx, &d2f2dx2);
 
   aux = exp(-(alpha*(x - beta)));

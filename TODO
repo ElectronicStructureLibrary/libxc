@@ -21,6 +21,7 @@ mGGAs:
   *) tau-HTCH
   *) KCIS, B0KCIS, B1KCIS http://jcp.aip.org/resource/1/jcpsa6/v117/i23/p10465_s1
   *) regTPSS http://pubs.acs.org/doi/abs/10.1021/ct300269u
+  *) LAP class of functionals [70]
 
 hybrids:
   *) http://arxiv.org/abs/1205.4999 (versions of HSE)
@@ -49,3 +50,8 @@ V. V. Karasiev and E. V. Lude˜na, Phys. Rev. A 65, 032515 (2002).
   Plenum: New York, 1999; p 463.
 69: Toulouse, J.; Savin, A.; Adamo, C. J. Chem. Phys. 2002, 117, 1441.
 
+70: http://dx.doi.org/10.1016/0009-2614(94)01189-3
+    http://dx.doi.org/10.1002/qua.560560808
+    http://dx.doi.org/10.1002/(SICI)1097-461X(1997)64:4<427::AID-QUA5>3.0.CO;2-Y
+    http://link.aip.org/link/doi/10.1063/1.1321309
+    http://dx.doi.org/10.1021/ct600372t

@@ -23,6 +23,7 @@ mGGAs:
   *) regTPSS http://pubs.acs.org/doi/abs/10.1021/ct300269u
   *) LAP class of functionals [70]
   *) Perdew-Constantin laplacian-level KED functional http://link.aps.org/doi/10.1103/PhysRevB.75.155109
+  *) Alternative parametrizations of the TB09 functional http://dx.doi.org/10.1103/PhysRevB.85.155109
 
 hybrids:
   *) http://arxiv.org/abs/1205.4999 (versions of HSE)

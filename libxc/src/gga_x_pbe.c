@@ -140,7 +140,7 @@ void XC(gga_x_pbe_enhance)
  
   if(p->func == 13){ /* PBEint */
     auxmu = 1.0 + alpha*ss2;
-    mu = muGE + (muPBE - muGE0) * alpha*ss2/auxmu;
+    mu = muGE + (muPBE - muGE) * alpha*ss2/auxmu;
   }else
     mu = ((gga_x_pbe_params *) (p->params))->mu;
 
@@ -153,7 +153,7 @@ void XC(gga_x_pbe_enhance)
   if(order < 1) return;
 
   if(p->func == 13) /* PBEint*/
-    dmu = (muPBE - muGE0) * 2.0*alpha*ss/(auxmu*auxmu);
+    dmu = (muPBE - muGE) * 2.0*alpha*ss/(auxmu*auxmu);
   else
     dmu = 0.0;
 
@@ -166,7 +166,7 @@ void XC(gga_x_pbe_enhance)
   if(order < 2) return;
 
   if(p->func == 13) /* PBEint*/
-    d2mu = (muPBE - muGE0) * 2.0*alpha*(1.0 - 3.0*alpha*ss2)/(auxmu*auxmu*auxmu);
+    d2mu = (muPBE - muGE) * 2.0*alpha*(1.0 - 3.0*alpha*ss2)/(auxmu*auxmu*auxmu);
   else
     d2mu = 0.0;
 

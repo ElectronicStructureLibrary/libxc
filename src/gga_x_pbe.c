@@ -127,7 +127,9 @@ void XC(gga_x_pbe_enhance)
   (const XC(func_type) *p, int order, FLOAT x, 
    FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
-  static FLOAT alpha = 0.197;
+  /* parameters for PBEint */
+  static FLOAT alpha=0.197, muPBE=0.2195149727645171, muGE=10.0/81.0;
+
   FLOAT kappa, auxmu, mu, dmu, d2mu, ss, ss2, f0, df0, d2f0;
 
   assert(p->params != NULL);
@@ -138,7 +140,7 @@ void XC(gga_x_pbe_enhance)
  
   if(p->func == 13){ /* PBEint */
     auxmu = 1.0 + alpha*ss2;
-    mu = alpha*ss2/auxmu;
+    mu = muGE + (muPBE - muGE0) * alpha*ss2/auxmu;
   }else
     mu = ((gga_x_pbe_params *) (p->params))->mu;
 
@@ -151,7 +153,7 @@ void XC(gga_x_pbe_enhance)
   if(order < 1) return;
 
   if(p->func == 13) /* PBEint*/
-    dmu = 2.0*alpha*ss/(auxmu*auxmu);
+    dmu = (muPBE - muGE0) * 2.0*alpha*ss/(auxmu*auxmu);
   else
     dmu = 0.0;
 
@@ -164,7 +166,7 @@ void XC(gga_x_pbe_enhance)
   if(order < 2) return;
 
   if(p->func == 13) /* PBEint*/
-    d2mu = 2.0*alpha*(1.0 - 3.0*alpha*ss2)/(auxmu*auxmu*auxmu);
+    d2mu = (muPBE - muGE0) * 2.0*alpha*(1.0 - 3.0*alpha*ss2)/(auxmu*auxmu*auxmu);
   else
     d2mu = 0.0;
 

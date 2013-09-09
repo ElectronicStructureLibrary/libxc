@@ -38,9 +38,9 @@ gga_x_pw86_init(XC(func_type) *p)
   }
 }
 
-static inline void
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
+inline void
+XC(gga_x_pw86_enhance)(const XC(func_type) *p, int order, FLOAT x, 
+		       FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
   static const gga_x_pw86_params par[3] = {
     {    1.296, 14.0,  0.2},
@@ -72,6 +72,7 @@ func(const XC(func_type) *p, int order, FLOAT x,
     (d3dd - 14.0/15.0*d2dd*d2dd/dd);
 }
 
+#define func XC(gga_x_pw86_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_pw86) = {

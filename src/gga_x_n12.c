@@ -23,7 +23,7 @@
 #include "util.h"
 
 #define XC_GGA_X_N12          82 /* N12 functional from Minnesota    */
-#define XC_GGA_X_N12_SX       81 /* N12-SX functional from Minnesota */
+#define XC_HYB_GGA_X_N12_SX   81 /* N12-SX functional from Minnesota */
 
 static const FLOAT CC_N12[4][4] = {
   { 1.00000e+00,  5.07880e-01,  1.68233e-01,  1.28887e-01},
@@ -38,6 +38,15 @@ static const FLOAT CC_N12_SX[4][4] = {
   { 5.36236e-01, -5.45678e+00,  3.00000e+01,  5.51105e+01},
   {-7.09913e-01,  1.30001e+01, -7.24877e+01,  2.98363e+01}
 };
+
+
+static void
+hyb_gga_x_n12_sx_init(XC(func_type) *p)
+{
+  p->cam_beta  = 0.25;
+  p->cam_omega = 0.11;
+}
+
 
 static void 
 func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
@@ -132,15 +141,15 @@ XC(func_info_type) XC(func_info_gga_x_n12) = {
   NULL
 };
 
-XC(func_info_type) XC(func_info_gga_x_n12_sx) = {
-  XC_GGA_X_N12_SX,
+XC(func_info_type) XC(func_info_hyb_gga_x_n12_sx) = {
+  XC_HYB_GGA_X_N12_SX,
   XC_EXCHANGE,
   "N12-SX functional of Minnesota",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   "R Peverati and DG Truhlar, Phys. Chem. Chem. Phys. 14, 16187-16191 (2012)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
-  NULL,
+  hyb_gga_x_n12_sx_init,
   NULL, NULL,
   work_gga_c,
   NULL

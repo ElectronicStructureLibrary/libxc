@@ -47,6 +47,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeh) = {
   XC_EXCHANGE_CORRELATION,
   "PBEH (PBE0)",
   XC_FAMILY_HYB_GGA,
+  "C Adamo and V Barone, J. Chem. Phys. 110, 6158 (1999)\n"
   "M. Ernzerhof, G. E. Scuseria, J. Chem. Phys. 110, 5029 (1999)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,

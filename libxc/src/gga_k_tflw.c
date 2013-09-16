@@ -205,7 +205,7 @@ const XC(func_info_type) XC(func_info_gga_k_baltin) = {
   XC_KINETIC,
   "TF-lambda-vW form by Baltin (l = 5/9)",
   XC_FAMILY_GGA,
-  "R Baltin, Z. Naturforsch. 27, 1176 (1972)",
+  "R Baltin, Z. Naturforsch. A 27, 1176 (1972)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,

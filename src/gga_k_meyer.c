@@ -34,7 +34,7 @@ func(const XC(func_type) *p, int order, FLOAT x,
   ll     = LOG((1.0 + y)/ABS(1.0 - y));
   lambda = 0.5*(1.0 + (1.0 - y*y)*ll/(2.0*y));
 
-  *f = 1.0 + lambda*x*x/K_FACTOR_C;
+  *f = 1.0 + lambda*x*x/(8.0*K_FACTOR_C);
 
   if(order < 1) return;
 
@@ -42,13 +42,13 @@ func(const XC(func_type) *p, int order, FLOAT x,
 
   dlambda = dy*(2.0*y - (1.0 + y*y)*ll)/(4.0*y*y);
 
-  *dfdx = (dlambda*x + 2.0*lambda)*x/K_FACTOR_C;
+  *dfdx = (dlambda*x + 2.0*lambda)*x/(8.0*K_FACTOR_C);
 
   if(order < 2) return;
 
   d2lambda = dy*dy*(2.0*y/(y*y - 1.0) + ll)/(2.0*y*y*y);
 
-  *d2fdx2  = (d2lambda*x*x + 4.0*dlambda*x + 2.0*lambda)/K_FACTOR_C;
+  *d2fdx2  = (d2lambda*x*x + 4.0*dlambda*x + 2.0*lambda)/(8.0*K_FACTOR_C);
 }
 
 #define XC_KINETIC_FUNCTIONAL

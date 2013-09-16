@@ -62,9 +62,10 @@ extern "C" {
 #define XC_TAU_EXPLICIT         0
 #define XC_TAU_EXPANSION        1
 
-  /* This value was redefined as XC_GGA_X_LB, we define it here to
-     keep compatibility. */
+/* These are old names keep for compatibility, and that should disappear soon */
 #define XC_GGA_XC_LB          160
+#define XC_GGA_K_ABSR1        506
+#define XC_GGA_K_ABSR2        507
 
 void XC(version)(int *major, int *minor);
 

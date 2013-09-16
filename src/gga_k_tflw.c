@@ -33,8 +33,8 @@ Celebration of the Contributions of Robert G. Parr, edited by KD Sen
 #define XC_GGA_K_YT65          503 /* TF-lambda-vW form by Yonei and Tomishima (l = 1/5) */
 #define XC_GGA_K_BALTIN        504 /* TF-lambda-vW form by Baltin (l = 5/9) */
 #define XC_GGA_K_LIEB          505 /* TF-lambda-vW form by Lieb (l = 0.185909191) */
-#define XC_GGA_K_ABSR1         506 /* gamma-TFvW form by Acharya et al [g = 1 - 1.412/N^(1/3)] */
-#define XC_GGA_K_ABSR2         507 /* gamma-TFvW form by Acharya et al [g = 1 - 1.332/N^(1/3)] */
+#define XC_GGA_K_ABSP1         506 /* gamma-TFvW form by Acharya et al [g = 1 - 1.412/N^(1/3)] */
+#define XC_GGA_K_ABSP2         507 /* gamma-TFvW form by Acharya et al [g = 1 - 1.332/N^(1/3)] */
 #define XC_GGA_K_GR            508 /* gamma-TFvW form by Gázquez and Robles */
 #define XC_GGA_K_LUDENA        509 /* gamma-TFvW form by Ludeña */
 #define XC_GGA_K_GP85          510 /* gamma-TFvW form by Ghosh and Parr */
@@ -73,10 +73,10 @@ XC(gga_k_tflw_set_params)(XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N)
     case XC_GGA_K_VW:
       params->gamma = 0.0;
       break;
-    case XC_GGA_K_ABSR1:      /* Ref. 79 */
+    case XC_GGA_K_ABSP1:      /* Ref. 79 */
       params->gamma = 1.0 - 1.412/CBRT(N);
       break;
-    case XC_GGA_K_ABSR2:      /* Ref. 79 */
+    case XC_GGA_K_ABSP2:      /* Ref. 79 */
       params->gamma = 1.0 - 1.332/CBRT(N);
       break;
     case XC_GGA_K_GR:         /* Ref. 80 */
@@ -228,8 +228,8 @@ const XC(func_info_type) XC(func_info_gga_k_lieb) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_absr1) = {
-  XC_GGA_K_ABSR1,
+const XC(func_info_type) XC(func_info_gga_k_absp1) = {
+  XC_GGA_K_ABSP1,
   XC_KINETIC,
   "gamma-TFvW form by Acharya et al [g = 1 - 1.412/N^(1/3)]",
   XC_FAMILY_GGA,
@@ -242,8 +242,8 @@ const XC(func_info_type) XC(func_info_gga_k_absr1) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_absr2) = {
-  XC_GGA_K_ABSR2,
+const XC(func_info_type) XC(func_info_gga_k_absp2) = {
+  XC_GGA_K_ABSP2,
   XC_KINETIC,
   "gamma-TFvW form by Acharya et al [g = 1 - 1.332/N^(1/3)]",
   XC_FAMILY_GGA,

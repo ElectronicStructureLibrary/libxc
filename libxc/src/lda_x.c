@@ -95,6 +95,13 @@ XC(lda_x_set_params)(XC(func_type) *p, FLOAT alpha, int relativistic, FLOAT omeg
                = 1 -> ERF_GAU          
 
 see also J. Chem. Phys. 120, 8425 (2004)
+               = 2 -> YUKAWA
+see
+         Int. J. of Quant. Chem. 100, 1047-1056 (2004).
+	 Chem. Phys. Lett. 462(2008) 348-351
+
+   TODO: perhaps defines (XC_RSF_ERF, XC_RSF_ERF_GAU, XC_RSF_YUKAWA)
+         would be easier to read
 */
 void
 XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
@@ -104,47 +111,67 @@ XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, F
 
   aa2 = aa*aa;
   aa3 = aa*aa2;
-  auxa1 = M_SQRTPI*erf(1.0/(2.0*aa));
 
-  if(aa < 1.0e6) 
-    auxa2 = exp(-1.0/(4.0*aa2)) - 1.0;
-  else
-    auxa2 = -1.0/(4.0*aa2);
+  if (interaction != 2) {
+    auxa1 = M_SQRTPI*erf(1.0/(2.0*aa));
+  
+    if(aa < 1.0e6) 
+      auxa2 = exp(-1.0/(4.0*aa2)) - 1.0;
+    else
+      auxa2 = -1.0/(4.0*aa2);
+  
+    auxa3 = 2.0*aa2*auxa2 + 0.5;
+  
+    *f = 1.0 - 8.0/3.0*aa*(auxa1 + 2.0*aa*(auxa2 - auxa3));
+  
+    if(interaction == 1){ /* erfgau */
+      bb  = aa/M_SQRT3;
+      bb2 = bb*bb;
+      bb3 = bb*bb2;
+      auxb1 = M_SQRTPI*erf(1.0/(2.0*bb));
+      auxb2 = exp(-1.0/(4.0*bb2));
+      
+      *f += 8.0/M_SQRT3*bb*(auxb1 - 6.0*bb + 16.0*bb3 + (2.0*bb - 16*bb3)*auxb2);
+    }
+  
+    if(order < 1) return;
+  
+    *df = 8.0/3.0 * (4.0*aa - 2.0*(1.0 - 8.0*aa2)*aa*auxa2 - auxa1);
+  
+    if(interaction == 1)  /* erfgau */
+      *df -= 8.0/3.0*(4.0*bb*(3.0 - 16.0*bb2 + (1.0 + 16.0*bb2)*auxb2) - auxb1);
+  
+    if(order < 2) return;
+  
+    *d2f = 16.0*(2.0 + (1.0 + 8.0*aa2)*auxa2);
+  
+    if(interaction == 1)  /* erfgau */
+      *d2f -= 8.0/(3.0*M_SQRT3)*(12.0 - 192.0*bb2 + 3.0*(1.0/bb2 + 12.0 + 64.0*bb2)*auxb2);
+  
+    if(order < 3) return;
+  
+    *d3f = -256.0*aa + 8.0*(1.0 + 8.0*aa2 + 32.0*aa2*aa2)*(auxa2 + 1.0)/aa3;
+  
+    if(interaction == 1)  /* erfgau */
+      *d3f -=  8.0/9.0*(-384.0*bb + 3.0*(1.0 + 8.0*bb2*(1.0 + bb2*(8.0 + bb2*32.0))*auxb2/(2.0*bb2*bb2*bb)));
+  } else {	/* yukawa */
 
-  auxa3 = 2.0*aa2*auxa2 + 0.5;
+    auxa1 = atan2(1.0,aa);
+    auxa2 = log(1+(1.0/aa2));
+    auxa3 = (aa2 + 1);
 
-  *f = 1.0 - 8.0/3.0*aa*(auxa1 + 2.0*aa*(auxa2 - auxa3));
-
-  if(interaction == 1){ /* erfgau */
-    bb  = aa/M_SQRT3;
-    bb2 = bb*bb;
-    bb3 = bb*bb2;
-    auxb1 = M_SQRTPI*erf(1.0/(2.0*bb));
-    auxb2 = exp(-1.0/(4.0*bb2));
-    
-    *f += 8.0/M_SQRT3*bb*(auxb1 - 6.0*bb + 16.0*bb3 + (2.0*bb - 16*bb3)*auxb2);
+    switch (order) {
+      default:	/* > 3 - catch-22 */
+      case 3:
+        *d3f = 8*(2*aa2*auxa3*auxa2 - 2*aa2 -1)/(aa*auxa3);
+      case 2:
+        *d2f = 4*(2*aa2 + 1)*auxa2 - 2;
+      case 1:
+        *df = 4.0/3.0 * (aa*((2*aa2 + 3)*auxa2 - 2) - 2* auxa1);
+      case 0:
+        *f = 1.0 - 8.0/3.0*aa*(auxa1 + aa/4.0* (1.0 - (auxa3 +2)*auxa2));
+    }	/* no break needed */
   }
-
-  if(order < 1) return;
-
-  *df = 8.0/3.0 * (4.0*aa - 2.0*(1.0 - 8.0*aa2)*aa*auxa2 - auxa1);
-
-  if(interaction == 1)  /* erfgau */
-    *df -= 8.0/3.0*(4.0*bb*(3.0 - 16.0*bb2 + (1.0 + 16.0*bb2)*auxb2) - auxb1);
-
-  if(order < 2) return;
-
-  *d2f = 16.0*(2.0 + (1.0 + 8.0*aa2)*auxa2);
-
-  if(interaction == 1)  /* erfgau */
-    *d2f -= 8.0/(3.0*M_SQRT3)*(12.0 - 192.0*bb2 + 3.0*(1.0/bb2 + 12.0 + 64.0*bb2)*auxb2);
-
-  if(order < 3) return;
-
-  *d3f = -256.0*aa + 8.0*(1.0 + 8.0*aa2 + 32.0*aa2*aa2)*(auxa2 + 1.0)/aa3;
-
-  if(interaction == 1)  /* erfgau */
-    *d3f -=  8.0/9.0*(-384.0*bb + 3.0*(1.0 + 8.0*bb2*(1.0 + bb2*(8.0 + bb2*32.0))*auxb2/(2.0*bb2*bb2*bb)));
 
 }
 

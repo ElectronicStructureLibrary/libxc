@@ -29,8 +29,7 @@
 
 typedef struct{
   int func_id;
-  void (*enhancement_factor)
-    (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2);
+  xc_gga_enhancement_t enhancement_factor;
 } gga_x_sfat_params;
 
 static void
@@ -68,42 +67,7 @@ XC(gga_x_sfat_set_params)(XC(func_type) *p, int func_id, FLOAT omega)
     params->func_id = func_id;
     XC(func_init) (p->func_aux[0], params->func_id, p->nspin);
 
-    switch(params->func_id){
-    case XC_GGA_X_WC:
-      params->enhancement_factor = XC(gga_x_wc_enhance);
-      break;
-    case XC_GGA_X_PBE:
-    case XC_GGA_X_PBE_R:
-    case XC_GGA_X_PBE_SOL:
-    case XC_GGA_X_XPBE:
-    case XC_GGA_X_PBE_JSJR:
-    case XC_GGA_X_PBEK1_VDW:
-    case XC_GGA_X_RGE2:
-    case XC_GGA_X_APBE:
-      params->enhancement_factor = XC(gga_x_pbe_enhance);
-      break;
-    case XC_GGA_X_PW91:
-    case XC_GGA_X_MPW91:
-      params->enhancement_factor = XC(gga_x_pw91_enhance);
-      break;
-    case XC_GGA_X_RPBE:
-      params->enhancement_factor = XC(gga_x_rpbe_enhance);
-      break;
-    case XC_GGA_X_HTBS:
-      params->enhancement_factor = XC(gga_x_htbs_enhance);
-      break;
-    case XC_GGA_X_B88:
-    case XC_GGA_X_OPTB88_VDW:
-    case XC_GGA_X_MB88:
-      params->enhancement_factor = XC(gga_x_b88_enhance);
-      break;
-    case XC_GGA_X_G96:
-      params->enhancement_factor = XC(gga_x_g96_enhance);
-      break;
-    default:
-      fprintf(stderr, "Internal error in gga_x_sfat\n");
-      exit(1);
-    }
+    params->enhancement_factor = get_gga_enhancement_factor(func_id);
   }
 }
 
@@ -130,7 +94,7 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
 
   aa = p->cam_omega/(2.0*k_GGA);
 
-  XC(lda_x_attenuation_function)(2, order, aa, &f_aa, &df_aa, &d2f_aa, &d3f_aa);
+  XC(lda_x_attenuation_function)(XC_RSF_YUKAWA, order, aa, &f_aa, &df_aa, &d2f_aa, &d3f_aa);
 
   *f = e_f*f_aa;
 

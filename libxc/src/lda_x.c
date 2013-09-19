@@ -91,17 +91,11 @@ XC(lda_x_set_params)(XC(func_type) *p, FLOAT alpha, int relativistic, FLOAT omeg
 }
 
 
-/* interaction = 0 -> ERF interaction
-               = 1 -> ERF_GAU          
-
-see also J. Chem. Phys. 120, 8425 (2004)
-               = 2 -> YUKAWA
+/*
 see
-         Int. J. of Quant. Chem. 100, 1047-1056 (2004).
-	 Chem. Phys. Lett. 462(2008) 348-351
-
-   TODO: perhaps defines (XC_RSF_ERF, XC_RSF_ERF_GAU, XC_RSF_YUKAWA)
-         would be easier to read
+  Int. J. of Quant. Chem. 100, 1047-1056 (2004).
+  Chem. Phys. Lett. 462(2008) 348-351
+  J. Chem. Phys. 120, 8425 (2004)
 */
 void
 XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
@@ -112,7 +106,7 @@ XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, F
   aa2 = aa*aa;
   aa3 = aa*aa2;
 
-  if (interaction != 2) {
+  if (interaction == XC_RSF_ERF || interaction == XC_RSF_ERF_GAU) {
     auxa1 = M_SQRTPI*erf(1.0/(2.0*aa));
   
     if(aa < 1.0e6) 
@@ -124,7 +118,7 @@ XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, F
   
     *f = 1.0 - 8.0/3.0*aa*(auxa1 + 2.0*aa*(auxa2 - auxa3));
   
-    if(interaction == 1){ /* erfgau */
+    if(interaction == XC_RSF_ERF_GAU){
       bb  = aa/M_SQRT3;
       bb2 = bb*bb;
       bb3 = bb*bb2;
@@ -138,23 +132,24 @@ XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, F
   
     *df = 8.0/3.0 * (4.0*aa - 2.0*(1.0 - 8.0*aa2)*aa*auxa2 - auxa1);
   
-    if(interaction == 1)  /* erfgau */
+    if(interaction == XC_RSF_ERF_GAU)
       *df -= 8.0/3.0*(4.0*bb*(3.0 - 16.0*bb2 + (1.0 + 16.0*bb2)*auxb2) - auxb1);
   
     if(order < 2) return;
   
     *d2f = 16.0*(2.0 + (1.0 + 8.0*aa2)*auxa2);
   
-    if(interaction == 1)  /* erfgau */
+    if(interaction == XC_RSF_ERF_GAU)
       *d2f -= 8.0/(3.0*M_SQRT3)*(12.0 - 192.0*bb2 + 3.0*(1.0/bb2 + 12.0 + 64.0*bb2)*auxb2);
   
     if(order < 3) return;
   
     *d3f = -256.0*aa + 8.0*(1.0 + 8.0*aa2 + 32.0*aa2*aa2)*(auxa2 + 1.0)/aa3;
   
-    if(interaction == 1)  /* erfgau */
+    if(interaction == XC_RSF_ERF_GAU)
       *d3f -=  8.0/9.0*(-384.0*bb + 3.0*(1.0 + 8.0*bb2*(1.0 + bb2*(8.0 + bb2*32.0))*auxb2/(2.0*bb2*bb2*bb)));
-  } else {	/* yukawa */
+
+  } else {	/* XC_RSF_YUKAWA */
 
     auxa1 = atan2(1.0,aa);
     auxa2 = log(1+(1.0/aa2));
@@ -164,10 +159,13 @@ XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, F
       default:	/* > 3 - catch-22 */
       case 3:
         *d3f = 8*(2*aa2*auxa3*auxa2 - 2*aa2 -1)/(aa*auxa3);
+
       case 2:
         *d2f = 4*(2*aa2 + 1)*auxa2 - 2;
+
       case 1:
         *df = 4.0/3.0 * (aa*((2*aa2 + 3)*auxa2 - 2) - 2* auxa1);
+
       case 0:
         *f = 1.0 - 8.0/3.0*aa*(auxa1 + aa/4.0* (1.0 - (auxa3 +2)*auxa2));
     }	/* no break needed */
@@ -208,15 +206,15 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
     a_cnst = CBRT(4.0/(9.0*M_PI))*p->cam_omega/2.0;
 
     if(p->nspin == XC_UNPOLARIZED){
-      XC(lda_x_attenuation_function)(0, r->order, a_cnst*r->rs[1], &fa_u, &dfa_u, &d2fa_u, &d3fa_u);
+      XC(lda_x_attenuation_function)(XC_RSF_ERF, r->order, a_cnst*r->rs[1], &fa_u, &dfa_u, &d2fa_u, &d3fa_u);
     }else{
       if(cbrtopz > 0.0)
-	XC(lda_x_attenuation_function)(0, r->order, a_cnst*r->rs[1]/cbrtopz, &fa_u, &dfa_u, &d2fa_u, &d3fa_u);
+	XC(lda_x_attenuation_function)(XC_RSF_ERF, r->order, a_cnst*r->rs[1]/cbrtopz, &fa_u, &dfa_u, &d2fa_u, &d3fa_u);
       else
 	fa_u = dfa_u = d2fa_u = d3fa_u = 0.0;
 
       if(cbrtomz > 0.0)
-	XC(lda_x_attenuation_function)(0, r->order, a_cnst*r->rs[1]/cbrtomz, &fa_d, &dfa_d, &d2fa_d, &d3fa_d);
+	XC(lda_x_attenuation_function)(XC_RSF_ERF, r->order, a_cnst*r->rs[1]/cbrtomz, &fa_d, &dfa_d, &d2fa_d, &d3fa_d);
       else
 	fa_d = dfa_d = d2fa_d = d3fa_d = 0.0;
     }

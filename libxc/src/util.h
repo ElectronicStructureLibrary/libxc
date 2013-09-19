@@ -139,6 +139,11 @@ typedef struct XC(lda_work_t) {
 void XC(lda_fxc_fd)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *fxc);
 void XC(lda_kxc_fd)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *kxc);
 
+/* the different possibilities for screening the interaction */
+#define XC_RSF_ERF      0
+#define XC_RSF_ERF_GAU  1
+#define XC_RSF_YUKAWA   2
+
 void XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f);
 void XC(lda_stoll)(const XC(func_type) *pw, FLOAT dens, FLOAT zeta, int order, XC(lda_work_t) res[3]);
 
@@ -151,7 +156,10 @@ void XC(lda_c_rc04_func)(const XC(func_type) *p, XC(lda_work_t) *r);
 /* GGAs */
 void work_gga_becke_init(XC(func_type) *p);
 
-/* exchange enhancement factors: if you add one, please add it also to the gga_x_ityh.c */
+/* exchange enhancement factors: if you add one, please add it also to the util.c */
+typedef void(*xc_gga_enhancement_t)(const XC(func_type) *, int, FLOAT, FLOAT *, FLOAT *, FLOAT *);
+xc_gga_enhancement_t get_gga_enhancement_factor(int func_id);
+
 void XC(gga_x_wc_enhance)   (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2);
 void XC(gga_x_pbe_enhance)  (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2);
 void XC(gga_x_pw91_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2);

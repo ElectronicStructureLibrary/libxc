@@ -367,6 +367,14 @@ module XC_F90(lib_m)
 
   !----------------------------------------------------------------
   interface
+    real(xc_f90_kind) function XC_F90(gga_ak13_get_asymp)(homo)
+      use XC_F90(types_m)
+      real(xc_f90_kind),       intent(in)  :: homo
+    end function XC_F90(gga_ak13_get_asymp)
+  end interface
+
+  !----------------------------------------------------------------
+  interface
     subroutine XC_F90(hyb_exx_coef)(p, coef)
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(in)  :: p

@@ -192,6 +192,8 @@ void XC(gga_x_sfat_set_params)    (XC(func_type) *p, int func_id, FLOAT omega);
 void XC(gga_x_ssb_sw_set_params)  (XC(func_type) *p, FLOAT A, FLOAT B, FLOAT C, FLOAT D, FLOAT E);
 void XC(gga_x_kt_set_params)      (XC(func_type) *p, FLOAT gamma, FLOAT delta);
 
+FLOAT XC(gga_ak13_get_asymptotic) (FLOAT eps);
+
 FLOAT XC(hyb_exx_coef)(const XC(func_type) *p);
 void  XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT *beta);
 

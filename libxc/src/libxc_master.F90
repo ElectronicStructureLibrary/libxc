@@ -369,7 +369,6 @@ module XC_F90(lib_m)
   !----------------------------------------------------------------
   interface
     function XC_F90(gga_ak13_get_asymptotic)(homo)
-    real(xc_f90_kind) function XC_F90(gga_ak13_get_asymptotic)(homo)
       use XC_F90(types_m)
       real(xc_f90_kind)                    :: XC_F90(gga_ak13_get_asymp)
       real(xc_f90_kind),       intent(in)  :: homo

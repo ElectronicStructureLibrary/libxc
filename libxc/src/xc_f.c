@@ -310,10 +310,10 @@ void XC_FC_FUNC(f90_gga_x_hjs_set_par, F90_GGA_X_HJS_SET_PAR)
   XC(gga_x_hjs_set_params)((XC(func_type) *)(*p), *omega);
 }
 
-FLOAT XC_FC_FUNC(f90_gga_ak13_get_asymptotic, F90_GGA_AK13_GET_ASYMPTOTIC)
-  (FLOAT *homo)
+void XC_FC_FUNC(f90_gga_ak13_get_asymptotic, F90_GGA_AK13_GET_ASYMPTOTIC)
+  (FLOAT *homo, FLOAT *asymp)
 {
-  return XC(gga_ak13_get_asymptotic)(*homo);
+  *asymp = XC(gga_ak13_get_asymptotic)(*homo);
 }
 
 void XC_FC_FUNC(f90_hyb_exx_coef, F90_HYB_EXX_COEF)

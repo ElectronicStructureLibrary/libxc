@@ -36,6 +36,7 @@
 #define XC_GGA_K_TW2          188 /* Tran and Wesolowski set 2 (Table II)           */
 #define XC_GGA_K_TW3          189 /* Tran and Wesolowski set 3 (Table II)           */
 #define XC_GGA_K_TW4          190 /* Tran and Wesolowski set 4 (Table II)           */
+#define XC_GGA_K_REVAPBE       55 /* revised APBE                                   */
 
 
 typedef struct{
@@ -46,25 +47,26 @@ typedef struct{
 static void 
 gga_x_pbe_init(XC(func_type) *p)
 {
-  static const FLOAT kappa[15] = {
+  static const FLOAT kappa[16] = {
     0.8040,  /* original PBE */
-    1.245,   /* PBE R     */
-    0.8040,  /* PBE sol   */
-    0.91954, /* xPBE      */
-    0.8040,  /* PBE_JSJR  */
-    1.0,     /* PBEK1_VDW */
-    0.8040,  /* RGE2      */
-    0.8040,  /* APBE (X)  */
-    0.8040,  /* APBE (K)  */
-    0.8209,  /* TW1       */
-    0.6774,  /* TW2       */
-    0.8438,  /* TW3       */
-    0.8589,  /* TW4       */
-    0.8040,  /* PBEint    */
-    1.227,   /* PBE TCA   */
+    1.245,   /* PBE R       */
+    0.8040,  /* PBE sol     */
+    0.91954, /* xPBE        */
+    0.8040,  /* PBE_JSJR    */
+    1.0,     /* PBEK1_VDW   */
+    0.8040,  /* RGE2        */
+    0.8040,  /* APBE (X)    */
+    0.8040,  /* APBE (K)    */
+    0.8209,  /* TW1         */
+    0.6774,  /* TW2         */
+    0.8438,  /* TW3         */
+    0.8589,  /* TW4         */
+    0.8040,  /* PBEint      */
+    1.227,   /* PBE TCA     */
+    1.245,   /* revAPBE (K) */
   };
 
-  static const FLOAT mu[15] = {
+  static const FLOAT mu[16] = {
     0.2195149727645171,     /* PBE: mu = beta*pi^2/3, beta = 0.06672455060314922 */
     0.2195149727645171,     /* PBE rev: as PBE */
     10.0/81.0,              /* PBE sol */
@@ -80,6 +82,7 @@ gga_x_pbe_init(XC(func_type) *p)
     0.2309,                 /* TW4       */
     0.0,                    /* PBEint (to be set later */
     0.2195149727645171,     /* PBE TCA: as PBE */
+    0.23889,                /* revAPBE (K)  */
   };
 
   assert(p!=NULL && p->params == NULL);
@@ -101,6 +104,7 @@ gga_x_pbe_init(XC(func_type) *p)
   case XC_GGA_K_TW4:        p->func = 12; break;
   case XC_GGA_X_PBEINT:     p->func = 13; break;
   case XC_GGA_X_PBE_TCA:    p->func = 14; break;
+  case XC_GGA_K_REVAPBE:    p->func = 15; break;
   default:
     fprintf(stderr, "Internal error in gga_x_pbe\n");
     exit(1);
@@ -332,6 +336,20 @@ const XC(func_info_type) XC(func_info_gga_k_apbe) = {
   XC_GGA_K_APBE,
   XC_KINETIC,
   "mu fixed from the semiclassical neutral atom",
+  XC_FAMILY_GGA,
+  "LA Constantin, E Fabiano, S Laricchia, and F Della Sala, Phys. Rev. Lett. 106, 186406 (2011)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_x_pbe_init,
+  NULL, NULL,
+  work_gga_k,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_k_revapbe) = {
+  XC_GGA_K_REVAPBE,
+  XC_KINETIC,
+  "revised APBE",
   XC_FAMILY_GGA,
   "LA Constantin, E Fabiano, S Laricchia, and F Della Sala, Phys. Rev. Lett. 106, 186406 (2011)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,

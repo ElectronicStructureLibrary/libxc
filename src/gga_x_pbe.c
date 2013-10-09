@@ -26,8 +26,8 @@
 #define XC_GGA_X_PBE_SOL      116 /* Perdew, Burke & Ernzerhof exchange (solids)    */
 #define XC_GGA_X_XPBE         123 /* xPBE reparametrization by Xu & Goddard         */
 #define XC_GGA_X_PBE_JSJR     126 /* JSJR reparametrization by Pedroza, Silva & Capelle */
-#define XC_GGA_X_PBEK1_VDW    140 /* PBE reparametrization for vdW */
-#define XC_GGA_X_RGE2         142 /* Regularized PBE */
+#define XC_GGA_X_PBEK1_VDW    140 /* PBE reparametrization for vdW                  */
+#define XC_GGA_X_RGE2         142 /* Regularized PBE                                */
 #define XC_GGA_X_APBE         184 /* mu fixed from the semiclassical neutral atom   */
 #define XC_GGA_X_PBEINT        60 /* PBE for hybrid interfaces                      */
 #define XC_GGA_X_PBE_TCA       59 /* PBE revised by Tognetti et al                  */
@@ -37,17 +37,21 @@
 #define XC_GGA_K_TW3          189 /* Tran and Wesolowski set 3 (Table II)           */
 #define XC_GGA_K_TW4          190 /* Tran and Wesolowski set 4 (Table II)           */
 #define XC_GGA_K_REVAPBE       55 /* revised APBE                                   */
-
+#define XC_GGA_K_APBEINT       54 /* interpolated version of APBE                   */
+#define XC_GGA_K_REVAPBEINT    53 /* interpolated version of REVAPBE                */
 
 typedef struct{
   FLOAT kappa, mu;
+
+  /* parameters only used for PBEint and similar functionals */
+  FLOAT alpha, muPBE, muGE;
 } gga_x_pbe_params;
 
 
 static void 
 gga_x_pbe_init(XC(func_type) *p)
 {
-  static const FLOAT kappa[16] = {
+  static const FLOAT kappa[18] = {
     0.8040,  /* original PBE */
     1.245,   /* PBE R       */
     0.8040,  /* PBE sol     */
@@ -64,9 +68,11 @@ gga_x_pbe_init(XC(func_type) *p)
     0.8040,  /* PBEint      */
     1.227,   /* PBE TCA     */
     1.245,   /* revAPBE (K) */
+    0.8040,  /* APBEINT (K) */
+    1.245,   /* revAPBEINT (K) */
   };
 
-  static const FLOAT mu[16] = {
+  static const FLOAT mu[18] = {
     0.2195149727645171,     /* PBE: mu = beta*pi^2/3, beta = 0.06672455060314922 */
     0.2195149727645171,     /* PBE rev: as PBE */
     10.0/81.0,              /* PBE sol */
@@ -80,14 +86,23 @@ gga_x_pbe_init(XC(func_type) *p)
     0.2371,                 /* TW2       */
     0.2319,                 /* TW3       */
     0.2309,                 /* TW4       */
-    0.0,                    /* PBEint (to be set later */
+    0.0,                    /* PBEint (to be set later) */
     0.2195149727645171,     /* PBE TCA: as PBE */
     0.23889,                /* revAPBE (K)  */
+    0.0,                    /* APBEINT (K) (to be set later) */
+    0.0,                    /* REVAPBEINT (K) (to be set later) */
   };
+
+  gga_x_pbe_params *params;
 
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_x_pbe_params));
+  params = (gga_x_pbe_params *) (p->params);
  
+  params->alpha = 0.0;
+  params->muPBE = 0.0;
+  params->muGE  = 0.0;
+
   switch(p->info->number){
   case XC_GGA_X_PBE:        p->func = 0;  break;
   case XC_GGA_X_PBE_R:      p->func = 1;  break;
@@ -102,13 +117,33 @@ gga_x_pbe_init(XC(func_type) *p)
   case XC_GGA_K_TW2:        p->func = 10; break;
   case XC_GGA_K_TW3:        p->func = 11; break;
   case XC_GGA_K_TW4:        p->func = 12; break;
-  case XC_GGA_X_PBEINT:     p->func = 13; break;
+  case XC_GGA_X_PBEINT: {
+    p->func  = 13;
+    params->alpha = 0.197;
+    params->muPBE = 0.2195149727645171;
+    params->muGE  = 10.0/81.0;
+    break;
+  }
   case XC_GGA_X_PBE_TCA:    p->func = 14; break;
   case XC_GGA_K_REVAPBE:    p->func = 15; break;
-  default:
+  case XC_GGA_K_APBEINT: {
+    p->func  = 16;
+    params->alpha = 5.0/3.0;
+    params->muPBE = 0.23899;
+    params->muGE  = 5.0/27.0;
+    break;
+  }
+  case XC_GGA_K_REVAPBEINT: { /* equal to the previous one */
+    p->func  = 17;
+    params->alpha = 5.0/3.0;
+    params->muPBE = 0.23899;
+    params->muGE  = 5.0/27.0;
+    break;
+  }
+  default:{
     fprintf(stderr, "Internal error in gga_x_pbe\n");
     exit(1);
-  }
+  }}
 
   XC(gga_x_pbe_set_params)(p, kappa[p->func], mu[p->func]);
 }
@@ -131,22 +166,22 @@ void XC(gga_x_pbe_enhance)
   (const XC(func_type) *p, int order, FLOAT x, 
    FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
 {
-  /* parameters for PBEint */
-  static FLOAT alpha=0.197, muPBE=0.2195149727645171, muGE=10.0/81.0;
-
+  gga_x_pbe_params *params;
   FLOAT kappa, auxmu, mu, dmu, d2mu, ss, ss2, f0, df0, d2f0;
 
   assert(p->params != NULL);
-  kappa = ((gga_x_pbe_params *) (p->params))->kappa;
+  params = (gga_x_pbe_params *) (p->params);
+
+  kappa = params->kappa;
 
   ss  = X2S*x;
   ss2 = ss*ss;
  
-  if(p->func == 13){ /* PBEint */
-    auxmu = 1.0 + alpha*ss2;
-    mu = muGE + (muPBE - muGE) * alpha*ss2/auxmu;
+  if(params->alpha != 0.0){ /* PBEint and related functionals */
+    auxmu = 1.0 + params->alpha*ss2;
+    mu = params->muGE + (params->muPBE - params->muGE) * params->alpha*ss2/auxmu;
   }else
-    mu = ((gga_x_pbe_params *) (p->params))->mu;
+    mu = params->mu;
 
   f0 = kappa + mu*ss2;
   if(p->info->number == XC_GGA_X_RGE2)
@@ -156,8 +191,8 @@ void XC(gga_x_pbe_enhance)
 
   if(order < 1) return;
 
-  if(p->func == 13) /* PBEint*/
-    dmu = (muPBE - muGE) * 2.0*alpha*ss/(auxmu*auxmu);
+  if(params->alpha != 0.0) /* PBEint and related functionals */
+    dmu = (params->muPBE - params->muGE) * 2.0*params->alpha*ss/(auxmu*auxmu);
   else
     dmu = 0.0;
 
@@ -169,8 +204,9 @@ void XC(gga_x_pbe_enhance)
 
   if(order < 2) return;
 
-  if(p->func == 13) /* PBEint*/
-    d2mu = (muPBE - muGE) * 2.0*alpha*(1.0 - 3.0*alpha*ss2)/(auxmu*auxmu*auxmu);
+  if(params->alpha != 0.0) /* PBEint and related functionals */
+    d2mu = (params->muPBE - params->muGE) * 
+      2.0*params->alpha*(1.0 - 3.0*params->alpha*ss2)/(auxmu*auxmu*auxmu);
   else
     d2mu = 0.0;
 
@@ -408,6 +444,34 @@ const XC(func_info_type) XC(func_info_gga_k_tw4) = {
   "Tran and Wesolowski set 1 (Table II)",
   XC_FAMILY_GGA,
   "F Tran and TA Wesolowski, Int. J. Quant. Chem. 89, 441-446 (2002)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_x_pbe_init,
+  NULL, NULL,
+  work_gga_k,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_k_apbeint) = {
+  XC_GGA_K_APBEINT,
+  XC_KINETIC,
+  "interpolated version of APBE",
+  XC_FAMILY_GGA,
+  "S Laricchia, E Fabiano, LA Constantin, and F Della Sala, J. Chem. Theory Comput. 7, 2439-2451 (2011)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_x_pbe_init,
+  NULL, NULL,
+  work_gga_k,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_k_revapbeint) = {
+  XC_GGA_K_REVAPBEINT,
+  XC_KINETIC,
+  "interpolated version of REVAPBE",
+  XC_FAMILY_GGA,
+  "S Laricchia, E Fabiano, LA Constantin, and F Della Sala, J. Chem. Theory Comput. 7, 2439-2451 (2011)",
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,

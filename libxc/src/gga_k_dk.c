@@ -122,7 +122,7 @@ gga_k_dk_init(XC(func_type) *p)
 
 static inline void 
 func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
+     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   FLOAT xx2, xx4, num, denom, dnum, ddenom, d2num, d2denom;
   FLOAT *aa, *bb;

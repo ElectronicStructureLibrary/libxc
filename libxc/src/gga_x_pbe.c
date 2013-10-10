@@ -164,7 +164,7 @@ XC(gga_x_pbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu)
 
 void XC(gga_x_pbe_enhance) 
   (const XC(func_type) *p, int order, FLOAT x, 
-   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   gga_x_pbe_params *params;
   FLOAT kappa, auxmu, mu, dmu, d2mu, ss, ss2, f0, df0, d2f0;

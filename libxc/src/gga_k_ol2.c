@@ -35,7 +35,7 @@ gga_k_ol2_init(XC(func_type) *p)
 
 static inline void 
 func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
+     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   static const FLOAT aa[2] = {    1.0,            M_CBRT2*0.07064/X_FACTOR_C};
   static const FLOAT bb[2] = {    1.0/K_FACTOR_C, M_CBRT2*0.07064/X_FACTOR_C};

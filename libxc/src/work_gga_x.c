@@ -39,7 +39,8 @@ work_gga_x
 #endif
 (const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
- FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
+ FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
+ FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3)
 {
   FLOAT sfact, x_factor_c, alpha, beta, dens;
   int is, ip, order;
@@ -87,7 +88,7 @@ work_gga_x
 
     for(is=0; is<p->nspin; is++){
       FLOAT gdm, ds, rhoLDA;
-      FLOAT x, f, dfdx, d2fdx2, lvsigma, lv2sigma2, lvsigmax, lvrho;
+      FLOAT x, f, dfdx, d2fdx2, d3fdx3, lvsigma, lv2sigma2, lvsigmax, lvrho;
       int js = (is == 0) ? 0 : 2;
       int ks = (is == 0) ? 0 : 5;
 
@@ -102,7 +103,7 @@ work_gga_x
       lvsigma = lv2sigma2 = lvsigmax = lvrho = 0.0;
 
 #if   HEADER == 1
-      func(p, order, x, &f, &dfdx, &d2fdx2);
+      func(p, order, x, &f, &dfdx, &d2fdx2, &d3fdx3);
 #elif HEADER == 2
       /* this second header is useful for functionals that depend
 	 explicitly both on x and on sigma */
@@ -138,7 +139,10 @@ work_gga_x
 	  v2sigma2  [ks] = sfact*x_factor_c*rhoLDA*
 	    (lv2sigma2 + lvsigmax*x/sigma[js] + (d2fdx2*x - dfdx)*x/(4.0*sigma[js]*sigma[js]));
 	}
-	
+
+	if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){
+	  
+	}
       }
     }
 

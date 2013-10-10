@@ -67,7 +67,7 @@ gga_x_vmt_init(XC(func_type) *p)
 
 void XC(gga_x_vmt_enhance) 
   (const XC(func_type) *p, int order, FLOAT x, 
-   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   FLOAT mu, alpha, ss, ss2, ss4, ss6, ss8, ss10, f0, f1, g0;
 

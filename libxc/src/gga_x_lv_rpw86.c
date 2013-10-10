@@ -36,7 +36,7 @@ gga_x_lv_rpw86_init(XC(func_type) *p)
 
 void XC(gga_x_lv_rpw86_enhance)
   (const XC(func_type) *p, int order, FLOAT x, 
-   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   const FLOAT alpha=0.02178, beta=1.15, muLV=0.8491/9.0;
   FLOAT ss, ss2, ss4, ss6, a, da, d2a;
@@ -50,7 +50,7 @@ void XC(gga_x_lv_rpw86_enhance)
   aux1 = 1.0 + alpha*ss6;
   aux2 = beta + alpha*ss6;
 
-  XC(gga_x_pw86_enhance)(p->func_aux[0], order, x, &a, &da, &d2a);
+  XC(gga_x_pw86_enhance)(p->func_aux[0], order, x, &a, &da, &d2a, NULL);
 
   *f = (1.0 + muLV*ss2)/aux1 + alpha*ss6*a/aux2;
 

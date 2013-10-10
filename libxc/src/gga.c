@@ -104,6 +104,8 @@ void XC(gga_end)(XC(func_type) *func)
    v2rhosigma_svx = d^2 n*zk / d rho_s d sigma_tv
    v2sigma2_stvx  = d^2 n*zk / d sigma_st d sigma_vx
 
+   v3rho3_stv     = d^3 n*zk / d rho_s d rho_t rho_v
+
 if nspin == 2
    rho(2)        = (u, d)
    sigma(3)      = (uu, du, dd)
@@ -114,10 +116,13 @@ if nspin == 2
    v2rho2(3)     = (uu, du, dd)
    v2rhosigma(6) = (u_uu, u_ud, u_dd, d_uu, d_ud, d_dd)
    v2sigma2(6)   = (uu_uu, uu_ud, uu_dd, ud_ud, ud_dd, dd_dd)
+
+   v3rho3(4)     = (uuu, duu, ddu, ddd)
 */
 void XC(gga)(const XC(func_type) *func, int np, const FLOAT *rho, const FLOAT *sigma,
 	     FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-	     FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
+	     FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
+	     FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3)
 {
   assert(func != NULL);
   
@@ -136,6 +141,12 @@ void XC(gga)(const XC(func_type) *func, int np, const FLOAT *rho, const FLOAT *s
 
   if(v2rho2 != NULL && !(func->info->flags & XC_FLAGS_HAVE_FXC)){
     fprintf(stderr, "Functional '%s' does not provide an implementation of fxc",
+	    func->info->name);
+    exit(1);
+  }
+
+  if(v3rho3 != NULL && !(func->info->flags & XC_FLAGS_HAVE_KXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of kxc",
 	    func->info->name);
     exit(1);
   }
@@ -159,9 +170,20 @@ void XC(gga)(const XC(func_type) *func, int np, const FLOAT *rho, const FLOAT *s
     memset(v2sigma2,   0, func->n_v2sigma2  *np*sizeof(FLOAT));
   }
 
+  if(v3rho3 != NULL){
+    assert(v3rho2sigma!=NULL && v3rhosigma2!=NULL && v3sigma3!=NULL);
+
+    memset(v3rho3,      0, func->n_v3rho3     *np*sizeof(FLOAT));
+    memset(v3rho2sigma, 0, func->n_v3rho2sigma*np*sizeof(FLOAT));
+    memset(v3rhosigma2, 0, func->n_v3rhosigma2*np*sizeof(FLOAT));
+    memset(v3sigma3,    0, func->n_v3sigma3   *np*sizeof(FLOAT));    
+  }
+
   /* call functional */
   if(func->info->gga != NULL)
-    func->info->gga(func, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
+    func->info->gga(func, np, rho, sigma, zk, vrho, vsigma, 
+		    v2rho2, v2rhosigma, v2sigma2,
+		    v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
 
   if(func->mix_coef != NULL)
     XC(mix_func)(func, np, rho, sigma, NULL, NULL, zk, vrho, vsigma, NULL, NULL,
@@ -175,7 +197,7 @@ inline void
 XC(gga_exc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
 	    FLOAT *zk)
 {
-  XC(gga)(p, np, rho, sigma, zk, NULL, NULL, NULL, NULL, NULL);
+  XC(gga)(p, np, rho, sigma, zk, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 /* returns only potential */
@@ -183,7 +205,7 @@ inline void
 XC(gga_vxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 	    FLOAT *vrho, FLOAT *vsigma)
 {
-  XC(gga)(p, np, rho, sigma, NULL, vrho, vsigma, NULL, NULL, NULL);
+  XC(gga)(p, np, rho, sigma, NULL, vrho, vsigma, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 /* returns both energy and potential (the most common call usually) */
@@ -191,7 +213,7 @@ inline void
 XC(gga_exc_vxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 		FLOAT *zk, FLOAT *vrho, FLOAT *vsigma)
 {
-  XC(gga)(p, np, rho, sigma, zk, vrho, vsigma, NULL, NULL, NULL);
+  XC(gga)(p, np, rho, sigma, zk, vrho, vsigma, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 /* returns second derivatives */
@@ -199,5 +221,13 @@ inline void
 XC(gga_fxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 	    FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
-  XC(gga)(p, np, rho, sigma, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2);
+  XC(gga)(p, np, rho, sigma, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2, NULL, NULL, NULL, NULL);
+}
+
+/* returns third derivatives */
+inline void 
+XC(gga_kxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
+	    FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3)
+{
+  XC(gga)(p, np, rho, sigma, NULL, NULL, NULL, NULL, NULL, NULL, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
 }

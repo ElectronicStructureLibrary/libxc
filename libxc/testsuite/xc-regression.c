@@ -56,7 +56,7 @@ void get_point(xc_func_type *func, values_t *p)
       break;
     case XC_FAMILY_GGA:
     case XC_FAMILY_HYB_GGA:
-      xc_gga(func, 1, p->rho, p->sigma, zk, vrho, p->vsigma, v2rho2, p->v2rhosigma, p->v2sigma2);
+      xc_gga(func, 1, p->rho, p->sigma, zk, vrho, p->vsigma, v2rho2, p->v2rhosigma, p->v2sigma2, NULL, NULL, NULL, NULL);
       break;
     case XC_FAMILY_MGGA:
     case XC_FAMILY_HYB_MGGA:
@@ -264,4 +264,6 @@ int main(int argc, char *argv[])
     }
     xc_func_end(&func);
   }
+
+  return 0;
 }

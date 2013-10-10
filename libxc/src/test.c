@@ -54,7 +54,7 @@ void test_expi()
   n = 1;
   for(b=1e-3; b<50; b+=0.01){
     r1 = bessel_K0(b);
-    r2 = gsl_sf_bessel_K0(b);
+    //r2 = gsl_sf_bessel_K0(b);
     //r3 = bessi1(b);
     printf("%5.3lf %12.10lf %12.10lf %12.10lf\n", b, r1, r2, r3);
   }  
@@ -108,6 +108,31 @@ void test_lda()
 
     printf("%e\t%e\t%e\n", rho[0], fxc1[0], kxc1[0]);
   }
+}
+
+void test_ak13()
+{
+  XC(func_type) gga;
+  double beta = 0.13;
+  double x, rho[2] = {0.0, 0.0}, sigma[3] = {0.0, 0.0, 0.0}, zk, vrho[2], vsigma[3];
+  double tmp1, tmp2;
+  int i;
+
+  XC(func_init)(&gga,  XC_GGA_X_AK13,  XC_POLARIZED);
+
+  for(i=0; i<=10000; i++){
+
+    x = 500.0*i/(10000.0);
+    rho[0]   = 0.12*exp(-beta * x);
+    sigma[0] = 0.12*0.12*beta*beta * rho[0]*rho[0];
+    
+    XC(gga)(&gga,  1, rho, sigma, &zk, vrho, vsigma, NULL,NULL,NULL);
+
+    tmp2 = 1.74959015598863046792081721182*beta*x/3.0- 1.62613336586517367779736042170*log(x);
+    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\t%16.10lf\n", x, vrho[0], vsigma[0]*sqrt(sigma[0]), 
+	    -X_FACTOR_C*X2S*tmp2/2.0);
+  }
+  
 }
 
 void test_gga()
@@ -253,8 +278,9 @@ int main()
   //test_neg_rho();
 
   //test_lda();
-  //test_gga();
-  test_mgga();
+  //test_gga(); 
+  test_ak13();
+  //test_mgga();
 
   //printf("number = '%d'; key = '%s'", 25, XC(functional_get_name)(25));
 

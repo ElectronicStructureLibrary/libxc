@@ -25,7 +25,8 @@
 static void 
 work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 	   FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-	   FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
+	   FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
+	   FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3)
 {
   XC(gga_work_c_t) r;
   FLOAT min_grad2 = p->info->min_grad*p->info->min_grad;

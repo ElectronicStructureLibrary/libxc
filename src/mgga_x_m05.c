@@ -92,7 +92,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   assert(pt != NULL && pt->params != NULL);
   params = (mgga_x_m05_params *) (pt->params);
   
-  XC(gga_x_pbe_enhance)(pt->func_aux[0], r->order, r->x, &e_f, &e_dfdx, &e_d2fdx2);
+  XC(gga_x_pbe_enhance)(pt->func_aux[0], r->order, r->x, &e_f, &e_dfdx, &e_d2fdx2, NULL);
   
   XC(mgga_series_w)(r->order, params->n, params->a, r->t, &fw, &dfwdt);
 

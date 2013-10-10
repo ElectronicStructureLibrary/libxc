@@ -89,7 +89,7 @@ void XC(mix_func)
       XC(lda)(aux, np, rho, zk_, vrho_, v2rho2_, NULL);
       break;
     case XC_FAMILY_GGA:
-      XC(gga)(aux, np, rho, sigma, zk_, vrho_, vsigma_, v2rho2_, v2rhosigma_, v2sigma2_);
+      XC(gga)(aux, np, rho, sigma, zk_, vrho_, vsigma_, v2rho2_, v2rhosigma_, v2sigma2_, NULL, NULL, NULL, NULL);
       break;
     case XC_FAMILY_MGGA:
       XC(mgga)(aux, np, rho, sigma, lapl, tau, zk_, vrho_, vsigma_, vlapl_, vtau_,

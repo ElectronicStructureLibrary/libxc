@@ -87,7 +87,7 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
   params = (gga_x_sfat_params *) (p->params);
 
   /* call enhancement factor */
-  params->enhancement_factor(p->func_aux[0], order, x, &e_f, &e_dfdx, &e_d2fdx2);
+  params->enhancement_factor(p->func_aux[0], order, x, &e_f, &e_dfdx, &e_d2fdx2, NULL);
 
   K_GGA = 2.0*X_FACTOR_C*e_f;
   k_GGA = SQRT(9.0*M_PI/K_GGA)*CBRT(ds);

@@ -252,38 +252,53 @@ void XC_FC_FUNC(f90_lda_c_2d_prm_set_par, F90_LDA_C_2D_PRM_SET_PAR)
 void XC_FC_FUNC(f90_gga, F90_GGA)
      (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, 
       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-      FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
+      FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
+      FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3)
 {
-  XC(gga)((XC(func_type) *)(*p), *np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2);
+  XC(gga)((XC(func_type) *)(*p), *np, rho, sigma, zk, vrho, vsigma, 
+	  v2rho2, v2rhosigma, v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
 }
 
 void XC_FC_FUNC(f90_gga_exc, F90_GGA_EXC)
      (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, 
       FLOAT *zk)
 {
-  XC(gga)((XC(func_type) *)(*p), *np, rho, sigma, zk, NULL, NULL, NULL, NULL, NULL);
+  XC(gga)((XC(func_type) *)(*p), *np, rho, sigma, zk, NULL, NULL, 
+	  NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 void XC_FC_FUNC(f90_gga_exc_vxc, F90_GGA_EXC_VXC)
      (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, 
       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma)
 {
-  XC(gga)((XC(func_type) *)(*p), *np, rho, sigma, zk, vrho, vsigma, NULL, NULL, NULL);
+  XC(gga)((XC(func_type) *)(*p), *np, rho, sigma, zk, vrho, vsigma, 
+	  NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 void XC_FC_FUNC(f90_gga_vxc, F90_GGA_VXC)
      (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, 
       FLOAT *vrho, FLOAT *vsigma)
 {
-  XC(gga)((XC(func_type) *)(*p), *np, rho, sigma, NULL, vrho, vsigma, NULL, NULL, NULL);
+  XC(gga)((XC(func_type) *)(*p), *np, rho, sigma, NULL, vrho, vsigma, 
+	  NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 void XC_FC_FUNC(f90_gga_fxc, F90_GGA_FXC)
      (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, 
       FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
 {
-  XC(gga)((XC(func_type) *)(*p), *np, rho, sigma, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2);
+  XC(gga)((XC(func_type) *)(*p), *np, rho, sigma, NULL, NULL, NULL, 
+	  v2rho2, v2rhosigma, v2sigma2, NULL, NULL, NULL, NULL);
 }
+
+void XC_FC_FUNC(f90_gga_kxc, F90_GGA_KXC)
+     (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, 
+      FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3)
+{
+  XC(gga)((XC(func_type) *)(*p), *np, rho, sigma, NULL, NULL, NULL, 
+	  NULL, NULL, NULL, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
+}
+
 
 /* the van Leeuwen & Baerends functional is special */
 void XC_FC_FUNC(f90_gga_lb_set_par, F90_GGA_LB_SET_PAR)

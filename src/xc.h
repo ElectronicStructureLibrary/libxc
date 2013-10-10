@@ -94,7 +94,8 @@ typedef struct{
   void (*gga) (const struct XC(func_type) *p, int np, 
 	       const FLOAT *rho, const FLOAT *sigma, 
 	       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-	       FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
+	       FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
+	       FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3);
   void (*mgga)(const struct XC(func_type) *p, int np, 
 	       const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
 	       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau,
@@ -119,11 +120,14 @@ struct XC(func_type){
   int func;                             /* Shortcut in case of several functionals sharing the same interface */
   int n_rho, n_sigma, n_tau, n_lapl;    /* spin dimensions of the arrays */
   int n_zk;
+
   int n_vrho, n_vsigma, n_vtau, n_vlapl;
+
   int n_v2rho2, n_v2sigma2, n_v2tau2, n_v2lapl2,
     n_v2rhosigma, n_v2rhotau, n_v2rholapl, 
     n_v2sigmatau, n_v2sigmalapl, n_v2lapltau;
-  int n_v3rho3;
+
+  int n_v3rho3, n_v3rho2sigma, n_v3rhosigma2, n_v3sigma3;
   
   void *params;                         /* this allows us to fix parameters in the functional */
 };
@@ -161,7 +165,8 @@ int  XC(gga_init)(XC(func_type) *p, const XC(func_info_type) *info, int nspin);
 void XC(gga_end) (XC(func_type) *p);
 void XC(gga)     (const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
 		  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-		  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
+		  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
+		  FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3);
 void XC(gga_exc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
 		 FLOAT *zk);
 void XC(gga_exc_vxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
@@ -170,6 +175,8 @@ void XC(gga_vxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *
 		 FLOAT *vrho, FLOAT *vsigma);
 void XC(gga_fxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 		 FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
+void XC(gga_kxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
+		 FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3);
 
 void XC(gga_lb_modified)  (const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
 			   FLOAT r, FLOAT *vrho);

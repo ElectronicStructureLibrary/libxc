@@ -158,8 +158,8 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
     opz13 = CBRT(opz);
     rss   = r->rs*M_CBRT2/opz13;
 
-    XC(gga_x_pbe_enhance) (pt->func_aux[0], r->order, r->xs[is], &ep_f, &ep_dfdx, &ep_d2fdx2);
-    XC(gga_x_rpbe_enhance)(pt->func_aux[1], r->order, r->xs[is], &er_f, &er_dfdx, &er_d2fdx2);
+    XC(gga_x_pbe_enhance) (pt->func_aux[0], r->order, r->xs[is], &ep_f, &ep_dfdx, &ep_d2fdx2, NULL);
+    XC(gga_x_rpbe_enhance)(pt->func_aux[1], r->order, r->xs[is], &er_f, &er_dfdx, &er_d2fdx2, NULL);
   
     XC(mgga_series_w)(r->order, 12, params->a, r->ts[is], &fw1, &dfw1dt);
     XC(mgga_series_w)(r->order, 12, params->b, r->ts[is], &fw2, &dfw2dt);

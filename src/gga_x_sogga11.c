@@ -43,7 +43,7 @@ gga_x_sogga11_init(XC(func_type) *p)
 
 void XC(gga_x_sogga11_enhance)
   (const XC(func_type) *p, int order, FLOAT x, 
-   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   const FLOAT kappa = 0.552;
   const FLOAT mu = 10.0/81.0;

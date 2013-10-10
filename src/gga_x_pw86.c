@@ -40,7 +40,7 @@ gga_x_pw86_init(XC(func_type) *p)
 
 inline void
 XC(gga_x_pw86_enhance)(const XC(func_type) *p, int order, FLOAT x, 
-		       FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2)
+		       FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   static const gga_x_pw86_params par[3] = {
     {    1.296, 14.0,  0.2},

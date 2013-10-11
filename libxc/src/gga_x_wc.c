@@ -37,31 +37,39 @@ XC(gga_x_wc_enhance) (const XC(func_type) *p, int order, FLOAT x,
 {
   const FLOAT kappa = 0.8040;
 
-  FLOAT s, s2;
-  FLOAT aux1, aux2, f0, df0, d2f0, dd;
+  FLOAT ss, ss2;
+  FLOAT aux1, aux2, f0, df0, d2f0, d3f0, dd;
 
-  s  = X2S*x;
-  s2 = s*s;
+  ss  = X2S*x;
+  ss2 = ss*ss;
   
   aux1 = wc_mu - 10.0/81.0;
-  aux2 = exp(-s2);
+  aux2 = exp(-ss2);
 
-  f0 = kappa + 10.0/81.0*s2 + s2*aux1*aux2 + log(1.0 + wc_c*s2*s2);
+  f0 = kappa + 10.0/81.0*ss2 + ss2*aux1*aux2 + log(1.0 + wc_c*ss2*ss2);
   *f = 1.0 + kappa*(1.0 - kappa/f0);
 
   if(order < 1) return;
 
-  df0 = 20.0/81.0*s + 2.0*s*aux1*aux2*(1.0 - s2) + 4.0*wc_c*s*s2/(1.0 + wc_c*s2*s2);
+  dd   = 1.0 + wc_c*ss2*ss2;
+  df0 = 20.0/81.0*ss + 2.0*ss*aux1*aux2*(1.0 - ss2) + 4.0*wc_c*ss*ss2/dd;
 
   *dfdx  = X2S*kappa*kappa*df0/(f0*f0);
 
   if(order < 2) return;
 
-  dd   = 1.0 + wc_c*s2*s2;
-  d2f0 = 20.0/81.0 + 2.0*aux1*aux2*(1.0 - 5.0*s2 + 2.0*s2*s2)
-    - 4.0*wc_c*s2*(dd - 4.0)/(dd*dd);
+  d2f0 = 20.0/81.0 + 2.0*aux1*aux2*(1.0 - 5.0*ss2 + 2.0*ss2*ss2)
+    - 4.0*wc_c*ss2*(dd - 4.0)/(dd*dd);
 
-  *d2fdx2 = X2S*X2S*kappa*kappa/(f0*f0)*(d2f0 - 2.0*df0*df0/f0);
+  *d2fdx2 = -X2S*X2S*kappa*kappa*(2.0*df0*df0 - d2f0*f0)/(f0*f0*f0);
+
+  if(order < 3) return;
+
+  d3f0 = -4.0*aux1*aux2*ss*(6.0 - 9.0*ss2 + 2.0*ss2*ss2) +
+    8.0*wc_c*ss*(3.0 + wc_c*ss2*ss2*(12.0 + wc_c*ss2*ss2))/(dd*dd*dd);
+
+  *d3fdx3 = X2S*X2S*X2S*kappa*kappa*(6.0*df0*df0*df0 - 6.0*f0*df0*d2f0 + f0*f0*d3f0)/(f0*f0*f0*f0);
+ 
 }
 
 #define func XC(gga_x_wc_enhance)
@@ -74,7 +82,7 @@ const XC(func_info_type) XC(func_info_gga_x_wc) = {
   "Wu & Cohen",
   XC_FAMILY_GGA,
   "Z Wu and RE Cohen, Phys. Rev. B 73, 235116 (2006)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_wc_init, 
   NULL, NULL,

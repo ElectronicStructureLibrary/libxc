@@ -126,7 +126,7 @@ void test_ak13()
     rho[0]   = 0.12*exp(-beta * x);
     sigma[0] = 0.12*0.12*beta*beta * rho[0]*rho[0];
     
-    XC(gga)(&gga,  1, rho, sigma, &zk, vrho, vsigma, NULL,NULL,NULL);
+    XC(gga_exc_vxc)(&gga,  1, rho, sigma, &zk, vrho, vsigma);
 
     tmp2 = 1.74959015598863046792081721182*beta*x/3.0- 1.62613336586517367779736042170*log(x);
     fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\t%16.10lf\n", x, vrho[0], vsigma[0]*sqrt(sigma[0]), 
@@ -140,20 +140,18 @@ void test_gga()
   XC(func_type) gga, gga2, gga3, gga4;
   int i;
 
-  XC(func_init)(&gga,  XC_GGA_XC_TH1,  XC_POLARIZED);
+  XC(func_init)(&gga,  XC_GGA_X_B86,  XC_UNPOLARIZED);
   //XC(func_init)(&gga2, XC_GGA_C_PW912, XC_POLARIZED);
 
   /*
   for(i=0; i<=10000; i++){
-    double s = 4.0*i/(10000.0);
+    double x = 4.0*i/(10000.0), f, df, d2f, d3f;
 
-    XC(gga_x_rpbe_enhance)(gga.gga,  2, s/X2S, &a, &da, &dummy, &d2a);
-    XC(gga_x_wc_enhance)  (gga2.gga, 2, s/X2S, &b, &db, &dummy, &d2b);
-    XC(gga_x_pbe_enhance) (gga3.gga, 2, s/X2S, &c, &da, &dummy, &d2a);
-    XC(gga_x_htbs_enhance)(gga4.gga, 2, s/X2S, &d, &dd, &dummy, &d2d);
+    XC(gga_x_b86_enhance)(&gga, 3, x, &f, &df, &d2f, &d3f);
     
-    printf("%20.14e %20.14e %20.14e %20.14e %20.14e\n", s, a, b, c, d);
+    printf("%20.14e %20.14e %20.14e\n", x, d2f, d3f);
   }
+  exit(0);
   */
   
   for(i=0; i<=10000; i++){
@@ -162,17 +160,19 @@ void test_gga()
     double zkp, vrhop[2], vsigmap[3];
     double v2rho2[3],  v2sigma2[6],  v2rhosigma[6];
     double v2rho2p[3], v2sigma2p[6], v2rhosigmap[6];
+    double v3rho3[4], v3rho2sigma[9], v3rhosigma2[12], v3sigma3[1];
 
     rho[0]   = .01;
     rho[1]   = 0.2;
-    sigma[0] = 0.01;
+    sigma[0] = 0.01 + i/10000.0;
     sigma[1] = 0.00002;
-    sigma[2] = 0.00005 + i/10000.0;
+    sigma[2] = 0.00005;
 
-    XC(gga)(&gga,  1, rho, sigma, &zk,  vrho,  vsigma,  v2rho2,  v2rhosigma,  v2sigma2);
+    //XC(gga)(&gga,  1, rho, sigma, &zk,  vrho,  vsigma,  v2rho2,  v2rhosigma,  v2sigma2, NULL, NULL, NULL, NULL);
+    XC(gga)(&gga,  1, rho, sigma, &zk,  vrho,  vsigma,  v2rho2,  v2rhosigma,  v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
     //XC(gga)(&gga2, 1, rho, sigma, &zkp, vrhop, vsigmap, NULL, v2rhosigmap, v2sigma2p);
     
-    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[2], (rho[0] + rho[1])*zk, vsigma[2]);
+    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[0], v2sigma2[0], v3sigma3[0]);
     //fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[1], vrho[0], v2rho2[1]);
     //fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[0], vsigma[1], v2sigma2[1]);
   }
@@ -278,8 +278,8 @@ int main()
   //test_neg_rho();
 
   //test_lda();
-  //test_gga(); 
-  test_ak13();
+  test_gga(); 
+  //test_ak13();
   //test_mgga();
 
   //printf("number = '%d'; key = '%s'", 25, XC(functional_get_name)(25));

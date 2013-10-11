@@ -58,7 +58,7 @@ void XC(gga_x_rpbe_enhance)
   (const XC(func_type) *p, int order, FLOAT x, 
    FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
-  FLOAT kappa, mu, f0, df0, d2f0;
+  FLOAT kappa, mu, f0, df0, d2f0, d3f0;
 
   assert(p->params != NULL);
   kappa = ((gga_x_rpbe_params *) (p->params))->kappa;
@@ -75,8 +75,13 @@ void XC(gga_x_rpbe_enhance)
 
   if(order < 2) return;
 
-  d2f0    = -2.0*mu/kappa*f0*(1.0 - 2.0*x*x*mu/kappa);
+  d2f0    = -2.0*mu*f0*(kappa - 2.0*x*x*mu)/(kappa*kappa);
   *d2fdx2 = -kappa*d2f0;
+
+  if(order < 3) return;
+
+  d3f0    = 4.0*mu*mu*f0*x*(3.0*kappa - 2.0*mu*x*x)/(kappa*kappa*kappa);
+  *d3fdx3 = -kappa*d3f0;
 }
 
 
@@ -90,7 +95,7 @@ const XC(func_info_type) XC(func_info_gga_x_rpbe) = {
   "Hammer, Hansen, and Nørskov",
   XC_FAMILY_GGA,
   "B Hammer, LB Hansen and JK Nørskov, Phys. Rev. B 59, 7413 (1999)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_rpbe_init, 
   NULL, NULL,

@@ -100,8 +100,8 @@ void XC(gga_x_pw91_enhance)
 {
 
   gga_x_pw91_params *params;
-  FLOAT ss, ss2, ss4;
-  FLOAT f1, df1, d2f1, f2, df2, d2f2, f3, df3, d2f3, f4, df4, d2f4;
+  FLOAT ss, ss2, ss4, aux1, aux2;
+  FLOAT f1, df1, d2f1, d3f1, f2, df2, d2f2, d3f2, f3, df3, d2f3, d3f3, f4, df4, d2f4, d3f4;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_pw91_params *) (p->params);
@@ -119,10 +119,13 @@ void XC(gga_x_pw91_enhance)
 
   if(order < 1) return;
 
+  aux1 = 1.0 + params->b*params->b*ss2;
+  aux2 = SQRT(aux1);
+
   df1 = -2.0*params->alpha*ss*f1;
-  df2 = params->a*params->b/SQRT(1.0 + params->b*params->b*ss2);
-  df3 = 2.0*ss*(params->c + f1) + ss2*df1 - params->expo*params->f*POW(ss, params->expo - 1.0);
-  df4 = f2 + ss*df2 + params->expo*params->f*POW(ss, params->expo - 1.0);
+  df2 = params->a*params->b/aux2;
+  df3 = 2.0*ss*(params->c + f1) + ss2*df1 - params->expo*params->f*ss4/ss;
+  df4 = f2 + ss*df2 + params->expo*params->f*ss4/ss;
 
   *dfdx  = (df3*f4 - f3*df4)/(f4*f4);
   *dfdx *= X2S;
@@ -130,14 +133,26 @@ void XC(gga_x_pw91_enhance)
   if(order < 2) return;
 
   d2f1 = -2.0*params->alpha*(f1 + ss*df1);
-  d2f2 = -params->a*params->b*params->b*params->b*ss/POW(1.0 + params->b*params->b*ss2, 3.0/2.0);
-  d2f3 = 2.0*(params->c + f1 + 2.0*ss*df1) + ss2*d2f1 - 
-    params->expo*(params->expo - 1.0)*params->f*POW(ss, params->expo - 2.0);
+  d2f2 = -params->a*params->b*params->b*params->b*ss/(aux1*aux2);
+  d2f3 = 2.0*(params->c + f1) + 4.0*ss*df1 + ss2*d2f1 - 
+    params->expo*(params->expo - 1.0)*params->f*ss4/ss2;
   d2f4 = 2.0*df2 + ss*d2f2 + 
-    params->expo*(params->expo - 1.0)*params->f*POW(ss, params->expo - 2.0);
+    params->expo*(params->expo - 1.0)*params->f*ss4/ss2;
 
   *d2fdx2  = (2.0*f3*df4*df4 + d2f3*f4*f4 - f4*(2.0*df3*df4 + f3*d2f4))/(f4*f4*f4);
   *d2fdx2 *= X2S*X2S;
+
+  if(order < 3) return;
+
+  d3f1 = -2.0*params->alpha*(2.0*df1 + ss*d2f1);
+  d3f2 = params->a*params->b*params->b*params->b*(2.0*params->b*params->b*ss2 - 1.0)/(aux1*aux1*aux2);
+  d3f3 = 6.0*df1 + 6.0*ss*d2f1 + ss2*d3f1 -
+    params->expo*(params->expo - 1.0)*(params->expo - 2.0)*params->f*ss4/(ss*ss2);
+  d3f4 =  3.0*d2f2 + ss*d3f2 +
+    params->expo*(params->expo - 1.0)*(params->expo - 2.0)*params->f*ss4/(ss*ss2);
+
+  *d3fdx3  = (-6.0*f3*df4*df4*df4 + 6.0*f4*df4*(df3*df4 + f3*d2f4) + f4*f4*f4*d3f3 - f4*f4*(3.0*df4*d2f3 + 3.0*df3*d2f4 + f3*d3f4))/(f4*f4*f4*f4);
+  *d3fdx3 *= X2S*X2S*X2S;
 }
 
 #define func XC(gga_x_pw91_enhance)
@@ -151,7 +166,7 @@ const XC(func_info_type) XC(func_info_gga_x_pw91) = {
   "JP Perdew, in Proceedings of the 21st Annual International Symposium on the Electronic Structure of Solids, ed. by P Ziesche and H Eschrig (Akademie Verlag, Berlin, 1991), p. 11.\n"
   "JP Perdew, JA Chevary, SH Vosko, KA Jackson, MR Pederson, DJ Singh, and C Fiolhais, Phys. Rev. B 46, 6671 (1992)\n"
   "JP Perdew, JA Chevary, SH Vosko, KA Jackson, MR Pederson, DJ Singh, and C Fiolhais, Phys. Rev. B 48, 4978(E) (1993)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-25, 1e-25, 0.0, 1e-32,
   gga_x_pw91_init,
   NULL, NULL,
@@ -165,7 +180,7 @@ const XC(func_info_type) XC(func_info_gga_x_mpw91) = {
   "mPW91 of Adamo & Barone",
   XC_FAMILY_GGA,
   "C Adamo and V Barone, J. Chem. Phys. 108, 664 (1998)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-31, 1e-31, 0.0, 1e-32,
   gga_x_pw91_init,
   NULL, NULL,
@@ -182,7 +197,7 @@ const XC(func_info_type) XC(func_info_gga_k_lc94) = {
   "Lembarki & Chermette",
   XC_FAMILY_GGA,
   "A Lembarki and H Chermette, Phys. Rev. A 50, 5328-5331 (1994)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-30, 1e-30, 0.0, 1e-32,
   gga_x_pw91_init,
   NULL, NULL,

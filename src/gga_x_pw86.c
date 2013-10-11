@@ -47,7 +47,7 @@ XC(gga_x_pw86_enhance)(const XC(func_type) *p, int order, FLOAT x,
     {15*0.1234, 17.33, 0.163},
     {    2.208, 9.27,  0.2}
   };
-  FLOAT ss, ss2, ss4, dd, d2dd, d3dd;
+  FLOAT ss, ss2, ss4, DD, dDD, d2DD, d3DD, aux;
 
   /* sanity check: do we have a valid functional */
   assert(p->func==0 || p->func==1 || p->func==2);
@@ -56,20 +56,25 @@ XC(gga_x_pw86_enhance)(const XC(func_type) *p, int order, FLOAT x,
   ss2    = ss*ss;
   ss4    = ss2*ss2;
 
-  dd     = 1.0 + par[p->func].aa*ss2 + par[p->func].bb*ss4 + par[p->func].cc*ss4*ss2;
-  *f     = POW(dd, 1.0/15.0);
+  DD     = 1.0 + par[p->func].aa*ss2 + par[p->func].bb*ss4 + par[p->func].cc*ss4*ss2;
+  aux    = POW(DD, 1.0/15.0);
+  *f     = aux;
 
   if(order < 1) return;
 
-  d2dd   = ss*(2.0*par[p->func].aa + 4.0*par[p->func].bb*ss2 + 6.0*par[p->func].cc*ss4);
+  dDD   = ss*(2.0*par[p->func].aa + 4.0*par[p->func].bb*ss2 + 6.0*par[p->func].cc*ss4);
 
-  *dfdx  = X2S*d2dd/15.0 * POW(dd, -14.0/15.0);
+  *dfdx  = X2S*dDD*aux/(15.0*DD);
 
   if(order < 2) return;
 
-  d3dd    = 2.0*par[p->func].aa + 4.0*3.0*par[p->func].bb*ss2 + 6.0*5.0*par[p->func].cc*ss4;
-  *d2fdx2 = X2S*X2S/15.0 * POW(dd, -14.0/15.0) *
-    (d3dd - 14.0/15.0*d2dd*d2dd/dd);
+  d2DD    = 2.0*par[p->func].aa + 4.0*3.0*par[p->func].bb*ss2 + 6.0*5.0*par[p->func].cc*ss4;
+  *d2fdx2 = X2S*X2S*aux*(15.0*DD*d2DD - 14.0*dDD*dDD)/(225.0*DD*DD);
+
+  if(order < 3) return;
+
+  d3DD    =  4.0*3.0*2.0*par[p->func].bb*ss + 6.0*5.0*4.0*par[p->func].cc*ss*ss2;
+  *d3fdx3 = X2S*X2S*X2S*aux*(406.0*dDD*dDD*dDD - 630.0*DD*dDD*d2DD + 225.0*DD*DD*d3DD)/(3375.0*DD*DD*DD);
 }
 
 #define func XC(gga_x_pw86_enhance)
@@ -81,7 +86,7 @@ const XC(func_info_type) XC(func_info_gga_x_pw86) = {
   "Perdew & Wang 86",
   XC_FAMILY_GGA,
   "JP Perdew and Y Wang, Phys. Rev. B 33, 8800 (1986)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pw86_init, NULL, NULL,
   work_gga_x,
@@ -94,7 +99,7 @@ const XC(func_info_type) XC(func_info_gga_x_rpw86) = {
   "Refitted Perdew & Wang 86",
   XC_FAMILY_GGA,
   "ED Murray, K Lee and DC Langreth, J. Chem. Theory Comput. 5, 2754-2762 (2009)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pw86_init, NULL, NULL,
   work_gga_x,
@@ -110,7 +115,7 @@ const XC(func_info_type) XC(func_info_gga_k_fr_pw86) = {
   "Fuentealba & Reyes (PW86 version)",
   XC_FAMILY_GGA,
   "P Fuentealba and O Reyes, Chem. Phys. Lett. 232, 31-34 (1995)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pw86_init, NULL, NULL,
   work_gga_k,

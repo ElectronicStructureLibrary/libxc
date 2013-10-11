@@ -69,14 +69,14 @@ void XC(gga_x_htbs_enhance)
   (const XC(func_type) *p, int order, FLOAT x, 
    FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
-  FLOAT s, g, dg, d2g, a, da, d2a, b, db, d2b;
+  FLOAT s, g, dg, d2g, d3g, a, da, d2a, d3a, b, db, d2b, d3b;
 
   s  = X2S*x;
   
   if(s > s1)
-    XC(gga_x_rpbe_enhance)(p->func_aux[0], order, x, &a, &da, &d2a, NULL);
+    XC(gga_x_rpbe_enhance)(p->func_aux[0], order, x, &a, &da, &d2a, &d3a);
   if(s < s2)
-    XC(gga_x_wc_enhance)  (p->func_aux[1], order, x, &b, &db, &d2b, NULL);
+    XC(gga_x_wc_enhance)  (p->func_aux[1], order, x, &b, &db, &d2b, &d3b);
 
   if(s < s1)
     *f = b;
@@ -102,7 +102,7 @@ void XC(gga_x_htbs_enhance)
 
   if(order < 2) return;
   
-   if(s < s1)
+  if(s < s1)
     *d2fdx2 = d2b;
   else if(s > s2)
     *d2fdx2 = d2a;
@@ -111,6 +111,19 @@ void XC(gga_x_htbs_enhance)
     d2g *= X2S*X2S;
 
     *d2fdx2  = d2g*(a - b) + 2.0*dg*(da - db) + g*(d2a - d2b) + d2b;
+  }
+
+  if(order < 3) return;
+  
+   if(s < s1)
+    *d3fdx3 = d3b;
+  else if(s > s2)
+    *d3fdx3 = d3a;
+  else{ 
+    d3g  = 6.0*cc[3] + s*(24.0*cc[4] + s*60.0*cc[5]);
+    d3g *= X2S*X2S*X2S;
+
+    *d2fdx2  = d3g*(a - b) + 3.0*d2g*(da - db) + 3.0*dg*(d2a - d2b) + g*(d3a - d3b) + d3b;
   }
 }
 
@@ -125,7 +138,7 @@ const XC(func_info_type) XC(func_info_gga_x_htbs) = {
   "Haas, Tran, Blaha, and Schwarz",
   XC_FAMILY_GGA,
   "P Haas, F Tran, P Blaha, and K Schwarz, Phys. Rev. B 83, 205117 (2011)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_htbs_init, 
   NULL, NULL,

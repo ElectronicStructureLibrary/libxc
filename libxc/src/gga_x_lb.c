@@ -165,7 +165,7 @@ gga_x_lb(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 	 FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
 	 FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3)
 {
-  XC(gga_lb_modified)(p, np, rho, sigma, NULL, vrho);
+  XC(gga_lb_modified)(p, np, rho, sigma, 0.0, vrho);
 }
 
 

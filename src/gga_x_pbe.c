@@ -167,7 +167,7 @@ void XC(gga_x_pbe_enhance)
    FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   gga_x_pbe_params *params;
-  FLOAT kappa, auxmu, mu, dmu, d2mu, ss, ss2, f0, df0, d2f0;
+  FLOAT kappa, auxmu, mu, dmu, d2mu, d3mu, ss, ss2, f0, df0, d2f0, d3f0;
 
   assert(p->params != NULL);
   params = (gga_x_pbe_params *) (p->params);
@@ -191,9 +191,9 @@ void XC(gga_x_pbe_enhance)
 
   if(order < 1) return;
 
-  if(params->alpha != 0.0) /* PBEint and related functionals */
+  if(params->alpha != 0.0){ /* PBEint and related functionals */
     dmu = (params->muPBE - params->muGE) * 2.0*params->alpha*ss/(auxmu*auxmu);
-  else
+  }else
     dmu = 0.0;
 
   df0 = 2.0*mu*ss + dmu*ss2;
@@ -214,7 +214,22 @@ void XC(gga_x_pbe_enhance)
   if(p->info->number == XC_GGA_X_RGE2)
     d2f0 += 4.0*3.0*mu*mu*ss2/kappa;
 
-  *d2fdx2 = X2S*X2S*kappa*kappa/(f0*f0)*(d2f0 - 2.0*df0*df0/f0);
+  *d2fdx2 = -X2S*X2S*kappa*kappa*(2.0*df0*df0 - d2f0*f0)/(f0*f0*f0);
+
+  if(order < 3) return;
+
+  if(params->alpha != 0.0) /* PBEint and related functionals */
+    d3mu = (params->muPBE - params->muGE) * 
+      24.0*params->alpha*params->alpha*ss*(-1.0 + params->alpha*ss2)/(auxmu*auxmu*auxmu*auxmu);
+  else
+    d3mu = 0.0;  
+
+  d3f0 = 6.0*dmu + 6.0*ss*d2mu + ss2*d3mu;
+  if(p->info->number == XC_GGA_X_RGE2)
+    d3f0 += 4.0*3.0*2.0*mu*mu*ss/kappa;
+
+  *d3fdx3 = X2S*X2S*X2S*kappa*kappa*(6.0*df0*df0*df0 - 6.0*f0*df0*d2f0 + f0*f0*d3f0)/(f0*f0*f0*f0);
+  
 }
 
 
@@ -229,7 +244,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbe) = {
   XC_FAMILY_GGA,
   "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)\n"
   "JP Perdew, K Burke, and M Ernzerhof, Phys. Rev. Lett. 78, 1396(E) (1997)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init, 
   NULL, NULL,
@@ -243,7 +258,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_r) = {
   "Revised PBE from Zhang & Yang",
   XC_FAMILY_GGA,
   "Y Zhang and W Yang, Phys. Rev. Lett 80, 890 (1998)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init, 
   NULL, NULL,
@@ -257,7 +272,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_sol) = {
   "Perdew, Burke & Ernzerhof SOL",
   XC_FAMILY_GGA,
   "JP Perdew, et al, Phys. Rev. Lett. 100, 136406 (2008)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init, 
   NULL, NULL,
@@ -271,7 +286,7 @@ const XC(func_info_type) XC(func_info_gga_x_xpbe) = {
   "Extended PBE by Xu & Goddard III",
   XC_FAMILY_GGA,
   "X Xu and WA Goddard III, J. Chem. Phys. 121, 4068 (2004)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init, 
   NULL, NULL,
@@ -285,7 +300,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_jsjr) = {
   "Reparametrized PBE by Pedroza, Silva & Capelle",
   XC_FAMILY_GGA,
   "LS Pedroza, AJR da Silva, and K. Capelle, Phys. Rev. B 79, 201106(R) (2009)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init, 
   NULL, NULL,
@@ -299,7 +314,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbek1_vdw) = {
   "Reparametrized PBE for vdW",
   XC_FAMILY_GGA,
   "J Klimes, DR Bowler, and A Michaelides, J. Phys.: Condens. Matter 22, 022201 (2010)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init, 
   NULL, NULL,
@@ -313,7 +328,7 @@ const XC(func_info_type) XC(func_info_gga_x_rge2) = {
   "Regularized PBE",
   XC_FAMILY_GGA,
   "A Ruzsinszky, GI Csonka, and G Scuseria, J. Chem. Theory Comput. 5, 763 (2009)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
@@ -327,7 +342,7 @@ const XC(func_info_type) XC(func_info_gga_x_apbe) = {
   "mu fixed from the semiclassical neutral atom",
   XC_FAMILY_GGA,
   "LA Constantin, E Fabiano, S Laricchia, and F Della Sala, Phys. Rev. Lett. 106, 186406 (2011)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
@@ -341,7 +356,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbeint) = {
   "PBE for hybrid interfaces",
   XC_FAMILY_GGA,
   "E. Fabiano, LA Constantin, and F. Della Sala, Phys. Rev. B 82, 113104 (2010)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-12, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
@@ -356,7 +371,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_tca) = {
   "PBE revised by Tognetti et al",
   XC_FAMILY_GGA,
   "V Tognetti, P Cortona, and C Adamo, Chem. Phys. Lett. 460, 536-539 (2008)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
@@ -374,7 +389,7 @@ const XC(func_info_type) XC(func_info_gga_k_apbe) = {
   "mu fixed from the semiclassical neutral atom",
   XC_FAMILY_GGA,
   "LA Constantin, E Fabiano, S Laricchia, and F Della Sala, Phys. Rev. Lett. 106, 186406 (2011)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
@@ -388,7 +403,7 @@ const XC(func_info_type) XC(func_info_gga_k_revapbe) = {
   "revised APBE",
   XC_FAMILY_GGA,
   "LA Constantin, E Fabiano, S Laricchia, and F Della Sala, Phys. Rev. Lett. 106, 186406 (2011)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
@@ -402,7 +417,7 @@ const XC(func_info_type) XC(func_info_gga_k_tw1) = {
   "Tran and Wesolowski set 1 (Table II)",
   XC_FAMILY_GGA,
   "F Tran and TA Wesolowski, Int. J. Quant. Chem. 89, 441-446 (2002)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
@@ -416,7 +431,7 @@ const XC(func_info_type) XC(func_info_gga_k_tw2) = {
   "Tran and Wesolowski set 1 (Table II)",
   XC_FAMILY_GGA,
   "F Tran and TA Wesolowski, Int. J. Quant. Chem. 89, 441-446 (2002)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
@@ -430,7 +445,7 @@ const XC(func_info_type) XC(func_info_gga_k_tw3) = {
   "Tran and Wesolowski set 1 (Table II)",
   XC_FAMILY_GGA,
   "F Tran and TA Wesolowski, Int. J. Quant. Chem. 89, 441-446 (2002)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
@@ -444,7 +459,7 @@ const XC(func_info_type) XC(func_info_gga_k_tw4) = {
   "Tran and Wesolowski set 1 (Table II)",
   XC_FAMILY_GGA,
   "F Tran and TA Wesolowski, Int. J. Quant. Chem. 89, 441-446 (2002)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
@@ -458,7 +473,7 @@ const XC(func_info_type) XC(func_info_gga_k_apbeint) = {
   "interpolated version of APBE",
   XC_FAMILY_GGA,
   "S Laricchia, E Fabiano, LA Constantin, and F Della Sala, J. Chem. Theory Comput. 7, 2439-2451 (2011)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,
@@ -472,7 +487,7 @@ const XC(func_info_type) XC(func_info_gga_k_revapbeint) = {
   "interpolated version of REVAPBE",
   XC_FAMILY_GGA,
   "S Laricchia, E Fabiano, LA Constantin, and F Della Sala, J. Chem. Theory Comput. 7, 2439-2451 (2011)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,
   NULL, NULL,

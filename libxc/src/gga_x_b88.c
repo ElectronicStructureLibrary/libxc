@@ -89,14 +89,16 @@ void
 XC(gga_x_b88_enhance)(const XC(func_type) *p, int order, FLOAT x, 
 		      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
-  FLOAT f1, f2, df1, df2, d2f1, d2f2, dd;
+  FLOAT x2, aux1, aux2, f1, f2, df1, df2, d2f1, d2f2, d3f1, d3f2, dd;
   FLOAT beta, gamma;
 
   assert(p->params != NULL);
   beta  = ((gga_x_b88_params *) (p->params))->beta;
   gamma = ((gga_x_b88_params *) (p->params))->gamma;
 
-  f1 = beta/X_FACTOR_C*x*x;
+  x2 = x*x;
+
+  f1 = beta/X_FACTOR_C*x2;
   f2 = 1.0 + gamma*beta*x*asinh(x);
   *f = 1.0 + f1/f2;
 
@@ -107,8 +109,11 @@ XC(gga_x_b88_enhance)(const XC(func_type) *p, int order, FLOAT x,
 
   if(order < 1) return;
 
+  aux1 = 1.0 + x2;
+  aux2 = SQRT(aux1);
+
   df1 = 2.0*beta/X_FACTOR_C*x;
-  df2 = gamma*beta*(asinh(x) + x/SQRT(1.0 + x*x));
+  df2 = gamma*beta*(asinh(x) + x/aux2);
 
   *dfdx = (df1*f2 - f1*df2)/(f2*f2);
 
@@ -118,12 +123,22 @@ XC(gga_x_b88_enhance)(const XC(func_type) *p, int order, FLOAT x,
   if(order < 2) return;
 
   d2f1 = 2.0*beta/X_FACTOR_C;
-  d2f2 = gamma*beta*(2.0 + x*x)/POW(1.0 + x*x, 3.0/2.0);
+  d2f2 = gamma*beta*(2.0 + x2)/(aux1*aux2);
 
   *d2fdx2 = (2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
 
   if(p->func == 5) /* k_thakkar */
     *d2fdx2 += 0.072*4.0*CBRT(4.0)*dd*dd*dd;
+
+  if(order < 2) return;
+
+  d3f1 = 0.0;
+  d3f2 = -beta*gamma*x*(4.0 + x2)/(aux1*aux1*aux2);
+
+  *d3fdx3 = (-6.0*f1*df2*df2*df2 + 6.0*f2*df2*(df1*df2 + f1*d2f2) + f2*f2*f2*d3f1 - f2*f2*(3.0*df2*d2f1 + 3.0*df1*d2f2 + f1*d3f2))/(f2*f2*f2*f2);
+
+  if(p->func == 5) /* k_thakkar */
+    *d3fdx3 += -0.072*24.0*CBRT(4.0)*CBRT(4.0)*dd*dd*dd*dd;
 }
 
 #define func XC(gga_x_b88_enhance)
@@ -135,7 +150,7 @@ const XC(func_info_type) XC(func_info_gga_x_b88) = {
   "Becke 88",
   XC_FAMILY_GGA,
   "AD Becke, Phys. Rev. A 38, 3098 (1988)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_b88_init, 
   NULL, 
@@ -150,7 +165,7 @@ const XC(func_info_type) XC(func_info_gga_x_optb88_vdw) = {
   "opt-Becke 88 for vdW",
   XC_FAMILY_GGA,
   "J Klimes, DR Bowler, and A Michaelides, J. Phys.: Condens. Matter 22, 022201 (2010)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_b88_init,
   NULL, 
@@ -165,7 +180,7 @@ const XC(func_info_type) XC(func_info_gga_x_mb88) = {
   "Modified Becke 88 for proton transfer",
   XC_FAMILY_GGA,
   "V Tognetti and C Adamo, J. Phys. Chem. A 113, 14415-14419 (2009)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_b88_init, 
   NULL, 
@@ -183,7 +198,7 @@ const XC(func_info_type) XC(func_info_gga_k_llp) = {
   "Becke 88",
   XC_FAMILY_GGA,
   "H Lee, C Lee, and RG Parr, Phys. Rev. A 44, 768 (1991)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_b88_init,
   NULL,
@@ -198,7 +213,7 @@ const XC(func_info_type) XC(func_info_gga_k_fr_b88) = {
   "Fuentealba & Reyes (B88 version)",
   XC_FAMILY_GGA,
   "P Fuentealba and O Reyes, Chem. Phys. Lett. 232, 31-34 (1995)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_b88_init,
   NULL,
@@ -213,7 +228,7 @@ const XC(func_info_type) XC(func_info_gga_k_thakkar) = {
   "Thakkar 1992",
   XC_FAMILY_GGA,
   "AJ Thakkar, Phys. Rev. A 46, 6920-6924 (1992)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_b88_init,
   NULL,

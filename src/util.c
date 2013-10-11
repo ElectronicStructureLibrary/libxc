@@ -115,6 +115,8 @@ get_gga_enhancement_factor(int func_id)
     return XC(gga_x_rpbe_enhance);
   case XC_GGA_X_HTBS:
     return XC(gga_x_htbs_enhance);
+  case XC_GGA_X_B86:
+    return XC(gga_x_b86_enhance);
   case XC_GGA_X_B88:
   case XC_GGA_X_OPTB88_VDW:
   case XC_GGA_X_MB88:

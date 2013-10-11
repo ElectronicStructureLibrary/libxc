@@ -22,9 +22,9 @@
 
 #define XC_GGA_X_B86          103 /* Becke 86 Xalfa,beta,gamma                      */
 
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+void 
+XC(gga_x_b86_enhance)(const XC(func_type) *p, int order, FLOAT x, 
+		      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   static const FLOAT beta  = 0.0036/X_FACTOR_C;
   static const FLOAT gamma = 0.004;
@@ -48,8 +48,13 @@ func(const XC(func_type) *p, int order, FLOAT x,
   d2f2 = 2.0*gamma;
 
   *d2fdx2 = (2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
+
+  if(order < 3) return;
+
+  *d3fdx3 = (-6.0*f1*df2*df2*df2 + 6.0*f2*df2*(df1*df2 + f1*d2f2) - f2*f2*(3.0*df2*d2f1 + 3.0*df1*d2f2))/(f2*f2*f2*f2);
 }
 
+#define func XC(gga_x_b86_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_b86) = {
@@ -58,7 +63,7 @@ const XC(func_info_type) XC(func_info_gga_x_b86) = {
   "Becke 86",
   XC_FAMILY_GGA,
   "AD Becke, J. Chem. Phys 84, 4524 (1986)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-23, 0.0, 1e-32,
   NULL, NULL, NULL,
   work_gga_x,

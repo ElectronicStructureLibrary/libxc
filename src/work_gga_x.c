@@ -106,7 +106,7 @@ work_gga_x
     c_v2rhosigma[2] =  x_factor_c * alpha;
     c_v2rhosigma[3] = -x_factor_c * beta;
     c_v2sigma2[0] = x_factor_c*sfact / 4.0; 
-    c_v2sigma2[1] = x_factor_c*sfact / 4.0;
+    c_v2sigma2[1] = x_factor_c*sfact;
   }
   if(v3rho3 != NULL){
     order = 3;

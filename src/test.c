@@ -137,45 +137,58 @@ void test_ak13()
 
 void test_gga()
 {
-  XC(func_type) gga, gga2, gga3, gga4;
-  int i;
+  XC(func_type) gga;
+  int i, npoints = 10000;
+  double *rho, *sigma;
+  double *zk, *vrho, *vsigma;
+  double *v2rho2, *v2rhosigma, *v2sigma2;
+  double *v3rho3, *v3rho2sigma, *v3rhosigma2, *v3sigma3;
 
-  XC(func_init)(&gga,  XC_GGA_X_AIRY,  XC_POLARIZED);
-  //XC(func_init)(&gga2, XC_GGA_C_PW912, XC_POLARIZED);
+  rho         = malloc( 2*npoints*sizeof(double));
+  sigma       = malloc( 3*npoints*sizeof(double));
+  zk          = malloc( 1*npoints*sizeof(double));
+  vrho        = malloc( 2*npoints*sizeof(double));
+  vsigma      = malloc( 3*npoints*sizeof(double));
+  v2rho2      = malloc( 3*npoints*sizeof(double));
+  v2rhosigma  = malloc( 6*npoints*sizeof(double));
+  v2sigma2    = malloc( 6*npoints*sizeof(double));
+  v3rho3      = malloc( 4*npoints*sizeof(double));
+  v3rho2sigma = malloc( 9*npoints*sizeof(double));
+  v3rhosigma2 = malloc(12*npoints*sizeof(double));
+  v3sigma3    = malloc(10*npoints*sizeof(double));
 
   
+  XC(func_init)(&gga,  XC_GGA_X_AK13,  XC_POLARIZED);
+
   for(i=1; i<=10000; i++){
     double x = 4.0*i/(10000.0), f, df, d2f, d3f;
 
-    XC(gga_x_airy_enhance)(&gga, 3, x, &f, &df, &d2f, &d3f);
+    XC(gga_x_ak13_enhance)(&gga, 3, x, &f, &df, &d2f, &d3f);
     
     printf("%20.14e %20.14e %20.14e\n", x, d2f, d3f);
   }
   exit(0);
-  
 
-  for(i=0; i<=10000; i++){
-    double rho[2], sigma[3], tau[2], lapl[2];
-    double zk,   vrho[2],  vsigma[3];
-    double zkp, vrhop[2], vsigmap[3];
-    double v2rho2[3],  v2sigma2[6],  v2rhosigma[6];
-    double v2rho2p[3], v2sigma2p[6], v2rhosigmap[6];
-    double v3rho3[4], v3rho2sigma[9], v3rhosigma2[12], v3sigma3[1];
-
-    rho[0]   = .01;
-    rho[1]   = 0.2;
-    sigma[0] = 0.01 + i/10000.0;
-    sigma[1] = 0.00002;
-    sigma[2] = 0.00005;
-
-    //XC(gga)(&gga,  1, rho, sigma, &zk,  vrho,  vsigma,  v2rho2,  v2rhosigma,  v2sigma2, NULL, NULL, NULL, NULL);
-    XC(gga)(&gga,  1, rho, sigma, &zk,  vrho,  vsigma,  v2rho2,  v2rhosigma,  v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
-    //XC(gga)(&gga2, 1, rho, sigma, &zkp, vrhop, vsigmap, NULL, v2rhosigmap, v2sigma2p);
-    
-    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[0], v2sigma2[0], v3sigma3[0]);
-    //fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[1], vrho[0], v2rho2[1]);
-    //fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[0], vsigma[1], v2sigma2[1]);
+  for(i=0; i<npoints; i++){
+    rho[2*i + 0]   = .01;
+    rho[2*i + 1]   = 0.2;
+    sigma[3*i + 0] = 0.01 + i/10000.0;
+    sigma[3*i + 1] = 0.00002;
+    sigma[3*i + 2] = 0.00005;
   }
+
+  XC(gga)(&gga,  npoints, rho, sigma, zk,  vrho,  vsigma,  v2rho2,  v2rhosigma,  v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
+
+  for(i=0; i<npoints; i++){    
+    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[3*i + 0], vsigma[3*i + 0], v2sigma2[6*i + 0]);
+  }
+
+  XC(func_end)(&gga);
+
+  free(rho); free(sigma);
+  free(zk); free(vrho); free(vsigma);
+  free(v2rho2); free(v2rhosigma); free(v2sigma2);
+  free(v3rho3); free(v3rho2sigma); free(v3rhosigma2); free(v3sigma3);
 }
 
 

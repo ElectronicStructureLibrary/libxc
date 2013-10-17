@@ -133,7 +133,7 @@ work_gga_x
     if(dens < p->info->min_dens) goto end_ip_loop;
 
     for(is=0; is<p->nspin; is++){
-      is2=2*is;
+      is2 = 2*is;
 
       if(rho[is] < p->info->min_dens) continue;
 

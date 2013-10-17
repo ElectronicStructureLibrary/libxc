@@ -39,9 +39,9 @@ FLOAT XC(gga_ak13_get_asymptotic) (FLOAT homo)
 }
 
 
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+void XC(gga_x_ak13_enhance) 
+  (const XC(func_type) *p, int order, FLOAT x, 
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   FLOAT ss, den, f1, f2;
 
@@ -63,8 +63,14 @@ func(const XC(func_type) *p, int order, FLOAT x,
   
   *d2fdx2  = (2.0*B2 + B1*(2.0 + ss) + (2.0 + ss)*f1*(2.0*B1 + B2 + B1*f1))/(den*den);
   *d2fdx2 *= X2S*X2S;
+
+  if(order < 3) return;
+
+  *d3fdx3  = (B2*(ss - 6.0) - B1*(ss + 3.0) - f1*(3.0*B1*(ss + 3.0) + B2*(2.0*ss + 9.0) + (ss + 3.0)*f1*(3.0*B1 + B2 + B1*f1)))/(den*den*den);
+  *d3fdx3 *= X2S*X2S*X2S;
 }
 
+#define func XC(gga_x_ak13_enhance) 
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_ak13) = {
@@ -73,7 +79,7 @@ const XC(func_info_type) XC(func_info_gga_x_ak13) = {
   "Armiento & Kuemmel 2013",
   XC_FAMILY_GGA,
   "R Armiento and S Kuemmel, PRL 111, 036402 (2013)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,
   work_gga_x,

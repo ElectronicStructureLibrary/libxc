@@ -107,6 +107,8 @@ get_gga_enhancement_factor(int func_id)
   case XC_GGA_X_PBEK1_VDW:
   case XC_GGA_X_RGE2:
   case XC_GGA_X_APBE:
+  case XC_GGA_X_PBEINT:
+  case XC_GGA_X_PBE_TCA:
     return XC(gga_x_pbe_enhance);
   case XC_GGA_X_PW91:
   case XC_GGA_X_MPW91:
@@ -126,6 +128,9 @@ get_gga_enhancement_factor(int func_id)
   case XC_GGA_X_PW86:
   case XC_GGA_X_RPW86:
     return XC(gga_x_pw86_enhance);
+  case XC_GGA_X_AIRY:
+  case XC_GGA_X_LAG:
+    return XC(gga_x_airy_enhance);
   default:
     fprintf(stderr, "Internal error in get_gga_enhancement\n");
     exit(1);

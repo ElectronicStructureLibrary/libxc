@@ -169,6 +169,7 @@ void XC(gga_x_b86_enhance)  (const XC(func_type) *p, int order, FLOAT x, FLOAT *
 void XC(gga_x_b88_enhance)  (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
 void XC(gga_x_g96_enhance)  (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
 void XC(gga_x_pw86_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
+void XC(gga_x_airy_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
 
 /* correlation functions */
 
@@ -220,5 +221,14 @@ void XC(pbe_c_stoll) (const XC(func_type) *pbe, int get_max, const XC(mgga_work_
 void XC(mgga_series_w)(int order, int n, const FLOAT *a, FLOAT t, FLOAT *fw, FLOAT *dfwdt);
 void XC(mgga_b97_func_g)(const FLOAT *cc, FLOAT gamma, FLOAT s, int order, FLOAT *g, FLOAT *dgds, FLOAT *d2gds2);
 void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT *d, FLOAT *h, FLOAT *dhdx, FLOAT *dhdz);
+
+/* useful MACROS */
+#define DFRACTION(num, dnum, den, dden) \
+  ((dnum*den - num*dden)/(den*den))
+#define D2FRACTION(num, dnum, d2num, den, dden, d2den) \
+  ((2.0*num*dden*dden - 2.0*den*dden*dnum - den*num*d2den + den*den*d2num)/(den*den*den))
+#define D3FRACTION(num, dnum, d2num, d3num, den, dden, d2den, d3den)	\
+  ((-num*(6.0*dden*dden*dden - 6.0*den*dden*d2den + den*den*d3den) +	\
+     den*(6.0*dden*dden*dnum - 3.0*den*dden*d2num + den*(-3.0*dnum*d2den + den*d3num)))/(den*den*den*den))
 
 #endif

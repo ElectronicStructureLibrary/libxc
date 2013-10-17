@@ -140,20 +140,20 @@ void test_gga()
   XC(func_type) gga, gga2, gga3, gga4;
   int i;
 
-  XC(func_init)(&gga,  XC_GGA_X_B86,  XC_UNPOLARIZED);
+  XC(func_init)(&gga,  XC_GGA_X_AIRY,  XC_POLARIZED);
   //XC(func_init)(&gga2, XC_GGA_C_PW912, XC_POLARIZED);
 
-  /*
-  for(i=0; i<=10000; i++){
+  
+  for(i=1; i<=10000; i++){
     double x = 4.0*i/(10000.0), f, df, d2f, d3f;
 
-    XC(gga_x_b86_enhance)(&gga, 3, x, &f, &df, &d2f, &d3f);
+    XC(gga_x_airy_enhance)(&gga, 3, x, &f, &df, &d2f, &d3f);
     
     printf("%20.14e %20.14e %20.14e\n", x, d2f, d3f);
   }
   exit(0);
-  */
   
+
   for(i=0; i<=10000; i++){
     double rho[2], sigma[3], tau[2], lapl[2];
     double zk,   vrho[2],  vsigma[3];

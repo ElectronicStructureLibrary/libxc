@@ -46,16 +46,17 @@ int XC(gga_init)(XC(func_type) *func, const XC(func_info_type) *info, int nspin)
   func->n_rho = func->n_vrho = func->nspin;
   if(func->nspin == XC_UNPOLARIZED){
     func->n_sigma  = func->n_vsigma = 1;
-    func->n_v2rho2 = func->n_v2rhosigma = func->n_v2sigma2 = 1;
+    func->n_v2rho2 = func->n_v2rhosigma  = func->n_v2sigma2 = 1;
     func->n_v3rho3 = func->n_v3rho2sigma = func->n_v3rhosigma2 = func->n_v3sigma3 = 1;
   }else{
-    func->n_sigma      = func->n_vsigma = func->n_v2rho2 = 3;
+    func->n_sigma      = func->n_vsigma = 3;
+    func->n_v2rho2     = 3;
     func->n_v2rhosigma = func->n_v2sigma2 = 6;
 
-    func->n_v3rho3 = 4;
+    func->n_v3rho3      = 4;
     func->n_v3rho2sigma = 9;
     func->n_v3rhosigma2 = 12;
-    func->n_v3sigma3 = 10;
+    func->n_v3sigma3    = 10;
   }
 
   /* see if we need to initialize the functional */
@@ -100,33 +101,36 @@ void XC(gga_end)(XC(func_type) *func)
 
 /* Some useful formulas:
 
-   sigma_st       = grad rho_s . grad rho_t
-   zk             = energy density per unit particle
+   sigma_st          = grad rho_s . grad rho_t
+   zk                = energy density per unit particle
 
-   vrho_s         = d zk / d rho_s
-   vsigma_st      = d n*zk / d sigma_st
+   vrho_s            = d zk / d rho_s
+   vsigma_st         = d n*zk / d sigma_st
    
-   v2rho2_st      = d^2 n*zk / d rho_s d rho_t
-   v2rhosigma_svx = d^2 n*zk / d rho_s d sigma_tv
-   v2sigma2_stvx  = d^2 n*zk / d sigma_st d sigma_vx
+   v2rho2_st         = d^2 n*zk / d rho_s d rho_t
+   v2rhosigma_svx    = d^2 n*zk / d rho_s d sigma_tv
+   v2sigma2_stvx     = d^2 n*zk / d sigma_st d sigma_vx
 
-   v3rho3_stv     = d^3 n*zk / d rho_s d rho_t rho_v
+   v3rho3_stv        = d^3 n*zk / d rho_s d rho_t d rho_v
+   v3rho2sigma_stvx  = d^3 n*zk / d rho_s d rho_t d sigma_vx
+   v3rhosigma2_svxyz = d^3 n*zk / d rho_s d sigma_vx d sigma_yz
+   v3sigma3_stvxyz   = d^3 n*zk / d sigma_st d sigma_vx d sigma_yz
 
 if nspin == 2
    rho(2)          = (u, d)
-   sigma(3)        = (uu, du, dd)
+   sigma(3)        = (uu, ud, dd)
 
    vrho(2)         = (u, d)
-   vsigma(3)       = (uu, du, dd)
+   vsigma(3)       = (uu, ud, dd)
 
-   v2rho2(3)       = (u_u, d_u, d_d)
+   v2rho2(3)       = (u_u, u_d, d_d)
    v2rhosigma(6)   = (u_uu, u_ud, u_dd, d_uu, d_ud, d_dd)
    v2sigma2(6)     = (uu_uu, uu_ud, uu_dd, ud_ud, ud_dd, dd_dd)
 
-   v3rho3(4)       = (u_u_u, d_u_u, d_d_u, d_d_d)
-   v3rho2sigma(9)  = (u_u_uu, d_u_uu, d_d_uu, u_u_ud, d_u_ud, d_d_ud, u_u_dd, d_u_dd, d_d_dd)
-   v3rhosigma2(12) = (u_uu_uu, d_uu_uu, u_ud_uu, d_ud_uu, u_dd_uu, d_dd_uu, u_ud_ud, d_ud_ud, u_dd_ud, d_dd_ud, u_dd_dd, d_dd_dd)
-   v3sigma(10)     = (uu_uu_uu, ud_uu_uu, dd_uu_uu, ud_ud_uu, dd_ud_uu, dd_dd_uu, ud_ud_ud, dd_ud_ud, dd_dd_ud, dd_dd_dd)
+   v3rho3(4)       = (u_u_u, u_u_d, u_d_d, d_d_d)
+   v3rho2sigma(9)  = (u_u_uu, u_u_ud, u_u_dd, u_d_uu, u_d_ud, u_d_dd, d_d_uu, d_d_ud, d_d_dd)
+   v3rhosigma2(12) = (u_uu_uu, u_uu_ud, u_uu_dd, u_ud_ud, u_ud_dd, u_dd_dd, d_uu_uu, d_uu_ud, d_uu_dd, d_ud_ud, d_ud_dd, d_dd_dd)
+   v3sigma(10)     = (uu_uu_uu, uu_uu_ud, uu_uu_dd, uu_ud_ud, uu_ud_dd, uu_dd_dd, ud_ud_ud, ud_ud_dd, ud_dd_dd, dd_dd_dd)
    
 */
 void XC(gga)(const XC(func_type) *func, int np, const FLOAT *rho, const FLOAT *sigma,

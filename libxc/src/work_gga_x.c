@@ -167,13 +167,15 @@ work_gga_x
 
 #endif
 
+      if(order > 0) dfdx   *= x;
+      if(order > 1) d2fdx2 *= x*x;
+      if(order > 2) d3fdx3 *= x*x*x;
+
       if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
 	*zk += rhoLDA*
 	  c_zk[0]*f;
       
       if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
-	dfdx *= x;
-
 	vrho[is] += (rhoLDA/ds)*
 	  (c_vrho[0]*f + c_vrho[1]*dfdx) + rhoLDA*c_vrho[2]*lvrho;
 	
@@ -183,8 +185,6 @@ work_gga_x
       }
       
       if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){
-	d2fdx2 *= x*x;
-
 	v2rho2[is2] = rhoLDA/(ds*ds) * (c_v2rho2[0]*f + c_v2rho2[1]*dfdx + c_v2rho2[2]*d2fdx2);
 	
 	if(gdm > p->info->min_grad){
@@ -196,8 +196,6 @@ work_gga_x
       }
 
       if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC)){
-	d3fdx3 *= x*x*x;
-
 	v3rho3[is*3] = rhoLDA/(ds*ds*ds) *
 	  (c_v3rho3[0]*f + c_v3rho3[1]*dfdx + c_v3rho3[2]*d2fdx2 + c_v3rho3[3]*d3fdx3);
 

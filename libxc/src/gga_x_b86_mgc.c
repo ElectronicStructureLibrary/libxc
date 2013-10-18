@@ -22,14 +22,14 @@
 
 #define XC_GGA_X_B86_MGC      105 /* Becke 86 Xalfa,beta,gamma (with mod. grad. correction) */
 
-static inline void
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+void XC(gga_x_b86_mgc_enhance)
+  (const XC(func_type) *p, int order, FLOAT x, 
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   static const FLOAT beta  = 0.00375;
   static const FLOAT gamma = 0.007;
   
-  FLOAT dd, ddp, f1, f2, df1, df2, d2f1, d2f2;
+  FLOAT dd, ddp, f1, f2, df1, df2, d2f1, d2f2, d3f1, d3f2;
 
   dd    = 1.0 + gamma*x*x;
 
@@ -40,19 +40,26 @@ func(const XC(func_type) *p, int order, FLOAT x,
   if(order < 1) return;
 
   df1 = beta/X_FACTOR_C*2.0*x;
-  ddp = gamma*2.0*4.0/5.0*f2/dd;
-  df2 = ddp*x;
+  df2 = 8.0*gamma*x*f2/(5.0*dd);
 
-  *dfdx = (df1*f2 - f1*df2)/(f2*f2);
+  *dfdx = DFRACTION(f1, df1, f2, df2);
 
   if(order < 2) return;
 
   d2f1 = beta/X_FACTOR_C*2.0;
-  d2f2 = ddp*(1.0 - 2.0/5.0*gamma*x*x/dd);
+  d2f2 = 8.0*gamma*(5.0 + 3.0*gamma*x*x)*f2/(25.0*dd*dd);
 
-  *d2fdx2 = (2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
+  *d2fdx2 = D2FRACTION(f1, df1, d2f1, f2, df2, d2f2);
+
+  if(order < 3) return;
+
+  d3f1 = 0.0;
+  d3f2 = -48.0*gamma*gamma*x*(5.0 + gamma*x*x)*f2/(125.0*dd*dd*dd);
+
+  *d3fdx3 = D3FRACTION(f1, df1, d2f1, d3f1, f2, df2, d2f2, d3f2);
 }
 
+#define func XC(gga_x_b86_mgc_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_b86_mgc) = {

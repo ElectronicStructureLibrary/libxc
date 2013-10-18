@@ -158,29 +158,31 @@ void test_gga()
   v3sigma3    = malloc(10*npoints*sizeof(double));
 
   
-  XC(func_init)(&gga,  XC_GGA_X_AK13,  XC_POLARIZED);
+  XC(func_init)(&gga,  XC_GGA_X_BPCCAC,  XC_POLARIZED);
 
+  
   for(i=1; i<=10000; i++){
     double x = 4.0*i/(10000.0), f, df, d2f, d3f;
 
-    XC(gga_x_ak13_enhance)(&gga, 3, x, &f, &df, &d2f, &d3f);
+    XC(gga_x_bpccac_enhance)(&gga, 3, x, &f, &df, &d2f, &d3f);
     
     printf("%20.14e %20.14e %20.14e\n", x, d2f, d3f);
   }
   exit(0);
+  
 
   for(i=0; i<npoints; i++){
-    rho[2*i + 0]   = .01;
-    rho[2*i + 1]   = 0.2;
-    sigma[3*i + 0] = 0.01 + i/10000.0;
-    sigma[3*i + 1] = 0.00002;
-    sigma[3*i + 2] = 0.00005;
+    rho[2*i + 0]   = 0.048 + i/10000.0;
+    rho[2*i + 1]   = 0.025;
+    sigma[3*i + 0] = 0.0046;
+    sigma[3*i + 1] = 0.0044;
+    sigma[3*i + 2] = 0.0041;
   }
 
   XC(gga)(&gga,  npoints, rho, sigma, zk,  vrho,  vsigma,  v2rho2,  v2rhosigma,  v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
 
   for(i=0; i<npoints; i++){    
-    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[3*i + 0], vsigma[3*i + 0], v2sigma2[6*i + 0]);
+    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[2*i + 0], vrho[2*i + 0], v2rho2[3*i + 0]);
   }
 
   XC(func_end)(&gga);

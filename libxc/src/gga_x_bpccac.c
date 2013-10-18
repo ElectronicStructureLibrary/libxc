@@ -35,18 +35,18 @@ gga_x_bpccac_init(XC(func_type) *p)
 }
 
 
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+void XC(gga_x_bpccac_enhance)
+  (const XC(func_type) *p, int order, FLOAT x, 
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   static const FLOAT alpha = 1.0, beta = 19.0;
 
-  FLOAT f1, df1dx, d2f1dx2;
-  FLOAT f2, df2dx, d2f2dx2;
-  FLOAT aux, den, fab, dfab, d2fab;
+  FLOAT f1, df1dx, d2f1dx2, d3f1dx3;
+  FLOAT f2, df2dx, d2f2dx2, d3f2dx3;
+  FLOAT aux, den, fab, dfab, d2fab, d3fab;
 
-  XC(gga_x_pbe_enhance) (p->func_aux[0], order, x, &f1, &df1dx, &d2f1dx2, NULL);
-  XC(gga_x_pw91_enhance)(p->func_aux[1], order, x, &f2, &df2dx, &d2f2dx2, NULL);
+  XC(gga_x_pbe_enhance) (p->func_aux[0], order, x, &f1, &df1dx, &d2f1dx2, &d3f1dx3);
+  XC(gga_x_pw91_enhance)(p->func_aux[1], order, x, &f2, &df2dx, &d2f2dx2, &d3f2dx3);
 
   aux = exp(-(alpha*(x - beta)));
   den = 1.0 + aux;
@@ -56,15 +56,21 @@ func(const XC(func_type) *p, int order, FLOAT x,
 
   if(order < 1) return;
 
-  dfab  = -alpha*aux/(den*den);
-  *dfdx = dfab*(f1 - f2) + (1.0 - fab)*df1dx + fab*df2dx;
+  dfab  = alpha*aux/(den*den);
+  *dfdx = dfab*(f2 - f1) + (1.0 - fab)*df1dx + fab*df2dx;
 
   if(order < 2) return;
   
-  d2fab   = -alpha*alpha*aux*(2.0*aux - den)/(den*den*den);
-  *d2fdx2 = d2fab*(f1 - f2) + 2.0* dfab*(df1dx - df2dx) + (1.0 - fab)*d2f1dx2 + fab*d2f2dx2;
+  d2fab   = -alpha*alpha*aux*(1.0 - aux)/(den*den*den);
+  *d2fdx2 = d2fab*(f2 - f1) + 2.0*dfab*(df2dx - df1dx) + (1.0 - fab)*d2f1dx2 + fab*d2f2dx2;
+
+  if(order < 3) return;
+
+  d3fab   = alpha*alpha*alpha*aux*(1.0 - 4.0*aux + aux*aux)/(den*den*den*den);
+  *d3fdx3 = d3fab*(f2 - f1) + 3.0*dfab*(df2dx - df1dx) + 3.0*dfab*(d2f2dx2 - d2f1dx2) + (1.0 - fab)*d3f1dx3 + fab*d3f2dx3;
 }
 
+#define func XC(gga_x_bpccac_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_bpccac) = {

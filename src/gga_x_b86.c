@@ -23,8 +23,9 @@
 #define XC_GGA_X_B86          103 /* Becke 86 Xalfa,beta,gamma                      */
 
 void 
-XC(gga_x_b86_enhance)(const XC(func_type) *p, int order, FLOAT x, 
-		      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+XC(gga_x_b86_enhance)
+  (const XC(func_type) *p, int order, FLOAT x, 
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   static const FLOAT beta  = 0.0036/X_FACTOR_C;
   static const FLOAT gamma = 0.004;

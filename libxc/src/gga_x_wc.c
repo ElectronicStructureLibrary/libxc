@@ -54,21 +54,24 @@ XC(gga_x_wc_enhance) (const XC(func_type) *p, int order, FLOAT x,
   dd   = 1.0 + wc_c*ss2*ss2;
   df0 = 20.0/81.0*ss + 2.0*ss*aux1*aux2*(1.0 - ss2) + 4.0*wc_c*ss*ss2/dd;
 
-  *dfdx  = X2S*kappa*kappa*df0/(f0*f0);
+  *dfdx  = kappa*kappa*df0/(f0*f0);
+  *dfdx *= X2S;
 
   if(order < 2) return;
 
   d2f0 = 20.0/81.0 + 2.0*aux1*aux2*(1.0 - 5.0*ss2 + 2.0*ss2*ss2)
     - 4.0*wc_c*ss2*(dd - 4.0)/(dd*dd);
 
-  *d2fdx2 = -X2S*X2S*kappa*kappa*(2.0*df0*df0 - d2f0*f0)/(f0*f0*f0);
+  *d2fdx2  = -kappa*kappa*(2.0*df0*df0 - d2f0*f0)/(f0*f0*f0);
+  *d2fdx2 *= X2S*X2S;
 
   if(order < 3) return;
 
   d3f0 = -4.0*aux1*aux2*ss*(6.0 - 9.0*ss2 + 2.0*ss2*ss2) +
-    8.0*wc_c*ss*(3.0 + wc_c*ss2*ss2*(12.0 + wc_c*ss2*ss2))/(dd*dd*dd);
+    8.0*wc_c*ss*(3.0 + wc_c*ss2*ss2*(wc_c*ss2*ss2 - 12.0))/(dd*dd*dd);
 
-  *d3fdx3 = X2S*X2S*X2S*kappa*kappa*(6.0*df0*df0*df0 - 6.0*f0*df0*d2f0 + f0*f0*d3f0)/(f0*f0*f0*f0);
+  *d3fdx3  = kappa*kappa*(6.0*df0*df0*df0 - 6.0*f0*df0*d2f0 + f0*f0*d3f0)/(f0*f0*f0*f0);
+  *d3fdx3 *= X2S*X2S*X2S;
  
 }
 

@@ -69,7 +69,7 @@ const XC(func_info_type) XC(func_info_gga_x_b86_mgc) = {
   XC_FAMILY_GGA,
   "AD Becke, J. Chem. Phys 84, 4524 (1986)\n"
   "AD Becke, J. Chem. Phys 85, 7184 (1986)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,
   work_gga_x,

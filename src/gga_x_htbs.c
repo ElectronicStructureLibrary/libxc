@@ -123,7 +123,7 @@ void XC(gga_x_htbs_enhance)
     d3g  = 6.0*cc[3] + s*(24.0*cc[4] + s*60.0*cc[5]);
     d3g *= X2S*X2S*X2S;
 
-    *d2fdx2  = d3g*(a - b) + 3.0*d2g*(da - db) + 3.0*dg*(d2a - d2b) + g*(d3a - d3b) + d3b;
+    *d3fdx3  = d3g*(a - b) + 3.0*d2g*(da - db) + 3.0*dg*(d2a - d2b) + g*(d3a - d3b) + d3b;
   }
 }
 

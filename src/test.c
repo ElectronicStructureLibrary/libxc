@@ -158,13 +158,13 @@ void test_gga()
   v3sigma3    = malloc(10*npoints*sizeof(double));
 
   
-  XC(func_init)(&gga,  XC_GGA_X_BPCCAC,  XC_POLARIZED);
+  XC(func_init)(&gga,  XC_GGA_X_HTBS,  XC_POLARIZED);
 
   
   for(i=1; i<=10000; i++){
-    double x = 4.0*i/(10000.0), f, df, d2f, d3f;
+    double x = 25.0*i/(10000.0), f, df, d2f, d3f;
 
-    XC(gga_x_bpccac_enhance)(&gga, 3, x, &f, &df, &d2f, &d3f);
+    XC(gga_x_htbs_enhance)(&gga, 3, x, &f, &df, &d2f, &d3f);
     
     printf("%20.14e %20.14e %20.14e\n", x, d2f, d3f);
   }

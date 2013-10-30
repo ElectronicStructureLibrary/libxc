@@ -57,34 +57,51 @@ void XC(gga_x_sogga11_enhance)
     {0.50000, -4.82197,   5.40713, -4.10014, -6.27393,  6.62678}  /* SOGGA11-X */
   };
     
-  FLOAT f0, df0, d2f0, den0, den1, t0, t1, f1, df1, d2f1;
+  FLOAT f0, df0, d2f0, d3f0, den0, den1, t0, dt0, d2t0, d3t0, t1, dt1, d2t1, d3t1, f1, df1, d2f1, d3f1;
 
   den0 = -1.0/(1.0 + alpha*x*x);
   f0   =  1.0 + den0;
   den1 = -exp(-alpha*x*x);
   f1   =  1.0 + den1;
 
-  *f = aa[p->func][0] + f0*(aa[p->func][1] + f0*(aa[p->func][2] + f0*(aa[p->func][3] + f0*(aa[p->func][4] + f0*aa[p->func][5]))))
-    +  bb[p->func][0] + f1*(bb[p->func][1] + f1*(bb[p->func][2] + f1*(bb[p->func][3] + f1*(bb[p->func][4] + f1*bb[p->func][5]))));
+  t0 = aa[p->func][0] + f0*(aa[p->func][1] + f0*(aa[p->func][2] + f0*(aa[p->func][3] + f0*(aa[p->func][4] + f0*aa[p->func][5]))));
+  t1 = bb[p->func][0] + f1*(bb[p->func][1] + f1*(bb[p->func][2] + f1*(bb[p->func][3] + f1*(bb[p->func][4] + f1*bb[p->func][5]))));
+
+  *f  = t0;
+  *f += t1;
 
   if(order < 1) return;
 
   df0 =  2.0*alpha*x*den0*den0;
   df1 = -2.0*alpha*x*den1;
 
-  t0  = aa[p->func][1] + f0*(2.0*aa[p->func][2] + f0*(3.0*aa[p->func][3] + f0*(4.0*aa[p->func][4] + f0*5.0*aa[p->func][5])));
-  t1  = bb[p->func][1] + f1*(2.0*bb[p->func][2] + f1*(3.0*bb[p->func][3] + f1*(4.0*bb[p->func][4] + f1*5.0*bb[p->func][5])));
+  dt0  = aa[p->func][1] + f0*(2.0*aa[p->func][2] + f0*(3.0*aa[p->func][3] + f0*(4.0*aa[p->func][4] + f0*5.0*aa[p->func][5])));
+  dt1  = bb[p->func][1] + f1*(2.0*bb[p->func][2] + f1*(3.0*bb[p->func][3] + f1*(4.0*bb[p->func][4] + f1*5.0*bb[p->func][5])));
 
-  *dfdx = df0*t0 + df1*t1;
+  *dfdx  = dt0*df0;
+  *dfdx += dt1*df1;
 
   if(order < 2) return;
 
   d2f0 = 2.0*alpha*(3.0*alpha*x*x - 1.0)*den0*den0*den0;
   d2f1 = 2.0*alpha*(2.0*alpha*x*x - 1.0)*den1;
 
-  *d2fdx2 = d2f0*t0 + d2f1*t1 +
-    df0*df0*(2.0*aa[p->func][2] + f0*(6.0*aa[p->func][3] + f0*(12.0*aa[p->func][4] + f0*20.0*aa[p->func][5]))) +
-    df1*df1*(2.0*bb[p->func][2] + f1*(6.0*bb[p->func][3] + f1*(12.0*bb[p->func][4] + f1*20.0*bb[p->func][5])));
+  d2t0 = 2.0*aa[p->func][2] + f0*(3.0*2.0*aa[p->func][3] + f0*(4.0*3.0*aa[p->func][4] + f0*5.0*4.0*aa[p->func][5]));
+  d2t1 = 2.0*bb[p->func][2] + f1*(3.0*2.0*bb[p->func][3] + f1*(4.0*3.0*bb[p->func][4] + f1*5.0*4.0*bb[p->func][5]));
+
+  *d2fdx2  = dt0*d2f0 + df0*df0*d2t0;
+  *d2fdx2 += dt1*d2f1 + df1*df1*d2t1;
+
+  if(order < 3) return;
+
+  d3f0 = 24.0*alpha*alpha*x*(alpha*x*x - 1.0)*den0*den0*den0*den0;
+  d3f1 = -4.0*alpha*alpha*x*(2.0*alpha*x*x - 3.0)*den1;
+
+  d3t0 = 3.0*2.0*aa[p->func][3] + f0*(4.0*3.0*2.0*aa[p->func][4] + f0*5.0*4.0*3.0*aa[p->func][5]);
+  d3t1 = 3.0*2.0*bb[p->func][3] + f1*(4.0*3.0*2.0*bb[p->func][4] + f1*5.0*4.0*3.0*bb[p->func][5]);
+
+  *d3fdx3  = 3.0*df0*d2f0*d2t0 + dt0*d3f0 + df0*df0*df0*d3t0;
+  *d3fdx3 += 3.0*df1*d2f1*d2t1 + dt1*d3f1 + df1*df1*df1*d3t1;
 }
 
 
@@ -99,7 +116,7 @@ const XC(func_info_type) XC(func_info_gga_x_sogga11) = {
   XC_FAMILY_GGA,
   "R Peverati, Y Zhao, and DG Truhlar, J. Phys. Chem. Lett. 2, 1991-1997 (2011)\n"
   "http://comp.chem.umn.edu/mfm/index.html",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-31, 1e-32, 0.0, 1e-32,
   gga_x_sogga11_init, 
   NULL, NULL,
@@ -114,7 +131,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_x_sogga11_x) = {
   XC_FAMILY_HYB_GGA,
   "R Peverati and DG Truhlar, J. Chem. Phys. 135, 191102 (2011)\n"
   "http://comp.chem.umn.edu/mfm/index.html",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-31, 1e-32, 0.0, 1e-32,
   gga_x_sogga11_init, 
   NULL, NULL,

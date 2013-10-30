@@ -36,9 +36,15 @@ double asinh (double x);
 float  asinhf(float  x);
 #endif
 
-#define M_CBRT2         1.259921049894873164767210607278228350570
-#define M_SQRTPI        1.772453850905516027298167483341145182798
-#define M_SQRT3         1.732050807568877293527446341505872366943
+#define M_SQRTPI        1.772453850905516027298167483341145182798L
+#define M_SQRT3         1.732050807568877293527446341505872366943L
+#define M_CBRT2         1.259921049894873164767210607278228350570L
+#define M_CBRT3         1.442249570307408382321638310780109588392L
+#define M_CBRT4         1.587401051968199474751705639272308260391L
+#define M_CBRT5         1.709975946676696989353108872543860109868L
+#define M_CBRT6         1.817120592832139658891211756327260502428L
+#define M_CBRT7         1.912931182772389101199116839548760282862L
+#define M_CBRT9         2.080083823051904114530056824357885386338L
 
 /* Very useful macros */
 #define min(x,y)  ((x<y) ? (x) : (y))
@@ -175,6 +181,7 @@ void XC(gga_x_ak13_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *
 void XC(gga_x_bayesian_enhance)(const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
 void XC(gga_x_bpccac_enhance)(const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
 void XC(gga_x_c09x_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
+void XC(gga_x_am05_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
 
 /* correlation functions */
 

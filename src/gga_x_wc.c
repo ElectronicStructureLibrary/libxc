@@ -31,9 +31,9 @@ gga_x_wc_init(XC(func_type) *p_)
   wc_c   = (146.0/2025.0)*(4.0/9.0) - (73.0/405.0)*(2.0/3.0) + (wc_mu - 10.0/81.0);
 }
 
-void 
-XC(gga_x_wc_enhance) (const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+void XC(gga_x_wc_enhance)
+  (const XC(func_type) *p, int order, FLOAT x, 
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   const FLOAT kappa = 0.8040;
 

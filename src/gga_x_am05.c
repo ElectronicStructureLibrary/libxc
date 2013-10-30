@@ -25,19 +25,21 @@
 
 #define XC_GGA_X_AM05         120 /* Armiento & Mattsson 05 exchange                */
 
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+void XC(gga_x_am05_enhance)
+  (const XC(func_type) *p, int order, FLOAT x, 
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   const FLOAT am05_c      = 0.7168;
   const FLOAT am05_alpha  = 2.804;
 
   const FLOAT z_tt_factor = POW(CBRT(4.0/3.0) * 2.0*M_PI/3.0, 4);
 
-  FLOAT ss, ss2, lam_x, dlam_x, d2lam_x;
-  FLOAT ww, z_t, z_t2, z_tt, fx_b, xx, flaa_1, flaa_2, flaa;
+  FLOAT ss, ss2, lam_x, dlam_x, d2lam_x, d3lam_x;
+  FLOAT aux1, aux2, aux12, aux22;
+  FLOAT ww, ww13, z_t, z_t2, z_tt, z_tt_aux, fx_b, xx, flaa_1, flaa_2, flaa;
   FLOAT dww, dz_t, dz_tt, dfx_b, dxx, dflaa_1, dflaa_2, dflaa;
-  FLOAT d2ww, d2z_t, d2z_tt, d2fx_b, d2xx, d2flaa_1, d2flaa_2, d2flaa;;
+  FLOAT d2ww, d2z_t, d2z_tt, d2fx_b, d2xx, d2flaa_1, d2flaa_2, d2flaa;
+  FLOAT d3ww, d3z_t, d3z_tt, d3fx_b, d3xx, d3flaa_2, d3flaa;
 
   if(x < p->info->min_grad){
     *f    = 1.0;
@@ -49,12 +51,14 @@ func(const XC(func_type) *p, int order, FLOAT x,
 
   lam_x  = POW(ss, 1.5)/(2.0*SQRT(6.0));
   ww     = (FLOAT)lambert_w((double)lam_x);
+  ww13   = CBRT(ww);
 
-  z_t    = POW(1.5*ww, 2.0/3.0);
+  z_t    = (M_CBRT3/M_CBRT2)*ww13*ww13;
   z_t2   = z_t*z_t;
 
   /* This is equal to sqrt(t_zeta) * tt_zeta of the JCP*/
-  z_tt   = z_t * SQRT(SQRT(z_tt_factor + z_t2));
+  z_tt_aux = z_tt_factor + z_t2;
+  z_tt     = z_t * SQRT(SQRT(z_tt_aux));
 
   /* note that there is a factor of 2 missing in the JCP */
   fx_b   = M_PI/3.0*ss/z_tt;
@@ -70,41 +74,66 @@ func(const XC(func_type) *p, int order, FLOAT x,
   if(order < 1) return;
 
   dlam_x  = 1.5*lam_x/ss;
-  dww     = ww/(lam_x*(1.0 + ww))*dlam_x;
-  dz_t    = POW(1.5, 2.0/3.0) * 2.0/3.0 * dww/CBRT(ww);
-  dz_tt   = POW(z_tt_factor + z_t2, -3.0/4.0)*(z_tt_factor + 3.0*z_t2/2.0)*dz_t;
-  dfx_b   = M_PI/3.0*(z_tt - ss*dz_tt)/(z_tt*z_tt);
+  aux1    = 1.0 + ww;
+  aux2    = lam_x*aux1;
+
+  dww     = ww*dlam_x/aux2;
+  dz_t    = M_CBRT4*dww/(M_CBRT9*ww13);
+  dz_tt   = (2.0*z_tt_factor + 3.0*z_t2)*z_tt/(2.0*z_t*z_tt_aux);
+  dfx_b   = M_PI/3.0*(z_tt - ss*dz_tt*dz_t)/(z_tt*z_tt);
 
   dxx     = -2.0*am05_alpha*ss * xx*xx;
   dflaa_1 = 2.0*am05_c*ss;
-  dflaa_2 = am05_c*(2.0*ss*fx_b - dfx_b*ss2)/(fx_b*fx_b);
-  dflaa   = (dflaa_1*flaa_2 - flaa_1*dflaa_2)/(flaa_2*flaa_2);
+  dflaa_2 = DFRACTION(am05_c*ss2, dflaa_1, fx_b, dfx_b);
+  dflaa   = DFRACTION(flaa_1, dflaa_1, flaa_2, dflaa_2);
 
   *dfdx  = dxx*(1.0 - flaa) + dflaa*(1.0 - xx);
   *dfdx *= X2S;
 
   if(order < 2) return;
 
-  d2lam_x  = 0.5*dlam_x/ss;
-  d2ww     = (dww*lam_x*dlam_x + ww*(1.0 + ww)*lam_x*d2lam_x - ww*(1.0 + ww)*dlam_x*dlam_x) /
-    (lam_x*lam_x*(1+ww)*(1+ww));
-  d2z_t    = POW(1.5, 2.0/3.0)*2.0/3.0*(-POW(ww, -4.0/3.0)*dww*dww/3.0 + d2ww/CBRT(ww));
+  aux12   = aux1*aux1;
+  aux22   = aux2*aux2;
 
-  d2z_tt   = POW(z_tt_factor + z_t2, -7.0/4.0)*
-    ((d2z_t*(z_tt_factor + z_t2) - 3.0/2.0*z_t*dz_t*dz_t)*(z_tt_factor + 3.0*z_t2/2.0) + 
-     (z_tt_factor + z_t2)*3.0*z_t*dz_t*dz_t);
-  d2fx_b   = M_PI/3.0*(-ss*d2z_tt*z_tt - 2.0*dz_tt*z_tt + 2*ss*dz_tt*dz_tt)/(z_tt*z_tt*z_tt);
+  d2lam_x  = 0.5*dlam_x/ss;
+  d2ww     = ww*(-ww*(2.0 + ww)*dlam_x*dlam_x + aux12*lam_x*d2lam_x)/(aux22*aux1);
+  d2z_t    = -M_CBRT4*(dww*dww - 3.0*ww*d2ww)/(3.0*M_CBRT9*ww*ww13);
+
+  d2z_tt   = 3.0*z_t*(2.0*z_tt_factor + z_t2)*z_tt/(4.0*z_t*z_tt_aux*z_tt_aux);
+  d2fx_b   = M_PI/3.0*(2.0*ss*dz_tt*dz_tt*dz_t*dz_t - z_tt*(dz_tt*(2.0*dz_t + ss*d2z_t) + ss*dz_t*dz_t*d2z_tt))/(z_tt*z_tt*z_tt);
 
   d2xx     = 2.0*am05_alpha*(3.0*am05_alpha*ss2 - 1.0) * xx*xx*xx;
   d2flaa_1 = 2.0*am05_c;
-  d2flaa_2 = am05_c*(2.0*(fx_b*fx_b - 2.0*ss*fx_b*dfx_b + ss2*dfx_b*dfx_b) - ss2*fx_b*d2fx_b)/(fx_b*fx_b*fx_b);
-  d2flaa   = (2.0*flaa_1*dflaa_2*dflaa_2 + flaa_2*flaa_2*d2flaa_1 - flaa_2*(2.0*dflaa_1*dflaa_2 + flaa_1*d2flaa_2))/
-    (flaa_2*flaa_2*flaa_2);
+  d2flaa_2 = D2FRACTION(am05_c*ss2, dflaa_1, d2flaa_1, fx_b, dfx_b, d2fx_b);
+  d2flaa   = D2FRACTION(flaa_1, dflaa_1, d2flaa_1, flaa_2, dflaa_2, d2flaa_2);
 
-  *d2fdx2  = d2xx*(1.0 - flaa) - 2.0*dxx*dflaa + d2flaa*(1.0 - xx);
+  *d2fdx2  = d2xx*(1.0 - flaa) - 2.0*dxx*dflaa + (1.0 - xx)*d2flaa;
   *d2fdx2 *= X2S*X2S;
+
+  if(order < 3) return;
+
+  d3lam_x  = -0.5*d2lam_x/ss;
+  d3ww     = ww*(ww*dlam_x*(ww*(9.0 + 2.0*ww*(4.0 + ww))*dlam_x*dlam_x - 3.0*lam_x*aux12*(2.0 + ww)*d2lam_x) + 
+		 lam_x*lam_x*aux12*aux12*d3lam_x)/(aux22*aux2*aux12);
+  d3z_t    = M_CBRT4*(4.0*dww*dww*dww - 9.0*ww*dww*d2ww + 9.0*ww*ww*d3ww)/(9.0*M_CBRT9*ww*ww*ww13);
+
+  d3z_tt   = -3.0*(-4.0*z_tt_factor*z_tt_factor + 4.0*z_tt_factor*z_t2 + z_t2*z_t2)*z_tt/(8.0*z_t*z_tt_aux*z_tt_aux*z_tt_aux);
+  d3fx_b   = M_PI/3.0*(-6.0*ss*dz_t*dz_t*dz_t*dz_tt*dz_tt*dz_tt
+		       +6.0*z_tt*dz_t*dz_tt*(dz_tt*(dz_t + ss*d2z_t) + ss*dz_t*dz_t*d2z_tt)
+		       -z_tt*z_tt*(3.0*dz_t*(dz_t + ss*d2z_t)*d2z_tt + dz_tt*(3.0*d2z_t + ss*d3z_t) + ss*dz_t*dz_t*dz_t*d3z_tt))
+    /(z_tt*z_tt*z_tt*z_tt);
+
+  d3xx     = -24.0*am05_alpha*am05_alpha*ss*(am05_alpha*ss2 - 1.0) * xx*xx*xx*xx;
+  
+  d3flaa_2 = D3FRACTION(am05_c*ss2, dflaa_1, d2flaa_1, 0.0, fx_b, dfx_b, d2fx_b, d3fx_b);
+  d3flaa   = D3FRACTION(flaa_1, dflaa_1, d2flaa_1, 0.0, flaa_2, dflaa_2, d2flaa_2, d3flaa_2);
+
+  *d3fdx3  = d3xx*(1.0 - flaa) - 3.0*d2xx*dflaa + -3.0*dxx*d2flaa + (1.0 - xx)*d3flaa;
+  *d3fdx3 *= X2S*X2S*X2S;
+
 }
 
+#define func XC(gga_x_am05_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_am05) = {
@@ -114,7 +143,7 @@ const XC(func_info_type) XC(func_info_gga_x_am05) = {
   XC_FAMILY_GGA,
   "R Armiento and AE Mattsson, Phys. Rev. B 72, 085108 (2005)\n"
   "AE Mattsson, R Armiento, J Paier, G Kresse, JM Wills, and TR Mattsson, J. Chem. Phys. 128, 084714 (2008).",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,
   work_gga_x,

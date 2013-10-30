@@ -139,6 +139,8 @@ get_gga_enhancement_factor(int func_id)
     return XC(gga_x_bpccac_enhance);
   case XC_GGA_X_C09X:
     return XC(gga_x_c09x_enhance);
+  case XC_GGA_X_AM05:
+    return XC(gga_x_am05_enhance);
   default:
     fprintf(stderr, "Internal error in get_gga_enhancement\n");
     exit(1);

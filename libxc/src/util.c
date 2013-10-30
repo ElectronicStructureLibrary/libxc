@@ -180,6 +180,17 @@ get_gga_enhancement_factor(int func_id)
   case XC_HYB_GGA_X_SOGGA11_X:
     return XC(gga_x_sogga11_enhance);
 
+  case XC_GGA_X_SSB_SW:
+  case XC_GGA_X_SSB:
+  case XC_GGA_X_SSB_D:
+    return XC(gga_x_ssb_sw_enhance);
+
+  case XC_GGA_X_VMT_PBE:
+  case XC_GGA_X_VMT_GE:
+  case XC_GGA_X_VMT84_PBE:
+  case XC_GGA_X_VMT84_GE:
+    return XC(gga_x_vmt_enhance);
+
   default:
     fprintf(stderr, "Internal error in get_gga_enhancement\n");
     exit(1);

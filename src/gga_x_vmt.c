@@ -69,7 +69,8 @@ void XC(gga_x_vmt_enhance)
   (const XC(func_type) *p, int order, FLOAT x, 
    FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
-  FLOAT mu, alpha, ss, ss2, ss4, ss6, ss8, ss10, f0, f1, g0;
+  FLOAT mu, alpha, ss, ss2, ss4, ss6, ss8, ss10, f0, g0, dg0, d2g0, d3g0;
+  FLOAT num1, den1, dnum1, dden1, d2num1, d2den1, d3num1;
 
   assert(p->params != NULL);
   mu    = ((gga_x_vmt_params *) (p->params))->mu;
@@ -80,38 +81,62 @@ void XC(gga_x_vmt_enhance)
   ss4 = ss2*ss2;
  
   f0 = EXP(-alpha*ss2);
-  f1 = 1.0 + mu*ss2;
+  num1 = mu*ss2*f0;
+  den1 = 1.0 + mu*ss2;
 
-  *f = 1.0 + mu*ss2*f0/f1;
+  *f = 1.0 + num1/den1;
 
   if(p->info->number == XC_GGA_X_VMT84_PBE || p->info->number == XC_GGA_X_VMT84_GE){
     g0 = EXP(-alpha*ss4);
-    
-    *f += (1.0 - g0)*(1/ss2 - 1.0);
+
+    *f += (1.0 - g0)/ss2  - 1.0 + g0;
   }
 
   if(order < 1) return;
   
   ss6 = ss2*ss4;
 
-  *dfdx = X2S*2.0*mu*ss*(1.0 - alpha*ss2 - alpha*mu*ss4)*f0/(f1*f1);
+  dnum1 = -2.0*mu*ss*(alpha*ss2 - 1.0)*f0;
+  dden1 = 2.0*mu*ss;
+
+  *dfdx = DFRACTION(num1, dnum1, den1, dden1);
 
   if(p->info->number == XC_GGA_X_VMT84_PBE || p->info->number == XC_GGA_X_VMT84_GE){
-    *dfdx += -2.0*X2S*(1.0 + g0*(2.0*alpha*ss6 - 2.0*alpha*ss4 - 1.0))/(ss*ss2);
+    dg0 = -4.0*alpha*ss*ss2*g0;
+
+    *dfdx += DFRACTION(1.0 - g0, -dg0, ss2, 2.0*ss) + dg0;
   }
+  *dfdx *= X2S;
 
   if(order < 2) return;
 
   ss8  = ss2*ss6;
   ss10 = ss2*ss8;
 
-  *d2fdx2 = X2S*X2S*2.0*mu*
-    (1.0 + ss2*(-3.0*mu - 5.0*alpha) + ss4*(2.0*alpha*alpha - 6.0*alpha*mu) + 
-     ss6*(-alpha*mu*mu + 4.0*alpha*alpha*mu) + ss8*(2.0*alpha*alpha*mu*mu))*f0/(f1*f1*f1);
+  d2num1 = 2.0*mu*(1.0 + alpha*ss2*(2.0*alpha*ss2 - 5.0))*f0;
+  d2den1 = 2.0*mu;
+
+  *d2fdx2 = D2FRACTION(num1, dnum1, d2num1, den1, dden1, d2den1);
 
   if(p->info->number == XC_GGA_X_VMT84_PBE || p->info->number == XC_GGA_X_VMT84_GE){
-    *d2fdx2 += 2.0*X2S*X2S*(3.0 + g0*(8*alpha*alpha*ss10 - 8.0*alpha*alpha*ss8 - 6.0*alpha*ss6 - 2.0*alpha*ss4 - 3.0))/ss4;
+    d2g0 = 4.0*alpha*ss2*(4.0*alpha*ss4 - 3.0)*g0;
+
+    *d2fdx2 += D2FRACTION(1.0 - g0, -dg0, -d2g0, ss2, 2.0*ss, 2.0) + d2g0;
   }
+  *d2fdx2 *= X2S*X2S;
+
+  if(order < 3) return;
+
+  d3num1 = -4.0*alpha*mu*ss*(6.0 + alpha*ss2*(2.0*alpha*ss2 - 9.0))*f0;
+
+  *d3fdx3 = D3FRACTION(num1, dnum1, d2num1, d3num1, den1, dden1, d2den1, 0.0);
+
+  if(p->info->number == XC_GGA_X_VMT84_PBE || p->info->number == XC_GGA_X_VMT84_GE){
+    d3g0 = -8.0*alpha*ss*(3.0 + 2.0*alpha*ss4*(4.0*alpha*ss4 - 9.0))*g0;
+
+    *d3fdx3 += D3FRACTION(1.0 - g0, -dg0, -d2g0, -d3g0, ss2, 2.0*ss, 2.0, 0.0) + d3g0;
+  }
+  *d3fdx3 *= X2S*X2S*X2S;
 }
 
 
@@ -125,7 +150,7 @@ const XC(func_info_type) XC(func_info_gga_x_vmt_pbe) = {
   "Vela, Medel, and Trickey with mu = mu_PBE",
   XC_FAMILY_GGA,
   "A. Vela, V. Medel, and S. B. Trickey, J. Chem. Phys. 130, 244103 (2009)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_vmt_init, 
   NULL, NULL,
@@ -139,7 +164,7 @@ const XC(func_info_type) XC(func_info_gga_x_vmt_ge) = {
   "Vela, Medel, and Trickey with mu = mu_GE",
   XC_FAMILY_GGA,
   "A. Vela, V. Medel, and S. B. Trickey, J. Chem. Phys. 130, 244103 (2009)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_vmt_init, 
   NULL, NULL,
@@ -153,7 +178,7 @@ const XC(func_info_type) XC(func_info_gga_x_vmt84_pbe) = {
   "VMT{8,4} with constraint satisfaction with mu = mu_PBE",
   XC_FAMILY_GGA,
   "A Vela, JC Pacheco-Kato, JL Gazquez, JM del Campo, and SB Trickey, J. Chem. Phys. 136, 144115 (2012)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_vmt_init, 
   NULL, NULL,
@@ -167,7 +192,7 @@ const XC(func_info_type) XC(func_info_gga_x_vmt84_ge) = {
   "VMT{8,4} with constraint satisfaction with mu = mu_GE",
   XC_FAMILY_GGA,
   "A Vela, JC Pacheco-Kato, JL Gazquez, JM del Campo, and SB Trickey, J. Chem. Phys. 136, 144115 (2012)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_vmt_init, 
   NULL, NULL,

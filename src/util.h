@@ -182,6 +182,7 @@ void XC(gga_x_bayesian_enhance)(const XC(func_type) *p, int order, FLOAT x, FLOA
 void XC(gga_x_bpccac_enhance)(const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
 void XC(gga_x_c09x_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
 void XC(gga_x_am05_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
+void XC(gga_x_dk87_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
 
 /* correlation functions */
 
@@ -236,11 +237,11 @@ void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT 
 
 /* useful MACROS */
 #define DFRACTION(num, dnum, den, dden) \
-  ((dnum*den - num*dden)/(den*den))
+  (((dnum)*(den) - (num)*(dden))/((den)*(den)))
 #define D2FRACTION(num, dnum, d2num, den, dden, d2den) \
-  ((2.0*num*dden*dden - 2.0*den*dden*dnum - den*num*d2den + den*den*d2num)/(den*den*den))
+  ((2.0*(num)*(dden)*(dden) - 2.0*(den)*(dden)*(dnum) - (den)*(num)*(d2den) + (den)*(den)*(d2num))/((den)*(den)*(den)))
 #define D3FRACTION(num, dnum, d2num, d3num, den, dden, d2den, d3den)	\
-  ((-num*(6.0*dden*dden*dden - 6.0*den*dden*d2den + den*den*d3den) +	\
-     den*(6.0*dden*dden*dnum - 3.0*den*dden*d2num + den*(-3.0*dnum*d2den + den*d3num)))/(den*den*den*den))
+  ((-(num)*(6.0*(dden)*(dden)*(dden) - 6.0*(den)*(dden)*(d2den) + (den)*(den)*(d3den)) + \
+    (den)*(6.0*(dden)*(dden)*(dnum) - 3.0*(den)*(dden)*(d2num) + (den)*(-3.0*(dnum)*(d2den) + (den)*(d3num))))/((den)*(den)*(den)*(den)))
 
 #endif

@@ -97,8 +97,10 @@ xc_gga_enhancement_t
 get_gga_enhancement_factor(int func_id)
 {
   switch(func_id){
+
   case XC_GGA_X_WC:
     return XC(gga_x_wc_enhance);
+
   case XC_GGA_X_PBE:
   case XC_GGA_X_PBE_R:
   case XC_GGA_X_PBE_SOL:
@@ -110,37 +112,54 @@ get_gga_enhancement_factor(int func_id)
   case XC_GGA_X_PBEINT:
   case XC_GGA_X_PBE_TCA:
     return XC(gga_x_pbe_enhance);
+
   case XC_GGA_X_PW91:
   case XC_GGA_X_MPW91:
     return XC(gga_x_pw91_enhance);
+
   case XC_GGA_X_RPBE:
     return XC(gga_x_rpbe_enhance);
+
   case XC_GGA_X_HTBS:
     return XC(gga_x_htbs_enhance);
+
   case XC_GGA_X_B86:
     return XC(gga_x_b86_enhance);
+
   case XC_GGA_X_B86_MGC:
     return XC(gga_x_b86_mgc_enhance);
+
   case XC_GGA_X_B88:
   case XC_GGA_X_OPTB88_VDW:
   case XC_GGA_X_MB88:
     return XC(gga_x_b88_enhance);
+
   case XC_GGA_X_G96:
     return XC(gga_x_g96_enhance);
+
   case XC_GGA_X_PW86:
   case XC_GGA_X_RPW86:
     return XC(gga_x_pw86_enhance);
+
   case XC_GGA_X_AIRY:
   case XC_GGA_X_LAG:
     return XC(gga_x_airy_enhance);
+
   case XC_GGA_X_BAYESIAN:
     return XC(gga_x_bayesian_enhance);
+
   case XC_GGA_X_BPCCAC:
     return XC(gga_x_bpccac_enhance);
+
   case XC_GGA_X_C09X:
     return XC(gga_x_c09x_enhance);
+
   case XC_GGA_X_AM05:
     return XC(gga_x_am05_enhance);
+
+  case XC_GGA_X_DK87_R1:
+  case XC_GGA_X_DK87_R2:
+    return XC(gga_x_dk87_enhance);
   default:
     fprintf(stderr, "Internal error in get_gga_enhancement\n");
     exit(1);

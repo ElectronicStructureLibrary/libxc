@@ -22,14 +22,15 @@
 
 #define XC_GGA_X_MPBE         122 /* Adamo & Barone modification to PBE             */
 
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+
+void XC(gga_x_mpbe_enhance)
+  (const XC(func_type) *p, int order, FLOAT x, 
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   static FLOAT a = 0.157;
   static FLOAT c1 = 0.21951, c2 = -0.015;
 
-  FLOAT ss, ss2, f0, df0, d2f0, f1;
+  FLOAT ss, ss2, f0, df0, d2f0, d3f0, f1;
 
   ss  = X2S*x;
   ss2 = ss*ss;
@@ -40,17 +41,23 @@ func(const XC(func_type) *p, int order, FLOAT x,
 
   if(order < 1) return;
 
-  df0 = 2.0*ss/(f1*f1);
+  df0 = DFRACTION(ss2, 2.0*ss, f1, 2.0*a*ss);
 
   *dfdx  = X2S*(c1 + 2.0*c2*f0)*df0;
 
   if(order < 2) return;
 
-  d2f0 = (2.0 - 6.0*a*ss*ss)/(f1*f1*f1);
+  d2f0 = D2FRACTION(ss2, 2.0*ss, 2.0, f1, 2.0*a*ss, 2.0*a);
   *d2fdx2 = X2S*X2S*((c1 + 2.0*c2*f0)*d2f0 + 2.0*c2*df0*df0);
+
+  if(order < 3) return;
+
+  d3f0 = D3FRACTION(ss2, 2.0*ss, 2.0, 0.0, f1, 2.0*a*ss, 2.0*a, 0.0);
+  *d3fdx3 = X2S*X2S*X2S*((c1 + 2.0*c2*f0)*d3f0 + 6.0*c2*df0*d2f0);
 }
 
 
+#define func XC(gga_x_mpbe_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_mpbe) = {

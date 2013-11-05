@@ -49,11 +49,11 @@ void XC(gga_x_am05_enhance)
   ss  = X2S*x;
   ss2 = ss*ss;
 
-  lam_x  = POW(ss, 1.5)/(2.0*SQRT(6.0));
+  lam_x  = ss*SQRT(ss)/(2.0*SQRT(6.0));
   ww     = (FLOAT)lambert_w((double)lam_x);
   ww13   = CBRT(ww);
 
-  z_t    = (M_CBRT3/M_CBRT2)*ww13*ww13;
+  z_t    = (M_CBRT9/M_CBRT4)*ww13*ww13;
   z_t2   = z_t*z_t;
 
   /* This is equal to sqrt(t_zeta) * tt_zeta of the JCP*/
@@ -78,7 +78,7 @@ void XC(gga_x_am05_enhance)
   aux2    = lam_x*aux1;
 
   dww     = ww*dlam_x/aux2;
-  dz_t    = M_CBRT4*dww/(M_CBRT9*ww13);
+  dz_t    = M_CBRT2*dww/(M_CBRT3*ww13);
   dz_tt   = (2.0*z_tt_factor + 3.0*z_t2)*z_tt/(2.0*z_t*z_tt_aux);
   dfx_b   = M_PI/3.0*(z_tt - ss*dz_tt*dz_t)/(z_tt*z_tt);
 
@@ -97,7 +97,7 @@ void XC(gga_x_am05_enhance)
 
   d2lam_x  = 0.5*dlam_x/ss;
   d2ww     = ww*(-ww*(2.0 + ww)*dlam_x*dlam_x + aux12*lam_x*d2lam_x)/(aux22*aux1);
-  d2z_t    = -M_CBRT4*(dww*dww - 3.0*ww*d2ww)/(3.0*M_CBRT9*ww*ww13);
+  d2z_t    = -M_CBRT2*(dww*dww - 3.0*ww*d2ww)/(3.0*M_CBRT3*ww*ww13);
 
   d2z_tt   = 3.0*z_t*(2.0*z_tt_factor + z_t2)*z_tt/(4.0*z_t*z_tt_aux*z_tt_aux);
   d2fx_b   = M_PI/3.0*(2.0*ss*dz_tt*dz_tt*dz_t*dz_t - z_tt*(dz_tt*(2.0*dz_t + ss*d2z_t) + ss*dz_t*dz_t*d2z_tt))/(z_tt*z_tt*z_tt);
@@ -115,7 +115,7 @@ void XC(gga_x_am05_enhance)
   d3lam_x  = -0.5*d2lam_x/ss;
   d3ww     = ww*(ww*dlam_x*(ww*(9.0 + 2.0*ww*(4.0 + ww))*dlam_x*dlam_x - 3.0*lam_x*aux12*(2.0 + ww)*d2lam_x) + 
 		 lam_x*lam_x*aux12*aux12*d3lam_x)/(aux22*aux2*aux12);
-  d3z_t    = M_CBRT4*(4.0*dww*dww*dww - 9.0*ww*dww*d2ww + 9.0*ww*ww*d3ww)/(9.0*M_CBRT9*ww*ww*ww13);
+  d3z_t    = M_CBRT2*(4.0*dww*dww*dww - 9.0*ww*dww*d2ww + 9.0*ww*ww*d3ww)/(9.0*M_CBRT3*ww*ww*ww13);
 
   d3z_tt   = -3.0*(-4.0*z_tt_factor*z_tt_factor + 4.0*z_tt_factor*z_t2 + z_t2*z_t2)*z_tt/(8.0*z_t*z_tt_aux*z_tt_aux*z_tt_aux);
   d3fx_b   = M_PI/3.0*(-6.0*ss*dz_t*dz_t*dz_t*dz_tt*dz_tt*dz_tt

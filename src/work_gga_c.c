@@ -18,8 +18,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 #include <math.h>
+
 #include "util.h"
 
 static void 
@@ -32,19 +34,22 @@ work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
   FLOAT min_grad2 = p->info->min_grad*p->info->min_grad;
   int ip;
 
+  FLOAT drs, dxt, dxtds, ndzdn[2], dxsdn[2], dxsds[2];;
+  FLOAT d2rs, d2xt, d2xtds2, d2xtdns, d2xsdn2[2], d2xsds2[2], d2xsdns[2];
+  FLOAT d3rs, d3xtdn3, d3xtdn2s, d3xtdns2, d3xtds3, d3xsdn3[2], d3xsdn2s[2], d3xsdns2[2], d3xsds3[2];
+
+  /* set all elements of r to zero */
+  memset(&r, 0, sizeof(r));
+
   r.order = -1;
   if(zk     != NULL) r.order = 0;
   if(vrho   != NULL) r.order = 1;
   if(v2rho2 != NULL) r.order = 2;
+  if(v3rho3 != NULL) r.order = 3;
 
   if(r.order < 0) return;
 
   for(ip = 0; ip < np; ip++){
-    FLOAT drs, dxt;
-    FLOAT d2rs, d2xt;
-    FLOAT ndzdn[2], dxsdn[2];
-    FLOAT dxtds, d2xtds2, d2xtdns, dxsds[2], d2xsdn2[2], d2xsds2[2], d2xsdns[2];
-
     XC(rho2dzeta)(p->nspin, rho, &(r.dens), &(r.zeta));
 
     if(r.dens < p->info->min_dens) goto end_ip_loop;
@@ -221,6 +226,51 @@ work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
       }
     }
 
+    if(r.order < 3) goto end_ip_loop;
+  
+    /* setup auxiliary variables */
+    d3rs     =  -7.0*d2rs/(3.0*r.dens);
+
+    d3xtdn3  =   -10.0*d2xt/(3.0*r.dens);
+    d3xtdn2s =         d2xt/(2.0*r.sigmat);
+    d3xtdns2 =     -d2xtdns/(2.0*r.sigmat);
+    d3xtds3  = -3.0*d2xtds2/(2.0*r.sigmat);
+
+    if(p->nspin == XC_POLARIZED){
+      /* not done */
+      d3xsdn3[0] = -7.0*dxsdn[0]/(3.0*r.ds[0]);
+      d3xsdn3[1] = -7.0*dxsdn[1]/(3.0*r.ds[1]);
+
+      d3xsdn2s[0] = -4.0/3.0*dxsds[0]/r.ds[0];
+      d3xsdn2s[1] = -4.0/3.0*dxsds[1]/r.ds[1];
+
+      d3xsds3[0] = -dxsds[0]/(2.0*r.sigmas[0]);
+      d3xsds3[1] = -dxsds[1]/(2.0*r.sigmas[2]);
+    }else{
+      d3xsdn3[0]  = M_CBRT2*d3xtdn3;
+      d3xsdn2s[0] = M_CBRT2*d3xtdn2s;
+      d3xsdns2[0] = M_CBRT2*d3xtdns2;
+      d3xsds3[0]  = M_CBRT2*d3xtds3;
+    }
+
+    if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC)){
+      v3rho3[0]     = 3.0*r.dfdrs*d2rs + 3.0*r.dfdxt*d2xt +
+	3.0*r.d2fdrs2*drs*drs + 6.0*r.d2fdrsxt*drs*dxt + 3.0*r.d2fdxt2*dxt*dxt +
+	r.dens*(r.dfdrs*d3rs + r.dfdxt*d3xtdn3 +
+		3.0*r.d2fdrs2*drs*d2rs + 3.0*r.d2fdrsxt*(drs*d2xt + d2rs*dxt) + 3.0*r.d2fdxt2*dxt*d2xt +
+		r.d3fdrs3*drs*drs*drs + 3.0*r.d3fdrs2xt*drs*drs*dxt + 3.0*r.d3fdrsxt2*drs*dxt*dxt + r.d3fdxt3*dxt*dxt*dxt);
+
+      v3rhosigma2[0] = r.dfdxt*d2xtds2 + r.d2fdxt2*dxtds*dxtds +
+	r.dens*(r.dfdxt*d3xtdns2 + r.d2fdxt2*(d2xtds2*dxt + 2.0*dxtds*d2xtdns) + r.d2fdrsxt*d2xtds2*drs +
+		dxtds*dxtds*(r.d3fdxt3*dxt + r.d3fdrsxt2*drs));
+
+      v3rho2sigma[0] = 2.0*r.dfdxt*d2xtdns + 2.0*r.d2fdxt2*dxtds*dxt + 2.0*r.d2fdrsxt*drs*dxtds +
+	r.dens*(r.dfdxt*d3xtdn2s + r.d2fdxt2*(d2xt*dxtds + 2.0*dxt*d2xtdns) + r.d2fdrsxt*(2.0*drs*d2xtdns + d2rs*dxtds) +
+		r.d3fdrs2xt*drs*drs*dxtds + 2.0*r.d3fdrsxt2*drs*dxt*dxtds + r.d3fdxt3*dxt*dxt*dxtds);
+
+      v3sigma3[0]    = r.dens*(r.d3fdxt3*dxtds*dxtds*dxtds + 3.0*r.d2fdxt2*d2xtds2*dxtds + r.dfdxt*d3xtds3);
+    }
+
   end_ip_loop:
     /* increment pointers */
     rho   += p->n_rho;
@@ -238,6 +288,13 @@ work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
       v2rho2     += p->n_v2rho2;
       v2rhosigma += p->n_v2rhosigma;
       v2sigma2   += p->n_v2sigma2;
+    }
+
+    if(v3rho3 != NULL){
+      v3rho3      += p->n_v3rho3;
+      v3rho2sigma += p->n_v3rho2sigma;
+      v3rhosigma2 += p->n_v3rhosigma2;
+      v3sigma3    += p->n_v3sigma3;
     }
   }    
 }

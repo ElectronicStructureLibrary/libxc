@@ -201,9 +201,17 @@ typedef struct XC(gga_work_c_t) {
   FLOAT rs, zeta, xt, xs[2];
 
   FLOAT f;
+
   FLOAT dfdrs, dfdz, dfdxt, dfdxs[2];
   FLOAT d2fdrs2, d2fdrsz, d2fdrsxt, d2fdrsxs[2], d2fdz2, 
     d2fdzxt, d2fdzxs[2], d2fdxt2, d2fdxtxs[2], d2fdxs2[3];
+
+  FLOAT d3fdrs3, d3fdz3, d3fdxt3, d4fdxs3[4]; /* uuu, uud, udd, ddd */
+  FLOAT d3fdrs2z, d3fdrs2xt, d3fdrs2xs[2];
+  FLOAT d3fdrsz2, d3fdz2xt, d3fdz2xs[2];
+  FLOAT d3fdrsxt2, d3fdzxt2, d3fdxt2xs[2];
+  FLOAT d3fdrsxs2[3], d3fdzxs2[3],d3fdxtxs2[3];
+  FLOAT d3fdrszxt, d3fdrszxs[2], d3fdrsxtxs[2], d3fdzxtxs[2];
 } XC(gga_work_c_t);
 
 void XC(gga_c_pw91_func)(const XC(func_type) *p, XC(gga_work_c_t) *r);

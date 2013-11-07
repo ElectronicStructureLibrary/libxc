@@ -46,49 +46,56 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   } *par, wi_par[2] = {{-0.44,    0.0032407, 7.8,  0.0073, 0.000311},
 		       {-0.00652, 0.0007,    0.21, 0.002,  0.001}};
 
-  FLOAT xt0, xt2, xt52, xt72, cnst_rs, num, den;
+  FLOAT xt0, xt2, xt52, xt72, cnst_rs, aux;
+  FLOAT num, den, ddendrs, dnumdxt, ddendxt, d2dendrsxt, d2numdxt2, d2dendxt2, d3dendrsxt2, d3dendxt3, d3numdxt3;
 
   par = &(wi_par[p->func]);
 
   cnst_rs = CBRT(4.0*M_PI/3.0);
   xt2     = r->xt*r->xt;
-  xt0     = sqrt(r->xt);
+  xt0     = SQRT(r->xt);
   xt52    = xt2*xt0;
   xt72    = r->xt*xt52;
 
-  num = par->a + par->b*xt2*exp(-par->k*xt2);
+  aux = exp(-par->k*xt2);
+
+  num = par->a + par->b*xt2*aux;
   den = par->c + r->rs*(1.0 + par->d*cnst_rs*xt72);
 
   r->f  = num/den;
 
   if(r->order < 1) return;
 
-  r->dfdrs    = -(1.0 + par->d*cnst_rs*xt72)*r->f/den;
-  r->dfdz     = 0.0;
-  r->dfdxt    = (-7.0/2.0*par->d*cnst_rs*r->rs*xt52*r->f + 2.0*par->b*r->xt*(1.0 - par->k*xt2)*exp(-par->k*xt2))/den;
-  r->dfdxs[0] = 0.0;
-  r->dfdxs[1] = 0.0;
+  ddendrs = 1.0 + par->d*cnst_rs*xt72;
+  ddendxt = 7.0/2.0*par->d*cnst_rs*r->rs*xt52;
+  dnumdxt = -2.0*par->b*r->xt*(par->k*xt2 - 1.0)*aux;
+
+  r->dfdrs    = DFRACTION(num, 0.0, den, ddendrs);
+  r->dfdxt    = DFRACTION(num, dnumdxt, den, ddendxt);
 
   if(r->order < 2) return;
 
-  r->d2fdrs2     = -2.0*(1.0 + par->d*cnst_rs*xt72)*r->dfdrs/den;
-  r->d2fdrsz     = 0.0;
-  r->d2fdrsxt    = -7.0*par->d*cnst_rs*r->rs*xt52*r->dfdrs/den - 7.0/2.0*par->d*cnst_rs*xt52*r->f/den
-    - 2.0*par->b*r->xt*exp(-par->k*xt2)*(1.0 - par->k*xt2)*(1.0 + par->d*cnst_rs*xt72)/(den*den);
-  r->d2fdrsxs[0] = 0.0;
-  r->d2fdrsxs[1] = 0.0;
-  r->d2fdz2      = 0.0;
-  r->d2fdzxt     = 0.0;
-  r->d2fdzxs[0]  = 0.0;
-  r->d2fdzxs[1]  = 0.0;
-  r->d2fdxt2     = (49.0/2.0*par->d*cnst_rs*r->rs*xt2*xt2/den - 35.0/4.0*xt0)*r->f*par->d*cnst_rs*r->rs*r->xt/den
-    + (-7.0*par->d*cnst_rs*r->rs*xt72*(1.0 - par->k*xt2)/den + 1.0 - 
-       5.0*par->k*xt2 + 2.0*par->k*par->k*xt2*xt2)*2.0*par->b*exp(-par->k*xt2)/den;
-  r->d2fdxtxs[0] = 0.0;
-  r->d2fdxtxs[1] = 0.0;
-  r->d2fdxs2[0]  = 0.0;
-  r->d2fdxs2[1]  = 0.0;
-  r->d2fdxs2[2]  = 0.0;
+  d2dendrsxt  = 7.0/2.0*par->d*cnst_rs*xt52;
+  d2dendxt2   = 5.0*ddendxt/(2.0*r->xt);
+  d2numdxt2   = par->b*(2.0 + 2.0*par->k*xt2*(2.0*par->k*xt2 - 5.0))*aux;
+
+  r->d2fdrs2     = D2FRACTION(num, 0.0, 0.0, den, ddendrs, 0.0);
+  r->d2fdrsxt    = ((-den*dnumdxt + 2.0*num*ddendxt)*ddendrs - den*num*d2dendrsxt)/(den*den*den);
+  r->d2fdxt2     = D2FRACTION(num, dnumdxt, d2numdxt2, den, ddendxt, d2dendxt2);
+
+  if(r->order < 3) return;
+
+  d3dendrsxt2 = 5.0*d2dendrsxt/(2.0*r->xt);
+  d3dendxt3   = 3.0*d2dendxt2 /(2.0*r->xt);
+  d3numdxt3   = -4.0*par->b*par->k*r->xt*(6.0 + par->k*xt2*(2.0*par->k*xt2 - 9.0))*aux;
+
+  r->d3fdrs3    = D3FRACTION(num, 0.0, 0.0, 0.0, den, ddendrs, 0.0, 0.0);
+  r->d3fdrs2xt = (- 6.0*num*ddendxt*ddendrs*ddendrs
+		  + 2.0*den*(dnumdxt*ddendrs*ddendrs + num*2.0*ddendrs*d2dendrsxt))/(den*den*den*den);
+  r->d3fdrsxt2 = (- 6.0*num*ddendxt*ddendxt*ddendrs
+		  + 2.0*den*((2.0*dnumdxt*ddendxt + num*d2dendxt2)*ddendrs + 2.0*num*ddendxt*d2dendrsxt)
+		  - den*den*(d2numdxt2*ddendrs + 2.0*dnumdxt*d2dendrsxt + num*d3dendrsxt2))/(den*den*den*den);
+  r->d3fdxt3   = D3FRACTION(num, dnumdxt, d2numdxt2, d3numdxt3, den, ddendxt, d2dendxt2, d3dendxt3);
 }
 
 #include "work_gga_c.c"
@@ -99,7 +106,7 @@ const XC(func_info_type) XC(func_info_gga_c_wi0) = {
   "Wilson & Ivanov initial version",
   XC_FAMILY_GGA,
   "LC Wilson & S Ivanov, Int. J. Quantum Chem. 69, 523-532 (1998)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_c_wi_init,
   NULL, NULL,
@@ -113,7 +120,7 @@ const XC(func_info_type) XC(func_info_gga_c_wi) = {
   "Wilson & Ivanov",
   XC_FAMILY_GGA,
   "LC Wilson & S Ivanov, Int. J. Quantum Chem. 69, 523-532 (1998)",
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_c_wi_init,
   NULL, NULL,

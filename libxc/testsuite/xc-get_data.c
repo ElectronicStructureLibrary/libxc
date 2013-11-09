@@ -118,7 +118,7 @@ void init_values(xc_values_type *xc_values, char *argv[])
 /*----------------------------------------------------------*/
 void print_values(xc_values_type *xc)
 {
-  //int family = xc_family_from_id(xc->functional, NULL, NULL);
+  /*int family = xc_family_from_id(xc->functional, NULL, NULL);*/
 
   printf(" rhoa= %#0.2E rhob= %#0.2E sigmaaa= %#0.2E sigmaab= %#0.2E sigmabb= %#0.2E lapla= %#0.2E laplb= %#0.2E taua= %#0.2E taub= %#0.2E\n\n",
 	 xc->rho[0], xc->rho[1],

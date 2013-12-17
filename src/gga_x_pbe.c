@@ -39,6 +39,7 @@
 #define XC_GGA_K_REVAPBE       55 /* revised APBE                                   */
 #define XC_GGA_K_APBEINT       54 /* interpolated version of APBE                   */
 #define XC_GGA_K_REVAPBEINT    53 /* interpolated version of REVAPBE                */
+#define XC_GGA_X_PBE_MOL       49 /* Del Campo, Gazquez, Trickey and Vela (PBE-like) */
 
 typedef struct{
   FLOAT kappa, mu;
@@ -51,7 +52,7 @@ typedef struct{
 static void 
 gga_x_pbe_init(XC(func_type) *p)
 {
-  static const FLOAT kappa[18] = {
+  static const FLOAT kappa[19] = {
     0.8040,  /* original PBE */
     1.245,   /* PBE R       */
     0.8040,  /* PBE sol     */
@@ -70,9 +71,10 @@ gga_x_pbe_init(XC(func_type) *p)
     1.245,   /* revAPBE (K) */
     0.8040,  /* APBEINT (K) */
     1.245,   /* revAPBEINT (K) */
+    0.8040   /* PBEmol    */
   };
 
-  static const FLOAT mu[18] = {
+  static const FLOAT mu[19] = {
     0.2195149727645171,     /* PBE: mu = beta*pi^2/3, beta = 0.06672455060314922 */
     0.2195149727645171,     /* PBE rev: as PBE */
     10.0/81.0,              /* PBE sol */
@@ -91,6 +93,7 @@ gga_x_pbe_init(XC(func_type) *p)
     0.23889,                /* revAPBE (K)  */
     0.0,                    /* APBEINT (K) (to be set later) */
     0.0,                    /* REVAPBEINT (K) (to be set later) */
+    0.27583                 /* PBEmol    */
   };
 
   gga_x_pbe_params *params;
@@ -140,6 +143,7 @@ gga_x_pbe_init(XC(func_type) *p)
     params->muGE  = 5.0/27.0;
     break;
   }
+  case XC_GGA_X_PBE_MOL:    p->func = 18; break;
   default:{
     fprintf(stderr, "Internal error in gga_x_pbe\n");
     exit(1);
@@ -495,3 +499,15 @@ const XC(func_info_type) XC(func_info_gga_k_revapbeint) = {
   NULL
 };
 
+const XC(func_info_type) XC(func_info_gga_x_pbe_mol) = {
+  XC_GGA_X_PBE_MOL,
+  XC_EXCHANGE,
+  "Reparametrized PBE by del Campo, Gazquez, Trickey & Vela",
+  XC_FAMILY_GGA,
+  "JM del Campo, JL Gazquez, SB Trickey, and A Vela, J. Chem. Phys. 136, 104108 (2012)",
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_x_pbe_init, 
+  NULL, NULL,
+  work_gga_x
+};

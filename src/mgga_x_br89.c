@@ -175,7 +175,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   FLOAT cnst, c_TB09, c_HEG, exp1, exp2;
 
   Q = (r->u - 4.0*br89_gamma*r->t + 0.5*br89_gamma*r->x*r->x)/6.0;
-  if(abs(Q) < MIN_DENS) Q = (Q < 0) ? -MIN_DENS : MIN_DENS;
+  if(ABS(Q) < MIN_DENS) Q = (Q < 0) ? -MIN_DENS : MIN_DENS;
 
   br_x = XC(mgga_x_br89_get_x)(Q);
 

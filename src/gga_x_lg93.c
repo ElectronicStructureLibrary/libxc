@@ -65,6 +65,7 @@ void XC(gga_x_lg93_enhance)
   d3f0 = ss*(4.0*3.0*2.0*a4 + 6.0*5.0*4.0*a6*ss2 + 8.0*7.0*6.0*a8*ss4 + 
 	     10.0*9.0*8.0*a10*ss6 + 12.0*11.0*10.0*a12*ss8);
   d3f1 = (b*(b - 1.0)*df0*((b - 2.0)*df0*df0 + 3.0*f0*d2f0) + b*f0*f0*d3f0)*f1/(f0*f0*f0);
+  d3f2 = 0.0;
 
   *d3fdx3 = X2S*X2S*X2S*D3FRACTION(f1, df1, d2f1, d3f1, f2, df2, d2f2, d3f2);
 }

@@ -59,7 +59,8 @@ module XC_F90(lib_m)
     XC_FAMILY_MGGA          =   4,  &
     XC_FAMILY_LCA           =   8,  &
     XC_FAMILY_OEP           =  16,  &
-    XC_FAMILY_HYB_GGA       =  32
+    XC_FAMILY_HYB_GGA       =  32,  &
+    XC_FAMILY_HYB_MGGA       = 64
 
   integer, parameter ::             &
     XC_UNPOLARIZED          =   1,  &  ! Spin unpolarized

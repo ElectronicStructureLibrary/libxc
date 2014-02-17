@@ -16,6 +16,8 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#include <string.h>
+
 static void 
 work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
 	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau,
@@ -26,6 +28,9 @@ work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
   XC(mgga_work_c_t) r;
   FLOAT min_grad2 = p->info->min_grad*p->info->min_grad;
   int ip;
+
+  /* set all elements of r to zero */
+  memset(&r, 0, sizeof(r));
 
   r.order = -1;
   if(zk     != NULL) r.order = 0;

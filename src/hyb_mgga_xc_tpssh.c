@@ -59,7 +59,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_tpssh) = {
 void
 hyb_mgga_xc_revtpssh_init(XC(func_type) *p)
 {
-  static int   funcs_id  [2] = {XC_MGGA_X_REVTPSS, XC_MGGA_C_TPSS};
+  static int   funcs_id  [2] = {XC_MGGA_X_REVTPSS, XC_MGGA_C_REVTPSS};
   static FLOAT funcs_coef[2] = {0.9, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);

@@ -1,3 +1,125 @@
+2014-02-17 13:52  micael
+
+	* [r11808] src/work_mgga_c.c: Backport of 11807 to
+	  branches/libxc-2.0.x
+	  URL::
+	  ------------------------------------------------------------------------
+	  r11807 | marques | 2014-02-17 14:17:11 +0100 (Mon, 17 Feb 2014) |
+	  2 lines
+	  
+	  Solves the bug that Susi Lehtola reported for the c_tpss.
+	  
+	  ------------------------------------------------------------------------
+
+2014-01-06 12:30  micael
+
+	* [r11599] src/mgga_x_br89.c: Backport of 11568 to
+	  branches/libxc-2.0.x:
+	  ------------------------------------------------------------------------
+	  r11568 | marques | 2013-12-10 09:35:04 +0100 (Tue, 10 Dec 2013) |
+	  2 lines
+	  
+	  Bug found by Søren Smidstrup corrected (abs -> ABS)
+	  
+	  ------------------------------------------------------------------------
+
+2013-10-29 22:18  dstrubbe
+
+	* [r11425] m4/acx.m4: Backport of a little part of r10860 to libxc
+	  2.0.x: removing "-C" from default for FCCPP which causes problems
+	  with gcc 4.8, as has been increasingly complained about recently.
+
+2013-08-14 15:41  micael
+
+	* [r11120] src/gga_x_pbea.c: Backport of 11105 to
+	  branches/libxc-2.0.x:
+	  ------------------------------------------------------------------------
+	  r11105 | marques | 2013-08-12 14:06:28 +0100 (Mon, 12 Aug 2013) |
+	  2 lines
+	  
+	  Bug fix: the value of alpha of PBEalpha seems to be 0.52 and not
+	  0.5. Strangely enough the original routine (with alpha=0.5) had
+	  been sent to be by G. Madsen, the author of the functional.
+	  
+	  ------------------------------------------------------------------------
+
+2013-07-16 17:02  micael
+
+	* [r11012] src/lda_xc_teter93.c: Backport of 11010 to
+	  branches/libxc-2.0.x:
+	  ------------------------------------------------------------------------
+	  r11010 | micael | 2013-07-16 17:56:46 +0100 (Tue, 16 Jul 2013) |
+	  2 lines
+	  
+	  Bug fix: some variable were used before being set when
+	  calculating the second and third derivatives with
+	  spin-polarization.
+	  
+	  ------------------------------------------------------------------------
+
+2013-07-11 15:28  micael
+
+	* [r10978] Makefile.am, build/Makefile.am, configure.ac, m4/acx.m4,
+	  m4/fc_integer.m4, m4/fcflags.m4, src/Makefile.am,
+	  src/libxc_master.F90, src/string_f.h, testsuite/Makefile.am:
+	  Corrected the FSF address in the copyright.
+
+2013-07-11 13:24  micael
+
+	* [r10976] src/gga_x_kt.c, src/gga_x_ssb_sw.c, src/lda_c_2d_prm.c,
+	  src/mgga_x_pkzb.c: Backport of 10975 to branches/libxc-2.0.x:
+	  ------------------------------------------------------------------------
+	  r10975 | micael | 2013-07-11 14:19:05 +0100 (Thu, 11 Jul 2013) |
+	  2 lines
+	  
+	  * Removed unused variables in libxc.
+	  
+	  ------------------------------------------------------------------------
+
+2013-07-11 13:05  micael
+
+	* [r10974] src/gga_c_am05.c, src/gga_c_ft97.c, src/gga_c_lm.c,
+	  src/gga_c_lyp.c, src/gga_c_op.c, src/gga_c_optc.c,
+	  src/gga_c_p86.c, src/gga_c_pbe.c, src/gga_c_pw91.c,
+	  src/gga_c_sogga11.c, src/gga_c_tca.c, src/gga_c_wi.c,
+	  src/gga_c_wl.c, src/gga_k_dk.c, src/gga_k_ol1.c, src/gga_k_ol2.c,
+	  src/gga_k_pearson.c, src/gga_k_tflw.c, src/gga_x_2d_b86.c,
+	  src/gga_x_2d_b86_mgc.c, src/gga_x_2d_b88.c, src/gga_x_2d_pbe.c,
+	  src/gga_x_airy.c, src/gga_x_am05.c, src/gga_x_b86.c,
+	  src/gga_x_b86_mgc.c, src/gga_x_b88.c, src/gga_x_bayesian.c,
+	  src/gga_x_bpccac.c, src/gga_x_c09x.c, src/gga_x_dk87.c,
+	  src/gga_x_ft97.c, src/gga_x_g96.c, src/gga_x_herman.c,
+	  src/gga_x_hjs.c, src/gga_x_htbs.c, src/gga_x_ityh.c,
+	  src/gga_x_kt.c, src/gga_x_lb.c, src/gga_x_lg93.c,
+	  src/gga_x_mpbe.c, src/gga_x_optx.c, src/gga_x_pbe.c,
+	  src/gga_x_pbea.c, src/gga_x_pw86.c, src/gga_x_pw91.c,
+	  src/gga_x_rpbe.c, src/gga_x_sogga11.c, src/gga_x_ssb_sw.c,
+	  src/gga_x_wc.c, src/gga_x_wpbeh.c, src/gga_xc_1w.c,
+	  src/gga_xc_b97.c, src/gga_xc_edf1.c, src/gga_xc_th.c,
+	  src/hyb_gga_xc_b1wc.c, src/hyb_gga_xc_b3lyp.c,
+	  src/hyb_gga_xc_b97.c, src/hyb_gga_xc_cam_b3lyp.c,
+	  src/hyb_gga_xc_hse.c, src/hyb_gga_xc_o3lyp.c,
+	  src/hyb_gga_xc_pbeh.c, src/lda_c_1d_csc.c, src/lda_c_1d_loos.c,
+	  src/lda_c_2d_amgb.c, src/lda_c_2d_prm.c, src/lda_c_gombas.c,
+	  src/lda_c_hl.c, src/lda_c_ml1.c, src/lda_c_pw.c, src/lda_c_pz.c,
+	  src/lda_c_rc04.c, src/lda_c_rpa.c, src/lda_c_vwn.c,
+	  src/lda_c_wigner.c, src/lda_k_tf.c, src/lda_x.c, src/lda_x_1d.c,
+	  src/lda_x_2d.c, src/lda_xc_teter93.c: Backport of 10973 to
+	  branches/libxc-2.0.x:
+	  ------------------------------------------------------------------------
+	  r10973 | micael | 2013-07-11 13:50:46 +0100 (Thu, 11 Jul 2013) |
+	  2 lines
+	  
+	  * Fixed warnings about missing field initializers.
+	  
+	  ------------------------------------------------------------------------
+
+2013-07-10 07:59  micael
+
+	* [r10957] ChangeLog, NEWS, PACKAGING, configure.ac: * Tagging
+	  version 2.0.2
+	  * Updated ChangeLog, NEWS, etc.
+
 2013-07-03 11:40  micael
 
 	* [r10939] src/lda_c_2d_amgb.c: Backport of 10911 to

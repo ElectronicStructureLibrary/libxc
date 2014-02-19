@@ -206,7 +206,7 @@ typedef struct XC(gga_work_c_t) {
   FLOAT d2fdrs2, d2fdrsz, d2fdrsxt, d2fdrsxs[2], d2fdz2, 
     d2fdzxt, d2fdzxs[2], d2fdxt2, d2fdxtxs[2], d2fdxs2[3];
 
-  FLOAT d3fdrs3, d3fdz3, d3fdxt3, d4fdxs3[4]; /* uuu, uud, udd, ddd */
+  FLOAT d3fdrs3, d3fdz3, d3fdxt3, d3fdxs3[4]; /* uuu, uud, udd, ddd */
   FLOAT d3fdrs2z, d3fdrs2xt, d3fdrs2xs[2];
   FLOAT d3fdrsz2, d3fdz2xt, d3fdz2xs[2];
   FLOAT d3fdrsxt2, d3fdzxt2, d3fdxt2xs[2];

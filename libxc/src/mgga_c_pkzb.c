@@ -215,7 +215,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
       dddtdts[0] = -xtot*dtautdts[0]/(8.0*taut*taut);
       dddtdts[1] = -xtot*dtautdts[1]/(8.0*taut*taut);
     }else{
-      dddtdz = dddtdxs[0] = dddtdxs[1] = dddtdts[0] = dddtdts[1] = 0.0;
+      dddtdz = dddtdxt = dddtdxs[0] = dddtdxs[1] = dddtdts[0] = dddtdts[1] = 0.0;
     }
 
     r->dfdrs    = (1.0 + C*ddt2)*PBE[2].dfdrs;

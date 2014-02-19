@@ -126,7 +126,7 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
 
   if(order >= 1){
     dnudrho = -nu/(3.0*ds);
-    dssdx  = X2S;
+    dssdx   = X2S;
   }
 
   /* first let us calculate H(s) */

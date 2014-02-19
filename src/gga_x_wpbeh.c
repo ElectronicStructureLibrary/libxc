@@ -202,7 +202,7 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
   ss6 = ss*ss5;
 
   if(order >= 1){
-    dwdrho = -ww/(3.0*ds);
+    dwdrho  = -ww/(3.0*ds);
     dssdx  *= X2S;
   }
 
@@ -440,6 +440,7 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
       *dfdx  = m89*(dterm1ds + dterm2ds + dterm3ds + dterm4ds + dterm5ds);
       *lvrho = m89*(dterm1dw + dterm3dw + dterm4dw + dterm5dw);
     }
+
   }else{ /*  For everything else use the full blown expression */
 
     static const FLOAT ea1=-1.128223946706117, ea2=1.452736265762971, ea3=-1.243162299390327,
@@ -529,11 +530,14 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
       *dfdx  = m89*(dterm1ds + dterm2ds + dterm3ds + dterm4ds + dterm5ds);
       *lvrho = m89*(dterm1dw + dterm3dw + dterm4dw + dterm5dw);      
     }
+
   }
 
   /* scale and convert to the right variables */
-  *dfdx  *= dssdx;
-  *lvrho *= dwdrho;
+  if(order >= 1){
+    *dfdx  *= dssdx;
+    *lvrho *= dwdrho;
+  }
 }
 
 #include "work_gga_x.c"

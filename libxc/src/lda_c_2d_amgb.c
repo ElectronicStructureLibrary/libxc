@@ -97,8 +97,8 @@ malpha(int order, int i, FLOAT *rs,
 }
 
 
-static void
-func(const XC(func_type) *p, XC(lda_work_t) *r)
+void
+XC(lda_c_2d_amgb_func)(const XC(func_type) *p, XC(lda_work_t) *r)
 {
   FLOAT ecp, vcp, fcp, kcp;
   FLOAT ecf, vcf, fcf, kcf;
@@ -188,6 +188,7 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
 }
 
 #define XC_DIMENSIONS 2
+#define func XC(lda_c_2d_amgb_func)
 #include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_c_2d_amgb) = {

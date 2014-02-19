@@ -26,8 +26,8 @@
 static void
 mgga_xc_otpss_d_init(XC(func_type) *p)
 {
-  static int   funcs_id  [4] = {XC_MGGA_X_TPSS, XC_MGGA_C_TPSS};
-  static FLOAT funcs_coef[4] = {1.0, 1.0};
+  static int   funcs_id  [2] = {XC_MGGA_X_TPSS, XC_MGGA_C_TPSS};
+  static FLOAT funcs_coef[2] = {1.0, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   XC(mgga_x_tpss_set_params)(p->func_aux[0], 3.43, 0.75896, 0.165, 0.778, 0.41567);

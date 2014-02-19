@@ -39,9 +39,9 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
 # if   XC_DIMENSIONS == 1
   const FLOAT cnst_rs = 0.5;
 # elif XC_DIMENSIONS == 2
-  const FLOAT cnst_rs = 0.56418958354775627928; /* = 1.0/sqrt(M_PI) */
+  const FLOAT cnst_rs = 1.0/M_SQRTPI;
 # else /* three dimensions */
-  const FLOAT cnst_rs = 0.6203504908994000866;  /* = POW(3.0/(4*M_PI), 1.0/3.0)*/
+  const FLOAT cnst_rs = RS_FACTOR;
 # endif
 
   r.order = -1;

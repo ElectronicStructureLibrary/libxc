@@ -44,13 +44,13 @@ work_mgga_x(const XC(func_type) *p, int np,
   int has_tail;
 
   /* WARNING: derivatives are _not_ OK for 2 dimensions */
-  #if XC_DIMENSIONS == 2
-  const FLOAT cnst_rs = 0.56418958354775627928; /* = 1.0/sqrt(M_PI) */
+#if XC_DIMENSIONS == 2
+  const FLOAT cnst_rs = 1.0/M_SQRTPI;
   x_factor_c = X_FACTOR_2D_C;
-  #else /* three dimensions */
-  const FLOAT cnst_rs = 0.6203504908994000866;  /* = POW(3.0/(4*M_PI), 1.0/3.0)*/
+#else /* three dimensions */
+  const FLOAT cnst_rs = RS_FACTOR;
   x_factor_c = X_FACTOR_C;
-  #endif
+#endif
 
   /* initialize everything to zero */
   memset(&r, 0, sizeof(r));

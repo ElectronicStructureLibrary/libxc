@@ -107,13 +107,15 @@ typedef struct XC(functional_key_t) {
 
 #define M_C 137.0359996287515 /* speed of light */
 
-#define RS(x)          (CBRT((3.0/(4*M_PI*x))))
+#define RS_FACTOR      0.6203504908994000166680068120477781673508     /* (3/(4*Pi))^1/3        */
 #define X_FACTOR_C     0.9305257363491000250020102180716672510262     /* 3/8*cur(3/pi)*4^(2/3) */
 #define X_FACTOR_2D_C  1.504505556127350098528211870828726895584      /* 8/(3*sqrt(pi))        */
 #define K_FACTOR_C     4.557799872345597137288163759599305358515      /* 3/10*(6*pi^2)^(2/3)   */
 #define X2S            0.1282782438530421943003109254455883701296     /* 1/(2*(6*pi^2)^(1/3))  */
-#define X2S_2D         0.141047395886939071                           /* 1/(2*(4*pi)^(1/2)     */
-#define FZETAFACTOR    0.519842099789746380
+#define X2S_2D         0.1410473958869390717370198628901931464610     /* 1/(2*(4*pi)^(1/2))    */
+#define FZETAFACTOR    0.5198420997897463295344212145564567011405     /* 2^(4/3) - 2           */
+
+#define RS(x)          (RS_FACTOR/CBRT(x))
 #define FZETA(x)       ((POW(1.0 + (x),  4.0/3.0) + POW(1.0 - (x),  4.0/3.0) - 2.0)/FZETAFACTOR)
 #define DFZETA(x)      ((CBRT(1.0 + (x)) - CBRT(1.0 - (x)))*(4.0/3.0)/FZETAFACTOR)
 #define D2FZETA(x)     ((4.0/9.0)/FZETAFACTOR)* \
@@ -158,6 +160,8 @@ void XC(lda_c_hl_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
 void XC(lda_c_pw_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
 void XC(lda_c_pz_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
 void XC(lda_c_rc04_func)(const XC(func_type) *p, XC(lda_work_t) *r);
+void XC(lda_c_2d_amgb_func)(const XC(func_type) *p, XC(lda_work_t) *r);
+
 
 /* GGAs */
 void work_gga_becke_init(XC(func_type) *p);

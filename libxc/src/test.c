@@ -235,17 +235,24 @@ void test_mgga()
     lapl[0]  = -18.518421131246519;
     lapl[1]  = 0.12;
 
-    XC(mgga)(&mgga1, 1, rho, sigma, lapl, tau, 
-    	     &zk,  vrho, vsigma, vlapl, vtau, 
-    	     v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
-	     v2sigmalapl, v2sigmatau, v2lapltau);
-    //XC(mgga)(&mgga2, 1, rho, sigma, lapl, tau, 
-    //	     &zk2,  vrho2, vsigma2, vlapl2, vtau2, 
-    //	     NULL, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
+    //XC(mgga)(&mgga1, 1, rho, sigma, lapl, tau, 
+    //	     &zk,  vrho, vsigma, vlapl, vtau, 
+    //	     v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
     //	     v2sigmalapl, v2sigmatau, v2lapltau);
+    XC(mgga)(&mgga2, 1, rho, sigma, lapl, tau, 
+    	     &zk2,  vrho2, vsigma2, vlapl2, vtau2, 
+    	     NULL, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
+    	     v2sigmalapl, v2sigmatau, v2lapltau);
+    XC(mgga_exc)(&mgga2, 1, rho, sigma, lapl, tau, 
+		 &zk2);
+    XC(mgga_exc_vxc)(&mgga2, 1, rho, sigma, lapl, tau, 
+		     &zk2,  vrho2, vsigma2, vlapl2, vtau2 );
 
-    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[0], vsigma[0], v2sigma2[0]);
+    //fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[0], vsigma[0], v2sigma2[0]);
   }
+
+  XC(func_end)(&mgga1);
+  XC(func_end)(&mgga2);
 }
 
 void test_neg_rho()
@@ -307,9 +314,9 @@ int main()
   //test_neg_rho();
 
   //test_lda();
-  test_gga(); 
+  //test_gga(); 
   //test_ak13();
-  //test_mgga();
+  test_mgga();
 
   //printf("number = '%d'; key = '%s'", 25, XC(functional_get_name)(25));
 

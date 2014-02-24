@@ -48,35 +48,35 @@ prhg_newt(FLOAT c, FLOAT tol, FLOAT * res, int *ierr)
    if (c < 4.0) {
      y = 2.0;
      do {
-       ey = exp(y);
+       ey = expl(y);
        yf = (y-1.0)*ey;
        f = yf - c;
        fp = ey*y;
        
        step = f/fp;
        
-       y -= fabs(step) < 1.0 ? step : (step)/fabs(step);
-       y  = fabs(y);
+       y -= fabsl(step) < 1.0 ? step : (step)/fabsl(step);
+       y  = fabsl(y);
        
        count ++;
-       *res = fabs(f);
+       *res = fabsl(f);
      } while((*res > tol) && (count < max_iter));
    }
    else {
      y = 6.0;
-     c = log(c);
+     c = logl(c);
      do {
-       yf = log(y-1.0)+y;
+       yf = logl(y-1.0)+y;
        f = yf - c;
        fp = 1.0 + 1.0/(-1.0 + y);
        
        step = f/fp;
        
-       y -= fabs(step) < 1.0 ? step : (step)/fabs(step);
-       y  = fabs(y);
+       y -= fabsl(step) < 1.0 ? step : (step)/fabsl(step);
+       y  = fabsl(y);
        
        count ++;
-       *res = fabs(f);
+       *res = fabsl(f);
      } while((*res > tol) && (count < max_iter));
    }
    

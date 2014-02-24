@@ -110,8 +110,8 @@ void XC(gga_x_pw91_enhance)
   ss2 = ss*ss;
   ss4 = POW(ss, params->expo);
 
-  f1 = params->d*exp(-params->alpha*ss2);
-  f2 = params->a*asinh(params->b*ss);
+  f1 = params->d*EXP(-params->alpha*ss2);
+  f2 = params->a*ASINH(params->b*ss);
   f3 = (params->c + f1)*ss2 - params->f*ss4;
   f4 = 1.0 + ss*f2 + params->f*ss4;
 

@@ -37,7 +37,7 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
   t1 = 1.0 + a2*x;
   t2 = x + b2;
 
-  r->zk = a1/t1 + b1*log(t2/x);
+  r->zk = a1/t1 + b1*LOG(t2/x);
 
   if(r->order < 1) return;
 

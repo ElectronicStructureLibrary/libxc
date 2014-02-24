@@ -85,7 +85,7 @@ br_newt_raph(FLOAT a, FLOAT tol,  FLOAT * res, int *ierr)
 
      xm2 = x - 2.0;
      arg = 2.0*x/3.0;
-     eee = exp(-arg)/a;
+     eee = EXP(-arg)/a;
 
      f  = x*eee - xm2;
      fp = eee*(1.0 - 2.0/3.0*x) - 1.0;
@@ -127,7 +127,7 @@ br_bisect(FLOAT a, FLOAT tol, int *ierr) {
     x   = 0.5*(x1 + x2); 
     xm2 = x - 2.0; 
     arg = 2.0*x/3.0; 
-    eee = exp(-arg); 
+    eee = EXP(-arg); 
     f   = x*eee - a*xm2; 
 	 	 
     if(f > 0.0) x1 = x; 
@@ -180,8 +180,8 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   br_x = XC(mgga_x_br89_get_x)(Q);
 
   cnst = -2.0*CBRT(M_PI)/X_FACTOR_C;
-  exp1 = exp(br_x/3.0);
-  exp2 = exp(-br_x);
+  exp1 = EXP(br_x/3.0);
+  exp2 = EXP(-br_x);
 
   v_BR = (ABS(br_x) > pt->info->min_tau) ?
     exp1*(1.0 - exp2*(1.0 + br_x/2.0))/br_x :
@@ -204,7 +204,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
       1.0/6.0 - br_x/9.0;
     dv_BRdbx *= cnst;
     
-    ff    = br_x*exp(-2.0/3.0*br_x)/(br_x - 2);
+    ff    = br_x*EXP(-2.0/3.0*br_x)/(br_x - 2);
     dffdx = ff*(-2.0/3.0 + 1.0/br_x - 1.0/(br_x - 2.0));
     dxdQ  = -ff/(Q*dffdx);
   }

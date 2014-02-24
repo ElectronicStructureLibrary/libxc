@@ -44,9 +44,9 @@ void XC(gga_x_wc_enhance)
   ss2 = ss*ss;
   
   aux1 = wc_mu - 10.0/81.0;
-  aux2 = exp(-ss2);
+  aux2 = EXP(-ss2);
 
-  f0 = kappa + 10.0/81.0*ss2 + ss2*aux1*aux2 + log(1.0 + wc_c*ss2*ss2);
+  f0 = kappa + 10.0/81.0*ss2 + ss2*aux1*aux2 + LOG(1.0 + wc_c*ss2*ss2);
   *f = 1.0 + kappa*(1.0 - kappa/f0);
 
   if(order < 1) return;

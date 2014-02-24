@@ -48,7 +48,7 @@ void XC(gga_x_bpccac_enhance)
   XC(gga_x_pbe_enhance) (p->func_aux[0], order, x, &f1, &df1dx, &d2f1dx2, &d3f1dx3);
   XC(gga_x_pw91_enhance)(p->func_aux[1], order, x, &f2, &df2dx, &d2f2dx2, &d3f2dx3);
 
-  aux = exp(-(alpha*(x - beta)));
+  aux = EXP(-(alpha*(x - beta)));
   den = 1.0 + aux;
 
   fab = 1.0/den;

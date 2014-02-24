@@ -99,7 +99,7 @@ XC(gga_x_b88_enhance)(const XC(func_type) *p, int order, FLOAT x,
   x2 = x*x;
 
   f1 = beta/X_FACTOR_C*x2;
-  f2 = 1.0 + gamma*beta*x*asinh(x);
+  f2 = 1.0 + gamma*beta*x*ASINH(x);
   *f = 1.0 + f1/f2;
 
   if(p->func == 5){ /* k_thakkar */
@@ -113,7 +113,7 @@ XC(gga_x_b88_enhance)(const XC(func_type) *p, int order, FLOAT x,
   aux2 = SQRT(aux1);
 
   df1 = 2.0*beta/X_FACTOR_C*x;
-  df2 = gamma*beta*(asinh(x) + x/aux2);
+  df2 = gamma*beta*(ASINH(x) + x/aux2);
 
   *dfdx = (df1*f2 - f1*df2)/(f2*f2);
 

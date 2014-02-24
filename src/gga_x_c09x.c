@@ -33,7 +33,7 @@ void XC(gga_x_c09x_enhance)
   ss  = X2S*x;
   ss2 = ss*ss;
 
-  aux  = exp(-0.5*alpha*ss2);
+  aux  = EXP(-0.5*alpha*ss2);
   aux2 = aux*aux;
 
   *f = 1.0 + mu*ss2*aux2 + kappa*(1.0 - aux);

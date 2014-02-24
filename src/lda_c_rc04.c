@@ -33,7 +33,7 @@ XC(lda_c_rc04_func)(const XC(func_type) *p, XC(lda_work_t) *r)
   FLOAT opz, omz, opz13, omz13, _opz13, _omz13, _opz43, _omz43, _opz73, _omz73, fz, fz2, dfz, d2fz, d3fz;
 
   aux = BB + CC*r->rs[1];
-  ek  = (AA*atan(aux) + DD)/r->rs[1];
+  ek  = (AA*ATAN(aux) + DD)/r->rs[1];
 
   if(p->nspin == XC_POLARIZED){
     opz = 1.0 + r->zeta;

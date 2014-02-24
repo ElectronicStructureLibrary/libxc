@@ -78,7 +78,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   Phi  = ftilde*(CCinf/CC)*x1;
 
   /* Equation [1].(8) */
-  H = x1*x1*exp(-Phi)*CC/DD;
+  H = x1*x1*EXP(-Phi)*CC/DD;
   r->f = pw.zk + H;
 
   if(r->order < 1) return;
@@ -95,8 +95,8 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   dPhidx1 =  ftilde*(CCinf/CC);
   dPhidrs = -dCCdrs*Phi/CC;
 
-  dHdx1   =  x1*exp(-Phi)*CC/DD*(2.0 - x1*dPhidx1);
-  dHdrs   =  x1*x1*exp(-Phi)/DD*(dCCdrs - dPhidrs*CC);
+  dHdx1   =  x1*EXP(-Phi)*CC/DD*(2.0 - x1*dPhidx1);
+  dHdrs   =  x1*x1*EXP(-Phi)/DD*(dCCdrs - dPhidrs*CC);
 
   r->dfdrs    = pw.dedrs + dHdrs + dHdx1*dx1drs;
   r->dfdz     = pw.dedz - H*dDDdzeta/DD;
@@ -124,9 +124,9 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   d2x1drs2  = 3.0*r->xt/(4.0*rsconv*pw.rs[2]*pw.rs[0]);
   d2x1drsxt = -1.0/(2.0*rsconv*r->rs*pw.rs[0]);
   
-  d2Hdx12   = exp(-Phi)*CC/DD*(2.0 + x1*dPhidx1*(x1*dPhidx1 - 4.0));
-  d2Hdrs2   = x1*x1*exp(-Phi)/DD*(d2CCdrs2 - d2Phidrs2*CC - dPhidrs*(2.0*dCCdrs - dPhidrs*CC));
-  d2Hdrsx1  =    x1*exp(-Phi)/DD*((dCCdrs - CC*dPhidrs)*(2.0 - x1*dPhidx1) - CC*x1*d2Phidrsx1);
+  d2Hdx12   = EXP(-Phi)*CC/DD*(2.0 + x1*dPhidx1*(x1*dPhidx1 - 4.0));
+  d2Hdrs2   = x1*x1*EXP(-Phi)/DD*(d2CCdrs2 - d2Phidrs2*CC - dPhidrs*(2.0*dCCdrs - dPhidrs*CC));
+  d2Hdrsx1  =    x1*EXP(-Phi)/DD*((dCCdrs - CC*dPhidrs)*(2.0 - x1*dPhidx1) - CC*x1*d2Phidrsx1);
 
   r->d2fdrs2     = pw.d2edrs2 + d2Hdrs2 + 2.0*d2Hdrsx1*dx1drs + d2Hdx12*dx1drs*dx1drs + dHdx1*d2x1drs2;
   r->d2fdrsz     = pw.d2edrsz - (dHdrs + dHdx1*dx1drs)*dDDdzeta/DD;

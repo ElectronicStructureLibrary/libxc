@@ -132,18 +132,18 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const FLOAT *rho, const F
 	x =  gdm/POW(rho[is], 4.0/3.0);
 	
 	if(x < 300.0) /* the actual functional */	   
-	  f = -params->beta*x*x/(1.0 + 3.0*params->beta*x*asinh(params->gamm*x));
+	  f = -params->beta*x*x/(1.0 + 3.0*params->beta*x*ASINH(params->gamm*x));
 	else          /* asymptotic expansion */
-	  f = -x/(3.0*log(2.0*params->gamm*x));
+	  f = -x/(3.0*LOG(2.0*params->gamm*x));
 
 	vrho[is] += f * CBRT(rho[is]);
 	
       }else if(r > 0.0){
 	/* the aymptotic expansion of LB94 */
 	x = r + (3.0/params->aa)*
-	  log(2.0*params->gamm * params->aa * 1.0 / CBRT(params->qtot));
+	  LOG(2.0*params->gamm * params->aa * 1.0 / CBRT(params->qtot));
 	
-	/* x = x + POW(qtot*exp(-aa*r), 1.0/3.0)/(beta*aa*aa); */
+	/* x = x + POW(qtot*EXP(-aa*r), 1.0/3.0)/(beta*aa*aa); */
 	
 	vrho[is] -= 1.0/x;
       }

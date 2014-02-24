@@ -61,7 +61,7 @@ void XC(gga_x_sogga11_enhance)
 
   den0 = -1.0/(1.0 + alpha*x*x);
   f0   =  1.0 + den0;
-  den1 = -exp(-alpha*x*x);
+  den1 = -EXP(-alpha*x*x);
   f1   =  1.0 + den1;
 
   t0 = aa[p->func][0] + f0*(aa[p->func][1] + f0*(aa[p->func][2] + f0*(aa[p->func][3] + f0*(aa[p->func][4] + f0*aa[p->func][5]))));

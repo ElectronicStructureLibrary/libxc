@@ -31,7 +31,7 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
   static FLOAT a = 0.0311, b = -0.048, c = 0.009, d = -0.017;
   FLOAT lrs;
 
-  lrs = log(r->rs[1]);
+  lrs = LOG(r->rs[1]);
   r->zk = a*lrs + b + c*r->rs[1]*lrs + d*r->rs[1];
 
   if(r->order < 1) return;

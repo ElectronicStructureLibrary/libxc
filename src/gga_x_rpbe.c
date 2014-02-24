@@ -64,7 +64,7 @@ void XC(gga_x_rpbe_enhance)
   kappa = ((gga_x_rpbe_params *) (p->params))->kappa;
   mu    = ((gga_x_rpbe_params *) (p->params))->mu*X2S*X2S;
 
-  f0 = exp(-mu*x*x/kappa);
+  f0 = EXP(-mu*x*x/kappa);
   *f = 1.0 + kappa*(1.0 - f0);
 
   if(order < 1) return;

@@ -46,7 +46,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   tb    = r->ts[1] - r->us[1]/8.0;
   tw    = r->xt*r->xt/8.0 - cnst_283*(r->us[0]*opz*opz23 + r->us[1]*omz*omz23);
 
-  aux   = exp(-c*cnst_rs*r->rs);
+  aux   = EXP(-c*cnst_rs*r->rs);
   ff    = opz*ta + omz*tb - tw;
   num   = 1.0 + 2.0*b*ff*aux;
   den   = 1.0 + d*cnst_rs*r->rs;

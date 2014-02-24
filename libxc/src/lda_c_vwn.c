@@ -152,10 +152,10 @@ ec_i(vwn_consts_type *X, int order, int i, FLOAT x,
 
   /* a couple of handy functions */
   fx  = x*x + X->b[i]*x + X->c[i];  /* X(x) */
-  qx  = atan(X->Q[i]/(2.0*x + X->b[i]));
+  qx  = ATAN(X->Q[i]/(2.0*x + X->b[i]));
   xx0 = x - X->x0[i];
   
-  *zk = X->A[i]*(log(x*x/fx) + (f1 - f2*f3)*qx - f2*log(xx0*xx0/fx));
+  *zk = X->A[i]*(LOG(x*x/fx) + (f1 - f2*f3)*qx - f2*LOG(xx0*xx0/fx));
   
   if(order < 1) return;
 

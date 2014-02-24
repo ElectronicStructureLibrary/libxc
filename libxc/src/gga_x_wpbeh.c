@@ -96,15 +96,15 @@ s_scaling(int version, int order, FLOAT s1, FLOAT *s2, FLOAT *ds2ds1)
     else if(s1 > 15.0)
       *s2 = smax;
     else{
-      expms1   = exp(-s1);
-      expmsmax = exp(-smax);
+      expms1   = EXP(-s1);
+      expmsmax = EXP(-smax);
       *s2  = s1 - LOG(1.0 + expmsmax/expms1);
     }
     break;
 
   case 3: /* second version of the scaling by TM Henderson */
-    expms1   = exp(-s1);
-    expmsmax = exp(-smax);
+    expms1   = EXP(-s1);
+    expmsmax = EXP(-smax);
     *s2 = s1 - (1.0 - expms1)*LOG(1.0 + expmsmax/expms1);
     break;
 
@@ -301,7 +301,7 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
     FLOAT Ga, Gb, dGa, dGb;
 
     Ga = M_SQRTPI*(15.0*EE + 6.0*CC*(1.0 + F*ss2)*DHs + 4.0*BB*DHs2 + 8.0*AA*DHs3)/(16.0*DHs72)
-      - (3.0*M_PI/4.0)*sqrt(AA)*exp(f94Hs2_A)*(1.0 - erf(sqrt(f94Hs2_A)));
+      - (3.0*M_PI/4.0)*SQRT(AA)*EXP(f94Hs2_A)*(1.0 - ERF(SQRT(f94Hs2_A)));
     Gb = 15.0*M_SQRTPI*ss2/(16.0*DHs72);
 
     EG = -(3.0*M_PI/4.0 + Ga)/Gb;
@@ -311,7 +311,7 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
 	((36.0*(2.0*H + dHds*ss)/(AA12*SQRT(H/AA)) + 
 	  (1.0/DHs92) *(-8.0*AA*dDHsds*DHs3 - 105.0*dDHsds*EE - 30.0*CC*dDHsds*DHs*(1.0 + ss2*F) +
 			12.0*DHs2*(-BB*dDHsds + CC*ss*(dFds*ss + 2.0*F))) - 
-	  ((54.0*exp(f94Hs2_A)*M_SQRTPI*ss*(2.0*H + dHds*ss)*erfc(sqrt(f94Hs2_A)))/AA12)));
+	  ((54.0*EXP(f94Hs2_A)*M_SQRTPI*ss*(2.0*H + dHds*ss)*erfc(sqrt(f94Hs2_A)))/AA12)));
 
       dGb = (15.0*M_SQRTPI*ss*(4.0*DHs - 7.0*dDHsds*ss))/(32.0*DHs92);
 
@@ -380,8 +380,8 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
 
   /* Calculate exp(x)*f(x) depending on size of x */
   if(HsbwA94 < expfcutoff){
-    piexperf = M_PI*exp(HsbwA94)*erfc(HsbwA9412);
-    expei    = exp(HsbwA94)*(-expint_e1(HsbwA94));
+    piexperf = M_PI*EXP(HsbwA94)*erfc(HsbwA9412);
+    expei    = EXP(HsbwA94)*(-expint_e1(HsbwA94));
 
   }else{
     static const FLOAT expei1=4.03640, expei2=1.15198, expei3=5.03627, expei4=4.19160;

@@ -94,7 +94,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   omz83 = omz*omz53;
 
   opdrs = 1.0/(1.0 + dd*r->rs);
-  omega = BB*exp(-cc*r->rs)*opdrs;
+  omega = BB*EXP(-cc*r->rs)*opdrs;
   delta = (cc + dd*opdrs)*r->rs;
 
   aux6 = 1.0/POW(2.0, 8.0/3.0);

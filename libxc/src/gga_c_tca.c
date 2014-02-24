@@ -67,7 +67,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     zeta4 = zeta2*zeta2;
     aa    = M_PI*CBRT(9.0*M_PI/4.0);
     arg   = aa*ss/r->rs;
-    sinc  = (arg == 0.0) ? 1.0 : sin(arg)/arg;
+    sinc  = (arg == 0.0) ? 1.0 : SIN(arg)/arg;
 
     DD = 1.0 - zeta4*(1.0 - sinc*sinc);
   }else{
@@ -81,7 +81,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   dBs = -sigma*alpha*ssalpha * xconv/(ss*aux*aux);
 
   if(p->info->number == XC_GGA_C_REVTCA){
-    dsinc  = (arg == 0.0) ? 0.0 : cos(arg)/arg - sin(arg)/(arg*arg);
+    dsinc  = (arg == 0.0) ? 0.0 : COS(arg)/arg - SIN(arg)/(arg*arg);
 
     dargdrs = -arg/r->rs;
     dargdxt = aa*xconv/r->rs;
@@ -106,7 +106,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   d2Bs = -dBs/(ss*aux) * xconv * (1.0 - alpha + sigma*(1.0 + alpha)*ssalpha);
 
   if(p->info->number == XC_GGA_C_REVTCA){
-    d2sinc  = (arg == 0.0) ? -1.0/3.0 : -(2.0*arg*cos(arg) + (arg*arg - 2.0)*sin(arg))/(arg*arg*arg);
+    d2sinc  = (arg == 0.0) ? -1.0/3.0 : -(2.0*arg*COS(arg) + (arg*arg - 2.0)*SIN(arg))/(arg*arg*arg);
 
     d2argdrs2  = -2.0*dargdrs/r->rs;
     d2argdrsxt = -dargdxt/r->rs;

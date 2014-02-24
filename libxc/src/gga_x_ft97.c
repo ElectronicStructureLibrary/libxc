@@ -49,7 +49,7 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT sigma,
   }
 
   x2 = x*x;
-  f2 = beta*asinh(x2);
+  f2 = beta*ASINH(x2);
   f3 = SQRT(1.0 + 9.0*x2*f2*f2);
   *f = 1.0 + beta/X_FACTOR_C*x2/f3;
  

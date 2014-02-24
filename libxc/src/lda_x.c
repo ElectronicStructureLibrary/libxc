@@ -107,10 +107,10 @@ XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, F
   aa3 = aa*aa2;
 
   if (interaction == XC_RSF_ERF || interaction == XC_RSF_ERF_GAU) {
-    auxa1 = M_SQRTPI*erf(1.0/(2.0*aa));
+    auxa1 = M_SQRTPI*ERF(1.0/(2.0*aa));
   
     if(aa < 1.0e6) 
-      auxa2 = exp(-1.0/(4.0*aa2)) - 1.0;
+      auxa2 = EXP(-1.0/(4.0*aa2)) - 1.0;
     else
       auxa2 = -1.0/(4.0*aa2);
   
@@ -122,8 +122,8 @@ XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, F
       bb  = aa/M_SQRT3;
       bb2 = bb*bb;
       bb3 = bb*bb2;
-      auxb1 = M_SQRTPI*erf(1.0/(2.0*bb));
-      auxb2 = exp(-1.0/(4.0*bb2));
+      auxb1 = M_SQRTPI*ERF(1.0/(2.0*bb));
+      auxb2 = EXP(-1.0/(4.0*bb2));
       
       *f += 8.0/M_SQRT3*bb*(auxb1 - 6.0*bb + 16.0*bb3 + (2.0*bb - 16*bb3)*auxb2);
     }
@@ -151,8 +151,8 @@ XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, F
 
   } else {	/* XC_RSF_YUKAWA */
 
-    auxa1 = atan2(1.0,aa);
-    auxa2 = log(1+(1.0/aa2));
+    auxa1 = ATAN2(1.0,aa);
+    auxa2 = LOG(1+(1.0/aa2));
     auxa3 = (aa2 + 1);
 
     switch (order) {
@@ -231,7 +231,7 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
     beta   = CBRT(9.0*M_PI/4.0)/(r->rs[1]*M_C);
     beta2  = beta*beta;
     f1     = SQRT(1.0 + beta2);
-    f2     = asinh(beta);
+    f2     = ASINH(beta);
     f3     = f1/beta - f2/beta2;
     phi    = 1.0 - 3.0/2.0*f3*f3;
 

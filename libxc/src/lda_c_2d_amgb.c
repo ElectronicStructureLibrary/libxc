@@ -126,7 +126,7 @@ XC(lda_c_2d_amgb_func)(const XC(func_type) *p, XC(lda_work_t) *r)
     fz  = 0.5*(POW(1.0 + r->zeta, 3.0/2.0) + POW(1.0 - r->zeta, 3.0/2.0));
     ex6 = ex*(fz - 1.0 - 3.0/8.0*z2 - 3.0/128.0*z4);
 
-    r->zk = ecp + ecf*z2 + alpha*z4 + (exp(-beta*r->rs[1]) - 1.0)*ex6;
+    r->zk = ecp + ecf*z2 + alpha*z4 + (EXP(-beta*r->rs[1]) - 1.0)*ex6;
   }
 
   if(r->order < 1) return;
@@ -141,8 +141,8 @@ XC(lda_c_2d_amgb_func)(const XC(func_type) *p, XC(lda_work_t) *r)
     dex6drs = dex*(fz - 1.0 - (3.0/8.0)*z2 - (3.0/128.0)*z4);
     dex6dz  =  ex*(dfz - 2.0*(3.0/8.0)*r->zeta - 4.0*(3.0/128.0)*z3);
 
-    r->dedrs = vcp + vcf*z2 + dalpha*z4 + exp(-beta*r->rs[1])*(dex6drs - beta*ex6) - dex6drs;
-    r->dedz  = 2.0*ecf*r->zeta + 4.0*alpha*z3 + (exp(-beta*r->rs[1]) - 1.0)*dex6dz;
+    r->dedrs = vcp + vcf*z2 + dalpha*z4 + EXP(-beta*r->rs[1])*(dex6drs - beta*ex6) - dex6drs;
+    r->dedz  = 2.0*ecf*r->zeta + 4.0*alpha*z3 + (EXP(-beta*r->rs[1]) - 1.0)*dex6dz;
   }
 
   if(r->order < 2) return;
@@ -159,9 +159,9 @@ XC(lda_c_2d_amgb_func)(const XC(func_type) *p, XC(lda_work_t) *r)
     d2ex6dz2  =   ex*(d2fz   - 2.0*(3.0/8.0)        - 12.0*(3.0/128.0)*z2);
 
     r->d2edrs2 = fcp + fcf*z2 + d2alpha*z4 + 
-      exp(-beta*r->rs[1])*(d2ex6drs2 - 2.0*beta*dex6drs + beta*beta*ex6) - d2ex6drs2;
-    r->d2edrsz = 2.0*vcf*r->zeta + 4.0*dalpha*z3 + exp(-beta*r->rs[1])*(d2ex6drsz - beta*dex6dz) - d2ex6drsz;
-    r->d2edz2  = 2.0*ecf + 12.0*alpha*z2 + (exp(-beta*r->rs[1]) - 1.0)*d2ex6dz2;
+      EXP(-beta*r->rs[1])*(d2ex6drs2 - 2.0*beta*dex6drs + beta*beta*ex6) - d2ex6drs2;
+    r->d2edrsz = 2.0*vcf*r->zeta + 4.0*dalpha*z3 + EXP(-beta*r->rs[1])*(d2ex6drsz - beta*dex6dz) - d2ex6drsz;
+    r->d2edz2  = 2.0*ecf + 12.0*alpha*z2 + (EXP(-beta*r->rs[1]) - 1.0)*d2ex6dz2;
   }
 
   if(r->order < 3) return;
@@ -179,11 +179,11 @@ XC(lda_c_2d_amgb_func)(const XC(func_type) *p, XC(lda_work_t) *r)
     d3ex6dz3   =   ex*(d3fz                          - 24.0*(3.0/128.0)*r->zeta);
 
     r->d3edrs3  = kcp + kcf*z2 + d3alpha*z4 + 
-      exp(-beta*r->rs[1])*(d3ex6drs3 - 3.0*beta*d2ex6drs2 + 3.0*beta*beta*dex6drs - beta*beta*beta*ex6) - d3ex6drs3;
+      EXP(-beta*r->rs[1])*(d3ex6drs3 - 3.0*beta*d2ex6drs2 + 3.0*beta*beta*dex6drs - beta*beta*beta*ex6) - d3ex6drs3;
     r->d3edrs2z = 2.0*fcf*r->zeta + 4.0*d2alpha*z3 + 
-      exp(-beta*r->rs[1])*(d3ex6drs2z - 2.0*beta*d2ex6drsz + beta*beta*dex6dz) - d3ex6drs2z;
-    r->d3edrsz2 = 2.0*vcf + 12.0*dalpha*z2 + exp(-beta*r->rs[1])*(d3ex6drsz2 - beta*d2ex6dz2) - d3ex6drsz2;
-    r->d3edz3   = 24.0*alpha*r->zeta + (exp(-beta*r->rs[1]) - 1.0)*d3ex6dz3;
+      EXP(-beta*r->rs[1])*(d3ex6drs2z - 2.0*beta*d2ex6drsz + beta*beta*dex6dz) - d3ex6drs2z;
+    r->d3edrsz2 = 2.0*vcf + 12.0*dalpha*z2 + EXP(-beta*r->rs[1])*(d3ex6drsz2 - beta*d2ex6dz2) - d3ex6drsz2;
+    r->d3edz3   = 24.0*alpha*r->zeta + (EXP(-beta*r->rs[1]) - 1.0)*d3ex6dz3;
   }
 }
 

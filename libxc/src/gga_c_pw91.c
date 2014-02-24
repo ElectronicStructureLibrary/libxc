@@ -56,7 +56,7 @@ A_eq14(int order, FLOAT ec, FLOAT g, FLOAT *A,
   g3 = g*g2;
 
   xx    = -2.0*pw91_alpha*ec/(g3*pw91_beta*pw91_beta);
-  expxx = exp(xx);
+  expxx = EXP(xx);
 
   *A = (2.0*pw91_alpha/pw91_beta)/(expxx - 1.0);
 
@@ -104,7 +104,7 @@ H0_eq13(int order, FLOAT ec, FLOAT g, FLOAT t, FLOAT *H0,
   d0 = 1.0 + A*t2 + A*A*t4;
   f  = n0/d0;
 
-  *H0 = c1*g3*log(1.0 + c2*f);
+  *H0 = c1*g3*LOG(1.0 + c2*f);
 
   if(order < 1) return;
 
@@ -191,7 +191,7 @@ H1_eq15(int order, FLOAT   rs, FLOAT   g, FLOAT   t, FLOAT *H1,
   t2  = t*t;
 
   p1 = a1*rs*g4*t2;
-  p1 = exp(p1);
+  p1 = EXP(p1);
 
   Rasold_Geldart_C_xc(order, rs, &C_xc, &dp2drs, &d2p2drs2);
   p2 = C_xc - C_xc0 - 3.0*C_x/7.0;

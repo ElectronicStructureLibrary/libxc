@@ -104,7 +104,7 @@ static void g(int func, int order, int k, FLOAT *rs,
   q1  =  2.0*a[func][k];
   q1 *= beta[func][k][0]*rs[0] + beta[func][k][1]*rs[1] + 
     beta[func][k][2]*rs[0]*rs[1] + beta[func][k][3]*POW(rs[1], 1.0 + pp[func][k]);
-  q2  = log(1.0 + 1.0/q1);
+  q2  = LOG(1.0 + 1.0/q1);
 
   /* the function */
   *f = q0*q2;

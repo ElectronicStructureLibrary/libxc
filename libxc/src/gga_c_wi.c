@@ -57,7 +57,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   xt52    = xt2*xt0;
   xt72    = r->xt*xt52;
 
-  aux = exp(-par->k*xt2);
+  aux = EXP(-par->k*xt2);
 
   num = par->a + par->b*xt2*aux;
   den = par->c + r->rs*(1.0 + par->d*cnst_rs*xt72);

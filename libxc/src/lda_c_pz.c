@@ -112,7 +112,7 @@ static void
 ec_pot_high(pz_consts_type *X, int order, int i, FLOAT *rs, 
 	    FLOAT *zk, FLOAT *dedrs, FLOAT *d2edrs2, FLOAT *d3edrs3)
 {
-  FLOAT lrs = log(rs[1]);
+  FLOAT lrs = LOG(rs[1]);
 
   /* Eq. [1].C5 */
   *zk  = X->a[i]*lrs + X->b[i] + X->c[i]*rs[1]*lrs + X->d[i]*rs[1];

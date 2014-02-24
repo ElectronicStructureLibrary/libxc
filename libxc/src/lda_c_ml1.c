@@ -60,7 +60,7 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
 
   k     = C*alpha*beta*cnst_rs/r->rs[1];
 
-  Q = (k == 0.0) ? -FLT_MAX : -b[0]/(1.0 + b[1]*k) + b[2]/k*log(1.0 + b[3]/k) + b[4]/k - b[5]/(k*k);
+  Q = (k == 0.0) ? -FLT_MAX : -b[0]/(1.0 + b[1]*k) + b[2]/k*LOG(1.0 + b[3]/k) + b[4]/k - b[5]/(k*k);
 
   gamma = (1 - r->zeta*r->zeta)/4.0;
   nn    = POW(cnst_rs/r->rs[1], 3);
@@ -69,7 +69,7 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
   if(r->order < 1) return;
 
   dQ = (k == 0.0) ? FLT_MAX : b[0]*b[1]/((1.0 + b[1]*k)*(1.0 + b[1]*k)) - b[2]*b[3]/((b[3] + k)*(k*k))
-    - b[2]*log(1.0 + b[3]/k)/(k*k) - b[4]/(k*k) + 2.0*b[5]/(k*k*k);
+    - b[2]*LOG(1.0 + b[3]/k)/(k*k) - b[4]/(k*k) + 2.0*b[5]/(k*k*k);
 
   dkdrs = -k/r->rs[1];
 

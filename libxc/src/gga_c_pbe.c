@@ -113,7 +113,7 @@ pbe_eq8(int order, FLOAT beta, FLOAT gamm, FLOAT ecunif, FLOAT phi,
 
   phi3 = POW(phi, 3);
   f1   = ecunif/(gamm*phi3);
-  f2   = exp(-f1);
+  f2   = EXP(-f1);
   f3   = f2 - 1.0;
 
   *A   = beta/(gamm*f3);
@@ -160,7 +160,7 @@ pbe_eq7(int order, int func, FLOAT beta, FLOAT gamm, FLOAT phi, FLOAT t, FLOAT A
   }else
     ff = 1.0;
 
-  *H = ff*gamm*phi3*log(1.0 + f2);
+  *H = ff*gamm*phi3*LOG(1.0 + f2);
 
   if(order < 1) return;
 
@@ -245,7 +245,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   if(p->func == 2)
     gamm = cnst_beta*cnst_beta/(2.0*0.197363); /* for xPBE */
   else
-    gamm = (1.0 - log(2.0))/(M_PI*M_PI);
+    gamm = (1.0 - LOG(2.0))/(M_PI*M_PI);
 
   if(p->func == 7){
     beta_den = (1.0 + b_3*r->rs);

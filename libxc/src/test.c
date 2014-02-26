@@ -22,7 +22,7 @@
 
 #include "util.h"
 #include "xc.h"
-#include "util.h"
+#include "test.h"
 
 void func(double *x, int n, void *ex)
 {
@@ -43,8 +43,6 @@ void test_integration()
 
 #include <gsl/gsl_sf_expint.h>
 #include <gsl/gsl_sf_bessel.h>
-double bessel_K0_scaled(double x);
-double bessel_K0(double x);
 
 void test_expi()
 {
@@ -53,7 +51,7 @@ void test_expi()
 
   n = 1;
   for(b=1e-3; b<50; b+=0.01){
-    r1 = bessel_K0(b);
+    r1 = xc_bessel_K0(b);
     //r2 = gsl_sf_bessel_K0(b);
     //r3 = bessi1(b);
     printf("%5.3lf %12.10lf %12.10lf %12.10lf\n", b, r1, r2, r3);

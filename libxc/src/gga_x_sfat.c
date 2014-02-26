@@ -67,7 +67,7 @@ XC(gga_x_sfat_set_params)(XC(func_type) *p, int func_id, FLOAT omega)
     params->func_id = func_id;
     XC(func_init) (p->func_aux[0], params->func_id, p->nspin);
 
-    params->enhancement_factor = get_gga_enhancement_factor(func_id);
+    params->enhancement_factor = XC(get_gga_enhancement_factor)(func_id);
   }
 }
 

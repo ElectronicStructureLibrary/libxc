@@ -50,21 +50,20 @@ float  asinhf(float  x);
 #define min(x,y)  ((x<y) ? (x) : (y))
 #define max(x,y)  ((x<y) ? (y) : (x))
 
-/* some constants stolen from the GSL */
-#define GSL_LOG_DBL_MIN   (-7.0839641853226408e+02)
-#define GSL_LOG_DBL_MAX    7.0978271289338397e+02
-#define GSL_SQRT_DBL_EPSILON   1.4901161193847656e-08
-#define GSL_DBL_MIN        2.2250738585072014e-308
+/* some useful constants */
+#define LOG_FLOAT_MIN   (LOG(FLOAT_MIN))
+#define LOG_FLOAT_MAX   (LOG(FLOAT_MAX))
+#define SQRT_FLOAT_EPSILON   (SQRT(FLOAT_EPSILON))
 
 /* special functions */
 FLOAT XC(lambert_w)(FLOAT z);
 
 /* we define this function here, so it can be properly inlined by all compilers */
-static inline double
-cheb_eval(const double x, const double *cs, const int N)
+static inline FLOAT
+XC(cheb_eval)(const FLOAT x, const FLOAT *cs, const int N)
 {
   int i;
-  double twox, b0, b1, b2;
+  FLOAT twox, b0, b1, b2;
 
   b2 = b1 = b0 = 0.0;
 
@@ -78,18 +77,18 @@ cheb_eval(const double x, const double *cs, const int N)
   return 0.5*(b0 - b2);
 }
 
-double bessel_I0_scaled(const double x);
-double bessel_I0(const double x);
-double bessel_K0_scaled(const double x);
-double bessel_K0(const double x);
-double bessel_K1_scaled(const double x);
-double bessel_K1(const double x);
+FLOAT XC(bessel_I0_scaled)(const FLOAT x);
+FLOAT bessel_I0(const FLOAT x);
+FLOAT bessel_K0_scaled(const FLOAT x);
+FLOAT bessel_K0(const FLOAT x);
+FLOAT bessel_K1_scaled(const FLOAT x);
+FLOAT bessel_K1(const FLOAT x);
 
-double expint_e1_impl(const double x, const int scale);
-static inline double expint_e1(const double x)         { return  expint_e1_impl( x, 0); }
-static inline double expint_e1_scaled(const double x)  { return  expint_e1_impl( x, 1); }
-static inline double expint_Ei(const double x)         { return -expint_e1_impl(-x, 0); }
-static inline double expint_Ei_scaled(const double x)  { return -expint_e1_impl(-x, 1); }
+FLOAT XC(expint_e1_impl)(const FLOAT x, const int scale);
+static inline FLOAT expint_e1(const FLOAT x)         { return  XC(expint_e1_impl)( x, 0); }
+static inline FLOAT expint_e1_scaled(const FLOAT x)  { return  XC(expint_e1_impl)( x, 1); }
+static inline FLOAT expint_Ei(const FLOAT x)         { return -XC(expint_e1_impl)(-x, 0); }
+static inline FLOAT expint_Ei_scaled(const FLOAT x)  { return -XC(expint_e1_impl)(-x, 1); }
 
 /* integration */
 typedef void integr_fn(FLOAT *x, int n, void *ex);
@@ -168,7 +167,7 @@ void work_gga_becke_init(XC(func_type) *p);
 
 /* exchange enhancement factors: if you add one, please add it also to the util.c */
 typedef void(*xc_gga_enhancement_t)(const XC(func_type) *, int, FLOAT, FLOAT *, FLOAT *, FLOAT *, FLOAT *);
-xc_gga_enhancement_t get_gga_enhancement_factor(int func_id);
+xc_gga_enhancement_t XC(get_gga_enhancement_factor)(int func_id);
 
 void XC(gga_x_wc_enhance)   (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
 void XC(gga_x_pbe_enhance)  (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);

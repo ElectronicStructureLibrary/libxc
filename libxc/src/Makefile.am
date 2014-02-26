@@ -111,19 +111,7 @@ else
 endif
 nodist_include_HEADERS += $(LIBFUNCMOD)
 
-if COMPILE_SINGLE
-
-if F90_MOD_UPPERCASE
-  XCLIBMODS_S = XC_S_F90_LIB_M.@ax_cv_f90_modext@ XC_S_F90_TYPES_M.@ax_cv_f90_modext@
-  XCLIBMODS = XC_F90_LIB_M.@ax_cv_f90_modext@ XC_F90_TYPES_M.@ax_cv_f90_modext@
-else
-  XCLIBMODS_S = xc_s_f90_lib_m.@ax_cv_f90_modext@ xc_s_f90_types_m.@ax_cv_f90_modext@
-  XCLIBMODS = xc_f90_lib_m.@ax_cv_f90_modext@ xc_f90_types_m.@ax_cv_f90_modext@
-endif
-nodist_include_HEADERS += $(XCLIBMODS_S) $(XCLIBMODS)
-
-else
-
+# Double precision modules are always compiled
 if F90_MOD_UPPERCASE
   XCLIBMODS = XC_F90_LIB_M.@ax_cv_f90_modext@ XC_F90_TYPES_M.@ax_cv_f90_modext@
 else
@@ -131,9 +119,18 @@ else
 endif
 nodist_include_HEADERS += $(XCLIBMODS)
 
-endif
+if COMPILE_SINGLE
 
+if F90_MOD_UPPERCASE
+  XCLIBMODS_S = XC_S_F90_LIB_M.@ax_cv_f90_modext@ XC_S_F90_TYPES_M.@ax_cv_f90_modext@
+else
+  XCLIBMODS_S = xc_s_f90_lib_m.@ax_cv_f90_modext@ xc_s_f90_types_m.@ax_cv_f90_modext@
 endif
+nodist_include_HEADERS += $(XCLIBMODS_S)
+
+endif # COMPILE_SINGLE
+
+endif # COMPILE_FORTRAN
 
 SUFFIXES = _s.c
 .c_s.c:

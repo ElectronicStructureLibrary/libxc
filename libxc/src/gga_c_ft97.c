@@ -33,7 +33,7 @@ static const FLOAT
 static const FLOAT big = 1e4;
 
 
-void func_kssp0(FLOAT rs, int order, FLOAT *kssp0, FLOAT *dkssp0)
+static void func_kssp0(FLOAT rs, int order, FLOAT *kssp0, FLOAT *dkssp0)
 {
   /* calculate kssp0(rs) Eq. (39) */
   static FLOAT k0 = 1.291551074, k1 = 0.349064173, r1 = 0.083275880;
@@ -59,7 +59,7 @@ void func_kssp0(FLOAT rs, int order, FLOAT *kssp0, FLOAT *dkssp0)
 }
 
 
-void func_fssp(FLOAT rs, FLOAT gr, int order, FLOAT *fssp, FLOAT *dfsspdrs, FLOAT *dfsspdgr)
+static void func_fssp(FLOAT rs, FLOAT gr, int order, FLOAT *fssp, FLOAT *dfsspdrs, FLOAT *dfsspdgr)
 {
   /* calculate fssp(rs, gr) Eq. (45) */
   static const FLOAT A1=1.622118767, A2=0.489958076, A3=1.379021941;  
@@ -87,7 +87,7 @@ void func_fssp(FLOAT rs, FLOAT gr, int order, FLOAT *fssp, FLOAT *dfsspdrs, FLOA
 }
 
 
-void func_factor(FLOAT rs, int order, FLOAT *fa, FLOAT *dfa)
+static void func_factor(FLOAT rs, int order, FLOAT *fa, FLOAT *dfa)
 {
   /* factor: see Eq. (34) */
   static const FLOAT fa_a1 = 0.939016, fa_a2 = 1.733170;
@@ -108,7 +108,7 @@ void func_factor(FLOAT rs, int order, FLOAT *fa, FLOAT *dfa)
 }
 
 
-void func_kss0(FLOAT rs, int order, FLOAT *kss0, FLOAT *dkss0)
+static void func_kss0(FLOAT rs, int order, FLOAT *kss0, FLOAT *dkss0)
 {
   /* calculate kss0(rs) Eq. (40) */
   static const FLOAT k0 = 1.200801774, k1 = 0.859614445, k2 = -0.812904345, r1 = 1.089338848, r2 = 0.655638823;
@@ -135,7 +135,7 @@ void func_kss0(FLOAT rs, int order, FLOAT *kss0, FLOAT *dkss0)
 }
 
 
-void func_fss(FLOAT rs, FLOAT gr, int order, FLOAT *fss, FLOAT *dfssdrs, FLOAT *dfssdgr)
+static void func_fss(FLOAT rs, FLOAT gr, int order, FLOAT *fss, FLOAT *dfssdrs, FLOAT *dfssdgr)
 {
   static const FLOAT A4 = 4.946281353, A5 = 3.600612059;
 
@@ -162,7 +162,7 @@ void func_fss(FLOAT rs, FLOAT gr, int order, FLOAT *fss, FLOAT *dfssdrs, FLOAT *
 }
 
 
-void func_eab(FLOAT mu, int order, FLOAT *eab, FLOAT *deabdmu)
+static void func_eab(FLOAT mu, int order, FLOAT *eab, FLOAT *deabdmu)
 {
   FLOAT mu12, eei, eei1, ff_n, ff_d, ff, deeidmu, deei1dmu, dffdmu;
 

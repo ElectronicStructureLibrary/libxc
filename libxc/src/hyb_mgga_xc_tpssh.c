@@ -24,7 +24,7 @@
 #define XC_HYB_MGGA_XC_TPSSH       457 /*    TPSS hybrid */
 #define XC_HYB_MGGA_XC_REVTPSSH    458 /* revTPSS hybrid */
 
-void
+static void
 hyb_mgga_xc_tpssh_init(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_MGGA_X_TPSS, XC_MGGA_C_TPSS};
@@ -56,7 +56,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_tpssh) = {
 };
 
 
-void
+static void
 hyb_mgga_xc_revtpssh_init(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_MGGA_X_REVTPSS, XC_MGGA_C_REVTPSS};

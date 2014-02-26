@@ -71,6 +71,7 @@ endif
 
   # this is a hack to go around buggy libtool/automake versions
   libxcf90_la_LIBTOOLFLAGS = --tag=F77
+  EXTRA_libxcf90_la_DEPENDENCIES = libxc.la
 endif
 
 # this is a hack to go around buggy libtool/automake versions

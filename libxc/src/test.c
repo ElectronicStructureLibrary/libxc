@@ -36,7 +36,7 @@ void test_integration()
   double a, b, result;
 
   for(b=1e-8; b<5; b+=0.001){
-    result = integrate(func, NULL, a, b);
+    result = xc_integrate(func, NULL, a, b);
     printf("%lf %lf\n", b, result);
   }
 }

@@ -105,8 +105,8 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
 
     if(R == 0.0) continue;
 
-    int1[is] = integrate(func1, (void *)(&interaction), 0.0, R);
-    int2[is] = integrate(func2, (void *)(&interaction), 0.0, R);
+    int1[is] = XC(integrate)(func1, (void *)(&interaction), 0.0, R);
+    int2[is] = XC(integrate)(func2, (void *)(&interaction), 0.0, R);
 
     r->zk -= (1.0 + spin_sign[is]*r->zeta) *
       (int1[is] - int2[is]/R);

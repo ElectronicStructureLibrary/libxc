@@ -34,7 +34,7 @@
 #define FALSE 0
 #define TRUE 1
 
-FLOAT integrate(integr_fn func, void *ex, FLOAT a, FLOAT b)
+FLOAT XC(integrate)(integr_fn func, void *ex, FLOAT a, FLOAT b)
 {
   FLOAT epsabs, epsrel, result, abserr, *alist, *blist, *rlist, *elist;
   int limit, neval, ierr, *iord, last;
@@ -54,7 +54,7 @@ FLOAT integrate(integr_fn func, void *ex, FLOAT a, FLOAT b)
   elist = (FLOAT *)malloc(limit*sizeof(FLOAT));
   iord  = (int   *)malloc(limit*sizeof(int));
 
-  rdqagse(func, ex, &a, &b, &epsabs, &epsrel, &limit, &result, &abserr, &neval, &ierr,
+  XC(rdqagse)(func, ex, &a, &b, &epsabs, &epsrel, &limit, &result, &abserr, &neval, &ierr,
 	    alist, blist, rlist, elist, iord, &last);
 
   free(alist);
@@ -75,7 +75,7 @@ static void rdqpsrt(int *, int *, int *, FLOAT *, FLOAT *, int *, int *);
 
 static void rdqelg(int *, FLOAT *, FLOAT *, FLOAT *, FLOAT *, int *);
 
-void rdqagse(integr_fn f, void *ex, FLOAT *a, FLOAT *b, 
+void XC(rdqagse)(integr_fn f, void *ex, FLOAT *a, FLOAT *b, 
 	     FLOAT *epsabs, FLOAT *epsrel, int *limit, FLOAT *result,
 	     FLOAT *abserr, int *neval, int *ier, FLOAT *alist__,
 	     FLOAT *blist, FLOAT *rlist, FLOAT *elist, int *iord, int *last)

@@ -57,7 +57,7 @@ float  asinhf(float  x);
 #define GSL_DBL_MIN        2.2250738585072014e-308
 
 /* special functions */
-double lambert_w(double z);
+FLOAT XC(lambert_w)(FLOAT z);
 
 /* we define this function here, so it can be properly inlined by all compilers */
 static inline double

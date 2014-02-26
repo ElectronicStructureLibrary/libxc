@@ -28,39 +28,57 @@
          Adv. in Comp. Math. 5(4):329-359. 
 */
 
-double lambert_w(double z)
+FLOAT XC(lambert_w)(FLOAT z)
 {
-  double result;
+  FLOAT w;
   int i;
 
-  /* If z too low, go with the first term of the power expansion, z */
-  if(z < 1.0e-20)
-    return z;
+  /* Sanity check - function is only defined for z >= -1/e */
+  if(z + 1.0/M_E < -10*FLOAT_EPSILON) {
+    fprintf(stderr,"Error - Lambert function called with argument z = %e.\n",z);
+    exit(1);
+  } else if(z < -1.0/M_E)
+    /* Value of W(x) at x=-1/e is -1 */
+    return -1.0;
+  
+  /* If z is small, go with the first terms of the power expansion
+     (if z smaller than cube root of epsilon, z^4 will be zero to
+     machine precision).
+   */
+  if(ABS(z) < CBRT(FLOAT_EPSILON))
+    return z - z*z + 1.5*z*z*z;
 
-  /* Inital guess */
-  if(fabs(z + 1.0/M_E) > 1.45){
-    /* Asymptotic expansion at 0 and Inf */
-    result = log(z);
-    result = result - log(result);
-  }else{
-    /* Series expansion about -1/e to first order */
-    result = sqrt(2.0*M_E*z + 2.0) - 1.0;
+  /* Initial guess. */
+  if(z <= -0.3140862435046707) { /* Point where sqrt and Taylor polynomials match */
+    /* Near the branching point: first terms in eqn (4.22) */
+    w = SQRT(2.0*M_E*z + 2.0) - 1.0;
+    
+  } else if(z <= 1.149876485041417) { /* Point where Taylor and log expansion match */
+
+    /* Taylor series around origin */
+    w = z - z*z + 1.5*z*z*z;
+
+  } else {
+    /* Asymptotic expansion */
+    FLOAT lnz = LOG(z);
+
+    w = lnz - LOG(lnz);
   }
 
   /* Find result through iteration */
   for(i=0; i<10; i++){
-    double p, t;
-
-    p = exp(result);
-    t = result*p - z;
-    if( result != -1.0 )
-      t = t/(p*(result + 1.0) - 0.5*(result + 2.0)*t/(result + 1.0));
+    FLOAT expmw, dw;
+    expmw = EXP(-w);
+    
+    /* Halley's equation, (5.9) in Corless et al */
+    if( w != -1.0 )
+      dw = - (w - z*expmw) / ( w + 1.0 - (w + 2.0)/(2.0*w + 2.0)*(w - z*expmw) );
     else
-      t = 0.0;
+      dw = 0.0;
 
-    result = result - t;
-    if(fabs(t) < (2.48e-14)*(1.0 + fabs(result)))
-      return result;
+    w += dw;
+    if(ABS(dw) < 10*FLOAT_EPSILON*(1.0 + ABS(w)))
+      return w;
   }
 
   /* This should never happen! */

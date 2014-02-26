@@ -50,7 +50,7 @@ void XC(gga_x_am05_enhance)
   ss2 = ss*ss;
 
   lam_x  = ss*SQRT(ss)/(2.0*SQRT(6.0));
-  ww     = (FLOAT)lambert_w((double)lam_x);
+  ww     = XC(lambert_w)(lam_x);
   ww13   = CBRT(ww);
 
   z_t    = (M_CBRT9/M_CBRT4)*ww13*ww13;

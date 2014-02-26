@@ -92,8 +92,8 @@ static inline FLOAT expint_Ei_scaled(const FLOAT x)  { return -XC(expint_e1_impl
 
 /* integration */
 typedef void integr_fn(FLOAT *x, int n, void *ex);
-FLOAT integrate(integr_fn func, void *ex, FLOAT a, FLOAT b);
-void rdqagse(integr_fn f, void *ex, FLOAT *a, FLOAT *b, 
+FLOAT XC(integrate)(integr_fn func, void *ex, FLOAT a, FLOAT b);
+void XC(rdqagse)(integr_fn f, void *ex, FLOAT *a, FLOAT *b, 
 	     FLOAT *epsabs, FLOAT *epsrel, int *limit, FLOAT *result,
 	     FLOAT *abserr, int *neval, int *ier, FLOAT *alist__,
 	     FLOAT *blist, FLOAT *rlist, FLOAT *elist, int *iord, int *last);

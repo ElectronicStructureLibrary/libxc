@@ -19,6 +19,12 @@
 ##
 ## $Id: Makefile.am 2433 2006-09-28 11:06:54Z marques $
 
+bin_PROGRAMS = xc-info
+
+xc_info_SOURCES = xc-info.c
+xc_info_LDADD = -lxc -lm
+EXTRA_xc_info_DEPENDENCIES = libxc.la
+
 lib_LTLIBRARIES = libxc.la
 
 libxc_la_FUNC_SOURCES = \

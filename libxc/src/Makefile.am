@@ -22,8 +22,8 @@
 bin_PROGRAMS = xc-info
 
 xc_info_SOURCES = xc-info.c
-xc_info_LDADD = -lxc -lm
-EXTRA_xc_info_DEPENDENCIES = libxc.la
+xc_info_LDFLAGS = -lm
+xc_info_LDADD = libxc.la
 
 lib_LTLIBRARIES = libxc.la
 
@@ -74,10 +74,10 @@ endif
 
   # libtool stuff
   libxcf90_la_LDFLAGS = -version-info $(XC_LT_VERSION)
+  libxcf90_la_LIBADD = libxc.la
 
   # this is a hack to go around buggy libtool/automake versions
   libxcf90_la_LIBTOOLFLAGS = --tag=F77
-  EXTRA_libxcf90_la_DEPENDENCIES = libxc.la
 endif
 
 # this is a hack to go around buggy libtool/automake versions

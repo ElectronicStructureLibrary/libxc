@@ -120,7 +120,7 @@ func(const XC(func_type) *p, XC(mgga_work_x_t) *r)
   
   y = XC(mgga_x_2d_prhg_get_y)(C);
   
-  v_PRHG = M_PI*bessel_I0(y/2.0);
+  v_PRHG = M_PI*XC(bessel_I0)(y/2.0);
   v_PRHG /= X_FACTOR_2D_C;
 
   if (p->info->number == XC_MGGA_X_2D_PRHG07) {

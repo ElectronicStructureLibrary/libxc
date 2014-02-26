@@ -94,7 +94,7 @@ XC(mix_init)(XC(func_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mi
 }
 
 xc_gga_enhancement_t
-get_gga_enhancement_factor(int func_id)
+XC(get_gga_enhancement_factor)(int func_id)
 {
   switch(func_id){
 

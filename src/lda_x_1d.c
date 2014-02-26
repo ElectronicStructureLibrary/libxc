@@ -62,7 +62,7 @@ static inline FLOAT FT_inter(FLOAT x, int interaction)
     FLOAT x2 = x*x;
     return expint_e1(x2)*EXP(x2);
   }else
-    return 2.0*bessel_K0(x); 
+    return 2.0*XC(bessel_K0)(x); 
 }
 
 

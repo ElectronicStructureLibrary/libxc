@@ -261,7 +261,7 @@ int main(int argc, char *argv[])
       break;
 
     default:
-      fprintf(stderr,"Family %i not supported by xc-get_data.\nEnding program.\n");
+      fprintf(stderr,"Family %i not supported by xc-get_data.\nEnding program.\n",func.info->family);
       exit(1);
     }
 

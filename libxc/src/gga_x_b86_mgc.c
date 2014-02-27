@@ -29,7 +29,7 @@ void XC(gga_x_b86_mgc_enhance)
   static const FLOAT beta  = 0.00375;
   static const FLOAT gamma = 0.007;
   
-  FLOAT dd, ddp, f1, f2, df1, df2, d2f1, d2f2, d3f1, d3f2;
+  FLOAT dd, f1, f2, df1, df2, d2f1, d2f2, d3f1, d3f2;
 
   dd    = 1.0 + gamma*x*x;
 

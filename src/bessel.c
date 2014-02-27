@@ -73,7 +73,7 @@ FLOAT XC(bessel_I0_scaled)(const FLOAT x)
 */
 FLOAT XC(bessel_I0)(const FLOAT x)
 {
-  FLOAT y = fabs(x), r = 0.0;
+  FLOAT y = ABS(x), r = 0.0;
 
   if(y < 2.0*SQRT_FLOAT_EPSILON)
     r = 1.0;
@@ -114,7 +114,7 @@ FLOAT XC(bessel_I1_scaled)(const FLOAT x)
 {
   const FLOAT xmin    = 2.0 * FLOAT_MIN;
   const FLOAT x_small = 2.0 * M_SQRT2 * SQRT_FLOAT_EPSILON;
-  const FLOAT y = fabs(x);
+  const FLOAT y = ABS(x);
   FLOAT r = 0.0;
 
   if(y == 0.0)
@@ -141,7 +141,7 @@ FLOAT XC(bessel_I1)(const FLOAT x)
 {
   const FLOAT xmin    = 2.0 * FLOAT_MIN;
   const FLOAT x_small = 2.0 * M_SQRT2 * SQRT_FLOAT_EPSILON;
-  const FLOAT y = fabs(x);
+  const FLOAT y = ABS(x);
   FLOAT r = 0.0;
 
   if(y == 0.0)

@@ -509,5 +509,6 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_mol) = {
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init, 
   NULL, NULL,
-  work_gga_x
+  work_gga_x,
+  NULL
 };

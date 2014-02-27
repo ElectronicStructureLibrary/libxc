@@ -69,7 +69,7 @@ static FLOAT
 br_newt_raph(FLOAT a, FLOAT tol,  FLOAT * res, int *ierr)
 {
   int count;
-  double x, f;
+  FLOAT x, f;
   static int max_iter = 50;
 
    *ierr = 1;
@@ -81,7 +81,7 @@ br_newt_raph(FLOAT a, FLOAT tol,  FLOAT * res, int *ierr)
 
    count = 0;
    do {
-     double arg, eee, xm2, fp;
+     FLOAT arg, eee, xm2, fp;
 
      xm2 = x - 2.0;
      arg = 2.0*x/3.0;
@@ -91,10 +91,10 @@ br_newt_raph(FLOAT a, FLOAT tol,  FLOAT * res, int *ierr)
      fp = eee*(1.0 - 2.0/3.0*x) - 1.0;
 
      x -= f/fp;
-     x  = fabs(x);
+     x  = ABS(x);
 
      count ++;
-     *res = fabs(f);
+     *res = ABS(f);
    } while((*res > tol) && (count < max_iter));
 
    if(count == max_iter) *ierr=0; 
@@ -134,7 +134,7 @@ br_bisect(FLOAT a, FLOAT tol, int *ierr) {
     if(f < 0.0) x2 = x; 
 	 	 
     count++; 
-  }while((fabs(f) > tol)  && (count < max_iter)); 
+  }while((ABS(f) > tol)  && (count < max_iter)); 
  	 
   if(count == max_iter) *ierr=0;  
   return x; 

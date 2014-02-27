@@ -78,11 +78,11 @@ XC(cheb_eval)(const FLOAT x, const FLOAT *cs, const int N)
 }
 
 FLOAT XC(bessel_I0_scaled)(const FLOAT x);
-FLOAT bessel_I0(const FLOAT x);
-FLOAT bessel_K0_scaled(const FLOAT x);
-FLOAT bessel_K0(const FLOAT x);
-FLOAT bessel_K1_scaled(const FLOAT x);
-FLOAT bessel_K1(const FLOAT x);
+FLOAT XC(bessel_I0)(const FLOAT x);
+FLOAT XC(bessel_K0_scaled)(const FLOAT x);
+FLOAT XC(bessel_K0)(const FLOAT x);
+FLOAT XC(bessel_K1_scaled)(const FLOAT x);
+FLOAT XC(bessel_K1)(const FLOAT x);
 
 FLOAT XC(expint_e1_impl)(const FLOAT x, const int scale);
 static inline FLOAT expint_e1(const FLOAT x)         { return  XC(expint_e1_impl)( x, 0); }

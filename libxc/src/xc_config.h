@@ -1,4 +1,4 @@
-#if SINGLE_PRECISION
+#ifdef SINGLE_PRECISION
 #  define FLOAT float
 #  define POW   powf
 #  define LOG   logf

@@ -80,6 +80,11 @@ static FLOAT AE14_data[26] = {
   -0.00000000000000005
 };
 
+#ifdef SINGLE_PRECISION
+/* May need double precision with large arguments */
+double xc_expint_e1_impl(const double x, const int scale);
+#endif
+
 /* implementation for E1, allowing for scaling by exp(x) */
 FLOAT XC(expint_e1_impl)(const FLOAT x, const int scale){
   const FLOAT xmaxt = -LOG_FLOAT_MIN;        /* XMAXT = -LOG (R1MACH(1)) */
@@ -96,9 +101,9 @@ FLOAT XC(expint_e1_impl)(const FLOAT x, const int scale){
   }else if(x <= -1.0){
     const FLOAT scale_factor = ( scale ? EXP(x) : 1.0 );
     e1 = scale_factor * (-LOG(ABS(x)) + XC(cheb_eval)((2.0*x + 5.0)/3.0, E11_data, 19));
-  }else if(x == 0.0)
+  }else if(x == 0.0) {
     fprintf(stderr, "Argument can not be 0.0 in expint_e1\n");
-  else if(x <= 1.0){
+  }else if(x <= 1.0){
     const FLOAT scale_factor = ( scale ? EXP(x) : 1.0 );
     e1 = scale_factor*(-LOG(ABS(x)) - 0.6875 + x + XC(cheb_eval)(x, E12_data, 16));
   }else if(x <= 4.0){
@@ -108,7 +113,11 @@ FLOAT XC(expint_e1_impl)(const FLOAT x, const int scale){
     const FLOAT s = 1.0/x * ( scale ? 1.0 : EXP(-x) );
     e1 = s * (1.0 + XC(cheb_eval)(8.0/x - 1.0, AE14_data, 26));
   }else
+#ifdef SINGLE_PRECISION
+    return xc_expint_e1_impl(x,scale);
+#else
     fprintf(stderr, "Argument is larger than xmax in expint_e1\n");
+#endif
 
   return e1;
 }

@@ -19,7 +19,7 @@
 ##
 ## $Id$
 
-noinst_PROGRAMS = xc-get_data xc-consistency xc-regression
+noinst_PROGRAMS = xc-get_data xc-consistency xc-regression xc-error
 dist_noinst_SCRIPTS = xc-run_testsuite xc-reference.pl
 TESTS = xc-run_testsuite
 TESTS_ENVIRONMENT = buildir=$(top_builddir)/testsuite
@@ -36,6 +36,10 @@ xc_regression_SOURCES = xc-regression.c
 xc_regression_LDADD = -L../src/ -lxc -lm
 xc_regression_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
 
-dist_noinst_DATA = $(srcdir)/df_repo/*.data $(srcdir)/regression/*.data.bz2
+xc_error_SOURCES = xc-error.c
+xc_error_LDADD = -lm
+xc_error_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
+
+dist_noinst_DATA = $(srcdir)/df_repo/*.data $(srcdir)/regression/*.pol.bz2 $(srcdir)/regression/*.unpol.bz2
 
 CLEANFILES = *~ *.bak

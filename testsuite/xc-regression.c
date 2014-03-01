@@ -236,6 +236,22 @@ values_t read_data(const char *file, int nspin) {
 int main(int argc, char *argv[])
 {
   int func_id, nspin, i;
+  
+#ifdef SINGLE_PRECISION
+  static const char efmt[] =" % .7e";
+  static const char efmt2[]=" % .7e % .7e";
+  static const char efmt3[]=" % .7e % .7e % .7e";
+  static const char sfmt[] =" %14s";
+  static const char sfmt2[]=" %14s %14s";
+  static const char sfmt3[]=" %14s %14s %14s";
+#else
+  static const char efmt[] =" % .16e";
+  static const char efmt2[]=" % .16e % .16e";
+  static const char efmt3[]=" % .16e % .16e % .16e";
+  static const char sfmt[] =" %23s";
+  static const char sfmt2[]=" %23s %23s";
+  static const char sfmt3[]=" %23s %23s %23s";
+#endif
 
   if(argc != 5) {
     fprintf(stderr, "Usage:\n%s funct input output.unpol output.pol\n", argv[0]);
@@ -328,41 +344,41 @@ int main(int argc, char *argv[])
 
     /* energy */
     if(flags & XC_FLAGS_HAVE_EXC)
-      fprintf(out," %23s","zk");
+      fprintf(out,sfmt,"zk");
     
     /* LDA part */
     if(nspin==XC_POLARIZED) {
       /* first order derivatives */
       if(flags & XC_FLAGS_HAVE_VXC) {
-	fprintf(out," %23s %23s","vrho(a)","vrho(b)");
+	fprintf(out,sfmt2,"vrho(a)","vrho(b)");
 	if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA))
-	  fprintf(out," %23s %23s %23s","vsigma(aa)","vsigma(ab)","vsigma(bb)");
+	  fprintf(out,sfmt3,"vsigma(aa)","vsigma(ab)","vsigma(bb)");
 	if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	  fprintf(out," %23s %23s","vlapl(a)","vlapl(b)");
-	  fprintf(out," %23s %23s","vtau(a)","vtau(b)");
+	  fprintf(out,sfmt2,"vlapl(a)","vlapl(b)");
+	  fprintf(out,sfmt2,"vtau(a)","vtau(b)");
 	}
       }
       
       /* second-order derivatives */
       if(flags & XC_FLAGS_HAVE_FXC) {
-	fprintf(out," %23s %23s %23s","v2rho(aa)","v2rho(ab)","v2rho(bb)");
+	fprintf(out,sfmt3,"v2rho(aa)","v2rho(ab)","v2rho(bb)");
 	if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	  fprintf(out," %23s %23s %23s","v2sigma2(aa-aa)","v2sigma2(aa-ab)","v2sigma2(aa-bb)");
-	  fprintf(out," %23s %23s %23s","v2sigma2(ab-ab)","v2sigma2(ab-bb)","v2sigma2(bb-bb)");
-	  fprintf(out," %23s %23s %23s","v2rho(a)sigma(aa)","v2rho(a)sigma(ab)","v2rho(a)sigma(bb)");
-	  fprintf(out," %23s %23s %23s","v2rho(b)sigma(aa)","v2rho(b)sigma(ab)","v2rho(b)sigma(bb)");
+	  fprintf(out,sfmt3,"v2sigma2(aa-aa)","v2sigma2(aa-ab)","v2sigma2(aa-bb)");
+	  fprintf(out,sfmt3,"v2sigma2(ab-ab)","v2sigma2(ab-bb)","v2sigma2(bb-bb)");
+	  fprintf(out,sfmt3,"v2rho(a)sigma(aa)","v2rho(a)sigma(ab)","v2rho(a)sigma(bb)");
+	  fprintf(out,sfmt3,"v2rho(b)sigma(aa)","v2rho(b)sigma(ab)","v2rho(b)sigma(bb)");
 	}
 	
 	if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	  fprintf(out," %23s %23s %23s","v2lapl2(aa)","v2lapl2(ab)","v2lapl2(bb)");
-	  fprintf(out," %23s %23s %23s","v2tau2(aa)","v2tau2(ab)","v2tau2(bb)");
-	  fprintf(out," %23s %23s %23s","v2rholapl(aa)","v2rholapl(ab)","v2rholapl(bb)");
-	  fprintf(out," %23s %23s %23s","v2rhotau(aa)","v2rhotau(ab)","v2rhotau(bb)");
-	  fprintf(out," %23s %23s %23s","v2lapltau(aa)","v2lapltau(ab)","v2lapltau(bb)");
-	  fprintf(out," %23s %23s %23s","v2sigma(aa)tau(a)","v2sigma(aa)tau(b)","v2sigma(ab)tau(a)");
-	  fprintf(out," %23s %23s %23s","v2sigma(ab)tau(b)","v2sigma(bb)tau(a)","v2sigma(bb)tau(b)");
-	  fprintf(out," %23s %23s %23s","v2sigma(aa)lapl(a)","v2sigma(aa)lapl(b)","v2sigma(ab)lapl(a)");
-	  fprintf(out," %23s %23s %23s","v2sigma(ab)lapl(b)","v2sigma(bb)lapl(a)","v2sigma(bb)lapl(b)");
+	  fprintf(out,sfmt3,"v2lapl2(aa)","v2lapl2(ab)","v2lapl2(bb)");
+	  fprintf(out,sfmt3,"v2tau2(aa)","v2tau2(ab)","v2tau2(bb)");
+	  fprintf(out,sfmt3,"v2rholapl(aa)","v2rholapl(ab)","v2rholapl(bb)");
+	  fprintf(out,sfmt3,"v2rhotau(aa)","v2rhotau(ab)","v2rhotau(bb)");
+	  fprintf(out,sfmt3,"v2lapltau(aa)","v2lapltau(ab)","v2lapltau(bb)");
+	  fprintf(out,sfmt3,"v2sigma(aa)tau(a)","v2sigma(aa)tau(b)","v2sigma(ab)tau(a)");
+	  fprintf(out,sfmt3,"v2sigma(ab)tau(b)","v2sigma(bb)tau(a)","v2sigma(bb)tau(b)");
+	  fprintf(out,sfmt3,"v2sigma(aa)lapl(a)","v2sigma(aa)lapl(b)","v2sigma(ab)lapl(a)");
+	  fprintf(out,sfmt3,"v2sigma(ab)lapl(b)","v2sigma(bb)lapl(a)","v2sigma(bb)lapl(b)");
 	}
       }      
      
@@ -374,31 +390,31 @@ int main(int argc, char *argv[])
 
       /* first order derivatives */
       if(flags & XC_FLAGS_HAVE_VXC) {
-	fprintf(out," %23s","vrho");
+	fprintf(out,sfmt,"vrho");
 	if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA))
-	  fprintf(out," %23s","vsigma");
+	  fprintf(out,sfmt,"vsigma");
 	if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	  fprintf(out," %23s","vlapl");
-	  fprintf(out," %23s","vtau");
+	  fprintf(out,sfmt,"vlapl");
+	  fprintf(out,sfmt,"vtau");
 	}
       }
       
       /* second-order derivatives */
       if(flags & XC_FLAGS_HAVE_FXC) {
-	fprintf(out," %23s","v2rho");
+	fprintf(out,sfmt,"v2rho");
 	if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	  fprintf(out," %23s","v2sigma2");
-	  fprintf(out," %23s","v2rhosigma");
+	  fprintf(out,sfmt,"v2sigma2");
+	  fprintf(out,sfmt,"v2rhosigma");
 	}
 	
 	if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	  fprintf(out," %23s","v2lapl2");
-	  fprintf(out," %23s","v2tau2");
-	  fprintf(out," %23s","v2rholapl");
-	  fprintf(out," %23s","v2rhotau");
-	  fprintf(out," %23s","v2lapltau");
-	  fprintf(out," %23s","v2sigmatau");
-	  fprintf(out," %23s","v2sigmalapl");
+	  fprintf(out,sfmt,"v2lapl2");
+	  fprintf(out,sfmt,"v2tau2");
+	  fprintf(out,sfmt,"v2rholapl");
+	  fprintf(out,sfmt,"v2rhotau");
+	  fprintf(out,sfmt,"v2lapltau");
+	  fprintf(out,sfmt,"v2sigmatau");
+	  fprintf(out,sfmt,"v2sigmalapl");
 	}
       }
       
@@ -412,41 +428,41 @@ int main(int argc, char *argv[])
     for(i=0;i<d.n;i++) {
       /* energy */
       if(flags & XC_FLAGS_HAVE_EXC)
-	fprintf(out," % .16e",d.zk[i]);
+	fprintf(out,efmt,d.zk[i]);
       
       /* LDA part */
       if(nspin==XC_POLARIZED) {
 	/* first order derivatives */
 	if(flags & XC_FLAGS_HAVE_VXC) {
-	  fprintf(out," % .16e % .16e",d.vrho[2*i],d.vrho[2*i+1]);
+	  fprintf(out,efmt2,d.vrho[2*i],d.vrho[2*i+1]);
 	  if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA))
-	    fprintf(out," % .16e % .16e % .16e",d.vsigma[3*i],d.vsigma[3*i+1],d.vsigma[3*i+2]);
+	    fprintf(out,efmt3,d.vsigma[3*i],d.vsigma[3*i+1],d.vsigma[3*i+2]);
 	  if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	    fprintf(out," % .16e % .16e",d.vlapl[2*i],d.vlapl[2*i+1]);
-	    fprintf(out," % .16e % .16e",d.vtau[2*i],d.vtau[2*i+1]);
+	    fprintf(out,efmt2,d.vlapl[2*i],d.vlapl[2*i+1]);
+	    fprintf(out,efmt2,d.vtau[2*i],d.vtau[2*i+1]);
 	  }
 	}
       
 	/* second-order derivatives */
 	if(flags & XC_FLAGS_HAVE_FXC) {
-	  fprintf(out," % .16e % .16e % .16e",d.v2rho2[3*i],d.v2rho2[3*i+1],d.v2rho2[3*i+2]);
+	  fprintf(out,efmt3,d.v2rho2[3*i],d.v2rho2[3*i+1],d.v2rho2[3*i+2]);
 	  if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	    fprintf(out," % .16e % .16e % .16e",d.v2sigma2[6*i],d.v2sigma2[6*i+1],d.v2sigma2[6*i+2]);
-	    fprintf(out," % .16e % .16e % .16e",d.v2sigma2[6*i+3],d.v2sigma2[6*i+4],d.v2sigma2[6*i+5]);
-	    fprintf(out," % .16e % .16e % .16e",d.v2rhosigma[6*i],d.v2rhosigma[6*i+1],d.v2rhosigma[6*i+2]);
-	    fprintf(out," % .16e % .16e % .16e",d.v2rhosigma[6*i+3],d.v2rhosigma[6*i+4],d.v2rhosigma[6*i+5]);
+	    fprintf(out,efmt3,d.v2sigma2[6*i],d.v2sigma2[6*i+1],d.v2sigma2[6*i+2]);
+	    fprintf(out,efmt3,d.v2sigma2[6*i+3],d.v2sigma2[6*i+4],d.v2sigma2[6*i+5]);
+	    fprintf(out,efmt3,d.v2rhosigma[6*i],d.v2rhosigma[6*i+1],d.v2rhosigma[6*i+2]);
+	    fprintf(out,efmt3,d.v2rhosigma[6*i+3],d.v2rhosigma[6*i+4],d.v2rhosigma[6*i+5]);
 	  }
 	
 	  if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	    fprintf(out," % .16e % .16e % .16e",d.v2lapl2[3*i],d.v2lapl2[3*i+1],d.v2lapl2[3*i+2]);
-	    fprintf(out," % .16e % .16e % .16e",d.v2tau2[3*i],d.v2tau2[3*i+1],d.v2tau2[3*i+2]);
-	    fprintf(out," % .16e % .16e % .16e",d.v2rholapl[3*i],d.v2rholapl[3*i+1],d.v2rholapl[3*i+2]);
-	    fprintf(out," % .16e % .16e % .16e",d.v2rhotau[3*i],d.v2rhotau[3*i+1],d.v2rhotau[3*i+2]);
-	    fprintf(out," % .16e % .16e % .16e",d.v2lapltau[3*i],d.v2lapltau[3*i+1],d.v2lapltau[3*i+2]);
-	    fprintf(out," % .16e % .16e % .16e",d.v2sigmatau[3*i],d.v2sigmatau[3*i+1],d.v2sigmatau[3*i+2]);
-	    fprintf(out," % .16e % .16e % .16e",d.v2sigmatau[3*i+3],d.v2sigmatau[3*i+4],d.v2sigmatau[3*i+5]);
-	    fprintf(out," % .16e % .16e % .16e",d.v2sigmalapl[3*i],d.v2sigmalapl[3*i+1],d.v2sigmalapl[3*i+2]);
-	    fprintf(out," % .16e % .16e % .16e",d.v2sigmalapl[3*i+3],d.v2sigmalapl[3*i+4],d.v2sigmalapl[3*i+5]);
+	    fprintf(out,efmt3,d.v2lapl2[3*i],d.v2lapl2[3*i+1],d.v2lapl2[3*i+2]);
+	    fprintf(out,efmt3,d.v2tau2[3*i],d.v2tau2[3*i+1],d.v2tau2[3*i+2]);
+	    fprintf(out,efmt3,d.v2rholapl[3*i],d.v2rholapl[3*i+1],d.v2rholapl[3*i+2]);
+	    fprintf(out,efmt3,d.v2rhotau[3*i],d.v2rhotau[3*i+1],d.v2rhotau[3*i+2]);
+	    fprintf(out,efmt3,d.v2lapltau[3*i],d.v2lapltau[3*i+1],d.v2lapltau[3*i+2]);
+	    fprintf(out,efmt3,d.v2sigmatau[3*i],d.v2sigmatau[3*i+1],d.v2sigmatau[3*i+2]);
+	    fprintf(out,efmt3,d.v2sigmatau[3*i+3],d.v2sigmatau[3*i+4],d.v2sigmatau[3*i+5]);
+	    fprintf(out,efmt3,d.v2sigmalapl[3*i],d.v2sigmalapl[3*i+1],d.v2sigmalapl[3*i+2]);
+	    fprintf(out,efmt3,d.v2sigmalapl[3*i+3],d.v2sigmalapl[3*i+4],d.v2sigmalapl[3*i+5]);
 	  }
 	}      
      
@@ -458,31 +474,31 @@ int main(int argc, char *argv[])
 
 	/* first order derivatives */
 	if(flags & XC_FLAGS_HAVE_VXC) {
-	  fprintf(out," % .16e",d.vrho[i]);
+	  fprintf(out,efmt,d.vrho[i]);
 	  if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA))
-	    fprintf(out," % .16e",d.vsigma[i]);
+	    fprintf(out,efmt,d.vsigma[i]);
 	  if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	    fprintf(out," % .16e",d.vlapl[i]);
-	    fprintf(out," % .16e",d.vtau[i]);
+	    fprintf(out,efmt,d.vlapl[i]);
+	    fprintf(out,efmt,d.vtau[i]);
 	  }
 	}
       
 	/* second-order derivatives */
 	if(flags & XC_FLAGS_HAVE_FXC) {
-	  fprintf(out," % .16e",d.v2rho2[i]);
+	  fprintf(out,efmt,d.v2rho2[i]);
 	  if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	    fprintf(out," % .16e",d.v2sigma2[i]);
-	    fprintf(out," % .16e",d.v2rhosigma[i]);
+	    fprintf(out,efmt,d.v2sigma2[i]);
+	    fprintf(out,efmt,d.v2rhosigma[i]);
 	  }
 	
 	  if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	    fprintf(out," % .16e",d.v2lapl2[i]);
-	    fprintf(out," % .16e",d.v2tau2[i]);
-	    fprintf(out," % .16e",d.v2rholapl[i]);
-	    fprintf(out," % .16e",d.v2rhotau[i]);
-	    fprintf(out," % .16e",d.v2lapltau[i]);
-	    fprintf(out," % .16e",d.v2sigmatau[i]);
-	    fprintf(out," % .16e",d.v2sigmalapl[i]);
+	    fprintf(out,efmt,d.v2lapl2[i]);
+	    fprintf(out,efmt,d.v2tau2[i]);
+	    fprintf(out,efmt,d.v2rholapl[i]);
+	    fprintf(out,efmt,d.v2rhotau[i]);
+	    fprintf(out,efmt,d.v2lapltau[i]);
+	    fprintf(out,efmt,d.v2sigmatau[i]);
+	    fprintf(out,efmt,d.v2sigmalapl[i]);
 	  }
 	}
       

@@ -4,6 +4,7 @@
 #undef ABS
 #undef EXP
 #undef ERF
+#undef ERFC
 #undef SIN
 #undef COS
 #undef TAN

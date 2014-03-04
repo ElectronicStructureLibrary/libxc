@@ -311,7 +311,7 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
 	((36.0*(2.0*H + dHds*ss)/(AA12*SQRT(H/AA)) + 
 	  (1.0/DHs92) *(-8.0*AA*dDHsds*DHs3 - 105.0*dDHsds*EE - 30.0*CC*dDHsds*DHs*(1.0 + ss2*F) +
 			12.0*DHs2*(-BB*dDHsds + CC*ss*(dFds*ss + 2.0*F))) - 
-	  ((54.0*EXP(f94Hs2_A)*M_SQRTPI*ss*(2.0*H + dHds*ss)*erfc(sqrt(f94Hs2_A)))/AA12)));
+	  ((54.0*EXP(f94Hs2_A)*M_SQRTPI*ss*(2.0*H + dHds*ss)*ERFC(sqrt(f94Hs2_A)))/AA12)));
 
       dGb = (15.0*M_SQRTPI*ss*(4.0*DHs - 7.0*dDHsds*ss))/(32.0*DHs92);
 
@@ -380,7 +380,7 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
 
   /* Calculate exp(x)*f(x) depending on size of x */
   if(HsbwA94 < expfcutoff){
-    piexperf = M_PI*EXP(HsbwA94)*erfc(HsbwA9412);
+    piexperf = M_PI*EXP(HsbwA94)*ERFC(HsbwA9412);
     expei    = EXP(HsbwA94)*(-expint_e1(HsbwA94));
 
   }else{

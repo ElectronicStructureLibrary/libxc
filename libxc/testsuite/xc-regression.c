@@ -175,7 +175,6 @@ values_t read_data(const char *file, int nspin) {
   cp=fgets(buf,BUFSIZE,in);
   if(cp!=buf) {
     fprintf(stderr,"Error reading amount of data points.\n");
-    free_memory(data);
     exit(5);
   }
   nsucc=sscanf(buf,"%i",&data.n);

@@ -69,7 +69,6 @@ if COMPILE_FORTRAN
 if COMPILE_SINGLE
     nodist_libxc_la_SOURCES += xc_f_s.c libxc_s.f90
 endif
-  nodist_libxc_la_SOURCES += $(nodist_include_HEADERS)
 endif
 
 libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)	

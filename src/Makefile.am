@@ -65,22 +65,15 @@ if COMPILE_SINGLE
 endif
 
 if COMPILE_FORTRAN
-  lib_LTLIBRARIES += libxcf90.la
-
-  libxcf90_la_SOURCES = xc_f.c libxc_funcs.f90 libxc.f90
+  libxc_la_SOURCES += xc_f.c libxc_funcs.f90 libxc.f90
 if COMPILE_SINGLE
-    nodist_libxcf90_la_SOURCES = xc_f_s.c libxc_s.f90
+    nodist_libxc_la_SOURCES += xc_f_s.c libxc_s.f90
+endif
 endif
 
-  # libtool stuff
-  libxcf90_la_LDFLAGS = -version-info $(XC_LT_VERSION)
-  libxcf90_la_LIBADD = libxc.la
-
-  # this is a hack to go around buggy libtool/automake versions
-  libxcf90_la_LIBTOOLFLAGS = --tag=F77
-endif
-
+libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)	
 # this is a hack to go around buggy libtool/automake versions
+libxc_la_LIBTOOLFLAGS = --tag=F77
 LTFCCOMPILE = $(LIBTOOL) --mode=compile --tag=F77 $(FC) $(AM_FCFLAGS) $(FCFLAGS)
 FCLINK = $(LIBTOOL) --mode=link --tag=F77 $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) \
          $(AM_LDFLAGS) $(LDFLAGS) -o $@
@@ -142,14 +135,7 @@ CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 xc_funcs.h libxc_funcs.f90 funcs_lda.c funcs_gga.c funcs_hyb_gga.c funcs_mgga.c funcs_hyb_mgga.c funcs_key.c: get_funcs.pl
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)
 
-LTPREF = $(subst xc_f.lo,,$(firstword $(am_libxcf90_la_OBJECTS)))
-# Surprisingly, libtool/automake do not seem to provide a macro or variable for what the object names will be,
-# so we have to extract it ourselves. LTPREF=libxcf90_la-, or blank for older libtool/automake versions.
-# Produces these warnings on some systems. Does not seem to matter.
-#src/Makefile.am:140: subst xc_f.lo,,$(firstword $(am_libxcf90_la_OBJECTS: non-POSIX variable name
-#src/Makefile.am:140: (probably a GNU make extension)
-
-$(LIBFUNCMOD) : $(LTPREF)libxc_funcs.lo
+$(LIBFUNCMOD) libxc_funcs.o : libxc_funcs.f90
 
 libxc.f90 : libxc_master.F90
 	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc.f90

@@ -1,3 +1,977 @@
+2014-03-11 19:56  lehtola
+
+	* [r11866] testsuite/xc-regression.c: Fix icc warning caused by
+	  freeing uninitialized variable.
+
+2014-03-11 19:32  dstrubbe
+
+	* [r11865] src, testsuite: svn:ignore properties for new libxc
+	  executables.
+
+2014-03-04 08:52  lehtola
+
+	* [r11859] src/gga_x_wpbeh.c, src/xc_config.h, src/xc_unconfig.h:
+	  Macroize call to erfc in gga_x_wpbeh.
+
+2014-03-01 13:22  lehtola
+
+	* [r11849] testsuite/xc-regression.c: Use similar output precision
+	  to numerical precision in xc-regression.
+
+2014-03-01 11:47  lehtola
+
+	* [r11848] testsuite/regression/lda_x.pol.bz2,
+	  testsuite/regression/lda_x.unpol.bz2: Add lda reference files to
+	  avoid compile errors.
+
+2014-03-01 10:46  lehtola
+
+	* [r11847] testsuite/Makefile.am, testsuite/input,
+	  testsuite/input/BrOH, testsuite/input/BrOH+, testsuite/input/H,
+	  testsuite/input/Li, testsuite/input/README, testsuite/xc-error.c,
+	  testsuite/xc-regression.c, testsuite/xc-reset-regression,
+	  testsuite/xc-run_testsuite: Rewritten test routines. Still need
+	  updated reference data. Reasonable tolerances should be also
+	  determined.
+
+2014-03-01 10:44  lehtola
+
+	* [r11846] TODO: Add MCY functionals to TODO.
+
+2014-02-28 23:32  lehtola
+
+	* [r11845] src/expint_e1.c: Use double precision if necessary in
+	  expint_e1.
+
+2014-02-28 23:20  lehtola
+
+	* [r11844] src/xc_config.h: Fix bug in xc_config.h
+
+2014-02-27 13:35  lehtola
+
+	* [r11838] src/gga_x_b86_mgc.c, src/gga_x_pbe.c: Remove one unused
+	  variable and fix initialization of PBEmol exchange.
+
+2014-02-27 08:47  lehtola
+
+	* [r11837] src/util.h: Forgot to modify function declarations for
+	  Bessel functions.
+
+2014-02-27 08:25  lehtola
+
+	* [r11836] src/bessel.c, src/mgga_x_br89.c: Changed some fabs() to
+	  ABS().
+
+2014-02-27 07:27  lehtola
+
+	* [r11835] testsuite/xc-get_data.c: Added missing argument to
+	  fprintf.
+
+2014-02-26 20:50  lehtola
+
+	* [r11834] src/Makefile.am: Simplify Makefile by pulling out common
+	  declaration per David Strubbe's proposal.
+
+2014-02-26 20:36  lehtola
+
+	* [r11832] src/Makefile.am: If single precision enabled, double
+	  precision modules still need to be installed.
+
+2014-02-26 20:26  lehtola
+
+	* [r11831] src/integrate.c, src/lda_x_1d.c, src/test.c, src/util.h:
+	  Last fixes to --enable-single.
+
+2014-02-26 20:19  lehtola
+
+	* [r11830] src/bessel.c, src/expint_e1.c, src/gga_x_ityh.c,
+	  src/gga_x_sfat.c, src/lda_x_1d.c, src/mgga_x_2d_prhg07.c,
+	  src/test.c, src/util.c, src/util.h: More fixes to
+	  --enable-single.
+
+2014-02-26 19:47  lehtola
+
+	* [r11829] src/gga_c_ft97.c, src/hyb_mgga_xc_tpssh.c: Reduce scope
+	  of some internal functions to fix --enable-single.
+
+2014-02-26 19:13  lehtola
+
+	* [r11828] src/gga_x_am05.c, src/special_functions.c, src/util.h:
+	  Multiple precisions of Lambert W function.
+
+2014-02-26 17:28  lehtola
+
+	* [r11827] src/Makefile.am: Rewrite xc-info and libxcf90
+	  dependencies.
+
+2014-02-26 16:21  lehtola
+
+	* [r11826] testsuite/xc-get_data.c: Add support for hybrid mgga
+	  functionals in xc-get_data.
+
+2014-02-26 16:19  lehtola
+
+	* [r11825] src/Makefile.am, src/xc-info.c: Added xc-info tool.
+
+2014-02-26 16:15  lehtola
+
+	* [r11824] src/Makefile.am: Fix SMP build.
+
+2014-02-24 15:15  micael
+
+	* [r11817] src/mgga_x_2d_prhg07.c: Another patch from Susi Lehtola:
+	  mgga_x_2d_prhg07.c uses long double arithmetic, so one should use
+	  long double functions.
+
+2014-02-24 15:13  micael
+
+	* [r11816] src/gga_c_lm.c, src/gga_c_lyp.c, src/gga_c_p86.c,
+	  src/gga_c_pbe.c, src/gga_c_pw91.c, src/gga_c_sogga11.c,
+	  src/gga_c_tca.c, src/gga_c_wi.c, src/gga_x_2d_b88.c,
+	  src/gga_x_b88.c, src/gga_x_bpccac.c, src/gga_x_c09x.c,
+	  src/gga_x_ft97.c, src/gga_x_lb.c, src/gga_x_pw91.c,
+	  src/gga_x_rpbe.c, src/gga_x_sogga11.c, src/gga_x_wc.c,
+	  src/gga_x_wpbeh.c, src/lda_c_2d_amgb.c, src/lda_c_gombas.c,
+	  src/lda_c_hl.c, src/lda_c_ml1.c, src/lda_c_pw.c, src/lda_c_pz.c,
+	  src/lda_c_rc04.c, src/lda_c_rpa.c, src/lda_c_vwn.c, src/lda_x.c,
+	  src/lda_x_1d.c, src/mgga_c_cs.c, src/mgga_x_br89.c,
+	  src/xc_config.h, src/xc_unconfig.h: Patch from Susi Lehtola to
+	  use correct version of several functions when SINGLE_PRECISION is
+	  in use.
+
+2014-02-19 16:14  marques
+
+	* [r11814] src/Makefile.am, src/gga_c_ft97.c, src/gga_c_q2d.c,
+	  src/lda_c_2d_amgb.c, src/mgga_xc_otpss_d.c, src/test.c,
+	  src/util.h, src/work_gga_c.c, src/work_lda.c, src/work_mgga_x.c:
+	  Added the correlation part of the gga q2d. I have some doubts
+	  about this as there is at least one clear mistake in the paper
+	  started adding terms for kxc in the ggas. Still most of the terms
+	  are missing.
+
+2014-02-19 10:13  marques
+
+	* [r11813] src/gga_x_hjs.c, src/gga_x_wpbeh.c, src/mgga_c_pkzb.c,
+	  src/util.h: Fixed a couple of unitialized variables found by
+	  Jussi Lehtola
+
+2014-02-18 13:13  micael
+
+	* [r11812] NEWS, PACKAGING, configure.ac: * Tagging Libxc version
+	  2.0.3.
+
+2014-02-18 12:15  marques
+
+	* [r11811] src/Makefile.am, src/gga_x_q2d.c: Added functional
+	  gga_x_q2d
+
+2014-02-17 13:17  marques
+
+	* [r11807] src/work_mgga_c.c: Solves the bug that Susi Lehtola
+	  reported for the c_tpss.
+
+2014-02-17 10:52  marques
+
+	* [r11806] src/hyb_mgga_xc_tpssh.c, src/mgga_c_pkzb.c: Small
+	  correction of reference
+	  Now mgga_xc_revtpssh_init used revtpss correlation
+
+2014-02-17 10:19  marques
+
+	* [r11805] src/Makefile.am, src/hyb_mgga_xc_tpssh.c: Patch from
+	  Susi Lehtola that implements XC_HYB_MGGA_XC_REVTPSSH and
+	  XC_HYB_MGGA_XC_TPSSH.
+
+2014-02-05 00:45  dstrubbe
+
+	* [r11745] src/libxc_master.F90: The libxc fortran interface did
+	  not provide the constant XC_FAMILY_HYB_MGGA.
+
+2014-01-31 08:18  marques
+
+	* [r11694] src/gga_x_lg93.c: Bug fix: variable was not given a
+	  value. It sj=hould be zero, so I guess that most compilers were
+	  actually giving the right number... Thanks David ;)
+
+2013-12-17 14:42  marques
+
+	* [r11592] src/gga_x_pbe.c: Added the functional GGA_X_PBE_MOL.
+	  Patch by Susi Lehtola.
+
+2013-12-10 08:35  marques
+
+	* [r11568] src/gga_x_b86.c, src/mgga_x_br89.c: Bug found by Søren
+	  Smidstrup corrected (abs -> ABS)
+
+2013-11-22 12:06  marques
+
+	* [r11542] src/hyb_gga_xc_pbeh.c: Added variant of PBE0 with
+	  mixing=1/3
+
+2013-11-09 04:25  xavier
+
+	* [r11499] testsuite/xc-get_data.c: Converted a C++ style comment
+	  into a C style one.
+
+2013-11-07 13:06  marques
+
+	* [r11484] src/gga_c_wi.c, src/test.c, src/util.h,
+	  src/work_gga_c.c: First attempt at Kxc for the GGA correlations.
+	  For now, the WI functional is working. This is however a very
+	  simple functional with most of the dependencies missing. A lot of
+	  work is still left...
+
+2013-11-05 15:15  marques
+
+	* [r11472] src/gga_x_am05.c: Bug fix. David, can you check if the
+	  test is passed now?
+
+2013-10-30 15:20  marques
+
+	* [r11433] src/gga_x_ssb_sw.c, src/gga_x_vmt.c, src/util.c,
+	  src/util.h: SSB_SW and VMT also have Kxc. I finished all exchange
+	  GGA for which Kxc was relatively simple to calculate.
+
+2013-10-30 14:41  marques
+
+	* [r11432] src/gga_x_mpbe.c, src/gga_x_optx.c, src/gga_x_sogga11.c,
+	  src/util.c, src/util.h: Kxc for optx, mpbe, sogga11 and variants
+
+2013-10-30 13:32  marques
+
+	* [r11431] src/gga_x_dk87.c, src/gga_x_lv_rpw86.c, src/util.c,
+	  src/util.h: Added Kxc to lv_rpw86
+	  added missing flags to dk87 (thanks Micael)
+
+2013-10-30 12:58  marques
+
+	* [r11430] src/gga_x_herman.c, src/gga_x_lg93.c, src/util.c,
+	  src/util.h: Added Kxc for hermand and lg93
+
+2013-10-30 12:30  marques
+
+	* [r11429] src/gga_x_dk87.c, src/util.c, src/util.h: Kxc for
+	  DK87_R1 and DK87_R2
+
+2013-10-30 12:17  marques
+
+	* [r11428] src/gga_x_am05.c, src/gga_x_wc.c, src/util.c,
+	  src/util.h: Added Kxc to X_AM05
+
+2013-10-22 11:33  marques
+
+	* [r11378] src/mgga_x_ms.c: Updated reference
+
+2013-10-18 08:14  marques
+
+	* [r11360] src/gga_x_b86_mgc.c, src/gga_x_bpccac.c,
+	  src/gga_x_c09x.c, src/gga_x_htbs.c, src/gga_x_wc.c, src/test.c,
+	  src/util.c, src/util.h: KXC for C08x plus a series of bug
+	  corrections.
+
+2013-10-18 07:33  marques
+
+	* [r11359] src/gga_x_b86.c, src/gga_x_b86_mgc.c,
+	  src/gga_x_bayesian.c, src/gga_x_bpccac.c, src/test.c, src/util.c,
+	  src/util.h: Added Kxc to B86, B86_MGC, BAYESIAN, and BPCCAC.
+
+2013-10-17 11:06  marques
+
+	* [r11351] src/work_gga_x.c: Bug fix: had some lines misplaced, so
+	  Fxc and Kxc were badly calculated if (and only if) Vxc was not
+	  calculated.
+
+2013-10-17 09:55  marques
+
+	* [r11350] src/gga.c, src/gga_x_ak13.c, src/test.c, src/util.h,
+	  src/work_gga_x.c: Added Kxc to AK13
+
+2013-10-17 07:28  marques
+
+	* [r11349] src/gga_x_airy.c, src/test.c, src/util.c, src/util.h:
+	  Added Kxc to GGA_X_AIRY
+
+2013-10-16 14:45  marques
+
+	* [r11342] src/work_gga_x.c: Bug fixed: a factor of 4 too much in
+	  the calculation of Fxc
+
+2013-10-11 12:39  marques
+
+	* [r11322] src/gga_x_g96.c, src/gga_x_htbs.c, src/gga_x_pw86.c,
+	  src/gga_x_pw91.c, src/gga_x_rpbe.c: Added KXC for X_G96, X_RPBE,
+	  X_HTBS, X_PW86, and X_PW91
+
+2013-10-11 11:30  marques
+
+	* [r11321] src/gga_x_wc.c: Added Kxc to X_WC
+
+2013-10-11 11:20  marques
+
+	* [r11320] src/gga_x_pbe.c: Added Kxc to exchange PBE-like
+	  functionals
+
+2013-10-11 10:01  marques
+
+	* [r11318] src/gga_x_b88.c: Kxc for B88-like functionals
+
+2013-10-11 09:45  marques
+
+	* [r11317] src/gga_x_lb.c: Sorry, made an error in the prvious
+	  commit
+
+2013-10-11 09:44  marques
+
+	* [r11316] src/gga_x_lb.c: This should fix the problem of David.
+
+2013-10-11 09:42  marques
+
+	* [r11315] src/gga.c, src/gga_x_b86.c, src/test.c, src/util.c,
+	  src/util.h, src/work_gga_x.c: We can now calculate third
+	  derivatives for the exhange GGAs. For now only B86 works. Note
+	  that most tests are failing at the moment.
+
+2013-10-10 12:03  marques
+
+	* [r11308] TODO, src/gga.c, src/gga_c_op.c, src/gga_k_dk.c,
+	  src/gga_k_meyer.c, src/gga_k_ol1.c, src/gga_k_ol2.c,
+	  src/gga_k_pearson.c, src/gga_k_tflw.c, src/gga_x_2d_b86.c,
+	  src/gga_x_2d_b86_mgc.c, src/gga_x_2d_b88.c, src/gga_x_2d_pbe.c,
+	  src/gga_x_airy.c, src/gga_x_ak13.c, src/gga_x_am05.c,
+	  src/gga_x_b86.c, src/gga_x_b86_mgc.c, src/gga_x_b88.c,
+	  src/gga_x_bayesian.c, src/gga_x_bpccac.c, src/gga_x_c09x.c,
+	  src/gga_x_dk87.c, src/gga_x_g96.c, src/gga_x_herman.c,
+	  src/gga_x_htbs.c, src/gga_x_ityh.c, src/gga_x_lg93.c,
+	  src/gga_x_lv_rpw86.c, src/gga_x_mpbe.c, src/gga_x_optx.c,
+	  src/gga_x_pbe.c, src/gga_x_pbea.c, src/gga_x_pw86.c,
+	  src/gga_x_pw91.c, src/gga_x_rpbe.c, src/gga_x_sfat.c,
+	  src/gga_x_sogga11.c, src/gga_x_ssb_sw.c, src/gga_x_vmt.c,
+	  src/gga_x_wc.c, src/libxc_master.F90, src/mgga_x_m05.c,
+	  src/mgga_x_m06l.c, src/mgga_x_m08.c, src/mix_func.c, src/test.c,
+	  src/util.h, src/work_gga_c.c, src/work_gga_x.c, src/xc.h,
+	  src/xc_f.c, testsuite/xc-get_data.c, testsuite/xc-regression.c:
+	  Started implementing Kxc for the GGAs
+
+2013-10-10 11:36  micael
+
+	* [r11307] src/gga_k_tflw.c: Added XC_GGA_K_TFVW.
+
+2013-10-10 11:15  micael
+
+	* [r11306] testsuite/atomic_densities,
+	  testsuite/atomic_densities/H, testsuite/atomic_densities/Li: *
+	  Added atomic densities and corresponding derivatives for H and Li
+	  atoms.
+
+2013-10-09 13:10  marques
+
+	* [r11304] src/gga_x_pbe.c: Added K_APBEINT and K_REVAPBEINT
+
+2013-10-09 12:32  marques
+
+	* [r11303] src/gga_x_pbe.c: Added revAPBE for the kinetic energy
+
+2013-10-04 07:10  marques
+
+	* [r11290] src/libxc_master.F90, src/xc_f.c: Changed function into
+	  subroutine. Apparently, there is no way to keep all compilers
+	  happy when interfacing functions between C and Fortran!
+
+2013-09-30 19:09  marques
+
+	* [r11284] src/libxc_master.F90: Sorry, there was one line I forgot
+	  to delete
+
+2013-09-30 18:54  marques
+
+	* [r11283] src/libxc_master.F90: Let's see if it now compiles in
+	  chum
+
+2013-09-23 09:36  micael
+
+	* [r11280] src/libxc_master.F90, src/xc_f.c: * The C part of the
+	  Fortran interface for the gga_ak13_get_asymptotic function was
+	  missing.
+	  * Made the Fortran name of the gga_ak13_get_asymptotic consistent
+	  with the C name.
+
+2013-09-23 08:19  micael
+
+	* [r11279] src/libxc_master.F90: * XC_GGA_K_ABSR1 and
+	  XC_GGA_K_ABSR2 should also be included in the Fortran interface.
+
+2013-09-20 11:49  marques
+
+	* [r11275] src/xc.h: Little think I forgot to save before
+	  committing...
+
+2013-09-20 11:26  marques
+
+	* [r11274] src/Makefile.am, src/gga_x_ak13.c, src/libxc_master.F90,
+	  src/xc.h: Added exchange functional of Armiento and Kummel that
+	  is becoming so popular
+
+2013-09-19 15:06  marques
+
+	* [r11270] src/gga_x_ityh.c, src/gga_x_sfat.c, src/lda_x.c,
+	  src/mgga_x_m08.c, src/util.c, src/util.h: A little cleaning:
+	  *) now the names of the attenuation interactions are defined
+	  *) little routine that returns the enhancement factors avoiding
+	  duplicated code
+
+2013-09-19 14:13  marques
+
+	* [r11269] src/Makefile.am, src/gga_x_sfat.c,
+	  src/hyb_gga_xc_camy_blyp.c, src/lda_x.c, src/xc.h: Submitted
+	  patch by Rolf Wuerdemann implementing CAMY_BLYP
+
+2013-09-16 12:34  marques
+
+	* [r11261] src/gga_k_meyer.c, src/gga_k_tflw.c, src/xc.h: Changed
+	  name of functional from gga_k_absr(1,2) to gga_k_absp(1,2)
+	  Had forgotten factor of 8 in gga_k_meyer
+
+2013-09-16 12:29  marques
+
+	* [r11260] src/Makefile.am, src/gga_k_meyer.c: Added another GGA
+	  kinetic energy
+
+2013-09-16 10:31  micael
+
+	* [r11259] src/gga_k_tflw.c: * A reference was slightly wrong.
+
+2013-09-13 08:56  marques
+
+	* [r11251] src/hyb_gga_xc_pbeh.c: Added another reference to PBE0
+
+2013-09-09 14:53  marques
+
+	* [r11248] src/gga_x_n12.c: N12_SX is a hybrid GGA, not a GGA
+
+2013-09-09 14:05  marques
+
+	* [r11247] TODO: Another functional for the TODO list
+
+2013-09-09 09:32  marques
+
+	* [r11246] src/Makefile.am, src/gga_x_ityh.c, src/gga_x_lv_rpw86.c,
+	  src/gga_x_pw86.c, src/util.h: Added functional gga_x_lv_rpw86
+
+2013-09-04 16:39  micael
+
+	* [r11235] TODO: Yet another set of missing functionals from libxc.
+
+2013-09-04 09:59  marques
+
+	* [r11234] src/gga_x_pbe.c: Sorry, a 0 in the wrong place... don't
+	  know how it got there ;)
+
+2013-09-04 09:49  marques
+
+	* [r11233] src/gga_x_pbe.c: Corrected bug in PBEint
+
+2013-08-28 09:24  micael
+
+	* [r11176] TODO: Added another missing functional to the TODO list.
+
+2013-08-22 08:52  micael
+
+	* [r11156] TODO: * Added more missing functionals to the TODO file.
+
+2013-08-21 16:25  micael
+
+	* [r11155] TODO: * Removed references to already implemented
+	  functionals.
+	  * Added several missing functionals.
+
+2013-08-21 10:24  marques
+
+	* [r11154] TODO: Forgot to merge TODo
+
+2013-08-21 09:57  marques
+
+	* [r11153] src/gga_x_bpccac.c, src/gga_x_pbe.c: Buf fixed: bpccac
+	  functional should use a different version of revPBE. People
+	  should be more original with the names of the functionals!!!
+	  Added another revise dversion of PBE, that I called PBE_TCA
+
+2013-08-20 14:36  marques
+
+	* [r11151] src/gga_x_sogga11.c: Wrong citation
+
+2013-08-12 13:06  marques
+
+	* [r11105] src/gga_x_pbea.c: Bug fix: the value of alpha of
+	  PBEalpha seems to be 0.52 and not 0.5. Strangely enough the
+	  original routine (with alpha=0.5) had been sent to be by G.
+	  Madsen, the author of the functional.
+
+2013-08-05 15:09  xavier
+
+	* [r11066] src/Makefile.am, src/util.h, src/xc.h, src/xc_f.c,
+	  src/xc_unconfig.h, testsuite/xc-get_data.c: Bugfix: xc.h was
+	  defining FLOAT and other undocumented macros that
+	  could case name clashes with user code. Now these macros are not
+	  declared. Internal libxc code that uses them needs to include
+	  "xc_config.h" explicitly.
+
+2013-08-05 15:04  marques
+
+	* [r11065] src/gga_x_pbe.c: Added x_pbeint
+
+2013-08-05 14:51  marques
+
+	* [r11064] src/gga_c_pbe.c: Added c_PBEint, c_zPBEsol, c_zPBEint
+
+2013-07-16 16:59  micael
+
+	* [r11011] src/xc_f.c: * Improved the functional_get_name Fortran
+	  interface.
+
+2013-07-16 16:56  micael
+
+	* [r11010] src/lda_xc_teter93.c: Bug fix: some variable were used
+	  before being set when calculating the second and third
+	  derivatives with spin-polarization.
+
+2013-07-11 18:39  dstrubbe
+
+	* [r10982] src/Makefile.am: I broke libxc compilation on chum
+	  (older automake/libtool versions) with r10979, by explicitly
+	  referring to the objects produced by libtool. Unfortunately,
+	  their names are not always the same. Surprisingly,
+	  libtool/automake do not seem to provide a macro or variable for
+	  what the object names will be, so we have to extract it
+	  ourselves. LTPREF=libxcf90_la-, or blank for older
+	  libtool/automake versions.
+	  
+	  Produces these warnings on some systems. Does not seem to matter.
+	  
+	  src/Makefile.am:140: subst xc_f.lo,,$(firstword
+	  $(am_libxcf90_la_OBJECTS: non-POSIX variable name
+	  src/Makefile.am:140: (probably a GNU make extension)
+
+2013-07-11 16:42  dstrubbe
+
+	* [r10979] src/Makefile.am: libxc has had occasional trouble with a
+	  parallel build (make -j). I have tried to fix this before, but
+	  with only partial success. I think this might be real solution.
+	  Dependencies are in terms of the funny objects libtool makes, not
+	  the normal .o files. Dependencies are declared on module files,
+	  and the module files (while not having actual rules) are declared
+	  dependent on the .lo files that will created in the same
+	  compilation that produces the modules. It is necessary to declare
+	  dependencies for both .lo and .o because 'make' and 'make
+	  install' don't both necessary work with the same ones.
+
+2013-07-11 15:28  micael
+
+	* [r10978] Makefile.am, build/Makefile.am, configure.ac,
+	  m4/fc_integer.m4, m4/fcflags.m4, m4/fortran.m4, src/Makefile.am,
+	  src/libxc_master.F90, src/string_f.h, testsuite/Makefile.am:
+	  Corrected the FSF address in the copyright.
+
+2013-07-11 13:19  micael
+
+	* [r10975] src/gga_x_kt.c, src/gga_x_ssb_sw.c, src/gga_x_vmt.c,
+	  src/lda_c_2d_prm.c, src/mgga_c_pkzb.c, src/mgga_x_pkzb.c: *
+	  Removed unused variables in libxc.
+
+2013-07-11 12:50  micael
+
+	* [r10973] src/gga_c_am05.c, src/gga_c_ft97.c, src/gga_c_lm.c,
+	  src/gga_c_lyp.c, src/gga_c_op.c, src/gga_c_optc.c,
+	  src/gga_c_p86.c, src/gga_c_pbe.c, src/gga_c_pw91.c,
+	  src/gga_c_sogga11.c, src/gga_c_tca.c, src/gga_c_wi.c,
+	  src/gga_c_wl.c, src/gga_k_dk.c, src/gga_k_ol1.c, src/gga_k_ol2.c,
+	  src/gga_k_pearson.c, src/gga_k_tflw.c, src/gga_x_2d_b86.c,
+	  src/gga_x_2d_b86_mgc.c, src/gga_x_2d_b88.c, src/gga_x_2d_pbe.c,
+	  src/gga_x_airy.c, src/gga_x_am05.c, src/gga_x_b86.c,
+	  src/gga_x_b86_mgc.c, src/gga_x_b88.c, src/gga_x_bayesian.c,
+	  src/gga_x_bpccac.c, src/gga_x_c09x.c, src/gga_x_dk87.c,
+	  src/gga_x_ft97.c, src/gga_x_g96.c, src/gga_x_herman.c,
+	  src/gga_x_hjs.c, src/gga_x_htbs.c, src/gga_x_ityh.c,
+	  src/gga_x_kt.c, src/gga_x_lb.c, src/gga_x_lg93.c,
+	  src/gga_x_mpbe.c, src/gga_x_n12.c, src/gga_x_optx.c,
+	  src/gga_x_pbe.c, src/gga_x_pbea.c, src/gga_x_pw86.c,
+	  src/gga_x_pw91.c, src/gga_x_rpbe.c, src/gga_x_sogga11.c,
+	  src/gga_x_ssb_sw.c, src/gga_x_vmt.c, src/gga_x_wc.c,
+	  src/gga_x_wpbeh.c, src/gga_xc_1w.c, src/gga_xc_b97.c,
+	  src/gga_xc_edf1.c, src/gga_xc_oblyp_d.c, src/gga_xc_th.c,
+	  src/hyb_gga_xc_b1wc.c, src/hyb_gga_xc_b3lyp.c,
+	  src/hyb_gga_xc_b97.c, src/hyb_gga_xc_cam_b3lyp.c,
+	  src/hyb_gga_xc_hse.c, src/hyb_gga_xc_o3lyp.c,
+	  src/hyb_gga_xc_pbeh.c, src/hyb_mgga_xc_m05.c, src/lda_c_1d_csc.c,
+	  src/lda_c_1d_loos.c, src/lda_c_2d_amgb.c, src/lda_c_2d_prm.c,
+	  src/lda_c_gombas.c, src/lda_c_hl.c, src/lda_c_ml1.c,
+	  src/lda_c_pw.c, src/lda_c_pz.c, src/lda_c_rc04.c,
+	  src/lda_c_rpa.c, src/lda_c_vwn.c, src/lda_c_wigner.c,
+	  src/lda_k_tf.c, src/lda_x.c, src/lda_x_1d.c, src/lda_x_2d.c,
+	  src/lda_xc_teter93.c, src/mgga_xc_otpss_d.c: * Fixed warnings
+	  about missing field initializers.
+
+2013-07-10 07:59  micael
+
+	* [r10957] NEWS, PACKAGING, configure.ac: * Tagging version 2.0.2
+	  * Updated ChangeLog, NEWS, etc.
+
+2013-07-01 13:20  marques
+
+	* [r10929] src/util.c: Making sure we never divide by zero.
+	  Reported by Vittorio Zecca and David.
+
+2013-07-01 13:15  marques
+
+	* [r10928] src/gga_x_c09x.c, testsuite/xc-consistency.c: *)
+	  Corrected vug in c09x as reported by Lampros Andrinopoulos
+	  *) Corrected bug in xc-consistency
+
+2013-06-26 16:46  askhl
+
+	* [r10911] src/lda_c_2d_amgb.c: spelling
+
+2013-06-18 15:05  marques
+
+	* [r10868] src/hyb_gga_xc_b3lyp.c: Added a revised B3LYP
+	  functional.
+
+2013-06-17 15:05  dstrubbe
+
+	* [r10860] configure.ac, m4/fortran.m4: Updating libxc build system
+	  from octopus changes:
+	  * Replaced obsolete AC_TRY_LINK_FUNC with AC_LINK_IFELSE.
+	  * Removed AC_LANG_PREPROC(Fortran) and imported new ACX_FCCPP and
+	  its dependency ACX_GREP_FCCPP.
+	  Now libxc will make sure that a proper preprocessor for Fortran
+	  is available.
+
+2013-06-17 05:05  dstrubbe
+
+	* [r10859] m4/acx.m4, m4/fortran.m4: Renaming libxc m4 macro in
+	  accordance with name change in octopus since it was copied in.
+	  This is in preparation for merging recent changes in octopus file
+	  to libxc.
+
+2013-06-13 13:46  marques
+
+	* [r10847] src/xc.h: Sorry, small mistake in definition.
+
+2013-06-13 12:51  marques
+
+	* [r10846] src/Makefile.am, src/gga_c_pbe.c, src/gga_xc_oblyp_d.c,
+	  src/mgga_c_pkzb.c, src/mgga_x_tpss.c, src/mgga_xc_otpss_d.c,
+	  src/xc.h: Added a few functionals:
+	  
+	  *) mgga_x_modtpss : tpss with optimized coefficients
+	  *) gga_x_oblyp_d, opwlyp_d, opbe_d, tpss_d : reoptimizations by
+	  Grimme to include dispersion terms.
+
+2013-05-28 14:42  marques
+
+	* [r10735] src/Makefile.am: Next attempt at compiling in chum. But
+	  can someone update the buggy libtool of this machine?
+
+2013-05-28 14:35  marques
+
+	* [r10734] src/Makefile.am: Following's Xavier suggestion, I
+	  changed the name of the library to libxcf90
+
+2013-05-28 14:29  marques
+
+	* [r10733] src/Makefile.am: I really hate libtools
+
+2013-05-28 14:18  marques
+
+	* [r10732] src/Makefile.am: Let's see if this fixes compilation
+	  with some slaves
+
+2013-05-28 13:18  marques
+
+	* [r10730] src/Makefile.am: Following Yann's suggestion, I
+	  separated libxc in two libraries, one containing the actual
+	  library (libxc) and another the Fortran bindings (libxcf).
+
+2013-05-28 13:11  marques
+
+	* [r10729] src/libxc_master.F90, src/xc_f.c: Patch by Yann
+	  Pouillon:
+	  
+	  Please find attached a patch for LibXC 2.0.1 adding the following
+	  Fortran
+	  wrappers:
+	  
+	  * subroutine xc_f90_functional_get_name(id, name)
+	  * integer function xc_f90_functional_get_number(name)
+	  
+	  that have been requested many times for various projects. In
+	  particular, it
+	  solves the issue of getting a functional number from the
+	  corresponding
+	  description string, avoiding many potential typos in input files
+	  of Fortran
+	  codes.
+
+2013-05-27 09:58  micael
+
+	* [r10724] src/gga_x_lb.c: Reverting #10345 and #10396.
+
+2013-05-17 14:27  dstrubbe
+
+	* [r10626] src/lda_c_pw.c, src/mgga_x_tpss.c: Typos in libxc.
+
+2013-05-17 12:48  marques
+
+	* [r10625] src/gga_x_vmt.c: Added two version of VMT{8,4}
+
+2013-05-17 11:40  marques
+
+	* [r10624] src/Makefile.am, src/gga_x_vmt.c: Added functional
+	  gga_x_vmt
+
+2013-05-17 09:33  marques
+
+	* [r10621] src/mgga_x_tpss.c: Added BLOC meta-GGA
+
+2013-05-13 07:31  marques
+
+	* [r10585] src/lda_x.c: Bug found by Toon Verstraelen fixed.
+
+2013-04-29 16:59  dstrubbe
+
+	* [r10468] src/Makefile.am: libxc: Fixing dependency that was
+	  poorly written (by me) and could cause "make -j install" to fail.
+
+2013-04-22 15:16  umberto
+
+	* [r10396] src/gga_x_lb.c: Profiled minimum density values for lb94
+	  functional.
+	  The value previously set to 5e-13 is now 1e-14.
+	  I haven''t checked against an extensive test set so the threshold
+	  value may not be definitive.
+
+2013-04-16 10:41  umberto
+
+	* [r10345] src/gga_x_lb.c: Fixes LB94 NaN in TD runs with adsorbing
+	  boundaries.
+
+2013-03-26 09:29  marques
+
+	* [r10289] src/gga_c_op.c: Small typo found by Xavier Gonze
+
+2013-02-12 13:20  marques
+
+	* [r9960] src/Makefile.am, src/mgga_c_cc06.c, src/mgga_c_cs.c,
+	  testsuite/regression/mgga_c_cc06.data.bz2,
+	  testsuite/regression/mgga_c_cs.data.bz2: I had forgotten the
+	  Colle and Salvetti functional. It is added now ;)
+
+2013-02-07 08:45  marques
+
+	* [r9940] src/Makefile.am, src/mgga_x_mk00.c, src/work_mgga_x.c,
+	  testsuite/regression/mgga_x_br89.data.bz2,
+	  testsuite/regression/mgga_x_mk00.data.bz2,
+	  testsuite/regression/mgga_x_mk00b.data.bz2: Added the functionals
+	  MGGA_X_MK00 and MGGA_X_MK00B. Now we have all functionals of
+	  molpro.
+	  Corrected bug in the evaluation of fxc for the metaggas that
+	  depend both in tau and nabla^2 n (only br89 up to now, actually).
+
+2013-02-06 14:25  marques
+
+	* [r9938] TODO, src/Makefile.am, src/mgga_c_cc06.c,
+	  testsuite/regression/mgga_c_cc06.data.bz2: Added functional
+	  mgga_c_cc06
+
+2013-02-05 15:53  marques
+
+	* [r9935] src/mgga_x_m08.c,
+	  testsuite/regression/hyb_mgga_x_m11.data.bz2,
+	  testsuite/regression/mgga_x_m08_hx.data.bz2,
+	  testsuite/regression/mgga_x_m08_so.data.bz2,
+	  testsuite/regression/mgga_x_m11_l.data.bz2: Added the functionals
+	  hyb_mgga_x_m11 and mgga_x_m11_l. I guess that most of the
+	  functionals of Truhlar are now in.
+
+2013-02-05 13:34  marques
+
+	* [r9934] src/Makefile.am, src/mgga_c_m08.c,
+	  testsuite/regression/mgga_c_m08_hx.data.bz2,
+	  testsuite/regression/mgga_c_m08_so.data.bz2,
+	  testsuite/regression/mgga_c_m11.data.bz2,
+	  testsuite/regression/mgga_c_m11_l.data.bz2,
+	  testsuite/regression/mgga_c_mn12_l.data.bz2,
+	  testsuite/regression/mgga_c_mn12_sx.data.bz2: Added functionals
+	  MGGA_C_M08_HX, MGGA_C_M08_SO, MGGA_C_M11, MGGA_C_M11_L,
+	  MGGA_C_MN12_L, and MGGA_C_MN12_SX
+
+2013-02-05 11:46  marques
+
+	* [r9933] src/gga_x_n12.c, src/gga_xc_b97.c, src/mgga_x_mn12.c,
+	  testsuite/regression/gga_c_n12.data.bz2,
+	  testsuite/regression/gga_c_n12_sx.data.bz2,
+	  testsuite/regression/gga_x_n12.data.bz2,
+	  testsuite/regression/gga_x_n12_sx.data.bz2,
+	  testsuite/regression/mgga_x_mn12_l.data.bz2,
+	  testsuite/regression/mgga_x_mn12_sx.data.bz2: Added GGA_C_N12 and
+	  GGA_C_N12_SX.
+	  Corrected the spelling of Minnesota.
+
+2013-02-05 09:31  marques
+
+	* [r9932] src/Makefile.am, src/gga_x_n12.c,
+	  testsuite/regression/gga_x_n12.data.bz2,
+	  testsuite/regression/gga_x_n12_sx.data.bz2: Added the functionals
+	  GGA_X_N12 and GGA_X_N12_SX. Note that the library "Minnesota
+	  Functional Module" seems to have a bug: F1 is initialized, so
+	  Pi=acos(-F1) gets the value of Pi/2 ;(((
+
+2013-02-04 13:47  marques
+
+	* [r9931] src/hyb_gga_xc_b1wc.c,
+	  testsuite/regression/hyb_gga_xc_mpwlyp1m.data.bz2: Added
+	  hyb_gga_xc_mpwlyp1m
+
+2013-02-04 13:17  marques
+
+	* [r9930] src/gga_xc_1w.c, src/hyb_mgga_xc_m05.c,
+	  testsuite/regression/mgga_xc_tpsslyp1w.data.bz2: Added
+	  mgga_xc_tpsslyp1w
+
+2013-02-04 12:34  marques
+
+	* [r9929] src/gga_x_pw91.c, src/hyb_mgga_xc_m05.c,
+	  testsuite/regression/hyb_mgga_xc_pw6b95.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_pwb6k.data.bz2: Added
+	  mgga_xc_pwb6k and mgga_xc_pw6b95
+
+2013-02-04 12:16  marques
+
+	* [r9928] src/mgga_c_bc95.c, src/xc.h: Added more flexibility to
+	  Becke95
+
+2013-02-04 11:10  marques
+
+	* [r9927] src/gga_x_pw91.c, src/xc.h,
+	  testsuite/regression/gga_c_vpbe.data.bz2,
+	  testsuite/regression/gga_x_mpw91.data.bz2,
+	  testsuite/regression/gga_xc_mpwlyp1w.data.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw1k.data.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw1pw.data.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw3lyp.data.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw3pw.data.bz2,
+	  testsuite/regression/mgga_c_revtpss.data.bz2,
+	  testsuite/regression/mgga_x_mn12_l.data.bz2,
+	  testsuite/regression/mgga_x_mn12_sx.data.bz2: Made PW91 code a
+	  bit more general.
+	  Reset of the testsuite
+
+2013-02-04 09:43  marques
+
+	* [r9926] src/Makefile.am, src/mgga_x_mn12.c: Added the functionals
+	  MGGA_X_MN12_L and MGGA_X_MN12_SX
+
+2013-01-23 11:52  marques
+
+	* [r9882] src/libxc_master.F90: Changed the name of a variable and
+	  a comment. Thanks Fabien.
+
+2013-01-23 09:52  marques
+
+	* [r9881] src/functionals.c, src/hyb_gga_xc_hse.c,
+	  src/hyb_gga_xc_pbeh.c, src/libxc_master.F90, src/xc.h,
+	  src/xc_f.c: Removed interface to _set_cam and _set_exx.
+	  Added interface to set mixing of both pbe0 and hse
+
+2013-01-23 09:23  marques
+
+	* [r9880] src/gga_c_pbe.c: Corrected reference. Thanks David.
+
+2013-01-22 13:40  marques
+
+	* [r9879] src/mgga_c_pkzb.c, src/mgga_c_vsxc.c: Added revisedTPSS
+	  correlation
+
+2013-01-22 13:20  marques
+
+	* [r9877] testsuite/regression/gga_c_ft97.data.bz2,
+	  testsuite/regression/gga_c_optc.data.bz2,
+	  testsuite/regression/gga_c_vpbe.data.bz2,
+	  testsuite/regression/gga_xc_b97.data.bz2,
+	  testsuite/regression/gga_xc_b97_1.data.bz2,
+	  testsuite/regression/gga_xc_b97_2.data.bz2,
+	  testsuite/regression/gga_xc_b97_3.data.bz2,
+	  testsuite/regression/gga_xc_b97_d.data.bz2,
+	  testsuite/regression/gga_xc_b97_gga1.data.bz2,
+	  testsuite/regression/gga_xc_b97_k.data.bz2,
+	  testsuite/regression/gga_xc_hcth_120.data.bz2,
+	  testsuite/regression/gga_xc_hcth_147.data.bz2,
+	  testsuite/regression/gga_xc_hcth_407.data.bz2,
+	  testsuite/regression/gga_xc_hcth_407p.data.bz2,
+	  testsuite/regression/gga_xc_hcth_93.data.bz2,
+	  testsuite/regression/gga_xc_hcth_a.data.bz2,
+	  testsuite/regression/gga_xc_hcth_p14.data.bz2,
+	  testsuite/regression/gga_xc_hcth_p76.data.bz2,
+	  testsuite/regression/gga_xc_sb98_1a.data.bz2,
+	  testsuite/regression/gga_xc_sb98_1b.data.bz2,
+	  testsuite/regression/gga_xc_sb98_1c.data.bz2,
+	  testsuite/regression/gga_xc_sb98_2a.data.bz2,
+	  testsuite/regression/gga_xc_sb98_2b.data.bz2,
+	  testsuite/regression/gga_xc_sb98_2c.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_1.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_2.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_3.data.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_k.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1a.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1b.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1c.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2a.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2b.data.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2c.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_b86b95.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_b88b95.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_bb1k.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_m05.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_m05_2x.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_m06.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_m06_2x.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_m06_hf.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_mpw1b95.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_mpwb1k.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_pw86b95.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_x1b95.data.bz2,
+	  testsuite/regression/hyb_mgga_xc_xb1k.data.bz2,
+	  testsuite/regression/mgga_c_bc95.data.bz2,
+	  testsuite/regression/mgga_c_m05.data.bz2,
+	  testsuite/regression/mgga_c_m05_2x.data.bz2,
+	  testsuite/regression/mgga_c_m06.data.bz2,
+	  testsuite/regression/mgga_c_m06_2x.data.bz2,
+	  testsuite/regression/mgga_c_m06_hf.data.bz2,
+	  testsuite/regression/mgga_c_m06_l.data.bz2,
+	  testsuite/regression/mgga_c_pkzb.data.bz2,
+	  testsuite/regression/mgga_c_tpss.data.bz2,
+	  testsuite/regression/mgga_c_vsxc.data.bz2,
+	  testsuite/regression/mgga_x_ms0.data.bz2,
+	  testsuite/regression/mgga_x_ms1.data.bz2,
+	  testsuite/regression/mgga_x_ms2.data.bz2,
+	  testsuite/regression/mgga_x_ms2h.data.bz2: Reset of the testsuite
+	  after all the bug corrections
+
+2013-01-22 13:15  marques
+
+	* [r9876] src/gga_c_optc.c, src/gga_c_pbe.c, src/gga_x_hjs.c,
+	  src/work_gga_x.c: Added the variant PBE (vPBE) functional. From
+	  my tests this is virtually identical to the PBE.
+
+2013-01-22 12:25  marques
+
+	* [r9875] src/functionals.c, src/libxc_master.F90, src/xc.h,
+	  src/xc_f.c: Added interfaces to get/set hybrid and cam parameters
+
+2013-01-21 16:37  micael
+
+	* [r9874] ChangeLog: * Tagging Libxc version 2.0.1.
+
 2013-01-21 14:40  micael
 
 	* [r9872] src/gga_c_optc.c, src/gga_x_hjs.c: * Some NaN were still

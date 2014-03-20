@@ -150,8 +150,11 @@ libxc_s.f90 : libxc_master.F90
 		mv -f $(top_builddir)/src/libxc_s.f91 $(top_builddir)/src/libxc_s.f90; \
 	fi
 
-$(LTPREF)libxc.lo   $(LTPREF)libxc.o   : $(LIBFUNCMOD)
-$(LTPREF)libxc_s.lo $(LTPREF)libxc_s.o : $(LIBFUNCMOD)
+$(LTPREF)libxc.lo  :   $(LTPREF)libxc.o
+$(LTPREF)libxc_s.lo: $(LTPREF)libxc_s.o
+
+$(LTPREF)libxc.o   : $(LIBFUNCMOD)
+$(LTPREF)libxc_s.o : $(LIBFUNCMOD)
 
 $(XCLIBMODS)   : $(LTPREF)libxc.lo
 $(XCLIBMODS_S) : $(LTPREF)libxc_s.lo

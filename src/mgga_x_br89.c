@@ -145,7 +145,7 @@ FLOAT XC(mgga_x_br89_get_x)(FLOAT Q)
   FLOAT rhs, br_x, tol, res;
   int ierr;
 
-#if SINGLE_PRECISION
+#ifdef SINGLE_PRECISION
   tol = 1e-6;
 #else
   tol = 5e-12;

@@ -39,7 +39,7 @@ FLOAT XC(integrate)(integr_fn func, void *ex, FLOAT a, FLOAT b)
   FLOAT epsabs, epsrel, result, abserr, *alist, *blist, *rlist, *elist;
   int limit, neval, ierr, *iord, last;
 
-#if SINGLE_PRECISION
+#ifdef SINGLE_PRECISION
   epsabs = 1e-5;
   epsrel = 1e-5;
 #else

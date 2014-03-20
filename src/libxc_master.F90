@@ -17,7 +17,7 @@
 !!
 !! $Id: libxc.f90 3550 2007-11-19 14:32:49Z marques $
 
-#if SINGLE_PRECISION
+#ifdef SINGLE_PRECISION
 #  define XC_F90(x) xc_s_f90_ ## x
 #else
 #  define XC_F90(x) xc_f90_ ## x
@@ -26,7 +26,7 @@
 
 !-------------------------------------------------------------------
 module XC_F90(types_m)
-#if SINGLE_PRECISION
+#ifdef SINGLE_PRECISION
   integer, public, parameter :: xc_f90_kind = selected_real_kind(4)
 #else
   integer, public, parameter :: xc_f90_kind = selected_real_kind(14)

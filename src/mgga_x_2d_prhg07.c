@@ -90,7 +90,7 @@ FLOAT XC(mgga_x_2d_prhg_get_y)(FLOAT C)
   FLOAT rhs, res, y, tol;
   int ierr;
 
-#if SINGLE_PRECISION
+#ifdef SINGLE_PRECISION
   tol = 1e-6;
 #else
   tol = 5e-12;

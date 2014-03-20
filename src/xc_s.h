@@ -20,7 +20,7 @@
 #define _XC_S_H
 
 #ifndef SINGLE_PRECISION
-#define SINGLE_PRECISION 1
+#define SINGLE_PRECISION
 #endif
 
 #include "xc.h"

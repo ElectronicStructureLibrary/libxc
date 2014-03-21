@@ -31,6 +31,7 @@ AC_CONFIG_MACRO_DIR([m4])
 # libxc-2.0.1   1:1:0
 # libxc-2.0.2   1:2:0
 # libxc-2.0.3   1:3:0
+# libxc-2.1.0   2:0:1
 # 
 # Note that libtool versioning was not used prior to libxc-2.0.
 # Because of this, we will start counting at 1.
@@ -47,9 +48,9 @@ AC_CONFIG_MACRO_DIR([m4])
 # interfaces have been removed. removal has precedence over adding,
 # so set to 0 if both happened.
 
-XC_CURRENT=1
-XC_REVISION=3
-XC_AGE=0
+XC_CURRENT=2
+XC_REVISION=0
+XC_AGE=1
 
 XC_LT_VERSION="${XC_CURRENT}:${XC_REVISION}:${XC_AGE}"
 AC_SUBST(XC_LT_VERSION)

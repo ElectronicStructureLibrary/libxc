@@ -1,3 +1,56 @@
+2014-03-21 10:31  micael
+
+        * [r11910] Makefile.am: * Removed the automatic Libxc Changelog
+          update when creating the tarball.
+
+2014-03-21 09:40  micael
+
+        * [r11909] testsuite/Makefile.am: * The contents of the
+          testsuite/inputs directory was missing from the distribution.
+
+2014-03-21 09:12  micael
+
+        * [r11908] AUTHORS: * Updated Libxc AUTHORS file.
+
+2014-03-20 13:03  micael
+
+	* [r11902] src/Makefile.am, src/integrate.c, src/libxc_master.F90,
+	  src/mgga_x_2d_prhg07.c, src/mgga_x_br89.c, src/xc_s.h: Backport
+	  of 11896 to branches/libxc-2.1.x:
+	  ------------------------------------------------------------------------
+	  r11896 | lehtola | 2014-03-20 10:52:45 +0100 (Thu, 20 Mar 2014) |
+	  1 line
+	  
+	  Fix single precision preprocessor directives. #if clauses
+	  shouldn't be used as the macro is not defined in double precision
+	  mode.
+	  ------------------------------------------------------------------------
+
+2014-03-20 10:09  lehtola
+
+	* [r11897] src/Makefile.am: This should fix the SMP build error.
+
+2014-03-18 17:51  lehtola
+
+	* [r11893] src/Makefile.am: Undo previous two commits, need to
+	  figure out another way to do this.
+
+2014-03-18 17:45  lehtola
+
+	* [r11892] src/Makefile.am: Fix typo in previous commit.
+
+2014-03-18 17:43  lehtola
+
+	* [r11891] src/Makefile.am: Building library also needs modules
+	  having been built.
+
+2014-03-18 17:16  micael
+
+	* [r11890] ., ChangeLog, INSTALL, configure.ac, src/Makefile.am: *
+	  Created libxc-2.1.x branch.
+	  * Merged the f90 interface library back into libxc in the new
+	  branch.
+
 2014-03-11 19:56  lehtola
 
 	* [r11866] testsuite/xc-regression.c: Fix icc warning caused by

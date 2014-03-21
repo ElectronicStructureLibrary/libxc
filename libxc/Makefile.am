@@ -25,17 +25,7 @@ SUBDIRS = build src testsuite
 include_HEADERS = xc_version.h
 EXTRA_DIST = ChangeLog PACKAGING TODO
 
-DISTCLEANFILES = ChangeLog
 CLEANFILES = *~ *.bak
-
-.PHONY: ChangeLog
-
-ChangeLog:
-	(svn2cl -i -o .changelog.tmp \$(top_srcdir) && \
-	mv .changelog.tmp ChangeLog) || (rm -f .changelog.tmp; touch ChangeLog; \
-	echo 'svn2cl command not found: installing possibly empty changelog.' >&2)
-
-dist-hook: ChangeLog
 
 rpm: dist
 	@topdir=`rpmbuild --showrc | @GREP@ ': *_topdir' | cut -f 2`; \

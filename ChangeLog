@@ -1,3 +1,52 @@
+2014-03-21 11:30  micael
+
+        * [r11913] src/Makefile.am: * Bug fix: libxc soname was not set in
+          trunk nor in the 2.2.x branch.
+
+2014-03-21 10:31  micael
+
+	* [r11910] Makefile.am: * Removed the automatic Libxc Changelog
+	  update when creating the tarball.
+
+2014-03-21 09:40  micael
+
+	* [r11909] testsuite/Makefile.am: * The contents of the
+	  testsuite/inputs directory was missing from the distribution.
+
+2014-03-21 09:12  micael
+
+	* [r11908] AUTHORS: * Updated Libxc AUTHORS file.
+
+2014-03-20 13:02  micael
+
+	* [r11901] src/Makefile.am, src/integrate.c, src/libxc_master.F90,
+	  src/mgga_x_2d_prhg07.c, src/mgga_x_br89.c, src/xc_s.h: Backport
+	  of 11896 to branches/libxc-2.2.x:
+	  ------------------------------------------------------------------------
+	  r11896 | lehtola | 2014-03-20 10:52:45 +0100 (Thu, 20 Mar 2014) |
+	  1 line
+	  
+	  Fix single precision preprocessor directives. #if clauses
+	  shouldn't be used as the macro is not defined in double precision
+	  mode.
+	  ------------------------------------------------------------------------
+
+2014-03-20 12:51  micael
+
+	* [r11900] src/Makefile.am: Backport of 11898 to
+	  branches/libxc-2.2.x:
+	  ------------------------------------------------------------------------
+	  r11898 | lehtola | 2014-03-20 11:10:23 +0100 (Thu, 20 Mar 2014) |
+	  1 line
+	  
+	  This should fix the SMP build error.
+	  ------------------------------------------------------------------------
+
+2014-03-19 15:07  micael
+
+	* [r11895] ., ChangeLog, configure.ac: * Created libxc 2.2.x
+	  branch.
+
 2014-03-11 19:56  lehtola
 
 	* [r11866] testsuite/xc-regression.c: Fix icc warning caused by

@@ -59,6 +59,7 @@ libxc_la_FUNC_SOURCES = \
 libxc_la_FUNC_SINGLE_SOURCES = $(libxc_la_FUNC_SOURCES:.c=_s.c)
 
 libxc_la_SOURCES = $(libxc_la_FUNC_SOURCES)
+libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)
 
 if COMPILE_SINGLE
   nodist_libxc_la_SOURCES = $(libxc_la_FUNC_SINGLE_SOURCES)

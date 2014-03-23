@@ -123,6 +123,12 @@ nodist_include_HEADERS += $(XCLIBMODS)
 if COMPILE_SINGLE
 
 if F90_MOD_UPPERCASE
+  LIBSFUNCMOD = LIBXC_S_FUNCS_M.@ax_cv_f90_modext@
+else
+  LIBSFUNCMOD = libxc_s_funcs_m.@ax_cv_f90_modext@
+endif
+
+if F90_MOD_UPPERCASE
   XCLIBMODS_S = XC_S_F90_LIB_M.@ax_cv_f90_modext@ XC_S_F90_TYPES_M.@ax_cv_f90_modext@
 else
   XCLIBMODS_S = xc_s_f90_lib_m.@ax_cv_f90_modext@ xc_s_f90_types_m.@ax_cv_f90_modext@
@@ -150,7 +156,7 @@ LTPREF = $(subst xc_f.lo,,$(firstword $(am_libxcf90_la_OBJECTS)))
 #src/Makefile.am:140: subst xc_f.lo,,$(firstword $(am_libxcf90_la_OBJECTS: non-POSIX variable name
 #src/Makefile.am:140: (probably a GNU make extension)
 
-$(LIBFUNCMOD) : $(LTPREF)libxc_funcs.lo
+$(LIBFUNCMOD) $(LIBSFUNCMOD): $(LTPREF)libxc_funcs.lo
 
 libxc.f90 : libxc_master.F90
 	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc.f90
@@ -165,11 +171,8 @@ libxc_s.f90 : libxc_master.F90
 		mv -f $(top_builddir)/src/libxc_s.f91 $(top_builddir)/src/libxc_s.f90; \
 	fi
 
-$(LTPREF)libxc.lo  :   $(LTPREF)libxc.o
-$(LTPREF)libxc_s.lo: $(LTPREF)libxc_s.o
-
-$(LTPREF)libxc.o   : $(LIBFUNCMOD)
-$(LTPREF)libxc_s.o : $(LIBFUNCMOD)
+$(LTPREF)libxc.lo   $(LTPREF)libxc.o   : $(LIBFUNCMOD)
+$(LTPREF)libxc_s.lo $(LTPREF)libxc_s.o : $(LIBSFUNCMOD)
 
 $(XCLIBMODS)   : $(LTPREF)libxc.lo
 $(XCLIBMODS_S) : $(LTPREF)libxc_s.lo

@@ -27,6 +27,8 @@
 #define XC_DIMENSIONS 3
 #endif
 
+#include <string.h>
+
 static void 
 work_lda(const XC(func_type) *p, int np, const FLOAT *rho, 
 	 FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3)
@@ -50,6 +52,9 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
   if(v2rho2 != NULL) r.order = 2;
   if(v3rho3 != NULL) r.order = 3;
   if(r.order < 0) return;
+
+  /* Initialize memory */
+  memset(&r, 0, sizeof(r));
 
   for(ip = 0; ip < np; ip++){
     XC(rho2dzeta)(p->nspin, rho, &dens, &r.zeta);

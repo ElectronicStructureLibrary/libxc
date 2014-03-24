@@ -46,15 +46,15 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
   const FLOAT cnst_rs = RS_FACTOR;
 # endif
 
+  /* Initialize memory */
+  memset(&r, 0, sizeof(r));
+
   r.order = -1;
   if(zk     != NULL) r.order = 0;
   if(vrho   != NULL) r.order = 1;
   if(v2rho2 != NULL) r.order = 2;
   if(v3rho3 != NULL) r.order = 3;
   if(r.order < 0) return;
-
-  /* Initialize memory */
-  memset(&r, 0, sizeof(r));
 
   for(ip = 0; ip < np; ip++){
     XC(rho2dzeta)(p->nspin, rho, &dens, &r.zeta);

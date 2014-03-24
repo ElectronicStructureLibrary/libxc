@@ -46,16 +46,10 @@ work_gga_x
   int is, is2, ip, order;
 
   /* constants for the evaluation of the different terms */
-  FLOAT c_zk[1]={0.0};
-  FLOAT c_vrho[3]={0.0, 0.0, 0.0};
-  FLOAT c_vsigma[2]={0.0, 0.0};
-  FLOAT c_v2rho2[3] = {0.0, 0.0, 0.0};
-  FLOAT c_v2rhosigma[4]={0.0, 0.0, 0.0, 0.0};
-  FLOAT c_v2sigma2[2]={0.0, 0.0};
-  FLOAT c_v3rho3[4]={0.0, 0.0, 0.0, 0.0};
-  FLOAT c_v3rho2sigma[3]={0.0, 0.0, 0.0};
-  FLOAT c_v3rhosigma2[3]={0.0, 0.0, 0.0};
-  FLOAT c_v3sigma3[3]={0.0, 0.0, 0.0};
+  FLOAT c_zk[1];
+  FLOAT c_vrho[3], c_vsigma[2];
+  FLOAT c_v2rho2[3], c_v2rhosigma[4], c_v2sigma2[2];
+  FLOAT c_v3rho3[4], c_v3rho2sigma[3], c_v3rhosigma2[3], c_v3sigma3[3];
 
   /* variables used inside the is loop */
   FLOAT gdm, ds, rhoLDA;

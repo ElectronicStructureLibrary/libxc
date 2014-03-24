@@ -34,28 +34,9 @@ work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
   FLOAT min_grad2 = p->info->min_grad*p->info->min_grad;
   int ip;
 
-  FLOAT drs=0.0;
-  FLOAT dxtdn=0.0;
-  FLOAT dxtds=0.0;
-  FLOAT ndzdn[2]={0.0, 0.0};
-  FLOAT dxsdn[2]={0.0, 0.0};
-  FLOAT dxsds[2]={0.0, 0.0};
-  FLOAT d2rs=0.0;
-  FLOAT d2xtdn2=0.0;
-  FLOAT d2xtds2=0.0;
-  FLOAT d2xtdns=0.0;
-  FLOAT d2xsdn2[2]={0.0, 0.0};
-  FLOAT d2xsds2[2]={0.0, 0.0};
-  FLOAT d2xsdns[2]={0.0, 0.0};
-  FLOAT d3rs=0.0;
-  FLOAT d3xtdn3=0.0;
-  FLOAT d3xtdn2s=0.0;
-  FLOAT d3xtdns2=0.0;
-  FLOAT d3xtds3=0.0;
-  FLOAT d3xsdn3[2]={0.0, 0.0};
-  FLOAT d3xsdn2s[2]={0.0, 0.0};
-  FLOAT d3xsdns2[2]={0.0, 0.0};
-  FLOAT d3xsds3[2]={0.0, 0.0};
+  FLOAT drs, dxtdn, dxtds, ndzdn[2], dxsdn[2], dxsds[2];;
+  FLOAT d2rs, d2xtdn2, d2xtds2, d2xtdns, d2xsdn2[2], d2xsds2[2], d2xsdns[2];
+  FLOAT d3rs, d3xtdn3, d3xtdn2s, d3xtdns2, d3xtds3, d3xsdn3[2], d3xsdn2s[2], d3xsdns2[2], d3xsds3[2];
 
   /* set all elements of r to zero */
   memset(&r, 0, sizeof(r));

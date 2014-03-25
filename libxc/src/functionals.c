@@ -36,13 +36,27 @@ extern XC(func_info_type)
 int XC(functional_get_number)(const char *name)
 {
   int ii;
+  int key=-1;
+  char *p;
+
+  /* Does name begin with xc_? */
+  if(strncasecmp(name,"XC_",3) == 0) {
+    p=malloc((strlen(name)-2)*sizeof(char));
+    strcpy(p,name+3);
+  } else {
+    p=malloc((strlen(name)+1)*sizeof(char));
+    strcpy(p,name);
+  }
 
   for(ii=0;;ii++){
     if(XC(functional_keys)[ii].number == -1)
-      return -1;
-    if(strncasecmp(XC(functional_keys)[ii].name, name, 256) == 0) 
-      return XC(functional_keys)[ii].number;
+      break;
+    if(strcasecmp(XC(functional_keys)[ii].name, p) == 0) 
+      key=XC(functional_keys)[ii].number;
   }
+  
+  free(p);
+  return key;
 }
 
 

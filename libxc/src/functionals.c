@@ -41,9 +41,9 @@ int XC(functional_get_number)(const char *name)
 
   /* Does name begin with xc_? */
   if(strncasecmp(name,"XC_",3) == 0) {
-    p=name+3;
+    p=(char*)(name+3);
   } else {
-    p=name;
+    p=(char*)(name);
   }
 
   for(ii=0;;ii++){

@@ -41,11 +41,9 @@ int XC(functional_get_number)(const char *name)
 
   /* Does name begin with xc_? */
   if(strncasecmp(name,"XC_",3) == 0) {
-    p=malloc((strlen(name)-2)*sizeof(char));
-    strcpy(p,name+3);
+    p=name+3;
   } else {
-    p=malloc((strlen(name)+1)*sizeof(char));
-    strcpy(p,name);
+    p=name;
   }
 
   for(ii=0;;ii++){
@@ -55,7 +53,6 @@ int XC(functional_get_number)(const char *name)
       key=XC(functional_keys)[ii].number;
   }
   
-  free(p);
   return key;
 }
 

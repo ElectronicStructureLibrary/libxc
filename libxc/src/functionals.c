@@ -37,13 +37,13 @@ int XC(functional_get_number)(const char *name)
 {
   int ii;
   int key=-1;
-  char *p;
+  const char *p;
 
   /* Does name begin with xc_? */
   if(strncasecmp(name,"XC_",3) == 0) {
-    p=(char*)(name+3);
+    p=name+3;
   } else {
-    p=(char*)(name);
+    p=name;
   }
 
   for(ii=0;;ii++){

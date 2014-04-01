@@ -219,6 +219,7 @@ typedef struct XC(gga_work_c_t) {
 
 void XC(gga_c_pw91_func)(const XC(func_type) *p, XC(gga_work_c_t) *r);
 void XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r);
+void XC(gga_c_q2d_func) (const XC(func_type) *p, XC(gga_work_c_t) *r);
 
 /* meta GGAs */
 typedef struct XC(mgga_work_x_t) {

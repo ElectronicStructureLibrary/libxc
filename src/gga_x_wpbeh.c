@@ -547,7 +547,7 @@ const XC(func_info_type) XC(func_info_gga_x_wpbeh) = {
   XC_EXCHANGE,
   "short-range part of the PBE (default w=0 gives PBEh)",
   XC_FAMILY_GGA,
-  "J Heyd, GE Scuseria, and M Ernzerhof, J. Chem. Phys. 118, 8207 (2003)",
+  {&xc_ref___content_aip_journal_jcp_118_18_10_1063_1_1564060, &xc_ref___content_aip_journal_jcp_124_21_10_1063_1_2204597, &xc_ref___content_aip_journal_jcp_109_9_10_1063_1_476928, &xc_ref___content_aip_journal_jcp_120_16_10_1063_1_1668634, &xc_ref___content_aip_journal_jcp_131_4_10_1063_1_3185673},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_wpbeh_init,

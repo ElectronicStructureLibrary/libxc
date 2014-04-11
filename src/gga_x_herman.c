@@ -51,8 +51,7 @@ const XC(func_info_type) XC(func_info_gga_x_herman) = {
   XC_EXCHANGE,
   "Herman Xalphabeta GGA",
   XC_FAMILY_GGA,
-  "F Herman, JP Van Dyke, and IB Ortenburger, Phys. Rev. Lett. 22, 807 (1969)\n"
-  "F Herman, IB Ortenburger, and JP Van Dyke, Int. J. Quantum Chem. Symp. 3, 827 (1970)",
+  {&xc_ref_PhysRevLett_22_807, &xc_ref_QUA_QUA560040746, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,

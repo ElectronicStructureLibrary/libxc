@@ -129,11 +129,10 @@ module XC_F90(lib_m)
       type(XC_F90(pointer_t)), intent(in)  :: info
     end function XC_F90(info_flags)
 
-    subroutine XC_F90(info_refs)(info, number, str, s)
+    subroutine XC_F90(info_refs)(info, number, s)
       use XC_F90(types_m)
       type(XC_F90(pointer_t)),  intent(in)    :: info
       integer,                  intent(inout) :: number ! number of the reference. Must be 0 in the first call
-      type(XC_F90(pointer_t)),  intent(inout) :: str    ! this will hold a (char **) pointer
       character(len=*),         intent(out)   :: s      ! the string that is output
     end subroutine XC_F90(info_refs)
 

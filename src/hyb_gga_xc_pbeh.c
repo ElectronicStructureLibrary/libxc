@@ -48,8 +48,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeh) = {
   XC_EXCHANGE_CORRELATION,
   "PBEH (PBE0)",
   XC_FAMILY_HYB_GGA,
-  "C Adamo and V Barone, J. Chem. Phys. 110, 6158 (1999)\n"
-  "M. Ernzerhof, G. E. Scuseria, J. Chem. Phys. 110, 5029 (1999)",
+  {&xc_ref___content_aip_journal_jcp_110_13_10_1063_1_478522, &xc_ref___content_aip_journal_jcp_110_11_10_1063_1_478401, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_pbeh_init,
@@ -72,7 +71,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe0_13) = {
   XC_EXCHANGE_CORRELATION,
   "PBE0-1/3",
   XC_FAMILY_HYB_GGA,
-  "P Cortona, J. Chem. Phys. 136, 086101 (2012)",
+  {&xc_ref___content_aip_journal_jcp_136_8_10_1063_1_3690462, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_pbe0_13_init,

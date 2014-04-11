@@ -163,9 +163,7 @@ const XC(func_info_type) XC(func_info_gga_x_pw91) = {
   XC_EXCHANGE,
   "Perdew & Wang 91",
   XC_FAMILY_GGA,
-  "JP Perdew, in Proceedings of the 21st Annual International Symposium on the Electronic Structure of Solids, ed. by P Ziesche and H Eschrig (Akademie Verlag, Berlin, 1991), p. 11.\n"
-  "JP Perdew, JA Chevary, SH Vosko, KA Jackson, MR Pederson, DJ Singh, and C Fiolhais, Phys. Rev. B 46, 6671 (1992)\n"
-  "JP Perdew, JA Chevary, SH Vosko, KA Jackson, MR Pederson, DJ Singh, and C Fiolhais, Phys. Rev. B 48, 4978(E) (1993)",
+  {&xc_ref_perdew1991, &xc_ref_PhysRevB_46_6671, &xc_ref_PhysRevB_48_4978_2, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-25, 1e-25, 0.0, 1e-32,
   gga_x_pw91_init,
@@ -179,7 +177,7 @@ const XC(func_info_type) XC(func_info_gga_x_mpw91) = {
   XC_EXCHANGE,
   "mPW91 of Adamo & Barone",
   XC_FAMILY_GGA,
-  "C Adamo and V Barone, J. Chem. Phys. 108, 664 (1998)",
+  {&xc_ref___content_aip_journal_jcp_108_2_10_1063_1_475428, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-31, 1e-31, 0.0, 1e-32,
   gga_x_pw91_init,
@@ -196,7 +194,7 @@ const XC(func_info_type) XC(func_info_gga_k_lc94) = {
   XC_KINETIC,
   "Lembarki & Chermette",
   XC_FAMILY_GGA,
-  "A Lembarki and H Chermette, Phys. Rev. A 50, 5328-5331 (1994)",
+  {&xc_ref_PhysRevA_50_5328, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-30, 1e-30, 0.0, 1e-32,
   gga_x_pw91_init,

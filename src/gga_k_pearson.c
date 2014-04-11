@@ -53,9 +53,7 @@ const XC(func_info_type) XC(func_info_gga_k_pearson) = {
   XC_KINETIC,
   "Pearson 1992",
   XC_FAMILY_GGA,
-  "DJ Lacks and RG Gordon, J. Chem. Phys. 100, 4446 (1994)\n"
-  "E W Pearson and R G Gordon, J. Chem. Phys. 82, 881 (1985)\n"
-  "E W Pearson, Ph.D. thesis, Harvard University (1983)",
+  {&xc_ref___content_aip_journal_jcp_100_6_10_1063_1_466274, &xc_ref___content_aip_journal_jcp_82_2_10_1063_1_448516, &xc_ref_pearson1983, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,

@@ -207,7 +207,7 @@ const XC(func_info_type) XC(func_info_lda_c_pz) = {
   XC_CORRELATION,
   "Perdew & Zunger",
   XC_FAMILY_LDA,
-  "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)",
+  {&xc_ref_PhysRevB_23_5048, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
   NULL,     /* init */
@@ -222,8 +222,7 @@ const XC(func_info_type) XC(func_info_lda_c_pz_mod) = {
   XC_CORRELATION,
   "Perdew & Zunger (Modified)",
   XC_FAMILY_LDA,
-  "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)\n"
-  "Modified to improve the matching between the low- and high-rs parts",
+  {&xc_ref_PhysRevB_23_5048mod, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
   NULL,     /* init */
@@ -238,9 +237,7 @@ const XC(func_info_type) XC(func_info_lda_c_ob_pz) = {
   XC_CORRELATION,
   "Ortiz & Ballone (PZ parametrization)",
   XC_FAMILY_LDA,
-  "G Ortiz and P Ballone, Phys. Rev. B 50, 1391 (1994)\n"
-  "G Ortiz and P Ballone, Phys. Rev. B 56, 9970(E) (1997)\n"
-  "Perdew and Zunger, Phys. Rev. B 23, 5048 (1981)",
+  {&xc_ref_PhysRevB_50_1391, &xc_ref_PhysRevB_56_9970, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
   NULL,     /* init */

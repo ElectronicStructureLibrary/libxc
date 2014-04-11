@@ -94,7 +94,7 @@ XC(func_info_type) XC(func_info_mgga_c_cs) = {
   XC_CORRELATION,
   "Colle and Salvetti",
   XC_FAMILY_MGGA,
-  "Colle and Salvetti, Theor. Chim. Acta 37, 329 (1975)",
+  {&xc_ref_colle1975, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   NULL,

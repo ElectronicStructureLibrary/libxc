@@ -78,7 +78,7 @@ const XC(func_info_type) XC(func_info_gga_x_ak13) = {
   XC_EXCHANGE,
   "Armiento & Kuemmel 2013",
   XC_FAMILY_GGA,
-  "R Armiento and S Kuemmel, PRL 111, 036402 (2013)",
+  {&xc_ref_PhysRevLett_111_036402, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,

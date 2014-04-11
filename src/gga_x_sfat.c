@@ -117,8 +117,7 @@ const XC(func_info_type) XC(func_info_gga_x_sfat) = {
   XC_EXCHANGE,
   "Short-range recipe for exchange GGA functionals - Yukawa",
   XC_FAMILY_GGA,
-  "A Savin, H-J Flad, J. of Quant. Chem. 56, 327-332 (1995)\n"
-  "Y Akinaga, S Ten-no, Chem. Phys. Lett. 462, 348-351 (2008)",
+  {&xc_ref_QUA_QUA560560417, &xc_ref_Akinaga2008348, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_sfat_init,

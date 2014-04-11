@@ -174,7 +174,7 @@ XC(func_info_type) XC(func_info_gga_x_lb) = {
   XC_EXCHANGE,
   "van Leeuwen & Baerends",
   XC_FAMILY_GGA,
-  "R van Leeuwen and EJ Baerends, Phys. Rev. A. 49, 2421 (1994)",
+  {&xc_ref_PhysRevA_49_2421, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_lb_init,
@@ -189,8 +189,7 @@ XC(func_info_type) XC(func_info_gga_x_lbm) = {
   XC_EXCHANGE,
   "van Leeuwen & Baerends modified",
   XC_FAMILY_GGA,
-  "PRT Schipper, OV Gritsenko, SJA van Gisbergen, and EJ Baerends, J. Chem. Phys. 112, 1344 (2000)\n"
-  "R van Leeuwen and EJ Baerends, Phys. Rev. A. 49, 2421 (1994)",
+  {&xc_ref___content_aip_journal_jcp_112_3_10_1063_1_480688, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_lb_init,

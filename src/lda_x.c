@@ -382,8 +382,7 @@ const XC(func_info_type) XC(func_info_lda_x) = {
   XC_EXCHANGE,
   "Slater exchange",
   XC_FAMILY_LDA,
-  "PAM Dirac, Proceedings of the Cambridge Philosophical Society 26, 376 (1930)\n"
-  "F Bloch, Zeitschrift fuer Physik 57, 545 (1929)",
+  {&xc_ref_PSP_2040328, &xc_ref_10_1007_BF01340281, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-29, 0.0, 0.0, 1e-32,
   lda_x_init,
@@ -398,7 +397,7 @@ const XC(func_info_type) XC(func_info_lda_c_xalpha) = {
   XC_CORRELATION,
   "Slater's Xalpha",
   XC_FAMILY_LDA,
-  "JC Slater, Phys. Rev. 81, 385 (1951)",
+  {&xc_ref_PhysRev_81_385, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-29, 0.0, 0.0, 1e-32,
   lda_c_xalpha_init,

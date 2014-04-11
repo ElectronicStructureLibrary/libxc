@@ -114,8 +114,7 @@ const XC(func_info_type) XC(func_info_gga_x_sogga11) = {
   XC_EXCHANGE,
   "Second-order generalized gradient approximation 2011",
   XC_FAMILY_GGA,
-  "R Peverati, Y Zhao, and DG Truhlar, J. Phys. Chem. Lett. 2, 1991-1997 (2011)\n"
-  "http://comp.chem.umn.edu/mfm/index.html",
+  {&xc_ref_doi_10_1021_jz200616w, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-31, 1e-32, 0.0, 1e-32,
   gga_x_sogga11_init, 
@@ -129,8 +128,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_x_sogga11_x) = {
   XC_EXCHANGE,
   "Hybrid based on SOGGA11 form",
   XC_FAMILY_HYB_GGA,
-  "R Peverati and DG Truhlar, J. Chem. Phys. 135, 191102 (2011)\n"
-  "http://comp.chem.umn.edu/mfm/index.html",
+  {&xc_ref___content_aip_journal_jcp_135_19_10_1063_1_3663871, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-31, 1e-32, 0.0, 1e-32,
   gga_x_sogga11_init, 

@@ -99,8 +99,7 @@ const XC(func_info_type) XC(func_info_lda_k_tf) = {
   XC_KINETIC,
   "Thomas-Fermi kinetic energy",
   XC_FAMILY_LDA,
-  "LH Thomas, Proc. Cambridge Phil. Soc. 23,  542-548 (1927)\n"
-  "E Fermi. Rend. Accad. Naz. Lincei 6, 602-607 (1927)",
+  {&xc_ref_PSP_1732980, &xc_ref_Fermi_1927_MSP, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-29, 0.0, 0.0, 1e-32,
   NULL,
@@ -115,7 +114,7 @@ const XC(func_info_type) XC(func_info_lda_k_lp) = {
   XC_KINETIC,
   "Lee and Parr Gaussian ansatz for the kinetic energy",
   XC_FAMILY_LDA,
-  "CL and RG Parr, Phys. Rev. A 35, 2377-2383 (1987)",
+  {&xc_ref_PhysRevA_35_2377, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-29, 0.0, 0.0, 1e-32,
   NULL,

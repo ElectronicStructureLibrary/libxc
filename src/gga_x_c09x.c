@@ -64,7 +64,7 @@ const XC(func_info_type) XC(func_info_gga_x_c09x) = {
   XC_EXCHANGE,
   "C09x to be used with the VdW of Rutgers-Chalmers",
   XC_FAMILY_GGA,
-  "VR Cooper, Phys. Rev. B 81, 161104(R) (2010)",
+  {&xc_ref_PhysRevB_81_161104, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,

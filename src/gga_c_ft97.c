@@ -309,8 +309,7 @@ const XC(func_info_type) XC(func_info_gga_c_ft97) = {
   XC_CORRELATION,
   "Filatov & Thiel correlation",
   XC_FAMILY_GGA,
-  "M Filatov & W Thiel, Int. J. Quant. Chem. 62, 603-616 (1997)\n"
-  "M Filatov & W Thiel, Mol Phys 91, 847 (1997)",
+  {&xc_ref_QUA_QUA4, &xc_ref_doi_10_1080_002689797170950, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL,

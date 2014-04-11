@@ -80,33 +80,36 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  int func_id, error;
+  int i, func_id, error;
   xc_func_type func;
   char *fname;
 
   /* Is functional defined by a string constant? */
   if(isalpha(argv[1][0]))
-    func_id=XC(functional_get_number)(argv[1]);
+    func_id = XC(functional_get_number)(argv[1]);
   else
-    func_id=atoi(argv[1]);
+    func_id = atoi(argv[1]);
 
   /* Initialize functional */
-  error=xc_func_init(&func, func_id, XC_UNPOLARIZED);
+  error = xc_func_init(&func, func_id, XC_UNPOLARIZED);
   if(error) {
-    printf("Functional '%s' not found.\n",argv[1]);
+    printf("Functional '%s' not found.\n", argv[1]);
     return 1;
   }
 
   /* Get functional name */
-  fname=XC(functional_get_name)(func_id);
+  fname = XC(functional_get_name)(func_id);
 
   /* Print out info */
-  printf("%10s: %-20i\t%10s: %-25s\n","func_id",func_id,"name",fname);
-  printf("%10s: %-20s\t%10s: %-25s\n","family",get_family(&func),"kind",get_kind(&func));
-  printf("%10s: %s\n","comment",func.info->name);
+  printf("%10s: %-20i\t%10s: %-25s\n","func_id", func_id, "name", fname);
+  printf("%10s: %-20s\t%10s: %-25s\n","family", get_family(&func), "kind", get_kind(&func));
+  printf("%10s: %s\n","comment", func.info->name);
 
   printf("\nReference(s):\n");
-  printf("%s\n",func.info->refs);
+  for(i=0; i<5; i++){
+    if(func.info->refs[i]==NULL) break;
+    printf("%s\n", func.info->refs[i]->ref);
+  }
 
   /* Free memory */
   xc_func_end(&func);

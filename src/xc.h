@@ -72,12 +72,18 @@ void XC(version)(int *major, int *minor);
 struct XC(func_type);
 
 typedef struct{
+  char *ref, *doi, *bibtex;
+} func_reference_type;
+
+
+typedef struct{
   int   number;   /* indentifier number */
   int   kind;     /* XC_EXCHANGE, XC_CORRELATION, or XC_EXCHANGE_CORRELATION */
 
   char *name;     /* name of the functional, e.g. "PBE" */
   int   family;   /* type of the functional, e.g. XC_FAMILY_GGA */
-  char *refs;     /* references                       */
+  //int   refs[5];  /* index of the references */
+  func_reference_type *refs[5];  /* index of the references */
 
   int   flags;    /* see above for a list of possible flags */
 

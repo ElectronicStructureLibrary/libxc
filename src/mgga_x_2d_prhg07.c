@@ -143,7 +143,7 @@ const XC(func_info_type) XC(func_info_mgga_x_2d_prhg07) = {
   XC_EXCHANGE,
   "Pittalis-Rasanen-Helbig-Gross 2007",
   XC_FAMILY_MGGA,
-  "S. Pittalis, E. Rasanen, N. Helbig, and E. K. U. Gross, Phys. Rev. B 76, 235314 (2007)",
+  {&xc_ref_PhysRevB_76_235314, NULL, NULL, NULL, NULL},
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   NULL, NULL, 
@@ -156,8 +156,7 @@ const XC(func_info_type) XC(func_info_mgga_x_2d_prhg07_prp10) = {
   XC_EXCHANGE,
   "PRHG07 with Pittalis-Rasanen-Proetto 2010 correction",
   XC_FAMILY_MGGA,
-  "S. Pittalis, E. Rasanen, N. Helbig, and E. K. U. Gross, Phys. Rev. B 76, 235314 (2007)\n"
-  "S. Pittalis, E. Rasanen, C.R. Proetto, Phys. Rev. B. 81, 115108 (2010)",
+  {&xc_ref_PhysRevB_76_235314, &xc_ref_PhysRevB_81_115108, NULL, NULL, NULL},
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   NULL,

@@ -58,7 +58,7 @@ libxc_la_FUNC_SOURCES = \
 
 libxc_la_FUNC_SINGLE_SOURCES = $(libxc_la_FUNC_SOURCES:.c=_s.c)
 
-libxc_la_SOURCES = $(libxc_la_FUNC_SOURCES)
+libxc_la_SOURCES = references.c $(libxc_la_FUNC_SOURCES)
 libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)
 
 if COMPILE_SINGLE
@@ -89,7 +89,7 @@ FCLINK = $(LIBTOOL) --mode=link --tag=F77 $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) \
 dist_noinst_SCRIPTS = get_funcs.pl
 
 noinst_HEADERS = \
-	string_f.h util.h work_lda.c \
+	string_f.h references.h util.h work_lda.c \
 	work_gga_x.c work_gga_c.c \
 	work_mgga_x.c work_mgga_c.c \
 	libxc_master.F90

@@ -85,7 +85,7 @@ XC(func_info_type) XC(func_info_mgga_x_pkzb) = {
   XC_EXCHANGE,
   "Perdew, Kurth, Zupan, and Blaha",
   XC_FAMILY_MGGA,
-  "JP Perdew, S Kurth, A Zupan, and P. Blaha, Phys. Rev. Lett. 82, 2544-2547 (1999)",
+  {&xc_ref_PhysRevLett_82_2544, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   NULL,

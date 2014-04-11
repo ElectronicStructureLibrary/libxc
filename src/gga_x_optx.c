@@ -100,7 +100,7 @@ const XC(func_info_type) XC(func_info_gga_x_optx) = {
   XC_EXCHANGE,
   "Handy & Cohen OPTX 01",
   XC_FAMILY_GGA,
-  "NC Handy and AJ Cohen, Mol. Phys. 99, 403 (2001)",
+  {&xc_ref_doi_10_1080_00268970010018431, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_optx_init,

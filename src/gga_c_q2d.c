@@ -180,7 +180,7 @@ const XC(func_info_type) XC(func_info_gga_c_q2d) = {
   XC_CORRELATION,
   "Chiodo et al",
   XC_FAMILY_GGA,
-  "L Chiodo, LA Constantin, E Fabiano, and F Della Sala, Phys. Rev. Lett. 108, 126402 (2012)",
+  {&xc_ref_PhysRevLett_108_126402, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-23, 0.0, 1e-32,
   gga_c_q2d_init,

@@ -85,7 +85,7 @@ const XC(func_info_type) XC(func_info_lda_c_1d_loos) = {
   XC_CORRELATION,
   "P-F Loos correlation LDA",
   XC_FAMILY_LDA,
-  "P-F Loos, arXiv:1207.6849v1 [cond-mat.str-el] (2012)",
+  {&xc_ref___content_aip_journal_jcp_138_6_10_1063_1_4790613, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D |  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 0.0, 0.0, 1e-32,
   lda_c_1d_loos_init,    /* init */

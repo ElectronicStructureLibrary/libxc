@@ -57,7 +57,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   xt52    = xt2*xt0;
   xt72    = r->xt*xt52;
 
-  aux = EXP(-par->k*xt2);
+  aux = exp(-par->k*xt2);
 
   num = par->a + par->b*xt2*aux;
   den = par->c + r->rs*(1.0 + par->d*cnst_rs*xt72);
@@ -105,7 +105,7 @@ const XC(func_info_type) XC(func_info_gga_c_wi0) = {
   XC_CORRELATION,
   "Wilson & Ivanov initial version",
   XC_FAMILY_GGA,
-  "LC Wilson & S Ivanov, Int. J. Quantum Chem. 69, 523-532 (1998)",
+  {&xc_ref_QUA_QUA9, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_c_wi_init,
@@ -119,7 +119,7 @@ const XC(func_info_type) XC(func_info_gga_c_wi) = {
   XC_CORRELATION,
   "Wilson & Ivanov",
   XC_FAMILY_GGA,
-  "LC Wilson & S Ivanov, Int. J. Quantum Chem. 69, 523-532 (1998)",
+  {&xc_ref_QUA_QUA9, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_c_wi_init,

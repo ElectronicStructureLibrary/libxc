@@ -241,7 +241,7 @@ const XC(func_info_type) XC(func_info_lda_c_pw) = {
   XC_CORRELATION,
   "Perdew & Wang",
   XC_FAMILY_LDA,
-  "JP Perdew and Y Wang, Phys. Rev. B 45, 13244 (1992)",
+  {&xc_ref_PhysRevB_45_13244, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-25, 0.0, 0.0, 1e-32,
   lda_c_pw_init, /* init */
@@ -256,9 +256,7 @@ const XC(func_info_type) XC(func_info_lda_c_pw_mod) = {
   XC_CORRELATION,
   "Perdew & Wang (modified)",
   XC_FAMILY_LDA,
-  "JP Perdew and Y Wang, Phys. Rev. B 45, 13244 (1992)\n"
-  "Added extra digits to some constants as in the PBE routine\n"
-  "http://dft.rutgers.edu/pubs/PBE.asc",
+  {&xc_ref_PhysRevB_45_13244mod, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-26, 0.0, 0.0, 1e-32,
   lda_c_pw_init, /* init */
@@ -273,9 +271,7 @@ const XC(func_info_type) XC(func_info_lda_c_ob_pw) = {
   XC_CORRELATION,
   "Ortiz & Ballone (PW parametrization)",
   XC_FAMILY_LDA,
-  "G Ortiz and P Ballone, Phys. Rev. B 50, 1391 (1994)\n"
-  "G Ortiz and P Ballone, Phys. Rev. B 56, 9970(E) (1997)\n"
-  "JP Perdew and Y Wang, Phys. Rev. B 45, 13244 (1992)",
+  {&xc_ref_PhysRevB_50_1391, &xc_ref_PhysRevB_56_9970, &xc_ref_PhysRevB_45_13244mod, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-26, 0.0, 0.0, 1e-32,
   lda_c_pw_init, /* init */
@@ -290,7 +286,7 @@ const XC(func_info_type) XC(func_info_lda_c_pw_rpa) = {
   XC_CORRELATION,
   "Perdew & Wang (fit to the RPA energy)",
   XC_FAMILY_LDA,
-  "JP Perdew and Y Wang, Phys. Rev. B 45, 13244 (1992)",
+  {&xc_ref_PhysRevB_45_13244, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-27, 0.0, 0.0, 1e-32,
   lda_c_pw_init, /* init */

@@ -295,7 +295,7 @@ XC(func_info_type) XC(func_info_mgga_c_pkzb) = {
   XC_CORRELATION,
   "Perdew, Kurth, Zupan, and Blaha",
   XC_FAMILY_MGGA,
-  "JP Perdew, S Kurth, A Zupan, and P. Blaha, Phys. Rev. Lett. 82, 2544-2547 (1999)",
+  {&xc_ref_PhysRevLett_82_2544, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-26, 1e-32, 1e-32, 1e-32, /* densities smaller than 1e-26 give NaNs */
   mgga_c_pkzb_init,
@@ -308,8 +308,7 @@ XC(func_info_type) XC(func_info_mgga_c_tpss) = {
   XC_CORRELATION,
   "Tao, Perdew, Staroverov & Scuseria",
   XC_FAMILY_MGGA,
-  "J Tao, JP Perdew, VN Staroverov, and G Scuseria, Phys. Rev. Lett. 91, 146401 (2003)\n"
-  "JP Perdew, J Tao, VN Staroverov, and G Scuseria, J. Chem. Phys. 120, 6898 (2004)",
+  {&xc_ref_PhysRevLett_91_146401, &xc_ref___content_aip_journal_jcp_120_15_10_1063_1_1665298, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-26, 1e-32, 1e-32, 1e-32, /* densities smaller than 1e-26 give NaNs */
   mgga_c_pkzb_init,
@@ -322,7 +321,7 @@ XC(func_info_type) XC(func_info_mgga_c_revtpss) = {
   XC_CORRELATION,
   "revised TPSS correlation",
   XC_FAMILY_MGGA,
-  "JP Perdew, A Ruzsinszky, GI Csonka, LA Constantin, and J Sun, Phys. Rev. Lett. 103, 026403 (2009)",
+  {&xc_ref_PhysRevLett_103_026403, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-26, 1e-32, 1e-32, 1e-32, /* densities smaller than 1e-26 give NaNs */
   mgga_c_pkzb_init,

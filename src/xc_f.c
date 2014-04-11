@@ -76,24 +76,18 @@ CC_FORTRAN_INT  XC_FC_FUNC(f90_info_flags, F90_INFO_FLAGS)
 
 
 void XC_FC_FUNC(f90_info_refs, F90_INFO_REFS)
-     (void **info, CC_FORTRAN_INT *number, char **s, STR_F_TYPE ref_f STR_ARG1)
+     (void **info, CC_FORTRAN_INT *number, STR_F_TYPE ref_f STR_ARG1)
 {
-  char *c, ref[256]; /* hopefully no ref is longer than 256 characters ;) */
   XC(func_info_type) *func_p = (XC(func_info_type) *)(*info);
 
-  if(*number == 0) *s = func_p->refs;
+  assert(*number >=0 && *number < 5);
 
-  if(*s == NULL || **s == '\0'){
+  if(func_p->refs[*number] == NULL){
     *number = -1;
     return;
   }
 
-  for(c=ref; **s!='\0' && **s!='\n'; (*s)++, c++)
-    *c = **s;
-  *c = '\0';
-  if(**s=='\n') (*s)++;
-
-  TO_F_STR1(ref, ref_f);
+  TO_F_STR1(func_p->refs[*number]->ref, ref_f);
 
   (*number)++;
   fflush(stdout);

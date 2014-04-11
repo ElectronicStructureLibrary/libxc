@@ -27,6 +27,9 @@
 /* xc_config.h needs to be included to use FLOAT and related macros*/
 #include "xc_config.h"
 
+/* we include the references also */
+#include "references.h"
+
 /* If strict ANSI, then some useful macros are not defined */
 #if defined(__STRICT_ANSI__)
 # define M_E            2.7182818284590452354   /* e */

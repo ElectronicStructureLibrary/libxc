@@ -78,7 +78,7 @@ const XC(func_info_type) XC(func_info_gga_x_lg93) = {
   XC_EXCHANGE,
   "Lacks & Gordon 93",
   XC_FAMILY_GGA,
-  "DJ Lacks and RG Gordon, Phys. Rev. A 47, 4681 (1993)",
+  {&xc_ref_PhysRevA_47_4681, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,

@@ -22,9 +22,9 @@
 
 #include "util.h"
 
-#define XC_MGGA_X_M05          214 /* M05 functional of Minnesota */
-#define XC_MGGA_X_M05_2X       215 /* M05-2X functional of Minnesota */
-#define XC_MGGA_X_M06_2X       218 /* M06-2X functional of Minnesota */
+#define XC_MGGA_X_M05          214 /* M05 functional from Minnesota */
+#define XC_MGGA_X_M05_2X       215 /* M05-2X functional from Minnesota */
+#define XC_MGGA_X_M06_2X       218 /* M06-2X functional from Minnesota */
 
 static const FLOAT a_m05[12] = 
   {1.0, 0.08151, -0.43956, -3.22422, 2.01819, 8.79431, -0.00295,
@@ -115,9 +115,9 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 XC(func_info_type) XC(func_info_mgga_x_m05) = {
   XC_MGGA_X_M05,
   XC_EXCHANGE,
-  "M05 functional of Minnesota",
+  "Minnesota M05 functional",
   XC_FAMILY_MGGA,
-  {&xc_ref___content_aip_journal_jcp_123_16_10_1063_1_2126975, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2005_161103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_x_m05_init,
@@ -129,9 +129,9 @@ XC(func_info_type) XC(func_info_mgga_x_m05) = {
 XC(func_info_type) XC(func_info_mgga_x_m05_2x) = {
   XC_MGGA_X_M05_2X,
   XC_EXCHANGE,
-  "M05-2X functional of Minnesota",
+  "Minnesota M05-2X functional",
   XC_FAMILY_MGGA,
-  {&xc_ref_doi_10_1021_ct0502763, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2006_364, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_x_m05_init,
@@ -142,9 +142,9 @@ XC(func_info_type) XC(func_info_mgga_x_m05_2x) = {
 const XC(func_info_type) XC(func_info_mgga_x_m06_2x) = {
   XC_MGGA_X_M06_2X,
   XC_EXCHANGE,
-  "M06-2X functional of Minnesota",
+  "Minnesota M06-2X functional",
   XC_FAMILY_MGGA,
-  {&xc_ref_Zhao2008, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   mgga_x_m05_init,

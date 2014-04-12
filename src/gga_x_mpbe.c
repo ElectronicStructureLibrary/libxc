@@ -65,7 +65,7 @@ const XC(func_info_type) XC(func_info_gga_x_mpbe) = {
   XC_EXCHANGE,
   "Adamo & Barone modification to PBE",
   XC_FAMILY_GGA,
-  {&xc_ref___content_aip_journal_jcp_116_14_10_1063_1_1458927, NULL, NULL, NULL, NULL},
+  {&xc_ref_Adamo2002_5933, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,

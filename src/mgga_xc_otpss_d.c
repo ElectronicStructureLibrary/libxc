@@ -39,7 +39,7 @@ const XC(func_info_type) XC(func_info_mgga_xc_otpss_d) = {
   XC_EXCHANGE_CORRELATION,
   "oTPSS-D functional of Goerigk and Grimme",
   XC_FAMILY_MGGA,
-  {&xc_ref_doi_10_1021_ct900489g, NULL, NULL, NULL, NULL},
+  {&xc_ref_Goerigk2010_107, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   mgga_xc_otpss_d_init,

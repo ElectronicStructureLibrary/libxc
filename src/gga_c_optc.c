@@ -149,7 +149,7 @@ const XC(func_info_type) XC(func_info_gga_c_optc) = {
   XC_CORRELATION,
   "Optimized correlation functional of Cohen and Handy",
   XC_FAMILY_GGA,
-  {&xc_ref_doi_10_1080_00268970010023435, NULL, NULL, NULL, NULL},
+  {&xc_ref_Cohen2001_607, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-26, 1e-32, 0.0, 1e-32, /* densities smaller than 1e-26 give rise to NaNs */
   gga_c_optc_init,

@@ -22,12 +22,12 @@
 
 #include "util.h"
 
-#define XC_MGGA_C_M08_HX       78 /* M08-HX functional of Minnesota  */
-#define XC_MGGA_C_M08_SO       77 /* M08-SO functional of Minnesota  */
-#define XC_MGGA_C_M11          76 /* M11 functional of Minnesota     */
-#define XC_MGGA_C_M11_L        75 /* M11-L functional of Minnesota   */
-#define XC_MGGA_C_MN12_L       74 /* MN12-L functional of Minnesota  */
-#define XC_MGGA_C_MN12_SX      73 /* MN12-SX functional of Minnesota */
+#define XC_MGGA_C_M08_HX       78 /* M08-HX functional from Minnesota  */
+#define XC_MGGA_C_M08_SO       77 /* M08-SO functional from Minnesota  */
+#define XC_MGGA_C_M11          76 /* M11 functional from Minnesota     */
+#define XC_MGGA_C_M11_L        75 /* M11-L functional from Minnesota   */
+#define XC_MGGA_C_MN12_L       74 /* MN12-L functional from Minnesota  */
+#define XC_MGGA_C_MN12_SX      73 /* MN12-SX functional from Minnesota */
 
 
 static const FLOAT a_m08_hx[12] = {
@@ -210,9 +210,9 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 XC(func_info_type) XC(func_info_mgga_c_m08_hx) = {
   XC_MGGA_C_M08_HX,
   XC_EXCHANGE,
-  "M08-HX functional of Minnesota",
+  "Minnesota M08-HX functional",
   XC_FAMILY_MGGA,
-  {&xc_ref_doi_10_1021_ct800246v, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_c_m08_init,
@@ -223,9 +223,9 @@ XC(func_info_type) XC(func_info_mgga_c_m08_hx) = {
 XC(func_info_type) XC(func_info_mgga_c_m08_so) = {
   XC_MGGA_C_M08_SO,
   XC_EXCHANGE,
-  "M08-SO functional of Minnesota",
+  "Minnesota M08-SO functional",
   XC_FAMILY_MGGA,
-  {&xc_ref_doi_10_1021_ct800246v, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_c_m08_init,
@@ -236,9 +236,9 @@ XC(func_info_type) XC(func_info_mgga_c_m08_so) = {
 XC(func_info_type) XC(func_info_mgga_c_m11) = {
   XC_MGGA_C_M11,
   XC_EXCHANGE,
-  "M11 functional of Minnesota",
+  "Minnesota M11 functional",
   XC_FAMILY_MGGA,
-  {&xc_ref_doi_10_1021_jz201170d, NULL, NULL, NULL, NULL},
+  {&xc_ref_Peverati2011_2810, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_c_m08_init,
@@ -249,9 +249,9 @@ XC(func_info_type) XC(func_info_mgga_c_m11) = {
 XC(func_info_type) XC(func_info_mgga_c_m11_l) = {
   XC_MGGA_C_M11_L,
   XC_EXCHANGE,
-  "M11-L functional of Minnesota",
+  "Minnesota M11-L functional",
   XC_FAMILY_MGGA,
-  {&xc_ref_doi_10_1021_jz201525m, NULL, NULL, NULL, NULL},
+  {&xc_ref_Peverati2012_117, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_c_m08_init,
@@ -262,9 +262,9 @@ XC(func_info_type) XC(func_info_mgga_c_m11_l) = {
 XC(func_info_type) XC(func_info_mgga_c_mn12_l) = {
   XC_MGGA_C_MN12_L,
   XC_CORRELATION,
-  "MN12-L functional of Minnesota",
+  "Minnesota MN12-L functional",
   XC_FAMILY_MGGA,
-  {&xc_ref_C2CP42025B, NULL, NULL, NULL, NULL},
+  {&xc_ref_Peverati2012_13171, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_c_m08_init,
@@ -275,9 +275,9 @@ XC(func_info_type) XC(func_info_mgga_c_mn12_l) = {
 XC(func_info_type) XC(func_info_mgga_c_mn12_sx) = {
   XC_MGGA_C_MN12_SX,
   XC_CORRELATION,
-  "MN12-SX functional of Minnesota",
+  "Minnesota MN12-SX functional",
   XC_FAMILY_MGGA,
-  {&xc_ref_C2CP42576A, NULL, NULL, NULL, NULL},
+  {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_c_m08_init,

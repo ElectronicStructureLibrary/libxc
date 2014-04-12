@@ -149,7 +149,7 @@ const XC(func_info_type) XC(func_info_gga_c_lm) = {
   XC_CORRELATION,
   "Langreth & Mehl",
   XC_FAMILY_GGA,
-  {&xc_ref_PhysRevLett_47_446, &xc_ref_1402_4896_32_4_024, NULL, NULL, NULL},
+  {&xc_ref_Langreth1981_446, &xc_ref_Hu1985_391, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-10, 1e-32, 0.0, 1e-32,
   gga_c_lm_init,

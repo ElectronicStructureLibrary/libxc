@@ -57,7 +57,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbea) = {
   XC_EXCHANGE,
   "Madsen 07",
   XC_FAMILY_GGA,
-  {&xc_ref_PhysRevB_75_195108, NULL, NULL, NULL, NULL},
+  {&xc_ref_Madsen2007_195108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,

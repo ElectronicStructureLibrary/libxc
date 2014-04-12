@@ -40,6 +40,7 @@ while($_=<BIB>){
       }
     }
     $bibtex{$ref} .= "}";
+    $bibtex{$ref} =~ s/\\/\\\\/g; # protect backslashes
     $bibtex{$ref} =~ s/\"/\\\"/g; # protect quotation marks
     $bibtex{$ref} =~ s/\n/\\n/g; # protect new lines
   }

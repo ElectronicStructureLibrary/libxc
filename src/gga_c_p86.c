@@ -152,7 +152,7 @@ const XC(func_info_type) XC(func_info_gga_c_p86) = {
   XC_CORRELATION,
   "Perdew 86",
   XC_FAMILY_GGA,
-  {&xc_ref_PhysRevB_33_8822, NULL, NULL, NULL, NULL},
+  {&xc_ref_Perdew1986_8822, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_c_p86_init,

@@ -162,7 +162,7 @@ const XC(func_info_type) XC(func_info_lda_xc_teter93) = {
   XC_EXCHANGE_CORRELATION,
   "Teter 93",
   XC_FAMILY_LDA,
-  {&xc_ref_PhysRevB_54_1703, NULL, NULL, NULL, NULL},
+  {&xc_ref_Goedecker1996_1703, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
   NULL,     /* init */

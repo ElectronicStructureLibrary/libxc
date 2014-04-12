@@ -23,12 +23,12 @@
 #include "util.h"
 
 #define XC_MGGA_C_VSXC          232 /* VSxc from Van Voorhis and Scuseria (correlation part) */
-#define XC_MGGA_C_M05           237 /* M05 functional of Minnesota */
-#define XC_MGGA_C_M05_2X        238 /* M05-2X functional of Minnesota */
-#define XC_MGGA_C_M06_L         233 /* M06-Local functional of Minnesota */
-#define XC_MGGA_C_M06_HF        234 /* M06-HF functional of Minnesota */
-#define XC_MGGA_C_M06           235 /* M06 functional of Minnesota */
-#define XC_MGGA_C_M06_2X        236 /* M06-2X functional of Minnesota */
+#define XC_MGGA_C_M05           237 /* M05 functional from Minnesota       */
+#define XC_MGGA_C_M05_2X        238 /* M05-2X functional from Minnesota    */
+#define XC_MGGA_C_M06_L         233 /* M06-Local functional from Minnesota */
+#define XC_MGGA_C_M06_HF        234 /* M06-HF functional from Minnesota    */
+#define XC_MGGA_C_M06           235 /* M06 functional from Minnesota       */
+#define XC_MGGA_C_M06_2X        236 /* M06-2X functional from Minnesota    */
 
 static const FLOAT vsxc_dab[6]  = { 7.035010e-01,  7.694574e-03,  5.152765e-02,  3.394308e-05, -1.269420e-03,  1.296118e-03};
 static const FLOAT vsxc_dss[6]  = { 3.270912e-01, -3.228915e-02, -2.942406e-02,  2.134222e-03, -5.451559e-03,  1.577575e-02};
@@ -254,9 +254,9 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 XC(func_info_type) XC(func_info_mgga_c_m05) = {
   XC_MGGA_C_M05,
   XC_CORRELATION,
-  "M05 functional of Minnesota",
+  "Minnesota M05 functional",
   XC_FAMILY_MGGA,
-  {&xc_ref___content_aip_journal_jcp_123_16_10_1063_1_2126975, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2005_161103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_c_vsxc_init,
@@ -268,9 +268,9 @@ XC(func_info_type) XC(func_info_mgga_c_m05) = {
 XC(func_info_type) XC(func_info_mgga_c_m05_2x) = {
   XC_MGGA_C_M05_2X,
   XC_CORRELATION,
-  "M05-2X functional of Minnesota",
+  "Minnesota M05-2X functional",
   XC_FAMILY_MGGA,
-  {&xc_ref_doi_10_1021_ct0502763, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2006_364, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_c_vsxc_init,
@@ -283,7 +283,7 @@ const XC(func_info_type) XC(func_info_mgga_c_vsxc) = {
   XC_CORRELATION,
   "VSXC (correlation part)",
   XC_FAMILY_MGGA,
-  {&xc_ref___content_aip_journal_jcp_109_2_10_1063_1_476577, NULL, NULL, NULL, NULL},
+  {&xc_ref_VanVoorhis1998_400, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   mgga_c_vsxc_init,
@@ -295,9 +295,9 @@ const XC(func_info_type) XC(func_info_mgga_c_vsxc) = {
 const XC(func_info_type) XC(func_info_mgga_c_m06_l) = {
   XC_MGGA_C_M06_L,
   XC_CORRELATION,
-  "M06-Local functional of Minnesota",
+  "Minnesota M06-L functional",
   XC_FAMILY_MGGA,
-  {&xc_ref___content_aip_journal_jcp_125_19_10_1063_1_2370993, &xc_ref_Zhao2008, NULL, NULL, NULL},
+  {&xc_ref_Zhao2006_194101, &xc_ref_Zhao2008_215, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   mgga_c_vsxc_init,
@@ -309,9 +309,9 @@ const XC(func_info_type) XC(func_info_mgga_c_m06_l) = {
 const XC(func_info_type) XC(func_info_mgga_c_m06_hf) = {
   XC_MGGA_C_M06_HF,
   XC_CORRELATION,
-  "M06-HF functional of Minnesota",
+  "Minnesota M06-HF functional",
   XC_FAMILY_MGGA,
-  {&xc_ref_doi_10_1021_jp066479k, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2006_13126, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   mgga_c_vsxc_init,
@@ -323,9 +323,9 @@ const XC(func_info_type) XC(func_info_mgga_c_m06_hf) = {
 const XC(func_info_type) XC(func_info_mgga_c_m06) = {
   XC_MGGA_C_M06,
   XC_CORRELATION,
-  "M06 functional of Minnesota",
+  "Minnesota M06 functional",
   XC_FAMILY_MGGA,
-  {&xc_ref_Zhao2008, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   mgga_c_vsxc_init,
@@ -337,9 +337,9 @@ const XC(func_info_type) XC(func_info_mgga_c_m06) = {
 const XC(func_info_type) XC(func_info_mgga_c_m06_2x) = {
   XC_MGGA_C_M06_2X,
   XC_CORRELATION,
-  "M06-2X functional of Minnesota",
+  "Minnesota M06-2X functional",
   XC_FAMILY_MGGA,
-  {&xc_ref_Zhao2008, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   mgga_c_vsxc_init,

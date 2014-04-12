@@ -117,7 +117,7 @@ const XC(func_info_type) XC(func_info_lda_c_rc04) = {
   XC_CORRELATION,
   "Ragot-Cortona",
   XC_FAMILY_LDA,
-  {&xc_ref___content_aip_journal_jcp_121_16_10_1063_1_1792153, NULL, NULL, NULL, NULL},
+  {&xc_ref_Ragot2004_7671, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-25, 0.0, 0.0, 1e-32,
   NULL,     /* init */

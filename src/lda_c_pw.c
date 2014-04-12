@@ -241,7 +241,7 @@ const XC(func_info_type) XC(func_info_lda_c_pw) = {
   XC_CORRELATION,
   "Perdew & Wang",
   XC_FAMILY_LDA,
-  {&xc_ref_PhysRevB_45_13244, NULL, NULL, NULL, NULL},
+  {&xc_ref_Perdew1992_13244, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-25, 0.0, 0.0, 1e-32,
   lda_c_pw_init, /* init */
@@ -256,7 +256,7 @@ const XC(func_info_type) XC(func_info_lda_c_pw_mod) = {
   XC_CORRELATION,
   "Perdew & Wang (modified)",
   XC_FAMILY_LDA,
-  {&xc_ref_PhysRevB_45_13244mod, NULL, NULL, NULL, NULL},
+  {&xc_ref_Perdew1992_13244_mod, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-26, 0.0, 0.0, 1e-32,
   lda_c_pw_init, /* init */
@@ -271,7 +271,7 @@ const XC(func_info_type) XC(func_info_lda_c_ob_pw) = {
   XC_CORRELATION,
   "Ortiz & Ballone (PW parametrization)",
   XC_FAMILY_LDA,
-  {&xc_ref_PhysRevB_50_1391, &xc_ref_PhysRevB_56_9970, &xc_ref_PhysRevB_45_13244mod, NULL, NULL},
+  {&xc_ref_Ortiz1994_1391, &xc_ref_Ortiz1994_1391_err, &xc_ref_Perdew1992_13244_mod, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-26, 0.0, 0.0, 1e-32,
   lda_c_pw_init, /* init */
@@ -286,7 +286,7 @@ const XC(func_info_type) XC(func_info_lda_c_pw_rpa) = {
   XC_CORRELATION,
   "Perdew & Wang (fit to the RPA energy)",
   XC_FAMILY_LDA,
-  {&xc_ref_PhysRevB_45_13244, NULL, NULL, NULL, NULL},
+  {&xc_ref_Perdew1992_13244, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-27, 0.0, 0.0, 1e-32,
   lda_c_pw_init, /* init */

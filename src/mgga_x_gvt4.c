@@ -75,7 +75,7 @@ const XC(func_info_type) XC(func_info_mgga_x_gvt4) = {
   XC_EXCHANGE,
   "GVT4 (X part of VSXC)",
   XC_FAMILY_MGGA,
-  {&xc_ref___content_aip_journal_jcp_109_2_10_1063_1_476577, NULL, NULL, NULL, NULL},
+  {&xc_ref_VanVoorhis1998_400, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   NULL, NULL,

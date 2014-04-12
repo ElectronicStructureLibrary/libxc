@@ -137,7 +137,7 @@ const XC(func_info_type) XC(func_info_lda_c_hl) = {
   "Hedin & Lundqvist",
   XC_FAMILY_LDA,
   /* can someone get me this paper, so I can find all coefficients? */
-  {&xc_ref_0022_3719_4_14_022, NULL, NULL, NULL, NULL},
+  {&xc_ref_Hedin1971_2064, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-16, 0.0, 0.0, 1e-32,
   NULL,     /* init */
@@ -152,7 +152,7 @@ const XC(func_info_type) XC(func_info_lda_c_gl) = {
   XC_CORRELATION,
   "Gunnarson & Lundqvist",
   XC_FAMILY_LDA,
-  {&xc_ref_PhysRevB_13_4274, NULL, NULL, NULL, NULL},
+  {&xc_ref_Gunnarsson1976_4274, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-12, 0.0, 0.0, 1e-32,
   NULL,     /* init */
@@ -167,7 +167,7 @@ const XC(func_info_type) XC(func_info_lda_c_vbh) = {
   XC_CORRELATION,
   "von Barth & Hedin",
   XC_FAMILY_LDA,
-  {&xc_ref_0022_3719_5_13_012, NULL, NULL, NULL, NULL},
+  {&xc_ref_vonBarth1972_1629, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-14, 0.0, 0.0, 1e-32,
   NULL,     /* init */

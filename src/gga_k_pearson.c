@@ -53,7 +53,7 @@ const XC(func_info_type) XC(func_info_gga_k_pearson) = {
   XC_KINETIC,
   "Pearson 1992",
   XC_FAMILY_GGA,
-  {&xc_ref___content_aip_journal_jcp_100_6_10_1063_1_466274, &xc_ref___content_aip_journal_jcp_82_2_10_1063_1_448516, &xc_ref_pearson1983, NULL, NULL},
+  {&xc_ref_Lacks1994_4446, &xc_ref_Pearson1985_881, &xc_ref_Pearson1983, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,

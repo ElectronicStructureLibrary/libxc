@@ -130,9 +130,9 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
 XC(func_info_type) XC(func_info_gga_x_n12) = {
   XC_GGA_X_N12,
   XC_EXCHANGE,
-  "N12 functional of Minnesota",
+  "Minnesota N12 functional",
   XC_FAMILY_GGA,
-  {&xc_ref_doi_10_1021_ct3002656, NULL, NULL, NULL, NULL},
+  {&xc_ref_Peverati2012_2310, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   NULL,
@@ -144,9 +144,9 @@ XC(func_info_type) XC(func_info_gga_x_n12) = {
 XC(func_info_type) XC(func_info_hyb_gga_x_n12_sx) = {
   XC_HYB_GGA_X_N12_SX,
   XC_EXCHANGE,
-  "N12-SX functional of Minnesota",
+  "Minnesota N12-SX functional",
   XC_FAMILY_HYB_GGA,
-  {&xc_ref_C2CP42576A, NULL, NULL, NULL, NULL},
+  {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   hyb_gga_x_n12_sx_init,

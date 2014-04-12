@@ -94,7 +94,7 @@ const XC(func_info_type) XC(func_info_mgga_x_tau_hcth) = {
   XC_EXCHANGE,
   "tau-HCTH",
   XC_FAMILY_MGGA,
-  {&xc_ref___content_aip_journal_jcp_116_22_10_1063_1_1476309, NULL, NULL, NULL, NULL},
+  {&xc_ref_Boese2002_9559, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   NULL, NULL,

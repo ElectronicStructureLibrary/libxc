@@ -51,7 +51,7 @@ const XC(func_info_type) XC(func_info_gga_x_herman) = {
   XC_EXCHANGE,
   "Herman Xalphabeta GGA",
   XC_FAMILY_GGA,
-  {&xc_ref_PhysRevLett_22_807, &xc_ref_QUA_QUA560040746, NULL, NULL, NULL},
+  {&xc_ref_Herman1969_807, &xc_ref_Herman1969_827, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,

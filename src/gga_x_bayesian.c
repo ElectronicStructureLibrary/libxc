@@ -72,7 +72,7 @@ const XC(func_info_type) XC(func_info_gga_x_bayesian) = {
   XC_EXCHANGE,
   "Bayesian best fit for the enhancement factor",
   XC_FAMILY_GGA,
-  {&xc_ref_PhysRevLett_95_216401, NULL, NULL, NULL, NULL},
+  {&xc_ref_Mortensen2005_216401, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,

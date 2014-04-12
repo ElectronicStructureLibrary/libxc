@@ -309,7 +309,7 @@ const XC(func_info_type) XC(func_info_gga_c_ft97) = {
   XC_CORRELATION,
   "Filatov & Thiel correlation",
   XC_FAMILY_GGA,
-  {&xc_ref_QUA_QUA4, &xc_ref_doi_10_1080_002689797170950, NULL, NULL, NULL},
+  {&xc_ref_Filatov1997_603, &xc_ref_Filatov1997_847, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL,

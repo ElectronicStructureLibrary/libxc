@@ -158,7 +158,7 @@ const XC(func_info_type) XC(func_info_lda_x_1d) = {
   XC_EXCHANGE,
   "Exchange in 1D",
   XC_FAMILY_LDA,
-  {&xc_ref_PhysRevA_83_032503, NULL, NULL, NULL, NULL},
+  {&xc_ref_Helbig2011_032503, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 0.0, 0.0, 1e-32,
   lda_x_1d_init,    /* init */

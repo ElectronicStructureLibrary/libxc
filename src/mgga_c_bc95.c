@@ -132,7 +132,7 @@ XC(func_info_type) XC(func_info_mgga_c_bc95) = {
   XC_CORRELATION,
   "Becke correlation 95",
   XC_FAMILY_MGGA,
-  {&xc_ref___content_aip_journal_jcp_104_3_10_1063_1_470829, NULL, NULL, NULL, NULL},
+  {&xc_ref_Becke1996_1040, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_c_bc95_init,

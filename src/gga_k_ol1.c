@@ -52,7 +52,7 @@ const XC(func_info_type) XC(func_info_gga_k_ol1) = {
   XC_KINETIC,
   "Ou-Yang and Levy v.1",
   XC_FAMILY_GGA,
-  {&xc_ref_QUA_QUA560400309, NULL, NULL, NULL, NULL},
+  {&xc_ref_OuYang1991_379, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,

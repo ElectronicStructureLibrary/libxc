@@ -207,7 +207,7 @@ const XC(func_info_type) XC(func_info_lda_c_pz) = {
   XC_CORRELATION,
   "Perdew & Zunger",
   XC_FAMILY_LDA,
-  {&xc_ref_PhysRevB_23_5048, NULL, NULL, NULL, NULL},
+  {&xc_ref_Perdew1981_5048, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
   NULL,     /* init */
@@ -222,7 +222,7 @@ const XC(func_info_type) XC(func_info_lda_c_pz_mod) = {
   XC_CORRELATION,
   "Perdew & Zunger (Modified)",
   XC_FAMILY_LDA,
-  {&xc_ref_PhysRevB_23_5048mod, NULL, NULL, NULL, NULL},
+  {&xc_ref_Perdew1981_5048_mod, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
   NULL,     /* init */
@@ -237,7 +237,7 @@ const XC(func_info_type) XC(func_info_lda_c_ob_pz) = {
   XC_CORRELATION,
   "Ortiz & Ballone (PZ parametrization)",
   XC_FAMILY_LDA,
-  {&xc_ref_PhysRevB_50_1391, &xc_ref_PhysRevB_56_9970, NULL, NULL, NULL},
+  {&xc_ref_Ortiz1994_1391, &xc_ref_Ortiz1994_1391_err, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
   NULL,     /* init */

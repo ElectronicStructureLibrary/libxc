@@ -21,22 +21,22 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_HYB_MGGA_XC_M05      438  /* M05 functional of Minnesota                      */
-#define XC_HYB_MGGA_XC_M05_2X   439  /* M05-2X functional of Minnesota                   */
-#define XC_HYB_MGGA_XC_B88B95   440  /* Mixture of B88 with BC95 (B1B95)                 */
-#define XC_HYB_MGGA_XC_B86B95   441  /* Mixture of B86 with BC95                         */
-#define XC_HYB_MGGA_XC_PW86B95  442  /* Mixture of PW86 with BC95                        */
-#define XC_HYB_MGGA_XC_BB1K     443  /* Mixture of B88 with BC95 from Zhao and Truhlar   */
-#define XC_HYB_MGGA_XC_MPW1B95  445  /* Mixture of mPW91 with BC95 from Zhao and Truhlar */
-#define XC_HYB_MGGA_XC_MPWB1K   446  /* Mixture of mPW91 with BC95 for kinetics          */
-#define XC_HYB_MGGA_XC_X1B95    447  /* Mixture of X with BC95                           */
-#define XC_HYB_MGGA_XC_XB1K     448  /* Mixture of X with BC95 for kinetics              */
-#define XC_HYB_MGGA_XC_M06_HF   444  /* M06-HF functional of Minnesota                   */
-#define XC_HYB_MGGA_XC_M06      449  /* M06 functional of Minnesota                      */
-#define XC_HYB_MGGA_XC_M06_2X   450  /* M06-2X functional of Minnesota                   */
-#define XC_HYB_MGGA_XC_PW6B95   451  /* Mixture of PW91 with BC95 from Zhao and Truhlar  */
+#define XC_HYB_MGGA_XC_M05      438  /* M05 functional from Minnesota                                */
+#define XC_HYB_MGGA_XC_M05_2X   439  /* M05-2X functional from Minnesota                             */
+#define XC_HYB_MGGA_XC_B88B95   440  /* Mixture of B88 with BC95 (B1B95)                             */
+#define XC_HYB_MGGA_XC_B86B95   441  /* Mixture of B86 with BC95                                     */
+#define XC_HYB_MGGA_XC_PW86B95  442  /* Mixture of PW86 with BC95                                    */
+#define XC_HYB_MGGA_XC_BB1K     443  /* Mixture of B88 with BC95 from Zhao and Truhlar               */
+#define XC_HYB_MGGA_XC_MPW1B95  445  /* Mixture of mPW91 with BC95 from Zhao and Truhlar             */
+#define XC_HYB_MGGA_XC_MPWB1K   446  /* Mixture of mPW91 with BC95 for kinetics                      */
+#define XC_HYB_MGGA_XC_X1B95    447  /* Mixture of X with BC95                                       */
+#define XC_HYB_MGGA_XC_XB1K     448  /* Mixture of X with BC95 for kinetics                          */
+#define XC_HYB_MGGA_XC_M06_HF   444  /* M06-HF functional from Minnesota                             */
+#define XC_HYB_MGGA_XC_M06      449  /* M06 functional from Minnesota                                */
+#define XC_HYB_MGGA_XC_M06_2X   450  /* M06-2X functional from Minnesota                             */
+#define XC_HYB_MGGA_XC_PW6B95   451  /* Mixture of PW91 with BC95 from Zhao and Truhlar              */
 #define XC_HYB_MGGA_XC_PWB6K    452  /* Mixture of PW91 with BC95 from Zhao and Truhlar for kinetics */
-#define XC_MGGA_XC_TPSSLYP1W    242  /* Functionals fitted for water */
+#define XC_MGGA_XC_TPSSLYP1W    242  /* Functionals fitted for water                                 */
 
 /*************************************************************/
 void
@@ -52,9 +52,9 @@ XC(hyb_mgga_xc_m05_init)(XC(func_type) *p)
 XC(func_info_type) XC(func_info_hyb_mgga_xc_m05) = {
   XC_HYB_MGGA_XC_M05,
   XC_EXCHANGE_CORRELATION,
-  "M05 functional of Minnesota",
+  "Minnesota M05 functional",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref___content_aip_journal_jcp_123_16_10_1063_1_2126975, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2005_161103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   XC(hyb_mgga_xc_m05_init),
@@ -76,9 +76,9 @@ XC(hyb_mgga_xc_m05_2x_init)(XC(func_type) *p)
 XC(func_info_type) XC(func_info_hyb_mgga_xc_m05_2x) = {
   XC_HYB_MGGA_XC_M05_2X,
   XC_EXCHANGE_CORRELATION,
-  "M05-2X functional of Minnesota",
+  "Minnesota M05-2X functional",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref_doi_10_1021_ct0502763, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2006_364, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   XC(hyb_mgga_xc_m05_2x_init),
@@ -102,7 +102,7 @@ XC(func_info_type) XC(func_info_hyb_mgga_xc_b88b95) = {
   XC_EXCHANGE_CORRELATION,
   "Mixture of B88 with BC95 (B1B95)",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref___content_aip_journal_jcp_104_3_10_1063_1_470829, NULL, NULL, NULL, NULL},
+  {&xc_ref_Becke1996_1040, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   XC(hyb_mgga_xc_b88b95_init),
@@ -126,7 +126,7 @@ XC(func_info_type) XC(func_info_hyb_mgga_xc_b86b95) = {
   XC_EXCHANGE_CORRELATION,
   "Mixture of B86 with BC95",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref___content_aip_journal_jcp_104_3_10_1063_1_470829, NULL, NULL, NULL, NULL},
+  {&xc_ref_Becke1996_1040, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   XC(hyb_mgga_xc_b86b95_init),
@@ -150,7 +150,7 @@ XC(func_info_type) XC(func_info_hyb_mgga_xc_pw86b95) = {
   XC_EXCHANGE_CORRELATION,
   "Mixture of PW86 with BC95",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref___content_aip_journal_jcp_104_3_10_1063_1_470829, NULL, NULL, NULL, NULL},
+  {&xc_ref_Becke1996_1040, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   XC(hyb_mgga_xc_pw86b95_init),
@@ -174,7 +174,7 @@ XC(func_info_type) XC(func_info_hyb_mgga_xc_bb1k) = {
   XC_EXCHANGE_CORRELATION,
   "Mixture of B88 with BC95 from Zhao and Truhlar",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref_doi_10_1021_jp049908s, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2004_2715, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   XC(hyb_mgga_xc_bb1k_init),
@@ -198,7 +198,7 @@ XC(func_info_type) XC(func_info_hyb_mgga_xc_mpw1b95) = {
   XC_EXCHANGE_CORRELATION,
   "Mixture of mPW91 with BC95 from Zhao and Truhlar",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref_doi_10_1021_jp048147q, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2004_6908, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   XC(hyb_mgga_xc_mpw1b95_init),
@@ -222,7 +222,7 @@ XC(func_info_type) XC(func_info_hyb_mgga_xc_mpwb1k) = {
   XC_EXCHANGE_CORRELATION,
   "Mixture of mPW91 with BC95 for kinetics",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref_doi_10_1021_jp048147q, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2004_6908, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   XC(hyb_mgga_xc_mpwb1k_init),
@@ -252,7 +252,7 @@ XC(func_info_type) XC(func_info_hyb_mgga_xc_x1b95) = {
   XC_EXCHANGE_CORRELATION,
   "Mixture of X with BC95",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref_doi_10_1021_jp048147q, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2004_6908, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   XC(hyb_mgga_xc_x1b95_init),
@@ -282,7 +282,7 @@ XC(func_info_type) XC(func_info_hyb_mgga_xc_xb1k) = {
   XC_EXCHANGE_CORRELATION,
   "Mixture of X with BC95 for kinetics",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref_doi_10_1021_jp048147q, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2004_6908, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   XC(hyb_mgga_xc_xb1k_init),
@@ -304,9 +304,9 @@ XC(hyb_mgga_xc_m06_hf_init)(XC(func_type) *p)
 const XC(func_info_type) XC(func_info_hyb_mgga_xc_m06_hf) = {
   XC_HYB_MGGA_XC_M06_HF,
   XC_EXCHANGE_CORRELATION,
-  "M06-HF functional of Minnesota",
+  "Minnesota M06-HF functional",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref_doi_10_1021_jp066479k, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2006_13126, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   XC(hyb_mgga_xc_m06_hf_init),
@@ -328,9 +328,9 @@ XC(hyb_mgga_xc_m06_init)(XC(func_type) *p)
 const XC(func_info_type) XC(func_info_hyb_mgga_xc_m06) = {
   XC_HYB_MGGA_XC_M06,
   XC_EXCHANGE_CORRELATION,
-  "M06 functional of Minnesota",
+  "Minnesota M06 functional",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref_Zhao2008, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   XC(hyb_mgga_xc_m06_init),
@@ -352,9 +352,9 @@ XC(hyb_mgga_xc_m06_2x_init)(XC(func_type) *p)
 const XC(func_info_type) XC(func_info_hyb_mgga_xc_m06_2x) = {
   XC_HYB_MGGA_XC_M06_2X,
   XC_EXCHANGE_CORRELATION,
-  "M06-2X functional of Minnesota",
+  "Minnesota M06-2X functional",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref_Zhao2008, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   XC(hyb_mgga_xc_m06_2x_init),
@@ -380,7 +380,7 @@ XC(func_info_type) XC(func_info_hyb_mgga_xc_pw6b95) = {
   XC_EXCHANGE_CORRELATION,
   "Mixture of PW91 with BC95 from Zhao and Truhlar",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref_doi_10_1021_jp050536c, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2005_5656, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   XC(hyb_mgga_xc_pw6b95_init),
@@ -406,7 +406,7 @@ XC(func_info_type) XC(func_info_hyb_mgga_xc_pwb6k) = {
   XC_EXCHANGE_CORRELATION,
   "Mixture of PW91 with BC95 from Zhao and Truhlar for kinetics",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref_doi_10_1021_jp050536c, NULL, NULL, NULL, NULL},
+  {&xc_ref_Zhao2005_5656, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   XC(hyb_mgga_xc_pwb6k_init),
@@ -429,7 +429,7 @@ const XC(func_info_type) XC(func_info_mgga_xc_tpsslyp1w) = {
   XC_EXCHANGE_CORRELATION,
   "TPSSLYP1W",
   XC_FAMILY_MGGA,
-  {&xc_ref_doi_10_1021_jp052436c, NULL, NULL, NULL, NULL},
+  {&xc_ref_Dahlke2005_15677, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   mgga_xc_tpsslyp1w_init, 

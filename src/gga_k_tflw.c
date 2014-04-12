@@ -22,7 +22,7 @@
 #include "util.h"
 
 /* for a review on the values of lambda and gamma, please see EV
-Ludeña and VV Karasiev, in "Reviews of Modern Quantum Chemistry: a
+Ludena and VV Karasiev, in "Reviews of Modern Quantum Chemistry: a
 Celebration of the Contributions of Robert G. Parr, edited by KD Sen
 (World Scientific, Singapore, 2002), p. 612.
  */
@@ -36,8 +36,8 @@ Celebration of the Contributions of Robert G. Parr, edited by KD Sen
 #define XC_GGA_K_LIEB          505 /* TF-lambda-vW form by Lieb (l = 0.185909191) */
 #define XC_GGA_K_ABSP1         506 /* gamma-TFvW form by Acharya et al [g = 1 - 1.412/N^(1/3)] */
 #define XC_GGA_K_ABSP2         507 /* gamma-TFvW form by Acharya et al [g = 1 - 1.332/N^(1/3)] */
-#define XC_GGA_K_GR            508 /* gamma-TFvW form by Gázquez and Robles */
-#define XC_GGA_K_LUDENA        509 /* gamma-TFvW form by Ludeña */
+#define XC_GGA_K_GR            508 /* gamma-TFvW form by Gazquez and Robles */
+#define XC_GGA_K_LUDENA        509 /* gamma-TFvW form by Ludena */
 #define XC_GGA_K_GP85          510 /* gamma-TFvW form by Ghosh and Parr */
 
 typedef struct{
@@ -155,7 +155,7 @@ const XC(func_info_type) XC(func_info_gga_k_tfvw) = {
   XC_KINETIC,
   "Thomas-Fermi plus von Weiszaecker correction",
   XC_FAMILY_GGA,
-  {&xc_ref_weizsacker1935, NULL, NULL, NULL, NULL},
+  {&xc_ref_Weizsacker1935_431, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init, 
@@ -169,7 +169,7 @@ const XC(func_info_type) XC(func_info_gga_k_vw) = {
   XC_KINETIC,
   "von Weiszaecker correction to Thomas-Fermi",
   XC_FAMILY_GGA,
-  {&xc_ref_weizsacker1935, NULL, NULL, NULL, NULL},
+  {&xc_ref_Weizsacker1935_431, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init, 
@@ -183,7 +183,7 @@ const XC(func_info_type) XC(func_info_gga_k_ge2) = {
   XC_KINETIC,
   "Second-order gradient expansion of the kinetic energy density",
   XC_FAMILY_GGA,
-  {&xc_ref_kompaneets1956, &xc_ref_kirznits1957, NULL, NULL, NULL},
+  {&xc_ref_Kompaneets1956_427, &xc_ref_Kirznits1957_115, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
@@ -197,7 +197,7 @@ const XC(func_info_type) XC(func_info_gga_k_golden) = {
   XC_KINETIC,
   "TF-lambda-vW form by Golden (l = 13/45)",
   XC_FAMILY_GGA,
-  {&xc_ref_PhysRev_105_604, NULL, NULL, NULL, NULL},
+  {&xc_ref_Golden1957_604, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
@@ -211,7 +211,7 @@ const XC(func_info_type) XC(func_info_gga_k_yt65) = {
   XC_KINETIC,
   "TF-lambda-vW form by Yonei and Tomishima (l = 1/5)",
   XC_FAMILY_GGA,
-  {&xc_ref_doi_10_1143_JPSJ_20_1051, NULL, NULL, NULL, NULL},
+  {&xc_ref_Yonei1965_1051, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
@@ -225,7 +225,7 @@ const XC(func_info_type) XC(func_info_gga_k_baltin) = {
   XC_KINETIC,
   "TF-lambda-vW form by Baltin (l = 5/9)",
   XC_FAMILY_GGA,
-  {&xc_ref_baltin1972, NULL, NULL, NULL, NULL},
+  {&xc_ref_Baltin1972_1176, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
@@ -239,7 +239,7 @@ const XC(func_info_type) XC(func_info_gga_k_lieb) = {
   XC_KINETIC,
   "TF-lambda-vW form by Lieb (l = 0.185909191)",
   XC_FAMILY_GGA,
-  {&xc_ref_RevModPhys_53_603, NULL, NULL, NULL, NULL},
+  {&xc_ref_Lieb1981_603, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
@@ -253,7 +253,7 @@ const XC(func_info_type) XC(func_info_gga_k_absp1) = {
   XC_KINETIC,
   "gamma-TFvW form by Acharya et al [g = 1 - 1.412/N^(1/3)]",
   XC_FAMILY_GGA,
-  {&xc_ref_Acharya01121980, NULL, NULL, NULL, NULL},
+  {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
@@ -267,7 +267,7 @@ const XC(func_info_type) XC(func_info_gga_k_absp2) = {
   XC_KINETIC,
   "gamma-TFvW form by Acharya et al [g = 1 - 1.332/N^(1/3)]",
   XC_FAMILY_GGA,
-  {&xc_ref_Acharya01121980, NULL, NULL, NULL, NULL},
+  {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
@@ -279,9 +279,9 @@ const XC(func_info_type) XC(func_info_gga_k_absp2) = {
 const XC(func_info_type) XC(func_info_gga_k_gr) = {
   XC_GGA_K_GR,
   XC_KINETIC,
-  "gamma-TFvW form by Gázquez and Robles",
+  "gamma-TFvW form by Gazquez and Robles",
   XC_FAMILY_GGA,
-  {&xc_ref___content_aip_journal_jcp_76_3_10_1063_1_443107, NULL, NULL, NULL, NULL},
+  {&xc_ref_Gazquez1982_1467, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
@@ -293,9 +293,9 @@ const XC(func_info_type) XC(func_info_gga_k_gr) = {
 const XC(func_info_type) XC(func_info_gga_k_ludena) = {
   XC_GGA_K_LUDENA,
   XC_KINETIC,
-  "gamma-TFvW form by Ludeña",
+  "gamma-TFvW form by Ludena",
   XC_FAMILY_GGA,
-  {&xc_ref_ludena1986, NULL, NULL, NULL, NULL},
+  {&xc_ref_Ludena1986, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,
@@ -309,7 +309,7 @@ const XC(func_info_type) XC(func_info_gga_k_gp85) = {
   XC_KINETIC,
   "gamma-TFvW form by Ghosh and Parr",
   XC_FAMILY_GGA,
-  {&xc_ref___content_aip_journal_jcp_82_7_10_1063_1_448229, NULL, NULL, NULL, NULL},
+  {&xc_ref_Ghosh1985_3307, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_k_tflw_init,

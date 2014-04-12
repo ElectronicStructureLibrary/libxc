@@ -113,7 +113,7 @@ const XC(func_info_type) XC(func_info_gga_x_ityh) = {
   XC_EXCHANGE,
   "Short-range recipe for exchange GGA functionals",
   XC_FAMILY_GGA,
-  {&xc_ref___content_aip_journal_jcp_115_8_10_1063_1_1383587, NULL, NULL, NULL, NULL},
+  {&xc_ref_Iikura2001_3540, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_ityh_init,

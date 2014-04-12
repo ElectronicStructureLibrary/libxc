@@ -67,7 +67,7 @@ const XC(func_info_type) XC(func_info_gga_x_b86_mgc) = {
   XC_EXCHANGE,
   "Becke 86 with modified gradient correction",
   XC_FAMILY_GGA,
-  {&xc_ref___content_aip_journal_jcp_84_8_10_1063_1_450025, &xc_ref___content_aip_journal_jcp_85_12_10_1063_1_451353, NULL, NULL, NULL},
+  {&xc_ref_Becke1986_4524, &xc_ref_Becke1986_7184, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   NULL, NULL, NULL,

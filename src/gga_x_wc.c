@@ -84,7 +84,7 @@ const XC(func_info_type) XC(func_info_gga_x_wc) = {
   XC_EXCHANGE,
   "Wu & Cohen",
   XC_FAMILY_GGA,
-  {&xc_ref_PhysRevB_73_235116, NULL, NULL, NULL, NULL},
+  {&xc_ref_Wu2006_235116, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_wc_init, 

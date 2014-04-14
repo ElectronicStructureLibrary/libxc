@@ -25,6 +25,7 @@
 #define XC_GGA_X_HJS_PBE_SOL 526 /* HJS screened exchange PBE_SOL version */
 #define XC_GGA_X_HJS_B88     527 /* HJS screened exchange B88 version */
 #define XC_GGA_X_HJS_B97X    528 /* HJS screened exchange B97x version */
+#define XC_GGA_X_HJS_B88_V2   46 /* HJS screened exchange corrected B88 version */
 
 typedef struct{
   FLOAT omega;
@@ -52,6 +53,11 @@ static const FLOAT a_B97x[] =
 static const FLOAT b_B97x[] =
   {15.8279, -26.8145, 17.8127, -5.98246, 1.25408, -0.270783, 0.0919536, -0.0140960, 0.0045466};
 
+static const FLOAT a_B88_V2[] =
+  {0.0253933, -0.0673075, 0.0891476, -0.0454168, -0.00765813, 0.0142506};
+static const FLOAT b_B88_V2[] =
+  {-2.6506, 3.91108, -3.31509, 1.54485, -0.198386, -0.136112, 0.0647862, 0.0159586, -0.000245066};
+
 static void
 gga_x_hjs_init(XC(func_type) *p)
 {
@@ -76,6 +82,10 @@ gga_x_hjs_init(XC(func_type) *p)
   case XC_GGA_X_HJS_B97X:
     ((gga_x_hjs_params *)(p->params))->a = a_B97x;
     ((gga_x_hjs_params *)(p->params))->b = b_B97x;
+    break;
+  case XC_GGA_X_HJS_B88_V2:
+    ((gga_x_hjs_params *)(p->params))->a = a_B88_V2;
+    ((gga_x_hjs_params *)(p->params))->b = b_B88_V2;
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_hjs_init\n");
@@ -105,7 +115,7 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
 {
   static const FLOAT AA=0.757211, BB=-0.106364, CC=-0.118649, DD=0.609650;
 
-  FLOAT omega, kF, ss, ss2;
+  FLOAT omega, kF, xi, ss, ss2;
   FLOAT H, F, EG;
   FLOAT nu, zeta, eta, lambda, lambda2, lambda3, lambda4, chi, chi2, chi3, chi4, chi5;
   FLOAT sqzpn2, sqepn2, sqlpn2;
@@ -120,13 +130,23 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
   kF  = POW(3.0*M_PI*M_PI*ds, 1.0/3.0);
   nu  = omega/kF;
 
-  /*  Rescaling the s values to ensure the Lieb-Oxford bound for s>8.3 */
-  ss  = X2S*x;
+  if(p->info->number == XC_GGA_X_HJS_B88_V2){
+    xi  = 1.0/(EXP(20.0) - 1.0);
+    ss  = -LOG((EXP(-X2S*x) + xi)/(1 + xi));
+  }else{
+    ss  = X2S*x;
+  }
+
   ss2 = ss*ss; 
 
   if(order >= 1){
     dnudrho = -nu/(3.0*ds);
-    dssdx   = X2S;
+
+    if(p->info->number == XC_GGA_X_HJS_B88_V2){
+      dssdx = X2S/(1.0 + xi*EXP(X2S*x));
+    }else{
+      dssdx = X2S;
+    }
   }
 
   /* first let us calculate H(s) */
@@ -301,6 +321,20 @@ const XC(func_info_type) XC(func_info_gga_x_hjs_b97x) = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  gga_x_hjs_init,
+  NULL, NULL, 
+  work_gga_x,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_x_hjs_b88_v2) = {
+  XC_GGA_X_HJS_B88_V2,
+  XC_EXCHANGE,
+  "HJS screened exchange B88 corrected version",
+  XC_FAMILY_GGA,
+  {&xc_ref_Weintraub2009_754, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-6, 1e-11, 0.0, 0.0, /* densities smaller than 1e-6 yield NaNs */
   gga_x_hjs_init,
   NULL, NULL, 
   work_gga_x,

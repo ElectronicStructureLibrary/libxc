@@ -279,9 +279,9 @@ func_reference_type xc_ref_Tognetti2008_536 = {
 
 
 func_reference_type xc_ref_Tran2002_441 = {
-  "F. Tran and T. A. Weso{\lowski, }Int. J. Quantum Chem. 89, 441 (2002)",
+  "F. Tran and T. A. Wesołowski, Int. J. Quantum Chem. 89, 441 (2002)",
   "10.1002/qua.10306",
-  "@article{Tran2002_441,\n  title = {Link between the kinetic- and exchange-energy functionals in the generalized gradient approximation},\n  author = {F. Tran and T. A. Weso{\\l}owski},\n  journal = {Int. J. Quantum Chem.},\n  volume = {89},\n  number = {5},\n  pages = {441},\n  year = {2002},\n  publisher = {Wiley Subscription Services, Inc., A Wiley Company},\n  issn = {1097-461X},\n  keywords = {density functional theory, exchange-energy functional, kinetic-energy functional, orbital-free theories},\n  doi = {10.1002/qua.10306},\n  url = {http://onlinelibrary.wiley.com/doi/10.1002/qua.10306/abstract}\n}"
+  "@article{Tran2002_441,\n  title = {Link between the kinetic- and exchange-energy functionals in the generalized gradient approximation},\n  author = {F. Tran and T. A. Wesołowski},\n  journal = {Int. J. Quantum Chem.},\n  volume = {89},\n  number = {5},\n  pages = {441},\n  year = {2002},\n  publisher = {Wiley Subscription Services, Inc., A Wiley Company},\n  issn = {1097-461X},\n  keywords = {density functional theory, exchange-energy functional, kinetic-energy functional, orbital-free theories},\n  doi = {10.1002/qua.10306},\n  url = {http://onlinelibrary.wiley.com/doi/10.1002/qua.10306/abstract}\n}"
 };
 
 
@@ -300,9 +300,9 @@ func_reference_type xc_ref_delCampo2012_104108 = {
 
 
 func_reference_type xc_ref_Hammer1999_7413 = {
-  "B. Hammer, L. B. Hansen, and J. K. N{\orskov, }Phys. Rev. B 59, 7413 (1999)",
+  "B. Hammer, L. B. Hansen, and J. K. Nørskov, Phys. Rev. B 59, 7413 (1999)",
   "10.1103/PhysRevB.59.7413",
-  "@article{Hammer1999_7413,\n  title = {Improved adsorption energetics within density-functional theory using revised Perdew--Burke--Ernzerhof functionals},\n  author = {B. Hammer and L. B. Hansen and J. K. N{\\o}rskov},\n  journal = {Phys. Rev. B},\n  volume = {59},\n  issue = {11},\n  pages = {7413},\n  year = {1999},\n  month = {Mar},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.59.7413},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.59.7413}\n}"
+  "@article{Hammer1999_7413,\n  title = {Improved adsorption energetics within density-functional theory using revised Perdew--Burke--Ernzerhof functionals},\n  author = {B. Hammer and L. B. Hansen and J. K. Nørskov},\n  journal = {Phys. Rev. B},\n  volume = {59},\n  issue = {11},\n  pages = {7413},\n  year = {1999},\n  month = {Mar},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.59.7413},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.59.7413}\n}"
 };
 
 
@@ -503,9 +503,9 @@ func_reference_type xc_ref_Mattsson2008_084714 = {
 
 
 func_reference_type xc_ref_Mortensen2005_216401 = {
-  "J. J. Mortensen, K. Kaasbjerg, S. L. Frederiksen, J. K. N{\orskov, J. P. Sethna, and K. W. Jacobsen, }Phys. Rev. Lett. 95, 216401 (2005)",
+  "J. J. Mortensen, K. Kaasbjerg, S. L. Frederiksen, J. K. Nørskov, J. P. Sethna, and K. W. Jacobsen, Phys. Rev. Lett. 95, 216401 (2005)",
   "10.1103/PhysRevLett.95.216401",
-  "@article{Mortensen2005_216401,\n  title = {Bayesian Error Estimation in Density-Functional Theory},\n  author = {J. J. Mortensen and K. Kaasbjerg and S. L. Frederiksen and J. K. N{\\o}rskov and J. P. Sethna and K. W. Jacobsen},\n  journal = {Phys. Rev. Lett.},\n  volume = {95},\n  issue = {21},\n  pages = {216401},\n  numpages = {4},\n  year = {2005},\n  month = {Nov},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.95.216401},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.95.216401}\n}"
+  "@article{Mortensen2005_216401,\n  title = {Bayesian Error Estimation in Density-Functional Theory},\n  author = {J. J. Mortensen and K. Kaasbjerg and S. L. Frederiksen and J. K. Nørskov and J. P. Sethna and K. W. Jacobsen},\n  journal = {Phys. Rev. Lett.},\n  volume = {95},\n  issue = {21},\n  pages = {216401},\n  numpages = {4},\n  year = {2005},\n  month = {Nov},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.95.216401},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.95.216401}\n}"
 };
 
 
@@ -524,9 +524,9 @@ func_reference_type xc_ref_Haas2011_205117 = {
 
 
 func_reference_type xc_ref_Swart2009_094103 = {
-  "M. Swart, M. Sol{\`a, and F. M. Bickelhaupt, }J. Chem. Phys. 131, 094103 (2009)",
+  "M. Swart, M. Solà, and F. M. Bickelhaupt, J. Chem. Phys. 131, 094103 (2009)",
   "10.1063/1.3213193",
-  "@article{Swart2009_094103,\n   title = \"A new all-round density functional based on spin states and SN2 barriers\",\n   author = \"M. Swart and M. Sol{\\`a} and F. M. Bickelhaupt\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2009\",\n   volume = \"131\",\n   number = \"9\", \n   pages = 094103,\n   doi = \"10.1063/1.3213193\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/131/9/10.1063/1.3213193\"\n}"
+  "@article{Swart2009_094103,\n   title = \"A new all-round density functional based on spin states and SN2 barriers\",\n   author = \"M. Swart and M. Solà and F. M. Bickelhaupt\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2009\",\n   volume = \"131\",\n   number = \"9\", \n   pages = 094103,\n   doi = \"10.1063/1.3213193\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/131/9/10.1063/1.3213193\"\n}"
 };
 
 

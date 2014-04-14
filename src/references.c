@@ -57,7 +57,7 @@ func_reference_type xc_ref_Gunnarsson1976_4274 = {
 func_reference_type xc_ref_Slater1951_385 = {
   "J. C. Slater, Phys. Rev. 81, 385 (1951)",
   "10.1103/PhysRev.81.385",
-  "@article{Slater1951_385,\n  title = {A Simplification of the Hartree-Fock Method},\n  author = {J. C. Slater},\n  journal = {Phys. Rev.},\n  volume = {81},\n  issue = {3},\n  pages = {385},\n  year = {1951},\n  month = {Feb},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRev.81.385},\n  url = {http://link.aps.org/doi/10.1103/PhysRev.81.385}\n}"
+  "@article{Slater1951_385,\n  title = {A Simplification of the Hartree--Fock Method},\n  author = {J. C. Slater},\n  journal = {Phys. Rev.},\n  volume = {81},\n  issue = {3},\n  pages = {385},\n  year = {1951},\n  month = {Feb},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRev.81.385},\n  url = {http://link.aps.org/doi/10.1103/PhysRev.81.385}\n}"
 };
 
 
@@ -167,9 +167,9 @@ func_reference_type xc_ref_Attaccalite2002_256601 = {
 
 
 func_reference_type xc_ref_Pittalis2008_195322 = {
-  "S. Pittalis, E. R\"as\"anen, and M. A. L. Marques, Phys. Rev. B 78, 195322 (2008)",
+  "S. Pittalis, E. Räsänen, and M. A. L. Marques, Phys. Rev. B 78, 195322 (2008)",
   "10.1103/PhysRevB.78.195322",
-  "@article{Pittalis2008_195322,\n  title = {Local correlation functional for electrons in two dimensions},\n  author = {S. Pittalis and E. R\\\"as\\\"anen and M. A. L. Marques},\n  journal = {Phys. Rev. B},\n  volume = {78},\n  issue = {19},\n  pages = {195322},\n  numpages = {5},\n  year = {2008},\n  month = {Nov},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.78.195322},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.78.195322}\n}"
+  "@article{Pittalis2008_195322,\n  title = {Local correlation functional for electrons in two dimensions},\n  author = {S. Pittalis and E. Räsänen and M. A. L. Marques},\n  journal = {Phys. Rev. B},\n  volume = {78},\n  issue = {19},\n  pages = {195322},\n  numpages = {5},\n  year = {2008},\n  month = {Nov},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.78.195322},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.78.195322}\n}"
 };
 
 
@@ -232,14 +232,14 @@ func_reference_type xc_ref_Perdew2008_136406 = {
 func_reference_type xc_ref_Xu2004_4068 = {
   "X. Xu and W. A. Goddard, J. Chem. Phys. 121, 4068 (2004)",
   "10.1063/1.1771632",
-  "@article{Xu2004_4068,\n   title = \"The extended Perdew-Burke-Ernzerhof functional with improved accuracy for thermodynamic and electronic properties of molecular systems\",\n   author = \"X. Xu and W. A. Goddard\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2004\",\n   volume = \"121\",\n   number = \"9\", \n   pages = \"4068\",\n   doi = \"10.1063/1.1771632\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/121/9/10.1063/1.1771632\"\n}"
+  "@article{Xu2004_4068,\n   title = \"The extended Perdew--Burke--Ernzerhof functional with improved accuracy for thermodynamic and electronic properties of molecular systems\",\n   author = \"X. Xu and W. A. Goddard\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2004\",\n   volume = \"121\",\n   number = \"9\", \n   pages = \"4068\",\n   doi = \"10.1063/1.1771632\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/121/9/10.1063/1.1771632\"\n}"
 };
 
 
 func_reference_type xc_ref_Pedroza2009_201106 = {
   "L. S. Pedroza, A. J. R. da Silva, and K. Capelle, Phys. Rev. B 79, 201106 (2009)",
   "10.1103/PhysRevB.79.201106",
-  "@article{Pedroza2009_201106,\n  title = {Gradient-dependent density functionals of the Perdew-Burke-Ernzerhof type for atoms, molecules, and solids},\n  author = {L. S. Pedroza and A. J. R. da Silva and K. Capelle},\n  journal = {Phys. Rev. B},\n  volume = {79},\n  issue = {20},\n  pages = {201106},\n  numpages = {4},\n  year = {2009},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.79.201106},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.79.201106}\n}"
+  "@article{Pedroza2009_201106,\n  title = {Gradient-dependent density functionals of the Perdew--Burke--Ernzerhof type for atoms, molecules, and solids},\n  author = {L. S. Pedroza and A. J. R. da Silva and K. Capelle},\n  journal = {Phys. Rev. B},\n  volume = {79},\n  issue = {20},\n  pages = {201106},\n  numpages = {4},\n  year = {2009},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.79.201106},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.79.201106}\n}"
 };
 
 
@@ -435,7 +435,7 @@ func_reference_type xc_ref_Adamo1998_664 = {
 func_reference_type xc_ref_Lembarki1994_5328 = {
   "A. Lembarki and H. Chermette, Phys. Rev. A 50, 5328 (1994)",
   "10.1103/PhysRevA.50.5328",
-  "@article{Lembarki1994_5328,\n  title = {Obtaining a gradient-corrected kinetic-energy functional from the Perdew-Wang exchange functional},\n  author = {A. Lembarki and H. Chermette},\n  journal = {Phys. Rev. A},\n  volume = {50},\n  issue = {6},\n  pages = {5328},\n  year = {1994},\n  month = {Dec},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.50.5328},\n  url = {http://link.aps.org/doi/10.1103/PhysRevA.50.5328}\n}"
+  "@article{Lembarki1994_5328,\n  title = {Obtaining a gradient-corrected kinetic-energy functional from the Perdew--Wang exchange functional},\n  author = {A. Lembarki and H. Chermette},\n  journal = {Phys. Rev. A},\n  volume = {50},\n  issue = {6},\n  pages = {5328},\n  year = {1994},\n  month = {Dec},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.50.5328},\n  url = {http://link.aps.org/doi/10.1103/PhysRevA.50.5328}\n}"
 };
 
 
@@ -881,9 +881,9 @@ func_reference_type xc_ref_Akinaga2008_348 = {
 
 
 func_reference_type xc_ref_Armiento2013_036402 = {
-  "R. Armiento and S. K. mmel, Phys. Rev. Lett. 111, 036402 (2013)",
+  "R. Armiento and S. Kümmel, Phys. Rev. Lett. 111, 036402 (2013)",
   "10.1103/PhysRevLett.111.036402",
-  "@article{Armiento2013_036402,\n  title = {Orbital Localization, Charge Transfer, and Band Gaps in Semilocal Density-Functional Theory},\n  author = {R. Armiento and S. K\\\"u mmel},\n  journal = {Phys. Rev. Lett.},\n  volume = {111},\n  issue = {3},\n  pages = {036402},\n  numpages = {5},\n  year = {2013},\n  month = {Jul},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.111.036402},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.111.036402}\n}"
+  "@article{Armiento2013_036402,\n  title = {Orbital Localization, Charge Transfer, and Band Gaps in Semilocal Density-Functional Theory},\n  author = {R. Armiento and S. Kümmel},\n  journal = {Phys. Rev. Lett.},\n  volume = {111},\n  issue = {3},\n  pages = {036402},\n  numpages = {5},\n  year = {2013},\n  month = {Jul},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.111.036402},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.111.036402}\n}"
 };
 
 
@@ -930,16 +930,16 @@ func_reference_type xc_ref_Vilhena2014 = {
 
 
 func_reference_type xc_ref_Pittalis2009_012503 = {
-  "S. Pittalis, E. R\"as\"anen, J. G. Vilhena, and M. A. L. Marques, Phys. Rev. A 79, 012503 (2009)",
+  "S. Pittalis, E. Räsänen, J. G. Vilhena, and M. A. L. Marques, Phys. Rev. A 79, 012503 (2009)",
   "10.1103/PhysRevA.79.012503",
-  "@article{Pittalis2009_012503,\n  title = {Density gradients for the exchange energy of electrons in two dimensions},\n  author = {S. Pittalis and E. R\\\"as\\\"anen and J. G. Vilhena and M. A. L. Marques},\n  journal = {Phys. Rev. A},\n  volume = {79},\n  issue = {1},\n  pages = {012503},\n  numpages = {5},\n  year = {2009},\n  month = {Jan},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.79.012503},\n  url = {http://link.aps.org/doi/10.1103/PhysRevA.79.012503}\n}"
+  "@article{Pittalis2009_012503,\n  title = {Density gradients for the exchange energy of electrons in two dimensions},\n  author = {S. Pittalis and E. Räsänen and J. G. Vilhena and M. A. L. Marques},\n  journal = {Phys. Rev. A},\n  volume = {79},\n  issue = {1},\n  pages = {012503},\n  numpages = {5},\n  year = {2009},\n  month = {Jan},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.79.012503},\n  url = {http://link.aps.org/doi/10.1103/PhysRevA.79.012503}\n}"
 };
 
 
 func_reference_type xc_ref_Weizsacker1935_431 = {
-  "C. F. von Weizs\"acker, Z. Phys. 96, 431 (1935)",
+  "C. F. von Weizsäcker, Z. Phys. 96, 431 (1935)",
   "10.1007/BF01337700",
-  "@article{Weizsacker1935_431,\n  title={Zur Theorie der Kernmassen},\n  author={C. F. von Weizs\\\"acker},\n  journal={Z. Phys.},\n  volume={96},\n  number={7-8},\n  pages={431},\n  year={1935},\n  issn={0044-3328},\n  publisher={Springer-Verlag},\n  language={German},\n  doi={10.1007/BF01337700},\n  url={http://link.springer.com/article/10.1007\\%2FBF01337700}\n}"
+  "@article{Weizsacker1935_431,\n  title={Zur Theorie der Kernmassen},\n  author={C. F. von Weizsäcker},\n  journal={Z. Phys.},\n  volume={96},\n  number={7-8},\n  pages={431},\n  year={1935},\n  issn={0044-3328},\n  publisher={Springer-Verlag},\n  language={German},\n  doi={10.1007/BF01337700},\n  url={http://link.springer.com/article/10.1007\\%2FBF01337700}\n}"
 };
 
 
@@ -967,7 +967,7 @@ func_reference_type xc_ref_Golden1957_604 = {
 func_reference_type xc_ref_Yonei1965_1051 = {
   "K. Yonei and Y. Tomishima, J. Phys. Soc. Jpn. 20, 1051 (1965)",
   "10.1143/JPSJ.20.1051",
-  "@article{Yonei1965_1051,\n  title = {On the Weizs\\\"acker Correction to the Thomas-Fermi Theory of the Atom},\n  author = {K. Yonei and Y. Tomishima},\n  journal = {J. Phys. Soc. Jpn.},\n  volume = {20},\n  number = {6},\n  pages = {1051},\n  year = {1965},\n  doi = {10.1143/JPSJ.20.1051},\n  URL = {http://journals.jps.jp/doi/abs/10.1143/JPSJ.20.1051},\n}"
+  "@article{Yonei1965_1051,\n  title = {On the Weizsäcker Correction to the Thomas--Fermi Theory of the Atom},\n  author = {K. Yonei and Y. Tomishima},\n  journal = {J. Phys. Soc. Jpn.},\n  volume = {20},\n  number = {6},\n  pages = {1051},\n  year = {1965},\n  doi = {10.1143/JPSJ.20.1051},\n  URL = {http://journals.jps.jp/doi/abs/10.1143/JPSJ.20.1051},\n}"
 };
 
 
@@ -1000,9 +1000,9 @@ func_reference_type xc_ref_Gazquez1982_1467 = {
 
 
 func_reference_type xc_ref_Ludena1986 = {
-  "E. V. L. {na, }in Cond. Matt. Theor., Vol. 1, edited by \bibinfo {editor {F. B. Malik}} (Plenum, New York, 1986) p. 183",
+  "E. V. Ludeña, in Cond. Matt. Theor., Vol. 1, edited by \bibinfo {editor {F. B. Malik}} (Plenum, New York, 1986) p. 183",
   "",
-  "@InProceedings{Ludena1986,\n  author = 	 {E. V. Lude\\~{n}a},\n  title = 	 {},\n  booktitle = 	 {Cond. Matt. Theor.},\n  pages = 	 {183},\n  year = 	 {1986},\n  editor = 	 {F. B. Malik},\n  volume = 	 {1},\n  address = 	 {New York},\n  publisher =    {Plenum},\n}"
+  "@InProceedings{Ludena1986,\n  author = 	 {E. V. Ludeña},\n  title = 	 {},\n  booktitle = 	 {Cond. Matt. Theor.},\n  pages = 	 {183},\n  year = 	 {1986},\n  editor = 	 {F. B. Malik},\n  volume = 	 {1},\n  address = 	 {New York},\n  publisher =    {Plenum},\n}"
 };
 
 
@@ -1168,9 +1168,9 @@ func_reference_type xc_ref_Cortona2012_086101 = {
 
 
 func_reference_type xc_ref_Bilc2008_165107 = {
-  "D. I. Bilc, R. Orlando, R. Shaltaf, G.-M. Rignanese, J. I. {niguez, and P. Ghosez, }Phys. Rev. B 77, 165107 (2008)",
+  "D. I. Bilc, R. Orlando, R. Shaltaf, G.-M. Rignanese, J. Íñiguez, and P. Ghosez, Phys. Rev. B 77, 165107 (2008)",
   "10.1103/PhysRevB.77.165107",
-  "@article{Bilc2008_165107,\n  title = {Hybrid exchange-correlation functional for accurate prediction of the electronic and structural properties of ferroelectric oxides},\n  author = {D. I. Bilc and R. Orlando and R. Shaltaf and G.-M. Rignanese and J. \\'{I}\\~{n}iguez and Ph. Ghosez},\n  journal = {Phys. Rev. B},\n  volume = {77},\n  issue = {16},\n  pages = {165107},\n  numpages = {13},\n  year = {2008},\n  month = {Apr},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.77.165107},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.77.165107}\n}"
+  "@article{Bilc2008_165107,\n  title = {Hybrid exchange-correlation functional for accurate prediction of the electronic and structural properties of ferroelectric oxides},\n  author = {D. I. Bilc and R. Orlando and R. Shaltaf and G.-M. Rignanese and J. Íñiguez and Ph. Ghosez},\n  journal = {Phys. Rev. B},\n  volume = {77},\n  issue = {16},\n  pages = {165107},\n  numpages = {13},\n  year = {2008},\n  month = {Apr},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.77.165107},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.77.165107}\n}"
 };
 
 
@@ -1226,7 +1226,7 @@ func_reference_type xc_ref_Ernzerhof1999_911 = {
 func_reference_type xc_ref_Tao2003_146401 = {
   "J. Tao, J. P. Perdew, V. N. Staroverov, and G. E. Scuseria, Phys. Rev. Lett. 91, 146401 (2003)",
   "10.1103/PhysRevLett.91.146401",
-  "@article{Tao2003_146401,\n  title = {Climbing the Density Functional Ladder: Nonempirical Meta--Generalized Gradient Approximation Designed for Molecules and Solids},\n  author = {J. Tao and J. P. Perdew and V. N. Staroverov and G. E. Scuseria},\n  journal = {Phys. Rev. Lett.},\n  volume = {91},\n  issue = {14},\n  pages = {146401},\n  numpages = {4},\n  year = {2003},\n  month = {Sep},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.91.146401},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.91.146401}\n}"
+  "@article{Tao2003_146401,\n  title = {Climbing the Density Functional Ladder: Nonempirical Meta-Generalized Gradient Approximation Designed for Molecules and Solids},\n  author = {J. Tao and J. P. Perdew and V. N. Staroverov and G. E. Scuseria},\n  journal = {Phys. Rev. Lett.},\n  volume = {91},\n  issue = {14},\n  pages = {146401},\n  numpages = {4},\n  year = {2003},\n  month = {Sep},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.91.146401},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.91.146401}\n}"
 };
 
 
@@ -1273,9 +1273,9 @@ func_reference_type xc_ref_Tran2009_226401 = {
 
 
 func_reference_type xc_ref_Rasanen2010_044112 = {
-  "E. R\"as\"anen, S. Pittalis, and C. R. Proetto, J. Chem. Phys. 132, 044112 (2010)",
+  "E. Räsänen, S. Pittalis, and C. R. Proetto, J. Chem. Phys. 132, 044112 (2010)",
   "10.1063/1.3300063",
-  "@article{Rasanen2010_044112,\n  title = {Universal correction for the Becke--Johnson exchange potential},\n  author = {E. R\\\"as\\\"anen and S. Pittalis and C. R. Proetto},\n  journal = {J. Chem. Phys.},\n  year = {2010},\n  volume = {132},\n  number = {4}, \n  pages = {044112},\n  doi = {10.1063/1.3300063},\n  url = {http://scitation.aip.org/content/aip/journal/jcp/132/4/10.1063/1.3300063}\n}"
+  "@article{Rasanen2010_044112,\n  title = {Universal correction for the Becke--Johnson exchange potential},\n  author = {E. Räsänen and S. Pittalis and C. R. Proetto},\n  journal = {J. Chem. Phys.},\n  year = {2010},\n  volume = {132},\n  number = {4}, \n  pages = {044112},\n  doi = {10.1063/1.3300063},\n  url = {http://scitation.aip.org/content/aip/journal/jcp/132/4/10.1063/1.3300063}\n}"
 };
 
 
@@ -1315,16 +1315,16 @@ func_reference_type xc_ref_Boese2002_9559 = {
 
 
 func_reference_type xc_ref_Pittalis2007_235314 = {
-  "S. Pittalis, E. R\"as\"anen, N. Helbig, and E. K. U. Gross, Phys. Rev. B 76, 235314 (2007)",
+  "S. Pittalis, E. Räsänen, N. Helbig, and E. K. U. Gross, Phys. Rev. B 76, 235314 (2007)",
   "10.1103/PhysRevB.76.235314",
-  "@article{Pittalis2007_235314,\n  title = {Exchange-energy functionals for finite two-dimensional systems},\n  author = {S. Pittalis and E. R\\\"as\\\"anen and N. Helbig and E. K. U. Gross},\n  journal = {Phys. Rev. B},\n  volume = {76},\n  issue = {23},\n  pages = {235314},\n  numpages = {5},\n  year = {2007},\n  month = {Dec},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.76.235314},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.76.235314}\n}"
+  "@article{Pittalis2007_235314,\n  title = {Exchange-energy functionals for finite two-dimensional systems},\n  author = {S. Pittalis and E. Räsänen and N. Helbig and E. K. U. Gross},\n  journal = {Phys. Rev. B},\n  volume = {76},\n  issue = {23},\n  pages = {235314},\n  numpages = {5},\n  year = {2007},\n  month = {Dec},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.76.235314},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.76.235314}\n}"
 };
 
 
 func_reference_type xc_ref_Pittalis2010_115108 = {
-  "S. Pittalis, E. R\"as\"anen, and C. R. Proetto, Phys. Rev. B 81, 115108 (2010)",
+  "S. Pittalis, E. Räsänen, and C. R. Proetto, Phys. Rev. B 81, 115108 (2010)",
   "10.1103/PhysRevB.81.115108",
-  "@article{Pittalis2010_115108,\n  title = {Becke--Johnson-type exchange potential for two-dimensional systems},\n  author = {S. Pittalis and E. R\\\"as\\\"anen and C. R. Proetto},\n  journal = {Phys. Rev. B},\n  volume = {81},\n  issue = {11},\n  pages = {115108},\n  numpages = {7},\n  year = {2010},\n  month = {Mar},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.81.115108},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.81.115108}\n}"
+  "@article{Pittalis2010_115108,\n  title = {Becke--Johnson-type exchange potential for two-dimensional systems},\n  author = {S. Pittalis and E. Räsänen and C. R. Proetto},\n  journal = {Phys. Rev. B},\n  volume = {81},\n  issue = {11},\n  pages = {115108},\n  numpages = {7},\n  year = {2010},\n  month = {Mar},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.81.115108},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.81.115108}\n}"
 };
 
 

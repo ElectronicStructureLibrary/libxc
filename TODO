@@ -6,7 +6,6 @@ LDA:
   *) Handler x (JCP 61, 4824) 
   *) Rae self-energy correction to x (CPL 18, 574 (1973))
   *) ZLP x (Phys. Rev. A, 47 (1993), p. 918) and k (Chem. Phys. Lett. 232, 31)
-  *) Ceperley-Alder correlation (PRL 45, 566 (1980))
 
 GGAs:
   *) functionals of Della Salla (http://www.theory-nnl.it/software.php)
@@ -14,11 +13,12 @@ GGAs:
   *) http://dx.doi.org/10.1063/1.3243845
   *) df-LB94, df-revLB94 http://dx.doi.org/10.1103/PhysRevA.83.012509
   *) Lambda-LB94, Q-LB94, Q-revLB94  http://dx.doi.org/10.1063/1.3684261
+  *) BMK (Boese-Martin for kinetics) http://scitation.aip.org/content/aip/journal/jcp/121/8/10.1063/1.1774975
 
 mGGAs:
-  *) Colle and Salvetti http://www.molpro.net/info/current/doc/manual/node750.html
-  *) MK00 http://www.molpro.net/info/current/doc/manual/node760.html
-  *) MK00B http://www.molpro.net/info/current/doc/manual/node761.html
+  *) Colle and Salvetti http://www.molpro.net/info/current/doc/manual/node825.html
+  *) MK00 http://www.molpro.net/info/current/doc/manual/node849.html
+  *) MK00B http://www.molpro.net/info/current/doc/manual/node850.html
   *) tau-HTCH
   *) KCIS, B0KCIS, B1KCIS http://jcp.aip.org/resource/1/jcpsa6/v117/i23/p10465_s1
   *) regTPSS http://pubs.acs.org/doi/abs/10.1021/ct300269u
@@ -27,12 +27,14 @@ mGGAs:
   *) Alternative parametrizations of the TB09 functional http://dx.doi.org/10.1103/PhysRevB.85.155109
   *) MCY1 and MCY2 http://dx.doi.org/10.1063/1.2179072
   *) http://www.sciencedirect.com/science/article/pii/S0009261412007117
+  *) BLOC http://pubs.acs.org/doi/abs/10.1021/ct400148r	
 
 hybrids:
   *) http://arxiv.org/abs/1205.4999 (versions of HSE)
   *) http://link.aip.org/link/doi/10.1063/1.3524336 (HSE_sol)
   *) doi:10.1021/ct800530u (LR-omegaPBE08)
   *) http://arxiv.org/abs/1211.0387
+  *) (CAM-)S12g / (CAM-)S12h http://www.sciencedirect.com/science/article/pii/S0009261413008221
 
 hybrid meta:
   *) TPSS1KCIS http://pubs.rsc.org/en/content/articlelanding/2005/cp/b416937a

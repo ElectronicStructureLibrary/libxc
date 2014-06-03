@@ -16,8 +16,6 @@ GGAs:
   *) BMK (Boese-Martin for kinetics) http://scitation.aip.org/content/aip/journal/jcp/121/8/10.1063/1.1774975
 
 mGGAs:
-  *) MK00 http://www.molpro.net/info/current/doc/manual/node849.html
-  *) MK00B http://www.molpro.net/info/current/doc/manual/node850.html
   *) tau-HTCH
   *) KCIS, B0KCIS, B1KCIS http://jcp.aip.org/resource/1/jcpsa6/v117/i23/p10465_s1
   *) regTPSS http://pubs.acs.org/doi/abs/10.1021/ct300269u

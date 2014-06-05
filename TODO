@@ -6,6 +6,8 @@ LDA:
   *) Handler x (JCP 61, 4824) 
   *) Rae self-energy correction to x (CPL 18, 574 (1973))
   *) ZLP x (Phys. Rev. A, 47 (1993), p. 918) and k (Chem. Phys. Lett. 232, 31)
+  *) Kohn-Sham exchange (Phys. Rev. 140, A1133 (1965))
+  *) Hartree-Slater exchange (IJQC 5, 411 (1971))
 
 GGAs:
   *) functionals of Della Salla (http://www.theory-nnl.it/software.php)

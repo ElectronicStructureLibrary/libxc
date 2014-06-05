@@ -1450,7 +1450,35 @@ func_reference_type xc_ref_Csonka2010_3688 = {
 func_reference_type xc_ref_Weintraub2009_754 = {
   "E. Weintraub, T. M. Henderson, and G. E. Scuseria, J. Chem. Theory Comput. 5, 754 (2009), \Eprint {http://arxiv.org/abs/http://pubs.acs.org/doi/pdf/10.1021/ct800530u} {http://pubs.acs.org/doi/pdf/10.1021/ct800530u} ",
   "10.1021/ct800530u",
-  "@article{Weintraub2009_754,\nauthor = {Weintraub, Elon and Henderson, Thomas M. and Scuseria, Gustavo E.},\ntitle = {Long-Range-Corrected Hybrids Based on a New Model Exchange Hole},\njournal = {Journal of Chemical Theory and Computation},\nvolume = {5},\nnumber = {4},\npages = {754-762},\nyear = {2009},\ndoi = {10.1021/ct800530u},\n\nURL = {http://pubs.acs.org/doi/abs/10.1021/ct800530u},\neprint = {http://pubs.acs.org/doi/pdf/10.1021/ct800530u}\n}"
+  "@article{Weintraub2009_754,\n  title = {Long-Range-Corrected Hybrids Based on a New Model Exchange Hole},\n  author = {E. Weintraub, and T. M. Henderson, and G. E. Scuseria},\n  journal = {J. Chem. Theory Comput.},\n  volume = {5},\n  number = {4},\n  pages = {754-762},\n  year = {2009},\n  eprint = {http://pubs.acs.org/doi/pdf/10.1021/ct800530u},\n  doi = {10.1021/ct800530u},\n  URL = {http://pubs.acs.org/doi/abs/10.1021/ct800530u}\n}"
+};
+
+
+func_reference_type xc_ref_Reiher2001_48 = {
+  "M. Reiher, O. Salomon, and B. A. Hess, Theor. Chem. Acc. 107, 48 (2001)",
+  "10.1007/s00214-001-0300-3",
+  "@article{Reiher2001_48,\n  title={Reparameterization of hybrid functionals based on energy differences of states of different multiplicity},\n  author={M. Reiher and O. Salomon and B. A. Hess},\n  journal={Theor. Chem. Acc.},\n  volume={107},\n  number={1},\n  pages={48-55},\n  year={2001},\n  issn={1432-881X},\n  publisher={Springer-Verlag},\n  keywords={Key words: Adiabatic connection – Hybrid density functionals – Exact exchange admixture – Transition-metal compounds},\n  language={English},\n  doi={10.1007/s00214-001-0300-3},\n  url={http://dx.doi.org/10.1007/s00214-001-0300-3}\n}"
+};
+
+
+func_reference_type xc_ref_Kohn1965_A1133 = {
+  "W. Kohn and L. J. Sham, Phys. Rev. 140, A1133 (1965)",
+  "10.1103/PhysRev.140.A1133",
+  "@article{Kohn1965_A1133,\n  title = {Self-Consistent Equations Including Exchange and Correlation Effects},\n  author = {W. Kohn and L. J. Sham},\n  journal = {Phys. Rev.},\n  volume = {140},\n  issue = {4A},\n  pages = {A1133--A1138},\n  year = {1965},\n  month = {Nov},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRev.140.A1133},\n  url = {http://link.aps.org/doi/10.1103/PhysRev.140.A1133}\n}"
+};
+
+
+func_reference_type xc_ref_Lindgren1971_411 = {
+  "I. Lindgren, Int. J. Quantum Chem. 5, 411 (1971)",
+  "10.1002/qua.560050849",
+  "@article {Lindgren1971_411,\n  title = {A statistical exchange approximation for localized electrons},\n  author = {I. Lindgren},\n  journal = {Int. J. Quantum Chem.},\n  volume = {5},\n  number = {S5},\n  pages = {411--420},\n  year = {1971},\n  issn = {1097-461X},\n  publisher = {John Wiley & Sons, Inc.},\n  doi = {10.1002/qua.560050849},\n  url = {http://dx.doi.org/10.1002/qua.560050849}\n}"
+};
+
+
+func_reference_type xc_ref_Zhao1993_918 = {
+  "Q. Zhao, M. Levy, and R. G. Parr, Phys. Rev. A 47, 918 (1993)",
+  "10.1103/PhysRevA.47.918",
+  "@article{Zhao1993_918,\n  title = {Applications of coordinate-scaling procedures to the exchange-correlation energy},\n  author = {Zhao, Qingsheng and Levy, Mel and Parr, Robert G.},\n  journal = {Phys. Rev. A},\n  volume = {47},\n  issue = {2},\n  pages = {918--922},\n  numpages = {0},\n  year = {1993},\n  month = {Feb},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.47.918},\n  url = {http://link.aps.org/doi/10.1103/PhysRevA.47.918}\n}"
 };
 
 

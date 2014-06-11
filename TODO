@@ -14,7 +14,6 @@ GGAs:
   *) df-LB94, df-revLB94 http://dx.doi.org/10.1103/PhysRevA.83.012509
   *) Lambda-LB94, Q-LB94, Q-revLB94  http://dx.doi.org/10.1063/1.3684261
   *) BMK (Boese-Martin for kinetics) http://scitation.aip.org/content/aip/journal/jcp/121/8/10.1063/1.1774975
-  *) PBEloc correlation (and the resulting TPSSloc) http://link.aps.org/doi/10.1103/PhysRevB.86.035130
 
 mGGAs:
   *) tau-HTCH
@@ -25,6 +24,7 @@ mGGAs:
   *) Alternative parametrizations of the TB09 functional http://dx.doi.org/10.1103/PhysRevB.85.155109
   *) MCY1 and MCY2 http://dx.doi.org/10.1063/1.2179072
   *) http://www.sciencedirect.com/science/article/pii/S0009261412007117
+  *) TPSSloc http://link.aps.org/doi/10.1103/PhysRevB.86.035130
 
 hybrids:
   *) http://arxiv.org/abs/1205.4999 (versions of HSE)

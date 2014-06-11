@@ -40,6 +40,7 @@
 #define XC_GGA_C_ZPBESOL       63 /* spin-dependent gradient correction to PBEsol       */
 #define XC_GGA_C_PBEINT        62 /* PBE for hybrid interfaces                          */
 #define XC_GGA_C_ZPBEINT       61 /* spin-dependent gradient correction to PBEint       */
+#define XC_GGA_C_PBELOC       246 /* Semilocal dynamical correlation                    */
 
 typedef struct{
   FLOAT beta;
@@ -49,17 +50,18 @@ typedef struct{
 static void gga_c_pbe_init(XC(func_type) *p)
 {
   static const FLOAT beta[]  = {
-    0.06672455060314922,                /*  0: original PBE */
-    0.046,                              /*  1: PBE sol      */
-    0.089809,                           /*  2: xPBE         */
-    3.0*10.0/(81.0*M_PI*M_PI),          /*  3: PBE_JRGX     */
-    0.053,                              /*  4: RGE2         */
-    3.0*0.260/(M_PI*M_PI),              /*  5: APBE (C)     */
-    0.06672455060314922,                /*  6: sPBE         */
-    0.0,                                /*  7: vPBE this is calculated */
-    0.046,                              /*  8: zPBEsol      */
-    0.052,                              /*  9: PBEint       */
-    0.052                               /* 10: zPBEint      */
+    0.06672455060314922,                /*  0: original PBE              */
+    0.046,                              /*  1: PBE sol                   */
+    0.089809,                           /*  2: xPBE                      */
+    3.0*10.0/(81.0*M_PI*M_PI),          /*  3: PBE_JRGX                  */
+    0.053,                              /*  4: RGE2                      */
+    3.0*0.260/(M_PI*M_PI),              /*  5: APBE (C)                  */
+    0.06672455060314922,                /*  6: sPBE                      */
+    0.0,                                /*  7: vPBE this is calculated   */
+    0.046,                              /*  8: zPBEsol                   */
+    0.052,                              /*  9: PBEint                    */
+    0.052,                              /* 10: zPBEint                   */
+    0.0                                 /* 11: PBEloc this is calculated */
   };
 
   assert(p!=NULL && p->params == NULL);
@@ -83,6 +85,7 @@ static void gga_c_pbe_init(XC(func_type) *p)
   case XC_GGA_C_ZPBESOL:  p->func =  8; break;
   case XC_GGA_C_PBEINT:   p->func =  9; break;
   case XC_GGA_C_ZPBEINT:  p->func = 10; break;
+  case XC_GGA_C_PBELOC:   p->func = 11; break;
   default:
     fprintf(stderr, "Internal error in gga_c_pbe\n");
     exit(1);
@@ -208,8 +211,10 @@ pbe_eq7(int order, int func, FLOAT beta, FLOAT gamm, FLOAT phi, FLOAT t, FLOAT A
 inline void 
 XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
 {
-  /* parameter for beta of VPBE */
-  static FLOAT b_1 = 0.066725, b_2 = 0.1, b_3 = 0.1778;
+  /* parameters for beta of VPBE */
+  static FLOAT vpbe_b1 = 0.066725, vpbe_b2 = 0.1, vpbe_b3 = 0.1778;
+  /* parameters for beta of PBEloc */
+  static FLOAT pbeloc_b0 = 0.0375, pbeloc_a = 0.08;
 
   FLOAT cnst_beta, phi, t;
 
@@ -247,10 +252,17 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   else
     gamm = (1.0 - LOG(2.0))/(M_PI*M_PI);
 
-  if(p->func == 7){
-    beta_den = (1.0 + b_3*r->rs);
-    beta = b_1 * (1.0 + b_2*r->rs)/beta_den;
-  }else
+  if(p->func == 11) {
+    /* PBEloc: \beta = \beta_0 + a t^2 f(r_s) */
+    beta_den = exp(- r->rs * r->rs);
+    beta = pbeloc_b0 + pbeloc_a * t*t * ( 1.0 - beta_den);
+
+  } else if(p->func == 7) {
+    /* VPBE:  */
+    beta_den = (1.0 + vpbe_b3*r->rs);
+    beta = vpbe_b1 * (1.0 + vpbe_b2*r->rs)/beta_den;
+
+  } else
     beta = cnst_beta;
 
   pbe_eq8(r->order, beta, gamm, pw.zk, phi,
@@ -264,11 +276,6 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   r->f = pw.zk + H;
 
   if(r->order < 1) return;
-
-  if(p->func == 7){
-    dbetadrs = b_1*(b_2 - b_3)/(beta_den*beta_den);
-  }else
-    dbetadrs = 0.0;
 
   /* full derivatives of functional */
   dfdbeta= dHdbeta + dHdA*dAdbeta;
@@ -284,6 +291,13 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   dtdrs  = -r->xt/(2.0*tconv*phi*r->rs*pw.rs[0]);
   dtdxt  =  t/r->xt;
   dtdphi = -t/phi;
+
+  if(p->func == 11) {
+    dbetadrs = 2 * pbeloc_a * t * ( dtdrs * (1.0 - beta_den) + t * r->rs * beta_den);
+  } else if(p->func == 7) {
+    dbetadrs = vpbe_b1*(vpbe_b2 - vpbe_b3)/(beta_den*beta_den);
+  } else
+    dbetadrs = 0.0;
 
   r->dfdrs   = dfdec*pw.dedrs + dfdt*dtdrs + dfdbeta*dbetadrs;
   r->dfdz    = dfdec*pw.dedz + (dfdphi + dfdt*dtdphi)*dphidz;
@@ -478,13 +492,26 @@ const XC(func_info_type) XC(func_info_gga_c_pbeint) = {
   NULL
 };
 
-
 const XC(func_info_type) XC(func_info_gga_c_zpbeint) = {
   XC_GGA_C_ZPBEINT,
   XC_CORRELATION,
   "spin-dependent gradient correction to PBEint",
   XC_FAMILY_GGA,
   {&xc_ref_Constantin2011_233103, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-12, 1e-32, 0.0, 1e-32,
+  gga_c_pbe_init,
+  NULL, NULL,
+  work_gga_c,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_c_pbeloc) = {
+  XC_GGA_C_PBELOC,
+  XC_CORRELATION,
+  "Semilocal dynamical correlation",
+  XC_FAMILY_GGA,
+  {&xc_ref_Constantin2012_035130, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-12, 1e-32, 0.0, 1e-32,
   gga_c_pbe_init,

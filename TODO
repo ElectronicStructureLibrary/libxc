@@ -24,7 +24,6 @@ mGGAs:
   *) Alternative parametrizations of the TB09 functional http://dx.doi.org/10.1103/PhysRevB.85.155109
   *) MCY1 and MCY2 http://dx.doi.org/10.1063/1.2179072
   *) http://www.sciencedirect.com/science/article/pii/S0009261412007117
-  *) TPSSloc http://link.aps.org/doi/10.1103/PhysRevB.86.035130
 
 hybrids:
   *) http://arxiv.org/abs/1205.4999 (versions of HSE)

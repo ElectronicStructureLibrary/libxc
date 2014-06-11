@@ -25,6 +25,7 @@
 #define XC_MGGA_C_TPSS          231 /* Perdew, Tao, Staroverov & Scuseria correlation */
 #define XC_MGGA_C_PKZB          239 /* Perdew, Kurth, Zupan, and Blaha */
 #define XC_MGGA_C_REVTPSS       241 /* revised TPSS correlation */
+#define XC_MGGA_C_TPSSLOC       247 /* Semilocal dynamical correlation */
 
 typedef struct{
   FLOAT C0_c[4];
@@ -42,7 +43,10 @@ mgga_c_pkzb_init(XC(func_type) *p)
   p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
 
-  XC(func_init)(p->func_aux[0], XC_GGA_C_PBE, XC_POLARIZED);
+  if(p->info->number == XC_MGGA_C_TPSSLOC)
+    XC(func_init)(p->func_aux[0], XC_GGA_C_PBELOC, XC_POLARIZED);
+  else
+    XC(func_init)(p->func_aux[0], XC_GGA_C_PBE, XC_POLARIZED);  
 
   p->params = malloc(sizeof(mgga_c_pkzb_params));
 
@@ -53,6 +57,9 @@ mgga_c_pkzb_init(XC(func_type) *p)
     break;
   case XC_MGGA_C_REVTPSS:
     XC(mgga_c_pkzb_set_params)(p, 0.06672455060314922, 2.8, 0.59, 0.9269, 0.6225, 2.1540);
+    break;
+  case XC_MGGA_C_TPSSLOC:
+    XC(mgga_c_pkzb_set_params)(p, 0.06672455060314922, 4.5, 0.35, 0.87, 0.50, 2.26);
     break;
   default:
     fprintf(stderr, "Internal error in mgga_c_tpss\n");
@@ -322,6 +329,19 @@ XC(func_info_type) XC(func_info_mgga_c_revtpss) = {
   "revised TPSS correlation",
   XC_FAMILY_MGGA,
   {&xc_ref_Perdew2009_026403, &xc_ref_Perdew2009_026403_err, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-26, 1e-32, 1e-32, 1e-32, /* densities smaller than 1e-26 give NaNs */
+  mgga_c_pkzb_init,
+  NULL, NULL, NULL,
+  work_mgga_c,
+};
+
+XC(func_info_type) XC(func_info_mgga_c_tpssloc) = {
+  XC_MGGA_C_TPSSLOC,
+  XC_CORRELATION,
+  "Semilocal dynamical correlation",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Constantin2012_035130, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-26, 1e-32, 1e-32, 1e-32, /* densities smaller than 1e-26 give NaNs */
   mgga_c_pkzb_init,

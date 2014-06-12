@@ -254,7 +254,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   if(p->func == 11) {
     /* PBEloc: \beta = \beta_0 + a t^2 f(r_s) */
-    beta_den = exp(- r->rs * r->rs);
+    beta_den = EXP(- r->rs * r->rs);
     beta = pbeloc_b0 + pbeloc_a * t*t * ( 1.0 - beta_den);
 
   } else if(p->func == 7) {

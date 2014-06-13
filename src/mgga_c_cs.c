@@ -24,16 +24,25 @@
 
 #define XC_MGGA_C_CS          72 /* Colle and Salvetti */
 
+/*
+    [1] Eq. (15) in http://dx.doi.org/10.1103/PhysRevB.37.785
+    [2] CS2 in http://www.molpro.net/info/2012.1/doc/manual/node192.html
+
+  there is a gamma(r) in [1] absent in [2]. This should be irrelevant
+  for spin unpolarized. In any case, it seems that even in that case,
+  libxc does not give the same as molpro, but I am unable to
+  understand why...
+*/
+
 static void 
 func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 {
-  static FLOAT a = -0.04918, b = 0.132, c = 0.2533, d = 0.349;
-  FLOAT cnst_rs, cnst_283, opz, omz, opz2, omz2, opz13, omz13, opz23, omz23;
-  FLOAT ta, tb, tw, aux, ff, num, den;
-  FLOAT dtwdz, dtwdxt, dtwdus0, dtwdus1, dauxdrs;
+  static FLOAT a = -0.04918, b = 0.132, c = 0.2533/RS_FACTOR, d = 0.349/RS_FACTOR;
+  FLOAT cnst_283, opz, omz, opz2, omz2, opz13, omz13, opz23, omz23;
+  FLOAT ta, tb, tw, aux, gamma, ff, num, den;
+  FLOAT dgamma, dtwdz, dtwdxt, dtwdus0, dtwdus1, dauxdrs;
   FLOAT dnumdrs, dnumdz, dnumdxt, dnumdts0, dnumdts1, dnumdus0, dnumdus1, ddendrs;
 
-  cnst_rs  = 1.0/RS_FACTOR;
   cnst_283 = 1.0/(4.0*M_CBRT2*M_CBRT2);
 
   opz = 1.0 + r->zeta;
@@ -49,10 +58,12 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   tb    = r->ts[1] - r->us[1]/8.0;
   tw    = r->xt*r->xt/8.0 - cnst_283*(r->us[0]*opz*opz23 + r->us[1]*omz*omz23);
 
-  aux   = EXP(-c*cnst_rs*r->rs);
+  aux   = EXP(-c*r->rs);
+  gamma = 1.0 - r->zeta*r->zeta;
+
   ff    = cnst_283*(opz2*opz23*ta + omz2*omz23*tb) - tw;
-  num   = 1.0 + 2.0*b*ff*aux;
-  den   = 1.0 + d*cnst_rs*r->rs;
+  num   = (1.0 + 2.0*b*ff*aux)*gamma;
+  den   = 1.0 + d*r->rs;
 
   r->f = a*num/den;
 
@@ -63,17 +74,19 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   dtwdus0 = -cnst_283*opz*opz23;
   dtwdus1 = -cnst_283*omz*omz23;
 
-  dauxdrs = -c*cnst_rs*aux;
+  dauxdrs = -c*aux;
+  dgamma  = -2.0*r->zeta;
 
-  dnumdrs  =  2.0*b*ff*dauxdrs;
-  dnumdz   =  2.0*b*(cnst_283*8.0/3.0*(opz*opz23*ta - omz*omz23*tb) - dtwdz)*aux;
-  dnumdxt  = -2.0*b*dtwdxt*aux;
-  dnumdts0 =  2.0*b*cnst_283*opz2*opz23*aux;
-  dnumdts1 =  2.0*b*cnst_283*omz2*omz23*aux;
-  dnumdus0 =  2.0*b*(-cnst_283*opz2*opz23/8.0 - dtwdus0)*aux;
-  dnumdus1 =  2.0*b*(-cnst_283*omz2*omz23/8.0 - dtwdus1)*aux;
+  dnumdrs  =  2.0*b*ff*dauxdrs*gamma;
+  dnumdz   =  2.0*b*(cnst_283*(8.0/3.0)*(opz*opz23*ta - omz*omz23*tb) - dtwdz)*aux*gamma +
+    (1.0 + 2.0*b*ff*aux)*dgamma;
+  dnumdxt  = -2.0*b*dtwdxt*aux*gamma;
+  dnumdts0 =  2.0*b*cnst_283*opz2*opz23*aux*gamma;
+  dnumdts1 =  2.0*b*cnst_283*omz2*omz23*aux*gamma;
+  dnumdus0 =  2.0*b*(-cnst_283*opz2*opz23/8.0 - dtwdus0)*aux*gamma;
+  dnumdus1 =  2.0*b*(-cnst_283*omz2*omz23/8.0 - dtwdus1)*aux*gamma;
 
-  ddendrs  = d*cnst_rs;
+  ddendrs  = d;
 
   r->dfdrs    = a*(dnumdrs*den - num*ddendrs)/(den*den);
   r->dfdz     = a*dnumdz/den;

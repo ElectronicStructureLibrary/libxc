@@ -1468,17 +1468,17 @@ func_reference_type xc_ref_Kohn1965_A1133 = {
 };
 
 
-func_reference_type xc_ref_Lindgren1971_411 = {
-  "I. Lindgren, Int. J. Quantum Chem. 5, 411 (1971)",
-  "10.1002/qua.560050849",
-  "@article {Lindgren1971_411,\n  title = {A statistical exchange approximation for localized electrons},\n  author = {I. Lindgren},\n  journal = {Int. J. Quantum Chem.},\n  volume = {5},\n  number = {S5},\n  pages = {411--420},\n  year = {1971},\n  issn = {1097-461X},\n  publisher = {John Wiley & Sons, Inc.},\n  doi = {10.1002/qua.560050849},\n  url = {http://dx.doi.org/10.1002/qua.560050849}\n}"
-};
-
-
 func_reference_type xc_ref_Zhao1993_918 = {
   "Q. Zhao, M. Levy, and R. G. Parr, Phys. Rev. A 47, 918 (1993)",
   "10.1103/PhysRevA.47.918",
   "@article{Zhao1993_918,\n  title = {Applications of coordinate-scaling procedures to the exchange-correlation energy},\n  author = {Zhao, Qingsheng and Levy, Mel and Parr, Robert G.},\n  journal = {Phys. Rev. A},\n  volume = {47},\n  issue = {2},\n  pages = {918--922},\n  numpages = {0},\n  year = {1993},\n  month = {Feb},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.47.918},\n  url = {http://link.aps.org/doi/10.1103/PhysRevA.47.918}\n}"
+};
+
+
+func_reference_type xc_ref_Constantin2012_035130 = {
+  "L. A. Constantin, E. Fabiano, and F. D. Sala, Phys. Rev. B 86, 035130 (2012)",
+  "10.1103/PhysRevB.86.035130",
+  "@article{Constantin2012_035130,\n  title = {Semilocal dynamical correlation with increased localization},\n  author = {Constantin, Lucian A. and Fabiano, Eduardo and Sala, Fabio Della},\n  journal = {Phys. Rev. B},\n  volume = {86},\n  issue = {3},\n  pages = {035130},\n  numpages = {5},\n  year = {2012},\n  month = {Jul},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.86.035130},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.86.035130}\n}"
 };
 
 

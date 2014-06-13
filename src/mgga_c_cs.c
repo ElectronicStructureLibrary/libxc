@@ -28,16 +28,19 @@ static void
 func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 {
   static FLOAT a = -0.04918, b = 0.132, c = 0.2533, d = 0.349;
-  FLOAT cnst_rs, cnst_283, opz, omz, opz13, omz13, opz23, omz23;
+  FLOAT cnst_rs, cnst_283, opz, omz, opz2, omz2, opz13, omz13, opz23, omz23;
   FLOAT ta, tb, tw, aux, ff, num, den;
   FLOAT dtwdz, dtwdxt, dtwdus0, dtwdus1, dauxdrs;
   FLOAT dnumdrs, dnumdz, dnumdxt, dnumdts0, dnumdts1, dnumdus0, dnumdus1, ddendrs;
 
-  cnst_rs  = CBRT(4*M_PI/3.0);
+  cnst_rs  = 1.0/RS_FACTOR;
   cnst_283 = 1.0/(4.0*M_CBRT2*M_CBRT2);
 
   opz = 1.0 + r->zeta;
   omz = 1.0 - r->zeta;
+
+  opz2 = opz*opz;
+  omz2 = omz*omz;
 
   opz13 = CBRT(opz); opz23 = opz13*opz13;
   omz13 = CBRT(omz); omz23 = omz13*omz13;
@@ -47,7 +50,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   tw    = r->xt*r->xt/8.0 - cnst_283*(r->us[0]*opz*opz23 + r->us[1]*omz*omz23);
 
   aux   = EXP(-c*cnst_rs*r->rs);
-  ff    = opz*ta + omz*tb - tw;
+  ff    = cnst_283*(opz2*opz23*ta + omz2*omz23*tb) - tw;
   num   = 1.0 + 2.0*b*ff*aux;
   den   = 1.0 + d*cnst_rs*r->rs;
 
@@ -63,12 +66,12 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   dauxdrs = -c*cnst_rs*aux;
 
   dnumdrs  =  2.0*b*ff*dauxdrs;
-  dnumdz   =  2.0*b*(ta - tb - dtwdz)*aux;
+  dnumdz   =  2.0*b*(cnst_283*8.0/3.0*(opz*opz23*ta - omz*omz23*tb) - dtwdz)*aux;
   dnumdxt  = -2.0*b*dtwdxt*aux;
-  dnumdts0 =  2.0*b*opz*aux;
-  dnumdts1 =  2.0*b*omz*aux;
-  dnumdus0 =  2.0*b*(-opz/8.0 - dtwdus0)*aux;
-  dnumdus1 =  2.0*b*(-omz/8.0 - dtwdus1)*aux;
+  dnumdts0 =  2.0*b*cnst_283*opz2*opz23*aux;
+  dnumdts1 =  2.0*b*cnst_283*omz2*omz23*aux;
+  dnumdus0 =  2.0*b*(-cnst_283*opz2*opz23/8.0 - dtwdus0)*aux;
+  dnumdus1 =  2.0*b*(-cnst_283*omz2*omz23/8.0 - dtwdus1)*aux;
 
   ddendrs  = d*cnst_rs;
 

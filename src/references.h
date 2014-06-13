@@ -214,5 +214,5 @@ extern func_reference_type xc_ref_Csonka2010_3688;
 extern func_reference_type xc_ref_Weintraub2009_754;
 extern func_reference_type xc_ref_Reiher2001_48;
 extern func_reference_type xc_ref_Kohn1965_A1133;
-extern func_reference_type xc_ref_Lindgren1971_411;
 extern func_reference_type xc_ref_Zhao1993_918;
+extern func_reference_type xc_ref_Constantin2012_035130;

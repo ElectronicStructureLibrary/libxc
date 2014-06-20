@@ -209,8 +209,8 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
 XC(func_info_type) XC(func_info_mgga_c_m08_hx) = {
   XC_MGGA_C_M08_HX,
-  XC_EXCHANGE,
-  "Minnesota M08-HX functional",
+  XC_CORRELATION,
+  "Minnesota M08-HX correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -222,8 +222,8 @@ XC(func_info_type) XC(func_info_mgga_c_m08_hx) = {
 
 XC(func_info_type) XC(func_info_mgga_c_m08_so) = {
   XC_MGGA_C_M08_SO,
-  XC_EXCHANGE,
-  "Minnesota M08-SO functional",
+  XC_CORRELATION,
+  "Minnesota M08-SO correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -235,8 +235,8 @@ XC(func_info_type) XC(func_info_mgga_c_m08_so) = {
 
 XC(func_info_type) XC(func_info_mgga_c_m11) = {
   XC_MGGA_C_M11,
-  XC_EXCHANGE,
-  "Minnesota M11 functional",
+  XC_CORRELATION,
+  "Minnesota M11 correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Peverati2011_2810, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -248,8 +248,8 @@ XC(func_info_type) XC(func_info_mgga_c_m11) = {
 
 XC(func_info_type) XC(func_info_mgga_c_m11_l) = {
   XC_MGGA_C_M11_L,
-  XC_EXCHANGE,
-  "Minnesota M11-L functional",
+  XC_CORRELATION,
+  "Minnesota M11-L correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Peverati2012_117, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -262,7 +262,7 @@ XC(func_info_type) XC(func_info_mgga_c_m11_l) = {
 XC(func_info_type) XC(func_info_mgga_c_mn12_l) = {
   XC_MGGA_C_MN12_L,
   XC_CORRELATION,
-  "Minnesota MN12-L functional",
+  "Minnesota MN12-L correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Peverati2012_13171, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -275,7 +275,7 @@ XC(func_info_type) XC(func_info_mgga_c_mn12_l) = {
 XC(func_info_type) XC(func_info_mgga_c_mn12_sx) = {
   XC_MGGA_C_MN12_SX,
   XC_CORRELATION,
-  "Minnesota MN12-SX functional",
+  "Minnesota MN12-SX correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

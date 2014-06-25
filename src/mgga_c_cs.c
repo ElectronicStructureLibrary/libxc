@@ -69,10 +69,10 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
   if(r->order < 1) return;
 
-  dtwdz   = -cnst_283*(5.0/3.0)*(r->us[0]*opz23 - r->us[1]*omz23);
+  dtwdz   = -cnst_283*(5.0/3.0)*(r->us[0]*opz23 - r->us[1]*omz23)/4.0;
   dtwdxt  =  r->xt/4.0;
-  dtwdus0 = -cnst_283*opz*opz23;
-  dtwdus1 = -cnst_283*omz*omz23;
+  dtwdus0 = -cnst_283*opz*opz23/4.0;
+  dtwdus1 = -cnst_283*omz*omz23/4.0;
 
   dauxdrs = -c*aux;
   dgamma  = -2.0*r->zeta;

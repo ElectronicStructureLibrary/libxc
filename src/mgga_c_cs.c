@@ -56,7 +56,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
   ta    = r->ts[0] - r->us[0]/8.0;
   tb    = r->ts[1] - r->us[1]/8.0;
-  tw    = r->xt*r->xt/8.0 - cnst_283*(r->us[0]*opz*opz23 + r->us[1]*omz*omz23);
+  tw    = r->xt*r->xt/8.0 - cnst_283*(r->us[0]*opz*opz23 + r->us[1]*omz*omz23)/4.0;
 
   aux   = EXP(-c*r->rs);
   gamma = 1.0 - r->zeta*r->zeta;

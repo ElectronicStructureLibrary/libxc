@@ -70,7 +70,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_cam_b3lyp) = {
 const XC(func_info_type) XC(func_info_hyb_gga_xc_tuned_cam_b3lyp) = {
   XC_HYB_GGA_XC_TUNED_CAM_B3LYP,
   XC_EXCHANGE_CORRELATION,
-  "CAM version of B3LYP",
+  "CAM version of B3LYP, tuned for excitations and properties",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Okuno2012_29, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

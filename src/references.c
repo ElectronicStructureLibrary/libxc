@@ -1482,3 +1482,10 @@ func_reference_type xc_ref_Constantin2012_035130 = {
 };
 
 
+func_reference_type xc_ref_Hamada2014_121103 = {
+  "I. Hamada, Phys. Rev. B 89, 121103 (2014)",
+  "10.1103/PhysRevB.89.121103",
+  "@article{Hamada2014_121103,\n  title = {van der Waals density functional made accurate},\n  author = {Hamada, Ikaturo},\n  journal = {Phys. Rev. B},\n  volume = {89},\n  issue = {12},\n  pages = {121103},\n  numpages = {5},\n  year = {2014},\n  month = {Mar},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.89.121103},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.89.121103}\n}"
+};
+
+

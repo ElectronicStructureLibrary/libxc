@@ -187,6 +187,7 @@ void XC(gga_kxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *
 void XC(gga_lb_modified)  (const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
 			   FLOAT r, FLOAT *vrho);
 
+void XC(gga_x_b86_set_params)     (XC(func_type) *p, FLOAT beta, FLOAT gamma, FLOAT omega);
 void XC(gga_x_b88_set_params)     (XC(func_type) *p, FLOAT beta, FLOAT gamma);
 void XC(gga_x_pbe_set_params)     (XC(func_type) *p, FLOAT kappa, FLOAT mu);
 void XC(gga_c_pbe_set_params)     (XC(func_type) *p, FLOAT beta);

@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2006-2007 M.A.L. Marques
+ Copyright (C) 2006-2014 L. Talirz, M.A.L. Marques
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU Lesser General Public License as published by
@@ -17,41 +17,95 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 #include "util.h"
 
 #define XC_GGA_X_B86          103 /* Becke 86 Xalfa,beta,gamma                      */
+#define XC_GGA_X_B86_R         41 /* Revised Becke 86 Xalfa,beta,gamma (with mod. grad. correction) */
+
+typedef struct{
+  FLOAT beta, gamma, omega;
+} gga_x_b86_params;
+
+
+static void 
+gga_x_b86_init(XC(func_type) *p)
+{
+  assert(p!=NULL && p->params == NULL);
+  p->params = malloc(sizeof(gga_x_b86_params));
+
+  /* value of beta and gamma in Becke 86 functional */
+  switch(p->info->number){
+  case XC_GGA_X_B86:
+    p->func = 0; 
+    XC(gga_x_b86_set_params)(p, 0.0036/X_FACTOR_C, 0.004, 1.0);
+    break;
+  case XC_GGA_X_B86_R:
+    p->func = 1; 
+    XC(gga_x_b86_set_params)(p, 0.001890/X_FACTOR_C, 0.002856, 4.0/5.0);
+    break;
+  default:
+    fprintf(stderr, "Internal error in gga_x_b86\n");
+    exit(1);
+  }
+}
+
+
+void 
+XC(gga_x_b86_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma, FLOAT omega)
+{
+  gga_x_b86_params *params;
+
+  assert(p != NULL && p->params != NULL);
+  params = (gga_x_b86_params *) (p->params);
+
+  params->beta  = beta;
+  params->gamma = gamma;
+  params->omega = omega;
+}
+
 
 void XC(gga_x_b86_enhance)
   (const XC(func_type) *p, int order, FLOAT x, 
    FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
-  static const FLOAT beta  = 0.0036/X_FACTOR_C;
-  static const FLOAT gamma = 0.004;
+  FLOAT beta, gamma, omega;
+  FLOAT dd, ddd, d2dd;
+  FLOAT f1, f2, df1, df2, d2f1, d2f2, d3f2;
 
-  FLOAT f1, f2, df1, df2, d2f1, d2f2;
+  assert(p->params != NULL);
+  beta  = ((gga_x_b86_params *) (p->params))->beta;
+  gamma = ((gga_x_b86_params *) (p->params))->gamma;
+  omega = ((gga_x_b86_params *) (p->params))->omega;
 
+  dd = 1.0 + gamma*x*x;
   f1 = beta*x*x;
-  f2 = 1.0 + gamma*x*x;
+  f2 = POW(dd, omega);
+
   *f = 1.0 + f1/f2;
   
   if(order < 1) return;
 
+  ddd = 2.0*gamma*x;
   df1 = 2.0*beta *x;
-  df2 = 2.0*gamma*x;
+  df2 = omega*ddd*f2/dd;
 
-  *dfdx  = (df1*f2 - f1*df2)/(f2*f2);
+  *dfdx  = DFRACTION(f1, df1, f2, df2);
 
   if(order < 2) return;
 
+  d2dd = 2.0*gamma;
   d2f1 = 2.0*beta;
-  d2f2 = 2.0*gamma;
+  d2f2 = omega*f2/(dd*dd)*(d2dd*dd + (omega - 1.0)*ddd*ddd);
 
-  *d2fdx2 = (2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
+  *d2fdx2 = D2FRACTION(f1, df1, d2f1, f2, df2, d2f2);
 
   if(order < 3) return;
 
-  *d3fdx3 = (-6.0*f1*df2*df2*df2 + 6.0*f2*df2*(df1*df2 + f1*d2f2) - f2*f2*(3.0*df2*d2f1 + 3.0*df1*d2f2))/(f2*f2*f2*f2);
+  d3f2 = omega*(omega - 1.0)*ddd*f2/(dd*dd*dd)*(3.0*d2dd*dd + (omega - 2.0)*ddd*ddd);
+
+  *d3fdx3 = D3FRACTION(f1, df1, d2f1, 0.0, f2, df2, d2f2, d3f2);
 }
 
 #define func XC(gga_x_b86_enhance)
@@ -65,7 +119,22 @@ const XC(func_info_type) XC(func_info_gga_x_b86) = {
   {&xc_ref_Becke1986_4524, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-23, 0.0, 1e-32,
-  NULL, NULL, NULL,
+  gga_x_b86_init,
+  NULL, NULL,
+  work_gga_x,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_x_b86_r) = {
+  XC_GGA_X_B86_R,
+  XC_EXCHANGE,
+  "Revised Becke 86 with modified gradient correction",
+  XC_FAMILY_GGA,
+  {&xc_ref_Hamada2014_121103, &xc_ref_Becke1986_4524, &xc_ref_Becke1986_7184, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_x_b86_init,
+  NULL, NULL,
   work_gga_x,
   NULL
 };

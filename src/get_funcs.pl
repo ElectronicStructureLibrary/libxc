@@ -17,9 +17,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 $srcdir = shift;
-$top_builddir = shift;
-
-$builddir = "$top_builddir/src";
+$builddir = shift;
 
 my @funcs = ("lda", "gga", "hyb_gga", "mgga", "hyb_mgga");
 

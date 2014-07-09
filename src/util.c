@@ -124,11 +124,9 @@ XC(get_gga_enhancement_factor)(int func_id)
     return XC(gga_x_htbs_enhance);
 
   case XC_GGA_X_B86:
+  case XC_GGA_X_B86_MGC:
   case XC_GGA_X_B86_R:
     return XC(gga_x_b86_enhance);
-
-  case XC_GGA_X_B86_MGC:
-    return XC(gga_x_b86_mgc_enhance);
 
   case XC_GGA_X_B88:
   case XC_GGA_X_OPTB88_VDW:

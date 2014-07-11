@@ -52,7 +52,9 @@ close(BIB);
 # now we have to make the reference. For that we will run latex
 my $cwd = getcwd();
 
-open(TEX, ">/tmp/$$.tex");
+$dir = "/tmp";
+
+open(TEX, ">$dir/$$.tex");
 print TEX "\\documentclass[prl]{revtex4-1}
 \\usepackage[utf8]{inputenc}
 \\begin{document}
@@ -63,7 +65,7 @@ print TEX "\\documentclass[prl]{revtex4-1}
 close(TEX);
 
 # run latex and bibtex
-`(cd /tmp && latex $$.tex && bibtex $$.aux && latex $$.tex && latex $$.tex && /bin/mv -f $$.dvi libxc.dvi)`;
+system "cd $dir && latex $$.tex && bibtex $$.aux && latex $$.tex && latex $$.tex && /bin/mv -f $$.dvi libxc.dvi";
 
 %journal_abbreviations =
   (
@@ -96,7 +98,7 @@ close(TEX);
   );
 
 # now we parse the bbl file
-open(BBL, "</tmp/$$.bbl");
+open(BBL, "<$dir/$$.bbl");
 $item = "";
 while($_=<BBL>){
   if($item ne ""){
@@ -151,7 +153,7 @@ while($_=<BBL>){
 close(BBL);
 
 # delete garbage
-`(cd /tmp && /bin/rm -f $$.tex $$.aux $$.bbl $$.blg $$.log)`;
+system "cd $dir && /bin/rm -f $$.tex $$.aux $$.bbl $$.blg $$.log";
 
 # now we make a nice output
 open(OUT_C, ">references.c");

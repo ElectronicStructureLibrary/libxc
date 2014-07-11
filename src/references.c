@@ -1468,7 +1468,7 @@ func_reference_type xc_ref_Csonka2010_3688 = {
 func_reference_type xc_ref_Weintraub2009_754 = {
   "E. Weintraub, T. M. Henderson, and G. E. Scuseria, J. Chem. Theory Comput. 5, 754 (2009), \Eprint {http://arxiv.org/abs/http://pubs.acs.org/doi/pdf/10.1021/ct800530u} {http://pubs.acs.org/doi/pdf/10.1021/ct800530u} ",
   "10.1021/ct800530u",
-  "@article{Weintraub2009_754,\n  title = {Long-Range-Corrected Hybrids Based on a New Model Exchange Hole},\n  author = {E. Weintraub, and T. M. Henderson, and G. E. Scuseria},\n  journal = {J. Chem. Theory Comput.},\n  volume = {5},\n  number = {4},\n  pages = {754-762},\n  year = {2009},\n  eprint = {http://pubs.acs.org/doi/pdf/10.1021/ct800530u},\n  doi = {10.1021/ct800530u},\n  URL = {http://pubs.acs.org/doi/abs/10.1021/ct800530u}\n}"
+  "@article{Weintraub2009_754,\n  title = {Long-Range-Corrected Hybrids Based on a New Model Exchange Hole},\n  author = {E. Weintraub and T. M. Henderson and G. E. Scuseria},\n  journal = {J. Chem. Theory Comput.},\n  volume = {5},\n  number = {4},\n  pages = {754-762},\n  year = {2009},\n  eprint = {http://pubs.acs.org/doi/pdf/10.1021/ct800530u},\n  doi = {10.1021/ct800530u},\n  URL = {http://pubs.acs.org/doi/abs/10.1021/ct800530u}\n}"
 };
 
 

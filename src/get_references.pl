@@ -55,7 +55,7 @@ my $cwd = getcwd();
 $dir = "/tmp";
 
 open(TEX, ">$dir/$$.tex");
-print TEX "\\documentclass[prl]{revtex4-1}
+print TEX "\\documentclass[aps,prl]{revtex4-1}
 \\usepackage[utf8]{inputenc}
 \\begin{document}
 \\nocite{*}

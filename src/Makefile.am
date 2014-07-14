@@ -158,8 +158,9 @@ CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 xc_funcs.h libxc_funcs.f90 funcs_lda.c funcs_gga.c funcs_hyb_gga.c funcs_mgga.c funcs_hyb_mgga.c funcs_key.c: get_funcs.pl
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)/src
 
-references.c references.h: get_references.pl ../libxc.bib
-	$(srcdir)/get_references.pl $(srcdir)/../libxc.bib
+#These files are in the repository, and the command below should be run to update them whenever references are changed.
+#references.c references.h: get_references.pl ../libxc.bib
+#	$(srcdir)/get_references.pl $(srcdir)/../libxc.bib
 
 LTPREF = $(subst xc_f.lo,,$(firstword $(am_libxcf90_la_OBJECTS)))
 # Surprisingly, libtool/automake do not seem to provide a macro or variable for what the object names will be,

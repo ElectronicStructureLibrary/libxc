@@ -43,6 +43,7 @@ static const FLOAT CC_N12_SX[4][4] = {
 static void
 hyb_gga_x_n12_sx_init(XC(func_type) *p)
 {
+  p->cam_alpha = 0.00;
   p->cam_beta  = 0.25;
   p->cam_omega = 0.11;
 }

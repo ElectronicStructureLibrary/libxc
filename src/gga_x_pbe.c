@@ -40,19 +40,26 @@
 #define XC_GGA_K_APBEINT       54 /* interpolated version of APBE                   */
 #define XC_GGA_K_REVAPBEINT    53 /* interpolated version of REVAPBE                */
 #define XC_GGA_X_PBE_MOL       49 /* Del Campo, Gazquez, Trickey and Vela (PBE-like) */
+#define XC_GGA_X_LAMBDA_LO_N   45 /* lambda_LO(N) version of PBE                    */
+#define XC_GGA_X_LAMBDA_CH_N   44 /* lambda_CH(N) version of PBE                    */
+#define XC_GGA_X_LAMBDA_OC2_N  40 /* lambda_OC2(N) version of PBE                   */
+
 
 typedef struct{
   FLOAT kappa, mu;
 
   /* parameters only used for PBEint and similar functionals */
   FLOAT alpha, muPBE, muGE;
+
+  /* parameter used in the Odashima & Capelle versions */
+  FLOAT lambda;
 } gga_x_pbe_params;
 
 
 static void 
 gga_x_pbe_init(XC(func_type) *p)
 {
-  static const FLOAT kappa[19] = {
+  static const FLOAT kappa[22] = {
     0.8040,  /* original PBE */
     1.245,   /* PBE R       */
     0.8040,  /* PBE sol     */
@@ -71,10 +78,13 @@ gga_x_pbe_init(XC(func_type) *p)
     1.245,   /* revAPBE (K) */
     0.8040,  /* APBEINT (K) */
     1.245,   /* revAPBEINT (K) */
-    0.8040   /* PBEmol    */
+    0.8040,  /* PBEmol    */
+    2.273/M_CBRT2 - 1.0, /* LAMBDA_LO(N)  */
+    2.215/M_CBRT2 - 1.0, /* LAMBDA_CH(N)  */
+    2.00 /M_CBRT2 - 1.0  /* LAMBDA_OC2(N) */
   };
 
-  static const FLOAT mu[19] = {
+  static const FLOAT mu[22] = {
     0.2195149727645171,     /* PBE: mu = beta*pi^2/3, beta = 0.06672455060314922 */
     0.2195149727645171,     /* PBE rev: as PBE */
     10.0/81.0,              /* PBE sol */
@@ -93,7 +103,10 @@ gga_x_pbe_init(XC(func_type) *p)
     0.23889,                /* revAPBE (K)  */
     0.0,                    /* APBEINT (K) (to be set later) */
     0.0,                    /* REVAPBEINT (K) (to be set later) */
-    0.27583                 /* PBEmol    */
+    0.27583,                /* PBEmol        */
+    0.2195149727645171,     /* LAMBDA_LO(N)  */
+    0.2195149727645171,     /* LAMBDA_CH(N)  */
+    0.2195149727645171      /* LAMBDA_OC2(N) */
   };
 
   gga_x_pbe_params *params;
@@ -102,9 +115,11 @@ gga_x_pbe_init(XC(func_type) *p)
   p->params = malloc(sizeof(gga_x_pbe_params));
   params = (gga_x_pbe_params *) (p->params);
  
-  params->alpha = 0.0;
-  params->muPBE = 0.0;
-  params->muGE  = 0.0;
+  /* initialize structure */
+  params->alpha  = 0.0;
+  params->muPBE  = 0.0;
+  params->muGE   = 0.0;
+  params->lambda = 0.0;
 
   switch(p->info->number){
   case XC_GGA_X_PBE:        p->func = 0;  break;
@@ -144,6 +159,22 @@ gga_x_pbe_init(XC(func_type) *p)
     break;
   }
   case XC_GGA_X_PBE_MOL:    p->func = 18; break;
+
+  case XC_GGA_X_LAMBDA_LO_N: {
+    p->func = 19;
+    params->lambda = 2.273;
+    break;
+  }
+  case XC_GGA_X_LAMBDA_CH_N: {
+    p->func = 20;
+    params->lambda = 2.215;
+    break;
+  }
+  case XC_GGA_X_LAMBDA_OC2_N: {
+    p->func = 21;
+    params->lambda = 2.00;
+    break;
+  }
   default:{
     fprintf(stderr, "Internal error in gga_x_pbe\n");
     exit(1);
@@ -163,6 +194,22 @@ XC(gga_x_pbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu)
 
   params->kappa = kappa;
   params->mu    = mu;
+}
+
+
+void 
+XC(gga_x_lambda_set_params)(XC(func_type) *p, FLOAT N)
+{
+  const FLOAT lambda_1 = 1.48;
+
+  gga_x_pbe_params *params;
+  FLOAT lambda;
+
+  assert(p != NULL && p->params != NULL);
+  params = (gga_x_pbe_params *) (p->params);
+
+  lambda = (1.0 - 1.0/N)*params->lambda + lambda_1/N;
+  params->kappa = lambda/M_CBRT2 - 1.0;
 }
 
 
@@ -374,6 +421,48 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_tca) = {
   "PBE revised by Tognetti et al",
   XC_FAMILY_GGA,
   {&xc_ref_Tognetti2008_536, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_x_pbe_init,
+  NULL, NULL,
+  work_gga_x,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_x_lambda_lo_n) = {
+  XC_GGA_X_LAMBDA_LO_N,
+  XC_EXCHANGE,
+  "lambda_LO(N) version of PBE",
+  XC_FAMILY_GGA,
+  {&xc_ref_Odashima2009_798, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_x_pbe_init,
+  NULL, NULL,
+  work_gga_x,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_x_lambda_ch_n) = {
+  XC_GGA_X_LAMBDA_CH_N,
+  XC_EXCHANGE,
+  "lambda_CH(N) version of PBE",
+  XC_FAMILY_GGA,
+  {&xc_ref_Odashima2009_798, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_x_pbe_init,
+  NULL, NULL,
+  work_gga_x,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_x_lambda_oc2_n) = {
+  XC_GGA_X_LAMBDA_OC2_N,
+  XC_EXCHANGE,
+  "lambda_OC2(N) version of PBE",
+  XC_FAMILY_GGA,
+  {&xc_ref_Odashima2009_798, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init,

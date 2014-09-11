@@ -1521,3 +1521,10 @@ func_reference_type xc_ref_Lundgaard = {
 };
 
 
+func_reference_type xc_ref_Odashima2009_798 = {
+  "M. M. Odashima, K. Capelle, and S. B. Trickey, J. Chem. Theory Comput. 5, 798 (2009)",
+  "10.1021/ct8005634",
+  "@article{Odashima2009_798,\nauthor = {Odashima, Mariana M. and Capelle, K. and Trickey, S. B.},\ntitle = {Tightened Lieb−Oxford Bound for Systems of Fixed Particle Number},\njournal = {J. Chem. Theory Comput.},\nvolume = {5},\nnumber = {4},\npages = {798-807},\nyear = {2009},\ndoi = {10.1021/ct8005634},\nURL = {http://dx.doi.org/10.1021/ct8005634},\n}"
+};
+
+

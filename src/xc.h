@@ -205,6 +205,7 @@ void XC(gga_x_ityh_set_params)    (XC(func_type) *p, int func_id, FLOAT omega);
 void XC(gga_x_sfat_set_params)    (XC(func_type) *p, int func_id, FLOAT omega);
 void XC(gga_x_ssb_sw_set_params)  (XC(func_type) *p, FLOAT A, FLOAT B, FLOAT C, FLOAT D, FLOAT E);
 void XC(gga_x_kt_set_params)      (XC(func_type) *p, FLOAT gamma, FLOAT delta);
+void XC(gga_x_lambda_set_params)  (XC(func_type) *p, FLOAT N);
 
 FLOAT XC(gga_ak13_get_asymptotic) (FLOAT homo);
 

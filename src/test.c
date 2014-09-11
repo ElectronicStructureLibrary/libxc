@@ -210,8 +210,8 @@ void test_mgga()
   XC(func_type) mgga1, mgga2;
   int i;
 
-  XC(func_init)(&mgga1, XC_MGGA_X_MS2, XC_UNPOLARIZED);
-  XC(func_init)(&mgga2, XC_MGGA_XC_ZLP, XC_POLARIZED);
+  XC(func_init)(&mgga1, XC_GGA_C_LYP, XC_POLARIZED);
+  XC(func_init)(&mgga2, XC_MGGA_C_CS, XC_POLARIZED);
   //XC(mgga_c_tpss_init)(tpss2.mgga);
   
   for(i=0; i<=1000; i++){
@@ -222,15 +222,15 @@ void test_mgga()
     double v2rhosigma[6], v2rholapl[3], v2rhotau[3];
     double v2sigmalapl[6], v2sigmatau[6], v2lapltau[3];
 
-    rho[0]   = 0.0775363329505661;
-    rho[1]   = 0.15;
+    rho[0]   = 0.3;
+    rho[1]   = 0.4;
     sigma[0] = 0.2032882206468622;
     sigma[1] = 0.11;
     sigma[2] = 0.7;
     tau[0]   = 1.0;
     tau[1]   = 0.15;
-    lapl[0]  = -0.1518421131246519;
-    lapl[1]  = 0.12 + i/1000.0;
+    lapl[0]  = -0.1518421131246519 + i/1000.0;
+    lapl[1]  = 0.12;
 
     //XC(mgga)(&mgga1, 1, rho, sigma, lapl, tau, 
     //	     &zk,  vrho, vsigma, vlapl, vtau, 
@@ -242,10 +242,12 @@ void test_mgga()
     //	     v2sigmalapl, v2sigmatau, v2lapltau);
     //XC(mgga_exc)(&mgga2, 1, rho, sigma, lapl, tau, 
     //		 &zk2);
+    XC(gga_exc_vxc)(&mgga1, 1, rho, sigma, 
+		     &zk,  vrho, vsigma);
     XC(mgga_exc_vxc)(&mgga2, 1, rho, sigma, lapl, tau, 
 		     &zk2,  vrho2, vsigma2, vlapl2, vtau2);
 
-    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", lapl[1], (rho[0]+rho[1])*zk2, vlapl2[1]);
+    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", lapl[0], zk*(rho[0]+rho[1]), vlapl[0]);
   }
 
   XC(func_end)(&mgga1);

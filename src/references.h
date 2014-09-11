@@ -235,3 +235,5 @@ extern func_reference_type xc_ref_Kohn1965_A1133;
 extern func_reference_type xc_ref_Zhao1993_918;
 extern func_reference_type xc_ref_Constantin2012_035130;
 extern func_reference_type xc_ref_Hamada2014_121103;
+extern func_reference_type xc_ref_Wellendorff2014_144107;
+extern func_reference_type xc_ref_Lundgaard;

@@ -1507,3 +1507,17 @@ func_reference_type xc_ref_Hamada2014_121103 = {
 };
 
 
+func_reference_type xc_ref_Wellendorff2014_144107 = {
+  "J. Wellendorff, K. T. Lundgaard, K. W. Jacobsen, and T. Bligaard, J. Chem. Phys. 140, 144107 (2014)",
+  "http://dx.doi.org/10.1063/1.4870397",
+  "@article{Wellendorff2014_144107,\n   author = {Wellendorff, Jess and Lundgaard, Keld T. and Jacobsen, Karsten W. and Bligaard, Thomas},\n   title = {mBEEF: An accurate semi-local Bayesian error estimation density functional},\n   journal = {J. Chem. Phys.},\n   year = {2014},\n   volume = {140},\n   number = {14},\n   pages = {144107},\n   url = {http://scitation.aip.org/content/aip/journal/jcp/140/14/10.1063/1.4870397},\n   doi = {http://dx.doi.org/10.1063/1.4870397}\n}"
+};
+
+
+func_reference_type xc_ref_Lundgaard = {
+  "K. T. Lundgaard, J. Wellendorff, K. W. Jacobsen, and T. Bligaard, ",
+  "",
+  "@article{Lundgaard,\n   author = {Lundgaard, Keld T. and Wellendorff, Jess and Jacobsen, Karsten W. and Bligaard, Thomas},\n   misc = {in preparation},\n}"
+};
+
+

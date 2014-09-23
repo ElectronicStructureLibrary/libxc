@@ -1528,3 +1528,10 @@ func_reference_type xc_ref_Odashima2009_798 = {
 };
 
 
+func_reference_type xc_ref_Burke2014_4834 = {
+  "K. {Burke, A. {Cancio}, T. {Gould}, and S. {Pittalis}, }ArXiv e-prints (2014), \Eprint {http://arxiv.org/abs/1409.4834} {arXiv:1409.4834 [cond-mat.mtrl-sci]} ",
+  "",
+  "@ARTICLE{Burke2014_4834,\n   author = {{Burke}, K. and {Cancio}, A. and {Gould}, T. and {Pittalis}, S.\n}"
+};
+
+

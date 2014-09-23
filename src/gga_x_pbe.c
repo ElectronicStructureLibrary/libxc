@@ -43,6 +43,7 @@
 #define XC_GGA_X_LAMBDA_LO_N   45 /* lambda_LO(N) version of PBE                    */
 #define XC_GGA_X_LAMBDA_CH_N   44 /* lambda_CH(N) version of PBE                    */
 #define XC_GGA_X_LAMBDA_OC2_N  40 /* lambda_OC2(N) version of PBE                   */
+#define XC_GGA_X_BGCP          38 /* Burke, Cancio, Gould, and Pittalis                 */
 
 
 typedef struct{
@@ -59,32 +60,33 @@ typedef struct{
 static void 
 gga_x_pbe_init(XC(func_type) *p)
 {
-  static const FLOAT kappa[22] = {
-    0.8040,  /* original PBE */
-    1.245,   /* PBE R       */
-    0.8040,  /* PBE sol     */
-    0.91954, /* xPBE        */
-    0.8040,  /* PBE_JSJR    */
-    1.0,     /* PBEK1_VDW   */
-    0.8040,  /* RGE2        */
-    0.8040,  /* APBE (X)    */
-    0.8040,  /* APBE (K)    */
-    0.8209,  /* TW1         */
-    0.6774,  /* TW2         */
-    0.8438,  /* TW3         */
-    0.8589,  /* TW4         */
-    0.8040,  /* PBEint      */
-    1.227,   /* PBE TCA     */
-    1.245,   /* revAPBE (K) */
-    0.8040,  /* APBEINT (K) */
-    1.245,   /* revAPBEINT (K) */
-    0.8040,  /* PBEmol    */
-    2.273/M_CBRT2 - 1.0, /* LAMBDA_LO(N)  */
-    2.215/M_CBRT2 - 1.0, /* LAMBDA_CH(N)  */
-    2.00 /M_CBRT2 - 1.0  /* LAMBDA_OC2(N) */
+  static const FLOAT kappa[23] = {
+    0.8040,                 /* original PBE */
+    1.245,                  /* PBE R       */
+    0.8040,                 /* PBE sol     */
+    0.91954,                /* xPBE        */
+    0.8040,                 /* PBE_JSJR    */
+    1.0,                    /* PBEK1_VDW   */
+    0.8040,                 /* RGE2        */
+    0.8040,                 /* APBE (X)    */
+    0.8040,                 /* APBE (K)    */
+    0.8209,                 /* TW1         */
+    0.6774,                 /* TW2         */
+    0.8438,                 /* TW3         */
+    0.8589,                 /* TW4         */
+    0.8040,                 /* PBEint      */
+    1.227,                  /* PBE TCA     */
+    1.245,                  /* revAPBE (K) */
+    0.8040,                 /* APBEINT (K) */
+    1.245,                  /* revAPBEINT (K) */
+    0.8040,                 /* PBEmol    */
+    2.273/M_CBRT2 - 1.0,    /* LAMBDA_LO(N)  */
+    2.215/M_CBRT2 - 1.0,    /* LAMBDA_CH(N)  */
+    2.00 /M_CBRT2 - 1.0,    /* LAMBDA_OC2(N) */
+    0.8040,                 /* BGCP (X)    */
   };
 
-  static const FLOAT mu[22] = {
+  static const FLOAT mu[23] = {
     0.2195149727645171,     /* PBE: mu = beta*pi^2/3, beta = 0.06672455060314922 */
     0.2195149727645171,     /* PBE rev: as PBE */
     10.0/81.0,              /* PBE sol */
@@ -106,7 +108,8 @@ gga_x_pbe_init(XC(func_type) *p)
     0.27583,                /* PBEmol        */
     0.2195149727645171,     /* LAMBDA_LO(N)  */
     0.2195149727645171,     /* LAMBDA_CH(N)  */
-    0.2195149727645171      /* LAMBDA_OC2(N) */
+    0.2195149727645171,     /* LAMBDA_OC2(N) */
+    0.249                   /* BGCP (X)    */
   };
 
   gga_x_pbe_params *params;
@@ -175,6 +178,8 @@ gga_x_pbe_init(XC(func_type) *p)
     params->lambda = 2.00;
     break;
   }
+  case XC_GGA_X_BGCP:    p->func = 22; break;
+
   default:{
     fprintf(stderr, "Internal error in gga_x_pbe\n");
     exit(1);
@@ -471,6 +476,33 @@ const XC(func_info_type) XC(func_info_gga_x_lambda_oc2_n) = {
   NULL
 };
 
+const XC(func_info_type) XC(func_info_gga_x_pbe_mol) = {
+  XC_GGA_X_PBE_MOL,
+  XC_EXCHANGE,
+  "Reparametrized PBE by del Campo, Gazquez, Trickey & Vela",
+  XC_FAMILY_GGA,
+  {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_x_pbe_init, 
+  NULL, NULL,
+  work_gga_x,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_x_bgcp) = {
+  XC_GGA_X_BGCP,
+  XC_EXCHANGE,
+  "Burke, Cancio, Gould, and Pittalis",
+  XC_FAMILY_GGA,
+  {&xc_ref_Burke2014_4834, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_x_pbe_init, 
+  NULL, NULL,
+  work_gga_x,
+  NULL
+};
 
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
@@ -584,19 +616,5 @@ const XC(func_info_type) XC(func_info_gga_k_revapbeint) = {
   gga_x_pbe_init,
   NULL, NULL,
   work_gga_k,
-  NULL
-};
-
-const XC(func_info_type) XC(func_info_gga_x_pbe_mol) = {
-  XC_GGA_X_PBE_MOL,
-  XC_EXCHANGE,
-  "Reparametrized PBE by del Campo, Gazquez, Trickey & Vela",
-  XC_FAMILY_GGA,
-  {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  1e-32, 1e-32, 0.0, 1e-32,
-  gga_x_pbe_init, 
-  NULL, NULL,
-  work_gga_x,
   NULL
 };

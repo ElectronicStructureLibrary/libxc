@@ -41,6 +41,7 @@
 #define XC_GGA_C_PBEINT        62 /* PBE for hybrid interfaces                          */
 #define XC_GGA_C_ZPBEINT       61 /* spin-dependent gradient correction to PBEint       */
 #define XC_GGA_C_PBELOC       246 /* Semilocal dynamical correlation                    */
+#define XC_GGA_C_BGCP          39 /* Burke, Cancio, Gould, and Pittalis                 */
 
 typedef struct{
   FLOAT beta;
@@ -61,7 +62,8 @@ static void gga_c_pbe_init(XC(func_type) *p)
     0.046,                              /*  8: zPBEsol                   */
     0.052,                              /*  9: PBEint                    */
     0.052,                              /* 10: zPBEint                   */
-    0.0                                 /* 11: PBEloc this is calculated */
+    0.0,                                /* 11: PBEloc this is calculated */
+    0.06672455060314922                 /*  0: BGCP                      */
   };
 
   assert(p!=NULL && p->params == NULL);
@@ -86,6 +88,7 @@ static void gga_c_pbe_init(XC(func_type) *p)
   case XC_GGA_C_PBEINT:   p->func =  9; break;
   case XC_GGA_C_ZPBEINT:  p->func = 10; break;
   case XC_GGA_C_PBELOC:   p->func = 11; break;
+  case XC_GGA_C_BGCP:     p->func = 12; break;
   default:
     fprintf(stderr, "Internal error in gga_c_pbe\n");
     exit(1);
@@ -106,6 +109,31 @@ XC(gga_c_pbe_set_params)(XC(func_type) *p, FLOAT beta)
   params->beta = beta;
 }
 
+
+static inline void
+bcgp_pt(int order, FLOAT tt, FLOAT *tp, FLOAT *dtpdtt, FLOAT *d2tpdtt2)
+{
+  const FLOAT cac = 1.467, tau = 4.5;
+  FLOAT num, den, P, P_2, dP, d2P;
+
+  num = tau + tt;
+  den = tau + cac*tt;
+  
+  P   = num/den; 
+  P_2 = SQRT(P);
+
+  *tp = tt * P_2;
+
+  if(order < 1) return;
+
+  dP = DFRACTION(num, 1.0, den, cac);
+  *dtpdtt = P_2 + tt*dP/(2.0*P_2);
+
+  if(order < 2) return;
+
+  d2P = D2FRACTION(num, 1.0, 0.0, den, cac, 0.0);
+  *d2tpdtt2 = (2.0*dP + tt*d2P - tt*dP*dP/(2.0*P))/(2.0*P_2);
+}
 
 static inline void 
 pbe_eq8(int order, FLOAT beta, FLOAT gamm, FLOAT ecunif, FLOAT phi, 
@@ -216,7 +244,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   /* parameters for beta of PBEloc */
   static FLOAT pbeloc_b0 = 0.0375, pbeloc_a = 0.08;
 
-  FLOAT cnst_beta, phi, t;
+  FLOAT cnst_beta, phi, tt, tp, dtpdtt, d2tpdtt2;
 
   FLOAT A, dAdbeta, dAdec, dAdphi, d2Adec2, d2Adecphi, d2Adphi2;
   FLOAT H, dHdbeta, dHdphi, dHdt, dHdA, d2Hdphi2, d2Hdphit, d2HdphiA, d2Hdt2, d2HdtA, d2HdA2;
@@ -245,7 +273,13 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   auxm = CBRT(1.0 - r->zeta);
 
   phi  = 0.5*(auxp*auxp + auxm*auxm);
-  t    = r->xt/(tconv*phi*pw.rs[0]);
+  tt   = r->xt/(tconv*phi*pw.rs[0]);
+
+  if(p->func == 12)
+    bcgp_pt(r->order, tt, &tp, &dtpdtt, &d2tpdtt2);
+  else{
+    tp = tt; dtpdtt = 1; d2tpdtt2 = 0;
+  }
 
   if(p->func == 2)
     gamm = cnst_beta*cnst_beta/(2.0*0.197363); /* for xPBE */
@@ -255,7 +289,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   if(p->func == 11) {
     /* PBEloc: \beta = \beta_0 + a t^2 f(r_s) */
     beta_den = EXP(- r->rs * r->rs);
-    beta = pbeloc_b0 + pbeloc_a * t*t * ( 1.0 - beta_den);
+    beta = pbeloc_b0 + pbeloc_a * tp*tp * (1.0 - beta_den);
 
   } else if(p->func == 7) {
     /* VPBE:  */
@@ -270,7 +304,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   /* the sPBE functional contains one term less than the original PBE, so we set it to zero */
   B = (p->func == 6) ? 0.0 : 1.0;
-  pbe_eq7(r->order, p->func, beta, gamm, phi, t, A, B,
+  pbe_eq7(r->order, p->func, beta, gamm, phi, tp, A, B,
 	  &H, &dHdbeta, &dHdphi, &dHdt, &dHdA, &d2Hdphi2, &d2Hdphit, &d2HdphiA, &d2Hdt2, &d2HdtA, &d2HdA2);
 
   r->f = pw.zk + H;
@@ -280,7 +314,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   /* full derivatives of functional */
   dfdbeta= dHdbeta + dHdA*dAdbeta;
   dfdphi = dHdphi + dHdA*dAdphi;
-  dfdt   = dHdt;
+  dfdt   = dHdt*dtpdtt;
   dfdec  = 1.0 + dHdA*dAdec;
 
   dphidz = 0.0;
@@ -289,11 +323,11 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   dphidz *= 1.0/3.0;
 
   dtdrs  = -r->xt/(2.0*tconv*phi*r->rs*pw.rs[0]);
-  dtdxt  =  t/r->xt;
-  dtdphi = -t/phi;
+  dtdxt  =  tt/r->xt;
+  dtdphi = -tt/phi;
 
   if(p->func == 11) {
-    dbetadrs = 2 * pbeloc_a * t * ( dtdrs * (1.0 - beta_den) + t * r->rs * beta_den);
+    dbetadrs = 2 * pbeloc_a * tt * (dtdrs * (1.0 - beta_den) + tt * r->rs * beta_den);
   } else if(p->func == 7) {
     dbetadrs = vpbe_b1*(vpbe_b2 - vpbe_b3)/(beta_den*beta_den);
   } else
@@ -309,10 +343,10 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   /* full derivatives of functional with respect to phi and zk */
   d2fdphi2  = d2Hdphi2 + 2.0*d2HdphiA*dAdphi + dHdA*d2Adphi2 + d2HdA2*dAdphi*dAdphi;
-  d2fdphit  = d2Hdphit + d2HdtA*dAdphi;
+  d2fdphit  = (d2Hdphit + d2HdtA*dAdphi)*dtpdtt;
   d2fdphiec = d2HdphiA*dAdec + d2HdA2*dAdphi*dAdec + dHdA*d2Adecphi;
-  d2fdt2    = d2Hdt2;
-  d2fdtec   = d2HdtA*dAdec;
+  d2fdt2    = d2Hdt2*dtpdtt*dtpdtt + dHdt*d2tpdtt2;
+  d2fdtec   = d2HdtA*dAdec*dtpdtt;
   d2fdec2   = d2HdA2*dAdec*dAdec + dHdA*d2Adec2;
 
   d2phidz2 = 0.0;
@@ -513,6 +547,21 @@ const XC(func_info_type) XC(func_info_gga_c_pbeloc) = {
   XC_FAMILY_GGA,
   {&xc_ref_Constantin2012_035130, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-12, 1e-32, 0.0, 1e-32,
+  gga_c_pbe_init,
+  NULL, NULL,
+  work_gga_c,
+  NULL
+};
+
+
+const XC(func_info_type) XC(func_info_gga_c_bgcp) = {
+  XC_GGA_C_BGCP,
+  XC_CORRELATION,
+  "Burke, Cancio, Gould, and Pittalis",
+  XC_FAMILY_GGA,
+  {&xc_ref_Burke2014_4834, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-12, 1e-32, 0.0, 1e-32,
   gga_c_pbe_init,
   NULL, NULL,

@@ -33,17 +33,14 @@ XC(hyb_gga_xc_cam_b3lyp_init)(XC(func_type) *p)
 
   switch(p->info->number){
   case XC_HYB_GGA_XC_CAM_B3LYP:
-    /* Note that the parameters given in the Yanai-Tew-Handy paper use
-       a different convention for alpha and beta */
     p->cam_omega = 0.33;
-    p->cam_alpha = 0.60;
-    p->cam_beta  =-0.46;
+    p->cam_alpha = 0.19;
+    p->cam_beta  = 0.46;
     break;
   case XC_HYB_GGA_XC_TUNED_CAM_B3LYP:
-    /* Same thing here */
     p->cam_omega = 0.150;
-    p->cam_alpha = 1.0000;
-    p->cam_beta  =-0.9201;
+    p->cam_alpha = 0.0799;
+    p->cam_beta  = 0.9201;
     break;
   }
 

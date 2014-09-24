@@ -96,7 +96,7 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
 
     FN12 = pol1 + vx*pol2 + vx2*pol3 + vx3*pol4;
 
-    ex    = -X_FACTOR_C*opz/(2.0*cnst_rs*rss);
+    ex    = -X_FACTOR_C*M_CBRT2*opz/(2.0*cnst_rs*rss);
     r->f += ex*FN12;
 
     if(r->order < 1) continue;

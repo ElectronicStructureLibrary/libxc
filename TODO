@@ -1,14 +1,9 @@
 Improve existing functionals:
 
   *) Add XC_FLAGS_STABLE or XC_FLAGS_DEVELOPMENT to all functionals in libxc.
-  *) Debug range separated hybrids. HSE seems to work but CAM-B3LYP
-   (and the tuned version) don't. Maybe the problem is in the ITYH
-   functional?
   *) Debug the newer Minnesota functionals. At least SOGGA11X, N12,
    N12SX, MN12L and MN12SX don't work properly (many Hartrees
-   difference to the reference implementation in Gaussian). Some minor
-   bugs might also be present in SOGGA11.
-
+   difference to the reference implementation in Gaussian).
 
 Add functionals:
 

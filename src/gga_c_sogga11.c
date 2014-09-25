@@ -23,7 +23,7 @@
 #include "util.h"
 
 #define XC_GGA_C_SOGGA11       152 /* Second-order generalized gradient approximation 2011 */
-#define XC_GGA_C_SOGGA11_X     159 /* To be used with hyb_gga_x_SOGGA11-X  */
+#define XC_GGA_C_SOGGA11_X     159 /* To be used with HYB_GGA_X_SOGGA11_X  */
 
 static void 
 gga_c_sogga11_init(XC(func_type) *p)
@@ -193,7 +193,7 @@ const XC(func_info_type) XC(func_info_gga_c_sogga11) = {
 const XC(func_info_type) XC(func_info_gga_c_sogga11_x) = {
   XC_GGA_C_SOGGA11_X,
   XC_CORRELATION,
-  "To be used with hyb_gga_x_SOGGA11-X",
+  "To be used with HYB_GGA_X_SOGGA11_X",
   XC_FAMILY_GGA,
   {&xc_ref_Peverati2011_191102, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,

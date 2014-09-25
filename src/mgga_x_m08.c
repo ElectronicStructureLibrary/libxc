@@ -251,7 +251,7 @@ XC(func_info_type) XC(func_info_hyb_mgga_x_m11) = {
   XC_HYB_MGGA_X_M11,
   XC_EXCHANGE,
   "Minnesota M11 functional",
-  XC_FAMILY_MGGA,
+  XC_FAMILY_HYB_MGGA,
   {&xc_ref_Peverati2011_2810, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,

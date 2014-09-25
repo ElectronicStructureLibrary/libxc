@@ -33,19 +33,24 @@ XC(hyb_gga_xc_cam_b3lyp_init)(XC(func_type) *p)
 
   switch(p->info->number){
   case XC_HYB_GGA_XC_CAM_B3LYP:
+    /* N.B. The notation used in Yanai et al uses a different
+       convention for alpha and beta.  In libxc, alpha is the weight
+       for HF exchange, which in Yanai et al is alpha+beta.
+     */
     p->cam_omega = 0.33;
-    p->cam_alpha = 0.19;
-    p->cam_beta  = 0.46;
+    p->cam_alpha = 0.65;
+    p->cam_beta  =-0.46;
     break;
   case XC_HYB_GGA_XC_TUNED_CAM_B3LYP:
+    /* The same note applies here. */
     p->cam_omega = 0.150;
-    p->cam_alpha = 0.0799;
-    p->cam_beta  = 0.9201;
+    p->cam_alpha = 1.0000;
+    p->cam_beta  =-0.9201;
     break;
   }
 
-  funcs_coef[0] = 1.0 - p->cam_alpha - p->cam_beta;
-  funcs_coef[1] = p->cam_beta;
+  funcs_coef[0] = 1.0 - p->cam_alpha;
+  funcs_coef[1] = -p->cam_beta;
   funcs_coef[2] = 1.0 - ac;
   funcs_coef[3] = ac;
 

@@ -26,6 +26,7 @@
 #define XC_MGGA_X_M08_SO       220 /* M08-SO functional from Minnesota */
 #define XC_HYB_MGGA_X_M11      225 /* M11 functional from Minnesota    */
 #define XC_MGGA_X_M11_L        226 /* M11-L functional from Minnesota  */
+#define XC_HYB_MGGA_XC_M08_HX  460 /* M08-HX functional from Minnesota */
 
 static const FLOAT a_m08_hx[12] = {
    1.3340172e+00, -9.4751087e+00, -1.2541893e+01,  9.1369974e+00,  3.4717204e+01,  5.8831807e+01,
@@ -271,4 +272,26 @@ XC(func_info_type) XC(func_info_mgga_x_m11_l) = {
   mgga_x_m08_init,
   NULL, NULL, NULL,
   work_mgga_c,
+};
+
+static void
+hyb_mgga_xc_m08_hx_init(XC(func_type) *p)
+{
+  static int   funcs_id  [2] = {XC_MGGA_X_M08_HX, XC_MGGA_C_M08_HX};
+  static FLOAT funcs_coef[2] = {1.0, 1.0};
+
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  p->cam_alpha = 0.5223;
+}
+
+XC(func_info_type) XC(func_info_hyb_mgga_xc_m08_hx) = {
+  XC_HYB_MGGA_XC_M08_HX,
+  XC_EXCHANGE_CORRELATION,
+  "Minnesota M08-HX functional",
+  XC_FAMILY_HYB_MGGA,
+  {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 1e-32, 1e-32,
+  hyb_mgga_xc_m08_hx_init,
+  NULL, NULL, NULL, NULL
 };

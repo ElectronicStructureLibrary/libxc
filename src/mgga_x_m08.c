@@ -24,10 +24,11 @@
 
 #define XC_MGGA_X_M08_HX       219 /* M08-HX functional from Minnesota */
 #define XC_MGGA_X_M08_SO       220 /* M08-SO functional from Minnesota */
-#define XC_HYB_MGGA_X_M11      225 /* M11 functional from Minnesota    */
+#define XC_MGGA_X_M11          225 /* M11 functional from Minnesota    */
 #define XC_MGGA_X_M11_L        226 /* M11-L functional from Minnesota  */
 #define XC_HYB_MGGA_XC_M08_HX  460 /* M08-HX functional from Minnesota */
 #define XC_HYB_MGGA_XC_M08_SO  461 /* M08-SO functional from Minnesota */
+#define XC_HYB_MGGA_XC_M11     462 /* M11    functional from Minnesota */
 
 static const FLOAT a_m08_hx[12] = {
    1.3340172e+00, -9.4751087e+00, -1.2541893e+01,  9.1369974e+00,  3.4717204e+01,  5.8831807e+01,
@@ -112,13 +113,10 @@ mgga_x_m08_init(XC(func_type) *p)
     params->b  = b_m08_so;
     params->LC = 0;
     break;
-  case XC_HYB_MGGA_X_M11:
+  case XC_MGGA_X_M11:
     params->a  = a_m11;
     params->b  = b_m11;
     params->LC = 1;
-    p->cam_alpha = 1.0;
-    p->cam_beta  = -(1.0 - 0.428);
-    p->cam_omega = 0.25;
     break;
   case XC_MGGA_X_M11_L:
     params->a  = a_m11_l;
@@ -175,12 +173,6 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
       a_cnst = CBRT(2.0/(9.0*M_PI))*pt->cam_omega/2.0;
       XC(lda_x_attenuation_function)(XC_RSF_ERF, r->order, a_cnst*rss, &f_aa, &df_aa, NULL, NULL);
       
-      /* the rest of the SR is evaluated at the HF level */
-      if(pt->info->number == XC_HYB_MGGA_X_M11){
-	f_aa  *= -pt->cam_beta;
-	df_aa *= -pt->cam_beta;
-      }
-
       df_aa *= a_cnst;
     }else{
       f_aa  = 1.0;
@@ -249,13 +241,13 @@ XC(func_info_type) XC(func_info_mgga_x_m08_so) = {
   work_mgga_c,
 };
 
-XC(func_info_type) XC(func_info_hyb_mgga_x_m11) = {
-  XC_HYB_MGGA_X_M11,
+XC(func_info_type) XC(func_info_mgga_x_m11) = {
+  XC_MGGA_X_M11,
   XC_EXCHANGE,
   "Minnesota M11 functional",
-  XC_FAMILY_HYB_MGGA,
+  XC_FAMILY_MGGA,
   {&xc_ref_Peverati2011_2810, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_x_m08_init,
   NULL, NULL, NULL,
@@ -318,3 +310,29 @@ XC(func_info_type) XC(func_info_hyb_mgga_xc_m08_so) = {
   hyb_mgga_xc_m08_so_init,
   NULL, NULL, NULL, NULL
 };
+
+static void
+hyb_mgga_xc_m11_init(XC(func_type) *p)
+{
+  static int   funcs_id  [2] = {XC_MGGA_X_M11, XC_MGGA_C_M11};
+  static FLOAT funcs_coef[2] = {1.0, 1.0};
+
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  p->cam_alpha = 1.0;
+  p->cam_beta  = -(1.0 - 0.428);
+  p->cam_omega = 0.25;
+}
+
+XC(func_info_type) XC(func_info_hyb_mgga_xc_m11) = {
+  XC_HYB_MGGA_XC_M11,
+  XC_EXCHANGE_CORRELATION,
+  "Minnesota M11 functional",
+  XC_FAMILY_HYB_MGGA,
+  {&xc_ref_Peverati2011_2810, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 1e-32, 1e-32,
+  hyb_mgga_xc_m11_init,
+  NULL, NULL, NULL, NULL
+};
+
+

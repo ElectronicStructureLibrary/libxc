@@ -24,7 +24,7 @@
 
 #define XC_MGGA_X_MN12_L        227 /* MN12-L functional from Minnesota  */
 #define XC_MGGA_X_MN12_SX       228 /* MN12-SX functional from Minnesota        */
-#define XC_HYB_MGGA_X_MN12_SX   248 /* MN12-SX hybrid functional from Minnesota */
+#define XC_HYB_MGGA_XC_MN12_SX  248 /* MN12-SX hybrid functional from Minnesota */
 
 /* the ordering is 
 CC000 [ 0], CC001 [ 1], CC002 [ 2], CC003 [ 3], CC004 [ 4], CC005 [ 5]
@@ -63,14 +63,6 @@ static const FLOAT CC_MN12_SX[] =
     9.026277e+00,  1.929689e+01,  2.669232e+01,
     1.517278e+00, -3.442503e+00,  1.100161e+00
   };
-
-static void
-hyb_mgga_x_mn12_sx_init(XC(func_type) *p)
-{
-  p->cam_alpha = 0.00;
-  p->cam_beta  = 0.25;
-  p->cam_omega = 0.11;
-}
 
 static void 
 func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
@@ -197,16 +189,29 @@ XC(func_info_type) XC(func_info_mgga_x_mn12_sx) = {
   work_mgga_c,
 };
 
-XC(func_info_type) XC(func_info_hyb_mgga_x_mn12_sx) = {
-  XC_HYB_MGGA_X_MN12_SX,
-  XC_EXCHANGE,
+static void
+hyb_mgga_xc_mn12_sx_init(XC(func_type) *p)
+{
+  static int   funcs_id  [2] = {XC_MGGA_X_MN12_SX, XC_MGGA_C_MN12_SX};
+  static FLOAT funcs_coef[2] = {1.0, 1.0};
+
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+
+  p->cam_alpha = 0.00;
+  p->cam_beta  = 0.25;
+  p->cam_omega = 0.11;
+}
+
+XC(func_info_type) XC(func_info_hyb_mgga_xc_mn12_sx) = {
+  XC_HYB_MGGA_XC_MN12_SX,
+  XC_EXCHANGE_CORRELATION,
   "Minnesota MN12-SX hybrid functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
-  hyb_mgga_x_mn12_sx_init, NULL,
+  hyb_mgga_xc_mn12_sx_init, NULL,
   NULL, NULL,
-  work_mgga_c
+  NULL
 };
 

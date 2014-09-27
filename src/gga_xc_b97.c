@@ -44,6 +44,8 @@
 #define XC_GGA_XC_HCTH_407P 93 /* HCTH/407+                                */
 #define XC_GGA_C_N12        80 /* N12 functional from Minnesota            */
 #define XC_GGA_C_N12_SX     79 /* N12-SX functional from Minnesota         */
+#define XC_GGA_XC_WB97     251 /* Chai and Head-Gordon                     */
+#define XC_GGA_XC_WB97X    252 /* Chai and Head-Gordon                     */
 
 static const FLOAT b97_params[][3][5] = {
   {      /* HCTH/93 */
@@ -138,7 +140,15 @@ static const FLOAT b97_params[][3][5] = {
     { 0.0,          0.0,          0.0,          0.0,          0.0},          /* X   */
     { 8.33615e-01,  3.24128e+00, -1.06407e+01, -1.60471e+01,  2.51047e+01},  /* Css */
     { 2.63373e+00, -1.05450e+00, -7.29853e-01,  4.94024e+00, -7.31760e+00}   /* Cab */
-  },
+  }, {   /* wB97  */
+    { 1.00000e+00,  1.13116e+00, -2.74915e+00,  1.20900e+01, -5.71642e+00},  /* X   */
+    { 1.00000e+00, -2.55352e+00,  1.18926e+01, -2.69452e+01,  1.70927e+01},  /* Css */
+    { 1.00000e+00,  3.99051e+00, -1.70066e+01,  1.07292e+00,  8.88211e+00}   /* Cab */
+  }, {   /* wB97X  */
+    { 8.42294e-01,  7.26479e-01,  1.04760e+00, -5.70635e+00,  1.32794e+01},  /* X   */
+    { 1.00000e+00, -4.33879e+00,  1.82308e+01, -3.17430e+00,  1.72901e+01},  /* Css */
+    { 1.00000e+00,  2.37031e+00, -1.13995e+01,  6.58405e+00, -3.78132e+00}   /* Cab */
+  }
 };
 
 typedef struct{
@@ -187,6 +197,8 @@ gga_xc_b97_init(XC(func_type) *p)
   case XC_GGA_XC_HCTH_407P: p->func = 20;  break;
   case XC_GGA_C_N12:        p->func = 21;  break;
   case XC_GGA_C_N12_SX:     p->func = 22;  break;
+  case XC_GGA_XC_WB97:      p->func = 23;  break;
+  case XC_GGA_XC_WB97X:     p->func = 24;  break;
   default:
     fprintf(stderr, "Internal error in gga_b97\n");
     exit(1);
@@ -226,7 +238,7 @@ static inline void
 func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 {
   static const FLOAT sign[2] = {1.0, -1.0};
-  const FLOAT gamma[3] = {0.004, 0.2, 0.006};
+  const FLOAT gamma[3] = {0.004, 0.2, 0.006}; /* Xs, Css, Cab */
 
   XC(lda_work_t) LDA[3];
   const gga_xc_b97_params *params;
@@ -673,6 +685,36 @@ XC(func_info_type) XC(func_info_gga_c_n12_sx) = {
   1e-32, 1e-32, 1e-32, 1e-32,
   gga_xc_b97_init,
   NULL, NULL,
+  work_gga_c,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_xc_wb97) = {
+  XC_GGA_XC_WB97,
+  XC_EXCHANGE_CORRELATION,
+  "wB97",
+  XC_FAMILY_GGA,
+  {&xc_ref_Chai2008_084106, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-23, 1e-32, 0.0, 1e-32,
+  gga_xc_b97_init, 
+  NULL,
+  NULL,
+  work_gga_c,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_xc_wb97x) = {
+  XC_GGA_XC_WB97X,
+  XC_EXCHANGE_CORRELATION,
+  "wB97X",
+  XC_FAMILY_GGA,
+  {&xc_ref_Chai2008_084106, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-23, 1e-32, 0.0, 1e-32,
+  gga_xc_b97_init, 
+  NULL,
+  NULL,
   work_gga_c,
   NULL
 };

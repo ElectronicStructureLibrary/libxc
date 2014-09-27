@@ -239,3 +239,4 @@ extern func_reference_type xc_ref_Wellendorff2014_144107;
 extern func_reference_type xc_ref_Lundgaard;
 extern func_reference_type xc_ref_Odashima2009_798;
 extern func_reference_type xc_ref_Burke2014_4834;
+extern func_reference_type xc_ref_Chai2008_084106;

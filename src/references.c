@@ -1524,14 +1524,21 @@ func_reference_type xc_ref_Lundgaard = {
 func_reference_type xc_ref_Odashima2009_798 = {
   "M. M. Odashima, K. Capelle, and S. B. Trickey, J. Chem. Theory Comput. 5, 798 (2009)",
   "10.1021/ct8005634",
-  "@article{Odashima2009_798,\nauthor = {Odashima, Mariana M. and Capelle, K. and Trickey, S. B.},\ntitle = {Tightened Lieb−Oxford Bound for Systems of Fixed Particle Number},\njournal = {J. Chem. Theory Comput.},\nvolume = {5},\nnumber = {4},\npages = {798-807},\nyear = {2009},\ndoi = {10.1021/ct8005634},\nURL = {http://dx.doi.org/10.1021/ct8005634},\n}"
+  "@article{Odashima2009_798,\n   author = {Odashima, Mariana M. and Capelle, K. and Trickey, S. B.},\n   title = {Tightened Lieb−Oxford Bound for Systems of Fixed Particle Number},\n   journal = {J. Chem. Theory Comput.},\n   volume = {5},\n   number = {4},\n   pages = {798-807},\n   year = {2009},\n   doi = {10.1021/ct8005634},\n   URL = {http://dx.doi.org/10.1021/ct8005634},\n}"
 };
 
 
 func_reference_type xc_ref_Burke2014_4834 = {
   "K. {Burke, A. {Cancio}, T. {Gould}, and S. {Pittalis}, }ArXiv e-prints (2014), \Eprint {http://arxiv.org/abs/1409.4834} {arXiv:1409.4834 [cond-mat.mtrl-sci]} ",
   "",
-  "@ARTICLE{Burke2014_4834,\n   author = {{Burke}, K. and {Cancio}, A. and {Gould}, T. and {Pittalis}, S.\n}"
+  "@ARTICLE{Burke2014_4834,\n   author = {{Burke}, K. and {Cancio}, A. and {Gould}, T. and {Pittalis}, S.},\n   title = \"{Atomic correlation energies and the generalized gradient approximation}\",\n   journal = {ArXiv e-prints},\n   archivePrefix = \"arXiv\",\n   eprint = {1409.4834},\n   primaryClass = \"cond-mat.mtrl-sci\",\n   keywords = {Condensed Matter - Materials Science, Condensed Matter - Other Condensed Matter, Physics - Chemical Physics, Quantum Physics},\n   year = 2014,\n   month = sep,\n   adsurl = {http://adsabs.harvard.edu/abs/2014arXiv1409.4834B},\n   adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
+};
+
+
+func_reference_type xc_ref_Chai2008_084106 = {
+  "J.-D. Chai and M. Head-Gordon, J. Chem. Phys. 128, 084106 (2008)",
+  "http://dx.doi.org/10.1063/1.2834918",
+  "@article{Chai2008_084106,\n   author = \"Chai, Jeng-Da and Head-Gordon, Martin\",\n   title = \"Systematic optimization of long-range corrected hybrid density functionals\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2008\",\n   volume = \"128\",\n   number = \"8\", \n   eid = 084106,\n   pages = \"084106\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/128/8/10.1063/1.2834918\",\n   doi = \"http://dx.doi.org/10.1063/1.2834918\" \n}"
 };
 
 

@@ -32,6 +32,8 @@
 #define XC_HYB_GGA_XC_SB98_2a  423 /* Schmider-Becke 98 parameterization 2a    */
 #define XC_HYB_GGA_XC_SB98_2b  424 /* Schmider-Becke 98 parameterization 2b    */
 #define XC_HYB_GGA_XC_SB98_2c  425 /* Schmider-Becke 98 parameterization 2c    */
+#define XC_HYB_GGA_XC_WB97     463 /* Chai and Head-Gordon                     */
+#define XC_HYB_GGA_XC_WB97X    464 /* Chai and Head-Gordon                     */
 
 static void
 hyb_gga_xc_b97_init(XC(func_type) *p)
@@ -48,11 +50,13 @@ hyb_gga_xc_b97_init(XC(func_type) *p)
     {XC_GGA_XC_SB98_2a, 0.232055},
     {XC_GGA_XC_SB98_2b, 0.237978},
     {XC_GGA_XC_SB98_2c, 0.219847},
+    {XC_GGA_XC_WB97,    1.000000},
+    {XC_GGA_XC_WB97X,   1.000000}
   };
-
+  
   int func;
   FLOAT one = 1.0;
-
+  
   switch(p->info->number){
   case XC_HYB_GGA_XC_B97:      func =  0; break;
   case XC_HYB_GGA_XC_B97_1:    func =  1; break;
@@ -65,6 +69,8 @@ hyb_gga_xc_b97_init(XC(func_type) *p)
   case XC_HYB_GGA_XC_SB98_2a:  func =  8; break;
   case XC_HYB_GGA_XC_SB98_2b:  func =  9; break;
   case XC_HYB_GGA_XC_SB98_2c:  func = 10; break;
+  case XC_HYB_GGA_XC_WB97:     func = 11; break;
+  case XC_HYB_GGA_XC_WB97X:    func = 12; break;
   default:
     fprintf(stderr, "Internal error in hyb_gga_xc_b97_init\n");
     exit(1);
@@ -73,8 +79,15 @@ hyb_gga_xc_b97_init(XC(func_type) *p)
 
   XC(mix_init)(p, 1, &(par[func].iGGA), &one);
   p->cam_alpha = par[func].a0;
-}
 
+  if(p->info->number == XC_HYB_GGA_XC_WB97) {
+    p->cam_omega=0.4;
+    p->cam_beta=-1.0;
+  } else if(p->info->number == XC_HYB_GGA_XC_WB97X) {
+    p->cam_omega=0.3;
+    p->cam_beta=-(1.0-1.57706e-01);
+  }
+}
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_b97) = {
   XC_HYB_GGA_XC_B97,
@@ -203,6 +216,30 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2c) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Schmider1998_9624, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  hyb_gga_xc_b97_init, 
+  NULL, NULL, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97) = {
+  XC_HYB_GGA_XC_WB97,
+  XC_EXCHANGE_CORRELATION,
+  "wB97 range-separated functional",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Chai2008_084106, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  hyb_gga_xc_b97_init, 
+  NULL, NULL, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97x) = {
+  XC_HYB_GGA_XC_WB97X,
+  XC_EXCHANGE_CORRELATION,
+  "wB97X range-separated functional",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Chai2008_084106, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_b97_init, 
   NULL, NULL, NULL, NULL

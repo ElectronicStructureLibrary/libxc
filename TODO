@@ -22,7 +22,9 @@ GGAs:
   *) df-LB94, df-revLB94 http://dx.doi.org/10.1103/PhysRevA.83.012509
   *) Lambda-LB94, Q-LB94, Q-revLB94  http://dx.doi.org/10.1063/1.3684261
   *) BMK (Boese-Martin for kinetics) http://scitation.aip.org/content/aip/journal/jcp/121/8/10.1063/1.1774975
-
+  *) Gilbert and Gill c [CPL 312, 511 (1999)] http://www.sciencedirect.com/science/article/pii/S0009261499008362
+  *) BNL (Baer-Neuhauser-Livshits) [Phys. Rev. Lett. 94, 043002 (2005) and Phys. Chem. Chem. Phys. 9, 2932 (2007)] http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.94.043002 and http://pubs.rsc.org/en/content/articlelanding/2007/cp/b617919c
+  
 
 mGGAs:
   *) tau-HTCH
@@ -34,6 +36,8 @@ mGGAs:
   *) MCY1 and MCY2 http://dx.doi.org/10.1063/1.2179072
   *) http://www.sciencedirect.com/science/article/pii/S0009261412007117
   *) spin-polarized Colle-Salvetti -type correlation http://www.sciencedirect.com/science/article/pii/S0009261497002017
+  *) B94 [A. D. Becke, Int. J. Quantum Chem. Symp. 28, 625 (1994) and  E. Proynov, Z. Gan, and J. Kong, Chem. Phys. Lett. 455, 103 (2008)]
+  *) PK06 [E. Proynov and J. Kong, J. Chem. Theory Comput. 3, 746 (2007)]
 
 hybrids:
   *) http://arxiv.org/abs/1205.4999 (versions of HSE)

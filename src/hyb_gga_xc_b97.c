@@ -81,11 +81,11 @@ hyb_gga_xc_b97_init(XC(func_type) *p)
   p->cam_alpha = par[func].a0;
 
   if(p->info->number == XC_HYB_GGA_XC_WB97) {
-    p->cam_omega=0.4;
-    p->cam_beta=-1.0;
-  } else if(p->info->number == XC_HYB_GGA_XC_WB97X) {
-    p->cam_omega=0.3;
-    p->cam_beta=-(1.0-1.57706e-01);
+    p->cam_omega =  0.4;
+    p->cam_beta  = -1.0;
+  }else if(p->info->number == XC_HYB_GGA_XC_WB97X) {
+    p->cam_omega =  0.3;
+    p->cam_beta  = -(1.0 - 1.57706e-01);
   }
 }
 

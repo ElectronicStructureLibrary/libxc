@@ -56,7 +56,7 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
   const FLOAT (*CC)[4];
   const FLOAT sign[2] = {1.0, -1.0}, omega_x=2.5, gamma_x=0.004;
 
-  FLOAT cnst_rs, opz, opz13, rss, x2;
+  FLOAT opz, opz13, rss, x2;
   FLOAT vx, vx2, vx3, ux_d, ux, ux2, ux3;
   FLOAT pol1, pol2, pol3, pol4;
   FLOAT ex, FN12;
@@ -66,7 +66,6 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
   FLOAT dexdz, dexdrss, dFN12dux, dFN12dvx;
 
   CC = (pt->info->number == XC_GGA_X_N12) ? CC_N12 : CC_N12_SX;
-  cnst_rs = CBRT(4.0*M_PI/3.0);
 
   r->f = 0.0;
   if(r->order >= 1)
@@ -81,7 +80,7 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
     rss   = r->rs*M_CBRT2/opz13;
     x2    = r->xs[is]*r->xs[is];
 
-    vx    = 1.0/(1.0 + (cnst_rs/omega_x)*rss);
+    vx    = 1.0/(1.0 + (1.0/(RS_FACTOR*omega_x))*rss);
 
     ux_d  = 1.0/(1.0 + gamma_x*x2);
     ux    = gamma_x*x2*ux_d;
@@ -96,7 +95,7 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
 
     FN12 = pol1 + vx*pol2 + vx2*pol3 + vx3*pol4;
 
-    ex    = -X_FACTOR_C*M_CBRT2*opz/(2.0*cnst_rs*rss);
+    ex    = -X_FACTOR_C*M_CBRT2*RS_FACTOR*opz/(2.0*rss);
     r->f += ex*FN12;
 
     if(r->order < 1) continue;
@@ -104,7 +103,7 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
     drssdrs = M_CBRT2/opz13;
     drssdz  = -sign[is]*rss/(3.0*opz);
 
-    dvxdrss = -(cnst_rs/omega_x)*vx*vx;
+    dvxdrss = -vx*vx/(RS_FACTOR*omega_x);
     duxdxs  = 2.0*gamma_x*r->xs[is]*ux_d*ux_d;
 
     dpol1 = CC[0][1] + 2.0*CC[0][2]*ux + 3.0*CC[0][3]*ux2;

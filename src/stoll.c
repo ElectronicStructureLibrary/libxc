@@ -23,7 +23,8 @@
 #include "util.h"
 
 void 
-XC(lda_stoll) (const XC(func_type) *pw, FLOAT dens, FLOAT zeta, int order, XC(lda_work_t) res[3])
+XC(lda_stoll) (const XC(func_type) *pw, XC(lda_func_type) lda_func,
+  FLOAT dens, FLOAT zeta, int order, XC(lda_work_t) res[3])
 {
   static const FLOAT sign[2] = {1.0, -1.0};
   int is;
@@ -50,7 +51,7 @@ XC(lda_stoll) (const XC(func_type) *pw, FLOAT dens, FLOAT zeta, int order, XC(ld
       res[is].zeta  = sign[is];
       res[is].order = order;
   
-      XC(lda_c_pw_func)(pw, &(res[is]));
+      lda_func(pw, &(res[is]));
 
       LDA_zk = res[is].zk;
 
@@ -83,7 +84,7 @@ XC(lda_stoll) (const XC(func_type) *pw, FLOAT dens, FLOAT zeta, int order, XC(ld
   res[is].zeta  = zeta;
   res[is].order = order;
 
-  XC(lda_c_pw_func)(pw, &(res[2]));
+  lda_func(pw, &(res[2]));
 
   res[2].zk -= res[0].zk + res[1].zk;
 

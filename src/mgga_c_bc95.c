@@ -72,7 +72,7 @@ func(const XC(func_type) *p, XC(mgga_work_c_t) *r)
   params = (mgga_c_bc95_params *) (p->params);  
 
   /* first we get the parallel and perpendicular LDAS */
-  XC(lda_stoll) (p->func_aux[0], r->dens, r->zeta, r->order, LDA);
+  XC(lda_stoll) (p->func_aux[0], XC(lda_c_pw_func), r->dens, r->zeta, r->order, LDA);
 
   /* initialize to zero */
   r->f = 0.0;

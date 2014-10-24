@@ -154,10 +154,14 @@ void XC(lda_kxc_fd)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *kxc
 #define XC_RSF_ERF_GAU  1
 #define XC_RSF_YUKAWA   2
 
+typedef void XC(lda_func_type) (const XC(func_type) *p, XC(lda_work_t) *r);
+
 void XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f);
-void XC(lda_stoll)(const XC(func_type) *pw, FLOAT dens, FLOAT zeta, int order, XC(lda_work_t) res[3]);
+void XC(lda_stoll)(const XC(func_type) *pw, XC(lda_func_type) lda_func, 
+		   FLOAT dens, FLOAT zeta, int order, XC(lda_work_t) res[3]);
 
 /* direct access to the internal functions */
+void XC(lda_x_func)     (const XC(func_type) *p, XC(lda_work_t) *r);
 void XC(lda_c_hl_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
 void XC(lda_c_pw_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
 void XC(lda_c_pz_func)  (const XC(func_type) *p, XC(lda_work_t) *r);

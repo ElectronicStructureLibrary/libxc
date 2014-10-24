@@ -80,6 +80,7 @@ hyb_gga_xc_b97_init(XC(func_type) *p)
   XC(mix_init)(p, 1, &(par[func].iGGA), &one);
   p->cam_alpha = par[func].a0;
 
+  /* alpha is already set above to 1.0 */
   if(p->info->number == XC_HYB_GGA_XC_WB97) {
     p->cam_omega =  0.4;
     p->cam_beta  = -1.0;

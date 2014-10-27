@@ -22,8 +22,8 @@
 bin_PROGRAMS = xc-info
 
 xc_info_SOURCES = xc-info.c
-xc_info_LDADD = libxc.la
-xc_info_LDFLAGS = -lm
+xc_info_LDADD = libxc.la -lm
+xc_info_LDFLAGS =
 
 lib_LTLIBRARIES = libxc.la
 

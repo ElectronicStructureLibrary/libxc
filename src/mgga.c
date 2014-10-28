@@ -39,6 +39,7 @@ int XC(mgga_init)(XC(func_type) *func, const XC(func_info_type) *info, int nspin
   func->n_func_aux = 0;
   func->func_aux   = NULL;
   func->mix_coef   = NULL;
+  func->cam_omega = func->cam_alpha = func->cam_beta = 0.0;
 
   /* initialize spin counters */
   func->n_zk   = 1;

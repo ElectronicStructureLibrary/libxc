@@ -251,7 +251,7 @@ XC(func_info_type) XC(func_info_hyb_mgga_x_m11) = {
   XC_HYB_MGGA_X_M11,
   XC_EXCHANGE,
   "M11 functional of Minnesota",
-  XC_FAMILY_MGGA,
+  XC_FAMILY_HYB_MGGA,
   "R Peverati, and DG Truhlar, J. Phys. Chem. Lett. 2, 2810 (2011)",
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,

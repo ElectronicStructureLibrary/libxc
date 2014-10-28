@@ -78,9 +78,10 @@ endif
 if COMPILE_FORTRAN
   lib_LTLIBRARIES += libxcf90.la
 
-  libxcf90_la_SOURCES = xc_f.c libxc_funcs.f90 libxc.f90
+  libxcf90_la_SOURCES = xc_f.c
+  nodist_libxcf90_la_SOURCES = libxc_funcs.f90 libxc.f90
 if COMPILE_SINGLE
-    nodist_libxcf90_la_SOURCES = xc_f_s.c libxc_s.f90
+    nodist_libxcf90_la_SOURCES += xc_f_s.c libxc_s.f90
 endif
 
   # libtool stuff

@@ -50,11 +50,11 @@ void XC(gga_x_sogga11_enhance)
   const FLOAT alpha = mu*X2S*X2S/kappa;
   const FLOAT aa[][6] = {
     {0.50000, -2.95535,  15.7974, -91.1804,  96.2030, 0.18683},   /* SOGGA11   */
-    {0.50000,  5.37406, -5.94160,  12.7962, -18.8521, 8.78551}    /* SOGGA11-X */
+    {0.29925,  3.21638, -3.55605,  7.65852, -11.2830, 5.25813}    /* SOGGA11-X. Values from authors' implementation (MFM 1.8), not original paper! */
   };
   const FLOAT bb[][6] = {
     {0.50000,  3.50743, -12.9523,  49.7870, -33.2545, -11.1396},  /* SOGGA11   */
-    {0.50000, -4.82197,   5.40713, -4.10014, -6.27393,  6.62678}  /* SOGGA11-X */
+    {0.29925, -2.88595,  3.23617, -2.45393, -3.75495,  3.96613}   /* SOGGA11-X. Values from authors' implementation (MFM 1.8), not original paper! */
   };
     
   FLOAT f0, df0, d2f0, d3f0, den0, den1, t0, dt0, d2t0, d3t0, t1, dt1, d2t1, d3t1, f1, df1, d2f1, d3f1;

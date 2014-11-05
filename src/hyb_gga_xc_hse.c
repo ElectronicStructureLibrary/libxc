@@ -5,12 +5,12 @@
  it under the terms of the GNU Lesser General Public License as published by
  the Free Software Foundation; either version 3 of the License, or
  (at your option) any later version.
-  
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU Lesser General Public License for more details.
-  
+
  You should have received a copy of the GNU Lesser General Public License
  along with this program; if not, write to the Free Software
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -27,15 +27,16 @@
 #define XC_HYB_GGA_XC_HJS_PBE_SOL 430 /* HJS hybrid screened exchange PBE_SOL version */
 #define XC_HYB_GGA_XC_HJS_B88     431 /* HJS hybrid screened exchange B88 version */
 #define XC_HYB_GGA_XC_HJS_B97X    432 /* HJS hybrid screened exchange B97x version */
+#define XC_HYB_GGA_XC_LRC_WPBEH   465 /* Long-range corrected wPBEh */
 
 static void
 hyb_gga_xc_hse_init(XC(func_type) *p)
 {
   static int   funcs_id  [3] = {XC_GGA_X_WPBEH, XC_GGA_X_WPBEH, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[3] = {1.0, -0.25, 1.0};  
+  static FLOAT funcs_coef[3] = {1.0, -0.25, 1.0};
 
   XC(mix_init)(p, 3, funcs_id, funcs_coef);
-  
+
   /* Note that there is an enormous mess in the literature concerning
      the values of omega in HSE. This is due to an error in the
      original paper that stated that they had used omega=0.15. This
@@ -74,8 +75,7 @@ hyb_gga_xc_hse_init(XC(func_type) *p)
   }
 }
 
-
-void 
+void
 XC(hyb_gga_xc_hse_set_params)(XC(func_type) *p, FLOAT beta, FLOAT omega)
 {
   assert(p != NULL && p->func_aux[1] != NULL);
@@ -85,7 +85,6 @@ XC(hyb_gga_xc_hse_set_params)(XC(func_type) *p, FLOAT beta, FLOAT omega)
   p->mix_coef[1] = -beta;
   XC(gga_x_wpbeh_set_params)(p->func_aux[1], omega);
 }
-
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_hse03) = {
   XC_HYB_GGA_XC_HSE03,
@@ -111,12 +110,38 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hse06) = {
   NULL, NULL, NULL, NULL
 };
 
+static void
+hyb_gga_xc_lrc_wpbeh_init(XC(func_type) *p)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_WPBEH, XC_GGA_C_PBE};
+  static FLOAT funcs_coef[2] = {0.8, 1.0};
+  
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  
+  p->cam_omega =  0.2;
+  p->cam_alpha =  1.0;
+  p->cam_beta  = -0.8;
+  
+  XC(gga_x_wpbeh_set_params)(p->func_aux[0], p->cam_omega);
+}
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_lrc_wpbeh) = {
+  XC_HYB_GGA_XC_LRC_WPBEH,
+  XC_EXCHANGE_CORRELATION,
+  "LRC-wPBEh",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Rohrdanz2009_054112, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  hyb_gga_xc_lrc_wpbeh_init,
+  NULL, NULL, NULL, NULL
+};
 
 static void
 hyb_gga_xc_hjs_init(XC(func_type) *p)
 {
   static int   funcs_id  [3] = {-1, -1, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[3] = {1.0, -0.25, 1.0};  
+  static FLOAT funcs_coef[3] = {1.0, -0.25, 1.0};
 
   p->cam_omega = 0.11;
   p->cam_beta  = 0.25;

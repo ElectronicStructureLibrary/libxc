@@ -1542,3 +1542,10 @@ func_reference_type xc_ref_Chai2008_084106 = {
 };
 
 
+func_reference_type xc_ref_Rohrdanz2009_054112 = {
+  "M. A. Rohrdanz, K. M. Martins, and J. M. Herbert, J. Chem. Phys. 130, 054112 (2009)",
+  "http://dx.doi.org/10.1063/1.3073302",
+  "@article{Rohrdanz2009_054112,\n   author = \"Rohrdanz, Mary A. and Martins, Katie M. and Herbert, John M.\",\n   title = \"A long-range-corrected density functional that performs well for both ground-state properties and time-dependent density functional theory excitation energies, including charge-transfer excited states\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2009\",\n   volume = \"130\",\n   number = \"5\", \n   eid = 054112,\n   pages = \"054112\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/130/5/10.1063/1.3073302\",\n   doi = \"http://dx.doi.org/10.1063/1.3073302\" \n}"
+};
+
+

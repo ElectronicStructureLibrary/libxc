@@ -106,7 +106,7 @@ void
 XC(gga_lb_modified)(const XC(func_type) *func, int np, const FLOAT *rho, const FLOAT *sigma, FLOAT r, FLOAT *vrho)
 {
   int ip, is, is2;
-  FLOAT ds, gdm, x, sfact, sfact2;
+  FLOAT ds, gdm, x, sfact;
 
   XC(gga_x_lb_params) *params;
 
@@ -118,7 +118,6 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const FLOAT *rho, const F
   XC(lda_vxc)(func->func_aux[0], np, rho, vrho);
 
   sfact = (func->nspin == XC_POLARIZED) ? 1.0 : 2.0;
-  sfact2 = sfact*sfact;
 
   for(ip=0; ip<np; ip++){
     for(is=0; is<func->nspin; is++){

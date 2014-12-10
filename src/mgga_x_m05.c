@@ -25,7 +25,7 @@
 #define XC_MGGA_X_M05          214 /* M05 functional from Minnesota */
 #define XC_MGGA_X_M05_2X       215 /* M05-2X functional from Minnesota */
 #define XC_MGGA_X_M06_2X       218 /* M06-2X functional from Minnesota */
-#define XC_MGGA_X_DLDF          36 /* Dispersionless Density Functional   */
+#define XC_HYB_MGGA_X_DLDF      36 /* Dispersionless Density Functional   */
 
 
 static const FLOAT a_m05[12] = 
@@ -46,6 +46,7 @@ static const FLOAT a_dldf[5] =
 typedef struct{
   int n;
   const FLOAT *a;
+  FLOAT csi_HF;
 } mgga_x_m05_params;
 
 
@@ -70,19 +71,26 @@ mgga_x_m05_init(XC(func_type) *p)
   case XC_MGGA_X_M05: 
     params->n = 12;
     params->a = a_m05;
+    params->csi_HF = 1.0;
     break;
   case XC_MGGA_X_M05_2X:
     params->n = 12;
     params->a = a_m05_2x;
+    params->csi_HF = 1.0;
     break;
   case XC_MGGA_X_M06_2X:
     params->n = 12;
     params->a = a_m06_2x;
+    params->csi_HF = 1.0;
     break;
-  case XC_MGGA_X_DLDF:
+  case XC_HYB_MGGA_X_DLDF:
     params->n = 5;
     params->a = a_dldf;
+
     XC(gga_x_pbe_set_params)(p->func_aux[0], 4.8827323, 0.3511128);
+
+    p->cam_alpha = 0.6144129;
+    params->csi_HF = 1.0 - p->cam_alpha;
     break;
   default:
     fprintf(stderr, "Internal error in mgga_x_m05\n");
@@ -106,12 +114,12 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   
   XC(mgga_series_w)(r->order, params->n, params->a, r->t, &fw, &dfwdt);
 
-  r->f = e_f*fw;
+  r->f = params->csi_HF*e_f*fw;
 
   if(r->order < 1) return;
 
-  r->dfdx = e_dfdx*fw;
-  r->dfdt = e_f*dfwdt;
+  r->dfdx = params->csi_HF*e_dfdx*fw;
+  r->dfdt = params->csi_HF*e_f*dfwdt;
   r->dfdu = 0.0;
 
   if(r->order < 2) return;
@@ -163,11 +171,11 @@ const XC(func_info_type) XC(func_info_mgga_x_m06_2x) = {
   work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_dldf) = {
-  XC_MGGA_X_DLDF,
+const XC(func_info_type) XC(func_info_hyb_mgga_x_dldf) = {
+  XC_HYB_MGGA_X_DLDF,
   XC_EXCHANGE,
   "Dispersionless Density Functional",
-  XC_FAMILY_MGGA,
+  XC_FAMILY_HYB_MGGA,
   {&xc_ref_Pernal2009_263201, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,

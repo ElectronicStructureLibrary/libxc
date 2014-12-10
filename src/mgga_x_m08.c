@@ -117,11 +117,13 @@ mgga_x_m08_init(XC(func_type) *p)
     params->a  = a_m11;
     params->b  = b_m11;
     params->LC = 1;
+    p->cam_omega = 0.25;
     break;
   case XC_MGGA_X_M11_L:
     params->a  = a_m11_l;
     params->b  = b_m11_l;
     params->LC = 1;
+    p->cam_omega = 0.25;
     break;
   default:
     fprintf(stderr, "Internal error in mgga_x_m08\n");

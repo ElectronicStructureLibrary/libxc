@@ -25,6 +25,8 @@
 #define XC_MGGA_X_M05          214 /* M05 functional from Minnesota */
 #define XC_MGGA_X_M05_2X       215 /* M05-2X functional from Minnesota */
 #define XC_MGGA_X_M06_2X       218 /* M06-2X functional from Minnesota */
+#define XC_MGGA_X_DLDF          36 /* Dispersionless Density Functional   */
+
 
 static const FLOAT a_m05[12] = 
   {1.0, 0.08151, -0.43956, -3.22422, 2.01819, 8.79431, -0.00295,
@@ -37,6 +39,9 @@ static const FLOAT a_m05_2x[12] =
 static const FLOAT a_m06_2x[12] =
   {4.600000e-01, -2.206052e-01, -9.431788e-02,  2.164494e+00, -2.556466e+00, -1.422133e+01,
    1.555044e+01,  3.598078e+01, -2.722754e+01, -3.924093e+01,  1.522808e+01,  1.522227e+01};
+
+static const FLOAT a_dldf[5] =
+  {1.0, -0.1637571, -0.1880028, -0.4490609, -0.0082359};
 
 typedef struct{
   int n;
@@ -73,6 +78,11 @@ mgga_x_m05_init(XC(func_type) *p)
   case XC_MGGA_X_M06_2X:
     params->n = 12;
     params->a = a_m06_2x;
+    break;
+  case XC_MGGA_X_DLDF:
+    params->n = 5;
+    params->a = a_dldf;
+    XC(gga_x_pbe_set_params)(p->func_aux[0], 4.8827323, 0.3511128);
     break;
   default:
     fprintf(stderr, "Internal error in mgga_x_m05\n");
@@ -145,6 +155,20 @@ const XC(func_info_type) XC(func_info_mgga_x_m06_2x) = {
   "Minnesota M06-2X functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  mgga_x_m05_init,
+  NULL,
+  NULL, NULL,        /* this is not an LDA                   */
+  work_mgga_x,
+};
+
+const XC(func_info_type) XC(func_info_mgga_x_dldf) = {
+  XC_MGGA_X_DLDF,
+  XC_EXCHANGE,
+  "Dispersionless Density Functional",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Pernal2009_263201, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   mgga_x_m05_init,

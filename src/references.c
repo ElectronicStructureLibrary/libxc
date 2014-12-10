@@ -1542,6 +1542,13 @@ func_reference_type xc_ref_Chai2008_084106 = {
 };
 
 
+func_reference_type xc_ref_Pernal2009_263201 = {
+  "K. Pernal, R. Podeszwa, K. Patkowski, and K. Szalewicz, Phys. Rev. Lett. 103, 263201 (2009)",
+  "10.1103/PhysRevLett.103.263201",
+  "@article{Pernal2009_263201,\n  title = {Dispersionless Density Functional Theory},\n  author = {Pernal, Katarzyna and Podeszwa, Rafa\\l{} and Patkowski, Konrad and Szalewicz, Krzysztof},\n  journal = {Phys. Rev. Lett.},\n  volume = {103},\n  issue = {26},\n  pages = {263201},\n  numpages = {4},\n  year = {2009},\n  month = {Dec},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.103.263201},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.103.263201}\n}"
+};
+
+
 func_reference_type xc_ref_Rohrdanz2009_054112 = {
   "M. A. Rohrdanz, K. M. Martins, and J. M. Herbert, J. Chem. Phys. 130, 054112 (2009)",
   "http://dx.doi.org/10.1063/1.3073302",

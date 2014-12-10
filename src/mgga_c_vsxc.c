@@ -29,6 +29,7 @@
 #define XC_MGGA_C_M06_HF        234 /* M06-HF functional from Minnesota    */
 #define XC_MGGA_C_M06           235 /* M06 functional from Minnesota       */
 #define XC_MGGA_C_M06_2X        236 /* M06-2X functional from Minnesota    */
+#define XC_MGGA_C_DLDF           37 /* Dispersionless Density Functional   */
 
 static const FLOAT vsxc_dab[6]  = { 7.035010e-01,  7.694574e-03,  5.152765e-02,  3.394308e-05, -1.269420e-03,  1.296118e-03};
 static const FLOAT vsxc_dss[6]  = { 3.270912e-01, -3.228915e-02, -2.942406e-02,  2.134222e-03, -5.451559e-03,  1.577575e-02};
@@ -58,6 +59,10 @@ static const FLOAT m062x_cab[5] = { 8.833596e-01,  3.357972e+01, -7.043548e+01, 
 static const FLOAT m062x_css[5] = { 3.097855e-01, -5.528642e+00,  1.347420e+01, -3.213623e+01,  2.846742e+01};
 static const FLOAT m062x_dab[6] = { 1.166404e-01, -9.120847e-02, -6.726189e-02,  6.720580e-05,  8.448011e-04,  0.000000e+00};
 static const FLOAT m062x_dss[6] = { 6.902145e-01,  9.847204e-02,  2.214797e-01, -1.968264e-03, -6.775479e-03,  0.000000e+00};
+
+static const FLOAT dldf_cab[5]   = { 1.00000e0,  5.9515308, -11.1602877, 0.0, 0.0};
+static const FLOAT dldf_css[5]   = { 1.00000e0, -2.5960897,   2.2233793, 0.0, 0.0};
+
 
 typedef struct{
   const FLOAT *cab, *css, *dab, *dss;
@@ -143,7 +148,14 @@ mgga_c_vsxc_init(XC(func_type) *p)
     params->dab = m062x_dab;
     params->alpha_ss = 0.00515088;
     params->dss = m062x_dss;
-    break;    
+    break;
+  case XC_MGGA_C_DLDF:
+    params->gamma_ab = 0.0031;
+    params->cab = dldf_cab;
+    params->gamma_ss = 0.06;
+    params->css = dldf_css;
+    params->dab = params->dss = NULL;
+    break;
   default:
     fprintf(stderr, "Internal error in mgga_c_vsxc\n");
     exit(1);
@@ -340,6 +352,20 @@ const XC(func_info_type) XC(func_info_mgga_c_m06_2x) = {
   "Minnesota M06-2X functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  mgga_c_vsxc_init,
+  NULL,
+  NULL, NULL,        /* this is not an LDA                   */
+  work_mgga_c,
+};
+
+const XC(func_info_type) XC(func_info_mgga_c_dldf) = {
+  XC_MGGA_C_DLDF,
+  XC_CORRELATION,
+  "Dispersionless Density Functional",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Pernal2009_263201, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   mgga_c_vsxc_init,

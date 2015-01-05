@@ -105,8 +105,8 @@ XC(gga_lb_set_params)(XC(func_type) *p, int modified, FLOAT threshold, FLOAT ip,
 void 
 XC(gga_lb_modified)(const XC(func_type) *func, int np, const FLOAT *rho, const FLOAT *sigma, FLOAT r, FLOAT *vrho)
 {
-  int ip, is;
-  FLOAT gdm, x;
+  int ip, is, is2;
+  FLOAT ds, gdm, x, sfact, sfact2;
 
   XC(gga_x_lb_params) *params;
 
@@ -117,26 +117,32 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const FLOAT *rho, const F
 
   XC(lda_vxc)(func->func_aux[0], np, rho, vrho);
 
+  sfact = (func->nspin == XC_POLARIZED) ? 1.0 : 2.0;
+  sfact2 = sfact*sfact;
+
   for(ip=0; ip<np; ip++){
     for(is=0; is<func->nspin; is++){
+      is2 = 2*is;
+
       vrho[is] *= params->alpha;
 
-      gdm = SQRT(sigma[(is==0) ? 0 : 2]);
+      gdm    = max(SQRT(sigma[is2])/sfact, func->info->min_grad);
+      ds     = rho[is]/sfact;
 
       if(params->modified == 0 || 
-	 (rho[is] > params->threshold && gdm > params->threshold)){
+	 (ds > params->threshold && gdm > params->threshold)){
 	FLOAT f;
 	
-	if(rho[is] <= func->info->min_dens) continue;
+	if(ds <= func->info->min_dens) continue;
 	
-	x =  gdm/POW(rho[is], 4.0/3.0);
+	x =  gdm/POW(ds, 4.0/3.0);
 	
 	if(x < 300.0) /* the actual functional */	   
 	  f = -params->beta*x*x/(1.0 + 3.0*params->beta*x*ASINH(params->gamm*x));
 	else          /* asymptotic expansion */
 	  f = -x/(3.0*LOG(2.0*params->gamm*x));
 
-	vrho[is] += f * CBRT(rho[is]);
+	vrho[is] += f * CBRT(ds);
 	
       }else if(r > 0.0){
 	/* the aymptotic expansion of LB94 */

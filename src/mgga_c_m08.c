@@ -181,6 +181,8 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   XC(mgga_series_w)(r->order, 12, params->a, t, &fw1, &dfw1dt);
   XC(mgga_series_w)(r->order, 12, params->b, t, &fw2, &dfw2dt);
 
+  pbe.f -= pw.zk;
+
   r->f = fw1*pw.zk + fw2*pbe.f;
 
   if(r->order < 1) return;
@@ -188,6 +190,9 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   dtdz     = (5.0/6.0)*(r->ts[0]*opz23 - r->ts[1]*omz23);
   dtdts[0] = 0.5*opz*opz23;
   dtdts[1] = 0.5*omz*omz23;
+
+  pbe.dfdrs -= pw.dedrs;
+  pbe.dfdz  -= pw.dedz;
 
   r->dfdrs    = fw1*pw.dedrs + fw2*pbe.dfdrs;
   r->dfdz     = fw1*pw.dedz  + fw2*pbe.dfdz + (dfw1dt*pw.zk + dfw2dt*pbe.f)*dtdz;

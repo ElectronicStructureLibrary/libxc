@@ -33,9 +33,9 @@
 
 /* version */
 void XC_FC_FUNC(f90_version, F90_VERSION)
-     (int *major, int *minor)
+     (int *major, int *minor, int *micro)
 {
-  XC(version)(major, minor);
+  XC(version)(major, minor, micro);
 }
 
 

@@ -96,8 +96,8 @@ module XC_F90(lib_m)
 
   !----------------------------------------------------------------
   interface
-    subroutine XC_F90(version)(major, minor)
-      integer, intent(out) :: major, minor
+    subroutine XC_F90(version)(major, minor, micro)
+      integer, intent(out) :: major, minor, micro
     end subroutine XC_F90(version)
   end interface
 

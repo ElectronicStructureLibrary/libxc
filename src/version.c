@@ -21,11 +21,12 @@
 #include "xc.h"
 #include "config.h"
 
-void XC(version)(int *major, int *minor) {
+void XC(version)(int *major, int *minor, int *micro) {
   const char *version_string = PACKAGE_VERSION;
 
   *major = -1;
   *minor = -1;
-  sscanf(version_string,"%d.%d",major,minor);
+  *micro = -1;
+  sscanf(version_string,"%d.%d.%d",major,minor,micro);
 
 }

@@ -67,7 +67,7 @@ extern "C" {
 #define XC_GGA_K_ABSR1        506
 #define XC_GGA_K_ABSR2        507
 
-void XC(version)(int *major, int *minor);
+void XC(version)(int *major, int *minor, int *micro);
 
 struct XC(func_type);
 

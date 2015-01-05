@@ -17,7 +17,7 @@
 ##
 ## $Id: configure.ac 2422 2006-09-23 20:43:15Z marques $
 
-AC_INIT([libxc],[3.x],[libxc@tddft.org],[libxc],[http://www.tddft.org/programs/Libxc])
+AC_INIT([libxc],[3.x.x],[libxc@tddft.org],[libxc],[http://www.tddft.org/programs/Libxc])
 AC_CONFIG_SRCDIR([src/xc.h])
 AM_INIT_AUTOMAKE
 
@@ -64,9 +64,10 @@ AC_SUBST(XC_LT_VERSION)
 AC_PROG_SED
 XC_MAJOR_VERSION=`echo "$VERSION" | $SED 's/\([[^.]][[^.]]*\).*/\1/'`
 XC_MINOR_VERSION=`echo "$VERSION" | $SED 's/[[^.]][[^.]]*.\([[^.]][[^.]]*\).*/\1/'`
+XC_MICRO_VERSION=`echo "$VERSION" | $SED 's/[[^.]][[^.]]*.[[^.]][[^.]]*.\(.*\)/\1/'`
 AC_SUBST(XC_MAJOR_VERSION)
 AC_SUBST(XC_MINOR_VERSION)
-
+AC_SUBST(XC_MICRO_VERSION)
 
 
 # Installation prefix by default

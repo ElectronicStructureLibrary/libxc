@@ -26,6 +26,7 @@ extern "C" {
 #define XC_VERSION "@VERSION@"
 #define XC_MAJOR_VERSION @XC_MAJOR_VERSION@
 #define XC_MINOR_VERSION @XC_MINOR_VERSION@
+#define XC_MINOR_VERSION @XC_MICRO_VERSION@
 
 #ifdef __cplusplus
 }

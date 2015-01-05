@@ -42,16 +42,16 @@ mgga_c_pkzb_init(XC(func_type) *p)
   p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
 
-  XC(func_init)(p->func_aux[0], XC_GGA_C_PBE, XC_POLARIZED);
-
   p->params = malloc(sizeof(mgga_c_pkzb_params));
 
   switch(p->info->number){
   case XC_MGGA_C_PKZB:
   case XC_MGGA_C_TPSS:
+    XC(func_init)(p->func_aux[0], XC_GGA_C_PBE, XC_POLARIZED);  
     XC(mgga_c_pkzb_set_params)(p, 0.06672455060314922, 2.8, 0.53, 0.87, 0.50, 2.26);
     break;
   case XC_MGGA_C_REVTPSS:
+    XC(func_init)(p->func_aux[0], XC_GGA_C_VPBE, XC_POLARIZED);  
     XC(mgga_c_pkzb_set_params)(p, 0.06672455060314922, 2.8, 0.59, 0.9269, 0.6225, 2.1540);
     break;
   default:

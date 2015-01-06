@@ -1529,9 +1529,9 @@ func_reference_type xc_ref_Odashima2009_798 = {
 
 
 func_reference_type xc_ref_Burke2014_4834 = {
-  "K. {Burke, A. {Cancio}, T. {Gould}, and S. {Pittalis}, }ArXiv e-prints (2014), \Eprint {http://arxiv.org/abs/1409.4834} {arXiv:1409.4834 [cond-mat.mtrl-sci]} ",
+  "K. Burke, A. Cancio, T. Gould, and S. Pittalis, ArXiv e-prints (2014), \Eprint {http://arxiv.org/abs/1409.4834} {arXiv:1409.4834 [cond-mat.mtrl-sci]} ",
   "",
-  "@ARTICLE{Burke2014_4834,\n   author = {{Burke}, K. and {Cancio}, A. and {Gould}, T. and {Pittalis}, S.},\n   title = \"{Atomic correlation energies and the generalized gradient approximation}\",\n   journal = {ArXiv e-prints},\n   archivePrefix = \"arXiv\",\n   eprint = {1409.4834},\n   primaryClass = \"cond-mat.mtrl-sci\",\n   keywords = {Condensed Matter - Materials Science, Condensed Matter - Other Condensed Matter, Physics - Chemical Physics, Quantum Physics},\n   year = 2014,\n   month = sep,\n   adsurl = {http://adsabs.harvard.edu/abs/2014arXiv1409.4834B},\n   adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
+  "@ARTICLE{Burke2014_4834,\n   author = {Burke, K. and Cancio, A. and Gould, T. and Pittalis, S.},\n   title = \"{Atomic correlation energies and the generalized gradient approximation}\",\n   journal = {ArXiv e-prints},\n   archivePrefix = \"arXiv\",\n   eprint = {1409.4834},\n   primaryClass = \"cond-mat.mtrl-sci\",\n   keywords = {Condensed Matter - Materials Science, Condensed Matter - Other Condensed Matter, Physics - Chemical Physics, Quantum Physics},\n   year = 2014,\n   month = sep,\n   adsurl = {http://adsabs.harvard.edu/abs/2014arXiv1409.4834B},\n   adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
 };
 
 

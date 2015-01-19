@@ -53,8 +53,8 @@ hybrid meta:
   *) PBE1KCIS http://pubs.acs.org/doi/pdf/10.1021/ct049851d
   *) b1b95 (54, 60)
   *) tpsslyp1w (1w class of functionals)
-  *) wB97 and wB97X http://dx.doi.org/10.1063/1.2834918
   *) HSEsol [L. Schimka, J. Harl and G. Kresse, JCP 134, 024116 (2011)]
+  *) wB97X-V Phys. Chem. Chem. Phys., 2014, 16, 9904. DOI: 10.1039/c3cp54374a
 
 check also "local" hybrids?
 V. V. Karasiev, J. Mol. Struct. (THEOCHEM), 493, 21 (1999).

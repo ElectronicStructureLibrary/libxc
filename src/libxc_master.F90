@@ -208,6 +208,15 @@ module XC_F90(lib_m)
       real(xc_f90_kind),       intent(out) :: v     ! v(nspin) the potential
     end subroutine XC_F90(lda_vxc)
 
+    subroutine XC_F90(lda_vxc_fxc)(p, np, rho, v, fxc)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(in)  :: p
+      integer,                 intent(in)  :: np
+      real(xc_f90_kind),       intent(in)  :: rho   ! rho(nspin) the density
+      real(xc_f90_kind),       intent(out) :: v     ! v(nspin) the potential
+      real(xc_f90_kind),       intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
+    end subroutine XC_F90(lda_vxc_fxc)
+
     subroutine XC_F90(lda_fxc)(p, np, rho, fxc)
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(in)  :: p
@@ -313,6 +322,19 @@ module XC_F90(lib_m)
       real(xc_f90_kind),       intent(out) :: vrho
       real(xc_f90_kind),       intent(out) :: vsigma
     end subroutine XC_F90(gga_vxc)
+
+    subroutine XC_F90(gga_vxc_fxc)(p, np, rho, sigma, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(in)  :: p
+      integer,                 intent(in)  :: np
+      real(xc_f90_kind),       intent(in)  :: rho
+      real(xc_f90_kind),       intent(in)  :: sigma
+      real(xc_f90_kind),       intent(out) :: vrho
+      real(xc_f90_kind),       intent(out) :: vsigma
+      real(xc_f90_kind),       intent(out) :: v2rho2
+      real(xc_f90_kind),       intent(out) :: v2rhosigma
+      real(xc_f90_kind),       intent(out) :: v2sigma2
+    end subroutine XC_F90(gga_vxc_fxc)
 
     subroutine XC_F90(gga_fxc)(p, np, rho, sigma, v2rho2, v2rhosigma, v2sigma2)
       use XC_F90(types_m)
@@ -495,6 +517,34 @@ module XC_F90(lib_m)
       real(xc_f90_kind),    intent(out) :: vlapl
       real(xc_f90_kind),    intent(out) :: vtau
     end subroutine XC_F90(mgga_vxc)
+
+    subroutine XC_F90(mgga_vxc_fxc)(p, np, rho, sigma, lapl, tau, &
+      vrho, vsigma, vlapl, vtau, &
+      v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
+      v2sigmalapl, v2sigmatau, v2lapltau)
+
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(in)  :: p
+      integer,              intent(in)  :: np
+      real(xc_f90_kind),    intent(in)  :: rho
+      real(xc_f90_kind),    intent(in)  :: sigma
+      real(xc_f90_kind),    intent(in)  :: lapl
+      real(xc_f90_kind),    intent(in)  :: tau
+      real(xc_f90_kind),    intent(out) :: vrho
+      real(xc_f90_kind),    intent(out) :: vsigma
+      real(xc_f90_kind),    intent(out) :: vlapl
+      real(xc_f90_kind),    intent(out) :: vtau
+      real(xc_f90_kind),    intent(out) :: v2rho2
+      real(xc_f90_kind),    intent(out) :: v2sigma2
+      real(xc_f90_kind),    intent(out) :: v2lapl2
+      real(xc_f90_kind),    intent(out) :: v2tau2
+      real(xc_f90_kind),    intent(out) :: v2rhosigma
+      real(xc_f90_kind),    intent(out) :: v2rholapl
+      real(xc_f90_kind),    intent(out) :: v2rhotau
+      real(xc_f90_kind),    intent(out) :: v2sigmalapl
+      real(xc_f90_kind),    intent(out) :: v2sigmatau
+      real(xc_f90_kind),    intent(out) :: v2lapltau
+    end subroutine XC_F90(mgga_vxc_fxc)
 
     subroutine XC_F90(mgga_fxc)(p, np, rho, sigma, lapl, tau, &
       v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &

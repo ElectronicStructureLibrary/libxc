@@ -162,14 +162,12 @@ void XC_FC_FUNC(f90_lda, F90_LDA)
   XC(lda)((XC(func_type) *)(*p), *np, rho, zk, vrho, v2rho2, v3rho3);
 }
 
-
 void XC_FC_FUNC(f90_lda_exc, F90_LDA_EXC)
      (void **p, CC_FORTRAN_INT *np, FLOAT *rho,
       FLOAT *zk)
 {
   XC(lda)((XC(func_type) *)(*p), *np, rho, zk, NULL, NULL, NULL);
 }
-
 
 void XC_FC_FUNC(f90_lda_exc_vxc, F90_LDA_EXC_VXC)
      (void **p, CC_FORTRAN_INT *np, FLOAT *rho, 
@@ -178,7 +176,6 @@ void XC_FC_FUNC(f90_lda_exc_vxc, F90_LDA_EXC_VXC)
   XC(lda)((XC(func_type) *)(*p), *np, rho, zk, vrho, NULL, NULL);
 }
 
-
 void XC_FC_FUNC(f90_lda_vxc, F90_LDA_VXC)
      (void **p, CC_FORTRAN_INT *np, FLOAT *rho, 
       FLOAT *vrho)
@@ -186,6 +183,12 @@ void XC_FC_FUNC(f90_lda_vxc, F90_LDA_VXC)
   XC(lda)((XC(func_type) *)(*p), *np, rho, NULL, vrho, NULL, NULL);
 }
 
+void XC_FC_FUNC(f90_lda_vxc_fxc, F90_LDA_VXC_FXC)
+     (void **p, CC_FORTRAN_INT *np, FLOAT *rho,
+      FLOAT *vrho, FLOAT *v2rho2)
+{
+  XC(lda)((XC(func_type) *)(*p), *np, rho, NULL, vrho, v2rho2, NULL);
+}
 
 void XC_FC_FUNC(f90_lda_fxc, F90_LDA_FXC)
      (void **p, CC_FORTRAN_INT *np, FLOAT *rho,
@@ -193,7 +196,6 @@ void XC_FC_FUNC(f90_lda_fxc, F90_LDA_FXC)
 {
   XC(lda)((XC(func_type) *)(*p), *np, rho, NULL, NULL, v2rho2, NULL);
 }
-
 
 void XC_FC_FUNC(f90_lda_kxc, F90_LDA_KXC)
      (void **p, CC_FORTRAN_INT *np, FLOAT *rho,
@@ -275,6 +277,15 @@ void XC_FC_FUNC(f90_gga_vxc, F90_GGA_VXC)
 {
   XC(gga)((XC(func_type) *)(*p), *np, rho, sigma, NULL, vrho, vsigma, 
 	  NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+}
+
+void XC_FC_FUNC(f90_gga_vxc_fxc, F90_GGA_VXC_FXC)
+     (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, 
+      FLOAT *vrho, FLOAT *vsigma,
+      FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
+{
+  XC(gga)((XC(func_type) *)(*p), *np, rho, sigma, NULL, vrho, vsigma, 
+	  v2rho2, v2rhosigma, v2sigma2, NULL, NULL, NULL, NULL);
 }
 
 void XC_FC_FUNC(f90_gga_fxc, F90_GGA_FXC)
@@ -390,6 +401,19 @@ void XC_FC_FUNC(f90_mgga_vxc, F90_MGGA_VXC)
   XC(mgga)((XC(func_type) *)(*p), *np, rho, sigma, lapl, tau, 
 	   NULL, vrho, vsigma, vlapl, vtau, 
 	   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+}
+
+void XC_FC_FUNC(f90_mgga_vxc_fxc, F90_MGGA_VXC_FXC)
+  (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, FLOAT *lapl, FLOAT *tau,
+   FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau,
+   FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2lapl2, FLOAT *v2tau2,
+   FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
+   FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
+{
+  XC(mgga)((XC(func_type) *)(*p), *np, rho, sigma, lapl, tau, 
+	   NULL, vrho, vsigma, vlapl, vtau,
+	   v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, 
+	   v2sigmalapl, v2sigmatau, v2lapltau);
 }
 
 void XC_FC_FUNC(f90_mgga_fxc, F90_MGGA_FXC)

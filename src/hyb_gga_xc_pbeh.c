@@ -49,7 +49,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeh) = {
   "PBEH (PBE0)",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Adamo1999_6158, &xc_ref_Ernzerhof1999_5029, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_pbeh_init,
   NULL, NULL, NULL, NULL /* this is taken care by the generic routine */
@@ -72,7 +72,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe0_13) = {
   "PBE0-1/3",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Cortona2012_086101, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_pbe0_13_init,
   NULL, NULL, NULL, NULL /* this is taken care by the generic routine */

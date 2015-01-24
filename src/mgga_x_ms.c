@@ -57,7 +57,7 @@ mgga_x_ms_init(XC(func_type) *p)
     params->c     = 0.14601;
     params->b     = 4.0;
     break;
-  case XC_MGGA_X_MS2H:
+  case XC_HYB_MGGA_X_MS2H:
     p->cam_alpha  = 0.09;
     params->kappa = 0.504;
     params->c     = 0.14601;

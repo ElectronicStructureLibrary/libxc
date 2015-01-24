@@ -25,7 +25,7 @@
 #define XC_MGGA_X_MS0          221 /* MS exchange of Sun, Xiao, and Ruzsinszky */
 #define XC_MGGA_X_MS1          222 /* MS1 exchange of Sun, et al */
 #define XC_MGGA_X_MS2          223 /* MS2 exchange of Sun, et al */
-#define XC_MGGA_X_MS2H         224 /* MS2 hybrid exchange of Sun, et al */
+#define XC_HYB_MGGA_X_MS2H     224 /* MS2 hybrid exchange of Sun, et al */
 
 typedef struct{
   FLOAT kappa, c, b;
@@ -213,10 +213,10 @@ XC(func_info_type) XC(func_info_mgga_x_ms2) = {
 };
 
 XC(func_info_type) XC(func_info_mgga_x_ms2h) = {
-  XC_MGGA_X_MS2H,
+  XC_HYB_MGGA_X_MS2H,
   XC_EXCHANGE,
   "MS2 hybrid exchange of Sun, et al",
-  XC_FAMILY_MGGA,
+  XC_FAMILY_HYB_MGGA,
   {&xc_ref_Sun2013_044113, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 1e-32, 1e-32,

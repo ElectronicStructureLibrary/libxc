@@ -212,7 +212,7 @@ XC(func_info_type) XC(func_info_mgga_x_ms2) = {
   work_mgga_x,
 };
 
-XC(func_info_type) XC(func_info_mgga_x_ms2h) = {
+XC(func_info_type) XC(func_info_hyb_mgga_x_ms2h) = {
   XC_HYB_MGGA_X_MS2H,
   XC_EXCHANGE,
   "MS2 hybrid exchange of Sun, et al",

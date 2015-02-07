@@ -68,7 +68,7 @@ func_reference_type xc_ref_Hedin1971_2064 = {
 func_reference_type xc_ref_Gunnarsson1976_4274 = {
   "O. Gunnarsson and B. I. Lundqvist, Phys. Rev. B 13, 4274 (1976)",
   "10.1103/PhysRevB.13.4274",
-  "@article{Gunnarsson1976_4274,\n  title = {Exchange and correlation in atoms, molecules, and solids by the spin-density-functional formalism},\n  author = {O. Gunnarsson and B. I. Lundqvist},\n  journal = {Phys. Rev. B},\n  volume = {13},\n  issue = {10},\n  pages = {4274},  \n  year = {1976},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.13.4274},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.13.4274}\n}"
+  "@article{Gunnarsson1976_4274,\n  title = {Exchange and correlation in atoms, molecules, and solids by the spin-density-functional formalism},\n  author = {O. Gunnarsson and B. I. Lundqvist},\n  journal = {Phys. Rev. B},\n  volume = {13},\n  issue = {10},\n  pages = {4274},\n  year = {1976},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.13.4274},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.13.4274}\n}"
 };
 
 
@@ -152,7 +152,7 @@ func_reference_type xc_ref_Proynov1994_7874 = {
 func_reference_type xc_ref_Ragot2004_7671 = {
   "S. Ragot and P. Cortona, J. Chem. Phys. 121, 7671 (2004)",
   "10.1063/1.1792153",
-  "@article{Ragot2004_7671,\n   title = \"Correlation energy of many-electron systems: A modified Colle--Salvetti approach\",\n   author = \"S. Ragot and P. Cortona\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2004\",\n   volume = \"121\",\n   number = \"16\", \n   pages = \"7671\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/121/16/10.1063/1.1792153\",\n   doi = \"10.1063/1.1792153\" \n}"
+  "@article{Ragot2004_7671,\n   title = \"Correlation energy of many-electron systems: A modified Colle--Salvetti approach\",\n   author = \"S. Ragot and P. Cortona\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2004\",\n   volume = \"121\",\n   number = \"16\",\n   pages = \"7671\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/121/16/10.1063/1.1792153\",\n   doi = \"10.1063/1.1792153\"\n}"
 };
 
 
@@ -173,7 +173,7 @@ func_reference_type xc_ref_Casula2006_245427 = {
 func_reference_type xc_ref_Loos2013_064108 = {
   "P.-F. Loos, J. Chem. Phys. 138, 064108 (2013)",
   "10.1063/1.4790613",
-  "@article{Loos2013_064108,\n  title = \"High-density correlation energy expansion of the one-dimensional uniform electron gas\",\n  author = \"P.-F. Loos\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2013\",\n  volume = \"138\",\n  number = \"6\", \n  pages = 064108,\n  doi = \"10.1063/1.4790613\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/138/6/10.1063/1.4790613\"\n}"
+  "@article{Loos2013_064108,\n  title = \"High-density correlation energy expansion of the one-dimensional uniform electron gas\",\n  author = \"P.-F. Loos\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2013\",\n  volume = \"138\",\n  number = \"6\",\n  pages = 064108,\n  doi = \"10.1063/1.4790613\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/138/6/10.1063/1.4790613\"\n}"
 };
 
 
@@ -250,7 +250,7 @@ func_reference_type xc_ref_Perdew2008_136406 = {
 func_reference_type xc_ref_Xu2004_4068 = {
   "X. Xu and W. A. Goddard, J. Chem. Phys. 121, 4068 (2004)",
   "10.1063/1.1771632",
-  "@article{Xu2004_4068,\n   title = \"The extended Perdew--Burke--Ernzerhof functional with improved accuracy for thermodynamic and electronic properties of molecular systems\",\n   author = \"X. Xu and W. A. Goddard\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2004\",\n   volume = \"121\",\n   number = \"9\", \n   pages = \"4068\",\n   doi = \"10.1063/1.1771632\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/121/9/10.1063/1.1771632\"\n}"
+  "@article{Xu2004_4068,\n   title = \"The extended Perdew--Burke--Ernzerhof functional with improved accuracy for thermodynamic and electronic properties of molecular systems\",\n   author = \"X. Xu and W. A. Goddard\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2004\",\n   volume = \"121\",\n   number = \"9\",\n   pages = \"4068\",\n   doi = \"10.1063/1.1771632\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/121/9/10.1063/1.1771632\"\n}"
 };
 
 
@@ -313,7 +313,7 @@ func_reference_type xc_ref_Laricchia2011_2439 = {
 func_reference_type xc_ref_delCampo2012_104108 = {
   "J. M. del Campo, J. L. G\'azquez, S. B. Trickey, and A. Vela, J. Chem. Phys. 136, 104108 (2012)",
   "10.1063/1.3691197",
-  "@article{delCampo2012_104108,\n  title = \"Non-empirical improvement of PBE and its hybrid PBE0 for general description of molecular properties\",\n  author = \"J. M. del Campo and J. L. G\\'azquez and S. B. Trickey and A. Vela\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2012\",\n  volume = \"136\",\n  number = \"10\", \n  pages = 104108,\n  doi = \"10.1063/1.3691197\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/136/10/10.1063/1.3691197\"\n}"
+  "@article{delCampo2012_104108,\n  title = \"Non-empirical improvement of PBE and its hybrid PBE0 for general description of molecular properties\",\n  author = \"J. M. del Campo and J. L. G\\'azquez and S. B. Trickey and A. Vela\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2012\",\n  volume = \"136\",\n  number = \"10\",\n  pages = 104108,\n  doi = \"10.1063/1.3691197\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/136/10/10.1063/1.3691197\"\n}"
 };
 
 
@@ -334,7 +334,7 @@ func_reference_type xc_ref_Madsen2007_195108 = {
 func_reference_type xc_ref_Adamo2002_5933 = {
   "C. Adamo and V. Barone, J. Chem. Phys. 116, 5933 (2002)",
   "10.1063/1.1458927",
-  "@article{Adamo2002_5933,\n   title = \"Physically motivated density functionals with improved performances: The modified Perdew--Burke--Ernzerhof model\",\n   author = \"C. Adamo and V. Barone\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2002\",\n   volume = \"116\",\n   number = \"14\", \n   pages = \"5933\",\n   doi = \"10.1063/1.1458927\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/116/14/10.1063/1.1458927\"\n}"
+  "@article{Adamo2002_5933,\n   title = \"Physically motivated density functionals with improved performances: The modified Perdew--Burke--Ernzerhof model\",\n   author = \"C. Adamo and V. Barone\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2002\",\n   volume = \"116\",\n   number = \"14\",\n   pages = \"5933\",\n   doi = \"10.1063/1.1458927\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/116/14/10.1063/1.1458927\"\n}"
 };
 
 
@@ -355,14 +355,14 @@ func_reference_type xc_ref_Herman1969_827 = {
 func_reference_type xc_ref_Becke1986_4524 = {
   "A. D. Becke, J. Chem. Phys. 84, 4524 (1986)",
   "10.1063/1.450025",
-  "@article{Becke1986_4524,\n  title = \"Density functional calculations of molecular bond energies\",\n  author = \"A. D. Becke\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1986\",\n  volume = \"84\",\n  number = \"8\", \n  pages = \"4524\",\n  doi = \"10.1063/1.450025\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/84/8/10.1063/1.450025\"\n}"
+  "@article{Becke1986_4524,\n  title = \"Density functional calculations of molecular bond energies\",\n  author = \"A. D. Becke\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1986\",\n  volume = \"84\",\n  number = \"8\",\n  pages = \"4524\",\n  doi = \"10.1063/1.450025\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/84/8/10.1063/1.450025\"\n}"
 };
 
 
 func_reference_type xc_ref_Becke1986_7184 = {
   "A. D. Becke, J. Chem. Phys. 85, 7184 (1986)",
   "10.1063/1.451353",
-  "@article{Becke1986_7184,\n  title = \"On the large‐gradient behavior of the density functional exchange energy\",\n  author = \"A. D. Becke\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1986\",\n  volume = \"85\",\n  number = \"12\", \n  pages = \"7184\",\n  doi = \"10.1063/1.451353\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/85/12/10.1063/1.451353\"\n}"
+  "@article{Becke1986_7184,\n  title = \"On the large‐gradient behavior of the density functional exchange energy\",\n  author = \"A. D. Becke\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1986\",\n  volume = \"85\",\n  number = \"12\",\n  pages = \"7184\",\n  doi = \"10.1063/1.451353\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/85/12/10.1063/1.451353\"\n}"
 };
 
 
@@ -446,7 +446,7 @@ func_reference_type xc_ref_Perdew1992_6671_err = {
 func_reference_type xc_ref_Adamo1998_664 = {
   "C. Adamo and V. Barone, J. Chem. Phys. 108, 664 (1998)",
   "10.1063/1.475428",
-  "@article{Adamo1998_664,\n  title = \"Exchange functionals with improved long-range behavior and adiabatic connection methods without adjustable parameters: The mPW and mPW1PW models\",\n  author = \"C. Adamo and V. Barone\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1998\",\n  volume = \"108\",\n  number = \"2\", \n  pages = \"664\",\n  doi = \"10.1063/1.475428\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/108/2/10.1063/1.475428\"\n}"
+  "@article{Adamo1998_664,\n  title = \"Exchange functionals with improved long-range behavior and adiabatic connection methods without adjustable parameters: The mPW and mPW1PW models\",\n  author = \"C. Adamo and V. Barone\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1998\",\n  volume = \"108\",\n  number = \"2\",\n  pages = \"664\",\n  doi = \"10.1063/1.475428\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/108/2/10.1063/1.475428\"\n}"
 };
 
 
@@ -488,7 +488,7 @@ func_reference_type xc_ref_Cooper2010_161104 = {
 func_reference_type xc_ref_DePristo1987_1425 = {
   "A. E. DePristo and J. D. Kress, J. Chem. Phys. 86, 1425 (1987)",
   "10.1063/1.452230",
-  "@article{DePristo1987_1425,\n  title = \"Rational function representation for accurate exchange energy functionals\",\n  author = \"A. E. DePristo and J. D. Kress\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1987\",\n  volume = \"86\",\n  number = \"3\", \n  pages = \"1425\",\n  doi = \"10.1063/1.452230\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/86/3/10.1063/1.452230\"\n}"
+  "@article{DePristo1987_1425,\n  title = \"Rational function representation for accurate exchange energy functionals\",\n  author = \"A. E. DePristo and J. D. Kress\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1987\",\n  volume = \"86\",\n  number = \"3\",\n  pages = \"1425\",\n  doi = \"10.1063/1.452230\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/86/3/10.1063/1.452230\"\n}"
 };
 
 
@@ -516,7 +516,7 @@ func_reference_type xc_ref_Armiento2005_085108 = {
 func_reference_type xc_ref_Mattsson2008_084714 = {
   "A. E. Mattsson, R. Armiento, J. Paier, G. Kresse, J. M. Wills, and T. R. Mattsson, J. Chem. Phys. 128, 084714 (2008)",
   "10.1063/1.2835596",
-  "@article{Mattsson2008_084714,\n  title = \"The AM05 density functional applied to solids\",\n  author = \"A. E. Mattsson and R. Armiento and J. Paier and G. Kresse and J. M. Wills and T. R. Mattsson\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2008\",\n  volume = \"128\",\n  number = \"8\", \n  pages = 084714,\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/128/8/10.1063/1.2835596\",\n  doi = \"10.1063/1.2835596\" \n}"
+  "@article{Mattsson2008_084714,\n  title = \"The AM05 density functional applied to solids\",\n  author = \"A. E. Mattsson and R. Armiento and J. Paier and G. Kresse and J. M. Wills and T. R. Mattsson\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2008\",\n  volume = \"128\",\n  number = \"8\",\n  pages = 084714,\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/128/8/10.1063/1.2835596\",\n  doi = \"10.1063/1.2835596\"\n}"
 };
 
 
@@ -530,7 +530,7 @@ func_reference_type xc_ref_Mortensen2005_216401 = {
 func_reference_type xc_ref_Keal2003_3015 = {
   "T. W. Keal and D. J. Tozer, J. Chem. Phys. 119, 3015 (2003)",
   "10.1063/1.1590634",
-  "@article{Keal2003_3015,\n  title = \"The exchange-correlation potential in Kohn--Sham nuclear magnetic resonance shielding calculations\",\n  author = \"T. W. Keal and D. J. Tozer\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2003\",\n  volume = \"119\",\n  number = \"6\", \n  pages = \"3015\",\n  doi = \"10.1063/1.1590634\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/119/6/10.1063/1.1590634\"\n}"
+  "@article{Keal2003_3015,\n  title = \"The exchange-correlation potential in Kohn--Sham nuclear magnetic resonance shielding calculations\",\n  author = \"T. W. Keal and D. J. Tozer\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2003\",\n  volume = \"119\",\n  number = \"6\",\n  pages = \"3015\",\n  doi = \"10.1063/1.1590634\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/119/6/10.1063/1.1590634\"\n}"
 };
 
 
@@ -544,7 +544,7 @@ func_reference_type xc_ref_Haas2011_205117 = {
 func_reference_type xc_ref_Swart2009_094103 = {
   "M. Swart, M. Solà, and F. M. Bickelhaupt, J. Chem. Phys. 131, 094103 (2009)",
   "10.1063/1.3213193",
-  "@article{Swart2009_094103,\n   title = \"A new all-round density functional based on spin states and SN2 barriers\",\n   author = \"M. Swart and M. Solà and F. M. Bickelhaupt\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2009\",\n   volume = \"131\",\n   number = \"9\", \n   pages = 094103,\n   doi = \"10.1063/1.3213193\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/131/9/10.1063/1.3213193\"\n}"
+  "@article{Swart2009_094103,\n   title = \"A new all-round density functional based on spin states and SN2 barriers\",\n   author = \"M. Swart and M. Solà and F. M. Bickelhaupt\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2009\",\n   volume = \"131\",\n   number = \"9\",\n   pages = 094103,\n   doi = \"10.1063/1.3213193\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/131/9/10.1063/1.3213193\"\n}"
 };
 
 
@@ -628,28 +628,28 @@ func_reference_type xc_ref_vanLeeuwen1994_2421 = {
 func_reference_type xc_ref_Schipper2000_1344 = {
   "P. R. T. Schipper, O. V. Gritsenko, S. J. A. van Gisbergen, and E. J. Baerends, J. Chem. Phys. 112, 1344 (2000)",
   "10.1063/1.480688",
-  "@article{Schipper2000_1344,\n  title = \"Molecular calculations of excitation energies and (hyper)polarizabilities with a statistical average of orbital model exchange-correlation potentials\",\n  author = \"P. R. T. Schipper and O. V. Gritsenko and S. J. A. van Gisbergen and E. J. Baerends\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2000\",\n  volume = \"112\",\n  number = \"3\", \n  pages = \"1344\",\n  doi = \"10.1063/1.480688\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/112/3/10.1063/1.480688\"\n}"
+  "@article{Schipper2000_1344,\n  title = \"Molecular calculations of excitation energies and (hyper)polarizabilities with a statistical average of orbital model exchange-correlation potentials\",\n  author = \"P. R. T. Schipper and O. V. Gritsenko and S. J. A. van Gisbergen and E. J. Baerends\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2000\",\n  volume = \"112\",\n  number = \"3\",\n  pages = \"1344\",\n  doi = \"10.1063/1.480688\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/112/3/10.1063/1.480688\"\n}"
 };
 
 
 func_reference_type xc_ref_Becke1997_8554 = {
   "A. D. Becke, J. Chem. Phys. 107, 8554 (1997)",
   "10.1063/1.475007",
-  "@article{Becke1997_8554,\n  title = \"Density-functional thermochemistry. V. Systematic optimization of exchange-correlation functionals\",\n  author = \"A. D. Becke\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1997\",\n  volume = \"107\",\n  number = \"20\", \n  pages = \"8554\",\n  doi = \"10.1063/1.475007\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/107/20/10.1063/1.475007\"\n}"
+  "@article{Becke1997_8554,\n  title = \"Density-functional thermochemistry. V. Systematic optimization of exchange-correlation functionals\",\n  author = \"A. D. Becke\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1997\",\n  volume = \"107\",\n  number = \"20\",\n  pages = \"8554\",\n  doi = \"10.1063/1.475007\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/107/20/10.1063/1.475007\"\n}"
 };
 
 
 func_reference_type xc_ref_Hamprecht1998_6264 = {
   "F. A. Hamprecht, A. J. Cohen, D. J. Tozer, and N. C. Handy, J. Chem. Phys. 109, 6264 (1998)",
   "10.1063/1.477267",
-  "@article{Hamprecht1998_6264,\n  title = \"Development and assessment of new exchange-correlation functionals\",\n  author = \"F. A. Hamprecht and A. J. Cohen and D. J. Tozer and N. C. Handy\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1998\",\n  volume = \"109\",\n  number = \"15\", \n  pages = \"6264\",\n  doi = \"10.1063/1.477267\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/109/15/10.1063/1.477267\"\n}"
+  "@article{Hamprecht1998_6264,\n  title = \"Development and assessment of new exchange-correlation functionals\",\n  author = \"F. A. Hamprecht and A. J. Cohen and D. J. Tozer and N. C. Handy\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1998\",\n  volume = \"109\",\n  number = \"15\",\n  pages = \"6264\",\n  doi = \"10.1063/1.477267\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/109/15/10.1063/1.477267\"\n}"
 };
 
 
 func_reference_type xc_ref_Wilson2001_9233 = {
   "P. J. Wilson, T. J. Bradley, and D. J. Tozer, J. Chem. Phys. 115, 9233 (2001)",
   "10.1063/1.1412605",
-  "@article{Wilson2001_9233,\n  title = \"Hybrid exchange-correlation functional determined from thermochemical data and ab initio potentials\",\n  author = \"P. J. Wilson and T. J. Bradley and D. J. Tozer\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2001\",\n  volume = \"115\",\n  number = \"20\", \n  pages = \"9233\",\n  doi = \"10.1063/1.1412605\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/115/20/10.1063/1.1412605\"\n}"
+  "@article{Wilson2001_9233,\n  title = \"Hybrid exchange-correlation functional determined from thermochemical data and ab initio potentials\",\n  author = \"P. J. Wilson and T. J. Bradley and D. J. Tozer\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2001\",\n  volume = \"115\",\n  number = \"20\",\n  pages = \"9233\",\n  doi = \"10.1063/1.1412605\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/115/20/10.1063/1.1412605\"\n}"
 };
 
 
@@ -663,35 +663,35 @@ func_reference_type xc_ref_Grimme2006_1787 = {
 func_reference_type xc_ref_Boese2004_3405 = {
   "A. D. Boese and J. M. L. Martin, J. Chem. Phys. 121, 3405 (2004)",
   "10.1063/1.1774975",
-  "@article{Boese2004_3405,\n  title = \"Development of density functionals for thermochemical kinetics\",\n  author = \"A. D. Boese and J. M. L. Martin\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2004\",\n  volume = \"121\",\n  number = \"8\", \n  pages = \"3405\",\n  doi = \"10.1063/1.1774975\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/121/8/10.1063/1.1774975\"\n}"
+  "@article{Boese2004_3405,\n  title = \"Development of density functionals for thermochemical kinetics\",\n  author = \"A. D. Boese and J. M. L. Martin\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2004\",\n  volume = \"121\",\n  number = \"8\",\n  pages = \"3405\",\n  doi = \"10.1063/1.1774975\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/121/8/10.1063/1.1774975\"\n}"
 };
 
 
 func_reference_type xc_ref_Keal2005_121103 = {
   "T. W. Keal and D. J. Tozer, J. Chem. Phys. 123, 121103 (2005)",
   "10.1063/1.2061227",
-  "@article{Keal2005_121103,\n  title = \"Semiempirical hybrid functional with improved performance in an extensive chemical assessment\",\n  author = \"T. W. Keal and D. J. Tozer\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2005\",\n  volume = \"123\",\n  number = \"12\", \n  pages = 121103,\n  doi = \"10.1063/1.2061227\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/123/12/10.1063/1.2061227\"\n}"
+  "@article{Keal2005_121103,\n  title = \"Semiempirical hybrid functional with improved performance in an extensive chemical assessment\",\n  author = \"T. W. Keal and D. J. Tozer\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2005\",\n  volume = \"123\",\n  number = \"12\",\n  pages = 121103,\n  doi = \"10.1063/1.2061227\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/123/12/10.1063/1.2061227\"\n}"
 };
 
 
 func_reference_type xc_ref_Boese2000_1670 = {
   "A. D. Boese, N. L. Doltsinis, N. C. Handy, and M. Sprik, J. Chem. Phys. 112, 1670 (2000)",
   "10.1063/1.480732",
-  "@article{Boese2000_1670,\n  title = \"New generalized gradient approximation functionals\",\n  author = \"A. D. Boese and N. L. Doltsinis and N. C. Handy and M. Sprik\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2000\",\n  volume = \"112\",\n  number = \"4\", \n  pages = \"1670\",\n  doi = \"10.1063/1.480732\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/112/4/10.1063/1.480732\"\n}"
+  "@article{Boese2000_1670,\n  title = \"New generalized gradient approximation functionals\",\n  author = \"A. D. Boese and N. L. Doltsinis and N. C. Handy and M. Sprik\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2000\",\n  volume = \"112\",\n  number = \"4\",\n  pages = \"1670\",\n  doi = \"10.1063/1.480732\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/112/4/10.1063/1.480732\"\n}"
 };
 
 
 func_reference_type xc_ref_Boese2001_5497 = {
   "A. D. Boese and N. C. Handy, J. Chem. Phys. 114, 5497 (2001)",
   "10.1063/1.1347371",
-  "@article{Boese2001_5497,\n  title = \"A new parametrization of exchange-correlation generalized gradient approximation functionals\",\n  author = \"A. D. Boese and N. C. Handy\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2001\",\n  volume = \"114\",\n  number = \"13\", \n  pages = \"5497\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/114/13/10.1063/1.1347371\",\n  doi = \"10.1063/1.1347371\" \n}"
+  "@article{Boese2001_5497,\n  title = \"A new parametrization of exchange-correlation generalized gradient approximation functionals\",\n  author = \"A. D. Boese and N. C. Handy\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2001\",\n  volume = \"114\",\n  number = \"13\",\n  pages = \"5497\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/114/13/10.1063/1.1347371\",\n  doi = \"10.1063/1.1347371\"\n}"
 };
 
 
 func_reference_type xc_ref_Schmider1998_9624 = {
   "H. L. Schmider and A. D. Becke, J. Chem. Phys. 108, 9624 (1998)",
   "10.1063/1.476438",
-  "@article{Schmider1998_9624,\n  title = \"Optimized density functionals from the extended G2 test set\",\n  author = \"H. L. Schmider and A. D. Becke\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1998\",\n  volume = \"108\",\n  number = \"23\", \n  pages = \"9624\",\n  doi = \"10.1063/1.476438\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/108/23/10.1063/1.476438\"\n}"
+  "@article{Schmider1998_9624,\n  title = \"Optimized density functionals from the extended G2 test set\",\n  author = \"H. L. Schmider and A. D. Becke\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1998\",\n  volume = \"108\",\n  number = \"23\",\n  pages = \"9624\",\n  doi = \"10.1063/1.476438\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/108/23/10.1063/1.476438\"\n}"
 };
 
 
@@ -705,14 +705,14 @@ func_reference_type xc_ref_Cohen2000_160 = {
 func_reference_type xc_ref_Menconi2001_3958 = {
   "G. Menconi, P. J. Wilson, and D. J. Tozer, J. Chem. Phys. 114, 3958 (2001)",
   "10.1063/1.1342776",
-  "@article{Menconi2001_3958,\n  title = \"Emphasizing the exchange-correlation potential in functional development\",\n  author = \"G. Menconi and P. J. Wilson and D. J. Tozer\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2001\",\n  volume = \"114\",\n  number = \"9\", \n  pages = \"3958\",\n  doi = \"10.1063/1.1342776\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/114/9/10.1063/1.1342776\"\n}"
+  "@article{Menconi2001_3958,\n  title = \"Emphasizing the exchange-correlation potential in functional development\",\n  author = \"G. Menconi and P. J. Wilson and D. J. Tozer\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2001\",\n  volume = \"114\",\n  number = \"9\",\n  pages = \"3958\",\n  doi = \"10.1063/1.1342776\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/114/9/10.1063/1.1342776\"\n}"
 };
 
 
 func_reference_type xc_ref_Boese2003_5965 = {
   "A. D. Boese, A. Chandra, J. M. L. Martin, and D. Marx, J. Chem. Phys. 119, 5965 (2003)",
   "10.1063/1.1599338",
-  "@article{Boese2003_5965,\n  title = \"From ab initio quantum chemistry to molecular dynamics: The delicate case of hydrogen bonding in ammonia\",\n  author = \"A. D. Boese and A. Chandra and J. M. L. Martin and D. Marx\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2003\",\n  volume = \"119\",\n  number = \"12\", \n  pages = \"5965\",\n  doi = \"10.1063/1.1599338\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/119/12/10.1063/1.1599338\"\n}"
+  "@article{Boese2003_5965,\n  title = \"From ab initio quantum chemistry to molecular dynamics: The delicate case of hydrogen bonding in ammonia\",\n  author = \"A. D. Boese and A. Chandra and J. M. L. Martin and D. Marx\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2003\",\n  volume = \"119\",\n  number = \"12\",\n  pages = \"5965\",\n  doi = \"10.1063/1.1599338\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/119/12/10.1063/1.1599338\"\n}"
 };
 
 
@@ -754,14 +754,14 @@ func_reference_type xc_ref_Zheng2009_808 = {
 func_reference_type xc_ref_Zhao2008_184109 = {
   "Y. Zhao and D. G. Truhlar, J. Chem. Phys. 128, 184109 (2008)",
   "10.1063/1.2912068",
-  "@article{Zhao2008_184109,\n   title = \"Construction of a generalized gradient approximation by restoring the density-gradient expansion and enforcing a tight Lieb--Oxford bound\",\n   author = \"Y. Zhao and D. G. Truhlar\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2008\",\n   volume = \"128\",\n   number = \"18\", \n   pages = 184109,\n   doi = \"10.1063/1.2912068\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/128/18/10.1063/1.2912068\"\n}"
+  "@article{Zhao2008_184109,\n   title = \"Construction of a generalized gradient approximation by restoring the density-gradient expansion and enforcing a tight Lieb--Oxford bound\",\n   author = \"Y. Zhao and D. G. Truhlar\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2008\",\n   volume = \"128\",\n   number = \"18\",\n   pages = 184109,\n   doi = \"10.1063/1.2912068\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/128/18/10.1063/1.2912068\"\n}"
 };
 
 
 func_reference_type xc_ref_Xu2004_2673 = {
   "X. Xu and W. A. Goddard, Proc. Natl. Acad. Sci. U. S. A. 101, 2673 (2004)",
   "10.1073/pnas.0308730100",
-  "@article{Xu2004_2673,\n  title = {The X3LYP extended density functional for accurate descriptions of nonbond interactions, spin states, and thermochemical properties},\n  author = {X. Xu and W. A. Goddard}, \n  volume = {101}, \n  number = {9}, \n  pages = {2673}, \n  year = {2004}, \n  doi = {10.1073/pnas.0308730100}, \n  URL = {http://www.pnas.org/content/101/9/2673.abstract}, \n  journal = {Proc. Natl. Acad. Sci. U. S. A.} \n}"
+  "@article{Xu2004_2673,\n  title = {The X3LYP extended density functional for accurate descriptions of nonbond interactions, spin states, and thermochemical properties},\n  author = {X. Xu and W. A. Goddard},\n  volume = {101},\n  number = {9},\n  pages = {2673},\n  year = {2004},\n  doi = {10.1073/pnas.0308730100},\n  URL = {http://www.pnas.org/content/101/9/2673.abstract},\n  journal = {Proc. Natl. Acad. Sci. U. S. A.}\n}"
 };
 
 
@@ -782,7 +782,7 @@ func_reference_type xc_ref_Cohen2001_607 = {
 func_reference_type xc_ref_Tognetti2008_034101 = {
   "V. Tognetti, P. Cortona, and C. Adamo, J. Chem. Phys. 128, 034101 (2008)",
   "10.1063/1.2816137",
-  "@article{Tognetti2008_034101,\n   title = \"A new parameter-free correlation functional based on an average atomic reduced density gradient analysis\",\n   author = \"V. Tognetti and P. Cortona and C. Adamo\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2008\",\n   volume = \"128\",\n   number = \"3\", \n   pages = 034101,\n   doi = \"10.1063/1.2816137\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/128/3/10.1063/1.2816137\"\n}"
+  "@article{Tognetti2008_034101,\n   title = \"A new parameter-free correlation functional based on an average atomic reduced density gradient analysis\",\n   author = \"V. Tognetti and P. Cortona and C. Adamo\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2008\",\n   volume = \"128\",\n   number = \"3\",\n   pages = 034101,\n   doi = \"10.1063/1.2816137\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/128/3/10.1063/1.2816137\"\n}"
 };
 
 
@@ -803,7 +803,7 @@ func_reference_type xc_ref_Peverati2011_1991 = {
 func_reference_type xc_ref_Peverati2011_191102 = {
   "R. Peverati and D. G. Truhlar, J. Chem. Phys. 135, 191102 (2011)",
   "10.1063/1.3663871",
-  "@article{Peverati2011_191102,\n  title = \"Communication: A global hybrid generalized gradient approximation to the exchange-correlation functional that satisfies the second-order density-gradient constraint and has broad applicability in chemistry\",\n  author = \"R. Peverati and D. G. Truhlar\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2011\",\n  volume = \"135\",\n  number = \"19\", \n  pages = 191102,\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/135/19/10.1063/1.3663871\",\n  doi = \"10.1063/1.3663871\" \n}"
+  "@article{Peverati2011_191102,\n  title = \"Communication: A global hybrid generalized gradient approximation to the exchange-correlation functional that satisfies the second-order density-gradient constraint and has broad applicability in chemistry\",\n  author = \"R. Peverati and D. G. Truhlar\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2011\",\n  volume = \"135\",\n  number = \"19\",\n  pages = 191102,\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/135/19/10.1063/1.3663871\",\n  doi = \"10.1063/1.3663871\"\n}"
 };
 
 
@@ -817,7 +817,7 @@ func_reference_type xc_ref_Tozer1997_183 = {
 func_reference_type xc_ref_Tozer1998_2545 = {
   "D. J. Tozer and N. C. Handy, J. Chem. Phys. 108, 2545 (1998)",
   "10.1063/1.475638",
-  "@article{Tozer1998_2545,\n  title = \"The development of new exchange-correlation functionals\",\n  author = \"D. J. Tozer and N. C. Handy\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1998\",\n  volume = \"108\",\n  number = \"6\", \n  pages = \"2545\",\n  doi = \"10.1063/1.475638\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/108/6/10.1063/1.475638\"\n}"
+  "@article{Tozer1998_2545,\n  title = \"The development of new exchange-correlation functionals\",\n  author = \"D. J. Tozer and N. C. Handy\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1998\",\n  volume = \"108\",\n  number = \"6\",\n  pages = \"2545\",\n  doi = \"10.1063/1.475638\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/108/6/10.1063/1.475638\"\n}"
 };
 
 
@@ -838,49 +838,49 @@ func_reference_type xc_ref_Handy1998_707 = {
 func_reference_type xc_ref_Heyd2003_8207 = {
   "J. Heyd, G. E. Scuseria, and M. Ernzerhof, J. Chem. Phys. 118, 8207 (2003)",
   "10.1063/1.1564060",
-  "@article{Heyd2003_8207,\n  title = \"Hybrid functionals based on a screened Coulomb potential\",\n  author = \"J. Heyd and G. E. Scuseria and M. Ernzerhof\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2003\",\n  volume = \"118\",\n  number = \"18\", \n  pages = \"8207\",\n  doi = \"10.1063/1.1564060\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/118/18/10.1063/1.1564060\"\n}"
+  "@article{Heyd2003_8207,\n  title = \"Hybrid functionals based on a screened Coulomb potential\",\n  author = \"J. Heyd and G. E. Scuseria and M. Ernzerhof\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2003\",\n  volume = \"118\",\n  number = \"18\",\n  pages = \"8207\",\n  doi = \"10.1063/1.1564060\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/118/18/10.1063/1.1564060\"\n}"
 };
 
 
 func_reference_type xc_ref_Heyd2003_8207_err = {
   "J. Heyd, G. E. Scuseria, and M. Ernzerhof, J. Chem. Phys. 124, 219906 (2006)",
   "10.1063/1.2204597",
-  "@article{Heyd2003_8207_err,\n  title = \"Erratum: “Hybrid functionals based on a screened Coulomb potential” [J. Chem. Phys.118, 8207 (2003)]\",\n  author = \"J. Heyd and G. E. Scuseria and M. Ernzerhof\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2006\",\n  volume = \"124\",\n  number = \"21\", \n  pages = 219906,\n  doi = \"10.1063/1.2204597\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/124/21/10.1063/1.2204597\",\n}"
+  "@article{Heyd2003_8207_err,\n  title = \"Erratum: “Hybrid functionals based on a screened Coulomb potential” [J. Chem. Phys.118, 8207 (2003)]\",\n  author = \"J. Heyd and G. E. Scuseria and M. Ernzerhof\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2006\",\n  volume = \"124\",\n  number = \"21\",\n  pages = 219906,\n  doi = \"10.1063/1.2204597\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/124/21/10.1063/1.2204597\",\n}"
 };
 
 
 func_reference_type xc_ref_Ernzerhof1998_3313 = {
   "M. Ernzerhof and J. P. Perdew, J. Chem. Phys. 109, 3313 (1998)",
   "10.1063/1.476928",
-  "@article{Ernzerhof1998_3313,\n  title = \"Generalized gradient approximation to the angle- and system-averaged exchange hole\",\n  author = \"M. Ernzerhof and J. P. Perdew\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1998\",\n  volume = \"109\",\n  number = \"9\", \n  pages = \"3313\",\n  doi = \"10.1063/1.476928\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/109/9/10.1063/1.476928\"\n}"
+  "@article{Ernzerhof1998_3313,\n  title = \"Generalized gradient approximation to the angle- and system-averaged exchange hole\",\n  author = \"M. Ernzerhof and J. P. Perdew\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1998\",\n  volume = \"109\",\n  number = \"9\",\n  pages = \"3313\",\n  doi = \"10.1063/1.476928\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/109/9/10.1063/1.476928\"\n}"
 };
 
 
 func_reference_type xc_ref_Heyd2004_7274 = {
   "J. Heyd and G. E. Scuseria, J. Chem. Phys. 120, 7274 (2004)",
   "10.1063/1.1668634",
-  "@article{Heyd2004_7274,\n  title = \"Assessment and validation of a screened Coulomb hybrid density functional\",\n  author = \"J. Heyd and G. E. Scuseria\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2004\",\n  volume = \"120\",\n  number = \"16\", \n  pages = \"7274\",\n  doi = \"10.1063/1.1668634\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/120/16/10.1063/1.1668634\"\n}"
+  "@article{Heyd2004_7274,\n  title = \"Assessment and validation of a screened Coulomb hybrid density functional\",\n  author = \"J. Heyd and G. E. Scuseria\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2004\",\n  volume = \"120\",\n  number = \"16\",\n  pages = \"7274\",\n  doi = \"10.1063/1.1668634\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/120/16/10.1063/1.1668634\"\n}"
 };
 
 
 func_reference_type xc_ref_Henderson2009_044108 = {
   "T. M. Henderson, A. F. Izmaylov, G. Scalmani, and G. E. Scuseria, J. Chem. Phys. 131, 044108 (2009)",
   "10.1063/1.3185673",
-  "@article{Henderson2009_044108,\n  title = \"Can short-range hybrids describe long-range-dependent properties?\",\n  author = \"T. M. Henderson and A. F. Izmaylov and G. Scalmani and G. E. Scuseria\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2009\",\n  volume = \"131\",\n  number = \"4\", \n  pages = 044108,\n  doi = \"10.1063/1.3185673\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/131/4/10.1063/1.3185673\",\n}"
+  "@article{Henderson2009_044108,\n  title = \"Can short-range hybrids describe long-range-dependent properties?\",\n  author = \"T. M. Henderson and A. F. Izmaylov and G. Scalmani and G. E. Scuseria\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2009\",\n  volume = \"131\",\n  number = \"4\",\n  pages = 044108,\n  doi = \"10.1063/1.3185673\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/131/4/10.1063/1.3185673\",\n}"
 };
 
 
 func_reference_type xc_ref_Henderson2008_194105 = {
   "T. M. Henderson, B. G. Janesko, and G. E. Scuseria, J. Chem. Phys. 128, 194105 (2008)",
   "10.1063/1.2921797",
-  "@article{Henderson2008_194105,\n  title = \"Generalized gradient approximation model exchange holes for range-separated hybrids\",\n  author = \"T. M. Henderson and B. G. Janesko and G. E. Scuseria\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2008\",\n  volume = \"128\",\n  number = \"19\", \n  pages = 194105,\n  doi = \"10.1063/1.2921797\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/128/19/10.1063/1.2921797\"\n}"
+  "@article{Henderson2008_194105,\n  title = \"Generalized gradient approximation model exchange holes for range-separated hybrids\",\n  author = \"T. M. Henderson and B. G. Janesko and G. E. Scuseria\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2008\",\n  volume = \"128\",\n  number = \"19\",\n  pages = 194105,\n  doi = \"10.1063/1.2921797\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/128/19/10.1063/1.2921797\"\n}"
 };
 
 
 func_reference_type xc_ref_Iikura2001_3540 = {
   "H. Iikura, T. Tsuneda, T. Yanai, and K. Hirao, J. Chem. Phys. 115, 3540 (2001)",
   "10.1063/1.1383587",
-  "@article{Iikura2001_3540,\n  title = \"A long-range correction scheme for generalized-gradient-approximation exchange functionals\",\n  author = \"H. Iikura and T. Tsuneda and T. Yanai and K. Hirao\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2001\",\n  volume = \"115\",\n  number = \"8\", \n  pages = \"3540\",\n  doi = \"10.1063/1.1383587\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/115/8/10.1063/1.1383587\"\n}"
+  "@article{Iikura2001_3540,\n  title = \"A long-range correction scheme for generalized-gradient-approximation exchange functionals\",\n  author = \"H. Iikura and T. Tsuneda and T. Yanai and K. Hirao\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2001\",\n  volume = \"115\",\n  number = \"8\",\n  pages = \"3540\",\n  doi = \"10.1063/1.1383587\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/115/8/10.1063/1.1383587\"\n}"
 };
 
 
@@ -929,7 +929,7 @@ func_reference_type xc_ref_Filatov1997_603 = {
 func_reference_type xc_ref_Tsuneda1999_10664 = {
   "T. Tsuneda, T. Suzumura, and K. Hirao, J. Chem. Phys. 110, 10664 (1999)",
   "10.1063/1.479012",
-  "@article{Tsuneda1999_10664,\n  title = \"A new one-parameter progressive Colle--Salvetti-type correlation functional\",\n  author = \"T. Tsuneda and T. Suzumura and K. Hirao\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1999\",\n  volume = \"110\",\n  number = \"22\", \n  pages = \"10664\",\n  doi = \"10.1063/1.479012\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/110/22/10.1063/1.479012\"\n}"
+  "@article{Tsuneda1999_10664,\n  title = \"A new one-parameter progressive Colle--Salvetti-type correlation functional\",\n  author = \"T. Tsuneda and T. Suzumura and K. Hirao\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1999\",\n  volume = \"110\",\n  number = \"22\",\n  pages = \"10664\",\n  doi = \"10.1063/1.479012\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/110/22/10.1063/1.479012\"\n}"
 };
 
 
@@ -1006,14 +1006,14 @@ func_reference_type xc_ref_Lieb1981_603 = {
 func_reference_type xc_ref_Acharya1980_6978 = {
   "P. K. Acharya, L. J. Bartolotti, S. B. Sears, and R. G. Parr, Proc. Natl. Acad. Sci. U. S. A. 77, 6978 (1980)",
   "10.1073/pnas.77.12.6978",
-  "@article{Acharya1980_6978,\n  title = {An atomic kinetic energy functional with full Weizsacker correction},\n  author = {P. K. Acharya and L. J. Bartolotti and S. B. Sears and R. G. Parr}, \n  journal = {Proc. Natl. Acad. Sci. U. S. A.},\n  volume = {77}, \n  number = {12}, \n  pages = {6978}, \n  year = {1980}, \n  doi = {10.1073/pnas.77.12.6978},\n  URL = {http://www.pnas.org/content/77/12/6978.abstract}\n}"
+  "@article{Acharya1980_6978,\n  title = {An atomic kinetic energy functional with full Weizsacker correction},\n  author = {P. K. Acharya and L. J. Bartolotti and S. B. Sears and R. G. Parr},\n  journal = {Proc. Natl. Acad. Sci. U. S. A.},\n  volume = {77},\n  number = {12},\n  pages = {6978},\n  year = {1980},\n  doi = {10.1073/pnas.77.12.6978},\n  URL = {http://www.pnas.org/content/77/12/6978.abstract}\n}"
 };
 
 
 func_reference_type xc_ref_Gazquez1982_1467 = {
   "J. L. G\'azquez and J. Robles, J. Chem. Phys. 76, 1467 (1982)",
   "10.1063/1.443107",
-  "@article{Gazquez1982_1467,\n  title = \"On the atomic kinetic energy functionals with full Weizsacker correction\",\n  author = \"J. L. G\\'azquez and J. Robles\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1982\",\n  volume = \"76\",\n  number = \"3\", \n  pages = \"1467\",\n  doi = \"10.1063/1.443107\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/76/3/10.1063/1.443107\"\n}"
+  "@article{Gazquez1982_1467,\n  title = \"On the atomic kinetic energy functionals with full Weizsacker correction\",\n  author = \"J. L. G\\'azquez and J. Robles\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1982\",\n  volume = \"76\",\n  number = \"3\",\n  pages = \"1467\",\n  doi = \"10.1063/1.443107\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/76/3/10.1063/1.443107\"\n}"
 };
 
 
@@ -1027,21 +1027,21 @@ func_reference_type xc_ref_Ludena1986 = {
 func_reference_type xc_ref_Ghosh1985_3307 = {
   "S. K. Ghosh and R. G. Parr, J. Chem. Phys. 82, 3307 (1985)",
   "10.1063/1.448229",
-  "@article{Ghosh1985_3307,\n  title = \"Density‐determined orthonormal orbital approach to atomic energy functionalsa)\",\n  author = \"S. K. Ghosh and R. G. Parr\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1985\",\n  volume = \"82\",\n  number = \"7\", \n  pages = \"3307\",\n  doi = \"10.1063/1.448229\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/82/7/10.1063/1.448229\"\n}"
+  "@article{Ghosh1985_3307,\n  title = \"Density‐determined orthonormal orbital approach to atomic energy functionalsa)\",\n  author = \"S. K. Ghosh and R. G. Parr\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1985\",\n  volume = \"82\",\n  number = \"7\",\n  pages = \"3307\",\n  doi = \"10.1063/1.448229\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/82/7/10.1063/1.448229\"\n}"
 };
 
 
 func_reference_type xc_ref_Lacks1994_4446 = {
   "D. J. Lacks and R. G. Gordon, J. Chem. Phys. 100, 4446 (1994)",
   "10.1063/1.466274",
-  "@article{Lacks1994_4446,\n  title = \"Tests of nonlocal kinetic energy functionals\",\n  author = \"D. J. Lacks and R. G. Gordon\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1994\",\n  volume = \"100\",\n  number = \"6\", \n  pages = \"4446\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/100/6/10.1063/1.466274\",\n  doi = \"10.1063/1.466274\" \n}"
+  "@article{Lacks1994_4446,\n  title = \"Tests of nonlocal kinetic energy functionals\",\n  author = \"D. J. Lacks and R. G. Gordon\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1994\",\n  volume = \"100\",\n  number = \"6\",\n  pages = \"4446\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/100/6/10.1063/1.466274\",\n  doi = \"10.1063/1.466274\"\n}"
 };
 
 
 func_reference_type xc_ref_Pearson1985_881 = {
   "E. W. Pearson and R. G. Gordon, J. Chem. Phys. 82, 881 (1985)",
   "10.1063/1.448516",
-  "@article{Pearson1985_881,\n  title = \"Local asymptotic gradient corrections to the energy functional of an electron gas\",\n  author = \"E. W. Pearson and R. G. Gordon\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1985\",\n  volume = \"82\",\n  number = \"2\", \n  pages = \"881\",\n  doi = \"10.1063/1.448516\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/82/2/10.1063/1.448516\"\n}"
+  "@article{Pearson1985_881,\n  title = \"Local asymptotic gradient corrections to the energy functional of an electron gas\",\n  author = \"E. W. Pearson and R. G. Gordon\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1985\",\n  volume = \"82\",\n  number = \"2\",\n  pages = \"881\",\n  doi = \"10.1063/1.448516\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/82/2/10.1063/1.448516\"\n}"
 };
 
 
@@ -1104,14 +1104,14 @@ func_reference_type xc_ref_Meyer1976_898 = {
 func_reference_type xc_ref_Vela2009_244103 = {
   "A. Vela, V. Medel, and S. B. Trickey, J. Chem. Phys. 130, 244103 (2009)",
   "10.1063/1.3152713",
-  "@article{Vela2009_244103,\n  title = \"Variable Lieb--Oxford bound satisfaction in a generalized gradient exchange-correlation functional\",\n  author = \"A. Vela and V. Medel and S. B. Trickey\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2009\",\n  volume = \"130\",\n  number = \"24\", \n  pages = 244103,\n  doi = \"10.1063/1.3152713\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/130/24/10.1063/1.3152713\"\n}"
+  "@article{Vela2009_244103,\n  title = \"Variable Lieb--Oxford bound satisfaction in a generalized gradient exchange-correlation functional\",\n  author = \"A. Vela and V. Medel and S. B. Trickey\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2009\",\n  volume = \"130\",\n  number = \"24\",\n  pages = 244103,\n  doi = \"10.1063/1.3152713\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/130/24/10.1063/1.3152713\"\n}"
 };
 
 
 func_reference_type xc_ref_Vela2012_144115 = {
   "A. Vela, J. C. Pacheco-Kato, J. L. G\'azquez, J. M. del Campo, and S. B. Trickey, J. Chem. Phys. 136, 144115 (2012)",
   "10.1063/1.3701132",
-  "@article{Vela2012_144115,\n  title = \"Improved constraint satisfaction in a simple generalized gradient approximation exchange functional\",\n  author = \"A. Vela and J. C. Pacheco-Kato and J. L. G\\'azquez and J. M. del Campo and S. B. Trickey\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2012\",\n  volume = \"136\",\n  number = \"14\", \n  pages = 144115,\n  doi = \"10.1063/1.3701132\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/136/14/10.1063/1.3701132\"\n}"
+  "@article{Vela2012_144115,\n  title = \"Improved constraint satisfaction in a simple generalized gradient approximation exchange functional\",\n  author = \"A. Vela and J. C. Pacheco-Kato and J. L. G\\'azquez and J. M. del Campo and S. B. Trickey\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2012\",\n  volume = \"136\",\n  number = \"14\",\n  pages = 144115,\n  doi = \"10.1063/1.3701132\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/136/14/10.1063/1.3701132\"\n}"
 };
 
 
@@ -1125,7 +1125,7 @@ func_reference_type xc_ref_Goerigk2010_107 = {
 func_reference_type xc_ref_Becke1993_5648 = {
   "A. D. Becke, J. Chem. Phys. 98, 5648 (1993)",
   "10.1063/1.464913",
-  "@article{Becke1993_5648,\n  title = \"Density‐functional thermochemistry. III. The role of exact exchange\",\n  author = \"A. D. Becke\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1993\",\n  volume = \"98\",\n  number = \"7\", \n  pages = \"5648\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/98/7/10.1063/1.464913\",\n  doi = \"10.1063/1.464913\" \n}"
+  "@article{Becke1993_5648,\n  title = \"Density‐functional thermochemistry. III. The role of exact exchange\",\n  author = \"A. D. Becke\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1993\",\n  volume = \"98\",\n  number = \"7\",\n  pages = \"5648\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/98/7/10.1063/1.464913\",\n  doi = \"10.1063/1.464913\"\n}"
 };
 
 
@@ -1167,21 +1167,21 @@ func_reference_type xc_ref_Lu2013_64 = {
 func_reference_type xc_ref_Adamo1999_6158 = {
   "C. Adamo and V. Barone, J. Chem. Phys. 110, 6158 (1999)",
   "10.1063/1.478522",
-  "@article{Adamo1999_6158,\n  title = \"Toward reliable density functional methods without adjustable parameters: The PBE0 model\",\n  author = \"C. Adamo and V. Barone\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1999\",\n  volume = \"110\",\n  number = \"13\", \n  pages = \"6158\",\n  doi = \"10.1063/1.478522\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/110/13/10.1063/1.478522\"\n}"
+  "@article{Adamo1999_6158,\n  title = \"Toward reliable density functional methods without adjustable parameters: The PBE0 model\",\n  author = \"C. Adamo and V. Barone\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1999\",\n  volume = \"110\",\n  number = \"13\",\n  pages = \"6158\",\n  doi = \"10.1063/1.478522\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/110/13/10.1063/1.478522\"\n}"
 };
 
 
 func_reference_type xc_ref_Ernzerhof1999_5029 = {
   "M. Ernzerhof and G. E. Scuseria, J. Chem. Phys. 110, 5029 (1999)",
   "10.1063/1.478401",
-  "@article{Ernzerhof1999_5029,\n  title = \"Assessment of the Perdew--Burke--Ernzerhof exchange-correlation functional\",\n  author = \"M. Ernzerhof and G. E. Scuseria\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1999\",\n  volume = \"110\",\n  number = \"11\", \n  pages = \"5029\",\n  doi = \"10.1063/1.478401\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/110/11/10.1063/1.478401\"\n}"
+  "@article{Ernzerhof1999_5029,\n  title = \"Assessment of the Perdew--Burke--Ernzerhof exchange-correlation functional\",\n  author = \"M. Ernzerhof and G. E. Scuseria\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1999\",\n  volume = \"110\",\n  number = \"11\",\n  pages = \"5029\",\n  doi = \"10.1063/1.478401\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/110/11/10.1063/1.478401\"\n}"
 };
 
 
 func_reference_type xc_ref_Cortona2012_086101 = {
   "P. Cortona, J. Chem. Phys. 136, 086101 (2012)",
   "10.1063/1.3690462",
-  "@article{Cortona2012_086101,\n  title = \"Note: Theoretical mixing coefficients for hybrid functionals\",\n  author = \"P. Cortona\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2012\",\n  volume = \"136\",\n  number = \"8\", \n  pages = 086101,\n  doi = \"10.1063/1.3690462\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/136/8/10.1063/1.3690462\"\n}"
+  "@article{Cortona2012_086101,\n  title = \"Note: Theoretical mixing coefficients for hybrid functionals\",\n  author = \"P. Cortona\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2012\",\n  volume = \"136\",\n  number = \"8\",\n  pages = 086101,\n  doi = \"10.1063/1.3690462\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/136/8/10.1063/1.3690462\"\n}"
 };
 
 
@@ -1209,14 +1209,14 @@ func_reference_type xc_ref_Lynch2000_4811 = {
 func_reference_type xc_ref_Becke1993_1372 = {
   "A. D. Becke, J. Chem. Phys. 98, 1372 (1993)",
   "10.1063/1.464304",
-  "@article{Becke1993_1372,\n  title = \"A new mixing of Hartree--Fock and local density-functional theories\",\n  author = \"A. D. Becke\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1993\",\n  volume = \"98\",\n  number = \"2\", \n  pages = \"1372\",\n  doi = \"10.1063/1.464304\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/98/2/10.1063/1.464304\"\n}"
+  "@article{Becke1993_1372,\n  title = \"A new mixing of Hartree--Fock and local density-functional theories\",\n  author = \"A. D. Becke\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1993\",\n  volume = \"98\",\n  number = \"2\",\n  pages = \"1372\",\n  doi = \"10.1063/1.464304\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/98/2/10.1063/1.464304\"\n}"
 };
 
 
 func_reference_type xc_ref_Krukau2006_224106 = {
   "A. V. Krukau, O. A. Vydrov, A. F. Izmaylov, and G. E. Scuseria, J. Chem. Phys. 125, 224106 (2006)",
   "10.1063/1.2404663",
-  "@article{Krukau2006_224106,\n  title = \"Influence of the exchange screening parameter on the performance of screened hybrid functionals\",\n  author = \"A. V. Krukau and O. A. Vydrov and A. F. Izmaylov and G. E. Scuseria\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2006\",\n  volume = \"125\",\n  number = \"22\", \n  pages = 224106,\n  doi = \"10.1063/1.2404663\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/125/22/10.1063/1.2404663\"\n}"
+  "@article{Krukau2006_224106,\n  title = \"Influence of the exchange screening parameter on the performance of screened hybrid functionals\",\n  author = \"A. V. Krukau and O. A. Vydrov and A. F. Izmaylov and G. E. Scuseria\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2006\",\n  volume = \"125\",\n  number = \"22\",\n  pages = 224106,\n  doi = \"10.1063/1.2404663\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/125/22/10.1063/1.2404663\"\n}"
 };
 
 
@@ -1237,7 +1237,7 @@ func_reference_type xc_ref_Okuno2012_29 = {
 func_reference_type xc_ref_Ernzerhof1999_911 = {
   "M. Ernzerhof and G. E. Scuseria, J. Chem. Phys. 111, 911 (1999)",
   "10.1063/1.479374",
-  "@article{Ernzerhof1999_911,\n  title = \"Kinetic energy density dependent approximations to the exchange energy\",\n  author = \"M. Ernzerhof and G. E. Scuseria\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1999\",\n  volume = \"111\",\n  number = \"3\", \n  pages = \"911\",\n  doi = \"10.1063/1.479374\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/111/3/10.1063/1.479374\"\n}"
+  "@article{Ernzerhof1999_911,\n  title = \"Kinetic energy density dependent approximations to the exchange energy\",\n  author = \"M. Ernzerhof and G. E. Scuseria\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1999\",\n  volume = \"111\",\n  number = \"3\",\n  pages = \"911\",\n  doi = \"10.1063/1.479374\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/111/3/10.1063/1.479374\"\n}"
 };
 
 
@@ -1251,7 +1251,7 @@ func_reference_type xc_ref_Tao2003_146401 = {
 func_reference_type xc_ref_Perdew2004_6898 = {
   "J. P. Perdew, J. Tao, V. N. Staroverov, and G. E. Scuseria, J. Chem. Phys. 120, 6898 (2004)",
   "10.1063/1.1665298",
-  "@article{Perdew2004_6898,\n  title = \"Meta-generalized gradient approximation: Explanation of a realistic nonempirical density functional\",\n  author = \"J. P. Perdew and J. Tao and V. N. Staroverov and G. E. Scuseria\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2004\",\n  volume = \"120\",\n  number = \"15\", \n  pages = \"6898\",\n  doi = \"10.1063/1.1665298\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/120/15/10.1063/1.1665298\"\n}"
+  "@article{Perdew2004_6898,\n  title = \"Meta-generalized gradient approximation: Explanation of a realistic nonempirical density functional\",\n  author = \"J. P. Perdew and J. Tao and V. N. Staroverov and G. E. Scuseria\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2004\",\n  volume = \"120\",\n  number = \"15\",\n  pages = \"6898\",\n  doi = \"10.1063/1.1665298\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/120/15/10.1063/1.1665298\"\n}"
 };
 
 
@@ -1279,7 +1279,7 @@ func_reference_type xc_ref_Becke1989_3761 = {
 func_reference_type xc_ref_Becke2006_221101 = {
   "A. D. Becke and E. R. Johnson, J. Chem. Phys. 124, 221101 (2006)",
   "10.1063/1.2213970",
-  "@article{Becke2006_221101,\n  author = \"A. D. Becke and E. R. Johnson\",\n  title = \"A simple effective potential for exchange\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2006\",\n  volume = \"124\",\n  number = \"22\", \n  pages = 221101,\n  doi = \"10.1063/1.2213970\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/124/22/10.1063/1.2213970\"\n}"
+  "@article{Becke2006_221101,\n  author = \"A. D. Becke and E. R. Johnson\",\n  title = \"A simple effective potential for exchange\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2006\",\n  volume = \"124\",\n  number = \"22\",\n  pages = 221101,\n  doi = \"10.1063/1.2213970\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/124/22/10.1063/1.2213970\"\n}"
 };
 
 
@@ -1293,21 +1293,21 @@ func_reference_type xc_ref_Tran2009_226401 = {
 func_reference_type xc_ref_Rasanen2010_044112 = {
   "E. Räsänen, S. Pittalis, and C. R. Proetto, J. Chem. Phys. 132, 044112 (2010)",
   "10.1063/1.3300063",
-  "@article{Rasanen2010_044112,\n  title = {Universal correction for the Becke--Johnson exchange potential},\n  author = {E. Räsänen and S. Pittalis and C. R. Proetto},\n  journal = {J. Chem. Phys.},\n  year = {2010},\n  volume = {132},\n  number = {4}, \n  pages = {044112},\n  doi = {10.1063/1.3300063},\n  url = {http://scitation.aip.org/content/aip/journal/jcp/132/4/10.1063/1.3300063}\n}"
+  "@article{Rasanen2010_044112,\n  title = {Universal correction for the Becke--Johnson exchange potential},\n  author = {E. Räsänen and S. Pittalis and C. R. Proetto},\n  journal = {J. Chem. Phys.},\n  year = {2010},\n  volume = {132},\n  number = {4},\n  pages = {044112},\n  doi = {10.1063/1.3300063},\n  url = {http://scitation.aip.org/content/aip/journal/jcp/132/4/10.1063/1.3300063}\n}"
 };
 
 
 func_reference_type xc_ref_VanVoorhis1998_400 = {
   "T. V. Voorhis and G. E. Scuseria, J. Chem. Phys. 109, 400 (1998)",
   "10.1063/1.476577",
-  "@article{VanVoorhis1998_400,\n  title = \"A novel form for the exchange-correlation energy functional\",\n  author = \"T. Van Voorhis and G. E. Scuseria\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1998\",\n  volume = \"109\",\n  number = \"2\", \n  pages = \"400\",\n  doi = \"10.1063/1.476577\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/109/2/10.1063/1.476577\"\n}"
+  "@article{VanVoorhis1998_400,\n  title = \"A novel form for the exchange-correlation energy functional\",\n  author = \"T. Van Voorhis and G. E. Scuseria\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1998\",\n  volume = \"109\",\n  number = \"2\",\n  pages = \"400\",\n  doi = \"10.1063/1.476577\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/109/2/10.1063/1.476577\"\n}"
 };
 
 
 func_reference_type xc_ref_Zhao2006_194101 = {
   "Y. Zhao and D. G. Truhlar, J. Chem. Phys. 125, 194101 (2006)",
   "10.1063/1.2370993",
-  "@article{Zhao2006_194101,\n  title = \"A new local density functional for main-group thermochemistry, transition metal bonding, thermochemical kinetics, and noncovalent interactions\",\n  author = \"Y. Zhao and D. G. Truhlar\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2006\",\n  volume = \"125\",\n  number = \"19\", \n  pages = 194101,\n  doi = \"10.1063/1.2370993\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/125/19/10.1063/1.2370993\"\n}"
+  "@article{Zhao2006_194101,\n  title = \"A new local density functional for main-group thermochemistry, transition metal bonding, thermochemical kinetics, and noncovalent interactions\",\n  author = \"Y. Zhao and D. G. Truhlar\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2006\",\n  volume = \"125\",\n  number = \"19\",\n  pages = 194101,\n  doi = \"10.1063/1.2370993\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/125/19/10.1063/1.2370993\"\n}"
 };
 
 
@@ -1328,7 +1328,7 @@ func_reference_type xc_ref_Zhao2006_13126 = {
 func_reference_type xc_ref_Boese2002_9559 = {
   "A. D. Boese and N. C. Handy, J. Chem. Phys. 116, 9559 (2002)",
   "10.1063/1.1476309",
-  "@article{Boese2002_9559,\n  title = \"New exchange-correlation density functionals: The role of the kinetic-energy density\",\n  author = \"A. D. Boese and N. C. Handy\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2002\",\n  volume = \"116\",\n  number = \"22\", \n  pages = \"9559\",\n  doi = \"10.1063/1.1476309\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/116/22/10.1063/1.1476309\"\n}"
+  "@article{Boese2002_9559,\n  title = \"New exchange-correlation density functionals: The role of the kinetic-energy density\",\n  author = \"A. D. Boese and N. C. Handy\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2002\",\n  volume = \"116\",\n  number = \"22\",\n  pages = \"9559\",\n  doi = \"10.1063/1.1476309\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/116/22/10.1063/1.1476309\"\n}"
 };
 
 
@@ -1356,7 +1356,7 @@ func_reference_type xc_ref_Perdew1999_2544 = {
 func_reference_type xc_ref_Zhao2005_161103 = {
   "Y. Zhao, N. E. Schultz, and D. G. Truhlar, J. Chem. Phys. 123, 161103 (2005)",
   "10.1063/1.2126975",
-  "@article{Zhao2005_161103,\n  title = \"Exchange-correlation functional with broad accuracy for metallic and nonmetallic compounds, kinetics, and noncovalent interactions\",\n  author = \"Y. Zhao and N. E. Schultz and D. G. Truhlar\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2005\",\n  volume = \"123\",\n  number = \"16\", \n  pages = 161103,\n  doi = \"10.1063/1.2126975\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/123/16/10.1063/1.2126975\"\n}"
+  "@article{Zhao2005_161103,\n  title = \"Exchange-correlation functional with broad accuracy for metallic and nonmetallic compounds, kinetics, and noncovalent interactions\",\n  author = \"Y. Zhao and N. E. Schultz and D. G. Truhlar\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2005\",\n  volume = \"123\",\n  number = \"16\",\n  pages = 161103,\n  doi = \"10.1063/1.2126975\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/123/16/10.1063/1.2126975\"\n}"
 };
 
 
@@ -1391,14 +1391,14 @@ func_reference_type xc_ref_Peverati2012_117 = {
 func_reference_type xc_ref_Sun2012_051101 = {
   "J. Sun, B. Xiao, and A. Ruzsinszky, J. Chem. Phys. 137, 051101 (2012)",
   "10.1063/1.4742312",
-  "@article{Sun2012_051101,\n  title = \"Communication: Effect of the orbital-overlap dependence in the meta generalized gradient approximation\",\n  author = \"J. Sun and B. Xiao and A. Ruzsinszky\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2012\",\n  volume = \"137\",\n  number = \"5\", \n  pages = 051101,\n  doi = \"10.1063/1.4742312\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/137/5/10.1063/1.4742312\"\n}"
+  "@article{Sun2012_051101,\n  title = \"Communication: Effect of the orbital-overlap dependence in the meta generalized gradient approximation\",\n  author = \"J. Sun and B. Xiao and A. Ruzsinszky\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2012\",\n  volume = \"137\",\n  number = \"5\",\n  pages = 051101,\n  doi = \"10.1063/1.4742312\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/137/5/10.1063/1.4742312\"\n}"
 };
 
 
 func_reference_type xc_ref_Sun2013_044113 = {
   "J. Sun, R. Haunschild, B. Xiao, I. W. Bulik, G. E. Scuseria, and J. P. Perdew, J. Chem. Phys. 138, 044113 (2013)",
   "10.1063/1.4789414",
-  "@article{Sun2013_044113,\n  title = \"Semilocal and hybrid meta-generalized gradient approximations based on the understanding of the kinetic-energy-density dependence\",\n  author = \"J. Sun and R. Haunschild and B. Xiao and I. W. Bulik and G. E. Scuseria and J. P. Perdew\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2013\",\n  volume = \"138\",\n  number = \"4\", \n  pages = 044113,\n  doi = \"10.1063/1.4789414\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/138/4/10.1063/1.4789414\"\n}"
+  "@article{Sun2013_044113,\n  title = \"Semilocal and hybrid meta-generalized gradient approximations based on the understanding of the kinetic-energy-density dependence\",\n  author = \"J. Sun and R. Haunschild and B. Xiao and I. W. Bulik and G. E. Scuseria and J. P. Perdew\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2013\",\n  volume = \"138\",\n  number = \"4\",\n  pages = 044113,\n  doi = \"10.1063/1.4789414\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/138/4/10.1063/1.4789414\"\n}"
 };
 
 
@@ -1412,14 +1412,14 @@ func_reference_type xc_ref_Peverati2012_13171 = {
 func_reference_type xc_ref_Manby2000_7002 = {
   "F. R. Manby and P. J. Knowles, J. Chem. Phys. 112, 7002 (2000)",
   "10.1063/1.481298",
-  "@article{Manby2000_7002,\n  title = \"An exchange functional for accurate virtual orbital energies\",\n  author = \"F. R. Manby and P. J. Knowles\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2000\",\n  volume = \"112\",\n  number = \"16\", \n  pages = \"7002\",\n  doi = \"10.1063/1.481298\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/112/16/10.1063/1.481298\"\n}"
+  "@article{Manby2000_7002,\n  title = \"An exchange functional for accurate virtual orbital energies\",\n  author = \"F. R. Manby and P. J. Knowles\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2000\",\n  volume = \"112\",\n  number = \"16\",\n  pages = \"7002\",\n  doi = \"10.1063/1.481298\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/112/16/10.1063/1.481298\"\n}"
 };
 
 
 func_reference_type xc_ref_Becke1996_1040 = {
   "A. D. Becke, J. Chem. Phys. 104, 1040 (1996)",
   "10.1063/1.470829",
-  "@article{Becke1996_1040,\n  title = \"Density-functional thermochemistry. IV. A new dynamical correlation functional and implications for exact-exchange mixing\",\n  author = \"A. D. Becke\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1996\",\n  volume = \"104\",\n  number = \"3\", \n  pages = \"1040\",\n  doi = \"10.1063/1.470829\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/104/3/10.1063/1.470829\"\n}"
+  "@article{Becke1996_1040,\n  title = \"Density-functional thermochemistry. IV. A new dynamical correlation functional and implications for exact-exchange mixing\",\n  author = \"A. D. Becke\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1996\",\n  volume = \"104\",\n  number = \"3\",\n  pages = \"1040\",\n  doi = \"10.1063/1.470829\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/104/3/10.1063/1.470829\"\n}"
 };
 
 
@@ -1454,7 +1454,7 @@ func_reference_type xc_ref_Zhao2005_5656 = {
 func_reference_type xc_ref_Staroverov2003_12129 = {
   "V. N. Staroverov, G. E. Scuseria, J. Tao, and J. P. Perdew, J. Chem. Phys. 119, 12129 (2003)",
   "10.1063/1.1626543",
-  "@article{Staroverov2003_12129,\n  title = \"Comparative assessment of a new nonempirical density functional: Molecules and hydrogen-bonded complexes\",\n  author = \"V. N. Staroverov and G. E. Scuseria and J. Tao and J. P. Perdew\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2003\",\n  volume = \"119\",\n  number = \"23\", \n  pages = \"12129\",\n  doi = \"10.1063/1.1626543\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/119/23/10.1063/1.1626543\"\n}"
+  "@article{Staroverov2003_12129,\n  title = \"Comparative assessment of a new nonempirical density functional: Molecules and hydrogen-bonded complexes\",\n  author = \"V. N. Staroverov and G. E. Scuseria and J. Tao and J. P. Perdew\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2003\",\n  volume = \"119\",\n  number = \"23\",\n  pages = \"12129\",\n  doi = \"10.1063/1.1626543\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/119/23/10.1063/1.1626543\"\n}"
 };
 
 
@@ -1538,7 +1538,7 @@ func_reference_type xc_ref_Burke2014_4834 = {
 func_reference_type xc_ref_Chai2008_084106 = {
   "J.-D. Chai and M. Head-Gordon, J. Chem. Phys. 128, 084106 (2008)",
   "http://dx.doi.org/10.1063/1.2834918",
-  "@article{Chai2008_084106,\n   author = \"Chai, Jeng-Da and Head-Gordon, Martin\",\n   title = \"Systematic optimization of long-range corrected hybrid density functionals\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2008\",\n   volume = \"128\",\n   number = \"8\", \n   eid = 084106,\n   pages = \"084106\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/128/8/10.1063/1.2834918\",\n   doi = \"http://dx.doi.org/10.1063/1.2834918\" \n}"
+  "@article{Chai2008_084106,\n   author = \"Chai, Jeng-Da and Head-Gordon, Martin\",\n   title = \"Systematic optimization of long-range corrected hybrid density functionals\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2008\",\n   volume = \"128\",\n   number = \"8\",\n   eid = 084106,\n   pages = \"084106\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/128/8/10.1063/1.2834918\",\n   doi = \"http://dx.doi.org/10.1063/1.2834918\"\n}"
 };
 
 
@@ -1552,7 +1552,14 @@ func_reference_type xc_ref_Pernal2009_263201 = {
 func_reference_type xc_ref_Rohrdanz2009_054112 = {
   "M. A. Rohrdanz, K. M. Martins, and J. M. Herbert, J. Chem. Phys. 130, 054112 (2009)",
   "http://dx.doi.org/10.1063/1.3073302",
-  "@article{Rohrdanz2009_054112,\n   author = \"Rohrdanz, Mary A. and Martins, Katie M. and Herbert, John M.\",\n   title = \"A long-range-corrected density functional that performs well for both ground-state properties and time-dependent density functional theory excitation energies, including charge-transfer excited states\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2009\",\n   volume = \"130\",\n   number = \"5\", \n   eid = 054112,\n   pages = \"054112\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/130/5/10.1063/1.3073302\",\n   doi = \"http://dx.doi.org/10.1063/1.3073302\" \n}"
+  "@article{Rohrdanz2009_054112,\n   author = \"Rohrdanz, Mary A. and Martins, Katie M. and Herbert, John M.\",\n   title = \"A long-range-corrected density functional that performs well for both ground-state properties and time-dependent density functional theory excitation energies, including charge-transfer excited states\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2009\",\n   volume = \"130\",\n   number = \"5\",\n   eid = 054112,\n   pages = \"054112\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/130/5/10.1063/1.3073302\",\n   doi = \"http://dx.doi.org/10.1063/1.3073302\"\n}"
+};
+
+
+func_reference_type xc_ref_Mardirossian2014_9904 = {
+  "N. Mardirossian and M. Head-Gordon, Phys. Chem. Chem. Phys. 16, 9904 (2014)",
+  "10.1039/C3CP54374A",
+  "@Article{Mardirossian2014_9904,\n   author =\"Mardirossian, Narbe and Head-Gordon, Martin\",\n   title  =\"$\\omega$B97X-V: A 10-parameter, range-separated hybrid,\n                  generalized gradient approximation density\n                  functional with nonlocal correlation, designed by a\n                  survival-of-the-fittest strategy\",\n   journal  =\"Phys. Chem. Chem. Phys.\",\n   year  =\"2014\",\n   volume  =\"16\",\n   issue  =\"21\",\n   pages  =\"9904-9924\",\n   publisher  =\"The Royal Society of Chemistry\",\n   doi  =\"10.1039/C3CP54374A\",\n   url  =\"http://dx.doi.org/10.1039/C3CP54374A\",\n   abstract  =\"A 10-parameter, range-separated hybrid (RSH),\n                  generalized gradient approximation (GGA) density\n                  functional with nonlocal correlation (VV10) is\n                  presented. Instead of truncating the B97-type power\n                  series inhomogeneity correction factors (ICF) for\n                  the exchange, same-spin correlation, and\n                  opposite-spin correlation functionals uniformly, all\n                  16 383 combinations of the linear parameters up to\n                  fourth order (m = 4) are considered. These\n                  functionals are individually fit to a training set\n                  and the resulting parameters are validated on a\n                  primary test set in order to identify the 3 optimal\n                  ICF expansions. Through this procedure, it is\n                  discovered that the functional that performs best on\n                  the training and primary test sets has 7 linear\n                  parameters, with 3 additional nonlinear parameters\n                  from range-separation and nonlocal correlation. The\n                  resulting density functional, $\\omega$B97X-V, is\n                  further assessed on a secondary test set, the\n                  parallel-displaced coronene dimer, as well as\n                  several geometry datasets. Furthermore, the basis\n                  set dependence and integration grid sensitivity of\n                  $\\omega$B97X-V are analyzed and documented in order\n                  to facilitate the use of the functional.\"\n}"
 };
 
 

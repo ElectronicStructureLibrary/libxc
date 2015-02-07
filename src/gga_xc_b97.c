@@ -46,6 +46,7 @@
 #define XC_GGA_C_N12_SX     79 /* N12-SX functional from Minnesota         */
 #define XC_GGA_XC_WB97     251 /* Chai and Head-Gordon                     */
 #define XC_GGA_XC_WB97X    252 /* Chai and Head-Gordon                     */
+#define XC_GGA_XC_WB97X_V  253 /* Mardirossian and Head-Gordon             */
 
 static const FLOAT b97_params[][3][5] = {
   {      /* HCTH/93 */
@@ -148,6 +149,10 @@ static const FLOAT b97_params[][3][5] = {
     { 8.42294e-01,  7.26479e-01,  1.04760e+00, -5.70635e+00,  1.32794e+01},  /* X   */
     { 1.00000e+00, -4.33879e+00,  1.82308e+01, -3.17430e+01,  1.72901e+01},  /* Css */
     { 1.00000e+00,  2.37031e+00, -1.13995e+01,  6.58405e+00, -3.78132e+00}   /* Cab */
+  }, {   /* wB97X-V */
+    { 0.833,        0.603,        1.194,        0.0,          0.0        },  /* X   */
+    { 0.556,       -0.257,        0.0,          0.0,          0.0        },  /* Css */
+    { 1.219,       -1.850,        0.0,          0.0,          0.0        }   /* Cab */
   }
 };
 
@@ -205,6 +210,10 @@ gga_xc_b97_init(XC(func_type) *p)
     break;
   case XC_GGA_XC_WB97X:
     p->func = 24;
+    XC(lda_x_set_params)(p->func_aux[0], 4.0/3.0, XC_NON_RELATIVISTIC, 0.3);
+    break;
+  case XC_GGA_XC_WB97X_V:
+    p->func = 25;
     XC(lda_x_set_params)(p->func_aux[0], 4.0/3.0, XC_NON_RELATIVISTIC, 0.3);
     break;
   default:
@@ -685,7 +694,7 @@ XC(func_info_type) XC(func_info_gga_c_n12_sx) = {
 const XC(func_info_type) XC(func_info_gga_xc_wb97) = {
   XC_GGA_XC_WB97,
   XC_EXCHANGE_CORRELATION,
-  "wB97",
+  "wB97 worker function",
   XC_FAMILY_GGA,
   {&xc_ref_Chai2008_084106, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
@@ -700,9 +709,24 @@ const XC(func_info_type) XC(func_info_gga_xc_wb97) = {
 const XC(func_info_type) XC(func_info_gga_xc_wb97x) = {
   XC_GGA_XC_WB97X,
   XC_EXCHANGE_CORRELATION,
-  "wB97X",
+  "wB97X worker function",
   XC_FAMILY_GGA,
   {&xc_ref_Chai2008_084106, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-23, 1e-32, 0.0, 1e-32,
+  gga_xc_b97_init, 
+  NULL,
+  NULL,
+  work_gga_c,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_xc_wb97x_v) = {
+  XC_GGA_XC_WB97X_V,
+  XC_EXCHANGE_CORRELATION,
+  "wB97X worker function",
+  XC_FAMILY_GGA,
+  {&xc_ref_Mardirossian2014_9904, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
   gga_xc_b97_init, 

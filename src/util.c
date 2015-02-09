@@ -90,7 +90,11 @@ XC(mix_init)(XC(func_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mi
     p->func_aux[ii] = (XC(func_type) *) malloc(sizeof(XC(func_type)));
     XC(func_init) (p->func_aux[ii], funcs_id[ii], p->nspin);
   }
-  
+
+  /* initialize variables */
+  p->cam_omega=0.0;
+  p->cam_alpha=0.0;
+  p->cam_beta=0.0;
 }
 
 xc_gga_enhancement_t

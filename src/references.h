@@ -243,3 +243,4 @@ extern func_reference_type xc_ref_Chai2008_084106;
 extern func_reference_type xc_ref_Pernal2009_263201;
 extern func_reference_type xc_ref_Rohrdanz2009_054112;
 extern func_reference_type xc_ref_Mardirossian2014_9904;
+extern func_reference_type xc_ref_Mardirossian2015_b97mv;

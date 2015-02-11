@@ -1563,3 +1563,10 @@ func_reference_type xc_ref_Mardirossian2014_9904 = {
 };
 
 
+func_reference_type xc_ref_Mardirossian2015_b97mv = {
+  "N. Mardirossian and M. Head-Gordon, J. Chem. Phys. (2015), 10.1063/1.4907719",
+  "10.1063/1.4907719",
+  "@Article{Mardirossian2015_b97mv,\n   author  =\"Mardirossian, Narbe and Head-Gordon, Martin\",\n   title   =\"Mapping the genome of meta-generalized gradient approximation density functionals: The search for B97M-V\",\n   journal =\"J. Chem. Phys.\",\n   year    =\"2015\",\n   doi     =\"10.1063/1.4907719\",\n   url     =\"http://dx.doi.org/10.1063/1.4907719\"\n}"
+};
+
+

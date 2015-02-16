@@ -56,8 +56,9 @@ extern "C" {
 #define XC_FLAGS_2D               (1 <<  6) /*   64 */
 #define XC_FLAGS_3D               (1 <<  7) /*  128 */
 #define XC_FLAGS_HYB_CAM          (1 <<  8) /*  256 */
-#define XC_FLAGS_STABLE           (1 <<  9) /*  512 */
-#define XC_FLAGS_DEVELOPMENT      (1 << 10) /* 1024 */
+#define XC_FLAGS_HYB_CAMY         (1 <<  9) /*  512 */
+#define XC_FLAGS_STABLE           (1 << 10) /* 1024 */ 
+#define XC_FLAGS_DEVELOPMENT      (1 << 11) /* 2048 */
 
 #define XC_TAU_EXPLICIT         0
 #define XC_TAU_EXPANSION        1
@@ -119,9 +120,9 @@ struct XC(func_type){
   struct XC(func_type) **func_aux;      /* most GGAs are based on a LDA or other GGAs  */
   FLOAT *mix_coef;                      /* coefficients for the mixing */
 
-  FLOAT cam_omega;                      /* range separation parameter for hybrids */
-  FLOAT cam_alpha;                      /* the Hartree-Fock mixing parameter for the hybrids */
-  FLOAT cam_beta;                       /* idem, but for the screened hybrid */
+  FLOAT cam_omega;                      /* range separation parameter for range separated hybrids */
+  FLOAT cam_alpha;                      /* fraction of Hartree-Fock exchange for normal or range separated hybrids */
+  FLOAT cam_beta;                       /* fraction of short-range exchange for range-separated hybrids */
 
   int func;                             /* Shortcut in case of several functionals sharing the same interface */
   int n_rho, n_sigma, n_tau, n_lapl;    /* spin dimensions of the arrays */

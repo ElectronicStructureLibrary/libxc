@@ -1570,3 +1570,10 @@ func_reference_type xc_ref_Mardirossian2015_b97mv = {
 };
 
 
+func_reference_type xc_ref_Seth2012_901 = {
+  "M. Seth and T. Ziegler, J. Chem. Theory Comput. 8, 901 (2012), \Eprint {http://arxiv.org/abs/http://dx.doi.org/10.1021/ct300006h} {http://dx.doi.org/10.1021/ct300006h} ",
+  "10.1021/ct300006h",
+  "@article{Seth2012_901,\n   author = {Seth, Michael and Ziegler, Tom},\n   title = {Range-Separated Exchange Functionals with Slater-Type Functions},\n   journal = {Journal of Chemical Theory and Computation},\n   volume = {8},\n   number = {3},\n   pages = {901-907},\n   year = {2012},\n   doi = {10.1021/ct300006h},\n   URL = {http://dx.doi.org/10.1021/ct300006h},\n   eprint = {http://dx.doi.org/10.1021/ct300006h}\n}"
+};
+
+

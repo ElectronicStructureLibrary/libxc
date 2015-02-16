@@ -21,7 +21,7 @@
 #include <assert.h>
 #include "util.h"
 
-#define  XC_GGA_XC_LCY_BLYP 461  /* BLYP with yukawa screening */
+#define  XC_GGA_XC_LCY_BLYP 468  /* BLYP with yukawa screening */
 
 void
 XC(gga_xc_lcy_blyp_init)(XC(func_type) *p)

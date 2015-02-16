@@ -21,7 +21,7 @@
 #include <assert.h>
 #include "util.h"
 
-#define  XC_GGA_XC_LCY_PBE 460  /* PBE with yukawa screening */
+#define  XC_GGA_XC_LCY_PBE 467  /* PBE with yukawa screening */
 
 void
 XC(gga_xc_lcy_pbe_init)(XC(func_type) *p)

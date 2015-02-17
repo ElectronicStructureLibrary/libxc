@@ -30,6 +30,10 @@ XC(hyb_gga_xc_camy_b3lyp_init)(XC(func_type) *p)
   static int   funcs_id  [4] = {XC_GGA_X_B88, XC_GGA_X_SFAT, XC_LDA_C_VWN, XC_GGA_C_LYP};
   static FLOAT funcs_coef[4];
 
+  /* N.B. The notation used in the original reference uses a different
+     convention for alpha and beta.  In libxc, alpha is the weight for
+     HF exchange, which in the original reference is alpha+beta.
+  */
   p->cam_omega = 0.34;
   p->cam_alpha = 0.65;
   p->cam_beta  =-0.46;

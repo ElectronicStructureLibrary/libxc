@@ -93,6 +93,8 @@ hyb_gga_xc_b97_init(XC(func_type) *p)
   }else if(p->info->number == XC_HYB_GGA_XC_WB97X_V) {
     p->cam_omega =  0.3;
     p->cam_beta  = -(1.0 - 0.167);
+    p->nlc_b = 6.0;
+    p->nlc_C = 0.01;
   }
 }
 
@@ -255,10 +257,10 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97x) = {
 const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97x_v) = {
   XC_HYB_GGA_XC_WB97X_V,
   XC_EXCHANGE_CORRELATION,
-  "wB97X-V range-separated functional to be used with VV10 correlation",
+  "wB97X-V range-separated functional",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Mardirossian2014_9904, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_b97_init, 
   NULL, NULL, NULL, NULL

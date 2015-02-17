@@ -73,6 +73,10 @@ mgga_xc_b97mv_init(XC(func_type) *p)
   p->params = malloc(sizeof(mgga_xc_b97mv_params));
   params = (mgga_xc_b97mv_params *) p->params;
 
+  /* Non-local correlation parameters */
+  p->nlc_b = 6.0;
+  p->nlc_C = 0.01;
+  
   switch(p->info->number){
   case XC_MGGA_XC_B97M_V:
     params -> cc = b97mv_params;
@@ -234,10 +238,10 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 XC(func_info_type) XC(func_info_mgga_xc_b97m_v) = {
   XC_MGGA_XC_B97M_V,
   XC_EXCHANGE_CORRELATION,
-  "B97M-V exchange-correlation functional to be used with VV10",
+  "B97M-V exchange-correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Mardirossian2015_b97mv, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_xc_b97mv_init,
   NULL, NULL, NULL,

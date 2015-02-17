@@ -57,8 +57,9 @@ extern "C" {
 #define XC_FLAGS_3D               (1 <<  7) /*  128 */
 #define XC_FLAGS_HYB_CAM          (1 <<  8) /*  256 */
 #define XC_FLAGS_HYB_CAMY         (1 <<  9) /*  512 */
-#define XC_FLAGS_STABLE           (1 << 10) /* 1024 */ 
-#define XC_FLAGS_DEVELOPMENT      (1 << 11) /* 2048 */
+#define XC_FLAGS_VV10             (1 << 10) /* 1024 */
+#define XC_FLAGS_STABLE           (1 << 11) /* 2048 */ 
+#define XC_FLAGS_DEVELOPMENT      (1 << 12) /* 4096 */
 
 #define XC_TAU_EXPLICIT         0
 #define XC_TAU_EXPANSION        1
@@ -123,6 +124,9 @@ struct XC(func_type){
   FLOAT cam_omega;                      /* range separation parameter for range separated hybrids */
   FLOAT cam_alpha;                      /* fraction of Hartree-Fock exchange for normal or range separated hybrids */
   FLOAT cam_beta;                       /* fraction of short-range exchange for range-separated hybrids */
+
+  FLOAT nlc_b;                          /* Non-local correlation, b parameter */
+  FLOAT nlc_C;                          /* Non-local correlation, C parameter */
 
   int func;                             /* Shortcut in case of several functionals sharing the same interface */
   int n_rho, n_sigma, n_tau, n_lapl;    /* spin dimensions of the arrays */
@@ -212,6 +216,7 @@ FLOAT XC(gga_ak13_get_asymptotic) (FLOAT homo);
 
 FLOAT XC(hyb_exx_coef)(const XC(func_type) *p);
 void  XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT *beta);
+void  XC(nlc_coef)(const XC(func_type) *p, FLOAT *nlc_b, FLOAT *nlc_C);
 
 void XC(hyb_gga_xc_hse_set_params) (XC(func_type) *p, FLOAT alpha, FLOAT omega);
 void XC(hyb_gga_xc_pbeh_set_params)(XC(func_type) *p, FLOAT alpha);

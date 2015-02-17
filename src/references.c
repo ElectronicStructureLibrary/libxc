@@ -1577,3 +1577,10 @@ func_reference_type xc_ref_Seth2012_901 = {
 };
 
 
+func_reference_type xc_ref_Vydrov2010_244103 = {
+  "O. A. Vydrov and T. Van Voorhis, J. Chem. Phys. 133, 244103 (2010), http://dx.doi.org/10.1063/1.3521275",
+  "http://dx.doi.org/10.1063/1.3521275",
+  "@article{Vydrov2010_244103,\n   author = \"Vydrov, Oleg A. and Van Voorhis, Troy\",\n   title = \"Nonlocal van der Waals density functional: The simpler the better\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2010\",\n   volume = \"133\",\n   number = \"24\",\n   eid = 244103,\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/133/24/10.1063/1.3521275\",\n   doi = \"http://dx.doi.org/10.1063/1.3521275\"\n}"
+};
+
+

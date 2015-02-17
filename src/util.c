@@ -95,6 +95,8 @@ XC(mix_init)(XC(func_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mi
   p->cam_omega=0.0;
   p->cam_alpha=0.0;
   p->cam_beta=0.0;
+  p->nlc_b=0.0;
+  p->nlc_C=0.0;
 }
 
 xc_gga_enhancement_t

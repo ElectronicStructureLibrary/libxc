@@ -204,3 +204,12 @@ void XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT 
   *alpha = p->cam_alpha;
   *beta  = p->cam_beta;
 }
+
+/* returns the NLC parameters */
+void XC(nlc_coef)(const XC(func_type) *p, FLOAT *nlc_b, FLOAT *nlc_C)
+{
+  assert(p!=NULL);
+
+  *nlc_b = p->nlc_b;
+  *nlc_C = p->nlc_C;
+}

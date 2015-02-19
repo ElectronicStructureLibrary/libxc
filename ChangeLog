@@ -1,3 +1,74 @@
+2015-02-19 13:29  micael
+
+	* [r12105] src/gga_k_ol2.c, src/work_lda.c: Backport of 12104 to
+	  branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12104 | micael | 2015-02-19 14:24:34 +0100 (Thu, 19 Feb 2015) |
+	  2 lines
+	  
+	  Patch by X. Andrade to fix compilation with IBM C compiler.
+	  
+	  ------------------------------------------------------------------------
+
+2015-02-09 07:21  lehtola
+
+	* [r12096] src/util.c: Backport of 12094 to branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12094 | lehtola | 2015-02-08 23:13:58 -0800 (Sun, 08 Feb 2015) |
+	  1 line
+	  
+	  Missing initialization for mix functionals.
+	  ------------------------------------------------------------------------
+
+2015-01-05 09:30  micael
+
+	* [r12082] src/gga_x_lb.c: Backport of 12074 to branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12074 | marques | 2014-12-10 14:02:59 +0100 (Wed, 10 Dec 2014) |
+	  5 lines
+	  
+	  Spin unpolarized version of LB94 seems to be wrong. If this is
+	  true, it is a 10 year old bug. And in the functional that has
+	  been changed by the most people!
+	  
+	  Can someone check this one?
+	  
+	  
+	  ------------------------------------------------------------------------
+
+2015-01-05 09:19  micael
+
+	* [r12080] src/mgga_c_m08.c: Backport of 12069 to branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12069 | marques | 2014-12-08 10:04:18 +0100 (Mon, 08 Dec 2014) |
+	  2 lines
+	  
+	  Bug fix: LDA was being double counted. This affected the
+	  correlations of M08_HX, M08_SO, M11, and M11_L.
+	  
+	  ------------------------------------------------------------------------
+
+2015-01-05 08:54  micael
+
+	* [r12078] src/mgga_c_pkzb.c: Backport of 12068 to branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12068 | marques | 2014-12-03 12:50:14 +0100 (Wed, 03 Dec 2014) |
+	  2 lines
+	  
+	  Bug fix: revTPSS correlation was using the PBE while it should
+	  have been using the vPBE
+	  
+	  ------------------------------------------------------------------------
+
+2014-10-30 08:29  micael
+
+	* [r12065] NEWS, PACKAGING, configure.ac: Tagging versions 2.1.1
+	  and 2.2.1.
+
+2014-10-30 08:02  micael
+
+	* [r12064] ChangeLog: Updating ChangeLog.
+
 2014-10-28 22:15  lehtola
 
 	* [r12056] src/hyb_gga_xc_cam_b3lyp.c: Backport of 12030 to

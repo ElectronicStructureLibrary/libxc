@@ -16,12 +16,14 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/************************************************************************
-  This file is to be included in LDA functionals. As often these
-  functionals are written as a function of rs and zeta, this
-  routine performs the necessary conversions between this and a functional
-  of rho.
-************************************************************************/
+/**
+ * @file work_lda.c
+ * @brief This file is to be included in LDA functionals. As often these
+ *        functionals are written as a function of rs and zeta, this
+ *        routine performs the necessary conversions between this and a functional
+ *        of rho.
+ */
+
 
 #ifndef XC_DIMENSIONS
 #define XC_DIMENSIONS 3
@@ -29,6 +31,9 @@
 
 #include <string.h>
 
+/**
+ * @param[in,out] func_type: pointer to pspdata structure to be initialized
+ */
 static void 
 work_lda(const XC(func_type) *p, int np, const FLOAT *rho, 
 	 FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3)

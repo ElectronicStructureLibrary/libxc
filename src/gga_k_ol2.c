@@ -37,9 +37,9 @@ static inline void
 func(const XC(func_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
-  static const FLOAT aa[2] = {    1.0,            M_CBRT2*0.07064/X_FACTOR_C};
-  static const FLOAT bb[2] = {    1.0/K_FACTOR_C, M_CBRT2*0.07064/X_FACTOR_C};
-  static const FLOAT cc[2] = {0.00887/K_FACTOR_C, M_CBRT2*M_CBRT2*0.07064*34.0135/X_FACTOR_C};
+  static const FLOAT aa[2] = {    1.0,            (FLOAT)M_CBRT2*0.07064/X_FACTOR_C};
+  static const FLOAT bb[2] = {    1.0/K_FACTOR_C, (FLOAT)M_CBRT2*0.07064/X_FACTOR_C};
+  static const FLOAT cc[2] = {0.00887/K_FACTOR_C, (FLOAT)M_CBRT2*(FLOAT)M_CBRT2*0.07064*34.0135/X_FACTOR_C};
   FLOAT denom;
 
   denom = M_CBRT2 + 4.0*x;

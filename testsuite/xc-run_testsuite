@@ -29,7 +29,7 @@ for i in `ls $srcdir/regression/*.pol.bz2 | sort`; do
   bunzip2 -c $srcdir/regression/$func.pol.bz2 > $tmpdir/$$.pol_ref
   bunzip2 -c $srcdir/regression/$func.unpol.bz2 > $tmpdir/$$.unpol_ref
 
-  $builddir/xc-regression $func $srcdir/input/BrOH+ $tmpdir/$$.pol $tmpdir/$$.unpol > /dev/null
+  $EXEC $builddir/xc-regression $func $srcdir/input/BrOH+ $tmpdir/$$.pol $tmpdir/$$.unpol > /dev/null
 
   # Spin-restricted
   res=`$builddir/xc-error $tmpdir/$$.unpol $tmpdir/$$.unpol_ref`

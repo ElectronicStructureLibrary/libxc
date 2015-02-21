@@ -121,7 +121,6 @@ hyb_gga_xc_lrc_wpbeh_init(XC(func_type) *p)
   p->cam_omega =  0.2;
   p->cam_alpha =  1.0;
   p->cam_beta  = -0.8;
-  
   XC(gga_x_wpbeh_set_params)(p->func_aux[0], p->cam_omega);
 }
 
@@ -143,9 +142,6 @@ hyb_gga_xc_hjs_init(XC(func_type) *p)
   static int   funcs_id  [3] = {-1, -1, XC_GGA_C_PBE};
   static FLOAT funcs_coef[3] = {1.0, -0.25, 1.0};
 
-  p->cam_omega = 0.11;
-  p->cam_beta  = 0.25;
-
   switch(p->info->number){
   case XC_HYB_GGA_XC_HJS_PBE:
     funcs_id[0] = funcs_id[1] = XC_GGA_X_HJS_PBE;
@@ -165,6 +161,9 @@ hyb_gga_xc_hjs_init(XC(func_type) *p)
   }
 
   XC(mix_init)(p, 3, funcs_id, funcs_coef);
+
+  p->cam_omega = 0.11;
+  p->cam_beta  = 0.25;
   XC(gga_x_hjs_set_params)(p->func_aux[1], p->cam_omega);
 }
 

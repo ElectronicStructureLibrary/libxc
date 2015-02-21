@@ -30,22 +30,28 @@ XC(hyb_gga_xc_camy_b3lyp_init)(XC(func_type) *p)
   static int   funcs_id  [4] = {XC_GGA_X_B88, XC_GGA_X_SFAT, XC_LDA_C_VWN, XC_GGA_C_LYP};
   static FLOAT funcs_coef[4];
 
+  /* Need temp variables since cam_ parameters are initialized in mix_init */
+  static FLOAT omega, alpha, beta;
+
   /* N.B. The notation used in the original reference uses a different
      convention for alpha and beta.  In libxc, alpha is the weight for
      HF exchange, which in the original reference is alpha+beta.
   */
-  p->cam_omega = 0.34;
-  p->cam_alpha = 0.65;
-  p->cam_beta  =-0.46;
-  
-  funcs_coef[0] = 1.0 - p->cam_alpha;
-  funcs_coef[1] =-p->cam_beta;
+  omega = 0.34;
+  alpha = 0.65;
+  beta  =-0.46;
+
+  funcs_coef[0] = 1.0 - alpha;
+  funcs_coef[1] = -beta;
   funcs_coef[2] = 1.0 - ac;
   funcs_coef[3] = ac;
   
   XC(mix_init)(p, 4, funcs_id, funcs_coef);
-
-  XC(gga_x_ityh_set_params)(p->func_aux[1], XC_GGA_X_B88, p->cam_omega);
+  XC(gga_x_ityh_set_params)(p->func_aux[1], XC_GGA_X_B88, omega);
+  
+  p->cam_omega = omega;
+  p->cam_alpha = alpha;
+  p->cam_beta  = beta;
 }
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_camy_b3lyp) = {

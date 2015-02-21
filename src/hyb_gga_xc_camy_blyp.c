@@ -42,7 +42,7 @@ XC(hyb_gga_xc_camy_blyp_init)(XC(func_type) *p)
 	       	   range related interactions */
   
   funcs_coef[0] = 1.0 - alpha;
-  funcs_coef[1] = beta;
+  funcs_coef[1] =-beta;
   funcs_coef[2] = 1.0;
 
   XC(mix_init)(p, 3, funcs_id, funcs_coef);

@@ -29,19 +29,28 @@ XC(hyb_gga_xc_camy_blyp_init)(XC(func_type) *p)
   static int   funcs_id  [3] = {XC_GGA_X_B88, XC_GGA_X_SFAT, XC_GGA_C_LYP};
   static FLOAT funcs_coef[3];
 
-    p->cam_alpha = 0.20;
-    p->cam_beta  = 0.80;
-    p->cam_omega = 0.44;	/* we use omega for gamma here, 'cause
-				   both denote dampening parameters for
-				   range related interactions */
-
-  funcs_coef[0] = 1.0 - p->cam_alpha - p->cam_beta;
-  funcs_coef[1] = p->cam_beta; /* 1.0 - p->cam_alpha - p->cam_beta? */
+  /* N.B. The notation used in the original reference uses a different
+     convention for alpha and beta.  In libxc, alpha is the weight for
+     HF exchange, which in the original reference is alpha+beta.
+  */
+  FLOAT alpha, beta, omega;
+  
+  alpha = 1.00;
+  beta  =-0.80;
+  omega = 0.44;	/* we use omega for gamma here, 'cause
+		   both denote dampening parameters for
+	       	   range related interactions */
+  
+  funcs_coef[0] = 1.0 - alpha;
+  funcs_coef[1] =-beta;
   funcs_coef[2] = 1.0;
 
   XC(mix_init)(p, 3, funcs_id, funcs_coef);
-
   XC(gga_x_sfat_set_params)(p->func_aux[1], XC_GGA_X_B88, p->cam_omega);
+
+  p->cam_omega=omega;
+  p->cam_alpha=alpha;
+  p->cam_beta=beta;
 }
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_camy_blyp) = {

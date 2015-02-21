@@ -33,12 +33,13 @@ static const FLOAT CC_N12[4][4] = {
 };
 
 static const FLOAT CC_N12_SX[4][4] = {
+  /* Indices are wrong in the original paper; the first two indices
+     need to be flipped */
   { 6.81116e-01,  1.88858e+00,  1.78590e+00,  8.79456e-01},
   {-8.12270e-02, -1.08723e+00, -4.18682e+00, -3.00000e+01},
   { 5.36236e-01, -5.45678e+00,  3.00000e+01,  5.51105e+01},
   {-7.09913e-01,  1.30001e+01, -7.24877e+01,  2.98363e+01}
 };
-
 
 static void
 hyb_gga_x_n12_sx_init(XC(func_type) *p)

@@ -1584,3 +1584,10 @@ func_reference_type xc_ref_Vydrov2010_244103 = {
 };
 
 
+func_reference_type xc_ref_Seth2013_2286 = {
+  "M. Seth, T. Ziegler, M. Steinmetz, and S. Grimme, J. Chem. Theory Comput. 9, 2286 (2013), \Eprint {http://arxiv.org/abs/http://dx.doi.org/10.1021/ct301112m} {http://dx.doi.org/10.1021/ct301112m} ",
+  "10.1021/ct301112m",
+  "@article{Seth2013_2286,\n   author = {Seth, Michael and Ziegler, Tom and Steinmetz, Marc and Grimme, Stefan},\n   title = {Modeling Transition Metal Reactions with Range-Separated Functionals},\n   journal = {Journal of Chemical Theory and Computation},\n   volume = {9},\n   number = {5},\n   pages = {2286-2299},\n   year = {2013},\n   doi = {10.1021/ct301112m},\n   URL = {http://dx.doi.org/10.1021/ct301112m},\n   eprint = {http://dx.doi.org/10.1021/ct301112m}\n}"
+};
+
+

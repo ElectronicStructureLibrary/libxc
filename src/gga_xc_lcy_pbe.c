@@ -29,22 +29,14 @@ XC(gga_xc_lcy_pbe_init)(XC(func_type) *p)
   static int   funcs_id  [2] = {XC_GGA_X_SFAT, XC_GGA_C_PBE};
   static FLOAT funcs_coef[2];
 
-  FLOAT omega;
-  switch (p->info->number){
-    case XC_GGA_XC_LCY_PBE:
-      omega = 0.9;	/* we use omega for gamma here */
-      break;
-  default:
-    fprintf(stderr,"Internal error in gga_xc_lcy_pbe_init.\n");
-    exit(1);
-  }
+  FLOAT gamma = 0.75;   /* we use omega for gamma here */
 
   funcs_coef[0] = 1.0;
   funcs_coef[1] = 1.0;
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
 
-  XC(gga_x_sfat_set_params)(p->func_aux[0], XC_GGA_X_PBE, omega);
+  XC(gga_x_sfat_set_params)(p->func_aux[0], XC_GGA_X_PBE, gamma);
 }
 
 const XC(func_info_type) XC(func_info_gga_xc_lcy_pbe) = {
@@ -52,7 +44,7 @@ const XC(func_info_type) XC(func_info_gga_xc_lcy_pbe) = {
   XC_EXCHANGE_CORRELATION,
   "LCY version of PBE",
   XC_FAMILY_GGA,
-  {&xc_ref_Seth2012_901, NULL, NULL, NULL, NULL},
+  {&xc_ref_Seth2012_901, &xc_ref_Seth2013_2286, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   XC(gga_xc_lcy_pbe_init),

@@ -34,7 +34,7 @@
 #define XC_HYB_GGA_XC_SB98_2c  425 /* Schmider-Becke 98 parameterization 2c    */
 #define XC_HYB_GGA_XC_WB97     463 /* Chai and Head-Gordon                     */
 #define XC_HYB_GGA_XC_WB97X    464 /* Chai and Head-Gordon                     */
-#define XC_HYB_GGA_XC_WB97X_V  465 /* Mardirossian and Head-Gordon             */
+#define XC_HYB_GGA_XC_WB97X_V  466 /* Mardirossian and Head-Gordon             */
 
 static void
 hyb_gga_xc_b97_init(XC(func_type) *p)

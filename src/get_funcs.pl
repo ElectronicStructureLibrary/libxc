@@ -30,7 +30,7 @@ foreach $func (@funcs){
 
   $s1 = ""; $s2 = "";
   foreach $key (sort { $a <=> $b } keys %deflist_f) {
-    $s0 .= sprintf "%s %-20s %3s  /*%-60s*/\n", "#define ",
+    $s0 .= sprintf "%s %-30s %3s  /*%-70s*/\n", "#define ",
       $deflist_f{$key}, $key, $deflist_c{$key};
 
     $t = $deflist_f{$key};

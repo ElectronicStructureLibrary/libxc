@@ -39,7 +39,7 @@ foreach $func (@funcs){
     $s4 .= ",\n" if($s4);
     $s4 .= sprintf "{\"%s\", %d}", $t, $key;
 
-    $s3 .= sprintf "  %s %-20s = %3s  ! %s\n", "integer, parameter ::",
+    $s3 .= sprintf "  %s %-30s = %3s  ! %s\n", "integer, parameter ::",
       $deflist_f{$key}, $key, $deflist_c{$key};
 
     $s1 .= "extern XC(func_info_type) XC(func_info_$t);\n";

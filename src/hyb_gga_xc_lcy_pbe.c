@@ -21,15 +21,16 @@
 #include <assert.h>
 #include "util.h"
 
-#define  XC_GGA_XC_LCY_PBE 467  /* PBE with yukawa screening */
+#define  XC_HYB_GGA_XC_LCY_PBE 467  /* PBE with yukawa screening */
 
 void
-XC(gga_xc_lcy_pbe_init)(XC(func_type) *p)
+XC(hyb_gga_xc_lcy_pbe_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_SFAT, XC_GGA_C_PBE};
   static FLOAT funcs_coef[2];
+  static FLOAT gamma;
 
-  FLOAT gamma = 0.75;   /* we use omega for gamma here */
+  gamma = 0.75; /* Use omega for gamma */
 
   funcs_coef[0] = 1.0;
   funcs_coef[1] = 1.0;
@@ -37,16 +38,19 @@ XC(gga_xc_lcy_pbe_init)(XC(func_type) *p)
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
 
   XC(gga_x_sfat_set_params)(p->func_aux[0], XC_GGA_X_PBE, gamma);
+  p->cam_omega = gamma;
+  p->cam_alpha = 1.0;
+  p->cam_beta  = -1.0;
 }
 
-const XC(func_info_type) XC(func_info_gga_xc_lcy_pbe) = {
-  XC_GGA_XC_LCY_PBE,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_lcy_pbe) = {
+  XC_HYB_GGA_XC_LCY_PBE,
   XC_EXCHANGE_CORRELATION,
   "LCY version of PBE",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Seth2012_901, &xc_ref_Seth2013_2286, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HYB_LCY | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  XC(gga_xc_lcy_pbe_init),
+  XC(hyb_gga_xc_lcy_pbe_init),
   NULL, NULL, NULL, NULL
 };

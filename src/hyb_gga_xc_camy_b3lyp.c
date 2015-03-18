@@ -21,7 +21,7 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_HYB_GGA_XC_CAMY_B3LYP        467 /* B3LYP with Yukawa screening */
+#define XC_HYB_GGA_XC_CAMY_B3LYP        470 /* B3LYP with Yukawa screening */
 
 void
 XC(hyb_gga_xc_camy_b3lyp_init)(XC(func_type) *p)
@@ -39,7 +39,7 @@ XC(hyb_gga_xc_camy_b3lyp_init)(XC(func_type) *p)
   */
   omega = 0.34;
   alpha = 0.65;
-  beta  =-0.46;
+  beta  = -0.46;
 
   funcs_coef[0] = 1.0 - alpha;
   funcs_coef[1] = -beta;
@@ -47,7 +47,7 @@ XC(hyb_gga_xc_camy_b3lyp_init)(XC(func_type) *p)
   funcs_coef[3] = ac;
   
   XC(mix_init)(p, 4, funcs_id, funcs_coef);
-  XC(gga_x_ityh_set_params)(p->func_aux[1], XC_GGA_X_B88, omega);
+  XC(gga_x_sfat_set_params)(p->func_aux[1], XC_GGA_X_B88, omega);
   
   p->cam_omega = omega;
   p->cam_alpha = alpha;

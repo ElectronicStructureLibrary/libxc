@@ -56,7 +56,7 @@ libxc_la_FUNC_SOURCES = \
 	hyb_gga_xc_pbeh.c hyb_gga_xc_b1wc.c hyb_gga_xc_b97.c		\
 	hyb_gga_xc_hse.c hyb_gga_xc_cam_b3lyp.c				\
 	hyb_gga_xc_camy_blyp.c hyb_gga_xc_camy_b3lyp.c			\
-	gga_xc_lcy_pbe.c gga_xc_lcy_blyp.c gga_xc_vv10.c \
+	hyb_gga_xc_lcy_pbe.c hyb_gga_xc_lcy_blyp.c gga_xc_vv10.c \
 	mgga.c \
 	mgga_x_lta.c mgga_x_tpss.c mgga_x_br89.c mgga_x_gvt4.c	\
 	mgga_x_m06l.c mgga_x_tau_hcth.c mgga_x_2d_prhg07.c	\

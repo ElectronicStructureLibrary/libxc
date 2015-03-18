@@ -46,20 +46,23 @@ extern "C" {
 #define XC_FAMILY_HYB_GGA      32
 #define XC_FAMILY_HYB_MGGA     64
 
-/* flags that can be used in info.flags */
-#define XC_FLAGS_HAVE_EXC         (1 <<  0) /*    1 */
-#define XC_FLAGS_HAVE_VXC         (1 <<  1) /*    2 */
-#define XC_FLAGS_HAVE_FXC         (1 <<  2) /*    4 */
-#define XC_FLAGS_HAVE_KXC         (1 <<  3) /*    8 */
-#define XC_FLAGS_HAVE_LXC         (1 <<  4) /*   16 */
-#define XC_FLAGS_1D               (1 <<  5) /*   32 */
-#define XC_FLAGS_2D               (1 <<  6) /*   64 */
-#define XC_FLAGS_3D               (1 <<  7) /*  128 */
-#define XC_FLAGS_HYB_CAM          (1 <<  8) /*  256 */
-#define XC_FLAGS_HYB_CAMY         (1 <<  9) /*  512 */
-#define XC_FLAGS_VV10             (1 << 10) /* 1024 */
-#define XC_FLAGS_STABLE           (1 << 11) /* 2048 */ 
-#define XC_FLAGS_DEVELOPMENT      (1 << 12) /* 4096 */
+/* flags that can be used in info.flags. Don't reorder these since it
+   will break the ABI of the library. */
+#define XC_FLAGS_HAVE_EXC         (1 <<  0) /*     1 */
+#define XC_FLAGS_HAVE_VXC         (1 <<  1) /*     2 */
+#define XC_FLAGS_HAVE_FXC         (1 <<  2) /*     4 */
+#define XC_FLAGS_HAVE_KXC         (1 <<  3) /*     8 */
+#define XC_FLAGS_HAVE_LXC         (1 <<  4) /*    16 */
+#define XC_FLAGS_1D               (1 <<  5) /*    32 */
+#define XC_FLAGS_2D               (1 <<  6) /*    64 */
+#define XC_FLAGS_3D               (1 <<  7) /*   128 */
+#define XC_FLAGS_HYB_CAM          (1 <<  8) /*   256 */
+#define XC_FLAGS_HYB_CAMY         (1 <<  9) /*   512 */
+#define XC_FLAGS_VV10             (1 << 10) /*  1024 */
+#define XC_FLAGS_HYB_LC           (1 << 11) /*  2048 */
+#define XC_FLAGS_HYB_LCY          (1 << 12) /*  4096 */
+#define XC_FLAGS_STABLE           (1 << 13) /*  8192 */ 
+#define XC_FLAGS_DEVELOPMENT      (1 << 14) /* 16384 */
 
 #define XC_TAU_EXPLICIT         0
 #define XC_TAU_EXPANSION        1

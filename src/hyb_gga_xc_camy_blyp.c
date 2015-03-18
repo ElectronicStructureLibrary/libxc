@@ -33,7 +33,7 @@ XC(hyb_gga_xc_camy_blyp_init)(XC(func_type) *p)
      convention for alpha and beta.  In libxc, alpha is the weight for
      HF exchange, which in the original reference is alpha+beta.
   */
-  FLOAT alpha, beta, omega;
+  static FLOAT alpha, beta, omega;
   
   alpha = 1.00;
   beta  =-0.80;
@@ -46,7 +46,7 @@ XC(hyb_gga_xc_camy_blyp_init)(XC(func_type) *p)
   funcs_coef[2] = 1.0;
 
   XC(mix_init)(p, 3, funcs_id, funcs_coef);
-  XC(gga_x_sfat_set_params)(p->func_aux[1], XC_GGA_X_B88, p->cam_omega);
+  XC(gga_x_sfat_set_params)(p->func_aux[1], XC_GGA_X_B88, omega);
 
   p->cam_omega=omega;
   p->cam_alpha=alpha;

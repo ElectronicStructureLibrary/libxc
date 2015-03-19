@@ -1591,3 +1591,10 @@ func_reference_type xc_ref_Seth2013_2286 = {
 };
 
 
+func_reference_type xc_ref_Chai2008_6615 = {
+  "J.-D. Chai and M. Head-Gordon, Phys. Chem. Chem. Phys. 10, 6615 (2008)",
+  "10.1039/B810189B",
+  "@Article{Chai2008_6615,\n   author    = \"Chai, Jeng-Da and Head-Gordon, Martin\",\n   title     = \"Long-range corrected hybrid density functionals with damped atom-atom dispersion corrections\",\n   journal   = \"Phys. Chem. Chem. Phys.\",\n   publisher = \"The Royal Society of Chemistry\",\n   year      = \"2008\",\n   volume    = \"10\",\n   issue     = \"44\",\n   pages     = \"6615-6620\",\n   doi       = \"10.1039/B810189B\",\n   url       = \"http://dx.doi.org/10.1039/B810189B\",\n}"
+};
+
+

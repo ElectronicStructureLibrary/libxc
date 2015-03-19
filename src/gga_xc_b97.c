@@ -47,6 +47,7 @@
 #define XC_GGA_XC_WB97     251 /* Chai and Head-Gordon                     */
 #define XC_GGA_XC_WB97X    252 /* Chai and Head-Gordon                     */
 #define XC_GGA_XC_WB97X_V  253 /* Mardirossian and Head-Gordon             */
+#define XC_GGA_XC_WB97X_D  256 /* Chai and Head-Gordon                     */
 
 static const FLOAT b97_params[][3][5] = {
   {      /* HCTH/93 */
@@ -153,6 +154,10 @@ static const FLOAT b97_params[][3][5] = {
     { 0.833,        0.603,        1.194,        0.0,          0.0        },  /* X   */
     { 0.556,       -0.257,        0.0,          0.0,          0.0        },  /* Css */
     { 1.219,       -1.850,        0.0,          0.0,          0.0        }   /* Cab */
+  }, {   /* wB97X-D */
+    { 7.77964e-01,  6.61160e-01,  5.74541e-01, -5.25671e+00,  1.16386e+01},  /* X   */
+    { 1.00000e+00, -6.90539e+00,  3.13343e+01, -5.10533e+01,  2.64423e+01},  /* Css */
+    { 1.00000e+00,  1.79413e+00, -1.20477e+01,  1.40847e+01, -8.50809e+00}   /* Cab */
   }
 };
 
@@ -215,6 +220,10 @@ gga_xc_b97_init(XC(func_type) *p)
   case XC_GGA_XC_WB97X_V:
     p->func = 25;
     XC(lda_x_set_params)(p->func_aux[0], 4.0/3.0, XC_NON_RELATIVISTIC, 0.3);
+    break;
+  case XC_GGA_XC_WB97X_D:
+    p->func = 26;
+    XC(lda_x_set_params)(p->func_aux[0], 4.0/3.0, XC_NON_RELATIVISTIC, 0.2);
     break;
   default:
     fprintf(stderr, "Internal error in gga_b97\n");
@@ -727,6 +736,21 @@ const XC(func_info_type) XC(func_info_gga_xc_wb97x_v) = {
   "wB97X worker function",
   XC_FAMILY_GGA,
   {&xc_ref_Mardirossian2014_9904, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-23, 1e-32, 0.0, 1e-32,
+  gga_xc_b97_init, 
+  NULL,
+  NULL,
+  work_gga_c,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_xc_wb97x_d) = {
+  XC_GGA_XC_WB97X_D,
+  XC_EXCHANGE_CORRELATION,
+  "wB97D worker function",
+  XC_FAMILY_GGA,
+  {&xc_ref_Chai2008_6615, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
   gga_xc_b97_init, 

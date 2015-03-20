@@ -56,7 +56,7 @@ mgga_x_tpss_init(XC(func_type) *p)
     break;
   case XC_MGGA_X_MODTPSS:
     params->func = p->func = 0; /* this has exactly the same form as TPSS */
-    XC(mgga_x_tpss_set_params)(p, 0.40, 1.39660, 1.38, 0.804, 0.250);
+    XC(mgga_x_tpss_set_params)(p, 0.40, 1.38496, 1.37, 0.804, 0.252);
     break;
   case XC_MGGA_X_REVTPSS:
     params->func = p->func = 1;

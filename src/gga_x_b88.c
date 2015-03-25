@@ -130,7 +130,7 @@ XC(gga_x_b88_enhance)(const XC(func_type) *p, int order, FLOAT x,
   if(p->func == 5) /* k_thakkar */
     *d2fdx2 += 0.072*4.0*CBRT(4.0)*dd*dd*dd;
 
-  if(order < 2) return;
+  if(order < 3) return;
 
   d3f1 = 0.0;
   d3f2 = -beta*gamma*x*(4.0 + x2)/(aux1*aux1*aux2);

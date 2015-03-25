@@ -20,7 +20,7 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_GGA_X_2D_B86          128 /* Becke 86 Xalfa,beta,gamma                      */
+#define XC_GGA_X_2D_B86          128 /* Becke 86 Xalpha,beta,gamma                      */
 
 static inline void 
 func(const XC(func_type) *p, int order, FLOAT x, 

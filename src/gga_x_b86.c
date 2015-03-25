@@ -21,9 +21,9 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_GGA_X_B86          103 /* Becke 86 Xalfa,beta,gamma                      */
-#define XC_GGA_X_B86_MGC      105 /* Becke 86 Xalfa,beta,gamma (with mod. grad. correction) */
-#define XC_GGA_X_B86_R         41 /* Revised Becke 86 Xalfa,beta,gamma (with mod. grad. correction) */
+#define XC_GGA_X_B86          103 /* Becke 86 Xalpha,beta,gamma                      */
+#define XC_GGA_X_B86_MGC      105 /* Becke 86 Xalpha,beta,gamma (with mod. grad. correction) */
+#define XC_GGA_X_B86_R         41 /* Revised Becke 86 Xalpha,beta,gamma (with mod. grad. correction) */
 
 typedef struct{
   FLOAT beta, gamma, omega;

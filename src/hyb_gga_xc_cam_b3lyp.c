@@ -22,7 +22,7 @@
 #include "util.h"
 
 #define XC_HYB_GGA_XC_CAM_B3LYP        433 /* CAM version of B3LYP */
-#define XC_HYB_GGA_XC_TUNED_CAM_B3LYP  434 /* CAM version of B3LYP tunes for excitations*/
+#define XC_HYB_GGA_XC_TUNED_CAM_B3LYP  434 /* CAM version of B3LYP tuned for excitations*/
 
 void
 XC(hyb_gga_xc_cam_b3lyp_init)(XC(func_type) *p)

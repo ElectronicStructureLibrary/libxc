@@ -132,7 +132,7 @@ legf(int order, int legorder, const FLOAT *coefs, FLOAT xi, FLOAT xj,
   Li[0] = 1.0; Li[1] = xi;
   Lj[0] = 1.0; Lj[1] = xj;
 
-  /* recursively building polynomia and their derivatives */
+  /* recursively building polynomials and their derivatives */
   for(i = 2; i < legorder; i++){
     Li[i] = 2.0 * xi * Li[i-1] - Li[i-2] - (xi * Li[i-1] - Li[i-2])/i;
     Lj[i] = 2.0 * xj * Lj[i-1] - Lj[i-2] - (xj * Lj[i-1] - Lj[i-2])/i;

@@ -67,7 +67,7 @@ extern "C" {
 #define XC_TAU_EXPLICIT         0
 #define XC_TAU_EXPANSION        1
 
-/* These are old names keep for compatibility, and that should disappear soon */
+/* These are old names kept for compatibility, and that should disappear soon */
 #define XC_GGA_XC_LB          160
 #define XC_GGA_K_ABSR1        506
 #define XC_GGA_K_ABSR2        507
@@ -124,7 +124,7 @@ struct XC(func_type){
   struct XC(func_type) **func_aux;      /* most GGAs are based on a LDA or other GGAs  */
   FLOAT *mix_coef;                      /* coefficients for the mixing */
 
-  FLOAT cam_omega;                      /* range separation parameter for range separated hybrids */
+  FLOAT cam_omega;                      /* range-separation parameter for range-separated hybrids */
   FLOAT cam_alpha;                      /* fraction of Hartree-Fock exchange for normal or range separated hybrids */
   FLOAT cam_beta;                       /* fraction of short-range exchange for range-separated hybrids */
 
@@ -269,4 +269,3 @@ void XC(mix_func)
 #endif
 
 #endif
-

@@ -921,8 +921,8 @@ func_reference_type xc_ref_Swart2009_69 = {
 
 func_reference_type xc_ref_Filatov1997_603 = {
   "M. Filatov and W. Thiel, Int. J. Quantum Chem. 62, 603 (1997)",
-  "10.1002/(SICI)1097-461X(1997)62:6<603::AID-QUA4>3.0.CO;2-#",
-  "@article{Filatov1997_603,\n  title = {A nonlocal correlation energy density functional from a Coulomb hole model},\n  author = {M. Filatov and W. Thiel},\n  journal = {Int. J. Quantum Chem.},\n  volume = {62},\n  number = {6},\n  pages = {603},\n  year = {1997},\n  publisher = {John Wiley & Sons, Inc.},\n  issn = {1097-461X},\n  keywords = {density functionals, Coulomb hole, electron gas, atomic correlation energies, electron correlation},\n  doi = {10.1002/(SICI)1097-461X(1997)62:6<603::AID-QUA4>3.0.CO;2-#},\n  url = {http://onlinelibrary.wiley.com/doi/10.1002/(SICI)1097-461X(1997)62:6<603::AID-QUA4>3.0.CO;2-\\%23}\n}"
+  "10.1002/(SICI)1097-461X(1997)62:6<603::AID-QUA4>3.0.CO;2-%23",
+  "@article{Filatov1997_603,\n  title = {A nonlocal correlation energy density functional from a Coulomb hole model},\n  author = {M. Filatov and W. Thiel},\n  journal = {Int. J. Quantum Chem.},\n  volume = {62},\n  number = {6},\n  pages = {603},\n  year = {1997},\n  publisher = {John Wiley & Sons, Inc.},\n  issn = {1097-461X},\n  keywords = {density functionals, Coulomb hole, electron gas, atomic correlation energies, electron correlation},\n  doi = {10.1002/(SICI)1097-461X(1997)62:6<603::AID-QUA4>3.0.CO;2-%23},\n  url = {http://onlinelibrary.wiley.com/doi/10.1002/(SICI)1097-461X(1997)62:6<603::AID-QUA4>3.0.CO;2-\\%23}\n}"
 };
 
 
@@ -1509,7 +1509,7 @@ func_reference_type xc_ref_Hamada2014_121103 = {
 
 func_reference_type xc_ref_Wellendorff2014_144107 = {
   "J. Wellendorff, K. T. Lundgaard, K. W. Jacobsen, and T. Bligaard, J. Chem. Phys. 140, 144107 (2014)",
-  "http://dx.doi.org/10.1063/1.4870397",
+  "10.1063/1.4870397",
   "@article{Wellendorff2014_144107,\n   author = {Wellendorff, Jess and Lundgaard, Keld T. and Jacobsen, Karsten W. and Bligaard, Thomas},\n   title = {mBEEF: An accurate semi-local Bayesian error estimation density functional},\n   journal = {J. Chem. Phys.},\n   year = {2014},\n   volume = {140},\n   number = {14},\n   pages = {144107},\n   url = {http://scitation.aip.org/content/aip/journal/jcp/140/14/10.1063/1.4870397},\n   doi = {http://dx.doi.org/10.1063/1.4870397}\n}"
 };
 
@@ -1537,7 +1537,7 @@ func_reference_type xc_ref_Burke2014_4834 = {
 
 func_reference_type xc_ref_Chai2008_084106 = {
   "J.-D. Chai and M. Head-Gordon, J. Chem. Phys. 128, 084106 (2008)",
-  "http://dx.doi.org/10.1063/1.2834918",
+  "10.1063/1.2834918",
   "@article{Chai2008_084106,\n   author = \"Chai, Jeng-Da and Head-Gordon, Martin\",\n   title = \"Systematic optimization of long-range corrected hybrid density functionals\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2008\",\n   volume = \"128\",\n   number = \"8\",\n   eid = 084106,\n   pages = \"084106\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/128/8/10.1063/1.2834918\",\n   doi = \"http://dx.doi.org/10.1063/1.2834918\"\n}"
 };
 
@@ -1551,7 +1551,7 @@ func_reference_type xc_ref_Pernal2009_263201 = {
 
 func_reference_type xc_ref_Rohrdanz2009_054112 = {
   "M. A. Rohrdanz, K. M. Martins, and J. M. Herbert, J. Chem. Phys. 130, 054112 (2009)",
-  "http://dx.doi.org/10.1063/1.3073302",
+  "10.1063/1.3073302",
   "@article{Rohrdanz2009_054112,\n   author = \"Rohrdanz, Mary A. and Martins, Katie M. and Herbert, John M.\",\n   title = \"A long-range-corrected density functional that performs well for both ground-state properties and time-dependent density functional theory excitation energies, including charge-transfer excited states\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2009\",\n   volume = \"130\",\n   number = \"5\",\n   eid = 054112,\n   pages = \"054112\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/130/5/10.1063/1.3073302\",\n   doi = \"http://dx.doi.org/10.1063/1.3073302\"\n}"
 };
 
@@ -1578,9 +1578,9 @@ func_reference_type xc_ref_Seth2012_901 = {
 
 
 func_reference_type xc_ref_Vydrov2010_244103 = {
-  "O. A. Vydrov and T. Van Voorhis, J. Chem. Phys. 133, 244103 (2010), http://dx.doi.org/10.1063/1.3521275",
-  "http://dx.doi.org/10.1063/1.3521275",
-  "@article{Vydrov2010_244103,\n   author = \"Vydrov, Oleg A. and Van Voorhis, Troy\",\n   title = \"Nonlocal van der Waals density functional: The simpler the better\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2010\",\n   volume = \"133\",\n   number = \"24\",\n   eid = 244103,\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/133/24/10.1063/1.3521275\",\n   doi = \"http://dx.doi.org/10.1063/1.3521275\"\n}"
+  "O. A. Vydrov and T. Van Voorhis, J. Chem. Phys. 133, 244103 (2010)",
+  "10.1063/1.3521275",
+  "@article{Vydrov2010_244103,\n   author = \"Vydrov, Oleg A. and Van Voorhis, Troy\",\n   title = \"Nonlocal van der Waals density functional: The simpler the better\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2010\",\n   volume = \"133\",\n   number = \"24\",\n   eid = 244103,\n   pages = \"-\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/133/24/10.1063/1.3521275\",\n   doi = \"http://dx.doi.org/10.1063/1.3521275\"\n}"
 };
 
 

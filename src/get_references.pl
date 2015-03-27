@@ -44,6 +44,7 @@ while($_=<BIB>){
 
       if($_ =~ /doi\s*=\s*[{\"]([^}\"]*)[}\"]*/){
 	$doi{$ref} = $1;
+	$doi{$ref} =~ s/http:\/\/dx.doi.org\///;
       }
     }
     $bibtex{$ref} .= "}";

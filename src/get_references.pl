@@ -16,6 +16,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+if(@ARGV < 1) {
+    print STDERR "Usage: get_references.pl BIBFILE\n";
+    exit(1);
+}
+
 $bibfile   = shift;
 
 use Cwd;
@@ -119,8 +124,12 @@ while($_=<BBL>){
 
       $item =~ s/\\bibf*namefont\s*\{(.*?)\}/$1/g;
       $item =~ s/\\bibinfo\s*\{.*?\}\s*\{(.*?)\}/$1/g;
+      $item =~ s/\\bibinfo\s*\{editor \{(.*?)\}(.*?)\}/$1$2/g; # result of nested bibinfos for book with editor
       $item =~ s/\\bibfield\s*\{.*?\}\s*\{(.*?)\}/$1/g;
       $item =~ s/\\href.*?\{.*?\}\s*\{(.*?)\}/$1/g;
+      $item =~ s/,\\ \\Eprint.*?\{.*?\}\s*\{(http:\/\/.*?)\}\s*//g; # wipe URL that is not arxiv
+      $item =~ s/\\Eprint.*?\{.*?\}\s*\{(.*?)\}\s*/$1/g; # arxiv
+      $item =~ s/\\v\{(.)(.*?)\}/\\v{$1}$2/g; # special rule for haceks \v{ } in names
 
       $item =~ s/\\textbf\s*\{(.*?)\}/$1/g;
       $item =~ s/\\emph\s*\{(.*?)\}/$1/g;
@@ -129,6 +138,19 @@ while($_=<BBL>){
       $item =~ s/~/ /g;
       $item =~ s/^\s*//;
       $item =~ s/\s+/ /g;
+
+      # double up remaining backslashes so they print and don't try to escape the next character
+      $item =~ s/\\/\\\\/g;
+
+      # check if things seem ok
+      if($item =~ /\\/) {
+	  print STDERR "WARNING: backslashes remain.\n";
+	  print STDERR $item . "\n";
+      }
+      if($item =~ /\{/ || $item =~ /\}/) {
+	  print STDERR "WARNING: braces remain.\n";
+	  print STDERR $item . "\n";
+      }
 
       # and now we abbreviate the journal names
       foreach $key ( keys %journal_abbreviations ){
@@ -153,7 +175,7 @@ while($_=<BBL>){
 close(BBL);
 
 # delete garbage
-system "cd $dir && /bin/rm -f $$.tex $$.aux $$.bbl $$.blg $$.log";
+system "cd $dir && /bin/rm -f $$.tex $$.aux $$.bbl $$.blg $$.log $$Notes.bib $$.pol $$.pol_ref $$.unpol $$.unpol_ref";
 
 # now we make a nice output
 open(OUT_C, ">references.c");

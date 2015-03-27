@@ -283,7 +283,7 @@ func_reference_type xc_ref_Fabiano2010_113104 = {
 
 
 func_reference_type xc_ref_Klimes2010_022201 = {
-  "J. Klime\v{s, D. R. Bowler, and A. Michaelides, }J. Phys.: Condens. Matter 22, 022201 (2010)",
+  "J. Klime\\v{s}, D. R. Bowler, and A. Michaelides, J. Phys.: Condens. Matter 22, 022201 (2010)",
   "10.1088/0953-8984/22/2/022201",
   "@article{Klimes2010_022201,\n  title = {Chemical accuracy for the van der Waals density functional},\n  author = {J. Klime\\v{s} and D. R. Bowler and A. Michaelides},\n  journal = {J. Phys.: Condens. Matter},\n  volume = {22},\n  number = {2},\n  pages = {022201},\n  year = {2010},\n  doi = {10.1088/0953-8984/22/2/022201},\n  url = {http://stacks.iop.org/0953-8984/22/i=2/a=022201}\n}"
 };
@@ -311,7 +311,7 @@ func_reference_type xc_ref_Laricchia2011_2439 = {
 
 
 func_reference_type xc_ref_delCampo2012_104108 = {
-  "J. M. del Campo, J. L. G\'azquez, S. B. Trickey, and A. Vela, J. Chem. Phys. 136, 104108 (2012)",
+  "J. M. del Campo, J. L. G\\'azquez, S. B. Trickey, and A. Vela, J. Chem. Phys. 136, 104108 (2012)",
   "10.1063/1.3691197",
   "@article{delCampo2012_104108,\n  title = \"Non-empirical improvement of PBE and its hybrid PBE0 for general description of molecular properties\",\n  author = \"J. M. del Campo and J. L. G\\'azquez and S. B. Trickey and A. Vela\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2012\",\n  volume = \"136\",\n  number = \"10\",\n  pages = 104108,\n  doi = \"10.1063/1.3691197\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/136/10/10.1063/1.3691197\"\n}"
 };
@@ -423,7 +423,7 @@ func_reference_type xc_ref_Murray2009_2754 = {
 
 
 func_reference_type xc_ref_Perdew1991 = {
-  "J. P. Perdew, in Proceedings of the 75. WE-Heraeus-Seminar and 21st Annual International Symposium on Electronic Structure of Solids, edited by \bibinfo {editor {P. Ziesche} and H. Eschrig} (Akademie Verlag, Berlin, 1991) p. 11",
+  "J. P. Perdew, in Proceedings of the 75. WE-Heraeus-Seminar and 21st Annual International Symposium on Electronic Structure of Solids, edited by P. Ziesche and H. Eschrig (Akademie Verlag, Berlin, 1991) p. 11",
   "",
   "@InProceedings{Perdew1991,\n  title = 	 {},\n  author = 	 {J. P. Perdew},\n  booktitle = 	 {Proceedings of the 75. WE-Heraeus-Seminar and 21st Annual International Symposium on Electronic Structure of Solids},\n  pages = 	 {11},\n  year = 	 {1991},\n  editor = 	 {P. Ziesche and H. Eschrig},\n  address = 	 {Berlin},\n  publisher = {Akademie Verlag},\n}"
 };
@@ -472,7 +472,7 @@ func_reference_type xc_ref_Constantin2009_035125 = {
 
 
 func_reference_type xc_ref_Vitos2000_10046 = {
-  "L. Vitos, B. Johansson, J. Koll\'ar, and H. L. Skriver, Phys. Rev. B 62, 10046 (2000)",
+  "L. Vitos, B. Johansson, J. Koll\\'ar, and H. L. Skriver, Phys. Rev. B 62, 10046 (2000)",
   "10.1103/PhysRevB.62.10046",
   "@article{Vitos2000_10046,\n  title = {Exchange energy in the local Airy gas approximation},\n  author = {L. Vitos and B. Johansson and J. Koll\\'ar and H. L. Skriver},\n  journal = {Phys. Rev. B},\n  volume = {62},\n  issue = {15},\n  pages = {10046},\n  year = {2000},\n  month = {Oct},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.62.10046},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.62.10046}\n}"
 };
@@ -787,7 +787,7 @@ func_reference_type xc_ref_Tognetti2008_034101 = {
 
 
 func_reference_type xc_ref_Bremond2012_1184 = {
-  "E. Br\'emond, D. Pilard, I. Ciofini, H. Chermette, C. Adamo, and P. Cortona, Theor. Chem. Acc. 131, 1184 (2012)",
+  "E. Br\\'emond, D. Pilard, I. Ciofini, H. Chermette, C. Adamo, and P. Cortona, Theor. Chem. Acc. 131, 1184 (2012)",
   "10.1007/s00214-012-1184-0",
   "@article{Bremond2012_1184,\n  title={Generalized gradient exchange functionals based on the gradient-regulated connection: a new member of the TCA family},\n  author={E. Br\\'emond and D. Pilard and I. Ciofini and H. Chermette and C. Adamo and P. Cortona},\n  journal={Theor. Chem. Acc.},\n  volume={131},\n  number={3},\n  pages={1184},\n  year={2012},\n  issn={1432-881X},\n  doi={10.1007/s00214-012-1184-0},\n  url={http://link.springer.com/article/10.1007\\%2Fs00214-012-1184-0},\n  publisher={Springer-Verlag},\n  keywords={Exchange-correlation functional; Gradient-regulated connection; Tognetti--Cortona--Adamo functional},\n  language={English}\n}"
 };
@@ -913,7 +913,7 @@ func_reference_type xc_ref_Chiodo2012_126402 = {
 
 
 func_reference_type xc_ref_Swart2009_69 = {
-  "M. Swart, M. Sol\'a, and F. M. Bickelhaupt, J. Comput. Methods Sci. Eng. 9, 69 (2009)",
+  "M. Swart, M. Sol\\'a, and F. M. Bickelhaupt, J. Comput. Methods Sci. Eng. 9, 69 (2009)",
   "10.3233/JCM-2009-0230",
   "@article{Swart2009_69,\n  title = {Switching between OPTX and PBE exchange functionals},\n  author = {M. Swart and M. Sol\\'a and F. M. Bickelhaupt},\n  journal = {J. Comput. Methods Sci. Eng.},\n  volume = {9},\n  issue = {1},\n  pages = {69},\n  year = {2009},\n  doi = {10.3233/JCM-2009-0230},\n  url = {http://iospress.metapress.com/content/0736k00r11272hm7}\n}"
 };
@@ -1011,14 +1011,14 @@ func_reference_type xc_ref_Acharya1980_6978 = {
 
 
 func_reference_type xc_ref_Gazquez1982_1467 = {
-  "J. L. G\'azquez and J. Robles, J. Chem. Phys. 76, 1467 (1982)",
+  "J. L. G\\'azquez and J. Robles, J. Chem. Phys. 76, 1467 (1982)",
   "10.1063/1.443107",
   "@article{Gazquez1982_1467,\n  title = \"On the atomic kinetic energy functionals with full Weizsacker correction\",\n  author = \"J. L. G\\'azquez and J. Robles\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1982\",\n  volume = \"76\",\n  number = \"3\",\n  pages = \"1467\",\n  doi = \"10.1063/1.443107\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/76/3/10.1063/1.443107\"\n}"
 };
 
 
 func_reference_type xc_ref_Ludena1986 = {
-  "E. V. Ludeña, in Cond. Matt. Theor., Vol. 1, edited by \bibinfo {editor {F. B. Malik}} (Plenum, New York, 1986) p. 183",
+  "E. V. Ludeña, in Cond. Matt. Theor., Vol. 1, edited by F. B. Malik (Plenum, New York, 1986) p. 183",
   "",
   "@InProceedings{Ludena1986,\n  author = 	 {E. V. Ludeña},\n  title = 	 {},\n  booktitle = 	 {Cond. Matt. Theor.},\n  pages = 	 {183},\n  year = 	 {1986},\n  editor = 	 {F. B. Malik},\n  volume = 	 {1},\n  address = 	 {New York},\n  publisher =    {Plenum},\n}"
 };
@@ -1074,14 +1074,14 @@ func_reference_type xc_ref_Perdew1992_79 = {
 
 
 func_reference_type xc_ref_Vitos1998_12611 = {
-  "L. Vitos, H. L. Skriver, and J. Koll\'ar, Phys. Rev. B 57, 12611 (1998)",
+  "L. Vitos, H. L. Skriver, and J. Koll\\'ar, Phys. Rev. B 57, 12611 (1998)",
   "10.1103/PhysRevB.57.12611",
   "@article{Vitos1998_12611,\n  title = {Kinetic-energy functionals studied by surface calculations},\n  author = {L. Vitos and H. L. Skriver and J. Koll\\'ar},\n  journal = {Phys. Rev. B},\n  volume = {57},\n  issue = {19},\n  pages = {12611},\n  year = {1998},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.57.12611},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.57.12611}\n}"
 };
 
 
 func_reference_type xc_ref_Vitos2000_052511 = {
-  "L. Vitos, B. Johansson, J. Koll\'ar, and H. L. Skriver, Phys. Rev. A 61, 052511 (2000)",
+  "L. Vitos, B. Johansson, J. Koll\\'ar, and H. L. Skriver, Phys. Rev. A 61, 052511 (2000)",
   "10.1103/PhysRevA.61.052511",
   "@article{Vitos2000_052511,\n  title = {Local kinetic-energy density of the Airy gas},\n  author = {L. Vitos and B. Johansson and J. Koll\\'ar and H. L. Skriver},\n  journal = {Phys. Rev. A},\n  volume = {61},\n  issue = {5},\n  pages = {052511},\n  numpages = {4},\n  year = {2000},\n  month = {Apr},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.61.052511},\n  url = {http://link.aps.org/doi/10.1103/PhysRevA.61.052511}\n}"
 };
@@ -1109,7 +1109,7 @@ func_reference_type xc_ref_Vela2009_244103 = {
 
 
 func_reference_type xc_ref_Vela2012_144115 = {
-  "A. Vela, J. C. Pacheco-Kato, J. L. G\'azquez, J. M. del Campo, and S. B. Trickey, J. Chem. Phys. 136, 144115 (2012)",
+  "A. Vela, J. C. Pacheco-Kato, J. L. G\\'azquez, J. M. del Campo, and S. B. Trickey, J. Chem. Phys. 136, 144115 (2012)",
   "10.1063/1.3701132",
   "@article{Vela2012_144115,\n  title = \"Improved constraint satisfaction in a simple generalized gradient approximation exchange functional\",\n  author = \"A. Vela and J. C. Pacheco-Kato and J. L. G\\'azquez and J. M. del Campo and S. B. Trickey\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2012\",\n  volume = \"136\",\n  number = \"14\",\n  pages = 144115,\n  doi = \"10.1063/1.3701132\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/136/14/10.1063/1.3701132\"\n}"
 };
@@ -1466,7 +1466,7 @@ func_reference_type xc_ref_Csonka2010_3688 = {
 
 
 func_reference_type xc_ref_Weintraub2009_754 = {
-  "E. Weintraub, T. M. Henderson, and G. E. Scuseria, J. Chem. Theory Comput. 5, 754 (2009), \Eprint {http://arxiv.org/abs/http://pubs.acs.org/doi/pdf/10.1021/ct800530u} {http://pubs.acs.org/doi/pdf/10.1021/ct800530u} ",
+  "E. Weintraub, T. M. Henderson, and G. E. Scuseria, J. Chem. Theory Comput. 5, 754 (2009)",
   "10.1021/ct800530u",
   "@article{Weintraub2009_754,\n  title = {Long-Range-Corrected Hybrids Based on a New Model Exchange Hole},\n  author = {E. Weintraub and T. M. Henderson and G. E. Scuseria},\n  journal = {J. Chem. Theory Comput.},\n  volume = {5},\n  number = {4},\n  pages = {754-762},\n  year = {2009},\n  eprint = {http://pubs.acs.org/doi/pdf/10.1021/ct800530u},\n  doi = {10.1021/ct800530u},\n  URL = {http://pubs.acs.org/doi/abs/10.1021/ct800530u}\n}"
 };
@@ -1529,7 +1529,7 @@ func_reference_type xc_ref_Odashima2009_798 = {
 
 
 func_reference_type xc_ref_Burke2014_4834 = {
-  "K. Burke, A. Cancio, T. Gould, and S. Pittalis, ArXiv e-prints (2014), \Eprint {http://arxiv.org/abs/1409.4834} {arXiv:1409.4834 [cond-mat.mtrl-sci]} ",
+  "K. Burke, A. Cancio, T. Gould, and S. Pittalis, ArXiv e-prints (2014), arXiv:1409.4834 [cond-mat.mtrl-sci]",
   "",
   "@ARTICLE{Burke2014_4834,\n   author = {Burke, K. and Cancio, A. and Gould, T. and Pittalis, S.},\n   title = \"{Atomic correlation energies and the generalized gradient approximation}\",\n   journal = {ArXiv e-prints},\n   archivePrefix = \"arXiv\",\n   eprint = {1409.4834},\n   primaryClass = \"cond-mat.mtrl-sci\",\n   keywords = {Condensed Matter - Materials Science, Condensed Matter - Other Condensed Matter, Physics - Chemical Physics, Quantum Physics},\n   year = 2014,\n   month = sep,\n   adsurl = {http://adsabs.harvard.edu/abs/2014arXiv1409.4834B},\n   adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
 };
@@ -1571,7 +1571,7 @@ func_reference_type xc_ref_Mardirossian2015_b97mv = {
 
 
 func_reference_type xc_ref_Seth2012_901 = {
-  "M. Seth and T. Ziegler, J. Chem. Theory Comput. 8, 901 (2012), \Eprint {http://arxiv.org/abs/http://dx.doi.org/10.1021/ct300006h} {http://dx.doi.org/10.1021/ct300006h} ",
+  "M. Seth and T. Ziegler, J. Chem. Theory Comput. 8, 901 (2012)",
   "10.1021/ct300006h",
   "@article{Seth2012_901,\n   author = {Seth, Michael and Ziegler, Tom},\n   title = {Range-Separated Exchange Functionals with Slater-Type Functions},\n   journal = {Journal of Chemical Theory and Computation},\n   volume = {8},\n   number = {3},\n   pages = {901-907},\n   year = {2012},\n   doi = {10.1021/ct300006h},\n   URL = {http://dx.doi.org/10.1021/ct300006h},\n   eprint = {http://dx.doi.org/10.1021/ct300006h}\n}"
 };
@@ -1585,7 +1585,7 @@ func_reference_type xc_ref_Vydrov2010_244103 = {
 
 
 func_reference_type xc_ref_Seth2013_2286 = {
-  "M. Seth, T. Ziegler, M. Steinmetz, and S. Grimme, J. Chem. Theory Comput. 9, 2286 (2013), \Eprint {http://arxiv.org/abs/http://dx.doi.org/10.1021/ct301112m} {http://dx.doi.org/10.1021/ct301112m} ",
+  "M. Seth, T. Ziegler, M. Steinmetz, and S. Grimme, J. Chem. Theory Comput. 9, 2286 (2013)",
   "10.1021/ct301112m",
   "@article{Seth2013_2286,\n   author = {Seth, Michael and Ziegler, Tom and Steinmetz, Marc and Grimme, Stefan},\n   title = {Modeling Transition Metal Reactions with Range-Separated Functionals},\n   journal = {Journal of Chemical Theory and Computation},\n   volume = {9},\n   number = {5},\n   pages = {2286-2299},\n   year = {2013},\n   doi = {10.1021/ct301112m},\n   URL = {http://dx.doi.org/10.1021/ct301112m},\n   eprint = {http://dx.doi.org/10.1021/ct301112m}\n}"
 };

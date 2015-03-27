@@ -151,23 +151,23 @@ XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, F
 
   } else {	/* XC_RSF_YUKAWA */
 
-    auxa1 = ATAN2(1.0,aa);
-    auxa2 = LOG(1+(1.0/aa2));
-    auxa3 = (aa2 + 1);
+    auxa1 = ATAN2(1.0, aa);
+    auxa2 = LOG(1.0 + (1.0/aa2));
+    auxa3 = aa2 + 1.0;
 
     switch (order) {
       default:	/* > 3 - catch-22 */
       case 3:
-        *d3f = 8*(2*aa2*auxa3*auxa2 - 2*aa2 -1)/(aa*auxa3);
+        *d3f = 16.0*aa*auxa2 - 8.0*(2.0*aa2 + 1.0)/(aa*auxa3);
 
       case 2:
-        *d2f = 4*(2*aa2 + 1)*auxa2 - 2;
+        *d2f = 4.0*(2.0*aa2 + 1.0)*auxa2 - 8.0;
 
       case 1:
-        *df = 4.0/3.0 * (aa*((2*aa2 + 3)*auxa2 - 2) - 2* auxa1);
+        *df = 4.0/3.0 * (aa*(2.0*aa2 + 3.0)*auxa2 - 2.0*(aa + auxa1));
 
       case 0:
-        *f = 1.0 - 8.0/3.0*aa*(auxa1 + aa/4.0* (1.0 - (auxa3 +2)*auxa2));
+        *f = 1.0 - 8.0/3.0*aa*(auxa1 + aa/4.0* (1.0 - (auxa3 + 2.0)*auxa2));
     }	/* no break needed */
   }
 

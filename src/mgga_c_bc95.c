@@ -127,7 +127,7 @@ func(const XC(func_type) *p, XC(mgga_work_c_t) *r)
 
 #include "work_mgga_c.c"
 
-XC(func_info_type) XC(func_info_mgga_c_bc95) = {
+const XC(func_info_type) XC(func_info_mgga_c_bc95) = {
   XC_MGGA_C_BC95,
   XC_CORRELATION,
   "Becke correlation 95",

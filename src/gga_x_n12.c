@@ -128,7 +128,7 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
 #include "work_gga_c.c"
 
 
-XC(func_info_type) XC(func_info_gga_x_n12) = {
+const XC(func_info_type) XC(func_info_gga_x_n12) = {
   XC_GGA_X_N12,
   XC_EXCHANGE,
   "Minnesota N12 functional",
@@ -142,7 +142,7 @@ XC(func_info_type) XC(func_info_gga_x_n12) = {
   NULL
 };
 
-XC(func_info_type) XC(func_info_hyb_gga_x_n12_sx) = {
+const XC(func_info_type) XC(func_info_hyb_gga_x_n12_sx) = {
   XC_HYB_GGA_X_N12_SX,
   XC_EXCHANGE,
   "Minnesota N12-SX functional",

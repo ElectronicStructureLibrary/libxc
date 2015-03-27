@@ -672,7 +672,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_407p) = {
   NULL
 };
 
-XC(func_info_type) XC(func_info_gga_c_n12) = {
+const XC(func_info_type) XC(func_info_gga_c_n12) = {
   XC_GGA_C_N12,
   XC_CORRELATION,
   "Minnesota N12 functional",
@@ -686,7 +686,7 @@ XC(func_info_type) XC(func_info_gga_c_n12) = {
   NULL
 };
 
-XC(func_info_type) XC(func_info_gga_c_n12_sx) = {
+const XC(func_info_type) XC(func_info_gga_c_n12_sx) = {
   XC_GGA_C_N12_SX,
   XC_CORRELATION,
   "Minnesota N12-SX functional",

@@ -307,7 +307,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 #include "work_mgga_x.c"
 
 
-XC(func_info_type) XC(func_info_mgga_x_tpss) = {
+const XC(func_info_type) XC(func_info_mgga_x_tpss) = {
   XC_MGGA_X_TPSS,
   XC_EXCHANGE,
   "Tao, Perdew, Staroverov & Scuseria",
@@ -320,7 +320,7 @@ XC(func_info_type) XC(func_info_mgga_x_tpss) = {
   work_mgga_x,
 };
 
-XC(func_info_type) XC(func_info_mgga_x_modtpss) = {
+const XC(func_info_type) XC(func_info_mgga_x_modtpss) = {
   XC_MGGA_X_MODTPSS,
   XC_EXCHANGE,
   "Modified Tao, Perdew, Staroverov & Scuseria",
@@ -333,7 +333,7 @@ XC(func_info_type) XC(func_info_mgga_x_modtpss) = {
   work_mgga_x,
 };
 
-XC(func_info_type) XC(func_info_mgga_x_revtpss) = {
+const XC(func_info_type) XC(func_info_mgga_x_revtpss) = {
   XC_MGGA_X_REVTPSS,
   XC_EXCHANGE,
   "revised Tao, Perdew, Staroverov & Scuseria",
@@ -346,7 +346,7 @@ XC(func_info_type) XC(func_info_mgga_x_revtpss) = {
   work_mgga_x,
 };
 
-XC(func_info_type) XC(func_info_mgga_x_bloc) = {
+const XC(func_info_type) XC(func_info_mgga_x_bloc) = {
   XC_MGGA_X_BLOC,
   XC_EXCHANGE,
   "functional with balanced localization",

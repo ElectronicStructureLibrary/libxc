@@ -76,7 +76,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
 #include "work_mgga_c.c"
 
-XC(func_info_type) XC(func_info_mgga_xc_zlp) = {
+const XC(func_info_type) XC(func_info_mgga_xc_zlp) = {
   XC_MGGA_XC_ZLP,
   XC_EXCHANGE_CORRELATION,
   "Zhao, Levy & Parr, Eq. (21)",

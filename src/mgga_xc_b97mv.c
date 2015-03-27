@@ -235,7 +235,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
 #include "work_mgga_c.c"
 
-XC(func_info_type) XC(func_info_mgga_xc_b97m_v) = {
+const XC(func_info_type) XC(func_info_mgga_xc_b97m_v) = {
   XC_MGGA_XC_B97M_V,
   XC_EXCHANGE_CORRELATION,
   "B97M-V exchange-correlation functional",

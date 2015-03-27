@@ -217,7 +217,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 #include "work_mgga_c.c"
 
 
-XC(func_info_type) XC(func_info_mgga_x_m08_hx) = {
+const XC(func_info_type) XC(func_info_mgga_x_m08_hx) = {
   XC_MGGA_X_M08_HX,
   XC_EXCHANGE,
   "Minnesota M08-HX functional",
@@ -230,7 +230,7 @@ XC(func_info_type) XC(func_info_mgga_x_m08_hx) = {
   work_mgga_c,
 };
 
-XC(func_info_type) XC(func_info_mgga_x_m08_so) = {
+const XC(func_info_type) XC(func_info_mgga_x_m08_so) = {
   XC_MGGA_X_M08_SO,
   XC_EXCHANGE,
   "Minnesota M08-SO functional",
@@ -243,7 +243,7 @@ XC(func_info_type) XC(func_info_mgga_x_m08_so) = {
   work_mgga_c,
 };
 
-XC(func_info_type) XC(func_info_mgga_x_m11) = {
+const XC(func_info_type) XC(func_info_mgga_x_m11) = {
   XC_MGGA_X_M11,
   XC_EXCHANGE,
   "Minnesota M11 functional",
@@ -256,7 +256,7 @@ XC(func_info_type) XC(func_info_mgga_x_m11) = {
   work_mgga_c,
 };
 
-XC(func_info_type) XC(func_info_mgga_x_m11_l) = {
+const XC(func_info_type) XC(func_info_mgga_x_m11_l) = {
   XC_MGGA_X_M11_L,
   XC_EXCHANGE,
   "Minnesota M11-L functional",
@@ -279,7 +279,7 @@ hyb_mgga_xc_m08_hx_init(XC(func_type) *p)
   p->cam_alpha = 0.5223;
 }
 
-XC(func_info_type) XC(func_info_hyb_mgga_xc_m08_hx) = {
+const XC(func_info_type) XC(func_info_hyb_mgga_xc_m08_hx) = {
   XC_HYB_MGGA_XC_M08_HX,
   XC_EXCHANGE_CORRELATION,
   "Minnesota M08-HX functional",
@@ -301,7 +301,7 @@ hyb_mgga_xc_m08_so_init(XC(func_type) *p)
   p->cam_alpha = 0.5679;
 }
 
-XC(func_info_type) XC(func_info_hyb_mgga_xc_m08_so) = {
+const XC(func_info_type) XC(func_info_hyb_mgga_xc_m08_so) = {
   XC_HYB_MGGA_XC_M08_SO,
   XC_EXCHANGE_CORRELATION,
   "Minnesota M08-SO functional",
@@ -325,7 +325,7 @@ hyb_mgga_xc_m11_init(XC(func_type) *p)
   p->cam_omega = 0.25;
 }
 
-XC(func_info_type) XC(func_info_hyb_mgga_xc_m11) = {
+const XC(func_info_type) XC(func_info_hyb_mgga_xc_m11) = {
   XC_HYB_MGGA_XC_M11,
   XC_EXCHANGE_CORRELATION,
   "Minnesota M11 functional",

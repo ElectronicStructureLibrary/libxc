@@ -80,7 +80,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 #include "work_mgga_x.c"
 
 
-XC(func_info_type) XC(func_info_mgga_x_pkzb) = {
+const XC(func_info_type) XC(func_info_mgga_x_pkzb) = {
   XC_MGGA_X_PKZB,
   XC_EXCHANGE,
   "Perdew, Kurth, Zupan, and Blaha",

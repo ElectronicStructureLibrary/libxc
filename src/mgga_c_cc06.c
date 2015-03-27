@@ -96,7 +96,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 #include "work_mgga_c.c"
 
 
-XC(func_info_type) XC(func_info_mgga_c_cc06) = {
+const XC(func_info_type) XC(func_info_mgga_c_cc06) = {
   XC_MGGA_C_CC06,
   XC_CORRELATION,
   "Cancio and Chou 2006",

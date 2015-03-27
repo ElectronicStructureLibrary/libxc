@@ -130,7 +130,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 #include "work_mgga_x.c"
 
 
-XC(func_info_type) XC(func_info_mgga_x_m05) = {
+const XC(func_info_type) XC(func_info_mgga_x_m05) = {
   XC_MGGA_X_M05,
   XC_EXCHANGE,
   "Minnesota M05 functional",
@@ -144,7 +144,7 @@ XC(func_info_type) XC(func_info_mgga_x_m05) = {
 };
 
 
-XC(func_info_type) XC(func_info_mgga_x_m05_2x) = {
+const XC(func_info_type) XC(func_info_mgga_x_m05_2x) = {
   XC_MGGA_X_M05_2X,
   XC_EXCHANGE,
   "Minnesota M05-2X functional",

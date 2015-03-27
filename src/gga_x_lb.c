@@ -174,7 +174,7 @@ gga_x_lb(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 }
 
 
-XC(func_info_type) XC(func_info_gga_x_lb) = {
+const XC(func_info_type) XC(func_info_gga_x_lb) = {
   XC_GGA_X_LB,
   XC_EXCHANGE,
   "van Leeuwen & Baerends",
@@ -189,7 +189,7 @@ XC(func_info_type) XC(func_info_gga_x_lb) = {
   NULL
 };
 
-XC(func_info_type) XC(func_info_gga_x_lbm) = {
+const XC(func_info_type) XC(func_info_gga_x_lbm) = {
   XC_GGA_X_LBM,
   XC_EXCHANGE,
   "van Leeuwen & Baerends modified",

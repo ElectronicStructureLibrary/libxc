@@ -206,7 +206,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 #include "work_mgga_x.c"
 
 
-XC(func_info_type) XC(func_info_mgga_x_mbeef) = {
+const XC(func_info_type) XC(func_info_mgga_x_mbeef) = {
   XC_MGGA_X_MBEEF,
   XC_EXCHANGE,
   "mBEEF exchange",
@@ -219,7 +219,7 @@ XC(func_info_type) XC(func_info_mgga_x_mbeef) = {
   work_mgga_x,
 };
 
-XC(func_info_type) XC(func_info_mgga_x_mbeefvdw) = {
+const XC(func_info_type) XC(func_info_mgga_x_mbeefvdw) = {
   XC_MGGA_X_MBEEFVDW,
   XC_EXCHANGE,
   "mBEEF-vdW exchange",

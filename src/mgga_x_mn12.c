@@ -171,7 +171,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 #include "work_mgga_c.c"
 
 
-XC(func_info_type) XC(func_info_mgga_x_mn12_l) = {
+const XC(func_info_type) XC(func_info_mgga_x_mn12_l) = {
   XC_MGGA_X_MN12_L,
   XC_EXCHANGE,
   "Minnesota MN12-L functional",
@@ -184,7 +184,7 @@ XC(func_info_type) XC(func_info_mgga_x_mn12_l) = {
   work_mgga_c,
 };
 
-XC(func_info_type) XC(func_info_mgga_x_mn12_sx) = {
+const XC(func_info_type) XC(func_info_mgga_x_mn12_sx) = {
   XC_MGGA_X_MN12_SX,
   XC_EXCHANGE,
   "Minnesota MN12-SX functional",
@@ -197,7 +197,7 @@ XC(func_info_type) XC(func_info_mgga_x_mn12_sx) = {
   work_mgga_c,
 };
 
-XC(func_info_type) XC(func_info_hyb_mgga_x_mn12_sx) = {
+const XC(func_info_type) XC(func_info_hyb_mgga_x_mn12_sx) = {
   XC_HYB_MGGA_X_MN12_SX,
   XC_EXCHANGE,
   "Minnesota MN12-SX hybrid functional",
@@ -209,4 +209,3 @@ XC(func_info_type) XC(func_info_hyb_mgga_x_mn12_sx) = {
   NULL, NULL,
   work_mgga_c
 };
-

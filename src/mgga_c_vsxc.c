@@ -263,7 +263,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
 #include "work_mgga_c.c"
 
-XC(func_info_type) XC(func_info_mgga_c_m05) = {
+const XC(func_info_type) XC(func_info_mgga_c_m05) = {
   XC_MGGA_C_M05,
   XC_CORRELATION,
   "Minnesota M05 functional",
@@ -277,7 +277,7 @@ XC(func_info_type) XC(func_info_mgga_c_m05) = {
 };
 
 
-XC(func_info_type) XC(func_info_mgga_c_m05_2x) = {
+const XC(func_info_type) XC(func_info_mgga_c_m05_2x) = {
   XC_MGGA_C_M05_2X,
   XC_CORRELATION,
   "Minnesota M05-2X functional",

@@ -212,7 +212,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 #include "work_mgga_c.c"
 
 
-XC(func_info_type) XC(func_info_mgga_c_m08_hx) = {
+const XC(func_info_type) XC(func_info_mgga_c_m08_hx) = {
   XC_MGGA_C_M08_HX,
   XC_CORRELATION,
   "Minnesota M08-HX correlation functional",
@@ -225,7 +225,7 @@ XC(func_info_type) XC(func_info_mgga_c_m08_hx) = {
   work_mgga_c,
 };
 
-XC(func_info_type) XC(func_info_mgga_c_m08_so) = {
+const XC(func_info_type) XC(func_info_mgga_c_m08_so) = {
   XC_MGGA_C_M08_SO,
   XC_CORRELATION,
   "Minnesota M08-SO correlation functional",
@@ -238,7 +238,7 @@ XC(func_info_type) XC(func_info_mgga_c_m08_so) = {
   work_mgga_c,
 };
 
-XC(func_info_type) XC(func_info_mgga_c_m11) = {
+const XC(func_info_type) XC(func_info_mgga_c_m11) = {
   XC_MGGA_C_M11,
   XC_CORRELATION,
   "Minnesota M11 correlation functional",
@@ -251,7 +251,7 @@ XC(func_info_type) XC(func_info_mgga_c_m11) = {
   work_mgga_c,
 };
 
-XC(func_info_type) XC(func_info_mgga_c_m11_l) = {
+const XC(func_info_type) XC(func_info_mgga_c_m11_l) = {
   XC_MGGA_C_M11_L,
   XC_CORRELATION,
   "Minnesota M11-L correlation functional",
@@ -264,7 +264,7 @@ XC(func_info_type) XC(func_info_mgga_c_m11_l) = {
   work_mgga_c,
 };
 
-XC(func_info_type) XC(func_info_mgga_c_mn12_l) = {
+const XC(func_info_type) XC(func_info_mgga_c_mn12_l) = {
   XC_MGGA_C_MN12_L,
   XC_CORRELATION,
   "Minnesota MN12-L correlation functional",
@@ -277,7 +277,7 @@ XC(func_info_type) XC(func_info_mgga_c_mn12_l) = {
   work_mgga_c,
 };
 
-XC(func_info_type) XC(func_info_mgga_c_mn12_sx) = {
+const XC(func_info_type) XC(func_info_mgga_c_mn12_sx) = {
   XC_MGGA_C_MN12_SX,
   XC_CORRELATION,
   "Minnesota MN12-SX correlation functional",

@@ -173,7 +173,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 #include "work_mgga_x.c"
 
 
-XC(func_info_type) XC(func_info_mgga_x_ms0) = {
+const XC(func_info_type) XC(func_info_mgga_x_ms0) = {
   XC_MGGA_X_MS0,
   XC_EXCHANGE,
   "MS exchange of Sun, Xiao, and Ruzsinszky",
@@ -186,7 +186,7 @@ XC(func_info_type) XC(func_info_mgga_x_ms0) = {
   work_mgga_x,
 };
 
-XC(func_info_type) XC(func_info_mgga_x_ms1) = {
+const XC(func_info_type) XC(func_info_mgga_x_ms1) = {
   XC_MGGA_X_MS1,
   XC_EXCHANGE,
   "MS1 exchange of Sun, et al",
@@ -199,7 +199,7 @@ XC(func_info_type) XC(func_info_mgga_x_ms1) = {
   work_mgga_x,
 };
 
-XC(func_info_type) XC(func_info_mgga_x_ms2) = {
+const XC(func_info_type) XC(func_info_mgga_x_ms2) = {
   XC_MGGA_X_MS2,
   XC_EXCHANGE,
   "MS2 exchange of Sun, et al",
@@ -212,7 +212,7 @@ XC(func_info_type) XC(func_info_mgga_x_ms2) = {
   work_mgga_x,
 };
 
-XC(func_info_type) XC(func_info_hyb_mgga_x_ms2h) = {
+const XC(func_info_type) XC(func_info_hyb_mgga_x_ms2h) = {
   XC_HYB_MGGA_X_MS2H,
   XC_EXCHANGE,
   "MS2 hybrid exchange of Sun, et al",

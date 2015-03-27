@@ -295,7 +295,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 #include "work_mgga_c.c"
 
 
-XC(func_info_type) XC(func_info_mgga_c_pkzb) = {
+const XC(func_info_type) XC(func_info_mgga_c_pkzb) = {
   XC_MGGA_C_PKZB,
   XC_CORRELATION,
   "Perdew, Kurth, Zupan, and Blaha",
@@ -308,7 +308,7 @@ XC(func_info_type) XC(func_info_mgga_c_pkzb) = {
   work_mgga_c,
 };
 
-XC(func_info_type) XC(func_info_mgga_c_tpss) = {
+const XC(func_info_type) XC(func_info_mgga_c_tpss) = {
   XC_MGGA_C_TPSS,
   XC_CORRELATION,
   "Tao, Perdew, Staroverov & Scuseria",
@@ -321,7 +321,7 @@ XC(func_info_type) XC(func_info_mgga_c_tpss) = {
   work_mgga_c,
 };
 
-XC(func_info_type) XC(func_info_mgga_c_revtpss) = {
+const XC(func_info_type) XC(func_info_mgga_c_revtpss) = {
   XC_MGGA_C_REVTPSS,
   XC_CORRELATION,
   "revised TPSS correlation",
@@ -334,7 +334,7 @@ XC(func_info_type) XC(func_info_mgga_c_revtpss) = {
   work_mgga_c,
 };
 
-XC(func_info_type) XC(func_info_mgga_c_tpssloc) = {
+const XC(func_info_type) XC(func_info_mgga_c_tpssloc) = {
   XC_MGGA_C_TPSSLOC,
   XC_CORRELATION,
   "Semilocal dynamical correlation",

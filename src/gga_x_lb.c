@@ -144,7 +144,7 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const FLOAT *rho, const F
 	vrho[is] += f * CBRT(ds);
 	
       }else if(r > 0.0){
-	/* the aymptotic expansion of LB94 */
+	/* the asymptotic expansion of LB94 */
 	x = r + (3.0/params->aa)*
 	  LOG(2.0*params->gamm * params->aa * 1.0 / CBRT(params->qtot));
 	

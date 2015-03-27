@@ -112,7 +112,7 @@ int main(int argc, char **argv) {
   }
 
   /* Free memory */
-  xc_func_end(&func);
+  XC(func_end)(&func);
   free(fname);
 
   return 0;

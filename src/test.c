@@ -301,7 +301,7 @@ void test_neg_rho()
     }
 
   end:
-    xc_func_end(&func);
+    XC(func_end)(&func);
   }
 }
 

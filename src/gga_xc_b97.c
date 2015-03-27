@@ -645,7 +645,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_p14) = {
 const XC(func_info_type) XC(func_info_gga_xc_hcth_p76) = {
   XC_GGA_XC_HCTH_P76,
   XC_EXCHANGE_CORRELATION,
-  "HCTH p=1/4",
+  "HCTH p=7/6",
   XC_FAMILY_GGA,
   {&xc_ref_Menconi2001_3958, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,

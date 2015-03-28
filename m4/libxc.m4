@@ -1,3 +1,23 @@
+## Copyright (C) 2010-2015 M. Marques, X. Andrade, D. Strubbe, M. Oliveira
+##
+## This program is free software; you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation; either version 2, or (at your option)
+## any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+## 02110-1301, USA.
+##
+## $Id: libxc.m4 13622 2015-03-28 01:31:52Z dstrubbe $
+##
+
 AC_DEFUN([ACX_LIBXC], [
 acx_libxc_ok=no
 
@@ -8,7 +28,7 @@ AC_ARG_WITH(libxc-prefix, [AS_HELP_STRING([--with-libxc-prefix=DIR], [Directory 
 # Set FCFLAGS_LIBXC only if not set from environment
 if test x"$FCFLAGS_LIBXC" = x; then
   case $with_libxc_prefix in
-    "") FCFLAGS_LIBXC="-I/usr/include" ;;
+    "") FCFLAGS_LIBXC="$ax_cv_f90_modflag/usr/include" ;;
     *)  FCFLAGS_LIBXC="$ax_cv_f90_modflag$with_libxc_prefix/include" ;;
   esac
 fi
@@ -41,30 +61,42 @@ if test ! -z "$LIBS_LIBXC"; then
   AC_LINK_IFELSE($testprog, [acx_libxc_ok=yes], [])
 fi
 
-# static linkage, separate Fortran interface (libxc 2.2.0 and later)
-if test x"$acx_libxc_ok" = xno; then
-  LIBS_LIBXC="$with_libxc_prefix/lib/libxcf90.a $with_libxc_prefix/lib/libxc.a"
-  LIBS="$LIBS_LIBXC $acx_libxc_save_LIBS"
-  AC_LINK_IFELSE($testprog, [acx_libxc_ok=yes], [])
+if test ! -z "$with_libxc_prefix"; then
+  # static linkage, separate Fortran interface (libxc 2.2.0 and later)
+  if test x"$acx_libxc_ok" = xno; then
+    LIBS_LIBXC="$with_libxc_prefix/lib/libxcf90.a $with_libxc_prefix/lib/libxc.a"
+    LIBS="$LIBS_LIBXC $acx_libxc_save_LIBS"
+    AC_LINK_IFELSE($testprog, [acx_libxc_ok=yes], [])
+  fi
+  
+  # static linkage, combined Fortran interface (libxc 2.0.x, 2.1.x)
+  if test x"$acx_libxc_ok" = xno; then
+    LIBS_LIBXC="$with_libxc_prefix/lib/libxc.a"
+    LIBS="$LIBS_LIBXC $acx_libxc_save_LIBS"
+    AC_LINK_IFELSE($testprog, [acx_libxc_ok=yes], [])
+  fi
 fi
 
 # dynamic linkage, separate Fortran interface (libxc 2.2.0 and later)
 if test x"$acx_libxc_ok" = xno; then
-  LIBS_LIBXC="-L$with_libxc_prefix/lib -lxcf90 -lxc"
-  LIBS="$LIBS_LIBXC $acx_libxc_save_LIBS"
-  AC_LINK_IFELSE($testprog, [acx_libxc_ok=yes], [])
-fi
-
-# static linkage, combined Fortran interface (libxc 2.0.x, 2.1.x)
-if test x"$acx_libxc_ok" = xno; then
-  LIBS_LIBXC="$with_libxc_prefix/lib/libxc.a"
+  if test ! -z "$with_libxc_prefix"; then
+    LIBS_LIBXC="-L$with_libxc_prefix/lib"
+  else
+    LIBS_LIBXC=""
+  fi
+  LIBS_LIBXC="$LIBS_LIBXC -lxcf90 -lxc"
   LIBS="$LIBS_LIBXC $acx_libxc_save_LIBS"
   AC_LINK_IFELSE($testprog, [acx_libxc_ok=yes], [])
 fi
 
 # dynamic linkage, combined Fortran interface (libxc 2.0.x, 2.1.x)
 if test x"$acx_libxc_ok" = xno; then
-  LIBS_LIBXC="-L$with_libxc_prefix/lib -lxc"
+  if test ! -z "$with_libxc_prefix"; then
+    LIBS_LIBXC="-L$with_libxc_prefix/lib"
+  else
+    LIBS_LIBXC=""
+  fi
+  LIBS_LIBXC="$LIBS_LIBXC -lxc"
   LIBS="$LIBS_LIBXC $acx_libxc_save_LIBS"
   AC_LINK_IFELSE($testprog, [acx_libxc_ok=yes], [])
 fi

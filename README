@@ -24,7 +24,8 @@ The distribution is organized in the following way:
 
 ./
 ./build		Fedora spec files
-./m4		m4 scripts used by configure.ac
+./m4		m4 scripts used by configure.ac,
+                and libxc.m4 use by other projects linking libxc.
 ./src		source files
 ./testsuite	regression tests
 

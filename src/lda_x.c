@@ -36,14 +36,14 @@
     whereas alpha equal to 2/3 just leaves the exchange functional unchanged.
 */
 
-/* Relativistic corrections */
-/*  A. K. Rajagopal, J. Phys. C 11, L943 (1978).
+/* Relativistic corrections
+    A. K. Rajagopal, J. Phys. C 11, L943 (1978).
     A. H. MacDonald and S. H. Vosko, J. Phys. C 12, 2977 (1979).
     E. Engel, S. Keller, A. Facco Bonetti, H. Mueller, and R. M. Dreizler, Phys. Rev. A 52, 2750 (1995).
 */
 
-/* Range separation */
-/* J. Toulouse, A. Savin, H.-J. Flad, Int. J. of Quant. Chem. 100, 1047-1056 (2004).
+/* Range separation
+    J. Toulouse, A. Savin, H.-J. Flad, Int. J. of Quant. Chem. 100, 1047-1056 (2004).
 */
 
 typedef struct{
@@ -93,84 +93,131 @@ XC(lda_x_set_params)(XC(func_type) *p, FLOAT alpha, int relativistic, FLOAT omeg
 
 /*
 see
-  Int. J. of Quant. Chem. 100, 1047-1056 (2004).
-  Chem. Phys. Lett. 462(2008) 348-351
-  J. Chem. Phys. 120, 8425 (2004)
+    Int. J. of Quant. Chem. 100, 1047-1056 (2004).
+    Chem. Phys. Lett. 462(2008) 348-351
+    J. Chem. Phys. 120, 8425 (2004)
 */
 void
-XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
+XC(lda_x_attenuation_function_erf)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
 {
-  FLOAT aa2, aa3, auxa1, auxa2, auxa3;
+  FLOAT aa2, auxa1, auxa2, auxa3;
+  
+  aa2 = aa*aa;
+
+  auxa1 = M_SQRTPI*ERF(1.0/(2.0*aa));
+  
+  if(aa < 1.0e6) 
+    auxa2 = EXP(-1.0/(4.0*aa2)) - 1.0;
+  else
+    auxa2 = -1.0/(4.0*aa2);
+  
+  auxa3 = 2.0*aa2*auxa2 + 0.5;
+  
+  switch(order) {
+  default:
+  case 3:
+    *d3f = -256.0*aa + 8.0*(1.0 + 8.0*aa2 + 32.0*aa2*aa2)*(auxa2 + 1.0)/(aa*aa2);
+  case 2:
+    *d2f = 16.0*(2.0 + (1.0 + 8.0*aa2)*auxa2);
+  case 1:
+    *df  = 8.0/3.0 * (4.0*aa - 2.0*(1.0 - 8.0*aa2)*aa*auxa2 - auxa1);
+  case 0:
+    *f   = 1.0 - 8.0/3.0*aa*(auxa1 + 2.0*aa*(auxa2 - auxa3));
+  }
+}
+
+
+void
+XC(lda_x_attenuation_function_erf_gau)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
+{
   FLOAT bb, bb2, bb3, auxb1, auxb2;
 
+  XC(lda_x_attenuation_function_erf)(order, aa, f, df, d2f, d3f);
+
+  bb  = aa/M_SQRT3;
+  bb2 = bb*bb;
+  bb3 = bb*bb2;
+  auxb1 = M_SQRTPI*ERF(1.0/(2.0*bb));
+  auxb2 = EXP(-1.0/(4.0*bb2));
+
+  switch(order) {
+  default:
+  case 3:
+    *d3f -=  8.0/9.0*(-384.0*bb + 3.0*(1.0 + 8.0*bb2*(1.0 + bb2*(8.0 + bb2*32.0))*auxb2/(2.0*bb2*bb2*bb)));
+  case 2:
+    *d2f -= 8.0/(3.0*M_SQRT3)*(12.0 - 192.0*bb2 + 3.0*(1.0/bb2 + 12.0 + 64.0*bb2)*auxb2);
+  case 1:
+    *df -= 8.0/3.0*(4.0*bb*(3.0 - 16.0*bb2 + (1.0 + 16.0*bb2)*auxb2) - auxb1);
+  case 0:
+    *f += 8.0/M_SQRT3*bb*(auxb1 - 6.0*bb + 16.0*bb3 + (2.0*bb - 16*bb3)*auxb2);
+  }
+}
+
+
+void
+XC(lda_x_attenuation_function_yukawa)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
+{
+  FLOAT aa2, aa3;
+  FLOAT auxa1, auxa2, auxa3;
+
   aa2 = aa*aa;
-  aa3 = aa*aa2;
 
-  if (interaction == XC_RSF_ERF || interaction == XC_RSF_ERF_GAU) {
-    auxa1 = M_SQRTPI*ERF(1.0/(2.0*aa));
-  
-    if(aa < 1.0e6) 
-      auxa2 = EXP(-1.0/(4.0*aa2)) - 1.0;
-    else
-      auxa2 = -1.0/(4.0*aa2);
-  
-    auxa3 = 2.0*aa2*auxa2 + 0.5;
-  
-    *f = 1.0 - 8.0/3.0*aa*(auxa1 + 2.0*aa*(auxa2 - auxa3));
-  
-    if(interaction == XC_RSF_ERF_GAU){
-      bb  = aa/M_SQRT3;
-      bb2 = bb*bb;
-      bb3 = bb*bb2;
-      auxb1 = M_SQRTPI*ERF(1.0/(2.0*bb));
-      auxb2 = EXP(-1.0/(4.0*bb2));
-      
-      *f += 8.0/M_SQRT3*bb*(auxb1 - 6.0*bb + 16.0*bb3 + (2.0*bb - 16*bb3)*auxb2);
+  if (aa > 50.0) {
+    aa3 = aa*aa2;
+
+    /* One can also use the following expansions to circumvent the double switch-case ladder
+
+       auxa1 = 1.0/aa - 1/ (3.0*aa3) + 1.0/(5.0*aa3*aa2);
+       auxa2 = 1.0/aa2 - 1./(2.0*aa2*aa2) + 1.0/(3.0*aa3*aa3);
+       auxa3 = (aa2 + 1);
+    */
+    switch(order) {
+    default:	/* > 3 - catch-22 */
+    case 3:
+      *d3f = 4.0/(aa2*aa2*aa3) - 8.0/(aa3*aa3);
+    case 2:
+      *d2f = 2.0/(3.0*aa2*aa2) - 2.0/(3.0*aa3*aa3);
+    case 1:
+      *df = 2.0/(15.0*aa2*aa3) - 2.0/(9.0*aa3);
+    case 0:
+      *f = 1.0/(9.0*aa2) - 1.0/(30.0*aa2*aa2);
     }
-  
-    if(order < 1) return;
-  
-    *df = 8.0/3.0 * (4.0*aa - 2.0*(1.0 - 8.0*aa2)*aa*auxa2 - auxa1);
-  
-    if(interaction == XC_RSF_ERF_GAU)
-      *df -= 8.0/3.0*(4.0*bb*(3.0 - 16.0*bb2 + (1.0 + 16.0*bb2)*auxb2) - auxb1);
-  
-    if(order < 2) return;
-  
-    *d2f = 16.0*(2.0 + (1.0 + 8.0*aa2)*auxa2);
-  
-    if(interaction == XC_RSF_ERF_GAU)
-      *d2f -= 8.0/(3.0*M_SQRT3)*(12.0 - 192.0*bb2 + 3.0*(1.0/bb2 + 12.0 + 64.0*bb2)*auxb2);
-  
-    if(order < 3) return;
-  
-    *d3f = -256.0*aa + 8.0*(1.0 + 8.0*aa2 + 32.0*aa2*aa2)*(auxa2 + 1.0)/aa3;
-  
-    if(interaction == XC_RSF_ERF_GAU)
-      *d3f -=  8.0/9.0*(-384.0*bb + 3.0*(1.0 + 8.0*bb2*(1.0 + bb2*(8.0 + bb2*32.0))*auxb2/(2.0*bb2*bb2*bb)));
-
-  } else {	/* XC_RSF_YUKAWA */
-
+  } else {
     auxa1 = ATAN2(1.0, aa);
     auxa2 = LOG(1.0 + (1.0/aa2));
     auxa3 = aa2 + 1.0;
 
     switch (order) {
-      default:	/* > 3 - catch-22 */
-      case 3:
-        *d3f = 16.0*aa*auxa2 - 8.0*(2.0*aa2 + 1.0)/(aa*auxa3);
-
-      case 2:
-        *d2f = 4.0*(2.0*aa2 + 1.0)*auxa2 - 8.0;
-
-      case 1:
-        *df = 4.0/3.0 * (aa*(2.0*aa2 + 3.0)*auxa2 - 2.0*(aa + auxa1));
-
-      case 0:
-        *f = 1.0 - 8.0/3.0*aa*(auxa1 + aa/4.0* (1.0 - (auxa3 + 2.0)*auxa2));
-    }	/* no break needed */
+    default:	/* > 3 - catch-22 */
+    case 3:
+      *d3f = 16.0*aa*auxa2 - 8.0*(2.0*aa2 + 1.0)/(aa*auxa3);
+    case 2:
+      *d2f = 4.0*(2.0*aa2 + 1.0)*auxa2 - 8.0;
+    case 1:
+      *df = 4.0/3.0 * (aa*(2.0*aa2 + 3.0)*auxa2 - 2.0*(aa + auxa1));
+    case 0:
+      *f = 1.0 - 8.0/3.0*aa*(auxa1 + aa/4.0* (1.0 - (auxa3 + 2.0)*auxa2));
+    }
   }
+}
 
+void
+XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
+{
+  switch(interaction){
+  case XC_RSF_ERF:
+    XC(lda_x_attenuation_function_erf)(order, aa, f, df, d2f, d3f);
+    break;
+  case XC_RSF_ERF_GAU:
+    XC(lda_x_attenuation_function_erf_gau)(order, aa, f, df, d2f, d3f);
+    break;
+  case XC_RSF_YUKAWA:
+    XC(lda_x_attenuation_function_yukawa)(order, aa, f, df, d2f, d3f);
+    break;
+  default:
+    fprintf(stderr, "Unknown interaction in lda_x_attenuation_function\n");
+    exit(1);
+  }
 }
 
 

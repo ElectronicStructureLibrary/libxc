@@ -136,7 +136,6 @@ const XC(func_info_type) XC(func_info_lda_c_hl) = {
   XC_CORRELATION,
   "Hedin & Lundqvist",
   XC_FAMILY_LDA,
-  /* can someone get me this paper, so I can find all coefficients? */
   {&xc_ref_Hedin1971_2064, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-16, 0.0, 0.0, 1e-32,

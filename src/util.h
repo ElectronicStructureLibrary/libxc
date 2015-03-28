@@ -156,6 +156,9 @@ void XC(lda_kxc_fd)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *kxc
 
 typedef void XC(lda_func_type) (const XC(func_type) *p, XC(lda_work_t) *r);
 
+void XC(lda_x_attenuation_function_erf)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f);
+void XC(lda_x_attenuation_function_erf_gau)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f);
+void XC(lda_x_attenuation_function_yukawa)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f);
 void XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f);
 void XC(lda_stoll)(const XC(func_type) *pw, XC(lda_func_type) lda_func, 
 		   FLOAT dens, FLOAT zeta, int order, XC(lda_work_t) res[3]);

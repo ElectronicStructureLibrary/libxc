@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 #include "xc.h"
 
 const char *get_kind(const xc_func_type *func) {
@@ -76,7 +77,7 @@ const char *get_family(const xc_func_type *func) {
 
 int main(int argc, char **argv) {
   if(argc!=2) {
-    printf("Usage: %s func_id\n",argv[0]);
+    printf("Usage: %s [ func_id | func_name ]\n",argv[0]);
     return 1;
   }
 
@@ -108,7 +109,11 @@ int main(int argc, char **argv) {
   printf("\nReference(s):\n");
   for(i=0; i<5; i++){
     if(func.info->refs[i]==NULL) break;
-    printf("%s\n", func.info->refs[i]->ref);
+    printf("%s", func.info->refs[i]->ref);
+    if(strlen(func.info->refs[i]->doi) > 0){
+       printf(" (%s)", func.info->refs[i]->doi);
+    }
+    printf("\n");
   }
 
   /* Free memory */

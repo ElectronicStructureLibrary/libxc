@@ -1598,17 +1598,3 @@ func_reference_type xc_ref_Chai2008_6615 = {
 };
 
 
-func_reference_type xc_ref_Strubbe = {
-  "D. A. Strubbe, (1 April 2015)",
-  "",
-  "@article{Strubbe,\n   author = {David A. Strubbe},\n   misc = {in preparation},\n   year = {1 April 2015}\n}"
-};
-
-
-func_reference_type xc_ref_Schrodinger = {
-  "E. Schr\\\"odinger, Phys. Rev. 28, 1049 (1926)",
-  "10.1103/PhysRev.28.1049",
-  "@article{Schrodinger,\n  title = {An Undulatory Theory of the Mechanics of Atoms and Molecules},\n  author = {Schr\\\"odinger, E.},\n  journal = {Phys. Rev.},\n  volume = {28},\n  issue = {6},\n  pages = {1049--1070},\n  numpages = {0},\n  year = {1926},\n  month = {Dec},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRev.28.1049},\n  url = {http://link.aps.org/doi/10.1103/PhysRev.28.1049}\n}"
-};
-
-

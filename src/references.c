@@ -1598,3 +1598,10 @@ func_reference_type xc_ref_Chai2008_6615 = {
 };
 
 
+func_reference_type xc_ref_Engel1993_13164 = {
+  "E. Engel and S. H. Vosko, Phys. Rev. B 47, 13164 (1993)",
+  "10.1103/PhysRevB.47.13164",
+  "@article{Engel1993_13164,\n  title = {Exact exchange-only potentials and the virial relation as microscopic criteria for generalized gradient approximations},\n  author = {Engel, E. and Vosko, S. H.},\n  journal = {Phys. Rev. B},\n  volume = {47},\n  issue = {20},\n  pages = {13164--13174},\n  numpages = {0},\n  year = {1993},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.47.13164},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.47.13164}\n}"
+};
+
+

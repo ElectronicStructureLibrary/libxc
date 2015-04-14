@@ -28,6 +28,7 @@ GGAs:
   *) Engel and Vosko [Phys. Rev. B 47, 13164 (1993)] http://dx.doi.org/10.1103/PhysRevB.47.13164
 
 mGGAs:
+  *) SCAN (http://arxiv.org/pdf/1504.03028v1.pdf)
   *) tau-HTCH
   *) KCIS, B0KCIS, B1KCIS http://jcp.aip.org/resource/1/jcpsa6/v117/i23/p10465_s1
   *) regTPSS http://pubs.acs.org/doi/abs/10.1021/ct300269u

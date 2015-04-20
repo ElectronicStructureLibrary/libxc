@@ -127,7 +127,7 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
   assert(p->params != NULL);
   omega = ((gga_x_hjs_params *)(p->params))->omega;
 
-  kF  = POW(3.0*M_PI*M_PI*ds, 1.0/3.0);
+  kF  = POW(6.0*M_PI*M_PI*ds, 1.0/3.0);
   nu  = omega/kF;
 
   if(p->info->number == XC_GGA_X_HJS_B88_V2){

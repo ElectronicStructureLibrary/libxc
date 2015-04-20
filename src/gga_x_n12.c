@@ -24,6 +24,7 @@
 
 #define XC_GGA_X_N12          82 /* N12 functional from Minnesota    */
 #define XC_HYB_GGA_X_N12_SX   81 /* N12-SX functional from Minnesota */
+#define XC_GGA_X_GAM          32 /* GAM functional from Minnesota */
 
 static const FLOAT CC_N12[4][4] = {
   { 1.00000e+00,  5.07880e-01,  1.68233e-01,  1.28887e-01},
@@ -41,20 +42,55 @@ static const FLOAT CC_N12_SX[4][4] = {
   {-7.09913e-01,  1.30001e+01, -7.24877e+01,  2.98363e+01}
 };
 
+static const FLOAT CC_GAM[4][4] = {
+  { 1.32730,  -0.786018, 0.802575, -0.142331},
+  { 0.886102, -4.78787, 14.4363,  -13.4598  },
+  {-5.73833,   3.90989,  8.42735,   1.52355 },
+  { 8.60197,  -2.11611, -6.21552, -10.0530  }
+};
+
+typedef struct{
+  const FLOAT (*CC)[4];
+} gga_x_n12_params;
+
+
 static void
-hyb_gga_x_n12_sx_init(XC(func_type) *p)
+gga_x_n12_init(XC(func_type) *p)
 {
-  p->cam_alpha = 0.00;
-  p->cam_beta  = 0.25;
-  p->cam_omega = 0.11;
+  gga_x_n12_params *params;
+
+  assert(p != NULL);
+
+  assert(p->params == NULL);
+  p->params = malloc(sizeof(gga_x_n12_params));
+  params = (gga_x_n12_params *) (p->params);
+
+  switch(p->info->number){
+  case XC_GGA_X_N12: 
+    params->CC = CC_N12;
+    break;
+  case XC_HYB_GGA_X_N12_SX:
+    params->CC = CC_N12_SX;
+    p->cam_alpha = 0.00;
+    p->cam_beta  = 0.25;
+    p->cam_omega = 0.11;
+    break;
+  case XC_GGA_X_GAM:
+    params->CC = CC_GAM;
+    break;
+  default:
+    fprintf(stderr, "Internal error in gga_x_n12\n");
+    exit(1);
+  }
 }
 
 
 static void 
 func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
 {
+  gga_x_n12_params *params;
+
   int is;
-  const FLOAT (*CC)[4];
   const FLOAT sign[2] = {1.0, -1.0}, omega_x=2.5, gamma_x=0.004;
 
   FLOAT opz, opz13, rss, x2;
@@ -66,7 +102,8 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
   FLOAT dpol1, dpol2, dpol3, dpol4;
   FLOAT dexdz, dexdrss, dFN12dux, dFN12dvx;
 
-  CC = (pt->info->number == XC_GGA_X_N12) ? CC_N12 : CC_N12_SX;
+  assert(pt != NULL && pt->params != NULL);
+  params = (gga_x_n12_params *) (pt->params);
 
   r->f = 0.0;
   if(r->order >= 1)
@@ -89,10 +126,10 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
     vx2 = vx*vx; vx3 = vx2*vx;
     ux2 = ux*ux; ux3 = ux2*ux;
 
-    pol1 = CC[0][0] + CC[0][1]*ux + CC[0][2]*ux2 + CC[0][3]*ux3;
-    pol2 = CC[1][0] + CC[1][1]*ux + CC[1][2]*ux2 + CC[1][3]*ux3;
-    pol3 = CC[2][0] + CC[2][1]*ux + CC[2][2]*ux2 + CC[2][3]*ux3;
-    pol4 = CC[3][0] + CC[3][1]*ux + CC[3][2]*ux2 + CC[3][3]*ux3;
+    pol1 = params->CC[0][0] + params->CC[0][1]*ux + params->CC[0][2]*ux2 + params->CC[0][3]*ux3;
+    pol2 = params->CC[1][0] + params->CC[1][1]*ux + params->CC[1][2]*ux2 + params->CC[1][3]*ux3;
+    pol3 = params->CC[2][0] + params->CC[2][1]*ux + params->CC[2][2]*ux2 + params->CC[2][3]*ux3;
+    pol4 = params->CC[3][0] + params->CC[3][1]*ux + params->CC[3][2]*ux2 + params->CC[3][3]*ux3;
 
     FN12 = pol1 + vx*pol2 + vx2*pol3 + vx3*pol4;
 
@@ -107,10 +144,10 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
     dvxdrss = -vx*vx/(RS_FACTOR*omega_x);
     duxdxs  = 2.0*gamma_x*r->xs[is]*ux_d*ux_d;
 
-    dpol1 = CC[0][1] + 2.0*CC[0][2]*ux + 3.0*CC[0][3]*ux2;
-    dpol2 = CC[1][1] + 2.0*CC[1][2]*ux + 3.0*CC[1][3]*ux2;
-    dpol3 = CC[2][1] + 2.0*CC[2][2]*ux + 3.0*CC[2][3]*ux2;
-    dpol4 = CC[3][1] + 2.0*CC[3][2]*ux + 3.0*CC[3][3]*ux2;
+    dpol1 = params->CC[0][1] + 2.0*params->CC[0][2]*ux + 3.0*params->CC[0][3]*ux2;
+    dpol2 = params->CC[1][1] + 2.0*params->CC[1][2]*ux + 3.0*params->CC[1][3]*ux2;
+    dpol3 = params->CC[2][1] + 2.0*params->CC[2][2]*ux + 3.0*params->CC[2][3]*ux2;
+    dpol4 = params->CC[3][1] + 2.0*params->CC[3][2]*ux + 3.0*params->CC[3][3]*ux2;
 
     dFN12dux = dpol1 + vx*dpol2 + vx2*dpol3 + vx3*dpol4;
     dFN12dvx = pol2 + 2.0*vx*pol3 + 3.0*vx2*pol4;
@@ -136,7 +173,7 @@ const XC(func_info_type) XC(func_info_gga_x_n12) = {
   {&xc_ref_Peverati2012_2310, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
-  NULL,
+  gga_x_n12_init,
   NULL, NULL,
   work_gga_c,
   NULL
@@ -150,9 +187,22 @@ const XC(func_info_type) XC(func_info_hyb_gga_x_n12_sx) = {
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
-  hyb_gga_x_n12_sx_init,
+  gga_x_n12_init,
   NULL, NULL,
   work_gga_c,
   NULL
 };
 
+const XC(func_info_type) XC(func_info_gga_x_gam) = {
+  XC_GGA_X_GAM,
+  XC_EXCHANGE,
+  "GAM functional from Minnesota",
+  XC_FAMILY_GGA,
+  {&xc_ref_Yu2015_, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 1e-32, 1e-32,
+  gga_x_n12_init,
+  NULL, NULL,
+  work_gga_c,
+  NULL
+};

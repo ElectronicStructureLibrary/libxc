@@ -1605,3 +1605,10 @@ func_reference_type xc_ref_Engel1993_13164 = {
 };
 
 
+func_reference_type xc_ref_Yu2015_ = {
+  "H. S. Yu, W. Zhang, P. Verma, X. He, and D. G. Truhlar, Phys. Chem. Chem. Phys. , (2015)",
+  "10.1039/C5CP01425E",
+  "@Article{Yu2015_,\nauthor =\"Yu, Haoyu S. and Zhang, Wenjing and Verma, Pragya and He, Xiao and Truhlar, Donald G.\",\ntitle  =\"Nonseparable exchange-correlation functional for molecules{,} including homogeneous catalysis involving transition metals\",\njournal  =\"Phys. Chem. Chem. Phys.\",\nyear  =\"2015\",\npages  =\"-\",\npublisher  =\"The Royal Society of Chemistry\",\ndoi  =\"10.1039/C5CP01425E\",\nurl  =\"http://dx.doi.org/10.1039/C5CP01425E\",\n}"
+};
+
+

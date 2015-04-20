@@ -48,6 +48,7 @@
 #define XC_GGA_XC_WB97X    252 /* Chai and Head-Gordon                     */
 #define XC_GGA_XC_WB97X_V  253 /* Mardirossian and Head-Gordon             */
 #define XC_GGA_XC_WB97X_D  256 /* Chai and Head-Gordon                     */
+#define XC_GGA_C_GAM        33 /* GAM functional from Minnesota            */
 
 static const FLOAT b97_params[][3][5] = {
   {      /* HCTH/93 */
@@ -158,6 +159,10 @@ static const FLOAT b97_params[][3][5] = {
     { 7.77964e-01,  6.61160e-01,  5.74541e-01, -5.25671e+00,  1.16386e+01},  /* X   */
     { 1.00000e+00, -6.90539e+00,  3.13343e+01, -5.10533e+01,  2.64423e+01},  /* Css */
     { 1.00000e+00,  1.79413e+00, -1.20477e+01,  1.40847e+01, -8.50809e+00}   /* Cab */
+  }, {   /* GAM  */
+    { 0.0,       0.0,       0.0,      0.0,       0.0},      /* X   */
+    { 0.231765,  0.575592, -3.43391, -5.77281,   9.52448},  /* Css */
+    { 0.860548, -2.94135,  15.4176,  -5.99825, -23.4119}    /* Cab */
   }
 };
 
@@ -225,6 +230,7 @@ gga_xc_b97_init(XC(func_type) *p)
     p->func = 26;
     XC(lda_x_set_params)(p->func_aux[0], 4.0/3.0, XC_NON_RELATIVISTIC, 0.2);
     break;
+  case XC_GGA_C_GAM:        p->func = 27;  break;
   default:
     fprintf(stderr, "Internal error in gga_b97\n");
     exit(1);
@@ -760,3 +766,17 @@ const XC(func_info_type) XC(func_info_gga_xc_wb97x_d) = {
   NULL
 };
 
+const XC(func_info_type) XC(func_info_gga_c_gam) = {
+  XC_GGA_C_GAM,
+  XC_EXCHANGE_CORRELATION,
+  "GAM functional from Minnesota",
+  XC_FAMILY_GGA,
+  {&xc_ref_Yu2015_, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-23, 1e-32, 0.0, 1e-32,
+  gga_xc_b97_init, 
+  NULL,
+  NULL,
+  work_gga_c,
+  NULL
+};

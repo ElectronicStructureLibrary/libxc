@@ -117,7 +117,7 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
   assert(p->params != NULL);
   omega = ((gga_x_hjs_params *)(p->params))->omega;
 
-  kF  = POW(3.0*M_PI*M_PI*ds, 1.0/3.0);
+  kF  = POW(6.0*M_PI*M_PI*ds, 1.0/3.0);
   nu  = omega/kF;
 
   /*  Rescaling the s values to ensure the Lieb-Oxford bound for s>8.3 */

@@ -772,7 +772,7 @@ const XC(func_info_type) XC(func_info_gga_c_gam) = {
   "GAM functional from Minnesota",
   XC_FAMILY_GGA,
   {&xc_ref_Yu2015_, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_DEVELOPMENT,
   1e-23, 1e-32, 0.0, 1e-32,
   gga_xc_b97_init, 
   NULL,

@@ -23,6 +23,7 @@
 
 #define XC_HYB_GGA_XC_PBEH    406 /* aka PBE0 or PBE1PBE */
 #define XC_HYB_GGA_XC_PBE0_13 456 /* PBE0-1/3            */
+#define XC_HYB_GGA_XC_HPBEINT 472 /* hPBEint             */
 
 static void
 hyb_gga_xc_pbeh_init(XC(func_type) *p)
@@ -55,7 +56,6 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeh) = {
   NULL, NULL, NULL, NULL /* this is taken care by the generic routine */
 };
 
-
 static void
 hyb_gga_xc_pbe0_13_init(XC(func_type) *p)
 {
@@ -75,6 +75,28 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe0_13) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_pbe0_13_init,
+  NULL, NULL, NULL, NULL /* this is taken care by the generic routine */
+};
+
+static void
+hyb_gga_xc_hpbeint_init(XC(func_type) *p)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_PBEINT, XC_GGA_C_PBEINT};
+  static FLOAT funcs_coef[2] = {1.0 - 1.0/6.0, 1.0};
+
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  p->cam_alpha = 1.0/6.0;
+}
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_hpbeint) = {
+  XC_HYB_GGA_XC_HPBEINT,
+  XC_EXCHANGE_CORRELATION,
+  "hPBEint",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Fabiano2013_673, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  hyb_gga_xc_hpbeint_init,
   NULL, NULL, NULL, NULL /* this is taken care by the generic routine */
 };
 

@@ -1608,7 +1608,14 @@ func_reference_type xc_ref_Engel1993_13164 = {
 func_reference_type xc_ref_Yu2015_ = {
   "H. S. Yu, W. Zhang, P. Verma, X. He, and D. G. Truhlar, Phys. Chem. Chem. Phys. , (2015)",
   "10.1039/C5CP01425E",
-  "@Article{Yu2015_,\nauthor =\"Yu, Haoyu S. and Zhang, Wenjing and Verma, Pragya and He, Xiao and Truhlar, Donald G.\",\ntitle  =\"Nonseparable exchange-correlation functional for molecules{,} including homogeneous catalysis involving transition metals\",\njournal  =\"Phys. Chem. Chem. Phys.\",\nyear  =\"2015\",\npages  =\"-\",\npublisher  =\"The Royal Society of Chemistry\",\ndoi  =\"10.1039/C5CP01425E\",\nurl  =\"http://dx.doi.org/10.1039/C5CP01425E\",\n}"
+  "@Article{Yu2015_,\n  author = \"Yu, Haoyu S. and Zhang, Wenjing and Verma, Pragya and He, Xiao and Truhlar, Donald G.\",\n  title = \"Nonseparable exchange-correlation functional for molecules{,} including homogeneous catalysis involving transition metals\",\n  journal = \"Phys. Chem. Chem. Phys.\",\n  year = \"2015\",\n  pages = \"-\",\n  publisher = \"The Royal Society of Chemistry\",\n  doi = \"10.1039/C5CP01425E\",\n  url = \"http://dx.doi.org/10.1039/C5CP01425E\"\n}"
+};
+
+
+func_reference_type xc_ref_Fabiano2013_673 = {
+  "E. Fabiano, L. A. Constantin, and F. Della Sala, Int. J. Quantum Chem. 113, 673 (2013)",
+  "10.1002/qua.24042",
+  "@article {Fabiano2013_673,\n  author = {Fabiano, E. and Constantin, Lucian A. and Della Sala, F.},\n  title = {Testing the broad applicability of the PBEint GGA functional and its one-parameter hybrid form},\n  journal = {International Journal of Quantum Chemistry},\n  volume = {113},\n  number = {5},\n  pages = {673--682},\n  year = {2013},\n  publisher = {Wiley Subscription Services, Inc., A Wiley Company},\n  keywords = {hybrid functional, GGA functional, metal–molecule interface},\n  issn = {1097-461X},\n  doi = {10.1002/qua.24042},\n  url = {http://dx.doi.org/10.1002/qua.24042}\n}"
 };
 
 

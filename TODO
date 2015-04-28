@@ -26,6 +26,7 @@ GGAs:
   *) Gilbert and Gill c [CPL 312, 511 (1999)] http://www.sciencedirect.com/science/article/pii/S0009261499008362
   *) BNL (Baer-Neuhauser-Livshits) [Phys. Rev. Lett. 94, 043002 (2005) and Phys. Chem. Chem. Phys. 9, 2932 (2007)] http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.94.043002 and http://pubs.rsc.org/en/content/articlelanding/2007/cp/b617919c
   *) GAM (http://pubs.rsc.org/en/Content/ArticleLanding/2015/CP/C5CP01425E)
+  *) zvPBEint and zvPBEsol http://scitation.aip.org/content/aip/journal/jcp/137/19/10.1063/1.4766324
 
 mGGAs:
   *) SCAN (http://arxiv.org/pdf/1504.03028v1.pdf)

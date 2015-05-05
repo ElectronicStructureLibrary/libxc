@@ -249,5 +249,5 @@ extern func_reference_type xc_ref_Vydrov2010_244103;
 extern func_reference_type xc_ref_Seth2013_2286;
 extern func_reference_type xc_ref_Chai2008_6615;
 extern func_reference_type xc_ref_Engel1993_13164;
-extern func_reference_type xc_ref_Yu2015_;
+extern func_reference_type xc_ref_Yu2015_12146;
 extern func_reference_type xc_ref_Fabiano2013_673;

@@ -37,7 +37,7 @@ gga_xc_vv10_init(XC(func_type) *p)
 static void
 hyb_gga_xc_lc_vv10_init(XC(func_type) *p)
 {
-  static int   funcs_id  [2] = {XC_GGA_X_WPBEH, XC_GGA_C_PBE};
+  static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
   static FLOAT funcs_coef[2] = {1.0, 1.0};
   
   XC(mix_init)(p, 2, funcs_id, funcs_coef);

@@ -113,7 +113,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hse06) = {
 static void
 hyb_gga_xc_lrc_wpbeh_init(XC(func_type) *p)
 {
-  static int   funcs_id  [2] = {XC_GGA_X_WPBEH, XC_GGA_C_PBE};
+  static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
   static FLOAT funcs_coef[2] = {0.8, 1.0};
   
   XC(mix_init)(p, 2, funcs_id, funcs_coef);

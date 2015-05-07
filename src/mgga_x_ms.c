@@ -40,7 +40,6 @@ mgga_x_ms_init(XC(func_type) *p)
   p->params = malloc(sizeof(mgga_x_ms_params));
   params = (mgga_x_ms_params *)p->params;
 
-  /* value of beta in standard Becke 88 functional */
   switch(p->info->number){
   case XC_MGGA_X_MS0:
     params->kappa = 0.29;

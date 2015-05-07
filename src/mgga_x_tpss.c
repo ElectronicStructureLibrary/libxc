@@ -48,7 +48,6 @@ mgga_x_tpss_init(XC(func_type) *p)
   p->params = malloc(sizeof(mgga_x_tpss_params));
   params = (mgga_x_tpss_params *)p->params;
 
-  /* value of beta in standard Becke 88 functional */
   switch(p->info->number){
   case XC_MGGA_X_TPSS:
     params->func = p->func = 0;

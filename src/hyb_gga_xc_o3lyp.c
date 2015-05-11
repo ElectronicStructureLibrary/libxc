@@ -60,7 +60,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_o3lyp) = {
 static void
 gga_xc_x3lyp_init(XC(func_type) *p)
 {
-  const FLOAT a1=0.675, a2=0.235;
+  const FLOAT a1=0.765, a2=0.235;
   const FLOAT a0=0.218, ax=0.709, ac=0.871;
 
   static int funcs_id[5] = {XC_LDA_X, XC_GGA_X_B88, XC_GGA_X_PW91, XC_LDA_C_VWN_RPA, XC_GGA_C_LYP};

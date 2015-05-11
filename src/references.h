@@ -251,3 +251,4 @@ extern func_reference_type xc_ref_Chai2008_6615;
 extern func_reference_type xc_ref_Engel1993_13164;
 extern func_reference_type xc_ref_Yu2015_12146;
 extern func_reference_type xc_ref_Fabiano2013_673;
+extern func_reference_type xc_ref_Sun2015_685;

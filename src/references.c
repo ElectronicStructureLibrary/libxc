@@ -1619,3 +1619,10 @@ func_reference_type xc_ref_Fabiano2013_673 = {
 };
 
 
+func_reference_type xc_ref_Sun2015_685 = {
+  "J. Sun, J. P. Perdew, and A. Ruzsinszky, Proceedings of the National Academy of Sciences 112, 685 (2015)",
+  "10.1073/pnas.1423145112",
+  "@article{Sun2015_685,\n  author = {Sun, Jianwei and Perdew, John P. and Ruzsinszky, Adrienn},\n  title = {Semilocal density functional obeying a strongly tightened bound for exchange},\n  volume = {112},\n  number = {3},\n  pages = {685-689},\n  year = {2015},\n  doi = {10.1073/pnas.1423145112},\n  URL = {http://www.pnas.org/content/112/3/685.abstract},\n  eprint = {http://www.pnas.org/content/112/3/685.full.pdf},\n  journal = {Proceedings of the National Academy of Sciences}\n}"
+};
+
+

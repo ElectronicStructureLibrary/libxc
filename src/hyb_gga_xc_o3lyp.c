@@ -29,18 +29,22 @@
 static void
 gga_xc_o3lyp_init(XC(func_type) *p)
 {
-  const FLOAT a0 = 0.1161, b0 = 0.9262, ax = 0.8133, ac = 0.81;
+  const FLOAT a = 0.1161, b = 0.9262, c = 0.8133, CC = 0.81, a1 = 1.05151;
   static int funcs_id  [4] = {XC_LDA_X, XC_GGA_X_OPTX, XC_LDA_C_VWN, XC_GGA_C_LYP};
   FLOAT funcs_coef[4];
 
-  funcs_coef[0] = b0 - ax;
-  funcs_coef[1] = ax;
-  funcs_coef[2] = 1.0 - ac;
-  funcs_coef[3] = ac;
+  /* \Delta OPTX is not described in the paper, so there are multiple
+     different plausible choices for the LDA exchange
+     coefficient. This one gives the right energies.
+   */
+  funcs_coef[0] = b - a1*c;
+  funcs_coef[1] = c;
+  funcs_coef[2] = 1.0 - CC;
+  funcs_coef[3] = CC;
 
   XC(mix_init)(p, 4, funcs_id, funcs_coef);
   XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
-  p->cam_alpha = a0;
+  p->cam_alpha = a;
 }
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_o3lyp) = {

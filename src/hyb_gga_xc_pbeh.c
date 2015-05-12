@@ -94,7 +94,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hpbeint) = {
   "hPBEint",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Fabiano2013_673, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_DEVELOPMENT,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_hpbeint_init,
   NULL, NULL, NULL, NULL /* this is taken care by the generic routine */

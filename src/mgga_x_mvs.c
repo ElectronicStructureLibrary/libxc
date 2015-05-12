@@ -57,7 +57,7 @@ func_fa(int order, FLOAT a,
 
   if(order < 2) return;
 
-  d2den   = ((3.0*e12*e1 + e1*c1)*a4 + (2.0*e12 + 3.0*c1)*a2 + e1)*(den*den/bareden);
+  d2den   = (e1*(e12+c1)*a4 + (2.0*e12 + 3.0*c1)*a2 + e1)*den/(bareden*bareden);
 
   *d2fda2 = (-num*d2den*den - 2.0*dden*(dnum*den - dden*num))/(den*den*den);
 }

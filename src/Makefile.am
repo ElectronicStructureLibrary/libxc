@@ -20,10 +20,15 @@
 ## $Id: Makefile.am 2433 2006-09-28 11:06:54Z marques $
 
 bin_PROGRAMS = xc-info
+noinst_PROGRAMS = genwiki
 
 xc_info_SOURCES = xc-info.c
 xc_info_LDADD = libxc.la -lm
 xc_info_LDFLAGS =
+
+genwiki_SOURCES = genwiki.c
+genwiki_LDADD = libxc.la -lm
+genwiki_LDFLAGS =
 
 lib_LTLIBRARIES = libxc.la
 

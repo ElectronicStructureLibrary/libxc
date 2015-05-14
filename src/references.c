@@ -1563,10 +1563,10 @@ func_reference_type xc_ref_Mardirossian2014_9904 = {
 };
 
 
-func_reference_type xc_ref_Mardirossian2015_b97mv = {
-  "N. Mardirossian and M. Head-Gordon, J. Chem. Phys. (2015), 10.1063/1.4907719",
+func_reference_type xc_ref_Mardirossian2015_074111 = {
+  "N. Mardirossian and M. Head-Gordon, J. Chem. Phys. 142, 074111 (2015)",
   "10.1063/1.4907719",
-  "@Article{Mardirossian2015_b97mv,\n   author  =\"Mardirossian, Narbe and Head-Gordon, Martin\",\n   title   =\"Mapping the genome of meta-generalized gradient approximation density functionals: The search for B97M-V\",\n   journal =\"J. Chem. Phys.\",\n   year    =\"2015\",\n   doi     =\"10.1063/1.4907719\",\n   url     =\"http://dx.doi.org/10.1063/1.4907719\"\n}"
+  "@article{Mardirossian2015_074111,\n   author = \"Mardirossian, Narbe and Head-Gordon, Martin\",\n   title = \"Mapping the genome of meta-generalized gradient approximation density functionals: The search for B97M-V\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2015\",\n   volume = \"142\",\n   number = \"7\", \n   eid = 074111,\n   pages = \"-\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/142/7/10.1063/1.4907719\",\n   doi = \"http://dx.doi.org/10.1063/1.4907719\" \n}"
 };
 
 

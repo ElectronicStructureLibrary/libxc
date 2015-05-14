@@ -240,7 +240,7 @@ const XC(func_info_type) XC(func_info_mgga_xc_b97m_v) = {
   XC_EXCHANGE_CORRELATION,
   "B97M-V exchange-correlation functional",
   XC_FAMILY_MGGA,
-  {&xc_ref_Mardirossian2015_b97mv, NULL, NULL, NULL, NULL},
+  {&xc_ref_Mardirossian2015_074111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_xc_b97mv_init,

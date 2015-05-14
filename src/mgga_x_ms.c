@@ -169,9 +169,9 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   d2fda2 = (f0 - f1)*d2fada2;
   d2fdadp = (df0dp - df1dp)*dfada;
   
-  r->d2fdx2 = dfdp*d2pdx2 + d2fdp2*dpdx*dpdx + dfda*d2alphadx2 + d2fda2*dalphadx*dalphadx;
+  r->d2fdx2 = dfdp*d2pdx2 + d2fdp2*dpdx*dpdx + dfda*d2alphadx2 + d2fda2*dalphadx*dalphadx + 2.0*d2fdadp*dalphadx*dpdx;
   r->d2fdt2 = d2fda2*dalphadt*dalphadt;
-  r->d2fdxt = d2fdadp*dalphadt*dalphadx;
+  r->d2fdxt = d2fda2*dalphadt*dalphadx;
 }
 
 

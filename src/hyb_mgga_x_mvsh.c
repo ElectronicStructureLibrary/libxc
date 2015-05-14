@@ -34,7 +34,7 @@ hyb_mgga_x_mvsh_init(XC(func_type) *p)
 }
 
 void 
-XC(hyb_mgga_x_pbeh_set_params)(XC(func_type) *p, FLOAT alpha)
+XC(hyb_mgga_x_mvsh_set_params)(XC(func_type) *p, FLOAT alpha)
 {
   assert(alpha>=0 && alpha<=1.0);
 
@@ -44,8 +44,8 @@ XC(hyb_mgga_x_pbeh_set_params)(XC(func_type) *p, FLOAT alpha)
 
 const XC(func_info_type) XC(func_info_hyb_mgga_x_mvsh) = {
   XC_HYB_MGGA_X_MVSH,
-  XC_EXCHANGE_CORRELATION,
-  "MVSh",
+  XC_EXCHANGE,
+  "MVSh hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Sun2015_685, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_DEVELOPMENT,

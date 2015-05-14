@@ -56,18 +56,11 @@ mgga_x_ms_init(XC(func_type) *p)
     params->c     = 0.14601;
     params->b     = 4.0;
     break;
-  case XC_HYB_MGGA_X_MS2H:
-    p->cam_alpha  = 0.09;
-    params->kappa = 0.504;
-    params->c     = 0.14601;
-    params->b     = 4.0;
-    break;
   default:
     fprintf(stderr, "Internal error in mgga_x_ms\n");
     exit(1);
   }
 }
-
 
 static void 
 func_fa(FLOAT b, int order, FLOAT a, 
@@ -217,6 +210,25 @@ const XC(func_info_type) XC(func_info_mgga_x_ms2) = {
   work_mgga_x,
 };
 
+static void
+hyb_mgga_x_ms2h_init(XC(func_type) *p)
+{
+  static int   funcs_id  [1] = {XC_MGGA_X_MS2};
+  static FLOAT funcs_coef[1] = {0.91};
+
+  XC(mix_init)(p, 1, funcs_id, funcs_coef);
+  p->cam_alpha = 0.09;
+}
+
+void
+XC(hyb_mgga_x_ms2h_set_params)(XC(func_type) *p, FLOAT alpha)
+{
+  assert(alpha>=0 && alpha<=1.0);
+
+  p->cam_alpha   = alpha;
+  p->mix_coef[0] = 1.0 - alpha;
+}
+
 const XC(func_info_type) XC(func_info_hyb_mgga_x_ms2h) = {
   XC_HYB_MGGA_X_MS2H,
   XC_EXCHANGE,
@@ -225,7 +237,6 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_ms2h) = {
   {&xc_ref_Sun2013_044113, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 1e-32, 1e-32,
-  mgga_x_ms_init,
-  NULL, NULL, NULL,
-  work_mgga_x,
+  hyb_mgga_x_ms2h_init,
+  NULL, NULL, NULL, NULL
 };

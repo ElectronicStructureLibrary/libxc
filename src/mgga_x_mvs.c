@@ -110,7 +110,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   d2fdp2 = 7.0/64.0*(1 + k0*fa)/(opbp*opbp)*opbprt;
   d2fdadp = -1.0/8.0*k0*dfada/opbp*opbprt;
   
-  r->d2fdx2 = dfdp*d2pdx2 + d2fdp2*dpdx*dpdx + dfda*d2adx2 + d2fda2*dadx*dadx;
+  r->d2fdx2 = dfdp*d2pdx2 + d2fdp2*dpdx*dpdx + dfda*d2adx2 + d2fda2*dadx*dadx + 2.0*d2fdadp*dadx*dpdx;
   r->d2fdt2 = d2fda2*dadt*dadt;
   r->d2fdxt = d2fdadp*dadt*dadx;
 }

@@ -1626,3 +1626,10 @@ func_reference_type xc_ref_Sun2015_685 = {
 };
 
 
+func_reference_type xc_ref_Lin2004_365 = {
+  "C. Y. Lin, M. W. George, and P. M. W. Gill, Australian Journal of Chemistry 57, 365 (2004)",
+  "10.1071/CH03263",
+  "@article{Lin2004_365,\n  author = {Lin, Ching Yeh and George, Michael W. and Gill, Peter M. W.},\n  title = {EDF2: A Density Functional for Predicting Molecular Vibrational Frequencies},\n  volume = {57},\n  number = {4},\n  pages = {365-370},\n  year = {2004},\n  doi = {10.1071/CH03263},\n  URL = {http://www.publish.csiro.au/?paper=CH03263},\n  journal = {Australian Journal of Chemistry}\n}"
+};
+
+

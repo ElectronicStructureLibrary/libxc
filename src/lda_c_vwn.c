@@ -26,12 +26,12 @@
  LDA parametrization of Vosko, Wilk & Nusair
 ************************************************************************/
 
-#define XC_LDA_C_VWN      7   /* Vosko, Wilk, & Nussair (5)   */
-#define XC_LDA_C_VWN_RPA  8   /* Vosko, Wilk, & Nussair (RPA) */
-#define XC_LDA_C_VWN_1   28   /* Vosko, Wilk, & Nussair (1)   */
-#define XC_LDA_C_VWN_2   29   /* Vosko, Wilk, & Nussair (2)   */
-#define XC_LDA_C_VWN_3   30   /* Vosko, Wilk, & Nussair (3)   */
-#define XC_LDA_C_VWN_4   31   /* Vosko, Wilk, & Nussair (4)   */
+#define XC_LDA_C_VWN      7   /* Vosko, Wilk, & Nusair (5)   */
+#define XC_LDA_C_VWN_RPA  8   /* Vosko, Wilk, & Nusair (RPA) */
+#define XC_LDA_C_VWN_1   28   /* Vosko, Wilk, & Nusair (1)   */
+#define XC_LDA_C_VWN_2   29   /* Vosko, Wilk, & Nusair (2)   */
+#define XC_LDA_C_VWN_3   30   /* Vosko, Wilk, & Nusair (3)   */
+#define XC_LDA_C_VWN_4   31   /* Vosko, Wilk, & Nusair (4)   */
 
 /* some constants         e_c^P      e_c^F      alpha_c */
 typedef struct {

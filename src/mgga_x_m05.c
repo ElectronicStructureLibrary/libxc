@@ -22,10 +22,10 @@
 
 #include "util.h"
 
-#define XC_MGGA_X_M05          214 /* M05 functional from Minnesota */
-#define XC_MGGA_X_M05_2X       215 /* M05-2X functional from Minnesota */
-#define XC_MGGA_X_M06_2X       218 /* M06-2X functional from Minnesota */
-#define XC_HYB_MGGA_X_DLDF      36 /* Dispersionless Density Functional   */
+#define XC_MGGA_X_M05          214 /* Worker for M05 functional         */
+#define XC_MGGA_X_M05_2X       215 /* Worker for M05-2X functional      */
+#define XC_MGGA_X_M06_2X       218 /* Worker for M06-2X functional      */
+#define XC_HYB_MGGA_X_DLDF      36 /* Dispersionless Density Functional */
 
 
 static const FLOAT a_m05[12] = 
@@ -133,7 +133,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 const XC(func_info_type) XC(func_info_mgga_x_m05) = {
   XC_MGGA_X_M05,
   XC_EXCHANGE,
-  "Minnesota M05 functional",
+  "Worker for hyb_mgga_xc_m05",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2005_161103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -147,7 +147,7 @@ const XC(func_info_type) XC(func_info_mgga_x_m05) = {
 const XC(func_info_type) XC(func_info_mgga_x_m05_2x) = {
   XC_MGGA_X_M05_2X,
   XC_EXCHANGE,
-  "Minnesota M05-2X functional",
+  "Worker for hyb_mgga_xc_m05_2x",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2006_364, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -160,7 +160,7 @@ const XC(func_info_type) XC(func_info_mgga_x_m05_2x) = {
 const XC(func_info_type) XC(func_info_mgga_x_m06_2x) = {
   XC_MGGA_X_M06_2X,
   XC_EXCHANGE,
-  "Minnesota M06-2X functional",
+  "Worker for hyb_mgga_m06_2x",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

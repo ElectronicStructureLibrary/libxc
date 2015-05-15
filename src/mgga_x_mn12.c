@@ -23,7 +23,7 @@
 #include "util.h"
 
 #define XC_MGGA_X_MN12_L        227 /* MN12-L functional from Minnesota  */
-#define XC_MGGA_X_MN12_SX       228 /* MN12-SX functional from Minnesota        */
+#define XC_MGGA_X_MN12_SX       228 /* Worker for MN12-SX functional     */
 #define XC_HYB_MGGA_X_MN12_SX   248 /* MN12-SX hybrid functional from Minnesota */
 
 /* the ordering is 
@@ -187,7 +187,7 @@ const XC(func_info_type) XC(func_info_mgga_x_mn12_l) = {
 const XC(func_info_type) XC(func_info_mgga_x_mn12_sx) = {
   XC_MGGA_X_MN12_SX,
   XC_EXCHANGE,
-  "Minnesota MN12-SX functional",
+  "Worker for hyb_mgga_x_mn12_sx",
   XC_FAMILY_MGGA,
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

@@ -49,11 +49,13 @@
 
 # David Strubbe, March 2012, UC Berkeley
 # Script to automagically backport a commit from trunk to a branch.
-# Usage (from checked-out version of branch): sh backport.sh revision#
+# Usage (from checked-out version of branch): sh backport.sh revision# [revision#2 [..]]
+# Use multiple revisions at a time to concurrently apply bugfixes to a revision,
+# and maintain stability in branch.
 # Has been tested for svn versions 1.6, 1.7, 1.8
 
-if [ $# -ne 1 ]; then
-    echo "Usage: $0 revision"
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 revision [revision 2 [..]]"
     exit
 fi
 
@@ -86,20 +88,27 @@ URL=`svn info | grep URL | awk '{print $2; exit}'`
 # e.g. branches/1.0.x
 Branch=${URL#$Root/}
 
-echo "svn merge -c $1 $Root/trunk ."
-svn merge -c $1 $Root/trunk . --accept postpone --quiet
+# clear if it exists already
+rm -f svn-commit.tmp
 
-# We will accumulate annoying and useless merge tracking properties otherwise
-svn revert . --quiet
+for revision in "$@"; do
 
-echo
-echo "===== svn status ====="
-svn status
+    echo "svn merge -c $revision $Root/trunk ."
+    svn merge -c $revision $Root/trunk . --accept postpone --quiet
 
-echo "Backport of $1 to $Branch:" > svn-commit.tmp
-svn log $Root -r $1 >> svn-commit.tmp
+    # We will accumulate annoying and useless merge tracking properties otherwise
+    svn revert . --quiet
 
-echo
+    echo
+    echo "===== svn status ====="
+    svn status
+
+    echo "Backport of $revision to $Branch:" >> svn-commit.tmp
+    svn log $Root -r $revision >> svn-commit.tmp
+
+    echo
+done
+
 echo "===== log message ====="
 cat svn-commit.tmp
 

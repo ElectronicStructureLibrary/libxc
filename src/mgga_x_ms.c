@@ -96,7 +96,7 @@ func_fa(FLOAT b, int order, FLOAT a,
 
   if(order < 2) return;
 
-  d2num   = -6.0*aux*(1.0 - 5.0*a2);
+  d2num   = -6.0*aux*(aux - 4.0*a2);
   d2den   = 6.0*a + 30.0*b*a4;
 
   *d2fda2 = ((d2num*den - num*d2den)*den - 2.0*dden*(dnum*den - dden*num))/(den*den*den);
@@ -131,6 +131,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   FLOAT ss;
   FLOAT alpha, dalphadt, dalphadx, d2alphadx2, fa, dfada, d2fada2;
   FLOAT pp, dpdx, d2pdx2, f0, df0dp, d2f0dp2, f1, df1dp, d2f1dp2;
+  FLOAT dfda, dfdp, d2fda2, d2fdp2, d2fdadp;
   mgga_x_ms_params *params;
 
   params = (mgga_x_ms_params *)pt->params;
@@ -153,8 +154,11 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   dalphadx = -2.0*r->x/(8.0*K_FACTOR_C);
   dalphadt = 1.0/K_FACTOR_C;
 
-  r->dfdx = (df1dp + fa*(df0dp - df1dp))*dpdx + (f0 - f1)*dfada*dalphadx;
-  r->dfdt = (f0 - f1)*dfada*dalphadt;
+  dfdp = df1dp + fa*(df0dp - df1dp);
+  dfda = (f0 - f1)*dfada;
+
+  r->dfdx = dfda*dalphadx + dfdp*dpdx;
+  r->dfdt = dfda*dalphadt;
   r->dfdu = 0.0;
 
   if(r->order < 2) return;
@@ -162,11 +166,13 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   d2pdx2 = 2.0*X2S*X2S;
   d2alphadx2 = -2.0/(8.0*K_FACTOR_C);
 
-  r->d2fdx2 = (d2f1dp2 + fa*(d2f0dp2 - d2f1dp2))*dpdx*dpdx + (df1dp + fa*(df0dp - df1dp))*d2pdx2
-    + 2.0*(df0dp - df1dp)*dpdx*dfada*dalphadx
-    + (f0 - f1)*(d2fada2*dalphadx*dalphadx + dfada*d2alphadx2);
-  r->d2fdt2 = (f0 - f1)*d2fada2*dalphadt*dalphadt;
-  r->d2fdxt = (f0 - f1)*d2fada2*dalphadt*dalphadx;
+  d2fdp2 = d2f1dp2 + fa*(d2f0dp2 - d2f1dp2);
+  d2fda2 = (f0 - f1)*d2fada2;
+  d2fdadp = (df0dp - df1dp)*dfada;
+  
+  r->d2fdx2 = dfdp*d2pdx2 + d2fdp2*dpdx*dpdx + dfda*d2alphadx2 + d2fda2*dalphadx*dalphadx + 2.0*d2fdadp*dalphadx*dpdx;
+  r->d2fdt2 = d2fda2*dalphadt*dalphadt;
+  r->d2fdxt = d2fda2*dalphadt*dalphadx;
 }
 
 

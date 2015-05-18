@@ -86,7 +86,7 @@ func(const XC(func_type) *p, int order, FLOAT x,
 const XC(func_info_type) XC(func_info_gga_x_2d_b88) = {
   XC_GGA_X_2D_B88,
   XC_EXCHANGE,
-  "Becke 88",
+  "Becke 88 in 2D",
   XC_FAMILY_GGA,
   {&xc_ref_Vilhena2014, NULL, NULL, NULL, NULL},
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,

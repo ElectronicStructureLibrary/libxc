@@ -195,7 +195,7 @@ const XC(func_info_type) XC(func_info_gga_x_mb88) = {
 const XC(func_info_type) XC(func_info_gga_k_llp) = {
   XC_GGA_K_LLP,
   XC_KINETIC,
-  "Becke 88",
+  "Lee, Lee & Parr",
   XC_FAMILY_GGA,
   {&xc_ref_Lee1991_768, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,

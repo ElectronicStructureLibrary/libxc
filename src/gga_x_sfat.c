@@ -117,7 +117,7 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
     ex    = -X_FACTOR_C*RS_FACTOR*opz/(2.0*rss);
     r->f += ex*e_f*f_aa;
 
-    if(r->order < 1) return;
+    if(r->order < 1) continue;
 
     drssdrs = M_CBRT2/opz13;
     drssdz  = -sign[is]*rss/(3.0*opz);
@@ -135,7 +135,7 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
     r->dfdz     += e_f*(dexdz*f_aa + ex*df_aa*daadrss*drssdz);
     r->dfdxs[is] = ex*(e_dfdx*f_aa + e_f*df_aa*daadxs);
 
-    if(r->order < 2) return;
+    if(r->order < 2) continue;
 
     js = (is == 0) ? 0 : 2;
 

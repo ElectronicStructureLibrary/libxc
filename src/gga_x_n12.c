@@ -43,12 +43,10 @@ static const FLOAT CC_N12_SX[4][4] = {
 };
 
 static const FLOAT CC_GAM[4][4] = {
-  /* Indices are wrong in the original paper; the first two indices
-     need to be flipped */
-  { 1.32730,  -0.786018, 0.802575, -0.142331},
-  { 0.886102, -4.78787, 14.4363,  -13.4598  },
-  {-5.73833,   3.90989,  8.42735,   1.52355 },
-  { 8.60197,  -2.11611, -6.21552, -10.0530  }
+  { 1.32730,    0.886102, -5.73833,   8.60197},
+  {-0.786018,  -4.78787,   3.90989,  -2.11611},
+  { 0.802575,  14.4363,    8.842735, -6.21552},
+  {-0.142331, -13.4598,    1.52355, -10.0530}
 };
 
 typedef struct{
@@ -201,7 +199,7 @@ const XC(func_info_type) XC(func_info_gga_x_gam) = {
   "GAM functional from Minnesota",
   XC_FAMILY_GGA,
   {&xc_ref_Yu2015_12146, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_DEVELOPMENT,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   gga_x_n12_init,
   NULL, NULL,

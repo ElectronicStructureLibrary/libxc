@@ -42,6 +42,7 @@
 #define XC_GGA_C_ZPBEINT       61 /* spin-dependent gradient correction to PBEint       */
 #define XC_GGA_C_PBELOC       246 /* Semilocal dynamical correlation                    */
 #define XC_GGA_C_BGCP          39 /* Burke, Cancio, Gould, and Pittalis                 */
+#define XC_GGA_C_PBEFE        258 /* PBE for formation energies                         */
 
 typedef struct{
   FLOAT beta;
@@ -63,7 +64,8 @@ static void gga_c_pbe_init(XC(func_type) *p)
     0.052,                              /*  9: PBEint                    */
     0.052,                              /* 10: zPBEint                   */
     0.0,                                /* 11: PBEloc this is calculated */
-    0.06672455060314922                 /* 12: BGCP                      */
+    0.06672455060314922,                /* 12: BGCP                      */
+    043,                                /* 13: PBEfe                     */
   };
 
   assert(p!=NULL && p->params == NULL);
@@ -89,6 +91,7 @@ static void gga_c_pbe_init(XC(func_type) *p)
   case XC_GGA_C_ZPBEINT:  p->func = 10; break;
   case XC_GGA_C_PBELOC:   p->func = 11; break;
   case XC_GGA_C_BGCP:     p->func = 12; break;
+  case XC_GGA_C_PBEFE:    p->func = 13; break;
   default:
     fprintf(stderr, "Internal error in gga_c_pbe\n");
     exit(1);
@@ -554,7 +557,6 @@ const XC(func_info_type) XC(func_info_gga_c_pbeloc) = {
   NULL
 };
 
-
 const XC(func_info_type) XC(func_info_gga_c_bgcp) = {
   XC_GGA_C_BGCP,
   XC_CORRELATION,
@@ -564,6 +566,20 @@ const XC(func_info_type) XC(func_info_gga_c_bgcp) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-12, 1e-32, 0.0, 1e-32,
   gga_c_pbe_init,
+  NULL, NULL,
+  work_gga_c,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_c_pbefe) = {
+  XC_GGA_C_PBEFE,
+  XC_CORRELATION,
+  "PBE for formation energies",
+  XC_FAMILY_GGA,
+  {&xc_ref_Perez2015_3844, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_c_pbe_init, 
   NULL, NULL,
   work_gga_c,
   NULL

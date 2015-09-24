@@ -1633,3 +1633,17 @@ func_reference_type xc_ref_Lin2004_365 = {
 };
 
 
+func_reference_type xc_ref_Perez2015_3844 = {
+  "R. Sarmiento-Pérez, S. Botti, and M. A. L. Marques, J. Chem. Theory Comput. 11, 3844 (2015)",
+  "10.1021/acs.jctc.5b00529",
+  "@article{Perez2015_3844,\n  author = {Rafael Sarmiento-Pérez and Silvana Botti and Miguel A. L. Marques},\n  title = {Optimized Exchange and Correlation Semilocal Functional for the Calculation of Energies of Formation},\n  journal = {J. Chem. Theory Comput.},\n  volume = {11},\n  number = {8},\n  pages = {3844-3850},\n  year = {2015},\n  doi = {10.1021/acs.jctc.5b00529},\n  URL = {http://dx.doi.org/10.1021/acs.jctc.5b00529},\n}"
+};
+
+
+func_reference_type xc_ref_Gilbert1999_511 = {
+  "A. T. Gilbert and P. M. Gill, Chem. Phys. Lett. 312, 511 (1999)",
+  "10.1016/S0009-2614(99)00836-2",
+  "@article{Gilbert1999_511,\n  title = \"Decomposition of exchange-correlation energies \",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"312\",\n  number = \"5–6\",\n  pages = \"511 - 521\",\n  year = \"1999\",\n  note = \"\",\n  issn = \"0009-2614\",\n  doi = \"http://dx.doi.org/10.1016/S0009-2614(99)00836-2\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261499008362\",\n  author = \"Andrew T.B. Gilbert and Peter M.W. Gill\"\n}"
+};
+
+

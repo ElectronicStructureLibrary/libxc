@@ -31,6 +31,13 @@
 #define XC_GGA_X_APBE         184 /* mu fixed from the semiclassical neutral atom   */
 #define XC_GGA_X_PBEINT        60 /* PBE for hybrid interfaces                      */
 #define XC_GGA_X_PBE_TCA       59 /* PBE revised by Tognetti et al                  */
+#define XC_GGA_X_PBE_MOL       49 /* Del Campo, Gazquez, Trickey and Vela (PBE-like) */
+#define XC_GGA_X_LAMBDA_LO_N   45 /* lambda_LO(N) version of PBE                    */
+#define XC_GGA_X_LAMBDA_CH_N   44 /* lambda_CH(N) version of PBE                    */
+#define XC_GGA_X_LAMBDA_OC2_N  40 /* lambda_OC2(N) version of PBE                   */
+#define XC_GGA_X_BGCP          38 /* Burke, Cancio, Gould, and Pittalis             */
+#define XC_GGA_X_PBEFE         33 /* PBE for formation energies                     */
+
 #define XC_GGA_K_APBE         185 /* mu fixed from the semiclassical neutral atom   */
 #define XC_GGA_K_TW1          187 /* Tran and Wesolowski set 1 (Table II)           */
 #define XC_GGA_K_TW2          188 /* Tran and Wesolowski set 2 (Table II)           */
@@ -39,11 +46,6 @@
 #define XC_GGA_K_REVAPBE       55 /* revised APBE                                   */
 #define XC_GGA_K_APBEINT       54 /* interpolated version of APBE                   */
 #define XC_GGA_K_REVAPBEINT    53 /* interpolated version of REVAPBE                */
-#define XC_GGA_X_PBE_MOL       49 /* Del Campo, Gazquez, Trickey and Vela (PBE-like) */
-#define XC_GGA_X_LAMBDA_LO_N   45 /* lambda_LO(N) version of PBE                    */
-#define XC_GGA_X_LAMBDA_CH_N   44 /* lambda_CH(N) version of PBE                    */
-#define XC_GGA_X_LAMBDA_OC2_N  40 /* lambda_OC2(N) version of PBE                   */
-#define XC_GGA_X_BGCP          38 /* Burke, Cancio, Gould, and Pittalis                 */
 
 
 typedef struct{
@@ -60,7 +62,7 @@ typedef struct{
 static void 
 gga_x_pbe_init(XC(func_type) *p)
 {
-  static const FLOAT kappa[23] = {
+  static const FLOAT kappa[] = {
     0.8040,                 /* original PBE */
     1.245,                  /* PBE R       */
     0.8040,                 /* PBE sol     */
@@ -84,9 +86,10 @@ gga_x_pbe_init(XC(func_type) *p)
     2.215/M_CBRT2 - 1.0,    /* LAMBDA_CH(N)  */
     2.00 /M_CBRT2 - 1.0,    /* LAMBDA_OC2(N) */
     0.8040,                 /* BGCP (X)    */
+    0.437,                  /* PBEfe       */
   };
 
-  static const FLOAT mu[23] = {
+  static const FLOAT mu[] = {
     0.2195149727645171,     /* PBE: mu = beta*pi^2/3, beta = 0.06672455060314922 */
     0.2195149727645171,     /* PBE rev: as PBE */
     10.0/81.0,              /* PBE sol */
@@ -109,7 +112,8 @@ gga_x_pbe_init(XC(func_type) *p)
     0.2195149727645171,     /* LAMBDA_LO(N)  */
     0.2195149727645171,     /* LAMBDA_CH(N)  */
     0.2195149727645171,     /* LAMBDA_OC2(N) */
-    0.249                   /* BGCP (X)    */
+    0.249,                  /* BGCP (X)    */
+    0.346,                  /* PBEfe       */
   };
 
   gga_x_pbe_params *params;
@@ -179,6 +183,7 @@ gga_x_pbe_init(XC(func_type) *p)
     break;
   }
   case XC_GGA_X_BGCP:    p->func = 22; break;
+  case XC_GGA_X_PBEFE:   p->func = 23; break;
 
   default:{
     fprintf(stderr, "Internal error in gga_x_pbe\n");
@@ -496,6 +501,20 @@ const XC(func_info_type) XC(func_info_gga_x_bgcp) = {
   "Burke, Cancio, Gould, and Pittalis",
   XC_FAMILY_GGA,
   {&xc_ref_Burke2014_4834, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_x_pbe_init, 
+  NULL, NULL,
+  work_gga_x,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_x_pbefe) = {
+  XC_GGA_X_PBEFE,
+  XC_EXCHANGE,
+  "PBE for formation energies",
+  XC_FAMILY_GGA,
+  {&xc_ref_Perez2015_3844, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_pbe_init, 

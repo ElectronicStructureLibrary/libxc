@@ -27,11 +27,13 @@ AC_COMPILE_IFELSE([module conftest_module
    end subroutine conftest_routine
    end module conftest_module
   ],
-  [ax_cv_f90_modext=`ls | sed -n 's,conftest_module\.,,p'`
-   if test x$ax_cv_f90_modext = x ; then
+  [
+dnl prune out 'submodule' file .smod from gcc version 6 and later
+   ax_cv_f90_modext=`ls | grep -v smod | sed -n 's,conftest_module\.,,p'`
+   if test x"$ax_cv_f90_modext" = x ; then
 dnl Some F90 compilers put module filename in uppercase letters
-     ax_cv_f90_modext=`ls | sed -n 's,CONFTEST_MODULE\.,,p'`
-     if test x$ax_cv_f90_modext = x ; then
+     ax_cv_f90_modext=`ls | grep -v SMOD | sed -n 's,CONFTEST_MODULE\.,,p'`
+     if test x"$ax_cv_f90_modext" = x ; then
        ax_cv_f90_modext=unknown
      else
        ax_f90_mod_uppercase=yes

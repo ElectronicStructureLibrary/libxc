@@ -1647,3 +1647,10 @@ func_reference_type xc_ref_Gilbert1999_511 = {
 };
 
 
+func_reference_type xc_ref_Karasiev2014_076403 = {
+  "V. V. Karasiev, T. Sjostrom, J. Dufty, and S. B. Trickey, Phys. Rev. Lett. 112, 076403 (2014)",
+  "10.1103/PhysRevLett.112.076403",
+  "@article{Karasiev2014_076403,\n  title = {Accurate Homogeneous Electron Gas Exchange-Correlation Free Energy for Local Spin-Density Calculations},\n  author = {Karasiev, Valentin V. and Sjostrom, Travis and Dufty, James and Trickey, S. B.},\n  journal = {Phys. Rev. Lett.},\n  volume = {112},\n  issue = {7},\n  pages = {076403},\n  numpages = {5},\n  year = {2014},\n  month = {Feb},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.112.076403},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.112.076403}\n}"
+};
+
+

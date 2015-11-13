@@ -242,6 +242,13 @@ void XC_FC_FUNC(f90_lda_c_2d_prm_set_par, F90_LDA_C_2D_PRM_SET_PAR)
   XC(lda_c_2d_prm_set_params)((XC(func_type) *)(*p), *N);
 }
 
+/* Parameter of KSDT (temperature in Kelvin) */
+void XC_FC_FUNC(f90_lda_xc_ksdt_set_par, F90_LDA_XC_KSDT_SET_PAR)
+  (void **p, FLOAT *T)
+{
+  XC(lda_xc_ksdt_set_params)((XC(func_type) *)(*p), *T);
+}
+
 
 /* GGAs */
 

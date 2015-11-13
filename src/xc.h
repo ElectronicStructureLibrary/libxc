@@ -173,6 +173,7 @@ void XC(lda_c_1d_csc_set_params) (XC(func_type) *p, int interaction, FLOAT bb);
 void XC(lda_c_xalpha_set_params) (XC(func_type) *p, FLOAT alpha);
 void XC(lda_c_2d_prm_set_params) (XC(func_type) *p, FLOAT N);
 void XC(lda_c_vwn_set_params)    (XC(func_type) *p, int spin_interpolation);
+void XC(lda_xc_ksdt_set_params)  (XC(func_type) *p, FLOAT T);
 
 
 int  XC(gga_init)(XC(func_type) *p, const XC(func_info_type) *info, int nspin);

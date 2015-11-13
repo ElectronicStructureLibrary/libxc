@@ -255,3 +255,4 @@ extern func_reference_type xc_ref_Sun2015_685;
 extern func_reference_type xc_ref_Lin2004_365;
 extern func_reference_type xc_ref_Perez2015_3844;
 extern func_reference_type xc_ref_Gilbert1999_511;
+extern func_reference_type xc_ref_Karasiev2014_076403;

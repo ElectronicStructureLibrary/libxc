@@ -70,7 +70,7 @@ gga_xc_x3lyp_init(XC(func_type) *p)
   static int funcs_id[5] = {XC_LDA_X, XC_GGA_X_B88, XC_GGA_X_PW91, XC_LDA_C_VWN_RPA, XC_GGA_C_LYP};
   FLOAT funcs_coef[5];
 
-  funcs_coef[0] = 1.0 - a0 - ax*(a1 + a2);;
+  funcs_coef[0] = 1.0 - a0 - ax*(a1 + a2);
   funcs_coef[1] = ax*a1;
   funcs_coef[2] = ax*a2;
   funcs_coef[3] = 1.0 - ac;

@@ -23,30 +23,67 @@
 #include "util.h"
 
 #define XC_MGGA_XC_B97M_V        254 /* Mardirossian and Head-Gordon */
+#define XC_HYB_MGGA_XC_WB97MX_V  531 /* Mardirossian and Head-Gordon */
 
-#define WMAX 5
-#define UMAX 4
+#define WMAX 7
+#define UMAX 5
 static const FLOAT b97mv_params[][WMAX][UMAX] = {
   { /* x */
-    { 1.000,    1.308,   1.901,   0.0    }, /* u^i, i = 0 .. 6 */
-    { 0.416,    3.070,   0.0,     0.0    }, /* w u^i */
-    { 0.0,      0.0,     0.0,     0.0    }, /* w^2 u^i */
-    { 0.0,      0.0,     0.0,     0.0    }, /* w^3 u^i */
-    { 0.0,      0.0,     0.0,     0.0    }  /* w^4 u^i */
+    { 1.000,    1.308,   1.901,   0.0,   0.0    }, /* u^i, i = 0 .. 6 */
+    { 0.416,    3.070,   0.0,     0.0,   0.0    }, /* w u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^2 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^3 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^4 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^5 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0    }  /* w^6 u^i */
   },
   { /* css */
-    { 1.000,    0.0,    -1.855,   0.0    }, /* u^i, i = 0 .. 6 */
-    {-5.668,    0.0,     0.0,     0.0    }, /* w u^i */
-    { 0.0,      0.0,     0.0,     0.0    }, /* w^2 u^i */
-    { 0.0,      0.0,   -20.497,   0.0    }, /* w^3 u^i */
-    { 0.0,      0.0,   -20.364,   0.0    }  /* w^4 u^i */
+    { 1.000,    0.0,    -1.855,   0.0,   0.0    }, /* u^i, i = 0 .. 6 */
+    {-5.668,    0.0,     0.0,     0.0,   0.0    }, /* w u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^2 u^i */
+    { 0.0,      0.0,   -20.497,   0.0,   0.0    }, /* w^3 u^i */
+    { 0.0,      0.0,   -20.364,   0.0,   0.0    }, /* w^4 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^5 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0    }  /* w^6 u^i */
   },
   { /* cos */
-    { 1.000,    1.573,   0.0,    -6.298  }, /* u^i, i = 0 .. 6 */
-    { 2.535,    0.0,     0.0,     0.0    }, /* w u^i */
-    { 0.0,      0.0,     0.0,     0.0    }, /* w^2 u^i */
-    { 0.0,      0.0,    -6.427,   0.0    }, /* w^3 u^i */
-    { 0.0,      0.0,     0.0,     0.0    }  /* w^4 u^i */
+    { 1.000,    1.573,   0.0,    -6.298, 0.0    }, /* u^i, i = 0 .. 6 */
+    { 2.535,    0.0,     0.0,     0.0,   0.0    }, /* w u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^2 u^i */
+    { 0.0,      0.0,    -6.427,   0.0,   0.0    }, /* w^3 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^4 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^5 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0    }  /* w^6 u^i */
+  }
+};
+
+static const FLOAT wb97mxv_params[][WMAX][UMAX] = {
+  { /* x */
+    { 0.85,     1.007,   0.0,     0.0,   0.0   }, /* u^i, i = 0 .. 6 */
+    { 0.259,    0.0,     0.0,     0.0,   0.0   }, /* w u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0   }, /* w^2 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0   }, /* w^3 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0   },  /* w^4 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0   }, /* w^5 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0   }  /* w^6 u^i */
+  },
+  { /* css */
+    { 0.443,    0.0,     0.0,     0.0,  -1.437 }, /* u^i, i = 0 .. 6 */
+    {-4.535,    0.0,     0.0,     0.0,   0.0   }, /* w u^i */
+    { -3.39,    0.0,     0.0,     0.0,   0.0   }, /* w^2 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0   }, /* w^3 u^i */
+    { 0.0,      0.0,     0.0,     4.278, 0.0   },  /* w^4 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0   }, /* w^5 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0   }  /* w^6 u^i */
+  },
+  { /* cos */
+    { 1.000,    0.0,     0.0,     0.0,   0.0   }, /* u^i, i = 0 .. 6 */
+    { 1.358,    0.0,     0.0,     0.0,   0.0   }, /* w u^i */
+    { 2.924,    -8.812,  0.0,     0.0,   0.0   }, /* w^2 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0   }, /* w^3 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0   }, /* w^4 u^i */
+    { 0.0,      0.0,     0.0,     0.0,   0.0   }, /* w^5 u^i */
+    { -1.39,    9.142,   0.0,     0.0,   0.0   }  /* w^6 u^i */
   }
 };
 
@@ -80,6 +117,14 @@ mgga_xc_b97mv_init(XC(func_type) *p)
   switch(p->info->number){
   case XC_MGGA_XC_B97M_V:
     params -> cc = b97mv_params;
+    break;
+  case XC_HYB_MGGA_XC_WB97MX_V:
+    params -> cc = wb97mxv_params;
+    p->cam_omega =  0.3;
+    p->cam_alpha =  1.0;
+    p->cam_beta  = -(1.0 - 0.15);
+    p->nlc_b = 6.0;
+    p->nlc_C = 0.01;
     break;
   default:
     fprintf(stderr, "Internal error in mgga_xc_b97mv\n");
@@ -242,6 +287,19 @@ const XC(func_info_type) XC(func_info_mgga_xc_b97m_v) = {
   XC_FAMILY_MGGA,
   {&xc_ref_Mardirossian2015_074111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 1e-32, 1e-32,
+  mgga_xc_b97mv_init,
+  NULL, NULL, NULL,
+  work_mgga_c,
+};
+
+const XC(func_info_type) XC(func_info_hyb_mgga_xc_wb97mx_v) = {
+  XC_HYB_MGGA_XC_WB97MX_V,
+  XC_EXCHANGE_CORRELATION,
+  "wB97MX-V exchange-correlation functional",
+  XC_FAMILY_HYB_MGGA,
+  {&xc_ref_Mardirossian2016, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_xc_b97mv_init,
   NULL, NULL, NULL,

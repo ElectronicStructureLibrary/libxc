@@ -1654,3 +1654,10 @@ func_reference_type xc_ref_Karasiev2014_076403 = {
 };
 
 
+func_reference_type xc_ref_Mardirossian2016 = {
+  "N. Mardirossian and M. Head-Gordon, (2016)",
+  "",
+  "@article{Mardirossian2016,\n   author = \"Mardirossian, Narbe and Head-Gordon, Martin\",\n   title = \"Under preparation\",\n   year = \"2016\"\n}"
+};
+
+

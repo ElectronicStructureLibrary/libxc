@@ -1661,3 +1661,10 @@ func_reference_type xc_ref_Mardirossian2016 = {
 };
 
 
+func_reference_type xc_ref_Yu2016 = {
+  "H. S. Yu, X. He, and D. G. Truhlar, J. Chem. Theory Comput. 10.1021/acs.jctc.5b01082, pMID: 26722866",
+  "10.1021/acs.jctc.5b01082",
+  "@article{Yu2016,\n  author = {Haoyu S. Yu  and Xiao He  and Donald G. Truhlar },\n  title = {MN15-L: A New Local Exchange-Correlation Functional for Kohn–Sham Density Functional Theory with Broad Accuracy for Atoms, Molecules, and Solids},\n  journal = {Journal of Chemical Theory and Computation},\n  doi = {10.1021/acs.jctc.5b01082},\n  note ={PMID: 26722866},\n  URL = {http://dx.doi.org/10.1021/acs.jctc.5b01082},\n  eprint = {http://dx.doi.org/10.1021/acs.jctc.5b01082}\n}"
+};
+
+

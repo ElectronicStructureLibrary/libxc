@@ -25,6 +25,7 @@
 #define XC_MGGA_X_MN12_L        227 /* MN12-L functional from Minnesota  */
 #define XC_MGGA_X_MN12_SX       228 /* Worker for MN12-SX functional     */
 #define XC_HYB_MGGA_X_MN12_SX   248 /* MN12-SX hybrid functional from Minnesota */
+#define XC_MGGA_X_MN15_L        260 /* MN15-L functional from Minnesota  */
 
 /* the ordering is 
 CC000 [ 0], CC001 [ 1], CC002 [ 2], CC003 [ 3], CC004 [ 4], CC005 [ 5]
@@ -64,6 +65,19 @@ static const FLOAT CC_MN12_SX[] =
     1.517278e+00, -3.442503e+00,  1.100161e+00
   };
 
+static const FLOAT CC_MN15_L[] =
+  { 0.670864162, -0.822003903, -1.022407046,  1.689460986, -0.00562032,  -0.110293849,
+    0.972245178, -6.697641991, -4.322814495, -6.786641376, -5.687461462,
+    9.419643818, 11.83939406,   5.086951311,  4.302369948,
+   -8.07344065,   2.429988978, 11.09485698,
+    1.247333909,  3.700485291,  0.867791614, -0.591190518, -0.295305435,
+   -5.825759145,  2.537532196,  3.143390933,  2.939126332,
+    0.599342114,  2.241702738,  2.035713838,
+   -1.525344043, -2.325875691,  1.141940663, -1.563165026,
+    7.882032871, 11.93400684,   9.852928303,
+    0.584030245, -0.720941131, -2.836037078
+  };
+
 static void
 hyb_mgga_x_mn12_sx_init(XC(func_type) *p)
 {
@@ -87,7 +101,25 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   FLOAT dpol1, dpol2, dpol3, dpol4, dpol5, dpol6, dpol7, dpol8, dpol9, dpol10;
   FLOAT dexdz, dexdrss, dFMN12dwx, dFMN12dux, dFMN12dvx;
 
-  CC = (pt->info->number == XC_MGGA_X_MN12_L) ? CC_MN12_L : CC_MN12_SX;
+  switch(pt->info->number) {
+  case(XC_MGGA_X_MN12_L):
+    CC = CC_MN12_L;
+    break;
+
+  case(XC_MGGA_X_MN15_L):
+    CC = CC_MN15_L;
+    break;
+
+  case(XC_MGGA_X_MN12_SX):
+  case(XC_HYB_MGGA_X_MN12_SX):
+    CC = CC_MN12_SX;
+    break;
+
+  default:
+    fprintf(stderr, "Internal error in mgga_x_mn12\n");
+    exit(1);
+  }
+  
   cnst_rs = CBRT(4.0*M_PI/3.0);
 
   r->f = 0.0;
@@ -209,3 +241,17 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_mn12_sx) = {
   NULL, NULL,
   work_mgga_c
 };
+
+const XC(func_info_type) XC(func_info_mgga_x_mn15_l) = {
+  XC_MGGA_X_MN15_L,
+  XC_EXCHANGE,
+  "Minnesota MN15-L functional",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Yu2016, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 1e-32, 1e-32,
+  NULL,
+  NULL, NULL, NULL,
+  work_mgga_c,
+};
+

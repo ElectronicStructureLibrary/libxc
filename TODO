@@ -16,6 +16,9 @@ LDA:
   *) Proynov-Kong c [Phys. Rev. A 79, 014103 (2009)] http://journals.aps.org/pra/abstract/10.1103/PhysRevA.79.014103
 
 GGAs:
+  *) The exchange part of HCTH-A is wrong. In the original paper they use an
+     alternative form of exchange that uses both B88 and its derivative with
+     respect to beta.
   *) CAP http://www.qtp.ufl.edu/ofdft/research/ManuscriptGGAWCAB-v9.pdf
   *) functionals of Della Salla (http://www.theory-nnl.it/software.php)
   *) Liu and Parr (http://pra.aps.org/abstract/PRA/v55/i3/p1792_1)
@@ -30,6 +33,7 @@ GGAs:
 
 mGGAs:
   *) SCAN (http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.115.036402 and http://arxiv.org/pdf/1504.03028v1.pdf)
+  *) ISM (http://scitation.aip.org/content/aip/journal/jcp/116/15/10.1063/1.1462618)
   *) tau-HTCH
   *) KCIS, B0KCIS, B1KCIS http://jcp.aip.org/resource/1/jcpsa6/v117/i23/p10465_s1
   *) regTPSS http://pubs.acs.org/doi/abs/10.1021/ct300269u

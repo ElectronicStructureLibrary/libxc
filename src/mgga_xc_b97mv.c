@@ -27,68 +27,74 @@
 
 #define WMAX 7
 #define UMAX 5
-static const FLOAT b97mv_params[][WMAX][UMAX] = {
+#define NPAR 6
+
+/* Sparse datatype for functionals */
+typedef struct {
+  /* Value of matrix element */
+  FLOAT val;
+  /* row */
+  int i;
+  /* column */
+  int j;
+} b97_parameter_t;
+
+static const b97_parameter_t b97mv_params[][NPAR] = {
   { /* x */
-    { 1.000,    1.308,   1.901,   0.0,   0.0    }, /* u^i, i = 0 .. 6 */
-    { 0.416,    3.070,   0.0,     0.0,   0.0    }, /* w u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^2 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^3 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^4 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^5 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0    }  /* w^6 u^i */
+    {  1.000, 0, 0},
+    {  1.308, 0, 1},
+    {  1.901, 0, 2},
+    {  0.416, 1, 0},
+    {  3.070, 1, 1},
+    {  0.0,   0, 0} /* dummy entry */
   },
   { /* css */
-    { 1.000,    0.0,    -1.855,   0.0,   0.0    }, /* u^i, i = 0 .. 6 */
-    {-5.668,    0.0,     0.0,     0.0,   0.0    }, /* w u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^2 u^i */
-    { 0.0,      0.0,   -20.497,   0.0,   0.0    }, /* w^3 u^i */
-    { 0.0,      0.0,   -20.364,   0.0,   0.0    }, /* w^4 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^5 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0    }  /* w^6 u^i */
+    {  1.000, 0, 0},
+    { -1.855, 0, 2},
+    { -5.668, 1, 0},
+    {-20.497, 3, 2},
+    {-20.364, 4, 2},
+    {  0.0,   0, 0} /* dummy entry */
   },
   { /* cos */
-    { 1.000,    1.573,   0.0,    -6.298, 0.0    }, /* u^i, i = 0 .. 6 */
-    { 2.535,    0.0,     0.0,     0.0,   0.0    }, /* w u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^2 u^i */
-    { 0.0,      0.0,    -6.427,   0.0,   0.0    }, /* w^3 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^4 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0    }, /* w^5 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0    }  /* w^6 u^i */
+    {  1.000, 0, 0},
+    {  1.573, 0, 1},
+    { -6.298, 0, 3},
+    {  2.535, 1, 0},
+    { -6.427, 3, 2},
+    {  0.0,   0, 0} /* dummy entry */
   }
 };
 
-static const FLOAT wb97mxv_params[][WMAX][UMAX] = {
+static const b97_parameter_t wb97mxv_params[][NPAR] = {
   { /* x */
-    { 0.85,     1.007,   0.0,     0.0,   0.0   }, /* u^i, i = 0 .. 6 */
-    { 0.259,    0.0,     0.0,     0.0,   0.0   }, /* w u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0   }, /* w^2 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0   }, /* w^3 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0   },  /* w^4 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0   }, /* w^5 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0   }  /* w^6 u^i */
+    {  0.85,  0, 0},
+    {  1.007, 0, 1},
+    {  0.259, 1, 0},
+    {  0.0,   0, 0}, /* dummy entry */
+    {  0.0,   0, 0}, /* dummy entry */
+    {  0.0,   0, 0}  /* dummy entry */
   },
   { /* css */
-    { 0.443,    0.0,     0.0,     0.0,  -1.437 }, /* u^i, i = 0 .. 6 */
-    {-4.535,    0.0,     0.0,     0.0,   0.0   }, /* w u^i */
-    { -3.39,    0.0,     0.0,     0.0,   0.0   }, /* w^2 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0   }, /* w^3 u^i */
-    { 0.0,      0.0,     0.0,     4.278, 0.0   },  /* w^4 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0   }, /* w^5 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0   }  /* w^6 u^i */
+    {  0.443,  0, 0},
+    { -1.437,  0, 4},
+    { -4.535,  1, 0},
+    { -3.39,   2, 0},
+    {  4.278,  4, 3},
+    {  0.0,   0, 0}  /* dummy entry */
   },
   { /* cos */
-    { 1.000,    0.0,     0.0,     0.0,   0.0   }, /* u^i, i = 0 .. 6 */
-    { 1.358,    0.0,     0.0,     0.0,   0.0   }, /* w u^i */
-    { 2.924,    -8.812,  0.0,     0.0,   0.0   }, /* w^2 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0   }, /* w^3 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0   }, /* w^4 u^i */
-    { 0.0,      0.0,     0.0,     0.0,   0.0   }, /* w^5 u^i */
-    { -1.39,    9.142,   0.0,     0.0,   0.0   }  /* w^6 u^i */
+    {  1.000,  0, 0},
+    {  1.358,  1, 0},
+    {  2.924,  2, 0},
+    { -8.812,  2, 1},
+    { -1.39,   6, 0},
+    {  9.142,  6, 1}
   }
 };
 
 typedef struct{
-  const FLOAT (*cc)[WMAX][UMAX];
+  const b97_parameter_t (*cc)[NPAR];
 } mgga_xc_b97mv_params;
 
 static void
@@ -135,11 +141,11 @@ mgga_xc_b97mv_init(XC(func_type) *p)
 
 /* tau (t) is defined here without the factor 1/2 */
 static void
-XC(mgga_b97mv_g)(const FLOAT C[WMAX][UMAX], FLOAT gamma, int order, FLOAT x, FLOAT t, FLOAT *g, FLOAT *dgdx, FLOAT *dgdt, int os)
+XC(mgga_b97mv_g)(const b97_parameter_t C[NPAR], FLOAT gamma, int order, FLOAT x, FLOAT t, FLOAT *g, FLOAT *dgdx, FLOAT *dgdt, int os)
 {
   FLOAT x2, denom, u, w, dgdu, dudx, dgdw, dwdt;
-  FLOAT up[UMAX];
-  FLOAT wp[WMAX];
+  FLOAT up[UMAX+1];
+  FLOAT wp[WMAX+1];
   
   int i, j;
 
@@ -153,34 +159,35 @@ XC(mgga_b97mv_g)(const FLOAT C[WMAX][UMAX], FLOAT gamma, int order, FLOAT x, FLO
   else
     w = (2.0*K_FACTOR_C - t)/(2.0*K_FACTOR_C + t);
   
-  /* calculate u^i */
-  up[0]=1.0;
+  /* calculate u^i.
+     Array is offset by 1 to avoid if clause for derivative */
+  up[0]=0.0;
+  up[1]=1.0;
   for(i=1;i<UMAX;i++)
-    up[i]=up[i-1]*u;
+    up[i+1]=up[i]*u;
 
-  /* calculate w^i */
-  wp[0]=1.0;
+  /* calculate w^i.
+     Array is offset by 1 to avoid if clause for derivative */
+  wp[0]=0.0;
+  wp[1]=1.0;
   for(i=1;i<WMAX;i++)
-    wp[i]=wp[i-1]*w;
-
+    wp[i+1]=wp[i]*w;
+  
   /* evaluate enhancement factor */
   *g = 0.0;
-  for(i=0;i<WMAX;i++)
-    for(j=0;j<UMAX;j++)
-      *g += C[i][j] * wp[i] * up[j];
+  for(i=0;i<NPAR;i++)
+    *g += C[i].val * wp[C[i].i+1] * up[C[i].j+1];
 
   if(order < 1) return;
 
   /* evaluate derivatives */
   dgdu = 0.0;
-  for(i=0;i<WMAX;i++)
-    for(j=1;j<UMAX;j++)
-      dgdu += j * C[i][j] * wp[i] * up[j-1];
+  for(i=0;i<NPAR;i++)
+      dgdu += C[i].j * C[i].val * wp[C[i].i+1] * up[C[i].j];
 
   dgdw = 0.0;
-  for(i=1;i<WMAX;i++)
-    for(j=0;j<UMAX;j++)
-      dgdw += i * C[i][j] * wp[i-1] * up[j];
+  for(i=0;i<NPAR;i++)
+    dgdw += C[i].i * C[i].val * wp[C[i].i] * up[C[i].j+1];
   
   dudx = 2.0*gamma*x/(denom*denom);
   /* different definition of w for opposite spin */

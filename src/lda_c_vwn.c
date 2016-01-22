@@ -195,8 +195,8 @@ ec_i(vwn_consts_type *X, int order, int i, FLOAT x,
 }
 
 /* the functional */
-static inline void 
-func(const XC(func_type) *p, XC(lda_work_t) *r)
+void 
+XC(lda_c_vwn_func)(const XC(func_type) *p, XC(lda_work_t) *r)
 {
   lda_c_vwn_params *params;
 
@@ -372,6 +372,7 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
   
 }
 
+#define func XC(lda_c_vwn_func)
 #include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_c_vwn) = {

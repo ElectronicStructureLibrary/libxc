@@ -37,7 +37,7 @@
 #define XC_GGA_XC_SB98_2a  179 /* Schmider-Becke 98 parameterization 2a    */
 #define XC_GGA_XC_SB98_2b  180 /* Schmider-Becke 98 parameterization 2b    */
 #define XC_GGA_XC_SB98_2c  181 /* Schmider-Becke 98 parameterization 2c    */
-#define XC_GGA_XC_HCTH_A    97 /* HCTH-A                                   */
+#define XC_GGA_C_HCTH_A     97 /* HCTH-A                                   */
 #define XC_GGA_XC_B97_GGA1  96 /* Becke 97 GGA-1                           */
 #define XC_GGA_XC_HCTH_P14  95 /* HCTH p=1/4                               */
 #define XC_GGA_XC_HCTH_P76  94 /* HCTH p=7/6                               */
@@ -116,7 +116,7 @@ static const FLOAT b97_params[][3][5] = {
     {-0.120163, 2.82332,  -2.59412,  0.0, 0.0},  /* Css */
     { 0.934715, 1.14105,  -5.33398,  0.0, 0.0}   /* Cab */
   }, {   /* HCTH-A  */
-    { 1.09878,  -2.51173,   0.0156233, 0.0,     0.0},  /* X   */
+    { 0.0, 0.0, 0.0, 0.0, 0.0},  /* HTCH-A has a different expression for exchange */
     { 0.0136823, 0.268920, -0.550769,  1.03947, 0.0},  /* Css */
     { 0.836897,  1.72051,  -2.78498,  -4.57504, 0.0}   /* Cab */
   }, {   /* B97 GGA-1  */
@@ -184,7 +184,12 @@ gga_xc_b97_init(XC(func_type) *p)
   p->func_aux[1] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
 
   XC(func_init)(p->func_aux[0], XC_LDA_X,    XC_POLARIZED);
-  XC(func_init)(p->func_aux[1], XC_LDA_C_PW, XC_POLARIZED);
+
+  /* HCTH_A uses the VWN LDA and not PW */
+  if(p->info->number == XC_GGA_C_HCTH_A)
+    XC(func_init)(p->func_aux[1], XC_LDA_C_VWN, XC_POLARIZED);
+  else
+    XC(func_init)(p->func_aux[1], XC_LDA_C_PW, XC_POLARIZED);
 
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_xc_b97_params));
@@ -207,7 +212,7 @@ gga_xc_b97_init(XC(func_type) *p)
   case XC_GGA_XC_SB98_2a:   p->func = 13;  break;
   case XC_GGA_XC_SB98_2b:   p->func = 14;  break;
   case XC_GGA_XC_SB98_2c:   p->func = 15;  break;
-  case XC_GGA_XC_HCTH_A:    p->func = 16;  break;
+  case XC_GGA_C_HCTH_A:     p->func = 16;  break;
   case XC_GGA_XC_B97_GGA1:  p->func = 17;  break;
   case XC_GGA_XC_HCTH_P14:  p->func = 18;  break;
   case XC_GGA_XC_HCTH_P76:  p->func = 19;  break;
@@ -282,7 +287,11 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   params = (gga_xc_b97_params *)(p->params);
 
   /* first we get the parallel and perpendicular LDAs */
-  XC(lda_stoll) (p->func_aux[1], XC(lda_c_pw_func), r->dens, r->zeta, r->order, lda_pw);
+  /* note that HCTH_A uses the VWN LDA and not PW     */
+  if(p->info->number == XC_GGA_C_HCTH_A)
+    XC(lda_stoll) (p->func_aux[1], XC(lda_c_vwn_func), r->dens, r->zeta, r->order, lda_pw);
+  else
+    XC(lda_stoll) (p->func_aux[1], XC(lda_c_pw_func), r->dens, r->zeta, r->order, lda_pw);
   XC(lda_stoll) (p->func_aux[0], XC(lda_x_func),    r->dens, r->zeta, r->order, lda_x);
 
   /* initialize to zero */
@@ -603,9 +612,9 @@ const XC(func_info_type) XC(func_info_gga_xc_sb98_2c) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_hcth_a) = {
-  XC_GGA_XC_HCTH_A,
-  XC_EXCHANGE_CORRELATION,
+const XC(func_info_type) XC(func_info_gga_c_hcth_a) = {
+  XC_GGA_C_HCTH_A,
+  XC_CORRELATION,
   "HCTH-A",
   XC_FAMILY_GGA,
   {&xc_ref_Hamprecht1998_6264, NULL, NULL, NULL, NULL},

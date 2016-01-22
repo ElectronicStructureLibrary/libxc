@@ -166,6 +166,7 @@ void XC(lda_stoll)(const XC(func_type) *pw, XC(lda_func_type) lda_func,
 /* direct access to the internal functions */
 void XC(lda_x_func)     (const XC(func_type) *p, XC(lda_work_t) *r);
 void XC(lda_c_hl_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
+void XC(lda_c_vwn_func) (const XC(func_type) *p, XC(lda_work_t) *r);
 void XC(lda_c_pw_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
 void XC(lda_c_pz_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
 void XC(lda_c_rc04_func)(const XC(func_type) *p, XC(lda_work_t) *r);

@@ -23,7 +23,7 @@
 #include "util.h"
 
 #define XC_MGGA_XC_B97M_V        254 /* Mardirossian and Head-Gordon */
-#define XC_HYB_MGGA_XC_WB97MX_V  531 /* Mardirossian and Head-Gordon */
+#define XC_HYB_MGGA_XC_WB97M_V   531 /* Mardirossian and Head-Gordon */
 
 #define WMAX 7
 #define UMAX 5
@@ -66,7 +66,7 @@ static const b97_parameter_t b97mv_params[][NPAR] = {
   }
 };
 
-static const b97_parameter_t wb97mxv_params[][NPAR] = {
+static const b97_parameter_t wb97mv_params[][NPAR] = {
   { /* x */
     {  0.85,  0, 0},
     {  1.007, 0, 1},
@@ -81,7 +81,7 @@ static const b97_parameter_t wb97mxv_params[][NPAR] = {
     { -4.535,  1, 0},
     { -3.39,   2, 0},
     {  4.278,  4, 3},
-    {  0.0,   0, 0}  /* dummy entry */
+    {  0.0,    0, 0}  /* dummy entry */
   },
   { /* cos */
     {  1.000,  0, 0},
@@ -124,8 +124,8 @@ mgga_xc_b97mv_init(XC(func_type) *p)
   case XC_MGGA_XC_B97M_V:
     params -> cc = b97mv_params;
     break;
-  case XC_HYB_MGGA_XC_WB97MX_V:
-    params -> cc = wb97mxv_params;
+  case XC_HYB_MGGA_XC_WB97M_V:
+    params -> cc = wb97mv_params;
     p->cam_omega =  0.3;
     XC(lda_x_set_params)(p->func_aux[0], 4.0/3.0, XC_NON_RELATIVISTIC, 0.3);
     p->cam_alpha =  1.0;
@@ -301,10 +301,10 @@ const XC(func_info_type) XC(func_info_mgga_xc_b97m_v) = {
   work_mgga_c,
 };
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_wb97mx_v) = {
-  XC_HYB_MGGA_XC_WB97MX_V,
+const XC(func_info_type) XC(func_info_hyb_mgga_xc_wb97m_v) = {
+  XC_HYB_MGGA_XC_WB97M_V,
   XC_EXCHANGE_CORRELATION,
-  "wB97MX-V exchange-correlation functional",
+  "wB97M-V exchange-correlation functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Mardirossian2016, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

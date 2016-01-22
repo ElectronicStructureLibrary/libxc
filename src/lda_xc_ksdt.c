@@ -29,7 +29,7 @@
   Ported to C and libxc by Lazaro Calderin and Miguel Marques
 ************************************************************************/
 
-#define XC_LDA_XC_KSDT2    259    /* Karasiev et al. parametrization */
+#define XC_LDA_XC_KSDT    259    /* Karasiev et al. parametrization */
 
 static const FLOAT ksdt_a[6] =
   {0.750, 3.043630, -0.0922700, 1.703500, 8.310510, 5.11050};
@@ -281,8 +281,8 @@ XC(lda_xc_ksdt2)(const XC(func_type) *p, XC(lda_work_t) *r)
 #define func XC(lda_xc_ksdt2)
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_xc_ksdt2) = {
-  XC_LDA_XC_KSDT2,
+const XC(func_info_type) XC(func_info_lda_xc_ksdt) = {
+  XC_LDA_XC_KSDT,
   XC_EXCHANGE_CORRELATION,
   "Karasiev, Sjostrom, Dufty & Trickey",
   XC_FAMILY_LDA,

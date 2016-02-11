@@ -26,6 +26,7 @@
 #define XC_GGA_C_OP_PBE      86 /* one-parameter progressive functional (PBE version)     */
 #define XC_GGA_C_OP_G96      85 /* one-parameter progressive functional (G96 version)     */
 #define XC_GGA_C_OP_XALPHA   84 /* one-parameter progressive functional (XALPHA version)  */
+#define XC_GGA_C_OP_PW91    262 /* one-parameter progressive functional (PW91 version)  */
 
 typedef struct{
   FLOAT qOPab;
@@ -62,6 +63,11 @@ static void gga_c_op_init(XC(func_type) *p)
     XC(func_init) (p->func_aux[0], XC_GGA_X_G96, XC_POLARIZED);
     params->enhancement_factor = XC(gga_x_g96_enhance);
     params->qOPab = 2.3638;
+    break;
+  case XC_GGA_C_OP_PW91:
+    XC(func_init) (p->func_aux[0], XC_GGA_X_PW91, XC_POLARIZED);
+    params->enhancement_factor = XC(gga_x_pw91_enhance);
+    params->qOPab = 2.3706;
     break;
   case XC_GGA_C_OP_XALPHA:
     params->enhancement_factor = NULL;
@@ -179,7 +185,7 @@ const XC(func_info_type) XC(func_info_gga_c_op_pbe) = {
   XC_CORRELATION,
   "one-parameter progressive functional (PBE version)",
   XC_FAMILY_GGA,
-  {&xc_ref_Tsuneda1999_10664, NULL, NULL, NULL, NULL},
+  {&xc_ref_Tsuneda1999_10664, &xc_ref_Tsuneda1999_5656, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-12, 1e-32, 0.0, 1e-10,
   gga_c_op_init,
@@ -193,7 +199,21 @@ const XC(func_info_type) XC(func_info_gga_c_op_g96) = {
   XC_CORRELATION,
   "one-parameter progressive functional (G96 version)",
   XC_FAMILY_GGA,
-  {&xc_ref_Tsuneda1999_10664, NULL, NULL, NULL, NULL},
+  {&xc_ref_Tsuneda1999_10664, &xc_ref_Tsuneda1999_5656, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-12, 1e-32, 0.0, 1e-10,
+  gga_c_op_init,
+  NULL, NULL,
+  work_gga_c,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_c_op_pw91) = {
+  XC_GGA_C_OP_PW91,
+  XC_CORRELATION,
+  "one-parameter progressive functional (PW91 version)",
+  XC_FAMILY_GGA,
+  {&xc_ref_Tsuneda1999_10664, &xc_ref_Tsuneda1999_5656, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-12, 1e-32, 0.0, 1e-10,
   gga_c_op_init,
@@ -207,7 +227,7 @@ const XC(func_info_type) XC(func_info_gga_c_op_xalpha) = {
   XC_CORRELATION,
   "one-parameter progressive functional (Xalpha version)",
   XC_FAMILY_GGA,
-  {&xc_ref_Tsuneda1999_10664, NULL, NULL, NULL, NULL},
+  {&xc_ref_Tsuneda1999_10664, &xc_ref_Tsuneda1999_5656, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-12, 1e-32, 0.0, 1e-10,
   gga_c_op_init,

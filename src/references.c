@@ -1668,3 +1668,10 @@ func_reference_type xc_ref_Yu2016 = {
 };
 
 
+func_reference_type xc_ref_Tsuneda1999_5656 = {
+  "T. Tsuneda, T. Suzumura, and K. Hirao, J. Chem. Phys. 111, 5656 (1999)",
+  "10.1063/1.479954",
+  "@article{Tsuneda1999_5656,\n   author = \"Tsuneda, Takao and Suzumura, Toshihisa and Hirao, Kimihiko\",\n   title = \"A reexamination of exchange energy functionals\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"1999\",\n   volume = \"111\",\n   number = \"13\", \n   pages = \"5656-5667\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/111/13/10.1063/1.479954\",\n   doi = \"http://dx.doi.org/10.1063/1.479954\" \n}"
+};
+
+

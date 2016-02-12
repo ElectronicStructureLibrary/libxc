@@ -1675,3 +1675,10 @@ func_reference_type xc_ref_Tsuneda1999_5656 = {
 };
 
 
+func_reference_type xc_ref_Sun2015_036402 = {
+  "J. Sun, A. Ruzsinszky, and J. P. Perdew, Phys. Rev. Lett. 115, 036402 (2015)",
+  "10.1103/PhysRevLett.115.036402",
+  "@article{Sun2015_036402,\n  title = {Strongly Constrained and Appropriately Normed Semilocal Density Functional},\n  author = {Sun, Jianwei and Ruzsinszky, Adrienn and Perdew, John P.},\n  journal = {Phys. Rev. Lett.},\n  volume = {115},\n  issue = {3},\n  pages = {036402},\n  numpages = {6},\n  year = {2015},\n  month = {Jul},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.115.036402},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.115.036402}\n}"
+};
+
+

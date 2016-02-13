@@ -65,7 +65,7 @@ static void gga_c_pbe_init(XC(func_type) *p)
     0.052,                              /* 10: zPBEint                   */
     0.0,                                /* 11: PBEloc this is calculated */
     0.06672455060314922,                /* 12: BGCP                      */
-    043,                                /* 13: PBEfe                     */
+    0.043                               /* 13: PBEfe                     */
   };
 
   assert(p!=NULL && p->params == NULL);

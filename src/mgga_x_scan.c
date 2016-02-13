@@ -33,7 +33,6 @@ func_gx(int order, FLOAT s, FLOAT *g, FLOAT *dgds)
 
   /* Special handling for small values of s */
   const FLOAT thr=a1*a1/(LOG(FLOAT_EPSILON)*LOG(FLOAT_EPSILON));
-
   if(s < thr) {
     smh=0.0;
     smhps=0.0;
@@ -51,6 +50,50 @@ func_gx(int order, FLOAT s, FLOAT *g, FLOAT *dgds)
   *dgds = - 0.5 * a1 * expn * smhps;
 }
 
+static FLOAT
+fx_exp1(FLOAT c1x, FLOAT a)
+{
+  /* Calculate exp( - c1x a / (1-a) ) \theta(1-a). 
+
+     Truncate for values of alpha close to 1 for which the exponential
+     kills of the term
+  */
+
+  const FLOAT logeps=LOG(FLOAT_EPSILON);
+  const FLOAT thr=-logeps/(c1x-logeps);
+
+  /* Step function implemented here */
+  if(a >= 1.0)
+    return 0.0;
+  else if(a >= thr)
+    /* Approaching from the left */
+    return 0.0;
+  else
+    return EXP(-c1x*a/(1.0-a));
+}
+
+static FLOAT
+fx_exp2(FLOAT c2x, FLOAT a)
+{
+  /* Calculate exp( - c2x / (1-a) ) \theta(a-1). 
+
+     Truncate for values of alpha close to 1 for which the exponential
+     kills of the term
+  */
+
+  const FLOAT logeps=LOG(FLOAT_EPSILON);
+  const FLOAT thr=1.0-c2x/logeps;
+
+  /* Step function implemented here */
+  if(a <= 1.0)
+    return 0.0;
+  else if(a <= thr)
+    /* Approaching from the right */
+    return 0.0;
+  else
+    return EXP(c2x/(1.0-a));
+}
+
 static void
 func_fx(int order, FLOAT a, FLOAT *f, FLOAT *dfda)
 {
@@ -60,27 +103,17 @@ func_fx(int order, FLOAT a, FLOAT *f, FLOAT *dfda)
 
   FLOAT c1exp=0.0, c2exp=0.0;
   FLOAT dc1exp=0.0, dc2exp=0.0;
-  
-  /* Step functions implemented here */
-  if(a < 1.0)
-    c1exp=EXP(-c1x*a/(1.0-a));
-  else if(a > 1.0)
-    c2exp=EXP(-c2x/(1.0-a));
-  
+  FLOAT ooma=1.0/(1.0-a);
+
+  c1exp=fx_exp1(c1x,a);
+  c2exp=fx_exp2(c2x,a);
   *f = c1exp - dx*c2exp;
 
   if(order < 1) return;
 
-  /* Step functions implemented here */
-  if(a < 1.0)
-    dc1exp=-c1x*c1exp/((1.0-a)*(1.0-a));
-  else if(a > 1.0)
-    dc2exp=-c2x*c1exp/((1.0-a)*(1.0-a));
-  
-  *dfda = dc1exp - dx*dc2exp;
+  *dfda = -(c1x*c1exp + c2x*c2exp)*ooma*ooma;
 }
 
-  
 static void
 func_x(int order, FLOAT s, FLOAT a,
        FLOAT *x, FLOAT *dxds, FLOAT *dxda)
@@ -115,12 +148,13 @@ func_h1x(int order, FLOAT x,
 	 FLOAT *h, FLOAT *dhdx)
 {
   const FLOAT k1=0.065;
+  FLOAT k1ok1px=k1/(k1+x);
 
-  *h = 1.0 + k1*(1.0 - k1/(k1+x));
+  *h = 1.0 + k1*(1.0 - k1ok1px);
   
   if(order < 1) return;
 
-  *dhdx = k1*k1/((k1+x)*(k1+x));
+  *dhdx = k1ok1px*k1ok1px;
 }
 
 static void 

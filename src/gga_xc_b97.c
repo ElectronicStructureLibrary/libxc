@@ -49,6 +49,7 @@
 #define XC_HYB_GGA_XC_WB97X_V 466 /* Mardirossian and Head-Gordon             */
 #define XC_HYB_GGA_XC_WB97X_D 471 /* Chai and Head-Gordon                     */
 #define XC_GGA_C_GAM           33 /* GAM functional from Minnesota            */
+#define XC_HYB_GGA_B97_1p     167 /* version of B97 by Cohen and Handy        */
 
 static const FLOAT b97_params[][3][5] = {
   {      /* HCTH/93 */
@@ -163,6 +164,10 @@ static const FLOAT b97_params[][3][5] = {
     { 0.0,       0.0,       0.0,      0.0,       0.0},      /* X   */
     { 0.231765,  0.575592, -3.43391, -5.77281,   9.52448},  /* Css */
     { 0.860548, -2.94135,  15.4176,  -5.99825, -23.4119}    /* Cab */
+  }, {   /* B97-1p  */
+    { 0.8773, 0.2149,  1.5204, 0.0, 0.0},  /* X   */
+    { 0.2228, 1.3678, -1.5068, 0.0, 0.0},  /* Css */
+    { 0.9253, 2.0270, -7.3431, 0.0, 0.0}   /* Cab */    
   }
 };
 
@@ -196,24 +201,24 @@ gga_xc_b97_init(XC(func_type) *p)
   params = (gga_xc_b97_params *)(p->params);
 
   switch(p->info->number){
-  case XC_GGA_XC_HCTH_93:   p->func =  0;  break;
-  case XC_GGA_XC_HCTH_120:  p->func =  1;  break;
-  case XC_GGA_XC_HCTH_147:  p->func =  2;  break;
-  case XC_GGA_XC_HCTH_407:  p->func =  3;  break;
-  case XC_HYB_GGA_XC_B97:   p->func =  4;
+  case XC_GGA_XC_HCTH_93:       p->func =  0;  break;
+  case XC_GGA_XC_HCTH_120:      p->func =  1;  break;
+  case XC_GGA_XC_HCTH_147:      p->func =  2;  break;
+  case XC_GGA_XC_HCTH_407:      p->func =  3;  break;
+  case XC_HYB_GGA_XC_B97:       p->func =  4;
      p->cam_alpha = 0.1943;
     break;
-  case XC_HYB_GGA_XC_B97_1: p->func =  5;
+  case XC_HYB_GGA_XC_B97_1:     p->func =  5;
     p->cam_alpha = 0.21;
     break;
-  case XC_HYB_GGA_XC_B97_2: p->func =  6;
+  case XC_HYB_GGA_XC_B97_2:     p->func =  6;
     p->cam_alpha = 0.21;
     break;
-  case XC_GGA_XC_B97_D:     p->func =  7;  break;
-  case XC_HYB_GGA_XC_B97_K: p->func =  8;
+  case XC_GGA_XC_B97_D:         p->func =  7;  break;
+  case XC_HYB_GGA_XC_B97_K:     p->func =  8;
     p->cam_alpha = 0.42;
     break;
-  case XC_HYB_GGA_XC_B97_3: p->func =  9;
+  case XC_HYB_GGA_XC_B97_3:     p->func =  9;
     p->cam_alpha = 2.692880E-01;
     break;
   case XC_HYB_GGA_XC_SB98_1a:   p->func = 10;
@@ -234,13 +239,13 @@ gga_xc_b97_init(XC(func_type) *p)
   case XC_HYB_GGA_XC_SB98_2c:   p->func = 15;
     p->cam_alpha = 0.219847;
     break;
-  case XC_GGA_C_HCTH_A:     p->func = 16;  break;
-  case XC_GGA_XC_B97_GGA1:  p->func = 17;  break;
-  case XC_GGA_XC_HCTH_P14:  p->func = 18;  break;
-  case XC_GGA_XC_HCTH_P76:  p->func = 19;  break;
-  case XC_GGA_XC_HCTH_407P: p->func = 20;  break;
-  case XC_GGA_C_N12:        p->func = 21;  break;
-  case XC_GGA_C_N12_SX:     p->func = 22;  break;
+  case XC_GGA_C_HCTH_A:         p->func = 16;  break;
+  case XC_GGA_XC_B97_GGA1:      p->func = 17;  break;
+  case XC_GGA_XC_HCTH_P14:      p->func = 18;  break;
+  case XC_GGA_XC_HCTH_P76:      p->func = 19;  break;
+  case XC_GGA_XC_HCTH_407P:     p->func = 20;  break;
+  case XC_GGA_C_N12:            p->func = 21;  break;
+  case XC_GGA_C_N12_SX:         p->func = 22;  break;
   case XC_HYB_GGA_XC_WB97:      p->func = 23;
     p->cam_alpha =  1.0;
     p->cam_omega =  0.4;
@@ -265,7 +270,10 @@ gga_xc_b97_init(XC(func_type) *p)
     p->cam_beta  = -(1.0 - 2.22036e-01);
     XC(lda_x_set_params)(p->func_aux[0], 4.0/3.0, XC_NON_RELATIVISTIC, 0.2);
     break;
-  case XC_GGA_C_GAM:        p->func = 27;  break;
+  case XC_GGA_C_GAM:            p->func = 27;  break;
+  case XC_HYB_GGA_XC_B97_1p:    p->func = 28;
+    p->cam_alpha =  0.15;
+    break;
   default:
     fprintf(stderr, "Internal error in gga_b97\n");
     exit(1);
@@ -812,6 +820,21 @@ const XC(func_info_type) XC(func_info_gga_c_gam) = {
   XC_FAMILY_GGA,
   {&xc_ref_Yu2015_12146, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_DEVELOPMENT,
+  1e-23, 1e-32, 0.0, 1e-32,
+  gga_xc_b97_init, 
+  NULL,
+  NULL,
+  work_gga_c,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_1p) = {
+  XC_HYB_GGA_XC_B97_1p,
+  XC_EXCHANGE_CORRELATION,
+  "version of B97 by Cohen and Handy",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Cohen2000_160, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
   gga_xc_b97_init, 
   NULL,

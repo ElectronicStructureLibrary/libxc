@@ -21,34 +21,34 @@
 #include <stdlib.h>
 #include "util.h"
 
-#define XC_GGA_XC_HCTH_93  161 /* HCTH functional fitted to  93 molecules  */
-#define XC_GGA_XC_HCTH_120 162 /* HCTH functional fitted to 120 molecules  */
-#define XC_GGA_XC_HCTH_147 163 /* HCTH functional fitted to 147 molecules  */
-#define XC_GGA_XC_HCTH_407 164 /* HCTH functional fitted to 407 molecules  */
-#define XC_GGA_XC_B97      167 /* Becke 97                                 */
-#define XC_GGA_XC_B97_1    168 /* Becke 97-1                               */
-#define XC_GGA_XC_B97_2    169 /* Becke 97-2                               */
-#define XC_GGA_XC_B97_D    170 /* Grimme functional to be used with C6 vdW term */
-#define XC_GGA_XC_B97_K    171 /* Boese-Martin for Kinetics                */
-#define XC_GGA_XC_B97_3    172 /* Becke 97-3                               */
-#define XC_GGA_XC_SB98_1a  176 /* Schmider-Becke 98 parameterization 1a    */
-#define XC_GGA_XC_SB98_1b  177 /* Schmider-Becke 98 parameterization 1b    */
-#define XC_GGA_XC_SB98_1c  178 /* Schmider-Becke 98 parameterization 1c    */
-#define XC_GGA_XC_SB98_2a  179 /* Schmider-Becke 98 parameterization 2a    */
-#define XC_GGA_XC_SB98_2b  180 /* Schmider-Becke 98 parameterization 2b    */
-#define XC_GGA_XC_SB98_2c  181 /* Schmider-Becke 98 parameterization 2c    */
-#define XC_GGA_C_HCTH_A     97 /* HCTH-A                                   */
-#define XC_GGA_XC_B97_GGA1  96 /* Becke 97 GGA-1                           */
-#define XC_GGA_XC_HCTH_P14  95 /* HCTH p=1/4                               */
-#define XC_GGA_XC_HCTH_P76  94 /* HCTH p=7/6                               */
-#define XC_GGA_XC_HCTH_407P 93 /* HCTH/407+                                */
-#define XC_GGA_C_N12        80 /* N12 functional from Minnesota            */
-#define XC_GGA_C_N12_SX     79 /* N12-SX functional from Minnesota         */
-#define XC_GGA_XC_WB97     251 /* Chai and Head-Gordon                     */
-#define XC_GGA_XC_WB97X    252 /* Chai and Head-Gordon                     */
-#define XC_GGA_XC_WB97X_V  253 /* Mardirossian and Head-Gordon             */
-#define XC_GGA_XC_WB97X_D  256 /* Chai and Head-Gordon                     */
-#define XC_GGA_C_GAM        33 /* GAM functional from Minnesota            */
+#define XC_GGA_XC_HCTH_93     161 /* HCTH functional fitted to  93 molecules  */
+#define XC_GGA_XC_HCTH_120    162 /* HCTH functional fitted to 120 molecules  */
+#define XC_GGA_XC_HCTH_147    163 /* HCTH functional fitted to 147 molecules  */
+#define XC_GGA_XC_HCTH_407    164 /* HCTH functional fitted to 407 molecules  */
+#define XC_HYB_GGA_XC_B97     167 /* Becke 97                                 */
+#define XC_HYB_GGA_XC_B97_1   168 /* Becke 97-1                               */
+#define XC_HYB_GGA_XC_B97_2   169 /* Becke 97-2                               */
+#define XC_GGA_XC_B97_D       170 /* Grimme functional to be used with C6 vdW term */
+#define XC_HYB_GGA_XC_B97_K   171 /* Boese-Martin for Kinetics                */
+#define XC_HYB_GGA_XC_B97_3   172 /* Becke 97-3                               */
+#define XC_HYB_GGA_XC_SB98_1a 176 /* Schmider-Becke 98 parameterization 1a    */
+#define XC_HYB_GGA_XC_SB98_1b 177 /* Schmider-Becke 98 parameterization 1b    */
+#define XC_HYB_GGA_XC_SB98_1c 178 /* Schmider-Becke 98 parameterization 1c    */
+#define XC_HYB_GGA_XC_SB98_2a 179 /* Schmider-Becke 98 parameterization 2a    */
+#define XC_HYB_GGA_XC_SB98_2b 180 /* Schmider-Becke 98 parameterization 2b    */
+#define XC_HYB_GGA_XC_SB98_2c 181 /* Schmider-Becke 98 parameterization 2c    */
+#define XC_GGA_C_HCTH_A        97 /* HCTH-A                                   */
+#define XC_GGA_XC_B97_GGA1     96 /* Becke 97 GGA-1                           */
+#define XC_GGA_XC_HCTH_P14     95 /* HCTH p=1/4                               */
+#define XC_GGA_XC_HCTH_P76     94 /* HCTH p=7/6                               */
+#define XC_GGA_XC_HCTH_407P    93 /* HCTH/407+                                */
+#define XC_GGA_C_N12           80 /* N12 functional from Minnesota            */
+#define XC_GGA_C_N12_SX        79 /* N12-SX functional from Minnesota         */
+#define XC_HYB_GGA_XC_WB97    251 /* Chai and Head-Gordon                     */
+#define XC_HYB_GGA_XC_WB97X   252 /* Chai and Head-Gordon                     */
+#define XC_HYB_GGA_XC_WB97X_V 253 /* Mardirossian and Head-Gordon             */
+#define XC_HYB_GGA_XC_WB97X_D 256 /* Chai and Head-Gordon                     */
+#define XC_GGA_C_GAM           33 /* GAM functional from Minnesota            */
 
 static const FLOAT b97_params[][3][5] = {
   {      /* HCTH/93 */
@@ -56,9 +56,9 @@ static const FLOAT b97_params[][3][5] = {
     {0.222601, -0.0338622,  -0.0125170, -0.802496,  1.55396}, /* Css */
     {0.729974,  3.35287,   -11.5430,     8.08564,  -4.47857}  /* Cab */
   }, {   /* HCTH/120 */
-      {1.09163,  -0.747215,  5.07833,  -4.10746,   1.17173},    /* X   */
-      {0.489508, -0.260699,  0.432917, -1.99247,   2.48531},    /* Css */
-      {0.514730,  6.92982, -24.7073,   23.1098,  -11.3234 }     /* Cab */
+    {1.09163,  -0.747215,  5.07833,  -4.10746,   1.17173},    /* X   */
+    {0.489508, -0.260699,  0.432917, -1.99247,   2.48531},    /* Css */
+    {0.514730,  6.92982, -24.7073,   23.1098,  -11.3234 }     /* Cab */
   }, {   /* HCTH/147 */
     {1.09025, -0.799194,   5.57212, -5.86760,  3.04544 },     /* X   */
     {0.562576, 0.0171436, -1.30636,  1.05747,  0.885429},     /* Css */
@@ -200,18 +200,40 @@ gga_xc_b97_init(XC(func_type) *p)
   case XC_GGA_XC_HCTH_120:  p->func =  1;  break;
   case XC_GGA_XC_HCTH_147:  p->func =  2;  break;
   case XC_GGA_XC_HCTH_407:  p->func =  3;  break;
-  case XC_GGA_XC_B97:       p->func =  4;  break;
-  case XC_GGA_XC_B97_1:     p->func =  5;  break;
-  case XC_GGA_XC_B97_2:     p->func =  6;  break;
+  case XC_HYB_GGA_XC_B97:   p->func =  4;
+     p->cam_alpha = 0.1943;
+    break;
+  case XC_HYB_GGA_XC_B97_1: p->func =  5;
+    p->cam_alpha = 0.21;
+    break;
+  case XC_HYB_GGA_XC_B97_2: p->func =  6;
+    p->cam_alpha = 0.21;
+    break;
   case XC_GGA_XC_B97_D:     p->func =  7;  break;
-  case XC_GGA_XC_B97_K:     p->func =  8;  break;
-  case XC_GGA_XC_B97_3:     p->func =  9;  break;
-  case XC_GGA_XC_SB98_1a:   p->func = 10;  break;
-  case XC_GGA_XC_SB98_1b:   p->func = 11;  break;
-  case XC_GGA_XC_SB98_1c:   p->func = 12;  break;
-  case XC_GGA_XC_SB98_2a:   p->func = 13;  break;
-  case XC_GGA_XC_SB98_2b:   p->func = 14;  break;
-  case XC_GGA_XC_SB98_2c:   p->func = 15;  break;
+  case XC_HYB_GGA_XC_B97_K: p->func =  8;
+    p->cam_alpha = 0.42;
+    break;
+  case XC_HYB_GGA_XC_B97_3: p->func =  9;
+    p->cam_alpha = 2.692880E-01;
+    break;
+  case XC_HYB_GGA_XC_SB98_1a:   p->func = 10;
+    p->cam_alpha = 0.229015;
+    break;
+  case XC_HYB_GGA_XC_SB98_1b:   p->func = 11;
+    p->cam_alpha = 0.199352;
+    break;
+  case XC_HYB_GGA_XC_SB98_1c:   p->func = 12;
+    p->cam_alpha = 0.192416;
+    break;
+  case XC_HYB_GGA_XC_SB98_2a:   p->func = 13;
+    p->cam_alpha = 0.232055;
+    break;
+  case XC_HYB_GGA_XC_SB98_2b:   p->func = 14;
+    p->cam_alpha = 0.237978;
+    break;
+  case XC_HYB_GGA_XC_SB98_2c:   p->func = 15;
+    p->cam_alpha = 0.219847;
+    break;
   case XC_GGA_C_HCTH_A:     p->func = 16;  break;
   case XC_GGA_XC_B97_GGA1:  p->func = 17;  break;
   case XC_GGA_XC_HCTH_P14:  p->func = 18;  break;
@@ -219,20 +241,28 @@ gga_xc_b97_init(XC(func_type) *p)
   case XC_GGA_XC_HCTH_407P: p->func = 20;  break;
   case XC_GGA_C_N12:        p->func = 21;  break;
   case XC_GGA_C_N12_SX:     p->func = 22;  break;
-  case XC_GGA_XC_WB97:
-    p->func = 23;
+  case XC_HYB_GGA_XC_WB97:      p->func = 23;
+    p->cam_alpha =  1.0;
+    p->cam_omega =  0.4;
+    p->cam_beta  = -1.0;
     XC(lda_x_set_params)(p->func_aux[0], 4.0/3.0, XC_NON_RELATIVISTIC, 0.4);
     break;
-  case XC_GGA_XC_WB97X:
-    p->func = 24;
+  case XC_HYB_GGA_XC_WB97X:     p->func = 24;
+    p->cam_alpha =  1.0;
+    p->cam_omega =  0.3;
+    p->cam_beta  = -(1.0 - 1.57706e-01);
     XC(lda_x_set_params)(p->func_aux[0], 4.0/3.0, XC_NON_RELATIVISTIC, 0.3);
     break;
-  case XC_GGA_XC_WB97X_V:
-    p->func = 25;
+  case XC_HYB_GGA_XC_WB97X_V:   p->func = 25;
+    p->cam_alpha =  1.0;
+    p->cam_omega =  0.3;
+    p->cam_beta  = -(1.0 - 0.167);
     XC(lda_x_set_params)(p->func_aux[0], 4.0/3.0, XC_NON_RELATIVISTIC, 0.3);
     break;
-  case XC_GGA_XC_WB97X_D:
-    p->func = 26;
+  case XC_HYB_GGA_XC_WB97X_D:   p->func = 26;
+    p->cam_alpha =  1.0;
+    p->cam_omega =  0.2;
+    p->cam_beta  = -(1.0 - 2.22036e-01);
     XC(lda_x_set_params)(p->func_aux[0], 4.0/3.0, XC_NON_RELATIVISTIC, 0.2);
     break;
   case XC_GGA_C_GAM:        p->func = 27;  break;
@@ -372,11 +402,11 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_xc_b97) = {
-  XC_GGA_XC_B97,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_b97) = {
+  XC_HYB_GGA_XC_B97,
   XC_EXCHANGE_CORRELATION,
   "Becke 97",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Becke1997_8554, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
@@ -387,11 +417,11 @@ const XC(func_info_type) XC(func_info_gga_xc_b97) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_b97_1) = {
-  XC_GGA_XC_B97_1,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_1) = {
+  XC_HYB_GGA_XC_B97_1,
   XC_EXCHANGE_CORRELATION,
   "Becke 97-1",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Hamprecht1998_6264, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
@@ -402,11 +432,11 @@ const XC(func_info_type) XC(func_info_gga_xc_b97_1) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_b97_2) = {
-  XC_GGA_XC_B97_2,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_2) = {
+  XC_HYB_GGA_XC_B97_2,
   XC_EXCHANGE_CORRELATION,
   "Becke 97-2",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Wilson2001_9233, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
@@ -432,11 +462,11 @@ const XC(func_info_type) XC(func_info_gga_xc_b97_d) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_b97_k) = {
-  XC_GGA_XC_B97_K,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_k) = {
+  XC_HYB_GGA_XC_B97_K,
   XC_EXCHANGE_CORRELATION,
   "Boese-Martin for Kinetics",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Boese2004_3405, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
@@ -447,11 +477,11 @@ const XC(func_info_type) XC(func_info_gga_xc_b97_k) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_b97_3) = {
-  XC_GGA_XC_B97_3,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_3) = {
+  XC_HYB_GGA_XC_B97_3,
   XC_EXCHANGE_CORRELATION,
   "Becke 97-3",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Keal2005_121103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
@@ -522,11 +552,11 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_407) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_sb98_1a) = {
-  XC_GGA_XC_SB98_1a,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1a) = {
+  XC_HYB_GGA_XC_SB98_1a,
   XC_EXCHANGE_CORRELATION,
   "SB98 (1a)",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Schmider1998_9624, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
@@ -537,11 +567,11 @@ const XC(func_info_type) XC(func_info_gga_xc_sb98_1a) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_sb98_1b) = {
-  XC_GGA_XC_SB98_1b,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1b) = {
+  XC_HYB_GGA_XC_SB98_1b,
   XC_EXCHANGE_CORRELATION,
   "SB98 (1b)",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Schmider1998_9624, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
@@ -552,11 +582,11 @@ const XC(func_info_type) XC(func_info_gga_xc_sb98_1b) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_sb98_1c) = {
-  XC_GGA_XC_SB98_1c,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1c) = {
+  XC_HYB_GGA_XC_SB98_1c,
   XC_EXCHANGE_CORRELATION,
   "SB98 (1c)",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Schmider1998_9624, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
@@ -567,11 +597,11 @@ const XC(func_info_type) XC(func_info_gga_xc_sb98_1c) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_sb98_2a) = {
-  XC_GGA_XC_SB98_2a,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2a) = {
+  XC_HYB_GGA_XC_SB98_2a,
   XC_EXCHANGE_CORRELATION,
   "SB98 (2a)",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Schmider1998_9624, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
@@ -582,11 +612,11 @@ const XC(func_info_type) XC(func_info_gga_xc_sb98_2a) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_sb98_2b) = {
-  XC_GGA_XC_SB98_2b,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2b) = {
+  XC_HYB_GGA_XC_SB98_2b,
   XC_EXCHANGE_CORRELATION,
   "SB98 (2b)",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Schmider1998_9624, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
@@ -597,11 +627,11 @@ const XC(func_info_type) XC(func_info_gga_xc_sb98_2b) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_sb98_2c) = {
-  XC_GGA_XC_SB98_2c,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2c) = {
+  XC_HYB_GGA_XC_SB98_2c,
   XC_EXCHANGE_CORRELATION,
   "SB98 (2c)",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Schmider1998_9624, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
@@ -715,11 +745,11 @@ const XC(func_info_type) XC(func_info_gga_c_n12_sx) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_wb97) = {
-  XC_GGA_XC_WB97,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97) = {
+  XC_HYB_GGA_XC_WB97,
   XC_EXCHANGE_CORRELATION,
-  "wB97 worker function",
-  XC_FAMILY_GGA,
+  "wB97 range-separated functional",
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Chai2008_084106, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
@@ -730,11 +760,11 @@ const XC(func_info_type) XC(func_info_gga_xc_wb97) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_wb97x) = {
-  XC_GGA_XC_WB97X,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97x) = {
+  XC_HYB_GGA_XC_WB97X,
   XC_EXCHANGE_CORRELATION,
-  "wB97X worker function",
-  XC_FAMILY_GGA,
+  "wB97X range-separated functional",
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Chai2008_084106, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
@@ -745,11 +775,11 @@ const XC(func_info_type) XC(func_info_gga_xc_wb97x) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_wb97x_v) = {
-  XC_GGA_XC_WB97X_V,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97x_v) = {
+  XC_HYB_GGA_XC_WB97X_V,
   XC_EXCHANGE_CORRELATION,
-  "wB97X worker function",
-  XC_FAMILY_GGA,
+  "wB97X range-separated functional",
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Mardirossian2014_9904, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
@@ -760,11 +790,11 @@ const XC(func_info_type) XC(func_info_gga_xc_wb97x_v) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_wb97x_d) = {
-  XC_GGA_XC_WB97X_D,
+const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97x_d) = {
+  XC_HYB_GGA_XC_WB97X_D,
   XC_EXCHANGE_CORRELATION,
-  "wB97D worker function",
-  XC_FAMILY_GGA,
+  "wB97D range-separated functional",
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Chai2008_6615, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,

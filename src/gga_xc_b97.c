@@ -25,18 +25,18 @@
 #define XC_GGA_XC_HCTH_120    162 /* HCTH functional fitted to 120 molecules  */
 #define XC_GGA_XC_HCTH_147    163 /* HCTH functional fitted to 147 molecules  */
 #define XC_GGA_XC_HCTH_407    164 /* HCTH functional fitted to 407 molecules  */
-#define XC_HYB_GGA_XC_B97     167 /* Becke 97                                 */
-#define XC_HYB_GGA_XC_B97_1   168 /* Becke 97-1                               */
-#define XC_HYB_GGA_XC_B97_2   169 /* Becke 97-2                               */
+#define XC_HYB_GGA_XC_B97     407 /* Becke 97                                 */
+#define XC_HYB_GGA_XC_B97_1   408 /* Becke 97-1                               */
+#define XC_HYB_GGA_XC_B97_2   410 /* Becke 97-2                               */
 #define XC_GGA_XC_B97_D       170 /* Grimme functional to be used with C6 vdW term */
-#define XC_HYB_GGA_XC_B97_K   171 /* Boese-Martin for Kinetics                */
-#define XC_HYB_GGA_XC_B97_3   172 /* Becke 97-3                               */
-#define XC_HYB_GGA_XC_SB98_1a 176 /* Schmider-Becke 98 parameterization 1a    */
-#define XC_HYB_GGA_XC_SB98_1b 177 /* Schmider-Becke 98 parameterization 1b    */
-#define XC_HYB_GGA_XC_SB98_1c 178 /* Schmider-Becke 98 parameterization 1c    */
-#define XC_HYB_GGA_XC_SB98_2a 179 /* Schmider-Becke 98 parameterization 2a    */
-#define XC_HYB_GGA_XC_SB98_2b 180 /* Schmider-Becke 98 parameterization 2b    */
-#define XC_HYB_GGA_XC_SB98_2c 181 /* Schmider-Becke 98 parameterization 2c    */
+#define XC_HYB_GGA_XC_B97_K   413 /* Boese-Martin for Kinetics                */
+#define XC_HYB_GGA_XC_B97_3   414 /* Becke 97-3                               */
+#define XC_HYB_GGA_XC_SB98_1a 420 /* Schmider-Becke 98 parameterization 1a    */
+#define XC_HYB_GGA_XC_SB98_1b 421 /* Schmider-Becke 98 parameterization 1b    */
+#define XC_HYB_GGA_XC_SB98_1c 422 /* Schmider-Becke 98 parameterization 1c    */
+#define XC_HYB_GGA_XC_SB98_2a 423 /* Schmider-Becke 98 parameterization 2a    */
+#define XC_HYB_GGA_XC_SB98_2b 424 /* Schmider-Becke 98 parameterization 2b    */
+#define XC_HYB_GGA_XC_SB98_2c 425 /* Schmider-Becke 98 parameterization 2c    */
 #define XC_GGA_C_HCTH_A        97 /* HCTH-A                                   */
 #define XC_GGA_XC_B97_GGA1     96 /* Becke 97 GGA-1                           */
 #define XC_GGA_XC_HCTH_P14     95 /* HCTH p=1/4                               */
@@ -44,10 +44,10 @@
 #define XC_GGA_XC_HCTH_407P    93 /* HCTH/407+                                */
 #define XC_GGA_C_N12           80 /* N12 functional from Minnesota            */
 #define XC_GGA_C_N12_SX        79 /* N12-SX functional from Minnesota         */
-#define XC_HYB_GGA_XC_WB97    251 /* Chai and Head-Gordon                     */
-#define XC_HYB_GGA_XC_WB97X   252 /* Chai and Head-Gordon                     */
-#define XC_HYB_GGA_XC_WB97X_V 253 /* Mardirossian and Head-Gordon             */
-#define XC_HYB_GGA_XC_WB97X_D 256 /* Chai and Head-Gordon                     */
+#define XC_HYB_GGA_XC_WB97    463 /* Chai and Head-Gordon                     */
+#define XC_HYB_GGA_XC_WB97X   464 /* Chai and Head-Gordon                     */
+#define XC_HYB_GGA_XC_WB97X_V 466 /* Mardirossian and Head-Gordon             */
+#define XC_HYB_GGA_XC_WB97X_D 471 /* Chai and Head-Gordon                     */
 #define XC_GGA_C_GAM           33 /* GAM functional from Minnesota            */
 
 static const FLOAT b97_params[][3][5] = {

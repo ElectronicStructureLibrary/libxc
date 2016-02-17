@@ -263,6 +263,8 @@ gga_xc_b97_init(XC(func_type) *p)
     p->cam_omega =  0.3;
     p->cam_beta  = -(1.0 - 0.167);
     XC(lda_x_set_params)(p->func_aux[0], 4.0/3.0, XC_NON_RELATIVISTIC, 0.3);
+    p->nlc_b = 6.0;
+    p->nlc_C = 0.01;
     break;
   case XC_HYB_GGA_XC_WB97X_D:   p->func = 26;
     p->cam_alpha =  1.0;

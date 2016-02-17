@@ -1682,3 +1682,10 @@ func_reference_type xc_ref_Sun2015_036402 = {
 };
 
 
+func_reference_type xc_ref_Hui2016_044114 = {
+  "K. Hui and J.-D. Chai, J. Chem. Phys. 144, 044114 (2016), http://dx.doi.org/10.1063/1.4940734",
+  "10.1063/1.4940734",
+  "@article{Hui2016_044114,\n   author = \"Hui, Kerwin and Chai, Jeng-Da\",\n   title = \"SCAN-based hybrid and double-hybrid density functionals from models without fitted parameters\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2016\",\n   volume = \"144\",\n   number = \"4\", \n   eid = 044114,\n   pages = \"\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/144/4/10.1063/1.4940734\",\n   doi = \"http://dx.doi.org/10.1063/1.4940734\" \n}"
+};
+
+

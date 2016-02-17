@@ -23,7 +23,7 @@
 #include "util.h"
 
 #define XC_MGGA_X_SCAN          263 /* SCAN exchange of Sun, Ruzsinszky, and Perdew  */
-
+#define XC_HYB_MGGA_X_SCAN0     264 /* SCAN hybrid */
 
 static void
 func_gx(int order, FLOAT s, FLOAT *g, FLOAT *dgds)
@@ -221,3 +221,35 @@ const XC(func_info_type) XC(func_info_mgga_x_scan) = {
   NULL, NULL, NULL, NULL,
   work_mgga_x,
 };
+
+static void
+hyb_mgga_x_scan0_init(XC(func_type) *p)
+{
+  static int   funcs_id  [1] = {XC_MGGA_X_SCAN};
+  static FLOAT funcs_coef[1] = {1.0 - 0.25};
+
+  XC(mix_init)(p, 1, funcs_id, funcs_coef);
+  p->cam_alpha = 0.25;
+}
+
+void
+XC(hyb_mgga_x_scan0_set_params)(XC(func_type) *p, FLOAT alpha)
+{
+  assert(alpha>=0 && alpha<=1.0);
+
+  p->cam_alpha   = alpha;
+  p->mix_coef[0] = 1.0 - alpha;
+}
+
+const XC(func_info_type) XC(func_info_hyb_mgga_x_scan0) = {
+  XC_HYB_MGGA_X_SCAN0,
+  XC_EXCHANGE,
+  "SCAN hybrid (SCAN0)",
+  XC_FAMILY_HYB_MGGA,
+  {&xc_ref_Hui2016_044114, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  hyb_mgga_x_scan0_init,
+  NULL, NULL, NULL, NULL /* this is taken care by the generic routine */
+};
+

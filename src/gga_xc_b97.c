@@ -817,7 +817,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97x_d) = {
 
 const XC(func_info_type) XC(func_info_gga_c_gam) = {
   XC_GGA_C_GAM,
-  XC_EXCHANGE_CORRELATION,
+  XC_CORRELATION,
   "GAM functional from Minnesota",
   XC_FAMILY_GGA,
   {&xc_ref_Yu2015_12146, NULL, NULL, NULL, NULL},

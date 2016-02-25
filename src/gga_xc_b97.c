@@ -49,7 +49,7 @@
 #define XC_HYB_GGA_XC_WB97X_V 466 /* Mardirossian and Head-Gordon             */
 #define XC_HYB_GGA_XC_WB97X_D 471 /* Chai and Head-Gordon                     */
 #define XC_GGA_C_GAM           33 /* GAM functional from Minnesota            */
-#define XC_HYB_GGA_XC_B97_1p  265 /* version of B97 by Cohen and Handy        */
+#define XC_HYB_GGA_XC_B97_1p  266 /* version of B97 by Cohen and Handy        */
 
 static const FLOAT b97_params[][3][5] = {
   {      /* HCTH/93 */

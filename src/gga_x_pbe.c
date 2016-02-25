@@ -36,7 +36,7 @@
 #define XC_GGA_X_LAMBDA_CH_N   44 /* lambda_CH(N) version of PBE                    */
 #define XC_GGA_X_LAMBDA_OC2_N  40 /* lambda_OC2(N) version of PBE                   */
 #define XC_GGA_X_BGCP          38 /* Burke, Cancio, Gould, and Pittalis             */
-#define XC_GGA_X_PBEFE         33 /* PBE for formation energies                     */
+#define XC_GGA_X_PBEFE        265 /* PBE for formation energies                     */
 
 #define XC_GGA_K_APBE         185 /* mu fixed from the semiclassical neutral atom   */
 #define XC_GGA_K_TW1          187 /* Tran and Wesolowski set 1 (Table II)           */

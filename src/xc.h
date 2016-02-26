@@ -73,7 +73,8 @@ extern "C" {
 #define XC_GGA_K_ABSR2        507
 
 void XC(version)(int *major, int *minor, int *micro);
-
+char *XC(version_string)();
+    
 struct XC(func_type);
 
 typedef struct{

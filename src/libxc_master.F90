@@ -135,6 +135,10 @@ module XC_F90(lib_m)
     subroutine XC_F90(version)(major, minor, micro)
       integer, intent(out) :: major, minor, micro
     end subroutine XC_F90(version)
+
+    subroutine XC_F90(version_string)(version)
+      character(len=10), intent(out) :: version
+    end subroutine XC_F90(version_string)
   end interface
 
   !----------------------------------------------------------------

@@ -38,6 +38,15 @@ void XC_FC_FUNC(f90_version, F90_VERSION)
   XC(version)(major, minor, micro);
 }
 
+void XC_FC_FUNC(f90_version_string, F90_VERSIN_STRING)
+     (STR_F_TYPE version_string STR_ARG1)
+{
+  char *version;
+
+  version = XC(version_string)();
+  TO_F_STR1(version, version_string);
+  free(version);
+}
 
 /* info */
 CC_FORTRAN_INT XC_FC_FUNC(f90_info_number, F90_INFO_NUMBER)

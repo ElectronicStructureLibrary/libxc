@@ -187,7 +187,7 @@ const XC(func_info_type) XC(func_info_gga_x_vmt84_pbe) = {
 };
 
 const XC(func_info_type) XC(func_info_gga_x_vmt84_ge) = {
-  XC_GGA_X_VMT84_PBE,
+  XC_GGA_X_VMT84_GE,
   XC_EXCHANGE,
   "VMT{8,4} with constraint satisfaction with mu = mu_GE",
   XC_FAMILY_GGA,

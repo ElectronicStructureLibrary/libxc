@@ -25,6 +25,7 @@ $srcdir = shift;
 $builddir = shift;
 
 my @funcs = ("lda", "gga", "hyb_gga", "mgga", "hyb_mgga");
+my %all_ids;
 
 open(DOCS, ">$builddir/libxc_docs.txt") or die("Could not open '$builddir/libxc_docs.txt.'\n");
 
@@ -174,6 +175,14 @@ sub read_file() {
 	$deflist_f{$2} = $1;
 	$deflist_c{$2} = $3;
 	$num{$1} = $2;
+
+        # check if ID is already in use
+        if ( $all_ids{$2} ){
+          printf stderr "Error: ID $2 repeated in\n  $1\n  $all_ids{$2}\n";
+          exit 1;
+        }else{
+          $all_ids{$2} = $1;
+        }
       }
 
       if(/^(const |)XC\(func_info_type\) XC\(func_info_${save_type}/){
@@ -263,7 +272,7 @@ sub read_file() {
 	  print DOCS "work mgga      : $infos2[16]\n";
 	  print DOCS "----------------------------\n";
 
-#	  print "$file $infos0[0] $infos2[12]\n";
+	  print "$file $infos0[0] $infos2[12]\n";
 
 	  if($num{$infos0[0]} eq "") {
 	      print STDERR "ERROR: missing number\n";

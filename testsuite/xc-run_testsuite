@@ -18,13 +18,22 @@ if [ -z "$builddir" ]; then
   builddir="./"
 fi
 
+
+if [ -t 1 ] ; then
+  NC='\033[0m'
+  RED='\033[1;31m'
+  GREEN='\033[1;32m'
+  YELLOW='\033[1;33m'
+  PINK='\033[1;35m'
+fi
+ 
 fail=0
-echo -e "\033[33;1mComparing against reference data\033[0m"
+echo -e "${YELLOW}Comparing against reference data${NC}"
 for i in `ls $srcdir/regression/*.pol.bz2 | sort`; do
   func=`basename $i .pol.bz2`
   fname=`printf '%-30s' $func`
 
-  echo -ne "\033[0m :: Testing \033[35;1m$fname"
+  echo -ne "${NC} :: Testing ${PINK}$fname"
 
   bunzip2 -c $srcdir/regression/$func.pol.bz2 > $tmpdir/$$.pol_ref
   bunzip2 -c $srcdir/regression/$func.unpol.bz2 > $tmpdir/$$.unpol_ref
@@ -34,22 +43,22 @@ for i in `ls $srcdir/regression/*.pol.bz2 | sort`; do
   # Spin-restricted
   res=`$builddir/xc-error $tmpdir/$$.unpol $tmpdir/$$.unpol_ref`
   if [ "x$res" = "x1" ]; then
-      echo -ne "\033[32;1mOK"
+      echo -ne "${GREEN}OK"
   else
-      echo -ne "\033[31;1mFAIL"
+      echo -ne "${RED}FAIL"
       let fail++
   fi
 
   # Spin-unrestricted
   res=`$builddir/xc-error $tmpdir/$$.pol $tmpdir/$$.pol_ref`
   if [ "x$res" = "x1" ]; then
-      echo -e "\t\033[32;1mOK"
+      echo -e "\t${GREEN}OK"
       let ok++
   else
-      echo -e "\t\033[31;1mFAIL"
+      echo -e "\t${RED}FAIL"
   fi
 done
-echo -e "\033[0m"
+echo -e "${NC}"
 
 exit $fail
 

@@ -272,7 +272,7 @@ sub read_file() {
 	  print DOCS "work mgga      : $infos2[16]\n";
 	  print DOCS "----------------------------\n";
 
-	  print "$file $infos0[0] $infos2[12]\n";
+#	  print "$file $infos0[0] $infos2[12]\n";
 
 	  if($num{$infos0[0]} eq "") {
 	      print STDERR "ERROR: missing number\n";

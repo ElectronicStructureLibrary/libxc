@@ -18,7 +18,7 @@ if [ -z "$builddir" ]; then
   builddir="./"
 fi
 
-
+# We only print using colors if the output is going to a terminal
 if [ -t 1 ] ; then
   NC='\033[0m'
   RED='\033[1;31m'
@@ -29,36 +29,45 @@ fi
  
 fail=0
 echo -e "${YELLOW}Comparing against reference data${NC}"
-for i in `ls $srcdir/regression/*.pol.bz2 | sort`; do
-  func=`basename $i .pol.bz2`
-  fname=`printf '%-30s' $func`
+echo -e "======================================================================"
+echo -e "   Functional                     System               Result"
+echo -e "                                             Unpolarized    Polarized "
+echo -e "======================================================================"
 
-  echo -ne "${NC} :: Testing ${PINK}$fname"
+for i in $(ls $srcdir/regression/*.pol.bz2 | sort); do
+  refname=$(basename ${i} .pol.bz2)
+  func=${refname%.*}
+  system=${refname#*.}
+  name=$(printf '%-30s %-10s' ${func} ${system})
 
-  bunzip2 -c $srcdir/regression/$func.pol.bz2 > $tmpdir/$$.pol_ref
-  bunzip2 -c $srcdir/regression/$func.unpol.bz2 > $tmpdir/$$.unpol_ref
+  workdir=$(mktemp -d -p ${tmpdir} libxc.XXXXXXXXXX)
+  
+  echo -ne "${NC} * ${PINK}${name}"
 
-  $EXEC $builddir/xc-regression $func $srcdir/input/BrOH+ $tmpdir/$$.pol $tmpdir/$$.unpol > /dev/null
+  bunzip2 -c $srcdir/regression/$refname.pol.bz2 > $workdir/$refname.pol_ref
+  bunzip2 -c $srcdir/regression/$refname.unpol.bz2 > $workdir/$refname.unpol_ref
 
+  $EXEC $builddir/xc-regression $func $srcdir/input/$system $workdir/$refname.pol $workdir/$refname.unpol > /dev/null
+  
   # Spin-restricted
-  res=`$builddir/xc-error $tmpdir/$$.unpol $tmpdir/$$.unpol_ref`
+  res=$($builddir/xc-error $workdir/$refname.unpol $workdir/$refname.unpol_ref)
   if [ "x$res" = "x1" ]; then
-      echo -ne "${GREEN}OK"
+      echo -ne "${GREEN}   OK     "
   else
-      echo -ne "${RED}FAIL"
+      echo -ne "${RED}       FAIL    "
       let fail++
   fi
 
   # Spin-unrestricted
-  res=`$builddir/xc-error $tmpdir/$$.pol $tmpdir/$$.pol_ref`
+  res=$($builddir/xc-error $workdir/$refname.pol $workdir/$refname.pol_ref)
   if [ "x$res" = "x1" ]; then
-      echo -e "\t${GREEN}OK"
-      let ok++
+      echo -e "      ${GREEN}OK"
   else
-      echo -e "\t${RED}FAIL"
+      echo -e "     ${RED}FAIL"
+      let fail++
   fi
 done
+
 echo -e "${NC}"
 
 exit $fail
-

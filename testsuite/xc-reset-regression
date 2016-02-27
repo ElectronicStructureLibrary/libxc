@@ -4,14 +4,25 @@ if [ -z "$srcdir" ]; then
   srcdir="./"
 fi
 
-for i in `awk '{print $2}' ${srcdir}../src/xc_funcs.h`; do
-  func=`echo $i | perl -e '$_=<>; s/XC_(.*)/\L\1/; print;'`
+if [ -z "$builddir" ]; then
+  builddir="./"
+fi
 
+systems="H Li BrOH BrOH+"
+funcs=$*
+if [ "x$funcs" = "x" ]; then
+  funcs=$(awk '{print tolower($2)}' ${builddir}../src/xc_funcs.h | sed 's/^xc_//g')
+fi
+
+for func in $funcs; do
   echo "processing $func"
 
-  $srcdir/xc-regression $func input/BrOH+ $srcdir/regression/$func.pol $srcdir/regression/$func.unpol > /dev/null
-  rm -f $srcdir/regression/$func.pol.bz2
-  rm -f $srcdir/regression/$func.unpol.bz2
-  bzip2 $srcdir/regression/$func.pol
-  bzip2 $srcdir/regression/$func.unpol
+  for system in $systems; do
+    refname=$func.$system
+    $builddir/xc-regression $func $srcdir/input/$system $srcdir/regression/$refname.pol $srcdir/regression/$refname.unpol > /dev/null
+    rm -f $srcdir/regression/$refname.pol.bz2
+    rm -f $srcdir/regression/$refname.unpol.bz2
+    bzip2 $srcdir/regression/$refname.pol
+    bzip2 $srcdir/regression/$refname.unpol
+  done
 done

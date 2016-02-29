@@ -38,6 +38,7 @@ XC(lda_stoll) (const XC(func_type) *pw, FLOAT dens, FLOAT zeta, int order, XC(ld
     if(opz[is] < pw->info->min_zeta){
       res[is].zk = 0.0;
       if(order >= 1) res[is].dedz = res[is].dedrs = 0.0;
+      if(order >= 2) res[is].d2edrs2 = res[is].d2edrsz = res[is].d2edz2 = 0.0;
     }else{
       FLOAT drssdrs, drssdz, d2rssdrsz, d2rssdz2;
       FLOAT LDA_zk, LDA_dedrs, LDA_d2edrs2;

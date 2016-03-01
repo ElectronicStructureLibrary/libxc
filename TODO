@@ -16,9 +16,7 @@ LDA:
   *) Proynov-Kong c [Phys. Rev. A 79, 014103 (2009)] http://journals.aps.org/pra/abstract/10.1103/PhysRevA.79.014103
 
 GGAs:
-  *) The exchange part of HCTH-A is wrong. In the original paper they use an
-     alternative form of exchange that uses both B88 and its derivative with
-     respect to beta.
+  *) D.J. Tozer, N.C. Handy, Recent advances in density functional theory, Vol.2
   *) CAP http://www.qtp.ufl.edu/ofdft/research/ManuscriptGGAWCAB-v9.pdf
   *) functionals of Della Salla (http://www.theory-nnl.it/software.php)
   *) Liu and Parr (http://pra.aps.org/abstract/PRA/v55/i3/p1792_1)

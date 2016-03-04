@@ -791,7 +791,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97x_v) = {
   "wB97X range-separated functional",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Mardirossian2014_9904, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HYB_CAM,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HYB_CAM | XC_FLAGS_VV10,
   1e-23, 1e-32, 0.0, 1e-32,
   gga_xc_b97_init, 
   NULL,

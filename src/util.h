@@ -264,7 +264,9 @@ void XC(pbe_c_stoll) (const XC(func_type) *pbe, int get_max, const XC(mgga_work_
 void XC(mgga_series_w)(int order, int n, const FLOAT *a, FLOAT t, FLOAT *fw, FLOAT *dfwdt);
 void XC(mgga_b97_func_g)(const FLOAT *cc, FLOAT gamma, FLOAT s, int order, FLOAT *g, FLOAT *dgds, FLOAT *d2gds2);
 void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT *d, FLOAT *h, FLOAT *dhdx, FLOAT *dhdz);
-
+FLOAT XC(mgga_x_scan_exp1)(FLOAT c1x, FLOAT a);
+FLOAT XC(mgga_x_scan_exp2)(FLOAT c2x, FLOAT a);
+			 
 /* useful MACROS */
 #define DFRACTION(num, dnum, den, dden) \
   (((dnum)*(den) - (num)*(dden))/((den)*(den)))

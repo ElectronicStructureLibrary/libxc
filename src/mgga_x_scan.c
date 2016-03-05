@@ -50,8 +50,8 @@ func_gx(int order, FLOAT s, FLOAT *g, FLOAT *dgds)
   *dgds = - 0.5 * a1 * expn * smhps;
 }
 
-static FLOAT
-fx_exp1(FLOAT c1x, FLOAT a)
+FLOAT
+XC(mgga_x_scan_exp1)(FLOAT c1x, FLOAT a)
 {
   /* Calculate exp( - c1x a / (1-a) ) \theta(1-a). 
 
@@ -72,8 +72,8 @@ fx_exp1(FLOAT c1x, FLOAT a)
     return EXP(-c1x*a/(1.0-a));
 }
 
-static FLOAT
-fx_exp2(FLOAT c2x, FLOAT a)
+FLOAT
+XC(mgga_x_scan_exp2)(FLOAT c2x, FLOAT a)
 {
   /* Calculate exp( - c2x / (1-a) ) \theta(a-1). 
 
@@ -105,8 +105,8 @@ func_fx(int order, FLOAT a, FLOAT *f, FLOAT *dfda)
   FLOAT dc1exp=0.0, dc2exp=0.0;
   FLOAT ooma=1.0/(1.0-a);
 
-  c1exp=fx_exp1(c1x,a);
-  c2exp=fx_exp2(c2x,a);
+  c1exp=XC(mgga_x_scan_exp1)(c1x,a);
+  c2exp=XC(mgga_x_scan_exp2)(c2x,a);
   *f = c1exp - dx*c2exp;
 
   if(order < 1) return;

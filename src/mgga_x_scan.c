@@ -111,7 +111,7 @@ func_fx(int order, FLOAT a, FLOAT *f, FLOAT *dfda)
 
   if(order < 1) return;
 
-  *dfda = -(c1x*c1exp + c2x*c2exp)*ooma*ooma;
+  *dfda = -(c1x*c1exp + dx*c2x*c2exp)*ooma*ooma;
 }
 
 static void

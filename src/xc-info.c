@@ -129,7 +129,8 @@ int main(int argc, char **argv) {
       printf("\nThis is a global hybrid functional with %4.1f%% of exact exchange.\n",alpha*100);
     }
   } else {
-    printf("\nThis is a pure functional with no exact exchange.\n");
+    if(func.info->kind == XC_EXCHANGE || func.info->kind == XC_EXCHANGE_CORRELATION)
+      printf("\nThis is a pure functional with no exact exchange.\n");
   }
   
   printf("\nReference(s):\n");

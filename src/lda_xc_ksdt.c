@@ -60,6 +60,7 @@ lda_xc_ksdt_init(XC(func_type) *p)
 {
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(lda_xc_ksdt_params));
+  XC(lda_xc_ksdt_set_params)(p, 0.0);
 }
 
 void 

@@ -54,7 +54,7 @@ for i in $(ls $srcdir/regression/*.pol.bz2 | sort); do
   if [ "x$res" = "x1" ]; then
       echo -ne "${GREEN}   OK     "
   else
-      echo -ne "${RED}       FAIL    "
+      echo -ne "${RED}  FAIL    "
       let fail++
   fi
 

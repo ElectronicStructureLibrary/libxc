@@ -52,7 +52,7 @@ mgga_c_pkzb_init(XC(func_type) *p)
     XC(mgga_c_pkzb_set_params)(p, 0.06672455060314922, 2.8, 0.53, 0.87, 0.50, 2.26);
     break;
   case XC_MGGA_C_REVTPSS:
-    XC(func_init)(p->func_aux[0], XC_GGA_C_VPBE, XC_POLARIZED);  
+    XC(func_init)(p->func_aux[0], XC_GGA_C_REGTPSS, XC_POLARIZED);  
     XC(mgga_c_pkzb_set_params)(p, 0.06672455060314922, 2.8, 0.59, 0.9269, 0.6225, 2.1540);
     break;
   case XC_MGGA_C_TPSSLOC:

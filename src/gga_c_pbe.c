@@ -36,7 +36,7 @@
 #define XC_GGA_C_RGE2         143 /* Regularized PBE                                    */
 #define XC_GGA_C_APBE         186 /* mu fixed from the semiclassical neutral atom       */
 #define XC_GGA_C_SPBE          89 /* PBE correlation to be used with the SSB exchange   */
-#define XC_GGA_C_VPBE          83 /* variant PBE                                        */
+#define XC_GGA_C_REGTPSS       83 /* Regularized TPSS correlation (ex-VPBE)             */
 #define XC_GGA_C_ZPBESOL       63 /* spin-dependent gradient correction to PBEsol       */
 #define XC_GGA_C_PBEINT        62 /* PBE for hybrid interfaces                          */
 #define XC_GGA_C_ZPBEINT       61 /* spin-dependent gradient correction to PBEint       */
@@ -85,7 +85,7 @@ static void gga_c_pbe_init(XC(func_type) *p)
   case XC_GGA_C_RGE2:     p->func =  4; break;
   case XC_GGA_C_APBE:     p->func =  5; break;
   case XC_GGA_C_SPBE:     p->func =  6; break;
-  case XC_GGA_C_VPBE:     p->func =  7; break;
+  case XC_GGA_C_REGTPSS:  p->func =  7; break;
   case XC_GGA_C_ZPBESOL:  p->func =  8; break;
   case XC_GGA_C_PBEINT:   p->func =  9; break;
   case XC_GGA_C_ZPBEINT:  p->func = 10; break;
@@ -242,7 +242,7 @@ pbe_eq7(int order, int func, FLOAT beta, FLOAT gamm, FLOAT phi, FLOAT t, FLOAT A
 inline void 
 XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
 {
-  /* parameters for beta of VPBE */
+  /* parameters for beta of regTPSS */
   static FLOAT vpbe_b1 = 0.066725, vpbe_b2 = 0.1, vpbe_b3 = 0.1778;
   /* parameters for beta of PBEloc */
   static FLOAT pbeloc_b0 = 0.0375, pbeloc_a = 0.08;
@@ -295,7 +295,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
     beta = pbeloc_b0 + pbeloc_a * tp*tp * (1.0 - beta_den);
 
   } else if(p->func == 7) {
-    /* VPBE:  */
+    /* regTPSS */
     beta_den = (1.0 + vpbe_b3*r->rs);
     beta = vpbe_b1 * (1.0 + vpbe_b2*r->rs)/beta_den;
 
@@ -486,10 +486,10 @@ const XC(func_info_type) XC(func_info_gga_c_spbe) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_vpbe) = {
-  XC_GGA_C_VPBE,
+const XC(func_info_type) XC(func_info_gga_c_regtpss) = {
+  XC_GGA_C_REGTPSS,
   XC_CORRELATION,
-  "variant PBE",
+  "regularized TPSS correlation",
   XC_FAMILY_GGA,
   {&xc_ref_Perdew2009_026403, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

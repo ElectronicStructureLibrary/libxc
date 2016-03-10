@@ -212,7 +212,7 @@ const XC(func_info_type) XC(func_info_mgga_x_scan) = {
   "SCAN exchange of Sun, Ruzsinszky, and Perdew",
   XC_FAMILY_MGGA,
   {&xc_ref_Sun2015_036402, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_DEVELOPMENT,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   NULL, NULL, NULL, NULL,
   work_mgga_x,

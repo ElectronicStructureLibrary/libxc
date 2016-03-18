@@ -288,7 +288,6 @@ static void
 func_fx(int order, FLOAT a, FLOAT *f, FLOAT *dfda)
 {
   FLOAT c1exp=0.0, c2exp=0.0;
-  FLOAT dc1exp=0.0, dc2exp=0.0;
   FLOAT ooma=1.0/(1.0-a);
 
   c1exp=XC(mgga_x_scan_exp1)(c1c,a);
@@ -312,6 +311,8 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
   XC(lda_c_pw_func)(pt->func_aux[0], &pw);
 
+  fprintf(stderr, "SCAN correlation not implemented yet.\n");
+  exit(1);
 }
 
 

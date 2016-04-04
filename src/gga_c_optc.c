@@ -89,7 +89,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     XC(gga_c_pw91_func) (p->func_aux[0],  &(f_par[1]));
   }else{
     f_par[1].f = 0.0;
-    if(r->order >= 1) f_par[1].dfdrs = f_par[1].dfdxt = f_par[1].dfdxs[0] = 0.0;
+    if(r->order >= 1) f_par[1].dfdrs = f_par[1].dfdxt = f_par[1].dfdxs[1] = 0.0;
     if(r->order >= 2) f_par[1].d2fdrs2 = f_par[1].d2fdrsxt = f_par[1].d2fdrsxs[1] =
       f_par[1].d2fdxt2 = f_par[1].d2fdxtxs[1] = f_par[1].d2fdxs2[2] = 0.0;
   }
@@ -118,7 +118,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   r->dfdxt    = c1*f_anti.dfdxt;
   r->dfdxs[0] = c1*f_anti.dfdxs[0] + (c2 - c1)*(f_par[0].dfdxt + f_par[0].dfdxs[0]);
   r->dfdxs[1] = c1*f_anti.dfdxs[1] + (c2 - c1)*(f_par[1].dfdxt + f_par[1].dfdxs[1]);
-
+  
   if(r->order < 2) return;
 
   r->d2fdrs2     = c1*f_anti.d2fdrs2 + (c2 - c1)*M_CBRT2*M_CBRT2*(f_par[0].d2fdrs2*copz*copz + f_par[1].d2fdrs2*comz*comz);

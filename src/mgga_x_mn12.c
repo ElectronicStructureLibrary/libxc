@@ -23,7 +23,6 @@
 #include "util.h"
 
 #define XC_MGGA_X_MN12_L        227 /* MN12-L functional from Minnesota  */
-#define XC_MGGA_X_MN12_SX       228 /* Worker for MN12-SX functional     */
 #define XC_HYB_MGGA_X_MN12_SX   248 /* MN12-SX hybrid functional from Minnesota */
 #define XC_MGGA_X_MN15_L        260 /* MN15-L functional from Minnesota  */
 #define XC_HYB_MGGA_X_MN15      268 /* MN15 functional from Minnesota  */
@@ -137,7 +136,6 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
     CC = CC_MN15;
     break;
 
-  case(XC_MGGA_X_MN12_SX):
   case(XC_HYB_MGGA_X_MN12_SX):
     CC = CC_MN12_SX;
     break;
@@ -236,19 +234,6 @@ const XC(func_info_type) XC(func_info_mgga_x_mn12_l) = {
   "Minnesota MN12-L functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Peverati2012_13171, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32, 1e-32, 1e-32,
-  NULL,
-  NULL, NULL, NULL,
-  work_mgga_c,
-};
-
-const XC(func_info_type) XC(func_info_mgga_x_mn12_sx) = {
-  XC_MGGA_X_MN12_SX,
-  XC_EXCHANGE,
-  "Worker for hyb_mgga_x_mn12_sx",
-  XC_FAMILY_MGGA,
-  {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   NULL,

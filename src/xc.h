@@ -72,6 +72,7 @@ extern "C" {
 #define XC_GGA_XC_LB          160
 #define XC_GGA_K_ABSR1        506
 #define XC_GGA_K_ABSR2        507
+#define XC_MGGA_X_MN12_SX     248
 
 void XC(version)(int *major, int *minor, int *micro);
 char *XC(version_string)();

@@ -1566,7 +1566,7 @@ func_reference_type xc_ref_Mardirossian2014_9904 = {
 func_reference_type xc_ref_Mardirossian2015_074111 = {
   "N. Mardirossian and M. Head-Gordon, J. Chem. Phys. 142, 074111 (2015)",
   "10.1063/1.4907719",
-  "@article{Mardirossian2015_074111,\n   author = \"Mardirossian, Narbe and Head-Gordon, Martin\",\n   title = \"Mapping the genome of meta-generalized gradient approximation density functionals: The search for B97M-V\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2015\",\n   volume = \"142\",\n   number = \"7\", \n   eid = 074111,\n   pages = \"-\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/142/7/10.1063/1.4907719\",\n   doi = \"http://dx.doi.org/10.1063/1.4907719\" \n}"
+  "@article{Mardirossian2015_074111,\n   author = \"Mardirossian, Narbe and Head-Gordon, Martin\",\n   title = \"Mapping the genome of meta-generalized gradient approximation density functionals: The search for B97M-V\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2015\",\n   volume = \"142\",\n   number = \"7\",\n   eid = 074111,\n   pages = \"-\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/142/7/10.1063/1.4907719\",\n   doi = \"http://dx.doi.org/10.1063/1.4907719\"\n}"
 };
 
 
@@ -1661,17 +1661,17 @@ func_reference_type xc_ref_Mardirossian2016 = {
 };
 
 
-func_reference_type xc_ref_Yu2016 = {
-  "H. S. Yu, X. He, and D. G. Truhlar, J. Chem. Theory Comput. 10.1021/acs.jctc.5b01082, pMID: 26722866",
+func_reference_type xc_ref_Yu2016_1280 = {
+  "H. S. Yu, X. He, and D. G. Truhlar, J. Chem. Theory Comput. 12, 1280 (2016), pMID: 26722866",
   "10.1021/acs.jctc.5b01082",
-  "@article{Yu2016,\n  author = {Haoyu S. Yu  and Xiao He  and Donald G. Truhlar },\n  title = {MN15-L: A New Local Exchange-Correlation Functional for Kohn–Sham Density Functional Theory with Broad Accuracy for Atoms, Molecules, and Solids},\n  journal = {Journal of Chemical Theory and Computation},\n  doi = {10.1021/acs.jctc.5b01082},\n  note ={PMID: 26722866},\n  URL = {http://dx.doi.org/10.1021/acs.jctc.5b01082},\n  eprint = {http://dx.doi.org/10.1021/acs.jctc.5b01082}\n}"
+  "@article{Yu2016_1280,\n  author = {Haoyu S. Yu and Xiao He and Donald G. Truhlar},\n  title = {MN15-L: A New Local Exchange-Correlation Functional for Kohn–Sham Density Functional Theory with Broad Accuracy for Atoms, Molecules, and Solids},\n  journal = {Journal of Chemical Theory and Computation},\n  volume = {12},\n  number = {3},\n  pages = {1280-1293},\n  year = {2016},\n  doi = {10.1021/acs.jctc.5b01082},\n  note ={PMID: 26722866},\n  URL = {http://dx.doi.org/10.1021/acs.jctc.5b01082},\n  eprint = {http://dx.doi.org/10.1021/acs.jctc.5b01082}\n}"
 };
 
 
 func_reference_type xc_ref_Tsuneda1999_5656 = {
   "T. Tsuneda, T. Suzumura, and K. Hirao, J. Chem. Phys. 111, 5656 (1999)",
   "10.1063/1.479954",
-  "@article{Tsuneda1999_5656,\n   author = \"Tsuneda, Takao and Suzumura, Toshihisa and Hirao, Kimihiko\",\n   title = \"A reexamination of exchange energy functionals\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"1999\",\n   volume = \"111\",\n   number = \"13\", \n   pages = \"5656-5667\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/111/13/10.1063/1.479954\",\n   doi = \"http://dx.doi.org/10.1063/1.479954\" \n}"
+  "@article{Tsuneda1999_5656,\n   author = \"Tsuneda, Takao and Suzumura, Toshihisa and Hirao, Kimihiko\",\n   title = \"A reexamination of exchange energy functionals\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"1999\",\n   volume = \"111\",\n   number = \"13\",\n   pages = \"5656-5667\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/111/13/10.1063/1.479954\",\n   doi = \"http://dx.doi.org/10.1063/1.479954\"\n}"
 };
 
 
@@ -1685,7 +1685,14 @@ func_reference_type xc_ref_Sun2015_036402 = {
 func_reference_type xc_ref_Hui2016_044114 = {
   "K. Hui and J.-D. Chai, J. Chem. Phys. 144, 044114 (2016), http://dx.doi.org/10.1063/1.4940734",
   "10.1063/1.4940734",
-  "@article{Hui2016_044114,\n   author = \"Hui, Kerwin and Chai, Jeng-Da\",\n   title = \"SCAN-based hybrid and double-hybrid density functionals from models without fitted parameters\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2016\",\n   volume = \"144\",\n   number = \"4\", \n   eid = 044114,\n   pages = \"\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/144/4/10.1063/1.4940734\",\n   doi = \"http://dx.doi.org/10.1063/1.4940734\" \n}"
+  "@article{Hui2016_044114,\n   author = \"Hui, Kerwin and Chai, Jeng-Da\",\n   title = \"SCAN-based hybrid and double-hybrid density functionals from models without fitted parameters\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2016\",\n   volume = \"144\",\n   number = \"4\",\n   eid = 044114,\n   pages = \"\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/144/4/10.1063/1.4940734\",\n   doi = \"http://dx.doi.org/10.1063/1.4940734\"\n}"
+};
+
+
+func_reference_type xc_ref_Yu2016 = {
+  "H. S. Yu, X. He, S. L. Li, and D. G. Truhlar, Chem. Sci. , (2016)",
+  "10.1039/C6SC00705H",
+  "@Article{Yu2016,\nauthor =\"Yu, Haoyu S. and He, Xiao and Li, Shaohong Louis and Truhlar, D G\",\ntitle  =\"MN15: A Kohn-Sham Global-Hybrid Exchange-Correlation Density Functional with Broad Accuracy for Multi-Reference and Single-Reference Systems and Noncovalent Interactions\",\njournal  =\"Chem. Sci.\",\nyear  =\"2016\",\npages  =\"-\",\npublisher  =\"The Royal Society of Chemistry\",\ndoi  =\"10.1039/C6SC00705H\",\nurl  =\"http://dx.doi.org/10.1039/C6SC00705H\",\n}"
 };
 
 

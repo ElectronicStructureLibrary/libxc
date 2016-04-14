@@ -26,6 +26,7 @@
 #define XC_MGGA_X_MN12_SX       228 /* Worker for MN12-SX functional     */
 #define XC_HYB_MGGA_X_MN12_SX   248 /* MN12-SX hybrid functional from Minnesota */
 #define XC_MGGA_X_MN15_L        260 /* MN15-L functional from Minnesota  */
+#define XC_HYB_MGGA_X_MN15      268 /* MN15 functional from Minnesota  */
 
 /* the ordering is 
 CC000 [ 0], CC001 [ 1], CC002 [ 2], CC003 [ 3], CC004 [ 4], CC005 [ 5]
@@ -78,12 +79,34 @@ static const FLOAT CC_MN15_L[] =
     0.584030245, -0.720941131, -2.836037078
   };
 
+static const FLOAT CC_MN15[] =
+  {
+    0.073852235, -0.839976156, -3.082660125, -1.02881285, -0.811697255,   -0.063404387,
+    2.54805518,  -5.031578906,  0.31702159,  2.981868205, -0.749503735,
+    0.231825661,  1.261961411,  1.665920815, 7.483304941,
+   -2.544245723,  1.384720031,  6.902569885,
+    1.657399451, 2.98526709,    6.89391326,   2.489813993,  1.454724691,
+   -5.054324071, 2.35273334,    1.299104132,  1.203168217,
+    0.121595877,  8.048348238, 21.91203659,
+   -1.852335832, -3.4722735,   -1.564591493, -2.29578769,
+    3.666482991, 10.87074639,  9.696691388,
+    0.630701064, -0.505825216, -3.562354535
+  };
+
 static void
 hyb_mgga_x_mn12_sx_init(XC(func_type) *p)
 {
   p->cam_alpha = 0.00;
   p->cam_beta  = 0.25;
   p->cam_omega = 0.11;
+}
+
+static void
+hyb_mgga_x_mn15_init(XC(func_type) *p)
+{
+  p->cam_alpha = 0.44;
+  p->cam_beta  = 0.00;
+  p->cam_omega = 0.00;
 }
 
 static void 
@@ -108,6 +131,10 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
   case(XC_MGGA_X_MN15_L):
     CC = CC_MN15_L;
+    break;
+
+  case(XC_HYB_MGGA_X_MN15):
+    CC = CC_MN15;
     break;
 
   case(XC_MGGA_X_MN12_SX):
@@ -247,10 +274,23 @@ const XC(func_info_type) XC(func_info_mgga_x_mn15_l) = {
   XC_EXCHANGE,
   "Minnesota MN15-L functional",
   XC_FAMILY_MGGA,
-  {&xc_ref_Yu2016, NULL, NULL, NULL, NULL},
+  {&xc_ref_Yu2016_1280, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   NULL,
+  NULL, NULL, NULL,
+  work_mgga_c,
+};
+
+const XC(func_info_type) XC(func_info_hyb_mgga_x_mn15) = {
+  XC_HYB_MGGA_X_MN15,
+  XC_EXCHANGE,
+  "Minnesota MN15 hybrid functional",
+  XC_FAMILY_HYB_MGGA,
+  {&xc_ref_Yu2016, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 1e-32, 1e-32,
+  hyb_mgga_x_mn15_init,
   NULL, NULL, NULL,
   work_mgga_c,
 };

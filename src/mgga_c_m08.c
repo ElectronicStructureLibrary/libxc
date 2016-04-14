@@ -29,6 +29,7 @@
 #define XC_MGGA_C_MN12_L       74 /* MN12-L functional from Minnesota  */
 #define XC_MGGA_C_MN12_SX      73 /* Worker for MN12-SX functional     */
 #define XC_MGGA_C_MN15_L      261 /* MN15-L functional from Minnesota  */
+#define XC_MGGA_C_MN15        269 /* MN15 functional from Minnesota  */
 
 
 static const FLOAT a_m08_hx[12] = {
@@ -94,6 +95,15 @@ static const FLOAT b_mn15_l[12] = {
    8.913865465,  5.74529876,   4.254880837,  0.0,          0.0,         0.0
 };
 
+static const FLOAT a_mn15[12] = {
+   1.093250748, -0.269735037, 6.368997613, -0.245337101, -1.587103441, 0.124698862,
+   1.605819855,  0.466206031, 3.484978654,  0.0,          0.0,         0.0
+};
+static const FLOAT b_mn15[12] = {
+   1.427424993, -3.57883682,  7.398727547,  3.927810559,  2.789804639, 4.988320462,
+   3.079464318,  3.521636859, 4.769671992,  0.0,          0.0,         0.0
+};
+
 typedef struct{
   const FLOAT *a, *b;
 } mgga_c_m08_params;
@@ -146,6 +156,10 @@ mgga_c_m08_init(XC(func_type) *p)
   case XC_MGGA_C_MN15_L:
     params->a = a_mn15_l;
     params->b = b_mn15_l;
+    break;
+  case XC_MGGA_C_MN15:
+    params->a = a_mn15;
+    params->b = b_mn15;
     break;
   default:
     fprintf(stderr, "Internal error in mgga_c_m08\n");
@@ -307,6 +321,19 @@ const XC(func_info_type) XC(func_info_mgga_c_mn15_l) = {
   XC_MGGA_C_MN15_L,
   XC_CORRELATION,
   "Minnesota MN15-L correlation functional",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Yu2016_1280, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-26, 1e-32, 1e-32, 1e-32,
+  mgga_c_m08_init,
+  NULL, NULL, NULL,
+  work_mgga_c,
+};
+
+const XC(func_info_type) XC(func_info_mgga_c_mn15) = {
+  XC_MGGA_C_MN15,
+  XC_CORRELATION,
+  "Minnesota MN15 correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Yu2016, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

@@ -103,9 +103,9 @@ endif
 if COMPILE_FORTRAN03
   lib_LTLIBRARIES += libxcf03.la
 
-  nodist_libxcf03_la_SOURCES = libxc.f03
+  nodist_libxcf03_la_SOURCES = libxcf03.f90
 if COMPILE_SINGLE
-    nodist_libxcf03_la_SOURCES += libxc_s.f03
+    nodist_libxcf03_la_SOURCES += libxcf03_s.f90
 endif
 
   # libtool stuff
@@ -245,17 +245,17 @@ $(XCLIBMODS_S) : $(LTPREF)libxc_s.lo
 
 
 LTPREF03 = $(subst xc_f.lo,,$(firstword $(am_libxcf03_la_OBJECTS)))
-libxc.f03 : libxc_master.F03 libxc_inc.f03
-	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) -I$(top_builddir)/src $(srcdir)/libxc_master.F03 > $(top_builddir)/src/libxc.f03
+libxcf03.f90 : libxc_master.F03 libxc_inc.f03
+	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) -I$(top_builddir)/src $(srcdir)/libxc_master.F03 > $(top_builddir)/src/libxcf03.f90
 	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
-		grep -v "^#" $(top_builddir)/src/libxc.f03 > $(top_builddir)/src/libxc.f04; \
-		mv -f $(top_builddir)/src/libxc.f04 $(top_builddir)/src/libxc.f03; \
+		grep -v "^#" $(top_builddir)/src/libxcf03.f90 > $(top_builddir)/src/libxcf03.f91; \
+		mv -f $(top_builddir)/src/libxcf03.f91 $(top_builddir)/src/libxcf03.f90; \
 	fi
-libxc_s.f03 : libxc_master.F03 libxc_inc.f03
-	@FCCPP@ -D SINGLE_PRECISION @CPPFLAGS@ $(AM_CPPFLAGS) -I$(top_builddir)/src $(srcdir)/libxc_master.F03 > $(top_builddir)/src/libxc_s.f03
+libxcf03_s.f90 : libxc_master.F03 libxc_inc.f03
+	@FCCPP@ -D SINGLE_PRECISION @CPPFLAGS@ $(AM_CPPFLAGS) -I$(top_builddir)/src $(srcdir)/libxc_master.F03 > $(top_builddir)/src/libxcf03_s.f90
 	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
-		grep -v "^#" $(top_builddir)/src/libxc_s.f03 > $(top_builddir)/src/libxc_s.f04; \
-		mv -f $(top_builddir)/src/libxc_s.f04 $(top_builddir)/src/libxc_s.f03; \
+		grep -v "^#" $(top_builddir)/src/libxcf03_s.f90 > $(top_builddir)/src/libxcf03_s.f91; \
+		mv -f $(top_builddir)/src/libxcf03_s.f91 $(top_builddir)/src/libxcf03_s.f90; \
 	fi
 
 $(XCF03LIBMODS)   : $(LTPREF03)libxc.lo

@@ -22,16 +22,17 @@
 #include "xc.h"
 #include "config.h"
 
+const char * libxc_version = PACKAGE_VERSION;
+
 void XC(version)(int *major, int *minor, int *micro) {
-  const char *version_string = PACKAGE_VERSION;
 
   *major = -1;
   *minor = -1;
   *micro = -1;
-  sscanf(version_string,"%d.%d.%d",major,minor,micro);
+  sscanf(libxc_version,"%d.%d.%d",major,minor,micro);
 
 }
 
-char *XC(version_string)() {
-  return strdup(PACKAGE_VERSION);
+const char *XC(version_string)() {
+  return libxc_version;
 }

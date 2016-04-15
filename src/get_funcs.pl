@@ -51,6 +51,9 @@ foreach $func (@funcs){
     $s3 .= sprintf "  %s %-30s = %3s  ! %s\n", "integer, parameter ::",
       $deflist_f{$key}, $key, $deflist_c{$key};
 
+    $s5 .= sprintf "  %s %-30s = %3s  ! %s\n", "integer(c_int), parameter, public ::",
+      $deflist_f{$key}, $key, $deflist_c{$key};
+
     $s1 .= "extern XC(func_info_type) XC(func_info_$t);\n";
     $s2 .= "  &XC(func_info_$t),\n";
   }
@@ -152,6 +155,15 @@ end module libxc_funcs_m
 EOF
   ;
 close OUT;
+
+
+open(OUT, ">$builddir/libxc_inc.f03") or die("Could not open '$builddir/libxc_incs.f03'.\n");
+print OUT <<EOF
+$s5
+EOF
+  ;
+close OUT;
+
 
 sub read_file() {
   my ($dir, $type) = @_;

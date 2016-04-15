@@ -34,7 +34,7 @@ lib_LTLIBRARIES = libxc.la
 
 libxc_la_FUNC_SOURCES = \
 	special_functions.c bessel.c expint_e1.c integrate.c util.c	\
-	mix_func.c functionals.c version.c \
+	mix_func.c func_info.c functionals.c version.c \
 	lda.c \
         lda_x.c lda_x_1d.c lda_x_2d.c lda_c_wigner.c lda_c_gombas.c	\
 	lda_c_rpa.c lda_c_hl.c lda_c_vwn.c lda_c_pz.c lda_c_pw.c	\
@@ -100,6 +100,23 @@ endif
   libxcf90_la_LIBTOOLFLAGS = --tag=F77
 endif
 
+if COMPILE_FORTRAN03
+  lib_LTLIBRARIES += libxcf03.la
+
+  nodist_libxcf03_la_SOURCES = libxc.f03
+if COMPILE_SINGLE
+    nodist_libxcf03_la_SOURCES += libxc_s.f03
+endif
+
+  # libtool stuff
+  libxcf03_la_LDFLAGS = -version-info $(XC_LT_VERSION)
+  libxcf03_la_LIBADD = libxc.la
+
+  # this is a hack to go around buggy libtool/automake versions
+  libxcf03_la_LIBTOOLFLAGS = --tag=F77
+endif
+
+
 # this is a hack to go around buggy libtool/automake versions
 LTFCCOMPILE = $(LIBTOOL) --mode=compile --tag=F77 $(FC) $(AM_FCFLAGS) $(FCFLAGS)
 FCLINK = $(LIBTOOL) --mode=link --tag=F77 $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) \
@@ -111,7 +128,7 @@ noinst_HEADERS = \
 	string_f.h references.h util.h work_lda.c \
 	work_gga_x.c work_gga_c.c \
 	work_mgga_x.c work_mgga_c.c \
-	libxc_master.F90
+	libxc_master.F90 libxc_master.F03
 include_HEADERS = xc.h xc_config.h xc_unconfig.h
 nodist_include_HEADERS = xc_funcs.h
 
@@ -158,14 +175,39 @@ endif # COMPILE_SINGLE
 
 endif # COMPILE_FORTRAN
 
+
+if COMPILE_FORTRAN03
+
+# Double precision modules are always compiled
+if F90_MOD_UPPERCASE
+  XCF03LIBMODS = XC_F03_LIB_M.@ax_cv_f90_modext@
+else
+  XCF03LIBMODS = xc_f03_lib_m.@ax_cv_f90_modext@
+endif
+nodist_include_HEADERS += $(XCF03LIBMODS)
+
+if COMPILE_SINGLE
+
+if F90_MOD_UPPERCASE
+  XCF03LIBMODS_S = XC_S_F03_LIB_M.@ax_cv_f90_modext@
+else
+  XCF03LIBMODS_S = xc_s_f03_lib_m.@ax_cv_f90_modext@
+endif
+nodist_include_HEADERS += $(XCF03LIBMODS_S)
+
+endif # COMPILE_SINGLE
+
+endif # COMPILE_FORTRAN03
+
+
 SUFFIXES = _s.c
 .c_s.c:
 	@CPP@ -D SINGLE_PRECISION @CPPFLAGS@ $(INCLUDES) $(DEFAULT_INCLUDES) $(AM_CPPFLAGS) $< > $*_s.c
 
 CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
-	libxc.f90 libxc_funcs.f90 xc_funcs.h *_s.c *_s.f90 libxc_docs.txt
+	libxc.f90 libxc_funcs.f90 libxc.f03 libxc_inc.f03 xc_funcs.h *_s.c *_s.f90 libxc_docs.txt
 
-xc_funcs.h libxc_funcs.f90 funcs_lda.c funcs_gga.c funcs_hyb_gga.c funcs_mgga.c funcs_hyb_mgga.c funcs_key.c: get_funcs.pl
+xc_funcs.h libxc_inc.f03 libxc_funcs.f90 funcs_lda.c funcs_gga.c funcs_hyb_gga.c funcs_mgga.c funcs_hyb_mgga.c funcs_key.c: get_funcs.pl
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)/src
 
 #These files are in the repository, and the command below should be run to update them whenever references are changed.
@@ -200,3 +242,21 @@ $(LTPREF)libxc_s.lo $(LTPREF)libxc_s.o : $(LIBSFUNCMOD)
 
 $(XCLIBMODS)   : $(LTPREF)libxc.lo
 $(XCLIBMODS_S) : $(LTPREF)libxc_s.lo
+
+
+LTPREF03 = $(subst xc_f.lo,,$(firstword $(am_libxcf03_la_OBJECTS)))
+libxc.f03 : libxc_master.F03 libxc_inc.f03
+	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) -I$(top_builddir)/src $(srcdir)/libxc_master.F03 > $(top_builddir)/src/libxc.f03
+	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
+		grep -v "^#" $(top_builddir)/src/libxc.f03 > $(top_builddir)/src/libxc.f04; \
+		mv -f $(top_builddir)/src/libxc.f04 $(top_builddir)/src/libxc.f03; \
+	fi
+libxc_s.f03 : libxc_master.F03 libxc_inc.f03
+	@FCCPP@ -D SINGLE_PRECISION @CPPFLAGS@ $(AM_CPPFLAGS) -I$(top_builddir)/src $(srcdir)/libxc_master.F03 > $(top_builddir)/src/libxc_s.f03
+	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
+		grep -v "^#" $(top_builddir)/src/libxc_s.f03 > $(top_builddir)/src/libxc_s.f04; \
+		mv -f $(top_builddir)/src/libxc_s.f04 $(top_builddir)/src/libxc_s.f03; \
+	fi
+
+$(XCF03LIBMODS)   : $(LTPREF03)libxc.lo
+$(XCF03LIBMODS_S) : $(LTPREF03)libxc_s.lo

@@ -139,6 +139,11 @@ if test $ac_cv_build_fortran = yes; then
   ACX_FC_INTEGER_SIZE
   ACX_CC_FORTRAN_INT
 
+  dnl check whether the Fortran compiler supports Fortran 2003 iso_c_binding
+  ACX_FC_ISO_C_BINDING([ac_cv_build_fortran03=yes], [ac_cv_build_fortran03=no,
+    						    AC_MSG_WARN([Could not find Fortran 2003 iso_c_binding. Fortran 2003 interface will not be compiled.])])
+  AM_CONDITIONAL([COMPILE_FORTRAN03], [test $ac_cv_build_fortran03 = yes])
+
   AC_LANG_POP([Fortran])
 else
   HAVE_FORTRAN=0

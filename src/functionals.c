@@ -58,7 +58,7 @@ int XC(functional_get_number)(const char *name)
 
 
 /*------------------------------------------------------*/
-char *XC(functional_get_name)(int number)
+char *XC(functional_get_name)(const int number)
 {
   int ii;
 
@@ -125,6 +125,14 @@ int XC(family_from_id)(int id, int *family, int *number)
   return XC_FAMILY_UNKNOWN;
 }
 
+/*------------------------------------------------------*/
+XC(func_type) *XC(func_alloc)()
+{
+  XC(func_type) *func;
+
+  func = (XC(func_type) *) malloc (sizeof (XC(func_type)));
+  return func;
+}
 
 /*------------------------------------------------------*/
 int XC(func_init)(XC(func_type) *p, int functional, int nspin)
@@ -186,6 +194,19 @@ void XC(func_end)(XC(func_type) *p)
 
   p->info = NULL;  
 }
+
+/*------------------------------------------------------*/
+void  XC(func_free)(XC(func_type) *p)
+{
+  free(p);
+}
+
+/*------------------------------------------------------*/
+XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p)
+{
+  return p->info;
+}
+
 
 /* returns the mixing coefficient for the hybrid GGAs */
 FLOAT XC(hyb_exx_coef)(const XC(func_type) *p)

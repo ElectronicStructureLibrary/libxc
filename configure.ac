@@ -142,7 +142,6 @@ if test $ac_cv_build_fortran = yes; then
   dnl check whether the Fortran compiler supports Fortran 2003 iso_c_binding
   ACX_FC_ISO_C_BINDING([ac_cv_build_fortran03=yes], [ac_cv_build_fortran03=no,
     						    AC_MSG_WARN([Could not find Fortran 2003 iso_c_binding. Fortran 2003 interface will not be compiled.])])
-  AM_CONDITIONAL([COMPILE_FORTRAN03], [test $ac_cv_build_fortran03 = yes])
 
   AC_LANG_POP([Fortran])
 else
@@ -151,6 +150,7 @@ fi
 AC_SUBST(ax_cv_f90_modext)
 AM_CONDITIONAL(F90_MOD_UPPERCASE, [test x$ax_f90_mod_uppercase = xyes])
 AM_CONDITIONAL(COMPILE_FORTRAN, test x${HAVE_FORTRAN} = x1)
+AM_CONDITIONAL([COMPILE_FORTRAN03], [test x$ac_cv_build_fortran03 = xyes])
 
 dnl should I compile libxc in single precision?
 AC_ARG_ENABLE([single], 

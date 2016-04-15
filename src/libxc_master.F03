@@ -51,7 +51,7 @@
 !! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 !! OF THE POSSIBILITY OF SUCH DAMAGE.
 
-!! $Id: libxc.f90 3550 2007-11-19 14:32:49Z marques $
+!! $Id$
 
 
 #ifdef SINGLE_PRECISION
@@ -644,7 +644,8 @@ module FXC(lib_m)
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
       real(RTYPE),    intent(out) :: zk(*), vrho(*), vsigma(*), vlapl(*), vtau(*)
-      real(RTYPE),    intent(out) :: v2rho2(*), v2sigma2(*), v2lapl2(*), v2tau2(*), v2rhosigma(*), v2rholapl(*), v2rhotau(*), v2sigmalapl(*), v2sigmatau(*), v2lapltau(*)
+      real(RTYPE),    intent(out) :: v2rho2(*), v2sigma2(*), v2lapl2(*), v2tau2(*), v2rhosigma(*), v2rholapl(*), &
+                                     v2rhotau(*), v2sigmalapl(*), v2sigmatau(*), v2lapltau(*)
     end subroutine XC(mgga)
 
     subroutine XC(mgga_exc)(p, np, rho, sigma, lapl, tau, zk) bind(c)
@@ -678,7 +679,8 @@ module FXC(lib_m)
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
-      real(RTYPE),    intent(out) :: v2rho2(*), v2sigma2(*), v2lapl2(*), v2tau2(*), v2rhosigma(*), v2rholapl(*), v2rhotau(*), v2sigmalapl(*), v2sigmatau(*), v2lapltau(*)
+      real(RTYPE),    intent(out) :: v2rho2(*), v2sigma2(*), v2lapl2(*), v2tau2(*), v2rhosigma(*), v2rholapl(*), &
+                                     v2rhotau(*), v2sigmalapl(*), v2sigmatau(*), v2lapltau(*)
     end subroutine XC(mgga_fxc)
   end interface
 
@@ -1263,7 +1265,8 @@ contains
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
     real(RTYPE),       intent(out) :: zk(*), vrho(*), vsigma(*), vlapl(*), vtau(*)
-    real(RTYPE),       intent(out) :: v2rho2(*), v2sigma2(*), v2lapl2(*), v2tau2(*), v2rhosigma(*), v2rholapl(*), v2rhotau(*), v2sigmalapl(*), v2sigmatau(*), v2lapltau(*)
+    real(RTYPE),       intent(out) :: v2rho2(*), v2sigma2(*), v2lapl2(*), v2tau2(*), v2rhosigma(*), v2rholapl(*), &
+                                      v2rhotau(*), v2sigmalapl(*), v2sigmatau(*), v2lapltau(*)
 
     call XC(mgga)(p%ptr, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
       v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
@@ -1307,7 +1310,8 @@ contains
     type(FXC(func_t)), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
-    real(RTYPE),       intent(out) :: v2rho2(*), v2sigma2(*), v2lapl2(*), v2tau2(*), v2rhosigma(*), v2rholapl(*), v2rhotau(*), v2sigmalapl(*), v2sigmatau(*), v2lapltau(*)
+    real(RTYPE),       intent(out) :: v2rho2(*), v2sigma2(*), v2lapl2(*), v2tau2(*), v2rhosigma(*), &
+                                      v2rholapl(*), v2rhotau(*), v2sigmalapl(*), v2sigmatau(*), v2lapltau(*)
 
     call XC(mgga_fxc)(p%ptr, np, rho, sigma, lapl, tau, &
       v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &

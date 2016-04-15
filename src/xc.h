@@ -90,7 +90,6 @@ typedef struct{
 
   char *name;     /* name of the functional, e.g. "PBE" */
   int   family;   /* type of the functional, e.g. XC_FAMILY_GGA */
-  //int   refs[5];  /* index of the references */
   func_reference_type *refs[5];  /* index of the references */
 
   int   flags;    /* see above for a list of possible flags */

@@ -41,11 +41,10 @@ void XC_FC_FUNC(f90_version, F90_VERSION)
 void XC_FC_FUNC(f90_version_string, F90_VERSIN_STRING)
      (STR_F_TYPE version_string STR_ARG1)
 {
-  char *version;
+  const char *version;
 
   version = XC(version_string)();
   TO_F_STR1(version, version_string);
-  free(version);
 }
 
 /* info */

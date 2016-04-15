@@ -163,6 +163,7 @@ if F90_MOD_UPPERCASE
 else
   LIBSFUNCMOD = libxc_s_funcs_m.@ax_cv_f90_modext@
 endif
+nodist_include_HEADERS += $(LIBSFUNCMOD)
 
 if F90_MOD_UPPERCASE
   XCLIBMODS_S = XC_S_F90_LIB_M.@ax_cv_f90_modext@ XC_S_F90_TYPES_M.@ax_cv_f90_modext@
@@ -237,8 +238,8 @@ libxc_s.f90 : libxc_master.F90
 		mv -f $(top_builddir)/src/libxc_s.f91 $(top_builddir)/src/libxc_s.f90; \
 	fi
 
-$(LTPREF)libxc.lo   $(LTPREF)libxc.o   : $(LIBFUNCMOD)
-$(LTPREF)libxc_s.lo $(LTPREF)libxc_s.o : $(LIBSFUNCMOD)
+$(LTPREF)libxc.lo   $(LTPREF)libxc.o   : $(LIBFUNCMOD) $(LTPREF)libxc_funcs.lo
+$(LTPREF)libxc_s.lo $(LTPREF)libxc_s.o : $(LIBSFUNCMOD) $(LTPREF)libxc_funcs.lo
 
 $(XCLIBMODS)   : $(LTPREF)libxc.lo
 $(XCLIBMODS_S) : $(LTPREF)libxc_s.lo

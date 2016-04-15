@@ -205,7 +205,7 @@ SUFFIXES = _s.c
 	@CPP@ -D SINGLE_PRECISION @CPPFLAGS@ $(INCLUDES) $(DEFAULT_INCLUDES) $(AM_CPPFLAGS) $< > $*_s.c
 
 CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
-	libxc.f90 libxc_funcs.f90 libxc.f03 libxc_inc.f03 xc_funcs.h *_s.c *_s.f90 libxc_docs.txt
+	libxc.f90 libxc_funcs.f90 libxcf03.f90 libxc_inc.f03 xc_funcs.h *_s.c *_s.f90 libxc_docs.txt
 
 xc_funcs.h libxc_inc.f03 libxc_funcs.f90 funcs_lda.c funcs_gga.c funcs_hyb_gga.c funcs_mgga.c funcs_hyb_mgga.c funcs_key.c: get_funcs.pl
 	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)/src

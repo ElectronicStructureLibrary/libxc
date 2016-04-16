@@ -238,14 +238,14 @@ libxc_s.f90 : libxc_master.F90
 		mv -f $(top_builddir)/src/libxc_s.f91 $(top_builddir)/src/libxc_s.f90; \
 	fi
 
-$(LTPREF)libxc.lo   $(LTPREF)libxc.o   : $(LIBFUNCMOD) $(LTPREF)libxc_funcs.lo
-$(LTPREF)libxc_s.lo $(LTPREF)libxc_s.o : $(LIBSFUNCMOD) $(LTPREF)libxc_funcs.lo
+$(LTPREF)libxc.lo   $(LTPREF)libxc.o   : $(LIBFUNCMOD)
+$(LTPREF)libxc_s.lo $(LTPREF)libxc_s.o : $(LIBSFUNCMOD)
 
 $(XCLIBMODS)   : $(LTPREF)libxc.lo
 $(XCLIBMODS_S) : $(LTPREF)libxc_s.lo
 
 
-LTPREF03 = $(subst xc_f.lo,,$(firstword $(am_libxcf03_la_OBJECTS)))
+LTPREF03 = $(subst libxcf03.lo,,$(firstword $(nodist_libxcf03_la_OBJECTS)))
 libxcf03.f90 : libxc_master.F03 libxc_inc.f03
 	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) -I$(top_builddir)/src $(srcdir)/libxc_master.F03 > $(top_builddir)/src/libxcf03.f90
 	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
@@ -259,5 +259,5 @@ libxcf03_s.f90 : libxc_master.F03 libxc_inc.f03
 		mv -f $(top_builddir)/src/libxcf03_s.f91 $(top_builddir)/src/libxcf03_s.f90; \
 	fi
 
-$(XCF03LIBMODS)   : $(LTPREF03)libxc.lo
-$(XCF03LIBMODS_S) : $(LTPREF03)libxc_s.lo
+$(XCF03LIBMODS)   : $(LTPREF03)libxcf03.lo
+$(XCF03LIBMODS_S) : $(LTPREF03)libxcf03_s.lo

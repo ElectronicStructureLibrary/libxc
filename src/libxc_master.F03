@@ -770,8 +770,8 @@ contains
   end function FXC(func_info_get_flags)
 
   character(len=120) function FXC(func_info_get_refs)(info, number) result(ref)
-    type(FXC(func_info_t)), intent(in) :: info
-    integer, intent(inout) :: number ! number of the reference. Must be 0 in the first call
+    type(FXC(func_info_t)), intent(in)    :: info
+    integer,                intent(inout) :: number ! number of the reference. Must be 0 in the first call
 
     type(c_ptr) :: c_ref
 

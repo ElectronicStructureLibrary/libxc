@@ -122,7 +122,7 @@ int XC(func_info_get_kind)(const XC(func_info_type) *info);
 char const *XC(func_info_get_name)(const XC(func_info_type) *info);
 int XC(func_info_get_family)(const XC(func_info_type) *info);
 int XC(func_info_get_flags)(const XC(func_info_type) *info);
-char const *XC(func_info_get_ref)(const XC(func_info_type) *info, const int number);
+char const *XC(func_info_get_ref)(const XC(func_info_type) *info, int number);
 
 struct XC(func_type){
   const XC(func_info_type) *info;       /* all the information concerning this functional */

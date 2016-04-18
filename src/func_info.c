@@ -31,32 +31,36 @@
 
 int XC(func_info_get_number)(const XC(func_info_type) *info)
 {
-    return info->number;
+  return info->number;
 }
 
 int XC(func_info_get_kind)(const XC(func_info_type) *info)
 {
-    return info->kind;
+  return info->kind;
 }
 
 char const *XC(func_info_get_name)(const XC(func_info_type) *info)
 {
-    return info->name;
+  return info->name;
 }
 
 int XC(func_info_get_family)(const XC(func_info_type) *info)
 {
-    return info->family;
+  return info->family;
 }
 
 int XC(func_info_get_flags)(const XC(func_info_type) *info)
 {
-    return info->flags;
+  return info->flags;
 }
 
 char const *XC(func_info_get_ref)(const XC(func_info_type) *info, int number)
 {
-    assert(number >=0 && number < 5);
-    
-    return info->refs[number];
+  assert(number >=0 && number < 5);
+
+  if (info->refs[number] == NULL) {
+    return NULL;
+  } else {
+    return info->refs[number]->ref;
+  }
 }

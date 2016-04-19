@@ -782,7 +782,7 @@ contains
       number = number + 1
     else
       number = -1
-      ref = ''
+      ref = ""
     end if
     
   end function FXC(func_info_get_refs)

@@ -48,12 +48,14 @@ mGGAs:
   *) tau-HCTH correlation
 
 hybrids:
+  *) http://link.springer.com/article/10.1007/s00214-016-1864-2 hybrid with correct asymptotics
   *) http://arxiv.org/abs/1205.4999 (versions of HSE)
   *) http://link.aip.org/link/doi/10.1063/1.3524336 (HSE_sol)
   *) doi:10.1021/ct800530u (LR-omegaPBE08)
   *) http://arxiv.org/abs/1211.0387
   *) (CAM-)S12g / (CAM-)S12h http://www.sciencedirect.com/science/article/pii/S0009261413008221
   *) HISS http://scitation.aip.org/content/aip/journal/jcp/127/22/10.1063/1.2822021 [*two* range separation constants!)
+  *) hAPBE DOI: 10.1021/ct500902p
 
 hybrid meta:
   *) TPSS1KCIS http://pubs.rsc.org/en/content/articlelanding/2005/cp/b416937a

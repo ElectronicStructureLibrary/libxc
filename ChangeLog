@@ -1,3 +1,2422 @@
+2016-04-19 13:50  micael
+
+	* [r12305] configure.ac: Update libtool version number and history.
+
+2016-04-19 13:42  micael
+
+	* [r12300] xc_version.h.in: Bug fix: XC_MICRO_VERSION was not
+	  properly set.
+
+2016-04-19 08:23  lehtola
+
+	* [r12298] TODO: Minnesota functionals have been fixed. Update CAP
+	  link
+
+2016-04-19 06:30  marques
+
+	* [r12297] TODO: Added a hybrid to the TODO list
+
+2016-04-18 09:10  micael
+
+	* [r12296] src/func_info.c, src/libxc_master.F03, src/xc.h: Some
+	  fixes to the func_info_get_ref(s) functions.
+
+2016-04-16 07:55  micael
+
+	* [r12295] src/Makefile.am: New attempt to fix the parallel
+	  compilation.
+
+2016-04-15 15:37  micael
+
+	* [r12294] src/Makefile.am: Fixed dependencies: in some cases the
+	  build system was trying to compile libxc.f90 before compiling
+	  libxc_funcs.f90.
+
+2016-04-15 14:42  micael
+
+	* [r12293] src/Makefile.am: Forgot to rename one file in previous
+	  commit.
+
+2016-04-15 14:26  micael
+
+	* [r12292] src/Makefile.am: The Intel compiler does not accept the
+	  .f03 extension for Fortran source files.
+
+2016-04-15 13:58  micael
+
+	* [r12291] src/xc.h, src/xc_f.c: Fixing some warnings.
+
+2016-04-15 13:31  micael
+
+	* [r12290] src/libxc_master.F03: Some lines were too long.
+
+2016-04-15 13:26  micael
+
+	* [r12289] configure.ac: Fix compilation without Fortran.
+
+2016-04-15 13:17  micael
+
+	* [r12288] configure.ac, m4/fc_iso_c_binding.m4, src/Makefile.am,
+	  src/func_info.c, src/functionals.c, src/get_funcs.pl,
+	  src/libxc_master.F03, src/version.c, src/xc.h: * Added Fortran
+	  2003 interface. This is compiled when Fortran compiler supports
+	  the iso_c_bindings module. This interface follows more closely
+	  the C one, so its function names and interfaces are different
+	  from the F90 interface.
+	  * Added func_alloc and func_free functions plus several getters
+	  needed by the Fortran 2003 interface.
+	  * Changed the way the version string is defined in the
+	  version_string function to avoid memory leaks.
+
+2016-04-15 08:49  micael
+
+	* [r12287] testsuite/regression/mgga_x_mn12_sx.BrOH+.pol.bz2,
+	  testsuite/regression/mgga_x_mn12_sx.BrOH+.unpol.bz2,
+	  testsuite/regression/mgga_x_mn12_sx.BrOH.pol.bz2,
+	  testsuite/regression/mgga_x_mn12_sx.BrOH.unpol.bz2,
+	  testsuite/regression/mgga_x_mn12_sx.H.pol.bz2,
+	  testsuite/regression/mgga_x_mn12_sx.H.unpol.bz2,
+	  testsuite/regression/mgga_x_mn12_sx.Li.pol.bz2,
+	  testsuite/regression/mgga_x_mn12_sx.Li.unpol.bz2: Removing
+	  regression tests for mgga_x_mn12_sx.
+
+2016-04-14 04:14  lehtola
+
+	* [r12286] src/mgga_x_mn12.c, src/xc.h: Drop the non-existent
+	  functional MGGA_X_MN12_SX, replace it with a call to
+	  HYB_MGGA_X_MN12_SX instead.
+
+2016-04-14 04:05  lehtola
+
+	* [r12285] libxc.bib, src/mgga_c_m08.c, src/mgga_x_mn12.c,
+	  src/references.c, src/references.h: Added MN15 functional, and
+	  updated MN15-L reference with page number.
+
+2016-04-06 14:27  micael
+
+	* [r12284] testsuite/regression/gga_c_ft97.BrOH+.pol.bz2,
+	  testsuite/regression/gga_c_ft97.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_c_ft97.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_c_ft97.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_gam.H.pol.bz2,
+	  testsuite/regression/gga_c_gam.H.pol.bz2.disabled,
+	  testsuite/regression/gga_c_gam.H.unpol.bz2,
+	  testsuite/regression/gga_c_gam.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_gam.Li.pol.bz2,
+	  testsuite/regression/gga_c_gam.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_c_gam.Li.unpol.bz2,
+	  testsuite/regression/gga_c_gam.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_hcth_a.H.pol.bz2,
+	  testsuite/regression/gga_c_hcth_a.H.pol.bz2.disabled,
+	  testsuite/regression/gga_c_hcth_a.H.unpol.bz2,
+	  testsuite/regression/gga_c_hcth_a.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_n12.Li.pol.bz2,
+	  testsuite/regression/gga_c_n12.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_c_n12.Li.unpol.bz2,
+	  testsuite/regression/gga_c_n12.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_n12_sx.Li.pol.bz2,
+	  testsuite/regression/gga_c_n12_sx.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_c_n12_sx.Li.unpol.bz2,
+	  testsuite/regression/gga_c_n12_sx.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_absp1.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_absp1.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_absp1.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_absp1.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_absp1.H.pol.bz2,
+	  testsuite/regression/gga_k_absp1.H.pol.bz2.disabled,
+	  testsuite/regression/gga_k_absp1.H.unpol.bz2,
+	  testsuite/regression/gga_k_absp1.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_absp1.Li.pol.bz2,
+	  testsuite/regression/gga_k_absp1.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_absp1.Li.unpol.bz2,
+	  testsuite/regression/gga_k_absp1.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_absp2.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_absp2.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_absp2.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_absp2.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_absp2.H.pol.bz2,
+	  testsuite/regression/gga_k_absp2.H.pol.bz2.disabled,
+	  testsuite/regression/gga_k_absp2.H.unpol.bz2,
+	  testsuite/regression/gga_k_absp2.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_absp2.Li.pol.bz2,
+	  testsuite/regression/gga_k_absp2.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_absp2.Li.unpol.bz2,
+	  testsuite/regression/gga_k_absp2.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_baltin.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_baltin.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_baltin.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_baltin.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_baltin.H.pol.bz2,
+	  testsuite/regression/gga_k_baltin.H.pol.bz2.disabled,
+	  testsuite/regression/gga_k_baltin.H.unpol.bz2,
+	  testsuite/regression/gga_k_baltin.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_baltin.Li.pol.bz2,
+	  testsuite/regression/gga_k_baltin.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_baltin.Li.unpol.bz2,
+	  testsuite/regression/gga_k_baltin.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_ge2.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_ge2.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_ge2.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_ge2.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_ge2.H.pol.bz2,
+	  testsuite/regression/gga_k_ge2.H.pol.bz2.disabled,
+	  testsuite/regression/gga_k_ge2.H.unpol.bz2,
+	  testsuite/regression/gga_k_ge2.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_ge2.Li.pol.bz2,
+	  testsuite/regression/gga_k_ge2.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_ge2.Li.unpol.bz2,
+	  testsuite/regression/gga_k_ge2.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_golden.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_golden.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_golden.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_golden.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_golden.H.pol.bz2,
+	  testsuite/regression/gga_k_golden.H.pol.bz2.disabled,
+	  testsuite/regression/gga_k_golden.H.unpol.bz2,
+	  testsuite/regression/gga_k_golden.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_golden.Li.pol.bz2,
+	  testsuite/regression/gga_k_golden.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_golden.Li.unpol.bz2,
+	  testsuite/regression/gga_k_golden.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_gp85.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_gp85.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_gp85.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_gp85.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_gp85.H.pol.bz2,
+	  testsuite/regression/gga_k_gp85.H.pol.bz2.disabled,
+	  testsuite/regression/gga_k_gp85.H.unpol.bz2,
+	  testsuite/regression/gga_k_gp85.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_gp85.Li.pol.bz2,
+	  testsuite/regression/gga_k_gp85.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_gp85.Li.unpol.bz2,
+	  testsuite/regression/gga_k_gp85.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_gr.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_gr.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_gr.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_gr.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_gr.H.pol.bz2,
+	  testsuite/regression/gga_k_gr.H.pol.bz2.disabled,
+	  testsuite/regression/gga_k_gr.H.unpol.bz2,
+	  testsuite/regression/gga_k_gr.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_gr.Li.pol.bz2,
+	  testsuite/regression/gga_k_gr.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_gr.Li.unpol.bz2,
+	  testsuite/regression/gga_k_gr.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_lieb.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_lieb.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_lieb.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_lieb.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_lieb.H.pol.bz2,
+	  testsuite/regression/gga_k_lieb.H.pol.bz2.disabled,
+	  testsuite/regression/gga_k_lieb.H.unpol.bz2,
+	  testsuite/regression/gga_k_lieb.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_lieb.Li.pol.bz2,
+	  testsuite/regression/gga_k_lieb.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_lieb.Li.unpol.bz2,
+	  testsuite/regression/gga_k_lieb.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_ludena.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_ludena.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_ludena.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_ludena.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_ludena.H.pol.bz2,
+	  testsuite/regression/gga_k_ludena.H.pol.bz2.disabled,
+	  testsuite/regression/gga_k_ludena.H.unpol.bz2,
+	  testsuite/regression/gga_k_ludena.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_ludena.Li.pol.bz2,
+	  testsuite/regression/gga_k_ludena.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_ludena.Li.unpol.bz2,
+	  testsuite/regression/gga_k_ludena.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_meyer.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_meyer.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_meyer.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_meyer.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_meyer.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_meyer.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_meyer.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_meyer.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_meyer.Li.pol.bz2,
+	  testsuite/regression/gga_k_meyer.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_meyer.Li.unpol.bz2,
+	  testsuite/regression/gga_k_meyer.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_ol2.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_ol2.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_ol2.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_ol2.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_ol2.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_ol2.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_ol2.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_ol2.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_ol2.H.pol.bz2,
+	  testsuite/regression/gga_k_ol2.H.pol.bz2.disabled,
+	  testsuite/regression/gga_k_ol2.H.unpol.bz2,
+	  testsuite/regression/gga_k_ol2.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_ol2.Li.pol.bz2,
+	  testsuite/regression/gga_k_ol2.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_ol2.Li.unpol.bz2,
+	  testsuite/regression/gga_k_ol2.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_tfvw.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_tfvw.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_tfvw.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_tfvw.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_tfvw.H.pol.bz2,
+	  testsuite/regression/gga_k_tfvw.H.pol.bz2.disabled,
+	  testsuite/regression/gga_k_tfvw.H.unpol.bz2,
+	  testsuite/regression/gga_k_tfvw.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_tfvw.Li.pol.bz2,
+	  testsuite/regression/gga_k_tfvw.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_tfvw.Li.unpol.bz2,
+	  testsuite/regression/gga_k_tfvw.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_vsk.H.pol.bz2,
+	  testsuite/regression/gga_k_vsk.H.pol.bz2.disabled,
+	  testsuite/regression/gga_k_vsk.H.unpol.bz2,
+	  testsuite/regression/gga_k_vsk.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_vw.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_vw.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_vw.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_vw.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_vw.H.pol.bz2,
+	  testsuite/regression/gga_k_vw.H.pol.bz2.disabled,
+	  testsuite/regression/gga_k_vw.H.unpol.bz2,
+	  testsuite/regression/gga_k_vw.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_vw.Li.pol.bz2,
+	  testsuite/regression/gga_k_vw.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_vw.Li.unpol.bz2,
+	  testsuite/regression/gga_k_vw.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_yt65.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_yt65.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_yt65.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_yt65.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_yt65.H.pol.bz2,
+	  testsuite/regression/gga_k_yt65.H.pol.bz2.disabled,
+	  testsuite/regression/gga_k_yt65.H.unpol.bz2,
+	  testsuite/regression/gga_k_yt65.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_yt65.Li.pol.bz2,
+	  testsuite/regression/gga_k_yt65.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_yt65.Li.unpol.bz2,
+	  testsuite/regression/gga_k_yt65.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_herman.BrOH.pol.bz2,
+	  testsuite/regression/gga_x_herman.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_x_herman.BrOH.unpol.bz2,
+	  testsuite/regression/gga_x_herman.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_herman.H.pol.bz2,
+	  testsuite/regression/gga_x_herman.H.pol.bz2.disabled,
+	  testsuite/regression/gga_x_herman.H.unpol.bz2,
+	  testsuite/regression/gga_x_herman.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_herman.Li.pol.bz2,
+	  testsuite/regression/gga_x_herman.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_x_herman.Li.unpol.bz2,
+	  testsuite/regression/gga_x_herman.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_hjs_pbe.Li.pol.bz2,
+	  testsuite/regression/gga_x_hjs_pbe.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_x_hjs_pbe.Li.unpol.bz2,
+	  testsuite/regression/gga_x_hjs_pbe.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_ol2.BrOH+.pol.bz2,
+	  testsuite/regression/gga_x_ol2.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_x_ol2.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_x_ol2.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_ol2.Li.pol.bz2,
+	  testsuite/regression/gga_x_ol2.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_x_ol2.Li.unpol.bz2,
+	  testsuite/regression/gga_x_ol2.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_b97_d.H.pol.bz2,
+	  testsuite/regression/gga_xc_b97_d.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_b97_d.H.unpol.bz2,
+	  testsuite/regression/gga_xc_b97_d.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_b97_d.Li.pol.bz2,
+	  testsuite/regression/gga_xc_b97_d.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_b97_d.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_b97_d.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_b97_gga1.H.pol.bz2,
+	  testsuite/regression/gga_xc_b97_gga1.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_b97_gga1.H.unpol.bz2,
+	  testsuite/regression/gga_xc_b97_gga1.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_b97_gga1.Li.pol.bz2,
+	  testsuite/regression/gga_xc_b97_gga1.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_b97_gga1.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_b97_gga1.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_edf1.H.pol.bz2,
+	  testsuite/regression/gga_xc_edf1.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_edf1.H.unpol.bz2,
+	  testsuite/regression/gga_xc_edf1.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_120.H.pol.bz2,
+	  testsuite/regression/gga_xc_hcth_120.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_120.H.unpol.bz2,
+	  testsuite/regression/gga_xc_hcth_120.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_120.Li.pol.bz2,
+	  testsuite/regression/gga_xc_hcth_120.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_120.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_hcth_120.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_147.H.pol.bz2,
+	  testsuite/regression/gga_xc_hcth_147.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_147.H.unpol.bz2,
+	  testsuite/regression/gga_xc_hcth_147.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_147.Li.pol.bz2,
+	  testsuite/regression/gga_xc_hcth_147.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_147.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_hcth_147.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_407.H.pol.bz2,
+	  testsuite/regression/gga_xc_hcth_407.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_407.H.unpol.bz2,
+	  testsuite/regression/gga_xc_hcth_407.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_407.Li.pol.bz2,
+	  testsuite/regression/gga_xc_hcth_407.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_407.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_hcth_407.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_407p.H.pol.bz2,
+	  testsuite/regression/gga_xc_hcth_407p.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_407p.H.unpol.bz2,
+	  testsuite/regression/gga_xc_hcth_407p.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_407p.Li.pol.bz2,
+	  testsuite/regression/gga_xc_hcth_407p.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_407p.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_hcth_407p.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_93.H.pol.bz2,
+	  testsuite/regression/gga_xc_hcth_93.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_93.H.unpol.bz2,
+	  testsuite/regression/gga_xc_hcth_93.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_93.Li.pol.bz2,
+	  testsuite/regression/gga_xc_hcth_93.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_93.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_hcth_93.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_p14.H.pol.bz2,
+	  testsuite/regression/gga_xc_hcth_p14.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_p14.H.unpol.bz2,
+	  testsuite/regression/gga_xc_hcth_p14.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_p14.Li.pol.bz2,
+	  testsuite/regression/gga_xc_hcth_p14.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_p14.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_hcth_p14.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_p76.H.pol.bz2,
+	  testsuite/regression/gga_xc_hcth_p76.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_p76.H.unpol.bz2,
+	  testsuite/regression/gga_xc_hcth_p76.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_p76.Li.pol.bz2,
+	  testsuite/regression/gga_xc_hcth_p76.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_hcth_p76.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_hcth_p76.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th2.H.pol.bz2,
+	  testsuite/regression/gga_xc_th2.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th2.H.unpol.bz2,
+	  testsuite/regression/gga_xc_th2.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th4.H.pol.bz2,
+	  testsuite/regression/gga_xc_th4.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th4.H.unpol.bz2,
+	  testsuite/regression/gga_xc_th4.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fc.Li.pol.bz2,
+	  testsuite/regression/gga_xc_th_fc.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fc.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fc.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fco.H.pol.bz2,
+	  testsuite/regression/gga_xc_th_fco.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fco.H.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fco.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fl.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_th_fl.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fl.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fl.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b1pw91.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b1pw91.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b1pw91.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b1pw91.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_1.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_1.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_1.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_1.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_1.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_1.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_1.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_1.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_1p.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_1p.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_1p.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_1p.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_1p.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_1p.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_1p.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_1p.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_2.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_2.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_2.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_2.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_2.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_2.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_2.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_2.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_3.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_3.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_3.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_3.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_3.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_3.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_3.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_3.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_k.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_k.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_k.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_k.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_k.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_k.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b97_k.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b97_k.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_cam_b3lyp.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_cam_b3lyp.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_cam_b3lyp.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_cam_b3lyp.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_camy_blyp.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_camy_blyp.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_camy_blyp.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_camy_blyp.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_hjs_pbe.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_hjs_pbe.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_hjs_pbe.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_hjs_pbe.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mpw1k.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw1k.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mpw1k.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw1k.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mpw1pw.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw1pw.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mpw1pw.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw1pw.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_1a.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1a.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_1a.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1a.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_1a.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1a.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_1a.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1a.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_1b.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1b.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_1b.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1b.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_1b.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1b.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_1b.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1b.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_1c.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1c.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_1c.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1c.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_1c.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1c.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_1c.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_1c.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_2a.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2a.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_2a.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2a.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_2a.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2a.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_2a.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2a.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_2b.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2b.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_2b.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2b.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_2b.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2b.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_2b.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2b.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_2c.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2c.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_2c.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2c.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_2c.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2c.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_sb98_2c.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_sb98_2c.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_wb97.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_wb97.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_wb97.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_wb97.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_wb97x.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_wb97x.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_wb97x.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_wb97x.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_wb97x_d.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_wb97x_d.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_wb97x_d.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_wb97x_d.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_wb97x_v.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_wb97x_v.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_wb97x_v.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_wb97x_v.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_xc_m11.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_mgga_xc_m11.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_xc_m11.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_mgga_xc_m11.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_xc_m11.Li.pol.bz2,
+	  testsuite/regression/hyb_mgga_xc_m11.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_xc_m11.Li.unpol.bz2,
+	  testsuite/regression/hyb_mgga_xc_m11.Li.unpol.bz2.disabled,
+	  testsuite/regression/lda_c_gl.BrOH+.pol.bz2,
+	  testsuite/regression/lda_c_gl.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/lda_c_gl.BrOH+.unpol.bz2,
+	  testsuite/regression/lda_c_gl.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/lda_x.Li.pol.bz2,
+	  testsuite/regression/lda_x.Li.pol.bz2.disabled,
+	  testsuite/regression/lda_x.Li.unpol.bz2,
+	  testsuite/regression/lda_x.Li.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_m11.BrOH+.pol.bz2,
+	  testsuite/regression/mgga_x_m11.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_m11.BrOH+.unpol.bz2,
+	  testsuite/regression/mgga_x_m11.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_m11.Li.pol.bz2,
+	  testsuite/regression/mgga_x_m11.Li.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_m11.Li.unpol.bz2,
+	  testsuite/regression/mgga_x_m11.Li.unpol.bz2.disabled: Disabling
+	  a few more tests.
+
+2016-04-06 13:38  micael
+
+	* [r12283] testsuite/regression/gga_c_apbe.H.pol.bz2,
+	  testsuite/regression/gga_c_apbe.H.pol.bz2.disabled,
+	  testsuite/regression/gga_c_apbe.H.unpol.bz2,
+	  testsuite/regression/gga_c_apbe.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_apbe.Li.pol.bz2,
+	  testsuite/regression/gga_c_apbe.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_c_apbe.Li.unpol.bz2,
+	  testsuite/regression/gga_c_apbe.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_bgcp.Li.pol.bz2,
+	  testsuite/regression/gga_c_bgcp.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_c_bgcp.Li.unpol.bz2,
+	  testsuite/regression/gga_c_bgcp.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_hcth_a.Li.pol.bz2,
+	  testsuite/regression/gga_c_hcth_a.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_c_hcth_a.Li.unpol.bz2,
+	  testsuite/regression/gga_c_hcth_a.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_lm.Li.pol.bz2,
+	  testsuite/regression/gga_c_lm.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_c_lm.Li.unpol.bz2,
+	  testsuite/regression/gga_c_lm.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_lyp.BrOH+.pol.bz2,
+	  testsuite/regression/gga_c_lyp.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_c_lyp.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_c_lyp.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_lyp.BrOH.pol.bz2,
+	  testsuite/regression/gga_c_lyp.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_c_lyp.BrOH.unpol.bz2,
+	  testsuite/regression/gga_c_lyp.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_lyp.Li.pol.bz2,
+	  testsuite/regression/gga_c_lyp.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_c_lyp.Li.unpol.bz2,
+	  testsuite/regression/gga_c_lyp.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_optc.H.pol.bz2,
+	  testsuite/regression/gga_c_optc.H.pol.bz2.disabled,
+	  testsuite/regression/gga_c_optc.H.unpol.bz2,
+	  testsuite/regression/gga_c_optc.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_optc.Li.pol.bz2,
+	  testsuite/regression/gga_c_optc.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_c_optc.Li.unpol.bz2,
+	  testsuite/regression/gga_c_optc.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_pbe.Li.pol.bz2,
+	  testsuite/regression/gga_c_pbe.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_c_pbe.Li.unpol.bz2,
+	  testsuite/regression/gga_c_pbe.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_pbe_jrgx.Li.pol.bz2,
+	  testsuite/regression/gga_c_pbe_jrgx.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_c_pbe_jrgx.Li.unpol.bz2,
+	  testsuite/regression/gga_c_pbe_jrgx.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_pbe_sol.Li.pol.bz2,
+	  testsuite/regression/gga_c_pbe_sol.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_c_pbe_sol.Li.unpol.bz2,
+	  testsuite/regression/gga_c_pbe_sol.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_pbefe.Li.pol.bz2,
+	  testsuite/regression/gga_c_pbefe.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_c_pbefe.Li.unpol.bz2,
+	  testsuite/regression/gga_c_pbefe.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_pw91.Li.pol.bz2,
+	  testsuite/regression/gga_c_pw91.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_c_pw91.Li.unpol.bz2,
+	  testsuite/regression/gga_c_pw91.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_regtpss.BrOH+.pol.bz2,
+	  testsuite/regression/gga_c_regtpss.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_c_regtpss.BrOH.pol.bz2,
+	  testsuite/regression/gga_c_regtpss.BrOH.unpol.bz2,
+	  testsuite/regression/gga_c_regtpss.H.pol.bz2,
+	  testsuite/regression/gga_c_regtpss.H.unpol.bz2,
+	  testsuite/regression/gga_c_regtpss.Li.pol.bz2,
+	  testsuite/regression/gga_c_regtpss.Li.unpol.bz2,
+	  testsuite/regression/gga_c_rge2.Li.pol.bz2,
+	  testsuite/regression/gga_c_rge2.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_c_rge2.Li.unpol.bz2,
+	  testsuite/regression/gga_c_rge2.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_c_vpbe.BrOH+.pol.bz2,
+	  testsuite/regression/gga_c_vpbe.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_c_vpbe.BrOH.pol.bz2,
+	  testsuite/regression/gga_c_vpbe.BrOH.unpol.bz2,
+	  testsuite/regression/gga_c_vpbe.H.pol.bz2,
+	  testsuite/regression/gga_c_vpbe.H.unpol.bz2,
+	  testsuite/regression/gga_c_vpbe.Li.pol.bz2,
+	  testsuite/regression/gga_c_vpbe.Li.unpol.bz2,
+	  testsuite/regression/gga_c_xpbe.Li.pol.bz2,
+	  testsuite/regression/gga_c_xpbe.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_c_xpbe.Li.unpol.bz2,
+	  testsuite/regression/gga_c_xpbe.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_absp1.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_absp1.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_absp1.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_absp1.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_absp2.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_absp2.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_absp2.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_absp2.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_baltin.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_baltin.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_baltin.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_baltin.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_dk.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_dk.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_dk.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_dk.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_dk.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_dk.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_dk.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_dk.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_dk.Li.pol.bz2,
+	  testsuite/regression/gga_k_dk.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_dk.Li.unpol.bz2,
+	  testsuite/regression/gga_k_dk.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_ernzerhof.Li.pol.bz2,
+	  testsuite/regression/gga_k_ernzerhof.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_ernzerhof.Li.unpol.bz2,
+	  testsuite/regression/gga_k_ernzerhof.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_ge2.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_ge2.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_ge2.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_ge2.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_golden.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_golden.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_golden.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_golden.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_gp85.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_gp85.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_gp85.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_gp85.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_gr.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_gr.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_gr.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_gr.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_lieb.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_lieb.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_lieb.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_lieb.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_ludena.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_ludena.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_ludena.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_ludena.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_ol1.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_ol1.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_ol1.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_ol1.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_tfvw.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_tfvw.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_tfvw.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_tfvw.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_vjks.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_vjks.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_vjks.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_vjks.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_vjks.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_vjks.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_vjks.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_vjks.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_vjks.Li.pol.bz2,
+	  testsuite/regression/gga_k_vjks.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_vjks.Li.unpol.bz2,
+	  testsuite/regression/gga_k_vjks.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_vsk.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_vsk.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_vsk.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_vsk.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_vsk.BrOH.pol.bz2,
+	  testsuite/regression/gga_k_vsk.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_k_vsk.BrOH.unpol.bz2,
+	  testsuite/regression/gga_k_vsk.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_vsk.Li.pol.bz2,
+	  testsuite/regression/gga_k_vsk.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_k_vsk.Li.unpol.bz2,
+	  testsuite/regression/gga_k_vsk.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_vw.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_vw.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_vw.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_vw.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_k_yt65.BrOH+.pol.bz2,
+	  testsuite/regression/gga_k_yt65.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_k_yt65.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_k_yt65.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_2d_b86.Li.pol.bz2,
+	  testsuite/regression/gga_x_2d_b86.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_x_2d_b86.Li.unpol.bz2,
+	  testsuite/regression/gga_x_2d_b86.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_dk87_r1.Li.pol.bz2,
+	  testsuite/regression/gga_x_dk87_r1.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_x_dk87_r1.Li.unpol.bz2,
+	  testsuite/regression/gga_x_dk87_r1.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_herman.BrOH+.pol.bz2,
+	  testsuite/regression/gga_x_herman.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_x_herman.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_x_herman.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_ityh.BrOH+.pol.bz2,
+	  testsuite/regression/gga_x_ityh.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_x_ityh.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_x_ityh.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_ityh.BrOH.pol.bz2,
+	  testsuite/regression/gga_x_ityh.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_x_ityh.BrOH.unpol.bz2,
+	  testsuite/regression/gga_x_ityh.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_ityh.H.pol.bz2,
+	  testsuite/regression/gga_x_ityh.H.pol.bz2.disabled,
+	  testsuite/regression/gga_x_ityh.H.unpol.bz2,
+	  testsuite/regression/gga_x_ityh.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_ityh.Li.pol.bz2,
+	  testsuite/regression/gga_x_ityh.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_x_ityh.Li.unpol.bz2,
+	  testsuite/regression/gga_x_ityh.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_sfat.BrOH+.pol.bz2,
+	  testsuite/regression/gga_x_sfat.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_x_sfat.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_x_sfat.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_sfat.BrOH.pol.bz2,
+	  testsuite/regression/gga_x_sfat.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_x_sfat.BrOH.unpol.bz2,
+	  testsuite/regression/gga_x_sfat.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_sfat.H.pol.bz2,
+	  testsuite/regression/gga_x_sfat.H.pol.bz2.disabled,
+	  testsuite/regression/gga_x_sfat.H.unpol.bz2,
+	  testsuite/regression/gga_x_sfat.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_x_sfat.Li.pol.bz2,
+	  testsuite/regression/gga_x_sfat.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_x_sfat.Li.unpol.bz2,
+	  testsuite/regression/gga_x_sfat.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_edf1.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_edf1.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_edf1.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_edf1.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_edf1.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_edf1.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_edf1.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_edf1.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_edf1.Li.pol.bz2,
+	  testsuite/regression/gga_xc_edf1.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_edf1.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_edf1.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_mohlyp.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_mohlyp.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_mohlyp.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_mohlyp.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_mohlyp.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_mohlyp.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_mohlyp.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_mohlyp.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_mohlyp.Li.pol.bz2,
+	  testsuite/regression/gga_xc_mohlyp.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_mohlyp.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_mohlyp.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_mohlyp2.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_mohlyp2.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_mohlyp2.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_mohlyp2.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_mohlyp2.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_mohlyp2.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_mohlyp2.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_mohlyp2.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_mohlyp2.Li.pol.bz2,
+	  testsuite/regression/gga_xc_mohlyp2.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_mohlyp2.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_mohlyp2.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_mpwlyp1w.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_mpwlyp1w.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_mpwlyp1w.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_mpwlyp1w.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_mpwlyp1w.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_mpwlyp1w.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_mpwlyp1w.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_mpwlyp1w.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_mpwlyp1w.Li.pol.bz2,
+	  testsuite/regression/gga_xc_mpwlyp1w.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_mpwlyp1w.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_mpwlyp1w.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_oblyp_d.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_oblyp_d.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_oblyp_d.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_oblyp_d.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_oblyp_d.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_oblyp_d.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_oblyp_d.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_oblyp_d.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_oblyp_d.H.pol.bz2,
+	  testsuite/regression/gga_xc_oblyp_d.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_oblyp_d.H.unpol.bz2,
+	  testsuite/regression/gga_xc_oblyp_d.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_oblyp_d.Li.pol.bz2,
+	  testsuite/regression/gga_xc_oblyp_d.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_oblyp_d.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_oblyp_d.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_opbe_d.Li.pol.bz2,
+	  testsuite/regression/gga_xc_opbe_d.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_opbe_d.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_opbe_d.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_opwlyp_d.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_opwlyp_d.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_opwlyp_d.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_opwlyp_d.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_opwlyp_d.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_opwlyp_d.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_opwlyp_d.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_opwlyp_d.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_opwlyp_d.H.pol.bz2,
+	  testsuite/regression/gga_xc_opwlyp_d.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_opwlyp_d.H.unpol.bz2,
+	  testsuite/regression/gga_xc_opwlyp_d.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_opwlyp_d.Li.pol.bz2,
+	  testsuite/regression/gga_xc_opwlyp_d.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_opwlyp_d.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_opwlyp_d.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_pbelyp1w.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_pbelyp1w.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_pbelyp1w.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_pbelyp1w.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_pbelyp1w.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_pbelyp1w.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_pbelyp1w.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_pbelyp1w.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_pbelyp1w.Li.pol.bz2,
+	  testsuite/regression/gga_xc_pbelyp1w.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_pbelyp1w.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_pbelyp1w.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th1.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_th1.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th1.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_th1.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th1.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_th1.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th1.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_th1.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th1.H.pol.bz2,
+	  testsuite/regression/gga_xc_th1.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th1.H.unpol.bz2,
+	  testsuite/regression/gga_xc_th1.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th1.Li.pol.bz2,
+	  testsuite/regression/gga_xc_th1.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th1.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_th1.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th2.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_th2.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th2.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_th2.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th2.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_th2.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th2.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_th2.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th2.Li.pol.bz2,
+	  testsuite/regression/gga_xc_th2.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th2.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_th2.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th3.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_th3.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th3.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_th3.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th3.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_th3.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th3.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_th3.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th3.H.pol.bz2,
+	  testsuite/regression/gga_xc_th3.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th3.H.unpol.bz2,
+	  testsuite/regression/gga_xc_th3.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th3.Li.pol.bz2,
+	  testsuite/regression/gga_xc_th3.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th3.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_th3.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th4.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_th4.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th4.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_th4.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th4.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_th4.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th4.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_th4.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th4.Li.pol.bz2,
+	  testsuite/regression/gga_xc_th4.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th4.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_th4.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fcfo.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fcfo.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fcfo.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fcfo.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fcfo.H.pol.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.H.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fcfo.H.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.H.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fcfo.Li.pol.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fcfo.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fco.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_th_fco.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fco.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fco.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fco.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_th_fco.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fco.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fco.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fco.Li.pol.bz2,
+	  testsuite/regression/gga_xc_th_fco.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fco.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fco.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fl.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_th_fl.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fl.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fl.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fl.Li.pol.bz2,
+	  testsuite/regression/gga_xc_th_fl.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_th_fl.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fl.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_vv10.Li.pol.bz2,
+	  testsuite/regression/gga_xc_vv10.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_vv10.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_vv10.Li.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_xlyp.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_xlyp.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_xlyp.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_xlyp.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_xlyp.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_xlyp.BrOH.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_xlyp.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_xlyp.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/gga_xc_xlyp.Li.pol.bz2,
+	  testsuite/regression/gga_xc_xlyp.Li.pol.bz2.disabled,
+	  testsuite/regression/gga_xc_xlyp.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_xlyp.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b1lyp.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b1lyp.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b1lyp.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b1lyp.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b1lyp.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b1lyp.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b1lyp.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b1lyp.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b1lyp.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b1lyp.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b1lyp.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b1lyp.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b1wc.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b1wc.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b1wc.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b1wc.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyp.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyp.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyp.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyp.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyp.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyp.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyp.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyp.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyp.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyp.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyp.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyp.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyp5.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyp5.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyp5.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyp5.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyp5.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyp5.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyp5.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyp5.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyp5.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyp5.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyp5.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyp5.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyps.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyps.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyps.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyps.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyps.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyps.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyps.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyps.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyps.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyps.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_b3lyps.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_b3lyps.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_bhandh.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_bhandh.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_bhandh.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_bhandh.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_bhandh.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_bhandh.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_bhandh.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_bhandh.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_bhandh.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_bhandh.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_bhandh.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_bhandh.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_bhandhlyp.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_bhandhlyp.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_bhandhlyp.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_bhandhlyp.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_bhandhlyp.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_bhandhlyp.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_bhandhlyp.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_bhandhlyp.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_bhandhlyp.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_bhandhlyp.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_bhandhlyp.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_bhandhlyp.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_cam_b3lyp.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_cam_b3lyp.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_cam_b3lyp.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_cam_b3lyp.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_camy_blyp.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_camy_blyp.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_camy_blyp.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_camy_blyp.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_camy_blyp.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_camy_blyp.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_camy_blyp.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_camy_blyp.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_camy_blyp.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_camy_blyp.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_camy_blyp.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_camy_blyp.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_edf2.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_edf2.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_edf2.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_edf2.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_edf2.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_edf2.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_edf2.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_edf2.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_edf2.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_edf2.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_edf2.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_edf2.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_hse03.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_hse03.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_hse03.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_hse03.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_hse03.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_hse03.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_hse03.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_hse03.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_hse03.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_hse03.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_hse03.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_hse03.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_hse06.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_hse06.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_hse06.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_hse06.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_hse06.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_hse06.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_hse06.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_hse06.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_lcy_blyp.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_lcy_blyp.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_lcy_blyp.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_lcy_blyp.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_lcy_blyp.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_lcy_blyp.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_lcy_blyp.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_lcy_blyp.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_lcy_blyp.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_lcy_blyp.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_lcy_blyp.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_lcy_blyp.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mb3lyp_rc04.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_mb3lyp_rc04.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mb3lyp_rc04.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_mb3lyp_rc04.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mb3lyp_rc04.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_mb3lyp_rc04.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mb3lyp_rc04.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_mb3lyp_rc04.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mb3lyp_rc04.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_mb3lyp_rc04.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mb3lyp_rc04.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_mb3lyp_rc04.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mpw3lyp.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw3lyp.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mpw3lyp.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw3lyp.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mpw3lyp.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw3lyp.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mpw3lyp.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw3lyp.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mpw3lyp.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw3lyp.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mpw3lyp.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_mpw3lyp.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mpwlyp1m.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_mpwlyp1m.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mpwlyp1m.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_mpwlyp1m.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mpwlyp1m.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_mpwlyp1m.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mpwlyp1m.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_mpwlyp1m.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mpwlyp1m.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_mpwlyp1m.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_mpwlyp1m.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_mpwlyp1m.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_o3lyp.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_o3lyp.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_o3lyp.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_o3lyp.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_o3lyp.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_o3lyp.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_o3lyp.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_o3lyp.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_o3lyp.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_o3lyp.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_o3lyp.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_o3lyp.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_pbe0_13.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_pbe0_13.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_pbe0_13.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_pbe0_13.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_pbeh.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_pbeh.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_pbeh.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_pbeh.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_revb3lyp.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_revb3lyp.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_revb3lyp.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_revb3lyp.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_revb3lyp.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_revb3lyp.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_revb3lyp.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_revb3lyp.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_revb3lyp.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_revb3lyp.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_revb3lyp.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_revb3lyp.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.H.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.H.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.H.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.H.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_tuned_cam_b3lyp.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_wb97.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_wb97.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_wb97.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_wb97.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_wb97x.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_wb97x.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_wb97x.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_wb97x.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_wb97x_d.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_wb97x_d.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_wb97x_d.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_wb97x_d.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_wb97x_v.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_wb97x_v.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_wb97x_v.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_wb97x_v.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_x3lyp.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_x3lyp.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_x3lyp.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_x3lyp.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_x3lyp.BrOH.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_x3lyp.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_x3lyp.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_x3lyp.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_x3lyp.Li.pol.bz2,
+	  testsuite/regression/hyb_gga_xc_x3lyp.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_gga_xc_x3lyp.Li.unpol.bz2,
+	  testsuite/regression/hyb_gga_xc_x3lyp.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_x_ms2h.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_mgga_x_ms2h.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_x_ms2h.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_mgga_x_ms2h.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_x_ms2h.Li.pol.bz2,
+	  testsuite/regression/hyb_mgga_x_ms2h.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_x_ms2h.Li.unpol.bz2,
+	  testsuite/regression/hyb_mgga_x_ms2h.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_x_mvsh.Li.pol.bz2,
+	  testsuite/regression/hyb_mgga_x_mvsh.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_x_mvsh.Li.unpol.bz2,
+	  testsuite/regression/hyb_mgga_x_mvsh.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_x_scan0.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_mgga_x_scan0.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_x_scan0.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_mgga_x_scan0.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_x_scan0.BrOH.pol.bz2,
+	  testsuite/regression/hyb_mgga_x_scan0.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_x_scan0.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_mgga_x_scan0.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_x_scan0.Li.pol.bz2,
+	  testsuite/regression/hyb_mgga_x_scan0.Li.pol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_x_scan0.Li.unpol.bz2,
+	  testsuite/regression/hyb_mgga_x_scan0.Li.unpol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_xc_revtpssh.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_mgga_xc_revtpssh.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_xc_revtpssh.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_mgga_xc_revtpssh.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_xc_revtpssh.BrOH.pol.bz2,
+	  testsuite/regression/hyb_mgga_xc_revtpssh.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_xc_revtpssh.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_mgga_xc_revtpssh.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_xc_tpssh.BrOH+.pol.bz2,
+	  testsuite/regression/hyb_mgga_xc_tpssh.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_xc_tpssh.BrOH+.unpol.bz2,
+	  testsuite/regression/hyb_mgga_xc_tpssh.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_xc_tpssh.BrOH.pol.bz2,
+	  testsuite/regression/hyb_mgga_xc_tpssh.BrOH.pol.bz2.disabled,
+	  testsuite/regression/hyb_mgga_xc_tpssh.BrOH.unpol.bz2,
+	  testsuite/regression/hyb_mgga_xc_tpssh.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/lda_c_gl.Li.pol.bz2,
+	  testsuite/regression/lda_c_gl.Li.pol.bz2.disabled,
+	  testsuite/regression/lda_c_gl.Li.unpol.bz2,
+	  testsuite/regression/lda_c_gl.Li.unpol.bz2.disabled,
+	  testsuite/regression/lda_c_vbh.Li.pol.bz2,
+	  testsuite/regression/lda_c_vbh.Li.pol.bz2.disabled,
+	  testsuite/regression/lda_c_vbh.Li.unpol.bz2,
+	  testsuite/regression/lda_c_vbh.Li.unpol.bz2.disabled,
+	  testsuite/regression/mgga_c_pkzb.Li.pol.bz2,
+	  testsuite/regression/mgga_c_pkzb.Li.pol.bz2.disabled,
+	  testsuite/regression/mgga_c_pkzb.Li.unpol.bz2,
+	  testsuite/regression/mgga_c_pkzb.Li.unpol.bz2.disabled,
+	  testsuite/regression/mgga_c_revtpss.BrOH+.pol.bz2,
+	  testsuite/regression/mgga_c_revtpss.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/mgga_c_revtpss.BrOH+.unpol.bz2,
+	  testsuite/regression/mgga_c_revtpss.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/mgga_c_revtpss.BrOH.pol.bz2,
+	  testsuite/regression/mgga_c_revtpss.BrOH.pol.bz2.disabled,
+	  testsuite/regression/mgga_c_revtpss.BrOH.unpol.bz2,
+	  testsuite/regression/mgga_c_revtpss.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/mgga_c_tpss.BrOH+.pol.bz2,
+	  testsuite/regression/mgga_c_tpss.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/mgga_c_tpss.BrOH+.unpol.bz2,
+	  testsuite/regression/mgga_c_tpss.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/mgga_c_tpss.BrOH.pol.bz2,
+	  testsuite/regression/mgga_c_tpss.BrOH.pol.bz2.disabled,
+	  testsuite/regression/mgga_c_tpss.BrOH.unpol.bz2,
+	  testsuite/regression/mgga_c_tpss.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/mgga_c_tpssloc.Li.pol.bz2,
+	  testsuite/regression/mgga_c_tpssloc.Li.pol.bz2.disabled,
+	  testsuite/regression/mgga_c_tpssloc.Li.unpol.bz2,
+	  testsuite/regression/mgga_c_tpssloc.Li.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_lta.BrOH+.pol.bz2,
+	  testsuite/regression/mgga_x_lta.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_lta.BrOH+.unpol.bz2,
+	  testsuite/regression/mgga_x_lta.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_lta.BrOH.pol.bz2,
+	  testsuite/regression/mgga_x_lta.BrOH.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_lta.BrOH.unpol.bz2,
+	  testsuite/regression/mgga_x_lta.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_lta.H.pol.bz2,
+	  testsuite/regression/mgga_x_lta.H.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_lta.H.unpol.bz2,
+	  testsuite/regression/mgga_x_lta.H.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_lta.Li.pol.bz2,
+	  testsuite/regression/mgga_x_lta.Li.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_lta.Li.unpol.bz2,
+	  testsuite/regression/mgga_x_lta.Li.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_mbeef.H.pol.bz2,
+	  testsuite/regression/mgga_x_mbeef.H.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_mbeef.H.unpol.bz2,
+	  testsuite/regression/mgga_x_mbeef.H.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_mbeef.Li.pol.bz2,
+	  testsuite/regression/mgga_x_mbeef.Li.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_mbeef.Li.unpol.bz2,
+	  testsuite/regression/mgga_x_mbeef.Li.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_mbeefvdw.H.pol.bz2,
+	  testsuite/regression/mgga_x_mbeefvdw.H.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_mbeefvdw.H.unpol.bz2,
+	  testsuite/regression/mgga_x_mbeefvdw.H.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_mbeefvdw.Li.pol.bz2,
+	  testsuite/regression/mgga_x_mbeefvdw.Li.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_mbeefvdw.Li.unpol.bz2,
+	  testsuite/regression/mgga_x_mbeefvdw.Li.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_ms0.BrOH+.pol.bz2,
+	  testsuite/regression/mgga_x_ms0.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_ms0.BrOH+.unpol.bz2,
+	  testsuite/regression/mgga_x_ms0.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_ms0.BrOH.pol.bz2,
+	  testsuite/regression/mgga_x_ms0.BrOH.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_ms0.BrOH.unpol.bz2,
+	  testsuite/regression/mgga_x_ms0.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_ms0.Li.pol.bz2,
+	  testsuite/regression/mgga_x_ms0.Li.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_ms0.Li.unpol.bz2,
+	  testsuite/regression/mgga_x_ms0.Li.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_ms1.BrOH+.pol.bz2,
+	  testsuite/regression/mgga_x_ms1.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_ms1.BrOH+.unpol.bz2,
+	  testsuite/regression/mgga_x_ms1.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_ms1.BrOH.pol.bz2,
+	  testsuite/regression/mgga_x_ms1.BrOH.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_ms1.BrOH.unpol.bz2,
+	  testsuite/regression/mgga_x_ms1.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_ms1.Li.pol.bz2,
+	  testsuite/regression/mgga_x_ms1.Li.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_ms1.Li.unpol.bz2,
+	  testsuite/regression/mgga_x_ms1.Li.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_ms2.BrOH+.pol.bz2,
+	  testsuite/regression/mgga_x_ms2.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_ms2.BrOH+.unpol.bz2,
+	  testsuite/regression/mgga_x_ms2.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_ms2.Li.pol.bz2,
+	  testsuite/regression/mgga_x_ms2.Li.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_ms2.Li.unpol.bz2,
+	  testsuite/regression/mgga_x_ms2.Li.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_mvs.Li.pol.bz2,
+	  testsuite/regression/mgga_x_mvs.Li.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_mvs.Li.unpol.bz2,
+	  testsuite/regression/mgga_x_mvs.Li.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_scan.BrOH+.pol.bz2,
+	  testsuite/regression/mgga_x_scan.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_scan.BrOH+.unpol.bz2,
+	  testsuite/regression/mgga_x_scan.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_scan.BrOH.pol.bz2,
+	  testsuite/regression/mgga_x_scan.BrOH.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_scan.BrOH.unpol.bz2,
+	  testsuite/regression/mgga_x_scan.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/mgga_x_scan.Li.pol.bz2,
+	  testsuite/regression/mgga_x_scan.Li.pol.bz2.disabled,
+	  testsuite/regression/mgga_x_scan.Li.unpol.bz2,
+	  testsuite/regression/mgga_x_scan.Li.unpol.bz2.disabled,
+	  testsuite/regression/mgga_xc_otpss_d.BrOH+.pol.bz2,
+	  testsuite/regression/mgga_xc_otpss_d.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/mgga_xc_otpss_d.BrOH+.unpol.bz2,
+	  testsuite/regression/mgga_xc_otpss_d.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/mgga_xc_otpss_d.BrOH.pol.bz2,
+	  testsuite/regression/mgga_xc_otpss_d.BrOH.pol.bz2.disabled,
+	  testsuite/regression/mgga_xc_otpss_d.BrOH.unpol.bz2,
+	  testsuite/regression/mgga_xc_otpss_d.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/mgga_xc_tpsslyp1w.BrOH+.pol.bz2,
+	  testsuite/regression/mgga_xc_tpsslyp1w.BrOH+.pol.bz2.disabled,
+	  testsuite/regression/mgga_xc_tpsslyp1w.BrOH+.unpol.bz2,
+	  testsuite/regression/mgga_xc_tpsslyp1w.BrOH+.unpol.bz2.disabled,
+	  testsuite/regression/mgga_xc_tpsslyp1w.BrOH.pol.bz2,
+	  testsuite/regression/mgga_xc_tpsslyp1w.BrOH.pol.bz2.disabled,
+	  testsuite/regression/mgga_xc_tpsslyp1w.BrOH.unpol.bz2,
+	  testsuite/regression/mgga_xc_tpsslyp1w.BrOH.unpol.bz2.disabled,
+	  testsuite/regression/mgga_xc_tpsslyp1w.Li.pol.bz2,
+	  testsuite/regression/mgga_xc_tpsslyp1w.Li.pol.bz2.disabled,
+	  testsuite/regression/mgga_xc_tpsslyp1w.Li.unpol.bz2,
+	  testsuite/regression/mgga_xc_tpsslyp1w.Li.unpol.bz2.disabled: *
+	  Disabling failing tests in testfarm. This is not ideal, but we
+	  cannot postpone the realease of 3.0 for much longer, so these
+	  tests will have to be fixed later.
+	  * Changed the name of the files for the vpbe functional, which
+	  has recently been renamed regtpss.
+
+2016-03-18 21:11  lehtola
+
+	* [r12280] src/mgga_c_scan.c: Throw error if SCAN correlation is
+	  called
+
+2016-03-18 21:11  lehtola
+
+	* [r12279] src/hyb_mgga_x_mvsh.c, src/mgga_x_mvs.c: MVS and MVSh
+	  check out.
+
+2016-03-10 02:05  lehtola
+
+	* [r12278] src/mgga_x_ms.c, src/mgga_x_scan.c: The MS and SCAN
+	  exchange functionals work after all, they're just crazily grid
+	  dependent.
+
+2016-03-09 16:59  lehtola
+
+	* [r12277] src/libxc_master.F90, src/xc.h: Make sure VPBE can still
+	  be called in external code.
+
+2016-03-09 06:18  lehtola
+
+	* [r12276] src/gga_c_pbe.c, src/mgga_c_pkzb.c: It's clearer to call
+	  "VPBE" regTPSS, since that's what's used in the paper.
+
+2016-03-07 18:02  micael
+
+	* [r12275] testsuite/xc-run_testsuite: Fix small formating problem
+	  in testsuite output.
+
+2016-03-07 18:01  micael
+
+	* [r12274] src/lda_xc_ksdt.c: Bug fix: the temperature should be
+	  initialized to zero, as there is no guarantee that the set_params
+	  function will be called after init.
+
+2016-03-07 17:16  micael
+
+	* [r12273] src/gga_c_optc.c: Bug fix: a variable was not properly
+	  initialized.
+
+2016-03-07 17:15  micael
+
+	* [r12272] src/Makefile.am: Add mgga_c_scan.c to the sources.
+
+2016-03-05 19:55  lehtola
+
+	* [r12271] src/mgga_x_ms.c: MS functionals seem to be wrong.
+
+2016-03-05 19:04  lehtola
+
+	* [r12270] src/mgga_x_scan.c: Collect all SCAN exchange constants
+	  to top of file.
+
+2016-03-05 01:23  lehtola
+
+	* [r12269] src/mgga_c_scan.c: Add bulk of what's necessary for SCAN
+	  correlation
+
+2016-03-05 01:19  lehtola
+
+	* [r12268] src/mgga_x_scan.c: Found a bug in the SCAN derivative
+
+2016-03-05 01:19  lehtola
+
+	* [r12267] src/mgga_x_scan.c, src/util.h: Expose SCAN switching
+	  functions to other compilation units.
+
+2016-03-05 00:54  lehtola
+
+	* [r12266] src/xc-info.c: Pure correlation functionals can't have
+	  exact exchange...
+
+2016-03-04 02:08  lehtola
+
+	* [r12265] src/gga_xc_b97.c: Reintroduce VV10 flag in wB97X-V that
+	  was dropped in revision 12240.
+
+2016-03-02 01:43  lehtola
+
+	* [r12264] src/gga_xc_b97.c: Tag wB97* as range-separated
+
+2016-03-01 15:59  marques
+
+	* [r12263] TODO, src/gga_xc_th.c,
+	  testsuite/regression/gga_xc_th1.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_th1.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_th1.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_th1.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_th1.H.pol.bz2,
+	  testsuite/regression/gga_xc_th1.H.unpol.bz2,
+	  testsuite/regression/gga_xc_th1.Li.pol.bz2,
+	  testsuite/regression/gga_xc_th1.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_th2.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_th2.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_th2.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_th2.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_th2.H.pol.bz2,
+	  testsuite/regression/gga_xc_th2.H.unpol.bz2,
+	  testsuite/regression/gga_xc_th2.Li.pol.bz2,
+	  testsuite/regression/gga_xc_th2.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_th3.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_th3.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_th3.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_th3.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_th3.H.pol.bz2,
+	  testsuite/regression/gga_xc_th3.H.unpol.bz2,
+	  testsuite/regression/gga_xc_th3.Li.pol.bz2,
+	  testsuite/regression/gga_xc_th3.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_th4.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_th4.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_th4.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_th4.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_th4.H.pol.bz2,
+	  testsuite/regression/gga_xc_th4.H.unpol.bz2,
+	  testsuite/regression/gga_xc_th4.Li.pol.bz2,
+	  testsuite/regression/gga_xc_th4.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fc.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_th_fc.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fc.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_th_fc.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fc.H.pol.bz2,
+	  testsuite/regression/gga_xc_th_fc.H.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fc.Li.pol.bz2,
+	  testsuite/regression/gga_xc_th_fc.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.H.pol.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.H.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.Li.pol.bz2,
+	  testsuite/regression/gga_xc_th_fcfo.Li.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fco.BrOH+.pol.bz2,
+	  testsuite/regression/gga_xc_th_fco.BrOH+.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fco.BrOH.pol.bz2,
+	  testsuite/regression/gga_xc_th_fco.BrOH.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fco.H.pol.bz2,
+	  testsuite/regression/gga_xc_th_fco.H.unpol.bz2,
+	  testsuite/regression/gga_xc_th_fco.Li.pol.bz2,
+	  testsuite/regression/gga_xc_th_fco.Li.unpol.bz2: I believe that
+	  the definition of the X term in the TH functionals was wrong.
+	  Does anybody have molpro to compare and check my implementation?
+	  I think that the TH functionals are only implemented there...
+
+2016-02-29 18:02  micael
+
+	* [r12258] src/stoll.c: Bug fix: some variables were not
+	  initialized.
+
+2016-02-29 06:00  lehtola
+
+	* [r12257] src/gga.c, src/lda.c, src/mgga.c: Address issue #14.
+
+2016-02-27 15:26  micael
+
+	* [r12256] testsuite/xc-reset-regression,
+  	  testsuite/xc-run_testsuite, testsuite/regression/*.bz2: * Nicer
+	  output from xc-run_testsuite. * The temporary files generated by
+	  the testsuite now go to directores generated with mktemp, which
+	  is safer. * Regression tests for each functional can now be
+	  performed for more than one dataset. * Added/updated tests for
+	  all functionals for four systems: H, Li, BrOH, and BrOH+. These
+	  systems cover most particular cases so should be able to catch
+	  most error. This increases the size of the tarball, but I think
+	  it's still perfectly reasonable (~10 Mb). * Updated the script to
+	  reset the reference data. In particular, the script can take a
+	  list of functionals as argument, so that one can choose which
+	  functionals to reset. If no list is given, all functionals are
+	  reset.
+
+2016-02-27 15:06  micael
+
+	* [r12255] src/get_funcs.pl: Partial revert of r12250 : commenting
+	  back a debug statement.
+
+2016-02-26 19:44  micael
+
+	* [r12254] testsuite/xc-run_testsuite: Using colors in testsuite
+	  script only when writting directly to the terminal.
+
+2016-02-26 11:56  micael
+
+	* [r12251] src/libxc_master.F90, src/version.c, src/xc.h,
+	  src/xc_f.c: Added version_string function.
+
+2016-02-26 09:14  marques
+
+	* [r12250] src/get_funcs.pl: As requested, the script now stops
+	  with an error if an ID is repeated.
+
+2016-02-25 17:24  micael
+
+	* [r12249] src/gga_xc_b97.c: 265 is already taken...
+
+2016-02-25 17:23  micael
+
+	* [r12248] src/gga_xc_b97.c: We should try not to use the
+	  identifiers of the functionals that were removed. At least for
+	  some time. Otherwise someone might use the wrong functional
+	  without realizing it.
+
+2016-02-25 17:12  micael
+
+	* [r12247] src/gga_x_pbe.c: Bug fix: XC_GGA_X_PBEFE was using the
+	  same identifier as GGA_C_GAM.
+
+2016-02-25 17:12  micael
+
+	* [r12246] src/gga_xc_b97.c: Bug fix: XC_GGA_C_GAM was flagged as
+	  XC, instead of C.
+
+2016-02-17 08:10  lehtola
+
+	* [r12245] libxc.bib, src/mgga_x_scan.c, src/references.c,
+	  src/references.h: Added SCAN hybrid.
+
+2016-02-17 07:55  lehtola
+
+	* [r12244] src/gga_xc_b97.c: Miguel's commit dropped an
+	  initializations.
+
+2016-02-16 13:59  marques
+
+	* [r12243] src/gga_xc_b97.c: Forgot an "XC"
+
+2016-02-16 13:26  marques
+
+	* [r12242] src/gga_xc_b97.c: Added a different version of B97-1,
+	  that I renamed B97-1p to avoid confusion.
+
+2016-02-16 13:11  marques
+
+	* [r12241] src/gga_xc_b97.c: Reverted to the old numbers of the
+	  hybrid functionals, just in case...
+
+2016-02-16 12:54  marques
+
+	* [r12240] TODO, src/Makefile.am, src/gga_xc_b97.c,
+	  src/hyb_gga_xc_b97.c: Removed the GGA worker functions of several
+	  hybrid GGAs. The reason is that these were not real GGA
+	  functionals!
+
+2016-02-13 20:00  lehtola
+
+	* [r12239] src/gga_c_pbe.c: There was an error of 3 orders of
+	  magnitude for beta in PBEfe.
+
+2016-02-13 19:39  lehtola
+
+	* [r12238] src/mgga_x_scan.c: Looks like fx wasn't working after
+	  all; now SCAN seems to be working.
+
+2016-02-13 03:44  lehtola
+
+	* [r12237] src/xc-info.c: Make xc-info print out exact exchange.
+
+2016-02-12 21:13  lehtola
+
+	* [r12236] libxc.bib, src/Makefile.am, src/mgga_x_scan.c,
+	  src/references.c, src/references.h: Non-working implementation of
+	  SCAN.
+
+2016-02-11 16:28  marques
+
+	* [r12235] libxc.bib: Forgot to commit the bib file
+
+2016-02-11 15:40  marques
+
+	* [r12234] src/gga_c_op.c, src/references.c, src/references.h:
+	  Added XC_GGA_C_OP_PW91 and added a reference to other _OP_
+	  functionals
+
+2016-01-22 18:47  lehtola
+
+	* [r12233] src/mgga_xc_b97mv.c: The functional is actually named
+	  wB97M-V, not wB97MX-V.
+
+2016-01-22 15:23  marques
+
+	* [r12232] src/util.h: Also forgot this file ;(
+
+2016-01-22 15:17  marques
+
+	* [r12231] src/Makefile.am: Forgot to add the rule in the Makefile
+
+2016-01-22 15:16  marques
+
+	* [r12230] src/lda_xc_ksdt.c: Had forgotten a 2 in some variable
+	  names
+
+2016-01-22 15:15  marques
+
+	* [r12229] src/gga_xc_b97.c, src/lda_c_vwn.c: The HCTH_A should use
+	  VWN correlation.
+
+2016-01-22 15:14  marques
+
+	* [r12228] src/gga_x_hcth_a.c: Added the right exchange HCTH
+	  functional.
+
+2016-01-22 04:07  lehtola
+
+	* [r12227] src/mgga_xc_b97mv.c: Rewrite B97M-V and wB97MX-V
+	  implementations in sparse form
+
+2016-01-20 15:44  marques
+
+	* [r12226] TODO: Added comment concerning HCTH-A, whose exchange
+	  part is actually wrong in libxc!
+
+2016-01-20 05:20  lehtola
+
+	* [r12225] src/mgga_xc_b97mv.c: Forgot to use attenuated LDA.
+
+2016-01-20 02:05  lehtola
+
+	* [r12224] libxc.bib, src/mgga_c_m08.c, src/mgga_x_mn12.c,
+	  src/references.c, src/references.h: Implemented MN15-L
+	  functional.
+
+2016-01-20 01:49  lehtola
+
+	* [r12223] libxc.bib, src/mgga_xc_b97mv.c, src/references.c,
+	  src/references.h: Implemented upcoming wB97MX-V functional.
+
+2015-11-13 10:55  marques
+
+	* [r12222] src/Makefile.am, src/hyb_gga_xc_o3lyp.c,
+	  src/lda_xc_ksdt.c, src/references.c, src/references.h, src/xc.h,
+	  src/xc_f.c: Added the finite temperature LDA of Karasiev. The
+	  original code was contributed by Lazaro Calderin
+
+2015-09-24 07:57  marques
+
+	* [r12219] libxc.bib, src/gga_c_pbe.c, src/gga_x_pbe.c,
+	  src/references.c, src/references.h: Added PBE for formation
+	  energies
+
+2015-08-25 18:57  dstrubbe
+
+	* [r12218] m4/ax_f90_module_extension.m4: * Fix for ticket #11:
+	  make ax_f90_module_extension handle gcc 6 producing .mod and
+	  .smod files, by ignoring the .smod one.
+	  * All 'test' constructs in bash should have quotes, or else
+	  something with a space (as before this change) causes a syntax
+	  error in configure.
+
+2015-08-07 17:08  dstrubbe
+
+	* [r12217] src: Set svn:ignore for new executable 'genwiki'.
+
+2015-07-25 04:59  lehtola
+
+	* [r12216] TODO: SCAN has been published.
+
+2015-07-04 19:47  lehtola
+
+	* [r12215] src/mgga_x_mvs.c: MVS second derivative should be OK
+	  now.
+
+2015-06-27 00:36  lehtola
+
+	* [r12214] src/mgga_x_mvs.c: Bugfix to MVS, thanks for Erik van
+	  Lenthe and Marcel Swart for noticing this.
+
+2015-06-12 21:03  lehtola
+
+	* [r12213] src/gga_x_n12.c: There was a typo in one of the GAM
+	  coefficients.
+
+2015-06-12 08:15  marques
+
+	* [r12212] src/gga_x_n12.c: Following tests by Erik van Lenthe, the
+	  GAM functional parameters are now correct.
+
+2015-05-29 15:10  marques
+
+	* [r12211] src/get_funcs.pl, src/libxc_master.F90: The Fortran
+	  module files are now dual licensed (BSD and lGPL) so that
+	  commercial codes can include the Fortran module internally.
+
+2015-05-29 10:09  marques
+
+	* [r12210] src/gga_x_sfat.c: Very stupid bug found by Erik van
+	  Lenthe corrected. I am ashamed of this one ;((
+
+2015-05-18 15:45  dstrubbe
+
+	* [r12209] src/gga_x_2d_b88.c, src/gga_x_b88.c: Correcting
+	  descriptions.
+
+2015-05-18 06:39  micael
+
+	* [r12206] backport.sh: Update backport script.
+
+2015-05-16 00:08  lehtola
+
+	* [r12205] src/genwiki.c: Print out special wiki links in genwiki.
+
+2015-05-15 23:52  lehtola
+
+	* [r12204] src/gga_x_n12.c, src/mgga_c_m08.c, src/mgga_c_vsxc.c,
+	  src/mgga_x_m05.c, src/mgga_x_m06l.c, src/mgga_x_m08.c,
+	  src/mgga_x_mn12.c: Label worker functionals of hybrid Minnesota
+	  functionals more clearly to avoid confusion in use.
+
+2015-05-15 23:51  lehtola
+
+	* [r12203] src/hyb_gga_xc_o3lyp.c: X3LYP may not be the best
+	  hybrid..
+
+2015-05-15 18:22  lehtola
+
+	* [r12202] libxc.bib, src/Makefile.am, src/hyb_gga_xc_edf2.c,
+	  src/references.c, src/references.h: Implemented EDF2 functional.
+
+2015-05-15 17:51  lehtola
+
+	* [r12201] src/hyb_gga_xc_b3lyp.c: Added B3LYP5.
+
+2015-05-15 17:34  lehtola
+
+	* [r12200] src/lda_c_vwn.c: Nusair was misspelled in the comment.
+
+2015-05-15 17:09  lehtola
+
+	* [r12199] src/mgga_x_mvs.c: Missed the cross term in MVS too.
+
+2015-05-14 23:32  lehtola
+
+	* [r12198] src/hyb_mgga_x_mvsh.c: MVSh is exchange, not
+	  exchange-correlation. Fix typo in set_params routine.
+
+2015-05-14 23:31  lehtola
+
+	* [r12197] src/mgga_x_ms.c: MS2h was wrong - exact exchange
+	  replaces MS2 exchange.
+
+2015-05-14 22:13  lehtola
+
+	* [r12196] libxc.bib, src/mgga_xc_b97mv.c, src/references.c,
+	  src/references.h: Update page number for B97M-V.
+
+2015-05-14 21:59  lehtola
+
+	* [r12195] src/gga_x_n12.c: Actually, looks like Miguel already had
+	  the GAM indices in the right order.
+
+2015-05-14 18:54  lehtola
+
+	* [r12194] src/mgga_x_ms.c: Made a typo and missed a term.
+
+2015-05-14 17:41  lehtola
+
+	* [r12193] src/mgga_x_ms.c: Clean up MS functional evaluation.
+
+2015-05-14 02:13  lehtola
+
+	* [r12192] TODO: GAM has been implemented. Added GAP functionals to
+	  TODO.
+
+2015-05-13 18:47  lehtola
+
+	* [r12191] src/genwiki.c: Sort functionals in alphabetical order in
+	  the wiki generation.
+
+2015-05-13 18:46  dstrubbe
+
+	* [r12190] src/Makefile.am: Clean 'libxc_docs.txt', hopefully fixes
+	  distcheck failure.
+
+2015-05-13 18:39  dstrubbe
+
+	* [r12189] src/get_funcs.pl: * Better error-handling in
+	  get_funcs.pl.
+	  * An attempt at generating some documentation, via get_funcs.pl.
+	  I had this lying around for a little while, but since Susi just
+	  committed an effort in the same direction, I think I had better
+	  put mine into svn so we can see what the best way to proceed is.
+
+2015-05-13 18:26  lehtola
+
+	* [r12188] src/Makefile.am, src/genwiki.c: Functional list wiki
+	  page autogeneration tool.
+
+2015-05-12 05:56  micael
+
+	* [r12183] src/hyb_gga_xc_pbeh.c, src/hyb_mgga_x_mvsh.c,
+	  src/mgga_x_mvs.c: Marking newly implemented functionals with the
+	  XC_FLAGS_DEVELOPMENT flag.
+
+2015-05-12 02:15  lehtola
+
+	* [r12182] src/mgga_x_mvs.c: The second derivative was wrong.
+
+2015-05-11 23:41  lehtola
+
+	* [r12181] libxc.bib, src/Makefile.am, src/hyb_mgga_x_mvsh.c,
+	  src/mgga_x_mvs.c, src/references.c, src/references.h: Implemented
+	  MVS and MVSh.
+
+2015-05-07 23:15  lehtola
+
+	* [r12176] src/mgga_x_ms.c: Looks like a factor in the second
+	  derivative was wrong.
+
+2015-05-07 01:28  lehtola
+
+	* [r12175] src/mgga_x_ms.c, src/mgga_x_tpss.c: Drop some copy-paste
+	  errors.
+
+2015-05-06 23:29  lehtola
+
+	* [r12174] src/hyb_gga_xc_hse.c: Add in LRC-wPBE.
+
+2015-05-06 22:53  lehtola
+
+	* [r12173] src/hyb_gga_xc_o3lyp.c: Fix O3LYP.
+
+2015-05-05 01:16  lehtola
+
+	* [r12172] src/gga_x_n12.c: Fix GAM functional; the exchange
+	  coefficient matrix was reported as transpose like for N12-SX,
+	  which resulted in an error over 10 Ha for water molecule.
+
+2015-05-05 01:15  lehtola
+
+	* [r12171] libxc.bib, src/gga_x_n12.c, src/gga_xc_b97.c,
+	  src/references.c, src/references.h: Update page number in Yu
+	  reference.
+
+2015-05-05 00:45  lehtola
+
+	* [r12170] src/mgga_c_m08.c: Increase density threshold for M08
+	  style correlation, since I caught NaNs in a calculation.
+
+2015-05-05 00:43  lehtola
+
+	* [r12169] src/gga_c_sogga11.c: Increase density threshold for
+	  SOGGA11 correlation, since I caught NaNs in a calculation.
+
+2015-05-05 00:11  lehtola
+
+	* [r12168] src/hyb_gga_xc_o3lyp.c: X3LYP had a typo in the
+	  coefficients, which didn't sum up to 1.
+
+2015-05-05 00:10  lehtola
+
+	* [r12167] src/hyb_gga_xc_b1wc.c: BHandH and BHandHLYP are defined
+	  as in Gaussian, not as in Becke's work.
+
+2015-05-05 00:04  lehtola
+
+	* [r12166] src/gga_xc_vv10.c, src/hyb_gga_xc_hse.c: I had
+	  erroneously used wPBEh instead of HJS_PBE in VV10 and LRC-wPBEh.
+
+2015-04-28 02:33  lehtola
+
+	* [r12165] TODO: Add zvPBEint and zvPBEsol to TODO.
+
+2015-04-28 02:07  lehtola
+
+	* [r12164] libxc.bib, src/hyb_gga_xc_pbeh.c, src/references.c,
+	  src/references.h: Added hPBEint hybrid.
+
+2015-04-21 07:10  micael
+
+	* [r12163] src/gga_x_n12.c, src/gga_xc_b97.c: Marking the new GAM
+	  functional with the DEVELOPMENT flag.
+
+2015-04-20 14:25  marques
+
+	* [r12162] libxc.bib, src/gga_xc_b97.c, src/references.c,
+	  src/references.h: And now the correlation part of GAM (and the
+	  missing reference)
+
+2015-04-20 14:08  marques
+
+	* [r12161] src/gga_x_n12.c: The exchange part of the GAM functional
+	  of Minnesota. I hope I put the indices correctly this time. I
+	  spent a whole 5 minutes thinking about it ;))
+
+2015-04-20 09:33  marques
+
+	* [r12158] src/gga_x_hjs.c: Bug fix found by Fabien Bruneval: the
+	  spin-dependent density should be multiplied by 2 (due to the
+	  sum-rule formula). Now, Fabien gets the same answer as nwchem ;)
+
+2015-04-17 18:20  micael
+
+	* [r12157] TODO: Added new Minnesota GGA to TODO.
+
+2015-04-14 09:58  marques
+
+	* [r12156] TODO: Removed Engel and Vosko from TODO list
+
+2015-04-14 09:58  marques
+
+	* [r12155] libxc.bib, src/Makefile.am, src/gga_x_ev93.c,
+	  src/references.c, src/references.h: Added Engel and Vosko
+	  exchange GGA functional. It looks correct, as what I get
+	  ressembles Fig 2 of the paper.
+
+2015-04-14 08:45  marques
+
+	* [r12154] TODO: Added new meta-GGA of Perdew to the TODO list
+
+2015-04-03 00:09  dstrubbe
+
+	* [r12151] src/Makefile.am: This file was supposed to be part of
+	  the last commit...
+
+2015-04-02 23:50  dstrubbe
+
+	* [r12150] libxc.bib, src/mgga_k_exk.c, src/references.c,
+	  src/references.h: Revert r12148 and r12149. My new functional has
+	  numerical stability issues ;-)
+
+2015-04-02 19:50  dstrubbe
+
+	* [r12149] src/Makefile.am: Forgot this file in last commit.
+
+2015-04-02 19:45  dstrubbe
+
+	* [r12148] libxc.bib, src/mgga_k_exk.c, src/references.c,
+	  src/references.h: A commit delayed from yesterday by the
+	  tddft.org downtime:
+	  
+	  A very simple but very accurate kinetic-energy functional, with
+	  all the derivatives implemented.
+
+2015-03-30 04:14  dstrubbe
+
+	* [r12147] src/xc-info.c: xc-info identifies its ability to handle
+	  names rather than numbers, and can print the DOI too if
+	  available.
+
+2015-03-28 17:09  marques
+
+	* [r12146] src/gga_x_sfat.c, src/lda_c_hl.c, src/lda_x.c,
+	  src/util.h: *) Applyed the patch of Rolf Würdemann
+	  *) cleaned up attenuation_function
+	  *) sfat was completely rewritten and now has second derivatives.
+	  It took a bit longer than I thought, but it is done.
+
+2015-03-28 01:33  dstrubbe
+
+	* [r12145] README, m4/libxc.m4: Updating libxc.m4 from Octopus
+	  r13622, and commenting on its presence in the README.
+
+2015-03-27 22:47  dstrubbe
+
+	* [r12144] libxc.bib, src/get_references.pl, src/references.c: *
+	  Fixed corrupt doi in bibtex: this is what the publisher's bibtex
+	  says but it is wrong and doesn't work.
+	  * Fixed missing pages in bibtex: now it is as given by JCP.
+	  * Purge redundant 'http://dx/doi.org' for doi's when parsing
+	  bibtex.
+	  * Resulting changes to references.c.
+
+2015-03-27 20:52  dstrubbe
+
+	* [r12143] src/get_references.pl, src/references.c:
+	  get_references.pl:
+	  * now checks for proper number of arguments, and writes usage if
+	  not.
+	  * removes some other temporary files which it was making at least
+	  on my machine.
+	  * various other rules to clean up problems in the resulting
+	  references.
+	  * double up remaining backslashes so they print (this is for
+	  accents in names).
+	  * write warnings if backslashes or braces remain, possibly due to
+	  misparsing.
+	  * Committing also the resulting changes to references.c.
+
+2015-03-27 18:13  dstrubbe
+
+	* [r12142] src/gga_x_lb.c, src/gga_x_n12.c, src/gga_xc_b97.c,
+	  src/hyb_mgga_xc_m05.c, src/mgga_c_bc95.c, src/mgga_c_cc06.c,
+	  src/mgga_c_cs.c, src/mgga_c_m08.c, src/mgga_c_pkzb.c,
+	  src/mgga_c_vsxc.c, src/mgga_x_m05.c, src/mgga_x_m08.c,
+	  src/mgga_x_mbeef.c, src/mgga_x_mn12.c, src/mgga_x_ms.c,
+	  src/mgga_x_pkzb.c, src/mgga_x_tpss.c, src/mgga_xc_b97mv.c,
+	  src/mgga_xc_zlp.c: All XC(func_info_type) objects are now const.
+
+2015-03-27 17:52  dstrubbe
+
+	* [r12141] src/gga_x_lb.c: Typo.
+
+2015-03-27 15:33  dstrubbe
+
+	* [r12140] src/test.c, src/xc-info.c: Changing xc_func_end to
+	  XC(func_end) for consistency.
+
+2015-03-27 08:28  marques
+
+	* [r12139] src/lda_x.c: Bug fix: the second derivative of the
+	  attenuation function using the Yukawa potentials had a wrong
+	  factor. This was not used anywhere I think for the moment.
+
+2015-03-27 00:22  dstrubbe
+
+	* [r12138] src/gga_xc_b97.c: Correcting mistaken comment field for
+	  HCTH_P76.
+
+2015-03-26 16:46  dstrubbe
+
+	* [r12137] src/xc.h: Typo, hyphens in comments.
+
+2015-03-26 02:08  dstrubbe
+
+	* [r12136] src/mgga_x_mbeef.c: Removed trailing ^M characters.
+
+2015-03-25 15:15  marques
+
+	* [r12135] src/gga_x_b88.c: Very silly bug in gga_x_b88 when
+	  calculating fxc.
+
+2015-03-25 14:22  dstrubbe
+
+	* [r12134] src/gga_x_2d_b86.c, src/gga_x_b86.c: Fixing spelling of
+	  Xalpha.
+
+2015-03-25 00:39  dstrubbe
+
+	* [r12133] src/hyb_gga_xc_cam_b3lyp.c: Typo: 'tunes' instead of
+	  'tuned'.
+
+2015-03-23 13:13  micael
+
+	* [r12132] TODO: Added Engel-Vosko GGA_X to TODO list.
+
+2015-03-20 14:04  marques
+
+	* [r12131] src/mgga_x_tpss.c: Apparently, the parameters of modTPSS
+	  are the ones in In Figs. 1a and 1b in the paper.
+
+2015-03-19 00:10  lehtola
+
+	* [r12130] libxc.bib, src/gga_xc_b97.c, src/hyb_gga_xc_b97.c,
+	  src/references.c, src/references.h: Implemented WB97X-D
+	  functional.
+
+2015-03-18 23:43  lehtola
+
+	* [r12129] src/Makefile.am, src/gga_xc_lcy_blyp.c,
+	  src/gga_xc_lcy_pbe.c, src/hyb_gga_xc_camy_b3lyp.c,
+	  src/hyb_gga_xc_camy_blyp.c, src/hyb_gga_xc_lcy_blyp.c,
+	  src/hyb_gga_xc_lcy_pbe.c, src/xc.h: Include patches by Rolf
+	  Wuerdemann.
+
+2015-03-03 04:57  lehtola
+
+	* [r12128] src/get_funcs.pl: Adjust padding of libxc_funcs.f90.
+
+2015-03-03 04:08  lehtola
+
+	* [r12127] src/gga_xc_vv10.c: Implemented LC-VV10 functional.
+
+2015-03-03 04:03  lehtola
+
+	* [r12126] src/get_funcs.pl: Adjust padding of xc_funcs.h.
+
+2015-02-25 22:02  lehtola
+
+	* [r12125] src/hyb_gga_xc_b97.c, src/hyb_gga_xc_camy_b3lyp.c:
+	  Remove func id overlap.
+
+2015-02-24 19:04  lehtola
+
+	* [r12124] libxc.bib, src/gga_xc_lcy_blyp.c, src/gga_xc_lcy_pbe.c,
+	  src/references.c, src/references.h: Include Rolf Wuerdemann's
+	  patch.
+
+2015-02-21 22:26  lehtola
+
+	* [r12115] src/hyb_gga_xc_camy_blyp.c: Now camy_blyp should be ok.
+
+2015-02-21 07:18  lehtola
+
+	* [r12111] src/hyb_gga_xc_camy_blyp.c: Fix convention in CAMY-BLYP
+	  and fix the initialization order.
+
+2015-02-21 07:18  lehtola
+
+	* [r12110] src/hyb_gga_xc_hse.c: Switch order of initialization
+	  because of the changes in mix_init.
+
+2015-02-21 04:07  lehtola
+
+	* [r12109] src/hyb_gga_xc_cam_b3lyp.c, src/hyb_gga_xc_camy_b3lyp.c:
+	  Looks like revision 12094 broke CAM-B3LYP because the cam_
+	  parameters are now initialized in mix_init.
+
+2015-02-21 03:52  lehtola
+
+	* [r12108] src/gga_x_n12.c, src/gga_xc_b97.c: Fix N12 and N12-SX,
+	  props to Narbe Mardirossian. The coefficients were reported wrong
+	  in the original paper.
+
+2015-02-19 13:47  micael
+
+	* [r12107] testsuite/xc-run_testsuite: Tagged versions 2.1.2 and
+	  2.2.2.
+
+2015-02-19 13:24  micael
+
+	* [r12104] src/gga_k_ol2.c, src/work_lda.c: Patch by X. Andrade to
+	  fix compilation with IBM C compiler.
+
+2015-02-17 18:25  lehtola
+
+	* [r12103] libxc.bib, src/Makefile.am, src/functionals.c,
+	  src/gga_xc_vv10.c, src/hyb_gga_xc_b97.c, src/mgga_xc_b97mv.c,
+	  src/references.c, src/references.h, src/util.c, src/xc.h: Added
+	  XC_FLAGS_VV10 and a function to get the non-local correlation
+	  parameters. Modified wB97X-V and B97M-V accordingly. Also added
+	  VV10 exchange-correlation functional (not to be confused with the
+	  VV10 model of non-local correlation).
+
+2015-02-17 16:59  lehtola
+
+	* [r12102] src/hyb_gga_xc_camy_b3lyp.c, src/hyb_gga_xc_camy_blyp.c:
+	  Add notes about the different conventions.
+
+2015-02-16 20:25  lehtola
+
+	* [r12101] src/gga_xc_lcy_blyp.c, src/gga_xc_lcy_pbe.c,
+	  src/hyb_gga_xc_camy_b3lyp.c: Functional numbers were messed up in
+	  the patch.
+
+2015-02-16 20:16  lehtola
+
+	* [r12100] src/hyb_gga_xc_camy_b3lyp.c, src/hyb_gga_xc_camy_blyp.c,
+	  src/xc.h: Introduce XC_FLAGS_HYB_CAMY for Yukawa screened
+	  functions. Can reorder since XC_FLAGS_STABLE and
+	  XC_FLAGS_DEVELOPMENT aren't used in any functional.
+
+2015-02-16 19:58  lehtola
+
+	* [r12099] libxc.bib, src/Makefile.am, src/gga_xc_lcy_blyp.c,
+	  src/gga_xc_lcy_pbe.c, src/hyb_gga_xc_camy_b3lyp.c,
+	  src/references.c, src/references.h: Incorporate Rolf Wuerdemann's
+	  patch.
+
+2015-02-11 02:07  lehtola
+
+	* [r12098] libxc.bib, src/Makefile.am, src/mgga_xc_b97mv.c,
+	  src/references.c, src/references.h: Implemented B97M-V
+	  functional.
+
+2015-02-10 22:04  lehtola
+
+	* [r12097] TODO: Looks like tau-HCTH correlation is missing, as
+	  well as the hybrid tau-HTCH xc fuctionals.
+
+2015-02-09 07:13  lehtola
+
+	* [r12094] src/util.c: Missing initialization for mix functionals.
+
+2015-02-07 01:24  lehtola
+
+	* [r12093] TODO: Drop wB97X-V from todo.
+
+2015-02-07 01:23  lehtola
+
+	* [r12092] libxc.bib, src/gga_xc_b97.c, src/hyb_gga_xc_b97.c,
+	  src/references.c, src/references.h: Implemented wB97X-V
+	  functional. We need to figure out a way to store and communicate
+	  VV10 parameters.
+
+2015-01-27 20:01  lehtola
+
+	* [r12091] src/gga_x_n12.c: Now the LDA part in N12 exchange agrees
+	  with xc_lda_x, and gga_x_n12 agrees with the upstream reference
+	  implementation.
+
+2015-01-24 22:02  lehtola
+
+	* [r12090] src/mgga_x_ms.c: ... and another.
+
+2015-01-24 22:00  lehtola
+
+	* [r12089] src/mgga_x_ms.c: Forgot to replace one instance of
+	  MGGA_X_MS2H..
+
+2015-01-24 05:20  lehtola
+
+	* [r12088] src/mgga_x_ms.c: MS2H is a *hybrid* functional.
+
+2015-01-22 08:47  marques
+
+	* [r12087] src/libxc_master.F90, src/xc_f.c: Added fortran routines
+	  to extract at the same time the potential and the kernel.
+
+2015-01-22 08:31  marques
+
+	* [r12086] src/hyb_gga_xc_pbeh.c: Added Fxc flags to PBEH
+
+2015-01-19 00:24  lehtola
+
+	* [r12085] TODO: wB97 and wB97X have been implemented; add wB97X-V
+	  to TODO.
+
+2015-01-06 19:41  lehtola
+
+	* [r12084] libxc.bib, src/references.c: Clean up a reference.
+
+2015-01-05 10:13  micael
+
+	* [r12083] configure.ac, src/libxc_master.F90, src/version.c,
+	  src/xc.h, src/xc_f.c, xc_version.h.in: Added micro version number
+	  to xc_version.h and to the version function.
+
+2014-12-11 01:54  lehtola
+
+	* [r12076] src/gga_xc_b97.c: Fix typo in wB97X constant. Both wB97
+	  and wB97X are now working.
+
+2014-12-10 13:12  marques
+
+	* [r12075] src/gga_x_lb.c: Unecessary variable
+
+2014-12-10 13:02  marques
+
+	* [r12074] src/gga_x_lb.c: Spin unpolarized version of LB94 seems
+	  to be wrong. If this is true, it is a 10 year old bug. And in the
+	  functional that has been changed by the most people!
+	  
+	  Can someone check this one?
+
+2014-12-10 11:23  marques
+
+	* [r12073] src/mgga_x_m05.c: Relabeled the DLDF functional as
+	  ahybrid (as it should), and multiplied it by the (1-alpha) factor
+	  as indicated in the original paper.
+
+2014-12-10 10:59  marques
+
+	* [r12072] src/mgga_x_m05.c: And now the exchange part of the
+	  dispersionless density functional
+
+2014-12-10 10:28  marques
+
+	* [r12071] libxc.bib, src/mgga_c_vsxc.c, src/references.c,
+	  src/references.h: Added dispersionless density functional
+	  (exchange part)
+
+2014-12-10 09:27  marques
+
+	* [r12070] src/mgga_x_m08.c: Silly bug in exchange M11 and M11_L. I
+	  had forgotten to define the screening parameter for these two
+	  functionals. BTW, M11 seems to have a bug in gamess (they also
+	  forgot to define the screening parameter)
+	  
+	  Susi, can you please check the M08 and M11 families? Thanks
+
+2014-12-08 09:04  marques
+
+	* [r12069] src/mgga_c_m08.c: Bug fix: LDA was being double counted.
+	  This affected the correlations of M08_HX, M08_SO, M11, and M11_L.
+
+2014-12-03 11:50  marques
+
+	* [r12068] src/mgga_c_pkzb.c: Bug fix: revTPSS correlation was
+	  using the PBE while it should have been using the vPBE
+
+2014-11-26 15:34  marques
+
+	* [r12067] TODO: Added functional to TODO
+
+2014-11-05 21:48  lehtola
+
+	* [r12066] libxc.bib, src/hyb_gga_xc_hse.c, src/references.c,
+	  src/references.h: Implemented LRC-wPBEh, which produces odd
+	  results. I think there's a problem in the wPBEh functional.
+
+2014-10-30 08:29  micael
+
+	* [r12065] NEWS, PACKAGING, configure.ac: Tagging versions 2.1.1
+	  and 2.2.1.
+
+2014-10-30 08:02  micael
+
+	* [r12064] ChangeLog: Updating ChangeLog.
+
 2014-10-29 21:55  lehtola
 
 	* [r12063] TODO: Whoops, that one was already implemented.

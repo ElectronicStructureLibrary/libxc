@@ -27,14 +27,18 @@ AC_CONFIG_MACRO_DIR([m4])
 # Library versioning (C:R:A == current:revision:age)
 # See the libtool manual for an explanation of the numbers
 #
-# libxc-2.0.0   1:0:0
-# libxc-2.0.1   1:1:0
-# libxc-2.0.2   1:2:0
-# libxc-2.0.3   1:3:0
-# libxc-2.1.0   2:0:1
-# libxc-2.1.1   2:1:1
-# libxc-2.2.0   3:0:0
-# libxc-2.2.1   3:1:0
+# libxc-2.0.0   1:0:0                                                                                                                                                                                                              
+# libxc-2.0.1   1:1:0                                                                                                                                                                                                              
+# libxc-2.0.2   1:2:0                                                                                                                                                                                                              
+# libxc-2.0.3   1:3:0                                                                                                                                                                                                              
+# libxc-2.1.0   2:0:1                                                                                                                                                                                                              
+# libxc-2.1.1   2:1:1                                                                                                                                                                                                              
+# libxc-2.1.2   2:2:1                                                                                                                                                                                                              
+# libxc-2.1.3   2:3:1                                                                                                                                                                                                              
+# libxc-2.2.0   3:0:0                                                                                                                                                                                                              
+# libxc-2.2.1   3:1:0                                                                                                                                                                                                              
+# libxc-2.2.3   3:3:0                                                                                                                                                                                                              
+# libxc-3.0.0   4:0:0 
 # 
 # Note that libtool versioning was not used prior to libxc-2.0.
 # Because of this, we will start counting at 1.
@@ -51,7 +55,7 @@ AC_CONFIG_MACRO_DIR([m4])
 # interfaces have been removed. removal has precedence over adding,
 # so set to 0 if both happened.
 
-XC_CURRENT=3
+XC_CURRENT=4
 XC_REVISION=0
 XC_AGE=0
 

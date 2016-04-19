@@ -1,9 +1,5 @@
 Improve existing functionals:
-
   *) Add XC_FLAGS_STABLE or XC_FLAGS_DEVELOPMENT to all functionals in libxc.
-  *) Debug the newer Minnesota functionals. At least M08HX, M08SO,
-   M11, M11L, N12, N12SX, MN12L and MN12SX don't work properly (many
-   Hartrees difference to the reference implementation in Gaussian).
 
 Add functionals:
 
@@ -17,7 +13,7 @@ LDA:
 
 GGAs:
   *) D.J. Tozer, N.C. Handy, Recent advances in density functional theory, Vol.2
-  *) CAP http://www.qtp.ufl.edu/ofdft/research/ManuscriptGGAWCAB-v9.pdf
+  *) CAP http://scitation.aip.org/content/aip/journal/jcp/142/5/10.1063/1.4906606
   *) functionals of Della Salla (http://www.theory-nnl.it/software.php)
   *) Liu and Parr (http://pra.aps.org/abstract/PRA/v55/i3/p1792_1)
   *) http://dx.doi.org/10.1063/1.3243845
@@ -48,7 +44,7 @@ mGGAs:
   *) tau-HCTH correlation
 
 hybrids:
-  *) http://link.springer.com/article/10.1007/s00214-016-1864-2 hybrid with correct asymptotics
+  *) CAP hybrid (see CAP above) http://link.springer.com/article/10.1007/s00214-016-1864-2
   *) http://arxiv.org/abs/1205.4999 (versions of HSE)
   *) http://link.aip.org/link/doi/10.1063/1.3524336 (HSE_sol)
   *) doi:10.1021/ct800530u (LR-omegaPBE08)

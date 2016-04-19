@@ -1,3 +1,201 @@
+2016-04-19 13:49  micael
+
+	* [r12303] configure.ac: Update libtool version number for upcoming
+	  2.2.3 release.
+
+2016-04-04 13:52  micael
+
+	* [r12281] src/gga_c_optc.c: Backport of 12273 to branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12273 | micael | 2016-03-07 18:16:45 +0100 (Seg, 07 Mar 2016) |
+	  2 lines
+	  
+	  Bug fix: a variable was not properly initialized.
+	  
+	  ------------------------------------------------------------------------
+
+2016-02-29 18:06  micael
+
+	* [r12262] src/gga.c, src/lda.c, src/mgga.c: Backport of 12257 to
+	  branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12257 | lehtola | 2016-02-29 07:00:34 +0100 (Seg, 29 Fev 2016) |
+	  1 line
+	  
+	  Address issue #14.
+	  ------------------------------------------------------------------------
+
+2016-02-29 18:04  micael
+
+	* [r12260] src/stoll.c: Backport of 12258 to branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12258 | micael | 2016-02-29 19:02:54 +0100 (Seg, 29 Fev 2016) |
+	  2 lines
+	  
+	  Bug fix: some variables were not initialized.
+	  
+	  ------------------------------------------------------------------------
+
+2016-02-26 12:56  micael
+
+	* [r12252] src/gga_x_vmt.c: Backport of 12024 to branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12024 | marques | 2014-09-18 15:46:07 +0100 (Thu, 18 Sep 2014) |
+	  2 lines
+	  
+	  Bug corrected. Thanks to Toon Verstraelen for finding it and
+	  patching it.
+	  
+	  ------------------------------------------------------------------------
+
+2015-09-29 12:32  micael
+
+	* [r12220] m4/ax_f90_module_extension.m4: Backport of 12218 to
+	  branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12218 | dstrubbe | 2015-08-25 20:57:38 +0200 (Tue, 25 Aug 2015)
+	  | 3 lines
+	  
+	  * Fix for ticket #11: make ax_f90_module_extension handle gcc 6
+	  producing .mod and .smod files, by ignoring the .smod one.
+	  * All 'test' constructs in bash should have quotes, or else
+	  something with a space (as before this change) causes a syntax
+	  error in configure.
+	  
+	  ------------------------------------------------------------------------
+
+2015-05-18 06:47  micael
+
+	* [r12208] src/mgga_x_ms.c: Backport of 12176 to branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12176 | lehtola | 2015-05-08 01:15:15 +0200 (Fri, 08 May 2015) |
+	  1 line
+	  
+	  Looks like a factor in the second derivative was wrong.
+	  ------------------------------------------------------------------------
+	  Backport of 12193 to branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12193 | lehtola | 2015-05-14 19:41:50 +0200 (Thu, 14 May 2015) |
+	  1 line
+	  
+	  Clean up MS functional evaluation.
+	  ------------------------------------------------------------------------
+	  Backport of 12194 to branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12194 | lehtola | 2015-05-14 20:54:16 +0200 (Thu, 14 May 2015) |
+	  1 line
+	  
+	  Made a typo and missed a term.
+	  ------------------------------------------------------------------------
+
+2015-05-12 05:58  micael
+
+	* [r12187] src/gga_c_sogga11.c: Backport of 12169 to
+	  branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12169 | lehtola | 2015-05-05 02:43:03 +0200 (Tue, 05 May 2015) |
+	  1 line
+	  
+	  Increase density threshold for SOGGA11 correlation, since I
+	  caught NaNs in a calculation.
+	  ------------------------------------------------------------------------
+
+2015-05-12 05:57  micael
+
+	* [r12186] src/mgga_c_m08.c: Backport of 12170 to branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12170 | lehtola | 2015-05-05 02:45:47 +0200 (Tue, 05 May 2015) |
+	  1 line
+	  
+	  Increase density threshold for M08 style correlation, since I
+	  caught NaNs in a calculation.
+	  ------------------------------------------------------------------------
+
+2015-05-11 09:24  micael
+
+	* [r12180] src/hyb_gga_xc_o3lyp.c: Backport of 12173 to
+	  branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12173 | lehtola | 2015-05-07 00:53:03 +0200 (Thu, 07 May 2015) |
+	  1 line
+	  
+	  Fix O3LYP.
+	  ------------------------------------------------------------------------
+
+2015-05-11 09:20  micael
+
+	* [r12178] src/hyb_gga_xc_o3lyp.c: Backport of 12168 to
+	  branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12168 | lehtola | 2015-05-05 02:11:29 +0200 (Tue, 05 May 2015) |
+	  1 line
+	  
+	  X3LYP had a typo in the coefficients, which didn't sum up to 1.
+	  ------------------------------------------------------------------------
+
+2015-04-20 09:53  micael
+
+	* [r12159] src/gga_x_hjs.c: Backport of 12158 to branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12158 | marques | 2015-04-20 11:33:14 +0200 (Mon, 20 Apr 2015) |
+	  2 lines
+	  
+	  Bug fix found by Fabien Bruneval: the spin-dependent density
+	  should be multiplied by 2 (due to the sum-rule formula). Now,
+	  Fabien gets the same answer as nwchem ;)
+	  
+	  ------------------------------------------------------------------------
+
+2015-04-13 13:15  micael
+
+	* [r12152] src/gga_x_b88.c: Backport of 12135 to branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12135 | marques | 2015-03-25 16:15:02 +0100 (Wed, 25 Mar 2015) |
+	  2 lines
+	  
+	  Very silly bug in gga_x_b88 when calculating fxc.
+	  
+	  ------------------------------------------------------------------------
+
+2015-02-21 23:22  lehtola
+
+	* [r12123] src/Makefile.am: 2.2.x branch didn't need that patch..
+
+2015-02-21 23:20  lehtola
+
+	* [r12122] src/Makefile.am: Single precision sources were missing
+	  from the link.
+
+2015-02-21 22:30  lehtola
+
+	* [r12120] src/hyb_gga_xc_camy_blyp.c: Backport revisions 12111 and
+	  12115.
+
+2015-02-21 22:29  lehtola
+
+	* [r12119] src/hyb_gga_xc_hse.c: Backport revision 12110.
+
+2015-02-21 22:28  lehtola
+
+	* [r12118] src/hyb_gga_xc_cam_b3lyp.c: Backport revision 12109.
+
+2015-02-21 22:27  lehtola
+
+	* [r12117] src/gga_x_n12.c, src/gga_xc_b97.c: Backport of 12108 to
+	  branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12108 | lehtola | 2015-02-20 19:52:32 -0800 (Fri, 20 Feb 2015) |
+	  1 line
+	  
+	  Fix N12 and N12-SX, props to Narbe Mardirossian. The coefficients
+	  were reported wrong in the original paper.
+	  ------------------------------------------------------------------------
+
+2015-02-19 13:47  micael
+
+	* [r12107] ChangeLog, NEWS, PACKAGING, configure.ac: Tagged
+	  versions 2.1.2 and 2.2.2.
+
 2015-02-19 13:29  micael
 
 	* [r12105] src/gga_k_ol2.c, src/work_lda.c: Backport of 12104 to

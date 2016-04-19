@@ -17,7 +17,7 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ## 02110-1301, USA.
 ##
-## $Id: Makefile.am 2433 2006-09-28 11:06:54Z marques $
+## $Id$
 
 bin_PROGRAMS = xc-info
 noinst_PROGRAMS = genwiki

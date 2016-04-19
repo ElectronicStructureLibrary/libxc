@@ -16,7 +16,7 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
  02110-1301, USA.
 
- $Id: string_f.h 3341 2007-10-12 15:47:30Z marques $
+ $Id$
 */
 
 /* --------------------- Fortran to C string compatibility ---------------------- */

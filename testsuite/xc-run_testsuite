@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# $Id:  $
+# $Id$
 
 if [ -n "$SKIP_CHECK" ]; then
     echo "Skipping checks"

@@ -21,7 +21,7 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_HYB_MGGA_X_MVSH     474 /* MVS hybrid */
+#define XC_HYB_MGGA_X_MVSH     474 /* MVSh hybrid */
 
 static void
 hyb_mgga_x_mvsh_init(XC(func_type) *p)

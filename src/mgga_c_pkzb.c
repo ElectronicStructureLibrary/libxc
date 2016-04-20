@@ -22,7 +22,7 @@
 
 #include "util.h"
 
-#define XC_MGGA_C_TPSS          231 /* Perdew, Tao, Staroverov & Scuseria correlation */
+#define XC_MGGA_C_TPSS          231 /* Tao, Perdew, Staroverov & Scuseria correlation */
 #define XC_MGGA_C_PKZB          239 /* Perdew, Kurth, Zupan, and Blaha */
 #define XC_MGGA_C_REVTPSS       241 /* revised TPSS correlation */
 #define XC_MGGA_C_TPSSLOC       247 /* Semilocal dynamical correlation */

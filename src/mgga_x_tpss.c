@@ -23,15 +23,15 @@
 #include "util.h"
 
 /************************************************************************
- Implements Perdew, Tao, Staroverov & Scuseria 
+ Implements Tao, Perdew, Staroverov & Scuseria 
    meta-Generalized Gradient Approximation.
 
   Exchange part
 ************************************************************************/
 
-#define XC_MGGA_X_TPSS          202 /* Perdew, Tao, Staroverov & Scuseria exchange */
-#define XC_MGGA_X_MODTPSS       245 /* Modified Perdew, Tao, Staroverov & Scuseria exchange */
-#define XC_MGGA_X_REVTPSS       212 /* revised Perdew, Tao, Staroverov & Scuseria exchange */
+#define XC_MGGA_X_TPSS          202 /* Tao, Perdew, Staroverov & Scuseria exchange */
+#define XC_MGGA_X_MODTPSS       245 /* Modified Tao, Perdew, Staroverov & Scuseria exchange */
+#define XC_MGGA_X_REVTPSS       212 /* revised Tao, Perdew, Staroverov & Scuseria exchange */
 #define XC_MGGA_X_BLOC          244 /* functional with balanced localization */
 
 typedef struct{

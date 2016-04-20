@@ -776,13 +776,10 @@ contains
     type(c_ptr) :: c_ref
 
     c_ref = XC(func_info_get_ref)(info%ptr, number)
-    
     if (c_associated(c_ref)) then
       call c_to_f_string_ptr(c_ref, ref)
       number = number + 1
-    else
-      number = -1
-      ref = ""
+      if (.not. c_associated(XC(func_info_get_ref)(info%ptr, number))) number = -1
     end if
     
   end function FXC(func_info_get_refs)

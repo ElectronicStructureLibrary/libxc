@@ -10,7 +10,7 @@ dnl @version 2005-06-17
 dnl @license AllPermissive
 
 AC_DEFUN([AX_F90_MODULE_EXTENSION],[
-AC_CACHE_CHECK([fortran 90 modules extension],
+AC_CACHE_CHECK([Fortran 90 modules extension],
 ax_cv_f90_modext,
 [AC_LANG_PUSH(Fortran)
 ax_f90_mod_uppercase=no

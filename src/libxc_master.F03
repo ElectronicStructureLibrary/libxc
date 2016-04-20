@@ -199,7 +199,7 @@ module FXC(lib_m)
   ! List of functionals
 #include "libxc_inc.f03"
   
-  ! These are old names keep for compatibility, and that should disappear soon
+  ! These are old names kept for compatibility, and that should disappear soon
   integer(c_int), parameter, public :: &
     XC_GGA_C_VPBE           =  83,     &
     XC_GGA_XC_LB            = 160,     &

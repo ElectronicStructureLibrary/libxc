@@ -28,7 +28,7 @@ void XC(gga_x_cap_enhance)
    FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
   const FLOAT Ax=-3.0/4.0*CBRT(3.0/M_PI);
-  const FLOAT mu=0.2195;
+  const FLOAT mu=0.2195149727645171;
   const FLOAT alpha=-Ax*mu;
   const FLOAT c=alpha/CBRT(3*M_PI*M_PI);
   const FLOAT alphaoAx=-mu;

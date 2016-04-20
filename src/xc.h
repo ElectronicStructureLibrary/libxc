@@ -72,8 +72,8 @@ void XC(version)(int *major, int *minor);
 struct XC(func_type);
 
 typedef struct{
-  int   number;   /* indentifier number */
-  int   kind;     /* XC_EXCHANGE, XC_CORRELATION, or XC_EXCHANGE_CORRELATION */
+  int   number;   /* identifier number */
+  int   kind;     /* XC_EXCHANGE, XC_CORRELATION, XC_EXCHANGE_CORRELATION, XC_KINETIC */
 
   char *name;     /* name of the functional, e.g. "PBE" */
   int   family;   /* type of the functional, e.g. XC_FAMILY_GGA */

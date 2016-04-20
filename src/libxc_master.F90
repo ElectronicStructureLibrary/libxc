@@ -89,7 +89,7 @@ module XC_F90(lib_m)
     XC_FLAGS_STABLE         =  512,  &
     XC_FLAGS_DEVELOPMENT    = 1024
  
-  ! These are old names keep for compatibility, and that should disappear soon
+  ! These are old names kept for compatibility, and that should disappear soon
   integer, parameter :: XC_GGA_XC_LB   = 160
   integer, parameter :: XC_GGA_K_ABSR1 = 506
   integer, parameter :: XC_GGA_K_ABSR2 = 507
@@ -345,7 +345,7 @@ module XC_F90(lib_m)
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(in)  :: p
       integer,              intent(in)  :: modified   ! should we use the modified version
-      real(xc_f90_kind),    intent(in)  :: threshold  ! if so, the threshold to use the asymtotic version
+      real(xc_f90_kind),    intent(in)  :: threshold  ! if so, the threshold to use the asymptotic version
       real(xc_f90_kind),    intent(in)  :: ip         ! ionization potential
       real(xc_f90_kind),    intent(in)  :: qtot       ! total charge
     end subroutine XC_F90(gga_lb_set_par)

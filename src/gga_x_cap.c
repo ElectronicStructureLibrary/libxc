@@ -50,12 +50,12 @@ void XC(gga_x_cap_enhance)
   if(order < 1) return;
 
   /* eqn (A3) */
-  *dfdx = (-alphaoAx * ( s + ops*logops*opclogops) / (ops*opclogops*opclogops))*X2S;
+  *dfdx = -alphaoAx * (s + ops*logops*opclogops) / (ops*opclogops*opclogops) * X2S;
   
   if(order < 2) return;
 
   /* eqn (A4) */
-  *d2fdx2 = (-alphaoAx * ( 2 + s - 2*c*s + c*(2+s)*logops ) / (ops*ops*logops*logops*logops))*X2S*X2S;
+  *d2fdx2 = -alphaoAx * (1 + (1.0-2.0*c)*s + c*(2+s)*logops ) / (ops*ops*logops*logops*logops) * X2S * X2S;
 }
 
 #define func XC(gga_x_cap_enhance)

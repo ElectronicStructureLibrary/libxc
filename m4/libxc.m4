@@ -15,7 +15,7 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ## 02110-1301, USA.
 ##
-## $Id: libxc.m4 13622 2015-03-28 01:31:52Z dstrubbe $
+## $Id$
 ##
 
 AC_DEFUN([ACX_LIBXC], [

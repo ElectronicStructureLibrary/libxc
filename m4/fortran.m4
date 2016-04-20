@@ -15,7 +15,7 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ## 02110-1301, USA.
 ##
-## $Id: acx.m4 3881 2008-03-12 23:51:07Z xavier $
+## $Id$
 ##
 
 ################################################

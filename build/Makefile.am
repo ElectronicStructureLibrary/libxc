@@ -17,7 +17,7 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ## 02110-1301, USA.
 ##
-## $Id: Makefile.am 5782 2009-08-05 15:04:55Z olivares $
+## $Id$
 
 EXTRA_DIST =                   \
 	libxc.spec.in libxc.pc.in

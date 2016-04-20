@@ -16,7 +16,7 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ## 02110-1301, USA.
 ##
-## $Id: fc_iso_c_binding.m4 13649 2015-03-29 11:12:38Z micael $
+## $Id$
 ##
 
 #

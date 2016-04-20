@@ -13,7 +13,6 @@ LDA:
 
 GGAs:
   *) D.J. Tozer, N.C. Handy, Recent advances in density functional theory, Vol.2
-  *) CAP http://scitation.aip.org/content/aip/journal/jcp/142/5/10.1063/1.4906606
   *) functionals of Della Salla (http://www.theory-nnl.it/software.php)
   *) Liu and Parr (http://pra.aps.org/abstract/PRA/v55/i3/p1792_1)
   *) http://dx.doi.org/10.1063/1.3243845
@@ -44,7 +43,6 @@ mGGAs:
   *) tau-HCTH correlation
 
 hybrids:
-  *) CAP hybrid (see CAP above) http://link.springer.com/article/10.1007/s00214-016-1864-2
   *) http://arxiv.org/abs/1205.4999 (versions of HSE)
   *) http://link.aip.org/link/doi/10.1063/1.3524336 (HSE_sol)
   *) doi:10.1021/ct800530u (LR-omegaPBE08)

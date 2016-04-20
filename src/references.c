@@ -1692,7 +1692,21 @@ func_reference_type xc_ref_Hui2016_044114 = {
 func_reference_type xc_ref_Yu2016 = {
   "H. S. Yu, X. He, S. L. Li, and D. G. Truhlar, Chem. Sci. , (2016)",
   "10.1039/C6SC00705H",
-  "@Article{Yu2016,\nauthor =\"Yu, Haoyu S. and He, Xiao and Li, Shaohong Louis and Truhlar, D G\",\ntitle  =\"MN15: A Kohn-Sham Global-Hybrid Exchange-Correlation Density Functional with Broad Accuracy for Multi-Reference and Single-Reference Systems and Noncovalent Interactions\",\njournal  =\"Chem. Sci.\",\nyear  =\"2016\",\npages  =\"-\",\npublisher  =\"The Royal Society of Chemistry\",\ndoi  =\"10.1039/C6SC00705H\",\nurl  =\"http://dx.doi.org/10.1039/C6SC00705H\",\n}"
+  "@Article{Yu2016,\n   author =\"Yu, Haoyu S. and He, Xiao and Li, Shaohong Louis and Truhlar, D G\",\n   title  =\"MN15: A Kohn-Sham Global-Hybrid Exchange-Correlation Density Functional with Broad Accuracy for Multi-Reference and Single-Reference Systems and Noncovalent Interactions\",\n   journal  =\"Chem. Sci.\",\n   year  =\"2016\",\n   pages  =\"-\",\n   publisher  =\"The Royal Society of Chemistry\",\n   doi  =\"10.1039/C6SC00705H\",\n   url  =\"http://dx.doi.org/10.1039/C6SC00705H\",\n}"
+};
+
+
+func_reference_type xc_ref_Carmona2015_054105 = {
+  "J. Carmona-Espíndola, J. L. Gázquez, A. Vela, and S. B. Trickey, J. Chem. Phys. 142, 054105 (2015), http://dx.doi.org/10.1063/1.4906606",
+  "10.1063/1.4906606",
+  "@article{Carmona2015_054105,\n   author = \"Carmona-Espíndola, Javier and Gázquez, José L. and Vela, Alberto and Trickey, S. B.\",\n   title = \"Generalized gradient approximation exchange energy functional with correct asymptotic behavior of the corresponding potential\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2015\",\n   volume = \"142\",\n   number = \"5\", \n   eid = 054105,\n   pages = \"\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/142/5/10.1063/1.4906606\",\n   doi = \"http://dx.doi.org/10.1063/1.4906606\" \n}"
+};
+
+
+func_reference_type xc_ref_Carmona2016_120 = {
+  "J. Carmona-Espíndola, J. L. Gázquez, A. Vela, and S. B. Trickey, Theor. Chem. Acc. 135, 120 (2016)",
+  "10.1007/s00214-016-1864-2",
+  "@article{Carmona2016_120,\n   author = \"Carmona-Espíndola, Javier and Gázquez, José L. and Vela, Alberto and Trickey, S. B.\",\n   title=\"Global hybrid exchange energy functional with correct asymptotic behavior of the corresponding potential\",\n   journal=\"Theoretical Chemistry Accounts\",\n   year=\"2016\",\n   volume=\"135\",\n   number=\"5\",\n   pages=\"120\",\n   issn=\"1432-2234\",\n   doi=\"10.1007/s00214-016-1864-2\",\n   url=\"http://dx.doi.org/10.1007/s00214-016-1864-2\"\n}"
 };
 
 

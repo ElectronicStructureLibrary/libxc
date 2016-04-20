@@ -210,7 +210,7 @@ module FXC(lib_m)
   interface
     subroutine XC(version)(major, minor, micro) bind(c)
       import
-      integer(c_int), value :: major, minor, micro
+      integer(c_int), intent(out) :: major, minor, micro
     end subroutine XC(version)
 
     type(c_ptr) function XC(version_string)() bind(c)
@@ -718,7 +718,7 @@ contains
   subroutine FXC(version)(major, minor, micro)
     integer, intent(out) :: major, minor, micro
 
-    call XC(version)(major, micro, minor)
+    call XC(version)(major, minor, micro)
     
   end subroutine FXC(version)
 

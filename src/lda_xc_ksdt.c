@@ -196,7 +196,7 @@ ksdt_alpha(int order, FLOAT t, FLOAT *rs, FLOAT *alpha, FLOAT *dalphadt, FLOAT *
 }
 
 
-inline void
+void
 ksdt_phi(int order, FLOAT zeta, FLOAT alpha, 
 	 FLOAT *phi, FLOAT *dphidz, FLOAT *dphidalpha)
 {

@@ -40,7 +40,7 @@ for i in $(ls $srcdir/regression/*.pol.bz2 | sort); do
   system=${refname#*.}
   name=$(printf '%-30s %-10s' ${func} ${system})
 
-  workdir=$(mktemp -d -p ${tmpdir} libxc.XXXXXXXXXX)
+  workdir=$(mktemp -d ${tmpdir}/libxc.XXXXXXXXXX)
   
   echo -ne "${NC} * ${PINK}${name}"
 

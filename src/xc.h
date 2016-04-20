@@ -164,7 +164,7 @@ XC(func_type) *XC(func_alloc)();
 int   XC(func_init)(XC(func_type) *p, int functional, int nspin);
 void  XC(func_end)(XC(func_type) *p);
 void  XC(func_free)(XC(func_type) *p);
-XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p);
+const XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p);
     
 #include "xc_funcs.h"
 

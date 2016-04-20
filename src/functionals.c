@@ -202,7 +202,7 @@ void  XC(func_free)(XC(func_type) *p)
 }
 
 /*------------------------------------------------------*/
-XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p)
+const XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p)
 {
   return p->info;
 }

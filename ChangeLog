@@ -1,3 +1,33 @@
+2016-04-20 18:46  dstrubbe
+
+	* [r12340] testsuite: Backport of 12314 to branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12314 | dstrubbe | 2016-04-19 17:18:28 -0400 (Tue, 19 Apr 2016)
+	  | 2 lines
+	  
+	  svn:ignore for files created by testsuite run on OSX.
+	  
+	  ------------------------------------------------------------------------
+
+2016-04-20 18:45  dstrubbe
+
+	* [r12338] INSTALL: Backport of 12333 to branches/2.2.x:
+	  ------------------------------------------------------------------------
+	  r12333 | dstrubbe | 2016-04-20 14:34:11 -0400 (Wed, 20 Apr 2016)
+	  | 2 lines
+	  
+	  Update archaic INSTALL file by running 'autoconf -fi'.
+	  
+	  ------------------------------------------------------------------------
+
+2016-04-20 18:43  dstrubbe
+
+	* [r12336] .: Set svn:ignore for installation directories in 2.2.x.
+
+2016-04-19 14:03  micael
+
+	* [r12307] ChangeLog: Update ChangeLog.
+
 2016-04-19 13:49  micael
 
 	* [r12303] configure.ac: Update libtool version number for upcoming

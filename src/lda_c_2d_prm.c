@@ -63,7 +63,7 @@ XC(lda_c_2d_prm_set_params)(XC(func_type) *p, FLOAT N)
   params = (lda_c_prm_params *) (p->params);
 
   if(N <= 1){
-    fprintf(stderr, "PRM functional can not be used for N_electrons <= 1\n");
+    fprintf(stderr, "PRM functional cannot be used for N_electrons <= 1\n");
     exit(1);
   }
 

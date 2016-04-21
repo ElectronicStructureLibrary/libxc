@@ -17,7 +17,7 @@
 ##
 ## $Id$
 
-AC_INIT([libxc],[3.0.x],[libxc@tddft.org],[libxc],[http://www.tddft.org/programs/Libxc])
+AC_INIT([libxc],[3.0.0],[libxc@tddft.org],[libxc],[http://www.tddft.org/programs/Libxc])
 AC_CONFIG_SRCDIR([src/xc.h])
 AM_INIT_AUTOMAKE
 

@@ -74,7 +74,7 @@ XC(lda_xc_ksdt_set_params)(XC(func_type) *p, FLOAT T)
   params->T  = T;
 }
 
-void
+static void
 ksdt_fxc(int ispin, int order, FLOAT t, FLOAT *rs, FLOAT *fxc, FLOAT *dfxcdt, 
 	 FLOAT *dfxcdrs, FLOAT *d2fxdt2, FLOAT *d2fxcrsdt, FLOAT *d2fxcdrs2)
 {
@@ -162,7 +162,7 @@ ksdt_fxc(int ispin, int order, FLOAT t, FLOAT *rs, FLOAT *fxc, FLOAT *dfxcdt,
 
 }
 
-void
+static void
 ksdt_alpha(int order, FLOAT t, FLOAT *rs, FLOAT *alpha, FLOAT *dalphadt, FLOAT *dalphadrs)
 {
   const FLOAT ksdt_g[] = {2.0/3.0, -0.0139261, 0.183208};
@@ -196,7 +196,7 @@ ksdt_alpha(int order, FLOAT t, FLOAT *rs, FLOAT *alpha, FLOAT *dalphadt, FLOAT *
 }
 
 
-void
+static void
 ksdt_phi(int order, FLOAT zeta, FLOAT alpha, 
 	 FLOAT *phi, FLOAT *dphidz, FLOAT *dphidalpha)
 {

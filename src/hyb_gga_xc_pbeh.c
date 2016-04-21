@@ -53,7 +53,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeh) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_pbeh_init,
-  NULL, NULL, NULL, NULL /* this is taken care by the generic routine */
+  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
 
 static void
@@ -75,7 +75,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe0_13) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_pbe0_13_init,
-  NULL, NULL, NULL, NULL /* this is taken care by the generic routine */
+  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
 
 static void
@@ -97,7 +97,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hpbeint) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_DEVELOPMENT,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_hpbeint_init,
-  NULL, NULL, NULL, NULL /* this is taken care by the generic routine */
+  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
 
 

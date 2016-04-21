@@ -34,7 +34,7 @@ AC_CONFIG_MACRO_DIR([m4])
 # libxc-2.1.0   2:0:1
 # libxc-2.1.1   2:1:1
 # libxc-2.1.2   2:2:1
-# libxc-2.1.2   2:3:1
+# libxc-2.1.3   2:3:1
 # 
 # Note that libtool versioning was not used prior to libxc-2.0.
 # Because of this, we will start counting at 1.

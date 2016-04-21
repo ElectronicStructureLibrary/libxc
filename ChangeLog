@@ -1,3 +1,35 @@
+2016-04-20 18:59  dstrubbe
+
+	* [r12342] m4/ax_f90_module_extension.m4, src/libxc_master.F90,
+	  src/xc.h: Backport of 12334 to branches/2.1.x:
+	  ------------------------------------------------------------------------
+	  r12334 | dstrubbe | 2016-04-20 14:37:22 -0400 (Wed, 20 Apr 2016)
+	  | 2 lines
+	  
+	  Typos. Capitalize Fortran. Give full list of possibilities for
+	  'kind'.
+	  
+	  ------------------------------------------------------------------------
+
+2016-04-20 18:46  dstrubbe
+
+	* [r12339] testsuite: Backport of 12314 to branches/2.1.x:
+	  ------------------------------------------------------------------------
+	  r12314 | dstrubbe | 2016-04-19 17:18:28 -0400 (Tue, 19 Apr 2016)
+	  | 2 lines
+	  
+	  svn:ignore for files created by testsuite run on OSX.
+	  
+	  ------------------------------------------------------------------------
+
+2016-04-20 18:42  dstrubbe
+
+	* [r12335] .: Set svn:ignore for installation directories in 2.1.x.
+
+2016-04-19 14:02  micael
+
+	* [r12306] ChangeLog: Update ChangeLog.
+
 2016-04-19 13:49  micael
 
 	* [r12302] configure.ac: Update libtool version number for upcoming

@@ -22,7 +22,7 @@
 #include "xc.h"
 #include "config.h"
 
-const char * libxc_version = PACKAGE_VERSION;
+static const char * libxc_version = PACKAGE_VERSION;
 
 void XC(version)(int *major, int *minor, int *micro) {
 

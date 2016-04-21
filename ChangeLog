@@ -1,3 +1,198 @@
+2016-04-20 21:04  lehtola
+
+	* [r12347] src/gga_x_cap.c: Backport of 12343 to branches/3.0.x:
+	  ------------------------------------------------------------------------
+	  r12343 | lehtola | 2016-04-20 12:47:24 -0700 (Wed, 20 Apr 2016) |
+	  1 line
+	  
+	  Use all digits of PBE mu in CAP, now I match the numbers of the
+	  reference perfectly.
+	  ------------------------------------------------------------------------
+
+2016-04-20 21:03  lehtola
+
+	* [r12346] src/gga_x_cap.c: Backport of 12332 to branches/3.0.x:
+	  ------------------------------------------------------------------------
+	  r12332 | lehtola | 2016-04-20 11:30:59 -0700 (Wed, 20 Apr 2016) |
+	  1 line
+	  
+	  Tiny cleanup
+	  ------------------------------------------------------------------------
+
+2016-04-20 21:03  lehtola
+
+	* [r12345] src/gga_x_cap.c: Backport of 12316 to branches/3.0.x:
+	  ------------------------------------------------------------------------
+	  r12316 | lehtola | 2016-04-19 15:21:08 -0700 (Tue, 19 Apr 2016) |
+	  1 line
+	  
+	  Whoops, forgot to adapt copy-pasted license boilerplate
+	  ------------------------------------------------------------------------
+
+2016-04-20 21:03  lehtola
+
+	* [r12344] TODO, libxc.bib, src/Makefile.am, src/gga_x_cap.c,
+	  src/references.c, src/references.h: Backport of 12310 to
+	  branches/3.0.x:
+	  ------------------------------------------------------------------------
+	  r12310 | lehtola | 2016-04-19 11:22:16 -0700 (Tue, 19 Apr 2016) |
+	  1 line
+	  
+	  Implemented CAP and CAP0.
+	  ------------------------------------------------------------------------
+
+2016-04-20 18:50  dstrubbe
+
+	* [r12341] m4/ax_f90_module_extension.m4, src/libxc_master.F03,
+	  src/libxc_master.F90, src/xc.h: Backport of 12334 to
+	  branches/3.0.x:
+	  ------------------------------------------------------------------------
+	  r12334 | dstrubbe | 2016-04-20 14:37:22 -0400 (Wed, 20 Apr 2016)
+	  | 2 lines
+	  
+	  Typos. Capitalize Fortran. Give full list of possibilities for
+	  'kind'.
+	  
+	  ------------------------------------------------------------------------
+
+2016-04-20 18:44  dstrubbe
+
+	* [r12337] INSTALL: Backport of 12333 to branches/3.0.x:
+	  ------------------------------------------------------------------------
+	  r12333 | dstrubbe | 2016-04-20 14:34:11 -0400 (Wed, 20 Apr 2016)
+	  | 2 lines
+	  
+	  Update archaic INSTALL file by running 'autoconf -fi'.
+	  
+	  ------------------------------------------------------------------------
+
+2016-04-20 13:41  micael
+
+	* [r12331] src/libxc_master.F03: Backport of 12330 to
+	  branches/3.0.x:
+	  ------------------------------------------------------------------------
+	  r12330 | micael | 2016-04-20 15:07:45 +0200 (Qua, 20 Abr 2016) |
+	  2 lines
+	  
+	  Fixing logic for the func_info_get_refs function.
+	  
+	  ------------------------------------------------------------------------
+
+2016-04-20 12:57  micael
+
+	* [r12329] src/libxc_master.F03: Backport of 12328 to
+	  branches/3.0.x:
+	  ------------------------------------------------------------------------
+	  r12328 | micael | 2016-04-20 14:21:07 +0200 (Qua, 20 Abr 2016) |
+	  2 lines
+	  
+	  Fixed wrong interface for xc_version function.
+	  
+	  ------------------------------------------------------------------------
+
+2016-04-20 08:29  micael
+
+	* [r12327] src/functionals.c, src/xc.h: Backport of 12326 to
+	  branches/3.0.x:
+	  ------------------------------------------------------------------------
+	  r12326 | micael | 2016-04-20 10:07:45 +0200 (Qua, 20 Abr 2016) |
+	  2 lines
+	  
+	  Added missing const qualifier.
+	  
+	  ------------------------------------------------------------------------
+
+2016-04-20 01:22  dstrubbe
+
+	* [r12325] src/libxc_master.F03: Backport of 12317 to
+	  branches/3.0.x:
+	  ------------------------------------------------------------------------
+	  r12317 | dstrubbe | 2016-04-19 19:10:26 -0400 (Tue, 19 Apr 2016)
+	  | 3 lines
+	  
+	  Suppress this warning when preprocessing Fortran with clang:
+	  "warning: empty character constant [-Winvalid-pp-token]"
+	  
+	  ------------------------------------------------------------------------
+
+2016-04-20 01:03  dstrubbe
+
+	* [r12324] PACKAGING: Backport of 12315 to branches/3.0.x:
+	  ------------------------------------------------------------------------
+	  r12315 | dstrubbe | 2016-04-19 17:22:35 -0400 (Tue, 19 Apr 2016)
+	  | 2 lines
+	  
+	  Update PACKAGING.
+	  
+	  ------------------------------------------------------------------------
+
+2016-04-20 00:52  dstrubbe
+
+	* [r12323] testsuite: Backport of 12314 to branches/3.0.x:
+	  ------------------------------------------------------------------------
+	  r12314 | dstrubbe | 2016-04-19 17:18:28 -0400 (Tue, 19 Apr 2016)
+	  | 2 lines
+	  
+	  svn:ignore for files created by testsuite run on OSX.
+	  
+	  ------------------------------------------------------------------------
+
+2016-04-20 00:47  dstrubbe
+
+	* [r12322] testsuite/xc-run_testsuite: Backport of 12313 to
+	  branches/3.0.x:
+	  ------------------------------------------------------------------------
+	  r12313 | dstrubbe | 2016-04-19 17:17:27 -0400 (Tue, 19 Apr 2016)
+	  | 2 lines
+	  
+	  mktemp -p, introduced in r12256, is not a legal argument in the
+	  BSD/OSX version. Now it can work on that operating system and
+	  with the GNU version.
+	  
+	  ------------------------------------------------------------------------
+
+2016-04-20 00:42  dstrubbe
+
+	* [r12321] src/lda_xc_ksdt.c: Backport of 12318 to branches/3.0.x:
+	  ------------------------------------------------------------------------
+	  r12318 | dstrubbe | 2016-04-19 19:14:29 -0400 (Tue, 19 Apr 2016)
+	  | 2 lines
+	  
+	  clang fails to link, saying symbol ksdt_phi is unresolved, if
+	  that function is inline.
+	  
+	  ------------------------------------------------------------------------
+
+2016-04-20 00:38  dstrubbe
+
+	* [r12320] src: Backport of 12312 to branches/3.0.x:
+	  ------------------------------------------------------------------------
+	  r12312 | dstrubbe | 2016-04-19 17:04:23 -0400 (Tue, 19 Apr 2016)
+	  | 2 lines
+	  
+	  Add svn:ignore files.
+	  
+	  ------------------------------------------------------------------------
+
+2016-04-20 00:28  dstrubbe
+
+	* [r12319] Makefile.am, build/Makefile.am, configure.ac,
+	  m4/fc_integer.m4, m4/fc_iso_c_binding.m4, m4/fcflags.m4,
+	  m4/fortran.m4, m4/libxc.m4, src/Makefile.am,
+	  src/libxc_master.F90, src/string_f.h, testsuite/Makefile.am,
+	  testsuite/xc-run_testsuite: Backport of 12311 to branches/3.0.x:
+	  ------------------------------------------------------------------------
+	  r12311 | dstrubbe | 2016-04-19 16:52:52 -0400 (Tue, 19 Apr 2016)
+	  | 2 lines
+	  
+	  Set svn:keywords and fix $Id$ lines.
+	  
+	  ------------------------------------------------------------------------
+
+2016-04-19 14:34  micael
+
+	* [r12308] ChangeLog: Update ChangeLog.
+
 2016-04-19 13:50  micael
 
 	* [r12305] configure.ac: Update libtool version number and history.

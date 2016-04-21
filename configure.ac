@@ -37,6 +37,7 @@ AC_CONFIG_MACRO_DIR([m4])
 # libxc-2.1.3   2:3:1
 # libxc-2.2.0   3:0:0
 # libxc-2.2.1   3:1:0
+# libxc-2.2.2   3:2:0
 # libxc-2.2.3   3:3:0
 # libxc-3.0.0   4:0:0
 # 

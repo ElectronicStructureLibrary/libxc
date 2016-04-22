@@ -102,7 +102,7 @@ FLOAT XC(expint_e1_impl)(const FLOAT x, const int scale){
     const FLOAT scale_factor = ( scale ? EXP(x) : 1.0 );
     e1 = scale_factor * (-LOG(ABS(x)) + XC(cheb_eval)((2.0*x + 5.0)/3.0, E11_data, 19));
   }else if(x == 0.0) {
-    fprintf(stderr, "Argument can not be 0.0 in expint_e1\n");
+    fprintf(stderr, "Argument cannot be 0.0 in expint_e1\n");
   }else if(x <= 1.0){
     const FLOAT scale_factor = ( scale ? EXP(x) : 1.0 );
     e1 = scale_factor*(-LOG(ABS(x)) - 0.6875 + x + XC(cheb_eval)(x, E12_data, 16));

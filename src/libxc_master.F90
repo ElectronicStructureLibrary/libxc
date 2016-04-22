@@ -401,6 +401,12 @@ module XC_F90(lib_m)
       type(XC_F90(pointer_t)), intent(in)  :: p
       real(xc_f90_kind),       intent(out) :: omega, alpha, beta
     end subroutine XC_F90(hyb_cam_coef)
+
+    subroutine XC_F90(nlc_coef)(p, nlc_b, nlc_c)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(in)  :: p
+      real(xc_f90_kind),       intent(out) :: nlc_b, nlc_c
+    end subroutine XC_F90(nlc_coef)    
   end interface
 
 

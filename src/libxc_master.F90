@@ -275,43 +275,6 @@ module XC_F90(lib_m)
     end subroutine XC_F90(lda_kxc)
   end interface
   
-
-  interface
-    subroutine XC_F90(lda_x_1d_set_par)(p, interaction, bb)
-      use XC_F90(types_m)
-      type(XC_F90(pointer_t)), intent(inout)  :: p
-      integer,                 intent(in)     :: interaction
-      real(xc_f90_kind),       intent(in)     :: bb
-    end subroutine XC_F90(lda_x_1d_set_par)
-
-    subroutine XC_F90(lda_c_xalpha_set_par)(p, alpha)
-      use XC_F90(types_m)
-      type(XC_F90(pointer_t)), intent(inout)  :: p
-      real(xc_f90_kind),      intent(in)     :: alpha
-    end subroutine XC_F90(lda_c_xalpha_set_par)
-
-    subroutine XC_F90(lda_x_set_par)(p, alpha, relativistic, omega)
-      use XC_F90(types_m)
-      type(XC_F90(pointer_t)), intent(inout)  :: p
-      real(xc_f90_kind),       intent(in)     :: alpha  ! of Xalpha, set to 4/3 to obtain standard LDA
-      integer,                 intent(in)     :: relativistic
-      real(xc_f90_kind),       intent(in)     :: omega
-    end subroutine XC_F90(lda_x_set_par)
-
-    subroutine XC_F90(lda_c_1d_csc_set_par)(p, interaction, bb)
-      use XC_F90(types_m)
-      type(XC_F90(pointer_t)), intent(inout)  :: p
-      integer,                 intent(in)     :: interaction
-      real(xc_f90_kind),       intent(in)     :: bb
-    end subroutine XC_F90(lda_c_1d_csc_set_par)
-
-    subroutine XC_F90(lda_c_2d_prm_set_par)(p, N)
-      use XC_F90(types_m)
-      type(XC_F90(pointer_t)), intent(inout)  :: p
-      real(xc_f90_kind),       intent(in)     :: N
-    end subroutine XC_F90(lda_c_2d_prm_set_par)
-  end interface
-
   ! GGAs
   !----------------------------------------------------------------
   interface
@@ -401,18 +364,6 @@ module XC_F90(lib_m)
     end subroutine XC_F90(gga_kxc)
   end interface
 
-  !----------------------------------------------------------------
-  interface
-    subroutine XC_F90(gga_lb_set_par)(p, modified, threshold, ip, qtot)
-      use XC_F90(types_m)
-      type(XC_F90(pointer_t)), intent(in)  :: p
-      integer,              intent(in)  :: modified   ! should we use the modified version
-      real(xc_f90_kind),    intent(in)  :: threshold  ! if so, the threshold to use the asymptotic version
-      real(xc_f90_kind),    intent(in)  :: ip         ! ionization potential
-      real(xc_f90_kind),    intent(in)  :: qtot       ! total charge
-    end subroutine XC_F90(gga_lb_set_par)
-  end interface
-
 
   !----------------------------------------------------------------
   interface
@@ -427,24 +378,6 @@ module XC_F90(lib_m)
     end subroutine XC_F90(gga_lb_modified)
   end interface
 
-
-  !----------------------------------------------------------------
-  interface
-    subroutine XC_F90(gga_x_wpbeh_set_par)(p, omega)
-      use XC_F90(types_m)
-      type(XC_F90(pointer_t)), intent(in)  :: p
-      real(xc_f90_kind),       intent(in)  :: omega       ! range separation
-    end subroutine XC_F90(gga_x_wpbeh_set_par)
-  end interface
-  
-  !----------------------------------------------------------------
-  interface
-    subroutine XC_F90(gga_x_hjs_set_par)(p, omega)
-      use XC_F90(types_m)
-      type(XC_F90(pointer_t)), intent(in)  :: p
-      real(xc_f90_kind),       intent(in)  :: omega       ! range separation
-    end subroutine XC_F90(gga_x_hjs_set_par)
-  end interface
 
   !----------------------------------------------------------------
   interface
@@ -468,23 +401,12 @@ module XC_F90(lib_m)
       type(XC_F90(pointer_t)), intent(in)  :: p
       real(xc_f90_kind),       intent(out) :: omega, alpha, beta
     end subroutine XC_F90(hyb_cam_coef)
-  end interface
 
-
-  !----------------------------------------------------------------
-  interface
-    subroutine XC_F90(hyb_gga_xc_hse_set_par)(p, beta, omega)
+    subroutine XC_F90(nlc_coef)(p, nlc_b, nlc_c)
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(in)  :: p
-      real(xc_f90_kind),       intent(in)  :: beta        ! mixing
-      real(xc_f90_kind),       intent(in)  :: omega       ! range separation
-    end subroutine XC_F90(hyb_gga_xc_hse_set_par)
-
-    subroutine XC_F90(hyb_gga_xc_pbeh_set_par)(p, alpha)
-      use XC_F90(types_m)
-      type(XC_F90(pointer_t)), intent(in)  :: p
-      real(xc_f90_kind),       intent(in)  :: alpha       ! mixing
-    end subroutine XC_F90(hyb_gga_xc_pbeh_set_par)
+      real(xc_f90_kind),       intent(out) :: nlc_b, nlc_c
+    end subroutine XC_F90(nlc_coef)    
   end interface
 
 
@@ -612,11 +534,274 @@ module XC_F90(lib_m)
   end interface
 
   interface
-    subroutine XC_F90(mgga_x_tb09_set_par)(p, cc)
+      
+    subroutine XC_F90(lda_c_1d_csc_set_par)(p, interaction, bb)
       use XC_F90(types_m)
-      type(XC_F90(pointer_t)), intent(inout)  :: p
-      real(xc_f90_kind),    intent(in)     :: cc
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      integer,                 intent(in)    :: interaction
+      real(xc_f90_kind),       intent(in)    :: bb
+    end subroutine XC_F90(lda_c_1d_csc_set_par)
+  
+    subroutine XC_F90(lda_c_2d_prm_set_par)(p, N)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: N
+    end subroutine XC_F90(lda_c_2d_prm_set_par)
+  
+    subroutine XC_F90(lda_c_vwn_set_par)(p, spin_interpolation)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      integer,                 intent(in)    :: spin_interpolation
+    end subroutine XC_F90(lda_c_vwn_set_par)
+  
+    subroutine XC_F90(lda_c_xalpha_set_par)(p, alpha)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: alpha
+    end subroutine XC_F90(lda_c_xalpha_set_par)
+  
+    subroutine XC_F90(lda_x_set_par)(p, alpha, relativistic, omega)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: alpha
+      integer,                 intent(in)    :: relativistic
+      real(xc_f90_kind),       intent(in)    :: omega
+    end subroutine XC_F90(lda_x_set_par)
+  
+    subroutine XC_F90(lda_x_1d_set_par)(p, interaction, bb)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      integer,                 intent(in)    :: interaction
+      real(xc_f90_kind),       intent(in)    :: bb
+    end subroutine XC_F90(lda_x_1d_set_par)
+  
+    subroutine XC_F90(lda_xc_ksdt_set_par)(p, T)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: T
+    end subroutine XC_F90(lda_xc_ksdt_set_par)
+  
+    subroutine XC_F90(gga_c_lyp_set_par)(p, A, B, c, d)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: A
+      real(xc_f90_kind),       intent(in)    :: B
+      real(xc_f90_kind),       intent(in)    :: c
+      real(xc_f90_kind),       intent(in)    :: d
+    end subroutine XC_F90(gga_c_lyp_set_par)
+  
+    subroutine XC_F90(gga_c_pbe_set_par)(p, beta)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: beta
+    end subroutine XC_F90(gga_c_pbe_set_par)
+  
+    subroutine XC_F90(gga_k_tflw_set_par)(p, gamma, lambda, N)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: gamma
+      real(xc_f90_kind),       intent(in)    :: lambda
+      real(xc_f90_kind),       intent(in)    :: N
+    end subroutine XC_F90(gga_k_tflw_set_par)
+  
+    subroutine XC_F90(gga_x_2d_b88_set_par)(p, beta)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: beta
+    end subroutine XC_F90(gga_x_2d_b88_set_par)
+  
+    subroutine XC_F90(gga_x_b86_set_par)(p, beta, gamma, omega)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: beta
+      real(xc_f90_kind),       intent(in)    :: gamma
+      real(xc_f90_kind),       intent(in)    :: omega
+    end subroutine XC_F90(gga_x_b86_set_par)
+  
+    subroutine XC_F90(gga_x_b88_set_par)(p, beta, gamma)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: beta
+      real(xc_f90_kind),       intent(in)    :: gamma
+    end subroutine XC_F90(gga_x_b88_set_par)
+  
+    subroutine XC_F90(gga_x_hjs_set_par)(p, omega)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: omega
+    end subroutine XC_F90(gga_x_hjs_set_par)
+  
+    subroutine XC_F90(gga_x_ityh_set_par)(p, func_id, omega)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      integer,                 intent(in)    :: func_id
+      real(xc_f90_kind),       intent(in)    :: omega
+    end subroutine XC_F90(gga_x_ityh_set_par)
+  
+    subroutine XC_F90(gga_x_kt_set_par)(p, gamma, delta)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: gamma
+      real(xc_f90_kind),       intent(in)    :: delta
+    end subroutine XC_F90(gga_x_kt_set_par)
+  
+    subroutine XC_F90(gga_lb_set_par)(p, modified, threshold, ip, qtot)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      integer,                 intent(in)    :: modified
+      real(xc_f90_kind),       intent(in)    :: threshold
+      real(xc_f90_kind),       intent(in)    :: ip
+      real(xc_f90_kind),       intent(in)    :: qtot
+    end subroutine XC_F90(gga_lb_set_par)
+  
+    subroutine XC_F90(gga_x_optx_set_par)(p, a, b, gamma)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: a
+      real(xc_f90_kind),       intent(in)    :: b
+      real(xc_f90_kind),       intent(in)    :: gamma
+    end subroutine XC_F90(gga_x_optx_set_par)
+  
+    subroutine XC_F90(gga_x_pbe_set_par)(p, kappa, mu)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: kappa
+      real(xc_f90_kind),       intent(in)    :: mu
+    end subroutine XC_F90(gga_x_pbe_set_par)
+  
+    subroutine XC_F90(gga_x_lambda_set_par)(p, N)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: N
+    end subroutine XC_F90(gga_x_lambda_set_par)
+  
+    subroutine XC_F90(gga_x_pw91_set_par)(p, a, b, c, d, f, alpha, expo)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: a
+      real(xc_f90_kind),       intent(in)    :: b
+      real(xc_f90_kind),       intent(in)    :: c
+      real(xc_f90_kind),       intent(in)    :: d
+      real(xc_f90_kind),       intent(in)    :: f
+      real(xc_f90_kind),       intent(in)    :: alpha
+      real(xc_f90_kind),       intent(in)    :: expo
+    end subroutine XC_F90(gga_x_pw91_set_par)
+  
+    subroutine XC_F90(gga_x_pw91_set_par2)(p, bt, alpha, expo)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: bt
+      real(xc_f90_kind),       intent(in)    :: alpha
+      real(xc_f90_kind),       intent(in)    :: expo
+    end subroutine XC_F90(gga_x_pw91_set_par2)
+  
+    subroutine XC_F90(gga_x_rpbe_set_par)(p, kappa, mu)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: kappa
+      real(xc_f90_kind),       intent(in)    :: mu
+    end subroutine XC_F90(gga_x_rpbe_set_par)
+  
+    subroutine XC_F90(gga_x_sfat_set_par)(p, func_id, omega)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      integer,                 intent(in)    :: func_id
+      real(xc_f90_kind),       intent(in)    :: omega
+    end subroutine XC_F90(gga_x_sfat_set_par)
+  
+    subroutine XC_F90(gga_x_ssb_sw_set_par)(p, A, B, C, D, E)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: A
+      real(xc_f90_kind),       intent(in)    :: B
+      real(xc_f90_kind),       intent(in)    :: C
+      real(xc_f90_kind),       intent(in)    :: D
+      real(xc_f90_kind),       intent(in)    :: E
+    end subroutine XC_F90(gga_x_ssb_sw_set_par)
+  
+    subroutine XC_F90(gga_x_wpbeh_set_par)(p, omega)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: omega
+    end subroutine XC_F90(gga_x_wpbeh_set_par)
+  
+    subroutine XC_F90(hyb_gga_xc_hse_set_par)(p, beta, omega)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: beta
+      real(xc_f90_kind),       intent(in)    :: omega
+    end subroutine XC_F90(hyb_gga_xc_hse_set_par)
+  
+    subroutine XC_F90(hyb_gga_xc_pbeh_set_par)(p, alpha)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: alpha
+    end subroutine XC_F90(hyb_gga_xc_pbeh_set_par)
+  
+    subroutine XC_F90(hyb_mgga_x_mvsh_set_par)(p, alpha)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: alpha
+    end subroutine XC_F90(hyb_mgga_x_mvsh_set_par)
+  
+    subroutine XC_F90(hyb_mgga_xc_tpssh_set_par)(p, alpha)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: alpha
+    end subroutine XC_F90(hyb_mgga_xc_tpssh_set_par)
+  
+    subroutine XC_F90(hyb_mgga_xc_revtpssh_set_par)(p, alpha)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: alpha
+    end subroutine XC_F90(hyb_mgga_xc_revtpssh_set_par)
+  
+    subroutine XC_F90(mgga_c_bc95_set_par)(p, css, copp)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: css
+      real(xc_f90_kind),       intent(in)    :: copp
+    end subroutine XC_F90(mgga_c_bc95_set_par)
+  
+    subroutine XC_F90(mgga_c_pkzb_set_par)(p, beta, d, C0_0, C0_1, C0_2, C0_3)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: beta
+      real(xc_f90_kind),       intent(in)    :: d
+      real(xc_f90_kind),       intent(in)    :: C0_0
+      real(xc_f90_kind),       intent(in)    :: C0_1
+      real(xc_f90_kind),       intent(in)    :: C0_2
+      real(xc_f90_kind),       intent(in)    :: C0_3
+    end subroutine XC_F90(mgga_c_pkzb_set_par)
+  
+    subroutine XC_F90(mgga_x_tb09_set_par)(p, c)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: c
     end subroutine XC_F90(mgga_x_tb09_set_par)
+  
+    subroutine XC_F90(hyb_mgga_x_ms2h_set_par)(p, alpha)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: alpha
+    end subroutine XC_F90(hyb_mgga_x_ms2h_set_par)
+  
+    subroutine XC_F90(hyb_mgga_x_scan0_set_par)(p, alpha)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: alpha
+    end subroutine XC_F90(hyb_mgga_x_scan0_set_par)
+  
+    subroutine XC_F90(mgga_x_tpss_set_par)(p, b, c, e, kappa, mu)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: b
+      real(xc_f90_kind),       intent(in)    :: c
+      real(xc_f90_kind),       intent(in)    :: e
+      real(xc_f90_kind),       intent(in)    :: kappa
+      real(xc_f90_kind),       intent(in)    :: mu
+    end subroutine XC_F90(mgga_x_tpss_set_par)
+  
   end interface
 
 

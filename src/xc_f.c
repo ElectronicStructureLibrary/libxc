@@ -213,51 +213,6 @@ void XC_FC_FUNC(f90_lda_kxc, F90_LDA_KXC)
 }
 
 
-/* Now come some special initializations */
-
-/* parameter of LDA_1D */
-void XC_FC_FUNC(f90_lda_x_1d_set_par, F90_LDA_X_1D_SET_PAR)
-  (void **p, CC_FORTRAN_INT *interaction, FLOAT *bb)
-{
-  XC(lda_x_1d_set_params)((XC(func_type) *)(*p), *interaction, *bb);
-}
-
-/* parameter of Xalpha */
-void XC_FC_FUNC(f90_lda_c_xalpha_set_par, F90_LDA_C_XALPHA_SET_PAR)
-  (void **p, FLOAT *alpha)
-{
-  XC(lda_c_xalpha_set_params)((XC(func_type) *)(*p), *alpha);
-}
-
-/* relativistic option of LDA_X */
-void XC_FC_FUNC(f90_lda_x_set_par, F90_LDA_X_SET_PAR)
-  (void **p, FLOAT *alpha, CC_FORTRAN_INT *relativistic, FLOAT *omega)
-{
-  XC(lda_x_set_params)((XC(func_type) *)(*p), *alpha, *relativistic, *omega);
-}
-
-/* parameter of CSC */
-void XC_FC_FUNC(f90_lda_c_1d_csc_set_par, F90_LDA_C_1D_CSC_SET_PAR)
-  (void **p, CC_FORTRAN_INT *interaction, FLOAT *bb)
-{
-  XC(lda_c_1d_csc_set_params)((XC(func_type) *)(*p), *interaction, *bb);
-}
-
-/* parameter of PRM */
-void XC_FC_FUNC(f90_lda_c_2d_prm_set_par, F90_LDA_C_2D_PRM_SET_PAR)
-  (void **p, FLOAT *N)
-{
-  XC(lda_c_2d_prm_set_params)((XC(func_type) *)(*p), *N);
-}
-
-/* Parameter of KSDT (temperature in Kelvin) */
-void XC_FC_FUNC(f90_lda_xc_ksdt_set_par, F90_LDA_XC_KSDT_SET_PAR)
-  (void **p, FLOAT *T)
-{
-  XC(lda_xc_ksdt_set_params)((XC(func_type) *)(*p), *T);
-}
-
-
 /* GGAs */
 
 void XC_FC_FUNC(f90_gga, F90_GGA)
@@ -320,29 +275,10 @@ void XC_FC_FUNC(f90_gga_kxc, F90_GGA_KXC)
 }
 
 
-/* the van Leeuwen & Baerends functional is special */
-void XC_FC_FUNC(f90_gga_lb_set_par, F90_GGA_LB_SET_PAR)
-  (void **p, CC_FORTRAN_INT *modified, FLOAT *threshold, FLOAT *ip, FLOAT *qtot)
-{
-  XC(gga_lb_set_params)((XC(func_type) *)(*p), *modified, *threshold, *ip, *qtot);
-}
-
 void XC_FC_FUNC(f90_gga_lb_modified, F90_GGA_LB_MODIFIED)
      (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, FLOAT *r, FLOAT *vrho)
 {
   XC(gga_lb_modified)((XC(func_type) *)(*p), *np, rho, sigma, *r, vrho);
-}
-
-void XC_FC_FUNC(f90_gga_x_wpbeh_set_par, F90_GGA_X_WPBEH_SET_PAR)
-  (void **p, FLOAT *omega)
-{
-  XC(gga_x_wpbeh_set_params)((XC(func_type) *)(*p), *omega);
-}
-
-void XC_FC_FUNC(f90_gga_x_hjs_set_par, F90_GGA_X_HJS_SET_PAR)
-  (void **p, FLOAT *omega)
-{
-  XC(gga_x_hjs_set_params)((XC(func_type) *)(*p), *omega);
 }
 
 void XC_FC_FUNC(f90_gga_ak13_get_asymptotic, F90_GGA_AK13_GET_ASYMPTOTIC)
@@ -363,17 +299,6 @@ void XC_FC_FUNC(f90_hyb_cam_coef, F90_HYB_CAM_COEF)
   XC(hyb_cam_coef)((XC(func_type) *)(*p), omega, alpha, beta);
 }
 
-void XC_FC_FUNC(f90_hyb_gga_xc_hse_set_par, F90_HYB_GGA_XC_HSE_SET_PAR)
-  (void **p, FLOAT *beta, FLOAT *omega)
-{
-  XC(hyb_gga_xc_hse_set_params)((XC(func_type) *)(*p), *beta, *omega);
-}
-
-void XC_FC_FUNC(f90_hyb_gga_xc_pbeh_set_par, F90_HYB_GGA_XC_PBEH_SET_PAR)
-  (void **p, FLOAT *alpha)
-{
-  XC(hyb_gga_xc_pbeh_set_params)((XC(func_type) *)(*p), *alpha);
-}
 
 /* meta-GGAs */
 
@@ -443,12 +368,227 @@ void XC_FC_FUNC(f90_mgga_fxc, F90_MGGA_FXC)
 	   v2sigmalapl, v2sigmatau, v2lapltau);
 }
 
-/* parameter of TP09 */
-void XC_FC_FUNC(f90_mgga_x_tb09_set_par, F90_MGGA_X_TB09_SET_PAR)
-  (void **p, FLOAT *cc)
+
+void XC_FC_FUNC(f90_lda_c_1d_csc_set_par, F90_LDA_C_1D_CSC_SET_PAR)
+  (void **p, CC_FORTRAN_INT *interaction, FLOAT *bb)
 {
-  XC(mgga_x_tb09_set_params)((XC(func_type) *)(*p), *cc);
+  XC(lda_c_1d_csc_set_params)((XC(func_type) *)(*p), *interaction, *bb);
 }
 
+void XC_FC_FUNC(f90_lda_c_2d_prm_set_par, F90_LDA_C_2D_PRM_SET_PAR)
+  (void **p, FLOAT *N)
+{
+  XC(lda_c_2d_prm_set_params)((XC(func_type) *)(*p), *N);
+}
+
+void XC_FC_FUNC(f90_lda_c_vwn_set_par, F90_LDA_C_VWN_SET_PAR)
+  (void **p, CC_FORTRAN_INT *spin_interpolation)
+{
+  XC(lda_c_vwn_set_params)((XC(func_type) *)(*p), *spin_interpolation);
+}
+
+void XC_FC_FUNC(f90_lda_c_xalpha_set_par, F90_LDA_C_XALPHA_SET_PAR)
+  (void **p, FLOAT *alpha)
+{
+  XC(lda_c_xalpha_set_params)((XC(func_type) *)(*p), *alpha);
+}
+
+void XC_FC_FUNC(f90_lda_x_set_par, F90_LDA_X_SET_PAR)
+  (void **p, FLOAT *alpha, CC_FORTRAN_INT *relativistic, FLOAT *omega)
+{
+  XC(lda_x_set_params)((XC(func_type) *)(*p), *alpha, *relativistic, *omega);
+}
+
+void XC_FC_FUNC(f90_lda_x_1d_set_par, F90_LDA_X_1D_SET_PAR)
+  (void **p, CC_FORTRAN_INT *interaction, FLOAT *bb)
+{
+  XC(lda_x_1d_set_params)((XC(func_type) *)(*p), *interaction, *bb);
+}
+
+void XC_FC_FUNC(f90_lda_xc_ksdt_set_par, F90_LDA_XC_KSDT_SET_PAR)
+  (void **p, FLOAT *T)
+{
+  XC(lda_xc_ksdt_set_params)((XC(func_type) *)(*p), *T);
+}
+
+void XC_FC_FUNC(f90_gga_c_lyp_set_par, F90_GGA_C_LYP_SET_PAR)
+  (void **p, FLOAT *A, FLOAT *B, FLOAT *c, FLOAT *d)
+{
+  XC(gga_c_lyp_set_params)((XC(func_type) *)(*p), *A, *B, *c, *d);
+}
+
+void XC_FC_FUNC(f90_gga_c_pbe_set_par, F90_GGA_C_PBE_SET_PAR)
+  (void **p, FLOAT *beta)
+{
+  XC(gga_c_pbe_set_params)((XC(func_type) *)(*p), *beta);
+}
+
+void XC_FC_FUNC(f90_gga_k_tflw_set_par, F90_GGA_K_TFLW_SET_PAR)
+  (void **p, FLOAT *gamma, FLOAT *lambda, FLOAT *N)
+{
+  XC(gga_k_tflw_set_params)((XC(func_type) *)(*p), *gamma, *lambda, *N);
+}
+
+void XC_FC_FUNC(f90_gga_x_2d_b88_set_par, F90_GGA_X_2D_B88_SET_PAR)
+  (void **p, FLOAT *beta)
+{
+  XC(gga_x_2d_b88_set_params)((XC(func_type) *)(*p), *beta);
+}
+
+void XC_FC_FUNC(f90_gga_x_b86_set_par, F90_GGA_X_B86_SET_PAR)
+  (void **p, FLOAT *beta, FLOAT *gamma, FLOAT *omega)
+{
+  XC(gga_x_b86_set_params)((XC(func_type) *)(*p), *beta, *gamma, *omega);
+}
+
+void XC_FC_FUNC(f90_gga_x_b88_set_par, F90_GGA_X_B88_SET_PAR)
+  (void **p, FLOAT *beta, FLOAT *gamma)
+{
+  XC(gga_x_b88_set_params)((XC(func_type) *)(*p), *beta, *gamma);
+}
+
+void XC_FC_FUNC(f90_gga_x_hjs_set_par, F90_GGA_X_HJS_SET_PAR)
+  (void **p, FLOAT *omega)
+{
+  XC(gga_x_hjs_set_params)((XC(func_type) *)(*p), *omega);
+}
+
+void XC_FC_FUNC(f90_gga_x_ityh_set_par, F90_GGA_X_ITYH_SET_PAR)
+  (void **p, CC_FORTRAN_INT *func_id, FLOAT *omega)
+{
+  XC(gga_x_ityh_set_params)((XC(func_type) *)(*p), *func_id, *omega);
+}
+
+void XC_FC_FUNC(f90_gga_x_kt_set_par, F90_GGA_X_KT_SET_PAR)
+  (void **p, FLOAT *gamma, FLOAT *delta)
+{
+  XC(gga_x_kt_set_params)((XC(func_type) *)(*p), *gamma, *delta);
+}
+
+void XC_FC_FUNC(f90_gga_lb_set_par, F90_GGA_LB_SET_PAR)
+  (void **p, CC_FORTRAN_INT *modified, FLOAT *threshold, FLOAT *ip, FLOAT *qtot)
+{
+  XC(gga_lb_set_params)((XC(func_type) *)(*p), *modified, *threshold, *ip, *qtot);
+}
+
+void XC_FC_FUNC(f90_gga_x_optx_set_par, F90_GGA_X_OPTX_SET_PAR)
+  (void **p, FLOAT *a, FLOAT *b, FLOAT *gamma)
+{
+  XC(gga_x_optx_set_params)((XC(func_type) *)(*p), *a, *b, *gamma);
+}
+
+void XC_FC_FUNC(f90_gga_x_pbe_set_par, F90_GGA_X_PBE_SET_PAR)
+  (void **p, FLOAT *kappa, FLOAT *mu)
+{
+  XC(gga_x_pbe_set_params)((XC(func_type) *)(*p), *kappa, *mu);
+}
+
+void XC_FC_FUNC(f90_gga_x_lambda_set_par, F90_GGA_X_LAMBDA_SET_PAR)
+  (void **p, FLOAT *N)
+{
+  XC(gga_x_lambda_set_params)((XC(func_type) *)(*p), *N);
+}
+
+void XC_FC_FUNC(f90_gga_x_pw91_set_par, F90_GGA_X_PW91_SET_PAR)
+  (void **p, FLOAT *a, FLOAT *b, FLOAT *c, FLOAT *d, FLOAT *f, FLOAT *alpha, FLOAT *expo)
+{
+  XC(gga_x_pw91_set_params)((XC(func_type) *)(*p), *a, *b, *c, *d, *f, *alpha, *expo);
+}
+
+void XC_FC_FUNC(f90_gga_x_pw91_set_par2, F90_GGA_X_PW91_SET_PAR2)
+  (void **p, FLOAT *bt, FLOAT *alpha, FLOAT *expo)
+{
+  XC(gga_x_pw91_set_params2)((XC(func_type) *)(*p), *bt, *alpha, *expo);
+}
+
+void XC_FC_FUNC(f90_gga_x_rpbe_set_par, F90_GGA_X_RPBE_SET_PAR)
+  (void **p, FLOAT *kappa, FLOAT *mu)
+{
+  XC(gga_x_rpbe_set_params)((XC(func_type) *)(*p), *kappa, *mu);
+}
+
+void XC_FC_FUNC(f90_gga_x_sfat_set_par, F90_GGA_X_SFAT_SET_PAR)
+  (void **p, CC_FORTRAN_INT *func_id, FLOAT *omega)
+{
+  XC(gga_x_sfat_set_params)((XC(func_type) *)(*p), *func_id, *omega);
+}
+
+void XC_FC_FUNC(f90_gga_x_ssb_sw_set_par, F90_GGA_X_SSB_SW_SET_PAR)
+  (void **p, FLOAT *A, FLOAT *B, FLOAT *C, FLOAT *D, FLOAT *E)
+{
+  XC(gga_x_ssb_sw_set_params)((XC(func_type) *)(*p), *A, *B, *C, *D, *E);
+}
+
+void XC_FC_FUNC(f90_gga_x_wpbeh_set_par, F90_GGA_X_WPBEH_SET_PAR)
+  (void **p, FLOAT *omega)
+{
+  XC(gga_x_wpbeh_set_params)((XC(func_type) *)(*p), *omega);
+}
+
+void XC_FC_FUNC(f90_hyb_gga_xc_hse_set_par, F90_HYB_GGA_XC_HSE_SET_PAR)
+  (void **p, FLOAT *beta, FLOAT *omega)
+{
+  XC(hyb_gga_xc_hse_set_params)((XC(func_type) *)(*p), *beta, *omega);
+}
+
+void XC_FC_FUNC(f90_hyb_gga_xc_pbeh_set_par, F90_HYB_GGA_XC_PBEH_SET_PAR)
+  (void **p, FLOAT *alpha)
+{
+  XC(hyb_gga_xc_pbeh_set_params)((XC(func_type) *)(*p), *alpha);
+}
+
+void XC_FC_FUNC(f90_hyb_mgga_x_mvsh_set_par, F90_HYB_MGGA_X_MVSH_SET_PAR)
+  (void **p, FLOAT *alpha)
+{
+  XC(hyb_mgga_x_mvsh_set_params)((XC(func_type) *)(*p), *alpha);
+}
+
+void XC_FC_FUNC(f90_hyb_mgga_xc_tpssh_set_par, F90_HYB_MGGA_XC_TPSSH_SET_PAR)
+  (void **p, FLOAT *alpha)
+{
+  XC(hyb_mgga_xc_tpssh_set_params)((XC(func_type) *)(*p), *alpha);
+}
+
+void XC_FC_FUNC(f90_hyb_mgga_xc_revtpssh_set_par, F90_HYB_MGGA_XC_REVTPSSH_SET_PAR)
+  (void **p, FLOAT *alpha)
+{
+  XC(hyb_mgga_xc_revtpssh_set_params)((XC(func_type) *)(*p), *alpha);
+}
+
+void XC_FC_FUNC(f90_mgga_c_bc95_set_par, F90_MGGA_C_BC95_SET_PAR)
+  (void **p, FLOAT *css, FLOAT *copp)
+{
+  XC(mgga_c_bc95_set_params)((XC(func_type) *)(*p), *css, *copp);
+}
+
+void XC_FC_FUNC(f90_mgga_c_pkzb_set_par, F90_MGGA_C_PKZB_SET_PAR)
+  (void **p, FLOAT *beta, FLOAT *d, FLOAT *C0_0, FLOAT *C0_1, FLOAT *C0_2, FLOAT *C0_3)
+{
+  XC(mgga_c_pkzb_set_params)((XC(func_type) *)(*p), *beta, *d, *C0_0, *C0_1, *C0_2, *C0_3);
+}
+
+void XC_FC_FUNC(f90_mgga_x_tb09_set_par, F90_MGGA_X_TB09_SET_PAR)
+  (void **p, FLOAT *c)
+{
+  XC(mgga_x_tb09_set_params)((XC(func_type) *)(*p), *c);
+}
+
+void XC_FC_FUNC(f90_hyb_mgga_x_ms2h_set_par, F90_HYB_MGGA_X_MS2H_SET_PAR)
+  (void **p, FLOAT *alpha)
+{
+  XC(hyb_mgga_x_ms2h_set_params)((XC(func_type) *)(*p), *alpha);
+}
+
+void XC_FC_FUNC(f90_hyb_mgga_x_scan0_set_par, F90_HYB_MGGA_X_SCAN0_SET_PAR)
+  (void **p, FLOAT *alpha)
+{
+  XC(hyb_mgga_x_scan0_set_params)((XC(func_type) *)(*p), *alpha);
+}
+
+void XC_FC_FUNC(f90_mgga_x_tpss_set_par, F90_MGGA_X_TPSS_SET_PAR)
+  (void **p, FLOAT *b, FLOAT *c, FLOAT *e, FLOAT *kappa, FLOAT *mu)
+{
+  XC(mgga_x_tpss_set_params)((XC(func_type) *)(*p), *b, *c, *e, *kappa, *mu);
+}
 
 #endif

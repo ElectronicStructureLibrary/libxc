@@ -264,6 +264,11 @@ void XC(mgga_x_tb09_set_params)(XC(func_type) *p, FLOAT c);
 void XC(mgga_x_tpss_set_params)(XC(func_type) *p, FLOAT b, FLOAT c, FLOAT e, FLOAT kappa, FLOAT mu);
 void XC(mgga_c_bc95_set_params)(XC(func_type) *p, FLOAT css, FLOAT copp);
 void XC(mgga_c_pkzb_set_params)(XC(func_type) *p, FLOAT beta, FLOAT d, FLOAT C0_0, FLOAT C0_1, FLOAT C0_2, FLOAT C0_3);
+void XC(hyb_mgga_x_mvsh_set_params)(XC(func_type) *p, FLOAT alpha);
+void XC(hyb_mgga_xc_tpssh_set_params)(XC(func_type) *p, FLOAT alpha);
+void XC(hyb_mgga_xc_revtpssh_set_params)(XC(func_type) *p, FLOAT alpha);
+void XC(hyb_mgga_x_ms2h_set_params)(XC(func_type) *p, FLOAT alpha);
+void XC(hyb_mgga_x_scan0_set_params)(XC(func_type) *p, FLOAT alpha);
 
 /* Functionals that are defined as mixtures of others */
 void XC(mix_func)

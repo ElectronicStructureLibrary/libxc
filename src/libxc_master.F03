@@ -145,7 +145,12 @@ module FXC(lib_m)
     FXC(mgga_x_tb09_set_params), &
     FXC(mgga_x_tpss_set_params), &
     FXC(mgga_c_bc95_set_params), &
-    FXC(mgga_c_pkzb_set_params)
+    FXC(mgga_c_pkzb_set_params), &
+    FXC(hyb_mgga_x_mvsh_set_params), &
+    FXC(hyb_mgga_xc_tpssh_set_params), &
+    FXC(hyb_mgga_xc_revtpssh_set_params), &
+    FXC(hyb_mgga_x_ms2h_set_params), &
+    FXC(hyb_mgga_x_scan0_set_params)
 
 
   integer(c_int), parameter, public :: &
@@ -708,6 +713,37 @@ module FXC(lib_m)
       type(c_ptr), value :: p
       real(RTYPE), value :: beta, d, c0_0, c0_1, c0_2, c0_3
     end subroutine XC(mgga_c_pkzb_set_params)
+
+    subroutine XC(hyb_mgga_x_mvsh_set_params)(p, alpha) bind(c)
+      import
+      type(c_ptr), value :: p
+      real(RTYPE), value :: alpha
+    end subroutine XC(hyb_mgga_x_mvsh_set_params)
+
+    subroutine XC(hyb_mgga_xc_tpssh_set_params)(p, alpha) bind(c)
+      import
+      type(c_ptr), value :: p
+      real(RTYPE), value :: alpha
+    end subroutine XC(hyb_mgga_xc_tpssh_set_params)
+
+    subroutine XC(hyb_mgga_xc_revtpssh_set_params)(p, alpha) bind(c)
+      import
+      type(c_ptr), value :: p
+      real(RTYPE), value :: alpha
+    end subroutine XC(hyb_mgga_xc_revtpssh_set_params)
+
+    subroutine XC(hyb_mgga_x_ms2h_set_params)(p, alpha) bind(c)
+      import
+      type(c_ptr), value :: p
+      real(RTYPE), value :: alpha
+    end subroutine XC(hyb_mgga_x_ms2h_set_params)
+
+    subroutine XC(hyb_mgga_x_scan0_set_params)(p, alpha) bind(c)
+      import
+      type(c_ptr), value :: p
+      real(RTYPE), value :: alpha
+    end subroutine XC(hyb_mgga_x_scan0_set_params)
+
   end interface
 
   
@@ -1348,7 +1384,46 @@ contains
 
   end subroutine FXC(mgga_c_pkzb_set_params)
 
+  subroutine FXC(hyb_mgga_x_mvsh_set_params)(p, alpha)
+    type(FXC(func_t)), intent(inout) :: p
+    real(RTYPE),       intent(in)    :: alpha
+    
+    call XC(hyb_mgga_x_mvsh_set_params)(p%ptr, alpha)
+    
+  end subroutine FXC(hyb_mgga_x_mvsh_set_params)
   
+  subroutine FXC(hyb_mgga_xc_tpssh_set_params)(p, alpha)
+    type(FXC(func_t)), intent(inout) :: p
+    real(RTYPE),       intent(in)    :: alpha
+    
+    call XC(hyb_mgga_xc_tpssh_set_params)(p%ptr, alpha)
+    
+  end subroutine FXC(hyb_mgga_xc_tpssh_set_params)
+  
+  subroutine FXC(hyb_mgga_xc_revtpssh_set_params)(p, alpha)
+    type(FXC(func_t)), intent(inout) :: p
+    real(RTYPE),       intent(in)    :: alpha
+    
+    call XC(hyb_mgga_xc_revtpssh_set_params)(p%ptr, alpha)
+    
+  end subroutine FXC(hyb_mgga_xc_revtpssh_set_params)
+
+  subroutine FXC(hyb_mgga_x_ms2h_set_params)(p, alpha)
+    type(FXC(func_t)), intent(inout) :: p
+    real(RTYPE),       intent(in)    :: alpha
+
+    call XC(hyb_mgga_x_ms2h_set_params)(p%ptr, alpha)
+    
+  end subroutine FXC(hyb_mgga_x_ms2h_set_params)
+  
+  subroutine FXC(hyb_mgga_x_scan0_set_params)(p, alpha)
+    type(FXC(func_t)), intent(inout) :: p
+    real(RTYPE),       intent(in)    :: alpha
+    
+    call XC(hyb_mgga_x_scan0_set_params)(p%ptr, alpha)
+    
+  end subroutine FXC(hyb_mgga_x_scan0_set_params)
+
   ! Helper functions to convert between C and Fortran strings
   ! Based on the routines by Joseph M. Krahn
   function f_to_c_string(f_string) result(c_string)

@@ -25,12 +25,12 @@
 #define XC_MGGA_C_SCAN          267 /* SCAN correlation */
 
 /* Constants */
-const FLOAT b1c=0.02858, b2c=0.0889, b3c=0.1255;
-const FLOAT c1c=0.64, c2c=1.5, dc=0.7;
-const FLOAT c_gamma=0.03109069086965490; /* (1-log(2))/Pi^2 */
-const FLOAT beta_a=0.066725, beta_b=0.1, beta_c=0.1778;
-const FLOAT G_c=2.3621;
-const FLOAT chi=0.128026;
+const static FLOAT b1c=0.02858, b2c=0.0889, b3c=0.1255;
+const static FLOAT c1c=0.64, c2c=1.5, dc=0.7;
+const static FLOAT c_gamma=0.03109069086965490; /* (1-log(2))/Pi^2 */
+const static FLOAT beta_a=0.066725, beta_b=0.1, beta_c=0.1778;
+const static FLOAT G_c=2.3621;
+const static FLOAT chi=0.128026;
 
 /* Calculates E_c^{LDA0} = -b1c / ( 1 + b2c*r^{1/2} + b3c*r ) */
 static void

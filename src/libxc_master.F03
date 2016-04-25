@@ -96,13 +96,6 @@ module FXC(lib_m)
     FXC(lda_vxc), &
     FXC(lda_fxc), &
     FXC(lda_kxc), &
-    FXC(lda_x_set_params), &
-    FXC(lda_x_1d_set_params), &
-    FXC(lda_c_1d_csc_set_params), &
-    FXC(lda_c_xalpha_set_params), &
-    FXC(lda_c_2d_prm_set_params), &
-    FXC(lda_c_vwn_set_params), &
-    FXC(lda_xc_ksdt_set_params), &
     ! gga
     FXC(gga), &
     FXC(gga_exc), &
@@ -111,46 +104,16 @@ module FXC(lib_m)
     FXC(gga_fxc), &
     FXC(gga_kxc), &
     FXC(gga_lb_modified), &
-    FXC(gga_x_b86_set_params), &
-    FXC(gga_x_b88_set_params), &
-    FXC(gga_x_pbe_set_params), &
-    FXC(gga_c_pbe_set_params), &
-    FXC(gga_x_pw91_set_params), &
-    FXC(gga_x_pw91_set_params2), &
-    FXC(gga_x_rpbe_set_params), &
-    FXC(gga_x_optx_set_params), &
-    FXC(gga_c_lyp_set_params), &
-    FXC(gga_lb_set_params), &
-    FXC(gga_k_tflw_set_params), &
-    FXC(gga_x_2d_b88_set_params), &
-    FXC(gga_x_wpbeh_set_params), &
-    FXC(gga_x_hjs_set_params), &
-    FXC(gga_x_ityh_set_params), &
-    FXC(gga_x_sfat_set_params), &
-    FXC(gga_x_ssb_sw_set_params), &
-    FXC(gga_x_kt_set_params), &
-    FXC(gga_x_lambda_set_params), &
     FXC(gga_ak13_get_asymptotic), &
     FXC(hyb_exx_coef), &
     FXC(hyb_cam_coef), &
     FXC(nlc_coef), &
-    FXC(hyb_gga_xc_hse_set_params), &
-    FXC(hyb_gga_xc_pbeh_set_params), &
     ! mgga
     FXC(mgga), &
     FXC(mgga_exc), &
     FXC(mgga_exc_vxc), &
     FXC(mgga_vxc), &
-    FXC(mgga_fxc), &
-    FXC(mgga_x_tb09_set_params), &
-    FXC(mgga_x_tpss_set_params), &
-    FXC(mgga_c_bc95_set_params), &
-    FXC(mgga_c_pkzb_set_params), &
-    FXC(hyb_mgga_x_mvsh_set_params), &
-    FXC(hyb_mgga_xc_tpssh_set_params), &
-    FXC(hyb_mgga_xc_revtpssh_set_params), &
-    FXC(hyb_mgga_x_ms2h_set_params), &
-    FXC(hyb_mgga_x_scan0_set_params)
+    FXC(mgga_fxc)
 
 
   integer(c_int), parameter, public :: &
@@ -368,53 +331,6 @@ module FXC(lib_m)
   end interface
   
 
-  interface
-    subroutine XC(lda_x_set_params)(p, alpha, relativistic, omega) bind(c)
-      import
-      type(c_ptr),    value :: p
-      real(RTYPE),    value :: alpha, omega
-      integer(c_int), value :: relativistic
-    end subroutine XC(lda_x_set_params)
-
-    subroutine XC(lda_x_1d_set_params)(p, interaction, bb) bind(c)
-      import
-      type(c_ptr),    value  :: p
-      integer(c_int), value  :: interaction
-      real(RTYPE),    value  :: bb
-    end subroutine XC(lda_x_1d_set_params)
-
-    subroutine XC(lda_c_1d_csc_set_params)(p, interaction, bb) bind(c)
-      import
-      type(c_ptr),    value :: p
-      integer(c_int), value :: interaction
-      real(RTYPE),    value :: bb
-    end subroutine XC(lda_c_1d_csc_set_params)
-    
-    subroutine XC(lda_c_xalpha_set_params)(p, alpha) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: alpha
-    end subroutine XC(lda_c_xalpha_set_params)
-
-    subroutine XC(lda_c_2d_prm_set_params)(p, N) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: N
-    end subroutine XC(lda_c_2d_prm_set_params)
-
-    subroutine XC(lda_c_vwn_set_params)(p, spin_interpolation) bind(c)
-      import
-      type(c_ptr),    value :: p
-      integer(c_int), value :: spin_interpolation
-    end subroutine XC(lda_c_vwn_set_params)
-
-    subroutine XC(lda_xc_ksdt_set_params)(p, t) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: t
-    end subroutine XC(lda_xc_ksdt_set_params)
-  end interface
-
   ! GGAs
   !----------------------------------------------------------------
   interface
@@ -481,124 +397,6 @@ module FXC(lib_m)
       real(RTYPE),    intent(out) :: dedd(*)
     end subroutine XC(gga_lb_modified)
 
-    subroutine XC(gga_x_b86_set_params)(p, beta, gamma, omega) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: beta, gamma, omega
-    end subroutine XC(gga_x_b86_set_params)
-
-    subroutine XC(gga_x_b88_set_params)(p, beta, gamma) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: beta, gamma
-    end subroutine XC(gga_x_b88_set_params)
-
-    subroutine XC(gga_x_pbe_set_params)(p, kappa, mu) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: kappa, mu
-    end subroutine XC(gga_x_pbe_set_params)
-
-    subroutine XC(gga_c_pbe_set_params)(p, beta) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: beta
-    end subroutine XC(gga_c_pbe_set_params)
-
-    subroutine XC(gga_x_pw91_set_params)(p, a, b, c, d, f, alpha, expo) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: a, b, c, d, f, alpha, expo
-    end subroutine XC(gga_x_pw91_set_params)
-
-    subroutine XC(gga_x_pw91_set_params2)(p, bt, alpha, expo) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: bt, alpha, expo
-    end subroutine XC(gga_x_pw91_set_params2)
-
-    subroutine XC(gga_x_rpbe_set_params)(p, kappa, mu) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: kappa, mu
-    end subroutine XC(gga_x_rpbe_set_params)
-
-    subroutine XC(gga_x_optx_set_params)(p, a, b, gamma) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: a, b, gamma
-    end subroutine XC(gga_x_optx_set_params)
-
-    subroutine XC(gga_c_lyp_set_params)(p, a, b, c, d) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: a, b, c, d
-    end subroutine XC(gga_c_lyp_set_params)
-
-    subroutine XC(gga_lb_set_params)(p, modified, threshold, ip, qtot) bind(c)
-      import
-      type(c_ptr),    value :: p
-      integer(c_int), value :: modified
-      real(RTYPE),    value :: threshold, ip, qtot
-    end subroutine XC(gga_lb_set_params)
-
-    subroutine XC(gga_k_tflw_set_params)(p, gamma, lambda, n) bind(c)
-      import
-      type(c_ptr),    value :: p
-      real(RTYPE),    value :: gamma, lambda
-      integer(c_int), value :: n
-    end subroutine XC(gga_k_tflw_set_params)
-    
-    subroutine XC(gga_x_2d_b88_set_params)(p, beta) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: beta
-    end subroutine XC(gga_x_2d_b88_set_params)
-
-    subroutine XC(gga_x_wpbeh_set_params)(p, omega) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: omega
-    end subroutine XC(gga_x_wpbeh_set_params)
-
-    subroutine XC(gga_x_hjs_set_params)(p, omega) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: omega
-    end subroutine XC(gga_x_hjs_set_params)
-
-    subroutine XC(gga_x_ityh_set_params)(p, func_id, omega) bind(c)
-      import
-      type(c_ptr),    value :: p
-      integer(c_int), value :: func_id
-      real(RTYPE),    value :: omega
-    end subroutine XC(gga_x_ityh_set_params)
-
-    subroutine XC(gga_x_sfat_set_params)(p, func_id, omega) bind(c)
-      import
-      type(c_ptr),    value :: p
-      integer(c_int), value :: func_id
-      real(RTYPE),    value :: omega
-    end subroutine XC(gga_x_sfat_set_params)
-    
-    subroutine XC(gga_x_ssb_sw_set_params)(p, a, b, c, d, e) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: a, b, c, d, e
-    end subroutine XC(gga_x_ssb_sw_set_params)
-
-    subroutine XC(gga_x_kt_set_params)(p, gamma, delta) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: gamma, delta
-    end subroutine XC(gga_x_kt_set_params)
-
-    subroutine XC(gga_x_lambda_set_params)(p, n) bind(c)
-      import
-      type(c_ptr),    value :: p
-      integer(c_int), value :: n
-    end subroutine XC(gga_x_lambda_set_params)
-
     real(RTYPE) function XC(gga_ak13_get_asymptotic)(homo) bind(c)
       import
       real(RTYPE), value :: homo
@@ -623,19 +421,7 @@ module FXC(lib_m)
       type(c_ptr), value       :: p
       real(RTYPE), intent(out) :: nlc_b, nlc_c
     end subroutine XC(nlc_coef)
-    
-    subroutine XC(hyb_gga_xc_hse_set_params)(p, alpha, omega) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: alpha, omega
-    end subroutine XC(hyb_gga_xc_hse_set_params)
-
-    subroutine XC(hyb_gga_xc_pbeh_set_params)(p, alpha) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: alpha
-    end subroutine XC(hyb_gga_xc_pbeh_set_params)
-  end interface
+      end interface
 
 
   ! the meta-GGAs
@@ -689,66 +475,8 @@ module FXC(lib_m)
     end subroutine XC(mgga_fxc)
   end interface
 
-  interface
-    subroutine XC(mgga_x_tb09_set_params)(p, c) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: c
-    end subroutine XC(mgga_x_tb09_set_params)
-
-    subroutine XC(mgga_x_tpss_set_params)(p, b, c, e, kappa, mu) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: b, c, e, kappa, mu
-    end subroutine XC(mgga_x_tpss_set_params)
-
-    subroutine XC(mgga_c_bc95_set_params)(p, css, copp) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: css, copp
-    end subroutine XC(mgga_c_bc95_set_params)
-
-    subroutine XC(mgga_c_pkzb_set_params)(p, beta, d, c0_0, c0_1, c0_2, c0_3) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: beta, d, c0_0, c0_1, c0_2, c0_3
-    end subroutine XC(mgga_c_pkzb_set_params)
-
-    subroutine XC(hyb_mgga_x_mvsh_set_params)(p, alpha) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: alpha
-    end subroutine XC(hyb_mgga_x_mvsh_set_params)
-
-    subroutine XC(hyb_mgga_xc_tpssh_set_params)(p, alpha) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: alpha
-    end subroutine XC(hyb_mgga_xc_tpssh_set_params)
-
-    subroutine XC(hyb_mgga_xc_revtpssh_set_params)(p, alpha) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: alpha
-    end subroutine XC(hyb_mgga_xc_revtpssh_set_params)
-
-    subroutine XC(hyb_mgga_x_ms2h_set_params)(p, alpha) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: alpha
-    end subroutine XC(hyb_mgga_x_ms2h_set_params)
-
-    subroutine XC(hyb_mgga_x_scan0_set_params)(p, alpha) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: alpha
-    end subroutine XC(hyb_mgga_x_scan0_set_params)
-
-  end interface
-
-  
-contains
-
+! contains 'contains'
+#include "libxc_set_params_inc.f03"
   
   !----------------------------------------------------------------
   subroutine FXC(version)(major, minor, micro)
@@ -949,65 +677,6 @@ contains
 
   end subroutine FXC(lda_kxc)
 
-  subroutine FXC(lda_x_set_params)(p, alpha, relativistic, omega)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: alpha, omega
-    integer,           intent(in)    :: relativistic
-
-    call XC(lda_x_set_params)(p%ptr, alpha, relativistic, omega)    
-    
-  end subroutine FXC(lda_x_set_params)
-
-  subroutine FXC(lda_x_1d_set_params)(p, interaction, bb)
-    type(FXC(func_t)), intent(inout) :: p
-    integer,           intent(in)    :: interaction
-    real(RTYPE),       intent(in)    :: bb
-
-    call XC(lda_x_1d_set_params)(p%ptr, interaction, bb)
-
-  end subroutine FXC(lda_x_1d_set_params)
-
-  subroutine FXC(lda_c_1d_csc_set_params)(p, interaction, bb)
-    type(FXC(func_t)), intent(inout) :: p
-    integer,           intent(in)    :: interaction
-    real(RTYPE),       intent(in)    :: bb
-
-    call XC(lda_c_1d_csc_set_params)(p%ptr, interaction, bb)
-
-  end subroutine FXC(lda_c_1d_csc_set_params)
-  
-  subroutine FXC(lda_c_xalpha_set_params)(p, alpha)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: alpha
-
-    call XC(lda_c_xalpha_set_params)(p%ptr, alpha)
-    
-  end subroutine FXC(lda_c_xalpha_set_params)
-  
-  subroutine FXC(lda_c_2d_prm_set_params)(p, n)
-    type(FXC(func_t)), intent(inout) :: p   
-    real(RTYPE),       intent(in)    :: n
-
-    call XC(lda_c_2d_prm_set_params)(p%ptr, n)
-    
-  end subroutine FXC(lda_c_2d_prm_set_params)
-
-  subroutine FXC(lda_c_vwn_set_params)(p, spin_interpolation)
-    type(FXC(func_t)), intent(inout) :: p   
-    integer,           intent(in)    :: spin_interpolation
-
-    call XC(lda_c_vwn_set_params)(p%ptr, spin_interpolation)
-
-  end subroutine FXC(lda_c_vwn_set_params)
-
-  subroutine FXC(lda_xc_ksdt_set_params)(p, t)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: t
-
-    call XC(lda_xc_ksdt_set_params)(p%ptr, t)
-    
-  end subroutine FXC(lda_xc_ksdt_set_params)
-
   
   ! GGAs
   !----------------------------------------------------------------
@@ -1086,162 +755,6 @@ contains
     
   end subroutine FXC(gga_lb_modified)
 
-  subroutine FXC(gga_x_b86_set_params)(p, beta, gamma, omega)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: beta, gamma, omega
-
-    call XC(gga_x_b86_set_params)(p%ptr, beta, gamma, omega)
-    
-  end subroutine FXC(gga_x_b86_set_params)
-
-  subroutine FXC(gga_x_b88_set_params)(p, beta, gamma)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: beta, gamma
-
-    call XC(gga_x_b88_set_params)(p%ptr, beta, gamma)
-    
-  end subroutine FXC(gga_x_b88_set_params)
-
-  subroutine FXC(gga_x_pbe_set_params)(p, kappa, mu)
-    type(FXC(func_t)), intent(inout)  :: p
-    real(RTYPE),       intent(in)     :: kappa, mu
-
-    call XC(gga_x_pbe_set_params)(p%ptr, kappa, mu)
-    
-  end subroutine FXC(gga_x_pbe_set_params)
-
-  subroutine FXC(gga_c_pbe_set_params)(p, beta)
-    type(FXC(func_t)), intent(inout)  :: p
-    real(RTYPE),       intent(in)     :: beta
-
-    call XC(gga_c_pbe_set_params)(p%ptr, beta)
-    
-  end subroutine FXC(gga_c_pbe_set_params)
-
-  subroutine FXC(gga_x_pw91_set_params)(p, a, b, c, d, f, alpha, expo)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: a, b, c, d, f, alpha, expo
-
-    call XC(gga_x_pw91_set_params)(p%ptr, a, b, c, d, f, alpha, expo)
-
-  end subroutine FXC(gga_x_pw91_set_params)
-
-  subroutine FXC(gga_x_pw91_set_params2)(p, bt, alpha, expo)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: bt, alpha, expo
-
-    call XC(gga_x_pw91_set_params2)(p%ptr, bt, alpha, expo)
-
-  end subroutine FXC(gga_x_pw91_set_params2)
-
-  subroutine FXC(gga_x_rpbe_set_params)(p, kappa, mu)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: kappa, mu
-    
-    call XC(gga_x_rpbe_set_params)(p%ptr, kappa, mu)
-
-  end subroutine FXC(gga_x_rpbe_set_params)
-
-  subroutine FXC(gga_x_optx_set_params)(p, a, b, gamma)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: a, b, gamma
-    
-    call XC(gga_x_optx_set_params)(p%ptr, a, b, gamma)
-
-  end subroutine FXC(gga_x_optx_set_params)
-
-  subroutine FXC(gga_c_lyp_set_params)(p, a, b, c, d)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: a, b, c, d
-
-    call XC(gga_c_lyp_set_params)(p%ptr, a, b, c, d)
-
-  end subroutine FXC(gga_c_lyp_set_params)
-
-  subroutine FXC(gga_lb_set_params)(p, modified, threshold, ip, qtot)
-    type(FXC(func_t)), intent(inout) :: p
-    integer,           intent(in)    :: modified
-    real(RTYPE),       intent(in)    :: threshold, ip, qtot
-
-    call XC(gga_lb_set_params)(p%ptr, modified, threshold, ip, qtot)
-    
-  end subroutine FXC(gga_lb_set_params)
-
-  subroutine FXC(gga_k_tflw_set_params)(p, gamma, lambda, n)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: gamma, lambda
-    integer,           intent(in)    :: n
-
-    call XC(gga_k_tflw_set_params)(p%ptr, gamma, lambda, n)
-
-  end subroutine FXC(gga_k_tflw_set_params)
-    
-  subroutine FXC(gga_x_2d_b88_set_params)(p, beta)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: beta
-
-    call XC(gga_x_2d_b88_set_params)(p%ptr, beta)
-    
-  end subroutine FXC(gga_x_2d_b88_set_params)
-
-  subroutine FXC(gga_x_wpbeh_set_params)(p, omega)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: omega
-
-    call XC(gga_x_wpbeh_set_params)(p%ptr, omega)
-
-  end subroutine FXC(gga_x_wpbeh_set_params)
-
-  subroutine FXC(gga_x_hjs_set_params)(p, omega)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: omega
-
-    call XC(gga_x_hjs_set_params)(p%ptr, omega)
-    
-  end subroutine FXC(gga_x_hjs_set_params)
-
-  subroutine FXC(gga_x_ityh_set_params)(p, func_id, omega)
-    type(FXC(func_t)), intent(inout) :: p
-    integer,           intent(in)    :: func_id
-    real(RTYPE),       intent(in)    :: omega
-
-    call XC(gga_x_ityh_set_params)(p%ptr, func_id, omega)
-
-  end subroutine FXC(gga_x_ityh_set_params)
-  
-  subroutine FXC(gga_x_sfat_set_params)(p, func_id, omega)
-    type(FXC(func_t)), intent(inout) :: p
-    integer,           intent(in)    :: func_id
-    real(RTYPE),       intent(in)    :: omega
-
-    call XC(gga_x_sfat_set_params)(p%ptr, func_id, omega)
-
-  end subroutine FXC(gga_x_sfat_set_params)
-    
-  subroutine FXC(gga_x_ssb_sw_set_params)(p, a, b, c, d, e)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: a, b, c, d, e
-
-    call XC(gga_x_ssb_sw_set_params)(p%ptr, a, b, c, d, e)
-
-  end subroutine FXC(gga_x_ssb_sw_set_params)
-
-  subroutine FXC(gga_x_kt_set_params)(p, gamma, delta)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: gamma, delta
-
-    call XC(gga_x_kt_set_params)(p%ptr, gamma, delta)
-
-  end subroutine FXC(gga_x_kt_set_params)
-
-  subroutine FXC(gga_x_lambda_set_params)(p, n)
-    type(FXC(func_t)), intent(inout) :: p
-    integer,           intent(in)    :: n
-
-    call XC(gga_x_lambda_set_params)(p%ptr, n)
-    
-  end subroutine FXC(gga_x_lambda_set_params)
-
   real(RTYPE) function FXC(gga_ak13_get_asymptotic)(homo) result(asymptotic)
     real(RTYPE), intent(in) :: homo
 
@@ -1272,22 +785,6 @@ contains
     
   end subroutine FXC(nlc_coef)
   
-  subroutine FXC(hyb_gga_xc_hse_set_params)(p, alpha, omega)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: alpha, omega
-
-    call XC(hyb_gga_xc_hse_set_params)(p%ptr, alpha, omega)
-    
-  end subroutine FXC(hyb_gga_xc_hse_set_params)
-  
-  subroutine FXC(hyb_gga_xc_pbeh_set_params)(p, alpha)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: alpha
-    
-    call XC(hyb_gga_xc_pbeh_set_params)(p%ptr, alpha)
-
-  end subroutine FXC(hyb_gga_xc_pbeh_set_params)
-
 
   ! the meta-GGAs
   !----------------------------------------------------------------
@@ -1352,77 +849,6 @@ contains
 
   end subroutine FXC(mgga_fxc)
 
-  subroutine FXC(mgga_x_tb09_set_params)(p, c)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: c
-
-    call XC(mgga_x_tb09_set_params)(p%ptr, c)
-
-  end subroutine FXC(mgga_x_tb09_set_params)
-
-  subroutine FXC(mgga_x_tpss_set_params)(p, b, c, e, kappa, mu)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: b, c, e, kappa, mu
-
-    call XC(mgga_x_tpss_set_params)(p%ptr, b, c, e, kappa, mu)
-
-  end subroutine FXC(mgga_x_tpss_set_params)
-
-  subroutine FXC(mgga_c_bc95_set_params)(p, css, copp)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: css, copp
-
-    call XC(mgga_c_bc95_set_params)(p%ptr, css, copp)
-
-  end subroutine FXC(mgga_c_bc95_set_params)
-
-  subroutine FXC(mgga_c_pkzb_set_params)(p, beta, d, c0_0, c0_1, c0_2, c0_3)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: beta, d, c0_0, c0_1, c0_2, c0_3
-
-    call XC(mgga_c_pkzb_set_params)(p%ptr, beta, d, c0_0, c0_1, c0_2, c0_3)
-
-  end subroutine FXC(mgga_c_pkzb_set_params)
-
-  subroutine FXC(hyb_mgga_x_mvsh_set_params)(p, alpha)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: alpha
-    
-    call XC(hyb_mgga_x_mvsh_set_params)(p%ptr, alpha)
-    
-  end subroutine FXC(hyb_mgga_x_mvsh_set_params)
-  
-  subroutine FXC(hyb_mgga_xc_tpssh_set_params)(p, alpha)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: alpha
-    
-    call XC(hyb_mgga_xc_tpssh_set_params)(p%ptr, alpha)
-    
-  end subroutine FXC(hyb_mgga_xc_tpssh_set_params)
-  
-  subroutine FXC(hyb_mgga_xc_revtpssh_set_params)(p, alpha)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: alpha
-    
-    call XC(hyb_mgga_xc_revtpssh_set_params)(p%ptr, alpha)
-    
-  end subroutine FXC(hyb_mgga_xc_revtpssh_set_params)
-
-  subroutine FXC(hyb_mgga_x_ms2h_set_params)(p, alpha)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: alpha
-
-    call XC(hyb_mgga_x_ms2h_set_params)(p%ptr, alpha)
-    
-  end subroutine FXC(hyb_mgga_x_ms2h_set_params)
-  
-  subroutine FXC(hyb_mgga_x_scan0_set_params)(p, alpha)
-    type(FXC(func_t)), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: alpha
-    
-    call XC(hyb_mgga_x_scan0_set_params)(p%ptr, alpha)
-    
-  end subroutine FXC(hyb_mgga_x_scan0_set_params)
 
   ! Helper functions to convert between C and Fortran strings
   ! Based on the routines by Joseph M. Krahn

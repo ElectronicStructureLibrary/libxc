@@ -178,14 +178,6 @@ void XC(lda_vxc)    (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *vr
 void XC(lda_fxc)    (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *v2rho2);
 void XC(lda_kxc)    (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *v3rho3);
 
-void XC(lda_x_set_params)        (XC(func_type) *p, FLOAT alpha, int relativistic, FLOAT omega);
-void XC(lda_x_1d_set_params)     (XC(func_type) *p, int interaction, FLOAT bb);
-void XC(lda_c_1d_csc_set_params) (XC(func_type) *p, int interaction, FLOAT bb);
-void XC(lda_c_xalpha_set_params) (XC(func_type) *p, FLOAT alpha);
-void XC(lda_c_2d_prm_set_params) (XC(func_type) *p, FLOAT N);
-void XC(lda_c_vwn_set_params)    (XC(func_type) *p, int spin_interpolation);
-void XC(lda_xc_ksdt_set_params)  (XC(func_type) *p, FLOAT T);
-
 
 int  XC(gga_init)(XC(func_type) *p, const XC(func_info_type) *info, int nspin);
 void XC(gga_end) (XC(func_type) *p);
@@ -207,34 +199,11 @@ void XC(gga_kxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *
 void XC(gga_lb_modified)  (const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
 			   FLOAT r, FLOAT *vrho);
 
-void XC(gga_x_b86_set_params)     (XC(func_type) *p, FLOAT beta, FLOAT gamma, FLOAT omega);
-void XC(gga_x_b88_set_params)     (XC(func_type) *p, FLOAT beta, FLOAT gamma);
-void XC(gga_x_pbe_set_params)     (XC(func_type) *p, FLOAT kappa, FLOAT mu);
-void XC(gga_c_pbe_set_params)     (XC(func_type) *p, FLOAT beta);
-void XC(gga_x_pw91_set_params)    (XC(func_type) *p, FLOAT a, FLOAT b, FLOAT c, FLOAT d, FLOAT f, FLOAT alpha, FLOAT expo);
-void XC(gga_x_pw91_set_params2)   (XC(func_type) *p, FLOAT bt, FLOAT alpha, FLOAT expo);
-void XC(gga_x_rpbe_set_params)    (XC(func_type) *p, FLOAT kappa, FLOAT mu);
-void XC(gga_x_optx_set_params)    (XC(func_type) *p, FLOAT a, FLOAT b, FLOAT gamma);
-void XC(gga_c_lyp_set_params)     (XC(func_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
-void XC(gga_lb_set_params)        (XC(func_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot);
-void XC(gga_k_tflw_set_params)    (XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N);
-void XC(gga_x_2d_b88_set_params)  (XC(func_type) *p, FLOAT beta);
-void XC(gga_x_wpbeh_set_params)   (XC(func_type) *p, FLOAT omega);
-void XC(gga_x_hjs_set_params)     (XC(func_type) *p, FLOAT omega);
-void XC(gga_x_ityh_set_params)    (XC(func_type) *p, int func_id, FLOAT omega);
-void XC(gga_x_sfat_set_params)    (XC(func_type) *p, int func_id, FLOAT omega);
-void XC(gga_x_ssb_sw_set_params)  (XC(func_type) *p, FLOAT A, FLOAT B, FLOAT C, FLOAT D, FLOAT E);
-void XC(gga_x_kt_set_params)      (XC(func_type) *p, FLOAT gamma, FLOAT delta);
-void XC(gga_x_lambda_set_params)  (XC(func_type) *p, FLOAT N);
-
 FLOAT XC(gga_ak13_get_asymptotic) (FLOAT homo);
 
 FLOAT XC(hyb_exx_coef)(const XC(func_type) *p);
 void  XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT *beta);
 void  XC(nlc_coef)(const XC(func_type) *p, FLOAT *nlc_b, FLOAT *nlc_C);
-
-void XC(hyb_gga_xc_hse_set_params) (XC(func_type) *p, FLOAT alpha, FLOAT omega);
-void XC(hyb_gga_xc_pbeh_set_params)(XC(func_type) *p, FLOAT alpha);
 
 /* the meta-GGAs */
 int  XC(mgga_init)(XC(func_type) *p, const XC(func_info_type) *info, int nspin);
@@ -260,16 +229,6 @@ void XC(mgga_fxc)    (const XC(func_type) *p, int np,
 		      FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
 		      FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau);
 
-void XC(mgga_x_tb09_set_params)(XC(func_type) *p, FLOAT c);
-void XC(mgga_x_tpss_set_params)(XC(func_type) *p, FLOAT b, FLOAT c, FLOAT e, FLOAT kappa, FLOAT mu);
-void XC(mgga_c_bc95_set_params)(XC(func_type) *p, FLOAT css, FLOAT copp);
-void XC(mgga_c_pkzb_set_params)(XC(func_type) *p, FLOAT beta, FLOAT d, FLOAT C0_0, FLOAT C0_1, FLOAT C0_2, FLOAT C0_3);
-void XC(hyb_mgga_x_mvsh_set_params)(XC(func_type) *p, FLOAT alpha);
-void XC(hyb_mgga_xc_tpssh_set_params)(XC(func_type) *p, FLOAT alpha);
-void XC(hyb_mgga_xc_revtpssh_set_params)(XC(func_type) *p, FLOAT alpha);
-void XC(hyb_mgga_x_ms2h_set_params)(XC(func_type) *p, FLOAT alpha);
-void XC(hyb_mgga_x_scan0_set_params)(XC(func_type) *p, FLOAT alpha);
-
 /* Functionals that are defined as mixtures of others */
 void XC(mix_func)
   (const XC(func_type) *func, int np,
@@ -279,6 +238,8 @@ void XC(mix_func)
    FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
    FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau);
   
+#include "xc_set_params.h"
+
 #include "xc_unconfig.h"
 
 #ifdef __cplusplus

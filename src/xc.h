@@ -133,7 +133,7 @@ struct XC(func_type){
   FLOAT *mix_coef;                      /* coefficients for the mixing */
 
   FLOAT cam_omega;                      /* range-separation parameter for range-separated hybrids */
-  FLOAT cam_alpha;                      /* fraction of Hartree-Fock exchange for normal or range separated hybrids */
+  FLOAT cam_alpha;                      /* fraction of Hartree-Fock exchange for normal or range-separated hybrids */
   FLOAT cam_beta;                       /* fraction of short-range exchange for range-separated hybrids */
 
   FLOAT nlc_b;                          /* Non-local correlation, b parameter */

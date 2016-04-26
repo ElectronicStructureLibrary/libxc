@@ -1027,7 +1027,7 @@ func_reference_type xc_ref_Ludena1986 = {
 func_reference_type xc_ref_Ghosh1985_3307 = {
   "S. K. Ghosh and R. G. Parr, J. Chem. Phys. 82, 3307 (1985)",
   "10.1063/1.448229",
-  "@article{Ghosh1985_3307,\n  title = \"Density‐determined orthonormal orbital approach to atomic energy functionalsa)\",\n  author = \"S. K. Ghosh and R. G. Parr\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1985\",\n  volume = \"82\",\n  number = \"7\",\n  pages = \"3307\",\n  doi = \"10.1063/1.448229\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/82/7/10.1063/1.448229\"\n}"
+  "@article{Ghosh1985_3307,\n  title = \"Density‐determined orthonormal orbital approach to atomic energy functionals\",\n  author = \"S. K. Ghosh and R. G. Parr\",\n  journal = \"J. Chem. Phys.\",\n  year = \"1985\",\n  volume = \"82\",\n  number = \"7\",\n  pages = \"3307\",\n  doi = \"10.1063/1.448229\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/82/7/10.1063/1.448229\"\n}"
 };
 
 
@@ -1515,9 +1515,9 @@ func_reference_type xc_ref_Wellendorff2014_144107 = {
 
 
 func_reference_type xc_ref_Lundgaard = {
-  "K. T. Lundgaard, J. Wellendorff, K. W. Jacobsen, and T. Bligaard, ",
+  "K. T. Lundgaard, J. Wellendorff, K. W. Jacobsen, and T. Bligaard, (2016), in preparation",
   "",
-  "@article{Lundgaard,\n   author = {Lundgaard, Keld T. and Wellendorff, Jess and Jacobsen, Karsten W. and Bligaard, Thomas},\n   misc = {in preparation},\n}"
+  "@article{Lundgaard,\n   author = {Lundgaard, Keld T. and Wellendorff, Jess and Jacobsen, Karsten W. and Bligaard, Thomas},\n   note = {in preparation},\n   year = \"2016\"\n}"
 };
 
 
@@ -1620,9 +1620,9 @@ func_reference_type xc_ref_Fabiano2013_673 = {
 
 
 func_reference_type xc_ref_Sun2015_685 = {
-  "J. Sun, J. P. Perdew, and A. Ruzsinszky, Proceedings of the National Academy of Sciences 112, 685 (2015)",
+  "J. Sun, J. P. Perdew, and A. Ruzsinszky, Proceedings of the National Academy of Sciences of the U. S. A. 112, 685 (2015)",
   "10.1073/pnas.1423145112",
-  "@article{Sun2015_685,\n  author = {Sun, Jianwei and Perdew, John P. and Ruzsinszky, Adrienn},\n  title = {Semilocal density functional obeying a strongly tightened bound for exchange},\n  volume = {112},\n  number = {3},\n  pages = {685-689},\n  year = {2015},\n  doi = {10.1073/pnas.1423145112},\n  URL = {http://www.pnas.org/content/112/3/685.abstract},\n  eprint = {http://www.pnas.org/content/112/3/685.full.pdf},\n  journal = {Proceedings of the National Academy of Sciences}\n}"
+  "@article{Sun2015_685,\n  author = {Sun, Jianwei and Perdew, John P. and Ruzsinszky, Adrienn},\n  title = {Semilocal density functional obeying a strongly tightened bound for exchange},\n  volume = {112},\n  number = {3},\n  pages = {685-689},\n  year = {2015},\n  doi = {10.1073/pnas.1423145112},\n  URL = {http://www.pnas.org/content/112/3/685.abstract},\n  eprint = {http://www.pnas.org/content/112/3/685.full.pdf},\n  journal = {Proceedings of the National Academy of Sciences of the U. S. A.}\n}"
 };
 
 
@@ -1655,9 +1655,9 @@ func_reference_type xc_ref_Karasiev2014_076403 = {
 
 
 func_reference_type xc_ref_Mardirossian2016 = {
-  "N. Mardirossian and M. Head-Gordon, (2016)",
+  "N. Mardirossian and M. Head-Gordon, (2016), in preparation",
   "",
-  "@article{Mardirossian2016,\n   author = \"Mardirossian, Narbe and Head-Gordon, Martin\",\n   title = \"Under preparation\",\n   year = \"2016\"\n}"
+  "@article{Mardirossian2016,\n   author = \"Mardirossian, Narbe and Head-Gordon, Martin\",\n   note = \"in preparation\",\n   year = \"2016\"\n}"
 };
 
 

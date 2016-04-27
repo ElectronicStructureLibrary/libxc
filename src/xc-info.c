@@ -122,7 +122,7 @@ int main(int argc, char **argv) {
     if(rangesep) {
       double alpha, beta, omega;
       XC(hyb_cam_coef(&func,&omega,&alpha,&beta));
-      printf("\nThis is a range separated hybrid functional with range separation constant % .3f,\n",omega);
+      printf("\nThis is a range-separated hybrid functional with range-separation constant % .3f,\n",omega);
       printf("and %4.1f%% short-range and %4.1f%% long-range exact exchange.\n",(alpha+beta)*100,(alpha)*100);
     } else {
       double alpha=XC(hyb_exx_coef(&func));

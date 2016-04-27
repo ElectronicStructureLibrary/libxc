@@ -269,16 +269,16 @@ func_reference_type xc_ref_Ruzsinszky2009_763 = {
 
 
 func_reference_type xc_ref_Constantin2011_186406 = {
-  "L. A. Constantin, E. Fabiano, S. Laricchia, and F. D. Sala, Phys. Rev. Lett. 106, 186406 (2011)",
+  "L. A. Constantin, E. Fabiano, S. Laricchia, and F. Della Sala, Phys. Rev. Lett. 106, 186406 (2011)",
   "10.1103/PhysRevLett.106.186406",
-  "@article{Constantin2011_186406,\n  title = {Semiclassical Neutral Atom as a Reference System in Density Functional Theory},\n  author = {L. A. Constantin and E. Fabiano and S. Laricchia and F. Della Sala},\n  journal = {Phys. Rev. Lett.},\n  volume = {106},\n  issue = {18},\n  pages = {186406},\n  numpages = {4},\n  year = {2011},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.106.186406},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.106.186406}\n}"
+  "@article{Constantin2011_186406,\n  title = {Semiclassical Neutral Atom as a Reference System in Density Functional Theory},\n  author = {L. A. Constantin and E. Fabiano and S. Laricchia and Della Sala, F.},\n  journal = {Phys. Rev. Lett.},\n  volume = {106},\n  issue = {18},\n  pages = {186406},\n  numpages = {4},\n  year = {2011},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.106.186406},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.106.186406}\n}"
 };
 
 
 func_reference_type xc_ref_Fabiano2010_113104 = {
-  "E. Fabiano, L. A. Constantin, and F. D. Sala, Phys. Rev. B 82, 113104 (2010)",
+  "E. Fabiano, L. A. Constantin, and F. Della Sala, Phys. Rev. B 82, 113104 (2010)",
   "10.1103/PhysRevB.82.113104",
-  "@article{Fabiano2010_113104,\n  title = {Generalized gradient approximation bridging the rapidly and slowly varying density regimes: A PBE-like functional for hybrid interfaces},\n  author = {E. Fabiano and L. A. Constantin and F. Della Sala},\n  journal = {Phys. Rev. B},\n  volume = {82},\n  issue = {11},\n  pages = {113104},\n  numpages = {4},\n  year = {2010},\n  month = {Sep},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.82.113104},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.82.113104}\n}"
+  "@article{Fabiano2010_113104,\n  title = {Generalized gradient approximation bridging the rapidly and slowly varying density regimes: A PBE-like functional for hybrid interfaces},\n  author = {E. Fabiano and L. A. Constantin and Della Sala, F.},\n  journal = {Phys. Rev. B},\n  volume = {82},\n  issue = {11},\n  pages = {113104},\n  numpages = {4},\n  year = {2010},\n  month = {Sep},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.82.113104},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.82.113104}\n}"
 };
 
 
@@ -304,9 +304,9 @@ func_reference_type xc_ref_Tran2002_441 = {
 
 
 func_reference_type xc_ref_Laricchia2011_2439 = {
-  "S. Laricchia, E. Fabiano, L. A. Constantin, and F. D. Sala, J. Chem. Theory Comput. 7, 2439 (2011)",
+  "S. Laricchia, E. Fabiano, L. A. Constantin, and F. Della Sala, J. Chem. Theory Comput. 7, 2439 (2011)",
   "10.1021/ct200382w",
-  "@article{Laricchia2011_2439,\n  title = {Generalized Gradient Approximations of the Noninteracting Kinetic Energy from the Semiclassical Atom Theory: Rationalization of the Accuracy of the Frozen Density Embedding Theory for Nonbonded Interactions},\n  author = {S. Laricchia and E. Fabiano and L. A. Constantin and F. Della Sala},\n  journal = {J. Chem. Theory Comput.},\n  volume = {7},\n  number = {8},\n  pages = {2439},\n  year = {2011},\n  doi = {10.1021/ct200382w},\n  URL = {http://pubs.acs.org/doi/abs/10.1021/ct200382w}\n}"
+  "@article{Laricchia2011_2439,\n  title = {Generalized Gradient Approximations of the Noninteracting Kinetic Energy from the Semiclassical Atom Theory: Rationalization of the Accuracy of the Frozen Density Embedding Theory for Nonbonded Interactions},\n  author = {S. Laricchia and E. Fabiano and L. A. Constantin and Della Sala, F.},\n  journal = {J. Chem. Theory Comput.},\n  volume = {7},\n  number = {8},\n  pages = {2439},\n  year = {2011},\n  doi = {10.1021/ct200382w},\n  URL = {http://pubs.acs.org/doi/abs/10.1021/ct200382w}\n}"
 };
 
 
@@ -563,9 +563,9 @@ func_reference_type xc_ref_Perdew2009_026403_err = {
 
 
 func_reference_type xc_ref_Constantin2011_233103 = {
-  "L. A. Constantin, E. Fabiano, and F. D. Sala, Phys. Rev. B 84, 233103 (2011)",
+  "L. A. Constantin, E. Fabiano, and F. Della Sala, Phys. Rev. B 84, 233103 (2011)",
   "10.1103/PhysRevB.84.233103",
-  "@article{Constantin2011_233103,\n  title = {Improving atomization energies of molecules and solids with a spin-dependent gradient correction from one-electron density analysis},\n  author = {L. A. Constantin and E. Fabiano and F. Della Sala},\n  journal = {Phys. Rev. B},\n  volume = {84},\n  issue = {23},\n  pages = {233103},\n  numpages = {5},\n  year = {2011},\n  month = {Dec},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.84.233103},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.84.233103}\n}"
+  "@article{Constantin2011_233103,\n  title = {Improving atomization energies of molecules and solids with a spin-dependent gradient correction from one-electron density analysis},\n  author = {L. A. Constantin and E. Fabiano and Della Sala, F.},\n  journal = {Phys. Rev. B},\n  volume = {84},\n  issue = {23},\n  pages = {233103},\n  numpages = {5},\n  year = {2011},\n  month = {Dec},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.84.233103},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.84.233103}\n}"
 };
 
 
@@ -906,9 +906,9 @@ func_reference_type xc_ref_Armiento2013_036402 = {
 
 
 func_reference_type xc_ref_Chiodo2012_126402 = {
-  "L. Chiodo, L. A. Constantin, E. Fabiano, and F. D. Sala, Phys. Rev. Lett. 108, 126402 (2012)",
+  "L. Chiodo, L. A. Constantin, E. Fabiano, and F. Della Sala, Phys. Rev. Lett. 108, 126402 (2012)",
   "10.1103/PhysRevLett.108.126402",
-  "@article{Chiodo2012_126402,\n  title = {Nonuniform Scaling Applied to Surface Energies of Transition Metals},\n  author = {L. Chiodo and L. A. Constantin and E. Fabiano and F. Della Sala},\n  journal = {Phys. Rev. Lett.},\n  volume = {108},\n  issue = {12},\n  pages = {126402},\n  numpages = {5},\n  year = {2012},\n  month = {Mar},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.108.126402},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.108.126402}\n}"
+  "@article{Chiodo2012_126402,\n  title = {Nonuniform Scaling Applied to Surface Energies of Transition Metals},\n  author = {L. Chiodo and L. A. Constantin and E. Fabiano and Della Sala, F.},\n  journal = {Phys. Rev. Lett.},\n  volume = {108},\n  issue = {12},\n  pages = {126402},\n  numpages = {5},\n  year = {2012},\n  month = {Mar},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.108.126402},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.108.126402}\n}"
 };
 
 
@@ -1263,9 +1263,9 @@ func_reference_type xc_ref_Perdew2007_042506 = {
 
 
 func_reference_type xc_ref_Constantin2013_2256 = {
-  "L. A. Constantin, E. Fabiano, and F. D. Sala, J. Chem. Theory Comput. 9, 2256 (2013)",
+  "L. A. Constantin, E. Fabiano, and F. Della Sala, J. Chem. Theory Comput. 9, 2256 (2013)",
   "10.1021/ct400148r",
-  "@article{Constantin2013_2256,\n  title = {Meta-GGA Exchange-Correlation Functional with a Balanced Treatment of Nonlocality},\n  author = {L. A. Constantin and E. Fabiano and F. Della Sala},\n  journal = {J. Chem. Theory Comput.},\n  volume = {9},\n  number = {5},\n  pages = {2256},\n  year = {2013},\n  doi = {10.1021/ct400148r},\n  URL = {http://pubs.acs.org/doi/abs/10.1021/ct400148r}\n}"
+  "@article{Constantin2013_2256,\n  title = {Meta-GGA Exchange-Correlation Functional with a Balanced Treatment of Nonlocality},\n  author = {L. A. Constantin and E. Fabiano and Della Sala, F.},\n  journal = {J. Chem. Theory Comput.},\n  volume = {9},\n  number = {5},\n  pages = {2256},\n  year = {2013},\n  doi = {10.1021/ct400148r},\n  URL = {http://pubs.acs.org/doi/abs/10.1021/ct400148r}\n}"
 };
 
 
@@ -1620,7 +1620,7 @@ func_reference_type xc_ref_Fabiano2013_673 = {
 
 
 func_reference_type xc_ref_Sun2015_685 = {
-  "J. Sun, J. P. Perdew, and A. Ruzsinszky, Proceedings of the National Academy of Sciences of the U. S. A. 112, 685 (2015)",
+  "J. Sun, J. P. Perdew, and A. Ruzsinszky, Proc. Natl. Acad. Sci. U. S. A. 112, 685 (2015)",
   "10.1073/pnas.1423145112",
   "@article{Sun2015_685,\n  author = {Sun, Jianwei and Perdew, John P. and Ruzsinszky, Adrienn},\n  title = {Semilocal density functional obeying a strongly tightened bound for exchange},\n  volume = {112},\n  number = {3},\n  pages = {685-689},\n  year = {2015},\n  doi = {10.1073/pnas.1423145112},\n  URL = {http://www.pnas.org/content/112/3/685.abstract},\n  eprint = {http://www.pnas.org/content/112/3/685.full.pdf},\n  journal = {Proceedings of the National Academy of Sciences of the U. S. A.}\n}"
 };

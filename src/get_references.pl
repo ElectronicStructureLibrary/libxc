@@ -92,7 +92,7 @@ system "cd $dir && latex $$.tex && bibtex $$.aux && latex $$.tex && latex $$.tex
    "Molecular Physics" => "Mol. Phys.",
    "Physica Scripta" => "Phys. Scr.",
    "Journal of Computational Chemistry" => "J. Comput. Chem.",
-   "Proceedings of the National Academy of Sciences of the United States of America" => "Proc. Natl. Acad. Sci. U. S. A.",
+   "Proceedings of the National Academy of Sciences of the U. S. A." => "Proc. Natl. Acad. Sci. U. S. A.",
    "Theoretical Chemistry Accounts" => "Theor. Chem. Acc.",
    "Theoretica chimica acta" => "Theor. Chim. Acta",
    "Journal of Computational Methods in Science and Engineering" => "J. Comput. Methods Sci. Eng.",

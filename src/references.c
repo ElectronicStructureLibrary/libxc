@@ -1494,9 +1494,9 @@ func_reference_type xc_ref_Zhao1993_918 = {
 
 
 func_reference_type xc_ref_Constantin2012_035130 = {
-  "L. A. Constantin, E. Fabiano, and F. D. Sala, Phys. Rev. B 86, 035130 (2012)",
+  "L. A. Constantin, E. Fabiano, and F. Della Sala, Phys. Rev. B 86, 035130 (2012)",
   "10.1103/PhysRevB.86.035130",
-  "@article{Constantin2012_035130,\n  title = {Semilocal dynamical correlation with increased localization},\n  author = {Constantin, Lucian A. and Fabiano, Eduardo and Sala, Fabio Della},\n  journal = {Phys. Rev. B},\n  volume = {86},\n  issue = {3},\n  pages = {035130},\n  numpages = {5},\n  year = {2012},\n  month = {Jul},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.86.035130},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.86.035130}\n}"
+  "@article{Constantin2012_035130,\n  title = {Semilocal dynamical correlation with increased localization},\n  author = {Constantin, Lucian A. and Fabiano, Eduardo and Della Sala, Fabio},\n  journal = {Phys. Rev. B},\n  volume = {86},\n  issue = {3},\n  pages = {035130},\n  numpages = {5},\n  year = {2012},\n  month = {Jul},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.86.035130},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.86.035130}\n}"
 };
 
 

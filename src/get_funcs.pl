@@ -235,13 +235,20 @@ sub read_file() {
 	  #infos2[0] will be blank
 	  print DOCS "Family         : $infos2[1]\n";
 
-	  print DOCS "References     : ";
-
 	  if(-e "./xc-info" && -x "./xc-info") {
 	      $xc_info = `./xc-info $num{$infos0[0]}`;
 	      @refs = split('\n', $xc_info);
-	      print DOCS $refs[5] . "\n";
-	      for($ii = 6; $ii <= $#refs; $ii++) {
+	      if($refs[4] =~ /Reference\(s\)/) {
+		  print DOCS "References     : ";
+		  print DOCS $refs[5] . "\n";
+		  $ref_start = 6;
+	      } else {
+		  print DOCS $refs[4] . "\n";
+		  print DOCS "References     : ";
+		  print DOCS $refs[7] . "\n";
+		  $ref_start = 8;
+	      }
+	      for($ii = $ref_start; $ii <= $#refs; $ii++) {
 		  print DOCS "                 " . $refs[$ii] . "\n";
 	      }
 	  } else {
@@ -272,6 +279,17 @@ sub read_file() {
 	  $infos2[7] =~ s/^s*$//;
 	  
 	  print DOCS "Other flags    : $infos2[7]\n";
+
+          $shortname = lc(substr($infos0[0], 3));
+          $set_params = `grep "XC(${shortname}_set_params)(XC(func_type)" $srcdir/$file`;
+	  chomp $set_params;
+	  if($set_params ne "") {
+	      if($set_params !~ /void/) {
+		  $set_params = "void $set_params";
+	      }
+	      print DOCS $set_params . "\n";
+	  }
+	  
 	  print DOCS "min dens       : $infos2[8]\n";
 	  print DOCS "min grad       : $infos2[9]\n";
 	  print DOCS "min tau        : $infos2[10]\n";

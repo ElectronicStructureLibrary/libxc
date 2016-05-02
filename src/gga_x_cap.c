@@ -77,7 +77,7 @@ const XC(func_info_type) XC(func_info_gga_x_cap) = {
 void
 XC(hyb_gga_xc_cap0_init)(XC(func_type) *p)
 {
-  const FLOAT a0 = 1.0/4.0;
+  static const FLOAT a0 = 1.0/4.0;
   static int   funcs_id  [2] = {XC_GGA_X_CAP, XC_GGA_C_PBE};
   static FLOAT funcs_coef[2] = {1.0-a0, 1.0};
 

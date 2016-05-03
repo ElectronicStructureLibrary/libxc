@@ -77,10 +77,12 @@ const XC(func_info_type) XC(func_info_gga_x_cap) = {
 void
 XC(hyb_gga_xc_cap0_init)(XC(func_type) *p)
 {
-  const FLOAT a0 = 1.0/4.0;
   static int   funcs_id  [2] = {XC_GGA_X_CAP, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[2] = {1.0-a0, 1.0};
-
+  static FLOAT funcs_coef[2] = {1.0, 1.0};
+  /* Can't init this above */
+  static const FLOAT a0 = 1.0/4.0;
+  funcs_coef[0]=1.0-a0;
+  
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   /* C functional is PBE C with β = (3/4)β PBE */
   XC(gga_c_pbe_set_params)(p->func_aux[1],0.75*0.06672455060314922);

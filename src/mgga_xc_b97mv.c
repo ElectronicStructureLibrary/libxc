@@ -205,6 +205,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 {
   static const FLOAT sign[2] = {1.0, -1.0};
   static const FLOAT gamma[3] = {0.004, 0.2, 0.006}; /* Xs, Css, Cab */
+  static const FLOAT tmin = 1e-10;
   /* run opposite spin correlation? */
   int cos=1;
   
@@ -266,7 +267,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
     x_avg = aux12/M_SQRT2;
 
     for(is=0;is<2;is++)
-      t[is] = K_FACTOR_C/r->ts[is];
+      t[is] =  (r->ts[is] > tmin) ? K_FACTOR_C/r->ts[is] : 0.0;
     t_avg = (t[0] + t[1])/2.0;
     
     XC(mgga_b97mv_g)(params->cc[2], gamma[2], r->order, x_avg, t_avg, &gcos, &dgcosdx, &dgcosdt, 1);
@@ -281,8 +282,8 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
     r->dfdz     += lda_pw[2].dedz  *  gcos;
     r->dfdxs[0] += lda_pw[2].zk    * dgcosdx * dx_avgdxs[0];
     r->dfdxs[1] += lda_pw[2].zk    * dgcosdx * dx_avgdxs[1];
-    r->dfdts[0] += lda_pw[2].zk    * dgcosdt * (-K_FACTOR_C/(2.0*r->ts[0]*r->ts[0]));
-    r->dfdts[1] += lda_pw[2].zk    * dgcosdt * (-K_FACTOR_C/(2.0*r->ts[1]*r->ts[1]));
+    r->dfdts[0] += lda_pw[2].zk    * dgcosdt * (-t[0]*t[0]/(2.0*K_FACTOR_C));
+    r->dfdts[1] += lda_pw[2].zk    * dgcosdt * (-t[1]*t[1]/(2.0*K_FACTOR_C));
   }
 }
 

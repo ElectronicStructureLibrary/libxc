@@ -119,7 +119,7 @@ s_scaling(int version, int order, FLOAT s1, FLOAT *s2, FLOAT *ds2ds1)
     break;
 
   default:
-    fprintf(stderr, "Internal error in gga_x_hse\n");
+    fprintf(stderr, "Internal error in gga_x_wpbeh\n");
     exit(1);
   }
 

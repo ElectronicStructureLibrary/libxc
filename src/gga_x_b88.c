@@ -24,6 +24,7 @@
 #define XC_GGA_X_B88          106 /* Becke 88 */
 #define XC_GGA_X_OPTB88_VDW   139 /* Becke 88 reoptimized to be used with vdW functional of Dion et al*/
 #define XC_GGA_X_MB88         149 /* Modified Becke 88 for proton transfer */
+#define XC_GGA_X_EB88         167 /* Non-empirical (excogitated) B88 functional of Becke and Elliot */
 #define XC_GGA_K_LLP          522 /* Lee, Lee & Parr */
 #define XC_GGA_K_FR_B88       514 /* Fuentealba & Reyes (B88 version) */
 #define XC_GGA_K_THAKKAR      523 /* Thakkar 1992 */
@@ -65,6 +66,9 @@ gga_x_b88_init(XC(func_type) *p)
     p->func = 5;
     XC(gga_x_b88_set_params)(p, X_FACTOR_C*0.0055, 0.0253/(X_FACTOR_C*0.0055));
     break;
+  case XC_GGA_X_EB88:
+    p->func = 6; 
+    XC(gga_x_b88_set_params)(p, 0.0050/M_CBRT2, 6.0);
   default:
     fprintf(stderr, "Internal error in gga_x_b88\n");
     exit(1);
@@ -180,6 +184,21 @@ const XC(func_info_type) XC(func_info_gga_x_mb88) = {
   "Modified Becke 88 for proton transfer",
   XC_FAMILY_GGA,
   {&xc_ref_Tognetti2009_14415, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_x_b88_init, 
+  NULL, 
+  NULL,
+  work_gga_x,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_x_eb88) = {
+  XC_GGA_X_EB88,
+  XC_EXCHANGE,
+  "Non-empirical (excogitated) B88 functional of Becke and Elliot",
+  XC_FAMILY_GGA,
+  {&xc_ref_Elliot2009_1485, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_b88_init, 

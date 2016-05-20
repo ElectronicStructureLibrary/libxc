@@ -1689,31 +1689,24 @@ func_reference_type xc_ref_Hui2016_044114 = {
 };
 
 
+func_reference_type xc_ref_Fabiano2014_2016 = {
+  "E. Fabiano, P. E. Trevisanutto, A. Terentjevs, and L. A. Constantin, J. Chem. Theory Comput. 10, 2016 (2014), pMID: 26580528",
+  "10.1021/ct500073b",
+  "@article{Fabiano2014_2016,\nauthor = {Eduardo Fabiano and Paolo E. Trevisanutto and Aleksandrs Terentjevs and Lucian A. Constantin},\ntitle = {Generalized Gradient Approximation Correlation Energy Functionals Based on the Uniform Electron Gas with Gap Model},\njournal = {Journal of Chemical Theory and Computation},\nvolume = {10},\nnumber = {5},\npages = {2016-2026},\nyear = {2014},\ndoi = {10.1021/ct500073b},\nnote ={PMID: 26580528},\nURL = {http://dx.doi.org/10.1021/ct500073b},\neprint = {http://dx.doi.org/10.1021/ct500073b}\n}"
+};
+
+
 func_reference_type xc_ref_Yu2016 = {
   "H. S. Yu, X. He, S. L. Li, and D. G. Truhlar, Chem. Sci. , (2016)",
   "10.1039/C6SC00705H",
-  "@Article{Yu2016,\n   author =\"Yu, Haoyu S. and He, Xiao and Li, Shaohong Louis and Truhlar, D G\",\n   title  =\"MN15: A Kohn-Sham Global-Hybrid Exchange-Correlation Density Functional with Broad Accuracy for Multi-Reference and Single-Reference Systems and Noncovalent Interactions\",\n   journal  =\"Chem. Sci.\",\n   year  =\"2016\",\n   pages  =\"-\",\n   publisher  =\"The Royal Society of Chemistry\",\n   doi  =\"10.1039/C6SC00705H\",\n   url  =\"http://dx.doi.org/10.1039/C6SC00705H\",\n}"
+  "@Article{Yu2016,\nauthor =\"Yu, Haoyu S. and He, Xiao and Li, Shaohong Louis and Truhlar, D G\",\ntitle  =\"MN15: A Kohn-Sham Global-Hybrid Exchange-Correlation Density Functional with Broad Accuracy for Multi-Reference and Single-Reference Systems and Noncovalent Interactions\",\njournal  =\"Chem. Sci.\",\nyear  =\"2016\",\npages  =\"-\",\npublisher  =\"The Royal Society of Chemistry\",\ndoi  =\"10.1039/C6SC00705H\",\nurl  =\"http://dx.doi.org/10.1039/C6SC00705H\",\n}"
 };
 
 
-func_reference_type xc_ref_Carmona2015_054105 = {
-  "J. Carmona-Espíndola, J. L. Gázquez, A. Vela, and S. B. Trickey, J. Chem. Phys. 142, 054105 (2015), http://dx.doi.org/10.1063/1.4906606",
-  "10.1063/1.4906606",
-  "@article{Carmona2015_054105,\n   author = \"Carmona-Espíndola, Javier and Gázquez, José L. and Vela, Alberto and Trickey, S. B.\",\n   title = \"Generalized gradient approximation exchange energy functional with correct asymptotic behavior of the corresponding potential\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2015\",\n   volume = \"142\",\n   number = \"5\", \n   eid = 054105,\n   pages = \"\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/142/5/10.1063/1.4906606\",\n   doi = \"http://dx.doi.org/10.1063/1.4906606\" \n}"
-};
-
-
-func_reference_type xc_ref_Carmona2016_120 = {
-  "J. Carmona-Espíndola, J. L. Gázquez, A. Vela, and S. B. Trickey, Theor. Chem. Acc. 135, 120 (2016)",
-  "10.1007/s00214-016-1864-2",
-  "@article{Carmona2016_120,\n   author = \"Carmona-Espíndola, Javier and Gázquez, José L. and Vela, Alberto and Trickey, S. B.\",\n   title=\"Global hybrid exchange energy functional with correct asymptotic behavior of the corresponding potential\",\n   journal=\"Theoretical Chemistry Accounts\",\n   year=\"2016\",\n   volume=\"135\",\n   number=\"5\",\n   pages=\"120\",\n   issn=\"1432-2234\",\n   doi=\"10.1007/s00214-016-1864-2\",\n   url=\"http://dx.doi.org/10.1007/s00214-016-1864-2\"\n}"
-};
-
-
-func_reference_type xc_ref_Vydrov2006_234109 = {
-  "O. A. Vydrov and G. E. Scuseria, J. Chem. Phys. 125, 234109 (2006), http://dx.doi.org/10.1063/1.2409292",
-  "10.1063/1.2409292",
-  "@article{Vydrov2006_234109,\n   author = \"Vydrov, Oleg A. and Scuseria, Gustavo E.\",\n   title = \"Assessment of a long-range corrected hybrid functional\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2006\",\n   volume = \"125\",\n   number = \"23\", \n   eid = 234109,\n   pages = \"\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/125/23/10.1063/1.2409292\",\n   doi = \"http://dx.doi.org/10.1063/1.2409292\" \n}"
+func_reference_type xc_ref_Elliot2009_1485 = {
+  "P. Elliott and K. Burke, Can. J. Chem. 87, 1485 (2009)",
+  "10.1139/V09-095",
+  "@article{Elliot2009_1485,\nauthor = {P. Elliott and K. Burke},\ntitle = {Non-empirical derivation of the parameter in the B88 exchange functional},\njournal = {Can. J. Chem.},\nvolume = {87},\nnumber = {10},\npages = {1485-1491},\nyear = {2009},\ndoi = {10.1139/V09-095},\nURL = {http://www.nrcresearchpress.com/doi/abs/10.1139/V09-095},\neprint = {http://www.nrcresearchpress.com/doi/pdf/10.1139/V09-095}\n}"
 };
 
 

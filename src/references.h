@@ -264,3 +264,5 @@ extern func_reference_type xc_ref_Hui2016_044114;
 extern func_reference_type xc_ref_Fabiano2014_2016;
 extern func_reference_type xc_ref_Yu2016;
 extern func_reference_type xc_ref_Elliot2009_1485;
+extern func_reference_type xc_ref_Carmona2016_120;
+extern func_reference_type xc_ref_Vydrov2006_234109;

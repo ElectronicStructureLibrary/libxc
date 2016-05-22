@@ -24,7 +24,7 @@
 #define XC_GGA_X_B88          106 /* Becke 88 */
 #define XC_GGA_X_OPTB88_VDW   139 /* Becke 88 reoptimized to be used with vdW functional of Dion et al*/
 #define XC_GGA_X_MB88         149 /* Modified Becke 88 for proton transfer */
-#define XC_GGA_X_EB88         167 /* Non-empirical (excogitated) B88 functional of Becke and Elliot */
+#define XC_GGA_X_EB88         167 /* Non-empirical (excogitated) B88 functional of Becke and Elliott */
 #define XC_GGA_K_LLP          522 /* Lee, Lee & Parr */
 #define XC_GGA_K_FR_B88       514 /* Fuentealba & Reyes (B88 version) */
 #define XC_GGA_K_THAKKAR      523 /* Thakkar 1992 */
@@ -196,7 +196,7 @@ const XC(func_info_type) XC(func_info_gga_x_mb88) = {
 const XC(func_info_type) XC(func_info_gga_x_eb88) = {
   XC_GGA_X_EB88,
   XC_EXCHANGE,
-  "Non-empirical (excogitated) B88 functional of Becke and Elliot",
+  "Non-empirical (excogitated) B88 functional of Becke and Elliott",
   XC_FAMILY_GGA,
   {&xc_ref_Elliot2009_1485, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,

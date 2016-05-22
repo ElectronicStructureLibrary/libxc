@@ -198,7 +198,7 @@ const XC(func_info_type) XC(func_info_gga_x_eb88) = {
   XC_EXCHANGE,
   "Non-empirical (excogitated) B88 functional of Becke and Elliott",
   XC_FAMILY_GGA,
-  {&xc_ref_Elliot2009_1485, NULL, NULL, NULL, NULL},
+  {&xc_ref_Elliott2009_1485, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   gga_x_b88_init, 

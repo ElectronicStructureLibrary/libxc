@@ -1703,10 +1703,17 @@ func_reference_type xc_ref_Yu2016 = {
 };
 
 
-func_reference_type xc_ref_Elliot2009_1485 = {
+func_reference_type xc_ref_Elliott2009_1485 = {
   "P. Elliott and K. Burke, Can. J. Chem. 87, 1485 (2009)",
+  "10.1139/V09-095",
+  "@article{Elliott2009_1485,\n  author = {P. Elliott and K. Burke},\n  title = {Non-empirical derivation of the parameter in the B88 exchange functional},\n  journal = {Can. J. Chem.},\n  volume = {87},\n  number = {10},\n  pages = {1485-1491},\n  year = {2009},\n  doi = {10.1139/V09-095},\n  URL = {http://www.nrcresearchpress.com/doi/abs/10.1139/V09-095},\n  eprint = {http://www.nrcresearchpress.com/doi/pdf/10.1139/V09-095}\n}"
+};
+
+
+func_reference_type xc_ref_Carmona2015_054105 = {
+  "J. Carmona-Esp\\'indola, J. L. G\\'azquez, A. Vela, and S. B. Trickey, J. Chem. Phys. 142, 054105 (2015), http://dx.doi.org/10.1063/1.4906606",
   "10.1063/1.4906606",
-  "@article{Elliot2009_1485,\nauthor = {P. Elliott and K. Burke},\ntitle = {Non-empirical derivation of the parameter in the B88 exchange functional},\njournal = {Can. J. Chem.},\nvolume = {87},\nnumber = {10},\npages = {1485-1491},\nyear = {2009},\ndoi = {10.1139/V09-095},\nURL = {http://www.nrcresearchpress.com/doi/abs/10.1139/V09-095},\neprint = {http://www.nrcresearchpress.com/doi/pdf/10.1139/V09-095}\n\n@article{Carmona2015_054105,\n   author = \"Carmona-Esp\\'indola, Javier and G\\'azquez, Jos\\'e L. and Vela, Alberto and Trickey, S. B.\",\n   title = \"Generalized gradient approximation exchange energy functional with correct asymptotic behavior of the corresponding potential\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2015\",\n   volume = \"142\",\n   number = \"5\", \n   eid = 054105,\n   pages = \"\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/142/5/10.1063/1.4906606\",\n   doi = \"http://dx.doi.org/10.1063/1.4906606\" \n}"
+  "@article{Carmona2015_054105,\n   author = \"Carmona-Esp\\'indola, Javier and G\\'azquez, Jos\\'e L. and Vela, Alberto and Trickey, S. B.\",\n   title = \"Generalized gradient approximation exchange energy functional with correct asymptotic behavior of the corresponding potential\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2015\",\n   volume = \"142\",\n   number = \"5\", \n   eid = 054105,\n   pages = \"\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/142/5/10.1063/1.4906606\",\n   doi = \"http://dx.doi.org/10.1063/1.4906606\" \n}"
 };
 
 

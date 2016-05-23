@@ -33,6 +33,8 @@ typedef struct{
 static void 
 gga_x_b86_init(XC(func_type) *p)
 {
+  FLOAT mu, kappa;
+
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_x_b86_params));
 
@@ -48,7 +50,9 @@ gga_x_b86_init(XC(func_type) *p)
     break;
   case XC_GGA_X_B86_R:
     p->func = 2; 
-    XC(gga_x_b86_set_params)(p, 0.001890/X_FACTOR_C, 0.002856, 4.0/5.0);
+    mu = 10.0/81.0;
+    kappa = 0.7114;
+    XC(gga_x_b86_set_params)(p, mu*X2S*X2S, mu*X2S*X2S/kappa, 4.0/5.0);
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_b86\n");

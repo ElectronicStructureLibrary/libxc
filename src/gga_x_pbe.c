@@ -35,7 +35,7 @@
 #define XC_GGA_X_LAMBDA_LO_N   45 /* lambda_LO(N) version of PBE                    */
 #define XC_GGA_X_LAMBDA_CH_N   44 /* lambda_CH(N) version of PBE                    */
 #define XC_GGA_X_LAMBDA_OC2_N  40 /* lambda_OC2(N) version of PBE                   */
-#define XC_GGA_X_BGCP          38 /* Burke, Cancio, Gould, and Pittalis             */
+#define XC_GGA_X_BCGP          38 /* Burke, Cancio, Gould, and Pittalis             */
 #define XC_GGA_X_PBEFE        265 /* PBE for formation energies                     */
 
 #define XC_GGA_K_APBE         185 /* mu fixed from the semiclassical neutral atom   */
@@ -85,7 +85,7 @@ gga_x_pbe_init(XC(func_type) *p)
     2.273/M_CBRT2 - 1.0,    /* LAMBDA_LO(N)  */
     2.215/M_CBRT2 - 1.0,    /* LAMBDA_CH(N)  */
     2.00 /M_CBRT2 - 1.0,    /* LAMBDA_OC2(N) */
-    0.8040,                 /* BGCP (X)    */
+    0.8040,                 /* BCGP (X)    */
     0.437,                  /* PBEfe       */
   };
 
@@ -112,7 +112,7 @@ gga_x_pbe_init(XC(func_type) *p)
     0.2195149727645171,     /* LAMBDA_LO(N)  */
     0.2195149727645171,     /* LAMBDA_CH(N)  */
     0.2195149727645171,     /* LAMBDA_OC2(N) */
-    0.249,                  /* BGCP (X)    */
+    0.249,                  /* BCGP (X)    */
     0.346,                  /* PBEfe       */
   };
 
@@ -182,7 +182,7 @@ gga_x_pbe_init(XC(func_type) *p)
     params->lambda = 2.00;
     break;
   }
-  case XC_GGA_X_BGCP:    p->func = 22; break;
+  case XC_GGA_X_BCGP:    p->func = 22; break;
   case XC_GGA_X_PBEFE:   p->func = 23; break;
 
   default:{
@@ -495,8 +495,8 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_mol) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_bgcp) = {
-  XC_GGA_X_BGCP,
+const XC(func_info_type) XC(func_info_gga_x_bcgp) = {
+  XC_GGA_X_BCGP,
   XC_EXCHANGE,
   "Burke, Cancio, Gould, and Pittalis",
   XC_FAMILY_GGA,

@@ -41,7 +41,7 @@
 #define XC_GGA_C_PBEINT        62 /* PBE for hybrid interfaces                          */
 #define XC_GGA_C_ZPBEINT       61 /* spin-dependent gradient correction to PBEint       */
 #define XC_GGA_C_PBELOC       246 /* Semilocal dynamical correlation                    */
-#define XC_GGA_C_BGCP          39 /* Burke, Cancio, Gould, and Pittalis                 */
+#define XC_GGA_C_BCGP          39 /* Burke, Cancio, Gould, and Pittalis                 */
 #define XC_GGA_C_PBEFE        258 /* PBE for formation energies                         */
 
 typedef struct{
@@ -64,7 +64,7 @@ static void gga_c_pbe_init(XC(func_type) *p)
     0.052,                              /*  9: PBEint                    */
     0.052,                              /* 10: zPBEint                   */
     0.0,                                /* 11: PBEloc this is calculated */
-    0.06672455060314922,                /* 12: BGCP                      */
+    0.06672455060314922,                /* 12: BCGP                      */
     0.043                               /* 13: PBEfe                     */
   };
 
@@ -90,7 +90,7 @@ static void gga_c_pbe_init(XC(func_type) *p)
   case XC_GGA_C_PBEINT:   p->func =  9; break;
   case XC_GGA_C_ZPBEINT:  p->func = 10; break;
   case XC_GGA_C_PBELOC:   p->func = 11; break;
-  case XC_GGA_C_BGCP:     p->func = 12; break;
+  case XC_GGA_C_BCGP:     p->func = 12; break;
   case XC_GGA_C_PBEFE:    p->func = 13; break;
   default:
     fprintf(stderr, "Internal error in gga_c_pbe\n");
@@ -116,7 +116,7 @@ XC(gga_c_pbe_set_params)(XC(func_type) *p, FLOAT beta)
 static inline void
 bcgp_pt(int order, FLOAT tt, FLOAT *tp, FLOAT *dtpdtt, FLOAT *d2tpdtt2)
 {
-  const FLOAT cac = 1.467, tau = 4.5;
+  const FLOAT cac = 2.4689, tau = 4.5;
   FLOAT num, den, P, P_2, dP, d2P;
 
   num = tau + tt;
@@ -302,8 +302,13 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   } else
     beta = cnst_beta;
 
-  pbe_eq8(r->order, beta, gamm, pw.zk, phi,
-	  &A, &dAdbeta, &dAdec, &dAdphi, &d2Adec2, &d2Adecphi, &d2Adphi2);
+  if(p->func != 12)
+    pbe_eq8(r->order, beta, gamm, pw.zk, phi,
+            &A, &dAdbeta, &dAdec, &dAdphi, &d2Adec2, &d2Adecphi, &d2Adphi2);
+  else{ /* for BCGP */
+    A = 1.0;
+    dAdbeta = dAdec = dAdphi = d2Adec2 = d2Adecphi = d2Adphi2 = 0.0;
+  }
 
   /* the sPBE functional contains one term less than the original PBE, so we set it to zero */
   B = (p->func == 6) ? 0.0 : 1.0;
@@ -557,8 +562,8 @@ const XC(func_info_type) XC(func_info_gga_c_pbeloc) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_bgcp) = {
-  XC_GGA_C_BGCP,
+const XC(func_info_type) XC(func_info_gga_c_bcgp) = {
+  XC_GGA_C_BCGP,
   XC_CORRELATION,
   "Burke, Cancio, Gould, and Pittalis",
   XC_FAMILY_GGA,

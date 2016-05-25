@@ -116,7 +116,8 @@ XC(gga_c_pbe_set_params)(XC(func_type) *p, FLOAT beta)
 static inline void
 bcgp_pt(int order, FLOAT tt, FLOAT *tp, FLOAT *dtpdtt, FLOAT *d2tpdtt2)
 {
-  const FLOAT cac = 2.4689, tau = 4.5;
+  const FLOAT cac = 1.467;
+  const FLOAT tau = 4.5;
   FLOAT num, den, P, P_2, dP, d2P;
 
   num = tau + tt;

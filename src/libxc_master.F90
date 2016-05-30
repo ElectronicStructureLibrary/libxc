@@ -132,7 +132,9 @@ module XC_F90(lib_m)
   integer, parameter :: XC_GGA_XC_LB   = 160
   integer, parameter :: XC_GGA_K_ABSR1 = 506
   integer, parameter :: XC_GGA_K_ABSR2 = 507
-
+  integer, parameter :: XC_GGA_X_BGCP  =  38
+  integer, parameter :: XC_GGA_C_BGCP  =  39
+  
   !----------------------------------------------------------------
   interface
     subroutine XC_F90(version)(major, minor, micro)

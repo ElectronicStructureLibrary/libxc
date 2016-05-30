@@ -172,8 +172,10 @@ module FXC(lib_m)
     XC_GGA_C_VPBE           =  83,     &
     XC_GGA_XC_LB            = 160,     &
     XC_GGA_K_ABSR1          = 506,     &
-    XC_GGA_K_ABSR2          = 507
-
+    XC_GGA_K_ABSR2          = 507,     &
+    XC_GGA_X_BGCP           =  38,     &
+    XC_GGA_C_BGCP           =  39
+  
   !----------------------------------------------------------------
   interface
     subroutine XC(version)(major, minor, micro) bind(c)

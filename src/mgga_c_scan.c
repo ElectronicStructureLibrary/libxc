@@ -28,29 +28,40 @@
 const static FLOAT b1c=0.02858, b2c=0.0889, b3c=0.1255;
 const static FLOAT c1c=0.64, c2c=1.5, dc=0.7;
 const static FLOAT c_gamma=0.03109069086965490; /* (1-log(2))/Pi^2 */
-const static FLOAT beta_a=0.066725, beta_b=0.1, beta_c=0.1778;
 const static FLOAT G_c=2.3621;
 const static FLOAT chi=0.128026;
 
+static void gga_c_pbe_init(XC(func_type) *p)
+{
+  p->n_func_aux  = 2;
+  p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
+  p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
+  p->func_aux[1] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
+
+  XC(func_init)(p->func_aux[0], XC_LDA_C_PW_MOD, p->nspin);
+  XC(func_init)(p->func_aux[1], XC_GGA_C_PBE,    p->nspin);
+  p->func_aux[1]->func = 99; /* number of the worker function */
+}
+
 /* Calculates E_c^{LDA0} = -b1c / ( 1 + b2c*r^{1/2} + b3c*r ) */
 static void
-Eclda0(FLOAT r, int order,
-       FLOAT *e, FLOAT *dedr)
+Eclda0(FLOAT rs, int order, FLOAT *e, FLOAT *dedr)
 {
-  FLOAT sqrtr=SQRT(r);
-  FLOAT denom=1.0 + b2c*sqrtr + b3c*r;
+  FLOAT sqrtrs, denom;
+
+  sqrtrs = SQRT(rs);
+  denom  = 1.0 + b2c*sqrtrs + b3c*rs;
   
   *e = -b1c / denom;
 
   if(order < 1) return;
 
-  *dedr = *e/denom * (b2c/(2.0*sqrtr) + b3c);
+  *dedr = *e/denom * (b2c/(2.0*sqrtrs) + b3c);
 }
 
 /* Calculates g(x) = 1 / ( 1 + 4 c x^2 )^{1/4} */
 static void
-func_gx(FLOAT x, FLOAT c, int order,
-       FLOAT *g, FLOAT *dgdx)
+func_gx(FLOAT x, FLOAT c, int order, FLOAT *g, FLOAT *dgdx)
 {
   *g = 1.0 / SQRT(SQRT(1 + 4.0*c*x*x));
 
@@ -64,14 +75,16 @@ static void
 func_dnphi(FLOAT z, FLOAT a, int order,
 	FLOAT *phi, FLOAT *dphidz)
 {
-  FLOAT opza=POW(1.0+z,a);
-  FLOAT omza=POW(1.0-z,a);
+  FLOAT opza, omza;
+
+  opza = POW(1.0+z,a);
+  omza = POW(1.0-z,a);
 
   *phi = 0.5*(opza + omza);
 
   if(order < 1) return;
 
-  *dphidz = 0.5*a*(opza/(1.0+z) - omza/(1.0-z));
+  *dphidz = 0.5*a*(opza/(1.0 + z) - omza/(1.0 - z));
 }
 
 /* Calculate d_x(z) */
@@ -79,7 +92,7 @@ static void
 func_d(FLOAT z, int order,
 	FLOAT *d, FLOAT *dddz)
 {
-  func_dnphi(z,4.0/3.0,order,d,dddz);
+  func_dnphi(z, 4.0/3.0, order, d, dddz);
 }
 
 /* Calculate phi(z) */
@@ -87,7 +100,7 @@ static void
 func_phi(FLOAT z, int order,
 	FLOAT *phi, FLOAT *dphidz)
 {
-  func_dnphi(z,2.0/3.0,order,phi,dphidz);
+  func_dnphi(z, 2.0/3.0, order, phi, dphidz);
 }
 
 /* Calculates Gc = [ 1 - 2.3621( d_x(z)-1 )] (1 - z^12) */
@@ -98,10 +111,10 @@ func_Gc(FLOAT z, int order,
   /* d_x and dg_x/dz */
   FLOAT dx, ddxdz;
   /* z^11 */
-  FLOAT zp11 = POW(z,11);
+  FLOAT zp11 = POW(z, 11);
 
   /* Calculate d_x */
-  func_phi(z,order,&dx,&ddxdz);
+  func_phi(z, order, &dx, &ddxdz);
 
   *G = (1.0 - G_c*(dx - 1.0))*(1.0 - z*zp11);
 
@@ -120,7 +133,7 @@ func_w(FLOAT r, int order,
   FLOAT E0, dE0dr;
   
   /* Get E_c^{LDA0} */
-  Eclda0(r,order,&E0,&dE0dr);
+  Eclda0(r, order, &E0, &dE0dr);
 
   expn = EXP(-E0/fz);
   *w = expn - 1;
@@ -131,19 +144,6 @@ func_w(FLOAT r, int order,
   *dwdz = E0*dfdz/(fz*fz)*expn;
 }
 
-/* Calculates beta(r) = 0.066725 (1 + 0.1 r_s) / (1 + 0.1778 r_s) */
-static void
-func_beta(FLOAT r, int order,
-       FLOAT *b, FLOAT *dbdr)
-{
-  FLOAT denom=1.0 + beta_c*r;
-  
-  *b = beta_a * (1.0 + beta_b*r) / denom;
-
-  if(order < 1) return;
-
-  *dbdr = beta_a * (beta_b - beta_c) / (denom*denom);
-}
 
 /* Calculates A(r,f(z)) = beta(r)/f(z) */
 static void
@@ -153,7 +153,7 @@ func_A(FLOAT r, int order,
 {
   /* Calculate beta */
   FLOAT b, dbdr;
-  func_beta(r,order,&b,&dbdr);
+  XC(beta_Hu_Langreth) (r, order, &b, &dbdr, NULL);
   
   *A = b/fz;
 
@@ -169,8 +169,8 @@ func_t(FLOAT r, FLOAT s, int order,
        FLOAT phi, FLOAT dphidz,
        FLOAT *t, FLOAT *dtdr, FLOAT *dtdz, FLOAT *dtds)
 {
-  FLOAT c=CBRT(3.0*M_PI*M_PI/16.0);
-  FLOAT rh=SQRT(r);
+  FLOAT c = CBRT(3.0*M_PI*M_PI/16.0);
+  FLOAT rh = SQRT(r);
   
   *t = c*s / (phi*rh);
   
@@ -211,77 +211,6 @@ func_H0(FLOAT r, FLOAT s,
   ddenom = b1c/(1.0 + w*(1-gs));
   *dHds = ddenom*(-w*dgds);
   *dHdr = ddenom*dwdr*(1-gs);
-}
-
-/* Calculates 
-   H1 = (gamma phi^3) ln [ 1 + w1(r,z) (1 - g(At^2)) ]
-*/
-static void
-func_H1(FLOAT r, FLOAT z, FLOAT s,
-	int order, int n,
-	FLOAT *H, FLOAT *dHdr, FLOAT *dHdz, FLOAT *dHds)
-{
-  /* Phi and its derivative */
-  FLOAT phi, dphidz;
-  FLOAT phi2, phi3;
-  /* w_1 and its derivatives */
-  FLOAT argw, dargwdz;
-  FLOAT w, dwdr, dwdz;
-  /* A and its derivatives */
-  FLOAT argA, dargAdr, dargAdz;
-  FLOAT A, dAdr, dAdz;
-  /* t and its derivatives */
-  FLOAT t, dtdr, dtdz, dtds;
-  /* g and its derivatives */
-  FLOAT x, dxdr, dxdz, dxds;
-  FLOAT gx, dgdx;
-  FLOAT dgdr, dgdz, dgds;
-  /* logarithmic term */
-  FLOAT ln;
-  /* derivative denominator */
-  FLOAT ddenom;
-  
-  /* Calculate phi */
-  func_phi(z,order,&phi,&dphidz);
-  phi2=phi*phi;
-  phi3=phi2*phi;
-  
-  /* Calculate w. Argument is */
-  argw=c_gamma*phi3;
-  /* and its derivative */
-  dargwdz=3*c_gamma*phi2*dphidz;
-  /* and w is */
-  func_w(r,order,argw,dargwdz,&w,&dwdr,&dwdz);
-
-  /* Calculate A */
-  argA=c_gamma*w;
-  dargAdr=c_gamma*dwdr;
-  dargAdz=c_gamma*dwdz;
-  func_A(r,order,argA,dargAdr,dargAdz,&A,&dAdr,&dAdz);
-
-  /* Calculate t */
-  func_t(r,s,order,phi,dphidz,&t,&dtdr,&dtdz,&dtds);
-
-  /* Calculate g */
-  x = A*t*t;
-  func_gx(x,1.0,order,&gx,&dgdx);
-  
-  /* Value of H is */
-  ln = LOG( 1.0 + w * (1 - gx));
-  *H = argw * ln;
-
-  if(order < 1) return;
-
-  /* Derivatives of g */
-  dgdr = dgdx*(2.0*A*t*dtdr);
-  dgdz = dgdx*(2.0*A*t*dtdz);
-  dgds = dgdx*(2.0*A*t*dtds);
-  
-  /* Derivatives */
-  ddenom = argw/(1.0 + w*(1-gx));
-  *dHds = ddenom*(-w*dgds);
-  *dHdz = dargwdz*ln + ddenom*(dwdz*(1-gx) - w*dgdz);
-  *dHdr = ddenom*(dwdr*(1-gx) - w*dgdr);
 }
 
 static void

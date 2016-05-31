@@ -259,11 +259,34 @@ pbe_eq7(int order, int func, FLOAT beta, FLOAT gamm, FLOAT phi, FLOAT t, FLOAT A
 }
 
 
+/* Calculates beta(r) = 0.066725 (1 + 0.1 r_s) / (1 + 0.1778 r_s) */
+void
+XC(beta_Hu_Langreth) (FLOAT rs, int order, FLOAT *b, FLOAT *dbdrs, FLOAT *d2bdrs2)
+{
+  const static FLOAT beta_a = 0.066725, beta_b = 0.1, beta_c = 0.1778;
+
+  FLOAT num, den, dnum, dden;
+  
+  den = 1.0 + beta_c*rs;
+  num = beta_a * (1.0 + beta_b*rs);
+  *b =  num / den;
+
+  if(order < 1) return;
+
+  dnum = beta_a*beta_b;
+  dden = beta_c;
+
+  *dbdrs = DFRACTION(num, dnum, den, dden);
+
+  if(order < 2) return;
+
+  *d2bdrs2 = D2FRACTION(num, dnum, 0.0, den, dden, 0.0);
+}
+
+
 inline void 
 XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
 {
-  /* parameters for beta of regTPSS */
-  static FLOAT vpbe_b1 = 0.066725, vpbe_b2 = 0.1, vpbe_b3 = 0.1778;
   /* parameters for beta of PBEloc */
   static FLOAT pbeloc_b0 = 0.0375, pbeloc_a = 0.08;
 
@@ -277,7 +300,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   FLOAT B;
 
   XC(lda_work_t) pw;
-  FLOAT tconv, auxp, auxm, beta, gamm, beta_den, dbetadrs;
+  FLOAT tconv, auxp, auxm, beta, gamm, beta_den, dbetadrs, d2betadrs2;
 
   assert(p->params != NULL);
   cnst_beta = ((gga_c_pbe_params *) (p->params))->beta;
@@ -314,12 +337,9 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
     beta_den = EXP(- r->rs * r->rs);
     beta = pbeloc_b0 + pbeloc_a * tp*tp * (1.0 - beta_den);
 
-  } else if(p->func == 7 || p->func == 99) {
-    /* regTPSS and SCAN */
-    beta_den = (1.0 + vpbe_b3*r->rs);
-    beta = vpbe_b1 * (1.0 + vpbe_b2*r->rs)/beta_den;
-
-  } else
+  }else if(p->func == 7 || p->func == 99)
+    XC(beta_Hu_Langreth) (r->rs, r->order, &beta, &dbetadrs, &d2betadrs2);
+  else
     beta = cnst_beta;
 
   if(p->func != 12)
@@ -354,11 +374,9 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   dtdxt  =  tt/r->xt;
   dtdphi = -tt/phi;
 
-  if(p->func == 11) {
+  if(p->func == 11){
     dbetadrs = 2 * pbeloc_a * tt * (dtdrs * (1.0 - beta_den) + tt * r->rs * beta_den);
-  } else if(p->func == 7) {
-    dbetadrs = vpbe_b1*(vpbe_b2 - vpbe_b3)/(beta_den*beta_den);
-  } else
+  }else if(p->func != 7 && p->func != 99)
     dbetadrs = 0.0;
 
   r->dfdrs   = dfdec*pw.dedrs + dfdt*dtdrs + dfdbeta*dbetadrs;

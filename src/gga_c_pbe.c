@@ -95,6 +95,7 @@ static void gga_c_pbe_init(XC(func_type) *p)
   case XC_GGA_C_BCGP:     p->func = 12; break;
   case XC_GGA_C_PBEFE:    p->func = 13; break;
   case XC_GGA_C_PBE_MOL:  p->func = 14; break;
+    /* func = 99 is reserved for the worker routine of MGGA_C_SCAN */
   default:
     fprintf(stderr, "Internal error in gga_c_pbe\n");
     exit(1);
@@ -188,9 +189,15 @@ pbe_eq7(int order, int func, FLOAT beta, FLOAT gamm, FLOAT phi, FLOAT t, FLOAT A
   t2   = t*t;
   phi3 = POW(phi, 3);
 
-  f1 = t2 + B*A*t2*t2;
-  f3 = 1.0 + A*f1;
-  f2 = beta*f1/(gamm*f3);
+  if(func == 99){ /* XC_GGA_C_SCAN_E0 */
+    f1 = 1 + 4.0*A*t2;
+    f3 = POW(f1, -1.0/4.0);
+    f2 = beta*f3/(gamm*A);
+  }else{
+    f1 = t2 + B*A*t2*t2;
+    f3 = 1.0 + A*f1;
+    f2 = beta*f1/(gamm*f3);
+  }
 
   if(func == 8 || func == 10){ /* zPBEsol and zPBEint */
     alpha = (func == 8) ? 4.8 : 2.4;
@@ -215,13 +222,22 @@ pbe_eq7(int order, int func, FLOAT beta, FLOAT gamm, FLOAT phi, FLOAT t, FLOAT A
   df2dbeta = f2/beta;
   *dbeta   = ff*gamm*phi3*df2dbeta/(1.0 + f2);
 
-  df1dt    = t*(2.0 + 4.0*B*A*t2);
-  df2dt    = beta/(gamm*f3*f3) * df1dt;
+  if(func == 99){ /* XC_GGA_C_SCAN_E0 */
+    df2dt    = 2.0*beta*t*f3/(gamm*f1);
+  }else{
+    df1dt    = t*(2.0 + 4.0*B*A*t2);
+    df2dt    = beta/(gamm*f3*f3) * df1dt;
+  }
+
   *dt      = ff*gamm*phi3*df2dt/(1.0 + f2) + (*H)*dffdt/ff;
-    
-  df1dA    = B*t2*t2;
-  df2dA    = beta/(gamm*f3*f3) * (df1dA - f1*f1);
-  *dA      = ff*gamm*phi3*df2dA/(1.0 + f2);
+
+  if(func == 99){ /* XC_GGA_C_SCAN_E0 */
+    df2dA    = -beta/(gamm*A*A) * (1.0 - (1 + 5.0*A*t2)*f3/f1);
+  }else{
+    df1dA    = B*t2*t2;
+    df2dA    = beta/(gamm*f3*f3) * (df1dA - f1*f1);
+  }
+    *dA      = ff*gamm*phi3*df2dA/(1.0 + f2);
 
   if(order < 2) return;
 
@@ -298,8 +314,8 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
     beta_den = EXP(- r->rs * r->rs);
     beta = pbeloc_b0 + pbeloc_a * tp*tp * (1.0 - beta_den);
 
-  } else if(p->func == 7) {
-    /* regTPSS */
+  } else if(p->func == 7 || p->func == 99) {
+    /* regTPSS and SCAN */
     beta_den = (1.0 + vpbe_b3*r->rs);
     beta = vpbe_b1 * (1.0 + vpbe_b2*r->rs)/beta_den;
 

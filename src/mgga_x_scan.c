@@ -26,17 +26,17 @@
 #define XC_HYB_MGGA_X_SCAN0     264 /* SCAN hybrid */
 
 /* Constants */
-static const FLOAT a1=4.9479;
-static const FLOAT c1x=0.667;
-static const FLOAT c2x=0.8;
-static const FLOAT dx=1.24;
-static const FLOAT mu=10.0/81.0;
-static const FLOAT b2=0.1208304597359457; /* SQRT(5913.0/405000.0) */
-static const FLOAT b1=0.1566320774354852; /* (511.0/13500.0)/(2*b2) */
-static const FLOAT b3=0.5;
-static const FLOAT k1=0.065;
-static const FLOAT b4=0.1218315102059958; /* mu^2/k1 - 1606.0/18225.0 - b1^2 */
-static const FLOAT h0x=1.174;
+static const FLOAT a1  = 4.9479;
+static const FLOAT c1x = 0.667;
+static const FLOAT c2x = 0.8;
+static const FLOAT dx  = 1.24;
+static const FLOAT mu  = 10.0/81.0;
+static const FLOAT b2  = 0.1208304597359457; /* SQRT(5913.0/405000.0) */
+static const FLOAT b1  = 0.1566320774354852; /* (511.0/13500.0)/(2*b2) */
+static const FLOAT b3  = 0.5;
+static const FLOAT k1  = 0.065;
+static const FLOAT b4  = 0.1218315102059958; /* mu^2/k1 - 1606.0/18225.0 - b1^2 */
+static const FLOAT h0x = 1.174;
 
 static void
 func_gx(int order, FLOAT s, FLOAT *g, FLOAT *dgds)
@@ -46,74 +46,35 @@ func_gx(int order, FLOAT s, FLOAT *g, FLOAT *dgds)
   /* Special handling for small values of s */
   const FLOAT thr=a1*a1/(LOG(FLOAT_EPSILON)*LOG(FLOAT_EPSILON));
   if(s < thr) {
-    smh=0.0;
-    smhps=0.0;
-    expn=0.0;
+    smh = smhps = expn = 0.0;
   } else {
-    smh=1.0/SQRT(s);
-    smhps=smh/s;
-    expn=EXP(-a1*smh);
+    smh   = 1.0/SQRT(s);
+    smhps = smh/s;
+    expn  = EXP(-a1*smh);
   }
 
   *g = 1.0 - expn;
 
   if(order < 1) return;
 
-  *dgds = - 0.5 * a1 * expn * smhps;
+  *dgds = -0.5 * a1 * expn * smhps;
 }
 
-FLOAT
-XC(mgga_x_scan_exp1)(FLOAT c1x, FLOAT a)
+void
+XC(mgga_x_scan_falpha)(int order, FLOAT a, FLOAT c1, FLOAT c2, FLOAT *f, FLOAT *dfda)
 {
-  /* Calculate exp( - c1x a / (1-a) ) \theta(1-a).
+  /* exponentials are truncated */
+  const FLOAT logeps =  LOG(FLOAT_EPSILON);
+  FLOAT thr1, thr2;
+  FLOAT c1exp, c2exp;
+  FLOAT ooma = 1.0/(1.0 - a);
 
-     Truncate for values of alpha close to 1 for which the exponential
-     kills of the term
-  */
+  thr1  = -logeps/(c1 - logeps);
+  thr2  = -1.0 - c2/logeps;
 
-  const FLOAT logeps=LOG(FLOAT_EPSILON);
-  const FLOAT thr=-logeps/(c1x-logeps);
+  c1exp = (a >= thr1) ? 0.0 : EXP(-c1*a/(1.0 - a));
+  c2exp = (a <= thr2) ? 0.0 : EXP(c2/(1.0 - a));
 
-  /* Step function implemented here */
-  if(a >= 1.0)
-    return 0.0;
-  else if(a >= thr)
-    /* Approaching from the left */
-    return 0.0;
-  else
-    return EXP(-c1x*a/(1.0-a));
-}
-
-FLOAT
-XC(mgga_x_scan_exp2)(FLOAT c2x, FLOAT a)
-{
-  /* Calculate exp( - c2x / (1-a) ) \theta(a-1).
-
-     Truncate for values of alpha close to 1 for which the exponential
-     kills of the term
-  */
-
-  const FLOAT logeps=LOG(FLOAT_EPSILON);
-  const FLOAT thr=1.0-c2x/logeps;
-
-  /* Step function implemented here */
-  if(a <= 1.0)
-    return 0.0;
-  else if(a <= thr)
-    /* Approaching from the right */
-    return 0.0;
-  else
-    return EXP(c2x/(1.0-a));
-}
-
-static void
-func_fx(int order, FLOAT a, FLOAT *f, FLOAT *dfda)
-{
-  FLOAT c1exp=0.0, c2exp=0.0;
-  FLOAT ooma=1.0/(1.0-a);
-
-  c1exp=XC(mgga_x_scan_exp1)(c1x,a);
-  c2exp=XC(mgga_x_scan_exp2)(c2x,a);
   *f = c1exp - dx*c2exp;
 
   if(order < 1) return;
@@ -184,7 +145,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   a = (r->t - r->x*r->x/8.0)/K_FACTOR_C;
 
   /* Calculate functions */
-  func_fx(r->order, a, &fx, &dfxda);
+  XC(mgga_x_scan_falpha)(r->order, a, c1x, c2x, &fx, &dfxda);
   func_gx(r->order, s, &gx, &dgxds);
   func_x(r->order, s, a, &y, &dyds, &dyda);
   func_h1x(r->order, y, &h1x, &dh1xdy);

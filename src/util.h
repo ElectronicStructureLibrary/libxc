@@ -205,6 +205,10 @@ void XC(gga_x_sogga11_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOA
 void XC(gga_x_ssb_sw_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
 void XC(gga_x_vmt_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
 
+/* these functions are used in more than one functional */
+void XC(lda_c_pw_g)(int func, int order, int k, FLOAT *rs, FLOAT *f, FLOAT *dfdrs, FLOAT *d2fdrs2, FLOAT *d3fdrs3);
+void XC(beta_Hu_Langreth) (FLOAT r, int order, FLOAT *b, FLOAT *dbdr, FLOAT *d2bdr2);
+
 /* correlation functions */
 
 typedef struct XC(gga_work_c_t) {
@@ -264,8 +268,7 @@ void XC(pbe_c_stoll) (const XC(func_type) *pbe, int get_max, const XC(mgga_work_
 void XC(mgga_series_w)(int order, int n, const FLOAT *a, FLOAT t, FLOAT *fw, FLOAT *dfwdt);
 void XC(mgga_b97_func_g)(const FLOAT *cc, FLOAT gamma, FLOAT s, int order, FLOAT *g, FLOAT *dgds, FLOAT *d2gds2);
 void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT *d, FLOAT *h, FLOAT *dhdx, FLOAT *dhdz);
-FLOAT XC(mgga_x_scan_exp1)(FLOAT c1x, FLOAT a);
-FLOAT XC(mgga_x_scan_exp2)(FLOAT c2x, FLOAT a);
+void XC(mgga_x_scan_falpha)(int order, FLOAT a, FLOAT c1, FLOAT c2, FLOAT *f, FLOAT *dfda);
 			 
 /* useful MACROS */
 #define DFRACTION(num, dnum, den, dden) \

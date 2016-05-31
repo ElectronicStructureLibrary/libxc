@@ -55,8 +55,9 @@ lda_c_pw_init(XC(func_type) *p)
 
 /* Function g defined by Eq. 10 of the original paper,
    and its derivative with respect to rs, Eq. A5 */
-static void g(int func, int order, int k, FLOAT *rs, 
-	      FLOAT *f, FLOAT *dfdrs, FLOAT *d2fdrs2, FLOAT *d3fdrs3)
+void 
+XC(lda_c_pw_g)(int func, int order, int k, FLOAT *rs, 
+               FLOAT *f, FLOAT *dfdrs, FLOAT *d2fdrs2, FLOAT *d3fdrs3)
 {
   static FLOAT pp[4][3]    =
     {
@@ -161,16 +162,16 @@ XC(lda_c_pw_func)(const XC(func_type) *p, XC(lda_work_t) *r)
   FLOAT z2, z3, z4, fz, dfz, d2fz, d3fz;  
 
   /* ec(rs, 0) */
-  g(p->func, r->order, 0, r->rs, &ecp, &vcp, &fcp, &kcp);
+  XC(lda_c_pw_g)(p->func, r->order, 0, r->rs, &ecp, &vcp, &fcp, &kcp);
   
   if(p->nspin == XC_UNPOLARIZED)
     r->zk = ecp;
   else{
     /* get ferromagnetic values */
-    g(p->func, r->order, 1, r->rs, &ecf, &vcf, &fcf, &kcf);
+    XC(lda_c_pw_g) (p->func, r->order, 1, r->rs, &ecf, &vcf, &fcf, &kcf);
 
     /* get -alpha_c */
-    g(p->func, r->order, 2, r->rs, &alpha, &dalpha, &d2alpha, &d3alpha);
+    XC(lda_c_pw_g) (p->func, r->order, 2, r->rs, &alpha, &dalpha, &d2alpha, &d3alpha);
     alpha *= -1.0;
 
     fz  = FZETA(r->zeta);

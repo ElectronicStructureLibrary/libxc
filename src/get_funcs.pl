@@ -424,6 +424,7 @@ sub read_file() {
 
 	  if($num{$infos0[0]} eq "") {
 	      print STDERR "ERROR: missing number\n";
+              print STDERR $infos0[0], "\n";
 	      exit(1);
 	  }
 

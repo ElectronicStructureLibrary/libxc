@@ -42,4 +42,13 @@ xc_error_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
 
 dist_noinst_DATA = $(srcdir)/df_repo/*.data $(srcdir)/regression/*.pol.bz2 $(srcdir)/regression/*.unpol.bz2 $(srcdir)/input/*
 
+# Delete temporary working directories from testsuite runs, if they are older than MINTIME (in minutes)
+MINTIME=600
+# note: beginning line with '-' means ignore the exit status of the command
+clean-local:
+	-if test "x$$tmpdir" == "x"; then tmpdir=/tmp; fi; \
+	find $$tmpdir -name 'libxc*' -type d -mmin +$(MINTIME) -exec rm -rf {} \; 2> /dev/null
+
 CLEANFILES = *~ *.bak
+
+.PHONY: clean clean-local

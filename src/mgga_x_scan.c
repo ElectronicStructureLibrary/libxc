@@ -27,9 +27,6 @@
 
 /* Constants */
 static const FLOAT a1  = 4.9479;
-static const FLOAT c1x = 0.667;
-static const FLOAT c2x = 0.8;
-static const FLOAT dx  = 1.24;
 static const FLOAT mu  = 10.0/81.0;
 static const FLOAT b2  = 0.1208304597359457; /* SQRT(5913.0/405000.0) */
 static const FLOAT b1  = 0.1566320774354852; /* (511.0/13500.0)/(2*b2) */
@@ -80,7 +77,7 @@ XC(mgga_x_scan_falpha)(int order, FLOAT a, FLOAT c1, FLOAT c2, FLOAT dd, FLOAT *
 
   if(order < 1) return;
 
-  *dfda = -(c1x*c1exp + dd*c2x*c2exp)*ooma*ooma;
+  *dfda = -(c1*c1exp + dd*c2*c2exp)*ooma*ooma;
 }
 
 static void
@@ -121,6 +118,8 @@ func_h1x(int order, FLOAT x,
 static void
 func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 {
+  static const FLOAT c1x = 0.667, c2x = 0.8, dx  = 1.24;
+
   /* s variable and alpha */
   FLOAT s, a;
   /* Derivatives of alpha in terms of libxc variables */

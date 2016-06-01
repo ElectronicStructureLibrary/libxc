@@ -190,9 +190,9 @@ pbe_eq7(int order, int func, FLOAT beta, FLOAT gamm, FLOAT phi, FLOAT t, FLOAT A
   phi3 = POW(phi, 3);
 
   if(func == 99){ /* XC_GGA_C_SCAN_E0 */
-    f1 = 1 + 4.0*A*t2;
+    f1 = 1.0 + 4.0*A*t2;
     f3 = POW(f1, -1.0/4.0);
-    f2 = beta*f3/(gamm*A);
+    f2 = beta*(1.0 - f3)/(gamm*A);
   }else{
     f1 = t2 + B*A*t2*t2;
     f3 = 1.0 + A*f1;
@@ -263,7 +263,8 @@ pbe_eq7(int order, int func, FLOAT beta, FLOAT gamm, FLOAT phi, FLOAT t, FLOAT A
 void
 XC(beta_Hu_Langreth) (FLOAT rs, int order, FLOAT *b, FLOAT *dbdrs, FLOAT *d2bdrs2)
 {
-  const static FLOAT beta_a = 0.066725, beta_b = 0.1, beta_c = 0.1778;
+  /* in the paper we have beta_a = 0.066725 */
+  const static FLOAT beta_a = 0.066724550603149220, beta_b = 0.1, beta_c = 0.1778;
 
   FLOAT num, den, dnum, dden;
   
@@ -273,8 +274,8 @@ XC(beta_Hu_Langreth) (FLOAT rs, int order, FLOAT *b, FLOAT *dbdrs, FLOAT *d2bdrs
 
   if(order < 1) return;
 
-  dnum = beta_a*beta_b;
   dden = beta_c;
+  dnum = beta_a*beta_b;
 
   *dbdrs = DFRACTION(num, dnum, den, dden);
 
@@ -375,7 +376,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   dtdphi = -tt/phi;
 
   if(p->func == 11){
-    dbetadrs = 2 * pbeloc_a * tt * (dtdrs * (1.0 - beta_den) + tt * r->rs * beta_den);
+    dbetadrs = 2.0 * pbeloc_a * tt * (dtdrs * (1.0 - beta_den) + tt * r->rs * beta_den);
   }else if(p->func != 7 && p->func != 99)
     dbetadrs = 0.0;
 

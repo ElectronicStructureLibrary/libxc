@@ -36,6 +36,8 @@ Celebration of the Contributions of Robert G. Parr, edited by KD Sen
 #define XC_GGA_K_LIEB          505 /* TF-lambda-vW form by Lieb (l = 0.185909191) */
 #define XC_GGA_K_ABSP1         506 /* gamma-TFvW form by Acharya et al [g = 1 - 1.412/N^(1/3)] */
 #define XC_GGA_K_ABSP2         507 /* gamma-TFvW form by Acharya et al [g = 1 - 1.332/N^(1/3)] */
+#define XC_GGA_K_ABSP3         177 /* gamma-TFvW form by Acharya et al [g = 1 - 1.513/N^0.35] */
+#define XC_GGA_K_ABSP4         178 /* gamma-TFvW form by Acharya et al [g = l = 1/(1 + 1.332/N^(1/3))] */
 #define XC_GGA_K_GR            508 /* gamma-TFvW form by Gazquez and Robles */
 #define XC_GGA_K_LUDENA        509 /* gamma-TFvW form by Ludena */
 #define XC_GGA_K_GP85          510 /* gamma-TFvW form by Ghosh and Parr */
@@ -83,6 +85,12 @@ XC(gga_k_tflw_set_params)(XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N)
     case XC_GGA_K_ABSP2:      /* Ref. 79 */
       params->gamma = 1.0 - 1.332/CBRT(N);
       break;
+    case XC_GGA_K_ABSP3:      /* Ref. 79 */
+      params->gamma = 1.0 - 1.513/POW(N, 0.35);
+      break;
+    case XC_GGA_K_ABSP4:      /* Ref. 79 */
+      params->gamma = 1.0/(1.0 + 1.332/CBRT(N));
+      break;
     case XC_GGA_K_GR:         /* Ref. 80 */
       params->gamma = (1.0 - 2.0/N)*(1.0 - 1.015/CBRT(N) + 0.150*CBRT(N*N));
       break;
@@ -118,6 +126,9 @@ XC(gga_k_tflw_set_params)(XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N)
       break;
     case XC_GGA_K_LIEB:       /* Ref. 12 */
       params->lambda = 0.185909191;   /* 1/5.37897... */
+      break;
+    case XC_GGA_K_ABSP4:      /* Ref. 79 */
+      params->lambda = 1.0/(1.0 + 1.332/CBRT(N));
       break;
     }
   }
@@ -266,6 +277,34 @@ const XC(func_info_type) XC(func_info_gga_k_absp2) = {
   XC_GGA_K_ABSP2,
   XC_KINETIC,
   "gamma-TFvW form by Acharya et al [g = 1 - 1.332/N^(1/3)]",
+  XC_FAMILY_GGA,
+  {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_k_tflw_init,
+  NULL, NULL,
+  work_gga_k,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_k_absp3) = {
+  XC_GGA_K_ABSP3,
+  XC_KINETIC,
+  "gamma-TFvW form by Acharya et al [g = 1 - 1.513/N^0.35]",
+  XC_FAMILY_GGA,
+  {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  gga_k_tflw_init,
+  NULL, NULL,
+  work_gga_k,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_k_absp4) = {
+  XC_GGA_K_ABSP4,
+  XC_KINETIC,
+  "gamma-TFvW form by Acharya et al [g = l = 1/(1 + 1.332/N^(1/3))]",
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,

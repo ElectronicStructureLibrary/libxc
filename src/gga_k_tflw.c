@@ -64,7 +64,9 @@ void
 XC(gga_k_tflw_set_params)(XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N)
 {
   gga_k_tflw_params *params;
-
+  FLOAT C0 = CBRT(M_PI/3.0);
+  FLOAT C1 = CBRT(M_PI*M_PI/36.0)/6.0 - CBRT(M_PI*M_PI/9.0)/4.0;
+  
   assert(p != NULL && p->params != NULL);
   params = (gga_k_tflw_params *) (p->params);
 
@@ -92,7 +94,7 @@ XC(gga_k_tflw_set_params)(XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N)
       params->gamma = 1.0/(1.0 + 1.332/CBRT(N));
       break;
     case XC_GGA_K_GR:         /* Ref. 80 */
-      params->gamma = (1.0 - 2.0/N)*(1.0 - 1.015/CBRT(N) + 0.150*CBRT(N*N));
+      params->gamma = (1.0 - 2.0/N)*(1.0 - C0/CBRT(N) + C1*CBRT(N*N));
       break;
     case XC_GGA_K_LUDENA:     /* Ref. 82 */
       params->gamma = CBRT(6.0*M_PI)*M_PI*M_PI*(1.0 - 1.0/(N*N));

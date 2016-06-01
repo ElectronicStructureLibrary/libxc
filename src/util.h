@@ -269,7 +269,7 @@ void XC(beta_Hu_Langreth) (FLOAT rs, int order, FLOAT *b, FLOAT *dbdrs, FLOAT *d
 void XC(mgga_series_w)(int order, int n, const FLOAT *a, FLOAT t, FLOAT *fw, FLOAT *dfwdt);
 void XC(mgga_b97_func_g)(const FLOAT *cc, FLOAT gamma, FLOAT s, int order, FLOAT *g, FLOAT *dgds, FLOAT *d2gds2);
 void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT *d, FLOAT *h, FLOAT *dhdx, FLOAT *dhdz);
-void XC(mgga_x_scan_falpha)(int order, FLOAT a, FLOAT c1, FLOAT c2, FLOAT *f, FLOAT *dfda);
+void XC(mgga_x_scan_falpha)(int order, FLOAT a, FLOAT c1, FLOAT c2, FLOAT dd, FLOAT *f, FLOAT *dfda);
 			 
 /* useful MACROS */
 #define DFRACTION(num, dnum, den, dden) \

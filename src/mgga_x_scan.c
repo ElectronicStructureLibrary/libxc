@@ -61,25 +61,26 @@ func_gx(int order, FLOAT s, FLOAT *g, FLOAT *dgds)
 }
 
 void
-XC(mgga_x_scan_falpha)(int order, FLOAT a, FLOAT c1, FLOAT c2, FLOAT *f, FLOAT *dfda)
+XC(mgga_x_scan_falpha)(int order, FLOAT a, FLOAT c1, FLOAT c2, FLOAT dd, FLOAT *f, FLOAT *dfda)
 {
   /* exponentials are truncated */
   const FLOAT logeps =  LOG(FLOAT_EPSILON);
   FLOAT thr1, thr2;
-  FLOAT c1exp, c2exp;
-  FLOAT ooma = 1.0/(1.0 - a);
+  FLOAT c1exp, c2exp, ooma;
 
   thr1  = -logeps/(c1 - logeps);
-  thr2  = -1.0 - c2/logeps;
+  thr2  = 1.0 - c2/logeps;
 
-  c1exp = (a >= thr1) ? 0.0 : EXP(-c1*a/(1.0 - a));
-  c2exp = (a <= thr2) ? 0.0 : EXP(c2/(1.0 - a));
+  ooma = 1.0/(1.0 - a);
 
-  *f = c1exp - dx*c2exp;
+  c1exp = (a >= thr1) ? 0.0 : EXP(-c1*a*ooma);
+  c2exp = (a <= thr2) ? 0.0 : EXP(c2*ooma);
+
+  *f = c1exp - dd*c2exp;
 
   if(order < 1) return;
 
-  *dfda = -(c1x*c1exp + dx*c2x*c2exp)*ooma*ooma;
+  *dfda = -(c1x*c1exp + dd*c2x*c2exp)*ooma*ooma;
 }
 
 static void
@@ -145,7 +146,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   a = (r->t - r->x*r->x/8.0)/K_FACTOR_C;
 
   /* Calculate functions */
-  XC(mgga_x_scan_falpha)(r->order, a, c1x, c2x, &fx, &dfxda);
+  XC(mgga_x_scan_falpha)(r->order, a, c1x, c2x, dx, &fx, &dfxda);
   func_gx(r->order, s, &gx, &dgxds);
   func_x(r->order, s, a, &y, &dyds, &dyda);
   func_h1x(r->order, y, &h1x, &dh1xdy);

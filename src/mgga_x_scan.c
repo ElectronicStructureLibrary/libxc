@@ -29,8 +29,9 @@ static void
 func_gx(int order, FLOAT ss, FLOAT *gx, FLOAT *dgxds)
 {
   static const FLOAT a1  = 4.9479;
-  static const FLOAT thr = a1*a1/(LOG(FLOAT_EPSILON)*LOG(FLOAT_EPSILON));
-  FLOAT smh, smhps, expn;
+  FLOAT thr, smh, smhps, expn;
+
+  thr = a1*a1/(LOG(FLOAT_EPSILON)*LOG(FLOAT_EPSILON));
 
   /* Special handling for small values of s */
   if(ss < thr) {

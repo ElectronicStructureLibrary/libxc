@@ -25,36 +25,27 @@
 #define XC_MGGA_X_SCAN          263 /* SCAN exchange of Sun, Ruzsinszky, and Perdew  */
 #define XC_HYB_MGGA_X_SCAN0     264 /* SCAN hybrid */
 
-/* Constants */
-static const FLOAT a1  = 4.9479;
-static const FLOAT mu  = 10.0/81.0;
-static const FLOAT b2  = 0.1208304597359457; /* SQRT(5913.0/405000.0) */
-static const FLOAT b1  = 0.1566320774354852; /* (511.0/13500.0)/(2*b2) */
-static const FLOAT b3  = 0.5;
-static const FLOAT k1  = 0.065;
-static const FLOAT b4  = 0.1218315102059958; /* mu^2/k1 - 1606.0/18225.0 - b1^2 */
-static const FLOAT h0x = 1.174;
-
 static void
-func_gx(int order, FLOAT s, FLOAT *g, FLOAT *dgds)
+func_gx(int order, FLOAT ss, FLOAT *gx, FLOAT *dgxds)
 {
+  static const FLOAT a1  = 4.9479;
+  static const FLOAT thr = a1*a1/(LOG(FLOAT_EPSILON)*LOG(FLOAT_EPSILON));
   FLOAT smh, smhps, expn;
 
   /* Special handling for small values of s */
-  const FLOAT thr=a1*a1/(LOG(FLOAT_EPSILON)*LOG(FLOAT_EPSILON));
-  if(s < thr) {
+  if(ss < thr) {
     smh = smhps = expn = 0.0;
   } else {
-    smh   = 1.0/SQRT(s);
-    smhps = smh/s;
+    smh   = 1.0/SQRT(ss);
+    smhps = smh/ss;
     expn  = EXP(-a1*smh);
   }
 
-  *g = 1.0 - expn;
+  *gx = 1.0 - expn;
 
   if(order < 1) return;
 
-  *dgds = -0.5 * a1 * expn * smhps;
+  *dgxds = -0.5 * a1 * expn * smhps;
 }
 
 void
@@ -81,33 +72,41 @@ XC(mgga_x_scan_falpha)(int order, FLOAT a, FLOAT c1, FLOAT c2, FLOAT dd, FLOAT *
 }
 
 static void
-func_x(int order, FLOAT s, FLOAT a,
-       FLOAT *x, FLOAT *dxds, FLOAT *dxda)
+func_x(int order, FLOAT ss, FLOAT a, FLOAT *x, FLOAT *dxds, FLOAT *dxda)
 {
-  /* Write in terms of variables */
-  FLOAT p=s*s;
-  FLOAT beta=1.0-a;
+  static const FLOAT mu  = 10.0/81.0;
+  static const FLOAT b1  = 0.1566320774354852; /* (511.0/13500.0)/(2*b2) */
+  static const FLOAT b2  = 0.1208304597359457; /* SQRT(5913.0/405000.0) */
+  static const FLOAT b3  = 0.5;
+  static const FLOAT b4  = 0.1218315102059958; /* mu^2/k1 - 1606.0/18225.0 - b1^2 */
+
+  FLOAT ss2, beta, expb3, expb4, sterm;
+
+  ss2  = ss*ss;
+  beta = 1.0 - a;
 
   /* Helpers */
-  FLOAT expb4=EXP(-b4*p/mu);
-  FLOAT expb3=EXP(-b3*beta*beta);
-  /* Second term in the bracket */
-  FLOAT sterm=b1*p + b2*beta*expb3;
+  expb4 = EXP(-b4*ss2/mu);
+  expb3 = EXP(-b3*beta*beta);
 
-  *x = mu*p + b4*p*p*expb4 + sterm*sterm;
+  /* Second term in the bracket */
+  sterm = b1*ss2 + b2*beta*expb3;
+
+  *x = mu*ss2 + b4*ss2*ss2*expb4 + sterm*sterm;
 
   if(order < 1) return;
 
-  *dxds = 2.0*s*(mu + b4*p*(2.0 - b4*p/mu)*expb4 + 2*b1*(b1*p + b2*beta*expb3));
-  *dxda = -2.0*( b1*p + b2*beta*expb3 ) * b2 * expb3 * (1.0 - 2.0*b3*beta*beta);
+  *dxds = 2.0*ss*(mu + b4*ss2*(2.0 - b4*ss2/mu)*expb4 + 2*b1*(b1*ss2 + b2*beta*expb3));
+  *dxda = -2.0*(b1*ss2 + b2*beta*expb3) * b2 * expb3 * (1.0 - 2.0*b3*beta*beta);
 }
 
 static void
-func_h1x(int order, FLOAT x,
-	 FLOAT *h, FLOAT *dhdx)
+func_h1x(int order, FLOAT x, FLOAT *h, FLOAT *dhdx)
 {
-  FLOAT k1ok1px=k1/(k1+x);
+  static const FLOAT k1  = 0.065;
+  FLOAT k1ok1px;
 
+  k1ok1px = k1/(k1 + x);
   *h = 1.0 + k1*(1.0 - k1ok1px);
 
   if(order < 1) return;
@@ -119,6 +118,7 @@ static void
 func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 {
   static const FLOAT c1x = 0.667, c2x = 0.8, dx  = 1.24;
+  static const FLOAT h0x = 1.174;
 
   /* s variable and alpha */
   FLOAT s, a;

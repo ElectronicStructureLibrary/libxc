@@ -69,7 +69,7 @@ libxc_la_FUNC_SOURCES = \
 	mgga_x_m06l.c mgga_x_tau_hcth.c mgga_x_2d_prhg07.c	\
 	mgga_x_pkzb.c mgga_x_m05.c mgga_x_m08.c mgga_x_ms.c	\
 	mgga_x_mn12.c mgga_x_mk00.c mgga_c_vsxc.c mgga_c_pkzb.c	\
-	mgga_c_bc95.c mgga_c_m08.c mgga_c_cc06.c mgga_c_cs.c	\
+	mgga_c_bc95.c mgga_c_m08.c mgga_xc_cc06.c mgga_c_cs.c	\
 	mgga_xc_otpss_d.c mgga_xc_zlp.c hyb_mgga_xc_m05.c	\
 	mgga_x_mbeef.c mgga_xc_b97mv.c mgga_x_scan.c mgga_c_scan.c \
 	hyb_mgga_xc_tpssh.c mgga_x_mvs.c hyb_mgga_x_mvsh.c

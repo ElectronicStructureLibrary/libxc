@@ -22,19 +22,21 @@
 
 #include "util.h"
 
-#define XC_MGGA_C_CC06          229 /* Cancio and Chou 2006 */
+#define XC_MGGA_XC_CC06          229 /* Cancio and Chou 2006 */
 
 
 static void 
-mgga_c_cc06_init(XC(func_type) *p)
+mgga_xc_cc06_init(XC(func_type) *p)
 {
   assert(p != NULL);
 
-  p->n_func_aux  = 1;
+  p->n_func_aux  = 2;
   p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
+  p->func_aux[1] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
 
-  XC(func_init)(p->func_aux[0], XC_LDA_C_PW, p->nspin);
+  XC(func_init)(p->func_aux[0], XC_LDA_X,    p->nspin);
+  XC(func_init)(p->func_aux[1], XC_LDA_C_PW, p->nspin);
 }
 
 
@@ -42,17 +44,18 @@ static void
 func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 {
   static FLOAT alpha = -0.0007, beta = 0.0080, gamma = 0.026;
-  XC(lda_work_t) pw;
+  XC(lda_work_t) lda_x, lda_pw;
   FLOAT l_cnst, opz, omz, opz13, omz13, opz23, omz23, l, fxc_n, fxc_d, fxc;
   FLOAT dldz, dldus[2], dfxc;
 
-  pw.order = r->order;
-  pw.rs[0] = SQRT(r->rs);
-  pw.rs[1] = r->rs;
-  pw.rs[2] = r->rs*r->rs;
-  pw.zeta  = r->zeta;
+  lda_pw.order = lda_x.order = r->order;
+  lda_pw.rs[0] = lda_x.rs[0] = SQRT(r->rs);
+  lda_pw.rs[1] = lda_x.rs[1] = r->rs;
+  lda_pw.rs[2] = lda_x.rs[2] = r->rs*r->rs;
+  lda_pw.zeta  = lda_x.zeta  = r->zeta;
 
-  XC(lda_c_pw_func)(pt->func_aux[0], &pw);
+  XC(lda_x_func)   (pt->func_aux[0], &lda_x);
+  XC(lda_c_pw_func)(pt->func_aux[1], &lda_pw);
 
   l_cnst = CBRT(3.0/(2.0*4.0*M_PI));
   l_cnst = l_cnst*l_cnst/2.0;
@@ -69,7 +72,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   fxc_d = 1.0 + gamma*l;
   fxc   = 1.0 + fxc_n/fxc_d;
 
-  r->f = pw.zk*fxc;
+  r->f = (lda_x.zk + lda_pw.zk)*fxc;
 
   if(r->order < 1) return;
 
@@ -79,15 +82,15 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
   dfxc = -(alpha*gamma - beta)/(fxc_d*fxc_d);
 
-  r->dfdrs    = pw.dedrs*fxc;
-  r->dfdz     = pw.dedz *fxc + pw.zk*dfxc*dldz;
+  r->dfdrs    = (lda_x.dedrs + lda_pw.dedrs)*fxc;
+  r->dfdz     = (lda_x.dedz + lda_pw.dedz)*fxc + (lda_x.zk + lda_pw.zk)*dfxc*dldz;
   r->dfdxt    = 0.0;
   r->dfdxs[0] = 0.0;
   r->dfdxs[1] = 0.0;
   r->dfdts[0] = 0.0;
   r->dfdts[1] = 0.0;
-  r->dfdus[0] = pw.zk*dfxc*dldus[0];
-  r->dfdus[1] = pw.zk*dfxc*dldus[1];
+  r->dfdus[0] = (lda_x.zk + lda_pw.zk)*dfxc*dldus[0];
+  r->dfdus[1] = (lda_x.zk + lda_pw.zk)*dfxc*dldus[1];
 
   if(r->order < 2) return;
 }
@@ -96,15 +99,15 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 #include "work_mgga_c.c"
 
 
-const XC(func_info_type) XC(func_info_mgga_c_cc06) = {
-  XC_MGGA_C_CC06,
-  XC_CORRELATION,
+const XC(func_info_type) XC(func_info_mgga_xc_cc06) = {
+  XC_MGGA_XC_CC06,
+  XC_EXCHANGE_CORRELATION,
   "Cancio and Chou 2006",
   XC_FAMILY_MGGA,
   {&xc_ref_Cancio2006_081202, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
-  mgga_c_cc06_init,
+  mgga_xc_cc06_init,
   NULL, NULL, NULL,
   work_mgga_c,
 };

@@ -155,7 +155,7 @@ void test_gga()
   v3sigma3    = malloc(10*npoints*sizeof(double));
 
   
-  XC(func_init)(&gga,  XC_GGA_C_WI,  XC_UNPOLARIZED);
+  XC(func_init)(&gga,  XC_GGA_XC_TH4,  XC_POLARIZED);
 
   /*
   for(i=1; i<=10000; i++){
@@ -173,11 +173,11 @@ void test_gga()
      rho[1]   = 0.2;
      sigma[0] = 0.1 + i/10000.0;
      sigma[1] = 0.00002;
-     sigma[2] = 0.00005;
+     sigma[2] = 0.5;
 
-     XC(gga)(&gga, 1, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
+     XC(gga)(&gga, 1, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2, NULL, v3rho2sigma, v3rhosigma2, v3sigma3);
 
-     fprintf(stderr, "%16.10le\t%16.10le\t%16.10le\n", sigma[0], v2rho2[0], v3rho2sigma[0]);
+     fprintf(stderr, "%16.10le\t%16.10le\t%16.10le\n", sigma[0], vsigma[0], v2sigma2[0]);
    }
 
   /*
@@ -211,7 +211,7 @@ void test_mgga()
   int i;
 
   XC(func_init)(&mgga1, XC_GGA_C_LYP, XC_POLARIZED);
-  XC(func_init)(&mgga2, XC_MGGA_C_CS, XC_POLARIZED);
+  XC(func_init)(&mgga2, XC_MGGA_X_SCAN, XC_POLARIZED);
   //XC(mgga_c_tpss_init)(tpss2.mgga);
   
   for(i=0; i<=1000; i++){
@@ -226,10 +226,10 @@ void test_mgga()
     rho[1]   = 0.4;
     sigma[0] = 0.2032882206468622;
     sigma[1] = 0.11;
-    sigma[2] = 0.7;
+    sigma[2] = 0.7 + i/10.0;
     tau[0]   = 1.0;
     tau[1]   = 0.15;
-    lapl[0]  = -0.1518421131246519 + i/1000.0;
+    lapl[0]  = -0.1518421131246519;
     lapl[1]  = 0.12;
 
     //XC(mgga)(&mgga1, 1, rho, sigma, lapl, tau, 
@@ -247,7 +247,7 @@ void test_mgga()
     XC(mgga_exc_vxc)(&mgga2, 1, rho, sigma, lapl, tau, 
 		     &zk2,  vrho2, vsigma2, vlapl2, vtau2);
 
-    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", lapl[0], zk*(rho[0]+rho[1]), vlapl[0]);
+    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[2], zk2*(rho[0]+rho[1]), vsigma2[2]);
   }
 
   XC(func_end)(&mgga1);

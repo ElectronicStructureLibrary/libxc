@@ -27,6 +27,7 @@ GGAs:
   *) B98-1, and VS98-1	(A.J.Cohen,N.C.Handy, Chem.Phys.Lett., 316,160 (2000))
 
 mGGAs:
+  *) tau-PBE (http://scitation.aip.org/content/aip/journal/jcp/111/3/10.1063/1.479374)
   *) SCAN (http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.115.036402 and http://arxiv.org/pdf/1504.03028v1.pdf)
   *) ISM (http://scitation.aip.org/content/aip/journal/jcp/116/15/10.1063/1.1462618)
   *) tau-HTCH

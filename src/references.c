@@ -1654,10 +1654,10 @@ func_reference_type xc_ref_Karasiev2014_076403 = {
 };
 
 
-func_reference_type xc_ref_Mardirossian2016 = {
-  "N. Mardirossian and M. Head-Gordon, (2016), in preparation",
-  "",
-  "@article{Mardirossian2016,\n   author = \"Mardirossian, Narbe and Head-Gordon, Martin\",\n   note = \"in preparation\",\n   year = \"2016\"\n}"
+func_reference_type xc_ref_Mardirossian2016_214110 = {
+  "N. Mardirossian and M. Head-Gordon, J. Chem. Phys. 144, 214110 (2016)",
+  "10.1063/1.4952647",
+  "@article{Mardirossian2016_214110,\n   author = \"Mardirossian, Narbe and Head-Gordon, Martin\",\n   title = \"ωB97M-V: A combinatorially optimized, range-separated hybrid, meta-GGA density functional with VV10 nonlocal correlation\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2016\",\n   volume = \"144\",\n   number = \"21\", \n   pages = \"214110\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/144/21/10.1063/1.4952647\",\n   doi = \"http://dx.doi.org/10.1063/1.4952647\" \n}"
 };
 
 

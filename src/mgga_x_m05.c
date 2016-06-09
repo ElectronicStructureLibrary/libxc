@@ -22,7 +22,7 @@
 
 #include "util.h"
 
-#define XC_MGGA_X_M05          214 /* Worker for M05 functional         */
+#define XC_HYB_MGGA_X_M05      214 /* M05 functional from Minnesota     */
 #define XC_MGGA_X_M05_2X       215 /* Worker for M05-2X functional      */
 #define XC_MGGA_X_M06_2X       218 /* Worker for M06-2X functional      */
 #define XC_HYB_MGGA_X_DLDF      36 /* Dispersionless Density Functional */
@@ -68,20 +68,18 @@ mgga_x_m05_init(XC(func_type) *p)
   params = (mgga_x_m05_params *) (p->params);
 
   switch(p->info->number){
-  case XC_MGGA_X_M05: 
+  case XC_HYB_MGGA_X_M05: 
     params->n = 12;
     params->a = a_m05;
-    params->csi_HF = 1.0;
+    p->cam_alpha = 0.28;
     break;
   case XC_MGGA_X_M05_2X:
     params->n = 12;
     params->a = a_m05_2x;
-    params->csi_HF = 1.0;
     break;
   case XC_MGGA_X_M06_2X:
     params->n = 12;
     params->a = a_m06_2x;
-    params->csi_HF = 1.0;
     break;
   case XC_HYB_MGGA_X_DLDF:
     params->n = 5;
@@ -90,12 +88,13 @@ mgga_x_m05_init(XC(func_type) *p)
     XC(gga_x_pbe_set_params)(p->func_aux[0], 4.8827323, 0.3511128);
 
     p->cam_alpha = 0.6144129;
-    params->csi_HF = 1.0 - p->cam_alpha;
     break;
   default:
     fprintf(stderr, "Internal error in mgga_x_m05\n");
     exit(1);
   }
+
+  params->csi_HF = 1.0 - p->cam_alpha;
 }
 
 
@@ -130,11 +129,11 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 #include "work_mgga_x.c"
 
 
-const XC(func_info_type) XC(func_info_mgga_x_m05) = {
-  XC_MGGA_X_M05,
+const XC(func_info_type) XC(func_info_hyb_mgga_x_m05) = {
+  XC_HYB_MGGA_X_M05,
   XC_EXCHANGE,
-  "Worker for hyb_mgga_xc_m05",
-  XC_FAMILY_MGGA,
+  "Minnesota M05 functional",
+  XC_FAMILY_HYB_MGGA,
   {&xc_ref_Zhao2005_161103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,

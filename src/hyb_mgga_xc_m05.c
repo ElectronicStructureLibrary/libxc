@@ -21,7 +21,6 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_HYB_MGGA_XC_M05      438  /* M05 functional from Minnesota                                */
 #define XC_HYB_MGGA_XC_M05_2X   439  /* M05-2X functional from Minnesota                             */
 #define XC_HYB_MGGA_XC_B88B95   440  /* Mixture of B88 with BC95 (B1B95)                             */
 #define XC_HYB_MGGA_XC_B86B95   441  /* Mixture of B86 with BC95                                     */
@@ -37,30 +36,6 @@
 #define XC_HYB_MGGA_XC_PW6B95   451  /* Mixture of PW91 with BC95 from Zhao and Truhlar              */
 #define XC_HYB_MGGA_XC_PWB6K    452  /* Mixture of PW91 with BC95 from Zhao and Truhlar for kinetics */
 #define XC_MGGA_XC_TPSSLYP1W    242  /* Functionals fitted for water                                 */
-
-/*************************************************************/
-void
-XC(hyb_mgga_xc_m05_init)(XC(func_type) *p)
-{
-  static int   funcs_id  [2] = {XC_MGGA_X_M05, XC_MGGA_C_M05};
-  static FLOAT funcs_coef[2] = {1.0 - 0.28, 1.0};
-
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.28;
-}
-
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_m05) = {
-  XC_HYB_MGGA_XC_M05,
-  XC_EXCHANGE_CORRELATION,
-  "Minnesota M05 functional",
-  XC_FAMILY_HYB_MGGA,
-  {&xc_ref_Zhao2005_161103, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32, 1e-32, 1e-32,
-  XC(hyb_mgga_xc_m05_init),
-  NULL, NULL, NULL, NULL,
-};
-
 
 /*************************************************************/
 void

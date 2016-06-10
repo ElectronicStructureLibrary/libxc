@@ -23,7 +23,7 @@
 #include "util.h"
 
 #define XC_HYB_MGGA_X_M05      214 /* M05 functional from Minnesota     */
-#define XC_MGGA_X_M05_2X       215 /* Worker for M05-2X functional      */
+#define XC_HYB_MGGA_X_M05_2X   215 /* M05-2X functional from Minnesota  */
 #define XC_MGGA_X_M06_2X       218 /* Worker for M06-2X functional      */
 #define XC_HYB_MGGA_X_DLDF      36 /* Dispersionless Density Functional */
 
@@ -73,9 +73,10 @@ mgga_x_m05_init(XC(func_type) *p)
     params->a = a_m05;
     p->cam_alpha = 0.28;
     break;
-  case XC_MGGA_X_M05_2X:
+  case XC_HYB_MGGA_X_M05_2X:
     params->n = 12;
     params->a = a_m05_2x;
+    p->cam_alpha = 0.56;
     break;
   case XC_MGGA_X_M06_2X:
     params->n = 12;
@@ -143,11 +144,11 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_m05) = {
 };
 
 
-const XC(func_info_type) XC(func_info_mgga_x_m05_2x) = {
-  XC_MGGA_X_M05_2X,
+const XC(func_info_type) XC(func_info_hyb_mgga_x_m05_2x) = {
+  XC_HYB_MGGA_X_M05_2X,
   XC_EXCHANGE,
-  "Worker for hyb_mgga_xc_m05_2x",
-  XC_FAMILY_MGGA,
+  "M05-2X functional from Minnesota",
+  XC_FAMILY_HYB_MGGA,
   {&xc_ref_Zhao2006_364, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,

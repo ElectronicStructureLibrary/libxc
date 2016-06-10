@@ -332,7 +332,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     XC(lda_stoll) (p->func_aux[1], XC(lda_c_vwn_func), r->dens, r->zeta, r->order, lda_pw);
   else
     XC(lda_stoll) (p->func_aux[1], XC(lda_c_pw_func), r->dens, r->zeta, r->order, lda_pw);
-  XC(lda_stoll) (p->func_aux[0], XC(lda_x_func),    r->dens, r->zeta, r->order, lda_x);
+  XC(lda_stoll) (p->func_aux[0], XC(lda_x_func), r->dens, r->zeta, r->order, lda_x);
 
   /* initialize to zero */
   r->f = 0.0;

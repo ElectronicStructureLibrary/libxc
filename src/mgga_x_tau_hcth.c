@@ -23,6 +23,47 @@
 #include "util.h"
 
 #define XC_MGGA_X_TAU_HCTH        205 /* tau-HCTH from Boese and Handy */
+#define XC_MGGA_X_BMK             179 /* Boese-Marin for kinetics      */
+
+const FLOAT tHCTH_cx_local [4] = {1.10734, -1.0534, 6.3491, -2.5531};
+const FLOAT tHCTH_cx_nlocal[4] = {0.00110, -0.3041, 6.9543, -0.7235};
+
+const FLOAT BMK_cx_local [4] = { 0.474302, 2.77701, -11.4230, 11.7167};
+const FLOAT BMK_cx_nlocal[4] = {-0.192212, 4.73936, -26.6188, 22.4891};
+
+typedef struct{
+  const FLOAT *cx_local;
+  const FLOAT *cx_nlocal;
+} mgga_x_tau_hcth_params;
+
+
+static void 
+mgga_x_tau_hcth_init(XC(func_type) *p)
+{
+  mgga_x_tau_hcth_params *params;
+
+  assert(p != NULL);
+  assert(p->params == NULL);
+
+  p->params = malloc(sizeof(mgga_x_tau_hcth_params));
+  params = (mgga_x_tau_hcth_params *)(p->params);
+
+  switch(p->info->number){
+  case XC_MGGA_X_TAU_HCTH:
+    params->cx_local  = tHCTH_cx_local;
+    params->cx_nlocal = tHCTH_cx_nlocal;
+    break;
+  case XC_MGGA_X_BMK:
+    params->cx_local  = BMK_cx_local;
+    params->cx_nlocal = BMK_cx_nlocal;
+    break;
+  default:
+    fprintf(stderr, "Internal error in mgga_tau_hcth\n");
+    exit(1);
+    break;
+  }
+}
+
 
 /* Eq. (22) */
 static void
@@ -63,11 +104,15 @@ eq_29(int order, FLOAT x, FLOAT *ux, FLOAT *duxdx)
 static void 
 func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 {
-  const FLOAT cx_local [4] = {1.10734, -1.0534, 6.3491, -2.5531};
-  const FLOAT cx_nlocal[4] = {0.00110, -0.3041, 6.9543, -0.7235};
+  const mgga_x_tau_hcth_params *params;
+  const FLOAT *cx_local, *cx_nlocal;
 
   FLOAT ux, ux2, gxl, gxnl, fx;
   FLOAT duxdx, dgxldu, dgxnldu, dfxdt;
+
+  params = (mgga_x_tau_hcth_params *)(pt->params);
+  cx_local  = params->cx_local;
+  cx_nlocal = params->cx_nlocal;
 
   eq_29(r->order,     r->x, &ux, &duxdx);
   eq_22(r->order, 2.0*r->t, &fx, &dfxdt);
@@ -97,7 +142,20 @@ const XC(func_info_type) XC(func_info_mgga_x_tau_hcth) = {
   {&xc_ref_Boese2002_9559, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
-  NULL, NULL,
-  NULL, NULL,        /* this is not an LDA                   */
+  mgga_x_tau_hcth_init, 
+  NULL, NULL, NULL,
+  work_mgga_x,
+};
+
+const XC(func_info_type) XC(func_info_mgga_x_bmk) = {
+  XC_MGGA_X_BMK,
+  XC_EXCHANGE,
+  "Boese-Marin for kinetics",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Boese2004_3405, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  mgga_x_tau_hcth_init, 
+  NULL, NULL, NULL,
   work_mgga_x,
 };

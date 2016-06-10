@@ -50,7 +50,7 @@
 #define XC_HYB_GGA_XC_WB97X_D 471 /* Chai and Head-Gordon                     */
 #define XC_GGA_C_GAM           33 /* GAM functional from Minnesota            */
 #define XC_HYB_GGA_XC_B97_1p  266 /* version of B97 by Cohen and Handy        */
-#define XC_GGA_C_BMK          180 /* Boese-Marin for kinetics                 */
+#define XC_GGA_C_BMK          180 /* Boese-Martin for kinetics                */
 
 static const FLOAT b97_params[][3][5] = {
   {      /* HCTH/93 */
@@ -854,7 +854,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_1p) = {
 const XC(func_info_type) XC(func_info_gga_c_bmk) = {
   XC_GGA_C_BMK,
   XC_EXCHANGE_CORRELATION,
-  "Boese-Marin for kinetics",
+  "Boese-Martin for kinetics",
   XC_FAMILY_GGA,
   {&xc_ref_Boese2004_3405, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,

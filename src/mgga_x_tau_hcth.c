@@ -23,7 +23,7 @@
 #include "util.h"
 
 #define XC_MGGA_X_TAU_HCTH        205 /* tau-HCTH from Boese and Handy */
-#define XC_MGGA_X_BMK             179 /* Boese-Marin for kinetics      */
+#define XC_MGGA_X_BMK             179 /* Boese-Martin for kinetics     */
 
 const FLOAT tHCTH_cx_local [4] = {1.10734, -1.0534, 6.3491, -2.5531};
 const FLOAT tHCTH_cx_nlocal[4] = {0.00110, -0.3041, 6.9543, -0.7235};
@@ -150,7 +150,7 @@ const XC(func_info_type) XC(func_info_mgga_x_tau_hcth) = {
 const XC(func_info_type) XC(func_info_mgga_x_bmk) = {
   XC_MGGA_X_BMK,
   XC_EXCHANGE,
-  "Boese-Marin for kinetics",
+  "Boese-Martin for kinetics",
   XC_FAMILY_MGGA,
   {&xc_ref_Boese2004_3405, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

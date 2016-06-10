@@ -24,7 +24,7 @@
 
 #define XC_HYB_MGGA_X_M05      214 /* M05 functional from Minnesota     */
 #define XC_HYB_MGGA_X_M05_2X   215 /* M05-2X functional from Minnesota  */
-#define XC_MGGA_X_M06_2X       218 /* Worker for M06-2X functional      */
+#define XC_HYB_MGGA_X_M06_2X   218 /* M06-2X functional from Minnesota  */
 #define XC_HYB_MGGA_X_DLDF      36 /* Dispersionless Density Functional */
 
 
@@ -69,33 +69,37 @@ mgga_x_m05_init(XC(func_type) *p)
 
   switch(p->info->number){
   case XC_HYB_MGGA_X_M05: 
-    params->n = 12;
-    params->a = a_m05;
-    p->cam_alpha = 0.28;
+    params->n      = 12;
+    params->a      = a_m05;
+    p->cam_alpha   = 0.28;
+    params->csi_HF = 1.0 - p->cam_alpha;
     break;
   case XC_HYB_MGGA_X_M05_2X:
-    params->n = 12;
-    params->a = a_m05_2x;
-    p->cam_alpha = 0.56;
+    params->n      = 12;
+    params->a      = a_m05_2x;
+    p->cam_alpha   = 0.56;
+    params->csi_HF = 1.0 - p->cam_alpha;
     break;
-  case XC_MGGA_X_M06_2X:
-    params->n = 12;
-    params->a = a_m06_2x;
+  case XC_HYB_MGGA_X_M06_2X:
+    params->n      = 12;
+    params->a      = a_m06_2x;
+    p->cam_alpha   = 0.54;
+    params->csi_HF = 1.0; /* the mixing is already included in the params->a */
     break;
   case XC_HYB_MGGA_X_DLDF:
-    params->n = 5;
-    params->a = a_dldf;
+    params->n      = 5;
+    params->a      = a_dldf;
+    p->cam_alpha   = 0.6144129;
+    params->csi_HF = 1.0 - p->cam_alpha;
 
     XC(gga_x_pbe_set_params)(p->func_aux[0], 4.8827323, 0.3511128);
 
-    p->cam_alpha = 0.6144129;
     break;
   default:
     fprintf(stderr, "Internal error in mgga_x_m05\n");
     exit(1);
   }
 
-  params->csi_HF = 1.0 - p->cam_alpha;
 }
 
 
@@ -157,10 +161,10 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_m05_2x) = {
   work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_m06_2x) = {
-  XC_MGGA_X_M06_2X,
+const XC(func_info_type) XC(func_info_hyb_mgga_x_m06_2x) = {
+  XC_HYB_MGGA_X_M06_2X,
   XC_EXCHANGE,
-  "Worker for hyb_mgga_m06_2x",
+  "M06-2X functional from Minnesota",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

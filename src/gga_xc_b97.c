@@ -50,6 +50,7 @@
 #define XC_HYB_GGA_XC_WB97X_D 471 /* Chai and Head-Gordon                     */
 #define XC_GGA_C_GAM           33 /* GAM functional from Minnesota            */
 #define XC_HYB_GGA_XC_B97_1p  266 /* version of B97 by Cohen and Handy        */
+#define XC_GGA_C_BMK          180 /* Boese-Marin for kinetics                 */
 
 static const FLOAT b97_params[][3][5] = {
   {      /* HCTH/93 */
@@ -167,7 +168,11 @@ static const FLOAT b97_params[][3][5] = {
   }, {   /* B97-1p  */
     { 0.8773, 0.2149,  1.5204, 0.0, 0.0},  /* X   */
     { 0.2228, 1.3678, -1.5068, 0.0, 0.0},  /* Css */
-    { 0.9253, 2.0270, -7.3431, 0.0, 0.0}   /* Cab */    
+    { 0.9253, 2.0270, -7.3431, 0.0, 0.0}   /* Cab */
+  }, {  /* BMK */
+    { 0.0, 0.0, 0.0, 0.0, 0.0},  /* BMK has a different expression for exchange */
+    {-2.19098, 23.8939, -44.3303,  22.5982, 0.0}, /* Css */
+    { 1.22334, -3.4631,  10.0731, -11.1974, 0.0}  /* Cab */
   }
 };
 
@@ -276,6 +281,7 @@ gga_xc_b97_init(XC(func_type) *p)
   case XC_HYB_GGA_XC_B97_1p:    p->func = 28;
     p->cam_alpha =  0.15;
     break;
+  case XC_GGA_C_BMK:            p->func = 29;  break;
   default:
     fprintf(stderr, "Internal error in gga_b97\n");
     exit(1);
@@ -836,6 +842,21 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_1p) = {
   "version of B97 by Cohen and Handy",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Cohen2000_160, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-23, 1e-32, 0.0, 1e-32,
+  gga_xc_b97_init, 
+  NULL,
+  NULL,
+  work_gga_c,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_c_bmk) = {
+  XC_GGA_C_BMK,
+  XC_EXCHANGE_CORRELATION,
+  "Boese-Marin for kinetics",
+  XC_FAMILY_GGA,
+  {&xc_ref_Boese2004_3405, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
   gga_xc_b97_init, 

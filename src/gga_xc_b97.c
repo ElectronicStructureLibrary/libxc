@@ -853,7 +853,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_1p) = {
 
 const XC(func_info_type) XC(func_info_gga_c_bmk) = {
   XC_GGA_C_BMK,
-  XC_EXCHANGE_CORRELATION,
+  XC_CORRELATION,
   "Boese-Martin for kinetics",
   XC_FAMILY_GGA,
   {&xc_ref_Boese2004_3405, NULL, NULL, NULL, NULL},

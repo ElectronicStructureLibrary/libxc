@@ -51,6 +51,7 @@
 #define XC_GGA_C_GAM           33 /* GAM functional from Minnesota            */
 #define XC_HYB_GGA_XC_B97_1p  266 /* version of B97 by Cohen and Handy        */
 #define XC_GGA_C_BMK          180 /* Boese-Martin for kinetics                */
+#define XC_GGA_C_TAU_HCTH     181 /* correlation part of tau-hcth             */
 
 static const FLOAT b97_params[][3][5] = {
   {      /* HCTH/93 */
@@ -173,6 +174,10 @@ static const FLOAT b97_params[][3][5] = {
     { 0.0, 0.0, 0.0, 0.0, 0.0},  /* BMK has a different expression for exchange */
     {-2.19098, 23.8939, -44.3303,  22.5982, 0.0}, /* Css */
     { 1.22334, -3.4631,  10.0731, -11.1974, 0.0}  /* Cab */
+  }, {  /* tau-HCTH */
+    { 0.0, 0.0, 0.0, 0.0, 0.0},  /* tau-HCTH has a different expression for exchange */
+    { 0.41385, -0.9086, -0.0549, 1.7480, 0.0}, /* Css */
+    { 0.65262, 6.3638, -14.080, -3.3755, 0.0}  /* Cab */
   }
 };
 
@@ -282,6 +287,7 @@ gga_xc_b97_init(XC(func_type) *p)
     p->cam_alpha =  0.15;
     break;
   case XC_GGA_C_BMK:            p->func = 29;  break;
+  case XC_GGA_C_TAU_HCTH:       p->func = 30;  break;
   default:
     fprintf(stderr, "Internal error in gga_b97\n");
     exit(1);
@@ -857,6 +863,21 @@ const XC(func_info_type) XC(func_info_gga_c_bmk) = {
   "Boese-Martin for kinetics",
   XC_FAMILY_GGA,
   {&xc_ref_Boese2004_3405, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-23, 1e-32, 0.0, 1e-32,
+  gga_xc_b97_init, 
+  NULL,
+  NULL,
+  work_gga_c,
+  NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_c_tau_hcth) = {
+  XC_GGA_C_TAU_HCTH,
+  XC_CORRELATION,
+  "correlation part of tau-hcth",
+  XC_FAMILY_GGA,
+  {&xc_ref_Boese2002_9559, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23, 1e-32, 0.0, 1e-32,
   gga_xc_b97_init, 

@@ -23,7 +23,7 @@
 #include "util.h"
 
 #define XC_MGGA_X_SCAN          263 /* SCAN exchange of Sun, Ruzsinszky, and Perdew  */
-#define XC_HYB_MGGA_X_SCAN0     264 /* SCAN hybrid */
+#define XC_HYB_MGGA_X_SCAN0     264 /* SCAN hybrid exchange */
 
 static void
 func_gx(int order, FLOAT ss, FLOAT *gx, FLOAT *dgxds)
@@ -202,7 +202,7 @@ XC(hyb_mgga_x_scan0_set_params)(XC(func_type) *p, FLOAT alpha)
 const XC(func_info_type) XC(func_info_hyb_mgga_x_scan0) = {
   XC_HYB_MGGA_X_SCAN0,
   XC_EXCHANGE,
-  "SCAN hybrid (SCAN0)",
+  "SCAN hybrid exchange (SCAN0)",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Hui2016_044114, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

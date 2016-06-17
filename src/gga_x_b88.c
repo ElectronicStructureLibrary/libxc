@@ -69,6 +69,7 @@ gga_x_b88_init(XC(func_type) *p)
   case XC_GGA_X_EB88:
     p->func = 6; 
     XC(gga_x_b88_set_params)(p, 0.0050/M_CBRT2, 6.0);
+    break;
   default:
     fprintf(stderr, "Internal error in gga_x_b88\n");
     exit(1);

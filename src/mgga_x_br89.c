@@ -34,7 +34,7 @@ typedef struct{
 } mgga_x_tb09_params;
 
 static FLOAT br89_gamma = 0.8;
-
+static FLOAT b00_at     = 0.928;
 
 static void 
 mgga_x_tb09_init(XC(func_type) *p)
@@ -199,7 +199,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 
     if(pt->func == 4){ /* XC_MGGA_B00 */
       XC(mgga_b00_fw)(r->order, r->t, &fw, &dfwdt);
-      r->f *= 1.0 + fw;
+      r->f *= 1.0 + b00_at*fw;
     }
   }else{ /* XC_MGGA_X_BJ06 & XC_MGGA_X_TB09 */
     r->f = 0.0;
@@ -224,9 +224,9 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
     r->dfdu =            -dv_BRdbx*dxdQ/12.0;
 
     if(pt->func == 4){ /* XC_MGGA_B00 */
-      r->dfdx *= 1.0 + fw;
-      r->dfdt  = r->dfdt*(1.0 + fw) - v_BR*dfwdt/2.0;
-      r->dfdu *= 1.0 + fw;
+      r->dfdx *= 1.0 + b00_at*fw;
+      r->dfdt  = r->dfdt*(1.0 + b00_at*fw) - v_BR*b00_at*dfwdt/2.0;
+      r->dfdu *= 1.0 + b00_at*fw;
     }
   }else{
     assert(pt->params != NULL);

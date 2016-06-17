@@ -267,3 +267,4 @@ extern func_reference_type xc_ref_Elliott2009_1485;
 extern func_reference_type xc_ref_Carmona2015_054105;
 extern func_reference_type xc_ref_Carmona2016_120;
 extern func_reference_type xc_ref_Vydrov2006_234109;
+extern func_reference_type xc_ref_Becke2000_4020;

@@ -75,22 +75,20 @@ mgga_x_tau_hcth_init(XC(func_type) *p)
 
 
 /* Eq. (22) */
-static void
-eq_22(int order, FLOAT t, FLOAT *fx, FLOAT *dfxdt)
+void
+XC(mgga_b00_fw)(int order, FLOAT t, FLOAT *fw, FLOAT *dfwdt)
 {
-  FLOAT CFermi = (3.0/5.0) * POW(6.0*M_PI*M_PI, 2.0/3.0);
-
   FLOAT w, w2;
 
-  w = (CFermi - t)/(CFermi + t);
+  w = (K_FACTOR_C - t)/(K_FACTOR_C + t);
   w2 = w*w;
 
-  *fx = w*(1.0 - 2.0*w2 + w2*w2);
+  *fw = w*(1.0 - 2.0*w2 + w2*w2);
 
   if(order < 1) return;
 
-  *dfxdt = 1.0 - 6.0*w2 + 5.0*w2*w2;
-  *dfxdt *= -2.0*CFermi/((CFermi + t)*(CFermi + t));
+  *dfwdt = 1.0 - 6.0*w2 + 5.0*w2*w2;
+  *dfwdt *= -2.0*K_FACTOR_C/((K_FACTOR_C + t)*(K_FACTOR_C + t));
 }
 
 
@@ -123,8 +121,8 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   cx_local  = params->cx_local;
   cx_nlocal = params->cx_nlocal;
 
-  eq_29(r->order,     r->x, &ux, &duxdx);
-  eq_22(r->order, 2.0*r->t, &fx, &dfxdt);
+  eq_29          (r->order, r->x, &ux, &duxdx);
+  XC(mgga_b00_fw)(r->order, r->t, &fx, &dfxdt);
 
   ux2  = ux*ux;
   gxl  = cx_local [0] + ux*(cx_local [1] + cx_local [2]*ux + cx_local [3]*ux2);
@@ -138,7 +136,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   dgxnldu = cx_nlocal[1] + 2.0*cx_nlocal[2]*ux + 3.0*cx_nlocal[3]*ux2;
 
   r->dfdx = (dgxldu + dgxnldu*fx)*duxdx;
-  r->dfdt = 2.0*gxnl*dfxdt;
+  r->dfdt = gxnl*dfxdt;
 }
 
 #include "work_mgga_x.c"

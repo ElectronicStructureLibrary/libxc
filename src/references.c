@@ -1731,3 +1731,10 @@ func_reference_type xc_ref_Vydrov2006_234109 = {
 };
 
 
+func_reference_type xc_ref_Becke2000_4020 = {
+  "A. D. Becke, J. Chem. Phys. 112, 4020 (2000)",
+  "10.1063/1.480951",
+  "@article{Becke2000_4020,\n   author = \"Becke, Axel D.\",\n   title = \"Simulation of delocalized exchange by local density functionals\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2000\",\n   volume = \"112\",\n   number = \"9\", \n   pages = \"4020-4026\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/112/9/10.1063/1.480951\",\n   doi = \"http://dx.doi.org/10.1063/1.480951\" \n}"
+};
+
+

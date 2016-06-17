@@ -27,6 +27,7 @@
 #define XC_MGGA_X_BJ06         207 /* Becke & Johnson correction to Becke-Roussel 89  */
 #define XC_MGGA_X_TB09         208 /* Tran & Blaha correction to Becke & Johnson  */
 #define XC_MGGA_X_RPP09        209 /* Rasanen, Pittalis, and Proetto correction to Becke & Johnson  */
+#define XC_MGGA_X_B00          252 /* Becke 2000 */
 
 typedef struct{
   FLOAT c;
@@ -45,6 +46,7 @@ mgga_x_tb09_init(XC(func_type) *p)
   case XC_MGGA_X_BJ06:  p->func = 1; break;
   case XC_MGGA_X_TB09:  p->func = 2; break;
   case XC_MGGA_X_RPP09: p->func = 3; break;
+  case XC_MGGA_X_B00:   p->func = 4; break;
   }
 
   p->params = malloc(sizeof(mgga_x_tb09_params));
@@ -172,9 +174,11 @@ static void
 func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 {
   FLOAT Q, br_x, v_BR, dv_BRdbx, d2v_BRdbx2, dxdQ, d2xdQ2, ff, dffdx, d2ffdx2;
-  FLOAT cnst, c_TB09, c_HEG, exp1, exp2;
+  FLOAT cnst, c_TB09, c_HEG, exp1, exp2, gamma, fw, dfwdt;
 
-  Q = (r->u - 4.0*br89_gamma*r->t + 0.5*br89_gamma*r->x*r->x)/6.0;
+  gamma = (pt->func == 4) ? 1.0 : br89_gamma; /* XC_MGGA_B00 */
+
+  Q = (r->u - 4.0*gamma*r->t + 0.5*gamma*r->x*r->x)/6.0;
   if(ABS(Q) < MIN_DENS) Q = (Q < 0) ? -MIN_DENS : MIN_DENS;
 
   br_x = XC(mgga_x_br89_get_x)(Q);
@@ -189,9 +193,14 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 
   v_BR *= cnst;
 
-  if(pt->func == 0){ /* XC_MGGA_X_BR89 */
+  if(pt->func == 0 || pt->func == 4){ /* XC_MGGA_X_BR89 or XC_MGGA_B00 */
     /* we have also to include the factor 1/2 from Eq. (9) */
     r->f = - v_BR / 2.0;
+
+    if(pt->func == 4){ /* XC_MGGA_B00 */
+      XC(mgga_b00_fw)(r->order, r->t, &fw, &dfwdt);
+      r->f *= 1.0 + fw;
+    }
   }else{ /* XC_MGGA_X_BJ06 & XC_MGGA_X_TB09 */
     r->f = 0.0;
   }
@@ -209,11 +218,16 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
     dxdQ  = -ff/(Q*dffdx);
   }
 
-  if(pt->func == 0){ /* XC_MGGA_X_BR89 */
-    r->dfdx = -r->x*br89_gamma*dv_BRdbx*dxdQ/12.0;
-    r->dfdt =   4.0*br89_gamma*dv_BRdbx*dxdQ/12.0;
-    r->dfdu =                 -dv_BRdbx*dxdQ/12.0;
+  if(pt->func == 0 || pt->func == 4){ /* XC_MGGA_X_BR89 */
+    r->dfdx = -r->x*gamma*dv_BRdbx*dxdQ/12.0;
+    r->dfdt =   4.0*gamma*dv_BRdbx*dxdQ/12.0;
+    r->dfdu =            -dv_BRdbx*dxdQ/12.0;
 
+    if(pt->func == 4){ /* XC_MGGA_B00 */
+      r->dfdx *= 1.0 + fw;
+      r->dfdt  = r->dfdt*(1.0 + fw) - v_BR*dfwdt/2.0;
+      r->dfdu *= 1.0 + fw;
+    }
   }else{
     assert(pt->params != NULL);
     c_TB09 = ((mgga_x_tb09_params *) (pt->params))->c;
@@ -246,11 +260,11 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   if(pt->func == 0){ /* XC_MGGA_X_BR89 */
     FLOAT aux1 = d2v_BRdbx2*dxdQ*dxdQ + dv_BRdbx*d2xdQ2;
 
-    r->d2fdx2 = -(aux1*br89_gamma*r->x*r->x/6.0 + dv_BRdbx*dxdQ)*br89_gamma/12.0;
-    r->d2fdxt =  aux1*br89_gamma*br89_gamma*r->x/18.0;
-    r->d2fdxu = -aux1*br89_gamma*r->x/72.0;
-    r->d2fdt2 = -aux1*2.0*br89_gamma*br89_gamma/9.0;
-    r->d2fdtu =  aux1*br89_gamma/18.0;
+    r->d2fdx2 = -(aux1*gamma*r->x*r->x/6.0 + dv_BRdbx*dxdQ)*gamma/12.0;
+    r->d2fdxt =  aux1*gamma*gamma*r->x/18.0;
+    r->d2fdxu = -aux1*gamma*r->x/72.0;
+    r->d2fdt2 = -aux1*2.0*gamma*gamma/9.0;
+    r->d2fdtu =  aux1*gamma/18.0;
     r->d2fdu2 = -aux1/72.0;
   }else{
     
@@ -311,6 +325,19 @@ const XC(func_info_type) XC(func_info_mgga_x_rpp09) = {
   1e-22, 1e-22, 1e-22, 1e-22,
   mgga_x_tb09_init,
   NULL,
+  NULL, NULL,        /* this is not an LDA                   */
+  work_mgga_x,
+};
+
+const XC(func_info_type) XC(func_info_mgga_x_b00) = {
+  XC_MGGA_X_B00,
+  XC_EXCHANGE,
+  "Becke 2000",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Becke2000_4020, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  NULL, NULL,
   NULL, NULL,        /* this is not an LDA                   */
   work_mgga_x,
 };

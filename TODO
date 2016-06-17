@@ -31,7 +31,6 @@ mGGAs:
   *) tau-PBE (http://scitation.aip.org/content/aip/journal/jcp/111/3/10.1063/1.479374)
   *) ISM (http://scitation.aip.org/content/aip/journal/jcp/116/15/10.1063/1.1462618)
   *) KCIS, B0KCIS, B1KCIS http://jcp.aip.org/resource/1/jcpsa6/v117/i23/p10465_s1
-  *) regTPSS http://pubs.acs.org/doi/abs/10.1021/ct300269u
   *) LAP class of functionals [70]
   *) Perdew-Constantin laplacian-level KED functional http://link.aps.org/doi/10.1103/PhysRevB.75.155109
   *) Alternative parametrizations of the TB09 functional http://dx.doi.org/10.1103/PhysRevB.85.155109

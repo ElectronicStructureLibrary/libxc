@@ -307,7 +307,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_wb97m_v) = {
   XC_EXCHANGE_CORRELATION,
   "wB97M-V exchange-correlation functional",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref_Mardirossian2016, NULL, NULL, NULL, NULL},
+  {&xc_ref_Mardirossian2016_214110, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_xc_b97mv_init,

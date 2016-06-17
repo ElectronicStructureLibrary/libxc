@@ -26,11 +26,10 @@ GGAs:
   *) B98-1, and VS98-1	(A.J.Cohen,N.C.Handy, Chem.Phys.Lett., 316,160 (2000))
 
 mGGAs:
-  *) http://scitation.aip.org/content/aip/journal/jcp/112/9/10.1063/1.480951
+  *) Bc98 in http://scitation.aip.org/content/aip/journal/jcp/88/2/10.1063/1.454274
+  *) hybrids in http://scitation.aip.org/content/aip/journal/jcp/112/9/10.1063/1.480951
   *) tau-PBE (http://scitation.aip.org/content/aip/journal/jcp/111/3/10.1063/1.479374)
-  *) SCAN (http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.115.036402 and http://arxiv.org/pdf/1504.03028v1.pdf)
   *) ISM (http://scitation.aip.org/content/aip/journal/jcp/116/15/10.1063/1.1462618)
-  *) tau-HTCH
   *) KCIS, B0KCIS, B1KCIS http://jcp.aip.org/resource/1/jcpsa6/v117/i23/p10465_s1
   *) regTPSS http://pubs.acs.org/doi/abs/10.1021/ct300269u
   *) LAP class of functionals [70]
@@ -41,7 +40,6 @@ mGGAs:
   *) spin-polarized Colle-Salvetti -type correlation http://www.sciencedirect.com/science/article/pii/S0009261497002017
   *) B94 [A. D. Becke, Int. J. Quantum Chem. Symp. 28, 625 (1994) and  E. Proynov, Z. Gan, and J. Kong, Chem. Phys. Lett. 455, 103 (2008)]
   *) PK06 [E. Proynov and J. Kong, J. Chem. Theory Comput. 3, 746 (2007)]
-  *) tau-HCTH correlation
 
 hybrids:
   *) http://arxiv.org/abs/1205.4999 (versions of HSE)
@@ -59,7 +57,6 @@ hybrid meta:
   *) b1b95 (54, 60)
   *) tpsslyp1w (1w class of functionals)
   *) HSEsol [L. Schimka, J. Harl and G. Kresse, JCP 134, 024116 (2011)]
-  *) tau-HCTH hybrid 
   
 check also "local" hybrids?
 V. V. Karasiev, J. Mol. Struct. (THEOCHEM), 493, 21 (1999).

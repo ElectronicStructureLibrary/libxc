@@ -196,7 +196,6 @@ close OUT;
 
 open(OUT, ">$builddir/libxc_set_par_inc.f90") or die("Could not open '$builddir/libxc_set_par_inc.f90'.\n");
 print OUT <<EOF
-#define RTYPE xc_f90_kind
 interface
     
 $xcf90list

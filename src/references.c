@@ -1738,3 +1738,10 @@ func_reference_type xc_ref_Becke2000_4020 = {
 };
 
 
+func_reference_type xc_ref_Wellendorff2012_235149 = {
+  "J. Wellendorff, K. T. Lundgaard, A. M\\o{gelh\\o{j}, V. Petzold, D. D. Landis, J. K. N\\o{rskov}, T. Bligaard, and K. W. Jacobsen, }Phys. Rev. B 85, 235149 (2012)",
+  "10.1103/PhysRevB.85.235149",
+  "@article{Wellendorff2012_235149,\n  title = {Density functionals for surface science: Exchange-correlation model development with Bayesian error estimation},\n  author = {Wellendorff, Jess and Lundgaard, Keld T. and M\\o{}gelh\\o{}j, Andreas and Petzold, Vivien and Landis, David D. and N\\o{}rskov, Jens K. and Bligaard, Thomas and Jacobsen, Karsten W.},\n  journal = {Phys. Rev. B},\n  volume = {85},\n  issue = {23},\n  pages = {235149},\n  numpages = {23},\n  year = {2012},\n  month = {Jun},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.85.235149},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.85.235149}\n}"
+};
+
+

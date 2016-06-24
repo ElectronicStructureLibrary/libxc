@@ -30,14 +30,16 @@
 #define XC_HYB_GGA_XC_LRC_WPBEH   465 /* Long-range corrected functional by Rorhdanz et al */
 #define XC_HYB_GGA_XC_LRC_WPBE    473 /* Long-range corrected functional by Rorhdanz et al */
 #define XC_HYB_GGA_XC_LC_WPBE     478 /* Long-range corrected functional by Vydrov and Scuseria */
+#define XC_HYB_GGA_XC_HSE12       479 /* HSE12 by Moussa, Schultz and Chelikowsky */
+#define XC_HYB_GGA_XC_HSE12S      480 /* Short-range HSE12 by Moussa, Schultz and Chelikowsky */
 
 static void
 hyb_gga_xc_hse_init(XC(func_type) *p)
 {
-  static int   funcs_id  [3] = {XC_GGA_X_WPBEH, XC_GGA_X_WPBEH, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[3] = {1.0, -0.25, 1.0};
-
-  XC(mix_init)(p, 3, funcs_id, funcs_coef);
+  /* Amount of short-range exact exchange */
+  double beta;
+  /* Range separation parameter */
+  double omega_HF, omega_PBE;
 
   /* Note that there is an enormous mess in the literature concerning
      the values of omega in HSE. This is due to an error in the
@@ -63,18 +65,36 @@ hyb_gga_xc_hse_init(XC(func_type) *p)
   case XC_HYB_GGA_XC_HSE03:
     /* in this case one should use omega^HF = 0.15/sqrt(2) and
        omega^PBE = 0.15*CBRT(2.0)*/
-    p->cam_omega = 0.15/M_SQRT2;
-    XC(hyb_gga_xc_hse_set_params)(p, 0.25, 0.15*CBRT(2.0));
+    beta = 0.25;
+    omega_HF = 0.15/M_SQRT2;
+    omega_PBE = 0.15*CBRT(2.0);
     break;
   case XC_HYB_GGA_XC_HSE06:
     /* in this case one should use omega^HF = omega^PBE = 0.11 */
-    p->cam_omega = 0.11;
-    XC(hyb_gga_xc_hse_set_params)(p, 0.25, 0.11);
+    beta = 0.25;
+    omega_HF = omega_PBE = 0.11;
+    break;
+  case XC_HYB_GGA_XC_HSE12:
+    /* omega = 0.185 with 31.3% exact short-range exchange */
+    beta = 0.313;
+    omega_HF = omega_PBE = 0.185;
+    break;
+  case XC_HYB_GGA_XC_HSE12S:
+    /* omega = 0.408 with 42.5% exact short-range exchange */
+    beta = 0.425;
+    omega_HF = omega_PBE = 0.408;
     break;
   default:
     fprintf(stderr, "Internal error in hyb_gga_xc_hse\n");
     exit(1);
   }
+
+  int   funcs_id  [3] = {XC_GGA_X_WPBEH, XC_GGA_X_WPBEH, XC_GGA_C_PBE};
+  FLOAT funcs_coef[3] = {1.0, -beta, 1.0};
+  
+  XC(mix_init)(p, 3, funcs_id, funcs_coef);
+  p->cam_omega = omega_HF;
+  XC(hyb_gga_xc_hse_set_params)(p, beta, omega_PBE);
 }
 
 void
@@ -106,6 +126,30 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hse06) = {
   "HSE06",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Heyd2003_8207, &xc_ref_Heyd2003_8207_err, &xc_ref_Krukau2006_224106, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  hyb_gga_xc_hse_init,
+  NULL, NULL, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_hse12) = {
+  XC_HYB_GGA_XC_HSE12,
+  XC_EXCHANGE_CORRELATION,
+  "HSE12",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Moussa2012_204117, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  hyb_gga_xc_hse_init,
+  NULL, NULL, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_hse12s) = {
+  XC_HYB_GGA_XC_HSE12S,
+  XC_EXCHANGE_CORRELATION,
+  "HSE12 (short-range version)",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Moussa2012_204117, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_hse_init,

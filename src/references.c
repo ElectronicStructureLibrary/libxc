@@ -1745,3 +1745,10 @@ func_reference_type xc_ref_Wellendorff2012_235149 = {
 };
 
 
+func_reference_type xc_ref_Moussa2012_204117 = {
+  "J. E. Moussa, P. A. Schultz, and J. R. Chelikowsky, J. Chem. Phys. 136, 204117 (2012)",
+  "10.1063/1.4722993",
+  "@article{Moussa2012_204117,\n   author = \"Moussa, Jonathan E. and Schultz, Peter A. and Chelikowsky, James R.\",\n   title = \"Analysis of the Heyd-Scuseria-Ernzerhof density functional parameter space\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2012\",\n   volume = \"136\",\n   number = \"20\", \n   pages = \"204117\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/136/20/10.1063/1.4722993\",\n   doi = \"http://dx.doi.org/10.1063/1.4722993\" \n}"
+};
+
+

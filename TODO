@@ -41,7 +41,6 @@ mGGAs:
   *) B94 [A. D. Becke, Int. J. Quantum Chem. Symp. 28, 625 (1994) and  E. Proynov, Z. Gan, and J. Kong, Chem. Phys. Lett. 455, 103 (2008)]
 
 hybrids:
-  *) http://dx.doi.org/10.1063/1.4722993 (versions of HSE)
   *) HSELsol http://link.aip.org/link/doi/10.1063/1.3524336
   *) doi:10.1021/ct800530u (LR-omegaPBE08)
   *) http://dx.doi.org/10.1021/ct300715s

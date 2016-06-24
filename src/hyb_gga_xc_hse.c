@@ -31,7 +31,8 @@
 #define XC_HYB_GGA_XC_LRC_WPBE    473 /* Long-range corrected functional by Rorhdanz et al */
 #define XC_HYB_GGA_XC_LC_WPBE     478 /* Long-range corrected functional by Vydrov and Scuseria */
 #define XC_HYB_GGA_XC_HSE12       479 /* HSE12 by Moussa, Schultz and Chelikowsky */
-#define XC_HYB_GGA_XC_HSE12S      480 /* Short-range HSE12 by Moussa, Schultz and Chelikowsky */
+#define XC_HYB_GGA_XC_HSE12S      480 /* Short-range HSE12 by Moussa, Schultz, and Chelikowsky */
+#define XC_HYB_GGA_XC_HSE_SOL     481 /* HSEsol functional by Schimka, Harl, and Kresse */
 
 static void
 hyb_gga_xc_hse_init(XC(func_type) *p)
@@ -153,6 +154,40 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hse12s) = {
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   hyb_gga_xc_hse_init,
+  NULL, NULL, NULL, NULL
+};
+
+static void
+hyb_gga_xc_hse_sol_init(XC(func_type) *p)
+{
+  int   funcs_id  [3] = {XC_GGA_X_HJS_PBE_SOL, XC_GGA_X_HJS_PBE_SOL, XC_GGA_C_PBE};
+  FLOAT funcs_coef[3] = {1.0, -0.25, 1.0};
+  
+  XC(mix_init)(p, 3, funcs_id, funcs_coef);
+  p->cam_omega = 0.11;
+  XC(hyb_gga_xc_hse_sol_set_params)(p, 0.25, 0.11);
+}
+
+void
+XC(hyb_gga_xc_hse_sol_set_params)(XC(func_type) *p, FLOAT beta, FLOAT omega)
+{
+  assert(p != NULL && p->func_aux[1] != NULL);
+  assert(beta>=0.0 && beta<=1.0);
+
+  p->cam_beta    =  beta;
+  p->mix_coef[1] = -beta;
+  XC(gga_x_hjs_set_params)(p->func_aux[1], omega);
+}
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_hse_sol) = {
+  XC_HYB_GGA_XC_HSE_SOL,
+  XC_EXCHANGE_CORRELATION,
+  "HSEsol",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Schimka2011_024116, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  hyb_gga_xc_hse_sol_init,
   NULL, NULL, NULL, NULL
 };
 

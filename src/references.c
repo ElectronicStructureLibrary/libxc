@@ -1752,3 +1752,10 @@ func_reference_type xc_ref_Moussa2012_204117 = {
 };
 
 
+func_reference_type xc_ref_Schimka2011_024116 = {
+  "L. Schimka, J. Harl, and G. Kresse, J. Chem. Phys. 134, 024116 (2011)",
+  "10.1063/1.3524336",
+  "@article{Schimka2011_024116,\n   author = \"Schimka, Laurids and Harl, Judith and Kresse, Georg\",\n   title = \"Improved hybrid functional for solids: The HSEsol functional\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2011\",\n   volume = \"134\",\n   number = \"2\", \n   pages = \"024116\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/134/2/10.1063/1.3524336\",\n   doi = \"http://dx.doi.org/10.1063/1.3524336\" \n}"
+};
+
+

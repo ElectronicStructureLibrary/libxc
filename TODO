@@ -12,7 +12,7 @@ LDA:
   *) Proynov-Kong c [Phys. Rev. A 79, 014103 (2009)] http://journals.aps.org/pra/abstract/10.1103/PhysRevA.79.014103
 
 GGAs:
-  *) D.J. Tozer, N.C. Handy, Recent advances in density functional theory, Vol.2
+  *) D.J. Tozer, N.C. Handy, Recent advances in density functional theory, Vol.2  (http://dx.doi.org/10.1142/9789812819468_0001)
   *) functionals of Della Salla (http://www.theory-nnl.it/software.php)
   *) Liu and Parr (http://pra.aps.org/abstract/PRA/v55/i3/p1792_1)
   *) http://dx.doi.org/10.1063/1.3243845
@@ -22,7 +22,7 @@ GGAs:
   *) BNL (Baer-Neuhauser-Livshits) [Phys. Rev. Lett. 94, 043002 (2005) and Phys. Chem. Chem. Phys. 9, 2932 (2007)] http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.94.043002 and http://pubs.rsc.org/en/content/articlelanding/2007/cp/b617919c
   *) zvPBEint and zvPBEsol http://scitation.aip.org/content/aip/journal/jcp/137/19/10.1063/1.4766324
   *) GAPc and GAPloc http://pubs.acs.org/doi/full/10.1021/ct500073b
-  *)  B97GGA-1 and B97-1b (A.J.Cohen,N.C.Handy, Chem.Phys.Lett., 316,160 (2000)) This is a different version of B97-1!!!
+  *) B97GGA-1 and B97-1b (A.J.Cohen,N.C.Handy, Chem.Phys.Lett., 316,160 (2000)) This is a different version of B97-1!!!
   *) B98-1, and VS98-1	(A.J.Cohen,N.C.Handy, Chem.Phys.Lett., 316,160 (2000))
 
 mGGAs:
@@ -66,8 +66,9 @@ V. V. Karasiev and E. V. Ludeña, Phys. Rev. A 65, 032515 (2002).
 60: Becke, A. D. J. Chem. Phys. 1996, 104, 1040.
 67: Rey, J.; Savin, A. Int. J. Quantum Chem. 1998, 69, 581.
 68: Kreiger, J. B.; Chen, J.; Iafrate, G. J.; Savin, A. In Electronic
-  Correlations and Materials Properties; Gonis, A., Kioussis, N., Eds;
-  Plenum: New York, 1999; p 463.
+    Correlations and Materials Properties; Gonis, A., Kioussis, N., Eds;
+    Plenum: New York, 1999; p 463.
+    http://dx.doi.org/10.1007/978-1-4615-4715-0_28
 69: Toulouse, J.; Savin, A.; Adamo, C. J. Chem. Phys. 2002, 117, 1441.
 70: http://dx.doi.org/10.1016/0009-2614(94)01189-3
     http://dx.doi.org/10.1002/qua.560560808

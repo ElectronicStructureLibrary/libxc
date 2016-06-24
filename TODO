@@ -32,19 +32,19 @@ mGGAs:
   *) ISM (http://scitation.aip.org/content/aip/journal/jcp/116/15/10.1063/1.1462618)
   *) KCIS, B0KCIS, B1KCIS http://jcp.aip.org/resource/1/jcpsa6/v117/i23/p10465_s1
   *) LAP class of functionals [70]
+  *) PK06 (part of the LAP class of functionals) http://dx.doi.org/10.1021/ct600372t
   *) Perdew-Constantin laplacian-level KED functional http://link.aps.org/doi/10.1103/PhysRevB.75.155109
   *) Alternative parametrizations of the TB09 functional http://dx.doi.org/10.1103/PhysRevB.85.155109
   *) MCY1 and MCY2 http://dx.doi.org/10.1063/1.2179072
   *) http://www.sciencedirect.com/science/article/pii/S0009261412007117
   *) spin-polarized Colle-Salvetti -type correlation http://www.sciencedirect.com/science/article/pii/S0009261497002017
   *) B94 [A. D. Becke, Int. J. Quantum Chem. Symp. 28, 625 (1994) and  E. Proynov, Z. Gan, and J. Kong, Chem. Phys. Lett. 455, 103 (2008)]
-  *) PK06 [E. Proynov and J. Kong, J. Chem. Theory Comput. 3, 746 (2007)]
 
 hybrids:
-  *) http://arxiv.org/abs/1205.4999 (versions of HSE)
-  *) http://link.aip.org/link/doi/10.1063/1.3524336 (HSE_sol)
+  *) http://dx.doi.org/10.1063/1.4722993 (versions of HSE)
+  *) HSELsol http://link.aip.org/link/doi/10.1063/1.3524336
   *) doi:10.1021/ct800530u (LR-omegaPBE08)
-  *) http://arxiv.org/abs/1211.0387
+  *) http://dx.doi.org/10.1021/ct300715s
   *) (CAM-)S12g / (CAM-)S12h http://www.sciencedirect.com/science/article/pii/S0009261413008221
   *) HISS http://scitation.aip.org/content/aip/journal/jcp/127/22/10.1063/1.2822021 [*two* range separation constants!)
   *) hAPBE DOI: 10.1021/ct500902p
@@ -55,7 +55,6 @@ hybrid meta:
   *) PBE1KCIS http://pubs.acs.org/doi/pdf/10.1021/ct049851d
   *) b1b95 (54, 60)
   *) tpsslyp1w (1w class of functionals)
-  *) HSEsol [L. Schimka, J. Harl and G. Kresse, JCP 134, 024116 (2011)]
   
 check also "local" hybrids?
 V. V. Karasiev, J. Mol. Struct. (THEOCHEM), 493, 21 (1999).
@@ -74,4 +73,3 @@ V. V. Karasiev and E. V. Ludeña, Phys. Rev. A 65, 032515 (2002).
     http://dx.doi.org/10.1002/qua.560560808
     http://dx.doi.org/10.1002/(SICI)1097-461X(1997)64:4<427::AID-QUA5>3.0.CO;2-Y
     http://link.aip.org/link/doi/10.1063/1.1321309
-    http://dx.doi.org/10.1021/ct600372t

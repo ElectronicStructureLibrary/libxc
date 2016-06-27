@@ -24,7 +24,7 @@
 
 #define XC_MGGA_X_M06_L         203 /* M06-Local functional of Minnesota */
 #define XC_MGGA_X_M06_HF        216 /* Worker for M06-HF functional      */
-#define XC_MGGA_X_M06           217 /* Worker for M06 functional         */
+#define XC_HYB_MGGA_X_M06       217 /* M06 exchange functional           */
 
 static const FLOAT a_m06l[12] = {
   0.3987756, 0.2548219, 0.3923994, -2.103655, -6.302147, 10.97615,
@@ -67,9 +67,10 @@ mgga_x_m06l_init(XC(func_type) *p)
     params->a = a_m06hf;
     params->d = d_m06hf;
     break;
-  case XC_MGGA_X_M06:
+  case XC_HYB_MGGA_X_M06:
     params->a = a_m06;
     params->d = d_m06;
+    p->cam_alpha = 0.27;
     break;
   default:
     fprintf(stderr, "Internal error in mgga_x_m06l\n");
@@ -169,11 +170,11 @@ const XC(func_info_type) XC(func_info_mgga_x_m06_hf) = {
   work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_m06) = {
-  XC_MGGA_X_M06,
+const XC(func_info_type) XC(func_info_hyb_mgga_x_m06) = {
+  XC_HYB_MGGA_X_M06,
   XC_EXCHANGE,
-  "Worker for hyb_mgga_xc_m06",
-  XC_FAMILY_MGGA,
+  "Minnesota M06 functional exchange",
+  XC_FAMILY_HYB_MGGA,
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,

@@ -24,6 +24,8 @@ GGAs:
   *) GAPc and GAPloc http://pubs.acs.org/doi/full/10.1021/ct500073b
   *) B97GGA-1 and B97-1b (A.J.Cohen,N.C.Handy, Chem.Phys.Lett., 316,160 (2000)) This is a different version of B97-1!!!
   *) B98-1, and VS98-1	(A.J.Cohen,N.C.Handy, Chem.Phys.Lett., 316,160 (2000))
+  *) GDS08 KED functional http://dx.doi.org/10.1103/PhysRevB.77.073104
+  *) GHDS10 KED functional http://dx.doi.org/10.1063/1.3280953
 
 mGGAs:
   *) Bc98 in http://scitation.aip.org/content/aip/journal/jcp/88/2/10.1063/1.454274

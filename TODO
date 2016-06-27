@@ -26,6 +26,9 @@ GGAs:
   *) B98-1, and VS98-1	(A.J.Cohen,N.C.Handy, Chem.Phys.Lett., 316,160 (2000))
   *) GDS08 KED functional http://dx.doi.org/10.1103/PhysRevB.77.073104
   *) GHDS10 KED functional http://dx.doi.org/10.1063/1.3280953
+  *) GHDS10 reparametrized and TKVln http://dx.doi.org/10.1103/PhysRevB.84.075146
+  *) SG4 http://dx.doi.org/10.1103/PhysRevB.93.045126
+  *) PBE2, PBE3, PBE4 and exp4 KED functionals http://dx.doi.org/10.1007/s10820-006-9019-8  http://dx.doi.org/10.1103/PhysRevB.80.245120
 
 mGGAs:
   *) Bc98 in http://scitation.aip.org/content/aip/journal/jcp/88/2/10.1063/1.454274
@@ -41,6 +44,8 @@ mGGAs:
   *) http://www.sciencedirect.com/science/article/pii/S0009261412007117
   *) spin-polarized Colle-Salvetti -type correlation http://www.sciencedirect.com/science/article/pii/S0009261497002017
   *) B94 [A. D. Becke, Int. J. Quantum Chem. Symp. 28, 625 (1994) and  E. Proynov, Z. Gan, and J. Kong, Chem. Phys. Lett. 455, 103 (2008)]
+  *) SA-TPSS http://dx.doi.org/10.1103/PhysRevB.93.115127
+  *) Laplacian-level KED functional from Salazar et al http://dx.doi.org/10.1002/qua.25179
 
 hybrids:
   *) doi:10.1021/ct800530u (LR-omegaPBE08)

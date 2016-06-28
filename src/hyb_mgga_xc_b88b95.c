@@ -29,7 +29,6 @@
 #define XC_HYB_MGGA_XC_MPWB1K   446  /* Mixture of mPW91 with BC95 for kinetics                      */
 #define XC_HYB_MGGA_XC_X1B95    447  /* Mixture of X with BC95                                       */
 #define XC_HYB_MGGA_XC_XB1K     448  /* Mixture of X with BC95 for kinetics                          */
-#define XC_HYB_MGGA_XC_M06_HF   444  /* M06-HF functional from Minnesota                             */
 #define XC_HYB_MGGA_XC_PW6B95   451  /* Mixture of PW91 with BC95 from Zhao and Truhlar              */
 #define XC_HYB_MGGA_XC_PWB6K    452  /* Mixture of PW91 with BC95 from Zhao and Truhlar for kinetics */
 #define XC_MGGA_XC_TPSSLYP1W    242  /* Functionals fitted for water                                 */
@@ -235,30 +234,6 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_xb1k) = {
   1e-32, 1e-32, 1e-32, 1e-32,
   XC(hyb_mgga_xc_xb1k_init),
   NULL, NULL, NULL, NULL,
-};
-
-
-/*************************************************************/
-void
-XC(hyb_mgga_xc_m06_hf_init)(XC(func_type) *p)
-{
-  static int   funcs_id  [2] = {XC_MGGA_X_M06_HF, XC_MGGA_C_M06_HF};
-  FLOAT funcs_coef[2] = {1.0, 1.0};
-
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 1.0;
-}
-
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_m06_hf) = {
-  XC_HYB_MGGA_XC_M06_HF,
-  XC_EXCHANGE_CORRELATION,
-  "Minnesota M06-HF functional",
-  XC_FAMILY_HYB_MGGA,
-  {&xc_ref_Zhao2006_13126, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
-  XC(hyb_mgga_xc_m06_hf_init),
-  NULL, NULL, NULL, NULL
 };
 
 

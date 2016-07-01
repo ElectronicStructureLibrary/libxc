@@ -23,8 +23,8 @@
 #include "util.h"
 
 #define XC_MGGA_X_M06_L         203 /* M06-Local functional of Minnesota      */
-#define XC_HYB_MGGA_X_M06_HF    216 /* Minnesota M06-HF functional (exchange) */
-#define XC_HYB_MGGA_X_M06       217 /* M06 exchange functional                */
+#define XC_HYB_MGGA_X_M06_HF    444 /* Minnesota M06-HF functional (exchange) */
+#define XC_HYB_MGGA_X_M06       449 /* M06 exchange functional                */
 
 static const FLOAT a_m06l[12] = {
   0.3987756, 0.2548219, 0.3923994, -2.103655, -6.302147, 10.97615,

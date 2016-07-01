@@ -22,9 +22,9 @@
 
 #include "util.h"
 
-#define XC_HYB_MGGA_X_M05      214 /* M05 functional from Minnesota     */
-#define XC_HYB_MGGA_X_M05_2X   215 /* M05-2X functional from Minnesota  */
-#define XC_HYB_MGGA_X_M06_2X   218 /* M06-2X functional from Minnesota  */
+#define XC_HYB_MGGA_X_M05      438 /* M05 functional from Minnesota     */
+#define XC_HYB_MGGA_X_M05_2X   439 /* M05-2X functional from Minnesota  */
+#define XC_HYB_MGGA_X_M06_2X   450 /* M06-2X functional from Minnesota  */
 #define XC_HYB_MGGA_X_DLDF      36 /* Dispersionless Density Functional */
 
 

@@ -75,7 +75,7 @@ extern "C" {
 #define XC_GGA_XC_LB          160
 #define XC_GGA_K_ABSR1        506
 #define XC_GGA_K_ABSR2        507
-
+  
 void XC(version)(int *major, int *minor, int *micro);
 const char *XC(version_string)();
     
@@ -169,7 +169,8 @@ void  XC(func_free)(XC(func_type) *p);
 const XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p);
     
 #include "xc_funcs.h"
-
+#include "xc_funcs_removed.h"
+  
 int  XC(lda_init)(XC(func_type) *p, const XC(func_info_type) *info, int nspin);
 void XC(lda_end) (XC(func_type) *p);
 

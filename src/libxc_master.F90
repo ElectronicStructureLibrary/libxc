@@ -128,13 +128,14 @@ module XC_F90(lib_m)
     XC_FLAGS_DEVELOPMENT    = 1024
  
   ! These are old names kept for compatibility
-  integer, parameter :: XC_GGA_C_VPBE     =  83
-  integer, parameter :: XC_GGA_XC_LB      = 160
-  integer, parameter :: XC_GGA_K_ABSR1    = 506
-  integer, parameter :: XC_GGA_K_ABSR2    = 507
-  integer, parameter :: XC_GGA_X_BGCP     =  38
-  integer, parameter :: XC_GGA_C_BGCP     =  39
-  integer, parameter :: XC_MGGA_C_CC06    = 229
+  integer, parameter ::                &
+    XC_GGA_X_BGCP           =  38,     &
+    XC_GGA_C_BGCP           =  39,     &
+    XC_GGA_C_VPBE           =  83,     &
+    XC_GGA_XC_LB            = 160,     &
+    XC_MGGA_C_CC06          = 229,     &
+    XC_GGA_K_ABSR1          = 506,     &
+    XC_GGA_K_ABSR2          = 507
   
   !----------------------------------------------------------------
   interface

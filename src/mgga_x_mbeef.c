@@ -224,7 +224,7 @@ const XC(func_info_type) XC(func_info_mgga_x_mbeefvdw) = {
   XC_EXCHANGE,
   "mBEEF-vdW exchange",
   XC_FAMILY_MGGA,
-  {&xc_ref_Lundgaard, NULL, NULL, NULL, NULL},
+  {&xc_ref_Lundgaard2016_235162, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   mgga_x_mbeef_init,

@@ -1514,10 +1514,10 @@ func_reference_type xc_ref_Wellendorff2014_144107 = {
 };
 
 
-func_reference_type xc_ref_Lundgaard = {
-  "K. T. Lundgaard, J. Wellendorff, K. W. Jacobsen, and T. Bligaard, (2016), in preparation",
-  "",
-  "@article{Lundgaard,\n   author = {Lundgaard, Keld T. and Wellendorff, Jess and Jacobsen, Karsten W. and Bligaard, Thomas},\n   note = {in preparation},\n   year = \"2016\"\n}"
+func_reference_type xc_ref_Lundgaard2016_235162 = {
+  "K. T. Lundgaard, J. Wellendorff, J. Voss, K. W. Jacobsen, and T. Bligaard, Phys. Rev. B 93, 235162 (2016)",
+  "10.1103/PhysRevB.93.235162",
+  "@article{Lundgaard2016_235162,\n   title = {mBEEF-vdW: Robust fitting of error estimation density functionals},\n   author = {Lundgaard, Keld T. and Wellendorff, Jess and Voss, Johannes and Jacobsen, Karsten W. and Bligaard, Thomas},\n   journal = {Phys. Rev. B},\n   volume = {93},\n   issue = {23},\n   pages = {235162},\n   numpages = {16},\n   year = {2016},\n   month = {Jun},\n   publisher = {American Physical Society},\n   doi = {10.1103/PhysRevB.93.235162},\n   url = {http://link.aps.org/doi/10.1103/PhysRevB.93.235162}\n}"
 };
 
 

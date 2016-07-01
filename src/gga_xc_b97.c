@@ -50,9 +50,9 @@
 #define XC_HYB_GGA_XC_WB97X_D 471 /* Chai and Head-Gordon                     */
 #define XC_GGA_C_GAM           33 /* GAM functional from Minnesota            */
 #define XC_HYB_GGA_XC_B97_1p  266 /* version of B97 by Cohen and Handy        */
-#define XC_GGA_C_BMK          180 /* Boese-Martin for kinetics                */
-#define XC_GGA_C_TAU_HCTH     181 /* correlation part of tau-hcth             */
-#define XC_GGA_C_HYB_TAU_HCTH 251 /* correlation part of hyb_tau-hcth         */
+#define XC_GGA_C_BMK          280 /* Boese-Martin for kinetics                */
+#define XC_GGA_C_TAU_HCTH     281 /* correlation part of tau-hcth             */
+#define XC_GGA_C_HYB_TAU_HCTH 283 /* correlation part of hyb_tau-hcth         */
 
 static const FLOAT b97_params[][3][5] = {
   {      /* HCTH/93 */

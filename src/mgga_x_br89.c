@@ -27,7 +27,7 @@
 #define XC_MGGA_X_BJ06         207 /* Becke & Johnson correction to Becke-Roussel 89  */
 #define XC_MGGA_X_TB09         208 /* Tran & Blaha correction to Becke & Johnson  */
 #define XC_MGGA_X_RPP09        209 /* Rasanen, Pittalis, and Proetto correction to Becke & Johnson  */
-#define XC_MGGA_X_B00          252 /* Becke 2000 */
+#define XC_MGGA_X_B00          284 /* Becke 2000 */
 
 typedef struct{
   FLOAT c;

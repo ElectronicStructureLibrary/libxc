@@ -43,7 +43,7 @@
 #define XC_GGA_C_PBELOC       246 /* Semilocal dynamical correlation                    */
 #define XC_GGA_C_BCGP          39 /* Burke, Cancio, Gould, and Pittalis                 */
 #define XC_GGA_C_PBEFE        258 /* PBE for formation energies                         */
-#define XC_GGA_C_PBE_MOL      168 /* Del Campo, Gazquez, Trickey and Vela (PBE-like)    */
+#define XC_GGA_C_PBE_MOL      272 /* Del Campo, Gazquez, Trickey and Vela (PBE-like)    */
 
 typedef struct{
   FLOAT beta;

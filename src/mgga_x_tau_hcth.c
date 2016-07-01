@@ -23,8 +23,8 @@
 #include "util.h"
 
 #define XC_MGGA_X_TAU_HCTH        205 /* tau-HCTH from Boese and Handy */
-#define XC_MGGA_X_BMK             179 /* Boese-Martin for kinetics     */
-#define XC_HYB_MGGA_X_TAU_HCTH    228 /* Hybrid version of tau-HCTH    */
+#define XC_MGGA_X_BMK             279 /* Boese-Martin for kinetics     */
+#define XC_HYB_MGGA_X_TAU_HCTH    282 /* Hybrid version of tau-HCTH    */
 
 const FLOAT tHCTH_cx_local [4] = {1.10734, -1.0534, 6.3491, -2.5531};
 const FLOAT tHCTH_cx_nlocal[4] = {0.00110, -0.3041, 6.9543, -0.7235};

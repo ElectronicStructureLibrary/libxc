@@ -24,10 +24,10 @@
 #define XC_HYB_GGA_XC_PBEH      406 /* aka PBE0 or PBE1PBE */
 #define XC_HYB_GGA_XC_PBE0_13   456 /* PBE0-1/3            */
 #define XC_HYB_GGA_XC_HPBEINT   472 /* hPBEint             */
-#define XC_HYB_GGA_XC_PBE_MOL0  169 /* PBEmol0             */
-#define XC_HYB_GGA_XC_PBE_SOL0  171 /* PBEsol0             */
-#define XC_HYB_GGA_XC_PBEB0     172 /* PBEbeta0            */
-#define XC_HYB_GGA_XC_PBE_MOLB0 176 /* PBEmolbeta0         */
+#define XC_HYB_GGA_XC_PBE_MOL0  273 /* PBEmol0             */
+#define XC_HYB_GGA_XC_PBE_SOL0  274 /* PBEsol0             */
+#define XC_HYB_GGA_XC_PBEB0     275 /* PBEbeta0            */
+#define XC_HYB_GGA_XC_PBE_MOLB0 276 /* PBEmolbeta0         */
 
 static void
 hyb_gga_xc_pbeh_init(XC(func_type) *p)

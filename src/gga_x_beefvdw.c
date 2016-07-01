@@ -22,8 +22,8 @@
 
 #include "util.h"
 
-#define XC_GGA_X_BEEFVDW          253 /* BEEF-vdW exchange */
-#define XC_GGA_XC_BEEFVDW         256 /* BEEF-vdW exchange-correlation */
+#define XC_GGA_X_BEEFVDW          285 /* BEEF-vdW exchange */
+#define XC_GGA_XC_BEEFVDW         286 /* BEEF-vdW exchange-correlation */
 
 static const FLOAT coefs_beefvdw[30] = {
    1.516501714e0,   4.413532099e-1, -9.182135241e-2, -2.352754331e-2,

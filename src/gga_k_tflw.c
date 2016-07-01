@@ -36,8 +36,8 @@ Celebration of the Contributions of Robert G. Parr, edited by KD Sen
 #define XC_GGA_K_LIEB          505 /* TF-lambda-vW form by Lieb (l = 0.185909191) */
 #define XC_GGA_K_ABSP1         506 /* gamma-TFvW form by Acharya et al [g = 1 - 1.412/N^(1/3)] */
 #define XC_GGA_K_ABSP2         507 /* gamma-TFvW form by Acharya et al [g = 1 - 1.332/N^(1/3)] */
-#define XC_GGA_K_ABSP3         177 /* gamma-TFvW form by Acharya et al [g = 1 - 1.513/N^0.35] */
-#define XC_GGA_K_ABSP4         178 /* gamma-TFvW form by Acharya et al [g = l = 1/(1 + 1.332/N^(1/3))] */
+#define XC_GGA_K_ABSP3         277 /* gamma-TFvW form by Acharya et al [g = 1 - 1.513/N^0.35] */
+#define XC_GGA_K_ABSP4         278 /* gamma-TFvW form by Acharya et al [g = l = 1/(1 + 1.332/N^(1/3))] */
 #define XC_GGA_K_GR            508 /* gamma-TFvW form by Gazquez and Robles */
 #define XC_GGA_K_LUDENA        509 /* gamma-TFvW form by Ludena */
 #define XC_GGA_K_GP85          510 /* gamma-TFvW form by Ghosh and Parr */

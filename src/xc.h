@@ -67,12 +67,11 @@ extern "C" {
 #define XC_TAU_EXPLICIT         0
 #define XC_TAU_EXPANSION        1
 
-/* These are old names kept for compatibility, and that should disappear soon */
+/* These are old names kept for compatibility */
 #define XC_GGA_C_VPBE          83
 #define XC_GGA_XC_LB          160
 #define XC_GGA_K_ABSR1        506
 #define XC_GGA_K_ABSR2        507
-#define XC_MGGA_X_MN12_SX     248
 #define XC_GGA_X_BGCP          38
 #define XC_GGA_C_BGCP          39
 #define XC_MGGA_C_CC06        229

@@ -173,8 +173,10 @@ module FXC(lib_m)
     XC_GGA_XC_LB            = 160,     &
     XC_GGA_K_ABSR1          = 506,     &
     XC_GGA_K_ABSR2          = 507,     &
+    XC_MGGA_X_MN12_SX       = 248,     &
     XC_GGA_X_BGCP           =  38,     &
-    XC_GGA_C_BGCP           =  39
+    XC_GGA_C_BGCP           =  39,     &
+    XC_MGGA_C_CC06          = 229
   
   !----------------------------------------------------------------
   interface

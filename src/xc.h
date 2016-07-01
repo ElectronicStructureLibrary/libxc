@@ -75,6 +75,7 @@ extern "C" {
 #define XC_MGGA_X_MN12_SX     248
 #define XC_GGA_X_BGCP          38
 #define XC_GGA_C_BGCP          39
+#define XC_MGGA_C_CC06        229
 
 void XC(version)(int *major, int *minor, int *micro);
 const char *XC(version_string)();

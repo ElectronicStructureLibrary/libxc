@@ -271,3 +271,4 @@ extern func_reference_type xc_ref_Becke2000_4020;
 extern func_reference_type xc_ref_Wellendorff2012_235149;
 extern func_reference_type xc_ref_Moussa2012_204117;
 extern func_reference_type xc_ref_Schimka2011_024116;
+extern func_reference_type xc_ref_Chachiyo2016_021101;

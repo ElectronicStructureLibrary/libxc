@@ -1759,3 +1759,10 @@ func_reference_type xc_ref_Schimka2011_024116 = {
 };
 
 
+func_reference_type xc_ref_Chachiyo2016_021101 = {
+  "T. Chachiyo, J. Chem. Phys. 145, 021101 (2016)",
+  "10.1063/1.4958669",
+  "@article{Chachiyo2016_021101,\n   author = \"Chachiyo, Teepanis\",\n   title = \"Communication: Simple and accurate uniform electron gas correlation energy for the full range of densities\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2016\",\n   volume = \"145\",\n   number = \"2\", \n   pages = \"021101\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/145/2/10.1063/1.4958669\",\n   doi = \"http://dx.doi.org/10.1063/1.4958669\" \n}"
+};
+
+

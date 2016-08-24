@@ -42,35 +42,10 @@ static FLOAT prm_q = 3.9274; /* 2.258 */
 static void
 lda_c_2d_prm_init(XC(func_type) *p)
 {
-  lda_c_prm_params *params;
-
   assert(p != NULL && p->params == NULL);
 
   p->params = malloc(sizeof(lda_c_prm_params));
-  params = (lda_c_prm_params *) (p->params);
-
-  params->N = 2.0; /* Random values. This should be set by the caller */
-  params->c = 0.0;
 }
-
-
-void 
-XC(lda_c_2d_prm_set_params)(XC(func_type) *p, FLOAT N)
-{
-  lda_c_prm_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (lda_c_prm_params *) (p->params);
-
-  if(N <= 1){
-    fprintf(stderr, "PRM functional cannot be used for N_electrons <= 1\n");
-    exit(1);
-  }
-
-  params->N = N;
-  params->c = M_PI/(2.0*(N - 1.0)*prm_q*prm_q); /* Eq. (13) */
-}
-
 
 static inline void 
 func(const XC(func_type) *p, XC(lda_work_t) *r)
@@ -129,6 +104,30 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
 #define XC_DIMENSIONS 2
 #include "work_lda.c"
 
+static const func_params_type ext_params[] = {
+  {2.0, "Number of electrons"},
+};
+
+static void 
+set_ext_params(XC(func_type) *p, const double *ext_params)
+{
+  lda_c_prm_params *params;
+  double ff;
+
+  assert(p != NULL && p->params != NULL);
+  params = (lda_c_prm_params *) (p->params);
+
+  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
+  params->N = ff;
+
+  if(params->N <= 1.0){
+    fprintf(stderr, "PRM functional cannot be used for N_electrons <= 1\n");
+    exit(1);
+  }
+
+  params->c = M_PI/(2.0*(params->N - 1.0)*prm_q*prm_q); /* Eq. (13) */
+}
+
 const XC(func_info_type) XC(func_info_lda_c_2d_prm) = {
   XC_LDA_C_2D_PRM,
   XC_CORRELATION,
@@ -137,10 +136,7 @@ const XC(func_info_type) XC(func_info_lda_c_2d_prm) = {
   {&xc_ref_Pittalis2008_195322, NULL, NULL, NULL, NULL},
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 0.0, 0.0, 1e-32,
-  0, NULL, NULL,
-  lda_c_2d_prm_init,
-  NULL,
-  work_lda,
-  NULL,
-  NULL
+  1, ext_params, set_ext_params,
+  lda_c_2d_prm_init, NULL,
+  work_lda, NULL, NULL
 };

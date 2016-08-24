@@ -160,7 +160,7 @@ static const func_params_type ext_params[] = {
   {1.0, "Screening parameter beta"}
 };
 
-void 
+static void 
 set_ext_params(XC(func_type) *p, const double *ext_params)
 {
   lda_c_1d_csc_params *params;

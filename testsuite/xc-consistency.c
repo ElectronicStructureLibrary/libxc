@@ -304,9 +304,11 @@ void test_functional(int functional)
 
   info = func.info;
 
-  if(functional == XC_LDA_C_2D_PRM)
-    xc_lda_c_2d_prm_set_params(&func, 10.0);
-  
+  if(functional == XC_LDA_C_2D_PRM){
+    static double lda_c_2d_prm_params[1] = {10.0};
+    XC(func_set_ext_params)(&func, lda_c_2d_prm_params);
+  }  
+
   for(k=0; k<6; k++)
     for(j=0; j<5; j++){
       avg_diff[k][j] = 0.0;

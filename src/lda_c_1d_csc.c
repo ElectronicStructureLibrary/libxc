@@ -35,54 +35,8 @@ lda_c_1d_csc_init(XC(func_type) *p)
 {
   assert(p != NULL && p->params == NULL);
   p->params = malloc(sizeof(lda_c_1d_csc_params));
-
-  /* default value is soft-Coulomb with beta=1.0 */
-  XC(lda_c_1d_csc_set_params)(p, 1, 1.0);
 }
 
-void 
-XC(lda_c_1d_csc_set_params)(XC(func_type) *p, int interaction, FLOAT bb)
-{
-  lda_c_1d_csc_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (lda_c_1d_csc_params *)(p->params);
-
-  assert(params != NULL);
-
-  params->interaction = -1;
-  params->ii          = -1;
-
-  if(interaction == 0){
-    if     (bb == 0.1)
-      params->ii = 0;
-    else if(bb == 0.3)
-      params->ii = 1;
-    else if(bb == 0.5)
-      params->ii = 2;
-    else if(bb == 0.75)
-      params->ii = 3;
-    else if(bb == 1.0)
-      params->ii = 4;
-    else if(bb == 2.0)
-      params->ii = 5;
-    else if(bb == 4.0)
-      params->ii = 6;
-  }else if(interaction == 1){
-    if     (bb == 0.5)
-      params->ii = 7 + 0;
-    else if(bb == 1.0)
-      params->ii = 7 + 1;
-  }
-
-  if(params->ii < 0){
-    fprintf(stderr, "Invalid value of parameters (inter,b) = (%d,%f) in lda_c_1d_csc_set_params", interaction, bb);
-    exit(1);
-  }
-
-  params->interaction = interaction;
-  params->bb          = bb;
-}
 
 typedef struct {
   FLOAT A, B, C, D, E, n1, n2, alpha, beta, m;
@@ -201,6 +155,58 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
 #define XC_DIMENSIONS 1
 #include "work_lda.c"
 
+static const func_params_type ext_params[] = {
+  {  1, "Interaction: 0 (exponentially screened) | 1 (soft-Coulomb)"},
+  {1.0, "Screening parameter beta"}
+};
+
+void 
+set_ext_params(XC(func_type) *p, const double *ext_params)
+{
+  lda_c_1d_csc_params *params;
+  int interaction;
+  double bb;
+
+  assert(p != NULL && p->params != NULL);
+  params = (lda_c_1d_csc_params *)(p->params);
+
+  bb = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
+  interaction = (int)round(bb);
+  bb = (ext_params == NULL) ? p->info->ext_params[1].value : ext_params[1];
+
+  params->interaction = interaction;
+  params->bb          = bb;
+  params->ii          = -1;
+
+  if(interaction == 0){
+    if     (bb == 0.1)
+      params->ii = 0;
+    else if(bb == 0.3)
+      params->ii = 1;
+    else if(bb == 0.5)
+      params->ii = 2;
+    else if(bb == 0.75)
+      params->ii = 3;
+    else if(bb == 1.0)
+      params->ii = 4;
+    else if(bb == 2.0)
+      params->ii = 5;
+    else if(bb == 4.0)
+      params->ii = 6;
+  }else if(interaction == 1){
+    if     (bb == 0.5)
+      params->ii = 7 + 0;
+    else if(bb == 1.0)
+      params->ii = 7 + 1;
+  }
+
+  if(params->ii < 0){
+    fprintf(stderr, "Invalid value of parameters (inter,b) = (%d,%f) in lda_c_1d_csc_set_params", interaction, bb);
+    exit(1);
+  }
+}
+
+
 const XC(func_info_type) XC(func_info_lda_c_1d_csc) = {
   XC_LDA_C_1D_CSC,
   XC_CORRELATION,
@@ -209,7 +215,7 @@ const XC(func_info_type) XC(func_info_lda_c_1d_csc) = {
   {&xc_ref_Casula2006_245427, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D |  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 0.0, 0.0, 1e-32,
-  0, NULL, NULL,
+  2, ext_params, set_ext_params,
   lda_c_1d_csc_init,    /* init */
   NULL,                 /* end  */
   work_lda,             /* lda  */

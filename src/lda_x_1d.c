@@ -135,6 +135,11 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
 #define XC_DIMENSIONS 1
 #include "work_lda.c"
 
+static const func_params_type ext_params[] = {
+  {  1, "Interaction: 0 (exponentially screened) | 1 (soft-Coulomb)"},
+  {1.0, "Screening parameter beta"}
+};
+
 static void 
 set_ext_params(XC(func_type) *p, const double *ext_params) /* int interaction, FLOAT bb */
 {
@@ -154,11 +159,6 @@ set_ext_params(XC(func_type) *p, const double *ext_params) /* int interaction, F
   params->interaction = interaction;
   params->bb          = bb;
 }
-
-static const func_params_type ext_params[] = {
-  {  1, "Interaction: 0 (exponentially screened) | 1 (soft-Coulomb)"},
-  {1.0, "Screening parameter beta"}
-};
 
 const XC(func_info_type) XC(func_info_lda_x_1d) = {
   XC_LDA_X_1D,

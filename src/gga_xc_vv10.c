@@ -58,6 +58,7 @@ const XC(func_info_type) XC(func_info_gga_xc_vv10) = {
   {&xc_ref_Vydrov2010_244103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   gga_xc_vv10_init,
   NULL, NULL, NULL, NULL
 };
@@ -70,6 +71,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_lc_vv10) = {
   {&xc_ref_Vydrov2010_244103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   hyb_gga_xc_lc_vv10_init,
   NULL, NULL, NULL, NULL
 };

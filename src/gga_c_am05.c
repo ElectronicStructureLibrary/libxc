@@ -116,6 +116,7 @@ const XC(func_info_type) XC(func_info_gga_c_am05) = {
   {&xc_ref_Armiento2005_085108, &xc_ref_Mattsson2008_084714, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-27, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   gga_c_am05_init,
   NULL,
   NULL,            /* this is not an LDA                   */

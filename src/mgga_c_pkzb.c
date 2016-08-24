@@ -303,6 +303,7 @@ const XC(func_info_type) XC(func_info_mgga_c_pkzb) = {
   {&xc_ref_Perdew1999_2544, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-26, 1e-32, 1e-32, 1e-32, /* densities smaller than 1e-26 give NaNs */
+  0, NULL, NULL,
   mgga_c_pkzb_init,
   NULL, NULL, NULL,
   work_mgga_c,
@@ -316,6 +317,7 @@ const XC(func_info_type) XC(func_info_mgga_c_tpss) = {
   {&xc_ref_Tao2003_146401, &xc_ref_Perdew2004_6898, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-26, 1e-32, 1e-32, 1e-32, /* densities smaller than 1e-26 give NaNs */
+  0, NULL, NULL,
   mgga_c_pkzb_init,
   NULL, NULL, NULL,
   work_mgga_c,
@@ -329,6 +331,7 @@ const XC(func_info_type) XC(func_info_mgga_c_revtpss) = {
   {&xc_ref_Perdew2009_026403, &xc_ref_Perdew2009_026403_err, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-26, 1e-32, 1e-32, 1e-32, /* densities smaller than 1e-26 give NaNs */
+  0, NULL, NULL,
   mgga_c_pkzb_init,
   NULL, NULL, NULL,
   work_mgga_c,
@@ -342,6 +345,7 @@ const XC(func_info_type) XC(func_info_mgga_c_tpssloc) = {
   {&xc_ref_Constantin2012_035130, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-26, 1e-32, 1e-32, 1e-32, /* densities smaller than 1e-26 give NaNs */
+  0, NULL, NULL,
   mgga_c_pkzb_init,
   NULL, NULL, NULL,
   work_mgga_c,

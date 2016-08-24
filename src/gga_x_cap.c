@@ -69,6 +69,7 @@ const XC(func_info_type) XC(func_info_gga_x_cap) = {
   {&xc_ref_Carmona2015_054105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   NULL, NULL, NULL,
   work_gga_x,
   NULL
@@ -98,6 +99,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_cap0) = {
   {&xc_ref_Carmona2016_120, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   XC(hyb_gga_xc_cap0_init),
   NULL, NULL, NULL, NULL
 };

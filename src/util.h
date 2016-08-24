@@ -136,6 +136,9 @@ void XC(fast_fzeta)(const FLOAT x, const int nspin, const int order, FLOAT * fz)
 void XC(mix_init)(XC(func_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix_coef);
 
 /* LDAs */
+void XC(lda_init)(XC(func_type) *p);
+void XC(lda_end) (XC(func_type) *p);
+
 typedef struct XC(lda_work_t) {
   int   order; /* to which order should I return the derivatives */
   FLOAT rs[3], zeta;

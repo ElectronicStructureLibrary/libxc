@@ -209,6 +209,7 @@ const XC(func_info_type) XC(func_info_lda_c_1d_csc) = {
   {&xc_ref_Casula2006_245427, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D |  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 0.0, 0.0, 1e-32,
+  0, NULL, NULL,
   lda_c_1d_csc_init,    /* init */
   NULL,                 /* end  */
   work_lda,             /* lda  */

@@ -152,6 +152,7 @@ const XC(func_info_type) XC(func_info_gga_c_lm) = {
   {&xc_ref_Langreth1981_446, &xc_ref_Hu1985_391, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-10, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   gga_c_lm_init,
   NULL,
   NULL,            /* this is not an LDA                   */

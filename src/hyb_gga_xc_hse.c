@@ -117,6 +117,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hse03) = {
   {&xc_ref_Heyd2003_8207, &xc_ref_Heyd2003_8207_err, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   hyb_gga_xc_hse_init,
   NULL, NULL, NULL, NULL
 };
@@ -129,6 +130,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hse06) = {
   {&xc_ref_Heyd2003_8207, &xc_ref_Heyd2003_8207_err, &xc_ref_Krukau2006_224106, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   hyb_gga_xc_hse_init,
   NULL, NULL, NULL, NULL
 };
@@ -141,6 +143,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hse12) = {
   {&xc_ref_Moussa2012_204117, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   hyb_gga_xc_hse_init,
   NULL, NULL, NULL, NULL
 };
@@ -153,6 +156,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hse12s) = {
   {&xc_ref_Moussa2012_204117, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   hyb_gga_xc_hse_init,
   NULL, NULL, NULL, NULL
 };
@@ -187,6 +191,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hse_sol) = {
   {&xc_ref_Schimka2011_024116, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   hyb_gga_xc_hse_sol_init,
   NULL, NULL, NULL, NULL
 };
@@ -213,6 +218,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_lc_wpbe) = {
   {&xc_ref_Vydrov2006_234109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   hyb_gga_xc_lc_wpbe_init,
   NULL, NULL, NULL, NULL
 };
@@ -254,6 +260,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_lrc_wpbeh) = {
   {&xc_ref_Rohrdanz2009_054112, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   hyb_gga_xc_lrc_wpbeh_init,
   NULL, NULL, NULL, NULL
 };
@@ -266,6 +273,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_lrc_wpbe) = {
   {&xc_ref_Rohrdanz2009_054112, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   hyb_gga_xc_lrc_wpbe_init,
   NULL, NULL, NULL, NULL
 };
@@ -309,6 +317,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hjs_pbe) = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   hyb_gga_xc_hjs_init,
   NULL, NULL, NULL, NULL
 };
@@ -321,6 +330,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hjs_pbe_sol) = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   hyb_gga_xc_hjs_init,
   NULL, NULL, NULL, NULL
 };
@@ -333,6 +343,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hjs_b88) = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   hyb_gga_xc_hjs_init,
   NULL, NULL, NULL, NULL
 };
@@ -345,6 +356,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hjs_b97x) = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   hyb_gga_xc_hjs_init,
   NULL, NULL, NULL, NULL
 };

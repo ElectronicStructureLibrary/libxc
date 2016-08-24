@@ -380,7 +380,8 @@ sub read_file() {
 	  }
 
 	  if(($infos2[7] =~ /XC_FLAGS_(.)D/) != 1) {
-	      print STDERR "Must set exactly one dimensionality flag.\n";
+            print STDERR $infos2[7], "\n";
+	      print STDERR "$infos0[0]: Must set exactly one dimensionality flag.\n";
 	      exit(1);
 	  }
           print DOCS "Dimensionality : $1\n";

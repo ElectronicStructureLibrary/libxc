@@ -209,6 +209,7 @@ const XC(func_info_type) XC(func_info_mgga_c_scan) = {
   {&xc_ref_Sun2015_036402, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_DEVELOPMENT,
   1e-32, 1e-32, 1e-32, 1e-32,
+  0, NULL, NULL,
   mgga_c_scan_init, 
   NULL, NULL, NULL,
   work_mgga_c,

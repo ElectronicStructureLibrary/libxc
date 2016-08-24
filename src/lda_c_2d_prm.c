@@ -137,6 +137,7 @@ const XC(func_info_type) XC(func_info_lda_c_2d_prm) = {
   {&xc_ref_Pittalis2008_195322, NULL, NULL, NULL, NULL},
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 0.0, 0.0, 1e-32,
+  0, NULL, NULL,
   lda_c_2d_prm_init,
   NULL,
   work_lda,

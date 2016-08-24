@@ -271,6 +271,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m05) = {
   {&xc_ref_Zhao2005_161103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
+  0, NULL, NULL,
   mgga_c_vsxc_init,
   NULL, NULL, NULL,
   work_mgga_c,
@@ -285,6 +286,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m05_2x) = {
   {&xc_ref_Zhao2006_364, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
+  0, NULL, NULL,
   mgga_c_vsxc_init,
   NULL, NULL, NULL,
   work_mgga_c,
@@ -298,6 +300,7 @@ const XC(func_info_type) XC(func_info_mgga_c_vsxc) = {
   {&xc_ref_VanVoorhis1998_400, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  0, NULL, NULL,
   mgga_c_vsxc_init,
   NULL,
   NULL, NULL,
@@ -312,6 +315,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m06_l) = {
   {&xc_ref_Zhao2006_194101, &xc_ref_Zhao2008_215, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  0, NULL, NULL,
   mgga_c_vsxc_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */
@@ -326,6 +330,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m06_hf) = {
   {&xc_ref_Zhao2006_13126, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  0, NULL, NULL,
   mgga_c_vsxc_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */
@@ -340,6 +345,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m06) = {
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  0, NULL, NULL,
   mgga_c_vsxc_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */
@@ -354,6 +360,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m06_2x) = {
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  0, NULL, NULL,
   mgga_c_vsxc_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */
@@ -368,6 +375,7 @@ const XC(func_info_type) XC(func_info_mgga_c_dldf) = {
   {&xc_ref_Pernal2009_263201, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  0, NULL, NULL,
   mgga_c_vsxc_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */

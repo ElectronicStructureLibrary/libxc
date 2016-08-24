@@ -161,6 +161,7 @@ const XC(func_info_type) XC(func_info_lda_x_1d) = {
   {&xc_ref_Helbig2011_032503, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 0.0, 0.0, 1e-32,
+  0, NULL, NULL,
   lda_x_1d_init,    /* init */
   NULL,             /* end  */
   work_lda,         /* lda  */

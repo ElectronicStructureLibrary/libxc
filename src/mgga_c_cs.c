@@ -113,6 +113,7 @@ const XC(func_info_type) XC(func_info_mgga_c_cs) = {
   {&xc_ref_Colle1975_329, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
+  0, NULL, NULL,
   NULL,
   NULL, NULL, NULL,
   work_mgga_c,

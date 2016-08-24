@@ -179,6 +179,7 @@ const XC(func_info_type) XC(func_info_mgga_x_ms0) = {
   {&xc_ref_Sun2012_051101, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 1e-32, 1e-32,
+  0, NULL, NULL,
   mgga_x_ms_init,
   NULL, NULL, NULL,
   work_mgga_x,
@@ -192,6 +193,7 @@ const XC(func_info_type) XC(func_info_mgga_x_ms1) = {
   {&xc_ref_Sun2013_044113, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 1e-32, 1e-32,
+  0, NULL, NULL,
   mgga_x_ms_init,
   NULL, NULL, NULL,
   work_mgga_x,
@@ -205,6 +207,7 @@ const XC(func_info_type) XC(func_info_mgga_x_ms2) = {
   {&xc_ref_Sun2013_044113, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 1e-32, 1e-32,
+  0, NULL, NULL,
   mgga_x_ms_init,
   NULL, NULL, NULL,
   work_mgga_x,
@@ -221,13 +224,21 @@ hyb_mgga_x_ms2h_init(XC(func_type) *p)
 }
 
 void
-XC(hyb_mgga_x_ms2h_set_params)(XC(func_type) *p, FLOAT alpha)
+ms2h_set_ext_params(XC(func_type) *p, const double *ext_params)
 {
+  FLOAT alpha;
+
+  alpha = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
+
   assert(alpha>=0 && alpha<=1.0);
 
   p->cam_alpha   = alpha;
   p->mix_coef[0] = 1.0 - alpha;
 }
+
+const func_params_type ms2h_params[] = {
+  {0.09, "Hartree-Fock mixing coefficient (cam_alpha)"}
+};
 
 const XC(func_info_type) XC(func_info_hyb_mgga_x_ms2h) = {
   XC_HYB_MGGA_X_MS2H,
@@ -237,6 +248,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_ms2h) = {
   {&xc_ref_Sun2013_044113, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 1e-32, 1e-32,
+  1, ms2h_params, ms2h_set_ext_params,
   hyb_mgga_x_ms2h_init,
   NULL, NULL, NULL, NULL
 };

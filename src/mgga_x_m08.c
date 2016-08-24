@@ -225,6 +225,7 @@ const XC(func_info_type) XC(func_info_mgga_x_m08_hx) = {
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
+  0, NULL, NULL,
   mgga_x_m08_init,
   NULL, NULL, NULL,
   work_mgga_c,
@@ -238,6 +239,7 @@ const XC(func_info_type) XC(func_info_mgga_x_m08_so) = {
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
+  0, NULL, NULL,
   mgga_x_m08_init,
   NULL, NULL, NULL,
   work_mgga_c,
@@ -251,6 +253,7 @@ const XC(func_info_type) XC(func_info_mgga_x_m11) = {
   {&xc_ref_Peverati2011_2810, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
+  0, NULL, NULL,
   mgga_x_m08_init,
   NULL, NULL, NULL,
   work_mgga_c,
@@ -264,6 +267,7 @@ const XC(func_info_type) XC(func_info_mgga_x_m11_l) = {
   {&xc_ref_Peverati2012_117, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
+  0, NULL, NULL,
   mgga_x_m08_init,
   NULL, NULL, NULL,
   work_mgga_c,
@@ -287,6 +291,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_m08_hx) = {
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
+  0, NULL, NULL,
   hyb_mgga_xc_m08_hx_init,
   NULL, NULL, NULL, NULL
 };
@@ -309,6 +314,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_m08_so) = {
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
+  0, NULL, NULL,
   hyb_mgga_xc_m08_so_init,
   NULL, NULL, NULL, NULL
 };
@@ -333,6 +339,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_m11) = {
   {&xc_ref_Peverati2011_2810, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
+  0, NULL, NULL,
   hyb_mgga_xc_m11_init,
   NULL, NULL, NULL, NULL
 };

@@ -88,6 +88,7 @@ const XC(func_info_type) XC(func_info_gga_x_pw86) = {
   {&xc_ref_Perdew1986_8800, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   gga_x_pw86_init, NULL, NULL,
   work_gga_x,
   NULL
@@ -101,6 +102,7 @@ const XC(func_info_type) XC(func_info_gga_x_rpw86) = {
   {&xc_ref_Murray2009_2754, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   gga_x_pw86_init, NULL, NULL,
   work_gga_x,
   NULL
@@ -117,6 +119,7 @@ const XC(func_info_type) XC(func_info_gga_k_fr_pw86) = {
   {&xc_ref_Fuentealba1995_31, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   gga_x_pw86_init, NULL, NULL,
   work_gga_k,
   NULL

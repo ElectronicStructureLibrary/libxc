@@ -210,6 +210,7 @@ const XC(func_info_type) XC(func_info_lda_c_pz) = {
   {&xc_ref_Perdew1981_5048, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
+  0, NULL, NULL,
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
@@ -225,6 +226,7 @@ const XC(func_info_type) XC(func_info_lda_c_pz_mod) = {
   {&xc_ref_Perdew1981_5048_mod, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
+  0, NULL, NULL,
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
@@ -240,6 +242,7 @@ const XC(func_info_type) XC(func_info_lda_c_ob_pz) = {
   {&xc_ref_Ortiz1994_1391, &xc_ref_Ortiz1994_1391_err, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
+  0, NULL, NULL,
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */

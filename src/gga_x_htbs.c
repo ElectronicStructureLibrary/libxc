@@ -140,6 +140,7 @@ const XC(func_info_type) XC(func_info_gga_x_htbs) = {
   {&xc_ref_Haas2011_205117, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   gga_x_htbs_init, 
   NULL, NULL,
   work_gga_x,

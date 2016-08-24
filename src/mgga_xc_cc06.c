@@ -107,6 +107,7 @@ const XC(func_info_type) XC(func_info_mgga_xc_cc06) = {
   {&xc_ref_Cancio2006_081202, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
+  0, NULL, NULL,
   mgga_xc_cc06_init,
   NULL, NULL, NULL,
   work_mgga_c,

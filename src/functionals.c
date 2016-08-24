@@ -49,8 +49,10 @@ int XC(functional_get_number)(const char *name)
   for(ii=0;;ii++){
     if(XC(functional_keys)[ii].number == -1)
       break;
-    if(strcasecmp(XC(functional_keys)[ii].name, p) == 0) 
-      key=XC(functional_keys)[ii].number;
+    if(strcasecmp(XC(functional_keys)[ii].name, p) == 0){
+      key = XC(functional_keys)[ii].number;
+      break;
+    }
   }
   
   return key;
@@ -135,64 +137,135 @@ XC(func_type) *XC(func_alloc)()
 }
 
 /*------------------------------------------------------*/
-int XC(func_init)(XC(func_type) *p, int functional, int nspin)
+int XC(func_init)(XC(func_type) *func, int functional, int nspin)
 {
   int number;
 
-  assert(p != NULL);
+  assert(func != NULL);
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
 
-  p->nspin = nspin;
+  /* initialize structure */
+  func->nspin      = nspin;
+  func->params     = NULL;
+  func->func       = 0;
+
+  func->n_func_aux = 0;
+  func->func_aux   = NULL;
+  func->mix_coef   = NULL;
+  func->cam_omega = func->cam_alpha = func->cam_beta = 0.0;
 
   switch(XC(family_from_id)(functional, NULL, &number)){
   case(XC_FAMILY_LDA):
-    p->info = XC(lda_known_funct)[number];
-    return XC(lda_init)(p, p->info, nspin);
+    func->info = XC(lda_known_funct)[number];
+    break;
 
   case(XC_FAMILY_GGA):
-    p->info = XC(gga_known_funct)[number];
-    return XC(gga_init)(p, p->info, nspin);
+    func->info = XC(gga_known_funct)[number];
+    break;
 
   case(XC_FAMILY_HYB_GGA):
-    p->info = XC(hyb_gga_known_funct)[number];
-    return XC(gga_init)(p, p->info, nspin);
+    func->info = XC(hyb_gga_known_funct)[number];
+    break;
 
   case(XC_FAMILY_MGGA):
-    p->info = XC(mgga_known_funct)[number];
-    return XC(mgga_init)(p, p->info, nspin);
+    func->info = XC(mgga_known_funct)[number];
+    break;
 
   case(XC_FAMILY_HYB_MGGA):
-    p->info = XC(hyb_mgga_known_funct)[number];
-    return XC(mgga_init)(p, p->info, nspin);
+    func->info = XC(hyb_mgga_known_funct)[number];
+    break;
 
   default:
     return -2; /* family not found */
   }
+
+  /* setup internal counters */
+  switch(XC(family_from_id)(functional, NULL, &number)){
+  case(XC_FAMILY_MGGA):
+  case(XC_FAMILY_HYB_MGGA):
+    func->n_tau  = func->n_vtau = func->nspin;
+    func->n_lapl = func->n_vlapl = func->nspin;
+    if(func->nspin == XC_UNPOLARIZED){
+      func->n_v2tau2 = func->n_v2lapl2 = 1;
+      func->n_v2rhotau = func->n_v2rholapl = func->n_v2lapltau = 1;
+      func->n_v2sigmatau = func->n_v2sigmalapl = 1;
+    }else{
+      func->n_v2tau2 = func->n_v2lapl2 = 3;
+      func->n_v2rhotau = func->n_v2rholapl = func->n_v2lapltau = 4;
+      func->n_v2sigmatau = func->n_v2sigmalapl = 6;
+    }
+
+  case(XC_FAMILY_GGA):
+  case(XC_FAMILY_HYB_GGA):
+    if(func->nspin == XC_UNPOLARIZED){
+      func->n_sigma  = func->n_vsigma = 1;
+      func->n_v2rhosigma  = func->n_v2sigma2 = 1;
+      func->n_v3rho2sigma = func->n_v3rhosigma2 = func->n_v3sigma3 = 1;
+    }else{
+      func->n_sigma      = func->n_vsigma = 3;
+      func->n_v2rhosigma = func->n_v2sigma2 = 6;
+
+      func->n_v3rho2sigma = 9;
+      func->n_v3rhosigma2 = 12;
+      func->n_v3sigma3    = 10;
+    }
+
+  case(XC_FAMILY_LDA):
+    func->n_rho = func->n_vrho = func->nspin;
+    func->n_zk  = 1;
+    if(func->nspin == XC_UNPOLARIZED){
+      func->n_v2rho2 = func->n_v3rho3 = 1;
+    }else{
+      func->n_v2rho2 = 3;
+      func->n_v3rho3 = 4;
+    }
+  }
+
+  /* see if we need to initialize the functional */
+  if(func->info->init != NULL)
+    func->info->init(func);
+
+  /* see if we need to initialize the external parameters */
+  if(func->info->n_ext_params > 0)
+    func->info->set_ext_params(func, NULL);
+
+  return 0;
 }
 
 
 /*------------------------------------------------------*/
-void XC(func_end)(XC(func_type) *p)
+void XC(func_end)(XC(func_type) *func)
 {
-  assert(p != NULL && p->info != NULL);
+  assert(func != NULL && func->info != NULL);
 
-  switch(p->info->family){
-  case(XC_FAMILY_LDA):
-    XC(lda_end)(p);
-    break;
+  /* call internal termination routine */
+  if(func->info->end != NULL)
+    func->info->end(func);
 
-  case(XC_FAMILY_GGA):
-  case(XC_FAMILY_HYB_GGA):
-    XC(gga_end)(p);
-    break;
+  /* terminate any auxiliary functional */
+  if(func->n_func_aux > 0){
+    int ii;
 
-  case(XC_FAMILY_MGGA):
-  case(XC_FAMILY_HYB_MGGA):
-    XC(mgga_end)(p);
-    break;
+    for(ii=0; ii<func->n_func_aux; ii++){
+      XC(func_end)(func->func_aux[ii]);
+      free(func->func_aux[ii]);
+    }
+    free(func->func_aux);
+    func->n_func_aux = 0;
   }
 
-  p->info = NULL;  
+  if(func->mix_coef != NULL){
+    free(func->mix_coef);
+    func->mix_coef = NULL;
+  }
+
+  /* deallocate any used parameter */
+  if(func->params != NULL){
+    free(func->params);
+    func->params = NULL;
+  }
+
+  func->info = NULL;  
 }
 
 /*------------------------------------------------------*/
@@ -207,6 +280,12 @@ const XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p)
   return p->info;
 }
 
+/*------------------------------------------------------*/
+void XC(func_set_ext_params)(XC(func_type) *p, double *ext_params)
+{
+  assert(p->info->n_ext_params > 0);
+  p->info->set_ext_params(p, ext_params);
+}
 
 /* returns the mixing coefficient for the hybrid GGAs */
 FLOAT XC(hyb_exx_coef)(const XC(func_type) *p)

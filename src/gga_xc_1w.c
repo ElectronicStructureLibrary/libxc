@@ -43,6 +43,7 @@ const XC(func_info_type) XC(func_info_gga_xc_xlyp) = {
   {&xc_ref_Xu2004_2673, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   gga_xc_xlyp_init, 
   NULL, NULL, NULL, NULL
 };
@@ -65,6 +66,7 @@ const XC(func_info_type) XC(func_info_gga_xc_pbe1w) = {
   {&xc_ref_Dahlke2005_15677, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   gga_xc_pbe1w_init, 
   NULL, NULL, NULL, NULL
 };
@@ -87,6 +89,7 @@ const XC(func_info_type) XC(func_info_gga_xc_mpwlyp1w) = {
   {&xc_ref_Dahlke2005_15677, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   gga_xc_mpwlyp1w_init, 
   NULL, NULL, NULL, NULL
 };
@@ -109,6 +112,7 @@ const XC(func_info_type) XC(func_info_gga_xc_pbelyp1w) = {
   {&xc_ref_Dahlke2005_15677, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   gga_xc_pbelyp1w_init, 
   NULL, NULL, NULL, NULL
 };

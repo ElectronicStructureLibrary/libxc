@@ -53,6 +53,7 @@ const XC(func_info_type) XC(func_info_mgga_x_lta) = {
   {&xc_ref_Ernzerhof1999_911, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  0, NULL, NULL,
   NULL, NULL,
   NULL, NULL,        /* this is not an LDA                   */
   work_mgga_x,

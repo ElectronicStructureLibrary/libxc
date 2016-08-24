@@ -24,53 +24,6 @@
 #include "util.h"
 #include "funcs_lda.c"
 
-
-/* initialization */
-int 
-XC(lda_init)(XC(func_type) *func, const XC(func_info_type) *info, int nspin)
-{
-  assert(func != NULL);
-
-  /* initialize structure */
-  func->info   = info;
-  func->nspin  = nspin;
-  func->params = NULL;
-  func->func   = 0;
-
-  /* initialize spin counters */
-  func->n_rho = func->n_vrho = func->nspin;
-  func->n_zk  = 1;
-  if(func->nspin == XC_UNPOLARIZED){
-    func->n_v2rho2 = func->n_v3rho3 = 1;
-  }else{
-    func->n_v2rho2 = 3;
-    func->n_v3rho3 = 4;
-  }
-
-  /* see if we need to initialize the functional */
-  if(func->info->init != NULL)
-    func->info->init(func);
-  return 0;
-}
-
-
-/* termination */
-void 
-XC(lda_end)(XC(func_type) *func)
-{
-  assert(func != NULL);
-
-  if(func->info->end != NULL)
-    func->info->end(func);
-
-  /* deallocate any used parameter */
-  if(func->params != NULL){
-    free(func->params);
-    func->params = NULL;
-  }
-}
-
-
 /* get the lda functional */
 void 
 XC(lda)(const XC(func_type) *func, int np, const FLOAT *rho, 

@@ -224,6 +224,7 @@ const XC(func_info_type) XC(func_info_gga_c_lyp) = {
   {&xc_ref_Lee1988_785, &xc_ref_Miehlich1989_200, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   XC(gga_c_lyp_init), 
   NULL,
   NULL,

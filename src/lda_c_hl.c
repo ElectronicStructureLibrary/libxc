@@ -139,6 +139,7 @@ const XC(func_info_type) XC(func_info_lda_c_hl) = {
   {&xc_ref_Hedin1971_2064, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-16, 0.0, 0.0, 1e-32,
+  0, NULL, NULL,
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
@@ -154,6 +155,7 @@ const XC(func_info_type) XC(func_info_lda_c_gl) = {
   {&xc_ref_Gunnarsson1976_4274, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-12, 0.0, 0.0, 1e-32,
+  0, NULL, NULL,
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */
@@ -169,6 +171,7 @@ const XC(func_info_type) XC(func_info_lda_c_vbh) = {
   {&xc_ref_vonBarth1972_1629, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-14, 0.0, 0.0, 1e-32,
+  0, NULL, NULL,
   NULL,     /* init */
   NULL,     /* end  */
   work_lda, /* lda  */

@@ -61,6 +61,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_camy_blyp) = {
   {&xc_ref_Akinaga2008_348, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAMY | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   XC(hyb_gga_xc_camy_blyp_init),
   NULL, NULL, NULL, NULL
 };

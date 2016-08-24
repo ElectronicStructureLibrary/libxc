@@ -85,6 +85,10 @@ typedef struct{
   char *ref, *doi, *bibtex;
 } func_reference_type;
 
+typedef struct{
+  double value;
+  char *description;
+} func_params_type;
 
 typedef struct{
   int   number;   /* identifier number */
@@ -96,10 +100,12 @@ typedef struct{
 
   int   flags;    /* see above for a list of possible flags */
 
-  FLOAT min_dens;
-  FLOAT min_grad;
-  FLOAT min_tau;
-  FLOAT min_zeta;
+  FLOAT min_dens, min_grad, min_tau, min_zeta;
+
+  /* this allows to have external parameters in the functional */
+  int n_ext_params;
+  const func_params_type *ext_params;
+  void (*set_ext_params)(struct XC(func_type) *p, const double *ext_params);
 
   void (*init)(struct XC(func_type) *p);
   void (*end) (struct XC(func_type) *p);
@@ -152,7 +158,7 @@ struct XC(func_type){
     n_v2sigmatau, n_v2sigmalapl, n_v2lapltau;
 
   int n_v3rho3, n_v3rho2sigma, n_v3rhosigma2, n_v3sigma3;
-  
+
   void *params;                         /* this allows us to fix parameters in the functional */
 };
 
@@ -167,13 +173,11 @@ int   XC(func_init)(XC(func_type) *p, int functional, int nspin);
 void  XC(func_end)(XC(func_type) *p);
 void  XC(func_free)(XC(func_type) *p);
 const XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p);
-    
+void XC(func_set_ext_params)(XC(func_type) *p, double *ext_params);
+
 #include "xc_funcs.h"
 #include "xc_funcs_removed.h"
   
-int  XC(lda_init)(XC(func_type) *p, const XC(func_info_type) *info, int nspin);
-void XC(lda_end) (XC(func_type) *p);
-
 void XC(lda)        (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3);
 void XC(lda_exc)    (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *zk);
 void XC(lda_exc_vxc)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *zk, FLOAT *vrho);

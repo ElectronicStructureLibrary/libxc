@@ -151,6 +151,7 @@ const XC(func_info_type) XC(func_info_mgga_x_m06_l) = {
   {&xc_ref_Zhao2006_194101, &xc_ref_Zhao2008_215, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  0, NULL, NULL,
   mgga_x_m06l_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */
@@ -165,6 +166,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_m06_hf) = {
   {&xc_ref_Zhao2006_13126, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  0, NULL, NULL,
   mgga_x_m06l_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */
@@ -179,6 +181,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_m06) = {
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  0, NULL, NULL,
   mgga_x_m06l_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */

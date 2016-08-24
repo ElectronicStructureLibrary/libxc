@@ -282,6 +282,7 @@ const XC(func_info_type) XC(func_info_mgga_x_br89) = {
   {&xc_ref_Becke1989_3761, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  0, NULL, NULL,
   NULL, NULL,
   NULL, NULL,        /* this is not an LDA                   */
   work_mgga_x,
@@ -295,6 +296,7 @@ const XC(func_info_type) XC(func_info_mgga_x_bj06) = {
   {&xc_ref_Becke2006_221101, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
   1e-22, 1e-32, 1e-22, 1e-22,
+  0, NULL, NULL,
   mgga_x_tb09_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */
@@ -309,6 +311,7 @@ const XC(func_info_type) XC(func_info_mgga_x_tb09) = {
   {&xc_ref_Tran2009_226401, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  0, NULL, NULL,
   mgga_x_tb09_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */
@@ -323,6 +326,7 @@ const XC(func_info_type) XC(func_info_mgga_x_rpp09) = {
   {&xc_ref_Rasanen2010_044112, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
   1e-22, 1e-22, 1e-22, 1e-22,
+  0, NULL, NULL,
   mgga_x_tb09_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */
@@ -337,6 +341,7 @@ const XC(func_info_type) XC(func_info_mgga_x_b00) = {
   {&xc_ref_Becke2000_4020, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
+  0, NULL, NULL,
   NULL, NULL,
   NULL, NULL,        /* this is not an LDA                   */
   work_mgga_x,

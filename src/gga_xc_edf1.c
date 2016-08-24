@@ -48,6 +48,7 @@ const XC(func_info_type) XC(func_info_gga_xc_edf1) = {
   {&xc_ref_Adamson1998_6, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   gga_xc_edf1_init, 
   NULL, NULL, NULL, NULL
 };
@@ -73,6 +74,7 @@ const XC(func_info_type) XC(func_info_gga_x_optpbe_vdw) = {
   {&xc_ref_Klimes2010_022201, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   gga_x_optpbe_vdw_init, 
   NULL, NULL, NULL, NULL
 };
@@ -97,6 +99,7 @@ const XC(func_info_type) XC(func_info_gga_xc_mohlyp) = {
   {&xc_ref_Schultz2005_11127, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   gga_xc_mohlyp_init,
   NULL, NULL, NULL, NULL
 };
@@ -120,6 +123,7 @@ const XC(func_info_type) XC(func_info_gga_xc_mohlyp2) = {
   {&xc_ref_Zheng2009_808, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   gga_xc_mohlyp2_init,
   NULL, NULL, NULL, NULL
 };
@@ -144,6 +148,7 @@ const XC(func_info_type) XC(func_info_gga_x_sogga) = {
   {&xc_ref_Zhao2008_184109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-31, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
   gga_x_sogga_init,
   NULL, NULL, NULL, NULL
 };

@@ -295,7 +295,7 @@ const XC(func_info_type) XC(func_info_lda_xc_ksdt) = {
   {&xc_ref_Karasiev2014_076403, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 0.0, 0.0, 1e-32,
-  0, NULL, NULL,
+  1, ext_params, set_ext_params,
   lda_xc_ksdt_init, NULL,
   work_lda, NULL, NULL
 };

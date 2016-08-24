@@ -82,9 +82,9 @@ gga_x_pbe_init(XC(func_type) *p)
     0.8040,                 /* APBEINT (K) */
     1.245,                  /* revAPBEINT (K) */
     0.8040,                 /* PBEmol    */
-    2.273/M_CBRT2 - 1.0,    /* LAMBDA_LO(N)  */
-    2.215/M_CBRT2 - 1.0,    /* LAMBDA_CH(N)  */
-    2.00 /M_CBRT2 - 1.0,    /* LAMBDA_OC2(N) */
+   -1.0,                    /* LAMBDA_LO(N) - determined later */
+   -1.0,                    /* LAMBDA_CH(N) - determined later  */
+   -1.0,                    /* LAMBDA_OC2(N) - determined later */
     0.8040,                 /* BCGP (X)    */
     0.437,                  /* PBEfe       */
   };
@@ -204,22 +204,6 @@ XC(gga_x_pbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu)
 
   params->kappa = kappa;
   params->mu    = mu;
-}
-
-
-void 
-XC(gga_x_lambda_set_params)(XC(func_type) *p, FLOAT N)
-{
-  const FLOAT lambda_1 = 1.48;
-
-  gga_x_pbe_params *params;
-  FLOAT lambda;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_x_pbe_params *) (p->params);
-
-  lambda = (1.0 - 1.0/N)*params->lambda + lambda_1/N;
-  params->kappa = lambda/M_CBRT2 - 1.0;
 }
 
 
@@ -449,6 +433,28 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_tca) = {
   NULL
 };
 
+static const func_params_type ext_params[] = {
+  {1e23, "Number of electrons"},
+};
+
+static void 
+set_ext_params(XC(func_type) *p, const double *ext_params)
+{
+  const FLOAT lambda_1 = 1.48;
+
+  gga_x_pbe_params *params;
+  FLOAT lambda, ff;
+
+  assert(p != NULL && p->params != NULL);
+  params = (gga_x_pbe_params *) (p->params);
+
+  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
+
+  lambda = (1.0 - 1.0/ff)*params->lambda + lambda_1/ff;
+  params->kappa = lambda/M_CBRT2 - 1.0;
+}
+
+
 const XC(func_info_type) XC(func_info_gga_x_lambda_lo_n) = {
   XC_GGA_X_LAMBDA_LO_N,
   XC_EXCHANGE,
@@ -457,7 +463,7 @@ const XC(func_info_type) XC(func_info_gga_x_lambda_lo_n) = {
   {&xc_ref_Odashima2009_798, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
+  1, ext_params, set_ext_params,
   gga_x_pbe_init,
   NULL, NULL,
   work_gga_x,
@@ -472,7 +478,7 @@ const XC(func_info_type) XC(func_info_gga_x_lambda_ch_n) = {
   {&xc_ref_Odashima2009_798, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
+  1, ext_params, set_ext_params,
   gga_x_pbe_init,
   NULL, NULL,
   work_gga_x,
@@ -487,7 +493,7 @@ const XC(func_info_type) XC(func_info_gga_x_lambda_oc2_n) = {
   {&xc_ref_Odashima2009_798, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
+  1, ext_params, set_ext_params,
   gga_x_pbe_init,
   NULL, NULL,
   work_gga_x,

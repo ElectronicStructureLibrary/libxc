@@ -33,24 +33,6 @@ lda_x_1d_init(XC(func_type) *p)
 {
   assert(p->params == NULL);
   p->params = malloc(sizeof(lda_x_1d_params));
-
-  /* default value is soft-Coulomb with beta=1.0 */
-  XC(lda_x_1d_set_params)(p, 1, 1.0);
-}
-
-
-void 
-XC(lda_x_1d_set_params)(XC(func_type) *p, int interaction, FLOAT bb)
-{
-  lda_x_1d_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (lda_x_1d_params *)(p->params);
-
-  assert(interaction == 0 || interaction == 1);
-
-  params->interaction = interaction;
-  params->bb          = bb;
 }
 
 
@@ -153,6 +135,31 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
 #define XC_DIMENSIONS 1
 #include "work_lda.c"
 
+static void 
+set_ext_params(XC(func_type) *p, const double *ext_params) /* int interaction, FLOAT bb */
+{
+  lda_x_1d_params *params;
+  int interaction;
+  double bb;
+
+  assert(p != NULL && p->params != NULL);
+  params = (lda_x_1d_params *)(p->params);
+
+  bb = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
+  interaction = (int)round(bb);
+  bb = (ext_params == NULL) ? p->info->ext_params[1].value : ext_params[1];
+
+  assert(interaction == 0 || interaction == 1);
+
+  params->interaction = interaction;
+  params->bb          = bb;
+}
+
+static const func_params_type ext_params[] = {
+  {  1, "Interaction: 0 (exponentially screened) | 1 (soft-Coulomb)"},
+  {1.0, "Screening parameter beta"}
+};
+
 const XC(func_info_type) XC(func_info_lda_x_1d) = {
   XC_LDA_X_1D,
   XC_EXCHANGE,
@@ -161,7 +168,7 @@ const XC(func_info_type) XC(func_info_lda_x_1d) = {
   {&xc_ref_Helbig2011_032503, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 0.0, 0.0, 1e-32,
-  0, NULL, NULL,
+  2, ext_params, set_ext_params,
   lda_x_1d_init,    /* init */
   NULL,             /* end  */
   work_lda,         /* lda  */

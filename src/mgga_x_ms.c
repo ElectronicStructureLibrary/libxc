@@ -223,8 +223,8 @@ hyb_mgga_x_ms2h_init(XC(func_type) *p)
   p->cam_alpha = 0.09;
 }
 
-void
-ms2h_set_ext_params(XC(func_type) *p, const double *ext_params)
+static void
+set_ext_params(XC(func_type) *p, const double *ext_params)
 {
   FLOAT alpha;
 
@@ -236,7 +236,7 @@ ms2h_set_ext_params(XC(func_type) *p, const double *ext_params)
   p->mix_coef[0] = 1.0 - alpha;
 }
 
-const func_params_type ms2h_params[] = {
+static const func_params_type ext_params[] = {
   {0.09, "Hartree-Fock mixing coefficient (cam_alpha)"}
 };
 
@@ -248,7 +248,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_ms2h) = {
   {&xc_ref_Sun2013_044113, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 1e-32, 1e-32,
-  1, ms2h_params, ms2h_set_ext_params,
+  1, ext_params, set_ext_params,
   hyb_mgga_x_ms2h_init,
   NULL, NULL, NULL, NULL
 };

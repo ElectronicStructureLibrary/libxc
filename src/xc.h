@@ -185,9 +185,6 @@ void XC(lda_vxc)    (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *vr
 void XC(lda_fxc)    (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *v2rho2);
 void XC(lda_kxc)    (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *v3rho3);
 
-
-int  XC(gga_init)(XC(func_type) *p, const XC(func_info_type) *info, int nspin);
-void XC(gga_end) (XC(func_type) *p);
 void XC(gga)     (const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
 		  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
 		  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
@@ -213,8 +210,6 @@ void  XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT
 void  XC(nlc_coef)(const XC(func_type) *p, FLOAT *nlc_b, FLOAT *nlc_C);
 
 /* the meta-GGAs */
-int  XC(mgga_init)(XC(func_type) *p, const XC(func_info_type) *info, int nspin);
-void XC(mgga_end) (XC(func_type) *p);
 void XC(mgga)        (const XC(func_type) *p, int np,
 		      const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
 		      FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau,

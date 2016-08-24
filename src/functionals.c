@@ -153,6 +153,7 @@ int XC(func_init)(XC(func_type) *func, int functional, int nspin)
   func->func_aux   = NULL;
   func->mix_coef   = NULL;
   func->cam_omega = func->cam_alpha = func->cam_beta = 0.0;
+  func->nlc_b = func->nlc_C = 0.0;
 
   switch(XC(family_from_id)(functional, NULL, &number)){
   case(XC_FAMILY_LDA):

@@ -141,23 +141,20 @@ static const func_params_type ext_params[] = {
 };
 
 static void 
-set_ext_params(XC(func_type) *p, const double *ext_params) /* int interaction, FLOAT bb */
+set_ext_params(XC(func_type) *p, const double *ext_params)
 {
   lda_x_1d_params *params;
-  int interaction;
-  double bb;
+  double ff;
 
   assert(p != NULL && p->params != NULL);
   params = (lda_x_1d_params *)(p->params);
 
-  bb = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
-  interaction = (int)round(bb);
-  bb = (ext_params == NULL) ? p->info->ext_params[1].value : ext_params[1];
+  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
+  params->interaction = (int)round(ff);
+  ff = (ext_params == NULL) ? p->info->ext_params[1].value : ext_params[1];
+  params->bb = ff;
 
-  assert(interaction == 0 || interaction == 1);
-
-  params->interaction = interaction;
-  params->bb          = bb;
+  assert(params->interaction == 0 || params->interaction == 1);
 }
 
 const XC(func_info_type) XC(func_info_lda_x_1d) = {

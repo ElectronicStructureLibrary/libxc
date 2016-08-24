@@ -1759,6 +1759,27 @@ func_reference_type xc_ref_Schimka2011_024116 = {
 };
 
 
+func_reference_type xc_ref_Rajagopal1978_L943 = {
+  "A. K. Rajagopal, J. Phys. C: Solid State Phys. 11, L943 (1978)",
+  "",
+  "@article{Rajagopal1978_L943,\n  author={A K Rajagopal},\n  title={Inhomogeneous relativistic electron gas},\n  journal={Journal of Physics C: Solid State Physics},\n  volume={11},\n  number={24},\n  pages={L943},\n  url={http://stacks.iop.org/0022-3719/11/i=24/a=002},\n  year={1978},\n}"
+};
+
+
+func_reference_type xc_ref_MacDonald1979_2977 = {
+  "A. H. MacDonald and S. H. Vosko, J. Phys. C: Solid State Phys. 12, 2977 (1979)",
+  "",
+  "@article{MacDonald1979_2977,\n  author={A H MacDonald and S H Vosko},\n  title={A relativistic density functional formalism},\n  journal={Journal of Physics C: Solid State Physics},\n  volume={12},\n  number={15},\n  pages={2977},\n  url={http://stacks.iop.org/0022-3719/12/i=15/a=007},\n  year={1979},\n}"
+};
+
+
+func_reference_type xc_ref_Engel1995_2750 = {
+  "E. Engel, S. Keller, A. F. Bonetti, H. Müller, and R. M. Dreizler, Phys. Rev. A 52, 2750 (1995)",
+  "10.1103/PhysRevA.52.2750",
+  "@article{Engel1995_2750,\n  title = {Local and nonlocal relativistic exchange-correlation energy functionals: Comparison to relativistic optimized-potential-model results},\n  author = {Engel, E. and Keller, S. and Bonetti, A. Facco and Müller, H. and Dreizler, R. M.},\n  journal = {Phys. Rev. A},\n  volume = {52},\n  issue = {4},\n  pages = {2750--2764},\n  numpages = {0},\n  year = {1995},\n  month = {Oct},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.52.2750},\n  url = {http://link.aps.org/doi/10.1103/PhysRevA.52.2750}\n}"
+};
+
+
 func_reference_type xc_ref_Chachiyo2016_021101 = {
   "T. Chachiyo, J. Chem. Phys. 145, 021101 (2016)",
   "10.1063/1.4958669",

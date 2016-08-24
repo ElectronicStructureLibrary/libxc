@@ -23,6 +23,7 @@
 #include "util.h"
 
 #define XC_LDA_X         1   /* Exchange                     */
+#define XC_LDA_X_REL   532   /* Relativistic exchange        */
 #define XC_LDA_C_XALPHA  6   /* Slater Xalpha                */
 
 /*  
@@ -36,12 +37,6 @@
     whereas alpha equal to 2/3 just leaves the exchange functional unchanged.
 */
 
-/* Relativistic corrections
-    A. K. Rajagopal, J. Phys. C 11, L943 (1978).
-    A. H. MacDonald and S. H. Vosko, J. Phys. C 12, 2977 (1979).
-    E. Engel, S. Keller, A. Facco Bonetti, H. Mueller, and R. M. Dreizler, Phys. Rev. A 52, 2750 (1995).
-*/
-
 /* Range separation
     J. Toulouse, A. Savin, H.-J. Flad, Int. J. of Quant. Chem. 100, 1047-1056 (2004).
 */
@@ -49,47 +44,35 @@
 typedef struct{
   FLOAT alpha;       /* parameter for Xalpha functional */
   int relativistic;  /* use the relativistic version of the functional or not */
-} XC(lda_x_params);
+} lda_x_params;
 
 static void 
 lda_x_init(XC(func_type) *p)
 {
+  lda_x_params *params;
+
   assert(p != NULL && p->params == NULL);
-  p->params = malloc(sizeof(XC(lda_x_params)));
+  p->params = malloc(sizeof(lda_x_params));
+  params = (lda_x_params *) (p->params);
 
-  /* exchange is equal to xalpha with a parameter of 4/3 */
-  XC(lda_x_set_params)(p, 4.0/3.0, XC_NON_RELATIVISTIC, 0.0);
+  switch(p->info->number){
+  case XC_LDA_X:
+    params->alpha        = 1.0;
+    params->relativistic = XC_NON_RELATIVISTIC;
+    break;
+  case XC_LDA_X_REL:
+    params->alpha        = 1.0;
+    params->relativistic = XC_RELATIVISTIC;
+    break;
+  case XC_LDA_C_XALPHA:
+    params->alpha        = 1.0/2.0;
+    params->relativistic = XC_NON_RELATIVISTIC;
+    break;
+  default:
+    fprintf(stderr, "Internal error in lda_x_init\n");
+    exit(1);
+  }
 }
-
-static void 
-lda_c_xalpha_init(XC(func_type) *p)
-{
-  assert(p != NULL && p->params == NULL);
-  p->params = malloc(sizeof(XC(lda_x_params)));
-
-  /* This gives the usual Xalpha functional */
-  XC(lda_x_set_params)(p, 1.0, XC_NON_RELATIVISTIC, 0.0);
-}
-
-void 
-XC(lda_c_xalpha_set_params)(XC(func_type) *p, FLOAT alpha)
-{
-  XC(lda_x_set_params)(p, alpha, XC_NON_RELATIVISTIC, 0.0);
-}
-
-void 
-XC(lda_x_set_params)(XC(func_type) *p, FLOAT alpha, int relativistic, FLOAT omega)
-{
-  XC(lda_x_params) *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (XC(lda_x_params) *) (p->params);
-
-  params->alpha = 1.5*alpha - 1.0;
-  params->relativistic = relativistic;
-  p->cam_omega = omega;
-}
-
 
 /*
 see
@@ -202,7 +185,8 @@ XC(lda_x_attenuation_function_yukawa)(int order, FLOAT aa, FLOAT *f, FLOAT *df, 
 }
 
 void
-XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
+XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, 
+                               FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
 {
   switch(interaction){
   case XC_RSF_ERF:
@@ -229,12 +213,12 @@ XC(lda_x_func)(const XC(func_type) *p, XC(lda_work_t) *r)
   FLOAT beta, beta2, beta4, beta6, f1, f1_3, f1_5, f2, f3;
   FLOAT phi, dphi, d2phi, d3phi, dphidbeta, d2phidbeta2, d3phidbeta3, dbetadrs, d2betadrs2, d3betadrs3;
   FLOAT zk_nr, dedrs_nr, dedz_nr, d2edrs2_nr, d2edrsz_nr, d2edz2_nr;
-  XC(lda_x_params) *params;
+  lda_x_params *params;
 
   FLOAT a_cnst, fa_u, dfa_u, d2fa_u, d3fa_u, fa_d, dfa_d, d2fa_d, d3fa_d;
 
   assert(p->params != NULL);
-  params = (XC(lda_x_params) *) (p->params);  
+  params = (lda_x_params *) (p->params);  
 
   ax    = -params->alpha*0.458165293283142893475554485052; /* -alpha * 3/4*POW(3/(2*M_PI), 2/3) */
 
@@ -434,12 +418,39 @@ const XC(func_info_type) XC(func_info_lda_x) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-29, 0.0, 0.0, 1e-32,
   0, NULL, NULL,
-  lda_x_init,
-  NULL,
-  work_lda,
-  NULL,
-  NULL
+  lda_x_init, NULL,
+  work_lda, NULL, NULL
 };
+
+const XC(func_info_type) XC(func_info_lda_x_rel) = {
+  XC_LDA_X_REL,
+  XC_EXCHANGE,
+  "Slater exchange with relativistic corrections",
+  XC_FAMILY_LDA,
+  {&xc_ref_Rajagopal1978_L943, &xc_ref_MacDonald1979_2977, &xc_ref_Engel1995_2750, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-29, 0.0, 0.0, 1e-32,
+  0, NULL, NULL,
+  lda_x_init, NULL, 
+  work_lda, NULL, NULL
+};
+
+static const func_params_type ext_params[] = {
+  {1.0, "X-alpha multiplicative parameter"},
+};
+
+static void 
+set_ext_params(XC(func_type) *p, const double *ext_params)
+{
+  lda_x_params *params;
+  double ff;
+
+  assert(p != NULL && p->params != NULL);
+  params = (lda_x_params *)(p->params);
+
+  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
+  params->alpha = 1.5*ff - 1.0;
+}
 
 const XC(func_info_type) XC(func_info_lda_c_xalpha) = {
   XC_LDA_C_XALPHA,
@@ -449,11 +460,8 @@ const XC(func_info_type) XC(func_info_lda_c_xalpha) = {
   {&xc_ref_Slater1951_385, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-29, 0.0, 0.0, 1e-32,
-  0, NULL, NULL,
-  lda_c_xalpha_init,
-  NULL,
-  work_lda,
-  NULL,
-  NULL
+  1, ext_params, set_ext_params,
+  lda_x_init, NULL,
+  work_lda, NULL, NULL
 };
 

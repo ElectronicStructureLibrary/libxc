@@ -127,7 +127,7 @@ mgga_xc_b97mv_init(XC(func_type) *p)
   case XC_HYB_MGGA_XC_WB97M_V:
     params -> cc = wb97mv_params;
     p->cam_omega =  0.3;
-    XC(lda_x_set_params)(p->func_aux[0], 4.0/3.0, XC_NON_RELATIVISTIC, 0.3);
+    p->func_aux[0]->cam_omega = 0.3;
     p->cam_alpha =  1.0;
     p->cam_beta  = -(1.0 - 0.15);
     p->nlc_b = 6.0;

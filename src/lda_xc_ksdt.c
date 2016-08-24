@@ -60,18 +60,6 @@ lda_xc_ksdt_init(XC(func_type) *p)
 {
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(lda_xc_ksdt_params));
-  XC(lda_xc_ksdt_set_params)(p, 0.0);
-}
-
-void 
-XC(lda_xc_ksdt_set_params)(XC(func_type) *p, FLOAT T)
-{
-  lda_xc_ksdt_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (lda_xc_ksdt_params *) (p->params);
-
-  params->T  = T;
 }
 
 static void
@@ -282,6 +270,23 @@ XC(lda_xc_ksdt2)(const XC(func_type) *p, XC(lda_work_t) *r)
 #define func XC(lda_xc_ksdt2)
 #include "work_lda.c"
 
+static const func_params_type ext_params[] = {
+  {0.0, "Temperature"},
+};
+
+static void 
+set_ext_params(XC(func_type) *p, const double *ext_params)
+{
+  lda_xc_ksdt_params *params;
+  double ff;
+
+  assert(p != NULL && p->params != NULL);
+  params = (lda_xc_ksdt_params *) (p->params);
+
+  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
+  params->T = ff;
+}
+
 const XC(func_info_type) XC(func_info_lda_xc_ksdt) = {
   XC_LDA_XC_KSDT,
   XC_EXCHANGE_CORRELATION,
@@ -291,9 +296,6 @@ const XC(func_info_type) XC(func_info_lda_xc_ksdt) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 0.0, 0.0, 1e-32,
   0, NULL, NULL,
-  lda_xc_ksdt_init,     /* init */
-  NULL,     /* end  */
-  work_lda,  /* lda  */
-  NULL,
-  NULL
+  lda_xc_ksdt_init, NULL,
+  work_lda, NULL, NULL
 };

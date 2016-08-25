@@ -30,23 +30,14 @@ typedef struct{
 
 static void gga_x_2d_b88_init(XC(func_type) *p)
 {
+  gga_x_2d_b88_params *params;
   assert(p->params == NULL);
 
   p->params = malloc(sizeof(gga_x_2d_b88_params));
-
-  /* value of beta in standard Becke 88 2D functional */
-  XC(gga_x_2d_b88_set_params)(p, 0.018641);
-}
-
-
-void XC(gga_x_2d_b88_set_params)(XC(func_type) *p, FLOAT beta)
-{
-  gga_x_2d_b88_params *params;
-
-  assert(p != NULL && p->params != NULL);
   params = (gga_x_2d_b88_params *) (p->params);
 
-  params->beta = beta;
+  /* value of beta in standard Becke 88 2D functional */
+  params->beta = 0.018641;
 }
 
 

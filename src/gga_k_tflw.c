@@ -163,6 +163,24 @@ func(const XC(func_type) *p, int order, FLOAT x,
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
+static const func_params_type tfvw_ext_params[] = {
+  {1.0, "Lambda"},
+  {1.0, "Gamma"},
+};
+
+static void 
+tfvw_set_ext_params(XC(func_type) *p, const double *ext_params)
+{
+  double ff, lambda, gamma;
+
+  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
+  lambda = ff;
+  ff = (ext_params == NULL) ? p->info->ext_params[1].value : ext_params[1];
+  gamma = ff;
+
+  XC(gga_k_tflw_set_params)(p, gamma, lambda, 1.0);
+}
+
 const XC(func_info_type) XC(func_info_gga_k_tfvw) = {
   XC_GGA_K_TFVW,
   XC_KINETIC,
@@ -171,11 +189,9 @@ const XC(func_info_type) XC(func_info_gga_k_tfvw) = {
   {&xc_ref_Weizsacker1935_431, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  gga_k_tflw_init, 
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  2, tfvw_ext_params, tfvw_set_ext_params,
+  gga_k_tflw_init, NULL, 
+  NULL, work_gga_k, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_vw) = {
@@ -187,10 +203,8 @@ const XC(func_info_type) XC(func_info_gga_k_vw) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_k_tflw_init, 
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  gga_k_tflw_init, NULL, 
+  NULL, work_gga_k, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_ge2) = {
@@ -202,10 +216,8 @@ const XC(func_info_type) XC(func_info_gga_k_ge2) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_k_tflw_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  gga_k_tflw_init, NULL, 
+  NULL, work_gga_k, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_golden) = {
@@ -217,10 +229,8 @@ const XC(func_info_type) XC(func_info_gga_k_golden) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_k_tflw_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  gga_k_tflw_init, NULL, 
+  NULL, work_gga_k, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_yt65) = {
@@ -232,10 +242,8 @@ const XC(func_info_type) XC(func_info_gga_k_yt65) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_k_tflw_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  gga_k_tflw_init, NULL, 
+  NULL, work_gga_k, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_baltin) = {
@@ -247,10 +255,8 @@ const XC(func_info_type) XC(func_info_gga_k_baltin) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_k_tflw_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  gga_k_tflw_init, NULL, 
+  NULL, work_gga_k, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_lieb) = {
@@ -262,11 +268,25 @@ const XC(func_info_type) XC(func_info_gga_k_lieb) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_k_tflw_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  gga_k_tflw_init, NULL, 
+  NULL, work_gga_k, NULL
 };
+
+static const func_params_type N_ext_params[] = {
+  {1.0, "Number of electrons"},
+};
+
+static void 
+N_set_ext_params(XC(func_type) *p, const double *ext_params)
+{
+  double ff, N;
+
+  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
+  N = ff;
+
+  XC(gga_k_tflw_set_params)(p, -1.0, -1.0, N);
+}
+
 
 const XC(func_info_type) XC(func_info_gga_k_absp1) = {
   XC_GGA_K_ABSP1,
@@ -276,11 +296,9 @@ const XC(func_info_type) XC(func_info_gga_k_absp1) = {
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  gga_k_tflw_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  1, N_ext_params, N_set_ext_params,
+  gga_k_tflw_init, NULL, 
+  NULL, work_gga_k, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_absp2) = {
@@ -291,11 +309,9 @@ const XC(func_info_type) XC(func_info_gga_k_absp2) = {
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  gga_k_tflw_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  1, N_ext_params, N_set_ext_params,
+  gga_k_tflw_init, NULL, 
+  NULL, work_gga_k, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_absp3) = {
@@ -306,11 +322,9 @@ const XC(func_info_type) XC(func_info_gga_k_absp3) = {
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  gga_k_tflw_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  1, N_ext_params, N_set_ext_params,
+  gga_k_tflw_init, NULL, 
+  NULL, work_gga_k, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_absp4) = {
@@ -321,11 +335,9 @@ const XC(func_info_type) XC(func_info_gga_k_absp4) = {
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  gga_k_tflw_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  1, N_ext_params, N_set_ext_params,
+  gga_k_tflw_init, NULL, 
+  NULL, work_gga_k, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_gr) = {
@@ -336,11 +348,9 @@ const XC(func_info_type) XC(func_info_gga_k_gr) = {
   {&xc_ref_Gazquez1982_1467, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  gga_k_tflw_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  1, N_ext_params, N_set_ext_params,
+  gga_k_tflw_init, NULL, 
+  NULL, work_gga_k, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_ludena) = {
@@ -351,11 +361,9 @@ const XC(func_info_type) XC(func_info_gga_k_ludena) = {
   {&xc_ref_Ludena1986, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  gga_k_tflw_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  1, N_ext_params, N_set_ext_params,
+  gga_k_tflw_init, NULL, 
+  NULL, work_gga_k, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_gp85) = {
@@ -366,9 +374,7 @@ const XC(func_info_type) XC(func_info_gga_k_gp85) = {
   {&xc_ref_Ghosh1985_3307, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  gga_k_tflw_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  1, N_ext_params, N_set_ext_params,
+  gga_k_tflw_init, NULL, 
+  NULL, work_gga_k, NULL
 };

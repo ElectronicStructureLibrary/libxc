@@ -34,14 +34,6 @@ hyb_mgga_xc_tpssh_init(XC(func_type) *p)
   p->cam_alpha = 0.10;
 }
 
-void 
-XC(hyb_mgga_xc_tpssh_set_params)(XC(func_type) *p, FLOAT alpha)
-{
-  assert(alpha>=0 && alpha<=1.0);
-
-  p->cam_alpha   = alpha;
-  p->mix_coef[0] = 1.0 - alpha;
-}
 
 const XC(func_info_type) XC(func_info_hyb_mgga_xc_tpssh) = {
   XC_HYB_MGGA_XC_TPSSH,
@@ -67,14 +59,6 @@ hyb_mgga_xc_revtpssh_init(XC(func_type) *p)
   p->cam_alpha = 0.10;
 }
 
-void 
-XC(hyb_mgga_xc_revtpssh_set_params)(XC(func_type) *p, FLOAT alpha)
-{
-  assert(alpha>=0 && alpha<=1.0);
-
-  p->cam_alpha   = alpha;
-  p->mix_coef[0] = 1.0 - alpha;
-}
 
 const XC(func_info_type) XC(func_info_hyb_mgga_xc_revtpssh) = {
   XC_HYB_MGGA_XC_REVTPSSH,

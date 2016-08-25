@@ -33,14 +33,6 @@ hyb_mgga_x_mvsh_init(XC(func_type) *p)
   p->cam_alpha = 0.25;
 }
 
-void 
-XC(hyb_mgga_x_mvsh_set_params)(XC(func_type) *p, FLOAT alpha)
-{
-  assert(alpha>=0 && alpha<=1.0);
-
-  p->cam_alpha   = alpha;
-  p->mix_coef[0] = 1.0 - alpha;
-}
 
 const XC(func_info_type) XC(func_info_hyb_mgga_x_mvsh) = {
   XC_HYB_MGGA_X_MVSH,

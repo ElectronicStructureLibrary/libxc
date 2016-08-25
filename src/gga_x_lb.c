@@ -63,7 +63,6 @@ gga_lb_init(XC(func_type) *p)
   XC(func_init)(p->func_aux[0], XC_LDA_X, p->nspin);
 
   p->params = malloc(sizeof(XC(gga_x_lb_params)));
-  XC(gga_lb_set_params)(p, 0, 0.0, 1e-32, 0.0);
 
   params = (XC(gga_x_lb_params) *) (p->params);
   switch(p->info->number){
@@ -75,29 +74,6 @@ gga_lb_init(XC(func_type) *p)
     params->alpha = 1.19;
     params->beta  = 0.01;
     break;
-  }
-}
-
-
-void
-XC(gga_lb_set_params)(XC(func_type) *p, int modified, FLOAT threshold, FLOAT ip, FLOAT qtot)
-{
-  XC(gga_x_lb_params) *params;
-
-  assert(p!=NULL && p->params!=NULL);
-  params = (XC(gga_x_lb_params) *) (p->params);
-
-  params->modified  = modified;
-  params->threshold = threshold;
-  params->ip        = ip;
-  params->qtot      = qtot;
-
-  if(params->modified){
-    params->aa   = (params->ip > 0.0) ? 2.0*SQRT(2.0*params->ip) : 0.5;
-    params->gamm = CBRT(params->qtot)/(2.0*params->aa);
-  }else{
-    params->aa   = 0.5;
-    params->gamm = 1.0;
   }
 }
 
@@ -174,6 +150,42 @@ gga_x_lb(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 }
 
 
+static const func_params_type ext_params[] = {
+  {  0, "Modified: 0 (no) | 1 (yes)"},
+  {0.0, "Ionization potential (a.u.)"},
+  {1e-32, "Threshold"},
+  {0.0, "Total charge (necessary to fix the asymptotics"}
+};
+
+
+static void 
+set_ext_params(XC(func_type) *p, const double *ext_params)
+{
+  XC(gga_x_lb_params) *params;
+  FLOAT ff;
+
+  assert(p!=NULL && p->params!=NULL);
+  params = (XC(gga_x_lb_params) *) (p->params);
+
+  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
+  params->modified  = (int)round(ff);
+  ff = (ext_params == NULL) ? p->info->ext_params[1].value : ext_params[1];
+  params->threshold = ff;
+  ff = (ext_params == NULL) ? p->info->ext_params[2].value : ext_params[2];
+  params->ip        = ff;
+  ff = (ext_params == NULL) ? p->info->ext_params[3].value : ext_params[3];
+  params->qtot      = ff;
+
+  if(params->modified){
+    params->aa   = (params->ip > 0.0) ? 2.0*SQRT(2.0*params->ip) : 0.5;
+    params->gamm = CBRT(params->qtot)/(2.0*params->aa);
+  }else{
+    params->aa   = 0.5;
+    params->gamm = 1.0;
+  }
+}
+
+
 const XC(func_info_type) XC(func_info_gga_x_lb) = {
   XC_GGA_X_LB,
   XC_EXCHANGE,
@@ -182,13 +194,11 @@ const XC(func_info_type) XC(func_info_gga_x_lb) = {
   {&xc_ref_vanLeeuwen1994_2421, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  gga_lb_init,
-  NULL,
-  NULL,
-  gga_x_lb,
-  NULL
+  4, ext_params, set_ext_params,
+  gga_lb_init, NULL,
+  NULL, gga_x_lb, NULL
 };
+
 
 const XC(func_info_type) XC(func_info_gga_x_lbm) = {
   XC_GGA_X_LBM,
@@ -198,11 +208,8 @@ const XC(func_info_type) XC(func_info_gga_x_lbm) = {
   {&xc_ref_Schipper2000_1344, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  gga_lb_init,
-  NULL,
-  NULL,
-  gga_x_lb,
-  NULL
+  4, ext_params, set_ext_params,
+  gga_lb_init, NULL,
+  NULL, gga_x_lb, NULL
 };
 

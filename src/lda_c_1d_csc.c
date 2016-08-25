@@ -165,43 +165,43 @@ set_ext_params(XC(func_type) *p, const double *ext_params)
 {
   lda_c_1d_csc_params *params;
   int interaction;
-  double bb;
+  double ff;
 
   assert(p != NULL && p->params != NULL);
   params = (lda_c_1d_csc_params *)(p->params);
 
-  bb = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
-  interaction = (int)round(bb);
-  bb = (ext_params == NULL) ? p->info->ext_params[1].value : ext_params[1];
+  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
+  params->interaction = (int)round(ff);
+  ff = (ext_params == NULL) ? p->info->ext_params[1].value : ext_params[1];
+  params->bb = ff;
 
-  params->interaction = interaction;
-  params->bb          = bb;
   params->ii          = -1;
 
-  if(interaction == 0){
-    if     (bb == 0.1)
+  if(params->interaction == 0){
+    if     (params->bb == 0.1)
       params->ii = 0;
-    else if(bb == 0.3)
+    else if(params->bb == 0.3)
       params->ii = 1;
-    else if(bb == 0.5)
+    else if(params->bb == 0.5)
       params->ii = 2;
-    else if(bb == 0.75)
+    else if(params->bb == 0.75)
       params->ii = 3;
-    else if(bb == 1.0)
+    else if(params->bb == 1.0)
       params->ii = 4;
-    else if(bb == 2.0)
+    else if(params->bb == 2.0)
       params->ii = 5;
-    else if(bb == 4.0)
+    else if(params->bb == 4.0)
       params->ii = 6;
-  }else if(interaction == 1){
-    if     (bb == 0.5)
+  }else if(params->interaction == 1){
+    if     (params->bb == 0.5)
       params->ii = 7 + 0;
-    else if(bb == 1.0)
+    else if(params->bb == 1.0)
       params->ii = 7 + 1;
   }
 
   if(params->ii < 0){
-    fprintf(stderr, "Invalid value of parameters (inter,b) = (%d,%f) in lda_c_1d_csc_set_params", interaction, bb);
+    fprintf(stderr, "Invalid value of parameters (inter,b) = (%d,%f) in lda_c_1d_csc_set_params", 
+	    params->interaction, params->bb);
     exit(1);
   }
 }

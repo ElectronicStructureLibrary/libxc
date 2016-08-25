@@ -95,18 +95,8 @@ hyb_gga_xc_hse_init(XC(func_type) *p)
   
   XC(mix_init)(p, 3, funcs_id, funcs_coef);
   p->cam_omega = omega_HF;
-  XC(hyb_gga_xc_hse_set_params)(p, beta, omega_PBE);
-}
-
-void
-XC(hyb_gga_xc_hse_set_params)(XC(func_type) *p, FLOAT beta, FLOAT omega)
-{
-  assert(p != NULL && p->func_aux[1] != NULL);
-  assert(beta>=0.0 && beta<=1.0);
-
-  p->cam_beta    =  beta;
-  p->mix_coef[1] = -beta;
-  XC(gga_x_wpbeh_set_params)(p->func_aux[1], omega);
+  p->cam_beta  =  beta;
+  XC(gga_x_wpbeh_set_params)(p->func_aux[1], omega_PBE);
 }
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_hse03) = {
@@ -169,19 +159,10 @@ hyb_gga_xc_hse_sol_init(XC(func_type) *p)
   
   XC(mix_init)(p, 3, funcs_id, funcs_coef);
   p->cam_omega = 0.11;
-  XC(hyb_gga_xc_hse_sol_set_params)(p, 0.25, 0.11);
+  p->cam_beta  = 0.25;
+  XC(gga_x_hjs_set_params)(p->func_aux[1], p->cam_omega);
 }
 
-void
-XC(hyb_gga_xc_hse_sol_set_params)(XC(func_type) *p, FLOAT beta, FLOAT omega)
-{
-  assert(p != NULL && p->func_aux[1] != NULL);
-  assert(beta>=0.0 && beta<=1.0);
-
-  p->cam_beta    =  beta;
-  p->mix_coef[1] = -beta;
-  XC(gga_x_hjs_set_params)(p->func_aux[1], omega);
-}
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_hse_sol) = {
   XC_HYB_GGA_XC_HSE_SOL,

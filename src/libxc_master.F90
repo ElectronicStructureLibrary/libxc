@@ -539,9 +539,6 @@ module XC_F90(lib_m)
     end subroutine XC_F90(mgga_fxc)
   end interface
 
-#define RTYPE xc_f90_kind
-#include "libxc_set_par_inc.f90"
-
 end module XC_F90(lib_m)
 
 !! Local Variables:

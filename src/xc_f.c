@@ -368,6 +368,4 @@ void XC_FC_FUNC(f90_mgga_fxc, F90_MGGA_FXC)
 	   v2sigmalapl, v2sigmatau, v2lapltau);
 }
 
-#include "xc_f_inc.c"
-
 #endif

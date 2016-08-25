@@ -478,8 +478,7 @@ module FXC(lib_m)
     end subroutine XC(mgga_fxc)
   end interface
 
-! contains 'contains'
-#include "libxc_set_params_inc.f03"
+  contains
   
   !----------------------------------------------------------------
   subroutine FXC(version)(major, minor, micro)

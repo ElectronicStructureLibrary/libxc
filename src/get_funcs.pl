@@ -29,7 +29,7 @@ my %all_ids;
 
 open(DOCS, ">$builddir/libxc_docs.txt") or die("Could not open '$builddir/libxc_docs.txt.'\n");
 
-$s0 = ""; $s3 = ""; $s4 = ""; $s5 = ""; $xc_set_params = "";
+$s0 = ""; $s3 = ""; $s4 = ""; $s5 = "";
 $publiclist = ""; $xclist = ""; $fxclist = ""; $xcf90list = ""; $xcfclist = "";
 
 foreach $func (@funcs){
@@ -166,51 +166,6 @@ EOF
   ;
 close OUT;
 
-open(OUT, ">$builddir/xc_set_params.h") or die("Could not open '$builddir/xc_set_params.h'.\n");
-print OUT <<EOF
-$xc_set_params
-EOF
-  ;
-close OUT;
-
-$publiclist = substr($publiclist, 0, -4);
-open(OUT, ">$builddir/libxc_set_params_inc.f03") or die("Could not open '$builddir/libxc_set_params_inc.f03'.\n");
-print OUT <<EOF
-  public :: &
-$publiclist
-
-  interface
-$xclist
-  end interface
-    
-contains
-
-$fxclist
-!! Local Variables:
-!! mode: f90
-!! coding: utf-8
-!! End:
-EOF
-  ;
-close OUT;
-
-open(OUT, ">$builddir/libxc_set_par_inc.f90") or die("Could not open '$builddir/libxc_set_par_inc.f90'.\n");
-print OUT <<EOF
-interface
-    
-$xcf90list
-end interface
-EOF
-  ;
-close OUT;
-
-open(OUT, ">$builddir/xc_f_inc.c") or die("Could not open '$builddir/xc_f_inc.c'.\n");
-print OUT <<EOF
-$xcfclist
-EOF
-  ;
-close OUT;
-
 sub read_file() {
   my ($dir, $type) = @_;
   $type =~ s/(.*)/\L$1/;
@@ -243,77 +198,6 @@ sub read_file() {
         }
       }
 
-      # only take one pass through; otherwise would be with and without 'hyb'
-      if($save_type !~ /^hyb/ && /XC\((.*)_set_params.?\)\(XC\(func_type\) \*p, (.*)\)/){
-	  chomp $_;
-	  $funcname = $1;
-	  @c_arguments = split(',', $2);
-	  
-	  if($_ !~ /void/) {
-	      $_ = "void $_";
-	  }
-	  if($_ =~ "set_params2") {
-	      $xcf90name = "${funcname}_set_par2";
-	      $xcf03name = "${funcname}_set_params2";
-	  } else {
-	      $xcf90name = "${funcname}_set_par";
-	      $xcf03name = "${funcname}_set_params";
-	  }
-	  $xc_set_params .= "/* $file, $funcname */ \n$_;\n";
-#	  system("grep '${funcname}_params' * > /dev/null || echo '${funcname}_params missing'");
-#	  system("../bin/xc-info $funcname > /dev/null || echo 'Functional $funcname not found'");
-
-	  $arg_name_list = "";
-	  $xc_args = "";
-	  $fxc_args = "";
-	  $xcfc_args = "";
-	  foreach $arg (@c_arguments) {
-	      ($var_type, $var_name) = split(' ', $arg);
-	      $arg_name_list .= $var_name . ", ";
-	      if($var_type =~ "int") {
-		  $xc_args .= "    integer(c_int), value  :: $var_name\n";
-		  $fxc_args .= "    integer,                 intent(in)    :: $var_name\n";
-		  $xcfc_args .= ", CC_FORTRAN_INT *$var_name";
-	      } elsif($var_type =~ "FLOAT") {
-		  $xc_args .= "    real(RTYPE),    value  :: $var_name\n";
-		  $fxc_args .= "    real(RTYPE),             intent(in)    :: $var_name\n";
-		  $xcfc_args .= ", FLOAT *$var_name";
-	      } else {
-		  print "WARNING: don't know how to handle type $var_type for interfaces.\n";
-	      }
-	  }
-	  $arg_name_list = substr($arg_name_list, 0, -2);
-	  
-	  $publiclist .= "    FXC($xcf03name), &\n";
-	  $xclist .= "  subroutine XC($xcf03name)(p, $arg_name_list) bind(c)\n";
-	  $xclist .= "    import\n";
-	  $xclist .= "    type(c_ptr),    value  :: p\n";
-	  $xclist .= $xc_args;
-	  $xclist .= "  end subroutine XC($xcf03name)\n";
-	  
-	  $fxclist .= "  subroutine FXC($xcf03name)(p, $arg_name_list)\n";
-	  $fxclist .= "    type(FXC(func_t)), intent(inout) :: p\n";
-	  $fxclist .= $fxc_args;
-	  $fxclist .= "\n    call XC($xcf03name)(p%ptr, $arg_name_list)\n\n";
-	  $fxclist .= "  end subroutine FXC($xcf03name)\n";
-	  $fxclist .= "\n";
-
-	  $xcf90list .= "  subroutine XC_F90($xcf90name)(p, $arg_name_list)\n";
-	  $xcf90list .= "    use XC_F90(types_m)\n";
-	  $xcf90list .= "    type(XC_F90(pointer_t)), intent(inout) :: p\n";
-	  $xcf90list .= $fxc_args;
-	  $xcf90list .= "  end subroutine XC_F90($xcf90name)\n\n";
-
-	  $xcfclist .= "void XC_FC_FUNC(f90_$xcf90name, " . uc("f90_$xcf90name") . ")\n";
-	  $xcfclist .= "  (void **p$xcfc_args)\n";
-	  $xcfclist .= "{\n";
-	  $xcfc_args =~ s/FLOAT //g;
-	  $xcfc_args =~ s/CC_FORTRAN_INT //g;
-	  $xcfclist .= "  XC($xcf03name)((XC(func_type) *)(*p)$xcfc_args);\n";
-	  $xcfclist .= "}\n\n";
-	  
-      }
-      
       if(/^(const |)XC\(func_info_type\) XC\(func_info_${save_type}/){
 	  $infostr = "";
 	  while($_=<IN>){

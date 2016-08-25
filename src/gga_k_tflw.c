@@ -47,21 +47,9 @@ typedef struct{
 } gga_k_tflw_params;
 
 
-static void 
-gga_k_tflw_init(XC(func_type) *p)
-{
-
-  assert(p->params == NULL);
-  p->params = malloc(sizeof(gga_k_tflw_params));
-
-  /* This automatically sets gamma and lambda depending on the functional chosen.
-     We put by default N = 1.0 */
-  XC(gga_k_tflw_set_params)(p, -1.0, -1.0, 1.0);
-}
-
 /* for automatically assigning lambda and gamma set them to -1 */
-void 
-XC(gga_k_tflw_set_params)(XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N)
+static void 
+gga_k_tflw_set_params(XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N)
 {
   gga_k_tflw_params *params;
   FLOAT C0 = CBRT(M_PI/3.0);
@@ -137,6 +125,19 @@ XC(gga_k_tflw_set_params)(XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N)
 }
 
 
+static void 
+gga_k_tflw_init(XC(func_type) *p)
+{
+
+  assert(p->params == NULL);
+  p->params = malloc(sizeof(gga_k_tflw_params));
+
+  /* This automatically sets gamma and lambda depending on the functional chosen.
+     We put by default N = 1.0 */
+  gga_k_tflw_set_params(p, -1.0, -1.0, 1.0);
+}
+
+
 static inline void 
 func(const XC(func_type) *p, int order, FLOAT x, 
      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
@@ -178,7 +179,7 @@ tfvw_set_ext_params(XC(func_type) *p, const double *ext_params)
   ff = (ext_params == NULL) ? p->info->ext_params[1].value : ext_params[1];
   gamma = ff;
 
-  XC(gga_k_tflw_set_params)(p, gamma, lambda, 1.0);
+  gga_k_tflw_set_params(p, gamma, lambda, 1.0);
 }
 
 const XC(func_info_type) XC(func_info_gga_k_tfvw) = {
@@ -284,7 +285,7 @@ N_set_ext_params(XC(func_type) *p, const double *ext_params)
   ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
   N = ff;
 
-  XC(gga_k_tflw_set_params)(p, -1.0, -1.0, N);
+  gga_k_tflw_set_params(p, -1.0, -1.0, N);
 }
 
 

@@ -240,8 +240,6 @@ void XC(mix_func)
    FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
    FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau);
   
-#include "xc_set_params.h"
-
 #include "xc_unconfig.h"
 
 #ifdef __cplusplus

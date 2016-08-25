@@ -273,8 +273,32 @@ void XC(mgga_series_w)(int order, int n, const FLOAT *a, FLOAT t, FLOAT *fw, FLO
 void XC(mgga_b97_func_g)(const FLOAT *cc, FLOAT gamma, FLOAT s, int order, FLOAT *g, FLOAT *dgds, FLOAT *d2gds2);
 void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT *d, FLOAT *h, FLOAT *dhdx, FLOAT *dhdz);
 void XC(mgga_x_scan_falpha)(int order, FLOAT a, FLOAT c1, FLOAT c2, FLOAT dd, FLOAT *f, FLOAT *dfda);
-                           void XC(mgga_b00_fw)(int order, FLOAT t, FLOAT *fw, FLOAT *dfwdt);
+void XC(mgga_b00_fw)(int order, FLOAT t, FLOAT *fw, FLOAT *dfwdt);
 	 
+
+/* now the routines to set the _internal_ parameters of several functionals */
+void XC(lda_c_vwn_set_params)(XC(func_type) *p, int spin_interpolation);
+
+void XC(gga_x_pw91_set_params)(XC(func_type) *p, FLOAT a, FLOAT b, FLOAT c, FLOAT d, FLOAT f, FLOAT alpha, FLOAT expo);
+void XC(gga_x_pw91_set_params2)(XC(func_type) *p, FLOAT bt, FLOAT alpha, FLOAT expo);
+void XC(gga_x_ssb_sw_set_params)(XC(func_type) *p, FLOAT A, FLOAT B, FLOAT C, FLOAT D, FLOAT E);
+void XC(gga_x_hjs_set_params)(XC(func_type) *p, FLOAT omega);
+void XC(gga_x_b88_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma);
+void XC(gga_x_optx_set_params)(XC(func_type) *p, FLOAT a, FLOAT b, FLOAT gamma);
+void XC(gga_x_wpbeh_set_params)(XC(func_type) *p, FLOAT omega);
+void XC(gga_x_pbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu);
+void XC(gga_x_ityh_set_params)(XC(func_type) *p, int func_id, FLOAT omega);
+void XC(gga_x_b86_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma, FLOAT omega);
+void XC(gga_x_rpbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu);
+void XC(gga_x_sfat_set_params)(XC(func_type) *p, int func_id, FLOAT omega);
+void XC(gga_x_kt_set_params)(XC(func_type) *p, FLOAT gamma, FLOAT delta);
+void XC(gga_c_lyp_set_params)(XC(func_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
+void XC(gga_c_pbe_set_params)(XC(func_type) *p, FLOAT beta);
+
+void XC(mgga_x_tpss_set_params)(XC(func_type) *p, FLOAT b, FLOAT c, FLOAT e, FLOAT kappa, FLOAT mu);
+void XC(mgga_c_pkzb_set_params)(XC(func_type) *p, FLOAT beta, FLOAT d, FLOAT C0_0, FLOAT C0_1, FLOAT C0_2, FLOAT C0_3);
+void XC(mgga_c_bc95_set_params)(XC(func_type) *p, FLOAT css, FLOAT copp);
+
 /* useful MACROS */
 #define DFRACTION(num, dnum, den, dden) \
   (((dnum)*(den) - (num)*(dden))/((den)*(den)))
@@ -283,5 +307,6 @@ void XC(mgga_x_scan_falpha)(int order, FLOAT a, FLOAT c1, FLOAT c2, FLOAT dd, FL
 #define D3FRACTION(num, dnum, d2num, d3num, den, dden, d2den, d3den)	\
   ((-(num)*(6.0*(dden)*(dden)*(dden) - 6.0*(den)*(dden)*(d2den) + (den)*(den)*(d3den)) + \
     (den)*(6.0*(dden)*(dden)*(dnum) - 3.0*(den)*(dden)*(d2num) + (den)*(-3.0*(dnum)*(d2den) + (den)*(d3num))))/((den)*(den)*(den)*(den)))
+
 
 #endif

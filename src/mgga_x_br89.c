@@ -39,32 +39,31 @@ static FLOAT b00_at     = 0.928;
 static void 
 mgga_x_tb09_init(XC(func_type) *p)
 {
-  assert(p->params == NULL);
+  mgga_x_tb09_params *params;
+
+  p->params = malloc(sizeof(mgga_x_tb09_params));
+  params = (mgga_x_tb09_params *)p->params;
+
+  params->c = 0;
 
   switch(p->info->number){
   case XC_MGGA_X_BR89:  p->func = 0; break;
-  case XC_MGGA_X_BJ06:  p->func = 1; break;
-  case XC_MGGA_X_TB09:  p->func = 2; break;
-  case XC_MGGA_X_RPP09: p->func = 3; break;
+  case XC_MGGA_X_BJ06:  
+    p->func = 1; 
+    params->c = 1.0;
+    break;
+  case XC_MGGA_X_TB09:
+    p->func = 2; 
+    /* the value of c should be passed by the caling code */
+    break;
+  case XC_MGGA_X_RPP09:
+    p->func = 3; 
+    params->c = 1.0;
+    break;
   case XC_MGGA_X_B00:   p->func = 4; break;
   }
-
-  p->params = malloc(sizeof(mgga_x_tb09_params));
-
-  /* value of c in Becke-Johnson */
-  XC(mgga_x_tb09_set_params)(p, 1.0);
 }
 
-
-void XC(mgga_x_tb09_set_params)(XC(func_type) *p, FLOAT c)
-{
-  mgga_x_tb09_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (mgga_x_tb09_params *) (p->params);
-
-  params->c = c;
-}
 
 /* This code follows the inversion done in the PINY_MD package */
 static FLOAT
@@ -303,6 +302,23 @@ const XC(func_info_type) XC(func_info_mgga_x_bj06) = {
   work_mgga_x,
 };
 
+static const func_params_type ext_params[] = {
+  {1.0, "Value of the c parameter"},
+};
+
+static void 
+set_ext_params(XC(func_type) *p, const double *ext_params)
+{
+  mgga_x_tb09_params *params;
+  double ff;
+
+  assert(p != NULL && p->params != NULL);
+  params = (mgga_x_tb09_params *) (p->params);
+
+  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
+  params->c = ff;
+}
+
 const XC(func_info_type) XC(func_info_mgga_x_tb09) = {
   XC_MGGA_X_TB09,
   XC_EXCHANGE,
@@ -311,7 +327,7 @@ const XC(func_info_type) XC(func_info_mgga_x_tb09) = {
   {&xc_ref_Tran2009_226401, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
-  0, NULL, NULL,
+  1, ext_params, set_ext_params,
   mgga_x_tb09_init,
   NULL,
   NULL, NULL,        /* this is not an LDA                   */

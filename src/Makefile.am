@@ -130,7 +130,7 @@ noinst_HEADERS = \
 	work_mgga_x.c work_mgga_c.c \
 	libxc_master.F90 libxc_master.F03
 include_HEADERS = xc.h xc_funcs_removed.h xc_config.h xc_unconfig.h
-nodist_include_HEADERS = xc_funcs.h xc_set_params.h
+nodist_include_HEADERS = xc_funcs.h
 
 if COMPILE_SINGLE
   include_HEADERS += xc_s.h

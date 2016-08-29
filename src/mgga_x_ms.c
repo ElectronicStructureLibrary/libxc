@@ -151,7 +151,6 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 
   r->dfdx = dfda*dalphadx + dfdp*dpdx;
   r->dfdt = dfda*dalphadt;
-  r->dfdu = 0.0;
 
   if(r->order < 2) return;
 

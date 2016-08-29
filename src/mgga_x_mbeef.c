@@ -199,7 +199,6 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 
   r->dfdx = dfdxi*dxidp*dpdx + dfdxj*dxjda*dadx;
   r->dfdt = dfdxj*dxjda*dadt;
-  r->dfdu = 0.0;
 }
 
 

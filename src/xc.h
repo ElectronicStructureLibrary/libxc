@@ -63,18 +63,10 @@ extern "C" {
 #define XC_FLAGS_HYB_LCY          (1 << 12) /*  4096 */
 #define XC_FLAGS_STABLE           (1 << 13) /*  8192 */ 
 #define XC_FLAGS_DEVELOPMENT      (1 << 14) /* 16384 */
+#define XC_FLAGS_NEEDS_LAPLACIAN  (1 << 15) /* 32768 */
 
 #define XC_TAU_EXPLICIT         0
 #define XC_TAU_EXPANSION        1
-
-/* These are old names kept for compatibility */
-#define XC_GGA_X_BGCP          38
-#define XC_GGA_C_BGCP          39
-#define XC_GGA_C_VPBE          83
-#define XC_MGGA_C_CC06        229
-#define XC_GGA_XC_LB          160
-#define XC_GGA_K_ABSR1        506
-#define XC_GGA_K_ABSR2        507
   
 void XC(version)(int *major, int *minor, int *micro);
 const char *XC(version_string)();

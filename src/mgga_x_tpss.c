@@ -285,7 +285,6 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 
   r->dfdx = a1_2*(dxxdp*dpdx + dxxdz*dzdx);
   r->dfdt = a1_2*dxxdz*dzdt;
-  r->dfdu = 0.0;
 
   if(r->order < 2) return;
 

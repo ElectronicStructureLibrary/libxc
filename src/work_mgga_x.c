@@ -99,8 +99,10 @@ work_mgga_x(const XC(func_type) *p, int np,
       ltau  = tau[is]/sfact;
       r.t   = ltau/rho2pD_D;  /* tau/rho^((2+D)/D) */
 
-      lnr2  = lapl[is]/sfact; /* this can be negative */
-      r.u   = lnr2/rho2pD_D;  /* lapl/rho^((2+D)/D) */
+      if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+        lnr2  = lapl[is]/sfact; /* this can be negative */
+        r.u   = lnr2/rho2pD_D;  /* lapl/rho^((2+D)/D) */
+      }
 
       func(p, &r);
 
@@ -112,7 +114,8 @@ work_mgga_x(const XC(func_type) *p, int np,
 
 	vtau[is]  = -x_factor_c*r.dfdt/rho1D;
 
-	vlapl[is] = -x_factor_c*r.dfdu/rho1D;
+        if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+          vlapl[is] = -x_factor_c*r.dfdu/rho1D;
 
 	if(gdm>p->info->min_grad)
 	  vsigma[js] = -x_factor_c*(rho1D*lrho)*r.dfdx*r.x/(2.0*sfact*lsigma);
@@ -124,17 +127,19 @@ work_mgga_x(const XC(func_type) *p, int np,
 	  (4.0*r.f - 4.0*r.x*r.dfdx + 4.0*4.0*r.x*r.x*r.d2fdx2 + 5.0*5.0*r.t*r.t*r.d2fdt2 + 5.0*5.0*r.u*r.u*r.d2fdu2 +
 	   2.0*5.0*(4.0*r.x*r.t*r.d2fdxt + 4.0*r.x*r.u*r.d2fdxu + 5.0*r.t*r.u*r.d2fdtu));
 
-	v2lapl2[js]   = -x_factor_c*r.d2fdu2/(sfact*rho1D*rho2pD_D);
-
 	v2tau2[js]    = -x_factor_c*r.d2fdt2/(sfact*rho1D*rho2pD_D);
 
-	v2rholapl[ls] = -x_factor_c*rho1D/(3.0*sfact*rho2pD_D)*
-	  (4.0*r.dfdu - 4.0*r.x*r.d2fdxu - 5.0*r.t*r.d2fdtu - 5.0*(r.dfdu + r.u*r.d2fdu2));
+        if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+          v2lapl2[js]   = -x_factor_c*r.d2fdu2/(sfact*rho1D*rho2pD_D);
+
+          v2rholapl[ls] = -x_factor_c*rho1D/(3.0*sfact*rho2pD_D)*
+            (4.0*r.dfdu - 4.0*r.x*r.d2fdxu - 5.0*r.t*r.d2fdtu - 5.0*(r.dfdu + r.u*r.d2fdu2));
+
+          v2lapltau[ls] = -x_factor_c*r.d2fdtu/(rho1D*rho2pD_D);
+        }
 
 	v2rhotau[ls]  = -x_factor_c*rho1D/(3.0*sfact*rho2pD_D)*
 	  (4.0*r.dfdt - 4.0*r.x*r.d2fdxt - 5.0*r.u*r.d2fdtu - 5.0*(r.dfdt + r.t*r.d2fdt2));
-
-	v2lapltau[ls] = -x_factor_c*r.d2fdtu/(rho1D*rho2pD_D);
 
 	if(gdm > p->info->min_grad){
 	  v2sigma2[ks]    =  -x_factor_c*(rho1D*lrho)/(4.0*sfact2*sfact*lsigma*lsigma)*
@@ -143,9 +148,11 @@ work_mgga_x(const XC(func_type) *p, int np,
 	  v2rhosigma[ks]  = -x_factor_c*rho1D*r.x/(3.0*2.0*sfact2*lsigma)*
 	    (-4.0*r.x*r.d2fdx2 - 5.0*r.t*r.d2fdxt - 5.0*r.u*r.d2fdxu);
 
-	  v2sigmalapl[ks] = -x_factor_c*r.x/(2.0*sfact2*lsigma*rho1D)*r.d2fdxu;
+          if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+            v2sigmalapl[ks] = -x_factor_c*r.x/(2.0*sfact2*lsigma*rho1D)*r.d2fdxu;
 
-	  v2sigmatau[ks]  = -x_factor_c*r.x/(2.0*sfact2*lsigma*rho1D)*r.d2fdxt;
+          v2sigmatau[ks]  = -x_factor_c*r.x/(2.0*sfact2*lsigma*rho1D)*r.d2fdxt;
+
 	}
       }
     }

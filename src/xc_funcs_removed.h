@@ -17,6 +17,16 @@
 */
 
 
+/* These are old names kept for compatibility */
+#define XC_GGA_X_BGCP          38
+#define XC_GGA_C_BGCP          39
+#define XC_GGA_C_VPBE          83
+#define XC_MGGA_C_CC06        229
+#define XC_GGA_XC_LB          160
+#define XC_GGA_K_ABSR1        506
+#define XC_GGA_K_ABSR2        507
+
+/* These are functionals that were removed */
 #define XC_GGA_XC_B97      167 /* Becke 97                                 */
 #define XC_GGA_XC_B97_1    168 /* Becke 97-1                               */
 #define XC_GGA_XC_B97_2    169 /* Becke 97-2                               */ 

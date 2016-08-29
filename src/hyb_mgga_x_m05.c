@@ -124,7 +124,6 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 
   r->dfdx = params->csi_HF*e_dfdx*fw;
   r->dfdt = params->csi_HF*e_f*dfwdt;
-  r->dfdu = 0.0;
 
   if(r->order < 2) return;
 

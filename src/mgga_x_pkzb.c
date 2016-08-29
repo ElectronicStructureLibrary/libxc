@@ -70,7 +70,6 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 
   r->dfdx = dfdxx*(dxxdpp + dxxdqt*dqtdpp)*2.0*x2s2*r->x;
   r->dfdt = dfdxx*dxxdqt*dqtdrr*x2s2;
-  r->dfdu = 0.0;
 
   if(r->order < 2) return;
 

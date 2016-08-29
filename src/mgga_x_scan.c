@@ -163,7 +163,6 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 
   r->dfdx = dFda*dadx + dFds*X2S;
   r->dfdt = dFda*dadt;
-  r->dfdu = 0.0;
 }
 
 #include "work_mgga_x.c"

@@ -64,7 +64,8 @@ XC(mgga)(const XC(func_type) *func, int np,
     memset(vrho,   0, func->n_vrho  *np*sizeof(FLOAT));
     memset(vsigma, 0, func->n_vsigma*np*sizeof(FLOAT));
     memset(vtau,   0, func->n_vtau  *np*sizeof(FLOAT));
-    memset(vlapl,  0, func->n_vlapl *np*sizeof(FLOAT));
+    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+      memset(vlapl,  0, func->n_vlapl *np*sizeof(FLOAT));
   }
 
   if(v2rho2 != NULL){
@@ -76,13 +77,16 @@ XC(mgga)(const XC(func_type) *func, int np,
     memset(v2rho2,      0, func->n_v2rho2     *np*sizeof(FLOAT));
     memset(v2sigma2,    0, func->n_v2sigma2   *np*sizeof(FLOAT));
     memset(v2tau2,      0, func->n_v2tau2     *np*sizeof(FLOAT));
-    memset(v2lapl2,     0, func->n_v2lapl2    *np*sizeof(FLOAT));
     memset(v2rhosigma,  0, func->n_v2rhosigma *np*sizeof(FLOAT));
     memset(v2rhotau,    0, func->n_v2rhotau   *np*sizeof(FLOAT));
-    memset(v2rholapl,   0, func->n_v2rholapl  *np*sizeof(FLOAT));
     memset(v2sigmatau,  0, func->n_v2sigmatau *np*sizeof(FLOAT));
-    memset(v2sigmalapl, 0, func->n_v2sigmalapl*np*sizeof(FLOAT));
-    memset(v2lapltau,   0, func->n_v2lapltau  *np*sizeof(FLOAT));
+
+    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+      memset(v2lapl2,     0, func->n_v2lapl2    *np*sizeof(FLOAT));
+      memset(v2rholapl,   0, func->n_v2rholapl  *np*sizeof(FLOAT));
+      memset(v2sigmalapl, 0, func->n_v2sigmalapl*np*sizeof(FLOAT));
+      memset(v2lapltau,   0, func->n_v2lapltau  *np*sizeof(FLOAT));
+    }
   }
 
   /* call functional */

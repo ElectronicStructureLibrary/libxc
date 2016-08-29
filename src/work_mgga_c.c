@@ -70,8 +70,10 @@ work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
       r.xs[0]  = M_CBRT2*r.xt;
       r.xs[1]  = r.xs[0];
 
-      r.us[0]  = lapl[0]/(2.0*r.ds[0]*rho13[0]*rho13[0]); /* lapl/rho^(5/3) */
-      r.us[1]  = r.us[0];
+      if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+        r.us[0]  = lapl[0]/(2.0*r.ds[0]*rho13[0]*rho13[0]); /* lapl/rho^(5/3) */
+        r.us[1]  = r.us[0];
+      }
 
       r.ts[0]  = tau[0]/(2.0*r.ds[0]*rho13[0]*rho13[0]);  /* tau/rho^(5/3) */
       r.ts[1]  = r.ts[0];
@@ -92,8 +94,10 @@ work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
       r.xs[0] = SQRT(r.sigmas[0])/(r.ds[0]*rho13[0]);
       r.xs[1] = SQRT(r.sigmas[2])/(r.ds[1]*rho13[1]);
 
-      r.us[0]   = lapl[0]/(r.ds[0]*rho13[0]*rho13[0]);
-      r.us[1]   = lapl[1]/(r.ds[1]*rho13[1]*rho13[1]);
+      if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+        r.us[0]   = lapl[0]/(r.ds[0]*rho13[0]*rho13[0]);
+        r.us[1]   = lapl[1]/(r.ds[1]*rho13[1]*rho13[1]);
+      }
 
       r.ts[0]   = tau[0]/(r.ds[0]*rho13[0]*rho13[0]);
       r.ts[1]   = tau[1]/(r.ds[1]*rho13[1]*rho13[1]);
@@ -121,26 +125,31 @@ work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
       dxsds[1]    = r.xs[1]/(2.0*r.sigmas[2]);
       dxsds[0]    = r.xs[0]/(2.0*r.sigmas[0]);
 
-      dusdn[1]    = -5.0*r.us[1]/(3.0*r.ds[1]);
-      dusdn[0]    = -5.0*r.us[0]/(3.0*r.ds[0]);
-
-      dusdlapl[1] = 1.0/(r.ds[1]*rho13[1]*rho13[1]);
-      dusdlapl[0] = 1.0/(r.ds[0]*rho13[0]*rho13[0]);
-
       dtsdn[1]    = -5.0*r.ts[1]/(3.0*r.ds[1]);
       dtsdn[0]    = -5.0*r.ts[0]/(3.0*r.ds[0]);
 
-      dtsdtau[1]  = dusdlapl[1];
-      dtsdtau[0]  = dusdlapl[0];
+      dtsdtau[1]  = 1.0/(r.ds[1]*rho13[1]*rho13[1]);
+      dtsdtau[0]  = 1.0/(r.ds[0]*rho13[0]*rho13[0]);
+
+      if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+        dusdn[1]    = -5.0*r.us[1]/(3.0*r.ds[1]);
+        dusdn[0]    = -5.0*r.us[0]/(3.0*r.ds[0]);
+
+        dusdlapl[1] = dtsdtau[1];
+        dusdlapl[0] = dtsdtau[0];
+      }
+
     }else{
       dxsdn[0]    = M_CBRT2*dxt;
       dxsds[0]    = M_CBRT2*dxtds;
 
-      dusdn[0]    = -5.0*r.us[0]/(6.0*r.ds[0]);
-      dusdlapl[0] = 1.0/(2.0*r.ds[0]*rho13[0]*rho13[0]);
-      
       dtsdn[0]    = -5.0*r.ts[0]/(6.0*r.ds[0]);
-      dtsdtau[0]  = dusdlapl[0];
+      dtsdtau[0]  = 1.0/(2.0*r.ds[0]*rho13[0]*rho13[0]);
+
+      if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+        dusdn[0]    = -5.0*r.us[0]/(6.0*r.ds[0]);
+        dusdlapl[0] = dtsdtau[0];
+      } 
     }
 
     if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
@@ -148,24 +157,35 @@ work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
       vsigma[0] = r.dens*r.dfdxt*dxtds;
 
       if(p->nspin == XC_POLARIZED){
-	vrho[1]   = vrho[0] + r.dfdz*ndzdn[1] + r.dens*(r.dfdxs[1]*dxsdn[1] + r.dfdus[1]*dusdn[1] + r.dfdts[1]*dtsdn[1]);
-	vrho[0]   = vrho[0] + r.dfdz*ndzdn[0] + r.dens*(r.dfdxs[0]*dxsdn[0] + r.dfdus[0]*dusdn[0] + r.dfdts[0]*dtsdn[0]);
+	vrho[1]   = vrho[0] + r.dfdz*ndzdn[1] + r.dens*(r.dfdxs[1]*dxsdn[1] + r.dfdts[1]*dtsdn[1]);
+	vrho[0]   = vrho[0] + r.dfdz*ndzdn[0] + r.dens*(r.dfdxs[0]*dxsdn[0] + r.dfdts[0]*dtsdn[0]);
 
 	vsigma[2] = vsigma[0] + r.dens*r.dfdxs[1]*dxsds[1];
 	vsigma[1] = 2.0*vsigma[0];
 	vsigma[0] = vsigma[0] + r.dens*r.dfdxs[0]*dxsds[0];
 
-	vlapl[1]  = r.dens*r.dfdus[1]*dusdlapl[1];
-	vlapl[0]  = r.dens*r.dfdus[0]*dusdlapl[0];
+        if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+          vrho[1]  += r.dens*r.dfdus[1]*dusdn[1];
+          vrho[0]  += r.dens*r.dfdus[0]*dusdn[0];
+
+          vlapl[1]  = r.dens*r.dfdus[1]*dusdlapl[1];
+          vlapl[0]  = r.dens*r.dfdus[0]*dusdlapl[0];
+        }
 
 	vtau[1]   = r.dens*r.dfdts[1]*dtsdtau[1];
 	vtau[0]   = r.dens*r.dfdts[0]*dtsdtau[0];
 	
       }else{
 	 /* factor of 2 comes from sum over sigma */
-	vrho[0]   += 2.0*r.dens*(r.dfdxs[0]*dxsdn[0] + r.dfdus[0]*dusdn[0] + r.dfdts[0]*dtsdn[0]);
+	vrho[0]   += 2.0*r.dens*(r.dfdxs[0]*dxsdn[0] + r.dfdts[0]*dtsdn[0]);
 	vsigma[0] += 2.0*r.dens*r.dfdxs[0]*dxsds[0];
-	vlapl[0]   = 2.0*r.dens*r.dfdus[0]*dusdlapl[0];
+
+        if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+          vrho[0]   += 2.0*r.dens*r.dfdus[0]*dusdn[0];
+
+          vlapl[0]   = 2.0*r.dens*r.dfdus[0]*dusdlapl[0];
+        }
+
 	vtau[0]    = 2.0*r.dens*r.dfdts[0]*dtsdtau[0];
       }
     }

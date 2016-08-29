@@ -44,6 +44,7 @@
 #define XC_GGA_C_BCGP          39 /* Burke, Cancio, Gould, and Pittalis                 */
 #define XC_GGA_C_PBEFE        258 /* PBE for formation energies                         */
 #define XC_GGA_C_PBE_MOL      272 /* Del Campo, Gazquez, Trickey and Vela (PBE-like)    */
+#define XC_GGA_C_SG4          534 /* Semiclassical GGA at fourth order                  */
 
 typedef struct{
   FLOAT beta;
@@ -67,7 +68,8 @@ static void gga_c_pbe_init(XC(func_type) *p)
     0.0,                                /* 11: PBEloc this is calculated */
     0.06672455060314922,                /* 12: BCGP                      */
     0.043,                              /* 13: PBEfe                     */
-    0.08384                             /* 14: PBEmol                    */
+    0.08384,                            /* 14: PBEmol                    */
+    0.0                                 /* 15: SG14                      */
   };
 
   assert(p!=NULL && p->params == NULL);
@@ -95,6 +97,7 @@ static void gga_c_pbe_init(XC(func_type) *p)
   case XC_GGA_C_BCGP:     p->func = 12; break;
   case XC_GGA_C_PBEFE:    p->func = 13; break;
   case XC_GGA_C_PBE_MOL:  p->func = 14; break;
+  case XC_GGA_C_SG4:      p->func = 15; break;
     /* func = 99 is reserved for the worker routine of MGGA_C_SCAN */
   default:
     fprintf(stderr, "Internal error in gga_c_pbe\n");
@@ -199,8 +202,11 @@ pbe_eq7(int order, int func, FLOAT beta, FLOAT gamm, FLOAT phi, FLOAT t, FLOAT A
     f2 = beta*f1/(gamm*f3);
   }
 
-  if(func == 8 || func == 10){ /* zPBEsol and zPBEint */
-    alpha = (func == 8) ? 4.8 : 2.4;
+  if(func == 8 || func == 10 || func == 15){ /* zPBEsol, zPBEint, and SG4 */
+    if(func == 15)
+      alpha = 0.8;
+    else
+      alpha = (func == 8) ? 4.8 : 2.4;
     ff = POW(phi, alpha*t*t2);
   }else
     ff = 1.0;
@@ -209,7 +215,7 @@ pbe_eq7(int order, int func, FLOAT beta, FLOAT gamm, FLOAT phi, FLOAT t, FLOAT A
 
   if(order < 1) return;
 
-  if(func == 8 || func == 10){ /* zPBEsol and zPBEint */
+  if(func == 8 || func == 10 || func == 15){ /* zPBEsol, zPBEint, and SG4 */
     dffdphi = alpha*t*t2*ff/phi;
     dffdt   = 3.0*alpha*t2*ff*LOG(phi);
   }else{
@@ -290,6 +296,8 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
 {
   /* parameters for beta of PBEloc */
   static FLOAT pbeloc_b0 = 0.0375, pbeloc_a = 0.08;
+  /* parameters for beta of SG4, b0 = 3 mu^MGE2/pi^2, mu^MGE2 = 0.26 */
+  static FLOAT sg4_b0 = 3.0*0.262/(M_PI*M_PI), sg4_sigma = 0.07; 
 
   FLOAT cnst_beta, phi, tt, tp, dtpdtt, d2tpdtt2;
 
@@ -322,28 +330,32 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   phi  = 0.5*(auxp*auxp + auxm*auxm);
   tt   = r->xt/(tconv*phi*pw.rs[0]);
 
-  if(p->func == 12)
+  if(p->info->number == XC_GGA_C_BCGP)
     bcgp_pt(r->order, tt, &tp, &dtpdtt, &d2tpdtt2);
   else{
     tp = tt; dtpdtt = 1; d2tpdtt2 = 0;
   }
 
-  if(p->func == 2)
+  if(p->info->number == XC_GGA_C_XPBE)
     gamm = cnst_beta*cnst_beta/(2.0*0.197363); /* for xPBE */
   else
     gamm = (1.0 - LOG(2.0))/(M_PI*M_PI);
 
-  if(p->func == 11) {
+  if(p->info->number == XC_GGA_C_PBELOC || p->info->number == XC_GGA_C_SG4) {
     /* PBEloc: \beta = \beta_0 + a t^2 f(r_s) */
     beta_den = EXP(- r->rs * r->rs);
-    beta = pbeloc_b0 + pbeloc_a * tp*tp * (1.0 - beta_den);
+    if(p->info->number == XC_GGA_C_PBELOC)
+      beta = pbeloc_b0 + pbeloc_a * tt*tt * (1.0 - beta_den);
+    else
+      beta = sg4_b0 + sg4_sigma * tt * (1.0 - beta_den);
 
-  }else if(p->func == 7 || p->func == 99)
+  }else if(p->info->number == XC_GGA_C_REGTPSS || p->func == 99)
     XC(beta_Hu_Langreth) (r->rs, r->order, &beta, &dbetadrs, &d2betadrs2);
+
   else
     beta = cnst_beta;
 
-  if(p->func != 12)
+  if(p->info->number != XC_GGA_C_BCGP)
     pbe_eq8(r->order, beta, gamm, pw.zk, phi,
             &A, &dAdbeta, &dAdec, &dAdphi, &d2Adec2, &d2Adecphi, &d2Adphi2);
   else{ /* for BCGP */
@@ -352,7 +364,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   }
 
   /* the sPBE functional contains one term less than the original PBE, so we set it to zero */
-  B = (p->func == 6) ? 0.0 : 1.0;
+  B = (p->info->number == XC_GGA_C_SPBE) ? 0.0 : 1.0;
   pbe_eq7(r->order, p->func, beta, gamm, phi, tp, A, B,
 	  &H, &dHdbeta, &dHdphi, &dHdt, &dHdA, &d2Hdphi2, &d2Hdphit, &d2HdphiA, &d2Hdt2, &d2HdtA, &d2HdA2);
 
@@ -375,10 +387,17 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   dtdxt  =  tt/r->xt;
   dtdphi = -tt/phi;
 
-  if(p->func == 11){
-    dbetadrs = 2.0 * pbeloc_a * tt * (dtdrs * (1.0 - beta_den) + tt * r->rs * beta_den);
-  }else if(p->func != 7 && p->func != 99)
+  if(p->info->number == XC_GGA_C_PBELOC){
+    dfdt += dfdbeta * 2.0*pbeloc_a*tt*(1.0 - beta_den);
+    dbetadrs = 2.0*pbeloc_a*tt*tt*r->rs*beta_den;
+
+  }else if(p->info->number == XC_GGA_C_SG4){
+    dfdt += dfdbeta * sg4_sigma*(1.0 - beta_den);
+    dbetadrs = 2.0*sg4_sigma*tt*r->rs*beta_den;
+
+  }else if(p->info->number != XC_GGA_C_REGTPSS && p->func != 99){
     dbetadrs = 0.0;
+  }
 
   r->dfdrs   = dfdec*pw.dedrs + dfdt*dtdrs + dfdbeta*dbetadrs;
   r->dfdz    = dfdec*pw.dedz + (dfdphi + dfdt*dtdphi)*dphidz;
@@ -439,10 +458,8 @@ const XC(func_info_type) XC(func_info_gga_c_pbe) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-12, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_pbe_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga_c, NULL
 };
 
 
@@ -455,10 +472,8 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_sol) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-12, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_pbe_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga_c, NULL
 };
 
 
@@ -471,10 +486,8 @@ const XC(func_info_type) XC(func_info_gga_c_xpbe) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-12, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_pbe_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga_c, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_pbe_jrgx) = {
@@ -486,10 +499,8 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_jrgx) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-12, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_pbe_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga_c, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_rge2) = {
@@ -501,10 +512,8 @@ const XC(func_info_type) XC(func_info_gga_c_rge2) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-12, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_pbe_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga_c, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_apbe) = {
@@ -516,10 +525,8 @@ const XC(func_info_type) XC(func_info_gga_c_apbe) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-12, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_pbe_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga_c, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_spbe) = {
@@ -531,10 +538,8 @@ const XC(func_info_type) XC(func_info_gga_c_spbe) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-12, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_pbe_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga_c, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_regtpss) = {
@@ -546,10 +551,8 @@ const XC(func_info_type) XC(func_info_gga_c_regtpss) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-12, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_pbe_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga_c, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_zpbesol) = {
@@ -561,10 +564,8 @@ const XC(func_info_type) XC(func_info_gga_c_zpbesol) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-12, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_pbe_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga_c, NULL
 };
 
 
@@ -577,10 +578,8 @@ const XC(func_info_type) XC(func_info_gga_c_pbeint) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-12, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_pbe_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga_c, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_zpbeint) = {
@@ -592,10 +591,8 @@ const XC(func_info_type) XC(func_info_gga_c_zpbeint) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-12, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_pbe_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga_c, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_pbeloc) = {
@@ -607,10 +604,8 @@ const XC(func_info_type) XC(func_info_gga_c_pbeloc) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-12, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_pbe_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga_c, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_bcgp) = {
@@ -622,10 +617,8 @@ const XC(func_info_type) XC(func_info_gga_c_bcgp) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-12, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_pbe_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga_c, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_pbefe) = {
@@ -637,10 +630,8 @@ const XC(func_info_type) XC(func_info_gga_c_pbefe) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_pbe_init, 
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga_c, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_c_pbe_mol) = {
@@ -652,8 +643,21 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_mol) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_pbe_init, 
-  NULL, NULL,
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga_c, NULL
+};
+
+
+const XC(func_info_type) XC(func_info_gga_c_sg4) = {
+  XC_GGA_C_SG4,
+  XC_EXCHANGE,
+  "Semiclassical GGA at fourth order",
+  XC_FAMILY_GGA,
+  {&xc_ref_Constantin2016_045126, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
+  gga_c_pbe_init, NULL, NULL,
   work_gga_c,
   NULL
 };

@@ -1787,3 +1787,10 @@ func_reference_type xc_ref_Chachiyo2016_021101 = {
 };
 
 
+func_reference_type xc_ref_Constantin2016_045126 = {
+  "L. A. Constantin, A. Terentjevs, F. Della Sala, P. Cortona, and E. Fabiano, Phys. Rev. B 93, 045126 (2016)",
+  "10.1103/PhysRevB.93.045126",
+  "@article{Constantin2016_045126,\n  title = {Semiclassical atom theory applied to solid-state physics},\n  author = {Constantin, Lucian A. and Terentjevs, Aleksandrs and Della Sala, Fabio and Cortona, Pietro and Fabiano, Eduardo},\n  journal = {Phys. Rev. B},\n  volume = {93},\n  issue = {4},\n  pages = {045126},\n  numpages = {9},\n  year = {2016},\n  month = {Jan},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.93.045126},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.93.045126}\n}"
+};
+
+

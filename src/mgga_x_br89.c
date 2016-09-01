@@ -54,7 +54,7 @@ mgga_x_tb09_init(XC(func_type) *p)
     break;
   case XC_MGGA_X_TB09:
     p->func = 2; 
-    /* the value of c should be passed by the caling code */
+    /* the value of c should be passed by the calling code */
     break;
   case XC_MGGA_X_RPP09:
     p->func = 3; 

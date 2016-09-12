@@ -23,6 +23,41 @@
 
 #define XC_GGA_X_GG99  535 /* Gilbert and Gill 1999 */
 
+static void
+newt_raph(FLOAT a, FLOAT tol, FLOAT *xx, FLOAT *dxx, int *ierr)
+{
+  int count;
+  FLOAT x, f, fp;
+  static int max_iter = 50;
+
+  *ierr = 1;
+   
+  /* starting point */
+  x = 1.0;
+
+  count = 0;
+  do {
+    FLOAT sh, ch;
+     
+    sh = sinh(x);
+    ch = cosh(x);
+    
+    f  = 2.0*M_PI*sh/CBRT(3.0*ch) - a;
+    fp = 2.0*M_PI*(2.0 + ch*ch + sh*sh)/(3.0*M_CBRT3*ch*CBRT(ch));
+    
+    x -= f/fp;
+    
+    count ++;
+  } while((ABS(f) > tol) && (count < max_iter));
+  
+  if(count == max_iter) *ierr=0; 
+
+  *xx  = x;
+  *dxx = 1.0/fp;
+}
+
+
+/* This implements Eq. (22) of the paper */
 inline static void 
 r_x(int order, FLOAT x, FLOAT *r, FLOAT *dr)
 {
@@ -30,6 +65,7 @@ r_x(int order, FLOAT x, FLOAT *r, FLOAT *dr)
     a1 = 4.0*M_SQRT3*M_PI*M_PI*M_PI;
 
   FLOAT a2, x2, x4, x6, aux1, aux2, daux1, daux2, num, den, dd, dnum, dden;
+  int ierr;
 
   a2 = SQRT(3.0/(2.0*a1));
 
@@ -45,8 +81,8 @@ r_x(int order, FLOAT x, FLOAT *r, FLOAT *dr)
     den = SQRT(aux2);
   
     *r = asinh(num/den);
-  }else{ /* use asymptotic expansion */
-    *r = 1.5*LOG(M_CBRT3*x/(M_CBRT2*M_PI));
+  }else{ // asymptotic expansion
+    newt_raph(x, 1e-12, r, dr, &ierr);
   }
 
   if(order < 1) return;
@@ -60,11 +96,8 @@ r_x(int order, FLOAT x, FLOAT *r, FLOAT *dr)
 
     dd  = DFRACTION(num, dnum, den, dden);
     *dr = dd/SQRT(1 + num*num/(den*den));
-  }else{
-    *dr = 1.5/x;
   }
 }
-
 
 void XC(gga_x_gg99_enhance)
      (const XC(func_type) *p, int order, FLOAT x, 
@@ -73,9 +106,9 @@ void XC(gga_x_gg99_enhance)
   FLOAT r, dr;
   FLOAT aux1, aux2, aux3, aux4, aux5, daux1, daux2, daux4, daux5;
   FLOAT num, den, dnum, dden, df;
-  
+
   r_x(order, x, &r, &dr);
-  
+
   aux1 = EXP(-2.0*r);
 
   aux2 = LOG(1.0 + aux1);

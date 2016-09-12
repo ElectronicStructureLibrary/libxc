@@ -24,7 +24,7 @@
 #define XC_GGA_X_GG99  535 /* Gilbert and Gill 1999 */
 
 inline static void 
-r_x(int order, FLOAT x, FLOAT *r, FLOAT *dr, FLOAT *d2r, FLOAT *d3r,FLOAT *woy,FLOAT *woz)
+r_x(int order, FLOAT x, FLOAT *r, FLOAT *dr)
 {
   static const FLOAT
     a1 = 4.0*M_SQRT3*M_PI*M_PI*M_PI;
@@ -37,27 +37,32 @@ r_x(int order, FLOAT x, FLOAT *r, FLOAT *dr, FLOAT *d2r, FLOAT *d3r,FLOAT *woy,F
   x4 = x2*x2;
   x6 = x2*x4;
 
-  aux1 = a1 + SQRT(a1*a1 - x6);
-  aux2 = CBRT(aux1);
+  if(a1*a1 > x6){
+    aux1 = a1 + SQRT(a1*a1 - x6);
+    aux2 = CBRT(aux1);
 
-  num = x*a2*SQRT(x2 + aux2*aux2);
-  den = SQRT(aux2);
+    num = x*a2*SQRT(x2 + aux2*aux2);
+    den = SQRT(aux2);
   
-  *woy = num;
-  *woz = den;
-
-  *r = asinh(num/den);
+    *r = asinh(num/den);
+  }else{ /* use asymptotic expansion */
+    *r = 1.5*LOG(M_CBRT3*x/(M_CBRT2*M_PI));
+  }
 
   if(order < 1) return;
 
-  daux1 = -3.0*x*x4/SQRT(a1*a1 - x6);
-  daux2 = daux1*aux2/(3.0*aux1);
+  if(a1*a1 > x6){
+    daux1 = -3.0*x*x4/SQRT(a1*a1 - x6);
+    daux2 = daux1*aux2/(3.0*aux1);
 
-  dnum = a2*(2.0*x2 + aux2*aux2 + x*aux2*daux2)/SQRT(x2 + aux2*aux2);
-  dden = daux2*den/(2.0*aux2);
+    dnum = a2*(2.0*x2 + aux2*aux2 + x*aux2*daux2)/SQRT(x2 + aux2*aux2);
+    dden = daux2*den/(2.0*aux2);
 
-  dd  = DFRACTION(num, dnum, den, dden);
-  *dr = dd/SQRT(1 + num*num/(den*den));
+    dd  = DFRACTION(num, dnum, den, dden);
+    *dr = dd/SQRT(1 + num*num/(den*den));
+  }else{
+    *dr = 1.5/x;
+  }
 }
 
 
@@ -65,14 +70,11 @@ void XC(gga_x_gg99_enhance)
      (const XC(func_type) *p, int order, FLOAT x, 
       FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
-  FLOAT r, dr, d2r, d3r;
+  FLOAT r, dr;
   FLOAT aux1, aux2, aux3, aux4, aux5, daux1, daux2, daux4, daux5;
   FLOAT num, den, dnum, dden, df;
-  FLOAT x2,x5,x6;
-  FLOAT woy,woz,ablw,ablr;
-  FLOAT ablr1,ablr2,abl1,abl2;
   
-  r_x(order, x, &r, &dr, &d2r, &d3r, &woy, &woz);
+  r_x(order, x, &r, &dr);
   
   aux1 = EXP(-2.0*r);
 
@@ -108,7 +110,7 @@ const XC(func_info_type) XC(func_info_gga_x_gg99) = {
   "Gilbert and Gill 1999",
   XC_FAMILY_GGA,
   {&xc_ref_Gilbert1999_511, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_DEVELOPMENT,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
   NULL, NULL, 

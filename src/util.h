@@ -60,6 +60,7 @@ float  asinhf(float  x);
 
 /* special functions */
 FLOAT XC(lambert_w)(FLOAT z);
+FLOAT XC(dilogarithm)(const FLOAT x);
 
 /* we define this function here, so it can be properly inlined by all compilers */
 static inline FLOAT

@@ -62,11 +62,11 @@ void test_lda()
   XC(func_type) l1, l2, l3;
   int i;
   
-  XC(func_init)(&l1, XC_LDA_XC_KSDT2, XC_POLARIZED);
+  //XC(func_init)(&l1, XC_LDA_XC_KSDT2, XC_POLARIZED);
   //XC(func_init)(&l1, XC_LDA_C_PW, XC_UNPOLARIZED);
   XC(func_init)(&l3, XC_LDA_X, XC_UNPOLARIZED);
 
-  XC(lda_xc_ksdt_set_params)(&l1, 1000.0);
+  //XC(lda_xc_ksdt_set_params)(&l1, 1000.0);
   //XC(lda_c_1d_csc_set_params)(&l2, 1, 1.0);
 
   for(i=0; i<=1000; i++){
@@ -141,12 +141,12 @@ void test_enhance()
   XC(func_init)(&gga1,  XC_GGA_X_B88, XC_POLARIZED);
   XC(func_init)(&gga2, XC_GGA_X_GG99, XC_POLARIZED);
 
-  for(x=0.001; x<15; x+=0.001){
+  for(x=0.01; x<1; x+=0.001){
     //printf("%le", x);
-    XC(gga_x_b88_enhance)(&gga1, 1, x, &f, &dfdx, &d2fdx2, &d3fdx3);
+    //XC(gga_x_b88_enhance)(&gga1, 1, x, &f, &dfdx, &d2fdx2, &d3fdx3);
     //printf("\t%le", -f*X_FACTOR_C);
     XC(gga_x_gg99_enhance)(&gga2, 1, x, &f, &dfdx, &d2fdx2, &d3fdx3);
-    //printf("\t%le\n", -f*X_FACTOR_C);
+    printf("%le\t%le\t%le\n", x, f, dfdx);
   }
 }
 

@@ -157,7 +157,7 @@ FLOAT XC(dilogarithm)(const FLOAT x)
   }else if (x > 0.5){
      if (x != 1.0)
        dspenc = pi26 - LOG(x)*LOG(1.0 - x)
-	 - (1.0-x)*(1.0 + XC(cheb_eval)(4.0*(1.0-x)-1.0, spencs, nspenc));
+	 - (1.0 - x)*(1.0 + XC(cheb_eval)(4.0*(1.0 - x)-1.0, spencs, nspenc));
 
   }else if (x >= 0.0){
     dspenc = x*(1.0 + XC(cheb_eval)(4.0*x - 1.0, spencs, nspenc));
@@ -171,6 +171,8 @@ FLOAT XC(dilogarithm)(const FLOAT x)
     dspenc = -pi26 - 0.50*aux*(2.00*LOG(-x) - aux);
 
     if (x > -FLT_RADIX/DBL_EPSILON)
-      dspenc += (1.0 + XC(cheb_eval)(4.0/(1.0-x)-1.0, spencs, nspenc))/(1.0-x);
+      dspenc += (1.0 + XC(cheb_eval)(4.0/(1.0-x)-1.0, spencs, nspenc))/(1.0 - x);
   }
+
+  return dspenc;
 }

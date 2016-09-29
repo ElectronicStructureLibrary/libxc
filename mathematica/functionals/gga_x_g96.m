@@ -1,5 +1,5 @@
 (* type: work_gga_x *)
 
-c1 = 1/137
+c1 = 1.0/137.0
 
-f[x_] = 1 + c1/X_FACTOR_C * x^(3/2)
+f[x_] = 1.0 + c1/XFACTORC * x^(3.0/2.0)

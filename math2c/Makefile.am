@@ -25,3 +25,9 @@ noinst_LTLIBRARIES = libmath2c.la
 
 libmath2c_la_SOURCES =             \
         gga_x_g96.c
+
+libmath2c_la_DEPENDENCIES = $(top_srcdir)/src/xc_funcs.h
+
+$(top_srcdir)/src/xc_funcs.h:
+	(cd $(top_srcdir)/src && make xc_funcs.h)
+

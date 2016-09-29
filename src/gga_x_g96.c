@@ -44,7 +44,9 @@ XC(gga_x_g96_enhance)(const XC(func_type) *p, int order, FLOAT x,
   *d3fdx3 = -3.0*c1/(8.0*X_FACTOR_C*x*sx);
 }
 
-#define func XC(gga_x_g96_enhance)
+#define       func XC(gga_x_g96_enhance)
+#define math2cfunc XC(math2c_gga_x_g96_func)
+
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_g96) = {

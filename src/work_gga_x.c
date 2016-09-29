@@ -16,6 +16,8 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#include <stdlib.h>
+
 /************************************************************************
   This file is to be included in GGA exchange functionals. As often these
   functionals are written as a function of s = |grad n|/n^(4/3), this
@@ -147,7 +149,16 @@ work_gga_x
 
 #if   HEADER == 1
 
-      func(p, order, x, &f, &dfdx, &d2fdx2, &d3fdx3);
+      if(p->derivatives == XC_DERIVATIVES_HANDWRITTEN){
+        func(p, order, x, &f, &dfdx, &d2fdx2, &d3fdx3);
+      }else{
+#if   defined(math2cfunc)
+        math2cfunc(p, order, x, &f, &dfdx, &d2fdx2, &d3fdx3);
+#else
+        fprintf(stderr, "Functional does not have a Mathematica implementation!\n");
+        exit(1);
+#endif
+      }
 
 #elif HEADER == 2
 

@@ -145,7 +145,9 @@ int XC(func_init)(XC(func_type) *func, int functional, int nspin)
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
 
   /* initialize structure */
-  func->nspin      = nspin;
+  func->nspin       = nspin;
+  func->derivatives = XC_DERIVATIVES_HANDWRITTEN;
+
   func->params     = NULL;
   func->func       = 0;
 

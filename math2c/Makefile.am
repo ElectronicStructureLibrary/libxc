@@ -19,15 +19,16 @@
 ##
 ## $Id: Makefile.am 12361 2014-08-06 19:40:53Z dstrubbe $
 
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src/
+AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src -I$(top_builddir)/src
 
 noinst_LTLIBRARIES = libmath2c.la
 
-libmath2c_la_SOURCES =             \
+libmath2c_la_SOURCES =  \
         gga_x_g96.c
 
-libmath2c_la_DEPENDENCIES = $(top_srcdir)/src/xc_funcs.h
+gga_x_g96.c: xcfuncsh
 
-$(top_srcdir)/src/xc_funcs.h:
-	(cd $(top_srcdir)/src && make xc_funcs.h)
+.PHONY: xcfuncsh
+xcfuncsh:
+	$(MAKE) -C $(top_builddir)/src xc_funcs.h
 

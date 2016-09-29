@@ -75,9 +75,10 @@ void XC(gga_x_wc_enhance)
  
 }
 
-#define func XC(gga_x_wc_enhance)
-#include "work_gga_x.c"
+#define       func XC(gga_x_wc_enhance)
+#define math2cfunc XC(math2c_gga_x_wc_func)
 
+#include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_wc) = {
   XC_GGA_X_WC,
@@ -88,8 +89,6 @@ const XC(func_info_type) XC(func_info_gga_x_wc) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_wc_init, 
-  NULL, NULL,
-  work_gga_x,
-  NULL
+  gga_x_wc_init, NULL, 
+  NULL, work_gga_x, NULL
 };

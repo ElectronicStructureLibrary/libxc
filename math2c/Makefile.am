@@ -24,7 +24,7 @@ AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src -I$(top_builddir)/src
 noinst_LTLIBRARIES = libmath2c.la
 
 libmath2c_la_SOURCES =  \
-        gga_x_g96.c
+        gga_x_g96.c gga_x_herman.c gga_x_wc.c
 
 gga_x_g96.c: xcfuncsh
 

@@ -15,8 +15,8 @@ close($in);
 $line =~ /type:\s(\S*)\s/;
 my $functype = $1;
 
-open my $out, '>', "$srcdir/autogen/$functional.c" or 
-    die "Could not open file $srcdir/autogen/$functional.c for writing\n";
+open my $out, '>', "$srcdir/math2c/$functional.c" or 
+    die "Could not open file $srcdir/math2c/$functional.c for writing\n";
 
 print $out "/* 
   This file was generated automatically with $0.
@@ -36,22 +36,23 @@ if($functype ne "work_gga_x"){
   die "Only work_gga_x is implemented at the moment\n";
 }
 
-# first we print the value of the energy
-if($order >= 0){
+my @der_type = ("f", "dfdx", "d2fdx2", "d3fdx3");
   print $out "
-/* energy functional */
-FLOAT
-auto_$functional_e(FLOAT x)
+void math2c_${functional}
+  (const XC(func_type) *p, int order, 
+   FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
-
-  return ";
-
-  print "math -script $srcdir/mathematica/work_gga_x.m $mathfile 0\n";
-  $math = `math -script $srcdir/mathematica/work_gga_x.m $mathfile 0`;
-  print $out "$math;
-
-}
 ";
+
+for(my $i=0; $i<=$order; $i++){
+  print $out "
+  if(order < $i) return;
+
+  *$der_type[$i] = ";
+
+  $math = `math -script $srcdir/mathematica/work_gga_x.m $mathfile $i`;
+  print $out "$math;\n";
 }
+print $out "}\n";
 
 close($out);

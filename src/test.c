@@ -141,7 +141,7 @@ void test_enhance()
   XC(func_init)(&gga1,  XC_GGA_X_B88, XC_POLARIZED);
   XC(func_init)(&gga2, XC_GGA_X_GG99, XC_POLARIZED);
 
-  for(x=0.01; x<1; x+=0.001){
+  for(x=0.01; x<200; x+=0.01){
     //printf("%le", x);
     //XC(gga_x_b88_enhance)(&gga1, 1, x, &f, &dfdx, &d2fdx2, &d3fdx3);
     //printf("\t%le", -f*X_FACTOR_C);

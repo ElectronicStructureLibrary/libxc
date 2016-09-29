@@ -27,6 +27,12 @@ EXTRA_DIST = ChangeLog PACKAGING TODO
 
 CLEANFILES = *~ *.bak
 
+# These files are in the repository, and the command below should be run 
+# to update them whenever references are changed.
+# references.c references.h: get_references.pl ../libxc.bib
+references:
+	(cd $(srcdir)/src && ../scripts/get_references.pl ../libxc.bib)
+
 rpm: dist
 	@topdir=`rpmbuild --showrc | @GREP@ ': *_topdir' | cut -f 2`; \
 	mv -f $(PACKAGE)-$(VERSION).tar.gz $$topdir/SOURCES; \

@@ -123,8 +123,6 @@ LTFCCOMPILE = $(LIBTOOL) --mode=compile --tag=F77 $(FC) $(AM_FCFLAGS) $(FCFLAGS)
 FCLINK = $(LIBTOOL) --mode=link --tag=F77 $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) \
          $(AM_LDFLAGS) $(LDFLAGS) -o $@
 
-dist_noinst_SCRIPTS = get_funcs.pl
-
 noinst_HEADERS = \
 	string_f.h references.h util.h work_lda.c \
 	work_gga_x.c work_gga_c.c \
@@ -205,13 +203,9 @@ CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 xc_f.o : xc_f_inc.c
 
 xc_funcs.h libxc_inc.f03 libxc_funcs.f90 \
-funcs_lda.c funcs_gga.c funcs_hyb_gga.c funcs_mgga.c funcs_hyb_mgga.c funcs_key.c: get_funcs.pl
-	$(srcdir)/get_funcs.pl $(srcdir) $(top_builddir)/src
-
-#These files are in the repository, and the command below should be run to update them whenever references are changed.
-#references.c references.h: get_references.pl ../libxc.bib
-references:
-	$(srcdir)/get_references.pl $(srcdir)/../libxc.bib
+funcs_lda.c funcs_gga.c funcs_hyb_gga.c \
+funcs_mgga.c funcs_hyb_mgga.c funcs_key.c: $(srcdir)/../scripts/get_funcs.pl
+	$(srcdir)/../scripts/get_funcs.pl $(srcdir) $(top_builddir)/src
 
 LTPREF = $(subst xc_f.lo,,$(firstword $(am_libxcf90_la_OBJECTS)))
 # Surprisingly, libtool/automake do not seem to provide a macro or variable for what the object names will be,

@@ -43,7 +43,9 @@ void XC(gga_x_herman_enhance)
   *d3fdx3 = 0.0;
 }
 
-#define func XC(gga_x_herman_enhance)
+#define       func XC(gga_x_herman_enhance)
+#define math2cfunc XC(math2c_gga_x_herman_func)
+
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_herman) = {

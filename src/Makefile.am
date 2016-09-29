@@ -79,6 +79,10 @@ libxc_la_FUNC_SINGLE_SOURCES = $(libxc_la_FUNC_SOURCES:.c=_s.c)
 
 libxc_la_SOURCES = references.c $(libxc_la_FUNC_SOURCES)
 libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)
+libxc_la_LIBADD  = $(top_builddir)/math2c/libmath2c.la
+
+$(top_builddir)/math2c/libmath2c.la:
+	$(MAKE) -C $(top_builddir)/math2c/
 
 if COMPILE_SINGLE
   nodist_libxc_la_SOURCES = $(libxc_la_FUNC_SINGLE_SOURCES)

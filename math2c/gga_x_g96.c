@@ -11,7 +11,7 @@
 #include <assert.h>
 #include <util.h>
 
-void auto_gga_x_g96
+void math2c_gga_x_g96_func
   (const XC(func_type) *p, int order, 
    FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {

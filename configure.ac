@@ -175,6 +175,7 @@ AC_CONFIG_FILES([Makefile
   scripts/Makefile
   mathematica/Makefile
   mathematica/functionals/Makefile
+  math2c/Makefile
 ])
 
 AC_OUTPUT

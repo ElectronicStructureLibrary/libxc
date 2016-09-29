@@ -38,7 +38,7 @@ if($functype ne "work_gga_x"){
 
 my @der_type = ("f", "dfdx", "d2fdx2", "d3fdx3");
   print $out "
-void math2c_${functional}
+void math2c_${functional}_func
   (const XC(func_type) *p, int order, 
    FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {

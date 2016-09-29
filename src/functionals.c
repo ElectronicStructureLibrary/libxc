@@ -284,6 +284,16 @@ const XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p)
 }
 
 /*------------------------------------------------------*/
+void XC(func_set_derivatives)(XC(func_type) *p, int derivatives)
+{
+  assert(derivatives == XC_DERIVATIVES_HANDWRITTEN ||
+         derivatives == XC_DERIVATIVES_AUTO ||
+         derivatives == XC_DERIVATIVES_BOTH);
+
+  p->derivatives = derivatives;
+}
+
+/*------------------------------------------------------*/
 void XC(func_set_ext_params)(XC(func_type) *p, double *ext_params)
 {
   assert(p->info->n_ext_params > 0);

@@ -48,10 +48,11 @@ for(my $i=0; $i<=$order; $i++){
   print $out "
   if(order < $i) return;
 
-  *$der_type[$i] = ";
+  if($der_type[$i] != NULL){
+    *$der_type[$i] = ";
 
   $math = `math -script $srcdir/mathematica/work_gga_x.m $mathfile $i`;
-  print $out "$math;\n";
+  print $out "$math;\n  }\n";
 }
 print $out "}\n";
 

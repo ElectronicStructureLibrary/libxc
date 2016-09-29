@@ -18,21 +18,25 @@ void XC(math2c_gga_x_g96_func)
 
   if(order < 0) return;
 
-  *f = 1. + (0.0072992700729927005*POW(x,1.5))/X_FACTOR_C
-;
+  if(f != NULL){
+    *f = 1. + (0.0072992700729927005*POW(x,1.5))/X_FACTOR_C;
+  }
 
   if(order < 1) return;
 
-  *dfdx = (0.010948905109489052*POW(x,0.5))/X_FACTOR_C
-;
+  if(dfdx != NULL){
+    *dfdx = (0.010948905109489052*POW(x,0.5))/X_FACTOR_C;
+  }
 
   if(order < 2) return;
 
-  *d2fdx2 = 0.005474452554744526/(POW(x,0.5)*X_FACTOR_C)
-;
+  if(d2fdx2 != NULL){
+    *d2fdx2 = 0.005474452554744526/(POW(x,0.5)*X_FACTOR_C);
+  }
 
   if(order < 3) return;
 
-  *d3fdx3 = -0.002737226277372263/(POW(x,1.5)*X_FACTOR_C)
-;
+  if(d3fdx3 != NULL){
+    *d3fdx3 = -0.002737226277372263/(POW(x,1.5)*X_FACTOR_C);
+  }
 }

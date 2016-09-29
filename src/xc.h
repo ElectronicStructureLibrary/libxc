@@ -173,6 +173,7 @@ void  XC(func_end)(XC(func_type) *p);
 void  XC(func_free)(XC(func_type) *p);
 const XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p);
 void  XC(func_set_ext_params)(XC(func_type) *p, double *ext_params);
+void  XC(func_set_derivatives)(XC(func_type) *p, int derivatives);
 
 #include "xc_funcs.h"
 #include "xc_funcs_removed.h"

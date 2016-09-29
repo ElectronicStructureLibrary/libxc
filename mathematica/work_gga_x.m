@@ -10,4 +10,4 @@ string = ToString[CForm[Simplify[d[x]]]]
 
 Import["replace.m"]
 
-Print[cstring]
+WriteString["stdout", cstring]

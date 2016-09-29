@@ -165,7 +165,7 @@ int   XC(func_init)(XC(func_type) *p, int functional, int nspin);
 void  XC(func_end)(XC(func_type) *p);
 void  XC(func_free)(XC(func_type) *p);
 const XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p);
-void XC(func_set_ext_params)(XC(func_type) *p, double *ext_params);
+void  XC(func_set_ext_params)(XC(func_type) *p, double *ext_params);
 
 #include "xc_funcs.h"
 #include "xc_funcs_removed.h"

@@ -172,6 +172,9 @@ AC_CONFIG_FILES([Makefile
   build/Makefile
   build/libxc.pc
   build/libxc.spec
+  scripts/Makefile
+  mathematica/Makefile
+  mathematica/functionals/Makefile
 ])
 
 AC_OUTPUT

@@ -22,49 +22,14 @@
 
 #define XC_GGA_X_BAYESIAN          125 /* Bayesian best fit for the enhancement factor */
 
-void XC(gga_x_bayesian_enhance)
-  (const XC(func_type) *p, int order, FLOAT x, 
-   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
-{
-  static const FLOAT theta[3] = {
-    1.0008, 0.1926, 1.8962
-  };
+static const FLOAT
+  theta0 = 1.0008,
+  theta1 = 0.1926,
+  theta2 = 1.8962;
 
-  FLOAT ss, aux, f0, f02, df0, d2f0, d3f0;
+#include "hand_written/gga_x_bayesian.c"
+#include "math2c/gga_x_bayesian.c"
 
-  ss = X2S*x;
-
-  aux = 1.0 + ss;
-  f0  = ss/aux;
-  f02 = f0*f0;
-
-  *f = theta[0] + f02*(theta[1] + f02*theta[2]);
-
-  if(order < 1) return;
-
-  df0 = 1.0/(aux*aux);
-
-  *dfdx  = 2.0*f0*(theta[1] + 2.0*theta[2]*f02)*df0;
-  *dfdx *= X2S;
-
-  if(order < 2) return;
-
-  d2f0 = -2.0*df0/aux;
-
-  *d2fdx2  = 2.0*(theta[1] + 6.0*theta[2]*f02)*df0*df0 + 2.0*f0*(theta[1] + 2.0*theta[2]*f02)*d2f0;
-  *d2fdx2 *= X2S*X2S;
-
-  if(order < 3) return;
-
-  d3f0 = -3.0*d2f0/aux;
-
-  *d3fdx3  = 24.0*theta[2]*f0*df0*df0*df0 + 6.0*(theta[1] + 6.0*theta[2]*f02)*df0*d2f0 +
-    2.0*f0*(theta[1] + 2.0*theta[2]*f02)*d3f0;
-  *d3fdx3 *= X2S*X2S*X2S;
-  
-}
-
-#define func XC(gga_x_bayesian_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_bayesian) = {
@@ -76,7 +41,6 @@ const XC(func_info_type) XC(func_info_gga_x_bayesian) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  NULL, NULL, NULL,
-  work_gga_x,
-  NULL
+  NULL, NULL, 
+  NULL, work_gga_x, NULL
 };

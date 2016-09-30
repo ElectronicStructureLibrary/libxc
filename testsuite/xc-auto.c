@@ -62,79 +62,40 @@ typedef struct {
 } values_t;
 
 void allocate_memory(values_t *data, int nspin) {
-  switch(nspin) {
-  case(XC_UNPOLARIZED):
-    data->rho=calloc(data->n,sizeof(FLOAT));
-    data->sigma=calloc(data->n,sizeof(FLOAT));
-    data->lapl=calloc(data->n,sizeof(FLOAT));
-    data->tau=calloc(data->n,sizeof(FLOAT));
-    data->zk=calloc(data->n,sizeof(FLOAT));
-    data->vrho=calloc(data->n,sizeof(FLOAT));
-    data->vsigma=calloc(data->n,sizeof(FLOAT));
-    data->vlapl=calloc(data->n,sizeof(FLOAT));
-    data->vtau=calloc(data->n,sizeof(FLOAT));
-    data->v2rho2=calloc(data->n,sizeof(FLOAT));
-    data->v2tau2=calloc(data->n,sizeof(FLOAT));
-    data->v2lapl2=calloc(data->n,sizeof(FLOAT));
-    data->v2rhotau=calloc(data->n,sizeof(FLOAT));
-    data->v2rholapl=calloc(data->n,sizeof(FLOAT));
-    data->v2lapltau=calloc(data->n,sizeof(FLOAT));
-    data->v2sigma2=calloc(data->n,sizeof(FLOAT));
-    data->v2rhosigma=calloc(data->n,sizeof(FLOAT));
-    data->v2sigmatau=calloc(data->n,sizeof(FLOAT));
-    data->v2sigmalapl=calloc(data->n,sizeof(FLOAT));
-    data->v3rho3=calloc(data->n,sizeof(FLOAT));
-    break;
-
-  case(XC_POLARIZED):
-    data->rho=calloc(2*data->n,sizeof(FLOAT));
-    data->sigma=calloc(3*data->n,sizeof(FLOAT));
-    data->lapl=calloc(2*data->n,sizeof(FLOAT));
-    data->tau=calloc(2*data->n,sizeof(FLOAT));
-    data->zk=calloc(data->n,sizeof(FLOAT));
-    data->vrho=calloc(2*data->n,sizeof(FLOAT));
-    data->vsigma=calloc(3*data->n,sizeof(FLOAT));
-    data->vlapl=calloc(2*data->n,sizeof(FLOAT));
-    data->vtau=calloc(2*data->n,sizeof(FLOAT));
-    data->v2rho2=calloc(3*data->n,sizeof(FLOAT));
-    data->v2tau2=calloc(3*data->n,sizeof(FLOAT));
-    data->v2lapl2=calloc(3*data->n,sizeof(FLOAT));
-    data->v2rhotau=calloc(4*data->n,sizeof(FLOAT));
-    data->v2rholapl=calloc(4*data->n,sizeof(FLOAT));
-    data->v2lapltau=calloc(4*data->n,sizeof(FLOAT));
-    data->v2sigma2=calloc(6*data->n,sizeof(FLOAT));
-    data->v2rhosigma=calloc(6*data->n,sizeof(FLOAT));
-    data->v2sigmatau=calloc(6*data->n,sizeof(FLOAT));
-    data->v2sigmalapl=calloc(6*data->n,sizeof(FLOAT));
-    data->v3rho3=calloc(4*data->n,sizeof(FLOAT));
-    break;
-
-  default:
-    fprintf(stderr,"nspin = %i not recognized.\n",nspin);
-    exit(2);
-  }
+  data->rho         = calloc(((nspin == 0) ? 1 : 2)*data->n, sizeof(FLOAT));
+  data->sigma       = calloc(((nspin == 0) ? 1 : 3)*data->n, sizeof(FLOAT));
+  data->lapl        = calloc(((nspin == 0) ? 1 : 2)*data->n, sizeof(FLOAT));
+  data->tau         = calloc(((nspin == 0) ? 1 : 2)*data->n, sizeof(FLOAT));
+  
+  data->zk          = calloc(((nspin == 0) ? 1 : 1)*data->n, sizeof(FLOAT));
+  data->vrho        = calloc(((nspin == 0) ? 1 : 2)*data->n, sizeof(FLOAT));
+  data->vsigma      = calloc(((nspin == 0) ? 1 : 3)*data->n, sizeof(FLOAT));
+  data->vlapl       = calloc(((nspin == 0) ? 1 : 2)*data->n, sizeof(FLOAT));
+  data->vtau        = calloc(((nspin == 0) ? 1 : 2)*data->n, sizeof(FLOAT));
+  
+  data->v2rho2      = calloc(((nspin == 0) ? 1 : 3)*data->n, sizeof(FLOAT));
+  data->v2tau2      = calloc(((nspin == 0) ? 1 : 3)*data->n, sizeof(FLOAT));
+  data->v2lapl2     = calloc(((nspin == 0) ? 1 : 3)*data->n, sizeof(FLOAT));
+  data->v2rhotau    = calloc(((nspin == 0) ? 1 : 4)*data->n, sizeof(FLOAT));
+  data->v2rholapl   = calloc(((nspin == 0) ? 1 : 4)*data->n, sizeof(FLOAT));
+  data->v2lapltau   = calloc(((nspin == 0) ? 1 : 6)*data->n, sizeof(FLOAT));
+  data->v2sigma2    = calloc(((nspin == 0) ? 1 : 6)*data->n, sizeof(FLOAT));
+  data->v2rhosigma  = calloc(((nspin == 0) ? 1 : 6)*data->n, sizeof(FLOAT));
+  data->v2sigmatau  = calloc(((nspin == 0) ? 1 : 6)*data->n, sizeof(FLOAT));
+  data->v2sigmalapl = calloc(((nspin == 0) ? 1 : 6)*data->n, sizeof(FLOAT));
+  
+  data->v3rho3      = calloc(((nspin == 0) ? 1 : 4)*data->n, sizeof(FLOAT));
 }
 
 void free_memory(values_t val) {
-  free(val.rho);
-  free(val.sigma);
-  free(val.lapl);
-  free(val.tau);
-  free(val.zk);
-  free(val.vrho);
-  free(val.vsigma);
-  free(val.vlapl);
-  free(val.vtau);
-  free(val.v2rho2);
-  free(val.v2tau2);
-  free(val.v2lapl2);
-  free(val.v2rhotau);
-  free(val.v2rholapl);
-  free(val.v2lapltau);
-  free(val.v2sigma2);
-  free(val.v2rhosigma);
-  free(val.v2sigmatau);
-  free(val.v2sigmalapl);
+  free(val.rho); free(val.sigma); free(val.lapl); free(val.tau);
+
+  free(val.zk); free(val.vrho); free(val.vsigma); free(val.vlapl); free(val.vtau);
+
+  free(val.v2rho2); free(val.v2tau2); free(val.v2lapl2); free(val.v2rhotau);
+  free(val.v2rholapl); free(val.v2lapltau); free(val.v2sigma2); free(val.v2rhosigma);
+  free(val.v2sigmatau); free(val.v2sigmalapl);
+
   free(val.v3rho3);
 }
 
@@ -231,20 +192,26 @@ void read_data(const char *file, int nspin, values_t *data) {
 void compare(char *what, int nspin, int n, int channels, double *v1, double *v2)
 {
   int ii, max_ii;
-  double max_diff;
+  double max_diff, new_diff;
 
   max_diff = 0.0;
   max_ii   = 0;
 
-  for(ii=0; ii<channels*n; ii++)
-    if(fabs(v1[ii] - v2[ii]) > max_diff){
-      max_diff = fabs(v1[ii] - v2[ii]);
+  for(ii=0; ii<channels*n; ii++){
+    if(fabs(v1[ii]) < MAX_DIFF)
+      new_diff = fabs(v1[ii] - v2[ii]);
+    else
+      new_diff = fabs((v1[ii] - v2[ii])/v1[ii]);
+
+    if(new_diff > max_diff){
+      max_diff = new_diff;
       max_ii   = ii;
     }
+  }
 
   if(max_diff > MAX_DIFF){
     printf("%s (nspin %d, channel %d)\n", what, nspin, ii % channels);
-    printf("  point %d: %14.10f <> %14.10f\n", max_ii/channels, v1[max_ii], v2[max_ii]);
+    printf("  point %d: %14.10e <> %14.10e\n", max_ii/channels, v1[max_ii], v2[max_ii]);
   }
 }
 

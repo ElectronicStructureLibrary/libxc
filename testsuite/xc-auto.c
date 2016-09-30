@@ -59,6 +59,9 @@ typedef struct {
 
   /* ... and third derivatives */
   FLOAT *v3rho3;
+  FLOAT *v3rho2sigma;
+  FLOAT *v3rhosigma2;
+  FLOAT *v3sigma3;
 } values_t;
 
 void allocate_memory(values_t *data, int nspin) {
@@ -85,6 +88,9 @@ void allocate_memory(values_t *data, int nspin) {
   data->v2sigmalapl = calloc(((nspin == 0) ? 1 : 6)*data->n, sizeof(FLOAT));
   
   data->v3rho3      = calloc(((nspin == 0) ? 1 : 4)*data->n, sizeof(FLOAT));
+  data->v3rho2sigma = calloc(((nspin == 0) ? 1 : 9)*data->n, sizeof(FLOAT));
+  data->v3rhosigma2 = calloc(((nspin == 0) ? 1 :12)*data->n, sizeof(FLOAT));
+  data->v3sigma3    = calloc(((nspin == 0) ? 1 :10)*data->n, sizeof(FLOAT));
 }
 
 void free_memory(values_t val) {
@@ -96,7 +102,7 @@ void free_memory(values_t val) {
   free(val.v2rholapl); free(val.v2lapltau); free(val.v2sigma2); free(val.v2rhosigma);
   free(val.v2sigmatau); free(val.v2sigmalapl);
 
-  free(val.v3rho3);
+  free(val.v3rho3); free(val.v3rho2sigma); free(val.v3rhosigma2); free(val.v3sigma3);
 }
 
 void read_data(const char *file, int nspin, values_t *data) {
@@ -272,7 +278,8 @@ int main(int argc, char *argv[])
       case XC_FAMILY_GGA:
       case XC_FAMILY_HYB_GGA:
         XC(gga)(&func, d[ii].n, d[ii].rho, d[ii].sigma, zk, vrho, d[ii].vsigma,
-                v2rho2, d[ii].v2rhosigma, d[ii].v2sigma2, NULL, NULL, NULL, NULL);
+                v2rho2, d[ii].v2rhosigma, d[ii].v2sigma2, 
+                v3rho3, d[ii].v3rho2sigma, d[ii].v3rhosigma2, d[ii].v3sigma3);
         break;
       case XC_FAMILY_MGGA:
       case XC_FAMILY_HYB_MGGA:
@@ -303,13 +310,19 @@ int main(int argc, char *argv[])
       compare("v2rho2", nspin, d[0].n, (nspin == 0) ? 1 : 3, d[0].v2rho2, d[1].v2rho2);
 
       if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)){
-        compare("v2sigma2", nspin, d[0].n, (nspin == 0) ? 1 : 6, d[0].v2sigma2, d[1].v2sigma2);
+        compare("v2sigma2",   nspin, d[0].n, (nspin == 0) ? 1 : 6, d[0].v2sigma2,   d[1].v2sigma2);
         compare("v2rhosigma", nspin, d[0].n, (nspin == 0) ? 1 : 6, d[0].v2rhosigma, d[1].v2rhosigma);
       }
     }
 
     if(flags & XC_FLAGS_HAVE_FXC){
       compare("v3rho3", nspin, d[0].n, (nspin == 0) ? 1 : 4, d[0].v3rho3, d[1].v3rho3);
+
+      if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)){
+        compare("v3rho2sigma", nspin, d[0].n, (nspin == 0) ? 1 : 9, d[0].v3rho2sigma, d[1].v3rho2sigma);
+        compare("v3rhosigma2", nspin, d[0].n, (nspin == 0) ? 1 :12, d[0].v3rhosigma2, d[1].v3rhosigma2);
+        compare("v3sigma3",    nspin, d[0].n, (nspin == 0) ? 1 :10, d[0].v3sigma3,    d[1].v3sigma3);
+      }
     }
    
     XC(func_end)(&func);

@@ -37,7 +37,7 @@ static FLOAT
 #include "math2c/gga_x_airy.c"
 #undef math2c_func
 
-inline void math2c_new_func
+static inline void math2c_new_func
   (const XC(func_type) *p, int order, FLOAT x, 
    FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {

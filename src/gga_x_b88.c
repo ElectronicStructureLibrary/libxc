@@ -90,63 +90,28 @@ XC(gga_x_b88_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma)
 }
 
 
-void 
-XC(gga_x_b88_enhance)(const XC(func_type) *p, int order, FLOAT x, 
-		      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+#include "hand_written/gga_x_b88.c"
+
+#include "math2c/gga_x_b88.c"
+#undef math2c_func
+#include "math2c/gga_k_thakkar.c"
+#undef math2c_func
+
+static inline void math2c_new_func
+  (const XC(func_type) *p, int order, FLOAT x, 
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
-  FLOAT x2, aux1, aux2, f1, f2, df1, df2, d2f1, d2f2, d3f1, d3f2, dd;
-  FLOAT beta, gamma;
-
-  assert(p->params != NULL);
-  beta  = ((gga_x_b88_params *) (p->params))->beta;
-  gamma = ((gga_x_b88_params *) (p->params))->gamma;
-
-  x2 = x*x;
-
-  f1 = beta/X_FACTOR_C*x2;
-  f2 = 1.0 + gamma*beta*x*ASINH(x);
-  *f = 1.0 + f1/f2;
-
-  if(p->func == 5){ /* k_thakkar */
-    dd  = 1.0/(1.0 + 2.0*CBRT(4.0)*x);
-    *f += -0.072*x*dd;
+  switch(p->info->number){
+  case XC_GGA_K_THAKKAR:
+    XC(math2c_gga_k_takkar_enhance)(p, order, x, f, dfdx, d2fdx2, d3fdx3);
+    break;
+  default:
+    XC(math2c_gga_x_b88_enhance)(p, order, x, f, dfdx, d2fdx2, d3fdx3);
+    break;
   }
-
-  if(order < 1) return;
-
-  aux1 = 1.0 + x2;
-  aux2 = SQRT(aux1);
-
-  df1 = 2.0*beta/X_FACTOR_C*x;
-  df2 = gamma*beta*(ASINH(x) + x/aux2);
-
-  *dfdx = (df1*f2 - f1*df2)/(f2*f2);
-
-  if(p->func == 5) /* k_thakkar */
-    *dfdx += -0.072*dd*dd;
-    
-  if(order < 2) return;
-
-  d2f1 = 2.0*beta/X_FACTOR_C;
-  d2f2 = gamma*beta*(2.0 + x2)/(aux1*aux2);
-
-  *d2fdx2 = (2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
-
-  if(p->func == 5) /* k_thakkar */
-    *d2fdx2 += 0.072*4.0*CBRT(4.0)*dd*dd*dd;
-
-  if(order < 3) return;
-
-  d3f1 = 0.0;
-  d3f2 = -beta*gamma*x*(4.0 + x2)/(aux1*aux1*aux2);
-
-  *d3fdx3 = (-6.0*f1*df2*df2*df2 + 6.0*f2*df2*(df1*df2 + f1*d2f2) + f2*f2*f2*d3f1 - f2*f2*(3.0*df2*d2f1 + 3.0*df1*d2f2 + f1*d3f2))/(f2*f2*f2*f2);
-
-  if(p->func == 5) /* k_thakkar */
-    *d3fdx3 += -0.072*24.0*CBRT(4.0)*CBRT(4.0)*dd*dd*dd*dd;
 }
+#define math2c_func math2c_new_func
 
-#define func XC(gga_x_b88_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_b88) = {
@@ -158,11 +123,8 @@ const XC(func_info_type) XC(func_info_gga_x_b88) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_b88_init, 
-  NULL, 
-  NULL,
-  work_gga_x,
-  NULL
+  gga_x_b88_init, NULL, 
+  NULL, work_gga_x, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_optb88_vdw) = {
@@ -174,11 +136,8 @@ const XC(func_info_type) XC(func_info_gga_x_optb88_vdw) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_b88_init,
-  NULL, 
-  NULL,
-  work_gga_x,
-  NULL
+  gga_x_b88_init, NULL, 
+  NULL, work_gga_x, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_mb88) = {
@@ -190,11 +149,8 @@ const XC(func_info_type) XC(func_info_gga_x_mb88) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_b88_init, 
-  NULL, 
-  NULL,
-  work_gga_x,
-  NULL
+  gga_x_b88_init, NULL, 
+  NULL, work_gga_x, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_eb88) = {
@@ -206,11 +162,8 @@ const XC(func_info_type) XC(func_info_gga_x_eb88) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_b88_init, 
-  NULL, 
-  NULL,
-  work_gga_x,
-  NULL
+  gga_x_b88_init,  NULL, 
+  NULL, work_gga_x, NULL
 };
 
 #define XC_KINETIC_FUNCTIONAL
@@ -225,11 +178,8 @@ const XC(func_info_type) XC(func_info_gga_k_llp) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_b88_init,
-  NULL,
-  NULL,
-  work_gga_k,
-  NULL
+  gga_x_b88_init, NULL,
+  NULL, work_gga_k, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_fr_b88) = {
@@ -241,11 +191,8 @@ const XC(func_info_type) XC(func_info_gga_k_fr_b88) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_b88_init,
-  NULL,
-  NULL,
-  work_gga_k,
-  NULL
+  gga_x_b88_init, NULL,
+  NULL, work_gga_k, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_k_thakkar) = {
@@ -257,9 +204,6 @@ const XC(func_info_type) XC(func_info_gga_k_thakkar) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_b88_init,
-  NULL,
-  NULL,
-  work_gga_k,
-  NULL
+  gga_x_b88_init, NULL,
+  NULL, work_gga_k, NULL
 };

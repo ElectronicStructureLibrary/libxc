@@ -49,13 +49,31 @@ void XC(math2c_${functional}_enhance)
 $prefix
 ";
 
+@math_replace = (
+  "params"       , "params->",
+  "Pi"           , "M_PI",
+  "XFACTORC"     , "X_FACTOR_C",
+  "MUGE"         , "MU_GE",
+  "Power.E,"     , "EXP(",
+  "Power"        , "POW",
+  "Sqrt"         , "SQRT",
+  "Log"          , "LOG",
+  "ArcSinh"      , "asinh",
+  "Tanh"         , "TANH",
+  "PolyLog.2,"   , "XC(dilogarithm)(",
+  "ProductLOG."  , "XC(lambert_w)(",
+);
+
 for(my $i=0; $i<=$order; $i++){
   print $out "
   if(order < $i) return;
 
   *$der_type[$i] = ";
 
-  $math = `math -script $srcdir/mathematica/work_gga_x.m $mathfile $i`;
+  my $math = `math -script $srcdir/mathematica/work_gga_x.m $mathfile $i`;
+  for(my $j=0; $j<$#math_replace; $j+=2){
+    $math =~ s/$math_replace[$j]/$math_replace[$j+1]/g;
+  }
   print $out "$math;\n";
 }
 print $out "}\n

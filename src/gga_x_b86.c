@@ -75,49 +75,9 @@ XC(gga_x_b86_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma, FLOAT omega)
 }
 
 
-void XC(gga_x_b86_enhance)
-  (const XC(func_type) *p, int order, FLOAT x, 
-   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
-{
-  FLOAT beta, gamma, omega;
-  FLOAT dd, ddd, d2dd;
-  FLOAT f1, f2, df1, df2, d2f1, d2f2, d3f2;
+#include "hand_written/gga_x_b86.c"
+#include "math2c/gga_x_b86.c"
 
-  assert(p->params != NULL);
-  beta  = ((gga_x_b86_params *) (p->params))->beta;
-  gamma = ((gga_x_b86_params *) (p->params))->gamma;
-  omega = ((gga_x_b86_params *) (p->params))->omega;
-
-  dd = 1.0 + gamma*x*x;
-  f1 = beta*x*x;
-  f2 = POW(dd, omega);
-
-  *f = 1.0 + f1/f2;
-  
-  if(order < 1) return;
-
-  ddd = 2.0*gamma*x;
-  df1 = 2.0*beta *x;
-  df2 = omega*ddd*f2/dd;
-
-  *dfdx  = DFRACTION(f1, df1, f2, df2);
-
-  if(order < 2) return;
-
-  d2dd = 2.0*gamma;
-  d2f1 = 2.0*beta;
-  d2f2 = omega*f2/(dd*dd)*(d2dd*dd + (omega - 1.0)*ddd*ddd);
-
-  *d2fdx2 = D2FRACTION(f1, df1, d2f1, f2, df2, d2f2);
-
-  if(order < 3) return;
-
-  d3f2 = omega*(omega - 1.0)*ddd*f2/(dd*dd*dd)*(3.0*d2dd*dd + (omega - 2.0)*ddd*ddd);
-
-  *d3fdx3 = D3FRACTION(f1, df1, d2f1, 0.0, f2, df2, d2f2, d3f2);
-}
-
-#define func XC(gga_x_b86_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_b86) = {
@@ -129,10 +89,8 @@ const XC(func_info_type) XC(func_info_gga_x_b86) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_b86_init,
-  NULL, NULL,
-  work_gga_x,
-  NULL
+  gga_x_b86_init, NULL, 
+  NULL, work_gga_x, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_b86_mgc) = {
@@ -144,10 +102,8 @@ const XC(func_info_type) XC(func_info_gga_x_b86_mgc) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_b86_init,
-  NULL, NULL,
-  work_gga_x,
-  NULL
+  gga_x_b86_init, NULL, 
+  NULL, work_gga_x, NULL
 };
 
 const XC(func_info_type) XC(func_info_gga_x_b86_r) = {
@@ -159,8 +115,6 @@ const XC(func_info_type) XC(func_info_gga_x_b86_r) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_b86_init,
-  NULL, NULL,
-  work_gga_x,
-  NULL
+  gga_x_b86_init, NULL, 
+  NULL, work_gga_x, NULL
 };

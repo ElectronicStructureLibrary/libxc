@@ -6,8 +6,6 @@ Import[$CommandLine[[4]]]
 
 d[x_] = D[f[x], {x, ToExpression[$CommandLine[[5]]]}]
 
-string = ToString[CForm[Simplify[d[x]]]]
-
-Import["replace.m"]
+cstring = ToString[CForm[Simplify[d[x]]]]
 
 WriteString["stdout", cstring]

@@ -19,7 +19,7 @@
 ##
 ## $Id$
 
-SUBDIRS = math2c
+SUBDIRS = math2c hand_written
 
 bin_PROGRAMS = xc-info
 noinst_PROGRAMS = genwiki

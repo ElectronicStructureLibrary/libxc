@@ -20,4 +20,4 @@
 ## $Id: Makefile.am 12361 2014-08-06 19:40:53Z dstrubbe $
 
 noinst_HEADERS =  \
-        gga_x_g96.c
+        gga_x_g96.c gga_x_herman.c gga_x_rpbe.c gga_x_wc.c

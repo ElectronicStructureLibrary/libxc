@@ -152,8 +152,8 @@ work_gga_x
       if(p->derivatives == XC_DERIVATIVES_HANDWRITTEN){
         func(p, order, x, &f, &dfdx, &d2fdx2, &d3fdx3);
       }else{
-#if   defined(math2cfunc)
-        math2cfunc(p, order, x, &f, &dfdx, &d2fdx2, &d3fdx3);
+#if   defined(math2c_func)
+        math2c_func(p, order, x, &f, &dfdx, &d2fdx2, &d3fdx3);
 #else
         fprintf(stderr, "Functional does not have a Mathematica implementation!\n");
         exit(1);

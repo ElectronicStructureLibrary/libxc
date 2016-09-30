@@ -16,27 +16,26 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdio.h>
-#include <assert.h>
-#include "util.h"
+void
+XC(gga_x_g96_enhance)(const XC(func_type) *p, int order, FLOAT x, 
+     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+{
+  static const FLOAT c1 = 1.0/137.0;
+  FLOAT sx = SQRT(x);
 
-#define XC_GGA_X_HERMAN          104 /* Herman et al original GGA                  */
+  *f     = 1.0 + c1/X_FACTOR_C*x*sx;
 
-#include "hand_written/gga_x_herman.c"
-#include "math2c/gga_x_herman.c"
+  if(order < 1) return;
 
-#include "work_gga_x.c"
+  *dfdx  = 3.0*c1/(2.0*X_FACTOR_C)*sx;
 
-const XC(func_info_type) XC(func_info_gga_x_herman) = {
-  XC_GGA_X_HERMAN,
-  XC_EXCHANGE,
-  "Herman Xalphabeta GGA",
-  XC_FAMILY_GGA,
-  {&xc_ref_Herman1969_807, &xc_ref_Herman1969_827, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  NULL, NULL, NULL,
-  work_gga_x,
-  NULL
-};
+  if(order < 2) return;
+
+  *d2fdx2 = 3.0*c1/(4.0*X_FACTOR_C*sx);
+
+  if(order < 2) return;
+
+  *d3fdx3 = -3.0*c1/(8.0*X_FACTOR_C*x*sx);
+}
+
+#define func XC(gga_x_g96_enhance)

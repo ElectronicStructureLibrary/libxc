@@ -168,6 +168,7 @@ AM_CONDITIONAL(COMPILE_SINGLE, test  $ac_cv_single_prec = yes)
 AC_CONFIG_FILES([Makefile
   xc_version.h
   src/Makefile
+  src/math2c/Makefile
   testsuite/Makefile
   build/Makefile
   build/libxc.pc
@@ -175,7 +176,6 @@ AC_CONFIG_FILES([Makefile
   scripts/Makefile
   mathematica/Makefile
   mathematica/functionals/Makefile
-  math2c/Makefile
 ])
 
 AC_OUTPUT

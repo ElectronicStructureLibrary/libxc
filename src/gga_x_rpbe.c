@@ -52,40 +52,9 @@ XC(gga_x_rpbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu)
   params->mu    = mu;
 }
 
+#include "hand_written/gga_x_rpbe.c"
+#include "math2c/gga_x_rpbe.c"
 
-/* RPBE: see PBE for more details */
-void XC(gga_x_rpbe_enhance) 
-  (const XC(func_type) *p, int order, FLOAT x, 
-   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
-{
-  FLOAT kappa, mu, f0, df0, d2f0, d3f0;
-
-  assert(p->params != NULL);
-  kappa = ((gga_x_rpbe_params *) (p->params))->kappa;
-  mu    = ((gga_x_rpbe_params *) (p->params))->mu*X2S*X2S;
-
-  f0 = EXP(-mu*x*x/kappa);
-  *f = 1.0 + kappa*(1.0 - f0);
-
-  if(order < 1) return;
-
-  df0 = -2.0*x*mu/kappa*f0;
-  
-  *dfdx  = -kappa*df0;
-
-  if(order < 2) return;
-
-  d2f0    = -2.0*mu*f0*(kappa - 2.0*x*x*mu)/(kappa*kappa);
-  *d2fdx2 = -kappa*d2f0;
-
-  if(order < 3) return;
-
-  d3f0    = 4.0*mu*mu*f0*x*(3.0*kappa - 2.0*mu*x*x)/(kappa*kappa*kappa);
-  *d3fdx3 = -kappa*d3f0;
-}
-
-
-#define func XC(gga_x_rpbe_enhance)
 #include "work_gga_x.c"
 
 

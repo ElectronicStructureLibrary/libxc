@@ -19,16 +19,12 @@
 ##
 ## $Id: Makefile.am 12361 2014-08-06 19:40:53Z dstrubbe $
 
-AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src -I$(top_builddir)/src
+noinst_HEADERS =  \
+        gga_x_g96.c gga_x_herman.c gga_x_wc.c gga_x_rpbe.c
 
-noinst_LTLIBRARIES = libmath2c.la
-
-libmath2c_la_SOURCES =  \
-        gga_x_g96.c gga_x_herman.c gga_x_wc.c
-
-gga_x_g96.c: xcfuncsh
-
-.PHONY: xcfuncsh
-xcfuncsh:
-	$(MAKE) -C $(top_builddir)/src xc_funcs.h
+math2c:
+	for i in $(top_srcdir)/mathematica/functionals/*.m; do \
+	  functional=`echo $$i | sed 's#.*/##; s#\.m##'`; \
+	  $(top_srcdir)/scripts/math2c.pl $(top_srcdir) $$functional 3; \
+	done
 

@@ -16,27 +16,34 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdio.h>
-#include <assert.h>
-#include "util.h"
+void XC(gga_x_rpbe_enhance) 
+  (const XC(func_type) *p, int order, FLOAT x, 
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+{
+  FLOAT kappa, mu, f0, df0, d2f0, d3f0;
 
-#define XC_GGA_X_HERMAN          104 /* Herman et al original GGA                  */
+  assert(p->params != NULL);
+  kappa = ((gga_x_rpbe_params *) (p->params))->kappa;
+  mu    = ((gga_x_rpbe_params *) (p->params))->mu*X2S*X2S;
 
-#include "hand_written/gga_x_herman.c"
-#include "math2c/gga_x_herman.c"
+  f0 = EXP(-mu*x*x/kappa);
+  *f = 1.0 + kappa*(1.0 - f0);
 
-#include "work_gga_x.c"
+  if(order < 1) return;
 
-const XC(func_info_type) XC(func_info_gga_x_herman) = {
-  XC_GGA_X_HERMAN,
-  XC_EXCHANGE,
-  "Herman Xalphabeta GGA",
-  XC_FAMILY_GGA,
-  {&xc_ref_Herman1969_807, &xc_ref_Herman1969_827, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  NULL, NULL, NULL,
-  work_gga_x,
-  NULL
-};
+  df0 = -2.0*x*mu/kappa*f0;
+  
+  *dfdx  = -kappa*df0;
+
+  if(order < 2) return;
+
+  d2f0    = -2.0*mu*f0*(kappa - 2.0*x*x*mu)/(kappa*kappa);
+  *d2fdx2 = -kappa*d2f0;
+
+  if(order < 3) return;
+
+  d3f0    = 4.0*mu*mu*f0*x*(3.0*kappa - 2.0*mu*x*x)/(kappa*kappa*kappa);
+  *d3fdx3 = -kappa*d3f0;
+}
+
+#define func XC(gga_x_rpbe_enhance)

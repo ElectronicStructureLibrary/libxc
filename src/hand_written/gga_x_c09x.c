@@ -16,29 +16,36 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdio.h>
-#include <assert.h>
-#include "util.h"
+void XC(gga_x_c09x_enhance)
+  (const XC(func_type) *p, int order, FLOAT x, 
+   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+{
+  FLOAT ss, ss2, aux, aux2;
 
-#define XC_GGA_X_C09X         158 /* C09x to be used with the VdW of Rutgers-Chalmers     */
+  ss  = X2S*x;
+  ss2 = ss*ss;
 
-static FLOAT mu = 0.0617, kappa = 1.245, alpha = 0.0483;
+  aux  = EXP(-0.5*alpha*ss2);
+  aux2 = aux*aux;
 
-#include "hand_written/gga_x_c09x.c"
-#include "math2c/gga_x_c09x.c"
+  *f = 1.0 + mu*ss2*aux2 + kappa*(1.0 - aux);
 
-#include "work_gga_x.c"
+  if(order < 1) return;
 
-const XC(func_info_type) XC(func_info_gga_x_c09x) = {
-  XC_GGA_X_C09X,
-  XC_EXCHANGE,
-  "C09x to be used with the VdW of Rutgers-Chalmers",
-  XC_FAMILY_GGA,
-  {&xc_ref_Cooper2010_161104, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  NULL, NULL, NULL,
-  work_gga_x,
-  NULL
-};
+  *dfdx  = 2.0*ss*mu*aux2*(1.0 - alpha*ss2) + alpha*kappa*ss*aux;
+  *dfdx *= X2S;
+
+  if(order < 2) return;
+
+  *d2fdx2  = 2.0*mu*aux2*(1.0 + alpha*ss2*(2.0*alpha*ss2 - 5.0)) + alpha*kappa*aux*(1.0 - alpha*ss2);
+  *d2fdx2 *= X2S*X2S;
+
+  if(order < 3) return;
+  
+  *d3fdx3  = alpha*ss*(-4.0*mu*aux2*(6.0 + alpha*ss2*(2.0*alpha*ss2 - 9.0)) + alpha*kappa*aux*(alpha*ss2 - 3.0));
+  *d3fdx3 *= X2S*X2S*X2S;
+  
+}
+
+
+#define func XC(gga_x_c09x_enhance)

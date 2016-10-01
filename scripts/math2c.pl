@@ -36,11 +36,132 @@ print $out "/*
 */
 ";
 
-if($functype ne "work_gga_x"){
-  die "Only work_gga_x is implemented at the moment\n";
+my %commands = (
+        "work_lda"    => \&work_lda,
+        "work_gga_x"  => \&work_gga_x,
+    );
+
+if ($commands{$functype}) {
+  $commands{$functype}->();
+} else {
+  die "No such type: $string\n";
+} 
+
+sub math_replace {
+  # The replacements have to be made in order, so
+  # we can not use a hash table
+  my @math_replace = (
+    # variables and inner parameters
+    "varrs"        , "r->rs[1]",
+    "varzeta"      , "r->zeta",
+    "params"       , "params->",
+
+    # constants
+    "Pi"           , "M_PI",
+    "XFACTORC"     , "X_FACTOR_C",
+    "MUGE"         , "MU_GE",
+
+    # functions
+    "Power.E,"     , "EXP(",
+    "Power"        , "POW",
+    "Sqrt"         , "SQRT",
+    "Log"          , "LOG",
+    "ArcSinh"      , "asinh",
+    "Tanh"         , "TANH",
+    "PolyLog.2,"   , "XC(dilogarithm)(",
+    "ProductLOG."  , "XC(lambert_w)(",
+  );
+  my ($text) = @_;
+
+  for(my $j=0; $j<$#math_replace; $j+=2){
+    $text =~ s/$math_replace[$j]/$math_replace[$j+1]/g;
+  }
+
+  return $text;
 }
 
-my @der_type = ("f", "dfdx", "d2fdx2", "d3fdx3");
+
+sub work_lda(){
+  print $out "
+void XC(math2c_${functional}_func)
+  (const XC(func_type) *p, XC(lda_work_t) *r)
+{
+$prefix
+
+  if(p->nspin == XC_UNPOLARIZED){
+";
+
+  my $math;
+  for(my $i=0; $i<=$order; $i++){
+    my @dertype = (
+      "      r->zk = ",
+      "      r->dedz = 0;\n      r->dedrs  = ",
+      "      r->d2edz2  = 0;\n      r->d2edrsz = 0;\n      r->d2edrs2 = ",
+      "      r->d3edz3   = 0;\n      r->d3edrs2z = 0;\n      r->d3edrsz2 = 0;\n      r->d3edrs3  = "
+    );
+      
+    if($order >= $i){
+      print $out "\n    if(r->order >= $i){\n";
+      $math = `math -script $srcdir/mathematica/work_lda.m $mathfile $i -1`;
+      print $out $dertype[$i], math_replace($math), ";\n";
+      print $out "    }\n\n";
+    }
+  }
+
+  print $out "  }else{\n";
+
+  if($order >= 0){
+    print $out "\n    if(r->order >= 0){\n";
+    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 0 0`;
+    print $out "      r->zk = ", math_replace($math), ";\n";
+    print $out "    }\n\n";
+  }
+
+  if($order >= 1){
+    print $out "\n    if(r->order >= 1){\n";
+    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 0 1`;
+    print $out "      r->dedz  = ", math_replace($math), ";\n";
+    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 1 0`;
+    print $out "      r->dedrs = ", math_replace($math), ";\n";
+    print $out "    }\n\n";
+  }
+
+  if($order >= 2){
+    print $out "\n    if(r->order >= 2){\n";
+    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 0 2`;
+    print $out "      r->d2edz2  = ", math_replace($math), ";\n";
+    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 1 1`;
+    print $out "      r->d2edrsz = ", math_replace($math), ";\n";
+    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 2 0`;
+    print $out "      r->d2edrs2 = ", math_replace($math), ";\n";
+    print $out "    }\n\n";
+  }
+
+  if($order >= 3){
+    print $out "\n    if(r->order >= 3){\n";
+    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 0 3`;
+    print $out "      r->d3edz3   = ", math_replace($math), ";\n";
+    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 1 2`;
+    print $out "      r->d3edrsz2 = ", math_replace($math), ";\n";
+    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 2 1`;
+    print $out "      r->d3edrs2z = ", math_replace($math), ";\n";
+    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 3 0`;
+    print $out "      r->d3edrs3  = ", math_replace($math), ";\n";
+    print $out "    }\n\n";
+  }
+
+  print $out "  }\n}\n
+
+#define math2c_order $order
+#define math2c_func  XC(math2c_${functional}_func)
+\n";
+
+  close($out);
+}
+
+
+sub work_gga_x(){
+
   print $out "
 void XC(math2c_${functional}_enhance)
   (const XC(func_type) *p, int order, 
@@ -49,37 +170,24 @@ void XC(math2c_${functional}_enhance)
 $prefix
 ";
 
-@math_replace = (
-  "params"       , "params->",
-  "Pi"           , "M_PI",
-  "XFACTORC"     , "X_FACTOR_C",
-  "MUGE"         , "MU_GE",
-  "Power.E,"     , "EXP(",
-  "Power"        , "POW",
-  "Sqrt"         , "SQRT",
-  "Log"          , "LOG",
-  "ArcSinh"      , "asinh",
-  "Tanh"         , "TANH",
-  "PolyLog.2,"   , "XC(dilogarithm)(",
-  "ProductLOG."  , "XC(lambert_w)(",
-);
-
-for(my $i=0; $i<=$order; $i++){
-  print $out "
+  my @der_type = ("f", "dfdx", "d2fdx2", "d3fdx3");
+  for(my $i=0; $i<=$order; $i++){
+    print $out "
   if(order < $i) return;
 
   *$der_type[$i] = ";
 
-  my $math = `math -script $srcdir/mathematica/work_gga_x.m $mathfile $i`;
-  for(my $j=0; $j<$#math_replace; $j+=2){
-    $math =~ s/$math_replace[$j]/$math_replace[$j+1]/g;
+    my $math = `math -script $srcdir/mathematica/work_gga_x.m $mathfile $i`;
+    
+    print $out math_replace($math), ";\n";
   }
-  print $out "$math;\n";
-}
-print $out "}\n
+  print $out "}\n
 
 #define math2c_order $order
 #define math2c_func  XC(math2c_${functional}_enhance)
 \n";
 
-close($out);
+  close($out);
+}
+
+

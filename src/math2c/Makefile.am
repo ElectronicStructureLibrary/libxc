@@ -17,7 +17,7 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ## 02110-1301, USA.
 ##
-## $Id: Makefile.am 12361 2014-08-06 19:40:53Z dstrubbe $
+## $Id$
 
 noinst_HEADERS =  \
         gga_x_g96.c gga_x_herman.c gga_x_wc.c gga_x_rpbe.c \

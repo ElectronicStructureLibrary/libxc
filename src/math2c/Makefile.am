@@ -22,7 +22,7 @@
 noinst_HEADERS =  \
         gga_x_g96.c gga_x_herman.c gga_x_wc.c gga_x_rpbe.c \
 	gga_x_lag.c gga_x_airy.c gga_x_ak13.c gga_x_am05.c \
-	gga_x_b86.c gga_k_thakkar.c gga_x_b88.c            \ 
+	gga_x_b86.c gga_k_thakkar.c gga_x_b88.c            \
 	gga_x_bayesian.c gga_x_c09x.c
 
 math2c:

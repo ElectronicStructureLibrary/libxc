@@ -80,8 +80,39 @@ sub math_replace {
   return $text;
 }
 
+sub math_work {
+  my ($type, $info, $out, $order, $textorder) = @_;
+
+  my $i = 0;
+  foreach my $ninfo (@{$info}){
+    return if($i > $order);
+    print $out "\n    if($textorder >= $i){\n";
+    foreach my $der (@{$ninfo}){
+      my $der_type = shift(@{$der});
+      my $orders   = join(" ", @{$der});
+      my $math     = `math -script $srcdir/mathematica/$type.m $mathfile $orders`;
+      print $out "      $der_type = ", math_replace($math), ";\n";
+    }
+    print $out "    }\n\n";
+    $i++;
+  }
+}
 
 sub work_lda(){
+  $info_unpolarized = [
+      [["r->zk", 0, -1]],
+      [["r->dedz", -1, -1], ["r->dedrs", 1, -1]],
+      [["r->d2edz2", -1, -1], ["r->d2edrsz", -1, -1], ["r->d2edrs2", 2, -1]],
+      [["r->d3edz3", -1, -1], ["r->d3edrs2z", -1, -1], ["r->d3edrsz2", -1, -1], ["r->d3edrs3", 3, -1]]
+      ];
+
+  $info_polarized = [
+      [["r->zk", 0, 0]],
+      [["r->dedz", 0, 1], ["r->dedrs", 1, 0]],
+      [["r->d2edz2", 0, 2], ["r->d2edrsz", 1, 1], ["r->d2edrs2", 2, 0]],
+      [["r->d3edz3", 0, 3], ["r->d3edrs2z", 1, 2], ["r->d3edrsz2", 2, 1], ["r->d3edrs3", 3, 0]]
+      ];
+
   print $out "
 void XC(math2c_${functional}_func)
   (const XC(func_type) *p, XC(lda_work_t) *r)
@@ -91,64 +122,11 @@ $prefix
   if(p->nspin == XC_UNPOLARIZED){
 ";
 
-  my $math;
-  for(my $i=0; $i<=$order; $i++){
-    my @dertype = (
-      "      r->zk = ",
-      "      r->dedz = 0;\n      r->dedrs  = ",
-      "      r->d2edz2  = 0;\n      r->d2edrsz = 0;\n      r->d2edrs2 = ",
-      "      r->d3edz3   = 0;\n      r->d3edrs2z = 0;\n      r->d3edrsz2 = 0;\n      r->d3edrs3  = "
-    );
-      
-    if($order >= $i){
-      print $out "\n    if(r->order >= $i){\n";
-      $math = `math -script $srcdir/mathematica/work_lda.m $mathfile $i -1`;
-      print $out $dertype[$i], math_replace($math), ";\n";
-      print $out "    }\n\n";
-    }
-  }
+  math_work("work_lda", $info_unpolarized, $out, $order, "r->order");
 
   print $out "  }else{\n";
 
-  if($order >= 0){
-    print $out "\n    if(r->order >= 0){\n";
-    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 0 0`;
-    print $out "      r->zk = ", math_replace($math), ";\n";
-    print $out "    }\n\n";
-  }
-
-  if($order >= 1){
-    print $out "\n    if(r->order >= 1){\n";
-    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 0 1`;
-    print $out "      r->dedz  = ", math_replace($math), ";\n";
-    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 1 0`;
-    print $out "      r->dedrs = ", math_replace($math), ";\n";
-    print $out "    }\n\n";
-  }
-
-  if($order >= 2){
-    print $out "\n    if(r->order >= 2){\n";
-    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 0 2`;
-    print $out "      r->d2edz2  = ", math_replace($math), ";\n";
-    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 1 1`;
-    print $out "      r->d2edrsz = ", math_replace($math), ";\n";
-    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 2 0`;
-    print $out "      r->d2edrs2 = ", math_replace($math), ";\n";
-    print $out "    }\n\n";
-  }
-
-  if($order >= 3){
-    print $out "\n    if(r->order >= 3){\n";
-    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 0 3`;
-    print $out "      r->d3edz3   = ", math_replace($math), ";\n";
-    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 1 2`;
-    print $out "      r->d3edrsz2 = ", math_replace($math), ";\n";
-    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 2 1`;
-    print $out "      r->d3edrs2z = ", math_replace($math), ";\n";
-    $math = `math -script $srcdir/mathematica/work_lda.m $mathfile 3 0`;
-    print $out "      r->d3edrs3  = ", math_replace($math), ";\n";
-    print $out "    }\n\n";
-  }
+  math_work("work_lda", $info_polarized, $out, $order, "r->order");
 
   print $out "  }\n}\n
 
@@ -170,17 +148,12 @@ void XC(math2c_${functional}_enhance)
 $prefix
 ";
 
-  my @der_type = ("f", "dfdx", "d2fdx2", "d3fdx3");
-  for(my $i=0; $i<=$order; $i++){
-    print $out "
-  if(order < $i) return;
+  my $info = [
+    [["*f", 0]], [["*dfdx", 1]], [["*d2fdx2", 2]], [["*d3fdx3", 3]]
+  ];
 
-  *$der_type[$i] = ";
+  math_work("work_gga_x", $info, $out, $order, "order");
 
-    my $math = `math -script $srcdir/mathematica/work_gga_x.m $mathfile $i`;
-    
-    print $out math_replace($math), ";\n";
-  }
   print $out "}\n
 
 #define math2c_order $order

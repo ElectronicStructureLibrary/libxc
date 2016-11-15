@@ -1794,3 +1794,10 @@ func_reference_type xc_ref_Constantin2016_045126 = {
 };
 
 
+func_reference_type xc_ref_Entwistle2016 = {
+  "M. Entwistle, M. Hodgson, J. Wetherell, B. Longstaff, J. Ramsden, and R. Godby, arXiv preprint arXiv:1611.01443 (2016)",
+  "",
+  "@article{Entwistle2016,\n  title={Local density approximations from finite systems},\n  author={Entwistle, Mike and Hodgson, Matthew and Wetherell, Jack and Longstaff, Bradley and Ramsden, James and Godby, Rex},\n  journal={arXiv preprint arXiv:1611.01443},\n  year={2016}\n}"
+};
+
+

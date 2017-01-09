@@ -1,7 +1,26 @@
 #!/usr/bin/env perl
 
-$functional = $ARGV[0];
-$max_order  = $ARGV[1];
+my $srcdir     = $ARGV[0];
+my $functional = $ARGV[1];
+my $max_order  = $ARGV[2];
+
+# Find out the type of functional
+my $mathfile = "$srcdir/maple/$functional.mpl";
+open my $in, '<', $mathfile or die "File $mathfile does not exist\n";
+
+my $functype = "";
+my $prefix   = "";
+while($_ = <$in>){
+  if(/^\(\* type:\s(\S*)\s/){
+    $functype = $1;
+  };
+  if(/^\(\* prefix:/){
+    while( ($_ = <$in>) && ! /^\*\)/ ){
+      $prefix .= $_;
+    }
+  }
+}
+close($in);
 
 my %all_vars;
 my @new_c_code;
@@ -31,7 +50,7 @@ close($mfile);
 
 # run maple
 $c_code = `maple -q -u /tmp/$$.mpl`;
-unlink "/tmp/$$.mpl";
+#unlink "/tmp/$$.mpl";
 
 # find all variables defined
 my $new_c_code = "  if(order < 0) return;\n\n";
@@ -39,6 +58,8 @@ my $variables  = "";
 my $n_var = 0;
 
 for (split /^/, $c_code) {
+  s/params/params->/g;
+
   if(/result_f/){
     s/result_f(\d+)/\n  $result_f[$1]/;
     $new_c_code .= $_."\n  if(order < $1+1) return;\n\n";
@@ -64,10 +85,9 @@ void XC(${functional}_enhance)
   (const XC(func_type) *p, int order, 
    FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
-$prefix
 ";
 
-print $variables, "\n", $new_c_code;
+print $variables, "\n", $prefix, "\n", $new_c_code;
 
   print "}\n
 

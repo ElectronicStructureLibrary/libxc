@@ -21,19 +21,19 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_GGA_X_AIRY  192 /* Constantin et al based on the Airy gas */
+#define XC_GGA_X_LAG   193 /* Local Airy Gas */
 
-#include "maple2c/gga_x_airy.c"
+#include "maple2c/gga_x_lag.c"
 
-#define func XC(gga_x_airy_enhance)
+#define func XC(gga_x_lag_enhance)
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_airy) = {
-  XC_GGA_X_AIRY,
+const XC(func_info_type) XC(func_info_gga_x_lag) = {
+  XC_GGA_X_LAG,
   XC_EXCHANGE,
-  "Constantin et al based on the Airy gas",
+  "Local Airy Gas",
   XC_FAMILY_GGA,
-  {&xc_ref_Constantin2009_035125, NULL, NULL, NULL, NULL},
+  {&xc_ref_Vitos2000_10046, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,

@@ -20,7 +20,7 @@
 ## $Id$
 
 ACLOCAL_AMFLAGS = -I m4
-SUBDIRS = build scripts mathematica src testsuite
+SUBDIRS = build scripts maple mathematica src testsuite
 
 include_HEADERS = xc_version.h
 EXTRA_DIST = ChangeLog PACKAGING TODO

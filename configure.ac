@@ -176,6 +176,7 @@ AC_CONFIG_FILES([Makefile
   build/libxc.pc
   build/libxc.spec
   scripts/Makefile
+  maple/Makefile
   mathematica/Makefile
   mathematica/functionals/Makefile
 ])

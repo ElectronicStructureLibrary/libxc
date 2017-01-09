@@ -20,4 +20,6 @@
 ## $Id: Makefile.am 12537 2016-11-15 14:10:17Z marques $
 
 noinst_HEADERS =  \
-       gga_x_pbepow.c  gga_x_wc.c
+  gga_x_airy.c    gga_x_lag.c     gga_x_rpbe.c \
+  gga_x_herman.c  gga_x_pbepow.c  gga_x_wc.c
+

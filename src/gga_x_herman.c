@@ -22,9 +22,9 @@
 
 #define XC_GGA_X_HERMAN          104 /* Herman et al original GGA                  */
 
-#include "hand_written/gga_x_herman.c"
-#include "math2c/gga_x_herman.c"
+#include "maple2c/gga_x_herman.c"
 
+#define func XC(gga_x_herman_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_herman) = {

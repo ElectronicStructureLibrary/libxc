@@ -20,33 +20,23 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_GGA_X_WC         118 /* Wu & Cohen */
+#define XC_GGA_X_PBEPOW         539 /* PBE power */
 
-static FLOAT mu, c, kappa;
+#include "maple2c/gga_x_pbepow.c"
 
-void gga_x_wc_init(XC(func_type) *p_)
-{
-  mu    = 0.2195149727645171;
-  c     = (146.0/2025.0)*(4.0/9.0) - (73.0/405.0)*(2.0/3.0) + (mu - 10.0/81.0);
-  kappa = 0.8040;
-}
-
-/* #include "hand_written/gga_x_wc.c" */
-#include "maple2c/gga_x_wc.c"
-
-#define func XC(gga_x_wc_enhance)
+#define func XC(gga_x_pbepow_enhance)
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_wc) = {
-  XC_GGA_X_WC,
+const XC(func_info_type) XC(func_info_gga_x_pbepow) = {
+  XC_GGA_X_PBEPOW,
   XC_EXCHANGE,
-  "Wu & Cohen",
+  "PBE power",
   XC_FAMILY_GGA,
-  {&xc_ref_Wu2006_235116, NULL, NULL, NULL, NULL},
+  {&xc_ref_Bremond2016_244102, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_wc_init, NULL, 
+  NULL, NULL, 
   NULL, work_gga_x, NULL
 };
 

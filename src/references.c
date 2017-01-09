@@ -1801,3 +1801,10 @@ func_reference_type xc_ref_Entwistle2016 = {
 };
 
 
+func_reference_type xc_ref_Bremond2016_244102 = {
+  "Éric Brémond, J. Chem. Phys. 145, 244102 (2016)",
+  "10.1063/1.4972815",
+  "@article{Bremond2016_244102,\nauthor = {Éric Brémond},\ntitle = {A power series revisit of the PBE exchange density-functional approximation: The PBEpow model},\njournal = {The Journal of Chemical Physics},\nvolume = {145},\nnumber = {24},\npages = {244102},\nyear = {2016},\ndoi = {10.1063/1.4972815},\nURL = {http://dx.doi.org/10.1063/1.4972815},\neprint = {http://dx.doi.org/10.1063/1.4972815}\n}"
+};
+
+

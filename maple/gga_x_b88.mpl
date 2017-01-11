@@ -6,9 +6,6 @@
   params = (gga_x_b88_params * )(p->params);
 *)
 
-Import["gga_x_b88.m"]
-Clear[f]
+f0 := x -> 1.0 + paramsbeta/X_FACTOR_C*x^2/(1.0 + paramsgamma*paramsbeta*x*arcsinh(x)):
 
-f1[x_] = -0.072*x/(1.0 + 2.0*4.0^(1.0/3.0) x)
-
-f[x_] = f0[x] + f1[x]
+f := x -> f0(x):

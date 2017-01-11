@@ -59,7 +59,7 @@ float  asinhf(float  x);
 #define SQRT_FLOAT_EPSILON   (SQRT(FLOAT_EPSILON))
 
 /* special functions */
-FLOAT XC(lambert_w)(FLOAT z);
+double LambertW(double z);
 FLOAT XC(dilogarithm)(const FLOAT x);
 
 /* we define this function here, so it can be properly inlined by all compilers */

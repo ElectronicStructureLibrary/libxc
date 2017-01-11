@@ -27,7 +27,6 @@
 #define XC_GGA_X_EB88         271 /* Non-empirical (excogitated) B88 functional of Becke and Elliott */
 #define XC_GGA_K_LLP          522 /* Lee, Lee & Parr */
 #define XC_GGA_K_FR_B88       514 /* Fuentealba & Reyes (B88 version) */
-#define XC_GGA_K_THAKKAR      523 /* Thakkar 1992 */
 
 typedef struct{
   FLOAT beta, gamma;
@@ -62,10 +61,6 @@ gga_x_b88_init(XC(func_type) *p)
     p->func = 4;
     XC(gga_x_b88_set_params)(p, 0.0011, 6.0);
     break;
-  case XC_GGA_K_THAKKAR:
-    p->func = 5;
-    XC(gga_x_b88_set_params)(p, X_FACTOR_C*0.0055, 0.0253/(X_FACTOR_C*0.0055));
-    break;
   case XC_GGA_X_EB88:
     p->func = 6; 
     XC(gga_x_b88_set_params)(p, 0.0050/M_CBRT2, 6.0);
@@ -90,28 +85,9 @@ XC(gga_x_b88_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma)
 }
 
 
-#include "hand_written/gga_x_b88.c"
+#include "maple2c/gga_x_b88.c"
 
-#include "math2c/gga_x_b88.c"
-#undef math2c_func
-#include "math2c/gga_k_thakkar.c"
-#undef math2c_func
-
-static inline void math2c_new_func
-  (const XC(func_type) *p, int order, FLOAT x, 
-   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
-{
-  switch(p->info->number){
-  case XC_GGA_K_THAKKAR:
-    XC(math2c_gga_k_takkar_enhance)(p, order, x, f, dfdx, d2fdx2, d3fdx3);
-    break;
-  default:
-    XC(math2c_gga_x_b88_enhance)(p, order, x, f, dfdx, d2fdx2, d3fdx3);
-    break;
-  }
-}
-#define math2c_func math2c_new_func
-
+#define func XC(gga_x_b88_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_b88) = {
@@ -188,19 +164,6 @@ const XC(func_info_type) XC(func_info_gga_k_fr_b88) = {
   "Fuentealba & Reyes (B88 version)",
   XC_FAMILY_GGA,
   {&xc_ref_Fuentealba1995_31, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  gga_x_b88_init, NULL,
-  NULL, work_gga_k, NULL
-};
-
-const XC(func_info_type) XC(func_info_gga_k_thakkar) = {
-  XC_GGA_K_THAKKAR,
-  XC_KINETIC,
-  "Thakkar 1992",
-  XC_FAMILY_GGA,
-  {&xc_ref_Thakkar1992_6920, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,

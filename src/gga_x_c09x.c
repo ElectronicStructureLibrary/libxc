@@ -22,11 +22,9 @@
 
 #define XC_GGA_X_C09X         158 /* C09x to be used with the VdW of Rutgers-Chalmers     */
 
-static FLOAT mu = 0.0617, kappa = 1.245, alpha = 0.0483;
+#include "maple2c/gga_x_c09x.c"
 
-#include "hand_written/gga_x_c09x.c"
-#include "math2c/gga_x_c09x.c"
-
+#define func XC(gga_x_c09x_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_c09x) = {

@@ -39,9 +39,9 @@ FLOAT XC(gga_ak13_get_asymptotic) (FLOAT homo)
 }
 
 
-#include "hand_written/gga_x_ak13.c"
-#include "math2c/gga_x_ak13.c"
+#include "maple2c/gga_x_ak13.c"
 
+#define func XC(gga_x_ak13_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_ak13) = {

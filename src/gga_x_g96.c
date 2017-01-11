@@ -22,9 +22,9 @@
 
 #define XC_GGA_X_G96          107 /* Gill 96                                        */
 
-#include "hand_written/gga_x_g96.c"
-#include "math2c/gga_x_g96.c"
+#include "maple2c/gga_x_g96.c"
 
+#define func XC(gga_x_g96_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_g96) = {

@@ -28,9 +28,9 @@
          Adv. in Comp. Math. 5(4):329-359. 
 */
 
-FLOAT XC(lambert_w)(FLOAT z)
+double LambertW(double z)
 {
-  FLOAT w;
+  double w;
   int i;
 
   /* Sanity check - function is only defined for z >= -1/e */
@@ -60,14 +60,14 @@ FLOAT XC(lambert_w)(FLOAT z)
 
   } else {
     /* Asymptotic expansion */
-    FLOAT lnz = LOG(z);
+    double lnz = LOG(z);
 
     w = lnz - LOG(lnz);
   }
 
   /* Find result through iteration */
   for(i=0; i<10; i++){
-    FLOAT expmw, dw;
+    double expmw, dw;
     expmw = EXP(-w);
     
     /* Halley's equation, (5.9) in Corless et al */

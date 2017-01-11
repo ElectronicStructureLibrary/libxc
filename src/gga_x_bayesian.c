@@ -22,14 +22,9 @@
 
 #define XC_GGA_X_BAYESIAN          125 /* Bayesian best fit for the enhancement factor */
 
-static const FLOAT
-  theta0 = 1.0008,
-  theta1 = 0.1926,
-  theta2 = 1.8962;
+#include "maple2c/gga_x_bayesian.c"
 
-#include "hand_written/gga_x_bayesian.c"
-#include "math2c/gga_x_bayesian.c"
-
+#define func XC(gga_x_bayesian_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_bayesian) = {

@@ -75,9 +75,9 @@ XC(gga_x_b86_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma, FLOAT omega)
 }
 
 
-#include "hand_written/gga_x_b86.c"
-#include "math2c/gga_x_b86.c"
+#include "maple2c/gga_x_b86.c"
 
+#define func XC(gga_x_b86_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_b86) = {

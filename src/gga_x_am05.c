@@ -23,13 +23,9 @@
 
 #define XC_GGA_X_AM05         120 /* Armiento & Mattsson 05 exchange                */
 
-static const FLOAT c     =  0.7168;
-static const FLOAT alpha =  2.804;
-static const FLOAT d     = 28.23705740248932030511071641312341561894; /* POW(CBRT(4.0/3.0) * 2.0*M_PI/3.0, 4) */
+#include "maple2c/gga_x_am05.c"
 
-#include "hand_written/gga_x_am05.c"
-#include "math2c/gga_x_am05.c"
-
+#define func XC(gga_x_am05_enhance)
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_am05) = {

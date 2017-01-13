@@ -114,7 +114,7 @@ with(CodeGeneration):
       $i++;
     }
 
-    if($found == 0 && /(t\d+) =/){
+    if(($found == 0) && ($_ =~ /^(t\d+) =/)){
       if($n_var % 8 == 0){
         $variables .= ";\n" if($n_var != 0);
         $variables .= "  double ";

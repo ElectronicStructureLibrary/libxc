@@ -4,4 +4,4 @@ dist_noinst_SCRIPTS = \
   gga_x_airy.mpl gga_x_b88.mpl gga_x_herman.mpl gga_x_wc.mpl   \
   gga_x_ak13.mpl gga_x_bayesian.mpl gga_x_lag.mpl gga_x_am05.mpl \
   gga_x_c09x.mpl gga_x_pbepow.mpl \
-  mgga_x_gvt4.mpl mgga_x_lta.mpl
+  mgga_x_gvt4.mpl mgga_x_lta.mpl mgga_x_mk00.mpl

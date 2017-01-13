@@ -25,44 +25,9 @@
 #define XC_MGGA_X_MK00          230 /* Exchange for accurate virtual orbital energies */
 #define XC_MGGA_X_MK00B         243 /* Exchange for accurate virtual orbital energies (v. B) */
 
-static void 
-func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
-{
-  FLOAT cnst, den, den2, den3;
+#include "maple2c/mgga_x_mk00.c"
 
-  cnst = 3.0*M_PI/X_FACTOR_C;
-
-  den  = 2.0*r->t - r->u/4.0;
-
-  if(ABS(den) < pt->info->min_tau){
-    r->f = 0.0;
-    if(r->order >= 1) r->dfdt = r->dfdu = 0.0;
-    if(r->order >= 2) r->d2fdt2 = r->d2fdtu = r->d2fdu2 = 0.0;
-    return;
-  }
-
-  r->f = cnst/den;
-
-  if(r->order < 1) return;
-  
-  den2 = den*den;
-
-  r->dfdx = 0.0;
-  r->dfdt = -2.0*cnst/den2;
-  r->dfdu = cnst/(4.0*den2);
-
-  if(r->order < 2) return;
-  
-  den3 = den2*den;
-
-  r->d2fdx2 =  0.0;
-  r->d2fdxt =  0.0;
-  r->d2fdxu =  0.0;
-  r->d2fdt2 =  8.0*cnst/den3;
-  r->d2fdtu = -cnst/den3;
-  r->d2fdu2 =  cnst/(8.0*den3);
-}
-
+#define func maple2c_func
 #include "work_mgga_x.c"
 
 const XC(func_info_type) XC(func_info_mgga_x_mk00) = {

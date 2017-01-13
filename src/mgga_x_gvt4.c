@@ -19,11 +19,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-
 #include "util.h"
 
 #define XC_MGGA_X_GVT4          204 /* GVT4 from Van Voorhis and Scuseria */
 
+#include "maple2c/mgga_x_gvt4.c"
+
+#define func XC(mgga_x_gvt4_enhance)
+#include "work_mgga_x.c"
+
+/* WARNING THIS SHOULD GO AWAY */
 /* calculate h and h derivatives with respect to rho, grho and tau: Equation (5) */
 void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT *d, 
 			  FLOAT *h, FLOAT *dhdx, FLOAT *dhdz)
@@ -51,32 +56,13 @@ void XC(mgga_x_gvt4_func)(int order, FLOAT x, FLOAT z, FLOAT alpha, const FLOAT 
     dhdgam*alpha;
 }
 
-static void 
-func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
-{
-  static const FLOAT abcd[6] = 
-    {-9.800683e-01, -3.556788e-03, 6.250326e-03, -2.354518e-05, -1.282732e-04, 3.574822e-04};
-  static const FLOAT alpha = 0.00186726;
-
-  XC(mgga_x_gvt4_func)(r->order, r->x, 2.0*(r->t - K_FACTOR_C), alpha, abcd, &r->f, &r->dfdx, &r->dfdt);
- 
-  r->f /= -X_FACTOR_C;
-
-  if(r->order < 1) return;
-
-  r->dfdx /= -X_FACTOR_C;
-  r->dfdt /= -X_FACTOR_C/2.0;
-}
-
-#include "work_mgga_x.c"
-
 const XC(func_info_type) XC(func_info_mgga_x_gvt4) = {
   XC_MGGA_X_GVT4,
   XC_EXCHANGE,
   "GVT4 (X part of VSXC)",
   XC_FAMILY_MGGA,
   {&xc_ref_VanVoorhis1998_400, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   0, NULL, NULL,
   NULL, NULL,

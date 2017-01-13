@@ -17,22 +17,22 @@ void XC(gga_x_g96_enhance)
   t2 = pow(x, 0.15000000000000000000e1);
   *f = 0.10e1 + 0.72992700729927007299e-2 * t1 * t2;
 
-  if(order <= 1) return;
+  if(order < 1) return;
 
   t5 = pow(x, 0.5000000000000000000e0);
   *dfdx = 0.10948905109489051095e-1 * t1 * t5;
 
-  if(order <= 2) return;
+  if(order < 2) return;
 
   t7 = pow(x, -0.5000000000000000000e0);
   *d2fdx2 = 0.54744525547445255475e-2 * t1 * t7;
 
-  if(order <= 3) return;
+  if(order < 3) return;
 
   t9 = pow(x, -0.15000000000000000000e1);
   *d3fdx3 = -0.27372262773722627738e-2 * t1 * t9;
 
-  if(order <= 4) return;
+  if(order < 4) return;
 
 
 }

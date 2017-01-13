@@ -69,6 +69,7 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
     if(dens < p->info->min_dens) goto end_ip_loop;
 
     r.rs[1] = cnst_rs*POW(dens, -1.0/XC_DIMENSIONS);
+    r.rss   = r.rs[1]; /* WARNING TEMPORARY CODE */
     r.rs[0] = SQRT(r.rs[1]);
     r.rs[2] = r.rs[1]*r.rs[1];
 

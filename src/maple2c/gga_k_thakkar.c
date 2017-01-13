@@ -24,7 +24,7 @@ void XC(gga_k_thakkar_enhance)
   t11 = 0.1e1 / t10;
   *f = 0.10e1 + 0.55e-2 * t1 * t6 - 0.72e-1 * x * t11;
 
-  if(order <= 1) return;
+  if(order < 1) return;
 
   t16 = t5 * t5;
   t17 = 0.1e1 / t16;
@@ -37,7 +37,7 @@ void XC(gga_k_thakkar_enhance)
   t30 = 0.1e1 / t29;
   *dfdx = 0.110e-1 * x * t6 - 0.55e-2 * t18 * t25 - 0.72e-1 * t11 + 0.22858575148342072436e0 * x * t30;
 
-  if(order <= 2) return;
+  if(order < 2) return;
 
   t34 = x * t17;
   t38 = 0.1e1 / t16 / t5;
@@ -48,14 +48,14 @@ void XC(gga_k_thakkar_enhance)
   t53 = 0.1e1 / t29 / t10;
   *d2fdx2 = 0.110e-1 * t6 - 0.220e-1 * t34 * t25 + 0.110e-1 * t39 * t40 - 0.55e-2 * t18 * t48 + 0.45717150296684144872e0 * t30 - 0.14514290494788938857e1 * x * t53;
 
-  if(order <= 3) return;
+  if(order < 3) return;
 
   t63 = t16 * t16;
   t75 = t20 * t20;
   t84 = t29 * t29;
   *d3fdx3 = -0.330e-1 * t17 * t25 + 0.660e-1 * x * t38 * t40 - 0.330e-1 * t34 * t48 - 0.330e-1 * t1 / t63 * t40 * t25 + 0.330e-1 * t39 * t25 * t48 - 0.55e-2 * t18 * (-0.1012e0 * t45 * x + 0.759e-1 * t1 * x / t21 / t75) - 0.43542871484366816572e1 * t53 + 0.13823999999999999998e2 * x / t84;
 
-  if(order <= 4) return;
+  if(order < 4) return;
 
 
 }

@@ -17,19 +17,19 @@ void XC(gga_x_herman_enhance)
   t2 = x * x;
   *f = 0.10e1 + 0.3e-2 * t1 * t2;
 
-  if(order <= 1) return;
+  if(order < 1) return;
 
   *dfdx = 0.6e-2 * t1 * x;
 
-  if(order <= 2) return;
+  if(order < 2) return;
 
   *d2fdx2 = 0.6e-2 * t1;
 
-  if(order <= 3) return;
+  if(order < 3) return;
 
   *d3fdx3 = 0;
 
-  if(order <= 4) return;
+  if(order < 4) return;
 
 
 }

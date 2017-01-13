@@ -27,7 +27,7 @@ void XC(gga_x_b88_enhance)
   t9 = 0.1e1 / t8;
   *f = 0.10e1 + t2 * t3 * t9;
 
-  if(order <= 1) return;
+  if(order < 1) return;
 
   t15 = t8 * t8;
   t16 = 0.1e1 / t15;
@@ -38,7 +38,7 @@ void XC(gga_x_b88_enhance)
   t24 = t21 * t4 * x + t4 * t5;
   *dfdx = -t17 * t2 * t24 + 0.2e1 * t2 * t9 * x;
 
-  if(order <= 2) return;
+  if(order < 2) return;
 
   t29 = x * t16;
   t34 = 0.1e1 / t15 / t8;
@@ -47,13 +47,13 @@ void XC(gga_x_b88_enhance)
   t46 = -t3 * t4 * t43 + 0.2e1 * t21 * t4;
   *d2fdx2 = 0.2e1 * t2 * t3 * t34 * t36 - t2 * t17 * t46 - 0.4e1 * t2 * t29 * t24 + 0.2e1 * t2 * t9;
 
-  if(order <= 3) return;
+  if(order < 3) return;
 
   t59 = t15 * t15;
   t75 = t19 * t19;
   *d3fdx3 = -0.6e1 * t2 * t16 * t24 + 0.12e2 * t2 * x * t34 * t36 - 0.6e1 * t2 * t29 * t46 - 0.6e1 * t2 * t3 / t59 * t36 * t24 + 0.6e1 * t2 * t3 * t34 * t24 * t46 - t2 * t17 * (-0.4e1 * t4 * t43 * x + 0.3e1 * t4 * t3 * x / t20 / t75);
 
-  if(order <= 4) return;
+  if(order < 4) return;
 
 
 }

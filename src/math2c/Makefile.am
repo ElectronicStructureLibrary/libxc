@@ -20,7 +20,7 @@
 ## $Id$
 
 noinst_HEADERS =  \
-        lda_x.c lda_xc_1d_ehwlrg.c
+        lda_x.c 
 
 math2c:
 	for i in $(top_srcdir)/mathematica/functionals/*.m; do \

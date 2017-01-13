@@ -21,14 +21,14 @@ void XC(gga_x_lag_enhance)
   t5 = pow(t4, -0.657946e0);
   *f = 0.41106e-1 * t2 * t5;
 
-  if(order <= 1) return;
+  if(order < 1) return;
 
   t7 = pow(t1, 0.1626712e1);
   t11 = pow(t1, 0.4253424e1);
   t12 = pow(t4, -0.1657946e1);
   *dfdx = 0.107973623472e0 * t7 * t5 * X2S - 0.65407277144964066998e-2 * t11 * t12 * X2S;
 
-  if(order <= 2) return;
+  if(order < 2) return;
 
   t16 = pow(t1, 0.626712e0);
   t18 = X2S * X2S;
@@ -37,7 +37,7 @@ void XC(gga_x_lag_enhance)
   t26 = pow(t4, -0.2657946e1);
   *d2fdx2 = 0.175641988985384064e0 * t16 * t5 * t18 - 0.45001096214704449606e-1 * t21 * t12 * t18 + 0.26225697814468100489e-2 * t25 * t26 * t18;
 
-  if(order <= 3) return;
+  if(order < 3) return;
 
   t30 = pow(t1, -0.373288e0);
   t32 = t18 * X2S;
@@ -47,7 +47,7 @@ void XC(gga_x_lag_enhance)
   t44 = pow(t4, -0.3657946e1);
   *d3fdx3 = 0.11007694220100801752e0 * t30 * t5 * t32 - 0.17435554761373467037e0 * t35 * t12 * t32 + 0.33464703750241849756e-1 * t39 * t26 * t32 - 0.16857912969353958325e-2 * t43 * t44 * t32;
 
-  if(order <= 4) return;
+  if(order < 4) return;
 
 
 }

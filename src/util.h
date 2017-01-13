@@ -143,6 +143,7 @@ void XC(lda_end) (XC(func_type) *p);
 
 typedef struct XC(lda_work_t) {
   int   order; /* to which order should I return the derivatives */
+  FLOAT rss; /* WARNING TEMPORARY CODE */
   FLOAT rs[3], zeta;
 
   FLOAT zk;

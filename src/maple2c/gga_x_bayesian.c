@@ -26,7 +26,7 @@ void XC(gga_x_bayesian_enhance)
   t11 = t7 * t10;
   *f = 0.10008e1 + t3 * t11;
 
-  if(order <= 1) return;
+  if(order < 1) return;
 
   t13 = t1 * x;
   t16 = t1 * X2S;
@@ -37,7 +37,7 @@ void XC(gga_x_bayesian_enhance)
   t28 = t7 * t27;
   *dfdx = 0.2e1 * t13 * t11 - 0.2e1 * t17 * t20 + t3 * t28;
 
-  if(order <= 2) return;
+  if(order < 2) return;
 
   t30 = t1 * t7;
   t33 = t16 * x;
@@ -51,7 +51,7 @@ void XC(gga_x_bayesian_enhance)
   t54 = t7 * t53;
   *d2fdx2 = 0.2e1 * t30 * t10 + 0.4e1 * t13 * t28 - 0.4e1 * t17 * t45 - 0.8e1 * t33 * t20 + t3 * t54 + 0.6e1 * t39 * t42;
 
-  if(order <= 3) return;
+  if(order < 3) return;
 
   t56 = t16 * t19;
   t61 = t38 * x;
@@ -59,7 +59,7 @@ void XC(gga_x_bayesian_enhance)
   t71 = 0.1e1 / t40 / t5;
   *d3fdx3 = -0.12e2 * t56 * t10 + 0.6e1 * t30 * t27 + 0.36e2 * t61 * t42 - 0.24e2 * t33 * t45 + 0.6e1 * t13 * t54 - 0.24e2 * t69 * t71 * t10 + 0.18e2 * t39 * t41 * t27 - 0.6e1 * t17 * t19 * t53 + t3 * t7 * (-0.227544e2 * t56 + 0.682632e2 * t61 * t41 - 0.455088e2 * t69 * t71);
 
-  if(order <= 4) return;
+  if(order < 4) return;
 
 
 }

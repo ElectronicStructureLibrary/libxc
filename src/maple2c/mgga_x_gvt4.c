@@ -27,7 +27,7 @@ XC(mgga_x_gvt4_enhance)(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   t29 = 0.1e1 / X_FACTOR_C;
   r->f = -(-0.9800683e0 / t5 + t11 * t13 + t24 * t26) * t29;
 
-  if(r->order <= 1) return;
+  if(r->order < 1) return;
 
   r->dfdrs = 0;
   t33 = t11 * t26;
@@ -40,7 +40,7 @@ XC(mgga_x_gvt4_enhance)(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   r->dfdt = -(0.161607366677160e-1 * t13 - 0.7469040e-2 * t33 + t54 * t26 - 0.11203560e-1 * t44) * t29;
   r->dfdu = 0;
 
-  if(r->order <= 2) return;
+  if(r->order < 2) return;
 
   r->d2fdrs2 = 0;
   t62 = t11 * t43;
@@ -57,7 +57,7 @@ XC(mgga_x_gvt4_enhance)(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   r->d2fdxu = 0;
   r->d2fdtu = 0;
 
-  if(r->order <= 3) return;
+  if(r->order < 3) return;
 
 
 }

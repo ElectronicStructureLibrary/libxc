@@ -35,6 +35,7 @@ print $out "/*
 ";
 
 my %commands = (
+  "work_lda"     => \&work_lda,
   "work_gga_x"   => \&work_gga_x,
   "work_mgga_x"  => \&work_mgga_x,
     );
@@ -53,7 +54,6 @@ sub math_replace {
     "_a_"    , "->",
     "_d_"    , ".",
     "Warning.*", "",
-    "params" , "params->",
   );
   my ($text) = @_;
 
@@ -108,7 +108,7 @@ with(CodeGeneration):
     my $i = 1;
     foreach my $ninfo (@{$info}){
       if(/@{@{$ninfo}[-1]}[0]\s+=/){
-        $new_c_code .= "  ".$_."\n  if($text_order <= $i) return;\n\n";
+        $new_c_code .= "  ".$_."\n  if($text_order < $i) return;\n\n";
         $found = 1;
       }
       $i++;
@@ -133,6 +133,59 @@ with(CodeGeneration):
 
   return ($variables, math_replace($new_c_code));
 }
+
+sub work_lda {
+  ($order, $prefix) = @_;
+
+  for(my $ispin=0; $ispin<2; $ispin++){
+    my $f = ($ispin==0) ? "f(r_a_rss, 0.0)" : "f(r_a_rss, r_a_zeta)";
+    my $info = [
+      [
+       ["r_a_zk", "$f"]
+      ], [
+        ["r_a_dedrs", "diff($f, r_a_rss)"],
+        ["r_a_dedz",  "diff($f, r_a_z)"]
+      ], [
+        ["r_a_d2edrs2", "diff($f, r_a_rss\$2)"], 
+        ["r_a_d2edz2",  "diff($f, r_a_z\$2 )"],
+        ["r_a_d2edrsz", "diff($f, r_a_rss, r_a_z)"]
+      ], [
+        ["r_a_d3edrs3",  "diff($f, r_a_rss\$3)"], 
+        ["r_a_d3edz3",   "diff($f, r_a_z\$3 )"],
+        ["r_a_d3edrs2z", "diff($f, r_a_rss\$2, r_a_z)"],
+        ["r_a_d3edrsz2", "diff($f, r_a_rss, r_a_z\$2)"]
+      ]
+    ];
+
+    ($variables, $c_code) = math_work($info, $out, $order, "r->order");
+
+    print $out "
+static void
+func$ispin(const XC(func_type) *p, XC(lda_work_t) *r)
+{
+$variables
+$prefix
+$c_code
+}
+";
+  }
+
+  # now we print the c file
+  print $out "
+void 
+XC(${functional}_func)(const XC(func_type) *p, XC(lda_work_t) *r)
+{
+  if(p->nspin == XC_UNPOLARIZED)
+    func0(p, r);
+  else
+    func1(p, r);
+}
+
+#define maple2c_order $max_order
+#define maple2c_func  XC(${functional}_func)
+";
+}
+
 
 sub work_gga_x {
   ($order, $prefix) = @_;

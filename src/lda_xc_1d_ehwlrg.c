@@ -65,8 +65,9 @@ lda_xc_1d_ehwlrg_init(XC(func_type) *p)
 
 #define XC_DIMENSIONS 1
 
-#define func XC(math2c_lda_xc_1d_ehwlrg_func)
-#include "math2c/lda_xc_1d_ehwlrg.c"
+#include "maple2c/lda_xc_1d_ehwlrg.c"
+
+#define func maple2c_func
 #include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_xc_1d_ehwlrg_1) = {

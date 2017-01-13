@@ -26,23 +26,23 @@ void XC(gga_x_rpbe_enhance)
   t7 = exp(-t2 * t5);
   *f = 0.10e1 + params->kappa * (0.10e1 - t7);
 
-  if(order <= 1) return;
+  if(order < 1) return;
 
   *dfdx = 0.2e1 * t2 * x * t7;
 
-  if(order <= 2) return;
+  if(order < 2) return;
 
   t14 = params->mu * params->mu;
   t15 = t1 * t1;
   t16 = t14 * t15;
   *d2fdx2 = -0.4e1 * t16 * t5 * t7 + 0.2e1 * t2 * t7;
 
-  if(order <= 3) return;
+  if(order < 3) return;
 
   t28 = params->kappa * params->kappa;
   *d3fdx3 = -0.12e2 * t16 * x * t4 * t7 + 0.8e1 * t14 * params->mu * t15 * t1 * t3 * x / t28 * t7;
 
-  if(order <= 4) return;
+  if(order < 4) return;
 
 
 }

@@ -242,6 +242,8 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     d2XXdzxs[1] = -4.0*omz13/(6.0*M_CBRT2);
     d2XXdz2[0]  =  4.0*r->xs[0]/(3.0*6.0*M_CBRT2*opz13*opz13);
     d2XXdz2[1]  =  4.0*r->xs[1]/(3.0*6.0*M_CBRT2*omz13*omz13);
+    d2XXdxs2[0] =  0.0;
+    d2XXdxs2[1] =  0.0;
 
     d2YYdXX2[0]  = 4.0;
     d2YYdXX2[1]  = 4.0;

@@ -29,7 +29,7 @@ func(const XC(func_type) *p, int order, FLOAT x,
 {
   const FLOAT beta = 0.0042, gamma = 6;
   const FLOAT c0 = 1.09878, c1 = -2.51173, c2 = 0.0156233;
-  FLOAT x2, aux1, aux2, f1, f2, f3, df1, df2, df3, d2f1, d2f2, d2f3, d3f1, d3f2, d3f3, dd;
+  FLOAT x2, aux1, aux2, f1, f2, f3, df1, df2, df3, d2f1, d2f2, d2f3, d3f1, d3f2, d3f3;
 
   x2 = x*x;
 

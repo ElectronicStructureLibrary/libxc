@@ -30,14 +30,26 @@
 /* we include the references also */
 #include "references.h"
 
-/* If strict ANSI, then some useful macros are not defined */
-#if defined(__STRICT_ANSI__)
+#ifndef M_E
 # define M_E            2.7182818284590452354   /* e */
+#endif
+#ifndef M_PI
 # define M_PI           3.14159265358979323846  /* pi */
+#endif
+#ifndef M_SQRT2
 # define M_SQRT2        1.41421356237309504880  /* sqrt(2) */
+#endif
+
+#ifdef _MSC_VER
+#define strcasecmp  _stricmp
+#define strncasecmp _strnicmp
+
 double asinh (double x);
 float  asinhf(float  x);
+double erf(double);
+double erfc(double);
 #endif
+
 
 #define M_SQRTPI        1.772453850905516027298167483341145182798L
 #define M_SQRT3         1.732050807568877293527446341505872366943L
@@ -50,8 +62,12 @@ float  asinhf(float  x);
 #define M_CBRT9         2.080083823051904114530056824357885386338L
 
 /* Very useful macros */
+#ifndef min
 #define min(x,y)  ((x<y) ? (x) : (y))
+#endif
+#ifndef max
 #define max(x,y)  ((x<y) ? (y) : (x))
+#endif
 
 /* some useful constants */
 #define LOG_FLOAT_MIN   (LOG(FLOAT_MIN))

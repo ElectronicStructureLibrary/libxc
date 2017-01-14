@@ -23,6 +23,10 @@
 extern "C" {
 #endif
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <xc_version.h>
 #include "xc_config.h"
   

@@ -124,7 +124,10 @@ legf(int order, int legorder, const FLOAT *coefs, FLOAT xi, FLOAT xj,
      FLOAT *f, FLOAT *dfdxi, FLOAT *dfdxj)
 {
   int i, j, k, m;
-  FLOAT Li[legorder], dLi[legorder], Lj[legorder], dLj[legorder];
+  FLOAT *Li, *dLi, *Lj, *dLj;
+
+  Li  = (FLOAT*)malloc(sizeof(FLOAT)*legorder);
+  Lj  = (FLOAT*)malloc(sizeof(FLOAT)*legorder);
 
   /* product exchange enhancement factor and derivatives */
 
@@ -148,7 +151,13 @@ legf(int order, int legorder, const FLOAT *coefs, FLOAT xi, FLOAT xj,
     }
   }
 
-  if(order < 1) return;
+  if(order < 1){
+    free(Li); free(Lj);
+    return;
+  }
+
+  dLi = (FLOAT*)malloc(sizeof(FLOAT)*legorder);
+  dLj = (FLOAT*)malloc(sizeof(FLOAT)*legorder);
 
   dLi[0] = 0.0; dLi[1] = 1.0;
   dLj[0] = 0.0; dLj[1] = 1.0;
@@ -169,6 +178,8 @@ legf(int order, int legorder, const FLOAT *coefs, FLOAT xi, FLOAT xj,
     }
   }  
 
+  free(Li);  free(Lj);
+  free(dLi); free(dLj);
 }
 
 static void 

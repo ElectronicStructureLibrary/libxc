@@ -76,14 +76,14 @@ const char *get_family(const xc_func_type *func) {
 }
 
 int main(int argc, char **argv) {
+  int i, func_id, error;
+  xc_func_type func;
+  char *fname;
+
   if(argc!=2) {
     printf("Usage: %s [ func_id | func_name ]\n",argv[0]);
     return 1;
   }
-
-  int i, func_id, error;
-  xc_func_type func;
-  char *fname;
 
   /* Is functional defined by a string constant? */
   if(isalpha(argv[1][0]))

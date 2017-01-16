@@ -306,6 +306,7 @@ void XC(gga_x_b88_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma);
 void XC(gga_x_optx_set_params)(XC(func_type) *p, FLOAT a, FLOAT b, FLOAT gamma);
 void XC(gga_x_wpbeh_set_params)(XC(func_type) *p, FLOAT omega);
 void XC(gga_x_pbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu);
+void XC(gga_x_pbeint_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT alpha, FLOAT muPBE, FLOAT muGE);
 void XC(gga_x_ityh_set_params)(XC(func_type) *p, int func_id, FLOAT omega);
 void XC(gga_x_b86_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma, FLOAT omega);
 void XC(gga_x_rpbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu);

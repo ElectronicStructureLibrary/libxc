@@ -63,19 +63,20 @@ libxc_la_FUNC_SOURCES = \
 	gga_x_hcth_a.c gga_x_cap.c gga_x_beefvdw.c gga_x_sg4.c          \
 	gga_x_gg99.c gga_x_pbepow.c gga_x_lag.c gga_k_thakkar.c         \
 	gga_xc_oblyp_d.c hyb_gga_xc_b3lyp.c hyb_gga_xc_o3lyp.c		\
+	gga_x_pbeint.c gga_x_rge2.c                                     \
 	hyb_gga_xc_pbeh.c hyb_gga_xc_b1wc.c 				\
 	hyb_gga_xc_hse.c hyb_gga_xc_cam_b3lyp.c				\
 	hyb_gga_xc_camy_blyp.c hyb_gga_xc_camy_b3lyp.c			\
-	hyb_gga_xc_lcy_pbe.c hyb_gga_xc_lcy_blyp.c gga_xc_vv10.c \
-	hyb_gga_xc_edf2.c \
-	mgga.c \
-	mgga_x_lta.c mgga_x_tpss.c mgga_x_br89.c mgga_x_gvt4.c	\
-	mgga_x_m06l.c mgga_x_tau_hcth.c mgga_x_2d_prhg07.c	\
-	mgga_x_pkzb.c hyb_mgga_x_m05.c mgga_x_m08.c mgga_x_ms.c	\
-	mgga_x_mn12.c mgga_x_mk00.c mgga_c_vsxc.c mgga_c_pkzb.c	\
-	mgga_c_bc95.c mgga_c_m08.c mgga_xc_cc06.c mgga_c_cs.c	\
-	mgga_xc_otpss_d.c mgga_xc_zlp.c hyb_mgga_xc_b88b95.c	\
-	mgga_x_mbeef.c mgga_xc_b97mv.c mgga_x_scan.c mgga_c_scan.c \
+	hyb_gga_xc_lcy_pbe.c hyb_gga_xc_lcy_blyp.c gga_xc_vv10.c        \
+	hyb_gga_xc_edf2.c                                               \
+	mgga.c                                                          \
+	mgga_x_lta.c mgga_x_tpss.c mgga_x_br89.c mgga_x_gvt4.c	        \
+	mgga_x_m06l.c mgga_x_tau_hcth.c mgga_x_2d_prhg07.c	        \
+	mgga_x_pkzb.c hyb_mgga_x_m05.c mgga_x_m08.c mgga_x_ms.c	        \
+	mgga_x_mn12.c mgga_x_mk00.c mgga_c_vsxc.c mgga_c_pkzb.c	        \
+	mgga_c_bc95.c mgga_c_m08.c mgga_xc_cc06.c mgga_c_cs.c	        \
+	mgga_xc_otpss_d.c mgga_xc_zlp.c hyb_mgga_xc_b88b95.c	        \
+	mgga_x_mbeef.c mgga_xc_b97mv.c mgga_x_scan.c mgga_c_scan.c      \
 	hyb_mgga_xc_tpssh.c mgga_x_mvs.c hyb_mgga_x_mvsh.c
 
 libxc_la_FUNC_SINGLE_SOURCES = $(libxc_la_FUNC_SOURCES:.c=_s.c)

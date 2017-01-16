@@ -30,7 +30,7 @@ GGAs:
   *) PBE2, PBE3, PBE4 and exp4 KED functionals http://dx.doi.org/10.1007/s10820-006-9019-8  http://dx.doi.org/10.1103/PhysRevB.80.245120
 
 mGGAs:
-  *) Tao-Mo (TM) functional http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.117.073001
+  *) correlation of Tao-Mo (TM) functional http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.117.073001
   *) Bc98 in http://scitation.aip.org/content/aip/journal/jcp/88/2/10.1063/1.454274
   *) hybrids in http://scitation.aip.org/content/aip/journal/jcp/112/9/10.1063/1.480951
   *) tau-PBE (http://scitation.aip.org/content/aip/journal/jcp/111/3/10.1063/1.479374)

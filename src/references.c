@@ -1808,3 +1808,10 @@ func_reference_type xc_ref_Bremond2016_244102 = {
 };
 
 
+func_reference_type xc_ref_Tao2016_073001 = {
+  "J. Tao and Y. Mo, Phys. Rev. Lett. 117, 073001 (2016)",
+  "10.1103/PhysRevLett.117.073001",
+  "@article{Tao2016_073001,\n  title = {Accurate Semilocal Density Functional for Condensed-Matter Physics and Quantum Chemistry},\n  author = {Tao, Jianmin and Mo, Yuxiang},\n  journal = {Phys. Rev. Lett.},\n  volume = {117},\n  issue = {7},\n  pages = {073001},\n  numpages = {6},\n  year = {2016},\n  month = {Aug},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.117.073001},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.117.073001}\n}"
+};
+
+

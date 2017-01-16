@@ -1815,3 +1815,10 @@ func_reference_type xc_ref_Tao2016_073001 = {
 };
 
 
+func_reference_type xc_ref_Campo2012_179 = {
+  "J. M. del Campo, J. L. Gázquez, S. Trickey, and A. Vela, Chem. Phys. Lett. 543, 179 (2012)",
+  "10.1016/j.cplett.2012.06.025",
+  "@article{Campo2012_179,\ntitle = \"A new meta-GGA exchange functional based on an improved constraint-based \\{GGA\\} \",\njournal = \"Chemical Physics Letters \",\nvolume = \"543\",\nnumber = \"\",\npages = \"179 - 183\",\nyear = \"2012\",\nnote = \"\",\nissn = \"0009-2614\",\ndoi = \"http://dx.doi.org/10.1016/j.cplett.2012.06.025\",\nurl = \"http://www.sciencedirect.com/science/article/pii/S0009261412007117\",\nauthor = \"Jorge M. del Campo and José L. Gázquez and S.B. Trickey and Alberto Vela\",\n}"
+};
+
+

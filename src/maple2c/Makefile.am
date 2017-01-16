@@ -1,5 +1,3 @@
-## Process this file with automake to produce Makefile.in
-
 ## Copyright (C) 2016 M. Marques
 ##
 ## This program is free software; you can redistribute it and/or modify
@@ -26,4 +24,4 @@ noinst_HEADERS =  \
   gga_x_b88.c gga_x_g96.c gga_x_pbepow.c gga_x_pbe.c gga_x_pbeint.c         \
   gga_x_rge2.c \
   mgga_x_gvt4.c mgga_x_lta.c mgga_x_mk00.c mgga_x_ms.c mgga_x_mvs.c \
-  mgga_x_pkzb.c
+  mgga_x_pkzb.c mgga_x_m06l.c mgga_x_tpss.c

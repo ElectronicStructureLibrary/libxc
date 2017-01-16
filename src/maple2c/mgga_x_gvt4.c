@@ -11,7 +11,7 @@ XC(mgga_x_gvt4_enhance)(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 {
   double t1, t5, t11, t12, t13, t15, t19, t22;
   double t24, t26, t29, t33, t40, t42, t43, t44;
-  double t54, t62, t71, t76, t84, t2;
+  double t54, t62, t71, t76, t84;
 
 
   t1 = r->x * r->x;

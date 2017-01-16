@@ -41,22 +41,19 @@ gga_x_pbe_init(XC(func_type) *p)
   params = (gga_x_pbeint_params *) (p->params);
  
   switch(p->info->number){
-  case XC_GGA_X_PBEINT: {
+  case XC_GGA_X_PBEINT:
     XC(gga_x_pbeint_set_params)(p, 0.8040, 0.197, 0.2195149727645171, MU_GE);
     break;
-  }
-  case XC_GGA_K_APBEINT: {
+  case XC_GGA_K_APBEINT:
     XC(gga_x_pbeint_set_params)(p, 0.8040, 5.0/3.0, 0.23899, 5.0/27.0);
     break;
-  }
-  case XC_GGA_K_REVAPBEINT: {
+  case XC_GGA_K_REVAPBEINT:
     XC(gga_x_pbeint_set_params)(p, 1.245, 5.0/3.0, 0.23899, 5.0/27.0);
     break;
-  }
-  default: {
+  default:
     fprintf(stderr, "Internal error in gga_x_pbeint\n");
     exit(1);
-  }}
+  }
 }
 
 

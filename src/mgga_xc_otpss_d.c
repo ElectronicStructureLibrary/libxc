@@ -30,7 +30,7 @@ mgga_xc_otpss_d_init(XC(func_type) *p)
   static FLOAT funcs_coef[2] = {1.0, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
-  XC(mgga_x_tpss_set_params)(p->func_aux[0], 3.43, 0.75896, 0.165, 0.778, 0.41567);
+  XC(mgga_x_tpss_set_params)(p->func_aux[0], 3.43, 0.75896, 0.165, 0.778, 0.41567, 2.0, 0.0);
   XC(mgga_c_pkzb_set_params)(p->func_aux[1], 0.08861, 0.7, 0.59, 0.9269, 0.6225, 2.1540);
 }
 

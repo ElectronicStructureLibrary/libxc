@@ -77,16 +77,10 @@ mgga_x_m06l_init(XC(func_type) *p)
     fprintf(stderr, "Internal error in mgga_x_m06l\n");
     exit(1);
   }
-
-  p->n_func_aux  = 1;
-  p->func_aux    = (XC(func_type) **) malloc(sizeof(XC(func_type) *)*p->n_func_aux);
-  p->func_aux[0] = (XC(func_type) *)  malloc(sizeof(XC(func_type)));
-
-  XC(func_init)(p->func_aux[0], XC_GGA_X_PBE, p->nspin);
 }
 
 
-/* Eq. (8) */
+/* WARNING, TO BE REMOVED Eq. (8) */
 void 
 XC(mgga_series_w)(int order, int n, const FLOAT *a, FLOAT t, FLOAT *fw, FLOAT *dfwdt)
 {
@@ -111,36 +105,9 @@ XC(mgga_series_w)(int order, int n, const FLOAT *a, FLOAT t, FLOAT *fw, FLOAT *d
   }
 }
 
+#include "maple2c/mgga_x_m06l.c"
 
-static void 
-func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
-{
-  const FLOAT alpha = 0.00186726;   /* set alpha of Eq. (4) */
-
-  mgga_x_m06l_params *params;
-  FLOAT f_pbe, dfdx_pbe;
-  FLOAT h, dhdx, dhdz, fw, dfwdt;
-
-  assert(pt!=NULL && pt->params != NULL);
-  params = (mgga_x_m06l_params *)pt->params;
-
-  XC(gga_x_pbe_enhance)(pt->func_aux[0], r->order, r->x, &f_pbe, &dfdx_pbe, NULL, NULL);
-
-  XC(mgga_series_w)(r->order, 12, params->a, r->t, &fw, &dfwdt);
-
-  /* there is a factor if 2 in the definition of z, as in Theor. Chem. Account 120, 215 (2008) */
-  XC(mgga_x_gvt4_func)(r->order, r->x, 2.0*(r->t - K_FACTOR_C), alpha, params->d, &h, &dhdx, &dhdz);
-
-  /* A MINUS was missing in Eq. (7) of the paper */
-  r->f = f_pbe*fw + h;
-
-  if(r->order < 1) return;
-
-  r->dfdx = dfdx_pbe*fw + dhdx;
-  r->dfdt = f_pbe*dfwdt + 2.0*dhdz;
-}
-
-
+#define func XC(mgga_x_m06l_enhance)
 #include "work_mgga_x.c"
 
 const XC(func_info_type) XC(func_info_mgga_x_m06_l) = {
@@ -152,10 +119,8 @@ const XC(func_info_type) XC(func_info_mgga_x_m06_l) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   0, NULL, NULL,
-  mgga_x_m06l_init,
-  NULL,
-  NULL, NULL,        /* this is not an LDA                   */
-  work_mgga_x,
+  mgga_x_m06l_init, NULL,
+  NULL, NULL, work_mgga_x,
 };
 
 const XC(func_info_type) XC(func_info_hyb_mgga_x_m06_hf) = {
@@ -167,10 +132,8 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_m06_hf) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   0, NULL, NULL,
-  mgga_x_m06l_init,
-  NULL,
-  NULL, NULL,        /* this is not an LDA                   */
-  work_mgga_x,
+  mgga_x_m06l_init, NULL,
+  NULL, NULL, work_mgga_x,
 };
 
 const XC(func_info_type) XC(func_info_hyb_mgga_x_m06) = {
@@ -182,8 +145,6 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_m06) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   0, NULL, NULL,
-  mgga_x_m06l_init,
-  NULL,
-  NULL, NULL,        /* this is not an LDA                   */
-  work_mgga_x,
+  mgga_x_m06l_init, NULL, 
+  NULL, NULL, work_mgga_x,
 };

@@ -6,5 +6,9 @@
   params = (gga_x_pbe_params * )(p->params);
 *)
 
-f0 := s -> 1.0 + params_a_kappa * (1.0 - params_a_kappa/(params_a_kappa + params_a_mu*s^2)):
-f  := x -> f0(X2S * x):
+kappa := params_a_kappa:
+mu    := params_a_mu:
+
+$include "pbe_x.mpl"
+
+f  := x -> pbe_x(x):

@@ -64,94 +64,74 @@ gga_x_pbe_init(XC(func_type) *p)
   params->lambda = 0.0;
 
   switch(p->info->number){
-  case XC_GGA_X_PBE: {
+  case XC_GGA_X_PBE:
     /* PBE: mu = beta*pi^2/3, beta = 0.06672455060314922 */
     XC(gga_x_pbe_set_params)(p, 0.8040, 0.2195149727645171);
     break;
-  }
-  case XC_GGA_X_PBE_R: {
+  case XC_GGA_X_PBE_R:
     XC(gga_x_pbe_set_params)(p, 1.245, 0.2195149727645171);
     break;
-  }
-  case XC_GGA_X_PBE_SOL: {
+  case XC_GGA_X_PBE_SOL:
     XC(gga_x_pbe_set_params)(p, 0.804, MU_GE);
     break;
-  }
-  case XC_GGA_X_XPBE: {
+  case XC_GGA_X_XPBE:
     XC(gga_x_pbe_set_params)(p, 0.91954, 0.23214);
     break;
-  }
-  case XC_GGA_X_PBE_JSJR: {
+  case XC_GGA_X_PBE_JSJR:
     XC(gga_x_pbe_set_params)(p, 0.8040, 0.046*M_PI*M_PI/3.0);
     break;
-  }
-  case XC_GGA_X_PBEK1_VDW: {
+  case XC_GGA_X_PBEK1_VDW:
     XC(gga_x_pbe_set_params)(p, 1.0, 0.2195149727645171);
     break;
-  }
-  case XC_GGA_X_APBE: {
+  case XC_GGA_X_APBE:
     XC(gga_x_pbe_set_params)(p, 0.8040, 0.260);
     break;
-  }
-  case XC_GGA_K_APBE: {
+  case XC_GGA_K_APBE:
     XC(gga_x_pbe_set_params)(p, 0.8040, 0.23889);
     break;
-  }
-  case XC_GGA_K_TW1: {
+  case XC_GGA_K_TW1:
     XC(gga_x_pbe_set_params)(p, 0.8209, 0.2335);
     break;
-  }
-  case XC_GGA_K_TW2: {
+  case XC_GGA_K_TW2:
     XC(gga_x_pbe_set_params)(p, 0.6774, 0.2371);
     break;
-  }
-  case XC_GGA_K_TW3: {
+  case XC_GGA_K_TW3:
     XC(gga_x_pbe_set_params)(p, 0.8438, 0.2319);
     break;
-  }
-  case XC_GGA_K_TW4: {
+  case XC_GGA_K_TW4:
     XC(gga_x_pbe_set_params)(p, 0.8589, 0.2309);
     break;
-  }
-  case XC_GGA_X_PBE_TCA: {
+  case XC_GGA_X_PBE_TCA:
     XC(gga_x_pbe_set_params)(p, 1.227, 0.2195149727645171);
     break;
-  }
-  case XC_GGA_K_REVAPBE: {
+  case XC_GGA_K_REVAPBE:
     XC(gga_x_pbe_set_params)(p, 1.245, 0.23889);
     break;
-  }
-  case XC_GGA_X_PBE_MOL: {
+  case XC_GGA_X_PBE_MOL:
     XC(gga_x_pbe_set_params)(p, 0.8040, 0.27583);
     break;
-  }
-  case XC_GGA_X_LAMBDA_LO_N: {
+  case XC_GGA_X_LAMBDA_LO_N:
     XC(gga_x_pbe_set_params)(p, -1.0, 0.2195149727645171);
     params->lambda = 2.273;
     break;
-  }
-  case XC_GGA_X_LAMBDA_CH_N: {
+  case XC_GGA_X_LAMBDA_CH_N:
     XC(gga_x_pbe_set_params)(p, -1.0, 0.2195149727645171);
     params->lambda = 2.215;
     break;
-  }
-  case XC_GGA_X_LAMBDA_OC2_N: {
+  case XC_GGA_X_LAMBDA_OC2_N:
     XC(gga_x_pbe_set_params)(p, -1.0, 0.2195149727645171);
     params->lambda = 2.00;
     break;
-  }
-  case XC_GGA_X_BCGP: {
+  case XC_GGA_X_BCGP:
     XC(gga_x_pbe_set_params)(p, 0.8040, 0.249);
     break;
-  }
-  case XC_GGA_X_PBEFE: {
+  case XC_GGA_X_PBEFE:
     XC(gga_x_pbe_set_params)(p, 0.437, 0.346);
     break;
-  }
-  default: {
+  default:
     fprintf(stderr, "Internal error in gga_x_pbe\n");
     exit(1);
-  }}
+  }
 }
 
 

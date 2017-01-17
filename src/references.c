@@ -1829,3 +1829,10 @@ func_reference_type xc_ref_Constantin2016_115127 = {
 };
 
 
+func_reference_type xc_ref_Perdew2007_155109 = {
+  "J. P. Perdew and L. A. Constantin, Phys. Rev. B 75, 155109 (2007)",
+  "10.1103/PhysRevB.75.155109",
+  "@article{Perdew2007_155109,\n  title = {Laplacian-level density functionals for the kinetic energy density and exchange-correlation energy},\n  author = {Perdew, John P. and Constantin, Lucian A.},\n  journal = {Phys. Rev. B},\n  volume = {75},\n  issue = {15},\n  pages = {155109},\n  numpages = {9},\n  year = {2007},\n  month = {Apr},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.75.155109},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.75.155109}\n}"
+};
+
+

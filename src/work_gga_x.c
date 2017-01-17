@@ -16,14 +16,14 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdlib.h>
-
 /************************************************************************
   This file is to be included in GGA exchange functionals. As often these
-  functionals are written as a function of s = |grad n|/n^(4/3), this
-  routine performs the necessary conversions between a functional of s
+  functionals are written as a function of x = |grad n|/n^(4/3), this
+  routine performs the necessary conversions between a functional of x
   and of rho.
 ************************************************************************/
+
+#include <stdlib.h>
 
 #ifndef HEADER
 #  define HEADER 1
@@ -149,16 +149,7 @@ work_gga_x
 
 #if   HEADER == 1
 
-      if(p->derivatives == XC_DERIVATIVES_HANDWRITTEN){
-        func(p, order, x, &f, &dfdx, &d2fdx2, &d3fdx3);
-      }else{
-#if   defined(math2c_func)
-        math2c_func(p, order, x, &f, &dfdx, &d2fdx2, &d3fdx3);
-#else
-        fprintf(stderr, "Functional does not have a Mathematica implementation!\n");
-        exit(1);
-#endif
-      }
+      func(p, order, x, &f, &dfdx, &d2fdx2, &d3fdx3);
 
 #elif HEADER == 2
 

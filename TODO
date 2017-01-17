@@ -38,7 +38,6 @@ mGGAs:
   *) KCIS, B0KCIS, B1KCIS http://jcp.aip.org/resource/1/jcpsa6/v117/i23/p10465_s1
   *) LAP class of functionals [70]
   *) PK06 (part of the LAP class of functionals) http://dx.doi.org/10.1021/ct600372t
-  *) Perdew-Constantin laplacian-level KED functional http://link.aps.org/doi/10.1103/PhysRevB.75.155109
   *) Alternative parametrizations of the TB09 functional http://dx.doi.org/10.1103/PhysRevB.85.155109
   *) MCY1 and MCY2 http://dx.doi.org/10.1063/1.2179072
   *) spin-polarized Colle-Salvetti -type correlation http://www.sciencedirect.com/science/article/pii/S0009261497002017

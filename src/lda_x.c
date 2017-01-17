@@ -205,26 +205,6 @@ XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa,
 }
 
 #include "hand_written/lda_x.c"
-#include "math2c/lda_x.c"
-#undef math2c_func
-
-static inline void 
-math2c_new_func(const XC(func_type) *p, XC(lda_work_t) *r)
-{
-  if(p->info->number == XC_LDA_X_REL){
-    fprintf(stderr, "Relativistic LDA not implemented in mathematica");
-    exit(1);
-  }
-  if(p->cam_omega != 0.0){
-    fprintf(stderr, "Attenuated LDA not implemented in mathematica");
-    exit(1);
-  }
-
-  /* now it is safe to call this */
-  XC(math2c_lda_x_func)(p, r);
-}
-
-#define math2c_func math2c_new_func
 #include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_x) = {

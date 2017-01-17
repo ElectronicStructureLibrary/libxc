@@ -145,7 +145,6 @@ int XC(func_init)(XC(func_type) *func, int functional, int nspin)
 
   /* initialize structure */
   func->nspin       = nspin;
-  func->derivatives = XC_DERIVATIVES_HANDWRITTEN;
 
   func->params     = NULL;
   func->func       = 0;
@@ -280,16 +279,6 @@ void  XC(func_free)(XC(func_type) *p)
 const XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p)
 {
   return p->info;
-}
-
-/*------------------------------------------------------*/
-void XC(func_set_derivatives)(XC(func_type) *p, int derivatives)
-{
-  assert(derivatives == XC_DERIVATIVES_HANDWRITTEN ||
-         derivatives == XC_DERIVATIVES_AUTO ||
-         derivatives == XC_DERIVATIVES_BOTH);
-
-  p->derivatives = derivatives;
 }
 
 /*------------------------------------------------------*/

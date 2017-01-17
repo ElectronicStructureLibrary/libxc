@@ -19,7 +19,7 @@
 ##
 ## $Id$
 
-SUBDIRS = maple2c math2c hand_written
+SUBDIRS = maple2c hand_written
 
 bin_PROGRAMS = xc-info
 noinst_PROGRAMS = genwiki
@@ -78,7 +78,7 @@ libxc_la_FUNC_SOURCES = \
 	mgga_xc_otpss_d.c mgga_xc_zlp.c hyb_mgga_xc_b88b95.c	        \
 	mgga_x_mbeef.c mgga_xc_b97mv.c mgga_x_scan.c mgga_c_scan.c      \
 	hyb_mgga_xc_tpssh.c mgga_x_mvs.c hyb_mgga_x_mvsh.c              \
-	mgga_x_tm.c mgga_x_vt84.c mgga_x_sa_tpss.c
+	mgga_x_tm.c mgga_x_vt84.c mgga_x_sa_tpss.c mgga_k_pc07.c
 
 libxc_la_FUNC_SINGLE_SOURCES = $(libxc_la_FUNC_SOURCES:.c=_s.c)
 

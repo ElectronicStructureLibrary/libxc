@@ -50,10 +50,6 @@ extern "C" {
 #define XC_FAMILY_HYB_GGA      32
 #define XC_FAMILY_HYB_MGGA     64
 
-#define XC_DERIVATIVES_HANDWRITTEN  1
-#define XC_DERIVATIVES_AUTO         2
-#define XC_DERIVATIVES_BOTH         3
-
 /* flags that can be used in info.flags. Don't reorder these since it
    will break the ABI of the library. */
 #define XC_FLAGS_HAVE_EXC         (1 <<  0) /*     1 */
@@ -136,9 +132,6 @@ struct XC(func_type){
   const XC(func_info_type) *info;       /* all the information concerning this functional */
   int nspin;                            /* XC_UNPOLARIZED or XC_POLARIZED  */
   
-  int derivatives;                      /* XC_DERIVATIVES_HANDWRITTEN, XC_DERIVATIVES_AUTO
-                                           or XC_DERIVATIVES_BOTH */
-
   int n_func_aux;                       /* how many auxiliary functions we need */
   struct XC(func_type) **func_aux;      /* most GGAs are based on a LDA or other GGAs  */
   FLOAT *mix_coef;                      /* coefficients for the mixing */
@@ -177,7 +170,6 @@ void  XC(func_end)(XC(func_type) *p);
 void  XC(func_free)(XC(func_type) *p);
 const XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p);
 void  XC(func_set_ext_params)(XC(func_type) *p, double *ext_params);
-void  XC(func_set_derivatives)(XC(func_type) *p, int derivatives);
 
 #include "xc_funcs.h"
 #include "xc_funcs_removed.h"

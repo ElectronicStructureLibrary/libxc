@@ -19,7 +19,7 @@
 ##
 ## $Id$
 
-noinst_PROGRAMS = xc-get_data xc-consistency xc-regression xc-auto xc-error
+noinst_PROGRAMS = xc-get_data xc-consistency xc-regression xc-error
 dist_noinst_SCRIPTS = xc-run_testsuite xc-reference.pl
 TESTS = xc-run_testsuite
 TESTS_ENVIRONMENT = buildir=$(top_builddir)/testsuite
@@ -35,10 +35,6 @@ xc_consistency_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
 xc_regression_SOURCES = xc-regression.c
 xc_regression_LDADD = -L../src/ -lxc -lm
 xc_regression_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
-
-xc_auto_SOURCES = xc-auto.c
-xc_auto_LDADD = -L../src/ -lxc -lm
-xc_auto_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
 
 xc_error_SOURCES = xc-error.c
 xc_error_LDADD = -lm

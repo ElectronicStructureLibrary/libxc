@@ -73,16 +73,7 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
     r.rs[0] = SQRT(r.rs[1]);
     r.rs[2] = r.rs[1]*r.rs[1];
 
-    if(p->derivatives == XC_DERIVATIVES_HANDWRITTEN){
-      func(p, &r);
-    }else{
-#if   defined(math2c_func)
-      math2c_func(p, &r);
-#else
-      fprintf(stderr, "Functional does not have a Mathematica implementation!\n");
-      exit(1);
-#endif
-    }      
+    func(p, &r);
 
     if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
       *zk = r.zk;

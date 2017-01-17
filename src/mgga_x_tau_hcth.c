@@ -73,72 +73,9 @@ mgga_x_tau_hcth_init(XC(func_type) *p)
   }
 }
 
+#include "maple2c/mgga_x_tau_hcth.c"
 
-/* Eq. (22) */
-void
-XC(mgga_b00_fw)(int order, FLOAT t, FLOAT *fw, FLOAT *dfwdt)
-{
-  FLOAT w, w2;
-
-  w = (K_FACTOR_C - t)/(K_FACTOR_C + t);
-  w2 = w*w;
-
-  *fw = w*(1.0 - 2.0*w2 + w2*w2);
-
-  if(order < 1) return;
-
-  *dfwdt = 1.0 - 6.0*w2 + 5.0*w2*w2;
-  *dfwdt *= -2.0*K_FACTOR_C/((K_FACTOR_C + t)*(K_FACTOR_C + t));
-}
-
-
-static void
-eq_29(int order, FLOAT x, FLOAT *ux, FLOAT *duxdx)
-{
-  static FLOAT gamX = 0.004;
-  FLOAT x2, denom;
-
-  x2    = x*x;
-  denom = 1.0 + gamX*x2;
-
-  *ux = gamX*x2/denom;
-
-  if(order < 1) return;
-
-  *duxdx = 2.0*gamX*x/(denom*denom);
-}
-
-static void 
-func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
-{
-  const mgga_x_tau_hcth_params *params;
-  const FLOAT *cx_local, *cx_nlocal;
-
-  FLOAT ux, ux2, gxl, gxnl, fx;
-  FLOAT duxdx, dgxldu, dgxnldu, dfxdt;
-
-  params = (mgga_x_tau_hcth_params *)(pt->params);
-  cx_local  = params->cx_local;
-  cx_nlocal = params->cx_nlocal;
-
-  eq_29          (r->order, r->x, &ux, &duxdx);
-  XC(mgga_b00_fw)(r->order, r->t, &fx, &dfxdt);
-
-  ux2  = ux*ux;
-  gxl  = cx_local [0] + ux*(cx_local [1] + cx_local [2]*ux + cx_local [3]*ux2);
-  gxnl = cx_nlocal[0] + ux*(cx_nlocal[1] + cx_nlocal[2]*ux + cx_nlocal[3]*ux2);
-
-  r->f = gxl + gxnl*fx;
-
-  if(r->order < 1) return;
-
-  dgxldu  = cx_local [1] + 2.0*cx_local [2]*ux + 3.0*cx_local [3]*ux2;
-  dgxnldu = cx_nlocal[1] + 2.0*cx_nlocal[2]*ux + 3.0*cx_nlocal[3]*ux2;
-
-  r->dfdx = (dgxldu + dgxnldu*fx)*duxdx;
-  r->dfdt = gxnl*dfxdt;
-}
-
+#define func maple2c_func
 #include "work_mgga_x.c"
 
 const XC(func_info_type) XC(func_info_mgga_x_tau_hcth) = {
@@ -147,11 +84,11 @@ const XC(func_info_type) XC(func_info_mgga_x_tau_hcth) = {
   "tau-HCTH from Boese and Handy",
   XC_FAMILY_MGGA,
   {&xc_ref_Boese2002_9559, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   0, NULL, NULL,
-  mgga_x_tau_hcth_init, 
-  NULL, NULL, NULL,
+  mgga_x_tau_hcth_init, NULL, 
+  NULL, NULL,
   work_mgga_x,
 };
 
@@ -161,12 +98,11 @@ const XC(func_info_type) XC(func_info_mgga_x_bmk) = {
   "Boese-Martin for kinetics",
   XC_FAMILY_MGGA,
   {&xc_ref_Boese2004_3405, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   0, NULL, NULL,
-  mgga_x_tau_hcth_init, 
-  NULL, NULL, NULL,
-  work_mgga_x,
+  mgga_x_tau_hcth_init, NULL, 
+  NULL, NULL, work_mgga_x,
 };
 
 const XC(func_info_type) XC(func_info_hyb_mgga_x_tau_hcth) = {
@@ -175,10 +111,9 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_tau_hcth) = {
   "Hybrid version of tau-HCTH",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Boese2002_9559, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   0, NULL, NULL,
-  mgga_x_tau_hcth_init, 
-  NULL, NULL, NULL,
-  work_mgga_x,
+  mgga_x_tau_hcth_init,  NULL, 
+  NULL, NULL, work_mgga_x,
 };

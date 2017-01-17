@@ -41,10 +41,8 @@ mGGAs:
   *) Perdew-Constantin laplacian-level KED functional http://link.aps.org/doi/10.1103/PhysRevB.75.155109
   *) Alternative parametrizations of the TB09 functional http://dx.doi.org/10.1103/PhysRevB.85.155109
   *) MCY1 and MCY2 http://dx.doi.org/10.1063/1.2179072
-  *) http://www.sciencedirect.com/science/article/pii/S0009261412007117
   *) spin-polarized Colle-Salvetti -type correlation http://www.sciencedirect.com/science/article/pii/S0009261497002017
   *) B94 [A. D. Becke, Int. J. Quantum Chem. Symp. 28, 625 (1994) and  E. Proynov, Z. Gan, and J. Kong, Chem. Phys. Lett. 455, 103 (2008)]
-  *) SA-TPSS http://dx.doi.org/10.1103/PhysRevB.93.115127
   *) Laplacian-level KED functional from Salazar et al http://dx.doi.org/10.1002/qua.25179
 
 hybrids:

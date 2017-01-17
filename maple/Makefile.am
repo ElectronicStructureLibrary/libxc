@@ -8,4 +8,4 @@ dist_noinst_SCRIPTS = \
   gga_x_rge2.mpl \
   mgga_x_gvt4.mpl mgga_x_lta.mpl mgga_x_mk00.mpl mgga_x_ms.mpl   \
   mgga_x_mvs.mpl mgga_x_pkzb.mpl mgga_x_tpss.mpl mgga_x_tm.mpl   \
-  mgga_x_vt84.mpl
+  mgga_x_vt84.mpl mgga_x_sa_tpss.mpl

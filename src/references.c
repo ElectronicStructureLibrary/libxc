@@ -1822,3 +1822,10 @@ func_reference_type xc_ref_Campo2012_179 = {
 };
 
 
+func_reference_type xc_ref_Constantin2016_115127 = {
+  "L. A. Constantin, E. Fabiano, J. M. Pitarke, and F. Della Sala, Phys. Rev. B 93, 115127 (2016)",
+  "10.1103/PhysRevB.93.115127",
+  "@article{Constantin2016_115127,\n  title = {Semilocal density functional theory with correct surface asymptotics},\n  author = {Constantin, Lucian A. and Fabiano, Eduardo and Pitarke, J. M. and Della Sala, Fabio},\n  journal = {Phys. Rev. B},\n  volume = {93},\n  issue = {11},\n  pages = {115127},\n  numpages = {7},\n  year = {2016},\n  month = {Mar},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.93.115127},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.93.115127}\n}"
+};
+
+

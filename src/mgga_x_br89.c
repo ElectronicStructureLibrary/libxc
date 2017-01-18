@@ -169,6 +169,24 @@ FLOAT XC(mgga_x_br89_get_x)(FLOAT Q)
   return br_x;
 }
 
+/* Eq. (22) */
+void
+XC(mgga_b00_fw)(int order, FLOAT t, FLOAT *fw, FLOAT *dfwdt)
+{
+  FLOAT w, w2;
+  
+  w = (K_FACTOR_C - t)/(K_FACTOR_C + t);
+  w2 = w*w;
+  
+  *fw = w*(1.0 - 2.0*w2 + w2*w2);
+  
+  if(order < 1) return;
+  
+  *dfwdt = 1.0 - 6.0*w2 + 5.0*w2*w2;
+  *dfwdt *= -2.0*K_FACTOR_C/((K_FACTOR_C + t)*(K_FACTOR_C + t));
+}
+
+
 static void 
 func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 {

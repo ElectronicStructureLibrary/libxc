@@ -86,6 +86,7 @@ sub math_work {
   open($mfile, ">/tmp/$$.mpl");
   printf $mfile "%s", "
 Digits := 20:
+\$include <util.mpl>
 
 \$include <$functional.mpl>
 

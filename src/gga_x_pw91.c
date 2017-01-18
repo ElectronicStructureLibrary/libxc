@@ -93,69 +93,9 @@ XC(gga_x_pw91_set_params2)(XC(func_type) *p, FLOAT bt, FLOAT alpha, FLOAT expo)
   XC(gga_x_pw91_set_params)(p, a, b, c, d, f, alpha, expo);
 }
 
+#include "maple2c/gga_x_pw91.c"
 
-void XC(gga_x_pw91_enhance)
-  (const XC(func_type) *p, int order, FLOAT x, 
-   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
-{
-
-  gga_x_pw91_params *params;
-  FLOAT ss, ss2, ss4, aux1, aux2;
-  FLOAT f1, df1, d2f1, d3f1, f2, df2, d2f2, d3f2, f3, df3, d2f3, d3f3, f4, df4, d2f4, d3f4;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_x_pw91_params *) (p->params);
-
-  ss  = X2S*x;
-  ss2 = ss*ss;
-  ss4 = POW(ss, params->expo);
-
-  f1 = params->d*EXP(-params->alpha*ss2);
-  f2 = params->a*ASINH(params->b*ss);
-  f3 = (params->c + f1)*ss2 - params->f*ss4;
-  f4 = 1.0 + ss*f2 + params->f*ss4;
-
-  *f = 1.0 + f3/f4;
-
-  if(order < 1) return;
-
-  aux1 = 1.0 + params->b*params->b*ss2;
-  aux2 = SQRT(aux1);
-
-  df1 = -2.0*params->alpha*ss*f1;
-  df2 = params->a*params->b/aux2;
-  df3 = 2.0*ss*(params->c + f1) + ss2*df1 - params->expo*params->f*ss4/ss;
-  df4 = f2 + ss*df2 + params->expo*params->f*ss4/ss;
-
-  *dfdx  = (df3*f4 - f3*df4)/(f4*f4);
-  *dfdx *= X2S;
-
-  if(order < 2) return;
-
-  d2f1 = -2.0*params->alpha*(f1 + ss*df1);
-  d2f2 = -params->a*params->b*params->b*params->b*ss/(aux1*aux2);
-  d2f3 = 2.0*(params->c + f1) + 4.0*ss*df1 + ss2*d2f1 - 
-    params->expo*(params->expo - 1.0)*params->f*ss4/ss2;
-  d2f4 = 2.0*df2 + ss*d2f2 + 
-    params->expo*(params->expo - 1.0)*params->f*ss4/ss2;
-
-  *d2fdx2  = (2.0*f3*df4*df4 + d2f3*f4*f4 - f4*(2.0*df3*df4 + f3*d2f4))/(f4*f4*f4);
-  *d2fdx2 *= X2S*X2S;
-
-  if(order < 3) return;
-
-  d3f1 = -2.0*params->alpha*(2.0*df1 + ss*d2f1);
-  d3f2 = params->a*params->b*params->b*params->b*(2.0*params->b*params->b*ss2 - 1.0)/(aux1*aux1*aux2);
-  d3f3 = 6.0*df1 + 6.0*ss*d2f1 + ss2*d3f1 -
-    params->expo*(params->expo - 1.0)*(params->expo - 2.0)*params->f*ss4/(ss*ss2);
-  d3f4 =  3.0*d2f2 + ss*d3f2 +
-    params->expo*(params->expo - 1.0)*(params->expo - 2.0)*params->f*ss4/(ss*ss2);
-
-  *d3fdx3  = (-6.0*f3*df4*df4*df4 + 6.0*f4*df4*(df3*df4 + f3*d2f4) + f4*f4*f4*d3f3 - f4*f4*(3.0*df4*d2f3 + 3.0*df3*d2f4 + f3*d3f4))/(f4*f4*f4*f4);
-  *d3fdx3 *= X2S*X2S*X2S;
-}
-
-#define func XC(gga_x_pw91_enhance)
+#define func maple2c_func
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_pw91) = {

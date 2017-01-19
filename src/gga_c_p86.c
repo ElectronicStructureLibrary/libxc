@@ -56,10 +56,11 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   rsconv = POW(4.0*M_PI/3.0, 1.0/6.0);
 
-  pw.order = r->order;
-  pw.rs[0] = SQRT(r->rs);
-  pw.rs[1] = r->rs;
-  pw.rs[2] = r->rs*r->rs;
+  //pw.order = r->order;
+  //pw.rs[0] = SQRT(r->rs);
+  //pw.rs[1] = r->rs;
+  pw.rss   = r->rs;
+  //pw.rs[2] = r->rs*r->rs;
   pw.zeta  = r->zeta;
 
   XC(lda_c_pz_func)(p->func_aux[0], &pw);
@@ -156,9 +157,6 @@ const XC(func_info_type) XC(func_info_gga_c_p86) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_p86_init,
-  NULL,
-  NULL,
-  work_gga_c,
-  NULL
+  gga_c_p86_init, NULL,
+  NULL, work_gga_c, NULL
 };

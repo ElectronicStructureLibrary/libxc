@@ -53,7 +53,7 @@ sub math_replace {
     "_s_"    , "*",
     "_a_"    , "->",
     "_d_"    , ".",
-    "Warning.*", "",
+    "Dirac\\(.*?\\)", "0.0", # have to do it here, as both Dirac(x) and Dirac(n, x) can appear
   );
   my ($text) = @_;
 
@@ -85,7 +85,9 @@ sub math_work {
   # save maple file
   open($mfile, ">/tmp/$$.mpl");
   printf $mfile "%s", "
-Digits := 20:
+Digits := 20:             (* constants will have 20 digits *)
+interface(warnlevel=0):   (* supress all warnings          *)
+
 \$include <util.mpl>
 
 \$include <$functional.mpl>
@@ -145,16 +147,16 @@ sub work_lda {
        ["r_a_zk", "$f"]
       ], [
         ["r_a_dedrs", "diff($f, r_a_rss)"],
-        ["r_a_dedz",  "diff($f, r_a_z)"]
+        ["r_a_dedz",  "diff($f, r_a_zeta)"]
       ], [
         ["r_a_d2edrs2", "diff($f, r_a_rss\$2)"], 
-        ["r_a_d2edz2",  "diff($f, r_a_z\$2 )"],
-        ["r_a_d2edrsz", "diff($f, r_a_rss, r_a_z)"]
+        ["r_a_d2edz2",  "diff($f, r_a_zeta\$2 )"],
+        ["r_a_d2edrsz", "diff($f, r_a_rss, r_a_zeta)"]
       ], [
         ["r_a_d3edrs3",  "diff($f, r_a_rss\$3)"], 
-        ["r_a_d3edz3",   "diff($f, r_a_z\$3 )"],
-        ["r_a_d3edrs2z", "diff($f, r_a_rss\$2, r_a_z)"],
-        ["r_a_d3edrsz2", "diff($f, r_a_rss, r_a_z\$2)"]
+        ["r_a_d3edz3",   "diff($f, r_a_zeta\$3 )"],
+        ["r_a_d3edrs2z", "diff($f, r_a_rss\$2, r_a_zeta)"],
+        ["r_a_d3edrsz2", "diff($f, r_a_rss, r_a_zeta\$2)"]
       ]
     ];
 

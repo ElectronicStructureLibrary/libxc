@@ -18,7 +18,7 @@
 ## $Id: Makefile.am 12537 2016-11-15 14:10:17Z marques $
 
 noinst_HEADERS =  \
-  lda_xc_1d_ehwlrg.c \
+  lda_c_pz.c lda_xc_1d_ehwlrg.c \
   gga_k_thakkar.c gga_x_am05.c gga_x_bayesian.c gga_x_herman.c gga_x_rpbe.c \
   gga_x_airy.c gga_x_b86.c gga_x_c09x.c gga_x_lag.c gga_x_wc.c gga_x_ak13.c \
   gga_x_b88.c gga_x_g96.c gga_x_pbepow.c gga_x_pbe.c gga_x_pbeint.c         \

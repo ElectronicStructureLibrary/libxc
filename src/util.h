@@ -75,6 +75,7 @@ double erfc(double);
 #define SQRT_FLOAT_EPSILON   (SQRT(FLOAT_EPSILON))
 
 /* special functions */
+#define Heaviside(x) (((x) >= 0) ? 1.0 : 0.0)
 double LambertW(double z);
 FLOAT XC(dilogarithm)(const FLOAT x);
 

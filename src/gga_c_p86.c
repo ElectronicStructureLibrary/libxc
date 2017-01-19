@@ -56,11 +56,11 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   rsconv = POW(4.0*M_PI/3.0, 1.0/6.0);
 
-  //pw.order = r->order;
-  //pw.rs[0] = SQRT(r->rs);
-  //pw.rs[1] = r->rs;
+  pw.order = r->order;
+  pw.rs[0] = SQRT(r->rs);
+  pw.rs[1] = r->rs;
   pw.rss   = r->rs;
-  //pw.rs[2] = r->rs*r->rs;
+  pw.rs[2] = r->rs*r->rs;
   pw.zeta  = r->zeta;
 
   XC(lda_c_pz_func)(p->func_aux[0], &pw);

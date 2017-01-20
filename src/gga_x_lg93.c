@@ -21,54 +21,7 @@
 
 #define XC_GGA_X_LG93  113 /* Lacks & Gordon 93 */
 
-void XC(gga_x_lg93_enhance)
-  (const XC(func_type) *p, int order, FLOAT x, 
-   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
-{
-  static const FLOAT ad = 1e-8, a4 = 29.790, a6 = 22.417;
-  static const FLOAT a8 = 12.119, a10 = 1570.1, a12 = 55.944;
-  static const FLOAT a2 = 4.94113918475214219939; /* (ad + 0.1234)/b, b = 0.024974 */
-  static const FLOAT b  = 0.024974;
-
-  FLOAT ss, ss2, ss4, ss6, ss8, ss10;
-  FLOAT f0, f1, f2, df0, df1, df2, d2f0, d2f1, d2f2, d3f0, d3f1, d3f2;
-
-  ss  = X2S*x;    ss2  = ss*ss;
-  ss4 = ss2*ss2;  ss6  = ss4*ss2;
-  ss8 = ss6*ss2;  ss10 = ss8*ss2;
-
-  f0 = 1.0 + a2*ss2 + a4*ss4 + a6*ss6 + a8*ss8 + a10*ss10 + a12*ss2*ss10;
-  f1 = POW(f0, b);
-  f2 = 1.0 + ad*ss2;
-
-  *f = f1/f2;
-
-  if(order < 1) return;
-
-  df0 = ss*(2.0*a2 + 4.0*a4*ss2 + 6.0*a6*ss4 + 8.0*a8*ss6 + 10.0*a10*ss8 + 12.0*a12*ss10);
-  df1 = b*df0*f1/f0;
-  df2 = 2.0*ss*ad;
-
-  *dfdx  = X2S*DFRACTION(f1, df1, f2, df2);
-
-  if(order < 2) return;
-  
-  d2f0 = 2.0*1.0*a2 + 4.0*3.0*a4*ss2 + 6.0*5.0*a6*ss4 + 8.0*7.0*a8*ss6 + 
-    10.0*9.0*a10*ss8 + 12.0*11.0*a12*ss10;
-  d2f1 = b*((b - 1.0)*df0*df0 + f0*d2f0)*f1/(f0*f0);
-  d2f2 = 2.0*ad;
-
-  *d2fdx2 = X2S*X2S*D2FRACTION(f1, df1, d2f1, f2, df2, d2f2);
-
-  if(order < 3) return;
-
-  d3f0 = ss*(4.0*3.0*2.0*a4 + 6.0*5.0*4.0*a6*ss2 + 8.0*7.0*6.0*a8*ss4 + 
-	     10.0*9.0*8.0*a10*ss6 + 12.0*11.0*10.0*a12*ss8);
-  d3f1 = (b*(b - 1.0)*df0*((b - 2.0)*df0*df0 + 3.0*f0*d2f0) + b*f0*f0*d3f0)*f1/(f0*f0*f0);
-  d3f2 = 0.0;
-
-  *d3fdx3 = X2S*X2S*X2S*D3FRACTION(f1, df1, d2f1, d3f1, f2, df2, d2f2, d3f2);
-}
+#include "maple2c/gga_x_lg93.c"
 
 #define func XC(gga_x_lg93_enhance)
 #include "work_gga_x.c"

@@ -21,7 +21,8 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_GGA_X_GG99  535 /* Gilbert and Gill 1999 */
+#define XC_GGA_X_GG99   535 /* Gilbert and Gill 1999 */
+#define XC_GGA_X_KGG99  544 /* Gilbert and Gill 1999 (mixed) */
 
 static void
 newt_raph(FLOAT a, FLOAT tol, FLOAT *xx, FLOAT *dxx, int *ierr)
@@ -119,7 +120,7 @@ void XC(gga_x_gg99_enhance)
   num = -M_PI*M_PI + 12.0*r*aux2 - 12.0*aux5;
   den = 2.0*M_CBRT3*M_PI*r*aux4;
 
-  *f = num/den;
+  *f = num/(X_FACTOR_C*den);
     
   if(order < 1) return;
 
@@ -131,7 +132,7 @@ void XC(gga_x_gg99_enhance)
   dnum = 12.0*(aux2 + r*daux2) - 12.0*daux5;
   dden = 2.0*M_CBRT3*M_PI*(aux4 + r*daux4);
 
-  *dfdx = DFRACTION(num, dnum, den, dden)*dr;
+  *dfdx = DFRACTION(num, dnum, den, dden)*dr/X_FACTOR_C;
 }
 
 #define func XC(gga_x_gg99_enhance)
@@ -149,3 +150,29 @@ const XC(func_info_type) XC(func_info_gga_x_gg99) = {
   NULL, NULL, 
   NULL, work_gga_x, NULL
 };
+
+
+/*************************************************************/
+static void
+gga_c_kgg_init(XC(func_type) *p)
+{
+  /* defined in Eq. (25) of the paper */
+  static int   funcs_id  [2] = {XC_LDA_X, XC_GGA_X_GG99};
+  static FLOAT funcs_coef[2] = {-0.047/X_FACTOR_C, 1.0};
+
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+}
+
+const XC(func_info_type) XC(func_info_gga_x_kgg99) = {
+  XC_GGA_X_KGG99,
+  XC_EXCHANGE,
+  "Gilbert and Gill 1999 (mixed)",
+  XC_FAMILY_GGA,
+  {&xc_ref_Gilbert1999_511, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
+  gga_c_kgg_init, NULL, 
+  NULL, NULL, NULL
+};
+

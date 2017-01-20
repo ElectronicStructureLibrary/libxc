@@ -37,6 +37,7 @@ print $out "/*
 my %commands = (
   "work_lda"     => \&work_lda,
   "work_gga_x"   => \&work_gga_x,
+  "work_gga_c"   => \&work_gga_c,
   "work_mgga_x"  => \&work_mgga_x,
     );
 
@@ -50,10 +51,16 @@ sub math_replace {
   # The replacements have to be made in order, so
   # we can not use a hash table
   my @math_replace = (
-    "_s_"    , "*",
-    "_a_"    , "->",
-    "_d_"    , ".",
-    "Dirac\\(.*?\\)", "0.0", # have to do it here, as both Dirac(x) and Dirac(n, x) can appear
+    '_s_'       , '*',
+    '_a_'       , '->',
+    '_d_'       , '.',
+    '_0_'       , "[0]",
+    '_1_'       , "[1]",
+    '_2_'       , "[2]",
+    '_3_'       , "[3]",
+    '_4_'       , "[4]",
+    '_5_'       , "[5]",
+    'Dirac(.*?)', '0.0', # have to do it here, as both Dirac(x) and Dirac(n, x) can appear
   );
   my ($text) = @_;
 
@@ -189,7 +196,6 @@ XC(${functional}_func)(const XC(func_type) *p, XC(lda_work_t) *r)
 ";
 }
 
-
 sub work_gga_x {
   ($order, $prefix) = @_;
 
@@ -219,6 +225,89 @@ $c_code
 ";
 }
 
+sub work_gga_c {
+  ($order, $prefix) = @_;
+
+  my $f = "f(r_a_rs, r_a_zeta, r_a_xt, r_a_xs_0_, r_a_xs_1_)";
+  my $info = [
+    [
+      ["r_a_f", "$f"]
+    ], [
+      ["r_a_dfdrs",    "diff($f, r_a_rs)"],
+      ["r_a_dfdz",     "diff($f, r_a_zeta)"],
+      ["r_a_dfdxt",    "diff($f, r_a_xt)"],
+      ["r_a_dfdxs_0_", "diff($f, r_a_xs_0_)"],
+      ["r_a_dfdxs_1_", "diff($f, r_a_xs_1_)"],
+    ], [
+      ["r_a_d2fdrs2",     "diff($f, r_a_rs\$2)"], 
+      ["r_a_d2fdrsz",     "diff($f, r_a_rs, r_a_zeta)"], 
+      ["r_a_d2fdrsxt",    "diff($f, r_a_rs, r_a_xt)"], 
+      ["r_a_d2fdrsxs_0_", "diff($f, r_a_rs, r_a_xs_0_)"], 
+      ["r_a_d2fdrsxs_1_", "diff($f, r_a_rs, r_a_xs_1_)"], 
+      ["r_a_d2fdz2",      "diff($f, r_a_zeta\$2 )"],
+      ["r_a_d2fdzxt",     "diff($f, r_a_zeta, r_a_xt)"], 
+      ["r_a_d2fdzxs_0_",  "diff($f, r_a_zeta, r_a_xs_0_)"], 
+      ["r_a_d2fdzxs_1_",  "diff($f, r_a_zeta, r_a_xs_1_)"], 
+      ["r_a_d2fdxt2",     "diff($f, r_a_xt\$2)"], 
+      ["r_a_d2fdxtxs_0_", "diff($f, r_a_xt, r_a_xs_0_)"], 
+      ["r_a_d2fdxtxs_1_", "diff($f, r_a_xt, r_a_xs_1_)"], 
+      ["r_a_d2fdxs2_0_",  "diff($f, r_a_xs_1_, r_a_xs_0_)"], 
+      ["r_a_d2fdxs2_1_",  "diff($f, r_a_xs_1_, r_a_xs_1_)"], 
+      ["r_a_d2fdxs2_2_",  "diff($f, r_a_xs_2_, r_a_xs_2_)"], 
+    ],[
+      ["r_a_d3fdrs3", "diff($f, r_a_rs\$3)"], 
+      ["r_a_d3fdz3", "diff($f, r_a_z\$3)"], 
+      ["r_a_d3fdxt3", "diff($f, r_a_xt\$3)"], 
+      ["r_a_d3fdxs3_0_", "diff($f, r_a_xs_0_\$3)"], 
+      ["r_a_d3fdxs3_1_", "diff($f, r_a_xs_0_\$2, r_a_xs_1_)"], 
+      ["r_a_d3fdxs3_2_", "diff($f, r_a_xs_0_, r_a_xs_1_\$2)"], 
+      ["r_a_d3fdxs3_3_", "diff($f, r_a_xs_1_\$3)"], 
+      ["r_a_d3fdrs2z", "diff($f, rs_a_rs\$2, r_a_z)"], 
+      ["r_a_d3fdrs2xt", "diff($f, rs_a_rs\$2, rs_a_xt)"], 
+      ["r_a_d3fdrs2xs_0_", "diff($f, rs_a_rs\$2, rs_a_xs_0_)"], 
+      ["r_a_d3fdrs2xs_1_", "diff($f, rs_a_rs\$2, rs_a_xs_1_)"], 
+      ["r_a_d3fdrsz2", "diff($f, rs_a_rs, rs_a_z\$2)"], 
+      ["r_a_d3fdz2xt", "diff($f, rs_a_z\$2, rs_a_xt)"], 
+      ["r_a_d3fdz2xs_0_", "diff($f, rs_a_z\$2, rs_a_xs_0_)"], 
+      ["r_a_d3fdz2xs_1_", "diff($f, rs_a_z\$2, rs_a_xs_1_)"], 
+      ["r_a_d3fdrsxt2", "diff($f, rs_a_rs, rs_a_xt\$2)"], 
+      ["r_a_d3fdzxt2", "diff($f, rs_a_z, rs_a_xt\$2)"], 
+      ["r_a_d3fdxt2xs_0_", "diff($f, rs_a_xt\$2, rs_a_xs_0_)"], 
+      ["r_a_d3fdxt2xs_1_", "diff($f, rs_a_xt\$2, rs_a_xs_1_)"], 
+      ["r_a_d3fdrsxs2_0_", "diff($f, rs_a_rs, rs_a_xs_0_\$2)"], 
+      ["r_a_d3fdrsxs2_1_", "diff($f, rs_a_rs, rs_a_xs_0_, rs_a_xs_1_)"], 
+      ["r_a_d3fdrsxs2_2_", "diff($f, rs_a_rs, rs_a_xs_1_\$2)"], 
+      ["r_a_d3fdzxs2_0_", "diff($f, rs_a_z, rs_a_xs_0_\$2)"], 
+      ["r_a_d3fdzxs2_1_", "diff($f, rs_a_z, rs_a_xs_0_, rs_a_xs_1_)"], 
+      ["r_a_d3fdzxs2_2_", "diff($f, rs_a_z, rs_a_xs_1_\$2)"], 
+      ["r_a_d3fdxtxs2_0_", "diff($f, rs_a_xt, rs_a_xs_0_\$2)"], 
+      ["r_a_d3fdxtxs2_1_", "diff($f, rs_a_xt, rs_a_xs_0_, rs_a_xs_1_)"], 
+      ["r_a_d3fdxtxs2_2_", "diff($f, rs_a_xt, rs_a_xs_1_\$2)"], 
+      ["r_a_d3fdrszxt", "diff($f, rs_a_rs, rs_a_z, rs_a_xt)"], 
+      ["r_a_d3fdrszxs_0_", "diff($f, rs_a_rs, rs_a_z, rs_a_xs_0_)"], 
+      ["r_a_d3fdrszxs_1_", "diff($f, rs_a_rs, rs_a_z, rs_a_xs_1_)"], 
+      ["r_a_d3fdrsxtxs_0_", "diff($f, rs_a_rs, rs_a_xt, rs_a_xs_0_)"], 
+      ["r_a_d3fdrsxtxs_1_", "diff($f, rs_a_rs, rs_a_xt, rs_a_xs_1_)"], 
+      ["r_a_d3fdzxtxs_0_", "diff($f, rs_a_z, rs_a_xt, rs_a_xs_0_)"], 
+      ["r_a_d3fdzxtxs_1_", "diff($f, rs_a_z, rs_a_xt, rs_a_xs_1_)"], 
+    ]];
+
+    ($variables, $c_code) = math_work($info, $out, $order, "r->order");
+
+    print $out "
+void XC(${functional}_func)
+  (const XC(func_type) *p, XC(gga_work_c_t) *r)
+{
+$variables
+$prefix
+$c_code
+}
+
+#define maple2c_order $max_order
+#define maple2c_func  XC(${functional}_func)
+";
+}
+
 sub work_mgga_x {
   ($order, $prefix) = @_;
 
@@ -242,7 +331,7 @@ sub work_mgga_x {
       ["r_a_d2fdxt",  "diff($f,  r_a_x, r_a_t)"], 
       ["r_a_d2fdxu",  "diff($f,  r_a_x, r_a_u)"], 
       ["r_a_d2fdtu",  "diff($f,  r_a_t, r_a_u)"], 
-    ]
+    ], 
   ];
 
   ($variables, $c_code) = math_work($info, $out, $order, "r->order");
@@ -261,5 +350,3 @@ $c_code
 #define maple2c_func  XC(${functional}_enhance)
 ";
 }
-
-

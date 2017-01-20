@@ -19,8 +19,13 @@
 #ifndef _LDA_H
 #define _LDA_H
 
+/* These are generic header files that are needed basically everywhere */
 #include <math.h>
 #include <float.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
 
 #include "xc.h"
 

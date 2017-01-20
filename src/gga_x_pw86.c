@@ -32,15 +32,15 @@ typedef struct{
 
 
 static const gga_x_pw86_params par_pw86 = {
-  1.296, 14.0,  0.2
+  1.296, 14.0, 0.2
 };
 
 static const gga_x_pw86_params par_rpw86 = {
-  15*0.1234, 17.33, 0.163,
+  15.0*0.1234, 17.33, 0.163,
 };
 
 static const gga_x_pw86_params par_fr_pw86 = {
-  2.208, 9.27,  0.2
+  2.208, 9.27, 0.2
 };
 
 static void 

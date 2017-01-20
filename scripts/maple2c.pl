@@ -251,9 +251,9 @@ sub work_gga_c {
       ["r_a_d2fdxt2",     "diff($f, r_a_xt\$2)"], 
       ["r_a_d2fdxtxs_0_", "diff($f, r_a_xt, r_a_xs_0_)"], 
       ["r_a_d2fdxtxs_1_", "diff($f, r_a_xt, r_a_xs_1_)"], 
-      ["r_a_d2fdxs2_0_",  "diff($f, r_a_xs_1_, r_a_xs_0_)"], 
-      ["r_a_d2fdxs2_1_",  "diff($f, r_a_xs_1_, r_a_xs_1_)"], 
-      ["r_a_d2fdxs2_2_",  "diff($f, r_a_xs_2_, r_a_xs_2_)"], 
+      ["r_a_d2fdxs2_0_",  "diff($f, r_a_xs_0_\$2)"], 
+      ["r_a_d2fdxs2_1_",  "diff($f, r_a_xs_0_, r_a_xs_1_)"], 
+      ["r_a_d2fdxs2_2_",  "diff($f, r_a_xs_1_\$2)"], 
     ],[
       ["r_a_d3fdrs3", "diff($f, r_a_rs\$3)"], 
       ["r_a_d3fdz3", "diff($f, r_a_z\$3)"], 

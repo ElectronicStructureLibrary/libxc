@@ -30,11 +30,11 @@ typedef struct {
   FLOAT a, b, c, d, k;
 } gga_c_wi_params;
 
-static gga_c_wi_params wi0_params = {
+static const gga_c_wi_params wi0_params = {
   -0.44, 0.0032407, 7.8, 0.0073, 0.000311
 };
 
-static gga_c_wi_params wi_params = {
+static const gga_c_wi_params wi_params = {
   -0.00652, 0.0007, 0.21, 0.002, 0.001
 };
 

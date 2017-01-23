@@ -24,17 +24,13 @@
 #define XC_GGA_X_KT1          145 /* Keal and Tozer version 1             */
 #define XC_GGA_XC_KT2         146 /* Keal and Tozer version 2             */
 
-#define HEADER 3
-
 typedef struct{
   FLOAT gamma, delta;
 } gga_x_kt_params;
 
-
 static void 
 gga_x_kt_init(XC(func_type) *p)
 {
-
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_x_kt_params));
 
@@ -54,35 +50,24 @@ XC(gga_x_kt_set_params)(XC(func_type) *p, FLOAT gamma, FLOAT delta)
   params->delta = delta;
 }
 
+#include "maple2c/gga_x_kt.c"
 
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
-     FLOAT *f, FLOAT *dfdx, FLOAT *lvrho)
-{
-  FLOAT dd, n13, n43;
-  gga_x_kt_params *params;
+#define func maple2c_func
+#include "work_gga_c.c"
 
-  assert(p != NULL && p->params != NULL);
-  params = (gga_x_kt_params *) (p->params);
+const XC(func_info_type) XC(func_info_gga_x_kt1) = {
+  XC_GGA_X_KT1,
+  XC_EXCHANGE,
+  "Keal and Tozer, version 1",
+  XC_FAMILY_GGA,
+  {&xc_ref_Keal2003_3015, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
+  gga_x_kt_init, NULL, 
+  NULL, work_gga_c, NULL
+};
 
-  n13 = CBRT(ds);
-  n43 = ds*n13;
-  dd  = 1.0/(n43 + params->delta);
- 
-  *f = 1.0 - params->gamma/X_FACTOR_C * x*x * n43*dd;
-
-  if(order < 1) return;
-
-  *dfdx  = - params->gamma/X_FACTOR_C * 2.0*x * n43*dd;
-  *lvrho = - params->gamma/X_FACTOR_C * x*x * (4.0/3.0)*n13 * params->delta * dd*dd;
-
-  if(order < 2) return;
-
-  /* to be done */
-}
-
-
-#include "work_gga_x.c"
 
 static void
 gga_xc_kt2_init(XC(func_type) *p)
@@ -93,35 +78,17 @@ gga_xc_kt2_init(XC(func_type) *p)
   XC(mix_init)(p, 3, funcs_id, funcs_coef);  
 }
 
-
-const XC(func_info_type) XC(func_info_gga_x_kt1) = {
-  XC_GGA_X_KT1,
-  XC_EXCHANGE,
-  "Keal and Tozer, version 1",
-  XC_FAMILY_GGA,
-  {&xc_ref_Keal2003_3015, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  gga_x_kt_init, 
-  NULL, NULL,
-  work_gga_x,
-  NULL
-};
-
-
 const XC(func_info_type) XC(func_info_gga_xc_kt2) = {
   XC_GGA_XC_KT2,
   XC_EXCHANGE_CORRELATION,
   "Keal and Tozer, version 2",
   XC_FAMILY_GGA,
   {&xc_ref_Keal2003_3015, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_xc_kt2_init, 
-  NULL, NULL, NULL,
-  NULL
+  gga_xc_kt2_init, NULL, 
+  NULL, NULL, NULL
 };
 
 

@@ -8,7 +8,7 @@ dist_noinst_SCRIPTS = \
   gga_x_rge2.mpl gga_x_beefvdw.mpl gga_x_pw91.mpl gga_x_pbea.mpl    \
   gga_x_mpbe.mpl gga_x_sg4.mpl gga_x_cap.mpl gga_x_lg93.mpl         \
   gga_x_pw86.mpl gga_x_dk87.mpl gga_x_ssb_sw.mpl gga_x_sogga11.mpl  \
-  gga_x_optx.mpl gga_x_q2d.mpl gga_x_lv_rpw86.mpl \
+  gga_x_optx.mpl gga_x_q2d.mpl gga_x_lv_rpw86.mpl gga_x_kt.mpl      \
   gga_c_wi.mpl gga_c_wl.mpl \
   mgga_x_gvt4.mpl mgga_x_lta.mpl mgga_x_mk00.mpl mgga_x_ms.mpl      \
   mgga_x_mvs.mpl mgga_x_pkzb.mpl mgga_x_tpss.mpl mgga_x_tm.mpl      \

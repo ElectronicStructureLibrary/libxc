@@ -56,64 +56,23 @@ XC(gga_x_ssb_sw_set_params)(XC(func_type) *p, FLOAT A, FLOAT B, FLOAT C, FLOAT D
   params->E = E;
 }
 
+#include "maple2c/gga_x_ssb_sw.c"
 
-void XC(gga_x_ssb_sw_enhance)
-  (const XC(func_type) *p, int order, FLOAT x, 
-   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
-{
-  FLOAT ss, ss2, ss4, num1, dnum1, d2num1, num2, dnum2, d2num2, den1, dden1, d2den1, den2, dden2, d2den2, d3den2;
-  gga_x_ssb_sw_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_x_ssb_sw_params *) (p->params);
-
-  ss  = X2S*x;
-  ss2 = ss*ss;
-  ss4 = ss2*ss2;
-
-  num1 = params->B*ss2;
-  den1 = 1.0 + params->C*ss2;
-
-  num2 = -params->D*ss2;
-  den2 = 1.0 + params->E*ss4;
-
-  *f   = params->A + num1/den1 +num2/den2;
-  
-  if(order < 1) return;
-
-  dnum1 = 2.0*params->B*ss;
-  dden1 = 2.0*params->C*ss;
-
-  dnum2 = -2.0*params->D*ss;
-  dden2 = 4.0*params->E*ss*ss2;
-
-  *dfdx  = DFRACTION(num1, dnum1, den1, dden1) + DFRACTION(num2, dnum2, den2, dden2);
-  *dfdx *= X2S;
-
-  if(order < 2) return;
-
-  d2num1 = 2.0*params->B;
-  d2den1 = 2.0*params->C;
-
-  d2num2 = -2.0*params->D;
-  d2den2 =  4.0*3.0*params->E*ss2;
-
-  *d2fdx2  = D2FRACTION(num1, dnum1, d2num1, den1, dden1, d2den1) + 
-    D2FRACTION(num2, dnum2, d2num2, den2, dden2, d2den2);
-  *d2fdx2 *= X2S*X2S;
-
-  if(order < 3) return;
-
-  d3den2 =  4.0*3.0*2.0*params->E*ss;
-
-  *d3fdx3  = D3FRACTION(num1, dnum1, d2num1, 0.0, den1, dden1, d2den1, 0.0) + 
-    D3FRACTION(num2, dnum2, d2num2, 0.0, den2, dden2, d2den2, d3den2);
-  *d3fdx3 *= X2S*X2S*X2S;
-}
-
-
-#define func XC(gga_x_ssb_sw_enhance)
+#define func maple2c_func
 #include "work_gga_x.c"
+
+const XC(func_info_type) XC(func_info_gga_x_ssb_sw) = {
+  XC_GGA_X_SSB_SW,
+  XC_EXCHANGE,
+  "Swarta, Sola and Bickelhaupt correction to PBE",
+  XC_FAMILY_GGA,
+  {&xc_ref_Swart2009_69, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
+  gga_x_ssb_sw_init, NULL, 
+  NULL, work_gga_x, NULL
+};
 
 static void
 gga_x_ssb_init(XC(func_type) *p)
@@ -130,6 +89,20 @@ gga_x_ssb_init(XC(func_type) *p)
 }
 
 
+const XC(func_info_type) XC(func_info_gga_x_ssb) = {
+  XC_GGA_X_SSB,
+  XC_EXCHANGE,
+  "Swarta, Sola and Bickelhaupt",
+  XC_FAMILY_GGA,
+  {&xc_ref_Swart2009_094103, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
+  gga_x_ssb_init, NULL, 
+  NULL, NULL, NULL
+};
+
+
 static void
 gga_x_ssb_d_init(XC(func_type) *p)
 {
@@ -144,37 +117,6 @@ gga_x_ssb_d_init(XC(func_type) *p)
   XC(gga_x_kt_set_params)(p->func_aux[2], u*F*X_FACTOR_C*B*(X2S*X2S), 0.1);
 }
 
-
-const XC(func_info_type) XC(func_info_gga_x_ssb_sw) = {
-  XC_GGA_X_SSB_SW,
-  XC_EXCHANGE,
-  "Swarta, Sola and Bickelhaupt correction to PBE",
-  XC_FAMILY_GGA,
-  {&xc_ref_Swart2009_69, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  gga_x_ssb_sw_init,
-  NULL, NULL,
-  work_gga_x,
-  NULL
-};
-
-const XC(func_info_type) XC(func_info_gga_x_ssb) = {
-  XC_GGA_X_SSB,
-  XC_EXCHANGE,
-  "Swarta, Sola and Bickelhaupt",
-  XC_FAMILY_GGA,
-  {&xc_ref_Swart2009_094103, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32, 0.0, 1e-32,
-  0, NULL, NULL,
-  gga_x_ssb_init,
-  NULL, NULL,
-  NULL,
-  NULL
-};
-
 const XC(func_info_type) XC(func_info_gga_x_ssb_d) = {
   XC_GGA_X_SSB_D,
   XC_EXCHANGE,
@@ -184,10 +126,8 @@ const XC(func_info_type) XC(func_info_gga_x_ssb_d) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_ssb_d_init,
-  NULL, NULL,
-  NULL,
-  NULL
+  gga_x_ssb_d_init, NULL, 
+  NULL, NULL, NULL
 };
 
 

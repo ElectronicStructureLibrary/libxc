@@ -55,7 +55,7 @@ work_gga_x
 
   /* variables used inside the is loop */
   FLOAT gdm, ds, rhoLDA;
-  FLOAT x, f, dfdx, d2fdx2, d3fdx3, lvsigma, lv2sigma2, lvsigmax, lvrho;
+  FLOAT x, f, dfdx, d2fdx2, d3fdx3, lvrho;
 
   /* alpha is the power of rho in the corresponding LDA
      beta  is the power of rho in the expression for x */
@@ -145,21 +145,10 @@ work_gga_x
       x      = gdm/POW(ds, beta);
 
       dfdx = d2fdx2 = d3fdx3 = 0.0;
-      lvsigma = lv2sigma2 = lvsigmax = lvrho = 0.0;
 
 #if   HEADER == 1
 
       func(p, order, x, &f, &dfdx, &d2fdx2, &d3fdx3);
-
-#elif HEADER == 2
-
-      /* this second header is useful for functionals that depend
-	 explicitly both on x and on sigma */
-      func(p, order, x, gdm*gdm, &f, &dfdx, &lvsigma, &d2fdx2, &lv2sigma2, &lvsigmax);
-      
-      lvsigma   /= sfact2;
-      lvsigmax  /= sfact2;
-      lv2sigma2 /= sfact2*sfact2;
 
 #elif HEADER == 3
 
@@ -183,7 +172,7 @@ work_gga_x
 	
 	if(gdm > p->info->min_grad)
 	  vsigma[is2] = rhoLDA*
-	    (c_vsigma[0]*dfdx/(2.0*sigma[is2]) + c_vsigma[1]*lvsigma);
+	    (c_vsigma[0]*dfdx/(2.0*sigma[is2]));
       }
       
       if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){
@@ -191,9 +180,9 @@ work_gga_x
 	
 	if(gdm > p->info->min_grad){
 	  v2rhosigma[is*5] = (rhoLDA/ds) *
-	    ((c_v2rhosigma[0]*dfdx + c_v2rhosigma[1]*d2fdx2)/sigma[is2] + c_v2rhosigma[2]*lvsigma + c_v2rhosigma[3]*x*lvsigmax);
+	    ((c_v2rhosigma[0]*dfdx + c_v2rhosigma[1]*d2fdx2)/sigma[is2]);
 	  v2sigma2  [is*5] = rhoLDA*
-	    (c_v2sigma2[0]*(d2fdx2 - dfdx)/(sigma[is2]*sigma[is2]) + c_v2sigma2[1]*(lv2sigma2 + lvsigmax*x/sigma[is2]));
+	    (c_v2sigma2[0]*(d2fdx2 - dfdx)/(sigma[is2]*sigma[is2]));
 	}
       }
 

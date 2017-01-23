@@ -6,14 +6,12 @@
   params = (gga_x_kt_params * )(p->params);
 *)
 
-n  := rs -> (RS_FACTOR/rs)^3:
-nu := (rs, z) -> (1.0 + z)*n(rs)/2.0:
-nd := (rs, z) -> (1.0 - z)*n(rs)/2.0:
+fx := (rs, z, xs) -> 
+   params_a_gamma*n_spin(rs, z)^(4.0/3.0)*xs^2/(n_spin(rs, z)^(4.0/3.0) + params_a_delta):
 
 f0 := (rs, zeta, xt, xs_0_, xs_1_) -> 
-  - X_FACTOR_C*(nu(rs, zeta)^(4.0/3.0) + nd(rs, zeta)^(4.0/3.0))
-  + params_a_gamma*nu(rs, zeta)^(8.0/3.0)*xs_0_^2/(nu(rs, zeta)^(4.0/3.0) + params_a_delta)
-  + params_a_gamma*nd(rs, zeta)^(8.0/3.0)*xs_1_^2/(nd(rs, zeta)^(4.0/3.0) + params_a_delta):
+  - (X_FACTOR_C - fx(rs,  zeta, xs_0_))*n_spin(rs,  zeta)^(4.0/3.0) 
+  - (X_FACTOR_C - fx(rs, -zeta, xs_1_))*n_spin(rs, -zeta)^(4.0/3.0):
 
 (* we want energy per particle *)
-f := (rs, zeta, xt, xs_0_, xs_1_) -> f0(rs, zeta, xt, xs_0_, xs_1_)/n(rs):
+f := (rs, zeta, xt, xs_0_, xs_1_) -> f0(rs, zeta, xt, xs_0_, xs_1_)/n_total(rs):

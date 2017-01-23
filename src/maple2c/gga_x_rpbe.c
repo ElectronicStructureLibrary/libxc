@@ -10,37 +10,32 @@ void XC(gga_x_rpbe_enhance)
   (const XC(func_type) *p, int order, 
    FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
 {
-  double t1, t2, t3, t4, t5, t7, t14, t15;
-  double t16, t28;
+  double t1, t3, t6, t13, t15, t24;
 
   gga_x_rpbe_params *params;
  
   assert(p->params != NULL);
   params = (gga_x_rpbe_params * )(p->params);
 
-  t1 = X2S * X2S;
-  t2 = params->mu * t1;
-  t3 = x * x;
-  t4 = 0.1e1 / params->kappa;
-  t5 = t3 * t4;
-  t7 = exp(-t2 * t5);
-  *f = 0.10e1 + params->kappa * (0.10e1 - t7);
+  t1 = x * x;
+  t3 = 0.1e1 / params->kappa;
+  t6 = exp(-0.16455307846020557507e-1 * params->mu * t1 * t3);
+  *f = 0.10e1 + params->kappa * (0.10e1 - t6);
 
   if(order < 1) return;
 
-  *dfdx = 0.2e1 * t2 * x * t7;
+  *dfdx = 0.32910615692041115014e-1 * params->mu * x * t6;
 
   if(order < 2) return;
 
-  t14 = params->mu * params->mu;
-  t15 = t1 * t1;
-  t16 = t14 * t15;
-  *d2fdx2 = -0.4e1 * t16 * t5 * t7 + 0.2e1 * t2 * t7;
+  t13 = params->mu * params->mu;
+  t15 = t3 * t6;
+  *d2fdx2 = 0.32910615692041115014e-1 * params->mu * t6 - 0.10831086252292228797e-2 * t13 * t1 * t15;
 
   if(order < 3) return;
 
-  t28 = params->kappa * params->kappa;
-  *d3fdx3 = -0.12e2 * t16 * x * t4 * t7 + 0.8e1 * t14 * params->mu * t15 * t1 * t3 * x / t28 * t7;
+  t24 = params->kappa * params->kappa;
+  *d3fdx3 = -0.32493258756876686391e-2 * t13 * x * t15 + 0.35645771717653941628e-4 * t13 * params->mu * t1 * x / t24 * t6;
 
   if(order < 4) return;
 

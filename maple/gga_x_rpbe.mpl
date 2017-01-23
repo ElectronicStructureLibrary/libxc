@@ -6,5 +6,12 @@
   params = (gga_x_rpbe_params * )(p->params);
 *)
 
-f0 := s -> 1.0 + params_a_kappa * (1.0 - exp(-params_a_mu * s^2/params_a_kappa)):
-f  := x -> f0(X2S * x):
+$ifdef gga_x_rpbe_params
+params_a_kappa := KAPPA_PBE:
+params_a_mu    := MU_PBE:
+$endif
+
+f0_rpbe := s -> 1.0 + params_a_kappa * (1.0 - exp(-params_a_mu * s^2/params_a_kappa)):
+f_rpbe  := x -> f0_rpbe(X2S*x):
+
+f       := x -> f_rpbe(x):

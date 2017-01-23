@@ -60,7 +60,7 @@ sub math_replace {
     '_3_'       , "[3]",
     '_4_'       , "[4]",
     '_5_'       , "[5]",
-    'Dirac(.*?)', '0.0', # have to do it here, as both Dirac(x) and Dirac(n, x) can appear
+    'Dirac\(.*?\)', '0.0', # have to do it here, as both Dirac(x) and Dirac(n, x) can appear
   );
   my ($text) = @_;
 

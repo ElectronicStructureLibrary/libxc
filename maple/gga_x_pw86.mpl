@@ -12,7 +12,7 @@ params_a_bb := 17.33:
 params_a_cc := 0.163:
 $endif
 
-f0_PW86 := s -> (1.0 + params_a_aa*s^2 + params_a_bb*s^4 + params_a_cc*s^6)^(1.0/15.0):
-f_PW86  := x -> f0_PW86(X2S*x):
+f0_pw86 := s -> (1.0 + params_a_aa*s^2 + params_a_bb*s^4 + params_a_cc*s^6)^(1.0/15.0):
+f_pw86  := x -> f0_pw86(X2S*x):
 
-f      := x -> f_PW86(x):
+f      := x -> f_pw86(x):

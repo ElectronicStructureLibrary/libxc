@@ -1,5 +1,5 @@
 dist_noinst_SCRIPTS = \
-  util.mpl pbe_x.mpl fw.mpl gvt4.mpl tpss_x.mpl \
+  util.mpl fw.mpl gvt4.mpl tpss_x.mpl \
   lda_c_pz.mpl lda_xc_1d_ehwlrg.mpl lda_c_rc04.mpl \
   gga_k_thakkar.mpl gga_x_b86.mpl gga_x_g96.mpl gga_x_rpbe.mpl      \
   gga_x_airy.mpl gga_x_b88.mpl gga_x_herman.mpl gga_x_wc.mpl        \

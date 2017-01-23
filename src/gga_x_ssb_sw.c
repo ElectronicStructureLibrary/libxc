@@ -21,9 +21,9 @@
 #include <assert.h>
 #include "util.h"
 
-#define XC_GGA_X_SSB_SW       90  /* Swarta, Sola and Bickelhaupt correction to PBE  */
-#define XC_GGA_X_SSB          91  /* Swarta, Sola and Bickelhaupt  */
-#define XC_GGA_X_SSB_D        92  /* Swarta, Sola and Bickelhaupt dispersion  */
+#define XC_GGA_X_SSB_SW       90  /* Swart, Sola and Bickelhaupt correction to PBE  */
+#define XC_GGA_X_SSB          91  /* Swart, Sola and Bickelhaupt  */
+#define XC_GGA_X_SSB_D        92  /* Swart, Sola and Bickelhaupt dispersion  */
 
 typedef struct{
   FLOAT A, B, C, D, E;
@@ -64,7 +64,7 @@ XC(gga_x_ssb_sw_set_params)(XC(func_type) *p, FLOAT A, FLOAT B, FLOAT C, FLOAT D
 const XC(func_info_type) XC(func_info_gga_x_ssb_sw) = {
   XC_GGA_X_SSB_SW,
   XC_EXCHANGE,
-  "Swarta, Sola and Bickelhaupt correction to PBE",
+  "Swart, Sola and Bickelhaupt correction to PBE",
   XC_FAMILY_GGA,
   {&xc_ref_Swart2009_69, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
@@ -92,7 +92,7 @@ gga_x_ssb_init(XC(func_type) *p)
 const XC(func_info_type) XC(func_info_gga_x_ssb) = {
   XC_GGA_X_SSB,
   XC_EXCHANGE,
-  "Swarta, Sola and Bickelhaupt",
+  "Swart, Sola and Bickelhaupt",
   XC_FAMILY_GGA,
   {&xc_ref_Swart2009_094103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -120,7 +120,7 @@ gga_x_ssb_d_init(XC(func_type) *p)
 const XC(func_info_type) XC(func_info_gga_x_ssb_d) = {
   XC_GGA_X_SSB_D,
   XC_EXCHANGE,
-  "Swarta, Sola and Bickelhaupt dispersion",
+  "Swart, Sola and Bickelhaupt dispersion",
   XC_FAMILY_GGA,
   {&xc_ref_Swart2009_094103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

@@ -6,5 +6,13 @@
   params = (gga_x_pw86_params * )(p->params);
 *)
 
-f0 := s -> 1.0 + params_a_aa*s^2 + params_a_bb*s^4 + params_a_cc*s^6:
-f  := x -> f0(X2S*x)^(1.0/15.0):
+$ifdef gga_x_rpw86_params
+params_a_aa := 15.0*0.1234:
+params_a_bb := 17.33:
+params_a_cc := 0.163:
+$endif
+
+f0_PW86 := s -> (1.0 + params_a_aa*s^2 + params_a_bb*s^4 + params_a_cc*s^6)^(1.0/15.0):
+f_PW86  := x -> f0_PW86(X2S*x):
+
+f      := x -> f_PW86(x):

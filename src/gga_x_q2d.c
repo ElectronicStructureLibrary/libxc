@@ -23,17 +23,6 @@
 
 #define XC_GGA_X_Q2D          48 /* Chiodo et al  */
 
-static void
-gga_x_q2D_init(XC(func_type) *p)
-{
-  p->n_func_aux  = 1;
-  p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
-  p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
-
-  XC(func_init)(p->func_aux[0], XC_GGA_X_PBE_SOL, p->nspin);
-
-}
-
 #include "maple2c/gga_x_q2d.c"
 
 #define func maple2c_func
@@ -48,6 +37,6 @@ const XC(func_info_type) XC(func_info_gga_x_q2d) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-23, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_q2D_init, NULL, 
+  NULL, NULL, 
   NULL, work_gga_x, NULL
 };

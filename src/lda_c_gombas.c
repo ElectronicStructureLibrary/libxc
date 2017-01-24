@@ -25,39 +25,9 @@
 
 #define XC_LDA_C_GOMBAS  24   /* Gombas parametrization       */
 
-static inline void 
-func(const XC(func_type) *p, XC(lda_work_t) *r)
-{
-  static FLOAT a1=-0.0357, a2=0.0562, b1=-0.0311, b2=2.39;
-  FLOAT t1, t2, cnst_rs, x;
-  
-  cnst_rs = CBRT(4.0*M_PI/3.0);
-  x = cnst_rs*r->rs[1];
+#include "maple2c/lda_c_gombas.c"
 
-  t1 = 1.0 + a2*x;
-  t2 = x + b2;
-
-  r->zk = a1/t1 + b1*LOG(t2/x);
-
-  if(r->order < 1) return;
-
-  r->dedrs = -a1*a2/(t1*t1) - b1*b2/(x*t2);
-  r->dedrs*= cnst_rs;
-  r->dedz  = 0.0;
-
-  if(r->order < 2) return;
-
-  r->d2edrs2 = 2.0*a1*a2*a2/(t1*t1*t1) + b1*(1.0/(x*x) - 1.0/(t2*t2));
-  r->d2edrs2*= cnst_rs*cnst_rs;
-  r->d2edrsz = r->d2edz2 = 0.0;
-
-  if(r->order < 3) return;
-
-  r->d3edrs3 = -6*a1*a2*a2*a2/(t1*t1*t1*t1) - 2.0*b1/(x*x*x) + 2.0*b1/(t2*t2*t2);
-  r->d3edrs3*= cnst_rs*cnst_rs*cnst_rs;
-  r->d3edrs2z = r->d3edrsz2 = r->d3edz3 = 0.0;
-}
-
+#define func maple2c_func
 #include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_c_gombas) = {

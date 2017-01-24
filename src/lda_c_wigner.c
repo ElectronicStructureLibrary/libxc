@@ -25,32 +25,9 @@
 
 #define XC_LDA_C_WIGNER  2   /* Wigner parametrization       */
 
-static inline void 
-func(const XC(func_type) *p, XC(lda_work_t) *r)
-{
-  static FLOAT a = -0.44, b = 7.8;
-  FLOAT t, t2;
-  
-  t   =  b + r->rs[1];
-  r->zk =  a/t;
+#include "maple2c/lda_c_wigner.c"
 
-  if(r->order < 1) return;
-
-  t2       = t*t;
-  r->dedrs = -a/t2;
-  r->dedz  = 0.0;
-
-  if(r->order < 2) return;
-
-  r->d2edrs2 = 2.0*a/(t2*t);
-  r->d2edrsz = r->d2edz2 = 0.0;
-
-  if(r->order < 3) return;
-
-  r->d3edrs3 = -2.0*3.0*a/(t2*t2);
-  r->d3edrs2z = r->d3edrsz2 = r->d3edz3 = 0.0;
-}
-
+#define func maple2c_func
 #include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_c_wigner) = {

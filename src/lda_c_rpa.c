@@ -26,7 +26,7 @@
 #define XC_LDA_C_RPA  3   /* Random Phase Approximation   */
 
 static inline void 
-func(const XC(func_type) *p, XC(lda_work_t) *r)
+funcold(const XC(func_type) *p, XC(lda_work_t) *r)
 {
   static FLOAT a = 0.0311, b = -0.048, c = 0.009, d = -0.017;
   FLOAT lrs;
@@ -51,6 +51,9 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
   r->d3edrs2z = r->d3edrsz2 = r->d3edz3 = 0.0;
 }
 
+#include "maple2c/lda_c_rpa.c"
+
+#define func maple2c_func
 #include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_c_rpa) = {
@@ -62,9 +65,6 @@ const XC(func_info_type) XC(func_info_lda_c_rpa) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
   0, NULL, NULL,
-  NULL,     /* init */
-  NULL,     /* end  */
-  work_lda, /* lda  */
-  NULL,
-  NULL
+  NULL, NULL,
+  work_lda, NULL, NULL
 };

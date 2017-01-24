@@ -24,44 +24,9 @@
 
 #define XC_LDA_XC_ZLP     43   /* Zhao, Levy & Parr, Eq. (20)  */
 
-/* the functional */
-static inline void 
-func(const XC(func_type) *p, XC(lda_work_t) *r)
-{
-  static FLOAT a0 = 0.93222*RS_FACTOR, kk = 9.47362e-3*RS_FACTOR;
-  FLOAT aux, daux, d2aux, d3aux;
+#include "maple2c/lda_xc_zlp.c"
 
-  aux = LOG(1.0 + r->rs[1]/kk);
-
-  r->zk = -a0*(1.0 - kk*aux/r->rs[1])/r->rs[1];
-
-  if(r->order < 1) return; /* nothing else to do */
-
-  daux = 1.0/(r->rs[1] + kk);
-
-  r->dedrs = a0*(r->rs[1] - 2.0*kk*aux + kk*r->rs[1]*daux)/(r->rs[2]*r->rs[1]);
-  r->dedz  = 0.0;
-
-  if(r->order < 2) return; /* nothing else to do */
-
-  d2aux = -daux*daux;
-
-  r->d2edrs2  = a0*(-2.0*r->rs[1] + 6.0*kk*aux - 4.0*kk*r->rs[1]*daux + kk*r->rs[2]*d2aux)/(r->rs[2]*r->rs[2]);
-  r->d2edz2   = 0.0;
-  r->d2edrsz  = 0.0;
-
-  if(r->order < 3) return; /* nothing else to do */
-
-  d3aux = -2.0*d2aux*daux;
-
-  r->d3edrs3   = a0*(6.0*r->rs[1] - 24.0*kk*aux + 18.0*kk*r->rs[1]*daux
-		     - 6.0*kk*r->rs[2]*d2aux + kk*r->rs[2]*r->rs[1]*d3aux)*RS_FACTOR/(r->rs[2]*r->rs[2]*r->rs[1]);
-  r->d3edz3    = 0.0;
-  r->d3edrs2z  = 0.0;
-  r->d3edrsz2  = 0.0;
-  r->d3edrsz2  = 0.0;
-}
-
+#define func maple2c_func
 #include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_xc_zlp) = {

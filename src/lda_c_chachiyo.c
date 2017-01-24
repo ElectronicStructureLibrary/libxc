@@ -22,7 +22,7 @@
 #define XC_LDA_C_CHACHIYO  287   /* Chachiyo simple 2 parameter correlation   */
 
 void
-XC(lda_c_chachiyo_func)(const XC(func_type) *p, XC(lda_work_t) *r)
+XC(lda_c_chachiyo_funcold)(const XC(func_type) *p, XC(lda_work_t) *r)
 {
   static FLOAT ap = -0.01554535, bp = 20.4562557;
   static FLOAT af = -.007772675, bf = 27.4203609; /* af = ap/2.0 */
@@ -87,7 +87,9 @@ XC(lda_c_chachiyo_func)(const XC(func_type) *p, XC(lda_work_t) *r)
   r->d3edz3   = (e1 - e0)*d3fdz3;
 }
 
-#define func XC(lda_c_chachiyo_func)
+#include "maple2c/lda_c_chachiyo.c"
+
+#define func maple2c_func
 #include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_c_chachiyo) = {

@@ -51,6 +51,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   lda_pw.order = lda_x.order = r->order;
   lda_pw.rs[0] = lda_x.rs[0] = SQRT(r->rs);
   lda_pw.rs[1] = lda_x.rs[1] = r->rs;
+  lda_pw.rss   = lda_x.rss   = r->rs;
   lda_pw.rs[2] = lda_x.rs[2] = r->rs*r->rs;
   lda_pw.zeta  = lda_x.zeta  = r->zeta;
 

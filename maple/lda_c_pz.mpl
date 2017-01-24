@@ -1,7 +1,7 @@
 (* type: work_lda *)
 (* prefix:
   lda_c_pz_params *params;
- 
+
   assert(p->params != NULL);
   params = (lda_c_pz_params * )(p->params);
 *)
@@ -20,7 +20,5 @@ ec_high := (i, rs) -> params_a_a[i]*log(rs) + params_a_b[i] \
 (* Dirac functions that come out in the derivatives                      *)
 ec := (i, x) -> convert(piecewise(x >= 1.0, ec_low(i, x), ec_high(i, x)), 'Heaviside'):
 
-fzeta := z -> ((1.0 + z)^(4.0/3.0) + (1.0 - z)^(4.0/3.0) - 2.0)/(2.0^(4.0/3.0) - 2.0):
-
 f := (rs, zeta) -> \
- ec(1, rs) + (ec(2, rs) - ec(1, rs))*fzeta(zeta):
+ ec(1, rs) + (ec(2, rs) - ec(1, rs))*f_zeta(zeta):

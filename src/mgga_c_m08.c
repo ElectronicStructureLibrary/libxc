@@ -184,6 +184,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   pw.order = r->order;
   pw.rs[0] = SQRT(r->rs);
   pw.rs[1] = r->rs;
+  pw.rss   = r->rs;
   pw.rs[2] = r->rs*r->rs;
   pw.zeta  = r->zeta;
   XC(lda_c_pw_func)(pt->func_aux[0], &pw);

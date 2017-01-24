@@ -31,6 +31,7 @@ XC(lda_stoll) (const XC(func_type) *pw, XC(lda_func_type) lda_func,
   FLOAT opz[2] = {1.0 + zeta, 1.0 - zeta};
 
   res[2].rs[1]  = RS(dens);
+  res[2].rss    = res[2].rs[1];
 
   /* first we get the parallel contributions */
   for(is=0; is<2; is++){
@@ -47,6 +48,7 @@ XC(lda_stoll) (const XC(func_type) *pw, XC(lda_func_type) lda_func,
       opz13 = CBRT(opz[is]);
 
       res[is].rs[1] = RS(dens*opz[is]/2.0);
+      res[is].rss   = res[is].rs[1];
       res[is].rs[0] = sqrt(res[is].rs[1]);
       res[is].rs[2] = res[is].rs[1]*res[is].rs[1];
       res[is].zeta  = sign[is];

@@ -16,27 +16,19 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
-
 #include "util.h"
 
-/************************************************************************
- LDA parametrization of Vosko, Wilk & Nusair
-************************************************************************/
+#define XC_LDA_C_VWN_RPA  8   /* Vosko, Wilk, & Nusair (RPA) */
 
-#define XC_LDA_C_VWN      7   /* Vosko, Wilk, & Nusair (5)   */
-
-#include "maple2c/lda_c_vwn.c"
+#include "maple2c/lda_c_vwn_rpa.c"
 
 #define func maple2c_func
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_c_vwn) = {
-  XC_LDA_C_VWN,
+const XC(func_info_type) XC(func_info_lda_c_vwn_rpa) = {
+  XC_LDA_C_VWN_RPA,
   XC_CORRELATION,
-  "Vosko, Wilk & Nusair (VWN5)",
+  "Vosko, Wilk & Nusair (VWN5_RPA)",
   XC_FAMILY_LDA,
   {&xc_ref_Vosko1980_1200, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
@@ -45,5 +37,3 @@ const XC(func_info_type) XC(func_info_lda_c_vwn) = {
   NULL, NULL,
   work_lda, NULL, NULL
 };
-
-

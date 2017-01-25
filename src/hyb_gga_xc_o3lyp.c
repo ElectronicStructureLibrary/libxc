@@ -30,7 +30,7 @@ static void
 gga_xc_o3lyp_init(XC(func_type) *p)
 {
   const FLOAT a = 0.1161, b = 0.9262, c = 0.8133, CC = 0.81, a1 = 1.05151;
-  static int funcs_id  [4] = {XC_LDA_X, XC_GGA_X_OPTX, XC_LDA_C_VWN, XC_GGA_C_LYP};
+  static int funcs_id  [4] = {XC_LDA_X, XC_GGA_X_OPTX, XC_LDA_C_VWN_1, XC_GGA_C_LYP};
   FLOAT funcs_coef[4];
 
   /* \Delta OPTX is not described in the paper, so there are multiple
@@ -43,7 +43,6 @@ gga_xc_o3lyp_init(XC(func_type) *p)
   funcs_coef[3] = CC;
 
   XC(mix_init)(p, 4, funcs_id, funcs_coef);
-  XC(lda_c_vwn_set_params)(p->func_aux[2], 1);
   p->cam_alpha = a;
 }
 

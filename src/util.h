@@ -302,8 +302,6 @@ void XC(mgga_b00_fw)(int order, FLOAT t, FLOAT *fw, FLOAT *dfwdt);
 	 
 
 /* now the routines to set the _internal_ parameters of several functionals */
-void XC(lda_c_vwn_set_params)(XC(func_type) *p, int spin_interpolation);
-
 void XC(gga_x_pw91_set_params)(XC(func_type) *p, FLOAT a, FLOAT b, FLOAT c, FLOAT d, FLOAT f, FLOAT alpha, FLOAT expo);
 void XC(gga_x_pw91_set_params2)(XC(func_type) *p, FLOAT bt, FLOAT alpha, FLOAT expo);
 void XC(gga_x_ssb_sw_set_params)(XC(func_type) *p, FLOAT A, FLOAT B, FLOAT C, FLOAT D, FLOAT E);

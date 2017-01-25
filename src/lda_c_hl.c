@@ -20,115 +20,54 @@
 #include <assert.h>
 #include "util.h"
 
-
-/************************************************************************
-   L. Hedin and  B.I. Lundqvist
-   O. Gunnarsson and B. I. Lundqvist
-************************************************************************/
-
 #define XC_LDA_C_HL   4   /* Hedin & Lundqvist            */
 #define XC_LDA_C_GL   5   /* Gunnarson & Lundqvist        */
 #define XC_LDA_C_vBH 17   /* von Barth & Hedin            */
 
+typedef struct {
+  FLOAT r[2], c[2];
+} lda_c_hl_params;
+
+static const lda_c_hl_params par_hl = { /* HL unpolarized only*/
+  {21.0, 21.0}, {0.0225, 0.0225}
+};
+
+static const lda_c_hl_params par_gl = {
+  {11.4, 15.9}, {0.0333, 0.0203}
+};
+
+static const lda_c_hl_params par_vbh = {
+  {30.0, 75.0}, {0.0252, 0.0127}
+};
+
 static void 
-hl_f(int func, int order, int i, FLOAT rs, FLOAT *zk, FLOAT *drs, FLOAT *d2rs, FLOAT *d3rs)
+lda_c_hl_init(XC(func_type) *p)
 {
-  static const 
-    FLOAT r[3][2] = {{21.0,   21.0},     /* HL unpolarized only*/
-		     {11.4,   15.9},     /* GL */
-                     {30,     75 }};     /* vBH */
-  static const 
-    FLOAT c[3][2] = {{0.0225, 0.0225},  /* HL unpolarized only */
-		     {0.0333, 0.0203},  /* GL */
-		     {0.0252, 0.0127}}; /* vBH */
-  
-  FLOAT a, x, x2, x3;
-  
-  x   = rs/r[func][i];
-  x2  = x*x;
-  x3  = x2*x;
-  
-  a   = LOG(1.0 + 1.0/x);
-  *zk = -c[func][i]*((1.0 + x3)*a - x2 + 0.5*x - 1.0/3.0);
-  
-  if(order < 1) return;
+  lda_c_hl_params *params;
 
-  *drs  = 3.0*x*(x*a - 1) - 1/x + 3.0/2.0;
-  *drs *= -c[func][i]/r[func][i];
-
-  if(order < 2) return;
-
-  *d2rs  = -3.0 + 1.0/x2 - 3.0*x/(1.0 + x) + 6.0*x*a;
-  *d2rs *= -c[func][i]/(r[func][i]*r[func][i]);
-
-  if(order < 3) return;
-
-  *d3rs = -2.0/x3 + 3.0*x/((1.0 + x)*(1.0 + x)) - 9.0/(1.0 + x) + 6.0*a;
-  *d3rs *= -c[func][i]/(r[func][i]*r[func][i]*r[func][i]);
-}
-
-
-void 
-XC(lda_c_hl_func)(const XC(func_type) *p, XC(lda_work_t) *r)
-{
-  int func;
-  FLOAT ecp, vcp, fcp, kcp;
-  FLOAT ecf, vcf, fcf, kcf;
-  FLOAT fz, dfz, d2fz, d3fz;
+  assert(p!=NULL && p->params == NULL);
+  p->params = malloc(sizeof(lda_c_hl_params));
+  params = (lda_c_hl_params *) (p->params);
 
   switch(p->info->number){
-  case XC_LDA_C_GL:  func = 1; break;
-  case XC_LDA_C_vBH: func = 2; break;
-  default:           func = 0; /* original HL */
-  }
-
-  hl_f(func, r->order, 0, r->rs[1], &ecp, &vcp, &fcp, &kcp);
-
-  if(p->nspin == XC_UNPOLARIZED)
-    r->zk = ecp;
-  else{
-    /* get ferromagnetic values */
-    hl_f(func, r->order, 1, r->rs[1], &ecf, &vcf, &fcf, &kcf);
-
-    fz = FZETA(r->zeta);
-    r->zk = ecp + (ecf - ecp)*fz;
-  }
-
-  if(r->order < 1) return;
-
-  if(p->nspin == XC_UNPOLARIZED)
-    r->dedrs = vcp;
-  else{
-    dfz = DFZETA(r->zeta);
-    r->dedrs = vcp + (vcf - vcp)*fz;
-    r->dedz  =       (ecf - ecp)*dfz;
-  }
-
-  if(r->order < 2) return;
-  
-  if(p->nspin == XC_UNPOLARIZED)
-    r->d2edrs2 = fcp;
-  else{
-    d2fz = D2FZETA(r->zeta);
-    r->d2edrs2 = fcp + (fcf - fcp)*fz;
-    r->d2edrsz =       (vcf - vcp)*dfz;
-    r->d2edz2  =       (ecf - ecp)*d2fz;
-  }
-  
-  if(r->order < 3) return;
-
-  if(p->nspin == XC_UNPOLARIZED)
-    r->d3edrs3 = kcp;
-  else{
-    d3fz = D3FZETA(r->zeta);
-    r->d3edrs3  = kcp + (kcf - kcp)*fz;
-    r->d3edrs2z =       (fcf - fcp)*dfz;
-    r->d3edrsz2 =       (vcf - vcp)*d2fz;
-    r->d3edz3   =       (ecf - ecp)*d3fz;
+  case XC_LDA_C_HL:
+    memcpy(params, &par_hl, sizeof(lda_c_hl_params));
+    break;
+  case XC_LDA_C_GL:
+    memcpy(params, &par_gl, sizeof(lda_c_hl_params));
+    break;
+  case XC_LDA_C_vBH:
+    memcpy(params, &par_vbh, sizeof(lda_c_hl_params));
+    break;
+  default:
+    fprintf(stderr, "Internal error in lda_c_hl\n");
+    exit(1);
   }
 }
 
-#define func XC(lda_c_hl_func)
+#include "maple2c/lda_c_hl.c"
+
+#define func maple2c_func
 #include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_c_hl) = {
@@ -140,11 +79,8 @@ const XC(func_info_type) XC(func_info_lda_c_hl) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-16, 0.0, 0.0, 1e-32,
   0, NULL, NULL,
-  NULL,     /* init */
-  NULL,     /* end  */
-  work_lda, /* lda  */
-  NULL,
-  NULL
+  lda_c_hl_init, NULL,
+  work_lda, NULL, NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_c_gl) = {
@@ -156,11 +92,8 @@ const XC(func_info_type) XC(func_info_lda_c_gl) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-12, 0.0, 0.0, 1e-32,
   0, NULL, NULL,
-  NULL,     /* init */
-  NULL,     /* end  */
-  work_lda, /* lda  */
-  NULL,
-  NULL
+  lda_c_hl_init, NULL,
+  work_lda, NULL, NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_c_vbh) = {
@@ -172,9 +105,6 @@ const XC(func_info_type) XC(func_info_lda_c_vbh) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-14, 0.0, 0.0, 1e-32,
   0, NULL, NULL,
-  NULL,     /* init */
-  NULL,     /* end  */
-  work_lda, /* lda  */
-  NULL,
-  NULL
+  lda_c_hl_init, NULL,
+  work_lda, NULL, NULL
 };

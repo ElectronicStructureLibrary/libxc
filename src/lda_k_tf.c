@@ -25,73 +25,37 @@
 #define XC_LDA_K_TF      50   /* Thomas-Fermi kinetic energy functional */
 #define XC_LDA_K_LP      51   /* Lee and Parr Gaussian ansatz           */
 
-static inline void 
-func(const XC(func_type) *p, XC(lda_work_t) *r)
+typedef struct {
+  FLOAT ax;
+} lda_k_tf_params;
+
+static void 
+lda_k_tf_init(XC(func_type) *p)
 {
-  FLOAT ax, fz, dfz, d2fz, d3fz;
+  lda_k_tf_params *params;
+
+  assert(p!=NULL && p->params == NULL);
+  p->params = malloc(sizeof(lda_k_tf_params));
+  params = (lda_k_tf_params *) (p->params);
 
   switch(p->info->number){
-  case XC_LDA_K_LP:\
-    /* 3*M_PI/2^(5/3) * (3/4 pi)^(2/3) = 3*M_PI*POW(3/(8*M_PI), 2/3)*/
-    ax = 1.142427709758666675644309251677891925671;
-    break;
   case XC_LDA_K_TF:
     /* 3/10*(3*M_PI^2)^(2/3) * (3/4 pi)^(2/3) = 3/10*POW(9*M_PI/4, 2/3) */
-    ax = 1.104950565705860002098832079519635692942;
+    params->ax = 1.104950565705860002098832079519635692942;
     break;
+  case XC_LDA_K_LP:
+    /* 3*M_PI/2^(5/3) * (3/4 pi)^(2/3) = 3*M_PI*POW(3/(8*M_PI), 2/3)*/
+    params->ax = 1.142427709758666675644309251677891925671;
+    break;
+  default:
+    fprintf(stderr, "Internal error in lda_k_tf\n");
+    exit(1);
   }
-
-  r->zk = ax/r->rs[2];
-
-  if(p->nspin == XC_POLARIZED){
-    fz  = 0.5*(POW(1.0 + r->zeta,  5.0/3.0) + POW(1.0 - r->zeta,  5.0/3.0));
-    r->zk *= fz;
-  }
-
-  if(r->order < 1) return;
-  
-  r->dedrs = -2.0*ax/(r->rs[1]*r->rs[2]);
-
-  if(p->nspin == XC_POLARIZED){
-    dfz = 5.0/(2.0*3.0)*(POW(1.0 + r->zeta,  2.0/3.0) - POW(1.0 - r->zeta,  2.0/3.0));
-
-    r->dedrs *=             fz;
-    r->dedz   = ax/r->rs[2]*dfz;
-  }
-
-  if(r->order < 2) return;
-    
-  r->d2edrs2 = 2.0*3.0*ax/(r->rs[2]*r->rs[2]);
-
-  if(p->nspin == XC_POLARIZED){
-    if(ABS(r->zeta) == 1.0)
-      d2fz = FLT_MAX;
-    else
-      d2fz = 10.0/(2.0*9.0)*(1.0/CBRT(1.0 + r->zeta) + 1.0/CBRT(1.0 - r->zeta));
-    
-    r->d2edrs2 *=                             fz;
-    r->d2edrsz  = -2.0*ax/(r->rs[1]*r->rs[2])*dfz;
-    r->d2edz2   =      ax/r->rs[2]           *d2fz;
-  }
-
-  if(r->order < 3) return;
-
-  r->d3edrs3 = -2.0*3.0*4.0*ax/(r->rs[1]*r->rs[2]*r->rs[2]);
-
-  if(p->nspin == XC_POLARIZED){
-    if(ABS(r->zeta) == 1.0)
-      d3fz = FLT_MAX;
-    else
-      d3fz = -10.0/(2.0*27.0)*(POW(1.0 + r->zeta,  -4.0/3.0) - POW(1.0 - r->zeta,  -4.0/3.0));
-
-    r->d3edrs3 *= fz;
-    r->d3edrs2z = 2.0*3.0*ax/(r->rs[2]*r->rs[2])*dfz;
-    r->d3edrsz2 =    -2.0*ax/(r->rs[1]*r->rs[2])*d2fz;
-    r->d3edz3   =         ax/r->rs[2]           *d3fz;
-  }
-
 }
 
+#include "maple2c/lda_k_tf.c"
+
+#define func maple2c_func
 #include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_k_tf) = {
@@ -103,11 +67,8 @@ const XC(func_info_type) XC(func_info_lda_k_tf) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-29, 0.0, 0.0, 1e-32,
   0, NULL, NULL,
-  NULL,
-  NULL,
-  work_lda,
-  NULL,
-  NULL
+  lda_k_tf_init, NULL,
+  work_lda, NULL, NULL
 };
 
 const XC(func_info_type) XC(func_info_lda_k_lp) = {
@@ -119,10 +80,7 @@ const XC(func_info_type) XC(func_info_lda_k_lp) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-29, 0.0, 0.0, 1e-32,
   0, NULL, NULL,
-  NULL,
-  NULL,
-  work_lda,
-  NULL,
-  NULL
+  lda_k_tf_init, NULL,
+  work_lda, NULL, NULL
 };
 

@@ -24,52 +24,9 @@
 
 #define XC_LDA_X_2D  19 /* Exchange in 2D */
 
-static inline void 
-func(const XC(func_type) *p, XC(lda_work_t) *r)
-{
-  const FLOAT ax = -0.600210877438070713036799460671; /* -4/3*SQRT(2)/M_PI */
-  FLOAT fz, dfz, d2fz, d3fz;
+#include "maple2c/lda_x_2d.c"
 
-  r->zk = ax/r->rs[1];
-  if(p->nspin == XC_POLARIZED){
-    fz  = 0.5*(POW(1.0 + r->zeta,  3.0/2.0) + POW(1.0 - r->zeta,  3.0/2.0));
-    r->zk *= fz;
-  }
-
-  if(r->order < 1) return;
-  
-  r->dedrs = -ax/r->rs[2];
-  if(p->nspin == XC_POLARIZED){
-    dfz = 3.0/4.0*(SQRT(1.0 + r->zeta) - SQRT(1.0 - r->zeta));
-
-    r->dedrs *= fz;
-    r->dedz   = ax/r->rs[1]*dfz;
-  }
-
-  if(r->order < 2) return;
-
-  r->d2edrs2 = 2.0*ax/(r->rs[1]*r->rs[2]);
-  if(p->nspin == XC_POLARIZED){
-    d2fz = 3.0/8.0*(1.0/SQRT(1.0 + r->zeta) + 1.0/SQRT(1.0 - r->zeta));
-
-    r->d2edrs2 *=                fz;
-    r->d2edrsz  = -ax/r->rs[2]* dfz;
-    r->d2edz2   =  ax/r->rs[1]*d2fz;
-  }
-
-  if(r->order < 3) return;
-
-  r->d3edrs3 = -6.0*ax/(r->rs[2]*r->rs[2]);
-  if(p->nspin == XC_POLARIZED){
-    d3fz = -3.0/16.0*(POW(1.0 + r->zeta,  -3.0/2.0) - POW(1.0 - r->zeta, -3.0/2.0));
-
-    r->d3edrs3 *=                             fz;
-    r->d3edrs2z = 2.0*ax/(r->rs[1]*r->rs[2])*dfz;
-    r->d3edrsz2 =    -ax/r->rs[2]*          d2fz;
-    r->d3edz3   =     ax/r->rs[1]*          d3fz;
-  }   
-}
-
+#define func maple2c_func
 #define XC_DIMENSIONS 2
 #include "work_lda.c"
 
@@ -82,10 +39,7 @@ const XC(func_info_type) XC(func_info_lda_x_2d) = {
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
   0, NULL, NULL,
-  NULL, 
-  NULL,
-  work_lda,
-  NULL, 
-  NULL
+  NULL, NULL,
+  work_lda, NULL,  NULL
 };
 

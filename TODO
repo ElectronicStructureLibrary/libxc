@@ -6,9 +6,9 @@ Add functionals:
 LDA:
   *) McWeeny c (cited in JCP 69, 1177)
      R. McWeeny, in The New World of Quantum Chemistry, edited by B. Pullman and R. Parr (Reidel, Boston, 1976), p. 3.
-  *) Handler x (JCP 61, 4824) 
   *) Rae self-energy correction to x (CPL 18, 574 (1973))
-  *) ZLP x (Phys. Rev. A, 47 (1993), p. 918) and k (Chem. Phys. Lett. 232, 31)
+  *) ZLP x (https://journals.aps.org/pra/pdf/10.1103/PhysRevA.47.918 Eq. (20) & (21), and at the end there are several kinetic contributions to the correlation energy) and k (Chem. Phys. Lett. 232, 31)
+  *) Lee and Parr https://journals.aps.org/pra/abstract/10.1103/PhysRevA.42.193 (there are two LDAs and two meta-GGAs)
   *) Proynov-Kong c [Phys. Rev. A 79, 014103 (2009)] http://journals.aps.org/pra/abstract/10.1103/PhysRevA.79.014103
 
 GGAs:

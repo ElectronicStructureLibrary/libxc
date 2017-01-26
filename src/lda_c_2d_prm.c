@@ -33,7 +33,7 @@ Correlation functional by Pittalis, Rasanen & Marques for the 2D electron gas
 typedef struct{
   FLOAT N;
   FLOAT c;
-} lda_c_prm_params;
+} lda_c_2d_prm_params;
 
 /* parameters necessary to the calculation */
 static FLOAT prm_q = 3.9274; /* 2.258 */
@@ -44,63 +44,12 @@ lda_c_2d_prm_init(XC(func_type) *p)
 {
   assert(p != NULL && p->params == NULL);
 
-  p->params = malloc(sizeof(lda_c_prm_params));
+  p->params = malloc(sizeof(lda_c_2d_prm_params));
 }
 
-static inline void 
-func(const XC(func_type) *p, XC(lda_work_t) *r)
-{
-  lda_c_prm_params *params;
+#include "maple2c/lda_c_2d_prm.c"
 
-  FLOAT beta, phi, c;
-  FLOAT t1, t2, t3, dt1dbeta, dt1dphi, dt3dphi, dbetadrs, dphidrs;
-
-  assert(p->params != NULL);
-  params = (lda_c_prm_params *) (p->params);
-
-  assert(params->N > 1.0);
-  
-  beta = prm_q/(M_SQRTPI*r->rs[1]); /* Eq. (4) */
-  c    = params->c;
-
-  phi = beta/(beta + M_SQRTPI/2.0);
-    
-  t3  = phi - 1.0; /* original version has (phi-1)^2 */
-  t2  = M_PI/(2.0*prm_q*prm_q);
-    
-  t1  = M_SQRTPI*beta*t3/(2.0*SQRT(2.0 + c));
-  t1 += phi*(phi - 1.0)/(2.0 + c);
-  t1 += M_SQRTPI*phi*phi/(4.0*beta*POW(2.0 + c, 1.5));
-  t1 += M_SQRTPI*beta*(phi - 1.0)/SQRT(1.0 + c);
-  t1 += phi/(1.0 + c);
-  t1 *= t2;
-    
-  r->zk = t1;
-  if(r->order < 1) return;
-
-  dt1dbeta  = M_SQRTPI*t3/(2.0*SQRT(2.0 + c));
-  dt1dbeta -= M_SQRTPI*phi*phi/(4.0*beta*beta*POW(2.0 + c, 1.5));
-  dt1dbeta += M_SQRTPI*(phi - 1.0)/SQRT(1.0 + c);
-  dt1dbeta *= t2;
-
-  dt3dphi   = 1.0;
-  dt1dphi   = M_SQRTPI*beta/(2.0*SQRT(2.0 + c))*dt3dphi;
-  dt1dphi  += (2.0*phi - 1.0)/(2.0 + c);
-  dt1dphi  += M_SQRTPI*2.0*phi/(4.0*beta*POW(2.0 + c, 1.5));
-  dt1dphi  += M_SQRTPI*beta/SQRT(1.0 + c);
-  dt1dphi  += 1.0/(1.0 + c);
-  dt1dphi  *= t2;
-
-  dbetadrs  = -prm_q/(M_SQRTPI*r->rs[2]);
-  dphidrs   = M_SQRTPI/(2.0*(beta + M_SQRTPI/2.0)*(beta + M_SQRTPI/2.0));
-  dphidrs  *= dbetadrs;
-
-  r->dedrs = dt1dbeta*dbetadrs + dt1dphi*dphidrs;
-  r->dedz  = 0.0; /* no spin for the moment */
-
-  if(r->order < 2) return;
-}
-
+#define func maple2c_func
 #define XC_DIMENSIONS 2
 #include "work_lda.c"
 
@@ -111,11 +60,11 @@ static const func_params_type ext_params[] = {
 static void 
 set_ext_params(XC(func_type) *p, const double *ext_params)
 {
-  lda_c_prm_params *params;
+  lda_c_2d_prm_params *params;
   double ff;
 
   assert(p != NULL && p->params != NULL);
-  params = (lda_c_prm_params *) (p->params);
+  params = (lda_c_2d_prm_params *) (p->params);
 
   ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
   params->N = ff;
@@ -134,7 +83,7 @@ const XC(func_info_type) XC(func_info_lda_c_2d_prm) = {
   "PRM (for 2D systems)",
   XC_FAMILY_LDA,
   {&xc_ref_Pittalis2008_195322, NULL, NULL, NULL, NULL},
-  XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
   1, ext_params, set_ext_params,
   lda_c_2d_prm_init, NULL,

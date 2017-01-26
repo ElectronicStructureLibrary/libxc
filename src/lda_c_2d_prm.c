@@ -35,9 +35,6 @@ typedef struct{
   FLOAT c;
 } lda_c_2d_prm_params;
 
-/* parameters necessary to the calculation */
-static FLOAT prm_q = 3.9274; /* 2.258 */
-
 /* Initialization */
 static void
 lda_c_2d_prm_init(XC(func_type) *p)
@@ -60,6 +57,7 @@ static const func_params_type ext_params[] = {
 static void 
 set_ext_params(XC(func_type) *p, const double *ext_params)
 {
+  static FLOAT prm_q = 3.9274; /* 2.258 */
   lda_c_2d_prm_params *params;
   double ff;
 

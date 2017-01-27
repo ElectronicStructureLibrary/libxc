@@ -78,7 +78,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   /* Equation [1].(8) */
   H = x1*x1*EXP(-Phi)*CC/DD;
-  r->f = pw.zk + H;
+  r->f = pw.e + H;
 
   if(r->order < 1) return;
 

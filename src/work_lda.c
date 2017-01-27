@@ -73,14 +73,14 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
     func(p, &r);
 
     if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-      *zk = r.zk;
+      *zk = r.e;
 
     if(r.order < 1) goto end_ip_loop;
 
     drs = -r.rs/(XC_DIMENSIONS*dens);
     
     if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
-      vrho[0] = r.zk + dens*r.dedrs*drs;
+      vrho[0] = r.e + dens*r.dedrs*drs;
 
       if(p->nspin == XC_POLARIZED){
 	vrho[1] = vrho[0] - (r.zeta + 1.0)*r.dedz;

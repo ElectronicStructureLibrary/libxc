@@ -72,7 +72,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     DD = 1.0;
   }
 
-  r->f = pw.zk*Bs*DD;
+  r->f = pw.e*Bs*DD;
 
   if(r->order < 1) return;
 
@@ -93,9 +93,9 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     dDDdxt = 0.0;
   }  
 
-  r->dfdrs    = Bs*(pw.dedrs*DD + pw.zk*dDDdrs);
-  r->dfdz     = Bs*(pw.dedz *DD + pw.zk*dDDdz);
-  r->dfdxt    = pw.zk*(dBs*DD + Bs*dDDdxt);
+  r->dfdrs    = Bs*(pw.dedrs*DD + pw.e*dDDdrs);
+  r->dfdz     = Bs*(pw.dedz *DD + pw.e*dDDdz);
+  r->dfdxt    = pw.e*(dBs*DD + Bs*dDDdxt);
   r->dfdxs[0] = 0.0;
   r->dfdxs[1] = 0.0;
 
@@ -124,16 +124,16 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     d2DDdxt2  = 0.0;
   }
 
-  r->d2fdrs2     = Bs*(pw.d2edrs2*DD + 2.0*pw.dedrs*dDDdrs + pw.zk*d2DDdrs2);
-  r->d2fdrsz     = Bs*(pw.d2edrsz*DD + pw.dedrs*dDDdz + pw.dedz*dDDdrs + pw.zk*d2DDdrsz);
-  r->d2fdrsxt    = pw.dedrs*(dBs*DD + Bs*dDDdxt) + pw.zk*(dBs*dDDdrs + Bs*d2DDdrsxt);
+  r->d2fdrs2     = Bs*(pw.d2edrs2*DD + 2.0*pw.dedrs*dDDdrs + pw.e*d2DDdrs2);
+  r->d2fdrsz     = Bs*(pw.d2edrsz*DD + pw.dedrs*dDDdz + pw.dedz*dDDdrs + pw.e*d2DDdrsz);
+  r->d2fdrsxt    = pw.dedrs*(dBs*DD + Bs*dDDdxt) + pw.e*(dBs*dDDdrs + Bs*d2DDdrsxt);
   r->d2fdrsxs[0] = 0.0;
   r->d2fdrsxs[1] = 0.0;
-  r->d2fdz2      = Bs*(pw.d2edz2*DD + 2.0*pw.dedz*dDDdz + pw.zk*d2DDdz2);
-  r->d2fdzxt     = pw.dedz*(dBs*DD + Bs*dDDdxt) + pw.zk*(dBs*dDDdz + Bs*d2DDdzxt);
+  r->d2fdz2      = Bs*(pw.d2edz2*DD + 2.0*pw.dedz*dDDdz + pw.e*d2DDdz2);
+  r->d2fdzxt     = pw.dedz*(dBs*DD + Bs*dDDdxt) + pw.e*(dBs*dDDdz + Bs*d2DDdzxt);
   r->d2fdzxs[0]  = 0.0;
   r->d2fdzxs[1]  = 0.0;
-  r->d2fdxt2     = pw.zk*(d2Bs*DD + 2.0*dBs*dDDdxt + Bs*d2DDdxt2);
+  r->d2fdxt2     = pw.e*(d2Bs*DD + 2.0*dBs*dDDdxt + Bs*d2DDdxt2);
   r->d2fdxtxs[0] = 0.0;
   r->d2fdxtxs[1] = 0.0;
   r->d2fdxs2[0]  = 0.0;

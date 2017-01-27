@@ -79,7 +79,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   auxm = CBRT(1.0 - r->zeta);
 
   phi  = 0.5*(auxp*auxp + auxm*auxm);
-  y    = -alpha*phi*r->xt*r->xt/(r->rs*pw.zk);
+  y    = -alpha*phi*r->xt*r->xt/(r->rs*pw.e);
 
   den0 = -1.0/(1.0 + y);
   f0   = 1.0 + den0;
@@ -88,7 +88,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   t0  = aa[p->func][0] + f0*(aa[p->func][1] + f0*(aa[p->func][2] + f0*(aa[p->func][3] + f0*(aa[p->func][4] + f0*aa[p->func][5]))));
   t1  = bb[p->func][0] + f1*(bb[p->func][1] + f1*(bb[p->func][2] + f1*(bb[p->func][3] + f1*(bb[p->func][4] + f1*bb[p->func][5]))));
-  r->f = pw.zk*(t0 + t1);
+  r->f = pw.e*(t0 + t1);
 
   if(r->order < 1) return;
 
@@ -99,8 +99,8 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   /* partial derivatives */
   pyprs  = -y/r->rs;
-  pypzk  = -y/pw.zk;
-  pypxt  = -2.0*alpha*phi*r->xt/(r->rs*pw.zk);
+  pypzk  = -y/pw.e;
+  pypxt  = -2.0*alpha*phi*r->xt/(r->rs*pw.e);
   pypphi =  y/phi;
   
   /* full derivatives */
@@ -116,9 +116,9 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   dfdy = dt0*df0 + dt1*df1;
 
-  r->dfdrs    = pw.dedrs*(t0 + t1) + pw.zk*dfdy*dydrs;
-  r->dfdz     = pw.dedz *(t0 + t1) + pw.zk*dfdy*dydz;
-  r->dfdxt    = pw.zk*dfdy*dydxt;
+  r->dfdrs    = pw.dedrs*(t0 + t1) + pw.e*dfdy*dydrs;
+  r->dfdz     = pw.dedz *(t0 + t1) + pw.e*dfdy*dydz;
+  r->dfdxt    = pw.e*dfdy*dydxt;
   r->dfdxs[0] = 0.0;
   r->dfdxs[1] = 0.0;
 
@@ -133,10 +133,10 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   p2yprszk  = -pypzk/r->rs;
   p2yprsxt  = -pypxt/r->rs;
   p2yprsphi = -pypphi/r->rs;
-  p2ypzk2   = -2.0*pypzk/pw.zk;
-  p2ypzkxt  = -pypxt/pw.zk;
-  p2ypzkphi = -pypphi/pw.zk;
-  p2ypxt2   = -2.0*alpha*phi/(r->rs*pw.zk);
+  p2ypzk2   = -2.0*pypzk/pw.e;
+  p2ypzkxt  = -pypxt/pw.e;
+  p2ypzkphi = -pypphi/pw.e;
+  p2ypxt2   = -2.0*alpha*phi/(r->rs*pw.e);
   p2ypxtphi =  pypxt/phi;
 
   d2ydrs2   = p2yprs2 + 2.0*p2yprszk*pw.dedrs + pypzk*pw.d2edrs2 + p2ypzk2*pw.dedrs*pw.dedrs;
@@ -154,17 +154,17 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   d2fdy2 = d2t0*df0*df0 + dt0*d2f0 + d2t1*df1*df1 + dt1*d2f1;
 
-  r->d2fdrs2     = pw.d2edrs2*(t0 + t1) + 2.0*pw.dedrs*dfdy*dydrs + pw.zk*(d2fdy2*dydrs*dydrs + dfdy*d2ydrs2);
+  r->d2fdrs2     = pw.d2edrs2*(t0 + t1) + 2.0*pw.dedrs*dfdy*dydrs + pw.e*(d2fdy2*dydrs*dydrs + dfdy*d2ydrs2);
   r->d2fdrsz     = pw.d2edrsz*(t0 + t1) + dfdy*(pw.dedrs*dydz + pw.dedz*dydrs)
-    + pw.zk*(d2fdy2*dydrs*dydz + dfdy*d2ydrsz);
-  r->d2fdrsxt    = pw.dedrs*dfdy*dydxt + pw.zk*(d2fdy2*dydrs*dydxt + dfdy*d2ydrsxt);
+    + pw.e*(d2fdy2*dydrs*dydz + dfdy*d2ydrsz);
+  r->d2fdrsxt    = pw.dedrs*dfdy*dydxt + pw.e*(d2fdy2*dydrs*dydxt + dfdy*d2ydrsxt);
   r->d2fdrsxs[0] = 0.0;
   r->d2fdrsxs[1] = 0.0;
-  r->d2fdz2      = pw.d2edz2*(t0 + t1) + 2.0*pw.dedz*dfdy*dydz + pw.zk*(d2fdy2*dydz*dydz + dfdy*d2ydz2);
-  r->d2fdzxt     = pw.dedz*dfdy*dydxt + pw.zk*(d2fdy2*dydz*dydxt + dfdy*d2ydxtz);
+  r->d2fdz2      = pw.d2edz2*(t0 + t1) + 2.0*pw.dedz*dfdy*dydz + pw.e*(d2fdy2*dydz*dydz + dfdy*d2ydz2);
+  r->d2fdzxt     = pw.dedz*dfdy*dydxt + pw.e*(d2fdy2*dydz*dydxt + dfdy*d2ydxtz);
   r->d2fdzxs[0]  = 0.0;
   r->d2fdzxs[1]  = 0.0;
-  r->d2fdxt2     = pw.zk*(d2fdy2*dydxt*dydxt + dfdy*d2ydxt2);
+  r->d2fdxt2     = pw.e*(d2fdy2*dydxt*dydxt + dfdy*d2ydxt2);
   r->d2fdxtxs[0] = 0.0;
   r->d2fdxtxs[1] = 0.0;
   r->d2fdxs2[0]  = 0.0;

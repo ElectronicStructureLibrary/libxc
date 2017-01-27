@@ -167,10 +167,10 @@ typedef struct XC(lda_work_t) {
   int   order; /* to which order should I return the derivatives */
   FLOAT rs, zeta;
 
-  FLOAT zk;
-  FLOAT dedrs, dedz;                         /*  first derivatives of zk */
-  FLOAT d2edrs2, d2edrsz, d2edz2;            /* second derivatives of zk */
-  FLOAT d3edrs3, d3edrs2z, d3edrsz2, d3edz3; /*  third derivatives of zk */
+  FLOAT e;                                   /* energy per unit particle */
+  FLOAT dedrs, dedz;                         /*  first derivatives of e  */
+  FLOAT d2edrs2, d2edrsz, d2edz2;            /* second derivatives of e  */
+  FLOAT d3edrs3, d3edrs2z, d3edrsz2, d3edz3; /*  third derivatives of e  */
 } XC(lda_work_t);
 
 void XC(lda_fxc_fd)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *fxc);

@@ -1837,7 +1837,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -1868,6 +1868,13 @@ func_reference_type xc_ref_Rae1973_574 = {
   "A. Rae, Chem. Phys. Lett. 18, 574 (1973)",
   "10.1016/0009-2614(73)80469-5",
   "@article{Rae1973_574,\ntitle = \"A theory for the interactions between closed shell systems \",\njournal = \"Chemical Physics Letters \",\nvolume = \"18\",\nnumber = \"4\",\npages = \"574 - 577\",\nyear = \"1973\",\nnote = \"\",\nissn = \"0009-2614\",\ndoi = \"http://dx.doi.org/10.1016/0009-2614(73)80469-5\",\nurl = \"//www.sciencedirect.com/science/article/pii/0009261473804695\",\nauthor = \"A.I.M. Rae\",\n}"
+};
+
+
+func_reference_type xc_ref_Proynov2009_014103 = {
+  "E. Proynov and J. Kong, Phys. Rev. A 79, 014103 (2009)",
+  "10.1103/PhysRevA.79.014103",
+  "@article{Proynov2009_014103,\n  title = {Analytic form of the correlation energy of the uniform electron gas},\n  author = {Proynov, Emil and Kong, Jing},\n  journal = {Phys. Rev. A},\n  volume = {79},\n  issue = {1},\n  pages = {014103},\n  numpages = {4},\n  year = {2009},\n  month = {Jan},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.79.014103},\n  url = {http://link.aps.org/doi/10.1103/PhysRevA.79.014103}\n}"
 };
 
 

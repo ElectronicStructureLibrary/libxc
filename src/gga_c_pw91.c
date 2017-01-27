@@ -253,12 +253,12 @@ XC(gga_c_pw91_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   g    = 0.5*(auxp*auxp + auxm*auxm); /* g is called phi in PBE */
   t    = r->xt/(tconv*g*rs0);
 
-  H0_eq13(r->order, pw.zk, g, t, &H0, &dH0dec, &dH0dg, &dH0dt,
+  H0_eq13(r->order, pw.e, g, t, &H0, &dH0dec, &dH0dg, &dH0dt,
 	  &d2H0dec2, &d2H0dg2, &d2H0dt2, &d2H0dgec, &d2H0dtec, &d2H0dgt);
   H1_eq15(r->order, r->rs, g, t, &H1, &dH1drs, &dH1dg, &dH1dt,
 	  &d2H1drs2, &d2H1dg2, &d2H1dt2, &d2H1dgrs, &d2H1dtrs, &d2H1dgt);
 
-  r->f = pw.zk + H0 + H1;
+  r->f = pw.e + H0 + H1;
 
   if(r->order < 1) return;
 

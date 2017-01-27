@@ -17,7 +17,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   t3 = atan(t2);
   t5 = -0.655868e0 * t3 + 0.897889e0;
   t6 = 0.1e1 / r->rs;
-  r->zk = 0.1000e1 * t5 * t6;
+  r->e = 0.1000e1 * t5 * t6;
 
   if(r->order < 1) return;
 
@@ -77,7 +77,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t14 = -0.655868e0 * t12 + 0.897889e0;
   t15 = t9 * t14;
   t16 = 0.1e1 / r->rs;
-  r->zk = t15 * t16;
+  r->e = t15 * t16;
 
   if(r->order < 1) return;
 

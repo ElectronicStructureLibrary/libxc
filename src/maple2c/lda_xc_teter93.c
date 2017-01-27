@@ -20,7 +20,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   t10 = t2 * t2;
   t12 = 0.10000000000000000e1 * r->rs + 0.4504130959426697e1 * t2 + 0.1110667363742916e1 * t4 + 0.2359291751427506e-1 * t10;
   t13 = 0.1e1 / t12;
-  r->zk = -t6 * t13;
+  r->e = -t6 * t13;
 
   if(r->order < 1) return;
 
@@ -87,7 +87,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t34 = t14 * t14;
   t36 = 0.10000000000000000e1 * r->rs + t25 * t14 + t29 * t19 + t33 * t34;
   t37 = 0.1e1 / t36;
-  r->zk = -t21 * t37;
+  r->e = -t21 * t37;
 
   if(r->order < 1) return;
 

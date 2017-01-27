@@ -17,7 +17,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   params = (lda_c_wigner_params * )(p->params);
 
   t1 = params->b + r->rs;
-  r->zk = 0.10e1 * params->a / t1;
+  r->e = 0.10e1 * params->a / t1;
 
   if(r->order < 1) return;
 
@@ -55,7 +55,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   params = (lda_c_wigner_params * )(p->params);
 
   t1 = params->b + r->rs;
-  r->zk = 0.10e1 * params->a / t1;
+  r->e = 0.10e1 * params->a / t1;
 
   if(r->order < 1) return;
 

@@ -16,7 +16,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   assert(p->params != NULL);
   params = (lda_x_params * )(p->params);
 
-  r->zk = -0.45816529328314289346e0 * params->alpha / r->rs;
+  r->e = -0.45816529328314289346e0 * params->alpha / r->rs;
 
   if(r->order < 1) return;
 
@@ -61,7 +61,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t4 = pow(t3, 0.13333333333333333333e1);
   t6 = params->alpha * (t2 + t4);
   t7 = 0.1e1 / r->rs;
-  r->zk = -0.22908264664157144673e0 * t6 * t7;
+  r->e = -0.22908264664157144673e0 * t6 * t7;
 
   if(r->order < 1) return;
 

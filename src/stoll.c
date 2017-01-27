@@ -37,7 +37,7 @@ XC(lda_stoll) (const XC(func_type) *pw, XC(lda_func_type) lda_func,
     FLOAT opz13;
 
     if(opz[is] < pw->info->min_zeta){
-      res[is].zk = 0.0;
+      res[is].e = 0.0;
       if(order >= 1) res[is].dedz = res[is].dedrs = 0.0;
       if(order >= 2) res[is].d2edrs2 = res[is].d2edrsz = res[is].d2edz2 = 0.0;
     }else{
@@ -52,9 +52,9 @@ XC(lda_stoll) (const XC(func_type) *pw, XC(lda_func_type) lda_func,
   
       lda_func(pw, &(res[is]));
 
-      LDA_zk = res[is].zk;
+      LDA_zk = res[is].e;
 
-      res[is].zk *= opz[is]/2.0;
+      res[is].e *= opz[is]/2.0;
       
       if(order < 1) continue;
 
@@ -83,7 +83,7 @@ XC(lda_stoll) (const XC(func_type) *pw, XC(lda_func_type) lda_func,
 
   lda_func(pw, &(res[2]));
 
-  res[2].zk -= res[0].zk + res[1].zk;
+  res[2].e -= res[0].e + res[1].e;
 
   if(order < 1) return;
 

@@ -151,7 +151,7 @@ sub work_lda {
     my $f = ($ispin==0) ? "f(r_a_rs, 0.0)" : "f(r_a_rs, r_a_zeta)";
     my $info = [
       [
-       ["r_a_zk", "$f"]
+        ["r_a_e", "$f"]
       ], [
         ["r_a_dedrs", "diff($f, r_a_rs)"],
         ["r_a_dedz",  "diff($f, r_a_zeta)"]

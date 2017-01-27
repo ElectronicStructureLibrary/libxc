@@ -383,13 +383,13 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     XC(mgga_b97_func_g)(params->cc[0], gamma[0], r->xs[is], r->order, &fx, &dfxdx, &d2fxdx2);
     XC(mgga_b97_func_g)(params->cc[1], gamma[1], r->xs[is], r->order, &fcpar, &dfcpardx, &d2fcpardx2);
 
-    r->f += lda_x[is].zk*fx + lda_pw[is].zk*fcpar;
+    r->f += lda_x[is].e*fx + lda_pw[is].e*fcpar;
 
     if(r->order < 1) continue;
 
     r->dfdrs     += lda_x[is].dedrs*fx  + lda_pw[is].dedrs*fcpar;
     r->dfdz      += lda_x[is].dedz *fx  + lda_pw[is].dedz *fcpar;
-    r->dfdxs[is] += lda_x[is].zk*dfxdx  + lda_pw[is].zk*dfcpardx;
+    r->dfdxs[is] += lda_x[is].e *dfxdx  + lda_pw[is].e *dfcpardx;
 
     if(r->order < 2) continue;
     
@@ -400,7 +400,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     r->d2fdrsxs[is] += lda_x[is].dedrs*dfxdx + lda_pw[is].dedrs*dfcpardx;
     r->d2fdz2       += lda_x[is].d2edz2*fx   + lda_pw[is].d2edz2*fcpar;
     r->d2fdzxs[is]  += lda_x[is].dedz*dfxdx  + lda_pw[is].dedz*dfcpardx;
-    r->d2fdxs2[js]  += lda_x[is].zk*d2fxdx2  + lda_pw[is].zk*d2fcpardx2;
+    r->d2fdxs2[js]  += lda_x[is].e *d2fxdx2  + lda_pw[is].e *d2fcpardx2;
   }
 
   /* and now we add the opposite-spin contribution */
@@ -410,7 +410,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   XC(mgga_b97_func_g)(params->cc[2], gamma[2], x_avg, r->order, &fcper, &dfcperdx, &d2fcperdx2);
 
-  r->f += lda_pw[2].zk*fcper;
+  r->f += lda_pw[2].e*fcper;
 
   if(r->order < 1) return;
 
@@ -419,8 +419,8 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   r->dfdrs    += lda_pw[2].dedrs*fcper;
   r->dfdz     += lda_pw[2].dedz *fcper;
-  r->dfdxs[0] += lda_pw[2].zk*dfcperdx*dx_avgdxs[0];
-  r->dfdxs[1] += lda_pw[2].zk*dfcperdx*dx_avgdxs[1];
+  r->dfdxs[0] += lda_pw[2].e*dfcperdx*dx_avgdxs[0];
+  r->dfdxs[1] += lda_pw[2].e*dfcperdx*dx_avgdxs[1];
 
   if(r->order < 2) return;
 
@@ -435,9 +435,9 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   r->d2fdz2      += lda_pw[2].d2edz2*fcper;
   r->d2fdzxs[0]  += lda_pw[2].dedz*dfcperdx*dx_avgdxs[0];
   r->d2fdzxs[1]  += lda_pw[2].dedz*dfcperdx*dx_avgdxs[1];
-  r->d2fdxs2[0]  += lda_pw[2].zk*(d2fcperdx2*dx_avgdxs[0]*dx_avgdxs[0] + dfcperdx*d2x_avgdxs2[0]);
-  r->d2fdxs2[1]  += lda_pw[2].zk*(d2fcperdx2*dx_avgdxs[0]*dx_avgdxs[1] + dfcperdx*d2x_avgdxs2[1]);
-  r->d2fdxs2[2]  += lda_pw[2].zk*(d2fcperdx2*dx_avgdxs[1]*dx_avgdxs[1] + dfcperdx*d2x_avgdxs2[2]);
+  r->d2fdxs2[0]  += lda_pw[2].e*(d2fcperdx2*dx_avgdxs[0]*dx_avgdxs[0] + dfcperdx*d2x_avgdxs2[0]);
+  r->d2fdxs2[1]  += lda_pw[2].e*(d2fcperdx2*dx_avgdxs[0]*dx_avgdxs[1] + dfcperdx*d2x_avgdxs2[1]);
+  r->d2fdxs2[2]  += lda_pw[2].e*(d2fcperdx2*dx_avgdxs[1]*dx_avgdxs[1] + dfcperdx*d2x_avgdxs2[2]);
 }
 
 

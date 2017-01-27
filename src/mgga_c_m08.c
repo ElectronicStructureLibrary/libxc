@@ -206,9 +206,9 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   XC(mgga_series_w)(r->order, 12, params->a, t, &fw1, &dfw1dt);
   XC(mgga_series_w)(r->order, 12, params->b, t, &fw2, &dfw2dt);
 
-  pbe.f -= pw.zk;
+  pbe.f -= pw.e;
 
-  r->f = fw1*pw.zk + fw2*pbe.f;
+  r->f = fw1*pw.e + fw2*pbe.f;
 
   if(r->order < 1) return;
 
@@ -220,14 +220,14 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   pbe.dfdz  -= pw.dedz;
 
   r->dfdrs    = fw1*pw.dedrs + fw2*pbe.dfdrs;
-  r->dfdz     = fw1*pw.dedz  + fw2*pbe.dfdz + (dfw1dt*pw.zk + dfw2dt*pbe.f)*dtdz;
+  r->dfdz     = fw1*pw.dedz  + fw2*pbe.dfdz + (dfw1dt*pw.e + dfw2dt*pbe.f)*dtdz;
   r->dfdxt    = fw2*pbe.dfdxt;
   r->dfdxs[0] = fw2*pbe.dfdxs[0];
   r->dfdxs[1] = fw2*pbe.dfdxs[1];
   r->dfdus[0] = 0.0;
   r->dfdus[1] = 0.0;
-  r->dfdts[0] = (dfw1dt*pw.zk + dfw2dt*pbe.f)*dtdts[0];
-  r->dfdts[1] = (dfw1dt*pw.zk + dfw2dt*pbe.f)*dtdts[1];
+  r->dfdts[0] = (dfw1dt*pw.e + dfw2dt*pbe.f)*dtdts[0];
+  r->dfdts[1] = (dfw1dt*pw.e + dfw2dt*pbe.f)*dtdts[1];
 
   if(r->order < 2) return;
 

@@ -17,7 +17,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   params = (lda_k_tf_params * )(p->params);
 
   t1 = r->rs * r->rs;
-  r->zk = 0.10e1 * params->ax / t1;
+  r->e = 0.10e1 * params->ax / t1;
 
   if(r->order < 1) return;
 
@@ -62,7 +62,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t8 = params->ax * (0.5e0 * t2 + 0.5e0 * t5);
   t9 = r->rs * r->rs;
   t10 = 0.1e1 / t9;
-  r->zk = t8 * t10;
+  r->e = t8 * t10;
 
   if(r->order < 1) return;
 

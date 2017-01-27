@@ -81,7 +81,7 @@ XC(gga_c_q2d_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   den = dd + t6;
   fac = num/den;
 
-  r->f = ggaw.f + fac*(-ggaw.f + ldaw.zk);
+  r->f = ggaw.f + fac*(-ggaw.f + ldaw.e);
 
   if(r->order < 1) return;
 
@@ -102,9 +102,9 @@ XC(gga_c_q2d_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   ddendt = 6.0*t*t4;
   dfacdt = DFRACTION(num, dnumdt, den, ddendt);
 
-  r->dfdrs    = ggaw.dfdrs + fac*(-ggaw.dfdrs + ldaw.dedrs*drs2Ddrs) + dfacdt*dtdrs*(-ggaw.f + ldaw.zk);
-  r->dfdz     = ggaw.dfdz  + fac*(-ggaw.dfdz  + ldaw.dedz) + dfacdt*dtdz*(-ggaw.f + ldaw.zk);
-  r->dfdxt    = ggaw.dfdxt + fac*(-ggaw.dfdxt + ldaw.dedrs*drs2Ddxt) + dfacdt*dtdxt*(-ggaw.f + ldaw.zk);
+  r->dfdrs    = ggaw.dfdrs + fac*(-ggaw.dfdrs + ldaw.dedrs*drs2Ddrs) + dfacdt*dtdrs*(-ggaw.f + ldaw.e);
+  r->dfdz     = ggaw.dfdz  + fac*(-ggaw.dfdz  + ldaw.dedz) + dfacdt*dtdz*(-ggaw.f + ldaw.e);
+  r->dfdxt    = ggaw.dfdxt + fac*(-ggaw.dfdxt + ldaw.dedrs*drs2Ddxt) + dfacdt*dtdxt*(-ggaw.f + ldaw.e);
   r->dfdxs[0] = (1.0 - fac)*ggaw.dfdxs[0];
   r->dfdxs[1] = (1.0 - fac)*ggaw.dfdxs[1];
 
@@ -135,31 +135,31 @@ XC(gga_c_q2d_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   d2facdt2 = D2FRACTION(num, dnumdt, d2numdt2, den, ddendt, d2dendt2);
 
   r->d2fdrs2     = ggaw.d2fdrs2 + fac*(-ggaw.d2fdrs2 + ldaw.d2edrs2*drs2Ddrs*drs2Ddrs) + 
-    2.0*dfacdt*dtdrs*(-ggaw.dfdrs + ldaw.dedrs*drs2Ddrs) + (d2facdt2*dtdrs*dtdrs + dfacdt*d2tdrs2)*(-ggaw.f + ldaw.zk);
+    2.0*dfacdt*dtdrs*(-ggaw.dfdrs + ldaw.dedrs*drs2Ddrs) + (d2facdt2*dtdrs*dtdrs + dfacdt*d2tdrs2)*(-ggaw.f + ldaw.e);
   
   r->d2fdrsz     = ggaw.d2fdrsz + fac*(-ggaw.d2fdrsz + ldaw.d2edrsz*drs2Ddrs) + 
     dfacdt*dtdrs*(-ggaw.dfdz + ldaw.dedz) + dfacdt*dtdz*(-ggaw.dfdrs + ldaw.dedrs*drs2Ddrs) +
-    (d2facdt2*dtdrs*dtdz + dfacdt*d2tdrsz)*(-ggaw.f + ldaw.zk);
+    (d2facdt2*dtdrs*dtdz + dfacdt*d2tdrsz)*(-ggaw.f + ldaw.e);
 
   r->d2fdrsxt    =  ggaw.d2fdrsxt + fac*(-ggaw.d2fdrsxt + ldaw.d2edrs2*drs2Ddrs*drs2Ddxt + ldaw.dedrs*d2rs2Ddrsxt) + 
     dfacdt*dtdrs*(-ggaw.dfdxt + ldaw.dedrs*drs2Ddxt) + dfacdt*dtdxt*(-ggaw.dfdrs + ldaw.dedrs*drs2Ddrs) +
-    (d2facdt2*dtdrs*dtdxt + dfacdt*d2tdrsxt)*(-ggaw.f + ldaw.zk);
+    (d2facdt2*dtdrs*dtdxt + dfacdt*d2tdrsxt)*(-ggaw.f + ldaw.e);
 
   r->d2fdrsxs[0] = 0.0;
   r->d2fdrsxs[1] = 0.0;
 
   r->d2fdz2      = ggaw.d2fdz2 + fac*(-ggaw.d2fdz2 + ldaw.d2edz2) + 
-    2.0*dfacdt*dtdz*(-ggaw.dfdz + ldaw.dedz) + (d2facdt2*dtdz*dtdz + dfacdt*d2tdz2)*(-ggaw.f + ldaw.zk);
+    2.0*dfacdt*dtdz*(-ggaw.dfdz + ldaw.dedz) + (d2facdt2*dtdz*dtdz + dfacdt*d2tdz2)*(-ggaw.f + ldaw.e);
 
   r->d2fdzxt     = ggaw.d2fdzxt + fac*(-ggaw.d2fdzxt + ldaw.d2edrsz*drs2Ddxt) + 
     dfacdt*dtdxt*(-ggaw.dfdz + ldaw.dedz) + dfacdt*dtdz*(-ggaw.dfdxt + ldaw.dedrs*drs2Ddxt) +
-    (d2facdt2*dtdxt*dtdz + dfacdt*d2tdzxt)*(-ggaw.f + ldaw.zk);
+    (d2facdt2*dtdxt*dtdz + dfacdt*d2tdzxt)*(-ggaw.f + ldaw.e);
 
   r->d2fdzxs[0]  = 0.0;
   r->d2fdzxs[1]  = 0.0;
 
   r->d2fdxt2     = ggaw.d2fdxt2 + fac*(-ggaw.d2fdxt2 + ldaw.d2edrs2*drs2Ddxt*drs2Ddxt + ldaw.dedrs*d2rs2Ddxt2) + 
-    2.0*dfacdt*dtdxt*(-ggaw.dfdxt + ldaw.dedrs*drs2Ddxt) + d2facdt2*dtdxt*dtdxt*(-ggaw.f + ldaw.zk);
+    2.0*dfacdt*dtdxt*(-ggaw.dfdxt + ldaw.dedrs*drs2Ddxt) + d2facdt2*dtdxt*dtdxt*(-ggaw.f + ldaw.e);
 
   r->d2fdxtxs[0] = 0.0;
   r->d2fdxtxs[1] = 0.0;

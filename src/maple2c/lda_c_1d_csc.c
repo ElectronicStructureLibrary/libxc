@@ -41,7 +41,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   t24 = params->para[3] * t23;
   t25 = t15 * r->rs + t20 + t24 + params->para[0];
   t26 = 0.1e1 / t25;
-  r->zk = -0.50000000000000000000e0 * t13 * t26;
+  r->e = -0.50000000000000000000e0 * t13 * t26;
 
   if(r->order < 1) return;
 
@@ -168,7 +168,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t54 = t40 * t53;
   t56 = -0.50000000000000000000e0 * t54 + t28;
   t57 = r->zeta * r->zeta;
-  r->zk = t56 * t57 - t28;
+  r->e = t56 * t57 - t28;
 
   if(r->order < 1) return;
 

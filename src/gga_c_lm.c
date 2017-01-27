@@ -77,7 +77,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   t1   = r->xt*r->xt*aux1/DD;
   t2   = a3*(r->xs[0]*r->xs[0]*opz*opz13 + r->xs[1]*r->xs[1]*omz*omz13);
 
-  r->f = pw.zk + aux2*(t1 + t2);
+  r->f = pw.e + aux2*(t1 + t2);
 
   if(r->order < 1) return;
 

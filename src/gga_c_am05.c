@@ -70,7 +70,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     XX = 1.0/(1.0 + am05_alpha*ss*ss);
     ff = XX + (1.0 - XX)*am05_gamma;
 
-    r->f += sfact*pw.zk*(1.0 + sign[is]*r->zeta)*ff/2.0;
+    r->f += sfact*pw.e*(1.0 + sign[is]*r->zeta)*ff/2.0;
 
     if(r->order < 1) continue;
 
@@ -78,9 +78,9 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     dff = dXX*(1.0 - am05_gamma);
 
     r->dfdrs    += sfact*pw.dedrs*(1.0 + sign[is]*r->zeta)*ff/2.0;
-    r->dfdxs[is] = pw.zk*(1.0 + sign[is]*r->zeta)*dff/2.0;
+    r->dfdxs[is] = pw.e*(1.0 + sign[is]*r->zeta)*dff/2.0;
     if(p->nspin == XC_POLARIZED)
-      r->dfdz += (pw.dedz*(1.0 + sign[is]*r->zeta) + pw.zk*sign[is])*ff/2.0;
+      r->dfdz += (pw.dedz*(1.0 + sign[is]*r->zeta) + pw.e*sign[is])*ff/2.0;
 
     if(r->order < 2) continue;
 
@@ -92,12 +92,12 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     r->d2fdrs2     += sfact*pw.d2edrs2*(1.0 + sign[is]*r->zeta)*ff/2.0;
     r->d2fdrsxs[is] = pw.dedrs*(1.0 + sign[is]*r->zeta)*dff/2.0;
     r->d2fdxtxs[is] = 0.0;
-    r->d2fdxs2[js]  = pw.zk*(1.0 + sign[is]*r->zeta)*d2ff/2.0;
+    r->d2fdxs2[js]  = pw.e*(1.0 + sign[is]*r->zeta)*d2ff/2.0;
 
     if(p->nspin == XC_POLARIZED){
       r->d2fdrsz    += (pw.d2edrsz*(1.0 + sign[is]*r->zeta) +     pw.dedrs*sign[is])*ff/2.0;
       r->d2fdz2     += (pw.d2edz2 *(1.0 + sign[is]*r->zeta) + 2.0*pw.dedz *sign[is])*ff/2.0;
-      r->d2fdzxs[is] = (pw.dedz   *(1.0 + sign[is]*r->zeta) +     pw.zk   *sign[is])*dff/2.0;
+      r->d2fdzxs[is] = (pw.dedz   *(1.0 + sign[is]*r->zeta) +     pw.e    *sign[is])*dff/2.0;
     }else
       r->d2fdzxs[is] = 0.0;
     

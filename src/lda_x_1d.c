@@ -81,7 +81,7 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
   interaction = ((lda_x_1d_params *)p->params)->interaction;
   bb  =         ((lda_x_1d_params *)p->params)->bb;
 
-  r->zk = 0.0;
+  r->e = 0.0;
   for(is=0; is<p->nspin; is++){
     R = M_PI*bb*(1.0 + spin_sign[is]*r->zeta)/(2.0*r->rs);
 
@@ -90,10 +90,10 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
     int1[is] = XC(integrate)(func1, (void *)(&interaction), 0.0, R);
     int2[is] = XC(integrate)(func2, (void *)(&interaction), 0.0, R);
 
-    r->zk -= (1.0 + spin_sign[is]*r->zeta) *
+    r->e -= (1.0 + spin_sign[is]*r->zeta) *
       (int1[is] - int2[is]/R);
   }
-  r->zk *= spin_fact[p->nspin-1]/(4.0*M_PI*bb);
+  r->e *= spin_fact[p->nspin-1]/(4.0*M_PI*bb);
 
   if(r->order < 1) return;
   

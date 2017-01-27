@@ -354,7 +354,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
     beta = cnst_beta;
 
   if(p->info->number != XC_GGA_C_BCGP)
-    pbe_eq8(r->order, beta, gamm, pw.zk, phi,
+    pbe_eq8(r->order, beta, gamm, pw.e, phi,
             &A, &dAdbeta, &dAdec, &dAdphi, &d2Adec2, &d2Adecphi, &d2Adphi2);
   else{ /* for BCGP */
     A = 1.0;
@@ -366,7 +366,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   pbe_eq7(r->order, p->func, beta, gamm, phi, tp, A, B,
 	  &H, &dHdbeta, &dHdphi, &dHdt, &dHdA, &d2Hdphi2, &d2Hdphit, &d2HdphiA, &d2Hdt2, &d2HdtA, &d2HdA2);
 
-  r->f = pw.zk + H;
+  r->f = pw.e + H;
 
   if(r->order < 1) return;
 
@@ -405,7 +405,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   if(r->order < 2) return;
 
-  /* full derivatives of functional with respect to phi and zk */
+  /* full derivatives of functional with respect to phi and e */
   d2fdphi2  = d2Hdphi2 + 2.0*d2HdphiA*dAdphi + dHdA*d2Adphi2 + d2HdA2*dAdphi*dAdphi;
   d2fdphit  = (d2Hdphit + d2HdtA*dAdphi)*dtpdtt;
   d2fdphiec = d2HdphiA*dAdec + d2HdA2*dAdphi*dAdec + dHdA*d2Adecphi;

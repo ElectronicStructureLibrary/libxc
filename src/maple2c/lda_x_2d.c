@@ -12,7 +12,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   double t3, t8;
 
 
-  r->zk = -0.60021087743807071301e0 / r->rs;
+  r->e = -0.60021087743807071301e0 / r->rs;
 
   if(r->order < 1) return;
 
@@ -53,7 +53,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t5 = pow(t4, 0.15e1);
   t7 = 0.5e0 * t2 + 0.5e0 * t5;
   t8 = 0.1e1 / r->rs;
-  r->zk = -0.60021087743807071301e0 * t7 * t8;
+  r->e = -0.60021087743807071301e0 * t7 * t8;
 
   if(r->order < 1) return;
 

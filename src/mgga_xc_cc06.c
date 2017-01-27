@@ -70,7 +70,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   fxc_d = 1.0 + gamma*l;
   fxc   = 1.0 + fxc_n/fxc_d;
 
-  r->f = (lda_x.zk + lda_pw.zk)*fxc;
+  r->f = (lda_x.e + lda_pw.e)*fxc;
 
   if(r->order < 1) return;
 
@@ -81,14 +81,14 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   dfxc = -(alpha*gamma - beta)/(fxc_d*fxc_d);
 
   r->dfdrs    = (lda_x.dedrs + lda_pw.dedrs)*fxc;
-  r->dfdz     = (lda_x.dedz + lda_pw.dedz)*fxc + (lda_x.zk + lda_pw.zk)*dfxc*dldz;
+  r->dfdz     = (lda_x.dedz + lda_pw.dedz)*fxc + (lda_x.e + lda_pw.e)*dfxc*dldz;
   r->dfdxt    = 0.0;
   r->dfdxs[0] = 0.0;
   r->dfdxs[1] = 0.0;
   r->dfdts[0] = 0.0;
   r->dfdts[1] = 0.0;
-  r->dfdus[0] = (lda_x.zk + lda_pw.zk)*dfxc*dldus[0];
-  r->dfdus[1] = (lda_x.zk + lda_pw.zk)*dfxc*dldus[1];
+  r->dfdus[0] = (lda_x.e + lda_pw.e)*dfxc*dldus[0];
+  r->dfdus[1] = (lda_x.e + lda_pw.e)*dfxc*dldus[1];
 
   if(r->order < 2) return;
 }

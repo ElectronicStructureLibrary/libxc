@@ -287,3 +287,4 @@ extern func_reference_type xc_ref_Toulouse2004_1047;
 extern func_reference_type xc_ref_Tawada2004_8425;
 extern func_reference_type xc_ref_Lee1990_193;
 extern func_reference_type xc_ref_Rae1973_574;
+extern func_reference_type xc_ref_Proynov2009_014103;

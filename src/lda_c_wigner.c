@@ -18,9 +18,11 @@
 
 #include "util.h"
 
-#define XC_LDA_C_WIGNER  2   /* Wigner parametrization       */
-#define XC_LDA_C_LP_A  547   /* Lee-Parr reparametrization B */
-#define XC_LDA_C_LP_B  548   /* Lee-Parr reparametrization B */
+#define XC_LDA_C_WIGNER    2   /* Wigner parametrization       */
+#define XC_LDA_C_LP_A    547   /* Lee-Parr reparametrization B */
+#define XC_LDA_C_LP_B    548   /* Lee-Parr reparametrization B */
+#define XC_LDA_C_MCWEENY 551   /* McWeeny 76 */
+#define XC_LDA_C_BR78    552   /* Brual & Rothstein 78 */
 
 typedef struct {
   FLOAT a, b;
@@ -47,6 +49,14 @@ lda_c_wigner_init(XC(func_type) *p)
   case XC_LDA_C_LP_B:
     params->a = -0.906*RS_FACTOR;
     params->b =  2.1987e-2*RS_FACTOR;
+    break;
+  case XC_LDA_C_MCWEENY:
+    params->a = -RS_FACTOR/2.946;
+    params->b =  RS_FACTOR*9.652/2.946;
+    break;
+  case XC_LDA_C_BR78:
+    params->a = -RS_FACTOR/21.437;
+    params->b =  RS_FACTOR*9.810/21.437;
     break;
   default:
     fprintf(stderr, "Internal error in lda_c_wigner\n");
@@ -97,3 +107,30 @@ const XC(func_info_type) XC(func_info_lda_c_lp_b) = {
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
 };
+
+const XC(func_info_type) XC(func_info_lda_c_mcweeny) = {
+  XC_LDA_C_MCWEENY,
+  XC_CORRELATION,
+  "McWeeny 76",
+  XC_FAMILY_LDA,
+  {&xc_ref_McWeeny1976_3, &xc_ref_Brual1978_1177, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 0.0, 0.0, 1e-32,
+  0, NULL, NULL,
+  lda_c_wigner_init, NULL,
+  work_lda, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_lda_c_br78) = {
+  XC_LDA_C_BR78,
+  XC_CORRELATION,
+  "Brual & Rothstein 78",
+  XC_FAMILY_LDA,
+  {&xc_ref_Brual1978_1177, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 0.0, 0.0, 1e-32,
+  0, NULL, NULL,
+  lda_c_wigner_init, NULL,
+  work_lda, NULL, NULL
+};
+

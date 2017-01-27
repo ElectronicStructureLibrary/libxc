@@ -1878,3 +1878,17 @@ func_reference_type xc_ref_Proynov2009_014103 = {
 };
 
 
+func_reference_type xc_ref_Brual1978_1177 = {
+  "G. B. Jr. and S. M. Rothstein, J. Chem. Phys. 69, 1177 (1978)",
+  "10.1063/1.436705",
+  "@article{Brual1978_1177,\nauthor = {Gregorio Brual Jr. and Stuart M. Rothstein},\ntitle = {Rare gas interactions using an improved statistical method},\njournal = {The Journal of Chemical Physics},\nvolume = {69},\nnumber = {3},\npages = {1177-1183},\nyear = {1978},\ndoi = {10.1063/1.436705},\nURL = {http://aip.scitation.org/doi/abs/10.1063/1.436705},\n}"
+};
+
+
+func_reference_type xc_ref_McWeeny1976_3 = {
+  "R. McWeeny, in The New World of Quantum Chemistry, edited by \\bibinfo {editor {B. Pullman} and R. Parr} (Reidel, Boston, 1976) pp. 3--31",
+  "",
+  "@InProceedings{McWeeny1976_3,\n  author =       {R. McWeeny},\n  title =        {Present Status of the Correlation Problem},\n  booktitle = {The New World of Quantum Chemistry},\n  year =      {1976},\n  editor =    {B. Pullman and R. Parr},\n  pages =     {3--31},\n  address =   {Boston},\n  publisher = {Reidel},\n}"
+};
+
+

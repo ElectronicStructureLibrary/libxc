@@ -4,8 +4,6 @@ Improve existing functionals:
 Add functionals:
 
 LDA:
-  *) McWeeny c (cited in JCP 69, 1177)
-     R. McWeeny, in The New World of Quantum Chemistry, edited by B. Pullman and R. Parr (Reidel, Boston, 1976), p. 3.
   *) Proynov-Kong c [Phys. Rev. A 79, 014103 (2009)] http://journals.aps.org/pra/abstract/10.1103/PhysRevA.79.014103
 
 GGAs:

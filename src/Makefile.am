@@ -19,7 +19,7 @@
 ##
 ## $Id$
 
-SUBDIRS = maple2c hand_written
+SUBDIRS = maple2c
 
 bin_PROGRAMS = xc-info
 noinst_PROGRAMS = genwiki

@@ -169,7 +169,6 @@ AC_CONFIG_FILES([Makefile
   xc_version.h
   src/Makefile
   src/maple2c/Makefile
-  src/hand_written/Makefile
   testsuite/Makefile
   build/Makefile
   build/libxc.pc

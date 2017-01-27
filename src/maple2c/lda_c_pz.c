@@ -16,25 +16,25 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   double t87, t104, t106, t111, t142;
 
   lda_c_pz_params *params;
- 
+
   assert(p->params != NULL);
   params = (lda_c_pz_params * )(p->params);
 
   t1 = params->gamma[0];
   t2 = params->beta1[0];
-  t3 = sqrt(r->rss);
+  t3 = sqrt(r->rs);
   t5 = params->beta2[0];
-  t7 = 0.10e1 + t2 * t3 + t5 * r->rss;
+  t7 = 0.10e1 + t2 * t3 + t5 * r->rs;
   t9 = t1 / t7;
-  t10 = r->rss - 0.10e1;
+  t10 = r->rs - 0.10e1;
   t11 = Heaviside(t10);
   t13 = params->c[0];
-  t14 = t13 * r->rss;
-  t15 = log(r->rss);
+  t14 = t13 * r->rs;
+  t15 = log(r->rs);
   t19 = params->a[0];
   t20 = t19 * t15;
   t22 = params->d[0];
-  t23 = t22 * r->rss;
+  t23 = t22 * r->rs;
   t25 = params->b[0];
   r->zk = -t14 * t15 * t11 - t20 * t11 - t23 * t11 - t25 * t11 + t9 * t11 + t14 * t15 + t20 + t23 + t25;
 
@@ -45,7 +45,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   t33 = t2 / t3 / 0.2e1 + t5;
   t36 = 0.0;
   t38 = t13 * t15;
-  t43 = 0.1e1 / r->rss;
+  t43 = 0.1e1 / r->rs;
   t44 = t19 * t43;
   r->dedrs = -t29 * t11 * t33 - t14 * t15 * t36 - t13 * t11 - t22 * t11 - t38 * t11 - t44 * t11 - t20 * t36 - t23 * t36 - t25 * t36 + t9 * t36 + t13 + t22 + t38 + t44;
   r->dedz = 0;
@@ -55,10 +55,10 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   t52 = t1 / t27 / t7;
   t53 = t33 * t33;
   t60 = t11 * t2;
-  t62 = 0.1e1 / t3 / r->rss;
+  t62 = 0.1e1 / t3 / r->rs;
   t66 = 0.0;
   t68 = t13 * t43;
-  t76 = r->rss * r->rss;
+  t76 = r->rs * r->rs;
   t77 = 0.1e1 / t76;
   t78 = t19 * t77;
   r->d2edrs2 = 0.2e1 * t52 * t11 * t53 - 0.2e1 * t29 * t36 * t33 + t29 * t60 * t62 / 0.4e1 + t9 * t66 - t68 * t11 - 0.2e1 * t38 * t36 - 0.2e1 * t13 * t36 - t14 * t15 * t66 + t68 + t78 * t11 - 0.2e1 * t44 * t36 - t20 * t66 - t78 - 0.2e1 * t22 * t36 - t23 * t66 - t25 * t66;
@@ -70,7 +70,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   t87 = t27 * t27;
   t104 = t13 * t77;
   t106 = 0.0;
-  t111 = t19 / t76 / r->rss;
+  t111 = t19 / t76 / r->rs;
   t142 = 0.3e1 * t78 * t36 - 0.3e1 * t44 * t66 - t20 * t106 - t23 * t106 - 0.3e1 * t13 * t66 - t104 + 0.2e1 * t111 - 0.3e1 * t22 * t66 - t25 * t106 - 0.3e1 / 0.2e1 * t52 * t11 * t33 * t2 * t62 - 0.3e1 / 0.8e1 * t29 * t60 / t3 / t76;
   r->d3edrs3 = t142 - 0.6e1 * t1 / t87 * t11 * t53 * t33 + 0.3e1 / 0.4e1 * t29 * t36 * t2 * t62 + 0.6e1 * t52 * t36 * t53 - 0.3e1 * t29 * t66 * t33 + t104 * t11 - t14 * t15 * t106 - 0.2e1 * t111 * t11 + t9 * t106 - 0.3e1 * t68 * t36 - 0.3e1 * t38 * t66;
   r->d3edz3 = 0;
@@ -102,25 +102,25 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   double t203, t204, t205, t206, t208, t209, t211, t212;
   double t214, t216, t218, t219, t221, t222, t223, t225;
   double t227, t228, t234, t237, t241, t256, t260, t263;
-  double t279, t286, t292, t296, t297, t299;
+  double t277, t286, t292, t296, t297, t299;
 
   lda_c_pz_params *params;
- 
+
   assert(p->params != NULL);
   params = (lda_c_pz_params * )(p->params);
 
   t1 = params->gamma[0];
   t2 = params->beta1[0];
-  t3 = sqrt(r->rss);
+  t3 = sqrt(r->rs);
   t5 = params->beta2[0];
-  t7 = 0.10e1 + t2 * t3 + t5 * r->rss;
+  t7 = 0.10e1 + t2 * t3 + t5 * r->rs;
   t9 = t1 / t7;
-  t10 = r->rss - 0.10e1;
+  t10 = r->rs - 0.10e1;
   t11 = Heaviside(t10);
   t12 = t9 * t11;
   t13 = params->c[0];
-  t14 = t13 * r->rss;
-  t15 = log(r->rss);
+  t14 = t13 * r->rs;
+  t15 = log(r->rs);
   t16 = t15 * t11;
   t17 = t14 * t16;
   t18 = t14 * t15;
@@ -128,21 +128,21 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t20 = t19 * t15;
   t21 = t20 * t11;
   t22 = params->d[0];
-  t23 = t22 * r->rss;
+  t23 = t22 * r->rs;
   t24 = t23 * t11;
   t25 = params->b[0];
   t26 = t25 * t11;
   t27 = params->gamma[1];
   t28 = params->beta1[1];
   t30 = params->beta2[1];
-  t32 = 0.10e1 + t28 * t3 + t30 * r->rss;
+  t32 = 0.10e1 + t28 * t3 + t30 * r->rs;
   t34 = t27 / t32;
   t36 = params->c[1];
-  t37 = t36 * r->rss;
+  t37 = t36 * r->rs;
   t40 = params->a[1];
   t41 = t40 * t15;
   t43 = params->d[1];
-  t44 = t43 * r->rss;
+  t44 = t43 * r->rs;
   t46 = params->b[1];
   t48 = t34 * t11 - t41 * t11 - t44 * t11 - t46 * t11 + t37 * t15 - t37 * t16 - t12 + t17 - t18 - t20 + t21 - t23 + t24 - t25 + t26 + t41 + t44 + t46;
   t49 = 0.10e1 + r->zeta;
@@ -166,7 +166,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t70 = t13 * t11;
   t71 = t15 * t66;
   t72 = t14 * t71;
-  t73 = 0.1e1 / r->rss;
+  t73 = 0.1e1 / r->rs;
   t74 = t19 * t73;
   t75 = t74 * t11;
   t76 = t20 * t66;
@@ -194,7 +194,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t114 = 0.2e1 * t110 * t11 * t111;
   t117 = 0.2e1 * t59 * t66 * t63;
   t118 = t11 * t2;
-  t120 = 0.1e1 / t3 / r->rss;
+  t120 = 0.1e1 / t3 / r->rs;
   t123 = t59 * t118 * t120 / 0.4e1;
   t124 = 0.0;
   t125 = t9 * t124;
@@ -204,7 +204,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t131 = 0.2e1 * t13 * t66;
   t132 = t15 * t124;
   t133 = t14 * t132;
-  t134 = r->rss * r->rss;
+  t134 = r->rs * r->rs;
   t135 = 0.1e1 / t134;
   t136 = t19 * t135;
   t137 = t136 * t11;
@@ -240,7 +240,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t204 = 0.0;
   t205 = t15 * t204;
   t206 = t14 * t205;
-  t208 = 0.1e1 / t134 / r->rss;
+  t208 = 0.1e1 / t134 / r->rs;
   t209 = t19 * t208;
   t211 = 0.2e1 * t209 * t11;
   t212 = t9 * t204;
@@ -260,10 +260,10 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t256 = -0.3e1 * t82 * t124 * t85 - t37 * t205 - t203 + t211 - t212 + t214 + t216 - t218 + t221 + t222 + t223;
   t260 = t40 * t208;
   t263 = t36 * t135;
-  t279 = 0.2e1 * t209;
+  t277 = 0.2e1 * t209;
   t286 = 0.3e1 / 0.2e1 * t110 * t11 * t63 * t2 * t120;
-  t292 = t227 + t228 - 0.3e1 * t36 * t124 - 0.3e1 * t43 * t124 + t202 - t263 - t279 + 0.2e1 * t260 - t46 * t204 + t286 - 0.3e1 / 0.2e1 * t151 * t11 * t85 * t28 * t120;
-  t296 = -t221 - t222 - t223 - t225 - t227 - t228 + (-0.2e1 * t260 * t11 + t263 * t11 - 0.3e1 * t89 * t124 - 0.3e1 * t93 * t124 + 0.3e1 * t160 * t66 - 0.3e1 * t163 * t66 + t34 * t204 - t41 * t204 - t44 * t204 + t225 + t292 + t256 - t195 + 0.3e1 / 0.4e1 * t82 * t66 * t28 * t120 + t237 - 0.3e1 / 0.8e1 * t82 * t145 * t234 + t191 - t198 + t201 + t206 - 0.6e1 * t27 / t241 * t11 * t152 * t85 + 0.6e1 * t151 * t66 * t152) * t55 - t202 + t279 - t286 - t237;
+  t292 = t227 + t228 - 0.3e1 * t36 * t124 + t202 - t263 - t277 + 0.2e1 * t260 - t46 * t204 - 0.3e1 * t43 * t124 + t286 - 0.3e1 / 0.2e1 * t151 * t11 * t85 * t28 * t120;
+  t296 = -t221 - t222 - t223 - t225 - t227 - t228 + (-0.2e1 * t260 * t11 + t263 * t11 - 0.3e1 * t89 * t124 - 0.3e1 * t93 * t124 + 0.3e1 * t160 * t66 - 0.3e1 * t163 * t66 + t34 * t204 - t41 * t204 - t44 * t204 + t225 + t292 + t256 - t195 + 0.3e1 / 0.4e1 * t82 * t66 * t28 * t120 + t237 - 0.3e1 / 0.8e1 * t82 * t145 * t234 + t191 - t198 + t201 + t206 - 0.6e1 * t27 / t241 * t11 * t152 * t85 + 0.6e1 * t151 * t66 * t152) * t55 - t202 + t277 - t286 - t237;
   r->d3edrs3 = t296 + t219;
   t297 = pow(t49, -0.16666666666666666667e1);
   t299 = pow(t52, -0.16666666666666666667e1);

@@ -49,10 +49,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   XC(lda_work_t) pw;
 
   pw.order = r->order;
-  pw.rs[0] = SQRT(r->rs);
-  pw.rss   = r->rs;
-  pw.rs[1] = r->rs;
-  pw.rs[2] = r->rs*r->rs;
+  pw.rs    = r->rs;
   pw.zeta  = r->zeta;
 
   XC(lda_c_rc04_func)(p->func_aux[0], &pw);

@@ -24,7 +24,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
 
   assert(params->N > 1.0);
 
-  t1 = 0.1e1 / r->rss;
+  t1 = 0.1e1 / r->rs;
   t3 = 0.22157981704254580414e1 * t1 + 0.88622692545275801365e0;
   t4 = 0.1e1 / t3;
   t5 = t1 * t4;
@@ -46,11 +46,11 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
 
   if(r->order < 1) return;
 
-  t32 = r->rss * r->rss;
+  t32 = r->rs * r->rs;
   t33 = 0.1e1 / t32;
   t34 = t33 * t7;
   t37 = t33 * t4;
-  t39 = t32 * r->rss;
+  t39 = t32 * r->rs;
   t40 = 0.1e1 / t39;
   t41 = t40 * t19;
   t43 = -0.22157981704254580414e1 * t37 + 0.49097615320608071993e1 * t41;
@@ -67,7 +67,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   t78 = t32 * t32;
   t79 = 0.1e1 / t78;
   t80 = t79 * t19;
-  t86 = 0.1e1 / t78 / r->rss;
+  t86 = 0.1e1 / t78 / r->rs;
   t87 = t86 * t58;
   t93 = 0.44315963408509160828e1 * t70 - 0.19639046128243228797e2 * t80 + 0.21758081239931260892e2 * t87;
   t94 = t93 * t14;
@@ -122,7 +122,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
 
   assert(params->N > 1.0);
 
-  t1 = 0.1e1 / r->rss;
+  t1 = 0.1e1 / r->rs;
   t3 = 0.22157981704254580414e1 * t1 + 0.88622692545275801365e0;
   t4 = 0.1e1 / t3;
   t5 = t1 * t4;
@@ -144,11 +144,11 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
 
   if(r->order < 1) return;
 
-  t32 = r->rss * r->rss;
+  t32 = r->rs * r->rs;
   t33 = 0.1e1 / t32;
   t34 = t33 * t7;
   t37 = t33 * t4;
-  t39 = t32 * r->rss;
+  t39 = t32 * r->rs;
   t40 = 0.1e1 / t39;
   t41 = t40 * t19;
   t43 = -0.22157981704254580414e1 * t37 + 0.49097615320608071993e1 * t41;
@@ -165,7 +165,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t78 = t32 * t32;
   t79 = 0.1e1 / t78;
   t80 = t79 * t19;
-  t86 = 0.1e1 / t78 / r->rss;
+  t86 = 0.1e1 / t78 / r->rs;
   t87 = t86 * t58;
   t93 = 0.44315963408509160828e1 * t70 - 0.19639046128243228797e2 * t80 + 0.21758081239931260892e2 * t87;
   t94 = t93 * t14;

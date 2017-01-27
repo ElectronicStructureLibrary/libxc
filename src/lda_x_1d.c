@@ -83,7 +83,7 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
 
   r->zk = 0.0;
   for(is=0; is<p->nspin; is++){
-    R = M_PI*bb*(1.0 + spin_sign[is]*r->zeta)/(2.0*r->rs[1]);
+    R = M_PI*bb*(1.0 + spin_sign[is]*r->zeta)/(2.0*r->rs);
 
     if(R == 0.0) continue;
 
@@ -116,16 +116,16 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
 
     if(aux == 0.0) continue;
 
-    R  = M_PI*bb*aux/(2.0*r->rs[1]);
+    R  = M_PI*bb*aux/(2.0*r->rs);
     ft = FT_inter(R, interaction);
  
     r->d2edrs2 -= aux*aux*ft;
     r->d2edrsz += spin_sign[is]*aux*ft;
     r->d2edz2  -= ft;
   }
-  r->d2edrs2 *= spin_fact[p->nspin-1]/(8.0*r->rs[2]*r->rs[1]);
-  r->d2edrsz *= spin_fact[p->nspin-1]/(8.0*r->rs[2]);
-  r->d2edz2  *= spin_fact[p->nspin-1]/(8.0*r->rs[1]);
+  r->d2edrs2 *= spin_fact[p->nspin-1]/(8.0*r->rs*r->rs*r->rs);
+  r->d2edrsz *= spin_fact[p->nspin-1]/(8.0*r->rs*r->rs);
+  r->d2edz2  *= spin_fact[p->nspin-1]/(8.0*r->rs);
 
   if(r->order < 3) return;
 

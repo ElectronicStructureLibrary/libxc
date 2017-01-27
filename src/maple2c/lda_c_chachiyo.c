@@ -13,15 +13,15 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   double t18, t19, t22, t23, t24;
 
 
-  t3 = r->rss * r->rss;
+  t3 = r->rs * r->rs;
   t5 = 0.204562557e2 / t3;
-  t6 = 0.10e1 + 0.204562557e2 / r->rss + t5;
+  t6 = 0.10e1 + 0.204562557e2 / r->rs + t5;
   t7 = log(t6);
   r->zk = -0.1554535e-1 * t7;
 
   if(r->order < 1) return;
 
-  t11 = 0.409125114e2 / t3 / r->rss;
+  t11 = 0.409125114e2 / t3 / r->rs;
   t12 = -t5 - t11;
   t13 = 0.1e1 / t6;
   r->dedrs = -0.1554535e-1 * t12 * t13;
@@ -41,7 +41,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
 
   if(r->order < 3) return;
 
-  r->d3edrs3 = -0.1554535e-1 * (-t18 - 0.4909501368e3 / t16 / r->rss) * t13 + 0.4663605e-1 * t19 * t24 * t12 - 0.3109070e-1 * t22 * t12 / t23 / t6;
+  r->d3edrs3 = -0.1554535e-1 * (-t18 - 0.4909501368e3 / t16 / r->rs) * t13 + 0.4663605e-1 * t19 * t24 * t12 - 0.3109070e-1 * t22 * t12 / t23 / t6;
   r->d3edz3 = 0;
   r->d3edrs2z = 0;
   r->d3edrsz2 = 0;
@@ -63,8 +63,8 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   double t77, t82, t97, t99;
 
 
-  t1 = 0.1e1 / r->rss;
-  t3 = r->rss * r->rss;
+  t1 = 0.1e1 / r->rs;
+  t3 = r->rs * r->rs;
   t4 = 0.1e1 / t3;
   t5 = 0.204562557e2 * t4;
   t6 = 0.10e1 + 0.204562557e2 * t1 + t5;
@@ -83,7 +83,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
 
   if(r->order < 1) return;
 
-  t24 = 0.1e1 / t3 / r->rss;
+  t24 = 0.1e1 / t3 / r->rs;
   t25 = 0.409125114e2 * t24;
   t26 = -t5 - t25;
   t27 = 0.1e1 / t6;
@@ -124,7 +124,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
 
   if(r->order < 3) return;
 
-  t70 = 0.1e1 / t42 / r->rss;
+  t70 = 0.1e1 / t42 / r->rs;
   t74 = 0.1554535e-1 * (-t44 - 0.4909501368e3 * t70) * t27;
   t77 = 0.4663605e-1 * t45 * t50 * t26;
   t82 = 0.3109070e-1 * t48 * t26 / t49 / t6;

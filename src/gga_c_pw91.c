@@ -229,7 +229,7 @@ H1_eq15(int order, FLOAT   rs, FLOAT   g, FLOAT   t, FLOAT *H1,
 void 
 XC(gga_c_pw91_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
 {
-  FLOAT g, dgdz, d2gdz2;
+  FLOAT rs0, rs2, g, dgdz, d2gdz2;
   FLOAT t, dtdrs, dtdxt, dtdg, d2tdrs2, d2tdrsxt, d2tdg2, d2tdgrs, d2tdxtg;
   FLOAT H0, dH0dec, dH0dg, dH0dt, d2H0dec2, d2H0dg2, d2H0dt2, d2H0dgec, d2H0dtec, d2H0dgt;
   FLOAT H1, dH1drs, dH1dg, dH1dt, d2H1drs2, d2H1dg2, d2H1dt2, d2H1dgrs, d2H1dtrs, d2H1dgt;
@@ -238,10 +238,9 @@ XC(gga_c_pw91_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   FLOAT tconv, auxp, auxm;
 
   pw.order = r->order;
-  pw.rs[0] = SQRT(r->rs);
-  pw.rs[1] = r->rs;
-  pw.rss   = r->rs;
-  pw.rs[2] = r->rs*r->rs;
+  rs0      = SQRT(r->rs);
+  pw.rs    = r->rs;
+  rs2      = r->rs*r->rs;
   pw.zeta  = r->zeta;
 
   XC(lda_c_pw_func)(p->func_aux[0], &pw);
@@ -252,7 +251,7 @@ XC(gga_c_pw91_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   auxm = CBRT(1.0 - r->zeta);
 
   g    = 0.5*(auxp*auxp + auxm*auxm); /* g is called phi in PBE */
-  t    = r->xt/(tconv*g*pw.rs[0]);
+  t    = r->xt/(tconv*g*rs0);
 
   H0_eq13(r->order, pw.zk, g, t, &H0, &dH0dec, &dH0dg, &dH0dt,
 	  &d2H0dec2, &d2H0dg2, &d2H0dt2, &d2H0dgec, &d2H0dtec, &d2H0dgt);
@@ -268,7 +267,7 @@ XC(gga_c_pw91_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   if(auxm > p->info->min_zeta) dgdz -= 1/auxm;
   dgdz *= 1.0/3.0;
 
-  dtdrs = -r->xt/(2.0*tconv*g*r->rs*pw.rs[0]);
+  dtdrs = -r->xt/(2.0*tconv*g*r->rs*rs0);
   dtdxt =  t/r->xt;
   dtdg  = -t/g;
 
@@ -285,7 +284,7 @@ XC(gga_c_pw91_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   if(auxm > p->info->min_zeta) d2gdz2 += 1.0/((1.0 - r->zeta)*auxm);
   d2gdz2 *= -1.0/9.0;
 
-  d2tdrs2  =  3.0*r->xt/(4.0*tconv*g*pw.rs[2]*pw.rs[0]);
+  d2tdrs2  =  3.0*r->xt/(4.0*tconv*g*rs2*rs0);
   d2tdrsxt =  dtdrs/r->xt;
   d2tdg2   = -2.0*dtdg/g;
   d2tdgrs  = -dtdrs/g;

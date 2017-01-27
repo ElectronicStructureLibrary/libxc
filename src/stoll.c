@@ -30,8 +30,7 @@ XC(lda_stoll) (const XC(func_type) *pw, XC(lda_func_type) lda_func,
   int is;
   FLOAT opz[2] = {1.0 + zeta, 1.0 - zeta};
 
-  res[2].rs[1]  = RS(dens);
-  res[2].rss    = res[2].rs[1];
+  res[2].rs  = RS(dens);
 
   /* first we get the parallel contributions */
   for(is=0; is<2; is++){
@@ -47,10 +46,7 @@ XC(lda_stoll) (const XC(func_type) *pw, XC(lda_func_type) lda_func,
 
       opz13 = CBRT(opz[is]);
 
-      res[is].rs[1] = RS(dens*opz[is]/2.0);
-      res[is].rss   = res[is].rs[1];
-      res[is].rs[0] = sqrt(res[is].rs[1]);
-      res[is].rs[2] = res[is].rs[1]*res[is].rs[1];
+      res[is].rs    = RS(dens*opz[is]/2.0);
       res[is].zeta  = sign[is];
       res[is].order = order;
   
@@ -64,7 +60,7 @@ XC(lda_stoll) (const XC(func_type) *pw, XC(lda_func_type) lda_func,
 
       LDA_dedrs = res[is].dedrs;
       drssdrs   = M_CBRT2/opz13;
-      drssdz    = -sign[is]*res[is].rs[1]/(3.0*opz[is]);
+      drssdz    = -sign[is]*res[is].rs/(3.0*opz[is]);
 
       res[is].dedrs = LDA_dedrs*drssdrs*opz[is]/2.0;
       res[is].dedz  = LDA_zk*sign[is]/2.0 + LDA_dedrs*drssdz*opz[is]/2.0;
@@ -73,7 +69,7 @@ XC(lda_stoll) (const XC(func_type) *pw, XC(lda_func_type) lda_func,
 
       LDA_d2edrs2 = res[is].d2edrs2;
       d2rssdrsz   = -sign[is]*M_CBRT2/(3.0*opz13*opz[is]);
-      d2rssdz2    = res[is].rs[1]*4.0/(9.0*opz[is]*opz[is]);
+      d2rssdz2    = res[is].rs*4.0/(9.0*opz[is]*opz[is]);
 
       res[is].d2edrs2 = LDA_d2edrs2*drssdrs*drssdrs*opz[is]/2.0;
       res[is].d2edrsz = sign[is]*LDA_dedrs*drssdrs/2.0 + (LDA_d2edrs2*drssdrs*drssdz + LDA_dedrs*d2rssdrsz)*opz[is]/2.0;
@@ -82,8 +78,6 @@ XC(lda_stoll) (const XC(func_type) *pw, XC(lda_func_type) lda_func,
   }
 
   /* and now the perpendicular */
-  res[2].rs[0]  = sqrt(res[2].rs[1]);
-  res[2].rs[2]  = res[2].rs[1]*res[2].rs[1];
   res[is].zeta  = zeta;
   res[is].order = order;
 

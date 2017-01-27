@@ -25,32 +25,6 @@
 
 #define XC_LDA_C_RPA  3   /* Random Phase Approximation   */
 
-static inline void 
-funcold(const XC(func_type) *p, XC(lda_work_t) *r)
-{
-  static FLOAT a = 0.0311, b = -0.048, c = 0.009, d = -0.017;
-  FLOAT lrs;
-
-  lrs = LOG(r->rs[1]);
-  r->zk = a*lrs + b + c*r->rs[1]*lrs + d*r->rs[1];
-
-  if(r->order < 1) return;
-
-  r->dedrs = a/r->rs[1] + c*(lrs + 1.0) + d;
-  /* no spin polarization for the moment */
-  r->dedz  = 0.0;
-
-  if(r->order < 2) return;
-
-  r->d2edrs2 = -a/r->rs[2] + c/r->rs[1];
-  r->d2edrsz = r->d2edz2 = 0.0;
-
-  if(r->order < 3) return;
-
-  r->d3edrs3 = 2.0*a/(r->rs[1]*r->rs[2]) - c/r->rs[2];
-  r->d3edrs2z = r->d3edrsz2 = r->d3edz3 = 0.0;
-}
-
 #include "maple2c/lda_c_rpa.c"
 
 #define func maple2c_func

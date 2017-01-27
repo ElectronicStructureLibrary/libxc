@@ -12,7 +12,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   double t1, t4, t9;
 
 
-  t1 = 0.78e1 + r->rss;
+  t1 = 0.78e1 + r->rs;
   r->zk = -0.44e0 / t1;
 
   if(r->order < 1) return;
@@ -46,7 +46,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   double t1, t4, t9;
 
 
-  t1 = 0.78e1 + r->rss;
+  t1 = 0.78e1 + r->rs;
   r->zk = -0.44e0 / t1;
 
   if(r->order < 1) return;

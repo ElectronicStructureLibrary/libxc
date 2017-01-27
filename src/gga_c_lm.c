@@ -46,7 +46,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   const FLOAT a2 = -0.262;
   const FLOAT a3 = -7.0/(9.0*2.0*M_CBRT2*M_CBRT2);
 
-  FLOAT a1, alpha;
+  FLOAT rs0, rs2, a1, alpha;
   FLOAT opz, omz, opz13, omz13, DD, dDDdz, d2DDdz2;
   FLOAT aux1, aux2, daux1drs, daux1dxt, d2aux1drs2, d2aux1dxt2, d2aux1drsxt;
   FLOAT t1, t2, dt1drs, dt1dz, dt1dxt, dt2dz, d2t1drs2, d2t1dxt2, d2t1dz2, d2t2dz2, d2t1drsz, d2t1drsxt, d2t1dzxt;
@@ -57,9 +57,9 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   a1    = M_PI/(16.0*POW(3*M_PI*M_PI, 4/3)); /* 4.28e-3/2.0, where the 2 comes from the covertion from Ryd. to Hartree */
 
   pw.order = r->order;
-  pw.rs[0] = SQRT(r->rs);
-  pw.rs[1] = r->rs;
-  pw.rs[2] = r->rs*r->rs;
+  rs0      = SQRT(r->rs);
+  pw.rs    = r->rs;
+  rs2      = r->rs*r->rs;
   pw.zeta  = r->zeta;
 
   XC(lda_c_hl_func)(p->func_aux[0], &pw);
@@ -71,7 +71,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   DD = SQRT(opz*opz13*opz13 + omz*omz13*omz13)/M_SQRT2;
 
-  aux1 = EXP(a2*r->xt/(alpha*pw.rs[0]));
+  aux1 = EXP(a2*r->xt/(alpha*rs0));
   aux2 = a1/(alpha*alpha*r->rs);
 
   t1   = r->xt*r->xt*aux1/DD;
@@ -82,8 +82,8 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   if(r->order < 1) return;
 
   dDDdz    =  5.0/(3.0*4.0*DD)*(opz13*opz13 - omz13*omz13);
-  daux1drs = -a2*r->xt/(2.0*alpha*r->rs*pw.rs[0])*aux1;
-  daux1dxt =  a2/(alpha*pw.rs[0])*aux1;
+  daux1drs = -a2*r->xt/(2.0*alpha*r->rs*rs0)*aux1;
+  daux1dxt =  a2/(alpha*rs0)*aux1;
 
   dt1drs  =  r->xt*r->xt*daux1drs/DD;
   dt1dz   = -r->xt*r->xt*aux1*dDDdz/(DD*DD);
@@ -112,9 +112,9 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   d2DDdz2 = -dDDdz*dDDdz/DD + 10.0/(36.0*DD)*d2DDdz2;
   d2t2dz2 = a3*(4.0/9.0)*d2t2dz2;
 
-  d2aux1drs2  = -a2*r->xt/(2.0*alpha*r->rs*pw.rs[0])*(-3.0/2.0*aux1/r->rs + daux1drs);
-  d2aux1drsxt = -a2/(2.0*alpha*r->rs*pw.rs[0])*(aux1 + r->xt*daux1dxt);
-  d2aux1dxt2  =  a2/(alpha*pw.rs[0])*daux1dxt;
+  d2aux1drs2  = -a2*r->xt/(2.0*alpha*r->rs*rs0)*(-3.0/2.0*aux1/r->rs + daux1drs);
+  d2aux1drsxt = -a2/(2.0*alpha*r->rs*rs0)*(aux1 + r->xt*daux1dxt);
+  d2aux1dxt2  =  a2/(alpha*rs0)*daux1dxt;
 
   d2t1drs2   =  r->xt*r->xt*d2aux1drs2/DD;
   d2t1drsz   = -r->xt*r->xt*daux1drs*dDDdz/(DD*DD);
@@ -124,7 +124,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   d2t1dxt2   =  (2.0*aux1 + 4.0*r->xt*daux1dxt + r->xt*r->xt*d2aux1dxt2)/DD;
 
-  r->d2fdrs2     =  pw.d2edrs2 + aux2*(d2t1drs2 - 2.0*dt1drs/r->rs + 2.0*(t1 + t2)/pw.rs[2]);
+  r->d2fdrs2     =  pw.d2edrs2 + aux2*(d2t1drs2 - 2.0*dt1drs/r->rs + 2.0*(t1 + t2)/rs2);
   r->d2fdrsz     =  pw.d2edrsz + aux2*(d2t1drsz - (dt1dz + dt2dz)/r->rs);
   r->d2fdrsxt    =  aux2*(d2t1drsxt - dt1dxt/r->rs);
   r->d2fdrsxs[0] = -aux2/r->rs*(a3*2.0*r->xs[0]*opz*opz13);

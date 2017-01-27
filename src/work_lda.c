@@ -68,10 +68,7 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
 
     if(dens < p->info->min_dens) goto end_ip_loop;
 
-    r.rs[1] = cnst_rs*POW(dens, -1.0/XC_DIMENSIONS);
-    r.rss   = r.rs[1]; /* WARNING TEMPORARY CODE */
-    r.rs[0] = SQRT(r.rs[1]);
-    r.rs[2] = r.rs[1]*r.rs[1];
+    r.rs = cnst_rs*POW(dens, -1.0/XC_DIMENSIONS);
 
     func(p, &r);
 
@@ -80,7 +77,7 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
 
     if(r.order < 1) goto end_ip_loop;
 
-    drs = -r.rs[1]/(XC_DIMENSIONS*dens);
+    drs = -r.rs/(XC_DIMENSIONS*dens);
     
     if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
       vrho[0] = r.zk + dens*r.dedrs*drs;

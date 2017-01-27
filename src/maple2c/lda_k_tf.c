@@ -16,12 +16,12 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   assert(p->params != NULL);
   params = (lda_k_tf_params * )(p->params);
 
-  t1 = r->rss * r->rss;
+  t1 = r->rs * r->rs;
   r->zk = 0.10e1 * params->ax / t1;
 
   if(r->order < 1) return;
 
-  r->dedrs = -0.20e1 * params->ax / t1 / r->rss;
+  r->dedrs = -0.20e1 * params->ax / t1 / r->rs;
   r->dedz = 0;
 
   if(r->order < 2) return;
@@ -33,7 +33,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
 
   if(r->order < 3) return;
 
-  r->d3edrs3 = -0.240e2 * params->ax / t8 / r->rss;
+  r->d3edrs3 = -0.240e2 * params->ax / t8 / r->rs;
   r->d3edz3 = 0;
   r->d3edrs2z = 0;
   r->d3edrsz2 = 0;
@@ -60,13 +60,13 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t4 = 0.10e1 - r->zeta;
   t5 = pow(t4, 0.16666666666666666667e1);
   t8 = params->ax * (0.5e0 * t2 + 0.5e0 * t5);
-  t9 = r->rss * r->rss;
+  t9 = r->rs * r->rs;
   t10 = 0.1e1 / t9;
   r->zk = t8 * t10;
 
   if(r->order < 1) return;
 
-  t12 = 0.1e1 / t9 / r->rss;
+  t12 = 0.1e1 / t9 / r->rs;
   r->dedrs = -0.2e1 * t8 * t12;
   t15 = pow(t1, 0.6666666666666666667e0);
   t17 = pow(t4, 0.6666666666666666667e0);
@@ -86,7 +86,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
 
   if(r->order < 3) return;
 
-  r->d3edrs3 = -0.24e2 * t8 / t21 / r->rss;
+  r->d3edrs3 = -0.24e2 * t8 / t21 / r->rs;
   t36 = pow(t1, -0.13333333333333333333e1);
   t38 = pow(t4, -0.13333333333333333333e1);
   r->d3edz3 = params->ax * (-0.18518518518518518518e0 * t36 + 0.18518518518518518518e0 * t38) * t10;

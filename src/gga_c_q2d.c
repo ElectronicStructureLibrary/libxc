@@ -54,10 +54,7 @@ XC(gga_c_q2d_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   rs2D = rs2D_factor*r->rs*SQRT(X2S*r->xt)/RS_FACTOR;
 
   ldaw.order = r->order;
-  
-  ldaw.rs[0] = SQRT(rs2D);
-  ldaw.rs[1] = rs2D;
-  ldaw.rs[2] = rs2D*rs2D;
+  ldaw.rs    = rs2D;
   ldaw.zeta  = r->zeta;
 
   XC(lda_c_2d_amgb_func)(p->func_aux[0], &ldaw);

@@ -47,7 +47,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   static const FLOAT aa = 0.001667, bb = 0.002568;
   static const FLOAT ftilde = 1.745*0.11;
 
-  FLOAT rsconv, x1, dx1drs, dx1dxt, d2x1drs2, d2x1drsxt;
+  FLOAT rsconv, rs2, x1, dx1drs, dx1dxt, d2x1drs2, d2x1drsxt;
   FLOAT f1, f2, H, df1, df2, dHdx1, dHdrs, d2f1, d2f2, d2Hdrs2, d2Hdx12, d2Hdrsx1;
   FLOAT DD, dDDdzeta, d2DDdzeta2, CC, CCinf, dCCdrs, d2CCdrs2;
   FLOAT Phi, dPhidx1, dPhidrs, d2Phidrs2, d2Phidrsx1;
@@ -57,10 +57,8 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   rsconv = POW(4.0*M_PI/3.0, 1.0/6.0);
 
   pw.order = r->order;
-  pw.rs[0] = SQRT(r->rs);
-  pw.rs[1] = r->rs;
-  pw.rss   = r->rs;
-  pw.rs[2] = r->rs*r->rs;
+  pw.rs    = r->rs;
+  rs2      = r->rs*r->rs;
   pw.zeta  = r->zeta;
 
   XC(lda_c_pz_func)(p->func_aux[0], &pw);
@@ -69,13 +67,13 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   DD = SQRT(POW(1.0 + r->zeta, 5.0/3.0) + POW(1.0 - r->zeta, 5.0/3.0))/M_SQRT2;
   
   /* Equation [1].(6) */
-  f1    = bb + alpha*r->rs + beta*pw.rs[2];
-  f2    = 1.0 + gamma*r->rs + delta*pw.rs[2] + 1.0e4*beta*r->rs*pw.rs[2];
+  f1    = bb + alpha*r->rs + beta*rs2;
+  f2    = 1.0 + gamma*r->rs + delta*rs2 + 1.0e4*beta*r->rs*rs2;
   CC    = aa + f1/f2;
   CCinf = aa + bb;
 
   /* Equation [1].(9) */
-  x1  = r->xt/(rsconv*pw.rs[0]);
+  x1  = r->xt/(rsconv*SQRT(pw.rs));
   Phi  = ftilde*(CCinf/CC)*x1;
 
   /* Equation [1].(8) */
@@ -87,11 +85,11 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   dDDdzeta = 5.0/(3.0*4.0*DD)*(POW(1.0 + r->zeta, 2.0/3.0) - POW(1.0 - r->zeta, 2.0/3.0));
 
   df1    = alpha + 2.0*beta*r->rs;
-  df2    = gamma + 2.0*delta*r->rs + 3.0e4*beta*pw.rs[2];
+  df2    = gamma + 2.0*delta*r->rs + 3.0e4*beta*rs2;
   dCCdrs = (df1*f2 - f1*df2)/(f2*f2);
 
-  dx1drs = -r->xt/(2.0*rsconv*r->rs*pw.rs[0]);
-  dx1dxt = 1.0/(rsconv*pw.rs[0]);
+  dx1drs = -r->xt/(2.0*rsconv*r->rs*SQRT(pw.rs));
+  dx1dxt = 1.0/(rsconv*SQRT(pw.rs));
 
   dPhidx1 =  ftilde*(CCinf/CC);
   dPhidrs = -dCCdrs*Phi/CC;
@@ -122,8 +120,8 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   d2Phidrs2  = -(d2CCdrs2*Phi + dCCdrs*dPhidrs - dCCdrs*dCCdrs*Phi/CC)/CC;
   d2Phidrsx1 = -dCCdrs*dPhidx1/CC; 
 
-  d2x1drs2  = 3.0*r->xt/(4.0*rsconv*pw.rs[2]*pw.rs[0]);
-  d2x1drsxt = -1.0/(2.0*rsconv*r->rs*pw.rs[0]);
+  d2x1drs2  = 3.0*r->xt/(4.0*rsconv*rs2*SQRT(pw.rs));
+  d2x1drsxt = -1.0/(2.0*rsconv*r->rs*SQRT(pw.rs));
   
   d2Hdx12   = EXP(-Phi)*CC/DD*(2.0 + x1*dPhidx1*(x1*dPhidx1 - 4.0));
   d2Hdrs2   = x1*x1*EXP(-Phi)/DD*(d2CCdrs2 - d2Phidrs2*CC - dPhidrs*(2.0*dCCdrs - dPhidrs*CC));

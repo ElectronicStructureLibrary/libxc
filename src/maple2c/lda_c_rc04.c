@@ -13,10 +13,10 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   double t14, t17, t18, t19, t21, t27, t33, t42;
 
 
-  t2 = 0.4888270e1 + 0.3177037e1 * r->rss;
+  t2 = 0.4888270e1 + 0.3177037e1 * r->rs;
   t3 = atan(t2);
   t5 = -0.655868e0 * t3 + 0.897889e0;
-  t6 = 0.1e1 / r->rss;
+  t6 = 0.1e1 / r->rs;
   r->zk = 0.1000e1 * t5 * t6;
 
   if(r->order < 1) return;
@@ -24,7 +24,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   t8 = t2 * t2;
   t9 = t8 + 0.1e1;
   t10 = 0.1e1 / t9;
-  t13 = r->rss * r->rss;
+  t13 = r->rs * r->rs;
   t14 = 0.1e1 / t13;
   r->dedrs = -0.2083716903116000e1 * t10 * t6 - 0.1000e1 * t5 * t14;
   r->dedz = 0;
@@ -34,8 +34,8 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   t17 = t9 * t9;
   t18 = 0.1e1 / t17;
   t19 = t18 * t6;
-  t21 = 0.31060429311980e2 + 0.20187128198738e2 * r->rss;
-  t27 = 0.1e1 / t13 / r->rss;
+  t21 = 0.31060429311980e2 + 0.20187128198738e2 * r->rs;
+  t27 = 0.1e1 / t13 / r->rs;
   r->d2edrs2 = 0.2083716903116000e1 * t19 * t21 + 0.4167433806232000e1 * t10 * t14 + 0.2000e1 * t5 * t27;
   r->d2edz2 = 0;
   r->d2edrsz = 0;
@@ -72,11 +72,11 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t7 = 0.5e0 * t2 + 0.5e0 * t5;
   t8 = t7 * t7;
   t9 = t8 * t7;
-  t11 = 0.4888270e1 + 0.3177037e1 * r->rss;
+  t11 = 0.4888270e1 + 0.3177037e1 * r->rs;
   t12 = atan(t11);
   t14 = -0.655868e0 * t12 + 0.897889e0;
   t15 = t9 * t14;
-  t16 = 0.1e1 / r->rss;
+  t16 = 0.1e1 / r->rs;
   r->zk = t15 * t16;
 
   if(r->order < 1) return;
@@ -85,7 +85,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t18 = t17 + 0.1e1;
   t19 = 0.1e1 / t18;
   t20 = t9 * t19;
-  t23 = r->rss * r->rss;
+  t23 = r->rs * r->rs;
   t24 = 0.1e1 / t23;
   r->dedrs = -0.2083716903116e1 * t20 * t16 - t15 * t24;
   t26 = t8 * t14;
@@ -100,9 +100,9 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t34 = t18 * t18;
   t35 = 0.1e1 / t34;
   t36 = t9 * t35;
-  t38 = 0.31060429311980e2 + 0.20187128198738e2 * r->rss;
+  t38 = 0.31060429311980e2 + 0.20187128198738e2 * r->rs;
   t39 = t16 * t38;
-  t45 = 0.1e1 / t23 / r->rss;
+  t45 = 0.1e1 / t23 / r->rs;
   r->d2edrs2 = 0.2083716903116e1 * t36 * t39 + 0.4167433806232e1 * t20 * t24 + 0.2e1 * t15 * t45;
   t48 = t7 * t14;
   t49 = t31 * t31;

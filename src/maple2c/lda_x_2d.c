@@ -12,17 +12,17 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   double t3, t8;
 
 
-  r->zk = -0.60021087743807071301e0 / r->rss;
+  r->zk = -0.60021087743807071301e0 / r->rs;
 
   if(r->order < 1) return;
 
-  t3 = r->rss * r->rss;
+  t3 = r->rs * r->rs;
   r->dedrs = 0.60021087743807071301e0 / t3;
   r->dedz = 0;
 
   if(r->order < 2) return;
 
-  r->d2edrs2 = -0.12004217548761414260e1 / t3 / r->rss;
+  r->d2edrs2 = -0.12004217548761414260e1 / t3 / r->rs;
   r->d2edz2 = 0;
   r->d2edrsz = 0;
 
@@ -52,12 +52,12 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t4 = 0.10e1 - r->zeta;
   t5 = pow(t4, 0.15e1);
   t7 = 0.5e0 * t2 + 0.5e0 * t5;
-  t8 = 0.1e1 / r->rss;
+  t8 = 0.1e1 / r->rs;
   r->zk = -0.60021087743807071301e0 * t7 * t8;
 
   if(r->order < 1) return;
 
-  t11 = r->rss * r->rss;
+  t11 = r->rs * r->rs;
   t12 = 0.1e1 / t11;
   r->dedrs = 0.60021087743807071301e0 * t7 * t12;
   t14 = pow(t1, 0.5e0);
@@ -67,7 +67,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
 
   if(r->order < 2) return;
 
-  t22 = 0.1e1 / t11 / r->rss;
+  t22 = 0.1e1 / t11 / r->rs;
   r->d2edrs2 = -0.12004217548761414260e1 * t7 * t22;
   t25 = pow(t1, -0.5e0);
   t27 = pow(t4, -0.5e0);

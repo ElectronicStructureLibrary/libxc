@@ -315,10 +315,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   cnst_beta = ((gga_c_pbe_params *) (p->params))->beta;
 
   pw.order = r->order;
-  pw.rs[0] = SQRT(r->rs);
-  pw.rs[1] = r->rs;
-  pw.rss   = r->rs;
-  pw.rs[2] = r->rs*r->rs;
+  pw.rs    = r->rs;
   pw.zeta  = r->zeta;
 
   XC(lda_c_pw_func)(p->func_aux[0], &pw);
@@ -329,7 +326,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   auxm = CBRT(1.0 - r->zeta);
 
   phi  = 0.5*(auxp*auxp + auxm*auxm);
-  tt   = r->xt/(tconv*phi*pw.rs[0]);
+  tt   = r->xt/(tconv*phi*SQRT(pw.rs));
 
   if(p->info->number == XC_GGA_C_BCGP)
     bcgp_pt(r->order, tt, &tp, &dtpdtt, &d2tpdtt2);
@@ -384,7 +381,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   if(auxm > p->info->min_zeta) dphidz -= 1/auxm;
   dphidz *= 1.0/3.0;
 
-  dtdrs  = -r->xt/(2.0*tconv*phi*r->rs*pw.rs[0]);
+  dtdrs  = -r->xt/(2.0*tconv*phi*r->rs*SQRT(pw.rs));
   dtdxt  =  tt/r->xt;
   dtdphi = -tt/phi;
 
@@ -421,7 +418,7 @@ XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r)
   if(auxm > p->info->min_zeta) d2phidz2 += 1.0/((1.0 - r->zeta)*auxm);
   d2phidz2 *= -1.0/9.0;
 
-  d2tdrs2   =  3.0*r->xt/(4.0*tconv*phi*pw.rs[2]*pw.rs[0]);
+  d2tdrs2   =  3.0*r->xt/(4.0*tconv*phi*pw.rs*pw.rs*sqrt(pw.rs));
   d2tdrsxt  =  dtdrs/r->xt;
   d2tdphi2  = -2.0*dtdphi/phi;
   d2tdrsphi = -dtdrs/phi;

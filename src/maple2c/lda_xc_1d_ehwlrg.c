@@ -17,15 +17,15 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   assert(p->params != NULL);
   params = (lda_xc_1d_ehwlrg_params * )(p->params);
 
-  t1 = 0.1e1 / r->rss;
-  t4 = r->rss * r->rss;
+  t1 = 0.1e1 / r->rs;
+  t4 = r->rs * r->rs;
   t5 = 0.1e1 / t4;
   t10 = pow(0.50000000000000000000e0 * t1, params->alpha);
   r->zk = (params->a1 + 0.50000000000000000000e0 * params->a2 * t1 + 0.25000000000000000000e0 * params->a3 * t5) * t10;
 
   if(r->order < 1) return;
 
-  t14 = 0.1e1 / t4 / r->rss;
+  t14 = 0.1e1 / t4 / r->rs;
   t18 = (-0.50000000000000000000e0 * params->a2 * t5 - 0.50000000000000000000e0 * params->a3 * t14) * t10;
   t19 = params->alpha * t1;
   r->dedrs = t18 - 0.10000000000000000000e1 * r->zk * t19;
@@ -45,7 +45,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
 
   if(r->order < 3) return;
 
-  r->d3edrs3 = (-0.30000000000000000000e1 * params->a2 * t25 - 0.60000000000000000000e1 * params->a3 / t24 / r->rss) * t10 - 0.30000000000000000000e1 * t29 * t19 + 0.30000000000000000000e1 * t18 * t33 + 0.30000000000000000000e1 * t18 * t36 - 0.10000000000000000000e1 * r->zk * t32 * params->alpha * t14 - 0.30000000000000000000e1 * r->zk * t32 * t14 - 0.20000000000000000000e1 * r->zk * params->alpha * t14;
+  r->d3edrs3 = (-0.30000000000000000000e1 * params->a2 * t25 - 0.60000000000000000000e1 * params->a3 / t24 / r->rs) * t10 - 0.30000000000000000000e1 * t29 * t19 + 0.30000000000000000000e1 * t18 * t33 + 0.30000000000000000000e1 * t18 * t36 - 0.10000000000000000000e1 * r->zk * t32 * params->alpha * t14 - 0.30000000000000000000e1 * r->zk * t32 * t14 - 0.20000000000000000000e1 * r->zk * params->alpha * t14;
   r->d3edz3 = 0;
   r->d3edrs2z = 0;
   r->d3edrsz2 = 0;
@@ -66,15 +66,15 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   assert(p->params != NULL);
   params = (lda_xc_1d_ehwlrg_params * )(p->params);
 
-  t1 = 0.1e1 / r->rss;
-  t4 = r->rss * r->rss;
+  t1 = 0.1e1 / r->rs;
+  t4 = r->rs * r->rs;
   t5 = 0.1e1 / t4;
   t10 = pow(0.50000000000000000000e0 * t1, params->alpha);
   r->zk = (params->a1 + 0.50000000000000000000e0 * params->a2 * t1 + 0.25000000000000000000e0 * params->a3 * t5) * t10;
 
   if(r->order < 1) return;
 
-  t14 = 0.1e1 / t4 / r->rss;
+  t14 = 0.1e1 / t4 / r->rs;
   t18 = (-0.50000000000000000000e0 * params->a2 * t5 - 0.50000000000000000000e0 * params->a3 * t14) * t10;
   t19 = params->alpha * t1;
   r->dedrs = t18 - 0.10000000000000000000e1 * r->zk * t19;
@@ -94,7 +94,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
 
   if(r->order < 3) return;
 
-  r->d3edrs3 = (-0.30000000000000000000e1 * params->a2 * t25 - 0.60000000000000000000e1 * params->a3 / t24 / r->rss) * t10 - 0.30000000000000000000e1 * t29 * t19 + 0.30000000000000000000e1 * t18 * t33 + 0.30000000000000000000e1 * t18 * t36 - 0.10000000000000000000e1 * r->zk * t32 * params->alpha * t14 - 0.30000000000000000000e1 * r->zk * t32 * t14 - 0.20000000000000000000e1 * r->zk * params->alpha * t14;
+  r->d3edrs3 = (-0.30000000000000000000e1 * params->a2 * t25 - 0.60000000000000000000e1 * params->a3 / t24 / r->rs) * t10 - 0.30000000000000000000e1 * t29 * t19 + 0.30000000000000000000e1 * t18 * t33 + 0.30000000000000000000e1 * t18 * t36 - 0.10000000000000000000e1 * r->zk * t32 * params->alpha * t14 - 0.30000000000000000000e1 * r->zk * t32 * t14 - 0.20000000000000000000e1 * r->zk * params->alpha * t14;
   r->d3edz3 = 0;
   r->d3edrs2z = 0;
   r->d3edrsz2 = 0;

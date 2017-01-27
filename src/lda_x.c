@@ -22,8 +22,9 @@
 
 #include "util.h"
 
-#define XC_LDA_X         1   /* Exchange                     */
-#define XC_LDA_C_XALPHA  6   /* Slater Xalpha                */
+#define XC_LDA_X         1   /* Exchange                            */
+#define XC_LDA_C_XALPHA  6   /* Slater Xalpha                       */
+#define XC_LDA_X_RAE   549   /* Rae self-energy corrected exchange  */
 
 /*  
     Slater's Xalpha functional (Exc = alpha Ex)
@@ -53,17 +54,7 @@ lda_x_init(XC(func_type) *p)
   p->params = malloc(sizeof(lda_x_params));
   params = (lda_x_params *) (p->params);
 
-  switch(p->info->number){
-  case XC_LDA_X:
-    params->alpha        = 1.0;
-    break;
-  case XC_LDA_C_XALPHA:
-    params->alpha        = 1.0/2.0;
-    break;
-  default:
-    fprintf(stderr, "Internal error in lda_x_init\n");
-    exit(1);
-  }
+  params->alpha = 1.0;
 }
 
 /*
@@ -243,3 +234,36 @@ const XC(func_info_type) XC(func_info_lda_c_xalpha) = {
   work_lda, NULL, NULL
 };
 
+static const func_params_type N_ext_params[] = {
+  {1.0, "Number of electrons"},
+};
+
+static void 
+N_set_ext_params(XC(func_type) *p, const double *ext_params)
+{
+  lda_x_params *params;
+  double ff, N, dx, dx2;
+
+  assert(p != NULL && p->params != NULL);
+  params = (lda_x_params *)(p->params);
+
+  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
+  N = ff;
+
+  dx  = 1.0/CBRT(4.0*N);
+  dx2 = dx*dx;
+  params->alpha = 1.0 - 8.0/3.0*dx + 2.0*dx2 - dx2*dx2/3.0;
+}
+
+const XC(func_info_type) XC(func_info_lda_x_rae) = {
+  XC_LDA_X_RAE,
+  XC_CORRELATION,
+  "Rae self-energy corrected exchange",
+  XC_FAMILY_LDA,
+  {&xc_ref_Rae1973_574, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-29, 0.0, 0.0, 1e-32,
+  1, N_ext_params, N_set_ext_params,
+  lda_x_init, NULL,
+  work_lda, NULL, NULL
+};

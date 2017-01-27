@@ -1864,3 +1864,10 @@ func_reference_type xc_ref_Lee1990_193 = {
 };
 
 
+func_reference_type xc_ref_Rae1973_574 = {
+  "A. Rae, Chem. Phys. Lett. 18, 574 (1973)",
+  "10.1016/0009-2614(73)80469-5",
+  "@article{Rae1973_574,\ntitle = \"A theory for the interactions between closed shell systems \",\njournal = \"Chemical Physics Letters \",\nvolume = \"18\",\nnumber = \"4\",\npages = \"574 - 577\",\nyear = \"1973\",\nnote = \"\",\nissn = \"0009-2614\",\ndoi = \"http://dx.doi.org/10.1016/0009-2614(73)80469-5\",\nurl = \"//www.sciencedirect.com/science/article/pii/0009261473804695\",\nauthor = \"A.I.M. Rae\",\n}"
+};
+
+

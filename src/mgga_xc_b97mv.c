@@ -109,7 +109,6 @@ mgga_xc_b97mv_init(XC(func_type) *p)
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
   p->func_aux[1] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
 
-  XC(func_init)(p->func_aux[0], XC_LDA_X,        XC_POLARIZED);
   XC(func_init)(p->func_aux[1], XC_LDA_C_PW_MOD, XC_POLARIZED);
 
   assert(p!=NULL && p->params == NULL);
@@ -122,9 +121,13 @@ mgga_xc_b97mv_init(XC(func_type) *p)
   
   switch(p->info->number){
   case XC_MGGA_XC_B97M_V:
+    XC(func_init)(p->func_aux[0], XC_LDA_X, XC_POLARIZED);
+
     params -> cc = b97mv_params;
     break;
   case XC_HYB_MGGA_XC_WB97M_V:
+    XC(func_init)(p->func_aux[0], XC_LDA_X_ERF, XC_POLARIZED);
+
     params -> cc = wb97mv_params;
     p->cam_omega =  0.3;
     p->func_aux[0]->cam_omega = 0.3;
@@ -224,7 +227,10 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   params = (mgga_xc_b97mv_params *) pt->params;
   
   /* first we get the parallel and perpendicular LDAs */
-  XC(lda_stoll) (pt->func_aux[0], XC(lda_x_func),    r->dens, r->zeta, r->order, lda_x);
+  if(pt->cam_omega == 0)
+    XC(lda_stoll) (pt->func_aux[0], XC(lda_x_func), r->dens, r->zeta, r->order, lda_x);
+  else
+    XC(lda_stoll) (pt->func_aux[0], XC(lda_x_erf_func), r->dens, r->zeta, r->order, lda_x);
   XC(lda_stoll) (pt->func_aux[1], XC(lda_c_pw_func), r->dens, r->zeta, r->order, lda_pw);
 
   /* initialize to zero */

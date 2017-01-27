@@ -23,6 +23,7 @@ noinst_HEADERS =  \
   lda_c_vwn_1.c lda_c_vwn_2.c lda_c_vwn_3.c lda_c_vwn_4.c lda_c_vwn_rpa.c   \
   lda_c_ml1.c lda_c_hl.c lda_k_tf.c lda_xc_teter93.c lda_xc_ksdt.c          \
   lda_c_2d_prm.c lda_x_2d.c lda_c_1d_loos.c lda_c_2d_amgb.c lda_c_1d_csc.c  \
+  lda_x.c lda_x_erf.c lda_x_rel.c \
   gga_k_thakkar.c gga_x_am05.c gga_x_bayesian.c gga_x_herman.c gga_x_rpbe.c \
   gga_x_airy.c gga_x_b86.c gga_x_c09x.c gga_x_lag.c gga_x_wc.c gga_x_ak13.c \
   gga_x_b88.c gga_x_g96.c gga_x_pbepow.c gga_x_pbe.c gga_x_pbeint.c         \

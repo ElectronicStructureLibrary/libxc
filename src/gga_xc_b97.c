@@ -208,7 +208,11 @@ gga_xc_b97_init(XC(func_type) *p)
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
   p->func_aux[1] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
 
-  XC(func_init)(p->func_aux[0], XC_LDA_X,    XC_POLARIZED);
+  if(p->info->number == XC_HYB_GGA_XC_WB97 || p->info->number == XC_HYB_GGA_XC_WB97X
+     || p->info->number == XC_HYB_GGA_XC_WB97X_V || p->info->number == XC_HYB_GGA_XC_WB97X_D)
+    XC(func_init)(p->func_aux[0], XC_LDA_X_ERF, XC_POLARIZED);
+  else
+    XC(func_init)(p->func_aux[0], XC_LDA_X, XC_POLARIZED);
 
   /* HCTH_A uses the VWN LDA and not PW */
   if(p->info->number == XC_GGA_C_HCTH_A)
@@ -356,7 +360,10 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     XC(lda_stoll) (p->func_aux[1], XC(lda_c_vwn_func), r->dens, r->zeta, r->order, lda_pw);
   else
     XC(lda_stoll) (p->func_aux[1], XC(lda_c_pw_func), r->dens, r->zeta, r->order, lda_pw);
-  XC(lda_stoll) (p->func_aux[0], XC(lda_x_func), r->dens, r->zeta, r->order, lda_x);
+  if(p->cam_omega == 0)
+    XC(lda_stoll) (p->func_aux[0], XC(lda_x_func), r->dens, r->zeta, r->order, lda_x);
+  else
+    XC(lda_stoll) (p->func_aux[0], XC(lda_x_erf_func), r->dens, r->zeta, r->order, lda_x);
 
   /* initialize to zero */
   r->f = 0.0;

@@ -40,27 +40,8 @@ XC(lda_x_func)(const XC(func_type) *p, XC(lda_work_t) *r)
     cbrtomz = CBRT(omz);
   }
 
-  if(p->cam_omega == 0.0){
-    a_cnst = 0.0;
-    fa_u = fa_d = 1.0;
-
-  }else{
-    a_cnst = CBRT(4.0/(9.0*M_PI))*p->cam_omega/2.0;
-
-    if(p->nspin == XC_UNPOLARIZED){
-      XC(lda_x_attenuation_function)(XC_RSF_ERF, r->order, a_cnst*r->rs[1], &fa_u, &dfa_u, &d2fa_u, &d3fa_u);
-    }else{
-      if(cbrtopz > 0.0)
-	XC(lda_x_attenuation_function)(XC_RSF_ERF, r->order, a_cnst*r->rs[1]/cbrtopz, &fa_u, &dfa_u, &d2fa_u, &d3fa_u);
-      else
-	fa_u = dfa_u = d2fa_u = d3fa_u = 0.0;
-
-      if(cbrtomz > 0.0)
-	XC(lda_x_attenuation_function)(XC_RSF_ERF, r->order, a_cnst*r->rs[1]/cbrtomz, &fa_d, &dfa_d, &d2fa_d, &d3fa_d);
-      else
-	fa_d = dfa_d = d2fa_d = d3fa_d = 0.0;
-    }
-  }
+  a_cnst = 0.0;
+  fa_u = fa_d = 1.0;
 
   if(p->nspin == XC_UNPOLARIZED)
     fz = fa_u;

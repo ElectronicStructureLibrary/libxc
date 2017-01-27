@@ -165,8 +165,7 @@ void XC(lda_end) (XC(func_type) *p);
 
 typedef struct XC(lda_work_t) {
   int   order; /* to which order should I return the derivatives */
-  FLOAT rss; /* WARNING TEMPORARY CODE */
-  FLOAT rs[3], zeta;
+  FLOAT rs, zeta;
 
   FLOAT zk;
   FLOAT dedrs, dedz;                         /*  first derivatives of zk */
@@ -193,6 +192,7 @@ void XC(lda_stoll)(const XC(func_type) *pw, XC(lda_func_type) lda_func,
 
 /* direct access to the internal functions */
 void XC(lda_x_func)     (const XC(func_type) *p, XC(lda_work_t) *r);
+void XC(lda_x_erf_func) (const XC(func_type) *p, XC(lda_work_t) *r);
 void XC(lda_c_hl_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
 void XC(lda_c_vwn_func) (const XC(func_type) *p, XC(lda_work_t) *r);
 void XC(lda_c_pw_func)  (const XC(func_type) *p, XC(lda_work_t) *r);

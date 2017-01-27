@@ -23,7 +23,6 @@
 #include "util.h"
 
 #define XC_LDA_X         1   /* Exchange                     */
-#define XC_LDA_X_REL   532   /* Relativistic exchange        */
 #define XC_LDA_C_XALPHA  6   /* Slater Xalpha                */
 
 /*  
@@ -43,7 +42,6 @@
 
 typedef struct{
   FLOAT alpha;       /* parameter for Xalpha functional */
-  int relativistic;  /* use the relativistic version of the functional or not */
 } lda_x_params;
 
 static void 
@@ -58,15 +56,9 @@ lda_x_init(XC(func_type) *p)
   switch(p->info->number){
   case XC_LDA_X:
     params->alpha        = 1.0;
-    params->relativistic = XC_NON_RELATIVISTIC;
-    break;
-  case XC_LDA_X_REL:
-    params->alpha        = 1.0;
-    params->relativistic = XC_RELATIVISTIC;
     break;
   case XC_LDA_C_XALPHA:
     params->alpha        = 1.0/2.0;
-    params->relativistic = XC_NON_RELATIVISTIC;
     break;
   default:
     fprintf(stderr, "Internal error in lda_x_init\n");
@@ -75,9 +67,7 @@ lda_x_init(XC(func_type) *p)
 }
 
 /*
-see
-    Int. J. of Quant. Chem. 100, 1047-1056 (2004).
-    Chem. Phys. Lett. 462(2008) 348-351
+    Int. J. of Quant. Chem. 100, 1047-1056 (2004)
     J. Chem. Phys. 120, 8425 (2004)
 */
 void
@@ -110,6 +100,7 @@ XC(lda_x_attenuation_function_erf)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLO
 }
 
 
+/* Int. J. of Quant. Chem. 100, 1047-1056 (2004) */
 void
 XC(lda_x_attenuation_function_erf_gau)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
 {
@@ -136,7 +127,7 @@ XC(lda_x_attenuation_function_erf_gau)(int order, FLOAT aa, FLOAT *f, FLOAT *df,
   }
 }
 
-
+/* Chem. Phys. Lett. 462(2008) 348-351 */
 void
 XC(lda_x_attenuation_function_yukawa)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
 {
@@ -204,7 +195,9 @@ XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa,
   }
 }
 
-#include "hand_written/lda_x.c"
+#include "maple2c/lda_x.c"
+
+#define func maple2c_func
 #include "work_lda.c"
 
 const XC(func_info_type) XC(func_info_lda_x) = {
@@ -217,19 +210,6 @@ const XC(func_info_type) XC(func_info_lda_x) = {
   1e-29, 0.0, 0.0, 1e-32,
   0, NULL, NULL,
   lda_x_init, NULL,
-  work_lda, NULL, NULL
-};
-
-const XC(func_info_type) XC(func_info_lda_x_rel) = {
-  XC_LDA_X_REL,
-  XC_EXCHANGE,
-  "Slater exchange with relativistic corrections",
-  XC_FAMILY_LDA,
-  {&xc_ref_Rajagopal1978_L943, &xc_ref_MacDonald1979_2977, &xc_ref_Engel1995_2750, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-29, 0.0, 0.0, 1e-32,
-  0, NULL, NULL,
-  lda_x_init, NULL, 
   work_lda, NULL, NULL
 };
 

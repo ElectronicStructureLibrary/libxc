@@ -283,3 +283,5 @@ extern func_reference_type xc_ref_Campo2012_179;
 extern func_reference_type xc_ref_Constantin2016_115127;
 extern func_reference_type xc_ref_Perdew2007_155109;
 extern func_reference_type xc_ref_Verma2017_380;
+extern func_reference_type xc_ref_Toulouse2004_1047;
+extern func_reference_type xc_ref_Tawada2004_8425;

@@ -1837,9 +1837,23 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
+};
+
+
+func_reference_type xc_ref_Toulouse2004_1047 = {
+  "J. Toulouse, A. Savin, and H.-J. Flad, Int. J. Quantum Chem. 100, 1047 (2004)",
+  "10.1002/qua.20259",
+  "@article {Toulouse2004_1047,\nauthor = {Toulouse, Julien and Savin, Andreas and Flad, Heinz-Jürgen},\ntitle = {Short-range exchange-correlation energy of a uniform electron gas with modified electron–electron interaction},\njournal = {International Journal of Quantum Chemistry},\nvolume = {100},\nnumber = {6},\npublisher = {John Wiley & Sons, Inc.},\nissn = {1097-461X},\nurl = {http://dx.doi.org/10.1002/qua.20259},\ndoi = {10.1002/qua.20259},\npages = {1047--1056},\nkeywords = {density functional theory, local density approximation, uniform electron gas, short-range interaction, long-range interaction},\nyear = {2004},\n}"
+};
+
+
+func_reference_type xc_ref_Tawada2004_8425 = {
+  "Y. Tawada, T. Tsuneda, S. Yanagisawa, T. Yanai, and K. Hirao, J. Chem. Phys. 120, 8425 (2004)",
+  "10.1063/1.1688752",
+  "@article{Tawada2004_8425,\nauthor = {Yoshihiro Tawada and Takao Tsuneda and Susumu Yanagisawa and Takeshi Yanai and Kimihiko Hirao},\ntitle = {A long-range-corrected time-dependent density functional theory},\njournal = {The Journal of Chemical Physics},\nvolume = {120},\nnumber = {18},\npages = {8425-8433},\nyear = {2004},\ndoi = {10.1063/1.1688752},\nURL = {http://dx.doi.org/10.1063/1.1688752},\n}"
 };
 
 

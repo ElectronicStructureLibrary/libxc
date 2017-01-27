@@ -148,22 +148,22 @@ sub work_lda {
   ($order, $prefix) = @_;
 
   for(my $ispin=0; $ispin<2; $ispin++){
-    my $f = ($ispin==0) ? "f(r_a_rss, 0.0)" : "f(r_a_rss, r_a_zeta)";
+    my $f = ($ispin==0) ? "f(r_a_rs, 0.0)" : "f(r_a_rs, r_a_zeta)";
     my $info = [
       [
        ["r_a_zk", "$f"]
       ], [
-        ["r_a_dedrs", "diff($f, r_a_rss)"],
+        ["r_a_dedrs", "diff($f, r_a_rs)"],
         ["r_a_dedz",  "diff($f, r_a_zeta)"]
       ], [
-        ["r_a_d2edrs2", "diff($f, r_a_rss\$2)"], 
+        ["r_a_d2edrs2", "diff($f, r_a_rs\$2)"], 
         ["r_a_d2edz2",  "diff($f, r_a_zeta\$2 )"],
-        ["r_a_d2edrsz", "diff($f, r_a_rss, r_a_zeta)"]
+        ["r_a_d2edrsz", "diff($f, r_a_rs, r_a_zeta)"]
       ], [
-        ["r_a_d3edrs3",  "diff($f, r_a_rss\$3)"], 
+        ["r_a_d3edrs3",  "diff($f, r_a_rs\$3)"], 
         ["r_a_d3edz3",   "diff($f, r_a_zeta\$3 )"],
-        ["r_a_d3edrs2z", "diff($f, r_a_rss\$2, r_a_zeta)"],
-        ["r_a_d3edrsz2", "diff($f, r_a_rss, r_a_zeta\$2)"]
+        ["r_a_d3edrs2z", "diff($f, r_a_rs\$2, r_a_zeta)"],
+        ["r_a_d3edrsz2", "diff($f, r_a_rs, r_a_zeta\$2)"]
       ]
     ];
 

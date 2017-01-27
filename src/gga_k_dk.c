@@ -119,41 +119,9 @@ gga_k_dk_init(XC(func_type) *p)
   }
 }
 
+#include "maple2c/gga_k_dk.c"
 
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
-{
-  FLOAT xx2, xx4, num, denom, dnum, ddenom, d2num, d2denom;
-  FLOAT *aa, *bb;
-
-  assert(p->params != NULL);
-  aa  = ((gga_k_dk_params *) (p->params))->aa;
-  bb  = ((gga_k_dk_params *) (p->params))->bb;
-
-  xx2 = x*x;
-  xx4 = xx2*xx2;
-
-  num   = aa[0] + aa[1]*xx2 + aa[2]*xx4 + aa[3]*xx2*xx4 + aa[4]*xx4*xx4;
-  denom = bb[0] + bb[1]*xx2 + bb[2]*xx4 + bb[3]*xx2*xx4 + bb[4]*xx4*xx4;
-
-  *f = num/denom;
-
-  if(order < 1) return;
-
-  dnum   = 2.0*aa[1]*x + 4.0*aa[2]*x*xx2 + 6.0*aa[3]*x*xx4 + 8.0*aa[4]*x*xx2*xx4;
-  ddenom = 2.0*bb[1]*x + 4.0*bb[2]*x*xx2 + 6.0*bb[3]*x*xx4 + 8.0*bb[4]*x*xx2*xx4;
-
-  *dfdx  = (dnum*denom - num*ddenom)/(denom*denom);
-  
-  if(order < 2) return;
-
-  d2num   = 2.0*aa[1] + 4.0*3.0*aa[2]*xx2 + 6.0*5.0*aa[3]*xx4 + 8.0*7.0*aa[4]*xx2*xx4;
-  d2denom = 2.0*bb[1] + 4.0*3.0*bb[2]*xx2 + 6.0*5.0*bb[3]*xx4 + 8.0*7.0*bb[4]*xx2*xx4;
-
-  *d2fdx2  = ((d2num*denom - num*d2denom)*denom - 2.0*ddenom*(dnum*denom - ddenom*num))/(denom*denom*denom);
-}
-
+#define func maple2c_func
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
@@ -163,7 +131,7 @@ const XC(func_info_type) XC(func_info_gga_k_dk) = {
   "DePristo and Kress",
   XC_FAMILY_GGA,
   {&xc_ref_DePristo1987_438, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
   gga_k_dk_init,
@@ -178,7 +146,7 @@ const XC(func_info_type) XC(func_info_gga_k_perdew) = {
   "Perdew",
   XC_FAMILY_GGA,
   {&xc_ref_Perdew1992_79, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
   gga_k_dk_init,
@@ -193,7 +161,7 @@ const XC(func_info_type) XC(func_info_gga_k_vsk) = {
   "Vitos, Skriver, and Kollar",
   XC_FAMILY_GGA,
   {&xc_ref_Vitos1998_12611, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
   gga_k_dk_init,
@@ -208,7 +176,7 @@ const XC(func_info_type) XC(func_info_gga_k_vjks) = {
   "Vitos, Johansson, Kollar, and Skriver",
   XC_FAMILY_GGA,
   {&xc_ref_Vitos2000_052511, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
   gga_k_dk_init,
@@ -223,7 +191,7 @@ const XC(func_info_type) XC(func_info_gga_k_ernzerhof) = {
   "Ernzerhof",
   XC_FAMILY_GGA,
   {&xc_ref_Ernzerhof2000_59, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
   gga_k_dk_init,

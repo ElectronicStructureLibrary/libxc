@@ -1857,3 +1857,10 @@ func_reference_type xc_ref_Tawada2004_8425 = {
 };
 
 
+func_reference_type xc_ref_Lee1990_193 = {
+  "C. Lee and R. G. Parr, Phys. Rev. A 42, 193 (1990)",
+  "10.1103/PhysRevA.42.193",
+  "@article{Lee1990_193,\n  title = {Exchange-correlation functional for atoms and molecules},\n  author = {Lee, Chengteh and Parr, Robert G.},\n  journal = {Phys. Rev. A},\n  volume = {42},\n  issue = {1},\n  pages = {193--200},\n  numpages = {0},\n  year = {1990},\n  month = {Jul},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.42.193},\n  url = {http://link.aps.org/doi/10.1103/PhysRevA.42.193}\n}"
+};
+
+

@@ -8,7 +8,6 @@ LDA:
      R. McWeeny, in The New World of Quantum Chemistry, edited by B. Pullman and R. Parr (Reidel, Boston, 1976), p. 3.
   *) Rae self-energy correction to x (CPL 18, 574 (1973))
   *) ZLP x (https://journals.aps.org/pra/pdf/10.1103/PhysRevA.47.918 Eq. (20) & (21), and at the end there are several kinetic contributions to the correlation energy) and k (Chem. Phys. Lett. 232, 31)
-  *) Lee and Parr https://journals.aps.org/pra/abstract/10.1103/PhysRevA.42.193 (there are two LDAs and two meta-GGAs)
   *) Proynov-Kong c [Phys. Rev. A 79, 014103 (2009)] http://journals.aps.org/pra/abstract/10.1103/PhysRevA.79.014103
 
 GGAs:
@@ -31,6 +30,7 @@ GGAs:
   *) https://repository.aust.edu.ng/xmlui/bitstream/handle/123456789/549/Iyomo%20Irewole.pdf?sequence=1&isAllowed=y Equation (3.36)
 
 mGGAs:
+  *) Lee and Parr https://journals.aps.org/pra/abstract/10.1103/PhysRevA.42.193 (Equations (56) and (60))
   *) correlation of Tao-Mo (TM) functional http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.117.073001
   *) Bc98 in http://scitation.aip.org/content/aip/journal/jcp/88/2/10.1063/1.454274
   *) hybrids in http://scitation.aip.org/content/aip/journal/jcp/112/9/10.1063/1.480951

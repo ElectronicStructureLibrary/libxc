@@ -1,6 +1,9 @@
 (* type: work_lda *)
+(* prefix:
+  lda_c_wigner_params *params;
 
-a := -0.44:
-b := 7.8:
+  assert(p->params != NULL);
+  params = (lda_c_wigner_params * )(p->params);
+*)
 
-f := (rs, zeta) -> a/(b + rs):
+f := (rs, zeta) -> 1.0*params_a_a/(params_a_b + rs):

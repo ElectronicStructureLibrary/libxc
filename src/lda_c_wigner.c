@@ -16,14 +16,43 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdio.h>
 #include "util.h"
 
-/************************************************************************
- Wigner's parametrization from the low density limit
-************************************************************************/
-
 #define XC_LDA_C_WIGNER  2   /* Wigner parametrization       */
+#define XC_LDA_C_LP_A  547   /* Lee-Parr reparametrization B */
+#define XC_LDA_C_LP_B  548   /* Lee-Parr reparametrization B */
+
+typedef struct {
+  FLOAT a, b;
+} lda_c_wigner_params;
+
+static void 
+lda_c_wigner_init(XC(func_type) *p)
+{
+  lda_c_wigner_params *params;
+
+  assert(p!=NULL && p->params == NULL);
+  p->params = malloc(sizeof(lda_c_wigner_params));
+  params = (lda_c_wigner_params *) (p->params);
+
+  switch(p->info->number){
+  case XC_LDA_C_WIGNER:
+    params->a = -0.44;
+    params->b =  7.8;
+    break;
+  case XC_LDA_C_LP_A:
+    params->a = -0.8626*RS_FACTOR;
+    params->b = 0.0;
+    break;
+  case XC_LDA_C_LP_B:
+    params->a = -0.906*RS_FACTOR;
+    params->b =  2.1987e-2*RS_FACTOR;
+    break;
+  default:
+    fprintf(stderr, "Internal error in lda_c_wigner\n");
+    exit(1);
+  }
+}
 
 #include "maple2c/lda_c_wigner.c"
 
@@ -39,9 +68,32 @@ const XC(func_info_type) XC(func_info_lda_c_wigner) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
   0, NULL, NULL,
-  NULL,     /* init */
-  NULL,     /* end  */
-  work_lda, /* lda  */
-  NULL,
-  NULL
+  lda_c_wigner_init, NULL,
+  work_lda, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_lda_c_lp_a) = {
+  XC_LDA_C_LP_A,
+  XC_CORRELATION,
+  "Lee-Parr reparametrization A",
+  XC_FAMILY_LDA,
+  {&xc_ref_Lee1990_193, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 0.0, 0.0, 1e-32,
+  0, NULL, NULL,
+  lda_c_wigner_init, NULL,
+  work_lda, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_lda_c_lp_b) = {
+  XC_LDA_C_LP_B,
+  XC_CORRELATION,
+  "Lee-Parr reparametrization B",
+  XC_FAMILY_LDA,
+  {&xc_ref_Lee1990_193, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 0.0, 0.0, 1e-32,
+  0, NULL, NULL,
+  lda_c_wigner_init, NULL,
+  work_lda, NULL, NULL
 };

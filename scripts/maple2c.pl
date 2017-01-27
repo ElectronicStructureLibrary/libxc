@@ -61,6 +61,7 @@ sub math_replace {
     '_4_'       , "[4]",
     '_5_'       , "[5]",
     'Dirac\(.*?\)', '0.0', # have to do it here, as both Dirac(x) and Dirac(n, x) can appear
+    'signum\(1.*\)', '0.0', # the derivative of the signum is 0 for us
   );
   my ($text) = @_;
 

@@ -16,72 +16,67 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
 #include "util.h"
 
-#define XC_GGA_X_VMT_PBE          71 /* Vela, Medel, and Trickey with mu = mu_PBE */
-#define XC_GGA_X_VMT_GE           70 /* Vela, Medel, and Trickey with mu = mu_GE  */
+#define XC_GGA_X_VMT84_PBE        69 /* VMT{8,4} with constraint satisfaction with mu = mu_PBE  */
+#define XC_GGA_X_VMT84_GE         68 /* VMT{8,4} with constraint satisfaction with mu = mu_GE  */
 
 typedef struct{
   FLOAT mu;
   FLOAT alpha;
-} gga_x_vmt_params;
-
+} gga_x_vmt84_params;
 
 static void 
-gga_x_vmt_init(XC(func_type) *p)
+gga_x_vmt84_init(XC(func_type) *p)
 {
-  gga_x_vmt_params *params;
+  gga_x_vmt84_params *params;
 
   assert(p != NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_x_vmt_params));
-  params = (gga_x_vmt_params *) (p->params);
+  p->params = malloc(sizeof(gga_x_vmt84_params));
+  params = (gga_x_vmt84_params *) (p->params);
 
   switch(p->info->number){
-  case XC_GGA_X_VMT_PBE:
+  case XC_GGA_X_VMT84_PBE:
     params->mu    = 0.2195149727645171;
-    params->alpha = 0.002762;
+    params->alpha = 0.000074;
     break;
-  case XC_GGA_X_VMT_GE:
+  case XC_GGA_X_VMT84_GE:
     params->mu = 10.0/81.0;
-    params->alpha = 0.001553;
+    params->alpha = 0.000023;
     break;
   default:
-    fprintf(stderr, "Internal error in gga_x_vmt\n");
+    fprintf(stderr, "Internal error in gga_x_vmt84\n");
     exit(1);
   }
 }
 
-#include "maple2c/gga_x_vmt.c"
+#include "maple2c/gga_x_vmt84.c"
 
 #define func maple2c_func
 #include "work_gga_x.c"
 
-
-const XC(func_info_type) XC(func_info_gga_x_vmt_pbe) = {
-  XC_GGA_X_VMT_PBE,
+const XC(func_info_type) XC(func_info_gga_x_vmt84_pbe) = {
+  XC_GGA_X_VMT84_PBE,
   XC_EXCHANGE,
-  "Vela, Medel, and Trickey with mu = mu_PBE",
+  "VMT{8,4} with constraint satisfaction with mu = mu_PBE",
   XC_FAMILY_GGA,
-  {&xc_ref_Vela2009_244103, NULL, NULL, NULL, NULL},
+  {&xc_ref_Vela2012_144115, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_vmt_init, NULL, 
+  gga_x_vmt84_init, NULL, 
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_vmt_ge) = {
-  XC_GGA_X_VMT_GE,
+const XC(func_info_type) XC(func_info_gga_x_vmt84_ge) = {
+  XC_GGA_X_VMT84_GE,
   XC_EXCHANGE,
-  "Vela, Medel, and Trickey with mu = mu_GE",
+  "VMT{8,4} with constraint satisfaction with mu = mu_GE",
   XC_FAMILY_GGA,
-  {&xc_ref_Vela2009_244103, NULL, NULL, NULL, NULL},
+  {&xc_ref_Vela2012_144115, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_vmt_init, NULL, 
+  gga_x_vmt84_init, NULL, 
   NULL, work_gga_x, NULL
 };

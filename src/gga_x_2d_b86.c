@@ -22,33 +22,9 @@
 
 #define XC_GGA_X_2D_B86          128 /* Becke 86 Xalpha,beta,gamma                      */
 
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
-{
-  FLOAT beta=0.002105, gamma=0.000119;
+#include "maple2c/gga_x_2d_b86.c"
 
-  FLOAT f1, f2, df1, df2, d2f1, d2f2;
-
-  f1    = 1.0 + beta*x*x;
-  f2    = 1.0 + gamma*x*x;
-  *f    = f1/f2;
-  
-  if(order < 1) return;
-
-  df1   = 2.0*beta*x;
-  df2   = 2.0*gamma*x;
-
-  *dfdx  = (df1*f2 - f1*df2)/(f2*f2);
-
-  if(order < 2) return;
-
-  d2f1 = 2.0*beta;
-  d2f2 = 2.0*gamma;
-
-  *d2fdx2 = (2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
-}
-
+#define func maple2c_func
 #define XC_DIMENSIONS 2
 #include "work_gga_x.c"
 
@@ -58,11 +34,10 @@ const XC(func_info_type) XC(func_info_gga_x_2d_b86) = {
   "Becke 86 in 2D",
   XC_FAMILY_GGA,
   {&xc_ref_Vilhena2014, NULL, NULL, NULL, NULL},
-  XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-18, 0.0, 1e-32,
   0, NULL, NULL,
-  NULL, NULL, NULL,
-  work_gga_x,
-  NULL
+  NULL, NULL, 
+  NULL, work_gga_x, NULL
 };
 

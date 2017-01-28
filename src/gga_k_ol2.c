@@ -16,59 +16,54 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
 #include "util.h"
 
 #define XC_GGA_K_OL2          513 /* Ou-Yang and Levy v.2 */
 #define XC_GGA_X_OL2          183 /* Exchange form based on Ou-Yang and Levy v.2 */
 
+typedef struct{
+  FLOAT aa, bb, cc;
+} gga_k_ol2_params;
+
 static void 
 gga_k_ol2_init(XC(func_type) *p)
 {
+  gga_k_ol2_params *params;
+
+  assert(p!=NULL && p->params == NULL);
+  p->params = malloc(sizeof(gga_k_ol2_params));
+  params = (gga_k_ol2_params *) (p->params);
+
   switch(p->info->number){
-  case XC_GGA_K_OL2: p->func = 0; break;
-  case XC_GGA_X_OL2: p->func = 1; break;
+  case XC_GGA_K_OL2:
+    params->aa = 1.0;
+    params->bb = 1.0/K_FACTOR_C;
+    params->cc = 0.00887/K_FACTOR_C;
+    break;
+  case XC_GGA_X_OL2:
+    params->aa = M_CBRT2*0.07064/X_FACTOR_C;
+    params->bb = M_CBRT2*0.07064/X_FACTOR_C;
+    params->cc = M_CBRT2*M_CBRT2*0.07064*34.0135/X_FACTOR_C;
+    break;
   }
 }
 
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
-{
-  static const FLOAT aa[2] = {    1.0,            (FLOAT)M_CBRT2*0.07064/X_FACTOR_C};
-  static const FLOAT bb[2] = {    1.0/K_FACTOR_C, (FLOAT)M_CBRT2*0.07064/X_FACTOR_C};
-  static const FLOAT cc[2] = {0.00887/K_FACTOR_C, (FLOAT)M_CBRT2*(FLOAT)M_CBRT2*0.07064*34.0135/X_FACTOR_C};
-  FLOAT denom;
+#include "maple2c/gga_k_ol2.c"
 
-  denom = M_CBRT2 + 4.0*x;
-
-  *f = aa[p->func] + bb[p->func]*x*x/72.0 + cc[p->func]*x/denom;
-
-  if(order < 1) return;
-
-  *dfdx = 2.0*bb[p->func]*x/72.0 + cc[p->func]*M_CBRT2/(denom*denom);
-  
-  if(order < 2) return;
-
-  *d2fdx2 = 2.0*bb[p->func]/72.0 - 8.0*cc[p->func]*M_CBRT2/(denom*denom*denom);
-}
-
+#define func maple2c_func
 #include "work_gga_x.c"
+
 const XC(func_info_type) XC(func_info_gga_x_ol2) = {
   XC_GGA_X_OL2,
   XC_EXCHANGE,
   "Exchange form based on Ou-Yang and Levy v.2",
   XC_FAMILY_GGA,
   {&xc_ref_Fuentealba1995_31, &xc_ref_OuYang1991_379, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_k_ol2_init,
-  NULL, NULL,
-  work_gga_x,
-  NULL
+  gga_k_ol2_init, NULL, 
+  NULL, work_gga_x, NULL
 };
 
 
@@ -81,11 +76,9 @@ const XC(func_info_type) XC(func_info_gga_k_ol2) = {
   "Ou-Yang and Levy v.2",
   XC_FAMILY_GGA,
   {&xc_ref_OuYang1991_379, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_k_ol2_init, 
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  gga_k_ol2_init, NULL, 
+  NULL, work_gga_k, NULL
 };

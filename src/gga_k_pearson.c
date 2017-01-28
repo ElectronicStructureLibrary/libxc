@@ -23,28 +23,9 @@
 
 #define XC_GGA_K_PEARSON          511 /* Pearson */
 
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
-{
-  FLOAT ss, ss2, ss6, denom;
+#include "maple2c/gga_k_pearson.c"
 
-  ss  = X2S*x;
-  ss2 = ss*ss;
-  ss6 = ss2*ss2*ss2;
-  denom = 1.0 + ss6;
-
-  *f = 1.0 + 5.0/27.0 * ss2/denom;
-
-  if(order < 1) return;
-
-  *dfdx = X2S*5.0/27.0 * 2.0*ss*(1.0 - 2.0*ss6)/(denom*denom);
-  
-  if(order < 2) return;
-
-  *d2fdx2 = X2S*X2S*5.0/27.0 * (2.0 - 50.0*ss6 + 20.0*ss6*ss6)/(denom*denom*denom);
-}
-
+#define func maple2c_func
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
@@ -54,7 +35,7 @@ const XC(func_info_type) XC(func_info_gga_k_pearson) = {
   "Pearson 1992",
   XC_FAMILY_GGA,
   {&xc_ref_Lacks1994_4446, &xc_ref_Pearson1985_881, &xc_ref_Pearson1983, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
   NULL, NULL, NULL,

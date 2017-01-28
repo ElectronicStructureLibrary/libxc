@@ -23,27 +23,9 @@
 
 #define XC_GGA_K_OL1          512 /* Ou-Yang and Levy v.1 */
 
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
-{
-  const FLOAT c4 = 0.00677;
-  FLOAT ss, ss2;
+#include "maple2c/gga_k_ol1.c"
 
-  ss  = x/M_CBRT2;
-  ss2 = ss*ss;
-
-  *f = 1.0 + (ss2/72.0 + c4*ss)/K_FACTOR_C;
-
-  if(order < 1) return;
-
-  *dfdx = (2.0*ss/72.0 + c4)/(K_FACTOR_C*M_CBRT2);
-  
-  if(order < 2) return;
-
-  *d2fdx2 = 2.0/(72.0*K_FACTOR_C*M_CBRT2*M_CBRT2);
-}
-
+#define func maple2c_func
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
@@ -53,10 +35,9 @@ const XC(func_info_type) XC(func_info_gga_k_ol1) = {
   "Ou-Yang and Levy v.1",
   XC_FAMILY_GGA,
   {&xc_ref_OuYang1991_379, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  NULL, NULL, NULL,
-  work_gga_k,
-  NULL
+  NULL, NULL, 
+  NULL, work_gga_k, NULL
 };

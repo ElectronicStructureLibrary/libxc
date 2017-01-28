@@ -137,30 +137,9 @@ gga_k_tflw_init(XC(func_type) *p)
   gga_k_tflw_set_params(p, -1.0, -1.0, 1.0);
 }
 
+#include "maple2c/gga_k_tflw.c"
 
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
-{
-  FLOAT lambda, gamma;
-
-  assert(p->params != NULL);
-  lambda  = ((gga_k_tflw_params *) (p->params))->lambda;
-  gamma   = ((gga_k_tflw_params *) (p->params))->gamma;
-
-  lambda /= 8.0; /* the von Weiszaecker coefficient */
-  
-  *f = gamma + lambda*x*x/K_FACTOR_C;
-
-  if(order < 1) return;
-
-  *dfdx = 2.0*lambda*x/K_FACTOR_C;
-  
-  if(order < 2) return;
-
-  *d2fdx2 = 2.0*lambda/K_FACTOR_C;
-}
-
+#define func maple2c_func
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
@@ -188,7 +167,7 @@ const XC(func_info_type) XC(func_info_gga_k_tfvw) = {
   "Thomas-Fermi plus von Weiszaecker correction",
   XC_FAMILY_GGA,
   {&xc_ref_Weizsacker1935_431, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   2, tfvw_ext_params, tfvw_set_ext_params,
   gga_k_tflw_init, NULL, 
@@ -201,7 +180,7 @@ const XC(func_info_type) XC(func_info_gga_k_vw) = {
   "von Weiszaecker correction to Thomas-Fermi",
   XC_FAMILY_GGA,
   {&xc_ref_Weizsacker1935_431, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
@@ -214,7 +193,7 @@ const XC(func_info_type) XC(func_info_gga_k_ge2) = {
   "Second-order gradient expansion of the kinetic energy density",
   XC_FAMILY_GGA,
   {&xc_ref_Kompaneets1956_427, &xc_ref_Kirznits1957_115, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
@@ -227,7 +206,7 @@ const XC(func_info_type) XC(func_info_gga_k_golden) = {
   "TF-lambda-vW form by Golden (l = 13/45)",
   XC_FAMILY_GGA,
   {&xc_ref_Golden1957_604, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
@@ -240,7 +219,7 @@ const XC(func_info_type) XC(func_info_gga_k_yt65) = {
   "TF-lambda-vW form by Yonei and Tomishima (l = 1/5)",
   XC_FAMILY_GGA,
   {&xc_ref_Yonei1965_1051, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
@@ -253,7 +232,7 @@ const XC(func_info_type) XC(func_info_gga_k_baltin) = {
   "TF-lambda-vW form by Baltin (l = 5/9)",
   XC_FAMILY_GGA,
   {&xc_ref_Baltin1972_1176, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
@@ -266,7 +245,7 @@ const XC(func_info_type) XC(func_info_gga_k_lieb) = {
   "TF-lambda-vW form by Lieb (l = 0.185909191)",
   XC_FAMILY_GGA,
   {&xc_ref_Lieb1981_603, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
@@ -295,7 +274,7 @@ const XC(func_info_type) XC(func_info_gga_k_absp1) = {
   "gamma-TFvW form by Acharya et al [g = 1 - 1.412/N^(1/3)]",
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
@@ -308,7 +287,7 @@ const XC(func_info_type) XC(func_info_gga_k_absp2) = {
   "gamma-TFvW form by Acharya et al [g = 1 - 1.332/N^(1/3)]",
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
@@ -321,7 +300,7 @@ const XC(func_info_type) XC(func_info_gga_k_absp3) = {
   "gamma-TFvW form by Acharya et al [g = 1 - 1.513/N^0.35]",
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
@@ -334,7 +313,7 @@ const XC(func_info_type) XC(func_info_gga_k_absp4) = {
   "gamma-TFvW form by Acharya et al [g = l = 1/(1 + 1.332/N^(1/3))]",
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
@@ -347,7 +326,7 @@ const XC(func_info_type) XC(func_info_gga_k_gr) = {
   "gamma-TFvW form by Gazquez and Robles",
   XC_FAMILY_GGA,
   {&xc_ref_Gazquez1982_1467, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
@@ -360,7 +339,7 @@ const XC(func_info_type) XC(func_info_gga_k_ludena) = {
   "gamma-TFvW form by Ludena",
   XC_FAMILY_GGA,
   {&xc_ref_Ludena1986, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
@@ -373,7 +352,7 @@ const XC(func_info_type) XC(func_info_gga_k_gp85) = {
   "gamma-TFvW form by Ghosh and Parr",
   XC_FAMILY_GGA,
   {&xc_ref_Ghosh1985_3307, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 

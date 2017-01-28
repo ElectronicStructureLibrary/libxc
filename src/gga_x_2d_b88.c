@@ -23,54 +23,9 @@
 
 #define XC_GGA_X_2D_B88        127 /* Becke 88 in 2D */
 
-typedef struct{
-  FLOAT beta;
-} gga_x_2d_b88_params;
+#include "maple2c/gga_x_2d_b88.c"
 
-
-static void gga_x_2d_b88_init(XC(func_type) *p)
-{
-  gga_x_2d_b88_params *params;
-  assert(p->params == NULL);
-
-  p->params = malloc(sizeof(gga_x_2d_b88_params));
-  params = (gga_x_2d_b88_params *) (p->params);
-
-  /* value of beta in standard Becke 88 2D functional */
-  params->beta = 0.018641;
-}
-
-
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
-{
-  FLOAT f1, f2, df1, df2, d2f1, d2f2;
-  FLOAT beta, csi;
-
-  assert(p->params != NULL);
-  beta = ((gga_x_2d_b88_params *) (p->params))->beta;
-  csi  = 8.0; /* for harmonic potentials */
-
-  f1 = beta/X_FACTOR_2D_C*x*x;
-  f2 = 1.0 + csi*beta*x*ASINH(x);
-  *f = 1.0 + f1/f2;
-
-  if(order < 1) return;
-
-  df1 = 2.0*beta/X_FACTOR_2D_C*x;
-  df2 = csi*beta*(ASINH(x) + x/SQRT(1.0 + x*x));
-
-  *dfdx = (df1*f2 - f1*df2)/(f2*f2);
-
-  if(order < 2) return;
-
-  d2f1 = 2.0*beta/X_FACTOR_2D_C;
-  d2f2 = csi*beta*(2.0 + x*x)/POW(1.0 + x*x, 3.0/2.0);
-
-  *d2fdx2 = (2.0*f1*df2*df2 + d2f1*f2*f2 - f2*(2.0*df1*df2 + f1*d2f2))/(f2*f2*f2);
-}
-
+#define func maple2c_func
 #define XC_DIMENSIONS 2
 #include "work_gga_x.c"
 
@@ -80,12 +35,9 @@ const XC(func_info_type) XC(func_info_gga_x_2d_b88) = {
   "Becke 88 in 2D",
   XC_FAMILY_GGA,
   {&xc_ref_Vilhena2014, NULL, NULL, NULL, NULL},
-  XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_2d_b88_init, 
-  NULL,
-  NULL,
-  work_gga_x,
-  NULL
+  NULL, NULL,
+  NULL, work_gga_x, NULL
 };

@@ -22,55 +22,9 @@
 
 #define XC_GGA_X_BPCCAC  98 /* BPCCAC (GRAC for the energy) */
 
-static void 
-gga_x_bpccac_init(XC(func_type) *p)
-{
-  p->n_func_aux  = 2;
-  p->func_aux    = (XC(func_type) **) malloc(2*sizeof(XC(func_type) *));
-  p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
-  p->func_aux[1] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
+#include "maple2c/gga_x_bpccac.c"
 
-  XC(func_init)(p->func_aux[0], XC_GGA_X_PBE_TCA, p->nspin);
-  XC(func_init)(p->func_aux[1], XC_GGA_X_PW91, p->nspin);
-}
-
-
-void XC(gga_x_bpccac_enhance)
-  (const XC(func_type) *p, int order, FLOAT x, 
-   FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
-{
-  static const FLOAT alpha = 1.0, beta = 19.0;
-
-  FLOAT f1, df1dx, d2f1dx2, d3f1dx3;
-  FLOAT f2, df2dx, d2f2dx2, d3f2dx3;
-  FLOAT aux, den, fab, dfab, d2fab, d3fab;
-
-  XC(gga_x_pbe_enhance) (p->func_aux[0], order, x, &f1, &df1dx, &d2f1dx2, &d3f1dx3);
-  XC(gga_x_pw91_enhance)(p->func_aux[1], order, x, &f2, &df2dx, &d2f2dx2, &d3f2dx3);
-
-  aux = EXP(-(alpha*(x - beta)));
-  den = 1.0 + aux;
-
-  fab = 1.0/den;
-  *f  = (1.0 - fab)*f1 + fab*f2;
-
-  if(order < 1) return;
-
-  dfab  = alpha*aux/(den*den);
-  *dfdx = dfab*(f2 - f1) + (1.0 - fab)*df1dx + fab*df2dx;
-
-  if(order < 2) return;
-  
-  d2fab   = -alpha*alpha*aux*(1.0 - aux)/(den*den*den);
-  *d2fdx2 = d2fab*(f2 - f1) + 2.0*dfab*(df2dx - df1dx) + (1.0 - fab)*d2f1dx2 + fab*d2f2dx2;
-
-  if(order < 3) return;
-
-  d3fab   = alpha*alpha*alpha*aux*(1.0 - 4.0*aux + aux*aux)/(den*den*den*den);
-  *d3fdx3 = d3fab*(f2 - f1) + 3.0*dfab*(df2dx - df1dx) + 3.0*dfab*(d2f2dx2 - d2f1dx2) + (1.0 - fab)*d3f1dx3 + fab*d3f2dx3;
-}
-
-#define func XC(gga_x_bpccac_enhance)
+#define func maple2c_func
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_bpccac) = {
@@ -82,9 +36,7 @@ const XC(func_info_type) XC(func_info_gga_x_bpccac) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_bpccac_init, 
-  NULL, NULL,
-  work_gga_x,
-  NULL
+  NULL, NULL, 
+  NULL, work_gga_x, NULL
 };
 

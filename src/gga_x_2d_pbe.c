@@ -22,47 +22,9 @@
 
 #define XC_GGA_X_2D_PBE          129 /* Perdew, Burke & Ernzerhof exchange in 2D          */
 
-static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, 
-     FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
-{
-  //FILE *fin;
-  static const FLOAT kappa[1] = {
-    0.4604,  /* original PBE */
-  };
+#include "maple2c/gga_x_2d_pbe.c"
 
-  FLOAT mu[1] = {
-    0.354546875,
-  };
-
-  FLOAT ss, f0, df0, d2f0;
-  int func;
-
-  switch(p->info->number){
-  default:                func = 0; /* original PBE */
-  }
-
-  //fin = fopen("gga_x_2d_b88_params", "r");
-  //fscanf(fin, "%lf", &mu[0]);
-  //fclose(fin);
-
-  ss = X2S_2D*x;
-
-  f0 = kappa[func] + mu[func]*ss*ss;
-  *f = 1.0 + kappa[func]*(1.0 - kappa[func]/f0);
-
-  if(order < 1) return;
-
-  df0 = 2.0*ss*mu[func];
-
-  *dfdx  = X2S_2D*kappa[func]*kappa[func]*df0/(f0*f0);
-
-  if(order < 2) return;
-
-  d2f0 = 2.0*mu[func];
-  *d2fdx2 = X2S_2D*X2S_2D*kappa[func]*kappa[func]/(f0*f0)*(d2f0 - 2.0*df0*df0/f0);
-}
-
+#define func maple2c_func
 #define XC_DIMENSIONS 2
 #include "work_gga_x.c"
 
@@ -75,7 +37,6 @@ const XC(func_info_type) XC(func_info_gga_x_2d_pbe) = {
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  NULL, NULL, NULL,
-  work_gga_x,
-  NULL
+  NULL, NULL, 
+  NULL, work_gga_x, NULL
 };

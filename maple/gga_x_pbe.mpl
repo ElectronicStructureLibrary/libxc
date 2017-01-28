@@ -12,10 +12,15 @@ params_a_kappa := 0.8040:
 params_a_mu    := 0.2195149727645171:
 $endif
 
-(* standard PBE *)
+(* PBE_SOL *)
 $ifdef gga_x_pbe_sol_params
 params_a_kappa := 0.8040:
 params_a_mu    := MU_GE:
+$endif
+
+$ifdef gga_x_pbe_tca_params
+params_a_kappa := 1.227:
+params_a_mu    := 0.2195149727645171:
 $endif
 
 f0_pbe := s -> 1.0 + params_a_kappa*(1.0 - params_a_kappa/(params_a_kappa + params_a_mu*s^2)):

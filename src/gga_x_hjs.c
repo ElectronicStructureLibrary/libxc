@@ -64,7 +64,8 @@ gga_x_hjs_init(XC(func_type) *p)
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_x_hjs_params));
 
-  XC(gga_x_hjs_set_params)(p, 0.0);
+  /* we take 0.11 as the default for hjs */
+  XC(gga_x_hjs_set_params)(p, 0.11);
 
   switch(p->info->number){
   case XC_GGA_X_HJS_PBE:

@@ -160,6 +160,7 @@ hyb_gga_xc_hse_sol_init(XC(func_type) *p)
   XC(mix_init)(p, 3, funcs_id, funcs_coef);
   p->cam_omega = 0.11;
   p->cam_beta  = 0.25;
+  XC(gga_x_hjs_set_params)(p->func_aux[0], 0.0);
   XC(gga_x_hjs_set_params)(p->func_aux[1], p->cam_omega);
 }
 
@@ -287,6 +288,7 @@ hyb_gga_xc_hjs_init(XC(func_type) *p)
 
   p->cam_omega = 0.11;
   p->cam_beta  = 0.25;
+  XC(gga_x_hjs_set_params)(p->func_aux[0], 0.0);
   XC(gga_x_hjs_set_params)(p->func_aux[1], p->cam_omega);
 }
 

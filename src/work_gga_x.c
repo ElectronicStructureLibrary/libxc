@@ -131,7 +131,7 @@ work_gga_x
 
   /* the loop over the points starts */
   for(ip = 0; ip < np; ip++){
-#ifdef HELP
+#ifdef DEBUG
       {
         XC(gga_work_c_t) r;
         FLOAT dens;
@@ -184,9 +184,6 @@ work_gga_x
 	*zk += rhoLDA*
 	  c_zk[0]*f;
       
-      printf("old: %14.10lf\n", f);
-      printf("lda: %14.10lf %14.10lf %14.10lf\n", rho[is], c_zk[0]*rhoLDA/dens, *zk/dens);
-
       if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
 	vrho[is] += (rhoLDA/ds)*
 	  (c_vrho[0]*f + c_vrho[1]*dfdx) + rhoLDA*c_vrho[2]*lvrho;

@@ -18,10 +18,10 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   assert(p->params != NULL);
   params = (lda_c_hl_params * )(p->params);
 
-  t1 = params->c[-1];
+  t1 = params->c[0];
   t2 = r->rs * r->rs;
   t3 = t2 * r->rs;
-  t4 = params->r[-1];
+  t4 = params->r[0];
   t5 = t4 * t4;
   t6 = t5 * t4;
   t7 = 0.1e1 / t6;
@@ -80,10 +80,10 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   assert(p->params != NULL);
   params = (lda_c_hl_params * )(p->params);
 
-  t1 = params->c[-1];
+  t1 = params->c[0];
   t2 = r->rs * r->rs;
   t3 = t2 * r->rs;
-  t4 = params->r[-1];
+  t4 = params->r[0];
   t5 = t4 * t4;
   t6 = t5 * t4;
   t7 = 0.1e1 / t6;
@@ -99,8 +99,8 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t26 = 0.10e1 - r->zeta;
   t27 = pow(t26, 0.13333333333333333333e1);
   t29 = 0.19236610509315363199e1 * t24 + 0.19236610509315363199e1 * t27 - 0.38473221018630726398e1;
-  t30 = params->c[0];
-  t31 = params->r[0];
+  t30 = params->c[1];
+  t31 = params->r[1];
   t32 = t31 * t31;
   t33 = t32 * t31;
   t34 = 0.1e1 / t33;

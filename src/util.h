@@ -306,6 +306,7 @@ void XC(gga_x_pw91_set_params)(XC(func_type) *p, FLOAT a, FLOAT b, FLOAT c, FLOA
 void XC(gga_x_pw91_set_params2)(XC(func_type) *p, FLOAT bt, FLOAT alpha, FLOAT expo);
 void XC(gga_x_ssb_sw_set_params)(XC(func_type) *p, FLOAT A, FLOAT B, FLOAT C, FLOAT D, FLOAT E);
 void XC(gga_x_hjs_set_params)(XC(func_type) *p, FLOAT omega);
+void XC(gga_x_hjs_b88_v2_set_params)(XC(func_type) *p, FLOAT omega);
 void XC(gga_x_b88_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma);
 void XC(gga_x_optx_set_params)(XC(func_type) *p, FLOAT a, FLOAT b, FLOAT gamma);
 void XC(gga_x_wpbeh_set_params)(XC(func_type) *p, FLOAT omega);

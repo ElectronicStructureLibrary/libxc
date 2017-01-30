@@ -131,6 +131,24 @@ work_gga_x
 
   /* the loop over the points starts */
   for(ip = 0; ip < np; ip++){
+#ifdef HELP
+      {
+        XC(gga_work_c_t) r;
+        FLOAT dens;
+
+        XC(rho2dzeta)(p->nspin, rho, &dens, &r.zeta);
+        r.rs    = RS(dens);
+        r.xt    = 0.0;
+        r.xs[0] = SQRT(sigma[0])/sfact/(pow(rho[0]/sfact, 4.0/3.0));
+        if(p->nspin == XC_POLARIZED)
+          r.xs[1] = SQRT(sigma[2])/sfact/(pow(rho[1]/sfact, 4.0/3.0));
+        else
+          r.xs[1] = r.xs[0];
+
+        maple2c_func(p, &r);
+        printf("NEW: %14.10lf\n", r.f);
+      }
+#endif
     dens = (p->nspin == XC_UNPOLARIZED) ? rho[0] : rho[0] + rho[1];
     if(dens < p->info->min_dens) goto end_ip_loop;
 
@@ -166,6 +184,9 @@ work_gga_x
 	*zk += rhoLDA*
 	  c_zk[0]*f;
       
+      printf("old: %14.10lf\n", f);
+      printf("lda: %14.10lf %14.10lf %14.10lf\n", rho[is], c_zk[0]*rhoLDA/dens, *zk/dens);
+
       if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
 	vrho[is] += (rhoLDA/ds)*
 	  (c_vrho[0]*f + c_vrho[1]*dfdx) + rhoLDA*c_vrho[2]*lvrho;

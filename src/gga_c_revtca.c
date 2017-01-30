@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2006-2007 M.A.L. Marques
+ Copyright (C) 2017 M.A.L. Marques
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU Lesser General Public License as published by
@@ -18,22 +18,22 @@
 
 #include "util.h"
 
-#define XC_GGA_C_TCA          100 /* Tognetti, Cortona, Adamo */
+#define XC_GGA_C_REVTCA        99 /* Tognetti, Cortona, Adamo (revised) */
 
-#include "maple2c/gga_c_tca.c"
+#include "maple2c/gga_c_revtca.c"
 
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_c_tca) = {
-  XC_GGA_C_TCA,
+const XC(func_info_type) XC(func_info_gga_c_revtca) = {
+  XC_GGA_C_REVTCA,
   XC_CORRELATION,
-  "Tognetti, Cortona, Adamo",
+  "Tognetti, Cortona, Adamo (revised)",
   XC_FAMILY_GGA,
-  {&xc_ref_Tognetti2008_034101, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  {&xc_ref_Tognetti2008_536, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  NULL, NULL,
+  NULL, NULL, 
   NULL, work_gga_c, NULL
 };

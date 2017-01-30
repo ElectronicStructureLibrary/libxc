@@ -29,17 +29,6 @@
 
 #define XC_GGA_C_LM          137 /* Langreth and Mehl correlation          */
 
-static void 
-gga_c_lm_init(XC(func_type) *p)
-{
-  p->n_func_aux  = 1;
-  p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
-  p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
-
-  XC(func_init)(p->func_aux[0], XC_LDA_C_vBH, p->nspin);
-}
-
-
 #include "maple2c/gga_c_lm.c"
 
 #define func maple2c_func
@@ -54,7 +43,7 @@ const XC(func_info_type) XC(func_info_gga_c_lm) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-10, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_c_lm_init, NULL,
+  NULL, NULL,
   NULL, work_gga_c, NULL
 };
 

@@ -174,9 +174,9 @@ void test_gga()
   v3sigma3    = malloc(10*npoints*sizeof(double));
 
   
-  XC(func_init)(&gga,  XC_GGA_XC_TH4,  XC_POLARIZED);
+  XC(func_init)(&gga,  XC_GGA_C_PW91,  XC_POLARIZED);
 
-  
+  /*
   for(i=1; i<=10000; i++){
     double x = 30.0*i/(10000.0), f, df, d2f, d3f;
     double c2 = 10.0/81.0;
@@ -187,18 +187,18 @@ void test_gga()
     printf(" %20.14e\n", (f-1.0)/(c2*X2S*X2S*x*x));
   }
   exit(0);
-  
+  */
 
    for(i=0; i<=10000; i++){
-     rho[0]   = .01 + i/1000.0;
+     rho[0]   = .01;
      rho[1]   = 0.2;
      sigma[0] = 0.1;
      sigma[1] = 0.00002;
-     sigma[2] = 0.5;
+     sigma[2] = 0.5 + i/1000.0;
 
      XC(gga)(&gga, 1, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2, NULL, v3rho2sigma, v3rhosigma2, v3sigma3);
 
-     fprintf(stderr, "%16.10le\t%16.10le\t%16.10le\n", sigma[0], vsigma[0], v2sigma2[0]);
+     fprintf(stderr, "%16.10le\t%16.10le\t%16.10le\n", sigma[2], vsigma[2], v2sigma2[5]);
    }
 
   /*
@@ -334,8 +334,8 @@ int main()
   //test_neg_rho();
 
   //test_lda();
-  test_enhance();
-  //test_gga(); 
+  //test_enhance();
+  test_gga(); 
   //test_ak13();
   //test_mgga();
 

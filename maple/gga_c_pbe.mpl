@@ -21,7 +21,7 @@ mbeta  := (rs, t) -> params_a_beta:
 BB     := params_a_BB:
 
 mphi := z -> ((1.0 + z)^(2.0/3.0) + (1.0 - z)^(2.0/3.0))/2.0:
-tt   := (rs, z, xt) -> xt/(4.0*2^(1.0/3.0)*mphi(z)*sqrt(rs)):
+tt   := (rs, z, xt) -> xt/(4.0*2.0^(1.0/3.0)*mphi(z)*sqrt(rs)):
 tp   := (rs, z, xt) -> tt(rs, z, xt):
 
 (* Equation (8) *)

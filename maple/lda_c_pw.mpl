@@ -8,7 +8,7 @@
 
 $ifdef lda_c_pw_params
 params_a_pp     := [1.0,  1.0,  1.0]:
-params_a_a      := [0.0310907, 0.01554535, 0.0168869]:
+params_a_a      := [0.031091, 0.015545, 0.016887]:
 params_a_alpha1 := [0.21370,  0.20548,  0.11125]:
 params_a_beta1  := [7.5957, 14.1189, 10.357]:
 params_a_beta2  := [3.5876, 6.1977, 3.6231]:
@@ -18,6 +18,7 @@ params_a_fz20   := 1.709921:
 $endif
 
 $ifdef lda_c_pw_modified_params
+params_a_a      := [0.0310907, 0.01554535, 0.0168869]:
 params_a_fz20   := 1.709920934161365617563962776245:
 $endif
 

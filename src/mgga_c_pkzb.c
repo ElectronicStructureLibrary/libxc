@@ -80,7 +80,8 @@ XC(mgga_c_pkzb_set_params)(XC(func_type) *p, FLOAT beta, FLOAT d, FLOAT C0_0, FL
   params->C0_c[2] = C0_2;
   params->C0_c[3] = C0_3;
 
-  XC(gga_c_pbe_set_params) (p->func_aux[0], beta);
+  if(p->info->number == XC_MGGA_C_TPSS)
+    XC(gga_c_pbe_set_params) (p->func_aux[0], beta);
 }
 
 

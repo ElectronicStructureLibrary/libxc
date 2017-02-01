@@ -114,7 +114,12 @@ XC(pbe_c_stoll) (const XC(func_type) *pbe, int get_max, const XC(mgga_work_c_t) 
   out[2].xs[0] = in->xs[0];
   out[2].xs[1] = in->xs[1];
 
-  XC(gga_c_pbe_func) (pbe, &(out[2]));
+  if(pbe->info->number == XC_GGA_C_PBELOC)
+    XC(gga_c_pbeloc_func) (pbe, &(out[2]));
+  else if(pbe->info->number == XC_GGA_C_REGTPSS)
+    XC(gga_c_regtpss_func) (pbe, &(out[2]));
+  else
+    XC(gga_c_pbe_func) (pbe, &(out[2]));
 
   /* and now the parallel contributions */
   for(is=0; is<2; is++){
@@ -140,7 +145,12 @@ XC(pbe_c_stoll) (const XC(func_type) *pbe, int get_max, const XC(mgga_work_c_t) 
       out[is].xs[0] = (is == 0) ? in->xs[0] : 0.0;
       out[is].xs[1] = (is == 1) ? in->xs[1] : 0.0;
   
-      XC(gga_c_pbe_func) (pbe, &(out[is]));
+      if(pbe->info->number == XC_GGA_C_PBELOC)
+        XC(gga_c_pbeloc_func) (pbe, &(out[is]));
+      else if(pbe->info->number == XC_GGA_C_REGTPSS)
+        XC(gga_c_regtpss_func) (pbe, &(out[is]));
+      else
+        XC(gga_c_pbe_func) (pbe, &(out[is]));
 
       if(get_max && out[is].f < out[2].f){
 	/* perform maximum operation */

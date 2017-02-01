@@ -1,5 +1,6 @@
 (* type: work_gga_c *)
 
+$define lda_c_pw_params
 $define lda_c_pw_modified_params
 $include "lda_c_pw.mpl"
 

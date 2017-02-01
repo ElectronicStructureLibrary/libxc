@@ -33,8 +33,7 @@ static void mgga_c_scan_init(XC(func_type) *p)
   p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
   p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
 
-  XC(func_init)(p->func_aux[0], XC_GGA_C_PBE,    p->nspin);
-  p->func_aux[0]->func = 99; /* number of the worker function */
+  XC(func_init)(p->func_aux[0], XC_GGA_C_SCAN_E0,    p->nspin);
 }
 
 /* Calculates E_c^{LDA0} = -b1c / ( 1 + b2c*r^{1/2} + b3c*r ) */
@@ -158,7 +157,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   pbe.xs[0] = r->xs[0]; 
   pbe.xs[1] = r->xs[1];
 
-  XC(gga_c_pbe_func) (pt->func_aux[0], &pbe);
+  XC(gga_c_scan_e0_func) (pt->func_aux[0], &pbe);
 
   ss = X2S*M_CBRT2*r->xt;
   func_e0(r->rs, r->zeta, ss, r->order, &e0, &de0drs, &de0dz, &de0ds);

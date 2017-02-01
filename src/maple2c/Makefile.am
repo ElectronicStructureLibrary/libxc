@@ -35,7 +35,8 @@ noinst_HEADERS =  \
   gga_x_2d_pbe.c gga_x_bpccac.c gga_x_vmt84.c gga_x_vmt.c gga_x_hjs_b88_v2.c\
   gga_x_hjs.c gga_x_kt.c gga_x_ft97.c gga_x_eg93.c gga_x_hcth_a.c           \
   gga_c_wi.c gga_c_wl.c gga_c_lm.c gga_c_p86.c gga_c_am05.c gga_c_revtca.c  \
-  gga_c_tca.c \
+  gga_c_tca.c gga_c_pbe.c gga_c_zpbeint.c gga_c_bcgp.c gga_c_pbeloc.c       \
+  gga_c_sg4.c gga_c_regtpss.c gga_c_scan_e0.c \
   mgga_x_gvt4.c mgga_x_lta.c mgga_x_mk00.c mgga_x_ms.c mgga_x_mvs.c         \
   mgga_x_pkzb.c mgga_x_m06l.c mgga_x_tpss.c mgga_x_tm.c mgga_x_vt84.c       \
   mgga_x_sa_tpss.c mgga_k_pc07.c mgga_x_tau_hcth.c mgga_x_scan.c

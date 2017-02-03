@@ -26,5 +26,9 @@ s_igma_spin := (rs, z, xs) -> xs^2*n_spin(rs, z)^(8.0/3.0):
 f_zeta    := z -> ((1.0 + z)^(4.0/3.0) + (1.0 - z)^(4.0/3.0) - 2.0)/(2.0^(4.0/3.0) - 2.0):
 f_zeta_2d := z -> 0.5*((1.0 + z)^1.5 + (1.0 - z)^1.5):
 
+(* used in several correlation functionals *)
+mphi := z -> ((1.0 + z)^(2.0/3.0) + (1.0 - z)^(2.0/3.0))/2.0:
+tt   := (rs, z, xt) -> xt/(4.0*2.0^(1.0/3.0)*mphi(z)*sqrt(rs)):
+
 (* in the paper it is beta_a = 0.066725 *)
 beta_Hu_Langreth := rs -> 0.066724550603149220*(1.0 + 0.1*rs)/(1.0 + 0.1778*rs):

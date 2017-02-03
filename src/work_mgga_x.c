@@ -26,8 +26,6 @@
 
 /* WARNING Kinetic energy functionals are still not working */
 
-#include <stdio.h>
-#include <string.h>
 
 #ifndef XC_DIMENSIONS
 #  define XC_DIMENSIONS 3

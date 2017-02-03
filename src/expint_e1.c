@@ -16,8 +16,6 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "util.h"
 
 /* expint_E1 calculates the exponential integral, E1(X), for positive

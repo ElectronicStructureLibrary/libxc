@@ -16,9 +16,6 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
 #include "util.h"
 
 #define XC_HYB_MGGA_X_MVSH     474 /* MVSh hybrid */

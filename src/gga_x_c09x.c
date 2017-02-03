@@ -16,8 +16,6 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdio.h>
-#include <assert.h>
 #include "util.h"
 
 #define XC_GGA_X_C09X         158 /* C09x to be used with the VdW of Rutgers-Chalmers     */

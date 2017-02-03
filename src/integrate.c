@@ -25,8 +25,6 @@
   R : A Computer Language for Statistical Data Analysis
 */
 
-#include <stdlib.h>
-#include <math.h>
 #include <float.h>
 #include <util.h>
 

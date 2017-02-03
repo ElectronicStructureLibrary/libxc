@@ -16,8 +16,6 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdio.h>
-#include <assert.h>
 #include "util.h"
 
 #define XC_GGA_X_FT97_A       114 /* Filatov & Thiel 97 (version A) */

@@ -11,9 +11,6 @@ pw91_beta  := pw91_nu*pw91_C_c0:
 pw91_c1 := pw91_beta^2/(2.0*pw91_alpha):
 pw91_c2 := 2.0*pw91_alpha/pw91_beta:
 
-mphi := z -> ((1.0 + z)^(2.0/3.0) + (1.0 - z)^(2.0/3.0))/2.0:
-tt   := (rs, z, xt) -> xt/(4.0*2.0^(1.0/3.0)*mphi(z)*sqrt(rs)):
-
 (* Equation (14) *)
 A := (rs, z) -> pw91_c2/(exp(-2.0*pw91_alpha*f_pw(rs, z)/(mphi(z)^3*pw91_beta^2)) - 1.0):
 
@@ -37,5 +34,6 @@ h_a1  := -100.0 * 4.0/Pi * (4.0/(9.0*Pi))^(1.0/3.0):
 H1 := (rs, z, t) -> pw91_nu * (RG_C_xc(rs) - C_xc0 - 3.0*C_x/7.0)
  * mphi(z)^3*t^2*exp(h_a1*rs*mphi(z)^4*t^2):
 
-f  := (rs, z, xt, xs_0_, xs_1_) ->
+f_pw91 := (rs, z, xt, xs_0_, xs_1_) ->
   f_pw(rs, z) + H0(rs, z, tt(rs, z, xt)) + H1(rs, z, tt(rs, z, xt)):
+f      := (rs, z, xt, xs_0_, xs_1_) -> f_pw91(rs, z, xt, xs_0_, xs_1_):

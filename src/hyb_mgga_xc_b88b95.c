@@ -16,9 +16,6 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
 #include "util.h"
 
 #define XC_HYB_MGGA_XC_B88B95   440  /* Mixture of B88 with BC95 (B1B95)                             */

@@ -23,7 +23,6 @@
   and of rho.
 ************************************************************************/
 
-#include <stdlib.h>
 
 #ifndef HEADER
 #  define HEADER 1

@@ -1,24 +1,26 @@
 (* type: work_lda *)
 
-aa := [ -0.1925,     0.117331,    0.0234188 ]:
-bb := [  0.0863136, -3.394e-2,   -0.037093  ]:
-cc := [  0.0572384, -7.66765e-3,  0.0163618 ]:
-ee := [  1.0022,     0.4133,      1.424301  ]:
-ff := [ -0.02069,    0.0,         0.0       ]:
-gg := [  0.33997,    6.68467e-2,  0.0       ]:
-hh := [  1.747e-2,   7.799e-4,    1.163099  ]:
+amgb_aa := [ -0.1925,     0.117331,    0.0234188 ]:
+amgb_bb := [  0.0863136, -3.394e-2,   -0.037093  ]:
+amgb_cc := [  0.0572384, -7.66765e-3,  0.0163618 ]:
+amgb_ee := [  1.0022,     0.4133,      1.424301  ]:
+amgb_ff := [ -0.02069,    0.0,         0.0       ]:
+amgb_gg := [  0.33997,    6.68467e-2,  0.0       ]:
+amgb_hh := [  1.747e-2,   7.799e-4,    1.163099  ]:
 
-ax = -4.0/(3.0*Pi*sqrt(2.0)):
-beta := 1.3386:
+amgb_ax = -4.0/(3.0*Pi*sqrt(2.0)):
+amgb_beta := 1.3386:
 
-dd := [seq(-aa[i]*hh[i], i=1..3)]:
+amgb_dd := [seq(-amgb_aa[i]*amgb_hh[i], i=1..3)]:
 
-malpha := (i, rs) -> aa[i]
-  + (bb[i]*rs + cc[i]*rs^2 + dd[i]*rs^3)
-  * log(1.0 + 1.0/(ee[i]*rs + ff[i]*rs^1.5 + gg[i]*rs^2 + hh[i]*rs^3)):
+amgb_alpha := (i, rs) -> amgb_aa[i]
+  + (amgb_bb[i]*rs + amgb_cc[i]*rs^2 + amgb_dd[i]*rs^3)
+  * log(1.0 + 1.0/(amgb_ee[i]*rs + amgb_ff[i]*rs^1.5 + amgb_gg[i]*rs^2 + amgb_hh[i]*rs^3)):
 
-ex6 := (rs, z) -> -4.0*sqrt(2)/(3.0*Pi*rs)
+amgb_ex6 := (rs, z) -> -4.0*sqrt(2)/(3.0*Pi*rs)
   * (f_zeta_2d(z) - 1.0 - 3.0/8.0*z^2 - 3.0/128.0*z^4):
 
-f  := (rs, z) ->
-  malpha(1, rs) + malpha(2, rs)*z^2 + malpha(3, rs)*z^4 + (exp(-beta*rs) - 1.0)*ex6(rs, z):
+f_amgb := (rs, z) ->
+  amgb_alpha(1, rs) + amgb_alpha(2, rs)*z^2 + amgb_alpha(3, rs)*z^4 + (exp(-amgb_beta*rs) - 1.0)*amgb_ex6(rs, z):
+
+f := (rs, z) -> f_amgb(rs, z):

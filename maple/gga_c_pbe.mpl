@@ -20,8 +20,6 @@ mgamma := params_a_gamma:
 mbeta  := (rs, t) -> params_a_beta:
 BB     := params_a_BB:
 
-mphi := z -> ((1.0 + z)^(2.0/3.0) + (1.0 - z)^(2.0/3.0))/2.0:
-tt   := (rs, z, xt) -> xt/(4.0*2.0^(1.0/3.0)*mphi(z)*sqrt(rs)):
 tp   := (rs, z, xt) -> tt(rs, z, xt):
 
 (* Equation (8) *)
@@ -34,5 +32,8 @@ f2 := (rs, z, t) -> mbeta(rs, t)*f1(rs, z, t)/(mgamma*(1.0 + A(rs, z, t)*f1(rs, 
 
 fH := (rs, z, t) -> mgamma*mphi(z)^3*log(1.0 + f2(rs, z, t)):
 
-f  := (rs, z, xt, xs_0_, xs_1_) ->
+f_pbe  := (rs, z, xt, xs_0_, xs_1_) ->
   f_pw(rs, z) + fH(rs, z, tp(rs, z, xt)):
+
+f  := (rs, z, xt, xs_0_, xs_1_) -> f_pbe(rs, z, xt, xs_0_, xs_1_):
+

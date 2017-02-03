@@ -16,9 +16,6 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
 #include "util.h"
 
 #define  XC_HYB_GGA_XC_CAMY_BLYP 455  /* BLYP with yukawa screening */

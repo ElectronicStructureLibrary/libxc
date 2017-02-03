@@ -29,9 +29,6 @@
 #define XC_DIMENSIONS 3
 #endif
 
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 /**
  * @param[in,out] func_type: pointer to pspdata structure to be initialized

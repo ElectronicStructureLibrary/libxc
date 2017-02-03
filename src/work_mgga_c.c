@@ -16,7 +16,6 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <string.h>
 
 static void 
 work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,

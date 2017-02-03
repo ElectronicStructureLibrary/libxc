@@ -16,9 +16,6 @@
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 #include "util.h"
 #include "xc.h"

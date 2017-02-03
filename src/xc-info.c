@@ -17,11 +17,8 @@
 */
 
 
-#include <stdlib.h>
-#include <stdio.h>
 #include <ctype.h>
-#include <string.h>
-#include "xc.h"
+#include "util.h"
 
 const char *get_kind(const xc_func_type *func) {
   switch(func->info->kind) {

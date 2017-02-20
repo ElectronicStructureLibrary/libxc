@@ -34,64 +34,64 @@ XC(lda_stoll) (const XC(func_type) *pw, XC(lda_func_type) lda_func,
     FLOAT opz13;
 
     if(opz[is] < pw->info->min_zeta){
-      res[is].e = 0.0;
-      if(order >= 1) res[is].dedz = res[is].dedrs = 0.0;
-      if(order >= 2) res[is].d2edrs2 = res[is].d2edrsz = res[is].d2edz2 = 0.0;
+      res[is].f = 0.0;
+      if(order >= 1) res[is].dfdz = res[is].dfdrs = 0.0;
+      if(order >= 2) res[is].d2fdrs2 = res[is].d2fdrsz = res[is].d2fdz2 = 0.0;
     }else{
       FLOAT drssdrs, drssdz, d2rssdrsz, d2rssdz2;
-      FLOAT LDA_zk, LDA_dedrs, LDA_d2edrs2;
+      FLOAT LDA_f, LDA_dfdrs, LDA_d2fdrs2;
 
       opz13 = CBRT(opz[is]);
 
       res[is].rs    = RS(dens*opz[is]/2.0);
-      res[is].zeta  = sign[is];
+      res[is].z     = sign[is];
       res[is].order = order;
   
       lda_func(pw, &(res[is]));
 
-      LDA_zk = res[is].e;
+      LDA_f = res[is].f;
 
-      res[is].e *= opz[is]/2.0;
+      res[is].f *= opz[is]/2.0;
       
       if(order < 1) continue;
 
-      LDA_dedrs = res[is].dedrs;
+      LDA_dfdrs = res[is].dfdrs;
       drssdrs   = M_CBRT2/opz13;
       drssdz    = -sign[is]*res[is].rs/(3.0*opz[is]);
 
-      res[is].dedrs = LDA_dedrs*drssdrs*opz[is]/2.0;
-      res[is].dedz  = LDA_zk*sign[is]/2.0 + LDA_dedrs*drssdz*opz[is]/2.0;
+      res[is].dfdrs = LDA_dfdrs*drssdrs*opz[is]/2.0;
+      res[is].dfdz  = LDA_f*sign[is]/2.0 + LDA_dfdrs*drssdz*opz[is]/2.0;
 
       if(order < 2) continue;
 
-      LDA_d2edrs2 = res[is].d2edrs2;
+      LDA_d2fdrs2 = res[is].d2fdrs2;
       d2rssdrsz   = -sign[is]*M_CBRT2/(3.0*opz13*opz[is]);
       d2rssdz2    = res[is].rs*4.0/(9.0*opz[is]*opz[is]);
 
-      res[is].d2edrs2 = LDA_d2edrs2*drssdrs*drssdrs*opz[is]/2.0;
-      res[is].d2edrsz = sign[is]*LDA_dedrs*drssdrs/2.0 + (LDA_d2edrs2*drssdrs*drssdz + LDA_dedrs*d2rssdrsz)*opz[is]/2.0;
-      res[is].d2edz2  = sign[is]*LDA_dedrs*drssdz + (LDA_d2edrs2*drssdz*drssdz + LDA_dedrs*d2rssdz2)*opz[is]/2.0;
+      res[is].d2fdrs2 = LDA_d2fdrs2*drssdrs*drssdrs*opz[is]/2.0;
+      res[is].d2fdrsz = sign[is]*LDA_dfdrs*drssdrs/2.0 + (LDA_d2fdrs2*drssdrs*drssdz + LDA_dfdrs*d2rssdrsz)*opz[is]/2.0;
+      res[is].d2fdz2  = sign[is]*LDA_dfdrs*drssdz + (LDA_d2fdrs2*drssdz*drssdz + LDA_dfdrs*d2rssdz2)*opz[is]/2.0;
     }
   }
 
   /* and now the perpendicular */
-  res[is].zeta  = zeta;
+  res[is].z     = zeta;
   res[is].order = order;
 
   lda_func(pw, &(res[2]));
 
-  res[2].e -= res[0].e + res[1].e;
+  res[2].f -= res[0].f + res[1].f;
 
   if(order < 1) return;
 
-  res[2].dedrs -= res[0].dedrs + res[1].dedrs;
-  res[2].dedz  -= res[0].dedz  + res[1].dedz;
+  res[2].dfdrs -= res[0].dfdrs + res[1].dfdrs;
+  res[2].dfdz  -= res[0].dfdz  + res[1].dfdz;
 
   if(order < 2) return;
 
-  res[2].d2edrs2 -= res[0].d2edrs2 + res[1].d2edrs2;
-  res[2].d2edrsz -= res[0].d2edrsz + res[1].d2edrsz;
-  res[2].d2edz2  -= res[0].d2edz2  + res[1].d2edz2;
+  res[2].d2fdrs2 -= res[0].d2fdrs2 + res[1].d2fdrs2;
+  res[2].d2fdrsz -= res[0].d2fdrsz + res[1].d2fdrsz;
+  res[2].d2fdz2  -= res[0].d2fdz2  + res[1].d2fdz2;
 }
 
 

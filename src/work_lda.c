@@ -61,7 +61,7 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
   if(r.order < 0) return;
 
   for(ip = 0; ip < np; ip++){
-    XC(rho2dzeta)(p->nspin, rho, &dens, &r.zeta);
+    XC(rho2dzeta)(p->nspin, rho, &dens, &r.z);
 
     if(dens < p->info->min_dens) goto end_ip_loop;
 
@@ -70,18 +70,18 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
     func(p, &r);
 
     if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-      *zk = r.e;
+      *zk = r.f;
 
     if(r.order < 1) goto end_ip_loop;
 
     drs = -r.rs/(XC_DIMENSIONS*dens);
     
     if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
-      vrho[0] = r.e + dens*r.dedrs*drs;
+      vrho[0] = r.f + dens*r.dfdrs*drs;
 
       if(p->nspin == XC_POLARIZED){
-	vrho[1] = vrho[0] - (r.zeta + 1.0)*r.dedz;
-	vrho[0] = vrho[0] - (r.zeta - 1.0)*r.dedz;
+	vrho[1] = vrho[0] - (r.z + 1.0)*r.dfdz;
+	vrho[0] = vrho[0] - (r.z - 1.0)*r.dfdz;
       }
     }
   
@@ -90,14 +90,14 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
     d2rs = -drs*(1.0 + XC_DIMENSIONS)/(XC_DIMENSIONS*dens);
     
     if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){
-      v2rho2[0] = r.dedrs*(2.0*drs + dens*d2rs) + dens*r.d2edrs2*drs*drs;
+      v2rho2[0] = r.dfdrs*(2.0*drs + dens*d2rs) + dens*r.d2fdrs2*drs*drs;
       
       if(p->nspin == XC_POLARIZED){
 	FLOAT sign[3][2] = {{-1.0, -1.0}, {-1.0, +1.0}, {+1.0, +1.0}};
 	
 	for(is=2; is>=0; is--){
-	  v2rho2[is] = v2rho2[0] - r.d2edrsz*(2.0*r.zeta + sign[is][0] + sign[is][1])*drs
-	    + (r.zeta + sign[is][0])*(r.zeta + sign[is][1])*r.d2edz2/dens;
+	  v2rho2[is] = v2rho2[0] - r.d2fdrsz*(2.0*r.z + sign[is][0] + sign[is][1])*drs
+	    + (r.z + sign[is][0])*(r.z + sign[is][1])*r.d2fdz2/dens;
 	}
       }
     }
@@ -107,8 +107,8 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
     d3rs = -d2rs*(1.0 + 2.0*XC_DIMENSIONS)/(XC_DIMENSIONS*dens);
     
     if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC)){
-      v3rho3[0] = r.dedrs*(3.0*d2rs + dens*d3rs) + 
-	3.0*r.d2edrs2*drs*(drs + dens*d2rs) + r.d3edrs3*dens*drs*drs*drs;
+      v3rho3[0] = r.dfdrs*(3.0*d2rs + dens*d3rs) + 
+	3.0*r.d2fdrs2*drs*(drs + dens*d2rs) + r.d3fdrs3*dens*drs*drs*drs;
       
       if(p->nspin == XC_POLARIZED){
 	FLOAT sign[4][3] = {{-1.0, -1.0, -1.0}, {-1.0, -1.0, +1.0}, {-1.0, +1.0, +1.0}, {+1.0, +1.0, +1.0}};
@@ -116,15 +116,15 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
 	for(is=3; is>=0; is--){
 	  FLOAT ff;
 	  
-	  v3rho3[is]  = v3rho3[0] - (2.0*r.zeta  + sign[is][0] + sign[is][1])*(d2rs*r.d2edrsz + drs*drs*r.d3edrs2z);
-	  v3rho3[is] += (r.zeta + sign[is][0])*(r.zeta + sign[is][1])*(-r.d2edz2/dens + r.d3edrsz2*drs)/dens;
+	  v3rho3[is]  = v3rho3[0] - (2.0*r.z  + sign[is][0] + sign[is][1])*(d2rs*r.d2fdrsz + drs*drs*r.d3fdrs2z);
+	  v3rho3[is] += (r.z + sign[is][0])*(r.z + sign[is][1])*(-r.d2fdz2/dens + r.d3fdrsz2*drs)/dens;
 	  
-	  ff  = r.d2edrsz*(2.0*drs + dens*d2rs) + dens*r.d3edrs2z*drs*drs;
-	  ff += -2.0*r.d2edrsz*drs - r.d3edrsz2*(2.0*r.zeta + sign[is][0] + sign[is][1])*drs;
-	  ff += (r.zeta + sign[is][0])*(r.zeta + sign[is][1])*r.d3edz3/dens;
-	  ff += (2.0*r.zeta  + sign[is][0] + sign[is][1])*r.d2edz2/dens;
+	  ff  = r.d2fdrsz*(2.0*drs + dens*d2rs) + dens*r.d3fdrs2z*drs*drs;
+	  ff += -2.0*r.d2fdrsz*drs - r.d3fdrsz2*(2.0*r.z + sign[is][0] + sign[is][1])*drs;
+	  ff += (r.z + sign[is][0])*(r.z + sign[is][1])*r.d3fdz3/dens;
+	  ff += (2.0*r.z  + sign[is][0] + sign[is][1])*r.d2fdz2/dens;
 	  
-	  v3rho3[is] += -ff*(r.zeta + sign[is][2])/dens;
+	  v3rho3[is] += -ff*(r.z + sign[is][2])/dens;
 	}
       }
     }

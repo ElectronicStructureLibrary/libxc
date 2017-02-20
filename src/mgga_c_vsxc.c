@@ -210,7 +210,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
     dd = (r->ts[is] > tmin) ? 1.0 - r->xs[is]*r->xs[is]/(8.0*r->ts[is]) : 0.0;
 
-    r->f += LDA[is].e*dd*(g + h);
+    r->f += LDA[is].f*dd*(g + h);
 
     if(r->order < 1) continue;
 
@@ -220,10 +220,10 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
     }else
       ddddxs = ddddts = 0.0;
 
-    r->dfdrs     += LDA[is].dedrs*dd*(g + h);
-    r->dfdz      += LDA[is].dedz *dd*(g + h);
-    r->dfdxs[is] += LDA[is].e*(ddddxs*(g + h) + dd*(dgdx + dhdx));
-    r->dfdts[is] += LDA[is].e*(ddddts*(g + h) + 2.0*dd*dhdt);
+    r->dfdrs     += LDA[is].dfdrs*dd*(g + h);
+    r->dfdz      += LDA[is].dfdz *dd*(g + h);
+    r->dfdxs[is] += LDA[is].f*(ddddxs*(g + h) + dd*(dgdx + dhdx));
+    r->dfdts[is] += LDA[is].f*(ddddts*(g + h) + 2.0*dd*dhdt);
   }
 
   /* and now we add the opposite-spin contribution */
@@ -243,19 +243,19 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
     XC(mgga_b97_func_g)(params->cab, params->gamma_ab, x_tot, r->order, &g, &dgdx, &d2gdx2);
   }
 
-  r->f += LDA[2].e*(g + h);
+  r->f += LDA[2].f*(g + h);
 
   if(r->order < 1) return;
 
   dx_totdxs[0] = r->xs[0]/x_tot;
   dx_totdxs[1] = r->xs[1]/x_tot;
 
-  r->dfdrs    += LDA[2].dedrs*(g + h);
-  r->dfdz     += LDA[2].dedz *(g + h);
-  r->dfdxs[0] += LDA[2].e*(dgdx + dhdx)*dx_totdxs[0];
-  r->dfdxs[1] += LDA[2].e*(dgdx + dhdx)*dx_totdxs[1];
-  r->dfdts[0] += LDA[2].e*dhdt*2.0;
-  r->dfdts[1] += LDA[2].e*dhdt*2.0;
+  r->dfdrs    += LDA[2].dfdrs*(g + h);
+  r->dfdz     += LDA[2].dfdz *(g + h);
+  r->dfdxs[0] += LDA[2].f*(dgdx + dhdx)*dx_totdxs[0];
+  r->dfdxs[1] += LDA[2].f*(dgdx + dhdx)*dx_totdxs[1];
+  r->dfdts[0] += LDA[2].f*dhdt*2.0;
+  r->dfdts[1] += LDA[2].f*dhdt*2.0;
 }
 
 #include "work_mgga_c.c"

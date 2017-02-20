@@ -78,51 +78,51 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
   interaction = ((lda_x_1d_params *)p->params)->interaction;
   bb  =         ((lda_x_1d_params *)p->params)->bb;
 
-  r->e = 0.0;
+  r->f = 0.0;
   for(is=0; is<p->nspin; is++){
-    R = M_PI*bb*(1.0 + spin_sign[is]*r->zeta)/(2.0*r->rs);
+    R = M_PI*bb*(1.0 + spin_sign[is]*r->z)/(2.0*r->rs);
 
     if(R == 0.0) continue;
 
     int1[is] = XC(integrate)(func1, (void *)(&interaction), 0.0, R);
     int2[is] = XC(integrate)(func2, (void *)(&interaction), 0.0, R);
 
-    r->e -= (1.0 + spin_sign[is]*r->zeta) *
+    r->f -= (1.0 + spin_sign[is]*r->z) *
       (int1[is] - int2[is]/R);
   }
-  r->e *= spin_fact[p->nspin-1]/(4.0*M_PI*bb);
+  r->f *= spin_fact[p->nspin-1]/(4.0*M_PI*bb);
 
   if(r->order < 1) return;
   
-  r->dedrs = 0.0;
-  r->dedz  = 0.0;
+  r->dfdrs = 0.0;
+  r->dfdz  = 0.0;
   for(is=0; is<p->nspin; is++){
-    if(1.0 + spin_sign[is]*r->zeta == 0.0) continue;
+    if(1.0 + spin_sign[is]*r->z == 0.0) continue;
 
-    r->dedrs +=               int2[is];
-    r->dedz  -= spin_sign[is]*int1[is];
+    r->dfdrs +=               int2[is];
+    r->dfdz  -= spin_sign[is]*int1[is];
   }
-  r->dedrs *= spin_fact[p->nspin-1]/(2.0*M_PI*M_PI*bb*bb);
-  r->dedz  *= spin_fact[p->nspin-1]/(4.0*M_PI*bb);
+  r->dfdrs *= spin_fact[p->nspin-1]/(2.0*M_PI*M_PI*bb*bb);
+  r->dfdz  *= spin_fact[p->nspin-1]/(4.0*M_PI*bb);
 
   if(r->order < 2) return;
 
-  r->d2edrs2 = r->d2edrsz = r->d2edz2  = 0.0;
+  r->d2fdrs2 = r->d2fdrsz = r->d2fdz2  = 0.0;
   for(is=0; is<p->nspin; is++){
-    FLOAT ft, aux = 1.0 + spin_sign[is]*r->zeta;
+    FLOAT ft, aux = 1.0 + spin_sign[is]*r->z;
 
     if(aux == 0.0) continue;
 
     R  = M_PI*bb*aux/(2.0*r->rs);
     ft = FT_inter(R, interaction);
  
-    r->d2edrs2 -= aux*aux*ft;
-    r->d2edrsz += spin_sign[is]*aux*ft;
-    r->d2edz2  -= ft;
+    r->d2fdrs2 -= aux*aux*ft;
+    r->d2fdrsz += spin_sign[is]*aux*ft;
+    r->d2fdz2  -= ft;
   }
-  r->d2edrs2 *= spin_fact[p->nspin-1]/(8.0*r->rs*r->rs*r->rs);
-  r->d2edrsz *= spin_fact[p->nspin-1]/(8.0*r->rs*r->rs);
-  r->d2edz2  *= spin_fact[p->nspin-1]/(8.0*r->rs);
+  r->d2fdrs2 *= spin_fact[p->nspin-1]/(8.0*r->rs*r->rs*r->rs);
+  r->d2fdrsz *= spin_fact[p->nspin-1]/(8.0*r->rs*r->rs);
+  r->d2fdz2  *= spin_fact[p->nspin-1]/(8.0*r->rs);
 
   if(r->order < 3) return;
 

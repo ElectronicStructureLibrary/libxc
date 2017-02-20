@@ -114,6 +114,7 @@ FLOAT XC(expint_e1_impl)(const FLOAT x, const int scale);
 static inline FLOAT expint_e1(const FLOAT x)         { return  XC(expint_e1_impl)( x, 0); }
 static inline FLOAT expint_e1_scaled(const FLOAT x)  { return  XC(expint_e1_impl)( x, 1); }
 static inline FLOAT expint_Ei(const FLOAT x)         { return -XC(expint_e1_impl)(-x, 0); }
+#define Ei(x) expint_Ei(x)
 static inline FLOAT expint_Ei_scaled(const FLOAT x)  { return -XC(expint_e1_impl)(-x, 1); }
 
 /* integration */
@@ -165,12 +166,12 @@ void XC(lda_end) (XC(func_type) *p);
 
 typedef struct XC(lda_work_t) {
   int   order; /* to which order should I return the derivatives */
-  FLOAT rs, zeta;
+  FLOAT rs, z;
 
-  FLOAT e;                                   /* energy per unit particle */
-  FLOAT dedrs, dedz;                         /*  first derivatives of e  */
-  FLOAT d2edrs2, d2edrsz, d2edz2;            /* second derivatives of e  */
-  FLOAT d3edrs3, d3edrs2z, d3edrsz2, d3edz3; /*  third derivatives of e  */
+  FLOAT f;                                   /* energy per unit particle */
+  FLOAT dfdrs, dfdz;                         /*  first derivatives of e  */
+  FLOAT d2fdrs2, d2fdrsz, d2fdz2;            /* second derivatives of e  */
+  FLOAT d3fdrs3, d3fdrs2z, d3fdrsz2, d3fdz3; /*  third derivatives of e  */
 } XC(lda_work_t);
 
 void XC(lda_fxc_fd)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *fxc);

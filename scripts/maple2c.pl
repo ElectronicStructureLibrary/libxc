@@ -1,5 +1,7 @@
 #!/usr/bin/env perl
 
+use Data::Dumper;
+
 my $srcdir     = $ARGV[0];
 my $functional = $ARGV[1];
 my $max_order  = $ARGV[2];
@@ -145,28 +147,58 @@ with(CodeGeneration):
   return ($variables, math_replace($new_c_code));
 }
 
+sub mk_info {
+  ($vars, $f, $order) = @_;
+
+  $info = [];
+  return $info if($order < 0);
+
+  @{$info}[0] = [["r_a_f", "$f"]];
+  return $info if($order < 1);
+
+  @{$info}[1] = [];
+  for my $i (0 .. $#{$vars}){
+    my $v1 = ${$vars}[$i];
+    push(@{$info}[1], ["r_a_dfd${v1}", "diff($f, r_a_$v1)"]);
+  }
+  return $info if($order < 2);
+
+  @{$info}[2] = [];
+  for my $i (0 .. $#{$vars}){
+    my $v1 = ${$vars}[$i];
+    push(@{$info}[2], ["r_a_d2fd${v1}2", "diff($f, r_a_$v1\$2)"]);
+    for my $j ($i+1 .. $#{$vars}){
+      my $v2 = ${$vars}[$j];
+      push(@{$info}[2], ["r_a_d2fd${v1}${v2}", "diff($f, r_a_$v1, r_a_$v2)"]);
+    }
+  }
+  return $info if($order < 3);
+  
+  @{$info}[3] = [];
+  for my $i (0 .. $#{$vars}){
+    my $v1 = ${$vars}[$i];
+    push(@{$info}[3], ["r_a_d3fd${v1}3", "diff($f, r_a_$v1\$3)"]);
+    for my $j ($i+1 .. $#{$vars}){
+      my $v2 = ${$vars}[$j];
+      push(@{$info}[3], ["r_a_d3fd${v1}2${v2}", "diff($f, r_a_$v1\$2, r_a_$v2)"]);
+      push(@{$info}[3], ["r_a_d3fd${v1}${v2}2", "diff($f, r_a_$v1, r_a_$v2\$2)"]);
+      for my $k ($j+1 .. $#{$vars}){
+        my $v3 = ${$vars}[$k];
+        push(@{$info}[3], ["r_a_d3fd${v1}${v2}${v3}", "diff($f, r_a_$v1, r_a_$v2, r_a_$v3)"]);
+      }
+    }
+  }
+  return $info if($order < 4);
+}
+
 sub work_lda {
   ($order, $prefix) = @_;
 
+  $info = mk_info(["rs", "z"], "f(r_a_rs, 0.0)", $order);
+
   for(my $ispin=0; $ispin<2; $ispin++){
-    my $f = ($ispin==0) ? "f(r_a_rs, 0.0)" : "f(r_a_rs, r_a_zeta)";
-    my $info = [
-      [
-        ["r_a_e", "$f"]
-      ], [
-        ["r_a_dedrs", "diff($f, r_a_rs)"],
-        ["r_a_dedz",  "diff($f, r_a_zeta)"]
-      ], [
-        ["r_a_d2edrs2", "diff($f, r_a_rs\$2)"], 
-        ["r_a_d2edz2",  "diff($f, r_a_zeta\$2 )"],
-        ["r_a_d2edrsz", "diff($f, r_a_rs, r_a_zeta)"]
-      ], [
-        ["r_a_d3edrs3",  "diff($f, r_a_rs\$3)"], 
-        ["r_a_d3edz3",   "diff($f, r_a_zeta\$3 )"],
-        ["r_a_d3edrs2z", "diff($f, r_a_rs\$2, r_a_zeta)"],
-        ["r_a_d3edrsz2", "diff($f, r_a_rs, r_a_zeta\$2)"]
-      ]
-    ];
+    my $f = ($ispin==0) ? "f(r_a_rs, 0.0)" : "f(r_a_rs, r_a_z)";
+    my $info = mk_info(["rs", "z"], $f, $order);
 
     ($variables, $c_code) = math_work($info, $out, $order, "r->order");
 

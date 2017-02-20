@@ -253,14 +253,14 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
     
     XC(mgga_b97mv_g)(params->cc[0], gamma[0], r->order, r->xs[is], 2.0*r->ts[is], &gx, &dgxdx, &dgxdt, 0);
     XC(mgga_b97mv_g)(params->cc[1], gamma[1], r->order, r->xs[is], 2.0*r->ts[is], &gcss, &dgcssdx, &dgcssdt, 0);
-    r->f += lda_x[is].e*gx + lda_pw[is].e*gcss;
+    r->f += lda_x[is].f*gx + lda_pw[is].f*gcss;
 
     if(r->order < 1) continue;
 
-    r->dfdrs     += lda_x[is].dedrs *  gx   + lda_pw[is].dedrs *  gcss;
-    r->dfdz      += lda_x[is].dedz  *  gx   + lda_pw[is].dedz  *  gcss;
-    r->dfdxs[is] += lda_x[is].e     * dgxdx + lda_pw[is].e     * dgcssdx;
-    r->dfdts[is] += lda_x[is].e * (2.0*dgxdt) + lda_pw[is].e * (2.0*dgcssdt);
+    r->dfdrs     += lda_x[is].dfdrs *  gx   + lda_pw[is].dfdrs *  gcss;
+    r->dfdz      += lda_x[is].dfdz  *  gx   + lda_pw[is].dfdz  *  gcss;
+    r->dfdxs[is] += lda_x[is].f     * dgxdx + lda_pw[is].f     * dgcssdx;
+    r->dfdts[is] += lda_x[is].f * (2.0*dgxdt) + lda_pw[is].f * (2.0*dgcssdt);
   }
 
   /* and now we add the opposite-spin contribution */
@@ -274,19 +274,19 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
     t_avg = (t[0] + t[1])/2.0;
     
     XC(mgga_b97mv_g)(params->cc[2], gamma[2], r->order, x_avg, t_avg, &gcos, &dgcosdx, &dgcosdt, 1);
-    r->f += lda_pw[2].e*gcos;
+    r->f += lda_pw[2].f*gcos;
     
     if(r->order < 1) return;
     
     dx_avgdxs[0] = r->xs[0]/(aux12*M_SQRT2);
     dx_avgdxs[1] = r->xs[1]/(aux12*M_SQRT2);
     
-    r->dfdrs    += lda_pw[2].dedrs *  gcos;
-    r->dfdz     += lda_pw[2].dedz  *  gcos;
-    r->dfdxs[0] += lda_pw[2].e     * dgcosdx * dx_avgdxs[0];
-    r->dfdxs[1] += lda_pw[2].e     * dgcosdx * dx_avgdxs[1];
-    r->dfdts[0] += lda_pw[2].e     * dgcosdt * (-t[0]*t[0]/(2.0*K_FACTOR_C));
-    r->dfdts[1] += lda_pw[2].e     * dgcosdt * (-t[1]*t[1]/(2.0*K_FACTOR_C));
+    r->dfdrs    += lda_pw[2].dfdrs *  gcos;
+    r->dfdz     += lda_pw[2].dfdz  *  gcos;
+    r->dfdxs[0] += lda_pw[2].f     * dgcosdx * dx_avgdxs[0];
+    r->dfdxs[1] += lda_pw[2].f     * dgcosdx * dx_avgdxs[1];
+    r->dfdts[0] += lda_pw[2].f     * dgcosdt * (-t[0]*t[0]/(2.0*K_FACTOR_C));
+    r->dfdts[1] += lda_pw[2].f     * dgcosdt * (-t[1]*t[1]/(2.0*K_FACTOR_C));
   }
 }
 

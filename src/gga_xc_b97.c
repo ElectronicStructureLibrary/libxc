@@ -380,24 +380,24 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     XC(mgga_b97_func_g)(params->cc[0], gamma[0], r->xs[is], r->order, &fx, &dfxdx, &d2fxdx2);
     XC(mgga_b97_func_g)(params->cc[1], gamma[1], r->xs[is], r->order, &fcpar, &dfcpardx, &d2fcpardx2);
 
-    r->f += lda_x[is].e*fx + lda_pw[is].e*fcpar;
+    r->f += lda_x[is].f*fx + lda_pw[is].f*fcpar;
 
     if(r->order < 1) continue;
 
-    r->dfdrs     += lda_x[is].dedrs*fx  + lda_pw[is].dedrs*fcpar;
-    r->dfdz      += lda_x[is].dedz *fx  + lda_pw[is].dedz *fcpar;
-    r->dfdxs[is] += lda_x[is].e *dfxdx  + lda_pw[is].e *dfcpardx;
+    r->dfdrs     += lda_x[is].dfdrs*fx  + lda_pw[is].dfdrs*fcpar;
+    r->dfdz      += lda_x[is].dfdz *fx  + lda_pw[is].dfdz *fcpar;
+    r->dfdxs[is] += lda_x[is].f *dfxdx  + lda_pw[is].f *dfcpardx;
 
     if(r->order < 2) continue;
     
     js = (is == 0) ? 0 : 2;
 
-    r->d2fdrs2      += lda_x[is].d2edrs2*fx  + lda_pw[is].d2edrs2*fcpar;
-    r->d2fdrsz      += lda_x[is].d2edrsz*fx  + lda_pw[is].d2edrsz*fcpar;
-    r->d2fdrsxs[is] += lda_x[is].dedrs*dfxdx + lda_pw[is].dedrs*dfcpardx;
-    r->d2fdz2       += lda_x[is].d2edz2*fx   + lda_pw[is].d2edz2*fcpar;
-    r->d2fdzxs[is]  += lda_x[is].dedz*dfxdx  + lda_pw[is].dedz*dfcpardx;
-    r->d2fdxs2[js]  += lda_x[is].e *d2fxdx2  + lda_pw[is].e *d2fcpardx2;
+    r->d2fdrs2      += lda_x[is].d2fdrs2*fx  + lda_pw[is].d2fdrs2*fcpar;
+    r->d2fdrsz      += lda_x[is].d2fdrsz*fx  + lda_pw[is].d2fdrsz*fcpar;
+    r->d2fdrsxs[is] += lda_x[is].dfdrs*dfxdx + lda_pw[is].dfdrs*dfcpardx;
+    r->d2fdz2       += lda_x[is].d2fdz2*fx   + lda_pw[is].d2fdz2*fcpar;
+    r->d2fdzxs[is]  += lda_x[is].dfdz*dfxdx  + lda_pw[is].dfdz*dfcpardx;
+    r->d2fdxs2[js]  += lda_x[is].f *d2fxdx2  + lda_pw[is].f *d2fcpardx2;
   }
 
   /* and now we add the opposite-spin contribution */
@@ -407,17 +407,17 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   XC(mgga_b97_func_g)(params->cc[2], gamma[2], x_avg, r->order, &fcper, &dfcperdx, &d2fcperdx2);
 
-  r->f += lda_pw[2].e*fcper;
+  r->f += lda_pw[2].f*fcper;
 
   if(r->order < 1) return;
 
   dx_avgdxs[0] = r->xs[0]/(aux12*M_SQRT2);
   dx_avgdxs[1] = r->xs[1]/(aux12*M_SQRT2);
 
-  r->dfdrs    += lda_pw[2].dedrs*fcper;
-  r->dfdz     += lda_pw[2].dedz *fcper;
-  r->dfdxs[0] += lda_pw[2].e*dfcperdx*dx_avgdxs[0];
-  r->dfdxs[1] += lda_pw[2].e*dfcperdx*dx_avgdxs[1];
+  r->dfdrs    += lda_pw[2].dfdrs*fcper;
+  r->dfdz     += lda_pw[2].dfdz *fcper;
+  r->dfdxs[0] += lda_pw[2].f*dfcperdx*dx_avgdxs[0];
+  r->dfdxs[1] += lda_pw[2].f*dfcperdx*dx_avgdxs[1];
 
   if(r->order < 2) return;
 
@@ -425,16 +425,16 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   d2x_avgdxs2[1] = -r->xs[0]*r->xs[1]/(aux*aux12*M_SQRT2);
   d2x_avgdxs2[2] =  r->xs[0]*r->xs[0]/(aux*aux12*M_SQRT2);
 
-  r->d2fdrs2     += lda_pw[2].d2edrs2*fcper;
-  r->d2fdrsz     += lda_pw[2].d2edrsz*fcper;
-  r->d2fdrsxs[0] += lda_pw[2].dedrs*dfcperdx*dx_avgdxs[0];
-  r->d2fdrsxs[1] += lda_pw[2].dedrs*dfcperdx*dx_avgdxs[1];
-  r->d2fdz2      += lda_pw[2].d2edz2*fcper;
-  r->d2fdzxs[0]  += lda_pw[2].dedz*dfcperdx*dx_avgdxs[0];
-  r->d2fdzxs[1]  += lda_pw[2].dedz*dfcperdx*dx_avgdxs[1];
-  r->d2fdxs2[0]  += lda_pw[2].e*(d2fcperdx2*dx_avgdxs[0]*dx_avgdxs[0] + dfcperdx*d2x_avgdxs2[0]);
-  r->d2fdxs2[1]  += lda_pw[2].e*(d2fcperdx2*dx_avgdxs[0]*dx_avgdxs[1] + dfcperdx*d2x_avgdxs2[1]);
-  r->d2fdxs2[2]  += lda_pw[2].e*(d2fcperdx2*dx_avgdxs[1]*dx_avgdxs[1] + dfcperdx*d2x_avgdxs2[2]);
+  r->d2fdrs2     += lda_pw[2].d2fdrs2*fcper;
+  r->d2fdrsz     += lda_pw[2].d2fdrsz*fcper;
+  r->d2fdrsxs[0] += lda_pw[2].dfdrs*dfcperdx*dx_avgdxs[0];
+  r->d2fdrsxs[1] += lda_pw[2].dfdrs*dfcperdx*dx_avgdxs[1];
+  r->d2fdz2      += lda_pw[2].d2fdz2*fcper;
+  r->d2fdzxs[0]  += lda_pw[2].dfdz*dfcperdx*dx_avgdxs[0];
+  r->d2fdzxs[1]  += lda_pw[2].dfdz*dfcperdx*dx_avgdxs[1];
+  r->d2fdxs2[0]  += lda_pw[2].f*(d2fcperdx2*dx_avgdxs[0]*dx_avgdxs[0] + dfcperdx*d2x_avgdxs2[0]);
+  r->d2fdxs2[1]  += lda_pw[2].f*(d2fcperdx2*dx_avgdxs[0]*dx_avgdxs[1] + dfcperdx*d2x_avgdxs2[1]);
+  r->d2fdxs2[2]  += lda_pw[2].f*(d2fcperdx2*dx_avgdxs[1]*dx_avgdxs[1] + dfcperdx*d2x_avgdxs2[2]);
 }
 
 

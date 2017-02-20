@@ -14,7 +14,7 @@ $include "fw.mpl"
 gamX := 0.004:
 ux   := x -> gamX*x^2/(1.0 + gamX*x^2):
 
-gxl  := x -> sum(params_a_cx_local [i]*ux(x)^(i-1), i=1..4):
-gxnl := x -> sum(params_a_cx_nlocal[i]*ux(x)^(i-1), i=1..4):
+gxl  := x -> add(params_a_cx_local [i]*ux(x)^(i-1), i=1..4):
+gxnl := x -> add(params_a_cx_nlocal[i]*ux(x)^(i-1), i=1..4):
 
 f    := (rs, x, t, u) -> gxl(x) + gxnl(x)*fw(t, 6):

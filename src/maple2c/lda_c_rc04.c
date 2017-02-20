@@ -27,7 +27,6 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   t13 = r->rs * r->rs;
   t14 = 0.1e1 / t13;
   r->dfdrs = -0.2083716903116000e1 * t10 * t6 - 0.1000e1 * t5 * t14;
-  r->dfdz = 0;
 
   if(r->order < 2) return;
 
@@ -37,17 +36,12 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   t21 = 0.31060429311980e2 + 0.20187128198738e2 * r->rs;
   t27 = 0.1e1 / t13 / r->rs;
   r->d2fdrs2 = 0.2083716903116000e1 * t19 * t21 + 0.4167433806232000e1 * t10 * t14 + 0.2000e1 * t5 * t27;
-  r->d2fdrsz = 0;
-  r->d2fdz2 = 0;
 
   if(r->order < 3) return;
 
   t33 = t21 * t21;
   t42 = t13 * t13;
   r->d3fdrs3 = -0.4167433806232000e1 / t17 / t9 * t6 * t33 - 0.6251150709348000e1 * t18 * t14 * t21 + 0.42064260253080020739e2 * t19 - 0.12502301418696000e2 * t10 * t27 - 0.6000e1 * t5 / t42;
-  r->d3fdrs2z = 0;
-  r->d3fdrsz2 = 0;
-  r->d3fdz3 = 0;
 
   if(r->order < 4) return;
 

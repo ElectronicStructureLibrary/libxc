@@ -106,7 +106,7 @@ XC(pbe_c_stoll) (const XC(func_type) *pbe, int get_max, const XC(mgga_work_c_t) 
   out[2].order = in->order;
   out[2].dens  = in->dens;
   out[2].rs    = in->rs;
-  out[2].zeta  = in->zeta;
+  out[2].z     = in->zeta;
   out[2].xt    = in->xt;
   out[2].xs[0] = in->xs[0];
   out[2].xs[1] = in->xs[1];
@@ -137,7 +137,7 @@ XC(pbe_c_stoll) (const XC(func_type) *pbe, int get_max, const XC(mgga_work_c_t) 
       out[is].order = in->order;
       out[is].dens  = in->ds[is];
       out[is].rs    = RS(out[is].dens);
-      out[is].zeta  = sign[is];
+      out[is].z     = sign[is];
       out[is].xt    = (is == 0) ? in->xs[0] : in->xs[1];
       out[is].xs[0] = (is == 0) ? in->xs[0] : 0.0;
       out[is].xs[1] = (is == 1) ? in->xs[1] : 0.0;

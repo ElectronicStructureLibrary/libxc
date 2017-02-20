@@ -206,8 +206,8 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   assert(p->params != NULL);
   params = (gga_xc_th_params *) p->params;
 
-  opz   = 1.0 + r->zeta;
-  omz   = 1.0 - r->zeta;
+  opz   = 1.0 + r->z;
+  omz   = 1.0 - r->z;
 
   opz13 = CBRT(opz);
   omz13 = CBRT(omz);
@@ -264,7 +264,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     Ri    = Rid*(fz[0] + fz[1]);
 
     /* b = 0 || 1 */
-    Si = (params->b[ii] == 0) ? 1.0 : r->zeta*r->zeta;
+    Si = (params->b[ii] == 0) ? 1.0 : r->z*r->z;
 
     /* c = 0 || 1 || 2 */
     switch(params->c[ii]){
@@ -298,7 +298,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     dRidz    = Rid*(dfz[0] + dfz[1]);
     
     /* b = 0 || 1 */
-    dSidz    = (params->b[ii] == 0) ? 0.0 : 2.0*r->zeta;
+    dSidz    = (params->b[ii] == 0) ? 0.0 : 2.0*r->z;
 
     /* c = 0 || 1 || 2 */
     switch(params->c[ii]){

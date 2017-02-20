@@ -22,21 +22,15 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   if(r->order < 1) return;
 
   r->dfdrs = -0.20e1 * params->ax / t1 / r->rs;
-  r->dfdz = 0;
 
   if(r->order < 2) return;
 
   t8 = t1 * t1;
   r->d2fdrs2 = 0.60e1 * params->ax / t8;
-  r->d2fdrsz = 0;
-  r->d2fdz2 = 0;
 
   if(r->order < 3) return;
 
   r->d3fdrs3 = -0.240e2 * params->ax / t8 / r->rs;
-  r->d3fdrs2z = 0;
-  r->d3fdrsz2 = 0;
-  r->d3fdz3 = 0;
 
   if(r->order < 4) return;
 

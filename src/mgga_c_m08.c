@@ -185,7 +185,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
   pbe.order = r->order;
   pbe.rs    = r->rs;
-  pbe.zeta  = r->zeta;
+  pbe.z     = r->zeta;
   pbe.xt    = r->xt;
   pbe.xs[0] = r->xs[0];
   pbe.xs[1] = r->xs[1];

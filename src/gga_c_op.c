@@ -90,7 +90,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   assert(p != NULL && p->params != NULL);
   params = (gga_c_op_params *) (p->params);
 
-  if(ABS(r->zeta) > 1.0 - p->info->min_zeta){
+  if(ABS(r->z) > 1.0 - p->info->min_zeta){
     r->f = 0.0;
   }else{
     /* call enhancement factor */
@@ -107,8 +107,8 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     cnst13 = CBRT(cnst);
     pref   = params->qOPab*2.0*X_FACTOR_C/(M_CBRT2*cnst13);
     
-    opz = 1.0 + r->zeta;
-    omz = 1.0 - r->zeta;
+    opz = 1.0 + r->z;
+    omz = 1.0 - r->z;
 
     opz13 = POW(opz, 1.0/3.0);
     omz13 = POW(omz, 1.0/3.0);
@@ -126,10 +126,10 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
   if(r->order < 1) return;
 
-  if(ABS(r->zeta) > 1.0 - p->info->min_zeta){
+  if(ABS(r->z) > 1.0 - p->info->min_zeta){
     r->dfdrs = r->dfdz = r->dfdxt = r->dfdxs[0] = r->dfdxs[1] = 0.0;
   }else{
-    dbeta_numdz     = pref * (-2.0*r->zeta/(3.0*opz13*opz13*omz13*omz13)) * eu_f*ed_f;
+    dbeta_numdz     = pref * (-2.0*r->z/(3.0*opz13*opz13*omz13*omz13)) * eu_f*ed_f;
     dbeta_numdxs[0] = pref * opz13*omz13 * eu_dfdx*ed_f;
     dbeta_numdxs[1] = pref * opz13*omz13 * eu_f*ed_dfdx;
 
@@ -141,7 +141,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     dbetadxs[0] = (dbeta_numdxs[0]*beta_den - beta_num*dbeta_dendxs[0])/(beta_den*beta_den);
     dbetadxs[1] = (dbeta_numdxs[1]*beta_den - beta_num*dbeta_dendxs[1])/(beta_den*beta_den);
     
-    df_numdz    = 2.0*r->zeta*(a1*beta + a2*r->rs);
+    df_numdz    = 2.0*r->z*(a1*beta + a2*r->rs);
     df_numdrs   = -opz*omz*a2;
     df_numdbeta = -opz*omz*a1;
 

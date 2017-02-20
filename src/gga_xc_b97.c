@@ -354,13 +354,13 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   /* first we get the parallel and perpendicular LDAs */
   /* note that HCTH_A uses the VWN LDA and not PW     */
   if(p->info->number == XC_GGA_C_HCTH_A)
-    XC(lda_stoll) (p->func_aux[1], XC(lda_c_vwn_func), r->dens, r->zeta, r->order, lda_pw);
+    XC(lda_stoll) (p->func_aux[1], XC(lda_c_vwn_func), r->dens, r->z, r->order, lda_pw);
   else
-    XC(lda_stoll) (p->func_aux[1], XC(lda_c_pw_func), r->dens, r->zeta, r->order, lda_pw);
+    XC(lda_stoll) (p->func_aux[1], XC(lda_c_pw_func), r->dens, r->z, r->order, lda_pw);
   if(p->cam_omega == 0)
-    XC(lda_stoll) (p->func_aux[0], XC(lda_x_func), r->dens, r->zeta, r->order, lda_x);
+    XC(lda_stoll) (p->func_aux[0], XC(lda_x_func), r->dens, r->z, r->order, lda_x);
   else
-    XC(lda_stoll) (p->func_aux[0], XC(lda_x_erf_func), r->dens, r->zeta, r->order, lda_x);
+    XC(lda_stoll) (p->func_aux[0], XC(lda_x_erf_func), r->dens, r->z, r->order, lda_x);
 
   /* initialize to zero */
   r->f = 0.0;

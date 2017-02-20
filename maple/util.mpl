@@ -18,7 +18,7 @@ KAPPA_PBE   := 0.8040:
 
 n_total    := rs -> (RS_FACTOR/rs)^3:
 n_spin     := (rs, z) -> (1.0 + z)*n_total(rs)/2.0:
-s_igma_spin := (rs, z, xs) -> xs^2*n_spin(rs, z)^(8.0/3.0):
+sigma_spin := (rs, z, xs) -> xs^2*n_spin(rs, z)^(8.0/3.0):
 
 (* useful formulas that enter several functionals *)
 

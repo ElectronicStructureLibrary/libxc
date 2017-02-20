@@ -147,58 +147,12 @@ with(CodeGeneration):
   return ($variables, math_replace($new_c_code));
 }
 
-sub mk_info {
-  ($vars, $f, $order) = @_;
-
-  $info = [];
-  return $info if($order < 0);
-
-  @{$info}[0] = [["r_a_f", "$f"]];
-  return $info if($order < 1);
-
-  @{$info}[1] = [];
-  for my $i (0 .. $#{$vars}){
-    my $v1 = ${$vars}[$i];
-    push(@{$info}[1], ["r_a_dfd${v1}", "diff($f, r_a_$v1)"]);
-  }
-  return $info if($order < 2);
-
-  @{$info}[2] = [];
-  for my $i (0 .. $#{$vars}){
-    my $v1 = ${$vars}[$i];
-    push(@{$info}[2], ["r_a_d2fd${v1}2", "diff($f, r_a_$v1\$2)"]);
-    for my $j ($i+1 .. $#{$vars}){
-      my $v2 = ${$vars}[$j];
-      push(@{$info}[2], ["r_a_d2fd${v1}${v2}", "diff($f, r_a_$v1, r_a_$v2)"]);
-    }
-  }
-  return $info if($order < 3);
-  
-  @{$info}[3] = [];
-  for my $i (0 .. $#{$vars}){
-    my $v1 = ${$vars}[$i];
-    push(@{$info}[3], ["r_a_d3fd${v1}3", "diff($f, r_a_$v1\$3)"]);
-    for my $j ($i+1 .. $#{$vars}){
-      my $v2 = ${$vars}[$j];
-      push(@{$info}[3], ["r_a_d3fd${v1}2${v2}", "diff($f, r_a_$v1\$2, r_a_$v2)"]);
-      push(@{$info}[3], ["r_a_d3fd${v1}${v2}2", "diff($f, r_a_$v1, r_a_$v2\$2)"]);
-      for my $k ($j+1 .. $#{$vars}){
-        my $v3 = ${$vars}[$k];
-        push(@{$info}[3], ["r_a_d3fd${v1}${v2}${v3}", "diff($f, r_a_$v1, r_a_$v2, r_a_$v3)"]);
-      }
-    }
-  }
-  return $info if($order < 4);
-}
 
 sub work_lda {
   ($order, $prefix) = @_;
 
-  $info = mk_info(["rs", "z"], "f(r_a_rs, 0.0)", $order);
-
   for(my $ispin=0; $ispin<2; $ispin++){
-    my $f = ($ispin==0) ? "f(r_a_rs, 0.0)" : "f(r_a_rs, r_a_z)";
-    my $info = mk_info(["rs", "z"], $f, $order);
+    my $info = do "$srcdir/scripts/maple2c_work_lda_".$ispin."_info.pl";
 
     ($variables, $c_code) = math_work($info, $out, $order, "r->order");
 
@@ -261,73 +215,11 @@ $c_code
 sub work_gga_c {
   ($order, $prefix) = @_;
 
-  my $f = "f(r_a_rs, r_a_zeta, r_a_xt, r_a_xs_0_, r_a_xs_1_)";
-  my $info = [
-    [
-      ["r_a_f", "$f"]
-    ], [
-      ["r_a_dfdrs",    "diff($f, r_a_rs)"],
-      ["r_a_dfdz",     "diff($f, r_a_zeta)"],
-      ["r_a_dfdxt",    "diff($f, r_a_xt)"],
-      ["r_a_dfdxs_0_", "diff($f, r_a_xs_0_)"],
-      ["r_a_dfdxs_1_", "diff($f, r_a_xs_1_)"],
-    ], [
-      ["r_a_d2fdrs2",     "diff($f, r_a_rs\$2)"], 
-      ["r_a_d2fdrsz",     "diff($f, r_a_rs, r_a_zeta)"], 
-      ["r_a_d2fdrsxt",    "diff($f, r_a_rs, r_a_xt)"], 
-      ["r_a_d2fdrsxs_0_", "diff($f, r_a_rs, r_a_xs_0_)"], 
-      ["r_a_d2fdrsxs_1_", "diff($f, r_a_rs, r_a_xs_1_)"], 
-      ["r_a_d2fdz2",      "diff($f, r_a_zeta\$2 )"],
-      ["r_a_d2fdzxt",     "diff($f, r_a_zeta, r_a_xt)"], 
-      ["r_a_d2fdzxs_0_",  "diff($f, r_a_zeta, r_a_xs_0_)"], 
-      ["r_a_d2fdzxs_1_",  "diff($f, r_a_zeta, r_a_xs_1_)"], 
-      ["r_a_d2fdxt2",     "diff($f, r_a_xt\$2)"], 
-      ["r_a_d2fdxtxs_0_", "diff($f, r_a_xt, r_a_xs_0_)"], 
-      ["r_a_d2fdxtxs_1_", "diff($f, r_a_xt, r_a_xs_1_)"], 
-      ["r_a_d2fdxs2_0_",  "diff($f, r_a_xs_0_\$2)"], 
-      ["r_a_d2fdxs2_1_",  "diff($f, r_a_xs_0_, r_a_xs_1_)"], 
-      ["r_a_d2fdxs2_2_",  "diff($f, r_a_xs_1_\$2)"], 
-    ],[
-      ["r_a_d3fdrs3", "diff($f, r_a_rs\$3)"], 
-      ["r_a_d3fdz3", "diff($f, r_a_z\$3)"], 
-      ["r_a_d3fdxt3", "diff($f, r_a_xt\$3)"], 
-      ["r_a_d3fdxs3_0_", "diff($f, r_a_xs_0_\$3)"], 
-      ["r_a_d3fdxs3_1_", "diff($f, r_a_xs_0_\$2, r_a_xs_1_)"], 
-      ["r_a_d3fdxs3_2_", "diff($f, r_a_xs_0_, r_a_xs_1_\$2)"], 
-      ["r_a_d3fdxs3_3_", "diff($f, r_a_xs_1_\$3)"], 
-      ["r_a_d3fdrs2z", "diff($f, rs_a_rs\$2, r_a_z)"], 
-      ["r_a_d3fdrs2xt", "diff($f, rs_a_rs\$2, rs_a_xt)"], 
-      ["r_a_d3fdrs2xs_0_", "diff($f, rs_a_rs\$2, rs_a_xs_0_)"], 
-      ["r_a_d3fdrs2xs_1_", "diff($f, rs_a_rs\$2, rs_a_xs_1_)"], 
-      ["r_a_d3fdrsz2", "diff($f, rs_a_rs, rs_a_z\$2)"], 
-      ["r_a_d3fdz2xt", "diff($f, rs_a_z\$2, rs_a_xt)"], 
-      ["r_a_d3fdz2xs_0_", "diff($f, rs_a_z\$2, rs_a_xs_0_)"], 
-      ["r_a_d3fdz2xs_1_", "diff($f, rs_a_z\$2, rs_a_xs_1_)"], 
-      ["r_a_d3fdrsxt2", "diff($f, rs_a_rs, rs_a_xt\$2)"], 
-      ["r_a_d3fdzxt2", "diff($f, rs_a_z, rs_a_xt\$2)"], 
-      ["r_a_d3fdxt2xs_0_", "diff($f, rs_a_xt\$2, rs_a_xs_0_)"], 
-      ["r_a_d3fdxt2xs_1_", "diff($f, rs_a_xt\$2, rs_a_xs_1_)"], 
-      ["r_a_d3fdrsxs2_0_", "diff($f, rs_a_rs, rs_a_xs_0_\$2)"], 
-      ["r_a_d3fdrsxs2_1_", "diff($f, rs_a_rs, rs_a_xs_0_, rs_a_xs_1_)"], 
-      ["r_a_d3fdrsxs2_2_", "diff($f, rs_a_rs, rs_a_xs_1_\$2)"], 
-      ["r_a_d3fdzxs2_0_", "diff($f, rs_a_z, rs_a_xs_0_\$2)"], 
-      ["r_a_d3fdzxs2_1_", "diff($f, rs_a_z, rs_a_xs_0_, rs_a_xs_1_)"], 
-      ["r_a_d3fdzxs2_2_", "diff($f, rs_a_z, rs_a_xs_1_\$2)"], 
-      ["r_a_d3fdxtxs2_0_", "diff($f, rs_a_xt, rs_a_xs_0_\$2)"], 
-      ["r_a_d3fdxtxs2_1_", "diff($f, rs_a_xt, rs_a_xs_0_, rs_a_xs_1_)"], 
-      ["r_a_d3fdxtxs2_2_", "diff($f, rs_a_xt, rs_a_xs_1_\$2)"], 
-      ["r_a_d3fdrszxt", "diff($f, rs_a_rs, rs_a_z, rs_a_xt)"], 
-      ["r_a_d3fdrszxs_0_", "diff($f, rs_a_rs, rs_a_z, rs_a_xs_0_)"], 
-      ["r_a_d3fdrszxs_1_", "diff($f, rs_a_rs, rs_a_z, rs_a_xs_1_)"], 
-      ["r_a_d3fdrsxtxs_0_", "diff($f, rs_a_rs, rs_a_xt, rs_a_xs_0_)"], 
-      ["r_a_d3fdrsxtxs_1_", "diff($f, rs_a_rs, rs_a_xt, rs_a_xs_1_)"], 
-      ["r_a_d3fdzxtxs_0_", "diff($f, rs_a_z, rs_a_xt, rs_a_xs_0_)"], 
-      ["r_a_d3fdzxtxs_1_", "diff($f, rs_a_z, rs_a_xt, rs_a_xs_1_)"], 
-    ]];
+  my $info =  do "$srcdir/scripts/maple2c_work_gga_c_info.pl";
 
-    ($variables, $c_code) = math_work($info, $out, $order, "r->order");
+  ($variables, $c_code) = math_work($info, $out, $order, "r->order");
 
-    print $out "
+  print $out "
 void XC(${functional}_func)
   (const XC(func_type) *p, XC(gga_work_c_t) *r)
 {

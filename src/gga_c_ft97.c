@@ -207,7 +207,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   if(r->order >= 1) r->dfdrs = r->dfdz = r->dfdxs[0] = r->dfdxs[1] = 0.0;
 
   for(ispin=0; ispin<2; ispin++){
-    opz   = 1.0 + sign[ispin]*r->zeta;
+    opz   = 1.0 + sign[ispin]*r->z;
     opz13 = CBRT(opz);
 
     /* rs_alpha */
@@ -232,7 +232,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
       func_eab(mu_ba, r->order, &e_ba, &de_badmu_ba);
 
-      r->f += e_ba*(1.0 - sign[ispin]*r->zeta)/2.0;
+      r->f += e_ba*(1.0 - sign[ispin]*r->z)/2.0;
     }
 
     /* mu(alpha,alpha), Eq. (33) */
@@ -254,7 +254,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
       func_eab(mu_aa, r->order, &e_aa, &de_aadmu_aa);
 
-      r->f += e_aa*fa*(1.0 + sign[ispin]*r->zeta)/2.0;
+      r->f += e_aa*fa*(1.0 + sign[ispin]*r->z)/2.0;
     }
       
     if(r->order < 1) continue;
@@ -274,10 +274,10 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
       dmu_badrsa  = C1/den_ba *(1.0 - rsa*dden_badrsa/den_ba);
       dmu_badga2  = -mu_ba*dden_badga2/den_ba;
 
-      r->dfdrs    += de_badmu_ba*dmu_badrsa*drsadrs*(1.0 - sign[ispin]*r->zeta)/2.0;
-      r->dfdz     += (de_badmu_ba*dmu_badrsa*drsadzeta*(1.0 - sign[ispin]*r->zeta) - e_ba*sign[ispin])/2.0;
+      r->dfdrs    += de_badmu_ba*dmu_badrsa*drsadrs*(1.0 - sign[ispin]*r->z)/2.0;
+      r->dfdz     += (de_badmu_ba*dmu_badrsa*drsadzeta*(1.0 - sign[ispin]*r->z) - e_ba*sign[ispin])/2.0;
 
-      r->dfdxs[ispin] += de_badmu_ba*dmu_badga2*dga2dxs*(1.0 - sign[ispin]*r->zeta)/2.0;
+      r->dfdxs[ispin] += de_badmu_ba*dmu_badga2*dga2dxs*(1.0 - sign[ispin]*r->z)/2.0;
     }
     
     /* mu(alpha,alpha), Eq. (33) */
@@ -290,10 +290,10 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
       dmu_aadrsa  = C1/den_aa *(1.0 - rsa*dden_aadrsa/den_aa);
       dmu_aadga2  = -mu_aa*dden_aadga2/den_aa;
 
-      r->dfdrs   += (de_aadmu_aa*dmu_aadrsa*fa + e_aa*dfa)*  drsadrs*(1.0 + sign[ispin]*r->zeta)/2.0;
-      r->dfdz    += (de_aadmu_aa*dmu_aadrsa*fa + e_aa*dfa)*drsadzeta*(1.0 + sign[ispin]*r->zeta)/2.0 + e_aa*fa*sign[ispin]/2.0;
+      r->dfdrs   += (de_aadmu_aa*dmu_aadrsa*fa + e_aa*dfa)*  drsadrs*(1.0 + sign[ispin]*r->z)/2.0;
+      r->dfdz    += (de_aadmu_aa*dmu_aadrsa*fa + e_aa*dfa)*drsadzeta*(1.0 + sign[ispin]*r->z)/2.0 + e_aa*fa*sign[ispin]/2.0;
 
-      r->dfdxs[ispin] += de_aadmu_aa*dmu_aadga2*dga2dxs*fa*(1.0 + sign[ispin]*r->zeta)/2.0;
+      r->dfdxs[ispin] += de_aadmu_aa*dmu_aadga2*dga2dxs*fa*(1.0 + sign[ispin]*r->z)/2.0;
     }
 
   } /* for ispin */

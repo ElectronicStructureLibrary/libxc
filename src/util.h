@@ -244,7 +244,7 @@ typedef struct XC(gga_work_c_t) {
   int   order; /* to which order should I return the derivatives */
 
   FLOAT dens, ds[2], sigmat, sigmas[3];
-  FLOAT rs, zeta, xt, xs[2];
+  FLOAT rs, z, xt, xs[2];
 
   FLOAT f;
 

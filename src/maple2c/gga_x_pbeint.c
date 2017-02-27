@@ -7,13 +7,12 @@
 */
 
 void XC(gga_x_pbeint_enhance)
-  (const XC(func_type) *p, int order, 
-   FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+  (const XC(func_type) *p,  XC(gga_work_x_t) *r)
 {
-  double t1, t2, t3, t4, t8, t9, t13, t15;
-  double t20, t21, t23, t27, t28, t29, t30, t32;
-  double t33, t38, t42, t45, t46, t57, t58, t59;
-  double t62, t67, t72, t74, t91, t93, t96;
+  double t1, t2, t3, t6, t7, t9, t11, t14;
+  double t19, t20, t22, t24, t26, t27, t28, t29;
+  double t30, t32, t34, t39, t42, t43, t52, t53;
+  double t55, t59, t66, t68, t83, t86;
 
   gga_x_pbeint_params *params;
  
@@ -22,50 +21,49 @@ void XC(gga_x_pbeint_enhance)
 
   t1 = params->muPBE - params->muGE;
   t2 = t1 * params->alpha;
-  t3 = X2S * X2S;
-  t4 = x * x;
-  t8 = 0.10e1 + params->alpha * t3 * t4;
-  t9 = 0.1e1 / t8;
-  t13 = (t2 * t3 * t4 * t9 + params->muGE) * t3;
-  t15 = t13 * t4 + params->kappa;
-  *f = 0.10e1 + params->kappa * (0.10e1 - params->kappa / t15);
+  t3 = r->x * r->x;
+  t6 = 0.10e1 + 0.16455307846020557507e-1 * params->alpha * t3;
+  t7 = 0.1e1 / t6;
+  t9 = t2 * t3 * t7;
+  t11 = params->muGE + 0.16455307846020557507e-1 * t9;
+  t14 = params->kappa + 0.16455307846020557507e-1 * t11 * t3;
+  r->f = 0.10e1 + params->kappa * (0.10e1 - params->kappa / t14);
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
-  t20 = params->kappa * params->kappa;
-  t21 = t15 * t15;
-  t23 = t20 / t21;
-  t27 = params->alpha * params->alpha;
-  t28 = t1 * t27;
-  t29 = t3 * t3;
-  t30 = t4 * x;
-  t32 = t8 * t8;
-  t33 = 0.1e1 / t32;
-  t38 = (0.2e1 * t2 * t3 * x * t9 - 0.2e1 * t28 * t29 * t30 * t33) * t3;
-  t42 = 0.2e1 * t13 * x + t38 * t4;
-  *dfdx = t23 * t42;
+  t19 = params->kappa * params->kappa;
+  t20 = t14 * t14;
+  t22 = t19 / t20;
+  t24 = t2 * r->x * t7;
+  t26 = params->alpha * params->alpha;
+  t27 = t1 * t26;
+  t28 = t3 * r->x;
+  t29 = t6 * t6;
+  t30 = 0.1e1 / t29;
+  t32 = t27 * t28 * t30;
+  t34 = 0.32910615692041115014e-1 * t24 - 0.54155431261461143986e-3 * t32;
+  t39 = 0.16455307846020557507e-1 * t34 * t3 + 0.32910615692041115014e-1 * t11 * r->x;
+  r->dfdx = t22 * t39;
 
-  if(order < 2) return;
+  if(r->order < 2) return;
 
-  t45 = t20 / t21 / t15;
-  t46 = t42 * t42;
-  t57 = t1 * t27 * params->alpha;
-  t58 = t29 * t3;
-  t59 = t4 * t4;
-  t62 = 0.1e1 / t32 / t8;
-  t67 = (-0.10e2 * t28 * t29 * t4 * t33 + 0.8e1 * t57 * t58 * t59 * t62 + 0.2e1 * t2 * t3 * t9) * t3;
-  t72 = 0.4e1 * t38 * x + t67 * t4 + 0.2e1 * t13;
-  *d2fdx2 = t23 * t72 - 0.2e1 * t45 * t46;
+  t42 = t19 / t20 / t14;
+  t43 = t39 * t39;
+  t52 = t1 * t26 * params->alpha;
+  t53 = t3 * t3;
+  t55 = 0.1e1 / t29 / t6;
+  t59 = 0.32910615692041115014e-1 * t2 * t7 - 0.27077715630730571993e-2 * t27 * t3 * t30 + 0.35645771717653941629e-4 * t52 * t53 * t55;
+  t66 = 0.16455307846020557507e-1 * t59 * t3 + 0.65821231384082230028e-1 * t34 * r->x + 0.32910615692041115014e-1 * params->muGE + 0.54155431261461143986e-3 * t9;
+  r->d2fdx2 = t22 * t66 - 0.2e1 * t42 * t43;
 
-  if(order < 3) return;
+  if(r->order < 3) return;
 
-  t74 = t21 * t21;
-  t91 = t27 * t27;
-  t93 = t29 * t29;
-  t96 = t32 * t32;
-  *d3fdx3 = 0.6e1 * t20 / t74 * t46 * t42 - 0.6e1 * t45 * t42 * t72 + t23 * ((-0.24e2 * t28 * t29 * t33 * x + 0.72e2 * t57 * t58 * t30 * t62 - 0.48e2 * t1 * t91 * t93 * t59 * x / t96) * t3 * t4 + 0.6e1 * t67 * x + 0.6e1 * t38);
+  t68 = t20 * t20;
+  t83 = t26 * t26;
+  t86 = t29 * t29;
+  r->d3fdx3 = 0.6e1 * t19 / t68 * t43 * t39 - 0.6e1 * t42 * t39 * t66 + t22 * (0.16455307846020557507e-1 * (-0.64986517513753372783e-2 * t27 * t30 * r->x + 0.32081194545888547466e-3 * t52 * t28 * t55 - 0.35193728821378115436e-5 * t1 * t83 * t53 * r->x / t86) * t3 + 0.98731847076123345042e-1 * t59 * r->x + 0.32493258756876686391e-2 * t24 - 0.53468657576480912443e-4 * t32);
 
-  if(order < 4) return;
+  if(r->order < 4) return;
 
 
 }

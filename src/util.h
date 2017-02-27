@@ -201,44 +201,51 @@ void XC(lda_c_pz_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
 void XC(lda_c_rc04_func)(const XC(func_type) *p, XC(lda_work_t) *r);
 void XC(lda_c_2d_amgb_func)(const XC(func_type) *p, XC(lda_work_t) *r);
 
-
 /* GGAs */
+typedef struct XC(gga_work_x_t) {
+  int   order; /* to which order should I return the derivatives */
+  FLOAT x;
+
+  FLOAT f;          /* enhancement factor       */
+  FLOAT dfdx;       /* first derivatives of f  */
+  FLOAT d2fdx2;     /* second derivatives of zk */
+  FLOAT d3fdx3;
+} XC(gga_work_x_t);
+
 void work_gga_becke_init(XC(func_type) *p);
 
 /* exchange enhancement factors: if you add one, please add it also to the util.c */
-typedef void(*xc_gga_enhancement_t)(const XC(func_type) *, int, FLOAT, FLOAT *, FLOAT *, FLOAT *, FLOAT *);
+typedef void(*xc_gga_enhancement_t)(const XC(func_type) *, XC(gga_work_x_t) *r);
 xc_gga_enhancement_t XC(get_gga_enhancement_factor)(int func_id);
 
-void XC(gga_x_wc_enhance)   (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_pbe_enhance)  (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_pw91_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_rpbe_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_htbs_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_b86_enhance)  (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_b88_enhance)  (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_g96_enhance)  (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_pw86_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_airy_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_ak13_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_bayesian_enhance)(const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_bpccac_enhance)(const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_c09x_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_am05_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_dk87_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_herman_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_lg93_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_lv_rpw86_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_mpbe_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_optx_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_sogga11_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_ssb_sw_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
-void XC(gga_x_vmt_enhance) (const XC(func_type) *p, int order, FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3);
+void XC(gga_x_wc_enhance)   (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_pbe_enhance)  (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_pw91_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_rpbe_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_htbs_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_b86_enhance)  (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_b88_enhance)  (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_g96_enhance)  (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_pw86_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_airy_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_ak13_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_bayesian_enhance)(const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_bpccac_enhance)(const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_c09x_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_am05_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_dk87_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_herman_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_lg93_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_lv_rpw86_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_mpbe_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_optx_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_sogga11_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_ssb_sw_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void XC(gga_x_vmt_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
 
 /* these functions are used in more than one functional */
 void XC(lda_c_pw_g)(int func, int order, int k, FLOAT *rs, FLOAT *f, FLOAT *dfdrs, FLOAT *d2fdrs2, FLOAT *d3fdrs3);
 void XC(beta_Hu_Langreth) (FLOAT r, int order, FLOAT *b, FLOAT *dbdr, FLOAT *d2bdr2);
-
-/* correlation functions */
 
 typedef struct XC(gga_work_c_t) {
   int   order; /* to which order should I return the derivatives */

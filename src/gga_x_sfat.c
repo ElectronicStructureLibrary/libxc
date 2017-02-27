@@ -75,11 +75,11 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
 {
   int is, js;
   gga_x_sfat_params *params;
+  XC(gga_work_x_t) aux;
   const FLOAT sign[2] = {1.0, -1.0};
 
   FLOAT opz, opz13, rss, x2, drssdrs, drssdz, d2rssdrsz, d2rssdz2;
   FLOAT ex, dexdrss, dexdz, d2exdrss2, d2exdrssz, d2exdz2;
-  FLOAT e_f, e_dfdx, e_d2fdx2;
   FLOAT k_GGA, dk_GGAdrss, dk_GGAdxs, d2k_GGAdrss2, d2k_GGAdrssxs, d2k_GGAdxs2;
   FLOAT aa, daadrss, daadxs, d2aadrss2, d2aadrssxs, d2aadxs2;
   FLOAT f_aa, df_aa, d2f_aa, d3f_aa;
@@ -104,15 +104,17 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
     rss   = r->rs*M_CBRT2/opz13;
 
     /* call enhancement factor */
-    params->enhancement_factor(pt->func_aux[0], r->order, r->xs[is], &e_f, &e_dfdx, &e_d2fdx2, NULL);
+    aux.x     = r->xs[is];
+    aux.order = r->order;
+    params->enhancement_factor(pt->func_aux[0], &aux);
 
-    k_GGA = SQRT(9.0*M_PI/(2.0*X_FACTOR_C*e_f))*RS_FACTOR/rss;
+    k_GGA = SQRT(9.0*M_PI/(2.0*X_FACTOR_C*aux.f))*RS_FACTOR/rss;
     aa = pt->cam_omega/(2.0*k_GGA);
 
     XC(lda_x_attenuation_function_yukawa)(r->order, aa, &f_aa, &df_aa, &d2f_aa, &d3f_aa);
 
     ex    = -X_FACTOR_C*RS_FACTOR*opz/(2.0*rss);
-    r->f += ex*e_f*f_aa;
+    r->f += ex*aux.f*f_aa;
 
     if(r->order < 1) continue;
 
@@ -120,7 +122,7 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
     drssdz  = -sign[is]*rss/(3.0*opz);
 
     dk_GGAdrss = -k_GGA/rss;
-    dk_GGAdxs  = -k_GGA*e_dfdx/(2.0*e_f);
+    dk_GGAdxs  = -k_GGA*aux.dfdx/(2.0*aux.f);
 
     daadrss = -aa*dk_GGAdrss/k_GGA;
     daadxs  = -aa*dk_GGAdxs /k_GGA;
@@ -128,9 +130,9 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
     dexdrss = -ex/rss;
     dexdz   = sign[is]*ex/opz + dexdrss*drssdz; /* total derivative */
 
-    r->dfdrs    += e_f*(dexdrss*f_aa + ex*df_aa*daadrss)*drssdrs;
-    r->dfdz     += e_f*(dexdz*f_aa + ex*df_aa*daadrss*drssdz);
-    r->dfdxs[is] = ex*(e_dfdx*f_aa + e_f*df_aa*daadxs);
+    r->dfdrs    += aux.f*(dexdrss*f_aa + ex*df_aa*daadrss)*drssdrs;
+    r->dfdz     += aux.f*(dexdz*f_aa + ex*df_aa*daadrss*drssdz);
+    r->dfdxs[is] = ex*(aux.dfdx*f_aa + aux.f*df_aa*daadxs);
 
     if(r->order < 2) continue;
 
@@ -141,7 +143,7 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
 
     d2k_GGAdrss2  = -2.0*dk_GGAdrss/rss;
     d2k_GGAdrssxs = -dk_GGAdxs/rss;
-    d2k_GGAdxs2   = -k_GGA/(2.0*e_f) * (e_d2fdx2 - 3.0*e_dfdx*e_dfdx/(2.0*e_f));
+    d2k_GGAdxs2   = -k_GGA/(2.0*aux.f) * (aux.d2fdx2 - 3.0*aux.dfdx*aux.dfdx/(2.0*aux.f));
 
     d2aadrss2  = -aa/k_GGA * (d2k_GGAdrss2  - 2.0*dk_GGAdrss*dk_GGAdrss/k_GGA);
     d2aadrssxs = -aa/k_GGA * (d2k_GGAdrssxs - 2.0*dk_GGAdrss*dk_GGAdxs /k_GGA);
@@ -151,24 +153,24 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
     d2exdrssz  = -dexdz/rss + ex*drssdz/(rss*rss); /* total derivative */
     d2exdz2    = sign[is]*dexdrss*drssdz/opz + d2exdrssz*drssdz + dexdrss*d2rssdz2; /* total derivative */
 
-    r->d2fdrs2 += e_f*(d2exdrss2*f_aa + 2.0*dexdrss*df_aa*daadrss + 
+    r->d2fdrs2 += aux.f*(d2exdrss2*f_aa + 2.0*dexdrss*df_aa*daadrss + 
 		       ex*d2f_aa*daadrss*daadrss + ex*df_aa*d2aadrss2)*drssdrs*drssdrs;
 
-    r->d2fdrsz += e_f*((d2exdrssz*f_aa + dexdz*df_aa*daadrss + 
+    r->d2fdrsz += aux.f*((d2exdrssz*f_aa + dexdz*df_aa*daadrss + 
 			dexdrss*df_aa*daadrss*drssdz + ex*d2f_aa*daadrss*daadrss*drssdz)*drssdrs + 
 		       (dexdrss*f_aa + ex*df_aa*daadrss)*d2rssdrsz);
 
-    r->d2fdz2  += e_f*(d2exdz2*f_aa + 2.0*dexdz*df_aa*daadrss*drssdz + ex*df_aa*daadrss*d2rssdz2 +
+    r->d2fdz2  += aux.f*(d2exdz2*f_aa + 2.0*dexdz*df_aa*daadrss*drssdz + ex*df_aa*daadrss*d2rssdz2 +
 		       ex*(d2f_aa*daadrss*daadrss + df_aa*d2aadrss2)*drssdz*drssdz);
 
-    r->d2fdrsxs[is] = e_dfdx*(dexdrss*f_aa + ex*df_aa*daadrss)*drssdrs +
-      e_f*(dexdrss*df_aa*daadxs + ex*d2f_aa*daadrss*daadxs + ex*df_aa*d2aadrssxs)*drssdrs;
+    r->d2fdrsxs[is] = aux.dfdx*(dexdrss*f_aa + ex*df_aa*daadrss)*drssdrs +
+      aux.f*(dexdrss*df_aa*daadxs + ex*d2f_aa*daadrss*daadxs + ex*df_aa*d2aadrssxs)*drssdrs;
 
-    r->d2fdzxs[is]  = e_dfdx*(dexdz*f_aa + ex*df_aa*daadrss*drssdz) +
-      e_f*(dexdz*df_aa*daadxs + ex*(d2f_aa*daadrss*daadxs + df_aa*d2aadrssxs)*drssdz);
+    r->d2fdzxs[is]  = aux.dfdx*(dexdz*f_aa + ex*df_aa*daadrss*drssdz) +
+      aux.f*(dexdz*df_aa*daadxs + ex*(d2f_aa*daadrss*daadxs + df_aa*d2aadrssxs)*drssdz);
 
-    r->d2fdxs2[js] = ex*(e_d2fdx2*f_aa + 2.0*e_dfdx*df_aa*daadxs +
-			 e_f*d2f_aa*daadxs*daadxs + e_f*df_aa*d2aadxs2);
+    r->d2fdxs2[js] = ex*(aux.d2fdx2*f_aa + 2.0*aux.dfdx*df_aa*daadxs +
+			 aux.f*d2f_aa*daadxs*daadxs + aux.f*df_aa*d2aadxs2);
   }
 }
 

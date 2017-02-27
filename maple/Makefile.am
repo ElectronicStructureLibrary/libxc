@@ -19,7 +19,7 @@ dist_noinst_SCRIPTS = \
   gga_k_ol1.mpl gga_k_ol2.mpl gga_k_pearson.mpl gga_k_tflw.mpl              \
   gga_x_2d_b86.mpl gga_x_2d_b86_mgc.mpl gga_x_2d_b88.mpl gga_x_2d_pbe.mpl   \
   gga_x_bpccac.mpl gga_x_vmt84.mpl gga_x_vmt.mpl gga_x_hjs_b88_v2.mpl       \
-  gga_x_hjs.mpl \
+  gga_x_hjs.mpl gga_x_n12.mpl \
   gga_c_wi.mpl gga_c_wl.mpl gga_c_lm.mpl gga_c_p86.mpl gga_c_am05.mpl       \
   gga_c_revtca.mpl gga_c_tca.mpl gga_c_bcgp.mpl gga_c_zpbeint.mpl           \
   gga_c_pbe.mpl gga_c_pbeloc.mpl gga_c_sg4.mpl gga_c_regtpss.mpl            \

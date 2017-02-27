@@ -49,12 +49,6 @@ work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
 
     if(r.dens < p->info->min_dens) goto end_ip_loop;
     
-    /* there are lots of derivatives that involve inverse
-       powers of (1 +- z). For these not to give NaN, we
-       must have abs(1 +- z) > DBL_EPSILON                       */
-    if(1.0 + r.z < DBL_EPSILON) r.z = -1.0 + DBL_EPSILON;
-    if(1.0 - r.z < DBL_EPSILON) r.z =  1.0 - DBL_EPSILON;
-
     r.rs = RS(r.dens);
     if(p->nspin == XC_UNPOLARIZED){
       r.ds[0]  = r.dens/2.0;
@@ -70,6 +64,12 @@ work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
       r.xs[0]  = CBRT(2.0)*r.xt;
       r.xs[1]  = r.xs[0];
     }else{
+      /* there are lots of derivatives that involve inverse
+         powers of (1 +- z). For these not to give NaN, we
+         must have abs(1 +- z) > DBL_EPSILON                 */
+      if(1.0 + r.z < DBL_EPSILON) r.z = -1.0 + DBL_EPSILON;
+      if(1.0 - r.z < DBL_EPSILON) r.z =  1.0 - DBL_EPSILON;
+
       r.ds[0]  = max(p->info->min_dens, rho[0]);
       r.ds[1]  = max(p->info->min_dens, rho[1]);
       

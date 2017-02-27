@@ -81,84 +81,9 @@ gga_x_n12_init(XC(func_type) *p)
   }
 }
 
+#include "maple2c/gga_x_n12.c"
 
-static void 
-func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
-{
-  gga_x_n12_params *params;
-
-  int is;
-  const FLOAT sign[2] = {1.0, -1.0}, omega_x=2.5, gamma_x=0.004;
-
-  FLOAT opz, opz13, rss, x2;
-  FLOAT vx, vx2, vx3, ux_d, ux, ux2, ux3;
-  FLOAT pol1, pol2, pol3, pol4;
-  FLOAT ex, FN12;
-
-  FLOAT drssdrs, drssdz, dvxdrss, duxdxs;
-  FLOAT dpol1, dpol2, dpol3, dpol4;
-  FLOAT dexdz, dexdrss, dFN12dux, dFN12dvx;
-
-  assert(pt != NULL && pt->params != NULL);
-  params = (gga_x_n12_params *) (pt->params);
-
-  r->f = 0.0;
-  if(r->order >= 1)
-    r->dfdrs = r->dfdz = r->dfdxt = r->dfdxs[0] = r->dfdxs[1] = 0.0;
-
-  /* now the spin-resolved part */
-  for(is = 0; is < 2; is++){
-    opz   = 1.0 + sign[is]*r->z;
-    if(opz < pt->info->min_zeta) continue;
-
-    opz13 = CBRT(opz);
-    rss   = r->rs*M_CBRT2/opz13;
-    x2    = r->xs[is]*r->xs[is];
-
-    vx    = 1.0/(1.0 + (1.0/(RS_FACTOR*omega_x))*rss);
-
-    ux_d  = 1.0/(1.0 + gamma_x*x2);
-    ux    = gamma_x*x2*ux_d;
-
-    vx2 = vx*vx; vx3 = vx2*vx;
-    ux2 = ux*ux; ux3 = ux2*ux;
-
-    pol1 = params->CC[0][0] + params->CC[0][1]*ux + params->CC[0][2]*ux2 + params->CC[0][3]*ux3;
-    pol2 = params->CC[1][0] + params->CC[1][1]*ux + params->CC[1][2]*ux2 + params->CC[1][3]*ux3;
-    pol3 = params->CC[2][0] + params->CC[2][1]*ux + params->CC[2][2]*ux2 + params->CC[2][3]*ux3;
-    pol4 = params->CC[3][0] + params->CC[3][1]*ux + params->CC[3][2]*ux2 + params->CC[3][3]*ux3;
-
-    FN12 = pol1 + vx*pol2 + vx2*pol3 + vx3*pol4;
-
-    ex    = -X_FACTOR_C*RS_FACTOR*opz/(2.0*rss);
-    r->f += ex*FN12;
-
-    if(r->order < 1) continue;
-
-    drssdrs = M_CBRT2/opz13;
-    drssdz  = -sign[is]*rss/(3.0*opz);
-
-    dvxdrss = -vx*vx/(RS_FACTOR*omega_x);
-    duxdxs  = 2.0*gamma_x*r->xs[is]*ux_d*ux_d;
-
-    dpol1 = params->CC[0][1] + 2.0*params->CC[0][2]*ux + 3.0*params->CC[0][3]*ux2;
-    dpol2 = params->CC[1][1] + 2.0*params->CC[1][2]*ux + 3.0*params->CC[1][3]*ux2;
-    dpol3 = params->CC[2][1] + 2.0*params->CC[2][2]*ux + 3.0*params->CC[2][3]*ux2;
-    dpol4 = params->CC[3][1] + 2.0*params->CC[3][2]*ux + 3.0*params->CC[3][3]*ux2;
-
-    dFN12dux = dpol1 + vx*dpol2 + vx2*dpol3 + vx3*dpol4;
-    dFN12dvx = pol2 + 2.0*vx*pol3 + 3.0*vx2*pol4;
-
-    dexdrss = -ex/rss;
-    dexdz   = sign[is]*ex/opz;
-
-    r->dfdrs    += (dexdrss*FN12 + ex*dFN12dvx*dvxdrss)*drssdrs;
-    r->dfdz     += dexdz*FN12 + (dexdrss*FN12 + ex*dFN12dvx*dvxdrss)*drssdz;
-    r->dfdxs[is] = ex*dFN12dux*duxdxs;
-  }
-}
-
-
+#define func maple2c_func
 #include "work_gga_c.c"
 
 

@@ -7,8 +7,7 @@
 */
 
 void XC(gga_k_ol2_enhance)
-  (const XC(func_type) *p, int order, 
-   FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+  (const XC(func_type) *p,  XC(gga_work_x_t) *r)
 {
   double t1, t4, t6, t7, t12, t13, t20, t25;
 
@@ -17,29 +16,29 @@ void XC(gga_k_ol2_enhance)
   assert(p->params != NULL);
   params = (gga_k_ol2_params * )(p->params);
 
-  t1 = x * x;
-  t4 = params->cc * x;
-  t6 = 0.12599210498948731648e1 + 0.40e1 * x;
+  t1 = r->x * r->x;
+  t4 = params->cc * r->x;
+  t6 = 0.12599210498948731648e1 + 0.40e1 * r->x;
   t7 = 0.1e1 / t6;
-  *f = params->aa + 0.13888888888888888889e-1 * params->bb * t1 + t4 * t7;
+  r->f = params->aa + 0.13888888888888888889e-1 * params->bb * t1 + t4 * t7;
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
   t12 = t6 * t6;
   t13 = 0.1e1 / t12;
-  *dfdx = 0.27777777777777777778e-1 * params->bb * x + params->cc * t7 - 0.40e1 * t4 * t13;
+  r->dfdx = 0.27777777777777777778e-1 * params->bb * r->x + params->cc * t7 - 0.40e1 * t4 * t13;
 
-  if(order < 2) return;
+  if(r->order < 2) return;
 
   t20 = 0.1e1 / t12 / t6;
-  *d2fdx2 = 0.27777777777777777778e-1 * params->bb - 0.80e1 * params->cc * t13 + 0.3200e2 * t4 * t20;
+  r->d2fdx2 = 0.27777777777777777778e-1 * params->bb - 0.80e1 * params->cc * t13 + 0.3200e2 * t4 * t20;
 
-  if(order < 3) return;
+  if(r->order < 3) return;
 
   t25 = t12 * t12;
-  *d3fdx3 = 0.9600e2 * params->cc * t20 - 0.384000e3 * t4 / t25;
+  r->d3fdx3 = 0.9600e2 * params->cc * t20 - 0.384000e3 * t4 / t25;
 
-  if(order < 4) return;
+  if(r->order < 4) return;
 
 
 }

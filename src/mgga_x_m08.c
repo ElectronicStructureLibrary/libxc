@@ -134,9 +134,9 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 {
   const FLOAT sign[2] = {1.0, -1.0};
   mgga_x_m08_params *params;
+  XC(gga_work_x_t) auxp, auxr;
 
   int is;
-  FLOAT ep_f, ep_dfdx, ep_d2fdx2, er_f, er_dfdx, er_d2fdx2;
   FLOAT fw1, fw2, fw3, fw4, dfw1dt, dfw2dt, dfw3dt, dfw4dt;
   FLOAT cnst_rs, opz, opz13, rss, ex, drssdrs, drssdz, dexdrss, dexdz;
   FLOAT a_cnst, f_aa, df_aa;
@@ -157,8 +157,13 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
     opz13 = CBRT(opz);
     rss   = r->rs*M_CBRT2/opz13;
 
-    XC(gga_x_pbe_enhance) (pt->func_aux[0], r->order, r->xs[is], &ep_f, &ep_dfdx, &ep_d2fdx2, NULL);
-    XC(gga_x_rpbe_enhance)(pt->func_aux[1], r->order, r->xs[is], &er_f, &er_dfdx, &er_d2fdx2, NULL);
+    auxp.order = r->order;
+    auxp.x     = r->xs[is];
+    XC(gga_x_pbe_enhance) (pt->func_aux[0], &auxp);
+
+    auxr.order = r->order;
+    auxr.x     = r->xs[is];
+    XC(gga_x_rpbe_enhance)(pt->func_aux[1], &auxr);
   
     XC(mgga_series_w)(r->order, 12, params->a, r->ts[is], &fw1, &dfw1dt);
     XC(mgga_series_w)(r->order, 12, params->b, r->ts[is], &fw2, &dfw2dt);
@@ -179,10 +184,10 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
     }
 
     ex    = -X_FACTOR_C*opz/(2.0*cnst_rs*rss);
-    r->f += ex*f_aa*(ep_f*fw1 + er_f*fw2);
+    r->f += ex*f_aa*(auxp.f*fw1 + auxr.f*fw2);
 
     if(pt->info->number == XC_MGGA_X_M11_L){
-      r->f += ex*(1.0 - f_aa)*(ep_f*fw3 + er_f*fw4);
+      r->f += ex*(1.0 - f_aa)*(auxp.f*fw3 + auxr.f*fw4);
     }
 
     if(r->order < 1) continue;
@@ -193,16 +198,16 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
     dexdrss = -ex/rss;
     dexdz   = sign[is]*ex/opz;
 
-    r->dfdrs    += (dexdrss*f_aa + ex*df_aa)*drssdrs*(ep_f*fw1 + er_f*fw2);
-    r->dfdz     += (dexdz*f_aa + (dexdrss*f_aa + ex*df_aa)*drssdz) *(ep_f*fw1 + er_f*fw2);
-    r->dfdxs[is] = ex*f_aa*(ep_dfdx*fw1 + er_dfdx*fw2);
-    r->dfdts[is] = ex*f_aa*(ep_f*dfw1dt + er_f*dfw2dt);
+    r->dfdrs    += (dexdrss*f_aa + ex*df_aa)*drssdrs*(auxp.f*fw1 + auxr.f*fw2);
+    r->dfdz     += (dexdz*f_aa + (dexdrss*f_aa + ex*df_aa)*drssdz) *(auxp.f*fw1 + auxr.f*fw2);
+    r->dfdxs[is] = ex*f_aa*(auxp.dfdx*fw1 + auxr.dfdx*fw2);
+    r->dfdts[is] = ex*f_aa*(auxp.f*dfw1dt + auxr.f*dfw2dt);
 
     if(pt->info->number == XC_MGGA_X_M11_L){
-      r->dfdrs     += (dexdrss*(1.0 - f_aa) - ex*df_aa)*drssdrs*(ep_f*fw3 + er_f*fw4);
-      r->dfdz      += (dexdz*(1.0 - f_aa) + (dexdrss*(1.0 - f_aa) - ex*df_aa)*drssdz) *(ep_f*fw3 + er_f*fw4);
-      r->dfdxs[is] += ex*(1.0 - f_aa)*(ep_dfdx*fw3 + er_dfdx*fw4);
-      r->dfdts[is] += ex*(1.0 - f_aa)*(ep_f*dfw3dt + er_f*dfw4dt);
+      r->dfdrs     += (dexdrss*(1.0 - f_aa) - ex*df_aa)*drssdrs*(auxp.f*fw3 + auxr.f*fw4);
+      r->dfdz      += (dexdz*(1.0 - f_aa) + (dexdrss*(1.0 - f_aa) - ex*df_aa)*drssdz) *(auxp.f*fw3 + auxr.f*fw4);
+      r->dfdxs[is] += ex*(1.0 - f_aa)*(auxp.dfdx*fw3 + auxr.dfdx*fw4);
+      r->dfdts[is] += ex*(1.0 - f_aa)*(auxp.f*dfw3dt + auxr.f*dfw4dt);
     }
 
 

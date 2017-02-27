@@ -7,8 +7,7 @@
 */
 
 void XC(gga_k_tflw_enhance)
-  (const XC(func_type) *p, int order, 
-   FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+  (const XC(func_type) *p,  XC(gga_work_x_t) *r)
 {
   double t1;
 
@@ -17,22 +16,22 @@ void XC(gga_k_tflw_enhance)
   assert(p->params != NULL);
   params = (gga_k_tflw_params * )(p->params);
 
-  t1 = x * x;
-  *f = params->gamma + 0.27425513076700929178e-1 * params->lambda * t1;
+  t1 = r->x * r->x;
+  r->f = params->gamma + 0.27425513076700929178e-1 * params->lambda * t1;
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
-  *dfdx = 0.54851026153401858356e-1 * params->lambda * x;
+  r->dfdx = 0.54851026153401858356e-1 * params->lambda * r->x;
 
-  if(order < 2) return;
+  if(r->order < 2) return;
 
-  *d2fdx2 = 0.54851026153401858356e-1 * params->lambda;
+  r->d2fdx2 = 0.54851026153401858356e-1 * params->lambda;
 
-  if(order < 3) return;
+  if(r->order < 3) return;
 
-  *d3fdx3 = 0;
+  r->d3fdx3 = 0;
 
-  if(order < 4) return;
+  if(r->order < 4) return;
 
 
 }

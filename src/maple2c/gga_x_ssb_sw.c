@@ -7,8 +7,7 @@
 */
 
 void XC(gga_x_ssb_sw_enhance)
-  (const XC(func_type) *p, int order, 
-   FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+  (const XC(func_type) *p,  XC(gga_work_x_t) *r)
 {
   double t1, t2, t5, t6, t10, t13, t14, t20;
   double t21, t22, t23, t24, t30, t32, t33, t34;
@@ -19,44 +18,44 @@ void XC(gga_x_ssb_sw_enhance)
   assert(p->params != NULL);
   params = (gga_x_ssb_sw_params * )(p->params);
 
-  t1 = x * x;
+  t1 = r->x * r->x;
   t2 = params->B * t1;
   t5 = 0.10e1 + 0.16455307846020557507e-1 * params->C * t1;
   t6 = 0.1e1 / t5;
   t10 = t1 * t1;
   t13 = 0.10e1 + 0.27077715630730571993e-3 * params->E * t10;
   t14 = 0.1e1 / t13;
-  *f = params->A + 0.16455307846020557507e-1 * t2 * t6 - 0.16455307846020557507e-1 * params->D * t1 * t14;
+  r->f = params->A + 0.16455307846020557507e-1 * t2 * t6 - 0.16455307846020557507e-1 * params->D * t1 * t14;
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
-  t20 = t1 * x;
+  t20 = t1 * r->x;
   t21 = params->B * t20;
   t22 = t5 * t5;
   t23 = 0.1e1 / t22;
   t24 = t23 * params->C;
-  t30 = t10 * x;
+  t30 = t10 * r->x;
   t32 = t13 * t13;
   t33 = 0.1e1 / t32;
   t34 = t33 * params->E;
-  *dfdx = 0.32910615692041115014e-1 * params->B * x * t6 - 0.54155431261461143986e-3 * t21 * t24 - 0.32910615692041115014e-1 * params->D * x * t14 + 0.17822885858826970814e-4 * params->D * t30 * t34;
+  r->dfdx = 0.32910615692041115014e-1 * params->B * r->x * t6 - 0.54155431261461143986e-3 * t21 * t24 - 0.32910615692041115014e-1 * params->D * r->x * t14 + 0.17822885858826970814e-4 * params->D * t30 * t34;
 
-  if(order < 2) return;
+  if(r->order < 2) return;
 
   t44 = params->C * params->C;
   t45 = 0.1e1 / t22 / t5 * t44;
   t53 = t10 * t10;
   t57 = params->E * params->E;
   t58 = 0.1e1 / t32 / t13 * t57;
-  *d2fdx2 = 0.32910615692041115014e-1 * params->B * t6 - 0.27077715630730571993e-2 * t2 * t24 + 0.35645771717653941629e-4 * params->B * t10 * t45 - 0.32910615692041115014e-1 * params->D * t14 + 0.12476020101178879570e-3 * params->D * t10 * t34 - 0.38608242800342875385e-7 * params->D * t53 * t58;
+  r->d2fdx2 = 0.32910615692041115014e-1 * params->B * t6 - 0.27077715630730571993e-2 * t2 * t24 + 0.35645771717653941629e-4 * params->B * t10 * t45 - 0.32910615692041115014e-1 * params->D * t14 + 0.12476020101178879570e-3 * params->D * t10 * t34 - 0.38608242800342875385e-7 * params->D * t53 * t58;
 
-  if(order < 3) return;
+  if(r->order < 3) return;
 
   t68 = t22 * t22;
   t84 = t32 * t32;
-  *d3fdx3 = -0.64986517513753372783e-2 * params->B * t23 * params->C * x + 0.32081194545888547466e-3 * t21 * t45 - 0.35193728821378115436e-5 * params->B * t30 / t68 * t44 * params->C + 0.53468657576480912443e-3 * params->D * t33 * params->E * t20 - 0.57912364200514313078e-6 * params->D * t10 * t20 * t58 + 0.12545076234598624164e-9 * params->D * t53 * t20 / t84 * t57 * params->E;
+  r->d3fdx3 = -0.64986517513753372783e-2 * params->B * t23 * params->C * r->x + 0.32081194545888547466e-3 * t21 * t45 - 0.35193728821378115436e-5 * params->B * t30 / t68 * t44 * params->C + 0.53468657576480912443e-3 * params->D * t33 * params->E * t20 - 0.57912364200514313078e-6 * params->D * t10 * t20 * t58 + 0.12545076234598624164e-9 * params->D * t53 * t20 / t84 * t57 * params->E;
 
-  if(order < 4) return;
+  if(r->order < 4) return;
 
 
 }

@@ -75,7 +75,7 @@ sub math_replace {
 }
 
 sub math_work {
-  my ($info, $out, $order, $text_order) = @_;
+  my ($info, $out, $order) = @_;
 
   my $i = 0;
   my $cmd = "[";
@@ -103,7 +103,7 @@ interface(warnlevel=0):   (* supress all warnings          *)
 \$include <$functional.mpl>
 
 with(CodeGeneration):
-  C($cmd, optimize, defaulttype=numeric, precision=double, resultname=result_f);
+  C($cmd, optimize, defaulttype=numeric, precision=double, declare=[r_x::double]);
 ";
   close($mfile);
 
@@ -121,7 +121,7 @@ with(CodeGeneration):
     my $i = 1;
     foreach my $ninfo (@{$info}){
       if(/@{@{$ninfo}[-1]}[0]\s+=/){
-        $new_c_code .= "  ".$_."\n  if($text_order < $i) return;\n\n";
+        $new_c_code .= "  ".$_."\n  if(r->order < $i) return;\n\n";
         $found = 1;
       }
       $i++;
@@ -152,9 +152,9 @@ sub work_lda {
   ($order, $prefix) = @_;
 
   for(my $ispin=0; $ispin<2; $ispin++){
-    my $info = do "$srcdir/scripts/maple2c_work_lda_".$ispin."_info.pl";
+    my $info = do "$srcdir/scripts/maple2c_info/work_lda_".$ispin.".pl";
 
-    ($variables, $c_code) = math_work($info, $out, $order, "r->order");
+    ($variables, $c_code) = math_work($info, $out, $order);
 
     print $out "
 static void
@@ -186,21 +186,14 @@ XC(${functional}_func)(const XC(func_type) *p, XC(lda_work_t) *r)
 sub work_gga_x {
   ($order, $prefix) = @_;
 
-  my $info = [
-    [['_s_f',      'f(x)']], 
-    [['_s_dfdx',   'diff(f(x),x)']], 
-    [['_s_d2fdx2', 'diff(f(x),x$2)']], 
-    [['_s_d3fdx3', 'diff(f(x),x$3)']],
-    [['_s_d4fdx4', 'diff(f(x),x$4)']]
-  ];
+  my $info = do "$srcdir/scripts/maple2c_info/work_gga_x.pl";
 
   ($variables, $c_code) = math_work($info, $out, $order, "order");
 
   # now we print the c file
   print $out "
 void XC(${functional}_enhance)
-  (const XC(func_type) *p, int order, 
-   FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+  (const XC(func_type) *p,  XC(gga_work_x_t) *r)
 {
 $variables
 $prefix
@@ -215,9 +208,9 @@ $c_code
 sub work_gga_c {
   ($order, $prefix) = @_;
 
-  my $info =  do "$srcdir/scripts/maple2c_work_gga_c_info.pl";
+  my $info = do "$srcdir/scripts/maple2c_info/work_gga_c.pl";
 
-  ($variables, $c_code) = math_work($info, $out, $order, "r->order");
+  ($variables, $c_code) = math_work($info, $out, $order);
 
   print $out "
 void XC(${functional}_func)
@@ -259,7 +252,7 @@ sub work_mgga_x {
     ], 
   ];
 
-  ($variables, $c_code) = math_work($info, $out, $order, "r->order");
+  ($variables, $c_code) = math_work($info, $out, $order);
 
   # now we print the c file
   print $out "

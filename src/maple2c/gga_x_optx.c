@@ -7,8 +7,7 @@
 */
 
 void XC(gga_x_optx_enhance)
-  (const XC(func_type) *p, int order, 
-   FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+  (const XC(func_type) *p,  XC(gga_work_x_t) *r)
 {
   double t1, t2, t3, t4, t6, t7, t8, t11;
   double t15, t16, t18, t28, t29, t31, t32;
@@ -20,34 +19,34 @@ void XC(gga_x_optx_enhance)
 
   t1 = params->gamma * params->gamma;
   t2 = params->b * t1;
-  t3 = x * x;
+  t3 = r->x * r->x;
   t4 = t3 * t3;
   t6 = 0.10e1 + params->gamma * t3;
   t7 = t6 * t6;
   t8 = 0.1e1 / t7;
-  *f = t2 * t4 * t8 + params->a;
+  r->f = t2 * t4 * t8 + params->a;
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
-  t11 = t3 * x;
+  t11 = t3 * r->x;
   t15 = params->b * t1 * params->gamma;
-  t16 = t4 * x;
+  t16 = t4 * r->x;
   t18 = 0.1e1 / t7 / t6;
-  *dfdx = 0.4e1 * t2 * t11 * t8 - 0.4e1 * t15 * t16 * t18;
+  r->dfdx = 0.4e1 * t2 * t11 * t8 - 0.4e1 * t15 * t16 * t18;
 
-  if(order < 2) return;
+  if(r->order < 2) return;
 
   t28 = t1 * t1;
   t29 = params->b * t28;
   t31 = t7 * t7;
   t32 = 0.1e1 / t31;
-  *d2fdx2 = 0.24e2 * t29 * t4 * t3 * t32 - 0.36e2 * t15 * t4 * t18 + 0.12e2 * t2 * t3 * t8;
+  r->d2fdx2 = 0.24e2 * t29 * t4 * t3 * t32 - 0.36e2 * t15 * t4 * t18 + 0.12e2 * t2 * t3 * t8;
 
-  if(order < 3) return;
+  if(r->order < 3) return;
 
-  *d3fdx3 = 0.24e2 * t2 * x * t8 - 0.192e3 * t15 * t11 * t18 + 0.360e3 * t29 * t16 * t32 - 0.192e3 * params->b * t28 * params->gamma * t4 * t11 / t31 / t6;
+  r->d3fdx3 = 0.24e2 * t2 * r->x * t8 - 0.192e3 * t15 * t11 * t18 + 0.360e3 * t29 * t16 * t32 - 0.192e3 * params->b * t28 * params->gamma * t4 * t11 / t31 / t6;
 
-  if(order < 4) return;
+  if(r->order < 4) return;
 
 
 }

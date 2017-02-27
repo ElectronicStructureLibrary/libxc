@@ -7,8 +7,7 @@
 */
 
 void XC(gga_x_pw86_enhance)
-  (const XC(func_type) *p, int order, 
-   FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+  (const XC(func_type) *p,  XC(gga_work_x_t) *r)
 {
   double t1, t4, t10, t11, t14, t20, t22, t23;
   double t31, t34;
@@ -18,31 +17,31 @@ void XC(gga_x_pw86_enhance)
   assert(p->params != NULL);
   params = (gga_x_pw86_params * )(p->params);
 
-  t1 = x * x;
+  t1 = r->x * r->x;
   t4 = t1 * t1;
   t10 = 0.10e1 + 0.16455307846020557507e-1 * params->aa * t1 + 0.27077715630730571993e-3 * params->bb * t4 + 0.44557214647067427036e-5 * params->cc * t4 * t1;
-  *f = pow(t10, 0.66666666666666666667e-1);
+  r->f = pow(t10, 0.66666666666666666667e-1);
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
   t11 = pow(t10, -0.93333333333333333333e0);
-  t14 = t1 * x;
-  t20 = 0.32910615692041115014e-1 * params->aa * x + 0.10831086252292228797e-2 * params->bb * t14 + 0.26734328788240456222e-4 * params->cc * t4 * x;
-  *dfdx = 0.66666666666666666667e-1 * t11 * t20;
+  t14 = t1 * r->x;
+  t20 = 0.32910615692041115014e-1 * params->aa * r->x + 0.10831086252292228797e-2 * params->bb * t14 + 0.26734328788240456222e-4 * params->cc * t4 * r->x;
+  r->dfdx = 0.66666666666666666667e-1 * t11 * t20;
 
-  if(order < 2) return;
+  if(r->order < 2) return;
 
   t22 = pow(t10, -0.19333333333333333333e1);
   t23 = t20 * t20;
   t31 = 0.32910615692041115014e-1 * params->aa + 0.32493258756876686391e-2 * params->bb * t1 + 0.13367164394120228111e-3 * params->cc * t4;
-  *d2fdx2 = -0.62222222222222222222e-1 * t22 * t23 + 0.66666666666666666667e-1 * t11 * t31;
+  r->d2fdx2 = -0.62222222222222222222e-1 * t22 * t23 + 0.66666666666666666667e-1 * t11 * t31;
 
-  if(order < 3) return;
+  if(r->order < 3) return;
 
   t34 = pow(t10, -0.29333333333333333333e1);
-  *d3fdx3 = 0.12029629629629629629e0 * t34 * t23 * t20 - 0.18666666666666666666e0 * t22 * t20 * t31 + 0.66666666666666666667e-1 * t11 * (0.64986517513753372782e-2 * params->bb * x + 0.53468657576480912444e-3 * params->cc * t14);
+  r->d3fdx3 = 0.12029629629629629629e0 * t34 * t23 * t20 - 0.18666666666666666666e0 * t22 * t20 * t31 + 0.66666666666666666667e-1 * t11 * (0.64986517513753372782e-2 * params->bb * r->x + 0.53468657576480912444e-3 * params->cc * t14);
 
-  if(order < 4) return;
+  if(r->order < 4) return;
 
 
 }

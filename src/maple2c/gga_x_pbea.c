@@ -7,33 +7,32 @@
 */
 
 void XC(gga_x_pbea_enhance)
-  (const XC(func_type) *p, int order, 
-   FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+  (const XC(func_type) *p,  XC(gga_work_x_t) *r)
 {
   double t1, t3, t4, t6, t8, t12;
 
 
-  t1 = x * x;
+  t1 = r->x * r->x;
   t3 = 0.10e1 + 0.86399408095363255118e-2 * t1;
   t4 = pow(t3, -0.52e0);
-  *f = 0.180400e1 - 0.8040e0 * t4;
+  r->f = 0.180400e1 - 0.8040e0 * t4;
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
   t6 = pow(t3, -0.152e1);
-  *dfdx = 0.72243729073018939401e-2 * t6 * x;
+  r->dfdx = 0.72243729073018939401e-2 * t6 * r->x;
 
-  if(order < 2) return;
+  if(r->order < 2) return;
 
   t8 = pow(t3, -0.252e1);
-  *d2fdx2 = -0.18975118908752291802e-3 * t8 * t1 + 0.72243729073018939401e-2 * t6;
+  r->d2fdx2 = -0.18975118908752291802e-3 * t8 * t1 + 0.72243729073018939401e-2 * t6;
 
-  if(order < 3) return;
+  if(r->order < 3) return;
 
   t12 = pow(t3, -0.352e1);
-  *d3fdx3 = 0.82627727729668790042e-5 * t12 * t1 * x - 0.56925356726256875406e-3 * t8 * x;
+  r->d3fdx3 = 0.82627727729668790042e-5 * t12 * t1 * r->x - 0.56925356726256875406e-3 * t8 * r->x;
 
-  if(order < 4) return;
+  if(r->order < 4) return;
 
 
 }

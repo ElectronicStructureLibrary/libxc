@@ -7,28 +7,27 @@
 */
 
 void XC(gga_k_ol1_enhance)
-  (const XC(func_type) *p, int order, 
-   FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+  (const XC(func_type) *p,  XC(gga_work_x_t) *r)
 {
   double t1;
 
 
-  t1 = x * x;
-  *f = 0.10e1 + 0.19196656238612559905e-2 * t1 + 0.11789356074002097938e-2 * x;
+  t1 = r->x * r->x;
+  r->f = 0.10e1 + 0.19196656238612559905e-2 * t1 + 0.11789356074002097938e-2 * r->x;
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
-  *dfdx = 0.38393312477225119810e-2 * x + 0.11789356074002097938e-2;
+  r->dfdx = 0.38393312477225119810e-2 * r->x + 0.11789356074002097938e-2;
 
-  if(order < 2) return;
+  if(r->order < 2) return;
 
-  *d2fdx2 = 0.38393312477225119810e-2;
+  r->d2fdx2 = 0.38393312477225119810e-2;
 
-  if(order < 3) return;
+  if(r->order < 3) return;
 
-  *d3fdx3 = 0;
+  r->d3fdx3 = 0;
 
-  if(order < 4) return;
+  if(r->order < 4) return;
 
 
 }

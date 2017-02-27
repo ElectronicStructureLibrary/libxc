@@ -7,8 +7,7 @@
 */
 
 void XC(gga_k_dk_enhance)
-  (const XC(func_type) *p, int order, 
-   FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+  (const XC(func_type) *p,  XC(gga_work_x_t) *r)
 {
   double t3, t4, t7, t8, t11, t12, t15, t16;
   double t19, t22, t25, t28, t31, t34, t35, t38;
@@ -21,7 +20,7 @@ void XC(gga_k_dk_enhance)
   params = (gga_k_dk_params * )(p->params);
 
   t3 = params->aa[1];
-  t4 = x * x;
+  t4 = r->x * r->x;
   t7 = params->aa[2];
   t8 = t4 * t4;
   t11 = params->aa[3];
@@ -35,21 +34,21 @@ void XC(gga_k_dk_enhance)
   t31 = params->bb[4];
   t34 = 0.10e1 * params->bb[0] + 0.10e1 * t22 * t4 + 0.10e1 * t25 * t8 + 0.10e1 * t28 * t12 + 0.10e1 * t31 * t16;
   t35 = 0.1e1 / t34;
-  *f = t19 * t35;
+  r->f = t19 * t35;
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
-  t38 = t4 * x;
-  t41 = t8 * x;
+  t38 = t4 * r->x;
+  t41 = t8 * r->x;
   t44 = t8 * t38;
-  t47 = 0.20e1 * t3 * x + 0.40e1 * t7 * t38 + 0.60e1 * t11 * t41 + 0.80e1 * t15 * t44;
+  t47 = 0.20e1 * t3 * r->x + 0.40e1 * t7 * t38 + 0.60e1 * t11 * t41 + 0.80e1 * t15 * t44;
   t49 = t34 * t34;
   t50 = 0.1e1 / t49;
   t51 = t19 * t50;
-  t60 = 0.20e1 * t22 * x + 0.40e1 * t25 * t38 + 0.60e1 * t28 * t41 + 0.80e1 * t31 * t44;
-  *dfdx = t47 * t35 - t51 * t60;
+  t60 = 0.20e1 * t22 * r->x + 0.40e1 * t25 * t38 + 0.60e1 * t28 * t41 + 0.80e1 * t31 * t44;
+  r->dfdx = t47 * t35 - t51 * t60;
 
-  if(order < 2) return;
+  if(r->order < 2) return;
 
   t69 = 0.20e1 * t3 + 0.120e2 * t7 * t4 + 0.300e2 * t11 * t8 + 0.560e2 * t15 * t12;
   t71 = t47 * t50;
@@ -57,14 +56,14 @@ void XC(gga_k_dk_enhance)
   t76 = t19 * t75;
   t77 = t60 * t60;
   t87 = 0.20e1 * t22 + 0.120e2 * t25 * t4 + 0.300e2 * t28 * t8 + 0.560e2 * t31 * t12;
-  *d2fdx2 = t69 * t35 - t51 * t87 - 0.2e1 * t71 * t60 + 0.2e1 * t76 * t77;
+  r->d2fdx2 = t69 * t35 - t51 * t87 - 0.2e1 * t71 * t60 + 0.2e1 * t76 * t77;
 
-  if(order < 3) return;
+  if(r->order < 3) return;
 
   t105 = t49 * t49;
-  *d3fdx3 = (0.240e2 * t7 * x + 0.1200e3 * t11 * t38 + 0.3360e3 * t15 * t41) * t35 - 0.3e1 * t69 * t50 * t60 + 0.6e1 * t47 * t75 * t77 - 0.3e1 * t71 * t87 - 0.6e1 * t19 / t105 * t77 * t60 + 0.6e1 * t76 * t60 * t87 - t51 * (0.240e2 * t25 * x + 0.1200e3 * t28 * t38 + 0.3360e3 * t31 * t41);
+  r->d3fdx3 = (0.240e2 * t7 * r->x + 0.1200e3 * t11 * t38 + 0.3360e3 * t15 * t41) * t35 - 0.3e1 * t69 * t50 * t60 + 0.6e1 * t47 * t75 * t77 - 0.3e1 * t71 * t87 - 0.6e1 * t19 / t105 * t77 * t60 + 0.6e1 * t76 * t60 * t87 - t51 * (0.240e2 * t25 * r->x + 0.1200e3 * t28 * t38 + 0.3360e3 * t31 * t41);
 
-  if(order < 4) return;
+  if(r->order < 4) return;
 
 
 }

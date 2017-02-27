@@ -72,7 +72,8 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
      FLOAT *f, FLOAT *dfdx, FLOAT *lvrho)
 {
   gga_x_ityh_params *params;
-  FLOAT e_f, e_dfdx, e_d2fdx2;
+  XC(gga_work_x_t) aux;
+
   FLOAT k_GGA, K_GGA, aa, f_aa, df_aa, d2f_aa, d3f_aa;
   FLOAT dk_GGAdr, dk_GGAdx, daadr, daadx;
 
@@ -80,27 +81,29 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
   params = (gga_x_ityh_params *) (p->params);
 
   /* call enhancement factor */
-  params->enhancement_factor(p->func_aux[0], order, x, &e_f, &e_dfdx, &e_d2fdx2, NULL);
+  aux.x    = x;
+  aux.order = order;
+  params->enhancement_factor(p->func_aux[0], &aux);
 
-  K_GGA = 2.0*X_FACTOR_C*e_f;
+  K_GGA = 2.0*X_FACTOR_C*aux.f;
   k_GGA = SQRT(9.0*M_PI/K_GGA)*CBRT(ds);
 
   aa = p->cam_omega/(2.0*k_GGA);
 
   XC(lda_x_attenuation_function)(XC_RSF_ERF, order, aa, &f_aa, &df_aa, &d2f_aa, &d3f_aa);
 
-  *f = e_f*f_aa;
+  *f = aux.f*f_aa;
 
   if(order < 1) return;
 
   dk_GGAdr =  k_GGA/(3.0*ds);
-  dk_GGAdx = -k_GGA*e_dfdx/(2.0*e_f);
+  dk_GGAdx = -k_GGA*aux.dfdx/(2.0*aux.f);
 
   daadr   = -aa*dk_GGAdr/k_GGA;
   daadx   = -aa*dk_GGAdx/k_GGA;
 
-  *dfdx   = e_dfdx*f_aa + e_f*df_aa*daadx;
-  *lvrho  = e_f*df_aa*daadr; 
+  *dfdx   = aux.dfdx*f_aa + aux.f*df_aa*daadx;
+  *lvrho  = aux.f*df_aa*daadr; 
 }
 
 #include "work_gga_x.c"

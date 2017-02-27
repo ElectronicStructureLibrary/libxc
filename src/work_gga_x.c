@@ -43,8 +43,10 @@ work_gga_x
  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
  FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3)
 {
+  XC(gga_work_x_t) r;
+
   FLOAT sfact, sfact2, x_factor_c, alpha, beta, dens;
-  int is, is2, ip, order;
+  int is, is2, ip;
 
   /* constants for the evaluation of the different terms */
   FLOAT c_zk[1];
@@ -54,7 +56,7 @@ work_gga_x
 
   /* variables used inside the is loop */
   FLOAT gdm, ds, rhoLDA;
-  FLOAT x, f, dfdx, d2fdx2, d3fdx3, lvrho;
+  FLOAT lvrho;
 
   /* alpha is the power of rho in the corresponding LDA
      beta  is the power of rho in the expression for x */
@@ -80,17 +82,20 @@ work_gga_x
 
 #endif
 
+  /* Initialize memory */
+  memset(&r, 0, sizeof(r));
+
   sfact = (p->nspin == XC_POLARIZED) ? 1.0 : 2.0;
   sfact2 = sfact*sfact;
 
   /* Initialize several constants */
-  order = -1;
+  r.order = -1;
   if(zk     != NULL){
-    order = 0;
+    r.order = 0;
     c_zk[0] = sfact*x_factor_c;
   }
   if(vrho   != NULL){
-    order = 1;
+    r.order = 1;
     c_vrho[0]   =  x_factor_c*alpha;
     c_vrho[1]   = -x_factor_c*beta;
     c_vrho[2]   =  x_factor_c;
@@ -98,7 +103,7 @@ work_gga_x
     c_vsigma[1] =  sfact*x_factor_c;
   }
   if(v2rho2 != NULL){
-    order = 2;
+    r.order = 2;
     c_v2rho2[0] = (x_factor_c/sfact) * (alpha - 1.0)*alpha;
     c_v2rho2[1] = (x_factor_c/sfact) * beta*(beta - 2.0*alpha + 1.0);
     c_v2rho2[2] = (x_factor_c/sfact) * beta*beta;
@@ -110,7 +115,7 @@ work_gga_x
     c_v2sigma2[1] = x_factor_c*sfact;
   }
   if(v3rho3 != NULL){
-    order = 3;
+    r.order = 3;
     c_v3rho3[0] =  (x_factor_c/sfact2) * (alpha - 2.0)*(alpha - 1.0)*alpha;
     c_v3rho3[1] = -(x_factor_c/sfact2) * (3.0*alpha*alpha - 3.0*alpha*(2.0 + beta) + (1.0 + beta)*(2.0 + beta))*beta;
     c_v3rho3[2] = -(x_factor_c/sfact2) * 3.0*(1.0 - alpha + beta)*beta*beta;
@@ -125,29 +130,10 @@ work_gga_x
     c_v3sigma3[1] = -x_factor_c*sfact * 3.0/8.0;
     c_v3sigma3[2] =  x_factor_c*sfact /8.0;
   }
-  if(order < 0) return;
-
+  if(r.order < 0) return;
 
   /* the loop over the points starts */
   for(ip = 0; ip < np; ip++){
-#ifdef DEBUG
-      {
-        XC(gga_work_c_t) r;
-        FLOAT dens;
-
-        XC(rho2dzeta)(p->nspin, rho, &dens, &r.zeta);
-        r.rs    = RS(dens);
-        r.xt    = 0.0;
-        r.xs[0] = SQRT(sigma[0])/sfact/(pow(rho[0]/sfact, 4.0/3.0));
-        if(p->nspin == XC_POLARIZED)
-          r.xs[1] = SQRT(sigma[2])/sfact/(pow(rho[1]/sfact, 4.0/3.0));
-        else
-          r.xs[1] = r.xs[0];
-
-        maple2c_func(p, &r);
-        printf("NEW: %14.10lf\n", r.f);
-      }
-#endif
     dens = (p->nspin == XC_UNPOLARIZED) ? rho[0] : rho[0] + rho[1];
     if(dens < p->info->min_dens) goto end_ip_loop;
 
@@ -159,63 +145,61 @@ work_gga_x
       gdm    = max(SQRT(sigma[is2])/sfact, p->info->min_grad);
       ds     = rho[is]/sfact;
       rhoLDA = POW(ds, alpha);
-      x      = gdm/POW(ds, beta);
-
-      dfdx = d2fdx2 = d3fdx3 = 0.0;
+      r.x    = gdm/POW(ds, beta);
 
 #if   HEADER == 1
 
-      func(p, order, x, &f, &dfdx, &d2fdx2, &d3fdx3);
+      func(p, &r);
 
 #elif HEADER == 3
 
       /* this second header is useful for functionals that depend
 	 explicitly both on x and on rho*/
-      func(p, order, x, ds, &f, &dfdx, &lvrho);
+      func(p, r.order, r.x, ds, &(r.f), &(r.dfdx), &lvrho);
 
 #endif
 
-      if(order > 0) dfdx   *= x;
-      if(order > 1) d2fdx2 *= x*x;
-      if(order > 2) d3fdx3 *= x*x*x;
+      if(r.order > 0) r.dfdx   *= r.x;
+      if(r.order > 1) r.d2fdx2 *= r.x*r.x;
+      if(r.order > 2) r.d3fdx3 *= r.x*r.x*r.x;
 
       if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
 	*zk += rhoLDA*
-	  c_zk[0]*f;
+	  c_zk[0]*r.f;
       
       if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
 	vrho[is] += (rhoLDA/ds)*
-	  (c_vrho[0]*f + c_vrho[1]*dfdx) + rhoLDA*c_vrho[2]*lvrho;
+	  (c_vrho[0]*r.f + c_vrho[1]*r.dfdx) + rhoLDA*c_vrho[2]*lvrho;
 	
 	if(gdm > p->info->min_grad)
 	  vsigma[is2] = rhoLDA*
-	    (c_vsigma[0]*dfdx/(2.0*sigma[is2]));
+	    (c_vsigma[0]*r.dfdx/(2.0*sigma[is2]));
       }
       
       if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){
-	v2rho2[is2] = rhoLDA/(ds*ds) * (c_v2rho2[0]*f + c_v2rho2[1]*dfdx + c_v2rho2[2]*d2fdx2);
+	v2rho2[is2] = rhoLDA/(ds*ds) * (c_v2rho2[0]*r.f + c_v2rho2[1]*r.dfdx + c_v2rho2[2]*r.d2fdx2);
 	
 	if(gdm > p->info->min_grad){
 	  v2rhosigma[is*5] = (rhoLDA/ds) *
-	    ((c_v2rhosigma[0]*dfdx + c_v2rhosigma[1]*d2fdx2)/sigma[is2]);
+	    ((c_v2rhosigma[0]*r.dfdx + c_v2rhosigma[1]*r.d2fdx2)/sigma[is2]);
 	  v2sigma2  [is*5] = rhoLDA*
-	    (c_v2sigma2[0]*(d2fdx2 - dfdx)/(sigma[is2]*sigma[is2]));
+	    (c_v2sigma2[0]*(r.d2fdx2 - r.dfdx)/(sigma[is2]*sigma[is2]));
 	}
       }
 
       if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC)){
 	v3rho3[is*3] = rhoLDA/(ds*ds*ds) *
-	  (c_v3rho3[0]*f + c_v3rho3[1]*dfdx + c_v3rho3[2]*d2fdx2 + c_v3rho3[3]*d3fdx3);
+	  (c_v3rho3[0]*r.f + c_v3rho3[1]*r.dfdx + c_v3rho3[2]*r.d2fdx2 + c_v3rho3[3]*r.d3fdx3);
 
 	if(gdm > p->info->min_grad){
 	  v3rho2sigma[is*8] = rhoLDA/(ds*ds) *
-	    (c_v3rho2sigma[0]*dfdx + c_v3rho2sigma[1]*d2fdx2 + c_v3rho2sigma[2]*d3fdx3)/sigma[is2];
+	    (c_v3rho2sigma[0]*r.dfdx + c_v3rho2sigma[1]*r.d2fdx2 + c_v3rho2sigma[2]*r.d3fdx3)/sigma[is2];
 
 	  v3rhosigma2[is*11] = (rhoLDA/ds) *
-	    (c_v3rhosigma2[0]*dfdx + c_v3rhosigma2[1]*d2fdx2 + c_v3rhosigma2[2]*d3fdx3)/(sigma[is2]*sigma[is2]);
+	    (c_v3rhosigma2[0]*r.dfdx + c_v3rhosigma2[1]*r.d2fdx2 + c_v3rhosigma2[2]*r.d3fdx3)/(sigma[is2]*sigma[is2]);
 
 	  v3sigma3[is*9] = rhoLDA*
-	    (c_v3sigma3[0]*dfdx + c_v3sigma3[1]*d2fdx2 + c_v3sigma3[2]*d3fdx3)/(sigma[is2]*sigma[is2]*sigma[is2]);
+	    (c_v3sigma3[0]*r.dfdx + c_v3sigma3[1]*r.d2fdx2 + c_v3sigma3[2]*r.d3fdx3)/(sigma[is2]*sigma[is2]*sigma[is2]);
 	}
       }
     }

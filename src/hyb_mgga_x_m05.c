@@ -104,23 +104,25 @@ static void
 func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 {
   mgga_x_m05_params *params;
+  XC(gga_work_x_t) aux;
 
-  FLOAT e_f, e_dfdx, e_d2fdx2;
   FLOAT fw, dfwdt;
 
   assert(pt != NULL && pt->params != NULL);
   params = (mgga_x_m05_params *) (pt->params);
   
-  XC(gga_x_pbe_enhance)(pt->func_aux[0], r->order, r->x, &e_f, &e_dfdx, &e_d2fdx2, NULL);
+  aux.order = r->order;
+  aux.x     = r->x;
+  XC(gga_x_pbe_enhance)(pt->func_aux[0], &aux);
   
   XC(mgga_series_w)(r->order, params->n, params->a, r->t, &fw, &dfwdt);
 
-  r->f = params->csi_HF*e_f*fw;
+  r->f = params->csi_HF*aux.f*fw;
 
   if(r->order < 1) return;
 
-  r->dfdx = params->csi_HF*e_dfdx*fw;
-  r->dfdt = params->csi_HF*e_f*dfwdt;
+  r->dfdx = params->csi_HF*aux.dfdx*fw;
+  r->dfdt = params->csi_HF*aux.f*dfwdt;
 
   if(r->order < 2) return;
 

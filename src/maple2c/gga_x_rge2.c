@@ -7,43 +7,37 @@
 */
 
 void XC(gga_x_rge2_enhance)
-  (const XC(func_type) *p, int order, 
-   FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+  (const XC(func_type) *p,  XC(gga_work_x_t) *r)
 {
-  double t1, t2, t3, t6, t7, t8, t9, t12;
-  double t15, t16, t22, t25, t26, t32, t35;
+  double t1, t3, t5, t8, t9, t13, t16, t17;
+  double t21, t24;
 
 
-  t1 = X2S * X2S;
-  t2 = MU_GE * t1;
-  t3 = x * x;
-  t6 = MU_GE * MU_GE;
-  t7 = t1 * t1;
-  t8 = t6 * t7;
-  t9 = t3 * t3;
-  t12 = 0.8040e0 + 0.10e1 * t2 * t3 + 0.12437810945273631841e1 * t8 * t9;
-  *f = 0.180400e1 - 0.64641600e0 / t12;
+  t1 = r->x * r->x;
+  t3 = t1 * t1;
+  t5 = 0.8040e0 + 0.20315194871630317909e-2 * t1 + 0.51331734163223229970e-5 * t3;
+  r->f = 0.180400e1 - 0.64641600e0 / t5;
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
-  t15 = t12 * t12;
-  t16 = 0.1e1 / t15;
-  t22 = 0.20e1 * t2 * x + 0.49751243781094527364e1 * t8 * t3 * x;
-  *dfdx = 0.64641600e0 * t16 * t22;
+  t8 = t5 * t5;
+  t9 = 0.1e1 / t8;
+  t13 = 0.40630389743260635818e-2 * r->x + 0.20532693665289291988e-4 * t1 * r->x;
+  r->dfdx = 0.64641600e0 * t9 * t13;
 
-  if(order < 2) return;
+  if(r->order < 2) return;
 
-  t25 = 0.1e1 / t15 / t12;
-  t26 = t22 * t22;
-  t32 = 0.20e1 * t2 + 0.14925373134328358209e2 * t8 * t3;
-  *d2fdx2 = -0.129283200e1 * t25 * t26 + 0.64641600e0 * t16 * t32;
+  t16 = 0.1e1 / t8 / t5;
+  t17 = t13 * t13;
+  t21 = 0.40630389743260635818e-2 + 0.61598080995867875964e-4 * t1;
+  r->d2fdx2 = -0.129283200e1 * t16 * t17 + 0.64641600e0 * t9 * t21;
 
-  if(order < 3) return;
+  if(r->order < 3) return;
 
-  t35 = t15 * t15;
-  *d3fdx3 = 0.387849600e1 / t35 * t26 * t22 - 0.387849600e1 * t25 * t22 * t32 + 0.19296000000000000000e2 * t16 * t6 * t7 * x;
+  t24 = t8 * t8;
+  r->d3fdx3 = 0.387849600e1 / t24 * t17 * t13 - 0.387849600e1 * t16 * t13 * t21 + 0.79635970250049857820e-4 * t9 * r->x;
 
-  if(order < 4) return;
+  if(r->order < 4) return;
 
 
 }

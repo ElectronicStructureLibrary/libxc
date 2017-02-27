@@ -82,7 +82,8 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   static const FLOAT a1 = 1.5214, a2 = 0.5764, b1 = 1.1284, b2 = 0.3183;
 
   gga_c_op_params *params;
-  FLOAT eu_f, eu_dfdx, eu_d2fdx2, ed_f, ed_dfdx, ed_d2fdx2;
+  XC(gga_work_x_t) auxu, auxd;
+
   FLOAT cnst, cnst13, pref, opz, omz, opz13, omz13, beta_num, beta_den, beta, beta2, f_num, f_den;
   FLOAT dbeta_numdz, dbeta_numdxs[2], dbeta_dendz, dbeta_dendxs[2], dbetadz, dbetadxs[2];
   FLOAT df_numdz, df_numdrs, df_numdbeta, df_dendrs, df_dendbeta, dfdbeta;
@@ -95,12 +96,17 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   }else{
     /* call enhancement factor */
     if(p->info->number != XC_GGA_C_OP_XALPHA){
-      params->enhancement_factor(p->func_aux[0], r->order, r->xs[0], &eu_f, &eu_dfdx, &eu_d2fdx2, NULL);
-      params->enhancement_factor(p->func_aux[0], r->order, r->xs[1], &ed_f, &ed_dfdx, &ed_d2fdx2, NULL);
+      auxu.order = r->order;
+      auxu.x     = r->xs[0];
+      params->enhancement_factor(p->func_aux[0], &auxu);
+
+      auxd.order = r->order;
+      auxd.x     = r->xs[1];
+      params->enhancement_factor(p->func_aux[0], &auxd);
     }else{
-      eu_f = ed_f = 1.0;
-      eu_dfdx = ed_dfdx = 0.0;
-      eu_d2fdx2 = ed_d2fdx2 = 0.0;
+      auxu.f = auxd.f = 1.0;
+      auxu.dfdx = auxd.dfdx = 0.0;
+      auxu.d2fdx2 = auxd.d2fdx2 = 0.0;
     }
     
     cnst   = 4.0*M_PI/3.0;
@@ -113,8 +119,8 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     opz13 = POW(opz, 1.0/3.0);
     omz13 = POW(omz, 1.0/3.0);
     
-    beta_num = pref * opz13*omz13 * eu_f*ed_f;
-    beta_den = opz13*eu_f + omz13*ed_f;
+    beta_num = pref * opz13*omz13 * auxu.f*auxd.f;
+    beta_den = opz13*auxu.f + omz13*auxd.f;
     beta     = beta_num/beta_den;
     beta2    = beta*beta;
     
@@ -129,13 +135,13 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   if(ABS(r->z) > 1.0 - p->info->min_zeta){
     r->dfdrs = r->dfdz = r->dfdxt = r->dfdxs[0] = r->dfdxs[1] = 0.0;
   }else{
-    dbeta_numdz     = pref * (-2.0*r->z/(3.0*opz13*opz13*omz13*omz13)) * eu_f*ed_f;
-    dbeta_numdxs[0] = pref * opz13*omz13 * eu_dfdx*ed_f;
-    dbeta_numdxs[1] = pref * opz13*omz13 * eu_f*ed_dfdx;
+    dbeta_numdz     = pref * (-2.0*r->z/(3.0*opz13*opz13*omz13*omz13)) * auxu.f*auxd.f;
+    dbeta_numdxs[0] = pref * opz13*omz13 * auxu.dfdx*auxd.f;
+    dbeta_numdxs[1] = pref * opz13*omz13 * auxu.f*auxd.dfdx;
 
-    dbeta_dendz     = eu_f/(3.0*opz13*opz13) - ed_f/(3.0*omz13*omz13);
-    dbeta_dendxs[0] = opz13*eu_dfdx;
-    dbeta_dendxs[1] = omz13*ed_dfdx;
+    dbeta_dendz     = auxu.f/(3.0*opz13*opz13) - auxd.f/(3.0*omz13*omz13);
+    dbeta_dendxs[0] = opz13*auxu.dfdx;
+    dbeta_dendxs[1] = omz13*auxd.dfdx;
 
     dbetadz     = (    dbeta_numdz*beta_den - beta_num*dbeta_dendz    )/(beta_den*beta_den);
     dbetadxs[0] = (dbeta_numdxs[0]*beta_den - beta_num*dbeta_dendxs[0])/(beta_den*beta_den);

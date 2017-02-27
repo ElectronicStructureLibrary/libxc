@@ -98,38 +98,37 @@ r_x(int order, FLOAT x, FLOAT *r, FLOAT *dr)
 }
 
 void XC(gga_x_gg99_enhance)
-     (const XC(func_type) *p, int order, FLOAT x, 
-      FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+     (const XC(func_type) *p, XC(gga_work_x_t) *r)
 {
-  FLOAT r, dr;
+  FLOAT rr, dr;
   FLOAT aux1, aux2, aux3, aux4, aux5, daux1, daux2, daux4, daux5;
   FLOAT num, den, dnum, dden, df;
 
-  r_x(order, x, &r, &dr);
+  r_x(r->order, r->x, &rr, &dr);
 
-  aux1 = EXP(-2.0*r);
+  aux1 = EXP(-2.0*rr);
 
   aux2 = LOG(1.0 + aux1);
-  aux3 = 1.0/cosh(r);
+  aux3 = 1.0/cosh(rr);
   aux4 = POW(aux3, 2.0/3.0);
   aux5 = XC(dilogarithm)(-aux1);
 
-  num = -M_PI*M_PI + 12.0*r*aux2 - 12.0*aux5;
-  den = 2.0*M_CBRT3*M_PI*r*aux4;
+  num = -M_PI*M_PI + 12.0*rr*aux2 - 12.0*aux5;
+  den = 2.0*M_CBRT3*M_PI*rr*aux4;
 
-  *f = num/(X_FACTOR_C*den);
+  r->f = num/(X_FACTOR_C*den);
     
-  if(order < 1) return;
+  if(r->order < 1) return;
 
   daux1 = -2.0*aux1;
   daux2 = daux1/(1.0 + aux1);
-  daux4 = -2.0/3.0*aux4*tanh(r);
+  daux4 = -2.0/3.0*aux4*tanh(rr);
   daux5 = -aux2*daux1/aux1;
 
-  dnum = 12.0*(aux2 + r*daux2) - 12.0*daux5;
-  dden = 2.0*M_CBRT3*M_PI*(aux4 + r*daux4);
+  dnum = 12.0*(aux2 + rr*daux2) - 12.0*daux5;
+  dden = 2.0*M_CBRT3*M_PI*(aux4 + rr*daux4);
 
-  *dfdx = DFRACTION(num, dnum, den, dden)*dr/X_FACTOR_C;
+  r->dfdx = DFRACTION(num, dnum, den, dden)*dr/X_FACTOR_C;
 }
 
 #define func XC(gga_x_gg99_enhance)

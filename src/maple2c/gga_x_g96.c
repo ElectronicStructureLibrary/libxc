@@ -7,32 +7,30 @@
 */
 
 void XC(gga_x_g96_enhance)
-  (const XC(func_type) *p, int order, 
-   FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+  (const XC(func_type) *p,  XC(gga_work_x_t) *r)
 {
-  double t1, t2, t5, t7, t9;
+  double t1, t3, t4, t5;
 
 
-  t1 = 0.1e1 / X_FACTOR_C;
-  t2 = pow(x, 0.15000000000000000000e1);
-  *f = 0.10e1 + 0.72992700729927007299e-2 * t1 * t2;
+  t1 = pow(r->x, 0.15000000000000000000e1);
+  r->f = 0.10e1 + 0.78442430852382950888e-2 * t1;
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
-  t5 = pow(x, 0.5000000000000000000e0);
-  *dfdx = 0.10948905109489051095e-1 * t1 * t5;
+  t3 = pow(r->x, 0.5000000000000000000e0);
+  r->dfdx = 0.11766364627857442633e-1 * t3;
 
-  if(order < 2) return;
+  if(r->order < 2) return;
 
-  t7 = pow(x, -0.5000000000000000000e0);
-  *d2fdx2 = 0.54744525547445255475e-2 * t1 * t7;
+  t4 = pow(r->x, -0.5000000000000000000e0);
+  r->d2fdx2 = 0.58831823139287213165e-2 * t4;
 
-  if(order < 3) return;
+  if(r->order < 3) return;
 
-  t9 = pow(x, -0.15000000000000000000e1);
-  *d3fdx3 = -0.27372262773722627738e-2 * t1 * t9;
+  t5 = pow(r->x, -0.15000000000000000000e1);
+  r->d3fdx3 = -0.29415911569643606582e-2 * t5;
 
-  if(order < 4) return;
+  if(r->order < 4) return;
 
 
 }

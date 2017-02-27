@@ -7,23 +7,30 @@
 */
 
 void XC(gga_x_herman_enhance)
-  (const XC(func_type) *p, int order, 
-   FLOAT x, FLOAT *f, FLOAT *dfdx, FLOAT *d2fdx2, FLOAT *d3fdx3)
+  (const XC(func_type) *p,  XC(gga_work_x_t) *r)
 {
   double t1;
 
 
-  t1 = x * x;
-  *f = 0.10e1 + 0.32239839080329392815e-2 * t1;
+  t1 = r->x * r->x;
+  r->f = 0.10e1 + 0.32239839080329392815e-2 * t1;
 
-  if(order < 1) return;
+  if(r->order < 1) return;
 
-  *dfdx = 0.64479678160658785630e-2 * x;
+  r->dfdx = 0.64479678160658785630e-2 * r->x;
 
-  if(order < 2) return;
+  if(r->order < 2) return;
+
+  r->d2fdx2 = 0.64479678160658785630e-2;
+
+  if(r->order < 3) return;
+
+  r->d3fdx3 = 0;
+
+  if(r->order < 4) return;
 
 
 }
 
-#define maple2c_order 1
+#define maple2c_order 3
 #define maple2c_func  XC(gga_x_herman_enhance)

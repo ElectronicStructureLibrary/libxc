@@ -13,9 +13,8 @@ kssp0_k0 := 1.291551074:
 kssp0_k1 := 0.349064173:
 kssp0_r1 := 0.08327588:
 
-kssp0 := rs -> convert(piecewise(rs > big, kssp0_k0 - kssp0_k1, 
-  kssp0_k0 - kssp0_k1*(1.0 - exp(-kssp0_r1*rs^(4.0/5.0)))
-), 'Heaviside'):
+kssp0 := rs -> 
+  kssp0_k0 - kssp0_k1*(1.0 - exp(-kssp0_r1*min(rs, big)^(4.0/5.0))):
 
 (* Equation (45) *)
 fssp_A1 := 1.622118767:

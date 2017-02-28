@@ -35,7 +35,7 @@ genwiki_LDFLAGS =
 lib_LTLIBRARIES = libxc.la
 
 libxc_la_FUNC_SOURCES = \
-	special_functions.c bessel.c expint_e1.c exponential_integral_Ei.c integrate.c util.c	\
+	special_functions.c bessel.c expint_e1.c integrate.c util.c	\
 	mix_func.c func_info.c functionals.c version.c \
 	lda.c \
         lda_x.c lda_x_1d.c lda_x_2d.c lda_c_wigner.c lda_c_gombas.c	\

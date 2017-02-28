@@ -23,7 +23,7 @@ noinst_HEADERS =  \
   lda_c_vwn_1.c lda_c_vwn_2.c lda_c_vwn_3.c lda_c_vwn_4.c lda_c_vwn_rpa.c   \
   lda_c_ml1.c lda_c_hl.c lda_k_tf.c lda_xc_teter93.c lda_xc_ksdt.c          \
   lda_c_2d_prm.c lda_x_2d.c lda_c_1d_loos.c lda_c_2d_amgb.c lda_c_1d_csc.c  \
-  lda_x.c lda_x_erf.c lda_x_rel.c lda_k_zlp.c gga_k_meyer.c \
+  lda_x.c lda_x_erf.c lda_x_rel.c lda_k_zlp.c lda_c_pk09.c \
   gga_k_thakkar.c gga_x_am05.c gga_x_bayesian.c gga_x_herman.c gga_x_rpbe.c \
   gga_x_airy.c gga_x_b86.c gga_x_c09x.c gga_x_lag.c gga_x_wc.c gga_x_ak13.c \
   gga_x_b88.c gga_x_g96.c gga_x_pbepow.c gga_x_pbe.c gga_x_pbeint.c         \
@@ -34,7 +34,7 @@ noinst_HEADERS =  \
   gga_k_tflw.c gga_x_2d_b86.c gga_x_2d_b86_mgc.c gga_x_2d_b88.c             \
   gga_x_2d_pbe.c gga_x_bpccac.c gga_x_vmt84.c gga_x_vmt.c gga_x_hjs_b88_v2.c\
   gga_x_hjs.c gga_x_kt.c gga_x_ft97.c gga_x_eg93.c gga_x_hcth_a.c           \
-  gga_x_n12.c \
+  gga_x_n12.c gga_k_meyer.c \
   gga_c_wi.c gga_c_wl.c gga_c_lm.c gga_c_p86.c gga_c_am05.c gga_c_revtca.c  \
   gga_c_tca.c gga_c_pbe.c gga_c_zpbeint.c gga_c_bcgp.c gga_c_pbeloc.c       \
   gga_c_sg4.c gga_c_regtpss.c gga_c_scan_e0.c gga_c_pw91.c gga_c_q2d.c      \

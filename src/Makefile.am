@@ -56,7 +56,7 @@ libxc_la_FUNC_SOURCES = \
 	gga_c_am05.c gga_c_lm.c gga_c_wl.c gga_c_wi.c gga_x_lb.c	\
 	gga_xc_b97.c gga_xc_edf1.c gga_xc_1w.c gga_c_optc.c		\
 	gga_c_tca.c gga_x_bpccac.c gga_x_sogga11.c gga_c_sogga11.c	\
-	gga_xc_th.c gga_x_wpbeh.c gga_x_hjs.c gga_x_ityh.c		\
+	gga_xc_th1.c gga_x_wpbeh.c gga_x_hjs.c gga_x_ityh.c		\
 	gga_x_sfat.c gga_x_ev93.c gga_x_ak13.c gga_x_q2d.c gga_c_q2d.c	\
 	gga_x_ssb_sw.c gga_c_ft97.c gga_c_op.c gga_x_n12.c		\
 	gga_x_lv_rpw86.c gga_x_2d_b86.c gga_x_2d_b86_mgc.c		\
@@ -67,7 +67,8 @@ libxc_la_FUNC_SOURCES = \
 	gga_xc_oblyp_d.c hyb_gga_xc_b3lyp.c hyb_gga_xc_o3lyp.c		\
 	gga_x_pbeint.c gga_x_rge2.c gga_x_vmt84.c gga_x_hjs_b88_v2.c    \
 	gga_c_revtca.c gga_c_bcgp.c gga_c_zpbeint.c gga_c_pbeloc.c      \
-	gga_c_sg4.c gga_c_regtpss.c gga_c_scan_e0.c \
+	gga_c_sg4.c gga_c_regtpss.c gga_c_scan_e0.c gga_xc_th2.c        \
+	gga_xc_th3.c \
 	hyb_gga_xc_pbeh.c hyb_gga_xc_b1wc.c 				\
 	hyb_gga_xc_hse.c hyb_gga_xc_cam_b3lyp.c				\
 	hyb_gga_xc_camy_blyp.c hyb_gga_xc_camy_b3lyp.c			\

@@ -24,7 +24,8 @@ dist_noinst_SCRIPTS = \
   gga_c_revtca.mpl gga_c_tca.mpl gga_c_bcgp.mpl gga_c_zpbeint.mpl           \
   gga_c_pbe.mpl gga_c_pbeloc.mpl gga_c_sg4.mpl gga_c_regtpss.mpl            \
   gga_c_scan_e0.mpl gga_c_pw91.mpl gga_c_q2d.mpl gga_c_optc.mpl             \
-  gga_c_lyp.mpl gga_c_sogga11.mpl \
+  gga_c_lyp.mpl gga_c_sogga11.mpl th.mpl gga_xc_th1.mpl gga_xc_th2.mpl      \
+  gga_xc_th3.mpl \
   mgga_x_gvt4.mpl mgga_x_lta.mpl mgga_x_mk00.mpl mgga_x_ms.mpl              \
   mgga_x_mvs.mpl mgga_x_pkzb.mpl mgga_x_tpss.mpl mgga_x_tm.mpl              \
   mgga_x_vt84.mpl mgga_x_sa_tpss.mpl mgga_k_pc07.mpl \

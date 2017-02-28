@@ -84,11 +84,14 @@ double xc_expint_e1_impl(const double x, const int scale);
 #endif
 
 /* implementation for E1, allowing for scaling by exp(x) */
-FLOAT XC(expint_e1_impl)(const FLOAT x, const int scale){
+FLOAT XC(expint_e1_impl)(FLOAT x, const int scale){
   const FLOAT xmaxt = -LOG_FLOAT_MIN;        /* XMAXT = -LOG (R1MACH(1)) */
   const FLOAT xmax  = xmaxt - LOG(xmaxt);    /* XMAX = XMAXT - LOG(XMAXT) */
 
   FLOAT e1 = 0.0;
+
+  /* this is a workaround */
+  x = min(x, xmax);
 
   if(x <= -10.0){
     const FLOAT s = 1.0/x * ( scale ? 1.0 : EXP(-x) );
@@ -114,7 +117,7 @@ FLOAT XC(expint_e1_impl)(const FLOAT x, const int scale){
 #ifdef SINGLE_PRECISION
     return xc_expint_e1_impl(x,scale);
 #else
-    fprintf(stderr, "Argument is larger than xmax in expint_e1\n");
+    fprintf(stderr, "Argument %14.10le is larger than xmax=%14.10le in expint_e1\n", x, xmax);
 #endif
 
   return e1;

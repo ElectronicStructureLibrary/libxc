@@ -148,7 +148,6 @@ ec_par := (rs, z) ->
   + (1.0 + z)^2/8.0*(Q_1ud(k_uu(rs, z)) + Q_2ud(k_uu(rs, z)) + Q_3ud(k_uu(rs, z)))
   + (1.0 - z)^2/8.0*(Q_1ud(k_dd(rs, z)) + Q_2ud(k_dd(rs, z)) + Q_3ud(k_dd(rs, z))):
 
-n := (rs) -> (RS_FACTOR/rs)^3:
-f := (rs, z) -> n(rs)*(ec_opp(rs, z) + ec_par(rs, z)):
+f := (rs, z) -> ec_opp(rs, z) + ec_par(rs, z):
 
 

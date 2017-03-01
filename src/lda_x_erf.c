@@ -20,6 +20,13 @@
 
 #define XC_LDA_X_ERF   546   /* Attenuated exchange LDA (erf) */
 
+static void lda_x_erf_init(XC(func_type) *p)
+{
+  /* initialize omega to something reasonable */
+  p->cam_omega = 0.3;
+}
+
+
 #include "maple2c/lda_x_erf.c"
 
 #define func maple2c_func
@@ -34,6 +41,6 @@ const XC(func_info_type) XC(func_info_lda_x_erf) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-29, 0.0, 0.0, 1e-32,
   0, NULL, NULL,
-  NULL, NULL, 
+  lda_x_erf_init, NULL, 
   work_lda, NULL, NULL
 };

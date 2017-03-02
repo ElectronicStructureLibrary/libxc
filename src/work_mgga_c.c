@@ -44,7 +44,7 @@ work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
     FLOAT dxtds, dxsds[2];
     FLOAT dusdn[2], dusdlapl[2], dtsdn[2], dtsdtau[2];
 
-    XC(rho2dzeta)(p->nspin, rho, &(r.dens), &(r.zeta));
+    XC(rho2dzeta)(p->nspin, rho, &(r.dens), &(r.z));
 
     if(r.dens < p->info->min_dens) goto end_ip_loop;
 
@@ -115,8 +115,8 @@ work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
     dxtds = r.xt/(2.0*r.sigmat);
 
     if(p->nspin == XC_POLARIZED){
-      ndzdn[1]    = -(r.zeta + 1.0);
-      ndzdn[0]    = -(r.zeta - 1.0);
+      ndzdn[1]    = -(r.z + 1.0);
+      ndzdn[0]    = -(r.z - 1.0);
 
       dxsdn[1]    = -4.0*r.xs[1]/(3.0*r.ds[1]);
       dxsdn[0]    = -4.0*r.xs[0]/(3.0*r.ds[0]);

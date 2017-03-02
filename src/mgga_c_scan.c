@@ -149,7 +149,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
   pbe.order = r->order;
   pbe.rs    = r->rs;
-  pbe.z     = r->zeta;
+  pbe.z     = r->z;
   pbe.xt    = r->xt;
   pbe.xs[0] = r->xs[0]; 
   pbe.xs[1] = r->xs[1];
@@ -157,10 +157,10 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   XC(gga_c_scan_e0_func) (pt->func_aux[0], &pbe);
 
   ss = X2S*M_CBRT2*r->xt;
-  func_e0(r->rs, r->zeta, ss, r->order, &e0, &de0drs, &de0dz, &de0ds);
+  func_e0(r->rs, r->z, ss, r->order, &e0, &de0drs, &de0dz, &de0ds);
 
-  opz = 1.0 + r->zeta;
-  omz = 1.0 - r->zeta;
+  opz = 1.0 + r->z;
+  omz = 1.0 - r->z;
 
   opz13 = CBRT(opz);
   omz13 = CBRT(omz);

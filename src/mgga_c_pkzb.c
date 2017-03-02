@@ -137,8 +137,8 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   is_tpss = (pt->info->number == XC_MGGA_C_TPSS || pt->info->number == XC_MGGA_C_REVTPSS) ? 1 : 0;
   XC(pbe_c_stoll) (pt->func_aux[0], is_tpss, r, PBE);
 
-  opz = 1.0 + r->zeta;
-  omz = 1.0 - r->zeta;
+  opz = 1.0 + r->z;
+  omz = 1.0 - r->z;
 
   opz13 = CBRT(opz);
   omz13 = CBRT(omz);
@@ -151,17 +151,17 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
     FLOAT z2, cnst, aux, csi2;
     FLOAT dCdcsi2,dauxdz, dcsi2dz, dcsi2dxt, dcsi2dxs[2];
 
-    z2  = r->zeta*r->zeta;
+    z2  = r->z*r->z;
     cnst = 2.0*CBRT(3.0*M_PI*M_PI);
 
     aux  = -r->xt*r->xt + (r->xs[0]*r->xs[0]*opz*opz23 + r->xs[1]*r->xs[1]*omz*omz23)/(2.0*M_CBRT2*M_CBRT2);
     csi2 = (1.0 - z2)*aux/(cnst*cnst);
 
-    tpss_eq_13_14(params->C0_c, r->zeta, csi2, r->order, &C, &dCdz, &dCdcsi2);
+    tpss_eq_13_14(params->C0_c, r->z, csi2, r->order, &C, &dCdz, &dCdcsi2);
 
     if(r->order >= 1){
       dauxdz   = 5.0*(r->xs[0]*r->xs[0]*opz23 - r->xs[1]*r->xs[1]*omz23)/(6.0*M_CBRT2*M_CBRT2);
-      dcsi2dz  = (-2.0*r->zeta*aux + (1.0 - z2)*dauxdz)/(cnst*cnst);
+      dcsi2dz  = (-2.0*r->z*aux + (1.0 - z2)*dauxdz)/(cnst*cnst);
 
       dcsi2dxt = -2.0*(1.0 - z2)*r->xt/(cnst*cnst);
       dcsi2dxs[0] = (1.0 - z2)*r->xs[0]*opz*opz23/(cnst*cnst*M_CBRT2*M_CBRT2);

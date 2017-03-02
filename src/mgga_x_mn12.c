@@ -150,7 +150,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
   /* now the spin-resolved part */
   for(is = 0; is < 2; is++){
-    opz   = 1.0 + sign[is]*r->zeta;
+    opz   = 1.0 + sign[is]*r->z;
     if(opz < pt->info->min_zeta) continue;
 
     opz13 = CBRT(opz);

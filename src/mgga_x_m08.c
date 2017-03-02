@@ -151,7 +151,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
     r->dfdrs = r->dfdz = r->dfdxt = r->dfdxs[0] = r->dfdxs[1] = r->dfdts[0] = r->dfdts[1] = 0.0;
 
   for(is = 0; is < 2; is++){
-    opz = 1.0 + sign[is]*r->zeta;
+    opz = 1.0 + sign[is]*r->z;
     if(opz < pt->info->min_zeta) continue;
 
     opz13 = CBRT(opz);

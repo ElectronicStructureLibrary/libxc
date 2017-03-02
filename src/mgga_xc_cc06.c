@@ -47,7 +47,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
   lda_pw.order = lda_x.order = r->order;
   lda_pw.rs    = lda_x.rs    = r->rs;
-  lda_pw.z     = lda_x.z     = r->zeta;
+  lda_pw.z     = lda_x.z     = r->z;
 
   XC(lda_x_func)   (pt->func_aux[0], &lda_x);
   XC(lda_c_pw_func)(pt->func_aux[1], &lda_pw);
@@ -55,8 +55,8 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   l_cnst = CBRT(3.0/(2.0*4.0*M_PI));
   l_cnst = l_cnst*l_cnst/2.0;
 
-  opz = 1.0 + r->zeta;
-  omz = 1.0 - r->zeta;
+  opz = 1.0 + r->z;
+  omz = 1.0 - r->z;
 
   opz13 = CBRT(opz); opz23 = opz13*opz13;
   omz13 = CBRT(omz); omz23 = omz13*omz13;

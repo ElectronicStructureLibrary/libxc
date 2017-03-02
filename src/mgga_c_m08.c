@@ -180,19 +180,19 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   
   pw.order = r->order;
   pw.rs    = r->rs;
-  pw.z     = r->zeta;
+  pw.z     = r->z;
   XC(lda_c_pw_func)(pt->func_aux[0], &pw);
 
   pbe.order = r->order;
   pbe.rs    = r->rs;
-  pbe.z     = r->zeta;
+  pbe.z     = r->z;
   pbe.xt    = r->xt;
   pbe.xs[0] = r->xs[0];
   pbe.xs[1] = r->xs[1];
   XC(gga_c_pbe_func)(pt->func_aux[1], &pbe);
 
-  opz = 1.0 + r->zeta;
-  omz = 1.0 - r->zeta;
+  opz = 1.0 + r->z;
+  omz = 1.0 - r->z;
 
   opz13 = CBRT(opz); opz23 = opz13*opz13;
   omz13 = CBRT(omz); omz23 = omz13*omz13;

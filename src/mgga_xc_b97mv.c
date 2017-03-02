@@ -225,10 +225,10 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   
   /* first we get the parallel and perpendicular LDAs */
   if(pt->cam_omega == 0)
-    XC(lda_stoll) (pt->func_aux[0], XC(lda_x_func), r->dens, r->zeta, r->order, lda_x);
+    XC(lda_stoll) (pt->func_aux[0], XC(lda_x_func), r->dens, r->z, r->order, lda_x);
   else
-    XC(lda_stoll) (pt->func_aux[0], XC(lda_x_erf_func), r->dens, r->zeta, r->order, lda_x);
-  XC(lda_stoll) (pt->func_aux[1], XC(lda_c_pw_func), r->dens, r->zeta, r->order, lda_pw);
+    XC(lda_stoll) (pt->func_aux[0], XC(lda_x_erf_func), r->dens, r->z, r->order, lda_x);
+  XC(lda_stoll) (pt->func_aux[1], XC(lda_c_pw_func), r->dens, r->z, r->order, lda_pw);
 
   /* initialize to zero */
   r->f = 0.0;
@@ -244,7 +244,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
   /* now we calculate the g functions for exchange and parallel correlation */
   for(is = 0; is < 2; is++){
-    opz   = 1.0 + sign[is]*r->zeta;
+    opz   = 1.0 + sign[is]*r->z;
 
     if(r->dens*opz < 2.0*pt->info->min_dens) {
       cos=0;

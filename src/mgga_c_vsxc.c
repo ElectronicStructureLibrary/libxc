@@ -175,7 +175,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
   params = (mgga_c_m06l_params *)pt->params;
 
   /* first we get the parallel and perpendicular LDAS */
-  XC(lda_stoll) (pt->func_aux[0], XC(lda_c_pw_func), r->dens, r->zeta, r->order, LDA);
+  XC(lda_stoll) (pt->func_aux[0], XC(lda_c_pw_func), r->dens, r->z, r->order, LDA);
 
   /* initialize to zero */
   r->f = 0.0;
@@ -191,7 +191,7 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
   /* now we calculate the g functions for exchange and parallel correlation */
   for(is = 0; is < 2; is++){
-    opz   = 1.0 + sign[is]*r->zeta;
+    opz   = 1.0 + sign[is]*r->z;
 
     if(r->dens*opz < 2.0*pt->info->min_dens) continue;
 

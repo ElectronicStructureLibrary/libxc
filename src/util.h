@@ -289,16 +289,27 @@ typedef struct XC(mgga_work_c_t) {
   int   order; /* to which order should I return the derivatives */
 
   FLOAT dens, ds[2], sigmat, sigmas[3];
-  FLOAT rs, zeta, xt, xs[2], ts[2], us[2];
+  FLOAT rs, z, xt, xs[2], ts[2], us[2];
 
   FLOAT f;
   FLOAT dfdrs, dfdz, dfdxt, dfdxs[2], dfdts[2], dfdus[2];
   FLOAT d2fdrs2, d2fdrsz, d2fdrsxt, d2fdrsxs[2], d2fdrsts[2], d2fdrsus[2];
   FLOAT d2fdz2, d2fdzxt, d2fdzxs[2], d2fdzts[2], d2fdzus[2];
   FLOAT d2fdxt2, d2fdxtxs[2], d2fdxtts[2], d2fdxtus[2];
-  FLOAT d2fdxs2[3], d2fxsts[4], d2fxsus[4];
-  FLOAT d2dts2[3], d2fdtsus[4];
+  FLOAT d2fdxs2[3], d2fdxsts[4], d2fdxsus[4];
+  FLOAT d2fdts2[3], d2fdtsus[4];
   FLOAT d2fdus2[3];
+  FLOAT d3fdrs3, d3fdrs2z, d3fdrsz2, d3fdrszxt, d3fdrszxs[2], d3fdrszts[2], d3fdrszus[2];
+  FLOAT d3fdrs2xt, d3fdrsxt2, d3fdrsxtxs[2], d3fdrsxtts[2], d3fdrsxtus[2], d3fdrs2xs[2];
+  FLOAT d3fdrsxs2[3], d3fdrsxsts[4], d3fdrsxsus[4], d3fdrs2ts[2], d3fdrsts2[3];
+  FLOAT d3fdrstsus[4], d3fdrs2us[2], d3fdrsus2[3];
+  FLOAT d3fdz3, d3fdz2xt, d3fdzxt2, d3fdzxtxs[2], d3fdzxtts[2], d3fdzxtus[2];
+  FLOAT d3fdz2xs[2], d3fdzxs2[3], d3fdzxsts[4], d3fdzxsus[4], d3fdz2ts[2], d3fdzts2[3];
+  FLOAT d3fdztsus[4], d3fdz2us[2], d3fdzus2[3];
+  FLOAT d3fdxt3, d3fdxt2xs[2], d3fdxtxs2[3], d3fdxtxsts[4], d3fdxtxsus[4], d3fdxt2ts[2];
+  FLOAT d3fdxtts2[3], d3fdxttsus[4], d3fdxt2us[2], d3fdxtus2[3];
+  FLOAT d3fdxs3[4], d3fdxs2ts[6], d3fdxs2us[6], d3fdxsts2[6], d3fdxstsus[8], d3fdxsus2[6];
+  FLOAT d3fdts3[4], d3fdts2us[6], d3fdtsus2[6], d3fdus3[4];
 } XC(mgga_work_c_t);
 
 

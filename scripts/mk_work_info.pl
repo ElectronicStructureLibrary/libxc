@@ -59,12 +59,16 @@ sub mk_info {
 #my $vars = ["rs", "z"];
 
 # for work_gga_x
-my $f    = "f(r_a_x)";
-my $vars = ["x"];
+#my $f    = "f(r_a_x)";
+#my $vars = ["x"];
 
 # for work_gga_c
 #my $f    = "f(r_a_rs, r_a_z, r_a_xt, r_a_xs_0_, r_a_xs_1_)";
 #my $vars = ["rs", "z", "xt", "xs_0_", "xs_1_"];
+
+# for work_mgga_c
+my $f    = "f(r_a_rs, r_a_z, r_a_xt, r_a_xs_0_, r_a_xs_1_, r_a_ts_0, r_a_ts_1, r_a_us_0_, r_a_us_1_)";
+my $vars = ["rs", "z", "xt", "xs_0_", "xs_1_", "ts_0_", "ts_1_", "us_0_", "us_1_"];
 
 my $info =  mk_info($vars, $f, 3);
 

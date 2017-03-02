@@ -41,6 +41,7 @@ my %commands = (
   "work_gga_x"   => \&work_gga_x,
   "work_gga_c"   => \&work_gga_c,
   "work_mgga_x"  => \&work_mgga_x,
+  "work_mgga_c"  => \&work_mgga_c,
     );
 
 if ($commands{$functype}) {
@@ -62,6 +63,8 @@ sub math_replace {
     '_3_'       , "[3]",
     '_4_'       , "[4]",
     '_5_'       , "[5]",
+    '_6_'       , "[6]",
+    '_7_'       , "[7]",
     'Dirac\(.*?\)', '0.0', # have to do it here, as both Dirac(x) and Dirac(n, x) can appear
     'signum\(1.*\)', '0.0', # the derivative of the signum is 0 for us
   );
@@ -266,5 +269,26 @@ $c_code
 
 #define maple2c_order $max_order
 #define maple2c_func  XC(${functional}_enhance)
+";
+}
+
+sub work_mgga_c {
+  ($order, $prefix) = @_;
+
+  my $info = do "$srcdir/scripts/maple2c_info/work_mgga_c.pl";
+
+  ($variables, $c_code) = math_work($info, $out, $order);
+
+  print $out "
+void XC(${functional}_func)
+  (const XC(func_type) *p, XC(mgga_work_c_t) *r)
+{
+$variables
+$prefix
+$c_code
+}
+
+#define maple2c_order $max_order
+#define maple2c_func  XC(${functional}_func)
 ";
 }

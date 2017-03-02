@@ -100,13 +100,13 @@ XC(pbe_c_stoll) (const XC(func_type) *pbe, int get_max, const XC(mgga_work_c_t) 
 {
   static const FLOAT sign[2] = {1.0, -1.0};
   int is;
-  FLOAT opz[2] = {1.0 + in->zeta, 1.0 - in->zeta};
+  FLOAT opz[2] = {1.0 + in->z, 1.0 - in->z};
 
   /* first we get the perpendicular contributions */
   out[2].order = in->order;
   out[2].dens  = in->dens;
   out[2].rs    = in->rs;
-  out[2].z     = in->zeta;
+  out[2].z     = in->z;
   out[2].xt    = in->xt;
   out[2].xs[0] = in->xs[0];
   out[2].xs[1] = in->xs[1];

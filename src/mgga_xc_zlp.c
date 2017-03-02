@@ -30,8 +30,8 @@ func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
 
   cnst_253 = 1.0/(2.0*M_CBRT2*M_CBRT2);
 
-  opz = 1.0 + r->zeta;
-  omz = 1.0 - r->zeta;
+  opz = 1.0 + r->z;
+  omz = 1.0 - r->z;
 
   opz2 = opz*opz;
   omz2 = omz*omz;

@@ -32,3 +32,12 @@ tt   := (rs, z, xt) -> xt/(4.0*2.0^(1.0/3.0)*mphi(z)*sqrt(rs)):
 
 (* in the paper it is beta_a = 0.066725 *)
 beta_Hu_Langreth := rs -> 0.066724550603149220*(1.0 + 0.1*rs)/(1.0 + 0.1778*rs):
+
+(* This is the Stoll decomposition in our language *)
+lda_stoll_par  := (lda_func, rs, z, spin) ->
+  lda_func(rs*(2.0/(1.0 + z))^(1.0/3.0), spin)*(1.0 + z)/2.0:
+
+lda_stoll_perp := (lda_func, rs, z) ->
+  + lda_func(rs, z)
+  - lda_stoll_par(lda_func, rs,  z,  1.0)
+  - lda_stoll_par(lda_func, rs, -z, -1.0):

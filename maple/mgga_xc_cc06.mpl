@@ -6,7 +6,7 @@ $include "lda_c_pw.mpl"
 $define lda_x_params
 $include "lda_x.mpl"
 
-cc06_cnst  := (3.0/(2.0*Pi))^(2.0/3.0):
+cc06_cnst  := (3.0/(4.0*Pi))^(2.0/3.0):
 
 cc06_alpha := -0.0007:
 cc06_beta  :=  0.0080*cc06_cnst:

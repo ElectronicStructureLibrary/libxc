@@ -22,7 +22,7 @@
 
 
 typedef struct{
-  FLOAT kappa, mu;
+  FLOAT rpbe_kappa, rpbe_mu;
 } gga_x_rpbe_params;
 
 
@@ -45,8 +45,8 @@ XC(gga_x_rpbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu)
   assert(p != NULL && p->params != NULL);
   params = (gga_x_rpbe_params *) (p->params);
 
-  params->kappa = kappa;
-  params->mu    = mu;
+  params->rpbe_kappa = kappa;
+  params->rpbe_mu    = mu;
 }
 
 #include "maple2c/gga_x_rpbe.c"
@@ -63,8 +63,6 @@ const XC(func_info_type) XC(func_info_gga_x_rpbe) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_rpbe_init, 
-  NULL, NULL,
-  work_gga_x,
-  NULL
+  gga_x_rpbe_init, NULL, 
+  NULL, work_gga_x, NULL
 };

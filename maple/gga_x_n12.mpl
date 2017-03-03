@@ -20,9 +20,9 @@ FN12 := (rs, x) ->
   + add(1.0*params_a_CC_2_[i+1]*ux(x)^i, i=0..3) * vx(rs)^2
   + add(1.0*params_a_CC_3_[i+1]*ux(x)^i, i=0..3) * vx(rs)^3:
 
-f_n12 := (rs, z, xt, xs_0_, xs_1_) -> -X_FACTOR_C*RS_FACTOR*(
-  + (1.0 + z)*FN12(rss(rs,  z), xs_0_)/(2.0*rss(rs,  z))
-  + (1.0 - z)*FN12(rss(rs, -z), xs_1_)/(2.0*rss(rs, -z))
+f_n12 := (rs, z, xt, xs0, xs1) -> -X_FACTOR_C*RS_FACTOR*(
+  + (1.0 + z)*FN12(rss(rs,  z), xs0)/(2.0*rss(rs,  z))
+  + (1.0 - z)*FN12(rss(rs, -z), xs1)/(2.0*rss(rs, -z))
 ):
 
-f  := (rs, z, xt, xs_0_, xs_1_) -> f_n12(rs, z, xt, xs_0_, xs_1_):
+f  := (rs, z, xt, xs0, xs1) -> f_n12(rs, z, xt, xs0, xs1):

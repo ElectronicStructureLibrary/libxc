@@ -41,5 +41,5 @@ f1 := (rs, z, s) ->
 
 f_lda := (rs, z) -> -X_FACTOR_C*RS_FACTOR*((1.0 + z)/2.0)^(4.0/3.0)/rs:
 
-f := (rs, z, xt, xs_0_, xs_1_) -> 
-  f_lda(rs, z)*f1(rs, z, X2S*xs_0_) + f_lda(rs, -z)*f1(rs, -z, X2S*xs_1_):
+f := (rs, z, xt, xs0, xs1) -> 
+  f_lda(rs, z)*f1(rs, z, X2S*xs0) + f_lda(rs, -z)*f1(rs, -z, X2S*xs1):

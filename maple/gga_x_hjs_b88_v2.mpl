@@ -17,5 +17,5 @@ fs := s -> -log((exp(-s) + xi)/(1.0 + xi)):
 
 $include "gga_x_hjs.mpl"
 
-f := (rs, z, xt, xs_0_, xs_1_) -> 
-  f_lda(rs, z)*f1(rs, z, fs(X2S*xs_0_)) + f_lda(rs, -z)*f1(rs, -z, fs(X2S*xs_1_)):
+f := (rs, z, xt, xs0, xs1) -> 
+  f_lda(rs, z)*f1(rs, z, fs(X2S*xs0)) + f_lda(rs, -z)*f1(rs, -z, fs(X2S*xs1)):

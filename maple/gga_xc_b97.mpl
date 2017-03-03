@@ -14,8 +14,8 @@ $include "lda_x.mpl"
 
 $include "b97.mpl"
 
-f := (rs, z, xt, xs_0_, xs_1_) ->
+f := (rs, z, xt, xs0, xs1) ->
   + f_b97(f_lda_x, 0.004, params_a_c_x, 0, [0, 0, 0, 0, 0], 
-        rs, z, xs_0_, xs_1_)
+        rs, z, xs0, xs1)
   + f_b97(f_pw, 0.2, params_a_c_ss, 0.006, params_a_c_ab,
-        rs, z, xs_0_, xs_1_):
+        rs, z, xs0, xs1):

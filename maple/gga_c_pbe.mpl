@@ -32,8 +32,8 @@ f2 := (rs, z, t) -> mbeta(rs, t)*f1(rs, z, t)/(mgamma*(1.0 + A(rs, z, t)*f1(rs, 
 
 fH := (rs, z, t) -> mgamma*mphi(z)^3*log(1.0 + f2(rs, z, t)):
 
-f_pbe  := (rs, z, xt, xs_0_, xs_1_) ->
+f_pbe  := (rs, z, xt, xs0, xs1) ->
   f_pw(rs, z) + fH(rs, z, tp(rs, z, xt)):
 
-f  := (rs, z, xt, xs_0_, xs_1_) -> f_pbe(rs, z, xt, xs_0_, xs_1_):
+f  := (rs, z, xt, xs0, xs1) -> f_pbe(rs, z, xt, xs0, xs1):
 

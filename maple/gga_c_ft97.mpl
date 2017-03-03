@@ -77,6 +77,6 @@ f_ft97 := (rs, z, xs) ->
   + term1(rs*(2.0/(1.0 + z))^(1.0/3.0), z, C3^2*xs^2):
   + term2(rs*(2.0/(1.0 + z))^(1.0/3.0), z, C3^2*xs^2):
 
-f  := (rs, z, xt, xs_0_, xs_1_) -> 
-  f_ft97(rs, z, xs_0_) + f_ft97(rs, -z, xs_1_):
+f  := (rs, z, xt, xs0, xs1) -> 
+  f_ft97(rs, z, xs0) + f_ft97(rs, -z, xs1):
 

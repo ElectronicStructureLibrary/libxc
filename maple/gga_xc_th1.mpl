@@ -20,4 +20,4 @@ params_a_d := [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0]:
 
 $include "th.mpl"
 
-f := (rs, z, xt, xs_0_, xs_1_) -> f_th(rs, z, xt, xs_0_, xs_1_):
+f := (rs, z, xt, xs0, xs1) -> f_th(rs, z, xt, xs0, xs1):

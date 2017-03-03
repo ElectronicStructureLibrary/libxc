@@ -11,9 +11,9 @@ beta := (rs, z, xs) -> params_a_beta0
 
 fx := (rs, z, xs) -> beta(rs, z, xs)*xs^2/sqrt(1.0 + 9.0*xs^2*beta(rs, z, xs)^2*arcsinh(xs^2)^2):
 
-f0 := (rs, zeta, xt, xs_0_, xs_1_) -> 
-  - (X_FACTOR_C + fx(rs,  zeta, xs_0_))*n_spin(rs,  zeta)^(4.0/3.0) 
-  - (X_FACTOR_C + fx(rs, -zeta, xs_1_))*n_spin(rs, -zeta)^(4.0/3.0):
+f0 := (rs, zeta, xt, xs0, xs1) -> 
+  - (X_FACTOR_C + fx(rs,  zeta, xs0))*n_spin(rs,  zeta)^(4.0/3.0) 
+  - (X_FACTOR_C + fx(rs, -zeta, xs1))*n_spin(rs, -zeta)^(4.0/3.0):
 
 (* we want energy per particle *)
-f := (rs, zeta, xt, xs_0_, xs_1_) -> f0(rs, zeta, xt, xs_0_, xs_1_)/n_total(rs):
+f := (rs, zeta, xt, xs0, xs1) -> f0(rs, zeta, xt, xs0, xs1)/n_total(rs):

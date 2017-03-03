@@ -21,4 +21,4 @@ params_a_omega := [
 
 $include "th.mpl"
 
-f := (rs, z, xt, xs_0_, xs_1_) -> f_th(rs, z, xt, xs_0_, xs_1_):
+f := (rs, z, xt, xs0, xs1) -> f_th(rs, z, xt, xs0, xs1):

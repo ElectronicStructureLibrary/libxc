@@ -21,7 +21,7 @@ f1 := (rs, z, xt) -> 1.0 - exp(-yy(rs, z, xt)):
 t0 := (rs, z, xt) -> add(params_a_sogga11_a[i]*f0(rs, z, xt)^(i-1), i=1..6):
 t1 := (rs, z, xt) -> add(params_a_sogga11_b[i]*f1(rs, z, xt)^(i-1), i=1..6):
 
-f_sogga11 := (rs, z, xt, xs_0_, xs_1_) ->
+f_sogga11 := (rs, z, xt, xs0, xs1) ->
   f_pw(rs, z)*(t0(rs, z, xt) + t1(rs, z, xt)):
 
-f  := (rs, z, xt, xs_0_, xs_1_) -> f_sogga11(rs, z, xt, xs_0_, xs_1_):
+f  := (rs, z, xt, xs0, xs1) -> f_sogga11(rs, z, xt, xs0, xs1):

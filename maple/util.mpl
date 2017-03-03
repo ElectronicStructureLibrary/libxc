@@ -18,11 +18,14 @@ KAPPA_PBE   := 0.8040:
 n_total    := rs -> (RS_FACTOR/rs)^3:
 n_spin     := (rs, z) -> (1.0 + z)*n_total(rs)/2.0:
 sigma_spin := (rs, z, xs) -> xs^2*n_spin(rs, z)^(8.0/3.0):
-t_total    := (z, ts_0_, ts_1_) ->
-  (ts_0_*((1.0 + z)/2.0)^(5.0/3.0) + ts_1_*((1.0 - z)/2.0)^(5.0/3.0)):
-u_total    := (z, u_0_, u_1_) -> t_total(z, u_0_, u_1_):
+t_total    := (z, ts0, ts1) ->
+  (ts0*((1.0 + z)/2.0)^(5.0/3.0) + ts1*((1.0 - z)/2.0)^(5.0/3.0)):
+u_total    := (z, us0, us1) -> t_total(z, us0, us1):
 
 (* useful formulas that enter several functionals *)
+
+(* von Weizsäcker term *)
+t_vw := (xt, z, us0, us1) -> (xt^2 - u_total(z, us0, us1))/8.0:
 
 (* See Eq. (9) of Perdew1992_13244 *)
 f_zeta    := z -> ((1.0 + z)^(4.0/3.0) + (1.0 - z)^(4.0/3.0) - 2.0)/(2.0^(4.0/3.0) - 2.0):

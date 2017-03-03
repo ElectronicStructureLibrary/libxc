@@ -9,6 +9,6 @@ cc_ab    := [0.836897,  1.72051,  -2.78498,  -4.57504, 0.0]:
 $include "lda_c_vwn.mpl"
 $include "b97.mpl"
 
-f := (rs, z, xt, xs_0_, xs_1_) ->
+f := (rs, z, xt, xs0, xs1) ->
   f_b97(f_vwn, gamma_ss, cc_ss, gamma_ab, cc_ab,
-        rs, z, xs_0_, xs_1_):
+        rs, z, xs0, xs1):

@@ -34,6 +34,6 @@ h_a1  := -100.0 * 4.0/Pi * (4.0/(9.0*Pi))^(1.0/3.0):
 H1 := (rs, z, t) -> pw91_nu * (RG_C_xc(rs) - C_xc0 - 3.0*C_x/7.0)
  * mphi(z)^3*t^2*exp(h_a1*rs*mphi(z)^4*t^2):
 
-f_pw91 := (rs, z, xt, xs_0_, xs_1_) ->
+f_pw91 := (rs, z, xt, xs0, xs1) ->
   f_pw(rs, z) + H0(rs, z, tt(rs, z, xt)) + H1(rs, z, tt(rs, z, xt)):
-f      := (rs, z, xt, xs_0_, xs_1_) -> f_pw91(rs, z, xt, xs_0_, xs_1_):
+f      := (rs, z, xt, xs0, xs1) -> f_pw91(rs, z, xt, xs0, xs1):

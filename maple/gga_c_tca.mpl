@@ -9,5 +9,5 @@ Bs := s -> 1.0/(1.0 + msigma*s^malpha):
 
 f_tcs := (rs, z, xt) -> f_rc04(rs, z)*Bs(X2S*2.0^(1.0/3.0)*xt):
 
-f := (rs, z, xt, xs_0_, xs_1_) -> 
+f := (rs, z, xt, xs0, xs1) -> 
   f_tcs(rs, z, xt):

@@ -27,5 +27,5 @@ mPhi := (rs, xt) -> ftilde*(CCinf/CC(rs))*x1(rs, xt):
 (* Equation (8) *)
 H := (rs, z, xt) -> x1(rs, xt)^2*exp(-mPhi(rs, xt))*CC(rs)/DD(z):
 
-f := (rs, z, xt, xs_0_, xs_1_) ->
+f := (rs, z, xt, xs0, xs1) ->
   f_pz(rs, z) + H(rs, z, xt):

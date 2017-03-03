@@ -12,5 +12,5 @@ $include "gga_c_pbe.mpl"
 
 ff := (z, t) -> mphi(z)^(params_a_alpha*t^3):
 
-f  := (rs, z, xt, xs_0_, xs_1_) ->
+f  := (rs, z, xt, xs0, xs1) ->
   f_pw(rs, z) + ff(z, tp(rs, z, xt))*fH(rs, z, tp(rs, z, xt)):

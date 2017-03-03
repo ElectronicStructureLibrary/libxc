@@ -1,5 +1,5 @@
 dist_noinst_SCRIPTS = \
-  util.mpl fw.mpl gvt4.mpl tpss_x.mpl \
+  util.mpl gvt4.mpl tpss_x.mpl \
   lda_c_pz.mpl lda_xc_1d_ehwlrg.mpl lda_c_rc04.mpl lda_c_pw.mpl             \
   lda_c_gombas.mpl lda_c_chachiyo.mpl lda_c_wigner.mpl lda_c_rpa.mpl        \
   vwn.mpl lda_c_vwn.mpl lda_c_vwn_1.mpl lda_c_vwn_2.mpl lda_c_vwn_3.mpl     \
@@ -31,4 +31,4 @@ dist_noinst_SCRIPTS = \
   mgga_x_mvs.mpl mgga_x_pkzb.mpl mgga_x_tpss.mpl mgga_x_tm.mpl              \
   mgga_x_vt84.mpl mgga_x_sa_tpss.mpl mgga_k_pc07.mpl \
   mgga_x_tau_hcth.mpl mgga_x_scan.mpl \
-  mgga_c_cs.mpl mgga_c_bc95.mpl
+  mgga_c_cs.mpl mgga_c_bc95.mpl mgga_c_m08.mpl

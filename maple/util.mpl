@@ -15,10 +15,12 @@ MU_PBE      := 0.06672455060314922*Pi^2/3.0:
 KAPPA_PBE   := 0.8040:
 
 (* generic conversion functions *)
-
 n_total    := rs -> (RS_FACTOR/rs)^3:
 n_spin     := (rs, z) -> (1.0 + z)*n_total(rs)/2.0:
 sigma_spin := (rs, z, xs) -> xs^2*n_spin(rs, z)^(8.0/3.0):
+t_total    := (z, ts_0_, ts_1_) ->
+  (ts_0_*((1.0 + z)/2.0)^(5.0/3.0) + ts_1_*((1.0 - z)/2.0)^(5.0/3.0)):
+u_total    := (z, u_0_, u_1_) -> t_total(z, u_0_, u_1_):
 
 (* useful formulas that enter several functionals *)
 
@@ -41,3 +43,7 @@ lda_stoll_perp := (lda_func, rs, z) ->
   + lda_func(rs, z)
   - lda_stoll_par(lda_func, rs,  z,  1.0)
   - lda_stoll_par(lda_func, rs, -z, -1.0):
+
+(* Power series often used in mggas *)
+mgga_w := t -> 1.0*(K_FACTOR_C - t)/(K_FACTOR_C + t):
+mgga_series_w := (a, n, t) -> add(a[i]*mgga_w(t)^(i-1), i=1..n):

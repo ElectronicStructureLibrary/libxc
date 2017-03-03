@@ -32,4 +32,4 @@ dist_noinst_SCRIPTS = \
   mgga_x_vt84.mpl mgga_x_sa_tpss.mpl mgga_k_pc07.mpl                        \
   mgga_x_tau_hcth.mpl mgga_x_scan.mpl \
   mgga_c_cs.mpl mgga_c_bc95.mpl mgga_c_m08.mpl mgga_xc_zlp.mpl              \
-  mgga_xc_cc06.mpl
+  mgga_xc_cc06.mpl mbeef.mpl mgga_x_mbeef.mpl mgga_x_mbeefvdw.mpl

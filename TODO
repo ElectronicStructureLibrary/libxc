@@ -4,6 +4,7 @@ Improve existing functionals:
 Add functionals:
 
 LDA:
+ *) Short-range LDA correlation functional (Phys. Rev. B 73, 155111 (2006))
 
 GGAs:
   *) D.J. Tozer, N.C. Handy, Recent advances in density functional theory, Vol.2  (http://dx.doi.org/10.1142/9789812819468_0001)

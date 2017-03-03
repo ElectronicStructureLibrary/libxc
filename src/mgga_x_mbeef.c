@@ -20,7 +20,6 @@
 #include "util.h"
 
 #define XC_MGGA_X_MBEEF          249 /* mBEEF exchange */
-#define XC_MGGA_X_MBEEFVDW       250 /* mBEEF-vdW exchange */
 
 static const FLOAT coefs_mbeef[64] = {
          1.18029330e+00,   8.53027860e-03,  -1.02312143e-01,
@@ -180,7 +179,7 @@ legf(int order, int legorder, const FLOAT *coefs, FLOAT xi, FLOAT xj,
 }
 
 static void 
-func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
+funcold(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 {
   FLOAT p, dpdx;
   FLOAT a, dadx, dadt;
@@ -210,8 +209,10 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 }
 
 
-#include "work_mgga_x.c"
+#include "maple2c/mgga_x_mbeef.c"
 
+#define func maple2c_func
+#include "work_mgga_x.c"
 
 const XC(func_info_type) XC(func_info_mgga_x_mbeef) = {
   XC_MGGA_X_MBEEF,
@@ -219,20 +220,6 @@ const XC(func_info_type) XC(func_info_mgga_x_mbeef) = {
   "mBEEF exchange",
   XC_FAMILY_MGGA,
   {&xc_ref_Wellendorff2014_144107, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32, 1e-32, 1e-32,
-  0, NULL, NULL,
-  mgga_x_mbeef_init,
-  NULL, NULL, NULL,
-  work_mgga_x,
-};
-
-const XC(func_info_type) XC(func_info_mgga_x_mbeefvdw) = {
-  XC_MGGA_X_MBEEFVDW,
-  XC_EXCHANGE,
-  "mBEEF-vdW exchange",
-  XC_FAMILY_MGGA,
-  {&xc_ref_Lundgaard2016_235162, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   0, NULL, NULL,

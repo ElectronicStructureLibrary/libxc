@@ -43,4 +43,4 @@ noinst_HEADERS =  \
   mgga_x_gvt4.c mgga_x_lta.c mgga_x_mk00.c mgga_x_ms.c mgga_x_mvs.c         \
   mgga_x_pkzb.c mgga_x_m06l.c mgga_x_tpss.c mgga_x_tm.c mgga_x_vt84.c       \
   mgga_x_sa_tpss.c mgga_k_pc07.c mgga_x_tau_hcth.c mgga_x_scan.c            \
-  mgga_c_cs.c mgga_c_bc95.c mgga_c_m08.c
+  mgga_c_cs.c mgga_c_bc95.c mgga_c_m08.c mgga_xc_zlp.c

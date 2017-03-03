@@ -29,6 +29,7 @@ dist_noinst_SCRIPTS = \
   gga_xc_th3.mpl \
   mgga_x_gvt4.mpl mgga_x_lta.mpl mgga_x_mk00.mpl mgga_x_ms.mpl              \
   mgga_x_mvs.mpl mgga_x_pkzb.mpl mgga_x_tpss.mpl mgga_x_tm.mpl              \
-  mgga_x_vt84.mpl mgga_x_sa_tpss.mpl mgga_k_pc07.mpl \
+  mgga_x_vt84.mpl mgga_x_sa_tpss.mpl mgga_k_pc07.mpl                        \
   mgga_x_tau_hcth.mpl mgga_x_scan.mpl \
-  mgga_c_cs.mpl mgga_c_bc95.mpl mgga_c_m08.mpl mgga_xc_zlp.mpl
+  mgga_c_cs.mpl mgga_c_bc95.mpl mgga_c_m08.mpl mgga_xc_zlp.mpl              \
+  mgga_xc_cc06.mpl

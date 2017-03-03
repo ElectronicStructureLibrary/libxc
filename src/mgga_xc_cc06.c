@@ -21,76 +21,9 @@
 
 #define XC_MGGA_XC_CC06          229 /* Cancio and Chou 2006 */
 
+#include "maple2c/mgga_xc_cc06.c"
 
-static void 
-mgga_xc_cc06_init(XC(func_type) *p)
-{
-  assert(p != NULL);
-
-  p->n_func_aux  = 2;
-  p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
-  p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
-  p->func_aux[1] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
-
-  XC(func_init)(p->func_aux[0], XC_LDA_X,    p->nspin);
-  XC(func_init)(p->func_aux[1], XC_LDA_C_PW, p->nspin);
-}
-
-
-static void 
-func(const XC(func_type) *pt, XC(mgga_work_c_t) *r)
-{
-  static FLOAT alpha = -0.0007, beta = 0.0080, gamma = 0.026;
-  XC(lda_work_t) lda_x, lda_pw;
-  FLOAT l_cnst, opz, omz, opz13, omz13, opz23, omz23, l, fxc_n, fxc_d, fxc;
-  FLOAT dldz, dldus[2], dfxc;
-
-  lda_pw.order = lda_x.order = r->order;
-  lda_pw.rs    = lda_x.rs    = r->rs;
-  lda_pw.z     = lda_x.z     = r->z;
-
-  XC(lda_x_func)   (pt->func_aux[0], &lda_x);
-  XC(lda_c_pw_func)(pt->func_aux[1], &lda_pw);
-
-  l_cnst = CBRT(3.0/(2.0*4.0*M_PI));
-  l_cnst = l_cnst*l_cnst/2.0;
-
-  opz = 1.0 + r->z;
-  omz = 1.0 - r->z;
-
-  opz13 = CBRT(opz); opz23 = opz13*opz13;
-  omz13 = CBRT(omz); omz23 = omz13*omz13;
-
-  l     = l_cnst*(r->us[0]*opz*opz23 + r->us[1]*omz*omz23);
-
-  fxc_n = alpha + beta*l;
-  fxc_d = 1.0 + gamma*l;
-  fxc   = 1.0 + fxc_n/fxc_d;
-
-  r->f = (lda_x.f + lda_pw.f)*fxc;
-
-  if(r->order < 1) return;
-
-  dldz     = l_cnst*(5.0/3.0)*(r->us[0]*opz23 - r->us[1]*omz23);
-  dldus[0] = l_cnst*opz*opz23;
-  dldus[1] = l_cnst*omz*omz23;
-
-  dfxc = -(alpha*gamma - beta)/(fxc_d*fxc_d);
-
-  r->dfdrs    = (lda_x.dfdrs + lda_pw.dfdrs)*fxc;
-  r->dfdz     = (lda_x.dfdz + lda_pw.dfdz)*fxc + (lda_x.f + lda_pw.f)*dfxc*dldz;
-  r->dfdxt    = 0.0;
-  r->dfdxs[0] = 0.0;
-  r->dfdxs[1] = 0.0;
-  r->dfdts[0] = 0.0;
-  r->dfdts[1] = 0.0;
-  r->dfdus[0] = (lda_x.f + lda_pw.f)*dfxc*dldus[0];
-  r->dfdus[1] = (lda_x.f + lda_pw.f)*dfxc*dldus[1];
-
-  if(r->order < 2) return;
-}
-
-
+#define func maple2c_func
 #include "work_mgga_c.c"
 
 
@@ -103,8 +36,7 @@ const XC(func_info_type) XC(func_info_mgga_xc_cc06) = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   0, NULL, NULL,
-  mgga_xc_cc06_init,
-  NULL, NULL, NULL,
-  work_mgga_c,
+  NULL, NULL, 
+  NULL, NULL, work_mgga_c,
 };
 

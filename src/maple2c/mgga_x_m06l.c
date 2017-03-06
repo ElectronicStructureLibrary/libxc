@@ -24,7 +24,7 @@ XC(mgga_x_m06l_enhance)(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   double t220, t228, t238, t243, t279, t323, t327, t332;
 
   mgga_x_m06l_params *params;
- 
+
   assert(pt->params != NULL);
   params = (mgga_x_m06l_params * )(pt->params);
 

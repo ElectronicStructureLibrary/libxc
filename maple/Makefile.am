@@ -34,4 +34,5 @@ dist_noinst_SCRIPTS = \
   mgga_c_cs.mpl mgga_c_bc95.mpl mgga_c_m08.mpl mgga_xc_zlp.mpl              \
   mgga_xc_cc06.mpl mbeef.mpl mgga_x_mbeef.mpl mgga_x_mbeefvdw.mpl           \
   mgga_x_m08.mpl mgga_x_m11.mpl mgga_x_m11_l.mpl mgga_x_mn12.mpl            \
-  b97mv.mpl mgga_xc_b97mv.mpl hyb_mgga_xc_b97mv.mpl
+  b97mv.mpl mgga_xc_b97mv.mpl hyb_mgga_xc_b97mv.mpl mgga_c_vsxc.mpl         \
+  mgga_c_m05.mpl mgga_c_m06l.mpl

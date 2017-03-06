@@ -85,7 +85,7 @@ libxc_la_FUNC_SOURCES = \
 	hyb_mgga_xc_tpssh.c mgga_x_mvs.c hyb_mgga_x_mvsh.c              \
 	mgga_x_tm.c mgga_x_vt84.c mgga_x_sa_tpss.c mgga_k_pc07.c        \
 	mgga_x_mbeefvdw.c mgga_x_m11.c mgga_x_m11_l.c                   \
-        hyb_mgga_xc_wb97mv.c
+        hyb_mgga_xc_wb97mv.c mgga_c_m05.c mgga_c_m06l.c
 
 libxc_la_FUNC_SINGLE_SOURCES = $(libxc_la_FUNC_SOURCES:.c=_s.c)
 

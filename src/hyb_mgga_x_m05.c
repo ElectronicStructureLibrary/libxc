@@ -22,43 +22,34 @@
 #define XC_HYB_MGGA_X_M05      438 /* M05 functional from Minnesota     */
 #define XC_HYB_MGGA_X_M05_2X   439 /* M05-2X functional from Minnesota  */
 #define XC_HYB_MGGA_X_M06_2X   450 /* M06-2X functional from Minnesota  */
-#define XC_HYB_MGGA_X_DLDF      36 /* Dispersionless Density Functional */
-
-
-static const FLOAT a_m05[12] = 
-  {1.0, 0.08151, -0.43956, -3.22422, 2.01819, 8.79431, -0.00295,
-   9.82029, -4.82351, -48.17574, 3.64802, 34.02248};
-
-static const FLOAT a_m05_2x[12] =
-  {1.0, -0.56833, -1.30057, 5.50070, 9.06402, -32.21075, -23.73298,
-   70.22996, 29.88614, -60.25778, -13.22205, 15.23694};
-
-static const FLOAT a_m06_2x[12] =
-  {4.600000e-01, -2.206052e-01, -9.431788e-02,  2.164494e+00, -2.556466e+00, -1.422133e+01,
-   1.555044e+01,  3.598078e+01, -2.722754e+01, -3.924093e+01,  1.522808e+01,  1.522227e+01};
-
-static const FLOAT a_dldf[5] =
-  {1.0, -0.1637571, -0.1880028, -0.4490609, -0.0082359};
 
 typedef struct{
-  int n;
-  const FLOAT *a;
   FLOAT csi_HF;
+  const FLOAT a[12];
 } mgga_x_m05_params;
 
+static const mgga_x_m05_params par_m05 = {
+  1.0 - 0.28,
+  {1.0, 0.08151, -0.43956, -3.22422, 2.01819, 8.79431, -0.00295,
+   9.82029, -4.82351, -48.17574, 3.64802, 34.02248}
+};
+
+static const mgga_x_m05_params par_m05_2x = {
+  1.0 - 0.56,
+  {1.0, -0.56833, -1.30057, 5.50070, 9.06402, -32.21075, -23.73298,
+   70.22996, 29.88614, -60.25778, -13.22205, 15.23694}
+};
+
+static const mgga_x_m05_params par_m06_2x = {
+  1.0, /* the mixing is already included in the params->a */
+  {4.600000e-01, -2.206052e-01, -9.431788e-02,  2.164494e+00, -2.556466e+00, -1.422133e+01,
+   1.555044e+01,  3.598078e+01, -2.722754e+01, -3.924093e+01,  1.522808e+01,  1.522227e+01}
+};
 
 static void
 mgga_x_m05_init(XC(func_type) *p)
 {
   mgga_x_m05_params *params;
-
-  assert(p != NULL);
-
-  p->n_func_aux  = 1;
-  p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
-  p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
-
-  XC(func_init)(p->func_aux[0], XC_GGA_X_PBE, p->nspin);
 
   assert(p->params == NULL);
   p->params = malloc(sizeof(mgga_x_m05_params));
@@ -66,31 +57,16 @@ mgga_x_m05_init(XC(func_type) *p)
 
   switch(p->info->number){
   case XC_HYB_MGGA_X_M05: 
-    params->n      = 12;
-    params->a      = a_m05;
+    memcpy(params, &par_m05, sizeof(mgga_x_m05_params));
     p->cam_alpha   = 0.28;
-    params->csi_HF = 1.0 - p->cam_alpha;
     break;
   case XC_HYB_MGGA_X_M05_2X:
-    params->n      = 12;
-    params->a      = a_m05_2x;
+    memcpy(params, &par_m05_2x, sizeof(mgga_x_m05_params));
     p->cam_alpha   = 0.56;
-    params->csi_HF = 1.0 - p->cam_alpha;
     break;
   case XC_HYB_MGGA_X_M06_2X:
-    params->n      = 12;
-    params->a      = a_m06_2x;
+    memcpy(params, &par_m06_2x, sizeof(mgga_x_m05_params));
     p->cam_alpha   = 0.54;
-    params->csi_HF = 1.0; /* the mixing is already included in the params->a */
-    break;
-  case XC_HYB_MGGA_X_DLDF:
-    params->n      = 5;
-    params->a      = a_dldf;
-    p->cam_alpha   = 0.6144129;
-    params->csi_HF = 1.0 - p->cam_alpha;
-
-    XC(gga_x_pbe_set_params)(p->func_aux[0], 4.8827323, 0.3511128);
-
     break;
   default:
     fprintf(stderr, "Internal error in mgga_x_m05\n");
@@ -99,36 +75,9 @@ mgga_x_m05_init(XC(func_type) *p)
 
 }
 
+#include "maple2c/hyb_mgga_x_m05.c"
 
-static void 
-func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
-{
-  mgga_x_m05_params *params;
-  XC(gga_work_x_t) aux;
-
-  FLOAT fw, dfwdt;
-
-  assert(pt != NULL && pt->params != NULL);
-  params = (mgga_x_m05_params *) (pt->params);
-  
-  aux.order = r->order;
-  aux.x     = r->x;
-  XC(gga_x_pbe_enhance)(pt->func_aux[0], &aux);
-  
-  XC(mgga_series_w)(r->order, params->n, params->a, r->t, &fw, &dfwdt);
-
-  r->f = params->csi_HF*aux.f*fw;
-
-  if(r->order < 1) return;
-
-  r->dfdx = params->csi_HF*aux.dfdx*fw;
-  r->dfdt = params->csi_HF*aux.f*dfwdt;
-
-  if(r->order < 2) return;
-
-}
-
-
+#define func maple2c_func
 #include "work_mgga_x.c"
 
 
@@ -141,9 +90,8 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_m05) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   0, NULL, NULL,
-  mgga_x_m05_init,
-  NULL, NULL, NULL,
-  work_mgga_x,
+  mgga_x_m05_init, NULL, 
+  NULL, NULL, work_mgga_x,
 };
 
 
@@ -156,9 +104,8 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_m05_2x) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   0, NULL, NULL,
-  mgga_x_m05_init,
-  NULL, NULL, NULL,
-  work_mgga_x,
+  mgga_x_m05_init, NULL, 
+  NULL, NULL, work_mgga_x,
 };
 
 const XC(func_info_type) XC(func_info_hyb_mgga_x_m06_2x) = {
@@ -170,23 +117,6 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_m06_2x) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   0, NULL, NULL,
-  mgga_x_m05_init,
-  NULL,
-  NULL, NULL,        /* this is not an LDA                   */
-  work_mgga_x,
-};
-
-const XC(func_info_type) XC(func_info_hyb_mgga_x_dldf) = {
-  XC_HYB_MGGA_X_DLDF,
-  XC_EXCHANGE,
-  "Dispersionless Density Functional",
-  XC_FAMILY_HYB_MGGA,
-  {&xc_ref_Pernal2009_263201, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
-  0, NULL, NULL,
-  mgga_x_m05_init,
-  NULL,
-  NULL, NULL,        /* this is not an LDA                   */
-  work_mgga_x,
+  mgga_x_m05_init, NULL,
+  NULL, NULL, work_mgga_x,
 };

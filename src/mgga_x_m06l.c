@@ -76,32 +76,6 @@ mgga_x_m06l_init(XC(func_type) *p)
   }
 }
 
-
-/* WARNING, TO BE REMOVED Eq. (8) */
-void 
-XC(mgga_series_w)(int order, int n, const FLOAT *a, FLOAT t, FLOAT *fw, FLOAT *dfwdt)
-{
-  FLOAT w, w_den, wp;
-  int i;
-
-  w_den = K_FACTOR_C + t;
-  w = (K_FACTOR_C - t)/w_den;
-
-  *fw = 0.0;
-  if(order>0) *dfwdt = 0.0;
-  wp = 1.0;
-  for(i=0; i<n; i++){
-    *fw += a[i]*wp;
-    if(order>0) *dfwdt += i*a[i]*wp;
-
-    wp *= w;
-  }
-  if (order>0){
-    *dfwdt /= w;
-    *dfwdt *= -2.0*K_FACTOR_C/(w_den*w_den);
-  }
-}
-
 #include "maple2c/mgga_x_m06l.c"
 
 #define func XC(mgga_x_m06l_enhance)

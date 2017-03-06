@@ -51,30 +51,6 @@ static const gga_xc_wb97_params par_wb97x_d = {
   { 1.00000e+00,  1.79413e+00, -1.20477e+01,  1.40847e+01, -8.50809e+00}
 };
 
-void 
-XC(mgga_b97_func_g)(const FLOAT *cc, FLOAT gamma, FLOAT s, int order, FLOAT *g, FLOAT *dgds, FLOAT *d2gds2)
-{
-  FLOAT s2, dd, x, dxds, d2xds2, dgdx, d2gdx2;
-
-  s2 = s*s;
-  dd = 1.0 + gamma*s2;
-  x  = gamma * s2/dd;
-
-  *g = cc[0] + x*(cc[1] + x*(cc[2] + x*(cc[3] + x*cc[4])));
-
-  if(order < 1) return;
-
-  dxds  = gamma * 2.0*s/(dd*dd);
-  dgdx  = cc[1] + x*(2.0*cc[2] + x*(3.0*cc[3] + x*4.0*cc[4]));
-  *dgds = dgdx*dxds;
-
-  if(order < 2) return;
-  
-  d2gdx2  = 2.0*cc[2] + x*(6.0*cc[3] + x*12.0*cc[4]);
-  d2xds2  = 2.0*gamma*(1.0 - 3.0*gamma*s2)/(dd*dd*dd);
-  *d2gds2 = d2gdx2*dxds*dxds + dgdx*d2xds2;
-}
-
 static void 
 gga_xc_wb97_init(XC(func_type) *p)
 {

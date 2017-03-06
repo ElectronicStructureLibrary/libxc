@@ -54,24 +54,17 @@ sub math_replace {
   # The replacements have to be made in order, so
   # we can not use a hash table
   my @math_replace = (
-    '_s_'       , '*',
-    '_a_'       , '->',
-    '_d_'       , '.',
-    '_0_'       , "[0]",
-    '_1_'       , "[1]",
-    '_2_'       , "[2]",
-    '_3_'       , "[3]",
-    '_4_'       , "[4]",
-    '_5_'       , "[5]",
-    '_6_'       , "[6]",
-    '_7_'       , "[7]",
-    'Dirac\(.*?\)', '0.0', # have to do it here, as both Dirac(x) and Dirac(n, x) can appear
-    'signum\(1.*\)', '0.0', # the derivative of the signum is 0 for us
+    qr/_s_/         ,  q{"*"},
+    qr/_a_/         ,  q{"->"},
+    qr/_d_/         ,  q{"."},
+    qr/_(\d+)_/     ,  q{"[$1]"},
+    qr/Dirac\(.*?\)/,  q{"0.0"}, # have to do it here, as both Dirac(x) and Dirac(n, x) can appear
+    qr/signum\(1.*\)/, q{"0.0"}, # the derivative of the signum is 0 for us
   );
   my ($text) = @_;
 
   for(my $j=0; $j<$#math_replace; $j+=2){
-    $text =~ s/$math_replace[$j]/$math_replace[$j+1]/g;
+    $text =~ s/$math_replace[$j]/$math_replace[$j+1]/eeg;
   }
 
   return $text;

@@ -8,7 +8,3 @@ $include "tpss.mpl"
 
 f := (rs, z, xt, xs0, xs1, ts0, ts1, us0, us1) ->
   + f_tpss(f_pbe, rs, z, xt, xs0, xs1, ts0, ts1):
-
-
-
-

@@ -19,7 +19,7 @@
 
 #include "util.h"
 
-#define XC_MGGA_C_TPSS          231 /* Tao, Perdew, Staroverov & Scuseria correlation */
+#define XC_MGGA_C_PKZB          239 /* Perdew, Kurth, Zupan, and Blaha */
 
 #include "maple2c/mgga_c_pkzb.c"
 

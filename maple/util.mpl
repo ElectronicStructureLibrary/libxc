@@ -29,7 +29,7 @@ u_total    := (z, us0, us1) -> t_total(z, us0, us1):
 (* useful formulas that enter several functionals *)
 
 (* von Weizsäcker term *)
-t_vw := (xt, z, us0, us1) -> (xt^2 - u_total(z, us0, us1))/8.0:
+t_vw := (z, xt, us0, us1) -> (xt^2 - u_total(z, us0, us1))/8.0:
 
 (* See Eq. (9) of Perdew1992_13244 *)
 f_zeta    := z -> ((1.0 + z)^(4.0/3.0) + (1.0 - z)^(4.0/3.0) - 2.0)/(2.0^(4.0/3.0) - 2.0):

@@ -1,3 +1,7 @@
+(* Minimum and maximum functions that I can differentiate *)
+m_min := (x1, x2) -> x1 + (x2 - x1)*Heaviside(x1 - x2):
+m_max := (x1, x2) -> x1 + (x2 - x1)*Heaviside(x2 - x1):
+
 (* a series of useful definitions *)
 
 M_C         := 137.0359996287515: (* speed of light *)
@@ -46,6 +50,10 @@ lda_stoll_perp := (lda_func, rs, z) ->
   + lda_func(rs, z)
   - lda_stoll_par(lda_func, rs,  z,  1.0)
   - lda_stoll_par(lda_func, rs, -z, -1.0):
+
+gga_stoll_par  := (gga_func, rs, z, xs, spin) ->
+ + gga_func(rs*(2.0/(1.0 + z))^(1.0/3.0), spin, xs, xs*(1.0 + spin)/2.0, xs*(1.0 - spin)/2.0)
+ * (1.0 + z)/2.0:
 
 (* Power series often used in mggas *)
 mgga_w := t -> 1.0*(K_FACTOR_C - t)/(K_FACTOR_C + t):

@@ -47,7 +47,7 @@ work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
     XC(rho2dzeta)(p->nspin, rho, &(r.dens), &(r.z));
 
     if(r.dens < p->info->min_dens) goto end_ip_loop;
-
+    
     r.rs = RS(r.dens);
     rho13[2] = CBRT(r.dens);
 
@@ -74,9 +74,15 @@ work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
         r.us[1]  = r.us[0];
       }
 
-      r.ts[0]  = tau[0]/(2.0*r.ds[0]*rho13[0]*rho13[0]);  /* tau/rho^(5/3) */
+      r.ts[0]  = max(2.0*p->info->min_tau, tau[0]/(2.0*r.ds[0]*rho13[0]*rho13[0]));  /* tau/rho^(5/3) */
       r.ts[1]  = r.ts[0];
     }else{
+      /* there are lots of derivatives that involve inverse
+         powers of (1 +- z). For these not to give NaN, we
+         must have abs(1 +- z) > DBL_EPSILON                 */
+      if(1.0 + r.z < DBL_EPSILON) r.z = -1.0 + DBL_EPSILON;
+      if(1.0 - r.z < DBL_EPSILON) r.z =  1.0 - DBL_EPSILON;
+
       r.ds[0]  = max(p->info->min_dens, rho[0]);
       r.ds[1]  = max(p->info->min_dens, rho[1]);
 
@@ -98,8 +104,8 @@ work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
         r.us[1]   = lapl[1]/(r.ds[1]*rho13[1]*rho13[1]);
       }
 
-      r.ts[0]   = tau[0]/(r.ds[0]*rho13[0]*rho13[0]);
-      r.ts[1]   = tau[1]/(r.ds[1]*rho13[1]*rho13[1]);
+      r.ts[0]   = max(p->info->min_tau, tau[0]/(r.ds[0]*rho13[0]*rho13[0]));
+      r.ts[1]   = max(p->info->min_tau, tau[1]/(r.ds[1]*rho13[1]*rho13[1]));
     }
   
     func(p, &r);

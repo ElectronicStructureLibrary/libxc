@@ -281,6 +281,7 @@ void print_error(char *type, char *what, double diff, xc_func_type *func, double
 }
 
 #if defined(HAVE_FEENABLEEXCEPT)
+#define __USE_GNU
 #define _GNU_SOURCE         /* See feature_test_macros(7) */
 #include <fenv.h>
 #endif

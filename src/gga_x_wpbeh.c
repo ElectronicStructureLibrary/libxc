@@ -46,8 +46,6 @@ XC(gga_x_wpbeh_set_params)(XC(func_type) *p, FLOAT omega)
 }
 
 
-#define HEADER 3
-
 /* This implementation follows the one from espresso, that, in turn,
    follows the one of the thesis of Jochen Heyd. Analytic derivatives
    are only implemented in espresso though. These implementations can
@@ -152,7 +150,7 @@ s_scaling(int version, int order, FLOAT s1, FLOAT *s2, FLOAT *ds2ds1)
 }
 
 static inline void 
-func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
+func_3(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
      FLOAT *f, FLOAT *dfdx, FLOAT *lvrho)
 {
   static const FLOAT AA=1.0161144, BB=-0.37170836, CC=-0.077215461, DD=0.57786348, EE=-0.051955731;
@@ -537,7 +535,42 @@ func(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
   }
 }
 
-#include "work_gga_x.c"
+/* convert into work_gga_c_ variables */
+static inline void 
+func(const XC(func_type) *p, XC(gga_work_c_t) *r)
+{
+  int i;
+  FLOAT ds, ex, f, lvrho, dexdrs, ddsdrs, dexdz, ddsdz;
+  FLOAT sign[2] = {1.0, -1.0};
+
+  r->f     = 0.0;
+  r->dfdrs = 0.0;
+  r->dfdz  = 0.0;
+
+  for(i=0; i<2; i++){
+    ds = POW(RS_FACTOR/r->rs, 3.0)*(1.0 + sign[i]*r->z)/2.0;
+    func_3(p, r->order, r->xs[i], ds, &f, &(r->dfdxs[i]), &lvrho);
+
+    ex = -X_FACTOR_C*RS_FACTOR*POW((1.0 + sign[i]*r->z)/2.0, 4.0/3.0)/r->rs;
+
+    r->f += ex*f;
+
+    if(r->order < 1) continue;
+
+    ddsdrs = -3.0*ds/r->rs;
+    dexdrs = -ex/r->rs;
+
+    ddsdz  = POW(RS_FACTOR/r->rs, 3.0)*sign[i]*r->z/2.0;
+    dexdz  = -4.0/6.0*sign[i]*X_FACTOR_C*RS_FACTOR*POW((1.0 + sign[i]*r->z)/2.0, 1.0/3.0)/r->rs;
+
+    r->dfdrs    += dexdrs*f + ex*lvrho*ddsdrs;
+    r->dfdz     += dexdz *f + ex*lvrho*ddsdz;
+    r->dfdxs[i] *= ex;
+  }
+}
+
+
+#include "work_gga_c.c"
 
 const XC(func_info_type) XC(func_info_gga_x_wpbeh) = {
   XC_GGA_X_WPBEH,
@@ -548,8 +581,6 @@ const XC(func_info_type) XC(func_info_gga_x_wpbeh) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  gga_x_wpbeh_init,
-  NULL, NULL, 
-  work_gga_x,
-  NULL
+  gga_x_wpbeh_init, NULL, 
+  NULL, work_gga_c, NULL
 };

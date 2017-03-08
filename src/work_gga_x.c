@@ -24,10 +24,6 @@
 ************************************************************************/
 
 
-#ifndef HEADER
-#  define HEADER 1
-#endif
-
 #ifndef XC_DIMENSIONS
 #  define XC_DIMENSIONS 3
 #endif
@@ -56,7 +52,6 @@ work_gga_x
 
   /* variables used inside the is loop */
   FLOAT gdm, ds, rhoLDA;
-  FLOAT lvrho;
 
   /* alpha is the power of rho in the corresponding LDA
      beta  is the power of rho in the expression for x */
@@ -147,17 +142,7 @@ work_gga_x
       rhoLDA = POW(ds, alpha);
       r.x    = gdm/POW(ds, beta);
 
-#if   HEADER == 1
-
       func(p, &r);
-
-#elif HEADER == 3
-
-      /* this second header is useful for functionals that depend
-	 explicitly both on x and on rho*/
-      func(p, r.order, r.x, ds, &(r.f), &(r.dfdx), &lvrho);
-
-#endif
 
       if(r.order > 0) r.dfdx   *= r.x;
       if(r.order > 1) r.d2fdx2 *= r.x*r.x;
@@ -169,7 +154,7 @@ work_gga_x
       
       if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC)){
 	vrho[is] += (rhoLDA/ds)*
-	  (c_vrho[0]*r.f + c_vrho[1]*r.dfdx) + rhoLDA*c_vrho[2]*lvrho;
+	  (c_vrho[0]*r.f + c_vrho[1]*r.dfdx);
 	
 	if(gdm > p->info->min_grad)
 	  vsigma[is2] = rhoLDA*

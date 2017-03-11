@@ -290,3 +290,4 @@ extern func_reference_type xc_ref_Rae1973_574;
 extern func_reference_type xc_ref_Proynov2009_014103;
 extern func_reference_type xc_ref_Brual1978_1177;
 extern func_reference_type xc_ref_McWeeny1976_3;
+extern func_reference_type xc_ref_Verma2017;

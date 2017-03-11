@@ -41,6 +41,7 @@ mGGAs:
   *) spin-polarized Colle-Salvetti -type correlation http://www.sciencedirect.com/science/article/pii/S0009261497002017
   *) B94 [A. D. Becke, Int. J. Quantum Chem. Symp. 28, 625 (1994) and  E. Proynov, Z. Gan, and J. Kong, Chem. Phys. Lett. 455, 103 (2008)]
   *) Laplacian-level KED functional from Salazar et al http://dx.doi.org/10.1002/qua.25179
+  *) 2D exchange functional of https://arxiv.org/pdf/1703.01728.pdf
 
 hybrids:
   *) doi:10.1021/ct800530u (LR-omegaPBE08)

@@ -20,6 +20,7 @@
 
 #define XC_HYB_GGA_XC_CAM_B3LYP        433 /* CAM version of B3LYP */
 #define XC_HYB_GGA_XC_TUNED_CAM_B3LYP  434 /* CAM version of B3LYP tuned for excitations*/
+#define XC_HYB_GGA_XC_CAM_QTP_01       482 /* CAM-QTP(01): CAM-B3LYP retuned using ionization potentials of water */
 
 void
 XC(hyb_gga_xc_cam_b3lyp_init)(XC(func_type) *p)
@@ -35,7 +36,10 @@ XC(hyb_gga_xc_cam_b3lyp_init)(XC(func_type) *p)
   case XC_HYB_GGA_XC_CAM_B3LYP:
     /* N.B. The notation used in Yanai et al uses a different
        convention for alpha and beta.  In libxc, alpha is the weight
-       for HF exchange, which in Yanai et al is alpha+beta.
+       for HF exchange, which in Yanai et al is alpha+beta, so:
+
+       alpha_libxc = alpha_Yanai + beta_Yanai
+       beta_libxc  = - beta_Yanai
      */
     omega = 0.33;
     alpha = 0.65;
@@ -47,6 +51,15 @@ XC(hyb_gga_xc_cam_b3lyp_init)(XC(func_type) *p)
     alpha = 1.0000;
     beta  =-0.9201;
     break;
+  case XC_HYB_GGA_XC_CAM_QTP_01:
+    /* The same note applies here. */
+    omega = 0.31;
+    alpha = 1.00;
+    beta  =-0.77;
+    break;
+  default:
+    fprintf(stderr,"Internal error in hyb_gga_xc_cam_b3lyp_init.\n");
+    exit(1);
   }
 
   funcs_coef[0] = 1.0 - alpha;
@@ -75,13 +88,25 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_cam_b3lyp) = {
   NULL, NULL, NULL, NULL
 };
 
-
 const XC(func_info_type) XC(func_info_hyb_gga_xc_tuned_cam_b3lyp) = {
   XC_HYB_GGA_XC_TUNED_CAM_B3LYP,
   XC_EXCHANGE_CORRELATION,
   "CAM version of B3LYP, tuned for excitations and properties",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Okuno2012_29, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
+  XC(hyb_gga_xc_cam_b3lyp_init),
+  NULL, NULL, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_cam_qtp_01) = {
+  XC_HYB_GGA_XC_CAM_QTP_01,
+  XC_EXCHANGE_CORRELATION,
+  "CAM-B3LYP retuned using ionization potentials of water",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Jin2016_034107, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,

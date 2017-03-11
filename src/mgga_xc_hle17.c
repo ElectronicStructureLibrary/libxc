@@ -18,7 +18,7 @@
 
 #include "util.h"
 
-#define XC_MGGA_XC_HLE17      2000  /* oTPSS_D functional of Goerigk and Grimme   */
+#define XC_MGGA_XC_HLE17      288  /* high local exchange 2017   */
 
 static void
 mgga_xc_hle17_init(XC(func_type) *p)

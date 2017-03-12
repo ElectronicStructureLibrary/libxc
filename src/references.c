@@ -921,8 +921,8 @@ func_reference_type xc_ref_Swart2009_69 = {
 
 func_reference_type xc_ref_Filatov1997_603 = {
   "M. Filatov and W. Thiel, Int. J. Quantum Chem. 62, 603 (1997)",
-  "10.1002/(SICI)1097-461X(1997)62:6<603::AID-QUA4>3.0.CO;2-%23",
-  "@article{Filatov1997_603,\n  title = {A nonlocal correlation energy density functional from a Coulomb hole model},\n  author = {M. Filatov and W. Thiel},\n  journal = {Int. J. Quantum Chem.},\n  volume = {62},\n  number = {6},\n  pages = {603},\n  year = {1997},\n  publisher = {John Wiley & Sons, Inc.},\n  issn = {1097-461X},\n  keywords = {density functionals, Coulomb hole, electron gas, atomic correlation energies, electron correlation},\n  doi = {10.1002/(SICI)1097-461X(1997)62:6<603::AID-QUA4>3.0.CO;2-%23},\n  url = {http://onlinelibrary.wiley.com/doi/10.1002/(SICI)1097-461X(1997)62:6<603::AID-QUA4>3.0.CO;2-\\%23}\n}"
+  "10.1002/(SICI)1097-461X(1997)62:6<603::AID-QUA4>3.0.CO;2-#",
+  "@article{Filatov1997_603,\n  title = {A nonlocal correlation energy density functional from a Coulomb hole model},\n  author = {M. Filatov and W. Thiel},\n  journal = {Int. J. Quantum Chem.},\n  volume = {62},\n  number = {6},\n  pages = {603},\n  year = {1997},\n  publisher = {John Wiley & Sons, Inc.},\n  issn = {1097-461X},\n  keywords = {density functionals, Coulomb hole, electron gas, atomic correlation energies, electron correlation},\n  doi = {10.1002/(SICI)1097-461X(1997)62:6<603::AID-QUA4>3.0.CO;2-#},\n  url = {http://onlinelibrary.wiley.com/doi/10.1002/(SICI)1097-461X(1997)62:6<603::AID-QUA4>3.0.CO;2-\\%23}\n}"
 };
 
 
@@ -1837,7 +1837,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };

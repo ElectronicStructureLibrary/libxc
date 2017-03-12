@@ -17,6 +17,7 @@
 */
 
 #include "util.h"
+#include <ctype.h>
 
 #define FUNCMAX 2000
   
@@ -39,6 +40,121 @@ int compare(const void *f1, const void *f2) {
 
 void sort_funcs(int * list, int nfunc) {
   qsort(list,nfunc,sizeof(int),compare);
+}
+
+/* Sanitizes links so that they are parsed correctly on the wiki */
+char * sanitize_link(char * doi) {
+  int i, j, MAXLEN=4096;
+  char buf[MAXLEN], *r;
+
+  for(i=0, j=0; i<strlen(doi); i++) {
+    switch(doi[i]) {
+    case('!'):
+      buf[j++]='%';
+      buf[j++]='2';
+      buf[j++]='1';
+      break;
+    case('#'):
+      buf[j++]='%';
+      buf[j++]='2';
+      buf[j++]='3';
+      break;
+    case('$'):
+      buf[j++]='%';
+      buf[j++]='2';
+      buf[j++]='4';
+      break;
+    case('%'):
+      buf[j++]='%';
+      buf[j++]='2';
+      buf[j++]='5';
+      break;
+    case('&'):
+      buf[j++]='%';
+      buf[j++]='2';
+      buf[j++]='6';
+      break;
+    case('\''):
+      buf[j++]='%';
+      buf[j++]='2';
+      buf[j++]='7';
+      break;
+    case('*'):
+      buf[j++]='%';
+      buf[j++]='2';
+      buf[j++]='A';
+      break;
+    case('+'):
+      buf[j++]='%';
+      buf[j++]='2';
+      buf[j++]='B';
+      break;
+    case(','):
+      buf[j++]='%';
+      buf[j++]='2';
+      buf[j++]='C';
+      break;
+    case(':'):
+      buf[j++]='%';
+      buf[j++]='3';
+      buf[j++]='A';
+      break;
+    case(';'):
+      buf[j++]='%';
+      buf[j++]='3';
+      buf[j++]='B';
+      break;
+    case('<'):
+      buf[j++]='%';
+      buf[j++]='3';
+      buf[j++]='C';
+      break;
+    case('='):
+      buf[j++]='%';
+      buf[j++]='3';
+      buf[j++]='D';
+      break;
+    case('>'):
+      buf[j++]='%';
+      buf[j++]='3';
+      buf[j++]='E';
+      break;
+    case('?'):
+      buf[j++]='%';
+      buf[j++]='3';
+      buf[j++]='F';
+      break;
+    case('@'):
+      buf[j++]='%';
+      buf[j++]='4';
+      buf[j++]='0';
+      break;
+    case('['):
+      buf[j++]='%';
+      buf[j++]='5';
+      buf[j++]='B';
+      break;
+    case('\\'):
+      buf[j++]='%';
+      buf[j++]='5';
+      buf[j++]='C';
+      break;
+    case(']'):
+      buf[j++]='%';
+      buf[j++]='5';
+      buf[j++]='D';
+      break;
+    default:
+      buf[j++]=doi[i];
+    }
+  }
+  buf[j++]='\0';
+
+  /* Allocate return array */
+  r=malloc(strlen(buf)+1);
+  strcpy(r,buf);
+
+  return r;
 }
 
 int main(void) {
@@ -125,9 +241,11 @@ int main(void) {
 	  /* Print out references */
 	  for(i=0; i<5; i++){
 	    if(func.info->refs[i]==NULL) break;
-	    if(strlen(func.info->refs[i]->doi) > 0)
-	      printf("** [http://dx.doi.org/%s %s] (doi: %s)\n", func.info->refs[i]->doi, func.info->refs[i]->ref, func.info->refs[i]->doi);
-	    else
+	    if(strlen(func.info->refs[i]->doi) > 0) {
+	      char *h=sanitize_link(func.info->refs[i]->doi);
+	      printf("** [http://dx.doi.org/%s %s] (doi: %s)\n", h, func.info->refs[i]->ref, func.info->refs[i]->doi);
+	      free(h);
+	    } else
 	      printf("** %s\n", func.info->refs[i]->ref);
 	  }
 	  

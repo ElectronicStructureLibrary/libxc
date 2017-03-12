@@ -276,7 +276,7 @@ extern func_reference_type xc_ref_MacDonald1979_2977;
 extern func_reference_type xc_ref_Engel1995_2750;
 extern func_reference_type xc_ref_Chachiyo2016_021101;
 extern func_reference_type xc_ref_Constantin2016_045126;
-extern func_reference_type xc_ref_Entwistle2016;
+extern func_reference_type xc_ref_Entwistle2016_205134;
 extern func_reference_type xc_ref_Bremond2016_244102;
 extern func_reference_type xc_ref_Tao2016_073001;
 extern func_reference_type xc_ref_Campo2012_179;

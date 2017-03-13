@@ -8,7 +8,8 @@ LDA:
 
 GGAs:
   *) D.J. Tozer, N.C. Handy, Recent advances in density functional theory, Vol.2  (http://dx.doi.org/10.1142/9789812819468_0001)
-  *) functionals of Della Salla (http://www.theory-nnl.it/software.php)
+  *) zvPBEsol and zvPBEint (http://aip.scitation.org/doi/abs/10.1063/1.4766324)
+  
   *) http://dx.doi.org/10.1063/1.3243845
   *) https://doi.org/10.1016/0301-0104(93)E0444-Z
   *) df-LB94, df-revLB94 http://dx.doi.org/10.1103/PhysRevA.83.012509
@@ -16,7 +17,6 @@ GGAs:
   *) Gilbert and Gill c [CPL 312, 511 (1999)] http://www.sciencedirect.com/science/article/pii/S0009261499008362
   *) BNL (Baer-Neuhauser-Livshits) [Phys. Rev. Lett. 94, 043002 (2005) and Phys. Chem. Chem. Phys. 9, 2932 (2007)] http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.94.043002 and http://pubs.rsc.org/en/content/articlelanding/2007/cp/b617919c
   *) zvPBEint and zvPBEsol http://scitation.aip.org/content/aip/journal/jcp/137/19/10.1063/1.4766324
-  *) GAPc and GAPloc http://pubs.acs.org/doi/full/10.1021/ct500073b
   *) B97GGA-1 and B97-1b (A.J.Cohen,N.C.Handy, Chem.Phys.Lett., 316,160 (2000)) This is a different version of B97-1!!!
   *) B98-1, and VS98-1	(A.J.Cohen,N.C.Handy, Chem.Phys.Lett., 316,160 (2000))
   *) GDS08 KED functional http://dx.doi.org/10.1103/PhysRevB.77.073104
@@ -41,6 +41,9 @@ mGGAs:
   *) spin-polarized Colle-Salvetti -type correlation http://www.sciencedirect.com/science/article/pii/S0009261497002017
   *) B94 [A. D. Becke, Int. J. Quantum Chem. Symp. 28, 625 (1994) and  E. Proynov, Z. Gan, and J. Kong, Chem. Phys. Lett. 455, 103 (2008)]
   *) Laplacian-level KED functional from Salazar et al http://dx.doi.org/10.1002/qua.25179
+  *) L0.4 and L0.6 ( S. Laricchia, E. Fabiano, L. A. Constantin, F. Della Sala,
+!           J. Chem. Theory Comput. 10, 164 (2014). )
+     http://www.theory-ecmt.it/nnldft_web/lkin.txt
   *) 2D exchange functional of https://arxiv.org/pdf/1703.01728.pdf
 
 hybrids:

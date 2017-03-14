@@ -35,6 +35,7 @@
 #define XC_GGA_C_PBEINT        62 /* PBE for hybrid interfaces                          */
 #define XC_GGA_C_PBEFE        258 /* PBE for formation energies                         */
 #define XC_GGA_C_PBE_MOL      272 /* Del Campo, Gazquez, Trickey and Vela (PBE-like)    */
+#define XC_GGA_C_TM_PBE       560  /* Takkar and McCarthy reparametrization */
 
 typedef struct{
   FLOAT beta, gamma, BB;
@@ -86,6 +87,10 @@ static void gga_c_pbe_init(XC(func_type) *p)
     break;
   case XC_GGA_C_PBE_MOL:
     params->beta = 0.08384;
+    break;
+  case XC_GGA_C_TM_PBE:
+    params->gamma = -0.0156;
+    params->beta  = 3.38*params->gamma;
     break;
   default:
     fprintf(stderr, "Internal error in gga_c_pbe\n");
@@ -234,6 +239,19 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_mol) = {
   "Reparametrized PBE by del Campo, Gazquez, Trickey & Vela",
   XC_FAMILY_GGA,
   {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga_c, NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_c_tm_pbe) = {
+  XC_GGA_C_TM_PBE,
+  XC_EXCHANGE,
+  "Takkar and McCarthy reparametrization",
+  XC_FAMILY_GGA,
+  {&xc_ref_Thakkar2009_134109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,

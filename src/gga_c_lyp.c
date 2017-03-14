@@ -19,7 +19,8 @@
 
 #include "util.h"
 
-#define XC_GGA_C_LYP  131 /* Lee, Yang & Parr */
+#define XC_GGA_C_LYP    131  /* Lee, Yang & Parr */
+#define XC_GGA_C_TM_LYP 559  /* Takkar and McCarthy reparametrization */
 
 typedef struct{
   FLOAT A, B, c, d;
@@ -32,7 +33,17 @@ void XC(gga_c_lyp_init)(XC(func_type) *p)
   p->params = malloc(sizeof(gga_c_lyp_params));
 
   /* values of constants in standard LYP functional */
-  XC(gga_c_lyp_set_params)(p, 0.04918, 0.132, 0.2533, 0.349);
+  switch(p->info->number){
+  case XC_GGA_C_LYP:
+    XC(gga_c_lyp_set_params)(p, 0.04918, 0.132, 0.2533, 0.349);
+    break;
+  case XC_GGA_C_TM_LYP:
+    XC(gga_c_lyp_set_params)(p, 0.0393, 0.21, 0.41, 0.15);
+    break;
+  default:
+    fprintf(stderr, "Internal error in gga_c_pbe\n");
+    exit(1);
+  }
 }
 
 
@@ -61,6 +72,19 @@ const XC(func_info_type) XC(func_info_gga_c_lyp) = {
   "Lee, Yang & Parr",
   XC_FAMILY_GGA,
   {&xc_ref_Lee1988_785, &xc_ref_Miehlich1989_200, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
+  XC(gga_c_lyp_init), NULL,
+  NULL, work_gga_c, NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_c_tm_lyp) = {
+  XC_GGA_C_TM_LYP,
+  XC_CORRELATION,
+  "Takkar and McCarthy reparametrization",
+  XC_FAMILY_GGA,
+  {&xc_ref_Thakkar2009_134109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,

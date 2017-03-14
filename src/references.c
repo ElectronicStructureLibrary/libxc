@@ -1837,7 +1837,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -1910,6 +1910,13 @@ func_reference_type xc_ref_Jin2016_034107 = {
   "Y. Jin and R. J. Bartlett, J. Chem. Phys. 145, 034107 (2016), http://dx.doi.org/10.1063/1.4955497",
   "10.1063/1.4955497",
   "@article{Jin2016_034107,\n author = {Yifan Jin and Rodney J. Bartlett},\n title = {The QTP family of consistent functionals and potentials in Kohn-Sham density functional theory},\n journal = {The Journal of Chemical Physics},\n volume = {145},\n number = {3},\n pages = {034107},\n year = {2016},\n doi = {10.1063/1.4955497},\n URL = {http://dx.doi.org/10.1063/1.4955497},\n eprint = {http://dx.doi.org/10.1063/1.4955497}\n}"
+};
+
+
+func_reference_type xc_ref_Thakkar2009_134109 = {
+  "A. J. Thakkar and S. P. McCarthy, J. Chem. Phys. 131, 134109 (2009)",
+  "10.1063/1.3243845",
+  "@article{Thakkar2009_134109,\nauthor = {Ajit J. Thakkar and Shane P. McCarthy},\ntitle = {Toward improved density functionals for the correlation energy},\njournal = {The Journal of Chemical Physics},\nvolume = {131},\nnumber = {13},\npages = {134109},\nyear = {2009},\ndoi = {10.1063/1.3243845},\nURL = {http://dx.doi.org/10.1063/1.3243845},\n}"
 };
 
 

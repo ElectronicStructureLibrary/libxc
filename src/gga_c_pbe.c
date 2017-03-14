@@ -49,12 +49,6 @@ static void gga_c_pbe_init(XC(func_type) *p)
   p->params = malloc(sizeof(gga_c_pbe_params));
   params = (gga_c_pbe_params *) (p->params);
 
-  p->n_func_aux  = 1;
-  p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
-  p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
-
-  XC(func_init)(p->func_aux[0], XC_LDA_C_PW_MOD, p->nspin);
-
   /* most functionals have the same gamma and B */
   params->gamma = (1.0 - LOG(2.0))/(M_PI*M_PI);
   params->BB = 1.0; 

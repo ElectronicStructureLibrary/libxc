@@ -19,14 +19,14 @@ dist_noinst_SCRIPTS = \
   gga_k_ol1.mpl gga_k_ol2.mpl gga_k_pearson.mpl gga_k_tflw.mpl              \
   gga_x_2d_b86.mpl gga_x_2d_b86_mgc.mpl gga_x_2d_b88.mpl gga_x_2d_pbe.mpl   \
   gga_x_bpccac.mpl gga_x_vmt84.mpl gga_x_vmt.mpl gga_x_hjs_b88_v2.mpl       \
-  gga_x_hjs.mpl gga_x_n12.mpl \
+  gga_x_hjs.mpl gga_x_n12.mpl scaling.mpl gga_x_wpbeh.mpl \
   gga_c_wi.mpl gga_c_wl.mpl gga_c_lm.mpl gga_c_p86.mpl gga_c_am05.mpl       \
   gga_c_revtca.mpl gga_c_tca.mpl gga_c_bcgp.mpl gga_c_zpbeint.mpl           \
   gga_c_pbe.mpl gga_c_pbeloc.mpl gga_c_sg4.mpl gga_c_regtpss.mpl            \
   gga_c_scan_e0.mpl gga_c_pw91.mpl gga_c_q2d.mpl gga_c_optc.mpl             \
   gga_c_lyp.mpl gga_c_sogga11.mpl th.mpl gga_xc_th1.mpl gga_xc_th2.mpl      \
   b97.mpl gga_c_bmk.mpl gga_c_hcth_a.mpl gga_xc_b97.mpl hyb_gga_xc_wb97.mpl \
-  gga_xc_th3.mpl \
+  gga_xc_th3.mpl gga_c_gapc.mpl gga_c_gaploc.mpl gga_c_zvpbeint.mpl         \
   mgga_x_gvt4.mpl mgga_x_lta.mpl mgga_x_mk00.mpl mgga_x_ms.mpl              \
   mgga_x_mvs.mpl mgga_x_pkzb.mpl mgga_x_tpss.mpl mgga_x_tm.mpl              \
   mgga_x_vt84.mpl mgga_x_sa_tpss.mpl mgga_k_pc07.mpl                        \

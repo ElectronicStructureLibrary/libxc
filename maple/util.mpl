@@ -1,6 +1,7 @@
 (* Minimum and maximum functions that I can differentiate *)
 m_min := (x1, x2) -> x1 + (x2 - x1)*Heaviside(x1 - x2):
 m_max := (x1, x2) -> x1 + (x2 - x1)*Heaviside(x2 - x1):
+m_abs := (x) -> m_max(x, -x):
 
 (* a series of useful definitions *)
 
@@ -58,3 +59,7 @@ gga_stoll_par  := (gga_func, rs, z, xs, spin) ->
 (* Power series often used in mggas *)
 mgga_w := t -> 1.0*(K_FACTOR_C - t)/(K_FACTOR_C + t):
 mgga_series_w := (a, n, t) -> add(a[i]*mgga_w(t)^(i-1), i=1..n):
+
+(* Used in screened functionals *)
+kF := (rs, z) -> (3.0*Pi^2*(1.0 + z))^(1.0/3.0) * RS_FACTOR/rs:
+nu := (rs, z) -> params_a_omega/kF(rs, z):

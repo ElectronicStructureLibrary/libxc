@@ -1837,7 +1837,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -1889,6 +1889,13 @@ func_reference_type xc_ref_McWeeny1976_3 = {
   "R. McWeeny, in The New World of Quantum Chemistry, edited by \\bibinfo {editor {B. Pullman} and R. Parr} (Reidel, Boston, 1976) pp. 3--31",
   "",
   "@InProceedings{McWeeny1976_3,\n  author =       {R. McWeeny},\n  title =        {Present Status of the Correlation Problem},\n  booktitle = {The New World of Quantum Chemistry},\n  year =      {1976},\n  editor =    {B. Pullman and R. Parr},\n  pages =     {3--31},\n  address =   {Boston},\n  publisher = {Reidel},\n}"
+};
+
+
+func_reference_type xc_ref_Constantin2012_194105 = {
+  "L. A. Constantin, E. Fabiano, and F. D. Sala, J. Chem. Phys. 137, 194105 (2012)",
+  "10.1063/1.4766324",
+  "@article{Constantin2012_194105,\nauthor = {Lucian A. Constantin and Eduardo Fabiano and Fabio Della Sala},\ntitle = {Spin-dependent gradient correction for more accurate atomization energies of molecules},\njournal = {The Journal of Chemical Physics},\nvolume = {137},\nnumber = {19},\npages = {194105},\nyear = {2012},\ndoi = {10.1063/1.4766324},\nURL = {http://dx.doi.org/10.1063/1.4766324},\n}"
 };
 
 

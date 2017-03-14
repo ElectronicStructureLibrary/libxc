@@ -1,7 +1,7 @@
 (* type: work_gga_c *)
 (* prefix:
   gga_x_hjs_params *params;
- 
+
   assert(p->params != NULL);
   params = (gga_x_hjs_params * )(p->params);
 *)
@@ -10,9 +10,6 @@ AA :=  0.757211:
 BB := -0.106364:
 CC := -0.118649:
 DD :=  0.609650:
-
-kF := (rs, z) -> (3.0*Pi^2*(1.0 + z))^(1.0/3.0) * RS_FACTOR/rs:
-nu := (rs, z) -> params_a_omega/kF(rs, z):
 
 fH := s -> add(params_a_a[i]*s^(1+i), i=1..6)/(1.0 + add(params_a_b[i]*s^i, i=1..9)):
 
@@ -30,8 +27,8 @@ fG := (rs, z, s) ->
   - 6.0/5.0  * AA*mlambda(s)^3
   - mlambda(s)^(7.0/2.0)*(4.0/5.0*sqrt(Pi) + 12.0/5.0*(sqrt(mzeta(s)) - sqrt(meta(s)))):
 
-f1 := (rs, z, s) -> 
-   + AA 
+f1 := (rs, z, s) ->
+   + AA
    - 4.0/9.0 * BB*(1.0 - mchi(rs, z, s))/mlambda(s)
    - 2.0/9.0 * CC*fF(rs, z, s)*(2.0 - 3.0*mchi(rs, z, s) + mchi(rs, z, s)^3)/mlambda(s)^2
    - 1.0/9.0 * fG(rs, z, s)*(8.0 - 15.0*mchi(rs, z, s) + 10.0*mchi(rs, z, s)^3 - 3.0*mchi(rs, z, s)^5)/mlambda(s)^3
@@ -41,5 +38,5 @@ f1 := (rs, z, s) ->
 
 f_lda := (rs, z) -> -X_FACTOR_C*RS_FACTOR*((1.0 + z)/2.0)^(4.0/3.0)/rs:
 
-f := (rs, z, xt, xs0, xs1) -> 
+f := (rs, z, xt, xs0, xs1) ->
   f_lda(rs, z)*f1(rs, z, X2S*xs0) + f_lda(rs, -z)*f1(rs, -z, X2S*xs1):

@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2012 M.A.L. Marques, M. Oliveira
+ Copyright (C) 2006-2007 M.A.L. Marques
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU Lesser General Public License as published by
@@ -17,21 +17,24 @@
 */
 
 
-#include "xc.h"
-#include "config.h"
-#include <stdio.h>
+#include "util.h"
 
-static const char * libxc_version = PACKAGE_VERSION;
+#define XC_GGA_C_W94 561 /* Wilson 94 (Eq. 25) */
 
-void XC(version)(int *major, int *minor, int *micro) {
+#include "maple2c/gga_c_w94.c"
 
-  *major = -1;
-  *minor = -1;
-  *micro = -1;
-  sscanf(libxc_version,"%d.%d.%d",major,minor,micro);
+#define func maple2c_func
+#include "work_gga_c.c"
 
-}
-
-const char *XC(version_string)() {
-  return libxc_version;
-}
+const XC(func_info_type) XC(func_info_gga_c_w94) = {
+  XC_GGA_C_W94,
+  XC_CORRELATION,
+  "Wilson 94 (Eq. 25)",
+  XC_FAMILY_GGA,
+  {&xc_ref_Wilson1994_337, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
+  NULL, NULL, 
+  NULL, work_gga_c, NULL
+};

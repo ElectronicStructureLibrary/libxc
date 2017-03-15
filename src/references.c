@@ -1837,7 +1837,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -1917,6 +1917,13 @@ func_reference_type xc_ref_Thakkar2009_134109 = {
   "A. J. Thakkar and S. P. McCarthy, J. Chem. Phys. 131, 134109 (2009)",
   "10.1063/1.3243845",
   "@article{Thakkar2009_134109,\nauthor = {Ajit J. Thakkar and Shane P. McCarthy},\ntitle = {Toward improved density functionals for the correlation energy},\njournal = {The Journal of Chemical Physics},\nvolume = {131},\nnumber = {13},\npages = {134109},\nyear = {2009},\ndoi = {10.1063/1.3243845},\nURL = {http://dx.doi.org/10.1063/1.3243845},\n}"
+};
+
+
+func_reference_type xc_ref_Wilson1994_337 = {
+  "L. C. Wilson, Chemical Physics 181, 337 (1994)",
+  "10.1016/0301-0104(93)E0444-Z",
+  "@article{Wilson1994_337,\ntitle = \"Development of non-local Wigner-like correlation-energy density functionals through coordinate scaling requirements and evaluation of contraint obedience in the construction of density functionals\",\njournal = \"Chemical Physics\",\nvolume = \"181\",\nnumber = \"3\",\npages = \"337 - 353\",\nyear = \"1994\",\nnote = \"\",\nissn = \"0301-0104\",\ndoi = \"http://dx.doi.org/10.1016/0301-0104(93)E0444-Z\",\nurl = \"http://www.sciencedirect.com/science/article/pii/0301010493E0444Z\",\nauthor = \"Leslie C. Wilson\",\n}"
 };
 
 

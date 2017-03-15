@@ -35,7 +35,7 @@
 #define XC_GGA_C_PBEINT        62 /* PBE for hybrid interfaces                          */
 #define XC_GGA_C_PBEFE        258 /* PBE for formation energies                         */
 #define XC_GGA_C_PBE_MOL      272 /* Del Campo, Gazquez, Trickey and Vela (PBE-like)    */
-#define XC_GGA_C_TM_PBE       560  /* Takkar and McCarthy reparametrization */
+#define XC_GGA_C_TM_PBE       560  /* Thakkar and McCarthy reparametrization */
 
 typedef struct{
   FLOAT beta, gamma, BB;
@@ -249,7 +249,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_mol) = {
 const XC(func_info_type) XC(func_info_gga_c_tm_pbe) = {
   XC_GGA_C_TM_PBE,
   XC_EXCHANGE,
-  "Takkar and McCarthy reparametrization",
+  "Thakkar and McCarthy reparametrization",
   XC_FAMILY_GGA,
   {&xc_ref_Thakkar2009_134109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,

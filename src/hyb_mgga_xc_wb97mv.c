@@ -22,7 +22,7 @@
 #define XC_HYB_MGGA_XC_WB97M_V   531 /* Mardirossian and Head-Gordon */
 
 static void
-hyb_mgga_xc_b97mv_init(XC(func_type) *p)
+hyb_mgga_xc_wb97mv_init(XC(func_type) *p)
 {
   p->cam_omega =  0.3;
   p->cam_alpha =  1.0;
@@ -31,7 +31,7 @@ hyb_mgga_xc_b97mv_init(XC(func_type) *p)
   p->nlc_C = 0.01;
 }
 
-#include "maple2c/hyb_mgga_xc_b97mv.c"
+#include "maple2c/hyb_mgga_xc_wb97mv.c"
 
 #define func maple2c_func
 #include "work_mgga_c.c"
@@ -45,7 +45,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_wb97m_v) = {
   XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   0, NULL, NULL,
-  hyb_mgga_xc_b97mv_init,
+  hyb_mgga_xc_wb97mv_init,
   NULL, NULL, NULL,
   work_mgga_c,
 };

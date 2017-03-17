@@ -30,7 +30,10 @@ static const gga_x_ft97_params par_ft97_a = {
 };
 
 static const gga_x_ft97_params par_ft97_b = {
-  0.002913644, 0.0009474169, 6255746.320201 /* beta2 = 2501.149^2 ?? (Eq. (16a) */
+  /* These parameters are what Filatov and Thiel actually used, not
+     the ones they published in the paper... the differences being that
+     beta1 has one more digit, and beta2 is squared: 2501.149^2 */
+  0.002913644, 0.0009474169, 6255746.320201
 };
 
 static void 

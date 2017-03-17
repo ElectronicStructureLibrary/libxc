@@ -41,11 +41,6 @@ mGGAs:
 !           J. Chem. Theory Comput. 10, 164 (2014). )
      http://www.theory-ecmt.it/nnldft_web/lkin.txt
   *) 2D exchange functional of https://arxiv.org/pdf/1703.01728.pdf
-  *) Krieger-Chen-Iafrate-Savin correlation, references from Gaussian website
-      http://doi.wiley.com/10.1002/%28SICI%291097-461X%281998%2969%3A4%3C581%3A%3AAID-QUA16%3E3.0.CO%3B2-2
-      http://aip.scitation.org/doi/10.1063/1.1521432
-      http://aip.scitation.org/doi/10.1063/1.1390178
-      http://link.springer.com/10.1007/978-1-4615-4715-0_28
 
 hybrids:
   *) doi:10.1021/ct800530u (LR-omegaPBE08)

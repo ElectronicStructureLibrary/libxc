@@ -1837,7 +1837,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -1924,6 +1924,27 @@ func_reference_type xc_ref_Wilson1994_337 = {
   "L. C. Wilson, Chemical Physics 181, 337 (1994)",
   "10.1016/0301-0104(93)E0444-Z",
   "@article{Wilson1994_337,\ntitle = \"Development of non-local Wigner-like correlation-energy density functionals through coordinate scaling requirements and evaluation of contraint obedience in the construction of density functionals\",\njournal = \"Chemical Physics\",\nvolume = \"181\",\nnumber = \"3\",\npages = \"337 - 353\",\nyear = \"1994\",\nnote = \"\",\nissn = \"0301-0104\",\ndoi = \"http://dx.doi.org/10.1016/0301-0104(93)E0444-Z\",\nurl = \"http://www.sciencedirect.com/science/article/pii/0301010493E0444Z\",\nauthor = \"Leslie C. Wilson\",\n}"
+};
+
+
+func_reference_type xc_ref_Krieger1999_463 = {
+  "J. B. Krieger, J. Chen, G. J. Iafrate, and A. Savin, \\enquote {Construction of an accurate self-interaction-corrected correlation energy functional based on an electron gas with a gap,} in Electron Correlations and Materials Properties, edited by A. Gonis, N. Kioussis, and M. Ciftan (Springer US, Boston, MA, 1999) pp. 463--477",
+  "10.1007/978-1-4615-4715-0_28",
+  "@Inbook{Krieger1999_463,\nauthor=\"Krieger, Joseph B. and Chen, Jiqiang and Iafrate, Gerald J. and Savin, Andreas\",\neditor=\"Gonis, A. and Kioussis, N. and Ciftan, M.\",\ntitle=\"Construction of An Accurate Self-interaction-corrected Correlation Energy Functional Based on An Electron Gas with A Gap\",\nbookTitle=\"Electron Correlations and Materials Properties\",\nyear=\"1999\",\npublisher=\"Springer US\",\naddress=\"Boston, MA\",\npages=\"463--477\",\nisbn=\"978-1-4615-4715-0\",\ndoi=\"10.1007/978-1-4615-4715-0_28\",\nurl=\"http://dx.doi.org/10.1007/978-1-4615-4715-0_28\"\n}"
+};
+
+
+func_reference_type xc_ref_Krieger2001_48 = {
+  "J. B. Krieger, J. Chen, and S. Kurth, AIP Conference Proceedings 577, 48 (2001)",
+  "10.1063/1.1390178",
+  "@article{Krieger2001_48,\nauthor = {Joseph B. Krieger and Jiqiang Chen and Stefan Kurth},\ntitle = {Construction and application of an accurate self-interaction-corrected correlation energy functional based on an electron gas with a gap},\njournal = {AIP Conference Proceedings},\nvolume = {577},\nnumber = {1},\npages = {48-69},\nyear = {2001},\ndoi = {10.1063/1.1390178},\nURL = {http://aip.scitation.org/doi/abs/10.1063/1.1390178},\n}"
+};
+
+
+func_reference_type xc_ref_Toulouse2002_10465 = {
+  "J. Toulouse, A. Savin, and C. Adamo, J. Chem. Phys. 117, 10465 (2002)",
+  "10.1063/1.1521432",
+  "@article{Toulouse2002_10465,\nauthor = {Julien Toulouse and Andreas Savin and Carlo Adamo},\ntitle = {Validation and assessment of an accurate approach to the correlation problem in density functional theory: The Kriger–Chen–Iafrate–Savin model},\njournal = {The Journal of Chemical Physics},\nvolume = {117},\nnumber = {23},\npages = {10465-10473},\nyear = {2002},\ndoi = {10.1063/1.1521432},\nURL = {http://dx.doi.org/10.1063/1.1521432},\n}"
 };
 
 

@@ -30,7 +30,6 @@ mGGAs:
   *) hybrids in http://scitation.aip.org/content/aip/journal/jcp/112/9/10.1063/1.480951
   *) tau-PBE (http://scitation.aip.org/content/aip/journal/jcp/111/3/10.1063/1.479374)
   *) ISM (http://scitation.aip.org/content/aip/journal/jcp/116/15/10.1063/1.1462618)
-  *) KCIS, B0KCIS, B1KCIS http://jcp.aip.org/resource/1/jcpsa6/v117/i23/p10465_s1
   *) LAP class of functionals [70]
   *) PK06 (part of the LAP class of functionals) http://dx.doi.org/10.1021/ct600372t
   *) Alternative parametrizations of the TB09 functional http://dx.doi.org/10.1103/PhysRevB.85.155109

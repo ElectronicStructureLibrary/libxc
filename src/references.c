@@ -1948,3 +1948,24 @@ func_reference_type xc_ref_Toulouse2002_10465 = {
 };
 
 
+func_reference_type xc_ref_Zhao2005_2012 = {
+  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem. A 109, 2012 (2005), pMID: 16833536",
+  "10.1021/jp045141s",
+  "@article{Zhao2005_2012,\nauthor = {Zhao, Yan and González-García, Núria and Truhlar, Donald G.},\ntitle = {Benchmark Database of Barrier Heights for Heavy Atom Transfer, Nucleophilic Substitution, Association, and Unimolecular Reactions and Its Use to Test Theoretical Methods},\njournal = {The Journal of Physical Chemistry A},\nvolume = {109},\nnumber = {9},\npages = {2012-2018},\nyear = {2005},\ndoi = {10.1021/jp045141s},\nnote ={PMID: 16833536},\nURL = {http://dx.doi.org/10.1021/jp045141s},\neprint = {http://dx.doi.org/10.1021/jp045141s}\n}"
+};
+
+
+func_reference_type xc_ref_Zhao2005_415 = {
+  "Y. Zhao and D. G. Truhlar, J. Chem. Theory Comput. 1, 415 (2005), pMID: 26641508",
+  "10.1021/ct049851d",
+  "@article{Zhao2005_415,\nauthor = {Zhao, Yan and Truhlar, Donald G.},\ntitle = {Benchmark Databases for Nonbonded Interactions and Their Use To Test Density Functional Theory},\njournal = {Journal of Chemical Theory and Computation},\nvolume = {1},\nnumber = {3},\npages = {415-432},\nyear = {2005},\ndoi = {10.1021/ct049851d},\nnote ={PMID: 26641508},\nURL = {http://dx.doi.org/10.1021/ct049851d},\neprint = {http://dx.doi.org/10.1021/ct049851d}\n}"
+};
+
+
+func_reference_type xc_ref_Zhao2005_43 = {
+  "Y. Zhao, B. J. Lynch, and D. G. Truhlar, Phys. Chem. Chem. Phys. 7, 43 (2005)",
+  "10.1039/B416937A",
+  "@article{Zhao2005_43,\nauthor =\"Zhao, Yan and Lynch, Benjamin J. and Truhlar, Donald G.\",\ntitle =\"Multi-coefficient extrapolated density functional theory for thermochemistry and thermochemical kinetics\",\njournal =\"Phys. Chem. Chem. Phys.\",\nyear =\"2005\",\nvolume =\"7\",\nissue =\"1\",\npages =\"43-52\",\npublisher =\"The Royal Society of Chemistry\",\ndoi =\"10.1039/B416937A\",\nurl =\"http://dx.doi.org/10.1039/B416937A\"\n}"
+};
+
+

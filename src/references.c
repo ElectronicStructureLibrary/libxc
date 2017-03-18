@@ -1837,7 +1837,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -1924,6 +1924,13 @@ func_reference_type xc_ref_Wilson1994_337 = {
   "L. C. Wilson, Chemical Physics 181, 337 (1994)",
   "10.1016/0301-0104(93)E0444-Z",
   "@article{Wilson1994_337,\ntitle = \"Development of non-local Wigner-like correlation-energy density functionals through coordinate scaling requirements and evaluation of contraint obedience in the construction of density functionals\",\njournal = \"Chemical Physics\",\nvolume = \"181\",\nnumber = \"3\",\npages = \"337 - 353\",\nyear = \"1994\",\nnote = \"\",\nissn = \"0301-0104\",\ndoi = \"http://dx.doi.org/10.1016/0301-0104(93)E0444-Z\",\nurl = \"http://www.sciencedirect.com/science/article/pii/0301010493E0444Z\",\nauthor = \"Leslie C. Wilson\",\n}"
+};
+
+
+func_reference_type xc_ref_Rey1998_581 = {
+  "J. Rey and A. Savin, Int. J. Quantum Chem. 69, 581 (1998)",
+  "10.1002/(SICI)1097-461X(1998)69:4<581::AID-QUA16>3.0.CO;2-2",
+  "@article {Rey1998_581,\nauthor = {Rey, Jérôme and Savin, Andreas},\ntitle = {Virtual space level shifting and correlation energies},\njournal = {International Journal of Quantum Chemistry},\nvolume = {69},\nnumber = {4},\npublisher = {John Wiley & Sons, Inc.},\nissn = {1097-461X},\nurl = {http://dx.doi.org/10.1002/(SICI)1097-461X(1998)69:4<581::AID-QUA16>3.0.CO;2-2},\ndoi = {10.1002/(SICI)1097-461X(1998)69:4<581::AID-QUA16>3.0.CO;2-2},\npages = {581--590},\nyear = {1998},\n}"
 };
 
 

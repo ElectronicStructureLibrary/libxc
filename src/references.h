@@ -299,6 +299,7 @@ extern func_reference_type xc_ref_Rey1998_581;
 extern func_reference_type xc_ref_Krieger1999_463;
 extern func_reference_type xc_ref_Krieger2001_48;
 extern func_reference_type xc_ref_Toulouse2002_10465;
+extern func_reference_type xc_ref_Handy2002_5411;
 extern func_reference_type xc_ref_Zhao2005_2012;
 extern func_reference_type xc_ref_Zhao2005_415;
 extern func_reference_type xc_ref_Zhao2005_43;

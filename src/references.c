@@ -1837,7 +1837,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -1952,6 +1952,13 @@ func_reference_type xc_ref_Toulouse2002_10465 = {
   "J. Toulouse, A. Savin, and C. Adamo, J. Chem. Phys. 117, 10465 (2002)",
   "10.1063/1.1521432",
   "@article{Toulouse2002_10465,\nauthor = {Julien Toulouse and Andreas Savin and Carlo Adamo},\ntitle = {Validation and assessment of an accurate approach to the correlation problem in density functional theory: The Kriger–Chen–Iafrate–Savin model},\njournal = {The Journal of Chemical Physics},\nvolume = {117},\nnumber = {23},\npages = {10465-10473},\nyear = {2002},\ndoi = {10.1063/1.1521432},\nURL = {http://dx.doi.org/10.1063/1.1521432},\n}"
+};
+
+
+func_reference_type xc_ref_Handy2002_5411 = {
+  "N. C. Handy and A. J. Cohen, J. Chem. Phys. 116, 5411 (2002)",
+  "10.1063/1.1457432",
+  "@article{Handy2002_5411,\nauthor = {Nicholas C. Handy and Aron J. Cohen},\ntitle = {A dynamical correlation functional},\njournal = {The Journal of Chemical Physics},\nvolume = {116},\nnumber = {13},\npages = {5411-5418},\nyear = {2002},\ndoi = {10.1063/1.1457432},\nURL = {http://dx.doi.org/10.1063/1.1457432},\n}"
 };
 
 

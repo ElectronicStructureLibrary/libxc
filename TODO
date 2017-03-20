@@ -24,8 +24,6 @@ GGAs:
 
 mGGAs:
   *) KCISK 10.1063/1.1390178 i.e. Krieger2001_48
-  *) Lee and Parr https://journals.aps.org/pra/abstract/10.1103/PhysRevA.42.193 (Equations (56) and (60))
-  *) correlation of Tao-Mo (TM) functional http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.117.073001
   *) Becke-Roussel style correlation http://scitation.aip.org/content/aip/journal/jcp/88/2/10.1063/1.454274
   *) hybrids in http://scitation.aip.org/content/aip/journal/jcp/112/9/10.1063/1.480951
   *) tau-PBE (http://scitation.aip.org/content/aip/journal/jcp/111/3/10.1063/1.479374)

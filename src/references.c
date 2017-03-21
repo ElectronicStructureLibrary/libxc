@@ -1837,7 +1837,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -1980,6 +1980,13 @@ func_reference_type xc_ref_Zhao2005_43 = {
   "Y. Zhao, B. J. Lynch, and D. G. Truhlar, Phys. Chem. Chem. Phys. 7, 43 (2005)",
   "10.1039/B416937A",
   "@article{Zhao2005_43,\nauthor =\"Zhao, Yan and Lynch, Benjamin J. and Truhlar, Donald G.\",\ntitle =\"Multi-coefficient extrapolated density functional theory for thermochemistry and thermochemical kinetics\",\njournal =\"Phys. Chem. Chem. Phys.\",\nyear =\"2005\",\nvolume =\"7\",\nissue =\"1\",\npages =\"43-52\",\npublisher =\"The Royal Society of Chemistry\",\ndoi =\"10.1039/B416937A\",\nurl =\"http://dx.doi.org/10.1039/B416937A\"\n}"
+};
+
+
+func_reference_type xc_ref_Proynov2006_436 = {
+  "E. I. Proynov and A. J. Thakkar, Int. J. Quantum Chem. 106, 436 (2006)",
+  "10.1002/qua.20758",
+  "@article{Proynov2006_436,\nauthor = {Proynov, Emil I. and Thakkar, Ajit J.},\ntitle = {Is combining meta-GGA correlation functionals with the OPTX exchange functional useful?},\njournal = {International Journal of Quantum Chemistry},\nvolume = {106},\nnumber = {2},\npublisher = {Wiley Subscription Services, Inc., A Wiley Company},\nissn = {1097-461X},\nurl = {http://dx.doi.org/10.1002/qua.20758},\ndoi = {10.1002/qua.20758},\npages = {436--446},\nkeywords = {generalized gradient approximation, meta-GGA, adiabatic connection, hybrid functional, density functional theory},\nyear = {2006},\n}"
 };
 
 

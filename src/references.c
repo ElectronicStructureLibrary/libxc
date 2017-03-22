@@ -1997,3 +1997,10 @@ func_reference_type xc_ref_Proynov2000_10013 = {
 };
 
 
+func_reference_type xc_ref_Becke1988_1053 = {
+  "A. D. Becke, J. Chem. Phys. 88, 1053 (1988)",
+  "10.1063/1.454274",
+  "@article{Becke1988_1053,\nauthor = {A. D. Becke},\ntitle = {Correlation energy of an inhomogeneous electron gas: A coordinate‐space model},\njournal = {The Journal of Chemical Physics},\nvolume = {88},\nnumber = {2},\npages = {1053-1062},\nyear = {1988},\ndoi = {10.1063/1.454274},\nURL = {http://dx.doi.org/10.1063/1.454274},\n}"
+};
+
+

@@ -305,3 +305,4 @@ extern func_reference_type xc_ref_Zhao2005_415;
 extern func_reference_type xc_ref_Zhao2005_43;
 extern func_reference_type xc_ref_Proynov2006_436;
 extern func_reference_type xc_ref_Proynov2000_10013;
+extern func_reference_type xc_ref_Becke1988_1053;

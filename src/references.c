@@ -1963,7 +1963,7 @@ func_reference_type xc_ref_Handy2002_5411 = {
 
 
 func_reference_type xc_ref_Zhao2005_2012 = {
-  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem. A 109, 2012 (2005), pMID: 16833536",
+  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem A 109, 2012 (2005), pMID: 16833536",
   "10.1021/jp045141s",
   "@article{Zhao2005_2012,\nauthor = {Zhao, Yan and González-García, Núria and Truhlar, Donald G.},\ntitle = {Benchmark Database of Barrier Heights for Heavy Atom Transfer, Nucleophilic Substitution, Association, and Unimolecular Reactions and Its Use to Test Theoretical Methods},\njournal = {The Journal of Physical Chemistry A},\nvolume = {109},\nnumber = {9},\npages = {2012-2018},\nyear = {2005},\ndoi = {10.1021/jp045141s},\nnote ={PMID: 16833536},\nURL = {http://dx.doi.org/10.1021/jp045141s},\neprint = {http://dx.doi.org/10.1021/jp045141s}\n}"
 };
@@ -1987,6 +1987,13 @@ func_reference_type xc_ref_Proynov2006_436 = {
   "E. I. Proynov and A. J. Thakkar, Int. J. Quantum Chem. 106, 436 (2006)",
   "10.1002/qua.20758",
   "@article{Proynov2006_436,\nauthor = {Proynov, Emil I. and Thakkar, Ajit J.},\ntitle = {Is combining meta-GGA correlation functionals with the OPTX exchange functional useful?},\njournal = {International Journal of Quantum Chemistry},\nvolume = {106},\nnumber = {2},\npublisher = {Wiley Subscription Services, Inc., A Wiley Company},\nissn = {1097-461X},\nurl = {http://dx.doi.org/10.1002/qua.20758},\ndoi = {10.1002/qua.20758},\npages = {436--446},\nkeywords = {generalized gradient approximation, meta-GGA, adiabatic connection, hybrid functional, density functional theory},\nyear = {2006},\n}"
+};
+
+
+func_reference_type xc_ref_Proynov2000_10013 = {
+  "E. Proynov, H. Chermette, and D. R. Salahub, J. Chem. Phys. 113, 10013 (2000)",
+  "10.1063/1.1321309",
+  "@article{Proynov2000_10013,\nauthor = {E. Proynov and H. Chermette and D. R. Salahub},\ntitle = {New τ-dependent correlation functional combined with a modified Becke exchange},\njournal = {The Journal of Chemical Physics},\nvolume = {113},\nnumber = {22},\npages = {10013-10027},\nyear = {2000},\ndoi = {10.1063/1.1321309},\nURL = {http://dx.doi.org/10.1063/1.1321309},\n}"
 };
 
 

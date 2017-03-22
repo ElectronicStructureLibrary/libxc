@@ -19,11 +19,12 @@
 #include "util.h"
 
 #define XC_GGA_X_B88          106 /* Becke 88 */
-#define XC_GGA_X_OPTB88_VDW   139 /* Becke 88 reoptimized to be used with vdW functional of Dion et al*/
+#define XC_GGA_X_OPTB88_VDW   139 /* Becke 88 reoptimized to be used with vdW functional of Dion et al */
 #define XC_GGA_X_MB88         149 /* Modified Becke 88 for proton transfer */
 #define XC_GGA_X_EB88         271 /* Non-empirical (excogitated) B88 functional of Becke and Elliott */
 #define XC_GGA_K_LLP          522 /* Lee, Lee & Parr */
 #define XC_GGA_K_FR_B88       514 /* Fuentealba & Reyes (B88 version) */
+#define XC_GGA_X_B88M         570 /* Becke 88 reoptimized to be used with mgga_c_tau1 */
 
 typedef struct{
   FLOAT beta, gamma;
@@ -39,28 +40,25 @@ gga_x_b88_init(XC(func_type) *p)
   /* value of beta in standard Becke 88 functional */
   switch(p->info->number){
   case XC_GGA_X_B88:
-    p->func = 0; 
     XC(gga_x_b88_set_params)(p, 0.0042, 6.0);
     break;
   case XC_GGA_X_OPTB88_VDW:
-    p->func = 1; 
     XC(gga_x_b88_set_params)(p, 0.00336865923905927, 6.98131700797731);
     break;
   case XC_GGA_K_LLP:
-    p->func = 2;
     XC(gga_x_b88_set_params)(p, X_FACTOR_C*0.0044188, 0.0253/(X_FACTOR_C*0.0044188));
     break;
   case XC_GGA_K_FR_B88:
-    p->func = 3;
     XC(gga_x_b88_set_params)(p, X_FACTOR_C*0.004596, 0.02774/(X_FACTOR_C*0.004596));
     break;
   case XC_GGA_X_MB88:
-    p->func = 4;
     XC(gga_x_b88_set_params)(p, 0.0011, 6.0);
     break;
   case XC_GGA_X_EB88:
-    p->func = 6; 
     XC(gga_x_b88_set_params)(p, 0.0050/M_CBRT2, 6.0);
+    break;
+  case XC_GGA_X_B88M:
+    XC(gga_x_b88_set_params)(p, 0.0045, 6.0);
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_b88\n");
@@ -132,6 +130,19 @@ const XC(func_info_type) XC(func_info_gga_x_eb88) = {
   "Non-empirical (excogitated) B88 functional of Becke and Elliott",
   XC_FAMILY_GGA,
   {&xc_ref_Elliott2009_1485, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
+  gga_x_b88_init,  NULL, 
+  NULL, work_gga_x, NULL
+};
+
+const XC(func_info_type) XC(func_info_gga_x_b88m) = {
+  XC_GGA_X_B88M,
+  XC_EXCHANGE,
+  "Becke 88 reoptimized to be used with tau1",
+  XC_FAMILY_GGA,
+  {&xc_ref_Proynov2000_10013, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,

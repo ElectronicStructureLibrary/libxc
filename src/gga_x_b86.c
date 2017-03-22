@@ -38,15 +38,12 @@ gga_x_b86_init(XC(func_type) *p)
   /* value of beta and gamma in Becke 86 functional */
   switch(p->info->number){
   case XC_GGA_X_B86:
-    p->func = 0; 
     XC(gga_x_b86_set_params)(p, 0.0036/X_FACTOR_C, 0.004, 1.0);
     break;
   case XC_GGA_X_B86_MGC:
-    p->func = 2; 
     XC(gga_x_b86_set_params)(p, 0.00375/X_FACTOR_C, 0.007, 4.0/5.0);
     break;
   case XC_GGA_X_B86_R:
-    p->func = 2; 
     mu = 10.0/81.0;
     kappa = 0.7114;
     XC(gga_x_b86_set_params)(p, mu*X2S*X2S, mu*X2S*X2S/kappa, 4.0/5.0);
@@ -74,7 +71,7 @@ XC(gga_x_b86_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma, FLOAT omega)
 
 #include "maple2c/gga_x_b86.c"
 
-#define func XC(gga_x_b86_enhance)
+#define func maple2c_func
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_b86) = {

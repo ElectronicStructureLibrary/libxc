@@ -61,19 +61,19 @@ gga_xc_wb97_init(XC(func_type) *p)
   params = (gga_xc_wb97_params *)(p->params);
 
   switch(p->info->number){
-  case XC_HYB_GGA_XC_WB97:      p->func = 23;
+  case XC_HYB_GGA_XC_WB97:
     p->cam_alpha =  1.0;
     p->cam_omega =  0.4;
     p->cam_beta  = -1.0;
     memcpy(params, &par_wb97, sizeof(gga_xc_wb97_params));
     break;
-  case XC_HYB_GGA_XC_WB97X:     p->func = 24;
+  case XC_HYB_GGA_XC_WB97X:
     p->cam_alpha =  1.0;
     p->cam_omega =  0.3;
     p->cam_beta  = -(1.0 - 1.57706e-01);
     memcpy(params, &par_wb97x, sizeof(gga_xc_wb97_params));
     break;
-  case XC_HYB_GGA_XC_WB97X_V:   p->func = 25;
+  case XC_HYB_GGA_XC_WB97X_V:
     p->cam_alpha =  1.0;
     p->cam_omega =  0.3;
     p->cam_beta  = -(1.0 - 0.167);
@@ -81,7 +81,7 @@ gga_xc_wb97_init(XC(func_type) *p)
     p->nlc_C = 0.01;
     memcpy(params, &par_wb97x_v, sizeof(gga_xc_wb97_params));
     break;
-  case XC_HYB_GGA_XC_WB97X_D:   p->func = 26;
+  case XC_HYB_GGA_XC_WB97X_D:
     p->cam_alpha =  1.0;
     p->cam_omega =  0.2;
     p->cam_beta  = -(1.0 - 2.22036e-01);

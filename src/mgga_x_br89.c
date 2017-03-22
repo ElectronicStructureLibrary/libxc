@@ -43,20 +43,19 @@ mgga_x_tb09_init(XC(func_type) *p)
   params->c = 0;
 
   switch(p->info->number){
-  case XC_MGGA_X_BR89:  p->func = 0; break;
+  case XC_MGGA_X_BR89:
+    break;
   case XC_MGGA_X_BJ06:  
-    p->func = 1; 
     params->c = 1.0;
     break;
   case XC_MGGA_X_TB09:
-    p->func = 2; 
     /* the value of c should be passed by the calling code */
     break;
   case XC_MGGA_X_RPP09:
-    p->func = 3; 
     params->c = 1.0;
     break;
-  case XC_MGGA_X_B00:   p->func = 4; break;
+  case XC_MGGA_X_B00:
+    break;
   }
 }
 
@@ -189,7 +188,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   FLOAT Q, br_x, v_BR, dv_BRdbx, d2v_BRdbx2, dxdQ, d2xdQ2, ff, dffdx, d2ffdx2;
   FLOAT cnst, c_TB09, c_HEG, exp1, exp2, gamma, fw, dfwdt;
 
-  gamma = (pt->func == 4) ? 1.0 : br89_gamma; /* XC_MGGA_B00 */
+  gamma = (pt->info->number == XC_MGGA_X_B00) ? 1.0 : br89_gamma;
 
   Q = (r->u - 4.0*gamma*r->t + 0.5*gamma*r->x*r->x)/6.0;
   if(ABS(Q) < MIN_DENS) Q = (Q < 0) ? -MIN_DENS : MIN_DENS;
@@ -206,11 +205,11 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 
   v_BR *= cnst;
 
-  if(pt->func == 0 || pt->func == 4){ /* XC_MGGA_X_BR89 or XC_MGGA_B00 */
+  if(pt->info->number == XC_MGGA_X_BR89 || pt->info->number == XC_MGGA_X_B00){
     /* we have also to include the factor 1/2 from Eq. (9) */
     r->f = - v_BR / 2.0;
 
-    if(pt->func == 4){ /* XC_MGGA_B00 */
+    if(pt->info->number == XC_MGGA_X_B00){
       XC(mgga_b00_fw)(r->order, r->t, &fw, &dfwdt);
       r->f *= 1.0 + b00_at*fw;
     }
@@ -220,7 +219,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 
   if(r->order < 1) return;
 
-  if(pt->func == 0 || r->order > 1){
+  if(pt->info->number == XC_MGGA_X_BR89 || r->order > 1){
     dv_BRdbx = (ABS(br_x) > pt->info->min_tau) ?
       (3.0 + br_x*(br_x + 2.0) + (br_x - 3.0)/exp2) / (3.0*exp1*exp1*br_x*br_x) :
       1.0/6.0 - br_x/9.0;
@@ -231,12 +230,12 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
     dxdQ  = -ff/(Q*dffdx);
   }
 
-  if(pt->func == 0 || pt->func == 4){ /* XC_MGGA_X_BR89 */
+  if(pt->info->number == XC_MGGA_X_BR89 || pt->info->number == XC_MGGA_X_B00){
     r->dfdx = -r->x*gamma*dv_BRdbx*dxdQ/12.0;
     r->dfdt =   4.0*gamma*dv_BRdbx*dxdQ/12.0;
     r->dfdu =            -dv_BRdbx*dxdQ/12.0;
 
-    if(pt->func == 4){ /* XC_MGGA_B00 */
+    if(pt->info->number == XC_MGGA_X_B00){
       r->dfdx *= 1.0 + b00_at*fw;
       r->dfdt  = r->dfdt*(1.0 + b00_at*fw) - v_BR*b00_at*dfwdt/2.0;
       r->dfdu *= 1.0 + b00_at*fw;
@@ -249,7 +248,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 
     c_HEG  = (3.0*c_TB09 - 2.0)*SQRT(5.0/12.0)/(X_FACTOR_C*M_PI);
     
-    if(pt->func == 1 || pt->func == 2) /* XC_MGGA_X_BJ0 & XC_MGGA_X_TB09 */
+    if(pt->info->number == XC_MGGA_X_BJ06 || pt->info->number == XC_MGGA_X_TB09)
       r->dfdrs -= c_HEG*SQRT(2.0*r->t);
     else /* XC_MGGA_X_RPP09 */
       r->dfdrs -= c_HEG*SQRT(max(2.0*r->t - r->x*r->x/4.0, 0.0));
@@ -259,7 +258,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 
   if(r->order < 2) return;
   
-  if(pt->func == 0 || r->order > 2){
+  if(pt->info->number == XC_MGGA_X_BR89 || r->order > 2){
     d2v_BRdbx2 = (ABS(br_x) > pt->info->min_tau) ?
       ((18.0 + (br_x - 6.0)*br_x)/exp2 - 2.0*(9.0 + br_x*(6.0 + br_x*(br_x + 2.0)))) 
       / (9.0*exp1*exp1*br_x*br_x*br_x) :
@@ -270,7 +269,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
     d2xdQ2 = -(2.0*dxdQ/Q + d2ffdx2*dxdQ*dxdQ/dffdx);
   }
 
-  if(pt->func == 0){ /* XC_MGGA_X_BR89 */
+  if(pt->info->number == XC_MGGA_X_BR89){
     FLOAT aux1 = d2v_BRdbx2*dxdQ*dxdQ + dv_BRdbx*d2xdQ2;
 
     r->d2fdx2 = -(aux1*gamma*r->x*r->x/6.0 + dv_BRdbx*dxdQ)*gamma/12.0;
@@ -310,10 +309,8 @@ const XC(func_info_type) XC(func_info_mgga_x_bj06) = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_VXC,
   1e-22, 1e-32, 1e-22, 1e-22,
   0, NULL, NULL,
-  mgga_x_tb09_init,
-  NULL,
-  NULL, NULL,        /* this is not an LDA                   */
-  work_mgga_x,
+  mgga_x_tb09_init, NULL,
+  NULL, NULL, work_mgga_x,
 };
 
 static const func_params_type ext_params[] = {
@@ -342,10 +339,8 @@ const XC(func_info_type) XC(func_info_mgga_x_tb09) = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   1, ext_params, set_ext_params,
-  mgga_x_tb09_init,
-  NULL,
-  NULL, NULL,        /* this is not an LDA                   */
-  work_mgga_x,
+  mgga_x_tb09_init, NULL,
+  NULL, NULL, work_mgga_x,
 };
 
 const XC(func_info_type) XC(func_info_mgga_x_rpp09) = {
@@ -357,10 +352,8 @@ const XC(func_info_type) XC(func_info_mgga_x_rpp09) = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_VXC,
   1e-22, 1e-22, 1e-22, 1e-22,
   0, NULL, NULL,
-  mgga_x_tb09_init,
-  NULL,
-  NULL, NULL,        /* this is not an LDA                   */
-  work_mgga_x,
+  mgga_x_tb09_init, NULL,
+  NULL, NULL, work_mgga_x,
 };
 
 const XC(func_info_type) XC(func_info_mgga_x_b00) = {
@@ -372,7 +365,6 @@ const XC(func_info_type) XC(func_info_mgga_x_b00) = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   0, NULL, NULL,
-  NULL, NULL,
-  NULL, NULL,        /* this is not an LDA                   */
-  work_mgga_x,
+  mgga_x_tb09_init, NULL,
+  NULL, NULL, work_mgga_x,
 };

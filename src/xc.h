@@ -143,7 +143,6 @@ struct XC(func_type){
   FLOAT nlc_b;                          /* Non-local correlation, b parameter */
   FLOAT nlc_C;                          /* Non-local correlation, C parameter */
 
-  int func;                             /* Shortcut in case of several functionals sharing the same interface */
   int n_rho, n_sigma, n_tau, n_lapl;    /* spin dimensions of the arrays */
   int n_zk;
 

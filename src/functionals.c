@@ -144,7 +144,6 @@ int XC(func_init)(XC(func_type) *func, int functional, int nspin)
   func->nspin       = nspin;
 
   func->params     = NULL;
-  func->func       = 0;
 
   func->n_func_aux = 0;
   func->func_aux   = NULL;

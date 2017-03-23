@@ -39,6 +39,7 @@ mGGAs:
   *) 2D exchange functional of https://arxiv.org/pdf/1703.01728.pdf
   *) Lap3 correlation http://onlinelibrary.wiley.com/doi/10.1002/(SICI)1097-461X(1997)64:4%3C427::AID-QUA5%3E3.0.CO;2-Y/full
   *) tau1 functional (modified Becke exchange already implemented) http://aip.scitation.org/doi/abs/10.1063/1.1321309
+  *) Analytical BR89 doi: 10.1016/j.cplett.2008.02.03 pdf: http://www.q-chem.com/Publications/7%20BR89%20cpl455_103_2008.pdf
 
 hybrids:
   *) doi:10.1021/ct800530u (LR-omegaPBE08)

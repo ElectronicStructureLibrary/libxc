@@ -19,6 +19,8 @@
 
 #include "util.h"
 
+#define XC_GGA_C_FT97          88 /* Filatov & Thiel correlation */
+
 #include "maple2c/gga_c_ft97.c"
 
 #define func maple2c_func

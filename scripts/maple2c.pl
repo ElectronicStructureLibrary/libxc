@@ -5,6 +5,7 @@ use Data::Dumper;
 my $srcdir     = $ARGV[0];
 my $functional = $ARGV[1];
 my $max_order  = $ARGV[2];
+my $simplify   = ($#ARGV == 3 && $ARGV[3] eq "yes") ? 1 : 0;
 
 # Find out the type of functional
 my $mathfile = "$srcdir/maple/$functional.mpl";
@@ -76,15 +77,23 @@ sub math_replace {
 sub math_work {
   my ($info, $out, $order) = @_;
 
+  my $simplify_s = "";
+  my $simplify_e = "";
+
+  if($simplify == 1){
+    $simplify_s = "simplify(";
+    $simplify_e = ", symbolic)";
+  }
+
   my $i = 0;
   my $cmd = "[";
   foreach my $ninfo (@{$info}){
     last if($i > $order);
 
-    # generate the derivatives to generate
+    # generate the derivatives
     foreach my $der (@{$ninfo}){
       $cmd .= ", " if($cmd ne "[");
-      $cmd .= @{$der}[0]." = ".@{$der}[1];
+      $cmd .= @{$der}[0]." = $simplify_s".@{$der}[1]."$simplify_e";
     }
 
     $i++;
@@ -102,7 +111,7 @@ interface(warnlevel=0):   (* supress all warnings          *)
 \$include <$functional.mpl>
 
 with(CodeGeneration):
-  C($cmd, optimize, defaulttype=numeric, precision=double, declare=[r_x::double]);
+  C($cmd, optimize, defaulttype=numeric, precision=double);
 ";
   close($mfile);
 

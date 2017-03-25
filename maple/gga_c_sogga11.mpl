@@ -11,12 +11,12 @@ $define lda_c_pw_modified_params
 $include "lda_c_pw.mpl"
 
 mbeta  := 15.75592*0.004235: (* the usual value of 0.066726 *)
-malpha := mbeta/(16.0*2.0^(2.0/3.0)):
+malpha := mbeta/(16*2^(2/3)):
 
 yy := (rs, z, xt) -> -malpha*mphi(z)*xt^2/(rs*f_pw(rs, z)):
 
-f0 := (rs, z, xt) -> 1.0 - 1.0/(1.0 + yy(rs, z, xt)):
-f1 := (rs, z, xt) -> 1.0 - exp(-yy(rs, z, xt)):
+f0 := (rs, z, xt) -> 1 - 1/(1 + yy(rs, z, xt)):
+f1 := (rs, z, xt) -> 1 - exp(-yy(rs, z, xt)):
 
 t0 := (rs, z, xt) -> add(params_a_sogga11_a[i]*f0(rs, z, xt)^(i-1), i=1..6):
 t1 := (rs, z, xt) -> add(params_a_sogga11_b[i]*f1(rs, z, xt)^(i-1), i=1..6):

@@ -18,4 +18,4 @@ coeff_d := params_a_d:
 
 f := (rs, x, t, u) ->
   + f_pbe(x)*mgga_series_w(params_a_a, 12, t)
-  + gtv4(malpha, coeff_d, x, 2.0*(t - K_FACTOR_C)):
+  + gtv4(malpha, coeff_d, x, 2*(t - K_FACTOR_C)):

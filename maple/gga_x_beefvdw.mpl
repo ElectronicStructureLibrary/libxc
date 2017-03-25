@@ -11,8 +11,8 @@ coeffs_beefvdw := [
   -1.904911565e-4,  7.384362421e-5
 ]:
 
-k  := 4.0:
-xi := p -> 2.0*p/(k + p) - 1.0:
+k  := 4:
+xi := p -> 2*p/(k + p) - 1:
 
 with(orthopoly):
 f  := x -> add(coeffs_beefvdw[i]*P(i-1, xi(X2S^2*x^2)), i=1..30):

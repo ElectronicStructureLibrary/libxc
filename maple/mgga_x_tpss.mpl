@@ -14,4 +14,4 @@ $include "tpss_x.mpl"
 (* Equation (5) *)
 
 a1  := (x, t) -> mkappa(x, t)/(mkappa(x, t) + fx(x, t)):
-f   := (rs, x, t, u) -> 1.0 + mkappa(x, t)*(1.0 - a1(x, t)):
+f   := (rs, x, t, u) -> 1 + mkappa(x, t)*(1 - a1(x, t)):

@@ -10,8 +10,8 @@ $include "mgga_x_m08.mpl"
 $include "lda_x_erf.mpl"
 
 f_spin := (rs, z, x, t) ->
-  + lda_x_ax*(1.0 + z)^(4.0/3.0)/rs
-  * attenuation_erf(a_cnst*rs/(1.0 + z)^(1/3))
+  + lda_x_ax*(1 + z)^(4/3)/rs
+  * attenuation_erf(a_cnst*rs/(1 + z)^(1/3))
   * m08_f(params_a_a, params_a_b, x, t):
 
 f_m11 := (rs, z, xt, xs0, xs1, ts0, ts1) ->

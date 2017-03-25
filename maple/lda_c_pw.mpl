@@ -7,7 +7,7 @@
 *)
 
 $ifdef lda_c_pw_params
-params_a_pp     := [1.0,  1.0,  1.0]:
+params_a_pp     := [1,  1,  1.0]:
 params_a_a      := [0.031091, 0.015545, 0.016887]:
 params_a_alpha1 := [0.21370,  0.20548,  0.11125]:
 params_a_beta1  := [7.5957, 14.1189, 10.357]:
@@ -24,9 +24,9 @@ $endif
 
 (* Equation (10) *)
 g_aux := (k, rs) -> params_a_beta1[k]*sqrt(rs) + params_a_beta2[k]*rs
-  + params_a_beta3[k]*rs^1.5 + params_a_beta4[k]*rs^(params_a_pp[k] + 1.0):
-g     := (k, rs) -> -2.0*params_a_a[k]*(1.0 + params_a_alpha1[k]*rs)
-  * log(1.0 +  1.0/(2.0*params_a_a[k]*g_aux(k, rs))):
+  + params_a_beta3[k]*rs^1.5 + params_a_beta4[k]*rs^(params_a_pp[k] + 1):
+g     := (k, rs) -> -2*params_a_a[k]*(1 + params_a_alpha1[k]*rs)
+  * log(1 +  1/(2*params_a_a[k]*g_aux(k, rs))):
 
 (* Equation (8) *)
 (* Attention, the function g parametrizes -alpha *)

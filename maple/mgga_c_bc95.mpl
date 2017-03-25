@@ -11,13 +11,13 @@ $define lda_c_pw_modified_params
 $include "lda_c_pw.mpl"
 
 (* The B97 function g *)
-bc95_gpar  := (xs, ts) -> (ts - xs^2/8.0)/(K_FACTOR_C*(1.0 + params_a_css*xs^2)^2):
-bc95_gperp := (xs0, xs1) -> 1.0/(1.0 + params_a_copp*(xs0^2 + xs1^2)):
+bc95_gpar  := (xs, ts) -> (ts - xs^2/8)/(K_FACTOR_C*(1 + params_a_css*xs^2)^2):
+bc95_gperp := (xs0, xs1) -> 1/(1 + params_a_copp*(xs0^2 + xs1^2)):
 
 (* The parallel and perpendicular components of the energy *)
 bc95_fpar  := (rs, z, xs0, xs1, ts0, ts1) ->
-  + lda_stoll_par(f_pw, rs,  z,  1.0) * bc95_gpar(xs0, ts0)
-  + lda_stoll_par(f_pw, rs, -z, -1.0) * bc95_gpar(xs1, ts1):
+  + lda_stoll_par(f_pw, rs,  z,  1) * bc95_gpar(xs0, ts0)
+  + lda_stoll_par(f_pw, rs, -z, -1) * bc95_gpar(xs1, ts1):
 
 bc95_fperp := (rs, z, xs0, xs1) ->
   lda_stoll_perp(f_pw, rs, z) * bc95_gperp(xs0, xs1):

@@ -1,6 +1,6 @@
 (* type: work_mgga_x *)
 
-gvt4_gamm := (alpha, x, z) -> 1.0 + alpha*(x^2 + z):
+gvt4_gamm := (alpha, x, z) -> 1 + alpha*(x^2 + z):
 
 gtv4 := (alpha, dd, x, z) ->
   dd[1]/gvt4_gamm(alpha, x, z) +

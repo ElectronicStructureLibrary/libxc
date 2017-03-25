@@ -7,8 +7,8 @@
 *)
 
 (* beta is taken from the params *)
-params_a_gamma := (1.0 - log(2.0))/Pi^2:
-params_a_BB    := 1.0:
+params_a_gamma := (1 - log(2))/Pi^2:
+params_a_BB    := 1:
 $include "gga_c_pbe.mpl"
 
 $include "tpss.mpl"

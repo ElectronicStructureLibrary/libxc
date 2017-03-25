@@ -23,7 +23,7 @@ params_a_kappa := 1.227:
 params_a_mu    := 0.2195149727645171:
 $endif
 
-f0_pbe := s -> 1.0 + params_a_kappa*(1.0 - params_a_kappa/(params_a_kappa + params_a_mu*s^2)):
+f0_pbe := s -> 1 + params_a_kappa*(1 - params_a_kappa/(params_a_kappa + params_a_mu*s^2)):
 f_pbe  := x -> f0_pbe(X2S*x):
 
 f  := x -> f_pbe(x):

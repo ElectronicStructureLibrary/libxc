@@ -13,6 +13,6 @@ params_a_gamma := 6:
 $endif
 
 f_b88 := x ->
-  1.0 + (params_a_beta/X_FACTOR_C)*x^2/(1.0 + params_a_gamma*params_a_beta*x*arcsinh(x)):
+  1 + (params_a_beta/X_FACTOR_C)*x^2/(1 + params_a_gamma*params_a_beta*x*arcsinh(x)):
 
-f := x -> f_b88(1.0*x):
+f := x -> f_b88(x):

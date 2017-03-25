@@ -12,8 +12,8 @@ $include "lda_x.mpl"
 omega_x := 2.5:
 gamma_x := 0.004:
 
-vx := (rs, z) -> 1.0/(1.0 + rs/(omega_x*RS_FACTOR)*(2.0/(1.0 + z))^(1.0/3.0)):
-ux := x -> gamma_x*x^2/(1.0 + gamma_x*x^2):
+vx := (rs, z) -> 1/(1 + rs/(omega_x*RS_FACTOR)*(2/(1 + z))^(1/3)):
+ux := x -> gamma_x*x^2/(1 + gamma_x*x^2):
 wx := t -> (K_FACTOR_C - t)/(K_FACTOR_C + t):
 
 pol1  := t-> params_a_c[ 1] + params_a_c[ 2]*wx(t) + params_a_c[ 3]*wx(t)^2 + params_a_c[ 4]*wx(t)^3
@@ -43,7 +43,7 @@ FMN12 := (rs, z, x, t) ->
   + pol10(t)*vx(rs, z)^3:
 
 f_spin := (rs, z, x, t) ->
-  lda_x_ax*(1.0 + z)^(4.0/3.0)/rs*FMN12(rs, z, x, t):
+  lda_x_ax*(1 + z)^(4/3)/rs*FMN12(rs, z, x, t):
 
 f_mn12 := (rs, z, xt, xs0, xs1, ts0, ts1) ->
   f_spin(rs, z, xs0, ts0) + f_spin(rs, -z, xs1, ts1):

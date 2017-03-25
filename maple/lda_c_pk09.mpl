@@ -22,7 +22,7 @@ f_s := z -> add(c_25_i[i]*z^(i-1), i=1..5)/add(d_25_i[i]*z^(i-1), i=1..4):
 ss := (rs, z) -> f_r(rs)*f_s(z)*1.28:
 
 (* Equation (22) *)
-alpha_z := (rs, z) -> 2.0/((1.0 + z)^ss(rs, z) + (1.0 - z)^ss(rs, z)):
+alpha_z := (rs, z) -> 2/((1 + z)^ss(rs, z) + (1 - z)^ss(rs, z)):
 
 (* Equation (21) *)
 eta6  := 0.41081146652128:
@@ -33,8 +33,8 @@ eta10 := 0.46958449007619:
 
 alpha_n := rs ->
   + eta6 
-  + eta7*exp( -eta8*rs^(1.0/3.0))*rs^(2.0/3.0)
-  + eta9*exp(-eta10*rs^(1.0/3.0))*rs^(1.0/3.0):
+  + eta7*exp( -eta8*rs^(1/3))*rs^(2/3)
+  + eta9*exp(-eta10*rs^(1/3))*rs^(1/3):
 
 (* Equation (20) *)
 alpha_eff := (rs, z) -> alpha_n(rs)*alpha_z(rs, z):
@@ -48,12 +48,12 @@ eta5 :=  1.036657594643520:
 
 beta_eff := rs -> 
   + eta1 
-  + eta2*exp(-eta3*rs^(1.0/3.0))*rs^(1.0/4.0)
-  + eta4*exp(-eta5*rs^(1.0/3.0))*rs^(1.0/3.0):
+  + eta2*exp(-eta3*rs^(1/3))*rs^(1/4)
+  + eta4*exp(-eta5*rs^(1/3))*rs^(1/3):
 
 (* Equation (15) *)
-ax   := (3.0*Pi^2)^(1.0/3.0):
-k_fs := (rs, z) -> ax*RS_FACTOR/rs * (1.0 + z)^(1.0/3.0):
+ax   := (3*Pi^2)^(1/3):
+k_fs := (rs, z) -> ax*RS_FACTOR/rs * (1 + z)^(1/3):
 
 (* Equation (17) *)
 k_uu := (rs, z) -> alpha_eff(rs, z)*k_fs(rs,  z):
@@ -61,7 +61,7 @@ k_dd := (rs, z) -> alpha_eff(rs, z)*k_fs(rs, -z):
 
 (* Equation (18) *)
 k_ud := (rs, z) -> beta_eff(rs)
-  * 2.0*k_fs(rs, z)*k_fs(rs, -z)/(k_fs(rs, z) + k_fs(rs, -z)):
+  * 2*k_fs(rs, z)*k_fs(rs, -z)/(k_fs(rs, z) + k_fs(rs, -z)):
 
 (* Table III *)
 a1  := 0.1846304394851914:
@@ -124,7 +124,7 @@ D_7 := k -> c16*k^2 + c17*k + c18:
 D_8 := k -> sqrt(c26*k^2 + c27*k + c28):
 
 (* Equation (10) *)
-Q_1ud := k ->  1.0/D_1(k) * (
+Q_1ud := k ->  1/D_1(k) * (
   - arctan(a2*k + a3)*D_2(k)/k - log(D_1(k))*D_3(k)/k
   + log(k)*D_4(k)/k - a4*k + a12 + a14/k + a18/k^2
 ):
@@ -141,12 +141,12 @@ Q_3ud := k ->
 
 (* Equation (9) *)
 ec_opp := (rs, z) ->
-  (1.0 - z^2)/4.0*(Q_1ud(k_ud(rs, z)) + Q_2ud(k_ud(rs, z)) + Q_3ud(k_ud(rs, z))):
+  (1 - z^2)/4*(Q_1ud(k_ud(rs, z)) + Q_2ud(k_ud(rs, z)) + Q_3ud(k_ud(rs, z))):
 
 (* Equation (13) *)
 ec_par := (rs, z) ->
-  + (1.0 + z)^2/8.0*(Q_1ud(k_uu(rs, z)) + Q_2ud(k_uu(rs, z)) + Q_3ud(k_uu(rs, z)))
-  + (1.0 - z)^2/8.0*(Q_1ud(k_dd(rs, z)) + Q_2ud(k_dd(rs, z)) + Q_3ud(k_dd(rs, z))):
+  + (1 + z)^2/8*(Q_1ud(k_uu(rs, z)) + Q_2ud(k_uu(rs, z)) + Q_3ud(k_uu(rs, z)))
+  + (1 - z)^2/8*(Q_1ud(k_dd(rs, z)) + Q_2ud(k_dd(rs, z)) + Q_3ud(k_dd(rs, z))):
 
 f := (rs, z) -> ec_opp(rs, z) + ec_par(rs, z):
 

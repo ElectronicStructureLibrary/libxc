@@ -1,10 +1,10 @@
 (* type: work_gga_x *)
 
-Ax       := -3.0/4.0*(3.0/Pi)^(1.0/3.0):
+Ax       := -3/4*(3/Pi)^(1/3):
 mu       := 0.2195149727645171:
 alpha    := -Ax*mu:
-c        := alpha/(3.0*Pi^2)^(1.0/3.0):
+c        := alpha/(3*Pi^2)^(1/3):
 alphaoAx := -mu:
 
-f0 := s -> 1.0 - alphaoAx*s*log(1.0 + s)/(1.0 + c*log(1.0 + s)):
+f0 := s -> 1 - alphaoAx*s*log(1 + s)/(1 + c*log(1 + s)):
 f  := x -> f0(X2S*x):

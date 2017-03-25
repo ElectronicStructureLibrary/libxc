@@ -2,4 +2,4 @@
 
 c1 := 0.003:
 
-f := x -> 1.0 + c1/X_FACTOR_C * x^2:
+f := x -> 1 + c1/X_FACTOR_C * x^2:

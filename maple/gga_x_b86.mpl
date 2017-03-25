@@ -6,4 +6,4 @@
   params = (gga_x_b86_params * )(p->params);
 *)
 
-f := x -> 1.0 + params_a_beta*x^2/(1.0 + params_a_gamma*x^2)^params_a_omega:
+f := x -> 1 + params_a_beta*x^2/(1 + params_a_gamma*x^2)^params_a_omega:

@@ -8,7 +8,7 @@
 
 alpha := params_a_mu*X2S*X2S/params_a_kappa:
 
-f0 := x -> 1.0 - 1.0/(1.0 + alpha*x^2):
-f1 := x -> 1.0 - exp(-alpha*x^2):
+f0 := x -> 1 - 1/(1 + alpha*x^2):
+f1 := x -> 1 - exp(-alpha*x^2):
 
 f  := x -> add(params_a_a[i]*f0(x)^(i-1), i=1..6) + add(params_a_b[i]*f1(x)^(i-1), i=1..6):

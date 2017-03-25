@@ -11,4 +11,4 @@ $include "gga_c_pbe.mpl"
 tp := (rs, z, xt) -> bcgp_pt(tt(rs, z, xt)):
 
 (* override definition of A *)
-A := (rs, z) -> 1.0:
+A := (rs, z) -> 1:

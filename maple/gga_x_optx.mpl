@@ -6,4 +6,4 @@
   params = (gga_x_optx_params * )(p->params);
 *)
 
-f := x-> params_a_a + params_a_b*(params_a_gamma*x^2/(1.0 + params_a_gamma*x^2))^2:
+f := x-> params_a_a + params_a_b*(params_a_gamma*x^2/(1 + params_a_gamma*x^2))^2:

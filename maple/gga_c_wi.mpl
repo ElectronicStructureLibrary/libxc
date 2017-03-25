@@ -7,6 +7,6 @@
 *)
 
 f_num := xt -> params_a_a + params_a_b*xt^2*exp(-params_a_k*xt^2):
-f_den := (rs, xt) -> params_a_c + rs*(1.0 + params_a_d*(4.0*Pi/3.0)^(1.0/3.0)*xt^(7.0/2.0)):
+f_den := (rs, xt) -> params_a_c + rs*(1 + params_a_d*(4*Pi/3)^(1/3)*xt^(7/2)):
 
 f := (rs, zeta, xt, xs0, xs1) -> f_num(xt)/f_den(rs, xt):

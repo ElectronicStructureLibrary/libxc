@@ -13,18 +13,18 @@ $include "lda_c_pw.mpl"
 $include "gvt4.mpl"
 
 vsxc_comp := (rs, z, spin, xs, ts) ->
-  + lda_stoll_par(f_pw, rs,  z,  1.0)
-  * gtv4(params_a_alpha_ss, params_a_dss, xs, 2.0*(ts - K_FACTOR_C))
-  * (1.0 - xs^2/(8.0*ts)):
+  + lda_stoll_par(f_pw, rs,  z,  1)
+  * gtv4(params_a_alpha_ss, params_a_dss, xs, 2*(ts - K_FACTOR_C))
+  * (1 - xs^2/(8*ts)):
 
 (* The parallel and perpendicular components of the energy *)
 vsxc_fpar  := (rs, z, xs0, xs1, ts0, ts1) ->
-  + vsxc_comp(rs,  z,  1.0, xs0, ts0)
-  + vsxc_comp(rs, -z, -1.0, xs1, ts1):
+  + vsxc_comp(rs,  z,  1, xs0, ts0)
+  + vsxc_comp(rs, -z, -1, xs1, ts1):
 
 vsxc_fperp := (rs, z, xs0, xs1, ts0, ts1) ->
   + lda_stoll_perp(f_pw, rs,  z)
-  * gtv4(params_a_alpha_ab, params_a_dab, sqrt(xs0^2 + xs1^2), 2.0*(ts0 + ts1 - 2.0*K_FACTOR_C)):
+  * gtv4(params_a_alpha_ab, params_a_dab, sqrt(xs0^2 + xs1^2), 2*(ts0 + ts1 - 2*K_FACTOR_C)):
 
 f_vsxc := (rs, z, xs0, xs1, ts0, ts1) ->
   + vsxc_fpar (rs, z, xs0, xs1, ts0, ts1)

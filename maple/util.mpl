@@ -34,7 +34,7 @@ t_vw := (z, xt, us0, us1) -> (xt^2 - u_total(z, us0, us1))/8:
 
 # See Eq. (9) of Perdew1992_13244
 f_zeta    := z -> ((1 + z)^(4/3) + (1 - z)^(4/3) - 2)/(2^(4/3) - 2):
-f_zeta_2d := z -> 0.5*((1 + z)^(3/2) + (1 - z)^(3/2)):
+f_zeta_2d := z -> 1/2*((1 + z)^(3/2) + (1 - z)^(3/2)):
 
 # used in several correlation functionals
 mphi := z -> ((1 + z)^(2/3) + (1 - z)^(2/3))/2:

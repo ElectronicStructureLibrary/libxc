@@ -1,5 +1,5 @@
 (* type: work_gga_x *)
 
-lambda := y -> 0.5*(1.0 + (1.0 - y^2)*log((1.0 + y)/abs(1.0 - y))/(2.0*y)):
+lambda := y -> 1/2*(1 + (1 - y^2)*log((1 + y)/abs(1 - y))/(2*y)):
 
-f := x -> 1.0 + lambda(X2S*x/6.0)*x^2/(8.0*K_FACTOR_C):
+f := x -> 1 + lambda(X2S*x/6)*x^2/(8*K_FACTOR_C):

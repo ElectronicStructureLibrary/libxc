@@ -8,6 +8,6 @@
 
 $include "gga_x_vmt.mpl"
 
-f0_vmt84 := s -> (1.0 - exp(-params_a_alpha*s^4))/s^2 - 1.0 + exp(-params_a_alpha*s^4):
+f0_vmt84 := s -> (1 - exp(-params_a_alpha*s^4))/s^2 - 1 + exp(-params_a_alpha*s^4):
 
 f  := x -> f_vmt(x) + f0_vmt84(X2S*x):

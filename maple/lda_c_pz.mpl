@@ -18,7 +18,7 @@ $endif
 
 (* Equation C3 *)
 ec_low  := (i, rs) -> params_a_gamma[i] / \
-        (1.0 + params_a_beta1[i]*sqrt(rs) + params_a_beta2[i]*rs):
+        (1 + params_a_beta1[i]*sqrt(rs) + params_a_beta2[i]*rs):
 
 (* Equation [1].C5 *)
 ec_high := (i, rs) -> params_a_a[i]*log(rs) + params_a_b[i] \
@@ -28,7 +28,7 @@ ec_high := (i, rs) -> params_a_a[i]*log(rs) + params_a_b[i] \
 (* it is not differentiable (and maple knows it). As a workaround, we    *)
 (* write the function in terms of the Heaviside function, and handle the *)
 (* Dirac functions that come out in the derivatives                      *)
-ec := (i, x) -> convert(piecewise(x >= 1.0, ec_low(i, x), ec_high(i, x)), 'Heaviside'):
+ec := (i, x) -> convert(piecewise(x >= 1, ec_low(i, x), ec_high(i, x)), 'Heaviside'):
 
 f_pz := (rs, zeta) -> \
  ec(1, rs) + (ec(2, rs) - ec(1, rs))*f_zeta(zeta):

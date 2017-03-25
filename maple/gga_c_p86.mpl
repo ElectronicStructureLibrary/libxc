@@ -12,12 +12,12 @@ bb     := 0.002568:
 ftilde := 1.745*0.11:
 
 (* Equation (4) *)
-DD := z  -> sqrt((1.0 + z)^(5.0/3.0) + (1.0 - z)^(5.0/3.0))/sqrt(2.0):
+DD := z  -> sqrt((1 + z)^(5/3) + (1 - z)^(5/3))/sqrt(2):
 
 (* Equation (6) *)
 CC := rs -> 
   + aa 
-  + (bb + malpha*rs + mbeta*rs^2)/(1.0 + mgamma*rs + mdelta*rs^2 + 1.0e4*mbeta*rs^3):
+  + (bb + malpha*rs + mbeta*rs^2)/(1 + mgamma*rs + mdelta*rs^2 + 1.0e4*mbeta*rs^3):
 CCinf := aa + bb:
 
 (* Equation (9) *)

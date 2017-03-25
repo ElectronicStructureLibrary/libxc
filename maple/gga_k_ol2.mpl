@@ -9,4 +9,4 @@
 f := x -> 
   + params_a_aa
   + params_a_bb*x^2/72.0
-  + params_a_cc*x/(2.0^(1.0/3.0) + 4.0*x):
+  + params_a_cc*x/(2^(1/3) + 4*x):

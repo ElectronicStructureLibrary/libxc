@@ -10,4 +10,4 @@ beta_c := 0.1778:
 
 (* we redefine beta here *)
 (* this is the Hu and Langreth expression *)
-mbeta := (rs, t) -> beta_a*(1.0 + beta_b*rs)/(1.0 + beta_c*rs):
+mbeta := (rs, t) -> beta_a*(1 + beta_b*rs)/(1 + beta_c*rs):

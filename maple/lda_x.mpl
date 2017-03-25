@@ -7,10 +7,10 @@
 *)
 
 $ifdef lda_x_params
-params_a_alpha := 1.0:
+params_a_alpha := 1:
 $endif
 
-lda_x_ax := -params_a_alpha*RS_FACTOR*X_FACTOR_C/2.0^(4.0/3.0):
+lda_x_ax := -params_a_alpha*RS_FACTOR*X_FACTOR_C/2^(4/3):
 
-f_lda_x := (rs, z) -> lda_x_ax*((1.0 + z)^(4.0/3.0) + (1.0 - z)^(4.0/3.0))/rs:
+f_lda_x := (rs, z) -> lda_x_ax*((1 + z)^(4/3) + (1 - z)^(4/3))/rs:
 f       := (rs, z) -> f_lda_x(rs, z):

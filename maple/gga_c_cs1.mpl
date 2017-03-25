@@ -9,13 +9,13 @@ cs1_C4    :=  0.007953:
 
 (* Equation (24) corrected in Equation (8) in Proynov2006_436 *)
 cs1_ess := (rs, z, xs) ->
-  + (1.0 + z)/2.0 * 1.0/(1.0 + cs1_d*n_spin(rs, z)^(-1/3))
-  * (cs1_C1 + cs1_C2*cs1_gamma^2*xs^4/(1.0 + cs1_gamma*xs^2)^2):
+  + (1 + z)/2 * 1/(1 + cs1_d*n_spin(rs, z)^(-1/3))
+  * (cs1_C1 + cs1_C2*cs1_gamma^2*xs^4/(1 + cs1_gamma*xs^2)^2):
 
 (* Equation (25) corrected in Equation (6) in Proynov2006_436 *)
 cs1_eab := (rs, z, xt) ->
-  + (1.0 - z^2)/4.0 * 1.0/(1.0 + cs1_d*n_total(rs)^(-1/3))
-  * (cs1_C3 + cs1_C4*cs1_gamma^2*xt^4/(1.0 + cs1_gamma*xt^2)^2):
+  + (1 - z^2)/4 * 1/(1 + cs1_d*n_total(rs)^(-1/3))
+  * (cs1_C3 + cs1_C4*cs1_gamma^2*xt^4/(1 + cs1_gamma*xt^2)^2):
 
 f_cs1 := (rs, z, xt, xs0, xs1) ->
   + cs1_eab(rs,  z, xt)

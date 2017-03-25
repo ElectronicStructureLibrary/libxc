@@ -120,7 +120,7 @@ with(CodeGeneration):
   close($mfile);
 
   # run maple
-  my $c_code = `maple -q -u /tmp/$$.mpl`;
+  my $c_code = `maple -I$srcdir/maple -q -u /tmp/$$.mpl`;
   #unlink "/tmp/$$.mpl";
 
   # find all variables defined

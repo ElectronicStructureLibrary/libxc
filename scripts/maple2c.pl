@@ -7,6 +7,10 @@ my $functional = $ARGV[1];
 my $max_order  = $ARGV[2];
 my $simplify   = ($#ARGV == 3 && $ARGV[3] eq "yes") ? 1 : 0;
 
+if ($#ARGV < 2) {
+    die "Usage: $0 srcdir functional max_order (simplify)\n";
+}
+
 # Find out the type of functional
 my $mathfile = "$srcdir/maple/$functional.mpl";
 open my $in, '<', $mathfile or die "File $mathfile does not exist\n";

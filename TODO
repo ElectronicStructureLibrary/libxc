@@ -9,7 +9,7 @@ LDA:
  *) Stewart and Gill's reparametrization of Wigner http://pubs.rsc.org/en/Content/ArticleLanding/1995/FT/FT9959104337
 
 GGAs:
-  *) D.J. Tozer, N.C. Handy, Recent advances in density functional theory, Vol.2  (http://dx.doi.org/10.1142/9789812819468_0001)
+  *) Tozer, Ingamells and Handy neural network potential JCP 105, 9200 (1996); doi: 10.1063/1.472753
   *) http://dx.doi.org/10.1063/1.3243845 Missing are: CS1, wPBE, WI, W1, W2, Wl, bPBE, qPBE, rPBE, A1, A2, A3, WLV.
   *) df-LB94, df-revLB94 http://dx.doi.org/10.1103/PhysRevA.83.012509
   *) Lambda-LB94, Q-LB94, Q-revLB94  http://dx.doi.org/10.1063/1.3684261
@@ -51,11 +51,7 @@ hybrids:
   *) hAPBE DOI: 10.1021/ct500902p
 
 hybrid meta:
-  *) TPSS1KCIS http://pubs.rsc.org/en/content/articlelanding/2005/cp/b416937a
-  *) MPWKCIS1K MPW1KCIS http://pubs.acs.org/doi/pdf/10.1021/jp045141s
-  *) PBE1KCIS http://pubs.acs.org/doi/pdf/10.1021/ct049851d
   *) b1b95 (54, 60)
-  *) tpsslyp1w (1w class of functionals)
   
 check also "local" hybrids?
 V. V. Karasiev, J. Mol. Struct. (THEOCHEM), 493, 21 (1999).

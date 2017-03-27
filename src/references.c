@@ -2018,3 +2018,17 @@ func_reference_type xc_ref_Liu2000_29 = {
 };
 
 
+func_reference_type xc_ref_Shao2003_4807 = {
+  "Y. Shao, M. Head-Gordon, and A. I. Krylov, J. Chem. Phys. 118, 4807 (2003)",
+  "10.1063/1.1545679",
+  "@article{Shao2003_4807,\n  author = {Yihan Shao and Martin Head-Gordon and Anna I. Krylov},\n  title = {The spin–flip approach within time-dependent density functional theory: Theory and applications to diradicals},\n  journal = {The Journal of Chemical Physics},\n  volume = {118},\n  number = {11},\n  pages = {4807-4818},\n  year = {2003},\n  doi = {10.1063/1.1545679},\n  URL = {http://dx.doi.org/10.1063/1.1545679},\n  eprint = {http://dx.doi.org/10.1063/1.1545679}\n}"
+};
+
+
+func_reference_type xc_ref_Bernard2012_204103 = {
+  "Y. A. Bernard, Y. Shao, and A. I. Krylov, J. Chem. Phys. 136, 204103 (2012)",
+  "10.1063/1.4714499",
+  "@article{Bernard2012_204103,\n  author = {Yves A. Bernard and Yihan Shao and Anna I. Krylov},\n  title = {General formulation of spin-flip time-dependent density functional theory using non-collinear kernels: Theory, implementation, and benchmarks},\n  journal = {The Journal of Chemical Physics},\n  volume = {136},\n  number = {20},\n  pages = {204103},\n  year = {2012},\n  doi = {10.1063/1.4714499},\n  URL = {http://dx.doi.org/10.1063/1.4714499},\n  eprint = {http://dx.doi.org/10.1063/1.4714499}\n}"
+};
+
+

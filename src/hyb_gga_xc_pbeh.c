@@ -25,6 +25,7 @@
 #define XC_HYB_GGA_XC_PBE_SOL0  274 /* PBEsol0             */
 #define XC_HYB_GGA_XC_PBEB0     275 /* PBEbeta0            */
 #define XC_HYB_GGA_XC_PBE_MOLB0 276 /* PBEmolbeta0         */
+#define XC_HYB_GGA_XC_PBE50     290 /* PBE0 with 50% exx   */
 
 static void
 hyb_gga_xc_pbeh_init(XC(func_type) *p)
@@ -194,5 +195,29 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe_molb0) = {
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
   hyb_gga_xc_pbemolb0_init,
+  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+};
+
+
+static void
+hyb_gga_xc_pbe50_init(XC(func_type) *p)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
+  static FLOAT funcs_coef[2] = {0.5, 1.0};
+
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  p->cam_alpha = 0.5;
+}
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe50) = {
+  XC_HYB_GGA_XC_PBE50,
+  XC_EXCHANGE_CORRELATION,
+  "PBE50",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Bernard2012_204103, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
+  hyb_gga_xc_pbe50_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };

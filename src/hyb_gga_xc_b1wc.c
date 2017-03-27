@@ -21,6 +21,8 @@
 #define XC_HYB_GGA_XC_B1WC      412  /* Becke 1-parameter mixture of WC and PBE          */
 #define XC_HYB_GGA_XC_B1LYP     416  /* Becke 1-parameter mixture of B88 and LYP         */
 #define XC_HYB_GGA_XC_B1PW91    417  /* Becke 1-parameter mixture of B88 and PW91        */
+#define XC_HYB_GGA_XC_MPW1LYP   483  /* Becke 1-parameter mixture of mPW91 and LYP       */
+#define XC_HYB_GGA_XC_MPW1PBE   484  /* Becke 1-parameter mixture of mPW91 and PBE       */
 #define XC_HYB_GGA_XC_MPW1PW    418  /* Becke 1-parameter mixture of mPW91 and PW91      */
 #define XC_HYB_GGA_XC_MPW1K     405  /* mixture of mPW91 and PW91 optimized for kinetics */
 #define XC_HYB_GGA_XC_BHANDH    435  /* Becke half-and-half                              */
@@ -102,12 +104,54 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1pw91) = {
 void
 XC(hyb_gga_xc_mpw1pw_init)(XC(func_type) *p)
 {
-  static int   funcs_id  [2] = {XC_GGA_X_MPW91, XC_GGA_C_PW91};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  int   funcs_id  [2] = {XC_GGA_X_MPW91, 0};
+  FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+
+  switch(p->info->number) {
+  case(XC_HYB_GGA_XC_MPW1LYP):
+    funcs_id[1]=XC_GGA_C_LYP;
+    break;
+  case(XC_HYB_GGA_XC_MPW1PBE):
+    funcs_id[1]=XC_GGA_C_PBE;
+    break;
+  case(XC_HYB_GGA_XC_MPW1PW):
+    funcs_id[1]=XC_GGA_C_PW91;
+    break;
+  default:
+    fprintf(stderr,"Error in hyb_gga_xc_mpw1pw_init\n");
+    fflush(stderr);
+    exit(1);
+  }
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
 }
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1lyp) = {
+  XC_HYB_GGA_XC_MPW1LYP,
+  XC_EXCHANGE_CORRELATION,
+  "mPW1LYP",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Adamo1998_664, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
+  XC(hyb_gga_xc_mpw1pw_init),
+  NULL, NULL, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1pbe) = {
+  XC_HYB_GGA_XC_MPW1PBE,
+  XC_EXCHANGE_CORRELATION,
+  "mPW1PBE",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Adamo1998_664, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
+  XC(hyb_gga_xc_mpw1pw_init),
+  NULL, NULL, NULL, NULL
+};
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1pw) = {
   XC_HYB_GGA_XC_MPW1PW,

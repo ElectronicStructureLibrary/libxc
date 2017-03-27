@@ -21,8 +21,8 @@
 #define XC_HYB_GGA_XC_B1WC      412  /* Becke 1-parameter mixture of WC and PBE          */
 #define XC_HYB_GGA_XC_B1LYP     416  /* Becke 1-parameter mixture of B88 and LYP         */
 #define XC_HYB_GGA_XC_B1PW91    417  /* Becke 1-parameter mixture of B88 and PW91        */
-#define XC_HYB_GGA_XC_mPW1PW    418  /* Becke 1-parameter mixture of mPW91 and PW91      */
-#define XC_HYB_GGA_XC_mPW1K     405  /* mixture of mPW91 and PW91 optimized for kinetics */
+#define XC_HYB_GGA_XC_MPW1PW    418  /* Becke 1-parameter mixture of mPW91 and PW91      */
+#define XC_HYB_GGA_XC_MPW1K     405  /* mixture of mPW91 and PW91 optimized for kinetics */
 #define XC_HYB_GGA_XC_BHANDH    435  /* Becke half-and-half                              */
 #define XC_HYB_GGA_XC_BHANDHLYP 436  /* Becke half-and-half with B88 exchange            */
 #define XC_HYB_GGA_XC_MPWLYP1M  453  /* MPW with 1 par. for metals/LYP                   */
@@ -110,7 +110,7 @@ XC(hyb_gga_xc_mpw1pw_init)(XC(func_type) *p)
 }
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1pw) = {
-  XC_HYB_GGA_XC_mPW1PW,
+  XC_HYB_GGA_XC_MPW1PW,
   XC_EXCHANGE_CORRELATION,
   "mPW1PW",
   XC_FAMILY_HYB_GGA,
@@ -134,7 +134,7 @@ XC(hyb_gga_xc_mpw1k_init)(XC(func_type) *p)
 }
 
 const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1k) = {
-  XC_HYB_GGA_XC_mPW1K,
+  XC_HYB_GGA_XC_MPW1K,
   XC_EXCHANGE_CORRELATION,
   "mPW1K",
   XC_FAMILY_HYB_GGA,

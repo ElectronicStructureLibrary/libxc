@@ -25,6 +25,9 @@
 #define XC_GGA_XC_LB          160
 #define XC_GGA_K_ABSR1        506
 #define XC_GGA_K_ABSR2        507
+#define XC_HYB_GGA_XC_mPW1PW  418
+#define XC_HYB_GGA_XC_mPW1K   405
+
 
 /* These are functionals that were removed */
 #define XC_GGA_XC_B97      167 /* Becke 97                                 */

@@ -20,7 +20,7 @@
 #include "util.h"
 
 #define XC_MGGA_X_TAU_HCTH        205 /* tau-HCTH from Boese and Handy */
-#define XC_MGGA_X_BMK             279 /* Boese-Martin for kinetics     */
+#define XC_HYB_MGGA_X_BMK         279 /* Boese-Martin for kinetics     */
 #define XC_HYB_MGGA_X_TAU_HCTH    282 /* Hybrid version of tau-HCTH    */
 
 const FLOAT tHCTH_cx_local [4] = {1.10734, -1.0534, 6.3491, -2.5531};
@@ -54,7 +54,8 @@ mgga_x_tau_hcth_init(XC(func_type) *p)
     params->cx_local  = tHCTH_cx_local;
     params->cx_nlocal = tHCTH_cx_nlocal;
     break;
-  case XC_MGGA_X_BMK:
+  case XC_HYB_MGGA_X_BMK:
+    p->cam_alpha = 0.42;
     params->cx_local  = BMK_cx_local;
     params->cx_nlocal = BMK_cx_nlocal;
     break;
@@ -89,11 +90,11 @@ const XC(func_info_type) XC(func_info_mgga_x_tau_hcth) = {
   work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_bmk) = {
-  XC_MGGA_X_BMK,
+const XC(func_info_type) XC(func_info_hyb_mgga_x_bmk) = {
+  XC_HYB_MGGA_X_BMK,
   XC_EXCHANGE,
   "Boese-Martin for kinetics",
-  XC_FAMILY_MGGA,
+  XC_FAMILY_HYB_MGGA,
   {&xc_ref_Boese2004_3405, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,

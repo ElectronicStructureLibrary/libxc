@@ -310,3 +310,4 @@ extern func_reference_type xc_ref_Liu1996_2211;
 extern func_reference_type xc_ref_Liu2000_29;
 extern func_reference_type xc_ref_Shao2003_4807;
 extern func_reference_type xc_ref_Bernard2012_204103;
+extern func_reference_type xc_ref_Stewart1995_4337;

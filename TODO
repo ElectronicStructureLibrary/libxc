@@ -52,6 +52,11 @@ hybrids:
 
 hybrid meta:
   *) b1b95 (54, 60)
+  *) dispersion corrected wB97X
+     http://pubs.rsc.org/is/content/articlelanding/2008/cp/b810189b
+  *) long-range Minnesota hybrids
+     wM05-D http://aip.scitation.org/doi/abs/10.1063/1.4704370
+     wM06-D3 and wB97X-D3 http://pubs.acs.org/doi/abs/10.1021/ct300715s
   
 check also "local" hybrids?
 V. V. Karasiev, J. Mol. Struct. (THEOCHEM), 493, 21 (1999).

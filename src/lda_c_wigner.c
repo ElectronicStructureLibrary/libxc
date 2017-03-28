@@ -23,6 +23,8 @@
 #define XC_LDA_C_LP_B    548   /* Lee-Parr reparametrization B */
 #define XC_LDA_C_MCWEENY 551   /* McWeeny 76 */
 #define XC_LDA_C_BR78    552   /* Brual & Rothstein 78 */
+#define XC_LDA_C_OW_LYP  573   /* Wigner with corresponding LYP parameters */
+#define XC_LDA_C_OW      574   /* Optimized Wigner */
 
 typedef struct {
   FLOAT a, b;
@@ -58,6 +60,14 @@ lda_c_wigner_init(XC(func_type) *p)
     params->a = -RS_FACTOR/21.437;
     params->b =  RS_FACTOR*9.810/21.437;
     break;
+  case XC_LDA_C_OW_LYP:
+    params->a = -0.04918*RS_FACTOR/0.349;
+    params->b = RS_FACTOR/0.349;
+    break;
+  case XC_LDA_C_OW:
+    params->a = -0.0526*RS_FACTOR/0.349;
+    params->b = RS_FACTOR/0.349;
+    break;
   default:
     fprintf(stderr, "Internal error in lda_c_wigner\n");
     exit(1);
@@ -74,7 +84,7 @@ const XC(func_info_type) XC(func_info_lda_c_wigner) = {
   XC_CORRELATION,
   "Wigner",
   XC_FAMILY_LDA,
-  {&xc_ref_Wigner1938_678, NULL, NULL, NULL, NULL},
+  {&xc_ref_Wigner1938_678, &xc_ref_Stewart1995_4337, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
   0, NULL, NULL,
@@ -127,6 +137,32 @@ const XC(func_info_type) XC(func_info_lda_c_br78) = {
   "Brual & Rothstein 78",
   XC_FAMILY_LDA,
   {&xc_ref_Brual1978_1177, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 0.0, 0.0, 1e-32,
+  0, NULL, NULL,
+  lda_c_wigner_init, NULL,
+  work_lda, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_lda_c_ow_lyp) = {
+  XC_LDA_C_OW_LYP,
+  XC_CORRELATION,
+  "Wigner with corresponding LYP parameters",
+  XC_FAMILY_LDA,
+  {&xc_ref_Stewart1995_4337, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 0.0, 0.0, 1e-32,
+  0, NULL, NULL,
+  lda_c_wigner_init, NULL,
+  work_lda, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_lda_c_ow) = {
+  XC_LDA_C_OW,
+  XC_CORRELATION,
+  "Optimized Wigner",
+  XC_FAMILY_LDA,
+  {&xc_ref_Stewart1995_4337, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
   0, NULL, NULL,

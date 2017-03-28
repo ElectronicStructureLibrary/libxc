@@ -6,4 +6,4 @@
   params = (lda_c_wigner_params * )(p->params);
 *)
 
-f := (rs, z) -> (1.0 - z^2)*params_a_a/(params_a_b + rs):
+f := (rs, z) -> (1 - z^2)*params_a_a/(params_a_b + rs):

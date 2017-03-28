@@ -6,7 +6,6 @@ Add functionals:
 LDA:
  *) Short-range LDA correlation functional (Phys. Rev. B 73, 155111 (2006))
  *) Short-range exchange 10.1080/00268979609484488
- *) Stewart and Gill's reparametrization of Wigner http://pubs.rsc.org/en/Content/ArticleLanding/1995/FT/FT9959104337
 
 GGAs:
   *) Tozer, Ingamells and Handy neural network potential JCP 105, 9200 (1996); doi: 10.1063/1.472753

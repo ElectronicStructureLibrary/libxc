@@ -62,12 +62,23 @@ sub math_replace {
   # The replacements have to be made in order, so
   # we can not use a hash table
   my @math_replace = (
-    qr/_s_/         ,  q{"*"},
-    qr/_a_/         ,  q{"->"},
-    qr/_d_/         ,  q{"."},
-    qr/_(\d+)_/     ,  q{"[$1]"},
-    qr/Dirac\(.*?\)/,  q{"0.0"}, # have to do it here, as both Dirac(x) and Dirac(n, x) can appear
-    qr/signum\(1.*\)/, q{"0.0"}, # the derivative of the signum is 0 for us
+    qr/_s_/,                          q{"*"},
+    qr/_a_/,                          q{"->"},
+    qr/_d_/,                          q{"."},
+    qr/_(\d+)_/,                      q{"[$1]"},
+    # have to do it here, as both Dirac(x) and Dirac(n, x) can appear
+    qr/Dirac\(.*?\)/,                 q{"0.0"},
+    # the derivative of the signum is 0 for us
+    qr/signum\(1.*\)/,                q{"0.0"},
+    # optimizing specific calls to pow
+    qr/pow\(0.1e1, .*?\)/,            q{"0.1e1"},
+    qr/pow\((.*?), 0.5e0\)/,          q{"sqrt($1)"},
+    qr/pow\((.*?), -0.5e0\)/,         q{"0.1e1/sqrt($1)"},
+    qr/pow\((.*?), 0.1e1 \/ 0.3e1\)/, q{"cbrt($1)"},
+    qr/sqrt\(0.2e1\)/,                q{"M_SQRT2"},
+    qr/cbrt\(0.2e1\)/,                q{"M_CBRT2"},
+    qr/cbrt\(0.3e1\)/,                q{"M_CBRT3"},
+    qr/cbrt\(0.4e1\)/,                q{"M_CBRT4"},
   );
   my ($text) = @_;
 
@@ -115,8 +126,9 @@ interface(warnlevel=0):   (* supress all warnings          *)
 \$include <$functional.mpl>
 
 with(CodeGeneration):
-  C($cmd, optimize, defaulttype=numeric, precision=double);
+  C($cmd, optimize, deducetypes=false, defaulttype=float):
 ";
+
   close($mfile);
 
   # run maple

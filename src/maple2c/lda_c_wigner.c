@@ -18,21 +18,21 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   params = (lda_c_wigner_params * )(p->params);
 
   t1 = params->b + r->rs;
-  r->f = 0.10e1 * params->a / t1;
+  r->f = 0.1e1 * params->a / t1;
 
   if(r->order < 1) return;
 
   t4 = t1 * t1;
-  r->dfdrs = -0.10e1 * params->a / t4;
+  r->dfdrs = -0.1e1 * params->a / t4;
 
   if(r->order < 2) return;
 
-  r->d2fdrs2 = 0.20e1 * params->a / t4 / t1;
+  r->d2fdrs2 = 0.2e1 * params->a / t4 / t1;
 
   if(r->order < 3) return;
 
   t11 = t4 * t4;
-  r->d3fdrs3 = -0.60e1 * params->a / t11;
+  r->d3fdrs3 = -0.6e1 * params->a / t11;
 
   if(r->order < 4) return;
 
@@ -51,7 +51,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   params = (lda_c_wigner_params * )(p->params);
 
   t1 = r->z * r->z;
-  t3 = (0.10e1 - t1) * params->a;
+  t3 = (-t1 + 0.1e1) * params->a;
   t4 = params->b + r->rs;
   t5 = 0.1e1 / t4;
   r->f = t3 * t5;
@@ -77,7 +77,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   r->d3fdrs3 = -0.6e1 * t3 / t18;
   r->d3fdrs2z = -0.4e1 * t9 * t13;
   r->d3fdrsz2 = 0.2e1 * params->a * t7;
-  r->d3fdz3 = 0;
+  r->d3fdz3 = 0.0e0;
 
   if(r->order < 4) return;
 

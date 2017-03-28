@@ -56,8 +56,9 @@ void XC(mix_func)
       vsigma_ = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_vsigma);
     }
     if(is_mgga(func->info->family)){
-      vlapl_ = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_vlapl);
       vtau_  = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_vtau);
+      if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+	vlapl_ = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_vlapl);
     }
   }
 
@@ -108,10 +109,13 @@ void XC(mix_func)
 	  vsigma[ip] += func->mix_coef[ii] * vsigma_[ip];
 
       if(is_mgga(func->info->family) && is_mgga(aux->info->family)){
-	for(ip = 0; ip < np*func->n_vlapl; ip++)
-	  vlapl[ip] += func->mix_coef[ii] * vlapl_[ip];
 	for(ip = 0; ip < np*func->n_vtau; ip++)
 	  vtau[ip] += func->mix_coef[ii] * vtau_[ip];
+	/* Check that mix has been properly defined */
+	assert(!((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) ^ (aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)));
+	if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+	  for(ip = 0; ip < np*func->n_vlapl; ip++)
+	    vlapl[ip] += func->mix_coef[ii] * vlapl_[ip];
       }
     }
 

@@ -112,7 +112,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_m06_2x) = {
   XC_HYB_MGGA_X_M06_2X,
   XC_EXCHANGE,
   "M06-2X functional from Minnesota",
-  XC_FAMILY_MGGA,
+  XC_FAMILY_HYB_MGGA,
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,

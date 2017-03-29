@@ -69,12 +69,26 @@
 #  define ASINH asinh
 #  define SQRT  sqrt
 
+#define POW_2(x) ((x)*(x))
+#define POW_3(x) ((x)*(x)*(x))
+
+#define POW_1_2 SQRT(x)
+#define POW_1_4 SQRT(SQRT(x))
+
 #ifdef HAVE_CBRT
 #define CBRT cbrt
+#define POW_1_3(x) cbrt(x)
+#define POW_2_3(x) (cbrt(x)*cbrt(x))
+#define POW_5_3(x) ((x)*cbrt(x)*cbrt(x))
+#define POW_7_3(x) ((x)*(x)*cbrt(x)*cbrt(x))
 #else
-#define CBRT(x) pow((x), 1.0/3.0)
+#define CBRT(x) POW((x), 1.0/3.0)
+#define POW_1_3(x) POW((x), 1.0/3.0)
+#define POW_2_3(x) POW((x), 2.0/3.0)
+#define POW_5_3(x) POW((x), 5.0/3.0)
+#define POW_7_3(x) POW((x), 7.0/3.0)
 #endif
-
+  
 #  define XC(x) xc_ ## x
 #  define XC_U(X) XC_ ## X
 #  define FLOAT_EPSILON DBL_EPSILON

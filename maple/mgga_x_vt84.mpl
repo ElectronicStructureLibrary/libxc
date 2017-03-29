@@ -8,7 +8,8 @@ params_a_e  := 1.987:
 mgamma      := 0.000023:
 ff          := 3:
 
-params_a_kappa := 1/(mgamma/params_a_mu^2 + mgamma/params_a_mu + 1):
+mkappa := (x, t) ->
+  1/(mgamma/params_a_mu^2 + mgamma/params_a_mu + 1):
 
 $include "tpss_x.mpl"
 

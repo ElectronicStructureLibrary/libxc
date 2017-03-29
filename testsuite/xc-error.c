@@ -211,8 +211,8 @@ int main(int argc, char **argv) {
       if(l_err > maxdiff[j])
 	maxdiff[j] = l_err;
       if(l_err > 1e-9){
-        //fprintf(stderr, "\n%i %i %14.10le %14.10le %le\n", 
-        //        i+2, j, din[j], dref[j], error(din[j], dref[j]));
+        fprintf(stderr, "\n%i %i %14.10le %14.10le %le\n", 
+                i+2, j, din[j], dref[j], error(din[j], dref[j]));
       }
     }
 

@@ -256,7 +256,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b3lyps) = {
 void
 XC(hyb_gga_xc_b5050lyp_init)(XC(func_type) *p)
 {
-  static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_VWN_RPA, XC_GGA_C_LYP};
+  static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_VWN, XC_GGA_C_LYP};
   static FLOAT funcs_coef[4] = {0.08, 0.42, 0.19, 0.81};
 
   XC(mix_init)(p, 4, funcs_id, funcs_coef);

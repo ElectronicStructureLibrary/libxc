@@ -111,11 +111,12 @@ void XC(mix_func)
       if(is_mgga(func->info->family) && is_mgga(aux->info->family)){
 	for(ip = 0; ip < np*func->n_vtau; ip++)
 	  vtau[ip] += func->mix_coef[ii] * vtau_[ip];
-	/* Check that mix has been properly defined */
-	assert(!((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) ^ (aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)));
-	if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+	if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) {
+	  /* Check that mix has been properly defined */
+	  assert(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN);
 	  for(ip = 0; ip < np*func->n_vlapl; ip++)
 	    vlapl[ip] += func->mix_coef[ii] * vlapl_[ip];
+	}
       }
     }
 

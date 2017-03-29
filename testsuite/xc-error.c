@@ -84,6 +84,7 @@ int main(int argc, char **argv) {
 
   /* Maximum difference between input and output */
   FLOAT maxdiff[MAXCOL];
+  FLOAT l_err;
 
   if(argc!=3 && argc!=4) {
     printf("Usage: %s file reference (verbose)\n",argv[0]);
@@ -205,9 +206,16 @@ int main(int argc, char **argv) {
     }
 
     /* Compute error */
-    for(j=0;j<cin;j++)
-      if(error(din[j],dref[j]) > maxdiff[j])
-	maxdiff[j]=error(din[j],dref[j]);
+    for(j=0;j<cin;j++){
+      l_err = error(din[j], dref[j]);
+      if(l_err > maxdiff[j])
+	maxdiff[j] = l_err;
+      if(l_err > 1e-9){
+        //fprintf(stderr, "\n%i %i %14.10le %14.10le %le\n", 
+        //        i+2, j, din[j], dref[j], error(din[j], dref[j]));
+      }
+    }
+
   }
 
   fclose(in);

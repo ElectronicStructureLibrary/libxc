@@ -5,7 +5,8 @@ use Data::Dumper;
 my $srcdir     = $ARGV[0];
 my $functional = $ARGV[1];
 my $max_order  = $ARGV[2];
-my $simplify   = ($#ARGV == 3 && $ARGV[3] eq "yes") ? 1 : 0;
+my $maple_opt  = ($#ARGV >= 3) ? ", ".$ARGV[3] : "";
+my $simplify   = ($#ARGV >= 4 && $ARGV[4] eq "yes") ? 1 : 0;
 
 if ($#ARGV < 2) {
     die "Usage: $0 srcdir functional max_order (simplify)\n";
@@ -72,13 +73,18 @@ sub math_replace {
     qr/signum\(1.*\)/,                q{"0.0"},
     # optimizing specific calls to pow
     qr/pow\(0.1e1, .*?\)/,            q{"0.1e1"},
+    qr/pow\((.*?), 0.10e1\)/,         q{"($1)"},
+    qr/pow\((.*?), 0.20e1\)/,         q{"($1*$1)"},
     qr/pow\((.*?), 0.5e0\)/,          q{"sqrt($1)"},
     qr/pow\((.*?), -0.5e0\)/,         q{"0.1e1/sqrt($1)"},
     qr/pow\((.*?), 0.1e1 \/ 0.3e1\)/, q{"cbrt($1)"},
+    # cleaning up constant expressions
     qr/sqrt\(0.2e1\)/,                q{"M_SQRT2"},
     qr/cbrt\(0.2e1\)/,                q{"M_CBRT2"},
     qr/cbrt\(0.3e1\)/,                q{"M_CBRT3"},
     qr/cbrt\(0.4e1\)/,                q{"M_CBRT4"},
+    qr/cbrt\(0.5e1\)/,                q{"M_CBRT5"},
+    qr/cbrt\(0.6e1\)/,                q{"M_CBRT6"},
   );
   my ($text) = @_;
 
@@ -126,7 +132,7 @@ interface(warnlevel=0):   (* supress all warnings          *)
 \$include <$functional.mpl>
 
 with(CodeGeneration):
-  C($cmd, optimize, deducetypes=false, defaulttype=float):
+  C($cmd, optimize, deducetypes=false, defaulttype=float$maple_opt):
 ";
 
   close($mfile);

@@ -11,9 +11,12 @@ attenuation_erf := a -> 1 - 8/3*a*(aux1_erf(a) + 2*a*(aux2_erf(a) - aux3_erf(a))
 
 a_cnst := (4/(9*Pi))^(1/3)*p_a_cam_omega/2:
 
+lda_x_erf_s := (rs, z) -> convert(piecewise(z = -1, 0,
+  (1 + z)^(4/3)*attenuation_erf(a_cnst*rs/(1 + z)^(1/3))
+), 'Heaviside'):
+
 f_lda_x_erf := (rs, z) -> lda_x_ax*(
-  + (1 + z)^(4/3)*attenuation_erf(a_cnst*rs/(1 + z)^(1/3))
-  + (1 - z)^(4/3)*attenuation_erf(a_cnst*rs/(1 - z)^(1/3))
+   lda_x_erf_s(rs, z) + lda_x_erf_s(rs, -z)
 )/rs:
 
 f := (rs, z) -> f_lda_x_erf(rs, z):

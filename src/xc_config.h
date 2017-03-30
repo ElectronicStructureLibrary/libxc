@@ -81,12 +81,14 @@
 #define POW_2_3(x) (cbrt(x)*cbrt(x))
 #define POW_5_3(x) ((x)*cbrt(x)*cbrt(x))
 #define POW_7_3(x) ((x)*(x)*cbrt(x)*cbrt(x))
+#define POW_3_2(x) (x*cbrt(x))
 #else
 #define CBRT(x) POW((x), 1.0/3.0)
 #define POW_1_3(x) POW((x), 1.0/3.0)
 #define POW_2_3(x) POW((x), 2.0/3.0)
 #define POW_5_3(x) POW((x), 5.0/3.0)
 #define POW_7_3(x) POW((x), 7.0/3.0)
+#define POW_3_2(x) POW((x), 3.0/2.0)
 #endif
   
 #  define XC(x) xc_ ## x

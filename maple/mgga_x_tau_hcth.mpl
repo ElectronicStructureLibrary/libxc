@@ -6,7 +6,7 @@
   params = (mgga_x_tau_hcth_params * ) (pt->params);
 *)
 
-coeff_a := [0, 1, 0, -2, 0, 1.0]:
+coeff_a := [0, 1, 0, -2, 0, 1]:
 
 (* Equation (29) *)
 gamX := 0.004:

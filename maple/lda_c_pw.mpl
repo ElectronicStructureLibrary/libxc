@@ -7,7 +7,7 @@
 *)
 
 $ifdef lda_c_pw_params
-params_a_pp     := [1,  1,  1.0]:
+params_a_pp     := [1,  1,  1]:
 params_a_a      := [0.031091, 0.015545, 0.016887]:
 params_a_alpha1 := [0.21370,  0.20548,  0.11125]:
 params_a_beta1  := [7.5957, 14.1189, 10.357]:

@@ -22,6 +22,10 @@ GGAs:
   *) PBE2, PBE3, PBE4 and exp4 KED functionals http://dx.doi.org/10.1007/s10820-006-9019-8  http://dx.doi.org/10.1103/PhysRevB.80.245120
   *) https://repository.aust.edu.ng/xmlui/bitstream/handle/123456789/549/Iyomo%20Irewole.pdf?sequence=1&isAllowed=y Equation (3.36)
   *) ZLP2 (https://journals.aps.org/pra/pdf/10.1103/PhysRevA.47.918 Eq. (21), and at the end there are several kinetic contributions to the correlation energy) and k (Chem. Phys. Lett. 232, 31)
+  *) PBE-GX https://arxiv.org/abs/1612.06022
+  *) KT1 correlation(?) http://dx.doi.org/10.1063/1.1590634
+  *) KT3 http://aip.scitation.org/doi/10.1063/1.1784777
+  
 
 mGGAs:
   *) regTPSS exchange http://pubs.acs.org/doi/abs/10.1021/ct300269u
@@ -49,6 +53,8 @@ hybrids:
   *) (CAM-)S12g / (CAM-)S12h http://www.sciencedirect.com/science/article/pii/S0009261413008221
   *) HISS http://scitation.aip.org/content/aip/journal/jcp/127/22/10.1063/1.2822021 [*two* range separation constants!)
   *) hAPBE DOI: 10.1021/ct500902p
+  *) rCAM-B3LYP http://aip.scitation.org/doi/abs/10.1063/1.2741248
+  *) WC04 and WP04 http://pubs.acs.org/doi/abs/10.1021/ct6001016
 
 hybrid meta:
   *) b1b95 (54, 60)
@@ -57,6 +63,7 @@ hybrid meta:
   *) long-range Minnesota hybrids
      wM05-D http://aip.scitation.org/doi/abs/10.1063/1.4704370
      wM06-D3 and wB97X-D3 http://pubs.acs.org/doi/abs/10.1021/ct300715s
+  *) http://pubs.acs.org/doi/abs/10.1021/jp050036j (TPSS0?)
   
 check also "local" hybrids?
 V. V. Karasiev, J. Mol. Struct. (THEOCHEM), 493, 21 (1999).

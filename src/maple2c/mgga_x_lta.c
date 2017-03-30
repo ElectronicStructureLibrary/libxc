@@ -21,7 +21,7 @@ XC(mgga_x_lta_enhance)(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   t5 = t3 * t4;
   t6 = M_CBRT6;
   t7 = 0.31415926535897932385e1 * 0.31415926535897932385e1;
-  t8 = cbrt(t7);
+  t8 = POW_1_3(t7);
   t9 = t8 * t8;
   t12 = pow(t6 / t9, 0.1e1 / 0.5e1);
   t13 = t12 * t12;

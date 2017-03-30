@@ -18,7 +18,7 @@ XC(mgga_x_pkzb_enhance)(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 
   t1 = M_CBRT6;
   t2 = 0.31415926535897932385e1 * 0.31415926535897932385e1;
-  t3 = cbrt(t2);
+  t3 = POW_1_3(t2);
   t4 = t3 * t3;
   t5 = 0.1e1 / t4;
   t6 = t1 * t5;

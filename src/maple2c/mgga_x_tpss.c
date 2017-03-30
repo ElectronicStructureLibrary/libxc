@@ -49,7 +49,7 @@ XC(mgga_x_tpss_enhance)(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   t21 = M_CBRT6;
   t22 = (0.10e2 / 0.81e2 + t10 * t18) * t21;
   t23 = 0.31415926535897932385e1 * 0.31415926535897932385e1;
-  t24 = cbrt(t23);
+  t24 = POW_1_3(t23);
   t25 = t24 * t24;
   t26 = 0.1e1 / t25;
   t27 = t26 * t1;

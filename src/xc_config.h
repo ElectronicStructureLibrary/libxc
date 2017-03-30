@@ -72,12 +72,12 @@
 #define POW_2(x) ((x)*(x))
 #define POW_3(x) ((x)*(x)*(x))
 
-#define POW_1_2 SQRT(x)
-#define POW_1_4 SQRT(SQRT(x))
+#define POW_1_2(x) SQRT(x)
+#define POW_1_4(x) SQRT(SQRT(x))
 #define POW_3_2(x) ((x)*SQRT(x))
 
 #ifdef HAVE_CBRT
-#define CBRT cbrt
+#define CBRT(x)    cbrt(x)
 #define POW_1_3(x) cbrt(x)
 #define POW_2_3(x) (cbrt(x)*cbrt(x))
 #define POW_4_3(x) ((x)*cbrt(x))

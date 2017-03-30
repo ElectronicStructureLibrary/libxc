@@ -23,7 +23,7 @@ XC(mgga_x_mvs_enhance)(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   t3 = r->t - t1 / 0.8e1;
   t4 = M_CBRT6;
   t6 = 0.31415926535897932385e1 * 0.31415926535897932385e1;
-  t7 = cbrt(t6);
+  t7 = POW_1_3(t6);
   t8 = t7 * t7;
   t9 = 0.1e1 / t8;
   t12 = 0.1e1 - 0.5e1 / 0.9e1 * t3 * t4 * t9;

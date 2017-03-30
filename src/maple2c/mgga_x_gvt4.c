@@ -21,7 +21,7 @@ XC(mgga_x_gvt4_enhance)(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   t4 = M_CBRT6;
   t5 = t4 * t4;
   t6 = 0.31415926535897932385e1 * 0.31415926535897932385e1;
-  t7 = cbrt(t6);
+  t7 = POW_1_3(t6);
   t8 = t7 * t7;
   t9 = t5 * t8;
   t11 = 0.1e1 + 0.186726e-2 * t1 + 0.373452e-2 * r->t - 0.11203560000000000000e-2 * t9;
@@ -36,7 +36,7 @@ XC(mgga_x_gvt4_enhance)(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   t35 = M_CBRT3;
   t36 = t35 * t35;
   t38 = M_CBRT4;
-  t40 = cbrt(0.1e1 / 0.31415926535897932385e1);
+  t40 = POW_1_3(0.1e1 / 0.31415926535897932385e1);
   t42 = t38 / t40;
   r->f = -0.2e1 / 0.9e1 * (-0.9800683e0 / t11 + t17 * t19 + t30 * t32) * t36 * t42;
 

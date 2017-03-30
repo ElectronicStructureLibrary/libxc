@@ -18,8 +18,9 @@
 
 #include "util.h"
 
-#define XC_GGA_X_KT1          145 /* Keal and Tozer version 1             */
-#define XC_GGA_XC_KT2         146 /* Keal and Tozer version 2             */
+#define XC_GGA_X_KT1          145 /* Exchange part of Keal and Tozer version 1 */
+#define XC_GGA_XC_KT1         167 /* Keal and Tozer version 1                  */
+#define XC_GGA_XC_KT2         146 /* Keal and Tozer version 2                  */
 
 typedef struct{
   FLOAT gamma, delta;
@@ -55,7 +56,7 @@ XC(gga_x_kt_set_params)(XC(func_type) *p, FLOAT gamma, FLOAT delta)
 const XC(func_info_type) XC(func_info_gga_x_kt1) = {
   XC_GGA_X_KT1,
   XC_EXCHANGE,
-  "Keal and Tozer, version 1",
+  "Exchange part of Keal and Tozer version 1",
   XC_FAMILY_GGA,
   {&xc_ref_Keal2003_3015, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
@@ -65,6 +66,28 @@ const XC(func_info_type) XC(func_info_gga_x_kt1) = {
   NULL, work_gga_c, NULL
 };
 
+
+static void
+gga_xc_kt1_init(XC(func_type) *p)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_KT1, XC_LDA_C_VWN};
+  static FLOAT funcs_coef[2] = {1.0, 1.0};
+
+  XC(mix_init)(p, 2, funcs_id, funcs_coef);  
+}
+
+const XC(func_info_type) XC(func_info_gga_xc_kt1) = {
+  XC_GGA_XC_KT1,
+  XC_EXCHANGE_CORRELATION,
+  "Keal and Tozer, version 1",
+  XC_FAMILY_GGA,
+  {&xc_ref_Keal2003_3015, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
+  gga_xc_kt1_init, NULL, 
+  NULL, NULL, NULL
+};
 
 static void
 gga_xc_kt2_init(XC(func_type) *p)
@@ -87,5 +110,3 @@ const XC(func_info_type) XC(func_info_gga_xc_kt2) = {
   gga_xc_kt2_init, NULL, 
   NULL, NULL, NULL
 };
-
-

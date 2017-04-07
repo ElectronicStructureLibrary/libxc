@@ -1963,7 +1963,7 @@ func_reference_type xc_ref_Handy2002_5411 = {
 
 
 func_reference_type xc_ref_Zhao2005_2012 = {
-  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem. A 109, 2012 (2005), pMID: 16833536",
+  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem A 109, 2012 (2005), pMID: 16833536",
   "10.1021/jp045141s",
   "@article{Zhao2005_2012,\nauthor = {Zhao, Yan and González-García, Núria and Truhlar, Donald G.},\ntitle = {Benchmark Database of Barrier Heights for Heavy Atom Transfer, Nucleophilic Substitution, Association, and Unimolecular Reactions and Its Use to Test Theoretical Methods},\njournal = {The Journal of Physical Chemistry A},\nvolume = {109},\nnumber = {9},\npages = {2012-2018},\nyear = {2005},\ndoi = {10.1021/jp045141s},\nnote ={PMID: 16833536},\nURL = {http://dx.doi.org/10.1021/jp045141s},\neprint = {http://dx.doi.org/10.1021/jp045141s}\n}"
 };
@@ -2043,6 +2043,13 @@ func_reference_type xc_ref_Bremond2016_1059 = {
   "Éric Brémond, I. Ciofini, and C. Adamo, Mol. Phys. 114, 1059 (2016)",
   "10.1080/00268976.2015.1132788",
   "@article{Bremond2016_1059,\n  author = {Éric Brémond and Ilaria Ciofini and Carlo Adamo},\n  title = {Gradient-regulated connection-based correction for the PBE exchange: the PBEtrans model},\n  journal = {Molecular Physics},\n  volume = {114},\n  number = {7-8},\n  pages = {1059-1065},\n  year = {2016},\n  doi = {10.1080/00268976.2015.1132788},\n  URL = {http://dx.doi.org/10.1080/00268976.2015.1132788},\n  eprint = {http://dx.doi.org/10.1080/00268976.2015.1132788}\n}"
+};
+
+
+func_reference_type xc_ref_Loos2017_114108 = {
+  "P.-F. Loos, J. Chem. Phys. 146, 114108 (2017)",
+  "10.1063/1.4978409",
+  "@article{Loos2017_114108,\nauthor = {Pierre-François Loos},\ntitle = {Exchange functionals based on finite uniform electron gases},\njournal = {The Journal of Chemical Physics},\nvolume = {146},\nnumber = {11},\npages = {114108},\nyear = {2017},\ndoi = {10.1063/1.4978409},\nURL = {http://dx.doi.org/10.1063/1.4978409},\n}"
 };
 
 

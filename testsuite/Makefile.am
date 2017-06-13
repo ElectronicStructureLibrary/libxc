@@ -17,7 +17,6 @@
 ## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 ## 02110-1301, USA.
 ##
-## $Id$
 
 noinst_PROGRAMS = xc-get_data xc-consistency xc-regression xc-error
 dist_noinst_SCRIPTS = xc-run_testsuite xc-reference.pl

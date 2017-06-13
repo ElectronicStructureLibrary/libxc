@@ -24,5 +24,5 @@ New releases:
 
 Bugs & Patches:
 
-SVN server
-  svn co http://www.tddft.org/svn/octopus/trunk/libxc
+Git server
+  git@gitlab.com:libxc/libxc.git

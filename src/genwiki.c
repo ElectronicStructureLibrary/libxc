@@ -224,19 +224,8 @@ int main(void) {
 	  for(i=0; i<strlen(fname); i++)
 	    fname[i]=toupper(fname[i]);
 	  
-	  /* Print out info and any special wiki links */
-	  switch(func_id) {
-	  case(XC_LDA_X):
-	    printf("* '''[[lda_x|%s]]''': %s\n",fname,func.info->name);
-	    break;
-	  case(XC_LDA_C_PW):
-	  case(XC_LDA_C_PW_MOD):
-	  case(XC_LDA_C_OB_PW):
-	    printf("* '''[[lda_c_pw|%s]]''': %s\n",fname,func.info->name);
-	    break;
-	  default:
-	    printf("* '''%s''': %s\n",fname,func.info->name);
-	  }
+	  /* Print out info */
+	  printf("* '''%s''': %s\n",fname,func.info->name);
 
 	  /* Print out references */
 	  for(i=0; i<5; i++){

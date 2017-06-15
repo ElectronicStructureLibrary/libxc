@@ -264,7 +264,7 @@ const XC(func_info_type) XC(func_info_mgga_c_mn15) = {
   XC_CORRELATION,
   "Minnesota MN15 correlation functional",
   XC_FAMILY_MGGA,
-  {&xc_ref_Yu2016, NULL, NULL, NULL, NULL},
+  {&xc_ref_Yu2016_5032, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-26, 1e-32, 1e-32, 1e-32,
   0, NULL, NULL,

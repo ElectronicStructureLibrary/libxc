@@ -34,7 +34,7 @@ const XC(func_info_type) XC(func_info_mgga_xc_hle17) = {
   XC_EXCHANGE_CORRELATION,
   "high local exchange 2017",
   XC_FAMILY_MGGA,
-  {&xc_ref_Verma2017, NULL, NULL, NULL, NULL},
+  {&xc_ref_Verma2017_7144, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,

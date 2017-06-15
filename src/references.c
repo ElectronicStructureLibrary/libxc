@@ -1696,10 +1696,10 @@ func_reference_type xc_ref_Fabiano2014_2016 = {
 };
 
 
-func_reference_type xc_ref_Yu2016 = {
-  "H. S. Yu, X. He, S. L. Li, and D. G. Truhlar, Chem. Sci. , (2016)",
+func_reference_type xc_ref_Yu2016_5032 = {
+  "H. S. Yu, X. He, S. L. Li, and D. G. Truhlar, Chem. Sci. 7, 5032 (2016)",
   "10.1039/C6SC00705H",
-  "@Article{Yu2016,\n   author =\"Yu, Haoyu S. and He, Xiao and Li, Shaohong Louis and Truhlar, D G\",\n   title  =\"MN15: A Kohn-Sham Global-Hybrid Exchange-Correlation Density Functional with Broad Accuracy for Multi-Reference and Single-Reference Systems and Noncovalent Interactions\",\n   journal  =\"Chem. Sci.\",\n   year  =\"2016\",\n   pages  =\"-\",\n   publisher  =\"The Royal Society of Chemistry\",\n   doi  =\"10.1039/C6SC00705H\",\n   url  =\"http://dx.doi.org/10.1039/C6SC00705H\",\n}"
+  "@Article{Yu2016_5032,\nauthor =\"Yu, Haoyu S. and He, Xiao and Li, Shaohong L. and Truhlar, Donald G.\",\ntitle  =\"MN15: A Kohn-Sham global-hybrid exchange-correlation density functional with broad accuracy for multi-reference and single-reference systems and noncovalent interactions\",\njournal  =\"Chem. Sci.\",\nyear  =\"2016\",\nvolume  =\"7\",\nissue  =\"8\",\npages  =\"5032-5051\",\npublisher  =\"The Royal Society of Chemistry\",\ndoi  =\"10.1039/C6SC00705H\",\nurl  =\"http://dx.doi.org/10.1039/C6SC00705H\"\n}"
 };
 
 
@@ -1837,7 +1837,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -1899,10 +1899,10 @@ func_reference_type xc_ref_Constantin2012_194105 = {
 };
 
 
-func_reference_type xc_ref_Verma2017 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem C 0, null (0), http://dx.doi.org/10.1021/acs.jpcc.7b01066",
+func_reference_type xc_ref_Verma2017_7144 = {
+  "P. Verma and D. G. Truhlar, J. Phys. Chem C 121, 7144 (2017)",
   "10.1021/acs.jpcc.7b01066",
-  "@article{Verma2017,\n author = {Verma, Pragya and Truhlar, Donald G.},\n title = {HLE17: An Improved Local Exchange–Correlation Functional for Computing Semiconductor Band Gaps and Molecular Excitation Energies},\n journal = {The Journal of Physical Chemistry C},\n volume = {0},\n number = {ja},\n pages = {null},\n year = {0},\n doi = {10.1021/acs.jpcc.7b01066},\n URL = {http://dx.doi.org/10.1021/acs.jpcc.7b01066},\n eprint = {http://dx.doi.org/10.1021/acs.jpcc.7b01066}\n}"
+  "@article{Verma2017_7144,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE17: An Improved Local Exchange–Correlation Functional for Computing Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry C},\nvolume = {121},\nnumber = {13},\npages = {7144-7154},\nyear = {2017},\ndoi = {10.1021/acs.jpcc.7b01066},\nURL = {http://dx.doi.org/10.1021/acs.jpcc.7b01066},\neprint = {http://dx.doi.org/10.1021/acs.jpcc.7b01066}\n}"
 };
 
 

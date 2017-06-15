@@ -176,7 +176,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_mn15) = {
   XC_EXCHANGE,
   "Minnesota MN15 hybrid functional",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref_Yu2016, NULL, NULL, NULL, NULL},
+  {&xc_ref_Yu2016_5032, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   0, NULL, NULL,

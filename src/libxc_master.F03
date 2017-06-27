@@ -143,21 +143,22 @@ module FXC(lib_m)
     XC_FAMILY_HYB_MGGA      =  64
 
   integer(c_int), parameter, public :: &
-    XC_FLAGS_HAVE_EXC       =     1,   &
-    XC_FLAGS_HAVE_VXC       =     2,   &
-    XC_FLAGS_HAVE_FXC       =     4,   &
-    XC_FLAGS_HAVE_KXC       =     8,   &
-    XC_FLAGS_HAVE_LXC       =    16,   &
-    XC_FLAGS_1D             =    32,   &
-    XC_FLAGS_2D             =    64,   &
-    XC_FLAGS_3D             =   128,   &
-    XC_FLAGS_HYB_CAM        =   256,   &
-    XC_FLAGS_HYB_CAMY       =   512,   &
-    XC_FLAGS_VV10           =  1024,   &
-    XC_FLAGS_HYB_LC         =  2048,   &
-    XC_FLAGS_HYB_LCY        =  4096,   &
-    XC_FLAGS_STABLE         =  8192,   &
-    XC_FLAGS_DEVELOPMENT    = 16384
+    XC_FLAGS_HAVE_EXC        =     1,   &
+    XC_FLAGS_HAVE_VXC        =     2,   &
+    XC_FLAGS_HAVE_FXC        =     4,   &
+    XC_FLAGS_HAVE_KXC        =     8,   &
+    XC_FLAGS_HAVE_LXC        =    16,   &
+    XC_FLAGS_1D              =    32,   &
+    XC_FLAGS_2D              =    64,   &
+    XC_FLAGS_3D              =   128,   &
+    XC_FLAGS_HYB_CAM         =   256,   &
+    XC_FLAGS_HYB_CAMY        =   512,   &
+    XC_FLAGS_VV10            =  1024,   &
+    XC_FLAGS_HYB_LC          =  2048,   &
+    XC_FLAGS_HYB_LCY         =  4096,   &
+    XC_FLAGS_STABLE          =  8192,   &
+    XC_FLAGS_DEVELOPMENT     = 16384,   &
+    XC_FLAGS_NEEDS_LAPLACIAN = 32768
 
   integer(c_int), parameter, public :: &
     XC_TAU_EXPLICIT         =     0,   &

@@ -1963,7 +1963,7 @@ func_reference_type xc_ref_Handy2002_5411 = {
 
 
 func_reference_type xc_ref_Zhao2005_2012 = {
-  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem A 109, 2012 (2005), pMID: 16833536",
+  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem. A 109, 2012 (2005), pMID: 16833536",
   "10.1021/jp045141s",
   "@article{Zhao2005_2012,\nauthor = {Zhao, Yan and González-García, Núria and Truhlar, Donald G.},\ntitle = {Benchmark Database of Barrier Heights for Heavy Atom Transfer, Nucleophilic Substitution, Association, and Unimolecular Reactions and Its Use to Test Theoretical Methods},\njournal = {The Journal of Physical Chemistry A},\nvolume = {109},\nnumber = {9},\npages = {2012-2018},\nyear = {2005},\ndoi = {10.1021/jp045141s},\nnote ={PMID: 16833536},\nURL = {http://dx.doi.org/10.1021/jp045141s},\neprint = {http://dx.doi.org/10.1021/jp045141s}\n}"
 };
@@ -2050,6 +2050,13 @@ func_reference_type xc_ref_Loos2017_114108 = {
   "P.-F. Loos, J. Chem. Phys. 146, 114108 (2017)",
   "10.1063/1.4978409",
   "@article{Loos2017_114108,\nauthor = {Pierre-François Loos},\ntitle = {Exchange functionals based on finite uniform electron gases},\njournal = {The Journal of Chemical Physics},\nvolume = {146},\nnumber = {11},\npages = {114108},\nyear = {2017},\ndoi = {10.1063/1.4978409},\nURL = {http://dx.doi.org/10.1063/1.4978409},\n}"
+};
+
+
+func_reference_type xc_ref_Peng2016_041005 = {
+  "H. Peng, Z.-H. Yang, J. P. Perdew, and J. Sun, Phys. Rev. X 6, 041005 (2016)",
+  "10.1103/PhysRevX.6.041005",
+  "@article{Peng2016_041005,\n  title = {Versatile van der Waals Density Functional Based on a Meta-Generalized Gradient Approximation},\n  author = {Peng, Haowei and Yang, Zeng-Hui and Perdew, John P. and Sun, Jianwei},\n  journal = {Phys. Rev. X},\n  volume = {6},\n  issue = {4},\n  pages = {041005},\n  numpages = {15},\n  year = {2016},\n  month = {Oct},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevX.6.041005},\n  url = {https://link.aps.org/doi/10.1103/PhysRevX.6.041005}\n}"
 };
 
 

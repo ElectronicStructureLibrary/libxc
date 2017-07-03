@@ -20,6 +20,7 @@
 #include "util.h"
 
 #define XC_MGGA_C_SCAN          267 /* SCAN correlation */
+#define XC_MGGA_C_SCAN_RVV10    292 /* SCAN correlation + rVV10 correlation */
 
 #include "maple2c/mgga_c_scan.c"
 
@@ -37,4 +38,30 @@ const XC(func_info_type) XC(func_info_mgga_c_scan) = {
   0, NULL, NULL,
   NULL, NULL, 
   NULL, NULL, work_mgga_c,
+};
+
+
+static void
+mgga_c_scan_rvv10_init(XC(func_type) *p)
+{
+  static int   funcs_id  [1] = {XC_MGGA_C_SCAN};
+  static FLOAT funcs_coef[1] = {1.0};
+
+  XC(mix_init)(p, 1, funcs_id, funcs_coef);
+
+  p->nlc_b = 15.7;
+  p->nlc_C = 0.0093;
+}
+
+const XC(func_info_type) XC(func_info_mgga_c_scan_rvv10) = {
+  XC_MGGA_C_SCAN_RVV10,
+  XC_EXCHANGE_CORRELATION,
+  "SCAN+rVV10 correlation",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Peng2016_041005, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_VV10,
+  1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
+  mgga_c_scan_rvv10_init,
+  NULL, NULL, NULL, NULL
 };

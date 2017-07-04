@@ -5,12 +5,12 @@
  it under the terms of the GNU Lesser General Public License as published by
  the Free Software Foundation; either version 3 of the License, or
  (at your option) any later version.
-  
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU Lesser General Public License for more details.
-  
+
  You should have received a copy of the GNU Lesser General Public License
  along with this program; if not, write to the Free Software
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -28,6 +28,7 @@
 #define XC_HYB_GGA_XC_B3LYPs        459 /* B3LYP* functional                     */
 #define XC_HYB_GGA_XC_B3LYP5        475 /* B3LYP with VWN functional 5 instead of RPA */
 #define XC_HYB_GGA_XC_B5050LYP      572 /* Like B3LYP but more exact exchange    */
+#define XC_HYB_GGA_XC_KMLYP         485 /* Kang-Musgrave hybrid                  */
 
 /*************************************************************/
 void
@@ -148,7 +149,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw3pw) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  XC(hyb_gga_xc_mpw3pw_init), 
+  XC(hyb_gga_xc_mpw3pw_init),
   NULL, NULL, NULL, NULL
 };
 
@@ -173,7 +174,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw3lyp) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
-  XC(hyb_gga_xc_mpw3lyp_init), 
+  XC(hyb_gga_xc_mpw3lyp_init),
   NULL, NULL, NULL, NULL
 };
 
@@ -273,5 +274,30 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b5050lyp) = {
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
   XC(hyb_gga_xc_b5050lyp_init),
+  NULL, NULL, NULL, NULL
+};
+
+
+/*************************************************************/
+void
+XC(hyb_gga_xc_kmlyp_init)(XC(func_type) *p)
+{
+  static int   funcs_id  [3] = {XC_LDA_X, XC_LDA_C_VWN_RPA, XC_GGA_C_LYP};
+  static FLOAT funcs_coef[3] = {1.0 - 0.557, 1.0 - 0.448, 0.448};
+
+  XC(mix_init)(p, 3, funcs_id, funcs_coef);
+  p->cam_alpha = 0.557;
+}
+
+const XC(func_info_type) XC(func_info_hyb_gga_xc_kmlyp) = {
+  XC_HYB_GGA_XC_KMLYP,
+  XC_EXCHANGE_CORRELATION,
+  "Kang-Musgrave hybrid",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Kang2001_11040, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32, 1e-32, 0.0, 1e-32,
+  0, NULL, NULL,
+  XC(hyb_gga_xc_kmlyp_init),
   NULL, NULL, NULL, NULL
 };

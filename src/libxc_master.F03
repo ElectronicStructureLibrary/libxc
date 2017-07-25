@@ -72,14 +72,19 @@ module FXC(lib_m)
     ! version
     FXC(version), &
     FXC(version_string), &
-    ! info
+    ! func_info
     FXC(func_info_t), &
     FXC(func_info_get_number), &
     FXC(func_info_get_kind), &
     FXC(func_info_get_name), &
     FXC(func_info_get_family), &
+    FXC(func_info_get_references), &
     FXC(func_info_get_flags), &
-    FXC(func_info_get_refs), &
+    ! func_reference
+    FXC(func_reference_t), &
+    FXC(func_reference_get_ref), &
+    FXC(func_reference_get_doi), &
+    FXC(func_reference_get_bibtex), &
     ! func
     FXC(func_t), &
     FXC(func_init), &
@@ -164,6 +169,9 @@ module FXC(lib_m)
     XC_TAU_EXPLICIT         =     0,   &
     XC_TAU_EXPANSION        =     1
 
+  integer(c_int), parameter, public :: &
+    XC_MAX_REFERENCES       =     5
+
   ! List of functionals
 #include "libxc_inc.f03"
   
@@ -222,15 +230,37 @@ module FXC(lib_m)
       type(c_ptr), value :: info
     end function XC(func_info_get_flags)
 
-    type(c_ptr) function XC(func_info_get_ref)(info, number) bind(c)
+    type(c_ptr) function XC(func_info_get_references)(info, number) bind(c)
       import
       type(c_ptr),    value :: info
       integer(c_int), value :: number
-    end function XC(func_info_get_ref)
+    end function XC(func_info_get_references)
 
   end interface
 
+  !----------------------------------------------------------------
+  type :: FXC(func_reference_t)
+    private
+    type(c_ptr) :: ptr = C_NULL_PTR
+  end type FXC(func_reference_t)
 
+  interface
+    type(c_ptr) function XC(func_reference_get_ref)(reference) bind(c)
+      import
+      type(c_ptr), value :: reference
+    end function XC(func_reference_get_ref)
+
+    type(c_ptr) function XC(func_reference_get_doi)(reference) bind(c)
+      import
+      type(c_ptr), value :: reference
+    end function XC(func_reference_get_doi)
+
+    type(c_ptr) function XC(func_reference_get_bibtex)(reference) bind(c)
+      import
+      type(c_ptr), value :: reference
+    end function XC(func_reference_get_bibtex)
+  end interface
+    
   !----------------------------------------------------------------
   type :: FXC(func_t)
     private
@@ -535,20 +565,41 @@ module FXC(lib_m)
 
   end function FXC(func_info_get_flags)
 
-  character(len=120) function FXC(func_info_get_refs)(info, number) result(ref)
+  type(FXC(func_reference_t)) function FXC(func_info_get_references)(info, number) result(reference)
     type(FXC(func_info_t)), intent(in)    :: info
     integer,                intent(inout) :: number ! number of the reference. Must be 0 in the first call
 
-    type(c_ptr) :: c_ref
-
-    c_ref = XC(func_info_get_ref)(info%ptr, number)
-    if (c_associated(c_ref)) then
-      call c_to_f_string_ptr(c_ref, ref)
+    reference%ptr = XC(func_info_get_references)(info%ptr, number)
+    if (c_associated(XC(func_info_get_references)(info%ptr, number + 1))) then
       number = number + 1
-      if (.not. c_associated(XC(func_info_get_ref)(info%ptr, number))) number = -1
+    else
+      number = -1
     end if
     
-  end function FXC(func_info_get_refs)
+  end function FXC(func_info_get_references)
+
+
+  !----------------------------------------------------------------
+  character(len=120) function FXC(func_reference_get_ref)(reference) result(ref)
+    type(FXC(func_reference_t)), intent(in) :: reference
+
+    call c_to_f_string_ptr(XC(func_reference_get_ref)(reference%ptr), ref)
+
+  end function FXC(func_reference_get_ref)
+
+  character(len=120) function FXC(func_reference_get_doi)(reference) result(doi)
+    type(FXC(func_reference_t)), intent(in) :: reference
+
+    call c_to_f_string_ptr(XC(func_reference_get_doi)(reference%ptr), doi)
+
+  end function FXC(func_reference_get_doi)
+
+  character(len=120) function FXC(func_reference_get_bibtex)(reference) result(bibtex)
+    type(FXC(func_reference_t)), intent(in) :: reference
+
+    call c_to_f_string_ptr(XC(func_reference_get_bibtex)(reference%ptr), bibtex)
+
+  end function FXC(func_reference_get_bibtex)
 
 
   !----------------------------------------------------------------

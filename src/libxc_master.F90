@@ -131,7 +131,14 @@ module XC_F90(lib_m)
     XC_FLAGS_STABLE          =  8192,  &
     XC_FLAGS_DEVELOPMENT     = 16384,  &
     XC_FLAGS_NEEDS_LAPLACIAN = 32768
- 
+
+  integer, parameter, public ::        &
+    XC_TAU_EXPLICIT         =     0,   &
+    XC_TAU_EXPANSION        =     1
+
+  integer, parameter, public ::        &
+    XC_MAX_REFERENCES       =     5
+  
   ! These are old names kept for compatibility
   integer, parameter ::                &
     XC_GGA_X_BGCP           =  38,     &

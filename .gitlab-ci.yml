@@ -9,20 +9,17 @@ build:
   # instead of calling g++ directly you can also use some build toolkit like make
   # install the necessary build tools when needed
   before_script: 
-    - apt update && apt -y install make cmake
+    - apt update && apt -y install make cmake libgsl-dev
   script: 
-    - cmake -H. -Bbuild -DBUILD_SHARED_LIBS=ON
-    - cd build && make
+    - cmake -H. -Bobjdir -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Debug
+    - cd objdir && make
+  after_script:
+    - pwd
+    - cd objdir && ctest
   artifacts:
     paths:
-      - build/libxc.so
+      - objdir/libxc.so
   # depending on your build setup it's most likely a good idea to cache outputs to reduce the build time
   # cache:
   #   paths:
   #     - "*.o"
-
-# run tests using the binary built before
-test:
-  stage: test
-  script:
-    - ctest

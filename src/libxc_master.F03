@@ -80,6 +80,9 @@ module FXC(lib_m)
     FXC(func_info_get_family), &
     FXC(func_info_get_references), &
     FXC(func_info_get_flags), &
+    FXC(func_info_get_n_ext_params), &
+    FXC(func_info_get_ext_params_description), &
+    FXC(func_info_get_ext_params_default_value), &
     ! func_reference
     FXC(func_reference_t), &
     FXC(func_reference_get_ref), &
@@ -93,6 +96,7 @@ module FXC(lib_m)
     FXC(functional_get_name), &
     FXC(functional_get_number), &
     FXC(family_from_id), &
+    FXC(func_set_ext_params), &
     ! lda
     FXC(lda), &
     FXC(lda_exc), &
@@ -236,6 +240,22 @@ module FXC(lib_m)
       integer(c_int), value :: number
     end function XC(func_info_get_references)
 
+    integer(c_int) function XC(func_info_get_n_ext_params)(info) bind(c)
+      import
+      type(c_ptr), value :: info
+    end function XC(func_info_get_n_ext_params)
+    
+    type(c_ptr) function XC(func_info_get_ext_params_description)(info, number) bind(c)
+      import
+      type(c_ptr),    value :: info
+      integer(c_int), value :: number
+    end function XC(func_info_get_ext_params_description)
+
+    real(RTYPE) function XC(func_info_get_ext_params_default_value)(info, number) bind(c)
+      import
+      type(c_ptr),    value :: info
+      integer(c_int), value :: number
+    end function XC(func_info_get_ext_params_default_value)
   end interface
 
   !----------------------------------------------------------------
@@ -308,6 +328,12 @@ module FXC(lib_m)
       integer(c_int), value :: id
       type(c_ptr),    value :: family, number
     end function XC(family_from_id)
+
+    subroutine XC(func_set_ext_params)(p, ext_params) bind(c)
+      import
+      type(c_ptr), value      :: p
+      real(RTYPE), intent(in) :: ext_params(*)
+    end subroutine XC(func_set_ext_params)
   end interface
 
 
@@ -454,7 +480,7 @@ module FXC(lib_m)
       type(c_ptr), value       :: p
       real(RTYPE), intent(out) :: nlc_b, nlc_c
     end subroutine XC(nlc_coef)
-      end interface
+  end interface
 
 
   ! the meta-GGAs
@@ -578,6 +604,28 @@ module FXC(lib_m)
     
   end function FXC(func_info_get_references)
 
+  integer function FXC(func_info_get_n_ext_params)(info) result(n_ext_params)
+    type(FXC(func_info_t)), intent(in) :: info
+    
+    n_ext_params = XC(func_info_get_n_ext_params)(info%ptr)
+
+  end function FXC(func_info_get_n_ext_params)
+
+  character(len=128) function FXC(func_info_get_ext_params_description)(info, number) result(description)
+    type(FXC(func_info_t)), intent(in) :: info
+    integer,                intent(in) :: number
+
+    call c_to_f_string_ptr(XC(func_info_get_ext_params_description)(info%ptr, number), description)
+        
+  end function FXC(func_info_get_ext_params_description)
+
+  real(RTYPE) function FXC(func_info_get_ext_params_default_value)(info, number) result(val)
+    type(FXC(func_info_t)), intent(in) :: info
+    integer,                intent(in) :: number
+
+    val = XC(func_info_get_ext_params_default_value)(info%ptr, number)
+        
+  end function FXC(func_info_get_ext_params_default_value)
 
   !----------------------------------------------------------------
   character(len=120) function FXC(func_reference_get_ref)(reference) result(ref)
@@ -668,6 +716,14 @@ module FXC(lib_m)
     
   end function FXC(family_from_id)
 
+  subroutine FXC(func_set_ext_params)(p, ext_params)
+    type(FXC(func_t)), intent(in) :: p
+    real(RTYPE),       intent(in) :: ext_params(*)
+
+    call XC(func_set_ext_params)(p%ptr, ext_params)
+
+  end subroutine FXC(func_set_ext_params)
+  
   ! LDAs
   !----------------------------------------------------------------
   subroutine FXC(lda)(p, np, rho, zk, vrho, v2rho2, v3rho3)

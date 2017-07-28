@@ -58,3 +58,23 @@ const func_reference_type *XC(func_info_get_references)(const XC(func_info_type)
   }
 }
 
+int XC(func_info_get_n_ext_params)(XC(func_info_type) *info)
+{
+  assert(info!=NULL);
+
+  return info->n_ext_params;
+}
+
+char const *XC(func_info_get_ext_params_description)(XC(func_info_type) *info, int number)
+{
+  assert(number >=0 && number < info->n_ext_params);
+
+  return info->ext_params[number].description;
+}
+
+double XC(func_info_get_ext_params_default_value)(XC(func_info_type) *info, int number)
+{
+  assert(number >=0 && number < info->n_ext_params);
+
+  return info->ext_params[number].value;
+}

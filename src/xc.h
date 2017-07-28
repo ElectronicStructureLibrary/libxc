@@ -133,7 +133,10 @@ char const *XC(func_info_get_name)(const XC(func_info_type) *info);
 int XC(func_info_get_family)(const XC(func_info_type) *info);
 int XC(func_info_get_flags)(const XC(func_info_type) *info);
 const func_reference_type *XC(func_info_get_references)(const XC(func_info_type) *info, int number);
-
+int XC(func_info_get_n_ext_params)(XC(func_info_type) *info);
+char const *XC(func_info_get_ext_params_description)(XC(func_info_type) *info, int number);
+double XC(func_info_get_ext_params_default_value)(XC(func_info_type) *info, int number);
+  
 struct XC(func_type){
   const XC(func_info_type) *info;       /* all the information concerning this functional */
   int nspin;                            /* XC_UNPOLARIZED or XC_POLARIZED  */

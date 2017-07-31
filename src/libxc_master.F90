@@ -226,6 +226,12 @@ module XC_F90(lib_m)
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(inout) :: p
     end subroutine XC_F90(func_end)
+
+    subroutine XC_F90(func_set_ext_params)(p, ext_params)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: ext_params
+    end subroutine XC_F90(func_set_ext_params)
   end interface
 
 

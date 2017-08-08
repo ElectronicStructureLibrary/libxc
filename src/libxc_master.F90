@@ -87,6 +87,21 @@ module XC_F90(lib_m)
 
   public
 
+  integer, parameter ::             &
+    XC_UNPOLARIZED          =   1,  &  ! Spin unpolarized
+    XC_POLARIZED            =   2      ! Spin polarized
+  
+  integer, parameter ::             &
+    XC_NON_RELATIVISTIC     =   0,  &  ! Functional includes or not relativistic
+    XC_RELATIVISTIC         =   1      ! corrections. Only available in some functionals.
+
+  ! Kinds
+  integer, parameter ::             &
+    XC_EXCHANGE             =   0,  &
+    XC_CORRELATION          =   1,  &
+    XC_EXCHANGE_CORRELATION =   2,  &
+    XC_KINETIC              =   3
+
   ! Families of xc functionals
   integer, parameter ::     &
     XC_FAMILY_UNKNOWN       =  -1,  &
@@ -99,33 +114,31 @@ module XC_F90(lib_m)
     XC_FAMILY_HYB_GGA       =  32,  &
     XC_FAMILY_HYB_MGGA       = 64
 
-  integer, parameter ::             &
-    XC_UNPOLARIZED          =   1,  &  ! Spin unpolarized
-    XC_POLARIZED            =   2      ! Spin polarized
+  integer, parameter ::                &
+    XC_FLAGS_HAVE_EXC        =     1,  &
+    XC_FLAGS_HAVE_VXC        =     2,  &
+    XC_FLAGS_HAVE_FXC        =     4,  &
+    XC_FLAGS_HAVE_KXC        =     8,  &
+    XC_FLAGS_HAVE_LXC        =    16,  &
+    XC_FLAGS_1D              =    32,  &
+    XC_FLAGS_2D              =    64,  &
+    XC_FLAGS_3D              =   128,  &
+    XC_FLAGS_HYB_CAM         =   256,  &
+    XC_FLAGS_HYB_CAMY        =   512,  &
+    XC_FLAGS_HYB_VV10        =  1024,  &
+    XC_FLAGS_HYB_LC          =  2048,  &
+    XC_FLAGS_HYB_LCY         =  4096,  &
+    XC_FLAGS_STABLE          =  8192,  &
+    XC_FLAGS_DEVELOPMENT     = 16384,  &
+    XC_FLAGS_NEEDS_LAPLACIAN = 32768
 
-  integer, parameter ::             &
-    XC_NON_RELATIVISTIC     =   0,  &  ! Functional includes or not relativistic
-    XC_RELATIVISTIC         =   1      ! corrections. Only available in some functionals.
+  integer, parameter, public ::        &
+    XC_TAU_EXPLICIT         =     0,   &
+    XC_TAU_EXPANSION        =     1
 
-  ! Kinds
-  integer, parameter ::             &
-    XC_EXCHANGE             =   0,  &
-    XC_CORRELATION          =   1,  &
-    XC_EXCHANGE_CORRELATION =   2,  &
-    XC_KINETIC              =   3
-
-  integer, parameter ::             &
-    XC_FLAGS_HAVE_EXC       =    1,  &
-    XC_FLAGS_HAVE_VXC       =    2,  &
-    XC_FLAGS_HAVE_FXC       =    4,  &
-    XC_FLAGS_HAVE_KXC       =    8,  &
-    XC_FLAGS_HAVE_LXC       =   16,  &
-    XC_FLAGS_1D             =   32,  &
-    XC_FLAGS_2D             =   64,  &
-    XC_FLAGS_3D             =  128,  &
-    XC_FLAGS_STABLE         =  512,  &
-    XC_FLAGS_DEVELOPMENT    = 1024
- 
+  integer, parameter, public ::        &
+    XC_MAX_REFERENCES       =     5
+  
   ! These are old names kept for compatibility
   integer, parameter ::                &
     XC_GGA_X_BGCP           =  38,     &
@@ -135,6 +148,7 @@ module XC_F90(lib_m)
     XC_MGGA_C_CC06          = 229,     &
     XC_GGA_K_ABSR1          = 506,     &
     XC_GGA_K_ABSR2          = 507
+
   
   !----------------------------------------------------------------
   interface
@@ -212,6 +226,12 @@ module XC_F90(lib_m)
       use XC_F90(types_m)
       type(XC_F90(pointer_t)), intent(inout) :: p
     end subroutine XC_F90(func_end)
+
+    subroutine XC_F90(func_set_ext_params)(p, ext_params)
+      use XC_F90(types_m)
+      type(XC_F90(pointer_t)), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: ext_params
+    end subroutine XC_F90(func_set_ext_params)
   end interface
 
 

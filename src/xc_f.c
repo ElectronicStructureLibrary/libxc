@@ -151,13 +151,18 @@ void XC_FC_FUNC(f90_func_init, F90_FUNC_INIT)
   *info = (void *)(func_p->info);
 }
 
-
 void XC_FC_FUNC(f90_func_end, F90_FUNC_END)
      (void **p)
 {
   XC(func_end)((XC(func_type) *)(*p));
   free(*p);
   *p = NULL;
+}
+
+void XC_FC_FUNC(f90_func_set_ext_params, F90_FUNC_SET_EXT_PARAMS)
+     (void **p, FLOAT *ext_params)
+{
+  XC(func_set_ext_params)((XC(func_type) *)(*p), ext_params);
 }
 
 

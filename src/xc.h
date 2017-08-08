@@ -71,6 +71,8 @@ extern "C" {
 
 #define XC_TAU_EXPLICIT         0
 #define XC_TAU_EXPANSION        1
+
+#define XC_MAX_REFERENCES       5
   
 void XC(version)(int *major, int *minor, int *micro);
 const char *XC(version_string)();
@@ -80,6 +82,10 @@ struct XC(func_type);
 typedef struct{
   char *ref, *doi, *bibtex;
 } func_reference_type;
+
+char const *XC(func_reference_get_ref)(const func_reference_type *reference);
+char const *XC(func_reference_get_doi)(const func_reference_type *reference);
+char const *XC(func_reference_get_bibtex)(const func_reference_type *reference);
 
 typedef struct{
   double value;
@@ -92,7 +98,7 @@ typedef struct{
 
   char *name;     /* name of the functional, e.g. "PBE" */
   int   family;   /* type of the functional, e.g. XC_FAMILY_GGA */
-  func_reference_type *refs[5];  /* index of the references */
+  func_reference_type *refs[XC_MAX_REFERENCES];  /* index of the references */
 
   int   flags;    /* see above for a list of possible flags */
 
@@ -126,8 +132,11 @@ int XC(func_info_get_kind)(const XC(func_info_type) *info);
 char const *XC(func_info_get_name)(const XC(func_info_type) *info);
 int XC(func_info_get_family)(const XC(func_info_type) *info);
 int XC(func_info_get_flags)(const XC(func_info_type) *info);
-char const *XC(func_info_get_ref)(const XC(func_info_type) *info, int number);
-
+const func_reference_type *XC(func_info_get_references)(const XC(func_info_type) *info, int number);
+int XC(func_info_get_n_ext_params)(XC(func_info_type) *info);
+char const *XC(func_info_get_ext_params_description)(XC(func_info_type) *info, int number);
+double XC(func_info_get_ext_params_default_value)(XC(func_info_type) *info, int number);
+  
 struct XC(func_type){
   const XC(func_info_type) *info;       /* all the information concerning this functional */
   int nspin;                            /* XC_UNPOLARIZED or XC_POLARIZED  */

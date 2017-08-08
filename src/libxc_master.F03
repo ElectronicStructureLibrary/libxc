@@ -72,14 +72,22 @@ module FXC(lib_m)
     ! version
     FXC(version), &
     FXC(version_string), &
-    ! info
+    ! func_info
     FXC(func_info_t), &
     FXC(func_info_get_number), &
     FXC(func_info_get_kind), &
     FXC(func_info_get_name), &
     FXC(func_info_get_family), &
+    FXC(func_info_get_references), &
     FXC(func_info_get_flags), &
-    FXC(func_info_get_refs), &
+    FXC(func_info_get_n_ext_params), &
+    FXC(func_info_get_ext_params_description), &
+    FXC(func_info_get_ext_params_default_value), &
+    ! func_reference
+    FXC(func_reference_t), &
+    FXC(func_reference_get_ref), &
+    FXC(func_reference_get_doi), &
+    FXC(func_reference_get_bibtex), &
     ! func
     FXC(func_t), &
     FXC(func_init), &
@@ -88,6 +96,7 @@ module FXC(lib_m)
     FXC(functional_get_name), &
     FXC(functional_get_number), &
     FXC(family_from_id), &
+    FXC(func_set_ext_params), &
     ! lda
     FXC(lda), &
     FXC(lda_exc), &
@@ -143,25 +152,29 @@ module FXC(lib_m)
     XC_FAMILY_HYB_MGGA      =  64
 
   integer(c_int), parameter, public :: &
-    XC_FLAGS_HAVE_EXC       =     1,   &
-    XC_FLAGS_HAVE_VXC       =     2,   &
-    XC_FLAGS_HAVE_FXC       =     4,   &
-    XC_FLAGS_HAVE_KXC       =     8,   &
-    XC_FLAGS_HAVE_LXC       =    16,   &
-    XC_FLAGS_1D             =    32,   &
-    XC_FLAGS_2D             =    64,   &
-    XC_FLAGS_3D             =   128,   &
-    XC_FLAGS_HYB_CAM        =   256,   &
-    XC_FLAGS_HYB_CAMY       =   512,   &
-    XC_FLAGS_VV10           =  1024,   &
-    XC_FLAGS_HYB_LC         =  2048,   &
-    XC_FLAGS_HYB_LCY        =  4096,   &
-    XC_FLAGS_STABLE         =  8192,   &
-    XC_FLAGS_DEVELOPMENT    = 16384
+    XC_FLAGS_HAVE_EXC        =     1,   &
+    XC_FLAGS_HAVE_VXC        =     2,   &
+    XC_FLAGS_HAVE_FXC        =     4,   &
+    XC_FLAGS_HAVE_KXC        =     8,   &
+    XC_FLAGS_HAVE_LXC        =    16,   &
+    XC_FLAGS_1D              =    32,   &
+    XC_FLAGS_2D              =    64,   &
+    XC_FLAGS_3D              =   128,   &
+    XC_FLAGS_HYB_CAM         =   256,   &
+    XC_FLAGS_HYB_CAMY        =   512,   &
+    XC_FLAGS_VV10            =  1024,   &
+    XC_FLAGS_HYB_LC          =  2048,   &
+    XC_FLAGS_HYB_LCY         =  4096,   &
+    XC_FLAGS_STABLE          =  8192,   &
+    XC_FLAGS_DEVELOPMENT     = 16384,   &
+    XC_FLAGS_NEEDS_LAPLACIAN = 32768
 
   integer(c_int), parameter, public :: &
     XC_TAU_EXPLICIT         =     0,   &
     XC_TAU_EXPANSION        =     1
+
+  integer(c_int), parameter, public :: &
+    XC_MAX_REFERENCES       =     5
 
   ! List of functionals
 #include "libxc_inc.f03"
@@ -221,15 +234,53 @@ module FXC(lib_m)
       type(c_ptr), value :: info
     end function XC(func_info_get_flags)
 
-    type(c_ptr) function XC(func_info_get_ref)(info, number) bind(c)
+    type(c_ptr) function XC(func_info_get_references)(info, number) bind(c)
       import
       type(c_ptr),    value :: info
       integer(c_int), value :: number
-    end function XC(func_info_get_ref)
+    end function XC(func_info_get_references)
 
+    integer(c_int) function XC(func_info_get_n_ext_params)(info) bind(c)
+      import
+      type(c_ptr), value :: info
+    end function XC(func_info_get_n_ext_params)
+    
+    type(c_ptr) function XC(func_info_get_ext_params_description)(info, number) bind(c)
+      import
+      type(c_ptr),    value :: info
+      integer(c_int), value :: number
+    end function XC(func_info_get_ext_params_description)
+
+    real(RTYPE) function XC(func_info_get_ext_params_default_value)(info, number) bind(c)
+      import
+      type(c_ptr),    value :: info
+      integer(c_int), value :: number
+    end function XC(func_info_get_ext_params_default_value)
   end interface
 
+  !----------------------------------------------------------------
+  type :: FXC(func_reference_t)
+    private
+    type(c_ptr) :: ptr = C_NULL_PTR
+  end type FXC(func_reference_t)
 
+  interface
+    type(c_ptr) function XC(func_reference_get_ref)(reference) bind(c)
+      import
+      type(c_ptr), value :: reference
+    end function XC(func_reference_get_ref)
+
+    type(c_ptr) function XC(func_reference_get_doi)(reference) bind(c)
+      import
+      type(c_ptr), value :: reference
+    end function XC(func_reference_get_doi)
+
+    type(c_ptr) function XC(func_reference_get_bibtex)(reference) bind(c)
+      import
+      type(c_ptr), value :: reference
+    end function XC(func_reference_get_bibtex)
+  end interface
+    
   !----------------------------------------------------------------
   type :: FXC(func_t)
     private
@@ -277,6 +328,12 @@ module FXC(lib_m)
       integer(c_int), value :: id
       type(c_ptr),    value :: family, number
     end function XC(family_from_id)
+
+    subroutine XC(func_set_ext_params)(p, ext_params) bind(c)
+      import
+      type(c_ptr), value      :: p
+      real(RTYPE), intent(in) :: ext_params(*)
+    end subroutine XC(func_set_ext_params)
   end interface
 
 
@@ -423,7 +480,7 @@ module FXC(lib_m)
       type(c_ptr), value       :: p
       real(RTYPE), intent(out) :: nlc_b, nlc_c
     end subroutine XC(nlc_coef)
-      end interface
+  end interface
 
 
   ! the meta-GGAs
@@ -534,20 +591,63 @@ module FXC(lib_m)
 
   end function FXC(func_info_get_flags)
 
-  character(len=120) function FXC(func_info_get_refs)(info, number) result(ref)
+  type(FXC(func_reference_t)) function FXC(func_info_get_references)(info, number) result(reference)
     type(FXC(func_info_t)), intent(in)    :: info
     integer,                intent(inout) :: number ! number of the reference. Must be 0 in the first call
 
-    type(c_ptr) :: c_ref
-
-    c_ref = XC(func_info_get_ref)(info%ptr, number)
-    if (c_associated(c_ref)) then
-      call c_to_f_string_ptr(c_ref, ref)
+    reference%ptr = XC(func_info_get_references)(info%ptr, number)
+    if (c_associated(XC(func_info_get_references)(info%ptr, number + 1))) then
       number = number + 1
-      if (.not. c_associated(XC(func_info_get_ref)(info%ptr, number))) number = -1
+    else
+      number = -1
     end if
     
-  end function FXC(func_info_get_refs)
+  end function FXC(func_info_get_references)
+
+  integer function FXC(func_info_get_n_ext_params)(info) result(n_ext_params)
+    type(FXC(func_info_t)), intent(in) :: info
+    
+    n_ext_params = XC(func_info_get_n_ext_params)(info%ptr)
+
+  end function FXC(func_info_get_n_ext_params)
+
+  character(len=128) function FXC(func_info_get_ext_params_description)(info, number) result(description)
+    type(FXC(func_info_t)), intent(in) :: info
+    integer,                intent(in) :: number
+
+    call c_to_f_string_ptr(XC(func_info_get_ext_params_description)(info%ptr, number), description)
+        
+  end function FXC(func_info_get_ext_params_description)
+
+  real(RTYPE) function FXC(func_info_get_ext_params_default_value)(info, number) result(val)
+    type(FXC(func_info_t)), intent(in) :: info
+    integer,                intent(in) :: number
+
+    val = XC(func_info_get_ext_params_default_value)(info%ptr, number)
+        
+  end function FXC(func_info_get_ext_params_default_value)
+
+  !----------------------------------------------------------------
+  character(len=120) function FXC(func_reference_get_ref)(reference) result(ref)
+    type(FXC(func_reference_t)), intent(in) :: reference
+
+    call c_to_f_string_ptr(XC(func_reference_get_ref)(reference%ptr), ref)
+
+  end function FXC(func_reference_get_ref)
+
+  character(len=120) function FXC(func_reference_get_doi)(reference) result(doi)
+    type(FXC(func_reference_t)), intent(in) :: reference
+
+    call c_to_f_string_ptr(XC(func_reference_get_doi)(reference%ptr), doi)
+
+  end function FXC(func_reference_get_doi)
+
+  character(len=120) function FXC(func_reference_get_bibtex)(reference) result(bibtex)
+    type(FXC(func_reference_t)), intent(in) :: reference
+
+    call c_to_f_string_ptr(XC(func_reference_get_bibtex)(reference%ptr), bibtex)
+
+  end function FXC(func_reference_get_bibtex)
 
 
   !----------------------------------------------------------------
@@ -616,6 +716,14 @@ module FXC(lib_m)
     
   end function FXC(family_from_id)
 
+  subroutine FXC(func_set_ext_params)(p, ext_params)
+    type(FXC(func_t)), intent(in) :: p
+    real(RTYPE),       intent(in) :: ext_params(*)
+
+    call XC(func_set_ext_params)(p%ptr, ext_params)
+
+  end subroutine FXC(func_set_ext_params)
+  
   ! LDAs
   !----------------------------------------------------------------
   subroutine FXC(lda)(p, np, rho, zk, vrho, v2rho2, v3rho3)

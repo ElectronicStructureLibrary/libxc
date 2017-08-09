@@ -92,23 +92,14 @@ libxc_la_FUNC_SOURCES = \
         mgga_c_tpssloc.c mgga_xc_hle17.c mgga_c_kcis.c mgga_c_lp90.c    \
 	hyb_mgga_xc_kcis.c mgga_c_b88.c mgga_x_gx.c mgga_x_pbe_gx.c
 
-libxc_la_FUNC_SINGLE_SOURCES = $(libxc_la_FUNC_SOURCES:.c=_s.c)
-
 libxc_la_SOURCES = references.c $(libxc_la_FUNC_SOURCES)
 libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)
-
-if COMPILE_SINGLE
-  nodist_libxc_la_SOURCES = $(libxc_la_FUNC_SINGLE_SOURCES)
-endif
 
 if COMPILE_FORTRAN
   lib_LTLIBRARIES += libxcf90.la
 
   libxcf90_la_SOURCES = xc_f.c
   nodist_libxcf90_la_SOURCES = libxc_funcs.f90 libxc.f90
-if COMPILE_SINGLE
-    nodist_libxcf90_la_SOURCES += xc_f_s.c libxc_s.f90
-endif
 
   # libtool stuff
   libxcf90_la_LDFLAGS = -version-info $(XC_LT_VERSION)
@@ -122,9 +113,6 @@ if COMPILE_FORTRAN03
   lib_LTLIBRARIES += libxcf03.la
 
   nodist_libxcf03_la_SOURCES = libxcf03.f90
-if COMPILE_SINGLE
-    nodist_libxcf03_la_SOURCES += libxcf03_s.f90
-endif
 
   # libtool stuff
   libxcf03_la_LDFLAGS = -version-info $(XC_LT_VERSION)
@@ -148,10 +136,6 @@ noinst_HEADERS = \
 include_HEADERS = xc.h xc_funcs_removed.h xc_config.h xc_unconfig.h
 nodist_include_HEADERS = xc_funcs.h
 
-if COMPILE_SINGLE
-  include_HEADERS += xc_s.h
-endif
-
 BUILT_SOURCES = xc_funcs.h
 
 ## declare fortran modules so they are installed
@@ -164,24 +148,12 @@ else
 endif
 nodist_include_HEADERS += $(LIBFUNCMOD)
 
-# Double precision modules are always compiled
 if F90_MOD_UPPERCASE
   XCLIBMODS = XC_F90_LIB_M.@ax_cv_f90_modext@ XC_F90_TYPES_M.@ax_cv_f90_modext@
 else
   XCLIBMODS = xc_f90_lib_m.@ax_cv_f90_modext@ xc_f90_types_m.@ax_cv_f90_modext@
 endif
 nodist_include_HEADERS += $(XCLIBMODS)
-
-if COMPILE_SINGLE
-
-if F90_MOD_UPPERCASE
-  XCLIBMODS_S = XC_S_F90_LIB_M.@ax_cv_f90_modext@ XC_S_F90_TYPES_M.@ax_cv_f90_modext@
-else
-  XCLIBMODS_S = xc_s_f90_lib_m.@ax_cv_f90_modext@ xc_s_f90_types_m.@ax_cv_f90_modext@
-endif
-nodist_include_HEADERS += $(XCLIBMODS_S)
-
-endif # COMPILE_SINGLE
 
 endif # COMPILE_FORTRAN
 
@@ -196,26 +168,11 @@ else
 endif
 nodist_include_HEADERS += $(XCF03LIBMODS)
 
-if COMPILE_SINGLE
-
-if F90_MOD_UPPERCASE
-  XCF03LIBMODS_S = XC_S_F03_LIB_M.@ax_cv_f90_modext@
-else
-  XCF03LIBMODS_S = xc_s_f03_lib_m.@ax_cv_f90_modext@
-endif
-nodist_include_HEADERS += $(XCF03LIBMODS_S)
-
-endif # COMPILE_SINGLE
-
 endif # COMPILE_FORTRAN03
 
 
-SUFFIXES = _s.c
-.c_s.c:
-	@CPP@ -D SINGLE_PRECISION @CPPFLAGS@ $(INCLUDES) $(DEFAULT_INCLUDES) $(AM_CPPFLAGS) $< > $*_s.c
-
 CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
-	libxc.f90 libxc_funcs.f90 libxcf03.f90 libxc_inc.f03 xc_funcs.h xc_f_inc.c *_s.c *_s.f90 libxc_docs.txt
+	libxc.f90 libxc_funcs.f90 libxcf03.f90 libxc_inc.f03 xc_funcs.h xc_f_inc.c libxc_docs.txt
 
 xc_f.o : xc_f_inc.c
 
@@ -239,18 +196,10 @@ libxc.f90 : libxc_master.F90 $(LIBFUNCMOD)
 		grep -v "^#" $(top_builddir)/src/libxc.f90 > $(top_builddir)/src/libxc.f91; \
 		mv -f $(top_builddir)/src/libxc.f91 $(top_builddir)/src/libxc.f90; \
 	fi
-libxc_s.f90 : libxc_master.F90 $(LIBSFUNCMOD)
-	@FCCPP@ -D SINGLE_PRECISION @CPPFLAGS@ $(AM_CPPFLAGS) -I$(top_builddir)/src $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc_s.f90
-	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
-		grep -v "^#" $(top_builddir)/src/libxc_s.f90 > $(top_builddir)/src/libxc_s.f91; \
-		mv -f $(top_builddir)/src/libxc_s.f91 $(top_builddir)/src/libxc_s.f90; \
-	fi
 
 $(LTPREF)libxc.lo   $(LTPREF)libxc.o   : $(LIBFUNCMOD)
-$(LTPREF)libxc_s.lo $(LTPREF)libxc_s.o : $(LIBSFUNCMOD)
 
 $(XCLIBMODS)   : $(LTPREF)libxc.lo
-$(XCLIBMODS_S) : $(LTPREF)libxc_s.lo
 
 
 LTPREF03 = $(subst libxcf03.lo,,$(firstword $(nodist_libxcf03_la_OBJECTS)))
@@ -260,12 +209,6 @@ libxcf03.f90 : libxc_master.F03 libxc_inc.f03
 		grep -v "^#" $(top_builddir)/src/libxcf03.f90 > $(top_builddir)/src/libxcf03.f91; \
 		mv -f $(top_builddir)/src/libxcf03.f91 $(top_builddir)/src/libxcf03.f90; \
 	fi
-libxcf03_s.f90 : libxc_master.F03 libxc_inc.f03
-	@FCCPP@ -D SINGLE_PRECISION @CPPFLAGS@ $(AM_CPPFLAGS) -I$(top_builddir)/src $(srcdir)/libxc_master.F03 > $(top_builddir)/src/libxcf03_s.f90
-	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
-		grep -v "^#" $(top_builddir)/src/libxcf03_s.f90 > $(top_builddir)/src/libxcf03_s.f91; \
-		mv -f $(top_builddir)/src/libxcf03_s.f91 $(top_builddir)/src/libxcf03_s.f90; \
-	fi
 
 $(XCF03LIBMODS)   : $(LTPREF03)libxcf03.lo
-$(XCF03LIBMODS_S) : $(LTPREF03)libxcf03_s.lo
+

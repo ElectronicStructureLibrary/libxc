@@ -155,14 +155,6 @@ AM_CONDITIONAL(F90_MOD_UPPERCASE, [test x$ax_f90_mod_uppercase = xyes])
 AM_CONDITIONAL(COMPILE_FORTRAN, test x${HAVE_FORTRAN} = x1)
 AM_CONDITIONAL([COMPILE_FORTRAN03], [test x$ac_cv_build_fortran03 = xyes])
 
-dnl should I compile libxc in single precision?
-AC_ARG_ENABLE([single], 
-	      AS_HELP_STRING([--enable-single], [compile libxc in single precision]),
-              [ac_cv_single_prec=$enableval],
-	      [ac_cv_single_prec=no])
-
-AM_CONDITIONAL(COMPILE_SINGLE, test  $ac_cv_single_prec = yes)
-
 
 AC_CONFIG_FILES([Makefile
   xc_version.h

@@ -17,7 +17,7 @@ option_with_default(CMAKE_BUILD_TYPE "Build type" Release)
 option_with_print(BUILD_SHARED_LIBS "Build final library as shared, not static" OFF)
 option_with_print(BUILD_TESTING "Compile the testing infrastructure" ON)
 option_with_default(BUILD_FPIC "Libraries will be compiled with position independent code" ON)
-if(${BUILD_SHARED_LIBS} AND NOT ${BUILD_FPIC})
+if((${BUILD_SHARED_LIBS}) AND NOT ${BUILD_FPIC})
     message(FATAL_ERROR "BUILD_SHARED_LIBS ON and BUILD_FPIC OFF are incompatible, as shared library requires position independent code")
 endif()
 option_with_default(NAMESPACE_INSTALL_INCLUDEDIR "Location within CMAKE_INSTALL_INCLUDEDIR to which headers are installed. Psi4 wants namespace (e.g., /libxc)" /)
@@ -29,8 +29,6 @@ option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON
 ######################### Process & Validate Options ###########################
 include(autocmake_safeguards)
 include(custom_static_library)
-
-find_package(GSL REQUIRED)
 
 ################################# Main Project #################################
 include(GNUInstallDirs)
@@ -258,7 +256,6 @@ mix_func.c
 references.c
 special_functions.c
 stoll.c
-test.c
 util.c
 version.c
 )
@@ -283,7 +280,6 @@ if(${BUILD_SHARED_LIBS})
         set_target_properties(xc PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
     endif()
 endif()
-target_link_libraries(xc PUBLIC GSL::gsl)
 
 # run get_funcs.pl to generate headers for xc inclusion
 set(gen_dir "${PROJECT_BINARY_DIR}/gen_funcidx")

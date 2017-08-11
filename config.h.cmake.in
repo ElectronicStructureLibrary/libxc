@@ -1,0 +1,5 @@
+/* Define to the version of this package. */
+#define PACKAGE_VERSION "@PROJECT_VERSION@"
+
+#include <stdio.h>
+

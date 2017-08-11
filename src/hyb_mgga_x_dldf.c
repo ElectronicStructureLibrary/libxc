@@ -38,7 +38,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_dldf) = {
   "Dispersionless Density Functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Pernal2009_263201, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   MIN_DENS, MIN_GRAD, MIN_TAU, MIN_ZETA,
   0, NULL, NULL,
   mgga_x_dldf_init, NULL,

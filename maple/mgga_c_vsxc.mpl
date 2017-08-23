@@ -15,7 +15,7 @@ $include "gvt4.mpl"
 vsxc_comp := (rs, z, spin, xs, ts) ->
   + lda_stoll_par(f_pw, rs,  z,  1)
   * gtv4(params_a_alpha_ss, params_a_dss, xs, 2*(ts - K_FACTOR_C))
-  * (1 - xs^2/(8*ts)):
+  * Fermi_D(xs, ts):
 
 (* The parallel and perpendicular components of the energy *)
 vsxc_fpar  := (rs, z, xs0, xs1, ts0, ts1) ->

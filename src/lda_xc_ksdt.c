@@ -27,36 +27,69 @@
 ************************************************************************/
 
 #define XC_LDA_XC_KSDT    259    /* Karasiev et al. parametrization */
-
-static const FLOAT ksdt_a[6] =
-  {0.750, 3.043630, -0.0922700, 1.703500, 8.310510, 5.11050};
-static const FLOAT ksdt_b[2][5] = {               /* b5 = Sqrt[3/2]/(lambda)*b3 */
-  {0.2839970,  48.9321540, 0.3709190, 61.0953570, 0.871837422702767684673873513724},
-  {0.3290010, 111.5983080, 0.5370530,105.0866630, 1.26233194679913807935662124247}
-};
-static const FLOAT ksdt_c[2][3] = {
-  {0.8700890, 0.1930770, 2.4146440},
-  {0.8489300, 0.1679520, 0.0888200}
-};
-static const FLOAT ksdt_d[2][5] = {
-  {0.5798240,  94.5374540,  97.8396030,  59.9399990, 24.3880370},
-  {0.5513300, 180.2131590, 134.4862310, 103.8616950, 17.7507100}
-};
-static const FLOAT ksdt_e[2][5] = {
-  {0.2120360, 16.7312490, 28.4857920,  34.0288760, 17.2355150},
-  {0.1531240, 19.5439450, 43.4003370, 120.2551450, 15.6628360}
-};
+#define XC_LDA_XC_GDSMFB  577    /* Groth et al. parametrization */
 
 typedef struct{
   FLOAT T;
+
+  FLOAT b[2][5], c[2][3], d[2][5],  e[2][5];
 } lda_xc_ksdt_params;
 
+static const lda_xc_ksdt_params par_ksdt = {
+  0.0 , /* T */
+  {     /* b5 = Sqrt[3/2]/(lambda)*b3 */
+    {0.2839970,  48.9321540, 0.3709190, 61.0953570, 0.871837422702767684673873513724},
+    {0.3290010, 111.5983080, 0.5370530,105.0866630, 1.26233194679913807935662124247}
+  }, {  /* c */
+    {0.8700890, 0.1930770, 2.4146440},
+    {0.8489300, 0.1679520, 0.0888200}
+  }, {  /* d */
+    {0.5798240,  94.5374540,  97.8396030,  59.9399990, 24.3880370},
+    {0.5513300, 180.2131590, 134.4862310, 103.8616950, 17.7507100}
+  }, { /* e */
+    {0.2120360, 16.7312490, 28.4857920,  34.0288760, 17.2355150},
+    {0.1531240, 19.5439450, 43.4003370, 120.2551450, 15.6628360}
+  }
+};
+
+/* see https://github.com/agbonitz/xc_functional */
+static const lda_xc_ksdt_params par_gdsmfb = {
+  0.0 , /* T */
+  {     /* b5 = Sqrt[3/2]/(lambda)*b3 */
+    {0.34369020, 7.82159531356, 0.300483986662, 15.8443467125, 0.70628138352268528131},
+    {0.84987704, 3.04033012073, 0.0775730131248, 7.57703592489, 0.22972614201992673860}
+  }, {  /* c */
+    {0.87594420, -0.2301308435510, 1.0},
+    {0.91126873, -0.0307957123308, 1.0}
+  }, {  /* d */
+    {0.72700876, 2.38264734144, 0.302212372510, 4.39347718395, 0.729951339845},
+    {1.48658718, 4.92684905511, 0.0849387225179, 8.3269821188, 0.218864952126}
+  }, { /* e */
+    {0.25388214, 0.815795138599, 0.0646844410481, 15.0984620477, 0.230761357474},
+    {0.27454097, 0.400994856555, 2.88773194962, 6.33499237092, 24.823008753}
+  }
+}; 
 
 static void 
 lda_xc_ksdt_init(XC(func_type) *p)
-{
+{  
+  lda_xc_ksdt_params *params;
+
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(lda_xc_ksdt_params));
+  params = (lda_xc_ksdt_params *)(p->params);
+
+  switch(p->info->number){
+  case XC_LDA_XC_KSDT:
+    memcpy(params, &par_ksdt, sizeof(lda_xc_ksdt_params));
+    break;
+  case XC_LDA_XC_GDSMFB:
+    memcpy(params, &par_gdsmfb, sizeof(lda_xc_ksdt_params));
+    break;
+  default:
+    fprintf(stderr, "Internal error in lda_xc_ksdt\n");
+    exit(1);
+  }
 }
 
 #include "maple2c/lda_xc_ksdt.c"
@@ -87,6 +120,19 @@ const XC(func_info_type) XC(func_info_lda_xc_ksdt) = {
   "Karasiev, Sjostrom, Dufty & Trickey",
   XC_FAMILY_LDA,
   {&xc_ref_Karasiev2014_076403, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32, 0.0, 0.0, 1e-32,
+  1, ext_params, set_ext_params,
+  lda_xc_ksdt_init, NULL,
+  work_lda, NULL, NULL
+};
+
+const XC(func_info_type) XC(func_info_lda_xc_gdsmfb) = {
+  XC_LDA_XC_GDSMFB,
+  XC_EXCHANGE_CORRELATION,
+  "Groth, Dornheim, Sjostrom, Malone, Foulkes, Bonitz",
+  XC_FAMILY_LDA,
+  {&xc_ref_Groth2017, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 0.0, 0.0, 1e-32,
   1, ext_params, set_ext_params,

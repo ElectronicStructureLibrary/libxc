@@ -1963,7 +1963,7 @@ func_reference_type xc_ref_Handy2002_5411 = {
 
 
 func_reference_type xc_ref_Zhao2005_2012 = {
-  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem A 109, 2012 (2005), pMID: 16833536",
+  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem. A 109, 2012 (2005), pMID: 16833536",
   "10.1021/jp045141s",
   "@article{Zhao2005_2012,\nauthor = {Zhao, Yan and González-García, Núria and Truhlar, Donald G.},\ntitle = {Benchmark Database of Barrier Heights for Heavy Atom Transfer, Nucleophilic Substitution, Association, and Unimolecular Reactions and Its Use to Test Theoretical Methods},\njournal = {The Journal of Physical Chemistry A},\nvolume = {109},\nnumber = {9},\npages = {2012-2018},\nyear = {2005},\ndoi = {10.1021/jp045141s},\nnote ={PMID: 16833536},\nURL = {http://dx.doi.org/10.1021/jp045141s},\neprint = {http://dx.doi.org/10.1021/jp045141s}\n}"
 };
@@ -2064,6 +2064,13 @@ func_reference_type xc_ref_Kang2001_11040 = {
   "J. K. Kang and C. B. Musgrave, J. Chem. Phys. 115, 11040 (2001), http://dx.doi.org/10.1063/1.1415079",
   "10.1063/1.1415079",
   "@article{Kang2001_11040,\nauthor = {Jeung Ku Kang and Charles B. Musgrave},\ntitle = {Prediction of transition state barriers and enthalpies of reaction by a new hybrid density-functional approximation},\njournal = {The Journal of Chemical Physics},\nvolume = {115},\nnumber = {24},\npages = {11040-11051},\nyear = {2001},\ndoi = {10.1063/1.1415079},\nURL = {http://dx.doi.org/10.1063/1.1415079},\neprint = {http://dx.doi.org/10.1063/1.1415079}\n}"
+};
+
+
+func_reference_type xc_ref_Groth2017 = {
+  "S. {Groth, T. {Dornheim}, T. {Sjostrom}, F. D. {Malone}, W. M. C. {Foulkes}, and M. {Bonitz}, }ArXiv e-prints (2017), arXiv:1703.08074 [physics.plasm-ph]",
+  "",
+  "@ARTICLE{Groth2017,\n   author = {{Groth}, S. and {Dornheim}, T. and {Sjostrom}, T. and {Malone}, F.~D. and \n	{Foulkes}, W.~M.~C. and {Bonitz}, M.},\n    title = \"{Ab initio Exchange-Correlation Free Energy of the Uniform Electron Gas at Warm Dense Matter Conditions}\",\n  journal = {ArXiv e-prints},\narchivePrefix = \"arXiv\",\n   eprint = {1703.08074},\n primaryClass = \"physics.plasm-ph\",\n keywords = {Physics - Plasma Physics, Condensed Matter - Statistical Mechanics},\n     year = 2017,\n    month = mar,\n   adsurl = {http://adsabs.harvard.edu/abs/2017arXiv170308074G},\n  adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
 };
 
 

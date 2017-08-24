@@ -32,7 +32,7 @@ const XC(func_info_type) XC(func_info_mgga_c_b88) = {
   "Meta-GGA correlation by Becke",
   XC_FAMILY_MGGA,
   {&xc_ref_Becke1988_1053, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32, 1e-32, 1e-32, 1e-32,
   0, NULL, NULL,
   NULL, NULL, 

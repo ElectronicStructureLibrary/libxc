@@ -62,7 +62,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_cap0) = {
   "Correct Asymptotic Potential hybrid",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Carmona2016_120, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32, 1e-32, 0.0, 1e-32,
   0, NULL, NULL,
   XC(hyb_gga_xc_cap0_init),

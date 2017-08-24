@@ -56,6 +56,13 @@ gga_stoll_par  := (gga_func, rs, z, xs, spin) ->
  + gga_func(rs*(2/(1 + z))^(1/3), spin, xs, xs*(1 + spin)/2, xs*(1 - spin)/2)
  * (1 + z)/2:
 
+# Curvature of the Fermi hole (without the current term)
+Fermi_D := (xs, ts) -> 1 - xs^2/(8*ts):
+
+# correction to Fermi_D in JCP 127, 214103 (2007); doi: http://dx.doi.org/10.1063/1.2800011
+Fermi_D_a := 1e-4:
+Fermi_D_corrected := (xs, ts) -> (1 - xs^2/(8*ts)) * (1 - exp(-ts^2/a^2)):
+
 # Becke function used in several correlation functionals
 b88_R_F := (f_x, rs, z, xs) ->
   1/(2*X_FACTOR_C*n_spin(rs, z)^(1/3)*f_x(xs)):

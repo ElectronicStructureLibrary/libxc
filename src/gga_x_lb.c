@@ -98,7 +98,7 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const FLOAT *rho, const F
 
       vrho[is] *= params->alpha;
 
-      gdm    = max(SQRT(sigma[is2])/sfact, func->info->min_grad);
+      gdm    = max(SQRT(sigma[is2])/sfact, MIN_GRAD);
       ds     = rho[is]/sfact;
 
       if(params->modified == 0 || 

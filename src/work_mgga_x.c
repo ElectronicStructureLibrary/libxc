@@ -84,7 +84,7 @@ work_mgga_x
 
       if (rho[is] < p->info->min_dens) continue;
 
-      lsigma= max(sigma[js]/sfact2, p->info->min_grad*p->info->min_grad);
+      lsigma= max(sigma[js]/sfact2, MIN_GRAD*MIN_GRAD);
       gdm   = SQRT(lsigma);
       lrho  = rho[is]/sfact;
       rho1D = POW(lrho, 1.0/XC_DIMENSIONS);
@@ -112,7 +112,7 @@ work_mgga_x
         if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
           vlapl[is] = -x_factor_c*r.dfdu/rho1D;
 
-	if(gdm>p->info->min_grad)
+	if(gdm>MIN_GRAD)
 	  vsigma[js] = -x_factor_c*(rho1D*lrho)*r.dfdx*r.x/(2.0*sfact*lsigma);
       }
 
@@ -136,7 +136,7 @@ work_mgga_x
 	v2rhotau[ls]  = -x_factor_c*rho1D/(3.0*sfact*rho2pD_D)*
 	  (4.0*r.dfdt - 4.0*r.x*r.d2fdxt - 5.0*r.u*r.d2fdtu - 5.0*(r.dfdt + r.t*r.d2fdt2));
 
-	if(gdm > p->info->min_grad){
+	if(gdm > MIN_GRAD){
 	  v2sigma2[ks]    =  -x_factor_c*(rho1D*lrho)/(4.0*sfact2*sfact*lsigma*lsigma)*
 	    (r.d2fdx2*r.x*r.x - r.dfdx*r.x);
 

@@ -195,7 +195,7 @@ const XC(func_info_type) XC(func_info_lda_x) = {
   XC_FAMILY_LDA,
   {&xc_ref_Dirac1930_376, &xc_ref_Bloch1929_545, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-29, 0.0,
+  1e-29,
   0, NULL, NULL,
   lda_x_init, NULL,
   work_lda, NULL, NULL
@@ -225,7 +225,7 @@ const XC(func_info_type) XC(func_info_lda_c_xalpha) = {
   XC_FAMILY_LDA,
   {&xc_ref_Slater1951_385, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-29, 0.0,
+  1e-29,
   1, ext_params, set_ext_params,
   lda_x_init, NULL,
   work_lda, NULL, NULL
@@ -259,7 +259,7 @@ const XC(func_info_type) XC(func_info_lda_x_rae) = {
   XC_FAMILY_LDA,
   {&xc_ref_Rae1973_574, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-29, 0.0,
+  1e-29,
   1, N_ext_params, N_set_ext_params,
   lda_x_init, NULL,
   work_lda, NULL, NULL

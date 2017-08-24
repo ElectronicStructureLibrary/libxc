@@ -60,7 +60,7 @@ const XC(func_info_type) XC(func_info_gga_x_ol2) = {
   XC_FAMILY_GGA,
   {&xc_ref_Fuentealba1995_31, &xc_ref_OuYang1991_379, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   gga_k_ol2_init, NULL, 
   NULL, work_gga_x, NULL
@@ -77,7 +77,7 @@ const XC(func_info_type) XC(func_info_gga_k_ol2) = {
   XC_FAMILY_GGA,
   {&xc_ref_OuYang1991_379, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   gga_k_ol2_init, NULL, 
   NULL, work_gga_k, NULL

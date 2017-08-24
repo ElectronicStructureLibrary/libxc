@@ -33,7 +33,7 @@ const XC(func_info_type) XC(func_info_gga_c_am05) = {
   XC_FAMILY_GGA,
   {&xc_ref_Armiento2005_085108, &xc_ref_Mattsson2008_084714, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-27, 1e-32,
+  1e-27,
   0, NULL, NULL,
   NULL, NULL,
   NULL, work_gga_c, NULL

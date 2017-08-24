@@ -32,7 +32,7 @@ const XC(func_info_type) XC(func_info_mgga_x_tm) = {
   XC_FAMILY_MGGA,
   {&xc_ref_Tao2016_073001, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS, MIN_GRAD,
+  MIN_DENS,
   0, NULL, NULL,
   NULL, NULL,
   NULL, NULL, work_mgga_x,

@@ -98,7 +98,7 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const FLOAT *rho, const F
 
       vrho[is] *= params->alpha;
 
-      gdm    = max(SQRT(sigma[is2])/sfact, func->info->min_grad);
+      gdm    = max(SQRT(sigma[is2])/sfact, MIN_GRAD);
       ds     = rho[is]/sfact;
 
       if(params->modified == 0 || 
@@ -190,7 +190,7 @@ const XC(func_info_type) XC(func_info_gga_x_lb) = {
   XC_FAMILY_GGA,
   {&xc_ref_vanLeeuwen1994_2421, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32,
+  1e-32,
   4, ext_params, set_ext_params,
   gga_lb_init, NULL,
   NULL, gga_x_lb, NULL
@@ -204,7 +204,7 @@ const XC(func_info_type) XC(func_info_gga_x_lbm) = {
   XC_FAMILY_GGA,
   {&xc_ref_Schipper2000_1344, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32,
+  1e-32,
   4, ext_params, set_ext_params,
   gga_lb_init, NULL,
   NULL, gga_x_lb, NULL

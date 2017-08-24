@@ -33,7 +33,7 @@ const XC(func_info_type) XC(func_info_mgga_xc_zlp) = {
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao1993_918, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   NULL,
   NULL, NULL, NULL,

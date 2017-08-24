@@ -32,7 +32,7 @@ const XC(func_info_type) XC(func_info_gga_c_optc) = {
   XC_FAMILY_GGA,
   {&xc_ref_Cohen2001_607, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-26, 1e-32, /* densities smaller than 1e-26 give rise to NaNs */
+  1e-26, /* densities smaller than 1e-26 give rise to NaNs */
   0, NULL, NULL,
   NULL, NULL, 
   NULL, work_gga_c, NULL

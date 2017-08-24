@@ -25,7 +25,7 @@ work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
 	    FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
 {
   XC(mgga_work_c_t) r;
-  FLOAT min_grad2 = p->info->min_grad*p->info->min_grad;
+  FLOAT min_grad2 = MIN_GRAD*MIN_GRAD;
   int ip;
 
   /* set all elements of r to zero */

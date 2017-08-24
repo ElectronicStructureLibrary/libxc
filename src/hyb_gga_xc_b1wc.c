@@ -46,7 +46,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1wc) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Bilc2008_165107, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   XC(hyb_gga_xc_b1wc_init),
   NULL, NULL, NULL, NULL
@@ -70,7 +70,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1lyp) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Adamo1997_242, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   XC(hyb_gga_xc_b1lyp_init),
   NULL, NULL, NULL, NULL
@@ -94,7 +94,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1pw91) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Adamo1997_242, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   XC(hyb_gga_xc_b1pw91_init),
   NULL, NULL, NULL, NULL
@@ -134,7 +134,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1lyp) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Adamo1998_664, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   XC(hyb_gga_xc_mpw1pw_init),
   NULL, NULL, NULL, NULL
@@ -147,7 +147,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1pbe) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Adamo1998_664, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   XC(hyb_gga_xc_mpw1pw_init),
   NULL, NULL, NULL, NULL
@@ -160,7 +160,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1pw) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Adamo1998_664, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   XC(hyb_gga_xc_mpw1pw_init),
   NULL, NULL, NULL, NULL
@@ -184,7 +184,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1k) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Lynch2000_4811, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   XC(hyb_gga_xc_mpw1k_init),
   NULL, NULL, NULL, NULL
@@ -208,7 +208,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_bhandh) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Becke1993_1372, &xc_ref_gaussianimplementation, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   XC(hyb_gga_xc_bhandh_init),
   NULL, NULL, NULL, NULL
@@ -232,7 +232,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_bhandhlyp) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Becke1993_1372, &xc_ref_gaussianimplementation, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   XC(hyb_gga_xc_bhandhlyp_init),
   NULL, NULL, NULL, NULL
@@ -256,7 +256,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpwlyp1m) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Schultz2005_11127, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   XC(hyb_gga_xc_mpwlyp1m_init),
   NULL, NULL, NULL, NULL

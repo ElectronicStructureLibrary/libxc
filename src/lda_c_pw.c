@@ -125,7 +125,7 @@ const XC(func_info_type) XC(func_info_lda_c_pw) = {
   XC_FAMILY_LDA,
   {&xc_ref_Perdew1992_13244, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-25, 0.0,
+  1e-25,
   0, NULL, NULL,
   lda_c_pw_init, /* init */
   NULL,     /* end  */
@@ -141,7 +141,7 @@ const XC(func_info_type) XC(func_info_lda_c_pw_mod) = {
   XC_FAMILY_LDA,
   {&xc_ref_Perdew1992_13244_mod, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-26, 0.0,
+  1e-26,
   0, NULL, NULL,
   lda_c_pw_init, /* init */
   NULL,     /* end  */
@@ -157,7 +157,7 @@ const XC(func_info_type) XC(func_info_lda_c_ob_pw) = {
   XC_FAMILY_LDA,
   {&xc_ref_Ortiz1994_1391, &xc_ref_Ortiz1994_1391_err, &xc_ref_Perdew1992_13244_mod, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-26, 0.0,
+  1e-26,
   0, NULL, NULL,
   lda_c_pw_init, /* init */
   NULL,     /* end  */
@@ -173,7 +173,7 @@ const XC(func_info_type) XC(func_info_lda_c_pw_rpa) = {
   XC_FAMILY_LDA,
   {&xc_ref_Perdew1992_13244, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-27, 0.0,
+  1e-27,
   0, NULL, NULL,
   lda_c_pw_init, /* init */
   NULL,     /* end  */

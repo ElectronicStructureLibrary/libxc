@@ -82,7 +82,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_cam_b3lyp) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Yanai2004_51, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   XC(hyb_gga_xc_cam_b3lyp_init),
   NULL, NULL, NULL, NULL
@@ -95,7 +95,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_tuned_cam_b3lyp) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Okuno2012_29, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   XC(hyb_gga_xc_cam_b3lyp_init),
   NULL, NULL, NULL, NULL
@@ -108,7 +108,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_cam_qtp_01) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Jin2016_034107, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   XC(hyb_gga_xc_cam_b3lyp_init),
   NULL, NULL, NULL, NULL

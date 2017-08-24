@@ -61,7 +61,7 @@ const XC(func_info_type) XC(func_info_mgga_c_bc95) = {
   XC_FAMILY_MGGA,
   {&xc_ref_Becke1996_1040, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32,
+  1e-32,
   0, NULL, NULL,
   mgga_c_bc95_init,
   NULL, NULL, NULL,

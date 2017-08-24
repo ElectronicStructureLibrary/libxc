@@ -86,7 +86,7 @@ const XC(func_info_type) XC(func_info_lda_c_wigner) = {
   XC_FAMILY_LDA,
   {&xc_ref_Wigner1938_678, &xc_ref_Stewart1995_4337, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 0.0,
+  1e-32,
   0, NULL, NULL,
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
@@ -99,7 +99,7 @@ const XC(func_info_type) XC(func_info_lda_c_lp_a) = {
   XC_FAMILY_LDA,
   {&xc_ref_Lee1990_193, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 0.0,
+  1e-32,
   0, NULL, NULL,
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
@@ -112,7 +112,7 @@ const XC(func_info_type) XC(func_info_lda_c_lp_b) = {
   XC_FAMILY_LDA,
   {&xc_ref_Lee1990_193, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 0.0,
+  1e-32,
   0, NULL, NULL,
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
@@ -125,7 +125,7 @@ const XC(func_info_type) XC(func_info_lda_c_mcweeny) = {
   XC_FAMILY_LDA,
   {&xc_ref_McWeeny1976_3, &xc_ref_Brual1978_1177, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 0.0,
+  1e-32,
   0, NULL, NULL,
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
@@ -138,7 +138,7 @@ const XC(func_info_type) XC(func_info_lda_c_br78) = {
   XC_FAMILY_LDA,
   {&xc_ref_Brual1978_1177, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 0.0,
+  1e-32,
   0, NULL, NULL,
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
@@ -151,7 +151,7 @@ const XC(func_info_type) XC(func_info_lda_c_ow_lyp) = {
   XC_FAMILY_LDA,
   {&xc_ref_Stewart1995_4337, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 0.0,
+  1e-32,
   0, NULL, NULL,
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
@@ -164,7 +164,7 @@ const XC(func_info_type) XC(func_info_lda_c_ow) = {
   XC_FAMILY_LDA,
   {&xc_ref_Stewart1995_4337, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 0.0,
+  1e-32,
   0, NULL, NULL,
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL

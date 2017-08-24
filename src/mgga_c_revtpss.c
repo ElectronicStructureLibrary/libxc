@@ -34,7 +34,7 @@ const XC(func_info_type) XC(func_info_mgga_c_revtpss) = {
   XC_FAMILY_MGGA,
   {&xc_ref_Perdew2009_026403, &xc_ref_Perdew2009_026403_err, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-26, 1e-32, 0.5e-10, MIN_ZETA, /* densities smaller than 1e-26 give NaNs */
+  1e-26, 1e-32, 0.5e-10, /* densities smaller than 1e-26 give NaNs */
   0, NULL, NULL,
   NULL, NULL,
   NULL, NULL, work_mgga_c

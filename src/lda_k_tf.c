@@ -62,7 +62,7 @@ const XC(func_info_type) XC(func_info_lda_k_tf) = {
   XC_FAMILY_LDA,
   {&xc_ref_Thomas1927_542, &xc_ref_Fermi1927_602, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-29, 0.0, 0.0, 1e-32,
+  1e-29, 0.0, 0.0,
   0, NULL, NULL,
   lda_k_tf_init, NULL,
   work_lda, NULL, NULL
@@ -75,7 +75,7 @@ const XC(func_info_type) XC(func_info_lda_k_lp) = {
   XC_FAMILY_LDA,
   {&xc_ref_Lee1987_2377, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-29, 0.0, 0.0, 1e-32,
+  1e-29, 0.0, 0.0,
   0, NULL, NULL,
   lda_k_tf_init, NULL,
   work_lda, NULL, NULL

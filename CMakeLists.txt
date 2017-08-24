@@ -255,7 +255,6 @@ mgga_xc_zlp.c
 mix_func.c
 references.c
 special_functions.c
-stoll.c
 util.c
 version.c
 )

@@ -74,7 +74,7 @@ const XC(func_info_type) XC(func_info_mgga_c_tpss) = {
   XC_FAMILY_MGGA,
   {&xc_ref_Tao2003_146401, &xc_ref_Perdew2004_6898, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-26, 1e-32, 0.5e-10, MIN_ZETA, /* densities smaller than 1e-26 give NaNs */
+  1e-26, 1e-32, 0.5e-10, /* densities smaller than 1e-26 give NaNs */
   0, NULL, NULL,
   mgga_c_tpss_init,
   NULL, NULL, NULL,

@@ -127,7 +127,7 @@ const XC(func_info_type) XC(func_info_lda_c_1d_csc) = {
   XC_FAMILY_LDA,
   {&xc_ref_Casula2006_245427, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D |  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 0.0, 0.0, 1e-32,
+  1e-32, 0.0, 0.0,
   2, ext_params, set_ext_params,
   lda_c_1d_csc_init, NULL,
   work_lda, NULL, NULL

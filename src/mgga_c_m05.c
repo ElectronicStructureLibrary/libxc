@@ -83,7 +83,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m05) = {
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2005_161103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  MIN_DENS, MIN_GRAD, 0.5e-10, MIN_ZETA,
+  MIN_DENS, MIN_GRAD, 0.5e-10,
   0, NULL, NULL,
   mgga_c_vsxc_init, NULL, 
   NULL, NULL, work_mgga_c
@@ -97,7 +97,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m05_2x) = {
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2006_364, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  MIN_DENS, MIN_GRAD, 0.5e-10, MIN_ZETA,
+  MIN_DENS, MIN_GRAD, 0.5e-10,
   0, NULL, NULL,
   mgga_c_vsxc_init, NULL, 
   NULL, NULL, work_mgga_c
@@ -110,7 +110,7 @@ const XC(func_info_type) XC(func_info_mgga_c_dldf) = {
   XC_FAMILY_MGGA,
   {&xc_ref_Pernal2009_263201, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  MIN_DENS, MIN_GRAD, 0.5e-10, MIN_ZETA,
+  MIN_DENS, MIN_GRAD, 0.5e-10,
   0, NULL, NULL,
   mgga_c_vsxc_init, NULL,
   NULL, NULL, work_mgga_c

@@ -98,7 +98,7 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
   }
   for(is = 0; is < 2; is++){
     opz   = 1.0 + sign[is]*r->z;
-    if(opz < pt->info->min_zeta) continue;
+    if(opz < MIN_ZETA) continue;
     
     opz13 = CBRT(opz);
     rss   = r->rs*M_CBRT2/opz13;
@@ -184,7 +184,7 @@ const XC(func_info_type) XC(func_info_gga_x_sfat) = {
   XC_FAMILY_GGA,
   {&xc_ref_Savin1995_327, &xc_ref_Akinaga2008_348, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   gga_x_sfat_init,
   NULL, NULL, 

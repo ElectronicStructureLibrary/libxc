@@ -33,7 +33,7 @@ const XC(func_info_type) XC(func_info_mgga_c_pkzb) = {
   XC_FAMILY_MGGA,
   {&xc_ref_Perdew1999_2544, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-26, 1e-32, 0.5e-10, 1e-32, /* densities smaller than 1e-26 give NaNs */
+  1e-26, 1e-32, 0.5e-10, /* densities smaller than 1e-26 give NaNs */
   0, NULL, NULL,
   NULL, NULL, 
   NULL, NULL, work_mgga_c,

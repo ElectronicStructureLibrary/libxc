@@ -74,7 +74,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_mpw1kcis) = {
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Zhao2005_2012, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   hyb_mgga_xc_kcis_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
@@ -87,7 +87,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_mpwkcis1k) = {
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Zhao2005_2012, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   hyb_mgga_xc_kcis_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
@@ -100,7 +100,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_pbe1kcis) = {
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Zhao2005_415, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   hyb_mgga_xc_kcis_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
@@ -113,7 +113,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_tpss1kcis) = {
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Zhao2005_43, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   hyb_mgga_xc_kcis_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */

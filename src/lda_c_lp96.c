@@ -32,7 +32,7 @@ const XC(func_info_type) XC(func_info_lda_c_lp96) = {
   XC_FAMILY_LDA,
   {&xc_ref_Liu1996_2211, &xc_ref_Liu2000_29, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-16, 0.0, 0.0, 1e-32,
+  1e-16, 0.0, 0.0,
   0, NULL, NULL,
   NULL, NULL,
   work_lda, NULL, NULL

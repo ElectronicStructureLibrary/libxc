@@ -74,7 +74,7 @@ const XC(func_info_type) XC(func_info_lda_xc_1d_ehwlrg_1) = {
   XC_FAMILY_LDA,
   {&xc_ref_Entwistle2016_205134, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D |  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 0.0, 0.0, 1e-32,
+  1e-32, 0.0, 0.0,
   0, NULL, NULL,
   lda_xc_1d_ehwlrg_init, NULL,
   work_lda, NULL, NULL
@@ -87,7 +87,7 @@ const XC(func_info_type) XC(func_info_lda_xc_1d_ehwlrg_2) = {
   XC_FAMILY_LDA,
   {&xc_ref_Entwistle2016_205134, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D |  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 0.0, 0.0, 1e-32,
+  1e-32, 0.0, 0.0,
   0, NULL, NULL,
   lda_xc_1d_ehwlrg_init, NULL,
   work_lda, NULL, NULL
@@ -101,7 +101,7 @@ const XC(func_info_type) XC(func_info_lda_xc_1d_ehwlrg_3) = {
   XC_FAMILY_LDA,
   {&xc_ref_Entwistle2016_205134, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D |  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 0.0, 0.0, 1e-32,
+  1e-32, 0.0, 0.0,
   0, NULL, NULL,
   lda_xc_1d_ehwlrg_init, NULL,
   work_lda, NULL, NULL

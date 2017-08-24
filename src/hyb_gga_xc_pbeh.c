@@ -45,7 +45,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeh) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Adamo1999_6158, &xc_ref_Ernzerhof1999_5029, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   hyb_gga_xc_pbeh_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
@@ -68,7 +68,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe0_13) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Cortona2012_086101, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   hyb_gga_xc_pbe0_13_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
@@ -92,7 +92,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hpbeint) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Fabiano2013_673, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC | XC_FLAGS_DEVELOPMENT,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   hyb_gga_xc_hpbeint_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
@@ -116,7 +116,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe_mol0) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   hyb_gga_xc_pbemol0_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
@@ -140,7 +140,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe_sol0) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   hyb_gga_xc_pbesol0_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
@@ -166,7 +166,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeb0) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   hyb_gga_xc_pbeb0_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
@@ -192,7 +192,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe_molb0) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   hyb_gga_xc_pbemolb0_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
@@ -216,7 +216,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe50) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Bernard2012_204103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   hyb_gga_xc_pbe50_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */

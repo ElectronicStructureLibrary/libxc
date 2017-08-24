@@ -74,7 +74,7 @@ work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
         r.us[1]  = r.us[0];
       }
 
-      r.ts[0]  = max(2.0*p->info->min_tau, tau[0]/(2.0*r.ds[0]*rho13[0]*rho13[0]));  /* tau/rho^(5/3) */
+      r.ts[0]  = max(2.0*MIN_TAU, tau[0]/(2.0*r.ds[0]*rho13[0]*rho13[0]));  /* tau/rho^(5/3) */
       r.ts[1]  = r.ts[0];
     }else{
       /* there are lots of derivatives that involve inverse
@@ -104,8 +104,8 @@ work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
         r.us[1]   = lapl[1]/(r.ds[1]*rho13[1]*rho13[1]);
       }
 
-      r.ts[0]   = max(p->info->min_tau, tau[0]/(r.ds[0]*rho13[0]*rho13[0]));
-      r.ts[1]   = max(p->info->min_tau, tau[1]/(r.ds[1]*rho13[1]*rho13[1]));
+      r.ts[0]   = max(MIN_TAU, tau[0]/(r.ds[0]*rho13[0]*rho13[0]));
+      r.ts[1]   = max(MIN_TAU, tau[1]/(r.ds[1]*rho13[1]*rho13[1]));
     }
   
     func(p, &r);

@@ -47,7 +47,6 @@ work_mgga_x
   XC(mgga_work_x_t) r;
   FLOAT sfact, sfact2, x_factor_c, beta, dens;
   int is, ip;
-  int has_tail;
 
   /* WARNING: derivatives are _not_ OK for 2 dimensions */
 #if XC_DIMENSIONS == 2
@@ -69,16 +68,6 @@ work_mgga_x
 
   sfact = (p->nspin == XC_POLARIZED) ? 1.0 : 2.0;
   sfact2 = sfact*sfact;
-
-  has_tail = 0;
-  switch(p->info->number){
-  case XC_MGGA_X_BR89:
-  case XC_MGGA_X_BJ06:
-  case XC_MGGA_X_TB09:
-  case XC_MGGA_X_RPP09:
-    has_tail = 1;
-    break;
-  }
   
   for(ip = 0; ip < np; ip++){
     XC(rho2dzeta)(p->nspin, rho, &dens, &r.zeta);
@@ -93,7 +82,7 @@ work_mgga_x
       int ls = (is == 0) ? 0 : 3;
       int ks = (is == 0) ? 0 : 5;
 
-      if((!has_tail && (rho[is] < p->info->min_dens || tau[is] < p->info->min_tau)) || (rho[is] == 0.0)) continue;
+      if (rho[is] < p->info->min_dens) continue;
 
       lsigma= max(sigma[js]/sfact2, p->info->min_grad*p->info->min_grad);
       gdm   = SQRT(lsigma);

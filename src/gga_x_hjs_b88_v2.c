@@ -57,7 +57,7 @@ const XC(func_info_type) XC(func_info_gga_x_hjs_b88_v2) = {
   XC_FAMILY_GGA,
   {&xc_ref_Weintraub2009_754, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-6, 1e-11, 0.0, /* densities smaller than 1e-6 yield NaNs */
+  1e-6, 1e-11, /* densities smaller than 1e-6 yield NaNs */
   0, NULL, NULL,
   gga_x_hjs_init, NULL, 
   NULL, work_gga_c, NULL

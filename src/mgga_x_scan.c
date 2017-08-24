@@ -58,7 +58,7 @@ const XC(func_info_type) XC(func_info_mgga_x_scan) = {
   XC_FAMILY_MGGA,
   {&xc_ref_Sun2015_036402, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  1e-32, 1e-32, 1e-32, 1e-32,
+  1e-32, 1e-32,
   0, NULL, NULL,
   NULL, NULL, NULL, NULL,
   work_mgga_x,
@@ -82,7 +82,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_scan0) = {
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Hui2016_044114, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  1e-32, 1e-32, 0.0,
+  1e-32, 1e-32,
   0, NULL, NULL,
   hyb_mgga_x_scan0_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */

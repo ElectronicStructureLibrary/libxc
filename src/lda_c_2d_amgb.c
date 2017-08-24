@@ -39,7 +39,7 @@ const XC(func_info_type) XC(func_info_lda_c_2d_amgb) = {
   XC_FAMILY_LDA,
   {&xc_ref_Attaccalite2002_256601, NULL, NULL, NULL, NULL},
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-9, 0.0, 0.0,
+  1e-9, 0.0,
   0, NULL, NULL,
   NULL, NULL,
   work_lda, NULL, NULL

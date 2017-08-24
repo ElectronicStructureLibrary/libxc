@@ -40,7 +40,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_edf2) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Lin2004_365, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0,
+  1e-32, 1e-32,
   0, NULL, NULL,
   hyb_gga_xc_edf2_init, 
   NULL, NULL, NULL, NULL

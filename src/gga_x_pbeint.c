@@ -80,7 +80,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbeint) = {
   XC_FAMILY_GGA,
   {&xc_ref_Fabiano2010_113104, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-12, 1e-32, 0.0,
+  1e-12, 1e-32,
   0, NULL, NULL,
   gga_x_pbe_init, NULL, 
   NULL, work_gga_x, NULL
@@ -96,7 +96,7 @@ const XC(func_info_type) XC(func_info_gga_k_apbeint) = {
   XC_FAMILY_GGA,
   {&xc_ref_Laricchia2011_2439, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0,
+  1e-32, 1e-32,
   0, NULL, NULL,
   gga_x_pbe_init, NULL, 
   NULL, work_gga_k, NULL
@@ -109,7 +109,7 @@ const XC(func_info_type) XC(func_info_gga_k_revapbeint) = {
   XC_FAMILY_GGA,
   {&xc_ref_Laricchia2011_2439, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0,
+  1e-32, 1e-32,
   0, NULL, NULL,
   gga_x_pbe_init, NULL, 
   NULL, work_gga_k, NULL

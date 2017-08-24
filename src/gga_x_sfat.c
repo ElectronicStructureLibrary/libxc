@@ -98,7 +98,7 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
   }
   for(is = 0; is < 2; is++){
     opz   = 1.0 + sign[is]*r->z;
-    if(opz < pt->info->min_zeta) continue;
+    if(opz < MIN_ZETA) continue;
     
     opz13 = CBRT(opz);
     rss   = r->rs*M_CBRT2/opz13;

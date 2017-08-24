@@ -46,7 +46,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_lcy_blyp) = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Akinaga2008_348, &xc_ref_Seth2013_2286, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_LCY | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32, 0.0,
+  1e-32, 1e-32,
   0, NULL, NULL,
   XC(hyb_gga_xc_lcy_blyp_init),
   NULL, NULL, NULL, NULL

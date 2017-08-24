@@ -33,7 +33,7 @@ const XC(func_info_type) XC(func_info_lda_c_rc04) = {
   XC_FAMILY_LDA,
   {&xc_ref_Ragot2004_7671, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-25, 0.0, 0.0,
+  1e-25, 0.0,
   0, NULL, NULL,
   NULL, NULL,
   work_lda, NULL, NULL

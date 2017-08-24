@@ -79,7 +79,7 @@ const XC(func_info_type) XC(func_info_lda_c_2d_prm) = {
   XC_FAMILY_LDA,
   {&xc_ref_Pittalis2008_195322, NULL, NULL, NULL, NULL},
   XC_FLAGS_2D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 0.0, 0.0,
+  1e-32, 0.0,
   1, ext_params, set_ext_params,
   lda_c_2d_prm_init, NULL,
   work_lda, NULL, NULL

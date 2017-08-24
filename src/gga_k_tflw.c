@@ -191,7 +191,7 @@ const XC(func_info_type) XC(func_info_gga_k_ge2) = {
   XC_FAMILY_GGA,
   {&xc_ref_Kompaneets1956_427, &xc_ref_Kirznits1957_115, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
   NULL, work_gga_k, NULL
@@ -204,7 +204,7 @@ const XC(func_info_type) XC(func_info_gga_k_golden) = {
   XC_FAMILY_GGA,
   {&xc_ref_Golden1957_604, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
   NULL, work_gga_k, NULL
@@ -217,7 +217,7 @@ const XC(func_info_type) XC(func_info_gga_k_yt65) = {
   XC_FAMILY_GGA,
   {&xc_ref_Yonei1965_1051, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
   NULL, work_gga_k, NULL
@@ -230,7 +230,7 @@ const XC(func_info_type) XC(func_info_gga_k_baltin) = {
   XC_FAMILY_GGA,
   {&xc_ref_Baltin1972_1176, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
   NULL, work_gga_k, NULL
@@ -243,7 +243,7 @@ const XC(func_info_type) XC(func_info_gga_k_lieb) = {
   XC_FAMILY_GGA,
   {&xc_ref_Lieb1981_603, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
   NULL, work_gga_k, NULL
@@ -272,7 +272,7 @@ const XC(func_info_type) XC(func_info_gga_k_absp1) = {
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
   NULL, work_gga_k, NULL
@@ -285,7 +285,7 @@ const XC(func_info_type) XC(func_info_gga_k_absp2) = {
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
   NULL, work_gga_k, NULL
@@ -298,7 +298,7 @@ const XC(func_info_type) XC(func_info_gga_k_absp3) = {
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
   NULL, work_gga_k, NULL
@@ -311,7 +311,7 @@ const XC(func_info_type) XC(func_info_gga_k_absp4) = {
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
   NULL, work_gga_k, NULL
@@ -324,7 +324,7 @@ const XC(func_info_type) XC(func_info_gga_k_gr) = {
   XC_FAMILY_GGA,
   {&xc_ref_Gazquez1982_1467, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
   NULL, work_gga_k, NULL
@@ -337,7 +337,7 @@ const XC(func_info_type) XC(func_info_gga_k_ludena) = {
   XC_FAMILY_GGA,
   {&xc_ref_Ludena1986, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
   NULL, work_gga_k, NULL
@@ -350,7 +350,7 @@ const XC(func_info_type) XC(func_info_gga_k_gp85) = {
   XC_FAMILY_GGA,
   {&xc_ref_Ghosh1985_3307, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
   NULL, work_gga_k, NULL

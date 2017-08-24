@@ -188,8 +188,6 @@ void XC(lda_x_attenuation_function_erf)(int order, FLOAT aa, FLOAT *f, FLOAT *df
 void XC(lda_x_attenuation_function_erf_gau)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f);
 void XC(lda_x_attenuation_function_yukawa)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f);
 void XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f);
-void XC(lda_stoll)(const XC(func_type) *pw, XC(lda_func_type) lda_func, 
-		   FLOAT dens, FLOAT zeta, int order, XC(lda_work_t) res[3]);
 
 /* direct access to the internal functions */
 void XC(lda_x_func)     (const XC(func_type) *p, XC(lda_work_t) *r);
@@ -313,7 +311,6 @@ typedef struct XC(mgga_work_c_t) {
 } XC(mgga_work_c_t);
 
 
-void XC(pbe_c_stoll) (const XC(func_type) *pbe, int get_max, const XC(mgga_work_c_t) *in, XC(gga_work_c_t) out[3]);
 void XC(mgga_x_scan_falpha)(int order, FLOAT a, FLOAT c1, FLOAT c2, FLOAT dd, FLOAT *f, FLOAT *dfda);
 	 
 

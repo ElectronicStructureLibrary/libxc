@@ -199,7 +199,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   exp1 = EXP(br_x/3.0);
   exp2 = EXP(-br_x);
 
-  v_BR = (ABS(br_x) > pt->info->min_tau) ?
+  v_BR = (ABS(br_x) > MIN_TAU) ?
     exp1*(1.0 - exp2*(1.0 + br_x/2.0))/br_x :
     1.0/2.0 + br_x/6.0 - br_x*br_x/18.0;
 
@@ -220,7 +220,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   if(r->order < 1) return;
 
   if(pt->info->number == XC_MGGA_X_BR89 || r->order > 1){
-    dv_BRdbx = (ABS(br_x) > pt->info->min_tau) ?
+    dv_BRdbx = (ABS(br_x) > MIN_TAU) ?
       (3.0 + br_x*(br_x + 2.0) + (br_x - 3.0)/exp2) / (3.0*exp1*exp1*br_x*br_x) :
       1.0/6.0 - br_x/9.0;
     dv_BRdbx *= cnst;
@@ -259,7 +259,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   if(r->order < 2) return;
   
   if(pt->info->number == XC_MGGA_X_BR89 || r->order > 2){
-    d2v_BRdbx2 = (ABS(br_x) > pt->info->min_tau) ?
+    d2v_BRdbx2 = (ABS(br_x) > MIN_TAU) ?
       ((18.0 + (br_x - 6.0)*br_x)/exp2 - 2.0*(9.0 + br_x*(6.0 + br_x*(br_x + 2.0)))) 
       / (9.0*exp1*exp1*br_x*br_x*br_x) :
       -1.0/9.0;
@@ -307,7 +307,7 @@ const XC(func_info_type) XC(func_info_mgga_x_bj06) = {
   XC_FAMILY_MGGA,
   {&xc_ref_Becke2006_221101, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_VXC,
-  1e-22, 1e-32, 1e-22, 1e-22,
+  1e-22, 1e-32, 1e-22,
   0, NULL, NULL,
   mgga_x_tb09_init, NULL,
   NULL, NULL, work_mgga_x,
@@ -350,7 +350,7 @@ const XC(func_info_type) XC(func_info_mgga_x_rpp09) = {
   XC_FAMILY_MGGA,
   {&xc_ref_Rasanen2010_044112, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_VXC,
-  1e-22, 1e-22, 1e-22, 1e-22,
+  1e-22, 1e-22, 1e-22,
   0, NULL, NULL,
   mgga_x_tb09_init, NULL,
   NULL, NULL, work_mgga_x,

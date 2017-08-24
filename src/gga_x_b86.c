@@ -81,7 +81,7 @@ const XC(func_info_type) XC(func_info_gga_x_b86) = {
   XC_FAMILY_GGA,
   {&xc_ref_Becke1986_4524, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   gga_x_b86_init, NULL, 
   NULL, work_gga_x, NULL
@@ -94,7 +94,7 @@ const XC(func_info_type) XC(func_info_gga_x_b86_mgc) = {
   XC_FAMILY_GGA,
   {&xc_ref_Becke1986_4524, &xc_ref_Becke1986_7184, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   gga_x_b86_init, NULL, 
   NULL, work_gga_x, NULL
@@ -107,7 +107,7 @@ const XC(func_info_type) XC(func_info_gga_x_b86_r) = {
   XC_FAMILY_GGA,
   {&xc_ref_Hamada2014_121103, &xc_ref_Becke1986_4524, &xc_ref_Becke1986_7184, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   gga_x_b86_init, NULL, 
   NULL, work_gga_x, NULL

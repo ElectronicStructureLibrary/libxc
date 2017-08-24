@@ -579,7 +579,7 @@ const XC(func_info_type) XC(func_info_gga_x_wpbeh) = {
   XC_FAMILY_GGA,
   {&xc_ref_Heyd2003_8207, &xc_ref_Heyd2003_8207_err, &xc_ref_Ernzerhof1998_3313, &xc_ref_Heyd2004_7274, &xc_ref_Henderson2009_044108},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   gga_x_wpbeh_init, NULL, 
   NULL, work_gga_c, NULL

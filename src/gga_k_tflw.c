@@ -165,7 +165,7 @@ const XC(func_info_type) XC(func_info_gga_k_tfvw) = {
   XC_FAMILY_GGA,
   {&xc_ref_Weizsacker1935_431, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   2, tfvw_ext_params, tfvw_set_ext_params,
   gga_k_tflw_init, NULL, 
   NULL, work_gga_k, NULL
@@ -178,7 +178,7 @@ const XC(func_info_type) XC(func_info_gga_k_vw) = {
   XC_FAMILY_GGA,
   {&xc_ref_Weizsacker1935_431, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
   NULL, work_gga_k, NULL

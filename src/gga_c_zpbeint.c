@@ -61,7 +61,7 @@ const XC(func_info_type) XC(func_info_gga_c_zpbeint) = {
   XC_FAMILY_GGA,
   {&xc_ref_Constantin2011_233103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-12, 1e-32, 0.0, 1e-32,
+  1e-12, 1e-32, 0.0,
   0, NULL, NULL,
   gga_c_zpbeint_init, NULL, 
   NULL, work_gga_c, NULL
@@ -74,7 +74,7 @@ const XC(func_info_type) XC(func_info_gga_c_zpbesol) = {
   XC_FAMILY_GGA,
   {&xc_ref_Constantin2011_233103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-12, 1e-32, 0.0, 1e-32,
+  1e-12, 1e-32, 0.0,
   0, NULL, NULL,
   gga_c_zpbeint_init, NULL, 
   NULL, work_gga_c, NULL

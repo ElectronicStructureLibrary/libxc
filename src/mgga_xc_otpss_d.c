@@ -38,7 +38,7 @@ const XC(func_info_type) XC(func_info_mgga_xc_otpss_d) = {
   XC_FAMILY_MGGA,
   {&xc_ref_Goerigk2010_107, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   mgga_xc_otpss_d_init,
   NULL, NULL, NULL, NULL

@@ -123,7 +123,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe) = {
   XC_FAMILY_GGA,
   {&xc_ref_Perdew1996_3865, &xc_ref_Perdew1996_3865_err, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-12, 1e-32, 0.0, 1e-32,
+  1e-12, 1e-32, 0.0,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
   NULL, work_gga_c, NULL
@@ -136,7 +136,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_sol) = {
   XC_FAMILY_GGA,
   {&xc_ref_Perdew2008_136406, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-12, 1e-32, 0.0, 1e-32,
+  1e-12, 1e-32, 0.0,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
   NULL, work_gga_c, NULL
@@ -149,7 +149,7 @@ const XC(func_info_type) XC(func_info_gga_c_xpbe) = {
   XC_FAMILY_GGA,
   {&xc_ref_Xu2004_4068, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-12, 1e-32, 0.0, 1e-32,
+  1e-12, 1e-32, 0.0,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
   NULL, work_gga_c, NULL
@@ -162,7 +162,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_jrgx) = {
   XC_FAMILY_GGA,
   {&xc_ref_Pedroza2009_201106, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-12, 1e-32, 0.0, 1e-32,
+  1e-12, 1e-32, 0.0,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
   NULL, work_gga_c, NULL
@@ -175,7 +175,7 @@ const XC(func_info_type) XC(func_info_gga_c_rge2) = {
   XC_FAMILY_GGA,
   {&xc_ref_Ruzsinszky2009_763, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-12, 1e-32, 0.0, 1e-32,
+  1e-12, 1e-32, 0.0,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
   NULL, work_gga_c, NULL
@@ -188,7 +188,7 @@ const XC(func_info_type) XC(func_info_gga_c_apbe) = {
   XC_FAMILY_GGA,
   {&xc_ref_Constantin2011_186406, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-12, 1e-32, 0.0, 1e-32,
+  1e-12, 1e-32, 0.0,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
   NULL, work_gga_c, NULL
@@ -201,7 +201,7 @@ const XC(func_info_type) XC(func_info_gga_c_spbe) = {
   XC_FAMILY_GGA,
   {&xc_ref_Swart2009_094103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-12, 1e-32, 0.0, 1e-32,
+  1e-12, 1e-32, 0.0,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
   NULL, work_gga_c, NULL
@@ -214,7 +214,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbeint) = {
   XC_FAMILY_GGA,
   {&xc_ref_Fabiano2010_113104, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-12, 1e-32, 0.0, 1e-32,
+  1e-12, 1e-32, 0.0,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
   NULL, work_gga_c, NULL
@@ -227,7 +227,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbefe) = {
   XC_FAMILY_GGA,
   {&xc_ref_Perez2015_3844, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
   NULL, work_gga_c, NULL
@@ -240,7 +240,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_mol) = {
   XC_FAMILY_GGA,
   {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
   NULL, work_gga_c, NULL
@@ -253,7 +253,7 @@ const XC(func_info_type) XC(func_info_gga_c_tm_pbe) = {
   XC_FAMILY_GGA,
   {&xc_ref_Thakkar2009_134109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
   NULL, work_gga_c, NULL

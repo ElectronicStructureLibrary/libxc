@@ -60,7 +60,7 @@ const XC(func_info_type) XC(func_info_mgga_c_scan_rvv10) = {
   XC_FAMILY_MGGA,
   {&xc_ref_Peng2016_041005, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32, 1e-32, 0.0, 1e-32,
+  1e-32, 1e-32, 0.0,
   0, NULL, NULL,
   mgga_c_scan_rvv10_init,
   NULL, NULL, NULL, NULL

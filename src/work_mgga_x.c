@@ -74,7 +74,7 @@ work_mgga_x
 
     if(dens < p->dens_threshold) goto end_ip_loop;
 
-    r.rs = cnst_rs*POW(dens, -1.0/XC_DIMENSIONS);
+    r.rs = cnst_rs*pow(dens, -1.0/XC_DIMENSIONS);
 
     for(is=0; is<p->nspin; is++){
       double lrho, rho1D, rho2pD_D, lsigma, gdm, lnr2, ltau;
@@ -87,7 +87,7 @@ work_mgga_x
       lsigma= max(sigma[js]/sfact2, MIN_GRAD*MIN_GRAD);
       gdm   = SQRT(lsigma);
       lrho  = rho[is]/sfact;
-      rho1D = POW(lrho, 1.0/XC_DIMENSIONS);
+      rho1D = pow(lrho, 1.0/XC_DIMENSIONS);
       rho2pD_D = lrho*rho1D*rho1D;
       r.x   = gdm/(lrho*rho1D);
     

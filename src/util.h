@@ -143,7 +143,7 @@ typedef struct XC(functional_key_t) {
 #define FZETAFACTOR    0.5198420997897463295344212145564567011405     /* 2^(4/3) - 2           */
 
 #define RS(x)          (RS_FACTOR/CBRT(x))
-#define FZETA(x)       ((POW(1.0 + (x),  4.0/3.0) + POW(1.0 - (x),  4.0/3.0) - 2.0)/FZETAFACTOR)
+#define FZETA(x)       ((pow(1.0 + (x),  4.0/3.0) + pow(1.0 - (x),  4.0/3.0) - 2.0)/FZETAFACTOR)
 #define DFZETA(x)      ((CBRT(1.0 + (x)) - CBRT(1.0 - (x)))*(4.0/3.0)/FZETAFACTOR)
 #define D2FZETA(x)     ((4.0/9.0)/FZETAFACTOR)* \
   (ABS(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -2.0/3.0) + pow(1.0 - (x), -2.0/3.0)))

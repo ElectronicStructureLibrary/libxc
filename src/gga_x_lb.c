@@ -107,7 +107,7 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const double *rho, const 
 	
 	if(ds <= func->dens_threshold) continue;
 	
-	x =  gdm/POW(ds, 4.0/3.0);
+	x =  gdm/pow(ds, 4.0/3.0);
 	
 	if(x < 300.0) /* the actual functional */	   
 	  f = -params->beta*x*x/(1.0 + 3.0*params->beta*x*ASINH(params->gamm*x));
@@ -121,7 +121,7 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const double *rho, const 
 	x = r + (3.0/params->aa)*
 	  LOG(2.0*params->gamm * params->aa * 1.0 / CBRT(params->qtot));
 	
-	/* x = x + POW(qtot*EXP(-aa*r), 1.0/3.0)/(beta*aa*aa); */
+	/* x = x + pow(qtot*EXP(-aa*r), 1.0/3.0)/(beta*aa*aa); */
 	
 	vrho[is] -= 1.0/x;
       }

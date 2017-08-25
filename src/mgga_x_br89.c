@@ -149,7 +149,7 @@ double XC(mgga_x_br89_get_x)(double Q)
 
   /* build right-hand side of the non-linear equation 
      Remember we use a different definition of tau */
-  rhs = 2.0/3.0*POW(M_PI, 2.0/3.0)/Q;
+  rhs = 2.0/3.0*pow(M_PI, 2.0/3.0)/Q;
 
   br_x = br_newt_raph(rhs, tol, &res, &ierr);
   if(ierr == 0){

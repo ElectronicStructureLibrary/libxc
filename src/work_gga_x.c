@@ -139,8 +139,8 @@ work_gga_x
 
       gdm    = max(SQRT(sigma[is2])/sfact, MIN_GRAD);
       ds     = rho[is]/sfact;
-      rhoLDA = POW(ds, alpha);
-      r.x    = gdm/POW(ds, beta);
+      rhoLDA = pow(ds, alpha);
+      r.x    = gdm/pow(ds, beta);
 
       func(p, &r);
 

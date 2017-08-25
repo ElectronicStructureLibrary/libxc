@@ -17,7 +17,6 @@
 */
 
 #ifdef SINGLE_PRECISION
-#  define POW   powf
 #  define LOG   logf
 #  define ABS   fabsf
 #  define EXP   expf
@@ -50,7 +49,6 @@
 #else
 /* Double precision */
 
-#  define POW   pow
 #  define LOG   log
 #  define ABS   fabs
 #  define EXP   exp
@@ -79,12 +77,12 @@
 #define POW_5_3(x) ((x)*cbrt(x)*cbrt(x))
 #define POW_7_3(x) ((x)*(x)*cbrt(x))
 #else
-#define CBRT(x) POW((x), 1.0/3.0)
-#define POW_1_3(x) POW((x), 1.0/3.0)
-#define POW_2_3(x) POW((x), 2.0/3.0)
-#define POW_4_3(x) POW((x), 4.0/3.0)
-#define POW_5_3(x) POW((x), 5.0/3.0)
-#define POW_7_3(x) POW((x), 7.0/3.0)
+#define CBRT(x) pow((x), 1.0/3.0)
+#define POW_1_3(x) pow((x), 1.0/3.0)
+#define POW_2_3(x) pow((x), 2.0/3.0)
+#define POW_4_3(x) pow((x), 4.0/3.0)
+#define POW_5_3(x) pow((x), 5.0/3.0)
+#define POW_7_3(x) pow((x), 7.0/3.0)
 #endif
   
 #  define XC(x) xc_ ## x

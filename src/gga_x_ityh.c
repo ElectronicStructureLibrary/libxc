@@ -117,10 +117,10 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   r->dfdz  = 0.0;
 
   for(i=0; i<2; i++){
-    ds = POW(RS_FACTOR/r->rs, 3.0)*(1.0 + sign[i]*r->z)/2.0;
+    ds = pow(RS_FACTOR/r->rs, 3.0)*(1.0 + sign[i]*r->z)/2.0;
     func_3(p, r->order, r->xs[i], ds, &f, &(r->dfdxs[i]), &lvrho);
 
-    ex = -X_FACTOR_C*RS_FACTOR*POW((1.0 + sign[i]*r->z)/2.0, 4.0/3.0)/r->rs;
+    ex = -X_FACTOR_C*RS_FACTOR*pow((1.0 + sign[i]*r->z)/2.0, 4.0/3.0)/r->rs;
 
     r->f += ex*f;
 
@@ -129,8 +129,8 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     ddsdrs = -3.0*ds/r->rs;
     dexdrs = -ex/r->rs;
 
-    ddsdz  = POW(RS_FACTOR/r->rs, 3.0)*sign[i]*r->z/2.0;
-    dexdz  = -4.0/6.0*sign[i]*X_FACTOR_C*RS_FACTOR*POW((1.0 + sign[i]*r->z)/2.0, 1.0/3.0)/r->rs;
+    ddsdz  = pow(RS_FACTOR/r->rs, 3.0)*sign[i]*r->z/2.0;
+    dexdz  = -4.0/6.0*sign[i]*X_FACTOR_C*RS_FACTOR*pow((1.0 + sign[i]*r->z)/2.0, 1.0/3.0)/r->rs;
 
     r->dfdrs    += dexdrs*f + ex*lvrho*ddsdrs;
     r->dfdz     += dexdz *f + ex*lvrho*ddsdz;

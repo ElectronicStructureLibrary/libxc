@@ -37,11 +37,11 @@ lda_k_tf_init(XC(func_type) *p)
 
   switch(p->info->number){
   case XC_LDA_K_TF:
-    /* 3/10*(3*M_PI^2)^(2/3) * (3/4 pi)^(2/3) = 3/10*POW(9*M_PI/4, 2/3) */
+    /* 3/10*(3*M_PI^2)^(2/3) * (3/4 pi)^(2/3) = 3/10*pow(9*M_PI/4, 2/3) */
     params->ax = 1.104950565705860002098832079519635692942;
     break;
   case XC_LDA_K_LP:
-    /* 3*M_PI/2^(5/3) * (3/4 pi)^(2/3) = 3*M_PI*POW(3/(8*M_PI), 2/3)*/
+    /* 3*M_PI/2^(5/3) * (3/4 pi)^(2/3) = 3*M_PI*pow(3/(8*M_PI), 2/3)*/
     params->ax = 1.142427709758666675644309251677891925671;
     break;
   default:

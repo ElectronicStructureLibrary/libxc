@@ -18,7 +18,7 @@
 
 #include "util.h"
 
-#define XC_GGA_X_PBEPOW         539 /* PBE power */
+#define XC_GGA_X_PBEpow         539 /* PBE power */
 
 #include "maple2c/gga_x_pbepow.c"
 
@@ -26,7 +26,7 @@
 #include "work_gga_x.c"
 
 const XC(func_info_type) XC(func_info_gga_x_pbepow) = {
-  XC_GGA_X_PBEPOW,
+  XC_GGA_X_PBEpow,
   XC_EXCHANGE,
   "PBE power",
   XC_FAMILY_GGA,

@@ -80,12 +80,12 @@ XC(gga_x_pw91_set_params2)(XC(func_type) *p, double bt, double alpha, double exp
   double beta;
   double a, b, c, d, f;
 
-  beta =  5.0*POW(36.0*M_PI,-5.0/3.0);
+  beta =  5.0*pow(36.0*M_PI,-5.0/3.0);
   a    =  6.0*bt/X2S;
   b    =  1.0/X2S;
   c    =  bt/(X_FACTOR_C*X2S*X2S);
   d    = -(bt - beta)/(X_FACTOR_C*X2S*X2S);
-  f    = 1.0e-6/(X_FACTOR_C*POW(X2S, expo));
+  f    = 1.0e-6/(X_FACTOR_C*pow(X2S, expo));
 
   XC(gga_x_pw91_set_params)(p, a, b, c, d, f, alpha, expo);
 }

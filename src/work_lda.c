@@ -65,7 +65,7 @@ work_lda(const XC(func_type) *p, int np, const double *rho,
 
     if(dens < p->dens_threshold) goto end_ip_loop;
 
-    r.rs = cnst_rs*POW(dens, -1.0/XC_DIMENSIONS);
+    r.rs = cnst_rs*pow(dens, -1.0/XC_DIMENSIONS);
 
     func(p, &r);
 

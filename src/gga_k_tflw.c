@@ -73,7 +73,7 @@ gga_k_tflw_set_params(XC(func_type) *p, double gamma, double lambda, double N)
       params->gamma = 1.0 - 1.332/CBRT(N);
       break;
     case XC_GGA_K_ABSP3:      /* Ref. 79 */
-      params->gamma = 1.0 - 1.513/POW(N, 0.35);
+      params->gamma = 1.0 - 1.513/pow(N, 0.35);
       break;
     case XC_GGA_K_ABSP4:      /* Ref. 79 */
       params->gamma = 1.0/(1.0 + 1.332/CBRT(N));

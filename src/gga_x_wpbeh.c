@@ -184,7 +184,7 @@ func_3(const XC(func_type) *p, int order, double x, double ds,
      a 3. This would amount to rescaling omega by a factor of
      cbrt(2). We follow the quantum chemistry community and put the 6.
   */
-  kF  = POW(6.0*M_PI*M_PI*ds, 1.0/3.0);
+  kF  = pow(6.0*M_PI*M_PI*ds, 1.0/3.0);
   ww  = omega/kF;
   ww2 = ww*ww; ww3 = ww*ww2; ww4 = ww*ww3; ww5 = ww*ww4; ww6 = ww*ww5; ww7 = ww*ww6; ww8 = ww*ww7;
 
@@ -548,10 +548,10 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
   r->dfdz  = 0.0;
 
   for(i=0; i<2; i++){
-    ds = POW(RS_FACTOR/r->rs, 3.0)*(1.0 + sign[i]*r->z)/2.0;
+    ds = pow(RS_FACTOR/r->rs, 3.0)*(1.0 + sign[i]*r->z)/2.0;
     func_3(p, r->order, r->xs[i], ds, &f, &(r->dfdxs[i]), &lvrho);
 
-    ex = -X_FACTOR_C*RS_FACTOR*POW((1.0 + sign[i]*r->z)/2.0, 4.0/3.0)/r->rs;
+    ex = -X_FACTOR_C*RS_FACTOR*pow((1.0 + sign[i]*r->z)/2.0, 4.0/3.0)/r->rs;
 
     r->f += ex*f;
 
@@ -560,8 +560,8 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     ddsdrs = -3.0*ds/r->rs;
     dexdrs = -ex/r->rs;
 
-    ddsdz  = POW(RS_FACTOR/r->rs, 3.0)*sign[i]*r->z/2.0;
-    dexdz  = -4.0/6.0*sign[i]*X_FACTOR_C*RS_FACTOR*POW((1.0 + sign[i]*r->z)/2.0, 1.0/3.0)/r->rs;
+    ddsdz  = pow(RS_FACTOR/r->rs, 3.0)*sign[i]*r->z/2.0;
+    dexdz  = -4.0/6.0*sign[i]*X_FACTOR_C*RS_FACTOR*pow((1.0 + sign[i]*r->z)/2.0, 1.0/3.0)/r->rs;
 
     r->dfdrs    += dexdrs*f + ex*lvrho*ddsdrs;
     r->dfdz     += dexdz *f + ex*lvrho*ddsdz;

@@ -50,7 +50,7 @@ FLOAT XC(bessel_I0_scaled)(const FLOAT x)
 {
   FLOAT y = ABS(x), r = 0.0;
 
-  if(y < 2.0*SQRT_FLOAT_EPSILON)
+  if(y < 2.0*SQRT_DBL_EPSILON)
     r = 1.0 - y;
   else if(y <= 3.0)
     r = EXP(-y)*(2.75 + XC(cheb_eval)(y*y/4.5-1.0, bi0_data, 12));
@@ -73,11 +73,11 @@ FLOAT XC(bessel_I0)(const FLOAT x)
 {
   FLOAT y = ABS(x), r = 0.0;
 
-  if(y < 2.0*SQRT_FLOAT_EPSILON)
+  if(y < 2.0*SQRT_DBL_EPSILON)
     r = 1.0;
   else if(y <= 3.0)
     r = 2.75 + XC(cheb_eval)(y*y/4.5 - 1.0, bi0_data, 12);
-  else if(y < LOG_FLOAT_MAX - 1.0)
+  else if(y < LOG_DBL_MAX - 1.0)
     r = EXP(y) * XC(bessel_I0_scaled)(x);
   else
     fprintf(stderr, "Overflow in bessel_I0\n");
@@ -110,8 +110,8 @@ static FLOAT ai12_data[22] = {
 
 FLOAT XC(bessel_I1_scaled)(const FLOAT x)
 {
-  const FLOAT xmin    = 2.0 * FLOAT_MIN;
-  const FLOAT x_small = 2.0 * M_SQRT2 * SQRT_FLOAT_EPSILON;
+  const FLOAT xmin    = 2.0 * DBL_MIN;
+  const FLOAT x_small = 2.0 * M_SQRT2 * SQRT_DBL_EPSILON;
   const FLOAT y = ABS(x);
   FLOAT r = 0.0;
 
@@ -137,8 +137,8 @@ FLOAT XC(bessel_I1_scaled)(const FLOAT x)
 
 FLOAT XC(bessel_I1)(const FLOAT x)
 {
-  const FLOAT xmin    = 2.0 * FLOAT_MIN;
-  const FLOAT x_small = 2.0 * M_SQRT2 * SQRT_FLOAT_EPSILON;
+  const FLOAT xmin    = 2.0 * DBL_MIN;
+  const FLOAT x_small = 2.0 * M_SQRT2 * SQRT_DBL_EPSILON;
   const FLOAT y = ABS(x);
   FLOAT r = 0.0;
 
@@ -250,7 +250,7 @@ FLOAT XC(bessel_K1)(const FLOAT x)
 
   if(x <= 0.0)
     fprintf(stderr, "Domain error in bessel_K1\n");
-  else if(x<2.0*FLOAT_MIN)
+  else if(x<2.0*DBL_MIN)
     fprintf(stderr, "Overflow error in bessel_K1\n");
   else if(x <= 2.0)
     r = LOG(0.5*x)*XC(bessel_I1)(x) + (0.75 + XC(cheb_eval)(0.5*x*x - 1.0, bk1_data, 11))/x;

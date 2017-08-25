@@ -85,7 +85,7 @@ double xc_expint_e1_impl(const double x, const int scale);
 
 /* implementation for E1, allowing for scaling by exp(x) */
 FLOAT XC(expint_e1_impl)(FLOAT x, const int scale){
-  const FLOAT xmaxt = -LOG_FLOAT_MIN;        /* XMAXT = -LOG (R1MACH(1)) */
+  const FLOAT xmaxt = -LOG_DBL_MIN;        /* XMAXT = -LOG (R1MACH(1)) */
   const FLOAT xmax  = xmaxt - LOG(xmaxt);    /* XMAX = XMAXT - LOG(XMAXT) */
 
   FLOAT e1 = 0.0;

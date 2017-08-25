@@ -32,7 +32,7 @@ double LambertW(double z)
   int i;
 
   /* Sanity check - function is only defined for z >= -1/e */
-  if(z + 1.0/M_E < -10*FLOAT_EPSILON) {
+  if(z + 1.0/M_E < -10*DBL_EPSILON) {
     fprintf(stderr,"Error - Lambert function called with argument z = %e.\n",z);
     exit(1);
   } else if(z < -1.0/M_E)
@@ -43,7 +43,7 @@ double LambertW(double z)
      (if z smaller than cube root of epsilon, z^4 will be zero to
      machine precision).
    */
-  if(ABS(z) < CBRT(FLOAT_EPSILON))
+  if(ABS(z) < CBRT(DBL_EPSILON))
     return z - z*z + 1.5*z*z*z;
 
   /* Initial guess. */
@@ -75,7 +75,7 @@ double LambertW(double z)
       dw = 0.0;
 
     w += dw;
-    if(ABS(dw) < 10*FLOAT_EPSILON*(1.0 + ABS(w)))
+    if(ABS(dw) < 10*DBL_EPSILON*(1.0 + ABS(w)))
       return w;
   }
 

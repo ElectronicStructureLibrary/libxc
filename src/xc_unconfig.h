@@ -31,6 +31,3 @@
 #undef ASINH
 #undef SQRT
 #undef CBRT
-#undef FLOAT_EPSILON
-#undef FLOAT_MIN
-#undef FLOAT_MAX

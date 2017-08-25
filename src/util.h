@@ -75,9 +75,9 @@ double erfc(double);
 #endif
 
 /* some useful constants */
-#define LOG_FLOAT_MIN   (LOG(FLOAT_MIN))
-#define LOG_FLOAT_MAX   (LOG(FLOAT_MAX))
-#define SQRT_FLOAT_EPSILON   (SQRT(FLOAT_EPSILON))
+#define LOG_DBL_MIN   (LOG(DBL_MIN))
+#define LOG_DBL_MAX   (LOG(DBL_MAX))
+#define SQRT_DBL_EPSILON   (SQRT(DBL_EPSILON))
 
 /* special functions */
 #define Heaviside(x) (((x) >= 0) ? 1.0 : 0.0)

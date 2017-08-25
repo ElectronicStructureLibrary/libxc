@@ -306,7 +306,7 @@ void XC(rdqagse)(integr_fn f, void *ex, FLOAT *a, FLOAT *b,
   --alist__;
 
   /* Function Body */
-  epmach = FLOAT_EPSILON;
+  epmach = DBL_EPSILON;
 
   /*            test on validity of parameters */
   /*            ------------------------------ */
@@ -327,8 +327,8 @@ void XC(rdqagse)(integr_fn f, void *ex, FLOAT *a, FLOAT *b,
   /*           first approximation to the integral */
   /*           ----------------------------------- */
   
-  uflow = FLOAT_MIN;
-  oflow = FLOAT_MAX;
+  uflow = DBL_MIN;
+  oflow = DBL_MAX;
   ierro = 0;
   rdqk21(f, ex, a, b, result, abserr, &defabs, &resabs);
   
@@ -680,8 +680,8 @@ static void rdqelg(int *n, FLOAT *epstab, FLOAT *
   --epstab;
 
   /* Function Body */
-  epmach = FLOAT_EPSILON;
-  oflow = FLOAT_MAX;
+  epmach = DBL_EPSILON;
+  oflow = DBL_MAX;
   ++(*nres);
   *abserr = oflow;
   *result = epstab[*n];
@@ -929,8 +929,8 @@ bell labs, nov. 1981.
           uflow is the smallest positive magnitude. */
 
 /* ***first executable statement  dqk21 */
-  epmach = FLOAT_EPSILON;
-  uflow = FLOAT_MIN;
+  epmach = DBL_EPSILON;
+  uflow = DBL_MIN;
   
   centr = (*a + *b) * .5;
   hlgth = (*b - *a) * .5;

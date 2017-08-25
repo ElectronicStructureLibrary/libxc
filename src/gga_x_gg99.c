@@ -108,7 +108,7 @@ void XC(gga_x_gg99_enhance)
 
   aux1 = EXP(-2.0*rr);
 
-  aux2 = LOG(1.0 + aux1);
+  aux2 = log(1.0 + aux1);
   aux3 = 1.0/cosh(rr);
   aux4 = pow(aux3, 2.0/3.0);
   aux5 = XC(dilogarithm)(-aux1);

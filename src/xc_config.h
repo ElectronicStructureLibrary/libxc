@@ -17,7 +17,6 @@
 */
 
 #ifdef SINGLE_PRECISION
-#  define LOG   logf
 #  define ABS   fabsf
 #  define EXP   expf
 #  define ERF   erff
@@ -49,7 +48,6 @@
 #else
 /* Double precision */
 
-#  define LOG   log
 #  define ABS   fabs
 #  define EXP   exp
 #  define ERF   erf

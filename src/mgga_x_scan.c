@@ -27,7 +27,7 @@ void
 XC(mgga_x_scan_falpha)(int order, double a, double c1, double c2, double dd, double *f, double *dfda)
 {
   /* exponentials are truncated */
-  const double logeps =  LOG(DBL_EPSILON);
+  const double logeps =  log(DBL_EPSILON);
   double thr1, thr2;
   double c1exp, c2exp, ooma;
 

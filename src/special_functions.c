@@ -58,9 +58,9 @@ double LambertW(double z)
 
   } else {
     /* Asymptotic expansion */
-    double lnz = LOG(z);
+    double lnz = log(z);
 
-    w = lnz - LOG(lnz);
+    w = lnz - log(lnz);
   }
 
   /* Find result through iteration */
@@ -142,31 +142,31 @@ double XC(dilogarithm)(const double x)
   double aux, dspenc;
 
   if (x > 2.0){
-    aux = LOG(x);
+    aux = log(x);
     dspenc = 2.0*pi26 - 0.5*aux*aux;
     if(x < FLT_RADIX/DBL_EPSILON) 
       dspenc -= (1.0 + XC(cheb_eval)(4.0/x - 1.0, spencs, nspenc))/x;
 
   }else if (x > 1.0){
     aux = x - 1.0;
-    dspenc = pi26 - 0.5*LOG(x)*LOG(aux*aux/x)
+    dspenc = pi26 - 0.5*log(x)*log(aux*aux/x)
       + aux*(1.0 + XC(cheb_eval)(4.0*aux/x-1.0, spencs, nspenc))/x;
 
   }else if (x > 0.5){
      if (x != 1.0)
-       dspenc = pi26 - LOG(x)*LOG(1.0 - x)
+       dspenc = pi26 - log(x)*log(1.0 - x)
 	 - (1.0 - x)*(1.0 + XC(cheb_eval)(4.0*(1.0 - x)-1.0, spencs, nspenc));
 
   }else if (x >= 0.0){
     dspenc = x*(1.0 + XC(cheb_eval)(4.0*x - 1.0, spencs, nspenc));
 
   }else if (x > -1.0){
-    aux = LOG(1.0 - x);
+    aux = log(1.0 - x);
     dspenc = -0.5*aux*aux - x*(1.0+ XC(cheb_eval)(4.0*x/(x-1.0)-1.0, spencs, nspenc))/(x-1.0);
 
   }else{
-    aux = LOG(1.0 - x);
-    dspenc = -pi26 - 0.50*aux*(2.00*LOG(-x) - aux);
+    aux = log(1.0 - x);
+    dspenc = -pi26 - 0.50*aux*(2.00*log(-x) - aux);
 
     if (x > -FLT_RADIX/DBL_EPSILON)
       dspenc += (1.0 + XC(cheb_eval)(4.0/(1.0-x)-1.0, spencs, nspenc))/(1.0 - x);

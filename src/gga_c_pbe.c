@@ -51,7 +51,7 @@ static void gga_c_pbe_init(XC(func_type) *p)
   params = (gga_c_pbe_params *) (p->params);
 
   /* most functionals have the same gamma and B */
-  params->gamma = (1.0 - LOG(2.0))/(M_PI*M_PI);
+  params->gamma = (1.0 - log(2.0))/(M_PI*M_PI);
   params->BB = 1.0; 
 
   switch(p->info->number){

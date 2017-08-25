@@ -93,14 +93,14 @@ s_scaling(int version, int order, double s1, double *s2, double *ds2ds1)
     else{
       expms1   = EXP(-s1);
       expmsmax = EXP(-smax);
-      *s2  = s1 - LOG(1.0 + expmsmax/expms1);
+      *s2  = s1 - log(1.0 + expmsmax/expms1);
     }
     break;
 
   case 3: /* second version of the scaling by TM Henderson */
     expms1   = EXP(-s1);
     expmsmax = EXP(-smax);
-    *s2 = s1 - (1.0 - expms1)*LOG(1.0 + expmsmax/expms1);
+    *s2 = s1 - (1.0 - expms1)*log(1.0 + expmsmax/expms1);
     break;
 
   case 4: /* appendix of JCP 128, 194105 (2008) */
@@ -139,7 +139,7 @@ s_scaling(int version, int order, double s1, double *s2, double *ds2ds1)
     break;
 
   case 3:
-    *ds2ds1 = expms1*(1.0 + expmsmax)/(expms1 + expmsmax) - expms1*LOG(1.0 + expmsmax/expms1);
+    *ds2ds1 = expms1*(1.0 + expmsmax)/(expms1 + expmsmax) - expms1*log(1.0 + expmsmax/expms1);
 
   case 4: /* appendix of JCP 128, 194105 (2008) */
     dnum = 1.0 + s14*(5.0*p4 + s1*(6.0*p5 + s1*(7.0*p6 + s1*8.0*q8*s0)));
@@ -363,7 +363,7 @@ func_3(const XC(func_type) *p, int order, double x, double ds,
   if((ss > 0.0) || (ww > 0.0)){
     double dt10;
 
-    t10 = 0.5*AA*LOG(Hsbw/DHsbw);
+    t10 = 0.5*AA*log(Hsbw/DHsbw);
 
     if(order >= 1){
       dt10 = 0.5*AA*(1.0/Hsbw - 1.0/DHsbw);
@@ -423,7 +423,7 @@ func_3(const XC(func_type) *p, int order, double x, double ds,
   }else if(ww > wcutoff){ /* Use simple gaussian approximation for large w */
     double dterm1;
 
-    term1   = -0.5*AA*(expei + LOG(DHsbw) - LOG(Hsbw));
+    term1   = -0.5*AA*(expei + log(DHsbw) - log(Hsbw));
     *f = m89*(term1 + term2 + term3 + term4 + term5);
 
     if(order >= 1){

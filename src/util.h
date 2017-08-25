@@ -75,8 +75,8 @@ double erfc(double);
 #endif
 
 /* some useful constants */
-#define LOG_DBL_MIN   (LOG(DBL_MIN))
-#define LOG_DBL_MAX   (LOG(DBL_MAX))
+#define LOG_DBL_MIN   (log(DBL_MIN))
+#define LOG_DBL_MAX   (log(DBL_MAX))
 #define SQRT_DBL_EPSILON   (SQRT(DBL_EPSILON))
 
 /* special functions */

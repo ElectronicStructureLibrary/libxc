@@ -146,7 +146,7 @@ XC(lda_x_attenuation_function_yukawa)(int order, double aa, double *f, double *d
     }
   } else {
     auxa1 = ATAN2(1.0, aa);
-    auxa2 = LOG(1.0 + (1.0/aa2));
+    auxa2 = log(1.0 + (1.0/aa2));
     auxa3 = aa2 + 1.0;
 
     switch (order) {

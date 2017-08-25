@@ -18,8 +18,6 @@
 
 #ifdef SINGLE_PRECISION
 
-#  define ERF   erff
-#  define ERFC  erfcf
 #  define SIN   sinf
 #  define COS   cosf
 #  define TAN   tanf
@@ -47,8 +45,6 @@
 #else
 /* Double precision */
 
-#  define ERF   erf
-#  define ERFC  erfc
 #  define SIN   sin
 #  define COS   cos
 #  define TAN   tan

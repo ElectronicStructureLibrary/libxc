@@ -66,7 +66,7 @@ double LambertW(double z)
   /* Find result through iteration */
   for(i=0; i<10; i++){
     double expmw, dw;
-    expmw = EXP(-w);
+    expmw = exp(-w);
     
     /* Halley's equation, (5.9) in Corless et al */
     if( w != -1.0 )

@@ -121,7 +121,7 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const double *rho, const 
 	x = r + (3.0/params->aa)*
 	  log(2.0*params->gamm * params->aa * 1.0 / CBRT(params->qtot));
 	
-	/* x = x + pow(qtot*EXP(-aa*r), 1.0/3.0)/(beta*aa*aa); */
+	/* x = x + pow(qtot*exp(-aa*r), 1.0/3.0)/(beta*aa*aa); */
 	
 	vrho[is] -= 1.0/x;
       }

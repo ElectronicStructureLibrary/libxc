@@ -68,7 +68,7 @@ XC(lda_x_attenuation_function_erf)(int order, double aa, double *f, double *df, 
   auxa1 = M_SQRTPI*ERF(1.0/(2.0*aa));
   
   if(aa < 1.0e6) 
-    auxa2 = EXP(-1.0/(4.0*aa2)) - 1.0;
+    auxa2 = exp(-1.0/(4.0*aa2)) - 1.0;
   else
     auxa2 = -1.0/(4.0*aa2);
   
@@ -100,7 +100,7 @@ XC(lda_x_attenuation_function_erf_gau)(int order, double aa, double *f, double *
   bb2 = bb*bb;
   bb3 = bb*bb2;
   auxb1 = M_SQRTPI*ERF(1.0/(2.0*bb));
-  auxb2 = EXP(-1.0/(4.0*bb2));
+  auxb2 = exp(-1.0/(4.0*bb2));
 
   switch(order) {
   default:

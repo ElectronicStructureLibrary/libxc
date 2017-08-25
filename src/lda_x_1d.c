@@ -39,7 +39,7 @@ static inline double FT_inter(double x, int interaction)
 
   if(interaction == 0){
     double x2 = x*x;
-    return expint_e1(x2)*EXP(x2);
+    return expint_e1(x2)*exp(x2);
   }else
     return 2.0*XC(bessel_K0)(x); 
 }

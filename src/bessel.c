@@ -53,7 +53,7 @@ double XC(bessel_I0_scaled)(const double x)
   if(y < 2.0*SQRT_DBL_EPSILON)
     r = 1.0 - y;
   else if(y <= 3.0)
-    r = EXP(-y)*(2.75 + XC(cheb_eval)(y*y/4.5-1.0, bi0_data, 12));
+    r = exp(-y)*(2.75 + XC(cheb_eval)(y*y/4.5-1.0, bi0_data, 12));
   else if(y <= 8.0)
     r = (.375 + XC(cheb_eval)((48.0/y - 11.0)/5.0, ai0_data, 21))/SQRT(y);
   else
@@ -78,7 +78,7 @@ double XC(bessel_I0)(const double x)
   else if(y <= 3.0)
     r = 2.75 + XC(cheb_eval)(y*y/4.5 - 1.0, bi0_data, 12);
   else if(y < LOG_DBL_MAX - 1.0)
-    r = EXP(y) * XC(bessel_I0_scaled)(x);
+    r = exp(y) * XC(bessel_I0_scaled)(x);
   else
     fprintf(stderr, "Overflow in bessel_I0\n");
 
@@ -120,9 +120,9 @@ double XC(bessel_I1_scaled)(const double x)
   else if(y < xmin)
     fprintf(stderr, "Underflow error in bessel_I1_scaled\n");
   else if(y < x_small)
-    r = 0.5*x*EXP(-y);
+    r = 0.5*x*exp(-y);
   else if(y <= 3.0)
-    r = x*EXP(-y)*(0.875 + XC(cheb_eval)(y*y/4.5 - 1.0, bi1_data, 11));
+    r = x*exp(-y)*(0.875 + XC(cheb_eval)(y*y/4.5 - 1.0, bi1_data, 11));
   else{
     if(y <= 8.0)
       r = (0.375 + XC(cheb_eval)((48.0/y - 11.0)/5.0, ai1_data, 21))/SQRT(y);
@@ -151,7 +151,7 @@ double XC(bessel_I1)(const double x)
   else if(y <= 3.0)
     r = x*(0.875 + XC(cheb_eval)(y*y/4.5 - 1.0, bi1_data, 11));
   else
-    r = EXP(x)*XC(bessel_I1_scaled(x));
+    r = exp(x)*XC(bessel_I1_scaled(x));
 
   return r;
 }
@@ -183,7 +183,7 @@ double XC(bessel_K0_scaled)(const double x)
   if(x <= 0.0)
     fprintf(stderr, "Domain error in bessel_K0_scaled\n");
   else if(x <= 2.0)
-    r = EXP(x)*(-log(0.5*x)*XC(bessel_I0)(x) - 0.25 + XC(cheb_eval)(0.5*x*x - 1.0, bk0_data, 11));
+    r = exp(x)*(-log(0.5*x)*XC(bessel_I0)(x) - 0.25 + XC(cheb_eval)(0.5*x*x - 1.0, bk0_data, 11));
   else if(x <= 8.0)
     r = (1.25 + XC(cheb_eval)((16.0/x - 5.0)/3.0, ak0_data, 17))/SQRT(x);
   else
@@ -201,7 +201,7 @@ double XC(bessel_K0)(const double x)
   else if(x <= 2.0)
     r = -log(0.5*x)*XC(bessel_I0)(x) - 0.25 + XC(cheb_eval)(0.5*x*x - 1.0, bk0_data, 11);
   else
-    r = EXP(-x)*XC(bessel_K0_scaled)(x);
+    r = exp(-x)*XC(bessel_K0_scaled)(x);
 
   return r;
 }
@@ -233,7 +233,7 @@ double XC(bessel_K1_scaled)(const double x)
   if(x <= 0.0)
     fprintf(stderr, "Domain error in bessel_K1_scaled\n");
   else if(x <= 2.0)
-    r =  EXP(x)*(log(0.5*x)*XC(bessel_I1)(x) +
+    r =  exp(x)*(log(0.5*x)*XC(bessel_I1)(x) +
 		 (0.75 + XC(cheb_eval)(.5*x*x - 1.0, bk1_data, 11))/x);
   else if(x <= 8.0)
     r = (1.25 + XC(cheb_eval)((16.0/x - 5.0)/3.0, ak1_data, 17))/SQRT(x);
@@ -255,7 +255,7 @@ double XC(bessel_K1)(const double x)
   else if(x <= 2.0)
     r = log(0.5*x)*XC(bessel_I1)(x) + (0.75 + XC(cheb_eval)(0.5*x*x - 1.0, bk1_data, 11))/x;
   else
-    r = EXP(-x)*XC(bessel_K1_scaled)(x);
+    r = exp(-x)*XC(bessel_K1_scaled)(x);
 
   return r;
 }

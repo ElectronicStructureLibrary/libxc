@@ -106,7 +106,7 @@ void XC(gga_x_gg99_enhance)
 
   r_x(r->order, r->x, &rr, &dr);
 
-  aux1 = EXP(-2.0*rr);
+  aux1 = exp(-2.0*rr);
 
   aux2 = log(1.0 + aux1);
   aux3 = 1.0/cosh(rr);

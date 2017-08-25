@@ -36,8 +36,8 @@ XC(mgga_x_scan_falpha)(int order, double a, double c1, double c2, double dd, dou
 
   ooma = 1.0/(1.0 - a);
 
-  c1exp = (a >= thr1) ? 0.0 : EXP(-c1*a*ooma);
-  c2exp = (a <= thr2) ? 0.0 : EXP(c2*ooma);
+  c1exp = (a >= thr1) ? 0.0 : exp(-c1*a*ooma);
+  c2exp = (a <= thr2) ? 0.0 : exp(c2*ooma);
 
   *f = c1exp - dd*c2exp;
 

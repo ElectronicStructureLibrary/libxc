@@ -18,7 +18,6 @@
 
 #ifdef SINGLE_PRECISION
 
-#  define EXP   expf
 #  define ERF   erff
 #  define ERFC  erfcf
 #  define SIN   sinf
@@ -48,7 +47,6 @@
 #else
 /* Double precision */
 
-#  define EXP   exp
 #  define ERF   erf
 #  define ERFC  erfc
 #  define SIN   sin

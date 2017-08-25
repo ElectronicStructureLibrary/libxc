@@ -37,13 +37,8 @@ double XC(integrate)(integr_fn func, void *ex, double a, double b)
   double epsabs, epsrel, result, abserr, *alist, *blist, *rlist, *elist;
   int limit, neval, ierr, *iord, last;
 
-#ifdef SINGLE_PRECISION
-  epsabs = 1e-5;
-  epsrel = 1e-5;
-#else
   epsabs = 1e-10;
   epsrel = 1e-10;
-#endif
 
   limit  = 1000;
   alist = (double *)malloc(limit*sizeof(double));

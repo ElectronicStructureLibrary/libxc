@@ -62,12 +62,7 @@
 !-------------------------------------------------------------------
 module XC_F90(types_m)
   implicit none
-
-#ifdef SINGLE_PRECISION
-  integer, public, parameter :: xc_f90_kind = selected_real_kind(4)
-#else
   integer, public, parameter :: xc_f90_kind = selected_real_kind(14)
-#endif
 
   type XC_F90(pointer_t)
     private

@@ -105,11 +105,7 @@ XC(lda_kxc)(const XC(func_type) *p, int np, const double *rho, double *v3rho3)
 }
 
 
-#ifdef SINGLE_PRECISION
-#  define DELTA_RHO 1e-4
-#else
-#  define DELTA_RHO 1e-6
-#endif
+#define DELTA_RHO 1e-6
 
 /* get the xc kernel through finite differences */
 void 

@@ -86,11 +86,7 @@ double XC(mgga_x_2d_prhg_get_y)(double C)
   double rhs, res, y, tol;
   int ierr;
 
-#ifdef SINGLE_PRECISION
-  tol = 1e-6;
-#else
   tol = 5e-12;
-#endif
 
   rhs = C/M_PI;
 

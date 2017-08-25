@@ -78,10 +78,6 @@ static double AE14_data[26] = {
   -0.00000000000000005
 };
 
-#ifdef SINGLE_PRECISION
-/* May need double precision with large arguments */
-double xc_expint_e1_impl(const double x, const int scale);
-#endif
 
 /* implementation for E1, allowing for scaling by exp(x) */
 double XC(expint_e1_impl)(double x, const int scale){
@@ -114,11 +110,8 @@ double XC(expint_e1_impl)(double x, const int scale){
     const double s = 1.0/x * ( scale ? 1.0 : exp(-x) );
     e1 = s * (1.0 + XC(cheb_eval)(8.0/x - 1.0, AE14_data, 26));
   }else
-#ifdef SINGLE_PRECISION
-    return xc_expint_e1_impl(x,scale);
-#else
-    fprintf(stderr, "Argument %14.10le is larger than xmax=%14.10le in expint_e1\n", x, xmax);
-#endif
+
+  fprintf(stderr, "Argument %14.10le is larger than xmax=%14.10le in expint_e1\n", x, xmax);
 
   return e1;
 }

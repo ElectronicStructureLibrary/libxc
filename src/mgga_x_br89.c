@@ -141,11 +141,7 @@ double XC(mgga_x_br89_get_x)(double Q)
   double rhs, br_x, tol, res;
   int ierr;
 
-#ifdef SINGLE_PRECISION
-  tol = 1e-6;
-#else
   tol = 5e-12;
-#endif
 
   /* build right-hand side of the non-linear equation 
      Remember we use a different definition of tau */

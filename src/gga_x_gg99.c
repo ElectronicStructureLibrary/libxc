@@ -46,7 +46,7 @@ newt_raph(double a, double tol, double *xx, double *dxx, int *ierr)
     x -= f/fp;
     
     count ++;
-  } while((ABS(f) > tol) && (count < max_iter));
+  } while((fabs(f) > tol) && (count < max_iter));
   
   if(count == max_iter) *ierr=0; 
 

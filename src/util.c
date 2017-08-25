@@ -57,9 +57,9 @@ XC(fast_fzeta)(const double x, const int nspin, const int order, double * fz){
     if(order < 1) return;
     fz[1] = (aa - bb)*(4.0/3.0)/FZETAFACTOR;
     if(order < 2) return;
-    fz[2] = ((4.0/9.0)/FZETAFACTOR)*(ABS(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -2.0/3.0) + pow(1.0 - (x), -2.0/3.0)));
+    fz[2] = ((4.0/9.0)/FZETAFACTOR)*(fabs(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -2.0/3.0) + pow(1.0 - (x), -2.0/3.0)));
     if(order < 3) return;
-    fz[3] = (-(8.0/27.0)/FZETAFACTOR)*(ABS(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -5.0/3.0) - pow(1.0 - (x), -5.0/3.0)));
+    fz[3] = (-(8.0/27.0)/FZETAFACTOR)*(fabs(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -5.0/3.0) - pow(1.0 - (x), -5.0/3.0)));
   } else {
     fz[0] = 0.0;
     fz[1] = 0.0;

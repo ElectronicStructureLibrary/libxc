@@ -48,11 +48,11 @@
   }  
 
 double maxabs(double x, double y) {
-  return ABS(x)>ABS(y) ? ABS(x) : ABS(y);
+  return fabs(x)>fabs(y) ? fabs(x) : fabs(y);
 }
 
 double error(double x, double y) {
-  return ABS(x-y)/(1.0+maxabs(x,y));
+  return fabs(x-y)/(1.0+maxabs(x,y));
 }
 
 int main(int argc, char **argv) {

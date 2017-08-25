@@ -43,7 +43,7 @@ double LambertW(double z)
      (if z smaller than cube root of epsilon, z^4 will be zero to
      machine precision).
    */
-  if(ABS(z) < CBRT(DBL_EPSILON))
+  if(fabs(z) < CBRT(DBL_EPSILON))
     return z - z*z + 1.5*z*z*z;
 
   /* Initial guess. */
@@ -75,7 +75,7 @@ double LambertW(double z)
       dw = 0.0;
 
     w += dw;
-    if(ABS(dw) < 10*DBL_EPSILON*(1.0 + ABS(w)))
+    if(fabs(dw) < 10*DBL_EPSILON*(1.0 + fabs(w)))
       return w;
   }
 

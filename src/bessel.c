@@ -48,7 +48,7 @@ static double ai02_data[22] = {
 */
 double XC(bessel_I0_scaled)(const double x)
 {
-  double y = ABS(x), r = 0.0;
+  double y = fabs(x), r = 0.0;
 
   if(y < 2.0*SQRT_DBL_EPSILON)
     r = 1.0 - y;
@@ -71,7 +71,7 @@ double XC(bessel_I0_scaled)(const double x)
 */
 double XC(bessel_I0)(const double x)
 {
-  double y = ABS(x), r = 0.0;
+  double y = fabs(x), r = 0.0;
 
   if(y < 2.0*SQRT_DBL_EPSILON)
     r = 1.0;
@@ -112,7 +112,7 @@ double XC(bessel_I1_scaled)(const double x)
 {
   const double xmin    = 2.0 * DBL_MIN;
   const double x_small = 2.0 * M_SQRT2 * SQRT_DBL_EPSILON;
-  const double y = ABS(x);
+  const double y = fabs(x);
   double r = 0.0;
 
   if(y == 0.0)
@@ -139,7 +139,7 @@ double XC(bessel_I1)(const double x)
 {
   const double xmin    = 2.0 * DBL_MIN;
   const double x_small = 2.0 * M_SQRT2 * SQRT_DBL_EPSILON;
-  const double y = ABS(x);
+  const double y = fabs(x);
   double r = 0.0;
 
   if(y == 0.0)

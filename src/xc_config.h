@@ -17,7 +17,7 @@
 */
 
 #ifdef SINGLE_PRECISION
-#  define ABS   fabsf
+
 #  define EXP   expf
 #  define ERF   erff
 #  define ERFC  erfcf
@@ -48,7 +48,6 @@
 #else
 /* Double precision */
 
-#  define ABS   fabs
 #  define EXP   exp
 #  define ERF   erf
 #  define ERFC  erfc
@@ -82,7 +81,7 @@
 #define POW_5_3(x) pow((x), 5.0/3.0)
 #define POW_7_3(x) pow((x), 7.0/3.0)
 #endif
-  
+
 #  define XC(x) xc_ ## x
 #  define XC_U(X) XC_ ## X
 

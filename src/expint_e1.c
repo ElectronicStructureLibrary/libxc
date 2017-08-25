@@ -101,12 +101,12 @@ double XC(expint_e1_impl)(double x, const int scale){
     e1 = s * (1.0 + XC(cheb_eval)((40.0/x + 7.0)/3.0, AE12_data, 25));
   }else if(x <= -1.0){
     const double scale_factor = ( scale ? EXP(x) : 1.0 );
-    e1 = scale_factor * (-log(ABS(x)) + XC(cheb_eval)((2.0*x + 5.0)/3.0, E11_data, 19));
+    e1 = scale_factor * (-log(fabs(x)) + XC(cheb_eval)((2.0*x + 5.0)/3.0, E11_data, 19));
   }else if(x == 0.0) {
     fprintf(stderr, "Argument cannot be 0.0 in expint_e1\n");
   }else if(x <= 1.0){
     const double scale_factor = ( scale ? EXP(x) : 1.0 );
-    e1 = scale_factor*(-log(ABS(x)) - 0.6875 + x + XC(cheb_eval)(x, E12_data, 16));
+    e1 = scale_factor*(-log(fabs(x)) - 0.6875 + x + XC(cheb_eval)(x, E12_data, 16));
   }else if(x <= 4.0){
     const double s = 1.0/x * ( scale ? 1.0 : EXP(-x) );
     e1 = s * (1.0 + XC(cheb_eval)((8.0/x - 5.0)/3.0, AE13_data, 25));

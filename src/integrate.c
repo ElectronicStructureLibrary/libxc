@@ -334,7 +334,7 @@ void XC(rdqagse)(integr_fn f, void *ex, double *a, double *b,
   
   /*           test on accuracy. */
   
-  dres = ABS(*result);
+  dres = fabs(*result);
   errbnd = max(*epsabs, *epsrel * dres);
   *last = 1;
   rlist[1] = *result;
@@ -395,7 +395,7 @@ void XC(rdqagse)(integr_fn f, void *ex, double *a, double *b,
     if (defab1 == error1 || defab2 == error2) {
       goto L15;
     }
-    if (ABS(rlist[maxerr] - area12) > ABS(area12) * 1e-5 ||
+    if (fabs(rlist[maxerr] - area12) > fabs(area12) * 1e-5 ||
 	erro12 < errmax * .99) {
       goto L10;
     }
@@ -412,7 +412,7 @@ void XC(rdqagse)(integr_fn f, void *ex, double *a, double *b,
   L15:
     rlist[maxerr] = area1;
     rlist[*last] = area2;
-    errbnd = max(*epsabs, *epsrel * ABS(area));
+    errbnd = max(*epsabs, *epsrel * fabs(area));
     
     /*           test for roundoff error and eventually set error flag. */
     
@@ -428,8 +428,8 @@ void XC(rdqagse)(integr_fn f, void *ex, double *a, double *b,
     /*           set error flag in the case of bad integrand behaviour
 		 at a point of the integration range. */
     
-    if (max(ABS(a1), ABS(b2)) <=
-	(epmach * 100. + 1.) * (ABS(a2) + uflow * 1e3)) {
+    if (max(fabs(a1), fabs(b2)) <=
+	(epmach * 100. + 1.) * (fabs(a2) + uflow * 1e3)) {
       *ier = 4;
     }
     
@@ -465,7 +465,7 @@ void XC(rdqagse)(integr_fn f, void *ex, double *a, double *b,
     if (noext)		    goto L90;
     
     erlarg -= erlast;
-    if (ABS(b1 - a1) > small) {
+    if (fabs(b1 - a1) > small) {
       erlarg += erro12;
     }
     if (extrap) {
@@ -475,7 +475,7 @@ void XC(rdqagse)(integr_fn f, void *ex, double *a, double *b,
     /*           test whether the interval to be bisected next is the
 		 smallest interval. */
     
-    if (ABS(blist[maxerr] - alist__[maxerr]) > small) {
+    if (fabs(blist[maxerr] - alist__[maxerr]) > small) {
       goto L90;
     }
     extrap = TRUE;
@@ -497,7 +497,7 @@ void XC(rdqagse)(integr_fn f, void *ex, double *a, double *b,
     for (k = id; k <= jupbnd; ++k) {
       maxerr = iord[nrmax];
       errmax = elist[maxerr];
-      if (ABS(blist[maxerr] - alist__[maxerr]) > small) {
+      if (fabs(blist[maxerr] - alist__[maxerr]) > small) {
 	goto L90;/* ***jump out of do-loop */
       }
       ++nrmax;
@@ -521,7 +521,7 @@ void XC(rdqagse)(integr_fn f, void *ex, double *a, double *b,
     *abserr = abseps;
     *result = reseps;
     correc = erlarg;
-    ertest = max(*epsabs, *epsrel * ABS(reseps));
+    ertest = max(*epsabs, *epsrel * fabs(reseps));
     if (*abserr <= ertest) {
       goto L100;/* ***jump out of do-loop */
     }
@@ -543,7 +543,7 @@ void XC(rdqagse)(integr_fn f, void *ex, double *a, double *b,
     erlarg = errsum;
     goto L90;
   L80:
-    small = ABS(*b - *a) * .375;
+    small = fabs(*b - *a) * .375;
     erlarg = errsum;
     ertest = errbnd;
     rlist2[1] = area;
@@ -566,15 +566,15 @@ void XC(rdqagse)(integr_fn f, void *ex, double *a, double *b,
   goto L110;
   
  L105:
-  if (*abserr / ABS(*result) > errsum / ABS(area)) {
+  if (*abserr / fabs(*result) > errsum / fabs(area)) {
     goto L115;
   }
   
  L110:/*		test on divergence. */
-  if (ksgn == -1 && max(ABS(*result), ABS(area)) <= defabs * .01) {
+  if (ksgn == -1 && max(fabs(*result), fabs(area)) <= defabs * .01) {
     goto L130;
   }
-  if (.01 > *result / area || *result / area > 100. || errsum > ABS(area)) {
+  if (.01 > *result / area || *result / area > 100. || errsum > fabs(area)) {
     *ier = 5;
   }
   goto L130;
@@ -701,18 +701,18 @@ static void rdqelg(int *n, double *epstab, double *
     e0 = epstab[k3];
     e1 = epstab[k2];
     e2 = res;
-    e1abs = ABS(e1);
+    e1abs = fabs(e1);
     delta2 = e2 - e1;
-    err2 = ABS(delta2);
-    tol2 = max(ABS(e2), e1abs) * epmach;
+    err2 = fabs(delta2);
+    tol2 = max(fabs(e2), e1abs) * epmach;
     delta3 = e1 - e0;
-    err3 = ABS(delta3);
-    tol3 = max(e1abs, ABS(e0)) * epmach;
+    err3 = fabs(delta3);
+    tol3 = max(e1abs, fabs(e0)) * epmach;
     if (err2 <= tol2 && err3 <= tol3) {
       /*           if e0, e1 and e2 are equal to within machine
 		   accuracy, convergence is assumed. */
       *result = res;/*		result = e2 */
-      *abserr = err2 + err3;/*	abserr = ABS(e1-e0)+ABS(e2-e1) */
+      *abserr = err2 + err3;/*	abserr = fabs(e1-e0)+fabs(e2-e1) */
       
       goto L100;	/* ***jump out of do-loop */
     }
@@ -720,15 +720,15 @@ static void rdqelg(int *n, double *epstab, double *
     e3 = epstab[k1];
     epstab[k1] = e1;
     delta1 = e1 - e3;
-    err1 = ABS(delta1);
-    tol1 = max(e1abs, ABS(e3)) * epmach;
+    err1 = fabs(delta1);
+    tol1 = max(e1abs, fabs(e3)) * epmach;
     
     /*           if two elements are very close to each other, omit
 		 a part of the table by adjusting the value of n */
     
     if (err1 > tol1 && err2 > tol2 && err3 > tol3) {
       ss = 1. / delta1 + 1. / delta2 - 1. / delta3;
-      epsinf = ABS(ss * e1);
+      epsinf = fabs(ss * e1);
       
       /*           test to detect irregular behaviour in the table, and
 		   eventually omit a part of the table adjusting the value of n. */
@@ -747,7 +747,7 @@ static void rdqelg(int *n, double *epstab, double *
     res = e1 + 1. / ss;
     epstab[k1] = res;
     k1 += -2;
-    errA = err2 + ABS(res - e2) + err3;
+    errA = err2 + fabs(res - e2) + err3;
     if (errA <= *abserr) {
       *abserr = errA;
       *result = res;
@@ -778,9 +778,9 @@ static void rdqelg(int *n, double *epstab, double *
   /*L80:*/
   if (*nres >= 4) {
     /* L90: */
-    *abserr = ABS(*result - res3la[3]) +
-      ABS(*result - res3la[2]) +
-      ABS(*result - res3la[1]);
+    *abserr = fabs(*result - res3la[3]) +
+      fabs(*result - res3la[2]) +
+      fabs(*result - res3la[1]);
     res3la[1] = res3la[2];
     res3la[2] = res3la[3];
     res3la[3] = *result;
@@ -790,7 +790,7 @@ static void rdqelg(int *n, double *epstab, double *
   }
   
  L100:/* compute error estimate */
-  *abserr = max(*abserr, epmach * 5. * ABS(*result));
+  *abserr = max(*abserr, epmach * 5. * fabs(*result));
   return;
 } /* rdqelg_ */
 
@@ -934,7 +934,7 @@ bell labs, nov. 1981.
   
   centr = (*a + *b) * .5;
   hlgth = (*b - *a) * .5;
-  dhlgth = ABS(hlgth);
+  dhlgth = fabs(hlgth);
 
   /*           compute the 21-point kronrod approximation to
 	       the integral, and estimate the absolute error. */
@@ -957,7 +957,7 @@ bell labs, nov. 1981.
   f(vec, 21, ex);
   fc = vec[0];
   resk = wgk[10] * fc;
-  *resabs = ABS(resk);
+  *resabs = fabs(resk);
   for (j = 1; j <= 5; ++j) {
     jtw = j << 1;
     absc = hlgth * xgk[jtw - 1];
@@ -968,7 +968,7 @@ bell labs, nov. 1981.
     fsum = fval1 + fval2;
     resg += wg[j - 1] * fsum;
     resk += wgk[jtw - 1] * fsum;
-    *resabs += wgk[jtw - 1] * (ABS(fval1) + ABS(fval2));
+    *resabs += wgk[jtw - 1] * (fabs(fval1) + fabs(fval2));
     /* L10: */
   }
   for (j = 1; j <= 5; ++j) {
@@ -980,20 +980,20 @@ bell labs, nov. 1981.
     fv2[jtwm1 - 1] = fval2;
     fsum = fval1 + fval2;
     resk += wgk[jtwm1 - 1] * fsum;
-    *resabs += wgk[jtwm1 - 1] * (ABS(fval1) + ABS(fval2));
+    *resabs += wgk[jtwm1 - 1] * (fabs(fval1) + fabs(fval2));
     /* L15: */
   }
   reskh = resk * .5;
-  *resasc = wgk[10] * ABS(fc - reskh);
+  *resasc = wgk[10] * fabs(fc - reskh);
   for (j = 1; j <= 10; ++j) {
-    *resasc += wgk[j - 1] * (ABS(fv1[j - 1] - reskh) +
-			     ABS(fv2[j - 1] - reskh));
+    *resasc += wgk[j - 1] * (fabs(fv1[j - 1] - reskh) +
+			     fabs(fv2[j - 1] - reskh));
     /* L20: */
   }
   *result = resk * hlgth;
   *resabs *= dhlgth;
   *resasc *= dhlgth;
-  *abserr = ABS((resk - resg) * hlgth);
+  *abserr = fabs((resk - resg) * hlgth);
   if (*resasc != 0. && *abserr != 0.) {
     *abserr = *resasc * min(1., pow(*abserr * 200. / *resasc, 1.5));
   }

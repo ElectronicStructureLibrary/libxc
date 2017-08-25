@@ -87,10 +87,10 @@ br_newt_raph(double a, double tol,  double * res, int *ierr)
      fp = eee*(1.0 - 2.0/3.0*x) - 1.0;
 
      x -= f/fp;
-     x  = ABS(x);
+     x  = fabs(x);
 
      count ++;
-     *res = ABS(f);
+     *res = fabs(f);
    } while((*res > tol) && (count < max_iter));
 
    if(count == max_iter) *ierr=0; 
@@ -130,7 +130,7 @@ br_bisect(double a, double tol, int *ierr) {
     if(f < 0.0) x2 = x; 
 	 	 
     count++; 
-  }while((ABS(f) > tol)  && (count < max_iter)); 
+  }while((fabs(f) > tol)  && (count < max_iter)); 
  	 
   if(count == max_iter) *ierr=0;  
   return x; 
@@ -191,7 +191,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   gamma = (pt->info->number == XC_MGGA_X_B00) ? 1.0 : br89_gamma;
 
   Q = (r->u - 4.0*gamma*r->t + 0.5*gamma*r->x*r->x)/6.0;
-  if(ABS(Q) < MIN_DENS) Q = (Q < 0) ? -MIN_DENS : MIN_DENS;
+  if(fabs(Q) < MIN_DENS) Q = (Q < 0) ? -MIN_DENS : MIN_DENS;
 
   br_x = XC(mgga_x_br89_get_x)(Q);
 
@@ -199,7 +199,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   exp1 = EXP(br_x/3.0);
   exp2 = EXP(-br_x);
 
-  v_BR = (ABS(br_x) > MIN_TAU) ?
+  v_BR = (fabs(br_x) > MIN_TAU) ?
     exp1*(1.0 - exp2*(1.0 + br_x/2.0))/br_x :
     1.0/2.0 + br_x/6.0 - br_x*br_x/18.0;
 
@@ -220,7 +220,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   if(r->order < 1) return;
 
   if(pt->info->number == XC_MGGA_X_BR89 || r->order > 1){
-    dv_BRdbx = (ABS(br_x) > MIN_TAU) ?
+    dv_BRdbx = (fabs(br_x) > MIN_TAU) ?
       (3.0 + br_x*(br_x + 2.0) + (br_x - 3.0)/exp2) / (3.0*exp1*exp1*br_x*br_x) :
       1.0/6.0 - br_x/9.0;
     dv_BRdbx *= cnst;
@@ -259,7 +259,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   if(r->order < 2) return;
   
   if(pt->info->number == XC_MGGA_X_BR89 || r->order > 2){
-    d2v_BRdbx2 = (ABS(br_x) > MIN_TAU) ?
+    d2v_BRdbx2 = (fabs(br_x) > MIN_TAU) ?
       ((18.0 + (br_x - 6.0)*br_x)/exp2 - 2.0*(9.0 + br_x*(6.0 + br_x*(br_x + 2.0)))) 
       / (9.0*exp1*exp1*br_x*br_x*br_x) :
       -1.0/9.0;

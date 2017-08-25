@@ -47,7 +47,7 @@ work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
   for(ip = 0; ip < np; ip++){
     XC(rho2dzeta)(p->nspin, rho, &(r.dens), &(r.z));
 
-    if(r.dens < p->info->min_dens) goto end_ip_loop;
+    if(r.dens < p->dens_threshold) goto end_ip_loop;
     
     r.rs = RS(r.dens);
     if(p->nspin == XC_UNPOLARIZED){
@@ -70,8 +70,8 @@ work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
       if(1.0 + r.z < DBL_EPSILON) r.z = -1.0 + DBL_EPSILON;
       if(1.0 - r.z < DBL_EPSILON) r.z =  1.0 - DBL_EPSILON;
 
-      r.ds[0]  = max(p->info->min_dens, rho[0]);
-      r.ds[1]  = max(p->info->min_dens, rho[1]);
+      r.ds[0]  = max(p->dens_threshold, rho[0]);
+      r.ds[1]  = max(p->dens_threshold, rho[1]);
       
       r.sigmat = max(min_grad2, sigma[0] + 2.0*sigma[1] + sigma[2]);
       r.xt     = SQRT(r.sigmat)/ POW(r.dens, 4.0/3.0);

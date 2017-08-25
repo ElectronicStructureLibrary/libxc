@@ -72,7 +72,7 @@ work_mgga_x
   for(ip = 0; ip < np; ip++){
     XC(rho2dzeta)(p->nspin, rho, &dens, &r.zeta);
 
-    if(dens < p->info->min_dens) goto end_ip_loop;
+    if(dens < p->dens_threshold) goto end_ip_loop;
 
     r.rs = cnst_rs*POW(dens, -1.0/XC_DIMENSIONS);
 
@@ -82,7 +82,7 @@ work_mgga_x
       int ls = (is == 0) ? 0 : 3;
       int ks = (is == 0) ? 0 : 5;
 
-      if (rho[is] < p->info->min_dens) continue;
+      if (rho[is] < p->dens_threshold) continue;
 
       lsigma= max(sigma[js]/sfact2, MIN_GRAD*MIN_GRAD);
       gdm   = SQRT(lsigma);

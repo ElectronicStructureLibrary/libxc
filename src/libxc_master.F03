@@ -96,6 +96,7 @@ module FXC(lib_m)
     FXC(functional_get_name), &
     FXC(functional_get_number), &
     FXC(family_from_id), &
+    FXC(func_set_dens_threshold), &
     FXC(func_set_ext_params), &
     ! lda
     FXC(lda), &
@@ -328,6 +329,12 @@ module FXC(lib_m)
       integer(c_int), value :: id
       type(c_ptr),    value :: family, number
     end function XC(family_from_id)
+
+    subroutine XC(func_set_dens_threshold)(p, dens_threshold) bind(c)
+      import
+      type(c_ptr), value :: p
+      real(RTYPE), value :: dens_threshold
+    end subroutine XC(func_set_dens_threshold)
 
     subroutine XC(func_set_ext_params)(p, ext_params) bind(c)
       import
@@ -715,6 +722,14 @@ module FXC(lib_m)
     FXC(family_from_id) = XC(family_from_id)(id, c_family, c_number)
     
   end function FXC(family_from_id)
+
+  subroutine FXC(func_set_dens_threshold)(p, dens_threshold)
+    type(FXC(func_t)), intent(in) :: p
+    real(RTYPE),       intent(in) :: dens_threshold
+
+    call XC(func_set_dens_threshold)(p%ptr, dens_threshold)
+
+  end subroutine FXC(func_set_dens_threshold)
 
   subroutine FXC(func_set_ext_params)(p, ext_params)
     type(FXC(func_t)), intent(in) :: p

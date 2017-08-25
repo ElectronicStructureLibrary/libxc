@@ -159,6 +159,12 @@ void XC_FC_FUNC(f90_func_end, F90_FUNC_END)
   *p = NULL;
 }
 
+void XC_FC_FUNC(f90_func_set_dens_threshold, F90_FUNC_SET_DENS_THRESHOLD)
+     (void **p, FLOAT *dens_threshold)
+{
+  XC(func_set_dens_threshold)((XC(func_type) *)(*p), *dens_threshold);
+}
+
 void XC_FC_FUNC(f90_func_set_ext_params, F90_FUNC_SET_EXT_PARAMS)
      (void **p, FLOAT *ext_params)
 {

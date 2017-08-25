@@ -105,7 +105,7 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const FLOAT *rho, const F
 	 (ds > params->threshold && gdm > params->threshold)){
 	FLOAT f;
 	
-	if(ds <= func->info->min_dens) continue;
+	if(ds <= func->dens_threshold) continue;
 	
 	x =  gdm/POW(ds, 4.0/3.0);
 	

@@ -37,7 +37,7 @@ gga_x_ityh_init(XC(func_type) *p)
 }
 
 void 
-XC(gga_x_ityh_set_params)(XC(func_type) *p, int func_id, FLOAT omega)
+XC(gga_x_ityh_set_params)(XC(func_type) *p, int func_id, double omega)
 {
   gga_x_ityh_params *params;
 
@@ -66,14 +66,14 @@ XC(gga_x_ityh_set_params)(XC(func_type) *p, int func_id, FLOAT omega)
 
 
 static inline void 
-func_3(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
-     FLOAT *f, FLOAT *dfdx, FLOAT *lvrho)
+func_3(const XC(func_type) *p, int order, double x, double ds,
+     double *f, double *dfdx, double *lvrho)
 {
   gga_x_ityh_params *params;
   XC(gga_work_x_t) aux;
 
-  FLOAT k_GGA, K_GGA, aa, f_aa, df_aa, d2f_aa, d3f_aa;
-  FLOAT dk_GGAdr, dk_GGAdx, daadr, daadx;
+  double k_GGA, K_GGA, aa, f_aa, df_aa, d2f_aa, d3f_aa;
+  double dk_GGAdr, dk_GGAdx, daadr, daadx;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_ityh_params *) (p->params);
@@ -109,8 +109,8 @@ static inline void
 func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 {
   int i;
-  FLOAT ds, ex, f, lvrho, dexdrs, ddsdrs, dexdz, ddsdz;
-  FLOAT sign[2] = {1.0, -1.0};
+  double ds, ex, f, lvrho, dexdrs, ddsdrs, dexdz, ddsdz;
+  double sign[2] = {1.0, -1.0};
 
   r->f     = 0.0;
   r->dfdrs = 0.0;

@@ -23,7 +23,7 @@
 #define XC_HYB_MGGA_XC_M11     462 /* M11    functional from Minnesota */
 
 typedef struct{
-  const FLOAT a[12], b[12];
+  const double a[12], b[12];
 } mgga_x_m11_params;
 
 static const mgga_x_m11_params par_m11 = {
@@ -80,7 +80,7 @@ static void
 hyb_mgga_xc_m11_init(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_MGGA_X_M11, XC_MGGA_C_M11};
-  static FLOAT funcs_coef[2] = {1.0, 1.0};
+  static double funcs_coef[2] = {1.0, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 1.0;

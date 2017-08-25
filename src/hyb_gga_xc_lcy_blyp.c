@@ -24,9 +24,9 @@ void
 XC(hyb_gga_xc_lcy_blyp_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_SFAT, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[2];
+  static double funcs_coef[2];
 
-  FLOAT gamma = 0.75;
+  double gamma = 0.75;
   
   funcs_coef[0] = 1.0;
   funcs_coef[1] = 1.0;

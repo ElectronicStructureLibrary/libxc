@@ -24,13 +24,13 @@ void
 XC(hyb_gga_xc_camy_blyp_init)(XC(func_type) *p)
 {
   static int   funcs_id  [3] = {XC_GGA_X_B88, XC_GGA_X_SFAT, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[3];
+  static double funcs_coef[3];
 
   /* N.B. The notation used in the original reference uses a different
      convention for alpha and beta.  In libxc, alpha is the weight for
      HF exchange, which in the original reference is alpha+beta.
   */
-  static FLOAT alpha, beta, omega;
+  static double alpha, beta, omega;
   
   alpha = 1.00;
   beta  =-0.80;

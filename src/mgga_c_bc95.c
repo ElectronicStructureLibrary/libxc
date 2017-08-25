@@ -22,7 +22,7 @@
 #define XC_MGGA_C_BC95          240 /* Becke correlation 95 */
 
 typedef struct{
-  FLOAT css, copp;
+  double css, copp;
 } mgga_c_bc95_params;
 
 
@@ -37,7 +37,7 @@ mgga_c_bc95_init(XC(func_type) *p)
 
 
 void 
-XC(mgga_c_bc95_set_params)(XC(func_type) *p, FLOAT css, FLOAT copp)
+XC(mgga_c_bc95_set_params)(XC(func_type) *p, double css, double copp)
 {
   mgga_c_bc95_params *params;
 

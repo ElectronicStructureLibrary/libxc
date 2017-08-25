@@ -23,7 +23,7 @@
 #define XC_GGA_C_TM_LYP 559  /* Takkar and McCarthy reparametrization */
 
 typedef struct{
-  FLOAT A, B, c, d;
+  double A, B, c, d;
 } gga_c_lyp_params;
 
 void XC(gga_c_lyp_init)(XC(func_type) *p)
@@ -47,7 +47,7 @@ void XC(gga_c_lyp_init)(XC(func_type) *p)
 }
 
 
-void XC(gga_c_lyp_set_params)(XC(func_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d)
+void XC(gga_c_lyp_set_params)(XC(func_type) *p, double A, double B, double c, double d)
 {
   gga_c_lyp_params *params;
 

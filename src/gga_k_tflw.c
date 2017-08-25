@@ -40,17 +40,17 @@ Celebration of the Contributions of Robert G. Parr, edited by KD Sen
 #define XC_GGA_K_GP85          510 /* gamma-TFvW form by Ghosh and Parr */
 
 typedef struct{
-  FLOAT gamma, lambda;
+  double gamma, lambda;
 } gga_k_tflw_params;
 
 
 /* for automatically assigning lambda and gamma set them to -1 */
 static void 
-gga_k_tflw_set_params(XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N)
+gga_k_tflw_set_params(XC(func_type) *p, double gamma, double lambda, double N)
 {
   gga_k_tflw_params *params;
-  FLOAT C0 = CBRT(M_PI/3.0);
-  FLOAT C1 = CBRT(M_PI*M_PI/36.0)/6.0 - CBRT(M_PI*M_PI/9.0)/4.0;
+  double C0 = CBRT(M_PI/3.0);
+  double C1 = CBRT(M_PI*M_PI/36.0)/6.0 - CBRT(M_PI*M_PI/9.0)/4.0;
   
   assert(p != NULL && p->params != NULL);
   params = (gga_k_tflw_params *) (p->params);

@@ -27,7 +27,7 @@
 #define XC_LDA_C_OW      574   /* Optimized Wigner */
 
 typedef struct {
-  FLOAT a, b;
+  double a, b;
 } lda_c_wigner_params;
 
 static void 

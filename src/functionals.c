@@ -280,7 +280,7 @@ const XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p)
 }
 
 /*------------------------------------------------------*/
-void XC(func_set_dens_threshold)(XC(func_type) *p, FLOAT dens_threshold)
+void XC(func_set_dens_threshold)(XC(func_type) *p, double dens_threshold)
 {
   p->dens_threshold = dens_threshold;
 }
@@ -294,7 +294,7 @@ void XC(func_set_ext_params)(XC(func_type) *p, double *ext_params)
 }
 
 /* returns the mixing coefficient for the hybrid GGAs */
-FLOAT XC(hyb_exx_coef)(const XC(func_type) *p)
+double XC(hyb_exx_coef)(const XC(func_type) *p)
 {
   assert(p!=NULL);
  
@@ -302,7 +302,7 @@ FLOAT XC(hyb_exx_coef)(const XC(func_type) *p)
 }
 
 /* returns the CAM parameters for screened hybrids */
-void XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT *beta)
+void XC(hyb_cam_coef)(const XC(func_type) *p, double *omega, double *alpha, double *beta)
 {
   assert(p!=NULL);
 
@@ -312,7 +312,7 @@ void XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT 
 }
 
 /* returns the NLC parameters */
-void XC(nlc_coef)(const XC(func_type) *p, FLOAT *nlc_b, FLOAT *nlc_C)
+void XC(nlc_coef)(const XC(func_type) *p, double *nlc_b, double *nlc_C)
 {
   assert(p!=NULL);
 

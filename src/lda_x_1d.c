@@ -22,7 +22,7 @@
 
 typedef struct{
   int interaction;  /* 0: exponentially screened; 1: soft-Coulomb */
-  FLOAT bb;         /* screening parameter beta */
+  double bb;         /* screening parameter beta */
 } lda_x_1d_params;
 
 static void 
@@ -33,19 +33,19 @@ lda_x_1d_init(XC(func_type) *p)
 }
 
 
-static inline FLOAT FT_inter(FLOAT x, int interaction)
+static inline double FT_inter(double x, int interaction)
 {
   assert(interaction == 0 || interaction == 1);
 
   if(interaction == 0){
-    FLOAT x2 = x*x;
+    double x2 = x*x;
     return expint_e1(x2)*EXP(x2);
   }else
     return 2.0*XC(bessel_K0)(x); 
 }
 
 
-static void func1(FLOAT *x, int n, void *ex)
+static void func1(double *x, int n, void *ex)
 {
   int interaction = *(int *)ex;
   int ii;
@@ -55,7 +55,7 @@ static void func1(FLOAT *x, int n, void *ex)
 }
 
 
-static void func2(FLOAT *x, int n, void *ex)
+static void func2(double *x, int n, void *ex)
 {
   int interaction = *(int *)ex;
   int ii;
@@ -72,7 +72,7 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
   static int spin_fact[2] = { 2,  1};
 
   int interaction, is;
-  FLOAT bb, R, int1[2], int2[2];
+  double bb, R, int1[2], int2[2];
 
   assert(p->params != NULL);
   interaction = ((lda_x_1d_params *)p->params)->interaction;
@@ -109,7 +109,7 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
 
   r->d2fdrs2 = r->d2fdrsz = r->d2fdz2  = 0.0;
   for(is=0; is<p->nspin; is++){
-    FLOAT ft, aux = 1.0 + spin_sign[is]*r->z;
+    double ft, aux = 1.0 + spin_sign[is]*r->z;
 
     if(aux == 0.0) continue;
 

@@ -31,10 +31,10 @@
 #define XC_LDA_C_OB_PZ   11   /* Ortiz & Ballone (PZ)         */
 
 typedef struct {
-  FLOAT gamma[2];
-  FLOAT beta1[2];
-  FLOAT beta2[2];
-  FLOAT a[2], b[2], c[2], d[2];
+  double gamma[2];
+  double beta1[2];
+  double beta2[2];
+  double a[2], b[2], c[2], d[2];
 } lda_c_pz_params;
 
 static lda_c_pz_params pz_original = {

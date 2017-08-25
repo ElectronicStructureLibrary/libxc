@@ -32,9 +32,9 @@
 #define FALSE 0
 #define TRUE 1
 
-FLOAT XC(integrate)(integr_fn func, void *ex, FLOAT a, FLOAT b)
+double XC(integrate)(integr_fn func, void *ex, double a, double b)
 {
-  FLOAT epsabs, epsrel, result, abserr, *alist, *blist, *rlist, *elist;
+  double epsabs, epsrel, result, abserr, *alist, *blist, *rlist, *elist;
   int limit, neval, ierr, *iord, last;
 
 #ifdef SINGLE_PRECISION
@@ -46,10 +46,10 @@ FLOAT XC(integrate)(integr_fn func, void *ex, FLOAT a, FLOAT b)
 #endif
 
   limit  = 1000;
-  alist = (FLOAT *)malloc(limit*sizeof(FLOAT));
-  blist = (FLOAT *)malloc(limit*sizeof(FLOAT));
-  rlist = (FLOAT *)malloc(limit*sizeof(FLOAT));
-  elist = (FLOAT *)malloc(limit*sizeof(FLOAT));
+  alist = (double *)malloc(limit*sizeof(double));
+  blist = (double *)malloc(limit*sizeof(double));
+  rlist = (double *)malloc(limit*sizeof(double));
+  elist = (double *)malloc(limit*sizeof(double));
   iord  = (int   *)malloc(limit*sizeof(int));
 
   XC(rdqagse)(func, ex, &a, &b, &epsabs, &epsrel, &limit, &result, &abserr, &neval, &ierr,
@@ -67,16 +67,16 @@ FLOAT XC(integrate)(integr_fn func, void *ex, FLOAT a, FLOAT b)
 /* f2c-ed translations + modifications of QUADPACK functions from here down */
 
 static void rdqk21(integr_fn f, void *ex,
-		   FLOAT *, FLOAT *, FLOAT *, FLOAT *, FLOAT *, FLOAT *);
+		   double *, double *, double *, double *, double *, double *);
 
-static void rdqpsrt(int *, int *, int *, FLOAT *, FLOAT *, int *, int *);
+static void rdqpsrt(int *, int *, int *, double *, double *, int *, int *);
 
-static void rdqelg(int *, FLOAT *, FLOAT *, FLOAT *, FLOAT *, int *);
+static void rdqelg(int *, double *, double *, double *, double *, int *);
 
-void XC(rdqagse)(integr_fn f, void *ex, FLOAT *a, FLOAT *b, 
-	     FLOAT *epsabs, FLOAT *epsrel, int *limit, FLOAT *result,
-	     FLOAT *abserr, int *neval, int *ier, FLOAT *alist__,
-	     FLOAT *blist, FLOAT *rlist, FLOAT *elist, int *iord, int *last)
+void XC(rdqagse)(integr_fn f, void *ex, double *a, double *b, 
+	     double *epsabs, double *epsrel, int *limit, double *result,
+	     double *abserr, int *neval, int *ier, double *alist__,
+	     double *blist, double *rlist, double *elist, int *iord, int *last)
 {
   /* Local variables */
   int noext, extrap;
@@ -88,13 +88,13 @@ void XC(rdqagse)(integr_fn f, void *ex, FLOAT *a, FLOAT *b,
   int numrl2;
   int jupbnd;
   int maxerr;
-  FLOAT res3la[3];
-  FLOAT rlist2[52];
-  FLOAT abseps, area, area1, area2, area12, dres, epmach;
-  FLOAT a1, a2, b1, b2, defabs, defab1, defab2, oflow, uflow, resabs, reseps;
-  FLOAT error1, error2, erro12, errbnd, erlast, errmax, errsum;
+  double res3la[3];
+  double rlist2[52];
+  double abseps, area, area1, area2, area12, dres, epmach;
+  double a1, a2, b1, b2, defabs, defab1, defab2, oflow, uflow, resabs, reseps;
+  double error1, error2, erro12, errbnd, erlast, errmax, errsum;
   
-  FLOAT correc = 0.0, erlarg = 0.0, ertest = 0.0, small = 0.0;
+  double correc = 0.0, erlarg = 0.0, ertest = 0.0, small = 0.0;
   /*
  ***begin prologue  dqagse
  ***date written   800101   (yymmdd)
@@ -113,24 +113,24 @@ void XC(rdqagse)(integr_fn f, void *ex, FLOAT *a, FLOAT *b,
 
        computation of a definite integral
        standard fortran subroutine
-       FLOAT precision version
+       double precision version
 
        parameters
         on entry
-           f      - FLOAT precision
+           f      - double precision
                     function subprogram defining the integrand
                     function f(x). the actual name for f needs to be
                     declared e x t e r n a l in the driver program.
 
-           a      - FLOAT precision
+           a      - double precision
                     lower limit of integration
 
-           b      - FLOAT precision
+           b      - double precision
                     upper limit of integration
 
-           epsabs - FLOAT precision
+           epsabs - double precision
                     absolute accuracy requested
-           epsrel - FLOAT precision
+           epsrel - double precision
                     relative accuracy requested
                     if  epsabs <= 0
                     and epsrel < max(50*rel.mach.acc.,0.5d-28),
@@ -141,10 +141,10 @@ void XC(rdqagse)(integr_fn f, void *ex, FLOAT *a, FLOAT *b,
                     in the partition of (a,b)
 
         on return
-           result - FLOAT precision
+           result - double precision
                     approximation to the integral
 
-           abserr - FLOAT precision
+           abserr - double precision
                     estimate of the modulus of the absolute error,
                     which should equal or exceed abs(i-result)
 
@@ -203,24 +203,24 @@ void XC(rdqagse)(integr_fn f, void *ex, FLOAT *a, FLOAT *b,
                             alist(1) and blist(1) are set to a and b
                             respectively.
 
-           alist  - FLOAT precision
+           alist  - double precision
                     vector of dimension at least limit, the first
                      last  elements of which are the left end points
                     of the subintervals in the partition of the
                     given integration range (a,b)
 
-           blist  - FLOAT precision
+           blist  - double precision
                     vector of dimension at least limit, the first
                      last  elements of which are the right end points
                     of the subintervals in the partition of the given
                     integration range (a,b)
 
-           rlist  - FLOAT precision
+           rlist  - double precision
                     vector of dimension at least limit, the first
                      last  elements of which are the integral
                     approximations on the subintervals
 
-           elist  - FLOAT precision
+           elist  - double precision
                     vector of dimension at least limit, the first
                      last  elements of which are the moduli of the
                     absolute error estimates on the subintervals
@@ -593,14 +593,14 @@ void XC(rdqagse)(integr_fn f, void *ex, FLOAT *a, FLOAT *b,
 } /* rdqagse_ */
 
 
-static void rdqelg(int *n, FLOAT *epstab, FLOAT *
-		   result, FLOAT *abserr, FLOAT *res3la, int *nres)
+static void rdqelg(int *n, double *epstab, double *
+		   result, double *abserr, double *res3la, int *nres)
 {
   /* Local variables */
   int i__, indx, ib, ib2, ie, k1, k2, k3, num, newelm, limexp;
-  FLOAT delta1, delta2, delta3, e0, e1, e1abs, e2, e3, epmach, epsinf;
-  FLOAT oflow, ss, res;
-  FLOAT errA, err1, err2, err3, tol1, tol2, tol3;
+  double delta1, delta2, delta3, e0, e1, e1abs, e2, e3, epmach, epsinf;
+  double oflow, ss, res;
+  double errA, err1, err2, err3, tol1, tol2, tol3;
   
   /* ***begin prologue  dqelg
  ***refer to  dqagie,dqagoe,dqagpe,dqagse
@@ -619,28 +619,28 @@ static void rdqelg(int *n, FLOAT *epstab, FLOAT *
 
           epsilon algorithm
           standard fortran subroutine
-          FLOAT precision version
+          double precision version
 
           parameters
              n      - int
                       epstab(n) contains the new element in the
                       first column of the epsilon table.
 
-             epstab - FLOAT precision
+             epstab - double precision
                       vector of dimension 52 containing the elements
                       of the two lower diagonals of the triangular
                       epsilon table. the elements are numbered
                       starting at the right-hand corner of the
                       triangle.
 
-             result - FLOAT precision
+             result - double precision
                       resulting approximation to the integral
 
-             abserr - FLOAT precision
+             abserr - double precision
                       estimate of the absolute error computed from
                       result and the 3 previous results
 
-             res3la - FLOAT precision
+             res3la - double precision
                       vector of dimension 3 containing the last 3
                       results
 
@@ -794,17 +794,17 @@ static void rdqelg(int *n, FLOAT *epstab, FLOAT *
   return;
 } /* rdqelg_ */
 
-static void  rdqk21(integr_fn f, void *ex, FLOAT *a, FLOAT *b, FLOAT *result,
-		    FLOAT *abserr, FLOAT *resabs, FLOAT *resasc)
+static void  rdqk21(integr_fn f, void *ex, double *a, double *b, double *result,
+		    double *abserr, double *resabs, double *resasc)
 {
   /* Initialized data */
   
-  static FLOAT wg[5] = { .066671344308688137593568809893332,
+  static double wg[5] = { .066671344308688137593568809893332,
 			  .149451349150580593145776339657697,
 			  .219086362515982043995534934228163,
 			  .269266719309996355091226921569469,
 			  .295524224714752870173892994651338 };
-  static FLOAT xgk[11] = { .995657163025808080735527280689003,
+  static double xgk[11] = { .995657163025808080735527280689003,
 			    .973906528517171720077964012084452,
 			    .930157491355708226001207180059508,
 			    .865063366688984510732096688423493,
@@ -814,7 +814,7 @@ static void  rdqk21(integr_fn f, void *ex, FLOAT *a, FLOAT *b, FLOAT *result,
 			    .433395394129247190799265943165784,
 			    .294392862701460198131126603103866,
 			    .14887433898163121088482600112972,0. };
-  static FLOAT wgk[11] = { .011694638867371874278064396062192,
+  static double wgk[11] = { .011694638867371874278064396062192,
 			    .03255816230796472747881897245939,
 			    .05475589657435199603138130024458,
 			    .07503967481091995276704314091619,
@@ -828,10 +828,10 @@ static void  rdqk21(integr_fn f, void *ex, FLOAT *a, FLOAT *b, FLOAT *result,
 
 
   /* Local variables */
-  FLOAT fv1[10], fv2[10], vec[21];
-  FLOAT absc, resg, resk, fsum, fval1, fval2;
-  FLOAT hlgth, centr, reskh, uflow;
-  FLOAT fc, epmach, dhlgth;
+  double fv1[10], fv2[10], vec[21];
+  double absc, resg, resk, fsum, fval1, fval2;
+  double hlgth, centr, reskh, uflow;
+  double fc, epmach, dhlgth;
   int j, jtw, jtwm1;
   
 /* ***begin prologue  dqk21
@@ -848,36 +848,36 @@ static void  rdqk21(integr_fn f, void *ex, FLOAT *a, FLOAT *b, FLOAT *result,
 
           integration rules
           standard fortran subroutine
-          FLOAT precision version
+          double precision version
 
           parameters
            on entry
-             f      - FLOAT precision
+             f      - double precision
                       function subprogram defining the integrand
                       function f(x). the actual name for f needs to be
                       declared e x t e r n a l in the driver program.
 
-             a      - FLOAT precision
+             a      - double precision
                       lower limit of integration
 
-             b      - FLOAT precision
+             b      - double precision
                       upper limit of integration
 
            on return
-             result - FLOAT precision
+             result - double precision
                       approximation to the integral i
                       result is computed by applying the 21-point
                       kronrod rule (resk) obtained by optimal addition
                       of abscissae to the 10-point gauss rule (resg).
 
-             abserr - FLOAT precision
+             abserr - double precision
                       estimate of the modulus of the absolute error,
                       which should not exceed abs(i-result)
 
-             resabs - FLOAT precision
+             resabs - double precision
                       approximation to the integral j
 
-             resasc - FLOAT precision
+             resasc - double precision
                       approximation to the integral of abs(f-i/(b-a))
                       over (a,b)
 
@@ -1005,11 +1005,11 @@ bell labs, nov. 1981.
 
 
 static void rdqpsrt(int *limit, int *last, int *maxerr,
-		    FLOAT *ermax, FLOAT *elist, int *iord, int *nrmax)
+		    double *ermax, double *elist, int *iord, int *nrmax)
 {
   /* Local variables */
   int i, j, k, ido, jbnd, isucc, jupbn;
-  FLOAT errmin, errmax;
+  double errmin, errmax;
 
 /* ***begin prologue  dqpsrt
  ***refer to  dqage,dqagie,dqagpe,dqawse
@@ -1028,7 +1028,7 @@ static void rdqpsrt(int *limit, int *last, int *maxerr,
 
            ordering routine
            standard fortran subroutine
-           FLOAT precision version
+           double precision version
 
            parameters (meaning at output)
               limit  - int
@@ -1042,11 +1042,11 @@ static void rdqpsrt(int *limit, int *last, int *maxerr,
                        maxerr points to the nrmax-th largest error
                        estimate currently in the list
 
-              ermax  - FLOAT precision
+              ermax  - double precision
                        nrmax-th largest error estimate
                        ermax = elist(maxerr)
 
-              elist  - FLOAT precision
+              elist  - double precision
                        vector of dimension last containing
                        the error estimates
 

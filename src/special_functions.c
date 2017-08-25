@@ -92,8 +92,8 @@ double LambertW(double z)
 */
 
 
-static FLOAT pi26 = 1.644934066848226436472415166646025189219;
-static FLOAT spencs[38] = 
+static double pi26 = 1.644934066848226436472415166646025189219;
+static double spencs[38] = 
   {
     +.1527365598892405872946684910028e+0,
     +.8169658058051014403501838185271e-1,
@@ -136,10 +136,10 @@ static FLOAT spencs[38] =
   };
 
 
-FLOAT XC(dilogarithm)(const FLOAT x)
+double XC(dilogarithm)(const double x)
 {
   const int nspenc = 38;
-  FLOAT aux, dspenc;
+  double aux, dspenc;
 
   if (x > 2.0){
     aux = LOG(x);

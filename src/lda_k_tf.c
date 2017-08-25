@@ -23,7 +23,7 @@
 #define XC_LDA_K_LP      51   /* Lee and Parr Gaussian ansatz           */
 
 typedef struct {
-  FLOAT ax;
+  double ax;
 } lda_k_tf_params;
 
 static void 

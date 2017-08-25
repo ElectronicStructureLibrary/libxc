@@ -22,7 +22,7 @@
 #define XC_GGA_X_OL2          183 /* Exchange form based on Ou-Yang and Levy v.2 */
 
 typedef struct{
-  FLOAT aa, bb, cc;
+  double aa, bb, cc;
 } gga_k_ol2_params;
 
 static void 

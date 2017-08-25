@@ -25,12 +25,12 @@
 void
 XC(hyb_gga_xc_cam_b3lyp_init)(XC(func_type) *p)
 {
-  static FLOAT ac = 0.81;
+  static double ac = 0.81;
   static int   funcs_id  [4] = {XC_GGA_X_B88, XC_GGA_X_ITYH, XC_LDA_C_VWN, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[4];
+  static double funcs_coef[4];
 
   /* Need temp variables since cam_ parameters are initialized in mix_init */
-  static FLOAT omega, alpha, beta;
+  static double omega, alpha, beta;
   
   switch(p->info->number){
   case XC_HYB_GGA_XC_CAM_B3LYP:

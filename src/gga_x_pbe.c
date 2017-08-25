@@ -42,10 +42,10 @@
 
 
 typedef struct{
-  FLOAT kappa, mu;
+  double kappa, mu;
 
   /* parameter used in the Odashima & Capelle versions */
-  FLOAT lambda;
+  double lambda;
 } gga_x_pbe_params;
 
 
@@ -133,7 +133,7 @@ gga_x_pbe_init(XC(func_type) *p)
 
 
 void 
-XC(gga_x_pbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu)
+XC(gga_x_pbe_set_params)(XC(func_type) *p, double kappa, double mu)
 {
   gga_x_pbe_params *params;
 
@@ -261,10 +261,10 @@ static const func_params_type ext_params[] = {
 static void 
 set_ext_params(XC(func_type) *p, const double *ext_params)
 {
-  const FLOAT lambda_1 = 1.48;
+  const double lambda_1 = 1.48;
 
   gga_x_pbe_params *params;
-  FLOAT lambda, ff;
+  double lambda, ff;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_pbe_params *) (p->params);

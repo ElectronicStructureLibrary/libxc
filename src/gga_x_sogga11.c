@@ -22,7 +22,7 @@
 #define XC_HYB_GGA_X_SOGGA11_X  426 /* Hybrid based on SOGGA11 form */
 
 typedef struct{
-  FLOAT kappa, mu, a[6], b[6];
+  double kappa, mu, a[6], b[6];
 } gga_x_sogga11_params;
 
 static const gga_x_sogga11_params par_sogga11 = {

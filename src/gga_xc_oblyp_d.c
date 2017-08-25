@@ -26,7 +26,7 @@ static void
 gga_xc_oblyp_d_init(XC(func_type) *p)
 {
   static int   funcs_id  [4] = {XC_GGA_X_B88, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[4] = {1.0, 1.0};
+  static double funcs_coef[4] = {1.0, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   XC(gga_x_b88_set_params)(p->func_aux[0], 0.00401, 6.0);
@@ -51,7 +51,7 @@ static void
 gga_xc_opwlyp_d_init(XC(func_type) *p)
 {
   static int   funcs_id  [4] = {XC_GGA_X_PW91, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[4] = {1.0, 1.0};
+  static double funcs_coef[4] = {1.0, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   XC(gga_x_pw91_set_params2)(p->func_aux[0], 0.00402, 0.8894/(X2S*X2S), 0.79);
@@ -76,7 +76,7 @@ static void
 gga_xc_opbe_d_init(XC(func_type) *p)
 {
   static int   funcs_id  [4] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[4] = {1.0, 1.0};
+  static double funcs_coef[4] = {1.0, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   XC(gga_x_pbe_set_params)(p->func_aux[0], 1.2010, 0.21198);

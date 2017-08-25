@@ -23,7 +23,7 @@
 #define XC_GGA_K_LC94         521 /* Lembarki & Chermette */
 
 typedef struct{
-  FLOAT a, b, c, d, f, alpha, expo;
+  double a, b, c, d, f, alpha, expo;
 } gga_x_pw91_params;
 
 
@@ -58,7 +58,7 @@ gga_x_pw91_init(XC(func_type) *p)
 }
 
 void 
-XC(gga_x_pw91_set_params)(XC(func_type) *p, FLOAT a, FLOAT b, FLOAT c, FLOAT d, FLOAT f, FLOAT alpha, FLOAT expo)
+XC(gga_x_pw91_set_params)(XC(func_type) *p, double a, double b, double c, double d, double f, double alpha, double expo)
 {
   gga_x_pw91_params *params;
 
@@ -75,10 +75,10 @@ XC(gga_x_pw91_set_params)(XC(func_type) *p, FLOAT a, FLOAT b, FLOAT c, FLOAT d, 
 }
 
 void 
-XC(gga_x_pw91_set_params2)(XC(func_type) *p, FLOAT bt, FLOAT alpha, FLOAT expo)
+XC(gga_x_pw91_set_params2)(XC(func_type) *p, double bt, double alpha, double expo)
 {
-  FLOAT beta;
-  FLOAT a, b, c, d, f;
+  double beta;
+  double a, b, c, d, f;
 
   beta =  5.0*POW(36.0*M_PI,-5.0/3.0);
   a    =  6.0*bt/X2S;

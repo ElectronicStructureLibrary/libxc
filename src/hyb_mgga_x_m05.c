@@ -24,8 +24,8 @@
 #define XC_HYB_MGGA_X_M06_2X   450 /* M06-2X functional from Minnesota  */
 
 typedef struct{
-  FLOAT csi_HF;
-  const FLOAT a[12];
+  double csi_HF;
+  const double a[12];
 } mgga_x_m05_params;
 
 static const mgga_x_m05_params par_m05 = {

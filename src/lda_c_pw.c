@@ -36,9 +36,9 @@ the constants of PW.
 #define XC_LDA_C_PW_RPA 25   /* Perdew & Wang fit of the RPA */
 
 typedef struct {
-  FLOAT pp[3], a[3], alpha1[3];
-  FLOAT beta1[3], beta2[3], beta3[3], beta4[3];
-  FLOAT fz20;
+  double pp[3], a[3], alpha1[3];
+  double beta1[3], beta2[3], beta3[3], beta4[3];
+  double fz20;
 } lda_c_pw_params;
 
 static const lda_c_pw_params par_pw = {

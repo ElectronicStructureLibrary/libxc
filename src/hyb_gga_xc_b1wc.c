@@ -33,7 +33,7 @@ void
 XC(hyb_gga_xc_b1wc_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_WC, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[2] = {1.0 - 0.16, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.16, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.16;
@@ -57,7 +57,7 @@ void
 XC(hyb_gga_xc_b1lyp_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
@@ -81,7 +81,7 @@ void
 XC(hyb_gga_xc_b1pw91_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_PW91};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
@@ -105,7 +105,7 @@ void
 XC(hyb_gga_xc_mpw1pw_init)(XC(func_type) *p)
 {
   int   funcs_id  [2] = {XC_GGA_X_MPW91, 0};
-  FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
   switch(p->info->number) {
   case(XC_HYB_GGA_XC_MPW1LYP):
@@ -171,7 +171,7 @@ void
 XC(hyb_gga_xc_mpw1k_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_MPW91, XC_GGA_C_PW91};
-  static FLOAT funcs_coef[2] = {1.0 - 0.428, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.428, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.428;
@@ -195,7 +195,7 @@ void
 XC(hyb_gga_xc_bhandh_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_LDA_X, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[2] = {0.5, 1.0};
+  static double funcs_coef[2] = {0.5, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.5;
@@ -219,7 +219,7 @@ void
 XC(hyb_gga_xc_bhandhlyp_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[2] = {0.5, 1.0};
+  static double funcs_coef[2] = {0.5, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.5;
@@ -243,7 +243,7 @@ void
 XC(hyb_gga_xc_mpwlyp1m_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_MPW91, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[2] = {1.0 - 0.05, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.05, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.05;

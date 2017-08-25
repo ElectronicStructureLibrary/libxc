@@ -42,7 +42,7 @@
 #define XC_GGA_XC_HLE16       545 /* high local exchange 2016                 */
 
 typedef struct {
-  FLOAT c_x[5], c_ss[5], c_ab[5];
+  double c_x[5], c_ss[5], c_ab[5];
 } gga_xc_b97_params;
 
 static const gga_xc_b97_params par_hcth_93 = {

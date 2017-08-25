@@ -22,7 +22,7 @@
 #define XC_GGA_X_FT97_B       115 /* Filatov & Thiel 97 (version B) */
 
 typedef struct{
-  FLOAT beta0, beta1, beta2;
+  double beta0, beta1, beta2;
 } gga_x_ft97_params;
 
 static const gga_x_ft97_params par_ft97_a = {

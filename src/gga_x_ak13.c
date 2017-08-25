@@ -20,12 +20,12 @@
 
 #define XC_GGA_X_AK13  56 /* Armiento & Kuemmel 2013 */
 
-static const FLOAT B1 =  1.74959015598863046792081721182; /* 3*muGE/5 + 8 pi/15 */
-static const FLOAT B2 = -1.62613336586517367779736042170; /* muGE - B1 */
+static const double B1 =  1.74959015598863046792081721182; /* 3*muGE/5 + 8 pi/15 */
+static const double B2 = -1.62613336586517367779736042170; /* muGE - B1 */
 
-FLOAT XC(gga_ak13_get_asymptotic) (FLOAT homo)
+double XC(gga_ak13_get_asymptotic) (double homo)
 {
-  FLOAT Qx, aa, aa2, factor;
+  double Qx, aa, aa2, factor;
 
   Qx = SQRT(2.0)*B1/(3.0*CBRT(3.0*M_PI*M_PI));
 

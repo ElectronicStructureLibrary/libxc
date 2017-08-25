@@ -22,8 +22,8 @@
 
 /* get the lda functional */
 void 
-XC(lda)(const XC(func_type) *func, int np, const FLOAT *rho, 
-	FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3)
+XC(lda)(const XC(func_type) *func, int np, const double *rho, 
+	double *zk, double *vrho, double *v2rho2, double *v3rho3)
 {
   assert(func != NULL);
 
@@ -54,16 +54,16 @@ XC(lda)(const XC(func_type) *func, int np, const FLOAT *rho,
 
   /* initialize output */
   if(zk != NULL)
-    memset(zk,     0, np*sizeof(FLOAT)*func->n_zk);
+    memset(zk,     0, np*sizeof(double)*func->n_zk);
 
   if(vrho != NULL)
-    memset(vrho,   0, np*sizeof(FLOAT)*func->n_vrho);
+    memset(vrho,   0, np*sizeof(double)*func->n_vrho);
 
   if(v2rho2 != NULL)
-    memset(v2rho2, 0, np*sizeof(FLOAT)*func->n_v2rho2);
+    memset(v2rho2, 0, np*sizeof(double)*func->n_v2rho2);
 
   if(v3rho3 != NULL)
-    memset(v3rho3, 0, np*sizeof(FLOAT)*func->n_v3rho3);
+    memset(v3rho3, 0, np*sizeof(double)*func->n_v3rho3);
 
 
   assert(func->info!=NULL && func->info->lda!=NULL);
@@ -75,31 +75,31 @@ XC(lda)(const XC(func_type) *func, int np, const FLOAT *rho,
 
 /* specializations */
 inline void 
-XC(lda_exc)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *zk)
+XC(lda_exc)(const XC(func_type) *p, int np, const double *rho, double *zk)
 {
   XC(lda)(p, np, rho, zk, NULL, NULL, NULL);
 }
 
 inline void 
-XC(lda_exc_vxc)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *zk, FLOAT *vrho)
+XC(lda_exc_vxc)(const XC(func_type) *p, int np, const double *rho, double *zk, double *vrho)
 {
   XC(lda)(p, np, rho, zk, vrho, NULL, NULL);
 }
 
 inline void 
-XC(lda_vxc)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *vrho)
+XC(lda_vxc)(const XC(func_type) *p, int np, const double *rho, double *vrho)
 {
   XC(lda)(p, np, rho, NULL, vrho, NULL, NULL);
 }
 
 inline void 
-XC(lda_fxc)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *v2rho2)
+XC(lda_fxc)(const XC(func_type) *p, int np, const double *rho, double *v2rho2)
 {
   XC(lda)(p, np, rho, NULL, NULL, v2rho2, NULL);
 }
 
 inline void 
-XC(lda_kxc)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *v3rho3)
+XC(lda_kxc)(const XC(func_type) *p, int np, const double *rho, double *v3rho3)
 {
   XC(lda)(p, np, rho, NULL, NULL, NULL, v3rho3);
 }
@@ -113,7 +113,7 @@ XC(lda_kxc)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *v3rho3)
 
 /* get the xc kernel through finite differences */
 void 
-XC(lda_fxc_fd)(const XC(func_type) *func, int np, const FLOAT *rho, FLOAT *v2rho2)
+XC(lda_fxc_fd)(const XC(func_type) *func, int np, const double *rho, double *v2rho2)
 {
   int i, ip;
 
@@ -121,7 +121,7 @@ XC(lda_fxc_fd)(const XC(func_type) *func, int np, const FLOAT *rho, FLOAT *v2rho
 
   for(ip=0; ip<np; ip++){
     for(i=0; i<func->nspin; i++){
-      FLOAT rho2[2], vc1[2], vc2[2];
+      double rho2[2], vc1[2], vc2[2];
       int j, js;
       
       j  = (i+1) % 2;
@@ -155,7 +155,7 @@ XC(lda_fxc_fd)(const XC(func_type) *func, int np, const FLOAT *rho, FLOAT *v2rho
 
 
 void
-XC(lda_kxc_fd)(const XC(func_type) *func, int np, const FLOAT *rho, FLOAT *v3rho3)
+XC(lda_kxc_fd)(const XC(func_type) *func, int np, const double *rho, double *v3rho3)
 {
   /* Kxc, this is a third order tensor with respect to the densities */
   int ip, i, j, n;
@@ -164,7 +164,7 @@ XC(lda_kxc_fd)(const XC(func_type) *func, int np, const FLOAT *rho, FLOAT *v3rho
 
   for(ip=0; ip<np; ip++){
     for(i=0; i<func->nspin; i++){
-      FLOAT rho2[2], vc1[2], vc2[2], vc3[2];
+      double rho2[2], vc1[2], vc2[2], vc3[2];
 
       for(n=0; n<func->nspin; n++) rho2[n] = rho[n];
       XC(lda_vxc)(func, 1, rho, vc2);

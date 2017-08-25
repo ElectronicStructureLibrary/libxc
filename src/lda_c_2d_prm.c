@@ -28,8 +28,8 @@ Correlation functional by Pittalis, Rasanen & Marques for the 2D electron gas
 #define XC_LDA_C_2D_PRM  16   /* Pittalis, Rasanen & Marques correlation in 2D */
 
 typedef struct{
-  FLOAT N;
-  FLOAT c;
+  double N;
+  double c;
 } lda_c_2d_prm_params;
 
 /* Initialization */
@@ -54,7 +54,7 @@ static const func_params_type ext_params[] = {
 static void 
 set_ext_params(XC(func_type) *p, const double *ext_params)
 {
-  static FLOAT prm_q = 3.9274; /* 2.258 */
+  static double prm_q = 3.9274; /* 2.258 */
   lda_c_2d_prm_params *params;
   double ff;
 

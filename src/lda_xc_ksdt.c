@@ -30,9 +30,9 @@
 #define XC_LDA_XC_GDSMFB  577    /* Groth et al. parametrization */
 
 typedef struct{
-  FLOAT T;
+  double T;
 
-  FLOAT b[2][5], c[2][3], d[2][5],  e[2][5];
+  double b[2][5], c[2][3], d[2][5],  e[2][5];
 } lda_xc_ksdt_params;
 
 static const lda_xc_ksdt_params par_ksdt = {

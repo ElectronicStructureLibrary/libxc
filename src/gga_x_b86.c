@@ -23,14 +23,14 @@
 #define XC_GGA_X_B86_R         41 /* Revised Becke 86 Xalpha,beta,gamma (with mod. grad. correction) */
 
 typedef struct{
-  FLOAT beta, gamma, omega;
+  double beta, gamma, omega;
 } gga_x_b86_params;
 
 
 static void 
 gga_x_b86_init(XC(func_type) *p)
 {
-  FLOAT mu, kappa;
+  double mu, kappa;
 
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_x_b86_params));
@@ -56,7 +56,7 @@ gga_x_b86_init(XC(func_type) *p)
 
 
 void 
-XC(gga_x_b86_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma, FLOAT omega)
+XC(gga_x_b86_set_params)(XC(func_type) *p, double beta, double gamma, double omega)
 {
   gga_x_b86_params *params;
 

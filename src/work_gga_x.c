@@ -34,24 +34,24 @@ work_gga_k
 #else
 work_gga_x
 #endif
-(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
- FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
- FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
- FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3)
+(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+ double *zk, double *vrho, double *vsigma,
+ double *v2rho2, double *v2rhosigma, double *v2sigma2,
+ double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
   XC(gga_work_x_t) r;
 
-  FLOAT sfact, sfact2, x_factor_c, alpha, beta, dens;
+  double sfact, sfact2, x_factor_c, alpha, beta, dens;
   int is, is2, ip;
 
   /* constants for the evaluation of the different terms */
-  FLOAT c_zk[1];
-  FLOAT c_vrho[3], c_vsigma[2];
-  FLOAT c_v2rho2[3], c_v2rhosigma[4], c_v2sigma2[2];
-  FLOAT c_v3rho3[4], c_v3rho2sigma[3], c_v3rhosigma2[3], c_v3sigma3[3];
+  double c_zk[1];
+  double c_vrho[3], c_vsigma[2];
+  double c_v2rho2[3], c_v2rhosigma[4], c_v2sigma2[2];
+  double c_v3rho3[4], c_v3rho2sigma[3], c_v3rhosigma2[3], c_v3sigma3[3];
 
   /* variables used inside the is loop */
-  FLOAT gdm, ds, rhoLDA;
+  double gdm, ds, rhoLDA;
 
   /* alpha is the power of rho in the corresponding LDA
      beta  is the power of rho in the expression for x */

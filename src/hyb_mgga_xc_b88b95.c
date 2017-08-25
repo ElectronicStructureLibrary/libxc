@@ -35,7 +35,7 @@ void
 XC(hyb_mgga_xc_b88b95_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_MGGA_C_BC95};
-  static FLOAT funcs_coef[2] = {1.0 - 0.28, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.28, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.28;
@@ -60,7 +60,7 @@ void
 XC(hyb_mgga_xc_b86b95_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B86, XC_MGGA_C_BC95};
-  static FLOAT funcs_coef[2] = {1.0 - 0.28, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.28, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.28;
@@ -85,7 +85,7 @@ void
 XC(hyb_mgga_xc_pw86b95_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PW86, XC_MGGA_C_BC95};
-  static FLOAT funcs_coef[2] = {1.0 - 0.29, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.29, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.29;
@@ -110,7 +110,7 @@ void
 XC(hyb_mgga_xc_bb1k_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_MGGA_C_BC95};
-  static FLOAT funcs_coef[2] = {1.0 - 0.42, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.42, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.42;
@@ -135,7 +135,7 @@ void
 XC(hyb_mgga_xc_mpw1b95_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_MPW91, XC_MGGA_C_BC95};
-  static FLOAT funcs_coef[2] = {1.0 - 0.31, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.31, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.31;
@@ -160,7 +160,7 @@ void
 XC(hyb_mgga_xc_mpwb1k_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_MPW91, XC_MGGA_C_BC95};
-  static FLOAT funcs_coef[2] = {1.0 - 0.44, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.44, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.44;
@@ -184,10 +184,10 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_mpwb1k) = {
 void
 XC(hyb_mgga_xc_x1b95_init)(XC(func_type) *p)
 {
-  const FLOAT a1=0.675, a2=0.235, a0=0.30;
+  const double a1=0.675, a2=0.235, a0=0.30;
 
   static int   funcs_id  [3] = {XC_GGA_X_B88, XC_GGA_X_PW91, XC_MGGA_C_BC95};
-  FLOAT funcs_coef[3];
+  double funcs_coef[3];
 
   funcs_coef[0] = a0*a1;
   funcs_coef[1] = a0*a2;
@@ -215,10 +215,10 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_x1b95) = {
 void
 XC(hyb_mgga_xc_xb1k_init)(XC(func_type) *p)
 {
-  const FLOAT a1=0.675, a2=0.235, a0=0.43;
+  const double a1=0.675, a2=0.235, a0=0.43;
 
   static int   funcs_id  [3] = {XC_GGA_X_B88, XC_GGA_X_PW91, XC_MGGA_C_BC95};
-  FLOAT funcs_coef[3];
+  double funcs_coef[3];
 
   funcs_coef[0] = a0*a1;
   funcs_coef[1] = a0*a2;
@@ -247,7 +247,7 @@ void
 XC(hyb_mgga_xc_pw6b95_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PW91, XC_MGGA_C_BC95};
-  static FLOAT funcs_coef[2] = {1.0 - 0.28, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.28, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   XC(gga_x_pw91_set_params2)(p->func_aux[0], 0.00538, 1.7382/(X2S*X2S), 3.8901);
@@ -274,7 +274,7 @@ void
 XC(hyb_mgga_xc_pwb6k_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PW91, XC_MGGA_C_BC95};
-  static FLOAT funcs_coef[2] = {1.0 - 0.46, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.46, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   XC(gga_x_pw91_set_params2)(p->func_aux[0], 0.00539, 1.7077/(X2S*X2S), 4.0876);
@@ -301,7 +301,7 @@ static void
 mgga_xc_tpsslyp1w_init(XC(func_type) *p)
 {
   static int   funcs_id  [3] = {XC_LDA_C_VWN, XC_MGGA_X_TPSS, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[3] = {1.0 - 74.0/100.0, 1.0, 74.0/100.0};
+  static double funcs_coef[3] = {1.0 - 74.0/100.0, 1.0, 74.0/100.0};
 
   XC(mix_init)(p, 3, funcs_id, funcs_coef);
 }

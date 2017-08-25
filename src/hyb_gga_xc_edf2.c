@@ -25,7 +25,7 @@ static void
 hyb_gga_xc_edf2_init(XC(func_type) *p)
 {
   static int   funcs_id  [6] = {XC_LDA_X, XC_GGA_X_B88, XC_GGA_X_B88, XC_LDA_C_VWN, XC_GGA_C_LYP, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[6] = {0.2811, 0.6227, -0.0551, 0.3029, 0.5998, -0.0053};
+  static double funcs_coef[6] = {0.2811, 0.6227, -0.0551, 0.3029, 0.5998, -0.0053};
 
   XC(mix_init)(p, 6, funcs_id, funcs_coef);  
   XC(gga_x_b88_set_params)(p->func_aux[2], 0.0035, 6.0);

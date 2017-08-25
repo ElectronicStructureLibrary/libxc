@@ -22,7 +22,7 @@
 
 
 typedef struct{
-  FLOAT rpbe_kappa, rpbe_mu;
+  double rpbe_kappa, rpbe_mu;
 } gga_x_rpbe_params;
 
 
@@ -38,7 +38,7 @@ gga_x_rpbe_init(XC(func_type) *p)
 
 
 void 
-XC(gga_x_rpbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu)
+XC(gga_x_rpbe_set_params)(XC(func_type) *p, double kappa, double mu)
 {
   gga_x_rpbe_params *params;
 

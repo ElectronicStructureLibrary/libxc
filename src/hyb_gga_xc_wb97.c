@@ -24,7 +24,7 @@
 #define XC_HYB_GGA_XC_WB97X_D 471 /* Chai and Head-Gordon                     */
 
 typedef struct {
-  FLOAT c_x[5], c_ss[5], c_ab[5];
+  double c_x[5], c_ss[5], c_ab[5];
 } gga_xc_wb97_params;
 
 static const gga_xc_wb97_params par_wb97 = {

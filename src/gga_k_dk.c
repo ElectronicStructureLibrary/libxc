@@ -25,14 +25,14 @@
 #define XC_GGA_K_ERNZERHOF   520 /* Ernzerhof */
 
 typedef struct{
-  FLOAT aa[5], bb[5];
+  double aa[5], bb[5];
 } gga_k_dk_params;
 
 static void 
 gga_k_dk_init(XC(func_type) *p)
 {
   int i;
-  FLOAT ff, *aa, *bb;
+  double ff, *aa, *bb;
 
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_k_dk_params));

@@ -23,7 +23,7 @@
 #define XC_LDA_C_ML2    23   /* Modified LSD (version 2) of Proynov and Salahub */
 
 typedef struct {
-  FLOAT fc, q;
+  double fc, q;
 } lda_c_ml1_params;
 
 static void 

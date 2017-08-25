@@ -24,8 +24,8 @@
 
 
 /* Standard Newton's method */
-static FLOAT
-prhg_newt(FLOAT c, FLOAT tol, FLOAT * res, int *ierr)
+static double
+prhg_newt(double c, double tol, double * res, int *ierr)
 {
   int count;
   long double y, f, yf;
@@ -81,9 +81,9 @@ prhg_newt(FLOAT c, FLOAT tol, FLOAT * res, int *ierr)
    return y;
 }
 
-FLOAT XC(mgga_x_2d_prhg_get_y)(FLOAT C)
+double XC(mgga_x_2d_prhg_get_y)(double C)
 {
-  FLOAT rhs, res, y, tol;
+  double rhs, res, y, tol;
   int ierr;
 
 #ifdef SINGLE_PRECISION
@@ -107,8 +107,8 @@ FLOAT XC(mgga_x_2d_prhg_get_y)(FLOAT C)
 static void 
 func(const XC(func_type) *p, XC(mgga_work_x_t) *r)
 {
-  FLOAT y;
-  FLOAT v_PRHG, C;
+  double y;
+  double v_PRHG, C;
 
   assert(p != NULL);
   

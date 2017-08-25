@@ -23,7 +23,7 @@
 /* this function converts the spin-density into total density and
 	 relative magnetization */
 /* inline */ void
-XC(rho2dzeta)(int nspin, const FLOAT *rho, FLOAT *d, FLOAT *zeta)
+XC(rho2dzeta)(int nspin, const double *rho, double *d, double *zeta)
 {
   if(nspin==XC_UNPOLARIZED){
     *d    = max(rho[0], 0.0);
@@ -42,9 +42,9 @@ XC(rho2dzeta)(int nspin, const FLOAT *rho, FLOAT *d, FLOAT *zeta)
 }
 
 /* inline */ void
-XC(fast_fzeta)(const FLOAT x, const int nspin, const int order, FLOAT * fz){
+XC(fast_fzeta)(const double x, const int nspin, const int order, double * fz){
 
-  FLOAT aa, bb, aa2, bb2;
+  double aa, bb, aa2, bb2;
 
   if(nspin != XC_UNPOLARIZED){
     aa = CBRT(1.0 + x);
@@ -70,7 +70,7 @@ XC(fast_fzeta)(const FLOAT x, const int nspin, const int order, FLOAT * fz){
 
 /* initializes the mixing */
 void 
-XC(mix_init)(XC(func_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix_coef)
+XC(mix_init)(XC(func_type) *p, int n_funcs, const int *funcs_id, const double *mix_coef)
 {
   int ii;
 
@@ -79,7 +79,7 @@ XC(mix_init)(XC(func_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mi
 
   /* allocate structures needed for */
   p->n_func_aux = n_funcs;
-  p->mix_coef   = (FLOAT *) malloc(n_funcs*sizeof(FLOAT));
+  p->mix_coef   = (double *) malloc(n_funcs*sizeof(double));
   p->func_aux   = (XC(func_type) **) malloc(n_funcs*sizeof(XC(func_type) *));
 
   for(ii=0; ii<n_funcs; ii++){

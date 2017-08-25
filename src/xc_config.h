@@ -17,7 +17,6 @@
 */
 
 #ifdef SINGLE_PRECISION
-#  define FLOAT float
 #  define POW   powf
 #  define LOG   logf
 #  define ABS   fabsf
@@ -51,7 +50,6 @@
 #else
 /* Double precision */
 
-#  define FLOAT double
 #  define POW   pow
 #  define LOG   log
 #  define ABS   fabs

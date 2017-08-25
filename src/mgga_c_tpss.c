@@ -22,8 +22,8 @@
 #define XC_MGGA_C_TPSS          231 /* Tao, Perdew, Staroverov & Scuseria correlation */
 
 typedef struct{
-  FLOAT beta, d;
-  FLOAT C0_c[4];
+  double beta, d;
+  double C0_c[4];
 } mgga_c_tpss_params;
 
 
@@ -46,7 +46,7 @@ mgga_c_tpss_init(XC(func_type) *p)
 
 void
 XC(mgga_c_tpss_set_params)
-     (XC(func_type) *p, FLOAT beta, FLOAT d, FLOAT C0_0, FLOAT C0_1, FLOAT C0_2, FLOAT C0_3)
+     (XC(func_type) *p, double beta, double d, double C0_0, double C0_1, double C0_2, double C0_3)
 {
   mgga_c_tpss_params *params;
 

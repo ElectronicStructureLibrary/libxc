@@ -27,7 +27,7 @@
 #define XC_GGA_X_B88M         570 /* Becke 88 reoptimized to be used with mgga_c_tau1 */
 
 typedef struct{
-  FLOAT beta, gamma;
+  double beta, gamma;
 } gga_x_b88_params;
 
 
@@ -68,7 +68,7 @@ gga_x_b88_init(XC(func_type) *p)
 
 
 void 
-XC(gga_x_b88_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma)
+XC(gga_x_b88_set_params)(XC(func_type) *p, double beta, double gamma)
 {
   gga_x_b88_params *params;
 

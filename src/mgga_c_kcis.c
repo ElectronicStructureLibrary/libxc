@@ -44,7 +44,7 @@ void
 XC(hyb_mgga_xc_b0kcis_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_MGGA_C_KCIS};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;

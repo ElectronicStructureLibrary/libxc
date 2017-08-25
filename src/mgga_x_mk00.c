@@ -47,7 +47,7 @@ static void
 mgga_x_mk00b_init(XC(func_type) *p)
 {
   static int   funcs_id  [3] = {XC_LDA_X, XC_GGA_X_B88, XC_MGGA_X_MK00};
-  static FLOAT funcs_coef[3] = {-1.0, 1.0, 1.0};
+  static double funcs_coef[3] = {-1.0, 1.0, 1.0};
 
   XC(mix_init)(p, 3, funcs_id, funcs_coef);  
 

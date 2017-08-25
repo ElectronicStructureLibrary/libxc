@@ -22,8 +22,8 @@
 #define XC_MGGA_C_VSXC          232 /* VSxc from Van Voorhis and Scuseria (correlation part) */
 
 typedef struct{
-  const FLOAT alpha_ss, alpha_ab;
-  const FLOAT dss[6], dab[6];
+  const double alpha_ss, alpha_ab;
+  const double dss[6], dab[6];
 } mgga_c_vsxc_params;
 
 static const mgga_c_vsxc_params par_vsxc = {

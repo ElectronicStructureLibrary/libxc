@@ -22,10 +22,10 @@
 #define XC_GGA_X_KGG99  544 /* Gilbert and Gill 1999 (mixed) */
 
 static void
-newt_raph(FLOAT a, FLOAT tol, FLOAT *xx, FLOAT *dxx, int *ierr)
+newt_raph(double a, double tol, double *xx, double *dxx, int *ierr)
 {
   int count;
-  FLOAT x, f, fp;
+  double x, f, fp;
   static int max_iter = 50;
 
   *ierr = 1;
@@ -35,7 +35,7 @@ newt_raph(FLOAT a, FLOAT tol, FLOAT *xx, FLOAT *dxx, int *ierr)
 
   count = 0;
   do {
-    FLOAT sh, ch;
+    double sh, ch;
      
     sh = sinh(x);
     ch = cosh(x);
@@ -57,12 +57,12 @@ newt_raph(FLOAT a, FLOAT tol, FLOAT *xx, FLOAT *dxx, int *ierr)
 
 /* This implements Eq. (22) of the paper */
 inline static void 
-r_x(int order, FLOAT x, FLOAT *r, FLOAT *dr)
+r_x(int order, double x, double *r, double *dr)
 {
-  static const FLOAT
+  static const double
     a1 = 4.0*M_SQRT3*M_PI*M_PI*M_PI;
 
-  FLOAT a2, x2, x4, x6, aux1, aux2, daux1, daux2, num, den, dd, dnum, dden;
+  double a2, x2, x4, x6, aux1, aux2, daux1, daux2, num, den, dd, dnum, dden;
   int ierr;
 
   a2 = SQRT(3.0/(2.0*a1));
@@ -100,9 +100,9 @@ r_x(int order, FLOAT x, FLOAT *r, FLOAT *dr)
 void XC(gga_x_gg99_enhance)
      (const XC(func_type) *p, XC(gga_work_x_t) *r)
 {
-  FLOAT rr, dr;
-  FLOAT aux1, aux2, aux3, aux4, aux5, daux1, daux2, daux4, daux5;
-  FLOAT num, den, dnum, dden, df;
+  double rr, dr;
+  double aux1, aux2, aux3, aux4, aux5, daux1, daux2, daux4, daux5;
+  double num, den, dnum, dden, df;
 
   r_x(r->order, r->x, &rr, &dr);
 
@@ -154,7 +154,7 @@ gga_c_kgg_init(XC(func_type) *p)
 {
   /* defined in Eq. (25) of the paper */
   static int   funcs_id  [2] = {XC_LDA_X, XC_GGA_X_GG99};
-  static FLOAT funcs_coef[2] = {-0.047/X_FACTOR_C, 1.0};
+  static double funcs_coef[2] = {-0.047/X_FACTOR_C, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
 }

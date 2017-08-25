@@ -39,7 +39,7 @@
 */
 
 typedef struct{
-  FLOAT alpha;       /* parameter for Xalpha functional */
+  double alpha;       /* parameter for Xalpha functional */
 } lda_x_params;
 
 static void 
@@ -59,9 +59,9 @@ lda_x_init(XC(func_type) *p)
     J. Chem. Phys. 120, 8425 (2004)
 */
 void
-XC(lda_x_attenuation_function_erf)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
+XC(lda_x_attenuation_function_erf)(int order, double aa, double *f, double *df, double *d2f, double *d3f)
 {
-  FLOAT aa2, auxa1, auxa2, auxa3;
+  double aa2, auxa1, auxa2, auxa3;
   
   aa2 = aa*aa;
 
@@ -90,9 +90,9 @@ XC(lda_x_attenuation_function_erf)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLO
 
 /* Int. J. of Quant. Chem. 100, 1047-1056 (2004) */
 void
-XC(lda_x_attenuation_function_erf_gau)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
+XC(lda_x_attenuation_function_erf_gau)(int order, double aa, double *f, double *df, double *d2f, double *d3f)
 {
-  FLOAT bb, bb2, bb3, auxb1, auxb2;
+  double bb, bb2, bb3, auxb1, auxb2;
 
   XC(lda_x_attenuation_function_erf)(order, aa, f, df, d2f, d3f);
 
@@ -117,10 +117,10 @@ XC(lda_x_attenuation_function_erf_gau)(int order, FLOAT aa, FLOAT *f, FLOAT *df,
 
 /* Chem. Phys. Lett. 462(2008) 348-351 */
 void
-XC(lda_x_attenuation_function_yukawa)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
+XC(lda_x_attenuation_function_yukawa)(int order, double aa, double *f, double *df, double *d2f, double *d3f)
 {
-  FLOAT aa2, aa3;
-  FLOAT auxa1, auxa2, auxa3;
+  double aa2, aa3;
+  double auxa1, auxa2, auxa3;
 
   aa2 = aa*aa;
 
@@ -164,8 +164,8 @@ XC(lda_x_attenuation_function_yukawa)(int order, FLOAT aa, FLOAT *f, FLOAT *df, 
 }
 
 void
-XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, 
-                               FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f)
+XC(lda_x_attenuation_function)(int interaction, int order, double aa, 
+                               double *f, double *df, double *d2f, double *d3f)
 {
   switch(interaction){
   case XC_RSF_ERF:

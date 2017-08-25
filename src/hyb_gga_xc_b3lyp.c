@@ -35,7 +35,7 @@ void
 XC(hyb_gga_xc_b3pw91_init)(XC(func_type) *p)
 {
   static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_PW, XC_GGA_C_PW91};
-  static FLOAT funcs_coef[4] = {1.0 - 0.20 - 0.72, 0.72, 1.0 - 0.81, 0.81};
+  static double funcs_coef[4] = {1.0 - 0.20 - 0.72, 0.72, 1.0 - 0.81, 0.81};
 
   XC(mix_init)(p, 4, funcs_id, funcs_coef);
   p->cam_alpha = 0.20;
@@ -60,7 +60,7 @@ void
 XC(hyb_gga_xc_b3lyp_init)(XC(func_type) *p)
 {
   static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_VWN_RPA, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[4] = {1.0 - 0.20 - 0.72, 0.72, 1.0 - 0.81, 0.81};
+  static double funcs_coef[4] = {1.0 - 0.20 - 0.72, 0.72, 1.0 - 0.81, 0.81};
 
   XC(mix_init)(p, 4, funcs_id, funcs_coef);
   p->cam_alpha = 0.20;
@@ -84,7 +84,7 @@ void
 XC(hyb_gga_xc_b3lyp5_init)(XC(func_type) *p)
 {
   static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_VWN, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[4] = {1.0 - 0.20 - 0.72, 0.72, 1.0 - 0.81, 0.81};
+  static double funcs_coef[4] = {1.0 - 0.20 - 0.72, 0.72, 1.0 - 0.81, 0.81};
 
   XC(mix_init)(p, 4, funcs_id, funcs_coef);
   p->cam_alpha = 0.20;
@@ -109,7 +109,7 @@ void
 XC(hyb_gga_xc_b3p86_init)(XC(func_type) *p)
 {
   static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_VWN_RPA, XC_GGA_C_P86};
-  static FLOAT funcs_coef[4] = {1.0 - 0.20 - 0.72, 0.72, 1.0 - 0.81, 0.81};
+  static double funcs_coef[4] = {1.0 - 0.20 - 0.72, 0.72, 1.0 - 0.81, 0.81};
 
   XC(mix_init)(p, 4, funcs_id, funcs_coef);
   p->cam_alpha = 0.20;
@@ -134,7 +134,7 @@ void
 XC(hyb_gga_xc_mpw3pw_init)(XC(func_type) *p)
 {
   static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_MPW91, XC_LDA_C_VWN_RPA, XC_GGA_C_PW91};
-  static FLOAT funcs_coef[4] = {1.0 - 0.20 - 0.72, 0.72, 1.0 - 0.81, 0.81};
+  static double funcs_coef[4] = {1.0 - 0.20 - 0.72, 0.72, 1.0 - 0.81, 0.81};
 
   XC(mix_init)(p, 4, funcs_id, funcs_coef);
   p->cam_alpha = 0.20;
@@ -159,7 +159,7 @@ void
 XC(hyb_gga_xc_mpw3lyp_init)(XC(func_type) *p)
 {
   static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_MPW91, XC_LDA_C_VWN_RPA, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[4] = {1.0 - 0.218 - 0.709, 0.709, 1.0 - 0.871, 0.871};
+  static double funcs_coef[4] = {1.0 - 0.218 - 0.709, 0.709, 1.0 - 0.871, 0.871};
 
   XC(mix_init)(p, 4, funcs_id, funcs_coef);
   p->cam_alpha = 0.218;
@@ -184,7 +184,7 @@ void
 XC(hyb_gga_xc_mb3lyp_rc04_init)(XC(func_type) *p)
 {
   static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_RC04, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[4] = {1.0 - 0.20 - 0.72, 0.72, 1.0 - 0.57*0.81, 0.81};
+  static double funcs_coef[4] = {1.0 - 0.20 - 0.72, 0.72, 1.0 - 0.57*0.81, 0.81};
 
   XC(mix_init)(p, 4, funcs_id, funcs_coef);
   p->cam_alpha = 0.20;
@@ -208,7 +208,7 @@ void
 XC(hyb_gga_xc_revb3lyp_init)(XC(func_type) *p)
 {
   static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_VWN_RPA, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[4] = {1.0 - 0.20 - 0.67, 0.67, 1.0 - 0.84, 0.84};
+  static double funcs_coef[4] = {1.0 - 0.20 - 0.67, 0.67, 1.0 - 0.84, 0.84};
 
   XC(mix_init)(p, 4, funcs_id, funcs_coef);
   p->cam_alpha = 0.20;
@@ -233,7 +233,7 @@ void
 XC(hyb_gga_xc_b3lyps_init)(XC(func_type) *p)
 {
   static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_VWN_RPA, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[4] = {1.0 - 0.15 - 0.72, 0.72, 1.0 - 0.81, 0.81};
+  static double funcs_coef[4] = {1.0 - 0.15 - 0.72, 0.72, 1.0 - 0.81, 0.81};
 
   XC(mix_init)(p, 4, funcs_id, funcs_coef);
   p->cam_alpha = 0.15;
@@ -258,7 +258,7 @@ void
 XC(hyb_gga_xc_b5050lyp_init)(XC(func_type) *p)
 {
   static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_VWN, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[4] = {0.08, 0.42, 0.19, 0.81};
+  static double funcs_coef[4] = {0.08, 0.42, 0.19, 0.81};
 
   XC(mix_init)(p, 4, funcs_id, funcs_coef);
   p->cam_alpha = 0.50;
@@ -283,7 +283,7 @@ void
 XC(hyb_gga_xc_kmlyp_init)(XC(func_type) *p)
 {
   static int   funcs_id  [3] = {XC_LDA_X, XC_LDA_C_VWN_RPA, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[3] = {1.0 - 0.557, 1.0 - 0.448, 0.448};
+  static double funcs_coef[3] = {1.0 - 0.557, 1.0 - 0.448, 0.448};
 
   XC(mix_init)(p, 3, funcs_id, funcs_coef);
   p->cam_alpha = 0.557;

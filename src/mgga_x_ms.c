@@ -25,7 +25,7 @@
 #define XC_HYB_MGGA_X_MS2H     224 /* MS2 hybrid exchange of Sun, et al */
 
 typedef struct{
-  FLOAT kappa, c, b;
+  double kappa, c, b;
 } mgga_x_ms_params;
 
 static void 
@@ -111,7 +111,7 @@ static void
 hyb_mgga_x_ms2h_init(XC(func_type) *p)
 {
   static int   funcs_id  [1] = {XC_MGGA_X_MS2};
-  static FLOAT funcs_coef[1] = {0.91};
+  static double funcs_coef[1] = {0.91};
 
   XC(mix_init)(p, 1, funcs_id, funcs_coef);
   p->cam_alpha = 0.09;

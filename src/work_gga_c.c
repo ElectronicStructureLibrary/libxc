@@ -20,18 +20,18 @@
 #include "util.h"
 
 static void 
-work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
-	   FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-	   FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
-	   FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3)
+work_gga_c(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+	   double *zk, double *vrho, double *vsigma,
+	   double *v2rho2, double *v2rhosigma, double *v2sigma2,
+	   double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
   XC(gga_work_c_t) r;
-  FLOAT min_grad2 = MIN_GRAD*MIN_GRAD;
+  double min_grad2 = MIN_GRAD*MIN_GRAD;
   int ip;
 
-  FLOAT drs, dxtdn, dxtds, ndzdn[2], dxsdn[2], dxsds[2];;
-  FLOAT d2rs, d2xtdn2, d2xtds2, d2xtdns, d2xsdn2[2], d2xsds2[2], d2xsdns[2];
-  FLOAT d3rs, d3xtdn3, d3xtdn2s, d3xtdns2, d3xtds3, d3xsdn3[2], d3xsdn2s[2], d3xsdns2[2], d3xsds3[2];
+  double drs, dxtdn, dxtds, ndzdn[2], dxsdn[2], dxsds[2];;
+  double d2rs, d2xtdn2, d2xtds2, d2xtdns, d2xsdn2[2], d2xsds2[2], d2xsdns[2];
+  double d3rs, d3xtdn3, d3xtdn2s, d3xtdns2, d3xtds3, d3xsdn3[2], d3xsdn2s[2], d3xsdns2[2], d3xsds3[2];
 
   /* set all elements of r to zero */
   memset(&r, 0, sizeof(r));

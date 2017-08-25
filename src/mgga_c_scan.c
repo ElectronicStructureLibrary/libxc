@@ -45,7 +45,7 @@ static void
 mgga_c_scan_rvv10_init(XC(func_type) *p)
 {
   static int   funcs_id  [1] = {XC_MGGA_C_SCAN};
-  static FLOAT funcs_coef[1] = {1.0};
+  static double funcs_coef[1] = {1.0};
 
   XC(mix_init)(p, 1, funcs_id, funcs_coef);
 

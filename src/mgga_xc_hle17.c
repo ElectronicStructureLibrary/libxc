@@ -24,7 +24,7 @@ static void
 mgga_xc_hle17_init(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_MGGA_X_TPSS, XC_MGGA_C_TPSS};
-  static FLOAT funcs_coef[2] = {1.25, 0.5};
+  static double funcs_coef[2] = {1.25, 0.5};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
 }

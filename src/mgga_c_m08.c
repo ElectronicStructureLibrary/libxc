@@ -29,7 +29,7 @@
 #define XC_MGGA_C_MN15        269 /* MN15 functional from Minnesota  */
 
 typedef struct{
-  const FLOAT m08_a[12], m08_b[12];
+  const double m08_a[12], m08_b[12];
 } mgga_c_m08_params;
 
 

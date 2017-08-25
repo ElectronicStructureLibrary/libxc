@@ -21,7 +21,7 @@
 #define XC_GGA_X_OPTX         110 /* Handy & Cohen OPTX 01                          */
 
 typedef struct{
-  FLOAT a, b, gamma;
+  double a, b, gamma;
 } gga_x_optx_params;
 
 
@@ -36,7 +36,7 @@ gga_x_optx_init(XC(func_type) *p)
 
 
 void 
-XC(gga_x_optx_set_params)(XC(func_type) *p, FLOAT a, FLOAT b, FLOAT gamma)
+XC(gga_x_optx_set_params)(XC(func_type) *p, double a, double b, double gamma)
 {
   gga_x_optx_params *params;
 

@@ -22,7 +22,7 @@
 #define XC_GGA_C_ZVPBESOL       558 /* another spin-dependent correction to PBEsol       */
 
 typedef struct{
-  FLOAT beta, alpha, omega;
+  double beta, alpha, omega;
 } gga_c_zvpbeint_params;
 
 static void 

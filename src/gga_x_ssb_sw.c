@@ -23,7 +23,7 @@
 #define XC_GGA_X_SSB_D        92  /* Swart, Sola and Bickelhaupt dispersion  */
 
 typedef struct{
-  FLOAT A, B, C, D, E;
+  double A, B, C, D, E;
 } gga_x_ssb_sw_params;
 
 
@@ -39,7 +39,7 @@ gga_x_ssb_sw_init(XC(func_type) *p)
 
 
 void 
-XC(gga_x_ssb_sw_set_params)(XC(func_type) *p, FLOAT A, FLOAT B, FLOAT C, FLOAT D, FLOAT E)
+XC(gga_x_ssb_sw_set_params)(XC(func_type) *p, double A, double B, double C, double D, double E)
 {
   gga_x_ssb_sw_params *params;
 
@@ -74,10 +74,10 @@ const XC(func_info_type) XC(func_info_gga_x_ssb_sw) = {
 static void
 gga_x_ssb_init(XC(func_type) *p)
 {
-  static const FLOAT u = -1.205643, F = 0.995010, B = 0.137574;
+  static const double u = -1.205643, F = 0.995010, B = 0.137574;
 
   static int   funcs_id  [3] = {XC_LDA_X, XC_GGA_X_SSB_SW, XC_GGA_X_KT1};
-  static FLOAT funcs_coef[3] = {-1.0, 1.0, 1.0};
+  static double funcs_coef[3] = {-1.0, 1.0, 1.0};
 
   XC(mix_init)(p, 3, funcs_id, funcs_coef);  
 
@@ -103,10 +103,10 @@ const XC(func_info_type) XC(func_info_gga_x_ssb) = {
 static void
 gga_x_ssb_d_init(XC(func_type) *p)
 {
-  static const FLOAT u = -0.749940, F = 0.949488, B = 0.197465;
+  static const double u = -0.749940, F = 0.949488, B = 0.197465;
 
   static int   funcs_id  [3] = {XC_LDA_X, XC_GGA_X_SSB_SW, XC_GGA_X_KT1};
-  static FLOAT funcs_coef[3] = {-1.0, 1.0, 1.0};
+  static double funcs_coef[3] = {-1.0, 1.0, 1.0};
 
   XC(mix_init)(p, 3, funcs_id, funcs_coef);  
 

@@ -25,7 +25,7 @@
 #define XC_HYB_MGGA_X_MN15      268 /* MN15 functional from Minnesota  */
 
 typedef struct{
-  const FLOAT c[40];
+  const double c[40];
 } mgga_x_mn12_params;
 
 /* the ordering is 

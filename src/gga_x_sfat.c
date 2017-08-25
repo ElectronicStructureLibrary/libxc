@@ -42,7 +42,7 @@ gga_x_sfat_init(XC(func_type) *p)
 }
 
 void 
-XC(gga_x_sfat_set_params)(XC(func_type) *p, int func_id, FLOAT omega)
+XC(gga_x_sfat_set_params)(XC(func_type) *p, int func_id, double omega)
 {
   gga_x_sfat_params *params;
 
@@ -76,14 +76,14 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
   int is, js;
   gga_x_sfat_params *params;
   XC(gga_work_x_t) aux;
-  const FLOAT sign[2] = {1.0, -1.0};
+  const double sign[2] = {1.0, -1.0};
 
-  FLOAT opz, opz13, rss, x2, drssdrs, drssdz, d2rssdrsz, d2rssdz2;
-  FLOAT ex, dexdrss, dexdz, d2exdrss2, d2exdrssz, d2exdz2;
-  FLOAT k_GGA, dk_GGAdrss, dk_GGAdxs, d2k_GGAdrss2, d2k_GGAdrssxs, d2k_GGAdxs2;
-  FLOAT aa, daadrss, daadxs, d2aadrss2, d2aadrssxs, d2aadxs2;
-  FLOAT f_aa, df_aa, d2f_aa, d3f_aa;
-  FLOAT dftdrss, dftdz, d2ftdrss2, d2ftdrssz;
+  double opz, opz13, rss, x2, drssdrs, drssdz, d2rssdrsz, d2rssdz2;
+  double ex, dexdrss, dexdz, d2exdrss2, d2exdrssz, d2exdz2;
+  double k_GGA, dk_GGAdrss, dk_GGAdxs, d2k_GGAdrss2, d2k_GGAdrssxs, d2k_GGAdxs2;
+  double aa, daadrss, daadxs, d2aadrss2, d2aadrssxs, d2aadxs2;
+  double f_aa, df_aa, d2f_aa, d3f_aa;
+  double dftdrss, dftdz, d2ftdrss2, d2ftdrssz;
 
   assert(pt != NULL && pt->params != NULL);
   params = (gga_x_sfat_params *) (pt->params);

@@ -22,7 +22,7 @@
 #define XC_MGGA_X_M11_L        226 /* M11-L functional from Minnesota  */
 
 typedef struct{
-  const FLOAT a[12], b[21], c[12], d[12];
+  const double a[12], b[21], c[12], d[12];
 } mgga_x_m11_l_params;
 
 static const mgga_x_m11_l_params par_m11_l = {

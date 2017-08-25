@@ -102,7 +102,7 @@ typedef struct{
 
   int   flags;    /* see above for a list of possible flags */
 
-  FLOAT dens_threshold;
+  double dens_threshold;
 
   /* this allows to have external parameters in the functional */
   int n_ext_params;
@@ -112,19 +112,19 @@ typedef struct{
   void (*init)(struct XC(func_type) *p);
   void (*end) (struct XC(func_type) *p);
   void (*lda) (const struct XC(func_type) *p, int np, 
-	       const FLOAT *rho, 
-	       FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3);
+	       const double *rho, 
+	       double *zk, double *vrho, double *v2rho2, double *v3rho3);
   void (*gga) (const struct XC(func_type) *p, int np, 
-	       const FLOAT *rho, const FLOAT *sigma, 
-	       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-	       FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
-	       FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3);
+	       const double *rho, const double *sigma, 
+	       double *zk, double *vrho, double *vsigma,
+	       double *v2rho2, double *v2rhosigma, double *v2sigma2,
+	       double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
   void (*mgga)(const struct XC(func_type) *p, int np, 
-	       const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl_rho, const FLOAT *tau,
-	       FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl_rho, FLOAT *vtau,
-	       FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2tau2, FLOAT *v2lapl2,
-	       FLOAT *v2rhosigma, FLOAT *v2rhotau, FLOAT *v2rholapl, 
-	       FLOAT *v2sigmatau, FLOAT *v2sigmalapl, FLOAT *v2taulapl);
+	       const double *rho, const double *sigma, const double *lapl_rho, const double *tau,
+	       double *zk, double *vrho, double *vsigma, double *vlapl_rho, double *vtau,
+	       double *v2rho2, double *v2sigma2, double *v2tau2, double *v2lapl2,
+	       double *v2rhosigma, double *v2rhotau, double *v2rholapl, 
+	       double *v2sigmatau, double *v2sigmalapl, double *v2taulapl);
 } XC(func_info_type);
 
 int XC(func_info_get_number)(const XC(func_info_type) *info);
@@ -143,14 +143,14 @@ struct XC(func_type){
   
   int n_func_aux;                       /* how many auxiliary functions we need */
   struct XC(func_type) **func_aux;      /* most GGAs are based on a LDA or other GGAs  */
-  FLOAT *mix_coef;                      /* coefficients for the mixing */
+  double *mix_coef;                      /* coefficients for the mixing */
 
-  FLOAT cam_omega;                      /* range-separation parameter for range-separated hybrids */
-  FLOAT cam_alpha;                      /* fraction of Hartree-Fock exchange for normal or range-separated hybrids */
-  FLOAT cam_beta;                       /* fraction of short-range exchange for range-separated hybrids */
+  double cam_omega;                      /* range-separation parameter for range-separated hybrids */
+  double cam_alpha;                      /* fraction of Hartree-Fock exchange for normal or range-separated hybrids */
+  double cam_beta;                       /* fraction of short-range exchange for range-separated hybrids */
 
-  FLOAT nlc_b;                          /* Non-local correlation, b parameter */
-  FLOAT nlc_C;                          /* Non-local correlation, C parameter */
+  double nlc_b;                          /* Non-local correlation, b parameter */
+  double nlc_C;                          /* Non-local correlation, C parameter */
 
   int n_rho, n_sigma, n_tau, n_lapl;    /* spin dimensions of the arrays */
   int n_zk;
@@ -164,7 +164,7 @@ struct XC(func_type){
   int n_v3rho3, n_v3rho2sigma, n_v3rhosigma2, n_v3sigma3;
 
   void *params;                         /* this allows us to fix parameters in the functional */
-  FLOAT dens_threshold;
+  double dens_threshold;
 };
 
 typedef struct XC(func_type) XC(func_type);
@@ -178,73 +178,73 @@ int   XC(func_init)(XC(func_type) *p, int functional, int nspin);
 void  XC(func_end)(XC(func_type) *p);
 void  XC(func_free)(XC(func_type) *p);
 const XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p);
-void XC(func_set_dens_threshold)(XC(func_type) *p, FLOAT dens_threshold);
+void XC(func_set_dens_threshold)(XC(func_type) *p, double dens_threshold);
 void  XC(func_set_ext_params)(XC(func_type) *p, double *ext_params);
 
 #include "xc_funcs.h"
 #include "xc_funcs_removed.h"
   
-void XC(lda)        (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3);
-void XC(lda_exc)    (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *zk);
-void XC(lda_exc_vxc)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *zk, FLOAT *vrho);
-void XC(lda_vxc)    (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *vrho);
-void XC(lda_fxc)    (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *v2rho2);
-void XC(lda_kxc)    (const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *v3rho3);
+void XC(lda)        (const XC(func_type) *p, int np, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3);
+void XC(lda_exc)    (const XC(func_type) *p, int np, const double *rho, double *zk);
+void XC(lda_exc_vxc)(const XC(func_type) *p, int np, const double *rho, double *zk, double *vrho);
+void XC(lda_vxc)    (const XC(func_type) *p, int np, const double *rho, double *vrho);
+void XC(lda_fxc)    (const XC(func_type) *p, int np, const double *rho, double *v2rho2);
+void XC(lda_kxc)    (const XC(func_type) *p, int np, const double *rho, double *v3rho3);
 
-void XC(gga)     (const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
-		  FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-		  FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
-		  FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3);
-void XC(gga_exc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
-		 FLOAT *zk);
-void XC(gga_exc_vxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
-		     FLOAT *zk, FLOAT *vrho, FLOAT *vsigma);
-void XC(gga_vxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
-		 FLOAT *vrho, FLOAT *vsigma);
-void XC(gga_fxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
-		 FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2);
-void XC(gga_kxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
-		 FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3);
+void XC(gga)     (const XC(func_type) *p, int np, const double *rho, const double *sigma, 
+		  double *zk, double *vrho, double *vsigma,
+		  double *v2rho2, double *v2rhosigma, double *v2sigma2,
+		  double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
+void XC(gga_exc)(const XC(func_type) *p, int np, const double *rho, const double *sigma, 
+		 double *zk);
+void XC(gga_exc_vxc)(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+		     double *zk, double *vrho, double *vsigma);
+void XC(gga_vxc)(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+		 double *vrho, double *vsigma);
+void XC(gga_fxc)(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+		 double *v2rho2, double *v2rhosigma, double *v2sigma2);
+void XC(gga_kxc)(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+		 double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
 
-void XC(gga_lb_modified)  (const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
-			   FLOAT r, FLOAT *vrho);
+void XC(gga_lb_modified)  (const XC(func_type) *p, int np, const double *rho, const double *sigma, 
+			   double r, double *vrho);
 
-FLOAT XC(gga_ak13_get_asymptotic) (FLOAT homo);
+double XC(gga_ak13_get_asymptotic) (double homo);
 
-FLOAT XC(hyb_exx_coef)(const XC(func_type) *p);
-void  XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT *beta);
-void  XC(nlc_coef)(const XC(func_type) *p, FLOAT *nlc_b, FLOAT *nlc_C);
+double XC(hyb_exx_coef)(const XC(func_type) *p);
+void  XC(hyb_cam_coef)(const XC(func_type) *p, double *omega, double *alpha, double *beta);
+void  XC(nlc_coef)(const XC(func_type) *p, double *nlc_b, double *nlc_C);
 
 /* the meta-GGAs */
 void XC(mgga)        (const XC(func_type) *p, int np,
-		      const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
-		      FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau,
-		      FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2lapl2, FLOAT *v2tau2,
-		      FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
-		      FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau);
+		      const double *rho, const double *sigma, const double *lapl, const double *tau,
+		      double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
+		      double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
+		      double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+		      double *v2sigmalapl, double *v2sigmatau, double *v2lapltau);
 void XC(mgga_exc)    (const XC(func_type) *p, int np,  
-		      const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau, 
-		      FLOAT *zk);
+		      const double *rho, const double *sigma, const double *lapl, const double *tau, 
+		      double *zk);
 void XC(mgga_exc_vxc)(const XC(func_type) *p, int np, 
-		      const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
-		      FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau);
+		      const double *rho, const double *sigma, const double *lapl, const double *tau,
+		      double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau);
 void XC(mgga_vxc)    (const XC(func_type) *p, int np,
-		      const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
-		      FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau);
+		      const double *rho, const double *sigma, const double *lapl, const double *tau,
+		      double *vrho, double *vsigma, double *vlapl, double *vtau);
 void XC(mgga_fxc)    (const XC(func_type) *p, int np, 
-		      const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
-		      FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2lapl2, FLOAT *v2tau2,
-		      FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
-		      FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau);
+		      const double *rho, const double *sigma, const double *lapl, const double *tau,
+		      double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
+		      double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+		      double *v2sigmalapl, double *v2sigmatau, double *v2lapltau);
 
 /* Functionals that are defined as mixtures of others */
 void XC(mix_func)
   (const XC(func_type) *func, int np,
-   const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
-   FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau,
-   FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2lapl2, FLOAT *v2tau2,
-   FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
-   FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau);
+   const double *rho, const double *sigma, const double *lapl, const double *tau,
+   double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
+   double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
+   double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+   double *v2sigmalapl, double *v2sigmatau, double *v2lapltau);
   
 #include "xc_unconfig.h"
 

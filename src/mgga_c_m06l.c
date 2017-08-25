@@ -25,8 +25,8 @@
 #define XC_MGGA_C_M06_2X        236 /* Worker for M06-2X functional        */
 
 typedef struct{
-  FLOAT gamma_ss, gamma_ab, alpha_ss, alpha_ab;
-  const FLOAT css[5], cab[5], dss[6], dab[6];
+  double gamma_ss, gamma_ab, alpha_ss, alpha_ab;
+  const double css[5], cab[5], dss[6], dab[6];
 } mgga_c_m06l_params;
 
 static const mgga_c_m06l_params par_m06l = {

@@ -26,7 +26,7 @@
 #define XC_GGA_C_HYB_TAU_HCTH 283 /* correlation part of hyb_tau-hcth         */
 
 typedef struct {
-  FLOAT c_ss[5], c_ab[5];
+  double c_ss[5], c_ab[5];
 } gga_c_bmk_params;
 
 /* c_ss and c_ab coefficients flipped in original paper! */

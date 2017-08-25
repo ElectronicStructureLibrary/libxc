@@ -32,8 +32,8 @@
 #define XC_MGGA_X_BLOC          244 /* functional with balanced localization */
 
 typedef struct{
-  FLOAT b, c, e, kappa, mu;
-  FLOAT BLOC_a, BLOC_b;
+  double b, c, e, kappa, mu;
+  double BLOC_a, BLOC_b;
 } mgga_x_tpss_params;
 
 static void 
@@ -66,8 +66,8 @@ mgga_x_tpss_init(XC(func_type) *p)
 
 
 void
-XC(mgga_x_tpss_set_params)(XC(func_type) *p, FLOAT b, FLOAT c, FLOAT e, FLOAT kappa, FLOAT mu, 
-                           FLOAT BLOC_a, FLOAT BLOC_b)
+XC(mgga_x_tpss_set_params)(XC(func_type) *p, double b, double c, double e, double kappa, double mu, 
+                           double BLOC_a, double BLOC_b)
 {
   mgga_x_tpss_params *params;
 

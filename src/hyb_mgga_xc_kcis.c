@@ -29,10 +29,10 @@ hyb_mgga_xc_kcis_init(XC(func_type) *p)
   /* Exchange functional */
   int xid;
   /* Fraction of exact exchange */
-  FLOAT exx;
+  double exx;
   /* Array */
   int funcs_id[2];
-  FLOAT funcs_coef[2];
+  double funcs_coef[2];
 
   switch(p->info->number){
   case XC_HYB_MGGA_XC_MPW1KCIS:

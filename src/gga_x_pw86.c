@@ -23,7 +23,7 @@
 #define XC_GGA_K_FR_PW86      515 /* Fuentealba & Reyes (PW86 version) */
 
 typedef struct{
-  FLOAT aa, bb, cc;
+  double aa, bb, cc;
 } gga_x_pw86_params;
 
 

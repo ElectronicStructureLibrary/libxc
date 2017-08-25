@@ -21,7 +21,7 @@
 #define XC_GGA_X_HJS_B88_V2   46 /* HJS screened exchange corrected B88 version */
 
 typedef struct{
-  FLOAT omega;
+  double omega;
 } gga_x_hjs_b88_v2_params;
 
 static void
@@ -35,7 +35,7 @@ gga_x_hjs_init(XC(func_type) *p)
 }
 
 void 
-XC(gga_x_hjs_b88_v2_set_params)(XC(func_type) *p, FLOAT omega)
+XC(gga_x_hjs_b88_v2_set_params)(XC(func_type) *p, double omega)
 {
   gga_x_hjs_b88_v2_params *params;
 

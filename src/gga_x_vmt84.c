@@ -22,8 +22,8 @@
 #define XC_GGA_X_VMT84_GE         68 /* VMT{8,4} with constraint satisfaction with mu = mu_GE  */
 
 typedef struct{
-  FLOAT mu;
-  FLOAT alpha;
+  double mu;
+  double alpha;
 } gga_x_vmt84_params;
 
 static void 

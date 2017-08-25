@@ -24,7 +24,7 @@ static void
 hyb_mgga_x_mvsh_init(XC(func_type) *p)
 {
   static int   funcs_id  [1] = {XC_MGGA_X_MVS};
-  static FLOAT funcs_coef[1] = {0.75};
+  static double funcs_coef[1] = {0.75};
 
   XC(mix_init)(p, 1, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;

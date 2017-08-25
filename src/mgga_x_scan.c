@@ -24,12 +24,12 @@
 
 /* WARNING THIS CODE WILL BE DELETED */
 void
-XC(mgga_x_scan_falpha)(int order, FLOAT a, FLOAT c1, FLOAT c2, FLOAT dd, FLOAT *f, FLOAT *dfda)
+XC(mgga_x_scan_falpha)(int order, double a, double c1, double c2, double dd, double *f, double *dfda)
 {
   /* exponentials are truncated */
-  const FLOAT logeps =  LOG(DBL_EPSILON);
-  FLOAT thr1, thr2;
-  FLOAT c1exp, c2exp, ooma;
+  const double logeps =  LOG(DBL_EPSILON);
+  double thr1, thr2;
+  double c1exp, c2exp, ooma;
 
   thr1  = -logeps/(c1 - logeps);
   thr2  = 1.0 - c2/logeps;
@@ -68,7 +68,7 @@ static void
 hyb_mgga_x_scan0_init(XC(func_type) *p)
 {
   static int   funcs_id  [1] = {XC_MGGA_X_SCAN};
-  static FLOAT funcs_coef[1] = {1.0 - 0.25};
+  static double funcs_coef[1] = {1.0 - 0.25};
 
   XC(mix_init)(p, 1, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;

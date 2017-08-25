@@ -23,7 +23,7 @@
 #define XC_GGA_XC_KT2         146 /* Keal and Tozer version 2                  */
 
 typedef struct{
-  FLOAT gamma, delta;
+  double gamma, delta;
 } gga_x_kt_params;
 
 static void 
@@ -37,7 +37,7 @@ gga_x_kt_init(XC(func_type) *p)
 
 
 void 
-XC(gga_x_kt_set_params)(XC(func_type) *p, FLOAT gamma, FLOAT delta)
+XC(gga_x_kt_set_params)(XC(func_type) *p, double gamma, double delta)
 {
   gga_x_kt_params *params;
 
@@ -71,7 +71,7 @@ static void
 gga_xc_kt1_init(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_KT1, XC_LDA_C_VWN};
-  static FLOAT funcs_coef[2] = {1.0, 1.0};
+  static double funcs_coef[2] = {1.0, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);  
 }
@@ -93,7 +93,7 @@ static void
 gga_xc_kt2_init(XC(func_type) *p)
 {
   static int   funcs_id  [3] = {XC_LDA_X, XC_GGA_X_KT1, XC_LDA_C_VWN};
-  static FLOAT funcs_coef[3] = {1.07173 - 1.0, 1.0, 0.576727};
+  static double funcs_coef[3] = {1.07173 - 1.0, 1.0, 0.576727};
 
   XC(mix_init)(p, 3, funcs_id, funcs_coef);  
 }

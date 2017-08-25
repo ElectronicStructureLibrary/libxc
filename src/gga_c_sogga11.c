@@ -23,7 +23,7 @@
 #define XC_GGA_C_SOGGA11_X     159 /* To be used with HYB_GGA_X_SOGGA11_X  */
 
 typedef struct {
-  FLOAT sogga11_a[6], sogga11_b[6];
+  double sogga11_a[6], sogga11_b[6];
 } gga_c_sogga11_params;
 
 static const gga_c_sogga11_params par_sogga11 = {

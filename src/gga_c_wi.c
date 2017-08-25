@@ -23,7 +23,7 @@
 #define XC_GGA_C_WI  148 /* Wilson & Ivanov */
 
 typedef struct {
-  FLOAT a, b, c, d, k;
+  double a, b, c, d, k;
 } gga_c_wi_params;
 
 static const gga_c_wi_params wi0_params = {

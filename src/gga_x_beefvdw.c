@@ -46,7 +46,7 @@ void
 gga_xc_beefvdw_init(XC(func_type) *p)
 {
   static int   funcs_id  [3] = {XC_GGA_X_BEEFVDW, XC_LDA_C_PW_MOD, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[3] = {1.0, 0.6001664769, 1.0 - 0.6001664769};
+  static double funcs_coef[3] = {1.0, 0.6001664769, 1.0 - 0.6001664769};
 
   XC(mix_init)(p, 3, funcs_id, funcs_coef);
 }

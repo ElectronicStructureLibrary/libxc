@@ -24,7 +24,7 @@
 
 
 typedef struct{
-  FLOAT kappa, alpha, muPBE, muGE;
+  double kappa, alpha, muPBE, muGE;
 } gga_x_pbeint_params;
 
 
@@ -55,7 +55,7 @@ gga_x_pbe_init(XC(func_type) *p)
 
 
 void 
-XC(gga_x_pbeint_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT alpha, FLOAT muPBE, FLOAT muGE)
+XC(gga_x_pbeint_set_params)(XC(func_type) *p, double kappa, double alpha, double muPBE, double muGE)
 {
   gga_x_pbeint_params *params;
 

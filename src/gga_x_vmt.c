@@ -22,8 +22,8 @@
 #define XC_GGA_X_VMT_GE           70 /* Vela, Medel, and Trickey with mu = mu_GE  */
 
 typedef struct{
-  FLOAT mu;
-  FLOAT alpha;
+  double mu;
+  double alpha;
 } gga_x_vmt_params;
 
 

@@ -31,15 +31,15 @@
 
 typedef struct{
   int    modified; /* shall we use a modified version */
-  FLOAT threshold; /* when to start using the analytic form */
-  FLOAT ip;        /* ionization potential of the species */
-  FLOAT qtot;      /* total charge in the region */
+  double threshold; /* when to start using the analytic form */
+  double ip;        /* ionization potential of the species */
+  double qtot;      /* total charge in the region */
 
-  FLOAT aa;     /* the parameters of LB94 */
-  FLOAT gamm;
+  double aa;     /* the parameters of LB94 */
+  double gamm;
 
-  FLOAT alpha;
-  FLOAT beta;
+  double alpha;
+  double beta;
 } XC(gga_x_lb_params);
 
 /************************************************************************
@@ -76,10 +76,10 @@ gga_lb_init(XC(func_type) *p)
 
 
 void 
-XC(gga_lb_modified)(const XC(func_type) *func, int np, const FLOAT *rho, const FLOAT *sigma, FLOAT r, FLOAT *vrho)
+XC(gga_lb_modified)(const XC(func_type) *func, int np, const double *rho, const double *sigma, double r, double *vrho)
 {
   int ip, is, is2;
-  FLOAT ds, gdm, x, sfact;
+  double ds, gdm, x, sfact;
 
   XC(gga_x_lb_params) *params;
 
@@ -103,7 +103,7 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const FLOAT *rho, const F
 
       if(params->modified == 0 || 
 	 (ds > params->threshold && gdm > params->threshold)){
-	FLOAT f;
+	double f;
 	
 	if(ds <= func->dens_threshold) continue;
 	
@@ -138,10 +138,10 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const FLOAT *rho, const F
 
 
 static void 
-gga_x_lb(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
-	 FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-	 FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
-	 FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3)
+gga_x_lb(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+	 double *zk, double *vrho, double *vsigma,
+	 double *v2rho2, double *v2rhosigma, double *v2sigma2,
+	 double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
   XC(gga_lb_modified)(p, np, rho, sigma, 0.0, vrho);
 }
@@ -159,7 +159,7 @@ static void
 set_ext_params(XC(func_type) *p, const double *ext_params)
 {
   XC(gga_x_lb_params) *params;
-  FLOAT ff;
+  double ff;
 
   assert(p!=NULL && p->params!=NULL);
   params = (XC(gga_x_lb_params) *) (p->params);

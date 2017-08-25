@@ -23,7 +23,7 @@
 #define XC_LDA_C_vBH 17   /* von Barth & Hedin            */
 
 typedef struct {
-  FLOAT r[2], c[2];
+  double r[2], c[2];
 } lda_c_hl_params;
 
 static const lda_c_hl_params par_hl = { /* HL unpolarized only*/

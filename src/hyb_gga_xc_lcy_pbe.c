@@ -24,8 +24,8 @@ void
 XC(hyb_gga_xc_lcy_pbe_init)(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_SFAT, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[2];
-  static FLOAT gamma;
+  static double funcs_coef[2];
+  static double gamma;
 
   gamma = 0.75; /* Use omega for gamma */
 

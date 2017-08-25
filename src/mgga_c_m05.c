@@ -24,8 +24,8 @@
 #define XC_MGGA_C_DLDF           37 /* Dispersionless Density Functional   */
 
 typedef struct{
-  FLOAT gamma_ss, gamma_ab;
-  const FLOAT css[5], cab[5];
+  double gamma_ss, gamma_ab;
+  const double css[5], cab[5];
 } mgga_c_m05_params;
 
 static const mgga_c_m05_params par_m05 = {

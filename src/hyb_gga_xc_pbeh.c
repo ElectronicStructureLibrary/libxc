@@ -31,7 +31,7 @@ static void
 hyb_gga_xc_pbeh_init(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
@@ -55,7 +55,7 @@ static void
 hyb_gga_xc_pbe0_13_init(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[2] = {1.0 - 1.0/3.0, 1.0};
+  static double funcs_coef[2] = {1.0 - 1.0/3.0, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 1.0/3.0;
@@ -79,7 +79,7 @@ static void
 hyb_gga_xc_hpbeint_init(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBEINT, XC_GGA_C_PBEINT};
-  static FLOAT funcs_coef[2] = {1.0 - 1.0/6.0, 1.0};
+  static double funcs_coef[2] = {1.0 - 1.0/6.0, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 1.0/6.0;
@@ -103,7 +103,7 @@ static void
 hyb_gga_xc_pbemol0_init(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBE_MOL, XC_GGA_C_PBE_MOL};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
@@ -127,7 +127,7 @@ static void
 hyb_gga_xc_pbesol0_init(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBE_SOL, XC_GGA_C_PBE_SOL};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
@@ -151,7 +151,7 @@ static void
 hyb_gga_xc_pbeb0_init(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   /* 0.050044 ~ 3/4 beta_PBE */
@@ -177,7 +177,7 @@ static void
 hyb_gga_xc_pbemolb0_init(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBE_MOL, XC_GGA_C_PBE_MOL};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   /* 0.06288 ~ 3/4 beta_PBEmol */
@@ -203,7 +203,7 @@ static void
 hyb_gga_xc_pbe50_init(XC(func_type) *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[2] = {0.5, 1.0};
+  static double funcs_coef[2] = {0.5, 1.0};
 
   XC(mix_init)(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.5;

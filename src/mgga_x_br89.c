@@ -26,11 +26,11 @@
 #define XC_MGGA_X_B00          284 /* Becke 2000 */
 
 typedef struct{
-  FLOAT c;
+  double c;
 } mgga_x_tb09_params;
 
-static FLOAT br89_gamma = 0.8;
-static FLOAT b00_at     = 0.928;
+static double br89_gamma = 0.8;
+static double b00_at     = 0.928;
 
 static void 
 mgga_x_tb09_init(XC(func_type) *p)
@@ -61,11 +61,11 @@ mgga_x_tb09_init(XC(func_type) *p)
 
 
 /* This code follows the inversion done in the PINY_MD package */
-static FLOAT
-br_newt_raph(FLOAT a, FLOAT tol,  FLOAT * res, int *ierr)
+static double
+br_newt_raph(double a, double tol,  double * res, int *ierr)
 {
   int count;
-  FLOAT x, f;
+  double x, f;
   static int max_iter = 50;
 
    *ierr = 1;
@@ -77,7 +77,7 @@ br_newt_raph(FLOAT a, FLOAT tol,  FLOAT * res, int *ierr)
 
    count = 0;
    do {
-     FLOAT arg, eee, xm2, fp;
+     double arg, eee, xm2, fp;
 
      xm2 = x - 2.0;
      arg = 2.0*x/3.0;
@@ -97,10 +97,10 @@ br_newt_raph(FLOAT a, FLOAT tol,  FLOAT * res, int *ierr)
    return x;
 }
 
-static FLOAT
-br_bisect(FLOAT a, FLOAT tol, int *ierr) { 
+static double
+br_bisect(double a, double tol, int *ierr) { 
   int count; 
-  FLOAT f, x, x1, x2; 
+  double f, x, x1, x2; 
   static int max_iter = 500; 
  	 
   *ierr = 1; 
@@ -119,7 +119,7 @@ br_bisect(FLOAT a, FLOAT tol, int *ierr) {
   /* bisection */ 
   count = 0; 
   do{ 
-    FLOAT arg, eee, xm2; 
+    double arg, eee, xm2; 
     x   = 0.5*(x1 + x2); 
     xm2 = x - 2.0; 
     arg = 2.0*x/3.0; 
@@ -136,9 +136,9 @@ br_bisect(FLOAT a, FLOAT tol, int *ierr) {
   return x; 
 } 
 	 	 
-FLOAT XC(mgga_x_br89_get_x)(FLOAT Q)
+double XC(mgga_x_br89_get_x)(double Q)
 {
-  FLOAT rhs, br_x, tol, res;
+  double rhs, br_x, tol, res;
   int ierr;
 
 #ifdef SINGLE_PRECISION
@@ -166,9 +166,9 @@ FLOAT XC(mgga_x_br89_get_x)(FLOAT Q)
 
 /* Eq. (22) */
 void
-XC(mgga_b00_fw)(int order, FLOAT t, FLOAT *fw, FLOAT *dfwdt)
+XC(mgga_b00_fw)(int order, double t, double *fw, double *dfwdt)
 {
-  FLOAT w, w2;
+  double w, w2;
   
   w = (K_FACTOR_C - t)/(K_FACTOR_C + t);
   w2 = w*w;
@@ -185,8 +185,8 @@ XC(mgga_b00_fw)(int order, FLOAT t, FLOAT *fw, FLOAT *dfwdt)
 static void 
 func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 {
-  FLOAT Q, br_x, v_BR, dv_BRdbx, d2v_BRdbx2, dxdQ, d2xdQ2, ff, dffdx, d2ffdx2;
-  FLOAT cnst, c_TB09, c_HEG, exp1, exp2, gamma, fw, dfwdt;
+  double Q, br_x, v_BR, dv_BRdbx, d2v_BRdbx2, dxdQ, d2xdQ2, ff, dffdx, d2ffdx2;
+  double cnst, c_TB09, c_HEG, exp1, exp2, gamma, fw, dfwdt;
 
   gamma = (pt->info->number == XC_MGGA_X_B00) ? 1.0 : br89_gamma;
 
@@ -270,7 +270,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   }
 
   if(pt->info->number == XC_MGGA_X_BR89){
-    FLOAT aux1 = d2v_BRdbx2*dxdQ*dxdQ + dv_BRdbx*d2xdQ2;
+    double aux1 = d2v_BRdbx2*dxdQ*dxdQ + dv_BRdbx*d2xdQ2;
 
     r->d2fdx2 = -(aux1*gamma*r->x*r->x/6.0 + dv_BRdbx*dxdQ)*gamma/12.0;
     r->d2fdxt =  aux1*gamma*gamma*r->x/18.0;

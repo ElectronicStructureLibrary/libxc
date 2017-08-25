@@ -38,7 +38,7 @@
 #define XC_GGA_C_TM_PBE       560  /* Thakkar and McCarthy reparametrization */
 
 typedef struct{
-  FLOAT beta, gamma, BB;
+  double beta, gamma, BB;
 } gga_c_pbe_params;
 
 
@@ -100,7 +100,7 @@ static void gga_c_pbe_init(XC(func_type) *p)
 
 
 void 
-XC(gga_c_pbe_set_params)(XC(func_type) *p, FLOAT beta)
+XC(gga_c_pbe_set_params)(XC(func_type) *p, double beta)
 {
   gga_c_pbe_params *params;
 

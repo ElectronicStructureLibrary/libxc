@@ -25,8 +25,8 @@
 #define XC_LDA_XC_1D_EHWLRG_3     538 /* LDA constructed from slab-like systems of 3 electrons */
 
 typedef struct {
-  FLOAT alpha;
-  FLOAT a1, a2, a3;
+  double alpha;
+  double a1, a2, a3;
 } lda_xc_1d_ehwlrg_params;
 
 static void 

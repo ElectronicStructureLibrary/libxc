@@ -22,7 +22,7 @@
 #define XC_GGA_X_DK87_R2      112 /* dePristo & Kress 87 (version R2)               */
 
 typedef struct {
-  FLOAT a1, b1, alpha;
+  double a1, b1, alpha;
 } gga_x_dk87_params;
 
 static const gga_x_dk87_params par_dk87_r1 = {

@@ -226,7 +226,7 @@ int XC(func_init)(XC(func_type) *func, int functional, int nspin)
   if(func->info->n_ext_params > 0)
     func->info->set_ext_params(func, NULL);
 
-  func->dens_threshold = func->info->min_dens;
+  func->dens_threshold = func->info->dens_threshold;
 
   return 0;
 }

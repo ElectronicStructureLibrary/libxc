@@ -102,7 +102,7 @@ typedef struct{
 
   int   flags;    /* see above for a list of possible flags */
 
-  FLOAT min_dens;
+  FLOAT dens_threshold;
 
   /* this allows to have external parameters in the functional */
   int n_ext_params;

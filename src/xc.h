@@ -102,7 +102,7 @@ typedef struct{
 
   int   flags;    /* see above for a list of possible flags */
 
-  FLOAT min_dens;
+  FLOAT dens_threshold;
 
   /* this allows to have external parameters in the functional */
   int n_ext_params;
@@ -164,6 +164,7 @@ struct XC(func_type){
   int n_v3rho3, n_v3rho2sigma, n_v3rhosigma2, n_v3sigma3;
 
   void *params;                         /* this allows us to fix parameters in the functional */
+  FLOAT dens_threshold;
 };
 
 typedef struct XC(func_type) XC(func_type);
@@ -177,6 +178,7 @@ int   XC(func_init)(XC(func_type) *p, int functional, int nspin);
 void  XC(func_end)(XC(func_type) *p);
 void  XC(func_free)(XC(func_type) *p);
 const XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p);
+void XC(func_set_dens_threshold)(XC(func_type) *p, FLOAT dens_threshold);
 void  XC(func_set_ext_params)(XC(func_type) *p, double *ext_params);
 
 #include "xc_funcs.h"

@@ -63,7 +63,7 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
   for(ip = 0; ip < np; ip++){
     XC(rho2dzeta)(p->nspin, rho, &dens, &r.z);
 
-    if(dens < p->info->min_dens) goto end_ip_loop;
+    if(dens < p->dens_threshold) goto end_ip_loop;
 
     r.rs = cnst_rs*POW(dens, -1.0/XC_DIMENSIONS);
 

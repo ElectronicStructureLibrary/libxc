@@ -226,6 +226,8 @@ int XC(func_init)(XC(func_type) *func, int functional, int nspin)
   if(func->info->n_ext_params > 0)
     func->info->set_ext_params(func, NULL);
 
+  func->dens_threshold = func->info->dens_threshold;
+
   return 0;
 }
 
@@ -276,6 +278,13 @@ const XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p)
 {
   return p->info;
 }
+
+/*------------------------------------------------------*/
+void XC(func_set_dens_threshold)(XC(func_type) *p, FLOAT dens_threshold)
+{
+  p->dens_threshold = dens_threshold;
+}
+
 
 /*------------------------------------------------------*/
 void XC(func_set_ext_params)(XC(func_type) *p, double *ext_params)

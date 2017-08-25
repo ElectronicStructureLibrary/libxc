@@ -130,12 +130,12 @@ work_gga_x
   /* the loop over the points starts */
   for(ip = 0; ip < np; ip++){
     dens = (p->nspin == XC_UNPOLARIZED) ? rho[0] : rho[0] + rho[1];
-    if(dens < p->info->min_dens) goto end_ip_loop;
+    if(dens < p->dens_threshold) goto end_ip_loop;
 
     for(is=0; is<p->nspin; is++){
       is2 = 2*is;
 
-      if(rho[is] < p->info->min_dens) continue;
+      if(rho[is] < p->dens_threshold) continue;
 
       gdm    = max(SQRT(sigma[is2])/sfact, MIN_GRAD);
       ds     = rho[is]/sfact;

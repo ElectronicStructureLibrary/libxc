@@ -22,17 +22,17 @@
 #define XC_HYB_MGGA_XC_REVTPSSH    458 /* revTPSS hybrid */
 
 static void
-hyb_mgga_xc_tpssh_init(XC(func_type) *p)
+hyb_mgga_xc_tpssh_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_MGGA_X_TPSS, XC_MGGA_C_TPSS};
-  static FLOAT funcs_coef[2] = {0.9, 1.0};
+  static double funcs_coef[2] = {0.9, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.10;
 }
 
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_tpssh) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_tpssh = {
   XC_HYB_MGGA_XC_TPSSH,
   XC_EXCHANGE_CORRELATION,
   "TPSSh",
@@ -47,17 +47,17 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_tpssh) = {
 
 
 static void
-hyb_mgga_xc_revtpssh_init(XC(func_type) *p)
+hyb_mgga_xc_revtpssh_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_MGGA_X_REVTPSS, XC_MGGA_C_REVTPSS};
-  static FLOAT funcs_coef[2] = {0.9, 1.0};
+  static double funcs_coef[2] = {0.9, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.10;
 }
 
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_revtpssh) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_revtpssh = {
   XC_HYB_MGGA_XC_REVTPSSH,
   XC_EXCHANGE_CORRELATION,
   "revTPSSh",

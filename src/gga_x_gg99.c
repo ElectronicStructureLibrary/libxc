@@ -22,10 +22,10 @@
 #define XC_GGA_X_KGG99  544 /* Gilbert and Gill 1999 (mixed) */
 
 static void
-newt_raph(FLOAT a, FLOAT tol, FLOAT *xx, FLOAT *dxx, int *ierr)
+newt_raph(double a, double tol, double *xx, double *dxx, int *ierr)
 {
   int count;
-  FLOAT x, f, fp;
+  double x, f, fp;
   static int max_iter = 50;
 
   *ierr = 1;
@@ -35,7 +35,7 @@ newt_raph(FLOAT a, FLOAT tol, FLOAT *xx, FLOAT *dxx, int *ierr)
 
   count = 0;
   do {
-    FLOAT sh, ch;
+    double sh, ch;
      
     sh = sinh(x);
     ch = cosh(x);
@@ -46,7 +46,7 @@ newt_raph(FLOAT a, FLOAT tol, FLOAT *xx, FLOAT *dxx, int *ierr)
     x -= f/fp;
     
     count ++;
-  } while((ABS(f) > tol) && (count < max_iter));
+  } while((fabs(f) > tol) && (count < max_iter));
   
   if(count == max_iter) *ierr=0; 
 
@@ -57,26 +57,26 @@ newt_raph(FLOAT a, FLOAT tol, FLOAT *xx, FLOAT *dxx, int *ierr)
 
 /* This implements Eq. (22) of the paper */
 inline static void 
-r_x(int order, FLOAT x, FLOAT *r, FLOAT *dr)
+r_x(int order, double x, double *r, double *dr)
 {
-  static const FLOAT
+  static const double
     a1 = 4.0*M_SQRT3*M_PI*M_PI*M_PI;
 
-  FLOAT a2, x2, x4, x6, aux1, aux2, daux1, daux2, num, den, dd, dnum, dden;
+  double a2, x2, x4, x6, aux1, aux2, daux1, daux2, num, den, dd, dnum, dden;
   int ierr;
 
-  a2 = SQRT(3.0/(2.0*a1));
+  a2 = sqrt(3.0/(2.0*a1));
 
   x2 = x*x;
   x4 = x2*x2;
   x6 = x2*x4;
 
   if(a1*a1 > x6){
-    aux1 = a1 + SQRT(a1*a1 - x6);
+    aux1 = a1 + sqrt(a1*a1 - x6);
     aux2 = CBRT(aux1);
 
-    num = x*a2*SQRT(x2 + aux2*aux2);
-    den = SQRT(aux2);
+    num = x*a2*sqrt(x2 + aux2*aux2);
+    den = sqrt(aux2);
   
     *r = asinh(num/den);
   }else{ // asymptotic expansion
@@ -86,32 +86,32 @@ r_x(int order, FLOAT x, FLOAT *r, FLOAT *dr)
   if(order < 1) return;
 
   if(a1*a1 > x6){
-    daux1 = -3.0*x*x4/SQRT(a1*a1 - x6);
+    daux1 = -3.0*x*x4/sqrt(a1*a1 - x6);
     daux2 = daux1*aux2/(3.0*aux1);
 
-    dnum = a2*(2.0*x2 + aux2*aux2 + x*aux2*daux2)/SQRT(x2 + aux2*aux2);
+    dnum = a2*(2.0*x2 + aux2*aux2 + x*aux2*daux2)/sqrt(x2 + aux2*aux2);
     dden = daux2*den/(2.0*aux2);
 
     dd  = DFRACTION(num, dnum, den, dden);
-    *dr = dd/SQRT(1 + num*num/(den*den));
+    *dr = dd/sqrt(1 + num*num/(den*den));
   }
 }
 
-void XC(gga_x_gg99_enhance)
-     (const XC(func_type) *p, XC(gga_work_x_t) *r)
+void xc_gga_x_gg99_enhance
+     (const xc_func_type *p, xc_gga_work_x_t *r)
 {
-  FLOAT rr, dr;
-  FLOAT aux1, aux2, aux3, aux4, aux5, daux1, daux2, daux4, daux5;
-  FLOAT num, den, dnum, dden, df;
+  double rr, dr;
+  double aux1, aux2, aux3, aux4, aux5, daux1, daux2, daux4, daux5;
+  double num, den, dnum, dden, df;
 
   r_x(r->order, r->x, &rr, &dr);
 
-  aux1 = EXP(-2.0*rr);
+  aux1 = exp(-2.0*rr);
 
-  aux2 = LOG(1.0 + aux1);
+  aux2 = log(1.0 + aux1);
   aux3 = 1.0/cosh(rr);
-  aux4 = POW(aux3, 2.0/3.0);
-  aux5 = XC(dilogarithm)(-aux1);
+  aux4 = pow(aux3, 2.0/3.0);
+  aux5 = xc_dilogarithm(-aux1);
 
   num = -M_PI*M_PI + 12.0*rr*aux2 - 12.0*aux5;
   den = 2.0*M_CBRT3*M_PI*rr*aux4;
@@ -131,10 +131,10 @@ void XC(gga_x_gg99_enhance)
   r->dfdx = DFRACTION(num, dnum, den, dden)*dr/X_FACTOR_C;
 }
 
-#define func XC(gga_x_gg99_enhance)
+#define func xc_gga_x_gg99_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_gg99) = {
+const xc_func_info_type xc_func_info_gga_x_gg99 = {
   XC_GGA_X_GG99,
   XC_EXCHANGE,
   "Gilbert and Gill 1999",
@@ -150,16 +150,16 @@ const XC(func_info_type) XC(func_info_gga_x_gg99) = {
 
 /*************************************************************/
 static void
-gga_c_kgg_init(XC(func_type) *p)
+gga_c_kgg_init(xc_func_type *p)
 {
   /* defined in Eq. (25) of the paper */
   static int   funcs_id  [2] = {XC_LDA_X, XC_GGA_X_GG99};
-  static FLOAT funcs_coef[2] = {-0.047/X_FACTOR_C, 1.0};
+  static double funcs_coef[2] = {-0.047/X_FACTOR_C, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
 }
 
-const XC(func_info_type) XC(func_info_gga_x_kgg99) = {
+const xc_func_info_type xc_func_info_gga_x_kgg99 = {
   XC_GGA_X_KGG99,
   XC_EXCHANGE,
   "Gilbert and Gill 1999 (mixed)",

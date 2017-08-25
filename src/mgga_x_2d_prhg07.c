@@ -24,8 +24,8 @@
 
 
 /* Standard Newton's method */
-static FLOAT
-prhg_newt(FLOAT c, FLOAT tol, FLOAT * res, int *ierr)
+static double
+prhg_newt(double c, double tol, double * res, int *ierr)
 {
   int count;
   long double y, f, yf;
@@ -81,16 +81,12 @@ prhg_newt(FLOAT c, FLOAT tol, FLOAT * res, int *ierr)
    return y;
 }
 
-FLOAT XC(mgga_x_2d_prhg_get_y)(FLOAT C)
+double xc_mgga_x_2d_prhg_get_y(double C)
 {
-  FLOAT rhs, res, y, tol;
+  double rhs, res, y, tol;
   int ierr;
 
-#ifdef SINGLE_PRECISION
-  tol = 1e-6;
-#else
   tol = 5e-12;
-#endif
 
   rhs = C/M_PI;
 
@@ -105,25 +101,25 @@ FLOAT XC(mgga_x_2d_prhg_get_y)(FLOAT C)
 }
 
 static void 
-func(const XC(func_type) *p, XC(mgga_work_x_t) *r)
+func(const xc_func_type *p, xc_mgga_work_x_t *r)
 {
-  FLOAT y;
-  FLOAT v_PRHG, C;
+  double y;
+  double v_PRHG, C;
 
   assert(p != NULL);
   
   C = 0.25*(r->u - 4.0*r->t + 0.5*r->x*r->x);
   
-  y = XC(mgga_x_2d_prhg_get_y)(C);
+  y = xc_mgga_x_2d_prhg_get_y(C);
   
-  v_PRHG = M_PI*XC(bessel_I0)(y/2.0);
+  v_PRHG = M_PI*xc_bessel_I0(y/2.0);
   v_PRHG /= X_FACTOR_2D_C;
 
   if (p->info->number == XC_MGGA_X_2D_PRHG07) {
     r->dfdrs = v_PRHG*(1.0 / 3.0); // This factor is here in order to get the correct potential through work_mgga_x.c
     r->f = v_PRHG / 2.0;
   }else if (p->info->number == XC_MGGA_X_2D_PRHG07_PRP10) {
-    r->dfdrs = (v_PRHG - ((2.0*M_SQRT2)/(3.0*M_PI))*SQRT(max(2.0*r->t - 0.25*r->x*r->x, 0.0))/X_FACTOR_2D_C)*(1.0 / 3.0);
+    r->dfdrs = (v_PRHG - ((2.0*M_SQRT2)/(3.0*M_PI))*sqrt(max(2.0*r->t - 0.25*r->x*r->x, 0.0))/X_FACTOR_2D_C)*(1.0 / 3.0);
     r->f = r->dfdrs * (3.0 / 2.0);
   }
 
@@ -134,7 +130,7 @@ func(const XC(func_type) *p, XC(mgga_work_x_t) *r)
 #define XC_DIMENSIONS 2
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_2d_prhg07) = {
+const xc_func_info_type xc_func_info_mgga_x_2d_prhg07 = {
   XC_MGGA_X_2D_PRHG07,
   XC_EXCHANGE,
   "Pittalis-Rasanen-Helbig-Gross 2007",
@@ -148,7 +144,7 @@ const XC(func_info_type) XC(func_info_mgga_x_2d_prhg07) = {
   work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_2d_prhg07_prp10) = {
+const xc_func_info_type xc_func_info_mgga_x_2d_prhg07_prp10 = {
   XC_MGGA_X_2D_PRHG07_PRP10,
   XC_EXCHANGE,
   "PRHG07 with Pittalis-Rasanen-Proetto 2010 correction",

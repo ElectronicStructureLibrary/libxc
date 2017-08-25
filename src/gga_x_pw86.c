@@ -23,7 +23,7 @@
 #define XC_GGA_K_FR_PW86      515 /* Fuentealba & Reyes (PW86 version) */
 
 typedef struct{
-  FLOAT aa, bb, cc;
+  double aa, bb, cc;
 } gga_x_pw86_params;
 
 
@@ -40,7 +40,7 @@ static const gga_x_pw86_params par_fr_pw86 = {
 };
 
 static void 
-gga_x_pw86_init(XC(func_type) *p)
+gga_x_pw86_init(xc_func_type *p)
 {
   gga_x_pw86_params *params;
 
@@ -69,7 +69,7 @@ gga_x_pw86_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_pw86) = {
+const xc_func_info_type xc_func_info_gga_x_pw86 = {
   XC_GGA_X_PW86,
   XC_EXCHANGE,
   "Perdew & Wang 86",
@@ -83,7 +83,7 @@ const XC(func_info_type) XC(func_info_gga_x_pw86) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_rpw86) = {
+const xc_func_info_type xc_func_info_gga_x_rpw86 = {
   XC_GGA_X_RPW86,
   XC_EXCHANGE,
   "Refitted Perdew & Wang 86",
@@ -100,7 +100,7 @@ const XC(func_info_type) XC(func_info_gga_x_rpw86) = {
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_k_fr_pw86) = {
+const xc_func_info_type xc_func_info_gga_k_fr_pw86 = {
   XC_GGA_K_FR_PW86,
   XC_KINETIC,
   "Fuentealba & Reyes (PW86 version)",

@@ -42,15 +42,15 @@
 
 
 typedef struct{
-  FLOAT kappa, mu;
+  double kappa, mu;
 
   /* parameter used in the Odashima & Capelle versions */
-  FLOAT lambda;
+  double lambda;
 } gga_x_pbe_params;
 
 
 static void 
-gga_x_pbe_init(XC(func_type) *p)
+gga_x_pbe_init(xc_func_type *p)
 {
   gga_x_pbe_params *params;
 
@@ -63,67 +63,67 @@ gga_x_pbe_init(XC(func_type) *p)
   switch(p->info->number){
   case XC_GGA_X_PBE:
     /* PBE: mu = beta*pi^2/3, beta = 0.06672455060314922 */
-    XC(gga_x_pbe_set_params)(p, 0.8040, 0.2195149727645171);
+    xc_gga_x_pbe_set_params(p, 0.8040, 0.2195149727645171);
     break;
   case XC_GGA_X_PBE_R:
-    XC(gga_x_pbe_set_params)(p, 1.245, 0.2195149727645171);
+    xc_gga_x_pbe_set_params(p, 1.245, 0.2195149727645171);
     break;
   case XC_GGA_X_PBE_SOL:
-    XC(gga_x_pbe_set_params)(p, 0.804, MU_GE);
+    xc_gga_x_pbe_set_params(p, 0.804, MU_GE);
     break;
   case XC_GGA_X_XPBE:
-    XC(gga_x_pbe_set_params)(p, 0.91954, 0.23214);
+    xc_gga_x_pbe_set_params(p, 0.91954, 0.23214);
     break;
   case XC_GGA_X_PBE_JSJR:
-    XC(gga_x_pbe_set_params)(p, 0.8040, 0.046*M_PI*M_PI/3.0);
+    xc_gga_x_pbe_set_params(p, 0.8040, 0.046*M_PI*M_PI/3.0);
     break;
   case XC_GGA_X_PBEK1_VDW:
-    XC(gga_x_pbe_set_params)(p, 1.0, 0.2195149727645171);
+    xc_gga_x_pbe_set_params(p, 1.0, 0.2195149727645171);
     break;
   case XC_GGA_X_APBE:
-    XC(gga_x_pbe_set_params)(p, 0.8040, 0.260);
+    xc_gga_x_pbe_set_params(p, 0.8040, 0.260);
     break;
   case XC_GGA_K_APBE:
-    XC(gga_x_pbe_set_params)(p, 0.8040, 0.23889);
+    xc_gga_x_pbe_set_params(p, 0.8040, 0.23889);
     break;
   case XC_GGA_K_TW1:
-    XC(gga_x_pbe_set_params)(p, 0.8209, 0.2335);
+    xc_gga_x_pbe_set_params(p, 0.8209, 0.2335);
     break;
   case XC_GGA_K_TW2:
-    XC(gga_x_pbe_set_params)(p, 0.6774, 0.2371);
+    xc_gga_x_pbe_set_params(p, 0.6774, 0.2371);
     break;
   case XC_GGA_K_TW3:
-    XC(gga_x_pbe_set_params)(p, 0.8438, 0.2319);
+    xc_gga_x_pbe_set_params(p, 0.8438, 0.2319);
     break;
   case XC_GGA_K_TW4:
-    XC(gga_x_pbe_set_params)(p, 0.8589, 0.2309);
+    xc_gga_x_pbe_set_params(p, 0.8589, 0.2309);
     break;
   case XC_GGA_X_PBE_TCA:
-    XC(gga_x_pbe_set_params)(p, 1.227, 0.2195149727645171);
+    xc_gga_x_pbe_set_params(p, 1.227, 0.2195149727645171);
     break;
   case XC_GGA_K_REVAPBE:
-    XC(gga_x_pbe_set_params)(p, 1.245, 0.23889);
+    xc_gga_x_pbe_set_params(p, 1.245, 0.23889);
     break;
   case XC_GGA_X_PBE_MOL:
-    XC(gga_x_pbe_set_params)(p, 0.8040, 0.27583);
+    xc_gga_x_pbe_set_params(p, 0.8040, 0.27583);
     break;
   case XC_GGA_X_LAMBDA_LO_N:
-    XC(gga_x_pbe_set_params)(p, -1.0, 0.2195149727645171);
+    xc_gga_x_pbe_set_params(p, -1.0, 0.2195149727645171);
     params->lambda = 2.273;
     break;
   case XC_GGA_X_LAMBDA_CH_N:
-    XC(gga_x_pbe_set_params)(p, -1.0, 0.2195149727645171);
+    xc_gga_x_pbe_set_params(p, -1.0, 0.2195149727645171);
     params->lambda = 2.215;
     break;
   case XC_GGA_X_LAMBDA_OC2_N:
-    XC(gga_x_pbe_set_params)(p, -1.0, 0.2195149727645171);
+    xc_gga_x_pbe_set_params(p, -1.0, 0.2195149727645171);
     params->lambda = 2.00;
     break;
   case XC_GGA_X_BCGP:
-    XC(gga_x_pbe_set_params)(p, 0.8040, 0.249);
+    xc_gga_x_pbe_set_params(p, 0.8040, 0.249);
     break;
   case XC_GGA_X_PBEFE:
-    XC(gga_x_pbe_set_params)(p, 0.437, 0.346);
+    xc_gga_x_pbe_set_params(p, 0.437, 0.346);
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_pbe\n");
@@ -133,7 +133,7 @@ gga_x_pbe_init(XC(func_type) *p)
 
 
 void 
-XC(gga_x_pbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu)
+xc_gga_x_pbe_set_params(xc_func_type *p, double kappa, double mu)
 {
   gga_x_pbe_params *params;
 
@@ -146,11 +146,11 @@ XC(gga_x_pbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu)
 
 #include "maple2c/gga_x_pbe.c"
 
-#define func XC(gga_x_pbe_enhance)
+#define func xc_gga_x_pbe_enhance
 #include "work_gga_x.c"
 
 
-const XC(func_info_type) XC(func_info_gga_x_pbe) = {
+const xc_func_info_type xc_func_info_gga_x_pbe = {
   XC_GGA_X_PBE,
   XC_EXCHANGE,
   "Perdew, Burke & Ernzerhof",
@@ -163,7 +163,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbe) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_pbe_r) = {
+const xc_func_info_type xc_func_info_gga_x_pbe_r = {
   XC_GGA_X_PBE_R,
   XC_EXCHANGE,
   "Revised PBE from Zhang & Yang",
@@ -176,7 +176,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_r) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_pbe_sol) = {
+const xc_func_info_type xc_func_info_gga_x_pbe_sol = {
   XC_GGA_X_PBE_SOL,
   XC_EXCHANGE,
   "Perdew, Burke & Ernzerhof SOL",
@@ -189,7 +189,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_sol) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_xpbe) = {
+const xc_func_info_type xc_func_info_gga_x_xpbe = {
   XC_GGA_X_XPBE,
   XC_EXCHANGE,
   "Extended PBE by Xu & Goddard III",
@@ -202,7 +202,7 @@ const XC(func_info_type) XC(func_info_gga_x_xpbe) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_pbe_jsjr) = {
+const xc_func_info_type xc_func_info_gga_x_pbe_jsjr = {
   XC_GGA_X_PBE_JSJR,
   XC_EXCHANGE,
   "Reparametrized PBE by Pedroza, Silva & Capelle",
@@ -215,7 +215,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_jsjr) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_pbek1_vdw) = {
+const xc_func_info_type xc_func_info_gga_x_pbek1_vdw = {
   XC_GGA_X_PBEK1_VDW,
   XC_EXCHANGE,
   "Reparametrized PBE for vdW",
@@ -228,7 +228,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbek1_vdw) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_apbe) = {
+const xc_func_info_type xc_func_info_gga_x_apbe = {
   XC_GGA_X_APBE,
   XC_EXCHANGE,
   "mu fixed from the semiclassical neutral atom",
@@ -241,7 +241,7 @@ const XC(func_info_type) XC(func_info_gga_x_apbe) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_pbe_tca) = {
+const xc_func_info_type xc_func_info_gga_x_pbe_tca = {
   XC_GGA_X_PBE_TCA,
   XC_EXCHANGE,
   "PBE revised by Tognetti et al",
@@ -259,12 +259,12 @@ static const func_params_type ext_params[] = {
 };
 
 static void 
-set_ext_params(XC(func_type) *p, const double *ext_params)
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  const FLOAT lambda_1 = 1.48;
+  const double lambda_1 = 1.48;
 
   gga_x_pbe_params *params;
-  FLOAT lambda, ff;
+  double lambda, ff;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_pbe_params *) (p->params);
@@ -276,7 +276,7 @@ set_ext_params(XC(func_type) *p, const double *ext_params)
 }
 
 
-const XC(func_info_type) XC(func_info_gga_x_lambda_lo_n) = {
+const xc_func_info_type xc_func_info_gga_x_lambda_lo_n = {
   XC_GGA_X_LAMBDA_LO_N,
   XC_EXCHANGE,
   "lambda_LO(N) version of PBE",
@@ -289,7 +289,7 @@ const XC(func_info_type) XC(func_info_gga_x_lambda_lo_n) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_lambda_ch_n) = {
+const xc_func_info_type xc_func_info_gga_x_lambda_ch_n = {
   XC_GGA_X_LAMBDA_CH_N,
   XC_EXCHANGE,
   "lambda_CH(N) version of PBE",
@@ -302,7 +302,7 @@ const XC(func_info_type) XC(func_info_gga_x_lambda_ch_n) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_lambda_oc2_n) = {
+const xc_func_info_type xc_func_info_gga_x_lambda_oc2_n = {
   XC_GGA_X_LAMBDA_OC2_N,
   XC_EXCHANGE,
   "lambda_OC2(N) version of PBE",
@@ -315,7 +315,7 @@ const XC(func_info_type) XC(func_info_gga_x_lambda_oc2_n) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_pbe_mol) = {
+const xc_func_info_type xc_func_info_gga_x_pbe_mol = {
   XC_GGA_X_PBE_MOL,
   XC_EXCHANGE,
   "Reparametrized PBE by del Campo, Gazquez, Trickey & Vela",
@@ -328,7 +328,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbe_mol) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_bcgp) = {
+const xc_func_info_type xc_func_info_gga_x_bcgp = {
   XC_GGA_X_BCGP,
   XC_EXCHANGE,
   "Burke, Cancio, Gould, and Pittalis",
@@ -341,7 +341,7 @@ const XC(func_info_type) XC(func_info_gga_x_bcgp) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_pbefe) = {
+const xc_func_info_type xc_func_info_gga_x_pbefe = {
   XC_GGA_X_PBEFE,
   XC_EXCHANGE,
   "PBE for formation energies",
@@ -357,7 +357,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbefe) = {
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_k_apbe) = {
+const xc_func_info_type xc_func_info_gga_k_apbe = {
   XC_GGA_K_APBE,
   XC_KINETIC,
   "mu fixed from the semiclassical neutral atom",
@@ -370,7 +370,7 @@ const XC(func_info_type) XC(func_info_gga_k_apbe) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_revapbe) = {
+const xc_func_info_type xc_func_info_gga_k_revapbe = {
   XC_GGA_K_REVAPBE,
   XC_KINETIC,
   "revised APBE",
@@ -383,7 +383,7 @@ const XC(func_info_type) XC(func_info_gga_k_revapbe) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_tw1) = {
+const xc_func_info_type xc_func_info_gga_k_tw1 = {
   XC_GGA_K_TW1,
   XC_KINETIC,
   "Tran and Wesolowski set 1 (Table II)",
@@ -396,7 +396,7 @@ const XC(func_info_type) XC(func_info_gga_k_tw1) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_tw2) = {
+const xc_func_info_type xc_func_info_gga_k_tw2 = {
   XC_GGA_K_TW2,
   XC_KINETIC,
   "Tran and Wesolowski set 2 (Table II)",
@@ -409,7 +409,7 @@ const XC(func_info_type) XC(func_info_gga_k_tw2) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_tw3) = {
+const xc_func_info_type xc_func_info_gga_k_tw3 = {
   XC_GGA_K_TW3,
   XC_KINETIC,
   "Tran and Wesolowski set 3 (Table II)",
@@ -422,7 +422,7 @@ const XC(func_info_type) XC(func_info_gga_k_tw3) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_tw4) = {
+const xc_func_info_type xc_func_info_gga_k_tw4 = {
   XC_GGA_K_TW4,
   XC_KINETIC,
   "Tran and Wesolowski set 4 (Table II)",

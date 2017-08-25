@@ -22,18 +22,18 @@
 #define XC_HYB_GGA_XC_EDF2        476 /* Empirical functional from Lin, George and Gill */
 
 static void
-hyb_gga_xc_edf2_init(XC(func_type) *p)
+hyb_gga_xc_edf2_init(xc_func_type *p)
 {
   static int   funcs_id  [6] = {XC_LDA_X, XC_GGA_X_B88, XC_GGA_X_B88, XC_LDA_C_VWN, XC_GGA_C_LYP, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[6] = {0.2811, 0.6227, -0.0551, 0.3029, 0.5998, -0.0053};
+  static double funcs_coef[6] = {0.2811, 0.6227, -0.0551, 0.3029, 0.5998, -0.0053};
 
-  XC(mix_init)(p, 6, funcs_id, funcs_coef);  
-  XC(gga_x_b88_set_params)(p->func_aux[2], 0.0035, 6.0);
-  XC(gga_c_lyp_set_params)(p->func_aux[5], 0.055, 0.158, 0.25, 0.3505);
+  xc_mix_init(p, 6, funcs_id, funcs_coef);  
+  xc_gga_x_b88_set_params(p->func_aux[2], 0.0035, 6.0);
+  xc_gga_c_lyp_set_params(p->func_aux[5], 0.055, 0.158, 0.25, 0.3505);
   p->cam_alpha = 0.1695;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_edf2) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_edf2 = {
   XC_HYB_GGA_XC_EDF2,
   XC_EXCHANGE_CORRELATION,
   "EDF2",

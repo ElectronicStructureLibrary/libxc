@@ -23,7 +23,6 @@
 #include <string.h>
 
 #include <xc.h>
-#include <xc_config.h>
 
 /* Buffer size (line length) for file reads */
 #define BUFSIZE 1024
@@ -33,80 +32,80 @@ typedef struct {
   int n;
 
   /* Input: density, gradient, laplacian and kinetic energy density */
-  FLOAT *rho;
-  FLOAT *sigma;
-  FLOAT *lapl;
-  FLOAT *tau;
+  double *rho;
+  double *sigma;
+  double *lapl;
+  double *tau;
 
   /* Output: energy density and potentials for density, gradient, laplacian and tau */
-  FLOAT *zk;
-  FLOAT *vrho;
-  FLOAT *vsigma;
-  FLOAT *vlapl;
-  FLOAT *vtau;
+  double *zk;
+  double *vrho;
+  double *vsigma;
+  double *vlapl;
+  double *vtau;
 
   /* ... and second derivatives */
-  FLOAT *v2rho2;
-  FLOAT *v2tau2;
-  FLOAT *v2lapl2;
-  FLOAT *v2rhotau;
-  FLOAT *v2rholapl;
-  FLOAT *v2lapltau;
-  FLOAT *v2sigma2;
-  FLOAT *v2rhosigma;
-  FLOAT *v2sigmatau;
-  FLOAT *v2sigmalapl;
+  double *v2rho2;
+  double *v2tau2;
+  double *v2lapl2;
+  double *v2rhotau;
+  double *v2rholapl;
+  double *v2lapltau;
+  double *v2sigma2;
+  double *v2rhosigma;
+  double *v2sigmatau;
+  double *v2sigmalapl;
 
   /* ... and third derivatives */
-  FLOAT *v3rho3;
+  double *v3rho3;
 } values_t;
 
 void allocate_memory(values_t *data, int nspin) {
   switch(nspin) {
   case(XC_UNPOLARIZED):
-    data->rho=calloc(data->n,sizeof(FLOAT));
-    data->sigma=calloc(data->n,sizeof(FLOAT));
-    data->lapl=calloc(data->n,sizeof(FLOAT));
-    data->tau=calloc(data->n,sizeof(FLOAT));
-    data->zk=calloc(data->n,sizeof(FLOAT));
-    data->vrho=calloc(data->n,sizeof(FLOAT));
-    data->vsigma=calloc(data->n,sizeof(FLOAT));
-    data->vlapl=calloc(data->n,sizeof(FLOAT));
-    data->vtau=calloc(data->n,sizeof(FLOAT));
-    data->v2rho2=calloc(data->n,sizeof(FLOAT));
-    data->v2tau2=calloc(data->n,sizeof(FLOAT));
-    data->v2lapl2=calloc(data->n,sizeof(FLOAT));
-    data->v2rhotau=calloc(data->n,sizeof(FLOAT));
-    data->v2rholapl=calloc(data->n,sizeof(FLOAT));
-    data->v2lapltau=calloc(data->n,sizeof(FLOAT));
-    data->v2sigma2=calloc(data->n,sizeof(FLOAT));
-    data->v2rhosigma=calloc(data->n,sizeof(FLOAT));
-    data->v2sigmatau=calloc(data->n,sizeof(FLOAT));
-    data->v2sigmalapl=calloc(data->n,sizeof(FLOAT));
-    data->v3rho3=calloc(data->n,sizeof(FLOAT));
+    data->rho=calloc(data->n,sizeof(double));
+    data->sigma=calloc(data->n,sizeof(double));
+    data->lapl=calloc(data->n,sizeof(double));
+    data->tau=calloc(data->n,sizeof(double));
+    data->zk=calloc(data->n,sizeof(double));
+    data->vrho=calloc(data->n,sizeof(double));
+    data->vsigma=calloc(data->n,sizeof(double));
+    data->vlapl=calloc(data->n,sizeof(double));
+    data->vtau=calloc(data->n,sizeof(double));
+    data->v2rho2=calloc(data->n,sizeof(double));
+    data->v2tau2=calloc(data->n,sizeof(double));
+    data->v2lapl2=calloc(data->n,sizeof(double));
+    data->v2rhotau=calloc(data->n,sizeof(double));
+    data->v2rholapl=calloc(data->n,sizeof(double));
+    data->v2lapltau=calloc(data->n,sizeof(double));
+    data->v2sigma2=calloc(data->n,sizeof(double));
+    data->v2rhosigma=calloc(data->n,sizeof(double));
+    data->v2sigmatau=calloc(data->n,sizeof(double));
+    data->v2sigmalapl=calloc(data->n,sizeof(double));
+    data->v3rho3=calloc(data->n,sizeof(double));
     break;
 
   case(XC_POLARIZED):
-    data->rho=calloc(2*data->n,sizeof(FLOAT));
-    data->sigma=calloc(3*data->n,sizeof(FLOAT));
-    data->lapl=calloc(2*data->n,sizeof(FLOAT));
-    data->tau=calloc(2*data->n,sizeof(FLOAT));
-    data->zk=calloc(data->n,sizeof(FLOAT));
-    data->vrho=calloc(2*data->n,sizeof(FLOAT));
-    data->vsigma=calloc(3*data->n,sizeof(FLOAT));
-    data->vlapl=calloc(2*data->n,sizeof(FLOAT));
-    data->vtau=calloc(2*data->n,sizeof(FLOAT));
-    data->v2rho2=calloc(3*data->n,sizeof(FLOAT));
-    data->v2tau2=calloc(3*data->n,sizeof(FLOAT));
-    data->v2lapl2=calloc(3*data->n,sizeof(FLOAT));
-    data->v2rhotau=calloc(4*data->n,sizeof(FLOAT));
-    data->v2rholapl=calloc(4*data->n,sizeof(FLOAT));
-    data->v2lapltau=calloc(4*data->n,sizeof(FLOAT));
-    data->v2sigma2=calloc(6*data->n,sizeof(FLOAT));
-    data->v2rhosigma=calloc(6*data->n,sizeof(FLOAT));
-    data->v2sigmatau=calloc(6*data->n,sizeof(FLOAT));
-    data->v2sigmalapl=calloc(6*data->n,sizeof(FLOAT));
-    data->v3rho3=calloc(4*data->n,sizeof(FLOAT));
+    data->rho=calloc(2*data->n,sizeof(double));
+    data->sigma=calloc(3*data->n,sizeof(double));
+    data->lapl=calloc(2*data->n,sizeof(double));
+    data->tau=calloc(2*data->n,sizeof(double));
+    data->zk=calloc(data->n,sizeof(double));
+    data->vrho=calloc(2*data->n,sizeof(double));
+    data->vsigma=calloc(3*data->n,sizeof(double));
+    data->vlapl=calloc(2*data->n,sizeof(double));
+    data->vtau=calloc(2*data->n,sizeof(double));
+    data->v2rho2=calloc(3*data->n,sizeof(double));
+    data->v2tau2=calloc(3*data->n,sizeof(double));
+    data->v2lapl2=calloc(3*data->n,sizeof(double));
+    data->v2rhotau=calloc(4*data->n,sizeof(double));
+    data->v2rholapl=calloc(4*data->n,sizeof(double));
+    data->v2lapltau=calloc(4*data->n,sizeof(double));
+    data->v2sigma2=calloc(6*data->n,sizeof(double));
+    data->v2rhosigma=calloc(6*data->n,sizeof(double));
+    data->v2sigmatau=calloc(6*data->n,sizeof(double));
+    data->v2sigmalapl=calloc(6*data->n,sizeof(double));
+    data->v3rho3=calloc(4*data->n,sizeof(double));
     break;
 
   default:
@@ -159,10 +158,10 @@ values_t read_data(const char *file, int nspin) {
   values_t data;
 
   /* Helper variables */
-  FLOAT rhoa, rhob;
-  FLOAT sigmaaa, sigmaab, sigmabb;
-  FLOAT lapla, laplb;
-  FLOAT taua, taub;
+  double rhoa, rhob;
+  double sigmaaa, sigmaab, sigmabb;
+  double lapla, laplb;
+  double taua, taub;
 
   /* Open file */
   in=fopen(file,"r");
@@ -258,7 +257,7 @@ int main(int argc, char *argv[])
   }
 
   /* Get functional id */
-  func_id = XC(functional_get_number)(argv[1]);
+  func_id = xc_functional_get_number(argv[1]);
   if(func_id <= 0) {
     fprintf(stderr, "Functional '%s' not found\n", argv[1]);
     exit(1);
@@ -274,7 +273,7 @@ int main(int argc, char *argv[])
     /* Data array */
     values_t d;
     /* Functional evaluator */
-    XC(func_type) func;
+    xc_func_type func;
     /* Flags for functional */
     int flags;
     /* Functional family */
@@ -285,13 +284,13 @@ int main(int argc, char *argv[])
     char *fname;
 
     /* Helpers for properties that may not have been implemented */
-    FLOAT *zk, *vrho, *v2rho2, *v3rho3;
+    double *zk, *vrho, *v2rho2, *v3rho3;
 
     /* Read in data */
     d=read_data(argv[2],nspin);
 
     /* Initialize functional */
-    if(XC(func_init)(&func, func_id, nspin)) {
+    if(xc_func_init(&func, func_id, nspin)) {
       fprintf(stderr, "Functional '%d' (%s) not found.\nPlease report a bug against functional_get_number.\n", func_id, argv[1]);
       exit(1);
     }
@@ -308,16 +307,16 @@ int main(int argc, char *argv[])
     /* Evaluate xc functional */
     switch(family) {
     case XC_FAMILY_LDA:
-      XC(lda)(&func, d.n, d.rho, zk, vrho, v2rho2, v3rho3);
+      xc_lda(&func, d.n, d.rho, zk, vrho, v2rho2, v3rho3);
       break;
     case XC_FAMILY_GGA:
     case XC_FAMILY_HYB_GGA:
-      XC(gga)(&func, d.n, d.rho, d.sigma, zk, vrho, d.vsigma,		\
+      xc_gga(&func, d.n, d.rho, d.sigma, zk, vrho, d.vsigma,		\
 	     v2rho2, d.v2rhosigma, d.v2sigma2, NULL, NULL, NULL, NULL);
       break;
     case XC_FAMILY_MGGA:
     case XC_FAMILY_HYB_MGGA:
-      XC(mgga)(&func, d.n, d.rho, d.sigma, d.lapl, d.tau, zk, vrho, d.vsigma, d.vlapl, d.vtau, \
+      xc_mgga(&func, d.n, d.rho, d.sigma, d.lapl, d.tau, zk, vrho, d.vsigma, d.vlapl, d.vtau, \
 	      v2rho2, d.v2sigma2, d.v2lapl2, d.v2tau2, d.v2rhosigma, d.v2rholapl, d.v2rhotau, \
 	      d.v2sigmalapl, d.v2sigmatau, d.v2lapltau);
       break;
@@ -507,7 +506,7 @@ int main(int argc, char *argv[])
       }
     }
    
-    XC(func_end)(&func);
+    xc_func_end(&func);
     free_memory(d);
     fclose(out);
   }

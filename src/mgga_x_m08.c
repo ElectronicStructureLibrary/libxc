@@ -25,7 +25,7 @@
 #define XC_HYB_MGGA_XC_M08_SO  461 /* M08-SO functional from Minnesota */
 
 typedef struct{
-  const FLOAT a[12], b[12];
+  const double a[12], b[12];
 } mgga_x_m08_params;
 
 static const mgga_x_m08_params par_m08_hx = {
@@ -50,7 +50,7 @@ static const mgga_x_m08_params par_m08_so = {
 
 
 static void
-mgga_x_m08_init(XC(func_type) *p)
+mgga_x_m08_init(xc_func_type *p)
 {
   mgga_x_m08_params *params;
 
@@ -77,7 +77,7 @@ mgga_x_m08_init(XC(func_type) *p)
 #include "work_mgga_x.c"
 
 
-const XC(func_info_type) XC(func_info_mgga_x_m08_hx) = {
+const xc_func_info_type xc_func_info_mgga_x_m08_hx = {
   XC_MGGA_X_M08_HX,
   XC_EXCHANGE,
   "Worker for hyb_mgga_x_m08_hx",
@@ -91,7 +91,7 @@ const XC(func_info_type) XC(func_info_mgga_x_m08_hx) = {
   work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_m08_so) = {
+const xc_func_info_type xc_func_info_mgga_x_m08_so = {
   XC_MGGA_X_M08_SO,
   XC_EXCHANGE,
   "Worker for hyb_mgga_x_m08_so",
@@ -106,16 +106,16 @@ const XC(func_info_type) XC(func_info_mgga_x_m08_so) = {
 };
 
 static void
-hyb_mgga_xc_m08_hx_init(XC(func_type) *p)
+hyb_mgga_xc_m08_hx_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_MGGA_X_M08_HX, XC_MGGA_C_M08_HX};
-  static FLOAT funcs_coef[2] = {1.0, 1.0};
+  static double funcs_coef[2] = {1.0, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.5223;
 }
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_m08_hx) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_m08_hx = {
   XC_HYB_MGGA_XC_M08_HX,
   XC_EXCHANGE_CORRELATION,
   "Minnesota M08-HX hybrid functional",
@@ -129,16 +129,16 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_m08_hx) = {
 };
 
 static void
-hyb_mgga_xc_m08_so_init(XC(func_type) *p)
+hyb_mgga_xc_m08_so_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_MGGA_X_M08_SO, XC_MGGA_C_M08_SO};
-  static FLOAT funcs_coef[2] = {1.0, 1.0};
+  static double funcs_coef[2] = {1.0, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.5679;
 }
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_m08_so) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_m08_so = {
   XC_HYB_MGGA_XC_M08_SO,
   XC_EXCHANGE_CORRELATION,
   "Minnesota M08-SO hybrid functional",

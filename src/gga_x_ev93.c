@@ -25,7 +25,7 @@
 #define func maple2c_func
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_ev93) = {
+const xc_func_info_type xc_func_info_gga_x_ev93 = {
   XC_GGA_X_EV93,
   XC_EXCHANGE,
   "Engel and Vosko",

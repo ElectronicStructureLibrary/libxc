@@ -22,7 +22,7 @@
 #define XC_HYB_GGA_X_SOGGA11_X  426 /* Hybrid based on SOGGA11 form */
 
 typedef struct{
-  FLOAT kappa, mu, a[6], b[6];
+  double kappa, mu, a[6], b[6];
 } gga_x_sogga11_params;
 
 static const gga_x_sogga11_params par_sogga11 = {
@@ -39,7 +39,7 @@ static const gga_x_sogga11_params par_sogga11_x = {
 };
 
 static void 
-gga_x_sogga11_init(XC(func_type) *p)
+gga_x_sogga11_init(xc_func_type *p)
 {
   gga_x_sogga11_params *params;
 
@@ -67,7 +67,7 @@ gga_x_sogga11_init(XC(func_type) *p)
 #include "work_gga_x.c"
 
 
-const XC(func_info_type) XC(func_info_gga_x_sogga11) = {
+const xc_func_info_type xc_func_info_gga_x_sogga11 = {
   XC_GGA_X_SOGGA11,
   XC_EXCHANGE,
   "Second-order generalized gradient approximation 2011",
@@ -82,7 +82,7 @@ const XC(func_info_type) XC(func_info_gga_x_sogga11) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_x_sogga11_x) = {
+const xc_func_info_type xc_func_info_hyb_gga_x_sogga11_x = {
   XC_HYB_GGA_X_SOGGA11_X,
   XC_EXCHANGE,
   "Hybrid based on SOGGA11 form",

@@ -22,10 +22,10 @@
 
 #include "maple2c/gga_x_lv_rpw86.c"
 
-#define func XC(gga_x_lv_rpw86_enhance)
+#define func xc_gga_x_lv_rpw86_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_lv_rpw86) = {
+const xc_func_info_type xc_func_info_gga_x_lv_rpw86 = {
   XC_GGA_X_LV_RPW86,
   XC_EXCHANGE,
   "Berland and Hyldgaard",

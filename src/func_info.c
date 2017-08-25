@@ -19,35 +19,32 @@
 
 #include "util.h"
 
-/* xc_config.h needs to be included to use FLOAT and related macros*/
-#include "xc_config.h"
-
-int XC(func_info_get_number)(const XC(func_info_type) *info)
+int xc_func_info_get_number(const xc_func_info_type *info)
 {
   return info->number;
 }
 
-int XC(func_info_get_kind)(const XC(func_info_type) *info)
+int xc_func_info_get_kind(const xc_func_info_type *info)
 {
   return info->kind;
 }
 
-char const *XC(func_info_get_name)(const XC(func_info_type) *info)
+char const *xc_func_info_get_name(const xc_func_info_type *info)
 {
   return info->name;
 }
 
-int XC(func_info_get_family)(const XC(func_info_type) *info)
+int xc_func_info_get_family(const xc_func_info_type *info)
 {
   return info->family;
 }
 
-int XC(func_info_get_flags)(const XC(func_info_type) *info)
+int xc_func_info_get_flags(const xc_func_info_type *info)
 {
   return info->flags;
 }
 
-const func_reference_type *XC(func_info_get_references)(const XC(func_info_type) *info, int number)
+const func_reference_type *xc_func_info_get_references(const xc_func_info_type *info, int number)
 {
   assert(number >=0 && number < XC_MAX_REFERENCES);
 
@@ -58,21 +55,21 @@ const func_reference_type *XC(func_info_get_references)(const XC(func_info_type)
   }
 }
 
-int XC(func_info_get_n_ext_params)(XC(func_info_type) *info)
+int xc_func_info_get_n_ext_params(xc_func_info_type *info)
 {
   assert(info!=NULL);
 
   return info->n_ext_params;
 }
 
-char const *XC(func_info_get_ext_params_description)(XC(func_info_type) *info, int number)
+char const *xc_func_info_get_ext_params_description(xc_func_info_type *info, int number)
 {
   assert(number >=0 && number < info->n_ext_params);
 
   return info->ext_params[number].description;
 }
 
-double XC(func_info_get_ext_params_default_value)(XC(func_info_type) *info, int number)
+double xc_func_info_get_ext_params_default_value(xc_func_info_type *info, int number)
 {
   assert(number >=0 && number < info->n_ext_params);
 

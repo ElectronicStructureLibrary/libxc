@@ -7,8 +7,8 @@
   Type of functional: work_gga_c
 */
 
-void XC(gga_c_q2d_func)
-  (const XC(func_type) *p, XC(gga_work_c_t) *r)
+void xc_gga_c_q2d_func
+  (const xc_func_type *p, xc_gga_work_c_t *r)
 {
   double t1, t2, t3, t4, t5, t6, t7, t8;
   double t9, t10, t11, t13, t14, t15, t16, t17;
@@ -345,7 +345,7 @@ void XC(gga_c_q2d_func)
   t262 = 0.1e1 / t261;
   t263 = t43 * t262;
   t264 = 0.1e1 / t44;
-  t266 = SQRT(r->rs);
+  t266 = sqrt(r->rs);
   t269 = 0.37978500000000000000e1 * t264 + 0.35876e1 + 0.245730e1 * t266 + 0.98588e0 * r->rs;
   t270 = 0.1e1 / t53;
   t271 = t269 * t270;
@@ -409,7 +409,7 @@ void XC(gga_c_q2d_func)
   t376 = t172 * t172;
   t377 = 0.1e1 / t376;
   t378 = t166 * t377;
-  t380 = SQRT(t148);
+  t380 = sqrt(t148);
   t381 = t380 * t133;
   t386 = 0.28462480000000000000e0 * t365 - 0.46970940893176070163e-2 * t381 * t147 + 0.54841240640000000000e-1 * t369 + 0.15086171617639617977e-1 * t372;
   t387 = 0.1e1 / t174;
@@ -591,7 +591,7 @@ void XC(gga_c_q2d_func)
   t719 = t269 * t269;
   t722 = 0.20000000000000000000e1 * t718 * t719 * t270;
   t724 = 0.1e1 / t44 / r->rs;
-  t726 = 0.1e1/SQRT(r->rs);
+  t726 = 0.1e1/sqrt(r->rs);
   t728 = -0.18989250000000000000e1 * t724 + 0.1228650e1 * t726 + 0.98588e0;
   t731 = 0.10000000000000000000e1 * t263 * t728 * t270;
   t732 = t261 * t261;
@@ -689,7 +689,7 @@ void XC(gga_c_q2d_func)
   t928 = t166 * t927;
   t929 = t386 * t386;
   t930 = t929 * t387;
-  t933 = 0.1e1/SQRT(t148);
+  t933 = 0.1e1/sqrt(t148);
   t934 = t933 * t150;
   t935 = t934 * t136;
   t940 = -0.23485470446588035082e-2 * t935 * t158 + 0.54841240640000000000e-1 * t916 + 0.30172343235279235954e-1 * t919;
@@ -1493,4 +1493,4 @@ void XC(gga_c_q2d_func)
 }
 
 #define maple2c_order 3
-#define maple2c_func  XC(gga_c_q2d_func)
+#define maple2c_func  xc_gga_c_q2d_func

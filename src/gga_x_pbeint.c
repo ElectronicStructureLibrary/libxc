@@ -24,12 +24,12 @@
 
 
 typedef struct{
-  FLOAT kappa, alpha, muPBE, muGE;
+  double kappa, alpha, muPBE, muGE;
 } gga_x_pbeint_params;
 
 
 static void 
-gga_x_pbe_init(XC(func_type) *p)
+gga_x_pbe_init(xc_func_type *p)
 {
   gga_x_pbeint_params *params;
 
@@ -39,13 +39,13 @@ gga_x_pbe_init(XC(func_type) *p)
  
   switch(p->info->number){
   case XC_GGA_X_PBEINT:
-    XC(gga_x_pbeint_set_params)(p, 0.8040, 0.197, 0.2195149727645171, MU_GE);
+    xc_gga_x_pbeint_set_params(p, 0.8040, 0.197, 0.2195149727645171, MU_GE);
     break;
   case XC_GGA_K_APBEINT:
-    XC(gga_x_pbeint_set_params)(p, 0.8040, 5.0/3.0, 0.23899, 5.0/27.0);
+    xc_gga_x_pbeint_set_params(p, 0.8040, 5.0/3.0, 0.23899, 5.0/27.0);
     break;
   case XC_GGA_K_REVAPBEINT:
-    XC(gga_x_pbeint_set_params)(p, 1.245, 5.0/3.0, 0.23899, 5.0/27.0);
+    xc_gga_x_pbeint_set_params(p, 1.245, 5.0/3.0, 0.23899, 5.0/27.0);
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_pbeint\n");
@@ -55,7 +55,7 @@ gga_x_pbe_init(XC(func_type) *p)
 
 
 void 
-XC(gga_x_pbeint_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT alpha, FLOAT muPBE, FLOAT muGE)
+xc_gga_x_pbeint_set_params(xc_func_type *p, double kappa, double alpha, double muPBE, double muGE)
 {
   gga_x_pbeint_params *params;
 
@@ -70,10 +70,10 @@ XC(gga_x_pbeint_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT alpha, FLOAT mu
 
 #include "maple2c/gga_x_pbeint.c"
 
-#define func XC(gga_x_pbeint_enhance)
+#define func xc_gga_x_pbeint_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_pbeint) = {
+const xc_func_info_type xc_func_info_gga_x_pbeint = {
   XC_GGA_X_PBEINT,
   XC_EXCHANGE,
   "PBE for hybrid interfaces",
@@ -89,7 +89,7 @@ const XC(func_info_type) XC(func_info_gga_x_pbeint) = {
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_k_apbeint) = {
+const xc_func_info_type xc_func_info_gga_k_apbeint = {
   XC_GGA_K_APBEINT,
   XC_KINETIC,
   "interpolated version of APBE",
@@ -102,7 +102,7 @@ const XC(func_info_type) XC(func_info_gga_k_apbeint) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_revapbeint) = {
+const xc_func_info_type xc_func_info_gga_k_revapbeint = {
   XC_GGA_K_REVAPBEINT,
   XC_KINETIC,
   "interpolated version of revAPBE",

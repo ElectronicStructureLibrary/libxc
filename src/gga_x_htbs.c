@@ -25,7 +25,7 @@
 #define func maple2c_func
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_htbs) = {
+const xc_func_info_type xc_func_info_gga_x_htbs = {
   XC_GGA_X_HTBS,
   XC_EXCHANGE,
   "Haas, Tran, Blaha, and Schwarz",

@@ -23,11 +23,11 @@
 #define XC_LDA_K_LP      51   /* Lee and Parr Gaussian ansatz           */
 
 typedef struct {
-  FLOAT ax;
+  double ax;
 } lda_k_tf_params;
 
 static void 
-lda_k_tf_init(XC(func_type) *p)
+lda_k_tf_init(xc_func_type *p)
 {
   lda_k_tf_params *params;
 
@@ -37,11 +37,11 @@ lda_k_tf_init(XC(func_type) *p)
 
   switch(p->info->number){
   case XC_LDA_K_TF:
-    /* 3/10*(3*M_PI^2)^(2/3) * (3/4 pi)^(2/3) = 3/10*POW(9*M_PI/4, 2/3) */
+    /* 3/10*(3*M_PI^2)^(2/3) * (3/4 pi)^(2/3) = 3/10*pow(9*M_PI/4, 2/3) */
     params->ax = 1.104950565705860002098832079519635692942;
     break;
   case XC_LDA_K_LP:
-    /* 3*M_PI/2^(5/3) * (3/4 pi)^(2/3) = 3*M_PI*POW(3/(8*M_PI), 2/3)*/
+    /* 3*M_PI/2^(5/3) * (3/4 pi)^(2/3) = 3*M_PI*pow(3/(8*M_PI), 2/3)*/
     params->ax = 1.142427709758666675644309251677891925671;
     break;
   default:
@@ -55,7 +55,7 @@ lda_k_tf_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_k_tf) = {
+const xc_func_info_type xc_func_info_lda_k_tf = {
   XC_LDA_K_TF,
   XC_KINETIC,
   "Thomas-Fermi kinetic energy",
@@ -68,7 +68,7 @@ const XC(func_info_type) XC(func_info_lda_k_tf) = {
   work_lda, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_k_lp) = {
+const xc_func_info_type xc_func_info_lda_k_lp = {
   XC_LDA_K_LP,
   XC_KINETIC,
   "Lee and Parr Gaussian ansatz for the kinetic energy",

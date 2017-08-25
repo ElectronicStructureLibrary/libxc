@@ -7,7 +7,7 @@
 */
 
 static void 
-XC(hyb_mgga_x_m05_enhance)(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
+xc_hyb_mgga_x_m05_enhance(const xc_func_type *pt, xc_mgga_work_x_t *r)
 {
   double t1, t3, t7, t9, t10, t11, t12, t13;
   double t16, t17, t18, t19, t20, t23, t24, t25;
@@ -123,4 +123,4 @@ XC(hyb_mgga_x_m05_enhance)(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 }
 
 #define maple2c_order 3
-#define maple2c_func  XC(hyb_mgga_x_m05_enhance)
+#define maple2c_func  xc_hyb_mgga_x_m05_enhance

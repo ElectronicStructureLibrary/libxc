@@ -22,13 +22,13 @@
 #define XC_GGA_X_VMT_GE           70 /* Vela, Medel, and Trickey with mu = mu_GE  */
 
 typedef struct{
-  FLOAT mu;
-  FLOAT alpha;
+  double mu;
+  double alpha;
 } gga_x_vmt_params;
 
 
 static void 
-gga_x_vmt_init(XC(func_type) *p)
+gga_x_vmt_init(xc_func_type *p)
 {
   gga_x_vmt_params *params;
 
@@ -57,7 +57,7 @@ gga_x_vmt_init(XC(func_type) *p)
 #include "work_gga_x.c"
 
 
-const XC(func_info_type) XC(func_info_gga_x_vmt_pbe) = {
+const xc_func_info_type xc_func_info_gga_x_vmt_pbe = {
   XC_GGA_X_VMT_PBE,
   XC_EXCHANGE,
   "Vela, Medel, and Trickey with mu = mu_PBE",
@@ -70,7 +70,7 @@ const XC(func_info_type) XC(func_info_gga_x_vmt_pbe) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_vmt_ge) = {
+const xc_func_info_type xc_func_info_gga_x_vmt_ge = {
   XC_GGA_X_VMT_GE,
   XC_EXCHANGE,
   "Vela, Medel, and Trickey with mu = mu_GE",

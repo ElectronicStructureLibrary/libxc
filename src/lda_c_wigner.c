@@ -27,11 +27,11 @@
 #define XC_LDA_C_OW      574   /* Optimized Wigner */
 
 typedef struct {
-  FLOAT a, b;
+  double a, b;
 } lda_c_wigner_params;
 
 static void 
-lda_c_wigner_init(XC(func_type) *p)
+lda_c_wigner_init(xc_func_type *p)
 {
   lda_c_wigner_params *params;
 
@@ -79,7 +79,7 @@ lda_c_wigner_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_c_wigner) = {
+const xc_func_info_type xc_func_info_lda_c_wigner = {
   XC_LDA_C_WIGNER,
   XC_CORRELATION,
   "Wigner",
@@ -92,7 +92,7 @@ const XC(func_info_type) XC(func_info_lda_c_wigner) = {
   work_lda, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_c_lp_a) = {
+const xc_func_info_type xc_func_info_lda_c_lp_a = {
   XC_LDA_C_LP_A,
   XC_CORRELATION,
   "Lee-Parr reparametrization A",
@@ -105,7 +105,7 @@ const XC(func_info_type) XC(func_info_lda_c_lp_a) = {
   work_lda, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_c_lp_b) = {
+const xc_func_info_type xc_func_info_lda_c_lp_b = {
   XC_LDA_C_LP_B,
   XC_CORRELATION,
   "Lee-Parr reparametrization B",
@@ -118,7 +118,7 @@ const XC(func_info_type) XC(func_info_lda_c_lp_b) = {
   work_lda, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_c_mcweeny) = {
+const xc_func_info_type xc_func_info_lda_c_mcweeny = {
   XC_LDA_C_MCWEENY,
   XC_CORRELATION,
   "McWeeny 76",
@@ -131,7 +131,7 @@ const XC(func_info_type) XC(func_info_lda_c_mcweeny) = {
   work_lda, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_c_br78) = {
+const xc_func_info_type xc_func_info_lda_c_br78 = {
   XC_LDA_C_BR78,
   XC_CORRELATION,
   "Brual & Rothstein 78",
@@ -144,7 +144,7 @@ const XC(func_info_type) XC(func_info_lda_c_br78) = {
   work_lda, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_c_ow_lyp) = {
+const xc_func_info_type xc_func_info_lda_c_ow_lyp = {
   XC_LDA_C_OW_LYP,
   XC_CORRELATION,
   "Wigner with corresponding LYP parameters",
@@ -157,7 +157,7 @@ const XC(func_info_type) XC(func_info_lda_c_ow_lyp) = {
   work_lda, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_c_ow) = {
+const xc_func_info_type xc_func_info_lda_c_ow = {
   XC_LDA_C_OW,
   XC_CORRELATION,
   "Optimized Wigner",

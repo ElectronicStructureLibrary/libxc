@@ -24,15 +24,15 @@
 #define XC_HYB_MGGA_XC_TPSS1KCIS   569 /* TPSS hybrid with KCIS correlation */
 
 static void
-hyb_mgga_xc_kcis_init(XC(func_type) *p)
+hyb_mgga_xc_kcis_init(xc_func_type *p)
 {
   /* Exchange functional */
   int xid;
   /* Fraction of exact exchange */
-  FLOAT exx;
+  double exx;
   /* Array */
   int funcs_id[2];
-  FLOAT funcs_coef[2];
+  double funcs_coef[2];
 
   switch(p->info->number){
   case XC_HYB_MGGA_XC_MPW1KCIS:
@@ -63,11 +63,11 @@ hyb_mgga_xc_kcis_init(XC(func_type) *p)
   funcs_id[1] = XC_MGGA_C_KCIS;
   funcs_coef[1] = 1.0;
   
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = exx;
 }
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_mpw1kcis) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_mpw1kcis = {
   XC_HYB_MGGA_XC_MPW1KCIS,
   XC_EXCHANGE_CORRELATION,
   "MPW1KCIS for barrier heights",
@@ -80,7 +80,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_mpw1kcis) = {
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_mpwkcis1k) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_mpwkcis1k = {
   XC_HYB_MGGA_XC_MPWKCIS1K,
   XC_EXCHANGE_CORRELATION,
   "MPWKCIS1K for barrier heights",
@@ -93,7 +93,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_mpwkcis1k) = {
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_pbe1kcis) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_pbe1kcis = {
   XC_HYB_MGGA_XC_PBE1KCIS,
   XC_EXCHANGE_CORRELATION,
   "PBE1KCIS for binding energies",
@@ -106,7 +106,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_pbe1kcis) = {
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_tpss1kcis) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_tpss1kcis = {
   XC_HYB_MGGA_XC_TPSS1KCIS,
   XC_EXCHANGE_CORRELATION,
   "TPSS1KCIS for thermochemistry and kinetics",

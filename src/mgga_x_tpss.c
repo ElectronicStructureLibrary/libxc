@@ -32,12 +32,12 @@
 #define XC_MGGA_X_BLOC          244 /* functional with balanced localization */
 
 typedef struct{
-  FLOAT b, c, e, kappa, mu;
-  FLOAT BLOC_a, BLOC_b;
+  double b, c, e, kappa, mu;
+  double BLOC_a, BLOC_b;
 } mgga_x_tpss_params;
 
 static void 
-mgga_x_tpss_init(XC(func_type) *p)
+mgga_x_tpss_init(xc_func_type *p)
 {
   mgga_x_tpss_params *params;
 
@@ -47,16 +47,16 @@ mgga_x_tpss_init(XC(func_type) *p)
 
   switch(p->info->number){
   case XC_MGGA_X_TPSS:
-    XC(mgga_x_tpss_set_params)(p, 0.40, 1.59096, 1.537, 0.804, 0.21951, 2.0, 0.0);
+    xc_mgga_x_tpss_set_params(p, 0.40, 1.59096, 1.537, 0.804, 0.21951, 2.0, 0.0);
     break;
   case XC_MGGA_X_MODTPSS:
-    XC(mgga_x_tpss_set_params)(p, 0.40, 1.38496, 1.37, 0.804, 0.252, 2.0, 0.0);
+    xc_mgga_x_tpss_set_params(p, 0.40, 1.38496, 1.37, 0.804, 0.252, 2.0, 0.0);
     break;
   case XC_MGGA_X_REVTPSS:
-    XC(mgga_x_tpss_set_params)(p, 0.40, 2.35203946, 2.16769874, 0.804, 0.14, 3.0, 0.0);
+    xc_mgga_x_tpss_set_params(p, 0.40, 2.35203946, 2.16769874, 0.804, 0.14, 3.0, 0.0);
     break;
   case XC_MGGA_X_BLOC:
-    XC(mgga_x_tpss_set_params)(p, 0.40, 1.59096, 1.537, 0.804, 0.21951, 4.0, -3.3);
+    xc_mgga_x_tpss_set_params(p, 0.40, 1.59096, 1.537, 0.804, 0.21951, 4.0, -3.3);
     break;
   default:
     fprintf(stderr, "Internal error in mgga_x_tpss\n");
@@ -66,8 +66,8 @@ mgga_x_tpss_init(XC(func_type) *p)
 
 
 void
-XC(mgga_x_tpss_set_params)(XC(func_type) *p, FLOAT b, FLOAT c, FLOAT e, FLOAT kappa, FLOAT mu, 
-                           FLOAT BLOC_a, FLOAT BLOC_b)
+xc_mgga_x_tpss_set_params(xc_func_type *p, double b, double c, double e, double kappa, double mu, 
+                           double BLOC_a, double BLOC_b)
 {
   mgga_x_tpss_params *params;
 
@@ -85,10 +85,10 @@ XC(mgga_x_tpss_set_params)(XC(func_type) *p, FLOAT b, FLOAT c, FLOAT e, FLOAT ka
 
 #include "maple2c/mgga_x_tpss.c"
 
-#define func XC(mgga_x_tpss_enhance)
+#define func xc_mgga_x_tpss_enhance
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_tpss) = {
+const xc_func_info_type xc_func_info_mgga_x_tpss = {
   XC_MGGA_X_TPSS,
   XC_EXCHANGE,
   "Tao, Perdew, Staroverov & Scuseria",
@@ -101,7 +101,7 @@ const XC(func_info_type) XC(func_info_mgga_x_tpss) = {
   NULL, NULL, work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_modtpss) = {
+const xc_func_info_type xc_func_info_mgga_x_modtpss = {
   XC_MGGA_X_MODTPSS,
   XC_EXCHANGE,
   "Modified Tao, Perdew, Staroverov & Scuseria",
@@ -114,7 +114,7 @@ const XC(func_info_type) XC(func_info_mgga_x_modtpss) = {
   NULL, NULL, work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_revtpss) = {
+const xc_func_info_type xc_func_info_mgga_x_revtpss = {
   XC_MGGA_X_REVTPSS,
   XC_EXCHANGE,
   "revised Tao, Perdew, Staroverov & Scuseria",
@@ -127,7 +127,7 @@ const XC(func_info_type) XC(func_info_mgga_x_revtpss) = {
   NULL, NULL, work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_bloc) = {
+const xc_func_info_type xc_func_info_mgga_x_bloc = {
   XC_MGGA_X_BLOC,
   XC_EXCHANGE,
   "functional with balanced localization",

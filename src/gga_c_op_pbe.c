@@ -26,7 +26,7 @@
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_c_op_pbe) = {
+const xc_func_info_type xc_func_info_gga_c_op_pbe = {
   XC_GGA_C_OP_PBE,
   XC_CORRELATION,
   "one-parameter progressive functional (PBE version)",

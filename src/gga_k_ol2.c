@@ -22,11 +22,11 @@
 #define XC_GGA_X_OL2          183 /* Exchange form based on Ou-Yang and Levy v.2 */
 
 typedef struct{
-  FLOAT aa, bb, cc;
+  double aa, bb, cc;
 } gga_k_ol2_params;
 
 static void 
-gga_k_ol2_init(XC(func_type) *p)
+gga_k_ol2_init(xc_func_type *p)
 {
   gga_k_ol2_params *params;
 
@@ -53,7 +53,7 @@ gga_k_ol2_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_ol2) = {
+const xc_func_info_type xc_func_info_gga_x_ol2 = {
   XC_GGA_X_OL2,
   XC_EXCHANGE,
   "Exchange form based on Ou-Yang and Levy v.2",
@@ -70,7 +70,7 @@ const XC(func_info_type) XC(func_info_gga_x_ol2) = {
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_k_ol2) = {
+const xc_func_info_type xc_func_info_gga_k_ol2 = {
   XC_GGA_K_OL2,
   XC_KINETIC,
   "Ou-Yang and Levy v.2",

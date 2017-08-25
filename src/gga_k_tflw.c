@@ -40,17 +40,17 @@ Celebration of the Contributions of Robert G. Parr, edited by KD Sen
 #define XC_GGA_K_GP85          510 /* gamma-TFvW form by Ghosh and Parr */
 
 typedef struct{
-  FLOAT gamma, lambda;
+  double gamma, lambda;
 } gga_k_tflw_params;
 
 
 /* for automatically assigning lambda and gamma set them to -1 */
 static void 
-gga_k_tflw_set_params(XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N)
+gga_k_tflw_set_params(xc_func_type *p, double gamma, double lambda, double N)
 {
   gga_k_tflw_params *params;
-  FLOAT C0 = CBRT(M_PI/3.0);
-  FLOAT C1 = CBRT(M_PI*M_PI/36.0)/6.0 - CBRT(M_PI*M_PI/9.0)/4.0;
+  double C0 = CBRT(M_PI/3.0);
+  double C1 = CBRT(M_PI*M_PI/36.0)/6.0 - CBRT(M_PI*M_PI/9.0)/4.0;
   
   assert(p != NULL && p->params != NULL);
   params = (gga_k_tflw_params *) (p->params);
@@ -73,7 +73,7 @@ gga_k_tflw_set_params(XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N)
       params->gamma = 1.0 - 1.332/CBRT(N);
       break;
     case XC_GGA_K_ABSP3:      /* Ref. 79 */
-      params->gamma = 1.0 - 1.513/POW(N, 0.35);
+      params->gamma = 1.0 - 1.513/pow(N, 0.35);
       break;
     case XC_GGA_K_ABSP4:      /* Ref. 79 */
       params->gamma = 1.0/(1.0 + 1.332/CBRT(N));
@@ -123,7 +123,7 @@ gga_k_tflw_set_params(XC(func_type) *p, FLOAT gamma, FLOAT lambda, FLOAT N)
 
 
 static void 
-gga_k_tflw_init(XC(func_type) *p)
+gga_k_tflw_init(xc_func_type *p)
 {
 
   assert(p->params == NULL);
@@ -146,7 +146,7 @@ static const func_params_type tfvw_ext_params[] = {
 };
 
 static void 
-tfvw_set_ext_params(XC(func_type) *p, const double *ext_params)
+tfvw_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   double ff, lambda, gamma;
 
@@ -158,7 +158,7 @@ tfvw_set_ext_params(XC(func_type) *p, const double *ext_params)
   gga_k_tflw_set_params(p, gamma, lambda, 1.0);
 }
 
-const XC(func_info_type) XC(func_info_gga_k_tfvw) = {
+const xc_func_info_type xc_func_info_gga_k_tfvw = {
   XC_GGA_K_TFVW,
   XC_KINETIC,
   "Thomas-Fermi plus von Weiszaecker correction",
@@ -171,7 +171,7 @@ const XC(func_info_type) XC(func_info_gga_k_tfvw) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_vw) = {
+const xc_func_info_type xc_func_info_gga_k_vw = {
   XC_GGA_K_VW,
   XC_KINETIC,
   "von Weiszaecker correction to Thomas-Fermi",
@@ -184,7 +184,7 @@ const XC(func_info_type) XC(func_info_gga_k_vw) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_ge2) = {
+const xc_func_info_type xc_func_info_gga_k_ge2 = {
   XC_GGA_K_GE2,
   XC_KINETIC,
   "Second-order gradient expansion of the kinetic energy density",
@@ -197,7 +197,7 @@ const XC(func_info_type) XC(func_info_gga_k_ge2) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_golden) = {
+const xc_func_info_type xc_func_info_gga_k_golden = {
   XC_GGA_K_GOLDEN,
   XC_KINETIC,
   "TF-lambda-vW form by Golden (l = 13/45)",
@@ -210,7 +210,7 @@ const XC(func_info_type) XC(func_info_gga_k_golden) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_yt65) = {
+const xc_func_info_type xc_func_info_gga_k_yt65 = {
   XC_GGA_K_YT65,
   XC_KINETIC,
   "TF-lambda-vW form by Yonei and Tomishima (l = 1/5)",
@@ -223,7 +223,7 @@ const XC(func_info_type) XC(func_info_gga_k_yt65) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_baltin) = {
+const xc_func_info_type xc_func_info_gga_k_baltin = {
   XC_GGA_K_BALTIN,
   XC_KINETIC,
   "TF-lambda-vW form by Baltin (l = 5/9)",
@@ -236,7 +236,7 @@ const XC(func_info_type) XC(func_info_gga_k_baltin) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_lieb) = {
+const xc_func_info_type xc_func_info_gga_k_lieb = {
   XC_GGA_K_LIEB,
   XC_KINETIC,
   "TF-lambda-vW form by Lieb (l = 0.185909191)",
@@ -254,7 +254,7 @@ static const func_params_type N_ext_params[] = {
 };
 
 static void 
-N_set_ext_params(XC(func_type) *p, const double *ext_params)
+N_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   double ff, N;
 
@@ -265,7 +265,7 @@ N_set_ext_params(XC(func_type) *p, const double *ext_params)
 }
 
 
-const XC(func_info_type) XC(func_info_gga_k_absp1) = {
+const xc_func_info_type xc_func_info_gga_k_absp1 = {
   XC_GGA_K_ABSP1,
   XC_KINETIC,
   "gamma-TFvW form by Acharya et al [g = 1 - 1.412/N^(1/3)]",
@@ -278,7 +278,7 @@ const XC(func_info_type) XC(func_info_gga_k_absp1) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_absp2) = {
+const xc_func_info_type xc_func_info_gga_k_absp2 = {
   XC_GGA_K_ABSP2,
   XC_KINETIC,
   "gamma-TFvW form by Acharya et al [g = 1 - 1.332/N^(1/3)]",
@@ -291,7 +291,7 @@ const XC(func_info_type) XC(func_info_gga_k_absp2) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_absp3) = {
+const xc_func_info_type xc_func_info_gga_k_absp3 = {
   XC_GGA_K_ABSP3,
   XC_KINETIC,
   "gamma-TFvW form by Acharya et al [g = 1 - 1.513/N^0.35]",
@@ -304,7 +304,7 @@ const XC(func_info_type) XC(func_info_gga_k_absp3) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_absp4) = {
+const xc_func_info_type xc_func_info_gga_k_absp4 = {
   XC_GGA_K_ABSP4,
   XC_KINETIC,
   "gamma-TFvW form by Acharya et al [g = l = 1/(1 + 1.332/N^(1/3))]",
@@ -317,7 +317,7 @@ const XC(func_info_type) XC(func_info_gga_k_absp4) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_gr) = {
+const xc_func_info_type xc_func_info_gga_k_gr = {
   XC_GGA_K_GR,
   XC_KINETIC,
   "gamma-TFvW form by Gazquez and Robles",
@@ -330,7 +330,7 @@ const XC(func_info_type) XC(func_info_gga_k_gr) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_ludena) = {
+const xc_func_info_type xc_func_info_gga_k_ludena = {
   XC_GGA_K_LUDENA,
   XC_KINETIC,
   "gamma-TFvW form by Ludena",
@@ -343,7 +343,7 @@ const XC(func_info_type) XC(func_info_gga_k_ludena) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_gp85) = {
+const xc_func_info_type xc_func_info_gga_k_gp85 = {
   XC_GGA_K_GP85,
   XC_KINETIC,
   "gamma-TFvW form by Ghosh and Parr",

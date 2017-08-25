@@ -31,37 +31,37 @@
 
 typedef struct{
   int    modified; /* shall we use a modified version */
-  FLOAT threshold; /* when to start using the analytic form */
-  FLOAT ip;        /* ionization potential of the species */
-  FLOAT qtot;      /* total charge in the region */
+  double threshold; /* when to start using the analytic form */
+  double ip;        /* ionization potential of the species */
+  double qtot;      /* total charge in the region */
 
-  FLOAT aa;     /* the parameters of LB94 */
-  FLOAT gamm;
+  double aa;     /* the parameters of LB94 */
+  double gamm;
 
-  FLOAT alpha;
-  FLOAT beta;
-} XC(gga_x_lb_params);
+  double alpha;
+  double beta;
+} xc_gga_x_lb_params;
 
 /************************************************************************
   Calculates van Leeuwen Baerends functional
 ************************************************************************/
 
 static void
-gga_lb_init(XC(func_type) *p)
+gga_lb_init(xc_func_type *p)
 {
-  XC(gga_x_lb_params) *params;
+  xc_gga_x_lb_params *params;
 
   assert(p->params == NULL);
 
   p->n_func_aux  = 1;
-  p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
-  p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
+  p->func_aux    = (xc_func_type **) malloc(1*sizeof(xc_func_type *));
+  p->func_aux[0] = (xc_func_type *)  malloc(  sizeof(xc_func_type));
 
-  XC(func_init)(p->func_aux[0], XC_LDA_X, p->nspin);
+  xc_func_init(p->func_aux[0], XC_LDA_X, p->nspin);
 
-  p->params = malloc(sizeof(XC(gga_x_lb_params)));
+  p->params = malloc(sizeof(xc_gga_x_lb_params));
 
-  params = (XC(gga_x_lb_params) *) (p->params);
+  params = (xc_gga_x_lb_params *) (p->params);
   switch(p->info->number){
   case XC_GGA_X_LB:
     params->alpha = 1.0;
@@ -76,19 +76,19 @@ gga_lb_init(XC(func_type) *p)
 
 
 void 
-XC(gga_lb_modified)(const XC(func_type) *func, int np, const FLOAT *rho, const FLOAT *sigma, FLOAT r, FLOAT *vrho)
+xc_gga_lb_modified(const xc_func_type *func, int np, const double *rho, const double *sigma, double r, double *vrho)
 {
   int ip, is, is2;
-  FLOAT ds, gdm, x, sfact;
+  double ds, gdm, x, sfact;
 
-  XC(gga_x_lb_params) *params;
+  xc_gga_x_lb_params *params;
 
   assert(func != NULL);
 
   assert(func->params != NULL);
-  params = (XC(gga_x_lb_params) *) (func->params);
+  params = (xc_gga_x_lb_params *) (func->params);
 
-  XC(lda_vxc)(func->func_aux[0], np, rho, vrho);
+  xc_lda_vxc(func->func_aux[0], np, rho, vrho);
 
   sfact = (func->nspin == XC_POLARIZED) ? 1.0 : 2.0;
 
@@ -98,30 +98,30 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const FLOAT *rho, const F
 
       vrho[is] *= params->alpha;
 
-      gdm    = max(SQRT(sigma[is2])/sfact, MIN_GRAD);
+      gdm    = max(sqrt(sigma[is2])/sfact, MIN_GRAD);
       ds     = rho[is]/sfact;
 
       if(params->modified == 0 || 
 	 (ds > params->threshold && gdm > params->threshold)){
-	FLOAT f;
+	double f;
 	
 	if(ds <= func->dens_threshold) continue;
 	
-	x =  gdm/POW(ds, 4.0/3.0);
+	x =  gdm/pow(ds, 4.0/3.0);
 	
 	if(x < 300.0) /* the actual functional */	   
-	  f = -params->beta*x*x/(1.0 + 3.0*params->beta*x*ASINH(params->gamm*x));
+	  f = -params->beta*x*x/(1.0 + 3.0*params->beta*x*asinh(params->gamm*x));
 	else          /* asymptotic expansion */
-	  f = -x/(3.0*LOG(2.0*params->gamm*x));
+	  f = -x/(3.0*log(2.0*params->gamm*x));
 
 	vrho[is] += f * CBRT(ds);
 	
       }else if(r > 0.0){
 	/* the asymptotic expansion of LB94 */
 	x = r + (3.0/params->aa)*
-	  LOG(2.0*params->gamm * params->aa * 1.0 / CBRT(params->qtot));
+	  log(2.0*params->gamm * params->aa * 1.0 / CBRT(params->qtot));
 	
-	/* x = x + POW(qtot*EXP(-aa*r), 1.0/3.0)/(beta*aa*aa); */
+	/* x = x + pow(qtot*exp(-aa*r), 1.0/3.0)/(beta*aa*aa); */
 	
 	vrho[is] -= 1.0/x;
       }
@@ -138,12 +138,12 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const FLOAT *rho, const F
 
 
 static void 
-gga_x_lb(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
-	 FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-	 FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
-	 FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3)
+gga_x_lb(const xc_func_type *p, int np, const double *rho, const double *sigma,
+	 double *zk, double *vrho, double *vsigma,
+	 double *v2rho2, double *v2rhosigma, double *v2sigma2,
+	 double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
-  XC(gga_lb_modified)(p, np, rho, sigma, 0.0, vrho);
+  xc_gga_lb_modified(p, np, rho, sigma, 0.0, vrho);
 }
 
 
@@ -156,13 +156,13 @@ static const func_params_type ext_params[] = {
 
 
 static void 
-set_ext_params(XC(func_type) *p, const double *ext_params)
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  XC(gga_x_lb_params) *params;
-  FLOAT ff;
+  xc_gga_x_lb_params *params;
+  double ff;
 
   assert(p!=NULL && p->params!=NULL);
-  params = (XC(gga_x_lb_params) *) (p->params);
+  params = (xc_gga_x_lb_params *) (p->params);
 
   ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
   params->modified  = (int)round(ff);
@@ -174,7 +174,7 @@ set_ext_params(XC(func_type) *p, const double *ext_params)
   params->qtot      = ff;
 
   if(params->modified){
-    params->aa   = (params->ip > 0.0) ? 2.0*SQRT(2.0*params->ip) : 0.5;
+    params->aa   = (params->ip > 0.0) ? 2.0*sqrt(2.0*params->ip) : 0.5;
     params->gamm = CBRT(params->qtot)/(2.0*params->aa);
   }else{
     params->aa   = 0.5;
@@ -183,7 +183,7 @@ set_ext_params(XC(func_type) *p, const double *ext_params)
 }
 
 
-const XC(func_info_type) XC(func_info_gga_x_lb) = {
+const xc_func_info_type xc_func_info_gga_x_lb = {
   XC_GGA_X_LB,
   XC_EXCHANGE,
   "van Leeuwen & Baerends",
@@ -197,7 +197,7 @@ const XC(func_info_type) XC(func_info_gga_x_lb) = {
 };
 
 
-const XC(func_info_type) XC(func_info_gga_x_lbm) = {
+const xc_func_info_type xc_func_info_gga_x_lbm = {
   XC_GGA_X_LBM,
   XC_EXCHANGE,
   "van Leeuwen & Baerends modified",

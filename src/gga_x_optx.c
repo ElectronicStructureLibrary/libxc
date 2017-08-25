@@ -21,22 +21,22 @@
 #define XC_GGA_X_OPTX         110 /* Handy & Cohen OPTX 01                          */
 
 typedef struct{
-  FLOAT a, b, gamma;
+  double a, b, gamma;
 } gga_x_optx_params;
 
 
 static void 
-gga_x_optx_init(XC(func_type) *p)
+gga_x_optx_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_x_optx_params));
 
-  XC(gga_x_optx_set_params)(p, 1.05151, 1.43169/X_FACTOR_C, 0.006);
+  xc_gga_x_optx_set_params(p, 1.05151, 1.43169/X_FACTOR_C, 0.006);
 }
 
 
 void 
-XC(gga_x_optx_set_params)(XC(func_type) *p, FLOAT a, FLOAT b, FLOAT gamma)
+xc_gga_x_optx_set_params(xc_func_type *p, double a, double b, double gamma)
 {
   gga_x_optx_params *params;
 
@@ -53,7 +53,7 @@ XC(gga_x_optx_set_params)(XC(func_type) *p, FLOAT a, FLOAT b, FLOAT gamma)
 #define func maple2c_func
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_optx) = {
+const xc_func_info_type xc_func_info_gga_x_optx = {
   XC_GGA_X_OPTX,
   XC_EXCHANGE,
   "Handy & Cohen OPTX 01",

@@ -29,7 +29,7 @@
 #define XC_MGGA_C_MN15        269 /* MN15 functional from Minnesota  */
 
 typedef struct{
-  const FLOAT m08_a[12], m08_b[12];
+  const double m08_a[12], m08_b[12];
 } mgga_c_m08_params;
 
 
@@ -115,7 +115,7 @@ static const mgga_c_m08_params par_mn15 = {
 
 
 static void
-mgga_c_m08_init(XC(func_type) *p)
+mgga_c_m08_init(xc_func_type *p)
 {
   mgga_c_m08_params *params;
 
@@ -161,7 +161,7 @@ mgga_c_m08_init(XC(func_type) *p)
 #include "work_mgga_c.c"
 
 
-const XC(func_info_type) XC(func_info_mgga_c_m08_hx) = {
+const xc_func_info_type xc_func_info_mgga_c_m08_hx = {
   XC_MGGA_C_M08_HX,
   XC_CORRELATION,
   "Worker for hyb_mgga_xc_m08_hx",
@@ -175,7 +175,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m08_hx) = {
   work_mgga_c,
 };
 
-const XC(func_info_type) XC(func_info_mgga_c_m08_so) = {
+const xc_func_info_type xc_func_info_mgga_c_m08_so = {
   XC_MGGA_C_M08_SO,
   XC_CORRELATION,
   "Worker for hyb_mgga_xc_m08_so",
@@ -189,7 +189,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m08_so) = {
   work_mgga_c,
 };
 
-const XC(func_info_type) XC(func_info_mgga_c_m11) = {
+const xc_func_info_type xc_func_info_mgga_c_m11 = {
   XC_MGGA_C_M11,
   XC_CORRELATION,
   "Worker for hyb_mgga_xc_m11",
@@ -203,7 +203,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m11) = {
   work_mgga_c,
 };
 
-const XC(func_info_type) XC(func_info_mgga_c_m11_l) = {
+const xc_func_info_type xc_func_info_mgga_c_m11_l = {
   XC_MGGA_C_M11_L,
   XC_CORRELATION,
   "Minnesota M11-L correlation functional",
@@ -217,7 +217,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m11_l) = {
   work_mgga_c,
 };
 
-const XC(func_info_type) XC(func_info_mgga_c_mn12_l) = {
+const xc_func_info_type xc_func_info_mgga_c_mn12_l = {
   XC_MGGA_C_MN12_L,
   XC_CORRELATION,
   "Minnesota MN12-L correlation functional",
@@ -231,7 +231,7 @@ const XC(func_info_type) XC(func_info_mgga_c_mn12_l) = {
   work_mgga_c,
 };
 
-const XC(func_info_type) XC(func_info_mgga_c_mn12_sx) = {
+const xc_func_info_type xc_func_info_mgga_c_mn12_sx = {
   XC_MGGA_C_MN12_SX,
   XC_CORRELATION,
   "Worker for hyb_mgga_xc_mn12_sx",
@@ -245,7 +245,7 @@ const XC(func_info_type) XC(func_info_mgga_c_mn12_sx) = {
   work_mgga_c,
 };
 
-const XC(func_info_type) XC(func_info_mgga_c_mn15_l) = {
+const xc_func_info_type xc_func_info_mgga_c_mn15_l = {
   XC_MGGA_C_MN15_L,
   XC_CORRELATION,
   "Minnesota MN15-L correlation functional",
@@ -259,7 +259,7 @@ const XC(func_info_type) XC(func_info_mgga_c_mn15_l) = {
   work_mgga_c,
 };
 
-const XC(func_info_type) XC(func_info_mgga_c_mn15) = {
+const xc_func_info_type xc_func_info_mgga_c_mn15 = {
   XC_MGGA_C_MN15,
   XC_CORRELATION,
   "Minnesota MN15 correlation functional",

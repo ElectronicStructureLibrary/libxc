@@ -23,14 +23,14 @@
 #define XC_HYB_GGA_X_N12_SX   81 /* N12-SX functional from Minnesota */
 #define XC_GGA_X_GAM          32 /* GAM functional from Minnesota */
 
-static const FLOAT CC_N12[4][4] = {
+static const double CC_N12[4][4] = {
   { 1.00000e+00,  5.07880e-01,  1.68233e-01,  1.28887e-01},
   { 8.60211e-02, -1.71008e+01,  6.50814e+01, -7.01726e+01},
   {-3.90755e-01,  5.13392e+01, -1.66220e+02,  1.42738e+02},
   { 4.03611e-01, -3.44631e+01,  7.61661e+01, -2.41834e+00}
 };
 
-static const FLOAT CC_N12_SX[4][4] = {
+static const double CC_N12_SX[4][4] = {
   /* Indices are wrong in the original paper; the first two indices
      need to be flipped */
   { 6.81116e-01,  1.88858e+00,  1.78590e+00,  8.79456e-01},
@@ -39,7 +39,7 @@ static const FLOAT CC_N12_SX[4][4] = {
   {-7.09913e-01,  1.30001e+01, -7.24877e+01,  2.98363e+01}
 };
 
-static const FLOAT CC_GAM[4][4] = {
+static const double CC_GAM[4][4] = {
   { 1.32730,    0.886102, -5.73833,   8.60197},
   {-0.786018,  -4.78787,   3.90989,  -2.11611},
   { 0.802575,  14.4363,    8.42735,  -6.21552},
@@ -47,12 +47,12 @@ static const FLOAT CC_GAM[4][4] = {
 };
 
 typedef struct{
-  const FLOAT (*CC)[4];
+  const double (*CC)[4];
 } gga_x_n12_params;
 
 
 static void
-gga_x_n12_init(XC(func_type) *p)
+gga_x_n12_init(xc_func_type *p)
 {
   gga_x_n12_params *params;
 
@@ -87,7 +87,7 @@ gga_x_n12_init(XC(func_type) *p)
 #include "work_gga_c.c"
 
 
-const XC(func_info_type) XC(func_info_gga_x_n12) = {
+const xc_func_info_type xc_func_info_gga_x_n12 = {
   XC_GGA_X_N12,
   XC_EXCHANGE,
   "Minnesota N12 exchange functional to be used with gga_c_n12",
@@ -102,7 +102,7 @@ const XC(func_info_type) XC(func_info_gga_x_n12) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_x_n12_sx) = {
+const xc_func_info_type xc_func_info_hyb_gga_x_n12_sx = {
   XC_HYB_GGA_X_N12_SX,
   XC_EXCHANGE,
   "Worker for hyb_gga_x_n12_sx",
@@ -117,7 +117,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_x_n12_sx) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_gam) = {
+const xc_func_info_type xc_func_info_gga_x_gam = {
   XC_GGA_X_GAM,
   XC_EXCHANGE,
   "GAM functional from Minnesota",

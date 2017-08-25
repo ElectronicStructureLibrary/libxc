@@ -25,7 +25,7 @@
 #define func maple2c_func
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_c_vwn_3) = {
+const xc_func_info_type xc_func_info_lda_c_vwn_3 = {
   XC_LDA_C_VWN_3,
   XC_CORRELATION,
   "Vosko, Wilk & Nusair (VWN3)",

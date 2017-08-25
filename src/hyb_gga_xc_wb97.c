@@ -24,7 +24,7 @@
 #define XC_HYB_GGA_XC_WB97X_D 471 /* Chai and Head-Gordon                     */
 
 typedef struct {
-  FLOAT c_x[5], c_ss[5], c_ab[5];
+  double c_x[5], c_ss[5], c_ab[5];
 } gga_xc_wb97_params;
 
 static const gga_xc_wb97_params par_wb97 = {
@@ -52,7 +52,7 @@ static const gga_xc_wb97_params par_wb97x_d = {
 };
 
 static void 
-gga_xc_wb97_init(XC(func_type) *p)
+gga_xc_wb97_init(xc_func_type *p)
 {
   gga_xc_wb97_params *params;
 
@@ -99,7 +99,7 @@ gga_xc_wb97_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_wb97 = {
   XC_HYB_GGA_XC_WB97,
   XC_EXCHANGE_CORRELATION,
   "wB97 range-separated functional",
@@ -112,7 +112,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97x) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x = {
   XC_HYB_GGA_XC_WB97X,
   XC_EXCHANGE_CORRELATION,
   "wB97X range-separated functional",
@@ -125,7 +125,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97x) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97x_v) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x_v = {
   XC_HYB_GGA_XC_WB97X_V,
   XC_EXCHANGE_CORRELATION,
   "wB97X-V range-separated functional",
@@ -138,7 +138,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97x_v) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_wb97x_d) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x_d = {
   XC_HYB_GGA_XC_WB97X_D,
   XC_EXCHANGE_CORRELATION,
   "wB97D range-separated functional",

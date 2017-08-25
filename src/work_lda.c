@@ -34,20 +34,20 @@
  * @param[in,out] func_type: pointer to pspdata structure to be initialized
  */
 static void 
-work_lda(const XC(func_type) *p, int np, const FLOAT *rho, 
-	 FLOAT *zk, FLOAT *vrho, FLOAT *v2rho2, FLOAT *v3rho3)
+work_lda(const xc_func_type *p, int np, const double *rho, 
+	 double *zk, double *vrho, double *v2rho2, double *v3rho3)
 {
-  XC(lda_work_t) r;
+  xc_lda_work_t r;
   int is, ip;
-  FLOAT dens, drs, d2rs, d3rs;
+  double dens, drs, d2rs, d3rs;
 
   /* Wigner radius */
 # if   XC_DIMENSIONS == 1
-  const FLOAT cnst_rs = 0.5;
+  const double cnst_rs = 0.5;
 # elif XC_DIMENSIONS == 2
-  const FLOAT cnst_rs = 1.0/M_SQRTPI;
+  const double cnst_rs = 1.0/M_SQRTPI;
 # else /* three dimensions */
-  const FLOAT cnst_rs = RS_FACTOR;
+  const double cnst_rs = RS_FACTOR;
 # endif
 
   /* Initialize memory */
@@ -61,11 +61,11 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
   if(r.order < 0) return;
 
   for(ip = 0; ip < np; ip++){
-    XC(rho2dzeta)(p->nspin, rho, &dens, &r.z);
+    xc_rho2dzeta(p->nspin, rho, &dens, &r.z);
 
     if(dens < p->dens_threshold) goto end_ip_loop;
 
-    r.rs = cnst_rs*POW(dens, -1.0/XC_DIMENSIONS);
+    r.rs = cnst_rs*pow(dens, -1.0/XC_DIMENSIONS);
 
     func(p, &r);
 
@@ -93,7 +93,7 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
       v2rho2[0] = r.dfdrs*(2.0*drs + dens*d2rs) + dens*r.d2fdrs2*drs*drs;
       
       if(p->nspin == XC_POLARIZED){
-	FLOAT sign[3][2] = {{-1.0, -1.0}, {-1.0, +1.0}, {+1.0, +1.0}};
+	double sign[3][2] = {{-1.0, -1.0}, {-1.0, +1.0}, {+1.0, +1.0}};
 	
 	for(is=2; is>=0; is--){
 	  v2rho2[is] = v2rho2[0] - r.d2fdrsz*(2.0*r.z + sign[is][0] + sign[is][1])*drs
@@ -111,10 +111,10 @@ work_lda(const XC(func_type) *p, int np, const FLOAT *rho,
 	3.0*r.d2fdrs2*drs*(drs + dens*d2rs) + r.d3fdrs3*dens*drs*drs*drs;
       
       if(p->nspin == XC_POLARIZED){
-	FLOAT sign[4][3] = {{-1.0, -1.0, -1.0}, {-1.0, -1.0, +1.0}, {-1.0, +1.0, +1.0}, {+1.0, +1.0, +1.0}};
+	double sign[4][3] = {{-1.0, -1.0, -1.0}, {-1.0, -1.0, +1.0}, {-1.0, +1.0, +1.0}, {+1.0, +1.0, +1.0}};
 	
 	for(is=3; is>=0; is--){
-	  FLOAT ff;
+	  double ff;
 	  
 	  v3rho3[is]  = v3rho3[0] - (2.0*r.z  + sign[is][0] + sign[is][1])*(d2rs*r.d2fdrsz + drs*drs*r.d3fdrs2z);
 	  v3rho3[is] += (r.z + sign[is][0])*(r.z + sign[is][1])*(-r.d2fdz2/dens + r.d3fdrsz2*drs)/dens;

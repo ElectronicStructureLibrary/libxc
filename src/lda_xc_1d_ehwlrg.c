@@ -25,12 +25,12 @@
 #define XC_LDA_XC_1D_EHWLRG_3     538 /* LDA constructed from slab-like systems of 3 electrons */
 
 typedef struct {
-  FLOAT alpha;
-  FLOAT a1, a2, a3;
+  double alpha;
+  double a1, a2, a3;
 } lda_xc_1d_ehwlrg_params;
 
 static void 
-lda_xc_1d_ehwlrg_init(XC(func_type) *p)
+lda_xc_1d_ehwlrg_init(xc_func_type *p)
 {
   lda_xc_1d_ehwlrg_params *params;
 
@@ -67,7 +67,7 @@ lda_xc_1d_ehwlrg_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_xc_1d_ehwlrg_1) = {
+const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_1 = {
   XC_LDA_XC_1D_EHWLRG_1,
   XC_CORRELATION,
   "LDA constructed from slab-like systems of 1 electron",
@@ -80,7 +80,7 @@ const XC(func_info_type) XC(func_info_lda_xc_1d_ehwlrg_1) = {
   work_lda, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_xc_1d_ehwlrg_2) = {
+const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_2 = {
   XC_LDA_XC_1D_EHWLRG_2,
   XC_CORRELATION,
   "LDA constructed from slab-like systems of 2 electrons",
@@ -94,7 +94,7 @@ const XC(func_info_type) XC(func_info_lda_xc_1d_ehwlrg_2) = {
 };
 
 
-const XC(func_info_type) XC(func_info_lda_xc_1d_ehwlrg_3) = {
+const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_3 = {
   XC_LDA_XC_1D_EHWLRG_3,
   XC_CORRELATION,
   "LDA constructed from slab-like systems of 3 electrons",

@@ -25,7 +25,7 @@
 #define XC_HYB_MGGA_X_MN15      268 /* MN15 functional from Minnesota  */
 
 typedef struct{
-  const FLOAT c[40];
+  const double c[40];
 } mgga_x_mn12_params;
 
 /* the ordering is 
@@ -93,7 +93,7 @@ static const mgga_x_mn12_params par_mn15 = {
 };
 
 static void
-mgga_x_mn12_init(XC(func_type) *p)
+mgga_x_mn12_init(xc_func_type *p)
 {
   mgga_x_mn12_params *params;
 
@@ -132,7 +132,7 @@ mgga_x_mn12_init(XC(func_type) *p)
 #include "work_mgga_c.c"
 
 
-const XC(func_info_type) XC(func_info_mgga_x_mn12_l) = {
+const xc_func_info_type xc_func_info_mgga_x_mn12_l = {
   XC_MGGA_X_MN12_L,
   XC_EXCHANGE,
   "Minnesota MN12-L functional",
@@ -145,7 +145,7 @@ const XC(func_info_type) XC(func_info_mgga_x_mn12_l) = {
   NULL, NULL, work_mgga_c,
 };
 
-const XC(func_info_type) XC(func_info_hyb_mgga_x_mn12_sx) = {
+const xc_func_info_type xc_func_info_hyb_mgga_x_mn12_sx = {
   XC_HYB_MGGA_X_MN12_SX,
   XC_EXCHANGE,
   "Minnesota MN12-SX hybrid functional",
@@ -158,7 +158,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_mn12_sx) = {
   NULL, NULL, work_mgga_c
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_mn15_l) = {
+const xc_func_info_type xc_func_info_mgga_x_mn15_l = {
   XC_MGGA_X_MN15_L,
   XC_EXCHANGE,
   "Minnesota MN15-L functional",
@@ -171,7 +171,7 @@ const XC(func_info_type) XC(func_info_mgga_x_mn15_l) = {
   NULL, NULL, work_mgga_c,
 };
 
-const XC(func_info_type) XC(func_info_hyb_mgga_x_mn15) = {
+const xc_func_info_type xc_func_info_hyb_mgga_x_mn15 = {
   XC_HYB_MGGA_X_MN15,
   XC_EXCHANGE,
   "Minnesota MN15 hybrid functional",

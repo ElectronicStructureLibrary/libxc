@@ -7,8 +7,8 @@
   Type of functional: work_mgga_c
 */
 
-void XC(mgga_c_pkzb_func)
-  (const XC(func_type) *p, XC(mgga_work_c_t) *r)
+void xc_mgga_c_pkzb_func
+  (const xc_func_type *p, xc_mgga_work_c_t *r)
 {
   double t1, t2, t3, t4, t5, t6, t8, t9;
   double t10, t11, t12, t13, t15, t16, t19, t20;
@@ -376,7 +376,7 @@ void XC(mgga_c_pkzb_func)
   t254 = 0.1e1 / t253;
   t255 = t26 * t254;
   t256 = 0.1e1 / t27;
-  t258 = SQRT(r->rs);
+  t258 = sqrt(r->rs);
   t261 = 0.37978500000000000000e1 * t256 + 0.35876e1 + 0.245730e1 * t258 + 0.98588e0 * r->rs;
   t262 = 0.1e1 / t37;
   t263 = t261 * t262;
@@ -434,7 +434,7 @@ void XC(mgga_c_pkzb_func)
   t353 = t146 * t352;
   t354 = 0.1e1 / t147;
   t355 = t354 * t49;
-  t359 = SQRT(t144);
+  t359 = sqrt(t144);
   t360 = t359 * t49;
   t363 = r->rs * t115;
   t366 = 0.70594500000000000000e1 * t355 * t143 + 0.61977e1 * t348 + 0.504930e1 * t360 * t143 + 0.125034e1 * t363 * t153;
@@ -469,7 +469,7 @@ void XC(mgga_c_pkzb_func)
   t425 = t204 * t424;
   t426 = 0.1e1 / t205;
   t427 = t426 * t49;
-  t431 = SQRT(t202);
+  t431 = sqrt(t202);
   t432 = t431 * t49;
   t437 = 0.70594500000000000000e1 * t427 * t201 + 0.61977e1 * t420 + 0.504930e1 * t432 * t201 + 0.125034e1 * t363 * t210;
   t438 = 0.1e1 / t216;
@@ -660,7 +660,7 @@ void XC(mgga_c_pkzb_func)
   t818 = t261 * t261;
   t821 = 0.20000000000000000000e1 * t817 * t818 * t262;
   t823 = 0.1e1 / t27 / r->rs;
-  t825 = 0.1e1/SQRT(r->rs);
+  t825 = 0.1e1/sqrt(r->rs);
   t827 = -0.18989250000000000000e1 * t823 + 0.1228650e1 * t825 + 0.98588e0;
   t830 = 0.10000000000000000000e1 * t255 * t827 * t262;
   t831 = t253 * t253;
@@ -749,7 +749,7 @@ void XC(mgga_c_pkzb_func)
   t1000 = t999 * t367;
   t1004 = 0.1e1 / t147 / t144;
   t1005 = t1004 * t115;
-  t1008 = 0.1e1/SQRT(t144);
+  t1008 = 0.1e1/sqrt(t144);
   t1009 = t1008 * t115;
   t1014 = -0.35297250000000000000e1 * t1005 * t153 + 0.2524650e1 * t1009 * t153 + 0.125034e1 * t115 * t153;
   t1015 = t1014 * t367;
@@ -801,7 +801,7 @@ void XC(mgga_c_pkzb_func)
   t1123 = t1122 * t438;
   t1127 = 0.1e1 / t205 / t202;
   t1128 = t1127 * t115;
-  t1131 = 0.1e1/SQRT(t202);
+  t1131 = 0.1e1/sqrt(t202);
   t1132 = t1131 * t115;
   t1137 = -0.35297250000000000000e1 * t1128 * t210 + 0.2524650e1 * t1132 * t210 + 0.125034e1 * t115 * t210;
   t1138 = t1137 * t438;
@@ -2015,4 +2015,4 @@ void XC(mgga_c_pkzb_func)
 }
 
 #define maple2c_order 3
-#define maple2c_func  XC(mgga_c_pkzb_func)
+#define maple2c_func  xc_mgga_c_pkzb_func

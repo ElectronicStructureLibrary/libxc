@@ -7,8 +7,8 @@
   Type of functional: work_gga_c
 */
 
-void XC(hyb_gga_xc_wb97_func)
-  (const XC(func_type) *p, XC(gga_work_c_t) *r)
+void xc_hyb_gga_xc_wb97_func
+  (const xc_func_type *p, xc_gga_work_c_t *r)
 {
   double t1, t2, t3, t5, t6, t7, t8, t10;
   double t11, t12, t13, t14, t15, t16, t17, t18;
@@ -362,7 +362,7 @@ void XC(hyb_gga_xc_wb97_func)
   t443 = t194 * t442;
   t444 = 0.1e1 / t195;
   t445 = t444 * t8;
-  t449 = SQRT(t192);
+  t449 = sqrt(t192);
   t450 = t449 * t8;
   t453 = r->rs * t200;
   t456 = 0.70594500000000000000e1 * t445 * t20 + 0.61977e1 * t436 + 0.504930e1 * t450 * t20 + 0.125034e1 * t453 * t45;
@@ -377,7 +377,7 @@ void XC(hyb_gga_xc_wb97_func)
   t470 = t242 * t469;
   t471 = 0.1e1 / t243;
   t472 = t471 * t8;
-  t476 = SQRT(t240);
+  t476 = sqrt(t240);
   t477 = t476 * t8;
   t482 = 0.70594500000000000000e1 * t472 * t124 + 0.61977e1 * t463 + 0.504930e1 * t477 * t124 + 0.125034e1 * t453 * t135;
   t483 = t470 * t482;
@@ -389,7 +389,7 @@ void XC(hyb_gga_xc_wb97_func)
   t491 = 0.1e1 / t490;
   t492 = t282 * t491;
   t493 = 0.1e1 / t283;
-  t495 = SQRT(r->rs);
+  t495 = sqrt(r->rs);
   t498 = 0.37978500000000000000e1 * t493 + 0.35876e1 + 0.245730e1 * t495 + 0.98588e0 * r->rs;
   t499 = 0.1e1 / t292;
   t500 = t498 * t499;
@@ -569,7 +569,7 @@ void XC(hyb_gga_xc_wb97_func)
   t955 = t953 * t954;
   t959 = 0.1e1 / t195 / t192;
   t960 = t959 * t200;
-  t963 = 0.1e1/SQRT(t192);
+  t963 = 0.1e1/sqrt(t192);
   t964 = t963 * t200;
   t969 = -0.35297250000000000000e1 * t960 * t45 + 0.2524650e1 * t964 * t45 + 0.125034e1 * t200 * t45;
   t970 = t443 * t969;
@@ -588,7 +588,7 @@ void XC(hyb_gga_xc_wb97_func)
   t991 = t989 * t990;
   t995 = 0.1e1 / t243 / t240;
   t996 = t995 * t200;
-  t999 = 0.1e1/SQRT(t240);
+  t999 = 0.1e1/sqrt(t240);
   t1000 = t999 * t200;
   t1005 = -0.35297250000000000000e1 * t996 * t135 + 0.2524650e1 * t1000 * t135 + 0.125034e1 * t200 * t135;
   t1006 = t470 * t1005;
@@ -606,7 +606,7 @@ void XC(hyb_gga_xc_wb97_func)
   t1025 = t498 * t498;
   t1028 = 0.20000000000000000000e1 * t1024 * t1025 * t499;
   t1030 = 0.1e1 / t283 / r->rs;
-  t1032 = 0.1e1/SQRT(r->rs);
+  t1032 = 0.1e1/sqrt(r->rs);
   t1034 = -0.18989250000000000000e1 * t1030 + 0.1228650e1 * t1032 + 0.98588e0;
   t1037 = 0.10000000000000000000e1 * t492 * t1034 * t499;
   t1038 = t490 * t490;
@@ -1137,4 +1137,4 @@ void XC(hyb_gga_xc_wb97_func)
 }
 
 #define maple2c_order 3
-#define maple2c_func  XC(hyb_gga_xc_wb97_func)
+#define maple2c_func  xc_hyb_gga_xc_wb97_func

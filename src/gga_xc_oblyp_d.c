@@ -23,17 +23,17 @@
 #define XC_GGA_XC_OPBE_D        65  /* oPBE_D functional of Goerigk and Grimme   */
 
 static void
-gga_xc_oblyp_d_init(XC(func_type) *p)
+gga_xc_oblyp_d_init(xc_func_type *p)
 {
   static int   funcs_id  [4] = {XC_GGA_X_B88, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[4] = {1.0, 1.0};
+  static double funcs_coef[4] = {1.0, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
-  XC(gga_x_b88_set_params)(p->func_aux[0], 0.00401, 6.0);
-  XC(gga_c_lyp_set_params)(p->func_aux[1], 0.05047, 0.140, 0.2196, 0.363);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_gga_x_b88_set_params(p->func_aux[0], 0.00401, 6.0);
+  xc_gga_c_lyp_set_params(p->func_aux[1], 0.05047, 0.140, 0.2196, 0.363);
 }
 
-const XC(func_info_type) XC(func_info_gga_xc_oblyp_d) = {
+const xc_func_info_type xc_func_info_gga_xc_oblyp_d = {
   XC_GGA_XC_OBLYP_D,
   XC_EXCHANGE_CORRELATION,
   "oBLYP-D functional of Goerigk and Grimme",
@@ -48,17 +48,17 @@ const XC(func_info_type) XC(func_info_gga_xc_oblyp_d) = {
 
 
 static void
-gga_xc_opwlyp_d_init(XC(func_type) *p)
+gga_xc_opwlyp_d_init(xc_func_type *p)
 {
   static int   funcs_id  [4] = {XC_GGA_X_PW91, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[4] = {1.0, 1.0};
+  static double funcs_coef[4] = {1.0, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
-  XC(gga_x_pw91_set_params2)(p->func_aux[0], 0.00402, 0.8894/(X2S*X2S), 0.79);
-  XC(gga_c_lyp_set_params)(p->func_aux[1], 0.04960, 0.144, 0.2262, 0.346);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_gga_x_pw91_set_params2(p->func_aux[0], 0.00402, 0.8894/(X2S*X2S), 0.79);
+  xc_gga_c_lyp_set_params(p->func_aux[1], 0.04960, 0.144, 0.2262, 0.346);
 }
 
-const XC(func_info_type) XC(func_info_gga_xc_opwlyp_d) = {
+const xc_func_info_type xc_func_info_gga_xc_opwlyp_d = {
   XC_GGA_XC_OPWLYP_D,
   XC_EXCHANGE_CORRELATION,
   "oPWLYP-D functional of Goerigk and Grimme",
@@ -73,17 +73,17 @@ const XC(func_info_type) XC(func_info_gga_xc_opwlyp_d) = {
 
 
 static void
-gga_xc_opbe_d_init(XC(func_type) *p)
+gga_xc_opbe_d_init(xc_func_type *p)
 {
   static int   funcs_id  [4] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[4] = {1.0, 1.0};
+  static double funcs_coef[4] = {1.0, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
-  XC(gga_x_pbe_set_params)(p->func_aux[0], 1.2010, 0.21198);
-  XC(gga_c_pbe_set_params)(p->func_aux[1], 0.04636);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_gga_x_pbe_set_params(p->func_aux[0], 1.2010, 0.21198);
+  xc_gga_c_pbe_set_params(p->func_aux[1], 0.04636);
 }
 
-const XC(func_info_type) XC(func_info_gga_xc_opbe_d) = {
+const xc_func_info_type xc_func_info_gga_xc_opbe_d = {
   XC_GGA_XC_OPBE_D,
   XC_EXCHANGE_CORRELATION,
   "oPBE-D functional of Goerigk and Grimme",

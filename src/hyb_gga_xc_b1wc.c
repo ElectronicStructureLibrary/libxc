@@ -30,16 +30,16 @@
 #define XC_HYB_GGA_XC_MPWLYP1M  453  /* MPW with 1 par. for metals/LYP                   */
 
 void
-XC(hyb_gga_xc_b1wc_init)(XC(func_type) *p)
+xc_hyb_gga_xc_b1wc_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_WC, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[2] = {1.0 - 0.16, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.16, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.16;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_b1wc) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_b1wc = {
   XC_HYB_GGA_XC_B1WC,
   XC_EXCHANGE_CORRELATION,
   "B1WC",
@@ -48,22 +48,22 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1wc) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_gga_xc_b1wc_init),
+  xc_hyb_gga_xc_b1wc_init,
   NULL, NULL, NULL, NULL
 };
 
 
 void
-XC(hyb_gga_xc_b1lyp_init)(XC(func_type) *p)
+xc_hyb_gga_xc_b1lyp_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_b1lyp) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_b1lyp = {
   XC_HYB_GGA_XC_B1LYP,
   XC_EXCHANGE_CORRELATION,
   "B1LYP",
@@ -72,22 +72,22 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1lyp) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_gga_xc_b1lyp_init),
+  xc_hyb_gga_xc_b1lyp_init,
   NULL, NULL, NULL, NULL
 };
 
 
 void
-XC(hyb_gga_xc_b1pw91_init)(XC(func_type) *p)
+xc_hyb_gga_xc_b1pw91_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_PW91};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_b1pw91) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_b1pw91 = {
   XC_HYB_GGA_XC_B1PW91,
   XC_EXCHANGE_CORRELATION,
   "B1PW91",
@@ -96,16 +96,16 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b1pw91) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_gga_xc_b1pw91_init),
+  xc_hyb_gga_xc_b1pw91_init,
   NULL, NULL, NULL, NULL
 };
 
 
 void
-XC(hyb_gga_xc_mpw1pw_init)(XC(func_type) *p)
+xc_hyb_gga_xc_mpw1pw_init(xc_func_type *p)
 {
   int   funcs_id  [2] = {XC_GGA_X_MPW91, 0};
-  FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
   switch(p->info->number) {
   case(XC_HYB_GGA_XC_MPW1LYP):
@@ -123,11 +123,11 @@ XC(hyb_gga_xc_mpw1pw_init)(XC(func_type) *p)
     exit(1);
   }
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1lyp) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_mpw1lyp = {
   XC_HYB_GGA_XC_MPW1LYP,
   XC_EXCHANGE_CORRELATION,
   "mPW1LYP",
@@ -136,11 +136,11 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1lyp) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_gga_xc_mpw1pw_init),
+  xc_hyb_gga_xc_mpw1pw_init,
   NULL, NULL, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1pbe) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_mpw1pbe = {
   XC_HYB_GGA_XC_MPW1PBE,
   XC_EXCHANGE_CORRELATION,
   "mPW1PBE",
@@ -149,11 +149,11 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1pbe) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_gga_xc_mpw1pw_init),
+  xc_hyb_gga_xc_mpw1pw_init,
   NULL, NULL, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1pw) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_mpw1pw = {
   XC_HYB_GGA_XC_MPW1PW,
   XC_EXCHANGE_CORRELATION,
   "mPW1PW",
@@ -162,22 +162,22 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1pw) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_gga_xc_mpw1pw_init),
+  xc_hyb_gga_xc_mpw1pw_init,
   NULL, NULL, NULL, NULL
 };
 
 
 void
-XC(hyb_gga_xc_mpw1k_init)(XC(func_type) *p)
+xc_hyb_gga_xc_mpw1k_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_MPW91, XC_GGA_C_PW91};
-  static FLOAT funcs_coef[2] = {1.0 - 0.428, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.428, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.428;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1k) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_mpw1k = {
   XC_HYB_GGA_XC_MPW1K,
   XC_EXCHANGE_CORRELATION,
   "mPW1K",
@@ -186,22 +186,22 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpw1k) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_gga_xc_mpw1k_init),
+  xc_hyb_gga_xc_mpw1k_init,
   NULL, NULL, NULL, NULL
 };
 
 
 void
-XC(hyb_gga_xc_bhandh_init)(XC(func_type) *p)
+xc_hyb_gga_xc_bhandh_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_LDA_X, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[2] = {0.5, 1.0};
+  static double funcs_coef[2] = {0.5, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.5;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_bhandh) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_bhandh = {
   XC_HYB_GGA_XC_BHANDH,
   XC_EXCHANGE_CORRELATION,
   "BHandH",
@@ -210,22 +210,22 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_bhandh) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_gga_xc_bhandh_init),
+  xc_hyb_gga_xc_bhandh_init,
   NULL, NULL, NULL, NULL
 };
 
 
 void
-XC(hyb_gga_xc_bhandhlyp_init)(XC(func_type) *p)
+xc_hyb_gga_xc_bhandhlyp_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[2] = {0.5, 1.0};
+  static double funcs_coef[2] = {0.5, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.5;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_bhandhlyp) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_bhandhlyp = {
   XC_HYB_GGA_XC_BHANDHLYP,
   XC_EXCHANGE_CORRELATION,
   "BHandHLYP",
@@ -234,22 +234,22 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_bhandhlyp) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_gga_xc_bhandhlyp_init),
+  xc_hyb_gga_xc_bhandhlyp_init,
   NULL, NULL, NULL, NULL
 };
 
 
 void
-XC(hyb_gga_xc_mpwlyp1m_init)(XC(func_type) *p)
+xc_hyb_gga_xc_mpwlyp1m_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_MPW91, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[2] = {1.0 - 0.05, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.05, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.05;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_mpwlyp1m) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_mpwlyp1m = {
   XC_HYB_GGA_XC_MPWLYP1M,
   XC_EXCHANGE_CORRELATION,
   "MPW with 1 par. for metals/LYP",
@@ -258,6 +258,6 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_mpwlyp1m) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_gga_xc_mpwlyp1m_init),
+  xc_hyb_gga_xc_mpwlyp1m_init,
   NULL, NULL, NULL, NULL
 };

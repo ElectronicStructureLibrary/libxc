@@ -26,14 +26,14 @@
 #define XC_MGGA_X_B00          284 /* Becke 2000 */
 
 typedef struct{
-  FLOAT c;
+  double c;
 } mgga_x_tb09_params;
 
-static FLOAT br89_gamma = 0.8;
-static FLOAT b00_at     = 0.928;
+static double br89_gamma = 0.8;
+static double b00_at     = 0.928;
 
 static void 
-mgga_x_tb09_init(XC(func_type) *p)
+mgga_x_tb09_init(xc_func_type *p)
 {
   mgga_x_tb09_params *params;
 
@@ -61,11 +61,11 @@ mgga_x_tb09_init(XC(func_type) *p)
 
 
 /* This code follows the inversion done in the PINY_MD package */
-static FLOAT
-br_newt_raph(FLOAT a, FLOAT tol,  FLOAT * res, int *ierr)
+static double
+br_newt_raph(double a, double tol,  double * res, int *ierr)
 {
   int count;
-  FLOAT x, f;
+  double x, f;
   static int max_iter = 50;
 
    *ierr = 1;
@@ -77,30 +77,30 @@ br_newt_raph(FLOAT a, FLOAT tol,  FLOAT * res, int *ierr)
 
    count = 0;
    do {
-     FLOAT arg, eee, xm2, fp;
+     double arg, eee, xm2, fp;
 
      xm2 = x - 2.0;
      arg = 2.0*x/3.0;
-     eee = EXP(-arg)/a;
+     eee = exp(-arg)/a;
 
      f  = x*eee - xm2;
      fp = eee*(1.0 - 2.0/3.0*x) - 1.0;
 
      x -= f/fp;
-     x  = ABS(x);
+     x  = fabs(x);
 
      count ++;
-     *res = ABS(f);
+     *res = fabs(f);
    } while((*res > tol) && (count < max_iter));
 
    if(count == max_iter) *ierr=0; 
    return x;
 }
 
-static FLOAT
-br_bisect(FLOAT a, FLOAT tol, int *ierr) { 
+static double
+br_bisect(double a, double tol, int *ierr) { 
   int count; 
-  FLOAT f, x, x1, x2; 
+  double f, x, x1, x2; 
   static int max_iter = 500; 
  	 
   *ierr = 1; 
@@ -119,37 +119,33 @@ br_bisect(FLOAT a, FLOAT tol, int *ierr) {
   /* bisection */ 
   count = 0; 
   do{ 
-    FLOAT arg, eee, xm2; 
+    double arg, eee, xm2; 
     x   = 0.5*(x1 + x2); 
     xm2 = x - 2.0; 
     arg = 2.0*x/3.0; 
-    eee = EXP(-arg); 
+    eee = exp(-arg); 
     f   = x*eee - a*xm2; 
 	 	 
     if(f > 0.0) x1 = x; 
     if(f < 0.0) x2 = x; 
 	 	 
     count++; 
-  }while((ABS(f) > tol)  && (count < max_iter)); 
+  }while((fabs(f) > tol)  && (count < max_iter)); 
  	 
   if(count == max_iter) *ierr=0;  
   return x; 
 } 
 	 	 
-FLOAT XC(mgga_x_br89_get_x)(FLOAT Q)
+double xc_mgga_x_br89_get_x(double Q)
 {
-  FLOAT rhs, br_x, tol, res;
+  double rhs, br_x, tol, res;
   int ierr;
 
-#ifdef SINGLE_PRECISION
-  tol = 1e-6;
-#else
   tol = 5e-12;
-#endif
 
   /* build right-hand side of the non-linear equation 
      Remember we use a different definition of tau */
-  rhs = 2.0/3.0*POW(M_PI, 2.0/3.0)/Q;
+  rhs = 2.0/3.0*pow(M_PI, 2.0/3.0)/Q;
 
   br_x = br_newt_raph(rhs, tol, &res, &ierr);
   if(ierr == 0){
@@ -166,9 +162,9 @@ FLOAT XC(mgga_x_br89_get_x)(FLOAT Q)
 
 /* Eq. (22) */
 void
-XC(mgga_b00_fw)(int order, FLOAT t, FLOAT *fw, FLOAT *dfwdt)
+xc_mgga_b00_fw(int order, double t, double *fw, double *dfwdt)
 {
-  FLOAT w, w2;
+  double w, w2;
   
   w = (K_FACTOR_C - t)/(K_FACTOR_C + t);
   w2 = w*w;
@@ -183,23 +179,23 @@ XC(mgga_b00_fw)(int order, FLOAT t, FLOAT *fw, FLOAT *dfwdt)
 
 
 static void 
-func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
+func(const xc_func_type *pt, xc_mgga_work_x_t *r)
 {
-  FLOAT Q, br_x, v_BR, dv_BRdbx, d2v_BRdbx2, dxdQ, d2xdQ2, ff, dffdx, d2ffdx2;
-  FLOAT cnst, c_TB09, c_HEG, exp1, exp2, gamma, fw, dfwdt;
+  double Q, br_x, v_BR, dv_BRdbx, d2v_BRdbx2, dxdQ, d2xdQ2, ff, dffdx, d2ffdx2;
+  double cnst, c_TB09, c_HEG, exp1, exp2, gamma, fw, dfwdt;
 
   gamma = (pt->info->number == XC_MGGA_X_B00) ? 1.0 : br89_gamma;
 
   Q = (r->u - 4.0*gamma*r->t + 0.5*gamma*r->x*r->x)/6.0;
-  if(ABS(Q) < MIN_DENS) Q = (Q < 0) ? -MIN_DENS : MIN_DENS;
+  if(fabs(Q) < MIN_DENS) Q = (Q < 0) ? -MIN_DENS : MIN_DENS;
 
-  br_x = XC(mgga_x_br89_get_x)(Q);
+  br_x = xc_mgga_x_br89_get_x(Q);
 
   cnst = -2.0*CBRT(M_PI)/X_FACTOR_C;
-  exp1 = EXP(br_x/3.0);
-  exp2 = EXP(-br_x);
+  exp1 = exp(br_x/3.0);
+  exp2 = exp(-br_x);
 
-  v_BR = (ABS(br_x) > MIN_TAU) ?
+  v_BR = (fabs(br_x) > MIN_TAU) ?
     exp1*(1.0 - exp2*(1.0 + br_x/2.0))/br_x :
     1.0/2.0 + br_x/6.0 - br_x*br_x/18.0;
 
@@ -210,7 +206,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
     r->f = - v_BR / 2.0;
 
     if(pt->info->number == XC_MGGA_X_B00){
-      XC(mgga_b00_fw)(r->order, r->t, &fw, &dfwdt);
+      xc_mgga_b00_fw(r->order, r->t, &fw, &dfwdt);
       r->f *= 1.0 + b00_at*fw;
     }
   }else{ /* XC_MGGA_X_BJ06 & XC_MGGA_X_TB09 */
@@ -220,12 +216,12 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   if(r->order < 1) return;
 
   if(pt->info->number == XC_MGGA_X_BR89 || r->order > 1){
-    dv_BRdbx = (ABS(br_x) > MIN_TAU) ?
+    dv_BRdbx = (fabs(br_x) > MIN_TAU) ?
       (3.0 + br_x*(br_x + 2.0) + (br_x - 3.0)/exp2) / (3.0*exp1*exp1*br_x*br_x) :
       1.0/6.0 - br_x/9.0;
     dv_BRdbx *= cnst;
     
-    ff    = br_x*EXP(-2.0/3.0*br_x)/(br_x - 2);
+    ff    = br_x*exp(-2.0/3.0*br_x)/(br_x - 2);
     dffdx = ff*(-2.0/3.0 + 1.0/br_x - 1.0/(br_x - 2.0));
     dxdQ  = -ff/(Q*dffdx);
   }
@@ -246,12 +242,12 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 
     r->dfdrs = -c_TB09*v_BR;
 
-    c_HEG  = (3.0*c_TB09 - 2.0)*SQRT(5.0/12.0)/(X_FACTOR_C*M_PI);
+    c_HEG  = (3.0*c_TB09 - 2.0)*sqrt(5.0/12.0)/(X_FACTOR_C*M_PI);
     
     if(pt->info->number == XC_MGGA_X_BJ06 || pt->info->number == XC_MGGA_X_TB09)
-      r->dfdrs -= c_HEG*SQRT(2.0*r->t);
+      r->dfdrs -= c_HEG*sqrt(2.0*r->t);
     else /* XC_MGGA_X_RPP09 */
-      r->dfdrs -= c_HEG*SQRT(max(2.0*r->t - r->x*r->x/4.0, 0.0));
+      r->dfdrs -= c_HEG*sqrt(max(2.0*r->t - r->x*r->x/4.0, 0.0));
 
     r->dfdrs /= -r->rs; /* due to the definition of dfdrs */
   }
@@ -259,7 +255,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   if(r->order < 2) return;
   
   if(pt->info->number == XC_MGGA_X_BR89 || r->order > 2){
-    d2v_BRdbx2 = (ABS(br_x) > MIN_TAU) ?
+    d2v_BRdbx2 = (fabs(br_x) > MIN_TAU) ?
       ((18.0 + (br_x - 6.0)*br_x)/exp2 - 2.0*(9.0 + br_x*(6.0 + br_x*(br_x + 2.0)))) 
       / (9.0*exp1*exp1*br_x*br_x*br_x) :
       -1.0/9.0;
@@ -270,7 +266,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   }
 
   if(pt->info->number == XC_MGGA_X_BR89){
-    FLOAT aux1 = d2v_BRdbx2*dxdQ*dxdQ + dv_BRdbx*d2xdQ2;
+    double aux1 = d2v_BRdbx2*dxdQ*dxdQ + dv_BRdbx*d2xdQ2;
 
     r->d2fdx2 = -(aux1*gamma*r->x*r->x/6.0 + dv_BRdbx*dxdQ)*gamma/12.0;
     r->d2fdxt =  aux1*gamma*gamma*r->x/18.0;
@@ -286,7 +282,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_br89) = {
+const xc_func_info_type xc_func_info_mgga_x_br89 = {
   XC_MGGA_X_BR89,
   XC_EXCHANGE,
   "Becke-Roussel 89",
@@ -300,7 +296,7 @@ const XC(func_info_type) XC(func_info_mgga_x_br89) = {
   work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_bj06) = {
+const xc_func_info_type xc_func_info_mgga_x_bj06 = {
   XC_MGGA_X_BJ06,
   XC_EXCHANGE,
   "Becke & Johnson 06",
@@ -318,7 +314,7 @@ static const func_params_type ext_params[] = {
 };
 
 static void 
-set_ext_params(XC(func_type) *p, const double *ext_params)
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
   mgga_x_tb09_params *params;
   double ff;
@@ -330,7 +326,7 @@ set_ext_params(XC(func_type) *p, const double *ext_params)
   params->c = ff;
 }
 
-const XC(func_info_type) XC(func_info_mgga_x_tb09) = {
+const xc_func_info_type xc_func_info_mgga_x_tb09 = {
   XC_MGGA_X_TB09,
   XC_EXCHANGE,
   "Tran & Blaha 09",
@@ -343,7 +339,7 @@ const XC(func_info_type) XC(func_info_mgga_x_tb09) = {
   NULL, NULL, work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_rpp09) = {
+const xc_func_info_type xc_func_info_mgga_x_rpp09 = {
   XC_MGGA_X_RPP09,
   XC_EXCHANGE,
   "Rasanen, Pittalis & Proetto 09",
@@ -356,7 +352,7 @@ const XC(func_info_type) XC(func_info_mgga_x_rpp09) = {
   NULL, NULL, work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_b00) = {
+const xc_func_info_type xc_func_info_mgga_x_b00 = {
   XC_MGGA_X_B00,
   XC_EXCHANGE,
   "Becke 2000",

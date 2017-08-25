@@ -22,10 +22,10 @@
 
 #include "maple2c/gga_x_lag.c"
 
-#define func XC(gga_x_lag_enhance)
+#define func xc_gga_x_lag_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_lag) = {
+const xc_func_info_type xc_func_info_gga_x_lag = {
   XC_GGA_X_LAG,
   XC_EXCHANGE,
   "Local Airy Gas",

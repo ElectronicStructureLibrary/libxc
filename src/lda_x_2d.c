@@ -27,7 +27,7 @@
 #define XC_DIMENSIONS 2
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_x_2d) = {
+const xc_func_info_type xc_func_info_lda_x_2d = {
   XC_LDA_X_2D,
   XC_EXCHANGE,
   "Slater exchange",

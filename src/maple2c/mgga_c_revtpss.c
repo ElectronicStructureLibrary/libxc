@@ -7,8 +7,8 @@
   Type of functional: work_mgga_c
 */
 
-void XC(mgga_c_revtpss_func)
-  (const XC(func_type) *p, XC(mgga_work_c_t) *r)
+void xc_mgga_c_revtpss_func
+  (const xc_func_type *p, xc_mgga_work_c_t *r)
 {
   double t1, t3, t7, t8, t9, t10, t11, t12;
   double t13, t14, t16, t17, t18, t19, t20, t21;
@@ -694,7 +694,7 @@ void XC(mgga_c_revtpss_func)
   t320 = t61 * t319;
   t321 = 0.1e1 / t62;
   t322 = t321 * t55;
-  t326 = SQRT(t59);
+  t326 = sqrt(t59);
   t327 = t326 * t55;
   t330 = r->rs * t68;
   t333 = 0.70594500000000000000e1 * t322 * t58 + 0.61977e1 * t315 + 0.504930e1 * t327 * t58 + 0.125034e1 * t330 * t70;
@@ -749,7 +749,7 @@ void XC(mgga_c_revtpss_func)
   t423 = 0.1e1 / t422;
   t424 = t130 * t423;
   t425 = 0.1e1 / t131;
-  t427 = SQRT(r->rs);
+  t427 = sqrt(r->rs);
   t430 = 0.37978500000000000000e1 * t425 + 0.35876e1 + 0.245730e1 * t427 + 0.98588e0 * r->rs;
   t431 = 0.1e1 / t140;
   t432 = t430 * t431;
@@ -825,7 +825,7 @@ void XC(mgga_c_revtpss_func)
   t552 = t236 * t551;
   t553 = 0.1e1 / t237;
   t554 = t553 * t55;
-  t558 = SQRT(t234);
+  t558 = sqrt(t234);
   t559 = t558 * t55;
   t564 = 0.70594500000000000000e1 * t554 * t233 + 0.61977e1 * t547 + 0.504930e1 * t559 * t233 + 0.125034e1 * t330 * t242;
   t565 = 0.1e1 / t248;
@@ -1188,7 +1188,7 @@ void XC(mgga_c_revtpss_func)
   t1244 = t1241 * t1243;
   t1247 = 0.1e1 / t62 / t59;
   t1248 = t1247 * t68;
-  t1251 = 0.1e1/SQRT(t59);
+  t1251 = 0.1e1/sqrt(t59);
   t1252 = t1251 * t68;
   t1255 = t68 * t70;
   t1257 = -0.35297250000000000000e1 * t1248 * t70 + 0.2524650e1 * t1252 * t70 + 0.125034e1 * t1255;
@@ -1282,7 +1282,7 @@ void XC(mgga_c_revtpss_func)
   t1446 = t430 * t430;
   t1449 = 0.20000000000000000000e1 * t1445 * t1446 * t431;
   t1451 = 0.1e1 / t131 / r->rs;
-  t1453 = 0.1e1/SQRT(r->rs);
+  t1453 = 0.1e1/sqrt(r->rs);
   t1455 = -0.18989250000000000000e1 * t1451 + 0.1228650e1 * t1453 + 0.98588e0;
   t1458 = 0.10000000000000000000e1 * t424 * t1455 * t431;
   t1459 = t422 * t422;
@@ -1419,7 +1419,7 @@ void XC(mgga_c_revtpss_func)
   t1719 = t1716 * t1718;
   t1722 = 0.1e1 / t237 / t234;
   t1723 = t1722 * t68;
-  t1726 = 0.1e1/SQRT(t234);
+  t1726 = 0.1e1/sqrt(t234);
   t1727 = t1726 * t68;
   t1730 = t68 * t242;
   t1732 = -0.35297250000000000000e1 * t1723 * t242 + 0.2524650e1 * t1727 * t242 + 0.125034e1 * t1730;
@@ -4481,4 +4481,4 @@ void XC(mgga_c_revtpss_func)
 }
 
 #define maple2c_order 3
-#define maple2c_func  XC(mgga_c_revtpss_func)
+#define maple2c_func  xc_mgga_c_revtpss_func

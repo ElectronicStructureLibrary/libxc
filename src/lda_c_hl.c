@@ -23,7 +23,7 @@
 #define XC_LDA_C_vBH 17   /* von Barth & Hedin            */
 
 typedef struct {
-  FLOAT r[2], c[2];
+  double r[2], c[2];
 } lda_c_hl_params;
 
 static const lda_c_hl_params par_hl = { /* HL unpolarized only*/
@@ -39,7 +39,7 @@ static const lda_c_hl_params par_vbh = {
 };
 
 static void 
-lda_c_hl_init(XC(func_type) *p)
+lda_c_hl_init(xc_func_type *p)
 {
   lda_c_hl_params *params;
 
@@ -68,7 +68,7 @@ lda_c_hl_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_c_hl) = {
+const xc_func_info_type xc_func_info_lda_c_hl = {
   XC_LDA_C_HL,
   XC_CORRELATION,
   "Hedin & Lundqvist",
@@ -81,7 +81,7 @@ const XC(func_info_type) XC(func_info_lda_c_hl) = {
   work_lda, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_c_gl) = {
+const xc_func_info_type xc_func_info_lda_c_gl = {
   XC_LDA_C_GL,
   XC_CORRELATION,
   "Gunnarson & Lundqvist",
@@ -94,7 +94,7 @@ const XC(func_info_type) XC(func_info_lda_c_gl) = {
   work_lda, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_c_vbh) = {
+const xc_func_info_type xc_func_info_lda_c_vbh = {
   XC_LDA_C_vBH,
   XC_CORRELATION,
   "von Barth & Hedin",

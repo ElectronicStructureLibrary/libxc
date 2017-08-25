@@ -26,7 +26,7 @@
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_k_pearson) = {
+const xc_func_info_type xc_func_info_gga_k_pearson = {
   XC_GGA_K_PEARSON,
   XC_KINETIC,
   "Pearson 1992",

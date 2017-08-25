@@ -23,12 +23,12 @@
 #define XC_GGA_K_LC94         521 /* Lembarki & Chermette */
 
 typedef struct{
-  FLOAT a, b, c, d, f, alpha, expo;
+  double a, b, c, d, f, alpha, expo;
 } gga_x_pw91_params;
 
 
 static void 
-gga_x_pw91_init(XC(func_type) *p)
+gga_x_pw91_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_x_pw91_params));
@@ -36,7 +36,7 @@ gga_x_pw91_init(XC(func_type) *p)
   switch(p->info->number){
   case XC_GGA_X_PW91:
     /* b_PW91 ~ 0.0042 */
-    XC(gga_x_pw91_set_params)(p, 0.19645, 7.7956, 0.2743, -0.1508, 0.004, 100.0, 4.0);
+    xc_gga_x_pw91_set_params(p, 0.19645, 7.7956, 0.2743, -0.1508, 0.004, 100.0, 4.0);
     break;
   case XC_GGA_X_MPW91:
     /*
@@ -46,10 +46,10 @@ gga_x_pw91_init(XC(func_type) *p)
       
       also the power seems to be 3.72 and not 3.73
     */
-    XC(gga_x_pw91_set_params2)(p, 0.00426, 100.0, 3.72);
+    xc_gga_x_pw91_set_params2(p, 0.00426, 100.0, 3.72);
     break;
   case XC_GGA_K_LC94:
-    XC(gga_x_pw91_set_params)(p, 0.093907, 76.320, 0.26608, -0.0809615, 0.000057767, 100.0, 4.0);
+    xc_gga_x_pw91_set_params(p, 0.093907, 76.320, 0.26608, -0.0809615, 0.000057767, 100.0, 4.0);
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_pw91\n");
@@ -58,7 +58,7 @@ gga_x_pw91_init(XC(func_type) *p)
 }
 
 void 
-XC(gga_x_pw91_set_params)(XC(func_type) *p, FLOAT a, FLOAT b, FLOAT c, FLOAT d, FLOAT f, FLOAT alpha, FLOAT expo)
+xc_gga_x_pw91_set_params(xc_func_type *p, double a, double b, double c, double d, double f, double alpha, double expo)
 {
   gga_x_pw91_params *params;
 
@@ -75,19 +75,19 @@ XC(gga_x_pw91_set_params)(XC(func_type) *p, FLOAT a, FLOAT b, FLOAT c, FLOAT d, 
 }
 
 void 
-XC(gga_x_pw91_set_params2)(XC(func_type) *p, FLOAT bt, FLOAT alpha, FLOAT expo)
+xc_gga_x_pw91_set_params2(xc_func_type *p, double bt, double alpha, double expo)
 {
-  FLOAT beta;
-  FLOAT a, b, c, d, f;
+  double beta;
+  double a, b, c, d, f;
 
-  beta =  5.0*POW(36.0*M_PI,-5.0/3.0);
+  beta =  5.0*pow(36.0*M_PI,-5.0/3.0);
   a    =  6.0*bt/X2S;
   b    =  1.0/X2S;
   c    =  bt/(X_FACTOR_C*X2S*X2S);
   d    = -(bt - beta)/(X_FACTOR_C*X2S*X2S);
-  f    = 1.0e-6/(X_FACTOR_C*POW(X2S, expo));
+  f    = 1.0e-6/(X_FACTOR_C*pow(X2S, expo));
 
-  XC(gga_x_pw91_set_params)(p, a, b, c, d, f, alpha, expo);
+  xc_gga_x_pw91_set_params(p, a, b, c, d, f, alpha, expo);
 }
 
 #include "maple2c/gga_x_pw91.c"
@@ -95,7 +95,7 @@ XC(gga_x_pw91_set_params2)(XC(func_type) *p, FLOAT bt, FLOAT alpha, FLOAT expo)
 #define func maple2c_func
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_pw91) = {
+const xc_func_info_type xc_func_info_gga_x_pw91 = {
   XC_GGA_X_PW91,
   XC_EXCHANGE,
   "Perdew & Wang 91",
@@ -110,7 +110,7 @@ const XC(func_info_type) XC(func_info_gga_x_pw91) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_mpw91) = {
+const xc_func_info_type xc_func_info_gga_x_mpw91 = {
   XC_GGA_X_MPW91,
   XC_EXCHANGE,
   "mPW91 of Adamo & Barone",
@@ -128,7 +128,7 @@ const XC(func_info_type) XC(func_info_gga_x_mpw91) = {
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_k_lc94) = {
+const xc_func_info_type xc_func_info_gga_k_lc94 = {
   XC_GGA_K_LC94,
   XC_KINETIC,
   "Lembarki & Chermette",

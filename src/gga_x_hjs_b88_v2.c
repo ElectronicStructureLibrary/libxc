@@ -21,21 +21,21 @@
 #define XC_GGA_X_HJS_B88_V2   46 /* HJS screened exchange corrected B88 version */
 
 typedef struct{
-  FLOAT omega;
+  double omega;
 } gga_x_hjs_b88_v2_params;
 
 static void
-gga_x_hjs_init(XC(func_type) *p)
+gga_x_hjs_init(xc_func_type *p)
 {
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_x_hjs_b88_v2_params));
 
   /* we take 0.11 as the default for hjs_b88_v2 */
-  XC(gga_x_hjs_b88_v2_set_params)(p, 0.11);
+  xc_gga_x_hjs_b88_v2_set_params(p, 0.11);
 }
 
 void 
-XC(gga_x_hjs_b88_v2_set_params)(XC(func_type) *p, FLOAT omega)
+xc_gga_x_hjs_b88_v2_set_params(xc_func_type *p, double omega)
 {
   gga_x_hjs_b88_v2_params *params;
 
@@ -50,7 +50,7 @@ XC(gga_x_hjs_b88_v2_set_params)(XC(func_type) *p, FLOAT omega)
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_x_hjs_b88_v2) = {
+const xc_func_info_type xc_func_info_gga_x_hjs_b88_v2 = {
   XC_GGA_X_HJS_B88_V2,
   XC_EXCHANGE,
   "HJS screened exchange B88 corrected version",

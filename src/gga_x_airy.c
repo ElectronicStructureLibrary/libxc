@@ -22,10 +22,10 @@
 
 #include "maple2c/gga_x_airy.c"
 
-#define func XC(gga_x_airy_enhance)
+#define func xc_gga_x_airy_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_airy) = {
+const xc_func_info_type xc_func_info_gga_x_airy = {
   XC_GGA_X_AIRY,
   XC_EXCHANGE,
   "Constantin et al based on the Airy gas",

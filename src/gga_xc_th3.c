@@ -22,19 +22,19 @@
 #define XC_GGA_XC_TH4          157 /* Tozer and Handy v. 4 */
 
 typedef struct{
-  FLOAT *omega;
+  double *omega;
 } gga_xc_th3_params;
 
 
 /* parameters for TH3 */
-static FLOAT omega_TH3[] = 
+static double omega_TH3[] = 
   {-0.142542e+00, -0.783603e+00, -0.188875e+00, +0.426830e-01, -0.304953e+00, +0.430407e+00, 
    -0.997699e-01, +0.355789e-02, -0.344374e-01, +0.192108e-01, -0.230906e-02, +0.235189e-01, 
    -0.331157e-01, +0.121316e-01, +0.441190e+00, -0.227167e+01, +0.403051e+01, -0.228074e+01,
    +0.360204e-01};
 
 /* parameters for TH4 */
-static FLOAT omega_TH4[] = 
+static double omega_TH4[] = 
   {+0.677353e-01, -0.106763e+01, -0.419018e-01, +0.226313e-01, -0.222478e+00, +0.283432e+00,
    -0.165089e-01, -0.167204e-01, -0.332362e-01, +0.162254e-01, -0.984119e-03, +0.376713e-01,
    -0.653419e-01, +0.222835e-01, +0.375782e+00, -0.190675e+01, +0.322494e+01, -0.168698e+01,
@@ -42,7 +42,7 @@ static FLOAT omega_TH4[] =
 
 
 static void 
-gga_xc_th3_init(XC(func_type) *p)
+gga_xc_th3_init(xc_func_type *p)
 {
   gga_xc_th3_params *params;
 
@@ -70,7 +70,7 @@ gga_xc_th3_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_xc_th3) = {
+const xc_func_info_type xc_func_info_gga_xc_th3 = {
   XC_GGA_XC_TH3,
   XC_EXCHANGE_CORRELATION,
   "Tozer and Handy v. 3",
@@ -83,7 +83,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th3) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_th4) = {
+const xc_func_info_type xc_func_info_gga_xc_th4 = {
   XC_GGA_XC_TH4,
   XC_EXCHANGE_CORRELATION,
   "Tozer and Handy v. 4",

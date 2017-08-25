@@ -21,7 +21,7 @@
 
 #define XC_MGGA_X_MBEEF          249 /* mBEEF exchange */
 
-static const FLOAT coefs_mbeef[64] = {
+static const double coefs_mbeef[64] = {
          1.18029330e+00,   8.53027860e-03,  -1.02312143e-01,
          6.85757490e-02,  -6.61294786e-03,  -2.84176163e-02,
          5.54283363e-03,   3.95434277e-03,  -1.98479086e-03,
@@ -45,7 +45,7 @@ static const FLOAT coefs_mbeef[64] = {
         -4.93824365e-09,   8.50272392e-09,  -6.91592964e-09,
          8.88525527e-09 };
 
-static const FLOAT coefs_mbeefvdw[25] = {
+static const double coefs_mbeefvdw[25] = {
          1.17114923e+00,   1.15594371e-01,  -5.32167416e-02,
         -2.01131648e-02,   1.41417107e-03,  -6.76157938e-02,
          4.53837246e-02,  -2.22650139e-02,   1.92374554e-02,
@@ -58,11 +58,11 @@ static const FLOAT coefs_mbeefvdw[25] = {
 
 typedef struct{
   int legorder;
-  const FLOAT *coefs;
+  const double *coefs;
 } mgga_x_mbeef_params;
 
 static void
-mgga_x_mbeef_init(XC(func_type) *p)
+mgga_x_mbeef_init(xc_func_type *p)
 {
   mgga_x_mbeef_params *params;
 
@@ -90,7 +90,7 @@ mgga_x_mbeef_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_mbeef) = {
+const xc_func_info_type xc_func_info_mgga_x_mbeef = {
   XC_MGGA_X_MBEEF,
   XC_EXCHANGE,
   "mBEEF exchange",

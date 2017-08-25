@@ -55,10 +55,10 @@ if nspin == 2
    v3sigma(10)     = (uu_uu_uu, uu_uu_ud, uu_uu_dd, uu_ud_ud, uu_ud_dd, uu_dd_dd, ud_ud_ud, ud_ud_dd, ud_dd_dd, dd_dd_dd)
    
 */
-void XC(gga)(const XC(func_type) *func, int np, const FLOAT *rho, const FLOAT *sigma,
-	     FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-	     FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
-	     FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3)
+void xc_gga(const xc_func_type *func, int np, const double *rho, const double *sigma,
+	     double *zk, double *vrho, double *vsigma,
+	     double *v2rho2, double *v2rhosigma, double *v2sigma2,
+	     double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
   assert(func != NULL);
   
@@ -89,30 +89,30 @@ void XC(gga)(const XC(func_type) *func, int np, const FLOAT *rho, const FLOAT *s
 
   /* initialize output to zero */
   if(zk != NULL)
-    memset(zk, 0, func->n_zk*np*sizeof(FLOAT));
+    memset(zk, 0, func->n_zk*np*sizeof(double));
 
   if(vrho != NULL){
     assert(vsigma != NULL);
     
-    memset(vrho,   0, func->n_vrho  *np*sizeof(FLOAT));
-    memset(vsigma, 0, func->n_vsigma*np*sizeof(FLOAT));
+    memset(vrho,   0, func->n_vrho  *np*sizeof(double));
+    memset(vsigma, 0, func->n_vsigma*np*sizeof(double));
   }
 
   if(v2rho2 != NULL){
     assert(v2rhosigma!=NULL && v2sigma2!=NULL);
 
-    memset(v2rho2,     0, func->n_v2rho2    *np*sizeof(FLOAT));
-    memset(v2rhosigma, 0, func->n_v2rhosigma*np*sizeof(FLOAT));
-    memset(v2sigma2,   0, func->n_v2sigma2  *np*sizeof(FLOAT));
+    memset(v2rho2,     0, func->n_v2rho2    *np*sizeof(double));
+    memset(v2rhosigma, 0, func->n_v2rhosigma*np*sizeof(double));
+    memset(v2sigma2,   0, func->n_v2sigma2  *np*sizeof(double));
   }
 
   if(v3rho3 != NULL){
     assert(v3rho2sigma!=NULL && v3rhosigma2!=NULL && v3sigma3!=NULL);
 
-    memset(v3rho3,      0, func->n_v3rho3     *np*sizeof(FLOAT));
-    memset(v3rho2sigma, 0, func->n_v3rho2sigma*np*sizeof(FLOAT));
-    memset(v3rhosigma2, 0, func->n_v3rhosigma2*np*sizeof(FLOAT));
-    memset(v3sigma3,    0, func->n_v3sigma3   *np*sizeof(FLOAT));    
+    memset(v3rho3,      0, func->n_v3rho3     *np*sizeof(double));
+    memset(v3rho2sigma, 0, func->n_v3rho2sigma*np*sizeof(double));
+    memset(v3rhosigma2, 0, func->n_v3rhosigma2*np*sizeof(double));
+    memset(v3sigma3,    0, func->n_v3sigma3   *np*sizeof(double));    
   }
 
   /* call functional */
@@ -122,7 +122,7 @@ void XC(gga)(const XC(func_type) *func, int np, const FLOAT *rho, const FLOAT *s
 		    v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
 
   if(func->mix_coef != NULL)
-    XC(mix_func)(func, np, rho, sigma, NULL, NULL, zk, vrho, vsigma, NULL, NULL,
+    xc_mix_func(func, np, rho, sigma, NULL, NULL, zk, vrho, vsigma, NULL, NULL,
 		 v2rho2, v2sigma2, NULL, NULL, v2rhosigma, NULL, NULL, NULL, NULL, NULL);
 
 }
@@ -130,40 +130,40 @@ void XC(gga)(const XC(func_type) *func, int np, const FLOAT *rho, const FLOAT *s
 /* specializations */
 /* returns only energy */
 inline void 
-XC(gga_exc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, 
-	    FLOAT *zk)
+xc_gga_exc(const xc_func_type *p, int np, const double *rho, const double *sigma, 
+	    double *zk)
 {
-  XC(gga)(p, np, rho, sigma, zk, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+  xc_gga(p, np, rho, sigma, zk, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 /* returns only potential */
 inline void 
-XC(gga_vxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
-	    FLOAT *vrho, FLOAT *vsigma)
+xc_gga_vxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
+	    double *vrho, double *vsigma)
 {
-  XC(gga)(p, np, rho, sigma, NULL, vrho, vsigma, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+  xc_gga(p, np, rho, sigma, NULL, vrho, vsigma, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 /* returns both energy and potential (the most common call usually) */
 inline void 
-XC(gga_exc_vxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
-		FLOAT *zk, FLOAT *vrho, FLOAT *vsigma)
+xc_gga_exc_vxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
+		double *zk, double *vrho, double *vsigma)
 {
-  XC(gga)(p, np, rho, sigma, zk, vrho, vsigma, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+  xc_gga(p, np, rho, sigma, zk, vrho, vsigma, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 /* returns second derivatives */
 inline void 
-XC(gga_fxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
-	    FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2)
+xc_gga_fxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
+	    double *v2rho2, double *v2rhosigma, double *v2sigma2)
 {
-  XC(gga)(p, np, rho, sigma, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2, NULL, NULL, NULL, NULL);
+  xc_gga(p, np, rho, sigma, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2, NULL, NULL, NULL, NULL);
 }
 
 /* returns third derivatives */
 inline void 
-XC(gga_kxc)(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
-	    FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3)
+xc_gga_kxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
+	    double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
-  XC(gga)(p, np, rho, sigma, NULL, NULL, NULL, NULL, NULL, NULL, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
+  xc_gga(p, np, rho, sigma, NULL, NULL, NULL, NULL, NULL, NULL, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
 }

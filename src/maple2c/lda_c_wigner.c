@@ -8,7 +8,7 @@
 */
 
 static void
-func0(const XC(func_type) *p, XC(lda_work_t) *r)
+func0(const xc_func_type *p, xc_lda_work_t *r)
 {
   double t1, t4, t11;
 
@@ -40,7 +40,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
 }
 
 static void
-func1(const XC(func_type) *p, XC(lda_work_t) *r)
+func1(const xc_func_type *p, xc_lda_work_t *r)
 {
   double t1, t3, t4, t5, t6, t7, t9, t13;
   double t18;
@@ -85,7 +85,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
 }
 
 void 
-XC(lda_c_wigner_func)(const XC(func_type) *p, XC(lda_work_t) *r)
+xc_lda_c_wigner_func(const xc_func_type *p, xc_lda_work_t *r)
 {
   if(p->nspin == XC_UNPOLARIZED)
     func0(p, r);
@@ -94,4 +94,4 @@ XC(lda_c_wigner_func)(const XC(func_type) *p, XC(lda_work_t) *r)
 }
 
 #define maple2c_order 3
-#define maple2c_func  XC(lda_c_wigner_func)
+#define maple2c_func  xc_lda_c_wigner_func

@@ -26,7 +26,7 @@
 #define XC_DIMENSIONS 1
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_c_1d_loos) = {
+const xc_func_info_type xc_func_info_lda_c_1d_loos = {
   XC_LDA_C_1D_LOOS,
   XC_CORRELATION,
   "P-F Loos correlation LDA",

@@ -21,7 +21,6 @@
 #include <string.h>
 #include <math.h>
 #include <float.h>
-#include "xc_config.h"
 
 /* Buffer size */
 #define BUFSIZE 4096
@@ -47,12 +46,12 @@
   error_exit();							\
   }  
 
-FLOAT maxabs(FLOAT x, FLOAT y) {
-  return ABS(x)>ABS(y) ? ABS(x) : ABS(y);
+double maxabs(double x, double y) {
+  return fabs(x)>fabs(y) ? fabs(x) : fabs(y);
 }
 
-FLOAT error(FLOAT x, FLOAT y) {
-  return ABS(x-y)/(1.0+maxabs(x,y));
+double error(double x, double y) {
+  return fabs(x-y)/(1.0+maxabs(x,y));
 }
 
 int main(int argc, char **argv) {
@@ -78,13 +77,13 @@ int main(int argc, char **argv) {
   int i, j;
   
   /* Input and reference data */
-  FLOAT din[MAXCOL], dref[MAXCOL];
+  double din[MAXCOL], dref[MAXCOL];
   /* Column legends */
   char legin[MAXCOL][LEGLEN], legref[MAXCOL][LEGLEN];
 
   /* Maximum difference between input and output */
-  FLOAT maxdiff[MAXCOL];
-  FLOAT l_err;
+  double maxdiff[MAXCOL];
+  double l_err;
 
   if(argc!=3 && argc!=4) {
     printf("Usage: %s file reference (verbose)\n",argv[0]);
@@ -233,11 +232,11 @@ int main(int argc, char **argv) {
   } else {
     /* Silent operation */
 #ifdef SINGLE_PRECISION
-    const FLOAT tol=1e-5;
+    const double tol=1e-5;
 #else
-    const FLOAT tol=1e-9;
+    const double tol=1e-9;
 #endif
-    FLOAT max=0.0;
+    double max=0.0;
     for(j=0;j<cin;j++)
       if(maxdiff[j]>max)
 	max=maxdiff[j];

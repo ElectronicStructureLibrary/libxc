@@ -27,8 +27,8 @@ int compare(const void *f1, const void *f2) {
   int i2=*(int *)f2;
 
   /* Get functional names */
-  char *n1=XC(functional_get_name)(i1);
-  char *n2=XC(functional_get_name)(i2);
+  char *n1=xc_functional_get_name(i1);
+  char *n2=xc_functional_get_name(i2);
 
   int val=strcmp(n1,n2);
 
@@ -201,7 +201,7 @@ int main(void) {
 	
 	/* Check family and type */
 	if(func.info->family != families[ifam] || func.info->kind != types[itype]) {
-	  XC(func_end)(&func);
+	  xc_func_end(&func);
 	  continue;
 	}
 
@@ -209,7 +209,7 @@ int main(void) {
 	funclist[nfunc++]=func_id;
 	
 	/* Free memory */
-	XC(func_end)(&func);
+	xc_func_end(&func);
       }
 
       /* Sort list alphabetically */
@@ -225,7 +225,7 @@ int main(void) {
 	  /* Initialize functional */
 	  error = xc_func_init(&func, func_id, XC_UNPOLARIZED);
 	  /* Get functional keyword */
-	  fname = XC(functional_get_name)(func_id);
+	  fname = xc_functional_get_name(func_id);
 	  /* Convert functional keyword to upper case */
 	  for(i=0; i<strlen(fname); i++)
 	    fname[i]=toupper(fname[i]);
@@ -244,7 +244,7 @@ int main(void) {
 	      printf("  *  %s\n", func.info->refs[i]->ref);
 	  }
 	  
-	  XC(func_end)(&func);
+	  xc_func_end(&func);
 	  free(fname);
 	}
       }

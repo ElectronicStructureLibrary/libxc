@@ -26,7 +26,7 @@
 #define XC_GGA_C_HYB_TAU_HCTH 283 /* correlation part of hyb_tau-hcth         */
 
 typedef struct {
-  FLOAT c_ss[5], c_ab[5];
+  double c_ss[5], c_ab[5];
 } gga_c_bmk_params;
 
 /* c_ss and c_ab coefficients flipped in original paper! */
@@ -62,7 +62,7 @@ static const gga_c_bmk_params par_hyb_tau_hcth = {
 };
 
 static void 
-gga_c_bmk_init(XC(func_type) *p)
+gga_c_bmk_init(xc_func_type *p)
 {
   gga_c_bmk_params *params;
 
@@ -101,7 +101,7 @@ gga_c_bmk_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_c_n12) = {
+const xc_func_info_type xc_func_info_gga_c_n12 = {
   XC_GGA_C_N12,
   XC_CORRELATION,
   "Minnesota N12 functional",
@@ -114,7 +114,7 @@ const XC(func_info_type) XC(func_info_gga_c_n12) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_n12_sx) = {
+const xc_func_info_type xc_func_info_gga_c_n12_sx = {
   XC_GGA_C_N12_SX,
   XC_CORRELATION,
   "Minnesota N12-SX functional",
@@ -127,7 +127,7 @@ const XC(func_info_type) XC(func_info_gga_c_n12_sx) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_gam) = {
+const xc_func_info_type xc_func_info_gga_c_gam = {
   XC_GGA_C_GAM,
   XC_CORRELATION,
   "GAM functional from Minnesota",
@@ -140,7 +140,7 @@ const XC(func_info_type) XC(func_info_gga_c_gam) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_bmk) = {
+const xc_func_info_type xc_func_info_gga_c_bmk = {
   XC_GGA_C_BMK,
   XC_CORRELATION,
   "Boese-Martin for kinetics",
@@ -153,7 +153,7 @@ const XC(func_info_type) XC(func_info_gga_c_bmk) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_tau_hcth) = {
+const xc_func_info_type xc_func_info_gga_c_tau_hcth = {
   XC_GGA_C_TAU_HCTH,
   XC_CORRELATION,
   "correlation part of tau-hcth",
@@ -166,7 +166,7 @@ const XC(func_info_type) XC(func_info_gga_c_tau_hcth) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_hyb_tau_hcth) = {
+const xc_func_info_type xc_func_info_gga_c_hyb_tau_hcth = {
   XC_GGA_C_HYB_TAU_HCTH,
   XC_CORRELATION,
   "correlation part of hyb-tau-hcth",

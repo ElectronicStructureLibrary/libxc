@@ -22,8 +22,6 @@
 
 #include <xc.h>
 
-/* xc_config.h needs to be included to use FLOAT and related macros*/
-#include "xc_config.h"
 
 typedef struct {
   int functional;
@@ -179,22 +177,22 @@ int main(int argc, char *argv[])
   xc_func_type func;
   const xc_func_info_type *info;
 
-  FLOAT *pzk          = NULL;
-  FLOAT *pvrho        = NULL;
-  FLOAT *pvsigma      = NULL;
-  FLOAT *pvlapl       = NULL;
-  FLOAT *pvtau        = NULL;
-  FLOAT *pv2rho2      = NULL;
-  FLOAT *pv2rhosigma  = NULL;
-  FLOAT *pv2rholapl   = NULL;
-  FLOAT *pv2rhotau    = NULL;
-  FLOAT *pv2sigma2    = NULL;
-  FLOAT *pv2sigmalapl = NULL;
-  FLOAT *pv2sigmatau  = NULL;
-  FLOAT *pv2lapl2     = NULL;
-  FLOAT *pv2lapltau   = NULL;
-  FLOAT *pv2tau2      = NULL;
-  FLOAT *pv3rho3      = NULL;
+  double *pzk          = NULL;
+  double *pvrho        = NULL;
+  double *pvsigma      = NULL;
+  double *pvlapl       = NULL;
+  double *pvtau        = NULL;
+  double *pv2rho2      = NULL;
+  double *pv2rhosigma  = NULL;
+  double *pv2rholapl   = NULL;
+  double *pv2rhotau    = NULL;
+  double *pv2sigma2    = NULL;
+  double *pv2sigmalapl = NULL;
+  double *pv2sigmatau  = NULL;
+  double *pv2lapl2     = NULL;
+  double *pv2lapltau   = NULL;
+  double *pv2tau2      = NULL;
+  double *pv3rho3      = NULL;
 
   if(argc != 12){
     printf("Usage:\n%s funct pol rhoa rhob sigmaaa sigmaab sigmabb lapla laplb taua taub\n", argv[0]);

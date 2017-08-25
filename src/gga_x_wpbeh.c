@@ -21,21 +21,21 @@
 #define XC_GGA_X_WPBEH 524 /* short-range version of the PBE */
 
 typedef struct{
-  FLOAT omega;
+  double omega;
 } gga_x_wpbeh_params;
 
 static void
-gga_x_wpbeh_init(XC(func_type) *p)
+gga_x_wpbeh_init(xc_func_type *p)
 {
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_x_wpbeh_params));
 
   /* The default value is actually PBEh */
-  XC(gga_x_wpbeh_set_params)(p, 0.0);
+  xc_gga_x_wpbeh_set_params(p, 0.0);
 }
 
 void 
-XC(gga_x_wpbeh_set_params)(XC(func_type) *p, FLOAT omega)
+xc_gga_x_wpbeh_set_params(xc_func_type *p, double omega)
 {
   gga_x_wpbeh_params *params;
 
@@ -67,14 +67,14 @@ XC(gga_x_wpbeh_set_params)(XC(func_type) *p, FLOAT omega)
 */
 
 static inline void
-s_scaling(int version, int order, FLOAT s1, FLOAT *s2, FLOAT *ds2ds1)
+s_scaling(int version, int order, double s1, double *s2, double *ds2ds1)
 {
   /* parameters for the re-scaling of s */
-  static const FLOAT strans=8.3, smax=8.572844, sconst=18.79622316;
-  static const FLOAT s0=8.572844, p4=0.615482, p5=1.136921, p6=-0.449154,
+  static const double strans=8.3, smax=8.572844, sconst=18.79622316;
+  static const double s0=8.572844, p4=0.615482, p5=1.136921, p6=-0.449154,
     q4=1.229195, q5=-0.0269253, q6=0.313417, q7=-0.0508314, q8=0.0175739;
 
-  FLOAT expms1, expmsmax, s12, s14, num, den, dnum, dden;
+  double expms1, expmsmax, s12, s14, num, den, dnum, dden;
 
   switch(version){
   case 0: /* no scaling */
@@ -91,16 +91,16 @@ s_scaling(int version, int order, FLOAT s1, FLOAT *s2, FLOAT *ds2ds1)
     else if(s1 > 15.0)
       *s2 = smax;
     else{
-      expms1   = EXP(-s1);
-      expmsmax = EXP(-smax);
-      *s2  = s1 - LOG(1.0 + expmsmax/expms1);
+      expms1   = exp(-s1);
+      expmsmax = exp(-smax);
+      *s2  = s1 - log(1.0 + expmsmax/expms1);
     }
     break;
 
   case 3: /* second version of the scaling by TM Henderson */
-    expms1   = EXP(-s1);
-    expmsmax = EXP(-smax);
-    *s2 = s1 - (1.0 - expms1)*LOG(1.0 + expmsmax/expms1);
+    expms1   = exp(-s1);
+    expmsmax = exp(-smax);
+    *s2 = s1 - (1.0 - expms1)*log(1.0 + expmsmax/expms1);
     break;
 
   case 4: /* appendix of JCP 128, 194105 (2008) */
@@ -139,7 +139,7 @@ s_scaling(int version, int order, FLOAT s1, FLOAT *s2, FLOAT *ds2ds1)
     break;
 
   case 3:
-    *ds2ds1 = expms1*(1.0 + expmsmax)/(expms1 + expmsmax) - expms1*LOG(1.0 + expmsmax/expms1);
+    *ds2ds1 = expms1*(1.0 + expmsmax)/(expms1 + expmsmax) - expms1*log(1.0 + expmsmax/expms1);
 
   case 4: /* appendix of JCP 128, 194105 (2008) */
     dnum = 1.0 + s14*(5.0*p4 + s1*(6.0*p5 + s1*(7.0*p6 + s1*8.0*q8*s0)));
@@ -150,27 +150,27 @@ s_scaling(int version, int order, FLOAT s1, FLOAT *s2, FLOAT *ds2ds1)
 }
 
 static inline void 
-func_3(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
-     FLOAT *f, FLOAT *dfdx, FLOAT *lvrho)
+func_3(const xc_func_type *p, int order, double x, double ds,
+     double *f, double *dfdx, double *lvrho)
 {
-  static const FLOAT AA=1.0161144, BB=-0.37170836, CC=-0.077215461, DD=0.57786348, EE=-0.051955731;
-  static const FLOAT m89=-8.0/9.0;
+  static const double AA=1.0161144, BB=-0.37170836, CC=-0.077215461, DD=0.57786348, EE=-0.051955731;
+  static const double m89=-8.0/9.0;
 
   /* Cutoff criterion below which to use polynomial expansion */
-  static const FLOAT EGscut=0.08, wcutoff=14, expfcutoff=700.0;
+  static const double EGscut=0.08, wcutoff=14, expfcutoff=700.0;
 
-  FLOAT omega, kF, ww, ww2, ww3, ww4, ww5, ww6, ww7, ww8, dwdrho;
-  FLOAT ss, ss2, ss3, ss4, ss5, ss6, dssdx;
-  FLOAT AA2, AA3, AA12, AA32, AA52;
-  FLOAT DHs, DHs2, DHs3, DHs4, DHs72, DHs92;
-  FLOAT eb1, f94Hs2_A, DHsw, DHsw2, DHsw52, DHsw72;
-  FLOAT Hsbw, Hsbw2, Hsbw3, Hsbw4, Hsbw12, Hsbw32, Hsbw52, Hsbw72;
-  FLOAT DHsbw, DHsbw2, DHsbw3, DHsbw4, DHsbw5, DHsbw12, DHsbw32, DHsbw52, DHsbw72, DHsbw92;
-  FLOAT HsbwA94, HsbwA942, HsbwA943, HsbwA945, HsbwA9412;
-  FLOAT H, F, EG, dHds, dFds, dEGds, dDHsds, dDHswdw, dHsbwds, dHsbwdw;
-  FLOAT term1, term2, term3, term4, term5, t10, piexperf, expei;
-  FLOAT dterm1ds, dterm2ds, dterm3ds, dterm4ds, dterm5ds, dterm1dw, dterm3dw, dterm4dw, dterm5dw;
-  FLOAT dt10ds, dt10dw, dpiexperfds, dpiexperfdw, dexpeids, dexpeidw;
+  double omega, kF, ww, ww2, ww3, ww4, ww5, ww6, ww7, ww8, dwdrho;
+  double ss, ss2, ss3, ss4, ss5, ss6, dssdx;
+  double AA2, AA3, AA12, AA32, AA52;
+  double DHs, DHs2, DHs3, DHs4, DHs72, DHs92;
+  double eb1, f94Hs2_A, DHsw, DHsw2, DHsw52, DHsw72;
+  double Hsbw, Hsbw2, Hsbw3, Hsbw4, Hsbw12, Hsbw32, Hsbw52, Hsbw72;
+  double DHsbw, DHsbw2, DHsbw3, DHsbw4, DHsbw5, DHsbw12, DHsbw32, DHsbw52, DHsbw72, DHsbw92;
+  double HsbwA94, HsbwA942, HsbwA943, HsbwA945, HsbwA9412;
+  double H, F, EG, dHds, dFds, dEGds, dDHsds, dDHswdw, dHsbwds, dHsbwdw;
+  double term1, term2, term3, term4, term5, t10, piexperf, expei;
+  double dterm1ds, dterm2ds, dterm3ds, dterm4ds, dterm5ds, dterm1dw, dterm3dw, dterm4dw, dterm5dw;
+  double dt10ds, dt10dw, dpiexperfds, dpiexperfdw, dexpeids, dexpeidw;
 
   assert(p->params != NULL);
   omega = ((gga_x_wpbeh_params *)(p->params))->omega;
@@ -184,7 +184,7 @@ func_3(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
      a 3. This would amount to rescaling omega by a factor of
      cbrt(2). We follow the quantum chemistry community and put the 6.
   */
-  kF  = POW(6.0*M_PI*M_PI*ds, 1.0/3.0);
+  kF  = pow(6.0*M_PI*M_PI*ds, 1.0/3.0);
   ww  = omega/kF;
   ww2 = ww*ww; ww3 = ww*ww2; ww4 = ww*ww3; ww5 = ww*ww4; ww6 = ww*ww5; ww7 = ww*ww6; ww8 = ww*ww7;
 
@@ -203,14 +203,14 @@ func_3(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
 
   AA2  = AA*AA;
   AA3  = AA2*AA;
-  AA12 = SQRT(AA);
+  AA12 = sqrt(AA);
   AA32 = AA12*AA;
   AA52 = AA32*AA;
 
   /* first let us calculate H(s) */
   {
-    static const FLOAT Ha1=0.00979681, Ha2=0.0410834, Ha3=0.187440, Ha4=0.00120824, Ha5=0.0347188;
-    FLOAT Hnum, Hden, dHnum, dHden;
+    static const double Ha1=0.00979681, Ha2=0.0410834, Ha3=0.187440, Ha4=0.00120824, Ha5=0.0347188;
+    double Hnum, Hden, dHnum, dHden;
 
     Hnum = Ha1*ss2 + Ha2*ss4;
     Hden = 1.0 + Ha3*ss4 + Ha4*ss5 + Ha5*ss6;
@@ -227,7 +227,7 @@ func_3(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
 
   /* now we calculate F(s) */
   {
-    FLOAT Fc1, Fc2;
+    double Fc1, Fc2;
 
     //Fc1 = 4.0*AA*AA/(9.0*CC) + (BB - AA*DD)/CC;
     //Fc2 = -4.0/(3.0*36.0*CC);
@@ -246,14 +246,14 @@ func_3(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
   DHs2  = DHs*DHs; 
   DHs3  = DHs2*DHs; 
   DHs4  = DHs3*DHs;
-  DHs72 = DHs3*SQRT(DHs); 
+  DHs72 = DHs3*sqrt(DHs); 
   DHs92 = DHs72*DHs;
 
   f94Hs2_A = 9.0*H*ss2/(4.0*AA);
 
   DHsw   = DHs + ww2;
   DHsw2  = DHsw*DHsw; 
-  DHsw52 = SQRT(DHsw)*DHsw2; 
+  DHsw52 = sqrt(DHsw)*DHsw2; 
   DHsw72 = DHsw52*DHsw;
 
   eb1 = (ww < wcutoff) ? 1.455915450052607 : 2.0;
@@ -262,7 +262,7 @@ func_3(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
   Hsbw2  = Hsbw*Hsbw; 
   Hsbw3  = Hsbw2*Hsbw; 
   Hsbw4  = Hsbw3*Hsbw;
-  Hsbw12 = SQRT(Hsbw); 
+  Hsbw12 = sqrt(Hsbw); 
   Hsbw32 = Hsbw12*Hsbw; 
   Hsbw52 = Hsbw32*Hsbw; 
   Hsbw72 = Hsbw52*Hsbw;
@@ -279,7 +279,7 @@ func_3(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
   DHsbw3  = DHsbw2*DHsbw; 
   DHsbw4  = DHsbw3*DHsbw; 
   DHsbw5  = DHsbw4*DHsbw;
-  DHsbw12 = SQRT(DHsbw); 
+  DHsbw12 = sqrt(DHsbw); 
   DHsbw32 = DHsbw12*DHsbw; 
   DHsbw52 = DHsbw32*DHsbw; 
   DHsbw72 = DHsbw52*DHsbw;
@@ -289,31 +289,31 @@ func_3(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
   HsbwA942  = HsbwA94*HsbwA94;
   HsbwA943  = HsbwA942*HsbwA94;
   HsbwA945  = HsbwA943*HsbwA942;
-  HsbwA9412 = SQRT(HsbwA94);
+  HsbwA9412 = sqrt(HsbwA94);
 
   /* and now G(s) */
   if(ss > EGscut){
-    FLOAT Ga, Gb, dGa, dGb;
+    double Ga, Gb, dGa, dGb;
 
     Ga = M_SQRTPI*(15.0*EE + 6.0*CC*(1.0 + F*ss2)*DHs + 4.0*BB*DHs2 + 8.0*AA*DHs3)/(16.0*DHs72)
-      - (3.0*M_PI/4.0)*SQRT(AA)*EXP(f94Hs2_A)*(1.0 - ERF(SQRT(f94Hs2_A)));
+      - (3.0*M_PI/4.0)*sqrt(AA)*exp(f94Hs2_A)*(1.0 - erf(sqrt(f94Hs2_A)));
     Gb = 15.0*M_SQRTPI*ss2/(16.0*DHs72);
 
     EG = -(3.0*M_PI/4.0 + Ga)/Gb;
 
     if(order >= 1){
       dGa = (M_SQRTPI/32.0) *
-	((36.0*(2.0*H + dHds*ss)/(AA12*SQRT(H/AA)) + 
+	((36.0*(2.0*H + dHds*ss)/(AA12*sqrt(H/AA)) + 
 	  (1.0/DHs92) *(-8.0*AA*dDHsds*DHs3 - 105.0*dDHsds*EE - 30.0*CC*dDHsds*DHs*(1.0 + ss2*F) +
 			12.0*DHs2*(-BB*dDHsds + CC*ss*(dFds*ss + 2.0*F))) - 
-	  ((54.0*EXP(f94Hs2_A)*M_SQRTPI*ss*(2.0*H + dHds*ss)*ERFC(sqrt(f94Hs2_A)))/AA12)));
+	  ((54.0*exp(f94Hs2_A)*M_SQRTPI*ss*(2.0*H + dHds*ss)*erfc(sqrt(f94Hs2_A)))/AA12)));
 
       dGb = (15.0*M_SQRTPI*ss*(4.0*DHs - 7.0*dDHsds*ss))/(32.0*DHs92);
 
       dEGds = (-4.0*dGa*Gb + dGb*(4.0*Ga + 3.0*M_PI))/(4.0*Gb*Gb);
     }
   }else{
-    static const FLOAT EGa1=-0.02628417880, EGa2=-0.07117647788, EGa3=0.08534541323;
+    static const double EGa1=-0.02628417880, EGa2=-0.07117647788, EGa3=0.08534541323;
 
     EG = EGa1 + EGa2*ss2 + EGa3*ss4;
 
@@ -361,9 +361,9 @@ func_3(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
   }
 
   if((ss > 0.0) || (ww > 0.0)){
-    FLOAT dt10;
+    double dt10;
 
-    t10 = 0.5*AA*LOG(Hsbw/DHsbw);
+    t10 = 0.5*AA*log(Hsbw/DHsbw);
 
     if(order >= 1){
       dt10 = 0.5*AA*(1.0/Hsbw - 1.0/DHsbw);
@@ -375,20 +375,20 @@ func_3(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
 
   /* Calculate exp(x)*f(x) depending on size of x */
   if(HsbwA94 < expfcutoff){
-    piexperf = M_PI*EXP(HsbwA94)*ERFC(HsbwA9412);
-    expei    = EXP(HsbwA94)*(-expint_e1(HsbwA94));
+    piexperf = M_PI*exp(HsbwA94)*erfc(HsbwA9412);
+    expei    = exp(HsbwA94)*(-expint_e1(HsbwA94));
 
   }else{
-    static const FLOAT expei1=4.03640, expei2=1.15198, expei3=5.03627, expei4=4.19160;
+    static const double expei1=4.03640, expei2=1.15198, expei3=5.03627, expei4=4.19160;
 
-    piexperf = M_PI*(1.0/(M_SQRTPI*HsbwA9412) - 1.0/(2.0*SQRT(M_PI*HsbwA943))+ 3.0/(4.0*SQRT(M_PI*HsbwA945)));
+    piexperf = M_PI*(1.0/(M_SQRTPI*HsbwA9412) - 1.0/(2.0*sqrt(M_PI*HsbwA943))+ 3.0/(4.0*sqrt(M_PI*HsbwA945)));
     expei  = - (1.0/HsbwA94)*(HsbwA942 + expei1*HsbwA94 + expei2)/(HsbwA942 + expei3*HsbwA94 + expei4);
   }
 
   if(order >= 1){
-    FLOAT dpiexperf, dexpei;
+    double dpiexperf, dexpei;
 
-    dpiexperf   = -(3.0*M_SQRTPI*SQRT(Hsbw/AA))/(2.0*Hsbw) + (9.0*piexperf)/(4.0*AA);
+    dpiexperf   = -(3.0*M_SQRTPI*sqrt(Hsbw/AA))/(2.0*Hsbw) + (9.0*piexperf)/(4.0*AA);
     dpiexperfds = dpiexperf*dHsbwds;
     dpiexperfdw = dpiexperf*dHsbwdw;
 
@@ -398,7 +398,7 @@ func_3(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
   }
 
   if (ww == 0.0){ /* Fall back to original expression for the PBE hole */
-    FLOAT t1, dt1ds, dt1dw;
+    double t1, dt1ds, dt1dw;
 
     if(ss > MIN_GRAD){
       t1    = -0.5*AA*expei;
@@ -421,9 +421,9 @@ func_3(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
     }
 
   }else if(ww > wcutoff){ /* Use simple gaussian approximation for large w */
-    FLOAT dterm1;
+    double dterm1;
 
-    term1   = -0.5*AA*(expei + LOG(DHsbw) - LOG(Hsbw));
+    term1   = -0.5*AA*(expei + log(DHsbw) - log(Hsbw));
     *f = m89*(term1 + term2 + term3 + term4 + term5);
 
     if(order >= 1){
@@ -438,14 +438,14 @@ func_3(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
 
   }else{ /*  For everything else use the full blown expression */
 
-    static const FLOAT ea1=-1.128223946706117, ea2=1.452736265762971, ea3=-1.243162299390327,
+    static const double ea1=-1.128223946706117, ea2=1.452736265762971, ea3=-1.243162299390327,
       ea4=0.971824836115601, ea5=-0.568861079687373, ea6=0.246880514820192, ea7=-0.065032363850763,
       ea8=0.008401793031216;
 
-    FLOAT np1, np2, t1, f2, f3, f4, f5, f6, f7, f8, f9, t2t9;
-    FLOAT dnp1dw, dnp2dw, dt1ds, dt1dw, df2, df2ds, df2dw, df3, df3ds, df3dw;
-    FLOAT df4, df4ds, df4dw, df5, df5ds, df5dw, df6, df6ds, df6dw, df7ds, df7dw;
-    FLOAT df8, df8ds, df8dw, df9, df9ds, df9dw, dt2t9ds, dt2t9dw;
+    double np1, np2, t1, f2, f3, f4, f5, f6, f7, f8, f9, t2t9;
+    double dnp1dw, dnp2dw, dt1ds, dt1dw, df2, df2ds, df2dw, df3, df3ds, df3dw;
+    double df4, df4ds, df4dw, df5, df5ds, df5dw, df6, df6ds, df6dw, df7ds, df7dw;
+    double df8, df8ds, df8dw, df9, df9ds, df9dw, dt2t9ds, dt2t9dw;
 
     np1 = -1.5*ea1*AA12*ww + 27.0*ea3*ww3/(8.0*AA12) - 243.0*ea5*ww5/(32.0*AA32) + 2187.0*ea7*ww7/(128.0*AA52);
     np2 = -AA + 9.0*ea2*ww2/4.0 - 81.0*ea4*ww4/(16.0*AA) + 729.0*ea6*ww6/(64.0*AA2) - 6561.0*ea8*ww8/(256.0*AA3);
@@ -537,21 +537,21 @@ func_3(const XC(func_type) *p, int order, FLOAT x, FLOAT ds,
 
 /* convert into work_gga_c_ variables */
 static inline void 
-func(const XC(func_type) *p, XC(gga_work_c_t) *r)
+func(const xc_func_type *p, xc_gga_work_c_t *r)
 {
   int i;
-  FLOAT ds, ex, f, lvrho, dexdrs, ddsdrs, dexdz, ddsdz;
-  FLOAT sign[2] = {1.0, -1.0};
+  double ds, ex, f, lvrho, dexdrs, ddsdrs, dexdz, ddsdz;
+  double sign[2] = {1.0, -1.0};
 
   r->f     = 0.0;
   r->dfdrs = 0.0;
   r->dfdz  = 0.0;
 
   for(i=0; i<2; i++){
-    ds = POW(RS_FACTOR/r->rs, 3.0)*(1.0 + sign[i]*r->z)/2.0;
+    ds = pow(RS_FACTOR/r->rs, 3.0)*(1.0 + sign[i]*r->z)/2.0;
     func_3(p, r->order, r->xs[i], ds, &f, &(r->dfdxs[i]), &lvrho);
 
-    ex = -X_FACTOR_C*RS_FACTOR*POW((1.0 + sign[i]*r->z)/2.0, 4.0/3.0)/r->rs;
+    ex = -X_FACTOR_C*RS_FACTOR*pow((1.0 + sign[i]*r->z)/2.0, 4.0/3.0)/r->rs;
 
     r->f += ex*f;
 
@@ -560,8 +560,8 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
     ddsdrs = -3.0*ds/r->rs;
     dexdrs = -ex/r->rs;
 
-    ddsdz  = POW(RS_FACTOR/r->rs, 3.0)*sign[i]*r->z/2.0;
-    dexdz  = -4.0/6.0*sign[i]*X_FACTOR_C*RS_FACTOR*POW((1.0 + sign[i]*r->z)/2.0, 1.0/3.0)/r->rs;
+    ddsdz  = pow(RS_FACTOR/r->rs, 3.0)*sign[i]*r->z/2.0;
+    dexdz  = -4.0/6.0*sign[i]*X_FACTOR_C*RS_FACTOR*pow((1.0 + sign[i]*r->z)/2.0, 1.0/3.0)/r->rs;
 
     r->dfdrs    += dexdrs*f + ex*lvrho*ddsdrs;
     r->dfdz     += dexdz *f + ex*lvrho*ddsdz;
@@ -572,7 +572,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_x_wpbeh) = {
+const xc_func_info_type xc_func_info_gga_x_wpbeh = {
   XC_GGA_X_WPBEH,
   XC_EXCHANGE,
   "short-range part of the PBE (default w=0 gives PBEh)",

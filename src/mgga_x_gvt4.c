@@ -22,10 +22,10 @@
 
 #include "maple2c/mgga_x_gvt4.c"
 
-#define func XC(mgga_x_gvt4_enhance)
+#define func xc_mgga_x_gvt4_enhance
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_gvt4) = {
+const xc_func_info_type xc_func_info_mgga_x_gvt4 = {
   XC_MGGA_X_GVT4,
   XC_EXCHANGE,
   "GVT4 (X part of VSXC)",

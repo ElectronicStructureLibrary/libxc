@@ -22,7 +22,7 @@
 #define XC_HYB_MGGA_X_DLDF      36 /* Dispersionless Density Functional */
 
 static void
-mgga_x_dldf_init(XC(func_type) *p)
+mgga_x_dldf_init(xc_func_type *p)
 {
   p->cam_alpha   = 0.6144129;
 }
@@ -32,7 +32,7 @@ mgga_x_dldf_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_hyb_mgga_x_dldf) = {
+const xc_func_info_type xc_func_info_hyb_mgga_x_dldf = {
   XC_HYB_MGGA_X_DLDF,
   XC_EXCHANGE,
   "Dispersionless Density Functional",

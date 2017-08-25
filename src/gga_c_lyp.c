@@ -23,10 +23,10 @@
 #define XC_GGA_C_TM_LYP 559  /* Takkar and McCarthy reparametrization */
 
 typedef struct{
-  FLOAT A, B, c, d;
+  double A, B, c, d;
 } gga_c_lyp_params;
 
-void XC(gga_c_lyp_init)(XC(func_type) *p)
+void xc_gga_c_lyp_init(xc_func_type *p)
 {
   assert(p->params == NULL);
 
@@ -35,10 +35,10 @@ void XC(gga_c_lyp_init)(XC(func_type) *p)
   /* values of constants in standard LYP functional */
   switch(p->info->number){
   case XC_GGA_C_LYP:
-    XC(gga_c_lyp_set_params)(p, 0.04918, 0.132, 0.2533, 0.349);
+    xc_gga_c_lyp_set_params(p, 0.04918, 0.132, 0.2533, 0.349);
     break;
   case XC_GGA_C_TM_LYP:
-    XC(gga_c_lyp_set_params)(p, 0.0393, 0.21, 0.41, 0.15);
+    xc_gga_c_lyp_set_params(p, 0.0393, 0.21, 0.41, 0.15);
     break;
   default:
     fprintf(stderr, "Internal error in gga_c_pbe\n");
@@ -47,7 +47,7 @@ void XC(gga_c_lyp_init)(XC(func_type) *p)
 }
 
 
-void XC(gga_c_lyp_set_params)(XC(func_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d)
+void xc_gga_c_lyp_set_params(xc_func_type *p, double A, double B, double c, double d)
 {
   gga_c_lyp_params *params;
 
@@ -66,7 +66,7 @@ void XC(gga_c_lyp_set_params)(XC(func_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_c_lyp) = {
+const xc_func_info_type xc_func_info_gga_c_lyp = {
   XC_GGA_C_LYP,
   XC_CORRELATION,
   "Lee, Yang & Parr",
@@ -75,11 +75,11 @@ const XC(func_info_type) XC(func_info_gga_c_lyp) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
-  XC(gga_c_lyp_init), NULL,
+  xc_gga_c_lyp_init, NULL,
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_tm_lyp) = {
+const xc_func_info_type xc_func_info_gga_c_tm_lyp = {
   XC_GGA_C_TM_LYP,
   XC_CORRELATION,
   "Takkar and McCarthy reparametrization",
@@ -88,6 +88,6 @@ const XC(func_info_type) XC(func_info_gga_c_tm_lyp) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
-  XC(gga_c_lyp_init), NULL,
+  xc_gga_c_lyp_init, NULL,
   NULL, work_gga_c, NULL
 };

@@ -26,7 +26,7 @@
 #define XC_DIMENSIONS 2
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_2d_b88) = {
+const xc_func_info_type xc_func_info_gga_x_2d_b88 = {
   XC_GGA_X_2D_B88,
   XC_EXCHANGE,
   "Becke 88 in 2D",

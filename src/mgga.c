@@ -22,12 +22,12 @@
 #include "funcs_hyb_mgga.c"
 
 void 
-XC(mgga)(const XC(func_type) *func, int np,
-	 const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
-	 FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau,
-	 FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2lapl2, FLOAT *v2tau2,
-	 FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
-	 FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
+xc_mgga(const xc_func_type *func, int np,
+	 const double *rho, const double *sigma, const double *lapl, const double *tau,
+	 double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
+	 double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
+	 double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+	 double *v2sigmalapl, double *v2sigmatau, double *v2lapltau)
 {
   assert(func != NULL);
 
@@ -52,16 +52,16 @@ XC(mgga)(const XC(func_type) *func, int np,
 
   /* initialize output to zero */
   if(zk != NULL)
-    memset(zk, 0, func->n_zk*np*sizeof(FLOAT));
+    memset(zk, 0, func->n_zk*np*sizeof(double));
 
   if(vrho != NULL){
     assert(vsigma != NULL);
 
-    memset(vrho,   0, func->n_vrho  *np*sizeof(FLOAT));
-    memset(vsigma, 0, func->n_vsigma*np*sizeof(FLOAT));
-    memset(vtau,   0, func->n_vtau  *np*sizeof(FLOAT));
+    memset(vrho,   0, func->n_vrho  *np*sizeof(double));
+    memset(vsigma, 0, func->n_vsigma*np*sizeof(double));
+    memset(vtau,   0, func->n_vtau  *np*sizeof(double));
     if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
-      memset(vlapl,  0, func->n_vlapl *np*sizeof(FLOAT));
+      memset(vlapl,  0, func->n_vlapl *np*sizeof(double));
   }
 
   if(v2rho2 != NULL){
@@ -70,18 +70,18 @@ XC(mgga)(const XC(func_type) *func, int np,
 	   v2rhosigma != NULL && v2rhotau    != NULL && v2rholapl != NULL &&
 	   v2sigmatau != NULL && v2sigmalapl != NULL && v2lapltau != NULL);
 
-    memset(v2rho2,      0, func->n_v2rho2     *np*sizeof(FLOAT));
-    memset(v2sigma2,    0, func->n_v2sigma2   *np*sizeof(FLOAT));
-    memset(v2tau2,      0, func->n_v2tau2     *np*sizeof(FLOAT));
-    memset(v2rhosigma,  0, func->n_v2rhosigma *np*sizeof(FLOAT));
-    memset(v2rhotau,    0, func->n_v2rhotau   *np*sizeof(FLOAT));
-    memset(v2sigmatau,  0, func->n_v2sigmatau *np*sizeof(FLOAT));
+    memset(v2rho2,      0, func->n_v2rho2     *np*sizeof(double));
+    memset(v2sigma2,    0, func->n_v2sigma2   *np*sizeof(double));
+    memset(v2tau2,      0, func->n_v2tau2     *np*sizeof(double));
+    memset(v2rhosigma,  0, func->n_v2rhosigma *np*sizeof(double));
+    memset(v2rhotau,    0, func->n_v2rhotau   *np*sizeof(double));
+    memset(v2sigmatau,  0, func->n_v2sigmatau *np*sizeof(double));
 
     if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
-      memset(v2lapl2,     0, func->n_v2lapl2    *np*sizeof(FLOAT));
-      memset(v2rholapl,   0, func->n_v2rholapl  *np*sizeof(FLOAT));
-      memset(v2sigmalapl, 0, func->n_v2sigmalapl*np*sizeof(FLOAT));
-      memset(v2lapltau,   0, func->n_v2lapltau  *np*sizeof(FLOAT));
+      memset(v2lapl2,     0, func->n_v2lapl2    *np*sizeof(double));
+      memset(v2rholapl,   0, func->n_v2rholapl  *np*sizeof(double));
+      memset(v2sigmalapl, 0, func->n_v2sigmalapl*np*sizeof(double));
+      memset(v2lapltau,   0, func->n_v2lapltau  *np*sizeof(double));
     }
   }
 
@@ -92,7 +92,7 @@ XC(mgga)(const XC(func_type) *func, int np,
 		     v2sigmalapl, v2sigmatau, v2lapltau);
 
   if(func->mix_coef != NULL)
-    XC(mix_func)(func, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, 
+    xc_mix_func(func, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, 
 		 v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
 		 v2sigmalapl, v2sigmatau, v2lapltau);
 
@@ -100,40 +100,40 @@ XC(mgga)(const XC(func_type) *func, int np,
 
 /* specializations */
 inline void 
-XC(mgga_exc)(const XC(func_type) *p, int np, 
-	     const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
-	     FLOAT *zk)
+xc_mgga_exc(const xc_func_type *p, int np, 
+	     const double *rho, const double *sigma, const double *lapl, const double *tau,
+	     double *zk)
 {
-  XC(mgga)(p, np, rho, sigma, lapl, tau, zk, NULL, NULL, NULL, NULL, 
+  xc_mgga(p, np, rho, sigma, lapl, tau, zk, NULL, NULL, NULL, NULL, 
 	   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 inline void 
-XC(mgga_exc_vxc)(const XC(func_type) *p, int np,
-		 const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
-		 FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau)
+xc_mgga_exc_vxc(const xc_func_type *p, int np,
+		 const double *rho, const double *sigma, const double *lapl, const double *tau,
+		 double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau)
 {
-  XC(mgga)(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, 
+  xc_mgga(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, 
 	   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 inline void 
-XC(mgga_vxc)(const XC(func_type) *p, int np,
-	     const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
-	     FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau)
+xc_mgga_vxc(const xc_func_type *p, int np,
+	     const double *rho, const double *sigma, const double *lapl, const double *tau,
+	     double *vrho, double *vsigma, double *vlapl, double *vtau)
 {
-  XC(mgga)(p, np, rho, sigma, lapl, tau, NULL, vrho, vsigma, vlapl, vtau, 
+  xc_mgga(p, np, rho, sigma, lapl, tau, NULL, vrho, vsigma, vlapl, vtau, 
 	   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 inline void 
-XC(mgga_fxc)(const XC(func_type) *p, int np,
-	     const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
-	     FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2lapl2, FLOAT *v2tau2,
-	     FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
-	     FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
+xc_mgga_fxc(const xc_func_type *p, int np,
+	     const double *rho, const double *sigma, const double *lapl, const double *tau,
+	     double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
+	     double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+	     double *v2sigmalapl, double *v2sigmatau, double *v2lapltau)
 {
-  XC(mgga)(p, np, rho, sigma, lapl, tau, NULL, NULL, NULL, NULL, NULL, 
+  xc_mgga(p, np, rho, sigma, lapl, tau, NULL, NULL, NULL, NULL, NULL, 
 	   v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
 	   v2sigmalapl, v2sigmatau, v2lapltau);
 }

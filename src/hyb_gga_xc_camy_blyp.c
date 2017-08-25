@@ -21,16 +21,16 @@
 #define  XC_HYB_GGA_XC_CAMY_BLYP 455  /* BLYP with yukawa screening */
 
 void
-XC(hyb_gga_xc_camy_blyp_init)(XC(func_type) *p)
+xc_hyb_gga_xc_camy_blyp_init(xc_func_type *p)
 {
   static int   funcs_id  [3] = {XC_GGA_X_B88, XC_GGA_X_SFAT, XC_GGA_C_LYP};
-  static FLOAT funcs_coef[3];
+  static double funcs_coef[3];
 
   /* N.B. The notation used in the original reference uses a different
      convention for alpha and beta.  In libxc, alpha is the weight for
      HF exchange, which in the original reference is alpha+beta.
   */
-  static FLOAT alpha, beta, omega;
+  static double alpha, beta, omega;
   
   alpha = 1.00;
   beta  =-0.80;
@@ -42,15 +42,15 @@ XC(hyb_gga_xc_camy_blyp_init)(XC(func_type) *p)
   funcs_coef[1] =-beta;
   funcs_coef[2] = 1.0;
 
-  XC(mix_init)(p, 3, funcs_id, funcs_coef);
-  XC(gga_x_sfat_set_params)(p->func_aux[1], XC_GGA_X_B88, omega);
+  xc_mix_init(p, 3, funcs_id, funcs_coef);
+  xc_gga_x_sfat_set_params(p->func_aux[1], XC_GGA_X_B88, omega);
 
   p->cam_omega=omega;
   p->cam_alpha=alpha;
   p->cam_beta=beta;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_camy_blyp) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_camy_blyp = {
   XC_HYB_GGA_XC_CAMY_BLYP,
   XC_EXCHANGE_CORRELATION,
   "CAMY version of BLYP",
@@ -59,7 +59,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_camy_blyp) = {
   XC_FLAGS_3D | XC_FLAGS_HYB_CAMY | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_gga_xc_camy_blyp_init),
+  xc_hyb_gga_xc_camy_blyp_init,
   NULL, NULL, NULL, NULL
 };
 

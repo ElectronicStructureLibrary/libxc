@@ -22,11 +22,11 @@
 #define XC_GGA_C_ZVPBESOL       558 /* another spin-dependent correction to PBEsol       */
 
 typedef struct{
-  FLOAT beta, alpha, omega;
+  double beta, alpha, omega;
 } gga_c_zvpbeint_params;
 
 static void 
-gga_c_zvpbeint_init(XC(func_type) *p)
+gga_c_zvpbeint_init(xc_func_type *p)
 {
   gga_c_zvpbeint_params *params;
 
@@ -56,7 +56,7 @@ gga_c_zvpbeint_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_c_zvpbeint) = {
+const xc_func_info_type xc_func_info_gga_c_zvpbeint = {
   XC_GGA_C_ZVPBEINT,
   XC_CORRELATION,
   "another spin-dependent correction to PBEint",
@@ -69,7 +69,7 @@ const XC(func_info_type) XC(func_info_gga_c_zvpbeint) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_zvpbesol) = {
+const xc_func_info_type xc_func_info_gga_c_zvpbesol = {
   XC_GGA_C_ZVPBESOL,
   XC_CORRELATION,
   "another spin-dependent correction to PBEsol",

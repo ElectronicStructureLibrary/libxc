@@ -28,17 +28,17 @@
 #define XC_HYB_GGA_XC_PBE50     290 /* PBE0 with 50% exx   */
 
 static void
-hyb_gga_xc_pbeh_init(XC(func_type) *p)
+hyb_gga_xc_pbeh_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
 }
 
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeh) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_pbeh = {
   XC_HYB_GGA_XC_PBEH,
   XC_EXCHANGE_CORRELATION,
   "PBEH (PBE0)",
@@ -52,16 +52,16 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeh) = {
 };
 
 static void
-hyb_gga_xc_pbe0_13_init(XC(func_type) *p)
+hyb_gga_xc_pbe0_13_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[2] = {1.0 - 1.0/3.0, 1.0};
+  static double funcs_coef[2] = {1.0 - 1.0/3.0, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 1.0/3.0;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe0_13) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_pbe0_13 = {
   XC_HYB_GGA_XC_PBE0_13,
   XC_EXCHANGE_CORRELATION,
   "PBE0-1/3",
@@ -76,16 +76,16 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe0_13) = {
 
 
 static void
-hyb_gga_xc_hpbeint_init(XC(func_type) *p)
+hyb_gga_xc_hpbeint_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBEINT, XC_GGA_C_PBEINT};
-  static FLOAT funcs_coef[2] = {1.0 - 1.0/6.0, 1.0};
+  static double funcs_coef[2] = {1.0 - 1.0/6.0, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 1.0/6.0;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_hpbeint) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_hpbeint = {
   XC_HYB_GGA_XC_HPBEINT,
   XC_EXCHANGE_CORRELATION,
   "hPBEint",
@@ -100,16 +100,16 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hpbeint) = {
 
 
 static void
-hyb_gga_xc_pbemol0_init(XC(func_type) *p)
+hyb_gga_xc_pbemol0_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBE_MOL, XC_GGA_C_PBE_MOL};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe_mol0) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_pbe_mol0 = {
   XC_HYB_GGA_XC_PBE_MOL0,
   XC_EXCHANGE_CORRELATION,
   "PBEmol0",
@@ -124,16 +124,16 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe_mol0) = {
 
 
 static void
-hyb_gga_xc_pbesol0_init(XC(func_type) *p)
+hyb_gga_xc_pbesol0_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBE_SOL, XC_GGA_C_PBE_SOL};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe_sol0) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_pbe_sol0 = {
   XC_HYB_GGA_XC_PBE_SOL0,
   XC_EXCHANGE_CORRELATION,
   "PBEsol0",
@@ -148,18 +148,18 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe_sol0) = {
 
 
 static void
-hyb_gga_xc_pbeb0_init(XC(func_type) *p)
+hyb_gga_xc_pbeb0_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   /* 0.050044 ~ 3/4 beta_PBE */
-  XC(gga_c_pbe_set_params)(p->func_aux[1], 0.050044);
+  xc_gga_c_pbe_set_params(p->func_aux[1], 0.050044);
   p->cam_alpha = 0.25;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeb0) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_pbeb0 = {
   XC_HYB_GGA_XC_PBEB0,
   XC_EXCHANGE_CORRELATION,
   "PBEbeta0",
@@ -174,18 +174,18 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbeb0) = {
 
 
 static void
-hyb_gga_xc_pbemolb0_init(XC(func_type) *p)
+hyb_gga_xc_pbemolb0_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBE_MOL, XC_GGA_C_PBE_MOL};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   /* 0.06288 ~ 3/4 beta_PBEmol */
-  XC(gga_c_pbe_set_params)(p->func_aux[1], 0.06288);
+  xc_gga_c_pbe_set_params(p->func_aux[1], 0.06288);
   p->cam_alpha = 0.25;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe_molb0) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_pbe_molb0 = {
   XC_HYB_GGA_XC_PBE_MOLB0,
   XC_EXCHANGE_CORRELATION,
   "PBEmolbeta0",
@@ -200,16 +200,16 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe_molb0) = {
 
 
 static void
-hyb_gga_xc_pbe50_init(XC(func_type) *p)
+hyb_gga_xc_pbe50_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
-  static FLOAT funcs_coef[2] = {0.5, 1.0};
+  static double funcs_coef[2] = {0.5, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.5;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_pbe50) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_pbe50 = {
   XC_HYB_GGA_XC_PBE50,
   XC_EXCHANGE_CORRELATION,
   "PBE50",

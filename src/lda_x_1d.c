@@ -22,30 +22,30 @@
 
 typedef struct{
   int interaction;  /* 0: exponentially screened; 1: soft-Coulomb */
-  FLOAT bb;         /* screening parameter beta */
+  double bb;         /* screening parameter beta */
 } lda_x_1d_params;
 
 static void 
-lda_x_1d_init(XC(func_type) *p)
+lda_x_1d_init(xc_func_type *p)
 {
   assert(p->params == NULL);
   p->params = malloc(sizeof(lda_x_1d_params));
 }
 
 
-static inline FLOAT FT_inter(FLOAT x, int interaction)
+static inline double FT_inter(double x, int interaction)
 {
   assert(interaction == 0 || interaction == 1);
 
   if(interaction == 0){
-    FLOAT x2 = x*x;
-    return expint_e1(x2)*EXP(x2);
+    double x2 = x*x;
+    return expint_e1(x2)*exp(x2);
   }else
-    return 2.0*XC(bessel_K0)(x); 
+    return 2.0*xc_bessel_K0(x); 
 }
 
 
-static void func1(FLOAT *x, int n, void *ex)
+static void func1(double *x, int n, void *ex)
 {
   int interaction = *(int *)ex;
   int ii;
@@ -55,7 +55,7 @@ static void func1(FLOAT *x, int n, void *ex)
 }
 
 
-static void func2(FLOAT *x, int n, void *ex)
+static void func2(double *x, int n, void *ex)
 {
   int interaction = *(int *)ex;
   int ii;
@@ -66,13 +66,13 @@ static void func2(FLOAT *x, int n, void *ex)
 
 
 static inline void
-func(const XC(func_type) *p, XC(lda_work_t) *r)
+func(const xc_func_type *p, xc_lda_work_t *r)
 {
   static int spin_sign[2] = {+1, -1};
   static int spin_fact[2] = { 2,  1};
 
   int interaction, is;
-  FLOAT bb, R, int1[2], int2[2];
+  double bb, R, int1[2], int2[2];
 
   assert(p->params != NULL);
   interaction = ((lda_x_1d_params *)p->params)->interaction;
@@ -84,8 +84,8 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
 
     if(R == 0.0) continue;
 
-    int1[is] = XC(integrate)(func1, (void *)(&interaction), 0.0, R);
-    int2[is] = XC(integrate)(func2, (void *)(&interaction), 0.0, R);
+    int1[is] = xc_integrate(func1, (void *)(&interaction), 0.0, R);
+    int2[is] = xc_integrate(func2, (void *)(&interaction), 0.0, R);
 
     r->f -= (1.0 + spin_sign[is]*r->z) *
       (int1[is] - int2[is]/R);
@@ -109,7 +109,7 @@ func(const XC(func_type) *p, XC(lda_work_t) *r)
 
   r->d2fdrs2 = r->d2fdrsz = r->d2fdz2  = 0.0;
   for(is=0; is<p->nspin; is++){
-    FLOAT ft, aux = 1.0 + spin_sign[is]*r->z;
+    double ft, aux = 1.0 + spin_sign[is]*r->z;
 
     if(aux == 0.0) continue;
 
@@ -138,7 +138,7 @@ static const func_params_type ext_params[] = {
 };
 
 static void 
-set_ext_params(XC(func_type) *p, const double *ext_params)
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
   lda_x_1d_params *params;
   double ff;
@@ -154,7 +154,7 @@ set_ext_params(XC(func_type) *p, const double *ext_params)
   assert(params->interaction == 0 || params->interaction == 1);
 }
 
-const XC(func_info_type) XC(func_info_lda_x_1d) = {
+const xc_func_info_type xc_func_info_lda_x_1d = {
   XC_LDA_X_1D,
   XC_EXCHANGE,
   "Exchange in 1D",

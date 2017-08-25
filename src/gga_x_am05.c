@@ -22,10 +22,10 @@
 
 #include "maple2c/gga_x_am05.c"
 
-#define func XC(gga_x_am05_enhance)
+#define func xc_gga_x_am05_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_am05) = {
+const xc_func_info_type xc_func_info_gga_x_am05 = {
   XC_GGA_X_AM05,
   XC_EXCHANGE,
   "Armiento & Mattsson 05",

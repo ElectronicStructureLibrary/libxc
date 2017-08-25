@@ -21,15 +21,15 @@
 #define XC_MGGA_XC_HLE17      288  /* high local exchange 2017   */
 
 static void
-mgga_xc_hle17_init(XC(func_type) *p)
+mgga_xc_hle17_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_MGGA_X_TPSS, XC_MGGA_C_TPSS};
-  static FLOAT funcs_coef[2] = {1.25, 0.5};
+  static double funcs_coef[2] = {1.25, 0.5};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
 }
 
-const XC(func_info_type) XC(func_info_mgga_xc_hle17) = {
+const xc_func_info_type xc_func_info_mgga_xc_hle17 = {
   XC_MGGA_XC_HLE17,
   XC_EXCHANGE_CORRELATION,
   "high local exchange 2017",

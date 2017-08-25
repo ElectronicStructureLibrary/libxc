@@ -22,12 +22,12 @@
 #define XC_GGA_X_VMT84_GE         68 /* VMT{8,4} with constraint satisfaction with mu = mu_GE  */
 
 typedef struct{
-  FLOAT mu;
-  FLOAT alpha;
+  double mu;
+  double alpha;
 } gga_x_vmt84_params;
 
 static void 
-gga_x_vmt84_init(XC(func_type) *p)
+gga_x_vmt84_init(xc_func_type *p)
 {
   gga_x_vmt84_params *params;
 
@@ -55,7 +55,7 @@ gga_x_vmt84_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_vmt84_pbe) = {
+const xc_func_info_type xc_func_info_gga_x_vmt84_pbe = {
   XC_GGA_X_VMT84_PBE,
   XC_EXCHANGE,
   "VMT{8,4} with constraint satisfaction with mu = mu_PBE",
@@ -68,7 +68,7 @@ const XC(func_info_type) XC(func_info_gga_x_vmt84_pbe) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_vmt84_ge) = {
+const xc_func_info_type xc_func_info_gga_x_vmt84_ge = {
   XC_GGA_X_VMT84_GE,
   XC_EXCHANGE,
   "VMT{8,4} with constraint satisfaction with mu = mu_GE",

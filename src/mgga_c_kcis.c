@@ -26,7 +26,7 @@
 #define func maple2c_func
 #include "work_mgga_c.c"
 
-const XC(func_info_type) XC(func_info_mgga_c_kcis) = {
+const xc_func_info_type xc_func_info_mgga_c_kcis = {
   XC_MGGA_C_KCIS,
   XC_CORRELATION,
   "Krieger, Chen, Iafrate, and Savin",
@@ -41,16 +41,16 @@ const XC(func_info_type) XC(func_info_mgga_c_kcis) = {
 
 /*************************************************************/
 void
-XC(hyb_mgga_xc_b0kcis_init)(XC(func_type) *p)
+xc_hyb_mgga_xc_b0kcis_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_MGGA_C_KCIS};
-  static FLOAT funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
 }
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_b0kcis) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_b0kcis = {
   XC_HYB_MGGA_XC_B0KCIS,
   XC_EXCHANGE_CORRELATION,
   "Hybrid based on KCIS",
@@ -59,6 +59,6 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_b0kcis) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_mgga_xc_b0kcis_init), NULL, 
+  xc_hyb_mgga_xc_b0kcis_init, NULL, 
   NULL, NULL, work_mgga_c
 };

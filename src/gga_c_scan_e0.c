@@ -25,7 +25,7 @@
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_c_scan_e0) = {
+const xc_func_info_type xc_func_info_gga_c_scan_e0 = {
   XC_GGA_C_SCAN_E0,
   XC_CORRELATION,
   "GGA component of SCAN",

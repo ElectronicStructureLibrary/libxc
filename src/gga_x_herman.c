@@ -22,10 +22,10 @@
 
 #include "maple2c/gga_x_herman.c"
 
-#define func XC(gga_x_herman_enhance)
+#define func xc_gga_x_herman_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_herman) = {
+const xc_func_info_type xc_func_info_gga_x_herman = {
   XC_GGA_X_HERMAN,
   XC_EXCHANGE,
   "Herman Xalphabeta GGA",

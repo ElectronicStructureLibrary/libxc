@@ -27,7 +27,7 @@
 #include "work_mgga_c.c"
 
 
-const XC(func_info_type) XC(func_info_mgga_xc_cc06) = {
+const xc_func_info_type xc_func_info_mgga_xc_cc06 = {
   XC_MGGA_XC_CC06,
   XC_EXCHANGE_CORRELATION,
   "Cancio and Chou 2006",

@@ -22,8 +22,8 @@
 #define XC_MGGA_C_VSXC          232 /* VSxc from Van Voorhis and Scuseria (correlation part) */
 
 typedef struct{
-  const FLOAT alpha_ss, alpha_ab;
-  const FLOAT dss[6], dab[6];
+  const double alpha_ss, alpha_ab;
+  const double dss[6], dab[6];
 } mgga_c_vsxc_params;
 
 static const mgga_c_vsxc_params par_vsxc = {
@@ -33,7 +33,7 @@ static const mgga_c_vsxc_params par_vsxc = {
 };
 
 static void 
-mgga_c_vsxc_init(XC(func_type) *p)
+mgga_c_vsxc_init(xc_func_type *p)
 {
   mgga_c_vsxc_params *params;
 
@@ -56,7 +56,7 @@ mgga_c_vsxc_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_mgga_c.c"
 
-const XC(func_info_type) XC(func_info_mgga_c_vsxc) = {
+const xc_func_info_type xc_func_info_mgga_c_vsxc = {
   XC_MGGA_C_VSXC,
   XC_CORRELATION,
   "VSXC (correlation part)",

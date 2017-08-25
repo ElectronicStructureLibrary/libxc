@@ -27,7 +27,7 @@
 #include "work_mgga_x.c"
 
 
-const XC(func_info_type) XC(func_info_mgga_x_pkzb) = {
+const xc_func_info_type xc_func_info_mgga_x_pkzb = {
   XC_MGGA_X_PKZB,
   XC_EXCHANGE,
   "Perdew, Kurth, Zupan, and Blaha",

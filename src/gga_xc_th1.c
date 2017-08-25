@@ -25,34 +25,34 @@
 #define XC_GGA_XC_TH1          154 /* Tozer and Handy v. 1 */
 
 typedef struct{
-  const FLOAT *omega;
+  const double *omega;
 } gga_xc_th1_params;
 
-static const FLOAT omega_TH_FL[] = 
+static const double omega_TH_FL[] = 
   {-0.106141e01, +0.898203e00, -0.134439e01, +0.302369e00, 0.0, 0.0,
     0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
     0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
     0.0, 0.0, 0.0};
 
-static const FLOAT omega_TH_FC[] = 
+static const double omega_TH_FC[] = 
   {-0.864448e+00, +0.565130e+00, -0.127306e+01, +0.309681e+00, -0.287658e+00, +0.588767e+00,
    -0.252700e+00, +0.223563e-01, +0.140131e-01, -0.826608e-01, +0.556080e-01, -0.936227e-02,
     0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
     0.0, 0.0, 0.0};
 
-static const FLOAT omega_TH_FCFO[] = 
+static const double omega_TH_FCFO[] = 
   {-0.864448e+00, +0.565130e+00, -0.127306e+01, +0.309681e+00, -0.287658e+00, +0.588767e+00,
    -0.252700e+00, +0.223563e-01, +0.140131e-01, -0.826608e-01, +0.556080e-01, -0.936227e-02,
    -0.677146e-02, +0.515199e-01, -0.874213e-01, +0.423827e-01, +0.431940e+00, -0.691153e+00,
    -0.637866e+00, +0.107565e+01, 0.0};
 
-static const FLOAT omega_TH_FCO[] = 
+static const double omega_TH_FCO[] = 
   {-0.962998e+00, +0.860233e+00, -0.154092e+01, +0.381602e+00, -0.210208e+00, +0.391496e+00,
    -0.107660e+00, -0.105324e-01, +0.837384e-02, -0.617859e-01, +0.383072e-01, -0.526905e-02,
    -0.381514e-02, +0.321541e-01, -0.568280e-01, +0.288585e-01, +0.368326e+00, -0.328799e+00,
    -0.122595e+01, +0.136412e+01, 0.0};
 
-static const FLOAT omega_TH1[] = 
+static const double omega_TH1[] = 
   {-0.728255e+00, +0.331699e+00, -0.102946e+01, +0.235703e+00, -0.876221e-01, +0.140854e+00,
    +0.336982e-01, -0.353615e-01, +0.497930e-02, -0.645900e-01, +0.461795e-01, -0.757191e-02,
    -0.242717e-02, +0.428140e-01, -0.744891e-01, +0.386577e-01, -0.352519e+00, +0.219805e+01
@@ -60,7 +60,7 @@ static const FLOAT omega_TH1[] =
 
 
 static void 
-gga_xc_th1_init(XC(func_type) *p)
+gga_xc_th1_init(xc_func_type *p)
 {
   gga_xc_th1_params *params;
 
@@ -100,7 +100,7 @@ gga_xc_th1_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_xc_th_fl) = {
+const xc_func_info_type xc_func_info_gga_xc_th_fl = {
   XC_GGA_XC_TH_FL,
   XC_EXCHANGE_CORRELATION,
   "Tozer and Handy v. FL",
@@ -113,7 +113,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th_fl) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_th_fc) = {
+const xc_func_info_type xc_func_info_gga_xc_th_fc = {
   XC_GGA_XC_TH_FC,
   XC_EXCHANGE_CORRELATION,
   "Tozer and Handy v. FC",
@@ -126,7 +126,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th_fc) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_th_fcfo) = {
+const xc_func_info_type xc_func_info_gga_xc_th_fcfo = {
   XC_GGA_XC_TH_FCFO,
   XC_EXCHANGE_CORRELATION,
   "Tozer and Handy v. FCFO",
@@ -139,7 +139,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th_fcfo) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_th_fco) = {
+const xc_func_info_type xc_func_info_gga_xc_th_fco = {
   XC_GGA_XC_TH_FCO,
   XC_EXCHANGE_CORRELATION,
   "Tozer and Handy v. FCO",
@@ -152,7 +152,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th_fco) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_th1) = {
+const xc_func_info_type xc_func_info_gga_xc_th1 = {
   XC_GGA_XC_TH1,
   XC_EXCHANGE_CORRELATION,
   "Tozer and Handy v. 1",

@@ -26,7 +26,7 @@
 #define func maple2c_func
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_xc_teter93) = {
+const xc_func_info_type xc_func_info_lda_xc_teter93 = {
   XC_LDA_XC_TETER93,
   XC_EXCHANGE_CORRELATION,
   "Teter 93",

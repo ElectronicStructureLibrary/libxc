@@ -26,7 +26,7 @@
 #define func maple2c_func
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_sa_tpss) = {
+const xc_func_info_type xc_func_info_mgga_x_sa_tpss = {
   XC_MGGA_X_SA_TPSS,
   XC_EXCHANGE,
   "TPSS with correct surface asymptotics",

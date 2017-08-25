@@ -31,10 +31,10 @@
 #define XC_LDA_C_OB_PZ   11   /* Ortiz & Ballone (PZ)         */
 
 typedef struct {
-  FLOAT gamma[2];
-  FLOAT beta1[2];
-  FLOAT beta2[2];
-  FLOAT a[2], b[2], c[2], d[2];
+  double gamma[2];
+  double beta1[2];
+  double beta2[2];
+  double a[2], b[2], c[2], d[2];
 } lda_c_pz_params;
 
 static lda_c_pz_params pz_original = {
@@ -69,7 +69,7 @@ static lda_c_pz_params pz_ob = {
 };
 
 static void 
-lda_c_pz_init(XC(func_type) *p)
+lda_c_pz_init(xc_func_type *p)
 {
   lda_c_pz_params *params;
 
@@ -98,7 +98,7 @@ lda_c_pz_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_c_pz) = {
+const xc_func_info_type xc_func_info_lda_c_pz = {
   XC_LDA_C_PZ,
   XC_CORRELATION,
   "Perdew & Zunger",
@@ -111,7 +111,7 @@ const XC(func_info_type) XC(func_info_lda_c_pz) = {
   work_lda, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_c_pz_mod) = {
+const xc_func_info_type xc_func_info_lda_c_pz_mod = {
   XC_LDA_C_PZ_MOD,
   XC_CORRELATION,
   "Perdew & Zunger (Modified)",
@@ -124,7 +124,7 @@ const XC(func_info_type) XC(func_info_lda_c_pz_mod) = {
   work_lda, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_c_ob_pz) = {
+const xc_func_info_type xc_func_info_lda_c_ob_pz = {
   XC_LDA_C_OB_PZ,
   XC_CORRELATION,
   "Ortiz & Ballone (PZ parametrization)",

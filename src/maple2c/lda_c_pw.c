@@ -8,7 +8,7 @@
 */
 
 static void
-func0(const XC(func_type) *p, XC(lda_work_t) *r)
+func0(const xc_func_type *p, xc_lda_work_t *r)
 {
   double t1, t2, t4, t6, t7, t8, t10, t12;
   double t13, t17, t18, t19, t20, t24, t25, t31;
@@ -44,7 +44,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   t31 = t20 * t20;
   t32 = 0.1e1 / t31;
   t33 = t4 * t32;
-  t37 = SQRT(r->rs);
+  t37 = sqrt(r->rs);
   t43 = t7 / t8 / 0.2e1 + t10 + 0.15e1 * t12 * t37 + t19 * t17 / r->rs;
   t44 = 0.1e1 / t24;
   t45 = t43 * t44;
@@ -57,7 +57,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   t52 = t4 * t51;
   t53 = t43 * t43;
   t54 = t53 * t44;
-  t61 = 0.1e1/SQRT(r->rs);
+  t61 = 0.1e1/sqrt(r->rs);
   t64 = t17 * t17;
   t65 = r->rs * r->rs;
   t66 = 0.1e1 / t65;
@@ -85,7 +85,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
 }
 
 static void
-func1(const XC(func_type) *p, XC(lda_work_t) *r)
+func1(const xc_func_type *p, xc_lda_work_t *r)
 {
   double t1, t2, t4, t6, t7, t8, t10, t12;
   double t13, t17, t18, t19, t20, t24, t25, t26;
@@ -184,7 +184,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t106 = 0.1e1 / t105;
   t107 = t4 * t106;
   t108 = 0.1e1 / t8;
-  t111 = SQRT(r->rs);
+  t111 = sqrt(r->rs);
   t114 = 0.1e1 / r->rs;
   t117 = t7 * t108 / 0.2e1 + t10 + 0.15e1 * t12 * t111 + t19 * t17 * t114;
   t118 = 0.1e1 / t24;
@@ -227,7 +227,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t185 = t184 * t118;
   t187 = 0.2e1 * t183 * t185;
   t189 = 0.1e1 / t8 / r->rs;
-  t192 = 0.1e1/SQRT(r->rs);
+  t192 = 0.1e1/sqrt(r->rs);
   t195 = t17 * t17;
   t196 = r->rs * r->rs;
   t197 = 0.1e1 / t196;
@@ -331,7 +331,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
 }
 
 void 
-XC(lda_c_pw_func)(const XC(func_type) *p, XC(lda_work_t) *r)
+xc_lda_c_pw_func(const xc_func_type *p, xc_lda_work_t *r)
 {
   if(p->nspin == XC_UNPOLARIZED)
     func0(p, r);
@@ -340,4 +340,4 @@ XC(lda_c_pw_func)(const XC(func_type) *p, XC(lda_work_t) *r)
 }
 
 #define maple2c_order 3
-#define maple2c_func  XC(lda_c_pw_func)
+#define maple2c_func  xc_lda_c_pw_func

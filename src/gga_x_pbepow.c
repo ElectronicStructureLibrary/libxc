@@ -18,15 +18,15 @@
 
 #include "util.h"
 
-#define XC_GGA_X_PBEPOW         539 /* PBE power */
+#define XC_GGA_X_PBEpow         539 /* PBE power */
 
 #include "maple2c/gga_x_pbepow.c"
 
-#define func XC(gga_x_pbepow_enhance)
+#define func xc_gga_x_pbepow_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_pbepow) = {
-  XC_GGA_X_PBEPOW,
+const xc_func_info_type xc_func_info_gga_x_pbepow = {
+  XC_GGA_X_PBEpow,
   XC_EXCHANGE,
   "PBE power",
   XC_FAMILY_GGA,

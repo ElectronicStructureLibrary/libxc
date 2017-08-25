@@ -20,18 +20,18 @@
 #include "util.h"
 
 static void 
-work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
-	   FLOAT *zk, FLOAT *vrho, FLOAT *vsigma,
-	   FLOAT *v2rho2, FLOAT *v2rhosigma, FLOAT *v2sigma2,
-	   FLOAT *v3rho3, FLOAT *v3rho2sigma, FLOAT *v3rhosigma2, FLOAT *v3sigma3)
+work_gga_c(const xc_func_type *p, int np, const double *rho, const double *sigma,
+	   double *zk, double *vrho, double *vsigma,
+	   double *v2rho2, double *v2rhosigma, double *v2sigma2,
+	   double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
-  XC(gga_work_c_t) r;
-  FLOAT min_grad2 = MIN_GRAD*MIN_GRAD;
+  xc_gga_work_c_t r;
+  double min_grad2 = MIN_GRAD*MIN_GRAD;
   int ip;
 
-  FLOAT drs, dxtdn, dxtds, ndzdn[2], dxsdn[2], dxsds[2];;
-  FLOAT d2rs, d2xtdn2, d2xtds2, d2xtdns, d2xsdn2[2], d2xsds2[2], d2xsdns[2];
-  FLOAT d3rs, d3xtdn3, d3xtdn2s, d3xtdns2, d3xtds3, d3xsdn3[2], d3xsdn2s[2], d3xsdns2[2], d3xsds3[2];
+  double drs, dxtdn, dxtds, ndzdn[2], dxsdn[2], dxsds[2];;
+  double d2rs, d2xtdn2, d2xtds2, d2xtdns, d2xsdn2[2], d2xsds2[2], d2xsdns[2];
+  double d3rs, d3xtdn3, d3xtdn2s, d3xtdns2, d3xtds3, d3xsdn3[2], d3xsdn2s[2], d3xsdns2[2], d3xsds3[2];
 
   /* set all elements of r to zero */
   memset(&r, 0, sizeof(r));
@@ -45,7 +45,7 @@ work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
   if(r.order < 0) return;
 
   for(ip = 0; ip < np; ip++){
-    XC(rho2dzeta)(p->nspin, rho, &(r.dens), &(r.z));
+    xc_rho2dzeta(p->nspin, rho, &(r.dens), &(r.z));
 
     if(r.dens < p->dens_threshold) goto end_ip_loop;
     
@@ -55,7 +55,7 @@ work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
       r.ds[1]  = r.ds[0];
 
       r.sigmat = max(min_grad2, sigma[0]);
-      r.xt     = SQRT(r.sigmat)/ POW(r.dens, 4.0/3.0);
+      r.xt     = sqrt(r.sigmat)/ pow(r.dens, 4.0/3.0);
 
       r.sigmas[0] = r.sigmat/4.0;
       r.sigmas[1] = r.sigmas[0];
@@ -74,14 +74,14 @@ work_gga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma,
       r.ds[1]  = max(p->dens_threshold, rho[1]);
       
       r.sigmat = max(min_grad2, sigma[0] + 2.0*sigma[1] + sigma[2]);
-      r.xt     = SQRT(r.sigmat)/ POW(r.dens, 4.0/3.0);
+      r.xt     = sqrt(r.sigmat)/ pow(r.dens, 4.0/3.0);
       
       r.sigmas[0] = max(min_grad2, sigma[0]);
       r.sigmas[1] = max(min_grad2, sigma[1]);
       r.sigmas[2] = max(min_grad2, sigma[2]);
 
-      r.xs[0] = SQRT(r.sigmas[0])/POW(r.ds[0], 4.0/3.0);
-      r.xs[1] = SQRT(r.sigmas[2])/POW(r.ds[1], 4.0/3.0);
+      r.xs[0] = sqrt(r.sigmas[0])/pow(r.ds[0], 4.0/3.0);
+      r.xs[1] = sqrt(r.sigmas[2])/pow(r.ds[1], 4.0/3.0);
     }
   
     func(p, &r);

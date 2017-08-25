@@ -25,7 +25,7 @@
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_c_pbeloc) = {
+const xc_func_info_type xc_func_info_gga_c_pbeloc = {
   XC_GGA_C_PBELOC,
   XC_CORRELATION,
   "Semilocal dynamical correlation",

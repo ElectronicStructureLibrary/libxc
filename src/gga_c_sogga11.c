@@ -23,7 +23,7 @@
 #define XC_GGA_C_SOGGA11_X     159 /* To be used with HYB_GGA_X_SOGGA11_X  */
 
 typedef struct {
-  FLOAT sogga11_a[6], sogga11_b[6];
+  double sogga11_a[6], sogga11_b[6];
 } gga_c_sogga11_params;
 
 static const gga_c_sogga11_params par_sogga11 = {
@@ -37,7 +37,7 @@ static const gga_c_sogga11_params par_sogga11_x = {
 };
 
 static void 
-gga_c_sogga11_init(XC(func_type) *p)
+gga_c_sogga11_init(xc_func_type *p)
 {
   gga_c_sogga11_params *params;
 
@@ -63,7 +63,7 @@ gga_c_sogga11_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_c_sogga11) = {
+const xc_func_info_type xc_func_info_gga_c_sogga11 = {
   XC_GGA_C_SOGGA11,
   XC_CORRELATION,
   "Second-order generalized gradient approximation 2011",
@@ -76,7 +76,7 @@ const XC(func_info_type) XC(func_info_gga_c_sogga11) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_sogga11_x) = {
+const xc_func_info_type xc_func_info_gga_c_sogga11_x = {
   XC_GGA_C_SOGGA11_X,
   XC_CORRELATION,
   "To be used with HYB_GGA_X_SOGGA11_X",

@@ -23,7 +23,7 @@
 
 static const char * libxc_version = PACKAGE_VERSION;
 
-void XC(version)(int *major, int *minor, int *micro) {
+void xc_version(int *major, int *minor, int *micro) {
 
   *major = -1;
   *minor = -1;
@@ -32,6 +32,6 @@ void XC(version)(int *major, int *minor, int *micro) {
 
 }
 
-const char *XC(version_string)() {
+const char *xc_version_string() {
   return libxc_version;
 }

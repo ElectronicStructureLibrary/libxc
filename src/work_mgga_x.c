@@ -37,23 +37,23 @@ work_mgga_k
 #else
 work_mgga_x
 #endif
-(const XC(func_type) *p, int np,
- const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
- FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau,
- FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2lapl2, FLOAT *v2tau2,
- FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
- FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
+(const xc_func_type *p, int np,
+ const double *rho, const double *sigma, const double *lapl, const double *tau,
+ double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
+ double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
+ double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+ double *v2sigmalapl, double *v2sigmatau, double *v2lapltau)
 {
-  XC(mgga_work_x_t) r;
-  FLOAT sfact, sfact2, x_factor_c, beta, dens;
+  xc_mgga_work_x_t r;
+  double sfact, sfact2, x_factor_c, beta, dens;
   int is, ip;
 
   /* WARNING: derivatives are _not_ OK for 2 dimensions */
 #if XC_DIMENSIONS == 2
-  const FLOAT cnst_rs = 1.0/M_SQRTPI;
+  const double cnst_rs = 1.0/M_SQRTPI;
   x_factor_c = X_FACTOR_2D_C;
 #else /* three dimensions */
-  const FLOAT cnst_rs = RS_FACTOR;
+  const double cnst_rs = RS_FACTOR;
   x_factor_c = X_FACTOR_C;
 #endif
 
@@ -70,14 +70,14 @@ work_mgga_x
   sfact2 = sfact*sfact;
   
   for(ip = 0; ip < np; ip++){
-    XC(rho2dzeta)(p->nspin, rho, &dens, &r.zeta);
+    xc_rho2dzeta(p->nspin, rho, &dens, &r.zeta);
 
     if(dens < p->dens_threshold) goto end_ip_loop;
 
-    r.rs = cnst_rs*POW(dens, -1.0/XC_DIMENSIONS);
+    r.rs = cnst_rs*pow(dens, -1.0/XC_DIMENSIONS);
 
     for(is=0; is<p->nspin; is++){
-      FLOAT lrho, rho1D, rho2pD_D, lsigma, gdm, lnr2, ltau;
+      double lrho, rho1D, rho2pD_D, lsigma, gdm, lnr2, ltau;
       int js = (is == 0) ? 0 : 2;
       int ls = (is == 0) ? 0 : 3;
       int ks = (is == 0) ? 0 : 5;
@@ -85,9 +85,9 @@ work_mgga_x
       if (rho[is] < p->dens_threshold) continue;
 
       lsigma= max(sigma[js]/sfact2, MIN_GRAD*MIN_GRAD);
-      gdm   = SQRT(lsigma);
+      gdm   = sqrt(lsigma);
       lrho  = rho[is]/sfact;
-      rho1D = POW(lrho, 1.0/XC_DIMENSIONS);
+      rho1D = pow(lrho, 1.0/XC_DIMENSIONS);
       rho2pD_D = lrho*rho1D*rho1D;
       r.x   = gdm/(lrho*rho1D);
     

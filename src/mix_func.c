@@ -24,19 +24,19 @@
 #define is_lda(id)    ((id) == XC_FAMILY_LDA  || is_gga(is))
 #define safe_free(pt) if(pt != NULL) free(pt)
 
-void XC(mix_func)
-  (const XC(func_type) *func, int np,
-   const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
-   FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau,
-   FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2lapl2, FLOAT *v2tau2,
-   FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
-   FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
+void xc_mix_func
+  (const xc_func_type *func, int np,
+   const double *rho, const double *sigma, const double *lapl, const double *tau,
+   double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
+   double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
+   double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+   double *v2sigmalapl, double *v2sigmatau, double *v2lapltau)
 {
-  const XC(func_type) *aux;
-  FLOAT *zk_, *vrho_, *vsigma_, *vlapl_, *vtau_;
-  FLOAT *v2rho2_, *v2sigma2_, *v2lapl2_, *v2tau2_;
-  FLOAT *v2rhosigma_, *v2rholapl_, *v2rhotau_;
-  FLOAT *v2sigmalapl_, *v2sigmatau_, *v2lapltau_;
+  const xc_func_type *aux;
+  double *zk_, *vrho_, *vsigma_, *vlapl_, *vtau_;
+  double *v2rho2_, *v2sigma2_, *v2lapl2_, *v2tau2_;
+  double *v2rhosigma_, *v2rholapl_, *v2rhotau_;
+  double *v2sigmalapl_, *v2sigmatau_, *v2lapltau_;
 
   int ip, ii;
 
@@ -48,34 +48,34 @@ void XC(mix_func)
   v2sigmalapl_ = v2sigmatau_ = v2lapltau_ = NULL;
 
   if(zk != NULL)
-    zk_ = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_zk);
+    zk_ = (double *) malloc(sizeof(double)*np*func->n_zk);
 
   if(vrho != NULL){
-    vrho_ = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_vrho);
+    vrho_ = (double *) malloc(sizeof(double)*np*func->n_vrho);
     if(is_gga(func->info->family)){
-      vsigma_ = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_vsigma);
+      vsigma_ = (double *) malloc(sizeof(double)*np*func->n_vsigma);
     }
     if(is_mgga(func->info->family)){
-      vtau_  = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_vtau);
+      vtau_  = (double *) malloc(sizeof(double)*np*func->n_vtau);
       if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
-	vlapl_ = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_vlapl);
+	vlapl_ = (double *) malloc(sizeof(double)*np*func->n_vlapl);
     }
   }
 
   if(v2rho2 != NULL){
-    v2rho2_ = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_v2rho2);
+    v2rho2_ = (double *) malloc(sizeof(double)*np*func->n_v2rho2);
     if(is_gga(func->info->family)){
-      v2sigma2_    = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_v2sigma2);
-      v2rhosigma_  = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_v2rhosigma);
+      v2sigma2_    = (double *) malloc(sizeof(double)*np*func->n_v2sigma2);
+      v2rhosigma_  = (double *) malloc(sizeof(double)*np*func->n_v2rhosigma);
     }
     if(is_mgga(func->info->family)){
-      v2lapl2_     = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_v2lapl2);
-      v2tau2_      = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_v2tau2);
-      v2rholapl_   = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_v2rholapl);
-      v2rhotau_    = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_v2rhotau);
-      v2sigmalapl_ = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_v2sigmalapl);
-      v2sigmatau_  = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_v2sigmatau);
-      v2lapltau_   = (FLOAT *) malloc(sizeof(FLOAT)*np*func->n_v2lapltau);
+      v2lapl2_     = (double *) malloc(sizeof(double)*np*func->n_v2lapl2);
+      v2tau2_      = (double *) malloc(sizeof(double)*np*func->n_v2tau2);
+      v2rholapl_   = (double *) malloc(sizeof(double)*np*func->n_v2rholapl);
+      v2rhotau_    = (double *) malloc(sizeof(double)*np*func->n_v2rhotau);
+      v2sigmalapl_ = (double *) malloc(sizeof(double)*np*func->n_v2sigmalapl);
+      v2sigmatau_  = (double *) malloc(sizeof(double)*np*func->n_v2sigmatau);
+      v2lapltau_   = (double *) malloc(sizeof(double)*np*func->n_v2lapltau);
     }
   }
 
@@ -84,13 +84,13 @@ void XC(mix_func)
     aux = func->func_aux[ii];
     switch(aux->info->family){
     case XC_FAMILY_LDA:
-      XC(lda)(aux, np, rho, zk_, vrho_, v2rho2_, NULL);
+      xc_lda(aux, np, rho, zk_, vrho_, v2rho2_, NULL);
       break;
     case XC_FAMILY_GGA:
-      XC(gga)(aux, np, rho, sigma, zk_, vrho_, vsigma_, v2rho2_, v2rhosigma_, v2sigma2_, NULL, NULL, NULL, NULL);
+      xc_gga(aux, np, rho, sigma, zk_, vrho_, vsigma_, v2rho2_, v2rhosigma_, v2sigma2_, NULL, NULL, NULL, NULL);
       break;
     case XC_FAMILY_MGGA:
-      XC(mgga)(aux, np, rho, sigma, lapl, tau, zk_, vrho_, vsigma_, vlapl_, vtau_,
+      xc_mgga(aux, np, rho, sigma, lapl, tau, zk_, vrho_, vsigma_, vlapl_, vtau_,
 	       v2rho2_, v2sigma2_, v2lapl2_, v2tau2_, v2rhosigma_, v2rholapl_, v2rhotau_, 
 	       v2sigmalapl_, v2sigmatau_, v2lapltau_);
       break;

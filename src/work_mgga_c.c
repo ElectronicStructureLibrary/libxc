@@ -18,14 +18,14 @@
 
 
 static void 
-work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma, const FLOAT *lapl, const FLOAT *tau,
-	    FLOAT *zk, FLOAT *vrho, FLOAT *vsigma, FLOAT *vlapl, FLOAT *vtau,
-	    FLOAT *v2rho2, FLOAT *v2sigma2, FLOAT *v2lapl2, FLOAT *v2tau2,
-	    FLOAT *v2rhosigma, FLOAT *v2rholapl, FLOAT *v2rhotau, 
-	    FLOAT *v2sigmalapl, FLOAT *v2sigmatau, FLOAT *v2lapltau)
+work_mgga_c(const xc_func_type *p, int np, const double *rho, const double *sigma, const double *lapl, const double *tau,
+	    double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
+	    double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
+	    double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+	    double *v2sigmalapl, double *v2sigmatau, double *v2lapltau)
 {
-  XC(mgga_work_c_t) r;
-  FLOAT min_grad2 = MIN_GRAD*MIN_GRAD;
+  xc_mgga_work_c_t r;
+  double min_grad2 = MIN_GRAD*MIN_GRAD;
   int ip;
 
   /* set all elements of r to zero */
@@ -39,12 +39,12 @@ work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
   if(r.order < 0) return;
 
   for(ip = 0; ip < np; ip++){
-    FLOAT rho13[3], drs, dxt;
-    FLOAT ndzdn[2], dxsdn[2];
-    FLOAT dxtds, dxsds[2];
-    FLOAT dusdn[2], dusdlapl[2], dtsdn[2], dtsdtau[2];
+    double rho13[3], drs, dxt;
+    double ndzdn[2], dxsdn[2];
+    double dxtds, dxsds[2];
+    double dusdn[2], dusdlapl[2], dtsdn[2], dtsdtau[2];
 
-    XC(rho2dzeta)(p->nspin, rho, &(r.dens), &(r.z));
+    xc_rho2dzeta(p->nspin, rho, &(r.dens), &(r.z));
 
     if(r.dens < p->dens_threshold) goto end_ip_loop;
     
@@ -60,7 +60,7 @@ work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
 
       /* we already know that dens > min_dens */
       r.sigmat = max(min_grad2, sigma[0]);
-      r.xt     = SQRT(r.sigmat)/(r.dens*rho13[2]);
+      r.xt     = sqrt(r.sigmat)/(r.dens*rho13[2]);
 
       r.sigmas[0] = r.sigmat/4.0;
       r.sigmas[1] = r.sigmas[0];
@@ -90,14 +90,14 @@ work_mgga_c(const XC(func_type) *p, int np, const FLOAT *rho, const FLOAT *sigma
       rho13[1] = CBRT(r.ds[1]);
       
       r.sigmat = max(min_grad2, sigma[0] + 2.0*sigma[1] + sigma[2]);
-      r.xt     = SQRT(r.sigmat)/(r.dens*rho13[2]);
+      r.xt     = sqrt(r.sigmat)/(r.dens*rho13[2]);
       
       r.sigmas[0] = max(min_grad2, sigma[0]);
       r.sigmas[1] = max(min_grad2, sigma[1]);
       r.sigmas[2] = max(min_grad2, sigma[2]);
 
-      r.xs[0] = SQRT(r.sigmas[0])/(r.ds[0]*rho13[0]);
-      r.xs[1] = SQRT(r.sigmas[2])/(r.ds[1]*rho13[1]);
+      r.xs[0] = sqrt(r.sigmas[0])/(r.ds[0]*rho13[0]);
+      r.xs[1] = sqrt(r.sigmas[2])/(r.ds[1]*rho13[1]);
 
       if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
         r.us[0]   = lapl[0]/(r.ds[0]*rho13[0]*rho13[0]);

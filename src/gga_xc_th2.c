@@ -25,7 +25,7 @@
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_xc_th2) = {
+const xc_func_info_type xc_func_info_gga_xc_th2 = {
   XC_GGA_XC_TH2,
   XC_EXCHANGE_CORRELATION,
   "Tozer and Handy v. 2",

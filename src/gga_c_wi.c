@@ -23,7 +23,7 @@
 #define XC_GGA_C_WI  148 /* Wilson & Ivanov */
 
 typedef struct {
-  FLOAT a, b, c, d, k;
+  double a, b, c, d, k;
 } gga_c_wi_params;
 
 static const gga_c_wi_params wi0_params = {
@@ -35,7 +35,7 @@ static const gga_c_wi_params wi_params = {
 };
 
 static void 
-gga_c_wi_init(XC(func_type) *p)
+gga_c_wi_init(xc_func_type *p)
 {
   gga_c_wi_params *params;
 
@@ -61,7 +61,7 @@ gga_c_wi_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_c_wi0) = {
+const xc_func_info_type xc_func_info_gga_c_wi0 = {
   XC_GGA_C_WI0,
   XC_CORRELATION,
   "Wilson & Ivanov initial version",
@@ -76,7 +76,7 @@ const XC(func_info_type) XC(func_info_gga_c_wi0) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_wi) = {
+const xc_func_info_type xc_func_info_gga_c_wi = {
   XC_GGA_C_WI,
   XC_CORRELATION,
   "Wilson & Ivanov",

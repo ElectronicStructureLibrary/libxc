@@ -26,7 +26,7 @@
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_c_op_xalpha) = {
+const xc_func_info_type xc_func_info_gga_c_op_xalpha = {
   XC_GGA_C_OP_XALPHA,
   XC_CORRELATION,
   "one-parameter progressive functional (Xalpha version)",

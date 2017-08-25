@@ -25,14 +25,14 @@
 #define XC_GGA_K_ERNZERHOF   520 /* Ernzerhof */
 
 typedef struct{
-  FLOAT aa[5], bb[5];
+  double aa[5], bb[5];
 } gga_k_dk_params;
 
 static void 
-gga_k_dk_init(XC(func_type) *p)
+gga_k_dk_init(xc_func_type *p)
 {
   int i;
-  FLOAT ff, *aa, *bb;
+  double ff, *aa, *bb;
 
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_k_dk_params));
@@ -122,7 +122,7 @@ gga_k_dk_init(XC(func_type) *p)
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_k_dk) = {
+const xc_func_info_type xc_func_info_gga_k_dk = {
   XC_GGA_K_DK,
   XC_KINETIC,
   "DePristo and Kress",
@@ -137,7 +137,7 @@ const XC(func_info_type) XC(func_info_gga_k_dk) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_perdew) = {
+const xc_func_info_type xc_func_info_gga_k_perdew = {
   XC_GGA_K_PERDEW,
   XC_KINETIC,
   "Perdew",
@@ -152,7 +152,7 @@ const XC(func_info_type) XC(func_info_gga_k_perdew) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_vsk) = {
+const xc_func_info_type xc_func_info_gga_k_vsk = {
   XC_GGA_K_VSK,
   XC_KINETIC,
   "Vitos, Skriver, and Kollar",
@@ -167,7 +167,7 @@ const XC(func_info_type) XC(func_info_gga_k_vsk) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_vjks) = {
+const xc_func_info_type xc_func_info_gga_k_vjks = {
   XC_GGA_K_VJKS,
   XC_KINETIC,
   "Vitos, Johansson, Kollar, and Skriver",
@@ -182,7 +182,7 @@ const XC(func_info_type) XC(func_info_gga_k_vjks) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_ernzerhof) = {
+const xc_func_info_type xc_func_info_gga_k_ernzerhof = {
   XC_GGA_K_ERNZERHOF,
   XC_KINETIC,
   "Ernzerhof",

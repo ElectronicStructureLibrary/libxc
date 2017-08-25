@@ -23,31 +23,31 @@
 #define XC_HYB_MGGA_X_M06_HF    444 /* Minnesota M06-HF functional (exchange) */
 #define XC_HYB_MGGA_X_M06       449 /* M06 exchange functional                */
 
-static const FLOAT a_m06l[12] = {
+static const double a_m06l[12] = {
   0.3987756, 0.2548219, 0.3923994, -2.103655, -6.302147, 10.97615,
   30.97273,  -23.18489, -56.73480, 21.60364, 34.21814, -9.049762
 };
-static const FLOAT d_m06l[6] = {0.6012244, 0.004748822, -0.008635108, -0.000009308062, 0.00004482811, 0.0};
+static const double d_m06l[6] = {0.6012244, 0.004748822, -0.008635108, -0.000009308062, 0.00004482811, 0.0};
 
-static const FLOAT a_m06hf[12] = {
+static const double a_m06hf[12] = {
    1.179732e-01, -1.066708e+00, -1.462405e-01,  7.481848e+00,  3.776679e+00, -4.436118e+01, 
   -1.830962e+01,  1.003903e+02,  3.864360e+01, -9.806018e+01, -2.557716e+01,  3.590404e+01
 };
-static const FLOAT d_m06hf[6] = {-1.179732e-01, -2.500000e-03, -1.180065e-02, 0.0, 0.0, 0.0};
+static const double d_m06hf[6] = {-1.179732e-01, -2.500000e-03, -1.180065e-02, 0.0, 0.0, 0.0};
 
-static const FLOAT a_m06[12] = {
+static const double a_m06[12] = {
    5.877943e-01, -1.371776e-01,  2.682367e-01, -2.515898e+00, -2.978892e+00,  8.710679e+00,
    1.688195e+01, -4.489724e+00, -3.299983e+01, -1.449050e+01,  2.043747e+01,  1.256504e+01
 };
-static const FLOAT d_m06[6] = {1.422057e-01, 7.370319e-04, -1.601373e-02, 0.0, 0.0, 0.0};
+static const double d_m06[6] = {1.422057e-01, 7.370319e-04, -1.601373e-02, 0.0, 0.0, 0.0};
 
 typedef struct{
-  const FLOAT *a, *d;
+  const double *a, *d;
 } mgga_x_m06l_params;
 
 
 static void
-mgga_x_m06l_init(XC(func_type) *p)
+mgga_x_m06l_init(xc_func_type *p)
 {
   mgga_x_m06l_params *params;
 
@@ -78,10 +78,10 @@ mgga_x_m06l_init(XC(func_type) *p)
 
 #include "maple2c/mgga_x_m06l.c"
 
-#define func XC(mgga_x_m06l_enhance)
+#define func xc_mgga_x_m06l_enhance
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_m06_l) = {
+const xc_func_info_type xc_func_info_mgga_x_m06_l = {
   XC_MGGA_X_M06_L,
   XC_EXCHANGE,
   "Minnesota M06-L functional",
@@ -94,7 +94,7 @@ const XC(func_info_type) XC(func_info_mgga_x_m06_l) = {
   NULL, NULL, work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_hyb_mgga_x_m06_hf) = {
+const xc_func_info_type xc_func_info_hyb_mgga_x_m06_hf = {
   XC_HYB_MGGA_X_M06_HF,
   XC_EXCHANGE,
   "Minnesota M06-HF functional (exchange)",
@@ -107,7 +107,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_m06_hf) = {
   NULL, NULL, work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_hyb_mgga_x_m06) = {
+const xc_func_info_type xc_func_info_hyb_mgga_x_m06 = {
   XC_HYB_MGGA_X_M06,
   XC_EXCHANGE,
   "Minnesota M06 functional exchange",

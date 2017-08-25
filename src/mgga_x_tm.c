@@ -22,10 +22,10 @@
 
 #include "maple2c/mgga_x_tm.c"
 
-#define func XC(mgga_x_tm_enhance)
+#define func xc_mgga_x_tm_enhance
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_tm) = {
+const xc_func_info_type xc_func_info_mgga_x_tm = {
   XC_MGGA_X_TM,
   XC_EXCHANGE,
   "Tao and Mo 2016",

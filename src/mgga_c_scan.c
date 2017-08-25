@@ -27,7 +27,7 @@
 #define func maple2c_func
 #include "work_mgga_c.c"
 
-const XC(func_info_type) XC(func_info_mgga_c_scan) = {
+const xc_func_info_type xc_func_info_mgga_c_scan = {
   XC_MGGA_C_SCAN,
   XC_CORRELATION,
   "SCAN correlation of Sun, Ruzsinszky, and Perdew",
@@ -42,18 +42,18 @@ const XC(func_info_type) XC(func_info_mgga_c_scan) = {
 
 
 static void
-mgga_c_scan_rvv10_init(XC(func_type) *p)
+mgga_c_scan_rvv10_init(xc_func_type *p)
 {
   static int   funcs_id  [1] = {XC_MGGA_C_SCAN};
-  static FLOAT funcs_coef[1] = {1.0};
+  static double funcs_coef[1] = {1.0};
 
-  XC(mix_init)(p, 1, funcs_id, funcs_coef);
+  xc_mix_init(p, 1, funcs_id, funcs_coef);
 
   p->nlc_b = 15.7;
   p->nlc_C = 0.0093;
 }
 
-const XC(func_info_type) XC(func_info_mgga_c_scan_rvv10) = {
+const xc_func_info_type xc_func_info_mgga_c_scan_rvv10 = {
   XC_MGGA_C_SCAN_RVV10,
   XC_EXCHANGE_CORRELATION,
   "SCAN+rVV10 correlation",

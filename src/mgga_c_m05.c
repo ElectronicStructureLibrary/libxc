@@ -24,8 +24,8 @@
 #define XC_MGGA_C_DLDF           37 /* Dispersionless Density Functional   */
 
 typedef struct{
-  FLOAT gamma_ss, gamma_ab;
-  const FLOAT css[5], cab[5];
+  double gamma_ss, gamma_ab;
+  const double css[5], cab[5];
 } mgga_c_m05_params;
 
 static const mgga_c_m05_params par_m05 = {
@@ -47,7 +47,7 @@ static const mgga_c_m05_params par_dldf = {
 };
 
 static void 
-mgga_c_vsxc_init(XC(func_type) *p)
+mgga_c_vsxc_init(xc_func_type *p)
 {
   mgga_c_m05_params *params;
 
@@ -76,7 +76,7 @@ mgga_c_vsxc_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_mgga_c.c"
 
-const XC(func_info_type) XC(func_info_mgga_c_m05) = {
+const xc_func_info_type xc_func_info_mgga_c_m05 = {
   XC_MGGA_C_M05,
   XC_CORRELATION,
   "Worker for hyb_mgga_xc_m05",
@@ -90,7 +90,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m05) = {
 };
 
 
-const XC(func_info_type) XC(func_info_mgga_c_m05_2x) = {
+const xc_func_info_type xc_func_info_mgga_c_m05_2x = {
   XC_MGGA_C_M05_2X,
   XC_CORRELATION,
   "Worker for hyb_mgga_xc_m05_2x",
@@ -103,7 +103,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m05_2x) = {
   NULL, NULL, work_mgga_c
 };
 
-const XC(func_info_type) XC(func_info_mgga_c_dldf) = {
+const xc_func_info_type xc_func_info_mgga_c_dldf = {
   XC_MGGA_C_DLDF,
   XC_CORRELATION,
   "Dispersionless Density Functional",

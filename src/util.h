@@ -29,9 +29,6 @@
 
 #include "xc.h"
 
-/* xc_config.h needs to be included to use FLOAT and related macros*/
-#include "xc_config.h"
-
 /* we include the references also */
 #include "references.h"
 
@@ -43,6 +40,29 @@
 #endif
 #ifndef M_SQRT2
 # define M_SQRT2        1.41421356237309504880  /* sqrt(2) */
+#endif
+
+#define POW_2(x) ((x)*(x))
+#define POW_3(x) ((x)*(x)*(x))
+
+#define POW_1_2(x) sqrt(x)
+#define POW_1_4(x) sqrt(sqrt(x))
+#define POW_3_2(x) ((x)*sqrt(x))
+
+#ifdef HAVE_CBRT
+#define CBRT(x)    cbrt(x)
+#define POW_1_3(x) cbrt(x)
+#define POW_2_3(x) (cbrt(x)*cbrt(x))
+#define POW_4_3(x) ((x)*cbrt(x))
+#define POW_5_3(x) ((x)*cbrt(x)*cbrt(x))
+#define POW_7_3(x) ((x)*(x)*cbrt(x))
+#else
+#define CBRT(x) pow((x), 1.0/3.0)
+#define POW_1_3(x) pow((x), 1.0/3.0)
+#define POW_2_3(x) pow((x), 2.0/3.0)
+#define POW_4_3(x) pow((x), 4.0/3.0)
+#define POW_5_3(x) pow((x), 5.0/3.0)
+#define POW_7_3(x) pow((x), 7.0/3.0)
 #endif
 
 #ifdef _MSC_VER
@@ -75,21 +95,21 @@ double erfc(double);
 #endif
 
 /* some useful constants */
-#define LOG_FLOAT_MIN   (LOG(FLOAT_MIN))
-#define LOG_FLOAT_MAX   (LOG(FLOAT_MAX))
-#define SQRT_FLOAT_EPSILON   (SQRT(FLOAT_EPSILON))
+#define LOG_DBL_MIN   (log(DBL_MIN))
+#define LOG_DBL_MAX   (log(DBL_MAX))
+#define SQRT_DBL_EPSILON   (sqrt(DBL_EPSILON))
 
 /* special functions */
 #define Heaviside(x) (((x) >= 0) ? 1.0 : 0.0)
 double LambertW(double z);
-FLOAT XC(dilogarithm)(const FLOAT x);
+double xc_dilogarithm(const double x);
 
 /* we define this function here, so it can be properly inlined by all compilers */
-static inline FLOAT
-XC(cheb_eval)(const FLOAT x, const FLOAT *cs, const int N)
+static inline double
+xc_cheb_eval(const double x, const double *cs, const int N)
 {
   int i;
-  FLOAT twox, b0, b1, b2;
+  double twox, b0, b1, b2;
 
   b2 = b1 = b0 = 0.0;
 
@@ -103,32 +123,32 @@ XC(cheb_eval)(const FLOAT x, const FLOAT *cs, const int N)
   return 0.5*(b0 - b2);
 }
 
-FLOAT XC(bessel_I0_scaled)(const FLOAT x);
-FLOAT XC(bessel_I0)(const FLOAT x);
-FLOAT XC(bessel_K0_scaled)(const FLOAT x);
-FLOAT XC(bessel_K0)(const FLOAT x);
-FLOAT XC(bessel_K1_scaled)(const FLOAT x);
-FLOAT XC(bessel_K1)(const FLOAT x);
+double xc_bessel_I0_scaled(const double x);
+double xc_bessel_I0(const double x);
+double xc_bessel_K0_scaled(const double x);
+double xc_bessel_K0(const double x);
+double xc_bessel_K1_scaled(const double x);
+double xc_bessel_K1(const double x);
 
-FLOAT XC(expint_e1_impl)(const FLOAT x, const int scale);
-static inline FLOAT expint_e1(const FLOAT x)         { return  XC(expint_e1_impl)( x, 0); }
-static inline FLOAT expint_e1_scaled(const FLOAT x)  { return  XC(expint_e1_impl)( x, 1); }
-static inline FLOAT expint_Ei(const FLOAT x)         { return -XC(expint_e1_impl)(-x, 0); }
+double xc_expint_e1_impl(const double x, const int scale);
+static inline double expint_e1(const double x)         { return  xc_expint_e1_impl( x, 0); }
+static inline double expint_e1_scaled(const double x)  { return  xc_expint_e1_impl( x, 1); }
+static inline double expint_Ei(const double x)         { return -xc_expint_e1_impl(-x, 0); }
 #define Ei(x) expint_Ei(x)
-static inline FLOAT expint_Ei_scaled(const FLOAT x)  { return -XC(expint_e1_impl)(-x, 1); }
+static inline double expint_Ei_scaled(const double x)  { return -xc_expint_e1_impl(-x, 1); }
 
 /* integration */
-typedef void integr_fn(FLOAT *x, int n, void *ex);
-FLOAT XC(integrate)(integr_fn func, void *ex, FLOAT a, FLOAT b);
-void XC(rdqagse)(integr_fn f, void *ex, FLOAT *a, FLOAT *b, 
-	     FLOAT *epsabs, FLOAT *epsrel, int *limit, FLOAT *result,
-	     FLOAT *abserr, int *neval, int *ier, FLOAT *alist__,
-	     FLOAT *blist, FLOAT *rlist, FLOAT *elist, int *iord, int *last);
+typedef void integr_fn(double *x, int n, void *ex);
+double xc_integrate(integr_fn func, void *ex, double a, double b);
+void xc_rdqagse(integr_fn f, void *ex, double *a, double *b, 
+	     double *epsabs, double *epsrel, int *limit, double *result,
+	     double *abserr, int *neval, int *ier, double *alist__,
+	     double *blist, double *rlist, double *elist, int *iord, int *last);
   
-typedef struct XC(functional_key_t) {
+typedef struct xc_functional_key_t {
   char name[256];
   int  number;
-} XC(functional_key_t);
+} xc_functional_key_t;
 
 
 #define M_C 137.0359996287515 /* speed of light */
@@ -143,12 +163,12 @@ typedef struct XC(functional_key_t) {
 #define FZETAFACTOR    0.5198420997897463295344212145564567011405     /* 2^(4/3) - 2           */
 
 #define RS(x)          (RS_FACTOR/CBRT(x))
-#define FZETA(x)       ((POW(1.0 + (x),  4.0/3.0) + POW(1.0 - (x),  4.0/3.0) - 2.0)/FZETAFACTOR)
+#define FZETA(x)       ((pow(1.0 + (x),  4.0/3.0) + pow(1.0 - (x),  4.0/3.0) - 2.0)/FZETAFACTOR)
 #define DFZETA(x)      ((CBRT(1.0 + (x)) - CBRT(1.0 - (x)))*(4.0/3.0)/FZETAFACTOR)
 #define D2FZETA(x)     ((4.0/9.0)/FZETAFACTOR)* \
-  (ABS(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -2.0/3.0) + pow(1.0 - (x), -2.0/3.0)))
+  (fabs(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -2.0/3.0) + pow(1.0 - (x), -2.0/3.0)))
 #define D3FZETA(x)     (-(8.0/27.0)/FZETAFACTOR)* \
-  (ABS(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -5.0/3.0) - pow(1.0 - (x), -5.0/3.0)))
+  (fabs(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -5.0/3.0) - pow(1.0 - (x), -5.0/3.0)))
 
 #define MIN_DENS             5.0e-13
 #define MIN_GRAD             5.0e-13
@@ -156,187 +176,187 @@ typedef struct XC(functional_key_t) {
 #define MIN_ZETA             5.0e-13
 
 /* The following inlines confuse the xlc compiler */
-void XC(rho2dzeta)(int nspin, const FLOAT *rho, FLOAT *d, FLOAT *zeta);
-void XC(fast_fzeta)(const FLOAT x, const int nspin, const int order, FLOAT * fz);
-void XC(mix_init)(XC(func_type) *p, int n_funcs, const int *funcs_id, const FLOAT *mix_coef);
+void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
+void xc_fast_fzeta(const double x, const int nspin, const int order, double * fz);
+void xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix_coef);
 
 /* LDAs */
-void XC(lda_init)(XC(func_type) *p);
-void XC(lda_end) (XC(func_type) *p);
+void xc_lda_init(xc_func_type *p);
+void xc_lda_end (xc_func_type *p);
 
-typedef struct XC(lda_work_t) {
+typedef struct xc_lda_work_t {
   int   order; /* to which order should I return the derivatives */
-  FLOAT rs, z;
+  double rs, z;
 
-  FLOAT f;                                   /* energy per unit particle */
-  FLOAT dfdrs, dfdz;                         /*  first derivatives of e  */
-  FLOAT d2fdrs2, d2fdrsz, d2fdz2;            /* second derivatives of e  */
-  FLOAT d3fdrs3, d3fdrs2z, d3fdrsz2, d3fdz3; /*  third derivatives of e  */
-} XC(lda_work_t);
+  double f;                                   /* energy per unit particle */
+  double dfdrs, dfdz;                         /*  first derivatives of e  */
+  double d2fdrs2, d2fdrsz, d2fdz2;            /* second derivatives of e  */
+  double d3fdrs3, d3fdrs2z, d3fdrsz2, d3fdz3; /*  third derivatives of e  */
+} xc_lda_work_t;
 
-void XC(lda_fxc_fd)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *fxc);
-void XC(lda_kxc_fd)(const XC(func_type) *p, int np, const FLOAT *rho, FLOAT *kxc);
+void xc_lda_fxc_fd(const xc_func_type *p, int np, const double *rho, double *fxc);
+void xc_lda_kxc_fd(const xc_func_type *p, int np, const double *rho, double *kxc);
 
 /* the different possibilities for screening the interaction */
 #define XC_RSF_ERF      0
 #define XC_RSF_ERF_GAU  1
 #define XC_RSF_YUKAWA   2
 
-typedef void XC(lda_func_type) (const XC(func_type) *p, XC(lda_work_t) *r);
+typedef void xc_lda_func_type (const xc_func_type *p, xc_lda_work_t *r);
 
-void XC(lda_x_attenuation_function_erf)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f);
-void XC(lda_x_attenuation_function_erf_gau)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f);
-void XC(lda_x_attenuation_function_yukawa)(int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f);
-void XC(lda_x_attenuation_function)(int interaction, int order, FLOAT aa, FLOAT *f, FLOAT *df, FLOAT *d2f, FLOAT *d3f);
+void xc_lda_x_attenuation_function_erf(int order, double aa, double *f, double *df, double *d2f, double *d3f);
+void xc_lda_x_attenuation_function_erf_gau(int order, double aa, double *f, double *df, double *d2f, double *d3f);
+void xc_lda_x_attenuation_function_yukawa(int order, double aa, double *f, double *df, double *d2f, double *d3f);
+void xc_lda_x_attenuation_function(int interaction, int order, double aa, double *f, double *df, double *d2f, double *d3f);
 
 /* direct access to the internal functions */
-void XC(lda_x_func)     (const XC(func_type) *p, XC(lda_work_t) *r);
-void XC(lda_x_erf_func) (const XC(func_type) *p, XC(lda_work_t) *r);
-void XC(lda_c_hl_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
-void XC(lda_c_vwn_func) (const XC(func_type) *p, XC(lda_work_t) *r);
-void XC(lda_c_pw_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
-void XC(lda_c_pz_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
-void XC(lda_c_rc04_func)(const XC(func_type) *p, XC(lda_work_t) *r);
-void XC(lda_c_2d_amgb_func)(const XC(func_type) *p, XC(lda_work_t) *r);
+void xc_lda_x_func     (const xc_func_type *p, xc_lda_work_t *r);
+void xc_lda_x_erf_func (const xc_func_type *p, xc_lda_work_t *r);
+void xc_lda_c_hl_func  (const xc_func_type *p, xc_lda_work_t *r);
+void xc_lda_c_vwn_func (const xc_func_type *p, xc_lda_work_t *r);
+void xc_lda_c_pw_func  (const xc_func_type *p, xc_lda_work_t *r);
+void xc_lda_c_pz_func  (const xc_func_type *p, xc_lda_work_t *r);
+void xc_lda_c_rc04_func(const xc_func_type *p, xc_lda_work_t *r);
+void xc_lda_c_2d_amgb_func(const xc_func_type *p, xc_lda_work_t *r);
 
 /* GGAs */
-typedef struct XC(gga_work_x_t) {
+typedef struct xc_gga_work_x_t {
   int   order; /* to which order should I return the derivatives */
-  FLOAT x;
+  double x;
 
-  FLOAT f;          /* enhancement factor       */
-  FLOAT dfdx;       /* first derivatives of f  */
-  FLOAT d2fdx2;     /* second derivatives of zk */
-  FLOAT d3fdx3;
-} XC(gga_work_x_t);
+  double f;          /* enhancement factor       */
+  double dfdx;       /* first derivatives of f  */
+  double d2fdx2;     /* second derivatives of zk */
+  double d3fdx3;
+} xc_gga_work_x_t;
 
-void work_gga_becke_init(XC(func_type) *p);
+void work_gga_becke_init(xc_func_type *p);
 
 /* exchange enhancement factors: if you add one, please add it also to the util.c */
-typedef void(*xc_gga_enhancement_t)(const XC(func_type) *, XC(gga_work_x_t) *r);
-xc_gga_enhancement_t XC(get_gga_enhancement_factor)(int func_id);
+typedef void(*xc_gga_enhancement_t)(const xc_func_type *, xc_gga_work_x_t *r);
+xc_gga_enhancement_t xc_get_gga_enhancement_factor(int func_id);
 
-void XC(gga_x_wc_enhance)   (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_pbe_enhance)  (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_pw91_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_rpbe_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_htbs_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_b86_enhance)  (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_b88_enhance)  (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_g96_enhance)  (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_pw86_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_airy_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_ak13_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_bayesian_enhance)(const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_bpccac_enhance)(const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_c09x_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_am05_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_dk87_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_herman_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_lg93_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_lv_rpw86_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_mpbe_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_optx_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_sogga11_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_ssb_sw_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_vmt_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void xc_gga_x_wc_enhance   (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_pbe_enhance  (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_pw91_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_rpbe_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_htbs_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_b86_enhance  (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_b88_enhance  (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_g96_enhance  (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_pw86_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_airy_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_ak13_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_bayesian_enhance(const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_bpccac_enhance(const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_c09x_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_am05_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_dk87_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_herman_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_lg93_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_lv_rpw86_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_mpbe_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_optx_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_sogga11_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_ssb_sw_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_vmt_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
 
 /* these functions are used in more than one functional */
-void XC(lda_c_pw_g)(int func, int order, int k, FLOAT *rs, FLOAT *f, FLOAT *dfdrs, FLOAT *d2fdrs2, FLOAT *d3fdrs3);
-void XC(beta_Hu_Langreth) (FLOAT r, int order, FLOAT *b, FLOAT *dbdr, FLOAT *d2bdr2);
+void xc_lda_c_pw_g(int func, int order, int k, double *rs, double *f, double *dfdrs, double *d2fdrs2, double *d3fdrs3);
+void xc_beta_Hu_Langreth (double r, int order, double *b, double *dbdr, double *d2bdr2);
 
-typedef struct XC(gga_work_c_t) {
+typedef struct xc_gga_work_c_t {
   int   order; /* to which order should I return the derivatives */
 
-  FLOAT dens, ds[2], sigmat, sigmas[3];
-  FLOAT rs, z, xt, xs[2];
+  double dens, ds[2], sigmat, sigmas[3];
+  double rs, z, xt, xs[2];
 
-  FLOAT f;
+  double f;
 
-  FLOAT dfdrs, dfdz, dfdxt, dfdxs[2];
-  FLOAT d2fdrs2, d2fdrsz, d2fdrsxt, d2fdrsxs[2], d2fdz2, 
+  double dfdrs, dfdz, dfdxt, dfdxs[2];
+  double d2fdrs2, d2fdrsz, d2fdrsxt, d2fdrsxs[2], d2fdz2, 
     d2fdzxt, d2fdzxs[2], d2fdxt2, d2fdxtxs[2], d2fdxs2[3];
 
-  FLOAT d3fdrs3, d3fdz3, d3fdxt3, d3fdxs3[4]; /* uuu, uud, udd, ddd */
-  FLOAT d3fdrs2z, d3fdrs2xt, d3fdrs2xs[2];
-  FLOAT d3fdrsz2, d3fdz2xt, d3fdz2xs[2];
-  FLOAT d3fdrsxt2, d3fdzxt2, d3fdxt2xs[2];
-  FLOAT d3fdrsxs2[3], d3fdzxs2[3],d3fdxtxs2[3];
-  FLOAT d3fdrszxt, d3fdrszxs[2], d3fdrsxtxs[2], d3fdzxtxs[2];
-} XC(gga_work_c_t);
+  double d3fdrs3, d3fdz3, d3fdxt3, d3fdxs3[4]; /* uuu, uud, udd, ddd */
+  double d3fdrs2z, d3fdrs2xt, d3fdrs2xs[2];
+  double d3fdrsz2, d3fdz2xt, d3fdz2xs[2];
+  double d3fdrsxt2, d3fdzxt2, d3fdxt2xs[2];
+  double d3fdrsxs2[3], d3fdzxs2[3],d3fdxtxs2[3];
+  double d3fdrszxt, d3fdrszxs[2], d3fdrsxtxs[2], d3fdzxtxs[2];
+} xc_gga_work_c_t;
 
-void XC(gga_c_pw91_func)(const XC(func_type) *p, XC(gga_work_c_t) *r);
-void XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r);
-void XC(gga_c_pbeloc_func) (const XC(func_type) *p, XC(gga_work_c_t) *r);
-void XC(gga_c_regtpss_func) (const XC(func_type) *p, XC(gga_work_c_t) *r);
-void XC(gga_c_scan_e0_func) (const XC(func_type) *p, XC(gga_work_c_t) *r);
-void XC(gga_c_q2d_func) (const XC(func_type) *p, XC(gga_work_c_t) *r);
+void xc_gga_c_pw91_func(const xc_func_type *p, xc_gga_work_c_t *r);
+void xc_gga_c_pbe_func (const xc_func_type *p, xc_gga_work_c_t *r);
+void xc_gga_c_pbeloc_func (const xc_func_type *p, xc_gga_work_c_t *r);
+void xc_gga_c_regtpss_func (const xc_func_type *p, xc_gga_work_c_t *r);
+void xc_gga_c_scan_e0_func (const xc_func_type *p, xc_gga_work_c_t *r);
+void xc_gga_c_q2d_func (const xc_func_type *p, xc_gga_work_c_t *r);
 
 /* meta GGAs */
-typedef struct XC(mgga_work_x_t) {
+typedef struct xc_mgga_work_x_t {
   int   order; /* to which order should I return the derivatives */
-  FLOAT rs, zeta, x, t, u;
+  double rs, zeta, x, t, u;
 
-  FLOAT f;                                   /* enhancement factor       */
-  FLOAT dfdrs, dfdx, dfdt, dfdu;             /* first derivatives of f  */
-  FLOAT d2fdrs2, d2fdx2, d2fdt2, d2fdu2;     /* second derivatives of zk */
-  FLOAT d2fdrsx, d2fdrst, d2fdrsu, d2fdxt, d2fdxu, d2fdtu;
-} XC(mgga_work_x_t);
+  double f;                                   /* enhancement factor       */
+  double dfdrs, dfdx, dfdt, dfdu;             /* first derivatives of f  */
+  double d2fdrs2, d2fdx2, d2fdt2, d2fdu2;     /* second derivatives of zk */
+  double d2fdrsx, d2fdrst, d2fdrsu, d2fdxt, d2fdxu, d2fdtu;
+} xc_mgga_work_x_t;
 
-typedef struct XC(mgga_work_c_t) {
+typedef struct xc_mgga_work_c_t {
   int   order; /* to which order should I return the derivatives */
 
-  FLOAT dens, ds[2], sigmat, sigmas[3];
-  FLOAT rs, z, xt, xs[2], ts[2], us[2];
+  double dens, ds[2], sigmat, sigmas[3];
+  double rs, z, xt, xs[2], ts[2], us[2];
 
-  FLOAT f;
-  FLOAT dfdrs, dfdz, dfdxt, dfdxs[2], dfdts[2], dfdus[2];
-  FLOAT d2fdrs2, d2fdrsz, d2fdrsxt, d2fdrsxs[2], d2fdrsts[2], d2fdrsus[2];
-  FLOAT d2fdz2, d2fdzxt, d2fdzxs[2], d2fdzts[2], d2fdzus[2];
-  FLOAT d2fdxt2, d2fdxtxs[2], d2fdxtts[2], d2fdxtus[2];
-  FLOAT d2fdxs2[3], d2fdxsts[4], d2fdxsus[4];
-  FLOAT d2fdts2[3], d2fdtsus[4];
-  FLOAT d2fdus2[3];
-  FLOAT d3fdrs3, d3fdrs2z, d3fdrsz2, d3fdrszxt, d3fdrszxs[2], d3fdrszts[2], d3fdrszus[2];
-  FLOAT d3fdrs2xt, d3fdrsxt2, d3fdrsxtxs[2], d3fdrsxtts[2], d3fdrsxtus[2], d3fdrs2xs[2];
-  FLOAT d3fdrsxs2[3], d3fdrsxsts[4], d3fdrsxsus[4], d3fdrs2ts[2], d3fdrsts2[3];
-  FLOAT d3fdrstsus[4], d3fdrs2us[2], d3fdrsus2[3];
-  FLOAT d3fdz3, d3fdz2xt, d3fdzxt2, d3fdzxtxs[2], d3fdzxtts[2], d3fdzxtus[2];
-  FLOAT d3fdz2xs[2], d3fdzxs2[3], d3fdzxsts[4], d3fdzxsus[4], d3fdz2ts[2], d3fdzts2[3];
-  FLOAT d3fdztsus[4], d3fdz2us[2], d3fdzus2[3];
-  FLOAT d3fdxt3, d3fdxt2xs[2], d3fdxtxs2[3], d3fdxtxsts[4], d3fdxtxsus[4], d3fdxt2ts[2];
-  FLOAT d3fdxtts2[3], d3fdxttsus[4], d3fdxt2us[2], d3fdxtus2[3];
-  FLOAT d3fdxs3[4], d3fdxs2ts[6], d3fdxs2us[6], d3fdxsts2[6], d3fdxstsus[8], d3fdxsus2[6];
-  FLOAT d3fdts3[4], d3fdts2us[6], d3fdtsus2[6], d3fdus3[4];
-} XC(mgga_work_c_t);
+  double f;
+  double dfdrs, dfdz, dfdxt, dfdxs[2], dfdts[2], dfdus[2];
+  double d2fdrs2, d2fdrsz, d2fdrsxt, d2fdrsxs[2], d2fdrsts[2], d2fdrsus[2];
+  double d2fdz2, d2fdzxt, d2fdzxs[2], d2fdzts[2], d2fdzus[2];
+  double d2fdxt2, d2fdxtxs[2], d2fdxtts[2], d2fdxtus[2];
+  double d2fdxs2[3], d2fdxsts[4], d2fdxsus[4];
+  double d2fdts2[3], d2fdtsus[4];
+  double d2fdus2[3];
+  double d3fdrs3, d3fdrs2z, d3fdrsz2, d3fdrszxt, d3fdrszxs[2], d3fdrszts[2], d3fdrszus[2];
+  double d3fdrs2xt, d3fdrsxt2, d3fdrsxtxs[2], d3fdrsxtts[2], d3fdrsxtus[2], d3fdrs2xs[2];
+  double d3fdrsxs2[3], d3fdrsxsts[4], d3fdrsxsus[4], d3fdrs2ts[2], d3fdrsts2[3];
+  double d3fdrstsus[4], d3fdrs2us[2], d3fdrsus2[3];
+  double d3fdz3, d3fdz2xt, d3fdzxt2, d3fdzxtxs[2], d3fdzxtts[2], d3fdzxtus[2];
+  double d3fdz2xs[2], d3fdzxs2[3], d3fdzxsts[4], d3fdzxsus[4], d3fdz2ts[2], d3fdzts2[3];
+  double d3fdztsus[4], d3fdz2us[2], d3fdzus2[3];
+  double d3fdxt3, d3fdxt2xs[2], d3fdxtxs2[3], d3fdxtxsts[4], d3fdxtxsus[4], d3fdxt2ts[2];
+  double d3fdxtts2[3], d3fdxttsus[4], d3fdxt2us[2], d3fdxtus2[3];
+  double d3fdxs3[4], d3fdxs2ts[6], d3fdxs2us[6], d3fdxsts2[6], d3fdxstsus[8], d3fdxsus2[6];
+  double d3fdts3[4], d3fdts2us[6], d3fdtsus2[6], d3fdus3[4];
+} xc_mgga_work_c_t;
 
 
-void XC(mgga_x_scan_falpha)(int order, FLOAT a, FLOAT c1, FLOAT c2, FLOAT dd, FLOAT *f, FLOAT *dfda);
+void xc_mgga_x_scan_falpha(int order, double a, double c1, double c2, double dd, double *f, double *dfda);
 	 
 
 /* now the routines to set the _internal_ parameters of several functionals */
-void XC(gga_x_pw91_set_params)(XC(func_type) *p, FLOAT a, FLOAT b, FLOAT c, FLOAT d, FLOAT f, FLOAT alpha, FLOAT expo);
-void XC(gga_x_pw91_set_params2)(XC(func_type) *p, FLOAT bt, FLOAT alpha, FLOAT expo);
-void XC(gga_x_ssb_sw_set_params)(XC(func_type) *p, FLOAT A, FLOAT B, FLOAT C, FLOAT D, FLOAT E);
-void XC(gga_x_hjs_set_params)(XC(func_type) *p, FLOAT omega);
-void XC(gga_x_hjs_b88_v2_set_params)(XC(func_type) *p, FLOAT omega);
-void XC(gga_x_b88_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma);
-void XC(gga_x_optx_set_params)(XC(func_type) *p, FLOAT a, FLOAT b, FLOAT gamma);
-void XC(gga_x_wpbeh_set_params)(XC(func_type) *p, FLOAT omega);
-void XC(gga_x_pbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu);
-void XC(gga_x_pbeint_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT alpha, FLOAT muPBE, FLOAT muGE);
-void XC(gga_x_ityh_set_params)(XC(func_type) *p, int func_id, FLOAT omega);
-void XC(gga_x_b86_set_params)(XC(func_type) *p, FLOAT beta, FLOAT gamma, FLOAT omega);
-void XC(gga_x_rpbe_set_params)(XC(func_type) *p, FLOAT kappa, FLOAT mu);
-void XC(gga_x_sfat_set_params)(XC(func_type) *p, int func_id, FLOAT omega);
-void XC(gga_x_kt_set_params)(XC(func_type) *p, FLOAT gamma, FLOAT delta);
-void XC(gga_c_lyp_set_params)(XC(func_type) *p, FLOAT A, FLOAT B, FLOAT c, FLOAT d);
-void XC(gga_c_pbe_set_params)(XC(func_type) *p, FLOAT beta);
+void xc_gga_x_pw91_set_params(xc_func_type *p, double a, double b, double c, double d, double f, double alpha, double expo);
+void xc_gga_x_pw91_set_params2(xc_func_type *p, double bt, double alpha, double expo);
+void xc_gga_x_ssb_sw_set_params(xc_func_type *p, double A, double B, double C, double D, double E);
+void xc_gga_x_hjs_set_params(xc_func_type *p, double omega);
+void xc_gga_x_hjs_b88_v2_set_params(xc_func_type *p, double omega);
+void xc_gga_x_b88_set_params(xc_func_type *p, double beta, double gamma);
+void xc_gga_x_optx_set_params(xc_func_type *p, double a, double b, double gamma);
+void xc_gga_x_wpbeh_set_params(xc_func_type *p, double omega);
+void xc_gga_x_pbe_set_params(xc_func_type *p, double kappa, double mu);
+void xc_gga_x_pbeint_set_params(xc_func_type *p, double kappa, double alpha, double muPBE, double muGE);
+void xc_gga_x_ityh_set_params(xc_func_type *p, int func_id, double omega);
+void xc_gga_x_b86_set_params(xc_func_type *p, double beta, double gamma, double omega);
+void xc_gga_x_rpbe_set_params(xc_func_type *p, double kappa, double mu);
+void xc_gga_x_sfat_set_params(xc_func_type *p, int func_id, double omega);
+void xc_gga_x_kt_set_params(xc_func_type *p, double gamma, double delta);
+void xc_gga_c_lyp_set_params(xc_func_type *p, double A, double B, double c, double d);
+void xc_gga_c_pbe_set_params(xc_func_type *p, double beta);
 
-void XC(mgga_x_tpss_set_params)(XC(func_type) *p, FLOAT b, FLOAT c, FLOAT e, FLOAT kappa, FLOAT mu, FLOAT BLOC_a, FLOAT BLOC_b);
-void XC(mgga_c_tpss_set_params)(XC(func_type) *p, FLOAT beta, FLOAT d, FLOAT C0_0, FLOAT C0_1, FLOAT C0_2, FLOAT C0_3);
-void XC(mgga_c_pkzb_set_params)(XC(func_type) *p, FLOAT beta, FLOAT d, FLOAT C0_0, FLOAT C0_1, FLOAT C0_2, FLOAT C0_3);
-void XC(mgga_c_bc95_set_params)(XC(func_type) *p, FLOAT css, FLOAT copp);
+void xc_mgga_x_tpss_set_params(xc_func_type *p, double b, double c, double e, double kappa, double mu, double BLOC_a, double BLOC_b);
+void xc_mgga_c_tpss_set_params(xc_func_type *p, double beta, double d, double C0_0, double C0_1, double C0_2, double C0_3);
+void xc_mgga_c_pkzb_set_params(xc_func_type *p, double beta, double d, double C0_0, double C0_1, double C0_2, double C0_3);
+void xc_mgga_c_bc95_set_params(xc_func_type *p, double css, double copp);
 
 /* useful MACROS */
 #define DFRACTION(num, dnum, den, dden) \

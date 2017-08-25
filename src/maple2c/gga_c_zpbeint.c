@@ -7,8 +7,8 @@
   Type of functional: work_gga_c
 */
 
-void XC(gga_c_zpbeint_func)
-  (const XC(func_type) *p, XC(gga_work_c_t) *r)
+void xc_gga_c_zpbeint_func
+  (const xc_func_type *p, xc_gga_work_c_t *r)
 {
   double t2, t3, t6, t8, t10, t13, t14, t16;
   double t17, t18, t19, t20, t21, t22, t23, t24;
@@ -189,7 +189,7 @@ void XC(gga_c_zpbeint_func)
   t127 = 0.1e1 / t126;
   t128 = t2 * t127;
   t129 = 0.1e1 / t3;
-  t131 = SQRT(r->rs);
+  t131 = sqrt(r->rs);
   t134 = 0.37978500000000000000e1 * t129 + 0.35876e1 + 0.245730e1 * t131 + 0.98588e0 * r->rs;
   t135 = 0.1e1 / t13;
   t136 = t134 * t135;
@@ -318,7 +318,7 @@ void XC(gga_c_zpbeint_func)
   t341 = t2 * t340;
   t342 = t134 * t134;
   t345 = 0.20000000000000000000e1 * t341 * t342 * t135;
-  t347 = 0.1e1/SQRT(r->rs);
+  t347 = 0.1e1/sqrt(r->rs);
   t349 = -0.18989250000000000000e1 * t74 + 0.1228650e1 * t347 + 0.98588e0;
   t352 = 0.10000000000000000000e1 * t128 * t349 * t135;
   t353 = t126 * t126;
@@ -857,4 +857,4 @@ void XC(gga_c_zpbeint_func)
 }
 
 #define maple2c_order 3
-#define maple2c_func  XC(gga_c_zpbeint_func)
+#define maple2c_func  xc_gga_c_zpbeint_func

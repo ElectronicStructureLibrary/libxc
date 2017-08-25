@@ -20,16 +20,16 @@
 #include "xc.h"
 #include "funcs_key.c"
 
-extern XC(func_info_type) 
-  *XC(lda_known_funct)[], 
-  *XC(gga_known_funct)[],
-  *XC(hyb_gga_known_funct)[],
-  *XC(mgga_known_funct)[],
-  *XC(hyb_mgga_known_funct)[];
+extern xc_func_info_type 
+  *xc_lda_known_funct[], 
+  *xc_gga_known_funct[],
+  *xc_hyb_gga_known_funct[],
+  *xc_mgga_known_funct[],
+  *xc_hyb_mgga_known_funct[];
 
 
 /*------------------------------------------------------*/
-int XC(functional_get_number)(const char *name)
+int xc_functional_get_number(const char *name)
 {
   int ii;
   int key=-1;
@@ -43,10 +43,10 @@ int XC(functional_get_number)(const char *name)
   }
 
   for(ii=0;;ii++){
-    if(XC(functional_keys)[ii].number == -1)
+    if(xc_functional_keys[ii].number == -1)
       break;
-    if(strcasecmp(XC(functional_keys)[ii].name, p) == 0){
-      key = XC(functional_keys)[ii].number;
+    if(strcasecmp(xc_functional_keys[ii].name, p) == 0){
+      key = xc_functional_keys[ii].number;
       break;
     }
   }
@@ -56,28 +56,28 @@ int XC(functional_get_number)(const char *name)
 
 
 /*------------------------------------------------------*/
-char *XC(functional_get_name)(const int number)
+char *xc_functional_get_name(const int number)
 {
   int ii;
 
   for(ii=0;;ii++){
-    if(XC(functional_keys)[ii].number == -1)
+    if(xc_functional_keys[ii].number == -1)
       return NULL;
-    if(XC(functional_keys)[ii].number == number)
+    if(xc_functional_keys[ii].number == number)
       /* return duplicated: caller has the responsibility to dealloc string */
-      return strdup(XC(functional_keys)[ii].name);
+      return strdup(xc_functional_keys[ii].name);
   }
 }
 
 
 /*------------------------------------------------------*/
-int XC(family_from_id)(int id, int *family, int *number)
+int xc_family_from_id(int id, int *family, int *number)
 {
   int ii;
 
   /* first let us check if it is an LDA */
-  for(ii=0; XC(lda_known_funct)[ii]!=NULL; ii++){
-    if(XC(lda_known_funct)[ii]->number == id){
+  for(ii=0; xc_lda_known_funct[ii]!=NULL; ii++){
+    if(xc_lda_known_funct[ii]->number == id){
       if(family != NULL) *family = XC_FAMILY_LDA;
       if(number != NULL) *number = ii;
       return XC_FAMILY_LDA;
@@ -85,8 +85,8 @@ int XC(family_from_id)(int id, int *family, int *number)
   }
 
   /* or is it a GGA? */
-  for(ii=0; XC(gga_known_funct)[ii]!=NULL; ii++){
-    if(XC(gga_known_funct)[ii]->number == id){
+  for(ii=0; xc_gga_known_funct[ii]!=NULL; ii++){
+    if(xc_gga_known_funct[ii]->number == id){
       if(family != NULL) *family = XC_FAMILY_GGA;
       if(number != NULL) *number = ii;
       return XC_FAMILY_GGA;
@@ -94,8 +94,8 @@ int XC(family_from_id)(int id, int *family, int *number)
   }
 
   /* or is it a hybrid GGA? */
-  for(ii=0; XC(hyb_gga_known_funct)[ii]!=NULL; ii++){
-    if(XC(hyb_gga_known_funct)[ii]->number == id){
+  for(ii=0; xc_hyb_gga_known_funct[ii]!=NULL; ii++){
+    if(xc_hyb_gga_known_funct[ii]->number == id){
       if(family != NULL) *family = XC_FAMILY_HYB_GGA;
       if(number != NULL) *number = ii;
       return XC_FAMILY_HYB_GGA;
@@ -103,8 +103,8 @@ int XC(family_from_id)(int id, int *family, int *number)
   }
 
   /* or is it a meta GGA? */
-  for(ii=0; XC(mgga_known_funct)[ii]!=NULL; ii++){
-    if(XC(mgga_known_funct)[ii]->number == id){
+  for(ii=0; xc_mgga_known_funct[ii]!=NULL; ii++){
+    if(xc_mgga_known_funct[ii]->number == id){
       if(family != NULL) *family = XC_FAMILY_MGGA;
       if(number != NULL) *number = ii;
       return XC_FAMILY_MGGA;
@@ -112,8 +112,8 @@ int XC(family_from_id)(int id, int *family, int *number)
   }
 
   /* or is it a hybrid meta GGA? */
-  for(ii=0; XC(hyb_mgga_known_funct)[ii]!=NULL; ii++){
-    if(XC(hyb_mgga_known_funct)[ii]->number == id){
+  for(ii=0; xc_hyb_mgga_known_funct[ii]!=NULL; ii++){
+    if(xc_hyb_mgga_known_funct[ii]->number == id){
       if(family != NULL) *family = XC_FAMILY_HYB_MGGA;
       if(number != NULL) *number = ii;
       return XC_FAMILY_HYB_MGGA;
@@ -124,16 +124,16 @@ int XC(family_from_id)(int id, int *family, int *number)
 }
 
 /*------------------------------------------------------*/
-XC(func_type) *XC(func_alloc)()
+xc_func_type *xc_func_alloc()
 {
-  XC(func_type) *func;
+  xc_func_type *func;
 
-  func = (XC(func_type) *) malloc (sizeof (XC(func_type)));
+  func = (xc_func_type *) malloc (sizeof (xc_func_type));
   return func;
 }
 
 /*------------------------------------------------------*/
-int XC(func_init)(XC(func_type) *func, int functional, int nspin)
+int xc_func_init(xc_func_type *func, int functional, int nspin)
 {
   int number;
 
@@ -151,25 +151,25 @@ int XC(func_init)(XC(func_type) *func, int functional, int nspin)
   func->cam_omega = func->cam_alpha = func->cam_beta = 0.0;
   func->nlc_b = func->nlc_C = 0.0;
 
-  switch(XC(family_from_id)(functional, NULL, &number)){
+  switch(xc_family_from_id(functional, NULL, &number)){
   case(XC_FAMILY_LDA):
-    func->info = XC(lda_known_funct)[number];
+    func->info = xc_lda_known_funct[number];
     break;
 
   case(XC_FAMILY_GGA):
-    func->info = XC(gga_known_funct)[number];
+    func->info = xc_gga_known_funct[number];
     break;
 
   case(XC_FAMILY_HYB_GGA):
-    func->info = XC(hyb_gga_known_funct)[number];
+    func->info = xc_hyb_gga_known_funct[number];
     break;
 
   case(XC_FAMILY_MGGA):
-    func->info = XC(mgga_known_funct)[number];
+    func->info = xc_mgga_known_funct[number];
     break;
 
   case(XC_FAMILY_HYB_MGGA):
-    func->info = XC(hyb_mgga_known_funct)[number];
+    func->info = xc_hyb_mgga_known_funct[number];
     break;
 
   default:
@@ -177,7 +177,7 @@ int XC(func_init)(XC(func_type) *func, int functional, int nspin)
   }
 
   /* setup internal counters */
-  switch(XC(family_from_id)(functional, NULL, &number)){
+  switch(xc_family_from_id(functional, NULL, &number)){
   case(XC_FAMILY_MGGA):
   case(XC_FAMILY_HYB_MGGA):
     func->n_tau  = func->n_vtau = func->nspin;
@@ -233,7 +233,7 @@ int XC(func_init)(XC(func_type) *func, int functional, int nspin)
 
 
 /*------------------------------------------------------*/
-void XC(func_end)(XC(func_type) *func)
+void xc_func_end(xc_func_type *func)
 {
   assert(func != NULL && func->info != NULL);
 
@@ -246,7 +246,7 @@ void XC(func_end)(XC(func_type) *func)
     int ii;
 
     for(ii=0; ii<func->n_func_aux; ii++){
-      XC(func_end)(func->func_aux[ii]);
+      xc_func_end(func->func_aux[ii]);
       free(func->func_aux[ii]);
     }
     free(func->func_aux);
@@ -268,33 +268,33 @@ void XC(func_end)(XC(func_type) *func)
 }
 
 /*------------------------------------------------------*/
-void  XC(func_free)(XC(func_type) *p)
+void  xc_func_free(xc_func_type *p)
 {
   free(p);
 }
 
 /*------------------------------------------------------*/
-const XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p)
+const xc_func_info_type *xc_func_get_info(const xc_func_type *p)
 {
   return p->info;
 }
 
 /*------------------------------------------------------*/
-void XC(func_set_dens_threshold)(XC(func_type) *p, FLOAT dens_threshold)
+void xc_func_set_dens_threshold(xc_func_type *p, double dens_threshold)
 {
   p->dens_threshold = dens_threshold;
 }
 
 
 /*------------------------------------------------------*/
-void XC(func_set_ext_params)(XC(func_type) *p, double *ext_params)
+void xc_func_set_ext_params(xc_func_type *p, double *ext_params)
 {
   assert(p->info->n_ext_params > 0);
   p->info->set_ext_params(p, ext_params);
 }
 
 /* returns the mixing coefficient for the hybrid GGAs */
-FLOAT XC(hyb_exx_coef)(const XC(func_type) *p)
+double xc_hyb_exx_coef(const xc_func_type *p)
 {
   assert(p!=NULL);
  
@@ -302,7 +302,7 @@ FLOAT XC(hyb_exx_coef)(const XC(func_type) *p)
 }
 
 /* returns the CAM parameters for screened hybrids */
-void XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT *beta)
+void xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *beta)
 {
   assert(p!=NULL);
 
@@ -312,7 +312,7 @@ void XC(hyb_cam_coef)(const XC(func_type) *p, FLOAT *omega, FLOAT *alpha, FLOAT 
 }
 
 /* returns the NLC parameters */
-void XC(nlc_coef)(const XC(func_type) *p, FLOAT *nlc_b, FLOAT *nlc_C)
+void xc_nlc_coef(const xc_func_type *p, double *nlc_b, double *nlc_C)
 {
   assert(p!=NULL);
 

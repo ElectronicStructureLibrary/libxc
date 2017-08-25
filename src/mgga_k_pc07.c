@@ -22,11 +22,11 @@
 
 #include "maple2c/mgga_k_pc07.c"
 
-#define func XC(mgga_k_pc07_enhance)
+#define func xc_mgga_k_pc07_enhance
 #define XC_KINETIC_FUNCTIONAL
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_k_pc07) = {
+const xc_func_info_type xc_func_info_mgga_k_pc07 = {
   XC_MGGA_K_PC07,
   XC_EXCHANGE,
   "Perdew and Constantin 2007",

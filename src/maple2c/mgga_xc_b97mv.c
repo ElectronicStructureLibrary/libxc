@@ -7,8 +7,8 @@
   Type of functional: work_mgga_c
 */
 
-void XC(mgga_xc_b97mv_func)
-  (const XC(func_type) *p, XC(mgga_work_c_t) *r)
+void xc_mgga_xc_b97mv_func
+  (const xc_func_type *p, xc_mgga_work_c_t *r)
 {
   double t1, t2, t3, t4, t6, t7, t8, t9;
   double t11, t12, t13, t14, t15, t16, t17, t18;
@@ -297,7 +297,7 @@ void XC(mgga_xc_b97mv_func)
   t274 = t51 * t273;
   t275 = 0.1e1 / t52;
   t276 = t275 * t8;
-  t280 = SQRT(t49);
+  t280 = sqrt(t49);
   t281 = t280 * t8;
   t284 = r->rs * t9;
   t287 = 0.70594500000000000000e1 * t276 * t15 + 0.61977e1 * t267 + 0.504930e1 * t281 * t15 + 0.125034e1 * t284 * t59;
@@ -313,7 +313,7 @@ void XC(mgga_xc_b97mv_func)
   t305 = t123 * t304;
   t306 = 0.1e1 / t124;
   t307 = t306 * t8;
-  t311 = SQRT(t121);
+  t311 = sqrt(t121);
   t312 = t311 * t8;
   t317 = 0.70594500000000000000e1 * t307 * t95 + 0.61977e1 * t298 + 0.504930e1 * t312 * t95 + 0.125034e1 * t284 * t129;
   t318 = t305 * t317;
@@ -325,7 +325,7 @@ void XC(mgga_xc_b97mv_func)
   t326 = 0.1e1 / t325;
   t327 = t164 * t326;
   t328 = 0.1e1 / t165;
-  t330 = SQRT(r->rs);
+  t330 = sqrt(r->rs);
   t333 = 0.37978500000000000000e1 * t328 + 0.35876e1 + 0.245730e1 * t330 + 0.98588e0 * r->rs;
   t334 = 0.1e1 / t174;
   t335 = t333 * t334;
@@ -497,7 +497,7 @@ void XC(mgga_xc_b97mv_func)
   t716 = t714 * t715;
   t720 = 0.1e1 / t52 / t49;
   t721 = t720 * t9;
-  t724 = 0.1e1/SQRT(t49);
+  t724 = 0.1e1/sqrt(t49);
   t725 = t724 * t9;
   t730 = -0.35297250000000000000e1 * t721 * t59 + 0.2524650e1 * t725 * t59 + 0.125034e1 * t9 * t59;
   t731 = t274 * t730;
@@ -517,7 +517,7 @@ void XC(mgga_xc_b97mv_func)
   t756 = t754 * t755;
   t760 = 0.1e1 / t124 / t121;
   t761 = t760 * t9;
-  t764 = 0.1e1/SQRT(t121);
+  t764 = 0.1e1/sqrt(t121);
   t765 = t764 * t9;
   t770 = -0.35297250000000000000e1 * t761 * t129 + 0.2524650e1 * t765 * t129 + 0.125034e1 * t9 * t129;
   t771 = t305 * t770;
@@ -535,7 +535,7 @@ void XC(mgga_xc_b97mv_func)
   t790 = t333 * t333;
   t793 = 0.20000000000000000000e1 * t789 * t790 * t334;
   t795 = 0.1e1 / t165 / r->rs;
-  t797 = 0.1e1/SQRT(r->rs);
+  t797 = 0.1e1/sqrt(r->rs);
   t799 = -0.18989250000000000000e1 * t795 + 0.1228650e1 * t797 + 0.98588e0;
   t802 = 0.10000000000000000000e1 * t327 * t799 * t334;
   t803 = t325 * t325;
@@ -1306,4 +1306,4 @@ void XC(mgga_xc_b97mv_func)
 }
 
 #define maple2c_order 3
-#define maple2c_func  XC(mgga_xc_b97mv_func)
+#define maple2c_func  xc_mgga_xc_b97mv_func

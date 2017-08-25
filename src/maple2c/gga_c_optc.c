@@ -7,8 +7,8 @@
   Type of functional: work_gga_c
 */
 
-void XC(gga_c_optc_func)
-  (const XC(func_type) *p, XC(gga_work_c_t) *r)
+void xc_gga_c_optc_func
+  (const xc_func_type *p, xc_gga_work_c_t *r)
 {
   double t2, t3, t6, t8, t10, t13, t14, t15;
   double t17, t18, t19, t20, t21, t22, t23, t24;
@@ -427,7 +427,7 @@ void XC(gga_c_optc_func)
   t305 = 0.1e1 / t304;
   t306 = t2 * t305;
   t307 = 0.1e1 / t3;
-  t309 = SQRT(r->rs);
+  t309 = sqrt(r->rs);
   t312 = 0.37978500000000000000e1 * t307 + 0.35876e1 + 0.245730e1 * t309 + 0.98588e0 * r->rs;
   t313 = 0.1e1 / t13;
   t315 = t306 * t312 * t313;
@@ -501,7 +501,7 @@ void XC(gga_c_optc_func)
   t439 = 0.1e1 / t438;
   t440 = t160 * t439;
   t441 = 0.1e1 / t161;
-  t445 = SQRT(t158);
+  t445 = sqrt(t158);
   t448 = r->rs * t166;
   t450 = 0.70594500000000000000e1 * t441 * t157 + 0.61977e1 * t157 + 0.504930e1 * t445 * t157 + 0.125034e1 * t448;
   t451 = 0.1e1 / t172;
@@ -543,7 +543,7 @@ void XC(gga_c_optc_func)
   t531 = 0.1e1 / t530;
   t532 = t234 * t531;
   t533 = 0.1e1 / t235;
-  t537 = SQRT(t232);
+  t537 = sqrt(t232);
   t540 = r->rs * t240;
   t542 = 0.70594500000000000000e1 * t533 * t231 + 0.61977e1 * t231 + 0.504930e1 * t537 * t231 + 0.125034e1 * t540;
   t543 = 0.1e1 / t246;
@@ -725,7 +725,7 @@ void XC(gga_c_optc_func)
   if(r->order < 2) return;
 
   t979 = 0.1e1 / t3 / r->rs;
-  t981 = 0.1e1/SQRT(r->rs);
+  t981 = 0.1e1/sqrt(r->rs);
   t983 = -0.25892500000000000000e1 * t979 + 0.6601950e0 * t981 + 0.99342e0;
   t985 = t333 * t983 * t339;
   t986 = t349 * t985;
@@ -753,7 +753,7 @@ void XC(gga_c_optc_func)
   t1023 = t234 * t1022;
   t1024 = t542 * t542;
   t1029 = 0.1e1 / t235 / t232;
-  t1032 = 0.1e1/SQRT(t232);
+  t1032 = 0.1e1/sqrt(t232);
   t1036 = -0.35297250000000000000e1 * t1029 * t240 + 0.2524650e1 * t1032 * t240 + 0.125034e1 * t240;
   t1040 = t530 * t530;
   t1041 = 0.1e1 / t1040;
@@ -816,7 +816,7 @@ void XC(gga_c_optc_func)
   t1162 = t160 * t1161;
   t1163 = t450 * t450;
   t1168 = 0.1e1 / t161 / t158;
-  t1171 = 0.1e1/SQRT(t158);
+  t1171 = 0.1e1/sqrt(t158);
   t1175 = -0.35297250000000000000e1 * t1168 * t166 + 0.2524650e1 * t1171 * t166 + 0.125034e1 * t166;
   t1179 = t438 * t438;
   t1180 = 0.1e1 / t1179;
@@ -2160,4 +2160,4 @@ void XC(gga_c_optc_func)
 }
 
 #define maple2c_order 3
-#define maple2c_func  XC(gga_c_optc_func)
+#define maple2c_func  xc_gga_c_optc_func

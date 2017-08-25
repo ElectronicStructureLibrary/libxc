@@ -24,8 +24,8 @@
 #define XC_HYB_MGGA_X_M06_2X   450 /* M06-2X functional from Minnesota  */
 
 typedef struct{
-  FLOAT csi_HF;
-  const FLOAT a[12];
+  double csi_HF;
+  const double a[12];
 } mgga_x_m05_params;
 
 static const mgga_x_m05_params par_m05 = {
@@ -47,7 +47,7 @@ static const mgga_x_m05_params par_m06_2x = {
 };
 
 static void
-mgga_x_m05_init(XC(func_type) *p)
+mgga_x_m05_init(xc_func_type *p)
 {
   mgga_x_m05_params *params;
 
@@ -81,7 +81,7 @@ mgga_x_m05_init(XC(func_type) *p)
 #include "work_mgga_x.c"
 
 
-const XC(func_info_type) XC(func_info_hyb_mgga_x_m05) = {
+const xc_func_info_type xc_func_info_hyb_mgga_x_m05 = {
   XC_HYB_MGGA_X_M05,
   XC_EXCHANGE,
   "Minnesota M05 functional",
@@ -95,7 +95,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_m05) = {
 };
 
 
-const XC(func_info_type) XC(func_info_hyb_mgga_x_m05_2x) = {
+const xc_func_info_type xc_func_info_hyb_mgga_x_m05_2x = {
   XC_HYB_MGGA_X_M05_2X,
   XC_EXCHANGE,
   "M05-2X functional from Minnesota",
@@ -108,7 +108,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_m05_2x) = {
   NULL, NULL, work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_hyb_mgga_x_m06_2x) = {
+const xc_func_info_type xc_func_info_hyb_mgga_x_m06_2x = {
   XC_HYB_MGGA_X_M06_2X,
   XC_EXCHANGE,
   "M06-2X functional from Minnesota",

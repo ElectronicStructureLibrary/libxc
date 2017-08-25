@@ -7,8 +7,8 @@
   Type of functional: work_gga_c
 */
 
-void XC(gga_c_pw91_func)
-  (const XC(func_type) *p, XC(gga_work_c_t) *r)
+void xc_gga_c_pw91_func
+  (const xc_func_type *p, xc_gga_work_c_t *r)
 {
   double t2, t3, t6, t8, t10, t13, t14, t16;
   double t17, t18, t19, t20, t21, t22, t23, t24;
@@ -206,7 +206,7 @@ void XC(gga_c_pw91_func)
   t155 = 0.1e1 / t154;
   t156 = t2 * t155;
   t157 = 0.1e1 / t3;
-  t159 = SQRT(r->rs);
+  t159 = sqrt(r->rs);
   t162 = 0.37978500000000000000e1 * t157 + 0.35876e1 + 0.245730e1 * t159 + 0.98588e0 * r->rs;
   t163 = 0.1e1 / t13;
   t164 = t162 * t163;
@@ -346,7 +346,7 @@ void XC(gga_c_pw91_func)
   t419 = t162 * t162;
   t422 = 0.20000000000000000000e1 * t418 * t419 * t163;
   t424 = 0.1e1 / t3 / r->rs;
-  t426 = 0.1e1/SQRT(r->rs);
+  t426 = 0.1e1/sqrt(r->rs);
   t428 = -0.18989250000000000000e1 * t424 + 0.1228650e1 * t426 + 0.98588e0;
   t431 = 0.10000000000000000000e1 * t156 * t428 * t163;
   t432 = t154 * t154;
@@ -930,4 +930,4 @@ void XC(gga_c_pw91_func)
 }
 
 #define maple2c_order 3
-#define maple2c_func  XC(gga_c_pw91_func)
+#define maple2c_func  xc_gga_c_pw91_func

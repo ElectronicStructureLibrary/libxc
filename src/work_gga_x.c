@@ -137,7 +137,7 @@ work_gga_x
 
       if(rho[is] < p->dens_threshold) continue;
 
-      gdm    = max(SQRT(sigma[is2])/sfact, MIN_GRAD);
+      gdm    = max(sqrt(sigma[is2])/sfact, MIN_GRAD);
       ds     = rho[is]/sfact;
       rhoLDA = pow(ds, alpha);
       r.x    = gdm/pow(ds, beta);

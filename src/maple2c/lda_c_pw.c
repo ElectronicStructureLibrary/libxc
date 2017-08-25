@@ -44,7 +44,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   t31 = t20 * t20;
   t32 = 0.1e1 / t31;
   t33 = t4 * t32;
-  t37 = SQRT(r->rs);
+  t37 = sqrt(r->rs);
   t43 = t7 / t8 / 0.2e1 + t10 + 0.15e1 * t12 * t37 + t19 * t17 / r->rs;
   t44 = 0.1e1 / t24;
   t45 = t43 * t44;
@@ -57,7 +57,7 @@ func0(const XC(func_type) *p, XC(lda_work_t) *r)
   t52 = t4 * t51;
   t53 = t43 * t43;
   t54 = t53 * t44;
-  t61 = 0.1e1/SQRT(r->rs);
+  t61 = 0.1e1/sqrt(r->rs);
   t64 = t17 * t17;
   t65 = r->rs * r->rs;
   t66 = 0.1e1 / t65;
@@ -184,7 +184,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t106 = 0.1e1 / t105;
   t107 = t4 * t106;
   t108 = 0.1e1 / t8;
-  t111 = SQRT(r->rs);
+  t111 = sqrt(r->rs);
   t114 = 0.1e1 / r->rs;
   t117 = t7 * t108 / 0.2e1 + t10 + 0.15e1 * t12 * t111 + t19 * t17 * t114;
   t118 = 0.1e1 / t24;
@@ -227,7 +227,7 @@ func1(const XC(func_type) *p, XC(lda_work_t) *r)
   t185 = t184 * t118;
   t187 = 0.2e1 * t183 * t185;
   t189 = 0.1e1 / t8 / r->rs;
-  t192 = 0.1e1/SQRT(r->rs);
+  t192 = 0.1e1/sqrt(r->rs);
   t195 = t17 * t17;
   t196 = r->rs * r->rs;
   t197 = 0.1e1 / t196;

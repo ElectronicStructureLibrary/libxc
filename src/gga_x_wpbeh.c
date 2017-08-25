@@ -203,7 +203,7 @@ func_3(const XC(func_type) *p, int order, double x, double ds,
 
   AA2  = AA*AA;
   AA3  = AA2*AA;
-  AA12 = SQRT(AA);
+  AA12 = sqrt(AA);
   AA32 = AA12*AA;
   AA52 = AA32*AA;
 
@@ -246,14 +246,14 @@ func_3(const XC(func_type) *p, int order, double x, double ds,
   DHs2  = DHs*DHs; 
   DHs3  = DHs2*DHs; 
   DHs4  = DHs3*DHs;
-  DHs72 = DHs3*SQRT(DHs); 
+  DHs72 = DHs3*sqrt(DHs); 
   DHs92 = DHs72*DHs;
 
   f94Hs2_A = 9.0*H*ss2/(4.0*AA);
 
   DHsw   = DHs + ww2;
   DHsw2  = DHsw*DHsw; 
-  DHsw52 = SQRT(DHsw)*DHsw2; 
+  DHsw52 = sqrt(DHsw)*DHsw2; 
   DHsw72 = DHsw52*DHsw;
 
   eb1 = (ww < wcutoff) ? 1.455915450052607 : 2.0;
@@ -262,7 +262,7 @@ func_3(const XC(func_type) *p, int order, double x, double ds,
   Hsbw2  = Hsbw*Hsbw; 
   Hsbw3  = Hsbw2*Hsbw; 
   Hsbw4  = Hsbw3*Hsbw;
-  Hsbw12 = SQRT(Hsbw); 
+  Hsbw12 = sqrt(Hsbw); 
   Hsbw32 = Hsbw12*Hsbw; 
   Hsbw52 = Hsbw32*Hsbw; 
   Hsbw72 = Hsbw52*Hsbw;
@@ -279,7 +279,7 @@ func_3(const XC(func_type) *p, int order, double x, double ds,
   DHsbw3  = DHsbw2*DHsbw; 
   DHsbw4  = DHsbw3*DHsbw; 
   DHsbw5  = DHsbw4*DHsbw;
-  DHsbw12 = SQRT(DHsbw); 
+  DHsbw12 = sqrt(DHsbw); 
   DHsbw32 = DHsbw12*DHsbw; 
   DHsbw52 = DHsbw32*DHsbw; 
   DHsbw72 = DHsbw52*DHsbw;
@@ -289,21 +289,21 @@ func_3(const XC(func_type) *p, int order, double x, double ds,
   HsbwA942  = HsbwA94*HsbwA94;
   HsbwA943  = HsbwA942*HsbwA94;
   HsbwA945  = HsbwA943*HsbwA942;
-  HsbwA9412 = SQRT(HsbwA94);
+  HsbwA9412 = sqrt(HsbwA94);
 
   /* and now G(s) */
   if(ss > EGscut){
     double Ga, Gb, dGa, dGb;
 
     Ga = M_SQRTPI*(15.0*EE + 6.0*CC*(1.0 + F*ss2)*DHs + 4.0*BB*DHs2 + 8.0*AA*DHs3)/(16.0*DHs72)
-      - (3.0*M_PI/4.0)*SQRT(AA)*exp(f94Hs2_A)*(1.0 - erf(SQRT(f94Hs2_A)));
+      - (3.0*M_PI/4.0)*sqrt(AA)*exp(f94Hs2_A)*(1.0 - erf(sqrt(f94Hs2_A)));
     Gb = 15.0*M_SQRTPI*ss2/(16.0*DHs72);
 
     EG = -(3.0*M_PI/4.0 + Ga)/Gb;
 
     if(order >= 1){
       dGa = (M_SQRTPI/32.0) *
-	((36.0*(2.0*H + dHds*ss)/(AA12*SQRT(H/AA)) + 
+	((36.0*(2.0*H + dHds*ss)/(AA12*sqrt(H/AA)) + 
 	  (1.0/DHs92) *(-8.0*AA*dDHsds*DHs3 - 105.0*dDHsds*EE - 30.0*CC*dDHsds*DHs*(1.0 + ss2*F) +
 			12.0*DHs2*(-BB*dDHsds + CC*ss*(dFds*ss + 2.0*F))) - 
 	  ((54.0*exp(f94Hs2_A)*M_SQRTPI*ss*(2.0*H + dHds*ss)*erfc(sqrt(f94Hs2_A)))/AA12)));
@@ -381,14 +381,14 @@ func_3(const XC(func_type) *p, int order, double x, double ds,
   }else{
     static const double expei1=4.03640, expei2=1.15198, expei3=5.03627, expei4=4.19160;
 
-    piexperf = M_PI*(1.0/(M_SQRTPI*HsbwA9412) - 1.0/(2.0*SQRT(M_PI*HsbwA943))+ 3.0/(4.0*SQRT(M_PI*HsbwA945)));
+    piexperf = M_PI*(1.0/(M_SQRTPI*HsbwA9412) - 1.0/(2.0*sqrt(M_PI*HsbwA943))+ 3.0/(4.0*sqrt(M_PI*HsbwA945)));
     expei  = - (1.0/HsbwA94)*(HsbwA942 + expei1*HsbwA94 + expei2)/(HsbwA942 + expei3*HsbwA94 + expei4);
   }
 
   if(order >= 1){
     double dpiexperf, dexpei;
 
-    dpiexperf   = -(3.0*M_SQRTPI*SQRT(Hsbw/AA))/(2.0*Hsbw) + (9.0*piexperf)/(4.0*AA);
+    dpiexperf   = -(3.0*M_SQRTPI*sqrt(Hsbw/AA))/(2.0*Hsbw) + (9.0*piexperf)/(4.0*AA);
     dpiexperfds = dpiexperf*dHsbwds;
     dpiexperfdw = dpiexperf*dHsbwdw;
 

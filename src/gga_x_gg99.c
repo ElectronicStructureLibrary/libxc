@@ -65,18 +65,18 @@ r_x(int order, double x, double *r, double *dr)
   double a2, x2, x4, x6, aux1, aux2, daux1, daux2, num, den, dd, dnum, dden;
   int ierr;
 
-  a2 = SQRT(3.0/(2.0*a1));
+  a2 = sqrt(3.0/(2.0*a1));
 
   x2 = x*x;
   x4 = x2*x2;
   x6 = x2*x4;
 
   if(a1*a1 > x6){
-    aux1 = a1 + SQRT(a1*a1 - x6);
+    aux1 = a1 + sqrt(a1*a1 - x6);
     aux2 = CBRT(aux1);
 
-    num = x*a2*SQRT(x2 + aux2*aux2);
-    den = SQRT(aux2);
+    num = x*a2*sqrt(x2 + aux2*aux2);
+    den = sqrt(aux2);
   
     *r = asinh(num/den);
   }else{ // asymptotic expansion
@@ -86,14 +86,14 @@ r_x(int order, double x, double *r, double *dr)
   if(order < 1) return;
 
   if(a1*a1 > x6){
-    daux1 = -3.0*x*x4/SQRT(a1*a1 - x6);
+    daux1 = -3.0*x*x4/sqrt(a1*a1 - x6);
     daux2 = daux1*aux2/(3.0*aux1);
 
-    dnum = a2*(2.0*x2 + aux2*aux2 + x*aux2*daux2)/SQRT(x2 + aux2*aux2);
+    dnum = a2*(2.0*x2 + aux2*aux2 + x*aux2*daux2)/sqrt(x2 + aux2*aux2);
     dden = daux2*den/(2.0*aux2);
 
     dd  = DFRACTION(num, dnum, den, dden);
-    *dr = dd/SQRT(1 + num*num/(den*den));
+    *dr = dd/sqrt(1 + num*num/(den*den));
   }
 }
 

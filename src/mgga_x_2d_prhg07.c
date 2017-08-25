@@ -123,7 +123,7 @@ func(const XC(func_type) *p, XC(mgga_work_x_t) *r)
     r->dfdrs = v_PRHG*(1.0 / 3.0); // This factor is here in order to get the correct potential through work_mgga_x.c
     r->f = v_PRHG / 2.0;
   }else if (p->info->number == XC_MGGA_X_2D_PRHG07_PRP10) {
-    r->dfdrs = (v_PRHG - ((2.0*M_SQRT2)/(3.0*M_PI))*SQRT(max(2.0*r->t - 0.25*r->x*r->x, 0.0))/X_FACTOR_2D_C)*(1.0 / 3.0);
+    r->dfdrs = (v_PRHG - ((2.0*M_SQRT2)/(3.0*M_PI))*sqrt(max(2.0*r->t - 0.25*r->x*r->x, 0.0))/X_FACTOR_2D_C)*(1.0 / 3.0);
     r->f = r->dfdrs * (3.0 / 2.0);
   }
 

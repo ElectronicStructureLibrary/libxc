@@ -55,7 +55,7 @@ work_gga_c(const XC(func_type) *p, int np, const double *rho, const double *sigm
       r.ds[1]  = r.ds[0];
 
       r.sigmat = max(min_grad2, sigma[0]);
-      r.xt     = SQRT(r.sigmat)/ pow(r.dens, 4.0/3.0);
+      r.xt     = sqrt(r.sigmat)/ pow(r.dens, 4.0/3.0);
 
       r.sigmas[0] = r.sigmat/4.0;
       r.sigmas[1] = r.sigmas[0];
@@ -74,14 +74,14 @@ work_gga_c(const XC(func_type) *p, int np, const double *rho, const double *sigm
       r.ds[1]  = max(p->dens_threshold, rho[1]);
       
       r.sigmat = max(min_grad2, sigma[0] + 2.0*sigma[1] + sigma[2]);
-      r.xt     = SQRT(r.sigmat)/ pow(r.dens, 4.0/3.0);
+      r.xt     = sqrt(r.sigmat)/ pow(r.dens, 4.0/3.0);
       
       r.sigmas[0] = max(min_grad2, sigma[0]);
       r.sigmas[1] = max(min_grad2, sigma[1]);
       r.sigmas[2] = max(min_grad2, sigma[2]);
 
-      r.xs[0] = SQRT(r.sigmas[0])/pow(r.ds[0], 4.0/3.0);
-      r.xs[1] = SQRT(r.sigmas[2])/pow(r.ds[1], 4.0/3.0);
+      r.xs[0] = sqrt(r.sigmas[0])/pow(r.ds[0], 4.0/3.0);
+      r.xs[1] = sqrt(r.sigmas[2])/pow(r.ds[1], 4.0/3.0);
     }
   
     func(p, &r);

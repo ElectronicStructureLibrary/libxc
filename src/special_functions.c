@@ -49,7 +49,7 @@ double LambertW(double z)
   /* Initial guess. */
   if(z <= -0.3140862435046707) { /* Point where sqrt and Taylor polynomials match */
     /* Near the branching point: first terms in eqn (4.22) */
-    w = SQRT(2.0*M_E*z + 2.0) - 1.0;
+    w = sqrt(2.0*M_E*z + 2.0) - 1.0;
     
   } else if(z <= 1.149876485041417) { /* Point where Taylor and log expansion match */
 

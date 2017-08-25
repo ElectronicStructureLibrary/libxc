@@ -60,7 +60,7 @@ work_mgga_c(const XC(func_type) *p, int np, const double *rho, const double *sig
 
       /* we already know that dens > min_dens */
       r.sigmat = max(min_grad2, sigma[0]);
-      r.xt     = SQRT(r.sigmat)/(r.dens*rho13[2]);
+      r.xt     = sqrt(r.sigmat)/(r.dens*rho13[2]);
 
       r.sigmas[0] = r.sigmat/4.0;
       r.sigmas[1] = r.sigmas[0];
@@ -90,14 +90,14 @@ work_mgga_c(const XC(func_type) *p, int np, const double *rho, const double *sig
       rho13[1] = CBRT(r.ds[1]);
       
       r.sigmat = max(min_grad2, sigma[0] + 2.0*sigma[1] + sigma[2]);
-      r.xt     = SQRT(r.sigmat)/(r.dens*rho13[2]);
+      r.xt     = sqrt(r.sigmat)/(r.dens*rho13[2]);
       
       r.sigmas[0] = max(min_grad2, sigma[0]);
       r.sigmas[1] = max(min_grad2, sigma[1]);
       r.sigmas[2] = max(min_grad2, sigma[2]);
 
-      r.xs[0] = SQRT(r.sigmas[0])/(r.ds[0]*rho13[0]);
-      r.xs[1] = SQRT(r.sigmas[2])/(r.ds[1]*rho13[1]);
+      r.xs[0] = sqrt(r.sigmas[0])/(r.ds[0]*rho13[0]);
+      r.xs[1] = sqrt(r.sigmas[2])/(r.ds[1]*rho13[1]);
 
       if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
         r.us[0]   = lapl[0]/(r.ds[0]*rho13[0]*rho13[0]);

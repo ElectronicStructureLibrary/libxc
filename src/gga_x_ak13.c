@@ -27,14 +27,14 @@ double XC(gga_ak13_get_asymptotic) (double homo)
 {
   double Qx, aa, aa2, factor;
 
-  Qx = SQRT(2.0)*B1/(3.0*CBRT(3.0*M_PI*M_PI));
+  Qx = sqrt(2.0)*B1/(3.0*CBRT(3.0*M_PI*M_PI));
 
   aa  = X_FACTOR_C*Qx;
   aa2 = aa*aa;
 
   factor = (homo < 0.0) ? -1.0 : 1.0;
     
-  return (aa2/2.0)*(1.0 + factor*SQRT(1.0 - 4.0*homo/aa2));
+  return (aa2/2.0)*(1.0 + factor*sqrt(1.0 - 4.0*homo/aa2));
 }
 
 

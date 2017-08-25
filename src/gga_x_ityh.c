@@ -84,7 +84,7 @@ func_3(const XC(func_type) *p, int order, double x, double ds,
   params->enhancement_factor(p->func_aux[0], &aux);
 
   K_GGA = 2.0*X_FACTOR_C*aux.f;
-  k_GGA = SQRT(9.0*M_PI/K_GGA)*CBRT(ds);
+  k_GGA = sqrt(9.0*M_PI/K_GGA)*CBRT(ds);
 
   aa = p->cam_omega/(2.0*k_GGA);
 

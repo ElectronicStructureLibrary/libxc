@@ -108,7 +108,7 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
     aux.order = r->order;
     params->enhancement_factor(pt->func_aux[0], &aux);
 
-    k_GGA = SQRT(9.0*M_PI/(2.0*X_FACTOR_C*aux.f))*RS_FACTOR/rss;
+    k_GGA = sqrt(9.0*M_PI/(2.0*X_FACTOR_C*aux.f))*RS_FACTOR/rss;
     aa = pt->cam_omega/(2.0*k_GGA);
 
     XC(lda_x_attenuation_function_yukawa)(r->order, aa, &f_aa, &df_aa, &d2f_aa, &d3f_aa);

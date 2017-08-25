@@ -85,7 +85,7 @@ work_mgga_x
       if (rho[is] < p->dens_threshold) continue;
 
       lsigma= max(sigma[js]/sfact2, MIN_GRAD*MIN_GRAD);
-      gdm   = SQRT(lsigma);
+      gdm   = sqrt(lsigma);
       lrho  = rho[is]/sfact;
       rho1D = pow(lrho, 1.0/XC_DIMENSIONS);
       rho2pD_D = lrho*rho1D*rho1D;

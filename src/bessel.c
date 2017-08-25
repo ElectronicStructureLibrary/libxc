@@ -55,9 +55,9 @@ double XC(bessel_I0_scaled)(const double x)
   else if(y <= 3.0)
     r = exp(-y)*(2.75 + XC(cheb_eval)(y*y/4.5-1.0, bi0_data, 12));
   else if(y <= 8.0)
-    r = (.375 + XC(cheb_eval)((48.0/y - 11.0)/5.0, ai0_data, 21))/SQRT(y);
+    r = (.375 + XC(cheb_eval)((48.0/y - 11.0)/5.0, ai0_data, 21))/sqrt(y);
   else
-    r = (.375 + XC(cheb_eval)(16.0/y - 1.0, ai02_data, 22))/SQRT(y);
+    r = (.375 + XC(cheb_eval)(16.0/y - 1.0, ai02_data, 22))/sqrt(y);
 
   return r;
 }
@@ -125,9 +125,9 @@ double XC(bessel_I1_scaled)(const double x)
     r = x*exp(-y)*(0.875 + XC(cheb_eval)(y*y/4.5 - 1.0, bi1_data, 11));
   else{
     if(y <= 8.0)
-      r = (0.375 + XC(cheb_eval)((48.0/y - 11.0)/5.0, ai1_data, 21))/SQRT(y);
+      r = (0.375 + XC(cheb_eval)((48.0/y - 11.0)/5.0, ai1_data, 21))/sqrt(y);
     else
-      r = (0.375 + XC(cheb_eval)(16.0/y - 1.0, ai12_data, 22))/SQRT(y);
+      r = (0.375 + XC(cheb_eval)(16.0/y - 1.0, ai12_data, 22))/sqrt(y);
 
     r *= (x > 0.0 ? 1.0 : -1.0);
   }
@@ -185,9 +185,9 @@ double XC(bessel_K0_scaled)(const double x)
   else if(x <= 2.0)
     r = exp(x)*(-log(0.5*x)*XC(bessel_I0)(x) - 0.25 + XC(cheb_eval)(0.5*x*x - 1.0, bk0_data, 11));
   else if(x <= 8.0)
-    r = (1.25 + XC(cheb_eval)((16.0/x - 5.0)/3.0, ak0_data, 17))/SQRT(x);
+    r = (1.25 + XC(cheb_eval)((16.0/x - 5.0)/3.0, ak0_data, 17))/sqrt(x);
   else
-    r = (1.25 + XC(cheb_eval)(16.0/x - 1.0, ak02_data, 14))/SQRT(x);
+    r = (1.25 + XC(cheb_eval)(16.0/x - 1.0, ak02_data, 14))/sqrt(x);
 
   return r;
 }
@@ -236,9 +236,9 @@ double XC(bessel_K1_scaled)(const double x)
     r =  exp(x)*(log(0.5*x)*XC(bessel_I1)(x) +
 		 (0.75 + XC(cheb_eval)(.5*x*x - 1.0, bk1_data, 11))/x);
   else if(x <= 8.0)
-    r = (1.25 + XC(cheb_eval)((16.0/x - 5.0)/3.0, ak1_data, 17))/SQRT(x);
+    r = (1.25 + XC(cheb_eval)((16.0/x - 5.0)/3.0, ak1_data, 17))/sqrt(x);
   else
-    r = (1.25 + XC(cheb_eval)(16.0/x - 1.0, ak12_data, 14))/SQRT(x);
+    r = (1.25 + XC(cheb_eval)(16.0/x - 1.0, ak12_data, 14))/sqrt(x);
 
   return r;
 }

@@ -98,7 +98,7 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const double *rho, const 
 
       vrho[is] *= params->alpha;
 
-      gdm    = max(SQRT(sigma[is2])/sfact, MIN_GRAD);
+      gdm    = max(sqrt(sigma[is2])/sfact, MIN_GRAD);
       ds     = rho[is]/sfact;
 
       if(params->modified == 0 || 
@@ -174,7 +174,7 @@ set_ext_params(XC(func_type) *p, const double *ext_params)
   params->qtot      = ff;
 
   if(params->modified){
-    params->aa   = (params->ip > 0.0) ? 2.0*SQRT(2.0*params->ip) : 0.5;
+    params->aa   = (params->ip > 0.0) ? 2.0*sqrt(2.0*params->ip) : 0.5;
     params->gamm = CBRT(params->qtot)/(2.0*params->aa);
   }else{
     params->aa   = 0.5;

@@ -18,12 +18,6 @@
 
 #ifdef SINGLE_PRECISION
 
-#ifdef HAVE_SQRTF
-#  define SQRT  sqrtf
-#else
-#  define SQRT  sqrt
-#endif
-
 #ifdef HAVE_CBRTF
 #define CBRT cbrtf
 #elif defined(HAVE_CBRT)
@@ -38,14 +32,12 @@
 #else
 /* Double precision */
 
-#  define SQRT  sqrt
-
 #define POW_2(x) ((x)*(x))
 #define POW_3(x) ((x)*(x)*(x))
 
-#define POW_1_2(x) SQRT(x)
-#define POW_1_4(x) SQRT(SQRT(x))
-#define POW_3_2(x) ((x)*SQRT(x))
+#define POW_1_2(x) sqrt(x)
+#define POW_1_4(x) sqrt(sqrt(x))
+#define POW_3_2(x) ((x)*sqrt(x))
 
 #ifdef HAVE_CBRT
 #define CBRT(x)    cbrt(x)

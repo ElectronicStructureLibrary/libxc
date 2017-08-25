@@ -18,13 +18,6 @@
 
 #ifdef SINGLE_PRECISION
 
-#  define SIN   sinf
-#  define COS   cosf
-#  define TAN   tanf
-#  define ATAN  atanf
-#  define ATAN2 atan2f
-#  define ASINH asinhf
-
 #ifdef HAVE_SQRTF
 #  define SQRT  sqrtf
 #else
@@ -45,12 +38,6 @@
 #else
 /* Double precision */
 
-#  define SIN   sin
-#  define COS   cos
-#  define TAN   tan
-#  define ATAN  atan
-#  define ATAN2 atan2
-#  define ASINH asinh
 #  define SQRT  sqrt
 
 #define POW_2(x) ((x)*(x))

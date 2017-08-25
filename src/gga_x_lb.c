@@ -110,7 +110,7 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const double *rho, const 
 	x =  gdm/pow(ds, 4.0/3.0);
 	
 	if(x < 300.0) /* the actual functional */	   
-	  f = -params->beta*x*x/(1.0 + 3.0*params->beta*x*ASINH(params->gamm*x));
+	  f = -params->beta*x*x/(1.0 + 3.0*params->beta*x*asinh(params->gamm*x));
 	else          /* asymptotic expansion */
 	  f = -x/(3.0*log(2.0*params->gamm*x));
 

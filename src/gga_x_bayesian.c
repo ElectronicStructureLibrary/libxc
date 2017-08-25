@@ -22,10 +22,10 @@
 
 #include "maple2c/gga_x_bayesian.c"
 
-#define func XC(gga_x_bayesian_enhance)
+#define func xc_gga_x_bayesian_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_bayesian) = {
+const xc_func_info_type xc_func_info_gga_x_bayesian = {
   XC_GGA_X_BAYESIAN,
   XC_EXCHANGE,
   "Bayesian best fit for the enhancement factor",

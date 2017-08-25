@@ -26,7 +26,7 @@
 #define func maple2c_func
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_c_chachiyo) = {
+const xc_func_info_type xc_func_info_lda_c_chachiyo = {
   XC_LDA_C_CHACHIYO,
   XC_CORRELATION,
   "Chachiyo simple 2 parameter correlation",

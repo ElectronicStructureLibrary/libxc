@@ -7,8 +7,8 @@
   Type of functional: work_gga_c
 */
 
-void XC(gga_c_gapc_func)
-  (const XC(func_type) *p, XC(gga_work_c_t) *r)
+void xc_gga_c_gapc_func
+  (const xc_func_type *p, xc_gga_work_c_t *r)
 {
   double t2, t3, t6, t8, t10, t13, t14, t15;
   double t17, t18, t21, t23, t24, t25, t29, t31;
@@ -2835,4 +2835,4 @@ void XC(gga_c_gapc_func)
 }
 
 #define maple2c_order 3
-#define maple2c_func  XC(gga_c_gapc_func)
+#define maple2c_func  xc_gga_c_gapc_func

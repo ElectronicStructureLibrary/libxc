@@ -26,7 +26,7 @@
 #define func maple2c_func
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_mbeefvdw) = {
+const xc_func_info_type xc_func_info_mgga_x_mbeefvdw = {
   XC_MGGA_X_MBEEFVDW,
   XC_EXCHANGE,
   "mBEEF-vdW exchange",

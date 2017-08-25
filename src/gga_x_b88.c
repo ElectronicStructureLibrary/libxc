@@ -32,7 +32,7 @@ typedef struct{
 
 
 static void 
-gga_x_b88_init(XC(func_type) *p)
+gga_x_b88_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_x_b88_params));
@@ -40,25 +40,25 @@ gga_x_b88_init(XC(func_type) *p)
   /* value of beta in standard Becke 88 functional */
   switch(p->info->number){
   case XC_GGA_X_B88:
-    XC(gga_x_b88_set_params)(p, 0.0042, 6.0);
+    xc_gga_x_b88_set_params(p, 0.0042, 6.0);
     break;
   case XC_GGA_X_OPTB88_VDW:
-    XC(gga_x_b88_set_params)(p, 0.00336865923905927, 6.98131700797731);
+    xc_gga_x_b88_set_params(p, 0.00336865923905927, 6.98131700797731);
     break;
   case XC_GGA_K_LLP:
-    XC(gga_x_b88_set_params)(p, X_FACTOR_C*0.0044188, 0.0253/(X_FACTOR_C*0.0044188));
+    xc_gga_x_b88_set_params(p, X_FACTOR_C*0.0044188, 0.0253/(X_FACTOR_C*0.0044188));
     break;
   case XC_GGA_K_FR_B88:
-    XC(gga_x_b88_set_params)(p, X_FACTOR_C*0.004596, 0.02774/(X_FACTOR_C*0.004596));
+    xc_gga_x_b88_set_params(p, X_FACTOR_C*0.004596, 0.02774/(X_FACTOR_C*0.004596));
     break;
   case XC_GGA_X_MB88:
-    XC(gga_x_b88_set_params)(p, 0.0011, 6.0);
+    xc_gga_x_b88_set_params(p, 0.0011, 6.0);
     break;
   case XC_GGA_X_EB88:
-    XC(gga_x_b88_set_params)(p, 0.0050/M_CBRT2, 6.0);
+    xc_gga_x_b88_set_params(p, 0.0050/M_CBRT2, 6.0);
     break;
   case XC_GGA_X_B88M:
-    XC(gga_x_b88_set_params)(p, 0.0045, 6.0);
+    xc_gga_x_b88_set_params(p, 0.0045, 6.0);
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_b88\n");
@@ -68,7 +68,7 @@ gga_x_b88_init(XC(func_type) *p)
 
 
 void 
-XC(gga_x_b88_set_params)(XC(func_type) *p, double beta, double gamma)
+xc_gga_x_b88_set_params(xc_func_type *p, double beta, double gamma)
 {
   gga_x_b88_params *params;
 
@@ -82,10 +82,10 @@ XC(gga_x_b88_set_params)(XC(func_type) *p, double beta, double gamma)
 
 #include "maple2c/gga_x_b88.c"
 
-#define func XC(gga_x_b88_enhance)
+#define func xc_gga_x_b88_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_b88) = {
+const xc_func_info_type xc_func_info_gga_x_b88 = {
   XC_GGA_X_B88,
   XC_EXCHANGE,
   "Becke 88",
@@ -98,7 +98,7 @@ const XC(func_info_type) XC(func_info_gga_x_b88) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_optb88_vdw) = {
+const xc_func_info_type xc_func_info_gga_x_optb88_vdw = {
   XC_GGA_X_OPTB88_VDW,
   XC_EXCHANGE,
   "opt-Becke 88 for vdW",
@@ -111,7 +111,7 @@ const XC(func_info_type) XC(func_info_gga_x_optb88_vdw) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_mb88) = {
+const xc_func_info_type xc_func_info_gga_x_mb88 = {
   XC_GGA_X_MB88,
   XC_EXCHANGE,
   "Modified Becke 88 for proton transfer",
@@ -124,7 +124,7 @@ const XC(func_info_type) XC(func_info_gga_x_mb88) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_eb88) = {
+const xc_func_info_type xc_func_info_gga_x_eb88 = {
   XC_GGA_X_EB88,
   XC_EXCHANGE,
   "Non-empirical (excogitated) B88 functional of Becke and Elliott",
@@ -137,7 +137,7 @@ const XC(func_info_type) XC(func_info_gga_x_eb88) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_b88m) = {
+const xc_func_info_type xc_func_info_gga_x_b88m = {
   XC_GGA_X_B88M,
   XC_EXCHANGE,
   "Becke 88 reoptimized to be used with tau1",
@@ -153,7 +153,7 @@ const XC(func_info_type) XC(func_info_gga_x_b88m) = {
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_k_llp) = {
+const xc_func_info_type xc_func_info_gga_k_llp = {
   XC_GGA_K_LLP,
   XC_KINETIC,
   "Lee, Lee & Parr",
@@ -166,7 +166,7 @@ const XC(func_info_type) XC(func_info_gga_k_llp) = {
   NULL, work_gga_k, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_k_fr_b88) = {
+const xc_func_info_type xc_func_info_gga_k_fr_b88 = {
   XC_GGA_K_FR_B88,
   XC_KINETIC,
   "Fuentealba & Reyes (B88 version)",

@@ -34,7 +34,7 @@ typedef struct{
 
 /* Initialization */
 static void
-lda_c_2d_prm_init(XC(func_type) *p)
+lda_c_2d_prm_init(xc_func_type *p)
 {
   assert(p != NULL && p->params == NULL);
 
@@ -52,7 +52,7 @@ static const func_params_type ext_params[] = {
 };
 
 static void 
-set_ext_params(XC(func_type) *p, const double *ext_params)
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
   static double prm_q = 3.9274; /* 2.258 */
   lda_c_2d_prm_params *params;
@@ -72,7 +72,7 @@ set_ext_params(XC(func_type) *p, const double *ext_params)
   params->c = M_PI/(2.0*(params->N - 1.0)*prm_q*prm_q); /* Eq. (13) */
 }
 
-const XC(func_info_type) XC(func_info_lda_c_2d_prm) = {
+const xc_func_info_type xc_func_info_lda_c_2d_prm = {
   XC_LDA_C_2D_PRM,
   XC_CORRELATION,
   "PRM (for 2D systems)",

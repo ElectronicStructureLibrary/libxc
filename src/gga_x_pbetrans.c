@@ -22,10 +22,10 @@
 
 #include "maple2c/gga_x_pbetrans.c"
 
-#define func XC(gga_x_pbetrans_enhance)
+#define func xc_gga_x_pbetrans_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_pbetrans) = {
+const xc_func_info_type xc_func_info_gga_x_pbetrans = {
   XC_GGA_X_PBETRANS,
   XC_EXCHANGE,
   "Gradient-regulated connection-based correction for the PBE exchange",

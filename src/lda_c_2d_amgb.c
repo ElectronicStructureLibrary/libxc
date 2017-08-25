@@ -32,7 +32,7 @@
 #define XC_DIMENSIONS 2
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_c_2d_amgb) = {
+const xc_func_info_type xc_func_info_lda_c_2d_amgb = {
   XC_LDA_C_2D_AMGB,
   XC_CORRELATION,
   "AMGB (for 2D systems)",

@@ -25,7 +25,7 @@
 #define func maple2c_func
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_q2d) = {
+const xc_func_info_type xc_func_info_gga_x_q2d = {
   XC_GGA_X_Q2D,
   XC_EXCHANGE,
   "Chiodo et al",

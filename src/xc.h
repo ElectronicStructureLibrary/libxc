@@ -74,18 +74,18 @@ extern "C" {
 
 #define XC_MAX_REFERENCES       5
   
-void XC(version)(int *major, int *minor, int *micro);
-const char *XC(version_string)();
+void xc_version(int *major, int *minor, int *micro);
+const char *xc_version_string();
     
-struct XC(func_type);
+struct xc_func_type;
 
 typedef struct{
   char *ref, *doi, *bibtex;
 } func_reference_type;
 
-char const *XC(func_reference_get_ref)(const func_reference_type *reference);
-char const *XC(func_reference_get_doi)(const func_reference_type *reference);
-char const *XC(func_reference_get_bibtex)(const func_reference_type *reference);
+char const *xc_func_reference_get_ref(const func_reference_type *reference);
+char const *xc_func_reference_get_doi(const func_reference_type *reference);
+char const *xc_func_reference_get_bibtex(const func_reference_type *reference);
 
 typedef struct{
   double value;
@@ -107,42 +107,42 @@ typedef struct{
   /* this allows to have external parameters in the functional */
   int n_ext_params;
   const func_params_type *ext_params;
-  void (*set_ext_params)(struct XC(func_type) *p, const double *ext_params);
+  void (*set_ext_params)(struct xc_func_type *p, const double *ext_params);
 
-  void (*init)(struct XC(func_type) *p);
-  void (*end) (struct XC(func_type) *p);
-  void (*lda) (const struct XC(func_type) *p, int np, 
+  void (*init)(struct xc_func_type *p);
+  void (*end) (struct xc_func_type *p);
+  void (*lda) (const struct xc_func_type *p, int np, 
 	       const double *rho, 
 	       double *zk, double *vrho, double *v2rho2, double *v3rho3);
-  void (*gga) (const struct XC(func_type) *p, int np, 
+  void (*gga) (const struct xc_func_type *p, int np, 
 	       const double *rho, const double *sigma, 
 	       double *zk, double *vrho, double *vsigma,
 	       double *v2rho2, double *v2rhosigma, double *v2sigma2,
 	       double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
-  void (*mgga)(const struct XC(func_type) *p, int np, 
+  void (*mgga)(const struct xc_func_type *p, int np, 
 	       const double *rho, const double *sigma, const double *lapl_rho, const double *tau,
 	       double *zk, double *vrho, double *vsigma, double *vlapl_rho, double *vtau,
 	       double *v2rho2, double *v2sigma2, double *v2tau2, double *v2lapl2,
 	       double *v2rhosigma, double *v2rhotau, double *v2rholapl, 
 	       double *v2sigmatau, double *v2sigmalapl, double *v2taulapl);
-} XC(func_info_type);
+} xc_func_info_type;
 
-int XC(func_info_get_number)(const XC(func_info_type) *info);
-int XC(func_info_get_kind)(const XC(func_info_type) *info);
-char const *XC(func_info_get_name)(const XC(func_info_type) *info);
-int XC(func_info_get_family)(const XC(func_info_type) *info);
-int XC(func_info_get_flags)(const XC(func_info_type) *info);
-const func_reference_type *XC(func_info_get_references)(const XC(func_info_type) *info, int number);
-int XC(func_info_get_n_ext_params)(XC(func_info_type) *info);
-char const *XC(func_info_get_ext_params_description)(XC(func_info_type) *info, int number);
-double XC(func_info_get_ext_params_default_value)(XC(func_info_type) *info, int number);
+int xc_func_info_get_number(const xc_func_info_type *info);
+int xc_func_info_get_kind(const xc_func_info_type *info);
+char const *xc_func_info_get_name(const xc_func_info_type *info);
+int xc_func_info_get_family(const xc_func_info_type *info);
+int xc_func_info_get_flags(const xc_func_info_type *info);
+const func_reference_type *xc_func_info_get_references(const xc_func_info_type *info, int number);
+int xc_func_info_get_n_ext_params(xc_func_info_type *info);
+char const *xc_func_info_get_ext_params_description(xc_func_info_type *info, int number);
+double xc_func_info_get_ext_params_default_value(xc_func_info_type *info, int number);
   
-struct XC(func_type){
-  const XC(func_info_type) *info;       /* all the information concerning this functional */
+struct xc_func_type{
+  const xc_func_info_type *info;       /* all the information concerning this functional */
   int nspin;                            /* XC_UNPOLARIZED or XC_POLARIZED  */
   
   int n_func_aux;                       /* how many auxiliary functions we need */
-  struct XC(func_type) **func_aux;      /* most GGAs are based on a LDA or other GGAs  */
+  struct xc_func_type **func_aux;      /* most GGAs are based on a LDA or other GGAs  */
   double *mix_coef;                      /* coefficients for the mixing */
 
   double cam_omega;                      /* range-separation parameter for range-separated hybrids */
@@ -167,79 +167,79 @@ struct XC(func_type){
   double dens_threshold;
 };
 
-typedef struct XC(func_type) XC(func_type);
+typedef struct xc_func_type xc_func_type;
 
 /* functionals */
-int   XC(functional_get_number)(const char *name);
-char *XC(functional_get_name)(int number);
-int   XC(family_from_id)(int id, int *family, int *number);
-XC(func_type) *XC(func_alloc)();
-int   XC(func_init)(XC(func_type) *p, int functional, int nspin);
-void  XC(func_end)(XC(func_type) *p);
-void  XC(func_free)(XC(func_type) *p);
-const XC(func_info_type) *XC(func_get_info)(const XC(func_type) *p);
-void XC(func_set_dens_threshold)(XC(func_type) *p, double dens_threshold);
-void  XC(func_set_ext_params)(XC(func_type) *p, double *ext_params);
+int   xc_functional_get_number(const char *name);
+char *xc_functional_get_name(int number);
+int   xc_family_from_id(int id, int *family, int *number);
+xc_func_type *xc_func_alloc();
+int   xc_func_init(xc_func_type *p, int functional, int nspin);
+void  xc_func_end(xc_func_type *p);
+void  xc_func_free(xc_func_type *p);
+const xc_func_info_type *xc_func_get_info(const xc_func_type *p);
+void xc_func_set_dens_threshold(xc_func_type *p, double dens_threshold);
+void  xc_func_set_ext_params(xc_func_type *p, double *ext_params);
 
 #include "xc_funcs.h"
 #include "xc_funcs_removed.h"
   
-void XC(lda)        (const XC(func_type) *p, int np, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3);
-void XC(lda_exc)    (const XC(func_type) *p, int np, const double *rho, double *zk);
-void XC(lda_exc_vxc)(const XC(func_type) *p, int np, const double *rho, double *zk, double *vrho);
-void XC(lda_vxc)    (const XC(func_type) *p, int np, const double *rho, double *vrho);
-void XC(lda_fxc)    (const XC(func_type) *p, int np, const double *rho, double *v2rho2);
-void XC(lda_kxc)    (const XC(func_type) *p, int np, const double *rho, double *v3rho3);
+void xc_lda        (const xc_func_type *p, int np, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3);
+void xc_lda_exc    (const xc_func_type *p, int np, const double *rho, double *zk);
+void xc_lda_exc_vxc(const xc_func_type *p, int np, const double *rho, double *zk, double *vrho);
+void xc_lda_vxc    (const xc_func_type *p, int np, const double *rho, double *vrho);
+void xc_lda_fxc    (const xc_func_type *p, int np, const double *rho, double *v2rho2);
+void xc_lda_kxc    (const xc_func_type *p, int np, const double *rho, double *v3rho3);
 
-void XC(gga)     (const XC(func_type) *p, int np, const double *rho, const double *sigma, 
+void xc_gga     (const xc_func_type *p, int np, const double *rho, const double *sigma, 
 		  double *zk, double *vrho, double *vsigma,
 		  double *v2rho2, double *v2rhosigma, double *v2sigma2,
 		  double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
-void XC(gga_exc)(const XC(func_type) *p, int np, const double *rho, const double *sigma, 
+void xc_gga_exc(const xc_func_type *p, int np, const double *rho, const double *sigma, 
 		 double *zk);
-void XC(gga_exc_vxc)(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+void xc_gga_exc_vxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 		     double *zk, double *vrho, double *vsigma);
-void XC(gga_vxc)(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+void xc_gga_vxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 		 double *vrho, double *vsigma);
-void XC(gga_fxc)(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+void xc_gga_fxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 		 double *v2rho2, double *v2rhosigma, double *v2sigma2);
-void XC(gga_kxc)(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+void xc_gga_kxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 		 double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
 
-void XC(gga_lb_modified)  (const XC(func_type) *p, int np, const double *rho, const double *sigma, 
+void xc_gga_lb_modified  (const xc_func_type *p, int np, const double *rho, const double *sigma, 
 			   double r, double *vrho);
 
-double XC(gga_ak13_get_asymptotic) (double homo);
+double xc_gga_ak13_get_asymptotic (double homo);
 
-double XC(hyb_exx_coef)(const XC(func_type) *p);
-void  XC(hyb_cam_coef)(const XC(func_type) *p, double *omega, double *alpha, double *beta);
-void  XC(nlc_coef)(const XC(func_type) *p, double *nlc_b, double *nlc_C);
+double xc_hyb_exx_coef(const xc_func_type *p);
+void  xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *beta);
+void  xc_nlc_coef(const xc_func_type *p, double *nlc_b, double *nlc_C);
 
 /* the meta-GGAs */
-void XC(mgga)        (const XC(func_type) *p, int np,
+void xc_mgga        (const xc_func_type *p, int np,
 		      const double *rho, const double *sigma, const double *lapl, const double *tau,
 		      double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
 		      double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
 		      double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
 		      double *v2sigmalapl, double *v2sigmatau, double *v2lapltau);
-void XC(mgga_exc)    (const XC(func_type) *p, int np,  
+void xc_mgga_exc    (const xc_func_type *p, int np,  
 		      const double *rho, const double *sigma, const double *lapl, const double *tau, 
 		      double *zk);
-void XC(mgga_exc_vxc)(const XC(func_type) *p, int np, 
+void xc_mgga_exc_vxc(const xc_func_type *p, int np, 
 		      const double *rho, const double *sigma, const double *lapl, const double *tau,
 		      double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau);
-void XC(mgga_vxc)    (const XC(func_type) *p, int np,
+void xc_mgga_vxc    (const xc_func_type *p, int np,
 		      const double *rho, const double *sigma, const double *lapl, const double *tau,
 		      double *vrho, double *vsigma, double *vlapl, double *vtau);
-void XC(mgga_fxc)    (const XC(func_type) *p, int np, 
+void xc_mgga_fxc    (const xc_func_type *p, int np, 
 		      const double *rho, const double *sigma, const double *lapl, const double *tau,
 		      double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
 		      double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
 		      double *v2sigmalapl, double *v2sigmatau, double *v2lapltau);
 
 /* Functionals that are defined as mixtures of others */
-void XC(mix_func)
-  (const XC(func_type) *func, int np,
+void xc_mix_func
+  (const xc_func_type *func, int np,
    const double *rho, const double *sigma, const double *lapl, const double *tau,
    double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
    double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,

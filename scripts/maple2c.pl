@@ -207,7 +207,7 @@ sub work_lda {
 
     print $out "
 static void
-func$ispin(const XC(func_type) *p, XC(lda_work_t) *r)
+func$ispin(const xc_func_type *p, xc_lda_work_t *r)
 {
 $variables
 $prefix
@@ -219,7 +219,7 @@ $c_code
   # now we print the c file
   print $out "
 void 
-XC(${functional}_func)(const XC(func_type) *p, XC(lda_work_t) *r)
+xc_${functional}_func(const xc_func_type *p, xc_lda_work_t *r)
 {
   if(p->nspin == XC_UNPOLARIZED)
     func0(p, r);
@@ -228,7 +228,7 @@ XC(${functional}_func)(const XC(func_type) *p, XC(lda_work_t) *r)
 }
 
 #define maple2c_order $max_order
-#define maple2c_func  XC(${functional}_func)
+#define maple2c_func  xc_${functional}_func
 ";
 }
 
@@ -241,8 +241,8 @@ sub work_gga_x {
 
   # now we print the c file
   print $out "
-void XC(${functional}_enhance)
-  (const XC(func_type) *p,  XC(gga_work_x_t) *r)
+void xc_${functional}_enhance
+  (const xc_func_type *p,  xc_gga_work_x_t *r)
 {
 $variables
 $prefix
@@ -250,7 +250,7 @@ $c_code
 }
 
 #define maple2c_order $max_order
-#define maple2c_func  XC(${functional}_enhance)
+#define maple2c_func  xc_${functional}_enhance
 ";
 }
 
@@ -262,8 +262,8 @@ sub work_gga_c {
   ($variables, $c_code) = math_work($info, $out, $order);
 
   print $out "
-void XC(${functional}_func)
-  (const XC(func_type) *p, XC(gga_work_c_t) *r)
+void xc_${functional}_func
+  (const xc_func_type *p, xc_gga_work_c_t *r)
 {
 $variables
 $prefix
@@ -271,7 +271,7 @@ $c_code
 }
 
 #define maple2c_order $max_order
-#define maple2c_func  XC(${functional}_func)
+#define maple2c_func  xc_${functional}_func
 ";
 }
 
@@ -306,7 +306,7 @@ sub work_mgga_x {
   # now we print the c file
   print $out "
 static void 
-XC(${functional}_enhance)(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
+xc_${functional}_enhance(const xc_func_type *pt, xc_mgga_work_x_t *r)
 {
 $variables
 $prefix
@@ -314,7 +314,7 @@ $c_code
 }
 
 #define maple2c_order $max_order
-#define maple2c_func  XC(${functional}_enhance)
+#define maple2c_func  xc_(${functional}_enhance
 ";
 }
 
@@ -326,8 +326,8 @@ sub work_mgga_c {
   ($variables, $c_code) = math_work($info, $out, $order);
 
   print $out "
-void XC(${functional}_func)
-  (const XC(func_type) *p, XC(mgga_work_c_t) *r)
+void xc_${functional}_func
+  (const xc_func_type *p, xc_mgga_work_c_t *r)
 {
 $variables
 $prefix
@@ -335,6 +335,6 @@ $c_code
 }
 
 #define maple2c_order $max_order
-#define maple2c_func  XC(${functional}_func)
+#define maple2c_func  xc_${functional}_func
 ";
 }

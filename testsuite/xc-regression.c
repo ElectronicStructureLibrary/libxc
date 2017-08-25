@@ -258,7 +258,7 @@ int main(int argc, char *argv[])
   }
 
   /* Get functional id */
-  func_id = XC(functional_get_number)(argv[1]);
+  func_id = xc_functional_get_number(argv[1]);
   if(func_id <= 0) {
     fprintf(stderr, "Functional '%s' not found\n", argv[1]);
     exit(1);
@@ -274,7 +274,7 @@ int main(int argc, char *argv[])
     /* Data array */
     values_t d;
     /* Functional evaluator */
-    XC(func_type) func;
+    xc_func_type func;
     /* Flags for functional */
     int flags;
     /* Functional family */
@@ -291,7 +291,7 @@ int main(int argc, char *argv[])
     d=read_data(argv[2],nspin);
 
     /* Initialize functional */
-    if(XC(func_init)(&func, func_id, nspin)) {
+    if(xc_func_init(&func, func_id, nspin)) {
       fprintf(stderr, "Functional '%d' (%s) not found.\nPlease report a bug against functional_get_number.\n", func_id, argv[1]);
       exit(1);
     }
@@ -308,16 +308,16 @@ int main(int argc, char *argv[])
     /* Evaluate xc functional */
     switch(family) {
     case XC_FAMILY_LDA:
-      XC(lda)(&func, d.n, d.rho, zk, vrho, v2rho2, v3rho3);
+      xc_lda(&func, d.n, d.rho, zk, vrho, v2rho2, v3rho3);
       break;
     case XC_FAMILY_GGA:
     case XC_FAMILY_HYB_GGA:
-      XC(gga)(&func, d.n, d.rho, d.sigma, zk, vrho, d.vsigma,		\
+      xc_gga(&func, d.n, d.rho, d.sigma, zk, vrho, d.vsigma,		\
 	     v2rho2, d.v2rhosigma, d.v2sigma2, NULL, NULL, NULL, NULL);
       break;
     case XC_FAMILY_MGGA:
     case XC_FAMILY_HYB_MGGA:
-      XC(mgga)(&func, d.n, d.rho, d.sigma, d.lapl, d.tau, zk, vrho, d.vsigma, d.vlapl, d.vtau, \
+      xc_mgga(&func, d.n, d.rho, d.sigma, d.lapl, d.tau, zk, vrho, d.vsigma, d.vlapl, d.vtau, \
 	      v2rho2, d.v2sigma2, d.v2lapl2, d.v2tau2, d.v2rhosigma, d.v2rholapl, d.v2rhotau, \
 	      d.v2sigmalapl, d.v2sigmatau, d.v2lapltau);
       break;
@@ -507,7 +507,7 @@ int main(int argc, char *argv[])
       }
     }
    
-    XC(func_end)(&func);
+    xc_func_end(&func);
     free_memory(d);
     fclose(out);
   }

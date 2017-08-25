@@ -26,7 +26,7 @@
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_k_meyer) = {
+const xc_func_info_type xc_func_info_gga_k_meyer = {
   XC_GGA_K_MEYER,
   XC_KINETIC,
   "Meyer,  Wang, and Young",

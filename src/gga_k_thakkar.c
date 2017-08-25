@@ -22,11 +22,11 @@
 
 #include "maple2c/gga_k_thakkar.c"
 
-#define func XC(gga_k_thakkar_enhance)
+#define func xc_gga_k_thakkar_enhance
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_k_thakkar) = {
+const xc_func_info_type xc_func_info_gga_k_thakkar = {
   XC_GGA_K_THAKKAR,
   XC_KINETIC,
   "Thakkar 1992",

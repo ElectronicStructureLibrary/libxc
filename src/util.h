@@ -82,11 +82,11 @@ double erfc(double);
 /* special functions */
 #define Heaviside(x) (((x) >= 0) ? 1.0 : 0.0)
 double LambertW(double z);
-double XC(dilogarithm)(const double x);
+double xc_dilogarithm(const double x);
 
 /* we define this function here, so it can be properly inlined by all compilers */
 static inline double
-XC(cheb_eval)(const double x, const double *cs, const int N)
+xc_cheb_eval(const double x, const double *cs, const int N)
 {
   int i;
   double twox, b0, b1, b2;
@@ -103,32 +103,32 @@ XC(cheb_eval)(const double x, const double *cs, const int N)
   return 0.5*(b0 - b2);
 }
 
-double XC(bessel_I0_scaled)(const double x);
-double XC(bessel_I0)(const double x);
-double XC(bessel_K0_scaled)(const double x);
-double XC(bessel_K0)(const double x);
-double XC(bessel_K1_scaled)(const double x);
-double XC(bessel_K1)(const double x);
+double xc_bessel_I0_scaled(const double x);
+double xc_bessel_I0(const double x);
+double xc_bessel_K0_scaled(const double x);
+double xc_bessel_K0(const double x);
+double xc_bessel_K1_scaled(const double x);
+double xc_bessel_K1(const double x);
 
-double XC(expint_e1_impl)(const double x, const int scale);
-static inline double expint_e1(const double x)         { return  XC(expint_e1_impl)( x, 0); }
-static inline double expint_e1_scaled(const double x)  { return  XC(expint_e1_impl)( x, 1); }
-static inline double expint_Ei(const double x)         { return -XC(expint_e1_impl)(-x, 0); }
+double xc_expint_e1_impl(const double x, const int scale);
+static inline double expint_e1(const double x)         { return  xc_expint_e1_impl( x, 0); }
+static inline double expint_e1_scaled(const double x)  { return  xc_expint_e1_impl( x, 1); }
+static inline double expint_Ei(const double x)         { return -xc_expint_e1_impl(-x, 0); }
 #define Ei(x) expint_Ei(x)
-static inline double expint_Ei_scaled(const double x)  { return -XC(expint_e1_impl)(-x, 1); }
+static inline double expint_Ei_scaled(const double x)  { return -xc_expint_e1_impl(-x, 1); }
 
 /* integration */
 typedef void integr_fn(double *x, int n, void *ex);
-double XC(integrate)(integr_fn func, void *ex, double a, double b);
-void XC(rdqagse)(integr_fn f, void *ex, double *a, double *b, 
+double xc_integrate(integr_fn func, void *ex, double a, double b);
+void xc_rdqagse(integr_fn f, void *ex, double *a, double *b, 
 	     double *epsabs, double *epsrel, int *limit, double *result,
 	     double *abserr, int *neval, int *ier, double *alist__,
 	     double *blist, double *rlist, double *elist, int *iord, int *last);
   
-typedef struct XC(functional_key_t) {
+typedef struct xc_functional_key_t {
   char name[256];
   int  number;
-} XC(functional_key_t);
+} xc_functional_key_t;
 
 
 #define M_C 137.0359996287515 /* speed of light */
@@ -156,15 +156,15 @@ typedef struct XC(functional_key_t) {
 #define MIN_ZETA             5.0e-13
 
 /* The following inlines confuse the xlc compiler */
-void XC(rho2dzeta)(int nspin, const double *rho, double *d, double *zeta);
-void XC(fast_fzeta)(const double x, const int nspin, const int order, double * fz);
-void XC(mix_init)(XC(func_type) *p, int n_funcs, const int *funcs_id, const double *mix_coef);
+void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
+void xc_fast_fzeta(const double x, const int nspin, const int order, double * fz);
+void xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix_coef);
 
 /* LDAs */
-void XC(lda_init)(XC(func_type) *p);
-void XC(lda_end) (XC(func_type) *p);
+void xc_lda_init(xc_func_type *p);
+void xc_lda_end (xc_func_type *p);
 
-typedef struct XC(lda_work_t) {
+typedef struct xc_lda_work_t {
   int   order; /* to which order should I return the derivatives */
   double rs, z;
 
@@ -172,35 +172,35 @@ typedef struct XC(lda_work_t) {
   double dfdrs, dfdz;                         /*  first derivatives of e  */
   double d2fdrs2, d2fdrsz, d2fdz2;            /* second derivatives of e  */
   double d3fdrs3, d3fdrs2z, d3fdrsz2, d3fdz3; /*  third derivatives of e  */
-} XC(lda_work_t);
+} xc_lda_work_t;
 
-void XC(lda_fxc_fd)(const XC(func_type) *p, int np, const double *rho, double *fxc);
-void XC(lda_kxc_fd)(const XC(func_type) *p, int np, const double *rho, double *kxc);
+void xc_lda_fxc_fd(const xc_func_type *p, int np, const double *rho, double *fxc);
+void xc_lda_kxc_fd(const xc_func_type *p, int np, const double *rho, double *kxc);
 
 /* the different possibilities for screening the interaction */
 #define XC_RSF_ERF      0
 #define XC_RSF_ERF_GAU  1
 #define XC_RSF_YUKAWA   2
 
-typedef void XC(lda_func_type) (const XC(func_type) *p, XC(lda_work_t) *r);
+typedef void xc_lda_func_type (const xc_func_type *p, xc_lda_work_t *r);
 
-void XC(lda_x_attenuation_function_erf)(int order, double aa, double *f, double *df, double *d2f, double *d3f);
-void XC(lda_x_attenuation_function_erf_gau)(int order, double aa, double *f, double *df, double *d2f, double *d3f);
-void XC(lda_x_attenuation_function_yukawa)(int order, double aa, double *f, double *df, double *d2f, double *d3f);
-void XC(lda_x_attenuation_function)(int interaction, int order, double aa, double *f, double *df, double *d2f, double *d3f);
+void xc_lda_x_attenuation_function_erf(int order, double aa, double *f, double *df, double *d2f, double *d3f);
+void xc_lda_x_attenuation_function_erf_gau(int order, double aa, double *f, double *df, double *d2f, double *d3f);
+void xc_lda_x_attenuation_function_yukawa(int order, double aa, double *f, double *df, double *d2f, double *d3f);
+void xc_lda_x_attenuation_function(int interaction, int order, double aa, double *f, double *df, double *d2f, double *d3f);
 
 /* direct access to the internal functions */
-void XC(lda_x_func)     (const XC(func_type) *p, XC(lda_work_t) *r);
-void XC(lda_x_erf_func) (const XC(func_type) *p, XC(lda_work_t) *r);
-void XC(lda_c_hl_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
-void XC(lda_c_vwn_func) (const XC(func_type) *p, XC(lda_work_t) *r);
-void XC(lda_c_pw_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
-void XC(lda_c_pz_func)  (const XC(func_type) *p, XC(lda_work_t) *r);
-void XC(lda_c_rc04_func)(const XC(func_type) *p, XC(lda_work_t) *r);
-void XC(lda_c_2d_amgb_func)(const XC(func_type) *p, XC(lda_work_t) *r);
+void xc_lda_x_func     (const xc_func_type *p, xc_lda_work_t *r);
+void xc_lda_x_erf_func (const xc_func_type *p, xc_lda_work_t *r);
+void xc_lda_c_hl_func  (const xc_func_type *p, xc_lda_work_t *r);
+void xc_lda_c_vwn_func (const xc_func_type *p, xc_lda_work_t *r);
+void xc_lda_c_pw_func  (const xc_func_type *p, xc_lda_work_t *r);
+void xc_lda_c_pz_func  (const xc_func_type *p, xc_lda_work_t *r);
+void xc_lda_c_rc04_func(const xc_func_type *p, xc_lda_work_t *r);
+void xc_lda_c_2d_amgb_func(const xc_func_type *p, xc_lda_work_t *r);
 
 /* GGAs */
-typedef struct XC(gga_work_x_t) {
+typedef struct xc_gga_work_x_t {
   int   order; /* to which order should I return the derivatives */
   double x;
 
@@ -208,44 +208,44 @@ typedef struct XC(gga_work_x_t) {
   double dfdx;       /* first derivatives of f  */
   double d2fdx2;     /* second derivatives of zk */
   double d3fdx3;
-} XC(gga_work_x_t);
+} xc_gga_work_x_t;
 
-void work_gga_becke_init(XC(func_type) *p);
+void work_gga_becke_init(xc_func_type *p);
 
 /* exchange enhancement factors: if you add one, please add it also to the util.c */
-typedef void(*xc_gga_enhancement_t)(const XC(func_type) *, XC(gga_work_x_t) *r);
-xc_gga_enhancement_t XC(get_gga_enhancement_factor)(int func_id);
+typedef void(*xc_gga_enhancement_t)(const xc_func_type *, xc_gga_work_x_t *r);
+xc_gga_enhancement_t xc_get_gga_enhancement_factor(int func_id);
 
-void XC(gga_x_wc_enhance)   (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_pbe_enhance)  (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_pw91_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_rpbe_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_htbs_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_b86_enhance)  (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_b88_enhance)  (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_g96_enhance)  (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_pw86_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_airy_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_ak13_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_bayesian_enhance)(const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_bpccac_enhance)(const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_c09x_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_am05_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_dk87_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_herman_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_lg93_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_lv_rpw86_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_mpbe_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_optx_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_sogga11_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_ssb_sw_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
-void XC(gga_x_vmt_enhance) (const XC(func_type) *p, XC(gga_work_x_t) *r);
+void xc_gga_x_wc_enhance   (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_pbe_enhance  (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_pw91_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_rpbe_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_htbs_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_b86_enhance  (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_b88_enhance  (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_g96_enhance  (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_pw86_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_airy_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_ak13_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_bayesian_enhance(const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_bpccac_enhance(const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_c09x_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_am05_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_dk87_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_herman_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_lg93_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_lv_rpw86_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_mpbe_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_optx_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_sogga11_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_ssb_sw_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
+void xc_gga_x_vmt_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
 
 /* these functions are used in more than one functional */
-void XC(lda_c_pw_g)(int func, int order, int k, double *rs, double *f, double *dfdrs, double *d2fdrs2, double *d3fdrs3);
-void XC(beta_Hu_Langreth) (double r, int order, double *b, double *dbdr, double *d2bdr2);
+void xc_lda_c_pw_g(int func, int order, int k, double *rs, double *f, double *dfdrs, double *d2fdrs2, double *d3fdrs3);
+void xc_beta_Hu_Langreth (double r, int order, double *b, double *dbdr, double *d2bdr2);
 
-typedef struct XC(gga_work_c_t) {
+typedef struct xc_gga_work_c_t {
   int   order; /* to which order should I return the derivatives */
 
   double dens, ds[2], sigmat, sigmas[3];
@@ -263,17 +263,17 @@ typedef struct XC(gga_work_c_t) {
   double d3fdrsxt2, d3fdzxt2, d3fdxt2xs[2];
   double d3fdrsxs2[3], d3fdzxs2[3],d3fdxtxs2[3];
   double d3fdrszxt, d3fdrszxs[2], d3fdrsxtxs[2], d3fdzxtxs[2];
-} XC(gga_work_c_t);
+} xc_gga_work_c_t;
 
-void XC(gga_c_pw91_func)(const XC(func_type) *p, XC(gga_work_c_t) *r);
-void XC(gga_c_pbe_func) (const XC(func_type) *p, XC(gga_work_c_t) *r);
-void XC(gga_c_pbeloc_func) (const XC(func_type) *p, XC(gga_work_c_t) *r);
-void XC(gga_c_regtpss_func) (const XC(func_type) *p, XC(gga_work_c_t) *r);
-void XC(gga_c_scan_e0_func) (const XC(func_type) *p, XC(gga_work_c_t) *r);
-void XC(gga_c_q2d_func) (const XC(func_type) *p, XC(gga_work_c_t) *r);
+void xc_gga_c_pw91_func(const xc_func_type *p, xc_gga_work_c_t *r);
+void xc_gga_c_pbe_func (const xc_func_type *p, xc_gga_work_c_t *r);
+void xc_gga_c_pbeloc_func (const xc_func_type *p, xc_gga_work_c_t *r);
+void xc_gga_c_regtpss_func (const xc_func_type *p, xc_gga_work_c_t *r);
+void xc_gga_c_scan_e0_func (const xc_func_type *p, xc_gga_work_c_t *r);
+void xc_gga_c_q2d_func (const xc_func_type *p, xc_gga_work_c_t *r);
 
 /* meta GGAs */
-typedef struct XC(mgga_work_x_t) {
+typedef struct xc_mgga_work_x_t {
   int   order; /* to which order should I return the derivatives */
   double rs, zeta, x, t, u;
 
@@ -281,9 +281,9 @@ typedef struct XC(mgga_work_x_t) {
   double dfdrs, dfdx, dfdt, dfdu;             /* first derivatives of f  */
   double d2fdrs2, d2fdx2, d2fdt2, d2fdu2;     /* second derivatives of zk */
   double d2fdrsx, d2fdrst, d2fdrsu, d2fdxt, d2fdxu, d2fdtu;
-} XC(mgga_work_x_t);
+} xc_mgga_work_x_t;
 
-typedef struct XC(mgga_work_c_t) {
+typedef struct xc_mgga_work_c_t {
   int   order; /* to which order should I return the derivatives */
 
   double dens, ds[2], sigmat, sigmas[3];
@@ -308,35 +308,35 @@ typedef struct XC(mgga_work_c_t) {
   double d3fdxtts2[3], d3fdxttsus[4], d3fdxt2us[2], d3fdxtus2[3];
   double d3fdxs3[4], d3fdxs2ts[6], d3fdxs2us[6], d3fdxsts2[6], d3fdxstsus[8], d3fdxsus2[6];
   double d3fdts3[4], d3fdts2us[6], d3fdtsus2[6], d3fdus3[4];
-} XC(mgga_work_c_t);
+} xc_mgga_work_c_t;
 
 
-void XC(mgga_x_scan_falpha)(int order, double a, double c1, double c2, double dd, double *f, double *dfda);
+void xc_mgga_x_scan_falpha(int order, double a, double c1, double c2, double dd, double *f, double *dfda);
 	 
 
 /* now the routines to set the _internal_ parameters of several functionals */
-void XC(gga_x_pw91_set_params)(XC(func_type) *p, double a, double b, double c, double d, double f, double alpha, double expo);
-void XC(gga_x_pw91_set_params2)(XC(func_type) *p, double bt, double alpha, double expo);
-void XC(gga_x_ssb_sw_set_params)(XC(func_type) *p, double A, double B, double C, double D, double E);
-void XC(gga_x_hjs_set_params)(XC(func_type) *p, double omega);
-void XC(gga_x_hjs_b88_v2_set_params)(XC(func_type) *p, double omega);
-void XC(gga_x_b88_set_params)(XC(func_type) *p, double beta, double gamma);
-void XC(gga_x_optx_set_params)(XC(func_type) *p, double a, double b, double gamma);
-void XC(gga_x_wpbeh_set_params)(XC(func_type) *p, double omega);
-void XC(gga_x_pbe_set_params)(XC(func_type) *p, double kappa, double mu);
-void XC(gga_x_pbeint_set_params)(XC(func_type) *p, double kappa, double alpha, double muPBE, double muGE);
-void XC(gga_x_ityh_set_params)(XC(func_type) *p, int func_id, double omega);
-void XC(gga_x_b86_set_params)(XC(func_type) *p, double beta, double gamma, double omega);
-void XC(gga_x_rpbe_set_params)(XC(func_type) *p, double kappa, double mu);
-void XC(gga_x_sfat_set_params)(XC(func_type) *p, int func_id, double omega);
-void XC(gga_x_kt_set_params)(XC(func_type) *p, double gamma, double delta);
-void XC(gga_c_lyp_set_params)(XC(func_type) *p, double A, double B, double c, double d);
-void XC(gga_c_pbe_set_params)(XC(func_type) *p, double beta);
+void xc_gga_x_pw91_set_params(xc_func_type *p, double a, double b, double c, double d, double f, double alpha, double expo);
+void xc_gga_x_pw91_set_params2(xc_func_type *p, double bt, double alpha, double expo);
+void xc_gga_x_ssb_sw_set_params(xc_func_type *p, double A, double B, double C, double D, double E);
+void xc_gga_x_hjs_set_params(xc_func_type *p, double omega);
+void xc_gga_x_hjs_b88_v2_set_params(xc_func_type *p, double omega);
+void xc_gga_x_b88_set_params(xc_func_type *p, double beta, double gamma);
+void xc_gga_x_optx_set_params(xc_func_type *p, double a, double b, double gamma);
+void xc_gga_x_wpbeh_set_params(xc_func_type *p, double omega);
+void xc_gga_x_pbe_set_params(xc_func_type *p, double kappa, double mu);
+void xc_gga_x_pbeint_set_params(xc_func_type *p, double kappa, double alpha, double muPBE, double muGE);
+void xc_gga_x_ityh_set_params(xc_func_type *p, int func_id, double omega);
+void xc_gga_x_b86_set_params(xc_func_type *p, double beta, double gamma, double omega);
+void xc_gga_x_rpbe_set_params(xc_func_type *p, double kappa, double mu);
+void xc_gga_x_sfat_set_params(xc_func_type *p, int func_id, double omega);
+void xc_gga_x_kt_set_params(xc_func_type *p, double gamma, double delta);
+void xc_gga_c_lyp_set_params(xc_func_type *p, double A, double B, double c, double d);
+void xc_gga_c_pbe_set_params(xc_func_type *p, double beta);
 
-void XC(mgga_x_tpss_set_params)(XC(func_type) *p, double b, double c, double e, double kappa, double mu, double BLOC_a, double BLOC_b);
-void XC(mgga_c_tpss_set_params)(XC(func_type) *p, double beta, double d, double C0_0, double C0_1, double C0_2, double C0_3);
-void XC(mgga_c_pkzb_set_params)(XC(func_type) *p, double beta, double d, double C0_0, double C0_1, double C0_2, double C0_3);
-void XC(mgga_c_bc95_set_params)(XC(func_type) *p, double css, double copp);
+void xc_mgga_x_tpss_set_params(xc_func_type *p, double b, double c, double e, double kappa, double mu, double BLOC_a, double BLOC_b);
+void xc_mgga_c_tpss_set_params(xc_func_type *p, double beta, double d, double C0_0, double C0_1, double C0_2, double C0_3);
+void xc_mgga_c_pkzb_set_params(xc_func_type *p, double beta, double d, double C0_0, double C0_1, double C0_2, double C0_3);
+void xc_mgga_c_bc95_set_params(xc_func_type *p, double css, double copp);
 
 /* useful MACROS */
 #define DFRACTION(num, dnum, den, dden) \

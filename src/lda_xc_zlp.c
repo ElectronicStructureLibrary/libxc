@@ -26,7 +26,7 @@
 #define func maple2c_func
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_xc_zlp) = {
+const xc_func_info_type xc_func_info_lda_xc_zlp = {
   XC_LDA_XC_ZLP,
   XC_EXCHANGE_CORRELATION,
   "Zhao, Levy & Parr, Eq. (20)",

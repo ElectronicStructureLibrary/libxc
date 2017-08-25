@@ -22,7 +22,7 @@
 #define XC_MGGA_XC_B97M_V        254 /* Mardirossian and Head-Gordon */
 
 static void
-mgga_xc_b97mv_init(XC(func_type) *p)
+mgga_xc_b97mv_init(xc_func_type *p)
 {
   /* Non-local correlation parameters */
   p->nlc_b = 6.0;
@@ -34,7 +34,7 @@ mgga_xc_b97mv_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_mgga_c.c"
 
-const XC(func_info_type) XC(func_info_mgga_xc_b97m_v) = {
+const xc_func_info_type xc_func_info_mgga_xc_b97m_v = {
   XC_MGGA_XC_B97M_V,
   XC_EXCHANGE_CORRELATION,
   "B97M-V exchange-correlation functional",

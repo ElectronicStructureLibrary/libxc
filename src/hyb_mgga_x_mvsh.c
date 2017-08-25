@@ -21,17 +21,17 @@
 #define XC_HYB_MGGA_X_MVSH     474 /* MVSh hybrid */
 
 static void
-hyb_mgga_x_mvsh_init(XC(func_type) *p)
+hyb_mgga_x_mvsh_init(xc_func_type *p)
 {
   static int   funcs_id  [1] = {XC_MGGA_X_MVS};
   static double funcs_coef[1] = {0.75};
 
-  XC(mix_init)(p, 1, funcs_id, funcs_coef);
+  xc_mix_init(p, 1, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
 }
 
 
-const XC(func_info_type) XC(func_info_hyb_mgga_x_mvsh) = {
+const xc_func_info_type xc_func_info_hyb_mgga_x_mvsh = {
   XC_HYB_MGGA_X_MVSH,
   XC_EXCHANGE,
   "MVSh hybrid exchange functional",

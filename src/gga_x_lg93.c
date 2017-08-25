@@ -22,10 +22,10 @@
 
 #include "maple2c/gga_x_lg93.c"
 
-#define func XC(gga_x_lg93_enhance)
+#define func xc_gga_x_lg93_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_lg93) = {
+const xc_func_info_type xc_func_info_gga_x_lg93 = {
   XC_GGA_X_LG93,
   XC_EXCHANGE,
   "Lacks & Gordon 93",

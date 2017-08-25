@@ -26,7 +26,7 @@
 #define func maple2c_func
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_gx) = {
+const xc_func_info_type xc_func_info_mgga_x_gx = {
   XC_MGGA_X_GX,
   XC_EXCHANGE,
   "GX functional of Loos",

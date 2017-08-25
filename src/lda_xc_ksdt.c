@@ -71,7 +71,7 @@ static const lda_xc_ksdt_params par_gdsmfb = {
 }; 
 
 static void 
-lda_xc_ksdt_init(XC(func_type) *p)
+lda_xc_ksdt_init(xc_func_type *p)
 {  
   lda_xc_ksdt_params *params;
 
@@ -102,7 +102,7 @@ static const func_params_type ext_params[] = {
 };
 
 static void 
-set_ext_params(XC(func_type) *p, const double *ext_params)
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
   lda_xc_ksdt_params *params;
   double ff;
@@ -114,7 +114,7 @@ set_ext_params(XC(func_type) *p, const double *ext_params)
   params->T = ff;
 }
 
-const XC(func_info_type) XC(func_info_lda_xc_ksdt) = {
+const xc_func_info_type xc_func_info_lda_xc_ksdt = {
   XC_LDA_XC_KSDT,
   XC_EXCHANGE_CORRELATION,
   "Karasiev, Sjostrom, Dufty & Trickey",
@@ -127,7 +127,7 @@ const XC(func_info_type) XC(func_info_lda_xc_ksdt) = {
   work_lda, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_xc_gdsmfb) = {
+const xc_func_info_type xc_func_info_lda_xc_gdsmfb = {
   XC_LDA_XC_GDSMFB,
   XC_EXCHANGE_CORRELATION,
   "Groth, Dornheim, Sjostrom, Malone, Foulkes, Bonitz",

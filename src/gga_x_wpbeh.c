@@ -25,17 +25,17 @@ typedef struct{
 } gga_x_wpbeh_params;
 
 static void
-gga_x_wpbeh_init(XC(func_type) *p)
+gga_x_wpbeh_init(xc_func_type *p)
 {
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_x_wpbeh_params));
 
   /* The default value is actually PBEh */
-  XC(gga_x_wpbeh_set_params)(p, 0.0);
+  xc_gga_x_wpbeh_set_params(p, 0.0);
 }
 
 void 
-XC(gga_x_wpbeh_set_params)(XC(func_type) *p, double omega)
+xc_gga_x_wpbeh_set_params(xc_func_type *p, double omega)
 {
   gga_x_wpbeh_params *params;
 
@@ -150,7 +150,7 @@ s_scaling(int version, int order, double s1, double *s2, double *ds2ds1)
 }
 
 static inline void 
-func_3(const XC(func_type) *p, int order, double x, double ds,
+func_3(const xc_func_type *p, int order, double x, double ds,
      double *f, double *dfdx, double *lvrho)
 {
   static const double AA=1.0161144, BB=-0.37170836, CC=-0.077215461, DD=0.57786348, EE=-0.051955731;
@@ -537,7 +537,7 @@ func_3(const XC(func_type) *p, int order, double x, double ds,
 
 /* convert into work_gga_c_ variables */
 static inline void 
-func(const XC(func_type) *p, XC(gga_work_c_t) *r)
+func(const xc_func_type *p, xc_gga_work_c_t *r)
 {
   int i;
   double ds, ex, f, lvrho, dexdrs, ddsdrs, dexdz, ddsdz;
@@ -572,7 +572,7 @@ func(const XC(func_type) *p, XC(gga_work_c_t) *r)
 
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_x_wpbeh) = {
+const xc_func_info_type xc_func_info_gga_x_wpbeh = {
   XC_GGA_X_WPBEH,
   XC_EXCHANGE,
   "short-range part of the PBE (default w=0 gives PBEh)",

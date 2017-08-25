@@ -26,7 +26,7 @@
 #define XC_KINETIC_FUNCTIONAL
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_k_ol1) = {
+const xc_func_info_type xc_func_info_gga_k_ol1 = {
   XC_GGA_K_OL1,
   XC_KINETIC,
   "Ou-Yang and Levy v.1",

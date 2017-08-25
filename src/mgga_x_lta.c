@@ -27,7 +27,7 @@
 #define func maple2c_func
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_lta) = {
+const xc_func_info_type xc_func_info_mgga_x_lta = {
   XC_MGGA_X_LTA,
   XC_EXCHANGE,
   "Local tau approximation",

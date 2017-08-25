@@ -29,7 +29,7 @@ typedef struct{
 } mgga_x_ms_params;
 
 static void 
-mgga_x_ms_init(XC(func_type) *p)
+mgga_x_ms_init(xc_func_type *p)
 {
   mgga_x_ms_params *params;
 
@@ -65,7 +65,7 @@ mgga_x_ms_init(XC(func_type) *p)
 #include "work_mgga_x.c"
 
 
-const XC(func_info_type) XC(func_info_mgga_x_ms0) = {
+const xc_func_info_type xc_func_info_mgga_x_ms0 = {
   XC_MGGA_X_MS0,
   XC_EXCHANGE,
   "MS exchange of Sun, Xiao, and Ruzsinszky",
@@ -79,7 +79,7 @@ const XC(func_info_type) XC(func_info_mgga_x_ms0) = {
   work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_ms1) = {
+const xc_func_info_type xc_func_info_mgga_x_ms1 = {
   XC_MGGA_X_MS1,
   XC_EXCHANGE,
   "MS1 exchange of Sun, et al",
@@ -93,7 +93,7 @@ const XC(func_info_type) XC(func_info_mgga_x_ms1) = {
   work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_ms2) = {
+const xc_func_info_type xc_func_info_mgga_x_ms2 = {
   XC_MGGA_X_MS2,
   XC_EXCHANGE,
   "MS2 exchange of Sun, et al",
@@ -108,17 +108,17 @@ const XC(func_info_type) XC(func_info_mgga_x_ms2) = {
 };
 
 static void
-hyb_mgga_x_ms2h_init(XC(func_type) *p)
+hyb_mgga_x_ms2h_init(xc_func_type *p)
 {
   static int   funcs_id  [1] = {XC_MGGA_X_MS2};
   static double funcs_coef[1] = {0.91};
 
-  XC(mix_init)(p, 1, funcs_id, funcs_coef);
+  xc_mix_init(p, 1, funcs_id, funcs_coef);
   p->cam_alpha = 0.09;
 }
 
 
-const XC(func_info_type) XC(func_info_hyb_mgga_x_ms2h) = {
+const xc_func_info_type xc_func_info_hyb_mgga_x_ms2h = {
   XC_HYB_MGGA_X_MS2H,
   XC_EXCHANGE,
   "MS2 hybrid exchange of Sun, et al",

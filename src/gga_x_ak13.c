@@ -23,7 +23,7 @@
 static const double B1 =  1.74959015598863046792081721182; /* 3*muGE/5 + 8 pi/15 */
 static const double B2 = -1.62613336586517367779736042170; /* muGE - B1 */
 
-double XC(gga_ak13_get_asymptotic) (double homo)
+double xc_gga_ak13_get_asymptotic (double homo)
 {
   double Qx, aa, aa2, factor;
 
@@ -40,10 +40,10 @@ double XC(gga_ak13_get_asymptotic) (double homo)
 
 #include "maple2c/gga_x_ak13.c"
 
-#define func XC(gga_x_ak13_enhance)
+#define func xc_gga_x_ak13_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_ak13) = {
+const xc_func_info_type xc_func_info_gga_x_ak13 = {
   XC_GGA_X_AK13,
   XC_EXCHANGE,
   "Armiento & Kuemmel 2013",

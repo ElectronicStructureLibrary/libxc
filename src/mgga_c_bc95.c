@@ -27,17 +27,17 @@ typedef struct{
 
 
 static void 
-mgga_c_bc95_init(XC(func_type) *p)
+mgga_c_bc95_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(mgga_c_bc95_params));
 
-  XC(mgga_c_bc95_set_params)(p, 0.038, 0.0031);
+  xc_mgga_c_bc95_set_params(p, 0.038, 0.0031);
 }
 
 
 void 
-XC(mgga_c_bc95_set_params)(XC(func_type) *p, double css, double copp)
+xc_mgga_c_bc95_set_params(xc_func_type *p, double css, double copp)
 {
   mgga_c_bc95_params *params;
 
@@ -54,7 +54,7 @@ XC(mgga_c_bc95_set_params)(XC(func_type) *p, double css, double copp)
 #define func maple2c_func
 #include "work_mgga_c.c"
 
-const XC(func_info_type) XC(func_info_mgga_c_bc95) = {
+const xc_func_info_type xc_func_info_mgga_c_bc95 = {
   XC_MGGA_C_BC95,
   XC_CORRELATION,
   "Becke correlation 95",

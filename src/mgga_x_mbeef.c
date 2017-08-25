@@ -62,7 +62,7 @@ typedef struct{
 } mgga_x_mbeef_params;
 
 static void
-mgga_x_mbeef_init(XC(func_type) *p)
+mgga_x_mbeef_init(xc_func_type *p)
 {
   mgga_x_mbeef_params *params;
 
@@ -90,7 +90,7 @@ mgga_x_mbeef_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_mbeef) = {
+const xc_func_info_type xc_func_info_mgga_x_mbeef = {
   XC_MGGA_X_MBEEF,
   XC_EXCHANGE,
   "mBEEF exchange",

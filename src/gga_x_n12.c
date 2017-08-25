@@ -52,7 +52,7 @@ typedef struct{
 
 
 static void
-gga_x_n12_init(XC(func_type) *p)
+gga_x_n12_init(xc_func_type *p)
 {
   gga_x_n12_params *params;
 
@@ -87,7 +87,7 @@ gga_x_n12_init(XC(func_type) *p)
 #include "work_gga_c.c"
 
 
-const XC(func_info_type) XC(func_info_gga_x_n12) = {
+const xc_func_info_type xc_func_info_gga_x_n12 = {
   XC_GGA_X_N12,
   XC_EXCHANGE,
   "Minnesota N12 exchange functional to be used with gga_c_n12",
@@ -102,7 +102,7 @@ const XC(func_info_type) XC(func_info_gga_x_n12) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_x_n12_sx) = {
+const xc_func_info_type xc_func_info_hyb_gga_x_n12_sx = {
   XC_HYB_GGA_X_N12_SX,
   XC_EXCHANGE,
   "Worker for hyb_gga_x_n12_sx",
@@ -117,7 +117,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_x_n12_sx) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_gam) = {
+const xc_func_info_type xc_func_info_gga_x_gam = {
   XC_GGA_X_GAM,
   XC_EXCHANGE,
   "GAM functional from Minnesota",

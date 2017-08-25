@@ -28,7 +28,7 @@ typedef struct{
 
 
 static void 
-mgga_c_tpss_init(XC(func_type) *p)
+mgga_c_tpss_init(xc_func_type *p)
 {
 
   assert(p != NULL && p->params == NULL);
@@ -36,7 +36,7 @@ mgga_c_tpss_init(XC(func_type) *p)
 
   switch(p->info->number){
   case XC_MGGA_C_TPSS:
-    XC(mgga_c_tpss_set_params)(p, 0.06672455060314922, 2.8, 0.53, 0.87, 0.50, 2.26);
+    xc_mgga_c_tpss_set_params(p, 0.06672455060314922, 2.8, 0.53, 0.87, 0.50, 2.26);
     break;
   default:
     fprintf(stderr, "Internal error in mgga_c_tpss\n");
@@ -45,8 +45,8 @@ mgga_c_tpss_init(XC(func_type) *p)
 }
 
 void
-XC(mgga_c_tpss_set_params)
-     (XC(func_type) *p, double beta, double d, double C0_0, double C0_1, double C0_2, double C0_3)
+xc_mgga_c_tpss_set_params
+     (xc_func_type *p, double beta, double d, double C0_0, double C0_1, double C0_2, double C0_3)
 {
   mgga_c_tpss_params *params;
 
@@ -67,7 +67,7 @@ XC(mgga_c_tpss_set_params)
 #include "work_mgga_c.c"
 
 
-const XC(func_info_type) XC(func_info_mgga_c_tpss) = {
+const xc_func_info_type xc_func_info_mgga_c_tpss = {
   XC_MGGA_C_TPSS,
   XC_CORRELATION,
   "Tao, Perdew, Staroverov & Scuseria",

@@ -22,7 +22,7 @@
 #define XC_HYB_MGGA_XC_WB97M_V   531 /* Mardirossian and Head-Gordon */
 
 static void
-hyb_mgga_xc_wb97mv_init(XC(func_type) *p)
+hyb_mgga_xc_wb97mv_init(xc_func_type *p)
 {
   p->cam_omega =  0.3;
   p->cam_alpha =  1.0;
@@ -36,7 +36,7 @@ hyb_mgga_xc_wb97mv_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_mgga_c.c"
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_wb97m_v) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_wb97m_v = {
   XC_HYB_MGGA_XC_WB97M_V,
   XC_EXCHANGE_CORRELATION,
   "wB97M-V exchange-correlation functional",

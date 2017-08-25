@@ -47,7 +47,7 @@ typedef struct{
 
 
 static void
-mgga_x_m06l_init(XC(func_type) *p)
+mgga_x_m06l_init(xc_func_type *p)
 {
   mgga_x_m06l_params *params;
 
@@ -78,10 +78,10 @@ mgga_x_m06l_init(XC(func_type) *p)
 
 #include "maple2c/mgga_x_m06l.c"
 
-#define func XC(mgga_x_m06l_enhance)
+#define func xc_mgga_x_m06l_enhance
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_m06_l) = {
+const xc_func_info_type xc_func_info_mgga_x_m06_l = {
   XC_MGGA_X_M06_L,
   XC_EXCHANGE,
   "Minnesota M06-L functional",
@@ -94,7 +94,7 @@ const XC(func_info_type) XC(func_info_mgga_x_m06_l) = {
   NULL, NULL, work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_hyb_mgga_x_m06_hf) = {
+const xc_func_info_type xc_func_info_hyb_mgga_x_m06_hf = {
   XC_HYB_MGGA_X_M06_HF,
   XC_EXCHANGE,
   "Minnesota M06-HF functional (exchange)",
@@ -107,7 +107,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_m06_hf) = {
   NULL, NULL, work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_hyb_mgga_x_m06) = {
+const xc_func_info_type xc_func_info_hyb_mgga_x_m06 = {
   XC_HYB_MGGA_X_M06,
   XC_EXCHANGE,
   "Minnesota M06 functional exchange",

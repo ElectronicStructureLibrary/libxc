@@ -36,7 +36,7 @@
 #define func maple2c_func
 #include "work_mgga_c.c"
 
-const XC(func_info_type) XC(func_info_mgga_c_cs) = {
+const xc_func_info_type xc_func_info_mgga_c_cs = {
   XC_MGGA_C_CS,
   XC_CORRELATION,
   "Colle and Salvetti",

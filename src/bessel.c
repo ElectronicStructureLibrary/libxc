@@ -46,18 +46,18 @@ static double ai02_data[22] = {
 
    based on the SLATEC routine by W. Fullerton
 */
-double XC(bessel_I0_scaled)(const double x)
+double xc_bessel_I0_scaled(const double x)
 {
   double y = fabs(x), r = 0.0;
 
   if(y < 2.0*SQRT_DBL_EPSILON)
     r = 1.0 - y;
   else if(y <= 3.0)
-    r = exp(-y)*(2.75 + XC(cheb_eval)(y*y/4.5-1.0, bi0_data, 12));
+    r = exp(-y)*(2.75 + xc_cheb_eval(y*y/4.5-1.0, bi0_data, 12));
   else if(y <= 8.0)
-    r = (.375 + XC(cheb_eval)((48.0/y - 11.0)/5.0, ai0_data, 21))/sqrt(y);
+    r = (.375 + xc_cheb_eval((48.0/y - 11.0)/5.0, ai0_data, 21))/sqrt(y);
   else
-    r = (.375 + XC(cheb_eval)(16.0/y - 1.0, ai02_data, 22))/sqrt(y);
+    r = (.375 + xc_cheb_eval(16.0/y - 1.0, ai02_data, 22))/sqrt(y);
 
   return r;
 }
@@ -69,16 +69,16 @@ double XC(bessel_I0_scaled)(const double x)
 
   based on the SLATEC routine by W. Fullerton
 */
-double XC(bessel_I0)(const double x)
+double xc_bessel_I0(const double x)
 {
   double y = fabs(x), r = 0.0;
 
   if(y < 2.0*SQRT_DBL_EPSILON)
     r = 1.0;
   else if(y <= 3.0)
-    r = 2.75 + XC(cheb_eval)(y*y/4.5 - 1.0, bi0_data, 12);
+    r = 2.75 + xc_cheb_eval(y*y/4.5 - 1.0, bi0_data, 12);
   else if(y < LOG_DBL_MAX - 1.0)
-    r = exp(y) * XC(bessel_I0_scaled)(x);
+    r = exp(y) * xc_bessel_I0_scaled(x);
   else
     fprintf(stderr, "Overflow in bessel_I0\n");
 
@@ -108,7 +108,7 @@ static double ai12_data[22] = {
 };
 
 
-double XC(bessel_I1_scaled)(const double x)
+double xc_bessel_I1_scaled(const double x)
 {
   const double xmin    = 2.0 * DBL_MIN;
   const double x_small = 2.0 * M_SQRT2 * SQRT_DBL_EPSILON;
@@ -122,12 +122,12 @@ double XC(bessel_I1_scaled)(const double x)
   else if(y < x_small)
     r = 0.5*x*exp(-y);
   else if(y <= 3.0)
-    r = x*exp(-y)*(0.875 + XC(cheb_eval)(y*y/4.5 - 1.0, bi1_data, 11));
+    r = x*exp(-y)*(0.875 + xc_cheb_eval(y*y/4.5 - 1.0, bi1_data, 11));
   else{
     if(y <= 8.0)
-      r = (0.375 + XC(cheb_eval)((48.0/y - 11.0)/5.0, ai1_data, 21))/sqrt(y);
+      r = (0.375 + xc_cheb_eval((48.0/y - 11.0)/5.0, ai1_data, 21))/sqrt(y);
     else
-      r = (0.375 + XC(cheb_eval)(16.0/y - 1.0, ai12_data, 22))/sqrt(y);
+      r = (0.375 + xc_cheb_eval(16.0/y - 1.0, ai12_data, 22))/sqrt(y);
 
     r *= (x > 0.0 ? 1.0 : -1.0);
   }
@@ -135,7 +135,7 @@ double XC(bessel_I1_scaled)(const double x)
   return r;
 }
 
-double XC(bessel_I1)(const double x)
+double xc_bessel_I1(const double x)
 {
   const double xmin    = 2.0 * DBL_MIN;
   const double x_small = 2.0 * M_SQRT2 * SQRT_DBL_EPSILON;
@@ -149,9 +149,9 @@ double XC(bessel_I1)(const double x)
   else if(y < x_small)
     r = 0.5*x;
   else if(y <= 3.0)
-    r = x*(0.875 + XC(cheb_eval)(y*y/4.5 - 1.0, bi1_data, 11));
+    r = x*(0.875 + xc_cheb_eval(y*y/4.5 - 1.0, bi1_data, 11));
   else
-    r = exp(x)*XC(bessel_I1_scaled(x));
+    r = exp(x)*xc_bessel_I1_scaled(x);
 
   return r;
 }
@@ -176,32 +176,32 @@ static double ak02_data[14] = {
 };
 
 
-double XC(bessel_K0_scaled)(const double x)
+double xc_bessel_K0_scaled(const double x)
 {
   double r = 0.0;
 
   if(x <= 0.0)
     fprintf(stderr, "Domain error in bessel_K0_scaled\n");
   else if(x <= 2.0)
-    r = exp(x)*(-log(0.5*x)*XC(bessel_I0)(x) - 0.25 + XC(cheb_eval)(0.5*x*x - 1.0, bk0_data, 11));
+    r = exp(x)*(-log(0.5*x)*xc_bessel_I0(x) - 0.25 + xc_cheb_eval(0.5*x*x - 1.0, bk0_data, 11));
   else if(x <= 8.0)
-    r = (1.25 + XC(cheb_eval)((16.0/x - 5.0)/3.0, ak0_data, 17))/sqrt(x);
+    r = (1.25 + xc_cheb_eval((16.0/x - 5.0)/3.0, ak0_data, 17))/sqrt(x);
   else
-    r = (1.25 + XC(cheb_eval)(16.0/x - 1.0, ak02_data, 14))/sqrt(x);
+    r = (1.25 + xc_cheb_eval(16.0/x - 1.0, ak02_data, 14))/sqrt(x);
 
   return r;
 }
 
-double XC(bessel_K0)(const double x)
+double xc_bessel_K0(const double x)
 {
   double r = 0.0;
 
   if(x <= 0.0)
     fprintf(stderr, "Domain error in bessel_K0\n");
   else if(x <= 2.0)
-    r = -log(0.5*x)*XC(bessel_I0)(x) - 0.25 + XC(cheb_eval)(0.5*x*x - 1.0, bk0_data, 11);
+    r = -log(0.5*x)*xc_bessel_I0(x) - 0.25 + xc_cheb_eval(0.5*x*x - 1.0, bk0_data, 11);
   else
-    r = exp(-x)*XC(bessel_K0_scaled)(x);
+    r = exp(-x)*xc_bessel_K0_scaled(x);
 
   return r;
 }
@@ -226,25 +226,25 @@ static double ak12_data[14] = {
   -0.00000000000002176,  0.00000000000000215, -0.00000000000000022,  0.00000000000000002
 };
 
-double XC(bessel_K1_scaled)(const double x)
+double xc_bessel_K1_scaled(const double x)
 {
   double r = 0.0;
 
   if(x <= 0.0)
     fprintf(stderr, "Domain error in bessel_K1_scaled\n");
   else if(x <= 2.0)
-    r =  exp(x)*(log(0.5*x)*XC(bessel_I1)(x) +
-		 (0.75 + XC(cheb_eval)(.5*x*x - 1.0, bk1_data, 11))/x);
+    r =  exp(x)*(log(0.5*x)*xc_bessel_I1(x) +
+		 (0.75 + xc_cheb_eval(.5*x*x - 1.0, bk1_data, 11))/x);
   else if(x <= 8.0)
-    r = (1.25 + XC(cheb_eval)((16.0/x - 5.0)/3.0, ak1_data, 17))/sqrt(x);
+    r = (1.25 + xc_cheb_eval((16.0/x - 5.0)/3.0, ak1_data, 17))/sqrt(x);
   else
-    r = (1.25 + XC(cheb_eval)(16.0/x - 1.0, ak12_data, 14))/sqrt(x);
+    r = (1.25 + xc_cheb_eval(16.0/x - 1.0, ak12_data, 14))/sqrt(x);
 
   return r;
 }
 
 
-double XC(bessel_K1)(const double x)
+double xc_bessel_K1(const double x)
 {
   double r = 0.0;
 
@@ -253,9 +253,9 @@ double XC(bessel_K1)(const double x)
   else if(x<2.0*DBL_MIN)
     fprintf(stderr, "Overflow error in bessel_K1\n");
   else if(x <= 2.0)
-    r = log(0.5*x)*XC(bessel_I1)(x) + (0.75 + XC(cheb_eval)(0.5*x*x - 1.0, bk1_data, 11))/x;
+    r = log(0.5*x)*xc_bessel_I1(x) + (0.75 + xc_cheb_eval(0.5*x*x - 1.0, bk1_data, 11))/x;
   else
-    r = exp(-x)*XC(bessel_K1_scaled)(x);
+    r = exp(-x)*xc_bessel_K1_scaled(x);
 
   return r;
 }

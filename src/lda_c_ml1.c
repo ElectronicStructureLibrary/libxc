@@ -27,7 +27,7 @@ typedef struct {
 } lda_c_ml1_params;
 
 static void 
-lda_c_ml1_init(XC(func_type) *p)
+lda_c_ml1_init(xc_func_type *p)
 {
   lda_c_ml1_params *params;
 
@@ -55,7 +55,7 @@ lda_c_ml1_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_c_ml1) = {
+const xc_func_info_type xc_func_info_lda_c_ml1 = {
   XC_LDA_C_ML1,
   XC_CORRELATION,
   "Modified LSD (version 1) of Proynov and Salahub",
@@ -68,7 +68,7 @@ const XC(func_info_type) XC(func_info_lda_c_ml1) = {
   work_lda, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_c_ml2) = {
+const xc_func_info_type xc_func_info_lda_c_ml2 = {
   XC_LDA_C_ML2,
   XC_CORRELATION,
   "Modified LSD (version 2) of Proynov and Salahub",

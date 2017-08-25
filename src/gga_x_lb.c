@@ -40,28 +40,28 @@ typedef struct{
 
   double alpha;
   double beta;
-} XC(gga_x_lb_params);
+} xc_gga_x_lb_params;
 
 /************************************************************************
   Calculates van Leeuwen Baerends functional
 ************************************************************************/
 
 static void
-gga_lb_init(XC(func_type) *p)
+gga_lb_init(xc_func_type *p)
 {
-  XC(gga_x_lb_params) *params;
+  xc_gga_x_lb_params *params;
 
   assert(p->params == NULL);
 
   p->n_func_aux  = 1;
-  p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
-  p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
+  p->func_aux    = (xc_func_type **) malloc(1*sizeof(xc_func_type *));
+  p->func_aux[0] = (xc_func_type *)  malloc(  sizeof(xc_func_type));
 
-  XC(func_init)(p->func_aux[0], XC_LDA_X, p->nspin);
+  xc_func_init(p->func_aux[0], XC_LDA_X, p->nspin);
 
-  p->params = malloc(sizeof(XC(gga_x_lb_params)));
+  p->params = malloc(sizeof(xc_gga_x_lb_params));
 
-  params = (XC(gga_x_lb_params) *) (p->params);
+  params = (xc_gga_x_lb_params *) (p->params);
   switch(p->info->number){
   case XC_GGA_X_LB:
     params->alpha = 1.0;
@@ -76,19 +76,19 @@ gga_lb_init(XC(func_type) *p)
 
 
 void 
-XC(gga_lb_modified)(const XC(func_type) *func, int np, const double *rho, const double *sigma, double r, double *vrho)
+xc_gga_lb_modified(const xc_func_type *func, int np, const double *rho, const double *sigma, double r, double *vrho)
 {
   int ip, is, is2;
   double ds, gdm, x, sfact;
 
-  XC(gga_x_lb_params) *params;
+  xc_gga_x_lb_params *params;
 
   assert(func != NULL);
 
   assert(func->params != NULL);
-  params = (XC(gga_x_lb_params) *) (func->params);
+  params = (xc_gga_x_lb_params *) (func->params);
 
-  XC(lda_vxc)(func->func_aux[0], np, rho, vrho);
+  xc_lda_vxc(func->func_aux[0], np, rho, vrho);
 
   sfact = (func->nspin == XC_POLARIZED) ? 1.0 : 2.0;
 
@@ -138,12 +138,12 @@ XC(gga_lb_modified)(const XC(func_type) *func, int np, const double *rho, const 
 
 
 static void 
-gga_x_lb(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+gga_x_lb(const xc_func_type *p, int np, const double *rho, const double *sigma,
 	 double *zk, double *vrho, double *vsigma,
 	 double *v2rho2, double *v2rhosigma, double *v2sigma2,
 	 double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
-  XC(gga_lb_modified)(p, np, rho, sigma, 0.0, vrho);
+  xc_gga_lb_modified(p, np, rho, sigma, 0.0, vrho);
 }
 
 
@@ -156,13 +156,13 @@ static const func_params_type ext_params[] = {
 
 
 static void 
-set_ext_params(XC(func_type) *p, const double *ext_params)
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  XC(gga_x_lb_params) *params;
+  xc_gga_x_lb_params *params;
   double ff;
 
   assert(p!=NULL && p->params!=NULL);
-  params = (XC(gga_x_lb_params) *) (p->params);
+  params = (xc_gga_x_lb_params *) (p->params);
 
   ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
   params->modified  = (int)round(ff);
@@ -183,7 +183,7 @@ set_ext_params(XC(func_type) *p, const double *ext_params)
 }
 
 
-const XC(func_info_type) XC(func_info_gga_x_lb) = {
+const xc_func_info_type xc_func_info_gga_x_lb = {
   XC_GGA_X_LB,
   XC_EXCHANGE,
   "van Leeuwen & Baerends",
@@ -197,7 +197,7 @@ const XC(func_info_type) XC(func_info_gga_x_lb) = {
 };
 
 
-const XC(func_info_type) XC(func_info_gga_x_lbm) = {
+const xc_func_info_type xc_func_info_gga_x_lbm = {
   XC_GGA_X_LBM,
   XC_EXCHANGE,
   "van Leeuwen & Baerends modified",

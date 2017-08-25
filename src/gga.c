@@ -55,7 +55,7 @@ if nspin == 2
    v3sigma(10)     = (uu_uu_uu, uu_uu_ud, uu_uu_dd, uu_ud_ud, uu_ud_dd, uu_dd_dd, ud_ud_ud, ud_ud_dd, ud_dd_dd, dd_dd_dd)
    
 */
-void XC(gga)(const XC(func_type) *func, int np, const double *rho, const double *sigma,
+void xc_gga(const xc_func_type *func, int np, const double *rho, const double *sigma,
 	     double *zk, double *vrho, double *vsigma,
 	     double *v2rho2, double *v2rhosigma, double *v2sigma2,
 	     double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
@@ -122,7 +122,7 @@ void XC(gga)(const XC(func_type) *func, int np, const double *rho, const double 
 		    v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
 
   if(func->mix_coef != NULL)
-    XC(mix_func)(func, np, rho, sigma, NULL, NULL, zk, vrho, vsigma, NULL, NULL,
+    xc_mix_func(func, np, rho, sigma, NULL, NULL, zk, vrho, vsigma, NULL, NULL,
 		 v2rho2, v2sigma2, NULL, NULL, v2rhosigma, NULL, NULL, NULL, NULL, NULL);
 
 }
@@ -130,40 +130,40 @@ void XC(gga)(const XC(func_type) *func, int np, const double *rho, const double 
 /* specializations */
 /* returns only energy */
 inline void 
-XC(gga_exc)(const XC(func_type) *p, int np, const double *rho, const double *sigma, 
+xc_gga_exc(const xc_func_type *p, int np, const double *rho, const double *sigma, 
 	    double *zk)
 {
-  XC(gga)(p, np, rho, sigma, zk, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+  xc_gga(p, np, rho, sigma, zk, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 /* returns only potential */
 inline void 
-XC(gga_vxc)(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+xc_gga_vxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 	    double *vrho, double *vsigma)
 {
-  XC(gga)(p, np, rho, sigma, NULL, vrho, vsigma, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+  xc_gga(p, np, rho, sigma, NULL, vrho, vsigma, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 /* returns both energy and potential (the most common call usually) */
 inline void 
-XC(gga_exc_vxc)(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+xc_gga_exc_vxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 		double *zk, double *vrho, double *vsigma)
 {
-  XC(gga)(p, np, rho, sigma, zk, vrho, vsigma, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+  xc_gga(p, np, rho, sigma, zk, vrho, vsigma, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 /* returns second derivatives */
 inline void 
-XC(gga_fxc)(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+xc_gga_fxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 	    double *v2rho2, double *v2rhosigma, double *v2sigma2)
 {
-  XC(gga)(p, np, rho, sigma, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2, NULL, NULL, NULL, NULL);
+  xc_gga(p, np, rho, sigma, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2, NULL, NULL, NULL, NULL);
 }
 
 /* returns third derivatives */
 inline void 
-XC(gga_kxc)(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+xc_gga_kxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 	    double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
-  XC(gga)(p, np, rho, sigma, NULL, NULL, NULL, NULL, NULL, NULL, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
+  xc_gga(p, np, rho, sigma, NULL, NULL, NULL, NULL, NULL, NULL, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
 }

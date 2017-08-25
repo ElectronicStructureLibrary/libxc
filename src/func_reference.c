@@ -19,17 +19,17 @@
 #include <xc.h>
 
 
-char const *XC(func_reference_get_ref)(const func_reference_type *reference)
+char const *xc_func_reference_get_ref(const func_reference_type *reference)
 {
     return reference->ref;
 }
 
-char const *XC(func_reference_get_doi)(const func_reference_type *reference)
+char const *xc_func_reference_get_doi(const func_reference_type *reference)
 {
     return reference->doi;
 }
 
-char const *XC(func_reference_get_bibtex)(const func_reference_type *reference)
+char const *xc_func_reference_get_bibtex(const func_reference_type *reference)
 {
     return reference->bibtex;
 }

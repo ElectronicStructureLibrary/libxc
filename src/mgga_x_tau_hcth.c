@@ -39,7 +39,7 @@ typedef struct{
 
 
 static void 
-mgga_x_tau_hcth_init(XC(func_type) *p)
+mgga_x_tau_hcth_init(xc_func_type *p)
 {
   mgga_x_tau_hcth_params *params;
 
@@ -76,7 +76,7 @@ mgga_x_tau_hcth_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_tau_hcth) = {
+const xc_func_info_type xc_func_info_mgga_x_tau_hcth = {
   XC_MGGA_X_TAU_HCTH,
   XC_EXCHANGE,
   "tau-HCTH from Boese and Handy",
@@ -90,7 +90,7 @@ const XC(func_info_type) XC(func_info_mgga_x_tau_hcth) = {
   work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_hyb_mgga_x_bmk) = {
+const xc_func_info_type xc_func_info_hyb_mgga_x_bmk = {
   XC_HYB_MGGA_X_BMK,
   XC_EXCHANGE,
   "Boese-Martin for kinetics",
@@ -103,7 +103,7 @@ const XC(func_info_type) XC(func_info_hyb_mgga_x_bmk) = {
   NULL, NULL, work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_hyb_mgga_x_tau_hcth) = {
+const xc_func_info_type xc_func_info_hyb_mgga_x_tau_hcth = {
   XC_HYB_MGGA_X_TAU_HCTH,
   XC_EXCHANGE,
   "Hybrid version of tau-HCTH",

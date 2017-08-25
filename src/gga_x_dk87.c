@@ -34,7 +34,7 @@ static const gga_x_dk87_params par_dk87_r2 = {
 };
 
 static void 
-gga_x_dk87_init(XC(func_type) *p)
+gga_x_dk87_init(xc_func_type *p)
 {
   gga_x_dk87_params *params;
 
@@ -60,7 +60,7 @@ gga_x_dk87_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_dk87_r1) = {
+const xc_func_info_type xc_func_info_gga_x_dk87_r1 = {
   XC_GGA_X_DK87_R1,
   XC_EXCHANGE,
   "dePristo & Kress 87 version R1",
@@ -73,7 +73,7 @@ const XC(func_info_type) XC(func_info_gga_x_dk87_r1) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_dk87_r2) = {
+const xc_func_info_type xc_func_info_gga_x_dk87_r2 = {
   XC_GGA_X_DK87_R2,
   XC_EXCHANGE,
   "dePristo & Kress 87 version R2",

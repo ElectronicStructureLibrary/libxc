@@ -34,12 +34,12 @@ work_gga_k
 #else
 work_gga_x
 #endif
-(const XC(func_type) *p, int np, const double *rho, const double *sigma,
+(const xc_func_type *p, int np, const double *rho, const double *sigma,
  double *zk, double *vrho, double *vsigma,
  double *v2rho2, double *v2rhosigma, double *v2sigma2,
  double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
-  XC(gga_work_x_t) r;
+  xc_gga_work_x_t r;
 
   double sfact, sfact2, x_factor_c, alpha, beta, dens;
   int is, is2, ip;

@@ -22,10 +22,10 @@
 
 #include "maple2c/gga_x_g96.c"
 
-#define func XC(gga_x_g96_enhance)
+#define func xc_gga_x_g96_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_g96) = {
+const xc_func_info_type xc_func_info_gga_x_g96 = {
   XC_GGA_X_G96,
   XC_EXCHANGE,
   "Gill 96",

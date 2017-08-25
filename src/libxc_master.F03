@@ -54,75 +54,71 @@
 
 
 #ifdef SINGLE_PRECISION
-#  define XC(x) xc_s_ ## x
-#  define FXC(x) xc_s_f03_ ## x
 #  define RTYPE c_float
 #else
-#  define XC(x) xc_ ## x
-#  define FXC(x) xc_f03_ ## x
 #  define RTYPE c_double
 #endif
 
-module FXC(lib_m)
+module xc_f03_lib_m
   use, intrinsic :: iso_c_binding
   implicit none
 
   private
   public :: &
     ! version
-    FXC(version), &
-    FXC(version_string), &
+    xc_f03_version, &
+    xc_f03_version_string, &
     ! func_info
-    FXC(func_info_t), &
-    FXC(func_info_get_number), &
-    FXC(func_info_get_kind), &
-    FXC(func_info_get_name), &
-    FXC(func_info_get_family), &
-    FXC(func_info_get_references), &
-    FXC(func_info_get_flags), &
-    FXC(func_info_get_n_ext_params), &
-    FXC(func_info_get_ext_params_description), &
-    FXC(func_info_get_ext_params_default_value), &
+    xc_f03_func_info_t, &
+    xc_f03_func_info_get_number, &
+    xc_f03_func_info_get_kind, &
+    xc_f03_func_info_get_name, &
+    xc_f03_func_info_get_family, &
+    xc_f03_func_info_get_references, &
+    xc_f03_func_info_get_flags, &
+    xc_f03_func_info_get_n_ext_params, &
+    xc_f03_func_info_get_ext_params_description, &
+    xc_f03_func_info_get_ext_params_default_value, &
     ! func_reference
-    FXC(func_reference_t), &
-    FXC(func_reference_get_ref), &
-    FXC(func_reference_get_doi), &
-    FXC(func_reference_get_bibtex), &
+    xc_f03_func_reference_t, &
+    xc_f03_func_reference_get_ref, &
+    xc_f03_func_reference_get_doi, &
+    xc_f03_func_reference_get_bibtex, &
     ! func
-    FXC(func_t), &
-    FXC(func_init), &
-    FXC(func_end), &
-    FXC(func_get_info), &
-    FXC(functional_get_name), &
-    FXC(functional_get_number), &
-    FXC(family_from_id), &
-    FXC(func_set_dens_threshold), &
-    FXC(func_set_ext_params), &
+    xc_f03_func_t, &
+    xc_f03_func_init, &
+    xc_f03_func_end, &
+    xc_f03_func_get_info, &
+    xc_f03_functional_get_name, &
+    xc_f03_functional_get_number, &
+    xc_f03_family_from_id, &
+    xc_f03_func_set_dens_threshold, &
+    xc_f03_func_set_ext_params, &
     ! lda
-    FXC(lda), &
-    FXC(lda_exc), &
-    FXC(lda_exc_vxc), &
-    FXC(lda_vxc), &
-    FXC(lda_fxc), &
-    FXC(lda_kxc), &
+    xc_f03_lda, &
+    xc_f03_lda_exc, &
+    xc_f03_lda_exc_vxc, &
+    xc_f03_lda_vxc, &
+    xc_f03_lda_fxc, &
+    xc_f03_lda_kxc, &
     ! gga
-    FXC(gga), &
-    FXC(gga_exc), &
-    FXC(gga_exc_vxc), &
-    FXC(gga_vxc), &
-    FXC(gga_fxc), &
-    FXC(gga_kxc), &
-    FXC(gga_lb_modified), &
-    FXC(gga_ak13_get_asymptotic), &
-    FXC(hyb_exx_coef), &
-    FXC(hyb_cam_coef), &
-    FXC(nlc_coef), &
+    xc_f03_gga, &
+    xc_f03_gga_exc, &
+    xc_f03_gga_exc_vxc, &
+    xc_f03_gga_vxc, &
+    xc_f03_gga_fxc, &
+    xc_f03_gga_kxc, &
+    xc_f03_gga_lb_modified, &
+    xc_f03_gga_ak13_get_asymptotic, &
+    xc_f03_hyb_exx_coef, &
+    xc_f03_hyb_cam_coef, &
+    xc_f03_nlc_coef, &
     ! mgga
-    FXC(mgga), &
-    FXC(mgga_exc), &
-    FXC(mgga_exc_vxc), &
-    FXC(mgga_vxc), &
-    FXC(mgga_fxc)
+    xc_f03_mgga, &
+    xc_f03_mgga_exc, &
+    xc_f03_mgga_exc_vxc, &
+    xc_f03_mgga_vxc, &
+    xc_f03_mgga_fxc
 
 
   integer(c_int), parameter, public :: &
@@ -192,215 +188,215 @@ module FXC(lib_m)
   
   !----------------------------------------------------------------
   interface
-    subroutine XC(version)(major, minor, micro) bind(c)
+    subroutine xc_version(major, minor, micro) bind(c)
       import
       integer(c_int), intent(out) :: major, minor, micro
-    end subroutine XC(version)
+    end subroutine xc_version
 
-    type(c_ptr) function XC(version_string)() bind(c)
+    type(c_ptr) function xc_version_string() bind(c)
       import
-    end function XC(version_string)
+    end function xc_version_string
   end interface
 
   
   !----------------------------------------------------------------
-  type :: FXC(func_info_t)
+  type :: xc_f03_func_info_t
     private
     type(c_ptr) :: ptr = C_NULL_PTR
-  end type FXC(func_info_t)
+  end type xc_f03_func_info_t
 
   interface
-    integer(c_int) function XC(func_info_get_number)(info) bind(c)
+    integer(c_int) function xc_func_info_get_number(info) bind(c)
       import
       type(c_ptr), value :: info
-    end function XC(func_info_get_number)
+    end function xc_func_info_get_number
     
-    integer(c_int) function XC(func_info_get_kind)(info) bind(c)
+    integer(c_int) function xc_func_info_get_kind(info) bind(c)
       import
       type(c_ptr), value :: info
-    end function XC(func_info_get_kind)
+    end function xc_func_info_get_kind
 
-    type(c_ptr) function XC(func_info_get_name)(info) bind(c)
+    type(c_ptr) function xc_func_info_get_name(info) bind(c)
       import
       type(c_ptr), value :: info
-    end function XC(func_info_get_name)
+    end function xc_func_info_get_name
 
-    integer(c_int) function XC(func_info_get_family)(info) bind(c)
+    integer(c_int) function xc_func_info_get_family(info) bind(c)
       import
       type(c_ptr), value :: info
-    end function XC(func_info_get_family)
+    end function xc_func_info_get_family
 
-    integer(c_int) function XC(func_info_get_flags)(info) bind(c)
+    integer(c_int) function xc_func_info_get_flags(info) bind(c)
       import
       type(c_ptr), value :: info
-    end function XC(func_info_get_flags)
+    end function xc_func_info_get_flags
 
-    type(c_ptr) function XC(func_info_get_references)(info, number) bind(c)
+    type(c_ptr) function xc_func_info_get_references(info, number) bind(c)
       import
       type(c_ptr),    value :: info
       integer(c_int), value :: number
-    end function XC(func_info_get_references)
+    end function xc_func_info_get_references
 
-    integer(c_int) function XC(func_info_get_n_ext_params)(info) bind(c)
+    integer(c_int) function xc_func_info_get_n_ext_params(info) bind(c)
       import
       type(c_ptr), value :: info
-    end function XC(func_info_get_n_ext_params)
+    end function xc_func_info_get_n_ext_params
     
-    type(c_ptr) function XC(func_info_get_ext_params_description)(info, number) bind(c)
+    type(c_ptr) function xc_func_info_get_ext_params_description(info, number) bind(c)
       import
       type(c_ptr),    value :: info
       integer(c_int), value :: number
-    end function XC(func_info_get_ext_params_description)
+    end function xc_func_info_get_ext_params_description
 
-    real(RTYPE) function XC(func_info_get_ext_params_default_value)(info, number) bind(c)
+    real(RTYPE) function xc_func_info_get_ext_params_default_value(info, number) bind(c)
       import
       type(c_ptr),    value :: info
       integer(c_int), value :: number
-    end function XC(func_info_get_ext_params_default_value)
+    end function xc_func_info_get_ext_params_default_value
   end interface
 
   !----------------------------------------------------------------
-  type :: FXC(func_reference_t)
+  type :: xc_f03_func_reference_t
     private
     type(c_ptr) :: ptr = C_NULL_PTR
-  end type FXC(func_reference_t)
+  end type xc_f03_func_reference_t
 
   interface
-    type(c_ptr) function XC(func_reference_get_ref)(reference) bind(c)
+    type(c_ptr) function xc_func_reference_get_ref(reference) bind(c)
       import
       type(c_ptr), value :: reference
-    end function XC(func_reference_get_ref)
+    end function xc_func_reference_get_ref
 
-    type(c_ptr) function XC(func_reference_get_doi)(reference) bind(c)
+    type(c_ptr) function xc_func_reference_get_doi(reference) bind(c)
       import
       type(c_ptr), value :: reference
-    end function XC(func_reference_get_doi)
+    end function xc_func_reference_get_doi
 
-    type(c_ptr) function XC(func_reference_get_bibtex)(reference) bind(c)
+    type(c_ptr) function xc_func_reference_get_bibtex(reference) bind(c)
       import
       type(c_ptr), value :: reference
-    end function XC(func_reference_get_bibtex)
+    end function xc_func_reference_get_bibtex
   end interface
     
   !----------------------------------------------------------------
-  type :: FXC(func_t)
+  type :: xc_f03_func_t
     private
     type(c_ptr) :: ptr = C_NULL_PTR
-  end type FXC(func_t)
+  end type xc_f03_func_t
 
   interface
-    type(c_ptr) function XC(func_alloc)() bind(c)
+    type(c_ptr) function xc_func_alloc() bind(c)
       import
-    end function XC(func_alloc)
+    end function xc_func_alloc
     
-    integer(c_int) function XC(func_init)(p, functional, nspin) bind(c)
+    integer(c_int) function xc_func_init(p, functional, nspin) bind(c)
       import
       type(c_ptr),    value :: p
       integer(c_int), value :: functional, nspin
-    end function XC(func_init)
+    end function xc_func_init
 
-    subroutine XC(func_end)(p) bind(c)
+    subroutine xc_func_end(p) bind(c)
       import
       type(c_ptr), value :: p
-    end subroutine XC(func_end)
+    end subroutine xc_func_end
 
-    subroutine XC(func_free)(p) bind(c)
+    subroutine xc_func_free(p) bind(c)
       import
       type(c_ptr), value :: p
-    end subroutine XC(func_free)
+    end subroutine xc_func_free
 
-    type(c_ptr) function XC(func_get_info)(p) bind(c)
+    type(c_ptr) function xc_func_get_info(p) bind(c)
       import
       type(c_ptr), value :: p
-    end function XC(func_get_info)
+    end function xc_func_get_info
     
-    type(c_ptr) function XC(functional_get_name)(number) bind(c)
+    type(c_ptr) function xc_functional_get_name(number) bind(c)
       import
       integer(c_int), value :: number
-    end function XC(functional_get_name)
+    end function xc_functional_get_name
 
-    integer(c_int) function XC(functional_get_number)(func_string) bind(c)
+    integer(c_int) function xc_functional_get_number(func_string) bind(c)
       import
       character(kind=c_char) :: func_string(*)
-    end function XC(functional_get_number)
+    end function xc_functional_get_number
  
-    integer(c_int) function XC(family_from_id)(id, family, number) bind(c)
+    integer(c_int) function xc_family_from_id(id, family, number) bind(c)
       import
       integer(c_int), value :: id
       type(c_ptr),    value :: family, number
-    end function XC(family_from_id)
+    end function xc_family_from_id
 
-    subroutine XC(func_set_dens_threshold)(p, dens_threshold) bind(c)
+    subroutine xc_func_set_dens_threshold(p, dens_threshold) bind(c)
       import
       type(c_ptr), value :: p
       real(RTYPE), value :: dens_threshold
-    end subroutine XC(func_set_dens_threshold)
+    end subroutine xc_func_set_dens_threshold
 
-    subroutine XC(func_set_ext_params)(p, ext_params) bind(c)
+    subroutine xc_func_set_ext_params(p, ext_params) bind(c)
       import
       type(c_ptr), value      :: p
       real(RTYPE), intent(in) :: ext_params(*)
-    end subroutine XC(func_set_ext_params)
+    end subroutine xc_func_set_ext_params
   end interface
 
 
   ! LDAs
   !----------------------------------------------------------------
   interface
-    subroutine XC(lda)(p, np, rho, zk, vrho, v2rho2, v3rho3) bind(c)
+    subroutine xc_lda(p, np, rho, zk, vrho, v2rho2, v3rho3) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*)
       real(RTYPE),    intent(out) :: zk(*), vrho(*), v2rho2(*), v3rho3(*)
-    end subroutine XC(lda)
+    end subroutine xc_lda
 
-    subroutine XC(lda_exc)(p, np, rho, zk) bind(c)
+    subroutine xc_lda_exc(p, np, rho, zk) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*)
       real(RTYPE),    intent(out) :: zk(*)
-    end subroutine XC(lda_exc)
+    end subroutine xc_lda_exc
 
-    subroutine XC(lda_exc_vxc)(p, np, rho, zk, vrho) bind(c)
+    subroutine xc_lda_exc_vxc(p, np, rho, zk, vrho) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*)
       real(RTYPE),    intent(out) :: zk(*), vrho(*)
-    end subroutine XC(lda_exc_vxc)
+    end subroutine xc_lda_exc_vxc
 
-    subroutine XC(lda_vxc)(p, np, rho, vrho) bind(c)
+    subroutine xc_lda_vxc(p, np, rho, vrho) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*)
       real(RTYPE),    intent(out) :: vrho(*)
-    end subroutine XC(lda_vxc)
+    end subroutine xc_lda_vxc
 
-    subroutine XC(lda_fxc)(p, np, rho, v2rho2) bind(c)
+    subroutine xc_lda_fxc(p, np, rho, v2rho2) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*)
       real(RTYPE),    intent(out) :: v2rho2(*)
-    end subroutine XC(lda_fxc)
+    end subroutine xc_lda_fxc
 
-    subroutine XC(lda_kxc)(p, np, rho, v3rho3) bind(c)
+    subroutine xc_lda_kxc(p, np, rho, v3rho3) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*)
       real(RTYPE),    intent(out) :: v3rho3(*)
-    end subroutine XC(lda_kxc)
+    end subroutine xc_lda_kxc
   end interface
   
 
   ! GGAs
   !----------------------------------------------------------------
   interface
-    subroutine XC(gga)(p, np, rho, sigma, zk, vrho, vsigma, &
+    subroutine xc_gga(p, np, rho, sigma, zk, vrho, vsigma, &
       v2rho2, v2rhosigma, v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3) bind(c)
       import
       type(c_ptr),    value       :: p
@@ -409,91 +405,91 @@ module FXC(lib_m)
       real(RTYPE),    intent(out) :: zk(*), vrho(*), vsigma(*)
       real(RTYPE),    intent(out) :: v2rho2(*), v2rhosigma(*), v2sigma2(*)
       real(RTYPE),    intent(out) :: v3rho3(*), v3rho2sigma(*), v3rhosigma2(*), v3sigma3(*)
-    end subroutine XC(gga)
+    end subroutine xc_gga
 
-    subroutine XC(gga_exc)(p, np, rho, sigma, zk) bind(c)
+    subroutine xc_gga_exc(p, np, rho, sigma, zk) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*), sigma(*)
       real(RTYPE),    intent(out) :: zk(*)
-    end subroutine XC(gga_exc)
+    end subroutine xc_gga_exc
 
-    subroutine XC(gga_exc_vxc)(p, np, rho, sigma, zk, vrho, vsigma) bind(c)
+    subroutine xc_gga_exc_vxc(p, np, rho, sigma, zk, vrho, vsigma) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*), sigma(*)
       real(RTYPE),    intent(out) :: zk(*), vrho(*), vsigma(*)      
-    end subroutine XC(gga_exc_vxc)
+    end subroutine xc_gga_exc_vxc
 
-    subroutine XC(gga_vxc)(p, np, rho, sigma, vrho, vsigma) bind(c)
+    subroutine xc_gga_vxc(p, np, rho, sigma, vrho, vsigma) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*), sigma(*)
       real(RTYPE),    intent(out) :: vrho(*), vsigma(*)
-    end subroutine XC(gga_vxc)
+    end subroutine xc_gga_vxc
 
-    subroutine XC(gga_fxc)(p, np, rho, sigma, v2rho2, v2rhosigma, v2sigma2) bind(c)
+    subroutine xc_gga_fxc(p, np, rho, sigma, v2rho2, v2rhosigma, v2sigma2) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*), sigma(*)
       real(RTYPE),    intent(out) :: v2rho2(*), v2rhosigma(*), v2sigma2(*)
-    end subroutine XC(gga_fxc)
+    end subroutine xc_gga_fxc
 
-    subroutine XC(gga_kxc)(p, np, rho, sigma, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3) bind(c)
+    subroutine xc_gga_kxc(p, np, rho, sigma, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*), sigma(*)
       real(RTYPE),    intent(out) :: v3rho3(*), v3rho2sigma(*), v3rhosigma2(*), v3sigma3(*)      
-    end subroutine XC(gga_kxc)
+    end subroutine xc_gga_kxc
   end interface
 
 
   interface
-    subroutine XC(gga_lb_modified)(p, np, rho, grho, r, dedd) bind(c)
+    subroutine xc_gga_lb_modified(p, np, rho, grho, r, dedd) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*), grho(*)
       real(RTYPE),    value       :: r
       real(RTYPE),    intent(out) :: dedd(*)
-    end subroutine XC(gga_lb_modified)
+    end subroutine xc_gga_lb_modified
 
-    real(RTYPE) function XC(gga_ak13_get_asymptotic)(homo) bind(c)
+    real(RTYPE) function xc_gga_ak13_get_asymptotic(homo) bind(c)
       import
       real(RTYPE), value :: homo
-    end function XC(gga_ak13_get_asymptotic)
+    end function xc_gga_ak13_get_asymptotic
   end interface
 
 
   interface
-    real(RTYPE) function XC(hyb_exx_coef)(p) bind(c)
+    real(RTYPE) function xc_hyb_exx_coef(p) bind(c)
       import
       type(c_ptr), value :: p
-    end function XC(hyb_exx_coef)
+    end function xc_hyb_exx_coef
 
-    subroutine XC(hyb_cam_coef)(p, omega, alpha, beta) bind(c)
+    subroutine xc_hyb_cam_coef(p, omega, alpha, beta) bind(c)
       import
       type(c_ptr), value       :: p
       real(RTYPE), intent(out) :: omega, alpha, beta
-    end subroutine XC(hyb_cam_coef)
+    end subroutine xc_hyb_cam_coef
 
-    subroutine XC(nlc_coef)(p, nlc_b, nlc_c) bind(c)
+    subroutine xc_nlc_coef(p, nlc_b, nlc_c) bind(c)
       import
       type(c_ptr), value       :: p
       real(RTYPE), intent(out) :: nlc_b, nlc_c
-    end subroutine XC(nlc_coef)
+    end subroutine xc_nlc_coef
   end interface
 
 
   ! the meta-GGAs
   !----------------------------------------------------------------
   interface
-    subroutine XC(mgga)(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
+    subroutine xc_mgga(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
       v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
       v2sigmalapl, v2sigmatau, v2lapltau) bind(c)
       import
@@ -503,33 +499,33 @@ module FXC(lib_m)
       real(RTYPE),    intent(out) :: zk(*), vrho(*), vsigma(*), vlapl(*), vtau(*)
       real(RTYPE),    intent(out) :: v2rho2(*), v2sigma2(*), v2lapl2(*), v2tau2(*), v2rhosigma(*), v2rholapl(*), &
                                      v2rhotau(*), v2sigmalapl(*), v2sigmatau(*), v2lapltau(*)
-    end subroutine XC(mgga)
+    end subroutine xc_mgga
 
-    subroutine XC(mgga_exc)(p, np, rho, sigma, lapl, tau, zk) bind(c)
+    subroutine xc_mgga_exc(p, np, rho, sigma, lapl, tau, zk) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
       real(RTYPE),    intent(out) :: zk(*)
-    end subroutine XC(mgga_exc)
+    end subroutine xc_mgga_exc
 
-    subroutine XC(mgga_exc_vxc)(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau) bind(c)
+    subroutine xc_mgga_exc_vxc(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
       real(RTYPE),    intent(out) :: zk(*), vrho(*), vsigma(*), vlapl(*), vtau(*)
-    end subroutine XC(mgga_exc_vxc)
+    end subroutine xc_mgga_exc_vxc
 
-    subroutine XC(mgga_vxc)(p, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau) bind(c)
+    subroutine xc_mgga_vxc(p, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(RTYPE),    intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
       real(RTYPE),    intent(out) :: vrho(*), vsigma(*), vlapl(*), vtau(*)
-    end subroutine XC(mgga_vxc)
+    end subroutine xc_mgga_vxc
 
-    subroutine XC(mgga_fxc)(p, np, rho, sigma, lapl, tau, &
+    subroutine xc_mgga_fxc(p, np, rho, sigma, lapl, tau, &
       v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
       v2sigmalapl, v2sigmatau, v2lapltau) bind(c)
       import
@@ -538,168 +534,168 @@ module FXC(lib_m)
       real(RTYPE),    intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
       real(RTYPE),    intent(out) :: v2rho2(*), v2sigma2(*), v2lapl2(*), v2tau2(*), v2rhosigma(*), v2rholapl(*), &
                                      v2rhotau(*), v2sigmalapl(*), v2sigmatau(*), v2lapltau(*)
-    end subroutine XC(mgga_fxc)
+    end subroutine xc_mgga_fxc
   end interface
 
   contains
   
   !----------------------------------------------------------------
-  subroutine FXC(version)(major, minor, micro)
+  subroutine xc_f03_version(major, minor, micro)
     integer, intent(out) :: major, minor, micro
 
-    call XC(version)(major, minor, micro)
+    call xc_version(major, minor, micro)
     
-  end subroutine FXC(version)
+  end subroutine xc_f03_version
 
-  subroutine FXC(version_string)(version)
+  subroutine xc_f03_version_string(version)
     character(len=*), intent(out) :: version
 
     type(c_ptr) :: c_version
     
-    c_version = XC(version_string)()
+    c_version = xc_version_string()
     call c_to_f_string_ptr(c_version, version)
 
-  end subroutine FXC(version_string)
+  end subroutine xc_f03_version_string
 
   
   !----------------------------------------------------------------
-  integer function FXC(func_info_get_number)(info) result(number)
-    type(FXC(func_info_t)), intent(in) :: info
+  integer function xc_f03_func_info_get_number(info) result(number)
+    type(xc_f03_func_info_t), intent(in) :: info
 
-    number = XC(func_info_get_number)(info%ptr)
+    number = xc_func_info_get_number(info%ptr)
 
-  end function FXC(func_info_get_number)
+  end function xc_f03_func_info_get_number
     
-  integer function FXC(func_info_get_kind)(info) result(kind)
-    type(FXC(func_info_t)), intent(in) :: info
+  integer function xc_f03_func_info_get_kind(info) result(kind)
+    type(xc_f03_func_info_t), intent(in) :: info
     
-    kind = XC(func_info_get_kind)(info%ptr)
+    kind = xc_func_info_get_kind(info%ptr)
 
-  end function FXC(func_info_get_kind)
+  end function xc_f03_func_info_get_kind
 
-  character(len=128) function FXC(func_info_get_name)(info) result(name)
-    type(FXC(func_info_t)), intent(in) :: info
+  character(len=128) function xc_f03_func_info_get_name(info) result(name)
+    type(xc_f03_func_info_t), intent(in) :: info
 
-    call c_to_f_string_ptr(XC(func_info_get_name)(info%ptr), name)
+    call c_to_f_string_ptr(xc_func_info_get_name(info%ptr), name)
         
-  end function FXC(func_info_get_name)
+  end function xc_f03_func_info_get_name
 
-  integer function FXC(func_info_get_family)(info) result(family)
-    type(FXC(func_info_t)), intent(in) :: info
+  integer function xc_f03_func_info_get_family(info) result(family)
+    type(xc_f03_func_info_t), intent(in) :: info
     
-    family = XC(func_info_get_family)(info%ptr)
+    family = xc_func_info_get_family(info%ptr)
 
-  end function FXC(func_info_get_family)
+  end function xc_f03_func_info_get_family
 
-  integer function FXC(func_info_get_flags)(info) result(flags)
-    type(FXC(func_info_t)), intent(in) :: info
+  integer function xc_f03_func_info_get_flags(info) result(flags)
+    type(xc_f03_func_info_t), intent(in) :: info
 
-    flags = XC(func_info_get_flags)(info%ptr)
+    flags = xc_func_info_get_flags(info%ptr)
 
-  end function FXC(func_info_get_flags)
+  end function xc_f03_func_info_get_flags
 
-  type(FXC(func_reference_t)) function FXC(func_info_get_references)(info, number) result(reference)
-    type(FXC(func_info_t)), intent(in)    :: info
+  type(xc_f03_func_reference_t) function xc_f03_func_info_get_references(info, number) result(reference)
+    type(xc_f03_func_info_t), intent(in)    :: info
     integer,                intent(inout) :: number ! number of the reference. Must be 0 in the first call
 
-    reference%ptr = XC(func_info_get_references)(info%ptr, number)
-    if (c_associated(XC(func_info_get_references)(info%ptr, number + 1))) then
+    reference%ptr = xc_func_info_get_references(info%ptr, number)
+    if (c_associated(xc_func_info_get_references(info%ptr, number + 1))) then
       number = number + 1
     else
       number = -1
     end if
     
-  end function FXC(func_info_get_references)
+  end function xc_f03_func_info_get_references
 
-  integer function FXC(func_info_get_n_ext_params)(info) result(n_ext_params)
-    type(FXC(func_info_t)), intent(in) :: info
+  integer function xc_f03_func_info_get_n_ext_params(info) result(n_ext_params)
+    type(xc_f03_func_info_t), intent(in) :: info
     
-    n_ext_params = XC(func_info_get_n_ext_params)(info%ptr)
+    n_ext_params = xc_func_info_get_n_ext_params(info%ptr)
 
-  end function FXC(func_info_get_n_ext_params)
+  end function xc_f03_func_info_get_n_ext_params
 
-  character(len=128) function FXC(func_info_get_ext_params_description)(info, number) result(description)
-    type(FXC(func_info_t)), intent(in) :: info
+  character(len=128) function xc_f03_func_info_get_ext_params_description(info, number) result(description)
+    type(xc_f03_func_info_t), intent(in) :: info
     integer,                intent(in) :: number
 
-    call c_to_f_string_ptr(XC(func_info_get_ext_params_description)(info%ptr, number), description)
+    call c_to_f_string_ptr(xc_func_info_get_ext_params_description(info%ptr, number), description)
         
-  end function FXC(func_info_get_ext_params_description)
+  end function xc_f03_func_info_get_ext_params_description
 
-  real(RTYPE) function FXC(func_info_get_ext_params_default_value)(info, number) result(val)
-    type(FXC(func_info_t)), intent(in) :: info
+  real(RTYPE) function xc_f03_func_info_get_ext_params_default_value(info, number) result(val)
+    type(xc_f03_func_info_t), intent(in) :: info
     integer,                intent(in) :: number
 
-    val = XC(func_info_get_ext_params_default_value)(info%ptr, number)
+    val = xc_func_info_get_ext_params_default_value(info%ptr, number)
         
-  end function FXC(func_info_get_ext_params_default_value)
+  end function xc_f03_func_info_get_ext_params_default_value
 
   !----------------------------------------------------------------
-  character(len=120) function FXC(func_reference_get_ref)(reference) result(ref)
-    type(FXC(func_reference_t)), intent(in) :: reference
+  character(len=120) function xc_f03_func_reference_get_ref(reference) result(ref)
+    type(xc_f03_func_reference_t), intent(in) :: reference
 
-    call c_to_f_string_ptr(XC(func_reference_get_ref)(reference%ptr), ref)
+    call c_to_f_string_ptr(xc_func_reference_get_ref(reference%ptr), ref)
 
-  end function FXC(func_reference_get_ref)
+  end function xc_f03_func_reference_get_ref
 
-  character(len=120) function FXC(func_reference_get_doi)(reference) result(doi)
-    type(FXC(func_reference_t)), intent(in) :: reference
+  character(len=120) function xc_f03_func_reference_get_doi(reference) result(doi)
+    type(xc_f03_func_reference_t), intent(in) :: reference
 
-    call c_to_f_string_ptr(XC(func_reference_get_doi)(reference%ptr), doi)
+    call c_to_f_string_ptr(xc_func_reference_get_doi(reference%ptr), doi)
 
-  end function FXC(func_reference_get_doi)
+  end function xc_f03_func_reference_get_doi
 
-  character(len=120) function FXC(func_reference_get_bibtex)(reference) result(bibtex)
-    type(FXC(func_reference_t)), intent(in) :: reference
+  character(len=120) function xc_f03_func_reference_get_bibtex(reference) result(bibtex)
+    type(xc_f03_func_reference_t), intent(in) :: reference
 
-    call c_to_f_string_ptr(XC(func_reference_get_bibtex)(reference%ptr), bibtex)
+    call c_to_f_string_ptr(xc_func_reference_get_bibtex(reference%ptr), bibtex)
 
-  end function FXC(func_reference_get_bibtex)
+  end function xc_f03_func_reference_get_bibtex
 
 
   !----------------------------------------------------------------
-  subroutine FXC(func_init)(p, functional, nspin)
-    type(FXC(func_t)),      intent(inout) :: p
+  subroutine xc_f03_func_init(p, functional, nspin)
+    type(xc_f03_func_t),      intent(inout) :: p
     integer,                intent(in)    :: functional
     integer,                intent(in)    :: nspin
 
     integer :: ierr
     
-    p%ptr = XC(func_alloc)()
-    ierr = XC(func_init)(p%ptr, functional, nspin)
+    p%ptr = xc_func_alloc()
+    ierr = xc_func_init(p%ptr, functional, nspin)
 
-  end subroutine FXC(func_init)
+  end subroutine xc_f03_func_init
 
-  subroutine FXC(func_end)(p)
-    type(FXC(func_t)), intent(inout) :: p
+  subroutine xc_f03_func_end(p)
+    type(xc_f03_func_t), intent(inout) :: p
 
-    call XC(func_end)(p%ptr)
-    call XC(func_free)(p%ptr)
+    call xc_func_end(p%ptr)
+    call xc_func_free(p%ptr)
 
-  end subroutine FXC(func_end)
+  end subroutine xc_f03_func_end
 
-  type(FXC(func_info_t)) function FXC(func_get_info)(p) result(info)
-    type(FXC(func_t)), intent(in) :: p
+  type(xc_f03_func_info_t) function xc_f03_func_get_info(p) result(info)
+    type(xc_f03_func_t), intent(in) :: p
 
-    info%ptr = XC(func_get_info)(p%ptr)
+    info%ptr = xc_func_get_info(p%ptr)
 
-  end function FXC(func_get_info)
+  end function xc_f03_func_get_info
   
-  character(len=128) function FXC(functional_get_name)(number) result(name)     
+  character(len=128) function xc_f03_functional_get_name(number) result(name)     
     integer, intent(in) :: number
 
-    call c_to_f_string_ptr(XC(functional_get_name)(number), name)
+    call c_to_f_string_ptr(xc_functional_get_name(number), name)
 
-  end function FXC(functional_get_name)
+  end function xc_f03_functional_get_name
 
-  integer function FXC(functional_get_number)(func_string) result(number)
+  integer function xc_f03_functional_get_number(func_string) result(number)
     character(len=*), intent(in) :: func_string
     
-    number = XC(functional_get_number)(f_to_c_string(func_string))
+    number = xc_functional_get_number(f_to_c_string(func_string))
 
-  end function FXC(functional_get_number)
+  end function xc_f03_functional_get_number
  
-  integer function FXC(family_from_id)(id, family, number)
+  integer function xc_f03_family_from_id(id, family, number)
     integer, intent(in)                    :: id
     integer, intent(out), optional, target :: family, number
 
@@ -719,259 +715,259 @@ module FXC(lib_m)
       c_number = C_NULL_PTR
     end if
  
-    FXC(family_from_id) = XC(family_from_id)(id, c_family, c_number)
+    xc_f03_family_from_id = xc_family_from_id(id, c_family, c_number)
     
-  end function FXC(family_from_id)
+  end function xc_f03_family_from_id
 
-  subroutine FXC(func_set_dens_threshold)(p, dens_threshold)
-    type(FXC(func_t)), intent(in) :: p
+  subroutine xc_f03_func_set_dens_threshold(p, dens_threshold)
+    type(xc_f03_func_t), intent(in) :: p
     real(RTYPE),       intent(in) :: dens_threshold
 
-    call XC(func_set_dens_threshold)(p%ptr, dens_threshold)
+    call xc_func_set_dens_threshold(p%ptr, dens_threshold)
 
-  end subroutine FXC(func_set_dens_threshold)
+  end subroutine xc_f03_func_set_dens_threshold
 
-  subroutine FXC(func_set_ext_params)(p, ext_params)
-    type(FXC(func_t)), intent(in) :: p
+  subroutine xc_f03_func_set_ext_params(p, ext_params)
+    type(xc_f03_func_t), intent(in) :: p
     real(RTYPE),       intent(in) :: ext_params(*)
 
-    call XC(func_set_ext_params)(p%ptr, ext_params)
+    call xc_func_set_ext_params(p%ptr, ext_params)
 
-  end subroutine FXC(func_set_ext_params)
+  end subroutine xc_f03_func_set_ext_params
   
   ! LDAs
   !----------------------------------------------------------------
-  subroutine FXC(lda)(p, np, rho, zk, vrho, v2rho2, v3rho3)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_lda(p, np, rho, zk, vrho, v2rho2, v3rho3)
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*)
     real(RTYPE),       intent(out) :: zk(*), vrho(*), v2rho2(*), v3rho3(*)
 
-    call XC(lda)(p%ptr, np, rho, zk, vrho, v2rho2, v3rho3)
+    call xc_lda(p%ptr, np, rho, zk, vrho, v2rho2, v3rho3)
 
-  end subroutine FXC(lda)
+  end subroutine xc_f03_lda
 
-  subroutine FXC(lda_exc)(p, np, rho, zk)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_lda_exc(p, np, rho, zk)
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*)
     real(RTYPE),       intent(out) :: zk(*)
 
-    call XC(lda_exc)(p%ptr, np, rho, zk)
+    call xc_lda_exc(p%ptr, np, rho, zk)
 
-  end subroutine FXC(lda_exc)
+  end subroutine xc_f03_lda_exc
 
-  subroutine FXC(lda_exc_vxc)(p, np, rho, zk, vrho)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_lda_exc_vxc(p, np, rho, zk, vrho)
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*)
     real(RTYPE),       intent(out) :: zk(*), vrho(*)
 
-    call XC(lda_exc_vxc)(p%ptr, np, rho, zk, vrho)
+    call xc_lda_exc_vxc(p%ptr, np, rho, zk, vrho)
 
-  end subroutine FXC(lda_exc_vxc)
+  end subroutine xc_f03_lda_exc_vxc
 
-  subroutine FXC(lda_vxc)(p, np, rho, vrho)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_lda_vxc(p, np, rho, vrho)
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*)
     real(RTYPE),       intent(out) :: vrho(*)
 
-    call XC(lda_vxc)(p%ptr, np, rho, vrho)
+    call xc_lda_vxc(p%ptr, np, rho, vrho)
 
-  end subroutine FXC(lda_vxc)
+  end subroutine xc_f03_lda_vxc
 
-  subroutine FXC(lda_fxc)(p, np, rho, v2rho2)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_lda_fxc(p, np, rho, v2rho2)
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*)
     real(RTYPE),       intent(out) :: v2rho2(*)
 
-    call XC(lda_fxc)(p%ptr, np, rho, v2rho2)
+    call xc_lda_fxc(p%ptr, np, rho, v2rho2)
 
-  end subroutine FXC(lda_fxc)
+  end subroutine xc_f03_lda_fxc
 
-  subroutine FXC(lda_kxc)(p, np, rho, v3rho3)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_lda_kxc(p, np, rho, v3rho3)
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*)
     real(RTYPE),       intent(out) :: v3rho3(*)
 
-    call XC(lda_kxc)(p%ptr, np, rho, v3rho3)
+    call xc_lda_kxc(p%ptr, np, rho, v3rho3)
 
-  end subroutine FXC(lda_kxc)
+  end subroutine xc_f03_lda_kxc
 
   
   ! GGAs
   !----------------------------------------------------------------
-  subroutine FXC(gga)(p, np, rho, sigma, zk, vrho, vsigma, &
+  subroutine xc_f03_gga(p, np, rho, sigma, zk, vrho, vsigma, &
     v2rho2, v2rhosigma, v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
-    type(FXC(func_t)), intent(in)  :: p
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*), sigma(*)
     real(RTYPE),       intent(out) :: zk(*), vrho(*), vsigma(*)
     real(RTYPE),       intent(out) :: v2rho2(*), v2rhosigma(*), v2sigma2(*)
     real(RTYPE),       intent(out) :: v3rho3(*), v3rho2sigma(*), v3rhosigma2(*), v3sigma3(*)
 
-    call XC(gga)(p%ptr, np, rho, sigma, zk, vrho, vsigma, &
+    call xc_gga(p%ptr, np, rho, sigma, zk, vrho, vsigma, &
       v2rho2, v2rhosigma, v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
     
-  end subroutine FXC(gga)
+  end subroutine xc_f03_gga
 
-  subroutine FXC(gga_exc)(p, np, rho, sigma, zk)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_gga_exc(p, np, rho, sigma, zk)
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*), sigma(*)
     real(RTYPE),       intent(out) :: zk(*)
 
-    call XC(gga_exc)(p%ptr, np, rho, sigma, zk)
+    call xc_gga_exc(p%ptr, np, rho, sigma, zk)
 
-  end subroutine FXC(gga_exc)
+  end subroutine xc_f03_gga_exc
 
-  subroutine FXC(gga_exc_vxc)(p, np, rho, sigma, zk, vrho, vsigma)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_gga_exc_vxc(p, np, rho, sigma, zk, vrho, vsigma)
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*), sigma(*)
     real(RTYPE),       intent(out) :: zk(*), vrho(*), vsigma(*)
 
-    call XC(gga_exc_vxc)(p%ptr, np, rho, sigma, zk, vrho, vsigma)
+    call xc_gga_exc_vxc(p%ptr, np, rho, sigma, zk, vrho, vsigma)
 
-  end subroutine FXC(gga_exc_vxc)
+  end subroutine xc_f03_gga_exc_vxc
 
-  subroutine FXC(gga_vxc)(p, np, rho, sigma, vrho, vsigma)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_gga_vxc(p, np, rho, sigma, vrho, vsigma)
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*), sigma(*)
     real(RTYPE),       intent(out) :: vrho(*), vsigma(*)
 
-    call XC(gga_vxc)(p%ptr, np, rho, sigma, vrho, vsigma)
+    call xc_gga_vxc(p%ptr, np, rho, sigma, vrho, vsigma)
 
-  end subroutine FXC(gga_vxc)
+  end subroutine xc_f03_gga_vxc
 
-  subroutine FXC(gga_fxc)(p, np, rho, sigma, v2rho2, v2rhosigma, v2sigma2)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_gga_fxc(p, np, rho, sigma, v2rho2, v2rhosigma, v2sigma2)
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*), sigma(*)
     real(RTYPE),       intent(out) :: v2rho2(*), v2rhosigma(*), v2sigma2(*)
 
-    call XC(gga_fxc)(p%ptr, np, rho, sigma, v2rho2, v2rhosigma, v2sigma2)
+    call xc_gga_fxc(p%ptr, np, rho, sigma, v2rho2, v2rhosigma, v2sigma2)
     
-  end subroutine FXC(gga_fxc)
+  end subroutine xc_f03_gga_fxc
 
-  subroutine FXC(gga_kxc)(p, np, rho, sigma, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_gga_kxc(p, np, rho, sigma, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*), sigma(*)
     real(RTYPE),       intent(out) :: v3rho3(*), v3rho2sigma(*), v3rhosigma2(*), v3sigma3(*)
 
-    call XC(gga_kxc)(p%ptr, np, rho, sigma, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
+    call xc_gga_kxc(p%ptr, np, rho, sigma, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
 
-  end subroutine FXC(gga_kxc)
+  end subroutine xc_f03_gga_kxc
 
-  subroutine FXC(gga_lb_modified)(p, np, rho, grho, r, dedd)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_gga_lb_modified(p, np, rho, grho, r, dedd)
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*), grho(*)
     real(RTYPE),       intent(in)  :: r
     real(RTYPE),       intent(out) :: dedd(*)
 
-    call XC(gga_lb_modified)(p%ptr, np, rho, grho, r, dedd)
+    call xc_gga_lb_modified(p%ptr, np, rho, grho, r, dedd)
     
-  end subroutine FXC(gga_lb_modified)
+  end subroutine xc_f03_gga_lb_modified
 
-  real(RTYPE) function FXC(gga_ak13_get_asymptotic)(homo) result(asymptotic)
+  real(RTYPE) function xc_f03_gga_ak13_get_asymptotic(homo) result(asymptotic)
     real(RTYPE), intent(in) :: homo
 
-    asymptotic = XC(gga_ak13_get_asymptotic)(homo)
+    asymptotic = xc_gga_ak13_get_asymptotic(homo)
     
-  end function FXC(gga_ak13_get_asymptotic)
+  end function xc_f03_gga_ak13_get_asymptotic
 
-  real(RTYPE) function FXC(hyb_exx_coef)(p) result(coef)
-    type(FXC(func_t)), intent(in) :: p
+  real(RTYPE) function xc_f03_hyb_exx_coef(p) result(coef)
+    type(xc_f03_func_t), intent(in) :: p
 
-    coef = XC(hyb_exx_coef)(p%ptr)
+    coef = xc_hyb_exx_coef(p%ptr)
     
-  end function FXC(hyb_exx_coef)
+  end function xc_f03_hyb_exx_coef
   
-  subroutine FXC(hyb_cam_coef)(p, omega, alpha, beta)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_hyb_cam_coef(p, omega, alpha, beta)
+    type(xc_f03_func_t), intent(in)  :: p
     real(RTYPE),       intent(out) :: omega, alpha, beta
 
-    call XC(hyb_cam_coef)(p%ptr, omega, alpha, beta)
+    call xc_hyb_cam_coef(p%ptr, omega, alpha, beta)
 
-  end subroutine FXC(hyb_cam_coef)
+  end subroutine xc_f03_hyb_cam_coef
   
-  subroutine FXC(nlc_coef)(p, nlc_b, nlc_c)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_nlc_coef(p, nlc_b, nlc_c)
+    type(xc_f03_func_t), intent(in)  :: p
     real(RTYPE),       intent(out) :: nlc_b, nlc_c
 
-    call XC(nlc_coef)(p%ptr, nlc_b, nlc_c)
+    call xc_nlc_coef(p%ptr, nlc_b, nlc_c)
     
-  end subroutine FXC(nlc_coef)
+  end subroutine xc_f03_nlc_coef
   
 
   ! the meta-GGAs
   !----------------------------------------------------------------
-  subroutine FXC(mgga)(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
+  subroutine xc_f03_mgga(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
     v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
     v2sigmalapl, v2sigmatau, v2lapltau)
-    type(FXC(func_t)), intent(in)  :: p
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
     real(RTYPE),       intent(out) :: zk(*), vrho(*), vsigma(*), vlapl(*), vtau(*)
     real(RTYPE),       intent(out) :: v2rho2(*), v2sigma2(*), v2lapl2(*), v2tau2(*), v2rhosigma(*), v2rholapl(*), &
                                       v2rhotau(*), v2sigmalapl(*), v2sigmatau(*), v2lapltau(*)
 
-    call XC(mgga)(p%ptr, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
+    call xc_mgga(p%ptr, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
       v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
       v2sigmalapl, v2sigmatau, v2lapltau)
     
-  end subroutine FXC(mgga)
+  end subroutine xc_f03_mgga
 
-  subroutine FXC(mgga_exc)(p, np, rho, sigma, lapl, tau, zk)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_mgga_exc(p, np, rho, sigma, lapl, tau, zk)
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
     real(RTYPE),       intent(out) :: zk(*)
 
-    call XC(mgga_exc)(p%ptr, np, rho, sigma, lapl, tau, zk)
+    call xc_mgga_exc(p%ptr, np, rho, sigma, lapl, tau, zk)
     
-  end subroutine FXC(mgga_exc)
+  end subroutine xc_f03_mgga_exc
 
-  subroutine FXC(mgga_exc_vxc)(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_mgga_exc_vxc(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau)
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
     real(RTYPE),       intent(out) :: zk(*), vrho(*), vsigma(*), vlapl(*), vtau(*)
 
-    call XC(mgga_exc_vxc)(p%ptr, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau)
+    call xc_mgga_exc_vxc(p%ptr, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau)
     
-  end subroutine FXC(mgga_exc_vxc)
+  end subroutine xc_f03_mgga_exc_vxc
 
-  subroutine FXC(mgga_vxc)(p, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau)
-    type(FXC(func_t)), intent(in)  :: p
+  subroutine xc_f03_mgga_vxc(p, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau)
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
     real(RTYPE),       intent(out) :: vrho(*), vsigma(*), vlapl(*), vtau(*)
 
-    call XC(mgga_vxc)(p%ptr, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau)
+    call xc_mgga_vxc(p%ptr, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau)
 
-  end subroutine FXC(mgga_vxc)
+  end subroutine xc_f03_mgga_vxc
 
-  subroutine FXC(mgga_fxc)(p, np, rho, sigma, lapl, tau, &
+  subroutine xc_f03_mgga_fxc(p, np, rho, sigma, lapl, tau, &
     v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
     v2sigmalapl, v2sigmatau, v2lapltau)
-    type(FXC(func_t)), intent(in)  :: p
+    type(xc_f03_func_t), intent(in)  :: p
     integer,           intent(in)  :: np
     real(RTYPE),       intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
     real(RTYPE),       intent(out) :: v2rho2(*), v2sigma2(*), v2lapl2(*), v2tau2(*), v2rhosigma(*), &
                                       v2rholapl(*), v2rhotau(*), v2sigmalapl(*), v2sigmatau(*), v2lapltau(*)
 
-    call XC(mgga_fxc)(p%ptr, np, rho, sigma, lapl, tau, &
+    call xc_mgga_fxc(p%ptr, np, rho, sigma, lapl, tau, &
       v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
       v2sigmalapl, v2sigmatau, v2lapltau)
 
-  end subroutine FXC(mgga_fxc)
+  end subroutine xc_f03_mgga_fxc
 
 
   ! Helper functions to convert between C and Fortran strings
@@ -1027,7 +1023,7 @@ module FXC(lib_m)
 
   end subroutine c_to_f_string_ptr 
   
-end module FXC(lib_m)
+end module xc_f03_lib_m
 
 !! Local Variables:
 !! mode: f90

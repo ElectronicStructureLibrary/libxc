@@ -42,7 +42,7 @@ static const mgga_x_m11_l_params par_m11_l = {
 };
 
 static void
-mgga_x_m11_l_init(XC(func_type) *p)
+mgga_x_m11_l_init(xc_func_type *p)
 {
   mgga_x_m11_l_params *params;
 
@@ -66,7 +66,7 @@ mgga_x_m11_l_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_mgga_c.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_m11_l) = {
+const xc_func_info_type xc_func_info_mgga_x_m11_l = {
   XC_MGGA_X_M11_L,
   XC_EXCHANGE,
   "Minnesota M11-L exchange functional",

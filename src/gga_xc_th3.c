@@ -42,7 +42,7 @@ static double omega_TH4[] =
 
 
 static void 
-gga_xc_th3_init(XC(func_type) *p)
+gga_xc_th3_init(xc_func_type *p)
 {
   gga_xc_th3_params *params;
 
@@ -70,7 +70,7 @@ gga_xc_th3_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_xc_th3) = {
+const xc_func_info_type xc_func_info_gga_xc_th3 = {
   XC_GGA_XC_TH3,
   XC_EXCHANGE_CORRELATION,
   "Tozer and Handy v. 3",
@@ -83,7 +83,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th3) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_th4) = {
+const xc_func_info_type xc_func_info_gga_xc_th4 = {
   XC_GGA_XC_TH4,
   XC_EXCHANGE_CORRELATION,
   "Tozer and Handy v. 4",

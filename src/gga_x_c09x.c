@@ -22,10 +22,10 @@
 
 #include "maple2c/gga_x_c09x.c"
 
-#define func XC(gga_x_c09x_enhance)
+#define func xc_gga_x_c09x_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_c09x) = {
+const xc_func_info_type xc_func_info_gga_x_c09x = {
   XC_GGA_X_C09X,
   XC_EXCHANGE,
   "C09x to be used with the VdW of Rutgers-Chalmers",

@@ -26,7 +26,7 @@
 #define func maple2c_func
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_vt84) = {
+const xc_func_info_type xc_func_info_mgga_x_vt84 = {
   XC_MGGA_X_VT84,
   XC_EXCHANGE,
   "meta-GGA version of VT{8,4} GGA",

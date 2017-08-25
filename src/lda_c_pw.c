@@ -86,7 +86,7 @@ static const lda_c_pw_params par_pw_rpa = {
 };
 
 static void 
-lda_c_pw_init(XC(func_type) *p)
+lda_c_pw_init(xc_func_type *p)
 {  
   lda_c_pw_params *params;
 
@@ -118,7 +118,7 @@ lda_c_pw_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_c_pw) = {
+const xc_func_info_type xc_func_info_lda_c_pw = {
   XC_LDA_C_PW,
   XC_CORRELATION,
   "Perdew & Wang",
@@ -134,7 +134,7 @@ const XC(func_info_type) XC(func_info_lda_c_pw) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_c_pw_mod) = {
+const xc_func_info_type xc_func_info_lda_c_pw_mod = {
   XC_LDA_C_PW_MOD,
   XC_CORRELATION,
   "Perdew & Wang (modified)",
@@ -150,7 +150,7 @@ const XC(func_info_type) XC(func_info_lda_c_pw_mod) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_c_ob_pw) = {
+const xc_func_info_type xc_func_info_lda_c_ob_pw = {
   XC_LDA_C_OB_PW,
   XC_CORRELATION,
   "Ortiz & Ballone (PW parametrization)",
@@ -166,7 +166,7 @@ const XC(func_info_type) XC(func_info_lda_c_ob_pw) = {
   NULL
 };
 
-const XC(func_info_type) XC(func_info_lda_c_pw_rpa) = {
+const xc_func_info_type xc_func_info_lda_c_pw_rpa = {
   XC_LDA_C_PW_RPA,
   XC_CORRELATION,
   "Perdew & Wang (fit to the RPA energy)",

@@ -34,10 +34,10 @@
  * @param[in,out] func_type: pointer to pspdata structure to be initialized
  */
 static void 
-work_lda(const XC(func_type) *p, int np, const double *rho, 
+work_lda(const xc_func_type *p, int np, const double *rho, 
 	 double *zk, double *vrho, double *v2rho2, double *v3rho3)
 {
-  XC(lda_work_t) r;
+  xc_lda_work_t r;
   int is, ip;
   double dens, drs, d2rs, d3rs;
 
@@ -61,7 +61,7 @@ work_lda(const XC(func_type) *p, int np, const double *rho,
   if(r.order < 0) return;
 
   for(ip = 0; ip < np; ip++){
-    XC(rho2dzeta)(p->nspin, rho, &dens, &r.z);
+    xc_rho2dzeta(p->nspin, rho, &dens, &r.z);
 
     if(dens < p->dens_threshold) goto end_ip_loop;
 

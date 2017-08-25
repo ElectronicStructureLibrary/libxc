@@ -26,7 +26,7 @@
 #define XC_DIMENSIONS 2
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_2d_pbe) = {
+const xc_func_info_type xc_func_info_gga_x_2d_pbe = {
   XC_GGA_X_2D_PBE,
   XC_EXCHANGE,
   "Perdew, Burke & Ernzerhof in 2D",

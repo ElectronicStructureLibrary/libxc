@@ -28,7 +28,7 @@
 #include "work_gga_x.c"
 
 
-const XC(func_info_type) XC(func_info_gga_x_beefvdw) = {
+const xc_func_info_type xc_func_info_gga_x_beefvdw = {
   XC_GGA_X_BEEFVDW,
   XC_EXCHANGE,
   "BEEF-vdW exchange",
@@ -43,15 +43,15 @@ const XC(func_info_type) XC(func_info_gga_x_beefvdw) = {
 
 
 void
-gga_xc_beefvdw_init(XC(func_type) *p)
+gga_xc_beefvdw_init(xc_func_type *p)
 {
   static int   funcs_id  [3] = {XC_GGA_X_BEEFVDW, XC_LDA_C_PW_MOD, XC_GGA_C_PBE};
   static double funcs_coef[3] = {1.0, 0.6001664769, 1.0 - 0.6001664769};
 
-  XC(mix_init)(p, 3, funcs_id, funcs_coef);
+  xc_mix_init(p, 3, funcs_id, funcs_coef);
 }
 
-const XC(func_info_type) XC(func_info_gga_xc_beefvdw) = {
+const xc_func_info_type xc_func_info_gga_xc_beefvdw = {
   XC_GGA_XC_BEEFVDW,
   XC_EXCHANGE_CORRELATION,
   "BEEF-vdW exchange-correlation",

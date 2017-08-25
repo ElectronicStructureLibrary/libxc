@@ -27,7 +27,7 @@
 #include "work_mgga_c.c"
 
 
-const XC(func_info_type) XC(func_info_mgga_c_revtpss) = {
+const xc_func_info_type xc_func_info_mgga_c_revtpss = {
   XC_MGGA_C_REVTPSS,
   XC_CORRELATION,
   "revised TPSS correlation",

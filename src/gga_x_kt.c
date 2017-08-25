@@ -27,17 +27,17 @@ typedef struct{
 } gga_x_kt_params;
 
 static void 
-gga_x_kt_init(XC(func_type) *p)
+gga_x_kt_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_x_kt_params));
 
-  XC(gga_x_kt_set_params)(p, -0.006, 0.1);
+  xc_gga_x_kt_set_params(p, -0.006, 0.1);
 }
 
 
 void 
-XC(gga_x_kt_set_params)(XC(func_type) *p, double gamma, double delta)
+xc_gga_x_kt_set_params(xc_func_type *p, double gamma, double delta)
 {
   gga_x_kt_params *params;
 
@@ -53,7 +53,7 @@ XC(gga_x_kt_set_params)(XC(func_type) *p, double gamma, double delta)
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_x_kt1) = {
+const xc_func_info_type xc_func_info_gga_x_kt1 = {
   XC_GGA_X_KT1,
   XC_EXCHANGE,
   "Exchange part of Keal and Tozer version 1",
@@ -68,15 +68,15 @@ const XC(func_info_type) XC(func_info_gga_x_kt1) = {
 
 
 static void
-gga_xc_kt1_init(XC(func_type) *p)
+gga_xc_kt1_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_KT1, XC_LDA_C_VWN};
   static double funcs_coef[2] = {1.0, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);  
+  xc_mix_init(p, 2, funcs_id, funcs_coef);  
 }
 
-const XC(func_info_type) XC(func_info_gga_xc_kt1) = {
+const xc_func_info_type xc_func_info_gga_xc_kt1 = {
   XC_GGA_XC_KT1,
   XC_EXCHANGE_CORRELATION,
   "Keal and Tozer, version 1",
@@ -90,15 +90,15 @@ const XC(func_info_type) XC(func_info_gga_xc_kt1) = {
 };
 
 static void
-gga_xc_kt2_init(XC(func_type) *p)
+gga_xc_kt2_init(xc_func_type *p)
 {
   static int   funcs_id  [3] = {XC_LDA_X, XC_GGA_X_KT1, XC_LDA_C_VWN};
   static double funcs_coef[3] = {1.07173 - 1.0, 1.0, 0.576727};
 
-  XC(mix_init)(p, 3, funcs_id, funcs_coef);  
+  xc_mix_init(p, 3, funcs_id, funcs_coef);  
 }
 
-const XC(func_info_type) XC(func_info_gga_xc_kt2) = {
+const xc_func_info_type xc_func_info_gga_xc_kt2 = {
   XC_GGA_XC_KT2,
   XC_EXCHANGE_CORRELATION,
   "Keal and Tozer, version 2",

@@ -56,8 +56,8 @@ foreach $func (@funcs){
     $s5 .= sprintf "  %s %-30s = %3s  ! %s\n", "integer(c_int), parameter, public ::",
       $deflist_f{$key}, $key, $deflist_c{$key};
 
-    $s1 .= "extern XC(func_info_type) XC(func_info_$t);\n";
-    $s2 .= "  &XC(func_info_$t),\n";
+    $s1 .= "extern xc_func_info_type xc_func_info_$t;\n";
+    $s2 .= "  &xc_func_info_$t,\n";
   }
 
   open(OUT, ">$builddir/funcs_$func.c") or die("Could not open '$builddir/funcs_$func.c'.\n");
@@ -66,7 +66,7 @@ foreach $func (@funcs){
 
 $s1
 
-const XC(func_info_type) *XC(${func}_known_funct)[] = {
+const xc_func_info_type *xc_${func}_known_funct[] = {
 $s2  NULL
 };
 EOF
@@ -80,7 +80,7 @@ open(OUT, ">$builddir/funcs_key.c") or die("Could not open '$builddir/funcs_key.
 print OUT <<EOF
 #include "util.h"
 
-XC(functional_key_t) XC(functional_keys)[] = {
+xc_functional_key_t xc_functional_keys[] = {
 $s4,
 {"", -1}
 };
@@ -198,7 +198,7 @@ sub read_file() {
         }
       }
 
-      if(/^(const |)XC\(func_info_type\) XC\(func_info_${save_type}/){
+      if(/^(const |)xc_func_info_type xc_func_info_${save_type}/){
 	  $infostr = "";
 	  while($_=<IN>){
 	      if(/([^}])*};/) { 
@@ -283,7 +283,7 @@ sub read_file() {
 	  print DOCS "Other flags    : $infos2[7]\n";
 
           $shortname = lc(substr($infos0[0], 3));
-          $set_params = `grep "XC(${shortname}_set_params)(XC(func_type)" $srcdir/$file`;
+          $set_params = `grep "xc_${shortname}_set_params(xc_func_type" $srcdir/$file`;
 	  chomp $set_params;
 	  if($set_params ne "") {
 	      if($set_params !~ /void/) {

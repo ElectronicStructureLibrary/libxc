@@ -32,16 +32,16 @@
 
 /*************************************************************/
 void
-XC(hyb_mgga_xc_b88b95_init)(XC(func_type) *p)
+xc_hyb_mgga_xc_b88b95_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_MGGA_C_BC95};
   static double funcs_coef[2] = {1.0 - 0.28, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.28;
 }
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_b88b95) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_b88b95 = {
   XC_HYB_MGGA_XC_B88B95,
   XC_EXCHANGE_CORRELATION,
   "Mixture of B88 with BC95 (B1B95)",
@@ -50,23 +50,23 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_b88b95) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_mgga_xc_b88b95_init),
+  xc_hyb_mgga_xc_b88b95_init,
   NULL, NULL, NULL, NULL,
 };
 
 
 /*************************************************************/
 void
-XC(hyb_mgga_xc_b86b95_init)(XC(func_type) *p)
+xc_hyb_mgga_xc_b86b95_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B86, XC_MGGA_C_BC95};
   static double funcs_coef[2] = {1.0 - 0.28, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.28;
 }
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_b86b95) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_b86b95 = {
   XC_HYB_MGGA_XC_B86B95,
   XC_EXCHANGE_CORRELATION,
   "Mixture of B86 with BC95",
@@ -75,23 +75,23 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_b86b95) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_mgga_xc_b86b95_init),
+  xc_hyb_mgga_xc_b86b95_init,
   NULL, NULL, NULL, NULL,
 };
 
 
 /*************************************************************/
 void
-XC(hyb_mgga_xc_pw86b95_init)(XC(func_type) *p)
+xc_hyb_mgga_xc_pw86b95_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PW86, XC_MGGA_C_BC95};
   static double funcs_coef[2] = {1.0 - 0.29, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.29;
 }
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_pw86b95) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_pw86b95 = {
   XC_HYB_MGGA_XC_PW86B95,
   XC_EXCHANGE_CORRELATION,
   "Mixture of PW86 with BC95",
@@ -100,23 +100,23 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_pw86b95) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_mgga_xc_pw86b95_init),
+  xc_hyb_mgga_xc_pw86b95_init,
   NULL, NULL, NULL, NULL,
 };
 
 
 /*************************************************************/
 void
-XC(hyb_mgga_xc_bb1k_init)(XC(func_type) *p)
+xc_hyb_mgga_xc_bb1k_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_MGGA_C_BC95};
   static double funcs_coef[2] = {1.0 - 0.42, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.42;
 }
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_bb1k) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_bb1k = {
   XC_HYB_MGGA_XC_BB1K,
   XC_EXCHANGE_CORRELATION,
   "Mixture of B88 with BC95 from Zhao and Truhlar",
@@ -125,23 +125,23 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_bb1k) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_mgga_xc_bb1k_init),
+  xc_hyb_mgga_xc_bb1k_init,
   NULL, NULL, NULL, NULL,
 };
 
 
 /*************************************************************/
 void
-XC(hyb_mgga_xc_mpw1b95_init)(XC(func_type) *p)
+xc_hyb_mgga_xc_mpw1b95_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_MPW91, XC_MGGA_C_BC95};
   static double funcs_coef[2] = {1.0 - 0.31, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.31;
 }
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_mpw1b95) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_mpw1b95 = {
   XC_HYB_MGGA_XC_MPW1B95,
   XC_EXCHANGE_CORRELATION,
   "Mixture of mPW91 with BC95 from Zhao and Truhlar",
@@ -150,23 +150,23 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_mpw1b95) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_mgga_xc_mpw1b95_init),
+  xc_hyb_mgga_xc_mpw1b95_init,
   NULL, NULL, NULL, NULL,
 };
 
 
 /*************************************************************/
 void
-XC(hyb_mgga_xc_mpwb1k_init)(XC(func_type) *p)
+xc_hyb_mgga_xc_mpwb1k_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_MPW91, XC_MGGA_C_BC95};
   static double funcs_coef[2] = {1.0 - 0.44, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.44;
 }
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_mpwb1k) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_mpwb1k = {
   XC_HYB_MGGA_XC_MPWB1K,
   XC_EXCHANGE_CORRELATION,
   "Mixture of mPW91 with BC95 for kinetics",
@@ -175,14 +175,14 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_mpwb1k) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_mgga_xc_mpwb1k_init),
+  xc_hyb_mgga_xc_mpwb1k_init,
   NULL, NULL, NULL, NULL,
 };
 
 
 /*************************************************************/
 void
-XC(hyb_mgga_xc_x1b95_init)(XC(func_type) *p)
+xc_hyb_mgga_xc_x1b95_init(xc_func_type *p)
 {
   const double a1=0.675, a2=0.235, a0=0.30;
 
@@ -193,11 +193,11 @@ XC(hyb_mgga_xc_x1b95_init)(XC(func_type) *p)
   funcs_coef[1] = a0*a2;
   funcs_coef[2] = 1.0;
 
-  XC(mix_init)(p, 3, funcs_id, funcs_coef);
+  xc_mix_init(p, 3, funcs_id, funcs_coef);
   p->cam_alpha = a0;
 }
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_x1b95) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_x1b95 = {
   XC_HYB_MGGA_XC_X1B95,
   XC_EXCHANGE_CORRELATION,
   "Mixture of X with BC95",
@@ -206,14 +206,14 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_x1b95) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_mgga_xc_x1b95_init),
+  xc_hyb_mgga_xc_x1b95_init,
   NULL, NULL, NULL, NULL,
 };
 
 
 /*************************************************************/
 void
-XC(hyb_mgga_xc_xb1k_init)(XC(func_type) *p)
+xc_hyb_mgga_xc_xb1k_init(xc_func_type *p)
 {
   const double a1=0.675, a2=0.235, a0=0.43;
 
@@ -224,11 +224,11 @@ XC(hyb_mgga_xc_xb1k_init)(XC(func_type) *p)
   funcs_coef[1] = a0*a2;
   funcs_coef[2] = 1.0;
 
-  XC(mix_init)(p, 3, funcs_id, funcs_coef);
+  xc_mix_init(p, 3, funcs_id, funcs_coef);
   p->cam_alpha = a0;
 }
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_xb1k) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_xb1k = {
   XC_HYB_MGGA_XC_XB1K,
   XC_EXCHANGE_CORRELATION,
   "Mixture of X with BC95 for kinetics",
@@ -237,25 +237,25 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_xb1k) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_mgga_xc_xb1k_init),
+  xc_hyb_mgga_xc_xb1k_init,
   NULL, NULL, NULL, NULL,
 };
 
 
 /*************************************************************/
 void
-XC(hyb_mgga_xc_pw6b95_init)(XC(func_type) *p)
+xc_hyb_mgga_xc_pw6b95_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PW91, XC_MGGA_C_BC95};
   static double funcs_coef[2] = {1.0 - 0.28, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
-  XC(gga_x_pw91_set_params2)(p->func_aux[0], 0.00538, 1.7382/(X2S*X2S), 3.8901);
-  XC(mgga_c_bc95_set_params)(p->func_aux[1], 0.03668, 0.00262);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_gga_x_pw91_set_params2(p->func_aux[0], 0.00538, 1.7382/(X2S*X2S), 3.8901);
+  xc_mgga_c_bc95_set_params(p->func_aux[1], 0.03668, 0.00262);
   p->cam_alpha = 0.28;
 }
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_pw6b95) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_pw6b95 = {
   XC_HYB_MGGA_XC_PW6B95,
   XC_EXCHANGE_CORRELATION,
   "Mixture of PW91 with BC95 from Zhao and Truhlar",
@@ -264,25 +264,25 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_pw6b95) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_mgga_xc_pw6b95_init),
+  xc_hyb_mgga_xc_pw6b95_init,
   NULL, NULL, NULL, NULL,
 };
 
 
 /*************************************************************/
 void
-XC(hyb_mgga_xc_pwb6k_init)(XC(func_type) *p)
+xc_hyb_mgga_xc_pwb6k_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_PW91, XC_MGGA_C_BC95};
   static double funcs_coef[2] = {1.0 - 0.46, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
-  XC(gga_x_pw91_set_params2)(p->func_aux[0], 0.00539, 1.7077/(X2S*X2S), 4.0876);
-  XC(mgga_c_bc95_set_params)(p->func_aux[1], 0.04120, 0.00353);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_gga_x_pw91_set_params2(p->func_aux[0], 0.00539, 1.7077/(X2S*X2S), 4.0876);
+  xc_mgga_c_bc95_set_params(p->func_aux[1], 0.04120, 0.00353);
   p->cam_alpha = 0.46;
 }
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_pwb6k) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_pwb6k = {
   XC_HYB_MGGA_XC_PWB6K,
   XC_EXCHANGE_CORRELATION,
   "Mixture of PW91 with BC95 from Zhao and Truhlar for kinetics",
@@ -291,22 +291,22 @@ const XC(func_info_type) XC(func_info_hyb_mgga_xc_pwb6k) = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_mgga_xc_pwb6k_init),
+  xc_hyb_mgga_xc_pwb6k_init,
   NULL, NULL, NULL, NULL,
 };
 
 
 /*************************************************************/
 static void
-mgga_xc_tpsslyp1w_init(XC(func_type) *p)
+mgga_xc_tpsslyp1w_init(xc_func_type *p)
 {
   static int   funcs_id  [3] = {XC_LDA_C_VWN, XC_MGGA_X_TPSS, XC_GGA_C_LYP};
   static double funcs_coef[3] = {1.0 - 74.0/100.0, 1.0, 74.0/100.0};
 
-  XC(mix_init)(p, 3, funcs_id, funcs_coef);
+  xc_mix_init(p, 3, funcs_id, funcs_coef);
 }
 
-const XC(func_info_type) XC(func_info_mgga_xc_tpsslyp1w) = {
+const xc_func_info_type xc_func_info_mgga_xc_tpsslyp1w = {
   XC_MGGA_XC_TPSSLYP1W,
   XC_EXCHANGE_CORRELATION,
   "TPSSLYP1W",

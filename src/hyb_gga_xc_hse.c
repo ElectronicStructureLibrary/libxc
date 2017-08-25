@@ -32,7 +32,7 @@
 #define XC_HYB_GGA_XC_HSE_SOL     481 /* HSEsol functional by Schimka, Harl, and Kresse */
 
 static void
-hyb_gga_xc_hse_init(XC(func_type) *p)
+hyb_gga_xc_hse_init(xc_func_type *p)
 {
   /* Amount of short-range exact exchange */
   double beta;
@@ -90,13 +90,13 @@ hyb_gga_xc_hse_init(XC(func_type) *p)
   int   funcs_id  [3] = {XC_GGA_X_WPBEH, XC_GGA_X_WPBEH, XC_GGA_C_PBE};
   double funcs_coef[3] = {1.0, -beta, 1.0};
   
-  XC(mix_init)(p, 3, funcs_id, funcs_coef);
+  xc_mix_init(p, 3, funcs_id, funcs_coef);
   p->cam_omega = omega_HF;
   p->cam_beta  =  beta;
-  XC(gga_x_wpbeh_set_params)(p->func_aux[1], omega_PBE);
+  xc_gga_x_wpbeh_set_params(p->func_aux[1], omega_PBE);
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_hse03) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_hse03 = {
   XC_HYB_GGA_XC_HSE03,
   XC_EXCHANGE_CORRELATION,
   "HSE03",
@@ -109,7 +109,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hse03) = {
   NULL, NULL, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_hse06) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_hse06 = {
   XC_HYB_GGA_XC_HSE06,
   XC_EXCHANGE_CORRELATION,
   "HSE06",
@@ -122,7 +122,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hse06) = {
   NULL, NULL, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_hse12) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_hse12 = {
   XC_HYB_GGA_XC_HSE12,
   XC_EXCHANGE_CORRELATION,
   "HSE12",
@@ -135,7 +135,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hse12) = {
   NULL, NULL, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_hse12s) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_hse12s = {
   XC_HYB_GGA_XC_HSE12S,
   XC_EXCHANGE_CORRELATION,
   "HSE12 (short-range version)",
@@ -149,20 +149,20 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hse12s) = {
 };
 
 static void
-hyb_gga_xc_hse_sol_init(XC(func_type) *p)
+hyb_gga_xc_hse_sol_init(xc_func_type *p)
 {
   int   funcs_id  [3] = {XC_GGA_X_HJS_PBE_SOL, XC_GGA_X_HJS_PBE_SOL, XC_GGA_C_PBE};
   double funcs_coef[3] = {1.0, -0.25, 1.0};
   
-  XC(mix_init)(p, 3, funcs_id, funcs_coef);
+  xc_mix_init(p, 3, funcs_id, funcs_coef);
   p->cam_omega = 0.11;
   p->cam_beta  = 0.25;
-  XC(gga_x_hjs_set_params)(p->func_aux[0], 0.0);
-  XC(gga_x_hjs_set_params)(p->func_aux[1], p->cam_omega);
+  xc_gga_x_hjs_set_params(p->func_aux[0], 0.0);
+  xc_gga_x_hjs_set_params(p->func_aux[1], p->cam_omega);
 }
 
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_hse_sol) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_hse_sol = {
   XC_HYB_GGA_XC_HSE_SOL,
   XC_EXCHANGE_CORRELATION,
   "HSEsol",
@@ -176,20 +176,20 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hse_sol) = {
 };
 
 static void
-hyb_gga_xc_lc_wpbe_init(XC(func_type) *p)
+hyb_gga_xc_lc_wpbe_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_WPBEH, XC_GGA_C_PBE};
   static double funcs_coef[2] = {1.0, 1.0};
   
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   
   p->cam_omega =  0.4;
   p->cam_alpha =  1.0;
   p->cam_beta  = -1.0;
-  XC(gga_x_wpbeh_set_params)(p->func_aux[0], p->cam_omega);
+  xc_gga_x_wpbeh_set_params(p->func_aux[0], p->cam_omega);
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_lc_wpbe) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe = {
   XC_HYB_GGA_XC_LC_WPBE,
   XC_EXCHANGE_CORRELATION,
   "Long-range corrected PBE (LC-wPBE) by Vydrov and Scuseria",
@@ -204,34 +204,34 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_lc_wpbe) = {
 
 
 static void
-hyb_gga_xc_lrc_wpbeh_init(XC(func_type) *p)
+hyb_gga_xc_lrc_wpbeh_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
   static double funcs_coef[2] = {0.8, 1.0};
   
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   
   p->cam_omega =  0.2;
   p->cam_alpha =  1.0;
   p->cam_beta  = -0.8;
-  XC(gga_x_wpbeh_set_params)(p->func_aux[0], p->cam_omega);
+  xc_gga_x_wpbeh_set_params(p->func_aux[0], p->cam_omega);
 }
 
 static void
-hyb_gga_xc_lrc_wpbe_init(XC(func_type) *p)
+hyb_gga_xc_lrc_wpbe_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
   static double funcs_coef[2] = {1.0, 1.0};
   
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   
   p->cam_omega =  0.3;
   p->cam_alpha =  1.0;
   p->cam_beta  = -1.0;
-  XC(gga_x_wpbeh_set_params)(p->func_aux[0], p->cam_omega);
+  xc_gga_x_wpbeh_set_params(p->func_aux[0], p->cam_omega);
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_lrc_wpbeh) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_lrc_wpbeh = {
   XC_HYB_GGA_XC_LRC_WPBEH,
   XC_EXCHANGE_CORRELATION,
   "Long-range corrected short-range hybrid PBE (LRC-wPBEh) by Rohrdanz, Martins and Herbert",
@@ -244,7 +244,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_lrc_wpbeh) = {
   NULL, NULL, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_lrc_wpbe) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_lrc_wpbe = {
   XC_HYB_GGA_XC_LRC_WPBE,
   XC_EXCHANGE_CORRELATION,
   "Long-range corrected PBE (LRC-wPBE) by Rohrdanz, Martins and Herbert",
@@ -258,7 +258,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_lrc_wpbe) = {
 };
 
 static void
-hyb_gga_xc_hjs_init(XC(func_type) *p)
+hyb_gga_xc_hjs_init(xc_func_type *p)
 {
   static int   funcs_id  [3] = {-1, -1, XC_GGA_C_PBE};
   static double funcs_coef[3] = {1.0, -0.25, 1.0};
@@ -281,15 +281,15 @@ hyb_gga_xc_hjs_init(XC(func_type) *p)
     exit(1);
   }
 
-  XC(mix_init)(p, 3, funcs_id, funcs_coef);
+  xc_mix_init(p, 3, funcs_id, funcs_coef);
 
   p->cam_omega = 0.11;
   p->cam_beta  = 0.25;
-  XC(gga_x_hjs_set_params)(p->func_aux[0], 0.0);
-  XC(gga_x_hjs_set_params)(p->func_aux[1], p->cam_omega);
+  xc_gga_x_hjs_set_params(p->func_aux[0], 0.0);
+  xc_gga_x_hjs_set_params(p->func_aux[1], p->cam_omega);
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_hjs_pbe) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_pbe = {
   XC_HYB_GGA_XC_HJS_PBE,
   XC_EXCHANGE_CORRELATION,
   "HJS hybrid screened exchange PBE version",
@@ -302,7 +302,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hjs_pbe) = {
   NULL, NULL, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_hjs_pbe_sol) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_pbe_sol = {
   XC_HYB_GGA_XC_HJS_PBE_SOL,
   XC_EXCHANGE_CORRELATION,
   "HJS hybrid screened exchange PBE_SOL version",
@@ -315,7 +315,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hjs_pbe_sol) = {
   NULL, NULL, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_hjs_b88) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_b88 = {
   XC_HYB_GGA_XC_HJS_B88,
   XC_EXCHANGE_CORRELATION,
   "HJS hybrid screened exchange B88 version",
@@ -328,7 +328,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_hjs_b88) = {
   NULL, NULL, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_hjs_b97x) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_b97x = {
   XC_HYB_GGA_XC_HJS_B97X,
   XC_EXCHANGE_CORRELATION,
   "HJS hybrid screened exchange B97x version",

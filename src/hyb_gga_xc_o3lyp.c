@@ -24,7 +24,7 @@
 
 /*************************************************************/
 static void
-gga_xc_o3lyp_init(XC(func_type) *p)
+gga_xc_o3lyp_init(xc_func_type *p)
 {
   const double a = 0.1161, b = 0.9262, c = 0.8133, CC = 0.81, a1 = 1.05151;
   static int funcs_id[4] = {XC_LDA_X, XC_GGA_X_OPTX, XC_LDA_C_VWN, XC_GGA_C_LYP};
@@ -39,11 +39,11 @@ gga_xc_o3lyp_init(XC(func_type) *p)
   funcs_coef[2] = 1.0 - CC;
   funcs_coef[3] = CC;
 
-  XC(mix_init)(p, 4, funcs_id, funcs_coef);
+  xc_mix_init(p, 4, funcs_id, funcs_coef);
   p->cam_alpha = a;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_o3lyp) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_o3lyp = {
   XC_HYB_GGA_XC_O3LYP,
   XC_EXCHANGE_CORRELATION,
   "O3LYP",
@@ -59,7 +59,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_o3lyp) = {
 
 /*************************************************************/
 static void
-gga_xc_x3lyp_init(XC(func_type) *p)
+gga_xc_x3lyp_init(xc_func_type *p)
 {
   const double a1=0.765, a2=0.235;
   const double a0=0.218, ax=0.709, ac=0.871;
@@ -73,11 +73,11 @@ gga_xc_x3lyp_init(XC(func_type) *p)
   funcs_coef[3] = 1.0 - ac;
   funcs_coef[4] = ac;
 
-  XC(mix_init)(p, 5, funcs_id, funcs_coef);
+  xc_mix_init(p, 5, funcs_id, funcs_coef);
   p->cam_alpha = a0;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_x3lyp) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_x3lyp = {
   XC_HYB_GGA_XC_X3LYP,
   XC_EXCHANGE_CORRELATION,
   "X3LYP",

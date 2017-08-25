@@ -37,7 +37,7 @@ static const gga_x_ft97_params par_ft97_b = {
 };
 
 static void 
-gga_x_ft97_init(XC(func_type) *p)
+gga_x_ft97_init(xc_func_type *p)
 {
   gga_x_ft97_params *params;
 
@@ -63,7 +63,7 @@ gga_x_ft97_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_x_ft97_a) = {
+const xc_func_info_type xc_func_info_gga_x_ft97_a = {
   XC_GGA_X_FT97_A,
   XC_EXCHANGE,
   "Filatov & Thiel 97 (version A)",
@@ -76,7 +76,7 @@ const XC(func_info_type) XC(func_info_gga_x_ft97_a) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_ft97_b) = {
+const xc_func_info_type xc_func_info_gga_x_ft97_b = {
   XC_GGA_X_FT97_B,
   XC_EXCHANGE,
   "Filatov & Thiel 97 (version B)",

@@ -25,7 +25,7 @@
 #define func maple2c_func
 #include "work_lda.c"
 
-const XC(func_info_type) XC(func_info_lda_x_rel) = {
+const xc_func_info_type xc_func_info_lda_x_rel = {
   XC_LDA_X_REL,
   XC_EXCHANGE,
   "Slater exchange with relativistic corrections",

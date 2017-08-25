@@ -22,7 +22,7 @@
 #include "funcs_hyb_mgga.c"
 
 void 
-XC(mgga)(const XC(func_type) *func, int np,
+xc_mgga(const xc_func_type *func, int np,
 	 const double *rho, const double *sigma, const double *lapl, const double *tau,
 	 double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
 	 double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
@@ -92,7 +92,7 @@ XC(mgga)(const XC(func_type) *func, int np,
 		     v2sigmalapl, v2sigmatau, v2lapltau);
 
   if(func->mix_coef != NULL)
-    XC(mix_func)(func, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, 
+    xc_mix_func(func, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, 
 		 v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
 		 v2sigmalapl, v2sigmatau, v2lapltau);
 
@@ -100,40 +100,40 @@ XC(mgga)(const XC(func_type) *func, int np,
 
 /* specializations */
 inline void 
-XC(mgga_exc)(const XC(func_type) *p, int np, 
+xc_mgga_exc(const xc_func_type *p, int np, 
 	     const double *rho, const double *sigma, const double *lapl, const double *tau,
 	     double *zk)
 {
-  XC(mgga)(p, np, rho, sigma, lapl, tau, zk, NULL, NULL, NULL, NULL, 
+  xc_mgga(p, np, rho, sigma, lapl, tau, zk, NULL, NULL, NULL, NULL, 
 	   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 inline void 
-XC(mgga_exc_vxc)(const XC(func_type) *p, int np,
+xc_mgga_exc_vxc(const xc_func_type *p, int np,
 		 const double *rho, const double *sigma, const double *lapl, const double *tau,
 		 double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau)
 {
-  XC(mgga)(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, 
+  xc_mgga(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, 
 	   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 inline void 
-XC(mgga_vxc)(const XC(func_type) *p, int np,
+xc_mgga_vxc(const xc_func_type *p, int np,
 	     const double *rho, const double *sigma, const double *lapl, const double *tau,
 	     double *vrho, double *vsigma, double *vlapl, double *vtau)
 {
-  XC(mgga)(p, np, rho, sigma, lapl, tau, NULL, vrho, vsigma, vlapl, vtau, 
+  xc_mgga(p, np, rho, sigma, lapl, tau, NULL, vrho, vsigma, vlapl, vtau, 
 	   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
 inline void 
-XC(mgga_fxc)(const XC(func_type) *p, int np,
+xc_mgga_fxc(const xc_func_type *p, int np,
 	     const double *rho, const double *sigma, const double *lapl, const double *tau,
 	     double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
 	     double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
 	     double *v2sigmalapl, double *v2sigmatau, double *v2lapltau)
 {
-  XC(mgga)(p, np, rho, sigma, lapl, tau, NULL, NULL, NULL, NULL, NULL, 
+  xc_mgga(p, np, rho, sigma, lapl, tau, NULL, NULL, NULL, NULL, NULL, 
 	   v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
 	   v2sigmalapl, v2sigmatau, v2lapltau);
 }

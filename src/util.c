@@ -23,7 +23,7 @@
 /* this function converts the spin-density into total density and
 	 relative magnetization */
 /* inline */ void
-XC(rho2dzeta)(int nspin, const double *rho, double *d, double *zeta)
+xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta)
 {
   if(nspin==XC_UNPOLARIZED){
     *d    = max(rho[0], 0.0);
@@ -42,7 +42,7 @@ XC(rho2dzeta)(int nspin, const double *rho, double *d, double *zeta)
 }
 
 /* inline */ void
-XC(fast_fzeta)(const double x, const int nspin, const int order, double * fz){
+xc_fast_fzeta(const double x, const int nspin, const int order, double * fz){
 
   double aa, bb, aa2, bb2;
 
@@ -70,7 +70,7 @@ XC(fast_fzeta)(const double x, const int nspin, const int order, double * fz){
 
 /* initializes the mixing */
 void 
-XC(mix_init)(XC(func_type) *p, int n_funcs, const int *funcs_id, const double *mix_coef)
+xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix_coef)
 {
   int ii;
 
@@ -80,12 +80,12 @@ XC(mix_init)(XC(func_type) *p, int n_funcs, const int *funcs_id, const double *m
   /* allocate structures needed for */
   p->n_func_aux = n_funcs;
   p->mix_coef   = (double *) malloc(n_funcs*sizeof(double));
-  p->func_aux   = (XC(func_type) **) malloc(n_funcs*sizeof(XC(func_type) *));
+  p->func_aux   = (xc_func_type **) malloc(n_funcs*sizeof(xc_func_type *));
 
   for(ii=0; ii<n_funcs; ii++){
     p->mix_coef[ii] = mix_coef[ii];
-    p->func_aux[ii] = (XC(func_type) *) malloc(sizeof(XC(func_type)));
-    XC(func_init) (p->func_aux[ii], funcs_id[ii], p->nspin);
+    p->func_aux[ii] = (xc_func_type *) malloc(sizeof(xc_func_type));
+    xc_func_init (p->func_aux[ii], funcs_id[ii], p->nspin);
   }
 
   /* initialize variables */
@@ -97,12 +97,12 @@ XC(mix_init)(XC(func_type) *p, int n_funcs, const int *funcs_id, const double *m
 }
 
 xc_gga_enhancement_t
-XC(get_gga_enhancement_factor)(int func_id)
+xc_get_gga_enhancement_factor(int func_id)
 {
   switch(func_id){
 
   case XC_GGA_X_WC:
-    return XC(gga_x_wc_enhance);
+    return xc_gga_x_wc_enhance;
 
   case XC_GGA_X_PBE:
   case XC_GGA_X_PBE_R:
@@ -114,84 +114,84 @@ XC(get_gga_enhancement_factor)(int func_id)
   case XC_GGA_X_APBE:
   case XC_GGA_X_PBEINT:
   case XC_GGA_X_PBE_TCA:
-    return XC(gga_x_pbe_enhance);
+    return xc_gga_x_pbe_enhance;
 
   case XC_GGA_X_PW91:
   case XC_GGA_X_MPW91:
-    return XC(gga_x_pw91_enhance);
+    return xc_gga_x_pw91_enhance;
 
   case XC_GGA_X_RPBE:
-    return XC(gga_x_rpbe_enhance);
+    return xc_gga_x_rpbe_enhance;
 
   case XC_GGA_X_HTBS:
-    return XC(gga_x_htbs_enhance);
+    return xc_gga_x_htbs_enhance;
 
   case XC_GGA_X_B86:
   case XC_GGA_X_B86_MGC:
   case XC_GGA_X_B86_R:
-    return XC(gga_x_b86_enhance);
+    return xc_gga_x_b86_enhance;
 
   case XC_GGA_X_B88:
   case XC_GGA_X_OPTB88_VDW:
   case XC_GGA_X_MB88:
-    return XC(gga_x_b88_enhance);
+    return xc_gga_x_b88_enhance;
 
   case XC_GGA_X_G96:
-    return XC(gga_x_g96_enhance);
+    return xc_gga_x_g96_enhance;
 
   case XC_GGA_X_PW86:
   case XC_GGA_X_RPW86:
-    return XC(gga_x_pw86_enhance);
+    return xc_gga_x_pw86_enhance;
 
   case XC_GGA_X_AIRY:
   case XC_GGA_X_LAG:
-    return XC(gga_x_airy_enhance);
+    return xc_gga_x_airy_enhance;
 
   case XC_GGA_X_BAYESIAN:
-    return XC(gga_x_bayesian_enhance);
+    return xc_gga_x_bayesian_enhance;
 
   case XC_GGA_X_BPCCAC:
-    return XC(gga_x_bpccac_enhance);
+    return xc_gga_x_bpccac_enhance;
 
   case XC_GGA_X_C09X:
-    return XC(gga_x_c09x_enhance);
+    return xc_gga_x_c09x_enhance;
 
   case XC_GGA_X_AM05:
-    return XC(gga_x_am05_enhance);
+    return xc_gga_x_am05_enhance;
 
   case XC_GGA_X_DK87_R1:
   case XC_GGA_X_DK87_R2:
-    return XC(gga_x_dk87_enhance);
+    return xc_gga_x_dk87_enhance;
 
   case XC_GGA_X_HERMAN:
-    return XC(gga_x_herman_enhance);
+    return xc_gga_x_herman_enhance;
 
   case XC_GGA_X_LG93:
-    return XC(gga_x_lg93_enhance);
+    return xc_gga_x_lg93_enhance;
 
   case XC_GGA_X_LV_RPW86:
-    return XC(gga_x_lv_rpw86_enhance);
+    return xc_gga_x_lv_rpw86_enhance;
 
   case XC_GGA_X_MPBE:
-    return XC(gga_x_mpbe_enhance);
+    return xc_gga_x_mpbe_enhance;
 
   case XC_GGA_X_OPTX:
-    return XC(gga_x_optx_enhance);
+    return xc_gga_x_optx_enhance;
 
   case XC_GGA_X_SOGGA11:
   case XC_HYB_GGA_X_SOGGA11_X:
-    return XC(gga_x_sogga11_enhance);
+    return xc_gga_x_sogga11_enhance;
 
   case XC_GGA_X_SSB_SW:
   case XC_GGA_X_SSB:
   case XC_GGA_X_SSB_D:
-    return XC(gga_x_ssb_sw_enhance);
+    return xc_gga_x_ssb_sw_enhance;
 
   case XC_GGA_X_VMT_PBE:
   case XC_GGA_X_VMT_GE:
   case XC_GGA_X_VMT84_PBE:
   case XC_GGA_X_VMT84_GE:
-    return XC(gga_x_vmt_enhance);
+    return xc_gga_x_vmt_enhance;
 
   default:
     fprintf(stderr, "Internal error in get_gga_enhancement\n");

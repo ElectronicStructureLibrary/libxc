@@ -81,7 +81,7 @@ prhg_newt(double c, double tol, double * res, int *ierr)
    return y;
 }
 
-double XC(mgga_x_2d_prhg_get_y)(double C)
+double xc_mgga_x_2d_prhg_get_y(double C)
 {
   double rhs, res, y, tol;
   int ierr;
@@ -101,7 +101,7 @@ double XC(mgga_x_2d_prhg_get_y)(double C)
 }
 
 static void 
-func(const XC(func_type) *p, XC(mgga_work_x_t) *r)
+func(const xc_func_type *p, xc_mgga_work_x_t *r)
 {
   double y;
   double v_PRHG, C;
@@ -110,9 +110,9 @@ func(const XC(func_type) *p, XC(mgga_work_x_t) *r)
   
   C = 0.25*(r->u - 4.0*r->t + 0.5*r->x*r->x);
   
-  y = XC(mgga_x_2d_prhg_get_y)(C);
+  y = xc_mgga_x_2d_prhg_get_y(C);
   
-  v_PRHG = M_PI*XC(bessel_I0)(y/2.0);
+  v_PRHG = M_PI*xc_bessel_I0(y/2.0);
   v_PRHG /= X_FACTOR_2D_C;
 
   if (p->info->number == XC_MGGA_X_2D_PRHG07) {
@@ -130,7 +130,7 @@ func(const XC(func_type) *p, XC(mgga_work_x_t) *r)
 #define XC_DIMENSIONS 2
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_2d_prhg07) = {
+const xc_func_info_type xc_func_info_mgga_x_2d_prhg07 = {
   XC_MGGA_X_2D_PRHG07,
   XC_EXCHANGE,
   "Pittalis-Rasanen-Helbig-Gross 2007",
@@ -144,7 +144,7 @@ const XC(func_info_type) XC(func_info_mgga_x_2d_prhg07) = {
   work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_2d_prhg07_prp10) = {
+const xc_func_info_type xc_func_info_mgga_x_2d_prhg07_prp10 = {
   XC_MGGA_X_2D_PRHG07_PRP10,
   XC_EXCHANGE,
   "PRHG07 with Pittalis-Rasanen-Proetto 2010 correction",

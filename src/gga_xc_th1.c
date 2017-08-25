@@ -60,7 +60,7 @@ static const double omega_TH1[] =
 
 
 static void 
-gga_xc_th1_init(XC(func_type) *p)
+gga_xc_th1_init(xc_func_type *p)
 {
   gga_xc_th1_params *params;
 
@@ -100,7 +100,7 @@ gga_xc_th1_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_xc_th_fl) = {
+const xc_func_info_type xc_func_info_gga_xc_th_fl = {
   XC_GGA_XC_TH_FL,
   XC_EXCHANGE_CORRELATION,
   "Tozer and Handy v. FL",
@@ -113,7 +113,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th_fl) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_th_fc) = {
+const xc_func_info_type xc_func_info_gga_xc_th_fc = {
   XC_GGA_XC_TH_FC,
   XC_EXCHANGE_CORRELATION,
   "Tozer and Handy v. FC",
@@ -126,7 +126,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th_fc) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_th_fcfo) = {
+const xc_func_info_type xc_func_info_gga_xc_th_fcfo = {
   XC_GGA_XC_TH_FCFO,
   XC_EXCHANGE_CORRELATION,
   "Tozer and Handy v. FCFO",
@@ -139,7 +139,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th_fcfo) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_th_fco) = {
+const xc_func_info_type xc_func_info_gga_xc_th_fco = {
   XC_GGA_XC_TH_FCO,
   XC_EXCHANGE_CORRELATION,
   "Tozer and Handy v. FCO",
@@ -152,7 +152,7 @@ const XC(func_info_type) XC(func_info_gga_xc_th_fco) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_th1) = {
+const xc_func_info_type xc_func_info_gga_xc_th1 = {
   XC_GGA_XC_TH1,
   XC_EXCHANGE_CORRELATION,
   "Tozer and Handy v. 1",

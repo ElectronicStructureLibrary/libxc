@@ -33,7 +33,7 @@ static double br89_gamma = 0.8;
 static double b00_at     = 0.928;
 
 static void 
-mgga_x_tb09_init(XC(func_type) *p)
+mgga_x_tb09_init(xc_func_type *p)
 {
   mgga_x_tb09_params *params;
 
@@ -136,7 +136,7 @@ br_bisect(double a, double tol, int *ierr) {
   return x; 
 } 
 	 	 
-double XC(mgga_x_br89_get_x)(double Q)
+double xc_mgga_x_br89_get_x(double Q)
 {
   double rhs, br_x, tol, res;
   int ierr;
@@ -162,7 +162,7 @@ double XC(mgga_x_br89_get_x)(double Q)
 
 /* Eq. (22) */
 void
-XC(mgga_b00_fw)(int order, double t, double *fw, double *dfwdt)
+xc_mgga_b00_fw(int order, double t, double *fw, double *dfwdt)
 {
   double w, w2;
   
@@ -179,7 +179,7 @@ XC(mgga_b00_fw)(int order, double t, double *fw, double *dfwdt)
 
 
 static void 
-func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
+func(const xc_func_type *pt, xc_mgga_work_x_t *r)
 {
   double Q, br_x, v_BR, dv_BRdbx, d2v_BRdbx2, dxdQ, d2xdQ2, ff, dffdx, d2ffdx2;
   double cnst, c_TB09, c_HEG, exp1, exp2, gamma, fw, dfwdt;
@@ -189,7 +189,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
   Q = (r->u - 4.0*gamma*r->t + 0.5*gamma*r->x*r->x)/6.0;
   if(fabs(Q) < MIN_DENS) Q = (Q < 0) ? -MIN_DENS : MIN_DENS;
 
-  br_x = XC(mgga_x_br89_get_x)(Q);
+  br_x = xc_mgga_x_br89_get_x(Q);
 
   cnst = -2.0*CBRT(M_PI)/X_FACTOR_C;
   exp1 = exp(br_x/3.0);
@@ -206,7 +206,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
     r->f = - v_BR / 2.0;
 
     if(pt->info->number == XC_MGGA_X_B00){
-      XC(mgga_b00_fw)(r->order, r->t, &fw, &dfwdt);
+      xc_mgga_b00_fw(r->order, r->t, &fw, &dfwdt);
       r->f *= 1.0 + b00_at*fw;
     }
   }else{ /* XC_MGGA_X_BJ06 & XC_MGGA_X_TB09 */
@@ -282,7 +282,7 @@ func(const XC(func_type) *pt, XC(mgga_work_x_t) *r)
 
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_br89) = {
+const xc_func_info_type xc_func_info_mgga_x_br89 = {
   XC_MGGA_X_BR89,
   XC_EXCHANGE,
   "Becke-Roussel 89",
@@ -296,7 +296,7 @@ const XC(func_info_type) XC(func_info_mgga_x_br89) = {
   work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_bj06) = {
+const xc_func_info_type xc_func_info_mgga_x_bj06 = {
   XC_MGGA_X_BJ06,
   XC_EXCHANGE,
   "Becke & Johnson 06",
@@ -314,7 +314,7 @@ static const func_params_type ext_params[] = {
 };
 
 static void 
-set_ext_params(XC(func_type) *p, const double *ext_params)
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
   mgga_x_tb09_params *params;
   double ff;
@@ -326,7 +326,7 @@ set_ext_params(XC(func_type) *p, const double *ext_params)
   params->c = ff;
 }
 
-const XC(func_info_type) XC(func_info_mgga_x_tb09) = {
+const xc_func_info_type xc_func_info_mgga_x_tb09 = {
   XC_MGGA_X_TB09,
   XC_EXCHANGE,
   "Tran & Blaha 09",
@@ -339,7 +339,7 @@ const XC(func_info_type) XC(func_info_mgga_x_tb09) = {
   NULL, NULL, work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_rpp09) = {
+const xc_func_info_type xc_func_info_mgga_x_rpp09 = {
   XC_MGGA_X_RPP09,
   XC_EXCHANGE,
   "Rasanen, Pittalis & Proetto 09",
@@ -352,7 +352,7 @@ const XC(func_info_type) XC(func_info_mgga_x_rpp09) = {
   NULL, NULL, work_mgga_x,
 };
 
-const XC(func_info_type) XC(func_info_mgga_x_b00) = {
+const xc_func_info_type xc_func_info_mgga_x_b00 = {
   XC_MGGA_X_B00,
   XC_EXCHANGE,
   "Becke 2000",

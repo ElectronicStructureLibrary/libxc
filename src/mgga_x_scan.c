@@ -24,7 +24,7 @@
 
 /* WARNING THIS CODE WILL BE DELETED */
 void
-XC(mgga_x_scan_falpha)(int order, double a, double c1, double c2, double dd, double *f, double *dfda)
+xc_mgga_x_scan_falpha(int order, double a, double c1, double c2, double dd, double *f, double *dfda)
 {
   /* exponentials are truncated */
   const double logeps =  log(DBL_EPSILON);
@@ -51,7 +51,7 @@ XC(mgga_x_scan_falpha)(int order, double a, double c1, double c2, double dd, dou
 #define func maple2c_func
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_scan) = {
+const xc_func_info_type xc_func_info_mgga_x_scan = {
   XC_MGGA_X_SCAN,
   XC_EXCHANGE,
   "SCAN exchange of Sun, Ruzsinszky, and Perdew",
@@ -65,17 +65,17 @@ const XC(func_info_type) XC(func_info_mgga_x_scan) = {
 };
 
 static void
-hyb_mgga_x_scan0_init(XC(func_type) *p)
+hyb_mgga_x_scan0_init(xc_func_type *p)
 {
   static int   funcs_id  [1] = {XC_MGGA_X_SCAN};
   static double funcs_coef[1] = {1.0 - 0.25};
 
-  XC(mix_init)(p, 1, funcs_id, funcs_coef);
+  xc_mix_init(p, 1, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
 }
 
 
-const XC(func_info_type) XC(func_info_hyb_mgga_x_scan0) = {
+const xc_func_info_type xc_func_info_hyb_mgga_x_scan0 = {
   XC_HYB_MGGA_X_SCAN0,
   XC_EXCHANGE,
   "SCAN hybrid exchange (SCAN0)",

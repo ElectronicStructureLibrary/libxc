@@ -24,15 +24,15 @@
 #define is_lda(id)    ((id) == XC_FAMILY_LDA  || is_gga(is))
 #define safe_free(pt) if(pt != NULL) free(pt)
 
-void XC(mix_func)
-  (const XC(func_type) *func, int np,
+void xc_mix_func
+  (const xc_func_type *func, int np,
    const double *rho, const double *sigma, const double *lapl, const double *tau,
    double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
    double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
    double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
    double *v2sigmalapl, double *v2sigmatau, double *v2lapltau)
 {
-  const XC(func_type) *aux;
+  const xc_func_type *aux;
   double *zk_, *vrho_, *vsigma_, *vlapl_, *vtau_;
   double *v2rho2_, *v2sigma2_, *v2lapl2_, *v2tau2_;
   double *v2rhosigma_, *v2rholapl_, *v2rhotau_;
@@ -84,13 +84,13 @@ void XC(mix_func)
     aux = func->func_aux[ii];
     switch(aux->info->family){
     case XC_FAMILY_LDA:
-      XC(lda)(aux, np, rho, zk_, vrho_, v2rho2_, NULL);
+      xc_lda(aux, np, rho, zk_, vrho_, v2rho2_, NULL);
       break;
     case XC_FAMILY_GGA:
-      XC(gga)(aux, np, rho, sigma, zk_, vrho_, vsigma_, v2rho2_, v2rhosigma_, v2sigma2_, NULL, NULL, NULL, NULL);
+      xc_gga(aux, np, rho, sigma, zk_, vrho_, vsigma_, v2rho2_, v2rhosigma_, v2sigma2_, NULL, NULL, NULL, NULL);
       break;
     case XC_FAMILY_MGGA:
-      XC(mgga)(aux, np, rho, sigma, lapl, tau, zk_, vrho_, vsigma_, vlapl_, vtau_,
+      xc_mgga(aux, np, rho, sigma, lapl, tau, zk_, vrho_, vsigma_, vlapl_, vtau_,
 	       v2rho2_, v2sigma2_, v2lapl2_, v2tau2_, v2rhosigma_, v2rholapl_, v2rhotau_, 
 	       v2sigmalapl_, v2sigmatau_, v2lapltau_);
       break;

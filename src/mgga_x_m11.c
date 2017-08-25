@@ -38,7 +38,7 @@ static const mgga_x_m11_params par_m11 = {
 
 
 static void
-mgga_x_m11_init(XC(func_type) *p)
+mgga_x_m11_init(xc_func_type *p)
 {
   mgga_x_m11_params *params;
 
@@ -62,7 +62,7 @@ mgga_x_m11_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_mgga_c.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_m11) = {
+const xc_func_info_type xc_func_info_mgga_x_m11 = {
   XC_MGGA_X_M11,
   XC_EXCHANGE,
   "Worker for hyb_mgga_xc_m11",
@@ -77,18 +77,18 @@ const XC(func_info_type) XC(func_info_mgga_x_m11) = {
 
 
 static void
-hyb_mgga_xc_m11_init(XC(func_type) *p)
+hyb_mgga_xc_m11_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_MGGA_X_M11, XC_MGGA_C_M11};
   static double funcs_coef[2] = {1.0, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 1.0;
   p->cam_beta  = -(1.0 - 0.428);
   p->cam_omega = 0.25;
 }
 
-const XC(func_info_type) XC(func_info_hyb_mgga_xc_m11) = {
+const xc_func_info_type xc_func_info_hyb_mgga_xc_m11 = {
   XC_HYB_MGGA_XC_M11,
   XC_EXCHANGE_CORRELATION,
   "Minnesota M11 hybrid functional",

@@ -307,7 +307,7 @@ void test_functional(int functional)
 
   if(functional == XC_LDA_C_2D_PRM){
     static double lda_c_2d_prm_params[1] = {10.0};
-    XC(func_set_ext_params)(&func, lda_c_2d_prm_params);
+    xc_func_set_ext_params(&func, lda_c_2d_prm_params);
   }  
 
   for(k=0; k<6; k++)

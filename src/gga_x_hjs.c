@@ -55,13 +55,13 @@ static const double b_B88_V2[] =
   {-2.6506, 3.91108, -3.31509, 1.54485, -0.198386, -0.136112, 0.0647862, 0.0159586, -0.000245066};
 
 static void
-gga_x_hjs_init(XC(func_type) *p)
+gga_x_hjs_init(xc_func_type *p)
 {
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_x_hjs_params));
 
   /* we take 0.11 as the default for hjs */
-  XC(gga_x_hjs_set_params)(p, 0.11);
+  xc_gga_x_hjs_set_params(p, 0.11);
 
   switch(p->info->number){
   case XC_GGA_X_HJS_PBE:
@@ -91,7 +91,7 @@ gga_x_hjs_init(XC(func_type) *p)
 }
 
 void 
-XC(gga_x_hjs_set_params)(XC(func_type) *p, double omega)
+xc_gga_x_hjs_set_params(xc_func_type *p, double omega)
 {
   gga_x_hjs_params *params;
 
@@ -107,7 +107,7 @@ XC(gga_x_hjs_set_params)(XC(func_type) *p, double omega)
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_x_hjs_pbe) = {
+const xc_func_info_type xc_func_info_gga_x_hjs_pbe = {
   XC_GGA_X_HJS_PBE,
   XC_EXCHANGE,
   "HJS screened exchange PBE version",
@@ -120,7 +120,7 @@ const XC(func_info_type) XC(func_info_gga_x_hjs_pbe) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_hjs_pbe_sol) = {
+const xc_func_info_type xc_func_info_gga_x_hjs_pbe_sol = {
   XC_GGA_X_HJS_PBE_SOL,
   XC_EXCHANGE,
   "HJS screened exchange PBE_SOL version",
@@ -133,7 +133,7 @@ const XC(func_info_type) XC(func_info_gga_x_hjs_pbe_sol) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_hjs_b88) = {
+const xc_func_info_type xc_func_info_gga_x_hjs_b88 = {
   XC_GGA_X_HJS_B88,
   XC_EXCHANGE,
   "HJS screened exchange B88 version",
@@ -146,7 +146,7 @@ const XC(func_info_type) XC(func_info_gga_x_hjs_b88) = {
   NULL,  work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_hjs_b97x) = {
+const xc_func_info_type xc_func_info_gga_x_hjs_b97x = {
   XC_GGA_X_HJS_B97X,
   XC_EXCHANGE,
   "HJS screened exchange B97x version",

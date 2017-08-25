@@ -37,14 +37,14 @@ work_mgga_k
 #else
 work_mgga_x
 #endif
-(const XC(func_type) *p, int np,
+(const xc_func_type *p, int np,
  const double *rho, const double *sigma, const double *lapl, const double *tau,
  double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
  double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
  double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
  double *v2sigmalapl, double *v2sigmatau, double *v2lapltau)
 {
-  XC(mgga_work_x_t) r;
+  xc_mgga_work_x_t r;
   double sfact, sfact2, x_factor_c, beta, dens;
   int is, ip;
 
@@ -70,7 +70,7 @@ work_mgga_x
   sfact2 = sfact*sfact;
   
   for(ip = 0; ip < np; ip++){
-    XC(rho2dzeta)(p->nspin, rho, &dens, &r.zeta);
+    xc_rho2dzeta(p->nspin, rho, &dens, &r.zeta);
 
     if(dens < p->dens_threshold) goto end_ip_loop;
 

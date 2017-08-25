@@ -179,7 +179,7 @@ static const gga_xc_b97_params par_hle16 = {
 };
 
 static void 
-gga_xc_b97_init(XC(func_type) *p)
+gga_xc_b97_init(xc_func_type *p)
 {
   gga_xc_b97_params *params;
 
@@ -278,7 +278,7 @@ gga_xc_b97_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_b97) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_b97 = {
   XC_HYB_GGA_XC_B97,
   XC_EXCHANGE_CORRELATION,
   "Becke 97",
@@ -291,7 +291,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_1) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_b97_1 = {
   XC_HYB_GGA_XC_B97_1,
   XC_EXCHANGE_CORRELATION,
   "Becke 97-1",
@@ -304,7 +304,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_1) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_2) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_b97_2 = {
   XC_HYB_GGA_XC_B97_2,
   XC_EXCHANGE_CORRELATION,
   "Becke 97-2",
@@ -317,7 +317,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_2) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_b97_d) = {
+const xc_func_info_type xc_func_info_gga_xc_b97_d = {
   XC_GGA_XC_B97_D,
   XC_EXCHANGE_CORRELATION,
   "Becke 97-D",
@@ -330,7 +330,7 @@ const XC(func_info_type) XC(func_info_gga_xc_b97_d) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_k) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_b97_k = {
   XC_HYB_GGA_XC_B97_K,
   XC_EXCHANGE_CORRELATION,
   "Boese-Martin for Kinetics",
@@ -343,7 +343,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_k) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_3) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_b97_3 = {
   XC_HYB_GGA_XC_B97_3,
   XC_EXCHANGE_CORRELATION,
   "Becke 97-3",
@@ -356,7 +356,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_3) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_hcth_93) = {
+const xc_func_info_type xc_func_info_gga_xc_hcth_93 = {
   XC_GGA_XC_HCTH_93,
   XC_EXCHANGE_CORRELATION,
   "HCTH/93",
@@ -369,7 +369,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_93) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_hcth_120) = {
+const xc_func_info_type xc_func_info_gga_xc_hcth_120 = {
   XC_GGA_XC_HCTH_120,
   XC_EXCHANGE_CORRELATION,
   "HCTH/120",
@@ -382,7 +382,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_120) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_hcth_147) = {
+const xc_func_info_type xc_func_info_gga_xc_hcth_147 = {
   XC_GGA_XC_HCTH_147,
   XC_EXCHANGE_CORRELATION,
   "HCTH/147",
@@ -395,7 +395,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_147) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_hcth_407) = {
+const xc_func_info_type xc_func_info_gga_xc_hcth_407 = {
   XC_GGA_XC_HCTH_407,
   XC_EXCHANGE_CORRELATION,
   "HCTH/407",
@@ -408,7 +408,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_407) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1a) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1a = {
   XC_HYB_GGA_XC_SB98_1a,
   XC_EXCHANGE_CORRELATION,
   "SB98 (1a)",
@@ -421,7 +421,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1a) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1b) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1b = {
   XC_HYB_GGA_XC_SB98_1b,
   XC_EXCHANGE_CORRELATION,
   "SB98 (1b)",
@@ -434,7 +434,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1b) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1c) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1c = {
   XC_HYB_GGA_XC_SB98_1c,
   XC_EXCHANGE_CORRELATION,
   "SB98 (1c)",
@@ -447,7 +447,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_1c) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2a) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2a = {
   XC_HYB_GGA_XC_SB98_2a,
   XC_EXCHANGE_CORRELATION,
   "SB98 (2a)",
@@ -460,7 +460,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2a) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2b) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2b = {
   XC_HYB_GGA_XC_SB98_2b,
   XC_EXCHANGE_CORRELATION,
   "SB98 (2b)",
@@ -473,7 +473,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2b) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2c) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2c = {
   XC_HYB_GGA_XC_SB98_2c,
   XC_EXCHANGE_CORRELATION,
   "SB98 (2c)",
@@ -486,7 +486,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_sb98_2c) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_b97_gga1) = {
+const xc_func_info_type xc_func_info_gga_xc_b97_gga1 = {
   XC_GGA_XC_B97_GGA1,
   XC_EXCHANGE_CORRELATION,
   "Becke 97 GGA-1",
@@ -499,7 +499,7 @@ const XC(func_info_type) XC(func_info_gga_xc_b97_gga1) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_hcth_p14) = {
+const xc_func_info_type xc_func_info_gga_xc_hcth_p14 = {
   XC_GGA_XC_HCTH_P14,
   XC_EXCHANGE_CORRELATION,
   "HCTH p=1/4",
@@ -512,7 +512,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_p14) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_hcth_p76) = {
+const xc_func_info_type xc_func_info_gga_xc_hcth_p76 = {
   XC_GGA_XC_HCTH_P76,
   XC_EXCHANGE_CORRELATION,
   "HCTH p=7/6",
@@ -525,7 +525,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_p76) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_hcth_407p) = {
+const xc_func_info_type xc_func_info_gga_xc_hcth_407p = {
   XC_GGA_XC_HCTH_407P,
   XC_EXCHANGE_CORRELATION,
   "HCTH/407+",
@@ -538,7 +538,7 @@ const XC(func_info_type) XC(func_info_gga_xc_hcth_407p) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_1p) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_b97_1p = {
   XC_HYB_GGA_XC_B97_1p,
   XC_EXCHANGE_CORRELATION,
   "version of B97 by Cohen and Handy",
@@ -551,7 +551,7 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_b97_1p) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_xc_hle16) = {
+const xc_func_info_type xc_func_info_gga_xc_hle16 = {
   XC_GGA_XC_HLE16,
   XC_CORRELATION,
   "high local exchange 2016",

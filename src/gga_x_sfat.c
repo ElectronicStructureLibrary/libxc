@@ -31,18 +31,18 @@ typedef struct{
 } gga_x_sfat_params;
 
 static void
-gga_x_sfat_init(XC(func_type) *p)
+gga_x_sfat_init(xc_func_type *p)
 {
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_x_sfat_params));
 
   /* random functional, mainly intended for testing */
   ((gga_x_sfat_params *) (p->params))->func_id = -1;
-  XC(gga_x_sfat_set_params)(p, XC_GGA_X_B88, 0.44);
+  xc_gga_x_sfat_set_params(p, XC_GGA_X_B88, 0.44);
 }
 
 void 
-XC(gga_x_sfat_set_params)(XC(func_type) *p, int func_id, double omega)
+xc_gga_x_sfat_set_params(xc_func_type *p, int func_id, double omega)
 {
   gga_x_sfat_params *params;
 
@@ -54,28 +54,28 @@ XC(gga_x_sfat_set_params)(XC(func_type) *p, int func_id, double omega)
   /* if func_id == -1 do nothing */
   if(func_id != -1 && params->func_id == -1){ /* intialize stuff */
     p->n_func_aux  = 1;
-    p->func_aux    = (XC(func_type) **) malloc(sizeof(XC(func_type) *));
-    p->func_aux[0] = (XC(func_type)  *) malloc(sizeof(XC(func_type)  ));
+    p->func_aux    = (xc_func_type **) malloc(sizeof(xc_func_type *));
+    p->func_aux[0] = (xc_func_type  *) malloc(sizeof(xc_func_type  ));
   }
 
   if(func_id != -1 && params->func_id != func_id){
     if(params->func_id != -1)
-      XC(func_end) (p->func_aux[0]);
+      xc_func_end (p->func_aux[0]);
 
     params->func_id = func_id;
-    XC(func_init) (p->func_aux[0], params->func_id, p->nspin);
+    xc_func_init (p->func_aux[0], params->func_id, p->nspin);
 
-    params->enhancement_factor = XC(get_gga_enhancement_factor)(func_id);
+    params->enhancement_factor = xc_get_gga_enhancement_factor(func_id);
   }
 }
 
 
 static void 
-func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
+func(const xc_func_type *pt, xc_gga_work_c_t *r)
 {
   int is, js;
   gga_x_sfat_params *params;
-  XC(gga_work_x_t) aux;
+  xc_gga_work_x_t aux;
   const double sign[2] = {1.0, -1.0};
 
   double opz, opz13, rss, x2, drssdrs, drssdz, d2rssdrsz, d2rssdz2;
@@ -111,7 +111,7 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
     k_GGA = sqrt(9.0*M_PI/(2.0*X_FACTOR_C*aux.f))*RS_FACTOR/rss;
     aa = pt->cam_omega/(2.0*k_GGA);
 
-    XC(lda_x_attenuation_function_yukawa)(r->order, aa, &f_aa, &df_aa, &d2f_aa, &d3f_aa);
+    xc_lda_x_attenuation_function_yukawa(r->order, aa, &f_aa, &df_aa, &d2f_aa, &d3f_aa);
 
     ex    = -X_FACTOR_C*RS_FACTOR*opz/(2.0*rss);
     r->f += ex*aux.f*f_aa;
@@ -177,7 +177,7 @@ func(const XC(func_type) *pt, XC(gga_work_c_t) *r)
 
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_x_sfat) = {
+const xc_func_info_type xc_func_info_gga_x_sfat = {
   XC_GGA_X_SFAT,
   XC_EXCHANGE,
   "Short-range recipe for exchange GGA functionals - Yukawa",

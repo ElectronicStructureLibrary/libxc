@@ -26,7 +26,7 @@
 #define func maple2c_func
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_mvs) = {
+const xc_func_info_type xc_func_info_mgga_x_mvs = {
   XC_MGGA_X_MVS,
   XC_EXCHANGE,
   "MVS exchange of Sun, Perdew, and Ruzsinszky",

@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
 
   /* Is functional defined by a string constant? */
   if(isalpha(argv[1][0]))
-    func_id = XC(functional_get_number)(argv[1]);
+    func_id = xc_functional_get_number(argv[1]);
   else
     func_id = atoi(argv[1]);
 
@@ -96,7 +96,7 @@ int main(int argc, char **argv) {
   }
 
   /* Get functional name */
-  fname = XC(functional_get_name)(func_id);
+  fname = xc_functional_get_name(func_id);
 
   /* Print out info */
   printf("%10s: %-20i\t%10s: %-25s\n","func_id", func_id, "name", fname);
@@ -118,11 +118,11 @@ int main(int argc, char **argv) {
 
     if(rangesep) {
       double alpha, beta, omega;
-      XC(hyb_cam_coef(&func,&omega,&alpha,&beta));
+      xc_hyb_cam_coef(&func,&omega,&alpha,&beta);
       printf("\nThis is a range-separated hybrid functional with range-separation constant % .3f,\n",omega);
       printf("and %4.1f%% short-range and %4.1f%% long-range exact exchange.\n",(alpha+beta)*100,(alpha)*100);
     } else {
-      double alpha=XC(hyb_exx_coef(&func));
+      double alpha=xc_hyb_exx_coef(&func);
       printf("\nThis is a global hybrid functional with %4.1f%% of exact exchange.\n",alpha*100);
     }
   } else {
@@ -141,7 +141,7 @@ int main(int argc, char **argv) {
   }
 
   /* Free memory */
-  XC(func_end)(&func);
+  xc_func_end(&func);
   free(fname);
 
   return 0;

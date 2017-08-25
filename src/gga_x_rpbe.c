@@ -27,18 +27,18 @@ typedef struct{
 
 
 static void 
-gga_x_rpbe_init(XC(func_type) *p)
+gga_x_rpbe_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_x_rpbe_params));
 
   /* same parameters as standard PBE */
-  XC(gga_x_rpbe_set_params)(p, 0.8040, 0.2195149727645171);
+  xc_gga_x_rpbe_set_params(p, 0.8040, 0.2195149727645171);
 }
 
 
 void 
-XC(gga_x_rpbe_set_params)(XC(func_type) *p, double kappa, double mu)
+xc_gga_x_rpbe_set_params(xc_func_type *p, double kappa, double mu)
 {
   gga_x_rpbe_params *params;
 
@@ -51,10 +51,10 @@ XC(gga_x_rpbe_set_params)(XC(func_type) *p, double kappa, double mu)
 
 #include "maple2c/gga_x_rpbe.c"
 
-#define func XC(gga_x_rpbe_enhance)
+#define func xc_gga_x_rpbe_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_rpbe) = {
+const xc_func_info_type xc_func_info_gga_x_rpbe = {
   XC_GGA_X_RPBE,
   XC_EXCHANGE,
   "Hammer, Hansen, and Norskov",

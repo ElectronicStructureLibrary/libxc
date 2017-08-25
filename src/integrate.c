@@ -32,7 +32,7 @@
 #define FALSE 0
 #define TRUE 1
 
-double XC(integrate)(integr_fn func, void *ex, double a, double b)
+double xc_integrate(integr_fn func, void *ex, double a, double b)
 {
   double epsabs, epsrel, result, abserr, *alist, *blist, *rlist, *elist;
   int limit, neval, ierr, *iord, last;
@@ -47,7 +47,7 @@ double XC(integrate)(integr_fn func, void *ex, double a, double b)
   elist = (double *)malloc(limit*sizeof(double));
   iord  = (int   *)malloc(limit*sizeof(int));
 
-  XC(rdqagse)(func, ex, &a, &b, &epsabs, &epsrel, &limit, &result, &abserr, &neval, &ierr,
+  xc_rdqagse(func, ex, &a, &b, &epsabs, &epsrel, &limit, &result, &abserr, &neval, &ierr,
 	    alist, blist, rlist, elist, iord, &last);
 
   free(alist);
@@ -68,7 +68,7 @@ static void rdqpsrt(int *, int *, int *, double *, double *, int *, int *);
 
 static void rdqelg(int *, double *, double *, double *, double *, int *);
 
-void XC(rdqagse)(integr_fn f, void *ex, double *a, double *b, 
+void xc_rdqagse(integr_fn f, void *ex, double *a, double *b, 
 	     double *epsabs, double *epsrel, int *limit, double *result,
 	     double *abserr, int *neval, int *ier, double *alist__,
 	     double *blist, double *rlist, double *elist, int *iord, int *last)

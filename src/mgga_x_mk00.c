@@ -28,7 +28,7 @@
 #define func maple2c_func
 #include "work_mgga_x.c"
 
-const XC(func_info_type) XC(func_info_mgga_x_mk00) = {
+const xc_func_info_type xc_func_info_mgga_x_mk00 = {
   XC_MGGA_X_MK00,
   XC_EXCHANGE,
   "Exchange for accurate virtual orbital energies",
@@ -44,17 +44,17 @@ const XC(func_info_type) XC(func_info_mgga_x_mk00) = {
 
 
 static void
-mgga_x_mk00b_init(XC(func_type) *p)
+mgga_x_mk00b_init(xc_func_type *p)
 {
   static int   funcs_id  [3] = {XC_LDA_X, XC_GGA_X_B88, XC_MGGA_X_MK00};
   static double funcs_coef[3] = {-1.0, 1.0, 1.0};
 
-  XC(mix_init)(p, 3, funcs_id, funcs_coef);  
+  xc_mix_init(p, 3, funcs_id, funcs_coef);  
 
-  XC(gga_x_b88_set_params)(p->func_aux[1], 0.0016, 6.0);
+  xc_gga_x_b88_set_params(p->func_aux[1], 0.0016, 6.0);
 }
 
-const XC(func_info_type) XC(func_info_mgga_x_mk00b) = {
+const xc_func_info_type xc_func_info_mgga_x_mk00b = {
   XC_MGGA_X_MK00B,
   XC_EXCHANGE,
   "Exchange for accurate virtual orbital energies (v. B)",

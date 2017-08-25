@@ -62,17 +62,17 @@ static const mgga_c_m06l_params par_m062x = {
 };
 
 static void 
-mgga_c_vsxc_init(XC(func_type) *p)
+mgga_c_vsxc_init(xc_func_type *p)
 {
   mgga_c_m06l_params *params;
 
   assert(p != NULL);
 
   p->n_func_aux  = 1;
-  p->func_aux    = (XC(func_type) **) malloc(1*sizeof(XC(func_type) *));
-  p->func_aux[0] = (XC(func_type) *)  malloc(  sizeof(XC(func_type)));
+  p->func_aux    = (xc_func_type **) malloc(1*sizeof(xc_func_type *));
+  p->func_aux[0] = (xc_func_type *)  malloc(  sizeof(xc_func_type));
 
-  XC(func_init)(p->func_aux[0], XC_LDA_C_PW_MOD, XC_POLARIZED);
+  xc_func_init(p->func_aux[0], XC_LDA_C_PW_MOD, XC_POLARIZED);
 
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(mgga_c_m06l_params));
@@ -102,7 +102,7 @@ mgga_c_vsxc_init(XC(func_type) *p)
 #define func maple2c_func
 #include "work_mgga_c.c"
 
-const XC(func_info_type) XC(func_info_mgga_c_m06_l) = {
+const xc_func_info_type xc_func_info_mgga_c_m06_l = {
   XC_MGGA_C_M06_L,
   XC_CORRELATION,
   "Minnesota M06-L functional",
@@ -115,7 +115,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m06_l) = {
   NULL, NULL, work_mgga_c,
 };
 
-const XC(func_info_type) XC(func_info_mgga_c_m06_hf) = {
+const xc_func_info_type xc_func_info_mgga_c_m06_hf = {
   XC_MGGA_C_M06_HF,
   XC_CORRELATION,
   "Worker for hyb_mgga_xc_m06_hf",
@@ -128,7 +128,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m06_hf) = {
   NULL, NULL, work_mgga_c,
 };
 
-const XC(func_info_type) XC(func_info_mgga_c_m06) = {
+const xc_func_info_type xc_func_info_mgga_c_m06 = {
   XC_MGGA_C_M06,
   XC_CORRELATION,
   "Worker for hyb_mgga_xc_m06",
@@ -141,7 +141,7 @@ const XC(func_info_type) XC(func_info_mgga_c_m06) = {
   NULL, NULL, work_mgga_c,
 };
 
-const XC(func_info_type) XC(func_info_mgga_c_m06_2x) = {
+const xc_func_info_type xc_func_info_mgga_c_m06_2x = {
   XC_MGGA_C_M06_2X,
   XC_CORRELATION,
   "Worker for hyb_mgga_xc_m06_2x",

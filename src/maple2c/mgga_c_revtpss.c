@@ -7,8 +7,8 @@
   Type of functional: work_mgga_c
 */
 
-void XC(mgga_c_revtpss_func)
-  (const XC(func_type) *p, XC(mgga_work_c_t) *r)
+void xc_mgga_c_revtpss_func
+  (const xc_func_type *p, xc_mgga_work_c_t *r)
 {
   double t1, t3, t7, t8, t9, t10, t11, t12;
   double t13, t14, t16, t17, t18, t19, t20, t21;
@@ -4481,4 +4481,4 @@ void XC(mgga_c_revtpss_func)
 }
 
 #define maple2c_order 3
-#define maple2c_func  XC(mgga_c_revtpss_func)
+#define maple2c_func  xc_mgga_c_revtpss_func

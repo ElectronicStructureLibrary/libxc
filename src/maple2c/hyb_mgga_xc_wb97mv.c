@@ -7,8 +7,8 @@
   Type of functional: work_mgga_c
 */
 
-void XC(hyb_mgga_xc_wb97mv_func)
-  (const XC(func_type) *p, XC(mgga_work_c_t) *r)
+void xc_hyb_mgga_xc_wb97mv_func
+  (const xc_func_type *p, xc_mgga_work_c_t *r)
 {
   double t1, t2, t3, t5, t6, t7, t8, t10;
   double t11, t12, t13, t14, t15, t16, t17, t18;
@@ -1533,4 +1533,4 @@ void XC(hyb_mgga_xc_wb97mv_func)
 }
 
 #define maple2c_order 3
-#define maple2c_func  XC(hyb_mgga_xc_wb97mv_func)
+#define maple2c_func  xc_hyb_mgga_xc_wb97mv_func

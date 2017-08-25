@@ -45,7 +45,7 @@ static const double par_ferro[][10] = { /* ferromagnetic */
 };
 
 static void 
-lda_c_1d_csc_init(XC(func_type) *p)
+lda_c_1d_csc_init(xc_func_type *p)
 {
   assert(p != NULL && p->params == NULL);
   p->params = malloc(sizeof(lda_c_1d_csc_params));
@@ -63,7 +63,7 @@ static const func_params_type ext_params[] = {
 };
 
 static void 
-set_ext_params(XC(func_type) *p, const double *ext_params)
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
   lda_c_1d_csc_params *params;
   int interaction;
@@ -120,7 +120,7 @@ set_ext_params(XC(func_type) *p, const double *ext_params)
 }
 
 
-const XC(func_info_type) XC(func_info_lda_c_1d_csc) = {
+const xc_func_info_type xc_func_info_lda_c_1d_csc = {
   XC_LDA_C_1D_CSC,
   XC_CORRELATION,
   "Casula, Sorella & Senatore",

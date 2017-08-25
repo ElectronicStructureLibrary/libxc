@@ -26,7 +26,7 @@
 #define func maple2c_func
 #include "work_mgga_c.c"
 
-const XC(func_info_type) XC(func_info_mgga_c_b88) = {
+const xc_func_info_type xc_func_info_mgga_c_b88 = {
   XC_MGGA_C_B88,
   XC_CORRELATION,
   "Meta-GGA correlation by Becke",

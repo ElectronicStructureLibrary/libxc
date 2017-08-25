@@ -23,7 +23,7 @@
 #define XC_HYB_GGA_XC_CAM_QTP_01       482 /* CAM-QTP(01): CAM-B3LYP retuned using ionization potentials of water */
 
 void
-XC(hyb_gga_xc_cam_b3lyp_init)(XC(func_type) *p)
+xc_hyb_gga_xc_cam_b3lyp_init(xc_func_type *p)
 {
   static double ac = 0.81;
   static int   funcs_id  [4] = {XC_GGA_X_B88, XC_GGA_X_ITYH, XC_LDA_C_VWN, XC_GGA_C_LYP};
@@ -67,15 +67,15 @@ XC(hyb_gga_xc_cam_b3lyp_init)(XC(func_type) *p)
   funcs_coef[2] = 1.0 - ac;
   funcs_coef[3] = ac;
 
-  XC(mix_init)(p, 4, funcs_id, funcs_coef);
-  XC(gga_x_ityh_set_params)(p->func_aux[1], XC_GGA_X_B88, omega);
+  xc_mix_init(p, 4, funcs_id, funcs_coef);
+  xc_gga_x_ityh_set_params(p->func_aux[1], XC_GGA_X_B88, omega);
 
   p->cam_omega = omega;
   p->cam_alpha = alpha;
   p->cam_beta  = beta;
 }
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_cam_b3lyp) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_cam_b3lyp = {
   XC_HYB_GGA_XC_CAM_B3LYP,
   XC_EXCHANGE_CORRELATION,
   "CAM version of B3LYP",
@@ -84,11 +84,11 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_cam_b3lyp) = {
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_gga_xc_cam_b3lyp_init),
+  xc_hyb_gga_xc_cam_b3lyp_init,
   NULL, NULL, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_tuned_cam_b3lyp) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_tuned_cam_b3lyp = {
   XC_HYB_GGA_XC_TUNED_CAM_B3LYP,
   XC_EXCHANGE_CORRELATION,
   "CAM version of B3LYP, tuned for excitations and properties",
@@ -97,11 +97,11 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_tuned_cam_b3lyp) = {
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_gga_xc_cam_b3lyp_init),
+  xc_hyb_gga_xc_cam_b3lyp_init,
   NULL, NULL, NULL, NULL
 };
 
-const XC(func_info_type) XC(func_info_hyb_gga_xc_cam_qtp_01) = {
+const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_01 = {
   XC_HYB_GGA_XC_CAM_QTP_01,
   XC_EXCHANGE_CORRELATION,
   "CAM-B3LYP retuned using ionization potentials of water",
@@ -110,6 +110,6 @@ const XC(func_info_type) XC(func_info_hyb_gga_xc_cam_qtp_01) = {
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  XC(hyb_gga_xc_cam_b3lyp_init),
+  xc_hyb_gga_xc_cam_b3lyp_init,
   NULL, NULL, NULL, NULL
 };

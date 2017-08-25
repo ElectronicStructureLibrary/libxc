@@ -42,7 +42,7 @@ typedef struct{
 } gga_c_pbe_params;
 
 
-static void gga_c_pbe_init(XC(func_type) *p)
+static void gga_c_pbe_init(xc_func_type *p)
 {
   gga_c_pbe_params *params;
 
@@ -100,7 +100,7 @@ static void gga_c_pbe_init(XC(func_type) *p)
 
 
 void 
-XC(gga_c_pbe_set_params)(XC(func_type) *p, double beta)
+xc_gga_c_pbe_set_params(xc_func_type *p, double beta)
 {
   gga_c_pbe_params *params;
 
@@ -116,7 +116,7 @@ XC(gga_c_pbe_set_params)(XC(func_type) *p, double beta)
 #define func maple2c_func
 #include "work_gga_c.c"
 
-const XC(func_info_type) XC(func_info_gga_c_pbe) = {
+const xc_func_info_type xc_func_info_gga_c_pbe = {
   XC_GGA_C_PBE,
   XC_CORRELATION,
   "Perdew, Burke & Ernzerhof",
@@ -129,7 +129,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_pbe_sol) = {
+const xc_func_info_type xc_func_info_gga_c_pbe_sol = {
   XC_GGA_C_PBE_SOL,
   XC_CORRELATION,
   "Perdew, Burke & Ernzerhof SOL",
@@ -142,7 +142,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_sol) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_xpbe) = {
+const xc_func_info_type xc_func_info_gga_c_xpbe = {
   XC_GGA_C_XPBE,
   XC_CORRELATION,
   "Extended PBE by Xu & Goddard III",
@@ -155,7 +155,7 @@ const XC(func_info_type) XC(func_info_gga_c_xpbe) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_pbe_jrgx) = {
+const xc_func_info_type xc_func_info_gga_c_pbe_jrgx = {
   XC_GGA_C_PBE_JRGX,
   XC_CORRELATION,
   "Reparametrized PBE by Pedroza, Silva & Capelle",
@@ -168,7 +168,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_jrgx) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_rge2) = {
+const xc_func_info_type xc_func_info_gga_c_rge2 = {
   XC_GGA_C_RGE2,
   XC_CORRELATION,
   "Regularized PBE",
@@ -181,7 +181,7 @@ const XC(func_info_type) XC(func_info_gga_c_rge2) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_apbe) = {
+const xc_func_info_type xc_func_info_gga_c_apbe = {
   XC_GGA_C_APBE,
   XC_CORRELATION,
   "mu fixed from the semiclassical neutral atom",
@@ -194,7 +194,7 @@ const XC(func_info_type) XC(func_info_gga_c_apbe) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_spbe) = {
+const xc_func_info_type xc_func_info_gga_c_spbe = {
   XC_GGA_C_SPBE,
   XC_CORRELATION,
   "PBE correlation to be used with the SSB exchange",
@@ -207,7 +207,7 @@ const XC(func_info_type) XC(func_info_gga_c_spbe) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_pbeint) = {
+const xc_func_info_type xc_func_info_gga_c_pbeint = {
   XC_GGA_C_PBEINT,
   XC_CORRELATION,
   "PBE for hybrid interfaces",
@@ -220,7 +220,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbeint) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_pbefe) = {
+const xc_func_info_type xc_func_info_gga_c_pbefe = {
   XC_GGA_C_PBEFE,
   XC_CORRELATION,
   "PBE for formation energies",
@@ -233,7 +233,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbefe) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_pbe_mol) = {
+const xc_func_info_type xc_func_info_gga_c_pbe_mol = {
   XC_GGA_C_PBE_MOL,
   XC_EXCHANGE,
   "Reparametrized PBE by del Campo, Gazquez, Trickey & Vela",
@@ -246,7 +246,7 @@ const XC(func_info_type) XC(func_info_gga_c_pbe_mol) = {
   NULL, work_gga_c, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_c_tm_pbe) = {
+const xc_func_info_type xc_func_info_gga_c_tm_pbe = {
   XC_GGA_C_TM_PBE,
   XC_EXCHANGE,
   "Thakkar and McCarthy reparametrization",

@@ -28,7 +28,7 @@ typedef struct{
 
 
 static void 
-gga_x_b86_init(XC(func_type) *p)
+gga_x_b86_init(xc_func_type *p)
 {
   double mu, kappa;
 
@@ -38,15 +38,15 @@ gga_x_b86_init(XC(func_type) *p)
   /* value of beta and gamma in Becke 86 functional */
   switch(p->info->number){
   case XC_GGA_X_B86:
-    XC(gga_x_b86_set_params)(p, 0.0036/X_FACTOR_C, 0.004, 1.0);
+    xc_gga_x_b86_set_params(p, 0.0036/X_FACTOR_C, 0.004, 1.0);
     break;
   case XC_GGA_X_B86_MGC:
-    XC(gga_x_b86_set_params)(p, 0.00375/X_FACTOR_C, 0.007, 4.0/5.0);
+    xc_gga_x_b86_set_params(p, 0.00375/X_FACTOR_C, 0.007, 4.0/5.0);
     break;
   case XC_GGA_X_B86_R:
     mu = 10.0/81.0;
     kappa = 0.7114;
-    XC(gga_x_b86_set_params)(p, mu*X2S*X2S, mu*X2S*X2S/kappa, 4.0/5.0);
+    xc_gga_x_b86_set_params(p, mu*X2S*X2S, mu*X2S*X2S/kappa, 4.0/5.0);
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_b86\n");
@@ -56,7 +56,7 @@ gga_x_b86_init(XC(func_type) *p)
 
 
 void 
-XC(gga_x_b86_set_params)(XC(func_type) *p, double beta, double gamma, double omega)
+xc_gga_x_b86_set_params(xc_func_type *p, double beta, double gamma, double omega)
 {
   gga_x_b86_params *params;
 
@@ -74,7 +74,7 @@ XC(gga_x_b86_set_params)(XC(func_type) *p, double beta, double gamma, double ome
 #define func maple2c_func
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_b86) = {
+const xc_func_info_type xc_func_info_gga_x_b86 = {
   XC_GGA_X_B86,
   XC_EXCHANGE,
   "Becke 86",
@@ -87,7 +87,7 @@ const XC(func_info_type) XC(func_info_gga_x_b86) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_b86_mgc) = {
+const xc_func_info_type xc_func_info_gga_x_b86_mgc = {
   XC_GGA_X_B86_MGC,
   XC_EXCHANGE,
   "Becke 86 with modified gradient correction",
@@ -100,7 +100,7 @@ const XC(func_info_type) XC(func_info_gga_x_b86_mgc) = {
   NULL, work_gga_x, NULL
 };
 
-const XC(func_info_type) XC(func_info_gga_x_b86_r) = {
+const xc_func_info_type xc_func_info_gga_x_b86_r = {
   XC_GGA_X_B86_R,
   XC_EXCHANGE,
   "Revised Becke 86 with modified gradient correction",

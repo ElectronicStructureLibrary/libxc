@@ -97,8 +97,8 @@ r_x(int order, double x, double *r, double *dr)
   }
 }
 
-void XC(gga_x_gg99_enhance)
-     (const XC(func_type) *p, XC(gga_work_x_t) *r)
+void xc_gga_x_gg99_enhance
+     (const xc_func_type *p, xc_gga_work_x_t *r)
 {
   double rr, dr;
   double aux1, aux2, aux3, aux4, aux5, daux1, daux2, daux4, daux5;
@@ -111,7 +111,7 @@ void XC(gga_x_gg99_enhance)
   aux2 = log(1.0 + aux1);
   aux3 = 1.0/cosh(rr);
   aux4 = pow(aux3, 2.0/3.0);
-  aux5 = XC(dilogarithm)(-aux1);
+  aux5 = xc_dilogarithm(-aux1);
 
   num = -M_PI*M_PI + 12.0*rr*aux2 - 12.0*aux5;
   den = 2.0*M_CBRT3*M_PI*rr*aux4;
@@ -131,10 +131,10 @@ void XC(gga_x_gg99_enhance)
   r->dfdx = DFRACTION(num, dnum, den, dden)*dr/X_FACTOR_C;
 }
 
-#define func XC(gga_x_gg99_enhance)
+#define func xc_gga_x_gg99_enhance
 #include "work_gga_x.c"
 
-const XC(func_info_type) XC(func_info_gga_x_gg99) = {
+const xc_func_info_type xc_func_info_gga_x_gg99 = {
   XC_GGA_X_GG99,
   XC_EXCHANGE,
   "Gilbert and Gill 1999",
@@ -150,16 +150,16 @@ const XC(func_info_type) XC(func_info_gga_x_gg99) = {
 
 /*************************************************************/
 static void
-gga_c_kgg_init(XC(func_type) *p)
+gga_c_kgg_init(xc_func_type *p)
 {
   /* defined in Eq. (25) of the paper */
   static int   funcs_id  [2] = {XC_LDA_X, XC_GGA_X_GG99};
   static double funcs_coef[2] = {-0.047/X_FACTOR_C, 1.0};
 
-  XC(mix_init)(p, 2, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
 }
 
-const XC(func_info_type) XC(func_info_gga_x_kgg99) = {
+const xc_func_info_type xc_func_info_gga_x_kgg99 = {
   XC_GGA_X_KGG99,
   XC_EXCHANGE,
   "Gilbert and Gill 1999 (mixed)",

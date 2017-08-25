@@ -19,9 +19,6 @@
 
 #include "util.h"
 
-/* xc_config.h needs to be included to use FLOAT and related macros*/
-#include "xc_config.h"
-
 int xc_func_info_get_number(const xc_func_info_type *info)
 {
   return info->number;

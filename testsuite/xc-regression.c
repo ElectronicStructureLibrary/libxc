@@ -23,7 +23,6 @@
 #include <string.h>
 
 #include <xc.h>
-#include <xc_config.h>
 
 /* Buffer size (line length) for file reads */
 #define BUFSIZE 1024

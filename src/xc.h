@@ -28,7 +28,6 @@ extern "C" {
 #endif
 
 #include <xc_version.h>
-#include "xc_config.h"
   
 #define XC_UNPOLARIZED          1
 #define XC_POLARIZED            2
@@ -245,8 +244,7 @@ void xc_mix_func
    double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
    double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
    double *v2sigmalapl, double *v2sigmatau, double *v2lapltau);
-  
-#include "xc_unconfig.h"
+
 
 #ifdef __cplusplus
 }

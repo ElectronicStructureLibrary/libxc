@@ -294,7 +294,7 @@ execute_process(
 add_executable(xc-info "${src_prefix}/xc-info.c")
 target_link_libraries(xc-info xc)
 
-include_directories(${PROJECT_SOURCE_DIR}/${src_prefix}  # for util.h, xc_config.h
+include_directories(${PROJECT_SOURCE_DIR}/${src_prefix}  # for util.h
                     ${PROJECT_BINARY_DIR}/${src_prefix}  # for xc.h
                     ${PROJECT_BINARY_DIR}  # for xc_version.h, config.h
                     ${gen_dir})  # for xc_funcs.h
@@ -308,8 +308,6 @@ endif()
 
 # by default, headers NOT namespace protected
 install(FILES ${PROJECT_BINARY_DIR}/${src_prefix}/xc.h
-              ${src_prefix}/xc_config.h
-              ${src_prefix}/xc_unconfig.h
               ${gen_dir}/xc_funcs.h
               ${PROJECT_BINARY_DIR}/xc_version.h
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}${NAMESPACE_INSTALL_INCLUDEDIR})

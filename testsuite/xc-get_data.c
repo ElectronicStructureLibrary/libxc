@@ -22,8 +22,6 @@
 
 #include <xc.h>
 
-/* xc_config.h needs to be included to use double and related macros*/
-#include "xc_config.h"
 
 typedef struct {
   int functional;

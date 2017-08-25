@@ -29,9 +29,6 @@
 
 #include "xc.h"
 
-/* xc_config.h needs to be included to use double and related macros*/
-#include "xc_config.h"
-
 /* we include the references also */
 #include "references.h"
 
@@ -43,6 +40,29 @@
 #endif
 #ifndef M_SQRT2
 # define M_SQRT2        1.41421356237309504880  /* sqrt(2) */
+#endif
+
+#define POW_2(x) ((x)*(x))
+#define POW_3(x) ((x)*(x)*(x))
+
+#define POW_1_2(x) sqrt(x)
+#define POW_1_4(x) sqrt(sqrt(x))
+#define POW_3_2(x) ((x)*sqrt(x))
+
+#ifdef HAVE_CBRT
+#define CBRT(x)    cbrt(x)
+#define POW_1_3(x) cbrt(x)
+#define POW_2_3(x) (cbrt(x)*cbrt(x))
+#define POW_4_3(x) ((x)*cbrt(x))
+#define POW_5_3(x) ((x)*cbrt(x)*cbrt(x))
+#define POW_7_3(x) ((x)*(x)*cbrt(x))
+#else
+#define CBRT(x) pow((x), 1.0/3.0)
+#define POW_1_3(x) pow((x), 1.0/3.0)
+#define POW_2_3(x) pow((x), 2.0/3.0)
+#define POW_4_3(x) pow((x), 4.0/3.0)
+#define POW_5_3(x) pow((x), 5.0/3.0)
+#define POW_7_3(x) pow((x), 7.0/3.0)
 #endif
 
 #ifdef _MSC_VER

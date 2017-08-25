@@ -21,7 +21,6 @@
 #include <string.h>
 #include <math.h>
 #include <float.h>
-#include "xc_config.h"
 
 /* Buffer size */
 #define BUFSIZE 4096

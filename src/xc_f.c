@@ -28,9 +28,6 @@
 #include "xc.h"
 #include "string_f.h"
 
-/* xc_config.h needs to be included to use double and related macros*/
-#include "xc_config.h"
-
 /* version */
 void FC_FUNC(xc_f90_version, XC_F90_VERSION)
      (int *major, int *minor, int *micro)

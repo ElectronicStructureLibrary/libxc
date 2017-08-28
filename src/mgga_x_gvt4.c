@@ -32,7 +32,7 @@ const xc_func_info_type xc_func_info_mgga_x_gvt4 = {
   XC_FAMILY_MGGA,
   {&xc_ref_VanVoorhis1998_400, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS,
+  5.0e-13,
   0, NULL, NULL,
   NULL, NULL,
   NULL, NULL,        /* this is not an LDA                   */

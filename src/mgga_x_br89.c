@@ -182,12 +182,14 @@ static void
 func(const xc_func_type *pt, xc_mgga_work_x_t *r)
 {
   double Q, br_x, v_BR, dv_BRdbx, d2v_BRdbx2, dxdQ, d2xdQ2, ff, dffdx, d2ffdx2;
-  double cnst, c_TB09, c_HEG, exp1, exp2, gamma, fw, dfwdt;
+  double cnst, c_TB09, c_HEG, exp1, exp2, gamma, fw, dfwdt, min_Q;
+
+  min_Q = 5.0e-13;
 
   gamma = (pt->info->number == XC_MGGA_X_B00) ? 1.0 : br89_gamma;
 
   Q = (r->u - 4.0*gamma*r->t + 0.5*gamma*r->x*r->x)/6.0;
-  if(fabs(Q) < MIN_DENS) Q = (Q < 0) ? -MIN_DENS : MIN_DENS;
+  if(fabs(Q) < min_Q) Q = (Q < 0) ? -min_Q : min_Q;
 
   br_x = xc_mgga_x_br89_get_x(Q);
 
@@ -289,7 +291,7 @@ const xc_func_info_type xc_func_info_mgga_x_br89 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Becke1989_3761, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS,
+  5.0e-13,
   0, NULL, NULL,
   NULL, NULL,
   NULL, NULL,        /* this is not an LDA                   */
@@ -333,7 +335,7 @@ const xc_func_info_type xc_func_info_mgga_x_tb09 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Tran2009_226401, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_VXC,
-  MIN_DENS,
+  5.0e-13,
   1, ext_params, set_ext_params,
   mgga_x_tb09_init, NULL,
   NULL, NULL, work_mgga_x,
@@ -359,7 +361,7 @@ const xc_func_info_type xc_func_info_mgga_x_b00 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Becke2000_4020, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  MIN_DENS,
+  5.0e-13,
   0, NULL, NULL,
   mgga_x_tb09_init, NULL,
   NULL, NULL, work_mgga_x,

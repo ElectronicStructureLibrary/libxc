@@ -170,7 +170,6 @@ typedef struct xc_functional_key_t {
 #define D3FZETA(x)     (-(8.0/27.0)/FZETAFACTOR)* \
   (fabs(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -5.0/3.0) - pow(1.0 - (x), -5.0/3.0)))
 
-#define MIN_DENS             5.0e-13
 #define MIN_GRAD             5.0e-13
 #define MIN_TAU              5.0e-13
 #define MIN_ZETA             5.0e-13

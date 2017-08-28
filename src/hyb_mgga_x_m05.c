@@ -115,7 +115,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m06_2x = {
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  MIN_DENS,
+  5.0e-13,
   0, NULL, NULL,
   mgga_x_m05_init, NULL,
   NULL, NULL, work_mgga_x,

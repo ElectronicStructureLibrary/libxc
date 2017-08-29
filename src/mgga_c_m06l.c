@@ -19,10 +19,11 @@
 
 #include "util.h"
 
-#define XC_MGGA_C_M06_L         233 /* M06-Local functional from Minnesota */
-#define XC_MGGA_C_M06_HF        234 /* Worker for M06-HF functional        */
-#define XC_MGGA_C_M06           235 /* Worker for M06 functional           */
-#define XC_MGGA_C_M06_2X        236 /* Worker for M06-2X functional        */
+#define XC_MGGA_C_M06_L         233 /* M06-L correlation functional from Minnesota         */
+#define XC_MGGA_C_M06_HF        234 /* Worker for M06-HF correlation functional            */
+#define XC_MGGA_C_M06           235 /* Worker for M06 correlation functional               */
+#define XC_MGGA_C_M06_2X        236 /* Worker for M06-2X correlation functional            */
+#define XC_MGGA_C_REVM06_L      294 /* Revised M06-L correlation functional from Minnesota */
 
 typedef struct{
   double gamma_ss, gamma_ab, alpha_ss, alpha_ab;
@@ -61,6 +62,14 @@ static const mgga_c_m06l_params par_m062x = {
   { 1.166404e-01, -9.120847e-02, -6.726189e-02,  6.720580e-05,  8.448011e-04,  0.000000e+00}
 };
 
+static const mgga_c_m06l_params par_revm06l = {
+  0.06, 0.0031, 0.00515088, 0.00304966,
+  { 1.227659748,  0.855201283, -3.113346677, -2.239678026,  0.354638962},
+  { 0.344360696, -0.557080242, -2.009821162, -1.857641887, -1.076639864},
+  {-0.538821292, -0.028296030,  0.023889696,   0.0, 0.0,   -0.002437902},
+  { 0.400714600,  0.015796569, -0.032680984,   0.0, 0.0,    0.001260132}
+};
+
 static void 
 mgga_c_vsxc_init(xc_func_type *p)
 {
@@ -91,6 +100,9 @@ mgga_c_vsxc_init(xc_func_type *p)
   case XC_MGGA_C_M06_2X:
     memcpy(params, &par_m062x, sizeof(mgga_c_m06l_params));
     break;
+  case XC_MGGA_C_REVM06_L:
+    memcpy(params, &par_revm06l, sizeof(mgga_c_m06l_params));
+    break;
   default:
     fprintf(stderr, "Internal error in mgga_c_m06l\n");
     exit(1);
@@ -105,7 +117,7 @@ mgga_c_vsxc_init(xc_func_type *p)
 const xc_func_info_type xc_func_info_mgga_c_m06_l = {
   XC_MGGA_C_M06_L,
   XC_CORRELATION,
-  "Minnesota M06-L functional",
+  "Minnesota M06-L correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2006_194101, &xc_ref_Zhao2008_215, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -147,6 +159,19 @@ const xc_func_info_type xc_func_info_mgga_c_m06_2x = {
   "Worker for hyb_mgga_xc_m06_2x",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  5.0e-13,
+  0, NULL, NULL,
+  mgga_c_vsxc_init, NULL,
+  NULL, NULL, work_mgga_c,
+};
+
+const xc_func_info_type xc_func_info_mgga_c_revm06_l = {
+  XC_MGGA_C_REVM06_L,
+  XC_CORRELATION,
+  "Minnesota revM06-L correlation functional",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Wang2017_8487, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   5.0e-13,
   0, NULL, NULL,

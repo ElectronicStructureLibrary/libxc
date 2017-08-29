@@ -5,12 +5,12 @@
  it under the terms of the GNU Lesser General Public License as published by
  the Free Software Foundation; either version 3 of the License, or
  (at your option) any later version.
-  
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU Lesser General Public License for more details.
-  
+
  You should have received a copy of the GNU Lesser General Public License
  along with this program; if not, write to the Free Software
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -28,7 +28,7 @@ extern "C" {
 #endif
 
 #include <xc_version.h>
-  
+
 #define XC_UNPOLARIZED          1
 #define XC_POLARIZED            2
 
@@ -64,7 +64,7 @@ extern "C" {
 #define XC_FLAGS_VV10             (1 << 10) /*  1024 */
 #define XC_FLAGS_HYB_LC           (1 << 11) /*  2048 */
 #define XC_FLAGS_HYB_LCY          (1 << 12) /*  4096 */
-#define XC_FLAGS_STABLE           (1 << 13) /*  8192 */ 
+#define XC_FLAGS_STABLE           (1 << 13) /*  8192 */
 #define XC_FLAGS_DEVELOPMENT      (1 << 14) /* 16384 */
 #define XC_FLAGS_NEEDS_LAPLACIAN  (1 << 15) /* 32768 */
 
@@ -72,10 +72,10 @@ extern "C" {
 #define XC_TAU_EXPANSION        1
 
 #define XC_MAX_REFERENCES       5
-  
+
 void xc_version(int *major, int *minor, int *micro);
 const char *xc_version_string();
-    
+
 struct xc_func_type;
 
 typedef struct{
@@ -110,21 +110,24 @@ typedef struct{
 
   void (*init)(struct xc_func_type *p);
   void (*end) (struct xc_func_type *p);
-  void (*lda) (const struct xc_func_type *p, int np, 
-	       const double *rho, 
+  void (*lda) (const struct xc_func_type *p, int np,
+	       const double *rho,
 	       double *zk, double *vrho, double *v2rho2, double *v3rho3);
-  void (*gga) (const struct xc_func_type *p, int np, 
-	       const double *rho, const double *sigma, 
+  void (*gga) (const struct xc_func_type *p, int np,
+	       const double *rho, const double *sigma,
 	       double *zk, double *vrho, double *vsigma,
 	       double *v2rho2, double *v2rhosigma, double *v2sigma2,
 	       double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
-  void (*mgga)(const struct xc_func_type *p, int np, 
+  void (*mgga)(const struct xc_func_type *p, int np,
 	       const double *rho, const double *sigma, const double *lapl_rho, const double *tau,
 	       double *zk, double *vrho, double *vsigma, double *vlapl_rho, double *vtau,
 	       double *v2rho2, double *v2sigma2, double *v2tau2, double *v2lapl2,
-	       double *v2rhosigma, double *v2rhotau, double *v2rholapl, 
+	       double *v2rhosigma, double *v2rhotau, double *v2rholapl,
 	       double *v2sigmatau, double *v2sigmalapl, double *v2taulapl);
 } xc_func_info_type;
+
+/* for API compability with older versions of libxc */
+#define XC(func) xc_ ## func
 
 int xc_func_info_get_number(const xc_func_info_type *info);
 int xc_func_info_get_kind(const xc_func_info_type *info);
@@ -135,11 +138,11 @@ const func_reference_type *xc_func_info_get_references(const xc_func_info_type *
 int xc_func_info_get_n_ext_params(xc_func_info_type *info);
 char const *xc_func_info_get_ext_params_description(xc_func_info_type *info, int number);
 double xc_func_info_get_ext_params_default_value(xc_func_info_type *info, int number);
-  
+
 struct xc_func_type{
   const xc_func_info_type *info;       /* all the information concerning this functional */
   int nspin;                            /* XC_UNPOLARIZED or XC_POLARIZED  */
-  
+
   int n_func_aux;                       /* how many auxiliary functions we need */
   struct xc_func_type **func_aux;      /* most GGAs are based on a LDA or other GGAs  */
   double *mix_coef;                      /* coefficients for the mixing */
@@ -157,7 +160,7 @@ struct xc_func_type{
   int n_vrho, n_vsigma, n_vtau, n_vlapl;
 
   int n_v2rho2, n_v2sigma2, n_v2tau2, n_v2lapl2,
-    n_v2rhosigma, n_v2rhotau, n_v2rholapl, 
+    n_v2rhosigma, n_v2rhotau, n_v2rholapl,
     n_v2sigmatau, n_v2sigmalapl, n_v2lapltau;
 
   int n_v3rho3, n_v3rho2sigma, n_v3rhosigma2, n_v3sigma3;
@@ -182,7 +185,7 @@ void  xc_func_set_ext_params(xc_func_type *p, double *ext_params);
 
 #include "xc_funcs.h"
 #include "xc_funcs_removed.h"
-  
+
 void xc_lda        (const xc_func_type *p, int np, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3);
 void xc_lda_exc    (const xc_func_type *p, int np, const double *rho, double *zk);
 void xc_lda_exc_vxc(const xc_func_type *p, int np, const double *rho, double *zk, double *vrho);
@@ -190,11 +193,11 @@ void xc_lda_vxc    (const xc_func_type *p, int np, const double *rho, double *vr
 void xc_lda_fxc    (const xc_func_type *p, int np, const double *rho, double *v2rho2);
 void xc_lda_kxc    (const xc_func_type *p, int np, const double *rho, double *v3rho3);
 
-void xc_gga     (const xc_func_type *p, int np, const double *rho, const double *sigma, 
+void xc_gga     (const xc_func_type *p, int np, const double *rho, const double *sigma,
 		  double *zk, double *vrho, double *vsigma,
 		  double *v2rho2, double *v2rhosigma, double *v2sigma2,
 		  double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
-void xc_gga_exc(const xc_func_type *p, int np, const double *rho, const double *sigma, 
+void xc_gga_exc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 		 double *zk);
 void xc_gga_exc_vxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 		     double *zk, double *vrho, double *vsigma);
@@ -205,7 +208,7 @@ void xc_gga_fxc(const xc_func_type *p, int np, const double *rho, const double *
 void xc_gga_kxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 		 double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
 
-void xc_gga_lb_modified  (const xc_func_type *p, int np, const double *rho, const double *sigma, 
+void xc_gga_lb_modified  (const xc_func_type *p, int np, const double *rho, const double *sigma,
 			   double r, double *vrho);
 
 double xc_gga_ak13_get_asymptotic (double homo);
@@ -219,21 +222,21 @@ void xc_mgga        (const xc_func_type *p, int np,
 		      const double *rho, const double *sigma, const double *lapl, const double *tau,
 		      double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
 		      double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
-		      double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+		      double *v2rhosigma, double *v2rholapl, double *v2rhotau,
 		      double *v2sigmalapl, double *v2sigmatau, double *v2lapltau);
-void xc_mgga_exc    (const xc_func_type *p, int np,  
-		      const double *rho, const double *sigma, const double *lapl, const double *tau, 
+void xc_mgga_exc    (const xc_func_type *p, int np,
+		      const double *rho, const double *sigma, const double *lapl, const double *tau,
 		      double *zk);
-void xc_mgga_exc_vxc(const xc_func_type *p, int np, 
+void xc_mgga_exc_vxc(const xc_func_type *p, int np,
 		      const double *rho, const double *sigma, const double *lapl, const double *tau,
 		      double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau);
 void xc_mgga_vxc    (const xc_func_type *p, int np,
 		      const double *rho, const double *sigma, const double *lapl, const double *tau,
 		      double *vrho, double *vsigma, double *vlapl, double *vtau);
-void xc_mgga_fxc    (const xc_func_type *p, int np, 
+void xc_mgga_fxc    (const xc_func_type *p, int np,
 		      const double *rho, const double *sigma, const double *lapl, const double *tau,
 		      double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
-		      double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+		      double *v2rhosigma, double *v2rholapl, double *v2rhotau,
 		      double *v2sigmalapl, double *v2sigmatau, double *v2lapltau);
 
 /* Functionals that are defined as mixtures of others */
@@ -242,7 +245,7 @@ void xc_mix_func
    const double *rho, const double *sigma, const double *lapl, const double *tau,
    double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
    double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
-   double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+   double *v2rhosigma, double *v2rholapl, double *v2rhotau,
    double *v2sigmalapl, double *v2sigmatau, double *v2lapltau);
 
 

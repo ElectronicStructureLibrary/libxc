@@ -294,6 +294,10 @@ execute_process(
 add_executable(xc-info "${src_prefix}/xc-info.c")
 target_link_libraries(xc-info xc)
 
+add_executable(xc-threshold "${src_prefix}/xc-threshold.c")
+target_link_libraries(xc-threshold xc)
+
+
 include_directories(${PROJECT_SOURCE_DIR}/${src_prefix}  # for util.h
                     ${PROJECT_BINARY_DIR}/${src_prefix}  # for xc.h
                     ${PROJECT_BINARY_DIR}  # for xc_version.h, config.h
@@ -311,7 +315,7 @@ install(FILES ${PROJECT_BINARY_DIR}/${src_prefix}/xc.h
               ${gen_dir}/xc_funcs.h
               ${PROJECT_BINARY_DIR}/xc_version.h
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}${NAMESPACE_INSTALL_INCLUDEDIR})
-install(TARGETS xc xc-info
+install(TARGETS xc xc-info xc-threshold
         EXPORT "${PN}Targets"
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}

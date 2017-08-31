@@ -121,9 +121,9 @@ typedef struct{
   void (*mgga)(const struct xc_func_type *p, int np,
 	       const double *rho, const double *sigma, const double *lapl_rho, const double *tau,
 	       double *zk, double *vrho, double *vsigma, double *vlapl_rho, double *vtau,
-	       double *v2rho2, double *v2sigma2, double *v2tau2, double *v2lapl2,
-	       double *v2rhosigma, double *v2rhotau, double *v2rholapl,
-	       double *v2sigmatau, double *v2sigmalapl, double *v2taulapl);
+	       double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
+	       double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+	       double *v2sigmalapl, double *v2sigmatau, double *v2lapltau);
 } xc_func_info_type;
 
 /* for API compability with older versions of libxc */

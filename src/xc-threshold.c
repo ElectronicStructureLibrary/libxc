@@ -21,6 +21,7 @@
 #include <stdlib.h>
 
 #include <xc.h>
+#include "util.h"
 
 #define MIN_DENS 1.e-32
 
@@ -106,8 +107,9 @@ void init_values(xc_values_type *xc_values)
 void print_header(xc_func_type *func)
 {
 
-  printf("# Functional: %s\n#", func->info->name);
+  printf("# Functional: %s    Family: %s    Kind: %s\n", func->info->name, get_family(func), get_kind(func));
 
+  printf("#");
   if (func->nspin == 1) {
     printf("    rho   ");
   } else {

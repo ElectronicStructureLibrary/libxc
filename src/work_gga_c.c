@@ -26,7 +26,7 @@ work_gga_c(const xc_func_type *p, int np, const double *rho, const double *sigma
 	   double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
   xc_gga_work_c_t r;
-  double min_grad2 = MIN_GRAD*MIN_GRAD;
+  double min_grad2 = p->dens_threshold * p->dens_threshold;
   int ip;
 
   double drs, dxtdn, dxtds, ndzdn[2], dxsdn[2], dxsds[2];;
@@ -166,12 +166,12 @@ work_gga_c(const xc_func_type *p, int np, const double *rho, const double *sigma
 
 	  v2rho2[is]  = v2rho2[0];
 
-	  v2rho2[is] += r.dfdxs[s1]*dxsdn[s1] + 
-	    ndzdn[s1]*(r.d2fdrsz*drs + r.d2fdzxt*dxtdn + r.d2fdzxs[s2]*dxsdn[s2]) + 
+	  v2rho2[is] += r.dfdxs[s1]*dxsdn[s1] +
+	    ndzdn[s1]*(r.d2fdrsz*drs + r.d2fdzxt*dxtdn + r.d2fdzxs[s2]*dxsdn[s2]) +
 	    r.dens*(r.d2fdrsxs[s1]*drs*dxsdn[s1] + r.d2fdxtxs[s1]*dxtdn*dxsdn[s1]);
 
-	  v2rho2[is] += r.dfdxs[s2]*dxsdn[s2] + 
-	    ndzdn[s2]*(r.d2fdrsz*drs + r.d2fdzxt*dxtdn + r.d2fdzxs[s1]*dxsdn[s1]) + 
+	  v2rho2[is] += r.dfdxs[s2]*dxsdn[s2] +
+	    ndzdn[s2]*(r.d2fdrsz*drs + r.d2fdzxt*dxtdn + r.d2fdzxs[s1]*dxsdn[s1]) +
 	    r.dens*(r.d2fdrsxs[s2]*drs*dxsdn[s2] + r.d2fdxtxs[s2]*dxtdn*dxsdn[s2]);
 
 	  v2rho2[is] += r.d2fdz2*ndzdn[s1]*ndzdn[s2]/r.dens + r.dens*r.d2fdxs2[is]*dxsdn[s1]*dxsdn[s2];

@@ -33,7 +33,7 @@ const xc_func_info_type xc_func_info_lda_xc_teter93 = {
   XC_FAMILY_LDA,
   {&xc_ref_Goedecker1996_1703, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
+  1e-24,
   0, NULL, NULL,
   NULL,     /* init */
   NULL,     /* end  */

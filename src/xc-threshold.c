@@ -332,10 +332,30 @@ int main(int argc, char *argv[])
   id = atoi(argv[1]);
   testcase = atoi(argv[2]);
 
-  if (testcase < 1 || testcase > 6) {
-    fprintf(stderr, "Testcase %i not supported by xc-threshold.\nEnding program.\n", testcase);
-    exit(1);
+  switch (testcase) {
+    case 1:
+      printf("# Test case: %s", "atomic densities, spin-unpolarized");
+      break;
+    case 2:
+      printf("# Test case: %s", "atomic densities, spin-polarized");
+      break;
+    case 3:
+      printf("# Test case: %s", "atomic densities, spin-polarized, one empty spin-channel");
+      break;
+    case 4:
+      printf("# Test case: %s", "HEG, spin-unpolarized");
+      break;
+    case 5:
+      printf("# Test case: %s", "HEG, spin-polarized");
+      break;
+    case 6:
+      printf("# Test case: %s", "HEG, spin-polarized, one empty spin-channel");
+      break;
+    default:
+      fprintf(stderr, "Testcase %i not supported by xc-threshold.\nEnding program.\n", testcase);
+      exit(1);
   }
+  printf("\n");
 
   /* Initialize values */
   init_values(&values);

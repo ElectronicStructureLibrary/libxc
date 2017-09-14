@@ -55,7 +55,7 @@ const xc_func_info_type xc_func_info_gga_xc_vv10 = {
   XC_FAMILY_GGA,
   {&xc_ref_Vydrov2010_244103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
+  1e-12,
   0, NULL, NULL,
   gga_xc_vv10_init,
   NULL, NULL, NULL, NULL
@@ -68,7 +68,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_vv10 = {
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Vydrov2010_244103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
+  1e-12,
   0, NULL, NULL,
   hyb_gga_xc_lc_vv10_init,
   NULL, NULL, NULL, NULL

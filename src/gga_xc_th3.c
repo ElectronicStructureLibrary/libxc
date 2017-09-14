@@ -77,7 +77,7 @@ const xc_func_info_type xc_func_info_gga_xc_th3 = {
   XC_FAMILY_GGA,
   {&xc_ref_Handy1998_707, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
+  1e-18,
   0, NULL, NULL,
   gga_xc_th3_init, NULL, 
   NULL, work_gga_c, NULL
@@ -90,7 +90,7 @@ const xc_func_info_type xc_func_info_gga_xc_th4 = {
   XC_FAMILY_GGA,
   {&xc_ref_Handy1998_707, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
+  1e-15,
   0, NULL, NULL,
   gga_xc_th3_init, NULL, 
   NULL, work_gga_c, NULL

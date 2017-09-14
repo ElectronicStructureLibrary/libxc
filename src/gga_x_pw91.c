@@ -135,7 +135,7 @@ const xc_func_info_type xc_func_info_gga_k_lc94 = {
   XC_FAMILY_GGA,
   {&xc_ref_Lembarki1994_5328, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-30,
+  1e-21,
   0, NULL, NULL,
   gga_x_pw91_init,
   NULL, NULL,

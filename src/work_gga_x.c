@@ -137,7 +137,7 @@ work_gga_x
 
       if(rho[is] < p->dens_threshold) continue;
 
-      gdm    = max(sqrt(sigma[is2])/sfact, MIN_GRAD);
+      gdm    = max(sqrt(sigma[is2])/sfact, p->dens_threshold);
       ds     = rho[is]/sfact;
       rhoLDA = pow(ds, alpha);
       r.x    = gdm/pow(ds, beta);
@@ -156,7 +156,7 @@ work_gga_x
 	vrho[is] += (rhoLDA/ds)*
 	  (c_vrho[0]*r.f + c_vrho[1]*r.dfdx);
 	
-	if(gdm > MIN_GRAD)
+	if(gdm > p->dens_threshold)
 	  vsigma[is2] = rhoLDA*
 	    (c_vsigma[0]*r.dfdx/(2.0*sigma[is2]));
       }
@@ -164,7 +164,7 @@ work_gga_x
       if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC)){
 	v2rho2[is2] = rhoLDA/(ds*ds) * (c_v2rho2[0]*r.f + c_v2rho2[1]*r.dfdx + c_v2rho2[2]*r.d2fdx2);
 	
-	if(gdm > MIN_GRAD){
+	if(gdm > p->dens_threshold){
 	  v2rhosigma[is*5] = (rhoLDA/ds) *
 	    ((c_v2rhosigma[0]*r.dfdx + c_v2rhosigma[1]*r.d2fdx2)/sigma[is2]);
 	  v2sigma2  [is*5] = rhoLDA*
@@ -176,7 +176,7 @@ work_gga_x
 	v3rho3[is*3] = rhoLDA/(ds*ds*ds) *
 	  (c_v3rho3[0]*r.f + c_v3rho3[1]*r.dfdx + c_v3rho3[2]*r.d2fdx2 + c_v3rho3[3]*r.d3fdx3);
 
-	if(gdm > MIN_GRAD){
+	if(gdm > p->dens_threshold){
 	  v3rho2sigma[is*8] = rhoLDA/(ds*ds) *
 	    (c_v3rho2sigma[0]*r.dfdx + c_v3rho2sigma[1]*r.d2fdx2 + c_v3rho2sigma[2]*r.d3fdx3)/sigma[is2];
 

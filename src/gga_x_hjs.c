@@ -114,7 +114,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_pbe = {
   XC_FAMILY_GGA,
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
+  5e-12,
   0, NULL, NULL,
   gga_x_hjs_init, NULL, 
   NULL, work_gga_c, NULL
@@ -127,7 +127,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_pbe_sol = {
   XC_FAMILY_GGA,
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
+  5e-12,
   0, NULL, NULL,
   gga_x_hjs_init, NULL, 
   NULL, work_gga_c, NULL
@@ -140,7 +140,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b88 = {
   XC_FAMILY_GGA,
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-6, /* densities smaller than 1e-6 yield NaNs */
+  1e-7, /* densities smaller than 1e-7 yield NaNs */
   0, NULL, NULL,
   gga_x_hjs_init, NULL, 
   NULL,  work_gga_c, NULL
@@ -153,7 +153,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b97x = {
   XC_FAMILY_GGA,
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
+  1e-10,
   0, NULL, NULL,
   gga_x_hjs_init, NULL, 
   NULL, work_gga_c, NULL

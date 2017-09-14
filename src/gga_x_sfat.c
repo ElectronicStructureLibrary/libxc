@@ -184,7 +184,7 @@ const xc_func_info_type xc_func_info_gga_x_sfat = {
   XC_FAMILY_GGA,
   {&xc_ref_Savin1995_327, &xc_ref_Akinaga2008_348, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  1e-32,
+  1e-19,
   0, NULL, NULL,
   gga_x_sfat_init,
   NULL, NULL, 

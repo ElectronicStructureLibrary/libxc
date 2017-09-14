@@ -141,7 +141,7 @@ const xc_func_info_type xc_func_info_gga_x_gg99 = {
   XC_FAMILY_GGA,
   {&xc_ref_Gilbert1999_511, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32,
+  5e-7,
   0, NULL, NULL,
   NULL, NULL, 
   NULL, work_gga_x, NULL
@@ -166,7 +166,7 @@ const xc_func_info_type xc_func_info_gga_x_kgg99 = {
   XC_FAMILY_GGA,
   {&xc_ref_Gilbert1999_511, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32,
+  5e-7,
   0, NULL, NULL,
   gga_c_kgg_init, NULL, 
   NULL, NULL, NULL

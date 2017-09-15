@@ -46,6 +46,7 @@ work_mgga_x
 {
   xc_mgga_work_x_t r;
   double sfact, sfact2, x_factor_c, beta, dens;
+  double min_grad = p->dens_threshold;
   int is, ip;
 
   /* WARNING: derivatives are _not_ OK for 2 dimensions */
@@ -84,7 +85,7 @@ work_mgga_x
 
       if (rho[is] < p->dens_threshold) continue;
 
-      lsigma= max(sigma[js]/sfact2, MIN_GRAD*MIN_GRAD);
+      lsigma= max(sigma[js]/sfact2, min_grad*min_grad);
       gdm   = sqrt(lsigma);
       lrho  = rho[is]/sfact;
       rho1D = pow(lrho, 1.0/XC_DIMENSIONS);
@@ -112,7 +113,7 @@ work_mgga_x
         if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
           vlapl[is] = -x_factor_c*r.dfdu/rho1D;
 
-	if(gdm>MIN_GRAD)
+	if(gdm>min_grad)
 	  vsigma[js] = -x_factor_c*(rho1D*lrho)*r.dfdx*r.x/(2.0*sfact*lsigma);
       }
 
@@ -136,7 +137,7 @@ work_mgga_x
 	v2rhotau[ls]  = -x_factor_c*rho1D/(3.0*sfact*rho2pD_D)*
 	  (4.0*r.dfdt - 4.0*r.x*r.d2fdxt - 5.0*r.u*r.d2fdtu - 5.0*(r.dfdt + r.t*r.d2fdt2));
 
-	if(gdm > MIN_GRAD){
+	if(gdm > min_grad){
 	  v2sigma2[ks]    =  -x_factor_c*(rho1D*lrho)/(4.0*sfact2*sfact*lsigma*lsigma)*
 	    (r.d2fdx2*r.x*r.x - r.dfdx*r.x);
 

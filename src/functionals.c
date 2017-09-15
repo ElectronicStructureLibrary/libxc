@@ -282,9 +282,14 @@ const xc_func_info_type *xc_func_get_info(const xc_func_type *p)
 /*------------------------------------------------------*/
 void xc_func_set_dens_threshold(xc_func_type *p, double dens_threshold)
 {
-  p->dens_threshold = dens_threshold;
-}
+  int ii;
 
+  p->dens_threshold = dens_threshold;
+
+  for(ii=0; ii<p->n_func_aux; ii++) {
+    xc_func_set_dens_threshold(p->func_aux[ii], dens_threshold);
+  }
+}
 
 /*------------------------------------------------------*/
 void xc_func_set_ext_params(xc_func_type *p, double *ext_params)

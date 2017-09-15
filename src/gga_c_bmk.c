@@ -108,7 +108,7 @@ const xc_func_info_type xc_func_info_gga_c_n12 = {
   XC_FAMILY_GGA,
   {&xc_ref_Peverati2012_2310, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
+  1e-20,
   0, NULL, NULL,
   gga_c_bmk_init, NULL, 
   NULL, work_gga_c, NULL
@@ -121,7 +121,7 @@ const xc_func_info_type xc_func_info_gga_c_n12_sx = {
   XC_FAMILY_GGA,
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
+  1e-20,
   0, NULL, NULL,
   gga_c_bmk_init, NULL, 
   NULL, work_gga_c, NULL
@@ -147,7 +147,7 @@ const xc_func_info_type xc_func_info_gga_c_bmk = {
   XC_FAMILY_GGA,
   {&xc_ref_Boese2004_3405, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-23,
+  1e-20,
   0, NULL, NULL,
   gga_c_bmk_init, NULL,
   NULL, work_gga_c, NULL
@@ -160,7 +160,7 @@ const xc_func_info_type xc_func_info_gga_c_tau_hcth = {
   XC_FAMILY_GGA,
   {&xc_ref_Boese2002_9559, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-23,
+  1e-20,
   0, NULL, NULL,
   gga_c_bmk_init, NULL,
   NULL, work_gga_c, NULL
@@ -173,7 +173,7 @@ const xc_func_info_type xc_func_info_gga_c_hyb_tau_hcth = {
   XC_FAMILY_GGA,
   {&xc_ref_Boese2002_9559, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-23,
+  1e-20,
   0, NULL, NULL,
   gga_c_bmk_init, NULL,
   NULL, work_gga_c, NULL

@@ -144,7 +144,7 @@ const xc_func_info_type xc_func_info_gga_x_sogga = {
   XC_FAMILY_GGA,
   {&xc_ref_Zhao2008_184109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-31,
+  1e-32,
   0, NULL, NULL,
   gga_x_sogga_init,
   NULL, NULL, NULL, NULL

@@ -32,7 +32,7 @@ const xc_func_info_type xc_func_info_gga_x_pbepow = {
   XC_FAMILY_GGA,
   {&xc_ref_Bremond2016_244102, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
+  5e-3, /* Gives NaN for densities as small as 1e-3 */
   0, NULL, NULL,
   NULL, NULL, 
   NULL, work_gga_x, NULL

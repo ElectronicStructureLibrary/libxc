@@ -366,5 +366,8 @@ void xc_mgga_c_bc95_set_params(xc_func_type *p, double css, double copp);
   ((-(num)*(6.0*(dden)*(dden)*(dden) - 6.0*(den)*(dden)*(d2den) + (den)*(den)*(d3den)) + \
     (den)*(6.0*(dden)*(dden)*(dnum) - 3.0*(den)*(dden)*(d2num) + (den)*(-3.0*(dnum)*(d2den) + (den)*(d3num))))/((den)*(den)*(den)*(den)))
 
+/* Some useful functions */
+const char *get_kind(const xc_func_type *func);
+const char *get_family(const xc_func_type *func);
 
 #endif

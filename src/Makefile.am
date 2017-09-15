@@ -20,12 +20,16 @@
 
 SUBDIRS = maple2c
 
-bin_PROGRAMS = xc-info
+bin_PROGRAMS = xc-info xc-threshold
 noinst_PROGRAMS = genwiki
 
 xc_info_SOURCES = xc-info.c
 xc_info_LDADD = libxc.la -lm
 xc_info_LDFLAGS =
+
+xc_threshold_SOURCES = xc-threshold.c
+xc_threshold_LDADD = libxc.la -lm
+xc_threshold_LDFLAGS =
 
 genwiki_SOURCES = genwiki.c
 genwiki_LDADD = libxc.la -lm

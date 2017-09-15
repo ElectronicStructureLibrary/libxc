@@ -33,7 +33,7 @@ const xc_func_info_type xc_func_info_gga_c_w94 = {
   XC_FAMILY_GGA,
   {&xc_ref_Wilson1994_337, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
+  1e-24,
   0, NULL, NULL,
   NULL, NULL, 
   NULL, work_gga_c, NULL

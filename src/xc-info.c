@@ -20,58 +20,6 @@
 #include <ctype.h>
 #include "util.h"
 
-const char *get_kind(const xc_func_type *func) {
-  switch(func->info->kind) {
-  case(XC_EXCHANGE):
-    return "XC_EXCHANGE";
-
-  case(XC_CORRELATION):
-    return "XC_CORRELATION";
-
-  case(XC_EXCHANGE_CORRELATION):
-   return "XC_EXCHANGE_CORRELATION";
-
-  case(XC_KINETIC):
-   return "XC_KINETIC";
-
-  default:
-    printf("Internal error in get_kind.\n");
-    return "";
-  }
-}
-
-const char *get_family(const xc_func_type *func) {
-  switch(func->info->family) {
-  case(XC_FAMILY_UNKNOWN):
-    return "XC_FAMILY_UNKNOWN";
-
-  case(XC_FAMILY_LDA):
-    return "XC_FAMILY_LDA";
-
-  case(XC_FAMILY_GGA):
-    return "XC_FAMILY_GGA";
-
-  case(XC_FAMILY_MGGA):
-    return "XC_FAMILY_MGGA";
-
-  case(XC_FAMILY_LCA):
-    return "XC_FAMILY_LCA";
-
-  case(XC_FAMILY_OEP):
-    return "XC_FAMILY_OEP";
-
-  case(XC_FAMILY_HYB_GGA):
-    return "XC_FAMILY_HYB_GGA";
-
-  case(XC_FAMILY_HYB_MGGA):
-    return "XC_FAMILY_HYB_MGGA";
-
-   default:
-    printf("Internal error in get_family.\n");
-    return "";
-  }
-}
-
 int main(int argc, char **argv) {
   int i, func_id, error;
   xc_func_type func;

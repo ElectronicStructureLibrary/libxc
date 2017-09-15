@@ -28,12 +28,12 @@
 
 const xc_func_info_type xc_func_info_mgga_k_pc07 = {
   XC_MGGA_K_PC07,
-  XC_EXCHANGE,
+  XC_KINETIC,
   "Perdew and Constantin 2007",
   XC_FAMILY_MGGA,
   {&xc_ref_Perdew2007_155109, NULL, NULL, NULL, NULL},
   XC_FLAGS_DEVELOPMENT | XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  5.0e-13,
+  1.0e-23,
   0, NULL, NULL,
   NULL, NULL,
   NULL, NULL, work_mgga_k,

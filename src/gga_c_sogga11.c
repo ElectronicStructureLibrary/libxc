@@ -70,7 +70,7 @@ const xc_func_info_type xc_func_info_gga_c_sogga11 = {
   XC_FAMILY_GGA,
   {&xc_ref_Peverati2011_1991, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-26,
+  1e-23,
   0, NULL, NULL,
   gga_c_sogga11_init, NULL, 
   NULL, work_gga_c, NULL
@@ -83,7 +83,7 @@ const xc_func_info_type xc_func_info_gga_c_sogga11_x = {
   XC_FAMILY_GGA,
   {&xc_ref_Peverati2011_191102, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-26,
+  1e-23,
   0, NULL, NULL,
   gga_c_sogga11_init, NULL, 
   NULL, work_gga_c, NULL

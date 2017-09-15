@@ -25,7 +25,7 @@ work_mgga_c(const xc_func_type *p, int np, const double *rho, const double *sigm
 	    double *v2sigmalapl, double *v2sigmatau, double *v2lapltau)
 {
   xc_mgga_work_c_t r;
-  double min_grad2 = MIN_GRAD*MIN_GRAD;
+  double min_grad2 = p->dens_threshold*p->dens_threshold, min_tau = p->dens_threshold;
   int ip;
 
   /* set all elements of r to zero */
@@ -74,7 +74,7 @@ work_mgga_c(const xc_func_type *p, int np, const double *rho, const double *sigm
         r.us[1]  = r.us[0];
       }
 
-      r.ts[0]  = max(2.0*MIN_TAU, tau[0]/(2.0*r.ds[0]*rho13[0]*rho13[0]));  /* tau/rho^(5/3) */
+      r.ts[0]  = max(2.0*min_tau, tau[0]/(2.0*r.ds[0]*rho13[0]*rho13[0]));  /* tau/rho^(5/3) */
       r.ts[1]  = r.ts[0];
     }else{
       /* there are lots of derivatives that involve inverse
@@ -104,8 +104,8 @@ work_mgga_c(const xc_func_type *p, int np, const double *rho, const double *sigm
         r.us[1]   = lapl[1]/(r.ds[1]*rho13[1]*rho13[1]);
       }
 
-      r.ts[0]   = max(MIN_TAU, tau[0]/(r.ds[0]*rho13[0]*rho13[0]));
-      r.ts[1]   = max(MIN_TAU, tau[1]/(r.ds[1]*rho13[1]*rho13[1]));
+      r.ts[0]   = max(min_tau, tau[0]/(r.ds[0]*rho13[0]*rho13[0]));
+      r.ts[1]   = max(min_tau, tau[1]/(r.ds[1]*rho13[1]*rho13[1]));
     }
   
     func(p, &r);

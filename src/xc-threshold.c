@@ -475,7 +475,7 @@ int main(int argc, char *argv[])
     values.tau[0]   = tau1a + tau2a;
     values.tau[1]   = tau1b + tau2b;
 
-    if (default_threshold > values.rho[0] + values.rho[1]) {
+    if (default_threshold > values.rho[0]) {
       printf("# default threshold\n");
       default_threshold = MIN_DENS/10.;
     }

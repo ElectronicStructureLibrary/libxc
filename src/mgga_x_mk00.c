@@ -35,7 +35,7 @@ const xc_func_info_type xc_func_info_mgga_x_mk00 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Manby2000_7002, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  5.0e-13,
+  1.0e-23,
   0, NULL, NULL,
   NULL, NULL,
   NULL, NULL,        /* this is not an LDA                   */
@@ -61,7 +61,7 @@ const xc_func_info_type xc_func_info_mgga_x_mk00b = {
   XC_FAMILY_MGGA,
   {&xc_ref_Manby2000_7002, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
-  5.0e-13,
+  1.0e-23,
   0, NULL, NULL,
   mgga_x_mk00b_init,
   NULL, NULL, NULL, NULL,

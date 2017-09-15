@@ -302,6 +302,7 @@ int main(int argc, char *argv[])
   int id, testcase, nspin;
   double a1, a2, b1, b2, delta;
   double r;
+  double default_threshold;
   double rho1a, rho1b, rho2a, rho2b;
   double grho1a, grho1b, grho2a, grho2b;
   double lapl1a, lapl1b, lapl2a, lapl2b;
@@ -366,6 +367,7 @@ int main(int argc, char *argv[])
     fprintf(stderr, "Functional '%d' not found\n", id);
     exit(1);
   }
+  default_threshold = func.dens_threshold;
   xc_func_set_dens_threshold(&func, MIN_DENS/10.0);
   if(func.info->flags & XC_FLAGS_HAVE_EXC){
     pzk = &values.zk;
@@ -472,6 +474,11 @@ int main(int argc, char *argv[])
     values.lapl[1]  = lapl1b + lapl2b;
     values.tau[0]   = tau1a + tau2a;
     values.tau[1]   = tau1b + tau2b;
+
+    if (default_threshold > values.rho[0] + values.rho[1]) {
+      printf("# default threshold\n");
+      default_threshold = MIN_DENS/10.;
+    }
 
     /* Evaluate functional */
     switch(func.info->family) {

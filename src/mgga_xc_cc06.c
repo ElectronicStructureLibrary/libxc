@@ -34,7 +34,7 @@ const xc_func_info_type xc_func_info_mgga_xc_cc06 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Cancio2006_081202, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32,
+  1e-23,
   0, NULL, NULL,
   NULL, NULL, 
   NULL, NULL, work_mgga_c,

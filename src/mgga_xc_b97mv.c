@@ -41,7 +41,7 @@ const xc_func_info_type xc_func_info_mgga_xc_b97m_v = {
   XC_FAMILY_MGGA,
   {&xc_ref_Mardirossian2015_074111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32,
+  1e-23,
   0, NULL, NULL,
   mgga_xc_b97mv_init, NULL, 
   NULL, NULL, work_mgga_c,

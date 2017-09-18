@@ -139,12 +139,8 @@ void free_memory(values_t val) {
 
 values_t read_data(const char *file, int nspin) {
   /* Format string */
-#ifdef SINGLE_PRECISION
-  static const char fmt[]="%f %f %f %f %f %f %f %f %f";
-#else
   static const char fmt[]="%lf %lf %lf %lf %lf %lf %lf %lf %lf";
-#endif
-
+  
   /* Data buffer */
   char buf[BUFSIZE];
   char *cp;
@@ -235,21 +231,12 @@ int main(int argc, char *argv[])
 {
   int func_id, nspin, i;
   
-#ifdef SINGLE_PRECISION
-  static const char efmt[] =" % .7e";
-  static const char efmt2[]=" % .7e % .7e";
-  static const char efmt3[]=" % .7e % .7e % .7e";
-  static const char sfmt[] =" %14s";
-  static const char sfmt2[]=" %14s %14s";
-  static const char sfmt3[]=" %14s %14s %14s";
-#else
   static const char efmt[] =" % .16e";
   static const char efmt2[]=" % .16e % .16e";
   static const char efmt3[]=" % .16e % .16e % .16e";
   static const char sfmt[] =" %23s";
   static const char sfmt2[]=" %23s %23s";
   static const char sfmt3[]=" %23s %23s %23s";
-#endif
 
   if(argc != 5) {
     fprintf(stderr, "Usage:\n%s funct input output.unpol output.pol\n", argv[0]);
@@ -262,12 +249,6 @@ int main(int argc, char *argv[])
     fprintf(stderr, "Functional '%s' not found\n", argv[1]);
     exit(1);
   }
-
-#ifdef SINGLE_PRECISION
-  printf("Running in single precision.\n");
-#else
-  printf("Running in double precision.\n");
-#endif
 
   for(nspin=1; nspin<=2; nspin++) {
     /* Data array */

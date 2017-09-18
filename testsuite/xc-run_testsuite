@@ -29,36 +29,30 @@ fi
 fail=0
 echo -e "${YELLOW}Comparing against reference data${NC}"
 echo -e "======================================================================"
-echo -e "   Functional                     System               Result"
-echo -e "                                             Unpolarized    Polarized "
+echo -e "   Functional              System      NSpin       Result"
 echo -e "======================================================================"
 
-for i in $(ls $srcdir/regression/*.pol.bz2 | sort); do
-  refname=$(basename ${i} .pol.bz2)
-  func=${refname%.*}
-  system=${refname#*.}
-  name=$(printf '%-30s %-10s' ${func} ${system})
+for i in $(ls $srcdir/regression/*.bz2 | sort); do
+  refname=$(basename ${i} .bz2)
+  func=${refname%%.*}
+  testcase=${refname#*.}
+  system=${testcase%.*}
+  if [ "x${testcase#*.}" = "xunpol" ]; then
+      nspin=1
+  else
+      nspin=2
+  fi
+  name=$(printf '%-24s %-12s %-5d' ${func} ${system} ${nspin})
 
   workdir=$(mktemp -d ${tmpdir}/libxc.XXXXXXXXXX)
   
   echo -ne "${NC} * ${PINK}${name}"
 
-  bunzip2 -c $srcdir/regression/$refname.pol.bz2 > $workdir/$refname.pol_ref
-  bunzip2 -c $srcdir/regression/$refname.unpol.bz2 > $workdir/$refname.unpol_ref
+  bunzip2 -c $srcdir/regression/$refname.bz2 > $workdir/${refname}_ref
 
-  $EXEC $builddir/xc-regression $func $srcdir/input/$system $workdir/$refname.pol $workdir/$refname.unpol > /dev/null
+  $EXEC $builddir/xc-regression $func $nspin $srcdir/input/$system $workdir/$refname > /dev/null
   
-  # Spin-restricted
-  res=$($builddir/xc-error $workdir/$refname.unpol $workdir/$refname.unpol_ref)
-  if [ "x$res" = "x1" ]; then
-      echo -ne "${GREEN}   OK     "
-  else
-      echo -ne "${RED}  FAIL    "
-      let fail++
-  fi
-
-  # Spin-unrestricted
-  res=$($builddir/xc-error $workdir/$refname.pol $workdir/$refname.pol_ref)
+  res=$($builddir/xc-error $workdir/$refname $workdir/${refname}_ref)
   if [ "x$res" = "x1" ]; then
       echo -e "      ${GREEN}OK"
   else

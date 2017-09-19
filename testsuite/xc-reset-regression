@@ -17,6 +17,15 @@ fi
 for func in $funcs; do
   echo "processing $func"
 
+  dir=${func%%_*}
+  tmp=${func//${dir}_/}
+  if [ "x$dir" = "xhyb" ]; then
+    dir=${dir}_${tmp%%_*}
+    tmp=${func//${dir}_/}
+  fi
+  dir=${dir}_${tmp%%_*}
+  func=${func//${dir}_/}
+  
   for system in $systems; do
     for spin in pol unpol; do
       refname=$func.$system.$spin
@@ -25,9 +34,9 @@ for func in $funcs; do
       else
         nspin=2
       fi
-      $builddir/xc-regression $func $nspin $srcdir/input/$system $srcdir/regression/$refname > /dev/null
-      rm -f $srcdir/regression/$refname.bz2
-      bzip2 $srcdir/regression/$refname
+      echo $builddir/xc-regression $func $nspin $srcdir/input/$system $srcdir/regression/$dir/$refname > /dev/null
+      echo rm -f $srcdir/regression/$dir/$refname.bz2
+      echo bzip2 $srcdir/regression/$dir/$refname
     done
   done
 done

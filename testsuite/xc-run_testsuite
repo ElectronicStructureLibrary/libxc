@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 if [ -n "$SKIP_CHECK" ]; then
-    echo "Skipping checks"
-    exit 0
+  echo "Skipping checks"
+  exit 0
 fi
 
 if [ -z "$srcdir" ]; then
@@ -32,35 +32,36 @@ echo -e "======================================================================"
 echo -e "   Functional              System      NSpin       Result"
 echo -e "======================================================================"
 
-for i in $(ls $srcdir/regression/*.bz2 | sort); do
-  refname=$(basename ${i} .bz2)
-  func=${refname%%.*}
-  testcase=${refname#*.}
-  system=${testcase%.*}
-  if [ "x${testcase#*.}" = "xunpol" ]; then
+for dir in $(ls -d $srcdir/regression/*); do
+  for i in $(ls $dir/*.bz2 | sort); do
+    refname=$(basename ${i} .bz2)
+    func=${refname%%.*}
+    testcase=${refname#*.}
+    system=${testcase%.*}
+    if [ "x${testcase#*.}" = "xunpol" ]; then
       nspin=1
-  else
+    else
       nspin=2
-  fi
-  name=$(printf '%-24s %-12s %-5d' ${func} ${system} ${nspin})
+    fi
+    name=$(printf '%-24s %-12s %-5d' ${func} ${system} ${nspin})
 
-  workdir=$(mktemp -d ${tmpdir}/libxc.XXXXXXXXXX)
+    workdir=$(mktemp -d ${tmpdir}/libxc.XXXXXXXXXX)
   
-  echo -ne "${NC} * ${PINK}${name}"
+    echo -ne "${NC} * ${PINK}${name}"
 
-  bunzip2 -c $srcdir/regression/$refname.bz2 > $workdir/${refname}_ref
+    bunzip2 -c $dir/$refname.bz2 > $workdir/${refname}_ref
 
-  $EXEC $builddir/xc-regression $func $nspin $srcdir/input/$system $workdir/$refname > /dev/null
+    $EXEC $builddir/xc-regression $func $nspin $srcdir/input/$system $workdir/$refname > /dev/null
   
-  res=$($builddir/xc-error $workdir/$refname $workdir/${refname}_ref)
-  if [ "x$res" = "x1" ]; then
+    res=$($builddir/xc-error $workdir/$refname $workdir/${refname}_ref)
+    if [ "x$res" = "x1" ]; then
       echo -e "      ${GREEN}OK"
-  else
+    else
       echo -e "     ${RED}FAIL"
       let fail++
-  fi
+    fi
+  done
 done
-
 echo -e "${NC}"
 
 exit $fail

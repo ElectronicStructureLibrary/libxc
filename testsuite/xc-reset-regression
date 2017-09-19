@@ -18,11 +18,16 @@ for func in $funcs; do
   echo "processing $func"
 
   for system in $systems; do
-    refname=$func.$system
-    $builddir/xc-regression $func $srcdir/input/$system $srcdir/regression/$refname.pol $srcdir/regression/$refname.unpol > /dev/null
-    rm -f $srcdir/regression/$refname.pol.bz2
-    rm -f $srcdir/regression/$refname.unpol.bz2
-    bzip2 $srcdir/regression/$refname.pol
-    bzip2 $srcdir/regression/$refname.unpol
+    for spin in pol unpol; do
+      refname=$func.$system.$spin
+      if [ "x$spin" = "xunpol" ]; then
+        nspin=1
+      else
+        nspin=2
+      fi
+      $builddir/xc-regression $func $nspin $srcdir/input/$system $srcdir/regression/$refname > /dev/null
+      rm -f $srcdir/regression/$refname.bz2
+      bzip2 $srcdir/regression/$refname
+    done
   done
 done

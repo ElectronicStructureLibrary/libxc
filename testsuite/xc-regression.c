@@ -37,8 +37,10 @@ typedef struct {
   double *lapl;
   double *tau;
 
-  /* Output: energy density and potentials for density, gradient, laplacian and tau */
+  /* Output: energy density */
   double *zk;
+
+  /* .. and potentials for density, gradient, laplacian and tau */
   double *vrho;
   double *vsigma;
   double *vlapl;
@@ -60,61 +62,107 @@ typedef struct {
   double *v3rho3;
 } values_t;
 
-void allocate_memory(values_t *data, int nspin) {
+void allocate_memory(values_t *data, int nspin, int order)
+{
+  data->zk = NULL;
+  data->vrho = NULL;
+  data->vsigma = NULL;
+  data->vlapl = NULL;
+  data->vtau = NULL;
+  data->v2rho2 = NULL;
+  data->v2tau2 = NULL;
+  data->v2lapl2 = NULL;
+  data->v2rhotau = NULL;
+  data->v2rholapl = NULL;
+  data->v2lapltau = NULL;
+  data->v2sigma2 = NULL;
+  data->v2rhosigma = NULL;
+  data->v2sigmatau = NULL;
+  data->v2sigmalapl = NULL;
+  data->v3rho3 = NULL;
+
   switch(nspin) {
-  case(XC_UNPOLARIZED):
-    data->rho=calloc(data->n,sizeof(double));
-    data->sigma=calloc(data->n,sizeof(double));
-    data->lapl=calloc(data->n,sizeof(double));
-    data->tau=calloc(data->n,sizeof(double));
-    data->zk=calloc(data->n,sizeof(double));
-    data->vrho=calloc(data->n,sizeof(double));
-    data->vsigma=calloc(data->n,sizeof(double));
-    data->vlapl=calloc(data->n,sizeof(double));
-    data->vtau=calloc(data->n,sizeof(double));
-    data->v2rho2=calloc(data->n,sizeof(double));
-    data->v2tau2=calloc(data->n,sizeof(double));
-    data->v2lapl2=calloc(data->n,sizeof(double));
-    data->v2rhotau=calloc(data->n,sizeof(double));
-    data->v2rholapl=calloc(data->n,sizeof(double));
-    data->v2lapltau=calloc(data->n,sizeof(double));
-    data->v2sigma2=calloc(data->n,sizeof(double));
-    data->v2rhosigma=calloc(data->n,sizeof(double));
-    data->v2sigmatau=calloc(data->n,sizeof(double));
-    data->v2sigmalapl=calloc(data->n,sizeof(double));
-    data->v3rho3=calloc(data->n,sizeof(double));
-    break;
+    case (XC_UNPOLARIZED):
+      data->rho = calloc(data->n, sizeof(double));
+      data->sigma = calloc(data->n, sizeof(double));
+      data->lapl = calloc(data->n, sizeof(double));
+      data->tau = calloc(data->n, sizeof(double));
+      switch (order) {
+        case (0):
+          data->zk = calloc(data->n, sizeof(double));
+          break;
+        case (1):
+          data->vrho = calloc(data->n, sizeof(double));
+          data->vsigma = calloc(data->n, sizeof(double));
+          data->vlapl = calloc(data->n, sizeof(double));
+          data->vtau = calloc(data->n, sizeof(double));
+          break;
+        case (2):
+          data->v2rho2 = calloc(data->n, sizeof(double));
+          data->v2tau2 = calloc(data->n, sizeof(double));
+          data->v2lapl2 = calloc(data->n, sizeof(double));
+          data->v2rhotau = calloc(data->n, sizeof(double));
+          data->v2rholapl = calloc(data->n, sizeof(double));
+          data->v2lapltau = calloc(data->n, sizeof(double));
+          data->v2sigma2 = calloc(data->n, sizeof(double));
+          data->v2rhosigma = calloc(data->n, sizeof(double));
+          data->v2sigmatau = calloc(data->n, sizeof(double));
+          data->v2sigmalapl = calloc(data->n, sizeof(double));
+          break;
+        case (3):
+          data->v3rho3 = calloc(data->n, sizeof(double));
+          break;
+        default:
+          fprintf(stderr, "order = %i not recognized.\n", order);
+          exit(2);
+      }
+      break;
 
-  case(XC_POLARIZED):
-    data->rho=calloc(2*data->n,sizeof(double));
-    data->sigma=calloc(3*data->n,sizeof(double));
-    data->lapl=calloc(2*data->n,sizeof(double));
-    data->tau=calloc(2*data->n,sizeof(double));
-    data->zk=calloc(data->n,sizeof(double));
-    data->vrho=calloc(2*data->n,sizeof(double));
-    data->vsigma=calloc(3*data->n,sizeof(double));
-    data->vlapl=calloc(2*data->n,sizeof(double));
-    data->vtau=calloc(2*data->n,sizeof(double));
-    data->v2rho2=calloc(3*data->n,sizeof(double));
-    data->v2tau2=calloc(3*data->n,sizeof(double));
-    data->v2lapl2=calloc(3*data->n,sizeof(double));
-    data->v2rhotau=calloc(4*data->n,sizeof(double));
-    data->v2rholapl=calloc(4*data->n,sizeof(double));
-    data->v2lapltau=calloc(4*data->n,sizeof(double));
-    data->v2sigma2=calloc(6*data->n,sizeof(double));
-    data->v2rhosigma=calloc(6*data->n,sizeof(double));
-    data->v2sigmatau=calloc(6*data->n,sizeof(double));
-    data->v2sigmalapl=calloc(6*data->n,sizeof(double));
-    data->v3rho3=calloc(4*data->n,sizeof(double));
-    break;
+    case (XC_POLARIZED):
+      data->rho = calloc(2*data->n, sizeof(double));
+      data->sigma = calloc(3*data->n, sizeof(double));
+      data->lapl = calloc(2*data->n, sizeof(double));
+      data->tau = calloc(2*data->n, sizeof(double));
+      switch (order) {
+        case (0):
+          data->zk = calloc(data->n, sizeof(double));
+          break;
+        case (1):
+          data->vrho = calloc(2*data->n, sizeof(double));
+          data->vsigma = calloc(3*data->n, sizeof(double));
+          data->vlapl = calloc(2*data->n, sizeof(double));
+          data->vtau = calloc(2*data->n, sizeof(double));
+          break;
+        case (2):
+          data->v2rho2 = calloc(3*data->n, sizeof(double));
+          data->v2tau2 = calloc(3*data->n, sizeof(double));
+          data->v2lapl2 = calloc(3*data->n, sizeof(double));
+          data->v2rhotau = calloc(4*data->n, sizeof(double));
+          data->v2rholapl = calloc(4*data->n, sizeof(double));
+          data->v2lapltau = calloc(4*data->n, sizeof(double));
+          data->v2sigma2 = calloc(6*data->n, sizeof(double));
+          data->v2rhosigma = calloc(6*data->n, sizeof(double));
+          data->v2sigmatau = calloc(6*data->n, sizeof(double));
+          data->v2sigmalapl = calloc(6*data->n, sizeof(double));
+          break;
+        case (3):
+          data->v3rho3 = calloc(4*data->n, sizeof(double));
+          break;
+        default:
+          fprintf(stderr, "order = %i not recognized.\n", order);
+          exit(2);
+      }
+      break;
 
-  default:
-    fprintf(stderr,"nspin = %i not recognized.\n",nspin);
-    exit(2);
+    default:
+      fprintf(stderr, "nspin = %i not recognized.\n", nspin);
+      exit(2);
   }
+
 }
 
-void free_memory(values_t val) {
+void free_memory(values_t val)
+{
   free(val.rho);
   free(val.sigma);
   free(val.lapl);
@@ -137,7 +185,7 @@ void free_memory(values_t val) {
   free(val.v3rho3);
 }
 
-values_t read_data(const char *file, int nspin) {
+values_t read_data(const char *file, int nspin, int order) {
   /* Format string */
   static const char fmt[]="%lf %lf %lf %lf %lf %lf %lf %lf %lf";
 
@@ -179,7 +227,7 @@ values_t read_data(const char *file, int nspin) {
   }
 
   /* Allocate memory */
-  allocate_memory(&data,nspin);
+  allocate_memory(&data, nspin, order);
 
   for(i=0;i<data.n;i++) {
     /* Next line of input */
@@ -229,8 +277,10 @@ values_t read_data(const char *file, int nspin) {
 /*----------------------------------------------------------*/
 int main(int argc, char *argv[])
 {
-  int func_id, nspin, i;
-  
+  int func_id, nspin, order, i;
+  /* Helpers for properties that may not have been implemented */
+  double *zk, *vrho, *v2rho2, *v3rho3;
+
   static const char efmt[] =" % .16e";
   static const char efmt2[]=" % .16e % .16e";
   static const char efmt3[]=" % .16e % .16e % .16e";
@@ -238,8 +288,8 @@ int main(int argc, char *argv[])
   static const char sfmt2[]=" %23s %23s";
   static const char sfmt3[]=" %23s %23s %23s";
 
-  if(argc != 5) {
-    fprintf(stderr, "Usage:\n%s funct nspin input output\n", argv[0]);
+  if(argc != 6) {
+    fprintf(stderr, "Usage:\n%s funct nspin order input output\n", argv[0]);
     exit(1);
   }
 
@@ -252,6 +302,9 @@ int main(int argc, char *argv[])
 
   /* Spin-polarized or unpolarized ? */
   nspin = atoi(argv[2]);
+
+  /* Order of derivatives to compute */
+  order = atoi(argv[3]);
 
   /* Data array */
     values_t d;
@@ -266,11 +319,8 @@ int main(int argc, char *argv[])
   /* Output file name */
   char *fname;
 
-  /* Helpers for properties that may not have been implemented */
-  double *zk, *vrho, *v2rho2, *v3rho3;
-
   /* Read in data */
-  d=read_data(argv[3],nspin);
+  d = read_data(argv[4], nspin, order);
 
   /* Initialize functional */
   if(xc_func_init(&func, func_id, nspin)) {
@@ -310,9 +360,8 @@ int main(int argc, char *argv[])
     exit(1);
   }
 
-    
   /* Open output file */
-  fname = argv[4];
+  fname = argv[5];
   out = fopen(fname,"w");
   if(!out) {
     fprintf(stderr,"Error opening output file %s.\n",fname);
@@ -321,174 +370,150 @@ int main(int argc, char *argv[])
   }
 
   /* Functional id and amount of lines in output */
-  fprintf(out,"%i %i\n",func_id,d.n);
+  fprintf(out, "%i %i %i\n", func_id, d.n, order);
 
-  /* energy */
-  if(flags & XC_FLAGS_HAVE_EXC)
-    fprintf(out,sfmt,"zk");
-    
-  /* LDA part */
-  if(nspin==XC_POLARIZED) {
-    /* first order derivatives */
-    if(flags & XC_FLAGS_HAVE_VXC) {
-      fprintf(out,sfmt2,"vrho(a)","vrho(b)");
-	    if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA))
-	      fprintf(out,sfmt3,"vsigma(aa)","vsigma(ab)","vsigma(bb)");
-	    if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	      fprintf(out,sfmt2,"vlapl(a)","vlapl(b)");
-	      fprintf(out,sfmt2,"vtau(a)","vtau(b)");
-	    }
-    }
-      
-    /* second-order derivatives */
-    if(flags & XC_FLAGS_HAVE_FXC) {
-	    fprintf(out,sfmt3,"v2rho(aa)","v2rho(ab)","v2rho(bb)");
-	    if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	      fprintf(out,sfmt3,"v2sigma2(aa-aa)","v2sigma2(aa-ab)","v2sigma2(aa-bb)");
-	      fprintf(out,sfmt3,"v2sigma2(ab-ab)","v2sigma2(ab-bb)","v2sigma2(bb-bb)");
-	      fprintf(out,sfmt3,"v2rho(a)sigma(aa)","v2rho(a)sigma(ab)","v2rho(a)sigma(bb)");
-	      fprintf(out,sfmt3,"v2rho(b)sigma(aa)","v2rho(b)sigma(ab)","v2rho(b)sigma(bb)");
-	    }
-	
-	    if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	      fprintf(out,sfmt3,"v2lapl2(aa)","v2lapl2(ab)","v2lapl2(bb)");
-	      fprintf(out,sfmt3,"v2tau2(aa)","v2tau2(ab)","v2tau2(bb)");
-	      fprintf(out,sfmt3,"v2rholapl(aa)","v2rholapl(ab)","v2rholapl(bb)");
-	      fprintf(out,sfmt3,"v2rhotau(aa)","v2rhotau(ab)","v2rhotau(bb)");
-	      fprintf(out,sfmt3,"v2lapltau(aa)","v2lapltau(ab)","v2lapltau(bb)");
-	      fprintf(out,sfmt3,"v2sigma(aa)tau(a)","v2sigma(aa)tau(b)","v2sigma(ab)tau(a)");
-	      fprintf(out,sfmt3,"v2sigma(ab)tau(b)","v2sigma(bb)tau(a)","v2sigma(bb)tau(b)");
-	      fprintf(out,sfmt3,"v2sigma(aa)lapl(a)","v2sigma(aa)lapl(b)","v2sigma(ab)lapl(a)");
-	      fprintf(out,sfmt3,"v2sigma(ab)lapl(b)","v2sigma(bb)lapl(a)","v2sigma(bb)lapl(b)");
-	    }
-    }
-     
-    /* third-order derivatives ... to be done */
+  switch (order) {
+    case (0): /* energy */
+      fprintf(out, sfmt, "zk");
+      break;
+    case (1): /* first order derivatives */
+      if (nspin == XC_POLARIZED) {
+        fprintf(out, sfmt2, "vrho(a)", "vrho(b)");
+        if (family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA))
+          fprintf(out, sfmt3, "vsigma(aa)", "vsigma(ab)", "vsigma(bb)");
+        if (family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
+          fprintf(out, sfmt2, "vlapl(a)", "vlapl(b)");
+          fprintf(out, sfmt2, "vtau(a)", "vtau(b)");
+        }
+      } else {
+        fprintf(out, sfmt, "vrho");
+        if (family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA))
+          fprintf(out, sfmt, "vsigma");
+        if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
+          fprintf(out, sfmt, "vlapl");
+          fprintf(out, sfmt, "vtau");
+        }
+      }
+      break;
 
-    fprintf(out,"\n");
+    case (2): /* second order derivatives */
+      if (nspin == XC_POLARIZED) {
+        fprintf(out,sfmt3,"v2rho(aa)","v2rho(ab)","v2rho(bb)");
+        if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
+          fprintf(out, sfmt3, "v2sigma2(aa-aa)", "v2sigma2(aa-ab)", "v2sigma2(aa-bb)");
+          fprintf(out, sfmt3, "v2sigma2(ab-ab)", "v2sigma2(ab-bb)", "v2sigma2(bb-bb)");
+          fprintf(out, sfmt3, "v2rho(a)sigma(aa)", "v2rho(a)sigma(ab)", "v2rho(a)sigma(bb)");
+          fprintf(out, sfmt3, "v2rho(b)sigma(aa)", "v2rho(b)sigma(ab)", "v2rho(b)sigma(bb)");
+        }
+        if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
+          fprintf(out, sfmt3, "v2lapl2(aa)", "v2lapl2(ab)", "v2lapl2(bb)");
+          fprintf(out, sfmt3, "v2tau2(aa)", "v2tau2(ab)", "v2tau2(bb)");
+          fprintf(out, sfmt3, "v2rholapl(aa)", "v2rholapl(ab)", "v2rholapl(bb)");
+          fprintf(out, sfmt3, "v2rhotau(aa)", "v2rhotau(ab)", "v2rhotau(bb)");
+          fprintf(out, sfmt3, "v2lapltau(aa)", "v2lapltau(ab)", "v2lapltau(bb)");
+          fprintf(out, sfmt3, "v2sigma(aa)tau(a)", "v2sigma(aa)tau(b)", "v2sigma(ab)tau(a)");
+          fprintf(out, sfmt3, "v2sigma(ab)tau(b)", "v2sigma(bb)tau(a)", "v2sigma(bb)tau(b)");
+          fprintf(out, sfmt3, "v2sigma(aa)lapl(a)", "v2sigma(aa)lapl(b)", "v2sigma(ab)lapl(a)");
+          fprintf(out, sfmt3, "v2sigma(ab)lapl(b)", "v2sigma(bb)lapl(a)", "v2sigma(bb)lapl(b)");
+        }
+      } else {
+        fprintf(out,sfmt,"v2rho");
+        if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
+          fprintf(out, sfmt, "v2sigma2");
+          fprintf(out, sfmt, "v2rhosigma");
+        }
 
-  } else {
+        if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
+          fprintf(out, sfmt, "v2lapl2");
+          fprintf(out, sfmt, "v2tau2");
+          fprintf(out, sfmt, "v2rholapl");
+          fprintf(out, sfmt, "v2rhotau");
+          fprintf(out, sfmt, "v2lapltau");
+          fprintf(out, sfmt, "v2sigmatau");
+          fprintf(out, sfmt, "v2sigmalapl");
+        }
+      }
+      break;
 
-    /* first order derivatives */
-    if(flags & XC_FLAGS_HAVE_VXC) {
-	    fprintf(out,sfmt,"vrho");
-	    if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA))
-	      fprintf(out,sfmt,"vsigma");
-	    if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	      fprintf(out,sfmt,"vlapl");
-	      fprintf(out,sfmt,"vtau");
-	    }
-    }
-      
-    /* second-order derivatives */
-    if(flags & XC_FLAGS_HAVE_FXC) {
-	    fprintf(out,sfmt,"v2rho");
-	    if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	      fprintf(out,sfmt,"v2sigma2");
-	      fprintf(out,sfmt,"v2rhosigma");
-	    }
-	
-	    if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	      fprintf(out,sfmt,"v2lapl2");
-	      fprintf(out,sfmt,"v2tau2");
-	      fprintf(out,sfmt,"v2rholapl");
-	      fprintf(out,sfmt,"v2rhotau");
-	      fprintf(out,sfmt,"v2lapltau");
-	      fprintf(out,sfmt,"v2sigmatau");
-	      fprintf(out,sfmt,"v2sigmalapl");
-	    }
-    }
-      
-    /* third-order derivatives ... to be done */
-
-    fprintf(out,"\n");
+    default: /* higher order derivatives ... to be done */
+      fprintf(stderr, "order = %i not recognized.\n", order);
+      exit(2);
   }
-
+  fprintf(out,"\n");
 
   /* Loop over data points */
   for(i=0;i<d.n;i++) {
-    /* energy */
-    if(flags & XC_FLAGS_HAVE_EXC)
-	    fprintf(out,efmt,d.zk[i]);
-      
-    /* LDA part */
-    if(nspin==XC_POLARIZED) {
-	    /* first order derivatives */
-	    if(flags & XC_FLAGS_HAVE_VXC) {
-	      fprintf(out,efmt2,d.vrho[2*i],d.vrho[2*i+1]);
-	      if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA))
-	        fprintf(out,efmt3,d.vsigma[3*i],d.vsigma[3*i+1],d.vsigma[3*i+2]);
-	      if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	        fprintf(out,efmt2,d.vlapl[2*i],d.vlapl[2*i+1]);
-	        fprintf(out,efmt2,d.vtau[2*i],d.vtau[2*i+1]);
-	      }
-	    }
-      
-	    /* second-order derivatives */
-	    if(flags & XC_FLAGS_HAVE_FXC) {
-	      fprintf(out,efmt3,d.v2rho2[3*i],d.v2rho2[3*i+1],d.v2rho2[3*i+2]);
-	      if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	        fprintf(out,efmt3,d.v2sigma2[6*i],d.v2sigma2[6*i+1],d.v2sigma2[6*i+2]);
-	        fprintf(out,efmt3,d.v2sigma2[6*i+3],d.v2sigma2[6*i+4],d.v2sigma2[6*i+5]);
-	        fprintf(out,efmt3,d.v2rhosigma[6*i],d.v2rhosigma[6*i+1],d.v2rhosigma[6*i+2]);
-	        fprintf(out,efmt3,d.v2rhosigma[6*i+3],d.v2rhosigma[6*i+4],d.v2rhosigma[6*i+5]);
-	      }
-	
-	      if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	        fprintf(out,efmt3,d.v2lapl2[3*i],d.v2lapl2[3*i+1],d.v2lapl2[3*i+2]);
-	        fprintf(out,efmt3,d.v2tau2[3*i],d.v2tau2[3*i+1],d.v2tau2[3*i+2]);
-	        fprintf(out,efmt3,d.v2rholapl[3*i],d.v2rholapl[3*i+1],d.v2rholapl[3*i+2]);
-	        fprintf(out,efmt3,d.v2rhotau[3*i],d.v2rhotau[3*i+1],d.v2rhotau[3*i+2]);
-	        fprintf(out,efmt3,d.v2lapltau[3*i],d.v2lapltau[3*i+1],d.v2lapltau[3*i+2]);
-	        fprintf(out,efmt3,d.v2sigmatau[3*i],d.v2sigmatau[3*i+1],d.v2sigmatau[3*i+2]);
-	        fprintf(out,efmt3,d.v2sigmatau[3*i+3],d.v2sigmatau[3*i+4],d.v2sigmatau[3*i+5]);
-	        fprintf(out,efmt3,d.v2sigmalapl[3*i],d.v2sigmalapl[3*i+1],d.v2sigmalapl[3*i+2]);
-	        fprintf(out,efmt3,d.v2sigmalapl[3*i+3],d.v2sigmalapl[3*i+4],d.v2sigmalapl[3*i+5]);
-	      }
-	    }
-     
-	    /* third-order derivatives ... to be done */
 
-	    fprintf(out,"\n");
+    switch (order) {
+      case (0): /* energy */
+        fprintf(out, efmt, d.zk[i]);
+        break;
+      case (1): /* first order derivatives */
+        if (nspin == XC_POLARIZED) {
+          fprintf(out, efmt2, d.vrho[2 * i], d.vrho[2 * i + 1]);
+          if (family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA))
+            fprintf(out, efmt3, d.vsigma[3 * i], d.vsigma[3 * i + 1], d.vsigma[3 * i + 2]);
+          if (family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
+            fprintf(out, efmt2, d.vlapl[2 * i], d.vlapl[2 * i + 1]);
+            fprintf(out, efmt2, d.vtau[2 * i], d.vtau[2 * i + 1]);
+          }
+        } else {
+          fprintf(out, efmt, d.vrho[i]);
+          if (family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA))
+            fprintf(out, efmt, d.vsigma[i]);
+          if (family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
+            fprintf(out, efmt, d.vlapl[i]);
+            fprintf(out, efmt, d.vtau[i]);
+          }
+        }
+        break;
 
-    } else {
+      case (2): /* second order derivatives */
+        if (nspin == XC_POLARIZED) {
+          fprintf(out, efmt3, d.v2rho2[3*i], d.v2rho2[3*i + 1], d.v2rho2[3*i + 2]);
+          if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
+            fprintf(out, efmt3, d.v2sigma2[6*i], d.v2sigma2[6*i + 1], d.v2sigma2[6*i + 2]);
+            fprintf(out, efmt3, d.v2sigma2[6*i + 3], d.v2sigma2[6*i + 4], d.v2sigma2[6*i + 5]);
+            fprintf(out, efmt3, d.v2rhosigma[6*i], d.v2rhosigma[6*i + 1], d.v2rhosigma[6*i + 2]);
+            fprintf(out, efmt3, d.v2rhosigma[6*i + 3], d.v2rhosigma[6*i + 4], d.v2rhosigma[6*i + 5]);
+          }
+          if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
+            fprintf(out, efmt3, d.v2lapl2[3*i], d.v2lapl2[3*i + 1], d.v2lapl2[3*i + 2]);
+            fprintf(out, efmt3, d.v2tau2[3*i], d.v2tau2[3*i + 1], d.v2tau2[3*i + 2]);
+            fprintf(out, efmt3, d.v2rholapl[3*i], d.v2rholapl[3*i + 1], d.v2rholapl[3*i + 2]);
+            fprintf(out, efmt3, d.v2rhotau[3*i], d.v2rhotau[3*i + 1], d.v2rhotau[3*i + 2]);
+            fprintf(out, efmt3, d.v2lapltau[3*i], d.v2lapltau[3*i + 1], d.v2lapltau[3*i + 2]);
+            fprintf(out, efmt3, d.v2sigmatau[3*i], d.v2sigmatau[3*i + 1], d.v2sigmatau[3*i + 2]);
+            fprintf(out, efmt3, d.v2sigmatau[3*i + 3], d.v2sigmatau[3*i + 4], d.v2sigmatau[3*i + 5]);
+            fprintf(out, efmt3, d.v2sigmalapl[3*i], d.v2sigmalapl[3*i + 1], d.v2sigmalapl[3*i + 2]);
+            fprintf(out, efmt3, d.v2sigmalapl[3*i + 3], d.v2sigmalapl[3*i + 4], d.v2sigmalapl[3*i + 5]);
+          }
+        } else {
+          fprintf(out, efmt, d.v2rho2[i]);
+          if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
+            fprintf(out, efmt, d.v2sigma2[i]);
+            fprintf(out, efmt, d.v2rhosigma[i]);
+          }
+          if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
+            fprintf(out, efmt, d.v2lapl2[i]);
+            fprintf(out, efmt, d.v2tau2[i]);
+            fprintf(out, efmt, d.v2rholapl[i]);
+            fprintf(out, efmt, d.v2rhotau[i]);
+            fprintf(out, efmt, d.v2lapltau[i]);
+            fprintf(out, efmt, d.v2sigmatau[i]);
+            fprintf(out, efmt, d.v2sigmalapl[i]);
+          }
+        }
+        break;
 
-	    /* first order derivatives */
-	    if(flags & XC_FLAGS_HAVE_VXC) {
-	      fprintf(out,efmt,d.vrho[i]);
-	      if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA))
-	        fprintf(out,efmt,d.vsigma[i]);
-	      if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	        fprintf(out,efmt,d.vlapl[i]);
-	        fprintf(out,efmt,d.vtau[i]);
-	      }
-	    }
-      
-	    /* second-order derivatives */
-	    if(flags & XC_FLAGS_HAVE_FXC) {
-	      fprintf(out,efmt,d.v2rho2[i]);
-	      if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	        fprintf(out,efmt,d.v2sigma2[i]);
-	        fprintf(out,efmt,d.v2rhosigma[i]);
-	      }
-	
-	      if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-	        fprintf(out,efmt,d.v2lapl2[i]);
-	        fprintf(out,efmt,d.v2tau2[i]);
-	        fprintf(out,efmt,d.v2rholapl[i]);
-	        fprintf(out,efmt,d.v2rhotau[i]);
-	        fprintf(out,efmt,d.v2lapltau[i]);
-	        fprintf(out,efmt,d.v2sigmatau[i]);
-	        fprintf(out,efmt,d.v2sigmalapl[i]);
-	      }
-	    }
-      
-	    /* third-order derivatives ... to be done */
-
-      fprintf(out,"\n");
+     default: /* higher order derivatives ... to be done */
+        fprintf(stderr, "order = %i not recognized.\n", order);
+        exit(2);
     }
+
+    fprintf(out,"\n");
   }
-   
+
   xc_func_end(&func);
   free_memory(d);
   fclose(out);

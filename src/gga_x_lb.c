@@ -143,7 +143,8 @@ gga_x_lb(const xc_func_type *p, int np, const double *rho, const double *sigma,
 	 double *v2rho2, double *v2rhosigma, double *v2sigma2,
 	 double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
-  xc_gga_lb_modified(p, np, rho, sigma, 0.0, vrho);
+  if (vrho != NULL)
+    xc_gga_lb_modified(p, np, rho, sigma, 0.0, vrho);
 }
 
 

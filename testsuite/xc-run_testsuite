@@ -26,14 +26,17 @@ if [ -t 1 ] ; then
   PINK='\033[1;35m'
 fi
 
+workdir=$(mktemp -d ${tmpdir}/libxc.XXXXXXXXXX)
+
 fail=0
 echo -e "${YELLOW}Comparing against reference data${NC}"
-echo -e "======================================================================"
-echo -e "   Functional                 System      NSpin   Quantity    Result"
-echo -e "======================================================================"
+echo -e "Using ${workdir} as working directory"
+echo -e "========================================================================="
+echo -e "   Functional                    System      NSpin   Quantity    Result"
+echo -e "========================================================================="
 
 for dir in $(ls -d $srcdir/regression/*); do
-  for i in $(ls $dir/*.bz2 | sort); do
+  for i in $(ls $dir/*.bz2 | LANG=C sort); do
     refname=$(basename ${i} .bz2)
     func=${refname%%.*}
     testcase=${refname#*.}
@@ -47,20 +50,18 @@ for dir in $(ls -d $srcdir/regression/*); do
     case $order in
     0)
       label=exc
+      tol=5e-8
       ;;
     1)
       label=vxc
+      tol=5e-5
       ;;
     2)
       label=fxc
-      ;;
-    3)
-      label=kxc
+      tol=5e-4
       ;;
     esac
     name=$(printf '%-30s %-12s %-8d %-5s' ${func} ${system} ${nspin} ${label})
-
-    workdir=$(mktemp -d ${tmpdir}/libxc.XXXXXXXXXX)
   
     echo -ne "${NC} * ${PINK}${name}"
 
@@ -68,7 +69,7 @@ for dir in $(ls -d $srcdir/regression/*); do
 
     $EXEC $builddir/xc-regression $func $nspin $order $srcdir/input/$system $workdir/$refname > /dev/null
   
-    res=$($builddir/xc-error $workdir/$refname $workdir/${refname}_ref)
+    res=$($builddir/xc-error $workdir/$refname $workdir/${refname}_ref $tol)
     if [ "x$res" = "x1" ]; then
       echo -e "      ${GREEN}OK"
     else

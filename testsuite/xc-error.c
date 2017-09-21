@@ -85,8 +85,8 @@ int main(int argc, char **argv) {
   double maxdiff[MAXCOL];
   double l_err;
 
-  if(argc!=3 && argc!=4) {
-    printf("Usage: %s file reference (verbose)\n",argv[0]);
+  if(argc!=4 && argc!=5) {
+    printf("Usage: %s file reference tolerance (verbose)\n",argv[0]);
     return 1;
   }
 
@@ -170,11 +170,7 @@ int main(int argc, char **argv) {
     
   /* Read in data */
   for(i=0;i<nin;i++) {
-#ifdef SINGLE_PRECISION
-    static const char fmt[]="%f%n";
-#else
     static const char fmt[]="%lf%n";
-#endif
 
     /* Input line */
     in_line();
@@ -185,8 +181,8 @@ int main(int argc, char **argv) {
       cur+=nread;
       
       if(j==MAXCOL) {
-	fprintf(stderr,"Array overflow. Increase MAXCOL.\n");
-	error_exit();
+        fprintf(stderr,"Array overflow. Increase MAXCOL.\n");
+	      error_exit();
       }	
     }
 
@@ -199,8 +195,8 @@ int main(int argc, char **argv) {
       cur+=nread;
       
       if(j==MAXCOL) {
-	fprintf(stderr,"Array overflow. Increase MAXCOL.\n");
-	error_exit();
+	      fprintf(stderr,"Array overflow. Increase MAXCOL.\n");
+	      error_exit();
       }
     }
 
@@ -208,8 +204,8 @@ int main(int argc, char **argv) {
     for(j=0;j<cin;j++){
       l_err = error(din[j], dref[j]);
       if(l_err > maxdiff[j])
-	maxdiff[j] = l_err;
-      if(l_err > 1e-9){
+	      maxdiff[j] = l_err;
+      if(l_err > atof(argv[3])){
         fprintf(stderr, "\n%i %i %14.10le %14.10le %le\n", 
                 i+2, j, din[j], dref[j], error(din[j], dref[j]));
       }
@@ -220,7 +216,7 @@ int main(int argc, char **argv) {
   fclose(in);
   fclose(ref);
 
-  if(argc==4 && atoi(argv[3])) {
+  if(argc==5 && atoi(argv[4])) {
     /* Verbose operation */
     for(i=0;i<cin;i++)
       printf(" %13s",legin[i]);
@@ -231,15 +227,11 @@ int main(int argc, char **argv) {
 
   } else {
     /* Silent operation */
-#ifdef SINGLE_PRECISION
-    const double tol=1e-5;
-#else
-    const double tol=1e-9;
-#endif
+    const double tol=atof(argv[3]);
     double max=0.0;
     for(j=0;j<cin;j++)
       if(maxdiff[j]>max)
-	max=maxdiff[j];
+      	max=maxdiff[j];
 
     printf("%i\n",max<=tol);
   }

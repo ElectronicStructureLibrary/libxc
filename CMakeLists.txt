@@ -314,6 +314,7 @@ endif()
 install(FILES ${PROJECT_BINARY_DIR}/${src_prefix}/xc.h
               ${gen_dir}/xc_funcs.h
               ${PROJECT_BINARY_DIR}/xc_version.h
+              ${PROJECT_SOURCE_DIR}/${src_prefix}/xc_funcs_removed.h
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}${NAMESPACE_INSTALL_INCLUDEDIR})
 install(TARGETS xc xc-info xc-threshold
         EXPORT "${PN}Targets"

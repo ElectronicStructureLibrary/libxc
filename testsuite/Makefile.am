@@ -39,7 +39,7 @@ xc_error_SOURCES = xc-error.c
 xc_error_LDADD = -lm
 xc_error_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
 
-dist_noinst_DATA = $(srcdir)/df_repo/*.data $(srcdir)/regression/*.pol.bz2 $(srcdir)/regression/*.unpol.bz2 $(srcdir)/input/*
+dist_noinst_DATA = $(srcdir)/df_repo/*.data $(srcdir)/regression/*/*.bz2 $(srcdir)/input/*
 
 # Delete temporary working directories from testsuite runs, if they are older than MINTIME (in minutes)
 MINTIME=600

@@ -1,44 +1,42 @@
-# libxc [![Build Status](https://travis-ci.org/loriab/libxc.svg?branch=master)](https://travis-ci.org/loriab/libxc)
+# Libxc
 
-Miguel A.L. Marques's Libxc (http://www.tddft.org/programs/Libxc) wrapped in CMake for Psi4 (https://github.com/psi4/psi4)
+Libxc is a library of exchange-correlation functionals for
+density-functional theory. The aim is to provide a portable, well
+tested and reliable set of exchange and correlation functionals that
+can be used by a variety of programs.
 
-### History
+For more information, please check the manual at
+http://www.tddft.org/programs/Libxc
 
-This is the Libxc project (http://www.tddft.org/programs/Libxc) by
-Prof. Miguel A.L. Marques of Martin-Luther-Universität Halle-Wittenberg.
+## INSTALLATION
 
-Libxc is written in C. It has source and manual are available at the above
-website and, as distributed, builds with `make`.
+### Autotools
 
-### This Repository
+The recommended way to install the library is by using GNU Autotools.
 
-Libxc has been in the *ab initio* quantum chemistry package Psi4
-(http://psicode.org/, https://github.com/psi4/psi4) since Novenber 2016. In Psi4,
-it builds with `cmake`. This repository contains an unpacked tarball of Libxc 3.0.0
-source, which is otherwise untouched, and the files below
+To install the library, just use the standard procedure:
+```
+./configure --prefix=PATH/TO/LIBXC
+make
+make check
+make install
+```
 
-* [cmake/](cmake) directory
-* [CMakeLists.txt](CMakeLists.txt) top-level
-* [testsuite/CMakeLists.txt](testsuite/CMakeLists.txt) tests
-* [config.h.cmake.in](config.h.cmake.in) a dummy config file
-* this README-CMake.md
+If you're not using a stable release tarball, you'll first need to
+generate ```configure``` with ```àutoreconf -i```.
 
-Those files will be preserved in this repository (may move to psi4/libxc), but the
-unpacked tarball may be changed to a download command of upstream Libxc. The stress
-here is that the CMake build system is the only value added by this repository.
 
-#### Caveats
+### CMake
 
+Support for CMake has also been recently contributed by Lori Burns.
+
+The CMake file has the following caveats
 * tested on Linux and Mac, static and shared lib, namespaced and non-namespaced headers, but really only to the extent that it works for Psi4
 * all the fancy libtool options and Fortran interface _not_ tested
 * test suite executed after build via `ctest`. But it has always totally passed or totally failed, which doesn't inspire confidence
 * The generated `libxc_docs.txt` is large, and the generation step sometimes balks on it, leading to `xc_funcs.h` not found errors. Just execute again.
 
-#### Version
-
-This codebase was copied from upstream (above website) at 3.0.0.
-
-#### Building
+#### Building with CMake
 
 ```bash
 cmake -H. -Bobjdir
@@ -55,16 +53,16 @@ The build is also responsive to
 
 See [CMakeLists.txt](CMakeLists.txt) for options details. All these build options should be passed as `cmake -DOPTION`.
 
-#### Detecting
+#### Detecting with CMake
 
-This project installs with `LibxcConfig.cmake`, `LibxcConfigVersion.cmake`, and `LibxcTargets.cmake` files suitable for use with CMake [`find_package()`](https://cmake.org/cmake/help/v3.2/command/find_package.html) in `CONFIG` mode.
+CMake builds install with `LibxcConfig.cmake`, `LibxcConfigVersion.cmake`, and `LibxcTargets.cmake` files suitable for use with CMake [`find_package()`](https://cmake.org/cmake/help/v3.2/command/find_package.html) in `CONFIG` mode.
 
 * `find_package(Libxc)` - find any xc libraries and headers
 * `find_package(Libxc 3.0.0 EXACT CONFIG REQUIRED COMPONENTS static)` - find Libxc exactly version 3.0.0 built with static libraries or die trying
 
 See [cmake/LibxcConfig.cmake.in](cmake/LibxcConfig.cmake.in) for details of how to detect the Config file and what CMake variables and targets are exported to your project.
 
-#### Using
+#### Use with CMake
 
 After `find_package(Libxc ...)`,
 

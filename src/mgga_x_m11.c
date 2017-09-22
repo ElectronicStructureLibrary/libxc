@@ -19,8 +19,7 @@
 
 #include "util.h"
 
-#define XC_MGGA_X_M11          225 /* Worker for M11 functional        */
-#define XC_HYB_MGGA_XC_M11     462 /* M11    functional from Minnesota */
+#define XC_HYB_MGGA_X_M11          297 /* M11 exchange functional        */
 
 typedef struct{
   const double a[12], b[12];
@@ -47,8 +46,10 @@ mgga_x_m11_init(xc_func_type *p)
   params = (mgga_x_m11_params *) (p->params);
 
   switch(p->info->number){
-  case XC_MGGA_X_M11:
+  case XC_HYB_MGGA_X_M11:
     memcpy(params, &par_m11, sizeof(mgga_x_m11_params));
+    p->cam_alpha = 1.0;
+    p->cam_beta  = -(1.0 - 0.428);
     p->cam_omega = 0.25;
     break;
   default:
@@ -62,43 +63,15 @@ mgga_x_m11_init(xc_func_type *p)
 #define func maple2c_func
 #include "work_mgga_c.c"
 
-const xc_func_info_type xc_func_info_mgga_x_m11 = {
-  XC_MGGA_X_M11,
+const xc_func_info_type xc_func_info_hyb_mgga_x_m11 = {
+  XC_HYB_MGGA_X_M11,
   XC_EXCHANGE,
-  "Worker for hyb_mgga_xc_m11",
-  XC_FAMILY_MGGA,
+  "M11 exchange functional",
+  XC_FAMILY_HYB_MGGA,
   {&xc_ref_Peverati2011_2810, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-11,
   0, NULL, NULL,
   mgga_x_m11_init, NULL, 
   NULL, NULL, work_mgga_c,
 };
-
-
-static void
-hyb_mgga_xc_m11_init(xc_func_type *p)
-{
-  static int   funcs_id  [2] = {XC_MGGA_X_M11, XC_MGGA_C_M11};
-  static double funcs_coef[2] = {1.0, 1.0};
-
-  xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 1.0;
-  p->cam_beta  = -(1.0 - 0.428);
-  p->cam_omega = 0.25;
-}
-
-const xc_func_info_type xc_func_info_hyb_mgga_xc_m11 = {
-  XC_HYB_MGGA_XC_M11,
-  XC_EXCHANGE_CORRELATION,
-  "Minnesota M11 hybrid functional",
-  XC_FAMILY_HYB_MGGA,
-  {&xc_ref_Peverati2011_2810, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32,
-  0, NULL, NULL,
-  hyb_mgga_xc_m11_init,
-  NULL, NULL, NULL, NULL
-};
-
-

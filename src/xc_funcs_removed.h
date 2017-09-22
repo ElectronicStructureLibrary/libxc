@@ -51,3 +51,9 @@
 #define XC_GGA_XC_WB97X    252 /* Chai and Head-Gordon                     */
 #define XC_GGA_XC_WB97X_V  253 /* Mardirossian and Head-Gordon             */
 #define XC_GGA_XC_WB97X_D  256 /* Chai and Head-Gordon                     */ 
+#define XC_MGGA_X_M08_HX       219 /* Worker for M08-HX functional     */
+#define XC_MGGA_X_M08_SO       220 /* Worker for M08-SO functional     */
+#define XC_MGGA_X_M11          225 /* Worker for M11 functional        */
+#define XC_HYB_MGGA_XC_M08_HX  460 /* M08-HX functional from Minnesota */
+#define XC_HYB_MGGA_XC_M08_SO  461 /* M08-SO functional from Minnesota */
+#define XC_HYB_MGGA_XC_M11     462 /* M11    functional from Minnesota */

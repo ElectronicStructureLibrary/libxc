@@ -19,10 +19,10 @@
 
 #include "util.h"
 
-#define XC_MGGA_X_M06_L         203 /* M06-L exchange functional from Minnesota       */
-#define XC_HYB_MGGA_X_M06_HF    444 /* Minnesota M06-HF exchange functional           */
-#define XC_HYB_MGGA_X_M06       449 /* M06 exchange functional                        */
-#define XC_MGGA_X_REVM06_L      293 /* revised M06-L exchange functional of Minnesota */
+#define XC_MGGA_X_M06_L         203 /* M06-L exchange functional from Minnesota        */
+#define XC_HYB_MGGA_X_M06_HF    444 /* Minnesota M06-HF exchange functional            */
+#define XC_HYB_MGGA_X_M06       449 /* M06 exchange functional                         */
+#define XC_MGGA_X_REVM06_L      293 /* revised M06-L exchange functional from Minnesota */
 
 static const double a_m06l[12] = {
   0.3987756, 0.2548219, 0.3923994, -2.103655, -6.302147, 10.97615,

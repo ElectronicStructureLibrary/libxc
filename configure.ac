@@ -16,7 +16,7 @@
 ## 02110-1301, USA.
 ##
 
-AC_INIT([libxc],[3.x.x],[libxc@tddft.org],[libxc],[http://www.tddft.org/programs/Libxc])
+AC_INIT([libxc],[4.0.0],[libxc@tddft.org],[libxc],[http://www.tddft.org/programs/Libxc])
 AC_CONFIG_SRCDIR([src/xc.h])
 AM_INIT_AUTOMAKE
 
@@ -37,7 +37,9 @@ AC_CONFIG_MACRO_DIR([m4])
 # libxc-2.2.0   3:0:0                                                                                                                                                                                                              
 # libxc-2.2.1   3:1:0                                                                                                                                                                                                              
 # libxc-2.2.3   3:3:0                                                                                                                                                                                                              
-# libxc-3.0.0   4:0:0 
+# libxc-3.0.0   4:0:0
+
+# libxc-4.0.0   5:0:0 
 # 
 # Note that libtool versioning was not used prior to libxc-2.0.
 # Because of this, we will start counting at 1.
@@ -54,7 +56,7 @@ AC_CONFIG_MACRO_DIR([m4])
 # interfaces have been removed. removal has precedence over adding,
 # so set to 0 if both happened.
 
-XC_CURRENT=4
+XC_CURRENT=5
 XC_REVISION=0
 XC_AGE=0
 

@@ -33,7 +33,7 @@ const xc_func_info_type xc_func_info_mgga_c_scan = {
   "SCAN correlation of Sun, Ruzsinszky, and Perdew",
   XC_FAMILY_MGGA,
   {&xc_ref_Sun2015_036402, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_DEVELOPMENT,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-26,
   0, NULL, NULL,
   NULL, NULL, 

@@ -19,14 +19,14 @@
 
 #include "util.h"
 
-#define XC_MGGA_C_M08_HX       78 /* Worker for M08-HX functional      */
-#define XC_MGGA_C_M08_SO       77 /* Worker for M08-SO functional      */
-#define XC_MGGA_C_M11          76 /* Worker for M11 functional         */
-#define XC_MGGA_C_M11_L        75 /* M11-L functional from Minnesota   */
-#define XC_MGGA_C_MN12_L       74 /* MN12-L functional from Minnesota  */
-#define XC_MGGA_C_MN12_SX      73 /* Worker for MN12-SX functional     */
-#define XC_MGGA_C_MN15_L      261 /* MN15-L functional from Minnesota  */
-#define XC_MGGA_C_MN15        269 /* MN15 functional from Minnesota  */
+#define XC_MGGA_C_M08_HX       78 /* M08-HX correlation functional      */
+#define XC_MGGA_C_M08_SO       77 /* M08-SO correlation functional      */
+#define XC_MGGA_C_M11          76 /* M11 correlation functional         */
+#define XC_MGGA_C_M11_L        75 /* M11-L correlation functional       */
+#define XC_MGGA_C_MN12_L       74 /* MN12-L correlation functional      */
+#define XC_MGGA_C_MN12_SX      73 /* MN12-SX correlation functional     */
+#define XC_MGGA_C_MN15_L      261 /* MN15-L correlation functional      */
+#define XC_MGGA_C_MN15        269 /* MN15 correlation functional        */
 
 typedef struct{
   const double m08_a[12], m08_b[12];
@@ -164,7 +164,7 @@ mgga_c_m08_init(xc_func_type *p)
 const xc_func_info_type xc_func_info_mgga_c_m08_hx = {
   XC_MGGA_C_M08_HX,
   XC_CORRELATION,
-  "Worker for hyb_mgga_xc_m08_hx",
+  "Minnesota M08 correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -178,7 +178,7 @@ const xc_func_info_type xc_func_info_mgga_c_m08_hx = {
 const xc_func_info_type xc_func_info_mgga_c_m08_so = {
   XC_MGGA_C_M08_SO,
   XC_CORRELATION,
-  "Worker for hyb_mgga_xc_m08_so",
+  "Minnesota M08-SO correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -192,7 +192,7 @@ const xc_func_info_type xc_func_info_mgga_c_m08_so = {
 const xc_func_info_type xc_func_info_mgga_c_m11 = {
   XC_MGGA_C_M11,
   XC_CORRELATION,
-  "Worker for hyb_mgga_xc_m11",
+  "Minnesota M11 correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Peverati2011_2810, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -234,7 +234,7 @@ const xc_func_info_type xc_func_info_mgga_c_mn12_l = {
 const xc_func_info_type xc_func_info_mgga_c_mn12_sx = {
   XC_MGGA_C_MN12_SX,
   XC_CORRELATION,
-  "Worker for hyb_mgga_xc_mn12_sx",
+  "Minnesota MN12-SX correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

@@ -90,7 +90,7 @@ gga_x_n12_init(xc_func_type *p)
 const xc_func_info_type xc_func_info_gga_x_n12 = {
   XC_GGA_X_N12,
   XC_EXCHANGE,
-  "Minnesota N12 exchange functional to be used with gga_c_n12",
+  "Minnesota N12 exchange functional",
   XC_FAMILY_GGA,
   {&xc_ref_Peverati2012_2310, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
@@ -105,7 +105,7 @@ const xc_func_info_type xc_func_info_gga_x_n12 = {
 const xc_func_info_type xc_func_info_hyb_gga_x_n12_sx = {
   XC_HYB_GGA_X_N12_SX,
   XC_EXCHANGE,
-  "Worker for hyb_gga_x_n12_sx",
+  "Minnesota N12-SX exchange functional",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
@@ -120,7 +120,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_n12_sx = {
 const xc_func_info_type xc_func_info_gga_x_gam = {
   XC_GGA_X_GAM,
   XC_EXCHANGE,
-  "GAM functional from Minnesota",
+  "Minnesota GAM exhange functional",
   XC_FAMILY_GGA,
   {&xc_ref_Yu2015_12146, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,

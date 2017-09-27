@@ -19,11 +19,11 @@
 
 #include "util.h"
 
-#define XC_MGGA_C_M06_L         233 /* M06-L correlation functional         */
-#define XC_MGGA_C_M06_HF        234 /* M06-HF correlation functional        */
-#define XC_MGGA_C_M06           235 /* M06 correlation functional           */
-#define XC_MGGA_C_M06_2X        236 /* M06-2X correlation functional        */
-#define XC_MGGA_C_REVM06_L      294 /* Revised M06-L correlation functional */
+#define XC_MGGA_C_M06_L         233 /* M06-L correlation functional from Minnesota          */
+#define XC_MGGA_C_M06_HF        234 /* M06-HF correlation functional from Minnesota         */
+#define XC_MGGA_C_M06           235 /* M06 correlation functional from Minnesota            */
+#define XC_MGGA_C_M06_2X        236 /* M06-2X correlation functional from Minnesota         */
+#define XC_MGGA_C_REVM06_L      294 /* Revised M06-L correlation functional from Minnesota  */
 
 typedef struct{
   double gamma_ss, gamma_ab, alpha_ss, alpha_ab;
@@ -130,7 +130,7 @@ const xc_func_info_type xc_func_info_mgga_c_m06_l = {
 const xc_func_info_type xc_func_info_mgga_c_m06_hf = {
   XC_MGGA_C_M06_HF,
   XC_CORRELATION,
-  "M06-HF correlation functional",
+  "Minnesota M06-HF correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2006_13126, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -143,7 +143,7 @@ const xc_func_info_type xc_func_info_mgga_c_m06_hf = {
 const xc_func_info_type xc_func_info_mgga_c_m06 = {
   XC_MGGA_C_M06,
   XC_CORRELATION,
-  "M06 correlation functional",
+  "Minnesota M06 correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -156,7 +156,7 @@ const xc_func_info_type xc_func_info_mgga_c_m06 = {
 const xc_func_info_type xc_func_info_mgga_c_m06_2x = {
   XC_MGGA_C_M06_2X,
   XC_CORRELATION,
-  "M06-2X correlation functional",
+  "Minnesota M06-2X correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -169,7 +169,7 @@ const xc_func_info_type xc_func_info_mgga_c_m06_2x = {
 const xc_func_info_type xc_func_info_mgga_c_revm06_l = {
   XC_MGGA_C_REVM06_L,
   XC_CORRELATION,
-  "revM06-L correlation functional",
+  "Minnesota revM06-L correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Wang2017_8487, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

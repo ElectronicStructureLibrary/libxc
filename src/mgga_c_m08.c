@@ -19,14 +19,14 @@
 
 #include "util.h"
 
-#define XC_MGGA_C_M08_HX       78 /* M08-HX correlation functional      */
-#define XC_MGGA_C_M08_SO       77 /* M08-SO correlation functional      */
-#define XC_MGGA_C_M11          76 /* M11 correlation functional         */
-#define XC_MGGA_C_M11_L        75 /* M11-L correlation functional       */
-#define XC_MGGA_C_MN12_L       74 /* MN12-L correlation functional      */
-#define XC_MGGA_C_MN12_SX      73 /* MN12-SX correlation functional     */
-#define XC_MGGA_C_MN15_L      261 /* MN15-L correlation functional      */
-#define XC_MGGA_C_MN15        269 /* MN15 correlation functional        */
+#define XC_MGGA_C_M08_HX       78 /* M08-HX correlation functional from Minnesota  */
+#define XC_MGGA_C_M08_SO       77 /* M08-SO correlation functional from Minnesota  */
+#define XC_MGGA_C_M11          76 /* M11 correlation functional from Minnesota     */
+#define XC_MGGA_C_M11_L        75 /* M11-L correlation functional from Minnesota   */
+#define XC_MGGA_C_MN12_L       74 /* MN12-L correlation functional from Minnesota  */
+#define XC_MGGA_C_MN12_SX      73 /* MN12-SX correlation functional from Minnesota */
+#define XC_MGGA_C_MN15_L      261 /* MN15-L correlation functional from Minnesota  */
+#define XC_MGGA_C_MN15        269 /* MN15 correlation functional from Minnesota    */
 
 typedef struct{
   const double m08_a[12], m08_b[12];

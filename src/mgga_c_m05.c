@@ -19,9 +19,9 @@
 
 #include "util.h"
 
-#define XC_MGGA_C_M05           237 /* M05 correlation functional           */
-#define XC_MGGA_C_M05_2X        238 /* M05-2X correlation functional        */
-#define XC_MGGA_C_DLDF           37 /* Dispersionless Density Functional    */
+#define XC_MGGA_C_M05           237 /* M05 correlation functional from Minnesota     */
+#define XC_MGGA_C_M05_2X        238 /* M05-2X correlation functional from Minnesota  */
+#define XC_MGGA_C_DLDF           37 /* Dispersionless Density Functional             */
 
 typedef struct{
   double gamma_ss, gamma_ab;
@@ -79,7 +79,7 @@ mgga_c_vsxc_init(xc_func_type *p)
 const xc_func_info_type xc_func_info_mgga_c_m05 = {
   XC_MGGA_C_M05,
   XC_CORRELATION,
-  "M05 correlation functional",
+  "Minnesota M05 correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2005_161103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -93,7 +93,7 @@ const xc_func_info_type xc_func_info_mgga_c_m05 = {
 const xc_func_info_type xc_func_info_mgga_c_m05_2x = {
   XC_MGGA_C_M05_2X,
   XC_CORRELATION,
-  "M05-2X correlation functional",
+  "Minnesota M05-2X correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2006_364, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

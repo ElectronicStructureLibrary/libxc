@@ -19,8 +19,8 @@
 
 #include "util.h"
 
-#define XC_HYB_MGGA_X_M08_HX   295 /* M08-HX exchange functional       */
-#define XC_HYB_MGGA_X_M08_SO   296 /* M08-SO exchange functional       */
+#define XC_HYB_MGGA_X_M08_HX   295 /* M08-HX exchange functional from Minnesota  */
+#define XC_HYB_MGGA_X_M08_SO   296 /* M08-SO exchange functional from Minnesota  */
 
 typedef struct{
   const double a[12], b[12];
@@ -80,7 +80,7 @@ mgga_x_m08_init(xc_func_type *p)
 const xc_func_info_type xc_func_info_hyb_mgga_x_m08_hx = {
   XC_HYB_MGGA_X_M08_HX,
   XC_EXCHANGE,
-  "M08-HX exchange functional",
+  "Minnesota M08-HX hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
@@ -94,7 +94,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m08_hx = {
 const xc_func_info_type xc_func_info_hyb_mgga_x_m08_so = {
   XC_HYB_MGGA_X_M08_SO,
   XC_EXCHANGE,
-  "M08-SO exchange functional",
+  "Minnesota M08-SO hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,

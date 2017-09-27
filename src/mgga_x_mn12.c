@@ -19,10 +19,10 @@
 
 #include "util.h"
 
-#define XC_MGGA_X_MN12_L        227 /* MN12-L functional from Minnesota  */
-#define XC_HYB_MGGA_X_MN12_SX   248 /* MN12-SX hybrid functional from Minnesota */
-#define XC_MGGA_X_MN15_L        260 /* MN15-L functional from Minnesota  */
-#define XC_HYB_MGGA_X_MN15      268 /* MN15 functional from Minnesota  */
+#define XC_MGGA_X_MN12_L        227 /* MN12-L exchange functional from Minnesota          */
+#define XC_HYB_MGGA_X_MN12_SX   248 /* MN12-SX hybrid exchange functional from Minnesota  */
+#define XC_MGGA_X_MN15_L        260 /* MN15-L exhange functional from Minnesota           */
+#define XC_HYB_MGGA_X_MN15      268 /* MN15 hybrid exchange functional from Minnesota     */
 
 typedef struct{
   const double c[40];
@@ -135,7 +135,7 @@ mgga_x_mn12_init(xc_func_type *p)
 const xc_func_info_type xc_func_info_mgga_x_mn12_l = {
   XC_MGGA_X_MN12_L,
   XC_EXCHANGE,
-  "Minnesota MN12-L functional",
+  "Minnesota MN12-L exchange functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Peverati2012_13171, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
@@ -148,7 +148,7 @@ const xc_func_info_type xc_func_info_mgga_x_mn12_l = {
 const xc_func_info_type xc_func_info_hyb_mgga_x_mn12_sx = {
   XC_HYB_MGGA_X_MN12_SX,
   XC_EXCHANGE,
-  "Minnesota MN12-SX hybrid functional",
+  "Minnesota MN12-SX hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
@@ -161,7 +161,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_mn12_sx = {
 const xc_func_info_type xc_func_info_mgga_x_mn15_l = {
   XC_MGGA_X_MN15_L,
   XC_EXCHANGE,
-  "Minnesota MN15-L functional",
+  "Minnesota MN15-L exchange functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Yu2016_1280, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
@@ -174,7 +174,7 @@ const xc_func_info_type xc_func_info_mgga_x_mn15_l = {
 const xc_func_info_type xc_func_info_hyb_mgga_x_mn15 = {
   XC_HYB_MGGA_X_MN15,
   XC_EXCHANGE,
-  "Minnesota MN15 hybrid functional",
+  "Minnesota MN15 hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Yu2016_5032, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,

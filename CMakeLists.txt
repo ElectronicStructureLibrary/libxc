@@ -1,8 +1,8 @@
 cmake_policy(SET CMP0048 NEW)  # project_VERSION* variables populated from project(... VERSION x.x.x) string
 project(Libxc
-        VERSION 4.0.0
+        VERSION 4.0.1
         LANGUAGES C)
-set(Libxc_AUTHORS      "Miguel A.L. Marques")
+set(Libxc_AUTHORS      "Miguel A.L. Marques and others")
 set(Libxc_DESCRIPTION  "Exchange-correlation functionals for density-functional theory")
 set(Libxc_EMAIL        "libxc@tddft.org")
 set(Libxc_URL          "http://www.tddft.org/programs/Libxc")

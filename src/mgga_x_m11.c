@@ -19,7 +19,7 @@
 
 #include "util.h"
 
-#define XC_HYB_MGGA_X_M11          297 /* M11 exchange functional        */
+#define XC_HYB_MGGA_X_M11          297 /* M11 hybrid exchange functional from Minnesota        */
 
 typedef struct{
   const double a[12], b[12];
@@ -66,7 +66,7 @@ mgga_x_m11_init(xc_func_type *p)
 const xc_func_info_type xc_func_info_hyb_mgga_x_m11 = {
   XC_HYB_MGGA_X_M11,
   XC_EXCHANGE,
-  "M11 exchange functional",
+  "Minnesota M11 hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Peverati2011_2810, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,

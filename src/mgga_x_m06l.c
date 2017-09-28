@@ -19,10 +19,10 @@
 
 #include "util.h"
 
-#define XC_MGGA_X_M06_L         203 /* M06-L exchange functional from Minnesota        */
-#define XC_HYB_MGGA_X_M06_HF    444 /* Minnesota M06-HF exchange functional            */
-#define XC_HYB_MGGA_X_M06       449 /* M06 exchange functional                         */
-#define XC_MGGA_X_REVM06_L      293 /* revised M06-L exchange functional from Minnesota */
+#define XC_MGGA_X_M06_L         203 /* M06-L exchange functional from Minnesota          */
+#define XC_HYB_MGGA_X_M06_HF    444 /* M06-HF hybrid exchange functional from Minnesota  */
+#define XC_HYB_MGGA_X_M06       449 /* M06 hybrid exchange functional from Minnesota     */
+#define XC_MGGA_X_REVM06_L      293 /* revised M06-L exchange functional from Minnesota  */
 
 static const double a_m06l[12] = {
   0.3987756, 0.2548219, 0.3923994, -2.103655, -6.302147, 10.97615,
@@ -108,7 +108,7 @@ const xc_func_info_type xc_func_info_mgga_x_m06_l = {
 const xc_func_info_type xc_func_info_hyb_mgga_x_m06_hf = {
   XC_HYB_MGGA_X_M06_HF,
   XC_EXCHANGE,
-  "Minnesota M06-HF exchange functional",
+  "Minnesota M06-HF hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Zhao2006_13126, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
@@ -121,7 +121,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m06_hf = {
 const xc_func_info_type xc_func_info_hyb_mgga_x_m06 = {
   XC_HYB_MGGA_X_M06,
   XC_EXCHANGE,
-  "Minnesota M06 exchange functional",
+  "Minnesota M06 hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,

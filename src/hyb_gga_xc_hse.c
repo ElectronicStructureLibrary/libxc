@@ -52,12 +52,10 @@
    PBEh
 */
 
-/* in this case one should use omega^HF = 0.15/sqrt(2) and
-       omega^PBE = 0.15*CBRT(2.0)*/
 static func_params_type ext_params_hse03[] = {
   {0.25, "Mixing parameter beta"},
-  {0.15/M_SQRT2, "Screening parameter omega_HF"},
-  {0.15*CBRT(2.0), "Screening parameter omega_PBE"},
+  {0.106066017177982128660126654316, "Screening parameter omega_HF"},  /* 0.15/sqrt(2.0) */
+  {0.188988157484230974715081591092, "Screening parameter omega_PBE"}, /* 0.15*cbrt(2.0) */
 };
 
 static func_params_type ext_params_hse06[] = {

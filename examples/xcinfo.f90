@@ -8,7 +8,6 @@ program xcinfo
   TYPE(xc_f90_pointer_t) :: xc_info
   integer :: i
   character(len=120) :: s1, s2
-  type(xc_f90_pointer_t) :: str
 
   call xc_f90_func_init(xc_func, xc_info, XC_GGA_C_PBE, XC_UNPOLARIZED)
 
@@ -35,10 +34,10 @@ program xcinfo
   write(*, '(4a)') trim(s1), ' (', trim(s2), ')'
 
   i = 0
-  call xc_f90_info_refs(xc_info, i, str, s1)
+  call xc_f90_info_refs(xc_info, i, s1)
   do while(i >= 0)
     write(*, '(a,i1,2a)') '[', i, '] ', trim(s1)
-    call xc_f90_info_refs(xc_info, i, str, s1)
+    call xc_f90_info_refs(xc_info, i, s1)
   end do
 
   call xc_f90_func_end(xc_func)

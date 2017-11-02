@@ -18,12 +18,12 @@ To install the library, just use the standard procedure:
 ```
 ./configure --prefix=PATH/TO/LIBXC
 make
-make test
+make check
 make install
 ```
 
 If you're not using a stable release tarball, you'll first need to
-generate ```configure``` with ```àutoreconf -i```.
+generate ```configure``` with ```autoreconf -i```.
 
 
 ### CMake

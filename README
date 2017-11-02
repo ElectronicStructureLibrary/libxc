@@ -47,7 +47,12 @@ The CMake file has the following caveats
 
 1) Building with CMake
 
-`bash cmake -H. -Bobjdir cd objdir && make make install `
+Use the following procedure:
+
+cmake -H. -Bobjdir
+cd objdir && make
+make test
+make install
 
 The build is also responsive to
 

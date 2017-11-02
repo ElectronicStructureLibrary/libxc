@@ -39,9 +39,12 @@ The CMake file has the following caveats
 
 #### Building with CMake
 
+Use the following procedure:
+
 ```bash
 cmake -H. -Bobjdir
 cd objdir && make
+make test
 make install
 ```
 

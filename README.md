@@ -18,7 +18,7 @@ To install the library, just use the standard procedure:
 ```
 ./configure --prefix=PATH/TO/LIBXC
 make
-make check
+make test
 make install
 ```
 
@@ -31,6 +31,7 @@ generate ```configure``` with ```àutoreconf -i```.
 Support for CMake has also been recently contributed by Lori Burns.
 
 The CMake file has the following caveats
+
 * tested on Linux and Mac, static and shared lib, namespaced and non-namespaced headers, but really only to the extent that it works for Psi4
 * all the fancy libtool options and Fortran interface _not_ tested
 * test suite executed after build via `ctest`. But it has always totally passed or totally failed, which doesn't inspire confidence
@@ -70,3 +71,56 @@ After `find_package(Libxc ...)`,
 * link to library (establishes dependency), including header and definitions configuration with `target_link_libraries(mytarget Libxc::xc)`
 * include header files using `target_include_directories(mytarget PRIVATE $<TARGET_PROPERTY:Libxc::xc,INTERFACE_INCLUDE_DIRECTORIES>)`
 * compile target applying `-DUSING_Libxc` definition using `target_compile_definitions(mytarget PRIVATE $<TARGET_PROPERTY:Libxc::xc,INTERFACE_COMPILE_DEFINITIONS>)`
+
+
+## FILE ORGANIZATION
+
+The distribution is organized as follows
+
+| | |
+| --- | --- |
+| ./cmake | CMake helper files |
+| ./build | pkgconfig and Fedora spec files |
+| ./m4 | m4 scripts used by configure.ac, and libxc.m4 used by other projects linking to libxc |
+| ./maple |the Maple source code for the functionals |
+| ./scripts | various scripts for libxc development |
+| ./src | source files |
+| ./testsuite | regression tests |
+
+The most important contents of the src directory for users are
+
+| | |
+| ------------------- | ---------------------------------------------- |
+| xc.h                | main header file with all external definitions |
+| xc_funcs.h	      | automatically generated file with the list of functionals |
+
+In addition, developers will be interested in the following
+
+| | |
+| ------------------- | ---------------------------------------------- |
+| util.h              | header file with internal definitions |
+| \*.f90 \*.F90 xc_f.c string_f.h | Fortran 90 interface |
+| \*.f03 \*.F03         | Fortran 2003 interface |
+| funcs_*.c	      | automatically generated files with the functional definitions |
+| functionals.c       | generic interface to simplify access to the different families |
+| lda.c gga.c mgga.c  | interface to the different families of functionals |
+| special_functions.c | implementation of a series of special functions |
+| hyb_gga_*.c         | definition of the different hybrid GGA functionals |
+| hyb_mgga_*.c         | definition of the different hybrid meta-GGA functionals |
+| lda_*.c             | definition of the different LDA functionals |
+| gga_*.c             | definition of the different GGA functionals |
+| mgga_*.c	      | definition of the different meta-GGA functionals |
+| work_lda.c          | code that simplifies the implementation of LDAs |
+| work_gga_x.c        | code that simplifies the implementation of exchange GGAs |
+| work_gga_c.c	      | code that simplifies the implementation of some correlation GGAs |
+| work_mgga_x.c       | code that simplifies the implementation of exchange meta-GGAs |
+| work_mgga_c.c       | code that simplifies the implementation of some correlation meta-GGAs |
+
+Notes:
+
+* Most functionals use the framework contained in a work\_\*.c file. This simplifies tremendously the implementation of the different functionals. The work\_\*.c are #include'd in the functional implementations through a preprocessor directive.
+* Some files contain more than one functional, as similar functionals are usually grouped together. Therefore, the best way to find where a functional is implemented is by looking at its keyword in xc_funcs.h and using grep to find the correct file.
+* The files where the functionals are defined are named as family_type_name.c, where:
+  family - functional family (lda, gga, hyb_gga, or mgga)
+  type   - type of functional (x, c, xc, or k)
+  name   - name of the functional or class of functionals

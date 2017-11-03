@@ -69,7 +69,7 @@ lda_xc_1d_ehwlrg_init(xc_func_type *p)
 
 const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_1 = {
   XC_LDA_XC_1D_EHWLRG_1,
-  XC_CORRELATION,
+  XC_EXCHANGE_CORRELATION,
   "LDA constructed from slab-like systems of 1 electron",
   XC_FAMILY_LDA,
   {&xc_ref_Entwistle2016_205134, NULL, NULL, NULL, NULL},
@@ -82,7 +82,7 @@ const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_1 = {
 
 const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_2 = {
   XC_LDA_XC_1D_EHWLRG_2,
-  XC_CORRELATION,
+  XC_EXCHANGE_CORRELATION,
   "LDA constructed from slab-like systems of 2 electrons",
   XC_FAMILY_LDA,
   {&xc_ref_Entwistle2016_205134, NULL, NULL, NULL, NULL},
@@ -96,7 +96,7 @@ const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_2 = {
 
 const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_3 = {
   XC_LDA_XC_1D_EHWLRG_3,
-  XC_CORRELATION,
+  XC_EXCHANGE_CORRELATION,
   "LDA constructed from slab-like systems of 3 electrons",
   XC_FAMILY_LDA,
   {&xc_ref_Entwistle2016_205134, NULL, NULL, NULL, NULL},

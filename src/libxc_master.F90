@@ -122,8 +122,13 @@ module XC_F90(lib_m)
     XC_FLAGS_1D             =   32,  &
     XC_FLAGS_2D             =   64,  &
     XC_FLAGS_3D             =  128,  &
-    XC_FLAGS_STABLE         =  512,  &
-    XC_FLAGS_DEVELOPMENT    = 1024
+    XC_FLAGS_HYB_CAM        =  256,  &
+    XC_FLAGS_HYB_CAMY       =  512,  &
+    XC_FLAGS_VV10           =  1024, &
+    XC_FLAGS_HYB_LC         =  2048, &
+    XC_FLAGS_HYB_LCY        =  4096, &
+    XC_FLAGS_STABLE         =  8192, &
+    XC_FLAGS_DEVELOPMENT    = 16384
  
   ! These are old names kept for compatibility, and that should disappear soon
   integer, parameter :: XC_GGA_C_VPBE  =  83

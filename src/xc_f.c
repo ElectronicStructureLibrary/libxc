@@ -274,6 +274,11 @@ void XC_FC_FUNC(f90_gga_kxc, F90_GGA_KXC)
 	  NULL, NULL, NULL, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
 }
 
+void XC_FC_FUNC(f90_nlc_coef, F90_nlc_COEF)
+  (void **p, FLOAT *nlc_b, FLOAT *nlc_c)
+{
+  XC(nlc_coef)((XC(func_type) *)(*p), nlc_b, nlc_c);
+}
 
 void XC_FC_FUNC(f90_gga_lb_modified, F90_GGA_LB_MODIFIED)
      (void **p, CC_FORTRAN_INT *np, FLOAT *rho, FLOAT *sigma, FLOAT *r, FLOAT *vrho)

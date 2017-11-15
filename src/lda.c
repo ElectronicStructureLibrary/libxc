@@ -36,6 +36,7 @@ XC(lda_init)(XC(func_type) *func, const XC(func_info_type) *info, int nspin)
   func->nspin  = nspin;
   func->params = NULL;
   func->func   = 0;
+  func->cam_omega = func->cam_alpha = func->cam_beta = 0.0;
 
   /* initialize spin counters */
   func->n_rho = func->n_vrho = func->nspin;

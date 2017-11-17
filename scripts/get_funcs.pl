@@ -177,6 +177,8 @@ sub read_file() {
   $save_type = $type;
   $type =~ s/^hyb_//;
 
+  $xc_info_exe = "$builddir/xc-info";
+
   opendir(DIR, "$dir/") || die "cannot opendir '$dir': $!";
   while($_ = readdir(DIR)){
     next if(!/^${type}_.*\.c$/ && !/^hyb_${type}_.*\.c$/ );
@@ -236,8 +238,8 @@ sub read_file() {
 	  #infos2[0] will be blank
 	  print DOCS "Family         : $infos2[1]\n";
 
-	  if(-e "./xc-info" && -x "./xc-info") {
-	      $xc_info = `./xc-info $num{$infos0[0]}`;
+	  if(-e "$xc_info_exe" && -x "$xc_info_exe") {
+	      $xc_info = `$xc_info_exe $num{$infos0[0]}`;
 	      @refs = split('\n', $xc_info);
 	      if($refs[4] =~ /Reference\(s\)/) {
 		  print DOCS "References     : ";
@@ -254,6 +256,7 @@ sub read_file() {
 	      }
 	  } else {
 	      # print only the names of the variables in references.c
+	      print DOCS "References     :";
 	      for($ii = 2; $ii <= 6; $ii++) {
 		  if($infos2[$ii] ne "NULL") {
 		      $infos2[$ii] =~ s/&xc_ref_//;

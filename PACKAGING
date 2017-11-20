@@ -5,6 +5,10 @@ Dependencies:
   None
 
 New releases:
+ 2017/11/20 Version 3.0.1
+ 2017/11/03 Version 4.0.2
+ 2017/09/28 Version 4.0.1
+ 2017/09/24 Version 4.0.0
  2016/04/21 Version 3.0.0
  2016/04/21 Version 2.2.3
  2016/04/21 Version 2.1.3 
@@ -23,6 +27,7 @@ New releases:
  2009/04/26 Version 1.0-alpha
 
 Bugs & Patches:
+  https://gitlab.com/libxc/libxc/issues
 
-SVN server
-  svn co http://www.tddft.org/svn/octopus/trunk/libxc
+Git server
+  git@gitlab.com:libxc/libxc.git

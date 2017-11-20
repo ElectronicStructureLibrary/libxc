@@ -56,6 +56,8 @@
 /src/Makefile.in
 /src/*.o
 /src/*.a
+/src/*.lo
+/src/*.la
 /src/.deps
 /src/*.mod
 /src/funcs_mgga.c
@@ -78,6 +80,7 @@
 /src/libxcf03.f90
 /src/libxc_inc.f03
 /src/libxc_docs.txt
+/src/xc-threshold
 
 # /src/maple2c/
 /src/maple2c/Makefile
@@ -96,3 +99,7 @@
 /testsuite/test-suite.log
 /testsuite/xc-run_testsuite.log
 /testsuite/xc-run_testsuite.trs
+/testsuite/xc_consistency-xc-consistency.o
+/testsuite/xc_error-xc-error.o
+/testsuite/xc_get_data-xc-get_data.o
+/testsuite/xc_regression-xc-regression.o

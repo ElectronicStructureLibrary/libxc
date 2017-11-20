@@ -1,21 +1,9 @@
 ## Copyright (C) 2016 M. Marques
 ##
-## This program is free software; you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation; either version 2, or (at your option)
-## any later version.
+## This Source Code Form is subject to the terms of the Mozilla Public
+## License, v. 2.0. If a copy of the MPL was not distributed with this
+## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
-## This program is distributed in the hope that it will be useful,
-## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-## GNU General Public License for more details.
-##
-## You should have received a copy of the GNU General Public License
-## along with this program; if not, write to the Free Software
-## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-## 02110-1301, USA.
-##
-## $Id: Makefile.am 12537 2016-11-15 14:10:17Z marques $
 
 noinst_HEADERS =  \
   lda_c_1d_csc.c lda_c_1d_loos.c lda_c_2d_amgb.c lda_c_2d_prm.c             \

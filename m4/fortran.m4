@@ -87,8 +87,13 @@ AC_DEFUN([ACX_GREP_FCCPP],[
 
      echo "$2" > conftest.F90
 
-     if (eval "$FCCPP conftest.F90") 2>&5 |
-       grep "$1" >/dev/null 2>&1; then :
+     # see if the attempt to preprocess raises an error
+     if ! $FCCPP conftest.F90 > /dev/null 2>&5 ; then
+       $4
+     fi
+
+     if (eval "$FCCPP conftest.F90" 2>&5) |
+       grep -q "$1" 2>&5; then :
        $3
      else
        $4
@@ -105,7 +110,7 @@ AC_DEFUN([ACX_FCCPP],[
            continue
          fi
 
-         for FCCPP in "$FCCPP_base" "$FCCPP_base -ansi"; do
+         for FCCPP in "$FCCPP_base" "$FCCPP_base -ansi" "$FCCPP_base -C -ffreestanding"; do
            AC_MSG_CHECKING([whether $FCCPP is usable for Fortran preprocessing])
 	   acx_fpp_ok=yes
 

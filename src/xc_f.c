@@ -307,6 +307,11 @@ void FC_FUNC(xc_f90_hyb_cam_coef, XC_F90_HYB_CAM_COEF)
   xc_hyb_cam_coef((xc_func_type *)(*p), omega, alpha, beta);
 }
 
+void FC_FUNC(xc_f90_nlc_coef, XC_F90_NLC_COEF)
+  (void **p, double *nlc_b, double *nlc_c)
+{
+  xc_nlc_coef((xc_func_type *)(*p), nlc_b, nlc_c);
+}
 
 /* meta-GGAs */
 

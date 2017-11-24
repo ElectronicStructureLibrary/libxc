@@ -6,19 +6,9 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 3 of the License, or
- (at your option) any later version.
-  
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU Lesser General Public License for more details.
-  
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ This Source Code Form is subject to the terms of the Mozilla Public
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
 #include <xc.h>
@@ -1837,7 +1827,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -2070,14 +2060,14 @@ func_reference_type xc_ref_Kang2001_11040 = {
 func_reference_type xc_ref_Groth2017 = {
   "S. {Groth, T. {Dornheim}, T. {Sjostrom}, F. D. {Malone}, W. M. C. {Foulkes}, and M. {Bonitz}, }ArXiv e-prints (2017), arXiv:1703.08074 [physics.plasm-ph]",
   "",
-  "@ARTICLE{Groth2017,\n   author = {{Groth}, S. and {Dornheim}, T. and {Sjostrom}, T. and {Malone}, F.~D. and \n	{Foulkes}, W.~M.~C. and {Bonitz}, M.},\n    title = \"{Ab initio Exchange-Correlation Free Energy of the Uniform Electron Gas at Warm Dense Matter Conditions}\",\n  journal = {ArXiv e-prints},\narchivePrefix = \"arXiv\",\n   eprint = {1703.08074},\n primaryClass = \"physics.plasm-ph\",\n keywords = {Physics - Plasma Physics, Condensed Matter - Statistical Mechanics},\n     year = 2017,\n    month = mar,\n   adsurl = {http://adsabs.harvard.edu/abs/2017arXiv170308074G},\n  adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
+  "@ARTICLE{Groth2017,\n   author = {{Groth}, S. and {Dornheim}, T. and {Sjostrom}, T. and {Malone}, F.~D. and\n	{Foulkes}, W.~M.~C. and {Bonitz}, M.},\n    title = \"{Ab initio Exchange-Correlation Free Energy of the Uniform Electron Gas at Warm Dense Matter Conditions}\",\n  journal = {ArXiv e-prints},\narchivePrefix = \"arXiv\",\n   eprint = {1703.08074},\n primaryClass = \"physics.plasm-ph\",\n keywords = {Physics - Plasma Physics, Condensed Matter - Statistical Mechanics},\n     year = 2017,\n    month = mar,\n   adsurl = {http://adsabs.harvard.edu/abs/2017arXiv170308074G},\n  adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
 };
 
 
 func_reference_type xc_ref_Wang2017_8487 = {
   "Y. Wang, X. Jin, H. S. Yu, D. G. Truhlar, and X. He, Proceedings of the National Academy of Sciences 114, 8487 (2017)",
   "10.1073/pnas.1705670114",
-  "@article{Wang2017_8487,\n  author = {Wang, Ying and Jin, Xinsheng and Yu, Haoyu S. and Truhlar, Donald G. and He, Xiao}, \n  title = {Revised M06-L functional for improved accuracy on chemical reaction barrier heights, noncovalent interactions, and solid-state physics},\n  volume = {114}, \n  number = {32}, \n  pages = {8487-8492}, \n  year = {2017}, \n  doi = {10.1073/pnas.1705670114}, \n  URL = {http://www.pnas.org/content/114/32/8487.abstract}, \n  eprint = {http://www.pnas.org/content/114/32/8487.full.pdf}, \n  journal = {Proceedings of the National Academy of Sciences} \n}"
+  "@article{Wang2017_8487,\n  author = {Wang, Ying and Jin, Xinsheng and Yu, Haoyu S. and Truhlar, Donald G. and He, Xiao},\n  title = {Revised M06-L functional for improved accuracy on chemical reaction barrier heights, noncovalent interactions, and solid-state physics},\n  volume = {114},\n  number = {32},\n  pages = {8487-8492},\n  year = {2017},\n  doi = {10.1073/pnas.1705670114},\n  URL = {http://www.pnas.org/content/114/32/8487.abstract},\n  eprint = {http://www.pnas.org/content/114/32/8487.full.pdf},\n  journal = {Proceedings of the National Academy of Sciences}\n}"
 };
 
 

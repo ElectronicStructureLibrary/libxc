@@ -1,3 +1,10 @@
+## Copyright (C) 2017 M. Marques
+##
+## This Source Code Form is subject to the terms of the Mozilla Public
+## License, v. 2.0. If a copy of the MPL was not distributed with this
+## file, You can obtain one at http://mozilla.org/MPL/2.0/.
+##
+
 dist_noinst_SCRIPTS = \
   util.mpl gvt4.mpl tpss_x.mpl \
   lda_c_pz.mpl lda_xc_1d_ehwlrg.mpl lda_c_rc04.mpl lda_c_pw.mpl             \

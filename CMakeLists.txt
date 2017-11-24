@@ -6,7 +6,7 @@ set(Libxc_AUTHORS      "Miguel A.L. Marques and others")
 set(Libxc_DESCRIPTION  "Exchange-correlation functionals for density-functional theory")
 set(Libxc_EMAIL        "libxc@tddft.org")
 set(Libxc_URL          "http://www.tddft.org/programs/Libxc")
-set(Libxc_LICENSE      "GNU Lesser General Public License, version 3 (LGPL-3.0)")
+set(Libxc_LICENSE      "Mozilla Public License, version 2.0 (MPL-2.0)")
 
 cmake_minimum_required(VERSION 3.0)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)

@@ -18,7 +18,7 @@ Summary: Library of exchange and correlation functionals to be used in DFT codes
 Version: @VERSION@
 Release: 1
 Provides: %{name}
-License: LGPL 2.0
+License: MPL 2.0
 Group: Applications/Scientific
 Prefix: /usr
 BuildRoot: %{_tmppath}/%{name}-%{version}-buildroot

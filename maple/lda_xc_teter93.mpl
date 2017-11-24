@@ -1,3 +1,11 @@
+(*
+ Copyright (C) 2017 M.A.L. Marques
+
+ This Source Code Form is subject to the terms of the Mozilla Public
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*)
+
 (* type: work_lda *)
 
 a  := [0.4581652932831429, 2.217058676663745,  0.7405551735357053, 0.01968227878617998 ]:

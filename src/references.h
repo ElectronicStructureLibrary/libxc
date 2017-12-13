@@ -307,3 +307,4 @@ extern func_reference_type xc_ref_Peng2016_041005;
 extern func_reference_type xc_ref_Kang2001_11040;
 extern func_reference_type xc_ref_Groth2017;
 extern func_reference_type xc_ref_Wang2017_8487;
+extern func_reference_type xc_ref_Gordon1972_3122;

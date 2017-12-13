@@ -197,6 +197,7 @@ lda_c_vwn_3.c
 lda_c_vwn_4.c
 lda_c_vwn_rpa.c
 lda_c_wigner.c
+lda_c_gk72.c
 lda_k_tf.c
 lda_k_zlp.c
 lda_x.c

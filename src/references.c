@@ -1827,7 +1827,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -2068,6 +2068,13 @@ func_reference_type xc_ref_Wang2017_8487 = {
   "Y. Wang, X. Jin, H. S. Yu, D. G. Truhlar, and X. He, Proceedings of the National Academy of Sciences 114, 8487 (2017)",
   "10.1073/pnas.1705670114",
   "@article{Wang2017_8487,\n  author = {Wang, Ying and Jin, Xinsheng and Yu, Haoyu S. and Truhlar, Donald G. and He, Xiao},\n  title = {Revised M06-L functional for improved accuracy on chemical reaction barrier heights, noncovalent interactions, and solid-state physics},\n  volume = {114},\n  number = {32},\n  pages = {8487-8492},\n  year = {2017},\n  doi = {10.1073/pnas.1705670114},\n  URL = {http://www.pnas.org/content/114/32/8487.abstract},\n  eprint = {http://www.pnas.org/content/114/32/8487.full.pdf},\n  journal = {Proceedings of the National Academy of Sciences}\n}"
+};
+
+
+func_reference_type xc_ref_Gordon1972_3122 = {
+  "R. G. Gordon and Y. S. Kim, J. Chem. Phys. 56, 3122 (1972), https://doi.org/10.1063/1.1677649",
+  "10.1063/1.1677649",
+  "@article{Gordon1972_3122,\nauthor = {Roy G. Gordon and Yung Sik Kim},\ntitle = {Theory for the Forces between Closed‐Shell Atoms and Molecules},\njournal = {The Journal of Chemical Physics},\nvolume = {56},\nnumber = {6},\npages = {3122-3133},\nyear = {1972},\ndoi = {10.1063/1.1677649},\nURL = {https://doi.org/10.1063/1.1677649},\neprint = {https://doi.org/10.1063/1.1677649}\n}"
 };
 
 

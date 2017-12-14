@@ -17,7 +17,9 @@
 #define XC_GGA_K_ABSR2        507
 #define XC_HYB_GGA_XC_mPW1PW  418
 #define XC_HYB_GGA_XC_mPW1K   405
-
+#define XC_LDA_C_LP_A         547 /* the next 3 functionals should be XC, not C */
+#define XC_LDA_C_LP_B         548
+#define XC_MGGA_C_LP90        564
 
 /* These are functionals that were removed */
 #define XC_GGA_XC_B97      167 /* Becke 97                                 */

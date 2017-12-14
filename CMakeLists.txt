@@ -214,7 +214,7 @@ mgga_c_b88.c
 mgga_c_bc95.c
 mgga_c_cs.c
 mgga_c_kcis.c
-mgga_c_lp90.c
+mgga_xc_lp90.c
 mgga_c_m05.c
 mgga_c_m06l.c
 mgga_c_m08.c

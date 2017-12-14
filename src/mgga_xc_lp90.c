@@ -9,16 +9,16 @@
 
 #include "util.h"
 
-#define XC_MGGA_C_LP90          564 /* Lee & Parr, Eq. (56) */
+#define XC_MGGA_XC_LP90          564 /* Lee & Parr, Eq. (56) */
 
-#include "maple2c/mgga_c_lp90.c"
+#include "maple2c/mgga_xc_lp90.c"
 
 #define func maple2c_func
 #include "work_mgga_c.c"
 
-const xc_func_info_type xc_func_info_mgga_c_lp90 = {
-  XC_MGGA_C_LP90,
-  XC_CORRELATION,
+const xc_func_info_type xc_func_info_mgga_xc_lp90 = {
+  XC_MGGA_XC_LP90,
+  XC_EXCHANGE_CORRELATION,
   "Lee & Parr, Eq. (56)",
   XC_FAMILY_MGGA,
   {&xc_ref_Lee1990_193, NULL, NULL, NULL, NULL},

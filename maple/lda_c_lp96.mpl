@@ -7,10 +7,12 @@
 *)
 
 (* type: work_lda *)
+(* prefix:
+  lda_c_lp96_params *params;
 
-C1 := -0.0603:
-C2 :=  0.0175:
-C3 := -0.00053:
+  assert(p->params != NULL);
+  params = (lda_c_lp96_params * )(p->params);
+*)
 
-f := (rs, zeta) -> C1 + C2*n_total(rs)^(-1/3) + C3*n_total(rs)^(-2/3):
+f := (rs, zeta) -> params_a_C1 + params_a_C2*n_total(rs)^(-1/3) + params_a_C3*n_total(rs)^(-2/3):
 

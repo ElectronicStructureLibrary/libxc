@@ -2078,3 +2078,10 @@ func_reference_type xc_ref_Gordon1972_3122 = {
 };
 
 
+func_reference_type xc_ref_Karasiev2016_157101 = {
+  "V. V. Karasiev, J. Chem. Phys. 145, 157101 (2016), https://doi.org/10.1063/1.4964758",
+  "10.1063/1.4964758",
+  "@article{Karasiev2016_157101,\nauthor = {Valentin V. Karasiev},\ntitle = {Comment on “Communication: Simple and accurate uniform electron gas correlation energy for the full range of densities” [J. Chem. Phys. 145, 021101 (2016)]},\njournal = {The Journal of Chemical Physics},\nvolume = {145},\nnumber = {15},\npages = {157101},\nyear = {2016},\ndoi = {10.1063/1.4964758},\nURL = {https://doi.org/10.1063/1.4964758},\neprint = {https://doi.org/10.1063/1.4964758}\n}"
+};
+
+

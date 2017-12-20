@@ -553,7 +553,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97_1p = {
 
 const xc_func_info_type xc_func_info_gga_xc_hle16 = {
   XC_GGA_XC_HLE16,
-  XC_CORRELATION,
+  XC_EXCHANGE_CORRELATION,
   "high local exchange 2016",
   XC_FAMILY_GGA,
   {&xc_ref_Verma2017_380, NULL, NULL, NULL, NULL},

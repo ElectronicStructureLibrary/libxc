@@ -55,7 +55,7 @@ mgga_c_scan_rvv10_init(xc_func_type *p)
 
 const xc_func_info_type xc_func_info_mgga_c_scan_rvv10 = {
   XC_MGGA_C_SCAN_RVV10,
-  XC_EXCHANGE_CORRELATION,
+  XC_CORRELATION,
   "SCAN+rVV10 correlation",
   XC_FAMILY_MGGA,
   {&xc_ref_Peng2016_041005, NULL, NULL, NULL, NULL},

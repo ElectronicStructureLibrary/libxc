@@ -17,7 +17,7 @@
 
 const xc_func_info_type xc_func_info_gga_c_sg4 = {
   XC_GGA_C_SG4,
-  XC_EXCHANGE,
+  XC_CORRELATION,
   "Semiclassical GGA at fourth order",
   XC_FAMILY_GGA,
   {&xc_ref_Constantin2016_045126, NULL, NULL, NULL, NULL},

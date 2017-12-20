@@ -235,7 +235,7 @@ const xc_func_info_type xc_func_info_gga_c_pbefe = {
 
 const xc_func_info_type xc_func_info_gga_c_pbe_mol = {
   XC_GGA_C_PBE_MOL,
-  XC_EXCHANGE,
+  XC_CORRELATION,
   "Reparametrized PBE by del Campo, Gazquez, Trickey & Vela",
   XC_FAMILY_GGA,
   {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
@@ -248,7 +248,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe_mol = {
 
 const xc_func_info_type xc_func_info_gga_c_tm_pbe = {
   XC_GGA_C_TM_PBE,
-  XC_EXCHANGE,
+  XC_CORRELATION,
   "Thakkar and McCarthy reparametrization",
   XC_FAMILY_GGA,
   {&xc_ref_Thakkar2009_134109, NULL, NULL, NULL, NULL},

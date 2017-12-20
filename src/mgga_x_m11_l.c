@@ -46,7 +46,7 @@ mgga_x_m11_l_init(xc_func_type *p)
     p->cam_omega = 0.25;
     break;
   default:
-    fprintf(stderr, "Internal error in mgga_x_m08\n");
+    fprintf(stderr, "Internal error in mgga_x_m11_l\n");
     exit(1);
   }
 }

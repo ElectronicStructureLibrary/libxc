@@ -31,7 +31,7 @@ void xc_gga_c_lyp_init(xc_func_type *p)
     xc_gga_c_lyp_set_params(p, 0.0393, 0.21, 0.41, 0.15);
     break;
   default:
-    fprintf(stderr, "Internal error in gga_c_pbe\n");
+    fprintf(stderr, "Internal error in gga_c_lyp\n");
     exit(1);
   }
 }

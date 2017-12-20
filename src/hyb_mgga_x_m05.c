@@ -59,7 +59,7 @@ mgga_x_m05_init(xc_func_type *p)
     p->cam_alpha   = 0.54;
     break;
   default:
-    fprintf(stderr, "Internal error in mgga_x_m05\n");
+    fprintf(stderr, "Internal error in hyb_mgga_x_m05\n");
     exit(1);
   }
 

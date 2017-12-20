@@ -32,7 +32,7 @@
 
 const xc_func_info_type xc_func_info_lda_k_zlp = {
   XC_LDA_K_ZLP,
-  XC_CORRELATION,
+  XC_KINETIC,
   "Wigner including kinetic energy contribution",
   XC_FAMILY_LDA,
   {&xc_ref_Fuentealba1995_31, &xc_ref_Zhao1993_918, NULL, NULL, NULL},

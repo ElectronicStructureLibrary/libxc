@@ -254,7 +254,7 @@ N_set_ext_params(xc_func_type *p, const double *ext_params)
 
 const xc_func_info_type xc_func_info_lda_x_rae = {
   XC_LDA_X_RAE,
-  XC_CORRELATION,
+  XC_EXCHANGE,
   "Rae self-energy corrected exchange",
   XC_FAMILY_LDA,
   {&xc_ref_Rae1973_574, NULL, NULL, NULL, NULL},

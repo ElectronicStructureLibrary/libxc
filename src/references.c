@@ -6,19 +6,9 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 3 of the License, or
- (at your option) any later version.
-  
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU Lesser General Public License for more details.
-  
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ This Source Code Form is subject to the terms of the Mozilla Public
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
 #include <xc.h>
@@ -1837,7 +1827,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -1865,9 +1855,9 @@ func_reference_type xc_ref_Lee1990_193 = {
 
 
 func_reference_type xc_ref_Rae1973_574 = {
-  "A. Rae, Chem. Phys. Lett. , 574 (1973)",
+  "A. Rae, Chem. Phys. Lett. 18, 574 (1973)",
   "10.1016/0009-2614(73)80469-5",
-  "@article{Rae1973_574,\n title = \"A theory for the interactions between closed shell systems \",\n journal = \"Chemical Physics Letters \",\n olume = \"18\",\n number = \"4\",\n pages = \"574 - 577\",\n year = \"1973\",\n note = \"\",\n issn = \"0009-2614\",\n doi = \"10.1016/0009-2614(73)80469-5\",\n url = \"//www.sciencedirect.com/science/article/pii/0009261473804695\",\n author = \"A.I.M. Rae\",\n}"
+  "@article{Rae1973_574,\n title = \"A theory for the interactions between closed shell systems \",\n journal = \"Chemical Physics Letters \",\n volume = \"18\",\n number = \"4\",\n pages = \"574 - 577\",\n year = \"1973\",\n note = \"\",\n issn = \"0009-2614\",\n doi = \"10.1016/0009-2614(73)80469-5\",\n url = \"//www.sciencedirect.com/science/article/pii/0009261473804695\",\n author = \"A.I.M. Rae\",\n}"
 };
 
 
@@ -1963,7 +1953,7 @@ func_reference_type xc_ref_Handy2002_5411 = {
 
 
 func_reference_type xc_ref_Zhao2005_2012 = {
-  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem A 109, 2012 (2005), pMID: 16833536",
+  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem. A 109, 2012 (2005), pMID: 16833536",
   "10.1021/jp045141s",
   "@article{Zhao2005_2012,\nauthor = {Zhao, Yan and González-García, Núria and Truhlar, Donald G.},\ntitle = {Benchmark Database of Barrier Heights for Heavy Atom Transfer, Nucleophilic Substitution, Association, and Unimolecular Reactions and Its Use to Test Theoretical Methods},\njournal = {The Journal of Physical Chemistry A},\nvolume = {109},\nnumber = {9},\npages = {2012-2018},\nyear = {2005},\ndoi = {10.1021/jp045141s},\nnote ={PMID: 16833536},\nURL = {http://dx.doi.org/10.1021/jp045141s},\neprint = {http://dx.doi.org/10.1021/jp045141s}\n}"
 };
@@ -2070,14 +2060,35 @@ func_reference_type xc_ref_Kang2001_11040 = {
 func_reference_type xc_ref_Groth2017 = {
   "S. {Groth, T. {Dornheim}, T. {Sjostrom}, F. D. {Malone}, W. M. C. {Foulkes}, and M. {Bonitz}, }ArXiv e-prints (2017), arXiv:1703.08074 [physics.plasm-ph]",
   "",
-  "@ARTICLE{Groth2017,\n   author = {{Groth}, S. and {Dornheim}, T. and {Sjostrom}, T. and {Malone}, F.~D. and \n	{Foulkes}, W.~M.~C. and {Bonitz}, M.},\n    title = \"{Ab initio Exchange-Correlation Free Energy of the Uniform Electron Gas at Warm Dense Matter Conditions}\",\n  journal = {ArXiv e-prints},\narchivePrefix = \"arXiv\",\n   eprint = {1703.08074},\n primaryClass = \"physics.plasm-ph\",\n keywords = {Physics - Plasma Physics, Condensed Matter - Statistical Mechanics},\n     year = 2017,\n    month = mar,\n   adsurl = {http://adsabs.harvard.edu/abs/2017arXiv170308074G},\n  adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
+  "@ARTICLE{Groth2017,\n   author = {{Groth}, S. and {Dornheim}, T. and {Sjostrom}, T. and {Malone}, F.~D. and\n	{Foulkes}, W.~M.~C. and {Bonitz}, M.},\n    title = \"{Ab initio Exchange-Correlation Free Energy of the Uniform Electron Gas at Warm Dense Matter Conditions}\",\n  journal = {ArXiv e-prints},\narchivePrefix = \"arXiv\",\n   eprint = {1703.08074},\n primaryClass = \"physics.plasm-ph\",\n keywords = {Physics - Plasma Physics, Condensed Matter - Statistical Mechanics},\n     year = 2017,\n    month = mar,\n   adsurl = {http://adsabs.harvard.edu/abs/2017arXiv170308074G},\n  adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
 };
 
 
 func_reference_type xc_ref_Wang2017_8487 = {
   "Y. Wang, X. Jin, H. S. Yu, D. G. Truhlar, and X. He, Proceedings of the National Academy of Sciences 114, 8487 (2017)",
   "10.1073/pnas.1705670114",
-  "@article{Wang2017_8487,\n  author = {Wang, Ying and Jin, Xinsheng and Yu, Haoyu S. and Truhlar, Donald G. and He, Xiao}, \n  title = {Revised M06-L functional for improved accuracy on chemical reaction barrier heights, noncovalent interactions, and solid-state physics},\n  volume = {114}, \n  number = {32}, \n  pages = {8487-8492}, \n  year = {2017}, \n  doi = {10.1073/pnas.1705670114}, \n  URL = {http://www.pnas.org/content/114/32/8487.abstract}, \n  eprint = {http://www.pnas.org/content/114/32/8487.full.pdf}, \n  journal = {Proceedings of the National Academy of Sciences} \n}"
+  "@article{Wang2017_8487,\n  author = {Wang, Ying and Jin, Xinsheng and Yu, Haoyu S. and Truhlar, Donald G. and He, Xiao},\n  title = {Revised M06-L functional for improved accuracy on chemical reaction barrier heights, noncovalent interactions, and solid-state physics},\n  volume = {114},\n  number = {32},\n  pages = {8487-8492},\n  year = {2017},\n  doi = {10.1073/pnas.1705670114},\n  URL = {http://www.pnas.org/content/114/32/8487.abstract},\n  eprint = {http://www.pnas.org/content/114/32/8487.full.pdf},\n  journal = {Proceedings of the National Academy of Sciences}\n}"
+};
+
+
+func_reference_type xc_ref_Gordon1972_3122 = {
+  "R. G. Gordon and Y. S. Kim, J. Chem. Phys. 56, 3122 (1972), https://doi.org/10.1063/1.1677649",
+  "10.1063/1.1677649",
+  "@article{Gordon1972_3122,\nauthor = {Roy G. Gordon and Yung Sik Kim},\ntitle = {Theory for the Forces between Closed‐Shell Atoms and Molecules},\njournal = {The Journal of Chemical Physics},\nvolume = {56},\nnumber = {6},\npages = {3122-3133},\nyear = {1972},\ndoi = {10.1063/1.1677649},\nURL = {https://doi.org/10.1063/1.1677649},\neprint = {https://doi.org/10.1063/1.1677649}\n}"
+};
+
+
+func_reference_type xc_ref_Karasiev2016_157101 = {
+  "V. V. Karasiev, J. Chem. Phys. 145, 157101 (2016), https://doi.org/10.1063/1.4964758",
+  "10.1063/1.4964758",
+  "@article{Karasiev2016_157101,\nauthor = {Valentin V. Karasiev},\ntitle = {Comment on “Communication: Simple and accurate uniform electron gas correlation energy for the full range of densities” [J. Chem. Phys. 145, 021101 (2016)]},\njournal = {The Journal of Chemical Physics},\nvolume = {145},\nnumber = {15},\npages = {157101},\nyear = {2016},\ndoi = {10.1063/1.4964758},\nURL = {https://doi.org/10.1063/1.4964758},\neprint = {https://doi.org/10.1063/1.4964758}\n}"
+};
+
+
+func_reference_type xc_ref_Proynov2017_059904 = {
+  "E. Proynov and J. Kong, Phys. Rev. A 95, 059904 (2017)",
+  "10.1103/PhysRevA.95.059904",
+  "@article{Proynov2017_059904,\n  title = {Erratum: Analytic form of the correlation energy of the uniform electron gas [Phys. Rev. A 79, 014103 (2009)]},\n  author = {Proynov, Emil and Kong, Jing},\n  journal = {Phys. Rev. A},\n  volume = {95},\n  issue = {5},\n  pages = {059904},\n  numpages = {1},\n  year = {2017},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.95.059904},\n  url = {https://link.aps.org/doi/10.1103/PhysRevA.95.059904}\n}"
 };
 
 

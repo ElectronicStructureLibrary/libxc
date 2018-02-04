@@ -6,19 +6,9 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 3 of the License, or
- (at your option) any later version.
-  
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU Lesser General Public License for more details.
-  
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ This Source Code Form is subject to the terms of the Mozilla Public
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
 #include <xc.h>
@@ -317,3 +307,6 @@ extern func_reference_type xc_ref_Peng2016_041005;
 extern func_reference_type xc_ref_Kang2001_11040;
 extern func_reference_type xc_ref_Groth2017;
 extern func_reference_type xc_ref_Wang2017_8487;
+extern func_reference_type xc_ref_Gordon1972_3122;
+extern func_reference_type xc_ref_Karasiev2016_157101;
+extern func_reference_type xc_ref_Proynov2017_059904;

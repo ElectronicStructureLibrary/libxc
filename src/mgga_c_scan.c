@@ -1,19 +1,9 @@
 /*
  Copyright (C) 2016 Susi Lehtola
 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 3 of the License, or
- (at your option) any later version.
-  
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU Lesser General Public License for more details.
-  
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ This Source Code Form is subject to the terms of the Mozilla Public
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
 
@@ -55,7 +45,7 @@ mgga_c_scan_rvv10_init(xc_func_type *p)
 
 const xc_func_info_type xc_func_info_mgga_c_scan_rvv10 = {
   XC_MGGA_C_SCAN_RVV10,
-  XC_EXCHANGE_CORRELATION,
+  XC_CORRELATION,
   "SCAN+rVV10 correlation",
   XC_FAMILY_MGGA,
   {&xc_ref_Peng2016_041005, NULL, NULL, NULL, NULL},

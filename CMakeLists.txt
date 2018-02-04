@@ -6,7 +6,7 @@ set(Libxc_AUTHORS      "Miguel A.L. Marques and others")
 set(Libxc_DESCRIPTION  "Exchange-correlation functionals for density-functional theory")
 set(Libxc_EMAIL        "libxc@tddft.org")
 set(Libxc_URL          "http://www.tddft.org/programs/Libxc")
-set(Libxc_LICENSE      "GNU Lesser General Public License, version 3 (LGPL-3.0)")
+set(Libxc_LICENSE      "Mozilla Public License, version 2.0 (MPL-2.0)")
 
 cmake_minimum_required(VERSION 3.0)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
@@ -197,6 +197,7 @@ lda_c_vwn_3.c
 lda_c_vwn_4.c
 lda_c_vwn_rpa.c
 lda_c_wigner.c
+lda_c_gk72.c
 lda_k_tf.c
 lda_k_zlp.c
 lda_x.c
@@ -213,7 +214,7 @@ mgga_c_b88.c
 mgga_c_bc95.c
 mgga_c_cs.c
 mgga_c_kcis.c
-mgga_c_lp90.c
+mgga_xc_lp90.c
 mgga_c_m05.c
 mgga_c_m06l.c
 mgga_c_m08.c

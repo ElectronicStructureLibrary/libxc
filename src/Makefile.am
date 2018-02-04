@@ -2,26 +2,15 @@
 
 ## Copyright (C) 2002 M. Marques, A. Castro, A. Rubio, G. Bertsch
 ##
-## This program is free software; you can redistribute it and/or modify
-## it under the terms of the GNU Lesser General Public License as published by
-## the Free Software Foundation; either version 2, or (at your option)
-## any later version.
-##
-## This program is distributed in the hope that it will be useful,
-## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-## GNU Lesser General Public License for more details.
-##
-## You should have received a copy of the GNU Lesser General Public License
-## along with this program; if not, write to the Free Software
-## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-## 02110-1301, USA.
+## This Source Code Form is subject to the terms of the Mozilla Public
+## License, v. 2.0. If a copy of the MPL was not distributed with this
+## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
 SUBDIRS = maple2c
 
 bin_PROGRAMS = xc-info xc-threshold
-noinst_PROGRAMS = genwiki
+noinst_PROGRAMS = genwiki xc-sanity
 
 xc_info_SOURCES = xc-info.c
 xc_info_LDADD = libxc.la -lm
@@ -34,6 +23,10 @@ xc_threshold_LDFLAGS =
 genwiki_SOURCES = genwiki.c
 genwiki_LDADD = libxc.la -lm
 genwiki_LDFLAGS =
+
+xc_sanity_SOURCES = xc-sanity.c
+xc_sanity_LDADD = libxc.la -lm
+xc_sanity_LDFLAGS =
 
 lib_LTLIBRARIES = libxc.la
 
@@ -49,6 +42,7 @@ libxc_la_FUNC_SOURCES = \
 	lda_c_1d_loos.c lda_c_2d_amgb.c lda_c_2d_prm.c		\
 	lda_k_tf.c lda_xc_zlp.c lda_xc_ksdt.c lda_c_chachiyo.c          \
 	lda_xc_1d_ehwlrg.c lda_x_rel.c lda_x_erf.c lda_k_zlp.c          \
+        lda_c_gk72.c \
 	gga.c \
 	gga_x_lg93.c gga_x_pbe.c gga_x_rpbe.c gga_x_pbea.c		\
 	gga_x_mpbe.c gga_x_herman.c gga_x_b86.c gga_x_b88.c		\
@@ -93,7 +87,7 @@ libxc_la_FUNC_SOURCES = \
 	mgga_x_mbeefvdw.c mgga_x_m11.c mgga_x_m11_l.c                   \
         hyb_mgga_xc_wb97mv.c mgga_c_m05.c mgga_c_m06l.c                 \
         hyb_mgga_x_dldf.c mgga_c_tpss.c mgga_c_revtpss.c                \
-        mgga_c_tpssloc.c mgga_xc_hle17.c mgga_c_kcis.c mgga_c_lp90.c    \
+        mgga_c_tpssloc.c mgga_xc_hle17.c mgga_c_kcis.c mgga_xc_lp90.c   \
 	hyb_mgga_xc_kcis.c mgga_c_b88.c mgga_x_gx.c mgga_x_pbe_gx.c
 
 libxc_la_SOURCES = references.c $(libxc_la_FUNC_SOURCES)

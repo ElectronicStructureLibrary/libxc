@@ -1,3 +1,11 @@
+(*
+ Copyright (C) 2017 M.A.L. Marques
+
+ This Source Code Form is subject to the terms of the Mozilla Public
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*)
+
 tpss_csi2 := (z, xt, xs0, xs1) ->
   (1 - z^2)*(t_total(z, xs0^2, xs1^2) - xt^2)/(2*(3*Pi^2)^(1/3))^2:
 

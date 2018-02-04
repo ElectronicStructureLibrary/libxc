@@ -1,3 +1,11 @@
+(*
+ Copyright (C) 2017 M.A.L. Marques
+
+ This Source Code Form is subject to the terms of the Mozilla Public
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*)
+
 (* type: work_lda *)
 
 (* This was checked against code kindly provided by Emil Proynov *)
@@ -18,7 +26,7 @@ d_25_i := [-0.57786103193239430, 2.09708505883490736, -2.52188183586948180, 1.0]
 f_s := z -> add(c_25_i[i]*z^(i-1), i=1..5)/add(d_25_i[i]*z^(i-1), i=1..4):
 
 (* Equation (23) *)
-(* The factor 1.28 is absent from the paper, but it is in the original code *)
+(* The factor 1.28 is absent from the paper, but it is in the original code. See erratum *)
 ss := (rs, z) -> f_r(rs)*f_s(z)*1.28:
 
 (* Equation (22) *)
@@ -51,7 +59,7 @@ beta_eff := rs ->
   + eta2*exp(-eta3*rs^(1/3))*rs^(1/4)
   + eta4*exp(-eta5*rs^(1/3))*rs^(1/3):
 
-(* Equation (15) *)
+(* Equation (15), see erratum *)
 ax   := (3*Pi^2)^(1/3):
 k_fs := (rs, z) -> ax*RS_FACTOR/rs * (1 + z)^(1/3):
 

@@ -1,19 +1,9 @@
 /*
  Copyright (C) 2017 M.A.L. Marques
 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 3 of the License, or
- (at your option) any later version.
-  
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU Lesser General Public License for more details.
-  
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ This Source Code Form is subject to the terms of the Mozilla Public
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
 #include "util.h"
@@ -27,7 +17,7 @@
 
 const xc_func_info_type xc_func_info_gga_c_sg4 = {
   XC_GGA_C_SG4,
-  XC_EXCHANGE,
+  XC_CORRELATION,
   "Semiclassical GGA at fourth order",
   XC_FAMILY_GGA,
   {&xc_ref_Constantin2016_045126, NULL, NULL, NULL, NULL},

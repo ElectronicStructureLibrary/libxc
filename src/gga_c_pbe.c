@@ -1,19 +1,9 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 3 of the License, or
- (at your option) any later version.
-  
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU Lesser General Public License for more details.
-  
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ This Source Code Form is subject to the terms of the Mozilla Public
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
 #include "util.h"
@@ -235,7 +225,7 @@ const xc_func_info_type xc_func_info_gga_c_pbefe = {
 
 const xc_func_info_type xc_func_info_gga_c_pbe_mol = {
   XC_GGA_C_PBE_MOL,
-  XC_EXCHANGE,
+  XC_CORRELATION,
   "Reparametrized PBE by del Campo, Gazquez, Trickey & Vela",
   XC_FAMILY_GGA,
   {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
@@ -248,7 +238,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe_mol = {
 
 const xc_func_info_type xc_func_info_gga_c_tm_pbe = {
   XC_GGA_C_TM_PBE,
-  XC_EXCHANGE,
+  XC_CORRELATION,
   "Thakkar and McCarthy reparametrization",
   XC_FAMILY_GGA,
   {&xc_ref_Thakkar2009_134109, NULL, NULL, NULL, NULL},

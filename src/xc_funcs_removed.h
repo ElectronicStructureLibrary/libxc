@@ -1,19 +1,9 @@
 /*
  Copyright (C) 2016 M. Oliveira
 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 3 of the License, or
- (at your option) any later version.
-  
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU Lesser General Public License for more details.
-  
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ This Source Code Form is subject to the terms of the Mozilla Public
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
 
@@ -27,7 +17,9 @@
 #define XC_GGA_K_ABSR2        507
 #define XC_HYB_GGA_XC_mPW1PW  418
 #define XC_HYB_GGA_XC_mPW1K   405
-
+#define XC_LDA_C_LP_A         547 /* the next 3 functionals should be XC, not C */
+#define XC_LDA_C_LP_B         548
+#define XC_MGGA_C_LP90        564
 
 /* These are functionals that were removed */
 #define XC_GGA_XC_B97      167 /* Becke 97                                 */

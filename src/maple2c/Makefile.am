@@ -1,21 +1,9 @@
 ## Copyright (C) 2016 M. Marques
 ##
-## This program is free software; you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation; either version 2, or (at your option)
-## any later version.
+## This Source Code Form is subject to the terms of the Mozilla Public
+## License, v. 2.0. If a copy of the MPL was not distributed with this
+## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
-## This program is distributed in the hope that it will be useful,
-## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-## GNU General Public License for more details.
-##
-## You should have received a copy of the GNU General Public License
-## along with this program; if not, write to the Free Software
-## Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-## 02110-1301, USA.
-##
-## $Id: Makefile.am 12537 2016-11-15 14:10:17Z marques $
 
 noinst_HEADERS =  \
   lda_c_1d_csc.c lda_c_1d_loos.c lda_c_2d_amgb.c lda_c_2d_prm.c             \
@@ -24,7 +12,7 @@ noinst_HEADERS =  \
   lda_c_vwn_2.c lda_c_vwn_3.c lda_c_vwn_4.c lda_c_vwn.c lda_c_vwn_rpa.c     \
   lda_c_wigner.c lda_k_tf.c lda_k_zlp.c lda_x_2d.c lda_x.c lda_x_erf.c      \
   lda_x_rel.c lda_xc_1d_ehwlrg.c lda_xc_ksdt.c lda_xc_teter93.c             \
-  lda_xc_zlp.c \
+  lda_xc_zlp.c lda_c_gk72.c \
   gga_c_am05.c gga_c_bcgp.c gga_c_bmk.c gga_c_cs1.c gga_c_ft97.c            \
   gga_c_gapc.c gga_c_gaploc.c gga_c_hcth_a.c gga_c_lm.c gga_c_lyp.c         \
   gga_c_op_b88.c gga_c_op_g96.c gga_c_op_pbe.c gga_c_op_pw91.c gga_c_optc.c \
@@ -44,7 +32,7 @@ noinst_HEADERS =  \
   gga_x_pw91.c gga_x_q2d.c gga_x_rge2.c gga_x_rpbe.c gga_x_sg4.c            \
   gga_x_sogga11.c gga_x_ssb_sw.c gga_x_vmt84.c gga_x_vmt.c gga_x_wc.c       \
   hyb_gga_xc_wb97.c hyb_mgga_xc_wb97mv.c hyb_mgga_x_dldf.c hyb_mgga_x_m05.c \
-  mgga_c_b88.c mgga_c_bc95.c mgga_c_cs.c mgga_c_kcis.c mgga_c_lp90.c        \
+  mgga_c_b88.c mgga_c_bc95.c mgga_c_cs.c mgga_c_kcis.c mgga_xc_lp90.c       \
   mgga_c_m05.c mgga_c_m06l.c mgga_c_m08.c mgga_c_pkzb.c mgga_c_revtpss.c    \
   mgga_c_scan.c mgga_c_tpss.c mgga_c_tpssloc.c mgga_c_vsxc.c mgga_k_pc07.c  \
   mgga_xc_b97mv.c mgga_xc_cc06.c mgga_xc_zlp.c mgga_x_gvt4.c mgga_x_gx.c    \

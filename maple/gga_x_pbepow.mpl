@@ -8,8 +8,8 @@
 
 (* type: work_gga_x *)
 
-mu    := 0.804:
-kappa := 0.219:
+kappa := 0.8040:
+mu    := 0.2195149727645171:
 m     := 100:
 
 gamm  := m*mu/kappa:

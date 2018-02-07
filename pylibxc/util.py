@@ -7,12 +7,9 @@ import ctypes
 from .core import core
 from . import flags
 
-# Set required ctypes bindings
-core.xc_version.argtypes = [
-    ctypes.POINTER(ctypes.c_int),
-    ctypes.POINTER(ctypes.c_int),
-    ctypes.POINTER(ctypes.c_int)
-]
+### Set required ctypes bindings
+
+core.xc_version.argtypes = [ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
 core.xc_version.restype = None
 
 core.xc_version_string.restype = ctypes.c_char_p
@@ -23,16 +20,14 @@ core.xc_functional_get_number.restype = ctypes.c_int
 core.xc_functional_get_name.argtype = [ctypes.c_int]
 core.xc_functional_get_name.restype = ctypes.c_char_p
 
-core.xc_family_from_id.argtype = [
-    ctypes.c_int,
-    ctypes.POINTER(ctypes.c_int),
-    ctypes.POINTER(ctypes.c_int)
-]
+core.xc_family_from_id.argtype = [ctypes.c_int, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
 core.xc_family_from_id.restype = ctypes.c_int
 
 core.xc_available_functional_numbers.argtype = [ctypes.POINTER(ctypes.c_int)]
 
 core.xc_available_functional_names.argtype = [ctypes.POINTER(ctypes.c_char_p)]
+
+### Build wrapper functions
 
 
 def xc_version():
@@ -149,8 +144,7 @@ def xc_family_from_id(func_id):
     """
     family = ctypes.c_int()
     number = ctypes.c_int()
-    core.xc_family_from_id(func_id,
-                           ctypes.pointer(family), ctypes.pointer(number))
+    core.xc_family_from_id(func_id, ctypes.pointer(family), ctypes.pointer(number))
 
     return (family.value, number.value)
 

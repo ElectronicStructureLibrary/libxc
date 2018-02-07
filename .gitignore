@@ -17,7 +17,6 @@
 /config.h.in
 /build-aux
 /test.x_debug
-/*.a
 /depcomp
 /compile
 /missing
@@ -29,12 +28,16 @@
 /bin
 /include
 /lib
+*.a
+*.dylib
+*.so
 
 # /build/
 /build/Makefile.in
 /build/libxc.pc
 /build/libxc.spec
 /build/Makefile
+/objdir/*
 
 # /m4/
 /m4/ltsugar.m4

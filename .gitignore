@@ -106,3 +106,26 @@
 /testsuite/xc_error-xc-error.o
 /testsuite/xc_get_data-xc-get_data.o
 /testsuite/xc_regression-xc-regression.o
+
+# Python
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg

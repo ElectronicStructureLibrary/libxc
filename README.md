@@ -76,6 +76,15 @@ After `find_package(Libxc ...)`,
 * compile target applying `-DUSING_Libxc` definition using `target_compile_definitions(mytarget PRIVATE $<TARGET_PROPERTY:Libxc::xc,INTERFACE_COMPILE_DEFINITIONS>)`
 
 
+#### Python Library
+
+Optional Python bindings are available through cytpes
+
+Tests can be run with:
+* `pip install -e .`
+* `py.test -v testsuite/pytest/`
+
+
 ## FILE ORGANIZATION
 
 The distribution is organized as follows

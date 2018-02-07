@@ -23,7 +23,7 @@ class func_params_type(ctypes.Structure):
 
 class xc_func_info_type(ctypes.Structure):
     """
-
+    Holds LibXC information about a single functional primitive.
     """
     _fields_ = [
         ("number", ctypes.c_int),

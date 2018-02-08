@@ -3,29 +3,31 @@ Binds the LibXC utility functions.
 """
 
 import ctypes
+import numpy as np
 
 from .core import core
 from . import flags
 
 ### Set required ctypes bindings
 
-core.xc_version.argtypes = [ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
+core.xc_version.argtypes = (ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int))
 core.xc_version.restype = None
 
 core.xc_version_string.restype = ctypes.c_char_p
 
-core.xc_functional_get_number.argtype = [ctypes.c_char_p]
+core.xc_functional_get_number.argtypes = (ctypes.c_char_p, )
 core.xc_functional_get_number.restype = ctypes.c_int
 
-core.xc_functional_get_name.argtype = [ctypes.c_int]
+core.xc_functional_get_name.argtypes = (ctypes.c_int, )
 core.xc_functional_get_name.restype = ctypes.c_char_p
 
-core.xc_family_from_id.argtype = [ctypes.c_int, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
+core.xc_family_from_id.argtypes = (ctypes.c_int, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int))
 core.xc_family_from_id.restype = ctypes.c_int
 
-core.xc_available_functional_numbers.argtype = [ctypes.POINTER(ctypes.c_int)]
+core.xc_available_functional_numbers.argtypes = (np.ctypeslib.ndpointer(dtype=np.int32, ndim=1, flags=("W", "C",
+                                                                                                       "A")), )
 
-core.xc_available_functional_names.argtype = [ctypes.POINTER(ctypes.c_char_p)]
+core.xc_available_functional_names.argtypes = (ctypes.POINTER(ctypes.c_char_p), )
 
 ### Build wrapper functions
 
@@ -179,14 +181,14 @@ def xc_available_functional_numbers():
     Examples
     --------
     >>> xc_func_list = pylibxc.util.xc_available_functional_numbers()
-    [1, 2, ..., 568, 569]
+    np.array([1, 2, ..., 568, 569])
     """
 
     nfunc = xc_number_of_functionals()
-    functional_ids = (ctypes.c_int * nfunc)()
 
-    core.xc_available_functional_numbers(ctypes.pointer(functional_ids))
-    return [x for x in functional_ids]
+    ret = np.zeros(nfunc, dtype=np.int32)
+    core.xc_available_functional_numbers(ret)
+    return ret
 
 
 def xc_available_functional_names():
@@ -205,12 +207,6 @@ def xc_available_functional_names():
     """
 
     # I give up trying to get char** working, someone else can pick it up.
-    # nfunc = xc_number_of_functionals()
-    # max_char_length = core.xc_maximum_name_length()
-
-    # functional_names = [ctypes.create_string_buffer(max_char_length) for x in range(nfunc)]
-    # functional_names_pointers = (ctypes.c_char_p*nfunc)(*map(ctypes.addressof, functional_names))
-    # core.xc_available_functional_numbers(functional_names_pointers)
 
     func_ids = xc_available_functional_numbers()
     return [xc_functional_get_name(x) for x in func_ids]

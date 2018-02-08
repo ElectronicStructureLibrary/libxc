@@ -50,7 +50,7 @@ class xc_func_type(ctypes.Structure):
     LibXC functional
     """
     _fields_ = [
-        ("info", ctypes.c_void_p),  # const xc_func_info_type *info;
+        ("info", ctypes.POINTER(xc_func_info_type)),  # const xc_func_info_type *info;
         ("nspin", ctypes.c_int),
         ("n_func_aux", ctypes.c_int),
         ("xc_func_type", ctypes.c_void_p),

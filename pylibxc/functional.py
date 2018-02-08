@@ -12,46 +12,68 @@ from . import structs
 
 ### Bind required ctypes
 
-# Allocation wrappers
-core.xc_func_alloc.restype = ctypes.POINTER(structs.xc_func_type)
+# Build out a few common tmps
+__ndptr = np.ctypeslib.ndpointer(dtype=np.double, ndim=1, flags=("C", "A"))
 
-core.xc_func_init.argtype = (ctypes.POINTER(structs.xc_func_type), ctypes.c_int, ctypes.c_int)
+__ndptr_w = np.ctypeslib.ndpointer(dtype=np.double, ndim=1, flags=("W", "C", "A"))
+
+__xc_func_p = ctypes.POINTER(structs.xc_func_type)
+__xc_func_info_p = ctypes.POINTER(structs.xc_func_info_type)
+
+# Allocation wrappers
+core.xc_func_alloc.restype = __xc_func_p
+
+core.xc_func_init.argtypes = (__xc_func_p, ctypes.c_int, ctypes.c_int)
 core.xc_func_init.restype = ctypes.c_int
 
-core.xc_func_end.argtype = (ctypes.POINTER(structs.xc_func_type))
+core.xc_func_end.argtypes = (__xc_func_p, )
 
-core.xc_func_free.argtype = (ctypes.POINTER(structs.xc_func_type))
+core.xc_func_free.argtypes = (__xc_func_p, )
 
 # Info wrappers
-core.xc_func_get_info.argtype = (ctypes.POINTER(structs.xc_func_type))
-core.xc_func_get_info.restype = ctypes.POINTER(structs.xc_func_info_type)
+core.xc_func_get_info.argtypes = (__xc_func_p, )
+core.xc_func_get_info.restype = __xc_func_info_p
 
-core.xc_func_get_info.argtype = (ctypes.POINTER(structs.xc_func_info_type))
+core.xc_func_info_get_kind.argtypes = (__xc_func_info_p, )
 
-core.xc_func_info_get_kind.argtype = (ctypes.POINTER(structs.xc_func_info_type))
-
-core.xc_func_info_get_name.argtype = (ctypes.POINTER(structs.xc_func_info_type))
+core.xc_func_info_get_name.argtypes = (__xc_func_info_p, )
 core.xc_func_info_get_name.restype = ctypes.c_char_p
 
-core.xc_func_info_get_family.argtype = (ctypes.POINTER(structs.xc_func_info_type))
+core.xc_func_info_get_family.argtypes = (__xc_func_info_p, )
 
-core.xc_func_info_get_flags.argtype = (ctypes.POINTER(structs.xc_func_info_type))
+core.xc_func_info_get_flags.argtypes = (__xc_func_info_p, )
 
-core.xc_func_info_get_references.argtype = (ctypes.POINTER(structs.xc_func_info_type), ctypes.c_int)
+core.xc_func_info_get_references.argtypes = (__xc_func_info_p, ctypes.c_int)
 core.xc_func_info_get_references.restype = ctypes.POINTER(structs.func_reference_type)
 
 # Setters
-core.xc_func_info_get_n_ext_params.argtype = (ctypes.POINTER(structs.xc_func_info_type))
+core.xc_func_info_get_n_ext_params.argtypes = (__xc_func_info_p, )
 
-core.xc_func_info_get_ext_params_description.argtype = (ctypes.POINTER(structs.xc_func_info_type), ctypes.c_int)
+core.xc_func_info_get_ext_params_description.argtypes = (__xc_func_info_p, ctypes.c_int)
 core.xc_func_info_get_ext_params_description.restype = ctypes.c_char_p
 
-core.xc_func_info_get_ext_params_default_value.argtype = (ctypes.POINTER(structs.xc_func_info_type), ctypes.c_int)
+core.xc_func_info_get_ext_params_default_value.argtypes = (__xc_func_info_p, ctypes.c_int)
 core.xc_func_info_get_ext_params_default_value.restype = ctypes.c_double
 
-core.xc_func_set_ext_params.argtype = (ctypes.POINTER(structs.xc_func_type), ctypes.POINTER(ctypes.c_double))
+core.xc_func_set_ext_params.argtypes = (__xc_func_p, __ndptr)
 
-core.xc_func_set_dens_threshold.argtype = (ctypes.POINTER(structs.xc_func_type), ctypes.c_double)
+core.xc_func_set_dens_threshold.argtypes = (__xc_func_p, ctypes.c_double)
+
+# LDA computers
+
+core.xc_lda_exc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr_w)
+
+# core.xc_lda_exc.argtypes = [__xc_func_p,
+#                            ctypes.c_int,
+#                            np.ctypeslib.ndpointer(dtype=np.double, ndim=1, flags=("C", "A"), ),
+#                            np.ctypeslib.ndpointer(dtype=np.double, ndim=1, flags=("W", "C", "A"))
+#                           ]
+# void xc_lda        (const xc_func_type *p, int np, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3);
+# void xc_lda_exc    (const xc_func_type *p, int np, const double *rho, double *zk);
+# void xc_lda_exc_vxc(const xc_func_type *p, int np, const double *rho, double *zk, double *vrho);
+# void xc_lda_vxc    (const xc_func_type *p, int np, const double *rho, double *vrho);
+# void xc_lda_fxc    (const xc_func_type *p, int np, const double *rho, double *v2rho2);
+# void xc_lda_kxc    (const xc_func_type *p, int np, const double *rho, double *v3rho3);
 
 ### Build LibXCFunctional class
 
@@ -111,10 +133,21 @@ class LibXCFunctional(object):
 
         # Build the LibXC functional
         self.xc_func = core.xc_func_alloc()
+        self.xc_func_size_names = [x for x in dir(self.xc_func.contents) if "n_" in x]
+
+        # Set all int attributes to zero
+        for attr in self.xc_func_size_names:
+            setattr(self.xc_func, attr, 0)
+
         ret = core.xc_func_init(self.xc_func, func_id, spin)
         if ret != 0:
             raise ValueError("LibXC Functional construction did not complete. Error code %d" % ret)
         self._xc_func_init = True
+
+        # Pull out all sizes
+        self.xc_func_sizes = {}
+        for attr in self.xc_func_size_names:
+            self.xc_func_sizes[attr] = getattr(self.xc_func, attr)
 
         # Unpack functional info
         self.xc_func_info = core.xc_func_get_info(self.xc_func)
@@ -244,10 +277,11 @@ class LibXCFunctional(object):
             raise ValueError("The LibXCFunctional '%s' has no extermal parameters to set." % self.get_name())
 
         if len(ext_params) != num_param:
-            raise ValueError("The length of the input external parameters (%d) does not match the length of the Functionals external parameters (%d)." % (len(ext_params), num_param))
+            raise ValueError(
+                "The length of the input external parameters (%d) does not match the length of the Functionals external parameters (%d)."
+                % (len(ext_params), num_param))
 
-        arr = np.array(ext_params, dtype=np.double)
-        core.xc_func_set_ext_params(self.xc_func, arr.ctypes.data)
+        core.xc_func_set_ext_params(self.xc_func, np.asarray(ext_params, dtype=np.double))
 
     def set_dens_threshold(self, dens_threshold):
         """
@@ -258,5 +292,10 @@ class LibXCFunctional(object):
             raise ValueError("The density threshold cannot be smaller than 0.")
 
         core.xc_func_set_dens_threshold(self.xc_func, ctypes.c_double(dens_threshold))
+
+    def compute(self, inp, output):
+
+        core.xc_lda_exc(self.xc_func, inp.shape[0], inp, output)
+
 
 # void xc_func_set_dens_threshold(xc_func_type *p, double dens_threshold);

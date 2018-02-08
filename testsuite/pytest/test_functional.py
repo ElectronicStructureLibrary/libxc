@@ -3,9 +3,11 @@ Tests the LibXCFunctional class.
 """
 
 import pytest
+import numpy as np
 
 import pylibxc
 
+compute_test_dim = 5
 
 def test_libxc_functional_build():
 
@@ -71,10 +73,18 @@ def test_ext_params():
     func.set_dens_threshold(5)
 
     # Segfaults, need to check it out
-    #func.set_ext_params([5, 3, 3])
+    func.set_ext_params([5, 3, 3])
 
     with pytest.raises(ValueError):
         func.set_ext_params([5, 3])
 
     with pytest.raises(ValueError):
         func.set_dens_threshold(-1)
+
+def test_lda_compute():
+    inp = np.random.random((compute_test_dim)) 
+    out = np.zeros((compute_test_dim)) 
+
+    func = pylibxc.LibXCFunctional("lda_c_vwn", "unpolarized")
+    func.compute(inp, out)
+    

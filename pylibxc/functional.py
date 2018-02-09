@@ -14,8 +14,7 @@ from . import structs
 
 # Build out a few common tmps
 __ndptr = np.ctypeslib.ndpointer(dtype=np.double, flags=("C", "A"))
-
-__ndptr_w = np.ctypeslib.ndpointer(dtype=np.double, flags=("W", "C", "A"))
+__ndptr_w = np.ctypeslib.ndpointer(dtype=np.double, flags=("W", "C", "A"))  # Writable
 
 __xc_func_p = ctypes.POINTER(structs.xc_func_type)
 __xc_func_info_p = ctypes.POINTER(structs.xc_func_info_type)
@@ -60,16 +59,24 @@ core.xc_func_set_ext_params.argtypes = (__xc_func_p, __ndptr)
 core.xc_func_set_dens_threshold.argtypes = (__xc_func_p, ctypes.c_double)
 
 # LDA computers
-
 core.xc_lda.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr_w, __ndptr_w, __ndptr_w, __ndptr_w)
-core.xc_lda_exc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr_w)
 core.xc_lda_exc_vxc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr_w, __ndptr_w)
+core.xc_lda_exc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr_w)
 core.xc_lda_vxc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr_w)
 core.xc_lda_fxc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr_w)
 core.xc_lda_kxc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr_w)
 
+# GGA computers
+core.xc_gga.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr, *([__ndptr_w] * 10))
+core.xc_gga_exc_vxc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr, *([__ndptr_w] * 3))
+core.xc_gga_exc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr, *([__ndptr_w] * 1))
+core.xc_gga_vxc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr, *([__ndptr_w] * 2))
+core.xc_gga_fxc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr, *([__ndptr_w] * 3))
+core.xc_gga_kxc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr, *([__ndptr_w] * 4))
 
 ### Build LibXCFunctional class
+
+
 def _check_arrays(current_arrays, required, sizes, factor):
     """
     A specialized function built to construct and check the sizes of arrays given to the LibXCFunctional class.
@@ -317,7 +324,6 @@ class LibXCFunctional(object):
 
     def compute(self, inp, output=None, do_exc=True, do_vxc=True, do_fxc=False, do_kxc=False):
 
-
         if isinstance(inp, np.ndarray):
             inp = {"rho": np.asarray(inp, dtype=np.double)}
         elif isinstance(inp, dict):
@@ -330,9 +336,8 @@ class LibXCFunctional(object):
         if (inp["rho"].size % self.__spin):
             raise ValueError("Rho input has an invalid shape, must be divisible by %d" % self.__spin)
 
-
         args = [self.xc_func, ctypes.c_int(npoints)]
-        if self.__kind == flags.XC_FAMILY_LDA:
+        if self.get_family() == flags.XC_FAMILY_LDA:
 
             # Build input args
             required_input = ["rho"]
@@ -370,12 +375,49 @@ class LibXCFunctional(object):
                 args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
                 core.xc_lda_kxc(*args)
 
-        elif self.__kind in [flags.XC_FAMILY_GGA, flags.XC_FAMILY_HYB_GGA]:
-            pass
-        elif self.__kind in [flags.XC_FAMILY_MGGA, flags.XC_FAMILY_HYB_MGGA]:
+        elif self.get_family() in [flags.XC_FAMILY_GGA, flags.XC_FAMILY_HYB_GGA]:
+
+            # Build input args
+            required_input = ["rho", "sigma"]
+            args.extend(_check_arrays(inp, required_input, self.xc_func_sizes, npoints))
+            input_num_args = len(args)
+
+            # Hybrid computers
+            if do_exc and do_vxc and do_fxc and do_kxc:
+                required_fields = [
+                    "zk", "vrho", "vsigma", "v2rho2", "v2rhosigma", "v2sigma2", "v3rho3", "v3rho2sigma", "v3rhosigma2",
+                    "v3sigma3"
+                ]
+                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                core.xc_gga(*args)
+                do_exc = do_vxc = do_fxc = do_kxc = False
+
+            if do_exc and do_vxc:
+                required_fields = ["zk", "vrho", "vsigma"]
+                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                core.xc_gga_exc_vxc(*args)
+                do_exc = do_vxc = False
+
+            # Individual computers
+            if do_exc:
+                required_fields = ["zk"]
+                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                core.xc_gga_exc(*args)
+            if do_vxc:
+                required_fields = ["vrho", "vsigma"]
+                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                core.xc_gga_vxc(*args)
+            if do_fxc:
+                required_fields = ["v2rho2", "v2rhosigma", "v2sigma2"]
+                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                core.xc_gga_fxc(*args)
+            if do_kxc:
+                required_fields = ["v3rho3", "v3rho2sigma", "v3rhosigma2", "v3sigma3"]
+                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                core.xc_gga_kxc(*args)
+        elif self.get_family() in [flags.XC_FAMILY_MGGA, flags.XC_FAMILY_HYB_MGGA]:
             pass
         else:
             raise KeyError("Functional kind not recognized! (%d)" % self.kind)
 
         return {k: v for k, v in zip(required_fields, args[input_num_args:])}
-

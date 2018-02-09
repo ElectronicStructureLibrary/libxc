@@ -74,6 +74,13 @@ core.xc_gga_vxc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr, *([__nd
 core.xc_gga_fxc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr, *([__ndptr_w] * 3))
 core.xc_gga_kxc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr, *([__ndptr_w] * 4))
 
+# MGGA computers
+core.xc_mgga.argtypes = (__xc_func_p, ctypes.c_int, *([__ndptr] * 4), *([__ndptr_w] * 15))
+core.xc_mgga_exc_vxc.argtypes = (__xc_func_p, ctypes.c_int, *([__ndptr] * 4), *([__ndptr_w] * 5))
+core.xc_mgga_exc.argtypes = (__xc_func_p, ctypes.c_int, *([__ndptr] * 4), *([__ndptr_w] * 1))
+core.xc_mgga_vxc.argtypes = (__xc_func_p, ctypes.c_int, *([__ndptr] * 4), *([__ndptr_w] * 4))
+core.xc_mgga_fxc.argtypes = (__xc_func_p, ctypes.c_int, *([__ndptr] * 4), *([__ndptr_w] * 10))
+
 ### Build LibXCFunctional class
 
 
@@ -324,6 +331,7 @@ class LibXCFunctional(object):
 
     def compute(self, inp, output=None, do_exc=True, do_vxc=True, do_fxc=False, do_kxc=False):
 
+        # Parse input
         if isinstance(inp, np.ndarray):
             inp = {"rho": np.asarray(inp, dtype=np.double)}
         elif isinstance(inp, dict):
@@ -336,6 +344,7 @@ class LibXCFunctional(object):
         if (inp["rho"].size % self.__spin):
             raise ValueError("Rho input has an invalid shape, must be divisible by %d" % self.__spin)
 
+        # Find the right compute function
         args = [self.xc_func, ctypes.c_int(npoints)]
         if self.get_family() == flags.XC_FAMILY_LDA:
 
@@ -415,9 +424,55 @@ class LibXCFunctional(object):
                 required_fields = ["v3rho3", "v3rho2sigma", "v3rhosigma2", "v3sigma3"]
                 args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
                 core.xc_gga_kxc(*args)
-        elif self.get_family() in [flags.XC_FAMILY_MGGA, flags.XC_FAMILY_HYB_MGGA]:
-            pass
-        else:
-            raise KeyError("Functional kind not recognized! (%d)" % self.kind)
 
+        elif self.get_family() in [flags.XC_FAMILY_MGGA, flags.XC_FAMILY_HYB_MGGA]:
+            # Build input args
+            required_input = ["rho", "sigma", "lapl", "tau"]
+            args.extend(_check_arrays(inp, required_input, self.xc_func_sizes, npoints))
+            input_num_args = len(args)
+
+            # Hybrid computers
+
+            # Wait until FXC and KXC are available
+            # if do_exc and do_vxc and do_fxc and do_kxc:
+            #     required_fields = [
+            #         "zk", "vrho", "vsigma", "vlapl", "vtau", "v2rho2", "v2sigma2", "v2lapl2", "v2tau2", "v2rhosigma",
+            #         "v2rholapl", "v2rhotau", "v2sigmalapl", "v2sigmatau", "v2lapltau"
+            #     ]
+            #     args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+            #     core.xc_mgga(*args)
+            #     do_exc = do_vxc = do_fxc = do_kxc = False
+
+            if do_exc and do_vxc:
+                required_fields = ["zk", "vrho", "vsigma", "vlapl", "vtau"]
+                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                core.xc_mgga_exc_vxc(*args)
+                do_exc = do_vxc = False
+
+            # Individual computers
+            if do_exc:
+                required_fields = ["zk"]
+                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                core.xc_mgga_exc(*args)
+            if do_vxc:
+                required_fields = ["vrho", "vsigma", "vlapl", "vtau"]
+                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                core.xc_mgga_vxc(*args)
+            if do_fxc:
+                raise KeyError("FXC quantities (2rd derivitives) are not defined for MGGA's! (%d)")
+                # required_fields = [
+                #     "v2rho2", "v2sigma2", "v2lapl2", "v2tau2", "v2rhosigma", "v2rholapl", "v2rhotau", "v2sigmalapl",
+                #     "v2sigmatau", "v2lapltau"
+                # ]
+                # args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                # core.xc_mgga_fxc(*args)
+            if do_kxc:
+                raise KeyError("KXC quantities (3rd derivitives) are not defined for MGGA's! (%d)")
+                # required_fields = ["v3rho3", "v3rho2sigma", "v3rhosigma2", "v3sigma3"]
+                # args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                # core.xc_gga_kxc(*args)
+        else:
+            raise KeyError("Functional kind not recognized! (%d)" % self.get_kind())
+
+        # Return a dictionary
         return {k: v for k, v in zip(required_fields, args[input_num_args:])}

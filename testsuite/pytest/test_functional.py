@@ -146,3 +146,26 @@ def test_gga_compute():
         assert _dict_array_comp(ret_full, ret_v, ["vrho", "vsigma"])
         assert _dict_array_comp(ret_full, ret_f, ["v2rho2", "v2rhosigma", "v2sigma2"])
         assert _dict_array_comp(ret_full, ret_k, ["v3rho3", "v3rho2sigma", "v3rhosigma2", "v3sigma3"])
+
+def test_mgga_compute():
+
+    # Test polarized
+    for polar, ndim in [("unpolarized", (1, 1, 1, 1)), ("polarized", (2, 3, 2, 2))]:
+        inp = {}
+        inp["rho"] = np.random.random((compute_test_dim * ndim[0]))
+        inp["sigma"] = np.random.random((compute_test_dim * ndim[1]))
+        inp["tau"] = np.random.random((compute_test_dim * ndim[3]))
+        inp["lapl"] = np.random.random((compute_test_dim * ndim[3]))
+
+        func = pylibxc.LibXCFunctional("mgga_c_tpss", polar)
+
+        ret_ev = func.compute(inp, do_exc=True, do_vxc=True)
+        ret_e = func.compute(inp, do_exc=True, do_vxc=False)
+        ret_v = func.compute(inp, do_exc=False, do_vxc=True)
+
+        assert ret_ev["zk"].size == compute_test_dim
+        assert ret_ev["vrho"].size == compute_test_dim * ndim[0]
+        assert ret_ev["vsigma"].size == compute_test_dim * ndim[1]
+
+        assert _dict_array_comp(ret_ev, ret_e, ["zk"])
+        assert _dict_array_comp(ret_ev, ret_v, ["vrho", "vsigma", "vtau"])

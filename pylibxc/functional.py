@@ -267,6 +267,9 @@ class LibXCFunctional(object):
         core.xc_func_free(self.xc_func)
 
     def __repr__(self):
+        """
+        Provides a simple string representation with functional name data.
+        """
         return '<%s.%s (%s) object at %s>' % (self.__class__.__module__, self.__class__.__name__, self._xc_func_name,
                                               hex(id(self)))
 

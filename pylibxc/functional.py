@@ -464,8 +464,23 @@ class LibXCFunctional(object):
 
         Examples
         --------
-        >>> pylibxc.util.xc_family_from_id(72)
-        (4, 3)
+
+        # Build functional
+        >>> func = pylibxc.LibXCFunctional("gga_c_pbe", "unpolarized")
+
+        # Create input
+        >>> inp = {}
+        >>> inp["rho"] = np.random.random((3))
+        >>> inp["sigma"] = np.random.random((3))
+
+        # Compute
+        >>> ret = func.compute(inp)
+        >>> for k, v in ret.items():
+        >>>     print(k, v)
+
+        zk [[-0.06782171 -0.05452743 -0.04663709]]
+        vrho [[-0.08349967 -0.0824188  -0.08054892]]
+        vsigma [[ 0.00381277  0.00899967  0.01460601]]
 
         """
 

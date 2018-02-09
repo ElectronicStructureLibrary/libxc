@@ -19,6 +19,9 @@ def _dict_array_comp(test, ref, keys):
     return True
 
 
+_size_tuples = {"unpolarized": (1, 1, 1, 1), "polarized": (2, 3, 2, 2)}
+
+
 def test_libxc_functional_build():
 
     pylibxc.LibXCFunctional(1, 1)
@@ -92,85 +95,113 @@ def test_ext_params():
         func.set_dens_threshold(-1)
 
 
-def test_lda_compute():
+@pytest.mark.parametrize("polar", [("unpolarized"), ("polarized")])
+def test_lda_compute(polar):
 
-    # Test polarized
-    for polar, ndim in [("unpolarized", 1), ("polarized", 2)]:
-        inp = {}
-        inp["rho"] = np.random.random((compute_test_dim * ndim))
+    # Build input
+    ndim = _size_tuples[polar]
+    inp = {}
+    inp["rho"] = np.random.random((compute_test_dim * ndim[0]))
 
-        func = pylibxc.LibXCFunctional("lda_c_vwn", polar)
+    func = pylibxc.LibXCFunctional("lda_c_vwn", polar)
 
-        ret_full = func.compute(inp, do_exc=True, do_vxc=True, do_fxc=True, do_kxc=True)
-        ret_ev = func.compute(inp, do_exc=True, do_vxc=True, do_fxc=False, do_kxc=False)
-        ret_e = func.compute(inp, do_exc=True, do_vxc=False, do_fxc=False, do_kxc=False)
-        ret_v = func.compute(inp, do_exc=False, do_vxc=True, do_fxc=False, do_kxc=False)
-        ret_f = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=True, do_kxc=False)
-        ret_k = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=False, do_kxc=True)
+    # Compute
+    ret_full = func.compute(inp, do_exc=True, do_vxc=True, do_fxc=True, do_kxc=True)
+    ret_ev = func.compute(inp, do_exc=True, do_vxc=True, do_fxc=False, do_kxc=False)
+    ret_e = func.compute(inp, do_exc=True, do_vxc=False, do_fxc=False, do_kxc=False)
+    ret_v = func.compute(inp, do_exc=False, do_vxc=True, do_fxc=False, do_kxc=False)
+    ret_f = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=True, do_kxc=False)
+    ret_k = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=False, do_kxc=True)
 
-        assert ret_full["zk"].size == compute_test_dim
-        assert ret_full["vrho"].size == compute_test_dim * ndim
+    # Test consistency
+    assert ret_full["zk"].size == compute_test_dim
+    assert ret_full["vrho"].size == compute_test_dim * ndim[0]
 
-        assert np.allclose(ret_full["zk"], ret_ev["zk"])
-        assert np.allclose(ret_full["vrho"], ret_ev["vrho"])
+    assert np.allclose(ret_full["zk"], ret_ev["zk"])
+    assert np.allclose(ret_full["vrho"], ret_ev["vrho"])
 
-        assert np.allclose(ret_full["zk"], ret_e["zk"])
-        assert np.allclose(ret_full["vrho"], ret_v["vrho"])
-        assert np.allclose(ret_full["v2rho2"], ret_f["v2rho2"])
-        assert np.allclose(ret_full["v3rho3"], ret_k["v3rho3"])
-
-
-def test_gga_compute():
-
-    # Test polarized
-    for polar, ndim in [("unpolarized", (1, 1)), ("polarized", (2, 3))]:
-        inp = {}
-        inp["rho"] = np.random.random((compute_test_dim * ndim[0]))
-        inp["sigma"] = np.random.random((compute_test_dim * ndim[1]))
-
-        func = pylibxc.LibXCFunctional("gga_c_pbe", polar)
-
-        ret_full = func.compute(inp, do_exc=True, do_vxc=True, do_fxc=True, do_kxc=True)
-        ret_ev = func.compute(inp, do_exc=True, do_vxc=True, do_fxc=False, do_kxc=False)
-        ret_e = func.compute(inp, do_exc=True, do_vxc=False, do_fxc=False, do_kxc=False)
-        ret_v = func.compute(inp, do_exc=False, do_vxc=True, do_fxc=False, do_kxc=False)
-        ret_f = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=True, do_kxc=False)
-        ret_k = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=False, do_kxc=True)
-
-        assert ret_full["zk"].size == compute_test_dim
-        assert ret_full["vrho"].size == compute_test_dim * ndim[0]
-        assert ret_full["vsigma"].size == compute_test_dim * ndim[1]
-
-        assert _dict_array_comp(ret_full, ret_ev, ["zk", "vrho", "vsigma"])
-
-        assert _dict_array_comp(ret_full, ret_e, ["zk"])
-        assert _dict_array_comp(ret_full, ret_v, ["vrho", "vsigma"])
-        assert _dict_array_comp(ret_full, ret_f, ["v2rho2", "v2rhosigma", "v2sigma2"])
-        assert _dict_array_comp(ret_full, ret_k, ["v3rho3", "v3rho2sigma", "v3rhosigma2", "v3sigma3"])
+    assert np.allclose(ret_full["zk"], ret_e["zk"])
+    assert np.allclose(ret_full["vrho"], ret_v["vrho"])
+    assert np.allclose(ret_full["v2rho2"], ret_f["v2rho2"])
+    assert np.allclose(ret_full["v3rho3"], ret_k["v3rho3"])
 
 
-def test_mgga_compute():
+@pytest.mark.parametrize("polar", [("unpolarized"), ("polarized")])
+def test_gga_compute(polar):
 
-    # Test polarized
-    for polar, ndim in [("unpolarized", (1, 1, 1, 1)), ("polarized", (2, 3, 2, 2))]:
-        inp = {}
-        inp["rho"] = np.random.random((compute_test_dim * ndim[0]))
-        inp["sigma"] = np.random.random((compute_test_dim * ndim[1]))
-        inp["tau"] = np.random.random((compute_test_dim * ndim[3]))
-        inp["lapl"] = np.random.random((compute_test_dim * ndim[3]))
+    # Build input
+    ndim = _size_tuples[polar]
+    inp = {}
+    inp["rho"] = np.random.random((compute_test_dim * ndim[0]))
+    inp["sigma"] = np.random.random((compute_test_dim * ndim[1]))
 
-        func = pylibxc.LibXCFunctional("mgga_c_tpss", polar)
+    # Compute
+    func = pylibxc.LibXCFunctional("gga_c_pbe", polar)
 
-        ret_ev = func.compute(inp, do_exc=True, do_vxc=True)
-        ret_e = func.compute(inp, do_exc=True, do_vxc=False)
-        ret_v = func.compute(inp, do_exc=False, do_vxc=True)
+    ret_full = func.compute(inp, do_exc=True, do_vxc=True, do_fxc=True, do_kxc=True)
+    ret_ev = func.compute(inp, do_exc=True, do_vxc=True, do_fxc=False, do_kxc=False)
+    ret_e = func.compute(inp, do_exc=True, do_vxc=False, do_fxc=False, do_kxc=False)
+    ret_v = func.compute(inp, do_exc=False, do_vxc=True, do_fxc=False, do_kxc=False)
+    ret_f = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=True, do_kxc=False)
+    ret_k = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=False, do_kxc=True)
 
-        assert ret_ev["zk"].size == compute_test_dim
-        assert ret_ev["vrho"].size == compute_test_dim * ndim[0]
-        assert ret_ev["vsigma"].size == compute_test_dim * ndim[1]
+    # Test consistency
+    assert ret_full["zk"].size == compute_test_dim
+    assert ret_full["vrho"].size == compute_test_dim * ndim[0]
+    assert ret_full["vsigma"].size == compute_test_dim * ndim[1]
 
-        assert _dict_array_comp(ret_ev, ret_e, ["zk"])
-        assert _dict_array_comp(ret_ev, ret_v, ["vrho", "vsigma", "vtau"])
+    assert _dict_array_comp(ret_full, ret_ev, ["zk", "vrho", "vsigma"])
+
+    assert _dict_array_comp(ret_full, ret_e, ["zk"])
+    assert _dict_array_comp(ret_full, ret_v, ["vrho", "vsigma"])
+    assert _dict_array_comp(ret_full, ret_f, ["v2rho2", "v2rhosigma", "v2sigma2"])
+    assert _dict_array_comp(ret_full, ret_k, ["v3rho3", "v3rho2sigma", "v3rhosigma2", "v3sigma3"])
+
+
+@pytest.mark.parametrize("polar", [("unpolarized"), ("polarized")])
+def test_mgga_compute(polar):
+
+    # Build input
+    ndim = _size_tuples[polar]
+
+    inp = {}
+    inp["rho"] = np.random.random((compute_test_dim * ndim[0]))
+    inp["sigma"] = np.random.random((compute_test_dim * ndim[1]))
+    inp["tau"] = np.random.random((compute_test_dim * ndim[3]))
+    inp["lapl"] = np.random.random((compute_test_dim * ndim[3]))
+
+    # Compute
+    func = pylibxc.LibXCFunctional("mgga_c_tpss", polar)
+
+    # Test consistency
+    ret_ev = func.compute(inp, do_exc=True, do_vxc=True)
+    ret_e = func.compute(inp, do_exc=True, do_vxc=False)
+    ret_v = func.compute(inp, do_exc=False, do_vxc=True)
+
+    assert ret_ev["zk"].size == compute_test_dim
+    assert ret_ev["vrho"].size == compute_test_dim * ndim[0]
+    assert ret_ev["vsigma"].size == compute_test_dim * ndim[1]
+
+    assert _dict_array_comp(ret_ev, ret_e, ["zk"])
+    assert _dict_array_comp(ret_ev, ret_v, ["vrho", "vsigma", "vtau"])
+
+
+@pytest.mark.parametrize("polar", [("unpolarized"), ("polarized")])
+def test_deriv_flags(polar):
+    func = pylibxc.LibXCFunctional("mgga_c_tpss", polar)
+
+    ndim = _size_tuples[polar]
+    inp = {}
+    inp["rho"] = np.random.random((compute_test_dim * ndim[0]))
+    inp["sigma"] = np.random.random((compute_test_dim * ndim[1]))
+    inp["tau"] = np.random.random((compute_test_dim * ndim[3]))
+    inp["lapl"] = np.random.random((compute_test_dim * ndim[3]))
+
+    with pytest.raises(ValueError):
+        func.compute(inp, do_fxc=True)
+
+    with pytest.raises(ValueError):
+        func.compute(inp, do_fxc=True)
 
 
 def test_hyb_getters():
@@ -196,6 +227,7 @@ def test_cam_getters():
 
     with pytest.raises(ValueError):
         func.get_vv10_coef()
+
 
 def test_vv10_getters():
 

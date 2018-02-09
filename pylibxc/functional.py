@@ -131,8 +131,21 @@ class LibXCFunctional(object):
 
         Examples
         --------
-        >>> pylibxc.util.xc_family_from_id(72)
-        (4, 3)
+        # Build functional
+        >>> func = pylibxc.LibXCFunctional("gga_c_pbe", "unpolarized")
+        >>> print(func)
+        <pylibxc.functional.LibXCFunctional (gga_c_pbe) object at 0x10544e048>
+
+        >>> func.describe()
+        Functional ID: 130
+        Functional Name: gga_c_pbe
+        Attributes:
+            Name: Perdew, Burke & Ernzerhof
+            Kind: 1
+          Family: 2
+        Citations:
+           J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)
+           J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev. Lett. 78, 1396 (1997)
 
         """
         self.xc_func = None
@@ -149,6 +162,8 @@ class LibXCFunctional(object):
                 raise KeyError("LibXC Functional ID '%d' not found." % func_name)
         else:
             raise TypeError("func_name must either be a string or int.")
+
+        self._xc_func_name = util.xc_functional_get_name(func_id)
 
         # Handle spin
         if isinstance(spin, str):
@@ -250,6 +265,28 @@ class LibXCFunctional(object):
             core.xc_func_end(self.xc_func)
 
         core.xc_func_free(self.xc_func)
+
+    def __repr__(self):
+        return '<%s.%s (%s) object at %s>' % (self.__class__.__module__, self.__class__.__name__, self._xc_func_name,
+                                              hex(id(self)))
+
+    def describe(self):
+        """
+        Prints out a short description of the functional
+        """
+
+        ret = []
+        ret.append("Functional ID: %s" % self._number)
+        ret.append("Functional Name: %s" % self._xc_func_name)
+        ret.append("Attributes:")
+        ret.append("    Name: %s" % self._name)
+        ret.append("    Kind: %d" % self._kind)
+        ret.append("  Family: %d" % self._family)
+        ret.append("Citations:")
+        for x in self._refs:
+            ret.append("   " + x)
+
+        return "\n".join(ret)
 
     ### Getters
 

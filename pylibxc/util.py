@@ -173,6 +173,7 @@ def xc_available_functional_numbers():
     """
     Returns a list of all available XC functional IDs
 
+
     Returns
     -------
     functional_ids : list of ints
@@ -210,3 +211,4 @@ def xc_available_functional_names():
 
     func_ids = xc_available_functional_numbers()
     return [xc_functional_get_name(x) for x in func_ids]
+

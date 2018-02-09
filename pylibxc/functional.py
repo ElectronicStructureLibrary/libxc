@@ -13,9 +13,9 @@ from . import structs
 ### Bind required ctypes
 
 # Build out a few common tmps
-__ndptr = np.ctypeslib.ndpointer(dtype=np.double, ndim=1, flags=("C", "A"))
+__ndptr = np.ctypeslib.ndpointer(dtype=np.double, flags=("C", "A"))
 
-__ndptr_w = np.ctypeslib.ndpointer(dtype=np.double, ndim=1, flags=("W", "C", "A"))
+__ndptr_w = np.ctypeslib.ndpointer(dtype=np.double, flags=("W", "C", "A"))
 
 __xc_func_p = ctypes.POINTER(structs.xc_func_type)
 __xc_func_info_p = ctypes.POINTER(structs.xc_func_info_type)
@@ -61,21 +61,41 @@ core.xc_func_set_dens_threshold.argtypes = (__xc_func_p, ctypes.c_double)
 
 # LDA computers
 
+core.xc_lda.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr_w, __ndptr_w, __ndptr_w, __ndptr_w)
 core.xc_lda_exc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr_w)
+core.xc_lda_exc_vxc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr_w, __ndptr_w)
+core.xc_lda_vxc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr_w)
+core.xc_lda_fxc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr_w)
+core.xc_lda_kxc.argtypes = (__xc_func_p, ctypes.c_int, __ndptr, __ndptr_w)
 
-# core.xc_lda_exc.argtypes = [__xc_func_p,
-#                            ctypes.c_int,
-#                            np.ctypeslib.ndpointer(dtype=np.double, ndim=1, flags=("C", "A"), ),
-#                            np.ctypeslib.ndpointer(dtype=np.double, ndim=1, flags=("W", "C", "A"))
-#                           ]
-# void xc_lda        (const xc_func_type *p, int np, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3);
-# void xc_lda_exc    (const xc_func_type *p, int np, const double *rho, double *zk);
-# void xc_lda_exc_vxc(const xc_func_type *p, int np, const double *rho, double *zk, double *vrho);
-# void xc_lda_vxc    (const xc_func_type *p, int np, const double *rho, double *vrho);
-# void xc_lda_fxc    (const xc_func_type *p, int np, const double *rho, double *v2rho2);
-# void xc_lda_kxc    (const xc_func_type *p, int np, const double *rho, double *v3rho3);
 
 ### Build LibXCFunctional class
+def _check_arrays(current_arrays, required, sizes, factor):
+    """
+    A specialized function built to construct and check the sizes of arrays given to the LibXCFunctional class.
+    """
+
+    # Nothing supplied so we build it out
+    if current_arrays is None:
+        current_arrays = {}
+        for label in required:
+            size = sizes["n_" + label]
+            current_arrays[label] = np.zeros((size, factor))
+
+    # Supplied arrays, check sizes
+    else:
+        missing = set(required) - set(current_arrays)
+        if len(missing):
+            raise KeyError("Missing the following output arrays: %s" % ", ".join(missing))
+
+        for label in required:
+            size = sizes["n_" + label] * factor
+            if size != current_arrays[label].size:
+                raise ValueError("Supplied output array '%s' does not have the correct shape number of points by %d" %
+                                 (label, size))
+
+    ret = [current_arrays[x] for x in required]
+    return ret
 
 
 class LibXCFunctional(object):
@@ -122,14 +142,16 @@ class LibXCFunctional(object):
         if isinstance(spin, str):
             spin = spin.lower()
             if spin == "polarized":
-                spin = 2
+                self.__spin = 2
             elif spin == "unpolarized":
-                spin = 1
+                self.__spin = 1
             else:
                 raise KeyError("Spin must either be 'polarized' or 'unpolarized' if represented by a string.")
+        else:
+            self.__spin = spin
 
-        if spin not in [1, 2]:
-            raise KeyError("Spin must either be 0 or 1 if represented by a integer.")
+        if self.__spin not in [1, 2]:
+            raise KeyError("Spin must either be 1 or 2 if represented by a integer.")
 
         # Build the LibXC functional
         self.xc_func = core.xc_func_alloc()
@@ -137,9 +159,9 @@ class LibXCFunctional(object):
 
         # Set all int attributes to zero
         for attr in self.xc_func_size_names:
-            setattr(self.xc_func, attr, 0)
+            setattr(self.xc_func.contents, attr, 0)
 
-        ret = core.xc_func_init(self.xc_func, func_id, spin)
+        ret = core.xc_func_init(self.xc_func, func_id, self.__spin)
         if ret != 0:
             raise ValueError("LibXC Functional construction did not complete. Error code %d" % ret)
         self._xc_func_init = True
@@ -147,7 +169,7 @@ class LibXCFunctional(object):
         # Pull out all sizes
         self.xc_func_sizes = {}
         for attr in self.xc_func_size_names:
-            self.xc_func_sizes[attr] = getattr(self.xc_func, attr)
+            self.xc_func_sizes[attr] = getattr(self.xc_func.contents, attr)
 
         # Unpack functional info
         self.xc_func_info = core.xc_func_get_info(self.xc_func)
@@ -293,9 +315,67 @@ class LibXCFunctional(object):
 
         core.xc_func_set_dens_threshold(self.xc_func, ctypes.c_double(dens_threshold))
 
-    def compute(self, inp, output):
-
-        core.xc_lda_exc(self.xc_func, inp.shape[0], inp, output)
+    def compute(self, inp, output=None, do_exc=True, do_vxc=True, do_fxc=False, do_kxc=False):
 
 
-# void xc_func_set_dens_threshold(xc_func_type *p, double dens_threshold);
+        if isinstance(inp, np.ndarray):
+            inp = {"rho": np.asarray(inp, dtype=np.double)}
+        elif isinstance(inp, dict):
+            inp = {k: np.asarray(v, dtype=np.double) for k, v in inp.items()}
+        else:
+            raise KeyError("Input must have a 'rho' variable or a single array.")
+
+        # How long are we?
+        npoints = int(inp["rho"].size / self.__spin)
+        if (inp["rho"].size % self.__spin):
+            raise ValueError("Rho input has an invalid shape, must be divisible by %d" % self.__spin)
+
+
+        args = [self.xc_func, ctypes.c_int(npoints)]
+        if self.__kind == flags.XC_FAMILY_LDA:
+
+            # Build input args
+            required_input = ["rho"]
+            args.extend(_check_arrays(inp, required_input, self.xc_func_sizes, npoints))
+            input_num_args = len(args)
+
+            # Hybrid computers
+            if do_exc and do_vxc and do_fxc and do_kxc:
+                required_fields = ["zk", "vrho", "v2rho2", "v3rho3"]
+                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                core.xc_lda(*args)
+                do_exc = do_vxc = do_fxc = do_kxc = False
+
+            if do_exc and do_vxc:
+                required_fields = ["zk", "vrho"]
+                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                core.xc_lda_exc_vxc(*args)
+                do_exc = do_vxc = False
+
+            # Individual computers
+            if do_exc:
+                required_fields = ["zk"]
+                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                core.xc_lda_exc(*args)
+            if do_vxc:
+                required_fields = ["vrho"]
+                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                core.xc_lda_vxc(*args)
+            if do_fxc:
+                required_fields = ["v2rho2"]
+                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                core.xc_lda_fxc(*args)
+            if do_kxc:
+                required_fields = ["v3rho3"]
+                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
+                core.xc_lda_kxc(*args)
+
+        elif self.__kind in [flags.XC_FAMILY_GGA, flags.XC_FAMILY_HYB_GGA]:
+            pass
+        elif self.__kind in [flags.XC_FAMILY_MGGA, flags.XC_FAMILY_HYB_MGGA]:
+            pass
+        else:
+            raise KeyError("Functional kind not recognized! (%d)" % self.kind)
+
+        return {k: v for k, v in zip(required_fields, args[input_num_args:])}
+

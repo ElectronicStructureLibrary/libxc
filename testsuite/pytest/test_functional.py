@@ -82,9 +82,29 @@ def test_ext_params():
         func.set_dens_threshold(-1)
 
 def test_lda_compute():
-    inp = np.random.random((compute_test_dim)) 
-    out = np.zeros((compute_test_dim)) 
 
-    func = pylibxc.LibXCFunctional("lda_c_vwn", "unpolarized")
-    func.compute(inp, out)
-    
+    # Test polarized
+    for polar, ndim in [("unpolarized", 1), ("polarized", 2)]:
+        inp = {}
+        inp["rho"] = np.random.random((compute_test_dim * ndim))
+
+        func = pylibxc.LibXCFunctional("lda_c_vwn", polar)
+
+        ret_full = func.compute(inp, do_exc=True, do_vxc=True, do_fxc=True, do_kxc=True)
+        ret_ev = func.compute(inp, do_exc=True, do_vxc=True, do_fxc=False, do_kxc=False)
+        ret_e = func.compute(inp, do_exc=True, do_vxc=False, do_fxc=False, do_kxc=False)
+        ret_v = func.compute(inp, do_exc=False, do_vxc=True, do_fxc=False, do_kxc=False)
+        ret_f = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=True, do_kxc=False)
+        ret_k = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=False, do_kxc=True)
+
+        assert ret_full["zk"].size == compute_test_dim
+        assert ret_full["vrho"].size == compute_test_dim * ndim
+
+        assert np.allclose(ret_full["zk"], ret_ev["zk"])
+        assert np.allclose(ret_full["vrho"], ret_ev["vrho"])
+
+        assert np.allclose(ret_full["zk"], ret_e["zk"])
+        assert np.allclose(ret_full["vrho"], ret_v["vrho"])
+        assert np.allclose(ret_full["v2rho2"], ret_f["v2rho2"])
+        assert np.allclose(ret_full["v3rho3"], ret_k["v3rho3"])
+

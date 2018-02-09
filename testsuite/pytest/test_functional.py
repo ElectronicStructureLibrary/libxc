@@ -11,6 +11,7 @@ compute_test_dim = 5
 
 np.random.seed(0)
 
+
 def _dict_array_comp(test, ref, keys):
     for key in keys:
         tmp = np.testing.assert_allclose(test[key], ref[key])
@@ -147,6 +148,7 @@ def test_gga_compute():
         assert _dict_array_comp(ret_full, ret_f, ["v2rho2", "v2rhosigma", "v2sigma2"])
         assert _dict_array_comp(ret_full, ret_k, ["v3rho3", "v3rho2sigma", "v3rhosigma2", "v3sigma3"])
 
+
 def test_mgga_compute():
 
     # Test polarized
@@ -169,3 +171,42 @@ def test_mgga_compute():
 
         assert _dict_array_comp(ret_ev, ret_e, ["zk"])
         assert _dict_array_comp(ret_ev, ret_v, ["vrho", "vsigma", "vtau"])
+
+
+def test_hyb_getters():
+
+    func = pylibxc.LibXCFunctional("hyb_gga_xc_b3lyp", "unpolarized")
+    assert pytest.approx(0.2) == func.get_hyb_exx_coef()
+
+    with pytest.raises(ValueError):
+        func.get_cam_coef()
+    with pytest.raises(ValueError):
+        func.get_vv10_coef()
+
+
+def test_cam_getters():
+
+    func = pylibxc.LibXCFunctional("hyb_gga_xc_cam_b3lyp", "unpolarized")
+    assert pytest.approx(0.65) == func.get_hyb_exx_coef()
+
+    omega, alpha, beta = func.get_cam_coef()
+    assert pytest.approx(0.33) == omega
+    assert pytest.approx(0.65) == alpha
+    assert pytest.approx(-0.46) == beta
+
+    with pytest.raises(ValueError):
+        func.get_vv10_coef()
+
+def test_vv10_getters():
+
+    func = pylibxc.LibXCFunctional("gga_xc_vv10", "unpolarized")
+
+    b, C = func.get_vv10_coef()
+    assert pytest.approx(5.9) == b
+    assert pytest.approx(0.0093) == C
+
+    with pytest.raises(ValueError):
+        func.get_cam_coef()
+
+    with pytest.raises(ValueError):
+        func.get_hyb_exx_coef()

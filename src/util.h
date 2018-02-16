@@ -312,29 +312,7 @@ typedef struct xc_mgga_work_c_t {
 } xc_mgga_work_c_t;
 
 
-/* now the routines to set the _internal_ parameters of several functionals */
-void xc_gga_x_pw91_set_params(xc_func_type *p, double a, double b, double c, double d, double f, double alpha, double expo);
-void xc_gga_x_pw91_set_params2(xc_func_type *p, double bt, double alpha, double expo);
-void xc_gga_x_ssb_sw_set_params(xc_func_type *p, double A, double B, double C, double D, double E);
-void xc_gga_x_hjs_set_params(xc_func_type *p, double omega);
-void xc_gga_x_hjs_b88_v2_set_params(xc_func_type *p, double omega);
-void xc_gga_x_b88_set_params(xc_func_type *p, double beta, double gamma);
-void xc_gga_x_optx_set_params(xc_func_type *p, double a, double b, double gamma);
-void xc_gga_x_wpbeh_set_params(xc_func_type *p, double omega);
-void xc_gga_x_pbe_set_params(xc_func_type *p, double kappa, double mu);
-void xc_gga_x_pbeint_set_params(xc_func_type *p, double kappa, double alpha, double muPBE, double muGE);
-void xc_gga_x_ityh_set_params(xc_func_type *p, int func_id, double omega);
-void xc_gga_x_b86_set_params(xc_func_type *p, double beta, double gamma, double omega);
-void xc_gga_x_rpbe_set_params(xc_func_type *p, double kappa, double mu);
-void xc_gga_x_sfat_set_params(xc_func_type *p, int func_id, double omega);
-void xc_gga_x_kt_set_params(xc_func_type *p, double gamma, double delta);
-void xc_gga_c_lyp_set_params(xc_func_type *p, double A, double B, double c, double d);
-void xc_gga_c_pbe_set_params(xc_func_type *p, double beta);
-
-void xc_mgga_x_tpss_set_params(xc_func_type *p, double b, double c, double e, double kappa, double mu, double BLOC_a, double BLOC_b);
-void xc_mgga_c_tpss_set_params(xc_func_type *p, double beta, double d, double C0_0, double C0_1, double C0_2, double C0_3);
-void xc_mgga_c_pkzb_set_params(xc_func_type *p, double beta, double d, double C0_0, double C0_1, double C0_2, double C0_3);
-void xc_mgga_c_bc95_set_params(xc_func_type *p, double css, double copp);
+void xc_mgga_x_scan_falpha(int order, double a, double c1, double c2, double dd, double *f, double *dfda);
 
 /* useful MACROS */
 #define DFRACTION(num, dnum, den, dden) \

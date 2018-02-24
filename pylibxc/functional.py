@@ -58,28 +58,40 @@ core.xc_func_set_ext_params.argtypes = (_xc_func_p, _ndptr)
 
 core.xc_func_set_dens_threshold.argtypes = (_xc_func_p, ctypes.c_double)
 
+
+# Bind computers
+def _build_comute_argtype(num_nd, num_nd_write):
+    """
+    Small function to build the correct argtypes for the LibXC computers
+    """
+    ret = [_xc_func_p, ctypes.c_int]
+    ret += [_ndptr] * num_nd
+    ret += [_ndptr_w] * num_nd_write
+    return tuple(ret)
+
+
 # LDA computers
-core.xc_lda.argtypes = (_xc_func_p, ctypes.c_int, _ndptr, _ndptr_w, _ndptr_w, _ndptr_w, _ndptr_w)
-core.xc_lda_exc_vxc.argtypes = (_xc_func_p, ctypes.c_int, _ndptr, _ndptr_w, _ndptr_w)
-core.xc_lda_exc.argtypes = (_xc_func_p, ctypes.c_int, _ndptr, _ndptr_w)
-core.xc_lda_vxc.argtypes = (_xc_func_p, ctypes.c_int, _ndptr, _ndptr_w)
-core.xc_lda_fxc.argtypes = (_xc_func_p, ctypes.c_int, _ndptr, _ndptr_w)
-core.xc_lda_kxc.argtypes = (_xc_func_p, ctypes.c_int, _ndptr, _ndptr_w)
+core.xc_lda.argtypes = _build_comute_argtype(1, 4)
+core.xc_lda_exc_vxc.argtypes = _build_comute_argtype(1, 2)
+core.xc_lda_exc.argtypes = _build_comute_argtype(1, 1)
+core.xc_lda_vxc.argtypes = _build_comute_argtype(1, 1)
+core.xc_lda_fxc.argtypes = _build_comute_argtype(1, 1)
+core.xc_lda_kxc.argtypes = _build_comute_argtype(1, 1)
 
 # GGA computers
-core.xc_gga.argtypes = (_xc_func_p, ctypes.c_int, _ndptr, _ndptr, *([_ndptr_w] * 10))
-core.xc_gga_exc_vxc.argtypes = (_xc_func_p, ctypes.c_int, _ndptr, _ndptr, *([_ndptr_w] * 3))
-core.xc_gga_exc.argtypes = (_xc_func_p, ctypes.c_int, _ndptr, _ndptr, *([_ndptr_w] * 1))
-core.xc_gga_vxc.argtypes = (_xc_func_p, ctypes.c_int, _ndptr, _ndptr, *([_ndptr_w] * 2))
-core.xc_gga_fxc.argtypes = (_xc_func_p, ctypes.c_int, _ndptr, _ndptr, *([_ndptr_w] * 3))
-core.xc_gga_kxc.argtypes = (_xc_func_p, ctypes.c_int, _ndptr, _ndptr, *([_ndptr_w] * 4))
+core.xc_gga.argtypes = _build_comute_argtype(2, 10)
+core.xc_gga_exc_vxc.argtypes = _build_comute_argtype(2, 3)
+core.xc_gga_exc.argtypes = _build_comute_argtype(2, 1)
+core.xc_gga_vxc.argtypes = _build_comute_argtype(2, 2)
+core.xc_gga_fxc.argtypes = _build_comute_argtype(2, 3)
+core.xc_gga_kxc.argtypes = _build_comute_argtype(2, 4)
 
 # MGGA computers
-core.xc_mgga.argtypes = (_xc_func_p, ctypes.c_int, *([_ndptr] * 4), *([_ndptr_w] * 15))
-core.xc_mgga_exc_vxc.argtypes = (_xc_func_p, ctypes.c_int, *([_ndptr] * 4), *([_ndptr_w] * 5))
-core.xc_mgga_exc.argtypes = (_xc_func_p, ctypes.c_int, *([_ndptr] * 4), *([_ndptr_w] * 1))
-core.xc_mgga_vxc.argtypes = (_xc_func_p, ctypes.c_int, *([_ndptr] * 4), *([_ndptr_w] * 4))
-core.xc_mgga_fxc.argtypes = (_xc_func_p, ctypes.c_int, *([_ndptr] * 4), *([_ndptr_w] * 10))
+core.xc_mgga.argtypes = _build_comute_argtype(4, 15)
+core.xc_mgga_exc_vxc.argtypes = _build_comute_argtype(4, 5)
+core.xc_mgga_exc.argtypes = _build_comute_argtype(4, 1)
+core.xc_mgga_vxc.argtypes = _build_comute_argtype(4, 4)
+core.xc_mgga_fxc.argtypes = _build_comute_argtype(4, 10)
 
 ### Build LibXCFunctional class
 

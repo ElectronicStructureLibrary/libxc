@@ -168,7 +168,6 @@ def test_mgga_compute(polar):
     inp["rho"] = np.random.random((compute_test_dim * ndim[0]))
     inp["sigma"] = np.random.random((compute_test_dim * ndim[1]))
     inp["tau"] = np.random.random((compute_test_dim * ndim[3]))
-    inp["lapl"] = np.random.random((compute_test_dim * ndim[3]))
 
     # Compute
     func = pylibxc.LibXCFunctional("mgga_c_tpss", polar)
@@ -184,6 +183,39 @@ def test_mgga_compute(polar):
 
     assert _dict_array_comp(ret_ev, ret_e, ["zk"])
     assert _dict_array_comp(ret_ev, ret_v, ["vrho", "vsigma", "vtau"])
+
+
+@pytest.mark.parametrize("polar", [("unpolarized"), ("polarized")])
+def test_mgga_lapl_compute(polar):
+
+    # Build input
+    ndim = _size_tuples[polar]
+
+    inp = {}
+    inp["rho"] = np.random.random((compute_test_dim * ndim[0]))
+    inp["sigma"] = np.random.random((compute_test_dim * ndim[1]))
+    inp["tau"] = np.random.random((compute_test_dim * ndim[3]))
+    inp["lapl"] = np.random.random((compute_test_dim * ndim[3]))
+
+    # Compute
+    func = pylibxc.LibXCFunctional("mgga_x_br89", polar)
+
+    # Test consistency
+    ret_ev = func.compute(inp, do_exc=True, do_vxc=True)
+    ret_e = func.compute(inp, do_exc=True, do_vxc=False)
+    ret_v = func.compute(inp, do_exc=False, do_vxc=True)
+
+    assert ret_ev["zk"].size == compute_test_dim
+    assert ret_ev["vrho"].size == compute_test_dim * ndim[0]
+    assert ret_ev["vsigma"].size == compute_test_dim * ndim[1]
+
+    assert _dict_array_comp(ret_ev, ret_e, ["zk"])
+    assert _dict_array_comp(ret_ev, ret_v, ["vrho", "vsigma", "vtau"])
+
+    # Test exception
+    del inp["lapl"]
+    with pytest.raises(KeyError):
+        func.compute(inp, do_exc=True, do_vxc=True)
 
 
 @pytest.mark.parametrize("polar", [("unpolarized"), ("polarized")])

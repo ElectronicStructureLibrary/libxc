@@ -218,6 +218,9 @@ class LibXCFunctional(object):
         self._family = core.xc_func_info_get_family(self.xc_func_info)
         self._flags = core.xc_func_info_get_flags(self.xc_func_info)
 
+        # Set needed flags
+        self._needs_laplacian = self._flags & flags.XC_FLAGS_NEEDS_LAPLACIAN
+
         # Set derivatives
         self._have_exc = self._flags & flags.XC_FLAGS_HAVE_EXC
         self._have_vxc = self._flags & flags.XC_FLAGS_HAVE_VXC
@@ -642,8 +645,13 @@ class LibXCFunctional(object):
 
         elif self.get_family() in [flags.XC_FAMILY_MGGA, flags.XC_FAMILY_HYB_MGGA]:
             # Build input args
-            required_input = ["rho", "sigma", "lapl", "tau"]
-            args.extend(_check_arrays(inp, required_input, self.xc_func_sizes, npoints))
+            if self._needs_laplacian:
+                required_input = ["rho", "sigma", "lapl", "tau"]
+                args.extend(_check_arrays(inp, required_input, self.xc_func_sizes, npoints))
+            else:
+                required_input = ["rho", "sigma", "tau"]
+                args.extend(_check_arrays(inp, required_input, self.xc_func_sizes, npoints))
+                args.insert(-1, np.empty((1)))  # Add none ptr to laplacian
             input_num_args = len(args)
 
             # Hybrid computers

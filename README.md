@@ -76,6 +76,36 @@ After `find_package(Libxc ...)`,
 * compile target applying `-DUSING_Libxc` definition using `target_compile_definitions(mytarget PRIVATE $<TARGET_PROPERTY:Libxc::xc,INTERFACE_COMPILE_DEFINITIONS>)`
 
 
+#### Python Library
+
+Optional Python bindings are available through the cytpes module. To install
+into Python site-packages plese run:
+`python setup.py install`
+
+or, to install locally for development:
+`python setup.py develop`
+
+The Python bindings require the CMake compilation pathway and the Python
+Numerical Python library. A short usage example is provided below:
+```python
+# Build functional
+>>> func = pylibxc.LibXCFunctional("gga_c_pbe", "unpolarized")
+
+# Create input
+>>> inp = {}
+>>> inp["rho"] = np.random.random((3))
+>>> inp["sigma"] = np.random.random((3))
+
+# Compute
+>>> ret = func.compute(inp)
+>>> for k, v in ret.items():
+>>>     print(k, v)
+
+zk [[-0.06782171 -0.05452743 -0.04663709]]
+vrho [[-0.08349967 -0.0824188  -0.08054892]]
+vsigma [[ 0.00381277  0.00899967  0.01460601]]
+```
+
 ## FILE ORGANIZATION
 
 The distribution is organized as follows

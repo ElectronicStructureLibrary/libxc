@@ -2092,3 +2092,10 @@ func_reference_type xc_ref_Proynov2017_059904 = {
 };
 
 
+func_reference_type xc_ref_Mezei2018 = {
+  "P. D. Mezei, G. I. Csonka, and M. Kállay, J. Chem. Theory Comput. 0, null (0)",
+  "10.1021/acs.jctc.8b00072",
+  "@article{Mezei2018,\nauthor = {Mezei, Pál D. and Csonka, Gábor I. and Kállay, Mihály},\ntitle = {Simple Modifications of the SCAN Meta-Generalized Gradient Approximation Functional},\njournal = {Journal of Chemical Theory and Computation},\nvolume = {0},\nnumber = {0},\npages = {null},\nyear = {0},\ndoi = {10.1021/acs.jctc.8b00072},\nURL = {https://doi.org/10.1021/acs.jctc.8b00072}\n}"
+};
+
+

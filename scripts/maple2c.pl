@@ -324,7 +324,7 @@ $c_code
 }
 
 #define maple2c_order $max_order
-#define maple2c_func  xc_(${functional}_enhance
+#define maple2c_func  xc_${functional}_enhance
 ";
 }
 

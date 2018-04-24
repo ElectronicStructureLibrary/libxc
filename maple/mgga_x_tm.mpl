@@ -17,11 +17,20 @@ fx_DME := (x, t) -> 1/f0(x)^2 + 7*R(x, t)/(9*f0(x)^4):
 malpha := (x, t) -> (t - x^2/8)/K_FACTOR_C:
 qtilde := (x, t) -> 9/20*(malpha(x, t) - 1) + 2*X2S^2*x^2/3:
 
-fx_SC  := (x, t) -> (1 + 10*( \
+fx_SC_aux := (x, t) -> (1 + 10*( \
        + (MU_GE + 50*X2S^2*x^2/729)*X2S^2*x^2 \
        + 146*qtilde(x, t)^2/2025 \
-       - 73*qtilde(x,t)/405*(3*K_FACTOR_C/(5*t))*(1 - K_FACTOR_C/t)) \
-       )^(1/10):
+       - 73*qtilde(x,t)/405*(3*K_FACTOR_C/(5*t))*(1 - K_FACTOR_C/t))
+       ):
+
+(* It turns out that the quantity fx_SC_aux can become negative, leading to NaN.
+   this appears, for example, for the following densities
+
+   ./xc-get_data 540 1 729.292719352103 0 365940004.708665 0 0 -970050.160877395 0 64600.7149099035 0
+
+   As a turn around, I demand that the function is always larger than 1e-16
+*)
+fx_SC  := (x, t) -> m_max(fx_SC_aux(x,t), 1e-16)^(0.1):
 
 w := t-> (K_FACTOR_C^2/t^2 + 3*K_FACTOR_C^3/t^3)/(1 + K_FACTOR_C^3/t^3)^2:
 

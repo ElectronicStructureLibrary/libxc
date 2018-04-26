@@ -12,6 +12,7 @@
 #define XC_MGGA_X_SCAN          263 /* SCAN exchange of Sun, Ruzsinszky, and Perdew  */
 #define XC_HYB_MGGA_X_SCAN0     264 /* SCAN hybrid exchange */
 #define XC_MGGA_X_REVSCAN       581 /* revised SCAN */
+#define XC_HYB_MGGA_X_REVSCAN   583 /* revised SCAN hybrid exchange */
 
 typedef struct{
   double c1, c2, d, k1;
@@ -93,6 +94,31 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_scan0 = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32,
   0, NULL, NULL,
-  hyb_mgga_x_scan0_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_mgga_x_scan0_init, NULL,
+  NULL, NULL, NULL /* this is taken care of by the generic routine */
+};
+
+
+static void
+hyb_mgga_x_revscan0_init(xc_func_type *p)
+{
+  static int   funcs_id  [1] = {XC_MGGA_X_REVSCAN};
+  static double funcs_coef[1] = {1.0 - 0.25};
+
+  xc_mix_init(p, 1, funcs_id, funcs_coef);
+  p->cam_alpha = 0.25;
+}
+
+
+const xc_func_info_type xc_func_info_hyb_mgga_x_revscan0 = {
+  XC_HYB_MGGA_X_REVSCAN0,
+  XC_EXCHANGE,
+  "revised SCAN hybrid exchange (SCAN0)",
+  XC_FAMILY_HYB_MGGA,
+  {&xc_ref_Mezei2018, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  1e-32,
+  0, NULL, NULL,
+  hyb_mgga_x_revscan0_init, NULL,
+  NULL, NULL, NULL /* this is taken care of by the generic routine */
 };

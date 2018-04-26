@@ -38,7 +38,7 @@ lda_c_2d_prm_init(xc_func_type *p)
 #include "work_lda.c"
 
 static const func_params_type ext_params[] = {
-  {2.0, "Number of electrons"},
+  {"N", 2.0, "Number of electrons"},
 };
 
 static void 

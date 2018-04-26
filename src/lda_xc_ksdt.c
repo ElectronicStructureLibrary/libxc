@@ -88,7 +88,7 @@ lda_xc_ksdt_init(xc_func_type *p)
 #include "work_lda.c"
 
 static const func_params_type ext_params[] = {
-  {0.0, "Temperature"},
+  {"T", 0.0, "Temperature"},
 };
 
 static void 

@@ -77,6 +77,8 @@ char const *xc_func_reference_get_doi(const func_reference_type *reference);
 char const *xc_func_reference_get_bibtex(const func_reference_type *reference);
 
 typedef struct{
+  char *name; /* ATTENTION: if name starts with a _ it is an *internal* parameter, 
+                 changing the value effectively changes the functional! */
   double value;
   char *description;
 } func_params_type;

@@ -245,7 +245,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_tca = {
 };
 
 static const func_params_type ext_params[] = {
-  {1e23, "Number of electrons"},
+  {"N", 1e23, "Number of electrons"},
 };
 
 static void 

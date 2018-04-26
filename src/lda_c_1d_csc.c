@@ -48,8 +48,8 @@ lda_c_1d_csc_init(xc_func_type *p)
 #include "work_lda.c"
 
 static const func_params_type ext_params[] = {
-  {  1, "Interaction: 0 (exponentially screened) | 1 (soft-Coulomb)"},
-  {1.0, "Screening parameter beta"}
+  {"interaction",  1, "0 (exponentially screened) | 1 (soft-Coulomb)"},
+  {"beta", 1.0, "Screening parameter"}
 };
 
 static void 

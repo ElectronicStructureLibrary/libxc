@@ -192,7 +192,7 @@ const xc_func_info_type xc_func_info_lda_x = {
 };
 
 static const func_params_type ext_params[] = {
-  {1.0, "X-alpha multiplicative parameter"},
+  {"alpha", 1.0, "X-alpha multiplicative parameter"},
 };
 
 static void 
@@ -222,7 +222,7 @@ const xc_func_info_type xc_func_info_lda_c_xalpha = {
 };
 
 static const func_params_type N_ext_params[] = {
-  {1.0, "Number of electrons"},
+  {"N", 1.0, "Number of electrons"},
 };
 
 static void 

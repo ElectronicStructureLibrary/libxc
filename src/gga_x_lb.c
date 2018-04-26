@@ -139,10 +139,10 @@ gga_x_lb(const xc_func_type *p, int np, const double *rho, const double *sigma,
 
 
 static const func_params_type ext_params[] = {
-  {  0, "Modified: 0 (no) | 1 (yes)"},
-  {0.0, "Ionization potential (a.u.)"},
-  {1e-32, "Threshold"},
-  {0.0, "Total charge (necessary to fix the asymptotics"}
+  {"mode", 0, "Modified: 0 (no) | 1 (yes)"},
+  {"I", 0.0, "Ionization potential (a.u.)"},
+  {"threshold", 1e-32, "Asymptotic correction is applied if density smaller than this parameter"},
+  {"qtot",0.0, "Total charge (necessary to fix the asymptotics"}
 };
 
 

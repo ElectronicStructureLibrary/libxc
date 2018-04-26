@@ -131,8 +131,8 @@ gga_k_tflw_init(xc_func_type *p)
 #include "work_gga_x.c"
 
 static const func_params_type tfvw_ext_params[] = {
-  {1.0, "Lambda"},
-  {1.0, "Gamma"},
+  {"Lambda", 1.0, "Lambda"},
+  {"Gamma", 1.0, "Gamma"},
 };
 
 static void 
@@ -240,7 +240,7 @@ const xc_func_info_type xc_func_info_gga_k_lieb = {
 };
 
 static const func_params_type N_ext_params[] = {
-  {1.0, "Number of electrons"},
+  {"N", 1.0, "Number of electrons"},
 };
 
 static void 

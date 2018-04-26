@@ -65,11 +65,13 @@ const xc_func_info_type xc_func_info_gga_xc_opwlyp_d = {
 static void
 gga_xc_opbe_d_init(xc_func_type *p)
 {
-  static int   funcs_id  [4] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
+  static int    funcs_id  [4] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
   static double funcs_coef[4] = {1.0, 1.0};
 
+  static double pbe_x_params[] = {1.2010, 0.21198};
+  
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_gga_x_pbe_set_params(p->func_aux[0], 1.2010, 0.21198);
+  xc_func_set_ext_params(p->func_aux[0], pbe_x_params);
   xc_gga_c_pbe_set_params(p->func_aux[1], 0.04636);
 }
 

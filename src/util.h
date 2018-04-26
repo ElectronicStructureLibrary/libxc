@@ -148,6 +148,7 @@ typedef struct xc_functional_key_t {
 #define X_FACTOR_2D_C  1.504505556127350098528211870828726895584      /* 8/(3*sqrt(pi))        */
 #define K_FACTOR_C     4.557799872345597137288163759599305358515      /* 3/10*(6*pi^2)^(2/3)   */
 #define MU_GE          0.1234567901234567901234567901234567901235     /* 10/81                 */
+#define MU_PBE         0.2195149727645171 /* mu = beta*pi^2/3, beta = 0.06672455060314922 */
 #define X2S            0.1282782438530421943003109254455883701296     /* 1/(2*(6*pi^2)^(1/3))  */
 #define X2S_2D         0.1410473958869390717370198628901931464610     /* 1/(2*(4*pi)^(1/2))    */
 #define FZETAFACTOR    0.5198420997897463295344212145564567011405     /* 2^(4/3) - 2           */
@@ -332,7 +333,6 @@ void xc_gga_x_hjs_b88_v2_set_params(xc_func_type *p, double omega);
 void xc_gga_x_b88_set_params(xc_func_type *p, double beta, double gamma);
 void xc_gga_x_optx_set_params(xc_func_type *p, double a, double b, double gamma);
 void xc_gga_x_wpbeh_set_params(xc_func_type *p, double omega);
-void xc_gga_x_pbe_set_params(xc_func_type *p, double kappa, double mu);
 void xc_gga_x_pbeint_set_params(xc_func_type *p, double kappa, double alpha, double muPBE, double muGE);
 void xc_gga_x_ityh_set_params(xc_func_type *p, int func_id, double omega);
 void xc_gga_x_b86_set_params(xc_func_type *p, double beta, double gamma, double omega);

@@ -53,67 +53,86 @@ gga_x_pbe_init(xc_func_type *p)
   switch(p->info->number){
   case XC_GGA_X_PBE:
     /* PBE: mu = beta*pi^2/3, beta = 0.06672455060314922 */
-    xc_gga_x_pbe_set_params(p, 0.8040, 0.2195149727645171);
+    /* default set by set_ext_params */
     break;
   case XC_GGA_X_PBE_R:
-    xc_gga_x_pbe_set_params(p, 1.245, 0.2195149727645171);
+    params->kappa = 1.245;
+    params->mu    = MU_PBE;
     break;
   case XC_GGA_X_PBE_SOL:
-    xc_gga_x_pbe_set_params(p, 0.804, MU_GE);
+    params->kappa = 0.804;
+    params->mu    = MU_GE;
     break;
   case XC_GGA_X_XPBE:
-    xc_gga_x_pbe_set_params(p, 0.91954, 0.23214);
+    params->kappa = 0.91954;
+    params->mu    = 0.23214;
     break;
   case XC_GGA_X_PBE_JSJR:
-    xc_gga_x_pbe_set_params(p, 0.8040, 0.046*M_PI*M_PI/3.0);
+    params->kappa = 0.8040;
+    params->mu    = 0.046*M_PI*M_PI/3.0;
     break;
   case XC_GGA_X_PBEK1_VDW:
-    xc_gga_x_pbe_set_params(p, 1.0, 0.2195149727645171);
+    params->kappa = 1.0;
+    params->mu    = MU_PBE;
     break;
   case XC_GGA_X_APBE:
-    xc_gga_x_pbe_set_params(p, 0.8040, 0.260);
+    params->kappa = 0.8040;
+    params->mu    = 0.260;
     break;
   case XC_GGA_K_APBE:
-    xc_gga_x_pbe_set_params(p, 0.8040, 0.23889);
+    params->kappa = 0.8040;
+    params->mu    = 0.23889;
     break;
   case XC_GGA_K_TW1:
-    xc_gga_x_pbe_set_params(p, 0.8209, 0.2335);
+    params->kappa = 0.8209;
+    params->mu    = 0.2335;
     break;
   case XC_GGA_K_TW2:
-    xc_gga_x_pbe_set_params(p, 0.6774, 0.2371);
+    params->kappa = 0.6774;
+    params->mu    = 0.2371;
     break;
   case XC_GGA_K_TW3:
-    xc_gga_x_pbe_set_params(p, 0.8438, 0.2319);
+    params->kappa = 0.8438;
+    params->mu    = 0.2319;
     break;
   case XC_GGA_K_TW4:
-    xc_gga_x_pbe_set_params(p, 0.8589, 0.2309);
+    params->kappa = 0.8589;
+    params->mu    = 0.2309;
     break;
   case XC_GGA_X_PBE_TCA:
-    xc_gga_x_pbe_set_params(p, 1.227, 0.2195149727645171);
+    params->kappa = 1.227;
+    params->mu    = MU_PBE;
     break;
   case XC_GGA_K_REVAPBE:
-    xc_gga_x_pbe_set_params(p, 1.245, 0.23889);
+    params->kappa = 1.245;
+    params->mu    = 0.23889;
     break;
   case XC_GGA_X_PBE_MOL:
-    xc_gga_x_pbe_set_params(p, 0.8040, 0.27583);
+    params->kappa = 0.8040;
+    params->mu    = 0.27583;
     break;
   case XC_GGA_X_LAMBDA_LO_N:
-    xc_gga_x_pbe_set_params(p, -1.0, 0.2195149727645171);
+    params->kappa = -1.0;
+    params->mu    = MU_PBE;
     params->lambda = 2.273;
     break;
   case XC_GGA_X_LAMBDA_CH_N:
-    xc_gga_x_pbe_set_params(p, -1.0, 0.2195149727645171);
+    params->kappa = -1.0;
+    params->mu    = MU_PBE;
     params->lambda = 2.215;
     break;
   case XC_GGA_X_LAMBDA_OC2_N:
-    xc_gga_x_pbe_set_params(p, -1.0, 0.2195149727645171);
+    params->kappa = -1.0;
+    params->mu    = MU_PBE;
     params->lambda = 2.00;
     break;
   case XC_GGA_X_BCGP:
-    xc_gga_x_pbe_set_params(p, 0.8040, 0.249);
+    params->kappa = 0.8040;
+    params->mu    = 0.249;
     break;
   case XC_GGA_X_PBEFE:
-    xc_gga_x_pbe_set_params(p, 0.437, 0.346);
+    params->kappa = 0.437;
+    params->mu    = 0.346;
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_pbe\n");
@@ -121,17 +140,24 @@ gga_x_pbe_init(xc_func_type *p)
   }
 }
 
+static const func_params_type ext_params_PBE[] = {
+  {"_kappa", 0.8040, "Asymptotic value of the enhancement function"},
+  {"_mu",    MU_PBE, "Coefficient of the 2nd order expansion"},
+};
 
-void 
-xc_gga_x_pbe_set_params(xc_func_type *p, double kappa, double mu)
+static void 
+set_ext_params_PBE(xc_func_type *p, const double *ext_params)
 {
   gga_x_pbe_params *params;
+  double lambda, ff;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_pbe_params *) (p->params);
 
-  params->kappa = kappa;
-  params->mu    = mu;
+  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
+  params->kappa = ff;
+  ff = (ext_params == NULL) ? p->info->ext_params[1].value : ext_params[1];
+  params->mu = ff;
 }
 
 #include "maple2c/gga_x_pbe.c"
@@ -148,7 +174,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe = {
   {&xc_ref_Perdew1996_3865, &xc_ref_Perdew1996_3865_err, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
-  0, NULL, NULL,
+  2, ext_params_PBE, set_ext_params_PBE,
   gga_x_pbe_init, NULL, 
   NULL, work_gga_x, NULL
 };
@@ -244,12 +270,12 @@ const xc_func_info_type xc_func_info_gga_x_pbe_tca = {
   NULL, work_gga_x, NULL
 };
 
-static const func_params_type ext_params[] = {
+static const func_params_type ext_params_N[] = {
   {"N", 1e23, "Number of electrons"},
 };
 
 static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
+set_ext_params_N(xc_func_type *p, const double *ext_params)
 {
   const double lambda_1 = 1.48;
 
@@ -274,7 +300,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_lo_n = {
   {&xc_ref_Odashima2009_798, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
-  1, ext_params, set_ext_params,
+  1, ext_params_N, set_ext_params_N,
   gga_x_pbe_init, NULL, 
   NULL, work_gga_x, NULL
 };
@@ -287,7 +313,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_ch_n = {
   {&xc_ref_Odashima2009_798, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
-  1, ext_params, set_ext_params,
+  1, ext_params_N, set_ext_params_N,
   gga_x_pbe_init, NULL, 
   NULL, work_gga_x, NULL
 };
@@ -300,7 +326,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_oc2_n = {
   {&xc_ref_Odashima2009_798, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
-  1, ext_params, set_ext_params,
+  1, ext_params_N, set_ext_params_N,
   gga_x_pbe_init, NULL, 
   NULL, work_gga_x, NULL
 };

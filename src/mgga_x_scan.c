@@ -12,7 +12,7 @@
 #define XC_MGGA_X_SCAN          263 /* SCAN exchange of Sun, Ruzsinszky, and Perdew  */
 #define XC_HYB_MGGA_X_SCAN0     264 /* SCAN hybrid exchange */
 #define XC_MGGA_X_REVSCAN       581 /* revised SCAN */
-#define XC_HYB_MGGA_X_REVSCAN   583 /* revised SCAN hybrid exchange */
+#define XC_HYB_MGGA_X_REVSCAN0  583 /* revised SCAN hybrid exchange */
 
 typedef struct{
   double c1, c2, d, k1;

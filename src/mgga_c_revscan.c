@@ -10,6 +10,7 @@
 #include "util.h"
 
 #define XC_MGGA_C_REVSCAN       582 /* revised SCAN correlation */
+#define XC_MGGA_C_REVSCAN_VV10  585 /* revised SCAN correlation */
 
 #include "maple2c/mgga_c_revscan.c"
 
@@ -46,7 +47,7 @@ const xc_func_info_type xc_func_info_mgga_c_revscan_vv10 = {
   XC_CORRELATION,
   "REVSCAN + VV10 correlation",
   XC_FAMILY_MGGA,
-  {&xc_ref_, NULL, NULL, NULL, NULL},
+  {&xc_ref_Mezei2018, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,

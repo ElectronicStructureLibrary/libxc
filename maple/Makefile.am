@@ -48,4 +48,4 @@ dist_noinst_SCRIPTS = \
   mgga_c_m05.mpl mgga_c_m06l.mpl hyb_mgga_x_m05.mpl hyb_mgga_x_dldf.mpl     \
   tpss.mpl mgga_c_pkzb.mpl mgga_c_revtpss.mpl mgga_c_tpss.mpl               \
   mgga_c_tpssloc.mpl mgga_c_scan.mpl mgga_c_kcis.mpl mgga_xc_lp90.mpl       \
-  mgga_c_b88.mpl mgga_x_scan.mpl
+  mgga_c_b88.mpl mgga_c_revscan.mpl

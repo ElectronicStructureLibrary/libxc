@@ -9,7 +9,7 @@
 
 #include "util.h"
 
-#define XC_MGGA_C_REVSCAN       582 /* revSCAN correlation */
+#define XC_MGGA_C_REVSCAN       582 /* revised SCAN correlation */
 
 #include "maple2c/mgga_c_revscan.c"
 
@@ -19,7 +19,7 @@
 const xc_func_info_type xc_func_info_mgga_c_revscan = {
   XC_MGGA_C_REVSCAN,
   XC_CORRELATION,
-  "SCAN correlation of Sun, Ruzsinszky, and Perdew",
+  "revised SCAN",
   XC_FAMILY_MGGA,
   {&xc_ref_Mezei2018, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
@@ -27,4 +27,29 @@ const xc_func_info_type xc_func_info_mgga_c_revscan = {
   0, NULL, NULL,
   NULL, NULL, 
   NULL, NULL, work_mgga_c,
+};
+
+static void
+mgga_c_revscan_vv10_init(xc_func_type *p)
+{
+  static int   funcs_id  [1] = {XC_MGGA_C_REVSCAN};
+  static double funcs_coef[1] = {1.0};
+
+  xc_mix_init(p, 1, funcs_id, funcs_coef);
+
+  p->nlc_b = 9.8;
+  p->nlc_C = 0.0093;
+}
+
+const xc_func_info_type xc_func_info_mgga_c_revscan_vv10 = {
+  XC_MGGA_C_REVSCAN_VV10,
+  XC_CORRELATION,
+  "REVSCAN + VV10 correlation",
+  XC_FAMILY_MGGA,
+  {&xc_ref_, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32,
+  0, NULL, NULL,
+  mgga_c_revscan_vv10_init,
+  NULL, NULL, NULL, NULL
 };

@@ -325,8 +325,6 @@ void xc_mgga_x_scan_falpha(int order, double a, double c1, double c2, double dd,
 	 
 
 /* now the routines to set the _internal_ parameters of several functionals */
-void xc_gga_x_pw91_set_params(xc_func_type *p, double a, double b, double c, double d, double f, double alpha, double expo);
-void xc_gga_x_pw91_set_params2(xc_func_type *p, double bt, double alpha, double expo);
 void xc_gga_x_ssb_sw_set_params(xc_func_type *p, double A, double B, double C, double D, double E);
 void xc_gga_x_hjs_set_params(xc_func_type *p, double omega);
 void xc_gga_x_hjs_b88_v2_set_params(xc_func_type *p, double omega);

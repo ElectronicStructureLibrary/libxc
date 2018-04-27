@@ -69,7 +69,7 @@ static func_params_type ext_params_hse12s[] = {
 static void
 hyb_gga_xc_hse_init(xc_func_type *p)
 {
-  int   funcs_id  [3] = {XC_GGA_X_WPBEH, XC_GGA_X_WPBEH, XC_GGA_C_PBE};
+  int    funcs_id  [3] = {XC_GGA_X_WPBEH, XC_GGA_X_WPBEH, XC_GGA_C_PBE};
   double funcs_coef[3] = {1.0, 0.0, 1.0};
 
   /* Note that the value of funcs_coef[1] will be set by set_ext_params */
@@ -83,9 +83,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   
   assert(p != NULL);
 
-  beta      = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
-  omega_HF  = (ext_params == NULL) ? p->info->ext_params[1].value : ext_params[1];
-  omega_PBE = (ext_params == NULL) ? p->info->ext_params[2].value : ext_params[2];
+  beta      = get_ext_param(p->info->ext_params, ext_params, 0);
+  omega_HF  = get_ext_param(p->info->ext_params, ext_params, 1);
+  omega_PBE = get_ext_param(p->info->ext_params, ext_params, 2);
 
   p->mix_coef[1] = -beta;
 

@@ -131,15 +131,12 @@ static void
 set_ext_params(xc_func_type *p, const double *ext_params)
 {
   lda_x_1d_params *params;
-  double ff;
 
   assert(p != NULL && p->params != NULL);
   params = (lda_x_1d_params *)(p->params);
 
-  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
-  params->interaction = (int)round(ff);
-  ff = (ext_params == NULL) ? p->info->ext_params[1].value : ext_params[1];
-  params->bb = ff;
+  params->interaction = (int)round(get_ext_param(p->info->ext_params, ext_params, 0));
+  params->bb = get_ext_param(p->info->ext_params, ext_params, 1);
 
   assert(params->interaction == 0 || params->interaction == 1);
 }

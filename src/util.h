@@ -359,5 +359,6 @@ void xc_mgga_c_bc95_set_params(xc_func_type *p, double css, double copp);
 /* Some useful functions */
 const char *get_kind(const xc_func_type *func);
 const char *get_family(const xc_func_type *func);
+double get_ext_param(const func_params_type *params, const double *values, int index);
 
 #endif

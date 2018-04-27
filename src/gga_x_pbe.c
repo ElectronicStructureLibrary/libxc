@@ -149,15 +149,12 @@ static void
 set_ext_params_PBE(xc_func_type *p, const double *ext_params)
 {
   gga_x_pbe_params *params;
-  double lambda, ff;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_pbe_params *) (p->params);
 
-  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
-  params->kappa = ff;
-  ff = (ext_params == NULL) ? p->info->ext_params[1].value : ext_params[1];
-  params->mu = ff;
+  params->kappa = get_ext_param(p->info->ext_params, ext_params, 0);
+  params->mu    = get_ext_param(p->info->ext_params, ext_params, 1);
 }
 
 #include "maple2c/gga_x_pbe.c"

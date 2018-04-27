@@ -241,3 +241,13 @@ const char *get_family(const xc_func_type *func) {
       return "";
   }
 }
+
+/* this function checks if it should use the default or
+   the user assigned value for an external parameter */
+double get_ext_param(const func_params_type *params, const double *values, int index)
+{
+  if(values == NULL || values[index] == XC_EXT_PARAMS_DEFAULT)
+    return params[index].value; /* return default value */
+  else
+    return values[index]; /* return user assigned value */
+}

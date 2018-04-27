@@ -58,6 +58,9 @@ extern "C" {
 #define XC_FLAGS_DEVELOPMENT      (1 << 14) /* 16384 */
 #define XC_FLAGS_NEEDS_LAPLACIAN  (1 << 15) /* 32768 */
 
+  /* This magic value means use default parameter */
+#define XC_EXT_PARAMS_DEFAULT   -999998888
+
 #define XC_TAU_EXPLICIT         0
 #define XC_TAU_EXPANSION        1
 

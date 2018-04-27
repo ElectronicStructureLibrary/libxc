@@ -68,11 +68,12 @@ gga_xc_opbe_d_init(xc_func_type *p)
   static int    funcs_id  [4] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
   static double funcs_coef[4] = {1.0, 1.0};
 
-  static double pbe_x_params[] = {1.2010, 0.21198};
+  static double par_x_pbe[] = {1.2010, 0.21198};
+  static double par_c_pbe[] = {0.04636, XC_EXT_PARAMS_DEFAULT, XC_EXT_PARAMS_DEFAULT};
   
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_func_set_ext_params(p->func_aux[0], pbe_x_params);
-  xc_gga_c_pbe_set_params(p->func_aux[1], 0.04636);
+  xc_func_set_ext_params(p->func_aux[0], par_x_pbe);
+  xc_func_set_ext_params(p->func_aux[1], par_c_pbe);
 }
 
 const xc_func_info_type xc_func_info_gga_xc_opbe_d = {

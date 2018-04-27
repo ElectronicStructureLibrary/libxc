@@ -340,7 +340,6 @@ void xc_gga_x_rpbe_set_params(xc_func_type *p, double kappa, double mu);
 void xc_gga_x_sfat_set_params(xc_func_type *p, int func_id, double omega);
 void xc_gga_x_kt_set_params(xc_func_type *p, double gamma, double delta);
 void xc_gga_c_lyp_set_params(xc_func_type *p, double A, double B, double c, double d);
-void xc_gga_c_pbe_set_params(xc_func_type *p, double beta);
 
 void xc_mgga_x_tpss_set_params(xc_func_type *p, double b, double c, double e, double kappa, double mu, double BLOC_a, double BLOC_b);
 void xc_mgga_c_tpss_set_params(xc_func_type *p, double beta, double d, double C0_0, double C0_1, double C0_2, double C0_3);

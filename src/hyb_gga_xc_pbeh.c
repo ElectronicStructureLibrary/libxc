@@ -140,12 +140,14 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbe_sol0 = {
 static void
 hyb_gga_xc_pbeb0_init(xc_func_type *p)
 {
-  static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
+  static int    funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
   static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
-  xc_mix_init(p, 2, funcs_id, funcs_coef);
   /* 0.050044 ~ 3/4 beta_PBE */
-  xc_gga_c_pbe_set_params(p->func_aux[1], 0.050044);
+  static double par_c_pbe[] = {0.050044, XC_EXT_PARAMS_DEFAULT, XC_EXT_PARAMS_DEFAULT};
+  
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_func_set_ext_params(p->func_aux[1], par_c_pbe);
   p->cam_alpha = 0.25;
 }
 
@@ -166,12 +168,14 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbeb0 = {
 static void
 hyb_gga_xc_pbemolb0_init(xc_func_type *p)
 {
-  static int   funcs_id  [2] = {XC_GGA_X_PBE_MOL, XC_GGA_C_PBE_MOL};
+  static int   funcs_id  [2] = {XC_GGA_X_PBE_MOL, XC_GGA_C_PBE};
   static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
-  xc_mix_init(p, 2, funcs_id, funcs_coef);
   /* 0.06288 ~ 3/4 beta_PBEmol */
-  xc_gga_c_pbe_set_params(p->func_aux[1], 0.06288);
+  static double par_c_pbe[] = {0.06288, XC_EXT_PARAMS_DEFAULT, XC_EXT_PARAMS_DEFAULT};
+  
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_func_set_ext_params(p->func_aux[1], par_c_pbe);
   p->cam_alpha = 0.25;
 }
 

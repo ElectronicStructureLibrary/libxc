@@ -33,9 +33,7 @@
 
 typedef struct{
   double kappa, mu;
-
-  /* parameter used in the Odashima & Capelle versions */
-  double lambda;
+  double lambda;   /* parameter used in the Odashima & Capelle versions */
 } gga_x_pbe_params;
 
 

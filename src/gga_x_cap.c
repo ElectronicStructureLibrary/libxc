@@ -33,17 +33,15 @@ const xc_func_info_type xc_func_info_gga_x_cap = {
 void
 xc_hyb_gga_xc_cap0_init(xc_func_type *p)
 {
-  static int   funcs_id  [2] = {XC_GGA_X_CAP, XC_GGA_C_PBE};
-  static double funcs_coef[2] = {1.0, 1.0};
-  /* Can't init this above */
-  static const double a0 = 1.0/4.0;
-  funcs_coef[0]=1.0-a0;
+  static int    funcs_id  [2] = {XC_GGA_X_CAP, XC_GGA_C_PBE};
+  static double funcs_coef[2] = {0.75, 1.0};
+  /* C functional is PBE C with β = (3/4)β PBE */
+  static double par_c_pbe[] = {0.75*0.06672455060314922,
+                               XC_EXT_PARAMS_DEFAULT, XC_EXT_PARAMS_DEFAULT};
   
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  /* C functional is PBE C with β = (3/4)β PBE */
-  xc_gga_c_pbe_set_params(p->func_aux[1],0.75*0.06672455060314922);
-  
-  p->cam_alpha = a0;
+  xc_func_set_ext_params(p->func_aux[1], par_c_pbe);
+  p->cam_alpha = 0.75;
 }
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_cap0 = {

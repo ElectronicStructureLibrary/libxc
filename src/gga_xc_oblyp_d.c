@@ -18,10 +18,11 @@ gga_xc_oblyp_d_init(xc_func_type *p)
   static int    funcs_id  [4] = {XC_GGA_X_B88, XC_GGA_C_LYP};
   static double funcs_coef[4] = {1.0, 1.0};
 
+  static double par_x_b88[] = {0.00401, 6.0};
   static double par_c_lyp[] = {0.05047, 0.140, 0.2196, 0.363};
   
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_gga_x_b88_set_params(p->func_aux[0], 0.00401, 6.0);
+  xc_func_set_ext_params(p->func_aux[0], par_x_b88);
   xc_func_set_ext_params(p->func_aux[1], par_c_lyp);
 }
 

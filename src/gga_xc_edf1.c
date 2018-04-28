@@ -20,12 +20,12 @@ gga_xc_edf1_init(xc_func_type *p)
   static int    funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_GGA_X_B88, XC_GGA_C_LYP};
   static double funcs_coef[4] = {1.030952 - 10.4017 + 8.44793, 10.4017, -8.44793, 1.0};
 
+  static double par_x_b88[] = {0.0035, 6.0};
   static double par_c_lyp[] = {0.055, 0.158, 0.25, 0.3505};
   
   xc_mix_init(p, 4, funcs_id, funcs_coef);  
 
-  xc_gga_x_b88_set_params(p->func_aux[1], 0.0035, 6.0);
-  xc_gga_x_b88_set_params(p->func_aux[2], 0.0042, 6.0);
+  xc_func_set_ext_params(p->func_aux[1], par_x_b88);
   xc_func_set_ext_params(p->func_aux[3], par_c_lyp);
 }
 

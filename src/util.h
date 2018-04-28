@@ -167,7 +167,6 @@ typedef struct xc_functional_key_t {
 
 /* The following inlines confuse the xlc compiler */
 void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
-void xc_fast_fzeta(const double x, const int nspin, const int order, double * fz);
 void xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix_coef);
 
 /* LDAs */

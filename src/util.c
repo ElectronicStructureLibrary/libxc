@@ -31,33 +31,6 @@ xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta)
   }
 }
 
-/* inline */ void
-xc_fast_fzeta(const double x, const int nspin, const int order, double * fz){
-
-  double aa, bb, aa2, bb2;
-
-  if(nspin != XC_UNPOLARIZED){
-    aa = CBRT(1.0 + x);
-    bb = CBRT(1.0 - x);
-    
-    aa2 = aa*aa;
-    bb2 = bb*bb;
-    
-    fz[0] = (aa2*aa2 + bb2*bb2 - 2.0)/FZETAFACTOR;
-    if(order < 1) return;
-    fz[1] = (aa - bb)*(4.0/3.0)/FZETAFACTOR;
-    if(order < 2) return;
-    fz[2] = ((4.0/9.0)/FZETAFACTOR)*(fabs(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -2.0/3.0) + pow(1.0 - (x), -2.0/3.0)));
-    if(order < 3) return;
-    fz[3] = (-(8.0/27.0)/FZETAFACTOR)*(fabs(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -5.0/3.0) - pow(1.0 - (x), -5.0/3.0)));
-  } else {
-    fz[0] = 0.0;
-    fz[1] = 0.0;
-    fz[2] = (8.0/9.0)/FZETAFACTOR;
-    fz[3] = 0.0;
-  }
-}
-
 /* initializes the mixing */
 void 
 xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix_coef)

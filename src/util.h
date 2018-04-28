@@ -290,7 +290,6 @@ typedef struct xc_mgga_work_c_t {
 
 
 /* now the routines to set the _internal_ parameters of several functionals */
-void xc_gga_x_hjs_set_params(xc_func_type *p, double omega);
 void xc_gga_x_hjs_b88_v2_set_params(xc_func_type *p, double omega);
 void xc_gga_x_b88_set_params(xc_func_type *p, double beta, double gamma);
 void xc_gga_x_optx_set_params(xc_func_type *p, double a, double b, double gamma);

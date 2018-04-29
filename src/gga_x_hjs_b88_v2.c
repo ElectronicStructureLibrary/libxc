@@ -25,7 +25,7 @@ static func_params_type ext_params[] = {
   {"_omega", 0.11, "Screening parameter for HF"},
 };
 
-void 
+static void 
 set_ext_params(xc_func_type *p, const double *ext_params)
 {
   gga_x_hjs_b88_v2_params *params;

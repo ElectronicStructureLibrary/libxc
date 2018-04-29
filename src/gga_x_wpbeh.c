@@ -19,20 +19,22 @@ gga_x_wpbeh_init(xc_func_type *p)
 {
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_x_wpbeh_params));
-
-  /* The default value is actually PBEh */
-  xc_gga_x_wpbeh_set_params(p, 0.0);
 }
 
-void 
-xc_gga_x_wpbeh_set_params(xc_func_type *p, double omega)
+/* The default value is actually PBEh */
+static func_params_type ext_params[] = {
+  {"_omega", 0.0, "Screening parameter for HF"},
+};
+
+static void 
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
   gga_x_wpbeh_params *params;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_wpbeh_params *) (p->params);
 
-  params->omega = omega;
+  params->omega = get_ext_param(p->info->ext_params, ext_params, 0);
 }
 
 
@@ -570,7 +572,7 @@ const xc_func_info_type xc_func_info_gga_x_wpbeh = {
   {&xc_ref_Heyd2003_8207, &xc_ref_Heyd2003_8207_err, &xc_ref_Ernzerhof1998_3313, &xc_ref_Heyd2004_7274, &xc_ref_Henderson2009_044108},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
-  0, NULL, NULL,
+  1, ext_params, set_ext_params,
   gga_x_wpbeh_init, NULL, 
   NULL, work_gga_c, NULL
 };

@@ -35,7 +35,7 @@ hyb_gga_xc_lc_vv10_init(xc_func_type *p)
   p->cam_beta  = -1.0;
   p->nlc_b = 6.3;
   p->nlc_C = 0.0089;
-  xc_gga_x_wpbeh_set_params(p->func_aux[0], p->cam_omega);  
+  xc_func_set_ext_params(p->func_aux[0], &p->cam_omega);  
 }
 
 const xc_func_info_type xc_func_info_gga_xc_vv10 = {

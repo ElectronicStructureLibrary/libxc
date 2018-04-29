@@ -91,7 +91,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 
   p->cam_beta  = beta;
   p->cam_omega = omega_HF;
-  xc_gga_x_wpbeh_set_params(p->func_aux[1], omega_PBE);
+  xc_func_set_ext_params(p->func_aux[1], &omega_PBE);
 }
   
 const xc_func_info_type xc_func_info_hyb_gga_xc_hse03 = {
@@ -186,7 +186,7 @@ hyb_gga_xc_lc_wpbe_init(xc_func_type *p)
   p->cam_omega =  0.4;
   p->cam_alpha =  1.0;
   p->cam_beta  = -1.0;
-  xc_gga_x_wpbeh_set_params(p->func_aux[0], p->cam_omega);
+  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
 }
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe = {
@@ -214,7 +214,7 @@ hyb_gga_xc_lrc_wpbeh_init(xc_func_type *p)
   p->cam_omega =  0.2;
   p->cam_alpha =  1.0;
   p->cam_beta  = -0.8;
-  xc_gga_x_wpbeh_set_params(p->func_aux[0], p->cam_omega);
+  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
 }
 
 static void
@@ -228,7 +228,7 @@ hyb_gga_xc_lrc_wpbe_init(xc_func_type *p)
   p->cam_omega =  0.3;
   p->cam_alpha =  1.0;
   p->cam_beta  = -1.0;
-  xc_gga_x_wpbeh_set_params(p->func_aux[0], p->cam_omega);
+  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
 }
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_lrc_wpbeh = {

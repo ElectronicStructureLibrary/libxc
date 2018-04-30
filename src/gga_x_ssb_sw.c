@@ -74,11 +74,13 @@ gga_x_ssb_init(xc_func_type *p)
   static double funcs_coef[3] = {-1.0, 1.0, 1.0};
 
   static double par_x_ssb_sw[] = {1.071769, 0.137574, 0.187883, 0.137574*(1.0 + 1.205643), 6.635315};
+  static double par_x_kt[] = {-1, 0.1};
+  par_x_kt[0] = u*F*X_FACTOR_C*B*(X2S*X2S);
   
   xc_mix_init(p, 3, funcs_id, funcs_coef);  
 
   xc_func_set_ext_params(p->func_aux[1], par_x_ssb_sw);
-  xc_gga_x_kt_set_params(p->func_aux[2], u*F*X_FACTOR_C*B*(X2S*X2S), 0.1);
+  xc_func_set_ext_params(p->func_aux[2], par_x_kt);
 }
 
 
@@ -105,11 +107,13 @@ gga_x_ssb_d_init(xc_func_type *p)
   static double funcs_coef[3] = {-1.0, 1.0, 1.0};
 
   static double par_x_ssb_sw[] = {1.079966, 0.197465, 0.272729, 0.197465*(1.0 + 0.749940), 5.873645};
+  static double par_x_kt[] = {-1, 0.1};
+  par_x_kt[0] = u*F*X_FACTOR_C*B*(X2S*X2S);
   
   xc_mix_init(p, 3, funcs_id, funcs_coef);  
 
   xc_func_set_ext_params(p->func_aux[1], par_x_ssb_sw);
-  xc_gga_x_kt_set_params(p->func_aux[2], u*F*X_FACTOR_C*B*(X2S*X2S), 0.1);
+  xc_func_set_ext_params(p->func_aux[2], par_x_kt);
 }
 
 const xc_func_info_type xc_func_info_gga_x_ssb_d = {

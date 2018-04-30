@@ -50,7 +50,6 @@ gga_x_pbe_init(xc_func_type *p)
 
   switch(p->info->number){
   case XC_GGA_X_PBE:
-    /* PBE: mu = beta*pi^2/3, beta = 0.06672455060314922 */
     /* default set by set_ext_params */
     break;
   case XC_GGA_X_PBE_R:
@@ -138,6 +137,7 @@ gga_x_pbe_init(xc_func_type *p)
   }
 }
 
+/* PBE: mu = beta*pi^2/3, beta = 0.06672455060314922 */
 static const func_params_type ext_params_PBE[] = {
   {"_kappa", 0.8040, "Asymptotic value of the enhancement function"},
   {"_mu",    MU_PBE, "Coefficient of the 2nd order expansion"},

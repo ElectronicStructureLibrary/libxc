@@ -15,16 +15,18 @@ xc_hyb_gga_xc_lcy_pbe_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_SFAT, XC_GGA_C_PBE};
   static double funcs_coef[2];
-  static double gamma;
 
-  gamma = 0.75; /* Use omega for gamma */
+  double gamma = 0.75, par_sfat[2];
 
   funcs_coef[0] = 1.0;
   funcs_coef[1] = 1.0;
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
 
-  xc_gga_x_sfat_set_params(p->func_aux[0], XC_GGA_X_PBE, gamma);
+  par_sfat[0] = XC_GGA_X_PBE;
+  par_sfat[1] = gamma; 
+  xc_func_set_ext_params(p->func_aux[0], par_sfat);
+  
   p->cam_omega = gamma;
   p->cam_alpha = 1.0;
   p->cam_beta  = -1.0;

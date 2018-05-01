@@ -289,12 +289,6 @@ typedef struct xc_mgga_work_c_t {
 } xc_mgga_work_c_t;
 
 
-/* now the routines to set the _internal_ parameters of several functionals */
-void xc_gga_x_ityh_set_params(xc_func_type *p, int func_id, double omega);
-void xc_gga_x_sfat_set_params(xc_func_type *p, int func_id, double omega);
-
-void xc_mgga_c_tpss_set_params(xc_func_type *p, double beta, double d, double C0_0, double C0_1, double C0_2, double C0_3);
-
 /* useful MACROS */
 #define DFRACTION(num, dnum, den, dden) \
   (((dnum)*(den) - (num)*(dden))/((den)*(den)))

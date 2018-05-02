@@ -31,34 +31,6 @@ xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta)
   }
 }
 
-/* initializes the mixing */
-void 
-xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix_coef)
-{
-  int ii;
-
-  assert(p != NULL);
-  assert(p->func_aux == NULL && p->mix_coef == NULL);
-
-  /* allocate structures needed for */
-  p->n_func_aux = n_funcs;
-  p->mix_coef   = (double *) malloc(n_funcs*sizeof(double));
-  p->func_aux   = (xc_func_type **) malloc(n_funcs*sizeof(xc_func_type *));
-
-  for(ii=0; ii<n_funcs; ii++){
-    p->mix_coef[ii] = mix_coef[ii];
-    p->func_aux[ii] = (xc_func_type *) malloc(sizeof(xc_func_type));
-    xc_func_init (p->func_aux[ii], funcs_id[ii], p->nspin);
-  }
-
-  /* initialize variables */
-  p->cam_omega=0.0;
-  p->cam_alpha=0.0;
-  p->cam_beta=0.0;
-  p->nlc_b=0.0;
-  p->nlc_C=0.0;
-}
-
 xc_gga_enhancement_t
 xc_get_gga_enhancement_factor(int func_id)
 {
@@ -217,8 +189,38 @@ const char *get_family(const xc_func_type *func) {
 
 /* this function checks if it should use the default or
    the user assigned value for an external parameter */
-double get_ext_param(const func_params_type *params, const double *values, int index)
+double
+get_ext_param(const func_params_type *params, const double *values, int index)
 {
+  FILE *par_in;
+  int ii, nn;
+  double dd;
+  
+  /* 
+     If libxc finds a file in the current directory name
+     "libxc.params", it will try to read the parameters for the
+     current functional from it. This file should contain one
+     parameter per line. E.g., for the x_pbe functional:
+
+       ------------------ <start libxc.params>
+       0.8040              # _kappa
+       0.2195149727645171  # _mu (PBE)
+       ------------------ <end libxc.params>
+
+     Note that this only works for functionals whose parameters can be
+     set by set_ext_params.
+  */
+  if((par_in = fopen("libxc.params","rb"))){
+    for(ii=0; ii<index; ii++) /* skip index lines */
+      fscanf(par_in, "%*[^\n]\n", NULL);
+
+    nn = fscanf(par_in, "%lf", &dd);
+    fclose(par_in);
+
+    if(nn == 1) /* if successful read */
+      return dd;
+  }
+
   if(values == NULL || values[index] == XC_EXT_PARAMS_DEFAULT)
     return params[index].value; /* return default value */
   else

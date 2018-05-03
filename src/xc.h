@@ -137,9 +137,20 @@ struct xc_func_type{
   struct xc_func_type **func_aux;      /* most GGAs are based on a LDA or other GGAs  */
   double *mix_coef;                      /* coefficients for the mixing */
 
-  double cam_omega;                      /* range-separation parameter for range-separated hybrids */
-  double cam_alpha;                      /* fraction of Hartree-Fock exchange for normal or range-separated hybrids */
-  double cam_beta;                       /* fraction of short-range exchange for range-separated hybrids */
+  /**
+     Parameters for range-separated hybrids
+     cam_omega: the range separation constant
+     cam_alpha: fraction of full Hartree-Fock exchange, used both for
+                usual hybrids as well as range-separated ones
+     cam_beta:  fraction of short-range only(!) exchange in
+                range-separated hybrids
+
+     N.B. Different conventions for alpha and beta can be found in
+     literature. In the convention used in libxc, at short range the
+     fraction of exact exchange is cam_alpha+cam_beta, while at long
+     range it is cam_alpha.
+  */
+  double cam_omega, cam_alpha, cam_beta;
 
   double nlc_b;                          /* Non-local correlation, b parameter */
   double nlc_C;                          /* Non-local correlation, C parameter */

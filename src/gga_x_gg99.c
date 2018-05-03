@@ -59,7 +59,7 @@ newt_raph(double a, double tol, double *xx, double *dxx, int *ierr)
 inline static void 
 r_x(int order, double x, double *r, double *dr)
 {
-  static const double
+  const double
     a1 = 4.0*M_SQRT3*M_PI*M_PI*M_PI;
 
   double a2, x2, x4, x6, aux1, aux2, daux1, daux2, num, den, dd, dnum, dden;

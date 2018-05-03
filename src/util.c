@@ -210,16 +210,18 @@ get_ext_param(const func_params_type *params, const double *values, int index)
      Note that this only works for functionals whose parameters can be
      set by set_ext_params.
   */
+  /* Commented as considered dangerous ;)
   if((par_in = fopen("libxc.params","rb"))){
-    for(ii=0; ii<index; ii++) /* skip index lines */
+    for(ii=0; ii<index; ii++)
       fscanf(par_in, "%*[^\n]\n", NULL);
 
     nn = fscanf(par_in, "%lf", &dd);
     fclose(par_in);
 
-    if(nn == 1) /* if successful read */
+    if(nn == 1)
       return dd;
   }
+  */
 
   if(values == NULL || values[index] == XC_EXT_PARAMS_DEFAULT)
     return params[index].value; /* return default value */

@@ -219,6 +219,7 @@ mgga_c_m05.c
 mgga_c_m06l.c
 mgga_c_m08.c
 mgga_c_pkzb.c
+mgga_c_revscan.c
 mgga_c_revtpss.c
 mgga_c_scan.c
 mgga_c_tpss.c

@@ -320,9 +320,6 @@ typedef struct xc_mgga_work_c_t {
 } xc_mgga_work_c_t;
 
 
-void xc_mgga_x_scan_falpha(int order, double a, double c1, double c2, double dd, double *f, double *dfda);
-	 
-
 /* now the routines to set the _internal_ parameters of several functionals */
 void xc_gga_x_pw91_set_params(xc_func_type *p, double a, double b, double c, double d, double f, double alpha, double expo);
 void xc_gga_x_pw91_set_params2(xc_func_type *p, double bt, double alpha, double expo);

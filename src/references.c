@@ -2105,4 +2105,10 @@ func_reference_type xc_ref_Brandenburg2016_115144 = {
   "@article{Brandenburg2016_115144,\n  title = {Benchmark tests of a strongly constrained semilocal functional with a long-range dispersion correction},\n  author = {Brandenburg, J. G. and Bates, J. E. and Sun, J. and Perdew, J. P.},\n  journal = {Phys. Rev. B},\n  volume = {94},\n  issue = {11},\n  pages = {115144},\n  numpages = {11},\n  year = {2016},\n  month = {Sep},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.94.115144},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.94.115144}\n}"
 };
 
+func_reference_type xc_ref_Proynov2008_103 = {
+  "E. Proynov, Z. Gan, and J. Kong, Chem. Phys. Lett. 455, 103 (2008)",
+  "https://doi.org/10.1016/j.cplett.2008.02.039",
+  "@article{Proynov2008_103,\ntitle = \"Analytical representation of the Becke–Roussel exchange functional\",\njournal = \"Chem. Phys. Lett.\",\nvolume = \"455\",\nnumber = \"1\",\npages = \"103 - 109\",\nyear = \"2008\",\nissn = \"0009-2614\",\ndoi = \"https://doi.org/10.1016/j.cplett.2008.02.039\",\nurl = \"http://www.sciencedirect.com/science/article/pii/S0009261408002285\",\nauthor = \"Emil Proynov and Zhenting Gan and Jing Kong\"\n}"
+};
+
 

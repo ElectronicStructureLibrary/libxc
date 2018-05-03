@@ -34,15 +34,15 @@ libxc_la_FUNC_SOURCES = \
 	special_functions.c bessel.c expint_e1.c integrate.c util.c	\
 	mix_func.c func_info.c functionals.c version.c func_reference.c \
 	lda.c \
-        lda_x.c lda_x_1d.c lda_x_2d.c lda_c_wigner.c lda_c_gombas.c	\
+	lda_x.c lda_x_1d.c lda_x_2d.c lda_c_wigner.c lda_c_gombas.c	\
 	lda_c_rpa.c lda_c_hl.c lda_c_vwn.c lda_c_vwn_1.c lda_c_vwn_2.c  \
-        lda_c_vwn_3.c lda_c_vwn_4.c lda_c_vwn_rpa.c lda_c_pz.c          \
+	lda_c_vwn_3.c lda_c_vwn_4.c lda_c_vwn_rpa.c lda_c_pz.c          \
 	lda_c_pw.c lda_c_pk09.c lda_c_lp96.c \
 	lda_c_ml1.c lda_c_rc04.c lda_xc_teter93.c lda_c_1d_csc.c	\
 	lda_c_1d_loos.c lda_c_2d_amgb.c lda_c_2d_prm.c		\
 	lda_k_tf.c lda_xc_zlp.c lda_xc_ksdt.c lda_c_chachiyo.c          \
 	lda_xc_1d_ehwlrg.c lda_x_rel.c lda_x_erf.c lda_k_zlp.c          \
-        lda_c_gk72.c \
+	lda_c_gk72.c \
 	gga.c \
 	gga_x_lg93.c gga_x_pbe.c gga_x_rpbe.c gga_x_pbea.c		\
 	gga_x_mpbe.c gga_x_herman.c gga_x_b86.c gga_x_b88.c		\
@@ -84,12 +84,12 @@ libxc_la_FUNC_SOURCES = \
 	mgga_x_mbeef.c mgga_xc_b97mv.c mgga_x_scan.c mgga_c_scan.c      \
 	hyb_mgga_xc_tpssh.c mgga_x_mvs.c hyb_mgga_x_mvsh.c              \
 	mgga_x_tm.c mgga_x_vt84.c mgga_x_sa_tpss.c mgga_k_pc07.c        \
-	mgga_x_mbeefvdw.c mgga_x_m11.c mgga_x_m11_l.c                   \
-  hyb_mgga_xc_wb97mv.c mgga_c_m05.c mgga_c_m06l.c                 \
-  hyb_mgga_x_dldf.c mgga_c_tpss.c mgga_c_revtpss.c                \
-  mgga_c_tpssloc.c mgga_xc_hle17.c mgga_c_kcis.c mgga_xc_lp90.c   \
+        mgga_x_mbeefvdw.c mgga_x_m11.c mgga_x_m11_l.c                   \
+	hyb_mgga_xc_wb97mv.c mgga_c_m05.c mgga_c_m06l.c                 \
+	hyb_mgga_x_dldf.c mgga_c_tpss.c mgga_c_revtpss.c                \
+	mgga_c_tpssloc.c mgga_xc_hle17.c mgga_c_kcis.c mgga_xc_lp90.c   \
 	hyb_mgga_xc_kcis.c mgga_c_b88.c mgga_x_gx.c mgga_x_pbe_gx.c     \
-  mgga_c_revscan.c
+        mgga_c_revscan.c mgga_x_br89_explicit.c
 
 libxc_la_SOURCES = references.c $(libxc_la_FUNC_SOURCES)
 libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)

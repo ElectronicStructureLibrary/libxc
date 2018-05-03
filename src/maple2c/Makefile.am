@@ -40,4 +40,4 @@ noinst_HEADERS =  \
   mgga_x_mbeef.c mgga_x_mbeefvdw.c mgga_x_mk00.c mgga_x_mn12.c mgga_x_ms.c  \
   mgga_x_mvs.c mgga_x_pbe_gx.c mgga_x_pkzb.c mgga_x_sa_tpss.c mgga_x_scan.c \
   mgga_x_tau_hcth.c mgga_x_tm.c mgga_x_tpss.c mgga_x_vt84.c                 \
-  mgga_c_revscan.c  
+  mgga_c_revscan.c mgga_x_br89_explicit.c

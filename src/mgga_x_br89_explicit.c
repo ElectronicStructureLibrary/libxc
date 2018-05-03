@@ -9,7 +9,7 @@
 
 #include "util.h"
 
-#define XC_MGGA_X_BR89_EXPLICIT  581 /* Becke-Roussel 89 with an explicit inversion of x(y) */
+#define XC_MGGA_X_BR89_EXPLICIT  586 /* Becke-Roussel 89 with an explicit inversion of x(y) */
 
 #include "maple2c/mgga_x_br89_explicit.c"
 

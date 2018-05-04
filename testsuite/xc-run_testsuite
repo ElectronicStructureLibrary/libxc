@@ -76,6 +76,7 @@ for dir in $(ls -d $srcdir/regression/*); do
     res=$($builddir/xc-error $workdir/$refname $workdir/${refname}_ref $tol)
     if [ "x$res" = "x1" ]; then
       echo -e "      ${GREEN}OK"
+      rm $workdir/$refname $workdir/${refname}_ref
     else
       echo -e "     ${RED}FAIL"
       let fail++

@@ -228,6 +228,7 @@ mgga_c_vsxc.c
 mgga_k_pc07.c
 mgga_x_2d_prhg07.c
 mgga_x_br89.c
+mgga_x_br89_explicit.c
 mgga_x_gvt4.c
 mgga_x_gx.c
 mgga_x_lta.c

@@ -193,6 +193,20 @@ module xc_f90_lib_m
       use xc_f90_types_m
       integer, intent(in) :: id
     end function xc_f90_family_from_id
+
+    integer function xc_f90_number_of_functionals()
+      use xc_f90_types_m
+    end function xc_f90_number_of_functionals
+
+    integer function xc_f90_maximum_name_length()
+      use xc_f90_types_m
+    end function xc_f90_maximum_name_length
+
+    subroutine xc_f90_available_functional_numbers(list)
+      use xc_f90_types_m
+      integer, intent(out) :: list
+    end subroutine xc_f90_available_functional_numbers
+
   end interface
 
 

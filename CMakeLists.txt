@@ -1,6 +1,6 @@
 cmake_policy(SET CMP0048 NEW)  # project_VERSION* variables populated from project(... VERSION x.x.x) string
 project(Libxc
-        VERSION 4.0.1
+        VERSION 4.1.0
         LANGUAGES C)
 set(Libxc_AUTHORS      "Miguel A.L. Marques and others")
 set(Libxc_DESCRIPTION  "Exchange-correlation functionals for density-functional theory")
@@ -219,6 +219,7 @@ mgga_c_m05.c
 mgga_c_m06l.c
 mgga_c_m08.c
 mgga_c_pkzb.c
+mgga_c_revscan.c
 mgga_c_revtpss.c
 mgga_c_scan.c
 mgga_c_tpss.c
@@ -227,6 +228,7 @@ mgga_c_vsxc.c
 mgga_k_pc07.c
 mgga_x_2d_prhg07.c
 mgga_x_br89.c
+mgga_x_br89_explicit.c
 mgga_x_gvt4.c
 mgga_x_gx.c
 mgga_x_lta.c

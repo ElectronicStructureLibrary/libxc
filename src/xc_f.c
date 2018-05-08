@@ -124,6 +124,24 @@ CC_FORTRAN_INT  FC_FUNC(xc_f90_family_from_id, XC_F90_FAMILY_FROM_ID)
   return (CC_FORTRAN_INT) xc_family_from_id((int) (*functional), NULL, NULL);
 }
 
+CC_FORTRAN_INT FC_FUNC(xc_f90_number_of_functionals, XC_F90_NUMBER_OF_FUNCTIONALS)
+  ()
+{
+  return (CC_FORTRAN_INT) xc_number_of_functionals();
+}
+
+CC_FORTRAN_INT FC_FUNC(xc_f90_maximum_name_length, XC_F90_MAXIMUM_LENGTH_NAME)
+  ()
+{
+  return (CC_FORTRAN_INT) xc_maximum_name_length();
+}
+
+void FC_FUNC(xc_f90_available_functional_numbers, XC_F90_AVAILABLE_FUNCTIONAL_NUMBERS)
+  (CC_FORTRAN_INT *list)
+{
+  xc_available_functional_numbers(list);
+}
+
 
 /* Standard initialization */
 void FC_FUNC(xc_f90_func_init, XC_F90_FUNC_INIT)

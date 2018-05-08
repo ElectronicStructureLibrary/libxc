@@ -11,6 +11,7 @@
 
 #define XC_MGGA_C_SCAN          267 /* SCAN correlation */
 #define XC_MGGA_C_SCAN_RVV10    292 /* SCAN correlation + rVV10 correlation */
+#define XC_MGGA_C_SCAN_VV10     584 /* SCAN correlation +  VV10 correlation */
 
 #include "maple2c/mgga_c_scan.c"
 
@@ -46,12 +47,37 @@ mgga_c_scan_rvv10_init(xc_func_type *p)
 const xc_func_info_type xc_func_info_mgga_c_scan_rvv10 = {
   XC_MGGA_C_SCAN_RVV10,
   XC_CORRELATION,
-  "SCAN+rVV10 correlation",
+  "SCAN + rVV10 correlation",
   XC_FAMILY_MGGA,
   {&xc_ref_Peng2016_041005, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
   mgga_c_scan_rvv10_init,
+  NULL, NULL, NULL, NULL
+};
+
+static void
+mgga_c_scan_vv10_init(xc_func_type *p)
+{
+  static int   funcs_id  [1] = {XC_MGGA_C_SCAN};
+  static double funcs_coef[1] = {1.0};
+
+  xc_mix_init(p, 1, funcs_id, funcs_coef);
+
+  p->nlc_b = 14.0;
+  p->nlc_C = 0.0093;
+}
+
+const xc_func_info_type xc_func_info_mgga_c_scan_vv10 = {
+  XC_MGGA_C_SCAN_VV10,
+  XC_CORRELATION,
+  "SCAN + VV10 correlation",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Brandenburg2016_115144, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-32,
+  0, NULL, NULL,
+  mgga_c_scan_vv10_init,
   NULL, NULL, NULL, NULL
 };

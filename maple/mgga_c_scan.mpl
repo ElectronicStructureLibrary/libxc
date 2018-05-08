@@ -32,9 +32,9 @@ scan_alpha := (z, xt, ts0, ts1) ->
   (t_total(z, ts0, ts1) - xt^2/8)/(K_FACTOR_C*t_total(z, 1, 1)):
 
 (* set parameters of f_alpha *)
-c1 := 0.64:
-c2 := 1.5:
-d  := 0.7:
+params_a_c1 := 0.64:
+params_a_c2 := 1.5:
+params_a_d  := 0.7:
 
 f_scan := (rs, z, xt, xs0, xs1, ts0, ts1) ->
   f_pbe(rs, z, xt, xs0, xs1) + f_alpha(scan_alpha(z, xt, ts0, ts1))*(

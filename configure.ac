@@ -163,6 +163,8 @@ AC_CONFIG_FILES([Makefile
   build/libxc.spec
   scripts/Makefile
   maple/Makefile
+  pylibxc/Makefile
+  cmake/Makefile
 ])
 
 AC_OUTPUT

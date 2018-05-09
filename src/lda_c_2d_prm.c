@@ -38,7 +38,7 @@ lda_c_2d_prm_init(xc_func_type *p)
 #include "work_lda.c"
 
 static const func_params_type ext_params[] = {
-  {2.0, "Number of electrons"},
+  {"N", 2.0, "Number of electrons"},
 };
 
 static void 
@@ -51,8 +51,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   assert(p != NULL && p->params != NULL);
   params = (lda_c_2d_prm_params *) (p->params);
 
-  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
-  params->N = ff;
+  params->N = get_ext_param(p->info->ext_params, ext_params, 0);
 
   if(params->N <= 1.0){
     fprintf(stderr, "PRM functional cannot be used for N_electrons <= 1\n");

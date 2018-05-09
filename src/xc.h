@@ -58,6 +58,9 @@ extern "C" {
 #define XC_FLAGS_DEVELOPMENT      (1 << 14) /* 16384 */
 #define XC_FLAGS_NEEDS_LAPLACIAN  (1 << 15) /* 32768 */
 
+  /* This magic value means use default parameter */
+#define XC_EXT_PARAMS_DEFAULT   -999998888
+
 #define XC_TAU_EXPLICIT         0
 #define XC_TAU_EXPANSION        1
 
@@ -77,6 +80,8 @@ char const *xc_func_reference_get_doi(const func_reference_type *reference);
 char const *xc_func_reference_get_bibtex(const func_reference_type *reference);
 
 typedef struct{
+  char *name; /* ATTENTION: if name starts with a _ it is an *internal* parameter, 
+                 changing the value effectively changes the functional! */
   double value;
   char *description;
 } func_params_type;

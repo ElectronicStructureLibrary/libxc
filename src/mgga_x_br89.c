@@ -302,20 +302,18 @@ const xc_func_info_type xc_func_info_mgga_x_bj06 = {
 };
 
 static const func_params_type ext_params[] = {
-  {1.0, "Value of the c parameter"},
+  {"c", 1.0, "This parameter involves an average over the unit cell and must be calculated by the calling program."},
 };
 
 static void 
 set_ext_params(xc_func_type *p, const double *ext_params)
 {
   mgga_x_tb09_params *params;
-  double ff;
 
   assert(p != NULL && p->params != NULL);
   params = (mgga_x_tb09_params *) (p->params);
 
-  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
-  params->c = ff;
+  params->c = get_ext_param(p->info->ext_params, ext_params, 0);
 }
 
 const xc_func_info_type xc_func_info_mgga_x_tb09 = {

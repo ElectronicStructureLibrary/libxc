@@ -20,23 +20,30 @@ typedef struct{
 static void 
 gga_x_b86_init(xc_func_type *p)
 {
+  gga_x_b86_params *params;
   double mu, kappa;
 
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_x_b86_params));
-
+  params = (gga_x_b86_params *) (p->params);
+  
   /* value of beta and gamma in Becke 86 functional */
   switch(p->info->number){
   case XC_GGA_X_B86:
-    xc_gga_x_b86_set_params(p, 0.0036/X_FACTOR_C, 0.004, 1.0);
+    /* default set by set_ext_params */
     break;
   case XC_GGA_X_B86_MGC:
-    xc_gga_x_b86_set_params(p, 0.00375/X_FACTOR_C, 0.007, 4.0/5.0);
+    params->beta  = 0.00375/X_FACTOR_C;
+    params->gamma = 0.007;
+    params->omega = 4.0/5.0;
     break;
   case XC_GGA_X_B86_R:
-    mu = 10.0/81.0;
+    mu = MU_GE;
     kappa = 0.7114;
-    xc_gga_x_b86_set_params(p, mu*X2S*X2S, mu*X2S*X2S/kappa, 4.0/5.0);
+
+    params->beta  = mu*X2S*X2S;
+    params->gamma = mu*X2S*X2S/kappa;
+    params->omega = 4.0/5.0;
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_b86\n");
@@ -44,18 +51,23 @@ gga_x_b86_init(xc_func_type *p)
   }
 }
 
+static const func_params_type ext_params[] = {
+  {"_beta", 0.0036/X_FACTOR_C, "Small x limit"},
+  {"_gamma", 0.004, "Parameter in the denominator"},
+  {"_omega", 1.0, "Exponent of denominator"},
+};
 
-void 
-xc_gga_x_b86_set_params(xc_func_type *p, double beta, double gamma, double omega)
+static void 
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
   gga_x_b86_params *params;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_b86_params *) (p->params);
 
-  params->beta  = beta;
-  params->gamma = gamma;
-  params->omega = omega;
+  params->beta  = get_ext_param(p->info->ext_params, ext_params, 0);
+  params->gamma = get_ext_param(p->info->ext_params, ext_params, 1);
+  params->omega = get_ext_param(p->info->ext_params, ext_params, 2);
 }
 
 
@@ -72,7 +84,7 @@ const xc_func_info_type xc_func_info_gga_x_b86 = {
   {&xc_ref_Becke1986_4524, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-24,
-  0, NULL, NULL,
+  3, ext_params, set_ext_params,
   gga_x_b86_init, NULL, 
   NULL, work_gga_x, NULL
 };

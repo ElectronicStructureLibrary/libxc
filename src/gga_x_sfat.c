@@ -23,23 +23,31 @@ typedef struct{
 static void
 gga_x_sfat_init(xc_func_type *p)
 {
+  gga_x_sfat_params *params;
+  
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_x_sfat_params));
-
-  /* random functional, mainly intended for testing */
-  ((gga_x_sfat_params *) (p->params))->func_id = -1;
-  xc_gga_x_sfat_set_params(p, XC_GGA_X_B88, 0.44);
+  params = (gga_x_sfat_params *) (p->params);
+  
+  params->func_id = -1;
 }
 
-void 
-xc_gga_x_sfat_set_params(xc_func_type *p, int func_id, double omega)
+static const func_params_type ext_params[] = {
+  {"_func_id", XC_GGA_X_B88, "(int) ID number of base functional"},
+  {"_omega", 0.44, "Screening parameter"},
+};
+
+static void 
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
+  int func_id;
   gga_x_sfat_params *params;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_sfat_params *) (p->params);
 
-  p->cam_omega = omega;
+  func_id = (int)round(get_ext_param(p->info->ext_params, ext_params, 0));
+  p->cam_omega = get_ext_param(p->info->ext_params, ext_params, 1);
 
   /* if func_id == -1 do nothing */
   if(func_id != -1 && params->func_id == -1){ /* intialize stuff */
@@ -175,10 +183,8 @@ const xc_func_info_type xc_func_info_gga_x_sfat = {
   {&xc_ref_Savin1995_327, &xc_ref_Akinaga2008_348, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-19,
-  0, NULL, NULL,
-  gga_x_sfat_init,
-  NULL, NULL, 
-  work_gga_c,
-  NULL
+  2, ext_params, set_ext_params,
+  gga_x_sfat_init, NULL,
+  NULL, work_gga_c, NULL
 };
 

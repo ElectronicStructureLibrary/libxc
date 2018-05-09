@@ -21,21 +21,23 @@ gga_x_kt_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_x_kt_params));
-
-  xc_gga_x_kt_set_params(p, -0.006, 0.1);
 }
 
+static const func_params_type ext_params[] = {
+  {"_gamma", -0.006, "gamma"},
+  {"_delta",    0.1, "delta"},
+};
 
-void 
-xc_gga_x_kt_set_params(xc_func_type *p, double gamma, double delta)
+static void 
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
   gga_x_kt_params *params;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_kt_params *) (p->params);
 
-  params->gamma = gamma;
-  params->delta = delta;
+  params->gamma = get_ext_param(p->info->ext_params, ext_params, 0);
+  params->delta = get_ext_param(p->info->ext_params, ext_params, 1);
 }
 
 #include "maple2c/gga_x_kt.c"
@@ -51,7 +53,7 @@ const xc_func_info_type xc_func_info_gga_x_kt1 = {
   {&xc_ref_Keal2003_3015, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
-  0, NULL, NULL,
+  2, ext_params, set_ext_params,
   gga_x_kt_init, NULL, 
   NULL, work_gga_c, NULL
 };

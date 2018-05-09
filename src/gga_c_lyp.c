@@ -18,17 +18,22 @@ typedef struct{
 
 void xc_gga_c_lyp_init(xc_func_type *p)
 {
-  assert(p->params == NULL);
+  gga_c_lyp_params *params;
 
+  assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_c_lyp_params));
+  params = (gga_c_lyp_params *) (p->params);      
 
   /* values of constants in standard LYP functional */
   switch(p->info->number){
   case XC_GGA_C_LYP:
-    xc_gga_c_lyp_set_params(p, 0.04918, 0.132, 0.2533, 0.349);
+    /* default set by set_ext_params */
     break;
   case XC_GGA_C_TM_LYP:
-    xc_gga_c_lyp_set_params(p, 0.0393, 0.21, 0.41, 0.15);
+    params->A = 0.0393;
+    params->B = 0.21;
+    params->c = 0.41;
+    params->d = 0.15;
     break;
   default:
     fprintf(stderr, "Internal error in gga_c_lyp\n");
@@ -36,20 +41,26 @@ void xc_gga_c_lyp_init(xc_func_type *p)
   }
 }
 
+static const func_params_type ext_params[] = {
+  {"_A", 0.04918, "Parameter A of LYP"},
+  {"_B", 0.132,   "Parameter B of LYP"},
+  {"_c", 0.2533,  "Parameter c of LYP"},
+  {"_d", 0.349,   "Parameter d of LYP"},
+};
 
-void xc_gga_c_lyp_set_params(xc_func_type *p, double A, double B, double c, double d)
+static void 
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
   gga_c_lyp_params *params;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_c_lyp_params *) (p->params);
 
-  params->A = A;
-  params->B = B;
-  params->c = c;
-  params->d = d;
+  params->A = get_ext_param(p->info->ext_params, ext_params, 0);
+  params->B = get_ext_param(p->info->ext_params, ext_params, 1);
+  params->c = get_ext_param(p->info->ext_params, ext_params, 2);
+  params->d = get_ext_param(p->info->ext_params, ext_params, 3);
 }
-
 
 #include "maple2c/gga_c_lyp.c"
 
@@ -64,7 +75,7 @@ const xc_func_info_type xc_func_info_gga_c_lyp = {
   {&xc_ref_Lee1988_785, &xc_ref_Miehlich1989_200, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
-  0, NULL, NULL,
+  4, ext_params, set_ext_params,
   xc_gga_c_lyp_init, NULL,
   NULL, work_gga_c, NULL
 };

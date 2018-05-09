@@ -131,19 +131,17 @@ gga_k_tflw_init(xc_func_type *p)
 #include "work_gga_x.c"
 
 static const func_params_type tfvw_ext_params[] = {
-  {1.0, "Lambda"},
-  {1.0, "Gamma"},
+  {"Lambda", 1.0, "Lambda"},
+  {"Gamma", 1.0, "Gamma"},
 };
 
 static void 
 tfvw_set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  double ff, lambda, gamma;
+  double lambda, gamma;
 
-  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
-  lambda = ff;
-  ff = (ext_params == NULL) ? p->info->ext_params[1].value : ext_params[1];
-  gamma = ff;
+  lambda = get_ext_param(p->info->ext_params, ext_params, 0);
+  gamma  = get_ext_param(p->info->ext_params, ext_params, 1);
 
   gga_k_tflw_set_params(p, gamma, lambda, 1.0);
 }
@@ -240,17 +238,15 @@ const xc_func_info_type xc_func_info_gga_k_lieb = {
 };
 
 static const func_params_type N_ext_params[] = {
-  {1.0, "Number of electrons"},
+  {"N", 1.0, "Number of electrons"},
 };
 
 static void 
 N_set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  double ff, N;
+  double N;
 
-  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
-  N = ff;
-
+  N = get_ext_param(p->info->ext_params, ext_params, 0);
   gga_k_tflw_set_params(p, -1.0, -1.0, N);
 }
 

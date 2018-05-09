@@ -158,6 +158,7 @@ AC_CONFIG_FILES([Makefile
   src/Makefile
   src/maple2c/Makefile
   testsuite/Makefile
+  testsuite/pytest/Makefile
   build/Makefile
   build/libxc.pc
   build/libxc.spec

@@ -7,6 +7,8 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
+SUBDIRS = pytest
+
 noinst_PROGRAMS = xc-get_data xc-consistency xc-regression xc-error
 dist_noinst_SCRIPTS = xc-run_testsuite xc-reference.pl
 TESTS = xc-run_testsuite

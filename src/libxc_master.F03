@@ -81,6 +81,10 @@ module xc_f03_lib_m
     xc_f03_functional_get_name, &
     xc_f03_functional_get_number, &
     xc_f03_family_from_id, &
+    xc_f03_number_of_functionals, &
+    xc_f03_maximum_name_length, &
+    xc_f03_available_functional_numbers, &
+    xc_f03_available_functional_names, &
     xc_f03_func_set_dens_threshold, &
     xc_f03_func_set_ext_params, &
     ! lda
@@ -315,6 +319,24 @@ module xc_f03_lib_m
       type(c_ptr),    value :: family, number
     end function xc_family_from_id
 
+    integer(c_int) function xc_f03_number_of_functionals() bind(c, name="xc_number_of_functionals")
+      import
+    end function xc_f03_number_of_functionals
+
+    integer(c_int) function xc_f03_maximum_name_length() bind(c, name="xc_maximum_name_length")
+      import
+    end function xc_f03_maximum_name_length
+
+    subroutine xc_f03_available_functional_numbers(list) bind(c, name="xc_available_functional_numbers")
+      import
+      integer(c_int), intent(out) :: list(*)
+    end subroutine xc_f03_available_functional_numbers
+
+    subroutine xc_available_functional_names(list) bind(c)
+      import
+      type(c_ptr) :: list(*)
+    end subroutine xc_available_functional_names
+    
     subroutine xc_func_set_dens_threshold(p, dens_threshold) bind(c)
       import
       type(c_ptr), value :: p
@@ -711,6 +733,34 @@ module xc_f03_lib_m
     
   end function xc_f03_family_from_id
 
+  subroutine xc_f03_available_functional_names(list)
+    character(len=*), intent(out) :: list(*)
+
+    integer :: n, i, maxlen
+    character(kind=c_char), allocatable, target :: names(:,:)
+    type(c_ptr), allocatable :: c_list(:)
+    
+    n = xc_f03_number_of_functionals()
+    maxlen = xc_f03_maximum_name_length()
+
+    allocate(names(maxlen, n))
+    allocate(c_list(n))
+    do i = 1, n
+      c_list(i) = c_loc(names(1,i))
+    end do
+      
+    call xc_available_functional_names(c_list)
+    
+    do i = 1, n
+      call c_to_f_string_ptr(c_list(i), list(i))
+    end do
+
+    deallocate(c_list)
+    deallocate(names)
+    
+  end subroutine xc_f03_available_functional_names
+
+  
   subroutine xc_f03_func_set_dens_threshold(p, dens_threshold)
     type(xc_f03_func_t), intent(in) :: p
     real(RTYPE),       intent(in) :: dens_threshold

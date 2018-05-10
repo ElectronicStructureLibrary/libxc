@@ -17,14 +17,16 @@
 static void
 gga_xc_edf1_init(xc_func_type *p)
 {
-  static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_GGA_X_B88, XC_GGA_C_LYP};
+  static int    funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_GGA_X_B88, XC_GGA_C_LYP};
   static double funcs_coef[4] = {1.030952 - 10.4017 + 8.44793, 10.4017, -8.44793, 1.0};
 
+  static double par_x_b88[] = {0.0035, 6.0};
+  static double par_c_lyp[] = {0.055, 0.158, 0.25, 0.3505};
+  
   xc_mix_init(p, 4, funcs_id, funcs_coef);  
 
-  xc_gga_x_b88_set_params(p->func_aux[1], 0.0035, 6.0);
-  xc_gga_x_b88_set_params(p->func_aux[2], 0.0042, 6.0);
-  xc_gga_c_lyp_set_params(p->func_aux[3], 0.055, 0.158, 0.25, 0.3505);
+  xc_func_set_ext_params(p->func_aux[1], par_x_b88);
+  xc_func_set_ext_params(p->func_aux[3], par_c_lyp);
 }
 
 const xc_func_info_type xc_func_info_gga_xc_edf1 = {
@@ -44,13 +46,15 @@ const xc_func_info_type xc_func_info_gga_xc_edf1 = {
 static void
 gga_x_optpbe_vdw_init(xc_func_type *p)
 {
-  static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_X_RPBE};
+  static int    funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_X_RPBE};
   static double funcs_coef[2] = {1.0 - 0.054732, 0.054732};
 
+  static double par_pbe[]  = {1.04804, 0.175519};
+  
   xc_mix_init(p, 2, funcs_id, funcs_coef);  
 
-  xc_gga_x_pbe_set_params (p->func_aux[0], 1.04804, 0.175519);
-  xc_gga_x_rpbe_set_params(p->func_aux[1], 1.04804, 0.175519);
+  xc_func_set_ext_params(p->func_aux[0], par_pbe);
+  xc_func_set_ext_params(p->func_aux[1], par_pbe);
 }
 
 const xc_func_info_type xc_func_info_gga_x_optpbe_vdw = {
@@ -70,12 +74,14 @@ const xc_func_info_type xc_func_info_gga_x_optpbe_vdw = {
 static void
 gga_xc_mohlyp_init(xc_func_type *p)
 {
-  static int   funcs_id  [3] = {XC_GGA_X_OPTX, XC_LDA_C_VWN, XC_GGA_C_LYP};
+  static int    funcs_id  [3] = {XC_GGA_X_OPTX, XC_LDA_C_VWN, XC_GGA_C_LYP};
   static double funcs_coef[3] = {1.0, 0.5, 0.5};
 
+  static double par_x_optx[] = {1.0, 1.292/X_FACTOR_C, 0.006};
+  
   xc_mix_init(p, 3, funcs_id, funcs_coef);
 
-  xc_gga_x_optx_set_params(p->func_aux[0], 1.0, 1.292/X_FACTOR_C, 0.006);
+  xc_func_set_ext_params(p->func_aux[0], par_x_optx);
 }
 
 const xc_func_info_type xc_func_info_gga_xc_mohlyp = {
@@ -97,9 +103,11 @@ gga_xc_mohlyp2_init(xc_func_type *p)
   static int   funcs_id  [2] = {XC_GGA_X_OPTX, XC_GGA_C_LYP};
   static double funcs_coef[2] = {1.0, 0.5};
 
+  static double par_x_optx[] = {1.05151, 1.8497564/X_FACTOR_C, 0.006};
+  
   xc_mix_init(p, 2, funcs_id, funcs_coef);
 
-  xc_gga_x_optx_set_params(p->func_aux[0], 1.05151, 1.8497564/X_FACTOR_C, 0.006);
+  xc_func_set_ext_params(p->func_aux[0], par_x_optx);
 }
 
 const xc_func_info_type xc_func_info_gga_xc_mohlyp2 = {
@@ -118,13 +126,15 @@ const xc_func_info_type xc_func_info_gga_xc_mohlyp2 = {
 static void
 gga_x_sogga_init(xc_func_type *p)
 {
-  static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_X_RPBE};
+  static int    funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_X_RPBE};
   static double funcs_coef[2] = {0.5, 0.5};
 
+  static double par_pbe[] = {0.552, MU_GE};
+  
   xc_mix_init(p, 2, funcs_id, funcs_coef);
 
-  xc_gga_x_pbe_set_params (p->func_aux[0], 0.552, 10.0/81.0);
-  xc_gga_x_rpbe_set_params(p->func_aux[1], 0.552, 10.0/81.0);
+  xc_func_set_ext_params (p->func_aux[0], par_pbe);
+  xc_func_set_ext_params (p->func_aux[1], par_pbe);
 }
 
 const xc_func_info_type xc_func_info_gga_x_sogga = {

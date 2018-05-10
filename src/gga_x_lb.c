@@ -139,10 +139,10 @@ gga_x_lb(const xc_func_type *p, int np, const double *rho, const double *sigma,
 
 
 static const func_params_type ext_params[] = {
-  {  0, "Modified: 0 (no) | 1 (yes)"},
-  {0.0, "Ionization potential (a.u.)"},
-  {1e-32, "Threshold"},
-  {0.0, "Total charge (necessary to fix the asymptotics"}
+  {"mode", 0, "Modified: 0 (no) | 1 (yes)"},
+  {"I", 0.0, "Ionization potential (a.u.)"},
+  {"threshold", 1e-32, "Asymptotic correction is applied if density smaller than this parameter"},
+  {"qtot",0.0, "Total charge (necessary to fix the asymptotics"}
 };
 
 
@@ -150,19 +150,14 @@ static void
 set_ext_params(xc_func_type *p, const double *ext_params)
 {
   xc_gga_x_lb_params *params;
-  double ff;
 
   assert(p!=NULL && p->params!=NULL);
   params = (xc_gga_x_lb_params *) (p->params);
 
-  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
-  params->modified  = (int)round(ff);
-  ff = (ext_params == NULL) ? p->info->ext_params[1].value : ext_params[1];
-  params->threshold = ff;
-  ff = (ext_params == NULL) ? p->info->ext_params[2].value : ext_params[2];
-  params->ip        = ff;
-  ff = (ext_params == NULL) ? p->info->ext_params[3].value : ext_params[3];
-  params->qtot      = ff;
+  params->modified  = (int)round(get_ext_param(p->info->ext_params, ext_params, 0));
+  params->threshold = get_ext_param(p->info->ext_params, ext_params, 1);
+  params->ip        = get_ext_param(p->info->ext_params, ext_params, 2);
+  params->qtot      = get_ext_param(p->info->ext_params, ext_params, 3);
 
   if(params->modified){
     params->aa   = (params->ip > 0.0) ? 2.0*sqrt(2.0*params->ip) : 0.5;

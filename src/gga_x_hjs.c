@@ -47,32 +47,33 @@ static const double b_B88_V2[] =
 static void
 gga_x_hjs_init(xc_func_type *p)
 {
+  gga_x_hjs_params *params;
+  
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_x_hjs_params));
-
-  /* we take 0.11 as the default for hjs */
-  xc_gga_x_hjs_set_params(p, 0.11);
-
+  params = (gga_x_hjs_params *) (p->params);
+  
+  /* omega = 0.11 is set by ext_params */
   switch(p->info->number){
   case XC_GGA_X_HJS_PBE:
-    ((gga_x_hjs_params *)(p->params))->a = a_PBE;
-    ((gga_x_hjs_params *)(p->params))->b = b_PBE;
+    params->a = a_PBE;
+    params->b = b_PBE;
     break;
   case XC_GGA_X_HJS_PBE_SOL:
-    ((gga_x_hjs_params *)(p->params))->a = a_PBE_sol;
-    ((gga_x_hjs_params *)(p->params))->b = b_PBE_sol;
+    params->a = a_PBE_sol;
+    params->b = b_PBE_sol;
     break;
   case XC_GGA_X_HJS_B88:
-    ((gga_x_hjs_params *)(p->params))->a = a_B88;
-    ((gga_x_hjs_params *)(p->params))->b = b_B88;
+    params->a = a_B88;
+    params->b = b_B88;
     break;
   case XC_GGA_X_HJS_B97X:
-    ((gga_x_hjs_params *)(p->params))->a = a_B97x;
-    ((gga_x_hjs_params *)(p->params))->b = b_B97x;
+    params->a = a_B97x;
+    params->b = b_B97x;
     break;
   case XC_GGA_X_HJS_B88_V2:
-    ((gga_x_hjs_params *)(p->params))->a = a_B88_V2;
-    ((gga_x_hjs_params *)(p->params))->b = b_B88_V2;
+    params->a = a_B88_V2;
+    params->b = b_B88_V2;
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_hjs_init\n");
@@ -80,15 +81,19 @@ gga_x_hjs_init(xc_func_type *p)
   }
 }
 
-void 
-xc_gga_x_hjs_set_params(xc_func_type *p, double omega)
+static func_params_type ext_params[] = {
+  {"_omega", 0.11, "Screening parameter for HF"},
+};
+
+static void 
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
   gga_x_hjs_params *params;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_hjs_params *) (p->params);
 
-  params->omega = omega;
+  params->omega = get_ext_param(p->info->ext_params, ext_params, 0);
 }
 
 
@@ -105,7 +110,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_pbe = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   5e-12,
-  0, NULL, NULL,
+  1, ext_params, set_ext_params,
   gga_x_hjs_init, NULL, 
   NULL, work_gga_c, NULL
 };
@@ -118,7 +123,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_pbe_sol = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   5e-12,
-  0, NULL, NULL,
+  1, ext_params, set_ext_params,
   gga_x_hjs_init, NULL, 
   NULL, work_gga_c, NULL
 };
@@ -131,7 +136,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b88 = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-7, /* densities smaller than 1e-7 yield NaNs */
-  0, NULL, NULL,
+  1, ext_params, set_ext_params,
   gga_x_hjs_init, NULL, 
   NULL,  work_gga_c, NULL
 };
@@ -144,7 +149,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b97x = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-10,
-  0, NULL, NULL,
+  1, ext_params, set_ext_params,
   gga_x_hjs_init, NULL, 
   NULL, work_gga_c, NULL
 };

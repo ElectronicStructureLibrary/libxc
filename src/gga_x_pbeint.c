@@ -29,13 +29,19 @@ gga_x_pbe_init(xc_func_type *p)
  
   switch(p->info->number){
   case XC_GGA_X_PBEINT:
-    xc_gga_x_pbeint_set_params(p, 0.8040, 0.197, 0.2195149727645171, MU_GE);
+    /* default set by set_ext_params */
     break;
   case XC_GGA_K_APBEINT:
-    xc_gga_x_pbeint_set_params(p, 0.8040, 5.0/3.0, 0.23899, 5.0/27.0);
+    params->kappa = 0.8040;
+    params->alpha = 5.0/3.0;
+    params->muPBE = 0.23899;
+    params->muGE  = 5.0/27.0;
     break;
   case XC_GGA_K_REVAPBEINT:
-    xc_gga_x_pbeint_set_params(p, 1.245, 5.0/3.0, 0.23899, 5.0/27.0);
+    params->kappa = 1.245;
+    params->alpha = 5.0/3.0;
+    params->muPBE = 0.23899;
+    params->muGE  = 5.0/27.0;
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_pbeint\n");
@@ -43,19 +49,25 @@ gga_x_pbe_init(xc_func_type *p)
   }
 }
 
+static const func_params_type ext_params[] = {
+  {"_kappa", 0.8040, "Asymptotic value of the enhancement function"},
+  {"_alpha", 0.197, "defines the width of the interpolation"},
+  {"_muPBE", MU_PBE, "Limiting value for large s"},
+  {"_muGE",  MU_GE, "Limiting value for small s"},
+};
 
-void 
-xc_gga_x_pbeint_set_params(xc_func_type *p, double kappa, double alpha, double muPBE, double muGE)
+static void 
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
   gga_x_pbeint_params *params;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_pbeint_params *) (p->params);
 
-  params->kappa = kappa;
-  params->alpha = alpha;
-  params->muPBE = muPBE;
-  params->muGE  = muGE;
+  params->kappa = get_ext_param(p->info->ext_params, ext_params, 0);
+  params->alpha = get_ext_param(p->info->ext_params, ext_params, 1);
+  params->muPBE = get_ext_param(p->info->ext_params, ext_params, 2);
+  params->muGE  = get_ext_param(p->info->ext_params, ext_params, 3);
 }
 
 #include "maple2c/gga_x_pbeint.c"
@@ -71,7 +83,7 @@ const xc_func_info_type xc_func_info_gga_x_pbeint = {
   {&xc_ref_Fabiano2010_113104, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-12,
-  0, NULL, NULL,
+  4, ext_params, set_ext_params,
   gga_x_pbe_init, NULL, 
   NULL, work_gga_x, NULL
 };

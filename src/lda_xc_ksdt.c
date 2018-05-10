@@ -88,20 +88,18 @@ lda_xc_ksdt_init(xc_func_type *p)
 #include "work_lda.c"
 
 static const func_params_type ext_params[] = {
-  {0.0, "Temperature"},
+  {"T", 0.0, "Temperature"},
 };
 
 static void 
 set_ext_params(xc_func_type *p, const double *ext_params)
 {
   lda_xc_ksdt_params *params;
-  double ff;
 
   assert(p != NULL && p->params != NULL);
   params = (lda_xc_ksdt_params *) (p->params);
 
-  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
-  params->T = ff;
+  params->T = get_ext_param(p->info->ext_params, ext_params, 0);
 }
 
 const xc_func_info_type xc_func_info_lda_xc_ksdt = {

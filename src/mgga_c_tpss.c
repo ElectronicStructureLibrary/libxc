@@ -26,7 +26,7 @@ mgga_c_tpss_init(xc_func_type *p)
 
   switch(p->info->number){
   case XC_MGGA_C_TPSS:
-    xc_mgga_c_tpss_set_params(p, 0.06672455060314922, 2.8, 0.53, 0.87, 0.50, 2.26);
+    /* default set by set_ext_params */
     break;
   default:
     fprintf(stderr, "Internal error in mgga_c_tpss\n");
@@ -34,21 +34,29 @@ mgga_c_tpss_init(xc_func_type *p)
   }
 }
 
-void
-xc_mgga_c_tpss_set_params
-     (xc_func_type *p, double beta, double d, double C0_0, double C0_1, double C0_2, double C0_3)
+static const func_params_type ext_params[] = {
+  {"_beta", 0.06672455060314922, "beta"},
+  {"_d", 2.8, "d"},
+  {"_C0_c0", 0.53, "C0_c[0]"},
+  {"_C0_c1", 0.87, "C0_c[1]"},
+  {"_C0_c2", 0.50, "C0_c[2]"},
+  {"_C0_c3", 2.26, "C0_c[3]"}
+};
+
+static void 
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
   mgga_c_tpss_params *params;
 
   assert(p != NULL && p->params != NULL);
   params = (mgga_c_tpss_params *) (p->params);
 
-  params->beta    = beta;
-  params->d       = d;
-  params->C0_c[0] = C0_0;
-  params->C0_c[1] = C0_1;
-  params->C0_c[2] = C0_2;
-  params->C0_c[3] = C0_3;
+  params->beta    = get_ext_param(p->info->ext_params, ext_params, 0);
+  params->d       = get_ext_param(p->info->ext_params, ext_params, 1);
+  params->C0_c[0] = get_ext_param(p->info->ext_params, ext_params, 2);
+  params->C0_c[1] = get_ext_param(p->info->ext_params, ext_params, 3);
+  params->C0_c[2] = get_ext_param(p->info->ext_params, ext_params, 4);
+  params->C0_c[3] = get_ext_param(p->info->ext_params, ext_params, 5);
 }
 
 #include "maple2c/mgga_c_tpss.c"
@@ -65,7 +73,7 @@ const xc_func_info_type xc_func_info_mgga_c_tpss = {
   {&xc_ref_Tao2003_146401, &xc_ref_Perdew2004_6898, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-23, /* densities smaller than 1e-26 give NaNs */
-  0, NULL, NULL,
+  6, ext_params, set_ext_params,
   mgga_c_tpss_init,
   NULL, NULL, NULL,
   work_mgga_c,

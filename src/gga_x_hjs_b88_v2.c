@@ -19,20 +19,21 @@ gga_x_hjs_init(xc_func_type *p)
 {
   assert(p->params == NULL);
   p->params = malloc(sizeof(gga_x_hjs_b88_v2_params));
-
-  /* we take 0.11 as the default for hjs_b88_v2 */
-  xc_gga_x_hjs_b88_v2_set_params(p, 0.11);
 }
 
-void 
-xc_gga_x_hjs_b88_v2_set_params(xc_func_type *p, double omega)
+static func_params_type ext_params[] = {
+  {"_omega", 0.11, "Screening parameter for HF"},
+};
+
+static void 
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
   gga_x_hjs_b88_v2_params *params;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_hjs_b88_v2_params *) (p->params);
 
-  params->omega = omega;
+  params->omega = get_ext_param(p->info->ext_params, ext_params, 0);
 }
 
 #include "maple2c/gga_x_hjs_b88_v2.c"
@@ -48,7 +49,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b88_v2 = {
   {&xc_ref_Weintraub2009_754, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-6, /* densities smaller than 1e-6 yield NaNs */
-  0, NULL, NULL,
+  1, ext_params, set_ext_params,
   gga_x_hjs_init, NULL, 
   NULL, work_gga_c, NULL
 };

@@ -192,20 +192,18 @@ const xc_func_info_type xc_func_info_lda_x = {
 };
 
 static const func_params_type ext_params[] = {
-  {1.0, "X-alpha multiplicative parameter"},
+  {"alpha", 1.0, "X-alpha multiplicative parameter"},
 };
 
 static void 
 set_ext_params(xc_func_type *p, const double *ext_params)
 {
   lda_x_params *params;
-  double ff;
 
   assert(p != NULL && p->params != NULL);
   params = (lda_x_params *)(p->params);
 
-  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
-  params->alpha = 1.5*ff - 1.0;
+  params->alpha = 1.5*get_ext_param(p->info->ext_params, ext_params, 0) - 1.0;
 }
 
 const xc_func_info_type xc_func_info_lda_c_xalpha = {
@@ -222,7 +220,7 @@ const xc_func_info_type xc_func_info_lda_c_xalpha = {
 };
 
 static const func_params_type N_ext_params[] = {
-  {1.0, "Number of electrons"},
+  {"N", 1.0, "Number of electrons"},
 };
 
 static void 

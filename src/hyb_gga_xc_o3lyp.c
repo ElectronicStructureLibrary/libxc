@@ -20,9 +20,13 @@ gga_xc_o3lyp_init(xc_func_type *p)
   static int funcs_id[4] = {XC_LDA_X, XC_GGA_X_OPTX, XC_LDA_C_VWN, XC_GGA_C_LYP};
   double funcs_coef[4];
 
-  /* \Delta OPTX is not described in the paper, so there are multiple
-     different plausible choices for the LDA exchange
-     coefficient. This one gives the right energies.
+  /*
+    Delta OPTX is defined as the GGA correction in OPTX, and O3LYP has
+    been defined in the paper not in terms of OPTX but in terms of
+    Delta OPTX.
+
+    To get the functional in terms of full LDA and full OPTX, we need
+    to remove the double counting of the LDA contribution.
    */
   funcs_coef[0] = b - a1*c;
   funcs_coef[1] = c;

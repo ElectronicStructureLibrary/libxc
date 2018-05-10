@@ -43,33 +43,33 @@
 */
 
 static func_params_type ext_params_hse03[] = {
-  {0.25, "Mixing parameter beta"},
-  {0.106066017177982128660126654316, "Screening parameter omega_HF"},  /* 0.15/sqrt(2.0) */
-  {0.188988157484230974715081591092, "Screening parameter omega_PBE"}, /* 0.15*cbrt(2.0) */
+  {"_beta", 0.25, "Mixing parameter"},
+  {"_omega_HF", 0.106066017177982128660126654316, "Screening parameter for HF"},  /* 0.15/sqrt(2.0) */
+  {"_omega_PBE", 0.188988157484230974715081591092, "Screening parameter for PBE"}, /* 0.15*cbrt(2.0) */
 };
 
 static func_params_type ext_params_hse06[] = {
-  {0.25, "Mixing parameter beta"},
-  {0.11, "Screening parameter omega_HF"},
-  {0.11, "Screening parameter omega_PBE"},
+  {"_beta", 0.25, "Mixing parameter"},
+  {"_omega_HF", 0.11, "Screening parameter for HF"},
+  {"_omega_PBE", 0.11, "Screening parameter for PBE"},
 };
 
 static func_params_type ext_params_hse12[] = {
-  {0.313, "Mixing parameter beta"},
-  {0.185, "Screening parameter omega_HF"},
-  {0.185, "Screening parameter omega_PBE"},
+  {"_beta", 0.313, "Mixing parameter"},
+  {"_omega_HF", 0.185, "Screening parameter for HF"},
+  {"_omega_PBE", 0.185, "Screening parameter for PBE"},
 };
 
 static func_params_type ext_params_hse12s[] = {
-  {0.425, "Mixing parameter beta"},
-  {0.408, "Screening parameter omega_HF"},
-  {0.408, "Screening parameter omega_PBE"},
+  {"_beta", 0.425, "Mixing parameter"},
+  {"_omega_HF", 0.408, "Screening parameter for HF"},
+  {"_omega_PBE", 0.408, "Screening parameter for PBE"},
 };
 
 static void
 hyb_gga_xc_hse_init(xc_func_type *p)
 {
-  int   funcs_id  [3] = {XC_GGA_X_WPBEH, XC_GGA_X_WPBEH, XC_GGA_C_PBE};
+  int    funcs_id  [3] = {XC_GGA_X_WPBEH, XC_GGA_X_WPBEH, XC_GGA_C_PBE};
   double funcs_coef[3] = {1.0, 0.0, 1.0};
 
   /* Note that the value of funcs_coef[1] will be set by set_ext_params */
@@ -83,15 +83,15 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   
   assert(p != NULL);
 
-  beta      = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
-  omega_HF  = (ext_params == NULL) ? p->info->ext_params[1].value : ext_params[1];
-  omega_PBE = (ext_params == NULL) ? p->info->ext_params[2].value : ext_params[2];
+  beta      = get_ext_param(p->info->ext_params, ext_params, 0);
+  omega_HF  = get_ext_param(p->info->ext_params, ext_params, 1);
+  omega_PBE = get_ext_param(p->info->ext_params, ext_params, 2);
 
   p->mix_coef[1] = -beta;
 
   p->cam_beta  = beta;
   p->cam_omega = omega_HF;
-  xc_gga_x_wpbeh_set_params(p->func_aux[1], omega_PBE);
+  xc_func_set_ext_params(p->func_aux[1], &omega_PBE);
 }
   
 const xc_func_info_type xc_func_info_hyb_gga_xc_hse03 = {
@@ -151,12 +151,14 @@ hyb_gga_xc_hse_sol_init(xc_func_type *p)
 {
   int   funcs_id  [3] = {XC_GGA_X_HJS_PBE_SOL, XC_GGA_X_HJS_PBE_SOL, XC_GGA_C_PBE};
   double funcs_coef[3] = {1.0, -0.25, 1.0};
+
+  static double zero = 0.0, omega = 0.11;
   
   xc_mix_init(p, 3, funcs_id, funcs_coef);
-  p->cam_omega = 0.11;
+  p->cam_omega = omega;
   p->cam_beta  = 0.25;
-  xc_gga_x_hjs_set_params(p->func_aux[0], 0.0);
-  xc_gga_x_hjs_set_params(p->func_aux[1], p->cam_omega);
+  xc_func_set_ext_params(p->func_aux[0], &zero);
+  xc_func_set_ext_params(p->func_aux[1], &omega);
 }
 
 
@@ -184,7 +186,7 @@ hyb_gga_xc_lc_wpbe_init(xc_func_type *p)
   p->cam_omega =  0.4;
   p->cam_alpha =  1.0;
   p->cam_beta  = -1.0;
-  xc_gga_x_wpbeh_set_params(p->func_aux[0], p->cam_omega);
+  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
 }
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe = {
@@ -212,7 +214,7 @@ hyb_gga_xc_lrc_wpbeh_init(xc_func_type *p)
   p->cam_omega =  0.2;
   p->cam_alpha =  1.0;
   p->cam_beta  = -0.8;
-  xc_gga_x_wpbeh_set_params(p->func_aux[0], p->cam_omega);
+  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
 }
 
 static void
@@ -226,7 +228,7 @@ hyb_gga_xc_lrc_wpbe_init(xc_func_type *p)
   p->cam_omega =  0.3;
   p->cam_alpha =  1.0;
   p->cam_beta  = -1.0;
-  xc_gga_x_wpbeh_set_params(p->func_aux[0], p->cam_omega);
+  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
 }
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_lrc_wpbeh = {
@@ -261,6 +263,8 @@ hyb_gga_xc_hjs_init(xc_func_type *p)
   static int   funcs_id  [3] = {-1, -1, XC_GGA_C_PBE};
   static double funcs_coef[3] = {1.0, -0.25, 1.0};
 
+  static double zero = 0.0, omega = 0.11;
+  
   switch(p->info->number){
   case XC_HYB_GGA_XC_HJS_PBE:
     funcs_id[0] = funcs_id[1] = XC_GGA_X_HJS_PBE;
@@ -281,10 +285,10 @@ hyb_gga_xc_hjs_init(xc_func_type *p)
 
   xc_mix_init(p, 3, funcs_id, funcs_coef);
 
-  p->cam_omega = 0.11;
+  p->cam_omega = omega;
   p->cam_beta  = 0.25;
-  xc_gga_x_hjs_set_params(p->func_aux[0], 0.0);
-  xc_gga_x_hjs_set_params(p->func_aux[1], p->cam_omega);
+  xc_func_set_ext_params(p->func_aux[0], &zero);
+  xc_func_set_ext_params(p->func_aux[1], &omega);
 }
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_pbe = {

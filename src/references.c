@@ -2058,9 +2058,9 @@ func_reference_type xc_ref_Kang2001_11040 = {
 
 
 func_reference_type xc_ref_Groth2017 = {
-  "S. {Groth, T. {Dornheim}, T. {Sjostrom}, F. D. {Malone}, W. M. C. {Foulkes}, and M. {Bonitz}, }ArXiv e-prints (2017), arXiv:1703.08074 [physics.plasm-ph]",
+  "S. {Groth, T. {Dornheim}, T. {Sjostrom}, F. D. {Malone}, W. M. C. {Foulkes}, and M. {Bonitz}, }ArXiv e-prints (2017), 1703.08074 [physics.plasm-ph]",
   "",
-  "@ARTICLE{Groth2017,\n   author = {{Groth}, S. and {Dornheim}, T. and {Sjostrom}, T. and {Malone}, F.~D. and\n	{Foulkes}, W.~M.~C. and {Bonitz}, M.},\n    title = \"{Ab initio Exchange-Correlation Free Energy of the Uniform Electron Gas at Warm Dense Matter Conditions}\",\n  journal = {ArXiv e-prints},\narchivePrefix = \"arXiv\",\n   eprint = {1703.08074},\n primaryClass = \"physics.plasm-ph\",\n keywords = {Physics - Plasma Physics, Condensed Matter - Statistical Mechanics},\n     year = 2017,\n    month = mar,\n   adsurl = {http://adsabs.harvard.edu/abs/2017arXiv170308074G},\n  adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
+  "@ARTICLE{Groth2017,\n   author = {{Groth}, S. and {Dornheim}, T. and {Sjostrom}, T. and {Malone}, F.~D. and\n	{Foulkes}, W.~M.~C. and {Bonitz}, M.},\n    title = \"{Ab initio Exchange-Correlation Free Energy of the Uniform Electron Gas at Warm Dense Matter Conditions}\",\n  journal = {ArXiv e-prints},\nqarchivePrefix = \"arXiv\",\n   eprint = {1703.08074},\n primaryClass = \"physics.plasm-ph\",\n keywords = {Physics - Plasma Physics, Condensed Matter - Statistical Mechanics},\n     year = 2017,\n    month = mar,\n   adsurl = {http://adsabs.harvard.edu/abs/2017arXiv170308074G},\n  adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
 };
 
 
@@ -2105,10 +2105,18 @@ func_reference_type xc_ref_Brandenburg2016_115144 = {
   "@article{Brandenburg2016_115144,\n  title = {Benchmark tests of a strongly constrained semilocal functional with a long-range dispersion correction},\n  author = {Brandenburg, J. G. and Bates, J. E. and Sun, J. and Perdew, J. P.},\n  journal = {Phys. Rev. B},\n  volume = {94},\n  issue = {11},\n  pages = {115144},\n  numpages = {11},\n  year = {2016},\n  month = {Sep},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.94.115144},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.94.115144}\n}"
 };
 
+
 func_reference_type xc_ref_Proynov2008_103 = {
   "E. Proynov, Z. Gan, and J. Kong, Chem. Phys. Lett. 455, 103 (2008)",
   "https://doi.org/10.1016/j.cplett.2008.02.039",
   "@article{Proynov2008_103,\ntitle = \"Analytical representation of the Becke–Roussel exchange functional\",\njournal = \"Chem. Phys. Lett.\",\nvolume = \"455\",\nnumber = \"1\",\npages = \"103 - 109\",\nyear = \"2008\",\nissn = \"0009-2614\",\ndoi = \"https://doi.org/10.1016/j.cplett.2008.02.039\",\nurl = \"http://www.sciencedirect.com/science/article/pii/S0009261408002285\",\nauthor = \"Emil Proynov and Zhenting Gan and Jing Kong\"\n}"
+};
+
+
+func_reference_type xc_ref_Keal2004_5654 = {
+  "T. W. Keal and D. J. Tozer, J. Chem. Phys. 121, 5654 (2004), https://doi.org/10.1063/1.1784777",
+  "10.1063/1.1784777",
+  "@article{Keal2004_5654,\nauthor = {Thomas W. Keal and David J. Tozer},\ntitle = {A semiempirical generalized gradient approximation exchange-correlation functional},\njournal = {The Journal of Chemical Physics},\nvolume = {121},\nnumber = {12},\npages = {5654-5660},\nyear = {2004},\ndoi = {10.1063/1.1784777},\nURL = {https://doi.org/10.1063/1.1784777},\neprint = {https://doi.org/10.1063/1.1784777}\n}"
 };
 
 

@@ -192,10 +192,6 @@ const char *get_family(const xc_func_type *func) {
 double
 get_ext_param(const func_params_type *params, const double *values, int index)
 {
-  FILE *par_in;
-  int ii, nn;
-  double dd;
-  
   /* 
      If libxc finds a file in the current directory name
      "libxc.params", it will try to read the parameters for the
@@ -210,7 +206,12 @@ get_ext_param(const func_params_type *params, const double *values, int index)
      Note that this only works for functionals whose parameters can be
      set by set_ext_params.
   */
+
   /* Commented as considered dangerous ;)
+  FILE *par_in;
+  int ii, nn;
+  double dd;
+
   if((par_in = fopen("libxc.params","rb"))){
     for(ii=0; ii<index; ii++)
       fscanf(par_in, "%*[^\n]\n", NULL);

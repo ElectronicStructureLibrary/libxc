@@ -127,8 +127,7 @@ gga_xc_kt3_init(xc_func_type *p)
   funcs_coef[3] = eps/a2;
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
-  /* set_ext_params(p->func_aux[2], par_kt); */
-  xc_gga_x_kt_set_params(p->func_aux[2], par_kt[0], par_kt[1]);
+  set_ext_params(p->func_aux[2], par_kt);
 }
 
 const xc_func_info_type xc_func_info_gga_xc_kt3 = {

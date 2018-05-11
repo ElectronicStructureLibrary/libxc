@@ -300,6 +300,7 @@ if(ENABLE_FORTRAN03)
 endif(ENABLE_FORTRAN03)
 
 # run get_funcs.pl to generate headers for xc inclusion
+find_package(Perl)
 set(gen_dir "${PROJECT_BINARY_DIR}/gen_funcidx")
 execute_process(
     COMMAND ${CMAKE_COMMAND} -E make_directory ${gen_dir}

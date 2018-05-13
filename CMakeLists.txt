@@ -300,7 +300,7 @@ if(ENABLE_FORTRAN03)
 endif(ENABLE_FORTRAN03)
 
 # run get_funcs.pl to generate headers for xc inclusion
-find_package(Perl)
+find_package(Perl REQUIRED)
 set(gen_dir "${PROJECT_BINARY_DIR}/gen_funcidx")
 execute_process(
     COMMAND ${CMAKE_COMMAND} -E make_directory ${gen_dir}
@@ -308,7 +308,7 @@ execute_process(
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 execute_process(
     COMMAND ${PERL_EXECUTABLE} scripts/get_funcs.pl ${src_prefix} ${gen_dir}
-    TIMEOUT 5
+    TIMEOUT 60
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 
 add_executable(xc-info "${src_prefix}/xc-info.c")

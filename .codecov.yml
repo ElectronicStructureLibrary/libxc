@@ -1,0 +1,22 @@
+coverage:
+  status:
+    project:
+      automake:
+        flags: automake
+      cmake:
+        flags: cmake
+      python:
+        target: 90%
+        flags: python
+
+
+flags:
+  python:
+    paths:
+      - pylibxc/
+  cmake:
+    paths:
+      - src/
+  automake:
+    paths:
+      - src/      

@@ -1,6 +1,7 @@
 coverage:
   status:
     project:
+      default: off
       automake:
         flags: automake
       cmake:

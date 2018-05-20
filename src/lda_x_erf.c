@@ -10,10 +10,16 @@
 
 #define XC_LDA_X_ERF   546   /* Attenuated exchange LDA (erf) */
 
-static void lda_x_erf_init(xc_func_type *p)
+static const func_params_type ext_params[] = {
+  {"omega",  0.3, "screening parameter"},
+};
+
+static void 
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  /* initialize omega to something reasonable */
-  p->cam_omega = 0.3;
+  assert(p != NULL);
+
+  p->cam_omega = get_ext_param(p->info->ext_params, ext_params, 0);
 }
 
 
@@ -30,7 +36,7 @@ const xc_func_info_type xc_func_info_lda_x_erf = {
   {&xc_ref_Toulouse2004_1047, &xc_ref_Tawada2004_8425, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-13,
-  0, NULL, NULL,
-  lda_x_erf_init, NULL, 
+  1, ext_params, set_ext_params,
+  NULL, NULL, 
   work_lda, NULL, NULL
 };

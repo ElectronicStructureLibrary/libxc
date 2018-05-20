@@ -1827,7 +1827,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -2117,6 +2117,20 @@ func_reference_type xc_ref_Keal2004_5654 = {
   "T. W. Keal and D. J. Tozer, J. Chem. Phys. 121, 5654 (2004), https://doi.org/10.1063/1.1784777",
   "10.1063/1.1784777",
   "@article{Keal2004_5654,\nauthor = {Thomas W. Keal and David J. Tozer},\ntitle = {A semiempirical generalized gradient approximation exchange-correlation functional},\njournal = {The Journal of Chemical Physics},\nvolume = {121},\nnumber = {12},\npages = {5654-5660},\nyear = {2004},\ndoi = {10.1063/1.1784777},\nURL = {https://doi.org/10.1063/1.1784777},\neprint = {https://doi.org/10.1063/1.1784777}\n}"
+};
+
+
+func_reference_type xc_ref_Baer2005_043002 = {
+  "R. Baer and D. Neuhauser, Phys. Rev. Lett. 94, 043002 (2005)",
+  "10.1103/PhysRevLett.94.043002",
+  "@article{Baer2005_043002,\n  title = {Density Functional Theory with Correct Long-Range Asymptotic Behavior},\n  author = {Baer, Roi and Neuhauser, Daniel},\n  journal = {Phys. Rev. Lett.},\n  volume = {94},\n  issue = {4},\n  pages = {043002},\n  numpages = {4},\n  year = {2005},\n  month = {Feb},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.94.043002},\n  url = {https://link.aps.org/doi/10.1103/PhysRevLett.94.043002}\n}"
+};
+
+
+func_reference_type xc_ref_Livshits2007_2932 = {
+  "E. Livshits and R. Baer, Phys. Chem. Chem. Phys. 9, 2932 (2007)",
+  "10.1039/B617919C",
+  "@Article{Livshits2007_2932,\nauthor =\"Livshits, Ester and Baer, Roi\",\ntitle  =\"A well-tempered density functional theory of electrons in molecules\",\njournal  =\"Phys. Chem. Chem. Phys.\",\nyear  =\"2007\",\nvolume  =\"9\",\nissue  =\"23\",\npages  =\"2932-2941\",\npublisher  =\"The Royal Society of Chemistry\",\ndoi  =\"10.1039/B617919C\",\nurl  =\"http://dx.doi.org/10.1039/B617919C\",\n}"
 };
 
 

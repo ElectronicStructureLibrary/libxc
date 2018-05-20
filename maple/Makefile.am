@@ -14,7 +14,7 @@ dist_noinst_SCRIPTS = \
   lda_xc_zlp.mpl lda_xc_teter93.mpl lda_xc_ksdt.mpl lda_c_2d_prm.mpl        \
   lda_c_1d_loos.mpl lda_c_2d_amgb.mpl lda_c_1d_csc.mpl lda_x.mpl            \
   lda_x_2d.mpl lda_x_erf.mpl lda_x_rel.mpl lda_k_zlp.mpl lda_c_pk09.mpl     \
-  lda_c_gk72.mpl \
+  lda_c_gk72.mpl lda_xc_bn05.mpl \
   gga_k_thakkar.mpl gga_x_b86.mpl gga_x_g96.mpl gga_x_rpbe.mpl              \
   gga_x_airy.mpl gga_x_b88.mpl gga_x_herman.mpl gga_x_wc.mpl gga_x_ak13.mpl \
   gga_x_bayesian.mpl gga_x_lag.mpl gga_x_am05.mpl gga_x_c09x.mpl            \

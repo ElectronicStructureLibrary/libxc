@@ -314,4 +314,6 @@ extern func_reference_type xc_ref_Mezei2018;
 extern func_reference_type xc_ref_Brandenburg2016_115144;
 extern func_reference_type xc_ref_Proynov2008_103;
 extern func_reference_type xc_ref_Keal2004_5654;
+extern func_reference_type xc_ref_Baer2005_043002;
+extern func_reference_type xc_ref_Livshits2007_2932;
 extern func_reference_type xc_ref_Chachiyo2017;

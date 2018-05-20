@@ -11,9 +11,11 @@ GGAs:
   *) Tozer, Ingamells and Handy neural network potential JCP 105, 9200 (1996); doi: 10.1063/1.472753
   *) http://dx.doi.org/10.1063/1.3243845 Missing are: CS1, wPBE, WI, W1, W2, Wl, bPBE, qPBE, rPBE, A1, A2, A3, WLV.
   *) df-LB94, df-revLB94 http://dx.doi.org/10.1103/PhysRevA.83.012509
+     These functionals depend on an numerical integral, and can not be 
+     implemented with the current maple framework.
   *) Lambda-LB94, Q-LB94, Q-revLB94  http://dx.doi.org/10.1063/1.3684261
-  *) Gilbert and Gill c [CPL 312, 511 (1999)] http://www.sciencedirect.com/science/article/pii/S0009261499008362
-  *) BNL (Baer-Neuhauser-Livshits) [Phys. Rev. Lett. 94, 043002 (2005) and Phys. Chem. Chem. Phys. 9, 2932 (2007)] http://journals.aps.org/prl/abstract/10.1103/PhysRevLett.94.043002 and http://pubs.rsc.org/en/content/articlelanding/2007/cp/b617919c
+     Lambda functional depends on r.nabla and is not therefore of a kind
+     handled by libxc. Q involves a numerical integral.
   *) B97GGA-1 and B97-1b (A.J.Cohen,N.C.Handy, Chem.Phys.Lett., 316,160 (2000)) This is a different version of B97-1!!!
   *) B98-1, and VS98-1	(A.J.Cohen,N.C.Handy, Chem.Phys.Lett., 316,160 (2000))
   *) GDS08 KED functional http://dx.doi.org/10.1103/PhysRevB.77.073104

@@ -13,6 +13,7 @@
 #define XC_GGA_XC_MOHLYP      194 /* Functional for organometallic chemistry */
 #define XC_GGA_XC_MOHLYP2     195 /* Functional for barrier heights */
 #define XC_GGA_X_SOGGA        150 /* Second-order generalized gradient approximation */
+#define XC_GGA_XC_LB07   589   /* Livshits and Baer, empirical functional */
 
 static void
 gga_xc_edf1_init(xc_func_type *p)
@@ -150,3 +151,28 @@ const xc_func_info_type xc_func_info_gga_x_sogga = {
   NULL, NULL, NULL, NULL
 };
 
+
+static void
+gga_xc_lb07_init(xc_func_type *p)
+{
+  int    funcs_id  [2] = {XC_LDA_X_ERF, XC_GGA_C_LYP};
+  double funcs_coef[2] = {1.0 - 0.1, 1.0}; /* w = 0.1 */
+
+  static double par_x_erf[] = {0.5}; /* gamma = 0.5 */
+  
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_func_set_ext_params(p->func_aux[0], par_x_erf);
+}
+
+const xc_func_info_type xc_func_info_gga_xc_lb07 = {
+  XC_GGA_XC_LB07,
+  XC_EXCHANGE_CORRELATION,
+  "Livshits and Baer, empirical functional",
+  XC_FAMILY_GGA,
+  {&xc_ref_Livshits2007_2932, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  5e-24,
+  0, NULL, NULL,
+  gga_xc_lb07_init, NULL,
+  NULL, NULL, NULL
+};

@@ -110,6 +110,7 @@ gga_x_beefvdw.c
 gga_x_bpccac.c
 gga_x_c09x.c
 gga_x_cap.c
+gga_x_chachiyo.c
 gga_x_dk87.c
 gga_x_ev93.c
 gga_x_ft97.c

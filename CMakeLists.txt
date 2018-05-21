@@ -211,6 +211,7 @@ lda_xc_ksdt.c
 lda_xc_teter93.c
 lda_xc_zlp.c
 lda_xc_bn05.c
+lda_c_pmgb06.c
 mgga.c
 mgga_c_b88.c
 mgga_c_bc95.c

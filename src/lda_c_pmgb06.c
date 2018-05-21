@@ -8,7 +8,7 @@
 
 #include "util.h"
 
-#define XC_LDA_X_ERF   546   /* Attenuated exchange LDA (erf) */
+#define XC_LDA_C_PMGB06   590   /* Long-range LDA correlation functional */
 
 static const func_params_type ext_params[] = {
   {"omega",  0.3, "screening parameter"},
@@ -22,19 +22,18 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   p->cam_omega = get_ext_param(p->info->ext_params, ext_params, 0);
 }
 
-
-#include "maple2c/lda_x_erf.c"
+#include "maple2c/lda_c_pmgb06.c"
 
 #define func maple2c_func
 #include "work_lda.c"
 
-const xc_func_info_type xc_func_info_lda_x_erf = {
-  XC_LDA_X_ERF,
+const xc_func_info_type xc_func_info_lda_c_pmgb06 = {
+  XC_LDA_C_PMGB06,
   XC_EXCHANGE,
-  "Attenuated exchange LDA (erf)",
+  "Long-range LDA correlation functional",
   XC_FAMILY_LDA,
-  {&xc_ref_Gill1996_1005, &xc_ref_Toulouse2004_1047, &xc_ref_Tawada2004_8425, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  {&xc_ref_Paziani2006_155111, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC | XC_FLAGS_DEVELOPMENT,
   1e-13,
   1, ext_params, set_ext_params,
   NULL, NULL, 

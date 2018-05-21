@@ -14,7 +14,7 @@
 static void
 func0(const xc_func_type *p, xc_lda_work_t *r)
 {
-  double t2, t4, t7;
+  double t2, t4, t7, t9, t11, t14, t17;
 
   lda_k_gds08_params *params;
 
@@ -24,19 +24,23 @@ func0(const xc_func_type *p, xc_lda_work_t *r)
   t2 = r->rs * r->rs;
   t4 = 0.1e1 / t2 / r->rs;
   t7 = log(0.3e1 / 0.4e1 / 0.31415926535897932385e1 * t4);
-  r->f = params->B * t7 + params->A;
+  t9 = t7 * t7;
+  r->f = params->B * t7 + params->C * t9 + params->A;
 
   if(r->order < 1) return;
 
-  r->dfdrs = -0.3e1 * params->B / r->rs;
+  t11 = 0.1e1 / r->rs;
+  t14 = params->C * t7;
+  r->dfdrs = -0.6e1 * t14 * t11 - 0.3e1 * params->B * t11;
 
   if(r->order < 2) return;
 
-  r->d2fdrs2 = 0.3e1 * params->B / t2;
+  t17 = 0.1e1 / t2;
+  r->d2fdrs2 = 0.6e1 * t14 * t17 + 0.3e1 * params->B * t17 + 0.18e2 * params->C * t17;
 
   if(r->order < 3) return;
 
-  r->d3fdrs3 = -0.6e1 * params->B * t4;
+  r->d3fdrs3 = -0.12e2 * t14 * t4 - 0.6e1 * params->B * t4 - 0.54e2 * params->C * t4;
 
   if(r->order < 4) return;
 
@@ -46,7 +50,7 @@ func0(const xc_func_type *p, xc_lda_work_t *r)
 static void
 func1(const xc_func_type *p, xc_lda_work_t *r)
 {
-  double t2, t4, t7;
+  double t2, t4, t7, t9, t11, t14, t17;
 
   lda_k_gds08_params *params;
 
@@ -56,22 +60,26 @@ func1(const xc_func_type *p, xc_lda_work_t *r)
   t2 = r->rs * r->rs;
   t4 = 0.1e1 / t2 / r->rs;
   t7 = log(0.3e1 / 0.4e1 / 0.31415926535897932385e1 * t4);
-  r->f = params->B * t7 + params->A;
+  t9 = t7 * t7;
+  r->f = t7 * params->B + t9 * params->C + params->A;
 
   if(r->order < 1) return;
 
-  r->dfdrs = -0.3e1 * params->B / r->rs;
+  t11 = 0.1e1 / r->rs;
+  t14 = params->C * t7;
+  r->dfdrs = -0.6e1 * t11 * t14 - 0.3e1 * t11 * params->B;
   r->dfdz = 0.0e0;
 
   if(r->order < 2) return;
 
-  r->d2fdrs2 = 0.3e1 * params->B / t2;
+  t17 = 0.1e1 / t2;
+  r->d2fdrs2 = 0.6e1 * t14 * t17 + 0.3e1 * params->B * t17 + 0.18e2 * params->C * t17;
   r->d2fdrsz = 0.0e0;
   r->d2fdz2 = 0.0e0;
 
   if(r->order < 3) return;
 
-  r->d3fdrs3 = -0.6e1 * params->B * t4;
+  r->d3fdrs3 = -0.12e2 * t14 * t4 - 0.6e1 * params->B * t4 - 0.54e2 * params->C * t4;
   r->d3fdrs2z = 0.0e0;
   r->d3fdrsz2 = 0.0e0;
   r->d3fdz3 = 0.0e0;

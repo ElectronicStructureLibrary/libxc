@@ -15,4 +15,5 @@
 *)
 
 # Eq. (12)
-f := (rs, zeta) -> params_a_A + params_a_B*log(n_total(rs)):
+f := (rs, zeta) -> params_a_A + params_a_B*log(n_total(rs))
+  + params_a_C*log(n_total(rs))^2:

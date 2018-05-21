@@ -12,7 +12,7 @@
 #define XC_LDA_K_GDS08_WORKER 100001   /* Combined analytical theory with Monte Carlo sampling */
 
 typedef struct {
-  double A, B;
+  double A, B, C;
 } lda_k_gds08_params;
 
 static void 
@@ -25,6 +25,7 @@ lda_k_gds08_init(xc_func_type *p)
 static func_params_type ext_params[] = {
   {"_A", 0.860, "linear term"},
   {"_B", 0.224, "term proportional to the logarithm of the density"},
+  {"_C", 0.0,   "term proportional to the square of the logarithm"},
 };
 
 static void 
@@ -37,6 +38,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 
   params->A = get_ext_param(p->info->ext_params, ext_params, 0);
   params->B = get_ext_param(p->info->ext_params, ext_params, 1);
+  params->C = get_ext_param(p->info->ext_params, ext_params, 2);
 }
 
 #include "maple2c/lda_k_gds08_worker.c"
@@ -52,7 +54,7 @@ const xc_func_info_type xc_func_info_lda_k_gds08_worker = {
   {&xc_ref_Ghiringhelli2008_073104, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-24,
-  2, ext_params, set_ext_params,
+  3, ext_params, set_ext_params,
   lda_k_gds08_init, NULL,
   work_lda, NULL, NULL
 };

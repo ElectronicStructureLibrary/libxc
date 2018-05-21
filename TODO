@@ -14,11 +14,6 @@ GGAs:
   *) Lambda-LB94, Q-LB94, Q-revLB94  http://dx.doi.org/10.1063/1.3684261
      Lambda functional depends on r.nabla and is not therefore of a kind
      handled by libxc. Q involves a numerical integral.
-  *) B98-1, and VS98-1 https://doi.org/10.1016/S0009-2614(99)01273-7
-     These functionals are mentioned and reparametrized in the article,
-     but the coefficients are not given in the paper.
-  *) GHDS10 KED functional http://dx.doi.org/10.1063/1.3280953
-  *) GHDS10 reparametrized and TKVln http://dx.doi.org/10.1103/PhysRevB.84.075146
   *) PBE2, PBE3, PBE4 and exp4 KED functionals http://dx.doi.org/10.1007/s10820-006-9019-8  http://dx.doi.org/10.1103/PhysRevB.80.245120
   *) https://repository.aust.edu.ng/xmlui/bitstream/handle/123456789/549/Iyomo%20Irewole.pdf?sequence=1&isAllowed=y Equation (3.36)
   *) ZLP2 (https://journals.aps.org/pra/pdf/10.1103/PhysRevA.47.918 Eq. (21), and at the end there are several kinetic contributions to the correlation energy) and k (Chem. Phys. Lett. 232, 31)
@@ -26,6 +21,9 @@ GGAs:
 
 mGGAs:
   *) B98 https://aip.scitation.org/doi/pdf/10.1063/1.476722
+  *) B98-1, and VS98-1 https://doi.org/10.1016/S0009-2614(99)01273-7
+     These functionals are mentioned and reparametrized in the article,
+     but the coefficients are not given in the paper.
   *) regTPSS exchange http://pubs.acs.org/doi/abs/10.1021/ct300269u
   *) KCISK 10.1063/1.1390178 i.e. Krieger2001_48
   *) hybrids in http://scitation.aip.org/content/aip/journal/jcp/112/9/10.1063/1.480951

@@ -1827,7 +1827,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -2152,6 +2152,27 @@ func_reference_type xc_ref_Gill1996_1005 = {
   "P. M. W. GILL, R. D. ADAMSON, and J. A. POPLE, Mol. Phys. 88, 1005 (1996)",
   "10.1080/00268979609484488",
   "@article{Gill1996_1005,\nauthor = { PETER   M. W.   GILL  and  ROSS D.   ADAMSON  and  JOHN A.   POPLE },\ntitle = {Coulomb-attenuated exchange energy density functionals},\njournal = {Molecular Physics},\nvolume = {88},\nnumber = {4},\npages = {1005-1009},\nyear  = {1996},\npublisher = {Taylor & Francis},\ndoi = {10.1080/00268979609484488},\nURL = {https://doi.org/10.1080/00268979609484488},\n}"
+};
+
+
+func_reference_type xc_ref_Ghiringhelli2008_073104 = {
+  "L. M. Ghiringhelli and L. Delle Site, Phys. Rev. B 77, 073104 (2008)",
+  "10.1103/PhysRevB.77.073104",
+  "@article{Ghiringhelli2008_073104,\n  title = {Design of kinetic functionals for many-body electron systems: Combining analytical theory with Monte Carlo sampling of electronic configurations},\n  author = {Ghiringhelli, Luca M. and Delle Site, Luigi},\n  journal = {Phys. Rev. B},\n  volume = {77},\n  issue = {7},\n  pages = {073104},\n  numpages = {4},\n  year = {2008},\n  month = {Feb},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.77.073104},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.77.073104}\n}"
+};
+
+
+func_reference_type xc_ref_Ghiringhelli2010_014106 = {
+  "L. M. Ghiringhelli, I. P. Hamilton, and L. D. Site, J. Chem. Phys. 132, 014106 (2010)",
+  "10.1063/1.3280953",
+  "@article{Ghiringhelli2010_014106,\nauthor = {L. M. Ghiringhelli and I. P. Hamilton and L. Delle Site},\ntitle = {Interacting electrons, spin statistics, and information theory},\njournal = {The Journal of Chemical Physics},\nvolume = {132},\nnumber = {1},\npages = {014106},\nyear = {2010},\ndoi = {10.1063/1.3280953},\nURL = {https://doi.org/10.1063/1.3280953},\n}"
+};
+
+
+func_reference_type xc_ref_Trickey2011_075146 = {
+  "S. B. Trickey, V. V. Karasiev, and A. Vela, Phys. Rev. B 84, 075146 (2011)",
+  "10.1103/PhysRevB.84.075146",
+  "@article{Trickey2011_075146,\n  title = {Positivity constraints and information-theoretical kinetic energy functionals},\n  author = {Trickey, S. B. and Karasiev, V. V. and Vela, A.},\n  journal = {Phys. Rev. B},\n  volume = {84},\n  issue = {7},\n  pages = {075146},\n  numpages = {7},\n  year = {2011},\n  month = {Aug},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.84.075146},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.84.075146}\n}"
 };
 
 

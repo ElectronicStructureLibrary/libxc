@@ -96,6 +96,7 @@ gga_k_ol2.c
 gga_k_pearson.c
 gga_k_tflw.c
 gga_k_thakkar.c
+gga_k_gds08.c
 gga_x_2d_b86.c
 gga_x_2d_b86_mgc.c
 gga_x_2d_b88.c
@@ -201,6 +202,7 @@ lda_c_wigner.c
 lda_c_gk72.c
 lda_k_tf.c
 lda_k_zlp.c
+lda_k_gds08_worker.c
 lda_x.c
 lda_x_1d.c
 lda_x_2d.c
@@ -319,6 +321,7 @@ endif()
 # by default, headers NOT namespace protected
 install(FILES ${PROJECT_BINARY_DIR}/${src_prefix}/xc.h
               ${gen_dir}/xc_funcs.h
+              ${gen_dir}/xc_funcs_worker.h
               ${PROJECT_BINARY_DIR}/xc_version.h
               ${PROJECT_SOURCE_DIR}/${src_prefix}/xc_funcs_removed.h
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}${NAMESPACE_INSTALL_INCLUDEDIR})

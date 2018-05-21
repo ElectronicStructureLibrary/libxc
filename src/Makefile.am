@@ -134,9 +134,9 @@ noinst_HEADERS = \
 	work_mgga_x.c work_mgga_c.c \
 	libxc_master.F90 libxc_master.F03
 include_HEADERS = xc.h xc_funcs_removed.h
-nodist_include_HEADERS = xc_funcs.h
+nodist_include_HEADERS = xc_funcs.h xc_funcs_worker.h
 
-BUILT_SOURCES = xc_funcs.h
+BUILT_SOURCES = xc_funcs.h xc_funcs_worker.h
 
 ## declare fortran modules so they are installed
 if COMPILE_FORTRAN
@@ -172,7 +172,8 @@ endif # COMPILE_FORTRAN03
 
 
 CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
-	libxc.f90 libxc_funcs.f90 libxcf03.f90 libxc_inc.f03 xc_funcs.h xc_f_inc.c libxc_docs.txt
+  libxc.f90 libxc_funcs.f90 libxcf03.f90 libxc_inc.f03 xc_funcs.h xc_funcs_worker.h \
+  xc_f_inc.c libxc_docs.txt
 
 xc_f.o : xc_f_inc.c
 

@@ -42,7 +42,7 @@ libxc_la_FUNC_SOURCES = \
 	lda_c_1d_loos.c lda_c_2d_amgb.c lda_c_2d_prm.c		\
 	lda_k_tf.c lda_xc_zlp.c lda_xc_ksdt.c lda_c_chachiyo.c          \
 	lda_xc_1d_ehwlrg.c lda_x_rel.c lda_x_erf.c lda_k_zlp.c          \
-	lda_c_gk72.c lda_xc_bn05.c lda_c_pmgb06.c \
+	lda_c_gk72.c lda_xc_bn05.c lda_c_pmgb06.c lda_k_gds08_worker.c \
 	gga.c \
 	gga_x_lg93.c gga_x_pbe.c gga_x_rpbe.c gga_x_pbea.c		\
 	gga_x_mpbe.c gga_x_herman.c gga_x_b86.c gga_x_b88.c		\
@@ -69,7 +69,7 @@ libxc_la_FUNC_SOURCES = \
 	gga_c_gapc.c gga_c_gaploc.c gga_c_zvpbeint.c gga_c_w94.c        \
 	gga_c_cs1.c gga_c_op_xalpha.c gga_c_op_b88.c gga_c_op_pbe.c     \
 	gga_c_op_g96.c gga_c_op_pw91.c gga_x_pbetrans.c \
-	gga_x_chachiyo.c \
+	gga_x_chachiyo.c gga_k_gds08.c \
 	hyb_gga_xc_pbeh.c hyb_gga_xc_b1wc.c 				\
 	hyb_gga_xc_hse.c hyb_gga_xc_cam_b3lyp.c				\
 	hyb_gga_xc_camy_blyp.c hyb_gga_xc_camy_b3lyp.c			\
@@ -176,7 +176,7 @@ CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 
 xc_f.o : xc_f_inc.c
 
-xc_funcs.h libxc_inc.f03 libxc_funcs.f90 \
+xc_funcs.h xc_funcs_worker.h libxc_inc.f03 libxc_funcs.f90 \
 funcs_lda.c funcs_gga.c funcs_hyb_gga.c \
 funcs_mgga.c funcs_hyb_mgga.c funcs_key.c: $(srcdir)/../scripts/get_funcs.pl
 	$(srcdir)/../scripts/get_funcs.pl $(srcdir) $(top_builddir)/src

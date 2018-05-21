@@ -18,6 +18,7 @@
 #include <assert.h>
 
 #include "xc.h"
+#include "xc_funcs_worker.h"
 
 /* we include the references also */
 #include "references.h"

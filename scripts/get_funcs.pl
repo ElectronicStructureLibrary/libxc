@@ -19,7 +19,7 @@ my %all_ids;
 
 open(DOCS, ">$builddir/libxc_docs.txt") or die("Could not open '$builddir/libxc_docs.txt.'\n");
 
-$s0 = ""; $s3 = ""; $s4 = ""; $s5 = "";
+$s0 = ""; $s3 = ""; $s4 = ""; $s5 = ""; $s6 = "";
 $publiclist = ""; $xclist = ""; $fxclist = ""; $xcf90list = ""; $xcfclist = "";
 
 foreach $func (@funcs){
@@ -31,20 +31,28 @@ foreach $func (@funcs){
 
   $s1 = ""; $s2 = "";
   foreach $key (sort { $a <=> $b } keys %deflist_f) {
-    $s0 .= sprintf "%s %-30s %3s  /*%-70s*/\n", "#define ",
+    $s = sprintf "%s %-30s %3s  /*%-70s*/\n", "#define ",
       $deflist_f{$key}, $key, $deflist_c{$key};
 
+    if($key < 100000){
+      $s0 .= $s;
+    }else{
+      $s6 .= $s;
+    }
+    
     $t = $deflist_f{$key};
     $t =~ s/XC_(.*)/\L$1/;
 
     $s4 .= ",\n" if($s4);
     $s4 .= sprintf "{\"%s\", %d}", $t, $key;
 
-    $s3 .= sprintf "  %s %-30s = %3s  ! %s\n", "integer, parameter ::",
-      $deflist_f{$key}, $key, $deflist_c{$key};
+    if($key < 100000){
+      $s3 .= sprintf "  %s %-30s = %3s  ! %s\n", "integer, parameter ::",
+        $deflist_f{$key}, $key, $deflist_c{$key};
 
-    $s5 .= sprintf "  %s %-30s = %3s  ! %s\n", "integer(c_int), parameter, public ::",
+      $s5 .= sprintf "  %s %-30s = %3s  ! %s\n", "integer(c_int), parameter, public ::",
       $deflist_f{$key}, $key, $deflist_c{$key};
+    }
 
     $s1 .= "extern xc_func_info_type xc_func_info_$t;\n";
     $s2 .= "  &xc_func_info_$t,\n";
@@ -79,7 +87,10 @@ EOF
 
 open(OUT, ">$builddir/xc_funcs.h") or die("Could not open '$builddir/xc_funcs.h'.\n");
 print OUT $s0;
-print $so;
+close OUT;
+
+open(OUT, ">$builddir/xc_funcs_worker.h") or die("Could not open '$builddir/xc_funcs_worker.h'.\n");
+print OUT $s6;
 close OUT;
 
 open(OUT, ">$builddir/libxc_funcs.f90") or die("Could not open '$builddir/libxc_funcs.f90'.\n");

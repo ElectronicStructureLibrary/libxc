@@ -17,7 +17,6 @@ GGAs:
   *) B98-1, and VS98-1 https://doi.org/10.1016/S0009-2614(99)01273-7
      These functionals are mentioned and reparametrized in the article,
      but the coefficients are not given in the paper.
-  *) GDS08 KED functional http://dx.doi.org/10.1103/PhysRevB.77.073104
   *) GHDS10 KED functional http://dx.doi.org/10.1063/1.3280953
   *) GHDS10 reparametrized and TKVln http://dx.doi.org/10.1103/PhysRevB.84.075146
   *) PBE2, PBE3, PBE4 and exp4 KED functionals http://dx.doi.org/10.1007/s10820-006-9019-8  http://dx.doi.org/10.1103/PhysRevB.80.245120

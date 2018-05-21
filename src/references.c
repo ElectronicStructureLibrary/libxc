@@ -2141,3 +2141,17 @@ func_reference_type xc_ref_Chachiyo2017 = {
 };
 
 
+func_reference_type xc_ref_Paziani2006_155111 = {
+  "S. Paziani, S. Moroni, P. Gori-Giorgi, and G. B. Bachelet, Phys. Rev. B 73, 155111 (2006)",
+  "10.1103/PhysRevB.73.155111",
+  "@article{Paziani2006_155111,\n  title = {Local-spin-density functional for multideterminant density functional theory},\n  author = {Paziani, Simone and Moroni, Saverio and Gori-Giorgi, Paola and Bachelet, Giovanni B.},\n  journal = {Phys. Rev. B},\n  volume = {73},\n  issue = {15},\n  pages = {155111},\n  numpages = {9},\n  year = {2006},\n  month = {Apr},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.73.155111},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.73.155111}\n}"
+};
+
+
+func_reference_type xc_ref_Gill1996_1005 = {
+  "P. M. W. GILL, R. D. ADAMSON, and J. A. POPLE, Mol. Phys. 88, 1005 (1996)",
+  "10.1080/00268979609484488",
+  "@article{Gill1996_1005,\nauthor = { PETER   M. W.   GILL  and  ROSS D.   ADAMSON  and  JOHN A.   POPLE },\ntitle = {Coulomb-attenuated exchange energy density functionals},\njournal = {Molecular Physics},\nvolume = {88},\nnumber = {4},\npages = {1005-1009},\nyear  = {1996},\npublisher = {Taylor & Francis},\ndoi = {10.1080/00268979609484488},\nURL = {https://doi.org/10.1080/00268979609484488},\n}"
+};
+
+

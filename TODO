@@ -4,8 +4,6 @@ Improve existing functionals:
 Add functionals:
 
 LDA:
- *) Short-range LDA correlation functional (Phys. Rev. B 73, 155111 (2006))
- *) Short-range exchange 10.1080/00268979609484488
 
 GGAs:
   *) Tozer, Ingamells and Handy neural network potential JCP 105, 9200 (1996); doi: 10.1063/1.472753
@@ -16,8 +14,9 @@ GGAs:
   *) Lambda-LB94, Q-LB94, Q-revLB94  http://dx.doi.org/10.1063/1.3684261
      Lambda functional depends on r.nabla and is not therefore of a kind
      handled by libxc. Q involves a numerical integral.
-  *) B97GGA-1 and B97-1b (A.J.Cohen,N.C.Handy, Chem.Phys.Lett., 316,160 (2000)) This is a different version of B97-1!!!
-  *) B98-1, and VS98-1	(A.J.Cohen,N.C.Handy, Chem.Phys.Lett., 316,160 (2000))
+  *) B98-1, and VS98-1 https://doi.org/10.1016/S0009-2614(99)01273-7
+     These functionals are mentioned and reparametrized in the article,
+     but the coefficients are not given in the paper.
   *) GDS08 KED functional http://dx.doi.org/10.1103/PhysRevB.77.073104
   *) GHDS10 KED functional http://dx.doi.org/10.1063/1.3280953
   *) GHDS10 reparametrized and TKVln http://dx.doi.org/10.1103/PhysRevB.84.075146
@@ -27,6 +26,7 @@ GGAs:
   *) OF https://aip.scitation.org/doi/full/10.1063/1.5025171 
 
 mGGAs:
+  *) B98 https://aip.scitation.org/doi/pdf/10.1063/1.476722
   *) regTPSS exchange http://pubs.acs.org/doi/abs/10.1021/ct300269u
   *) KCISK 10.1063/1.1390178 i.e. Krieger2001_48
   *) hybrids in http://scitation.aip.org/content/aip/journal/jcp/112/9/10.1063/1.480951

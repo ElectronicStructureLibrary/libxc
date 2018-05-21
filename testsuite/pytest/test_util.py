@@ -50,7 +50,7 @@ def test_xc_available_functional_numbers():
 
     # Make sure the range on all values is reasonable
     assert all(x > 0 for x in func_nums)
-    assert all(x < 2000 for x in func_nums)
+    assert all(x < 2000 or x > 100000 for x in func_nums)
 
 
 def test_xc_available_functional_names():

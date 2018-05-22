@@ -7,15 +7,13 @@
 *)
 
 (* type: work_gga_x *)
-(* prefix:
-  gga_x_mpbe_params *params;
- 
-  assert(p->params != NULL);
-  params = (gga_x_mpbe_params * )(p->params);
-*)
 
-f0 := s -> s^2/(1 + params_a_a*s^2):
-f := x -> 1
-  + params_a_c1*f0(X2S*x)
-  + params_a_c2*f0(X2S*x)^2
-  + params_a_c3*f0(X2S*x)^3:
+a1 := 199.81:
+a2 := 4.3476:
+c1 := 0.8524:
+c2 := 1.2264:
+
+# This is Eq. (40) of the paper.
+f0 := s -> c1*(1 - exp(-a1*s^2)) + c2*(1 - exp(-a2*s^4)):
+
+f  := x -> f0(X2S*x):

@@ -69,7 +69,7 @@ libxc_la_FUNC_SOURCES = \
 	gga_c_gapc.c gga_c_gaploc.c gga_c_zvpbeint.c gga_c_w94.c        \
 	gga_c_cs1.c gga_c_op_xalpha.c gga_c_op_b88.c gga_c_op_pbe.c     \
 	gga_c_op_g96.c gga_c_op_pw91.c gga_x_pbetrans.c \
-	gga_x_chachiyo.c \
+	gga_x_chachiyo.c gga_k_exp4.c \
 	hyb_gga_xc_pbeh.c hyb_gga_xc_b1wc.c 				\
 	hyb_gga_xc_hse.c hyb_gga_xc_cam_b3lyp.c				\
 	hyb_gga_xc_camy_blyp.c hyb_gga_xc_camy_b3lyp.c			\

@@ -1827,7 +1827,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -2118,5 +2118,12 @@ func_reference_type xc_ref_Chachiyo2017 = {
   "@article{Chachiyo2017,\nauthor = {{Chachiyo}, T. and {Chachiyo}, H.},\ntitle = \"{Simple and accurate exchange energy for density functional theory}\",\njournal = {ArXiv e-prints},\narchivePrefix = \"arXiv\",\neprint = {1706.01343},\nprimaryClass = \"cond-mat.mtrl-sci\",\nkeywords = {Condensed Matter - Materials Science},\nyear = 2017,\nmonth = jun,\nadsurl = {http://adsabs.harvard.edu/abs/2017arXiv170601343C},\nadsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
 };
 
+
+
+func_reference_type xc_ref_Karasiev2006_111 = {
+  "V. V. Karasiev, S. B. Trickey, and F. E. Harris, Journal of Computer-Aided Materials Design 13, 111 (2006)",
+  "10.1007/s10820-006-9019-8",
+  "@Article{Karasiev2006_111,\nauthor=\"Karasiev, V. V.\nand Trickey, S. B.\nand Harris, Frank E.\",\ntitle=\"Born--Oppenheimer Interatomic Forces from Simple, Local Kinetic Energy Density Functionals\",\njournal=\"Journal of Computer-Aided Materials Design\",\nyear=\"2006\",\nmonth=\"Oct\",\nday=\"01\",\nvolume=\"13\",\nnumber=\"1\",\npages=\"111--129\",\nissn=\"1573-4900\",\ndoi=\"10.1007/s10820-006-9019-8\",\nurl=\"https://doi.org/10.1007/s10820-006-9019-8\"\n}"
+};
 
 

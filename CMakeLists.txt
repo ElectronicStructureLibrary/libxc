@@ -97,6 +97,7 @@ gga_k_pearson.c
 gga_k_tflw.c
 gga_k_thakkar.c
 gga_k_gds08.c
+gga_k_exp4.c
 gga_x_2d_b86.c
 gga_x_2d_b86_mgc.c
 gga_x_2d_b88.c

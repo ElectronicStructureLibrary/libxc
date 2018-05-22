@@ -36,7 +36,7 @@ dist_noinst_SCRIPTS = \
   b97.mpl gga_c_bmk.mpl gga_c_hcth_a.mpl gga_xc_b97.mpl hyb_gga_xc_wb97.mpl \
   gga_xc_th3.mpl gga_c_gapc.mpl gga_c_gaploc.mpl gga_c_zvpbeint.mpl         \
   gga_c_w94.mpl gga_c_cs1.mpl op.mpl gga_c_op_b88.mpl gga_c_op_g96.mpl      \
-  gga_c_op_pbe.mpl gga_c_op_pw91.mpl gga_c_op_xalpha.mpl \
+  gga_c_op_pbe.mpl gga_c_op_pw91.mpl gga_c_op_xalpha.mpl gga_k_exp4.mpl     \
   mgga_x_gvt4.mpl mgga_x_lta.mpl mgga_x_mk00.mpl mgga_x_ms.mpl              \
   mgga_x_mvs.mpl mgga_x_pkzb.mpl mgga_x_tpss.mpl mgga_x_tm.mpl              \
   mgga_x_vt84.mpl mgga_x_sa_tpss.mpl mgga_k_pc07.mpl                        \

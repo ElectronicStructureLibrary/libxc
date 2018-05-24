@@ -19,7 +19,6 @@ GGAs:
   *) OF https://aip.scitation.org/doi/full/10.1063/1.5025171 
 
 mGGAs:
-  *) B98 https://aip.scitation.org/doi/pdf/10.1063/1.476722
   *) B98-1, and VS98-1 https://doi.org/10.1016/S0009-2614(99)01273-7
      These functionals are mentioned and reparametrized in the article,
      but the coefficients are not given in the paper.

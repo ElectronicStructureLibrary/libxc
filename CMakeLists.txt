@@ -257,6 +257,7 @@ mgga_xc_cc06.c
 mgga_xc_hle17.c
 mgga_xc_otpss_d.c
 mgga_xc_zlp.c
+mgga_xc_b98.c
 mix_func.c
 references.c
 special_functions.c

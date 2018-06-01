@@ -97,6 +97,12 @@ AC_CHECK_LIB([m],[cbrt],[AC_DEFINE([HAVE_CBRT],[1],[libm includes cbrt])])
 AC_CHECK_LIB([m],[cbrtf],[AC_DEFINE([HAVE_CBRTF],[1],[libm includes cbrtf])])
 AC_CHECK_LIB([m],[feenableexcept],[AC_DEFINE([HAVE_FEENABLEEXCEPT],[1],[libm includes feenableexcept])])
 
+AC_ARG_WITH([custom-fmoddir],
+	    [AS_HELP_STRING([--with-custom-fmoddir=DIR],
+			    [Instalation directory for Fortran module files (includedir by default)])],
+	    [AC_SUBST([FMODDIR],["$withval"])],
+	    [AC_SUBST([FMODDIR],['${includedir}'])])
+
 dnl build/install fortran bits unless --disable-fortran is used
 AC_ARG_ENABLE([fortran],
 	      AS_HELP_STRING([--disable-fortran], [don't build/install fortran components]),
@@ -162,6 +168,8 @@ AC_CONFIG_FILES([Makefile
   testsuite/pytest/Makefile
   build/Makefile
   build/libxc.pc
+  build/libxcf90.pc
+  build/libxcf03.pc
   build/libxc.spec
   scripts/Makefile
   maple/Makefile

@@ -1,10 +1,10 @@
-## [5.0.0] - To be released
+## [4.2.0] - 2018-06-04
 
 ### Added
-- Framework to include worker functionals. These functionals are not intended to be use on their own, but as part of other functionals.
-- LDA functionals: C_PMGB06, XC_BN05.
-- GGA functionals: X_CHACHIYO, XC_KT3, XC_LB07, K_GDS08, K_GHDS10, K_GHDS10R, K_TKVLN, K_EXP4, K_PBE3, K_PBE4.
-- Worker functionals: LDA_K_GDS08_WORKER.
+- GGA functionals: X_CHACHIYO, K_EXP4, K_PBE3, K_PBE4.
+- HYB_MGGA: XC_B98.
+- pkgconfig files for the Fortran interfaces.
+- Missing regression tests for MGGA_X_BR89_EXPLICIT and LDA_C_GK72.
 
 ## [4.1.1] - 2018-05-08
 

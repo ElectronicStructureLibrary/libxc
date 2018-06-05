@@ -24,8 +24,8 @@ option_with_default(NAMESPACE_INSTALL_INCLUDEDIR "Location within CMAKE_INSTALL_
 option_with_print(ENABLE_GENERIC "Enable mostly static linking in shared library" OFF)
 option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON
   "-xHost" "-march=native")
-option_with_default(ENABLE_FORTRAN "Build Fortran 90 interface" OFF)
-option_with_default(ENABLE_FORTRAN03 "Build Fortran 2003 interface" OFF)
+option_with_print(ENABLE_FORTRAN "Build Fortran 90 interface" OFF)
+option_with_print(ENABLE_FORTRAN03 "Build Fortran 2003 interface" OFF)
 if((${ENABLE_FORTRAN03}) AND NOT ${ENABLE_FORTRAN})
     message(FATAL_ERROR "ENABLE_FORTRAN must be enabled if ENABLE_FORTRAN03 is enabled!")
 endif()
@@ -340,7 +340,20 @@ install(TARGETS xc xc-info xc-threshold
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-
+if(ENABLE_FORTRAN)
+  install(TARGETS xcf90
+    EXPORT "${PN}Targets"
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+endif(ENABLE_FORTRAN)
+if(ENABLE_FORTRAN03)
+  install(TARGETS xcf03
+    EXPORT "${PN}Targets"
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+endif(ENABLE_FORTRAN)
 # <<<  Export Interface  >>>
 
 target_compile_definitions(xc INTERFACE USING_${PN})

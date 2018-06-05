@@ -139,6 +139,9 @@ nodist_include_HEADERS = xc_funcs.h xc_funcs_worker.h
 BUILT_SOURCES = xc_funcs.h
 
 ## declare fortran modules so they are installed
+fmoddir = @FMODDIR@
+fmod_DATA =
+
 if COMPILE_FORTRAN
 
 if F90_MOD_UPPERCASE
@@ -146,14 +149,14 @@ if F90_MOD_UPPERCASE
 else
   LIBFUNCMOD = libxc_funcs_m.@ax_cv_f90_modext@
 endif
-nodist_include_HEADERS += $(LIBFUNCMOD)
+fmod_DATA += $(LIBFUNCMOD)
 
 if F90_MOD_UPPERCASE
   XCLIBMODS = XC_F90_LIB_M.@ax_cv_f90_modext@ XC_F90_TYPES_M.@ax_cv_f90_modext@
 else
   XCLIBMODS = xc_f90_lib_m.@ax_cv_f90_modext@ xc_f90_types_m.@ax_cv_f90_modext@
 endif
-nodist_include_HEADERS += $(XCLIBMODS)
+fmod_DATA += $(XCLIBMODS)
 
 endif # COMPILE_FORTRAN
 
@@ -166,7 +169,7 @@ if F90_MOD_UPPERCASE
 else
   XCF03LIBMODS = xc_f03_lib_m.@ax_cv_f90_modext@
 endif
-nodist_include_HEADERS += $(XCF03LIBMODS)
+fmod_DATA += $(XCF03LIBMODS)
 
 endif # COMPILE_FORTRAN03
 

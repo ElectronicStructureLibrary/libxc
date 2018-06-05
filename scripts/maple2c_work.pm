@@ -28,6 +28,8 @@ sub maple2c_create_derivatives
   my $out_derivatives = "";
   my $out_cgeneration = "";
 
+  my $realvars = join(", ", @variables);
+
   foreach $der_order (@derivatives){
     foreach $der (@{$der_order}){
       my ($order, $name) = @{$der};
@@ -56,9 +58,6 @@ sub maple2c_create_derivatives
       $out_derivatives .= "$varname := ($vars) -> $simplify_begin diff($f_to_derive($vars), v".
           $i_to_derive.")".$simplify_end.":\n\n";
       
-      # the writing to a C file
-      my $realvars = join(", ", @variables);
-
       $out_cgeneration .= ", " if $out_cgeneration ne "";
       $out_cgeneration .= "$name = $varname($realvars)";
     }
@@ -115,7 +114,7 @@ $code
       }
       # now search for the last spin
       if(/^\s*${$der_order}[-1][1]\s*=/){
-        $new_c_code .= "  if(r->order < ".($total_order+1).") return;\n\n\n"
+        $new_c_code .= "  if(order < ".($total_order+1).") return;\n\n\n"
       }
     }
 
@@ -196,25 +195,35 @@ sub maple2c_replace {
 
 sub maple2c_construct_arguments
 {
-  my ($derivatives) = @_;
+  my ($variables, $derivatives) = @_;
 
   # construct the arguments of the function
-  my ($args, $last_arg) = ("", "");
+  my ($input_args, $last_arg) = "";
+  foreach my $arg (@{$variables}){
+    $arg =~ s/_.*$//;
 
-  foreach $der_order (@{$derivatives}){
-    foreach $der (@{$der_order}){
+    next if($arg eq $last_arg);
+    $last_arg = $arg;
+      
+    $input_args .= ", " if $input_args ne "";
+    $input_args .= "const double *$arg";
+  }
+  
+  my ($output_args, $last_arg) = ("", "");
+  foreach my $der_order (@{$derivatives}){
+    foreach my $der (@{$der_order}){
       my $arg = ${$der}[1];
-      $arg = "*".$arg if(! ($arg =~ s/_s_/&/g));
+      $arg = "*".$arg if(! ($arg =~ s/_s_/*/g));
       $arg =~ s/_.*$//;
 
       next if($arg eq $last_arg);
       $last_arg = $arg;
       
-      $args .= ", " if $args ne "";
-      $args .= "double $arg";
+      $output_args .= ", " if $output_args ne "";
+      $output_args .= "double $arg";
     }
   }
-return $args;
+  return ($input_args, $output_args);
 }
 
 sub maple2c_print_header
@@ -246,14 +255,15 @@ sub math2c_run
   
   # we obtain the missing pieces for maple
   my ($out1, $out2) = maple2c_create_derivatives($variables, $derivatives);
+  
   $maple_code .= "
 $out1
 
-C([_s_zk = mzk(rho_0_, rho_1_), $out2], optimize, deducetypes=false):
+C([_s_zk = mzk(".join(", ", @{$variables})."), $out2], optimize, deducetypes=false):
 ";
   
   # get arguments of the functions
-  my $function_args = maple2c_construct_arguments($derivatives);
+  my ($input_args, $output_args) = maple2c_construct_arguments($variables, $derivatives);
   
   # open file to write to
   my $fname = $config{'srcdir'}."/src/maple2c/".
@@ -263,15 +273,15 @@ C([_s_zk = mzk(rho_0_, rho_1_), $out2], optimize, deducetypes=false):
                        $config{'functype'}, $config{'max_order'});
 
   for(my $j=0; $j<$#{$variants}; $j+=2){
-    ($variables, $c_code) = maple2c_run_maple(${$variants}[$j], 
+    ($vars_def, $c_code) = maple2c_run_maple(${$variants}[$j], 
                 ${$variants}[$j+1]."\n".$maple_code, $derivatives);
 
     print $out "
-inline void
-func_$variants[$j](const xc_func_type *p, $function_args)
+static inline void
+func_${$variants}[$j](const xc_func_type *p, int order, $input_args, $output_args)
 {
-$variables
-$c_prefix
+$vars_def
+$config{'prefix'}
 $c_code
 }
 

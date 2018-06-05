@@ -165,6 +165,7 @@ AC_CONFIG_FILES([Makefile
   xc_version.h
   src/Makefile
   src/maple2c/Makefile
+  src/maple2c/lda_exc/Makefile
   testsuite/Makefile
   testsuite/pytest/Makefile
   build/Makefile

@@ -80,7 +80,7 @@ zeta := (r0, r1) -> (r0 - r1)/(r0 + r1):
 
   my $maple_code = "
 # zk is energy per unit particle
-mzk  := (r0, r1) -> f(r_ws(dens(r0, r1)), zeta(r0, r1)):
+mzk  := (r0, r1) -> simplify(f(r_ws(dens(r0, r1)), zeta(r0, r1)), symbolic):
 
 (* mf is energy per unit volume *)
 mf   := (r0, r1) -> simplify(dens(r0, r1)*mzk(r0, r1), symbolic):

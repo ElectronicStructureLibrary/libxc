@@ -177,12 +177,14 @@ sub maple2c_replace {
     qr/pow\((.*?), *0.2333333333333333333.e1\)/,  q{"POW_7_3($1)"},
     qr/pow\((.*?), *-0.2333333333333333333.e1\)/, q{"0.1e1 / POW_7_3($1)"},
     # cleaning up constant expressions
+    qr/0.31415926535897932385e1/,                 q{"M_PI"},
     qr/sqrt\(0.2e1\)/,                            q{"M_SQRT2"},
     qr/POW_1_3\(0.2e1\)/,                         q{"M_CBRT2"},
     qr/POW_1_3\(0.3e1\)/,                         q{"M_CBRT3"},
     qr/POW_1_3\(0.4e1\)/,                         q{"M_CBRT4"},
     qr/POW_1_3\(0.5e1\)/,                         q{"M_CBRT5"},
     qr/POW_1_3\(0.6e1\)/,                         q{"M_CBRT6"},
+    qr/POW_1_3\(M_PI\)/,                          q{"M_CBRTPI"},
   );
   my ($text) = @_;
 

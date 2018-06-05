@@ -5,4 +5,4 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
-noinst_HEADERS = lda_x.c
+noinst_HEADERS = lda_x.c lda_x_rel.c

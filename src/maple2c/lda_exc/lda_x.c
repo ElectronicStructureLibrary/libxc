@@ -16,8 +16,7 @@
 static inline void
 func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3)
 {
-  double t1, t3, t4, t7, t8, t9, t11, t16;
-  double t18, t20;
+  double t1, t2, t3, t4, t5, t7, t9;
 
   lda_x_params *params;
 
@@ -25,35 +24,32 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
   params = (lda_x_params * )(p->params);
 
   t1 = M_CBRT3;
-  t3 = M_CBRT4;
-  t4 = t3 * t3;
-  t7 = POW_1_3(0.1e1 / 0.31415926535897932385e1);
-  t8 = M_CBRT2;
-  t9 = t8 * t8;
-  t11 = POW_1_3(rho[0]);
+  t2 = params->alpha * t1;
+  t3 = M_CBRTPI;
+  t4 = 0.1e1 / t3;
+  t5 = POW_1_3(rho[0]);
+  t7 = t2 * t4 * t5;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = -0.3e1 / 0.16e2 * params->alpha * t1 * t4 * t7 * t9 * t11;
+    *zk = -0.3e1 / 0.4e1 * t7;
 
   if(order < 1) return;
 
 
-  t16 = POW_1_3(0.31415926535897932385e1);
-  t18 = t1 / t16;
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[0] = -t11 * params->alpha * t18;
+    vrho[0] = -t7;
 
   if(order < 2) return;
 
 
-  t20 = t11 * t11;
+  t9 = t5 * t5;
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = -0.1e1 / t20 * params->alpha * t18 / 0.3e1;
+    v2rho2[0] = -t2 * t4 / t9 / 0.3e1;
 
   if(order < 3) return;
 
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = 0.2e1 / 0.9e1 / t20 / rho[0] * params->alpha * t18;
+    v3rho3[0] = 0.2e1 / 0.9e1 * t2 * t4 / t9 / rho[0];
 
   if(order < 4) return;
 
@@ -65,8 +61,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
 static inline void
 func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3)
 {
-  double t1, t3, t4, t6, t8, t13, t15, t17;
-  double t19;
+  double t1, t2, t3, t4, t6, t7, t9, t11;
 
   lda_x_params *params;
 
@@ -74,34 +69,33 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
   params = (lda_x_params * )(p->params);
 
   t1 = M_CBRT3;
-  t3 = M_CBRT4;
-  t4 = t3 * t3;
-  t6 = POW_1_3(0.1e1 / 0.31415926535897932385e1);
-  t8 = POW_1_3(rho[0]);
+  t2 = params->alpha * t1;
+  t3 = M_CBRT2;
+  t4 = M_CBRTPI;
+  t6 = t3 / t4;
+  t7 = POW_1_3(rho[0]);
+  t9 = t2 * t6 * t7;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = -0.3e1 / 0.8e1 * params->alpha * t1 * t4 * t6 * t8;
+    *zk = -0.3e1 / 0.4e1 * t9;
 
   if(order < 1) return;
 
 
-  t13 = M_CBRT2;
-  t15 = POW_1_3(0.31415926535897932385e1);
-  t17 = t1 * t13 / t15;
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[0] = -t8 * params->alpha * t17;
+    vrho[0] = -t9;
 
   if(order < 2) return;
 
 
-  t19 = t8 * t8;
+  t11 = t7 * t7;
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = -0.1e1 / t19 * params->alpha * t17 / 0.3e1;
+    v2rho2[0] = -t2 * t6 / t11 / 0.3e1;
 
   if(order < 3) return;
 
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = 0.2e1 / 0.9e1 / t19 / rho[0] * params->alpha * t17;
+    v3rho3[0] = 0.2e1 / 0.9e1 * t2 * t6 / t11 / rho[0];
 
   if(order < 4) return;
 
@@ -113,64 +107,50 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 static inline void
 func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3)
 {
-  double t1, t2, t3, t4, t7, t8, t9, t12;
-  double t14, t15, t16, t18, t19, t22, t27, t29;
-  double t31, t33, t36, t41;
+  double t1, t3, t9, t11, t13, t15, t22, t27;
 
   lda_x_params *params;
 
   assert(p->params != NULL);
   params = (lda_x_params * )(p->params);
 
-  t1 = M_CBRT3;
-  t2 = params->alpha * t1;
-  t3 = M_CBRT4;
-  t4 = t3 * t3;
-  t7 = POW_1_3(0.1e1 / 0.31415926535897932385e1);
-  t8 = M_CBRT2;
-  t9 = t8 * t8;
-  t12 = rho[0] + rho[1];
-  t14 = (rho[0] - rho[1]) / t12;
-  t15 = 0.1e1 + t14;
-  t16 = POW_1_3(t15);
-  t18 = 0.1e1 - t14;
-  t19 = POW_1_3(t18);
-  t22 = POW_1_3(t12);
+  t1 = POW_1_3(rho[0]);
+  t3 = POW_1_3(rho[1]);
+  t9 = M_CBRT2;
+  t11 = M_CBRT3;
+  t13 = M_CBRTPI;
+  t15 = t11 * params->alpha / t13;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = -0.3e1 / 0.32e2 * t2 * t4 * t7 * t9 * (t16 * t15 + t19 * t18) * t22;
+    *zk = -0.3e1 / 0.4e1 * (t1 * rho[0] + t3 * rho[1]) / (rho[0] + rho[1]) * t9 * t15;
 
   if(order < 1) return;
 
 
-  t27 = POW_1_3(rho[0]);
-  t29 = POW_1_3(0.31415926535897932385e1);
-  t31 = t2 / t29;
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[0] = -t27 * t8 * t31;
+    vrho[0] = -t1 * t9 * t15;
 
-  t33 = POW_1_3(rho[1]);
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[1] = -t33 * t8 * t31;
+    vrho[1] = -t3 * t9 * t15;
 
   if(order < 2) return;
 
 
-  t36 = t27 * t27;
+  t22 = t1 * t1;
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = -0.1e1 / t36 * t8 * t31 / 0.3e1;
+    v2rho2[0] = -0.1e1 / t22 * t9 * t15 / 0.3e1;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rho2[1] = 0.0e0;
 
-  t41 = t33 * t33;
+  t27 = t3 * t3;
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[2] = -0.1e1 / t41 * t8 * t31 / 0.3e1;
+    v2rho2[2] = -0.1e1 / t27 * t9 * t15 / 0.3e1;
 
   if(order < 3) return;
 
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = 0.2e1 / 0.9e1 / t36 / rho[0] * t8 * t31;
+    v3rho3[0] = 0.2e1 / 0.9e1 / t22 / rho[0] * t9 * t15;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho3[1] = 0.0e0;
@@ -179,7 +159,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
     v3rho3[2] = 0.0e0;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[3] = 0.2e1 / 0.9e1 / t41 / rho[1] * t8 * t31;
+    v3rho3[3] = 0.2e1 / 0.9e1 / t27 / rho[1] * t9 * t15;
 
   if(order < 4) return;
 

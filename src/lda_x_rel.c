@@ -10,10 +10,8 @@
 
 #define XC_LDA_X_REL   532   /* Relativistic exchange        */
 
-#include "maple2c/lda_x_rel.c"
-
-#define func maple2c_func
-#include "work_lda.c"
+#include "maple2c/lda_exc/lda_x_rel.c"
+#include "work_lda_new.c"
 
 const xc_func_info_type xc_func_info_lda_x_rel = {
   XC_LDA_X_REL,

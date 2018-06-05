@@ -9,8 +9,8 @@
 
 #include "xc.h"
 #include "funcs_key.c"
-#include <string.h>
 #include <strings.h>
+#include <string.h>
 
 extern xc_func_info_type 
   *xc_lda_known_funct[], 

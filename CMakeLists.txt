@@ -23,8 +23,12 @@ endif()
 option_with_default(NAMESPACE_INSTALL_INCLUDEDIR "Location within CMAKE_INSTALL_INCLUDEDIR to which headers are installed. Psi4 wants namespace (e.g., /libxc)" /)
 option_with_print(ENABLE_GENERIC "Enable mostly static linking in shared library" OFF)
 option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON
-                  "-xHost" "-march=native")
-#option_with_print(HAVE_FORTRAN "Build Fortran interface" OFF)  # todo add_def HAVE_FORTRAN
+  "-xHost" "-march=native")
+option_with_default(ENABLE_FORTRAN "Build Fortran 90 interface" OFF)
+option_with_default(ENABLE_FORTRAN03 "Build Fortran 2003 interface" OFF)
+if((${ENABLE_FORTRAN03}) AND NOT ${ENABLE_FORTRAN})
+    message(FATAL_ERROR "ENABLE_FORTRAN must be enabled if ENABLE_FORTRAN03 is enabled!")
+endif()
 
 ######################### Process & Validate Options ###########################
 include(autocmake_safeguards)
@@ -277,14 +281,23 @@ file(WRITE ${PROJECT_BINARY_DIR}/${src_prefix}xc.h "${_quoted_src}")
 # STATIC/SHARED on below governed by BUILD_SHARED_LIBS
 add_library(xc ${sources_list})
 target_link_libraries(xc INTERFACE ${STANDARD_MATH_LIBRARY})
-set_target_properties(xc PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC}
-                                    COMPILE_FLAGS "-std=c99")
-if(${BUILD_SHARED_LIBS})
-    target_link_libraries(xc PRIVATE ${LIBC_INTERJECT})
-    if(APPLE)
-        set_target_properties(xc PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
-    endif()
-endif()
+set_target_properties(xc PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
+
+if(ENABLE_FORTRAN)
+  enable_language(Fortran)
+  add_library(xcf90 src/libxc_master.F90 gen_funcidx/libxc_funcs.f90)
+  target_link_libraries(xcf90 xc)
+  set_target_properties(xcf90 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
+endif(ENABLE_FORTRAN)
+
+if(ENABLE_FORTRAN03)
+  # Fortran is already enabled above
+  set(CMAKE_Fortran_SOURCE_FILE_EXTENSIONS ${CMAKE_Fortran_SOURCE_FILE_EXTENSIONS} "f03;F03")
+  set_source_files_properties(src/libxc_master.F03 PROPERTIES LANGUAGE Fortran)
+  add_library(xcf03 src/libxc_master.F03)
+  target_link_libraries(xcf03 xc)
+  set_target_properties(xcf03 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
+endif(ENABLE_FORTRAN03)
 
 # run get_funcs.pl to generate headers for xc inclusion
 set(gen_dir "${PROJECT_BINARY_DIR}/gen_funcidx")
@@ -350,19 +363,3 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PN}Config.cmake
 install(EXPORT "${PN}Targets"
         NAMESPACE "${PN}::"
         DESTINATION ${CMAKECONFIG_INSTALL_DIR})
-
-#include(CheckFunctionExists)
-#
-#check_function_exists(sqrtf HAVE_SQRTF)
-#if(HAVE_SQRTF)
-#    set_property(GLOBAL APPEND PROPERTY COMPILE_DEFINITIONS HAVE_SQRTF)
-#endif()
-#check_function_exists(cbrtf HAVE_CBRTF)
-#if(HAVE_CBRTF)
-#    set_property(GLOBAL APPEND PROPERTY COMPILE_DEFINITIONS HAVE_CBRTF)
-#endif()
-#check_function_exists(cbrt HAVE_CBRT)
-#if(HAVE_CBRT)
-#    set_property(GLOBAL APPEND PROPERTY COMPILE_DEFINITIONS HAVE_CBRT)
-#endif()
-#check_function_exists(feenableexcept HAVE_FEENABLEEXCEPT)

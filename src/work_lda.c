@@ -120,19 +120,7 @@ work_lda(const xc_func_type *p, int np, const double *rho,
     }
 
   end_ip_loop:
-    rho += p->n_rho;
-
-    if(zk != NULL)
-      zk += p->n_zk;
-    
-    if(vrho != NULL)
-      vrho += p->n_vrho;
-
-    if(v2rho2 != NULL)
-      v2rho2 += p->n_v2rho2;
-
-    if(v3rho3 != NULL)
-      v3rho3 += p->n_v3rho3;
+    internal_counters_lda_next(&(p->dim), 0, &rho, &zk, &vrho, &v2rho2, &v3rho3);
 
   } /* for(ip) */
 }

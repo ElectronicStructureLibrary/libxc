@@ -50,7 +50,7 @@ void xc_gga(const xc_func_type *func, int np, const double *rho, const double *s
 	     double *v2rho2, double *v2rhosigma, double *v2sigma2,
 	     double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
-  assert(func != NULL);
+  const xc_dimensions *dim = &(func->dim);
   
   /* sanity check */
   if(zk != NULL && !(func->info->flags & XC_FLAGS_HAVE_EXC)){
@@ -79,30 +79,30 @@ void xc_gga(const xc_func_type *func, int np, const double *rho, const double *s
 
   /* initialize output to zero */
   if(zk != NULL)
-    memset(zk, 0, func->n_zk*np*sizeof(double));
+    memset(zk, 0, dim->zk*np*sizeof(double));
 
   if(vrho != NULL){
     assert(vsigma != NULL);
     
-    memset(vrho,   0, func->n_vrho  *np*sizeof(double));
-    memset(vsigma, 0, func->n_vsigma*np*sizeof(double));
+    memset(vrho,   0, dim->vrho  *np*sizeof(double));
+    memset(vsigma, 0, dim->vsigma*np*sizeof(double));
   }
 
   if(v2rho2 != NULL){
     assert(v2rhosigma!=NULL && v2sigma2!=NULL);
 
-    memset(v2rho2,     0, func->n_v2rho2    *np*sizeof(double));
-    memset(v2rhosigma, 0, func->n_v2rhosigma*np*sizeof(double));
-    memset(v2sigma2,   0, func->n_v2sigma2  *np*sizeof(double));
+    memset(v2rho2,     0, dim->v2rho2    *np*sizeof(double));
+    memset(v2rhosigma, 0, dim->v2rhosigma*np*sizeof(double));
+    memset(v2sigma2,   0, dim->v2sigma2  *np*sizeof(double));
   }
 
   if(v3rho3 != NULL){
     assert(v3rho2sigma!=NULL && v3rhosigma2!=NULL && v3sigma3!=NULL);
 
-    memset(v3rho3,      0, func->n_v3rho3     *np*sizeof(double));
-    memset(v3rho2sigma, 0, func->n_v3rho2sigma*np*sizeof(double));
-    memset(v3rhosigma2, 0, func->n_v3rhosigma2*np*sizeof(double));
-    memset(v3sigma3,    0, func->n_v3sigma3   *np*sizeof(double));    
+    memset(v3rho3,      0, dim->v3rho3     *np*sizeof(double));
+    memset(v3rho2sigma, 0, dim->v3rho2sigma*np*sizeof(double));
+    memset(v3rhosigma2, 0, dim->v3rhosigma2*np*sizeof(double));
+    memset(v3sigma3,    0, dim->v3sigma3   *np*sizeof(double));
   }
 
   /* call functional */
@@ -113,7 +113,7 @@ void xc_gga(const xc_func_type *func, int np, const double *rho, const double *s
 
   if(func->mix_coef != NULL)
     xc_mix_func(func, np, rho, sigma, NULL, NULL, zk, vrho, vsigma, NULL, NULL,
-		 v2rho2, v2sigma2, NULL, NULL, v2rhosigma, NULL, NULL, NULL, NULL, NULL);
+                v2rho2, v2rhosigma, NULL, NULL, v2sigma2, NULL, NULL, NULL, NULL, NULL);
 
 }
 

@@ -326,29 +326,8 @@ work_gga_c(const xc_func_type *p, int np, const double *rho, const double *sigma
     }
 
   end_ip_loop:
-    /* increment pointers */
-    rho   += p->n_rho;
-    sigma += p->n_sigma;
-    
-    if(zk != NULL)
-      zk += p->n_zk;
-    
-    if(vrho != NULL){
-      vrho   += p->n_vrho;
-      vsigma += p->n_vsigma;
-    }
-
-    if(v2rho2 != NULL){
-      v2rho2     += p->n_v2rho2;
-      v2rhosigma += p->n_v2rhosigma;
-      v2sigma2   += p->n_v2sigma2;
-    }
-
-    if(v3rho3 != NULL){
-      v3rho3      += p->n_v3rho3;
-      v3rho2sigma += p->n_v3rho2sigma;
-      v3rhosigma2 += p->n_v3rhosigma2;
-      v3sigma3    += p->n_v3sigma3;
-    }
+    internal_counters_gga_next(&(p->dim), 0, &rho, &sigma, &zk, &vrho, &vsigma,
+                               &v2rho2, &v2rhosigma, &v2sigma2, 
+                               &v3rho3, &v3rho2sigma, &v3rhosigma2, &v3sigma3);
   }    
 }

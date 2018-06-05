@@ -15,8 +15,8 @@ void
 xc_lda(const xc_func_type *func, int np, const double *rho, 
 	double *zk, double *vrho, double *v2rho2, double *v3rho3)
 {
-  assert(func != NULL);
-
+  const xc_dimensions *dim = &(func->dim);
+  
   /* sanity check */
   if(zk != NULL && !(func->info->flags & XC_FLAGS_HAVE_EXC)){
     fprintf(stderr, "Functional '%s' does not provide an implementation of Exc\n",
@@ -44,16 +44,16 @@ xc_lda(const xc_func_type *func, int np, const double *rho,
 
   /* initialize output */
   if(zk != NULL)
-    memset(zk,     0, np*sizeof(double)*func->n_zk);
+    memset(zk,     0, np*sizeof(double)*dim->zk);
 
   if(vrho != NULL)
-    memset(vrho,   0, np*sizeof(double)*func->n_vrho);
+    memset(vrho,   0, np*sizeof(double)*dim->vrho);
 
   if(v2rho2 != NULL)
-    memset(v2rho2, 0, np*sizeof(double)*func->n_v2rho2);
+    memset(v2rho2, 0, np*sizeof(double)*dim->v2rho2);
 
   if(v3rho3 != NULL)
-    memset(v3rho3, 0, np*sizeof(double)*func->n_v3rho3);
+    memset(v3rho3, 0, np*sizeof(double)*dim->v3rho3);
 
 
   assert(func->info!=NULL && func->info->lda!=NULL);

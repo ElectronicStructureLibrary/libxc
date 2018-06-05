@@ -318,8 +318,8 @@ int main(int argc, char *argv[])
     exit(1);
   }
   /* Get flags */
-  flags=func.info->flags;
-  family=func.info->family;
+  flags  = func.info->flags;
+  family = func.info->family;
 
   /* Set helpers */
   zk     = (flags & XC_FLAGS_HAVE_EXC) ? d.zk     : NULL;
@@ -334,14 +334,19 @@ int main(int argc, char *argv[])
     break;
   case XC_FAMILY_GGA:
   case XC_FAMILY_HYB_GGA:
-    xc_gga(&func, d.n, d.rho, d.sigma, zk, vrho, d.vsigma,		\
-    v2rho2, d.v2rhosigma, d.v2sigma2, NULL, NULL, NULL, NULL);
+    xc_gga(&func, d.n, d.rho, d.sigma, zk, vrho, d.vsigma,
+           v2rho2, d.v2rhosigma, d.v2sigma2, NULL, NULL, NULL, NULL);
     break;
   case XC_FAMILY_MGGA:
   case XC_FAMILY_HYB_MGGA:
-    xc_mgga(&func, d.n, d.rho, d.sigma, d.lapl, d.tau, zk, vrho, d.vsigma, d.vlapl, d.vtau, \
-     v2rho2, d.v2sigma2, d.v2lapl2, d.v2tau2, d.v2rhosigma, d.v2rholapl, d.v2rhotau, \
-     d.v2sigmalapl, d.v2sigmatau, d.v2lapltau);
+    xc_mgga(&func, d.n, d.rho, d.sigma, d.lapl, d.tau, zk, vrho, d.vsigma, d.vlapl, d.vtau,
+            v2rho2, d.v2rhosigma, d.v2rholapl, d.v2rhotau, 
+            d.v2sigma2, d.v2sigmalapl, d.v2sigmatau,
+            d.v2lapl2, d.v2lapltau,
+            d.v2tau2,
+            NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+            NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+            
     break;
 
   default:

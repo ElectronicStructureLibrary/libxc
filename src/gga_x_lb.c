@@ -92,36 +92,36 @@ xc_gga_lb_modified(const xc_func_type *func, int np, const double *rho, const do
       ds     = rho[is]/sfact;
 
       if(params->modified == 0 || 
-	 (ds > params->threshold && gdm > params->threshold)){
-	double f;
+         (ds > params->threshold && gdm > params->threshold)){
+        double f;
+        
+        if(ds <= func->dens_threshold) continue;
 	
-	if(ds <= func->dens_threshold) continue;
+        x =  gdm/pow(ds, 4.0/3.0);
 	
-	x =  gdm/pow(ds, 4.0/3.0);
-	
-	if(x < 300.0) /* the actual functional */	   
-	  f = -params->beta*x*x/(1.0 + 3.0*params->beta*x*asinh(params->gamm*x));
-	else          /* asymptotic expansion */
-	  f = -x/(3.0*log(2.0*params->gamm*x));
-
-	vrho[is] += f * CBRT(ds);
+        if(x < 300.0) /* the actual functional */	   
+          f = -params->beta*x*x/(1.0 + 3.0*params->beta*x*asinh(params->gamm*x));
+        else          /* asymptotic expansion */
+          f = -x/(3.0*log(2.0*params->gamm*x));
+        
+        vrho[is] += f * CBRT(ds);
 	
       }else if(r > 0.0){
-	/* the asymptotic expansion of LB94 */
-	x = r + (3.0/params->aa)*
-	  log(2.0*params->gamm * params->aa * 1.0 / CBRT(params->qtot));
-	
-	/* x = x + pow(qtot*exp(-aa*r), 1.0/3.0)/(beta*aa*aa); */
-	
-	vrho[is] -= 1.0/x;
+        /* the asymptotic expansion of LB94 */
+        x = r + (3.0/params->aa)*
+          log(2.0*params->gamm * params->aa * 1.0 / CBRT(params->qtot));
+        
+        /* x = x + pow(qtot*exp(-aa*r), 1.0/3.0)/(beta*aa*aa); */
+        
+        vrho[is] -= 1.0/x;
       }
     }
     /* increment pointers */
-    rho   += func->n_rho;
-    sigma += func->n_sigma;
+    rho   += func->dim.rho;
+    sigma += func->dim.sigma;
     
     if(vrho != NULL)
-      vrho   += func->n_vrho;
+      vrho   += func->dim.vrho;
 
   } /* ip loop */
 }

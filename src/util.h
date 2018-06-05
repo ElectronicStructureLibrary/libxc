@@ -169,6 +169,77 @@ typedef struct xc_functional_key_t {
 void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
 void xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix_coef);
 
+void internal_counters_set_lda (int nspin, xc_dimensions *dim);
+void internal_counters_set_gga (int nspin, xc_dimensions *dim);
+void internal_counters_set_mgga(int nspin, xc_dimensions *dim);
+void internal_counters_lda_next
+(const xc_dimensions *dim, int offset,
+ const double **rho, double **zk, double **vrho, double **v2rho2, double **v3rho3
+ );
+void internal_counters_lda_prev
+(const xc_dimensions *dim, int offset,
+ const double **rho, double **zk, double **vrho, double **v2rho2, double **v3rho3
+ );
+void internal_counters_gga_next
+(const xc_dimensions *dim, int offset,
+ const double **rho, const double **sigma,
+ double **zk,
+ double **vrho, double **vsigma,
+ double **v2rho2, double **v2rhosigma, double **v2sigma2,
+ double **v3rho3, double **v3rho2sigma, double **v3rhosigma2, double **v3sigma3
+ );
+void internal_counters_gga_prev
+(const xc_dimensions *dim, int offset,
+ const double **rho, const double **sigma,
+ double **zk,
+ double **vrho, double **vsigma,
+ double **v2rho2, double **v2rhosigma, double **v2sigma2,
+ double **v3rho3, double **v3rho2sigma, double **v3rhosigma2, double **v3sigma3
+);
+void
+internal_counters_mgga_next
+(const xc_dimensions *dim, int offset,
+ const double **rho, const double **sigma, const double **lapl, const double **tau,
+ double **zk,
+ double **vrho, double **vsigma, double **vlapl, double **vtau,
+ double **v2rho2, double **v2rhosigma, double **v2rholapl, double **v2rhotau,
+ double **v2sigma2, double **v2sigmalapl, double **v2sigmatau,
+ double **v2lapl2, double **v2taulapl,
+ double **v2tau2,
+ double **v3rho3, double **v3rho2sigma, double **v3rho2lapl, double **v3rho2tau,
+ double **v3rhosigma2, double **v3rhosigmalapl, double **v3rhosigmatau,
+ double **v3rholapl2, double **v3rholapltau,
+ double **v3rhotau2,
+ double **v3sigma3, double **v3sigma2lapl, double **v3sigma2tau,
+ double **v3sigmalapl2, double **v3sigmalapltau,
+ double **v3sigmatau2,
+ double **v3lapl3,  double **v3lapl2tau,
+ double **v3lapltau2,
+ double **v3tau3
+ );
+
+void
+internal_counters_mgga_prev
+(const xc_dimensions *dim, int offset,
+ const double **rho, const double **sigma, const double **lapl, const double **tau,
+ double **zk,
+ double **vrho, double **vsigma, double **vlapl, double **vtau,
+ double **v2rho2, double **v2rhosigma, double **v2rholapl, double **v2rhotau,
+ double **v2sigma2, double **v2sigmalapl, double **v2sigmatau,
+ double **v2lapl2, double **v2lapltau,
+ double **v2tau2,
+ double **v3rho3, double **v3rho2sigma, double **v3rho2lapl, double **v3rho2tau,
+ double **v3rhosigma2, double **v3rhosigmalapl, double **v3rhosigmatau,
+ double **v3rholapl2, double **v3rholapltau,
+ double **v3rhotau2,
+ double **v3sigma3, double **v3sigma2lapl, double **v3sigma2tau,
+ double **v3sigmalapl2, double **v3sigmalapltau,
+ double **v3sigmatau2,
+ double **v3lapl3,  double **v3lapl2tau,
+ double **v3lapltau2,
+ double **v3tau3
+);
+
 typedef struct xc_lda_work_t {
   int   order; /* to which order should I return the derivatives */
   double rs, z;

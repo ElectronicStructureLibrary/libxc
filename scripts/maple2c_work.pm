@@ -23,7 +23,7 @@ sub maple2c_create_derivatives
   my @derivatives = @{$_[1]};
 
   my ($simplify_begin, $simplify_end) = ("", "");
-  ($simplify_begin, $simplify_end) = ("simplify(", ")") if($config{'simplify'} == 1);
+  ($simplify_begin, $simplify_end) = ("simplify(", ", symbolic)") if($config{'simplify'} == 1);
 
   my $out_derivatives = "";
   my $out_cgeneration = "";

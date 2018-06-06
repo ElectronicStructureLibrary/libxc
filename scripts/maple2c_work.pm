@@ -12,7 +12,8 @@ maple2c_run_maple
 maple2c_replace
 maple2c_construct_arguments
 maple2c_print_header
-math2c_run);
+maple2c_run
+);
 
 our %config = ();
 1; # return true value
@@ -73,9 +74,8 @@ Digits := 20:             (* constants will have 20 digits *)
 interface(warnlevel=0):   (* supress all warnings          *)
 with(CodeGeneration):
 
-\$include <util.mpl>
+\$include <$config{'functional'}.mpl>:
 
-\$include <$config{'functional'}.mpl>
 $code
 ";
   close($mfile);
@@ -185,6 +185,12 @@ sub maple2c_replace {
   );
   my ($text) = @_;
 
+  # _s_zk unfortunatly appears in some expressions
+  if($text =~ /_s_zk = (.*);/m){
+    my $zk = $1;
+    $text =~ s/_s_zk(?! =)/($zk)/g;
+  }
+  
   for(my $j=0; $j<$#math_replace; $j+=2){
     $text =~ s/$math_replace[$j]/$math_replace[$j+1]/eeg;
   }
@@ -248,7 +254,7 @@ sub maple2c_print_header
 ";
 }
 
-sub math2c_run
+sub maple2c_run
 {
   my ($variables, $derivatives, $variants, $maple_code) = @_;
   
@@ -256,6 +262,8 @@ sub math2c_run
   my ($out1, $out2) = maple2c_create_derivatives($variables, $derivatives);
   
   $maple_code .= "
+\$include <util.mpl>
+
 $out1
 
 C([_s_zk = mzk(".join(", ", @{$variables})."), $out2], optimize, deducetypes=false):

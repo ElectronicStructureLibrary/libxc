@@ -8,6 +8,8 @@
 
 (* type: lda_exc *)
 
+$define xc_dimensions_1d
+
 eta0 := -log(sqrt(2*Pi)) - 3/4:
 eta1 := 0.359933:
 eps0 := -Pi^2/360:

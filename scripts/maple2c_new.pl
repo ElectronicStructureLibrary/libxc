@@ -89,5 +89,5 @@ mzk  := (r0, r1) -> $config{'simplify_begin'} f(r_ws(dens(r0, r1)), zeta(r0, r1)
 mf   := (r0, r1) -> $config{'simplify_begin'} dens(r0, r1)*mzk(r0, r1) $config{'simplify_end'}:
 ";
   
-  math2c_run(\@variables, \@derivatives, \@variants, $maple_code);
+  maple2c_run(\@variables, \@derivatives, \@variants, $maple_code);
 }

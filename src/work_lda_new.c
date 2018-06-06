@@ -15,11 +15,6 @@
  */
 
 
-#ifndef XC_DIMENSIONS
-#define XC_DIMENSIONS 3
-#endif
-
-
 /**
  * @param[in,out] func_type: pointer to functional structure
  */
@@ -45,10 +40,10 @@ work_lda(const XC(func_type) *p, int np, const double *rho,
       if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
         func_unpol(p, order, rho, zk, vrho, v2rho2, v3rho3);
       
-      }else if(zeta >  1.0 - 1e-10){ /* ferromagnetic case - spin 0 */
+      }else if(zeta >  1.0 - 1e-10){              /* ferromagnetic case - spin 0 */
         func_ferr(p, order, rho, zk, vrho, v2rho2, v3rho3);
         
-      }else if(zeta < -1.0 + 1e-10){ /* ferromagnetic case - spin 1 */
+      }else if(zeta < -1.0 + 1e-10){              /* ferromagnetic case - spin 1 */
         internal_counters_lda_next(&(p->dim), -1, &rho, &zk, &vrho, &v2rho2, &v3rho3);
         func_ferr(p, order, rho, zk, vrho, v2rho2, v3rho3);
         internal_counters_lda_prev(&(p->dim), -1, &rho, &zk, &vrho, &v2rho2, &v3rho3);

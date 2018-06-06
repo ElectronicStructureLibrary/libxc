@@ -15,7 +15,6 @@ m_abs := (x) -> m_max(x, -x):
 
 M_C         := 137.0359996287515: (* speed of light *)
 
-RS_FACTOR   := (3/(4*Pi))^(1/3):
 X2S         := 1/(2*(6*Pi^2)^(1/3)):
 X2S_2D      := 1/(2*(4*Pi)^(1/2)):
 
@@ -28,8 +27,21 @@ MU_PBE      := 0.06672455060314922*(Pi^2)/3:
 KAPPA_PBE   := 0.8040:
 
 # generic conversion functions
-r_ws       := n  -> RS_FACTOR/n^(1/3):
-n_total    := rs -> (RS_FACTOR/rs)^3:
+
+$ifdef xc_dimensions_1d
+RS_FACTOR  := 1/2:
+DIMENSIONS := 1:
+$elif xc_dimensions_2d
+RS_FACTOR  := 1/sqrt(Pi):
+DIMENSIONS := 2:
+$else
+RS_FACTOR  := (3/(4*Pi))^(1/3):
+DIMENSIONS := 3:
+$endif
+
+r_ws       := n  -> RS_FACTOR/n^(1/DIMENSIONS):
+n_total    := rs -> (RS_FACTOR/rs)^DIMENSIONS:
+
 n_spin     := (rs, z) -> (1 + z)*n_total(rs)/2:
 sigma_spin := (rs, z, xs) -> xs^2*n_spin(rs, z)^(8/3):
 t_total    := (z, ts0, ts1) ->

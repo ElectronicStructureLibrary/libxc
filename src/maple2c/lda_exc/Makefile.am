@@ -5,4 +5,5 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
-noinst_HEADERS = lda_x.c lda_x_rel.c lda_x_erf.c
+noinst_HEADERS = lda_x.c lda_x_rel.c lda_x_erf.c \
+  lda_c_1d_csc.c lda_c_1d_loos.c lda_c_2d_amgb.c

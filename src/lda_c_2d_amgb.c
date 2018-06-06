@@ -16,11 +16,8 @@
 
 #define XC_LDA_C_2D_AMGB  15   /* Attaccalite et al             */
 
-#include "maple2c/lda_c_2d_amgb.c"
-
-#define func maple2c_func
-#define XC_DIMENSIONS 2
-#include "work_lda.c"
+#include "maple2c/lda_exc/lda_c_2d_amgb.c"
+#include "work_lda_new.c"
 
 const xc_func_info_type xc_func_info_lda_c_2d_amgb = {
   XC_LDA_C_2D_AMGB,

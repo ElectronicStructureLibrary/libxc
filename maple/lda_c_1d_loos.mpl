@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_lda *)
+(* type: lda_exc *)
 
 eta0 := -log(sqrt(2*Pi)) - 3/4:
 eta1 := 0.359933:

@@ -22,9 +22,6 @@ sub maple2c_create_derivatives
   my @variables   = @{$_[0]};
   my @derivatives = @{$_[1]};
 
-  my ($simplify_begin, $simplify_end) = ("", "");
-  ($simplify_begin, $simplify_end) = ("simplify(", ", symbolic)") if($config{'simplify'} == 1);
-
   my $out_derivatives = "";
   my $out_cgeneration = "";
 
@@ -55,8 +52,8 @@ sub maple2c_create_derivatives
       my $vars     = "v".join(", v", 0..$#{$order});
       my $derorder = join(", ", @{$order});
 
-      $out_derivatives .= "$varname := ($vars) -> $simplify_begin diff($f_to_derive($vars), v".
-          $i_to_derive.")".$simplify_end.":\n\n";
+      $out_derivatives .= "$varname := ($vars) ->  diff($f_to_derive($vars), v".
+          $i_to_derive."):\n\n";
       
       $out_cgeneration .= ", " if $out_cgeneration ne "";
       $out_cgeneration .= "$name = $varname($realvars)";

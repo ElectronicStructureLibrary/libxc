@@ -1827,7 +1827,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -2187,6 +2187,13 @@ func_reference_type xc_ref_Becke1998_2092 = {
   "A. D. Becke, J. Chem. Phys. 109, 2092 (1998)",
   "10.1063/1.476722",
   "@article{Becke1998_2092,\nauthor = {Becke,Axel D. },\ntitle = {A new inhomogeneity parameter in density-functional theory},\njournal = {The Journal of Chemical Physics},\nvolume = {109},\nnumber = {6},\npages = {2092-2098},\nyear = {1998},\ndoi = {10.1063/1.476722},\nURL = {https://doi.org/10.1063/1.476722},\n}"
+};
+
+
+func_reference_type xc_ref_Garza2018 = {
+  "A. J. Garza, A. T. Bell, and M. Head-Gordon, J. Chem. Theory Comput. 0, null (0), pMID: 29746113, https://doi.org/10.1021/acs.jctc.8b00288",
+  "10.1021/acs.jctc.8b00288",
+  "@article{Garza2018,\n author = {Garza, Alejandro J. and Bell, Alexis T. and Head-Gordon, Martin},\n title = {Nonempirical Meta-Generalized Gradient Approximations for Modeling Chemisorption at Metal Surfaces},\n journal = {Journal of Chemical Theory and Computation},\n volume = {0},\n number = {0},\n pages = {null},\n year = {0},\n doi = {10.1021/acs.jctc.8b00288},\n note ={PMID: 29746113},\n URL = {https://doi.org/10.1021/acs.jctc.8b00288},\n eprint = {https://doi.org/10.1021/acs.jctc.8b00288}\n}"
 };
 
 

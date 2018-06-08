@@ -251,7 +251,9 @@ mgga_x_mbeefvdw.c
 mgga_x_mk00.c
 mgga_x_mn12.c
 mgga_x_ms.c
+mgga_x_msb.c
 mgga_x_mvs.c
+mgga_x_mvsb.c
 mgga_x_pbe_gx.c
 mgga_x_pkzb.c
 mgga_x_sa_tpss.c

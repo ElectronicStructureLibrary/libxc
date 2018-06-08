@@ -2197,3 +2197,10 @@ func_reference_type xc_ref_Garza2018 = {
 };
 
 
+func_reference_type xc_ref_Furness2018 = {
+  "J. W. {Furness and J. {Sun}, }ArXiv e-prints (2018), arXiv:1805.11707 [physics.chem-ph]",
+  "",
+  "@article{Furness2018,\n author = {{Furness}, J.~W and {Sun}, J.},\n title = \"{Enhancing the efficiency of density functionals with a novel iso-orbital indicator}\",\n journal = {ArXiv e-prints},\n archivePrefix = \"arXiv\",\n eprint = {1805.11707},\n primaryClass = \"physics.chem-ph\",\n keywords = {Physics - Chemical Physics},\n year = 2018,\n month = may,\n adsurl = {http://adsabs.harvard.edu/abs/2018arXiv180511707F},\n adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
+};
+
+

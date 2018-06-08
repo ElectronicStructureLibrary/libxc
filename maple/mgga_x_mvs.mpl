@@ -8,17 +8,18 @@
 
 (* type: work_mgga_x *)
 
-(* bottom left column on page 687 of article *)
-e1 := -1.6665:
-c1 :=  0.7438:
+(* prefix:
+  mgga_x_mvs_params *params;
+
+  assert(pt->params != NULL);
+  params = (mgga_x_mvs_params * ) (pt->params);
+*)
 
 (* equation 10 *)
-fa := a -> (1 - a) / ((1 + e1*a^2)^2 + c1*a^4)^(1/4):
+fa := a -> (1 - a) / ((1 + params_a_e1*a^2)^2 + params_a_c1*a^4)^(1/4):
 
-(* between eqs 8 and 9 *)
-k0 := 0.174:
-(* after eq 11 *)
-b  := 0.0233:
+(* alpha *)
+alpha := (t,x) -> ((t-x^2/8)/K_FACTOR_C):
 
 (* eq 7 *)
-f := (rs, x, t, u) -> (1 + k0*fa((t-x^2/8)/K_FACTOR_C)) / (1 + b*(X2S*x)^4)^(1/8):
+f := (rs, x, t, u) -> (1 + params_a_k0*fa(alpha(t,x))) / (1 + params_a_b*(X2S*x)^4)^(1/8):

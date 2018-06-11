@@ -6,6 +6,7 @@
 - GGA functionals: XC_KT3, XC_LB07, K_GDS08, K_GHDS10, K_GHDS10R, K_TKVLN.
 - MGGA functionals: X_RTPSS, X_MS2B, X_MS2BS, X_MVSB, X_MVSBS.
 - Worker functionals: LDA_K_GDS08_WORKER.
+- Correction to the Fermi_D term in MGGA_C_M05, MGGA_C_M05_2X, and MGGA_C_DLDF to avoid divergences when the kinetic energy density is zero, but not the density. This is similar to the correction proposed in from JCP 127, 214103 (2007). The correction is controlled by the `Fermi_D_cnst` external parameter, and its default value is 1e-10.
 
 ## [4.3.0] - 2019-01-30
 

@@ -18,7 +18,7 @@ typedef struct{
   double kappa, c, b;
 } mgga_x_ms_params;
 
-static void 
+static void
 mgga_x_ms_init(xc_func_type *p)
 {
   mgga_x_ms_params *params;
@@ -29,9 +29,7 @@ mgga_x_ms_init(xc_func_type *p)
 
   switch(p->info->number){
   case XC_MGGA_X_MS0:
-    params->kappa = 0.29;
-    params->c     = 0.28771;
-    params->b     = 1.0;
+    /* set by set_ext_params */
     break;
   case XC_MGGA_X_MS1:
     params->kappa = 0.404;
@@ -49,6 +47,26 @@ mgga_x_ms_init(xc_func_type *p)
   }
 }
 
+static const func_params_type ext_params[] = {
+  {"_kappa",  0.29, "kappa parameter"},
+  {"_c",  0.28771, "c parameter"},
+  {"_b",  1.0, "exponent b"},
+};
+
+static void
+set_ext_params(xc_func_type *p, const double *ext_params)
+{
+  mgga_x_ms_params *params;
+
+  assert(p != NULL && p->params != NULL);
+  params = (mgga_x_ms_params *) (p->params);
+
+  params->kappa = get_ext_param(p->info->ext_params, ext_params, 0);
+  params->c     = get_ext_param(p->info->ext_params, ext_params, 1);
+  params->b     = get_ext_param(p->info->ext_params, ext_params, 2);
+}
+
+
 #include "maple2c/mgga_x_ms.c"
 
 #define func maple2c_func
@@ -63,7 +81,7 @@ const xc_func_info_type xc_func_info_mgga_x_ms0 = {
   {&xc_ref_Sun2012_051101, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23,
-  0, NULL, NULL,
+  3, ext_params, set_ext_params,
   mgga_x_ms_init,
   NULL, NULL, NULL,
   work_mgga_x,
@@ -107,7 +125,6 @@ hyb_mgga_x_ms2h_init(xc_func_type *p)
   p->cam_alpha = 0.09;
 }
 
-
 const xc_func_info_type xc_func_info_hyb_mgga_x_ms2h = {
   XC_HYB_MGGA_X_MS2H,
   XC_EXCHANGE,
@@ -117,6 +134,6 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_ms2h = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-32,
   0, NULL, NULL,
-  hyb_mgga_x_ms2h_init, NULL, 
+  hyb_mgga_x_ms2h_init, NULL,
   NULL, NULL, NULL
 };

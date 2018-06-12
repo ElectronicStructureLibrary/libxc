@@ -8,11 +8,26 @@
 
 
 static void 
-work_mgga_c(const xc_func_type *p, int np, const double *rho, const double *sigma, const double *lapl, const double *tau,
-	    double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
-	    double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,
-	    double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
-	    double *v2sigmalapl, double *v2sigmatau, double *v2lapltau)
+work_mgga_c
+(const xc_func_type *p, int np,
+ const double *rho, const double *sigma, const double *lapl, const double *tau,
+ double *zk,
+ double *vrho, double *vsigma, double *vlapl, double *vtau,
+ double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+ double *v2sigma2, double *v2sigmalapl, double *v2sigmatau,
+ double *v2lapl2,  double *v2taulapl,
+ double *v2tau2,
+ double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
+ double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
+ double *v3rholapl2, double *v3rhotaulapl,
+ double *v3rhotau2,
+ double *v3sigma3, double *v3sigma2lapl, double *v3sigma2tau,
+ double *v3sigmalapl2, double *v3sigmataulapl,
+ double *v3sigmatau2,
+ double *v3lapl3,  double *v3taulapl2,
+ double *v3tau2lapl,
+ double *v3tau3
+)
 {
   xc_mgga_work_c_t r;
   double min_grad2 = p->dens_threshold*p->dens_threshold, min_tau = p->dens_threshold;
@@ -188,33 +203,21 @@ work_mgga_c(const xc_func_type *p, int np, const double *rho, const double *sigm
     if(r.order < 2) goto end_ip_loop;
 
   end_ip_loop:
-    /* increment pointers */
-    rho   += p->n_rho;
-    sigma += p->n_sigma;
-    tau   += p->n_tau;
-    lapl  += p->n_lapl;
-    
-    if(zk != NULL)
-      zk += p->n_zk;
-    
-    if(vrho != NULL){
-      vrho   += p->n_vrho;
-      vsigma += p->n_vsigma;
-      vtau   += p->n_vtau;
-      vlapl  += p->n_vlapl;
-    }
-
-    if(v2rho2 != NULL){
-      v2rho2      += p->n_v2rho2;
-      v2sigma2    += p->n_v2sigma2;
-      v2tau2      += p->n_v2tau2;
-      v2lapl2     += p->n_v2lapl2;
-      v2rhosigma  += p->n_v2rhosigma;
-      v2rhotau    += p->n_v2rhotau;
-      v2rholapl   += p->n_v2rholapl;
-      v2sigmatau  += p->n_v2sigmatau;
-      v2sigmalapl += p->n_v2sigmalapl;
-      v2lapltau   += p->n_v2lapltau;
-    }
+internal_counters_mgga_next(&(p->dim), 0, &rho, &sigma, &lapl, &tau,
+                                &zk, &vrho, &vsigma, &vlapl, &vtau,
+                                &v2rho2, &v2rhosigma, &v2rholapl, &v2rhotau,
+                                &v2sigma2, &v2sigmalapl, &v2sigmatau,
+                                &v2lapl2, &v2taulapl,
+                                &v2tau2,
+                                &v3rho3, &v3rho2sigma, &v3rho2lapl, &v3rho2tau,
+                                &v3rhosigma2, &v3rhosigmalapl, &v3rhosigmatau,
+                                &v3rholapl2, &v3rhotaulapl,
+                                &v3rhotau2,
+                                &v3sigma3, &v3sigma2lapl, &v3sigma2tau,
+                                &v3sigmalapl2, &v3sigmataulapl,
+                                &v3sigmatau2,
+                                &v3lapl3, &v3taulapl2,
+                                &v3tau2lapl,
+                                &v3tau3);
   }
 }

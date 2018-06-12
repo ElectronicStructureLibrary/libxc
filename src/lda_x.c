@@ -173,10 +173,8 @@ xc_lda_x_attenuation_function(int interaction, int order, double aa,
   }
 }
 
-#include "maple2c/lda_x.c"
-
-#define func maple2c_func
-#include "work_lda.c"
+#include "maple2c/lda_exc/lda_x.c"
+#include "work_lda_new.c"
 
 const xc_func_info_type xc_func_info_lda_x = {
   XC_LDA_X,

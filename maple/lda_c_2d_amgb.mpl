@@ -6,7 +6,9 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_lda *)
+(* type: lda_exc *)
+
+$define xc_dimensions_2d
 
 amgb_aa := [ -0.1925,     0.117331,    0.0234188 ]:
 amgb_bb := [  0.0863136, -3.394e-2,   -0.037093  ]:

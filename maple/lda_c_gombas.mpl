@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_lda *)
+(* type: lda_exc *)
 
 a1 := -0.0357:
 a2 :=  0.0562:

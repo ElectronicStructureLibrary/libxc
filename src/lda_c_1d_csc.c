@@ -41,11 +41,8 @@ lda_c_1d_csc_init(xc_func_type *p)
   p->params = malloc(sizeof(lda_c_1d_csc_params));
 }
 
-#include "maple2c/lda_c_1d_csc.c"
-
-#define func maple2c_func
-#define XC_DIMENSIONS 1
-#include "work_lda.c"
+#include "maple2c/lda_exc/lda_c_1d_csc.c"
+#include "work_lda_new.c"
 
 static const func_params_type ext_params[] = {
   {"interaction",  1, "0 (exponentially screened) | 1 (soft-Coulomb)"},
@@ -56,7 +53,6 @@ static void
 set_ext_params(xc_func_type *p, const double *ext_params)
 {
   lda_c_1d_csc_params *params;
-  int interaction;
 
   assert(p != NULL && p->params != NULL);
   params = (lda_c_1d_csc_params *)(p->params);

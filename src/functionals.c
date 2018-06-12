@@ -9,8 +9,8 @@
 
 #include "xc.h"
 #include "funcs_key.c"
-#include <string.h>
 #include <strings.h>
+#include <string.h>
 
 extern xc_func_info_type 
   *xc_lda_known_funct[], 
@@ -195,68 +195,31 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
   switch(xc_family_from_id(functional, NULL, &number)){
   case(XC_FAMILY_LDA):
     func->info = xc_lda_known_funct[number];
+    internal_counters_set_lda(func->nspin, &(func->dim));
     break;
 
   case(XC_FAMILY_GGA):
     func->info = xc_gga_known_funct[number];
+    internal_counters_set_gga(func->nspin, &(func->dim));
     break;
 
   case(XC_FAMILY_HYB_GGA):
     func->info = xc_hyb_gga_known_funct[number];
+    internal_counters_set_gga(func->nspin, &(func->dim));
     break;
 
   case(XC_FAMILY_MGGA):
     func->info = xc_mgga_known_funct[number];
+    internal_counters_set_mgga(func->nspin, &(func->dim));
     break;
 
   case(XC_FAMILY_HYB_MGGA):
     func->info = xc_hyb_mgga_known_funct[number];
+    internal_counters_set_mgga(func->nspin, &(func->dim));
     break;
 
   default:
     return -2; /* family not found */
-  }
-
-  /* setup internal counters */
-  switch(xc_family_from_id(functional, NULL, &number)){
-  case(XC_FAMILY_MGGA):
-  case(XC_FAMILY_HYB_MGGA):
-    func->n_tau  = func->n_vtau = func->nspin;
-    func->n_lapl = func->n_vlapl = func->nspin;
-    if(func->nspin == XC_UNPOLARIZED){
-      func->n_v2tau2 = func->n_v2lapl2 = 1;
-      func->n_v2rhotau = func->n_v2rholapl = func->n_v2lapltau = 1;
-      func->n_v2sigmatau = func->n_v2sigmalapl = 1;
-    }else{
-      func->n_v2tau2 = func->n_v2lapl2 = 3;
-      func->n_v2rhotau = func->n_v2rholapl = func->n_v2lapltau = 4;
-      func->n_v2sigmatau = func->n_v2sigmalapl = 6;
-    }
-
-  case(XC_FAMILY_GGA):
-  case(XC_FAMILY_HYB_GGA):
-    if(func->nspin == XC_UNPOLARIZED){
-      func->n_sigma  = func->n_vsigma = 1;
-      func->n_v2rhosigma  = func->n_v2sigma2 = 1;
-      func->n_v3rho2sigma = func->n_v3rhosigma2 = func->n_v3sigma3 = 1;
-    }else{
-      func->n_sigma      = func->n_vsigma = 3;
-      func->n_v2rhosigma = func->n_v2sigma2 = 6;
-
-      func->n_v3rho2sigma = 9;
-      func->n_v3rhosigma2 = 12;
-      func->n_v3sigma3    = 10;
-    }
-
-  case(XC_FAMILY_LDA):
-    func->n_rho = func->n_vrho = func->nspin;
-    func->n_zk  = 1;
-    if(func->nspin == XC_UNPOLARIZED){
-      func->n_v2rho2 = func->n_v3rho3 = 1;
-    }else{
-      func->n_v2rho2 = 3;
-      func->n_v3rho3 = 4;
-    }
   }
 
   /* see if we need to initialize the functional */

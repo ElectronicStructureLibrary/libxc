@@ -2,6 +2,7 @@
 Binds a LibXC Functional struct to a Python object
 """
 
+import sys
 import ctypes
 import numpy as np
 
@@ -87,11 +88,12 @@ core.xc_gga_fxc.argtypes = _build_comute_argtype(2, 3)
 core.xc_gga_kxc.argtypes = _build_comute_argtype(2, 4)
 
 # MGGA computers
-core.xc_mgga.argtypes = _build_comute_argtype(4, 15)
+core.xc_mgga.argtypes = _build_comute_argtype(4, 35)
 core.xc_mgga_exc_vxc.argtypes = _build_comute_argtype(4, 5)
 core.xc_mgga_exc.argtypes = _build_comute_argtype(4, 1)
 core.xc_mgga_vxc.argtypes = _build_comute_argtype(4, 4)
 core.xc_mgga_fxc.argtypes = _build_comute_argtype(4, 10)
+core.xc_mgga_kxc.argtypes = _build_comute_argtype(4, 20)
 
 ### Build LibXCFunctional class
 
@@ -105,7 +107,7 @@ def _check_arrays(current_arrays, required, sizes, factor):
     if current_arrays is None:
         current_arrays = {}
         for label in required:
-            size = sizes["n_" + label]
+            size = sizes[label]
             current_arrays[label] = np.zeros((size, factor))
 
     # Supplied arrays, check sizes
@@ -115,7 +117,7 @@ def _check_arrays(current_arrays, required, sizes, factor):
             raise KeyError("Missing the following output arrays: %s" % ", ".join(missing))
 
         for label in required:
-            size = sizes["n_" + label] * factor
+            size = sizes[label] * factor
             if size != current_arrays[label].size:
                 raise ValueError("Supplied output array '%s' does not have the correct shape number of points by %d" %
                                  (label, size))
@@ -194,8 +196,8 @@ class LibXCFunctional(object):
 
         # Build the LibXC functional
         self.xc_func = core.xc_func_alloc()
-        self.xc_func_size_names = [x for x in dir(self.xc_func.contents) if "n_" in x]
-
+        self.xc_func_size_names = [x for x in dir(self.xc_func.contents.dim) if not "_" in x]
+        
         # Set all int attributes to zero (not all set to zero in libxc)
         for attr in self.xc_func_size_names:
             setattr(self.xc_func.contents, attr, 0)
@@ -208,7 +210,7 @@ class LibXCFunctional(object):
         # Pull out all sizes after init
         self.xc_func_sizes = {}
         for attr in self.xc_func_size_names:
-            self.xc_func_sizes[attr] = getattr(self.xc_func.contents, attr)
+            self.xc_func_sizes[attr] = getattr(self.xc_func.contents.dim, attr)
 
         # Unpack functional info
         self.xc_func_info = core.xc_func_get_info(self.xc_func)
@@ -690,7 +692,7 @@ class LibXCFunctional(object):
                 # args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
                 # core.xc_mgga_fxc(*args)
             if do_kxc:
-                raise KeyError("KXC quantities (3rd derivitives) are not defined for MGGA's! (%d)")
+                raise KeyError("KXC quantities (3rd derivatives) are not defined for MGGA's! (%d)")
                 # required_fields = ["v3rho3", "v3rho2sigma", "v3rhosigma2", "v3sigma3"]
                 # args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
                 # core.xc_gga_kxc(*args)

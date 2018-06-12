@@ -14,10 +14,8 @@
 
 #define XC_LDA_C_GOMBAS  24   /* Gombas parametrization       */
 
-#include "maple2c/lda_c_gombas.c"
-
-#define func maple2c_func
-#include "work_lda.c"
+#include "maple2c/lda_exc/lda_c_gombas.c"
+#include "work_lda_new.c"
 
 const xc_func_info_type xc_func_info_lda_c_gombas = {
   XC_LDA_C_GOMBAS,
@@ -28,9 +26,6 @@ const xc_func_info_type xc_func_info_lda_c_gombas = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
-  NULL,     /* init */
-  NULL,     /* end  */
-  work_lda, /* lda  */
-  NULL,
-  NULL
+  NULL, NULL,
+  work_lda, NULL, NULL
 };

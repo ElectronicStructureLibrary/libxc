@@ -6,13 +6,15 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_lda *)
+(* type: lda_exc *)
 (* prefix:
   lda_c_1d_csc_params *params;
 
   assert(p->params != NULL);
   params = (lda_c_1d_csc_params * )(p->params);
 *)
+
+$define xc_dimensions_1d
 
 (* factor of 2 is the conversion from Ry to Hartree *)
 f_aux := (a, rs) -> -(rs + a[5]*rs^2)*log(1+ a[8]*rs + a[9]*rs^a[10])

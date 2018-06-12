@@ -485,7 +485,12 @@ int main(int argc, char *argv[])
     case XC_FAMILY_HYB_MGGA:
       xc_mgga(&func, 1, values.rho, values.sigma, values.lapl, values.tau,
 	      pzk, pvrho, pvsigma, pvlapl, pvtau,
-	      pv2rho2, pv2sigma2, pv2lapl2, pv2tau2, pv2rhosigma, pv2rholapl, pv2rhotau, pv2sigmalapl, pv2sigmatau, pv2lapltau);
+        pv2rho2, pv2rhosigma, pv2rholapl, pv2rhotau, 
+        pv2sigma2, pv2sigmalapl, pv2sigmatau,
+        pv2lapl2, pv2lapltau,
+        pv2tau2,
+        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
       break;
     }
 

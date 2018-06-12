@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_lda *)
+(* type: lda_exc *)
 (* prefix:
   lda_c_2d_prm_params *params;
 
@@ -15,6 +15,8 @@
 
   assert(params->N > 1);
 *)
+
+$define xc_dimensions_2d
 
 prm_q := 3.9274: (* 2.258 *)
 

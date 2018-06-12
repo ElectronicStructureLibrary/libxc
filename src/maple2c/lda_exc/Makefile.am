@@ -7,4 +7,4 @@
 
 noinst_HEADERS = lda_x.c lda_x_rel.c lda_x_erf.c \
   lda_c_1d_csc.c lda_c_1d_loos.c lda_c_2d_amgb.c lda_c_2d_prm.c \
-  lda_c_chachiyo.c
+  lda_c_chachiyo.c lda_c_gombas.c lda_c_hl.c

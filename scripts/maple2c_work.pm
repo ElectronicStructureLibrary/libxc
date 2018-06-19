@@ -23,7 +23,8 @@ sub maple2c_create_derivatives
   my @variables   = @{$_[0]};
   my @derivatives = @{$_[1]};
   my $func        = $_[2];
-
+  my $spin        = $_[3];
+  
   my $out_derivatives = "";
   my @out_cgeneration = ();
 
@@ -58,6 +59,8 @@ sub maple2c_create_derivatives
           $i_to_derive."):\n\n";
       
       push @out_cgeneration, "$name = $varname($realvars)";
+
+      last if $spin ne "pol";
     }
   }
   return ($out_derivatives, @out_cgeneration);

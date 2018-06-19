@@ -1827,7 +1827,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -2201,6 +2201,13 @@ func_reference_type xc_ref_Furness2018 = {
   "J. W. {Furness and J. {Sun}, }ArXiv e-prints (2018), arXiv:1805.11707 [physics.chem-ph]",
   "",
   "@article{Furness2018,\n author = {{Furness}, J.~W and {Sun}, J.},\n title = \"{Enhancing the efficiency of density functionals with a novel iso-orbital indicator}\",\n journal = {ArXiv e-prints},\n archivePrefix = \"arXiv\",\n eprint = {1805.11707},\n primaryClass = \"physics.chem-ph\",\n keywords = {Physics - Chemical Physics},\n year = 2018,\n month = may,\n adsurl = {http://adsabs.harvard.edu/abs/2018arXiv180511707F},\n adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
+};
+
+
+func_reference_type xc_ref_Tozer1996_9200 = {
+  "D. J. Tozer, V. E. Ingamells, and N. C. Handy, J. Chem. Phys. 105, 9200 (1996)",
+  "10.1063/1.472753",
+  "@article{Tozer1996_9200,\nauthor = {Tozer,David J.  and Ingamells,Victoria E.  and Handy,Nicholas C. },\ntitle = {Exchange‐correlation potentials},\njournal = {The Journal of Chemical Physics},\nvolume = {105},\nnumber = {20},\npages = {9200-9213},\nyear = {1996},\ndoi = {10.1063/1.472753},\nURL = {https://doi.org/10.1063/1.472753},\n}"
 };
 
 

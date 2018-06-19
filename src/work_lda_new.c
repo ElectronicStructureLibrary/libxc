@@ -15,6 +15,12 @@
  */
 
 
+#ifdef XC_NO_EXC
+#define OUT_PARAMS vrho, v2rho2, v3rho3
+#else
+#define OUT_PARAMS zk, vrho, v2rho2, v3rho3
+#endif
+
 /**
  * @param[in,out] func_type: pointer to functional structure
  */
@@ -38,18 +44,18 @@ work_lda(const XC(func_type) *p, int np, const double *rho,
 
     if(dens > p->dens_threshold){
       if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
-        func_unpol(p, order, rho, zk, vrho, v2rho2, v3rho3);
+        func_unpol(p, order, rho, OUT_PARAMS);
       
       }else if(zeta >  1.0 - 1e-10){              /* ferromagnetic case - spin 0 */
-        func_ferr(p, order, rho, zk, vrho, v2rho2, v3rho3);
+        func_ferr(p, order, rho, OUT_PARAMS);
         
       }else if(zeta < -1.0 + 1e-10){              /* ferromagnetic case - spin 1 */
         internal_counters_lda_next(&(p->dim), -1, &rho, &zk, &vrho, &v2rho2, &v3rho3);
-        func_ferr(p, order, rho, zk, vrho, v2rho2, v3rho3);
+        func_ferr(p, order, rho, OUT_PARAMS);
         internal_counters_lda_prev(&(p->dim), -1, &rho, &zk, &vrho, &v2rho2, &v3rho3);
 
       }else{                                      /* polarized (general) case */
-        func_pol(p, order, rho, zk, vrho, v2rho2, v3rho3);
+        func_pol(p, order, rho, OUT_PARAMS);
       } /* polarization */
     }
     

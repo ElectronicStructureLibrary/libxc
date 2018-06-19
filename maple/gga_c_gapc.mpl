@@ -27,7 +27,7 @@ gap_par1 := [
 gap_eps_1 := (rs, par) ->
   par[1]*rs^(3/2)/(1 + sqrt(rs)*(par[2] + par[3]*sqrt(rs) + par[1]*rs)):
 gap_eps_2 := (rs, par) ->
-  sum(par[i+1]*rs^i, i=3..7):
+  add(par[i+1]*rs^i, i=3..7):
 
 gap_C := (rs, par) -> par[10]/rs^2:
 

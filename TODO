@@ -6,7 +6,6 @@ Add functionals:
 LDA:
 
 GGAs:
-  *) Tozer, Ingamells and Handy neural network potential JCP 105, 9200 (1996); doi: 10.1063/1.472753
   *) http://dx.doi.org/10.1063/1.3243845 Missing are: CS1, wPBE, WI, W1, W2, Wl, bPBE, qPBE, rPBE, A1, A2, A3, WLV.
   *) df-LB94, df-revLB94 http://dx.doi.org/10.1103/PhysRevA.83.012509
      These functionals depend on an numerical integral, and can not be 

@@ -5,7 +5,7 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
-SUBDIRS = lda_exc
+SUBDIRS = lda_exc lda_vxc
 
 noinst_HEADERS = \
   lda_c_lp96.c lda_c_ml1.c lda_c_pk09.c lda_c_pw.c lda_c_pz.c		\

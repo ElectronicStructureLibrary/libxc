@@ -22,9 +22,11 @@ sub maple2c_create_derivatives
 {
   my @variables   = @{$_[0]};
   my @derivatives = @{$_[1]};
-
+  my $func        = $_[2];
+  my $spin        = $_[3];
+  
   my $out_derivatives = "";
-  my $out_cgeneration = "";
+  my @out_cgeneration = ();
 
   my $realvars = join(", ", @variables);
 
@@ -45,26 +47,27 @@ sub maple2c_create_derivatives
           last;
         }
       }
-      my $f_to_derive = "mf";
-      $f_to_derive = "dmfd".join("", @to_derive) if(! all { $_ == 0 } @to_derive);
+      my $f_to_derive = "$func";
+      $f_to_derive = "d".$func."d".join("", @to_derive) if(! all { $_ == 0 } @to_derive);
 
       # we build the expression of the derivative
-      my $varname  = "dmfd".join("", @{$order});
+      my $varname  = "d".$func."d".join("", @{$order});
       my $vars     = "v".join(", v", 0..$#{$order});
       my $derorder = join(", ", @{$order});
 
       $out_derivatives .= "$varname := ($vars) ->  diff($f_to_derive($vars), v".
           $i_to_derive."):\n\n";
       
-      $out_cgeneration .= ", " if $out_cgeneration ne "";
-      $out_cgeneration .= "$name = $varname($realvars)";
+      push @out_cgeneration, "$name = $varname($realvars)";
+
+      last if $spin ne "pol";
     }
   }
-  return ($out_derivatives, $out_cgeneration);
+  return ($out_derivatives, @out_cgeneration);
 }
 
 sub maple2c_run_maple {
-  my ($type, $code, $derivatives) = @_;
+  my ($type, $code, $derivatives, $start_order) = @_;
 
   # save maple file
   # print "Generating: /tmp/$$.mpl\n";
@@ -95,14 +98,15 @@ $code
   for (split /^/, $c_code) {
     my $found = 0;
     foreach my $der_order (@{$derivatives}){
-      my $total_order = ${$der_order}[-1][0][1], "\n";
+      my $total_order = ${$der_order}[-1][0][1] + $start_order;
       # search for a vrho = statement
       foreach my $der (@{$der_order}){
         if($_ =~ /^\s*?${$der}[1]\s*=/){
           ${$der}[1] =~ /_([0-9]+)_/;
           if (($type eq "pol") || ($1 == 0)) {
-            $new_c_code .= "  if(".$test_1[$total_order].
-                " != NULL && (p->info->flags & XC_FLAGS_HAVE_".$test_2[$total_order]."))\n";
+            my $test = $test_1[$total_order]." != NULL";
+            $test .= " && (p->info->flags & XC_FLAGS_HAVE_".$test_2[$total_order].")";
+            $new_c_code .= "  if($test)\n";
             $new_c_code .= "    ".$_."\n";
           }
           $found = 1;
@@ -110,7 +114,8 @@ $code
         }
       }
       # now search for the last spin
-      if(/^\s*${$der_order}[-1][1]\s*=/){
+      my $last_spin = ($type eq "pol") ? ${$der_order}[-1][1] : ${$der_order}[0][1];
+      if(/^\s*$last_spin\s*=/){
         $new_c_code .= "  if(order < ".($total_order+1).") return;\n\n\n"
       }
     }
@@ -256,18 +261,7 @@ sub maple2c_print_header
 
 sub maple2c_run
 {
-  my ($variables, $derivatives, $variants, $maple_code) = @_;
-  
-  # we obtain the missing pieces for maple
-  my ($out1, $out2) = maple2c_create_derivatives($variables, $derivatives);
-  
-  $maple_code .= "
-\$include <util.mpl>
-
-$out1
-
-C([_s_zk = mzk(".join(", ", @{$variables})."), $out2], optimize, deducetypes=false):
-";
+  my ($variables, $derivatives, $variants, $start_order) = @_;
   
   # get arguments of the functions
   my ($input_args, $output_args) = maple2c_construct_arguments($variables, $derivatives);
@@ -281,7 +275,7 @@ C([_s_zk = mzk(".join(", ", @{$variables})."), $out2], optimize, deducetypes=fal
 
   for(my $j=0; $j<$#{$variants}; $j+=2){
     ($vars_def, $c_code) = maple2c_run_maple(${$variants}[$j], 
-                ${$variants}[$j+1]."\n".$maple_code, $derivatives);
+                ${$variants}[$j+1], $derivatives, $start_order);
 
     print $out "
 static inline void

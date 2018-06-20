@@ -2,7 +2,7 @@
 
 ### Added
 - Framework to include worker functionals. These functionals are not intended to be use on their own, but as part of other functionals.
-- LDA functionals: C_PMGB06, XC_BN05.
+- LDA functionals: C_PMGB06, XC_BN05, XC_TIH.
 - GGA functionals: XC_KT3, XC_LB07, K_GDS08, K_GHDS10, K_GHDS10R, K_TKVLN.
 - MGGA functionals: X_RTPSS, X_MS2B, X_MS2BS, X_MVSB, X_MVSBS.
 - Worker functionals: LDA_K_GDS08_WORKER.

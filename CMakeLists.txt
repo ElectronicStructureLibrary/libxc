@@ -290,7 +290,15 @@ file(WRITE ${PROJECT_BINARY_DIR}/${src_prefix}xc.h "${_quoted_src}")
 # STATIC/SHARED on below governed by BUILD_SHARED_LIBS
 add_library(xc ${sources_list})
 target_link_libraries(xc INTERFACE ${STANDARD_MATH_LIBRARY})
-set_target_properties(xc PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
+set_target_properties(xc PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC}
+                                    COMPILE_FLAGS "-std=c99"
+                                    SOVERSION ${PROJECT_VERSION_MAJOR})
+if(${BUILD_SHARED_LIBS})
+    target_link_libraries(xc PRIVATE ${LIBC_INTERJECT})
+    if(APPLE)
+        set_target_properties(xc PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
+    endif()
+endif()
 
 if(ENABLE_FORTRAN)
   enable_language(Fortran)

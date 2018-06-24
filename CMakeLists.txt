@@ -54,6 +54,7 @@ configure_file(xc_version.h.in xc_version.h @ONLY)
 
 # create dummy config.h
 configure_file(config.h.cmake.in config.h @ONLY)
+configure_file(cmake/libxc.pc.in libxc.pc @ONLY)
 
 set(raw_sources_list
 bessel.c
@@ -377,3 +378,6 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PN}Config.cmake
 install(EXPORT "${PN}Targets"
         NAMESPACE "${PN}::"
         DESTINATION ${CMAKECONFIG_INSTALL_DIR})
+
+install(FILES ${PROJECT_BINARY_DIR}/libxc.pc
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/libxc.pc)

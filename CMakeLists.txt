@@ -56,6 +56,17 @@ configure_file(xc_version.h.in xc_version.h @ONLY)
 configure_file(config.h.cmake.in config.h @ONLY)
 configure_file(cmake/libxc.pc.in libxc.pc @ONLY)
 
+# extract project soversion from source
+file(STRINGS "configure.ac" _libxc_configure_ac
+     REGEX "XC_(CURRENT|REVISION|AGE)=")
+foreach(ver ${_libxc_configure_ac})
+  if (ver MATCHES "XC_(CURRENT|REVISION|AGE)=+([^ ]+)$")
+    set(XC_${CMAKE_MATCH_1} "${CMAKE_MATCH_2}" CACHE INTERNAL "")
+  endif()
+endforeach()
+set(${PROJECT_NAME}_SOVERSION ${XC_CURRENT}:${XC_REVISION}:${XC_AGE})
+message(STATUS "Libxc SO ${${PROJECT_NAME}_SOVERSION}")
+
 set(raw_sources_list
 bessel.c
 expint_e1.c
@@ -292,7 +303,7 @@ add_library(xc ${sources_list})
 target_link_libraries(xc INTERFACE ${STANDARD_MATH_LIBRARY})
 set_target_properties(xc PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC}
                                     COMPILE_FLAGS "-std=c99"
-                                    SOVERSION ${PROJECT_VERSION_MAJOR})
+                                    SOVERSION ${XC_CURRENT})
 if(${BUILD_SHARED_LIBS})
     target_link_libraries(xc PRIVATE ${LIBC_INTERJECT})
     if(APPLE)

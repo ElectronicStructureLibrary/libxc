@@ -7,6 +7,11 @@
 - MGGA functionals: X_RTPSS.
 - Worker functionals: LDA_K_GDS08_WORKER.
 
+## [4.2.2] - 2018-06-25
+
+### Added
+- Missing testsuite/CMakeLists.txt file from the tarball.
+
 ## [4.2.1] - 2018-06-06
 
 ### Added

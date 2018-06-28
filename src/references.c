@@ -2057,10 +2057,10 @@ func_reference_type xc_ref_Kang2001_11040 = {
 };
 
 
-func_reference_type xc_ref_Groth2017 = {
-  "S. {Groth, T. {Dornheim}, T. {Sjostrom}, F. D. {Malone}, W. M. C. {Foulkes}, and M. {Bonitz}, }ArXiv e-prints (2017), 1703.08074 [physics.plasm-ph]",
-  "",
-  "@ARTICLE{Groth2017,\n   author = {{Groth}, S. and {Dornheim}, T. and {Sjostrom}, T. and {Malone}, F.~D. and\n	{Foulkes}, W.~M.~C. and {Bonitz}, M.},\n    title = \"{Ab initio Exchange-Correlation Free Energy of the Uniform Electron Gas at Warm Dense Matter Conditions}\",\n  journal = {ArXiv e-prints},\nqarchivePrefix = \"arXiv\",\n   eprint = {1703.08074},\n primaryClass = \"physics.plasm-ph\",\n keywords = {Physics - Plasma Physics, Condensed Matter - Statistical Mechanics},\n     year = 2017,\n    month = mar,\n   adsurl = {http://adsabs.harvard.edu/abs/2017arXiv170308074G},\n  adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
+func_reference_type xc_ref_Groth2017_135001 = {
+  "S. Groth, T. Dornheim, T. Sjostrom, F. D. Malone, W. M. C. Foulkes, and M. Bonitz, Phys. Rev. Lett. 119, 135001 (2017)",
+  "10.1103/PhysRevLett.119.135001",
+  "@article{Groth2017_135001,\n  title = {Ab initio Exchange-Correlation Free Energy of the Uniform Electron Gas at Warm Dense Matter Conditions},\n  author = {Groth, Simon and Dornheim, Tobias and Sjostrom, Travis and Malone, Fionn D. and Foulkes, W. M. C. and Bonitz, Michael},\n  journal = {Phys. Rev. Lett.},\n  volume = {119},\n  issue = {13},\n  pages = {135001},\n  numpages = {7},\n  year = {2017},\n  month = {Sep},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.119.135001},\n  url = {https://link.aps.org/doi/10.1103/PhysRevLett.119.135001}\n}"
 };
 
 
@@ -2092,10 +2092,10 @@ func_reference_type xc_ref_Proynov2017_059904 = {
 };
 
 
-func_reference_type xc_ref_Mezei2018 = {
-  "P. D. Mezei, G. I. Csonka, and M. Kállay, J. Chem. Theory Comput. 0, null (0)",
+func_reference_type xc_ref_Mezei2018_2469 = {
+  "P. D. Mezei, G. I. Csonka, and M. Kállay, J. Chem. Theory Comput. 14, 2469 (2018), pMID: 29565589, https://doi.org/10.1021/acs.jctc.8b00072",
   "10.1021/acs.jctc.8b00072",
-  "@article{Mezei2018,\nauthor = {Mezei, Pál D. and Csonka, Gábor I. and Kállay, Mihály},\ntitle = {Simple Modifications of the SCAN Meta-Generalized Gradient Approximation Functional},\njournal = {Journal of Chemical Theory and Computation},\nvolume = {0},\nnumber = {0},\npages = {null},\nyear = {0},\ndoi = {10.1021/acs.jctc.8b00072},\nURL = {https://doi.org/10.1021/acs.jctc.8b00072}\n}"
+  "@article{Mezei2018_2469,\n author = {Mezei, Pál D. and Csonka, Gábor I. and Kállay, Mihály},\n title = {Simple Modifications of the SCAN Meta-Generalized Gradient Approximation Functional},\n journal = {Journal of Chemical Theory and Computation},\n volume = {14},\n number = {5},\n pages = {2469-2479},\n year = {2018},\n doi = {10.1021/acs.jctc.8b00072},\n note ={PMID: 29565589},\n URL = {https://doi.org/10.1021/acs.jctc.8b00072},\n eprint = {https://doi.org/10.1021/acs.jctc.8b00072}\n}"
 };
 
 
@@ -2190,10 +2190,10 @@ func_reference_type xc_ref_Becke1998_2092 = {
 };
 
 
-func_reference_type xc_ref_Garza2018 = {
-  "A. J. Garza, A. T. Bell, and M. Head-Gordon, J. Chem. Theory Comput. 0, null (0), pMID: 29746113, https://doi.org/10.1021/acs.jctc.8b00288",
+func_reference_type xc_ref_Garza2018_3083 = {
+  "A. J. Garza, A. T. Bell, and M. Head-Gordon, J. Chem. Theory Comput. 14, 3083 (2018), pMID: 29746113, https://doi.org/10.1021/acs.jctc.8b00288",
   "10.1021/acs.jctc.8b00288",
-  "@article{Garza2018,\n author = {Garza, Alejandro J. and Bell, Alexis T. and Head-Gordon, Martin},\n title = {Nonempirical Meta-Generalized Gradient Approximations for Modeling Chemisorption at Metal Surfaces},\n journal = {Journal of Chemical Theory and Computation},\n volume = {0},\n number = {0},\n pages = {null},\n year = {0},\n doi = {10.1021/acs.jctc.8b00288},\n note ={PMID: 29746113},\n URL = {https://doi.org/10.1021/acs.jctc.8b00288},\n eprint = {https://doi.org/10.1021/acs.jctc.8b00288}\n}"
+  "@article{Garza2018_3083,\n author = {Garza, Alejandro J. and Bell, Alexis T. and Head-Gordon, Martin},\n title = {Nonempirical Meta-Generalized Gradient Approximations for Modeling Chemisorption at Metal Surfaces},\n journal = {Journal of Chemical Theory and Computation},\n volume = {14},\n number = {6},\n pages = {3083-3090},\n year = {2018},\n doi = {10.1021/acs.jctc.8b00288},\n note ={PMID: 29746113},\n URL = {https://doi.org/10.1021/acs.jctc.8b00288},\n eprint = {https://doi.org/10.1021/acs.jctc.8b00288}\n}"
 };
 
 

@@ -120,7 +120,7 @@ const xc_func_info_type xc_func_info_lda_xc_gdsmfb = {
   XC_EXCHANGE_CORRELATION,
   "Groth, Dornheim, Sjostrom, Malone, Foulkes, Bonitz",
   XC_FAMILY_LDA,
-  {&xc_ref_Groth2017, NULL, NULL, NULL, NULL},
+  {&xc_ref_Groth2017_135001, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-24,
   1, ext_params, set_ext_params,

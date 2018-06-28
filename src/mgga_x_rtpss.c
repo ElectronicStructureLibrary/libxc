@@ -68,7 +68,7 @@ const xc_func_info_type xc_func_info_mgga_x_rtpss = {
   XC_EXCHANGE,
   "TPSS for surface adsorption",
   XC_FAMILY_MGGA,
-  {&xc_ref_Garza2018, NULL, NULL, NULL, NULL},
+  {&xc_ref_Garza2018_3083, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23,
   5, ext_params, set_ext_params,

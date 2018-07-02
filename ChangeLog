@@ -1,3 +1,12 @@
+## [4.2.3] - 2018-07-02
+
+### Added
+- Installation of a libxc.pc file by CMake.
+- Versioned shared library when buildbing with CMake.
+
+### Fixed
+- Timeout when generating the xc_func.h file with CMake.
+
 ## [4.2.2] - 2018-06-25
 
 ### Added

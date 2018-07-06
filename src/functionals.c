@@ -10,7 +10,12 @@
 #include "xc.h"
 #include "funcs_key.c"
 #include <string.h>
+#ifdef _MSC_VER
+#define strcasecmp _stricmp
+#define strncasecmp _strnicmp
+#else
 #include <strings.h>
+#endif
 
 extern xc_func_info_type 
   *xc_lda_known_funct[], 
@@ -48,7 +53,7 @@ int xc_functional_get_number(const char *name)
 
 
 /*------------------------------------------------------*/
-char *xc_functional_get_name(const int number)
+char *xc_functional_get_name(int number)
 {
   int ii;
 

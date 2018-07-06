@@ -64,31 +64,31 @@ xc_lda(const xc_func_type *func, int np, const double *rho,
 
 
 /* specializations */
-inline void 
+void
 xc_lda_exc(const xc_func_type *p, int np, const double *rho, double *zk)
 {
   xc_lda(p, np, rho, zk, NULL, NULL, NULL);
 }
 
-inline void 
+void
 xc_lda_exc_vxc(const xc_func_type *p, int np, const double *rho, double *zk, double *vrho)
 {
   xc_lda(p, np, rho, zk, vrho, NULL, NULL);
 }
 
-inline void 
+void
 xc_lda_vxc(const xc_func_type *p, int np, const double *rho, double *vrho)
 {
   xc_lda(p, np, rho, NULL, vrho, NULL, NULL);
 }
 
-inline void 
+void
 xc_lda_fxc(const xc_func_type *p, int np, const double *rho, double *v2rho2)
 {
   xc_lda(p, np, rho, NULL, NULL, v2rho2, NULL);
 }
 
-inline void 
+void
 xc_lda_kxc(const xc_func_type *p, int np, const double *rho, double *v3rho3)
 {
   xc_lda(p, np, rho, NULL, NULL, NULL, v3rho3);

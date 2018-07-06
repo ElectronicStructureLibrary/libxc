@@ -55,17 +55,6 @@
 #define POW_7_3(x) pow((x), 7.0/3.0)
 #endif
 
-#ifdef _MSC_VER
-#define strcasecmp  _stricmp
-#define strncasecmp _strnicmp
-
-double asinh (double x);
-float  asinhf(float  x);
-double erf(double);
-double erfc(double);
-#endif
-
-
 #define M_SQRTPI        1.772453850905516027298167483341145182798L
 #define M_SQRT3         1.732050807568877293527446341505872366943L
 #define M_CBRT2         1.259921049894873164767210607278228350570L
@@ -120,7 +109,7 @@ double xc_bessel_K0(const double x);
 double xc_bessel_K1_scaled(const double x);
 double xc_bessel_K1(const double x);
 
-double xc_expint_e1_impl(const double x, const int scale);
+double xc_expint_e1_impl(double x, const int scale);
 static inline double expint_e1(const double x)         { return  xc_expint_e1_impl( x, 0); }
 static inline double expint_e1_scaled(const double x)  { return  xc_expint_e1_impl( x, 1); }
 static inline double expint_Ei(const double x)         { return -xc_expint_e1_impl(-x, 0); }

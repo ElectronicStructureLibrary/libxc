@@ -89,7 +89,7 @@ xc_mgga(const xc_func_type *func, int np,
 }
 
 /* specializations */
-inline void 
+void
 xc_mgga_exc(const xc_func_type *p, int np, 
 	     const double *rho, const double *sigma, const double *lapl, const double *tau,
 	     double *zk)
@@ -98,7 +98,7 @@ xc_mgga_exc(const xc_func_type *p, int np,
 	   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
-inline void 
+void
 xc_mgga_exc_vxc(const xc_func_type *p, int np,
 		 const double *rho, const double *sigma, const double *lapl, const double *tau,
 		 double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau)
@@ -107,7 +107,7 @@ xc_mgga_exc_vxc(const xc_func_type *p, int np,
 	   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
-inline void 
+void
 xc_mgga_vxc(const xc_func_type *p, int np,
 	     const double *rho, const double *sigma, const double *lapl, const double *tau,
 	     double *vrho, double *vsigma, double *vlapl, double *vtau)
@@ -116,7 +116,7 @@ xc_mgga_vxc(const xc_func_type *p, int np,
 	   NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 }
 
-inline void 
+void
 xc_mgga_fxc(const xc_func_type *p, int np,
 	     const double *rho, const double *sigma, const double *lapl, const double *tau,
 	     double *v2rho2, double *v2sigma2, double *v2lapl2, double *v2tau2,

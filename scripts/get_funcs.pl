@@ -275,9 +275,14 @@ sub read_file() {
 	  
 	  print DOCS "Other flags    : $infos2[7]\n";
 
-          $shortname = lc(substr($infos0[0], 3));
-          $set_params = `grep "xc_${shortname}_set_params(xc_func_type" $srcdir/$file`;
-	  chomp $set_params;
+	  open(IN, "<$srcdir/$file");
+	  chomp(my @lines = <IN>);
+	  close(IN);
+
+	  $shortname = lc(substr($infos0[0], 3));
+	  @lines = grep {/xc_${shortname}_set_params\(xc_func_type/} @lines;
+	  $set_params = shift @lines;
+
 	  if($set_params ne "") {
 	      if($set_params !~ /void/) {
 		  $set_params = "void $set_params";

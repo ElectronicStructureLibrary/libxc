@@ -1,0 +1,25 @@
+clone_depth: 1
+platform: x64
+
+image:
+  - Visual Studio 2015
+  - Visual Studio 2017
+
+configuration:
+  - Release
+
+before_build:
+  - mkdir libxc_build && cd libxc_build
+  - cmake -A %PLATFORM%
+          -DCMAKE_BUILD_TYPE=%CONFIGURATION%
+          -DENABLE_XHOST=OFF
+          -DCMAKE_C_FLAGS="/wd4101 /wd4996"
+          ..
+
+build_script:
+  - cmake --build .
+          --config %CONFIGURATION%
+
+test_script:
+  - ctest --build-config %CONFIGURATION%
+          --output-on-failure

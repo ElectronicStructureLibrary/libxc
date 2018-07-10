@@ -119,7 +119,7 @@ void xc_gga(const xc_func_type *func, int np, const double *rho, const double *s
 
 /* specializations */
 /* returns only energy */
-inline void 
+void
 xc_gga_exc(const xc_func_type *p, int np, const double *rho, const double *sigma, 
 	    double *zk)
 {
@@ -127,7 +127,7 @@ xc_gga_exc(const xc_func_type *p, int np, const double *rho, const double *sigma
 }
 
 /* returns only potential */
-inline void 
+void
 xc_gga_vxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 	    double *vrho, double *vsigma)
 {
@@ -135,7 +135,7 @@ xc_gga_vxc(const xc_func_type *p, int np, const double *rho, const double *sigma
 }
 
 /* returns both energy and potential (the most common call usually) */
-inline void 
+void
 xc_gga_exc_vxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 		double *zk, double *vrho, double *vsigma)
 {
@@ -143,7 +143,7 @@ xc_gga_exc_vxc(const xc_func_type *p, int np, const double *rho, const double *s
 }
 
 /* returns second derivatives */
-inline void 
+void
 xc_gga_fxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 	    double *v2rho2, double *v2rhosigma, double *v2sigma2)
 {
@@ -151,7 +151,7 @@ xc_gga_fxc(const xc_func_type *p, int np, const double *rho, const double *sigma
 }
 
 /* returns third derivatives */
-inline void 
+void
 xc_gga_kxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 	    double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {

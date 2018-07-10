@@ -37,12 +37,18 @@ foreach(_sdir ${_sdirs})
                     	OUTPUT_FILE "${CMAKE_CURRENT_BINARY_DIR}/workdir/${_sdir}/${refname}_ref")
 
         # this is properly the real test, but presumably it'll get rebuilt if libxc changes
-        add_custom_command(TARGET xc-regression POST_BUILD
-                           COMMAND xc-regression ARGS ${func} ${nspin} ${order} "${CMAKE_CURRENT_SOURCE_DIR}/input/${system}" "${CMAKE_CURRENT_BINARY_DIR}/workdir/${_sdir}/${refname}" ">" "/dev/null")
 
-        # the testing itself
-        add_test(NAME "${func}-${system}-${spin}-${order}"
-             	 COMMAND xc-error "${CMAKE_CURRENT_BINARY_DIR}/workdir/${_sdir}/${refname}" "${CMAKE_CURRENT_BINARY_DIR}/workdir/${_sdir}/${refname}_ref" "${tol}")
+        # generate test values
+        set(test "${func}-${system}-${spin}-${order}")
+        add_test(NAME ${test}-run
+                 COMMAND xc-regression ${func} ${nspin} ${order} ${CMAKE_CURRENT_SOURCE_DIR}/input/${system} ${CMAKE_CURRENT_BINARY_DIR}/workdir/${_sdir}/${refname})
+        set_tests_properties(${test}-run PROPERTIES TIMEOUT 1)
+
+        # checke the tests values against the reference values
+        add_test(NAME ${test}-check
+                 COMMAND xc-error ${CMAKE_CURRENT_BINARY_DIR}/workdir/${_sdir}/${refname} ${CMAKE_CURRENT_BINARY_DIR}/workdir/${_sdir}/${refname}_ref ${tol})
+        set_tests_properties(${test}-check PROPERTIES DEPENDS ${test}-run)
+
     endforeach()
 endforeach()
 

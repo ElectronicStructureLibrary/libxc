@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_lda *)
+(* type: lda_exc *)
 
 f_zeta_k := z -> 1/2*((1 + z)^(5/3) + (1 - z)^(5/3)):
 

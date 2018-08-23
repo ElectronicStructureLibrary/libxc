@@ -41,10 +41,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->C = get_ext_param(p->info->ext_params, ext_params, 2);
 }
 
-#include "maple2c/lda_k_gds08_worker.c"
-
-#define func maple2c_func
-#include "work_lda.c"
+#include "maple2c/lda_exc/lda_k_gds08_worker.c"
+#include "work_lda_new.c"
 
 const xc_func_info_type xc_func_info_lda_k_gds08_worker = {
   XC_LDA_K_GDS08_WORKER,

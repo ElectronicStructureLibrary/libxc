@@ -11,10 +11,8 @@
 
 #define XC_LDA_C_RC04          27 /* Ragot-Cortona */
 
-#include "maple2c/lda_c_rc04.c"
-
-#define func maple2c_func
-#include "work_lda.c"
+#include "maple2c/lda_exc/lda_c_rc04.c"
+#include "work_lda_new.c"
 
 const xc_func_info_type xc_func_info_lda_c_rc04 = {
   XC_LDA_C_RC04,

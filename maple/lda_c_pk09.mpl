@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_lda *)
+(* type: lda_exc *)
 
 (* This was checked against code kindly provided by Emil Proynov *)
 
@@ -40,7 +40,7 @@ eta9  := 0.077123208419481:
 eta10 := 0.46958449007619:
 
 alpha_n := rs ->
-  + eta6 
+  + eta6
   + eta7*exp( -eta8*rs^(1/3))*rs^(2/3)
   + eta9*exp(-eta10*rs^(1/3))*rs^(1/3):
 
@@ -54,8 +54,8 @@ eta3 :=  0.837303782322808:
 eta4 :=  2.619709858963178:
 eta5 :=  1.036657594643520:
 
-beta_eff := rs -> 
-  + eta1 
+beta_eff := rs ->
+  + eta1
   + eta2*exp(-eta3*rs^(1/3))*rs^(1/4)
   + eta4*exp(-eta5*rs^(1/3))*rs^(1/3):
 
@@ -138,7 +138,7 @@ Q_1ud := k ->  1/D_1(k) * (
 ):
 
 (* Equation (11) *)
-Q_2ud := k -> 
+Q_2ud := k ->
   - c1/k - c2/k^2 - c3*log(k)/k + c4*log(D_5(k))/k
   + c8*arctan(a2*k + a3)/k + c9*log(k + c10)/k - c11/k*log(D_6(k)):
 
@@ -156,6 +156,10 @@ ec_par := (rs, z) ->
   + (1 + z)^2/8*(Q_1ud(k_uu(rs, z)) + Q_2ud(k_uu(rs, z)) + Q_3ud(k_uu(rs, z)))
   + (1 - z)^2/8*(Q_1ud(k_dd(rs, z)) + Q_2ud(k_dd(rs, z)) + Q_3ud(k_dd(rs, z))):
 
-f := (rs, z) -> ec_opp(rs, z) + ec_par(rs, z):
-
+# This avoids divisions by zero for the ferromagnetic case
+if evalb(Polarization = "ferr") then
+  f := (rs, z) -> 1/4*(Q_1ud(k_uu(rs, z)) + Q_2ud(k_uu(rs, z)) + Q_3ud(k_uu(rs, z))):
+else
+  f := (rs, z) -> ec_opp(rs, z) + ec_par(rs, z):
+fi:
 

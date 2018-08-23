@@ -11,11 +11,8 @@
 
 #define XC_LDA_X_2D  19 /* Exchange in 2D */
 
-#include "maple2c/lda_x_2d.c"
-
-#define func maple2c_func
-#define XC_DIMENSIONS 2
-#include "work_lda.c"
+#include "maple2c/lda_exc/lda_x_2d.c"
+#include "work_lda_new.c"
 
 const xc_func_info_type xc_func_info_lda_x_2d = {
   XC_LDA_X_2D,

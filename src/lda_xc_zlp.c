@@ -11,10 +11,8 @@
 
 #define XC_LDA_XC_ZLP     43   /* Zhao, Levy & Parr, Eq. (20)  */
 
-#include "maple2c/lda_xc_zlp.c"
-
-#define func maple2c_func
-#include "work_lda.c"
+#include "maple2c/lda_exc/lda_xc_zlp.c"
+#include "work_lda_new.c"
 
 const xc_func_info_type xc_func_info_lda_xc_zlp = {
   XC_LDA_XC_ZLP,

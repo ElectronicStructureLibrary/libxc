@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : ./maple/lda_x.mpl
+  Maple source      : .//maple/lda_x.mpl
   Type of functional: lda_exc
 */
 
@@ -61,7 +61,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
 static inline void
 func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3)
 {
-  double t1, t2, t3, t4, t6, t7, t9, t11;
+  double t1, t2, t3, t5, t6, t7, t9, t11;
 
   lda_x_params *params;
 
@@ -70,9 +70,9 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 
   t1 = M_CBRT3;
   t2 = params->alpha * t1;
-  t3 = M_CBRT2;
-  t4 = M_CBRTPI;
-  t6 = t3 / t4;
+  t3 = M_CBRTPI;
+  t5 = M_CBRT2;
+  t6 = 0.1e1 / t3 * t5;
   t7 = POW_1_3(rho[0]);
   t9 = t2 * t6 * t7;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))

@@ -6,7 +6,9 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_lda *)
+(* type: lda_exc *)
+
+$define xc_dimensions_2d
 
 ax := -4/3*sqrt(2)/Pi:
 

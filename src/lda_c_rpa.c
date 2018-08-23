@@ -14,10 +14,8 @@
 
 #define XC_LDA_C_RPA  3   /* Random Phase Approximation   */
 
-#include "maple2c/lda_c_rpa.c"
-
-#define func maple2c_func
-#include "work_lda.c"
+#include "maple2c/lda_exc/lda_c_rpa.c"
+#include "work_lda_new.c"
 
 const xc_func_info_type xc_func_info_lda_c_rpa = {
   XC_LDA_C_RPA,

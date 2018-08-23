@@ -11,10 +11,8 @@
 
 #define XC_LDA_XC_TETER93     20   /* Teter 93 parametrization                */
 
-#include "maple2c/lda_xc_teter93.c"
-
-#define func maple2c_func
-#include "work_lda.c"
+#include "maple2c/lda_exc/lda_xc_teter93.c"
+#include "work_lda_new.c"
 
 const xc_func_info_type xc_func_info_lda_xc_teter93 = {
   XC_LDA_XC_TETER93,

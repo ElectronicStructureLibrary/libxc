@@ -83,10 +83,8 @@ lda_c_pz_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/lda_c_pz.c"
-
-#define func maple2c_func
-#include "work_lda.c"
+#include "maple2c/lda_exc/lda_c_pz.c"
+#include "work_lda_new.c"
 
 const xc_func_info_type xc_func_info_lda_c_pz = {
   XC_LDA_C_PZ,

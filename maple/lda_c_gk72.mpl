@@ -1,4 +1,4 @@
-(* type: work_lda *)
+(* type: lda_exc *)
 
 a :=  0.0311:
 b := -0.048:

@@ -73,6 +73,7 @@ sub maple2c_run_maple {
   # print "Generating: /tmp/$$.mpl\n";
   open($mfile, ">/tmp/$$.mpl");
   printf $mfile "%s", "
+Polarization := \"$type\":
 Digits := 20:             (* constants will have 20 digits *)
 interface(warnlevel=0):   (* supress all warnings          *)
 with(CodeGeneration):

@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_lda *)
+(* type: lda_exc *)
 (* prefix:
   lda_xc_ksdt_params *params;
 
@@ -39,12 +39,12 @@ fxc := (omega, b, c, d, e, rs, t) ->
     -(omega*aa(t) + bb(b, t)*sqrt(rs) + cc(c, e, t)*rs)/(rs*(1 + dd(d, t)*sqrt(rs) + ee(e, t)*rs)):
 
 temp := max(params_a_T, 1e-8):
-tt := rs -> 2*(4/(9*Pi))^(2/3)*temp*rs^2:
+mtt := rs -> 2*(4/(9*Pi))^(2/3)*temp*rs^2:
 
 f := (rs, z) ->
   + fxc(1,
         params_a_b_0_, params_a_c_0_, params_a_d_0_, params_a_e_0_,
-        rs, tt(rs))*(1 - phi(alpha(tt(rs), rs), z))
+        rs, mtt(rs))*(1 - phi(alpha(mtt(rs), rs), z))
   + fxc(2^(1/3),
         params_a_b_1_, params_a_c_1_, params_a_d_1_, params_a_e_1_,
-        rs, tt(rs))*phi(alpha(tt(rs), rs), z):
+        rs, mtt(rs))*phi(alpha(mtt(rs), rs), z):

@@ -73,14 +73,13 @@ sub work_lda_exc {
       maple2c_create_derivatives(\@variables, \@derivatives, "mf", "pol");
   my $out_c_pol = join(", ", @out_c_pol);
 
-  print $out_c_unpol , "\n";
   # we join all the pieces
   my $maple_code = "
 # zk is energy per unit particle
 mzk  := (r0, r1) -> $config{'simplify_begin'} f(r_ws(dens(r0, r1)), zeta(r0, r1)) $config{'simplify_end'}:
 
 (* mf is energy per unit volume *)
-mf   := (r0, r1) -> $config{'simplify_begin'} dens(r0, r1)*mzk(r0, r1) $config{'simplify_end'}:
+mf   := (r0, r1) -> eval(dens(r0, r1)*mzk(r0, r1)):
 
 \$include <util.mpl>
 ";
@@ -166,8 +165,8 @@ sub work_lda_vxc {
   my $maple_code1 = "
 (* mf is the up potential *)
 mzk   := (r0, r1) -> $config{'simplify_begin'} f(r_ws(dens(r0, r1)), zeta(r0, r1)) $config{'simplify_end'}:
-mf0   := (r0, r1) -> mzk(r0, r1):
-mf1   := (r0, r1) -> mzk(r1, r0):
+mf0   := (r0, r1) -> eval(mzk(r0, r1)):
+mf1   := (r0, r1) -> eval(mzk(r1, r0)):
 
 \$include <util.mpl>
 ";

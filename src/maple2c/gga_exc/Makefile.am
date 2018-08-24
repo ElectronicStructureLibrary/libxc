@@ -5,4 +5,5 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
-noinst_HEADERS = gga_c_wi.c
+noinst_HEADERS = gga_c_wi.c gga_c_am05.c gga_c_bcgp.c gga_c_bmk.c \
+  gga_c_pw91.c gga_c_pbe.c gga_x_wc.c gga_x_g96.c

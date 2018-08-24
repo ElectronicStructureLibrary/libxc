@@ -6,11 +6,11 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 
 g96_c1 := 1/137:
 
 f_g96  := x->
   1 + g96_c1/X_FACTOR_C * x^(3/2):
 
-f  := x -> f_g96(x):
+f  := (rs, z, xt, xs0, xs1) -> gga_exchange(f_g96, rs, z, xs0, xs1):

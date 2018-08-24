@@ -268,14 +268,12 @@ typedef struct xc_gga_work_x_t {
 typedef void(*xc_gga_enhancement_t)(const xc_func_type *, xc_gga_work_x_t *r);
 xc_gga_enhancement_t xc_get_gga_enhancement_factor(int func_id);
 
-void xc_gga_x_wc_enhance   (const xc_func_type *p, xc_gga_work_x_t *r);
 void xc_gga_x_pbe_enhance  (const xc_func_type *p, xc_gga_work_x_t *r);
 void xc_gga_x_pw91_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
 void xc_gga_x_rpbe_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
 void xc_gga_x_htbs_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
 void xc_gga_x_b86_enhance  (const xc_func_type *p, xc_gga_work_x_t *r);
 void xc_gga_x_b88_enhance  (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_g96_enhance  (const xc_func_type *p, xc_gga_work_x_t *r);
 void xc_gga_x_pw86_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
 void xc_gga_x_airy_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
 void xc_gga_x_ak13_enhance (const xc_func_type *p, xc_gga_work_x_t *r);

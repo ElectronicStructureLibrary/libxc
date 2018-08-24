@@ -10,10 +10,8 @@
 
 #define XC_GGA_X_WC         118 /* Wu & Cohen */
 
-#include "maple2c/gga_x_wc.c"
-
-#define func xc_gga_x_wc_enhance
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_wc.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_wc = {
   XC_GGA_X_WC,
@@ -25,6 +23,6 @@ const xc_func_info_type xc_func_info_gga_x_wc = {
   1e-32,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 

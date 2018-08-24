@@ -8,9 +8,7 @@
 SUBDIRS = lda_exc lda_vxc gga_exc
 
 noinst_HEADERS = \
-  gga_c_cs1.c	\
-  gga_c_ft97.c gga_c_gapc.c gga_c_gaploc.c gga_c_hcth_a.c gga_c_lm.c	\
-  gga_c_lyp.c gga_c_op_b88.c gga_c_op_g96.c gga_c_op_pbe.c		\
+  gga_c_ft97.c gga_c_op_b88.c gga_c_op_g96.c gga_c_op_pbe.c		\
   gga_c_op_pw91.c gga_c_optc.c gga_c_op_xalpha.c gga_c_p86.c		\
   gga_c_pbeloc.c gga_c_q2d.c gga_c_regtpss.c	\
   gga_c_revtca.c gga_c_scan_e0.c gga_c_sg4.c gga_c_sogga11.c		\

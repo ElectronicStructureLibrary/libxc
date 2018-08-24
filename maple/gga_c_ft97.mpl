@@ -23,10 +23,6 @@ kssp0_k0 := 1.291551074:
 kssp0_k1 := 0.349064173:
 kssp0_r1 := 0.08327588:
 
-(* This gives a minimum that I can differentiate *)
-m_min := (x1, x2) -> x1 + (x2 - x1)*Heaviside(x1 - x2):
-m_max := (x1, x2) -> x1 + (x2 - x1)*Heaviside(x2 - x1):
-
 kssp0 := rs ->
   kssp0_k0 - kssp0_k1*(1 - exp(-kssp0_r1*m_min(rs, big)^(4/5))):
 

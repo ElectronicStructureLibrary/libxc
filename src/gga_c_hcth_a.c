@@ -10,10 +10,8 @@
 
 #define XC_GGA_C_HCTH_A        97 /* HCTH-A                                   */
 
-#include "maple2c/gga_c_hcth_a.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_c_hcth_a.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_c_hcth_a = {
   XC_GGA_C_HCTH_A,
@@ -25,5 +23,5 @@ const xc_func_info_type xc_func_info_gga_c_hcth_a = {
   1e-16,
   0, NULL, NULL,
   NULL, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

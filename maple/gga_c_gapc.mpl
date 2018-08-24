@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_c *)
+(* type: gga_exc *)
 
 $define lda_c_pw_params
 $include "lda_c_pw.mpl"

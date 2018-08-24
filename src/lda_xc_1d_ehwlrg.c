@@ -50,12 +50,8 @@ lda_xc_1d_ehwlrg_init(xc_func_type *p)
   }
 }
 
-#define XC_DIMENSIONS 1
-
-#include "maple2c/lda_xc_1d_ehwlrg.c"
-
-#define func maple2c_func
-#include "work_lda.c"
+#include "maple2c/lda_exc/lda_xc_1d_ehwlrg.c"
+#include "work_lda_new.c"
 
 const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_1 = {
   XC_LDA_XC_1D_EHWLRG_1,

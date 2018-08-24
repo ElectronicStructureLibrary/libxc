@@ -23,7 +23,6 @@ sub maple2c_create_derivatives
   my @variables   = @{$_[0]};
   my @derivatives = @{$_[1]};
   my $func        = $_[2];
-  my $spin        = $_[3];
   
   my $out_derivatives = "";
   my @out_cgeneration = ();
@@ -55,12 +54,10 @@ sub maple2c_create_derivatives
       my $vars     = "v".join(", v", 0..$#{$order});
       my $derorder = join(", ", @{$order});
 
-      $out_derivatives .= "$varname := ($vars) ->  diff($f_to_derive($vars), v".
-          $i_to_derive."):\n\n";
+      $out_derivatives .= "$varname := ($vars) ->  eval(diff($f_to_derive($vars), v".
+          $i_to_derive.")):\n\n";
       
       push @out_cgeneration, "$name = $varname($realvars)";
-
-      last if $spin ne "pol";
     }
   }
   return ($out_derivatives, @out_cgeneration);
@@ -73,6 +70,7 @@ sub maple2c_run_maple {
   # print "Generating: /tmp/$$.mpl\n";
   open($mfile, ">/tmp/$$.mpl");
   printf $mfile "%s", "
+Polarization := \"$type\":
 Digits := 20:             (* constants will have 20 digits *)
 interface(warnlevel=0):   (* supress all warnings          *)
 with(CodeGeneration):
@@ -94,11 +92,13 @@ $code
 
   my @test_1 = ("zk", "vrho", "v2rho2", "v3rho3", "v4rho4", "v5rho5");
   my @test_2 = ("EXC", "VXC", "FXC", "KXC", "LXC", "MXC");  
-
+  
+  my $total_order = $start_order;
   for (split /^/, $c_code) {
     my $found = 0;
+
     foreach my $der_order (@{$derivatives}){
-      my $total_order = ${$der_order}[-1][0][1] + $start_order;
+
       # search for a vrho = statement
       foreach my $der (@{$der_order}){
         if($_ =~ /^\s*?${$der}[1]\s*=/){
@@ -113,10 +113,17 @@ $code
           last;
         }
       }
-      # now search for the last spin
-      my $last_spin = ($type eq "pol") ? ${$der_order}[-1][1] : ${$der_order}[0][1];
-      if(/^\s*$last_spin\s*=/){
-        $new_c_code .= "  if(order < ".($total_order+1).") return;\n\n\n"
+
+      # Search the last derivative for each order
+      my $last_derivative = ${$der_order}[-1][1];
+      if($type ne "pol"){
+        $last_derivative =~ s/_\d+_/_0_/;
+      }
+
+      if(/^\s*$last_derivative\s*=/){
+        $new_c_code .= "#ifndef XC_DONT_COMPILE_".$test_2[$total_order+1]."\n\n";
+        $new_c_code .= "  if(order < ".($total_order+1).") return;\n\n\n";
+        $total_order++;
       }
     }
 
@@ -137,6 +144,10 @@ $code
   }
   $variables .= ";\n" if($n_var != 0);
 
+  for(my $i=$start_order; $i<$total_order; $i++){
+    $new_c_code .= "#endif\n\n";
+  }
+  
   return ($variables, maple2c_replace($new_c_code));
 }
 

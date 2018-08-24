@@ -10,10 +10,8 @@
 
 #define XC_LDA_C_VWN_4   31   /* Vosko, Wilk, & Nusair (4)   */
 
-#include "maple2c/lda_c_vwn_4.c"
-
-#define func maple2c_func
-#include "work_lda.c"
+#include "maple2c/lda_exc/lda_c_vwn_4.c"
+#include "work_lda_new.c"
 
 const xc_func_info_type xc_func_info_lda_c_vwn_4 = {
   XC_LDA_C_VWN_4,

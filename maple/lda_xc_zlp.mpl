@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_lda *)
+(* type: lda_exc *)
 
 a0 := 0.93222*RS_FACTOR:
 kk := 9.47362e-3*RS_FACTOR:

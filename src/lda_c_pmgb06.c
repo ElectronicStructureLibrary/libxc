@@ -22,10 +22,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   p->cam_omega = get_ext_param(p->info->ext_params, ext_params, 0);
 }
 
-#include "maple2c/lda_c_pmgb06.c"
-
-#define func maple2c_func
-#include "work_lda.c"
+#include "maple2c/lda_exc/lda_c_pmgb06.c"
+#include "work_lda_new.c"
 
 const xc_func_info_type xc_func_info_lda_c_pmgb06 = {
   XC_LDA_C_PMGB06,

@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_lda *)
+(* type: lda_exc *)
 (* prefix:
   lda_xc_1d_ehwlrg_params *params;
  
@@ -14,7 +14,7 @@
   params = (lda_xc_1d_ehwlrg_params * )(p->params);
 *)
 
-n := rs -> 1/(2*rs):
+$define xc_dimensions_1d
 
 f := (rs, zeta) -> \
- (params_a_a1 + params_a_a2*n(rs) + params_a_a3*n(rs)^2) * n(rs)^params_a_alpha:
+ (params_a_a1 + params_a_a2*n_total(rs) + params_a_a3*n_total(rs)^2) * n_total(rs)^params_a_alpha:

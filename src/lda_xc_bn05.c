@@ -10,10 +10,8 @@
 
 #define XC_LDA_XC_BN05   588   /* Baer and Neuhauser, gamma=1 */
 
-#include "maple2c/lda_xc_bn05.c"
-
-#define func maple2c_func
-#include "work_lda.c"
+#include "maple2c/lda_exc/lda_xc_bn05.c"
+#include "work_lda_new.c"
 
 const xc_func_info_type xc_func_info_lda_xc_bn05 = {
   XC_LDA_XC_BN05,

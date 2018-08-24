@@ -10,10 +10,8 @@
 
 #define XC_GGA_X_G96          107 /* Gill 96                                        */
 
-#include "maple2c/gga_x_g96.c"
-
-#define func xc_gga_x_g96_enhance
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_g96.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_g96 = {
   XC_GGA_X_G96,
@@ -24,8 +22,7 @@ const xc_func_info_type xc_func_info_gga_x_g96 = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-24,
   0, NULL, NULL,
-  NULL, NULL, NULL,
-  work_gga_x,
-  NULL
+  NULL, NULL,
+  NULL, work_gga, NULL
 };
 

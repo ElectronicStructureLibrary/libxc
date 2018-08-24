@@ -36,9 +36,6 @@ xc_get_gga_enhancement_factor(int func_id)
 {
   switch(func_id){
 
-  case XC_GGA_X_WC:
-    return xc_gga_x_wc_enhance;
-
   case XC_GGA_X_PBE:
   case XC_GGA_X_PBE_R:
   case XC_GGA_X_PBE_SOL:
@@ -70,9 +67,6 @@ xc_get_gga_enhancement_factor(int func_id)
   case XC_GGA_X_OPTB88_VDW:
   case XC_GGA_X_MB88:
     return xc_gga_x_b88_enhance;
-
-  case XC_GGA_X_G96:
-    return xc_gga_x_g96_enhance;
 
   case XC_GGA_X_PW86:
   case XC_GGA_X_RPW86:

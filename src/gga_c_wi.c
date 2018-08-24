@@ -46,10 +46,8 @@ gga_c_wi_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/gga_c_wi.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_c_wi.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_c_wi0 = {
   XC_GGA_C_WI0,
@@ -60,10 +58,8 @@ const xc_func_info_type xc_func_info_gga_c_wi0 = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-14,
   0, NULL, NULL,
-  gga_c_wi_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_c_wi_init, NULL,
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_wi = {
@@ -75,8 +71,6 @@ const xc_func_info_type xc_func_info_gga_c_wi = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-10,
   0, NULL, NULL,
-  gga_c_wi_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_c_wi_init, NULL,
+  NULL, work_gga, NULL
 };

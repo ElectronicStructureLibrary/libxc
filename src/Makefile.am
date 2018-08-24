@@ -132,7 +132,7 @@ FCLINK = $(LIBTOOL) --mode=link --tag=F77 $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) \
 
 noinst_HEADERS = \
 	string_f.h references.h util.h work_lda.c work_lda_new.c \
-	work_gga_x.c work_gga_c.c \
+	work_gga_x.c work_gga_c.c work_gga_new.c \
 	work_mgga_x.c work_mgga_c.c \
 	libxc_master.F90 libxc_master.F03
 include_HEADERS = xc.h xc_funcs_removed.h

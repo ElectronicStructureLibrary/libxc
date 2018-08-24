@@ -107,10 +107,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->BB    = get_ext_param(p->info->ext_params, ext_params, 2);
 }
 
-#include "maple2c/gga_c_pbe.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_c_pbe.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_c_pbe = {
   XC_GGA_C_PBE,
@@ -122,7 +120,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe = {
   1e-12,
   3, ext_params, set_ext_params,
   gga_c_pbe_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_pbe_sol = {
@@ -135,7 +133,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe_sol = {
   1e-12,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_xpbe = {
@@ -148,7 +146,7 @@ const xc_func_info_type xc_func_info_gga_c_xpbe = {
   1e-12,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_pbe_jrgx = {
@@ -161,7 +159,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe_jrgx = {
   1e-12,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_rge2 = {
@@ -174,7 +172,7 @@ const xc_func_info_type xc_func_info_gga_c_rge2 = {
   1e-12,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_apbe = {
@@ -187,7 +185,7 @@ const xc_func_info_type xc_func_info_gga_c_apbe = {
   1e-12,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_spbe = {
@@ -200,7 +198,7 @@ const xc_func_info_type xc_func_info_gga_c_spbe = {
   1e-12,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_pbeint = {
@@ -213,7 +211,7 @@ const xc_func_info_type xc_func_info_gga_c_pbeint = {
   1e-12,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_pbefe = {
@@ -226,7 +224,7 @@ const xc_func_info_type xc_func_info_gga_c_pbefe = {
   1e-12,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_pbe_mol = {
@@ -239,7 +237,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe_mol = {
   1e-12,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_tm_pbe = {
@@ -252,5 +250,5 @@ const xc_func_info_type xc_func_info_gga_c_tm_pbe = {
   1e-12,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

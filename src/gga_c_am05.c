@@ -11,10 +11,8 @@
 
 #define XC_GGA_C_AM05          135 /* Armiento & Mattsson 05 correlation             */
 
-#include "maple2c/gga_c_am05.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_c_am05.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_c_am05 = {
   XC_GGA_C_AM05,
@@ -26,5 +24,5 @@ const xc_func_info_type xc_func_info_gga_c_am05 = {
   1e-24,
   0, NULL, NULL,
   NULL, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

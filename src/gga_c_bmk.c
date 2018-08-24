@@ -86,10 +86,8 @@ gga_c_bmk_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/gga_c_bmk.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_c_bmk.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_c_n12 = {
   XC_GGA_C_N12,
@@ -101,7 +99,7 @@ const xc_func_info_type xc_func_info_gga_c_n12 = {
   1e-20,
   0, NULL, NULL,
   gga_c_bmk_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_n12_sx = {
@@ -114,7 +112,7 @@ const xc_func_info_type xc_func_info_gga_c_n12_sx = {
   1e-20,
   0, NULL, NULL,
   gga_c_bmk_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_gam = {
@@ -127,7 +125,7 @@ const xc_func_info_type xc_func_info_gga_c_gam = {
   1e-23,
   0, NULL, NULL,
   gga_c_bmk_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_bmk = {
@@ -140,7 +138,7 @@ const xc_func_info_type xc_func_info_gga_c_bmk = {
   1e-20,
   0, NULL, NULL,
   gga_c_bmk_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_tau_hcth = {
@@ -153,7 +151,7 @@ const xc_func_info_type xc_func_info_gga_c_tau_hcth = {
   1e-20,
   0, NULL, NULL,
   gga_c_bmk_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_hyb_tau_hcth = {
@@ -166,5 +164,5 @@ const xc_func_info_type xc_func_info_gga_c_hyb_tau_hcth = {
   1e-20,
   0, NULL, NULL,
   gga_c_bmk_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

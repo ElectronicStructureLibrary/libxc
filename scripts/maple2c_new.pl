@@ -40,12 +40,10 @@ while($_ = <$in>){
 close($in);
 
 my %commands = (
-  "lda_exc"     => \&work_lda_exc,
-  "lda_vxc"     => \&work_lda_vxc,
-  "gga_exc"     => \&work_gga_exc,
-#  "work_gga_c"   => \&work_gga_c,
-#  "work_mgga_x"  => \&work_mgga_x,
-#  "work_mgga_c"  => \&work_mgga_c,
+  "lda_exc"   => \&work_lda_exc,
+  "lda_vxc"   => \&work_lda_vxc,
+  "gga_exc"   => \&work_gga_exc,
+#  "mgga_exc"  => \&work_mgga_exc,
     );
 
 if ($commands{$config{"functype"}}) {
@@ -244,19 +242,16 @@ sub work_gga_exc {
     ],
     );
   
-  my ($der_def_unpol, @out_c_unpol) = 
-      maple2c_create_derivatives(\@variables, \@derivatives, "mf", "unpol");
-  my $out_c_unpol = join(", ", @out_c_unpol);
-  my ($der_def_pol, @out_c_pol) = 
-      maple2c_create_derivatives(\@variables, \@derivatives, "mf", "pol");
-  my $out_c_pol = join(", ", @out_c_pol);
+  my ($der_def, @out_c) = 
+      maple2c_create_derivatives(\@variables, \@derivatives, "mf");
+  my $out_c = join(", ", @out_c);
 
   # we join all the pieces
   my $maple_code = "
 # zk is energy per unit particle
 mzk  := (r0, r1, s0, s1, s2) -> \\
   $config{'simplify_begin'} \\
-    f(r_ws(dens(r0, r1)), zeta(r0, r1), xt(r0, r1, s0, s1, s2), xs0(r0, r1, s0, s1, s2), xs1(r0, r1, s0, s1, s2)) \\
+    f(r_ws(dens(r0, r1)), zeta(r0, r1), xt(r0, r1, s0, s1, s2), xs0(r0, r1, s0, s2), xs1(r0, r1, s0, s2)) \\
   $config{'simplify_end'}:
 
 (* mf is energy per unit volume *)
@@ -271,14 +266,14 @@ mf   := (r0, r1, s0, s1, s2) -> eval(dens(r0, r1)*mzk(r0, r1, s0, s1, s2)):
     "unpol", "
 dens := (r0, r1) -> r0:
 zeta := (r0, r1) -> 0:
-xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/(4*r0^(4/3)):
-xs1  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/(4*r0^(4/3)):
+xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0/4)/((r0/2)^(4/3)):
+xs1  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0/4)/((r0/2)^(4/3)):
 xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(4/3):
 
-$der_def_unpol
+$der_def
 
 $maple_code
-C([$maple_zk, $out_c_unpol], optimize, deducetypes=false):
+C([$maple_zk, $out_c], optimize, deducetypes=false):
 ",
 
     "ferr", "
@@ -288,10 +283,10 @@ xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/r0^(4/3):
 xs1  := (r0, r1, sigma0, sigma2) -> 0:
 xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(4/3):
 
-$der_def_unpol
+$der_def
 
 $maple_code
-C([$maple_zk, $out_c_unpol], optimize, deducetypes=false):
+C([$maple_zk, $out_c], optimize, deducetypes=false):
 \n",
 
     "pol", "
@@ -301,10 +296,10 @@ xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/r0^(4/3):
 xs1  := (r0, r1, sigma0, sigma2) -> sqrt(sigma2)/r1^(4/3):
 xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0 + 2*sigma1 + sigma2)/(r0 + r1)^(4/3):
 
-$der_def_pol
+$der_def
 
 $maple_code
-C([$maple_zk, $out_c_pol], optimize, deducetypes=false):
+C([$maple_zk, $out_c], optimize, deducetypes=false):
 \n",
       );
 

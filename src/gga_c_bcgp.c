@@ -10,10 +10,8 @@
 
 #define XC_GGA_C_BCGP          39 /* Burke, Cancio, Gould, and Pittalis                 */
 
-#include "maple2c/gga_c_bcgp.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_c_bcgp.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_c_bcgp = {
   XC_GGA_C_BCGP,
@@ -25,5 +23,5 @@ const xc_func_info_type xc_func_info_gga_c_bcgp = {
   1e-25,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

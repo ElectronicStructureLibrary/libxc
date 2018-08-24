@@ -62,10 +62,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->d = get_ext_param(p->info->ext_params, ext_params, 3);
 }
 
-#include "maple2c/gga_c_lyp.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_c_lyp.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_c_lyp = {
   XC_GGA_C_LYP,
@@ -77,7 +75,7 @@ const xc_func_info_type xc_func_info_gga_c_lyp = {
   1e-32,
   4, ext_params, set_ext_params,
   xc_gga_c_lyp_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_tm_lyp = {
@@ -90,5 +88,5 @@ const xc_func_info_type xc_func_info_gga_c_tm_lyp = {
   1e-32,
   0, NULL, NULL,
   xc_gga_c_lyp_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_c *)
+(* type: gga_exc *)
 
 gamma_ss := 0.2:
 cc_ss    := [0.0136823, 0.268920, -0.550769,  1.03947, 0.0]:

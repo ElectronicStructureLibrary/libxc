@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_c *)
+(* type: gga_exc *)
 
 a := -1:
 b := 11.8:
@@ -17,7 +17,11 @@ d := 11.02e-3/RS_FACTOR:
    complex for negative values of z. Of course it is not clear at all
    what was the original intential of Wilson, or if he even considered
    this problem. *)
-f_num := z -> a*sqrt(1 - m_abs(1*z)^(5/3)):
+if evalb(Polarization = "unpol") then
+    f_num := z -> a:
+else
+    f_num := z -> a*sqrt(1 - m_abs(z)^(5/3)):
+end if:
 f_den := (rs, xt) -> b + c*xt^(51/16) + d*xt^2*rs + rs:
 
 (* Equation (25) *)

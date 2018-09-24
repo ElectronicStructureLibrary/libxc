@@ -48,10 +48,8 @@ gga_c_sogga11_init(xc_func_type *p)
   } 
 }
 
-#include "maple2c/gga_c_sogga11.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_c_sogga11.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_c_sogga11 = {
   XC_GGA_C_SOGGA11,
@@ -63,7 +61,7 @@ const xc_func_info_type xc_func_info_gga_c_sogga11 = {
   1e-23,
   0, NULL, NULL,
   gga_c_sogga11_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_sogga11_x = {
@@ -76,5 +74,5 @@ const xc_func_info_type xc_func_info_gga_c_sogga11_x = {
   1e-23,
   0, NULL, NULL,
   gga_c_sogga11_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

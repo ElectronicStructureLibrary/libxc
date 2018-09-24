@@ -6,10 +6,10 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_c *)
+(* type: gga_exc *)
 
 $define gga_c_pbe_params
 $include "gga_c_regtpss.mpl"
 
-scan_g := (rs, z, t) -> (1 + 4*A(rs, z, t)*t^2)^(-1/4):
-f2 := (rs, z, t) -> mbeta(rs, t)*(1 - scan_g(rs, z, t))/(mgamma*A(rs, z, t)):
+scan_e0_g := (rs, z, t) -> (1 + 4*A(rs, z, t)*t^2)^(-1/4):
+f2 := (rs, z, t) -> mbeta(rs, t)*(1 - scan_e0_g(rs, z, t))/(mgamma*A(rs, z, t)):

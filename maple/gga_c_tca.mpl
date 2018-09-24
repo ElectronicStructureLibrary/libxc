@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_c *)
+(* type: gga_exc *)
 
 $include "lda_c_rc04.mpl"
 

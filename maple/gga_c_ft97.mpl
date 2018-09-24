@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_c *)
+(* type: gga_exc *)
 
 C0 := (1 - log(2))/(2*Pi^2): (* Equation (9) *)
 C1 := 4*C0/3:                  (* Equations (13), (28), (33) *)
@@ -85,6 +85,9 @@ f_ft97 := (rs, z, xs) ->
   + term1(rs*(2/(1 + z))^(1/3), z, C3^2*xs^2)
   + term2(rs*(2/(1 + z))^(1/3), z, C3^2*xs^2):
 
-f  := (rs, z, xt, xs0, xs1) ->
-  f_ft97(rs, z, xs0) + f_ft97(rs, -z, xs1):
+if evalb(Polarization = "ferr") then
+    f  := (rs, z, xt, xs0, xs1) -> term2(rs, 1, C3^2*xs0^2):
+else
+    f  := (rs, z, xt, xs0, xs1) -> f_ft97(rs, z, xs0) + f_ft97(rs, -z, xs1):
+end if:
 

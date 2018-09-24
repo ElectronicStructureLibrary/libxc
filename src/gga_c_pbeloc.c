@@ -10,10 +10,8 @@
 
 #define XC_GGA_C_PBELOC       246 /* Semilocal dynamical correlation                    */
 
-#include "maple2c/gga_c_pbeloc.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_c_pbeloc.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_c_pbeloc = {
   XC_GGA_C_PBELOC,
@@ -25,5 +23,5 @@ const xc_func_info_type xc_func_info_gga_c_pbeloc = {
   1e-11,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

@@ -41,10 +41,8 @@ gga_c_zvpbeint_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/gga_c_zvpbeint.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_c_zvpbeint.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_c_zvpbeint = {
   XC_GGA_C_ZVPBEINT,
@@ -56,7 +54,7 @@ const xc_func_info_type xc_func_info_gga_c_zvpbeint = {
   1e-10,
   0, NULL, NULL,
   gga_c_zvpbeint_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_c_zvpbesol = {
@@ -69,5 +67,5 @@ const xc_func_info_type xc_func_info_gga_c_zvpbesol = {
   1e-10,
   0, NULL, NULL,
   gga_c_zvpbeint_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

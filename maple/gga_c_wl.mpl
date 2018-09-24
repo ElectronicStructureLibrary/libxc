@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_c *)
+(* type: gga_exc *)
 
 a := -0.74860:
 b :=  0.06001:

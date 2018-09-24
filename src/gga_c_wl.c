@@ -11,10 +11,8 @@
 
 #define XC_GGA_C_WL  147 /* Wilson & Levy */
 
-#include "maple2c/gga_c_wl.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_c_wl.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_c_wl = {
   XC_GGA_C_WL,
@@ -25,7 +23,6 @@ const xc_func_info_type xc_func_info_gga_c_wl = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-12,
   0, NULL, NULL,
-  NULL, NULL, NULL,
-  work_gga_c,
-  NULL
+  NULL, NULL,
+  NULL, work_gga, NULL
 };

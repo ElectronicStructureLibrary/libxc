@@ -20,6 +20,10 @@
 #define XC_HYB_GGA_XC_HSE12       479 /* HSE12 by Moussa, Schultz and Chelikowsky */
 #define XC_HYB_GGA_XC_HSE12S      480 /* Short-range HSE12 by Moussa, Schultz, and Chelikowsky */
 #define XC_HYB_GGA_XC_HSE_SOL     481 /* HSEsol functional by Schimka, Harl, and Kresse */
+#define XC_HYB_GGA_XC_LC_WPBE_WHS 486 /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
+#define XC_HYB_GGA_XC_LC_WPBEH_WHS 487 /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
+#define XC_HYB_GGA_XC_LC_WPBE08_WHS 488 /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
+#define XC_HYB_GGA_XC_LC_WPBESOL_WHS 489 /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
 
 /* Note that there is an enormous mess in the literature concerning
    the values of omega in HSE. This is due to an error in the
@@ -36,7 +40,7 @@
    HSE06 has the value omega=0.106. VASP, on the other hand, uses
    for HSE03 the same value omega^HF = omega^PBE = 0.3 (A^-1) ~
    0.1587 and for HSE06 omega^HF = omega^PBE = 0.2 (A^-1) ~ 0.1058.
-   
+
    We try to follow the original definition of the functional. The
    default omega for XC_GGA_X_WPBEH is zero, so WPBEh reduces to
    PBEh
@@ -76,11 +80,11 @@ hyb_gga_xc_hse_init(xc_func_type *p)
   xc_mix_init(p, 3, funcs_id, funcs_coef);
 }
 
-static void 
+static void
 set_ext_params(xc_func_type *p, const double *ext_params)
 {
   double beta, omega_HF, omega_PBE;
-  
+
   assert(p != NULL);
 
   beta      = get_ext_param(p->info->ext_params, ext_params, 0);
@@ -93,7 +97,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   p->cam_omega = omega_HF;
   xc_func_set_ext_params(p->func_aux[1], &omega_PBE);
 }
-  
+
 const xc_func_info_type xc_func_info_hyb_gga_xc_hse03 = {
   XC_HYB_GGA_XC_HSE03,
   XC_EXCHANGE_CORRELATION,
@@ -153,7 +157,7 @@ hyb_gga_xc_hse_sol_init(xc_func_type *p)
   double funcs_coef[3] = {1.0, -0.25, 1.0};
 
   static double zero = 0.0, omega = 0.11;
-  
+
   xc_mix_init(p, 3, funcs_id, funcs_coef);
   p->cam_omega = omega;
   p->cam_beta  = 0.25;
@@ -180,9 +184,9 @@ hyb_gga_xc_lc_wpbe_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_WPBEH, XC_GGA_C_PBE};
   static double funcs_coef[2] = {1.0, 1.0};
-  
+
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  
+
   p->cam_omega =  0.4;
   p->cam_alpha =  1.0;
   p->cam_beta  = -1.0;
@@ -208,9 +212,9 @@ hyb_gga_xc_lrc_wpbeh_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
   static double funcs_coef[2] = {0.8, 1.0};
-  
+
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  
+
   p->cam_omega =  0.2;
   p->cam_alpha =  1.0;
   p->cam_beta  = -0.8;
@@ -222,9 +226,9 @@ hyb_gga_xc_lrc_wpbe_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
   static double funcs_coef[2] = {1.0, 1.0};
-  
+
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  
+
   p->cam_omega =  0.3;
   p->cam_alpha =  1.0;
   p->cam_beta  = -1.0;
@@ -258,13 +262,121 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lrc_wpbe = {
 };
 
 static void
+hyb_gga_xc_lc_wpbe_whs_init(xc_func_type *p)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
+  static double funcs_coef[2] = {1.0, 1.0};
+
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+
+  p->cam_omega =  0.4;
+  p->cam_alpha =  1.0;
+  p->cam_beta  = -1.0;
+  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
+}
+
+static void
+hyb_gga_xc_lc_wpbe08_whs_init(xc_func_type *p)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
+  static double funcs_coef[2] = {1.0, 1.0};
+
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+
+  p->cam_omega =  0.45;
+  p->cam_alpha =  1.0;
+  p->cam_beta  = -1.0;
+  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
+}
+
+static void
+hyb_gga_xc_lc_wpbesol_whs_init(xc_func_type *p)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE_SOL, XC_GGA_C_PBE_SOL};
+  static double funcs_coef[2] = {1.0, 1.0};
+
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+
+  p->cam_omega =  0.60;
+  p->cam_alpha =  1.0;
+  p->cam_beta  = -1.0;
+  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
+}
+
+static void
+hyb_gga_xc_lc_wpbeh_whs_init(xc_func_type *p)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
+  static double funcs_coef[2] = {0.75, 1.0};
+
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+
+  p->cam_omega =  0.4;
+  p->cam_alpha =  1.0;
+  p->cam_beta  = -0.75;
+  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
+}
+
+const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe_whs = {
+  XC_HYB_GGA_XC_LC_WPBE_WHS,
+  XC_EXCHANGE_CORRELATION,
+  "Long-range corrected PBE (LC-wPBE) by Weintraub, Henderson and Scuseria",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Weintraub2009_754, &xc_ref_Henderson2008_194105, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32,
+  0, NULL, NULL,
+  hyb_gga_xc_lc_wpbe_whs_init,
+  NULL, NULL, NULL, NULL
+};
+
+const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbeh_whs = {
+  XC_HYB_GGA_XC_LC_WPBEH_WHS,
+  XC_EXCHANGE_CORRELATION,
+  "Long-range corrected short-range hybrid PBE (LC-wPBE) by Weintraub, Henderson and Scuseria",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Weintraub2009_754, &xc_ref_Henderson2008_194105, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32,
+  0, NULL, NULL,
+  hyb_gga_xc_lc_wpbeh_whs_init,
+  NULL, NULL, NULL, NULL
+};
+
+const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe08_whs = {
+  XC_HYB_GGA_XC_LC_WPBE08_WHS,
+  XC_EXCHANGE_CORRELATION,
+  "Long-range corrected PBE (LC-wPBE) by Weintraub, Henderson and Scuseria",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Weintraub2009_754, &xc_ref_Henderson2008_194105, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32,
+  0, NULL, NULL,
+  hyb_gga_xc_lc_wpbe08_whs_init,
+  NULL, NULL, NULL, NULL
+};
+
+const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbesol_whs = {
+  XC_HYB_GGA_XC_LC_WPBESOL_WHS,
+  XC_EXCHANGE_CORRELATION,
+  "Long-range corrected PBE (LC-wPBE) by Weintraub, Henderson and Scuseria",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Weintraub2009_754, &xc_ref_Henderson2008_194105, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32,
+  0, NULL, NULL,
+  hyb_gga_xc_lc_wpbesol_whs_init,
+  NULL, NULL, NULL, NULL
+};
+
+static void
 hyb_gga_xc_hjs_init(xc_func_type *p)
 {
   static int   funcs_id  [3] = {-1, -1, XC_GGA_C_PBE};
   static double funcs_coef[3] = {1.0, -0.25, 1.0};
 
   static double zero = 0.0, omega = 0.11;
-  
+
   switch(p->info->number){
   case XC_HYB_GGA_XC_HJS_PBE:
     funcs_id[0] = funcs_id[1] = XC_GGA_X_HJS_PBE;

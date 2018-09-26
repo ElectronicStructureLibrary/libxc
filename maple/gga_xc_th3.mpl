@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_c *)
+(* type: gga_exc *)
 (* prefix:
   gga_xc_th3_params *params;
 
@@ -18,7 +18,7 @@ params_a_n := 19:
 
 params_a_a := [
     7/6,  8/6,  9/6, 10/6, 17/12, 9/6, 10/6, 11/6,
-   10/6, 11/6, 12/6, 10/6, 11/6, 12/6,  7/6,  8/6, 
+   10/6, 11/6, 12/6, 10/6, 11/6, 12/6,  7/6,  8/6,
     9/6, 10/6, 13/12.0
 ]:
 

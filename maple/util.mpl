@@ -102,9 +102,14 @@ b88_R_F := (f_x, rs, z, xs) ->
   1/(2*X_FACTOR_C*n_spin(rs, z)^(1/3)*f_x(xs)):
 
 b88_zss := (css, f_x, rs, z, xs) ->
-  2*css*b88_R_F(f_x, rs, z, xs):
-b88_zab := (cab, f_x, rs, z, xs0, xs1) ->
-  cab*(b88_R_F(f_x, rs, z, xs0) + b88_R_F(f_x, rs, -z, xs1)):
+2*css*b88_R_F(f_x, rs, z, xs):
+
+if evalb(Polarization = "ferr") then
+  b88_zab := (cab, f_x, rs, z, xs0, xs1) -> cab*b88_R_F(f_x, rs, 1, xs0):
+else
+  b88_zab := (cab, f_x, rs, z, xs0, xs1) ->
+    cab*(b88_R_F(f_x, rs, z, xs0) + b88_R_F(f_x, rs, -z, xs1)):
+end if:
 
 # Power series often used in mggas
 mgga_w := t -> (K_FACTOR_C - t)/(K_FACTOR_C + t):

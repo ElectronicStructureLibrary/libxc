@@ -6,10 +6,10 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_c *)
+(* type: gga_exc *)
 
 $include "op.mpl"
 
 (* Xalpha *)
-op_qab := 2.5654:
-op_f   := xs -> 1:
+op_qab         := 2.5654:
+op_enhancement := xs -> 1:

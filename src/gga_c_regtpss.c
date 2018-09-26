@@ -10,10 +10,8 @@
 
 #define XC_GGA_C_REGTPSS       83 /* Regularized TPSS correlation (ex-VPBE)             */
 
-#include "maple2c/gga_c_regtpss.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_c_regtpss.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_c_regtpss = {
   XC_GGA_C_REGTPSS,
@@ -25,5 +23,5 @@ const xc_func_info_type xc_func_info_gga_c_regtpss = {
   1e-16,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

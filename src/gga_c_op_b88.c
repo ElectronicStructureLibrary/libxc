@@ -11,10 +11,8 @@
 
 #define XC_GGA_C_OP_B88      87 /* one-parameter progressive functional (B88 version)     */
 
-#include "maple2c/gga_c_op_b88.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_c_op_b88.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_c_op_b88 = {
   XC_GGA_C_OP_B88,
@@ -26,5 +24,5 @@ const xc_func_info_type xc_func_info_gga_c_op_b88 = {
   1e-32,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

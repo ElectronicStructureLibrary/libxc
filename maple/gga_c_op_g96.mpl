@@ -6,12 +6,12 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_c *)
+(* type: gga_exc *)
 
 # Not that the files have to be included in this specific order
 $include "gga_x_g96.mpl"
 
 $include "op.mpl"
 
-op_qab := 2.3638:
-op_f   := xs -> f_g96(xs):
+op_qab         := 2.3638:
+op_enhancement := xs -> f_g96(xs):

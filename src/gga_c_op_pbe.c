@@ -11,10 +11,8 @@
 
 #define XC_GGA_C_OP_PBE      86 /* one-parameter progressive functional (PBE version)     */
 
-#include "maple2c/gga_c_op_pbe.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_c_op_pbe.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_c_op_pbe = {
   XC_GGA_C_OP_PBE,
@@ -26,5 +24,5 @@ const xc_func_info_type xc_func_info_gga_c_op_pbe = {
   1e-25,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

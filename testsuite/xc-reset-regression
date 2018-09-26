@@ -14,11 +14,14 @@ fi
 
 systems="H Li BrOH BrOH+"
 funcs=$*
-if [ "x$funcs" = "x" ]; then
-  funcs=$(awk '{print tolower($2)}' ${builddir}../src/xc_funcs.h | sed 's/^xc_//g')
+if [[ "$funcs" = "" ]]; then
+  funcs=$(awk '{print $2}' ${builddir}../src/xc_funcs.h)
 fi
 
 for func in $funcs; do
+  # Make sure name is in correct format
+  func=$(echo $func | awk '{print tolower($0)}' | sed 's/^xc_//g')
+
   echo "processing $func"
 
   dir=${func%%_*}

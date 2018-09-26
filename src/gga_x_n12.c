@@ -71,10 +71,8 @@ gga_x_n12_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/gga_x_n12.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_x_n12.c"
+#include "work_gga_new.c"
 
 
 const xc_func_info_type xc_func_info_gga_x_n12 = {
@@ -86,10 +84,8 @@ const xc_func_info_type xc_func_info_gga_x_n12 = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-24,
   0, NULL, NULL,
-  gga_x_n12_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_x_n12_init, NULL,
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_hyb_gga_x_n12_sx = {
@@ -101,10 +97,8 @@ const xc_func_info_type xc_func_info_hyb_gga_x_n12_sx = {
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-24,
   0, NULL, NULL,
-  gga_x_n12_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_x_n12_init, NULL,
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_gam = {
@@ -116,8 +110,6 @@ const xc_func_info_type xc_func_info_gga_x_gam = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-24,
   0, NULL, NULL,
-  gga_x_n12_init,
-  NULL, NULL,
-  work_gga_c,
-  NULL
+  gga_x_n12_init, NULL,
+  NULL, work_gga, NULL
 };

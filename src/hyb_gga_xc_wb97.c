@@ -84,10 +84,8 @@ gga_xc_wb97_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/hyb_gga_xc_wb97.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/hyb_gga_xc_wb97.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_wb97 = {
   XC_HYB_GGA_XC_WB97,
@@ -99,7 +97,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97 = {
   1e-23,
   0, NULL, NULL,
   gga_xc_wb97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x = {
@@ -112,7 +110,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x = {
   1e-23,
   0, NULL, NULL,
   gga_xc_wb97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x_v = {
@@ -125,7 +123,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x_v = {
   1e-23,
   0, NULL, NULL,
   gga_xc_wb97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x_d = {
@@ -138,5 +136,5 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x_d = {
   1e-23,
   0, NULL, NULL,
   gga_xc_wb97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

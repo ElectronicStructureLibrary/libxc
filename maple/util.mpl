@@ -66,9 +66,16 @@ beta_Hu_Langreth := rs -> 0.066724550603149220*(1 + 0.1*rs)/(1 + 0.1778*rs):
 
 # Generate exchange functionals from the expression for the
 # enhancement factor
-lda_x_spin := (rs, z) -> -X_FACTOR_C*((1 + z)/2)^(4/3)*(RS_FACTOR/rs):
+lda_x_spin   := (rs, z) -> -X_FACTOR_C*((1 + z)/2)^(4/3)*(RS_FACTOR/rs):
 gga_exchange := (func, rs, z, xs0, xs1) ->
-             lda_x_spin(rs, z)*func(xs0) + lda_x_spin(rs, -z)*func(xs1):
+  lda_x_spin(rs, z)*func(xs0) + lda_x_spin(rs, -z)*func(xs1):
+if evalb(Polarization = "ferr") then
+    gga_exchange_nsp := (func, rs, z, xs0, xs1) ->
+             lda_x_spin(rs, 1)*func(rs, 1, xs0):
+else
+    gga_exchange_nsp := (func, rs, z, xs0, xs1) ->
+             lda_x_spin(rs, z)*func(rs, z, xs0) + lda_x_spin(rs, -z)*func(rs, -z, xs1):
+end if:
 
 # This is the Stoll decomposition in our language
 lda_stoll_par  := (lda_func, rs, z, spin) ->

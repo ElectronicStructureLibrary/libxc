@@ -12,4 +12,5 @@ noinst_HEADERS = gga_c_wi.c gga_c_am05.c gga_c_bcgp.c gga_c_bmk.c   \
   gga_c_zpbeint.c gga_c_zvpbeint.c gga_c_scan_e0.c gga_c_sg4.c      \
   gga_c_sogga11.c gga_c_w94.c gga_c_optc.c gga_c_revtca.c           \
   gga_c_q2d.c gga_x_hjs.c gga_x_kt.c gga_x_n12.c hyb_gga_xc_wb97.c  \
-  gga_xc_b97.c gga_xc_th1.c gga_xc_th2.c gga_xc_th3.c
+  gga_xc_b97.c gga_xc_th1.c gga_xc_th2.c gga_xc_th3.c gga_x_ft97.c  \
+  gga_x_hjs_b88_v2.c

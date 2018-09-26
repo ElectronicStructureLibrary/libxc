@@ -48,10 +48,8 @@ gga_x_ft97_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/gga_x_ft97.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_x_ft97.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_ft97_a = {
   XC_GGA_X_FT97_A,
@@ -63,7 +61,7 @@ const xc_func_info_type xc_func_info_gga_x_ft97_a = {
   1e-22,
   0, NULL, NULL,
   gga_x_ft97_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_ft97_b = {
@@ -76,5 +74,5 @@ const xc_func_info_type xc_func_info_gga_x_ft97_b = {
   1e-22,
   0, NULL, NULL,
   gga_x_ft97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

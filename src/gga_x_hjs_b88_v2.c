@@ -36,10 +36,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->omega = get_ext_param(p->info->ext_params, ext_params, 0);
 }
 
-#include "maple2c/gga_x_hjs_b88_v2.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_x_hjs_b88_v2.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_hjs_b88_v2 = {
   XC_GGA_X_HJS_B88_V2,
@@ -51,5 +49,5 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b88_v2 = {
   1e-6, /* densities smaller than 1e-6 yield NaNs */
   1, ext_params, set_ext_params,
   gga_x_hjs_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

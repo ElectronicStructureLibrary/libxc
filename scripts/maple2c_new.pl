@@ -24,12 +24,18 @@ $config{"prefix"}     = "";
 
 $config{"simplify_begin"} = ($config{'simplify'} == 1) ? "simplify(" : "";
 $config{"simplify_end"}   = ($config{'simplify'} == 1) ? ", symbolic)" : "";
-    
+
+$config{"replace"} = [];
+
 # Find out the type of functional
 open my $in, '<', $config{"mathfile"} or die "File $mathfile does not exist\n";
 while($_ = <$in>){
   if(/^\(\* type:\s(\S*)\s/){
     $config{"functype"} = $1;
+  };
+  if(/^\(\* replace:\s*"([^"]*)"\s*->\s*"([^"]*)"/){
+    push @{$config{"replace"}}, "$1";
+    push @{$config{"replace"}}, "$2";
   };
   if(/^\(\* prefix:/){
     while( ($_ = <$in>) && ! /^\*\)/ ){

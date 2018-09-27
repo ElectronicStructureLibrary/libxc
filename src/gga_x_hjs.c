@@ -97,10 +97,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 }
 
 
-#include "maple2c/gga_x_hjs.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_x_hjs.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_hjs_pbe = {
   XC_GGA_X_HJS_PBE,
@@ -112,7 +110,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_pbe = {
   5e-12,
   1, ext_params, set_ext_params,
   gga_x_hjs_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_hjs_pbe_sol = {
@@ -125,7 +123,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_pbe_sol = {
   5e-12,
   1, ext_params, set_ext_params,
   gga_x_hjs_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_hjs_b88 = {
@@ -138,7 +136,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b88 = {
   1e-7, /* densities smaller than 1e-7 yield NaNs */
   1, ext_params, set_ext_params,
   gga_x_hjs_init, NULL, 
-  NULL,  work_gga_c, NULL
+  NULL,  work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_hjs_b97x = {
@@ -151,5 +149,5 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b97x = {
   1e-10,
   1, ext_params, set_ext_params,
   gga_x_hjs_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

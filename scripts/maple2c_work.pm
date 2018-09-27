@@ -210,6 +210,9 @@ sub maple2c_replace {
   for(my $j=0; $j<$#math_replace; $j+=2){
     $text =~ s/$math_replace[$j]/$math_replace[$j+1]/eeg;
   }
+  for(my $j=0; $j<$#{$config{"replace"}}; $j+=2){
+    $text =~ s/${$config{"replace"}}[$j]/${$config{"replace"}}[$j+1]/g;
+  }
 
   return $text;
 }

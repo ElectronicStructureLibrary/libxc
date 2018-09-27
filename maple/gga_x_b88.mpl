@@ -6,6 +6,11 @@
   params = (gga_x_b88_params * )(p->params);
 *)
 
-f0 := x -> 1.0 + params_a_beta/X_FACTOR_C*x^2/(1.0 + params_a_gamma*params_a_beta*x*arcsinh(x)):
+$ifdef gga_x_b88_params
+params_a_beta  := 0.0042:
+params_a_gamma := 6.0:
+$endif
 
-f := x -> f0(x):
+b88_f := x -> 1.0 + params_a_beta/X_FACTOR_C*x^2/(1.0 + params_a_gamma*params_a_beta*x*arcsinh(x)):
+
+f := x -> b88_f(x):

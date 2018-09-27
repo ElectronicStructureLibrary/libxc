@@ -66,9 +66,16 @@ beta_Hu_Langreth := rs -> 0.066724550603149220*(1 + 0.1*rs)/(1 + 0.1778*rs):
 
 # Generate exchange functionals from the expression for the
 # enhancement factor
-lda_x_spin := (rs, z) -> -X_FACTOR_C*((1 + z)/2)^(4/3)*(RS_FACTOR/rs):
+lda_x_spin   := (rs, z) -> -X_FACTOR_C*((1 + z)/2)^(4/3)*(RS_FACTOR/rs):
 gga_exchange := (func, rs, z, xs0, xs1) ->
-             lda_x_spin(rs, z)*func(xs0) + lda_x_spin(rs, -z)*func(xs1):
+  lda_x_spin(rs, z)*func(xs0) + lda_x_spin(rs, -z)*func(xs1):
+if evalb(Polarization = "ferr") then
+    gga_exchange_nsp := (func, rs, z, xs0, xs1) ->
+             lda_x_spin(rs, 1)*func(rs, 1, xs0):
+else
+    gga_exchange_nsp := (func, rs, z, xs0, xs1) ->
+             lda_x_spin(rs, z)*func(rs, z, xs0) + lda_x_spin(rs, -z)*func(rs, -z, xs1):
+end if:
 
 # This is the Stoll decomposition in our language
 lda_stoll_par  := (lda_func, rs, z, spin) ->
@@ -95,9 +102,14 @@ b88_R_F := (f_x, rs, z, xs) ->
   1/(2*X_FACTOR_C*n_spin(rs, z)^(1/3)*f_x(xs)):
 
 b88_zss := (css, f_x, rs, z, xs) ->
-  2*css*b88_R_F(f_x, rs, z, xs):
-b88_zab := (cab, f_x, rs, z, xs0, xs1) ->
-  cab*(b88_R_F(f_x, rs, z, xs0) + b88_R_F(f_x, rs, -z, xs1)):
+2*css*b88_R_F(f_x, rs, z, xs):
+
+if evalb(Polarization = "ferr") then
+  b88_zab := (cab, f_x, rs, z, xs0, xs1) -> cab*b88_R_F(f_x, rs, 1, xs0):
+else
+  b88_zab := (cab, f_x, rs, z, xs0, xs1) ->
+    cab*(b88_R_F(f_x, rs, z, xs0) + b88_R_F(f_x, rs, -z, xs1)):
+end if:
 
 # Power series often used in mggas
 mgga_w := t -> (K_FACTOR_C - t)/(K_FACTOR_C + t):

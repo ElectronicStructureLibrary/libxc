@@ -221,7 +221,8 @@ lda_k_tf.c
 lda_k_zlp.c
 lda_k_gds08_worker.c
 lda_x.c
-lda_x_1d.c
+lda_x_1d_soft.c
+lda_x_1d_exponential.c
 lda_x_2d.c
 lda_x_erf.c
 lda_x_rel.c

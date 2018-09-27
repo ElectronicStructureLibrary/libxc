@@ -34,7 +34,7 @@ for func in $funcs; do
   dir=${dir}_${tmp%%_*}
 
   while read -r lixo lixo2 system nspin type rest; do
-    if [ "xnspin" = "x1" ]; then
+    if [ "x$nspin" = "x1" ]; then
       spin=unpol
     else
       spin=pol
@@ -54,5 +54,5 @@ for func in $funcs; do
     rm -f $srcdir/regression/$dir/$refname.bz2
     bzip2 $srcdir/regression/$dir/$refname
         
-  done < <(grep " \* $func" $builddir/test-suite.log | grep -v "OK")
+  done < <(grep " \* $func\s" $builddir/test-suite.log | grep -v "OK")
 done

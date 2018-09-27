@@ -263,10 +263,8 @@ gga_xc_b97_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/gga_xc_b97.c"
-
-#define func maple2c_func
-#include "work_gga_c.c"
+#include "maple2c/gga_exc/gga_xc_b97.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_b97 = {
   XC_HYB_GGA_XC_B97,
@@ -278,7 +276,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97 = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_b97_1 = {
@@ -291,7 +289,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97_1 = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_b97_2 = {
@@ -304,7 +302,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97_2 = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_xc_b97_d = {
@@ -317,7 +315,7 @@ const xc_func_info_type xc_func_info_gga_xc_b97_d = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_b97_k = {
@@ -330,7 +328,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97_k = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_b97_3 = {
@@ -343,7 +341,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97_3 = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_xc_hcth_93 = {
@@ -356,7 +354,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_93 = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_xc_hcth_120 = {
@@ -369,7 +367,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_120 = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_xc_hcth_147 = {
@@ -382,7 +380,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_147 = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_xc_hcth_407 = {
@@ -395,7 +393,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_407 = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1a = {
@@ -408,7 +406,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1a = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1b = {
@@ -421,7 +419,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1b = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1c = {
@@ -434,7 +432,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1c = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2a = {
@@ -447,7 +445,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2a = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2b = {
@@ -460,7 +458,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2b = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2c = {
@@ -473,7 +471,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2c = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_xc_b97_gga1 = {
@@ -486,7 +484,7 @@ const xc_func_info_type xc_func_info_gga_xc_b97_gga1 = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL, 
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_xc_hcth_p14 = {
@@ -499,7 +497,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_p14 = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_xc_hcth_p76 = {
@@ -512,7 +510,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_p76 = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_xc_hcth_407p = {
@@ -525,7 +523,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_407p = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_b97_1p = {
@@ -538,7 +536,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97_1p = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_xc_hle16 = {
@@ -551,5 +549,5 @@ const xc_func_info_type xc_func_info_gga_xc_hle16 = {
   1e-21,
   0, NULL, NULL,
   gga_xc_b97_init, NULL,
-  NULL, work_gga_c, NULL
+  NULL, work_gga, NULL
 };

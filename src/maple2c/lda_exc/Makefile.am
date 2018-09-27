@@ -13,4 +13,5 @@ noinst_HEADERS = lda_x.c lda_x_rel.c lda_x_erf.c                  \
   lda_c_vwn_2.c lda_c_vwn_3.c lda_c_vwn_4.c lda_c_vwn_rpa.c       \
   lda_c_wigner.c lda_k_gds08_worker.c lda_k_tf.c lda_k_zlp.c      \
   lda_x_2d.c lda_xc_1d_ehwlrg.c lda_xc_bn05.c lda_xc_ksdt.c       \
-  lda_xc_teter93.c lda_xc_zlp.c
+  lda_xc_teter93.c lda_xc_zlp.c lda_x_1d_exponential.c            \
+  lda_x_1d_soft.c

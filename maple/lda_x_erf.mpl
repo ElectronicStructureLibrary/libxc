@@ -10,12 +10,7 @@
 
 $define lda_x_params
 $include "lda_x.mpl"
-
-(* attenuation function *)
-aux1_erf := a -> sqrt(Pi)*erf(1/(2*a)):
-aux2_erf := a -> exp(-1/(4*a^2)) - 1:
-aux3_erf := a -> 2*a^2*aux2_erf(a) + 1/2:
-attenuation_erf := a -> 1 - 8/3*a*(aux1_erf(a) + 2*a*(aux2_erf(a) - aux3_erf(a))):
+$include "attenuation.mpl"
 
 a_cnst := (4/(9*Pi))^(1/3)*p_a_cam_omega/2:
 

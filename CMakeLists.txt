@@ -159,6 +159,7 @@ gga_x_q2d.c
 gga_x_rge2.c
 gga_x_rpbe.c
 gga_x_sfat.c
+gga_x_sfat_pbe.c
 gga_x_sg4.c
 gga_x_sogga11.c
 gga_x_ssb_sw.c

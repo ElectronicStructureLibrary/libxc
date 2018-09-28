@@ -14,7 +14,7 @@ void
 xc_hyb_gga_xc_camy_blyp_init(xc_func_type *p)
 {
   static int   funcs_id  [3] = {XC_GGA_X_B88, XC_GGA_X_SFAT, XC_GGA_C_LYP};
-  double funcs_coef[3], par_sfat[2];
+  double funcs_coef[3];
 
   /* N.B. The notation used in the original reference uses a different
      convention for alpha and beta.  In libxc, alpha is the weight for
@@ -34,9 +34,7 @@ xc_hyb_gga_xc_camy_blyp_init(xc_func_type *p)
 
   xc_mix_init(p, 3, funcs_id, funcs_coef);
 
-  par_sfat[0] = XC_GGA_X_B88;
-  par_sfat[1] = omega;
-  xc_func_set_ext_params(p->func_aux[1], par_sfat);
+  xc_func_set_ext_params(p->func_aux[1], &omega);
 
   p->cam_omega = omega;
   p->cam_alpha = alpha;
@@ -52,7 +50,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_camy_blyp = {
   XC_FLAGS_3D | XC_FLAGS_HYB_CAMY | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_camy_blyp_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_camy_blyp_init, NULL,
+  NULL, NULL, NULL
 };
 

@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
+               2018 Susi Lehtola
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -10,7 +11,7 @@
 #include "util.h"
 
 /* initializes the mixing */
-void 
+void
 xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix_coef)
 {
   int ii;
@@ -47,7 +48,7 @@ xc_mix_func(const xc_func_type *func, int np,
             const double *rho, const double *sigma, const double *lapl, const double *tau,
             double *zk,
             double *vrho, double *vsigma, double *vlapl, double *vtau,
-            double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+            double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
             double *v2sigma2, double *v2sigmalapl, double *v2sigmatau,
             double *v2lapl2, double *v2lapltau,
             double *v2tau2)
@@ -63,7 +64,7 @@ xc_mix_func(const xc_func_type *func, int np,
   int ip, ii;
 
   const xc_dimensions *dim = &(func->dim);
-  
+
   /* prepare buffers that will hold the results from the individual functionals */
   zk_ = NULL;
   vrho_ = vsigma_ = vlapl_ = vtau_ = NULL;
@@ -98,7 +99,7 @@ xc_mix_func(const xc_func_type *func, int np,
     }
     if(is_mgga(func->info->family)){
       v2rhotau_    = (double *) malloc(sizeof(double)*np*dim->v2rhotau);
-      v2sigmatau_  = (double *) malloc(sizeof(double)*np*dim->v2sigmatau);     
+      v2sigmatau_  = (double *) malloc(sizeof(double)*np*dim->v2sigmatau);
       v2tau2_      = (double *) malloc(sizeof(double)*np*dim->v2tau2);
       /* At the moment we always allocate the derivatives involving
          the laplacian, as some parts of Libxc do not take into
@@ -120,8 +121,8 @@ xc_mix_func(const xc_func_type *func, int np,
       xc_lda(aux, np, rho, zk_, vrho_, v2rho2_, NULL);
       break;
     case XC_FAMILY_GGA:
-      xc_gga(aux, np, rho, sigma, zk_, vrho_, vsigma_, 
-             v2rho2_, v2rhosigma_, v2sigma2_, 
+      xc_gga(aux, np, rho, sigma, zk_, vrho_, vsigma_,
+             v2rho2_, v2rhosigma_, v2sigma2_,
              NULL, NULL, NULL, NULL);
       break;
     case XC_FAMILY_MGGA:
@@ -145,25 +146,33 @@ xc_mix_func(const xc_func_type *func, int np,
       break;
     }
 
-    if(zk != NULL)
+    /* Sanity checks */
+    if(is_gga(aux->info->family))
+      assert(is_gga(func->info->family));
+    if(is_mgga(aux->info->family) && !is_mgga(func->info->family))
+      assert(is_mgga(func->info->family));
+    if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+      assert(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN);
+
+    if(zk != NULL) {
       for(ip = 0; ip < np*dim->zk; ip++)
         zk[ip] += func->mix_coef[ii] * zk_[ip];
+    }
 
-    if(vrho != NULL){
-      for(ip = 0; ip < np*dim->vrho; ip++)
+    if(vrho != NULL) {
+      for(ip = 0; ip < np*dim->vrho; ip++) {
         vrho[ip] += func->mix_coef[ii] * vrho_[ip];
+      }
 
-      if(is_gga(func->info->family) && is_gga(aux->info->family))
+      if(is_gga(aux->info->family)) {
         for(ip = 0; ip < np*dim->vsigma; ip++)
           vsigma[ip] += func->mix_coef[ii] * vsigma_[ip];
+      }
 
-
-      if(is_mgga(func->info->family) && is_mgga(aux->info->family)){
+      if(is_mgga(aux->info->family)) {
         for(ip = 0; ip < np*dim->vtau; ip++)
           vtau[ip] += func->mix_coef[ii] * vtau_[ip];
         if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) {
-          /* Check that mix has been properly defined */
-          assert(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN);
           for(ip = 0; ip < np*dim->vlapl; ip++)
             vlapl[ip] += func->mix_coef[ii] * vlapl_[ip];
         }
@@ -171,17 +180,11 @@ xc_mix_func(const xc_func_type *func, int np,
     }
 
     if(v2rho2 != NULL){
-      for(ip = 0; ip < np*dim->v2rho2; ip++)
+      for(ip = 0; ip < np*dim->v2rho2; ip++) {
         v2rho2[ip] += func->mix_coef[ii] * v2rho2_[ip];
-
-      if(is_gga(func->info->family) && is_gga(aux->info->family)){
-        for(ip = 0; ip < np*dim->v2rhosigma; ip++)
-          v2rhosigma[ip] += func->mix_coef[ii] * v2rhosigma_[ip];
-        for(ip = 0; ip < np*dim->v2sigma2; ip++)
-          v2sigma2[ip] += func->mix_coef[ii] * v2sigma2_[ip];
       }
 
-      if(is_mgga(func->info->family) && is_mgga(aux->info->family)){
+      if(is_mgga(aux->info->family)) {
         for(ip = 0; ip < np*dim->v2rhotau; ip++)
           v2rhotau[ip]    += func->mix_coef[ii] * v2rhotau_[ip];
         for(ip = 0; ip < np*dim->v2sigmatau; ip++)
@@ -205,7 +208,7 @@ xc_mix_func(const xc_func_type *func, int np,
   /* deallocate internal buffers */
   safe_free(zk_);
   safe_free(vrho_); safe_free(vsigma_); safe_free(vlapl_); safe_free(vtau_);
-  safe_free(v2rho2_); safe_free(v2rhosigma_); safe_free(v2rholapl_); safe_free(v2rhotau_);  
+  safe_free(v2rho2_); safe_free(v2rhosigma_); safe_free(v2rholapl_); safe_free(v2rhotau_);
   safe_free(v2sigma2_); safe_free(v2sigmalapl_); safe_free(v2sigmatau_);
   safe_free(v2lapl2_); safe_free(v2lapltau_);
   safe_free(v2tau2_);

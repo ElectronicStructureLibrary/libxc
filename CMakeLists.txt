@@ -421,4 +421,4 @@ install(EXPORT "${PN}Targets"
         DESTINATION ${CMAKECONFIG_INSTALL_DIR})
 
 install(FILES ${PROJECT_BINARY_DIR}/libxc.pc
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/libxc.pc)
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/)

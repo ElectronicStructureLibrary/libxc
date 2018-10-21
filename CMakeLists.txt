@@ -26,9 +26,6 @@ option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON
   "-xHost" "-march=native")
 option_with_print(ENABLE_FORTRAN "Build Fortran 90 interface" OFF)
 option_with_print(ENABLE_FORTRAN03 "Build Fortran 2003 interface" OFF)
-if((${ENABLE_FORTRAN03}) AND NOT ${ENABLE_FORTRAN})
-    message(FATAL_ERROR "ENABLE_FORTRAN must be enabled if ENABLE_FORTRAN03 is enabled!")
-endif()
 
 ######################### Process & Validate Options ###########################
 include(autocmake_safeguards)
@@ -293,6 +290,14 @@ version.c
 set(src_prefix "src/")
 string(REGEX REPLACE "([^;]+)" "${src_prefix}\\1" sources_list "${raw_sources_list}")
 
+set(raw_sources_list_f90
+    src/libxc_master.F90
+    gen_funcidx/libxc_funcs.f90
+)
+set(raw_sources_list_f03
+    src/libxc_master.F03
+)
+
 # when headers namespaced, xc_version include in xc.h needs to be local, not
 #   system to be found
 file(READ ${src_prefix}xc.h _src_contents)
@@ -312,21 +317,20 @@ if(${BUILD_SHARED_LIBS})
     endif()
 endif()
 
-if(ENABLE_FORTRAN)
-  enable_language(Fortran)
-  add_library(xcf90 src/libxc_master.F90 gen_funcidx/libxc_funcs.f90)
-  target_link_libraries(xcf90 xc)
-  set_target_properties(xcf90 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
-endif(ENABLE_FORTRAN)
+if(ENABLE_FORTRAN OR ENABLE_FORTRAN03)
+    enable_language(Fortran)
+    add_library(xcf90 ${raw_sources_list_f90})
+    target_link_libraries(xcf90 xc)
+    set_target_properties(xcf90 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
 
-if(ENABLE_FORTRAN03)
-  # Fortran is already enabled above
-  set(CMAKE_Fortran_SOURCE_FILE_EXTENSIONS ${CMAKE_Fortran_SOURCE_FILE_EXTENSIONS} "f03;F03")
-  set_source_files_properties(src/libxc_master.F03 PROPERTIES LANGUAGE Fortran)
-  add_library(xcf03 src/libxc_master.F03)
-  target_link_libraries(xcf03 xc)
-  set_target_properties(xcf03 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
-endif(ENABLE_FORTRAN03)
+    if(ENABLE_FORTRAN03)
+        set(CMAKE_Fortran_SOURCE_FILE_EXTENSIONS ${CMAKE_Fortran_SOURCE_FILE_EXTENSIONS} "f03;F03")
+        set_source_files_properties(${raw_sources_list_f03} PROPERTIES LANGUAGE Fortran)
+        add_library(xcf03 ${raw_sources_list_f03})
+        target_link_libraries(xcf03 xc)
+        set_target_properties(xcf03 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
+    endif()
+endif()
 
 # run get_funcs.pl to generate headers for xc inclusion
 find_package(Perl REQUIRED)
@@ -371,20 +375,22 @@ install(TARGETS xc xc-info xc-threshold
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-if(ENABLE_FORTRAN)
-  install(TARGETS xcf90
-    EXPORT "${PN}Targets"
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-endif(ENABLE_FORTRAN)
-if(ENABLE_FORTRAN03)
-  install(TARGETS xcf03
-    EXPORT "${PN}Targets"
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-endif(ENABLE_FORTRAN03)
+if(ENABLE_FORTRAN OR ENABLE_FORTRAN03)
+    install(TARGETS xcf90
+            EXPORT "${PN}Targets"
+            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+    if(ENABLE_FORTRAN03)
+        install(TARGETS xcf03
+                EXPORT "${PN}Targets"
+                RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+                ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+                LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    endif()
+endif()
+
 # <<<  Export Interface  >>>
 
 target_compile_definitions(xc INTERFACE USING_${PN})

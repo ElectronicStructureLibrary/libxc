@@ -13,10 +13,6 @@
 extern "C" {
 #endif
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 #include <xc_version.h>
 
 #define XC_UNPOLARIZED          1

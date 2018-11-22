@@ -1,5 +1,12 @@
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "@PROJECT_VERSION@"
 
+#define HAVE_FORTRAN @ENABLE_FORTRAN@ || @ENABLE_FORTRAN03@
+#ifdef HAVE_FORTRAN
+#include "Libxc_MANGLE.h"
+#define FC_FUNC FC_FUNC_GLOBAL
+#define FC_FUNC_ FC_FUNC_GLOBAL_
+#endif
+
 #include <stdio.h>
 

@@ -291,6 +291,7 @@ set(src_prefix "src/")
 string(REGEX REPLACE "([^;]+)" "${src_prefix}\\1" sources_list "${raw_sources_list}")
 
 set(raw_sources_list_f90
+    src/xc_f.c
     src/libxc_master.F90
     gen_funcidx/libxc_funcs.f90
 )
@@ -319,9 +320,20 @@ endif()
 
 if(ENABLE_FORTRAN OR ENABLE_FORTRAN03)
     enable_language(Fortran)
+    include(FortranCInterface)
+
     add_library(xcf90 ${raw_sources_list_f90})
     target_link_libraries(xcf90 xc)
     set_target_properties(xcf90 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
+    target_compile_definitions(xcf90
+      PUBLIC
+        HAVE_FORTRAN
+        CC_FORTRAN_INT=int
+      )
+
+    FortranCInterface_HEADER(Libxc_MANGLE.h
+                             MACRO_NAMESPACE "FC_FUNC_"
+                             SYMBOL_NAMESPACE "FC_FUNC_")
 
     if(ENABLE_FORTRAN03)
         set(CMAKE_Fortran_SOURCE_FILE_EXTENSIONS ${CMAKE_Fortran_SOURCE_FILE_EXTENSIONS} "f03;F03")
@@ -330,6 +342,10 @@ if(ENABLE_FORTRAN OR ENABLE_FORTRAN03)
         target_link_libraries(xcf03 xc)
         set_target_properties(xcf03 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
     endif()
+
+    # test Fortran interface
+    add_executable(ex_f90 "examples/basic.f90")
+    target_link_libraries(ex_f90 xcf90)
 endif()
 
 # run get_funcs.pl to generate headers for xc inclusion

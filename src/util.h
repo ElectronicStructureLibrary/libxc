@@ -23,6 +23,9 @@
 /* we include the references also */
 #include "references.h"
 
+/* need config to figure out what needs to be defined or not */
+#include "config.h"
+
 #ifndef M_E
 # define M_E            2.7182818284590452354   /* e */
 #endif

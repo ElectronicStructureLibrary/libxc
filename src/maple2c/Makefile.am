@@ -7,20 +7,17 @@
 
 SUBDIRS = lda_exc lda_vxc gga_exc
 
-noinst_HEADERS = \
-  gga_k_dk.c gga_k_meyer.c gga_k_ol1.c gga_k_ol2.c	\
+noinst_HEADERS = gga_k_dk.c gga_k_meyer.c gga_k_ol1.c gga_k_ol2.c	\
   gga_k_pearson.c gga_k_tflw.c gga_k_thakkar.c gga_x_2d_b86.c		\
   gga_x_2d_b86_mgc.c gga_x_2d_b88.c gga_x_2d_pbe.c gga_x_airy.c		\
   gga_x_ak13.c gga_x_am05.c gga_x_b86.c gga_x_b88.c gga_x_bayesian.c	\
   gga_x_beefvdw.c gga_x_bpccac.c gga_x_c09x.c gga_x_cap.c		\
-  gga_x_dk87.c	\
-  gga_x_eg93.c gga_x_hcth_a.c gga_x_herman.c	\
-  gga_x_htbs.c gga_x_lag.c	\
-  gga_x_lg93.c gga_x_lv_rpw86.c gga_x_mpbe.c gga_x_optx.c	\
-  gga_x_pbea.c gga_x_pbe.c gga_x_pbeint.c gga_x_pbepow.c		\
-  gga_x_pbetrans.c gga_x_pw86.c gga_x_pw91.c gga_x_q2d.c gga_x_rge2.c	\
-  gga_x_rpbe.c gga_x_sg4.c gga_x_sogga11.c gga_x_ssb_sw.c		\
-  gga_x_vmt84.c gga_x_vmt.c 		\
+  gga_x_dk87.c gga_x_eg93.c gga_x_hcth_a.c gga_x_herman.c		\
+  gga_x_htbs.c gga_x_lag.c gga_x_lg93.c gga_x_lspbe.c gga_x_lsrpbe.c	\
+  gga_x_lv_rpw86.c gga_x_mpbe.c gga_x_optx.c gga_x_pbea.c gga_x_pbe.c	\
+  gga_x_pbeint.c gga_x_pbepow.c gga_x_pbetrans.c gga_x_pw86.c		\
+  gga_x_pw91.c gga_x_q2d.c gga_x_rge2.c gga_x_rpbe.c gga_x_sg4.c	\
+  gga_x_sogga11.c gga_x_ssb_sw.c gga_x_vmt84.c gga_x_vmt.c		\
   gga_x_chachiyo.c hyb_mgga_xc_wb97mv.c hyb_mgga_x_dldf.c		\
   hyb_mgga_x_m05.c mgga_c_b88.c mgga_c_bc95.c mgga_c_cs.c		\
   mgga_c_kcis.c mgga_xc_lp90.c mgga_c_m05.c mgga_c_m06l.c		\
@@ -32,5 +29,5 @@ noinst_HEADERS = \
   mgga_x_mn12.c mgga_x_ms.c mgga_x_mvs.c mgga_x_pbe_gx.c		\
   mgga_x_pkzb.c mgga_x_sa_tpss.c mgga_x_scan.c mgga_x_tau_hcth.c	\
   mgga_x_tm.c mgga_x_tpss.c mgga_x_vt84.c mgga_c_revscan.c		\
-  mgga_x_br89_explicit.c gga_k_exp4.c mgga_xc_b98.c mgga_x_rtpss.c      \
+  mgga_x_br89_explicit.c gga_k_exp4.c mgga_xc_b98.c mgga_x_rtpss.c	\
   mgga_x_msb.c mgga_x_mvsb.c

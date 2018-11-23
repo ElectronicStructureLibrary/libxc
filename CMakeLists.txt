@@ -39,7 +39,15 @@ set(PN ${PROJECT_NAME})
 
 # link -lm only if necessary
 find_package(StandardMathLibraryC)
-
+# check if cbrt exists and declare HAVE_CBRT if it does
+check_c_source_compiles (
+  "#include <math.h>
+int main() {
+  return (int)(cbrt(0.8));
+}" HAVE_CBRT)
+if (HAVE_CBRT)
+  add_definitions (-DHAVE_CBRT)
+endif (HAVE_CBRT)
 # <<<  Build  >>>
 
 # repurpose xc_version from Make for CMake

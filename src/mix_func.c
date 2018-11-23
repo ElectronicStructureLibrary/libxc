@@ -184,6 +184,13 @@ xc_mix_func(const xc_func_type *func, int np,
         v2rho2[ip] += func->mix_coef[ii] * v2rho2_[ip];
       }
 
+      if(is_gga(aux->info->family)) {
+        for(ip = 0; ip < np*dim->v2rhosigma; ip++)
+          v2rhosigma[ip] += func->mix_coef[ii] * v2rhosigma_[ip];
+        for(ip = 0; ip < np*dim->v2sigma2; ip++)
+          v2sigma2[ip] += func->mix_coef[ii] * v2sigma2_[ip];
+      }
+
       if(is_mgga(aux->info->family)) {
         for(ip = 0; ip < np*dim->v2rhotau; ip++)
           v2rhotau[ip]    += func->mix_coef[ii] * v2rhotau_[ip];

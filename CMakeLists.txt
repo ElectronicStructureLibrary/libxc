@@ -320,15 +320,16 @@ endif()
 if(ENABLE_FORTRAN OR ENABLE_FORTRAN03)
     enable_language(Fortran)
     include(FortranCInterface)
+    # This is needed for the mangling
+    add_definitions(-DHAVE_FORTRAN)
 
     add_library(xcf90 ${raw_sources_list_f90})
     target_link_libraries(xcf90 xc)
     set_target_properties(xcf90 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
     target_compile_definitions(xcf90
       PUBLIC
-        HAVE_FORTRAN
         CC_FORTRAN_INT=int
-      )
+        )
 
     FortranCInterface_HEADER(Libxc_MANGLE.h
                              MACRO_NAMESPACE "FC_FUNC_"

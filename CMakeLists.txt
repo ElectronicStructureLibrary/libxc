@@ -39,7 +39,15 @@ set(PN ${PROJECT_NAME})
 
 # link -lm only if necessary
 find_package(StandardMathLibraryC)
-
+# check if cbrt exists and declare HAVE_CBRT if it does
+check_c_source_compiles (
+  "#include <math.h>
+int main() {
+  return (int)(cbrt(0.8));
+}" HAVE_CBRT)
+if (HAVE_CBRT)
+  add_definitions (-DHAVE_CBRT)
+endif (HAVE_CBRT)
 # <<<  Build  >>>
 
 # repurpose xc_version from Make for CMake
@@ -323,15 +331,16 @@ endif()
 if(ENABLE_FORTRAN OR ENABLE_FORTRAN03)
     enable_language(Fortran)
     include(FortranCInterface)
+    # This is needed for the mangling
+    add_definitions(-DHAVE_FORTRAN)
 
     add_library(xcf90 ${raw_sources_list_f90})
     target_link_libraries(xcf90 xc)
     set_target_properties(xcf90 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
     target_compile_definitions(xcf90
       PUBLIC
-        HAVE_FORTRAN
         CC_FORTRAN_INT=int
-      )
+        )
 
     FortranCInterface_HEADER(Libxc_MANGLE.h
                              MACRO_NAMESPACE "FC_FUNC_"

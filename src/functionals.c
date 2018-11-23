@@ -6,6 +6,8 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
+/* strdup() is a non-standard function; this makes it visible */
+#define _POSIX_C_SOURCE 200809L
 
 #include "xc.h"
 #include "funcs_key.c"

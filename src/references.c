@@ -2207,7 +2207,14 @@ func_reference_type xc_ref_Furness2018 = {
 func_reference_type xc_ref_Tozer1996_9200 = {
   "D. J. Tozer, V. E. Ingamells, and N. C. Handy, J. Chem. Phys. 105, 9200 (1996)",
   "10.1063/1.472753",
-  "@article{Tozer1996_9200,\nauthor = {Tozer,David J.  and Ingamells,Victoria E.  and Handy,Nicholas C. },\ntitle = {Exchange‐correlation potentials},\njournal = {The Journal of Chemical Physics},\nvolume = {105},\nnumber = {20},\npages = {9200-9213},\nyear = {1996},\ndoi = {10.1063/1.472753},\nURL = {https://doi.org/10.1063/1.472753},\n}"
+  "@article{Tozer1996_9200,\nauthor = {Tozer, David J. and Ingamells, Victoria E. and Handy, Nicholas C. },\ntitle = {Exchange‐correlation potentials},\njournal = {The Journal of Chemical Physics},\nvolume = {105},\nnumber = {20},\npages = {9200-9213},\nyear = {1996},\ndoi = {10.1063/1.472753},\nURL = {https://doi.org/10.1063/1.472753},\n}"
+};
+
+
+func_reference_type xc_ref_PachecoKato2016_268 = {
+  "J. C. Pacheco-Kato, J. M. del Campo, J. L. Gázquez, S. Trickey, and A. Vela, Chem. Phys. Lett. 651, 268 (2016)",
+  "10.1016/j.cplett.2016.03.028",
+  "@article{PachecoKato2016_268,\ntitle = \"A PW91-like exchange with a simple analytical form\",\njournal = \"Chemical Physics Letters\",\nvolume = \"651\",\npages = \"268-273\",\nyear = \"2016\",\nissn = \"0009-2614\",\ndoi = \"10.1016/j.cplett.2016.03.028\",\nurl = \"http://www.sciencedirect.com/science/article/pii/S0009261416301373\",\nauthor = \"Juan C. Pacheco-Kato and Jorge M. del Campo and José L. Gázquez and S.B. Trickey and Alberto Vela\"\n}"
 };
 
 

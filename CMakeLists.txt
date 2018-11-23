@@ -144,6 +144,8 @@ gga_x_kt.c
 gga_x_lag.c
 gga_x_lb.c
 gga_x_lg93.c
+gga_x_lspbe.c
+gga_x_lsrpbe.c
 gga_x_lv_rpw86.c
 gga_x_mpbe.c
 gga_x_n12.c

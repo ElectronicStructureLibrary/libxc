@@ -6,10 +6,12 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 
-kappa := 0.8040:
+rge2_kappa := 0.8040:
 
-den := s -> kappa + 1*MU_GE*s^2 + MU_GE^2*s^4/kappa:
-f0  := s -> 1 + kappa * (1 - kappa/den(s)):
-f   := x -> f0(X2S * x):
+rge2_den := s -> rge2_kappa + 1*MU_GE*s^2 + MU_GE^2*s^4/rge2_kappa:
+rge2_f0  := s -> 1 + rge2_kappa * (1 - rge2_kappa/rge2_den(s)):
+rge2_f   := x -> rge2_f0(X2S * x):
+
+f := (rs, zeta, xt, xs0, xs1) -> gga_exchange(rge2_f, rs, zeta, xs0, xs1):

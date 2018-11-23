@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 (* prefix:
   gga_x_rpbe_params *params;
 
@@ -19,9 +19,9 @@ params_a_rpbe_kappa := KAPPA_PBE:
 params_a_rpbe_mu    := MU_PBE:
 $endif
 
-f0_rpbe := s -> 1 + params_a_rpbe_kappa * (
+rpbe_f0 := s -> 1 + params_a_rpbe_kappa * (
   1 - exp(-params_a_rpbe_mu*s^2/params_a_rpbe_kappa)
 ):
-f_rpbe  := x -> f0_rpbe(X2S*x):
+rpbe_f  := x -> rpbe_f0(X2S*x):
 
-f       := x -> f_rpbe(x):
+f := (rs, zeta, xt, xs0, xs1) -> gga_exchange(rpbe_f, rs, zeta, xs0, xs1):

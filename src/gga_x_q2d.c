@@ -10,10 +10,8 @@
 
 #define XC_GGA_X_Q2D          48 /* Chiodo et al  */
 
-#include "maple2c/gga_x_q2d.c"
-
-#define func maple2c_func
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_q2d.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_q2d = {
   XC_GGA_X_Q2D,
@@ -25,5 +23,5 @@ const xc_func_info_type xc_func_info_gga_x_q2d = {
   1e-32,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };

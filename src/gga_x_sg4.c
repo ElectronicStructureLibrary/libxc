@@ -10,10 +10,8 @@
 
 #define XC_GGA_X_SG4         533 /* Semiclassical GGA at fourth order */
 
-#include "maple2c/gga_x_sg4.c"
-
-#define func maple2c_func
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_sg4.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_sg4 = {
   XC_GGA_X_SG4,
@@ -25,5 +23,5 @@ const xc_func_info_type xc_func_info_gga_x_sg4 = {
   1e-32,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };

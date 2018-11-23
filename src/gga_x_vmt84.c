@@ -40,10 +40,8 @@ gga_x_vmt84_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/gga_x_vmt84.c"
-
-#define func maple2c_func
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_vmt84.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_vmt84_pbe = {
   XC_GGA_X_VMT84_PBE,
@@ -55,7 +53,7 @@ const xc_func_info_type xc_func_info_gga_x_vmt84_pbe = {
   1e-32,
   0, NULL, NULL,
   gga_x_vmt84_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_vmt84_ge = {
@@ -68,5 +66,5 @@ const xc_func_info_type xc_func_info_gga_x_vmt84_ge = {
   1e-32,
   0, NULL, NULL,
   gga_x_vmt84_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };

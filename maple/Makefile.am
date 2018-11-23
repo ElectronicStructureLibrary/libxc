@@ -6,7 +6,7 @@
 ##
 
 dist_noinst_SCRIPTS = \
-  util.mpl gvt4.mpl tpss_x.mpl \
+  util.mpl gvt4.mpl tpss_x.mpl attenuation.mpl \
   lda_c_pz.mpl lda_xc_1d_ehwlrg.mpl lda_c_rc04.mpl lda_c_pw.mpl             \
   lda_c_gombas.mpl lda_c_chachiyo.mpl lda_c_wigner.mpl lda_c_rpa.mpl        \
   vwn.mpl lda_c_vwn.mpl lda_c_vwn_1.mpl lda_c_vwn_2.mpl lda_c_vwn_3.mpl     \
@@ -28,7 +28,8 @@ dist_noinst_SCRIPTS = \
   gga_k_ol1.mpl gga_k_ol2.mpl gga_k_pearson.mpl gga_k_tflw.mpl              \
   gga_x_2d_b86.mpl gga_x_2d_b86_mgc.mpl gga_x_2d_b88.mpl gga_x_2d_pbe.mpl   \
   gga_x_bpccac.mpl gga_x_vmt84.mpl gga_x_vmt.mpl gga_x_hjs_b88_v2.mpl       \
-  gga_x_hjs.mpl gga_x_n12.mpl scaling.mpl gga_x_wpbeh.mpl \
+  gga_x_hjs.mpl gga_x_n12.mpl scaling.mpl gga_x_wpbeh.mpl gga_x_ityh.mpl    \
+  gga_x_sfat.mpl gga_x_sfat_pbe.mpl \
   gga_c_wi.mpl gga_c_wl.mpl gga_c_lm.mpl gga_c_p86.mpl gga_c_am05.mpl       \
   gga_c_revtca.mpl gga_c_tca.mpl gga_c_bcgp.mpl gga_c_zpbeint.mpl           \
   gga_c_pbe.mpl gga_c_pbeloc.mpl gga_c_sg4.mpl gga_c_regtpss.mpl            \

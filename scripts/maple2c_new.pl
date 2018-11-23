@@ -302,7 +302,7 @@ xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(4/3):
 $der_def
 
 $maple_code
-C([$maple_zk, $out_c], optimize, deducetypes=false):
+C([$maple_zk$out_c], optimize, deducetypes=false):
 \n",
 
     "pol", "
@@ -315,7 +315,7 @@ xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0 + 2*sigma1 + sigma2)/(r0
 $der_def
 
 $maple_code
-C([$maple_zk, $out_c], optimize, deducetypes=false):
+C([$maple_zk$out_c], optimize, deducetypes=false):
 \n",
       );
 

@@ -96,9 +96,7 @@ AC_FUNC_ALLOCA
 AC_CHECK_SIZEOF(void*)
 
 # Check for presence of some C99 libm functions
-AC_CHECK_LIB([m],[sqrtf],[AC_DEFINE([HAVE_SQRTF],[1],[libm includes sqrtf])])
 AC_CHECK_LIB([m],[cbrt],[AC_DEFINE([HAVE_CBRT],[1],[libm includes cbrt])])
-AC_CHECK_LIB([m],[cbrtf],[AC_DEFINE([HAVE_CBRTF],[1],[libm includes cbrtf])])
 AC_CHECK_LIB([m],[feenableexcept],[AC_DEFINE([HAVE_FEENABLEEXCEPT],[1],[libm includes feenableexcept])])
 
 AC_ARG_WITH([custom-fmoddir],

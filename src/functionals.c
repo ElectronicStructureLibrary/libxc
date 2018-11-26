@@ -6,7 +6,6 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-
 #include "xc.h"
 #include "funcs_key.c"
 #include <string.h>
@@ -62,7 +61,7 @@ char *xc_functional_get_name(int number)
       return NULL;
     if(xc_functional_keys[ii].number == number)
       /* return duplicated: caller has the responsibility to dealloc string */
-      return strdup(xc_functional_keys[ii].name);
+      return strndup(xc_functional_keys[ii].name, 256);
   }
 }
 

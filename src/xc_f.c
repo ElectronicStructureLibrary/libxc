@@ -95,7 +95,7 @@ void FC_FUNC(xc_f90_functional_get_name, XC_F90_FUNCTIONAL_GET_NAME)
   char *name;
 
   name = xc_functional_get_name(*func_number);
-  if ( name == NULL ) name = strdup("unknown");
+  if ( name == NULL ) name = strndup("unknown", 256);
 
   TO_F_STR1(name, func_string);
   free(name);

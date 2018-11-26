@@ -8,12 +8,11 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_k_tflw_params *params;
+  gga_x_ol2_params *params;
 
   assert(p->params != NULL);
-  params = (gga_k_tflw_params * )(p->params);
+  params = (gga_x_ol2_params * )(p->params);
 *)
 
-tflw_f := x -> params_a_gamma + (params_a_lambda/8)*x^2/K_FACTOR_C:
-
-f := (rs, zeta, xt, xs0, xs1) -> gga_kinetic(tflw_f, rs, zeta, xs0, xs1):
+$include "gga_k_ol2.mpl"
+f := (rs, zeta, xt, xs0, xs1) -> gga_exchange(ol2_f, rs, zeta, xs0, xs1):

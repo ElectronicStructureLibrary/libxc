@@ -282,9 +282,9 @@ mf   := (r0, r1, s0, s1, s2) -> eval(dens(r0, r1)*mzk(r0, r1, s0, s1, s2)):
     "unpol", "
 dens := (r0, r1) -> r0:
 zeta := (r0, r1) -> 0:
-xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0/4)/((r0/2)^(4/3)):
-xs1  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0/4)/((r0/2)^(4/3)):
-xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(4/3):
+xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0/4)/((r0/2)^(1 + 1/DIMENSIONS)):
+xs1  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0/4)/((r0/2)^(1 + 1/DIMENSIONS)):
+xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
 
 $der_def
 
@@ -295,9 +295,9 @@ C([$maple_zk$out_c], optimize, deducetypes=false):
     "ferr", "
 dens := (r0, r1) -> r0:
 zeta := (r0, r1) -> 1:
-xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/r0^(4/3):
+xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
 xs1  := (r0, r1, sigma0, sigma2) -> 0:
-xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(4/3):
+xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
 
 $der_def
 
@@ -308,9 +308,9 @@ C([$maple_zk$out_c], optimize, deducetypes=false):
     "pol", "
 dens := (r0, r1) -> r0 + r1:
 zeta := (r0, r1) -> (r0 - r1)/(r0 + r1):
-xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/r0^(4/3):
-xs1  := (r0, r1, sigma0, sigma2) -> sqrt(sigma2)/r1^(4/3):
-xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0 + 2*sigma1 + sigma2)/(r0 + r1)^(4/3):
+xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
+xs1  := (r0, r1, sigma0, sigma2) -> sqrt(sigma2)/r1^(1 + 1/DIMENSIONS):
+xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0 + 2*sigma1 + sigma2)/(r0 + r1)^(1 + 1/DIMENSIONS):
 
 $der_def
 

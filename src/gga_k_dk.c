@@ -106,11 +106,8 @@ gga_k_dk_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/gga_k_dk.c"
-
-#define func maple2c_func
-#define XC_KINETIC_FUNCTIONAL
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_k_dk.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_k_dk = {
   XC_GGA_K_DK,
@@ -121,10 +118,8 @@ const xc_func_info_type xc_func_info_gga_k_dk = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-25,
   0, NULL, NULL,
-  gga_k_dk_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  gga_k_dk_init, NULL,
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_k_perdew = {
@@ -136,10 +131,8 @@ const xc_func_info_type xc_func_info_gga_k_perdew = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
-  gga_k_dk_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  gga_k_dk_init, NULL,
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_k_vsk = {
@@ -151,10 +144,8 @@ const xc_func_info_type xc_func_info_gga_k_vsk = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-25,
   0, NULL, NULL,
-  gga_k_dk_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  gga_k_dk_init, NULL,
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_k_vjks = {
@@ -166,10 +157,8 @@ const xc_func_info_type xc_func_info_gga_k_vjks = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-25,
   0, NULL, NULL,
-  gga_k_dk_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  gga_k_dk_init, NULL,
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_k_ernzerhof = {
@@ -181,8 +170,6 @@ const xc_func_info_type xc_func_info_gga_k_ernzerhof = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-25,
   0, NULL, NULL,
-  gga_k_dk_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  gga_k_dk_init, NULL,
+  NULL, work_gga, NULL
 };

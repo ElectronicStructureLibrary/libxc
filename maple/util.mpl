@@ -29,14 +29,16 @@ KAPPA_PBE   := 0.8040:
 # generic conversion functions
 
 $ifdef xc_dimensions_1d
-RS_FACTOR  := 1/2:
-DIMENSIONS := 1:
+DIMENSIONS   := 1:
+RS_FACTOR    := 1/2:
 $elif xc_dimensions_2d
-RS_FACTOR  := 1/sqrt(Pi):
-DIMENSIONS := 2:
+DIMENSIONS   := 2:
+RS_FACTOR    := 1/sqrt(Pi):
+LDA_X_FACTOR := -X_FACTOR_2D_C:
 $else
-RS_FACTOR  := (3/(4*Pi))^(1/3):
-DIMENSIONS := 3:
+DIMENSIONS   := 3:
+RS_FACTOR    := (3/(4*Pi))^(1/3):
+LDA_X_FACTOR := -X_FACTOR_C:
 $endif
 
 r_ws       := n  -> RS_FACTOR/n^(1/DIMENSIONS):
@@ -64,19 +66,24 @@ tt   := (rs, z, xt) -> xt/(4*2^(1/3)*mphi(z)*sqrt(rs)):
 # in the paper it is beta_a = 0.066725
 beta_Hu_Langreth := rs -> 0.066724550603149220*(1 + 0.1*rs)/(1 + 0.1778*rs):
 
-# Generate exchange functionals from the expression for the
+# Generate exchange and kinetic functionals from the expression for the
 # enhancement factor
-lda_x_spin   := (rs, z) -> -X_FACTOR_C*((1 + z)/2)^(4/3)*(RS_FACTOR/rs):
+lda_x_spin := (rs, z) -> LDA_X_FACTOR*((1 + z)/2)^(1 + 1/DIMENSIONS)*(RS_FACTOR/rs):
+lda_k_spin := (rs, z) -> K_FACTOR_C*((1 + z)/2)^(5/3)*(RS_FACTOR/rs)^2:
 if evalb(Polarization = "ferr") then
     gga_exchange_nsp := (func, rs, z, xs0, xs1) ->
              lda_x_spin(rs, 1)*func(rs, 1, xs0):
     gga_exchange := (func, rs, z, xs0, xs1) ->
              lda_x_spin(rs, z)*func(xs0):
+    gga_kinetic := (func, rs, z, xs0, xs1) ->
+             lda_k_spin(rs, z)*func(xs0):
 else
-    gga_exchange := (func, rs, z, xs0, xs1) ->
-             lda_x_spin(rs, z)*func(xs0) + lda_x_spin(rs, -z)*func(xs1):
     gga_exchange_nsp := (func, rs, z, xs0, xs1) ->
              lda_x_spin(rs, z)*func(rs, z, xs0) + lda_x_spin(rs, -z)*func(rs, -z, xs1):
+    gga_exchange := (func, rs, z, xs0, xs1) ->
+             lda_x_spin(rs, z)*func(xs0) + lda_x_spin(rs, -z)*func(xs1):
+    gga_kinetic := (func, rs, z, xs0, xs1) ->
+             lda_k_spin(rs, z)*func(xs0) + lda_k_spin(rs, -z)*func(xs1):
 end if:
 
 # This is the Stoll decomposition in our language

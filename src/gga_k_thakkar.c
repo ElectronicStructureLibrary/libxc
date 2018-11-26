@@ -10,11 +10,8 @@
 
 #define XC_GGA_K_THAKKAR      523 /* Thakkar 1992 */
 
-#include "maple2c/gga_k_thakkar.c"
-
-#define func xc_gga_k_thakkar_enhance
-#define XC_KINETIC_FUNCTIONAL
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_k_thakkar.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_k_thakkar = {
   XC_GGA_K_THAKKAR,
@@ -26,5 +23,5 @@ const xc_func_info_type xc_func_info_gga_k_thakkar = {
   5e-26,
   0, NULL, NULL,
   NULL, NULL,
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };

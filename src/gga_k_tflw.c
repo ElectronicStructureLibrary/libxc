@@ -124,11 +124,8 @@ gga_k_tflw_init(xc_func_type *p)
   gga_k_tflw_set_params(p, -1.0, -1.0, 1.0);
 }
 
-#include "maple2c/gga_k_tflw.c"
-
-#define func maple2c_func
-#define XC_KINETIC_FUNCTIONAL
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_k_tflw.c"
+#include "work_gga_new.c"
 
 static const func_params_type tfvw_ext_params[] = {
   {"Lambda", 1.0, "Lambda"},
@@ -156,7 +153,7 @@ const xc_func_info_type xc_func_info_gga_k_tfvw = {
   1e-25,
   2, tfvw_ext_params, tfvw_set_ext_params,
   gga_k_tflw_init, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_k_vw = {
@@ -169,7 +166,7 @@ const xc_func_info_type xc_func_info_gga_k_vw = {
   1e-32,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_k_ge2 = {
@@ -182,7 +179,7 @@ const xc_func_info_type xc_func_info_gga_k_ge2 = {
   1e-25,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_k_golden = {
@@ -195,7 +192,7 @@ const xc_func_info_type xc_func_info_gga_k_golden = {
   1e-25,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_k_yt65 = {
@@ -208,7 +205,7 @@ const xc_func_info_type xc_func_info_gga_k_yt65 = {
   1e-25,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_k_baltin = {
@@ -221,7 +218,7 @@ const xc_func_info_type xc_func_info_gga_k_baltin = {
   1e-25,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_k_lieb = {
@@ -234,7 +231,7 @@ const xc_func_info_type xc_func_info_gga_k_lieb = {
   1e-25,
   0, NULL, NULL,
   gga_k_tflw_init, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };
 
 static const func_params_type N_ext_params[] = {
@@ -261,7 +258,7 @@ const xc_func_info_type xc_func_info_gga_k_absp1 = {
   1e-25,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_k_absp2 = {
@@ -274,7 +271,7 @@ const xc_func_info_type xc_func_info_gga_k_absp2 = {
   1e-25,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_k_absp3 = {
@@ -287,7 +284,7 @@ const xc_func_info_type xc_func_info_gga_k_absp3 = {
   1e-25,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_k_absp4 = {
@@ -300,7 +297,7 @@ const xc_func_info_type xc_func_info_gga_k_absp4 = {
   1e-25,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_k_gr = {
@@ -313,7 +310,7 @@ const xc_func_info_type xc_func_info_gga_k_gr = {
   1e-25,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_k_ludena = {
@@ -326,7 +323,7 @@ const xc_func_info_type xc_func_info_gga_k_ludena = {
   1e-32,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_k_gp85 = {
@@ -339,5 +336,5 @@ const xc_func_info_type xc_func_info_gga_k_gp85 = {
   1e-32,
   1, N_ext_params, N_set_ext_params,
   gga_k_tflw_init, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };

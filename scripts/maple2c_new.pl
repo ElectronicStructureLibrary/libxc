@@ -69,7 +69,10 @@ sub work_lda_exc {
     [[[2,0], "v2rho2_0_"], [[1,1], "v2rho2_1_"], [[0,2], "v2rho2_2_"]],
     [[[3,0], "v3rho3_0_"], [[2,1], "v3rho3_1_"], [[1,2], "v3rho3_2_"], [[0,3], "v3rho3_3_"]],
     );
-  
+
+  # honor max_order
+  splice @derivatives, $config{"max_order"}+1, $#derivatives, ;
+
   my ($der_def_unpol, @out_c_unpol) = 
       maple2c_create_derivatives(\@variables, \@derivatives, "mf", "unpol");
   my $out_c_unpol = join(", ", @out_c_unpol);
@@ -142,6 +145,10 @@ sub work_lda_vxc {
     [[[0,2], "v3rho3_3_"]],    
       );
   
+  # honor max_order
+  splice @derivatives1, $config{"max_order"}+1, $#derivatives1, ;
+  splice @derivatives2, $config{"max_order"}+1, $#derivatives2, ;
+
   my @derivatives = ();
   for(my $i=0; $i<=$#derivatives1; $i++){
     @{$derivatives[$i]} = @{$derivatives1[$i]};
@@ -246,11 +253,14 @@ sub work_gga_exc {
       [[0,0,0,3,0], "v3sigma3_6_"], [[0,0,0,2,1], "v3sigma3_7_"], [[0,0,0,1,2], "v3sigma3_8_"],
       [[0,0,0,0,3], "v3sigma3_9_"],
     ],
-    );
+      );
+  # honor max_order
+  splice @derivatives, $config{"max_order"}+1, $#derivatives, ;
   
   my ($der_def, @out_c) = 
       maple2c_create_derivatives(\@variables, \@derivatives, "mf");
   my $out_c = join(", ", @out_c);
+  $out_c = ", $out_c" if ($out_c ne "");
 
   # we join all the pieces
   my $maple_code = "
@@ -272,40 +282,40 @@ mf   := (r0, r1, s0, s1, s2) -> eval(dens(r0, r1)*mzk(r0, r1, s0, s1, s2)):
     "unpol", "
 dens := (r0, r1) -> r0:
 zeta := (r0, r1) -> 0:
-xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0/4)/((r0/2)^(4/3)):
-xs1  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0/4)/((r0/2)^(4/3)):
-xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(4/3):
+xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0/4)/((r0/2)^(1 + 1/DIMENSIONS)):
+xs1  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0/4)/((r0/2)^(1 + 1/DIMENSIONS)):
+xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
 
 $der_def
 
 $maple_code
-C([$maple_zk, $out_c], optimize, deducetypes=false):
+C([$maple_zk$out_c], optimize, deducetypes=false):
 ",
 
     "ferr", "
 dens := (r0, r1) -> r0:
 zeta := (r0, r1) -> 1:
-xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/r0^(4/3):
+xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
 xs1  := (r0, r1, sigma0, sigma2) -> 0:
-xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(4/3):
+xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
 
 $der_def
 
 $maple_code
-C([$maple_zk, $out_c], optimize, deducetypes=false):
+C([$maple_zk$out_c], optimize, deducetypes=false):
 \n",
 
     "pol", "
 dens := (r0, r1) -> r0 + r1:
 zeta := (r0, r1) -> (r0 - r1)/(r0 + r1):
-xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/r0^(4/3):
-xs1  := (r0, r1, sigma0, sigma2) -> sqrt(sigma2)/r1^(4/3):
-xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0 + 2*sigma1 + sigma2)/(r0 + r1)^(4/3):
+xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
+xs1  := (r0, r1, sigma0, sigma2) -> sqrt(sigma2)/r1^(1 + 1/DIMENSIONS):
+xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0 + 2*sigma1 + sigma2)/(r0 + r1)^(1 + 1/DIMENSIONS):
 
 $der_def
 
 $maple_code
-C([$maple_zk, $out_c], optimize, deducetypes=false):
+C([$maple_zk$out_c], optimize, deducetypes=false):
 \n",
       );
 

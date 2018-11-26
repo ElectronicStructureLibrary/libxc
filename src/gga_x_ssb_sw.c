@@ -47,10 +47,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->E = get_ext_param(p->info->ext_params, ext_params, 4);
 }
 
-#include "maple2c/gga_x_ssb_sw.c"
-
-#define func maple2c_func
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_ssb_sw.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_ssb_sw = {
   XC_GGA_X_SSB_SW,
@@ -62,7 +60,7 @@ const xc_func_info_type xc_func_info_gga_x_ssb_sw = {
   1e-22,
   5, ext_params, set_ext_params,
   gga_x_ssb_sw_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 static void

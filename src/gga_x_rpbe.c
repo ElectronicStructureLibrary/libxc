@@ -40,10 +40,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->rpbe_mu    = get_ext_param(p->info->ext_params, ext_params, 1);
 }
 
-#include "maple2c/gga_x_rpbe.c"
-
-#define func xc_gga_x_rpbe_enhance
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_rpbe.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_rpbe = {
   XC_GGA_X_RPBE,
@@ -55,5 +53,5 @@ const xc_func_info_type xc_func_info_gga_x_rpbe = {
   1e-32,
   2, ext_params, set_ext_params,
   gga_x_rpbe_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };

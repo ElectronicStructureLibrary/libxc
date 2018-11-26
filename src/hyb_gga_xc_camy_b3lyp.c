@@ -15,7 +15,7 @@ xc_hyb_gga_xc_camy_b3lyp_init(xc_func_type *p)
 {
   static double ac = 0.81;
   static int   funcs_id  [4] = {XC_GGA_X_B88, XC_GGA_X_SFAT, XC_LDA_C_VWN, XC_GGA_C_LYP};
-  double funcs_coef[4], par_sfat[2];
+  double funcs_coef[4];
 
   /* Need temp variables since cam_ parameters are initialized in mix_init */
   static double omega, alpha, beta;
@@ -35,9 +35,7 @@ xc_hyb_gga_xc_camy_b3lyp_init(xc_func_type *p)
   
   xc_mix_init(p, 4, funcs_id, funcs_coef);
 
-  par_sfat[0] = XC_GGA_X_B88;
-  par_sfat[1] = omega;
-  xc_func_set_ext_params(p->func_aux[1], par_sfat);
+  xc_func_set_ext_params(p->func_aux[1], &omega);
   
   p->cam_omega = omega;
   p->cam_alpha = alpha;
@@ -53,7 +51,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_camy_b3lyp = {
   XC_FLAGS_3D | XC_FLAGS_HYB_CAMY | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_camy_b3lyp_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_camy_b3lyp_init, NULL,
+  NULL, NULL, NULL
 };
 

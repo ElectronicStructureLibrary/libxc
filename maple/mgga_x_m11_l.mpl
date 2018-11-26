@@ -15,7 +15,7 @@
 *)
 
 $include "mgga_x_m08.mpl"
-$include "lda_x_erf.mpl"
+$include "attenuation.mpl"
 
 f_spin := (rs, z, x, t) ->
   lda_x_ax*(1 + z)^(4/3)/rs * (

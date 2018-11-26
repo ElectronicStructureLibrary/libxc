@@ -10,11 +10,8 @@
 
 #define XC_GGA_K_EXP4          597 /* Intermediate form between PBE3 and PBE4 */
 
-#include "maple2c/gga_k_exp4.c"
-
-#define func maple2c_func
-#define XC_KINETIC_FUNCTIONAL
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_k_exp4.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_k_exp4 = {
   XC_GGA_K_EXP4,
@@ -26,5 +23,5 @@ const xc_func_info_type xc_func_info_gga_k_exp4 = {
   1e-25,
   0, NULL, NULL,
   NULL, NULL,
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };

@@ -6,16 +6,17 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 (* prefix:
   gga_x_vmt84_params *params;
- 
+
   assert(p->params != NULL);
   params = (gga_x_vmt84_params * )(p->params);
 *)
 
 $include "gga_x_vmt.mpl"
 
-f0_vmt84 := s -> (1 - exp(-params_a_alpha*s^4))/s^2 - 1 + exp(-params_a_alpha*s^4):
+vmt84_f0 := s -> (1 - exp(-params_a_alpha*s^4))/s^2 - 1 + exp(-params_a_alpha*s^4):
+vmt84_f  := x -> vmt_f(x) + vmt84_f0(X2S*x):
 
-f  := x -> f_vmt(x) + f0_vmt84(X2S*x):
+f := (rs, zeta, xt, xs0, xs1) -> gga_exchange(vmt84_f, rs, zeta, xs0, xs1):

@@ -16,16 +16,14 @@ xc_hyb_gga_xc_lcy_blyp_init(xc_func_type *p)
   static int   funcs_id  [2] = {XC_GGA_X_SFAT, XC_GGA_C_LYP};
   static double funcs_coef[2];
 
-  double gamma = 0.75, par_sfat[2];
+  double gamma = 0.75;
   
   funcs_coef[0] = 1.0;
   funcs_coef[1] = 1.0;
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
 
-  par_sfat[0] = XC_GGA_X_B88;
-  par_sfat[1] = gamma;
-  xc_func_set_ext_params(p->func_aux[0], par_sfat);
+  xc_func_set_ext_params(p->func_aux[0], &gamma);
   
   p->cam_omega = gamma;
   p->cam_alpha = 1.0;
@@ -41,7 +39,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lcy_blyp = {
   XC_FLAGS_3D | XC_FLAGS_HYB_LCY | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_lcy_blyp_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_lcy_blyp_init, NULL,
+  NULL, NULL, NULL
 };
 

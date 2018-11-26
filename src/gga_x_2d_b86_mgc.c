@@ -10,11 +10,8 @@
 
 #define XC_GGA_X_2D_B86_MGC      124 /* Becke 86 MGC for 2D systems */
 
-#include "maple2c/gga_x_2d_b86_mgc.c"
-
-#define func maple2c_func
-#define XC_DIMENSIONS 2
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_2d_b86_mgc.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_2d_b86_mgc = {
   XC_GGA_X_2D_B86_MGC,
@@ -26,5 +23,5 @@ const xc_func_info_type xc_func_info_gga_x_2d_b86_mgc = {
   1e-23,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };

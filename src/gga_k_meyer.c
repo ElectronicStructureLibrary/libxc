@@ -10,11 +10,8 @@
 
 #define XC_GGA_K_MEYER        57 /* Meyer,  Wang, and Young */
 
-#include "maple2c/gga_k_meyer.c"
-
-#define func maple2c_func
-#define XC_KINETIC_FUNCTIONAL
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_k_meyer.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_k_meyer = {
   XC_GGA_K_MEYER,
@@ -25,8 +22,6 @@ const xc_func_info_type xc_func_info_gga_k_meyer = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   5e-14,
   0, NULL, NULL,
-  NULL,
   NULL, NULL,
-  work_gga_k,
-  NULL
+  NULL, work_gga, NULL
 };

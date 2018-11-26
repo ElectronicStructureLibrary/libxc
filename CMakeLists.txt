@@ -114,6 +114,7 @@ gga_k_dk.c
 gga_k_meyer.c
 gga_k_ol1.c
 gga_k_ol2.c
+gga_x_ol2.c
 gga_k_pearson.c
 gga_k_tflw.c
 gga_k_thakkar.c
@@ -166,6 +167,7 @@ gga_x_q2d.c
 gga_x_rge2.c
 gga_x_rpbe.c
 gga_x_sfat.c
+gga_x_sfat_pbe.c
 gga_x_sg4.c
 gga_x_sogga11.c
 gga_x_ssb_sw.c

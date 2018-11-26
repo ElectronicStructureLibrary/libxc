@@ -234,28 +234,6 @@ internal_counters_mgga_prev
  double **v3tau3
 );
 
-typedef struct xc_lda_work_t {
-  int   order; /* to which order should I return the derivatives */
-  double rs, z;
-
-  double f;                                   /* energy per unit particle */
-  double dfdrs, dfdz;                         /*  first derivatives of e  */
-  double d2fdrs2, d2fdrsz, d2fdz2;            /* second derivatives of e  */
-  double d3fdrs3, d3fdrs2z, d3fdrsz2, d3fdz3; /*  third derivatives of e  */
-} xc_lda_work_t;
-
-/* the different possibilities for screening the interaction */
-#define XC_RSF_ERF      0
-#define XC_RSF_ERF_GAU  1
-#define XC_RSF_YUKAWA   2
-
-typedef void xc_lda_func_type (const xc_func_type *p, xc_lda_work_t *r);
-
-void xc_lda_x_attenuation_function_erf(int order, double aa, double *f, double *df, double *d2f, double *d3f);
-void xc_lda_x_attenuation_function_erf_gau(int order, double aa, double *f, double *df, double *d2f, double *d3f);
-void xc_lda_x_attenuation_function_yukawa(int order, double aa, double *f, double *df, double *d2f, double *d3f);
-void xc_lda_x_attenuation_function(int interaction, int order, double aa, double *f, double *df, double *d2f, double *d3f);
-
 /* GGAs */
 typedef struct xc_gga_work_x_t {
   int   order; /* to which order should I return the derivatives */
@@ -266,33 +244,6 @@ typedef struct xc_gga_work_x_t {
   double d2fdx2;     /* second derivatives of zk */
   double d3fdx3;
 } xc_gga_work_x_t;
-
-/* exchange enhancement factors: if you add one, please add it also to the util.c */
-typedef void(*xc_gga_enhancement_t)(const xc_func_type *, xc_gga_work_x_t *r);
-xc_gga_enhancement_t xc_get_gga_enhancement_factor(int func_id);
-
-void xc_gga_x_pbe_enhance  (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_pw91_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_rpbe_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_htbs_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_b86_enhance  (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_b88_enhance  (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_pw86_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_airy_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_ak13_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_bayesian_enhance(const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_bpccac_enhance(const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_c09x_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_am05_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_dk87_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_herman_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_lg93_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_lv_rpw86_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_mpbe_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_optx_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_sogga11_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_ssb_sw_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
-void xc_gga_x_vmt_enhance (const xc_func_type *p, xc_gga_work_x_t *r);
 
 typedef struct xc_gga_work_c_t {
   int   order; /* to which order should I return the derivatives */

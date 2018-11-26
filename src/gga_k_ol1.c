@@ -10,11 +10,8 @@
 
 #define XC_GGA_K_OL1          512 /* Ou-Yang and Levy v.1 */
 
-#include "maple2c/gga_k_ol1.c"
-
-#define func maple2c_func
-#define XC_KINETIC_FUNCTIONAL
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_k_ol1.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_k_ol1 = {
   XC_GGA_K_OL1,
@@ -26,5 +23,5 @@ const xc_func_info_type xc_func_info_gga_k_ol1 = {
   5e-26,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };

@@ -10,10 +10,8 @@
 
 #define XC_GGA_X_RGE2         142 /* Regularized PBE                                */
 
-#include "maple2c/gga_x_rge2.c"
-
-#define func xc_gga_x_rge2_enhance
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_rge2.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_rge2 = {
   XC_GGA_X_RGE2,
@@ -25,6 +23,6 @@ const xc_func_info_type xc_func_info_gga_x_rge2 = {
   1e-32,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 

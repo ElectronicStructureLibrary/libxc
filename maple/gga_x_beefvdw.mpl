@@ -6,9 +6,9 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 
-coeffs_beefvdw := [
+beefvdw_coeffs := [
    1.516501714e0,   4.413532099e-1, -9.182135241e-2, -2.352754331e-2,
    3.418828455e-2,  2.411870076e-3, -1.416381352e-2,  6.975895581e-4,
    9.859205137e-3, -6.737855051e-3, -1.573330824e-3,  5.036146253e-3,
@@ -19,8 +19,10 @@ coeffs_beefvdw := [
   -1.904911565e-4,  7.384362421e-5
 ]:
 
-k  := 4:
-xi := p -> 2*p/(k + p) - 1:
+beefvdw_k  := 4:
+beefvdw_xi := p -> 2*p/(beefvdw_k + p) - 1:
 
 with(orthopoly):
-f  := x -> add(coeffs_beefvdw[i]*P(i-1, xi(X2S^2*x^2)), i=1..30):
+beefvdw_f := x -> add(beefvdw_coeffs[i]*P(i-1, beefvdw_xi(X2S^2*x^2)), i=1..30):
+
+f := (rs, zeta, xt, xs0, xs1) -> gga_exchange(beefvdw_f, rs, zeta, xs0, xs1):

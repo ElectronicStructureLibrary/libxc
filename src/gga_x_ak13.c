@@ -10,14 +10,14 @@
 
 #define XC_GGA_X_AK13  56 /* Armiento & Kuemmel 2013 */
 
-static const double B1 =  1.74959015598863046792081721182; /* 3*muGE/5 + 8 pi/15 */
-static const double B2 = -1.62613336586517367779736042170; /* muGE - B1 */
+static const double ak13_B1 =  1.74959015598863046792081721182; /* 3*muGE/5 + 8 pi/15 */
+static const double ak13_B2 = -1.62613336586517367779736042170; /* muGE - B1 */
 
 double xc_gga_ak13_get_asymptotic (double homo)
 {
   double Qx, aa, aa2, factor;
 
-  Qx = sqrt(2.0)*B1/(3.0*CBRT(3.0*M_PI*M_PI));
+  Qx = sqrt(2.0)*ak13_B1/(3.0*CBRT(3.0*M_PI*M_PI));
 
   aa  = X_FACTOR_C*Qx;
   aa2 = aa*aa;
@@ -28,10 +28,8 @@ double xc_gga_ak13_get_asymptotic (double homo)
 }
 
 
-#include "maple2c/gga_x_ak13.c"
-
-#define func xc_gga_x_ak13_enhance
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_ak13.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_ak13 = {
   XC_GGA_X_AK13,
@@ -42,8 +40,7 @@ const xc_func_info_type xc_func_info_gga_x_ak13 = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-24,
   0, NULL, NULL,
-  NULL, NULL, NULL,
-  work_gga_x,
-  NULL
+  NULL, NULL,
+  NULL, work_gga, NULL
 };
 

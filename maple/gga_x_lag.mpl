@@ -6,12 +6,14 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 
-a1 :=   0.041106:
-a2 :=   2.626712:
-a3 :=   0.092070:
-a4 :=   0.657946:
+lag_a1 :=   0.041106:
+lag_a2 :=   2.626712:
+lag_a3 :=   0.092070:
+lag_a4 :=   0.657946:
 
-f0 := s-> a1 * s^a2/(1 + a3 * s^a2)^a4:
-f  := x-> f0(X2S*x):
+lag_f0 := s-> lag_a1 * s^lag_a2/(1 + lag_a3 * s^lag_a2)^lag_a4:
+lag_f  := x-> lag_f0(X2S*x):
+
+f := (rs, zeta, xt, xs0, xs1) -> gga_exchange(lag_f, rs, zeta, xs0, xs1):

@@ -71,10 +71,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 }
 
 
-#include "maple2c/gga_x_b86.c"
-
-#define func maple2c_func
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_b86.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_b86 = {
   XC_GGA_X_B86,
@@ -86,7 +84,7 @@ const xc_func_info_type xc_func_info_gga_x_b86 = {
   1e-24,
   3, ext_params, set_ext_params,
   gga_x_b86_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_b86_mgc = {
@@ -99,7 +97,7 @@ const xc_func_info_type xc_func_info_gga_x_b86_mgc = {
   1e-24,
   0, NULL, NULL,
   gga_x_b86_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_b86_r = {
@@ -112,5 +110,5 @@ const xc_func_info_type xc_func_info_gga_x_b86_r = {
   1e-24,
   0, NULL, NULL,
   gga_x_b86_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };

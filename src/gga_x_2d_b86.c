@@ -8,13 +8,10 @@
 
 #include "util.h"
 
-#define XC_GGA_X_2D_B86          128 /* Becke 86 Xalpha,beta,gamma                      */
+#define XC_GGA_X_2D_B86          128 /* Becke 86 Xalpha, beta, gamma                    */
 
-#include "maple2c/gga_x_2d_b86.c"
-
-#define func maple2c_func
-#define XC_DIMENSIONS 2
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_2d_b86.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_2d_b86 = {
   XC_GGA_X_2D_B86,
@@ -26,6 +23,6 @@ const xc_func_info_type xc_func_info_gga_x_2d_b86 = {
   1e-18,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 

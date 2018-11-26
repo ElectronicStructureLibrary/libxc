@@ -6,10 +6,14 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 
-mkappa := 0.4604:
-mmu    := 0.354546875:
+$define xc_dimensions_2d
 
-f0 := s -> 1 + mkappa*(1 - mkappa/(mkappa + mmu*s^2)):
-f  := x -> f0(X2S_2D*x):
+_2d_pbe_kappa := 0.4604:
+_2d_pbe_mu    := 0.354546875:
+
+_2d_pbe_f0 := s -> 1 + _2d_pbe_kappa*(1 - _2d_pbe_kappa/(_2d_pbe_kappa + _2d_pbe_mu*s^2)):
+_2d_pbe_f  := x -> _2d_pbe_f0(X2S_2D*x):
+
+f := (rs, zeta, xt, xs0, xs1) -> gga_exchange(_2d_pbe_f, rs, zeta, xs0, xs1):

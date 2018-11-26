@@ -8,10 +8,7 @@
 SUBDIRS = lda_exc lda_vxc gga_exc
 
 noinst_HEADERS = \
-  gga_x_2d_b86.c		\
-  gga_x_2d_b88.c gga_x_2d_pbe.c gga_x_airy.c		\
-  gga_x_ak13.c gga_x_am05.c gga_x_b86.c gga_x_b88.c gga_x_bayesian.c	\
-  gga_x_beefvdw.c gga_x_bpccac.c gga_x_c09x.c gga_x_cap.c		\
+  gga_x_bpccac.c gga_x_c09x.c gga_x_cap.c		\
   gga_x_dk87.c	\
   gga_x_eg93.c gga_x_hcth_a.c gga_x_herman.c	\
   gga_x_htbs.c gga_x_lag.c gga_x_lspbe.c gga_x_lsrpbe.c	\

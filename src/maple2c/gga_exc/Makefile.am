@@ -19,4 +19,7 @@ noinst_HEADERS = gga_c_wi.c gga_c_am05.c gga_c_bcgp.c gga_c_bmk.c   \
   gga_x_rpbe.c gga_x_sg4.c gga_x_sogga11.c gga_x_ssb_sw.c           \
   gga_x_vmt.c gga_x_vmt84.c gga_k_dk.c gga_k_exp4.c gga_k_meyer.c   \
   gga_k_ol1.c gga_k_ol2.c gga_k_pearson.c gga_k_tflw.c              \
-  gga_k_thakkar.c gga_x_2d_b86_mgc.c gga_x_ol2.c
+  gga_k_thakkar.c gga_x_2d_b86_mgc.c gga_x_ol2.c gga_k_llp.c        \
+  gga_x_2d_b86.c gga_x_2d_b88.c gga_x_2d_pbe.c gga_x_airy.c         \
+  gga_x_ak13.c gga_x_am05.c gga_x_b86.c gga_x_b88.c gga_x_bayesian.c\
+  gga_x_beefvdw.c gga_x_lag.c

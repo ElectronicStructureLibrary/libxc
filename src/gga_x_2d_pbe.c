@@ -10,11 +10,8 @@
 
 #define XC_GGA_X_2D_PBE          129 /* Perdew, Burke & Ernzerhof exchange in 2D          */
 
-#include "maple2c/gga_x_2d_pbe.c"
-
-#define func maple2c_func
-#define XC_DIMENSIONS 2
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_2d_pbe.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_2d_pbe = {
   XC_GGA_X_2D_PBE,
@@ -26,5 +23,5 @@ const xc_func_info_type xc_func_info_gga_x_2d_pbe = {
   1e-32,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };

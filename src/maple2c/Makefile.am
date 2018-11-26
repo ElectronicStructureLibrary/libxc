@@ -8,9 +8,8 @@
 SUBDIRS = lda_exc lda_vxc gga_exc
 
 noinst_HEADERS = \
-  gga_k_dk.c gga_k_meyer.c gga_k_ol1.c gga_k_ol2.c	\
-  gga_k_pearson.c gga_k_tflw.c gga_k_thakkar.c gga_x_2d_b86.c		\
-  gga_x_2d_b86_mgc.c gga_x_2d_b88.c gga_x_2d_pbe.c gga_x_airy.c		\
+  gga_x_2d_b86.c		\
+  gga_x_2d_b88.c gga_x_2d_pbe.c gga_x_airy.c		\
   gga_x_ak13.c gga_x_am05.c gga_x_b86.c gga_x_b88.c gga_x_bayesian.c	\
   gga_x_beefvdw.c gga_x_bpccac.c gga_x_c09x.c gga_x_cap.c		\
   gga_x_dk87.c	\
@@ -30,5 +29,5 @@ noinst_HEADERS = \
   mgga_x_mn12.c mgga_x_ms.c mgga_x_mvs.c mgga_x_pbe_gx.c		\
   mgga_x_pkzb.c mgga_x_sa_tpss.c mgga_x_scan.c mgga_x_tau_hcth.c	\
   mgga_x_tm.c mgga_x_tpss.c mgga_x_vt84.c mgga_c_revscan.c		\
-  mgga_x_br89_explicit.c gga_k_exp4.c mgga_xc_b98.c mgga_x_rtpss.c      \
+  mgga_x_br89_explicit.c mgga_xc_b98.c mgga_x_rtpss.c      \
   mgga_x_msb.c mgga_x_mvsb.c

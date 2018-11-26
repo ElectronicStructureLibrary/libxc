@@ -14,7 +14,7 @@ noinst_HEADERS = \
   gga_x_beefvdw.c gga_x_bpccac.c gga_x_c09x.c gga_x_cap.c		\
   gga_x_dk87.c	\
   gga_x_eg93.c gga_x_hcth_a.c gga_x_herman.c	\
-  gga_x_htbs.c gga_x_lag.c	\
+  gga_x_htbs.c gga_x_lag.c gga_x_lspbe.c gga_x_lsrpbe.c	\
   gga_x_lg93.c gga_x_lv_rpw86.c gga_x_mpbe.c gga_x_optx.c	\
   gga_x_pbea.c gga_x_pbe.c gga_x_pbeint.c gga_x_pbepow.c		\
   gga_x_pbetrans.c gga_x_pw86.c gga_x_pw91.c \

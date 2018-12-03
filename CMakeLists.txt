@@ -70,7 +70,8 @@ foreach(ver ${_libxc_configure_ac})
   endif()
 endforeach()
 set(${PROJECT_NAME}_SOVERSION ${XC_CURRENT}:${XC_REVISION}:${XC_AGE})
-message(STATUS "Libxc SO ${${PROJECT_NAME}_SOVERSION}")
+math(EXPR ${PROJECT_NAME}_SOMAJOR "${XC_CURRENT} - ${XC_AGE}")
+message(STATUS "Libxc SO Full ${${PROJECT_NAME}_SOVERSION} Major ${${PROJECT_NAME}_SOMAJOR}")
 
 set(raw_sources_list
 bessel.c
@@ -322,7 +323,7 @@ add_library(xc ${sources_list})
 target_link_libraries(xc INTERFACE ${STANDARD_MATH_LIBRARY})
 set_target_properties(xc PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC}
                                     COMPILE_FLAGS "-std=c99"
-                                    SOVERSION ${XC_CURRENT})
+                                    SOVERSION ${XC_SOMAJOR})
 if(${BUILD_SHARED_LIBS})
     target_link_libraries(xc PRIVATE ${LIBC_INTERJECT})
     if(APPLE)

@@ -8,17 +8,17 @@
 
 #include "util.h"
 
-#define XC_GGA_C_BCGP          39 /* Burke, Cancio, Gould, and Pittalis                 */
+#define XC_GGA_C_ACGGA           39 /* acGGA, asymptotically corrected GGA */
 
-#include "maple2c/gga_exc/gga_c_bcgp.c"
+#include "maple2c/gga_exc/gga_c_acgga.c"
 #include "work_gga_new.c"
 
-const xc_func_info_type xc_func_info_gga_c_bcgp = {
-  XC_GGA_C_BCGP,
+const xc_func_info_type xc_func_info_gga_c_acgga = {
+  XC_GGA_C_ACGGA,
   XC_CORRELATION,
-  "Burke, Cancio, Gould, and Pittalis",
+  "acGGA, asymptotically corrected GGA correlation",
   XC_FAMILY_GGA,
-  {&xc_ref_Burke2014_4834, NULL, NULL, NULL, NULL},
+  {&xc_ref_Cancio2018_084116, &xc_ref_Burke2014_4834, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-25,
   0, NULL, NULL,

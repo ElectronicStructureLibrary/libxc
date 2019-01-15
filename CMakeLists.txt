@@ -80,6 +80,7 @@ func_info.c
 functionals.c
 gga.c
 gga_c_acgga.c
+gga_c_acggap.c
 gga_c_am05.c
 gga_c_bmk.c
 gga_c_cs1.c

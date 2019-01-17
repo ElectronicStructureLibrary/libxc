@@ -78,6 +78,16 @@ int main(int argc, char **argv) {
     printf("\n");
   }
 
+  printf("\nImplementation has support for:\n");
+  if(func.info->flags & XC_FLAGS_HAVE_EXC)
+    printf("\t- energy\n");
+  if(func.info->flags & XC_FLAGS_HAVE_VXC)
+    printf("\t- first derivative\n");
+  if(func.info->flags & XC_FLAGS_HAVE_FXC)
+    printf("\t- second derivative\n");
+  if(func.info->flags & XC_FLAGS_HAVE_FXC)
+    printf("\t- third derivative\n");
+
   /* Free memory */
   xc_func_end(&func);
   free(fname);

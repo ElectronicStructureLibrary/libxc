@@ -290,11 +290,112 @@ void FC_FUNC(xc_f90_gga_kxc, XC_F90_GGA_KXC)
 	  NULL, NULL, NULL, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
 }
 
-
 void FC_FUNC(xc_f90_gga_lb_modified, XC_F90_GGA_LB_MODIFIED)
      (void **p, CC_FORTRAN_INT *np, double *rho, double *sigma, double *r, double *vrho)
 {
   xc_gga_lb_modified((xc_func_type *)(*p), *np, rho, sigma, *r, vrho);
+}
+
+void FC_FUNC(f90_gga_x_b86_set_par, F90_GGA_X_B86_SET_PAR)
+  (void **p, double *beta, double *gamma, double *omega)
+{
+  xc_gga_x_b86_set_params((xc_func_type *)(*p), *beta, *gamma, *omega);
+}
+
+void FC_FUNC(f90_gga_x_b88_set_par, F90_GGA_X_B88_SET_PAR)
+  (void **p, double *beta, double *gamma)
+{
+  xc_gga_x_b88_set_params((xc_func_type *)(*p), *beta, *gamma);
+}
+
+void FC_FUNC(f90_gga_x_pbe_set_par, F90_GGA_X_PBE_SET_PAR)
+  (void **p, double *kappa, double *mu)
+{
+  xc_gga_x_pbe_set_params((xc_func_type *)(*p), *kappa, *mu);
+}
+
+void FC_FUNC(f90_gga_x_pbeint_set_par, F90_GGA_X_PBEINT_SET_PAR)
+ (void **p, double *kappa, double *alpha, double *muPBE, double *muGE)
+{
+  xc_gga_x_pbeint_set_params((xc_func_type *)(*p), *kappa, *alpha, *muPBE, *muGE);
+}
+
+void FC_FUNC(f90_gga_c_pbe_set_par, F90_GGA_C_PBE_SET_PAR)
+  (void **p, double *beta)
+{
+  xc_gga_c_pbe_set_params((xc_func_type *)(*p), *beta);
+}
+
+void FC_FUNC(f90_gga_x_pw91_set_par, F90_GGA_X_PW91_SET_PAR)
+  (void **p, double *a, double *b, double *c, double *d, double *f, double *alpha, double *expo)
+{
+  xc_gga_x_pw91_set_params((xc_func_type *)(*p), *a, *b, *c, *d, *f, *alpha, *expo);
+}
+
+void FC_FUNC(f90_gga_x_pw91_set_par2, F90_GGA_X_PW91_SET_PAR2)
+  (void **p, double *bt, double *alpha, double *expo)
+{
+  xc_gga_x_pw91_set_params2((xc_func_type *)(*p), *bt, *alpha, *expo);
+}
+
+void FC_FUNC(f90_gga_x_rpbe_set_par, F90_GGA_X_RPBE_SET_PAR)
+  (void **p, double *kappa, double *mu)
+{
+  xc_gga_x_rpbe_set_params((xc_func_type *)(*p), *kappa, *mu);
+}
+
+void FC_FUNC(f90_gga_x_optx_set_par, F90_GGA_X_OPTX_SET_PAR)
+  (void **p, double *a, double *b, double *gamma)
+{
+  xc_gga_x_optx_set_params((xc_func_type *)(*p), *a, *b, *gamma);
+}
+
+void FC_FUNC(f90_gga_c_lyp_set_par, F90_GGA_C_LYP_SET_PAR)
+  (void **p, double *A, double *B, double *c, double *d)
+{
+  xc_gga_c_lyp_set_params((xc_func_type *)(*p), *A, *B, *c, *d);
+}
+
+void FC_FUNC(f90_gga_x_wpbeh_set_par, F90_GGA_X_WPBEH_SET_PAR)
+  (void **p, double *omega)
+{
+  xc_gga_x_wpbeh_set_params((xc_func_type *)(*p), *omega);
+}
+
+void FC_FUNC(f90_gga_x_hjs_set_par, F90_GGA_X_HJS_SET_PAR)
+  (void **p, double *omega)
+{
+  xc_gga_x_hjs_set_params((xc_func_type *)(*p), *omega);
+}
+
+void FC_FUNC(f90_gga_x_hjs_b88_v2_set_par, F90_GGA_X_HJS_SET_PAR)
+  (void **p, double *omega)
+{
+  xc_gga_x_hjs_b88_v2_set_params((xc_func_type *)(*p), *omega);
+}
+
+void FC_FUNC(f90_gga_x_ityh_set_par, F90_GGA_X_ITYH_SET_PAR)
+  (void **p, CC_FORTRAN_INT *func_id, double *omega)
+{
+  xc_gga_x_ityh_set_params((xc_func_type *)(*p), *func_id, *omega);
+}
+
+void FC_FUNC(f90_gga_x_sfat_set_par, F90_GGA_X_SFAT_SET_PAR)
+  (void **p, CC_FORTRAN_INT *func_id, double *omega)
+{
+  xc_gga_x_sfat_set_params((xc_func_type *)(*p), *func_id, *omega);
+}
+
+void FC_FUNC(f90_gga_x_ssb_sw_set_par, F90_GGA_X_SSB_SW_SET_PAR)
+  (void **p, double *A, double *B, double *C, double *D, double *E)
+{
+  xc_gga_x_ssb_sw_set_params((xc_func_type *)(*p), *A, *B, *C, *D, *E);
+}
+
+void FC_FUNC(f90_gga_x_kt_set_par, F90_GGA_X_KT_SET_PAR)
+  (void **p, double *gamma, double *delta)
+{
+  xc_gga_x_kt_set_params((xc_func_type *)(*p), *gamma, *delta);
 }
 
 void FC_FUNC(xc_f90_gga_ak13_get_asymptotic, XC_F90_GGA_AK13_GET_ASYMPTOTIC)
@@ -387,6 +488,30 @@ void FC_FUNC(xc_f90_mgga_fxc, XC_F90_MGGA_FXC)
 	   NULL, NULL, NULL, NULL, NULL, 
 	   v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, 
 	   v2sigmalapl, v2sigmatau, v2lapltau);
+}
+
+void FC_FUNC(f90_mgga_x_tpss_set_par, F90_MGGA_X_TPSS_SET_PAR)
+     (void **p, double *b, double *c, double *e, double *kappa, double *mu, double *BLOC_a, double *BLOC_b)
+{
+    xc_mgga_x_tpss_set_params((xc_func_type *)(*p), *b, *c, *e, *kappa, *mu, *BLOC_a, *BLOC_b);
+}
+
+void FC_FUNC(f90_mgga_c_tpss_set_par, F90_MGGA_C_TPSS_SET_PAR)
+  (void **p, double *beta, double *d, double *C0_0, double *C0_1, double *C0_2, double *C0_3)
+{
+  xc_mgga_c_tpss_set_params((xc_func_type *)(*p), *beta, *d, *C0_0, *C0_1, *C0_2, *C0_3);
+}
+
+void FC_FUNC(f90_mgga_c_bc95_set_par, F90_MGGA_C_BC95_SET_PAR)
+  (void **p, double *css, double *copp)
+{
+  xc_mgga_c_bc95_set_params((xc_func_type *)(*p), *css, *copp);
+}
+
+void FC_FUNC(f90_mgga_c_pkzb_set_par, F90_MGGA_C_PKZB_SET_PAR)
+  (void **p, double *beta, double *d, double *C0_0, double *C0_1, double *C0_2, double *C0_3)
+{
+  xc_mgga_c_pkzb_set_params((xc_func_type *)(*p), *beta, *d, *C0_0, *C0_1, *C0_2, *C0_3);
 }
 
 #endif

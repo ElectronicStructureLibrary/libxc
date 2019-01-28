@@ -407,6 +407,138 @@ module xc_f90_lib_m
     end subroutine xc_f90_gga_lb_modified
   end interface
 
+  !----------------------------------------------------------------
+  interface
+    subroutine xc_f90_gga_x_b86_set_par(p, beta, gamma, omega)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: beta
+      real(xc_f90_kind),       intent(in)    :: gamma
+      real(xc_f90_kind),       intent(in)    :: omega
+    end subroutine xc_f90_gga_x_b86_set_par
+  
+    subroutine xc_f90_gga_x_b88_set_par(p, beta, gamma)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: beta
+      real(xc_f90_kind),       intent(in)    :: gamma
+    end subroutine xc_f90_gga_x_b88_set_par
+
+    subroutine xc_f90_gga_x_pbe_set_par(p, kappa, mu)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: kappa
+      real(xc_f90_kind),       intent(in)    :: mu
+    end subroutine xc_f90_gga_x_pbe_set_par
+
+    subroutine xc_f90_gga_x_pbeint_set_par(p, kappa, alpha, mupbe, muge)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: kappa
+      real(xc_f90_kind),       intent(in)    :: alpha     
+      real(xc_f90_kind),       intent(in)    :: mupbe
+      real(xc_f90_kind),       intent(in)    :: muge
+    end subroutine xc_f90_gga_x_pbeint_set_par
+    
+    subroutine xc_f90_gga_c_pbe_set_par(p, beta)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: beta
+    end subroutine xc_f90_gga_c_pbe_set_par
+
+    subroutine xc_f90_gga_x_pw91_set_par(p, a, b, c, d, f, alpha, expo)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: a
+      real(xc_f90_kind),       intent(in)    :: b
+      real(xc_f90_kind),       intent(in)    :: c
+      real(xc_f90_kind),       intent(in)    :: d
+      real(xc_f90_kind),       intent(in)    :: f
+      real(xc_f90_kind),       intent(in)    :: alpha
+      real(xc_f90_kind),       intent(in)    :: expo
+    end subroutine xc_f90_gga_x_pw91_set_par
+  
+    subroutine xc_f90_gga_x_pw91_set_par2(p, bt, alpha, expo)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: bt
+      real(xc_f90_kind),       intent(in)    :: alpha
+      real(xc_f90_kind),       intent(in)    :: expo
+    end subroutine xc_f90_gga_x_pw91_set_par2
+
+    subroutine xc_f90_gga_x_rpbe_set_par(p, kappa, mu)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: kappa
+      real(xc_f90_kind),       intent(in)    :: mu
+    end subroutine xc_f90_gga_x_rpbe_set_par
+  
+    subroutine xc_f90_gga_x_optx_set_par(p, a, b, gamma)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: a
+      real(xc_f90_kind),       intent(in)    :: b
+      real(xc_f90_kind),       intent(in)    :: gamma
+    end subroutine xc_f90_gga_x_optx_set_par
+      
+    subroutine xc_f90_gga_c_lyp_set_par(p, A, B, c, d)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: A
+      real(xc_f90_kind),       intent(in)    :: B
+      real(xc_f90_kind),       intent(in)    :: c
+      real(xc_f90_kind),       intent(in)    :: d
+    end subroutine xc_f90_gga_c_lyp_set_par
+
+    subroutine xc_f90_gga_x_wpbeh_set_par(p, omega)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: omega
+    end subroutine xc_f90_gga_x_wpbeh_set_par
+  
+    subroutine xc_f90_gga_x_hjs_set_par(p, omega)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: omega
+    end subroutine xc_f90_gga_x_hjs_set_par
+
+    subroutine xc_f90_gga_x_hjs_b88_v2_set_par(p, omega)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: omega
+    end subroutine xc_f90_gga_x_hjs_b88_v2_set_par
+
+    subroutine xc_f90_gga_x_ityh_set_par(p, func_id, omega)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      integer,                 intent(in)    :: func_id
+      real(xc_f90_kind),       intent(in)    :: omega
+    end subroutine xc_f90_gga_x_ityh_set_par
+
+    subroutine xc_f90_gga_x_sfat_set_par(p, func_id, omega)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      integer,                 intent(in)    :: func_id
+      real(xc_f90_kind),       intent(in)    :: omega
+    end subroutine xc_f90_gga_x_sfat_set_par
+
+    subroutine xc_f90_gga_x_ssb_sw_set_par(p, A, B, C, D, E)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: A
+      real(xc_f90_kind),       intent(in)    :: B
+      real(xc_f90_kind),       intent(in)    :: C
+      real(xc_f90_kind),       intent(in)    :: D
+      real(xc_f90_kind),       intent(in)    :: E
+    end subroutine xc_f90_gga_x_ssb_sw_set_par
+    
+    subroutine xc_f90_gga_x_kt_set_par(p, gamma, delta)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: gamma
+      real(xc_f90_kind),       intent(in)    :: delta
+    end subroutine xc_f90_gga_x_kt_set_par
+  end interface
 
   !----------------------------------------------------------------
   interface
@@ -562,6 +694,49 @@ module xc_f90_lib_m
     end subroutine xc_f90_mgga_fxc
   end interface
 
+  interface  
+    subroutine xc_f90_mgga_x_tpss_set_par(p, b, c, e, kappa, mu, BLOC_a, BLOC_b)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: b
+      real(xc_f90_kind),       intent(in)    :: c
+      real(xc_f90_kind),       intent(in)    :: e
+      real(xc_f90_kind),       intent(in)    :: kappa
+      real(xc_f90_kind),       intent(in)    :: mu
+      real(xc_f90_kind),       intent(in)    :: BLOC_a
+      real(xc_f90_kind),       intent(in)    :: BLOC_b
+    end subroutine xc_f90_mgga_x_tpss_set_par
+  
+    subroutine xc_f90_mgga_c_tpss_set_par(p, beta, d, C0_0, C0_1, C0_2, C0_3)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: beta
+      real(xc_f90_kind),       intent(in)    :: d
+      real(xc_f90_kind),       intent(in)    :: C0_0
+      real(xc_f90_kind),       intent(in)    :: C0_1
+      real(xc_f90_kind),       intent(in)    :: C0_2
+      real(xc_f90_kind),       intent(in)    :: C0_3
+    end subroutine xc_f90_mgga_c_tpss_set_par
+
+    subroutine xc_f90_mgga_c_bc95_set_par(p, css, copp)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: css
+      real(xc_f90_kind),       intent(in)    :: copp
+    end subroutine xc_f90_mgga_c_bc95_set_par
+  
+    subroutine xc_f90_mgga_c_pkzb_set_par(p, beta, d, C0_0, C0_1, C0_2, C0_3)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(inout) :: p
+      real(xc_f90_kind),       intent(in)    :: beta
+      real(xc_f90_kind),       intent(in)    :: d
+      real(xc_f90_kind),       intent(in)    :: C0_0
+      real(xc_f90_kind),       intent(in)    :: C0_1
+      real(xc_f90_kind),       intent(in)    :: C0_2
+      real(xc_f90_kind),       intent(in)    :: C0_3
+    end subroutine xc_f90_mgga_c_pkzb_set_par
+  end interface
+  
 end module xc_f90_lib_m
 
 !! Local Variables:

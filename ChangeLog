@@ -1,4 +1,4 @@
-## [4.3.0] - 2019-01-29
+## [4.3.0] - 2019-01-30
 
 ### Added
 - Several set_params functions to the API. These functions were removed from the API in version 4.0.0 and will be removed again in version 5.0.0, where they will be replaced by a more generic API.

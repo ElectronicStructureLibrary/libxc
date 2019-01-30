@@ -7,12 +7,12 @@ import pylibxc
 
 def test_xc_version():
 
-    assert (4, 2, 3) == pylibxc.util.xc_version()
+    assert (4, 3, 0) == pylibxc.util.xc_version()
 
 
 def test_xc_string():
 
-    assert "4.2.3" == pylibxc.util.xc_version_string()
+    assert "4.3.0" == pylibxc.util.xc_version_string()
 
 
 def test_xc_functional_get_number():

@@ -13,6 +13,7 @@
 ### Changed
 - External parameters structure to include the name of the parameter. The name of the internal parameters is prepended with an underscore.
 - Maple framework to generate the C code. In the new framework, the whole functional is handled by Maple, allowing the introduction of a unpolarized, ferromagnetic, and polarized case such that limiting cases are better handled.
+- Integer type to c_int type in all Fortran 2003 interfaces.
 
 ## [4.3.0] - 2019-01-30
 

@@ -7,6 +7,11 @@
 - MGGA functionals: X_RTPSS.
 - Worker functionals: LDA_K_GDS08_WORKER.
 
+## [4.3.1] - 2019-02-05
+
+### Fixed
+- Inclusion of xc_mgga_c_pkzb_set_params function in the public API, as this function does not exist anymore.
+
 ## [4.3.0] - 2019-01-30
 
 ### Added

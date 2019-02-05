@@ -724,17 +724,6 @@ module xc_f90_lib_m
       real(xc_f90_kind),       intent(in)    :: css
       real(xc_f90_kind),       intent(in)    :: copp
     end subroutine xc_f90_mgga_c_bc95_set_par
-  
-    subroutine xc_f90_mgga_c_pkzb_set_par(p, beta, d, C0_0, C0_1, C0_2, C0_3)
-      use xc_f90_types_m
-      type(xc_f90_pointer_t), intent(inout) :: p
-      real(xc_f90_kind),       intent(in)    :: beta
-      real(xc_f90_kind),       intent(in)    :: d
-      real(xc_f90_kind),       intent(in)    :: C0_0
-      real(xc_f90_kind),       intent(in)    :: C0_1
-      real(xc_f90_kind),       intent(in)    :: C0_2
-      real(xc_f90_kind),       intent(in)    :: C0_3
-    end subroutine xc_f90_mgga_c_pkzb_set_par
   end interface
   
 end module xc_f90_lib_m

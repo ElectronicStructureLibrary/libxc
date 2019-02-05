@@ -508,10 +508,4 @@ void FC_FUNC(f90_mgga_c_bc95_set_par, F90_MGGA_C_BC95_SET_PAR)
   xc_mgga_c_bc95_set_params((xc_func_type *)(*p), *css, *copp);
 }
 
-void FC_FUNC(f90_mgga_c_pkzb_set_par, F90_MGGA_C_PKZB_SET_PAR)
-  (void **p, double *beta, double *d, double *C0_0, double *C0_1, double *C0_2, double *C0_3)
-{
-  xc_mgga_c_pkzb_set_params((xc_func_type *)(*p), *beta, *d, *C0_0, *C0_1, *C0_2, *C0_3);
-}
-
 #endif

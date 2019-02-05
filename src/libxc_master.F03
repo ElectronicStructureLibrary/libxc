@@ -131,8 +131,7 @@ module xc_f03_lib_m
     xc_f03_mgga_fxc, &
     xc_f03_mgga_x_tpss_set_params, &
     xc_f03_mgga_c_tpss_set_params, &
-    xc_f03_mgga_c_bc95_set_params, &
-    xc_f03_mgga_c_pkzb_set_params
+    xc_f03_mgga_c_bc95_set_params
 
 
   integer(c_int), parameter, public :: &
@@ -691,12 +690,6 @@ module xc_f03_lib_m
       type(c_ptr), value :: p
       real(RTYPE), value :: css, copp
     end subroutine xc_mgga_c_bc95_set_params
-
-    subroutine xc_mgga_c_pkzb_set_params(p, beta, d, c0_0, c0_1, c0_2, c0_3) bind(c)
-      import
-      type(c_ptr), value :: p
-      real(RTYPE), value :: beta, d, c0_0, c0_1, c0_2, c0_3
-    end subroutine xc_mgga_c_pkzb_set_params
   end interface
 
   
@@ -1326,15 +1319,7 @@ module xc_f03_lib_m
 
   end subroutine xc_f03_mgga_c_bc95_set_params
 
-  subroutine xc_f03_mgga_c_pkzb_set_params(p, beta, d, c0_0, c0_1, c0_2, c0_3)
-    type(xc_f03_func_t), intent(inout) :: p
-    real(RTYPE),       intent(in)    :: beta, d, c0_0, c0_1, c0_2, c0_3
 
-    call xc_mgga_c_pkzb_set_params(p%ptr, beta, d, c0_0, c0_1, c0_2, c0_3)
-
-  end subroutine xc_f03_mgga_c_pkzb_set_params
-
-    
   ! Helper functions to convert between C and Fortran strings
   ! Based on the routines by Joseph M. Krahn
   function f_to_c_string(f_string) result(c_string)

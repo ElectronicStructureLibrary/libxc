@@ -16,6 +16,14 @@
 - Maple framework to generate the C code. In the new framework, the whole functional is handled by Maple, allowing the introduction of a unpolarized, ferromagnetic, and polarized case such that limiting cases are better handled.
 - Integer type to c_int type in all Fortran 2003 interfaces.
 
+## [4.3.2] - 2019-02-06
+
+### Fixed
+- Incorrect version number in Python interfaces.
+
+### Changed
+- Handling of version number in Python interfaces.
+
 ## [4.3.1] - 2019-02-05
 
 ### Fixed

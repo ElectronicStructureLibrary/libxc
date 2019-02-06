@@ -2218,3 +2218,10 @@ func_reference_type xc_ref_PachecoKato2016_268 = {
 };
 
 
+func_reference_type xc_ref_Klimes2011_195131 = {
+  "J. Klime\\v{s}, D. R. Bowler, and A. Michaelides, Phys. Rev. B 83, 195131 (2011)",
+  "10.1103/PhysRevB.83.195131",
+  "@article{Klimes2011_195131,\n  title = {Van der Waals density functionals applied to solids},\n  author = {Klime\\v{s}, Ji\\v{r}\\'{i} and Bowler, David R. and Michaelides, Angelos},\n  journal = {Phys. Rev. B},\n  volume = {83},\n  issue = {19},\n  pages = {195131},\n  numpages = {13},\n  year = {2011},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.83.195131},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.83.195131}\n}"
+};
+
+

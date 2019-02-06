@@ -326,6 +326,7 @@ extern func_reference_type xc_ref_Karasiev2006_111;
 extern func_reference_type xc_ref_Becke1998_2092;
 extern func_reference_type xc_ref_Garza2018_3083;
 extern func_reference_type xc_ref_Furness2018;
+extern func_reference_type xc_ref_Furness2019_041119;
 extern func_reference_type xc_ref_Tozer1996_9200;
 extern func_reference_type xc_ref_PachecoKato2016_268;
 extern func_reference_type xc_ref_Klimes2011_195131;

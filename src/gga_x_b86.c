@@ -48,7 +48,7 @@ gga_x_b86_init(xc_func_type *p)
     params->omega = 4.0/5.0;
     break;
   case XC_GGA_X_OPTB86B_VDW:
-    mu = 0.1234;
+    mu = MU_GE;
     params->beta  = mu*X2S*X2S;
     params->gamma = mu*X2S*X2S;
     params->omega = 4.0/5.0;

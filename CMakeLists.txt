@@ -370,9 +370,15 @@ include_directories(${PROJECT_SOURCE_DIR}/${src_prefix}  # for util.h
                     ${gen_dir})  # for xc_funcs.h
 
 if(BUILD_TESTING)
-    find_package(BZip2 REQUIRED) 
-    enable_testing ()
-    add_subdirectory(testsuite)
+    find_program(BZip2_EXECUTABLE
+             NAMES bzip2
+             DOC "Path to zipping utility")
+    if(BZip2_EXECUTABLE)
+        enable_testing ()
+        add_subdirectory(testsuite)  
+    else()
+        message(FATAL_ERROR "Install `bzip2` command to enable tests")
+    endif()
 endif()
 
 # <<<  Install  >>>

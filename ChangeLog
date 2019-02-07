@@ -1,7 +1,11 @@
 ## [4.3.2] - 2019-02-06
 
+### Added
+- Check for bzip2 utility in CMake builds.
+
 ### Fixed
 - Incorrect version number in Python interfaces.
+- CMake build of Fortran interfaces. The build was failing due to non-existent file.
 
 ### Changed
 - Handling of version number in Python interfaces.

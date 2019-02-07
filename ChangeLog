@@ -20,6 +20,8 @@
 
 ### Fixed
 - Incorrect version number in Python interfaces.
+- CMake build of Fortran interfaces. The build was failing due to non-existent file.
+- NaN issues in MGGA_X_TM.
 
 ### Changed
 - Handling of version number in Python interfaces.

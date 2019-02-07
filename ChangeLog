@@ -1,4 +1,4 @@
-## [4.3.2] - 2019-02-06
+## [4.3.2] - 2019-02-07
 
 ### Added
 - Check for bzip2 utility in CMake builds.

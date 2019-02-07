@@ -30,7 +30,7 @@
 - Installation of pkg-config `.pc` file with CMake.
 
 ### Deprecated
-- Forrtran 90 bindings. These are replaced by the Fortran 2003 bindings and should be removed in version 5.0.0.
+- Fortran 90 bindings. These are replaced by the Fortran 2003 bindings and should be removed in version 5.0.0.
 
 ## [4.2.3] - 2018-07-02
 

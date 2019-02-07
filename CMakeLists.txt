@@ -343,10 +343,6 @@ if(ENABLE_FORTRAN OR ENABLE_FORTRAN03)
         target_link_libraries(xcf03 xc)
         set_target_properties(xcf03 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
     endif()
-
-    # test Fortran interface
-    add_executable(ex_f90 "examples/basic.f90")
-    target_link_libraries(ex_f90 xcf90)
 endif()
 
 # run get_funcs.pl to generate headers for xc inclusion
@@ -374,6 +370,7 @@ include_directories(${PROJECT_SOURCE_DIR}/${src_prefix}  # for util.h
                     ${gen_dir})  # for xc_funcs.h
 
 if(BUILD_TESTING)
+    find_package(BZip2 REQUIRED) 
     enable_testing ()
     add_subdirectory(testsuite)
 endif()

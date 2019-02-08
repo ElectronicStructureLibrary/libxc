@@ -6,7 +6,7 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-  Maple version     : Maple 2017 (X86 64 LINUX)
+  Maple version     : Maple 2018 (X86 64 LINUX)
   Maple source      : ../maple/mgga_x_msb.mpl
   Type of functional: work_mgga_x
 */
@@ -25,7 +25,7 @@ xc_mgga_x_msb_enhance(const xc_func_type *pt, xc_mgga_work_x_t *r)
   double t137, t138, t145, t149, t166, t180, t194, t213;
 
   mgga_x_msb_params *params;
- 
+
   assert(pt->params != NULL);
   params = (mgga_x_msb_params * ) (pt->params);
 
@@ -41,7 +41,7 @@ xc_mgga_x_msb_enhance(const xc_func_type *pt, xc_mgga_work_x_t *r)
   t16 = r->t - t7 / 0.8e1;
   t17 = t16 * t16;
   t18 = t1 * t1;
-  t21 = r->t - 0.3e1 / 0.10e2 * t18 * t4;
+  t21 = 0.3e1 / 0.10e2 * t18 * t4 + r->t;
   t22 = t21 * t21;
   t23 = 0.1e1 / t22;
   t25 = -t17 * t23 + 0.1e1;

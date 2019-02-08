@@ -31,14 +31,14 @@ malpha := (x, t) -> (t - x^2/8)/K_FACTOR_C:
 qtilde := (x, t) -> 9/20*(malpha(x, t) - 1) + 2*p(x)/3:
 
 (* Ratio tW/t; we have to make sure it's 1 at maximum *)
-tratio := t -> m_min(1.0, K_FACTOR_C/t):
+tratio := (x, t) -> m_min(1.0, x^2/(8*t)):
 
 fx_SC := (x, t) -> (1 + 10*( \
        + (MU_GE + 50*p(x)/729)*p(x) + 146*qtilde(x, t)^2/2025 \
-       - 73*qtilde(x,t)/405*(3/5*tratio(t))*(1 - tratio(t)))
+       - 73*qtilde(x,t)/405*(3/5*tratio(x,t))*(1 - tratio(x,t)))
        )^(1/10):
 
 (* Equation 10 and below *)
-w := t-> (tratio(t)^2 + 3*tratio(t)^3)/(1 + tratio(t)^3)^2:
+w := (x,t)-> (tratio(x,t)^2 + 3*tratio(x,t)^3)/(1 + tratio(x,t)^3)^2:
 
-f := (rs, x, t, u) -> w(t)*fx_DME(x, t) + (1 - w(t))*fx_SC(x, t):
+f := (rs, x, t, u) -> w(x,t)*fx_DME(x, t) + (1 - w(x,t))*fx_SC(x, t):

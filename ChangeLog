@@ -17,6 +17,11 @@
 - Integer type to c_int type in all Fortran 2003 interfaces.
 - MGGA_C_TPSS to enforce z = tW/t <= 1 condition.
 
+## [4.3.3] - 2019-02-11
+### Fixed
+- Missing pylibxc/version.py file from tarball.
+- Incompatible code with Python 3 in setup.py.
+
 ## [4.3.2] - 2019-02-07
 
 ### Fixed

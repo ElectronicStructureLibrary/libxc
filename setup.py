@@ -59,7 +59,7 @@ class CMakeBuild(build_ext):
 
 
 if __name__ == "__main__":
-    execfile(os.path.join(os.path.abspath(os.path.dirname(__file__)), "pylibxc/version.py"))
+    exec(open(os.path.join(os.path.abspath(os.path.dirname(__file__)), "pylibxc/version.py")).read())
     setup(
         name='pylibxc',
         version=__version__,

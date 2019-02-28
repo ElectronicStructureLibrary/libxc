@@ -7,12 +7,17 @@
 *)
 
 (* type: work_mgga_x *)
+(* prefix:
+  mgga_x_br89_params *params;
+
+  assert(pt->params != NULL);
+  params = (mgga_x_br89_params * )(pt->params);
+*)
 
 br89_a := [0, 1, 0, -2, 0, 1]:
 fw := t -> mgga_series_w(br89_a, 6, t):
 
-br89_gamma := 0.8:
-br89_Q := (x, t, u) -> (u - 4*t*br89_gamma*Fermi_D(x, t))/6:
+br89_Q := (x, t, u) -> (u - 4*t*params_a_gamma*Fermi_D(x, t))/6:
 br89_y := (x, t, u) -> 2*Pi^(2/3)/(3*br89_Q(x, t, u)):
 
 (* lower piece *)

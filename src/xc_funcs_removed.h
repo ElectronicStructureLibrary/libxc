@@ -20,6 +20,7 @@
 #define XC_LDA_C_LP_A         547 /* the next 3 functionals should be XC, not C */
 #define XC_LDA_C_LP_B         548
 #define XC_MGGA_C_LP90        564
+#define XC_GGA_C_BCGP          39 /* renamed to gga_c_acgga by request of authors */
 
 /* These are functionals that were removed */
 #define XC_GGA_XC_B97      167 /* Becke 97                                 */

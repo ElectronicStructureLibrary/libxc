@@ -2253,3 +2253,10 @@ func_reference_type xc_ref_Haiduke2018_184106 = {
 };
 
 
+func_reference_type xc_ref_Cancio2018_084116 = {
+  "A. Cancio, G. P. Chen, B. T. Krull, and K. Burke, J. Chem. Phys. 149, 084116 (2018), https://doi.org/10.1063/1.5021597",
+  "10.1063/1.5021597",
+  "@article{Cancio2018_084116,\n author = {Cancio, Antonio and Chen, Guo P. and Krull, Brandon T. and Burke, Kieron},\n title = {Fitting a round peg into a round hole: Asymptotically correcting the generalized gradient approximation for correlation},\n journal = {The Journal of Chemical Physics},\n volume = {149},\n number = {8},\n pages = {084116},\n year = {2018},\n doi = {10.1063/1.5021597},\n URL = {https://doi.org/10.1063/1.5021597},\n eprint = {https://doi.org/10.1063/1.5021597}\n}"
+};
+
+

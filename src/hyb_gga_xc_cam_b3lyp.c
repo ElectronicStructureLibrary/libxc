@@ -10,12 +10,11 @@
 
 #define XC_HYB_GGA_XC_CAM_B3LYP        433 /* CAM version of B3LYP */
 #define XC_HYB_GGA_XC_TUNED_CAM_B3LYP  434 /* CAM version of B3LYP tuned for excitations*/
-#define XC_HYB_GGA_XC_CAM_QTP_01       482 /* CAM-QTP(01): CAM-B3LYP retuned using ionization potentials of water */
 
 void
 xc_hyb_gga_xc_cam_b3lyp_init(xc_func_type *p)
 {
-  double ac;
+  double ac = 0.81;
   static int   funcs_id  [4] = {XC_GGA_X_B88, XC_GGA_X_ITYH, XC_LDA_C_VWN, XC_GGA_C_LYP};
   double funcs_coef[4];
   
@@ -34,21 +33,12 @@ xc_hyb_gga_xc_cam_b3lyp_init(xc_func_type *p)
     omega = 0.33;
     alpha = 0.65;
     beta  =-0.46;
-    ac = 0.81;
     break;
   case XC_HYB_GGA_XC_TUNED_CAM_B3LYP:
     /* The same note applies here. */
     omega = 0.150;
     alpha = 1.0000;
     beta  =-0.9201;
-    ac = 0.81;
-    break;
-  case XC_HYB_GGA_XC_CAM_QTP_01:
-    /* The same note applies here. */
-    omega = 0.31;
-    alpha = 1.00;
-    beta  =-0.77;
-    ac = 0.80;
     break;
   default:
     fprintf(stderr,"Internal error in hyb_gga_xc_cam_b3lyp_init.\n");
@@ -88,19 +78,6 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_tuned_cam_b3lyp = {
   "CAM version of B3LYP, tuned for excitations and properties",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Okuno2012_29, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
-  1e-32,
-  0, NULL, NULL,
-  xc_hyb_gga_xc_cam_b3lyp_init,
-  NULL, NULL, NULL, NULL
-};
-
-const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_01 = {
-  XC_HYB_GGA_XC_CAM_QTP_01,
-  XC_EXCHANGE_CORRELATION,
-  "CAM-B3LYP retuned using ionization potentials of water",
-  XC_FAMILY_HYB_GGA,
-  {&xc_ref_Jin2016_034107, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-32,
   0, NULL, NULL,

@@ -1953,7 +1953,7 @@ func_reference_type xc_ref_Handy2002_5411 = {
 
 
 func_reference_type xc_ref_Zhao2005_2012 = {
-  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem. A 109, 2012 (2005), pMID: 16833536",
+  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem A 109, 2012 (2005), pMID: 16833536",
   "10.1021/jp045141s",
   "@article{Zhao2005_2012,\nauthor = {Zhao, Yan and González-García, Núria and Truhlar, Donald G.},\ntitle = {Benchmark Database of Barrier Heights for Heavy Atom Transfer, Nucleophilic Substitution, Association, and Unimolecular Reactions and Its Use to Test Theoretical Methods},\njournal = {The Journal of Physical Chemistry A},\nvolume = {109},\nnumber = {9},\npages = {2012-2018},\nyear = {2005},\ndoi = {10.1021/jp045141s},\nnote ={PMID: 16833536},\nURL = {http://dx.doi.org/10.1021/jp045141s},\neprint = {http://dx.doi.org/10.1021/jp045141s}\n}"
 };
@@ -2198,9 +2198,9 @@ func_reference_type xc_ref_Garza2018_3083 = {
 
 
 func_reference_type xc_ref_Furness2018 = {
-  "J. W. {Furness and J. {Sun}, }ArXiv e-prints (2018), arXiv:1805.11707 [physics.chem-ph]",
+  "J. W. {Furness and J. {Sun}, }ArXiv e-prints (2018), arXiv:1805.11707v1 [physics.chem-ph]",
   "",
-  "@article{Furness2018,\n author = {{Furness}, J.~W and {Sun}, J.},\n title = \"{Enhancing the efficiency of density functionals with a novel iso-orbital indicator}\",\n journal = {ArXiv e-prints},\n archivePrefix = \"arXiv\",\n eprint = {1805.11707},\n primaryClass = \"physics.chem-ph\",\n keywords = {Physics - Chemical Physics},\n year = 2018,\n month = may,\n adsurl = {http://adsabs.harvard.edu/abs/2018arXiv180511707F},\n adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
+  "@article{Furness2018,\n author = {{Furness}, J.~W and {Sun}, J.},\n title = \"{Enhancing the efficiency of density functionals with a novel iso-orbital indicator}\",\n journal = {ArXiv e-prints},\n archivePrefix = \"arXiv\",\n eprint = {1805.11707v1},\n primaryClass = \"physics.chem-ph\",\n keywords = {Physics - Chemical Physics},\n year = 2018,\n month = may,\n adsurl = {http://adsabs.harvard.edu/abs/2018arXiv180511707F},\n adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
 };
 
 
@@ -2229,6 +2229,27 @@ func_reference_type xc_ref_Klimes2011_195131 = {
   "J. Klime\\v{s}, D. R. Bowler, and A. Michaelides, Phys. Rev. B 83, 195131 (2011)",
   "10.1103/PhysRevB.83.195131",
   "@article{Klimes2011_195131,\n  title = {Van der Waals density functionals applied to solids},\n  author = {Klime\\v{s}, Ji\\v{r}\\'{i} and Bowler, David R. and Michaelides, Angelos},\n  journal = {Phys. Rev. B},\n  volume = {83},\n  issue = {19},\n  pages = {195131},\n  numpages = {13},\n  year = {2011},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.83.195131},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.83.195131}\n}"
+};
+
+
+func_reference_type xc_ref_Austin2012_4989 = {
+  "A. Austin, G. A. Petersson, M. J. Frisch, F. J. Dobek, G. Scalmani, and K. Throssell, J. Chem. Theory Comput. 8, 4989 (2012), pMID: 26593191, https://doi.org/10.1021/ct300778e",
+  "10.1021/ct300778e",
+  "@article{Austin2012_4989,\n  author = {Austin, Amy and Petersson, George A. and Frisch, Michael J. and Dobek, Frank J. and Scalmani, Giovanni and Throssell, Kyle},\n  title = {A Density Functional with Spherical Atom Dispersion Terms},\n  journal = {Journal of Chemical Theory and Computation},\n  volume = {8},\n  number = {12},\n  pages = {4989-5007},\n  year = {2012},\n  doi = {10.1021/ct300778e},\n  note ={PMID: 26593191},\n  URL = {https://doi.org/10.1021/ct300778e},\n  eprint = {https://doi.org/10.1021/ct300778e}\n}"
+};
+
+
+func_reference_type xc_ref_Verma2014_18A534 = {
+  "P. Verma and R. J. Bartlett, J. Chem. Phys. 140, 18A534 (2014), https://doi.org/10.1063/1.4871409",
+  "10.1063/1.4871409",
+  "@article{Verma2014_18A534,\n  author = {Verma, Prakash and Bartlett, Rodney J.},\n  title = {Increasing the applicability of density functional theory. IV. Consequences of ionization-potential improved exchange-correlation potentials},\n  journal = {The Journal of Chemical Physics},\n  volume = {140},\n  number = {18},\n  pages = {18A534},\n  year = {2014},\n  doi = {10.1063/1.4871409},\n  URL = {https://doi.org/10.1063/1.4871409},\n  eprint = {https://doi.org/10.1063/1.4871409}\n}"
+};
+
+
+func_reference_type xc_ref_Haiduke2018_184106 = {
+  "R. L. A. Haiduke and R. J. Bartlett, J. Chem. Phys. 148, 184106 (2018), https://doi.org/10.1063/1.5025723",
+  "10.1063/1.5025723",
+  "@article{Haiduke2018_184106,\n  author = {Haiduke, Roberto Luiz A. and Bartlett, Rodney J.},\n  title = {Non-empirical exchange-correlation parameterizations based on exact conditions from correlated orbital theory},\n  journal = {The Journal of Chemical Physics},\n  volume = {148},\n  number = {18},\n  pages = {184106},\n  year = {2018},\n  doi = {10.1063/1.5025723},\n  URL = {https://doi.org/10.1063/1.5025723},\n  eprint = {https://doi.org/10.1063/1.5025723}\n}"
 };
 
 

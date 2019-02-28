@@ -15,7 +15,7 @@
 void
 xc_hyb_gga_xc_cam_b3lyp_init(xc_func_type *p)
 {
-  static double ac = 0.81;
+  double ac;
   static int   funcs_id  [4] = {XC_GGA_X_B88, XC_GGA_X_ITYH, XC_LDA_C_VWN, XC_GGA_C_LYP};
   static double funcs_coef[4];
 
@@ -34,18 +34,21 @@ xc_hyb_gga_xc_cam_b3lyp_init(xc_func_type *p)
     omega = 0.33;
     alpha = 0.65;
     beta  =-0.46;
+    ac = 0.81;
     break;
   case XC_HYB_GGA_XC_TUNED_CAM_B3LYP:
     /* The same note applies here. */
     omega = 0.150;
     alpha = 1.0000;
     beta  =-0.9201;
+    ac = 0.81;
     break;
   case XC_HYB_GGA_XC_CAM_QTP_01:
     /* The same note applies here. */
     omega = 0.31;
     alpha = 1.00;
     beta  =-0.77;
+    ac = 0.80;
     break;
   default:
     fprintf(stderr,"Internal error in hyb_gga_xc_cam_b3lyp_init.\n");

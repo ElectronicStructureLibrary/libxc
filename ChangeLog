@@ -1,4 +1,13 @@
+## [4.3.4] - 2019-03-04
+
+### Fixed
+- Bug in XC_HYB_GGA_XC_CAM_QTP_01. Functional erroneously had 81% LYP and 19% VWN5, whereas it is supposed to have 80% LYP and 20% VWN5 correlation.
+
+## Changed
+- Authors list.
+
 ## [4.3.3] - 2019-02-11
+
 ### Fixed
 - Missing pylibxc/version.py file from tarball.
 - Incompatible code with Python 3 in setup.py.

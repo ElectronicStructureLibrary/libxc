@@ -3,9 +3,10 @@
 ### Added
 - Framework to include worker functionals. These functionals are not intended to be use on their own, but as part of other functionals.
 - LDA functionals: C_PMGB06, XC_BN05, XC_TIH.
-- GGA functionals: X_LSPBE, X_LSRPBE, XC_KT3, XC_LB07, K_GDS08, K_GHDS10, K_GHDS10R, K_TKVLN, X_OPTB86B_VDW.
-- HYB_GGA: XC_LC_WPBE_WHS, XC_LC_WPBEH_WHS, XC_LC_WPBE08_WHS, XC_LC_WPBESOL_WHS.
-- MGGA functionals: X_RTPSS, X_MS2B, X_MS2BS, X_MVSB, X_MVSBS, C_TM.
+- GGA functionals: X_LSPBE, X_LSRPBE, XC_KT3, XC_LB07, K_GDS08, K_GHDS10, K_GHDS10R, K_TKVLN, X_OPTB86B_VDW, C_ACGGAP.
+- HYB_GGA: XC_LC_WPBE_WHS, XC_LC_WPBEH_WHS, XC_LC_WPBE08_WHS, XC_LC_WPBESOL_WHS, XC_APF, XC_CAM_QTP_00, XC_CAM_QTP_02, XC_LC_QTP.
+- MGGA functionals: X_RTPSS, X_MS2B, X_MS2BS, X_MVSB, X_MVSBS, C_TM, X_BR89_1, X_BR89_EXPLICIT_1, C_REVM11.
+- HYB_MGGA functionals: X_REVM11.
 - Worker functionals: LDA_K_GDS08_WORKER.
 - Correction to the Fermi_D term in MGGA_C_M05, MGGA_C_M05_2X, and MGGA_C_DLDF to avoid divergences when the kinetic energy density is zero, but not the density. This is similar to the correction proposed in from JCP 127, 214103 (2007). The correction is controlled by the `Fermi_D_cnst` external parameter, and its default value is 1e-10.
 - Access to the internal parameters of several functionals. This is done using the same functions as for the external parameters.
@@ -16,6 +17,7 @@
 - Maple framework to generate the C code. In the new framework, the whole functional is handled by Maple, allowing the introduction of a unpolarized, ferromagnetic, and polarized case such that limiting cases are better handled.
 - Integer type to c_int type in all Fortran 2003 interfaces.
 - MGGA_C_TPSS to enforce z = tW/t <= 1 condition.
+- XC_GGA_C_BCGP to XC_GGA_C_ACGGA, upon request by Antonio Cancio, keeping the old constant for backward compatibility.
 
 ## [4.3.4] - 2019-03-04
 

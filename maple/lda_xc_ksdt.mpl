@@ -38,13 +38,14 @@ cc := (c, e, t) -> (c[1] + c[2]*exp(-c[3]/t))*ee(e, t):
 fxc := (omega, b, c, d, e, rs, t) ->
     -(omega*aa(t) + bb(b, t)*sqrt(rs) + cc(c, e, t)*rs)/(rs*(1 + dd(d, t)*sqrt(rs) + ee(e, t)*rs)):
 
-temp := max(params_a_T, 1e-8):
-mtt := rs -> 2*(4/(9*Pi))^(2/3)*temp*rs^2:
+# (T/T_F)*(1+z)^(2/3)
+mtt := (rs, z) ->
+    2*(4/(9*Pi))^(2/3)*params_a_T*rs^2*(1 + params_a_thetaParam*z)^(2/3):
 
 f := (rs, z) ->
   + fxc(1,
         params_a_b_0_, params_a_c_0_, params_a_d_0_, params_a_e_0_,
-        rs, mtt(rs))*(1 - phi(alpha(mtt(rs), rs), z))
+        rs, mtt(rs, z))*(1 - phi(alpha(mtt(rs, z), rs), z))
   + fxc(2^(1/3),
         params_a_b_1_, params_a_c_1_, params_a_d_1_, params_a_e_1_,
-        rs, mtt(rs))*phi(alpha(mtt(rs), rs), z):
+        rs, mtt(rs, z)/2^(2/3))*phi(alpha(mtt(rs, z), rs), z):

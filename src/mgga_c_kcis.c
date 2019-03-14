@@ -21,7 +21,7 @@ const xc_func_info_type xc_func_info_mgga_c_kcis = {
   XC_CORRELATION,
   "Krieger, Chen, Iafrate, and Savin",
   XC_FAMILY_MGGA,
-  {&xc_ref_Rey1998_581, &xc_ref_Krieger1999_463, &xc_ref_Krieger2001_48, &xc_ref_Toulouse2002_10465, NULL},
+  {&xc_ref_Rey1998_581, &xc_ref_Krieger1999_463, &xc_ref_Krieger2001_48, &xc_ref_Kurth1999_889, &xc_ref_Toulouse2002_10465},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_DEVELOPMENT,
   1e-24,
   0, NULL, NULL,

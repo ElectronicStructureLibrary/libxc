@@ -14,16 +14,18 @@ $include "lda_c_pw.mpl"
 
 (* Parameters from Table 6 *)
 gap_par0 := [
-   0.04953, 1.07924, 0.07928, (* a1, a2, a3 *)
+   0.04953, 1.07924, 0.07028, (* a1, a2, a3 *)
   -2.504e-2, 7.026e-3, -1.268e-3, 1.136e-4, -3.841e-6, (* b3, b4, b5, b6, b7 *)
-   0.031091, (* params_a_a of lda_c_pw *)
-   0.23878   (* pre-factor of C *)
+   0.031091,  (* params_a_a of lda_c_pw *)
+   0.23878,   (* pre-factor of C = 0.06483*((9*Pi)/4)^(2/3) *)
+   1.0, 1.0, 1.0 (* pre-factor of c_1, c_2, and c_3 *)
 ]:
 gap_par1 := [
    0.0471985, 1.49676, 0.00179054,
   -3.24091e-2, 9.99978e-3, -1.93483e-3, 1.79118e-4, -6.15798e-6,
    0.015545,
-   0.064535
+   0.064535,
+   1.0, 1.0, 1.0
 ]:
 
 (* Equation (20): e'(rs) *)
@@ -38,15 +40,15 @@ gap_C := (rs, par) -> par[10]/rs^2:
 
 (* Equation (17) *)
 gap_c2 := (rs, z, par) ->
-  + (2*f_pw(rs, z)*gap_eps_1(rs, par) - gap_C(rs, par)*gap_eps_2(rs, par))
+  + par[12]*(2*f_pw(rs, z)*gap_eps_1(rs, par) - gap_C(rs, par)*gap_eps_2(rs, par))
   / (2*(gap_C(rs, par)*gap_eps_1(rs, par) - f_pw(rs, z)^2)):
 (* Equation (18) *)
 gap_c3 := (rs, z, par) ->
-  - (2*gap_eps_1(rs, par)^2 - f_pw(rs, z)*gap_eps_2(rs, par))
+  - par[13]*(2*gap_eps_1(rs, par)^2 - f_pw(rs, z)*gap_eps_2(rs, par))
   / (2*(gap_C(rs, par)*gap_eps_1(rs, par) - f_pw(rs, z)^2)):
 (* Equation (16) *)
 gap_c1 := (rs, z, par) ->
-  - gap_C(rs, par) * gap_c3(rs, z, par):
+  - (par[11]/par[13])*gap_C(rs, par) * gap_c3(rs, z, par):
 
 (* after Equation (6): a = 30 is a parameter fixed by minimizing the
 variance of the correlation energy error for the noble gas atoms He,

@@ -8,19 +8,44 @@
 
 (* type: work_mgga_c *)
 
+(* Equations are from the Appendix of Kurth1999_889 *)
+
 $include "gga_c_gapc.mpl"
 
-(* The gap function gap_G is simply |nabla rho|^2/(8 rho^2) in KCIS *)
-gap_G := (rs, z, xt, par) -> xt^2*n_total(rs)^(2/3)/8:
+gap_par0[10] = 0.06483*((9*Pi)/4)^(2/3): (* this is approximately equal to 0.23878 *)
 
+(* Eq. (A4) *)
+kcis_G := (rs, xt) -> xt^2*n_total(rs)^(2/3)/8:
+
+(* Eq. (A9) *)
+kcis_t := (rs, xt) -> 2^(2/3)*xt/(8*sqrt(rs)):
+
+kcis_beta := 0.066725:
+
+(* Eq. (A7) *)
+kcis_gga0 := (rs, xt) -> f_pw(rs, 0)/(1 + kcis_beta*log(1 + kcis_t(rs, xt)^2/m_abs(f_pw(rs, 0)))):
+
+(* Eq. (A8) *)
+kcis_gga1 := (rs, xt) -> f_pw(rs, 1)/(1 + kcis_beta*log(1 + 2^(-1/3)*kcis_t(rs, xt)^2/m_abs(f_pw(rs, 1)))):
+
+(* Eq. (A5) *)
 (* The polarized parameters are the same as the unpolarized ones *)
 (* except that c_1, c_2, c_3 are multiplied by 0.7. 1.5, and 2.59 respectively *)
-gap_par0[10] = 0.06483*((9*Pi)/4)^(2/3): (* this is approximately equal to 0.23878 *)
-gap_par1 = gap_par0:
-gap_par1[11] = 0.7:
-gap_par1[12] = 1.5:
-gap_par1[13] = 2.59:
+kcis_eps_0 := (rs, xt) ->
+  + (kcis_gga0(rs, xt) + gap_c1(rs, 0, gap_par0)*kcis_G(rs, xt))
+  / (1 + gap_c2(rs, 0, gap_par0)*kcis_G(rs, xt) + gap_c3(rs, 0, gap_par0)*kcis_G(rs, xt)^2):
 
+(* Eq. (A6) *)
+kcis_eps_1 := (rs, xt) ->
+  + (kcis_gga1(rs, xt) + 0.7*gap_c1(rs, 0, gap_par0)*kcis_G(rs, xt))
+  / (1 + 1.5*gap_c2(rs, 0, gap_par0)*kcis_G(rs, xt) + 2.59*gap_c3(rs, 0, gap_par0)*kcis_G(rs, xt)^2):
+
+(* Eq. (A2) *)
+f_gap := (rs, z, xt) ->
+  + kcis_eps_0(rs, xt)
+  + f_zeta(z)*(kcis_eps_1(rs, xt) - kcis_eps_0(rs, xt)):
+
+(* Eq. (A1) *)
 f_kcis := (rs, z, xt, xs0, xs1, ts0, ts1) ->
   + f_gap(rs, z, xt)
   - xs0^2/(8*ts0) * (1 + z)/2 * f_gap(rs,  1, xs0)

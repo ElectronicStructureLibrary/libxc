@@ -335,3 +335,4 @@ extern func_reference_type xc_ref_Verma2014_18A534;
 extern func_reference_type xc_ref_Haiduke2018_184106;
 extern func_reference_type xc_ref_Cancio2018_084116;
 extern func_reference_type xc_ref_Verma2019;
+extern func_reference_type xc_ref_Kurth1999_889;

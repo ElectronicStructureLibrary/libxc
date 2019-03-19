@@ -18,7 +18,7 @@ gaploc_a1 :=  6.54613 + 2:
 gaploc_alpha := t  -> (gaploc_a1 + 3*t^3)/(1 + t^3):
 gaploc_s     := xt -> X2S*xt*2^(1/3):
 
-(* override definition of gap_C *)
+(* override definition of gap_G *)
 (* The pre-factor is completely different from the one in
    Equation (7). I used the "gfac" from the original code. *)
 gap_G := (rs, z, xt, par) -> (9*Pi/4)^(2/3)/2.0

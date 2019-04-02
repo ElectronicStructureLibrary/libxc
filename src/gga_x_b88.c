@@ -12,8 +12,6 @@
 #define XC_GGA_X_OPTB88_VDW   139 /* Becke 88 reoptimized to be used with vdW functional of Dion et al */
 #define XC_GGA_X_MB88         149 /* Modified Becke 88 for proton transfer */
 #define XC_GGA_X_EB88         271 /* Non-empirical (excogitated) B88 functional of Becke and Elliott */
-#define XC_GGA_K_LLP          522 /* Lee, Lee & Parr */
-#define XC_GGA_K_FR_B88       514 /* Fuentealba & Reyes (B88 version) */
 #define XC_GGA_X_B88M         570 /* Becke 88 reoptimized to be used with mgga_c_tau1 */
 
 typedef struct{
@@ -38,14 +36,6 @@ gga_x_b88_init(xc_func_type *p)
   case XC_GGA_X_OPTB88_VDW:
     params->beta  = 0.00336865923905927;
     params->gamma = 6.98131700797731;
-    break;
-  case XC_GGA_K_LLP:
-    params->beta  = X_FACTOR_C*0.0044188;
-    params->gamma = 0.0253/(X_FACTOR_C*0.0044188);
-    break;
-  case XC_GGA_K_FR_B88:
-    params->beta  = X_FACTOR_C*0.004596;
-    params->gamma = 0.02774/(X_FACTOR_C*0.004596);
     break;
   case XC_GGA_X_MB88:
     params->beta  = 0.0011;
@@ -83,10 +73,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 }
 
 
-#include "maple2c/gga_x_b88.c"
-
-#define func xc_gga_x_b88_enhance
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_b88.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_b88 = {
   XC_GGA_X_B88,
@@ -98,7 +86,7 @@ const xc_func_info_type xc_func_info_gga_x_b88 = {
   1e-25,
   2, ext_params, set_ext_params,
   gga_x_b88_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_optb88_vdw = {
@@ -111,7 +99,7 @@ const xc_func_info_type xc_func_info_gga_x_optb88_vdw = {
   1e-25,
   0, NULL, NULL,
   gga_x_b88_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_mb88 = {
@@ -124,7 +112,7 @@ const xc_func_info_type xc_func_info_gga_x_mb88 = {
   1e-25,
   0, NULL, NULL,
   gga_x_b88_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_eb88 = {
@@ -137,7 +125,7 @@ const xc_func_info_type xc_func_info_gga_x_eb88 = {
   1e-25,
   0, NULL, NULL,
   gga_x_b88_init,  NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_b88m = {
@@ -150,34 +138,5 @@ const xc_func_info_type xc_func_info_gga_x_b88m = {
   1e-25,
   0, NULL, NULL,
   gga_x_b88_init,  NULL, 
-  NULL, work_gga_x, NULL
-};
-
-#define XC_KINETIC_FUNCTIONAL
-#include "work_gga_x.c"
-
-const xc_func_info_type xc_func_info_gga_k_llp = {
-  XC_GGA_K_LLP,
-  XC_KINETIC,
-  "Lee, Lee & Parr",
-  XC_FAMILY_GGA,
-  {&xc_ref_Lee1991_768, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-25,
-  0, NULL, NULL,
-  gga_x_b88_init, NULL,
-  NULL, work_gga_k, NULL
-};
-
-const xc_func_info_type xc_func_info_gga_k_fr_b88 = {
-  XC_GGA_K_FR_B88,
-  XC_KINETIC,
-  "Fuentealba & Reyes (B88 version)",
-  XC_FAMILY_GGA,
-  {&xc_ref_Fuentealba1995_31, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-25,
-  0, NULL, NULL,
-  gga_x_b88_init, NULL,
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };

@@ -6,9 +6,13 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 
-mbeta  := 0.002105:
-mgamma := 0.000119:
+$define xc_dimensions_2d
 
-f := x -> (1 + mbeta*x^2)/(1 + mgamma*x^2):
+_2d_b86_beta  := 0.002105:
+_2d_b86_gamma := 0.000119:
+
+_2d_b86_f := x -> (1 + _2d_b86_beta*x^2)/(1 + _2d_b86_gamma*x^2):
+
+f := (rs, zeta, xt, xs0, xs1) -> gga_exchange(_2d_b86_f, rs, zeta, xs0, xs1):

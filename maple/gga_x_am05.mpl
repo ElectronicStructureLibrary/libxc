@@ -6,15 +6,17 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 
-c     :=  0.7168:
-alpha :=  2.804:
-d     := 28.23705740248932030511071641312341561894: (* POW(CBRT(4/3) * 2*M_PI/3, 4) *)
+am05_c     :=  0.7168:
+am05_alpha :=  2.804:
+am05_d     := 28.23705740248932030511071641312341561894: (* POW(CBRT(4/3) * 2*M_PI/3, 4) *)
 
-csi  := s -> (3/2 * LambertW(s^(3/2) / (2*sqrt(6))))^(2/3):
-fb   := s -> Pi/3 * s/(csi(s) * (d + csi(s)^2)^(1/4)):
-flaa := s -> (1 + c*s^2)/(1 + c*s^2/fb(s)):
-XX   := s -> 1 - alpha*s^2/(1 + alpha*s^2):
+am05_csi  := s -> (3/2 * LambertW(s^(3/2) / (2*sqrt(6))))^(2/3):
+am05_fb   := s -> Pi/3 * s/(am05_csi(s) * (am05_d + am05_csi(s)^2)^(1/4)):
+am05_flaa := s -> (1 + am05_c*s^2)/(1 + am05_c*s^2/am05_fb(s)):
+am05_XX   := s -> 1 - am05_alpha*s^2/(1 + am05_alpha*s^2):
 
-f    := x ->  XX(X2S*x) + (1 - XX(X2S*x))*flaa(X2S*x):
+am05_f    := x ->  am05_XX(X2S*x) + (1 - am05_XX(X2S*x))*am05_flaa(X2S*x):
+
+f := (rs, zeta, xt, xs0, xs1) -> gga_exchange(am05_f, rs, zeta, xs0, xs1):

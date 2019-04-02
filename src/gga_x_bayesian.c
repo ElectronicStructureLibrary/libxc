@@ -10,10 +10,8 @@
 
 #define XC_GGA_X_BAYESIAN          125 /* Bayesian best fit for the enhancement factor */
 
-#include "maple2c/gga_x_bayesian.c"
-
-#define func xc_gga_x_bayesian_enhance
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_bayesian.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_bayesian = {
   XC_GGA_X_BAYESIAN,
@@ -25,5 +23,5 @@ const xc_func_info_type xc_func_info_gga_x_bayesian = {
   1e-25,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };

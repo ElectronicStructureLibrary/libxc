@@ -6,9 +6,13 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 
-mbeta := 0.018641:
-mcsi  := 8: (* for harmonic potentials *)
+$define xc_dimensions_2d
 
-f := x -> 1 + mbeta/X_FACTOR_2D_C*x^2/(1 + mcsi*mbeta*x*arcsinh(x)):
+_2d_b88_beta := 0.018641:
+_2d_b88_csi  := 8: (* for harmonic potentials *)
+
+_2d_b88_f := x -> 1 + _2d_b88_beta/X_FACTOR_2D_C*x^2/(1 + _2d_b88_csi*_2d_b88_beta*x*arcsinh(x)):
+
+f := (rs, zeta, xt, xs0, xs1) -> gga_exchange(_2d_b88_f, rs, zeta, xs0, xs1):

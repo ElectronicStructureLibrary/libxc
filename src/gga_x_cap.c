@@ -11,10 +11,8 @@
 #define XC_GGA_X_CAP         270 /* Correct Asymptotic Potential */
 #define XC_HYB_GGA_XC_CAP0   477 /* Correct Asymptotic Potential hybrid */
 
-#include "maple2c/gga_x_cap.c"
-
-#define func maple2c_func
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_cap.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_cap = {
   XC_GGA_X_CAP,
@@ -25,9 +23,8 @@ const xc_func_info_type xc_func_info_gga_x_cap = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-24,
   0, NULL, NULL,
-  NULL, NULL, NULL,
-  work_gga_x,
-  NULL
+  NULL, NULL,
+  NULL, work_gga, NULL
 };
 
 void
@@ -53,6 +50,6 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cap0 = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_cap0_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_cap0_init, NULL,
+  NULL, NULL, NULL
 };

@@ -6,10 +6,10 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 
-s1 := 0.6:
-s2 := 2.6:
+htbs_s1 := 0.6:
+htbs_s2 := 2.6:
 
 (* The equations to solve in order to obtain the coeficients cc are
   G(s1) = 0
@@ -20,23 +20,25 @@ G''(s1) = 0
 G''(s2) = 0
 *)
 
-cc0 :=  s1^3*(s1^2 - 5*s1*s2 + 10*s2^2)/(s1 - s2)^5:
-cc1 := -30*s1^2*s2^2/(s1 - s2)^5:
-cc2 :=  30*s1*s2*(s1 + s2)/(s1 - s2)^5:
-cc3 := -10*(s1^2 + 4*s1*s2 + s2^2)/(s1 - s2)^5:
-cc4 :=  15*(s1 + s2)/(s1 - s2)^5:
-cc5 := -6/(s1 - s2)^5:
+htbs_cc0 :=  htbs_s1^3*(htbs_s1^2 - 5*htbs_s1*htbs_s2 + 10*htbs_s2^2)/(htbs_s1 - htbs_s2)^5:
+htbs_cc1 := -30*htbs_s1^2*htbs_s2^2/(htbs_s1 - htbs_s2)^5:
+htbs_cc2 :=  30*htbs_s1*htbs_s2*(htbs_s1 + htbs_s2)/(htbs_s1 - htbs_s2)^5:
+htbs_cc3 := -10*(htbs_s1^2 + 4*htbs_s1*htbs_s2 + htbs_s2^2)/(htbs_s1 - htbs_s2)^5:
+htbs_cc4 :=  15*(htbs_s1 + htbs_s2)/(htbs_s1 - htbs_s2)^5:
+htbs_cc5 := -6/(htbs_s1 - htbs_s2)^5:
 
 $define gga_x_rpbe_params
 $include "gga_x_rpbe.mpl"
 $include "gga_x_wc.mpl"
 
-g := s -> cc0 + cc1*s + cc2*s^2 + cc3*s^3 + cc4*s^4 + cc5*s^5:
+htbs_g := s -> htbs_cc0 + htbs_cc1*s + htbs_cc2*s^2 + htbs_cc3*s^3 + htbs_cc4*s^4 + htbs_cc5*s^5:
 
-f0 := s -> convert(piecewise(
-   s < s1, f0_wc(s),
-   s > s2, f0_rpbe(s),
-   g(s)*f0_rpbe(s) + (1 - g(s))*f0_wc(s)
+htbs_f0 := s -> convert(piecewise(
+   s < htbs_s1, wc_f0(s),
+   s > htbs_s2, rpbe_f0(s),
+   htbs_g(s)*rpbe_f0(s) + (1 - htbs_g(s))*wc_f0(s)
 ), 'Heaviside'):
 
-f  := x -> f0(X2S*x):
+htbs_f  := x -> htbs_f0(X2S*x):
+
+f := (rs, z, xt, xs0, xs1) -> gga_exchange(htbs_f, rs, z, xs0, xs1):

@@ -24,7 +24,7 @@ dist_noinst_SCRIPTS = util.mpl gvt4.mpl tpss_x.mpl attenuation.mpl	\
   gga_x_sg4.mpl gga_x_cap.mpl gga_x_lg93.mpl gga_x_pw86.mpl		\
   gga_x_dk87.mpl gga_x_ssb_sw.mpl gga_x_sogga11.mpl gga_x_optx.mpl	\
   gga_x_q2d.mpl gga_x_lv_rpw86.mpl gga_x_kt.mpl gga_x_ft97.mpl		\
-  gga_x_eg93.mpl gga_x_hcth_a.mpl gga_x_htbs.mpl gga_k_dk.mpl		\
+  gga_x_ev93.mpl gga_x_hcth_a.mpl gga_x_htbs.mpl gga_k_dk.mpl		\
   gga_k_meyer.mpl gga_k_ol1.mpl gga_k_ol2.mpl gga_k_pearson.mpl		\
   gga_k_tflw.mpl gga_x_2d_b86.mpl gga_x_2d_b86_mgc.mpl			\
   gga_x_2d_b88.mpl gga_x_2d_pbe.mpl gga_x_bpccac.mpl gga_x_vmt84.mpl	\

@@ -10,10 +10,8 @@
 
 #define XC_GGA_X_HTBS         191 /* Haas, Tran, Blaha, and Schwarz  */
 
-#include "maple2c/gga_x_htbs.c"
-
-#define func maple2c_func
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_htbs.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_htbs = {
   XC_GGA_X_HTBS,
@@ -25,5 +23,5 @@ const xc_func_info_type xc_func_info_gga_x_htbs = {
   1e-16,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };

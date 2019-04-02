@@ -6,14 +6,17 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 
-mbeta  :=  0.0042:
-mgamma :=  6:
-c0    :=  1.09878:
-c1    := -2.51173:
-c2    :=  0.0156233:
+hcth_a_beta  :=  0.0042:
+hcth_a_gamma :=  6:
+hcth_a_c0    :=  1.09878:
+hcth_a_c1    := -2.51173:
+hcth_a_c2    :=  0.0156233:
 
-f_aux := x -> 1 + mgamma*mbeta*x*arcsinh(x):
+hcth_a_aux := x -> 1 + hcth_a_gamma*hcth_a_beta*x*arcsinh(x):
 
-f := x -> c0 + mbeta/X_FACTOR_C*x^2*(c1/f_aux(x) + c2/(mbeta*f_aux(x)^2)):
+hcth_a_f := x -> hcth_a_c0 + hcth_a_beta/X_FACTOR_C*x^2*(hcth_a_c1/hcth_a_aux(x)
+     + hcth_a_c2/(hcth_a_beta*hcth_a_aux(x)^2)):
+
+f := (rs, z, xt, xs0, xs1) -> gga_exchange(hcth_a_f, rs, z, xs0, xs1):

@@ -10,10 +10,8 @@
 
 #define XC_GGA_X_PBEpow         539 /* PBE power */
 
-#include "maple2c/gga_x_pbepow.c"
-
-#define func xc_gga_x_pbepow_enhance
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_pbepow.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_pbepow = {
   XC_GGA_X_PBEpow,
@@ -25,6 +23,6 @@ const xc_func_info_type xc_func_info_gga_x_pbepow = {
   5e-3, /* Gives NaN for densities as small as 1e-3 */
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 

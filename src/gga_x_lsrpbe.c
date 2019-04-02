@@ -11,7 +11,6 @@
 
 #define XC_GGA_X_LSRPBE  169 /* PW91-like modification of RPBE */
 
-
 typedef struct{
   double kappa;
   double mu;
@@ -49,10 +48,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   printf("mu = %.10f\n",params->mu);
 }
 
-#include "maple2c/gga_x_lsrpbe.c"
-
-#define func xc_gga_x_lsrpbe_enhance
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_lsrpbe.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_lsrpbe = {
   XC_GGA_X_LSRPBE,
@@ -64,5 +61,5 @@ const xc_func_info_type xc_func_info_gga_x_lsrpbe = {
   1e-32,
   3, ext_params, set_ext_params,
   gga_x_lsrpbe_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };

@@ -45,10 +45,8 @@ gga_x_dk87_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/gga_x_dk87.c"
-
-#define func maple2c_func
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_dk87.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_dk87_r1 = {
   XC_GGA_X_DK87_R1,
@@ -60,7 +58,7 @@ const xc_func_info_type xc_func_info_gga_x_dk87_r1 = {
   1e-24,
   0, NULL, NULL,
   gga_x_dk87_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_dk87_r2 = {
@@ -73,5 +71,5 @@ const xc_func_info_type xc_func_info_gga_x_dk87_r2 = {
   1e-24,
   0, NULL, NULL,
   gga_x_dk87_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };

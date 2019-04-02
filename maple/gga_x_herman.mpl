@@ -6,8 +6,10 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 
-c1 := 0.003:
+herman_c1 := 0.003:
 
-f := x -> 1 + c1/X_FACTOR_C * x^2:
+herman_f := x -> 1 + herman_c1/X_FACTOR_C * x^2:
+
+f := (rs, zeta, xt, xs0, xs1) -> gga_exchange(herman_f, rs, zeta, xs0, xs1):

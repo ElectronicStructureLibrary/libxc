@@ -10,10 +10,8 @@
 
 #define XC_GGA_X_PBETRANS  291 /* Gradient-based interpolation between PBE and revPBE */
 
-#include "maple2c/gga_x_pbetrans.c"
-
-#define func xc_gga_x_pbetrans_enhance
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_pbetrans.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_pbetrans = {
   XC_GGA_X_PBETRANS,
@@ -25,5 +23,5 @@ const xc_func_info_type xc_func_info_gga_x_pbetrans = {
   1e-32,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };

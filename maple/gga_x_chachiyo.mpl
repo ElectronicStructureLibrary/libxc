@@ -6,12 +6,14 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
-
-(* equation 1 *)
-f_chachiyo := x -> (3*x^2 + Pi^2*log(x+1)) / ((3*x + Pi^2)*log(x+1)):
+(* type: gga_exc *)
 
 (* x has a different definition in the Chachiyo paper  *)
-x_cha := x -> 2/9 * (Pi/3)**(1/3) * (2**(-1/3) * x):
+chachiyo_x := x -> 2/9 * (Pi/3)**(1/3) * (2**(-1/3) * x):
 
-f := x -> f_chachiyo(x_cha(x)):
+(* equation 1 *)
+chachiyo_f0 := x -> (3*x^2 + Pi^2*log(x+1)) / ((3*x + Pi^2)*log(x+1)):
+
+chachiyo_f := x -> chachiyo_f0(chachiyo_x(x)):
+
+f := (rs, z, xt, xs0, xs1) -> gga_exchange(chachiyo_f, rs, z, xs0, xs1):

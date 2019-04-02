@@ -8,16 +8,12 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_mpbe_params *params;
+  gga_k_mpbe_params *params;
  
   assert(p->params != NULL);
-  params = (gga_x_mpbe_params * )(p->params);
+  params = (gga_k_mpbe_params * )(p->params);
 *)
 
-mpbe_f0 := s -> s^2/(1 + params_a_a*s^2):
-mpbe_f := x -> 1
-  + params_a_c1*mpbe_f0(X2S*x)
-  + params_a_c2*mpbe_f0(X2S*x)^2
-  + params_a_c3*mpbe_f0(X2S*x)^3:
+$include "gga_x_mpbe.mpl"
 
-f := (rs, z, xt, xs0, xs1) -> gga_exchange(mpbe_f, rs, z, xs0, xs1):
+f := (rs, z, xt, xs0, xs1) -> gga_kinetic(mpbe_f, rs, z, xs0, xs1):

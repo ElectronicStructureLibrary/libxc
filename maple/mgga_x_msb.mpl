@@ -17,7 +17,7 @@
 
 $include "mgga_x_ms.mpl"
 
-beta := (t,x) -> alpha(t,x)*K_FACTOR_C/(t-K_FACTOR_C):
+beta := (t,x) -> alpha(t,x)*K_FACTOR_C/(t+K_FACTOR_C):
 
 f := (rs, x, t, u) -> f0(X2S^2*x^2, 0) + \
   fa(beta(t,x))*(f0(X2S^2*x^2, params_a_c) - f0(X2S^2*x^2, 0)):

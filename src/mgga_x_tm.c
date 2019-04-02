@@ -8,7 +8,7 @@
 
 #include "util.h"
 
-#define XC_MGGA_X_TM          540 /* Tao and Mo 2016 */
+#define XC_MGGA_X_TM          540 /* Tao and Mo 2016 exchange */
 
 #include "maple2c/mgga_x_tm.c"
 
@@ -18,7 +18,7 @@
 const xc_func_info_type xc_func_info_mgga_x_tm = {
   XC_MGGA_X_TM,
   XC_EXCHANGE,
-  "Tao and Mo 2016",
+  "Tao and Mo 2016 exchange",
   XC_FAMILY_MGGA,
   {&xc_ref_Tao2016_073001, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,

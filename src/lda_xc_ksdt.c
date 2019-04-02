@@ -20,13 +20,15 @@
 #define XC_LDA_XC_GDSMFB  577    /* Groth et al. parametrization */
 
 typedef struct{
-  double T;
+  double T;            /* In units of k_B */
+  double thetaParam;  /* This takes into account the difference between t and theta_0 */
 
   double b[2][5], c[2][3], d[2][5],  e[2][5];
 } lda_xc_ksdt_params;
 
 static const lda_xc_ksdt_params par_ksdt = {
-  0.0 , /* T */
+  0.0,  /* T */
+  0.0,  /* thetaParam */
   {     /* b5 = Sqrt[3/2]/(lambda)*b3 */
     {0.2839970,  48.9321540, 0.3709190, 61.0953570, 0.871837422702767684673873513724},
     {0.3290010, 111.5983080, 0.5370530,105.0866630, 1.26233194679913807935662124247}
@@ -45,6 +47,7 @@ static const lda_xc_ksdt_params par_ksdt = {
 /* see https://github.com/agbonitz/xc_functional */
 static const lda_xc_ksdt_params par_gdsmfb = {
   0.0 , /* T */
+  0.0,  /* thetaParam */
   {     /* b5 = Sqrt[3/2]/(lambda)*b3 */
     {0.34369020, 7.82159531356, 0.300483986662, 15.8443467125, 0.70628138352268528131},
     {0.84987704, 3.04033012073, 0.0775730131248, 7.57703592489, 0.22972614201992673860}
@@ -97,7 +100,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   assert(p != NULL && p->params != NULL);
   params = (lda_xc_ksdt_params *) (p->params);
 
+  /* the temperature is in units of k_B */
   params->T = get_ext_param(p->info->ext_params, ext_params, 0);
+  if(params->T < 1e-8) params->T = 1e-8;
 }
 
 const xc_func_info_type xc_func_info_lda_xc_ksdt = {

@@ -30,7 +30,7 @@ mgga_x_msb_init(xc_func_type *p)
   case XC_MGGA_X_MS2B:
     params->kappa = 0.504;
     params->b     = (27.0*4.0 - 9.0)/64.0;
-    params->c     = 0.14601;
+    params->c     = 0.14607;
     break;
   case XC_MGGA_X_MS2BS:
     params->kappa = 0.6263;
@@ -53,7 +53,7 @@ const xc_func_info_type xc_func_info_mgga_x_ms2b = {
   XC_EXCHANGE,
   "MS2beta exchange of Furness and Sun",
   XC_FAMILY_MGGA,
-  {&xc_ref_Furness2018, NULL, NULL, NULL, NULL},
+  {&xc_ref_Furness2019_041119, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
   1e-23,
   0, NULL, NULL,

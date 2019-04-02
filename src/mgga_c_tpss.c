@@ -10,23 +10,30 @@
 #include "util.h"
 
 #define XC_MGGA_C_TPSS          231 /* Tao, Perdew, Staroverov & Scuseria correlation */
+#define XC_MGGA_C_TM            251 /* Tao and Mo 2016 correlation */
 
 typedef struct{
   double beta, d;
   double C0_c[4];
 } mgga_c_tpss_params;
 
+static const mgga_c_tpss_params par_tm = {0.06672455060314922, 2.8, 0.0, 0.1, 0.32, 0.0};
 
 static void 
 mgga_c_tpss_init(xc_func_type *p)
 {
+  mgga_c_tpss_params *params;
 
   assert(p != NULL && p->params == NULL);
   p->params = malloc(sizeof(mgga_c_tpss_params));
+  params = (mgga_c_tpss_params *)p->params;
 
   switch(p->info->number){
   case XC_MGGA_C_TPSS:
     /* default set by set_ext_params */
+    break;
+  case XC_MGGA_C_TM:
+    memcpy(params, &par_tm, sizeof(mgga_c_tpss_params));
     break;
   default:
     fprintf(stderr, "Internal error in mgga_c_tpss\n");
@@ -74,6 +81,20 @@ const xc_func_info_type xc_func_info_mgga_c_tpss = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-23, /* densities smaller than 1e-26 give NaNs */
   6, ext_params, set_ext_params,
+  mgga_c_tpss_init,
+  NULL, NULL, NULL,
+  work_mgga_c,
+};
+
+const xc_func_info_type xc_func_info_mgga_c_tm = {
+  XC_MGGA_C_TM,
+  XC_CORRELATION,
+  "Tao and Mo 2016 correlation",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Tao2016_073001, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-23, /* densities smaller than 1e-26 give NaNs */
+  0, NULL, NULL,
   mgga_c_tpss_init,
   NULL, NULL, NULL,
   work_mgga_c,

@@ -9,19 +9,19 @@
 
 #include "util.h"
 
-#define XC_MGGA_C_M08_HX       78 /* M08-HX correlation functional from Minnesota  */
-#define XC_MGGA_C_M08_SO       77 /* M08-SO correlation functional from Minnesota  */
-#define XC_MGGA_C_M11          76 /* M11 correlation functional from Minnesota     */
-#define XC_MGGA_C_M11_L        75 /* M11-L correlation functional from Minnesota   */
-#define XC_MGGA_C_MN12_L       74 /* MN12-L correlation functional from Minnesota  */
-#define XC_MGGA_C_MN12_SX      73 /* MN12-SX correlation functional from Minnesota */
-#define XC_MGGA_C_MN15_L      261 /* MN15-L correlation functional from Minnesota  */
-#define XC_MGGA_C_MN15        269 /* MN15 correlation functional from Minnesota    */
+#define XC_MGGA_C_M08_HX       78 /* M08-HX correlation functional from Minnesota      */
+#define XC_MGGA_C_M08_SO       77 /* M08-SO correlation functional from Minnesota      */
+#define XC_MGGA_C_M11          76 /* M11 correlation functional from Minnesota         */
+#define XC_MGGA_C_M11_L        75 /* M11-L correlation functional from Minnesota       */
+#define XC_MGGA_C_MN12_L       74 /* MN12-L correlation functional from Minnesota      */
+#define XC_MGGA_C_MN12_SX      73 /* MN12-SX correlation functional from Minnesota     */
+#define XC_MGGA_C_MN15_L      261 /* MN15-L correlation functional from Minnesota      */
+#define XC_MGGA_C_MN15        269 /* MN15 correlation functional from Minnesota        */
+#define XC_MGGA_C_REVM11      172 /* Revised M11 correlation functional from Minnesota */
 
 typedef struct{
   const double m08_a[12], m08_b[12];
 } mgga_c_m08_params;
-
 
 static const mgga_c_m08_params par_m08_hx = {
   {
@@ -103,6 +103,16 @@ static const mgga_c_m08_params par_mn15 = {
   }
 };
 
+static const mgga_c_m08_params par_revm11 = {
+  {
+   1.0000000000e+00,  0.0000000000e+00, -0.7860212983e+00, -5.1132585425e+00, -4.0716488878e+00,  1.5806421214e+00,
+   8.4135687567e+00,  0.0000000000e+00,  0.0000000000e+00,  0.0000000000e+00,  0.0000000000e+00,  0.0000000000e+00
+  }, {
+   0.97328390240e+00, -2.16744503960e+00, -9.33183245720e+00, -12.9399606617e+00, -2.21293206600e+00, -2.95085491000e+00,
+  -1.50663193600e+00,  0.00000000000e+00,  0.00000000000e+00,  0.00000000000e+00,  0.00000000000e+00,  0.00000000000e+00
+  }
+};
+
 
 static void
 mgga_c_m08_init(xc_func_type *p)
@@ -137,6 +147,9 @@ mgga_c_m08_init(xc_func_type *p)
     break;
   case XC_MGGA_C_MN15:
     memcpy(params, &par_mn15, sizeof(mgga_c_m08_params));
+    break;
+  case XC_MGGA_C_REVM11:
+    memcpy(params, &par_revm11, sizeof(mgga_c_m08_params));
     break;
   default:
     fprintf(stderr, "Internal error in mgga_c_m08\n");
@@ -255,6 +268,20 @@ const xc_func_info_type xc_func_info_mgga_c_mn15 = {
   "Minnesota MN15 correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Yu2016_5032, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  1e-23,
+  0, NULL, NULL,
+  mgga_c_m08_init,
+  NULL, NULL, NULL,
+  work_mgga_c,
+};
+
+const xc_func_info_type xc_func_info_mgga_c_revm11 = {
+  XC_MGGA_C_REVM11,
+  XC_CORRELATION,
+  "Revised Minnesota M11 correlation functional",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Verma2019, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
   1e-23,
   0, NULL, NULL,

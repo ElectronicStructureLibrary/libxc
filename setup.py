@@ -59,9 +59,10 @@ class CMakeBuild(build_ext):
 
 
 if __name__ == "__main__":
+    exec(open(os.path.join(os.path.abspath(os.path.dirname(__file__)), "pylibxc/version.py")).read())
     setup(
         name='pylibxc',
-        version="4.2.3",
+        version=__version__,
         description=
         'PyLibxc is a python-bound C library of exchange and correlation functionals for density-functional (DFT) theory.',
         author='LibXC Authors',

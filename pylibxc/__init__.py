@@ -6,3 +6,4 @@ from .core import core, get_core_path
 from .functional import LibXCFunctional
 
 from . import util
+from . import version

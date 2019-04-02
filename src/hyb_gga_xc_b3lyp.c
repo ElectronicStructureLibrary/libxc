@@ -19,6 +19,7 @@
 #define XC_HYB_GGA_XC_B3LYP5        475 /* B3LYP with VWN functional 5 instead of RPA */
 #define XC_HYB_GGA_XC_B5050LYP      572 /* Like B3LYP but more exact exchange    */
 #define XC_HYB_GGA_XC_KMLYP         485 /* Kang-Musgrave hybrid                  */
+#define XC_HYB_GGA_XC_APF           409 /* APF hybrid density functional         */
 
 /*************************************************************/
 void
@@ -289,5 +290,47 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_kmlyp = {
   1e-32,
   0, NULL, NULL,
   xc_hyb_gga_xc_kmlyp_init,
+  NULL, NULL, NULL, NULL
+};
+
+
+/*************************************************************/
+void
+xc_hyb_gga_xc_apf_init(xc_func_type *p)
+{
+  /* Functional is 41.1% B3PW91 and 58.9% PBE0 */
+  const double fb3pw91 = 0.411;
+  const double fpbe0   = 1.0 - fb3pw91;
+
+  /* Exact exchange in B3PW91 and PBE0 */
+  const double xb3pw91 = 0.20;
+  const double xpbe0   = 0.25;
+
+  int funcs_id [6] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_PW, XC_GGA_C_PW91, XC_GGA_X_PBE, XC_GGA_C_PBE};
+
+  /* Used C standard doesn't allow initializer list, even with const
+     variables */
+  double funcs_coef[6];
+  funcs_coef[0]=(1.0 - xb3pw91 - 0.72)*fb3pw91;
+  funcs_coef[1]=0.72*fb3pw91;
+  funcs_coef[2]=(1.0 - 0.81)*fb3pw91;
+  funcs_coef[3]=0.81*fb3pw91;
+  funcs_coef[4]=(1.0 - xpbe0)*fpbe0;
+  funcs_coef[5]=fpbe0;
+
+  xc_mix_init(p, 6, funcs_id, funcs_coef);
+  p->cam_alpha = fb3pw91*xb3pw91 + fpbe0*xpbe0;
+}
+
+const xc_func_info_type xc_func_info_hyb_gga_xc_apf = {
+  XC_HYB_GGA_XC_APF,
+  XC_EXCHANGE_CORRELATION,
+  "APF hybrid functional",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Austin2012_4989, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  1e-32,
+  0, NULL, NULL,
+  xc_hyb_gga_xc_apf_init,
   NULL, NULL, NULL, NULL
 };

@@ -2198,9 +2198,16 @@ func_reference_type xc_ref_Garza2018_3083 = {
 
 
 func_reference_type xc_ref_Furness2018 = {
-  "J. W. {Furness and J. {Sun}, }ArXiv e-prints (2018), arXiv:1805.11707 [physics.chem-ph]",
+  "J. W. {Furness and J. {Sun}, }ArXiv e-prints (2018), arXiv:1805.11707v1 [physics.chem-ph]",
   "",
-  "@article{Furness2018,\n author = {{Furness}, J.~W and {Sun}, J.},\n title = \"{Enhancing the efficiency of density functionals with a novel iso-orbital indicator}\",\n journal = {ArXiv e-prints},\n archivePrefix = \"arXiv\",\n eprint = {1805.11707},\n primaryClass = \"physics.chem-ph\",\n keywords = {Physics - Chemical Physics},\n year = 2018,\n month = may,\n adsurl = {http://adsabs.harvard.edu/abs/2018arXiv180511707F},\n adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
+  "@article{Furness2018,\n author = {{Furness}, J.~W and {Sun}, J.},\n title = \"{Enhancing the efficiency of density functionals with a novel iso-orbital indicator}\",\n journal = {ArXiv e-prints},\n archivePrefix = \"arXiv\",\n eprint = {1805.11707v1},\n primaryClass = \"physics.chem-ph\",\n keywords = {Physics - Chemical Physics},\n year = 2018,\n month = may,\n adsurl = {http://adsabs.harvard.edu/abs/2018arXiv180511707F},\n adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
+};
+
+
+func_reference_type xc_ref_Furness2019_041119 = {
+  "J. W. Furness and J. Sun, Phys. Rev. B 99, 041119 (2019)",
+  "10.1103/PhysRevB.99.041119",
+  "@article{Furness2019_041119,\n  title = {Enhancing the efficiency of density functionals with an improved iso-orbital indicator},\n  author = {Furness, James W. and Sun, Jianwei},\n  journal = {Phys. Rev. B},\n  volume = {99},\n  issue = {4},\n  pages = {041119},\n  numpages = {6},\n  year = {2019},\n  month = {Jan},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.99.041119},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.99.041119}\n}"
 };
 
 
@@ -2215,6 +2222,55 @@ func_reference_type xc_ref_PachecoKato2016_268 = {
   "J. C. Pacheco-Kato, J. M. del Campo, J. L. Gázquez, S. Trickey, and A. Vela, Chem. Phys. Lett. 651, 268 (2016)",
   "10.1016/j.cplett.2016.03.028",
   "@article{PachecoKato2016_268,\ntitle = \"A PW91-like exchange with a simple analytical form\",\njournal = \"Chemical Physics Letters\",\nvolume = \"651\",\npages = \"268-273\",\nyear = \"2016\",\nissn = \"0009-2614\",\ndoi = \"10.1016/j.cplett.2016.03.028\",\nurl = \"http://www.sciencedirect.com/science/article/pii/S0009261416301373\",\nauthor = \"Juan C. Pacheco-Kato and Jorge M. del Campo and José L. Gázquez and S.B. Trickey and Alberto Vela\"\n}"
+};
+
+
+func_reference_type xc_ref_Klimes2011_195131 = {
+  "J. Klime\\v{s}, D. R. Bowler, and A. Michaelides, Phys. Rev. B 83, 195131 (2011)",
+  "10.1103/PhysRevB.83.195131",
+  "@article{Klimes2011_195131,\n  title = {Van der Waals density functionals applied to solids},\n  author = {Klime\\v{s}, Ji\\v{r}\\'{i} and Bowler, David R. and Michaelides, Angelos},\n  journal = {Phys. Rev. B},\n  volume = {83},\n  issue = {19},\n  pages = {195131},\n  numpages = {13},\n  year = {2011},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.83.195131},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.83.195131}\n}"
+};
+
+
+func_reference_type xc_ref_Austin2012_4989 = {
+  "A. Austin, G. A. Petersson, M. J. Frisch, F. J. Dobek, G. Scalmani, and K. Throssell, J. Chem. Theory Comput. 8, 4989 (2012), pMID: 26593191, https://doi.org/10.1021/ct300778e",
+  "10.1021/ct300778e",
+  "@article{Austin2012_4989,\n  author = {Austin, Amy and Petersson, George A. and Frisch, Michael J. and Dobek, Frank J. and Scalmani, Giovanni and Throssell, Kyle},\n  title = {A Density Functional with Spherical Atom Dispersion Terms},\n  journal = {Journal of Chemical Theory and Computation},\n  volume = {8},\n  number = {12},\n  pages = {4989-5007},\n  year = {2012},\n  doi = {10.1021/ct300778e},\n  note ={PMID: 26593191},\n  URL = {https://doi.org/10.1021/ct300778e},\n  eprint = {https://doi.org/10.1021/ct300778e}\n}"
+};
+
+
+func_reference_type xc_ref_Verma2014_18A534 = {
+  "P. Verma and R. J. Bartlett, J. Chem. Phys. 140, 18A534 (2014), https://doi.org/10.1063/1.4871409",
+  "10.1063/1.4871409",
+  "@article{Verma2014_18A534,\n  author = {Verma, Prakash and Bartlett, Rodney J.},\n  title = {Increasing the applicability of density functional theory. IV. Consequences of ionization-potential improved exchange-correlation potentials},\n  journal = {The Journal of Chemical Physics},\n  volume = {140},\n  number = {18},\n  pages = {18A534},\n  year = {2014},\n  doi = {10.1063/1.4871409},\n  URL = {https://doi.org/10.1063/1.4871409},\n  eprint = {https://doi.org/10.1063/1.4871409}\n}"
+};
+
+
+func_reference_type xc_ref_Haiduke2018_184106 = {
+  "R. L. A. Haiduke and R. J. Bartlett, J. Chem. Phys. 148, 184106 (2018), https://doi.org/10.1063/1.5025723",
+  "10.1063/1.5025723",
+  "@article{Haiduke2018_184106,\n  author = {Haiduke, Roberto Luiz A. and Bartlett, Rodney J.},\n  title = {Non-empirical exchange-correlation parameterizations based on exact conditions from correlated orbital theory},\n  journal = {The Journal of Chemical Physics},\n  volume = {148},\n  number = {18},\n  pages = {184106},\n  year = {2018},\n  doi = {10.1063/1.5025723},\n  URL = {https://doi.org/10.1063/1.5025723},\n  eprint = {https://doi.org/10.1063/1.5025723}\n}"
+};
+
+
+func_reference_type xc_ref_Cancio2018_084116 = {
+  "A. Cancio, G. P. Chen, B. T. Krull, and K. Burke, J. Chem. Phys. 149, 084116 (2018), https://doi.org/10.1063/1.5021597",
+  "10.1063/1.5021597",
+  "@article{Cancio2018_084116,\n author = {Cancio, Antonio and Chen, Guo P. and Krull, Brandon T. and Burke, Kieron},\n title = {Fitting a round peg into a round hole: Asymptotically correcting the generalized gradient approximation for correlation},\n journal = {The Journal of Chemical Physics},\n volume = {149},\n number = {8},\n pages = {084116},\n year = {2018},\n doi = {10.1063/1.5021597},\n URL = {https://doi.org/10.1063/1.5021597},\n eprint = {https://doi.org/10.1063/1.5021597}\n}"
+};
+
+
+func_reference_type xc_ref_Verma2019 = {
+  "P. Verma, Y. Wang, S. Ghosh, X. He, and D. G. Truhlar, J. Phys. Chem A 0, null (0), https://doi.org/10.1021/acs.jpca.8b11499",
+  "10.1021/acs.jpca.8b11499",
+  "@article{Verma2019,\nauthor = {Verma, Pragya and Wang, Ying and Ghosh, Soumen and He, Xiao and Truhlar, Donald G.},\ntitle = {Revised M11 Exchange--Correlation Functional for Electronic Excitation Energies and Ground-State Properties},\njournal = {The Journal of Physical Chemistry A},\nvolume = {0},\nnumber = {ja},\npages = {null},\nyear = {0},\ndoi = {10.1021/acs.jpca.8b11499},\nURL = {https://doi.org/10.1021/acs.jpca.8b11499},\neprint = {https://doi.org/10.1021/acs.jpca.8b11499}\n}"
+};
+
+
+func_reference_type xc_ref_Kurth1999_889 = {
+  "S. Kurth, J. P. Perdew, and P. Blaha, Int. J. Quantum Chem. 75, 889 (1999)",
+  "10.1002/(SICI)1097-461X(1999)75:4/5<889::AID-QUA54>3.0.CO;2-8",
+  "@article{Kurth1999_889,\nauthor = {Kurth, Stefan and Perdew, John P. and Blaha, Peter},\ntitle = {Molecular and solid-state tests of density functional approximations: LSD, GGAs, and meta-GGAs},\njournal = {International Journal of Quantum Chemistry},\nvolume = {75},\nnumber = {4‐5},\npages = {889-909},\nkeywords = {density functional, exchange–correlation, local spin density approximation, generalized gradient approximation, molecules, solids, surfaces},\ndoi = {10.1002/(SICI)1097-461X(1999)75:4/5<889::AID-QUA54>3.0.CO;2-8},\nurl = {https://onlinelibrary.wiley.com/doi/abs/10.1002/%28SICI%291097-461X%281999%2975%3A4/5%3C889%3A%3AAID-QUA54%3E3.0.CO%3B2-8},\nyear = {1999}\n}"
 };
 
 

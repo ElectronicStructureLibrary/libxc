@@ -1,6 +1,6 @@
 cmake_policy(SET CMP0048 NEW)  # project_VERSION* variables populated from project(... VERSION x.x.x) string
 project(Libxc
-        VERSION 4.2.3
+        VERSION 4.3.4
         LANGUAGES C)
 set(Libxc_AUTHORS      "Miguel A.L. Marques and others")
 set(Libxc_DESCRIPTION  "Exchange-correlation functionals for density-functional theory")
@@ -70,7 +70,8 @@ foreach(ver ${_libxc_configure_ac})
   endif()
 endforeach()
 set(${PROJECT_NAME}_SOVERSION ${XC_CURRENT}:${XC_REVISION}:${XC_AGE})
-message(STATUS "Libxc SO ${${PROJECT_NAME}_SOVERSION}")
+math(EXPR ${PROJECT_NAME}_SOMAJOR "${XC_CURRENT} - ${XC_AGE}")
+message(STATUS "Libxc SO Full ${${PROJECT_NAME}_SOVERSION} Major ${${PROJECT_NAME}_SOMAJOR}")
 
 set(raw_sources_list
 bessel.c
@@ -78,8 +79,9 @@ expint_e1.c
 func_info.c
 functionals.c
 gga.c
+gga_c_acgga.c
+gga_c_acggap.c
 gga_c_am05.c
-gga_c_bcgp.c
 gga_c_bmk.c
 gga_c_cs1.c
 gga_c_ft97.c
@@ -187,6 +189,7 @@ gga_xc_vv10.c
 hyb_gga_xc_b1wc.c
 hyb_gga_xc_b3lyp.c
 hyb_gga_xc_cam_b3lyp.c
+hyb_gga_xc_cam_qtp.c
 hyb_gga_xc_camy_b3lyp.c
 hyb_gga_xc_camy_blyp.c
 hyb_gga_xc_edf2.c
@@ -323,7 +326,7 @@ add_library(xc ${sources_list})
 target_link_libraries(xc INTERFACE ${STANDARD_MATH_LIBRARY})
 set_target_properties(xc PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC}
                                     COMPILE_FLAGS "-std=c99"
-                                    SOVERSION ${XC_CURRENT})
+                                    SOVERSION ${${PROJECT_NAME}_SOMAJOR})
 if(${BUILD_SHARED_LIBS})
     target_link_libraries(xc PRIVATE ${LIBC_INTERJECT})
     if(APPLE)
@@ -356,10 +359,6 @@ if(ENABLE_FORTRAN OR ENABLE_FORTRAN03)
         target_link_libraries(xcf03 xc)
         set_target_properties(xcf03 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
     endif()
-
-    # test Fortran interface
-    add_executable(ex_f90 "examples/basic.f90")
-    target_link_libraries(ex_f90 xcf90)
 endif()
 
 # run get_funcs.pl to generate headers for xc inclusion
@@ -387,8 +386,15 @@ include_directories(${PROJECT_SOURCE_DIR}/${src_prefix}  # for util.h
                     ${gen_dir})  # for xc_funcs.h
 
 if(BUILD_TESTING)
-    enable_testing ()
-    add_subdirectory(testsuite)
+    find_program(BZip2_EXECUTABLE
+             NAMES bzip2
+             DOC "Path to zipping utility")
+    if(BZip2_EXECUTABLE)
+        enable_testing ()
+        add_subdirectory(testsuite)  
+    else()
+        message(FATAL_ERROR "Install `bzip2` command to enable tests")
+    endif()
 endif()
 
 # <<<  Install  >>>

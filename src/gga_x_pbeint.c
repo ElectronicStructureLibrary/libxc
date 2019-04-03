@@ -9,9 +9,6 @@
 #include "util.h"
 
 #define XC_GGA_X_PBEINT        60 /* PBE for hybrid interfaces                      */
-#define XC_GGA_K_APBEINT       54 /* interpolated version of APBE                   */
-#define XC_GGA_K_REVAPBEINT    53 /* interpolated version of REVAPBE                */
-
 
 typedef struct{
   double kappa, alpha, muPBE, muGE;
@@ -30,18 +27,6 @@ gga_x_pbe_init(xc_func_type *p)
   switch(p->info->number){
   case XC_GGA_X_PBEINT:
     /* default set by set_ext_params */
-    break;
-  case XC_GGA_K_APBEINT:
-    params->kappa = 0.8040;
-    params->alpha = 5.0/3.0;
-    params->muPBE = 0.23899;
-    params->muGE  = 5.0/27.0;
-    break;
-  case XC_GGA_K_REVAPBEINT:
-    params->kappa = 1.245;
-    params->alpha = 5.0/3.0;
-    params->muPBE = 0.23899;
-    params->muGE  = 5.0/27.0;
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_pbeint\n");
@@ -70,10 +55,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->muGE  = get_ext_param(p->info->ext_params, ext_params, 3);
 }
 
-#include "maple2c/gga_x_pbeint.c"
-
-#define func xc_gga_x_pbeint_enhance
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_pbeint.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_pbeint = {
   XC_GGA_X_PBEINT,
@@ -85,34 +68,5 @@ const xc_func_info_type xc_func_info_gga_x_pbeint = {
   1e-12,
   4, ext_params, set_ext_params,
   gga_x_pbe_init, NULL, 
-  NULL, work_gga_x, NULL
-};
-
-#define XC_KINETIC_FUNCTIONAL
-#include "work_gga_x.c"
-
-const xc_func_info_type xc_func_info_gga_k_apbeint = {
-  XC_GGA_K_APBEINT,
-  XC_KINETIC,
-  "interpolated version of APBE",
-  XC_FAMILY_GGA,
-  {&xc_ref_Laricchia2011_2439, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
-  0, NULL, NULL,
-  gga_x_pbe_init, NULL, 
-  NULL, work_gga_k, NULL
-};
-
-const xc_func_info_type xc_func_info_gga_k_revapbeint = {
-  XC_GGA_K_REVAPBEINT,
-  XC_KINETIC,
-  "interpolated version of revAPBE",
-  XC_FAMILY_GGA,
-  {&xc_ref_Laricchia2011_2439, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
-  0, NULL, NULL,
-  gga_x_pbe_init, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };

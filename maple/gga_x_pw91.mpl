@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 (* prefix:
   gga_x_pw91_params *params;
  
@@ -28,5 +28,6 @@ pw91_num := s -> (params_a_c + params_a_d*exp(-params_a_alpha*s^2))*s^2
          - params_a_f*s^params_a_expo:
 pw91_den := s -> 1 + s*params_a_a*arcsinh(params_a_b*s) + params_a_f*s^params_a_expo:
 
-f_pw91  := x -> 1 + pw91_num(X2S*x)/pw91_den(X2S*x):
-f       := x -> f_pw91(x):
+pw91_f  := x -> 1 + pw91_num(X2S*x)/pw91_den(X2S*x):
+
+f := (rs, z, xt, xs0, xs1) -> gga_exchange(pw91_f, rs, z, xs0, xs1):

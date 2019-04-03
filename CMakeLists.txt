@@ -132,6 +132,11 @@ gga_x_am05.c
 gga_x_b86.c
 gga_x_b88.c
 gga_k_llp.c
+gga_k_pw86.c
+gga_k_mpbe.c
+gga_k_apbe.c
+gga_k_apbeint.c
+gga_k_lc94.c
 gga_x_bayesian.c
 gga_x_beefvdw.c
 gga_x_bpccac.c

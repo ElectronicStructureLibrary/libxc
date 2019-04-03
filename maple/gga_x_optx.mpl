@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 (* prefix:
   gga_x_optx_params *params;
  
@@ -14,4 +14,6 @@
   params = (gga_x_optx_params * )(p->params);
 *)
 
-f := x-> params_a_a + params_a_b*(params_a_gamma*x^2/(1 + params_a_gamma*x^2))^2:
+optx_f := x-> params_a_a + params_a_b*(params_a_gamma*x^2/(1 + params_a_gamma*x^2))^2:
+
+f := (rs, z, xt, xs0, xs1) -> gga_exchange(optx_f, rs, z, xs0, xs1):

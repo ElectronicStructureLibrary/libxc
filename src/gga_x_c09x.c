@@ -10,10 +10,8 @@
 
 #define XC_GGA_X_C09X         158 /* C09x to be used with the VdW of Rutgers-Chalmers     */
 
-#include "maple2c/gga_x_c09x.c"
-
-#define func xc_gga_x_c09x_enhance
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_c09x.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_c09x = {
   XC_GGA_X_C09X,
@@ -24,7 +22,6 @@ const xc_func_info_type xc_func_info_gga_x_c09x = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
-  NULL, NULL, NULL,
-  work_gga_x,
-  NULL
+  NULL, NULL,
+  NULL, work_gga, NULL
 };

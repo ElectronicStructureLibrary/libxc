@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 (* prefix:
   gga_x_pw86_params *params;
  
@@ -20,7 +20,7 @@ params_a_bb := 17.33:
 params_a_cc := 0.163:
 $endif
 
-f0_pw86 := s -> (1 + params_a_aa*s^2 + params_a_bb*s^4 + params_a_cc*s^6)^(1/15):
-f_pw86  := x -> f0_pw86(X2S*x):
+pw86_f0 := s -> (1 + params_a_aa*s^2 + params_a_bb*s^4 + params_a_cc*s^6)^(1/15):
+pw86_f  := x -> pw86_f0(X2S*x):
 
-f      := x -> f_pw86(x):
+f := (rs, z, xt, xs0, xs1) -> gga_exchange(pw86_f, rs, z, xs0, xs1):

@@ -10,10 +10,8 @@
 
 #define XC_GGA_X_EV93  35 /* Engel and Vosko */
 
-#include "maple2c/gga_x_eg93.c"
-
-#define func maple2c_func
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_ev93.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_ev93 = {
   XC_GGA_X_EV93,
@@ -25,5 +23,5 @@ const xc_func_info_type xc_func_info_gga_x_ev93 = {
   1e-25,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };

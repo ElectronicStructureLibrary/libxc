@@ -8,12 +8,12 @@
 
 (* type: gga_exc *)
 
-mu    := 0.2195149727645171:
-c     := (146/2025)*(4/9) - (73/405)*(2/3) + (mu - 10/81):
-kappa := 0.8040:
+wc_mu    := 0.2195149727645171:
+wc_c     := (146/2025)*(4/9) - (73/405)*(2/3) + (wc_mu - MU_GE):
+wc_kappa := KAPPA_PBE:
 
-f0_aux := s -> kappa + MU_GE * s^2 + (mu - MU_GE) * s^2 * exp(-s^2) + log(1 + c * s^4):
-f0_wc  := s -> 1 + kappa*(1 - kappa/f0_aux(s)):
-f_wc   := x -> f0_wc(X2S*x):
+wc_f0_aux := s -> wc_kappa + MU_GE * s^2 + (wc_mu - MU_GE) * s^2 * exp(-s^2) + log(1 + wc_c * s^4):
+wc_f0  := s -> 1 + wc_kappa*(1 - wc_kappa/wc_f0_aux(s)):
+wc_f   := x -> wc_f0(X2S*x):
 
-f := (rs, z, xt, xs0, xs1) -> gga_exchange(f_wc, rs, z, xs0, xs1):
+f := (rs, z, xt, xs0, xs1) -> gga_exchange(wc_f, rs, z, xs0, xs1):

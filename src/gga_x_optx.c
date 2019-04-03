@@ -41,10 +41,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->gamma = get_ext_param(p->info->ext_params, ext_params, 2);
 }
 
-#include "maple2c/gga_x_optx.c"
-
-#define func maple2c_func
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_optx.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_optx = {
   XC_GGA_X_OPTX,
@@ -56,5 +54,5 @@ const xc_func_info_type xc_func_info_gga_x_optx = {
   1e-22,
   3, ext_params, set_ext_params,
   gga_x_optx_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };

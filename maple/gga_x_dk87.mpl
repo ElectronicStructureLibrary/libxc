@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 (* prefix:
   gga_x_dk87_params *params;
  
@@ -14,6 +14,8 @@
   params = (gga_x_dk87_params * )(p->params);
 *)
 
-betag := 7/(432*Pi*(6*Pi^2)^(1/3))/X_FACTOR_C:
+dk87_betag := 7/(432*Pi*(6*Pi^2)^(1/3))/X_FACTOR_C:
 
-f := x -> 1 + betag*x^2*(1 + params_a_a1*x^params_a_alpha)/(1 + params_a_b1*x^2):
+dk87_f := x -> 1 + dk87_betag*x^2*(1 + params_a_a1*x^params_a_alpha)/(1 + params_a_b1*x^2):
+
+f := (rs, z, xt, xs0, xs1) -> gga_exchange(dk87_f, rs, z, xs0, xs1):

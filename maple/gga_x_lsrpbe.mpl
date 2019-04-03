@@ -7,7 +7,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 (* prefix:
   gga_x_lsrpbe_params *params;
 
@@ -15,9 +15,10 @@
   params = (gga_x_lsrpbe_params * )(p->params);
 *)
 
-f0_lsrpbe := s -> 1 + params_a_kappa * (
+lsrpbe_f0 := s -> 1 + params_a_kappa * (
   1 - exp(-params_a_mu*s^2/params_a_kappa)
 ) - (params_a_kappa+1)*(1 - exp(-params_a_alpha*s^2)):
-f_lsrpbe  := x -> f0_lsrpbe(X2S*x):
+lsrpbe_f  := x -> lsrpbe_f0(X2S*x):
 
-f       := x -> f_lsrpbe(x):
+f := (rs, z, xt, xs0, xs1) -> gga_exchange(lsrpbe_f, rs, z, xs0, xs1):
+

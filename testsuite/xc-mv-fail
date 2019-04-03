@@ -4,7 +4,7 @@ testsuite="$1"
 
 while read -r dummy functional system nspin quantity result; do
     type=$(echo $functional | sed 's/\(.*_\(x\|c\|k\|xc\)\)_.*/\1/')
-    if [ $nspin == "0" ]; then
+    if [ $nspin == "1" ]; then
         sspin="unpol"
     else
         sspin="pol"
@@ -23,5 +23,7 @@ while read -r dummy functional system nspin quantity result; do
     if [ -f regression/$type/$fname ]; then
       echo "Disabling " $fname
       git mv regression/$type/$fname regression/$type/disabled/$fname
+    else
+      echo "Could not find" $fname
     fi
 done < <(grep " \* " $testsuite | grep -v "OK")

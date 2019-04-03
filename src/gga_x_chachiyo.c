@@ -10,10 +10,8 @@
 
 #define XC_GGA_X_CHACHIYO     298 /* Chachiyo exchange */
 
-#include "maple2c/gga_x_chachiyo.c"
-
-#define func xc_gga_x_chachiyo_enhance
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_chachiyo.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_chachiyo = {
   XC_GGA_X_CHACHIYO,
@@ -25,5 +23,5 @@ const xc_func_info_type xc_func_info_gga_x_chachiyo = {
   1e-25,
   0, NULL, NULL,
   NULL, NULL,
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };

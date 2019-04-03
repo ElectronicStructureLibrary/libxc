@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 (* prefix:
   gga_x_mpbe_params *params;
  
@@ -14,8 +14,10 @@
   params = (gga_x_mpbe_params * )(p->params);
 *)
 
-f0 := s -> s^2/(1 + params_a_a*s^2):
-f := x -> 1
-  + params_a_c1*f0(X2S*x)
-  + params_a_c2*f0(X2S*x)^2
-  + params_a_c3*f0(X2S*x)^3:
+mpbe_f0 := s -> s^2/(1 + params_a_a*s^2):
+mpbe_f := x -> 1
+  + params_a_c1*mpbe_f0(X2S*x)
+  + params_a_c2*mpbe_f0(X2S*x)^2
+  + params_a_c3*mpbe_f0(X2S*x)^3:
+
+f := (rs, z, xt, xs0, xs1) -> gga_exchange(mpbe_f, rs, z, xs0, xs1):

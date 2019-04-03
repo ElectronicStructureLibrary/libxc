@@ -6,18 +6,19 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 
 $define gga_x_rpw86_params
 $include "gga_x_pw86.mpl"
 
-malpha := 0.02178:
-mbeta  := 1.15:
-muLV   := 0.8491/9:
+lv_alpha := 0.02178:
+lv_beta  := 1.15:
+lv_muLV   := 0.8491/9:
 
-f0 := s -> 
-   + (1 + muLV*s^2)/(1 + malpha*s^6) 
-   + malpha*s^6*f0_pw86(s)/(mbeta + malpha*s^6):
+lv_f0 := s -> 
+   + (1 + lv_muLV*s^2)/(1 + lv_alpha*s^6) 
+   + lv_alpha*s^6*pw86_f0(s)/(lv_beta + lv_alpha*s^6):
 
-f  := x -> f0(X2S*x):
+lv_f  := x -> lv_f0(X2S*x):
 
+f := (rs, z, xt, xs0, xs1) -> gga_exchange(lv_f, rs, z, xs0, xs1):

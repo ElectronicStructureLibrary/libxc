@@ -10,7 +10,6 @@
 
 #define XC_GGA_X_PW91         109 /* Perdew & Wang 91 */
 #define XC_GGA_X_MPW91        119 /* Modified form of PW91 by Adamo & Barone */
-#define XC_GGA_K_LC94         521 /* Lembarki & Chermette */
 
 typedef struct{
   double a, b, c, d, f, alpha, expo;
@@ -18,8 +17,6 @@ typedef struct{
 
 static gga_x_pw91_params par_x_pw91 = /* b_PW91 ~ 0.0042 */
   {0.19645, 7.7956, 0.2743, -0.1508, 0.004, 100.0, 4.0};
-static gga_x_pw91_params par_k_lc94 =
-  {0.093907, 76.320, 0.26608, -0.0809615, 0.000057767, 100.0, 4.0};
 
 static void 
 gga_x_pw91_init(xc_func_type *p)
@@ -36,9 +33,6 @@ gga_x_pw91_init(xc_func_type *p)
     break;
   case XC_GGA_X_MPW91:
     /* default set by set_ext_params */
-    break;
-  case XC_GGA_K_LC94:
-    memcpy(params, &par_k_lc94, sizeof(gga_x_pw91_params));
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_pw91\n");
@@ -80,10 +74,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->f    =  1.0e-6/(X_FACTOR_C*pow(X2S, params->expo));
 }
 
-#include "maple2c/gga_x_pw91.c"
-
-#define func maple2c_func
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_pw91.c"
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_pw91 = {
   XC_GGA_X_PW91,
@@ -94,10 +86,8 @@ const xc_func_info_type xc_func_info_gga_x_pw91 = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-24,
   0, NULL, NULL,
-  gga_x_pw91_init,
-  NULL, NULL,
-  work_gga_x,
-  NULL
+  gga_x_pw91_init, NULL,
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_mpw91 = {
@@ -109,26 +99,6 @@ const xc_func_info_type xc_func_info_gga_x_mpw91 = {
   XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-31,
   3, ext_params, set_ext_params,
-  gga_x_pw91_init,
-  NULL, NULL,
-  work_gga_x,
-  NULL
-};
-
-#define XC_KINETIC_FUNCTIONAL
-#include "work_gga_x.c"
-
-const xc_func_info_type xc_func_info_gga_k_lc94 = {
-  XC_GGA_K_LC94,
-  XC_KINETIC,
-  "Lembarki & Chermette",
-  XC_FAMILY_GGA,
-  {&xc_ref_Lembarki1994_5328, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-21,
-  0, NULL, NULL,
-  gga_x_pw91_init,
-  NULL, NULL,
-  work_gga_k,
-  NULL
+  gga_x_pw91_init, NULL,
+  NULL, work_gga, NULL
 };

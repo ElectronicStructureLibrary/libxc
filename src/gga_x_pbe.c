@@ -23,14 +23,6 @@
 #define XC_GGA_X_BCGP          38 /* Burke, Cancio, Gould, and Pittalis             */
 #define XC_GGA_X_PBEFE        265 /* PBE for formation energies                     */
 
-#define XC_GGA_K_APBE         185 /* mu fixed from the semiclassical neutral atom   */
-#define XC_GGA_K_TW1          187 /* Tran and Wesolowski set 1 (Table II)           */
-#define XC_GGA_K_TW2          188 /* Tran and Wesolowski set 2 (Table II)           */
-#define XC_GGA_K_TW3          189 /* Tran and Wesolowski set 3 (Table II)           */
-#define XC_GGA_K_TW4          190 /* Tran and Wesolowski set 4 (Table II)           */
-#define XC_GGA_K_REVAPBE       55 /* revised APBE                                   */
-
-
 typedef struct{
   double kappa, mu;
   double lambda;   /* parameter used in the Odashima & Capelle versions */
@@ -76,33 +68,9 @@ gga_x_pbe_init(xc_func_type *p)
     params->kappa = 0.8040;
     params->mu    = 0.260;
     break;
-  case XC_GGA_K_APBE:
-    params->kappa = 0.8040;
-    params->mu    = 0.23889;
-    break;
-  case XC_GGA_K_TW1:
-    params->kappa = 0.8209;
-    params->mu    = 0.2335;
-    break;
-  case XC_GGA_K_TW2:
-    params->kappa = 0.6774;
-    params->mu    = 0.2371;
-    break;
-  case XC_GGA_K_TW3:
-    params->kappa = 0.8438;
-    params->mu    = 0.2319;
-    break;
-  case XC_GGA_K_TW4:
-    params->kappa = 0.8589;
-    params->mu    = 0.2309;
-    break;
   case XC_GGA_X_PBE_TCA:
     params->kappa = 1.227;
     params->mu    = MU_PBE;
-    break;
-  case XC_GGA_K_REVAPBE:
-    params->kappa = 1.245;
-    params->mu    = 0.23889;
     break;
   case XC_GGA_X_PBE_MOL:
     params->kappa = 0.8040;
@@ -155,10 +123,8 @@ set_ext_params_PBE(xc_func_type *p, const double *ext_params)
   params->mu    = get_ext_param(p->info->ext_params, ext_params, 1);
 }
 
-#include "maple2c/gga_x_pbe.c"
-
-#define func xc_gga_x_pbe_enhance
-#include "work_gga_x.c"
+#include "maple2c/gga_exc/gga_x_pbe.c"
+#include "work_gga_new.c"
 
 
 const xc_func_info_type xc_func_info_gga_x_pbe = {
@@ -171,7 +137,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe = {
   1e-32,
   2, ext_params_PBE, set_ext_params_PBE,
   gga_x_pbe_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_pbe_r = {
@@ -184,7 +150,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_r = {
   1e-32,
   0, NULL, NULL,
   gga_x_pbe_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_pbe_sol = {
@@ -197,7 +163,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_sol = {
   1e-32,
   0, NULL, NULL,
   gga_x_pbe_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_xpbe = {
@@ -210,7 +176,7 @@ const xc_func_info_type xc_func_info_gga_x_xpbe = {
   1e-32,
   0, NULL, NULL,
   gga_x_pbe_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_pbe_jsjr = {
@@ -223,7 +189,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_jsjr = {
   1e-32,
   0, NULL, NULL,
   gga_x_pbe_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_pbek1_vdw = {
@@ -236,7 +202,7 @@ const xc_func_info_type xc_func_info_gga_x_pbek1_vdw = {
   1e-32,
   0, NULL, NULL,
   gga_x_pbe_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_apbe = {
@@ -249,7 +215,7 @@ const xc_func_info_type xc_func_info_gga_x_apbe = {
   1e-32,
   0, NULL, NULL,
   gga_x_pbe_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_pbe_tca = {
@@ -262,7 +228,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_tca = {
   1e-32,
   0, NULL, NULL,
   gga_x_pbe_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 static const func_params_type ext_params_N[] = {
@@ -297,7 +263,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_lo_n = {
   1e-32,
   1, ext_params_N, set_ext_params_N,
   gga_x_pbe_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_lambda_ch_n = {
@@ -310,7 +276,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_ch_n = {
   1e-32,
   1, ext_params_N, set_ext_params_N,
   gga_x_pbe_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_lambda_oc2_n = {
@@ -323,7 +289,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_oc2_n = {
   1e-32,
   1, ext_params_N, set_ext_params_N,
   gga_x_pbe_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_pbe_mol = {
@@ -336,7 +302,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_mol = {
   1e-32,
   0, NULL, NULL,
   gga_x_pbe_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_bcgp = {
@@ -349,7 +315,7 @@ const xc_func_info_type xc_func_info_gga_x_bcgp = {
   1e-32,
   0, NULL, NULL,
   gga_x_pbe_init, NULL, 
-  NULL, work_gga_x, NULL
+  NULL, work_gga, NULL
 };
 
 const xc_func_info_type xc_func_info_gga_x_pbefe = {
@@ -362,86 +328,5 @@ const xc_func_info_type xc_func_info_gga_x_pbefe = {
   1e-32,
   0, NULL, NULL,
   gga_x_pbe_init, NULL, 
-  NULL, work_gga_x, NULL
-};
-
-#define XC_KINETIC_FUNCTIONAL
-#include "work_gga_x.c"
-
-const xc_func_info_type xc_func_info_gga_k_apbe = {
-  XC_GGA_K_APBE,
-  XC_KINETIC,
-  "mu fixed from the semiclassical neutral atom",
-  XC_FAMILY_GGA,
-  {&xc_ref_Constantin2011_186406, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
-  0, NULL, NULL,
-  gga_x_pbe_init, NULL, 
-  NULL, work_gga_k, NULL
-};
-
-const xc_func_info_type xc_func_info_gga_k_revapbe = {
-  XC_GGA_K_REVAPBE,
-  XC_KINETIC,
-  "revised APBE",
-  XC_FAMILY_GGA,
-  {&xc_ref_Constantin2011_186406, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
-  0, NULL, NULL,
-  gga_x_pbe_init, NULL, 
-  NULL, work_gga_k, NULL
-};
-
-const xc_func_info_type xc_func_info_gga_k_tw1 = {
-  XC_GGA_K_TW1,
-  XC_KINETIC,
-  "Tran and Wesolowski set 1 (Table II)",
-  XC_FAMILY_GGA,
-  {&xc_ref_Tran2002_441, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
-  0, NULL, NULL,
-  gga_x_pbe_init, NULL, 
-  NULL, work_gga_k, NULL
-};
-
-const xc_func_info_type xc_func_info_gga_k_tw2 = {
-  XC_GGA_K_TW2,
-  XC_KINETIC,
-  "Tran and Wesolowski set 2 (Table II)",
-  XC_FAMILY_GGA,
-  {&xc_ref_Tran2002_441, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
-  0, NULL, NULL,
-  gga_x_pbe_init, NULL, 
-  NULL, work_gga_k, NULL
-};
-
-const xc_func_info_type xc_func_info_gga_k_tw3 = {
-  XC_GGA_K_TW3,
-  XC_KINETIC,
-  "Tran and Wesolowski set 3 (Table II)",
-  XC_FAMILY_GGA,
-  {&xc_ref_Tran2002_441, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
-  0, NULL, NULL,
-  gga_x_pbe_init, NULL, 
-  NULL, work_gga_k, NULL
-};
-
-const xc_func_info_type xc_func_info_gga_k_tw4 = {
-  XC_GGA_K_TW4,
-  XC_KINETIC,
-  "Tran and Wesolowski set 4 (Table II)",
-  XC_FAMILY_GGA,
-  {&xc_ref_Tran2002_441, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
-  1e-32,
-  0, NULL, NULL,
-  gga_x_pbe_init, NULL, 
-  NULL, work_gga_k, NULL
+  NULL, work_gga, NULL
 };

@@ -8,12 +8,12 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_optx_params *params;
+  gga_k_lc94_params *params;
  
   assert(p->params != NULL);
-  params = (gga_x_optx_params * )(p->params);
+  params = (gga_k_lc94_params * )(p->params);
 *)
 
-optx_f := x-> params_a_a + params_a_b*(params_a_gamma*x^2/(1 + params_a_gamma*x^2))^2:
+$include "gga_x_pw91.mpl"
 
-f := (rs, z, xt, xs0, xs1) -> gga_exchange(optx_f, rs, z, xs0, xs1):
+f := (rs, z, xt, xs0, xs1) -> gga_kinetic(pw91_f, rs, z, xs0, xs1):

@@ -6,10 +6,12 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_x *)
+(* type: gga_exc *)
 
-mkappa := KAPPA_PBE:
-mmu    := 0.00361218645365094697:
-malpha := 0.52:
+pbea_mu    := 0.00361218645365094697:
+pbea_alpha := 0.52:
 
-f  := x -> 1 + mkappa*(1 - (1 + mmu*x^2/(malpha*mkappa))^(-malpha)):
+pbea_f  := x -> 1 + KAPPA_PBE*(1 - (1 + pbea_mu*x^2/(pbea_alpha*KAPPA_PBE))^(-pbea_alpha)):
+
+
+f := (rs, z, xt, xs0, xs1) -> gga_exchange(pbea_f, rs, z, xs0, xs1):

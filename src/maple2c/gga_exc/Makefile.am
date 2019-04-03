@@ -31,4 +31,5 @@ gga_c_q2d.c        gga_x_2d_b86.c      gga_x_hjs.c         gga_x_sogga11.c	\
 gga_c_regtpss.c    gga_x_2d_b86_mgc.c  gga_x_htbs.c        gga_x_ssb_sw.c	\
 gga_c_revtca.c     gga_x_2d_b88.c      gga_x_ityh.c        gga_x_vmt84.c	\
 gga_c_scan_e0.c    gga_x_2d_pbe.c      gga_x_kt.c          gga_x_vmt.c		\
-gga_c_sg4.c        gga_x_airy.c        gga_x_lag.c         gga_x_wc.c
+gga_c_sg4.c        gga_x_airy.c        gga_x_lag.c         gga_x_wc.c		\
+hyb_gga_xc_wb97.c

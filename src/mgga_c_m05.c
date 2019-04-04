@@ -80,10 +80,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->Fermi_D_cnst = max(get_ext_param(p->info->ext_params, ext_params, 0), 1e-10);
 }
 
-#include "maple2c/mgga_c_m05.c"
-
-#define func maple2c_func
-#include "work_mgga_c.c"
+#include "maple2c/mgga_exc/mgga_c_m05.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_c_m05 = {
   XC_MGGA_C_M05,
@@ -91,11 +89,11 @@ const xc_func_info_type xc_func_info_mgga_c_m05 = {
   "Minnesota M05 correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2005_161103, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1.0e-23,
   1, ext_params, set_ext_params,
   mgga_c_vsxc_init, NULL, 
-  NULL, NULL, work_mgga_c
+  NULL, NULL, work_mgga
 };
 
 
@@ -105,11 +103,11 @@ const xc_func_info_type xc_func_info_mgga_c_m05_2x = {
   "Minnesota M05-2X correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2006_364, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1.0e-23,
   1, ext_params, set_ext_params,
   mgga_c_vsxc_init, NULL, 
-  NULL, NULL, work_mgga_c
+  NULL, NULL, work_mgga
 };
 
 const xc_func_info_type xc_func_info_mgga_c_dldf = {
@@ -118,9 +116,9 @@ const xc_func_info_type xc_func_info_mgga_c_dldf = {
   "Dispersionless Density Functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Pernal2009_263201, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   5.0e-23,
   1, ext_params, set_ext_params,
   mgga_c_vsxc_init, NULL,
-  NULL, NULL, work_mgga_c
+  NULL, NULL, work_mgga
 };

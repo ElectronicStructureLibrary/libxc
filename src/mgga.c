@@ -14,21 +14,7 @@
 void 
 xc_mgga(const xc_func_type *func, int np,
         const double *rho, const double *sigma, const double *lapl, const double *tau,
-        double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
-        double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
-        double *v2sigma2, double *v2sigmalapl, double *v2sigmatau,
-        double *v2lapl2, double *v2lapltau,
-        double *v2tau2,
-        double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
-        double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
-        double *v3rholapl2, double *v3rholapltau,
-        double *v3rhotau2,
-        double *v3sigma3, double *v3sigma2lapl, double *v3sigma2tau,
-        double *v3sigmalapl2, double *v3sigmalapltau,
-        double *v3sigmatau2,
-        double *v3lapl3, double *v3lapl2tau,
-        double *v3lapltau2,
-        double *v3tau3)
+        double *zk, MGGA_OUT_PARAMS_NO_EXC(double *))
 {
   assert(func != NULL);
   const xc_dimensions *dim = &(func->dim);
@@ -154,22 +140,9 @@ xc_mgga(const xc_func_type *func, int np,
 
   /* call functional */
   if(func->info->mgga != NULL)
-    func->info->mgga(func, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau,
-                     v2rho2, v2rhosigma, v2rholapl, v2rhotau,
-                     v2sigma2, v2sigmalapl, v2sigmatau,
-                     v2lapl2, v2lapltau,
-                     v2tau2,
-                     v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau,
-                     v3rhosigma2, v3rhosigmalapl, v3rhosigmatau,
-                     v3rholapl2, v3rholapltau,
-                     v3rhotau2,
-                     v3sigma3, v3sigma2lapl, v3sigma2tau,
-                     v3sigmalapl2, v3sigmalapltau,
-                     v3sigmatau2,
-                     v3lapl3, v3lapl2tau,
-                     v3lapltau2,
-                     v3tau3);
+    func->info->mgga(func, np, rho, sigma, lapl, tau, zk, MGGA_OUT_PARAMS_NO_EXC());
 
+  /* WARNING: Kxc is not properly mixed */
   if(func->mix_coef != NULL)
     xc_mix_func(func, np, rho, sigma, lapl, tau,
                 zk, vrho, vsigma, vlapl, vtau,

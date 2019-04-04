@@ -23,6 +23,6 @@ else
     lda_stoll_perp(lda_func, rs, z) * b97_g(mgamma, cc, sqrt(xs0^2 + xs1^2)/sqrt(2)):
 end if:
 
-f_b97 := (lda_func, gamma_ss, cc_ss, gamma_ab, cc_ab, rs, z, xs0, xs1) ->
+b97_f := (lda_func, gamma_ss, cc_ss, gamma_ab, cc_ab, rs, z, xs0, xs1) ->
   + b97_fpar (lda_func, gamma_ss, cc_ss, rs, z, xs0, xs1)
   + b97_fperp(lda_func, gamma_ab, cc_ab, rs, z, xs0, xs1):

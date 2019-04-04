@@ -10,10 +10,8 @@
 
 #define XC_MGGA_X_TM          540 /* Tao and Mo 2016 exchange */
 
-#include "maple2c/mgga_x_tm.c"
-
-#define func xc_mgga_x_tm_enhance
-#include "work_mgga_x.c"
+#include "maple2c/mgga_exc/mgga_x_tm.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_x_tm = {
   XC_MGGA_X_TM,
@@ -21,9 +19,9 @@ const xc_func_info_type xc_func_info_mgga_x_tm = {
   "Tao and Mo 2016 exchange",
   XC_FAMILY_MGGA,
   {&xc_ref_Tao2016_073001, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1.0e-23,
   0, NULL, NULL,
   NULL, NULL,
-  NULL, NULL, work_mgga_x,
+  NULL, NULL, work_mgga,
 };

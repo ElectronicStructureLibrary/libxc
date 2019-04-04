@@ -29,6 +29,6 @@ b97mv_fos := (rs, z, xs0, xs1, ts0, ts1) ->
   lda_stoll_perp(f_pw, rs, z)
   * b97mv_g(gamma_os, wx_os, par_os, par_n, sqrt(xs0^2 + xs1^2)/sqrt(2), ts0, ts1):
 
-f_b97mv :=  (lda_func, rs, z, xt, xs0, xs1, ts0, ts1) ->
+b97mv_f :=  (lda_func, rs, z, xt, xs0, xs1, ts0, ts1) ->
   + b97mv_fpar(lda_func, rs, z, xs0, xs1, ts0, ts1)
   + b97mv_fos(rs, z, xs0, xs1, ts0, ts1):

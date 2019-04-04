@@ -12,10 +12,8 @@
 
 #define XC_MGGA_X_LTA          201 /* Local tau approximation of Ernzerhof & Scuseria */
 
-#include "maple2c/mgga_x_lta.c"
-
-#define func maple2c_func
-#include "work_mgga_x.c"
+#include "maple2c/mgga_exc/mgga_x_lta.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_x_lta = {
   XC_MGGA_X_LTA,
@@ -23,10 +21,9 @@ const xc_func_info_type xc_func_info_mgga_x_lta = {
   "Local tau approximation",
   XC_FAMILY_MGGA,
   {&xc_ref_Ernzerhof1999_911, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1.0e-23,
   0, NULL, NULL,
   NULL, NULL,
-  NULL, NULL,        /* this is not an LDA                   */
-  work_mgga_x,
+  NULL, NULL, work_mgga,
 };

@@ -77,6 +77,8 @@ if evalb(Polarization = "ferr") then
              lda_x_spin(rs, z)*func(xs0):
     gga_kinetic := (func, rs, z, xs0, xs1) ->
              lda_k_spin(rs, z)*func(xs0):
+    mgga_exchange := (func, rs, z, xs0, xs1, u0, u1, t0, t1) ->
+             lda_x_spin(rs, z)*func(xs0, u0, t0):
 else
     gga_exchange_nsp := (func, rs, z, xs0, xs1) ->
              lda_x_spin(rs, z)*func(rs, z, xs0) + lda_x_spin(rs, -z)*func(rs, -z, xs1):
@@ -84,6 +86,8 @@ else
              lda_x_spin(rs, z)*func(xs0) + lda_x_spin(rs, -z)*func(xs1):
     gga_kinetic := (func, rs, z, xs0, xs1) ->
              lda_k_spin(rs, z)*func(xs0) + lda_k_spin(rs, -z)*func(xs1):
+    mgga_exchange := (func, rs, z, xs0, xs1, u0, u1, t0, t1) ->
+             lda_x_spin(rs, z)*func(xs0, u0, t0) + lda_x_spin(rs, -z)*func(xs1, u1, t1):
 end if:
 
 # This is the Stoll decomposition in our language

@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_mgga_c *)
+(* type: mgga_exc *)
 (* prefix:
   mgga_c_m05_params *params;
 
@@ -20,24 +20,33 @@ $include "lda_c_pw.mpl"
 
 $include "b97.mpl"
 
-m05_comp := (rs, z, spin, xs, ts) ->
-  + lda_stoll_par(f_pw, rs,  z,  1)
-  * b97_g(params_a_gamma_ss, params_a_css, xs)
-  * Fermi_D_corrected(xs, ts):
-
 (* The parallel and perpendicular components of the energy *)
-m05_fpar  := (rs, z, xs0, xs1, ts0, ts1) ->
-  + m05_comp(rs,  z,  1, xs0, ts0)
-  + m05_comp(rs, -z, -1, xs1, ts1):
+if evalb(Polarization = "ferr") then
+  m05_fpar  := (rs, z, xs0, xs1, t0, t1) ->
+    + f_pw(rs, 1)
+    * b97_g(params_a_gamma_ss, params_a_css, xs0)
+    * Fermi_D_corrected(xs0, t0):
 
-m05_fperp := (rs, z, xs0, xs1, ts0, ts1) ->
-  + lda_stoll_perp(f_pw, rs,  z)
-  * b97_g(params_a_gamma_ab, params_a_cab, sqrt(xs0^2 + xs1^2)):
+  m05_fperp := 0:
+else
+  m05_comp := (rs, z, spin, xs, t) ->
+    + lda_stoll_par(f_pw, rs,  z,  1)
+    * b97_g(params_a_gamma_ss, params_a_css, xs)
+    * Fermi_D_corrected(xs, t):
 
-f_m05 := (rs, z, xs0, xs1, ts0, ts1) ->
-  + m05_fpar (rs, z, xs0, xs1, ts0, ts1)
-  + m05_fperp(rs, z, xs0, xs1, ts0, ts1):
+  m05_fpar  := (rs, z, xs0, xs1, t0, t1) ->
+    + m05_comp(rs,  z,  1, xs0, t0)
+    + m05_comp(rs, -z, -1, xs1, t1):
 
-f := (rs, z, xt, xs0, xs1, ts0, ts1, us0, us1) ->
-  f_m05(rs, z, xs0, xs1, ts0, ts1):
+  m05_fperp := (rs, z, xs0, xs1, t0, t1) ->
+    + lda_stoll_perp(f_pw, rs,  z)
+    * b97_g(params_a_gamma_ab, params_a_cab, sqrt(xs0^2 + xs1^2)):
+end if:
+
+m05_f := (rs, z, xs0, xs1, t0, t1) ->
+  + m05_fpar (rs, z, xs0, xs1, t0, t1)
+  + m05_fperp(rs, z, xs0, xs1, t0, t1):
+
+f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->
+  m05_f(rs, z, xs0, xs1, t0, t1):
 

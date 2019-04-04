@@ -18,5 +18,5 @@ $include "lda_c_vwn.mpl"
 $include "b97.mpl"
 
 f := (rs, z, xt, xs0, xs1) ->
-  f_b97(f_vwn, gamma_ss, cc_ss, gamma_ab, cc_ab,
+  b97_f(f_vwn, gamma_ss, cc_ss, gamma_ab, cc_ab,
         rs, z, xs0, xs1):

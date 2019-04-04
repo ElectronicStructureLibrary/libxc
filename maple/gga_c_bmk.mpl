@@ -20,5 +20,5 @@ $include "lda_c_pw.mpl"
 $include "b97.mpl"
 
 f := (rs, z, xt, xs0, xs1) ->
-  f_b97(f_pw, 0.2, params_a_c_ss, 0.006, params_a_c_ab,
+  b97_f(f_pw, 0.2, params_a_c_ss, 0.006, params_a_c_ab,
         rs, z, xs0, xs1):

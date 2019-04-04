@@ -61,10 +61,8 @@ mgga_x_tau_hcth_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/mgga_x_tau_hcth.c"
-
-#define func maple2c_func
-#include "work_mgga_x.c"
+#include "maple2c/mgga_exc/mgga_x_tau_hcth.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_x_tau_hcth = {
   XC_MGGA_X_TAU_HCTH,
@@ -72,12 +70,11 @@ const xc_func_info_type xc_func_info_mgga_x_tau_hcth = {
   "tau-HCTH from Boese and Handy",
   XC_FAMILY_MGGA,
   {&xc_ref_Boese2002_9559, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1.0e-23,
   0, NULL, NULL,
   mgga_x_tau_hcth_init, NULL, 
-  NULL, NULL,
-  work_mgga_x,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_hyb_mgga_x_bmk = {
@@ -86,11 +83,11 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_bmk = {
   "Boese-Martin for kinetics",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Boese2004_3405, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1.0e-32,
   0, NULL, NULL,
   mgga_x_tau_hcth_init, NULL, 
-  NULL, NULL, work_mgga_x,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_hyb_mgga_x_tau_hcth = {
@@ -99,9 +96,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_tau_hcth = {
   "Hybrid version of tau-HCTH",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Boese2002_9559, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1.0e-32,
   0, NULL, NULL,
   mgga_x_tau_hcth_init,  NULL, 
-  NULL, NULL, work_mgga_x,
+  NULL, NULL, work_mgga,
 };

@@ -6,29 +6,33 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_mgga_x *)
+(* type: mgga_exc *)
 (* prefix:
   mgga_x_scan_params *params;
 
-  assert(pt->params != NULL);
-  params = (mgga_x_scan_params * )(pt->params);
+  assert(p->params != NULL);
+  params = (mgga_x_scan_params * )(p->params);
 *)
 
-p     := x -> X2S^2*x^2:
-alpha := (x, t) -> (t - x^2/8)/K_FACTOR_C:
+scan_p     := x -> X2S^2*x^2:
+scan_alpha := (x, t) -> (t - x^2/8)/K_FACTOR_C:
 
-f_alpha := a -> piecewise(a <= 1, exp(-params_a_c1*a/(1 - a)), -params_a_d*exp(params_a_c2/(1 - a))):
+scan_f_alpha := a -> piecewise(a <= 1, exp(-params_a_c1*a/(1 - a)), -params_a_d*exp(params_a_c2/(1 - a))):
 
-h1x := x -> 1 + params_a_k1*(1 - params_a_k1/(params_a_k1 + x)):
+scan_h1x := x -> 1 + params_a_k1*(1 - params_a_k1/(params_a_k1 + x)):
 
-b2 := sqrt(5913/405000):
-b1 := (511/13500)/(2*b2):
-b3 := 1/2:
-b4 := MU_GE^2/params_a_k1 - 1606/18225 - b1^2:
-y  := (x, a) -> MU_GE*p(x) + b4*p(x)^2*exp(-b4*p(x)/MU_GE) + (b1*p(x) + b2*(1 - a)*exp(-b3*(1 - a)^2))^2:
+scan_b2 := sqrt(5913/405000):
+scan_b1 := (511/13500)/(2*scan_b2):
+scan_b3 := 1/2:
+scan_b4 := MU_GE^2/params_a_k1 - 1606/18225 - scan_b1^2:
+scan_y  := (x, a) -> MU_GE*scan_p(x) + scan_b4*scan_p(x)^2*exp(-scan_b4*scan_p(x)/MU_GE)
+  + (scan_b1*scan_p(x) + scan_b2*(1 - a)*exp(-scan_b3*(1 - a)^2))^2:
 
-a1 := 4.9479:
-gx := x -> 1 - exp(-a1/sqrt(X2S*x)):
+scan_a1 := 4.9479:
+scan_gx := x -> 1 - exp(-scan_a1/sqrt(X2S*x)):
 
-h0x := 1.174:
-f   := (rs, x, t, u) -> (h1x(y(x, alpha(x, t)))*(1 - f_alpha(alpha(x, t))) + h0x*f_alpha(alpha(x, t)))*gx(x):
+scan_h0x := 1.174:
+scan_f   := (x, u, t) -> (scan_h1x(scan_y(x, scan_alpha(x, t)))*(1 - scan_f_alpha(scan_alpha(x, t)))
+  + scan_h0x*scan_f_alpha(scan_alpha(x, t)))*scan_gx(x):
+
+f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) -> mgga_exchange(scan_f, rs, z, xs0, xs1, u0, u1, t0, t1):

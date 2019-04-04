@@ -42,4 +42,4 @@ $include "lda_x.mpl"
 $include "b97mv.mpl"
 
 f :=  (rs, z, xt, xs0, xs1, ts0, ts1, us0, us1) ->
-  f_b97mv(f_lda_x, rs, z, xt, xs0, xs1, ts0, ts1):
+  b97mv_f(f_lda_x, rs, z, xt, xs0, xs1, ts0, ts1):

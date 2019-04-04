@@ -6,4 +6,6 @@
 ##
 
 noinst_HEADERS = \
-mgga_x_lta.c mgga_x_vt84.c mgga_x_tm.c  mgga_x_tpss.c
+mgga_c_cs.c   mgga_x_sa_tpss.c   mgga_x_tm.c    \
+mgga_c_m05.c  mgga_x_scan.c      mgga_x_tpss.c  \
+mgga_x_lta.c  mgga_x_tau_hcth.c  mgga_x_vt84.c  \

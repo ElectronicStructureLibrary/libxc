@@ -31,7 +31,7 @@ const xc_func_info_type xc_func_info_lda_c_pmgb06 = {
   "Long-range LDA correlation functional",
   XC_FAMILY_LDA,
   {&xc_ref_Paziani2006_155111, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC | XC_FLAGS_DEVELOPMENT,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL | XC_FLAGS_DEVELOPMENT,
   1e-13,
   1, ext_params, set_ext_params,
   NULL, NULL, 

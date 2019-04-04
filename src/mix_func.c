@@ -31,11 +31,11 @@ xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix
   }
 
   /* initialize variables */
-  p->cam_omega=0.0;
-  p->cam_alpha=0.0;
-  p->cam_beta=0.0;
-  p->nlc_b=0.0;
-  p->nlc_C=0.0;
+  p->cam_omega = 0.0;
+  p->cam_alpha = 0.0;
+  p->cam_beta  = 0.0;
+  p->nlc_b     = 0.0;
+  p->nlc_C     = 0.0;
 }
 
 #define is_mgga(id)   ((id) == XC_FAMILY_MGGA || (id) == XC_FAMILY_HYB_MGGA)
@@ -46,12 +46,7 @@ xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix
 void
 xc_mix_func(const xc_func_type *func, int np,
             const double *rho, const double *sigma, const double *lapl, const double *tau,
-            double *zk,
-            double *vrho, double *vsigma, double *vlapl, double *vtau,
-            double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
-            double *v2sigma2, double *v2sigmalapl, double *v2sigmatau,
-            double *v2lapl2, double *v2lapltau,
-            double *v2tau2)
+            double *zk, MGGA_OUT_PARAMS_NO_EXC(double *))
 {
   const xc_func_type *aux;
   double *zk_;
@@ -60,18 +55,38 @@ xc_mix_func(const xc_func_type *func, int np,
   double *v2sigma2_, *v2sigmalapl_, *v2sigmatau_;
   double *v2lapl2_, *v2lapltau_;
   double *v2tau2_;
+  double *v3rho3_, *v3rho2sigma_, *v3rho2lapl_, *v3rho2tau_;
+  double *v3rhosigma2_, *v3rhosigmalapl_, *v3rhosigmatau_;
+  double *v3rholapl2_, *v3rholapltau_;
+  double *v3rhotau2_;
+  double *v3sigma3_, *v3sigma2lapl_, *v3sigma2tau_;
+  double *v3sigmalapl2_, *v3sigmalapltau_;
+  double *v3sigmatau2_;
+  double *v3lapl3_, *v3lapl2tau_;
+  double *v3lapltau2_;
+  double *v3tau3_;
 
   int ip, ii;
 
   const xc_dimensions *dim = &(func->dim);
 
   /* prepare buffers that will hold the results from the individual functionals */
-  zk_ = NULL;
+  zk_ = NULL;  
   vrho_ = vsigma_ = vlapl_ = vtau_ = NULL;
   v2rho2_ = v2rhosigma_ = v2rholapl_ = v2rhotau_ = NULL;
   v2sigma2_ =  v2sigmalapl_ = v2sigmatau_ = NULL;
   v2lapl2_ = v2lapltau_ = NULL;
   v2tau2_ = NULL;
+  v3rho3_ = v3rho2sigma_ = v3rho2lapl_ = v3rho2tau_ = NULL;
+  v3rhosigma2_ = v3rhosigmalapl_ = v3rhosigmatau_ = NULL;
+  v3rholapl2_ = v3rholapltau_ = NULL;
+  v3rhotau2_ = NULL;
+  v3sigma3_ = v3sigma2lapl_ = v3sigma2tau_ = NULL;
+  v3sigmalapl2_ = v3sigmalapltau_ = NULL;
+  v3sigmatau2_ = NULL;
+  v3lapl3_ = v3lapl2tau_ = NULL;
+  v3lapltau2_ = NULL;
+  v3tau3_ = NULL;
 
   if(zk != NULL)
     zk_ = (double *) malloc(sizeof(double)*np*dim->zk);
@@ -85,8 +100,9 @@ xc_mix_func(const xc_func_type *func, int np,
       /* At the moment we always allocate the derivatives involving
          the laplacian, as some parts of Libxc do not take into
          account the XC_FLAGS_NEEDS_LAPLACIAN flag.
-         if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) */
+         if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){ */
       vlapl_ = (double *) malloc(sizeof(double)*np*dim->vlapl);
+      /* } */
       vtau_  = (double *) malloc(sizeof(double)*np*dim->vtau);
     }
   }
@@ -98,21 +114,43 @@ xc_mix_func(const xc_func_type *func, int np,
       v2sigma2_    = (double *) malloc(sizeof(double)*np*dim->v2sigma2);
     }
     if(is_mgga(func->info->family)){
+      v2rholapl_   = (double *) malloc(sizeof(double)*np*dim->v2rholapl);
       v2rhotau_    = (double *) malloc(sizeof(double)*np*dim->v2rhotau);
-      v2sigmatau_  = (double *) malloc(sizeof(double)*np*dim->v2sigmatau);
-      v2tau2_      = (double *) malloc(sizeof(double)*np*dim->v2tau2);
-      /* At the moment we always allocate the derivatives involving
-         the laplacian, as some parts of Libxc do not take into
-         account the XC_FLAGS_NEEDS_LAPLACIAN flag.
-         if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) { */
-      v2rholapl_ = (double *) malloc(sizeof(double)*np*dim->v2rholapl);
       v2sigmalapl_ = (double *) malloc(sizeof(double)*np*dim->v2sigmalapl);
-      v2lapl2_ = (double *) malloc(sizeof(double)*np*dim->v2lapl2);
-      v2lapltau_ = (double *) malloc(sizeof(double)*np*dim->v2lapltau);
-      /* } */
+      v2sigmatau_  = (double *) malloc(sizeof(double)*np*dim->v2sigmatau);
+      v2lapl2_     = (double *) malloc(sizeof(double)*np*dim->v2lapl2);
+      v2lapltau_   = (double *) malloc(sizeof(double)*np*dim->v2lapltau);
+      v2tau2_      = (double *) malloc(sizeof(double)*np*dim->v2tau2);
     }
   }
 
+  if(v3rho3 != NULL){
+    v3rho3_      = (double *) malloc(sizeof(double)*np*dim->v3rho3);
+    if(is_gga(func->info->family)){
+      v3rho2sigma_ = (double *) malloc(sizeof(double)*np*dim->v3rho2sigma);
+      v3rhosigma2_ = (double *) malloc(sizeof(double)*np*dim->v3rhosigma2);
+      v3sigma3_    = (double *) malloc(sizeof(double)*np*dim->v3sigma3);
+    }
+    if(is_mgga(func->info->family)){
+      v3rho2lapl_     = (double *) malloc(sizeof(double)*np*dim->v3rho2lapl);
+      v3rho2tau_      = (double *) malloc(sizeof(double)*np*dim->v3rho2tau);
+      v3rhosigmalapl_ = (double *) malloc(sizeof(double)*np*dim->v3rhosigmalapl);
+      v3rhosigmatau_  = (double *) malloc(sizeof(double)*np*dim->v3rhosigmatau);
+      v3rholapl2_     = (double *) malloc(sizeof(double)*np*dim->v3rholapl2);
+      v3rholapltau_   = (double *) malloc(sizeof(double)*np*dim->v3rholapltau);
+      v3rhotau2_      = (double *) malloc(sizeof(double)*np*dim->v3rhotau2);
+      v3sigma2lapl_   = (double *) malloc(sizeof(double)*np*dim->v3sigma2lapl);
+      v3sigma2tau_    = (double *) malloc(sizeof(double)*np*dim->v3sigma2tau);
+      v3sigmalapl2_   = (double *) malloc(sizeof(double)*np*dim->v3sigmalapl2);
+      v3sigmalapltau_ = (double *) malloc(sizeof(double)*np*dim->v3sigmalapltau);;
+      v3sigmatau2_    = (double *) malloc(sizeof(double)*np*dim->v3sigmatau2);
+      v3lapl3_        = (double *) malloc(sizeof(double)*np*dim->v3lapl3);
+      v3lapl2tau_     = (double *) malloc(sizeof(double)*np*dim->v3lapl2tau);
+      v3lapltau2_     = (double *) malloc(sizeof(double)*np*dim->v3lapltau2);
+      v3tau3_         = (double *) malloc(sizeof(double)*np*dim->v3tau3);
+    }
+  }
+  
   /* we now add the different components */
   for(ii=0; ii<func->n_func_aux; ii++){
     aux = func->func_aux[ii];
@@ -123,7 +161,7 @@ xc_mix_func(const xc_func_type *func, int np,
     case XC_FAMILY_GGA:
       xc_gga(aux, np, rho, sigma, zk_, vrho_, vsigma_,
              v2rho2_, v2rhosigma_, v2sigma2_,
-             NULL, NULL, NULL, NULL);
+             v3rho3_, v3rho2sigma_, v3rhosigma2_, v3sigma3_);
       break;
     case XC_FAMILY_MGGA:
       xc_mgga(aux, np, rho, sigma, lapl, tau,
@@ -133,16 +171,17 @@ xc_mix_func(const xc_func_type *func, int np,
               v2sigma2_, v2sigmalapl_, v2sigmatau_,
               v2lapl2_, v2lapltau_,
               v2tau2_,
-              NULL, NULL, NULL, NULL,
-              NULL, NULL, NULL,
-              NULL, NULL,
-              NULL,
-              NULL, NULL, NULL,
-              NULL, NULL,
-              NULL,
-              NULL, NULL,
-              NULL,
-              NULL);
+              v3rho3_, v3rho2sigma_, v3rho2lapl_, v3rho2tau_,
+              v3rhosigma2_, v3rhosigmalapl_, v3rhosigmatau_,
+              v3rholapl2_, v3rholapltau_,
+              v3rhotau2_,
+              v3sigma3_, v3sigma2lapl_, v3sigma2tau_,
+              v3sigmalapl2_, v3sigmalapltau_,
+              v3sigmatau2_,
+              v3lapl3_, v3lapl2tau_,
+              v3lapltau2_,
+              v3tau3_
+              );
       break;
     }
 
@@ -160,9 +199,8 @@ xc_mix_func(const xc_func_type *func, int np,
     }
 
     if(vrho != NULL) {
-      for(ip = 0; ip < np*dim->vrho; ip++) {
+      for(ip = 0; ip < np*dim->vrho; ip++)
         vrho[ip] += func->mix_coef[ii] * vrho_[ip];
-      }
 
       if(is_gga(aux->info->family)) {
         for(ip = 0; ip < np*dim->vsigma; ip++)
@@ -180,9 +218,8 @@ xc_mix_func(const xc_func_type *func, int np,
     }
 
     if(v2rho2 != NULL){
-      for(ip = 0; ip < np*dim->v2rho2; ip++) {
+      for(ip = 0; ip < np*dim->v2rho2; ip++)
         v2rho2[ip] += func->mix_coef[ii] * v2rho2_[ip];
-      }
 
       if(is_gga(aux->info->family)) {
         for(ip = 0; ip < np*dim->v2rhosigma; ip++)
@@ -210,6 +247,57 @@ xc_mix_func(const xc_func_type *func, int np,
         }
       }
     }
+
+    if(v3rho3 != NULL){
+      for(ip = 0; ip < np*dim->v3rho3; ip++)
+        v3rho3[ip] += func->mix_coef[ii] * v3rho3_[ip];
+      
+      if(is_gga(aux->info->family)) {
+        for(ip = 0; ip < np*dim->v3rho2sigma; ip++)
+          v3rho2sigma[ip] += func->mix_coef[ii] * v3rho2sigma_[ip];
+        for(ip = 0; ip < np*dim->v3rhosigma2; ip++)
+          v3rhosigma2[ip] += func->mix_coef[ii] * v3rhosigma2_[ip];
+        for(ip = 0; ip < np*dim->v3sigma3; ip++)
+          v3sigma3[ip] += func->mix_coef[ii] * v3sigma3_[ip];
+      }
+      if(is_mgga(aux->info->family)) {
+        for(ip = 0; ip < np*dim->v3rho2tau; ip++)
+          v3rho2tau[ip] += func->mix_coef[ii] * v3rho2tau_[ip];
+        for(ip = 0; ip < np*dim->v3sigmatau2; ip++)
+          v3sigmatau2[ip] += func->mix_coef[ii] * v3sigmatau2_[ip];
+        for(ip = 0; ip < np*dim->v3rhotau2; ip++)
+          v3rhotau2[ip] += func->mix_coef[ii] * v3rhotau2_[ip];
+        for(ip = 0; ip < np*dim->v3sigma2tau; ip++)
+          v3sigma2tau[ip] += func->mix_coef[ii] * v3sigma2tau_[ip];
+        for(ip = 0; ip < np*dim->v3sigmatau2; ip++)
+          v3sigmatau2[ip] += func->mix_coef[ii] * v3sigmatau2_[ip];
+        for(ip = 0; ip < np*dim->v3tau3; ip++)
+          v3tau3[ip] += func->mix_coef[ii] * v3tau3_[ip];
+
+        if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) {
+          for(ip = 0; ip < np*dim->v3rho2lapl; ip++)
+            v3rho2lapl[ip] += func->mix_coef[ii] * v3rho2lapl_[ip];
+          for(ip = 0; ip < np*dim->v3sigmalapl2; ip++)
+            v3sigmalapl2[ip] += func->mix_coef[ii] * v3sigmalapl2_[ip];
+          for(ip = 0; ip < np*dim->v3rholapl2; ip++)
+            v3rholapl2[ip] += func->mix_coef[ii] * v3rholapl2_[ip];
+          for(ip = 0; ip < np*dim->v3rholapltau; ip++)
+            v3rholapltau[ip] += func->mix_coef[ii] * v3rholapltau_[ip];
+          for(ip = 0; ip < np*dim->v3sigma2lapl; ip++)
+            v3sigma2lapl[ip] += func->mix_coef[ii] * v3sigma2lapl_[ip];
+          for(ip = 0; ip < np*dim->v3sigmalapl2; ip++)
+            v3sigmalapl2[ip] += func->mix_coef[ii] * v3sigmalapl2_[ip];
+          for(ip = 0; ip < np*dim->v3sigmalapltau; ip++)
+            v3sigmalapltau[ip] += func->mix_coef[ii] * v3sigmalapltau_[ip];
+          for(ip = 0; ip < np*dim->v3lapl3; ip++)
+            v3lapl3[ip] += func->mix_coef[ii] * v3lapl3_[ip];
+          for(ip = 0; ip < np*dim->v3lapl2tau; ip++)
+            v3lapl2tau[ip] += func->mix_coef[ii] * v3lapl2tau_[ip];
+          for(ip = 0; ip < np*dim->v3lapltau2; ip++)
+            v3lapltau2[ip] += func->mix_coef[ii] * v3lapltau2_[ip];
+        }
+      }  
+    }
   }
 
   /* deallocate internal buffers */
@@ -219,4 +307,14 @@ xc_mix_func(const xc_func_type *func, int np,
   safe_free(v2sigma2_); safe_free(v2sigmalapl_); safe_free(v2sigmatau_);
   safe_free(v2lapl2_); safe_free(v2lapltau_);
   safe_free(v2tau2_);
+  safe_free(v3rho3_); safe_free(v3rho2sigma_); safe_free(v3rho2lapl_); safe_free(v3rho2tau_);
+  safe_free(v3rhosigma2_); safe_free(v3rhosigmalapl_); safe_free(v3rhosigmatau_);
+  safe_free(v3rholapl2_); safe_free(v3rholapltau_);
+  safe_free(v3rhotau2_);
+  safe_free(v3sigma3_); safe_free(v3sigma2lapl_); safe_free(v3sigma2tau_);
+  safe_free(v3sigmalapl2_); safe_free(v3sigmalapltau_);
+  safe_free(v3sigmatau2_);
+  safe_free(v3lapl3_); safe_free(v3lapl2tau_);
+  safe_free(v3lapltau2_);
+  safe_free(v3tau3_);
 }

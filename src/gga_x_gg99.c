@@ -8,6 +8,15 @@
 
 #include "util.h"
 
+/* useful MACROS */
+#define DFRACTION(num, dnum, den, dden) \
+  (((dnum)*(den) - (num)*(dden))/((den)*(den)))
+#define D2FRACTION(num, dnum, d2num, den, dden, d2den) \
+  ((2.0*(num)*(dden)*(dden) - 2.0*(den)*(dden)*(dnum) - (den)*(num)*(d2den) + (den)*(den)*(d2num))/((den)*(den)*(den)))
+#define D3FRACTION(num, dnum, d2num, d3num, den, dden, d2den, d3den)	\
+  ((-(num)*(6.0*(dden)*(dden)*(dden) - 6.0*(den)*(dden)*(d2den) + (den)*(den)*(d3den)) + \
+    (den)*(6.0*(dden)*(dden)*(dnum) - 3.0*(den)*(dden)*(d2num) + (den)*(-3.0*(dnum)*(d2den) + (den)*(d3num))))/((den)*(den)*(den)*(den)))
+
 #define XC_GGA_X_GG99   535 /* Gilbert and Gill 1999 */
 #define XC_GGA_X_KGG99  544 /* Gilbert and Gill 1999 (mixed) */
 

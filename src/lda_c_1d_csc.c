@@ -109,7 +109,7 @@ const xc_func_info_type xc_func_info_lda_c_1d_csc = {
   "Casula, Sorella & Senatore",
   XC_FAMILY_LDA,
   {&xc_ref_Casula2006_245427, NULL, NULL, NULL, NULL},
-  XC_FLAGS_1D |  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  XC_FLAGS_1D |  XC_FLAGS_HAVE_ALL,
   5e-26,
   2, ext_params, set_ext_params,
   lda_c_1d_csc_init, NULL,

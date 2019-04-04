@@ -114,8 +114,7 @@ Fermi_D_corrected := (xs, ts) -> (1 - xs^2/(8*ts)) * (1 - exp(-4*ts^2/params_a_F
 b88_R_F := (f_x, rs, z, xs) ->
   1/(2*X_FACTOR_C*n_spin(rs, z)^(1/3)*f_x(xs)):
 
-b88_zss := (css, f_x, rs, z, xs) ->
-2*css*b88_R_F(f_x, rs, z, xs):
+b88_zss := (css, f_x, rs, z, xs) -> 2*css*b88_R_F(f_x, rs, z, xs):
 
 if evalb(Polarization = "ferr") then
   b88_zab := (cab, f_x, rs, z, xs0, xs1) -> cab*b88_R_F(f_x, rs, 1, xs0):

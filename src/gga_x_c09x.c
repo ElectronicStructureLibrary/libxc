@@ -19,7 +19,7 @@ const xc_func_info_type xc_func_info_gga_x_c09x = {
   "C09x to be used with the VdW of Rutgers-Chalmers",
   XC_FAMILY_GGA,
   {&xc_ref_Cooper2010_161104, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
   NULL, NULL,

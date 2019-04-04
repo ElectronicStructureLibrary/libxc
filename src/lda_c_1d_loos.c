@@ -19,7 +19,7 @@ const xc_func_info_type xc_func_info_lda_c_1d_loos = {
   "P-F Loos correlation LDA",
   XC_FAMILY_LDA,
   {&xc_ref_Loos2013_064108, NULL, NULL, NULL, NULL},
-  XC_FLAGS_1D |  XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  XC_FLAGS_1D |  XC_FLAGS_HAVE_ALL,
   5e-28,
   0, NULL, NULL,
   NULL, NULL,

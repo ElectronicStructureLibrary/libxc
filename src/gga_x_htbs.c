@@ -19,7 +19,7 @@ const xc_func_info_type xc_func_info_gga_x_htbs = {
   "Haas, Tran, Blaha, and Schwarz",
   XC_FAMILY_GGA,
   {&xc_ref_Haas2011_205117, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
   1e-16,
   0, NULL, NULL,
   NULL, NULL, 

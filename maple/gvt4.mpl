@@ -6,8 +6,6 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_mgga_x *)
-
 gvt4_gamm := (alpha, x, z) -> 1 + alpha*(x^2 + z):
 
 gtv4 := (alpha, dd, x, z) ->

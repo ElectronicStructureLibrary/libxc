@@ -113,8 +113,17 @@ void xc_gga(const xc_func_type *func, int np, const double *rho, const double *s
 
   if(func->mix_coef != NULL)
     xc_mix_func(func, np, rho, sigma, NULL, NULL, zk, vrho, vsigma, NULL, NULL,
-                v2rho2, v2rhosigma, NULL, NULL, v2sigma2, NULL, NULL, NULL, NULL, NULL);
-
+                v2rho2, v2rhosigma, NULL, NULL, v2sigma2, NULL, NULL, NULL, NULL, NULL,
+                v3rho3, v3rho2sigma, NULL, NULL,
+                v3rhosigma2, NULL, NULL,
+                NULL, NULL,
+                NULL,
+                v3sigma3, NULL, NULL,
+                NULL, NULL,
+                NULL,
+                NULL, NULL,
+                NULL,
+                NULL);
 }
 
 /* specializations */

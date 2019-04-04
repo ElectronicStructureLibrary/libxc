@@ -1,4 +1,8 @@
 Improve existing functionals:
+  *) Convert missing mggas to new maple framework
+  *) Check all flags to see if they have the right derivatives
+  *) Solve problem with maple not being able to handle wpbeh
+  *) Missing gga_vxc and mgga_vxc
   *) Add XC_FLAGS_STABLE or XC_FLAGS_DEVELOPMENT to all functionals in libxc.
 
 Add functionals:

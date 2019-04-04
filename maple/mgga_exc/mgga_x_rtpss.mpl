@@ -7,20 +7,22 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_mgga_x *)
+(* type: mgga_exc *)
 (* prefix:
   mgga_x_rtpss_params *params;
  
-  assert(pt->params != NULL);
-  params = (mgga_x_rtpss_params * ) (pt->params);
+  assert(p->params != NULL);
+  params = (mgga_x_rtpss_params * ) (p->params);
 *)
 
 (* These are used within the tpss_x routine *)
-ff     := z -> 2:
-mkappa := (x, t) -> params_a_kappa:
+tpss_ff     := z -> 2:
+tpss_kappa := (x, t) -> params_a_kappa:
 
 $include "tpss_x.mpl"
 
 (* Equation (6) *)
 
-f   := (rs, x, t, u) -> 1 + mkappa(x, t)*(1 - exp(-fx(x, t)/mkappa(x,t))):
+rtpss_f := (x, u, t) -> 1 + tpss_kappa(x, t)*(1 - exp(-tpss_fx(x, t)/tpss_kappa(x,t))):
+
+f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) -> mgga_exchange(rtpss_f, rs, z, xs0, xs1, u0, u1, t0, t1):

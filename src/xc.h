@@ -54,6 +54,10 @@ extern "C" {
 #define XC_FLAGS_DEVELOPMENT      (1 << 14) /* 16384 */
 #define XC_FLAGS_NEEDS_LAPLACIAN  (1 << 15) /* 32768 */
 
+  /* This is the case for most functionals in libxc */
+#define XC_FLAGS_HAVE_ALL         (XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | \
+                                   XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC)
+  
   /* This magic value means use default parameter */
 #define XC_EXT_PARAMS_DEFAULT   -999998888
 

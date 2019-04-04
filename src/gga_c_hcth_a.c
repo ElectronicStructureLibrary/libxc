@@ -19,7 +19,7 @@ const xc_func_info_type xc_func_info_gga_c_hcth_a = {
   "HCTH-A",
   XC_FAMILY_GGA,
   {&xc_ref_Hamprecht1998_6264, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
   1e-16,
   0, NULL, NULL,
   NULL, NULL,

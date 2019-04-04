@@ -19,7 +19,7 @@ const xc_func_info_type xc_func_info_gga_xc_th2 = {
   "Tozer and Handy v. 2",
   XC_FAMILY_GGA,
   {&xc_ref_Tozer1998_3162, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
   1e-17,
   0, NULL, NULL,
   NULL, NULL, 

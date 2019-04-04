@@ -21,7 +21,7 @@ const xc_func_info_type xc_func_info_mgga_x_pkzb = {
   "Perdew, Kurth, Zupan, and Blaha",
   XC_FAMILY_MGGA,
   {&xc_ref_Perdew1999_2544, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
   1e-23,
   0, NULL, NULL,
   NULL, NULL,

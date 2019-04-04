@@ -30,7 +30,7 @@ const xc_func_info_type xc_func_info_mgga_c_cs = {
   "Colle and Salvetti",
   XC_FAMILY_MGGA,
   {&xc_ref_Colle1975_329, &xc_ref_Lee1988_785, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_ALL,
   1e-24,
   0, NULL, NULL,
   NULL, NULL, 

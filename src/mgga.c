@@ -149,7 +149,18 @@ xc_mgga(const xc_func_type *func, int np,
                 v2rho2, v2rhosigma, v2rholapl, v2rhotau, 
                 v2sigma2, v2sigmalapl, v2sigmatau,
                 v2lapl2, v2lapltau,
-                v2tau2);
+                v2tau2,
+                v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau,
+                v3rhosigma2, v3rhosigmalapl, v3rhosigmatau,
+                v3rholapl2, v3rholapltau,
+                v3rhotau2,
+                v3sigma3, v3sigma2lapl, v3sigma2tau,
+                v3sigmalapl2, v3sigmalapltau,
+                v3sigmatau2,
+                v3lapl3, v3lapl2tau,
+                v3lapltau2,
+                v3tau3
+                );
 
 }
 

@@ -161,11 +161,8 @@ typedef struct xc_functional_key_t {
 
 /* The following inlines confuse the xlc compiler */
 void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
-void xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix_coef);
 
 void internal_counters_set_lda (int nspin, xc_dimensions *dim);
-void internal_counters_set_gga (int nspin, xc_dimensions *dim);
-void internal_counters_set_mgga(int nspin, xc_dimensions *dim);
 void internal_counters_lda_next
 (const xc_dimensions *dim, int offset,
  const double **rho, double **zk, double **vrho, double **v2rho2, double **v3rho3
@@ -174,6 +171,8 @@ void internal_counters_lda_prev
 (const xc_dimensions *dim, int offset,
  const double **rho, double **zk, double **vrho, double **v2rho2, double **v3rho3
  );
+
+void internal_counters_set_gga (int nspin, xc_dimensions *dim);
 void internal_counters_gga_next
 (const xc_dimensions *dim, int offset,
  const double **rho, const double **sigma,
@@ -182,6 +181,7 @@ void internal_counters_gga_next
  double **v2rho2, double **v2rhosigma, double **v2sigma2,
  double **v3rho3, double **v3rho2sigma, double **v3rhosigma2, double **v3sigma3
  );
+
 void internal_counters_gga_prev
 (const xc_dimensions *dim, int offset,
  const double **rho, const double **sigma,
@@ -192,6 +192,8 @@ void internal_counters_gga_prev
 );
 
 /* GGAs */
+/* DEPRECATED: these structures will be deleted as soon as 
+   gg99 and wpbeh are converted to maple/mathematica */
 typedef struct xc_gga_work_x_t {
   int   order; /* to which order should I return the derivatives */
   double x;
@@ -242,6 +244,8 @@ typedef struct xc_gga_work_c_t {
  P_ v3lapltau2,                                                        \
  P_ v3tau3
 
+void internal_counters_set_mgga(int nspin, xc_dimensions *dim);
+
 void internal_counters_mgga_next
 (const xc_dimensions *dim, int offset,
  const double **rho, const double **sigma, const double **lapl, const double **tau,
@@ -289,15 +293,12 @@ typedef struct xc_mgga_work_c_t {
   double d3fdts3[4], d3fdts2us[6], d3fdtsus2[6], d3fdus3[4];
 } xc_mgga_work_c_t;
 
-
-/* useful MACROS */
-#define DFRACTION(num, dnum, den, dden) \
-  (((dnum)*(den) - (num)*(dden))/((den)*(den)))
-#define D2FRACTION(num, dnum, d2num, den, dden, d2den) \
-  ((2.0*(num)*(dden)*(dden) - 2.0*(den)*(dden)*(dnum) - (den)*(num)*(d2den) + (den)*(den)*(d2num))/((den)*(den)*(den)))
-#define D3FRACTION(num, dnum, d2num, d3num, den, dden, d2den, d3den)	\
-  ((-(num)*(6.0*(dden)*(dden)*(dden) - 6.0*(den)*(dden)*(d2den) + (den)*(den)*(d3den)) + \
-    (den)*(6.0*(dden)*(dden)*(dnum) - 3.0*(den)*(dden)*(d2num) + (den)*(-3.0*(dnum)*(d2den) + (den)*(d3num))))/((den)*(den)*(den)*(den)))
+/* Functionals that are defined as mixtures of others */
+void xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix_coef);
+void xc_mix_func
+  (const xc_func_type *func, int np,
+   const double *rho, const double *sigma, const double *lapl, const double *tau,
+   double *zk, MGGA_OUT_PARAMS_NO_EXC(double *));
 
 /* Some useful functions */
 const char *get_kind(const xc_func_type *func);

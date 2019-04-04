@@ -306,15 +306,6 @@ void xc_mgga_kxc    (const xc_func_type *p, int np,
 		      double *v3lapltau2,
 		      double *v3tau3);
   
-/* Functionals that are defined as mixtures of others */
-void xc_mix_func
-  (const xc_func_type *func, int np,
-   const double *rho, const double *sigma, const double *lapl, const double *tau,
-   double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
-   double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
-   double *v2sigma2, double *v2sigmalapl, double *v2sigmatau,
-   double *v2lapl2, double *v2lapltau, double *v2tau2);
-
 #ifdef __cplusplus
 }
 #endif

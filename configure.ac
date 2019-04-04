@@ -184,6 +184,10 @@ AC_CONFIG_FILES([Makefile
   build/libxc.spec
   scripts/Makefile
   maple/Makefile
+  maple/lda_exc/Makefile
+  maple/lda_vxc/Makefile
+  maple/gga_exc/Makefile
+  maple/mgga_exc/Makefile
   pylibxc/Makefile
   cmake/Makefile
 ])

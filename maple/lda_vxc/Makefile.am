@@ -5,8 +5,5 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
-SUBDIRS = lda_exc lda_vxc gga_exc mgga_exc
-
 dist_noinst_SCRIPTS = \
-attenuation.mpl  b97mv.mpl  mbeef.mpl  scaling.mpl  tpss.mpl    util.mpl \
-b97.mpl          gvt4.mpl   op.mpl     th.mpl       tpss_x.mpl  vwn.mpl
+lda_xc_tih.mpl

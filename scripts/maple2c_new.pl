@@ -19,7 +19,6 @@ $config{"srcdir"}     = $ARGV[0];
 $config{"functional"} = $ARGV[1];
 $config{"max_order"}  = $ARGV[2];
 $config{"simplify"}   = ($#ARGV >= 3 && $ARGV[3] eq "yes") ? 1 : 0;
-$config{"mathfile"}   = $config{"srcdir"}."/maple/".$config{"functional"}.".mpl";
 $config{"prefix"}     = "";
 
 $config{"simplify_begin"} = ($config{'simplify'} == 1) ? "simplify(" : "";
@@ -27,8 +26,26 @@ $config{"simplify_end"}   = ($config{'simplify'} == 1) ? ", symbolic)" : "";
 
 $config{"replace"} = [];
 
-# Find out the type of functional
+# find out where the maple file resides
+if(-f $config{"functional"}.".mpl"){
+  $config{"mathfile"} = $config{"functional"}.".mpl";
+}elsif(-f $config{"srcdir"}."/maple/".$config{"functional"}.".mpl"){
+  $config{"mathfile"} = $config{"srcdir"}."/maple/".$config{"functional"}.".mpl";
+}else{
+  $temp = $config{"functional"};
+  $temp =~ s/hyb_//;
+  $temp =~ s/_.*$//;
+
+  if(-f $config{"srcdir"}."/maple/".$temp."_exc/".$config{"functional"}.".mpl"){
+    $config{"mathfile"} =  $config{"srcdir"}."/maple/".$temp."_exc/".$config{"functional"}.".mpl";
+  }elsif(-f $config{"srcdir"}."/maple/".$temp."_vxc/".$config{"functional"}.".mpl"){
+    $config{"mathfile"} =  $config{"srcdir"}."/maple/".$temp."_vxc/".$config{"functional"}.".mpl";
+  }
+}
+  
 open my $in, '<', $config{"mathfile"} or die "File $mathfile does not exist\n";
+
+# Find out the type of functional
 while($_ = <$in>){
   if(/^\(\* type:\s(\S*)\s/){
     $config{"functype"} = $1;

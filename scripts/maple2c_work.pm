@@ -81,8 +81,19 @@ $code
 ";
   close($mfile);
 
+  # include dirs for maple
+  my @incdirs = ("maple", 
+                 "maple/lda_exc",  "maple/lda_vxc", 
+                 "maple/gga_exc",  "maple/gga_vxc",
+                 "maple/mgga_exc", "maple/mgga_exc"
+      );
+  my $maple_inc = "";
+  foreach my $idir (@incdirs){
+    $maple_inc .= " -I".$config{"srcdir"}."/".$idir;
+  }
+
   # run maple
-  my $c_code = `maple -I$config{"srcdir"}/maple -q -u /tmp/$$.mpl`;
+  my $c_code = `maple $maple_inc -q -u /tmp/$$.mpl`;
   #unlink "/tmp/$$.mpl";
 
   # find all variables defined in the c code

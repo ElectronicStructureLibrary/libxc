@@ -58,10 +58,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->mu     = get_ext_param(p->info->ext_params, ext_params, 4);
 }
 
-#include "maple2c/mgga_x_rtpss.c"
-
-#define func xc_mgga_x_rtpss_enhance
-#include "work_mgga_x.c"
+#include "maple2c/mgga_exc/mgga_x_rtpss.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_x_rtpss = {
   XC_MGGA_X_RTPSS,
@@ -69,9 +67,9 @@ const xc_func_info_type xc_func_info_mgga_x_rtpss = {
   "TPSS for surface adsorption",
   XC_FAMILY_MGGA,
   {&xc_ref_Garza2018_3083, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_FXC,
   1e-23,
   5, ext_params, set_ext_params,
   mgga_x_rtpss_init, NULL, 
-  NULL, NULL, work_mgga_x,
+  NULL, NULL, work_mgga,
 };

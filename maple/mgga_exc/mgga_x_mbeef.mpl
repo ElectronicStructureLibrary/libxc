@@ -6,10 +6,10 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_mgga_x *)
+(* type: mgga_exc *)
 
-n_mbeef := 8:
-coefs_mbeef := [
+mbeef_n := 8:
+mbeef_coefs := [
   [
      1.18029330e+00,  8.53027860e-03, -1.02312143e-01,  6.85757490e-02,
     -6.61294786e-03, -2.84176163e-02,  5.54283363e-03,  3.95434277e-03
@@ -39,5 +39,7 @@ coefs_mbeef := [
 
 $include "mbeef.mpl"
 
-f := (rs, x, t, u) ->
-  mgga_mbeef(x, t):
+mbeef_f := (x, u, t) -> mbeef_expansion(x, t):
+
+f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->
+  mgga_exchange(mbeef_f, rs, z, xs0, xs1, u0, u1, t0, t1):

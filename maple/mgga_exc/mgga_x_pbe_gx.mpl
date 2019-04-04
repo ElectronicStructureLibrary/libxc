@@ -6,12 +6,15 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_mgga_x *)
+(* type: mgga_exc *)
 
 $include "mgga_x_gx.mpl"
 
-mmu := 0.001015549:
-pbe_gx := x -> 1/(1 + mmu*x^2):
+pbe_gx_mu := 0.001015549:
+pbe_gx := x -> 1/(1 + pbe_gx_mu*x^2):
 
-f := (rs, x, t, u) ->
-  f_gx_a(malpha(x, t)) * pbe_gx(x):
+pbe_gx_f := (x, u, t) ->
+  gx_f_a(gx_alpha(x, t)) * pbe_gx(x):
+
+f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->
+  mgga_exchange(pbe_gx_f, rs, z, xs0, xs1, u0, u1, t0, t1):

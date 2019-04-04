@@ -63,10 +63,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 }
 
 
-#include "maple2c/mgga_x_mvsb.c"
-
-#define func maple2c_func
-#include "work_mgga_x.c"
+#include "maple2c/mgga_exc/mgga_x_mvsb.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_x_mvsb = {
   XC_MGGA_X_MVSB,
@@ -74,11 +72,11 @@ const xc_func_info_type xc_func_info_mgga_x_mvsb = {
   "MVSbeta exchange by Furness and Sun",
   XC_FAMILY_MGGA,
   {&xc_ref_Furness2018, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-23,
   4, ext_params, set_ext_params,
-  mgga_x_mvsb_init, NULL, NULL, NULL,
-  work_mgga_x,
+  mgga_x_mvsb_init, NULL,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_mgga_x_mvsbs = {
@@ -87,9 +85,9 @@ const xc_func_info_type xc_func_info_mgga_x_mvsbs = {
   "MVSbeta* exchange by Furness and Sun",
   XC_FAMILY_MGGA,
   {&xc_ref_Furness2018, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-23,
   0, NULL, NULL,
-  mgga_x_mvsb_init, NULL, NULL, NULL,
-  work_mgga_x,
+  mgga_x_mvsb_init, NULL,
+  NULL, NULL, work_mgga,
 };

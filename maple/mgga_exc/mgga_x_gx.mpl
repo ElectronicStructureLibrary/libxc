@@ -6,9 +6,9 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_mgga_x *)
+(* type: mgga_exc *)
 
-malpha := (x, t) -> (t - x^2/8)/K_FACTOR_C:
+gx_alpha := (x, t) -> (t - x^2/8)/K_FACTOR_C:
 
 gx_cx0 := 4/3*(2/Pi)^(1/3):
 gx_cx1 := X_FACTOR_C:
@@ -24,9 +24,11 @@ gx_alphainf := 0.852:
 gx_gx1 := a ->
   1 + (1 - gx_alphainf)*(1 - a)/(1 + a):
 
-f_gx_a := a->
+gx_f_a := a->
   + gx_gx0(a)*Heaviside(1 - a)
   + gx_gx1(a)*Heaviside(a - 1):
 
-f := (rs, x, t, u) ->
-  f_gx_a(malpha(x, t)):
+gx_f := (x, u, t) ->
+  gx_f_a(gx_alpha(x, t)):
+
+f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) -> mgga_exchange(gx_f, rs, z, xs0, xs1, u0, u1, t0, t1):

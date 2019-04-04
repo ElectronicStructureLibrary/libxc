@@ -67,10 +67,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 }
 
 
-#include "maple2c/mgga_x_ms.c"
-
-#define func maple2c_func
-#include "work_mgga_x.c"
+#include "maple2c/mgga_exc/mgga_x_ms.c"
+#include "work_mgga_new.c"
 
 
 const xc_func_info_type xc_func_info_mgga_x_ms0 = {
@@ -79,12 +77,11 @@ const xc_func_info_type xc_func_info_mgga_x_ms0 = {
   "MS exchange of Sun, Xiao, and Ruzsinszky",
   XC_FAMILY_MGGA,
   {&xc_ref_Sun2012_051101, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-23,
   3, ext_params, set_ext_params,
-  mgga_x_ms_init,
-  NULL, NULL, NULL,
-  work_mgga_x,
+  mgga_x_ms_init, NULL,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_mgga_x_ms1 = {
@@ -93,12 +90,11 @@ const xc_func_info_type xc_func_info_mgga_x_ms1 = {
   "MS1 exchange of Sun, et al",
   XC_FAMILY_MGGA,
   {&xc_ref_Sun2013_044113, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-23,
   0, NULL, NULL,
-  mgga_x_ms_init,
-  NULL, NULL, NULL,
-  work_mgga_x,
+  mgga_x_ms_init, NULL,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_mgga_x_ms2 = {
@@ -107,12 +103,11 @@ const xc_func_info_type xc_func_info_mgga_x_ms2 = {
   "MS2 exchange of Sun, et al",
   XC_FAMILY_MGGA,
   {&xc_ref_Sun2013_044113, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-23,
   0, NULL, NULL,
-  mgga_x_ms_init,
-  NULL, NULL, NULL,
-  work_mgga_x,
+  mgga_x_ms_init, NULL,
+  NULL, NULL, work_mgga,
 };
 
 static void
@@ -131,7 +126,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_ms2h = {
   "MS2 hybrid exchange of Sun, et al",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Sun2013_044113, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-32,
   0, NULL, NULL,
   hyb_mgga_x_ms2h_init, NULL,

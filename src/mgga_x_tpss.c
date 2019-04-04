@@ -85,10 +85,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->BLOC_b = get_ext_param(p->info->ext_params, ext_params, 6);
 }
 
-#include "maple2c/mgga_x_tpss.c"
-
-#define func xc_mgga_x_tpss_enhance
-#include "work_mgga_x.c"
+#include "maple2c/mgga_exc/mgga_x_tpss.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_x_tpss = {
   XC_MGGA_X_TPSS,
@@ -96,11 +94,11 @@ const xc_func_info_type xc_func_info_mgga_x_tpss = {
   "Tao, Perdew, Staroverov & Scuseria",
   XC_FAMILY_MGGA,
   {&xc_ref_Tao2003_146401, &xc_ref_Perdew2004_6898, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-23,
   7, ext_params, set_ext_params,
   mgga_x_tpss_init, NULL, 
-  NULL, NULL, work_mgga_x,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_mgga_x_modtpss = {
@@ -109,11 +107,11 @@ const xc_func_info_type xc_func_info_mgga_x_modtpss = {
   "Modified Tao, Perdew, Staroverov & Scuseria",
   XC_FAMILY_MGGA,
   {&xc_ref_Perdew2007_042506, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-23,
   0, NULL, NULL,
   mgga_x_tpss_init, NULL, 
-  NULL, NULL, work_mgga_x,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_mgga_x_revtpss = {
@@ -122,11 +120,11 @@ const xc_func_info_type xc_func_info_mgga_x_revtpss = {
   "revised Tao, Perdew, Staroverov & Scuseria",
   XC_FAMILY_MGGA,
   {&xc_ref_Perdew2009_026403, &xc_ref_Perdew2009_026403_err, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-23,
   0, NULL, NULL,
   mgga_x_tpss_init, NULL, 
-  NULL, NULL, work_mgga_x,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_mgga_x_bloc = {
@@ -135,9 +133,9 @@ const xc_func_info_type xc_func_info_mgga_x_bloc = {
   "functional with balanced localization",
   XC_FAMILY_MGGA,
   {&xc_ref_Constantin2013_2256, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC,
   1e-23,
   0, NULL, NULL,
   mgga_x_tpss_init, NULL, 
-  NULL, NULL, work_mgga_x,
+  NULL, NULL, work_mgga,
 };

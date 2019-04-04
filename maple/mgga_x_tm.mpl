@@ -7,38 +7,40 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_mgga_x *)
+(* type: mgga_exc *)
 
-mlambda := 0.6866:
-mbeta   := 79.873:
+tm_lambda := 0.6866:
+tm_beta   := 79.873:
 
 (* below Equation (6) *)
-p  := x -> (X2S*x)^2:
-y  := x -> (2*mlambda - 1)^2 * p(x):
+tm_p  := x -> (X2S*x)^2:
+tm_y  := x -> (2*tm_lambda - 1)^2 * tm_p(x):
 
 (* Equation (7) *)
-f0 := x -> (1 + 10*(70*y(x)/27) + mbeta*y(x)^2)^(1/10):
+tm_f0 := x -> (1 + 10*(70*tm_y(x)/27) + tm_beta*tm_y(x)^2)^(1/10):
 
 (* after Equation (9) *)
-R  := (x, t) -> 1 + 595*(2*mlambda - 1)^2 * p(x)/54 \
-   - (t - 3*(mlambda^2 - mlambda + 1/2)*(t - K_FACTOR_C - x^2/72))/K_FACTOR_C:
+tm_R  := (x, t) -> 1 + 595*(2*tm_lambda - 1)^2 * tm_p(x)/54 \
+   - (t - 3*(tm_lambda^2 - tm_lambda + 1/2)*(t - K_FACTOR_C - x^2/72))/K_FACTOR_C:
 
-fx_DME := (x, t) -> 1/f0(x)^2 + 7*R(x, t)/(9*f0(x)^4):
+tm_fx_DME := (x, t) -> 1/tm_f0(x)^2 + 7*tm_R(x, t)/(9*tm_f0(x)^4):
 
-malpha := (x, t) -> (t - x^2/8)/K_FACTOR_C:
+tm_alpha := (x, t) -> (t - x^2/8)/K_FACTOR_C:
 
 (* after Equation (11) *)
-qtilde := (x, t) -> 9/20*(malpha(x, t) - 1) + 2*p(x)/3:
+tm_qtilde := (x, t) -> 9/20*(tm_alpha(x, t) - 1) + 2*tm_p(x)/3:
 
 (* Ratio tW/t; we have to make sure it's 1 at maximum *)
-tratio := (x, t) -> m_min(1.0, x^2/(8*t)):
+tm_tratio := (x, t) -> m_min(1.0, x^2/(8*t)):
 
-fx_SC := (x, t) -> (1 + 10*( \
-       + (MU_GE + 50*p(x)/729)*p(x) + 146*qtilde(x, t)^2/2025 \
-       - 73*qtilde(x,t)/405*(3/5*tratio(x,t))*(1 - tratio(x,t)))
+tm_fx_SC := (x, t) -> (1 + 10*( \
+       + (MU_GE + 50*tm_p(x)/729)*tm_p(x) + 146*tm_qtilde(x, t)^2/2025 \
+       - 73*tm_qtilde(x,t)/405*(3/5*tm_tratio(x,t))*(1 - tm_tratio(x,t)))
        )^(1/10):
 
 (* Equation 10 and below *)
-w := (x,t)-> (tratio(x,t)^2 + 3*tratio(x,t)^3)/(1 + tratio(x,t)^3)^2:
+tm_w := (x,t)-> (tm_tratio(x,t)^2 + 3*tm_tratio(x,t)^3)/(1 + tm_tratio(x,t)^3)^2:
 
-f := (rs, x, t, u) -> w(x,t)*fx_DME(x, t) + (1 - w(x,t))*fx_SC(x, t):
+tm_f := (x, u, t) -> tm_w(x,t)*tm_fx_DME(x, t) + (1 - tm_w(x,t))*tm_fx_SC(x, t):
+
+f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) -> mgga_exchange(tm_f, rs, z, xs0, xs1, u0, u1, t0, t1):

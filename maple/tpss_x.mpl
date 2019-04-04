@@ -8,24 +8,24 @@
 
 (* Equation (7) from the paper *)
 
-p     := x -> X2S^2*x^2:
-z     := (x, t) -> x^2/(8*t):
+tpss_p := x -> X2S^2*x^2:
+tpss_z := (x, t) -> x^2/(8*t):
 
-alpha := (x, t) -> (t - x^2/8)/K_FACTOR_C:
-qb    := (x, t) -> \
-      9/20 * (alpha(x, t) - 1)/sqrt(1 + params_a_b*alpha(x, t)*(alpha(x, t) - 1)) \
-      + 2*p(x)/3:
+tpss_alpha := (x, t) -> (t - x^2/8)/K_FACTOR_C:
+tpss_qb    := (x, t) -> \
+      9/20 * (tpss_alpha(x, t) - 1)/sqrt(1 + params_a_b*tpss_alpha(x, t)*(tpss_alpha(x, t) - 1)) \
+      + 2*tpss_p(x)/3:
 
 (* Equation (10) in all its glory *)
-fxnum := (x, t) -> \
-      + (MU_GE + params_a_c*z(x, t)^ff(z(x, t))/(1 + z(x, t)^2)^2)*p(x) \
-      + 146/2025 * qb(x, t)^2 \
-      - 73/405 * qb(x, t) * sqrt(1/2*(9/25*z(x, t)^2 + p(x)^2)) \
-      + MU_GE^2/mkappa(x, t) * p(x)^2 \
-      + 2*sqrt(params_a_e)*MU_GE*9/25*z(x, t)^2 \
-      + params_a_e*params_a_mu*p(x)^3:
+tpss_fxnum := (x, t) -> \
+      + (MU_GE + params_a_c*tpss_z(x, t)^tpss_ff(tpss_z(x, t))/(1 + tpss_z(x, t)^2)^2)*tpss_p(x) \
+      + 146/2025 * tpss_qb(x, t)^2 \
+      - 73/405 * tpss_qb(x, t) * sqrt(1/2*(9/25*tpss_z(x, t)^2 + tpss_p(x)^2)) \
+      + MU_GE^2/tpss_kappa(x, t) * tpss_p(x)^2 \
+      + 2*sqrt(params_a_e)*MU_GE*9/25*tpss_z(x, t)^2 \
+      + params_a_e*params_a_mu*tpss_p(x)^3:
 
-fxden := x -> \
-      (1 + sqrt(params_a_e)*p(x))^2:
+tpss_fxden := x -> \
+      (1 + sqrt(params_a_e)*tpss_p(x))^2:
 
-fx    := (x, t) -> fxnum(x, t)/fxden(x):
+tpss_fx    := (x, t) -> tpss_fxnum(x, t)/tpss_fxden(x):

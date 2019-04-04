@@ -190,49 +190,6 @@ void internal_counters_gga_prev
  double **v2rho2, double **v2rhosigma, double **v2sigma2,
  double **v3rho3, double **v3rho2sigma, double **v3rhosigma2, double **v3sigma3
 );
-void
-internal_counters_mgga_next
-(const xc_dimensions *dim, int offset,
- const double **rho, const double **sigma, const double **lapl, const double **tau,
- double **zk,
- double **vrho, double **vsigma, double **vlapl, double **vtau,
- double **v2rho2, double **v2rhosigma, double **v2rholapl, double **v2rhotau,
- double **v2sigma2, double **v2sigmalapl, double **v2sigmatau,
- double **v2lapl2, double **v2taulapl,
- double **v2tau2,
- double **v3rho3, double **v3rho2sigma, double **v3rho2lapl, double **v3rho2tau,
- double **v3rhosigma2, double **v3rhosigmalapl, double **v3rhosigmatau,
- double **v3rholapl2, double **v3rholapltau,
- double **v3rhotau2,
- double **v3sigma3, double **v3sigma2lapl, double **v3sigma2tau,
- double **v3sigmalapl2, double **v3sigmalapltau,
- double **v3sigmatau2,
- double **v3lapl3,  double **v3lapl2tau,
- double **v3lapltau2,
- double **v3tau3
- );
-
-void
-internal_counters_mgga_prev
-(const xc_dimensions *dim, int offset,
- const double **rho, const double **sigma, const double **lapl, const double **tau,
- double **zk,
- double **vrho, double **vsigma, double **vlapl, double **vtau,
- double **v2rho2, double **v2rhosigma, double **v2rholapl, double **v2rhotau,
- double **v2sigma2, double **v2sigmalapl, double **v2sigmatau,
- double **v2lapl2, double **v2lapltau,
- double **v2tau2,
- double **v3rho3, double **v3rho2sigma, double **v3rho2lapl, double **v3rho2tau,
- double **v3rhosigma2, double **v3rhosigmalapl, double **v3rhosigmatau,
- double **v3rholapl2, double **v3rholapltau,
- double **v3rhotau2,
- double **v3sigma3, double **v3sigma2lapl, double **v3sigma2tau,
- double **v3sigmalapl2, double **v3sigmalapltau,
- double **v3sigmatau2,
- double **v3lapl3,  double **v3lapl2tau,
- double **v3lapltau2,
- double **v3tau3
-);
 
 /* GGAs */
 typedef struct xc_gga_work_x_t {
@@ -266,6 +223,35 @@ typedef struct xc_gga_work_c_t {
 } xc_gga_work_c_t;
 
 /* meta GGAs */
+
+/* This is the order of the derivatives of a mgga */
+#define MGGA_OUT_PARAMS_NO_EXC(P_)                                     \
+ P_ vrho, P_ vsigma, P_ vlapl, P_ vtau,                                \
+ P_ v2rho2, P_ v2rhosigma, P_ v2rholapl, P_ v2rhotau,                  \
+ P_ v2sigma2, P_ v2sigmalapl, P_ v2sigmatau,                           \
+ P_ v2lapl2, P_ v2lapltau,                                             \
+ P_ v2tau2,                                                            \
+ P_ v3rho3, P_ v3rho2sigma, P_ v3rho2lapl, P_ v3rho2tau,               \
+ P_ v3rhosigma2, P_ v3rhosigmalapl, P_ v3rhosigmatau,                  \
+ P_ v3rholapl2, P_ v3rholapltau,                                       \
+ P_ v3rhotau2,                                                         \
+ P_ v3sigma3, P_ v3sigma2lapl, P_ v3sigma2tau,                         \
+ P_ v3sigmalapl2, P_ v3sigmalapltau,                                   \
+ P_ v3sigmatau2,                                                       \
+ P_ v3lapl3, P_ v3lapl2tau,                                            \
+ P_ v3lapltau2,                                                        \
+ P_ v3tau3
+
+void internal_counters_mgga_next
+(const xc_dimensions *dim, int offset,
+ const double **rho, const double **sigma, const double **lapl, const double **tau,
+ double **zk, MGGA_OUT_PARAMS_NO_EXC(double **));
+
+void internal_counters_mgga_prev
+(const xc_dimensions *dim, int offset,
+ const double **rho, const double **sigma, const double **lapl, const double **tau,
+ double **zk, MGGA_OUT_PARAMS_NO_EXC(double **));
+
 typedef struct xc_mgga_work_x_t {
   int   order; /* to which order should I return the derivatives */
   double rs, zeta, x, t, u;

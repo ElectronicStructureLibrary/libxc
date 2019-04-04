@@ -174,6 +174,7 @@ AC_CONFIG_FILES([Makefile
   src/maple2c/lda_exc/Makefile
   src/maple2c/lda_vxc/Makefile
   src/maple2c/gga_exc/Makefile
+  src/maple2c/mgga_exc/Makefile
   testsuite/Makefile
   testsuite/pytest/Makefile
   build/Makefile

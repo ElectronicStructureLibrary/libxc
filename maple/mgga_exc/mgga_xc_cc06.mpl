@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_mgga_c *)
+(* type: mgga_exc *)
 
 $define lda_c_pw_params
 $include "lda_c_pw.mpl"
@@ -20,10 +20,10 @@ cc06_alpha := -0.0007:
 cc06_beta  :=  0.0080*cc06_cnst:
 cc06_gamma :=  0.026 *cc06_cnst:
 
-f_cc06 := (rs, z, us0, us1) ->
+cc06_f := (rs, z, us0, us1) ->
   (f_lda_x(rs, z) + f_pw(rs, z))*(1 +
     (cc06_alpha + cc06_beta*u_total(z, us0, us1))/(1 + cc06_gamma*u_total(z, us0, us1))
   ):
 
-f := (rs, z, xt, xs0, xs1, ts0, ts1, us0, us1) ->
-  f_cc06(rs, z, us0, us1):
+f := (rs, z, xt, xs0, xs1, us0, us1, ts0, ts1) ->
+  cc06_f(rs, z, us0, us1):

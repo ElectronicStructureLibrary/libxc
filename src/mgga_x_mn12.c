@@ -116,10 +116,8 @@ mgga_x_mn12_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/mgga_x_mn12.c"
-
-#define func maple2c_func
-#include "work_mgga_c.c"
+#include "maple2c/mgga_exc/mgga_x_mn12.c"
+#include "work_mgga_new.c"
 
 
 const xc_func_info_type xc_func_info_mgga_x_mn12_l = {
@@ -128,11 +126,11 @@ const xc_func_info_type xc_func_info_mgga_x_mn12_l = {
   "Minnesota MN12-L exchange functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Peverati2012_13171, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
   1e-23,
   0, NULL, NULL,
   mgga_x_mn12_init, NULL,
-  NULL, NULL, work_mgga_c,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_hyb_mgga_x_mn12_sx = {
@@ -141,11 +139,11 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_mn12_sx = {
   "Minnesota MN12-SX hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
   mgga_x_mn12_init, NULL,
-  NULL, NULL, work_mgga_c
+  NULL, NULL, work_mgga
 };
 
 const xc_func_info_type xc_func_info_mgga_x_mn15_l = {
@@ -154,11 +152,11 @@ const xc_func_info_type xc_func_info_mgga_x_mn15_l = {
   "Minnesota MN15-L exchange functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Yu2016_1280, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
   1e-23,
   0, NULL, NULL,
   mgga_x_mn12_init, NULL,
-  NULL, NULL, work_mgga_c,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_hyb_mgga_x_mn15 = {
@@ -167,9 +165,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_mn15 = {
   "Minnesota MN15 hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Yu2016_5032, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
   mgga_x_mn12_init, NULL,
-  NULL, NULL, work_mgga_c,
+  NULL, NULL, work_mgga,
 };

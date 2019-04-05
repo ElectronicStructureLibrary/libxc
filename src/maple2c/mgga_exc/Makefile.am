@@ -12,5 +12,9 @@ mgga_x_lta.c   mgga_x_tau_hcth.c  mgga_x_vt84.c  \
 mgga_x_rtpss.c mgga_x_pkzb.c      mgga_x_gx.c    \
 mgga_x_pbe_gx.c mgga_x_mvs.c mgga_x_ms.c \
 mgga_x_mvsb.c mgga_x_msb.c mgga_x_mk00.c \
-mgga_x_mbeef.c mgga_x_mbeefvdw.c
+mgga_x_mbeef.c mgga_x_mbeefvdw.c \
+mgga_xc_zlp.c mgga_xc_lp90.c mgga_xc_cc06.c mgga_xc_b98.c mgga_xc_b97mv.c \
+mgga_x_mn12.c mgga_x_m11_l.c mgga_x_m11.c mgga_x_m08.c mgga_x_m06l.c \
+mgga_x_gvt4.c mgga_k_pc07.c mgga_c_vsxc.c mgga_c_tpss.c mgga_c_kcis.c \
+mgga_c_b88.c hyb_mgga_xc_wb97mv.c
 

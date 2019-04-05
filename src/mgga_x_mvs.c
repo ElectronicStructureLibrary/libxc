@@ -64,7 +64,7 @@ const xc_func_info_type xc_func_info_mgga_x_mvs = {
   "MVS exchange of Sun, Perdew, and Ruzsinszky",
   XC_FAMILY_MGGA,
   {&xc_ref_Sun2015_685, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23,
   4, ext_params, set_ext_params,
   mgga_x_mvs_init, NULL,

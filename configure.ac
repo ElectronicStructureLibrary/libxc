@@ -110,7 +110,36 @@ AC_ARG_WITH([custom-fmoddir],
 	    [AC_SUBST([FMODDIR],["$withval"])],
 	    [AC_SUBST([FMODDIR],['${includedir}'])])
 
-dnl build/install fortran bits unless --disable-fortran is used
+
+# Enable/disable derivatives
+AC_ARG_ENABLE([vxc],
+	      AS_HELP_STRING([--disable-vxc], [don't build first derivatives]),
+	      [ac_cv_build_vxc=$enableval],
+	      [ac_cv_build_vxc=yes])
+if test x"${ac_cv_build_vxc}" == x"no"; then
+  AC_DEFINE(XC_DONT_COMPILE_VXC, 1, [defined if first derivatives are disabled])
+  AC_DEFINE(XC_DONT_COMPILE_FXC, 1, [defined if second derivatives are disabled])
+  AC_DEFINE(XC_DONT_COMPILE_KXC, 1, [defined if third derivatives are disabled])
+fi
+
+AC_ARG_ENABLE([fxc],
+	      AS_HELP_STRING([--disable-fxc], [don't build second derivatives]),
+	      [ac_cv_build_fxc=$enableval],
+	      [ac_cv_build_fxc=yes])
+if test x"${ac_cv_build_fxc}" == x"no"; then
+  AC_DEFINE(XC_DONT_COMPILE_FXC, 1, [defined if second derivatives are disabled])
+  AC_DEFINE(XC_DONT_COMPILE_KXC, 1, [defined if third derivatives are disabled])
+fi
+
+AC_ARG_ENABLE([kxc],
+	      AS_HELP_STRING([--disable-kxc], [don't build third derivatives]),
+	      [ac_cv_build_kxc=$enableval],
+	      [ac_cv_build_kxc=no])
+if test x"${ac_cv_build_kxc}" == x"no"; then
+  AC_DEFINE(XC_DONT_COMPILE_KXC, 1, [defined if third derivatives are disabled])
+fi
+
+# build/install fortran bits unless --disable-fortran is used
 AC_ARG_ENABLE([fortran],
 	      AS_HELP_STRING([--disable-fortran], [don't build/install fortran components]),
 	      [ac_cv_build_fortran=$enableval],

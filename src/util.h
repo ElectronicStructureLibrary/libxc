@@ -26,6 +26,29 @@
 /* need config to figure out what needs to be defined or not */
 #include "config.h"
 
+/* This takes care of disabling specific derivatives from the info structures */
+#ifdef XC_DONT_COMPILE_VXC
+# define XC_FLAGS_I_HAVE_VXC 0
+#else
+# define XC_FLAGS_I_HAVE_VXC XC_FLAGS_HAVE_VXC
+#endif
+
+#ifdef XC_DONT_COMPILE_FXC
+# define XC_FLAGS_I_HAVE_FXC 0
+#else
+# define XC_FLAGS_I_HAVE_FXC XC_FLAGS_HAVE_FXC
+#endif
+
+#ifdef XC_DONT_COMPILE_KXC
+# define XC_FLAGS_I_HAVE_KXC 0
+#else
+# define XC_FLAGS_I_HAVE_KXC XC_FLAGS_HAVE_KXC
+#endif
+
+#define XC_FLAGS_I_HAVE_ALL (XC_FLAGS_HAVE_EXC   | XC_FLAGS_I_HAVE_VXC | \
+                             XC_FLAGS_I_HAVE_FXC | XC_FLAGS_I_HAVE_KXC)
+
+/* Useful mathematical expressions */
 #ifndef M_E
 # define M_E            2.7182818284590452354   /* e */
 #endif

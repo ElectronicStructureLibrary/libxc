@@ -20,7 +20,7 @@ const xc_func_info_type xc_func_info_lda_xc_zlp = {
   "Zhao, Levy & Parr, Eq. (20)",
   XC_FAMILY_LDA,
   {&xc_ref_Zhao1993_918, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
   NULL, NULL,

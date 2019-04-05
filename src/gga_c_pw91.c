@@ -19,7 +19,7 @@ const xc_func_info_type xc_func_info_gga_c_pw91 = {
   "Perdew & Wang 91",
   XC_FAMILY_GGA,
   {&xc_ref_Perdew1991, &xc_ref_Perdew1992_6671, &xc_ref_Perdew1992_6671_err, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-12,
   0, NULL, NULL,
   NULL, NULL, 

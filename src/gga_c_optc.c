@@ -19,7 +19,7 @@ const xc_func_info_type xc_func_info_gga_c_optc = {
   "Optimized correlation functional of Cohen and Handy",
   XC_FAMILY_GGA,
   {&xc_ref_Cohen2001_607, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-12,
   0, NULL, NULL,
   NULL, NULL, 

@@ -19,7 +19,7 @@ const xc_func_info_type xc_func_info_lda_c_vwn_3 = {
   "Vosko, Wilk & Nusair (VWN3)",
   XC_FAMILY_LDA,
   {&xc_ref_Vosko1980_1200, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
   0, NULL, NULL,
   NULL, NULL, work_lda,

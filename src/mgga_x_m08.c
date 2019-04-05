@@ -61,10 +61,8 @@ mgga_x_m08_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/mgga_x_m08.c"
-
-#define func maple2c_func
-#include "work_mgga_x.c"
+#include "maple2c/mgga_exc/mgga_x_m08.c"
+#include "work_mgga_new.c"
 
 
 const xc_func_info_type xc_func_info_hyb_mgga_x_m08_hx = {
@@ -73,12 +71,11 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m08_hx = {
   "Minnesota M08-HX hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
   1e-20,
   0, NULL, NULL,
-  mgga_x_m08_init,
-  NULL, NULL, NULL,
-  work_mgga_x,
+  mgga_x_m08_init, NULL,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_hyb_mgga_x_m08_so = {
@@ -87,10 +84,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m08_so = {
   "Minnesota M08-SO hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
   1e-20,
   0, NULL, NULL,
-  mgga_x_m08_init,
-  NULL, NULL, NULL,
-  work_mgga_x,
+  mgga_x_m08_init, NULL,
+  NULL, NULL, work_mgga,
 };

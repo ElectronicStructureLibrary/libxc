@@ -11,10 +11,8 @@
 
 #define XC_MGGA_XC_ZLP          42 /* Zhao, Levy & Parr, Eq. (21) */
 
-#include "maple2c/mgga_xc_zlp.c"
-
-#define func maple2c_func
-#include "work_mgga_c.c"
+#include "maple2c/mgga_exc/mgga_xc_zlp.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_xc_zlp = {
   XC_MGGA_XC_ZLP,
@@ -22,11 +20,10 @@ const xc_func_info_type xc_func_info_mgga_xc_zlp = {
   "Zhao, Levy & Parr, Eq. (21)",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao1993_918, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_ALL,
   1e-23,
   0, NULL, NULL,
-  NULL,
-  NULL, NULL, NULL,
-  work_mgga_c,
+  NULL, NULL,
+  NULL, NULL, work_mgga,
 };
 

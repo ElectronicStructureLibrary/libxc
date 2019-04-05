@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_mgga_c *)
+(* type: mgga_exc *)
 
 (* Equations are from the Appendix of Kurth1999_889 *)
 
@@ -41,15 +41,21 @@ kcis_eps_1 := (rs, xt) ->
   / (1 + 1.5*gap_c2(rs, 0, gap_par0)*kcis_G(rs, xt) + 2.59*gap_c3(rs, 0, gap_par0)*kcis_G(rs, xt)^2):
 
 (* Eq. (A2) *)
-f_gap := (rs, z, xt) ->
+gap_f := (rs, z, xt) ->
   + kcis_eps_0(rs, xt)
   + f_zeta(z)*(kcis_eps_1(rs, xt) - kcis_eps_0(rs, xt)):
 
 (* Eq. (A1) *)
-f_kcis := (rs, z, xt, xs0, xs1, ts0, ts1) ->
-  + f_gap(rs, z, xt)
-  - xs0^2/(8*ts0) * (1 + z)/2 * f_gap(rs*(2/(1+z))^(1/3),  1, xs0)
-  - xs1^2/(8*ts1) * (1 - z)/2 * f_gap(rs*(2/(1-z))^(1/3), -1, xs1):
+if evalb(Polarization = "ferr") then
+  kcis_f := (rs, z, xt, xs0, xs1, ts0, ts1) ->
+    + gap_f(rs, z, xt)
+    - xs0^2/(8*ts0) * gap_f(rs,  1, xs0):
+else
+  kcis_f := (rs, z, xt, xs0, xs1, ts0, ts1) ->
+    + gap_f(rs, z, xt)
+    - xs0^2/(8*ts0) * (1 + z)/2 * gap_f(rs*(2/(1+z))^(1/3),  1, xs0)
+    - xs1^2/(8*ts1) * (1 - z)/2 * gap_f(rs*(2/(1-z))^(1/3), -1, xs1):
+end if:
 
-f  := (rs, z, xt, xs0, xs1, ts0, ts1, us0, us1) ->
-  f_kcis(rs, z, xt, xs0, xs1, ts0, ts1):
+f  := (rs, z, xt, xs0, xs1, us0, us1, ts0, ts1) ->
+  kcis_f(rs, z, xt, xs0, xs1, ts0, ts1):

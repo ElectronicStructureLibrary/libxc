@@ -14,12 +14,16 @@ $include "attenuation.mpl"
 
 a_cnst := (4/(9*Pi))^(1/3)*p_a_cam_omega/2:
 
-lda_x_erf_s := (rs, z) -> convert(piecewise(z = -1, 0,
-  (1 + z)^(4/3)*attenuation_erf(a_cnst*rs/(1 + z)^(1/3))
+lda_x_erf_spin := (rs, z) -> convert(piecewise(z = -1, 0,
+  lda_x_ax*(1 + z)^(4/3)/rs * attenuation_erf(a_cnst*rs/(1 + z)^(1/3))
 ), 'Heaviside'):
 
-f_lda_x_erf := (rs, z) -> lda_x_ax*(
-   lda_x_erf_s(rs, z) + lda_x_erf_s(rs, -z)
-)/rs:
-
+if evalb(Polarization = "ferr") then
+  f_lda_x_erf := (rs, z) -> 
+     lda_x_erf_spin(rs, 1)
+else
+  f_lda_x_erf := (rs, z) -> 
+     lda_x_erf_spin(rs, z) + lda_x_erf_spin(rs, -z):
+end if:
+    
 f := (rs, z) -> f_lda_x_erf(rs, z):

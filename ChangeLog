@@ -10,7 +10,9 @@
 - Worker functionals: LDA_K_GDS08_WORKER.
 - Correction to the Fermi_D term in MGGA_C_M05, MGGA_C_M05_2X, and MGGA_C_DLDF to avoid divergences when the kinetic energy density is zero, but not the density. This is similar to the correction proposed in from JCP 127, 214103 (2007). The correction is controlled by the `Fermi_D_cnst` external parameter, and its default value is 1e-10.
 - Access to the internal parameters of several functionals. This is done using the same functions as for the external parameters.
+- Interface to access 3rd order derivatives of MGGAs.
 - Printing of supported derivatives by the xc-info utility.
+- New flag XC_FLAG_HAVE_ALL to indicate functionals that include all the currently available derivatives (exc, vxc, fxc, and kxc).
 
 ### Changed
 - External parameters structure to include the name of the parameter. The name of the internal parameters is prepended with an underscore.
@@ -18,6 +20,14 @@
 - Integer type to c_int type in all Fortran 2003 interfaces.
 - MGGA_C_TPSS to enforce z = tW/t <= 1 condition.
 - XC_GGA_C_BCGP to XC_GGA_C_ACGGA, upon request by Antonio Cancio, keeping the old constant for backward compatibility.
+
+### Fixed
+- Missing terms in LDA_XC_KSDT and LDA_XC_GDSMFB.
+- Incorrect parameter of GGA_C_GAPC.
+- Incorrect definition of MGGA_C_KCIS.
+
+### Removed
+- xc_mix_func function from pubic API.
 
 ## [4.3.4] - 2019-03-04
 

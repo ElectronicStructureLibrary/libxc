@@ -20,7 +20,7 @@ const xc_func_info_type xc_func_info_gga_c_op_b88 = {
   "one-parameter progressive functional (B88 version)",
   XC_FAMILY_GGA,
   {&xc_ref_Tsuneda1999_10664, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
   NULL, NULL, 

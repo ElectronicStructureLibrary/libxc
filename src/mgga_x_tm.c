@@ -19,7 +19,7 @@ const xc_func_info_type xc_func_info_mgga_x_tm = {
   "Tao and Mo 2016 exchange",
   XC_FAMILY_MGGA,
   {&xc_ref_Tao2016_073001, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1.0e-23,
   0, NULL, NULL,
   NULL, NULL,

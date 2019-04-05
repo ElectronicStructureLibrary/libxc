@@ -22,7 +22,7 @@ const xc_func_info_type xc_func_info_mgga_c_tpssloc = {
   "Semilocal dynamical correlation",
   XC_FAMILY_MGGA,
   {&xc_ref_Constantin2012_035130, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
   1e-9, /* densities smaller than 1e-26 give NaNs */
   0, NULL, NULL,
   NULL, NULL,

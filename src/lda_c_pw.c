@@ -112,7 +112,7 @@ const xc_func_info_type xc_func_info_lda_c_pw = {
   "Perdew & Wang",
   XC_FAMILY_LDA,
   {&xc_ref_Perdew1992_13244, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
   0, NULL, NULL,
   lda_c_pw_init, /* init */
@@ -128,7 +128,7 @@ const xc_func_info_type xc_func_info_lda_c_pw_mod = {
   "Perdew & Wang (modified)",
   XC_FAMILY_LDA,
   {&xc_ref_Perdew1992_13244_mod, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
   0, NULL, NULL,
   lda_c_pw_init, /* init */
@@ -144,7 +144,7 @@ const xc_func_info_type xc_func_info_lda_c_ob_pw = {
   "Ortiz & Ballone (PW parametrization)",
   XC_FAMILY_LDA,
   {&xc_ref_Ortiz1994_1391, &xc_ref_Ortiz1994_1391_err, &xc_ref_Perdew1992_13244_mod, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
   0, NULL, NULL,
   lda_c_pw_init, /* init */
@@ -160,7 +160,7 @@ const xc_func_info_type xc_func_info_lda_c_pw_rpa = {
   "Perdew & Wang (fit to the RPA energy)",
   XC_FAMILY_LDA,
   {&xc_ref_Perdew1992_13244, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
   0, NULL, NULL,
   lda_c_pw_init, /* init */

@@ -50,7 +50,7 @@ const xc_func_info_type xc_func_info_lda_k_gds08_worker = {
   "Combined analytical theory with Monte Carlo sampling",
   XC_FAMILY_LDA,
   {&xc_ref_Ghiringhelli2008_073104, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
   3, ext_params, set_ext_params,
   lda_k_gds08_init, NULL,

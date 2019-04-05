@@ -19,7 +19,7 @@ const xc_func_info_type xc_func_info_gga_x_2d_b86_mgc = {
   "Becke 86 with modified gradient correction for 2D",
   XC_FAMILY_GGA,
   {&xc_ref_Pittalis2009_012503, NULL, NULL, NULL, NULL},
-  XC_FLAGS_2D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_2D | XC_FLAGS_I_HAVE_ALL,
   1e-23,
   0, NULL, NULL,
   NULL, NULL, 

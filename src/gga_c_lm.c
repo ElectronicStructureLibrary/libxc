@@ -25,7 +25,7 @@ const xc_func_info_type xc_func_info_gga_c_lm = {
   "Langreth & Mehl",
   XC_FAMILY_GGA,
   {&xc_ref_Langreth1981_446, &xc_ref_Hu1985_391, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-12,
   0, NULL, NULL,
   NULL, NULL,

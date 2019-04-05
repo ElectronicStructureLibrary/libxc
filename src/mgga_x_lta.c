@@ -21,7 +21,7 @@ const xc_func_info_type xc_func_info_mgga_x_lta = {
   "Local tau approximation",
   XC_FAMILY_MGGA,
   {&xc_ref_Ernzerhof1999_911, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1.0e-23,
   0, NULL, NULL,
   NULL, NULL,

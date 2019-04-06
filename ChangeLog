@@ -27,7 +27,7 @@
 - Incorrect definition of MGGA_C_KCIS.
 
 ### Removed
-- xc_mix_func function from pubic API.
+- xc_mix_func function from public API.
 
 ## [4.3.4] - 2019-03-04
 

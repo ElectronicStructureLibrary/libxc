@@ -55,10 +55,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->gamma = get_ext_param(p->info->ext_params, ext_params, 0);
 }
 
-#include "maple2c/mgga_x_br89_explicit.c"
-
-#define func maple2c_func
-#include "work_mgga_x.c"
+#include "maple2c/mgga_exc/mgga_x_br89_explicit.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_x_br89_explicit = {
   XC_MGGA_X_BR89_EXPLICIT,
@@ -70,7 +68,7 @@ const xc_func_info_type xc_func_info_mgga_x_br89_explicit = {
   1.0e-12,
   1, ext_params, set_ext_params,
   mgga_x_br89_init, NULL,
-  NULL, NULL, work_mgga_x
+  NULL, NULL, work_mgga
 };
 
 const xc_func_info_type xc_func_info_mgga_x_br89_explicit_1 = {
@@ -83,5 +81,5 @@ const xc_func_info_type xc_func_info_mgga_x_br89_explicit_1 = {
   1.0e-12,
   0, NULL, NULL,
   mgga_x_br89_init, NULL,
-  NULL, NULL, work_mgga_x
+  NULL, NULL, work_mgga
 };

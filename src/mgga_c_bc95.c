@@ -40,10 +40,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->copp = get_ext_param(p->info->ext_params, ext_params, 1);
 }
 
-#include "maple2c/mgga_c_bc95.c"
-
-#define func maple2c_func
-#include "work_mgga_c.c"
+#include "maple2c/mgga_exc/mgga_c_bc95.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_c_bc95 = {
   XC_MGGA_C_BC95,
@@ -51,11 +49,10 @@ const xc_func_info_type xc_func_info_mgga_c_bc95 = {
   "Becke correlation 95",
   XC_FAMILY_MGGA,
   {&xc_ref_Becke1996_1040, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
   1e-23,
   2, ext_params, set_ext_params,
-  mgga_c_bc95_init,
-  NULL, NULL, NULL,
-  work_mgga_c,
+  mgga_c_bc95_init, NULL,
+  NULL, NULL, work_mgga,
 };
 

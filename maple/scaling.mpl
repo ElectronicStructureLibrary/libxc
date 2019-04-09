@@ -13,17 +13,16 @@ s_scaling_0 := s -> s:
 strans :=  8.3:
 smax   :=  8.572844:
 sconst := 18.79622316:
-s_scaling_1 := s -> convert(piecewise(
+s_scaling_1 := s -> my_piecewise3(
   s < strans, s,
   smax - sconst/s^2
-), 'Heaviside'):
+):
 
 (* first version of the scaling by TM Henderson, apparently used by Gaussian *)
-s_scaling_2 := s -> convert(piecewise(
+s_scaling_2 := s -> my_piecewise3(
   s < 1,  s,
-  s > 15, smax,
-  s - log(1 + exp(-smax)/exp(-s))
-), 'Heaviside'):
+  my_piecewise3(s > 15, smax, s - log(1 + exp(-smax)/exp(-s)))
+):
 
 (* second version of the scaling by TM Henderson *)
 s_scaling_3 := s -> s - (1 - exp(-s))*log(1 + exp(-smax)/exp(-s)):

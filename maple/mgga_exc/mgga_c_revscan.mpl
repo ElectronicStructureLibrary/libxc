@@ -6,12 +6,12 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_mgga_c *)
+(* type: mgga_exc *)
 
 $include "mgga_c_scan.mpl"
 
 (* we need to redefine two functions *)
-scan_g := (rs, z, t) -> (1 + 8*A(rs, z, t)*t^2)^(-1/4)/2
+scan_e0_g := (rs, z, t) -> (1 + 8*A(rs, z, t)*t^2)^(-1/4)/2
        + (1 + 80*A(rs, z, t)^2*t^4)^(-1/8)/2:
 scan_g_infty := s -> (1 + 4*scan_chi_infty*s^2)^(-1/4)/2
        + (1 + 80*scan_chi_infty^2*s^4)^(1/8)/2:

@@ -12,10 +12,8 @@
 #define XC_MGGA_C_REVSCAN       582 /* revised SCAN correlation */
 #define XC_MGGA_C_REVSCAN_VV10  585 /* revised SCAN correlation */
 
-#include "maple2c/mgga_c_revscan.c"
-
-#define func maple2c_func
-#include "work_mgga_c.c"
+#include "maple2c/mgga_exc/mgga_c_revscan.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_c_revscan = {
   XC_MGGA_C_REVSCAN,
@@ -23,11 +21,11 @@ const xc_func_info_type xc_func_info_mgga_c_revscan = {
   "revised SCAN",
   XC_FAMILY_MGGA,
   {&xc_ref_Mezei2018_2469, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
   1e-26,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, NULL, work_mgga_c,
+  NULL, NULL, work_mgga,
 };
 
 static void
@@ -48,9 +46,9 @@ const xc_func_info_type xc_func_info_mgga_c_revscan_vv10 = {
   "REVSCAN + VV10 correlation",
   XC_FAMILY_MGGA,
   {&xc_ref_Mezei2018_2469, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  mgga_c_revscan_vv10_init,
-  NULL, NULL, NULL, NULL
+  mgga_c_revscan_vv10_init, NULL,
+  NULL, NULL, NULL
 };

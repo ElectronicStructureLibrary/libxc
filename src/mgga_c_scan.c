@@ -13,10 +13,8 @@
 #define XC_MGGA_C_SCAN_RVV10    292 /* SCAN correlation + rVV10 correlation */
 #define XC_MGGA_C_SCAN_VV10     584 /* SCAN correlation +  VV10 correlation */
 
-#include "maple2c/mgga_c_scan.c"
-
-#define func maple2c_func
-#include "work_mgga_c.c"
+#include "maple2c/mgga_exc/mgga_c_scan.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_c_scan = {
   XC_MGGA_C_SCAN,
@@ -24,11 +22,11 @@ const xc_func_info_type xc_func_info_mgga_c_scan = {
   "SCAN correlation of Sun, Ruzsinszky, and Perdew",
   XC_FAMILY_MGGA,
   {&xc_ref_Sun2015_036402, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
   1e-26,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, NULL, work_mgga_c,
+  NULL, NULL, work_mgga,
 };
 
 
@@ -50,11 +48,11 @@ const xc_func_info_type xc_func_info_mgga_c_scan_rvv10 = {
   "SCAN + rVV10 correlation",
   XC_FAMILY_MGGA,
   {&xc_ref_Peng2016_041005, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  mgga_c_scan_rvv10_init,
-  NULL, NULL, NULL, NULL
+  mgga_c_scan_rvv10_init, NULL,
+  NULL, NULL, NULL
 };
 
 static void
@@ -75,9 +73,9 @@ const xc_func_info_type xc_func_info_mgga_c_scan_vv10 = {
   "SCAN + VV10 correlation",
   XC_FAMILY_MGGA,
   {&xc_ref_Brandenburg2016_115144, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  mgga_c_scan_vv10_init,
-  NULL, NULL, NULL, NULL
+  mgga_c_scan_vv10_init, NULL,
+  NULL, NULL, NULL
 };

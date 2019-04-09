@@ -9,9 +9,7 @@ SUBDIRS = lda_exc lda_vxc gga_exc mgga_exc
 
 noinst_HEADERS = \
   hyb_mgga_x_dldf.c		\
-  hyb_mgga_x_m05.c mgga_c_bc95.c 		\
+  hyb_mgga_x_m05.c 	\
   mgga_c_m06l.c mgga_c_m08.c		\
-  mgga_c_pkzb.c mgga_c_revtpss.c mgga_c_scan.c		\
-  mgga_c_tpssloc.c 		\
-  mgga_c_revscan.c		\
-  mgga_x_br89_explicit.c
+  mgga_c_revtpss.c		\
+  mgga_c_tpssloc.c 		

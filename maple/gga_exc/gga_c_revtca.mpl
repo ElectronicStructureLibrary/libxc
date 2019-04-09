@@ -10,7 +10,7 @@
 
 $include "gga_c_tca.mpl"
 
-msinc := x -> piecewise(x = 0, 1, sin(x)/x):
+msinc := x -> my_piecewise3(x = 0, 1, sin(x)/x):
 revtca_aa := Pi*(9*Pi/4)^(1/3):
 
 revtca_fD := (rs, z, s) -> 1 - z^4*(1 - msinc(revtca_aa*s/rs)^2):

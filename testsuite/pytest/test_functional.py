@@ -229,12 +229,10 @@ def test_deriv_flags(polar):
     inp["tau"] = np.random.random((compute_test_dim * ndim[3]))
     inp["lapl"] = np.random.random((compute_test_dim * ndim[3]))
 
-    with pytest.raises(ValueError):
-        func.compute(inp, do_fxc=True)
-
-    with pytest.raises(ValueError):
-        func.compute(inp, do_fxc=True)
-
+    # disabled as mgga_c_tpss now has fxc
+    # please fix this better!
+    #with pytest.raises(ValueError):
+    #    func.compute(inp, do_fxc=True)
 
 def test_hyb_getters():
 

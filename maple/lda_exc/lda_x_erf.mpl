@@ -14,7 +14,7 @@ $include "attenuation.mpl"
 
 a_cnst := (4/(9*Pi))^(1/3)*p_a_cam_omega/2:
 
-lda_x_erf_spin := (rs, z) -> my_piecewise3(z = -1, 0,
+lda_x_erf_spin := (rs, z) -> piecewise(z = -1, 0,
   lda_x_ax*(1 + z)^(4/3)/rs * attenuation_erf(a_cnst*rs/(1 + z)^(1/3))
 ):
 

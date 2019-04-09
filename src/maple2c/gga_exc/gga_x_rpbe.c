@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : ./maple/gga_x_rpbe.mpl
+  Maple source      : ./maple/gga_exc/gga_x_rpbe.mpl
   Type of functional: gga_exc
 */
 
@@ -305,7 +305,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   double t552, t557, t563, t564, t565, t566, t567, t571;
   double t579, t580, t586, t594, t603, t613, t616, t619;
   double t623, t625, t627, t638, t654, t660, t662, t667;
-  double t673, t678, t681, t684, t693, t704, t707, t710;
+  double t673, t678, t681, t683, t693, t704, t707, t710;
   double t713, t715, t730, t735, t739, t767, t774, t775;
   double t780, t783, t800, t819, t829, t868, t873, t876;
   double t878, t879, t882, t883, t885, t888, t897, t923;
@@ -697,10 +697,10 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
     v3rho3[0] = t184 / 0.12e2 - t153 / 0.2e1 - t157 - t217 / 0.2e1 - t221 - 0.3e1 / 0.2e1 * t174 + t416 - 0.3e1 / 0.2e1 * t226 + t418 + t166 / 0.3e1 - 0.11e2 / 0.24e2 * t192 + t209 / 0.72e2 + t9 * (t482 + t557);
 
   t563 = t239 / 0.3e1;
-  t564 = t262 / 0.3e1;
-  t565 = t184 / 0.18e2 - t154 - 0.2e1 / 0.3e1 * t157 - t218 - 0.2e1 / 0.3e1 * t221 - t563 - t293 - t253 - t564 - t304 - t175;
-  t566 = t246 / 0.9e1;
-  t567 = t279 / 0.9e1;
+  t564 = t184 / 0.18e2 - t154 - 0.2e1 / 0.3e1 * t157 - t218 - 0.2e1 / 0.3e1 * t221 - t563 - t293 - t175 + t416 - t227 + t418;
+  t565 = t246 / 0.9e1;
+  t566 = t279 / 0.9e1;
+  t567 = t262 / 0.3e1;
   t571 = t4 * t6 * t451;
   t579 = t235 * t75 * t38 * t237 / 0.9e1;
   t580 = t249 * t38;
@@ -720,11 +720,11 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t667 = t4 * t114 * t177 * t122;
   t673 = t35 * t104;
   t678 = t627 / 0.9e1 - t486 - t490 - t7 * t250 * t38 / 0.2e1 + t7 * t267 * t58 / 0.2e1 + t499 / 0.27e2 + t507 / 0.648e3 + t638 + t274 * t275 * t276 * t223 / 0.18e2 - 0.11e2 / 0.54e2 * t160 * t162 * t517 * t104 + t7 * t250 * params->rpbe_mu * t162 * t163 * t8 / 0.9e1 + t654 * t275 * t276 * t214 / 0.54e2 + t662 - 0.11e2 / 0.216e3 * t522 - t533 / 0.54e2 - t667 / 0.108e3 + t492 * t162 * t163 * t237 / 0.27e2 + t551 * t202 * t206 * t673 / 0.162e3;
-  t681 = t416 - t227 + t418 + t270 + t167 - t193 + t210 + t566 + t567 + t314 + t9 * (t625 + t678);
+  t681 = t270 + t167 - t193 + t210 + t565 + t566 + t314 - t253 - t567 - t304 + t9 * (t625 + t678);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[1] = t565 + t681;
+    v3rho3[1] = t564 + t681;
 
-  t684 = t185 - t158 - t222 - t563 - 0.2e1 / 0.3e1 * t242 - t253 - t564 - 0.2e1 / 0.3e1 * t265 + t416 + t418 + t270;
+  t683 = t185 - t158 - t222 - t563 - 0.2e1 / 0.3e1 * t242 + t416 + t418 + t270 - t298 - t313 + t565;
   t693 = -t169 - 0.3e1 * t427;
   t704 = t7 * t458 * t289;
   t707 = t7 * t155 * t295;
@@ -738,9 +738,9 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t774 = t7 * t91 * t194;
   t775 = t55 * t92;
   t780 = t662 + t492 * t162 * t163 * t288 / 0.54e2 + t160 * t162 * t163 * t294 / 0.18e2 - t7 * t267 * params->rpbe_mu * t275 * t276 * t8 / 0.9e1 - 0.11e2 / 0.54e2 * t274 * t275 * t730 * t92 + t735 / 0.27e2 + t739 / 0.648e3 - t235 * t580 * t104 * t8 / 0.3e1 + t571 * t236 * t288 * t69 / 0.9e1 - t235 * t236 * t294 * t69 / 0.6e1 + t586 * t259 * t299 * t92 / 0.9e1 + t258 * t603 * t109 * t8 / 0.3e1 - t258 * t259 * t309 * t92 / 0.6e1 - t533 / 0.108e3 - t667 / 0.54e2 - 0.11e2 / 0.216e3 * t767 + t654 * t275 * t276 * t260 / 0.27e2 + t774 * t326 * t330 * t775 / 0.162e3;
-  t783 = -t298 - t313 + t566 + t567 + t283 / 0.18e2 + t308 - t322 + t334 - t292 - t303 + t9 * (t715 + t780);
+  t783 = t566 + t283 / 0.18e2 + t308 - t322 + t334 - t253 - t567 - 0.2e1 / 0.3e1 * t265 - t292 - t303 + t9 * (t715 + t780);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[2] = t684 + t783;
+    v3rho3[2] = t683 + t783;
 
   t800 = t315 * t315;
   t819 = -0.3e1 * t169 - 0.3e1 * t427;
@@ -748,7 +748,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t868 = t55 * t109;
   t873 = t7 * t452 * t38 * t288 * t104 / 0.9e1 + t7 * t468 * t58 * t299 * t109 / 0.9e1 - t486 - t490 + t735 / 0.9e1 + t739 / 0.216e3 - t235 * t236 * t104 * t294 / 0.2e1 - t258 * t259 * t109 * t309 / 0.2e1 - t667 / 0.36e2 - 0.11e2 / 0.72e2 * t767 + 0.77e2 / 0.108e3 * t116 * t24 * sigma[2] / t48 / t405 * t55 + t116 * t538 * t325 * sigma[2] / t800 / t117 * t544 * t55 / 0.324e3 + t774 * t326 * t330 * t868 / 0.54e2;
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[3] = -t242 - t265 + t416 + t418 - 0.3e1 / 0.2e1 * t297 - 0.3e1 / 0.2e1 * t312 + t283 / 0.12e2 + t307 / 0.3e1 - 0.11e2 / 0.24e2 * t321 + t333 / 0.72e2 - t291 / 0.2e1 - t302 / 0.2e1 + t9 * (t829 + t873);
+    v3rho3[3] = -t242 + t416 + t418 - 0.3e1 / 0.2e1 * t297 - 0.3e1 / 0.2e1 * t312 + t283 / 0.12e2 + t307 / 0.3e1 - 0.11e2 / 0.24e2 * t321 + t333 / 0.72e2 - t265 - t291 / 0.2e1 - t302 / 0.2e1 + t9 * (t829 + t873);
 
   t876 = t6 * t14;
   t878 = t4 * t876 * t16;

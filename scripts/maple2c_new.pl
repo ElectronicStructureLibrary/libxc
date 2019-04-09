@@ -42,7 +42,7 @@ if(-f $config{"functional"}.".mpl"){
     $config{"mathfile"} =  $config{"srcdir"}."/maple/".$temp."_vxc/".$config{"functional"}.".mpl";
   }
 }
-  
+
 open my $in, '<', $config{"mathfile"} or die "File $mathfile does not exist\n";
 
 # Find out the type of functional
@@ -88,7 +88,7 @@ sub work_lda_exc {
     );
 
   # get arguments of the functions
-  my ($input_args, $output_args) = maple2c_construct_arguments($variables, $derivatives);
+  my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
 
   # honor max_order
   splice @derivatives, $config{"max_order"}+1, $#derivatives, ;
@@ -171,7 +171,7 @@ sub work_lda_vxc {
     push(@{$derivatives[$i]}, @{$derivatives2[$i]});
   }
 
-  my ($input_args, $output_args) = maple2c_construct_arguments($variables, $derivatives);
+  my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
 
   # honor max_order
   splice @derivatives1, $config{"max_order"}+1, $#derivatives1, ;
@@ -279,7 +279,7 @@ sub work_gga_exc {
       );
 
   # get arguments of the functions
-  my ($input_args, $output_args) = maple2c_construct_arguments($variables, $derivatives);
+  my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
 
   # honor max_order
   splice @derivatives, $config{"max_order"}+1, $#derivatives, ;
@@ -583,7 +583,7 @@ sub work_mgga_exc {
       );
 
   # get arguments of the functions
-  my ($input_args, $output_args) = maple2c_construct_arguments($variables, $derivatives);
+  my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
 
   # honor max_order
   splice @derivatives, $config{"max_order"}+1, $#derivatives, ;

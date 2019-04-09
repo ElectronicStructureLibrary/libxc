@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : ./maple/lda_xc_teter93.mpl
+  Maple source      : ./maple/lda_exc/lda_xc_teter93.mpl
   Type of functional: lda_exc
 */
 
@@ -47,6 +47,8 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     *zk = -t22 * t34;
 
+#ifndef XC_DONT_COMPILE_VXC
+
   if(order < 1) return;
 
 
@@ -64,6 +66,8 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
   t61 = t51 * t60;
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vrho[0] = -t47 * t34 + t49 * t61 + (-t22 * t34);
+
+#ifndef XC_DONT_COMPILE_FXC
 
   if(order < 2) return;
 
@@ -84,6 +88,8 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rho2[0] = -0.2e1 * t46 * t34 - t79 * t34 + 0.2e1 * t47 * t61 - 0.2e1 * t49 * t86 + t49 * t98 + 0.2e1 * t65 * t60;
 
+#ifndef XC_DONT_COMPILE_KXC
+
   if(order < 3) return;
 
 
@@ -95,8 +101,18 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho3[0] = -0.3e1 * t78 * t34 + 0.6e1 * t46 * t51 * t60 - 0.6e1 * t22 * t84 * t85 + 0.3e1 * t65 * t97 - rho[0] * (-0.57479299024615611110e0 * t110 - 0.54855938780422614813e0 * t115 - 0.28192787641199641701e-1 * t118) * t34 + 0.3e1 * t79 * t61 - 0.6e1 * t47 * t86 + 0.3e1 * t47 * t98 + 0.6e1 * t49 / t129 * t85 * t60 - 0.6e1 * t49 * t84 * t60 * t97 + t49 * t51 * (-0.25925925925925925926e0 * t110 - 0.33363933032790348149e1 * t115 - 0.15909138096347629166e1 * t118 - 0.45875117388868172223e-1 * t27 * t6 / t7 / t117);
 
+#ifndef XC_DONT_COMPILE_LXC
+
   if(order < 4) return;
 
+
+#endif
+
+#endif
+
+#endif
+
+#endif
 
 
 }
@@ -136,6 +152,8 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     *zk = -t22 * t34;
 
+#ifndef XC_DONT_COMPILE_VXC
+
   if(order < 1) return;
 
 
@@ -153,6 +171,8 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
   t61 = t51 * t60;
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vrho[0] = -t47 * t34 + t49 * t61 + (-t22 * t34);
+
+#ifndef XC_DONT_COMPILE_FXC
 
   if(order < 2) return;
 
@@ -173,6 +193,8 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rho2[0] = -0.2e1 * t46 * t34 - t79 * t34 + 0.2e1 * t47 * t61 - 0.2e1 * t49 * t86 + t49 * t98 + 0.2e1 * t65 * t60;
 
+#ifndef XC_DONT_COMPILE_KXC
+
   if(order < 3) return;
 
 
@@ -184,8 +206,18 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho3[0] = -0.3e1 * t78 * t34 + 0.6e1 * t46 * t51 * t60 - 0.6e1 * t22 * t84 * t85 + 0.3e1 * t65 * t97 - rho[0] * (-0.73442935314313172223e0 * t110 - 0.66516690749999407408e0 * t115 - 0.33252487206999151452e-1 * t118) * t34 + 0.3e1 * t79 * t61 - 0.6e1 * t47 * t86 + 0.3e1 * t47 * t98 + 0.6e1 * t49 / t129 * t85 * t60 - 0.6e1 * t49 * t84 * t60 * t97 + t49 * t51 * (-0.25925925925925925926e0 * t110 - 0.35344387087483879259e1 * t115 - 0.18848418185524255457e1 * t118 - 0.54041793866601413057e-1 * t27 * t6 / t7 / t117);
 
+#ifndef XC_DONT_COMPILE_LXC
+
   if(order < 4) return;
 
+
+#endif
+
+#endif
+
+#endif
+
+#endif
 
 
 }
@@ -267,6 +299,8 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     *zk = -t48 * t74;
 
+#ifndef XC_DONT_COMPILE_VXC
+
   if(order < 1) return;
 
 
@@ -314,6 +348,8 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t154 = t110 * t153;
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vrho[1] = t108 * t154 - t147 * t74 + (-t48 * t74);
+
+#ifndef XC_DONT_COMPILE_FXC
 
   if(order < 2) return;
 
@@ -404,6 +440,8 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rho2[2] = -0.2e1 * t108 * t334 + t108 * t345 + 0.2e1 * t147 * t154 - t329 * t74 - 0.2e1 * t242 + 0.2e1 * t279;
 
+#ifndef XC_DONT_COMPILE_KXC
+
   if(order < 3) return;
 
 
@@ -471,7 +509,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t573 = 0.2e1 * t349 * t153;
   t575 = 0.2e1 * t158 * t296;
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[1] = -0.2e1 * t353 + 0.2e1 * t276 * t128 + t147 * t240 - t468 + t209 * t154 + 0.2e1 * t106 * t297 + t108 * t110 * t526 - t347 + 0.2e1 * t350 + t355 + 0.6e1 * t108 * t426 * t153 * t215 - 0.2e1 * t147 * t216 - 0.4e1 * t106 * t282 - 0.4e1 * t108 * t214 * t296 * t127 - 0.2e1 * t108 * t281 * t239 - t546 + t549 - t2 * t569 * t74 + t573 + t575;
+    v3rho3[1] = -0.2e1 * t353 + 0.2e1 * t276 * t128 + t147 * t240 - t468 + t209 * t154 + 0.2e1 * t106 * t297 + t108 * t110 * t526 + 0.2e1 * t350 + t355 - t347 + 0.6e1 * t108 * t426 * t153 * t215 - 0.2e1 * t147 * t216 - 0.4e1 * t106 * t282 - 0.4e1 * t108 * t214 * t296 * t127 - 0.2e1 * t108 * t281 * t239 - t546 + t549 - t2 * t569 * t74 + t573 + t575;
 
   t576 = t328 * t74;
   t587 = -0.2e1 * t167 - 0.6e1 * t367;
@@ -501,8 +539,18 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho3[3] = 0.6e1 * t108 * t426 * t333 * t153 + t108 * t110 * t734 - 0.6e1 * t108 * t281 * t344 - t2 * t708 * t74 - 0.6e1 * t147 * t334 + 0.3e1 * t147 * t345 + 0.3e1 * t329 * t154 - 0.3e1 * t576 + 0.6e1 * t628 - 0.6e1 * t636 + 0.3e1 * t647;
 
+#ifndef XC_DONT_COMPILE_LXC
+
   if(order < 4) return;
 
+
+#endif
+
+#endif
+
+#endif
+
+#endif
 
 
 }

@@ -15,4 +15,4 @@ $include "gga_x_pw91.mpl"
 $include "op.mpl"
 
 op_qab         := 2.3706:
-op_enhancement := xs -> f_pw91(xs):
+op_enhancement := xs -> pw91_f(xs):

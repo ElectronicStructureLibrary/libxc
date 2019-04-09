@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : .//maple/lda_xc_tih.mpl
+  Maple source      : ./maple/lda_vxc/lda_xc_tih.mpl
   Type of functional: lda_vxc
 */
 
@@ -31,6 +31,8 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *vrho, do
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vrho[0] = 0.625039e0 - 0.130351e1 * t3 - 0.137026e1 * t7 - 0.129598e1 * t11 + 0.104305e1 * t15 - 0.909651e0 * t19 - 0.991782e0 * t23 - 0.915745e0 * t27 - 0.195026e1 * t31;
 
+#ifndef XC_DONT_COMPILE_FXC
+
   if(order < 2) return;
 
 
@@ -45,14 +47,24 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *vrho, do
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rho2[0] = -0.503355413957527e1 + 0.43640080939e-1 * t33 + 0.20882625374e0 * t35 + 0.50651693526e-1 * t37 - 0.14247854390e0 * t39 + 0.451711764627e-2 * t41 + 0.399593926710e1 * t43 + 0.95559822240e-2 * t45 + 0.86290228830e0 * t47;
 
+#ifndef XC_DONT_COMPILE_KXC
+
   if(order < 3) return;
 
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho3[0] = 0.87280161878e-1 * t3 * (0.334789e-1 - 0.334789e-1 * t33) + 0.41765250748e0 * t7 * (0.152399e0 - 0.152399e0 * t35) + 0.101303387052e0 * t11 * (0.390837e-1 - 0.390837e-1 * t37) - 0.28495708780e0 * t15 * (0.136598e0 - 0.136598e0 * t39) + 0.903423529254e-2 * t19 * (0.496577e-2 - 0.496577e-2 * t41) + 0.799187853420e1 * t23 * (0.402905e1 - 0.402905e1 * t43) + 0.191119644480e-1 * t27 * (0.104352e-1 - 0.104352e-1 * t45) + 0.172580457660e1 * t31 * (0.442455e0 - 0.442455e0 * t47);
 
+#ifndef XC_DONT_COMPILE_LXC
+
   if(order < 4) return;
 
+
+#endif
+
+#endif
+
+#endif
 
 
 }
@@ -76,6 +88,8 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *vrho, dou
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vrho[0] = 0.625039e0 - 0.130351e1 * t3 - 0.137026e1 * t7 - 0.129598e1 * t11 + 0.104305e1 * t15 - 0.909651e0 * t19 - 0.991782e0 * t23 - 0.915745e0 * t27 - 0.195026e1 * t31;
 
+#ifndef XC_DONT_COMPILE_FXC
+
   if(order < 2) return;
 
 
@@ -90,14 +104,24 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *vrho, dou
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rho2[0] = -0.503355413957527e1 + 0.43640080939e-1 * t33 + 0.20882625374e0 * t35 + 0.50651693526e-1 * t37 - 0.14247854390e0 * t39 + 0.451711764627e-2 * t41 + 0.399593926710e1 * t43 + 0.95559822240e-2 * t45 + 0.86290228830e0 * t47;
 
+#ifndef XC_DONT_COMPILE_KXC
+
   if(order < 3) return;
 
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho3[0] = 0.87280161878e-1 * t3 * (0.334789e-1 - 0.334789e-1 * t33) + 0.41765250748e0 * t7 * (0.152399e0 - 0.152399e0 * t35) + 0.101303387052e0 * t11 * (0.390837e-1 - 0.390837e-1 * t37) - 0.28495708780e0 * t15 * (0.136598e0 - 0.136598e0 * t39) + 0.903423529254e-2 * t19 * (0.496577e-2 - 0.496577e-2 * t41) + 0.799187853420e1 * t23 * (0.402905e1 - 0.402905e1 * t43) + 0.191119644480e-1 * t27 * (0.104352e-1 - 0.104352e-1 * t45) + 0.172580457660e1 * t31 * (0.442455e0 - 0.442455e0 * t47);
 
+#ifndef XC_DONT_COMPILE_LXC
+
   if(order < 4) return;
 
+
+#endif
+
+#endif
+
+#endif
 
 
 }
@@ -124,6 +148,8 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *vrho, doub
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vrho[1] = vrho[0];
 
+#ifndef XC_DONT_COMPILE_FXC
+
   if(order < 2) return;
 
 
@@ -144,6 +170,8 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *vrho, doub
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rho2[2] = v2rho2[1];
 
+#ifndef XC_DONT_COMPILE_KXC
+
   if(order < 3) return;
 
 
@@ -159,8 +187,16 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *vrho, doub
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho3[3] = v3rho3[2];
 
+#ifndef XC_DONT_COMPILE_LXC
+
   if(order < 4) return;
 
+
+#endif
+
+#endif
+
+#endif
 
 
 }

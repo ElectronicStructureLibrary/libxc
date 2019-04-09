@@ -15,10 +15,9 @@ pc07_p := x -> X2S^2*x^2:
 pc07_q := u -> X2S^2*u:
 
 (* Equation (15) *)
-pc07_fab := z -> piecewise(
-    z<=0,      0,
-    z>=pc07_a, 1,
-    (1 + exp(pc07_a/(pc07_a-z)))^pc07_b/(exp(pc07_a/z) + exp(pc07_a/(pc07_a-z)))^pc07_b
+pc07_fab := z -> my_piecewise3(
+    z<=0, 0, my_piecewise3(z>=pc07_a, 1,
+    (1 + exp(pc07_a/(pc07_a-z)))^pc07_b/(exp(pc07_a/z) + exp(pc07_a/(pc07_a-z)))^pc07_b)
 ):
 
 (* Equation (7) *)

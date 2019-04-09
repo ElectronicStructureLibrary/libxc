@@ -29,7 +29,7 @@ option_with_print(ENABLE_FORTRAN03 "Build Fortran 2003 interface" OFF)
 
 option_with_print(DISABLE_VXC "Don't compile first derivative code" OFF)
 option_with_print(DISABLE_FXC "Don't compile second derivative code" OFF)
-option_with_print(DISABLE_KXC "Don't compile third derivative code" ON)
+option_with_print(DISABLE_KXC "Don't compile third derivative code" OFF)
 
 ######################### Process & Validate Options ###########################
 include(autocmake_safeguards)

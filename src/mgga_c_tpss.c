@@ -17,7 +17,7 @@ typedef struct{
   double C0_c[4];
 } mgga_c_tpss_params;
 
-static const mgga_c_tpss_params par_tm = {0.06672455060314922, 2.8, 0.0, 0.1, 0.32, 0.0};
+static const mgga_c_tpss_params par_tm = {0.06672455060314922, 2.8, {0.0, 0.1, 0.32, 0.0}};
 
 static void 
 mgga_c_tpss_init(xc_func_type *p)

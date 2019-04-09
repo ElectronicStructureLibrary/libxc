@@ -8,8 +8,8 @@
 
 # Minimum and maximum functions that I can differentiate
 
-m_min := (x1, x2) -> my_piecewise3(x1 > x2, x1, x2):
-m_max := (x1, x2) -> my_piecewise3(x1 > x2, x2, x1):
+m_min := (x1, x2) -> my_piecewise3(x1 > x2, x2, x1):
+m_max := (x1, x2) -> my_piecewise3(x1 > x2, x1, x2):
 m_abs := (x)      -> my_piecewise3(x > 0, x, -x):
 
 # Teach maple to differentiate piecewise functions

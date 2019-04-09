@@ -158,10 +158,8 @@ mgga_c_m08_init(xc_func_type *p)
 }
 
 
-#include "maple2c/mgga_c_m08.c"
-
-#define func maple2c_func
-#include "work_mgga_c.c"
+#include "maple2c/mgga_exc/mgga_c_m08.c"
+#include "work_mgga_new.c"
 
 
 const xc_func_info_type xc_func_info_mgga_c_m08_hx = {
@@ -170,12 +168,11 @@ const xc_func_info_type xc_func_info_mgga_c_m08_hx = {
   "Minnesota M08 correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23,
   0, NULL, NULL,
-  mgga_c_m08_init,
-  NULL, NULL, NULL,
-  work_mgga_c,
+  mgga_c_m08_init, NULL,
+  NULL, NULL, work_mgga
 };
 
 const xc_func_info_type xc_func_info_mgga_c_m08_so = {
@@ -184,12 +181,11 @@ const xc_func_info_type xc_func_info_mgga_c_m08_so = {
   "Minnesota M08-SO correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23,
   0, NULL, NULL,
-  mgga_c_m08_init,
-  NULL, NULL, NULL,
-  work_mgga_c,
+  mgga_c_m08_init, NULL,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_mgga_c_m11 = {
@@ -198,12 +194,11 @@ const xc_func_info_type xc_func_info_mgga_c_m11 = {
   "Minnesota M11 correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Peverati2011_2810, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23,
   0, NULL, NULL,
-  mgga_c_m08_init,
-  NULL, NULL, NULL,
-  work_mgga_c,
+  mgga_c_m08_init, NULL,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_mgga_c_m11_l = {
@@ -212,12 +207,11 @@ const xc_func_info_type xc_func_info_mgga_c_m11_l = {
   "Minnesota M11-L correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Peverati2012_117, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23,
   0, NULL, NULL,
-  mgga_c_m08_init,
-  NULL, NULL, NULL,
-  work_mgga_c,
+  mgga_c_m08_init, NULL,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_mgga_c_mn12_l = {
@@ -226,12 +220,11 @@ const xc_func_info_type xc_func_info_mgga_c_mn12_l = {
   "Minnesota MN12-L correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Peverati2012_13171, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23,
   0, NULL, NULL,
-  mgga_c_m08_init,
-  NULL, NULL, NULL,
-  work_mgga_c,
+  mgga_c_m08_init, NULL,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_mgga_c_mn12_sx = {
@@ -240,12 +233,11 @@ const xc_func_info_type xc_func_info_mgga_c_mn12_sx = {
   "Minnesota MN12-SX correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23,
   0, NULL, NULL,
-  mgga_c_m08_init,
-  NULL, NULL, NULL,
-  work_mgga_c,
+  mgga_c_m08_init, NULL,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_mgga_c_mn15_l = {
@@ -254,12 +246,11 @@ const xc_func_info_type xc_func_info_mgga_c_mn15_l = {
   "Minnesota MN15-L correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Yu2016_1280, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23,
   0, NULL, NULL,
-  mgga_c_m08_init,
-  NULL, NULL, NULL,
-  work_mgga_c,
+  mgga_c_m08_init, NULL,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_mgga_c_mn15 = {
@@ -268,12 +259,11 @@ const xc_func_info_type xc_func_info_mgga_c_mn15 = {
   "Minnesota MN15 correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Yu2016_5032, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23,
   0, NULL, NULL,
-  mgga_c_m08_init,
-  NULL, NULL, NULL,
-  work_mgga_c,
+  mgga_c_m08_init, NULL,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_mgga_c_revm11 = {
@@ -282,10 +272,9 @@ const xc_func_info_type xc_func_info_mgga_c_revm11 = {
   "Revised Minnesota M11 correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Verma2019, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23,
   0, NULL, NULL,
-  mgga_c_m08_init,
-  NULL, NULL, NULL,
-  work_mgga_c,
+  mgga_c_m08_init, NULL,
+  NULL, NULL, work_mgga,
 };

@@ -1,5 +1,4 @@
 Improve existing functionals:
-  *) Convert missing mggas to new maple framework
   *) Check all flags to see if they have the right derivatives
   *) Missing gga_vxc and mgga_vxc
   *) Add XC_FLAGS_STABLE or XC_FLAGS_DEVELOPMENT to all functionals in libxc.
@@ -24,7 +23,6 @@ mGGAs:
   *) B98-1, and VS98-1 https://doi.org/10.1016/S0009-2614(99)01273-7
      These functionals are mentioned and reparametrized in the article,
      but the coefficients are not given in the paper.
-  *) regTPSS exchange http://pubs.acs.org/doi/abs/10.1021/ct300269u
   *) KCISK 10.1063/1.1390178 i.e. Krieger2001_48
   *) hybrids in http://scitation.aip.org/content/aip/journal/jcp/112/9/10.1063/1.480951
   *) tau-PBE (http://scitation.aip.org/content/aip/journal/jcp/111/3/10.1063/1.479374)

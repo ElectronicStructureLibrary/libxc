@@ -1953,7 +1953,7 @@ func_reference_type xc_ref_Handy2002_5411 = {
 
 
 func_reference_type xc_ref_Zhao2005_2012 = {
-  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem A 109, 2012 (2005), pMID: 16833536",
+  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem. A 109, 2012 (2005), pMID: 16833536",
   "10.1021/jp045141s",
   "@article{Zhao2005_2012,\nauthor = {Zhao, Yan and González-García, Núria and Truhlar, Donald G.},\ntitle = {Benchmark Database of Barrier Heights for Heavy Atom Transfer, Nucleophilic Substitution, Association, and Unimolecular Reactions and Its Use to Test Theoretical Methods},\njournal = {The Journal of Physical Chemistry A},\nvolume = {109},\nnumber = {9},\npages = {2012-2018},\nyear = {2005},\ndoi = {10.1021/jp045141s},\nnote ={PMID: 16833536},\nURL = {http://dx.doi.org/10.1021/jp045141s},\neprint = {http://dx.doi.org/10.1021/jp045141s}\n}"
 };
@@ -2261,7 +2261,7 @@ func_reference_type xc_ref_Cancio2018_084116 = {
 
 
 func_reference_type xc_ref_Verma2019 = {
-  "P. Verma, Y. Wang, S. Ghosh, X. He, and D. G. Truhlar, J. Phys. Chem A 0, null (0), https://doi.org/10.1021/acs.jpca.8b11499",
+  "P. Verma, Y. Wang, S. Ghosh, X. He, and D. G. Truhlar, J. Phys. Chem. A 0, null (0), https://doi.org/10.1021/acs.jpca.8b11499",
   "10.1021/acs.jpca.8b11499",
   "@article{Verma2019,\nauthor = {Verma, Pragya and Wang, Ying and Ghosh, Soumen and He, Xiao and Truhlar, Donald G.},\ntitle = {Revised M11 Exchange--Correlation Functional for Electronic Excitation Energies and Ground-State Properties},\njournal = {The Journal of Physical Chemistry A},\nvolume = {0},\nnumber = {ja},\npages = {null},\nyear = {0},\ndoi = {10.1021/acs.jpca.8b11499},\nURL = {https://doi.org/10.1021/acs.jpca.8b11499},\neprint = {https://doi.org/10.1021/acs.jpca.8b11499}\n}"
 };
@@ -2271,6 +2271,13 @@ func_reference_type xc_ref_Kurth1999_889 = {
   "S. Kurth, J. P. Perdew, and P. Blaha, Int. J. Quantum Chem. 75, 889 (1999)",
   "10.1002/(SICI)1097-461X(1999)75:4/5<889::AID-QUA54>3.0.CO;2-8",
   "@article{Kurth1999_889,\nauthor = {Kurth, Stefan and Perdew, John P. and Blaha, Peter},\ntitle = {Molecular and solid-state tests of density functional approximations: LSD, GGAs, and meta-GGAs},\njournal = {International Journal of Quantum Chemistry},\nvolume = {75},\nnumber = {4‐5},\npages = {889-909},\nkeywords = {density functional, exchange–correlation, local spin density approximation, generalized gradient approximation, molecules, solids, surfaces},\ndoi = {10.1002/(SICI)1097-461X(1999)75:4/5<889::AID-QUA54>3.0.CO;2-8},\nurl = {https://onlinelibrary.wiley.com/doi/abs/10.1002/%28SICI%291097-461X%281999%2975%3A4/5%3C889%3A%3AAID-QUA54%3E3.0.CO%3B2-8},\nyear = {1999}\n}"
+};
+
+
+func_reference_type xc_ref_Ruzsinszky2012_2078 = {
+  "A. Ruzsinszky, J. Sun, B. Xiao, and G. I. Csonka, J. Chem. Theory Comput. 8, 2078 (2012)",
+  "10.1021/ct300269u",
+  "@article{Ruzsinszky2012_2078,\nauthor = {Ruzsinszky, Adrienn and Sun, Jianwei and Xiao, Bing and Csonka, Gábor I.},\ntitle = {A meta-GGA Made Free of the Order of Limits Anomaly},\njournal = {Journal of Chemical Theory and Computation},\nvolume = {8},\nnumber = {6},\npages = {2078-2087},\nyear = {2012},\ndoi = {10.1021/ct300269u},\nURL = {https://doi.org/10.1021/ct300269u},\n}"
 };
 
 

@@ -312,6 +312,7 @@ mgga_x_scan.c
 mgga_x_tau_hcth.c
 mgga_x_tm.c
 mgga_x_tpss.c
+mgga_x_regtpss.c
 mgga_x_vt84.c
 mgga_x_rtpss.c
 mgga_xc_b97mv.c

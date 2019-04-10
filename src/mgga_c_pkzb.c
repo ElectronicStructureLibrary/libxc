@@ -11,10 +11,8 @@
 
 #define XC_MGGA_C_PKZB          239 /* Perdew, Kurth, Zupan, and Blaha */
 
-#include "maple2c/mgga_c_pkzb.c"
-
-#define func maple2c_func
-#include "work_mgga_c.c"
+#include "maple2c/mgga_exc/mgga_c_pkzb.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_c_pkzb = {
   XC_MGGA_C_PKZB,
@@ -22,10 +20,10 @@ const xc_func_info_type xc_func_info_mgga_c_pkzb = {
   "Perdew, Kurth, Zupan, and Blaha",
   XC_FAMILY_MGGA,
   {&xc_ref_Perdew1999_2544, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-13, /* densities smaller than 1e-26 give NaNs */
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, NULL, work_mgga_c,
+  NULL, NULL, work_mgga,
 };
 

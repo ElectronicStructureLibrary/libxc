@@ -34,7 +34,7 @@ const xc_func_info_type xc_func_info_gga_x_sfat_pbe = {
   "Short-range recipe for PBE functional - Yukawa",
   XC_FAMILY_GGA,
   {&xc_ref_Savin1995_327, &xc_ref_Akinaga2008_348, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-19,
   1, ext_params, set_ext_params,
   NULL, NULL,

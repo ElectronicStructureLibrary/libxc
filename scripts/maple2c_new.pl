@@ -42,7 +42,7 @@ if(-f $config{"functional"}.".mpl"){
     $config{"mathfile"} =  $config{"srcdir"}."/maple/".$temp."_vxc/".$config{"functional"}.".mpl";
   }
 }
-  
+
 open my $in, '<', $config{"mathfile"} or die "File $mathfile does not exist\n";
 
 # Find out the type of functional
@@ -86,6 +86,9 @@ sub work_lda_exc {
     [[[2,0], "v2rho2_0_"], [[1,1], "v2rho2_1_"], [[0,2], "v2rho2_2_"]],
     [[[3,0], "v3rho3_0_"], [[2,1], "v3rho3_1_"], [[1,2], "v3rho3_2_"], [[0,3], "v3rho3_3_"]],
     );
+
+  # get arguments of the functions
+  my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
 
   # honor max_order
   splice @derivatives, $config{"max_order"}+1, $#derivatives, ;
@@ -142,7 +145,7 @@ C([$maple_zk, $out_c_pol], optimize, deducetypes=false):
 \n",
       );
 
-  maple2c_run(\@variables, \@derivatives, \@variants, 0);
+  maple2c_run(\@variables, \@derivatives, \@variants, 0, $input_args, $output_args);
 }
 
 
@@ -162,15 +165,18 @@ sub work_lda_vxc {
     [[[0,2], "v3rho3_3_"]],    
       );
   
-  # honor max_order
-  splice @derivatives1, $config{"max_order"}+1, $#derivatives1, ;
-  splice @derivatives2, $config{"max_order"}+1, $#derivatives2, ;
-
   my @derivatives = ();
   for(my $i=0; $i<=$#derivatives1; $i++){
     @{$derivatives[$i]} = @{$derivatives1[$i]};
     push(@{$derivatives[$i]}, @{$derivatives2[$i]});
   }
+
+  my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
+
+  # honor max_order
+  splice @derivatives1, $config{"max_order"}+1, $#derivatives1, ;
+  splice @derivatives2, $config{"max_order"}+1, $#derivatives2, ;
+  splice @derivatives,  $config{"max_order"}+1, $#derivatives,  ;
 
   # we obtain the missing pieces for maple
   # unpolarized calculation
@@ -235,7 +241,7 @@ C([$maple_vrho0, $maple_vrho1, $out_c_pol], optimize, deducetypes=false):
 "
       );
 
-  maple2c_run(\@variables, \@derivatives, \@variants, 1);
+  maple2c_run(\@variables, \@derivatives, \@variants, 1, $input_args, $output_args);
 }
 
 sub work_gga_exc {
@@ -271,6 +277,10 @@ sub work_gga_exc {
       [[0,0,0,0,3], "v3sigma3_9_"],
     ],
       );
+
+  # get arguments of the functions
+  my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
+
   # honor max_order
   splice @derivatives, $config{"max_order"}+1, $#derivatives, ;
   
@@ -336,7 +346,7 @@ C([$maple_zk$out_c], optimize, deducetypes=false):
 \n",
       );
 
-  maple2c_run(\@variables, \@derivatives, \@variants, 0);
+  maple2c_run(\@variables, \@derivatives, \@variants, 0, $input_args, $output_args);
 }
 
 sub work_mgga_exc {
@@ -571,8 +581,12 @@ sub work_mgga_exc {
       [[0,0,0,0,0,0,0,0,3], "v3tau3_3_"],
     ],
       );
+
+  # get arguments of the functions
+  my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
+
   # honor max_order
-  #splice @derivatives, $config{"max_order"}+1, $#derivatives, ;
+  splice @derivatives, $config{"max_order"}+1, $#derivatives, ;
   
   my ($der_def, @out_c) = 
       maple2c_create_derivatives(\@variables, \@derivatives, "mf");
@@ -648,5 +662,5 @@ C([$maple_zk$out_c], optimize, deducetypes=false):
 \n",
       );
 
-  maple2c_run(\@variables, \@derivatives, \@variants, 0);
+  maple2c_run(\@variables, \@derivatives, \@variants, 0, $input_args, $output_args);
 }

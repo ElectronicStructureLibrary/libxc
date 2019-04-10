@@ -65,10 +65,8 @@ mgga_x_m11_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/mgga_x_m11.c"
-
-#define func maple2c_func
-#include "work_mgga_c.c"
+#include "maple2c/mgga_exc/mgga_x_m11.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_hyb_mgga_x_m11 = {
   XC_HYB_MGGA_X_M11,
@@ -76,11 +74,11 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m11 = {
   "Minnesota M11 hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Peverati2011_2810, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-11,
   0, NULL, NULL,
   mgga_x_m11_init, NULL,
-  NULL, NULL, work_mgga_c,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_hyb_mgga_x_revm11 = {
@@ -89,9 +87,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_revm11 = {
   "Revised Minnesota M11 hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Verma2019, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-11,
   0, NULL, NULL,
   mgga_x_m11_init, NULL,
-  NULL, NULL, work_mgga_c,
+  NULL, NULL, work_mgga,
 };

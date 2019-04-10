@@ -6,31 +6,37 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_mgga_x *)
+(* type: mgga_exc *)
 
-a := 0.5389:
-b := 3:
+pc07_a := 0.5389:
+pc07_b := 3:
 
-p := x -> X2S^2*x^2:
-q := u -> X2S^2*u:
+pc07_p := x -> X2S^2*x^2:
+pc07_q := u -> X2S^2*u:
 
 (* Equation (15) *)
-fab := z -> piecewise( \
-    z<=0, 0, \
-    z>=a, 1, \
-    (1 + exp(a/(a-z)))^b/(exp(a/z) + exp(a/(a-z)))^b \
+pc07_fab := z -> my_piecewise3(
+    z<=0, 0, my_piecewise3(z>=pc07_a, 1,
+    (1 + exp(pc07_a/(pc07_a-z)))^pc07_b/(exp(pc07_a/z) + exp(pc07_a/(pc07_a-z)))^pc07_b)
 ):
 
 (* Equation (7) *)
-mDelta := (x, u) -> 8*q(u)^2/81 - p(x)*q(u)/9 + 8*p(x)^2/243:
+pc07_Delta := (x, u) ->
+  8*pc07_q(u)^2/81 - pc07_p(x)*pc07_q(u)/9 + 8*pc07_p(x)^2/243:
 
-f_W    := x -> 5*p(x)/3:
+pc07_f_W    := x -> 5*pc07_p(x)/3:
 
 (* Equation (8) *)
-f_GE4  := (x, u) -> 1 + 5*p(x)/27 + 20*q(u)/9 + mDelta(x, u):
+pc07_GE4  := (x, u) ->
+  1 + 5*pc07_p(x)/27 + 20*pc07_q(u)/9 + pc07_Delta(x, u):
 
 (* Equation (11) *)
-f_GE4_M := (x, u) -> f_GE4(x, u)/sqrt(1 + mDelta(x, u)^2/(1 + f_W(x))^2):
+pc07_GE4_M := (x, u) ->
+  pc07_GE4(x, u)/sqrt(1 + pc07_Delta(x, u)^2/(1 + pc07_f_W(x))^2):
 
 (* Equation (17) *)
-f   := (rs, x, t, u) -> f_W(x) + (f_GE4_M(x, u) - f_W(x))*fab(f_GE4_M(x, u) - f_W(x)):
+pc07_f := (x, u) ->
+  pc07_f_W(x) + (pc07_GE4_M(x, u) - pc07_f_W(x))*pc07_fab(pc07_GE4_M(x, u) - pc07_f_W(x)):
+
+f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->
+  mgga_kinetic(pc07_f, rs, z, xs0, xs1, u0, u1):

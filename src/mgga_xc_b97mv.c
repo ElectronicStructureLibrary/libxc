@@ -19,10 +19,8 @@ mgga_xc_b97mv_init(xc_func_type *p)
   p->nlc_C = 0.01;
 }
 
-#include "maple2c/mgga_xc_b97mv.c"
-
-#define func maple2c_func
-#include "work_mgga_c.c"
+#include "maple2c/mgga_exc/mgga_xc_b97mv.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_xc_b97m_v = {
   XC_MGGA_XC_B97M_V,
@@ -30,9 +28,9 @@ const xc_func_info_type xc_func_info_mgga_xc_b97m_v = {
   "B97M-V exchange-correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Mardirossian2015_074111, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_I_HAVE_ALL,
   1e-23,
   0, NULL, NULL,
   mgga_xc_b97mv_init, NULL, 
-  NULL, NULL, work_mgga_c,
+  NULL, NULL, work_mgga,
 };

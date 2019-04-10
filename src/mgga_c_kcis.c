@@ -11,10 +11,8 @@
 #define XC_MGGA_C_KCIS         562 /* Krieger, Chen, Iafrate, and Savin */
 #define XC_HYB_MGGA_XC_B0KCIS  563 /* Hybrid based on KCIS */
 
-#include "maple2c/mgga_c_kcis.c"
-
-#define func maple2c_func
-#include "work_mgga_c.c"
+#include "maple2c/mgga_exc/mgga_c_kcis.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_c_kcis = {
   XC_MGGA_C_KCIS,
@@ -22,11 +20,11 @@ const xc_func_info_type xc_func_info_mgga_c_kcis = {
   "Krieger, Chen, Iafrate, and Savin",
   XC_FAMILY_MGGA,
   {&xc_ref_Rey1998_581, &xc_ref_Krieger1999_463, &xc_ref_Krieger2001_48, &xc_ref_Kurth1999_889, &xc_ref_Toulouse2002_10465},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_DEVELOPMENT,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, NULL, work_mgga_c
+  NULL, NULL, work_mgga
 };
 
 /*************************************************************/
@@ -46,9 +44,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_b0kcis = {
   "Hybrid based on KCIS",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Toulouse2002_10465, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_DEVELOPMENT,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
   xc_hyb_mgga_xc_b0kcis_init, NULL, 
-  NULL, NULL, work_mgga_c
+  NULL, NULL, work_mgga
 };

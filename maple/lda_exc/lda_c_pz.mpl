@@ -32,11 +32,7 @@ ec_low  := (i, rs) -> params_a_gamma[i] / \
 ec_high := (i, rs) -> params_a_a[i]*log(rs) + params_a_b[i] \
         + params_a_c[i]*rs*log(rs) + params_a_d[i]*rs:
 
-(* This is a little tricky as ec is discontinuous at rs=1, and therefore *)
-(* it is not differentiable (and maple knows it). As a workaround, we    *)
-(* write the function in terms of the Heaviside function, and handle the *)
-(* Dirac functions that come out in the derivatives                      *)
-ec := (i, x) -> convert(piecewise(x >= 1, ec_low(i, x), ec_high(i, x)), 'Heaviside'):
+ec := (i, x) -> my_piecewise3(x >= 1, ec_low(i, x), ec_high(i, x)):
 
 f_pz := (rs, zeta) -> \
  ec(1, rs) + (ec(2, rs) - ec(1, rs))*f_zeta(zeta):

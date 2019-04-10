@@ -7,9 +7,16 @@
 *)
 
 # Minimum and maximum functions that I can differentiate
-m_min := (x1, x2) -> x1 + (x2 - x1)*Heaviside(x1 - x2):
-m_max := (x1, x2) -> x1 + (x2 - x1)*Heaviside(x2 - x1):
-m_abs := (x) -> m_max(x, -x):
+
+m_min := (x1, x2) -> my_piecewise3(x1 > x2, x2, x1):
+m_max := (x1, x2) -> my_piecewise3(x1 > x2, x1, x2):
+m_abs := (x)      -> my_piecewise3(x > 0, x, -x):
+
+# Teach maple to differentiate piecewise functions
+
+`diff/my_piecewise3` :=
+    proc(c, x1, x2, x) my_piecewise3(c, diff(x1, x), diff(x2, x)) end proc:
+
 
 # a series of useful definitions
 
@@ -74,11 +81,16 @@ if evalb(Polarization = "ferr") then
     gga_exchange_nsp := (func, rs, z, xs0, xs1) ->
              lda_x_spin(rs, 1)*func(rs, 1, xs0):
     gga_exchange := (func, rs, z, xs0, xs1) ->
-             lda_x_spin(rs, z)*func(xs0):
+             lda_x_spin(rs, 1)*func(xs0):
     gga_kinetic := (func, rs, z, xs0, xs1) ->
-             lda_k_spin(rs, z)*func(xs0):
+             lda_k_spin(rs, 1)*func(xs0):
+             
+    mgga_exchange_nsp := (func, rs, z, xs0, xs1, u0, u1, t0, t1) ->
+             lda_x_spin(rs, 1)*func(rs, 1, xs0, u0, t0):
     mgga_exchange := (func, rs, z, xs0, xs1, u0, u1, t0, t1) ->
-             lda_x_spin(rs, z)*func(xs0, u0, t0):
+             lda_x_spin(rs, 1)*func(xs0, u0, t0):
+    mgga_kinetic := (func, rs, z, xs0, xs1, u0, u1) ->
+             lda_k_spin(rs, 1)*func(xs0, u0):
 else
     gga_exchange_nsp := (func, rs, z, xs0, xs1) ->
              lda_x_spin(rs, z)*func(rs, z, xs0) + lda_x_spin(rs, -z)*func(rs, -z, xs1):
@@ -86,8 +98,13 @@ else
              lda_x_spin(rs, z)*func(xs0) + lda_x_spin(rs, -z)*func(xs1):
     gga_kinetic := (func, rs, z, xs0, xs1) ->
              lda_k_spin(rs, z)*func(xs0) + lda_k_spin(rs, -z)*func(xs1):
+             
+    mgga_exchange_nsp := (func, rs, z, xs0, xs1, u0, u1, t0, t1) ->
+             lda_x_spin(rs, z)*func(rs, z, xs0, u0, t0) + lda_x_spin(rs, -z)*func(rs, -z, xs1, u1, t1):
     mgga_exchange := (func, rs, z, xs0, xs1, u0, u1, t0, t1) ->
              lda_x_spin(rs, z)*func(xs0, u0, t0) + lda_x_spin(rs, -z)*func(xs1, u1, t1):
+    mgga_kinetic := (func, rs, z, xs0, xs1, u0, u1) ->
+             lda_k_spin(rs, z)*func(xs0, u0) + lda_x_spin(rs, -z)*func(xs1, u1):
 end if:
 
 # This is the Stoll decomposition in our language

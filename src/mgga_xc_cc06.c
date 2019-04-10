@@ -11,10 +11,8 @@
 
 #define XC_MGGA_XC_CC06          229 /* Cancio and Chou 2006 */
 
-#include "maple2c/mgga_xc_cc06.c"
-
-#define func maple2c_func
-#include "work_mgga_c.c"
+#include "maple2c/mgga_exc/mgga_xc_cc06.c"
+#include "work_mgga_new.c"
 
 
 const xc_func_info_type xc_func_info_mgga_xc_cc06 = {
@@ -23,10 +21,10 @@ const xc_func_info_type xc_func_info_mgga_xc_cc06 = {
   "Cancio and Chou 2006",
   XC_FAMILY_MGGA,
   {&xc_ref_Cancio2006_081202, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
   1e-23,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, NULL, work_mgga_c,
+  NULL, NULL, work_mgga,
 };
 

@@ -6,12 +6,12 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_mgga_c *)
+(* type: mgga_exc *)
 
-par_n := 5:
+b97mv_par_n := 5:
 
-gamma_x := 0.004:
-par_x := [
+b97mv_gamma_x := 0.004:
+b97mv_par_x := [
     [  1.000, 0, 0],
     [  1.308, 0, 1],
     [  1.901, 0, 2],
@@ -19,8 +19,8 @@ par_x := [
     [  3.070, 1, 1]
 ]:
 
-gamma_ss := 0.2:
-par_ss := [
+b97mv_gamma_ss := 0.2:
+b97mv_par_ss := [
     [  1.000, 0, 0],
     [ -1.855, 0, 2],
     [ -5.668, 1, 0],
@@ -28,8 +28,8 @@ par_ss := [
     [-20.364, 4, 2]
 ]:
 
-gamma_os := 0.006:
-par_os := [
+b97mv_gamma_os := 0.006:
+b97mv_par_os := [
     [  1.000, 0, 0],
     [  1.573, 0, 1],
     [ -6.298, 0, 3],
@@ -41,5 +41,5 @@ $define lda_x_params
 $include "lda_x.mpl"
 $include "b97mv.mpl"
 
-f :=  (rs, z, xt, xs0, xs1, ts0, ts1, us0, us1) ->
+f :=  (rs, z, xt, xs0, xs1, us0, us1, ts0, ts1) ->
   b97mv_f(f_lda_x, rs, z, xt, xs0, xs1, ts0, ts1):

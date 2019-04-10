@@ -30,8 +30,8 @@ attenuation_erf_gau := a ->
 att_yuk_aux1 := a -> arctan(1, a):
 att_yuk_aux2 := a -> log(1.0 + 1.0/a^2):
 att_yuk_aux3 := a -> a^2 + 1:
-attenuation_yukawa := a -> convert(piecewise(
+attenuation_yukawa := a -> my_piecewise3(
     a > 50, 1/(9*a^2) - 1/(30*a^4),
     1.0 - 8/3*a*(att_yuk_aux1(a) + a/4*(1 - (att_yuk_aux3(a) + 2)*att_yuk_aux2(a)))
-), 'Heaviside'):
+):
 

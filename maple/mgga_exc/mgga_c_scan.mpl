@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_mgga_c *)
+(* type: mgga_exc *)
 
 $include "gga_c_scan_e0.mpl"
 $include "mgga_x_scan.mpl"
@@ -36,11 +36,11 @@ params_a_c1 := 0.64:
 params_a_c2 := 1.5:
 params_a_d  := 0.7:
 
-f_scan := (rs, z, xt, xs0, xs1, ts0, ts1) ->
-  f_pbe(rs, z, xt, xs0, xs1) + f_alpha(scan_alpha(z, xt, ts0, ts1))*(
+scan_f := (rs, z, xt, xs0, xs1, ts0, ts1) ->
+  f_pbe(rs, z, xt, xs0, xs1) + scan_f_alpha(scan_alpha(z, xt, ts0, ts1))*(
     + scan_e0(rs, z, X2S*2^(1/3)*xt)
     - f_pbe(rs, z, xt, xs0, xs1)
   ):
 
-f := (rs, z, xt, xs0, xs1, ts0, ts1, us0, us1) ->
-  f_scan(rs, z, xt, xs0, xs1, ts0, ts1):
+f := (rs, z, xt, xs0, xs1, us0, us1, ts0, ts1) ->
+  scan_f(rs, z, xt, xs0, xs1, ts0, ts1):

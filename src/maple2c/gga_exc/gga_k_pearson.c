@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : .//maple/gga_k_pearson.mpl
+  Maple source      : ./maple/gga_exc/gga_k_pearson.mpl
   Type of functional: gga_exc
 */
 

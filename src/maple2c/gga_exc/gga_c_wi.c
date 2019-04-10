@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : ./maple/gga_c_wi.mpl
+  Maple source      : ./maple/gga_exc/gga_c_wi.mpl
   Type of functional: gga_exc
 */
 
@@ -433,9 +433,9 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   double t237, t238, t239, t241, t242, t244, t245, t246;
   double t248, t249, t250, t252, t253, t254, t255, t259;
   double t260, t262, t263, t264, t271, t272, t299, t305;
-  double t310, t324, t325, t335, t362, t366, t370, t375;
-  double t384, t388, t394, t397, t402, t409, t416, t419;
-  double t422, t426, t434, t465, t470, t476, t485, t489;
+  double t310, t324, t325, t335, t362, t373, t376, t381;
+  double t388, t395, t399, t403, t406, t409, t413, t417;
+  double t421, t426, t432, t465, t470, t476, t485, t489;
   double t492, t496, t499, t503, t510, t513, t517, t522;
   double t530, t532, t534, t538, t550, t554, t557, t561;
   double t574, t599, t602, t605, t611, t615, t619, t621;
@@ -678,25 +678,25 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
     v3rho3[3] = v3rho3[2];
 
   t362 = t94 * t325 * t18 * t97 * t99 * t141;
-  t366 = t185 * t61 * t95 * t100;
-  t370 = t93 * t134 * t95 * t100;
-  t375 = t201 * t194 * t97 * t158 * t79;
-  t384 = t31 * t15 * t66 * t204;
-  t388 = t200 * t61 * t66 * t204;
-  t394 = params->b * t113 * t12;
-  t397 = params->b * t119 * t171;
-  t402 = params->b * t128 * t129 * t52 * t12;
-  t409 = t125 / t7 / t126 / t30 * t310 * t12;
-  t416 = t9 * t15 * t95 * t100;
-  t419 = t186 * t194 * t197;
-  t422 = t190 * t194 * t197;
-  t426 = t195 * t97 * t99 * t163;
-  t434 = t86 * t15 * t95 * t97 * t36 * t28;
+  t373 = params->b * t113 * t12;
+  t376 = params->b * t119 * t171;
+  t381 = params->b * t128 * t129 * t52 * t12;
+  t388 = t125 / t7 / t126 / t30 * t310 * t12;
+  t395 = t31 * t15 * t66 * t204;
+  t399 = t200 * t61 * t66 * t204;
+  t403 = t9 * t15 * t95 * t100;
+  t406 = t186 * t194 * t197;
+  t409 = t190 * t194 * t197;
+  t413 = t195 * t97 * t99 * t163;
+  t417 = t185 * t61 * t95 * t100;
+  t421 = t93 * t134 * t95 * t100;
+  t426 = t201 * t194 * t97 * t158 * t79;
+  t432 = t86 * t15 * t95 * t97 * t36 * t28;
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho2sigma[0] = -0.21e2 / 0.2e1 * t362 + 0.7e1 / 0.3e1 * t366 - 0.7e1 / 0.4e1 * t370 - 0.70e2 / 0.3e1 * t375 + 0.2e1 * t91 * t142 - 0.2e1 * t181 * t80 - t91 * t164 - 0.385e3 / 0.18e2 * t384 + 0.35e2 / 0.3e1 * t388 - 0.2e1 * t90 * t66 * t79 + t4 * (0.88e2 / 0.9e1 * t394 - 0.520e3 / 0.9e1 * t397 + 0.136e3 / 0.3e1 * t402 - 0.64e2 / 0.9e1 * t409) * t46 - 0.35e2 / 0.18e2 * t416 - 0.14e2 / 0.3e1 * t419 + 0.7e1 * t422 + 0.7e1 / 0.2e1 * t426 + 0.2e1 * t180 * t46 - 0.35e2 / 0.3e1 * t434;
+    v3rho2sigma[0] = -0.21e2 / 0.2e1 * t362 + 0.2e1 * t91 * t142 - 0.2e1 * t181 * t80 - t91 * t164 - 0.2e1 * t90 * t66 * t79 + t4 * (0.88e2 / 0.9e1 * t373 - 0.520e3 / 0.9e1 * t376 + 0.136e3 / 0.3e1 * t381 - 0.64e2 / 0.9e1 * t388) * t46 - 0.385e3 / 0.18e2 * t395 + 0.35e2 / 0.3e1 * t399 - 0.35e2 / 0.18e2 * t403 - 0.14e2 / 0.3e1 * t406 + 0.7e1 * t409 + 0.7e1 / 0.2e1 * t413 + 0.7e1 / 0.3e1 * t417 - 0.7e1 / 0.4e1 * t421 - 0.70e2 / 0.3e1 * t426 - 0.35e2 / 0.3e1 * t432 + 0.2e1 * t180 * t46;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho2sigma[1] = -0.21e2 * t362 + 0.14e2 / 0.3e1 * t366 - 0.7e1 / 0.2e1 * t370 - 0.140e3 / 0.3e1 * t375 + 0.2e1 * t104 * t142 - 0.2e1 * t212 * t80 - t104 * t164 - 0.385e3 / 0.9e1 * t384 + 0.70e2 / 0.3e1 * t388 - 0.2e1 * t103 * t66 * t79 + t4 * (0.176e3 / 0.9e1 * t394 - 0.1040e4 / 0.9e1 * t397 + 0.272e3 / 0.3e1 * t402 - 0.128e3 / 0.9e1 * t409) * t46 - 0.35e2 / 0.9e1 * t416 - 0.28e2 / 0.3e1 * t419 + 0.14e2 * t422 + 0.7e1 * t426 + 0.2e1 * t211 * t46 - 0.70e2 / 0.3e1 * t434;
+    v3rho2sigma[1] = -0.21e2 * t362 + 0.2e1 * t104 * t142 - 0.2e1 * t212 * t80 - t104 * t164 - 0.2e1 * t103 * t66 * t79 + t4 * (0.176e3 / 0.9e1 * t373 - 0.1040e4 / 0.9e1 * t376 + 0.272e3 / 0.3e1 * t381 - 0.128e3 / 0.9e1 * t388) * t46 - 0.385e3 / 0.9e1 * t395 + 0.70e2 / 0.3e1 * t399 - 0.35e2 / 0.9e1 * t403 - 0.28e2 / 0.3e1 * t406 + 0.14e2 * t409 + 0.7e1 * t413 + 0.14e2 / 0.3e1 * t417 - 0.7e1 / 0.2e1 * t421 - 0.140e3 / 0.3e1 * t426 - 0.70e2 / 0.3e1 * t432 + 0.2e1 * t211 * t46;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho2sigma[2] = v3rho2sigma[0];

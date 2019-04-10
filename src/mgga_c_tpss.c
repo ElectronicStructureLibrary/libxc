@@ -17,7 +17,7 @@ typedef struct{
   double C0_c[4];
 } mgga_c_tpss_params;
 
-static const mgga_c_tpss_params par_tm = {0.06672455060314922, 2.8, 0.0, 0.1, 0.32, 0.0};
+static const mgga_c_tpss_params par_tm = {0.06672455060314922, 2.8, {0.0, 0.1, 0.32, 0.0}};
 
 static void 
 mgga_c_tpss_init(xc_func_type *p)
@@ -66,10 +66,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->C0_c[3] = get_ext_param(p->info->ext_params, ext_params, 5);
 }
 
-#include "maple2c/mgga_c_tpss.c"
-
-#define func maple2c_func
-#include "work_mgga_c.c"
+#include "maple2c/mgga_exc/mgga_c_tpss.c"
+#include "work_mgga_new.c"
 
 
 const xc_func_info_type xc_func_info_mgga_c_tpss = {
@@ -78,12 +76,11 @@ const xc_func_info_type xc_func_info_mgga_c_tpss = {
   "Tao, Perdew, Staroverov & Scuseria",
   XC_FAMILY_MGGA,
   {&xc_ref_Tao2003_146401, &xc_ref_Perdew2004_6898, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23, /* densities smaller than 1e-26 give NaNs */
   6, ext_params, set_ext_params,
-  mgga_c_tpss_init,
-  NULL, NULL, NULL,
-  work_mgga_c,
+  mgga_c_tpss_init, NULL,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_mgga_c_tm = {
@@ -92,10 +89,9 @@ const xc_func_info_type xc_func_info_mgga_c_tm = {
   "Tao and Mo 2016 correlation",
   XC_FAMILY_MGGA,
   {&xc_ref_Tao2016_073001, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23, /* densities smaller than 1e-26 give NaNs */
   0, NULL, NULL,
-  mgga_c_tpss_init,
-  NULL, NULL, NULL,
-  work_mgga_c,
+  mgga_c_tpss_init, NULL,
+  NULL, NULL, work_mgga,
 };

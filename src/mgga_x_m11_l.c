@@ -51,10 +51,8 @@ mgga_x_m11_l_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/mgga_x_m11_l.c"
-
-#define func maple2c_func
-#include "work_mgga_c.c"
+#include "maple2c/mgga_exc/mgga_x_m11_l.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_x_m11_l = {
   XC_MGGA_X_M11_L,
@@ -62,9 +60,9 @@ const xc_func_info_type xc_func_info_mgga_x_m11_l = {
   "Minnesota M11-L exchange functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Peverati2012_117, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-13,
   0, NULL, NULL,
   mgga_x_m11_l_init, NULL, 
-  NULL, NULL, work_mgga_c,
+  NULL, NULL, work_mgga,
 };

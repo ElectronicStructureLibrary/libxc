@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : ./maple/lda_k_gds08_worker.mpl
+  Maple source      : ./maple/lda_exc/lda_k_gds08_worker.mpl
   Type of functional: lda_exc
 */
 
@@ -31,6 +31,8 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     *zk = params->A + t2 + t4;
 
+#ifndef XC_DONT_COMPILE_VXC
+
   if(order < 1) return;
 
 
@@ -40,6 +42,8 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
   t8 = t7 * t5;
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vrho[0] = params->A + t2 + t4 + rho[0] * (t6 + 0.2e1 * t8);
+
+#ifndef XC_DONT_COMPILE_FXC
 
   if(order < 2) return;
 
@@ -52,15 +56,27 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rho2[0] = 0.2e1 * t6 + 0.4e1 * t8 + rho[0] * (-t16 + 0.2e1 * t17 - 0.2e1 * t19);
 
+#ifndef XC_DONT_COMPILE_KXC
+
   if(order < 3) return;
 
 
   t27 = 0.1e1 / t14 / rho[0];
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = -0.3e1 * t16 + 0.6e1 * t17 - 0.6e1 * t19 + rho[0] * (0.4e1 * t27 * t7 + 0.2e1 * t27 * params->B - 0.6e1 * t27 * params->C);
+    v3rho3[0] = -0.3e1 * t16 + 0.6e1 * t17 - 0.6e1 * t19 + rho[0] * (0.4e1 * t7 * t27 + 0.2e1 * params->B * t27 - 0.6e1 * params->C * t27);
+
+#ifndef XC_DONT_COMPILE_LXC
 
   if(order < 4) return;
 
+
+#endif
+
+#endif
+
+#endif
+
+#endif
 
 
 }
@@ -84,6 +100,8 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     *zk = params->A + t2 + t4;
 
+#ifndef XC_DONT_COMPILE_VXC
+
   if(order < 1) return;
 
 
@@ -93,6 +111,8 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
   t8 = t7 * t5;
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vrho[0] = params->A + t2 + t4 + rho[0] * (t6 + 0.2e1 * t8);
+
+#ifndef XC_DONT_COMPILE_FXC
 
   if(order < 2) return;
 
@@ -105,15 +125,27 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rho2[0] = 0.2e1 * t6 + 0.4e1 * t8 + rho[0] * (-t16 + 0.2e1 * t17 - 0.2e1 * t19);
 
+#ifndef XC_DONT_COMPILE_KXC
+
   if(order < 3) return;
 
 
   t27 = 0.1e1 / t14 / rho[0];
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = -0.3e1 * t16 + 0.6e1 * t17 - 0.6e1 * t19 + rho[0] * (0.4e1 * t27 * t7 + 0.2e1 * t27 * params->B - 0.6e1 * t27 * params->C);
+    v3rho3[0] = -0.3e1 * t16 + 0.6e1 * t17 - 0.6e1 * t19 + rho[0] * (0.4e1 * t7 * t27 + 0.2e1 * params->B * t27 - 0.6e1 * params->C * t27);
+
+#ifndef XC_DONT_COMPILE_LXC
 
   if(order < 4) return;
 
+
+#endif
+
+#endif
+
+#endif
+
+#endif
 
 
 }
@@ -138,6 +170,8 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     *zk = params->A + t3 + t5;
 
+#ifndef XC_DONT_COMPILE_VXC
+
   if(order < 1) return;
 
 
@@ -150,6 +184,8 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
 
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vrho[1] = vrho[0];
+
+#ifndef XC_DONT_COMPILE_FXC
 
   if(order < 2) return;
 
@@ -168,6 +204,8 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rho2[2] = v2rho2[1];
 
+#ifndef XC_DONT_COMPILE_KXC
+
   if(order < 3) return;
 
 
@@ -184,8 +222,18 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho3[3] = v3rho3[2];
 
+#ifndef XC_DONT_COMPILE_LXC
+
   if(order < 4) return;
 
+
+#endif
+
+#endif
+
+#endif
+
+#endif
 
 
 }

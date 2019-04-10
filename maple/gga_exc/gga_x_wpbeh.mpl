@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_gga_c *)
+(* type: gga_exc *)
 (* prefix:
   gga_x_wpbeh_params *params;
 
@@ -62,7 +62,7 @@ wpbeh_F := s ->
   wpbeh_Fc1*wpbeh_H(s) + wpbeh_Fc2:
 
 (* several auxiliary variables *)
-eb1  := w -> piecewise(w < wcutoff, 1.455915450052607, 2):
+eb1  := w -> my_piecewise3(w < wcutoff, 1.455915450052607, 2):
 aux1 := s -> wpbeh_D + s^2*wpbeh_H(s):
 aux2 := s -> 9*wpbeh_H(s)*s^2/(4*wpbeh_A):
 aux3 := (w, s) -> aux1(s) + w^2:
@@ -82,16 +82,13 @@ Ga := s ->
 Gb := s ->
   15*sqrt(Pi)*s^2/(16*aux1(s)^(7/2)):
 
-(*
 wpbeh_EGa1 := -0.02628417880:
 wpbeh_EGa2 := -0.07117647788:
-wbpeh_EGa3 :=  0.08534541323:
-wpbeh_EG := s -> convert(piecewise(s > EGscut,
+wpbeh_EGa3 :=  0.08534541323:
+wpbeh_EG := s -> my_piecewise3(s > EGscut,
   -(3*Pi/4 + Ga(s))/Gb(s),
-  wpbeh_EGa1 + wpbveh_EGa2*s^2 + wpbeh_EGa3*s^4
-), 'Heaviside'):
-*)
-wpbeh_EG := s -> -(3*Pi/4 + Ga(s))/Gb(s):
+  wpbeh_EGa1 + wpbeh_EGa2*s^2 + wpbeh_EGa3*s^4
+):
 
 term2 := s-> (
   + aux1(s)^2*wpbeh_B
@@ -124,18 +121,18 @@ term5 := (w, s) -> -w^5*(
 t10 := (w, s) ->
   1/2*wpbeh_A*log(aux4(w, s)/aux6(w, s)):
 
-my_Ei_scaled := x -> piecewise(
+my_Ei_scaled := x -> my_piecewise3(
   x < expfcutoff, exp(x)*Ei(-x),
   -(x^2 + 4.03640*x + 1.15198)/(x^3 + 5.03627*x^2 + 4.19160*x)
 ):
-my_erfc_scaled := x -> piecewise(
+my_erfc_scaled := x -> my_piecewise3(
   x < expfcutoff, Pi*exp(x)*erfc(sqrt(x)),
   sqrt(Pi/x)*(1 - 1/(2*x) + 3/(4*x^2))
 ):
 
 (* Use simple gaussian approximation for large w *)
 term1_largew := (w, s) ->
-  -1/2*wpbeh_A*(my_Ei_scaled(aux5(w, s)) + LOG(aux6(w, s)) - LOG(aux4(w, s))):
+  -1/2*wpbeh_A*(my_Ei_scaled(aux5(w, s)) + log(aux6(w, s)) - log(aux4(w, s))):
 
 (* For everything else use the full blown expression *)
 ea1 := -1.128223946706117:
@@ -190,22 +187,17 @@ t2t9 := (w, s) ->
   + f2(w, s)*w + f3(w, s)*w^2 + f4(w, s)*w^3 + f5(w, s)*w^4
   + f6(w, s)*w^5 + f7(w, s)*w^6 + f8(w, s)*w^7 + f9(w, s)*w^8:
 
-term1 := (w, s) -> convert(piecewise(
+term1 := (w, s) -> my_piecewise3(
   w > wcutoff, term1_largew(w, s),
   t1(w, s) + t2t9(w, s) + t10(w, s)
-), 'Heaviside'):
+):
 
 f_wpbeh0 := (w, s) -> - 8/9 *(
   term1(w, s) + term2(s) + term3(w, s) + term4(w, s) + term5(w, s)
 ):
 
-f_wpbeh_enhancement := (rs, z, x) ->
+f_wpbeh := (rs, z, x) ->
   f_wpbeh0(nu(rs, z), s_scaling_2(X2S*x)):
 
-f_wpbeh := (rs, z, xs0, xs1) ->-X_FACTOR_C*RS_FACTOR*(
-  + ((1 + z)/2)^(4/3)*f_wpbeh_enhancement(rs,  z, xs0)/rs
-  + ((1 - z)/2)^(4/3)*f_wpbeh_enhancement(rs, -z, xs1)/rs
-):
-
 f  := (rs, z, xt, xs0, xs1) ->
-  f_wpbeh(rs, z, xs0, xs1):
+  gga_exchange_nsp(f_wpbeh, rs, z, xs0, xs1):

@@ -6,19 +6,21 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_mgga_x *)
+(* type: mgga_exc *)
 (* prefix:
   mgga_x_br89_params *params;
 
-  assert(pt->params != NULL);
-  params = (mgga_x_br89_params * )(pt->params);
+  assert(p->params != NULL);
+  params = (mgga_x_br89_params * )(p->params);
 *)
 
-br89_a := [0, 1, 0, -2, 0, 1]:
-fw := t -> mgga_series_w(br89_a, 6, t):
+(* This term is only required for B00
+b00_a := [0, 1, 0, -2, 0, 1]:
+b00_fw := t -> mgga_series_w(br89_a, 6, t):
+*)
 
-br89_Q := (x, t, u) -> (u - 4*t*params_a_gamma*Fermi_D(x, t))/6:
-br89_y := (x, t, u) -> 2*Pi^(2/3)/(3*br89_Q(x, t, u)):
+br89_Q := (x, u, t) -> (u - 4*t*params_a_gamma*Fermi_D(x, t))/6:
+br89_y := (x, u, t) -> 2*Pi^(2/3)/(3*br89_Q(x, u, t)):
 
 (* lower piece *)
 pgk_a1 := 1.5255251812009530:
@@ -45,14 +47,16 @@ pgk_x_lower := y -> (-arctan(pgk_a1*y + pgk_a2) + pgk_a3) *
 pgk_x_upper := y -> (arccsch(pgk_UB*y) + 2) *
             add(pgk_d[i]*y^(i-1), i=1..6)/add(pgk_e[i]*y^(i-1), i=1..6):
             
-pgk_x := (x, t, u) -> convert(piecewise(
-  br89_y(x, t, u) <= 0, pgk_x_lower(br89_y(x, t, u)),
-  pgk_x_upper(br89_y(x, t, u))), 'Heaviside'):
+pgk_x := (x, u, t) -> my_piecewise3(
+  br89_y(x, u, t) <= 0, pgk_x_lower(br89_y(x, u, t)), pgk_x_upper(br89_y(x, u, t))):
 
 br89_v_full := x -> exp(x/3.0)*(1.0 - exp(-x)*(1.0 + x/2.0))/x:
 br89_v_expa := x -> 1/2 + x/6 - x^2/18:
 
-br89_v := (x, t, u) ->
-       -2*Pi^(1/3)/X_FACTOR_C * br89_v_full(pgk_x(x, t, u)):
+br89_v := (x, u, t) ->
+       -2*Pi^(1/3)/X_FACTOR_C * br89_v_full(pgk_x(x, u, t)):
 
-f   := (rs, x, t, u) -> -br89_v(x, t, u)/2:
+br89_f   := (x, u, t) -> -br89_v(x, u, t)/2:
+
+f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->
+  mgga_exchange(br89_f, rs, z, xs0, xs1, u0, u1, t0, t1):

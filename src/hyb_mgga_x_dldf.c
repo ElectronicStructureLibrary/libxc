@@ -17,10 +17,8 @@ mgga_x_dldf_init(xc_func_type *p)
   p->cam_alpha   = 0.6144129;
 }
 
-#include "maple2c/hyb_mgga_x_dldf.c"
-
-#define func maple2c_func
-#include "work_mgga_x.c"
+#include "maple2c/mgga_exc/hyb_mgga_x_dldf.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_hyb_mgga_x_dldf = {
   XC_HYB_MGGA_X_DLDF,
@@ -28,9 +26,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_dldf = {
   "Dispersionless Density Functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Pernal2009_263201, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | XC_FLAGS_HAVE_FXC,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1.0e-22,
   0, NULL, NULL,
   mgga_x_dldf_init, NULL,
-  NULL, NULL, work_mgga_x,
+  NULL, NULL, work_mgga,
 };

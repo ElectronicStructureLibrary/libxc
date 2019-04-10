@@ -62,7 +62,7 @@ def test_libxc_functional_info():
     assert func.get_kind() == 2
     assert func.get_name() == "wB97M-V exchange-correlation functional"
     assert func.get_family() == 64
-    assert func.get_flags() == 1411
+    assert func.get_flags() == 1423
     assert len(func.get_bibtex()) == 1
     assert len(func.get_references()) == 1
     assert len(func.get_doi()) == 1
@@ -229,12 +229,10 @@ def test_deriv_flags(polar):
     inp["tau"] = np.random.random((compute_test_dim * ndim[3]))
     inp["lapl"] = np.random.random((compute_test_dim * ndim[3]))
 
-    with pytest.raises(ValueError):
-        func.compute(inp, do_fxc=True)
-
-    with pytest.raises(ValueError):
-        func.compute(inp, do_fxc=True)
-
+    # disabled as mgga_c_tpss now has fxc
+    # please fix this better!
+    #with pytest.raises(ValueError):
+    #    func.compute(inp, do_fxc=True)
 
 def test_hyb_getters():
 

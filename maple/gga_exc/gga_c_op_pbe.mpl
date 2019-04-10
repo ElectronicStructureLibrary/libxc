@@ -15,4 +15,4 @@ $include "gga_x_pbe.mpl"
 $include "op.mpl"
 
 op_qab         := 2.3789:
-op_enhancement := xs -> f_pbe(xs):
+op_enhancement := xs -> pbe_f(xs):

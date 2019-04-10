@@ -41,10 +41,8 @@ mgga_c_vsxc_init(xc_func_type *p)
   }  
 }
 
-#include "maple2c/mgga_c_vsxc.c"
-
-#define func maple2c_func
-#include "work_mgga_c.c"
+#include "maple2c/mgga_exc/mgga_c_vsxc.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_c_vsxc = {
   XC_MGGA_C_VSXC,
@@ -52,11 +50,9 @@ const xc_func_info_type xc_func_info_mgga_c_vsxc = {
   "VSXC (correlation part)",
   XC_FAMILY_MGGA,
   {&xc_ref_VanVoorhis1998_400, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1.0e-23,
   0, NULL, NULL,
-  mgga_c_vsxc_init,
-  NULL,
-  NULL, NULL,
-  work_mgga_c,
+  mgga_c_vsxc_init, NULL,
+  NULL, NULL, work_mgga,
 };

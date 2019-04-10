@@ -23,7 +23,7 @@ const xc_func_info_type xc_func_info_lda_c_rpa = {
   "Random Phase Approximation (RPA)",
   XC_FAMILY_LDA,
   {&xc_ref_GellMann1957_364, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
   NULL, NULL,

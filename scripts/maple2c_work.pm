@@ -234,7 +234,9 @@ sub maple2c_construct_arguments
 
   # construct the arguments of the function
   my ($input_args, $last_arg) = "";
-  foreach my $arg (@{$variables}){
+  foreach my $arg_v (@{$variables}){
+    # make a copy not to destroy original variable
+    my $arg = $arg_v;
     $arg =~ s/_.*$//;
 
     next if($arg eq $last_arg);
@@ -286,10 +288,7 @@ sub maple2c_print_header
 
 sub maple2c_run
 {
-  my ($variables, $derivatives, $variants, $start_order) = @_;
-  
-  # get arguments of the functions
-  my ($input_args, $output_args) = maple2c_construct_arguments($variables, $derivatives);
+  my ($variables, $derivatives, $variants, $start_order, $input_args, $output_args) = @_;
   
   # open file to write to
   my $fname = $config{'srcdir'}."/src/maple2c/".

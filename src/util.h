@@ -26,6 +26,29 @@
 /* need config to figure out what needs to be defined or not */
 #include "config.h"
 
+/* This takes care of disabling specific derivatives from the info structures */
+#ifdef XC_DONT_COMPILE_VXC
+# define XC_FLAGS_I_HAVE_VXC 0
+#else
+# define XC_FLAGS_I_HAVE_VXC XC_FLAGS_HAVE_VXC
+#endif
+
+#ifdef XC_DONT_COMPILE_FXC
+# define XC_FLAGS_I_HAVE_FXC 0
+#else
+# define XC_FLAGS_I_HAVE_FXC XC_FLAGS_HAVE_FXC
+#endif
+
+#ifdef XC_DONT_COMPILE_KXC
+# define XC_FLAGS_I_HAVE_KXC 0
+#else
+# define XC_FLAGS_I_HAVE_KXC XC_FLAGS_HAVE_KXC
+#endif
+
+#define XC_FLAGS_I_HAVE_ALL (XC_FLAGS_HAVE_EXC   | XC_FLAGS_I_HAVE_VXC | \
+                             XC_FLAGS_I_HAVE_FXC | XC_FLAGS_I_HAVE_KXC)
+
+/* Useful mathematical expressions */
 #ifndef M_E
 # define M_E            2.7182818284590452354   /* e */
 #endif
@@ -58,6 +81,10 @@
 #define POW_5_3(x) pow((x), 5.0/3.0)
 #define POW_7_3(x) pow((x), 7.0/3.0)
 #endif
+
+/* this is the piecewise function used in maple */
+#define my_piecewise3(c, x1, x2) ((c) ? (x1) : (x2))
+#define my_piecewise5(c1, x1, c2, x2, x3) ((c) ? (x1) : ((c2) ? (x2) : (x3)))
 
 #define M_SQRTPI        1.772453850905516027298167483341145182798L
 #define M_CBRTPI        1.464591887561523263020142527263790391739L

@@ -55,10 +55,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->gamma = get_ext_param(p->info->ext_params, ext_params, 0);
 }
 
-#include "maple2c/mgga_x_br89_explicit.c"
-
-#define func maple2c_func
-#include "work_mgga_x.c"
+#include "maple2c/mgga_exc/mgga_x_br89_explicit.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_x_br89_explicit = {
   XC_MGGA_X_BR89_EXPLICIT,
@@ -66,11 +64,11 @@ const xc_func_info_type xc_func_info_mgga_x_br89_explicit = {
   "Becke-Roussel 89 with an explicit inversion of x(y), gamma = 0.8",
   XC_FAMILY_MGGA,
   {&xc_ref_Becke1989_3761, &xc_ref_Proynov2008_103, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
   1.0e-12,
   1, ext_params, set_ext_params,
   mgga_x_br89_init, NULL,
-  NULL, NULL, work_mgga_x
+  NULL, NULL, work_mgga
 };
 
 const xc_func_info_type xc_func_info_mgga_x_br89_explicit_1 = {
@@ -79,9 +77,9 @@ const xc_func_info_type xc_func_info_mgga_x_br89_explicit_1 = {
   "Becke-Roussel 89 with an explicit inversion of x(y), gamma = 1.0",
   XC_FAMILY_MGGA,
   {&xc_ref_Becke1989_3761, &xc_ref_Proynov2008_103, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
   1.0e-12,
   0, NULL, NULL,
   mgga_x_br89_init, NULL,
-  NULL, NULL, work_mgga_x
+  NULL, NULL, work_mgga
 };

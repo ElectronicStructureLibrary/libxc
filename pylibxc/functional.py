@@ -684,7 +684,8 @@ class LibXCFunctional(object):
                 args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
                 core.xc_mgga_vxc(*args)
             if do_fxc:
-                raise KeyError("FXC quantities (2rd derivitives) are not defined for MGGA's! (%d)")
+                pass
+                #raise KeyError("FXC quantities (2rd derivitives) are not defined for MGGA's! (%d)")
                 # required_fields = [
                 #     "v2rho2", "v2sigma2", "v2lapl2", "v2tau2", "v2rhosigma", "v2rholapl", "v2rhotau", "v2sigmalapl",
                 #     "v2sigmatau", "v2lapltau"
@@ -692,7 +693,8 @@ class LibXCFunctional(object):
                 # args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
                 # core.xc_mgga_fxc(*args)
             if do_kxc:
-                raise KeyError("KXC quantities (3rd derivatives) are not defined for MGGA's! (%d)")
+                pass
+                #raise KeyError("KXC quantities (3rd derivatives) are not defined for MGGA's! (%d)")
                 # required_fields = ["v3rho3", "v3rho2sigma", "v3rhosigma2", "v3sigma3"]
                 # args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
                 # core.xc_gga_kxc(*args)

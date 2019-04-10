@@ -94,7 +94,7 @@ libxc_la_FUNC_SOURCES = \
 	mgga_c_tpssloc.c mgga_xc_hle17.c mgga_c_kcis.c mgga_xc_lp90.c	\
 	hyb_mgga_xc_kcis.c mgga_c_b88.c mgga_x_gx.c mgga_x_pbe_gx.c	\
 	mgga_c_revscan.c mgga_x_br89_explicit.c mgga_xc_b98.c		\
-	mgga_x_rtpss.c mgga_x_msb.c mgga_x_mvsb.c
+	mgga_x_rtpss.c mgga_x_msb.c mgga_x_mvsb.c mgga_x_regtpss.c
 
 libxc_la_SOURCES = references.c $(libxc_la_FUNC_SOURCES)
 libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)
@@ -134,8 +134,8 @@ FCLINK = $(LIBTOOL) --mode=link --tag=F77 $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) \
 
 noinst_HEADERS = \
 	string_f.h references.h util.h work_lda_new.c \
-	work_gga_x.c work_gga_c.c work_gga_new.c \
-	work_mgga_x.c work_mgga_c.c work_mgga_new.c \
+	work_gga_new.c \
+	work_mgga_x.c work_mgga_new.c \
 	libxc_master.F90 libxc_master.F03
 include_HEADERS = xc.h xc_funcs_removed.h
 nodist_include_HEADERS = xc_funcs.h xc_funcs_worker.h

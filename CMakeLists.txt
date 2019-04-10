@@ -27,6 +27,10 @@ option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON
 option_with_print(ENABLE_FORTRAN "Build Fortran 90 interface" OFF)
 option_with_print(ENABLE_FORTRAN03 "Build Fortran 2003 interface" OFF)
 
+option_with_print(DISABLE_VXC "Don't compile first derivative code" OFF)
+option_with_print(DISABLE_FXC "Don't compile second derivative code" OFF)
+option_with_print(DISABLE_KXC "Don't compile third derivative code" OFF)
+
 ######################### Process & Validate Options ###########################
 include(autocmake_safeguards)
 include(custom_static_library)
@@ -48,6 +52,21 @@ int main() {
 if (HAVE_CBRT)
   add_definitions (-DHAVE_CBRT)
 endif (HAVE_CBRT)
+
+# Turn off derivative code
+if(DISABLE_VXC)
+  add_definitions (-DXC_DONT_COMPILE_VXC)
+  add_definitions (-DXC_DONT_COMPILE_FXC)
+  add_definitions (-DXC_DONT_COMPILE_KXC)
+endif(DISABLE_VXC)
+if(DISABLE_FXC)
+  add_definitions (-DXC_DONT_COMPILE_FXC)
+  add_definitions (-DXC_DONT_COMPILE_KXC)
+endif(DISABLE_FXC)
+if(DISABLE_KXC)
+  add_definitions (-DXC_DONT_COMPILE_KXC)
+endif(DISABLE_KXC)
+
 # <<<  Build  >>>
 
 # repurpose xc_version from Make for CMake
@@ -293,6 +312,7 @@ mgga_x_scan.c
 mgga_x_tau_hcth.c
 mgga_x_tm.c
 mgga_x_tpss.c
+mgga_x_regtpss.c
 mgga_x_vt84.c
 mgga_x_rtpss.c
 mgga_xc_b97mv.c

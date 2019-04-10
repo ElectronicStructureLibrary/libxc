@@ -33,11 +33,10 @@ $include "gga_x_wc.mpl"
 
 htbs_g := s -> htbs_cc0 + htbs_cc1*s + htbs_cc2*s^2 + htbs_cc3*s^3 + htbs_cc4*s^4 + htbs_cc5*s^5:
 
-htbs_f0 := s -> convert(piecewise(
+htbs_f0 := s -> my_piecewise3(
    s < htbs_s1, wc_f0(s),
-   s > htbs_s2, rpbe_f0(s),
-   htbs_g(s)*rpbe_f0(s) + (1 - htbs_g(s))*wc_f0(s)
-), 'Heaviside'):
+   my_piecewise3(s > htbs_s2, rpbe_f0(s), htbs_g(s)*rpbe_f0(s) + (1 - htbs_g(s))*wc_f0(s))
+):
 
 htbs_f  := x -> htbs_f0(X2S*x):
 

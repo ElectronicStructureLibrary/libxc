@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* type: work_mgga_c *)
+(* type: mgga_exc *)
 (* prefix:
   mgga_c_m06l_params *params;
 
@@ -17,10 +17,10 @@
 $include "mgga_c_vsxc.mpl"
 $include "mgga_c_m05.mpl"
 
-f_m06 := (rs, z, xs0, xs1, ts0, ts1) ->
-  + f_m05(rs, z, xs0, xs1, ts0, ts1)
-  + f_vsxc(rs, z, xs0, xs1, ts0, ts1):
+m06l_f := (rs, z, xs0, xs1, ts0, ts1) ->
+  + m05_f(rs, z, xs0, xs1, ts0, ts1)
+  + vsxc_f(rs, z, xs0, xs1, ts0, ts1):
 
-f := (rs, z, xt, xs0, xs1, ts0, ts1, us0, us1) ->
-  f_m06(rs, z, xs0, xs1, ts0, ts1):
+f := (rs, z, xt, xs0, xs1, us0, us1, ts0, ts1) ->
+  m06l_f(rs, z, xs0, xs1, ts0, ts1):
 

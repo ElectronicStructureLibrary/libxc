@@ -443,124 +443,184 @@ module xc_f90_lib_m
   !----------------------------------------------------------------
   interface
     subroutine xc_f90_mgga(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
-      v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
-      v2sigmalapl, v2sigmatau, v2lapltau)
-
+         v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau,    &
+         v2lapl2, v2lapltau, v2tau2,                                                    &
+         v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl,       &
+         v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl,    &
+         v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau,   &
+         v3lapltau2, v3tau3)
+      
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,              intent(in)  :: np
-      real(xc_f90_kind),    intent(in)  :: rho
-      real(xc_f90_kind),    intent(in)  :: sigma
-      real(xc_f90_kind),    intent(in)  :: lapl
-      real(xc_f90_kind),    intent(in)  :: tau
-      real(xc_f90_kind),    intent(out) :: zk
-      real(xc_f90_kind),    intent(out) :: vrho
-      real(xc_f90_kind),    intent(out) :: vsigma
-      real(xc_f90_kind),    intent(out) :: vlapl
-      real(xc_f90_kind),    intent(out) :: vtau
-      real(xc_f90_kind),    intent(out) :: v2rho2
-      real(xc_f90_kind),    intent(out) :: v2sigma2
-      real(xc_f90_kind),    intent(out) :: v2lapl2
-      real(xc_f90_kind),    intent(out) :: v2tau2
-      real(xc_f90_kind),    intent(out) :: v2rhosigma
-      real(xc_f90_kind),    intent(out) :: v2rholapl
-      real(xc_f90_kind),    intent(out) :: v2rhotau
-      real(xc_f90_kind),    intent(out) :: v2sigmalapl
-      real(xc_f90_kind),    intent(out) :: v2sigmatau
-      real(xc_f90_kind),    intent(out) :: v2lapltau
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho
+      real(xc_f90_kind),      intent(in)  :: sigma
+      real(xc_f90_kind),      intent(in)  :: lapl
+      real(xc_f90_kind),      intent(in)  :: tau
+      real(xc_f90_kind),      intent(out) :: zk
+      real(xc_f90_kind),      intent(out) :: vrho
+      real(xc_f90_kind),      intent(out) :: vsigma
+      real(xc_f90_kind),      intent(out) :: vlapl
+      real(xc_f90_kind),      intent(out) :: vtau
+      real(xc_f90_kind),      intent(out) :: v2rho2
+      real(xc_f90_kind),      intent(out) :: v2rhosigma
+      real(xc_f90_kind),      intent(out) :: v2rholapl
+      real(xc_f90_kind),      intent(out) :: v2rhotau
+      real(xc_f90_kind),      intent(out) :: v2sigma2
+      real(xc_f90_kind),      intent(out) :: v2sigmalapl
+      real(xc_f90_kind),      intent(out) :: v2sigmatau
+      real(xc_f90_kind),      intent(out) :: v2lapl2
+      real(xc_f90_kind),      intent(out) :: v2lapltau
+      real(xc_f90_kind),      intent(out) :: v2tau2
+      real(xc_f90_kind),      intent(out) :: v3rho3
+      real(xc_f90_kind),      intent(out) :: v3rho2sigma
+      real(xc_f90_kind),      intent(out) :: v3rho2lapl
+      real(xc_f90_kind),      intent(out) :: v3rho2tau
+      real(xc_f90_kind),      intent(out) :: v3rhosigma2
+      real(xc_f90_kind),      intent(out) :: v3rhosigmalapl
+      real(xc_f90_kind),      intent(out) :: v3rhosigmatau
+      real(xc_f90_kind),      intent(out) :: v3rholapl2
+      real(xc_f90_kind),      intent(out) :: v3rholapltau
+      real(xc_f90_kind),      intent(out) :: v3rhotau2
+      real(xc_f90_kind),      intent(out) :: v3sigma3
+      real(xc_f90_kind),      intent(out) :: v3sigma2lapl
+      real(xc_f90_kind),      intent(out) :: v3sigma2tau
+      real(xc_f90_kind),      intent(out) :: v3sigmalapl2
+      real(xc_f90_kind),      intent(out) :: v3sigmalapltau
+      real(xc_f90_kind),      intent(out) :: v3sigmatau2
+      real(xc_f90_kind),      intent(out) :: v3lapl3
+      real(xc_f90_kind),      intent(out) :: v3lapl2tau
+      real(xc_f90_kind),      intent(out) :: v3lapltau2
+      real(xc_f90_kind),      intent(out) :: v3tau3
     end subroutine xc_f90_mgga
 
     subroutine xc_f90_mgga_exc(p, np, rho, sigma, lapl, tau, zk)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,              intent(in)  :: np
-      real(xc_f90_kind),    intent(in)  :: rho
-      real(xc_f90_kind),    intent(in)  :: sigma
-      real(xc_f90_kind),    intent(in)  :: lapl
-      real(xc_f90_kind),    intent(in)  :: tau
-      real(xc_f90_kind),    intent(out) :: zk
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho
+      real(xc_f90_kind),      intent(in)  :: sigma
+      real(xc_f90_kind),      intent(in)  :: lapl
+      real(xc_f90_kind),      intent(in)  :: tau
+      real(xc_f90_kind),      intent(out) :: zk
     end subroutine xc_f90_mgga_exc
 
     subroutine xc_f90_mgga_exc_vxc(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,              intent(in)  :: np
-      real(xc_f90_kind),    intent(in)  :: rho
-      real(xc_f90_kind),    intent(in)  :: sigma
-      real(xc_f90_kind),    intent(in)  :: lapl
-      real(xc_f90_kind),    intent(in)  :: tau
-      real(xc_f90_kind),    intent(out) :: zk
-      real(xc_f90_kind),    intent(out) :: vrho
-      real(xc_f90_kind),    intent(out) :: vsigma
-      real(xc_f90_kind),    intent(out) :: vlapl
-      real(xc_f90_kind),    intent(out) :: vtau
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho
+      real(xc_f90_kind),      intent(in)  :: sigma
+      real(xc_f90_kind),      intent(in)  :: lapl
+      real(xc_f90_kind),      intent(in)  :: tau
+      real(xc_f90_kind),      intent(out) :: zk
+      real(xc_f90_kind),      intent(out) :: vrho
+      real(xc_f90_kind),      intent(out) :: vsigma
+      real(xc_f90_kind),      intent(out) :: vlapl
+      real(xc_f90_kind),      intent(out) :: vtau
     end subroutine xc_f90_mgga_exc_vxc
 
     subroutine xc_f90_mgga_vxc(p, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,              intent(in)  :: np
-      real(xc_f90_kind),    intent(in)  :: rho
-      real(xc_f90_kind),    intent(in)  :: sigma
-      real(xc_f90_kind),    intent(in)  :: lapl
-      real(xc_f90_kind),    intent(in)  :: tau
-      real(xc_f90_kind),    intent(out) :: vrho
-      real(xc_f90_kind),    intent(out) :: vsigma
-      real(xc_f90_kind),    intent(out) :: vlapl
-      real(xc_f90_kind),    intent(out) :: vtau
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho
+      real(xc_f90_kind),      intent(in)  :: sigma
+      real(xc_f90_kind),      intent(in)  :: lapl
+      real(xc_f90_kind),      intent(in)  :: tau
+      real(xc_f90_kind),      intent(out) :: vrho
+      real(xc_f90_kind),      intent(out) :: vsigma
+      real(xc_f90_kind),      intent(out) :: vlapl
+      real(xc_f90_kind),      intent(out) :: vtau
     end subroutine xc_f90_mgga_vxc
 
-    subroutine xc_f90_mgga_vxc_fxc(p, np, rho, sigma, lapl, tau, &
-      vrho, vsigma, vlapl, vtau, &
-      v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
-      v2sigmalapl, v2sigmatau, v2lapltau)
+    subroutine xc_f90_mgga_vxc_fxc(p, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau, &
+         v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau,    &
+         v2lapl2, v2lapltau, v2tau2)
 
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,              intent(in)  :: np
-      real(xc_f90_kind),    intent(in)  :: rho
-      real(xc_f90_kind),    intent(in)  :: sigma
-      real(xc_f90_kind),    intent(in)  :: lapl
-      real(xc_f90_kind),    intent(in)  :: tau
-      real(xc_f90_kind),    intent(out) :: vrho
-      real(xc_f90_kind),    intent(out) :: vsigma
-      real(xc_f90_kind),    intent(out) :: vlapl
-      real(xc_f90_kind),    intent(out) :: vtau
-      real(xc_f90_kind),    intent(out) :: v2rho2
-      real(xc_f90_kind),    intent(out) :: v2sigma2
-      real(xc_f90_kind),    intent(out) :: v2lapl2
-      real(xc_f90_kind),    intent(out) :: v2tau2
-      real(xc_f90_kind),    intent(out) :: v2rhosigma
-      real(xc_f90_kind),    intent(out) :: v2rholapl
-      real(xc_f90_kind),    intent(out) :: v2rhotau
-      real(xc_f90_kind),    intent(out) :: v2sigmalapl
-      real(xc_f90_kind),    intent(out) :: v2sigmatau
-      real(xc_f90_kind),    intent(out) :: v2lapltau
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho
+      real(xc_f90_kind),      intent(in)  :: sigma
+      real(xc_f90_kind),      intent(in)  :: lapl
+      real(xc_f90_kind),      intent(in)  :: tau
+      real(xc_f90_kind),      intent(out) :: vrho
+      real(xc_f90_kind),      intent(out) :: vsigma
+      real(xc_f90_kind),      intent(out) :: vlapl
+      real(xc_f90_kind),      intent(out) :: vtau
+      real(xc_f90_kind),      intent(out) :: v2rho2
+      real(xc_f90_kind),      intent(out) :: v2rhosigma
+      real(xc_f90_kind),      intent(out) :: v2rholapl
+      real(xc_f90_kind),      intent(out) :: v2rhotau
+      real(xc_f90_kind),      intent(out) :: v2sigma2
+      real(xc_f90_kind),      intent(out) :: v2sigmalapl
+      real(xc_f90_kind),      intent(out) :: v2sigmatau
+      real(xc_f90_kind),      intent(out) :: v2lapl2
+      real(xc_f90_kind),      intent(out) :: v2lapltau
+      real(xc_f90_kind),      intent(out) :: v2tau2
     end subroutine xc_f90_mgga_vxc_fxc
 
     subroutine xc_f90_mgga_fxc(p, np, rho, sigma, lapl, tau, &
-      v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
-      v2sigmalapl, v2sigmatau, v2lapltau)
+         v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau,    &
+         v2lapl2, v2lapltau, v2tau2)
 
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,              intent(in)  :: np
-      real(xc_f90_kind),    intent(in)  :: rho
-      real(xc_f90_kind),    intent(in)  :: sigma
-      real(xc_f90_kind),    intent(in)  :: lapl
-      real(xc_f90_kind),    intent(in)  :: tau
-      real(xc_f90_kind),    intent(out) :: v2rho2
-      real(xc_f90_kind),    intent(out) :: v2sigma2
-      real(xc_f90_kind),    intent(out) :: v2lapl2
-      real(xc_f90_kind),    intent(out) :: v2tau2
-      real(xc_f90_kind),    intent(out) :: v2rhosigma
-      real(xc_f90_kind),    intent(out) :: v2rholapl
-      real(xc_f90_kind),    intent(out) :: v2rhotau
-      real(xc_f90_kind),    intent(out) :: v2sigmalapl
-      real(xc_f90_kind),    intent(out) :: v2sigmatau
-      real(xc_f90_kind),    intent(out) :: v2lapltau
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho
+      real(xc_f90_kind),      intent(in)  :: sigma
+      real(xc_f90_kind),      intent(in)  :: lapl
+      real(xc_f90_kind),      intent(in)  :: tau
+      real(xc_f90_kind),      intent(out) :: v2rho2
+      real(xc_f90_kind),      intent(out) :: v2rhosigma
+      real(xc_f90_kind),      intent(out) :: v2rholapl
+      real(xc_f90_kind),      intent(out) :: v2rhotau
+      real(xc_f90_kind),      intent(out) :: v2sigma2
+      real(xc_f90_kind),      intent(out) :: v2sigmalapl
+      real(xc_f90_kind),      intent(out) :: v2sigmatau
+      real(xc_f90_kind),      intent(out) :: v2lapl2
+      real(xc_f90_kind),      intent(out) :: v2lapltau
+      real(xc_f90_kind),      intent(out) :: v2tau2
     end subroutine xc_f90_mgga_fxc
-  end interface
+
+    subroutine xc_f90_mgga_kxc(p, np, rho, sigma, lapl, tau, zk, &
+         v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl,       &
+         v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl,    &
+         v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau,   &
+         v3lapltau2, v3tau3)
+      
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(in)  :: p
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho
+      real(xc_f90_kind),      intent(in)  :: sigma
+      real(xc_f90_kind),      intent(in)  :: lapl
+      real(xc_f90_kind),      intent(in)  :: tau
+      real(xc_f90_kind),      intent(out) :: zk
+      real(xc_f90_kind),      intent(out) :: v3rho3
+      real(xc_f90_kind),      intent(out) :: v3rho2sigma
+      real(xc_f90_kind),      intent(out) :: v3rho2lapl
+      real(xc_f90_kind),      intent(out) :: v3rho2tau
+      real(xc_f90_kind),      intent(out) :: v3rhosigma2
+      real(xc_f90_kind),      intent(out) :: v3rhosigmalapl
+      real(xc_f90_kind),      intent(out) :: v3rhosigmatau
+      real(xc_f90_kind),      intent(out) :: v3rholapl2
+      real(xc_f90_kind),      intent(out) :: v3rholapltau
+      real(xc_f90_kind),      intent(out) :: v3rhotau2
+      real(xc_f90_kind),      intent(out) :: v3sigma3
+      real(xc_f90_kind),      intent(out) :: v3sigma2lapl
+      real(xc_f90_kind),      intent(out) :: v3sigma2tau
+      real(xc_f90_kind),      intent(out) :: v3sigmalapl2
+      real(xc_f90_kind),      intent(out) :: v3sigmalapltau
+      real(xc_f90_kind),      intent(out) :: v3sigmatau2
+      real(xc_f90_kind),      intent(out) :: v3lapl3
+      real(xc_f90_kind),      intent(out) :: v3lapl2tau
+      real(xc_f90_kind),      intent(out) :: v3lapltau2
+      real(xc_f90_kind),      intent(out) :: v3tau3
+    end subroutine xc_f90_mgga_kxc
+
+ end interface
 
 end module xc_f90_lib_m
 

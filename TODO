@@ -9,9 +9,6 @@ LDA:
 
 GGAs:
   *) http://dx.doi.org/10.1063/1.3243845 Missing are: CS1, wPBE, WI, W1, W2, Wl, bPBE, qPBE, rPBE, A1, A2, A3, WLV.
-  *) df-LB94, df-revLB94 http://dx.doi.org/10.1103/PhysRevA.83.012509
-     These functionals depend on an numerical integral, and can not be 
-     implemented with the current maple framework.
   *) Lambda-LB94, Q-LB94, Q-revLB94  http://dx.doi.org/10.1063/1.3684261
      Lambda functional depends on r.nabla and is not therefore of a kind
      handled by libxc. Q involves a numerical integral.

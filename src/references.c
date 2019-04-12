@@ -1953,7 +1953,7 @@ func_reference_type xc_ref_Handy2002_5411 = {
 
 
 func_reference_type xc_ref_Zhao2005_2012 = {
-  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem. A 109, 2012 (2005), pMID: 16833536",
+  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem A 109, 2012 (2005), pMID: 16833536",
   "10.1021/jp045141s",
   "@article{Zhao2005_2012,\nauthor = {Zhao, Yan and González-García, Núria and Truhlar, Donald G.},\ntitle = {Benchmark Database of Barrier Heights for Heavy Atom Transfer, Nucleophilic Substitution, Association, and Unimolecular Reactions and Its Use to Test Theoretical Methods},\njournal = {The Journal of Physical Chemistry A},\nvolume = {109},\nnumber = {9},\npages = {2012-2018},\nyear = {2005},\ndoi = {10.1021/jp045141s},\nnote ={PMID: 16833536},\nURL = {http://dx.doi.org/10.1021/jp045141s},\neprint = {http://dx.doi.org/10.1021/jp045141s}\n}"
 };
@@ -2261,7 +2261,7 @@ func_reference_type xc_ref_Cancio2018_084116 = {
 
 
 func_reference_type xc_ref_Verma2019 = {
-  "P. Verma, Y. Wang, S. Ghosh, X. He, and D. G. Truhlar, J. Phys. Chem. A 0, null (0), https://doi.org/10.1021/acs.jpca.8b11499",
+  "P. Verma, Y. Wang, S. Ghosh, X. He, and D. G. Truhlar, J. Phys. Chem A 0, null (0), https://doi.org/10.1021/acs.jpca.8b11499",
   "10.1021/acs.jpca.8b11499",
   "@article{Verma2019,\nauthor = {Verma, Pragya and Wang, Ying and Ghosh, Soumen and He, Xiao and Truhlar, Donald G.},\ntitle = {Revised M11 Exchange--Correlation Functional for Electronic Excitation Energies and Ground-State Properties},\njournal = {The Journal of Physical Chemistry A},\nvolume = {0},\nnumber = {ja},\npages = {null},\nyear = {0},\ndoi = {10.1021/acs.jpca.8b11499},\nURL = {https://doi.org/10.1021/acs.jpca.8b11499},\neprint = {https://doi.org/10.1021/acs.jpca.8b11499}\n}"
 };
@@ -2287,4 +2287,8 @@ func_reference_type xc_ref_Fabiano2015_122 = {
   "@article{Fabiano2015_122,\nauthor = {Fabiano, Eduardo and Constantin, Lucian A. and Cortona, Pietro and Della Sala, Fabio},\ntitle = {Global Hybrids from the Semiclassical Atom Theory Satisfying the Local Density Linear Response},\njournal = {Journal of Chemical Theory and Computation},\nvolume = {11},\nnumber = {1},\npages = {122-131},\nyear = {2015},\ndoi = {10.1021/ct500902p},\nURL = {https://doi.org/10.1021/ct500902p},\n}"
 };
 
-
+func_reference_type xc_ref_Gaiduk2011_012509 = {
+  "A. P. Gaiduk and V. N. Staroverov, Phys. Rev. A 83, 012509 (2011)",
+  "10.1103/PhysRevA.83.012509",
+  "@article{Gaiduk2011_012509,\n  title = {Construction of integrable model Kohn-Sham potentials by analysis of the structure of functional derivatives},\n  author = {Gaiduk, Alex P. and Staroverov, Viktor N.},\n  journal = {Phys. Rev. A},\n  volume = {83},\n  issue = {1},\n  pages = {012509},\n  numpages = {7},\n  year = {2011},\n  month = {Jan},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.83.012509},\n  url = {https://link.aps.org/doi/10.1103/PhysRevA.83.012509}\n}"
+};

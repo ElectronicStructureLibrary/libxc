@@ -203,6 +203,7 @@ gga_x_vmt.c
 gga_x_vmt84.c
 gga_x_wc.c
 gga_x_wpbeh.c
+gga_x_fd_lb94.c
 gga_xc_1w.c
 gga_xc_b97.c
 gga_xc_edf1.c

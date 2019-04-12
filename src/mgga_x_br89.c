@@ -16,6 +16,16 @@
 #define XC_MGGA_X_RPP09        209 /* Rasanen, Pittalis, and Proetto correction to Becke & Johnson  */
 #define XC_MGGA_X_B00          284 /* Becke 2000 */
 
+typedef struct xc_mgga_work_x_t {
+  int   order; /* to which order should I return the derivatives */
+  double rs, zeta, x, t, u;
+
+  double f;                                   /* enhancement factor       */
+  double dfdrs, dfdx, dfdt, dfdu;             /* first derivatives of f  */
+  double d2fdrs2, d2fdx2, d2fdt2, d2fdu2;     /* second derivatives of zk */
+  double d2fdrsx, d2fdrst, d2fdrsu, d2fdxt, d2fdxu, d2fdtu;
+} xc_mgga_work_x_t;
+
 typedef struct{
   double c;
 } mgga_x_tb09_params;

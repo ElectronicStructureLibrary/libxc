@@ -59,7 +59,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
 
   t38 = 0.1e1 / t4 * t2;
   t39 = t38 * t25;
-  if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
+  if(vrho != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vlapl[0] = -0.3e1 / 0.4e1 * t39;
 
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
@@ -89,7 +89,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t67 = t66 * t25;
   t69 = t49 * t33;
   t70 = t38 * t69;
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rholapl[0] = t67 / 0.4e1 + 0.3e1 / 0.2e1 * t70;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
@@ -98,7 +98,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigma2[0] = 0.0e0;
 
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigmalapl[0] = 0.0e0;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
@@ -106,10 +106,10 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
 
   t75 = 0.1e1 / t26 * M_PI;
   t76 = t75 * t48;
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2lapl2[0] = -0.3e1 / 0.4e1 * t76;
 
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2lapltau[0] = 0.6e1 * t76;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
@@ -135,7 +135,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t116 = t66 * t69;
   t118 = t38 * t90 * t50;
   t121 = t38 * t49 * t61;
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho2lapl[0] = -t114 / 0.3e1 - t116 - 0.9e1 / 0.2e1 * t118 + 0.3e1 / 0.2e1 * t121;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
@@ -144,7 +144,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigma2[0] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[0] = 0.0e0;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
@@ -152,10 +152,10 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
 
   t129 = 0.1e1 / t54 * M_PI * t48;
   t132 = t75 * t89 * t33;
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapl2[0] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapltau[0] = -0.12e2 * t129 - 0.18e2 * t132;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
@@ -164,29 +164,29 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma3[0] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2lapl[0] = 0.0e0;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2tau[0] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapl2[0] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapltau[0] = 0.0e0;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmatau2[0] = 0.0e0;
 
   t140 = t56 * M_PI * t89 * t3;
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl3[0] = -0.9e1 / 0.16e2 * t140;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl2tau[0] = 0.9e1 / 0.2e1 * t140;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapltau2[0] = -0.36e2 * t140;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
@@ -251,7 +251,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, const double *sig
 
   t32 = 0.1e1 / t2 * M_PI;
   t33 = t32 * t19;
-  if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
+  if(vrho != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vlapl[0] = -0.3e1 / 0.4e1 * t33;
 
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
@@ -280,7 +280,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, const double *sig
   t60 = t59 * t19;
   t62 = t42 * t27;
   t63 = t32 * t62;
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rholapl[0] = t60 / 0.4e1 + 0.3e1 / 0.2e1 * t63;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
@@ -289,7 +289,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, const double *sig
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigma2[0] = 0.0e0;
 
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigmalapl[0] = 0.0e0;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
@@ -297,10 +297,10 @@ func_ferr(const xc_func_type *p, int order, const double *rho, const double *sig
 
   t68 = 0.1e1 / t20 * M_PI;
   t69 = t68 * t42;
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2lapl2[0] = -0.3e1 / 0.8e1 * t69;
 
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2lapltau[0] = 0.3e1 * t69;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
@@ -325,7 +325,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, const double *sig
   t106 = t59 * t62;
   t108 = t32 * t82 * t43;
   t111 = t32 * t42 * t54;
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho2lapl[0] = -t104 / 0.3e1 - t106 - 0.9e1 / 0.2e1 * t108 + 0.3e1 / 0.2e1 * t111;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
@@ -334,7 +334,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, const double *sig
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigma2[0] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[0] = 0.0e0;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
@@ -342,10 +342,10 @@ func_ferr(const xc_func_type *p, int order, const double *rho, const double *sig
 
   t119 = 0.1e1 / t47 * M_PI * t42;
   t122 = t68 * t82 * t27;
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapl2[0] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapltau[0] = -0.6e1 * t119 - 0.9e1 * t122;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
@@ -354,29 +354,29 @@ func_ferr(const xc_func_type *p, int order, const double *rho, const double *sig
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma3[0] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2lapl[0] = 0.0e0;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2tau[0] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapl2[0] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapltau[0] = 0.0e0;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmatau2[0] = 0.0e0;
 
   t129 = t49 * M_PI * t82;
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl3[0] = -0.9e1 / 0.32e2 * t129;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl2tau[0] = 0.9e1 / 0.4e1 * t129;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapltau2[0] = -0.18e2 * t129;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
@@ -431,13 +431,13 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   double t275, t276, t277, t278, t280, t281, t283, t285;
   double t286, t287, t289, t291, t292, t293, t294, t295;
   double t296, t298, t299, t312, t313, t314, t317, t318;
-  double t319, t330, t334, t335, t337, t339, t341, t350;
-  double t352, t354, t356, t362, t367, t368, t370, t371;
-  double t373, t375, t376, t377, t384, t389, t390, t392;
-  double t393, t394, t396, t404, t407, t420, t421, t430;
+  double t319, t330, t334, t335, t337, t339, t348, t350;
+  double t352, t354, t360, t365, t366, t368, t369, t371;
+  double t373, t374, t375, t382, t387, t388, t390, t391;
+  double t393, t394, t400, t404, t407, t420, t421, t430;
   double t439, t445, t446, t447, t453, t455, t469, t475;
-  double t479, t481, t486, t494, t503, t505, t508, t510;
-  double t512, t514, t517, t525, t534, t537, t538, t539;
+  double t479, t481, t486, t494, t503, t504, t507, t509;
+  double t511, t513, t516, t525, t534, t537, t538, t539;
   double t540, t541, t542, t544, t590, t592, t594, t595;
   double t597, t599, t601, t603, t605, t621, t625, t628;
   double t656, t674, t675, t676, t682, t686, t691, t693;
@@ -552,13 +552,13 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t106 = t105 * t9;
   t107 = t59 * t15;
   t108 = t106 * t107;
-  if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
+  if(vrho != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vlapl[0] = -0.3e1 / 0.4e1 * t108;
 
   t110 = t105 * t27;
   t111 = t91 * t32;
   t112 = t110 * t111;
-  if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
+  if(vrho != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vlapl[1] = -0.3e1 / 0.4e1 * t112;
 
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
@@ -732,18 +732,18 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t278 = t275 * t277;
   t280 = t59 * t62;
   t281 = t106 * t280;
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rholapl[0] = -t269 - t274 + 0.3e1 / 0.2e1 * t278 + 0.5e1 / 0.4e1 * t281;
 
   t283 = t28 * t111;
   t285 = t105 * t26 * M_PI;
   t286 = t90 * t32;
   t287 = t286 * t72;
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rholapl[1] = -t285 * t287 - t283;
 
   t289 = t272 * t81;
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rholapl[2] = -t271 * t289 - t269;
 
   t291 = t286 * t85;
@@ -754,7 +754,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t296 = t293 * t295;
   t298 = t91 * t94;
   t299 = t110 * t298;
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rholapl[3] = -t283 - t292 + 0.3e1 / 0.2e1 * t296 + 0.5e1 / 0.4e1 * t299;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
@@ -787,22 +787,22 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigma2[5] = 0.0e0;
 
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigmalapl[0] = 0.0e0;
 
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigmalapl[1] = 0.0e0;
 
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigmalapl[2] = 0.0e0;
 
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigmalapl[3] = 0.0e0;
 
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigmalapl[4] = 0.0e0;
 
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigmalapl[5] = 0.0e0;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
@@ -826,28 +826,28 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t312 = 0.1e1 / t12 / t155;
   t313 = t150 * t312;
   t314 = t106 * t313;
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2lapl2[0] = -0.3e1 / 0.8e1 * t314;
 
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2lapl2[1] = 0.0e0;
 
   t317 = 0.1e1 / t29 / t256;
   t318 = t251 * t317;
   t319 = t110 * t318;
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2lapl2[2] = -0.3e1 / 0.8e1 * t319;
 
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2lapltau[0] = 0.3e1 * t314;
 
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2lapltau[1] = 0.0e0;
 
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2lapltau[2] = 0.0e0;
 
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
+  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2lapltau[3] = 0.3e1 * t319;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
@@ -866,59 +866,59 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
 
   t330 = 0.2e1 * t144;
   t334 = 0.2e1 * t181;
-  t335 = t143 * t68;
-  t337 = t55 * t163;
-  t339 = t60 * t60;
-  t341 = 0.1e1 / t13 / t339;
-  t350 = t173 * t177;
-  t352 = t45 * t45;
-  t354 = t2 / t352;
-  t356 = -0.3e1 * t135 + 0.3e1 * t354;
-  t362 = 0.1e1 / t119 / t7 * t10;
-  t367 = t120 * t54;
-  t368 = t367 * t123;
-  t370 = t8 * t142;
-  t371 = t370 * t50;
-  t373 = t55 * t152;
-  t375 = t57 * t57;
-  t376 = 0.1e1 / t375;
-  t377 = M_PI * t376;
-  t384 = 0.1e1 / t166 / t25 * t10;
-  t389 = t167 * t54;
-  t390 = t389 * t170;
-  t392 = -0.2e1 * t335 + 0.3e1 * t337 + 0.3e1 * t11 * t59 * (-0.880e3 / 0.27e2 * tau[0] * t341 + 0.110e3 / 0.27e2 * lapl[0] * t341) - 0.4e1 * t350 - 0.4e1 * t71 * t39 * t356 + 0.8e1 / 0.9e1 * t362 * t22 * t122 * t49 - 0.4e1 / 0.3e1 * t368 + 0.8e1 / 0.3e1 * t371 - 0.6e1 * t373 + 0.18e2 * t11 * t377 * t151 * t67 + 0.8e1 / 0.9e1 * t384 * t39 * t169 * t72 - 0.4e1 / 0.3e1 * t390;
-  t393 = t26 * t142;
-  t394 = t393 * t73;
-  t396 = t126 * t138;
+  t335 = t55 * t163;
+  t337 = t60 * t60;
+  t339 = 0.1e1 / t13 / t337;
+  t348 = t173 * t177;
+  t350 = t45 * t45;
+  t352 = t2 / t350;
+  t354 = -0.3e1 * t135 + 0.3e1 * t352;
+  t360 = 0.1e1 / t119 / t7 * t10;
+  t365 = t120 * t54;
+  t366 = t365 * t123;
+  t368 = t8 * t142;
+  t369 = t368 * t50;
+  t371 = t55 * t152;
+  t373 = t57 * t57;
+  t374 = 0.1e1 / t373;
+  t375 = M_PI * t374;
+  t382 = 0.1e1 / t166 / t25 * t10;
+  t387 = t167 * t54;
+  t388 = t387 * t170;
+  t390 = t26 * t142;
+  t391 = t390 * t73;
+  t393 = 0.3e1 * t335 + 0.3e1 * t11 * t59 * (-0.880e3 / 0.27e2 * tau[0] * t339 + 0.110e3 / 0.27e2 * lapl[0] * t339) - 0.4e1 * t348 - 0.4e1 * t71 * t39 * t354 + 0.8e1 / 0.9e1 * t360 * t22 * t122 * t49 - 0.4e1 / 0.3e1 * t366 + 0.8e1 / 0.3e1 * t369 - 0.6e1 * t371 + 0.18e2 * t11 * t375 * t151 * t67 + 0.8e1 / 0.9e1 * t382 * t39 * t169 * t72 - 0.4e1 / 0.3e1 * t388 + 0.8e1 / 0.3e1 * t391;
+  t394 = t126 * t138;
+  t400 = t143 * t68;
   t404 = 0.10e2 / 0.9e1 * t9 * t197 * t22;
   t407 = 0.10e2 / 0.9e1 * t27 * t197 * t39;
   t420 = t126 * M_PI;
   t421 = t420 * t131;
   t430 = t11 * M_PI;
-  t439 = 0.8e1 / 0.3e1 * t394 - 0.4e1 * t396 + 0.4e1 * t44 * t22 * t356 - t404 - t407 - 0.24e2 * t129 * t149 * t49 * t151 + 0.4e1 * t185 * t58 * t122 * t67 - 0.4e1 * t185 * t21 * t49 * t137 + 0.8e1 * t421 + 0.12e2 * t129 * t58 * t137 * t67 + 0.12e2 * t129 * t130 * t162 - 0.18e2 * t430 * t149 * t67 * t162 - 0.4e1 * t203 * t38 * t72 * t176;
+  t439 = 0.4e1 * t185 * t58 * t122 * t67 + 0.12e2 * t129 * t58 * t137 * t67 - 0.24e2 * t129 * t149 * t49 * t151 - 0.4e1 * t185 * t21 * t49 * t137 - 0.18e2 * t430 * t149 * t67 * t162 - 0.4e1 * t203 * t38 * t72 * t176 + 0.12e2 * t129 * t130 * t162 + 0.4e1 * t44 * t22 * t354 - 0.4e1 * t394 - 0.2e1 * t400 - t404 - t407 + 0.8e1 * t421;
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = -0.4e1 * t124 - 0.8e1 * t127 + 0.24e2 * t132 - 0.18e2 * t153 - 0.4e1 * t171 - 0.8e1 * t174 - 0.12e2 * t139 + t330 + 0.6e1 * t146 + 0.9e1 * t164 - 0.12e2 * t178 + t334 + t3 * (t392 + t439);
+    v3rho3[0] = -0.4e1 * t124 - 0.8e1 * t127 + 0.24e2 * t132 - 0.18e2 * t153 - 0.4e1 * t171 - 0.8e1 * t174 - 0.12e2 * t139 + t330 + 0.6e1 * t146 + 0.9e1 * t164 - 0.12e2 * t178 + t334 + t3 * (t393 + t439);
 
   t445 = -t125 - 0.16e2 / 0.3e1 * t127 + t133 - t154 - t172 - 0.16e2 / 0.3e1 * t174 - t140 + t330 + 0.4e1 * t146 + t165 - t179;
   t446 = 0.8e1 * t212;
-  t447 = t362 * M_PI;
-  t453 = 0.8e1 / 0.9e1 * t367 * M_PI * t187;
+  t447 = t360 * M_PI;
+  t453 = 0.8e1 / 0.9e1 * t365 * M_PI * t187;
   t455 = t120 * t197 * M_PI;
-  t469 = t384 * M_PI;
-  t475 = 0.8e1 / 0.9e1 * t389 * M_PI * t205;
+  t469 = t382 * M_PI;
+  t475 = 0.8e1 / 0.9e1 * t387 * M_PI * t205;
   t479 = t173 * M_PI;
   t481 = 0.8e1 / 0.3e1 * t479 * t217;
   t486 = 0.8e1 / 0.3e1 * t420 * t193;
   t494 = t167 * t197 * M_PI;
-  t503 = 0.8e1 / 0.9e1 * t447 * t186 * t122 - t453 - 0.8e1 / 0.3e1 * t455 * t21 * t2 * t49 - 0.8e1 * t129 * t149 * t81 * t151 + 0.8e1 * t198 * M_PI * t58 * t2 * t67 + 0.8e1 / 0.9e1 * t469 * t204 * t169 - t475 + 0.4e1 / 0.3e1 * t203 * t216 * t169 + t481 - 0.4e1 / 0.3e1 * t185 * t186 * t137 + t486 + 0.4e1 * t129 * t192 * t162 - 0.4e1 / 0.3e1 * t203 * t204 * t176 + 0.8e1 / 0.3e1 * t494 * t38 * t2 * t72 + 0.4e1 * t215 * t216 * t176 - 0.4e1 / 0.3e1 * t335 + t337;
-  t505 = t370 * t82;
-  t508 = 0.1e1 / t53 / t134;
-  t510 = t8 * t508 * t199;
-  t512 = t393 * t86;
-  t514 = t180 * t100;
-  t517 = t26 * t508 * t211;
+  t503 = 0.8e1 / 0.9e1 * t447 * t186 * t122 - t453 - 0.8e1 / 0.3e1 * t455 * t21 * t2 * t49 - 0.8e1 * t129 * t149 * t81 * t151 + 0.8e1 * t198 * M_PI * t58 * t2 * t67 + 0.8e1 / 0.9e1 * t469 * t204 * t169 - t475 + 0.4e1 / 0.3e1 * t203 * t216 * t169 + t481 - 0.4e1 / 0.3e1 * t185 * t186 * t137 + t486 + 0.4e1 * t129 * t192 * t162 - 0.4e1 / 0.3e1 * t203 * t204 * t176 + 0.8e1 / 0.3e1 * t494 * t38 * t2 * t72 + 0.4e1 * t215 * t216 * t176 + t335 - 0.4e1 / 0.3e1 * t348;
+  t504 = t368 * t82;
+  t507 = 0.1e1 / t53 / t134;
+  t509 = t8 * t507 * t199;
+  t511 = t390 * t86;
+  t513 = t180 * t100;
+  t516 = t26 * t507 * t211;
   t525 = t49 * t67;
-  t534 = -0.4e1 / 0.3e1 * t350 + 0.8e1 / 0.9e1 * t505 + 0.28e2 / 0.3e1 * t510 + 0.8e1 / 0.9e1 * t512 - 0.2e1 / 0.3e1 * t514 - 0.28e2 / 0.3e1 * t517 - 0.4e1 / 0.9e1 * t368 + 0.16e2 / 0.9e1 * t371 - 0.2e1 * t373 - 0.4e1 / 0.9e1 * t390 + 0.16e2 / 0.9e1 * t394 - 0.4e1 / 0.3e1 * t396 + 0.8e1 / 0.3e1 * t185 * t192 * t525 - t404 - t407 - 0.4e1 * t198 * t22 + 0.4e1 * t210 * t39 + 0.8e1 / 0.3e1 * t421;
+  t534 = 0.8e1 / 0.9e1 * t504 + 0.28e2 / 0.3e1 * t509 + 0.8e1 / 0.9e1 * t511 - 0.2e1 / 0.3e1 * t513 - 0.28e2 / 0.3e1 * t516 - 0.4e1 / 0.9e1 * t366 + 0.16e2 / 0.9e1 * t369 - 0.2e1 * t371 - 0.4e1 / 0.9e1 * t388 + 0.16e2 / 0.9e1 * t391 - 0.4e1 / 0.3e1 * t394 - 0.4e1 / 0.3e1 * t400 + 0.8e1 / 0.3e1 * t185 * t192 * t525 - t404 - t407 - 0.4e1 * t198 * t22 + 0.4e1 * t210 * t39 + 0.8e1 / 0.3e1 * t421;
   t537 = 0.8e1 / 0.3e1 * t188;
   t538 = 0.8e1 * t194;
   t539 = 0.8e1 * t200;
@@ -930,16 +930,16 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
 
   t544 = -t128 - t175 + t330 + t147 + t334 + t446 - t234 - t247 - t537 - 0.16e2 / 0.3e1 * t190 + t538;
   t590 = t479 * t241;
-  t592 = t367 * t227;
+  t592 = t365 * t227;
   t594 = 0.8e1 / 0.9e1 * t447 * t21 * t226 * t49 + 0.4e1 / 0.3e1 * t185 * t58 * t226 * t67 - 0.4e1 / 0.3e1 * t185 * t21 * t231 * t49 + 0.4e1 * t129 * t58 * t231 * t67 + 0.8e1 / 0.9e1 * t469 * t38 * t235 * t72 + 0.8e1 / 0.3e1 * t494 * t204 * t2 - 0.8e1 * t210 * M_PI * t90 * t2 * t99 - 0.4e1 / 0.3e1 * t203 * t38 * t244 * t72 - 0.8e1 * t215 * t250 * t252 * t72 + 0.4e1 * t215 * t90 * t263 * t72 - 0.8e1 / 0.3e1 * t455 * t186 * t2 + 0.8e1 / 0.3e1 * t590 - t453 - t475 + t481 + t486 - 0.4e1 / 0.9e1 * t592;
   t595 = t126 * t232;
-  t597 = t389 * t236;
+  t597 = t387 * t236;
   t599 = t173 * t245;
   t601 = t76 * t253;
   t603 = t76 * t264;
-  t605 = -t135 - 0.3e1 * t354;
+  t605 = -t135 - 0.3e1 * t352;
   t621 = t99 * t72;
-  t625 = -0.4e1 / 0.3e1 * t595 - 0.4e1 / 0.9e1 * t597 - 0.4e1 / 0.3e1 * t599 - 0.2e1 * t601 + t603 - 0.4e1 * t44 * t22 * t605 + 0.4e1 * t71 * t39 * t605 - 0.2e1 / 0.3e1 * t335 + 0.16e2 / 0.9e1 * t505 - 0.8e1 / 0.3e1 * t510 + 0.16e2 / 0.9e1 * t512 - 0.4e1 / 0.3e1 * t514 + 0.8e1 / 0.3e1 * t517 + 0.8e1 / 0.9e1 * t371 + 0.8e1 / 0.9e1 * t394 + 0.8e1 / 0.3e1 * t203 * t240 * t621 - t404 - t407;
+  t625 = -0.4e1 / 0.3e1 * t595 - 0.4e1 / 0.9e1 * t597 - 0.4e1 / 0.3e1 * t599 - 0.2e1 * t601 + t603 - 0.4e1 * t44 * t22 * t605 + 0.4e1 * t71 * t39 * t605 + 0.16e2 / 0.9e1 * t504 - 0.8e1 / 0.3e1 * t509 + 0.16e2 / 0.9e1 * t511 - 0.4e1 / 0.3e1 * t513 + 0.8e1 / 0.3e1 * t516 + 0.8e1 / 0.9e1 * t369 + 0.8e1 / 0.9e1 * t391 - 0.2e1 / 0.3e1 * t400 + 0.8e1 / 0.3e1 * t203 * t240 * t621 - t404 - t407;
   t628 = -t539 - t540 - 0.16e2 / 0.3e1 * t208 + t541 + 0.4e1 * t220 - t229 - t238 + t243 - t255 + t266 + t3 * (t594 + t625);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho3[2] = t544 + t628;
@@ -948,11 +948,11 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t674 = t89 * t89;
   t675 = 0.1e1 / t674;
   t676 = M_PI * t675;
-  t682 = -0.3e1 * t135 - 0.3e1 * t354;
-  t686 = -0.4e1 * t185 * t186 * t231 + 0.4e1 * t203 * t90 * t235 * t99 - 0.4e1 * t203 * t204 * t244 + 0.12e2 * t215 * t90 * t244 * t99 + 0.12e2 * t215 * t240 * t263 - 0.18e2 * t656 * t250 * t99 * t263 - 0.24e2 * t215 * t250 * t85 * t252 + 0.8e1 * t590 + 0.8e1 / 0.9e1 * t362 * t22 * t226 * t81 + 0.8e1 / 0.9e1 * t384 * t39 * t235 * t85 + 0.18e2 * t28 * t676 * t252 * t99 - 0.4e1 * t44 * t22 * t682;
+  t682 = -0.3e1 * t135 - 0.3e1 * t352;
+  t686 = -0.4e1 * t185 * t186 * t231 + 0.4e1 * t203 * t90 * t235 * t99 - 0.4e1 * t203 * t204 * t244 + 0.12e2 * t215 * t90 * t244 * t99 + 0.12e2 * t215 * t240 * t263 - 0.18e2 * t656 * t250 * t99 * t263 - 0.24e2 * t215 * t250 * t85 * t252 + 0.8e1 * t590 + 0.8e1 / 0.9e1 * t360 * t22 * t226 * t81 + 0.8e1 / 0.9e1 * t382 * t39 * t235 * t85 + 0.18e2 * t28 * t676 * t252 * t99 - 0.4e1 * t44 * t22 * t682;
   t691 = t92 * t92;
   t693 = 0.1e1 / t30 / t691;
-  t711 = 0.4e1 * t71 * t39 * t682 + 0.3e1 * t28 * t91 * (-0.880e3 / 0.27e2 * tau[1] * t693 + 0.110e3 / 0.27e2 * lapl[1] * t693) - 0.4e1 / 0.3e1 * t592 - 0.4e1 * t595 - 0.4e1 / 0.3e1 * t597 - 0.4e1 * t599 - 0.6e1 * t601 + 0.3e1 * t603 + 0.8e1 / 0.3e1 * t505 + 0.8e1 / 0.3e1 * t512 - 0.2e1 * t514 - t404 - t407;
+  t711 = 0.4e1 * t71 * t39 * t682 + 0.3e1 * t28 * t91 * (-0.880e3 / 0.27e2 * tau[1] * t693 + 0.110e3 / 0.27e2 * lapl[1] * t693) - 0.4e1 / 0.3e1 * t592 - 0.4e1 * t595 - 0.4e1 / 0.3e1 * t597 - 0.4e1 * t599 - 0.6e1 * t601 + 0.3e1 * t603 + 0.8e1 / 0.3e1 * t504 + 0.8e1 / 0.3e1 * t511 - 0.2e1 * t513 - t404 - t407;
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho3[3] = t330 + t334 - 0.12e2 * t233 - 0.12e2 * t246 - 0.8e1 * t190 - 0.8e1 * t208 + 0.6e1 * t220 - 0.4e1 * t228 - 0.4e1 * t237 + 0.24e2 * t242 - 0.18e2 * t254 + 0.9e1 * t265 + t3 * (t686 + t711);
 
@@ -994,11 +994,11 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t730 = t58 * t62;
   t732 = t271 * t730 * t49;
   t735 = t271 * t272 * t137;
-  t738 = t275 * t376 * t15 * t151;
+  t738 = t275 * t374 * t15 * t151;
   t742 = t275 * t149 * t62 * t67;
   t745 = t275 * t276 * t162;
   t748 = t106 * t59 * t157;
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho2lapl[0] = -0.8e1 / 0.3e1 * t714 - t717 + 0.4e1 * t718 + 0.10e2 / 0.3e1 * t720 - t725 / 0.3e1 + 0.4e1 * t728 + 0.10e2 / 0.3e1 * t732 - t735 - 0.9e1 / 0.2e1 * t738 - 0.5e1 * t742 + 0.3e1 / 0.2e1 * t745 - 0.10e2 / 0.3e1 * t748;
 
   t750 = t215 * t287;
@@ -1007,31 +1007,31 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t755 = t105 * t167 * M_PI;
   t757 = t755 * t286 * t169;
   t760 = t285 * t286 * t176;
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho2lapl[1] = -0.8e1 / 0.3e1 * t750 - t753 - t757 / 0.3e1 - t760;
 
   t764 = t129 * t289;
   t768 = t723 * t272 * t81 * t49;
   t772 = t271 * t276 * t81 * t67;
   t775 = t271 * t730 * t81;
-  t779 = t370 * M_PI * t272 * t2;
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  t779 = t368 * M_PI * t272 * t2;
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho2lapl[2] = -0.4e1 / 0.3e1 * t714 - t717 + 0.2e1 * t718 + 0.5e1 / 0.3e1 * t720 - 0.4e1 / 0.3e1 * t764 - t768 / 0.3e1 + 0.2e1 * t772 + 0.5e1 / 0.3e1 * t775 - t779;
 
   t781 = t215 * t291;
   t785 = t755 * t286 * t85 * t72;
-  t789 = t393 * M_PI * t286 * t2;
+  t789 = t390 * M_PI * t286 * t2;
   t790 = t656 * t295;
   t793 = t285 * t294 * t621;
   t795 = t28 * t298;
   t797 = t90 * t94;
   t799 = t285 * t797 * t72;
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho2lapl[3] = -0.4e1 / 0.3e1 * t750 - t753 - 0.4e1 / 0.3e1 * t781 - t785 / 0.3e1 + t789 + 0.2e1 * t790 + 0.2e1 * t793 + 0.5e1 / 0.3e1 * t795 + 0.5e1 / 0.3e1 * t799;
 
   t803 = t723 * t272 * t226;
   t806 = t271 * t272 * t231;
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho2lapl[4] = -0.8e1 / 0.3e1 * t764 - t717 - t803 / 0.3e1 - t806;
 
   t811 = t755 * t286 * t235;
@@ -1042,7 +1042,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t828 = t293 * t250 * t94 * t99;
   t831 = t293 * t294 * t263;
   t834 = t110 * t91 * t258;
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho2lapl[5] = -0.8e1 / 0.3e1 * t781 - t753 + 0.4e1 * t790 + 0.10e2 / 0.3e1 * t795 - t811 / 0.3e1 + 0.4e1 * t815 + 0.10e2 / 0.3e1 * t818 - t821 - 0.9e1 / 0.2e1 * t824 - 0.5e1 * t828 + 0.3e1 / 0.2e1 * t831 - 0.10e2 / 0.3e1 * t834;
 
   t837 = 0.8e1 / 0.3e1 * t716;
@@ -1101,40 +1101,40 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigma2[11] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[0] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[1] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[2] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[3] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[4] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[5] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[6] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[7] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[8] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[9] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[10] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[11] = 0.0e0;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
@@ -1176,46 +1176,46 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t882 = t11 * t313;
   t884 = t149 * t312;
   t886 = t271 * t884 * t49;
-  t890 = t275 * t376 * t312 * t67;
-  t895 = t106 * t150 / t12 / t339;
+  t890 = t275 * t374 * t312 * t67;
+  t895 = t106 * t150 / t12 / t337;
   t897 = t28 * t318;
   t898 = t250 * t317;
   t901 = -t285 * t898 * t72 - t897;
   t904 = -t271 * t884 * t81 - t882;
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapl2[0] = t904 / 0.2e1;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapl2[1] = 0.0e0;
 
   t907 = t285 * t898 * t85;
   t911 = t293 * t675 * t317 * t99;
   t916 = t110 * t251 / t29 / t691;
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapl2[2] = -t897 / 0.2e1 - t907 / 0.2e1 + 0.9e1 / 0.8e1 * t911 + 0.5e1 / 0.4e1 * t916;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapltau[0] = 0.4e1 * t882 + 0.4e1 * t886 - 0.9e1 * t890 - 0.10e2 * t895;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapltau[1] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapltau[2] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapltau[3] = -0.4e1 * t901;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapltau[4] = -0.4e1 * t904;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapltau[5] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapltau[6] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapltau[7] = 0.4e1 * t897 + 0.4e1 * t907 - 0.9e1 * t911 - 0.10e2 * t916;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
@@ -1266,40 +1266,40 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma3[9] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2lapl[0] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2lapl[1] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2lapl[2] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2lapl[3] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2lapl[4] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2lapl[5] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2lapl[6] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2lapl[7] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2lapl[8] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2lapl[9] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2lapl[10] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2lapl[11] = 0.0e0;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
@@ -1338,67 +1338,67 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2tau[11] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapl2[0] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapl2[1] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapl2[2] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapl2[3] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapl2[4] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapl2[5] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapl2[6] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapl2[7] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapl2[8] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapltau[0] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapltau[1] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapltau[2] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapltau[3] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapltau[4] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapltau[5] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapltau[6] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapltau[7] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapltau[8] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapltau[9] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapltau[10] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapltau[11] = 0.0e0;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
@@ -1428,54 +1428,54 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmatau2[8] = 0.0e0;
 
-  t939 = t106 * t377 / t339 / rho[0];
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  t939 = t106 * t375 / t337 / rho[0];
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl3[0] = -0.9e1 / 0.32e2 * t939;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl3[1] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl3[2] = 0.0e0;
 
   t944 = t110 * t676 / t691 / rho[1];
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl3[3] = -0.9e1 / 0.32e2 * t944;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl2tau[0] = 0.9e1 / 0.4e1 * t939;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl2tau[1] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl2tau[2] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl2tau[3] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl2tau[4] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl2tau[5] = 0.9e1 / 0.4e1 * t944;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapltau2[0] = -0.18e2 * t939;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapltau2[1] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapltau2[2] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapltau2[3] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapltau2[4] = 0.0e0;
 
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
+  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapltau2[5] = -0.18e2 * t944;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))

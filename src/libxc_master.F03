@@ -104,8 +104,8 @@ module xc_f03_lib_m
     xc_f03_mgga_exc, &
     xc_f03_mgga_exc_vxc, &
     xc_f03_mgga_vxc, &
-    xc_f03_mgga_fxc
-
+    xc_f03_mgga_fxc, &
+    xc_f03_mgga_kxc
 
   integer(c_int), parameter, public :: &
     XC_UNPOLARIZED          =   1,     &  ! Spin unpolarized
@@ -494,51 +494,77 @@ module xc_f03_lib_m
   !----------------------------------------------------------------
   interface
     subroutine xc_mgga(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
-      v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
-      v2sigmalapl, v2sigmatau, v2lapltau) bind(c)
+         v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau,    &
+         v2lapl2, v2lapltau, v2tau2,                                                    &
+         v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl,       &
+         v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl,    &
+         v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau,   &
+         v3lapltau2, v3tau3) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
-      real(c_double),    intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
-      real(c_double),    intent(out) :: zk(*), vrho(*), vsigma(*), vlapl(*), vtau(*)
-      real(c_double),    intent(out) :: v2rho2(*), v2sigma2(*), v2lapl2(*), v2tau2(*), v2rhosigma(*), v2rholapl(*), &
-                                     v2rhotau(*), v2sigmalapl(*), v2sigmatau(*), v2lapltau(*)
+      real(c_double), intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
+      real(c_double), intent(out) :: zk(*), vrho(*), vsigma(*), vlapl(*), vtau(*)
+      real(c_double), intent(out) :: v2rho2(*), v2rhosigma(*), v2rholapl(*), v2rhotau(*),    &
+           v2sigma2(*), v2sigmalapl(*), v2sigmatau(*), v2lapl2(*), v2lapltau(*), v2tau2(*)
+      real(c_double), intent(out) :: v3rho3(*), v3rho2sigma(*), v3rho2lapl(*), v3rho2tau(*), &
+           v3rhosigma2(*), v3rhosigmalapl(*), v3rhosigmatau(*), v3rholapl2(*),               &
+           v3rholapltau(*), v3rhotau2(*), v3sigma3(*), v3sigma2lapl(*), v3sigma2tau(*),      &
+           v3sigmalapl2(*), v3sigmalapltau(*), v3sigmatau2(*), v3lapl3(*), v3lapl2tau(*),    &
+           v3lapltau2(*), v3tau3(*)
     end subroutine xc_mgga
 
     subroutine xc_mgga_exc(p, np, rho, sigma, lapl, tau, zk) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
-      real(c_double),    intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
-      real(c_double),    intent(out) :: zk(*)
+      real(c_double), intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
+      real(c_double), intent(out) :: zk(*)
     end subroutine xc_mgga_exc
 
     subroutine xc_mgga_exc_vxc(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
-      real(c_double),    intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
-      real(c_double),    intent(out) :: zk(*), vrho(*), vsigma(*), vlapl(*), vtau(*)
+      real(c_double), intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
+      real(c_double), intent(out) :: zk(*), vrho(*), vsigma(*), vlapl(*), vtau(*)
     end subroutine xc_mgga_exc_vxc
 
     subroutine xc_mgga_vxc(p, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
-      real(c_double),    intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
-      real(c_double),    intent(out) :: vrho(*), vsigma(*), vlapl(*), vtau(*)
+      real(c_double), intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
+      real(c_double), intent(out) :: vrho(*), vsigma(*), vlapl(*), vtau(*)
     end subroutine xc_mgga_vxc
 
     subroutine xc_mgga_fxc(p, np, rho, sigma, lapl, tau, &
-      v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
-      v2sigmalapl, v2sigmatau, v2lapltau) bind(c)
+         v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau,    &
+         v2lapl2, v2lapltau, v2tau2) bind(c)
       import
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
-      real(c_double),    intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
-      real(c_double),    intent(out) :: v2rho2(*), v2sigma2(*), v2lapl2(*), v2tau2(*), v2rhosigma(*), v2rholapl(*), &
-                                     v2rhotau(*), v2sigmalapl(*), v2sigmatau(*), v2lapltau(*)
+      real(c_double), intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
+      real(c_double), intent(out) :: v2rho2(*), v2rhosigma(*), v2rholapl(*), v2rhotau(*),    &
+           v2sigma2(*), v2sigmalapl(*), v2sigmatau(*), v2lapl2(*), v2lapltau(*), v2tau2(*)
     end subroutine xc_mgga_fxc
+
+    subroutine xc_mgga_kxc(p, np, rho, sigma, lapl, tau, &
+         v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl,       &
+         v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl,    &
+         v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau,   &
+         v3lapltau2, v3tau3) bind(c)
+      import
+      type(c_ptr),    value       :: p
+      integer(c_int), value       :: np
+      real(c_double), intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
+      real(c_double), intent(out) :: v3rho3(*), v3rho2sigma(*), v3rho2lapl(*), v3rho2tau(*), &
+           v3rhosigma2(*), v3rhosigmalapl(*), v3rhosigmatau(*), v3rholapl2(*),               &
+           v3rholapltau(*), v3rhotau2(*), v3sigma3(*), v3sigma2lapl(*), v3sigma2tau(*),      &
+           v3sigmalapl2(*), v3sigmalapltau(*), v3sigmatau2(*), v3lapl3(*), v3lapl2tau(*),    &
+           v3lapltau2(*), v3tau3(*)
+    end subroutine xc_mgga_kxc
+
   end interface
 
   contains
@@ -944,19 +970,31 @@ module xc_f03_lib_m
   ! the meta-GGAs
   !----------------------------------------------------------------
   subroutine xc_f03_mgga(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
-    v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
-    v2sigmalapl, v2sigmatau, v2lapltau)
+         v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau,    &
+         v2lapl2, v2lapltau, v2tau2,                                                    &
+         v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl,       &
+         v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl,    &
+         v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau,   &
+         v3lapltau2, v3tau3)
     type(xc_f03_func_t), intent(in)  :: p
     integer(c_int),      intent(in)  :: np
     real(c_double),      intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
     real(c_double),      intent(out) :: zk(*), vrho(*), vsigma(*), vlapl(*), vtau(*)
-    real(c_double),      intent(out) :: v2rho2(*), v2sigma2(*), v2lapl2(*), v2tau2(*), v2rhosigma(*), v2rholapl(*), &
-                                      v2rhotau(*), v2sigmalapl(*), v2sigmatau(*), v2lapltau(*)
+    real(c_double),      intent(out) :: v2rho2(*), v2rhosigma(*), v2rholapl(*), v2rhotau(*),    &
+         v2sigma2(*), v2sigmalapl(*), v2sigmatau(*), v2lapl2(*), v2lapltau(*), v2tau2(*)
+    real(c_double),      intent(out) :: v3rho3(*), v3rho2sigma(*), v3rho2lapl(*), v3rho2tau(*), &
+         v3rhosigma2(*), v3rhosigmalapl(*), v3rhosigmatau(*), v3rholapl2(*),               &
+         v3rholapltau(*), v3rhotau2(*), v3sigma3(*), v3sigma2lapl(*), v3sigma2tau(*),      &
+         v3sigmalapl2(*), v3sigmalapltau(*), v3sigmatau2(*), v3lapl3(*), v3lapl2tau(*),    &
+         v3lapltau2(*), v3tau3(*)
 
-    call xc_mgga(p%ptr, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
-      v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
-      v2sigmalapl, v2sigmatau, v2lapltau)
-    
+    call xc_mgga(p%ptr, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau,       &
+         v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau,    &
+         v2lapl2, v2lapltau, v2tau2,                                                    &
+         v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl,       &
+         v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl,    &
+         v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau,   &
+         v3lapltau2, v3tau3)
   end subroutine xc_f03_mgga
 
   subroutine xc_f03_mgga_exc(p, np, rho, sigma, lapl, tau, zk)
@@ -990,21 +1028,42 @@ module xc_f03_lib_m
   end subroutine xc_f03_mgga_vxc
 
   subroutine xc_f03_mgga_fxc(p, np, rho, sigma, lapl, tau, &
-    v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
-    v2sigmalapl, v2sigmatau, v2lapltau)
+       v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau,    &
+       v2lapl2, v2lapltau, v2tau2)
     type(xc_f03_func_t), intent(in)  :: p
     integer(c_int),      intent(in)  :: np
     real(c_double),      intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
-    real(c_double),      intent(out) :: v2rho2(*), v2sigma2(*), v2lapl2(*), v2tau2(*), v2rhosigma(*), &
-                                      v2rholapl(*), v2rhotau(*), v2sigmalapl(*), v2sigmatau(*), v2lapltau(*)
+    real(c_double),      intent(out) :: v2rho2(*), v2rhosigma(*), v2rholapl(*), v2rhotau(*),    &
+         v2sigma2(*), v2sigmalapl(*), v2sigmatau(*), v2lapl2(*), v2lapltau(*), v2tau2(*)
 
-    call xc_mgga_fxc(p%ptr, np, rho, sigma, lapl, tau, &
-      v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau, &
-      v2sigmalapl, v2sigmatau, v2lapltau)
+    call xc_mgga_fxc(p%ptr, np, rho, sigma, lapl, tau,   &
+      v2rho2, v2rhosigma, v2rholapl, v2rhotau,           &
+      v2sigma2, v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2)
 
   end subroutine xc_f03_mgga_fxc
 
+  subroutine xc_f03_mgga_kxc(p, np, rho, sigma, lapl, tau, &
+       v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl,       &
+       v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl,    &
+       v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau,   &
+       v3lapltau2, v3tau3)
+    type(xc_f03_func_t), intent(in)  :: p
+    integer(c_int),      intent(in)  :: np
+    real(c_double),      intent(in)  :: rho(*), sigma(*), lapl(*), tau(*)
+    real(c_double), intent(out) :: v3rho3(*), v3rho2sigma(*), v3rho2lapl(*), v3rho2tau(*), &
+           v3rhosigma2(*), v3rhosigmalapl(*), v3rhosigmatau(*), v3rholapl2(*),               &
+           v3rholapltau(*), v3rhotau2(*), v3sigma3(*), v3sigma2lapl(*), v3sigma2tau(*),      &
+           v3sigmalapl2(*), v3sigmalapltau(*), v3sigmatau2(*), v3lapl3(*), v3lapl2tau(*),    &
+           v3lapltau2(*), v3tau3(*)
 
+    call xc_mgga_kxc(p%ptr, np, rho, sigma, lapl, tau,  &
+         v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl,       &
+         v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl,    &
+         v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau,   &
+         v3lapltau2, v3tau3)
+  end subroutine xc_f03_mgga_kxc
+
+    
   ! Helper functions to convert between C and Fortran strings
   ! Based on the routines by Joseph M. Krahn
   function f_to_c_string(f_string) result(c_string)

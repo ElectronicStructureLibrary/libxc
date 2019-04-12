@@ -1827,7 +1827,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -2278,6 +2278,13 @@ func_reference_type xc_ref_Ruzsinszky2012_2078 = {
   "A. Ruzsinszky, J. Sun, B. Xiao, and G. I. Csonka, J. Chem. Theory Comput. 8, 2078 (2012)",
   "10.1021/ct300269u",
   "@article{Ruzsinszky2012_2078,\nauthor = {Ruzsinszky, Adrienn and Sun, Jianwei and Xiao, Bing and Csonka, Gábor I.},\ntitle = {A meta-GGA Made Free of the Order of Limits Anomaly},\njournal = {Journal of Chemical Theory and Computation},\nvolume = {8},\nnumber = {6},\npages = {2078-2087},\nyear = {2012},\ndoi = {10.1021/ct300269u},\nURL = {https://doi.org/10.1021/ct300269u},\n}"
+};
+
+
+func_reference_type xc_ref_Fabiano2015_122 = {
+  "E. Fabiano, L. A. Constantin, P. Cortona, and F. Della Sala, J. Chem. Theory Comput. 11, 122 (2015)",
+  "10.1021/ct500902p",
+  "@article{Fabiano2015_122,\nauthor = {Fabiano, Eduardo and Constantin, Lucian A. and Cortona, Pietro and Della Sala, Fabio},\ntitle = {Global Hybrids from the Semiclassical Atom Theory Satisfying the Local Density Linear Response},\njournal = {Journal of Chemical Theory and Computation},\nvolume = {11},\nnumber = {1},\npages = {122-131},\nyear = {2015},\ndoi = {10.1021/ct500902p},\nURL = {https://doi.org/10.1021/ct500902p},\n}"
 };
 
 

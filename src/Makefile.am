@@ -109,9 +109,6 @@ if COMPILE_FORTRAN
   # libtool stuff
   libxcf90_la_LDFLAGS = -version-info $(XC_LT_VERSION)
   libxcf90_la_LIBADD = libxc.la
-
-  # this is a hack to go around buggy libtool/automake versions
-  libxcf90_la_LIBTOOLFLAGS = --tag=F77
 endif
 
 if COMPILE_FORTRAN03
@@ -122,16 +119,8 @@ if COMPILE_FORTRAN03
   # libtool stuff
   libxcf03_la_LDFLAGS = -version-info $(XC_LT_VERSION)
   libxcf03_la_LIBADD = libxc.la
-
-  # this is a hack to go around buggy libtool/automake versions
-  libxcf03_la_LIBTOOLFLAGS = --tag=F77
 endif
 
-
-# this is a hack to go around buggy libtool/automake versions
-LTFCCOMPILE = $(LIBTOOL) --mode=compile --tag=F77 $(FC) $(AM_FCFLAGS) $(FCFLAGS)
-FCLINK = $(LIBTOOL) --mode=link --tag=F77 $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) \
-         $(AM_LDFLAGS) $(LDFLAGS) -o $@
 
 noinst_HEADERS = \
 	string_f.h references.h util.h work_lda_new.c \

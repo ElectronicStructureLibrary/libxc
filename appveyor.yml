@@ -13,6 +13,7 @@ before_build:
   - cmake -A %PLATFORM%
           -DCMAKE_BUILD_TYPE=%CONFIGURATION%
           -DENABLE_XHOST=OFF
+          -DDISABLE_KXC=ON
           -DCMAKE_C_FLAGS="/wd4101 /wd4996"
           ..
 

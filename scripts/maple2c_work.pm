@@ -116,6 +116,11 @@ $code
           ${$der}[1] =~ /_([0-9]+)_/;
           if (($type eq "pol") || ($1 == 0)) {
             my $test = $test_1[$total_order]." != NULL";
+
+            if(${$der}[1] =~ /lapl/){
+              $test .= " && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)";
+            }
+            
             $test .= " && (p->info->flags & XC_FLAGS_HAVE_".$test_2[$total_order].")";
             $new_c_code .= "  if($test)\n";
             $new_c_code .= "    ".$_."\n";

@@ -182,13 +182,11 @@ typedef struct xc_functional_key_t {
 #define D3FZETA(x)     (-(8.0/27.0)/FZETAFACTOR)* \
   (fabs(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -5.0/3.0) - pow(1.0 - (x), -5.0/3.0)))
 
-#define MIN_GRAD             5.0e-13
-#define MIN_TAU              5.0e-13
-#define MIN_ZETA             5.0e-13
 
 /* The following inlines confuse the xlc compiler */
 void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
 
+/* Functions to handle the internal counters */
 void internal_counters_set_lda (int nspin, xc_dimensions *dim);
 void internal_counters_lda_next
 (const xc_dimensions *dim, int offset,
@@ -218,58 +216,23 @@ void internal_counters_gga_prev
  double **v3rho3, double **v3rho2sigma, double **v3rhosigma2, double **v3sigma3
 );
 
-/* GGAs */
-/* DEPRECATED: these structures will be deleted as soon as 
-   gg99 and wpbeh are converted to maple/mathematica */
-typedef struct xc_gga_work_x_t {
-  int   order; /* to which order should I return the derivatives */
-  double x;
-
-  double f;          /* enhancement factor       */
-  double dfdx;       /* first derivatives of f  */
-  double d2fdx2;     /* second derivatives of zk */
-  double d3fdx3;
-} xc_gga_work_x_t;
-
-typedef struct xc_gga_work_c_t {
-  int   order; /* to which order should I return the derivatives */
-
-  double dens, ds[2], sigmat, sigmas[3];
-  double rs, z, xt, xs[2];
-
-  double f;
-
-  double dfdrs, dfdz, dfdxt, dfdxs[2];
-  double d2fdrs2, d2fdrsz, d2fdrsxt, d2fdrsxs[2], d2fdz2, 
-    d2fdzxt, d2fdzxs[2], d2fdxt2, d2fdxtxs[2], d2fdxs2[3];
-
-  double d3fdrs3, d3fdz3, d3fdxt3, d3fdxs3[4]; /* uuu, uud, udd, ddd */
-  double d3fdrs2z, d3fdrs2xt, d3fdrs2xs[2];
-  double d3fdrsz2, d3fdz2xt, d3fdz2xs[2];
-  double d3fdrsxt2, d3fdzxt2, d3fdxt2xs[2];
-  double d3fdrsxs2[3], d3fdzxs2[3],d3fdxtxs2[3];
-  double d3fdrszxt, d3fdrszxs[2], d3fdrsxtxs[2], d3fdzxtxs[2];
-} xc_gga_work_c_t;
-
-/* meta GGAs */
-
-/* This is the order of the derivatives of a mgga */
-#define MGGA_OUT_PARAMS_NO_EXC(P_)                                     \
- P_ vrho, P_ vsigma, P_ vlapl, P_ vtau,                                \
- P_ v2rho2, P_ v2rhosigma, P_ v2rholapl, P_ v2rhotau,                  \
- P_ v2sigma2, P_ v2sigmalapl, P_ v2sigmatau,                           \
- P_ v2lapl2, P_ v2lapltau,                                             \
- P_ v2tau2,                                                            \
- P_ v3rho3, P_ v3rho2sigma, P_ v3rho2lapl, P_ v3rho2tau,               \
- P_ v3rhosigma2, P_ v3rhosigmalapl, P_ v3rhosigmatau,                  \
- P_ v3rholapl2, P_ v3rholapltau,                                       \
- P_ v3rhotau2,                                                         \
- P_ v3sigma3, P_ v3sigma2lapl, P_ v3sigma2tau,                         \
- P_ v3sigmalapl2, P_ v3sigmalapltau,                                   \
- P_ v3sigmatau2,                                                       \
- P_ v3lapl3, P_ v3lapl2tau,                                            \
- P_ v3lapltau2,                                                        \
- P_ v3tau3
+/* This are the derivatives of a mgga */
+#define MGGA_OUT_PARAMS_NO_EXC(PTYPE)                                     \
+ PTYPE vrho, PTYPE vsigma, PTYPE vlapl, PTYPE vtau,                       \
+ PTYPE v2rho2, PTYPE v2rhosigma, PTYPE v2rholapl, PTYPE v2rhotau,         \
+ PTYPE v2sigma2, PTYPE v2sigmalapl, PTYPE v2sigmatau,                     \
+ PTYPE v2lapl2, PTYPE v2lapltau,                                          \
+ PTYPE v2tau2,                                                            \
+ PTYPE v3rho3, PTYPE v3rho2sigma, PTYPE v3rho2lapl, PTYPE v3rho2tau,      \
+ PTYPE v3rhosigma2, PTYPE v3rhosigmalapl, PTYPE v3rhosigmatau,            \
+ PTYPE v3rholapl2, PTYPE v3rholapltau,                                    \
+ PTYPE v3rhotau2,                                                         \
+ PTYPE v3sigma3, PTYPE v3sigma2lapl, PTYPE v3sigma2tau,                   \
+ PTYPE v3sigmalapl2, PTYPE v3sigmalapltau,                                \
+ PTYPE v3sigmatau2,                                                       \
+ PTYPE v3lapl3, PTYPE v3lapl2tau,                                         \
+ PTYPE v3lapltau2,                                                        \
+ PTYPE v3tau3
 
 void internal_counters_set_mgga(int nspin, xc_dimensions *dim);
 
@@ -282,43 +245,6 @@ void internal_counters_mgga_prev
 (const xc_dimensions *dim, int offset,
  const double **rho, const double **sigma, const double **lapl, const double **tau,
  double **zk, MGGA_OUT_PARAMS_NO_EXC(double **));
-
-typedef struct xc_mgga_work_x_t {
-  int   order; /* to which order should I return the derivatives */
-  double rs, zeta, x, t, u;
-
-  double f;                                   /* enhancement factor       */
-  double dfdrs, dfdx, dfdt, dfdu;             /* first derivatives of f  */
-  double d2fdrs2, d2fdx2, d2fdt2, d2fdu2;     /* second derivatives of zk */
-  double d2fdrsx, d2fdrst, d2fdrsu, d2fdxt, d2fdxu, d2fdtu;
-} xc_mgga_work_x_t;
-
-typedef struct xc_mgga_work_c_t {
-  int   order; /* to which order should I return the derivatives */
-
-  double dens, ds[2], sigmat, sigmas[3];
-  double rs, z, xt, xs[2], ts[2], us[2];
-
-  double f;
-  double dfdrs, dfdz, dfdxt, dfdxs[2], dfdts[2], dfdus[2];
-  double d2fdrs2, d2fdrsz, d2fdrsxt, d2fdrsxs[2], d2fdrsts[2], d2fdrsus[2];
-  double d2fdz2, d2fdzxt, d2fdzxs[2], d2fdzts[2], d2fdzus[2];
-  double d2fdxt2, d2fdxtxs[2], d2fdxtts[2], d2fdxtus[2];
-  double d2fdxs2[3], d2fdxsts[4], d2fdxsus[4];
-  double d2fdts2[3], d2fdtsus[4];
-  double d2fdus2[3];
-  double d3fdrs3, d3fdrs2z, d3fdrsz2, d3fdrszxt, d3fdrszxs[2], d3fdrszts[2], d3fdrszus[2];
-  double d3fdrs2xt, d3fdrsxt2, d3fdrsxtxs[2], d3fdrsxtts[2], d3fdrsxtus[2], d3fdrs2xs[2];
-  double d3fdrsxs2[3], d3fdrsxsts[4], d3fdrsxsus[4], d3fdrs2ts[2], d3fdrsts2[3];
-  double d3fdrstsus[4], d3fdrs2us[2], d3fdrsus2[3];
-  double d3fdz3, d3fdz2xt, d3fdzxt2, d3fdzxtxs[2], d3fdzxtts[2], d3fdzxtus[2];
-  double d3fdz2xs[2], d3fdzxs2[3], d3fdzxsts[4], d3fdzxsus[4], d3fdz2ts[2], d3fdzts2[3];
-  double d3fdztsus[4], d3fdz2us[2], d3fdzus2[3];
-  double d3fdxt3, d3fdxt2xs[2], d3fdxtxs2[3], d3fdxtxsts[4], d3fdxtxsus[4], d3fdxt2ts[2];
-  double d3fdxtts2[3], d3fdxttsus[4], d3fdxt2us[2], d3fdxtus2[3];
-  double d3fdxs3[4], d3fdxs2ts[6], d3fdxs2us[6], d3fdxsts2[6], d3fdxstsus[8], d3fdxsus2[6];
-  double d3fdts3[4], d3fdts2us[6], d3fdtsus2[6], d3fdus3[4];
-} xc_mgga_work_c_t;
 
 /* Functionals that are defined as mixtures of others */
 void xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix_coef);

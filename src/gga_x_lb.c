@@ -9,6 +9,8 @@
 
 #include "util.h"
 
+#define MIN_GRAD             5.0e-13
+
 /* Note: Do not forget to add a correlation (LDA) functional to the
    LB94.
    

@@ -5,7 +5,7 @@
 - LDA functionals: C_PMGB06, XC_BN05, XC_TIH.
 - GGA functionals: X_LSPBE, X_LSRPBE, XC_KT3, XC_LB07, K_GDS08, K_GHDS10, K_GHDS10R, K_TKVLN, X_OPTB86B_VDW, C_ACGGAP.
 - HYB_GGA: XC_LC_WPBE_WHS, XC_LC_WPBEH_WHS, XC_LC_WPBE08_WHS, XC_LC_WPBESOL_WHS, XC_APF, XC_CAM_QTP_00, XC_CAM_QTP_02, XC_LC_QTP.
-- MGGA functionals: X_RTPSS, X_MS2B, X_MS2BS, X_MVSB, X_MVSBS, C_TM, X_BR89_1, X_BR89_EXPLICIT_1, C_REVM11.
+- MGGA functionals: X_RTPSS, X_MS2B, X_MS2BS, X_MVSB, X_MVSBS, C_TM, X_BR89_1, X_BR89_EXPLICIT_1, C_REVM11, X_REGTPSS.
 - HYB_MGGA functionals: X_REVM11.
 - Worker functionals: LDA_K_GDS08_WORKER.
 - Correction to the Fermi_D term in MGGA_C_M05, MGGA_C_M05_2X, and MGGA_C_DLDF to avoid divergences when the kinetic energy density is zero, but not the density. This is similar to the correction proposed in from JCP 127, 214103 (2007). The correction is controlled by the `Fermi_D_cnst` external parameter, and its default value is 1e-10.
@@ -13,6 +13,7 @@
 - Interface to access 3rd order derivatives of MGGAs.
 - Printing of supported derivatives by the xc-info utility.
 - New flag XC_FLAG_HAVE_ALL to indicate functionals that include all the currently available derivatives (exc, vxc, fxc, and kxc).
+- Added the possibility of selectively disabling the compilation of vxc, fxc, and kxc to both Autotools and CMake build systems. By default kxc is not compiled. This allows for faster compilation times.
 
 ### Changed
 - External parameters structure to include the name of the parameter. The name of the internal parameters is prepended with an underscore.

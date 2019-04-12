@@ -74,7 +74,7 @@ libxc_la_FUNC_SOURCES = \
 	gga_c_op_g96.c gga_c_op_pw91.c gga_x_pbetrans.c	gga_k_apbeint.c	\
 	gga_x_chachiyo.c gga_k_gds08.c gga_k_exp4.c hyb_gga_xc_pbeh.c	\
 	hyb_gga_xc_b1wc.c hyb_gga_xc_hse.c hyb_gga_xc_cam_b3lyp.c	\
-	hyb_gga_xc_cam_qtp.c gga_k_lc94.c \
+	hyb_gga_xc_cam_qtp.c gga_k_lc94.c gga_c_zvpbeloc.c \
 	hyb_gga_xc_camy_blyp.c hyb_gga_xc_camy_b3lyp.c			\
 	hyb_gga_xc_lcy_pbe.c hyb_gga_xc_lcy_blyp.c gga_xc_vv10.c	\
 	hyb_gga_xc_edf2.c gga_k_pw86.c gga_k_mpbe.c gga_k_apbe.c        \
@@ -109,9 +109,6 @@ if COMPILE_FORTRAN
   # libtool stuff
   libxcf90_la_LDFLAGS = -version-info $(XC_LT_VERSION)
   libxcf90_la_LIBADD = libxc.la
-
-  # this is a hack to go around buggy libtool/automake versions
-  libxcf90_la_LIBTOOLFLAGS = --tag=F77
 endif
 
 if COMPILE_FORTRAN03
@@ -122,16 +119,8 @@ if COMPILE_FORTRAN03
   # libtool stuff
   libxcf03_la_LDFLAGS = -version-info $(XC_LT_VERSION)
   libxcf03_la_LIBADD = libxc.la
-
-  # this is a hack to go around buggy libtool/automake versions
-  libxcf03_la_LIBTOOLFLAGS = --tag=F77
 endif
 
-
-# this is a hack to go around buggy libtool/automake versions
-LTFCCOMPILE = $(LIBTOOL) --mode=compile --tag=F77 $(FC) $(AM_FCFLAGS) $(FCFLAGS)
-FCLINK = $(LIBTOOL) --mode=link --tag=F77 $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) \
-         $(AM_LDFLAGS) $(LDFLAGS) -o $@
 
 noinst_HEADERS = \
 	string_f.h references.h util.h work_lda_new.c \

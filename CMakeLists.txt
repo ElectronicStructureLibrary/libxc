@@ -131,6 +131,7 @@ gga_c_wi.c
 gga_c_wl.c
 gga_c_zpbeint.c
 gga_c_zvpbeint.c
+gga_c_zvpbeloc.c
 gga_k_dk.c
 gga_k_meyer.c
 gga_k_ol1.c
@@ -202,6 +203,7 @@ gga_x_vmt.c
 gga_x_vmt84.c
 gga_x_wc.c
 gga_x_wpbeh.c
+gga_x_fd_lb94.c
 gga_xc_1w.c
 gga_xc_b97.c
 gga_xc_edf1.c

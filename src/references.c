@@ -2281,10 +2281,14 @@ func_reference_type xc_ref_Ruzsinszky2012_2078 = {
 };
 
 
+func_reference_type xc_ref_Fabiano2015_122 = {
+  "E. Fabiano, L. A. Constantin, P. Cortona, and F. Della Sala, J. Chem. Theory Comput. 11, 122 (2015)",
+  "10.1021/ct500902p",
+  "@article{Fabiano2015_122,\nauthor = {Fabiano, Eduardo and Constantin, Lucian A. and Cortona, Pietro and Della Sala, Fabio},\ntitle = {Global Hybrids from the Semiclassical Atom Theory Satisfying the Local Density Linear Response},\njournal = {Journal of Chemical Theory and Computation},\nvolume = {11},\nnumber = {1},\npages = {122-131},\nyear = {2015},\ndoi = {10.1021/ct500902p},\nURL = {https://doi.org/10.1021/ct500902p},\n}"
+};
+
 func_reference_type xc_ref_Gaiduk2011_012509 = {
   "A. P. Gaiduk and V. N. Staroverov, Phys. Rev. A 83, 012509 (2011)",
   "10.1103/PhysRevA.83.012509",
   "@article{Gaiduk2011_012509,\n  title = {Construction of integrable model Kohn-Sham potentials by analysis of the structure of functional derivatives},\n  author = {Gaiduk, Alex P. and Staroverov, Viktor N.},\n  journal = {Phys. Rev. A},\n  volume = {83},\n  issue = {1},\n  pages = {012509},\n  numpages = {7},\n  year = {2011},\n  month = {Jan},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.83.012509},\n  url = {https://link.aps.org/doi/10.1103/PhysRevA.83.012509}\n}"
 };
-
-

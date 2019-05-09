@@ -687,16 +687,18 @@ module xc_f03_lib_m
 
 
   !----------------------------------------------------------------
-  subroutine xc_f03_func_init(p, functional, nspin)
+  subroutine xc_f03_func_init(p, functional, nspin, err)
     type(xc_f03_func_t),      intent(inout) :: p
     integer(c_int),           intent(in)    :: functional
     integer(c_int),           intent(in)    :: nspin
+    integer(c_int), optional, intent(out)   :: err
 
     integer(c_int) :: ierr
     
     p%ptr = xc_func_alloc()
     ierr = xc_func_init(p%ptr, functional, nspin)
-
+    
+    if(present(err)) err = ierr
   end subroutine xc_f03_func_init
 
   subroutine xc_f03_func_end(p)

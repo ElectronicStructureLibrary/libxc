@@ -33,9 +33,8 @@ mGGAs:
   *) L0.4 and L0.6 ( S. Laricchia, E. Fabiano, L. A. Constantin, F. Della Sala,
 !           J. Chem. Theory Comput. 10, 164 (2014). )
      http://www.theory-ecmt.it/nnldft_web/lkin.txt
-  *) 2D exchange functional of https://arxiv.org/pdf/1703.01728.pdf
   *) Lap3 correlation http://onlinelibrary.wiley.com/doi/10.1002/(SICI)1097-461X(1997)64:4%3C427::AID-QUA5%3E3.0.CO;2-Y/full
-  *) tau1 functional (modified Becke exchange already implemented) http://aip.scitation.org/doi/abs/10.1063/1.1321309
+  *) tau1 functional (modified Becke exchange already implemented) http://aip.scitation.org/doi/abs/10.1063/1.1321309 This is a good reference for all LAP functionals.
 
 hybrids:
   *) doi:10.1021/ct800530u (LR-omegaPBE08)

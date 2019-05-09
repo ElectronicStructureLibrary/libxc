@@ -2287,8 +2287,18 @@ func_reference_type xc_ref_Fabiano2015_122 = {
   "@article{Fabiano2015_122,\nauthor = {Fabiano, Eduardo and Constantin, Lucian A. and Cortona, Pietro and Della Sala, Fabio},\ntitle = {Global Hybrids from the Semiclassical Atom Theory Satisfying the Local Density Linear Response},\njournal = {Journal of Chemical Theory and Computation},\nvolume = {11},\nnumber = {1},\npages = {122-131},\nyear = {2015},\ndoi = {10.1021/ct500902p},\nURL = {https://doi.org/10.1021/ct500902p},\n}"
 };
 
+
 func_reference_type xc_ref_Gaiduk2011_012509 = {
   "A. P. Gaiduk and V. N. Staroverov, Phys. Rev. A 83, 012509 (2011)",
   "10.1103/PhysRevA.83.012509",
   "@article{Gaiduk2011_012509,\n  title = {Construction of integrable model Kohn-Sham potentials by analysis of the structure of functional derivatives},\n  author = {Gaiduk, Alex P. and Staroverov, Viktor N.},\n  journal = {Phys. Rev. A},\n  volume = {83},\n  issue = {1},\n  pages = {012509},\n  numpages = {7},\n  year = {2011},\n  month = {Jan},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.83.012509},\n  url = {https://link.aps.org/doi/10.1103/PhysRevA.83.012509}\n}"
 };
+
+
+func_reference_type xc_ref_Jana2017_4804 = {
+  "S. Jana and P. Samal, J. Phys. Chem A 121, 4804 (2017)",
+  "10.1021/acs.jpca.7b03686",
+  "@article{Jana2017_4804,\nauthor = {Jana, Subrata and Samal, Prasanjit},\ntitle = {Semilocal Exchange Energy Functional for Two-Dimensional Quantum Systems: A Step Beyond Generalized Gradient Approximations},\njournal = {The Journal of Physical Chemistry A},\nvolume = {121},\nnumber = {25},\npages = {4804-4811},\nyear = {2017},\ndoi = {10.1021/acs.jpca.7b03686},\nURL = {https://doi.org/10.1021/acs.jpca.7b03686},\n}"
+};
+
+

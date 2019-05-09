@@ -339,3 +339,4 @@ extern func_reference_type xc_ref_Kurth1999_889;
 extern func_reference_type xc_ref_Ruzsinszky2012_2078;
 extern func_reference_type xc_ref_Fabiano2015_122;
 extern func_reference_type xc_ref_Gaiduk2011_012509;
+extern func_reference_type xc_ref_Jana2017_4804;

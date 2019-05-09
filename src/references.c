@@ -1953,7 +1953,7 @@ func_reference_type xc_ref_Handy2002_5411 = {
 
 
 func_reference_type xc_ref_Zhao2005_2012 = {
-  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem A 109, 2012 (2005), pMID: 16833536",
+  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem. A 109, 2012 (2005), pMID: 16833536",
   "10.1021/jp045141s",
   "@article{Zhao2005_2012,\nauthor = {Zhao, Yan and González-García, Núria and Truhlar, Donald G.},\ntitle = {Benchmark Database of Barrier Heights for Heavy Atom Transfer, Nucleophilic Substitution, Association, and Unimolecular Reactions and Its Use to Test Theoretical Methods},\njournal = {The Journal of Physical Chemistry A},\nvolume = {109},\nnumber = {9},\npages = {2012-2018},\nyear = {2005},\ndoi = {10.1021/jp045141s},\nnote ={PMID: 16833536},\nURL = {http://dx.doi.org/10.1021/jp045141s},\neprint = {http://dx.doi.org/10.1021/jp045141s}\n}"
 };
@@ -2261,7 +2261,7 @@ func_reference_type xc_ref_Cancio2018_084116 = {
 
 
 func_reference_type xc_ref_Verma2019 = {
-  "P. Verma, Y. Wang, S. Ghosh, X. He, and D. G. Truhlar, J. Phys. Chem A 0, null (0), https://doi.org/10.1021/acs.jpca.8b11499",
+  "P. Verma, Y. Wang, S. Ghosh, X. He, and D. G. Truhlar, J. Phys. Chem. A 0, null (0), https://doi.org/10.1021/acs.jpca.8b11499",
   "10.1021/acs.jpca.8b11499",
   "@article{Verma2019,\nauthor = {Verma, Pragya and Wang, Ying and Ghosh, Soumen and He, Xiao and Truhlar, Donald G.},\ntitle = {Revised M11 Exchange--Correlation Functional for Electronic Excitation Energies and Ground-State Properties},\njournal = {The Journal of Physical Chemistry A},\nvolume = {0},\nnumber = {ja},\npages = {null},\nyear = {0},\ndoi = {10.1021/acs.jpca.8b11499},\nURL = {https://doi.org/10.1021/acs.jpca.8b11499},\neprint = {https://doi.org/10.1021/acs.jpca.8b11499}\n}"
 };
@@ -2296,7 +2296,7 @@ func_reference_type xc_ref_Gaiduk2011_012509 = {
 
 
 func_reference_type xc_ref_Jana2017_4804 = {
-  "S. Jana and P. Samal, J. Phys. Chem A 121, 4804 (2017)",
+  "S. Jana and P. Samal, J. Phys. Chem. A 121, 4804 (2017)",
   "10.1021/acs.jpca.7b03686",
   "@article{Jana2017_4804,\nauthor = {Jana, Subrata and Samal, Prasanjit},\ntitle = {Semilocal Exchange Energy Functional for Two-Dimensional Quantum Systems: A Step Beyond Generalized Gradient Approximations},\njournal = {The Journal of Physical Chemistry A},\nvolume = {121},\nnumber = {25},\npages = {4804-4811},\nyear = {2017},\ndoi = {10.1021/acs.jpca.7b03686},\nURL = {https://doi.org/10.1021/acs.jpca.7b03686},\n}"
 };
@@ -2306,6 +2306,13 @@ func_reference_type xc_ref_Cohen2007_191109 = {
   "A. J. Cohen, P. Mori-Sánchez, and W. Yang, J. Chem. Phys. 126, 191109 (2007)",
   "10.1063/1.2741248",
   "@article{Cohen2007_191109,\nauthor = {Cohen,Aron J.  and Mori-Sánchez,Paula  and Yang,Weitao },\ntitle = {Development of exchange-correlation functionals with minimal many-electron self-interaction error},\njournal = {The Journal of Chemical Physics},\nvolume = {126},\nnumber = {19},\npages = {191109},\nyear = {2007},\ndoi = {10.1063/1.2741248},\nURL = {https://doi.org/10.1063/1.2741248},\n}"
+};
+
+
+func_reference_type xc_ref_Bartok2019_161101 = {
+  "A. P. Bartók and J. R. Yates, J. Chem. Phys. 150, 161101 (2019), https://doi.org/10.1063/1.5094646",
+  "10.1063/1.5094646",
+  "@article{Bartok2019_161101,\nauthor = {Bartók, Albert P. and Yates, Jonathan R.},\ntitle = {Regularized SCAN functional},\njournal = {The Journal of Chemical Physics},\nvolume = {150},\nnumber = {16},\npages = {161101},\nyear = {2019},\ndoi = {10.1063/1.5094646},\nURL = {https://doi.org/10.1063/1.5094646},\neprint = {https://doi.org/10.1063/1.5094646}\n}"
 };
 
 

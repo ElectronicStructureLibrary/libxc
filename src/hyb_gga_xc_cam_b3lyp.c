@@ -18,10 +18,10 @@ xc_hyb_gga_xc_cam_b3lyp_init(xc_func_type *p)
   double ac = 0.81;
   static int   funcs_id  [4] = {XC_GGA_X_B88, XC_GGA_X_ITYH, XC_LDA_C_VWN, XC_GGA_C_LYP};
   double funcs_coef[4];
-  
+
   /* Need temp variables since cam_ parameters are initialized in mix_init */
   static double omega, alpha, beta;
-  
+
   switch(p->info->number){
   case XC_HYB_GGA_XC_CAM_B3LYP:
     /* N.B. The notation used in Yanai et al uses a different
@@ -92,16 +92,17 @@ xc_hyb_gga_xc_rcam_b3lyp_init(xc_func_type *p)
 {
   static int funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_GGA_X_ITYH, XC_GGA_C_LYP};
   static double funcs_coef[4];
-  
+
   /* Need temp variables since cam_ parameters are initialized in mix_init */
-  static double omega, alpha, beta;
+  static double omega, alpha, beta, cb88;
 
   omega = 0.33;
   alpha = 0.18352 + 0.94979;
   beta  =-0.94979;
+  cb88  = 0.95238;
 
-  funcs_coef[0] = 1.0 - alpha - 0.95238;
-  funcs_coef[1] = 0.95238;
+  funcs_coef[0] = 1.0 - alpha - cb88;
+  funcs_coef[1] = cb88;
   funcs_coef[2] = -beta;
   funcs_coef[3] = 1.0;
 

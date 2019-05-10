@@ -9,7 +9,8 @@
 #include "util.h"
 
 #define XC_HYB_GGA_XC_CAM_B3LYP        433 /* CAM version of B3LYP */
-#define XC_HYB_GGA_XC_TUNED_CAM_B3LYP  434 /* CAM version of B3LYP tuned for excitations*/
+#define XC_HYB_GGA_XC_TUNED_CAM_B3LYP  434 /* CAM version of B3LYP tuned for excitations */
+#define XC_HYB_GGA_XC_RCAM_B3LYP       610 /* Similar to CAM-B3LYP, but trying to reduce the many-electron self-interaction */
 
 void
 xc_hyb_gga_xc_cam_b3lyp_init(xc_func_type *p)
@@ -65,11 +66,11 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_b3lyp = {
   "CAM version of B3LYP",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Yanai2004_51, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_cam_b3lyp_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_cam_b3lyp_init, NULL,
+  NULL, NULL, NULL
 };
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_tuned_cam_b3lyp = {
@@ -78,9 +79,49 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_tuned_cam_b3lyp = {
   "CAM version of B3LYP, tuned for excitations and properties",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Okuno2012_29, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_cam_b3lyp_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_cam_b3lyp_init, NULL,
+  NULL, NULL, NULL
+};
+
+
+void
+xc_hyb_gga_xc_rcam_b3lyp_init(xc_func_type *p)
+{
+  static int funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_GGA_X_ITYH, XC_GGA_C_LYP};
+  static double funcs_coef[4];
+  
+  /* Need temp variables since cam_ parameters are initialized in mix_init */
+  static double omega, alpha, beta;
+
+  omega = 0.33;
+  alpha = 0.18352 + 0.94979;
+  beta  =-0.94979;
+
+  funcs_coef[0] = 1.0 - alpha - 0.95238;
+  funcs_coef[1] = 0.95238;
+  funcs_coef[2] = -beta;
+  funcs_coef[3] = 1.0;
+
+  xc_mix_init(p, 4, funcs_id, funcs_coef);
+  xc_func_set_ext_params(p->func_aux[2], &omega);
+
+  p->cam_omega = omega;
+  p->cam_alpha = alpha;
+  p->cam_beta  = beta;
+}
+
+const xc_func_info_type xc_func_info_hyb_gga_xc_rcam_b3lyp = {
+  XC_HYB_GGA_XC_RCAM_B3LYP,
+  XC_EXCHANGE_CORRELATION,
+  "Similar to CAM-B3LYP, but trying to reduce the many-electron self-interaction",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Cohen2007_191109, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
+  1e-32,
+  0, NULL, NULL,
+  xc_hyb_gga_xc_rcam_b3lyp_init, NULL,
+  NULL, NULL, NULL
 };

@@ -1827,7 +1827,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -2299,6 +2299,13 @@ func_reference_type xc_ref_Jana2017_4804 = {
   "S. Jana and P. Samal, J. Phys. Chem A 121, 4804 (2017)",
   "10.1021/acs.jpca.7b03686",
   "@article{Jana2017_4804,\nauthor = {Jana, Subrata and Samal, Prasanjit},\ntitle = {Semilocal Exchange Energy Functional for Two-Dimensional Quantum Systems: A Step Beyond Generalized Gradient Approximations},\njournal = {The Journal of Physical Chemistry A},\nvolume = {121},\nnumber = {25},\npages = {4804-4811},\nyear = {2017},\ndoi = {10.1021/acs.jpca.7b03686},\nURL = {https://doi.org/10.1021/acs.jpca.7b03686},\n}"
+};
+
+
+func_reference_type xc_ref_Cohen2007_191109 = {
+  "A. J. Cohen, P. Mori-Sánchez, and W. Yang, J. Chem. Phys. 126, 191109 (2007)",
+  "10.1063/1.2741248",
+  "@article{Cohen2007_191109,\nauthor = {Cohen,Aron J.  and Mori-Sánchez,Paula  and Yang,Weitao },\ntitle = {Development of exchange-correlation functionals with minimal many-electron self-interaction error},\njournal = {The Journal of Chemical Physics},\nvolume = {126},\nnumber = {19},\npages = {191109},\nyear = {2007},\ndoi = {10.1063/1.2741248},\nURL = {https://doi.org/10.1063/1.2741248},\n}"
 };
 
 

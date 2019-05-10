@@ -37,11 +37,12 @@ mGGAs:
   *) tau1 functional (modified Becke exchange already implemented) http://aip.scitation.org/doi/abs/10.1063/1.1321309 This is a good reference for all LAP functionals.
 
 hybrids:
+  *) LDA0 https://journals.aps.org/prl/pdf/10.1103/PhysRevLett.108.126404
+  *) PBE1 https://doi.org/10.1063/1.4775591
   *) doi:10.1021/ct800530u (LR-omegaPBE08)
   *) http://dx.doi.org/10.1021/ct300715s
   *) (CAM-)S12g / (CAM-)S12h http://www.sciencedirect.com/science/article/pii/S0009261413008221
   *) HISS http://scitation.aip.org/content/aip/journal/jcp/127/22/10.1063/1.2822021 [*two* range separation constants!)
-  *) rCAM-B3LYP http://aip.scitation.org/doi/abs/10.1063/1.2741248
   *) WC04 and WP04 http://pubs.acs.org/doi/abs/10.1021/ct6001016
   *) CAM-LDA0 http://pubs.acs.org/doi/abs/10.1021/acs.jpca.5b10864
 

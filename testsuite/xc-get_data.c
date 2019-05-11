@@ -232,6 +232,7 @@ int main(int argc, char *argv[])
   switch(func.info->family)
     {
     case XC_FAMILY_LDA:
+    case XC_FAMILY_HYB_LDA:
       xc_lda(&func, 1, xc.rho, pzk, pvrho, pv2rho2, pv3rho3);
       break;
 

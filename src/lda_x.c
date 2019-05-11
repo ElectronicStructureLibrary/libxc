@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
+               2019      Susi Lehtola
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,9 +10,10 @@
 
 #include "util.h"
 
-#define XC_LDA_X         1   /* Exchange                            */
-#define XC_LDA_C_XALPHA  6   /* Slater Xalpha                       */
-#define XC_LDA_X_RAE   549   /* Rae self-energy corrected exchange  */
+#define XC_LDA_X             1   /* Exchange                            */
+#define XC_LDA_C_XALPHA      6   /* Slater Xalpha                       */
+#define XC_LDA_X_RAE       549   /* Rae self-energy corrected exchange  */
+#define XC_HYB_LDA_X0      177   /* LDA0: hybrid LDA exchange           */
 
 /*  
     Slater's Xalpha functional (Exc = alpha Ex)
@@ -120,4 +122,27 @@ const xc_func_info_type xc_func_info_lda_x_rae = {
   1, N_ext_params, N_set_ext_params,
   lda_x_init, NULL,
   work_lda, NULL, NULL
+};
+
+static void
+hyb_lda_x_lda0_init(xc_func_type *p)
+{
+  static int    funcs_id[1] = {XC_LDA_X};
+  static double funcs_coef[1] = {1.0 - 0.25};
+
+  xc_mix_init(p, 1, funcs_id, funcs_coef);
+  p->cam_alpha = 0.25;
+}
+
+const xc_func_info_type xc_func_info_hyb_lda_x0 = {
+  XC_HYB_LDA_X0,
+  XC_EXCHANGE,
+  "LDA hybrid exchange (LDA0)",
+  XC_FAMILY_HYB_LDA,
+  {&xc_ref_Rinke2012_126404, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-32,
+  0, NULL, NULL,
+  hyb_lda_x_lda0_init, NULL,
+  NULL, NULL, NULL /* this is taken care of by the generic routine */
 };

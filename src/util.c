@@ -71,6 +71,9 @@ const char *get_family(const xc_func_type *func) {
     case(XC_FAMILY_OEP):
       return "XC_FAMILY_OEP";
 
+    case(XC_FAMILY_HYB_LDA):
+      return "XC_FAMILY_HYB_LDA";
+
     case(XC_FAMILY_HYB_GGA):
       return "XC_FAMILY_HYB_GGA";
 

@@ -566,7 +566,7 @@ class LibXCFunctional(object):
 
         # Find the right compute function
         args = [self.xc_func, ctypes.c_int(npoints)]
-        if self.get_family() == flags.XC_FAMILY_LDA:
+        if self.get_family() in [flags.XC_FAMILY_LDA, flags.XC_FAMILY_HYB_LDA]:
 
             # Build input args
             required_input = ["rho"]

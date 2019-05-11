@@ -87,6 +87,10 @@ int main(void) {
       strcpy(family,"mgga_");
       break;
 
+    case(XC_FAMILY_HYB_LDA):
+      strcpy(family,"hyb_lda_");
+      break;
+
     case(XC_FAMILY_HYB_GGA):
       strcpy(family,"hyb_gga_");
       break;

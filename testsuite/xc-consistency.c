@@ -65,6 +65,7 @@ double get_point(xc_func_type *func, double point[5], double *e, double der[5], 
   switch(func->info->family)
     {
     case XC_FAMILY_LDA:
+    case XC_FAMILY_HYB_LDA:
       xc_lda_exc_vxc(func, 1, &(point[0]), e, &(der[0]));
       break;
     case XC_FAMILY_GGA:
@@ -103,6 +104,7 @@ void get_fxc(xc_func_type *func, double point[5], double der[5][5])
   switch(func->info->family)
     {
     case XC_FAMILY_LDA:
+    case XC_FAMILY_HYB_LDA:
       xc_lda_fxc(func, 1, &(point[0]), v2rho);
       break;
     case XC_FAMILY_GGA:

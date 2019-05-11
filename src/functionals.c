@@ -17,7 +17,8 @@
 #endif
 
 extern xc_func_info_type 
-  *xc_lda_known_funct[], 
+  *xc_lda_known_funct[],
+  *xc_hyb_lda_known_funct[],
   *xc_gga_known_funct[],
   *xc_hyb_gga_known_funct[],
   *xc_mgga_known_funct[],
@@ -82,6 +83,15 @@ int xc_family_from_id(int id, int *family, int *number)
       if(family != NULL) *family = XC_FAMILY_LDA;
       if(number != NULL) *number = ii;
       return XC_FAMILY_LDA;
+    }
+  }
+
+  /* or is it a hybrid LDA? */
+  for(ii=0; xc_hyb_lda_known_funct[ii]!=NULL; ii++){
+    if(xc_hyb_lda_known_funct[ii]->number == id){
+      if(family != NULL) *family = XC_FAMILY_HYB_LDA;
+      if(number != NULL) *number = ii;
+      return XC_FAMILY_HYB_LDA;
     }
   }
 
@@ -204,6 +214,11 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
   switch(xc_family_from_id(functional, NULL, &number)){
   case(XC_FAMILY_LDA):
     func->info = xc_lda_known_funct[number];
+    internal_counters_set_lda(func->nspin, &(func->dim));
+    break;
+
+  case(XC_FAMILY_HYB_LDA):
+    func->info = xc_hyb_lda_known_funct[number];
     internal_counters_set_lda(func->nspin, &(func->dim));
     break;
 

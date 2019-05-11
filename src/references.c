@@ -2316,3 +2316,10 @@ func_reference_type xc_ref_Bartok2019_161101 = {
 };
 
 
+func_reference_type xc_ref_Rinke2012_126404 = {
+  "P. Rinke, A. Schleife, E. Kioupakis, A. Janotti, C. Rödl, F. Bechstedt, M. Scheffler, and C. G. Van de Walle, Phys. Rev. Lett. 108, 126404 (2012)",
+  "10.1103/PhysRevLett.108.126404",
+  "@article{Rinke2012_126404,\n  title = {First-Principles Optical Spectra for $F$ Centers in MgO},\n  author = {Rinke, Patrick and Schleife, André and Kioupakis, Emmanouil and Janotti, Anderson and Rödl, Claudia and Bechstedt, Friedhelm and Scheffler, Matthias and Van de Walle, Chris G.},\n  journal = {Phys. Rev. Lett.},\n  volume = {108},\n  issue = {12},\n  pages = {126404},\n  numpages = {5},\n  year = {2012},\n  month = {Mar},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.108.126404},\n  url = {https://link.aps.org/doi/10.1103/PhysRevLett.108.126404}\n}"
+};
+
+

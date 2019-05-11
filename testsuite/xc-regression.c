@@ -330,6 +330,7 @@ int main(int argc, char *argv[])
   /* Evaluate xc functional */
   switch(family) {
   case XC_FAMILY_LDA:
+  case XC_FAMILY_HYB_LDA:
     xc_lda(&func, d.n, d.rho, zk, vrho, v2rho2, v3rho3);
     break;
   case XC_FAMILY_GGA:

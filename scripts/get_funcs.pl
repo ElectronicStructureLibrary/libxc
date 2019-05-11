@@ -14,7 +14,7 @@ if(@ARGV < 2) {
 $srcdir = shift;
 $builddir = shift;
 
-my @funcs = ("lda", "gga", "hyb_gga", "mgga", "hyb_mgga");
+my @funcs = ("lda", "hyb_lda", "gga", "hyb_gga", "mgga", "hyb_mgga");
 my %all_ids;
 
 open(DOCS, ">$builddir/libxc_docs.txt") or die("Could not open '$builddir/libxc_docs.txt.'\n");

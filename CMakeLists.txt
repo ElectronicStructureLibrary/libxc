@@ -284,6 +284,7 @@ mgga_c_m08.c
 mgga_c_pkzb.c
 mgga_c_revscan.c
 mgga_c_revtpss.c
+mgga_c_rscan.c
 mgga_c_scan.c
 mgga_c_tpss.c
 mgga_c_tpssloc.c
@@ -309,6 +310,7 @@ mgga_x_mvs.c
 mgga_x_mvsb.c
 mgga_x_pbe_gx.c
 mgga_x_pkzb.c
+mgga_x_rscan.c
 mgga_x_sa_tpss.c
 mgga_x_scan.c
 mgga_x_tau_hcth.c

@@ -56,11 +56,23 @@ xc_lda(const xc_func_type *func, int np, const double *rho,
   if(v3rho3 != NULL)
     memset(v3rho3, 0, np*sizeof(double)*dim->v3rho3);
 
-  assert(func->info != NULL);
-  assert(func->info->lda != NULL);
-
   /* call the LDA routines */
-  func->info->lda(func, np, rho, zk, vrho, v2rho2, v3rho3);
+  if(func->info->lda != NULL)
+    func->info->lda(func, np, rho, zk, vrho, v2rho2, v3rho3);
+
+  if(func->mix_coef != NULL)
+    xc_mix_func(func, np, rho, NULL, NULL, NULL, zk, vrho, NULL, NULL, NULL,
+                v2rho2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                v3rho3, NULL, NULL, NULL,
+                NULL, NULL, NULL,
+                NULL, NULL,
+                NULL,
+                NULL, NULL, NULL,
+                NULL, NULL,
+                NULL,
+                NULL, NULL,
+                NULL,
+                NULL);
 }
 
 

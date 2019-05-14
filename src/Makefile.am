@@ -176,7 +176,7 @@ CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 xc_f.o : xc_f_inc.c
 
 xc_funcs.h xc_funcs_worker.h libxc_inc.f03 libxc_funcs.f90 \
-funcs_lda.c funcs_gga.c funcs_hyb_gga.c \
+funcs_lda.c funcs_hyb_lda.c funcs_gga.c funcs_hyb_gga.c \
 funcs_mgga.c funcs_hyb_mgga.c funcs_key.c: $(srcdir)/../scripts/get_funcs.pl
 	$(srcdir)/../scripts/get_funcs.pl $(srcdir) $(top_builddir)/src
 

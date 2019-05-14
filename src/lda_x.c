@@ -13,7 +13,7 @@
 #define XC_LDA_X             1   /* Exchange                            */
 #define XC_LDA_C_XALPHA      6   /* Slater Xalpha                       */
 #define XC_LDA_X_RAE       549   /* Rae self-energy corrected exchange  */
-#define XC_HYB_LDA_X0      177   /* LDA0: hybrid LDA exchange           */
+#define XC_HYB_LDA_XC_LDA0 177   /* LDA0: hybrid LDA exchange           */
 
 /*  
     Slater's Xalpha functional (Exc = alpha Ex)
@@ -124,18 +124,20 @@ const xc_func_info_type xc_func_info_lda_x_rae = {
   work_lda, NULL, NULL
 };
 
+/* Patrick Rinke confirmed that this functional only contains
+   75% of LDA correlation. */
 static void
-hyb_lda_x_lda0_init(xc_func_type *p)
+hyb_lda_xc_lda0_init(xc_func_type *p)
 {
-  static int    funcs_id[1] = {XC_LDA_X};
-  static double funcs_coef[1] = {1.0 - 0.25};
+  static int    funcs_id[2] = {XC_LDA_X, XC_LDA_C_PW_MOD};
+  static double funcs_coef[2] = {1.0 - 0.25, 1.0 - 0.25};
 
-  xc_mix_init(p, 1, funcs_id, funcs_coef);
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
   p->cam_alpha = 0.25;
 }
 
-const xc_func_info_type xc_func_info_hyb_lda_x0 = {
-  XC_HYB_LDA_X0,
+const xc_func_info_type xc_func_info_hyb_lda_xc_lda0 = {
+  XC_HYB_LDA_XC_LDA0,
   XC_EXCHANGE,
   "LDA hybrid exchange (LDA0)",
   XC_FAMILY_HYB_LDA,
@@ -143,6 +145,6 @@ const xc_func_info_type xc_func_info_hyb_lda_x0 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  hyb_lda_x_lda0_init, NULL,
+  hyb_lda_xc_lda0_init, NULL,
   NULL, NULL, NULL /* this is taken care of by the generic routine */
 };

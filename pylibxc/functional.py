@@ -241,7 +241,7 @@ class LibXCFunctional(object):
             self._cam_alpha = self.xc_func.contents.cam_alpha
             self._cam_beta = self.xc_func.contents.cam_beta
 
-        elif self._family in [flags.XC_FAMILY_HYB_GGA, flags.XC_FAMILY_HYB_MGGA]:
+        elif self._family in [flags.XC_FAMILY_HYB_LDA, flags.XC_FAMILY_HYB_GGA, flags.XC_FAMILY_HYB_MGGA]:
             self._cam_alpha = self.xc_func.contents.cam_alpha
 
         # VV10

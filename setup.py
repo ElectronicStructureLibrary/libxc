@@ -36,6 +36,8 @@ class CMakeBuild(build_ext):
         cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + extdir]
         cmake_args += ['-DBUILD_SHARED_LIBS=ON']
         cmake_args += ['-DBUILD_TESTING=OFF']
+        # Python tests need third derivatives
+        cmake_args += ['-DDISABLE_KXC=OFF']
 
         cfg = 'Debug' if self.debug else 'Release'
         build_args = ['--config', cfg]

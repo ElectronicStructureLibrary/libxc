@@ -43,7 +43,7 @@ libxc_la_FUNC_SOURCES = \
 	lda_xc_ksdt.c lda_c_chachiyo.c lda_xc_1d_ehwlrg.c lda_x_rel.c	\
 	lda_x_erf.c lda_k_zlp.c lda_c_gk72.c lda_xc_bn05.c		\
 	lda_c_pmgb06.c lda_k_gds08_worker.c lda_xc_tih.c		\
-	lda_x_1d_exponential.c lda_x_1d_soft.c \
+	lda_x_1d_exponential.c lda_x_1d_soft.c hyb_lda_xc_cam_lda0.c    \
 	gga.c \
 	gga_x_lg93.c gga_x_pbe.c gga_x_rpbe.c gga_x_pbea.c		\
 	gga_x_mpbe.c gga_x_herman.c gga_x_b86.c gga_x_b88.c		\
@@ -176,7 +176,7 @@ CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 xc_f.o : xc_f_inc.c
 
 xc_funcs.h xc_funcs_worker.h libxc_inc.f03 libxc_funcs.f90 \
-funcs_lda.c funcs_gga.c funcs_hyb_gga.c \
+funcs_lda.c funcs_hyb_lda.c funcs_gga.c funcs_hyb_gga.c \
 funcs_mgga.c funcs_hyb_mgga.c funcs_key.c: $(srcdir)/../scripts/get_funcs.pl
 	$(srcdir)/../scripts/get_funcs.pl $(srcdir) $(top_builddir)/src
 

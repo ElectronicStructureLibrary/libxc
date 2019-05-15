@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
   printf("%10s: %s\n","comment", func.info->name);
 
   /* Print out hybrid exchange info */
-  if(func.info->family==XC_FAMILY_HYB_GGA || func.info->family==XC_FAMILY_HYB_MGGA) {
+  if(func.info->family==XC_FAMILY_HYB_LDA || func.info->family==XC_FAMILY_HYB_GGA || func.info->family==XC_FAMILY_HYB_MGGA) {
     /* Range separation? */
     int rangesep=0;
     if(func.info->flags & XC_FLAGS_HYB_CAM)

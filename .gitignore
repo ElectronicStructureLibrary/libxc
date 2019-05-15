@@ -59,6 +59,7 @@ Makefile.in
 /src/funcs_lda.c
 /src/funcs_gga.c
 /src/funcs_lca.c
+/src/funcs_hyb_lda.c
 /src/funcs_hyb_gga.c
 /src/funcs_hyb_mgga.c
 /src/xc_funcs.h

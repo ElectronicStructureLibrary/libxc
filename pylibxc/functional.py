@@ -241,7 +241,7 @@ class LibXCFunctional(object):
             self._cam_alpha = self.xc_func.contents.cam_alpha
             self._cam_beta = self.xc_func.contents.cam_beta
 
-        elif self._family in [flags.XC_FAMILY_HYB_GGA, flags.XC_FAMILY_HYB_MGGA]:
+        elif self._family in [flags.XC_FAMILY_HYB_LDA, flags.XC_FAMILY_HYB_GGA, flags.XC_FAMILY_HYB_MGGA]:
             self._cam_alpha = self.xc_func.contents.cam_alpha
 
         # VV10
@@ -566,7 +566,7 @@ class LibXCFunctional(object):
 
         # Find the right compute function
         args = [self.xc_func, ctypes.c_int(npoints)]
-        if self.get_family() == flags.XC_FAMILY_LDA:
+        if self.get_family() in [flags.XC_FAMILY_LDA, flags.XC_FAMILY_HYB_LDA]:
 
             # Build input args
             required_input = ["rho"]

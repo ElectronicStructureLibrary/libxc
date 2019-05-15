@@ -153,8 +153,8 @@ int main(void) {
   char *fname;
 
   /* Families to print out */
-  const int families[]={XC_FAMILY_LDA, XC_FAMILY_GGA, XC_FAMILY_HYB_GGA, XC_FAMILY_MGGA, XC_FAMILY_HYB_MGGA};
-  const char *famleg[]={"LDA","GGA","hybrid GGA","meta-GGA","hybrid meta-GGA"};
+  const int families[]={XC_FAMILY_LDA, XC_FAMILY_HYB_LDA, XC_FAMILY_GGA, XC_FAMILY_HYB_GGA, XC_FAMILY_MGGA, XC_FAMILY_HYB_MGGA};
+  const char *famleg[]={"LDA","hybrid LDA","GGA","hybrid GGA","meta-GGA","hybrid meta-GGA"};
   const int Nfam=sizeof(families)/sizeof(families[0]);
   int ifam;
   /* Types to print out */

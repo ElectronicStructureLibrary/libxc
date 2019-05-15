@@ -225,6 +225,7 @@ hyb_gga_xc_lcy_pbe.c
 hyb_gga_xc_o3lyp.c
 hyb_gga_xc_pbeh.c
 hyb_gga_xc_wb97.c
+hyb_lda_xc_cam_lda0.c
 hyb_mgga_x_dldf.c
 hyb_mgga_x_m05.c
 hyb_mgga_x_mvsh.c

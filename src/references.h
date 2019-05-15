@@ -342,3 +342,5 @@ extern func_reference_type xc_ref_Gaiduk2011_012509;
 extern func_reference_type xc_ref_Jana2017_4804;
 extern func_reference_type xc_ref_Cohen2007_191109;
 extern func_reference_type xc_ref_Bartok2019_161101;
+extern func_reference_type xc_ref_Rinke2012_126404;
+extern func_reference_type xc_ref_Mosquera2016_1605;

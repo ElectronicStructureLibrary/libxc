@@ -40,7 +40,7 @@ xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix
 
 #define is_mgga(id)   ((id) == XC_FAMILY_MGGA || (id) == XC_FAMILY_HYB_MGGA)
 #define is_gga(id)    ((id) == XC_FAMILY_GGA  || (id) == XC_FAMILY_HYB_GGA || is_mgga(id))
-#define is_lda(id)    ((id) == XC_FAMILY_LDA  || is_gga(is))
+#define is_lda(id)    ((id) == XC_FAMILY_LDA  || (id) == XC_FAMILY_HYB_LDA ||  is_gga(id))
 #define safe_free(pt) if(pt != NULL) free(pt)
 
 void
@@ -156,7 +156,7 @@ xc_mix_func(const xc_func_type *func, int np,
     aux = func->func_aux[ii];
     switch(aux->info->family){
     case XC_FAMILY_LDA:
-      xc_lda(aux, np, rho, zk_, vrho_, v2rho2_, NULL);
+      xc_lda(aux, np, rho, zk_, vrho_, v2rho2_, v3rho3_);
       break;
     case XC_FAMILY_GGA:
       xc_gga(aux, np, rho, sigma, zk_, vrho_, vsigma_,

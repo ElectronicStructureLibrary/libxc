@@ -13,7 +13,7 @@
 void
 xc_hyb_lda_xc_cam_lda0_init(xc_func_type *p)
 {
-  static int funcs_id[3] = {XC_LDA_X, XC_LDA_X_ERF, XC_LDA_C_PZ_MOD};
+  static int funcs_id[3] = {XC_LDA_X, XC_LDA_X_ERF, XC_LDA_C_PW_MOD};
   double funcs_coef[3];
   double omega, exxglobal, exxlr;
   double alpha, beta;

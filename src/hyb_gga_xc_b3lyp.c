@@ -360,7 +360,7 @@ xc_hyb_gga_xc_wc04_init(xc_func_type *p)
 const xc_func_info_type xc_func_info_hyb_gga_xc_wc04 = {
   XC_HYB_GGA_XC_WC04,
   XC_EXCHANGE_CORRELATION,
-  "B3LYP",
+  "hybrid fitted to carbon NMR shifts",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Wiitala2006_1085, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
@@ -393,7 +393,7 @@ xc_hyb_gga_xc_wp04_init(xc_func_type *p)
 const xc_func_info_type xc_func_info_hyb_gga_xc_wp04 = {
   XC_HYB_GGA_XC_WP04,
   XC_EXCHANGE_CORRELATION,
-  "B3LYP",
+  "hybrid fitted to proton NMR shifts",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Wiitala2006_1085, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,

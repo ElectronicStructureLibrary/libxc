@@ -20,6 +20,8 @@
 #define XC_HYB_GGA_XC_B5050LYP      572 /* Like B3LYP but more exact exchange    */
 #define XC_HYB_GGA_XC_KMLYP         485 /* Kang-Musgrave hybrid                  */
 #define XC_HYB_GGA_XC_APF           409 /* APF hybrid density functional         */
+#define XC_HYB_GGA_XC_WC04          611 /* hybrid fitted to carbon NMR shifts    */
+#define XC_HYB_GGA_XC_WP04          612 /* hybrid fitted to proton NMR shifts    */
 
 /*************************************************************/
 void
@@ -41,8 +43,8 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3pw91 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_b3pw91_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_b3pw91_init, NULL,
+  NULL, NULL, NULL
 };
 
 
@@ -66,8 +68,8 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_b3lyp_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_b3lyp_init, NULL,
+  NULL, NULL, NULL
 };
 
 /*************************************************************/
@@ -90,8 +92,8 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp5 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_b3lyp5_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_b3lyp5_init, NULL,
+  NULL, NULL, NULL
 };
 
 
@@ -115,8 +117,8 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3p86 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_b3p86_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_b3p86_init, NULL,
+  NULL, NULL, NULL
 };
 
 
@@ -140,8 +142,8 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mpw3pw = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_mpw3pw_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_mpw3pw_init, NULL,
+  NULL, NULL, NULL
 };
 
 
@@ -165,8 +167,8 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mpw3lyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_mpw3lyp_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_mpw3lyp_init, NULL,
+  NULL, NULL, NULL
 };
 
 
@@ -190,8 +192,8 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mb3lyp_rc04 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_mb3lyp_rc04_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_mb3lyp_rc04_init, NULL,
+  NULL, NULL, NULL
 };
 
 /*************************************************************/
@@ -214,8 +216,8 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_revb3lyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_revb3lyp_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_revb3lyp_init, NULL,
+  NULL, NULL, NULL
 };
 
 
@@ -239,8 +241,8 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyps = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_b3lyps_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_b3lyps_init, NULL,
+  NULL, NULL, NULL
 };
 
 
@@ -264,8 +266,8 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b5050lyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_b5050lyp_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_b5050lyp_init, NULL,
+  NULL, NULL, NULL
 };
 
 
@@ -289,8 +291,8 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_kmlyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_kmlyp_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_kmlyp_init, NULL,
+  NULL, NULL, NULL
 };
 
 
@@ -331,6 +333,74 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_apf = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
-  xc_hyb_gga_xc_apf_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_apf_init, NULL,
+  NULL, NULL, NULL
 };
+
+
+/*************************************************************/
+void
+xc_hyb_gga_xc_wc04_init(xc_func_type *p)
+{
+  /* From the paper it is not clear if the LSDA is VWN or VWN_RPA.
+     Due to the comparison to B3LYP I think the latter is more likely */
+  const double PP[5] = {0.7400, 0.9999, 0.0001, 0.0001, 0.9999};
+  static int funcs_id[4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_VWN_RPA, XC_GGA_C_LYP};
+  double funcs_coef[4];
+
+  funcs_coef[0] = PP[2] - PP[1];
+  funcs_coef[1] = PP[1];
+  funcs_coef[2] = PP[4] - PP[3];
+  funcs_coef[3] = PP[3];
+
+  xc_mix_init(p, 4, funcs_id, funcs_coef);
+  p->cam_alpha = PP[0];
+}
+
+const xc_func_info_type xc_func_info_hyb_gga_xc_wc04 = {
+  XC_HYB_GGA_XC_WC04,
+  XC_EXCHANGE_CORRELATION,
+  "B3LYP",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Wiitala2006_1085, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-32,
+  0, NULL, NULL,
+  xc_hyb_gga_xc_wc04_init, NULL,
+  NULL, NULL, NULL
+};
+
+
+/*************************************************************/
+void
+xc_hyb_gga_xc_wp04_init(xc_func_type *p)
+{
+  /* From the paper it is not clear if the LSDA is VWN or VWN_RPA.
+     Due to the comparison to B3LYP I think the latter is more likely */
+  const double PP[5] = {0.1189, 0.9614, 0.9999, 0.0001, 0.9999};
+  static int funcs_id[4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_VWN_RPA, XC_GGA_C_LYP};
+  double funcs_coef[4];
+
+  funcs_coef[0] = PP[2] - PP[1];
+  funcs_coef[1] = PP[1];
+  funcs_coef[2] = PP[4] - PP[3];
+  funcs_coef[3] = PP[3];
+
+  xc_mix_init(p, 4, funcs_id, funcs_coef);
+  p->cam_alpha = PP[0];
+}
+
+const xc_func_info_type xc_func_info_hyb_gga_xc_wp04 = {
+  XC_HYB_GGA_XC_WP04,
+  XC_EXCHANGE_CORRELATION,
+  "B3LYP",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Wiitala2006_1085, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-32,
+  0, NULL, NULL,
+  xc_hyb_gga_xc_wp04_init, NULL,
+  NULL, NULL, NULL
+};
+
+

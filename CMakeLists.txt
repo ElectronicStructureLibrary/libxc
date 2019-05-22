@@ -96,6 +96,7 @@ set(raw_sources_list
 bessel.c
 expint_e1.c
 func_info.c
+func_reference.c
 functionals.c
 gga.c
 gga_c_acgga.c

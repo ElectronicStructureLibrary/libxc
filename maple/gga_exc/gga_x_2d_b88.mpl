@@ -10,7 +10,7 @@
 
 $define xc_dimensions_2d
 
-_2d_b88_beta := 0.018641:
+_2d_b88_beta := 0.007:
 _2d_b88_csi  := 8: (* for harmonic potentials *)
 
 _2d_b88_f := x -> 1 + _2d_b88_beta/X_FACTOR_2D_C*x^2/(1 + _2d_b88_csi*_2d_b88_beta*x*arcsinh(x)):

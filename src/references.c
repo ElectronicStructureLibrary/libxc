@@ -1827,7 +1827,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -2327,6 +2327,13 @@ func_reference_type xc_ref_Mosquera2016_1605 = {
   "M. A. Mosquera, C. H. Borca, M. A. Ratner, and G. C. Schatz, J. Phys. Chem A 120, 1605 (2016), pMID: 26901359, https://doi.org/10.1021/acs.jpca.5b10864",
   "10.1021/acs.jpca.5b10864",
   "@article{Mosquera2016_1605,\n  author = {Mosquera, Martín A. and Borca, Carlos H. and Ratner, Mark A. and Schatz, George C.},\n  title = {Connection between Hybrid Functionals and Importance of the Local Density Approximation},\n  journal = {The Journal of Physical Chemistry A},\n  volume = {120},\n  number = {9},\n  pages = {1605-1612},\n  year = {2016},\n  doi = {10.1021/acs.jpca.5b10864},\n  note ={PMID: 26901359},\n  URL = {https://doi.org/10.1021/acs.jpca.5b10864},\n  eprint = {https://doi.org/10.1021/acs.jpca.5b10864}\n}"
+};
+
+
+func_reference_type xc_ref_Wiitala2006_1085 = {
+  "K. W. Wiitala, T. R. Hoye, and C. J. Cramer, J. Chem. Theory Comput. 2, 1085 (2006)",
+  "10.1021/ct6001016",
+  "@article{Wiitala2006_1085,\nauthor = {Wiitala, Keith W. and Hoye, Thomas R. and Cramer, Christopher J.},\ntitle = {Hybrid Density Functional Methods Empirically Optimized for the Computation of 13C and 1H Chemical Shifts in Chloroform Solution},\njournal = {Journal of Chemical Theory and Computation},\nvolume = {2},\nnumber = {4},\npages = {1085-1092},\nyear = {2006},\ndoi = {10.1021/ct6001016},\nURL = {https://doi.org/10.1021/ct6001016},\n}"
 };
 
 

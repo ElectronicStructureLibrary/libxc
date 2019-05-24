@@ -1,3 +1,11 @@
+## [4.3.5] - To be released
+
+### Fixed
+- Unusable Fortran 2003 interface when using CMake due to a missing file in CMakeLists.txt.
+
+### Added
+- Optional output argument in the xc_f03_func_init subroutine of the Fortran 2003 interface holding the return error.
+
 ## [4.3.4] - 2019-03-04
 
 ### Fixed

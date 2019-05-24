@@ -133,7 +133,7 @@ module xc_f03_lib_m
     XC_FAMILY_OEP           =  16,     &
     XC_FAMILY_HYB_GGA       =  32,     &
     XC_FAMILY_HYB_MGGA      =  64,     &
-    XC_FAMILY_HYB_LDA       =  32
+    XC_FAMILY_HYB_LDA       = 128
 
   integer(c_int), parameter, public :: &
     XC_FLAGS_HAVE_EXC        =     1,   &

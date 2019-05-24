@@ -2337,3 +2337,10 @@ func_reference_type xc_ref_Wiitala2006_1085 = {
 };
 
 
+func_reference_type xc_ref_Chen2018_073803 = {
+  "W. Chen, G. Miceli, G.-M. Rignanese, and A. Pasquarello, Phys. Rev. Materials 2, 073803 (2018)",
+  "10.1103/PhysRevMaterials.2.073803",
+  "@article{Chen2018_073803,\n  title = {Nonempirical dielectric-dependent hybrid functional with range separation for semiconductors and insulators},\n  author = {Chen, Wei and Miceli, Giacomo and Rignanese, Gian-Marco and Pasquarello, Alfredo},\n  journal = {Phys. Rev. Materials},\n  volume = {2},\n  issue = {7},\n  pages = {073803},\n  numpages = {14},\n  year = {2018},\n  month = {Jul},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevMaterials.2.073803},\n  url = {https://link.aps.org/doi/10.1103/PhysRevMaterials.2.073803}\n}"
+};
+
+

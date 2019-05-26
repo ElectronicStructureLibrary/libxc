@@ -36,7 +36,7 @@ gg99_r := x -> my_piecewise3( x < Pi*48^(1/6), gg99_r_b1(x), gg99_r_b2(x)):
 
 gg99_f0 := r ->
   (-Pi^2 + 12*r*log(1 + exp(-2*r)) - 12*dilog(-exp(-2*r))) * cosh(r)^(2/3) /
-  (2*3^(1/3)*Pi*r):
+  (2*3^(1/3)*Pi*r*X_FACTOR_C):
 
 gg99_f := x -> gg99_f0(gg99_r(x)):
 

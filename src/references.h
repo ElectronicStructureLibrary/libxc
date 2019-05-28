@@ -345,3 +345,4 @@ extern func_reference_type xc_ref_Bartok2019_161101;
 extern func_reference_type xc_ref_Rinke2012_126404;
 extern func_reference_type xc_ref_Mosquera2016_1605;
 extern func_reference_type xc_ref_Wiitala2006_1085;
+extern func_reference_type xc_ref_Chen2018_073803;

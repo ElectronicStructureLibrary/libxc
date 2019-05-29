@@ -207,7 +207,7 @@ internal_counters_lda_next
    double **vrho, double **v2rho2, double **v3rho3
    )
 {
-  *rho += dim->rho;
+  *rho += dim->rho + offset;
   if(*zk != NULL)     *zk     += dim->zk     + offset;
   if(*vrho != NULL)   *vrho   += dim->vrho   + offset;
   if(*v2rho2 != NULL) *v2rho2 += dim->v2rho2 + offset;
@@ -222,7 +222,7 @@ internal_counters_lda_prev
    double **vrho, double **v2rho2, double **v3rho3
    )
 {
-  *rho += dim->rho;
+  *rho -= dim->rho + offset;
   if(*zk != NULL)     *zk     -= dim->zk     + offset;
   if(*vrho != NULL)   *vrho   -= dim->vrho   + offset;
   if(*v2rho2 != NULL) *v2rho2 -= dim->v2rho2 + offset;
@@ -242,8 +242,8 @@ internal_counters_gga_next
 {
   internal_counters_lda_next(dim, offset, rho, zk, vrho, v2rho2, v3rho3);
 
-  *sigma += dim->sigma;
-  if(*vrho != NULL) *vsigma += dim->vsigma   + offset;
+  *sigma += dim->sigma + offset;
+  if(*vrho != NULL) *vsigma += dim->vsigma + offset;
   if(*v2rho2 != NULL) {
     *v2rhosigma += dim->v2rhosigma + offset;
     *v2sigma2   += dim->v2sigma2  + offset;
@@ -268,7 +268,7 @@ internal_counters_gga_prev
 {
   internal_counters_lda_prev(dim, offset, rho, zk, vrho, v2rho2, v3rho3);
 
-  *sigma -= dim->sigma;
+  *sigma -= dim->sigma + offset;
   if(*vrho != NULL) *vsigma -= dim->vsigma   + offset;
   if(*v2rho2 != NULL) {
     *v2rhosigma -= dim->v2rhosigma + offset;

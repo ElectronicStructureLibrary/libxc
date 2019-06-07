@@ -2344,3 +2344,10 @@ func_reference_type xc_ref_Chen2018_073803 = {
 };
 
 
+func_reference_type xc_ref_Ruggeri2018_161105 = {
+  "M. Ruggeri, P. L. R\\'{\\ios, and A. Alavi, }Phys. Rev. B 98, 161105 (2018)",
+  "10.1103/PhysRevB.98.161105",
+  "@article{Ruggeri2018_161105,\n  title = {Correlation energies of the high-density spin-polarized electron gas to meV accuracy},\n  author = {Ruggeri, Michele and R\\'{\\i}os, Pablo L\\'opez and Alavi, Ali},\n  journal = {Phys. Rev. B},\n  volume = {98},\n  issue = {16},\n  pages = {161105},\n  numpages = {6},\n  year = {2018},\n  month = {Oct},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.98.161105},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.98.161105}\n}"
+};
+
+

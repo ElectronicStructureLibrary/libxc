@@ -20,10 +20,12 @@ original PBE routine. This amounts to adding some more digits in some of
 the constants of PW.
 ************************************************************************/
 
-#define XC_LDA_C_PW     12   /* Perdew & Wang                */
-#define XC_LDA_C_PW_MOD 13   /* Perdew & Wang (Modified)     */
-#define XC_LDA_C_OB_PW  14   /* Ortiz & Ballone (PW)         */
-#define XC_LDA_C_PW_RPA 25   /* Perdew & Wang fit of the RPA */
+#define XC_LDA_C_PW      12   /* Perdew & Wang                             */
+#define XC_LDA_C_PW_MOD  13   /* Perdew & Wang (Modified)                  */
+#define XC_LDA_C_OB_PW   14   /* Ortiz & Ballone (PW)                      */
+#define XC_LDA_C_PW_RPA  25   /* Perdew & Wang fit of the RPA              */
+#define XC_LDA_C_UPW92  683   /* Ruggeri, Rios, and Alavi unrestricted fit */
+#define XC_LDA_C_RPW92  684   /* Ruggeri, Rios, and Alavi restricted fit   */
 
 typedef struct {
   double pp[3], a[3], alpha1[3];
@@ -75,6 +77,28 @@ static const lda_c_pw_params par_pw_rpa = {
   1.709921
 };
 
+static const lda_c_pw_params par_upw92 = {
+  {1.0,  1.0,  1.0},
+  {0.0310907, 0.01554535, 0.0168869},
+  {0.227012,  0.264193,  0.11125},
+  {7.5957, 14.1189, 10.357},
+  {3.5876, 6.1977, 3.6231},
+  {1.76522, 4.78287,  0.88026},
+  {0.523918, 0.750424, 0.49671},
+  1.709920934161365617563962776245
+};
+
+static const lda_c_pw_params par_rpw92 = {
+  {1.0,  1.0,  1.0},
+  {0.0310907, 0.01554535, 0.0168869},
+  {0.21370,  0.266529,  0.11125},
+  {7.5957, 14.1189, 10.357},
+  {3.5876, 6.1977, 3.6231},
+  {1.6382, 4.86059,  0.88026},
+  {0.49294, 0.750188, 0.49671},
+  1.709920934161365617563962776245
+};
+
 static void 
 lda_c_pw_init(xc_func_type *p)
 {  
@@ -97,6 +121,12 @@ lda_c_pw_init(xc_func_type *p)
   case XC_LDA_C_PW_RPA:
     memcpy(params, &par_pw_rpa, sizeof(lda_c_pw_params));
     break;
+  case XC_LDA_C_UPW92:
+    memcpy(params, &par_upw92, sizeof(lda_c_pw_params));
+    break;
+  case XC_LDA_C_RPW92:
+    memcpy(params, &par_rpw92, sizeof(lda_c_pw_params));
+    break;
   default:
     fprintf(stderr, "Internal error in lda_c_pw\n");
     exit(1);
@@ -115,11 +145,8 @@ const xc_func_info_type xc_func_info_lda_c_pw = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
   0, NULL, NULL,
-  lda_c_pw_init, /* init */
-  NULL,     /* end  */
-  work_lda, /* lda  */
-  NULL,
-  NULL
+  lda_c_pw_init, NULL,
+  work_lda, NULL, NULL
 };
 
 const xc_func_info_type xc_func_info_lda_c_pw_mod = {
@@ -131,11 +158,8 @@ const xc_func_info_type xc_func_info_lda_c_pw_mod = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
   0, NULL, NULL,
-  lda_c_pw_init, /* init */
-  NULL,     /* end  */
-  work_lda, /* lda  */
-  NULL,
-  NULL
+  lda_c_pw_init, NULL,
+  work_lda, NULL, NULL
 };
 
 const xc_func_info_type xc_func_info_lda_c_ob_pw = {
@@ -147,11 +171,8 @@ const xc_func_info_type xc_func_info_lda_c_ob_pw = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
   0, NULL, NULL,
-  lda_c_pw_init, /* init */
-  NULL,     /* end  */
-  work_lda, /* lda  */
-  NULL,
-  NULL
+  lda_c_pw_init, NULL,
+  work_lda, NULL, NULL
 };
 
 const xc_func_info_type xc_func_info_lda_c_pw_rpa = {
@@ -163,9 +184,32 @@ const xc_func_info_type xc_func_info_lda_c_pw_rpa = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
   0, NULL, NULL,
-  lda_c_pw_init, /* init */
-  NULL,     /* end  */
-  work_lda, /* lda  */
-  NULL,
-  NULL
+  lda_c_pw_init, NULL,
+  work_lda, NULL, NULL
+};
+
+const xc_func_info_type xc_func_info_lda_c_upw92 = {
+  XC_LDA_C_UPW92,
+  XC_CORRELATION,
+  "Ruggeri, Rios, and Alavi unrestricted fit",
+  XC_FAMILY_LDA,
+  {&xc_ref_Ruggeri2018_161105, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-24,
+  0, NULL, NULL,
+  lda_c_pw_init, NULL,
+  work_lda, NULL, NULL
+};
+
+const xc_func_info_type xc_func_info_lda_c_rpw92 = {
+  XC_LDA_C_RPW92,
+  XC_CORRELATION,
+  "Ruggeri, Rios, and Alavi unrestricted fit",
+  XC_FAMILY_LDA,
+  {&xc_ref_Ruggeri2018_161105, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-24,
+  0, NULL, NULL,
+  lda_c_pw_init, NULL,
+  work_lda, NULL, NULL
 };

@@ -66,6 +66,9 @@ static const lda_c_pw_params par_ob = {
   1.709921
 };
 
+/* The parameters fixed by the low and high-density limits were 
+   taken from the pw_mod functional, i.e. they contain more 
+   significant digits than the vanilla pw */
 static const lda_c_pw_params par_pw_rpa = {
   {0.75, 0.75, 1.0},
   {0.031091,  0.015545,   0.016887},
@@ -204,7 +207,7 @@ const xc_func_info_type xc_func_info_lda_c_upw92 = {
 const xc_func_info_type xc_func_info_lda_c_rpw92 = {
   XC_LDA_C_RPW92,
   XC_CORRELATION,
-  "Ruggeri, Rios, and Alavi unrestricted fit",
+  "Ruggeri, Rios, and Alavi restricted fit",
   XC_FAMILY_LDA,
   {&xc_ref_Ruggeri2018_161105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,

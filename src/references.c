@@ -1827,7 +1827,7 @@ func_reference_type xc_ref_Perdew2007_155109 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -2348,6 +2348,13 @@ func_reference_type xc_ref_Ruggeri2018_161105 = {
   "M. Ruggeri, P. L. R\\'{\\ios, and A. Alavi, }Phys. Rev. B 98, 161105 (2018)",
   "10.1103/PhysRevB.98.161105",
   "@article{Ruggeri2018_161105,\n  title = {Correlation energies of the high-density spin-polarized electron gas to meV accuracy},\n  author = {Ruggeri, Michele and R\\'{\\i}os, Pablo L\\'opez and Alavi, Ali},\n  journal = {Phys. Rev. B},\n  volume = {98},\n  issue = {16},\n  pages = {161105},\n  numpages = {6},\n  year = {2018},\n  month = {Oct},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.98.161105},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.98.161105}\n}"
+};
+
+
+func_reference_type xc_ref_Eich2014_224107 = {
+  "F. G. Eich and M. Hellgren, J. Chem. Phys. 141, 224107 (2014)",
+  "10.1063/1.4903273",
+  "@article{Eich2014_224107,\nauthor = {Eich,F. G.  and Hellgren,Maria },\ntitle = {Derivative discontinuity and exchange-correlation potential of meta-GGAs in density-functional theory},\njournal = {The Journal of Chemical Physics},\nvolume = {141},\nnumber = {22},\npages = {224107},\nyear = {2014},\ndoi = {10.1063/1.4903273},\nURL = {https://doi.org/10.1063/1.4903273},\n}"
 };
 
 

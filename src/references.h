@@ -347,3 +347,4 @@ extern func_reference_type xc_ref_Mosquera2016_1605;
 extern func_reference_type xc_ref_Wiitala2006_1085;
 extern func_reference_type xc_ref_Chen2018_073803;
 extern func_reference_type xc_ref_Ruggeri2018_161105;
+extern func_reference_type xc_ref_Eich2014_224107;

@@ -22,7 +22,7 @@ const xc_func_info_type xc_func_info_lda_c_gombas = {
   XC_CORRELATION,
   "Gombas",
   XC_FAMILY_LDA,
-  {&xc_ref_Gombas1967, NULL, NULL, NULL, NULL},
+  {&xc_ref_Gombas1965_137, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,

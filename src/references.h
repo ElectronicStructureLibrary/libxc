@@ -187,6 +187,7 @@ extern func_reference_type xc_ref_Krukau2006_224106;
 extern func_reference_type xc_ref_Yanai2004_51;
 extern func_reference_type xc_ref_Okuno2012_29;
 extern func_reference_type xc_ref_Ernzerhof1999_911;
+extern func_reference_type xc_ref_Tao2001_3519;
 extern func_reference_type xc_ref_Tao2003_146401;
 extern func_reference_type xc_ref_Perdew2004_6898;
 extern func_reference_type xc_ref_Perdew2007_042506;

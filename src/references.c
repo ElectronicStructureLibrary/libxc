@@ -1231,6 +1231,13 @@ func_reference_type xc_ref_Ernzerhof1999_911 = {
 };
 
 
+func_reference_type xc_ref_Tao2001_3519 = {
+  "J. Tao, J. Chem. Phys. 115, 3519 (2001)",
+  "10.1063/1.1388047",
+  "@article{Tao2001_3519,\n  author = {Tao,Jianmin },\n  title = {Exchange energy density of an atom as a functional of the electron density},\n  journal = {The Journal of Chemical Physics},\n  volume = {115},\n  number = {8},\n  pages = {3519-3530},\n  year = {2001},\n  doi = {10.1063/1.1388047},\n  URL = {https://doi.org/10.1063/1.1388047},\n}"
+};
+
+
 func_reference_type xc_ref_Tao2003_146401 = {
   "J. Tao, J. P. Perdew, V. N. Staroverov, and G. E. Scuseria, Phys. Rev. Lett. 91, 146401 (2003)",
   "10.1103/PhysRevLett.91.146401",

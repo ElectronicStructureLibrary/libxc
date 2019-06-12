@@ -328,6 +328,7 @@ mgga_xc_otpss_d.c
 mgga_xc_zlp.c
 mgga_xc_b98.c
 mgga_x_2d_js17.c
+mgga_x_tlda.c
 mix_func.c
 references.c
 special_functions.c

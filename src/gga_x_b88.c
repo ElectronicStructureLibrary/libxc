@@ -13,6 +13,7 @@
 #define XC_GGA_X_MB88         149 /* Modified Becke 88 for proton transfer */
 #define XC_GGA_X_EB88         271 /* Non-empirical (excogitated) B88 functional of Becke and Elliott */
 #define XC_GGA_X_B88M         570 /* Becke 88 reoptimized to be used with mgga_c_tau1 */
+#define XC_GGA_X_B88_6311G    179 /* Becke 88 reoptimized with 6-311G** basis set */
 
 typedef struct{
   double beta, gamma;
@@ -47,6 +48,10 @@ gga_x_b88_init(xc_func_type *p)
     break;
   case XC_GGA_X_B88M:
     params->beta  = 0.0045;
+    params->gamma = 6.0;
+    break;
+  case XC_GGA_X_B88_6311G:
+    params->beta  = 0.0051;
     params->gamma = 6.0;
     break;
   default:
@@ -134,6 +139,19 @@ const xc_func_info_type xc_func_info_gga_x_b88m = {
   "Becke 88 reoptimized to be used with tau1",
   XC_FAMILY_GGA,
   {&xc_ref_Proynov2000_10013, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-25,
+  0, NULL, NULL,
+  gga_x_b88_init,  NULL, 
+  NULL, work_gga, NULL
+};
+
+const xc_func_info_type xc_func_info_gga_x_b88_6311g = {
+  XC_GGA_X_B88_6311G,
+  XC_EXCHANGE,
+  "Becke 88 reoptimized with the 6-311G** basis set",
+  XC_FAMILY_GGA,
+  {&xc_ref_Ugalde1994_423, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-25,
   0, NULL, NULL,

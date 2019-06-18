@@ -917,7 +917,7 @@ func_reference_type xc_ref_Iikura2001_3540 = {
 
 
 func_reference_type xc_ref_Jana2017_4804 = {
-  "S. Jana and P. Samal, J. Phys. Chem. A 121, 4804 (2017)",
+  "S. Jana and P. Samal, J. Phys. Chem A 121, 4804 (2017)",
   "10.1021/acs.jpca.7b03686",
   "@article{Jana2017_4804,\nauthor = {Jana, Subrata and Samal, Prasanjit},\ntitle = {Semilocal Exchange Energy Functional for Two-Dimensional Quantum Systems: A Step Beyond Generalized Gradient Approximations},\njournal = {The Journal of Physical Chemistry A},\nvolume = {121},\nnumber = {25},\npages = {4804-4811},\nyear = {2017},\ndoi = {10.1021/acs.jpca.7b03686},\nURL = {https://doi.org/10.1021/acs.jpca.7b03686},\n}"
 };
@@ -1274,7 +1274,7 @@ func_reference_type xc_ref_Mortensen2005_216401 = {
 
 
 func_reference_type xc_ref_Mosquera2016_1605 = {
-  "M. A. Mosquera, C. H. Borca, M. A. Ratner, and G. C. Schatz, J. Phys. Chem. A 120, 1605 (2016), pMID: 26901359, https://doi.org/10.1021/acs.jpca.5b10864",
+  "M. A. Mosquera, C. H. Borca, M. A. Ratner, and G. C. Schatz, J. Phys. Chem A 120, 1605 (2016), pMID: 26901359, https://doi.org/10.1021/acs.jpca.5b10864",
   "10.1021/acs.jpca.5b10864",
   "@article{Mosquera2016_1605,\n  author = {Mosquera, Martín A. and Borca, Carlos H. and Ratner, Mark A. and Schatz, George C.},\n  title = {Connection between Hybrid Functionals and Importance of the Local Density Approximation},\n  journal = {The Journal of Physical Chemistry A},\n  volume = {120},\n  number = {9},\n  pages = {1605-1612},\n  year = {2016},\n  doi = {10.1021/acs.jpca.5b10864},\n  note ={PMID: 26901359},\n  URL = {https://doi.org/10.1021/acs.jpca.5b10864},\n  eprint = {https://doi.org/10.1021/acs.jpca.5b10864}\n}"
 };
@@ -1987,6 +1987,13 @@ func_reference_type xc_ref_Tsuneda1999_5656 = {
 };
 
 
+func_reference_type xc_ref_Ugalde1994_423 = {
+  "J. M. Ugalde, C. Sarasola, and M. Aguado, Journal of Physics B: Atomic, Molecular and Optical Physics 27, 423 (1994)",
+  "10.1088/0953-4075/27/3/009",
+  "@article{Ugalde1994_423,\n  doi = {10.1088/0953-4075/27/3/009},\n  url = {https://doi.org/10.1088%2F0953-4075%2F27%2F3%2F009},\n  year = 1994,\n  month = {feb},\n  publisher = {{IOP} Publishing},\n  volume = {27},\n  number = {3},\n  pages = {423--427},\n  author = {J M Ugalde and C Sarasola and M Aguado},\n  title = {Exchange energy from Gaussian-type basis sets},\n  journal = {Journal of Physics B: Atomic, Molecular and Optical Physics},\n}"
+};
+
+
 func_reference_type xc_ref_VanVoorhis1998_400 = {
   "T. V. Voorhis and G. E. Scuseria, J. Chem. Phys. 109, 400 (1998)",
   "10.1063/1.476577",
@@ -2030,7 +2037,7 @@ func_reference_type xc_ref_Verma2017_7144 = {
 
 
 func_reference_type xc_ref_Verma2019 = {
-  "P. Verma, Y. Wang, S. Ghosh, X. He, and D. G. Truhlar, J. Phys. Chem. A 0, null (0), https://doi.org/10.1021/acs.jpca.8b11499",
+  "P. Verma, Y. Wang, S. Ghosh, X. He, and D. G. Truhlar, J. Phys. Chem A 0, null (0), https://doi.org/10.1021/acs.jpca.8b11499",
   "10.1021/acs.jpca.8b11499",
   "@article{Verma2019,\nauthor = {Verma, Pragya and Wang, Ying and Ghosh, Soumen and He, Xiao and Truhlar, Donald G.},\ntitle = {Revised M11 Exchange--Correlation Functional for Electronic Excitation Energies and Ground-State Properties},\njournal = {The Journal of Physical Chemistry A},\nvolume = {0},\nnumber = {ja},\npages = {null},\nyear = {0},\ndoi = {10.1021/acs.jpca.8b11499},\nURL = {https://doi.org/10.1021/acs.jpca.8b11499},\neprint = {https://doi.org/10.1021/acs.jpca.8b11499}\n}"
 };
@@ -2254,7 +2261,7 @@ func_reference_type xc_ref_Zhao2005_161103 = {
 
 
 func_reference_type xc_ref_Zhao2005_2012 = {
-  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem. A 109, 2012 (2005), pMID: 16833536",
+  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem A 109, 2012 (2005), pMID: 16833536",
   "10.1021/jp045141s",
   "@article{Zhao2005_2012,\nauthor = {Zhao, Yan and González-García, Núria and Truhlar, Donald G.},\ntitle = {Benchmark Database of Barrier Heights for Heavy Atom Transfer, Nucleophilic Substitution, Association, and Unimolecular Reactions and Its Use to Test Theoretical Methods},\njournal = {The Journal of Physical Chemistry A},\nvolume = {109},\nnumber = {9},\npages = {2012-2018},\nyear = {2005},\ndoi = {10.1021/jp045141s},\nnote ={PMID: 16833536},\nURL = {http://dx.doi.org/10.1021/jp045141s},\neprint = {http://dx.doi.org/10.1021/jp045141s}\n}"
 };

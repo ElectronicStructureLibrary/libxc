@@ -917,7 +917,7 @@ func_reference_type xc_ref_Iikura2001_3540 = {
 
 
 func_reference_type xc_ref_Jana2017_4804 = {
-  "S. Jana and P. Samal, J. Phys. Chem A 121, 4804 (2017)",
+  "S. Jana and P. Samal, J. Phys. Chem. A 121, 4804 (2017)",
   "10.1021/acs.jpca.7b03686",
   "@article{Jana2017_4804,\nauthor = {Jana, Subrata and Samal, Prasanjit},\ntitle = {Semilocal Exchange Energy Functional for Two-Dimensional Quantum Systems: A Step Beyond Generalized Gradient Approximations},\njournal = {The Journal of Physical Chemistry A},\nvolume = {121},\nnumber = {25},\npages = {4804-4811},\nyear = {2017},\ndoi = {10.1021/acs.jpca.7b03686},\nURL = {https://doi.org/10.1021/acs.jpca.7b03686},\n}"
 };
@@ -1213,14 +1213,14 @@ func_reference_type xc_ref_Mardirossian2014_9904 = {
 func_reference_type xc_ref_Mardirossian2015_074111 = {
   "N. Mardirossian and M. Head-Gordon, J. Chem. Phys. 142, 074111 (2015)",
   "10.1063/1.4907719",
-  "@article{Mardirossian2015_074111,\n   author = \"Mardirossian, Narbe and Head-Gordon, Martin\",\n   title = \"Mapping the genome of meta-generalized gradient approximation density functionals: The search for B97M-V\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2015\",\n   volume = \"142\",\n   number = \"7\",\n   eid = 074111,\n   pages = \"-\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/142/7/10.1063/1.4907719\",\n   doi = \"10.1063/1.4907719\"\n}"
+  "@article{Mardirossian2015_074111,\n   author = \"Mardirossian, Narbe and Head-Gordon, Martin\",\n   title = \"Mapping the genome of meta-generalized gradient approximation density functionals: The search for B97M-V\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2015\",\n   volume = \"142\",\n   number = \"7\",\n   eid = 074111,\n   pages = \"-\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/142/7/10.1063/1.4907719\",\n   doi = \"10.1063/1.4907719\"\n}"
 };
 
 
 func_reference_type xc_ref_Mardirossian2016_214110 = {
   "N. Mardirossian and M. Head-Gordon, J. Chem. Phys. 144, 214110 (2016)",
   "10.1063/1.4952647",
-  "@article{Mardirossian2016_214110,\n   author = \"Mardirossian, Narbe and Head-Gordon, Martin\",\n   title = \"ωB97M-V: A combinatorially optimized, range-separated hybrid, meta-GGA density functional with VV10 nonlocal correlation\",\n   journal = \"The Journal of Chemical Physics\",\n   year = \"2016\",\n   volume = \"144\",\n   number = \"21\",\n   pages = \"214110\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/144/21/10.1063/1.4952647\",\n   doi = \"10.1063/1.4952647\"\n}"
+  "@article{Mardirossian2016_214110,\n   author = \"Mardirossian, Narbe and Head-Gordon, Martin\",\n   title = \"ωB97M-V: A combinatorially optimized, range-separated hybrid, meta-GGA density functional with VV10 nonlocal correlation\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2016\",\n   volume = \"144\",\n   number = \"21\",\n   pages = \"214110\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/144/21/10.1063/1.4952647\",\n   doi = \"10.1063/1.4952647\"\n}"
 };
 
 
@@ -1274,7 +1274,7 @@ func_reference_type xc_ref_Mortensen2005_216401 = {
 
 
 func_reference_type xc_ref_Mosquera2016_1605 = {
-  "M. A. Mosquera, C. H. Borca, M. A. Ratner, and G. C. Schatz, J. Phys. Chem A 120, 1605 (2016), pMID: 26901359, https://doi.org/10.1021/acs.jpca.5b10864",
+  "M. A. Mosquera, C. H. Borca, M. A. Ratner, and G. C. Schatz, J. Phys. Chem. A 120, 1605 (2016), pMID: 26901359, https://doi.org/10.1021/acs.jpca.5b10864",
   "10.1021/acs.jpca.5b10864",
   "@article{Mosquera2016_1605,\n  author = {Mosquera, Martín A. and Borca, Carlos H. and Ratner, Mark A. and Schatz, George C.},\n  title = {Connection between Hybrid Functionals and Importance of the Local Density Approximation},\n  journal = {The Journal of Physical Chemistry A},\n  volume = {120},\n  number = {9},\n  pages = {1605-1612},\n  year = {2016},\n  doi = {10.1021/acs.jpca.5b10864},\n  note ={PMID: 26901359},\n  URL = {https://doi.org/10.1021/acs.jpca.5b10864},\n  eprint = {https://doi.org/10.1021/acs.jpca.5b10864}\n}"
 };
@@ -1840,6 +1840,13 @@ func_reference_type xc_ref_Swart2009_69 = {
 };
 
 
+func_reference_type xc_ref_Tao2001_3519 = {
+  "J. Tao, J. Chem. Phys. 115, 3519 (2001)",
+  "10.1063/1.1388047",
+  "@article{Tao2001_3519,\n  author = {Tao,Jianmin },\n  title = {Exchange energy density of an atom as a functional of the electron density},\n  journal = {J. Chem. Phys.},\n  volume = {115},\n  number = {8},\n  pages = {3519-3530},\n  year = {2001},\n  doi = {10.1063/1.1388047},\n  URL = {https://doi.org/10.1063/1.1388047},\n}"
+};
+
+
 func_reference_type xc_ref_Tao2003_146401 = {
   "J. Tao, J. P. Perdew, V. N. Staroverov, and G. E. Scuseria, Phys. Rev. Lett. 91, 146401 (2003)",
   "10.1103/PhysRevLett.91.146401",
@@ -2023,7 +2030,7 @@ func_reference_type xc_ref_Verma2014_18A534 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn–Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -2037,7 +2044,7 @@ func_reference_type xc_ref_Verma2017_7144 = {
 
 
 func_reference_type xc_ref_Verma2019 = {
-  "P. Verma, Y. Wang, S. Ghosh, X. He, and D. G. Truhlar, J. Phys. Chem A 0, null (0), https://doi.org/10.1021/acs.jpca.8b11499",
+  "P. Verma, Y. Wang, S. Ghosh, X. He, and D. G. Truhlar, J. Phys. Chem. A 0, null (0), https://doi.org/10.1021/acs.jpca.8b11499",
   "10.1021/acs.jpca.8b11499",
   "@article{Verma2019,\nauthor = {Verma, Pragya and Wang, Ying and Ghosh, Soumen and He, Xiao and Truhlar, Donald G.},\ntitle = {Revised M11 Exchange--Correlation Functional for Electronic Excitation Energies and Ground-State Properties},\njournal = {The Journal of Physical Chemistry A},\nvolume = {0},\nnumber = {ja},\npages = {null},\nyear = {0},\ndoi = {10.1021/acs.jpca.8b11499},\nURL = {https://doi.org/10.1021/acs.jpca.8b11499},\neprint = {https://doi.org/10.1021/acs.jpca.8b11499}\n}"
 };
@@ -2261,7 +2268,7 @@ func_reference_type xc_ref_Zhao2005_161103 = {
 
 
 func_reference_type xc_ref_Zhao2005_2012 = {
-  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem A 109, 2012 (2005), pMID: 16833536",
+  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem. A 109, 2012 (2005), pMID: 16833536",
   "10.1021/jp045141s",
   "@article{Zhao2005_2012,\nauthor = {Zhao, Yan and González-García, Núria and Truhlar, Donald G.},\ntitle = {Benchmark Database of Barrier Heights for Heavy Atom Transfer, Nucleophilic Substitution, Association, and Unimolecular Reactions and Its Use to Test Theoretical Methods},\njournal = {The Journal of Physical Chemistry A},\nvolume = {109},\nnumber = {9},\npages = {2012-2018},\nyear = {2005},\ndoi = {10.1021/jp045141s},\nnote ={PMID: 16833536},\nURL = {http://dx.doi.org/10.1021/jp045141s},\neprint = {http://dx.doi.org/10.1021/jp045141s}\n}"
 };

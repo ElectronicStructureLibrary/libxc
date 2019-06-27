@@ -217,8 +217,8 @@ module xc_f90_lib_m
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(out) :: p
       type(xc_f90_pointer_t), intent(out) :: info
-      integer,                 intent(in)  :: functional
-      integer,                 intent(in)  :: nspin
+      integer,                intent(in)  :: functional
+      integer,                intent(in)  :: nspin
     end subroutine xc_f90_func_init
 
     subroutine xc_f90_func_end(p)
@@ -229,13 +229,13 @@ module xc_f90_lib_m
     subroutine xc_f90_func_set_dens_threshold(p, dens_threshold)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(inout) :: p
-      real(xc_f90_kind),       intent(in)    :: dens_threshold
+      real(xc_f90_kind),      intent(in)    :: dens_threshold
     end subroutine xc_f90_func_set_dens_threshold
 
     subroutine xc_f90_func_set_ext_params(p, ext_params)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(inout) :: p
-      real(xc_f90_kind),       intent(in)    :: ext_params
+      real(xc_f90_kind),      intent(in)    :: ext_params
     end subroutine xc_f90_func_set_ext_params
   end interface
 
@@ -246,62 +246,62 @@ module xc_f90_lib_m
     subroutine xc_f90_lda(p, np, rho, zk, vrho, fxc, kxc)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,                 intent(in)  :: np
-      real(xc_f90_kind),       intent(in)  :: rho   ! rho(nspin) the density
-      real(xc_f90_kind),       intent(out) :: zk    ! the energy per unit particle
-      real(xc_f90_kind),       intent(out) :: vrho  ! v(nspin) the potential
-      real(xc_f90_kind),       intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
-      real(xc_f90_kind),       intent(out) :: kxc   ! v(nspin,nspin,nspin) the derivative of xc kernel
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho   ! rho(nspin) the density
+      real(xc_f90_kind),      intent(out) :: zk    ! the energy per unit particle
+      real(xc_f90_kind),      intent(out) :: vrho  ! v(nspin) the potential
+      real(xc_f90_kind),      intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
+      real(xc_f90_kind),      intent(out) :: kxc   ! v(nspin,nspin,nspin) the derivative of xc kernel
     end subroutine xc_f90_lda
 
     subroutine xc_f90_lda_exc(p, np, rho, zk)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,                 intent(in)  :: np
-      real(xc_f90_kind),       intent(in)  :: rho   ! rho(nspin) the density
-      real(xc_f90_kind),       intent(out) :: zk    ! the energy per unit particle
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho   ! rho(nspin) the density
+      real(xc_f90_kind),      intent(out) :: zk    ! the energy per unit particle
     end subroutine xc_f90_lda_exc
 
     subroutine xc_f90_lda_exc_vxc(p, np, rho, e, v)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,                 intent(in)  :: np
-      real(xc_f90_kind),       intent(in)  :: rho   ! rho(nspin) the density
-      real(xc_f90_kind),       intent(out) :: e     ! the energy per unit particle
-      real(xc_f90_kind),       intent(out) :: v     ! v(nspin) the potential
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho   ! rho(nspin) the density
+      real(xc_f90_kind),      intent(out) :: e     ! the energy per unit particle
+      real(xc_f90_kind),      intent(out) :: v     ! v(nspin) the potential
     end subroutine xc_f90_lda_exc_vxc
 
     subroutine xc_f90_lda_vxc(p, np, rho, v)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,                 intent(in)  :: np
-      real(xc_f90_kind),       intent(in)  :: rho   ! rho(nspin) the density
-      real(xc_f90_kind),       intent(out) :: v     ! v(nspin) the potential
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho   ! rho(nspin) the density
+      real(xc_f90_kind),      intent(out) :: v     ! v(nspin) the potential
     end subroutine xc_f90_lda_vxc
 
     subroutine xc_f90_lda_vxc_fxc(p, np, rho, v, fxc)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,                 intent(in)  :: np
-      real(xc_f90_kind),       intent(in)  :: rho   ! rho(nspin) the density
-      real(xc_f90_kind),       intent(out) :: v     ! v(nspin) the potential
-      real(xc_f90_kind),       intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho   ! rho(nspin) the density
+      real(xc_f90_kind),      intent(out) :: v     ! v(nspin) the potential
+      real(xc_f90_kind),      intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
     end subroutine xc_f90_lda_vxc_fxc
 
     subroutine xc_f90_lda_fxc(p, np, rho, fxc)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,                 intent(in)  :: np
-      real(xc_f90_kind),       intent(in)  :: rho   ! rho(nspin) the density
-      real(xc_f90_kind),       intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho   ! rho(nspin) the density
+      real(xc_f90_kind),      intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
     end subroutine xc_f90_lda_fxc
 
     subroutine xc_f90_lda_kxc(p, np, rho, kxc)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,                 intent(in)  :: np
-      real(xc_f90_kind),       intent(in)  :: rho   ! rho(nspin) the density
-      real(xc_f90_kind),       intent(out) :: kxc
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho   ! rho(nspin) the density
+      real(xc_f90_kind),      intent(out) :: kxc
     end subroutine xc_f90_lda_kxc
   end interface
 
@@ -312,85 +312,85 @@ module xc_f90_lib_m
         v2rho2, v2rhosigma, v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,                 intent(in)  :: np
-      real(xc_f90_kind),       intent(in)  :: rho
-      real(xc_f90_kind),       intent(in)  :: sigma
-      real(xc_f90_kind),       intent(out) :: zk
-      real(xc_f90_kind),       intent(out) :: vrho
-      real(xc_f90_kind),       intent(out) :: vsigma
-      real(xc_f90_kind),       intent(out) :: v2rho2
-      real(xc_f90_kind),       intent(out) :: v2rhosigma
-      real(xc_f90_kind),       intent(out) :: v2sigma2
-      real(xc_f90_kind),       intent(out) :: v3rho3
-      real(xc_f90_kind),       intent(out) :: v3rho2sigma
-      real(xc_f90_kind),       intent(out) :: v3rhosigma2
-      real(xc_f90_kind),       intent(out) :: v3sigma3
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho
+      real(xc_f90_kind),      intent(in)  :: sigma
+      real(xc_f90_kind),      intent(out) :: zk
+      real(xc_f90_kind),      intent(out) :: vrho
+      real(xc_f90_kind),      intent(out) :: vsigma
+      real(xc_f90_kind),      intent(out) :: v2rho2
+      real(xc_f90_kind),      intent(out) :: v2rhosigma
+      real(xc_f90_kind),      intent(out) :: v2sigma2
+      real(xc_f90_kind),      intent(out) :: v3rho3
+      real(xc_f90_kind),      intent(out) :: v3rho2sigma
+      real(xc_f90_kind),      intent(out) :: v3rhosigma2
+      real(xc_f90_kind),      intent(out) :: v3sigma3
     end subroutine xc_f90_gga
 
     subroutine xc_f90_gga_exc(p, np, rho, sigma, zk)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,                 intent(in)  :: np
-      real(xc_f90_kind),       intent(in)  :: rho
-      real(xc_f90_kind),       intent(in)  :: sigma
-      real(xc_f90_kind),       intent(out) :: zk
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho
+      real(xc_f90_kind),      intent(in)  :: sigma
+      real(xc_f90_kind),      intent(out) :: zk
     end subroutine xc_f90_gga_exc
 
     subroutine xc_f90_gga_exc_vxc(p, np, rho, sigma, zk, vrho, vsigma)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,                 intent(in)  :: np
-      real(xc_f90_kind),       intent(in)  :: rho
-      real(xc_f90_kind),       intent(in)  :: sigma
-      real(xc_f90_kind),       intent(out) :: zk
-      real(xc_f90_kind),       intent(out) :: vrho
-      real(xc_f90_kind),       intent(out) :: vsigma
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho
+      real(xc_f90_kind),      intent(in)  :: sigma
+      real(xc_f90_kind),      intent(out) :: zk
+      real(xc_f90_kind),      intent(out) :: vrho
+      real(xc_f90_kind),      intent(out) :: vsigma
     end subroutine xc_f90_gga_exc_vxc
 
     subroutine xc_f90_gga_vxc(p, np, rho, sigma, vrho, vsigma)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,                 intent(in)  :: np
-      real(xc_f90_kind),       intent(in)  :: rho
-      real(xc_f90_kind),       intent(in)  :: sigma
-      real(xc_f90_kind),       intent(out) :: vrho
-      real(xc_f90_kind),       intent(out) :: vsigma
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho
+      real(xc_f90_kind),      intent(in)  :: sigma
+      real(xc_f90_kind),      intent(out) :: vrho
+      real(xc_f90_kind),      intent(out) :: vsigma
     end subroutine xc_f90_gga_vxc
 
     subroutine xc_f90_gga_vxc_fxc(p, np, rho, sigma, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,                 intent(in)  :: np
-      real(xc_f90_kind),       intent(in)  :: rho
-      real(xc_f90_kind),       intent(in)  :: sigma
-      real(xc_f90_kind),       intent(out) :: vrho
-      real(xc_f90_kind),       intent(out) :: vsigma
-      real(xc_f90_kind),       intent(out) :: v2rho2
-      real(xc_f90_kind),       intent(out) :: v2rhosigma
-      real(xc_f90_kind),       intent(out) :: v2sigma2
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho
+      real(xc_f90_kind),      intent(in)  :: sigma
+      real(xc_f90_kind),      intent(out) :: vrho
+      real(xc_f90_kind),      intent(out) :: vsigma
+      real(xc_f90_kind),      intent(out) :: v2rho2
+      real(xc_f90_kind),      intent(out) :: v2rhosigma
+      real(xc_f90_kind),      intent(out) :: v2sigma2
     end subroutine xc_f90_gga_vxc_fxc
 
     subroutine xc_f90_gga_fxc(p, np, rho, sigma, v2rho2, v2rhosigma, v2sigma2)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,                 intent(in)  :: np
-      real(xc_f90_kind),       intent(in)  :: rho
-      real(xc_f90_kind),       intent(in)  :: sigma
-      real(xc_f90_kind),       intent(out) :: v2rho2
-      real(xc_f90_kind),       intent(out) :: v2rhosigma
-      real(xc_f90_kind),       intent(out) :: v2sigma2
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho
+      real(xc_f90_kind),      intent(in)  :: sigma
+      real(xc_f90_kind),      intent(out) :: v2rho2
+      real(xc_f90_kind),      intent(out) :: v2rhosigma
+      real(xc_f90_kind),      intent(out) :: v2sigma2
     end subroutine xc_f90_gga_fxc
 
     subroutine xc_f90_gga_kxc(p, np, rho, sigma, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,                 intent(in)  :: np
-      real(xc_f90_kind),       intent(in)  :: rho
-      real(xc_f90_kind),       intent(in)  :: sigma
-      real(xc_f90_kind),       intent(out) :: v3rho3
-      real(xc_f90_kind),       intent(out) :: v3rho2sigma
-      real(xc_f90_kind),       intent(out) :: v3rhosigma2
-      real(xc_f90_kind),       intent(out) :: v3sigma3
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho
+      real(xc_f90_kind),      intent(in)  :: sigma
+      real(xc_f90_kind),      intent(out) :: v3rho3
+      real(xc_f90_kind),      intent(out) :: v3rho2sigma
+      real(xc_f90_kind),      intent(out) :: v3rhosigma2
+      real(xc_f90_kind),      intent(out) :: v3sigma3
     end subroutine xc_f90_gga_kxc
   end interface
 
@@ -400,11 +400,11 @@ module xc_f90_lib_m
     subroutine xc_f90_gga_lb_modified(p, np, rho, grho, r, dedd)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      integer,              intent(in)  :: np
-      real(xc_f90_kind),    intent(in)  :: rho   ! rho(nspin) the density
-      real(xc_f90_kind),    intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
-      real(xc_f90_kind),    intent(in)  :: r     ! distance from center of finite system
-      real(xc_f90_kind),    intent(out) :: dedd
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho   ! rho(nspin) the density
+      real(xc_f90_kind),      intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
+      real(xc_f90_kind),      intent(in)  :: r     ! distance from center of finite system
+      real(xc_f90_kind),      intent(out) :: dedd
     end subroutine xc_f90_gga_lb_modified
   end interface
 
@@ -413,8 +413,8 @@ module xc_f90_lib_m
   interface
     subroutine xc_f90_gga_ak13_get_asymptotic(homo, asymp)
       use xc_f90_types_m
-      real(xc_f90_kind),       intent(in)  :: homo
-      real(xc_f90_kind),       intent(out) :: asymp
+      real(xc_f90_kind),      intent(in)  :: homo
+      real(xc_f90_kind),      intent(out) :: asymp
     end subroutine xc_f90_gga_ak13_get_asymptotic
   end interface
 
@@ -423,19 +423,19 @@ module xc_f90_lib_m
     subroutine xc_f90_hyb_exx_coef(p, coef)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      real(xc_f90_kind),       intent(out) :: coef
+      real(xc_f90_kind),      intent(out) :: coef
     end subroutine xc_f90_hyb_exx_coef
 
     subroutine xc_f90_hyb_cam_coef(p, omega, alpha, beta)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      real(xc_f90_kind),       intent(out) :: omega, alpha, beta
+      real(xc_f90_kind),      intent(out) :: omega, alpha, beta
     end subroutine xc_f90_hyb_cam_coef
 
     subroutine xc_f90_nlc_coef(p, nlc_b, nlc_c)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
-      real(xc_f90_kind),       intent(out) :: nlc_b, nlc_c
+      real(xc_f90_kind),      intent(out) :: nlc_b, nlc_c
     end subroutine xc_f90_nlc_coef
   end interface
 

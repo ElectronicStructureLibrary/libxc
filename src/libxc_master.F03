@@ -58,9 +58,6 @@ module xc_f03_lib_m
     xc_f03_func_info_get_family, &
     xc_f03_func_info_get_references, &
     xc_f03_func_info_get_flags, &
-    xc_f03_func_info_get_n_ext_params, &
-    xc_f03_func_info_get_ext_params_description, &
-    xc_f03_func_info_get_ext_params_default_value, &
     ! func_reference
     xc_f03_func_reference_t, &
     xc_f03_func_reference_get_ref, &
@@ -80,6 +77,9 @@ module xc_f03_lib_m
     xc_f03_available_functional_names, &
     xc_f03_func_set_dens_threshold, &
     xc_f03_func_set_ext_params, &
+    xc_f03_func_get_n_ext_params, &
+    xc_f03_func_get_ext_params_description, &
+    xc_f03_func_get_ext_params_default_value, &
     ! lda
     xc_f03_lda, &
     xc_f03_lda_exc, &
@@ -224,22 +224,6 @@ module xc_f03_lib_m
       integer(c_int), value :: number
     end function xc_func_info_get_references
 
-    integer(c_int) function xc_func_info_get_n_ext_params(info) bind(c)
-      import
-      type(c_ptr), value :: info
-    end function xc_func_info_get_n_ext_params
-    
-    type(c_ptr) function xc_func_info_get_ext_params_description(info, number) bind(c)
-      import
-      type(c_ptr),    value :: info
-      integer(c_int), value :: number
-    end function xc_func_info_get_ext_params_description
-
-    real(c_double) function xc_func_info_get_ext_params_default_value(info, number) bind(c)
-      import
-      type(c_ptr),    value :: info
-      integer(c_int), value :: number
-    end function xc_func_info_get_ext_params_default_value
   end interface
 
   !----------------------------------------------------------------
@@ -342,6 +326,23 @@ module xc_f03_lib_m
       type(c_ptr), value      :: p
       real(c_double), intent(in) :: ext_params(*)
     end subroutine xc_func_set_ext_params
+
+    integer(c_int) function xc_func_get_n_ext_params(p) bind(c)
+      import
+      type(c_ptr), value :: p
+    end function xc_func_get_n_ext_params
+    
+    type(c_ptr) function xc_func_get_ext_params_description(p, number) bind(c)
+      import
+      type(c_ptr),    value :: p
+      integer(c_int), value :: number
+    end function xc_func_get_ext_params_description
+
+    real(c_double) function xc_func_get_ext_params_default_value(p, number) bind(c)
+      import
+      type(c_ptr),    value :: p
+      integer(c_int), value :: number
+    end function xc_func_get_ext_params_default_value
   end interface
 
 
@@ -641,29 +642,6 @@ module xc_f03_lib_m
     
   end function xc_f03_func_info_get_references
 
-  integer(c_int) function xc_f03_func_info_get_n_ext_params(info) result(n_ext_params)
-    type(xc_f03_func_info_t), intent(in) :: info
-    
-    n_ext_params = xc_func_info_get_n_ext_params(info%ptr)
-
-  end function xc_f03_func_info_get_n_ext_params
-
-  character(len=128) function xc_f03_func_info_get_ext_params_description(info, number) result(description)
-    type(xc_f03_func_info_t), intent(in) :: info
-    integer(c_int),           intent(in) :: number
-
-    call c_to_f_string_ptr(xc_func_info_get_ext_params_description(info%ptr, number), description)
-        
-  end function xc_f03_func_info_get_ext_params_description
-
-  real(c_double) function xc_f03_func_info_get_ext_params_default_value(info, number) result(val)
-    type(xc_f03_func_info_t), intent(in) :: info
-    integer(c_int),           intent(in) :: number
-
-    val = xc_func_info_get_ext_params_default_value(info%ptr, number)
-        
-  end function xc_f03_func_info_get_ext_params_default_value
-
   !----------------------------------------------------------------
   character(len=120) function xc_f03_func_reference_get_ref(reference) result(ref)
     type(xc_f03_func_reference_t), intent(in) :: reference
@@ -799,6 +777,29 @@ module xc_f03_lib_m
 
   end subroutine xc_f03_func_set_ext_params
   
+  integer(c_int) function xc_f03_func_get_n_ext_params(p) result(n_ext_params)
+    type(xc_f03_func_info_t), intent(in) :: p
+    
+    n_ext_params = xc_func_get_n_ext_params(p%ptr)
+
+  end function xc_f03_func_get_n_ext_params
+
+  character(len=128) function xc_f03_func_get_ext_params_description(p, number) result(description)
+    type(xc_f03_func_info_t), intent(in) :: p
+    integer(c_int),           intent(in) :: number
+
+    call c_to_f_string_ptr(xc_func_get_ext_params_description(p%ptr, number), description)
+        
+  end function xc_f03_func_get_ext_params_description
+
+  real(c_double) function xc_f03_func_get_ext_params_default_value(p, number) result(val)
+    type(xc_f03_func_info_t), intent(in) :: p
+    integer(c_int),           intent(in) :: number
+
+    val = xc_func_get_ext_params_default_value(p%ptr, number)
+        
+  end function xc_f03_func_get_ext_params_default_value
+
   ! LDAs
   !----------------------------------------------------------------
   subroutine xc_f03_lda(p, np, rho, zk, vrho, v2rho2, v3rho3)

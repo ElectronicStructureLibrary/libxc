@@ -23,7 +23,7 @@ np53 := (rs, z) -> n_spin(rs,z)^(5/3):
 
 (* First regularization: tau^u -> tau^u + tau_r.
    tau_r gets scaled by 2^(2/3) due to the spin scaling. *)
-rscan_alpha0 := (rs, z, x, t) -> (np53(rs,z)*(t - x^2/8))/(np53(rs,z)*K_FACTOR_C + params_a_taur/2):
+rscan_alpha0 := (rs, z, x, t) -> (np53(rs,z)*m_max(t - x^2/8, 0))/(np53(rs,z)*K_FACTOR_C + params_a_taur/2):
 
 (* Second regularization: alpha -> alpha^3/(alpha^2 + alpha_r) *)
 rscan_alpha := (rs, z, x, t) -> rscan_alpha0(rs, z, x, t)^3/(rscan_alpha0(rs, z, x ,t)^2 + params_a_alphar):

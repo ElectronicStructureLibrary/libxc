@@ -29,8 +29,6 @@ mgga_x_gdme_init(xc_func_type *p)
   p->params = malloc(sizeof(mgga_x_gdme_params));
   params = (mgga_x_gdme_params *) (p->params);
 
-  printf("HELLLLLLLLLLLLLLLLLLL\n");
-  /* value of beta in standard Becke 88 functional */
   switch(p->info->number){
   case XC_MGGA_X_GDME_NV:
     /* default values set by set_ext_params */

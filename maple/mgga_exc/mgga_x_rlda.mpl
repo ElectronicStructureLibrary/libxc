@@ -9,7 +9,7 @@
 
 (* type: mgga_exc *)
 
-rlda_f := (x, u, t) -> -15*2^(1/3)*Pi/8 /(t - u/8):
+rlda_f := (x, u, t) -> 15*2^(1/3)*Pi/(8*X_FACTOR_C) / (t - u/8):
 
 f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->
   mgga_exchange(rlda_f, rs, z, xs0, xs1, u0, u1, t0, t1):

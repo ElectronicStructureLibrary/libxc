@@ -23,4 +23,5 @@ mgga_c_scan.mpl         mgga_x_m11_l.mpl          mgga_x_tm.mpl		\
 mgga_c_tpssloc.mpl      mgga_x_m11.mpl            mgga_x_tpss.mpl	\
 mgga_c_tpss.mpl         mgga_x_mbeef.mpl          mgga_x_vt84.mpl	\
 mgga_x_regtpss.mpl	mgga_x_rscan.mpl          mgga_c_rscan.mpl      \
-mgga_x_tlda.mpl         mgga_x_edmgga.mpl
+mgga_x_tlda.mpl         mgga_x_edmgga.mpl         mgga_x_gdme.mpl       \
+mgga_x_rlda.mpl

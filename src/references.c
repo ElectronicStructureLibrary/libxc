@@ -300,6 +300,13 @@ func_reference_type xc_ref_Burke2014_4834 = {
 };
 
 
+func_reference_type xc_ref_Campi1978_263 = {
+  "X. Campi and A. Bouyssy, Phys. Lett. B 73, 263 (1978)",
+  "https://doi.org/10.1016/0370-2693(78)90509-9",
+  "@article{Campi1978_263,\ntitle = \"A simple approximation for the nuclear density matrix\",\njournal = \"Phys. Lett. B\",\nvolume = \"73\",\nnumber = \"3\",\npages = \"263 - 266\",\nyear = \"1978\",\nissn = \"0370-2693\",\ndoi = \"https://doi.org/10.1016/0370-2693(78)90509-9\",\nurl = \"http://www.sciencedirect.com/science/article/pii/0370269378905099\",\nauthor = \"X. Campi and A. Bouyssy\",\n}"
+};
+
+
 func_reference_type xc_ref_Campo2012_179 = {
   "J. M. del Campo, J. L. Gázquez, S. Trickey, and A. Vela, Chem. Phys. Lett. 543, 179 (2012)",
   "10.1016/j.cplett.2012.06.025",
@@ -1000,6 +1007,13 @@ func_reference_type xc_ref_Klimes2011_195131 = {
 };
 
 
+func_reference_type xc_ref_Koehl1996_835 = {
+  "R. M. Koehl, G. K. Odom, and G. E. Scuseria, Mol. Phys. 87, 835 (1996)",
+  "10.1080/00268979600100561",
+  "@article{Koehl1996_835,\nauthor = {Richard M.   Koehl  and  Gregory K.   Odom  and  Gustavo E.   Scuseria },\ntitle = {The use of density matrix expansions for calculating molecular exchange energies},\njournal = {Mol. Phys.},\nvolume = {87},\nnumber = {4},\npages = {835-843},\nyear  = {1996},\npublisher = {Taylor & Francis},\ndoi = {10.1080/00268979600100561},\nURL = {https://doi.org/10.1080/00268979600100561},\n}"
+};
+
+
 func_reference_type xc_ref_Kohn1965_A1133 = {
   "W. Kohn and L. J. Sham, Phys. Rev. 140, A1133 (1965)",
   "10.1103/PhysRev.140.A1133",
@@ -1291,6 +1305,13 @@ func_reference_type xc_ref_Murray2009_2754 = {
   "E. D. Murray, K. Lee, and D. C. Langreth, J. Chem. Theory Comput. 5, 2754 (2009)",
   "10.1021/ct900365q",
   "@article{Murray2009_2754,\n  title = {Investigation of Exchange Energy Density Functional Accuracy for Interacting Molecules},\n  author = {\\'E. D. Murray and K. Lee and D. C. Langreth},\n  journal = {J. Chem. Theory Comput.},\n  volume = {5},\n  number = {10},\n  pages = {2754},\n  year = {2009},\n  doi = {10.1021/ct900365q},\n  URL = {http://pubs.acs.org/doi/abs/10.1021/ct900365q},\n}"
+};
+
+
+func_reference_type xc_ref_Negele1972_1472 = {
+  "J. W. Negele and D. Vautherin, Phys. Rev. C 5, 1472 (1972)",
+  "10.1103/PhysRevC.5.1472",
+  "@article{Negele1972_1472,\n  title = {Density-Matrix Expansion for an Effective Nuclear Hamiltonian},\n  author = {Negele, J. W. and Vautherin, D.},\n  journal = {Phys. Rev. C},\n  volume = {5},\n  issue = {5},\n  pages = {1472--1493},\n  numpages = {0},\n  year = {1972},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevC.5.1472},\n  url = {https://link.aps.org/doi/10.1103/PhysRevC.5.1472}\n}"
 };
 
 

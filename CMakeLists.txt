@@ -304,7 +304,6 @@ mgga_x_m11.c
 mgga_x_m11_l.c
 mgga_x_mbeef.c
 mgga_x_mbeefvdw.c
-mgga_x_mk00.c
 mgga_x_mn12.c
 mgga_x_ms.c
 mgga_x_msb.c

@@ -18,5 +18,5 @@ dist_noinst_SCRIPTS = \
   lda_c_ml1.mpl       lda_c_wigner.mpl        lda_x.mpl			\
   lda_c_pk09.mpl      lda_k_gds08_worker.mpl  lda_x_rel.mpl		\
   lda_c_pmgb06.mpl    lda_k_tf.mpl            lda_c_pw.mpl		\
-  lda_k_zlp.mpl
+  lda_k_zlp.mpl       lda_x_sloc.mpl
 

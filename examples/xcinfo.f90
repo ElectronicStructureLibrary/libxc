@@ -42,7 +42,7 @@ program xcinfo
      if( number < 0 ) then
         exit
      end if
-    write(*, '(a,i1,2a)') '[', i, '] ', trim(s1)
+    write(*, '(a,i1,2a)') '[', i+1, '] ', trim(s1)
   end do
 
   call xc_f90_func_end(xc_func)

@@ -944,6 +944,13 @@ func_reference_type xc_ref_Jin2016_034107 = {
 };
 
 
+func_reference_type xc_ref_Jin2018_064111 = {
+  "Y. Jin and R. J. Bartlett, J. Chem. Phys. 149, 064111 (2018), https://doi.org/10.1063/1.5038434",
+  "10.1063/1.5038434",
+  "@article{Jin2018_064111,\n  author = {Jin, Yifan and Bartlett, Rodney J.},\n  title = {Accurate computation of X-ray absorption spectra with ionization potential optimized global hybrid functional},\n  journal = {The Journal of Chemical Physics},\n  volume = {149},\n  number = {6},\n  pages = {064111},\n  year = {2018},\n  doi = {10.1063/1.5038434},\n  URL = {https://doi.org/10.1063/1.5038434},\n  eprint = {https://doi.org/10.1063/1.5038434}\n}"
+};
+
+
 func_reference_type xc_ref_Kang2001_11040 = {
   "J. K. Kang and C. B. Musgrave, J. Chem. Phys. 115, 11040 (2001), http://dx.doi.org/10.1063/1.1415079",
   "10.1063/1.1415079",

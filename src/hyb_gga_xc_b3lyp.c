@@ -22,6 +22,7 @@
 #define XC_HYB_GGA_XC_APF           409 /* APF hybrid density functional         */
 #define XC_HYB_GGA_XC_WC04          611 /* hybrid fitted to carbon NMR shifts    */
 #define XC_HYB_GGA_XC_WP04          612 /* hybrid fitted to proton NMR shifts    */
+#define XC_HYB_GGA_XC_QTP17         460 /* global hybrid for vertical ionization potentials */
 
 /*************************************************************/
 void
@@ -292,6 +293,31 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_kmlyp = {
   1e-32,
   0, NULL, NULL,
   xc_hyb_gga_xc_kmlyp_init, NULL,
+  NULL, NULL, NULL
+};
+
+
+/*************************************************************/
+void
+xc_hyb_gga_xc_qtp17_init(xc_func_type *p)
+{
+  static int   funcs_id  [3] = {XC_LDA_X, XC_LDA_C_VWN_RPA, XC_GGA_C_LYP};
+  static double funcs_coef[3] = {1.0 - 0.62, 1.0 - 0.80, 0.80};
+
+  xc_mix_init(p, 3, funcs_id, funcs_coef);
+  p->cam_alpha = 0.62;
+}
+
+const xc_func_info_type xc_func_info_hyb_gga_xc_qtp17 = {
+  XC_HYB_GGA_XC_QTP17,
+  XC_EXCHANGE_CORRELATION,
+  "Global hybrid for vertical ionization potentials",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Jin2018_064111, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-32,
+  0, NULL, NULL,
+  xc_hyb_gga_xc_qtp17_init, NULL,
   NULL, NULL, NULL
 };
 

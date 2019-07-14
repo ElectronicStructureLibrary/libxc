@@ -145,6 +145,7 @@ extern func_reference_type xc_ref_Hu1985_391;
 extern func_reference_type xc_ref_Hui2016_044114;
 extern func_reference_type xc_ref_Iikura2001_3540;
 extern func_reference_type xc_ref_Jana2017_4804;
+extern func_reference_type xc_ref_Jana2019;
 extern func_reference_type xc_ref_Jin2016_034107;
 extern func_reference_type xc_ref_Jin2018_064111;
 extern func_reference_type xc_ref_Kang2001_11040;

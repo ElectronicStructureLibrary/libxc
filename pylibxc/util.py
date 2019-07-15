@@ -24,8 +24,7 @@ core.xc_functional_get_name.restype = ctypes.c_char_p
 core.xc_family_from_id.argtypes = (ctypes.c_int, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int))
 core.xc_family_from_id.restype = ctypes.c_int
 
-core.xc_available_functional_numbers.argtypes = (np.ctypeslib.ndpointer(dtype=np.int32, ndim=1, flags=("W", "C",
-                                                                                                       "A")), )
+core.xc_available_functional_numbers.argtypes = (np.ctypeslib.ndpointer(dtype=np.intc, ndim=1, flags=("W", "C", "A")), )
 
 core.xc_available_functional_names.argtypes = (ctypes.POINTER(ctypes.c_char_p), )
 
@@ -187,7 +186,7 @@ def xc_available_functional_numbers():
 
     nfunc = xc_number_of_functionals()
 
-    ret = np.zeros(nfunc, dtype=np.int32)
+    ret = np.zeros(nfunc, dtype=np.intc)
     core.xc_available_functional_numbers(ret)
     return ret
 

@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
+               2019 Susi Lehtola
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -14,10 +15,6 @@
 typedef struct{
   double beta0, beta1, beta2;
 } gga_x_ft97_params;
-
-static const gga_x_ft97_params par_ft97_a = {
-  0.00293, 0.0, 0.0
-};
 
 static const gga_x_ft97_params par_ft97_b = {
   /* These parameters are what Filatov and Thiel actually used, not
@@ -36,8 +33,8 @@ gga_x_ft97_init(xc_func_type *p)
   params = (gga_x_ft97_params *) (p->params);
 
   switch(p->info->number){
-  case XC_GGA_X_FT97_A: 
-    memcpy(params, &par_ft97_a, sizeof(gga_x_ft97_params));
+  case XC_GGA_X_FT97_A:
+    /* Parameters set by set_ext_params */
     break;
   case XC_GGA_X_FT97_B:
     memcpy(params, &par_ft97_b, sizeof(gga_x_ft97_params));
@@ -51,6 +48,25 @@ gga_x_ft97_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_x_ft97.c"
 #include "work_gga_new.c"
 
+static const func_params_type ext_params[] = {
+  {"_beta0", 0.00293, "beta0"},
+  {"_beta1", 0.0, "beta1"},
+  {"_beta2", 0.0, "beta2"},
+};
+
+static void
+set_ext_params(xc_func_type *p, const double *ext_params)
+{
+  gga_x_ft97_params *params;
+
+  assert(p != NULL && p->params != NULL);
+  params = (gga_x_ft97_params *) (p->params);
+
+  params->beta0 = get_ext_param(p->info->ext_params, ext_params, 0);
+  params->beta1 = get_ext_param(p->info->ext_params, ext_params, 1);
+  params->beta2 = get_ext_param(p->info->ext_params, ext_params, 2);
+}
+
 const xc_func_info_type xc_func_info_gga_x_ft97_a = {
   XC_GGA_X_FT97_A,
   XC_EXCHANGE,
@@ -59,7 +75,7 @@ const xc_func_info_type xc_func_info_gga_x_ft97_a = {
   {&xc_ref_Filatov1997_847, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-22,
-  0, NULL, NULL,
+  3, ext_params, set_ext_params,
   gga_x_ft97_init, NULL, 
   NULL, work_gga, NULL
 };

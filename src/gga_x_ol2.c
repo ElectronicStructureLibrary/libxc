@@ -23,17 +23,30 @@ gga_x_ol2_init(xc_func_type *p)
   p->params = malloc(sizeof(gga_x_ol2_params));
   params = (gga_x_ol2_params *) (p->params);
 
-  switch(p->info->number){
-  case XC_GGA_X_OL2:
-    params->aa = M_CBRT2*0.07064/X_FACTOR_C;
-    params->bb = M_CBRT2*0.07064/X_FACTOR_C;
-    params->cc = M_CBRT2*M_CBRT2*0.07064*34.0135/X_FACTOR_C;
-    break;
-  }
+  /* defaults set by set_ext_params */
 }
 
 #include "maple2c/gga_exc/gga_x_ol2.c"
 #include "work_gga_new.c"
+
+static const func_params_type ext_params[] = {
+  {"_aa", M_CBRT2*0.07064/X_FACTOR_C, "aa"},
+  {"_bb", M_CBRT2*0.07064/X_FACTOR_C, "bb"},
+  {"_cc", M_CBRT2*M_CBRT2*0.07064*34.0135/X_FACTOR_C, "cc"}
+};
+
+static void
+set_ext_params(xc_func_type *p, const double *ext_params)
+{
+  gga_x_ol2_params *params;
+
+  assert(p != NULL && p->params != NULL);
+  params = (gga_x_ol2_params *) (p->params);
+
+  params->aa = get_ext_param(p->info->ext_params, ext_params, 0);
+  params->bb = get_ext_param(p->info->ext_params, ext_params, 1);
+  params->cc = get_ext_param(p->info->ext_params, ext_params, 2);
+}
 
 const xc_func_info_type xc_func_info_gga_x_ol2 = {
   XC_GGA_X_OL2,
@@ -43,7 +56,7 @@ const xc_func_info_type xc_func_info_gga_x_ol2 = {
   {&xc_ref_Fuentealba1995_31, &xc_ref_OuYang1991_379, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   5e-26,
-  0, NULL, NULL,
+  3, ext_params, set_ext_params,
   gga_x_ol2_init, NULL, 
   NULL, work_gga, NULL
 };

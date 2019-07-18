@@ -130,10 +130,14 @@ int main(void) {
           rangesep++;
         if(func.info->flags & XC_FLAGS_HYB_CAMY)
           rangesep++;
-        if(func.info->flags & XC_FLAGS_HYB_LC)
+        if(func.info->flags & XC_FLAGS_HYB_LC) {
+          printf("Functional %i '%s' is marked HYB_LC which should not be used.\n",func_id, fname);
           rangesep++;
-        if(func.info->flags & XC_FLAGS_HYB_LCY)
+        }
+        if(func.info->flags & XC_FLAGS_HYB_LCY) {
+          printf("Functional %i '%s' is marked HYB_LCY which should not be used.\n",func_id, fname);
           rangesep++;
+        }
 
         switch(rangesep) {
         case(0):

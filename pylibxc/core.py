@@ -16,10 +16,10 @@ try:
     core = np.ctypeslib.load_library("libxc", dirpath)
 except OSError:
     # If no libxc is local, check LD_LIBRARY_PATHS's
-    libxc_path = ctypes.util.find_library("libxc")
+    __libxc_path = ctypes.util.find_library("xc")
 
     # If we still havent found it, give up and throw an error
-    if libxc_path is None:
+    if __libxc_path is None:
         raise ImportError(
             "LibXC Shared object not found, searched Python module local directory and library paths"
         )

@@ -58,7 +58,12 @@ int main(int argc, char **argv) {
       double alpha, beta, omega;
       xc_hyb_cam_coef(&func,&omega,&alpha,&beta);
       printf("\nThis is a range-separated hybrid functional with range-separation constant % .3f,\n",omega);
-      printf("and %4.1f%% short-range and %4.1f%% long-range exact exchange.\n",(alpha+beta)*100,(alpha)*100);
+      printf("and %4.1f%% short-range and %4.1f%% long-range exact exchange,\n",(alpha+beta)*100,(alpha)*100);
+
+      if(func.info->flags & XC_FLAGS_HYB_CAM || func.info->flags & XC_FLAGS_HYB_LC)
+        printf("using the error function kernel.\n");
+      else if(func.info->flags & XC_FLAGS_HYB_CAMY || func.info->flags & XC_FLAGS_HYB_LCY)
+        printf("using the Yukawa kernel.\n");
     } else {
       double alpha=xc_hyb_exx_coef(&func);
       printf("\nThis is a global hybrid functional with %4.1f%% of exact exchange.\n",alpha*100);

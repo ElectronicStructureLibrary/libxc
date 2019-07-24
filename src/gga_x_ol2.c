@@ -30,9 +30,9 @@ gga_x_ol2_init(xc_func_type *p)
 #include "work_gga_new.c"
 
 static const func_params_type ext_params[] = {
-  {"_aa", M_CBRT2*0.07064/X_FACTOR_C, "aa"},
-  {"_bb", M_CBRT2*0.07064/X_FACTOR_C, "bb"},
-  {"_cc", M_CBRT2*M_CBRT2*0.07064*34.0135/X_FACTOR_C, "cc"}
+  {"_aa", 0.09564574034649151285038696952714226444963L, "aa"}, /* M_CBRT2*0.07064/X_FACTOR_C */
+  {"_bb", 0.09564574034649151285038696952714226444963L, "bb"}, /* M_CBRT2*0.07064/X_FACTOR_C */
+  {"_cc", 4.098833606342553442039881031486386917472L,   "cc"}  /* M_CBRT2*M_CBRT2*0.07064*34.0135/X_FACTOR_C */
 };
 
 static void

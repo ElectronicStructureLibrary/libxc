@@ -60,14 +60,16 @@ static func_params_type ext_params_hse06[] = {
 
 static func_params_type ext_params_hse12[] = {
   {"_beta", 0.313, "Mixing parameter"},
-  {"_omega_HF", 0.185, "Screening parameter for HF"},
-  {"_omega_PBE", 0.185, "Screening parameter for PBE"},
+  /* N.B. the paper reports the value in 1/angstrom! */
+  {"_omega_HF", 0.185*0.5291772109, "Screening parameter for HF"},
+  {"_omega_PBE", 0.185*0.5291772109, "Screening parameter for PBE"},
 };
 
 static func_params_type ext_params_hse12s[] = {
   {"_beta", 0.425, "Mixing parameter"},
-  {"_omega_HF", 0.408, "Screening parameter for HF"},
-  {"_omega_PBE", 0.408, "Screening parameter for PBE"},
+  /* N.B. the paper reports the value in 1/angstrom! */
+  {"_omega_HF", 0.408*0.5291772109, "Screening parameter for HF"},
+  {"_omega_PBE", 0.408*0.5291772109, "Screening parameter for PBE"},
 };
 
 static void

@@ -36,7 +36,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lcy_blyp = {
   "LCY version of BLYP",
   XC_FAMILY_HYB_GGA,
   {&xc_ref_Akinaga2008_348, &xc_ref_Seth2013_2286, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HYB_CAMY | XC_FLAGS_HAVE_EXC | XC_FLAGS_I_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAMY | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   0, NULL, NULL,
   xc_hyb_gga_xc_lcy_blyp_init, NULL,

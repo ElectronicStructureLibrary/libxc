@@ -1,10 +1,10 @@
 /*
- Copyright (C) 2006-2007 M.A.L. Marques
-               2018 Susi Lehtola
+  Copyright (C) 2006-2007 M.A.L. Marques
+                2018-2019 Susi Lehtola
 
- This Source Code Form is subject to the terms of the Mozilla Public
- License, v. 2.0. If a copy of the MPL was not distributed with this
- file, You can obtain one at http://mozilla.org/MPL/2.0/.
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
 
@@ -154,6 +154,29 @@ xc_mix_func(const xc_func_type *func, int np,
   /* we now add the different components */
   for(ii=0; ii<func->n_func_aux; ii++){
     aux = func->func_aux[ii];
+
+    /* Sanity check: if component is GGA or meta-GGA, mix functional
+       must also be GGA or meta-GGA */
+    if(is_gga(aux->info->family))
+      assert(is_gga(func->info->family));
+    if(is_mgga(aux->info->family) && !is_mgga(func->info->family))
+      assert(is_mgga(func->info->family));
+    /* Sanity check: if component needs the Laplacian, then the mix
+       must require it too */
+    if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+      assert(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN);
+    /* Sanity checks: if mix functional has higher derivatives, these
+       must also exist in the individual components */
+    if(func->info->flags & XC_FLAGS_HAVE_VXC)
+      assert(aux->info->flags & XC_FLAGS_HAVE_VXC);
+    if(func->info->flags & XC_FLAGS_HAVE_FXC)
+      assert(aux->info->flags & XC_FLAGS_HAVE_FXC);
+    if(func->info->flags & XC_FLAGS_HAVE_KXC)
+      assert(aux->info->flags & XC_FLAGS_HAVE_KXC);
+    if(func->info->flags & XC_FLAGS_HAVE_LXC)
+      assert(aux->info->flags & XC_FLAGS_HAVE_LXC);
+
+    /* Evaluate the functional */
     switch(aux->info->family){
     case XC_FAMILY_LDA:
       xc_lda(aux, np, rho, zk_, vrho_, v2rho2_, v3rho3_);
@@ -185,14 +208,7 @@ xc_mix_func(const xc_func_type *func, int np,
       break;
     }
 
-    /* Sanity checks */
-    if(is_gga(aux->info->family))
-      assert(is_gga(func->info->family));
-    if(is_mgga(aux->info->family) && !is_mgga(func->info->family))
-      assert(is_mgga(func->info->family));
-    if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
-      assert(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN);
-
+    /* Do the mixing */
     if(zk != NULL) {
       for(ip = 0; ip < np*dim->zk; ip++)
         zk[ip] += func->mix_coef[ii] * zk_[ip];

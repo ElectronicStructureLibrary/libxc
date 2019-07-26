@@ -150,11 +150,31 @@ xc_mix_func(const xc_func_type *func, int np,
       v3tau3_         = (double *) malloc(sizeof(double)*np*dim->v3tau3);
     }
   }
-  
-  /* we now add the different components */
+
+  /* Sanity check: have we claimed the highest possible derivatives?
+     First, check for the lowest common derivative
+  */
+  int have_vxc = 1, have_fxc = 1, have_kxc = 1, have_lxc = 1;
   for(ii=0; ii<func->n_func_aux; ii++){
     aux = func->func_aux[ii];
+    if(! (aux->info->flags & XC_FLAGS_HAVE_VXC))
+      have_vxc = 0;
+    if(! (aux->info->flags & XC_FLAGS_HAVE_FXC))
+      have_fxc = 0;
+    if(! (aux->info->flags & XC_FLAGS_HAVE_KXC))
+      have_kxc = 0;
+    if(! (aux->info->flags & XC_FLAGS_HAVE_LXC))
+      have_lxc = 0;
+  }
+  /* Then, for the actual checks */
+  assert(have_lxc == (func->info->flags & XC_FLAGS_HAVE_LXC));
+  assert(have_kxc == (func->info->flags & XC_FLAGS_HAVE_KXC));
+  assert(have_fxc == (func->info->flags & XC_FLAGS_HAVE_FXC));
+  assert(have_vxc == (func->info->flags & XC_FLAGS_HAVE_VXC));
 
+  /* Proceed by computing the mix */
+  for(ii=0; ii<func->n_func_aux; ii++){
+    aux = func->func_aux[ii];
     /* Sanity check: if component is GGA or meta-GGA, mix functional
        must also be GGA or meta-GGA */
     if(is_gga(aux->info->family))

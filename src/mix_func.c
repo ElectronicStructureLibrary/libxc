@@ -70,8 +70,29 @@ xc_mix_func(const xc_func_type *func, int np,
 
   const xc_dimensions *dim = &(func->dim);
 
+  /* Sanity check: have we claimed the highest possible derivatives?
+     First, check for the lowest common derivative (also need to make
+     sure the derivatives have been compiled in!)
+  */
+  int have_vxc = XC_FLAGS_I_HAVE_VXC;
+  int have_fxc = XC_FLAGS_I_HAVE_FXC;
+  int have_kxc = XC_FLAGS_I_HAVE_KXC;
+  for(ii=0; ii<func->n_func_aux; ii++){
+    aux = func->func_aux[ii];
+    if(! (aux->info->flags & XC_FLAGS_HAVE_VXC))
+      have_vxc = 0;
+    if(! (aux->info->flags & XC_FLAGS_HAVE_FXC))
+      have_fxc = 0;
+    if(! (aux->info->flags & XC_FLAGS_HAVE_KXC))
+      have_kxc = 0;
+  }
+  /* Then, for the actual checks */
+  assert(have_kxc == (func->info->flags & XC_FLAGS_HAVE_KXC));
+  assert(have_fxc == (func->info->flags & XC_FLAGS_HAVE_FXC));
+  assert(have_vxc == (func->info->flags & XC_FLAGS_HAVE_VXC));
+
   /* prepare buffers that will hold the results from the individual functionals */
-  zk_ = NULL;  
+  zk_ = NULL;
   vrho_ = vsigma_ = vlapl_ = vtau_ = NULL;
   v2rho2_ = v2rhosigma_ = v2rholapl_ = v2rhotau_ = NULL;
   v2sigma2_ =  v2sigmalapl_ = v2sigmatau_ = NULL;
@@ -150,27 +171,6 @@ xc_mix_func(const xc_func_type *func, int np,
       v3tau3_         = (double *) malloc(sizeof(double)*np*dim->v3tau3);
     }
   }
-
-  /* Sanity check: have we claimed the highest possible derivatives?
-     First, check for the lowest common derivative
-  */
-  int have_vxc = 1, have_fxc = 1, have_kxc = 1, have_lxc = 1;
-  for(ii=0; ii<func->n_func_aux; ii++){
-    aux = func->func_aux[ii];
-    if(! (aux->info->flags & XC_FLAGS_HAVE_VXC))
-      have_vxc = 0;
-    if(! (aux->info->flags & XC_FLAGS_HAVE_FXC))
-      have_fxc = 0;
-    if(! (aux->info->flags & XC_FLAGS_HAVE_KXC))
-      have_kxc = 0;
-    if(! (aux->info->flags & XC_FLAGS_HAVE_LXC))
-      have_lxc = 0;
-  }
-  /* Then, for the actual checks */
-  assert(have_lxc == (func->info->flags & XC_FLAGS_HAVE_LXC));
-  assert(have_kxc == (func->info->flags & XC_FLAGS_HAVE_KXC));
-  assert(have_fxc == (func->info->flags & XC_FLAGS_HAVE_FXC));
-  assert(have_vxc == (func->info->flags & XC_FLAGS_HAVE_VXC));
 
   /* Proceed by computing the mix */
   for(ii=0; ii<func->n_func_aux; ii++){
@@ -287,7 +287,7 @@ xc_mix_func(const xc_func_type *func, int np,
     if(v3rho3 != NULL){
       for(ip = 0; ip < np*dim->v3rho3; ip++)
         v3rho3[ip] += func->mix_coef[ii] * v3rho3_[ip];
-      
+
       if(is_gga(aux->info->family)) {
         for(ip = 0; ip < np*dim->v3rho2sigma; ip++)
           v3rho2sigma[ip] += func->mix_coef[ii] * v3rho2sigma_[ip];
@@ -332,7 +332,7 @@ xc_mix_func(const xc_func_type *func, int np,
           for(ip = 0; ip < np*dim->v3lapltau2; ip++)
             v3lapltau2[ip] += func->mix_coef[ii] * v3lapltau2_[ip];
         }
-      }  
+      }
     }
   }
 

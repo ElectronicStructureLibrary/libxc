@@ -118,12 +118,9 @@ xc_mix_func(const xc_func_type *func, int np,
       vsigma_ = (double *) malloc(sizeof(double)*np*dim->vsigma);
     }
     if(is_mgga(func->info->family)){
-      /* At the moment we always allocate the derivatives involving
-         the laplacian, as some parts of Libxc do not take into
-         account the XC_FLAGS_NEEDS_LAPLACIAN flag.
-         if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){ */
-      vlapl_ = (double *) malloc(sizeof(double)*np*dim->vlapl);
-      /* } */
+      if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+        vlapl_ = (double *) malloc(sizeof(double)*np*dim->vlapl);
+      }
       vtau_  = (double *) malloc(sizeof(double)*np*dim->vtau);
     }
   }

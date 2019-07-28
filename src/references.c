@@ -937,6 +937,13 @@ func_reference_type xc_ref_Jana2017_4804 = {
 };
 
 
+func_reference_type xc_ref_Jana2019 = {
+  "S. Jana, K. Sharma, and P. Samal, J. Phys. Chem. A 0, null (0), https://doi.org/10.1021/acs.jpca.9b02921",
+  "10.1021/acs.jpca.9b02921",
+  "@article{Jana2019,\nauthor = {Jana, Subrata and Sharma, Kedar and Samal, Prasanjit},\ntitle = {Improving the Performance of Tao–Mo Non-empirical Density Functional with Broader Applicability in Quantum Chemistry and Materials Science},\njournal = {J. Phys. Chem. A},\nvolume = {0},\nnumber = {0},\npages = {null},\nyear = {0},\ndoi = {10.1021/acs.jpca.9b02921},\nURL = {https://doi.org/10.1021/acs.jpca.9b02921},\neprint = {https://doi.org/10.1021/acs.jpca.9b02921}\n}"
+};
+
+
 func_reference_type xc_ref_Jin2016_034107 = {
   "Y. Jin and R. J. Bartlett, J. Chem. Phys. 145, 034107 (2016), http://dx.doi.org/10.1063/1.4955497",
   "10.1063/1.4955497",
@@ -2138,6 +2145,13 @@ func_reference_type xc_ref_Wang2017_8487 = {
   "Y. Wang, X. Jin, H. S. Yu, D. G. Truhlar, and X. He, Proceedings of the National Academy of Sciences 114, 8487 (2017)",
   "10.1073/pnas.1705670114",
   "@article{Wang2017_8487,\n  author = {Wang, Ying and Jin, Xinsheng and Yu, Haoyu S. and Truhlar, Donald G. and He, Xiao},\n  title = {Revised M06-L functional for improved accuracy on chemical reaction barrier heights, noncovalent interactions, and solid-state physics},\n  volume = {114},\n  number = {32},\n  pages = {8487-8492},\n  year = {2017},\n  doi = {10.1073/pnas.1705670114},\n  URL = {http://www.pnas.org/content/114/32/8487.abstract},\n  eprint = {http://www.pnas.org/content/114/32/8487.full.pdf},\n  journal = {Proceedings of the National Academy of Sciences}\n}"
+};
+
+
+func_reference_type xc_ref_Wang2018_10257 = {
+  "Y. Wang, P. Verma, X. Jin, D. G. Truhlar, and X. He, Proceedings of the National Academy of Sciences 115, 10257 (2018), https://www.pnas.org/content/115/41/10257.full.pdf",
+  "10.1073/pnas.1810421115",
+  "@article {Wang2018_10257,\n author = {Wang, Ying and Verma, Pragya and Jin, Xinsheng and Truhlar, Donald G. and He, Xiao},\n title = {Revised M06 density functional for main-group and transition-metal chemistry},\n volume = {115},\n number = {41},\n pages = {10257--10262},\n year = {2018},\n doi = {10.1073/pnas.1810421115},\n publisher = {National Academy of Sciences},\n issn = {0027-8424},\n URL = {https://www.pnas.org/content/115/41/10257},\n eprint = {https://www.pnas.org/content/115/41/10257.full.pdf},\n journal = {Proceedings of the National Academy of Sciences}\n}"
 };
 
 

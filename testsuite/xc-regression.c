@@ -148,31 +148,43 @@ void allocate_memory(values_t *data, int nspin, int order)
       fprintf(stderr, "nspin = %i not recognized.\n", nspin);
       exit(2);
   }
-
 }
 
-void free_memory(values_t val)
+
+#define FREE_NULL(p) {if(p!=NULL) {free(p);}; p=NULL;}
+
+void free_memory(values_t *val)
 {
-  free(val.rho);
-  free(val.sigma);
-  free(val.lapl);
-  free(val.tau);
-  free(val.zk);
-  free(val.vrho);
-  free(val.vsigma);
-  free(val.vlapl);
-  free(val.vtau);
-  free(val.v2rho2);
-  free(val.v2tau2);
-  free(val.v2lapl2);
-  free(val.v2rhotau);
-  free(val.v2rholapl);
-  free(val.v2lapltau);
-  free(val.v2sigma2);
-  free(val.v2rhosigma);
-  free(val.v2sigmatau);
-  free(val.v2sigmalapl);
-  free(val.v3rho3);
+  FREE_NULL(val->rho);
+  FREE_NULL(val->sigma);
+  FREE_NULL(val->lapl);
+  FREE_NULL(val->tau);
+  FREE_NULL(val->zk);
+  FREE_NULL(val->vrho);
+  FREE_NULL(val->vsigma);
+  FREE_NULL(val->vlapl);
+  FREE_NULL(val->vtau);
+  FREE_NULL(val->v2rho2);
+  FREE_NULL(val->v2tau2);
+  FREE_NULL(val->v2lapl2);
+  FREE_NULL(val->v2rhotau);
+  FREE_NULL(val->v2rholapl);
+  FREE_NULL(val->v2lapltau);
+  FREE_NULL(val->v2sigma2);
+  FREE_NULL(val->v2rhosigma);
+  FREE_NULL(val->v2sigmatau);
+  FREE_NULL(val->v2sigmalapl);
+  FREE_NULL(val->v3rho3);
+}
+
+void drop_laplacian(values_t *val)
+{
+  FREE_NULL(val->lapl);
+  FREE_NULL(val->vlapl);
+  FREE_NULL(val->v2lapl2);
+  FREE_NULL(val->v2rholapl);
+  FREE_NULL(val->v2lapltau);
+  FREE_NULL(val->v2sigmalapl);
 }
 
 values_t read_data(const char *file, int nspin, int order) {
@@ -224,7 +236,7 @@ values_t read_data(const char *file, int nspin, int order) {
     cp=fgets(buf,BUFSIZE,in);
     if(cp!=buf) {
       fprintf(stderr,"Read error on line %i.\n",i+1);
-      free_memory(data);
+      free_memory(&data);
       exit(5);
     }
     /* Read data */
@@ -234,7 +246,7 @@ values_t read_data(const char *file, int nspin, int order) {
     /* Error control */
     if(nsucc!=9) {
       fprintf(stderr,"Read error on line %i: only %i entries read.\n",i+1,nsucc);
-      free_memory(data);
+      free_memory(&data);
       exit(5);
     }
 
@@ -264,6 +276,31 @@ values_t read_data(const char *file, int nspin, int order) {
   return data;
 }
 
+/* Print helpers */
+void printe1(FILE *out, double *x, size_t idx) {
+  fprintf(out," % .16e",x[idx]);
+}
+
+void printe2(FILE *out, double *x, size_t idx) {
+  fprintf(out," % .16e % .16e",x[idx],x[idx+1]);
+}
+
+void print03(FILE *out, double *x, size_t idx) {
+  fprintf(out," % .16e % .16e % .16e",0.0,0.0,0.0);
+}
+
+void print01(FILE *out, double *x, size_t idx) {
+  fprintf(out," % .16e",0.0);
+}
+
+void print02(FILE *out, double *x, size_t idx) {
+  fprintf(out," % .16e % .16e",0.0,0.0);
+}
+
+void printe3(FILE *out, double *x, size_t idx) {
+  fprintf(out," % .16e % .16e % .16e",x[idx],x[idx+1],x[idx+2]);
+}
+
 /*----------------------------------------------------------*/
 int main(int argc, char *argv[])
 {
@@ -278,6 +315,28 @@ int main(int argc, char *argv[])
   static const char sfmt2[]=" %23s %23s";
   static const char sfmt3[]=" %23s %23s %23s";
 
+  /* Data array */
+  values_t d;
+  /* Functional evaluator */
+  xc_func_type func;
+  /* Flags for functional */
+  int flags;
+  /* Functional family */
+  int family;
+  /* Output file */
+  FILE *out;
+  /* Output file name */
+  char *fname;
+
+  /* Normal print functions */
+  void (*print1)(FILE *out, double *x, size_t idx);
+  void (*print2)(FILE *out, double *x, size_t idx);
+  void (*print3)(FILE *out, double *x, size_t idx);
+  /* Laplacian data print functions */
+  void (*plapl1)(FILE *out, double *x, size_t idx);
+  void (*plapl2)(FILE *out, double *x, size_t idx);
+  void (*plapl3)(FILE *out, double *x, size_t idx);
+  
   if(argc != 6) {
     fprintf(stderr, "Usage:\n%s funct nspin order input output\n", argv[0]);
     exit(1);
@@ -296,19 +355,6 @@ int main(int argc, char *argv[])
   /* Order of derivatives to compute */
   order = atoi(argv[3]);
 
-  /* Data array */
-    values_t d;
-  /* Functional evaluator */
-  xc_func_type func;
-  /* Flags for functional */
-  int flags;
-  /* Functional family */
-  int family;
-  /* Output file */
-  FILE *out;
-  /* Output file name */
-  char *fname;
-
   /* Read in data */
   d = read_data(argv[4], nspin, order);
 
@@ -326,7 +372,22 @@ int main(int argc, char *argv[])
   vrho   = (flags & XC_FLAGS_HAVE_VXC) ? d.vrho   : NULL;
   v2rho2 = (flags & XC_FLAGS_HAVE_FXC) ? d.v2rho2 : NULL;
   v3rho3 = (flags & XC_FLAGS_HAVE_KXC) ? d.v3rho3 : NULL;
+  print1 = printe1;
+  print2 = printe2;
+  print3 = printe3; 
+  plapl1 = printe1;
+  plapl2 = printe2;
+  plapl3 = printe3; 
 
+  /* If functional doesn't need laplacian, drop the values and print
+     out zeros for the functional value */
+  if(!(flags & XC_FLAGS_NEEDS_LAPLACIAN)) {
+    drop_laplacian(&d);
+    plapl1 = print01;
+    plapl2 = print02;
+    plapl3 = print03;
+  }
+  
   /* Evaluate xc functional */
   switch(family) {
   case XC_FAMILY_LDA:
@@ -352,7 +413,7 @@ int main(int argc, char *argv[])
 
   default:
     fprintf(stderr,"Support for family %i not implemented.\n",family);
-    free_memory(d);
+    free_memory(&d);
     exit(1);
   }
 
@@ -361,7 +422,7 @@ int main(int argc, char *argv[])
   out = fopen(fname,"w");
   if(!out) {
     fprintf(stderr,"Error opening output file %s.\n",fname);
-    free_memory(d);
+    free_memory(&d);
     exit(1);
   }
 
@@ -442,62 +503,62 @@ int main(int argc, char *argv[])
 
     switch (order) {
       case (0): /* energy */
-        fprintf(out, efmt, d.zk[i]);
+        print1(out, d.zk, i);
         break;
       case (1): /* first order derivatives */
         if (nspin == XC_POLARIZED) {
-          fprintf(out, efmt2, d.vrho[2 * i], d.vrho[2 * i + 1]);
+          print2(out,  d.vrho, 2 * i);
           if (family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA))
-            fprintf(out, efmt3, d.vsigma[3 * i], d.vsigma[3 * i + 1], d.vsigma[3 * i + 2]);
+            print3(out, d.vsigma, 3 * i);
           if (family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-            fprintf(out, efmt2, d.vlapl[2 * i], d.vlapl[2 * i + 1]);
-            fprintf(out, efmt2, d.vtau[2 * i], d.vtau[2 * i + 1]);
+            plapl2(out, d.vlapl, 2 * i);
+            print2(out, d.vtau, 2 * i);
           }
         } else {
-          fprintf(out, efmt, d.vrho[i]);
+          print1(out, d.vrho, i);
           if (family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA))
-            fprintf(out, efmt, d.vsigma[i]);
+            print1(out, d.vsigma, i);
           if (family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-            fprintf(out, efmt, d.vlapl[i]);
-            fprintf(out, efmt, d.vtau[i]);
+            plapl1(out, d.vlapl, i);
+            print1(out, d.vtau, i);
           }
         }
         break;
 
       case (2): /* second order derivatives */
         if (nspin == XC_POLARIZED) {
-          fprintf(out, efmt3, d.v2rho2[3*i], d.v2rho2[3*i + 1], d.v2rho2[3*i + 2]);
+          print3(out, d.v2rho2, 3*i);
           if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-            fprintf(out, efmt3, d.v2sigma2[6*i], d.v2sigma2[6*i + 1], d.v2sigma2[6*i + 2]);
-            fprintf(out, efmt3, d.v2sigma2[6*i + 3], d.v2sigma2[6*i + 4], d.v2sigma2[6*i + 5]);
-            fprintf(out, efmt3, d.v2rhosigma[6*i], d.v2rhosigma[6*i + 1], d.v2rhosigma[6*i + 2]);
-            fprintf(out, efmt3, d.v2rhosigma[6*i + 3], d.v2rhosigma[6*i + 4], d.v2rhosigma[6*i + 5]);
+            print3(out, d.v2sigma2, 6*i);
+            print3(out, d.v2sigma2, 6*i + 3);
+            print3(out, d.v2rhosigma, 6*i);
+            print3(out, d.v2rhosigma, 6*i + 3);
           }
           if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-            fprintf(out, efmt3, d.v2lapl2[3*i], d.v2lapl2[3*i + 1], d.v2lapl2[3*i + 2]);
-            fprintf(out, efmt3, d.v2tau2[3*i], d.v2tau2[3*i + 1], d.v2tau2[3*i + 2]);
-            fprintf(out, efmt3, d.v2rholapl[3*i], d.v2rholapl[3*i + 1], d.v2rholapl[3*i + 2]);
-            fprintf(out, efmt3, d.v2rhotau[3*i], d.v2rhotau[3*i + 1], d.v2rhotau[3*i + 2]);
-            fprintf(out, efmt3, d.v2lapltau[3*i], d.v2lapltau[3*i + 1], d.v2lapltau[3*i + 2]);
-            fprintf(out, efmt3, d.v2sigmatau[3*i], d.v2sigmatau[3*i + 1], d.v2sigmatau[3*i + 2]);
-            fprintf(out, efmt3, d.v2sigmatau[3*i + 3], d.v2sigmatau[3*i + 4], d.v2sigmatau[3*i + 5]);
-            fprintf(out, efmt3, d.v2sigmalapl[3*i], d.v2sigmalapl[3*i + 1], d.v2sigmalapl[3*i + 2]);
-            fprintf(out, efmt3, d.v2sigmalapl[3*i + 3], d.v2sigmalapl[3*i + 4], d.v2sigmalapl[3*i + 5]);
+            plapl3(out, d.v2lapl2, 3*i);
+            print3(out, d.v2tau2, 3*i);
+            plapl3(out, d.v2rholapl, 3*i);
+            print3(out, d.v2rhotau, 3*i);
+            plapl3(out, d.v2lapltau, 3*i);
+            print3(out, d.v2sigmatau, 3*i);
+            print3(out, d.v2sigmatau, 3*i + 3);
+            plapl3(out, d.v2sigmalapl, 3*i);
+            plapl3(out, d.v2sigmalapl, 3*i + 3);
           }
         } else {
-          fprintf(out, efmt, d.v2rho2[i]);
+          print1(out, d.v2rho2, i);
           if(family & (XC_FAMILY_GGA | XC_FAMILY_HYB_GGA | XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-            fprintf(out, efmt, d.v2sigma2[i]);
-            fprintf(out, efmt, d.v2rhosigma[i]);
+            print1(out, d.v2sigma2, i);
+            print1(out, d.v2rhosigma, i);
           }
           if(family & (XC_FAMILY_MGGA | XC_FAMILY_HYB_MGGA)) {
-            fprintf(out, efmt, d.v2lapl2[i]);
-            fprintf(out, efmt, d.v2tau2[i]);
-            fprintf(out, efmt, d.v2rholapl[i]);
-            fprintf(out, efmt, d.v2rhotau[i]);
-            fprintf(out, efmt, d.v2lapltau[i]);
-            fprintf(out, efmt, d.v2sigmatau[i]);
-            fprintf(out, efmt, d.v2sigmalapl[i]);
+            plapl1(out, d.v2lapl2, i);
+            print1(out, d.v2tau2, i);
+            plapl1(out, d.v2rholapl, i);
+            print1(out, d.v2rhotau, i);
+            plapl1(out, d.v2lapltau, i);
+            print1(out, d.v2sigmatau, i);
+            plapl1(out, d.v2sigmalapl, i);
           }
         }
         break;
@@ -511,7 +572,7 @@ int main(int argc, char *argv[])
   }
 
   xc_func_end(&func);
-  free_memory(d);
+  free_memory(&d);
   fclose(out);
 
   return 0;

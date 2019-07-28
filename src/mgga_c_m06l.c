@@ -14,6 +14,7 @@
 #define XC_MGGA_C_M06           235 /* M06 correlation functional from Minnesota            */
 #define XC_MGGA_C_M06_2X        236 /* M06-2X correlation functional from Minnesota         */
 #define XC_MGGA_C_REVM06_L      294 /* Revised M06-L correlation functional from Minnesota  */
+#define XC_MGGA_C_REVM06        306 /* Revised M06 correlation functional from Minnesota    */
 
 typedef struct{
   double gamma_ss, gamma_ab, alpha_ss, alpha_ab;
@@ -66,6 +67,15 @@ static const mgga_c_m06l_params par_revm06l = {
   1e-10
 };
 
+static const mgga_c_m06l_params par_revm06 = {
+  0.06, 0.0031, 0.00515088, 0.00304966,
+  { 0.9017224575,  0.2079991827, -1.823747562, -1.384430429, -0.4423253381},
+  { 1.222401598,  0.6613907336, -1.884581043, -2.780360568, -3.068579344},
+  { -0.1467095900, -0.0001832187007, 0.08484372430, 0.0, 0.0,  0.0002280677172},
+  { -0.3390666720,  0.003790156384, -0.02762485975, 0.0, 0.0,  0.0004076285162},
+  1e-10
+};
+
 static void 
 mgga_c_m06l_init(xc_func_type *p)
 {
@@ -98,6 +108,9 @@ mgga_c_m06l_init(xc_func_type *p)
     break;
   case XC_MGGA_C_REVM06_L:
     memcpy(params, &par_revm06l, sizeof(mgga_c_m06l_params));
+    break;
+  case XC_MGGA_C_REVM06:
+    memcpy(params, &par_revm06, sizeof(mgga_c_m06l_params));
     break;
   default:
     fprintf(stderr, "Internal error in mgga_c_m06l\n");
@@ -183,6 +196,19 @@ const xc_func_info_type xc_func_info_mgga_c_revm06_l = {
   {&xc_ref_Wang2017_8487, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   5.0e-13,
+  1, ext_params, set_ext_params,
+  mgga_c_m06l_init, NULL,
+  NULL, NULL, work_mgga,
+};
+
+const xc_func_info_type xc_func_info_mgga_c_revm06 = {
+  XC_MGGA_C_REVM06,
+  XC_CORRELATION,
+  "Revised Minnesota M06 correlation functional",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Wang2018_10257, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1.0e-23,
   1, ext_params, set_ext_params,
   mgga_c_m06l_init, NULL,
   NULL, NULL, work_mgga,

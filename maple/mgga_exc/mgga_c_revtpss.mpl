@@ -7,11 +7,14 @@
 *)
 
 (* type: mgga_exc *)
+(* prefix:
+  mgga_c_revtpss_params *params;
+
+  assert(p->params != NULL);
+  params = (mgga_c_revtpss_params * )(p->params);
+*)
 
 $include "gga_c_regtpss.mpl"
-
-params_a_C0_c := [0.59, 0.9269, 0.6225, 2.1540]:
-params_a_d    := 2.8:
 $include "tpss_c.mpl"
 
 f := (rs, z, xt, xs0, xs1, us0, us1, ts0, ts1) ->

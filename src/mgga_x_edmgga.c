@@ -19,7 +19,7 @@ const xc_func_info_type xc_func_info_mgga_x_edmgga = {
   "Tao 2001",
   XC_FAMILY_MGGA,
   {&xc_ref_Tao2001_3519, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
   1.0e-23,
   0, NULL, NULL,
   NULL, NULL,

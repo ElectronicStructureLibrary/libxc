@@ -13,6 +13,7 @@
 #define XC_HYB_MGGA_X_M06_HF    444 /* M06-HF hybrid exchange functional from Minnesota  */
 #define XC_HYB_MGGA_X_M06       449 /* M06 hybrid exchange functional from Minnesota     */
 #define XC_MGGA_X_REVM06_L      293 /* revised M06-L exchange functional from Minnesota  */
+#define XC_HYB_MGGA_X_REVM06    305 /* revised M06 hybrid exchange functional from Minnesota  */
 
 static const double a_m06l[12] = {
   0.3987756, 0.2548219, 0.3923994, -2.103655, -6.302147, 10.97615,
@@ -37,6 +38,12 @@ static const double a_revm06l[12] = {
  -2.359736776, -1.436594372,  0.444643793,  1.529925054,  2.053941717, -0.036536031
 };
 static const double d_revm06l[6] = {-0.423227252, 0.0, 0.003724234, 0.0, 0.0, 0.0};
+
+static const double a_revm06[12] = {
+  0.6511394014, -0.1214497763, -0.1367041135,  0.3987218551,  0.6056741356, -2.379738662,
+  -1.492098351,   3.031473420,   0.5149637108,  2.633751911,  0.9886749252, -4.243714128
+};
+static const double d_revm06[6] = {-0.05523940140, 0.0, -0.003782631233, 0.0, 0.0, 0.0};
 
 typedef struct{
   const double *a, *d;
@@ -70,6 +77,11 @@ mgga_x_m06l_init(xc_func_type *p)
   case XC_MGGA_X_REVM06_L:
     params->a = a_revm06l;
     params->d = d_revm06l;
+    break;
+  case XC_HYB_MGGA_X_REVM06:
+    params->a = a_revm06;
+    params->d = d_revm06;
+    p->cam_alpha = 0.4041;
     break;
   default:
     fprintf(stderr, "Internal error in mgga_x_m06l\n");
@@ -129,5 +141,18 @@ const xc_func_info_type xc_func_info_mgga_x_revm06_l = {
   5.0e-13,
   0, NULL, NULL,
   mgga_x_m06l_init, NULL,
+  NULL, NULL, work_mgga,
+};
+
+const xc_func_info_type xc_func_info_hyb_mgga_x_revm06 = {
+  XC_HYB_MGGA_X_REVM06,
+  XC_EXCHANGE,
+  "Revised Minnesota M06 hybrid exchange functional",
+  XC_FAMILY_HYB_MGGA,
+  {&xc_ref_Wang2018_10257, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1.0e-32,
+  0, NULL, NULL,
+  mgga_x_m06l_init, NULL, 
   NULL, NULL, work_mgga,
 };

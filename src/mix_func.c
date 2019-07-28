@@ -1,10 +1,10 @@
 /*
- Copyright (C) 2006-2007 M.A.L. Marques
-               2018 Susi Lehtola
+  Copyright (C) 2006-2007 M.A.L. Marques
+                2018-2019 Susi Lehtola
 
- This Source Code Form is subject to the terms of the Mozilla Public
- License, v. 2.0. If a copy of the MPL was not distributed with this
- file, You can obtain one at http://mozilla.org/MPL/2.0/.
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
 
@@ -70,8 +70,58 @@ xc_mix_func(const xc_func_type *func, int np,
 
   const xc_dimensions *dim = &(func->dim);
 
+  /* Sanity check: have we claimed the highest possible derivatives?
+     First, check for the lowest common derivative (also need to make
+     sure the derivatives have been compiled in!)
+  */
+  int need_laplacian = 0;
+  int have_vxc = XC_FLAGS_I_HAVE_VXC;
+  int have_fxc = XC_FLAGS_I_HAVE_FXC;
+  int have_kxc = XC_FLAGS_I_HAVE_KXC;
+  for(ii=0; ii<func->n_func_aux; ii++){
+    aux = func->func_aux[ii];
+    if(! (aux->info->flags & XC_FLAGS_HAVE_VXC))
+      have_vxc = 0;
+    if(! (aux->info->flags & XC_FLAGS_HAVE_FXC))
+      have_fxc = 0;
+    if(! (aux->info->flags & XC_FLAGS_HAVE_KXC))
+      have_kxc = 0;
+  }
+  /* Then, for the actual checks */
+  assert(have_kxc == (func->info->flags & XC_FLAGS_HAVE_KXC));
+  assert(have_fxc == (func->info->flags & XC_FLAGS_HAVE_FXC));
+  assert(have_vxc == (func->info->flags & XC_FLAGS_HAVE_VXC));
+
+  /* Check compatibility of the individual components */
+  for(ii=0; ii<func->n_func_aux; ii++){
+    aux = func->func_aux[ii];
+
+    /* Sanity check: if component is GGA or meta-GGA, mix functional
+       must also be GGA or meta-GGA */
+    if(is_gga(aux->info->family))
+      assert(is_gga(func->info->family));
+    if(is_mgga(aux->info->family) && !is_mgga(func->info->family))
+      assert(is_mgga(func->info->family));
+    /* Sanity check: if component needs the Laplacian, then the mix
+       must require it too */
+    if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+      need_laplacian = XC_FLAGS_NEEDS_LAPLACIAN;
+    /* Sanity checks: if mix functional has higher derivatives, these
+       must also exist in the individual components */
+    if(func->info->flags & XC_FLAGS_HAVE_VXC)
+      assert(aux->info->flags & XC_FLAGS_HAVE_VXC);
+    if(func->info->flags & XC_FLAGS_HAVE_FXC)
+      assert(aux->info->flags & XC_FLAGS_HAVE_FXC);
+    if(func->info->flags & XC_FLAGS_HAVE_KXC)
+      assert(aux->info->flags & XC_FLAGS_HAVE_KXC);
+    if(func->info->flags & XC_FLAGS_HAVE_LXC)
+      assert(aux->info->flags & XC_FLAGS_HAVE_LXC);
+  }
+  /* Check Laplacian flag */
+  assert((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) == need_laplacian);
+
   /* prepare buffers that will hold the results from the individual functionals */
-  zk_ = NULL;  
+  zk_ = NULL;
   vrho_ = vsigma_ = vlapl_ = vtau_ = NULL;
   v2rho2_ = v2rhosigma_ = v2rholapl_ = v2rhotau_ = NULL;
   v2sigma2_ =  v2sigmalapl_ = v2sigmatau_ = NULL;
@@ -97,12 +147,9 @@ xc_mix_func(const xc_func_type *func, int np,
       vsigma_ = (double *) malloc(sizeof(double)*np*dim->vsigma);
     }
     if(is_mgga(func->info->family)){
-      /* At the moment we always allocate the derivatives involving
-         the laplacian, as some parts of Libxc do not take into
-         account the XC_FLAGS_NEEDS_LAPLACIAN flag.
-         if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){ */
-      vlapl_ = (double *) malloc(sizeof(double)*np*dim->vlapl);
-      /* } */
+      if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+        vlapl_ = (double *) malloc(sizeof(double)*np*dim->vlapl);
+      }
       vtau_  = (double *) malloc(sizeof(double)*np*dim->vtau);
     }
   }
@@ -150,10 +197,12 @@ xc_mix_func(const xc_func_type *func, int np,
       v3tau3_         = (double *) malloc(sizeof(double)*np*dim->v3tau3);
     }
   }
-  
-  /* we now add the different components */
+
+  /* Proceed by computing the mix */
   for(ii=0; ii<func->n_func_aux; ii++){
     aux = func->func_aux[ii];
+
+    /* Evaluate the functional */
     switch(aux->info->family){
     case XC_FAMILY_LDA:
       xc_lda(aux, np, rho, zk_, vrho_, v2rho2_, v3rho3_);
@@ -185,14 +234,7 @@ xc_mix_func(const xc_func_type *func, int np,
       break;
     }
 
-    /* Sanity checks */
-    if(is_gga(aux->info->family))
-      assert(is_gga(func->info->family));
-    if(is_mgga(aux->info->family) && !is_mgga(func->info->family))
-      assert(is_mgga(func->info->family));
-    if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
-      assert(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN);
-
+    /* Do the mixing */
     if(zk != NULL) {
       for(ip = 0; ip < np*dim->zk; ip++)
         zk[ip] += func->mix_coef[ii] * zk_[ip];
@@ -251,7 +293,7 @@ xc_mix_func(const xc_func_type *func, int np,
     if(v3rho3 != NULL){
       for(ip = 0; ip < np*dim->v3rho3; ip++)
         v3rho3[ip] += func->mix_coef[ii] * v3rho3_[ip];
-      
+
       if(is_gga(aux->info->family)) {
         for(ip = 0; ip < np*dim->v3rho2sigma; ip++)
           v3rho2sigma[ip] += func->mix_coef[ii] * v3rho2sigma_[ip];
@@ -296,7 +338,7 @@ xc_mix_func(const xc_func_type *func, int np,
           for(ip = 0; ip < np*dim->v3lapltau2; ip++)
             v3lapltau2[ip] += func->mix_coef[ii] * v3lapltau2_[ip];
         }
-      }  
+      }
     }
   }
 

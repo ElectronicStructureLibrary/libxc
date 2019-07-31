@@ -778,14 +778,14 @@ module xc_f03_lib_m
   end subroutine xc_f03_func_set_ext_params
   
   integer(c_int) function xc_f03_func_get_n_ext_params(p) result(n_ext_params)
-    type(xc_f03_func_info_t), intent(in) :: p
+    type(xc_f03_func_t), intent(in) :: p
     
     n_ext_params = xc_func_get_n_ext_params(p%ptr)
 
   end function xc_f03_func_get_n_ext_params
 
   character(len=128) function xc_f03_func_get_ext_params_description(p, number) result(description)
-    type(xc_f03_func_info_t), intent(in) :: p
+    type(xc_f03_func_t), intent(in) :: p
     integer(c_int),           intent(in) :: number
 
     call c_to_f_string_ptr(xc_func_get_ext_params_description(p%ptr, number), description)
@@ -793,7 +793,7 @@ module xc_f03_lib_m
   end function xc_f03_func_get_ext_params_description
 
   real(c_double) function xc_f03_func_get_ext_params_default_value(p, number) result(val)
-    type(xc_f03_func_info_t), intent(in) :: p
+    type(xc_f03_func_t), intent(in) :: p
     integer(c_int),           intent(in) :: number
 
     val = xc_func_get_ext_params_default_value(p%ptr, number)

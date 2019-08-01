@@ -24,7 +24,7 @@ const xc_func_info_type xc_func_info_mgga_c_scanl = {
   XC_FAMILY_MGGA,
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161,&xc_ref_Sun2015_036402, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_VXC | XC_FLAGS_HAVE_EXC,
-  1e-12,
+  1e-20,
   0, NULL, NULL,
   NULL, NULL, 
   NULL, NULL, work_mgga_deorb,
@@ -50,7 +50,7 @@ const xc_func_info_type xc_func_info_mgga_c_scanl_rvv10 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161, &xc_ref_Peng2016_041005, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_VV10 | XC_FLAGS_I_HAVE_VXC | XC_FLAGS_HAVE_EXC,
-  1e-12,
+  1e-20,
   0, NULL, NULL,
   mgga_c_scan_rvv10_init, NULL,
   NULL, NULL, NULL
@@ -75,7 +75,7 @@ const xc_func_info_type xc_func_info_mgga_c_scanl_vv10 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161, &xc_ref_Brandenburg2016_115144, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_VV10 | XC_FLAGS_I_HAVE_VXC | XC_FLAGS_HAVE_EXC,
-  1e-12,
+  1e-20,
   0, NULL, NULL,
   mgga_c_scan_vv10_init, NULL,
   NULL, NULL, NULL

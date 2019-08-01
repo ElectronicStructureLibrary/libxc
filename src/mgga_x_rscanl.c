@@ -48,7 +48,7 @@ const xc_func_info_type xc_func_info_mgga_x_rscanl = {
   XC_FAMILY_MGGA,
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161, &xc_ref_Bartok2019_161101, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_VXC | XC_FLAGS_HAVE_EXC,
-  1e-12,
+  1e-20,
   0, NULL, NULL,
   mgga_x_rscan_init, NULL,
   NULL, NULL, work_mgga_deorb,

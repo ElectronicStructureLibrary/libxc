@@ -1272,6 +1272,17 @@ func_reference_type xc_ref_McWeeny1976_3 = {
   "@InProceedings{McWeeny1976_3,\n  author =       {R. McWeeny},\n  title =        {Present Status of the Correlation Problem},\n  booktitle = {The New World of Quantum Chemistry},\n  year =      {1976},\n  editor =    {B. Pullman and R. Parr},\n  pages =     {3--31},\n  address =   {Boston},\n  publisher = {Reidel},\n}"
 };
 
+func_reference_type xc_ref_Mejia2017_052512 = {
+  "D. Mejia-Rodriguez, and S. B. Trickey, Phys. Rev. A. 96, 052512 (2017)",
+  "10.1103/PhysRevA.96.052512",
+  "@article{Mejia2017_052512,\n title - \"Deorbitalization strategies for meta-generalized-gradient-approximation exchange-correlation functionals\",\n author = \"D. Mejia-Rodriguez and S. B. Trickey\", \n journal = \"Phys. Rev. A\",\n year = \"2017\",\n volume = \"96\",\n pages = \"052512\",\n doi = \"10.1103/PhysRevA.96.052512\" \n url = \"https://journals.aps.org/pra/abstract/10.1103/PhysRevA.96.052512\"\n}"
+};
+
+func_reference_type xc_ref_Mejia2018_115161 = {
+  "D. Mejia-Rodriguez, and S. B. Trickey, Phys. Rev. B. 98, 115161 (2018)",
+  "10.1103/PhysRevB.98.115161",
+  "@article{Mejia2018_115161,\n title - \"Deorbitalized meta-GGA exchange-correlation functionals in solids\",\n author = \"D. Mejia-Rodriguez and S. B. Trickey\", \n journal = \"Phys. Rev. B\",\n year = \"2018\",\n volume = \"98\",\n pages = \"115161\",\n doi = \"10.1103/PhysRevB.98.115161\" \n url = \"https://journals.aps.org/prb/abstract/10.1103/PhysRevB.98.115161\"\n}"
+};
 
 func_reference_type xc_ref_Menconi2001_3958 = {
   "G. Menconi, P. J. Wilson, and D. J. Tozer, J. Chem. Phys. 114, 3958 (2001)",

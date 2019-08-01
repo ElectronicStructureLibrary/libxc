@@ -29,7 +29,7 @@ mgga_x_scanl_init(xc_func_type *p)
   params = (mgga_x_scan_params *)p->params;
 
   switch(p->info->number){
-    case XC_MGGA_X_SCANL:
+  case XC_MGGA_X_SCANL:
     memcpy(params, &par_scanl, sizeof(mgga_x_scan_params));
     break;
   case XC_MGGA_X_REVSCANL:
@@ -51,7 +51,8 @@ const xc_func_info_type xc_func_info_mgga_x_scanl = {
   "Deorbitalized SCAN (SCAN-L) exchange",
   XC_FAMILY_MGGA,
   {&xc_ref_Sun2015_036402, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_VXC
+    | XC_FLAGS_HAVE_EXC,
   1e-23,
   0, NULL, NULL,
   mgga_x_scanl_init, NULL,
@@ -64,7 +65,8 @@ const xc_func_info_type xc_func_info_mgga_x_revscanl = {
   "Deorbitalized revised SCAN (revSCAN-L) exchange",
   XC_FAMILY_MGGA,
   {&xc_ref_Mezei2018_2469, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_HAVE_VXC,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_VXC
+    | XC_FLAGS_HAVE_EXC,
   1e-23,
   0, NULL, NULL,
   mgga_x_scanl_init, NULL,

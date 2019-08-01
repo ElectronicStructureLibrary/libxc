@@ -28,6 +28,12 @@ work_mgga_deorb(const XC(func_type) *p, int np,
   int ip, order;
   double dens, zeta;
   double *taus, *dtausdrho, *dtausdsigma, *dtausdlapl;
+  const xc_dimensions *dim = &(p->dim);
+
+  taus = (double *) malloc(sizeof(double)*np*dim->tau);
+  dtausdrho = (double *) malloc(sizeof(double)*np*dim->vrho);
+  dtausdsigma = (double *) malloc(sizeof(double)*np*dim->vsigma);
+  dtausdlapl = (double *) malloc(sizeof(double)*np*dim->vlapl);
 
   order = -1;
   if(zk     != NULL) order = 0;
@@ -46,20 +52,45 @@ work_mgga_deorb(const XC(func_type) *p, int np,
         func_unpol(p, order, rho, sigma, lapl, taus, OUT_PARAMS());
 
         /* Deorbitalization Contribution */
-        *vrho = *vrho + *vtau * *dtausdrho;
-        *vsigma = *vsigma + *vtau * *dtausdsigma;
-        *vlapl = *vlapl + *vtau * *dtausdlapl;
-        *vtau = 0.0;
+        vrho[0] = vrho[0] + vtau[0] * dtausdrho[0];
+        vsigma[0] = vsigma[0] + vtau[0] * dtausdsigma[0];
+        vlapl[0] = vlapl[0] + vtau[0] * dtausdlapl[0];
+        vtau[0] = 0.0;
       
       }else if(zeta >  1.0 - 1e-10){              /* ferromagnetic case - spin 0 */
-        func_ferr(p, order, rho, sigma, lapl, tau, OUT_PARAMS());
+        ked_ferr(order, rho, sigma, lapl, taus, dtausdrho, dtausdsigma, dtausdlapl);
+        func_ferr(p, order, rho, sigma, lapl, taus, OUT_PARAMS());
+        /* Deorbitalization contribution */
+        vrho[0] = vrho[0] + vtau[0] * dtausdrho[0];
+        vsigma[0] = vsigma[0] + vtau[0] * dtausdsigma[0];
+        vlapl[0] = vlapl[0] + vtau[0] * dtausdlapl[0];
+        vtau[0] = 0.0;
+
         
       }else if(zeta < -1.0 + 1e-10){              /* ferromagnetic case - spin 1 */
         internal_counters_mgga_next(&(p->dim), -1, &rho, &sigma, &lapl, &tau, &zk, MGGA_OUT_PARAMS_NO_EXC(&));
-        func_ferr(p, order, rho, sigma, lapl, tau, OUT_PARAMS());
+        ked_ferr(order, rho, sigma, lapl, taus, dtausdrho, dtausdsigma, dtausdlapl);
+        func_ferr(p, order, rho, sigma, lapl, taus, OUT_PARAMS());
+        /* Deorbitalization contribution */
+        vrho[0] = vrho[0] + vtau[0] * dtausdrho[0];
+        vsigma[0] = vsigma[0] + vtau[0] * dtausdsigma[0];
+        vlapl[0] = vlapl[0] + vtau[0] * dtausdlapl[0];
+        vtau[0] = 0.0;
         internal_counters_mgga_prev(&(p->dim), -1, &rho, &sigma, &lapl, &tau, &zk, MGGA_OUT_PARAMS_NO_EXC(&));
       }else{                                      /* polarized (general) case */
-        func_pol(p, order, rho, sigma, lapl, tau, OUT_PARAMS());
+        ked_pol(order, rho, sigma, lapl, taus, dtausdrho, dtausdsigma, dtausdlapl);
+        func_pol(p, order, rho, sigma, lapl, taus, OUT_PARAMS());
+        /* Deorbitalization contribution */
+        vrho[0] = vrho[0] + vtau[0] * dtausdrho[0];
+        vsigma[0] = vsigma[0] + vtau[0] * dtausdsigma[0];
+        vlapl[0] = vlapl[0] + vtau[0] * dtausdlapl[0];
+        vtau[0] = 0.0;
+
+        vrho[1] = vrho[1] + vtau[1] * dtausdrho[1];
+        vsigma[2] = vsigma[2] + vtau[1] * dtausdsigma[2];
+        vlapl[1] = vlapl[1] + vtau[1] * dtausdlapl[1];
+        vtau[1] = 0.0;
+
       } /* polarization */
     }
     

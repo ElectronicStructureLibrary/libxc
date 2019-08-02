@@ -24,7 +24,7 @@ params_a_c_ab := [1.2033, -2.2717, 0.9596]:
 
 b98_q := (x, u, t) -> (u/4 - t + x^2/8 + K_FACTOR_C)/K_FACTOR_C:
 
-b98_g := (gamma, cc, q) -> add(cc[i]*(gamma*q^2/sqrt(1 + gamma*q^2))^(i-1), i=1..3):
+b98_g := (gamma, cc, q) -> add(cc[i]*(gamma*q/sqrt(1 + gamma^2*q^2))^(i-1), i=1..3):
 
 if evalb(Polarization = "ferr") then
   b98_f := (lda_func, g_ss, cc_ss, g_ab, cc_ab, rs, z, xs0, xs1, us0, us1, ts0, ts1) ->

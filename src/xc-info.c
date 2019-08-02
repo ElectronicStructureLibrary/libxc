@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2014 Susi Lehtola
+ Copyright (C) 2014-2019 Susi Lehtola
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -11,7 +11,7 @@
 #include "util.h"
 
 int main(int argc, char **argv) {
-  int i, func_id, error;
+  int i, func_id, error, npar;
   xc_func_type func;
   char *fname;
 
@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
     if(func.info->kind == XC_EXCHANGE || func.info->kind == XC_EXCHANGE_CORRELATION)
       printf("\nThis is a pure functional with no exact exchange.\n");
   }
-  
+
   printf("\nReference(s):\n");
   for(i=0; i<5; i++){
     if(func.info->refs[i]==NULL) break;
@@ -92,6 +92,16 @@ int main(int argc, char **argv) {
     printf("\t- second derivative\n");
   if(func.info->flags & XC_FLAGS_HAVE_FXC)
     printf("\t- third derivative\n");
+
+  /* Query parameters */
+  npar=xc_func_get_n_ext_params(&func);
+  if(npar>0) {
+    printf("\nFunctional has %i external parameters:\n",npar);
+    for(i=0;i<npar;i++)
+      printf("params[%i] %12s % e\n",i,xc_func_get_ext_params_description(&func,i),xc_func_get_ext_params_default_value(&func,i));
+  } else {
+    printf("\nFunctional has no external parameters.\n");
+  }
 
   /* Free memory */
   xc_func_end(&func);

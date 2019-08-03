@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
   if(npar>0) {
     printf("\nFunctional has %i external parameters:\n",npar);
     for(i=0;i<npar;i++)
-      printf("params[%i] %12s % e\n",i,xc_func_get_ext_params_description(&func,i),xc_func_get_ext_params_default_value(&func,i));
+      printf("params[%i] % e %s\n",i,xc_func_get_ext_params_default_value(&func,i),xc_func_get_ext_params_description(&func,i));
   } else {
     printf("\nFunctional has no external parameters.\n");
   }

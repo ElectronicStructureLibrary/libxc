@@ -1,5 +1,6 @@
 (*
  Copyright (C) 2017 M.A.L. Marques
+               2019 Susi Lehtola
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -7,11 +8,14 @@
 *)
 
 (* type: gga_exc *)
+(* prefix:
+  gga_c_optc_params *params;
+
+  assert(p->params != NULL);
+  params = (gga_c_optc_params * )(p->params);
+*)
 
 $include "gga_c_pw91.mpl"
-
-optc_c1 := 1.1015:
-optc_c2 := 0.6625:
 
 if evalb(Polarization = "ferr") then
     optc_f2 := (rs, z, xt, xs0, xs1) -> f_pw91(rs,  1, xs0, xs0, 0):
@@ -22,4 +26,4 @@ else
 end if:
 
 f  := (rs, z, xt, xs0, xs1) ->
-  + optc_c1*f_pw91(rs, z, xt, xs0, xs1) + (optc_c2 - optc_c1)*optc_f2(rs, z, xt, xs0, xs1):
+  + params_a_c1*f_pw91(rs, z, xt, xs0, xs1) + (params_a_c2 - params_a_c1)*optc_f2(rs, z, xt, xs0, xs1):

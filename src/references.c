@@ -177,7 +177,7 @@ func_reference_type xc_ref_Becke1997_8554 = {
 func_reference_type xc_ref_Becke1998_2092 = {
   "A. D. Becke, J. Chem. Phys. 109, 2092 (1998)",
   "10.1063/1.476722",
-  "@article{Becke1998_2092,\nauthor = {Becke,Axel D. },\ntitle = {A new inhomogeneity parameter in density-functional theory},\njournal = {The Journal of Chemical Physics},\nvolume = {109},\nnumber = {6},\npages = {2092-2098},\nyear = {1998},\ndoi = {10.1063/1.476722},\nURL = {https://doi.org/10.1063/1.476722},\n}"
+  "@article{Becke1998_2092,\nauthor = {Becke, Axel D. },\ntitle = {A new inhomogeneity parameter in density-functional theory},\njournal = {The Journal of Chemical Physics},\nvolume = {109},\nnumber = {6},\npages = {2092-2098},\nyear = {1998},\ndoi = {10.1063/1.476722},\nURL = {https://doi.org/10.1063/1.476722},\n}"
 };
 
 
@@ -721,9 +721,9 @@ func_reference_type xc_ref_Gilbert1999_511 = {
 
 
 func_reference_type xc_ref_Gill1996_1005 = {
-  "P. M. W. GILL, R. D. ADAMSON, and J. A. POPLE, Mol. Phys. 88, 1005 (1996)",
+  "P. M. W. Gill, R. D. Adamson, and J. A. Pople, Mol. Phys. 88, 1005 (1996)",
   "10.1080/00268979609484488",
-  "@article{Gill1996_1005,\nauthor = { PETER   M. W.   GILL  and  ROSS D.   ADAMSON  and  JOHN A.   POPLE },\ntitle = {Coulomb-attenuated exchange energy density functionals},\njournal = {Molecular Physics},\nvolume = {88},\nnumber = {4},\npages = {1005-1009},\nyear  = {1996},\npublisher = {Taylor & Francis},\ndoi = {10.1080/00268979609484488},\nURL = {https://doi.org/10.1080/00268979609484488},\n}"
+  "@article{Gill1996_1005,\nauthor = { Peter M. W. Gill  and Ross D. Adamson  and  John A. Pople },\ntitle = {Coulomb-attenuated exchange energy density functionals},\njournal = {Molecular Physics},\nvolume = {88},\nnumber = {4},\npages = {1005-1009},\nyear  = {1996},\npublisher = {Taylor & Francis},\ndoi = {10.1080/00268979609484488},\nURL = {https://doi.org/10.1080/00268979609484488},\n}"
 };
 
 
@@ -2072,7 +2072,7 @@ func_reference_type xc_ref_Verma2014_18A534 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn--Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };

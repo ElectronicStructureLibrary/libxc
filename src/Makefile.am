@@ -129,7 +129,7 @@ endif
 noinst_HEADERS = \
 	string_f.h references.h util.h work_lda_new.c \
 	work_gga_new.c \
-	work_mgga_x.c work_mgga_new.c work_mgga_deorb.c \
+	work_mgga_x.c work_mgga_new.c \
 	libxc_master.F90 libxc_master.F03
 include_HEADERS = xc.h xc_funcs_removed.h
 nodist_include_HEADERS = xc_funcs.h xc_funcs_worker.h

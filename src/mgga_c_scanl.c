@@ -13,9 +13,8 @@
 #define XC_MGGA_C_SCANL_RVV10    703 /* SCAN correlation + rVV10 correlation */
 #define XC_MGGA_C_SCANL_VV10     704 /* SCAN correlation +  VV10 correlation */
 
-#include "mgga_k_pcopt.c"
-#include "maple2c/mgga_exc/mgga_c_scan.c"
-#include "work_mgga_deorb.c"
+#include "maple2c/mgga_exc/mgga_c_scanl.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_c_scanl = {
   XC_MGGA_C_SCANL,
@@ -27,7 +26,7 @@ const xc_func_info_type xc_func_info_mgga_c_scanl = {
   1e-20,
   0, NULL, NULL,
   NULL, NULL, 
-  NULL, NULL, work_mgga_deorb,
+  NULL, NULL, work_mgga,
 };
 
 

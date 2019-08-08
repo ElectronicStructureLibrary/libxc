@@ -41,9 +41,8 @@ mgga_x_scanl_init(xc_func_type *p)
   }  
 }
 
-#include "mgga_k_pcopt.c"
-#include "maple2c/mgga_exc/mgga_x_scan.c"
-#include "work_mgga_deorb.c"
+#include "maple2c/mgga_exc/mgga_x_scanl.c"
+#include "work_mgga_new.c"
 
 const xc_func_info_type xc_func_info_mgga_x_scanl = {
   XC_MGGA_X_SCANL,
@@ -55,7 +54,7 @@ const xc_func_info_type xc_func_info_mgga_x_scanl = {
   1e-20,
   0, NULL, NULL,
   mgga_x_scanl_init, NULL,
-  NULL, NULL, work_mgga_deorb,
+  NULL, NULL, work_mgga,
 };
 
 const xc_func_info_type xc_func_info_mgga_x_revscanl = {
@@ -69,6 +68,6 @@ const xc_func_info_type xc_func_info_mgga_x_revscanl = {
   1e-20,
   0, NULL, NULL,
   mgga_x_scanl_init, NULL,
-  NULL, NULL, work_mgga_deorb,
+  NULL, NULL, work_mgga,
 };
 

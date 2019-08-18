@@ -8,7 +8,8 @@ set(Libxc_EMAIL        "libxc@tddft.org")
 set(Libxc_URL          "http://www.tddft.org/programs/Libxc")
 set(Libxc_LICENSE      "Mozilla Public License, version 2.0 (MPL-2.0)")
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.1)
+set(CMAKE_C_STANDARD 99)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 ################################### Options ####################################
@@ -363,7 +364,6 @@ file(WRITE ${PROJECT_BINARY_DIR}/${src_prefix}xc.h "${_quoted_src}")
 add_library(xc ${sources_list})
 target_link_libraries(xc INTERFACE ${STANDARD_MATH_LIBRARY})
 set_target_properties(xc PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC}
-                                    COMPILE_FLAGS "-std=c99"
                                     SOVERSION ${${PROJECT_NAME}_SOMAJOR})
 if(${BUILD_SHARED_LIBS})
     target_link_libraries(xc PRIVATE ${LIBC_INTERJECT})

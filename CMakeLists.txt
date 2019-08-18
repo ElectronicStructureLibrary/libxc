@@ -184,6 +184,7 @@ gga_x_lsrpbe.c
 gga_x_lv_rpw86.c
 gga_x_mpbe.c
 gga_x_n12.c
+gga_x_ncap.c
 gga_x_optx.c
 gga_x_pbe.c
 gga_x_pbea.c

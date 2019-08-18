@@ -342,6 +342,13 @@ func_reference_type xc_ref_Carmona2016_120 = {
 };
 
 
+func_reference_type xc_ref_Carmona2019_303 = {
+  "J. Carmona-Espíndola, J. L. Gázquez, A. Vela, and S. B. Trickey, J. Chem. Theory Comput. 15, 303 (2019), https://doi.org/10.1021/acs.jctc.8b00998",
+  "10.1021/acs.jctc.8b00998",
+  "@article{Carmona2019_303,\n  author = {Carmona-Espíndola, Javier and Gázquez, José L. and Vela, Alberto and Trickey, S. B.},\n  title = {Generalized Gradient Approximation Exchange Energy Functional with Near-Best Semilocal Performance},\n  journal = {Journal of Chemical Theory and Computation},\n  volume = {15},\n  number = {1},\n  pages = {303-310},\n  year = {2019},\n  doi = {10.1021/acs.jctc.8b00998},\n  URL = {https://doi.org/10.1021/acs.jctc.8b00998},\n  eprint = {https://doi.org/10.1021/acs.jctc.8b00998}\n}"
+};
+
+
 func_reference_type xc_ref_Casula2006_245427 = {
   "M. Casula, S. Sorella, and G. Senatore, Phys. Rev. B 74, 245427 (2006)",
   "10.1103/PhysRevB.74.245427",

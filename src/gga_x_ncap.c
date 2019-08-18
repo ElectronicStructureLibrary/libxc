@@ -8,7 +8,8 @@
 
 #include "util.h"
 
-#define XC_GGA_X_NCAP 180 /* Nearly correct asymptotic potential */
+#define XC_GGA_X_NCAP  180 /* Nearly correct asymptotic potential */
+#define XC_GGA_XC_NCAP 181 /* Nearly correct asymptotic potential + P86 correlation */
 
 typedef struct{
   double zeta;
@@ -64,4 +65,27 @@ const xc_func_info_type xc_func_info_gga_x_ncap = {
   4, ext_params, set_ext_params,
   gga_x_ncap_init, NULL,
   NULL, work_gga, NULL
+};
+
+/* This is how the functional was actually used in the paper */
+void
+xc_gga_xc_ncap_init(xc_func_type *p)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_NCAP, XC_GGA_C_P86};
+  static double funcs_coef[2] = {1.0, 1.0};
+
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+}
+
+const xc_func_info_type xc_func_info_gga_xc_ncap = {
+  XC_GGA_XC_NCAP,
+  XC_EXCHANGE_CORRELATION,
+  "NCAP exchange + P86 correlation",
+  XC_FAMILY_GGA,
+  {&xc_ref_Carmona2019_303, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-32,
+  0, NULL, NULL,
+  xc_gga_xc_ncap_init, NULL,
+  NULL, NULL, NULL
 };

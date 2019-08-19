@@ -258,4 +258,5 @@ const char *get_kind(const xc_func_type *func);
 const char *get_family(const xc_func_type *func);
 double get_ext_param(const func_params_type *params, const double *values, int index);
 
+double xc_mgga_x_br89_get_x(double Q);
 #endif

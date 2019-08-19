@@ -32,14 +32,10 @@ mgga_x_ms_init(xc_func_type *p)
     /* set by set_ext_params */
     break;
   case XC_MGGA_X_MS1:
-    params->kappa = 0.404;
-    params->c     = 0.18150;
-    params->b     = 1.0;
+    /* set by set_ext_params */
     break;
   case XC_MGGA_X_MS2:
-    params->kappa = 0.504;
-    params->c     = 0.14601;
-    params->b     = 4.0;
+    /* set by set_ext_params */
     break;
   default:
     fprintf(stderr, "Internal error in mgga_x_ms\n");
@@ -47,10 +43,22 @@ mgga_x_ms_init(xc_func_type *p)
   }
 }
 
-static const func_params_type ext_params[] = {
+static const func_params_type ms0_params[] = {
   {"_kappa",  0.29, "kappa parameter"},
   {"_c",  0.28771, "c parameter"},
   {"_b",  1.0, "exponent b"},
+};
+
+static const func_params_type ms1_params[] = {
+  {"_kappa",  0.404, "kappa parameter"},
+  {"_c",  0.18150, "c parameter"},
+  {"_b",  1.0, "exponent b"},
+};
+
+static const func_params_type ms2_params[] = {
+  {"_kappa", 0.504, "kappa parameter"},
+  {"_c",  0.14601, "c parameter"},
+  {"_b",  4.0, "exponent b"},
 };
 
 static void
@@ -66,10 +74,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->b     = get_ext_param(p->info->ext_params, ext_params, 2);
 }
 
-
 #include "maple2c/mgga_exc/mgga_x_ms.c"
 #include "work_mgga_new.c"
-
 
 const xc_func_info_type xc_func_info_mgga_x_ms0 = {
   XC_MGGA_X_MS0,
@@ -79,7 +85,7 @@ const xc_func_info_type xc_func_info_mgga_x_ms0 = {
   {&xc_ref_Sun2012_051101, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23,
-  3, ext_params, set_ext_params,
+  3, ms0_params, set_ext_params,
   mgga_x_ms_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -92,7 +98,7 @@ const xc_func_info_type xc_func_info_mgga_x_ms1 = {
   {&xc_ref_Sun2013_044113, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23,
-  0, NULL, NULL,
+  3, ms1_params, set_ext_params,
   mgga_x_ms_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -105,7 +111,7 @@ const xc_func_info_type xc_func_info_mgga_x_ms2 = {
   {&xc_ref_Sun2013_044113, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23,
-  0, NULL, NULL,
+  3, ms2_params, set_ext_params,
   mgga_x_ms_init, NULL,
   NULL, NULL, work_mgga,
 };

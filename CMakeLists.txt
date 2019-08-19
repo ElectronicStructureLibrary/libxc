@@ -8,7 +8,8 @@ set(Libxc_EMAIL        "libxc@tddft.org")
 set(Libxc_URL          "http://www.tddft.org/programs/Libxc")
 set(Libxc_LICENSE      "Mozilla Public License, version 2.0 (MPL-2.0)")
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.1)
+set(CMAKE_C_STANDARD 99)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 ################################### Options ####################################
@@ -184,6 +185,7 @@ gga_x_lsrpbe.c
 gga_x_lv_rpw86.c
 gga_x_mpbe.c
 gga_x_n12.c
+gga_x_ncap.c
 gga_x_optx.c
 gga_x_pbe.c
 gga_x_pbea.c
@@ -296,6 +298,7 @@ mgga_k_pc07.c
 mgga_x_2d_prhg07.c
 mgga_x_br89.c
 mgga_x_br89_explicit.c
+mgga_x_tb09.c
 mgga_x_gvt4.c
 mgga_x_gx.c
 mgga_x_lta.c
@@ -362,7 +365,6 @@ file(WRITE ${PROJECT_BINARY_DIR}/${src_prefix}xc.h "${_quoted_src}")
 add_library(xc ${sources_list})
 target_link_libraries(xc INTERFACE ${STANDARD_MATH_LIBRARY})
 set_target_properties(xc PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC}
-                                    COMPILE_FLAGS "-std=c99"
                                     SOVERSION ${${PROJECT_NAME}_SOMAJOR})
 if(${BUILD_SHARED_LIBS})
     target_link_libraries(xc PRIVATE ${LIBC_INTERJECT})

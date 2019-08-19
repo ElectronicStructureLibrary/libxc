@@ -86,7 +86,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_revm11 = {
   XC_EXCHANGE,
   "Revised Minnesota M11 hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
-  {&xc_ref_Verma2019, NULL, NULL, NULL, NULL},
+  {&xc_ref_Verma2019_2966, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-11,
   0, NULL, NULL,

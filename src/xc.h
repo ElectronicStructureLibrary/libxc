@@ -258,7 +258,10 @@ void xc_gga_kxc(const xc_func_type *p, int np, const double *rho, const double *
 void xc_gga_lb_modified  (const xc_func_type *p, int np, const double *rho, const double *sigma,
      double r, double *vrho);
 
+/* Calculate asymptotic value of the AK13 potential */
 double xc_gga_ak13_get_asymptotic (double homo);
+/* Calculate asymptotic value of the AK13 potential with customized parameter values */
+double xc_gga_ak13_pars_get_asymptotic (double homo, const double *ext_params);
 
 double xc_hyb_exx_coef(const xc_func_type *p);
 void  xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *beta);

@@ -8,6 +8,7 @@
 
 (* type: mgga_exc *)
 
+$define mgga_x_gx_params
 $include "mgga_x_gx.mpl"
 
 pbe_gx_mu := 0.001015549:

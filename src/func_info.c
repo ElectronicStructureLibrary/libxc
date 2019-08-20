@@ -44,3 +44,24 @@ const func_reference_type *xc_func_info_get_references(const xc_func_info_type *
     return info->refs[number];
   }
 }
+
+int xc_func_info_get_n_ext_params(const xc_func_info_type *info)
+{
+  assert(info!=NULL);
+
+  return info->n_ext_params;
+}
+
+char const *xc_func_info_get_ext_params_description(const xc_func_info_type *info, int number)
+{
+  assert(number >=0 && number < info->n_ext_params);
+
+  return info->ext_params[number].description;
+}
+
+double xc_func_info_get_ext_params_default_value(const xc_func_info_type *info, int number)
+{
+  assert(number >=0 && number < info->n_ext_params);
+
+  return info->ext_params[number].value;
+}

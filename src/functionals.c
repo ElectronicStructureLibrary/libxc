@@ -327,14 +327,14 @@ void xc_func_set_ext_params(xc_func_type *p, double *ext_params)
   p->info->set_ext_params(p, ext_params);
 }
 
-int xc_func_get_n_ext_params(xc_func_type *p)
+int xc_func_get_n_ext_params(const xc_func_type *p)
 {
   assert(p != NULL && p->info != NULL);
 
   return p->info->n_ext_params;
 }
 
-char const *xc_func_get_ext_params_description(xc_func_type *p, int number)
+char const *xc_func_get_ext_params_description(const xc_func_type *p, int number)
 {
   assert(p != NULL && p->info != NULL);
   assert(number >=0 && number < p->info->n_ext_params);
@@ -342,7 +342,7 @@ char const *xc_func_get_ext_params_description(xc_func_type *p, int number)
   return p->info->ext_params[number].description;
 }
 
-double xc_func_get_ext_params_default_value(xc_func_type *p, int number)
+double xc_func_get_ext_params_default_value(const xc_func_type *p, int number)
 {
   assert(p != NULL && p->info != NULL);
   assert(number >=0 && number < p->info->n_ext_params);

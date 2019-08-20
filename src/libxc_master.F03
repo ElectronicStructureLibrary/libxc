@@ -58,6 +58,9 @@ module xc_f03_lib_m
     xc_f03_func_info_get_family, &
     xc_f03_func_info_get_references, &
     xc_f03_func_info_get_flags, &
+    xc_f03_func_info_get_n_ext_params, &
+    xc_f03_func_info_get_ext_params_description, &
+    xc_f03_func_info_get_ext_params_default_value, &
     ! func_reference
     xc_f03_func_reference_t, &
     xc_f03_func_reference_get_ref, &
@@ -162,7 +165,7 @@ module xc_f03_lib_m
 
   ! List of functionals
 #include "libxc_inc.f03"
-  
+
   ! These are old names kept for compatibility
   integer(c_int), parameter, public :: &
     XC_GGA_X_BGCP           =  38,     &
@@ -172,7 +175,7 @@ module xc_f03_lib_m
     XC_MGGA_C_CC06          = 229,     &
     XC_GGA_K_ABSR1          = 506,     &
     XC_GGA_K_ABSR2          = 507
-  
+
   !----------------------------------------------------------------
   interface
     subroutine xc_version(major, minor, micro) bind(c)
@@ -185,7 +188,7 @@ module xc_f03_lib_m
     end function xc_version_string
   end interface
 
-  
+
   !----------------------------------------------------------------
   type :: xc_f03_func_info_t
     private
@@ -197,7 +200,7 @@ module xc_f03_lib_m
       import
       type(c_ptr), value :: info
     end function xc_func_info_get_number
-    
+
     integer(c_int) function xc_func_info_get_kind(info) bind(c)
       import
       type(c_ptr), value :: info
@@ -224,6 +227,23 @@ module xc_f03_lib_m
       integer(c_int), value :: number
     end function xc_func_info_get_references
 
+    integer(c_int) function xc_func_info_get_n_ext_params(info) bind(c)
+      import
+      type(c_ptr), value :: info
+    end function xc_func_info_get_n_ext_params
+
+    type(c_ptr) function xc_func_info_get_ext_params_description(info, number) bind(c)
+      import
+      type(c_ptr),    value :: info
+      integer(c_int), value :: number
+    end function xc_func_info_get_ext_params_description
+
+    real(c_double) function xc_func_info_get_ext_params_default_value(info, number) bind(c)
+      import
+      type(c_ptr),    value :: info
+      integer(c_int), value :: number
+    end function xc_func_info_get_ext_params_default_value
+
   end interface
 
   !----------------------------------------------------------------
@@ -248,7 +268,7 @@ module xc_f03_lib_m
       type(c_ptr), value :: reference
     end function xc_func_reference_get_bibtex
   end interface
-    
+
   !----------------------------------------------------------------
   type :: xc_f03_func_t
     private
@@ -259,7 +279,7 @@ module xc_f03_lib_m
     type(c_ptr) function xc_func_alloc() bind(c)
       import
     end function xc_func_alloc
-    
+
     integer(c_int) function xc_func_init(p, functional, nspin) bind(c)
       import
       type(c_ptr),    value :: p
@@ -280,7 +300,7 @@ module xc_f03_lib_m
       import
       type(c_ptr), value :: p
     end function xc_func_get_info
-    
+
     type(c_ptr) function xc_functional_get_name(number) bind(c)
       import
       integer(c_int), value :: number
@@ -290,7 +310,7 @@ module xc_f03_lib_m
       import
       character(kind=c_char) :: func_string(*)
     end function xc_functional_get_number
- 
+
     integer(c_int) function xc_family_from_id(id, family, number) bind(c)
       import
       integer(c_int), value :: id
@@ -314,7 +334,7 @@ module xc_f03_lib_m
       import
       type(c_ptr) :: list(*)
     end subroutine xc_available_functional_names
-    
+
     subroutine xc_func_set_dens_threshold(p, dens_threshold) bind(c)
       import
       type(c_ptr), value :: p
@@ -331,7 +351,7 @@ module xc_f03_lib_m
       import
       type(c_ptr), value :: p
     end function xc_func_get_n_ext_params
-    
+
     type(c_ptr) function xc_func_get_ext_params_description(p, number) bind(c)
       import
       type(c_ptr),    value :: p
@@ -397,7 +417,7 @@ module xc_f03_lib_m
       real(c_double),    intent(out) :: v3rho3(*)
     end subroutine xc_lda_kxc
   end interface
-  
+
 
   ! GGAs
   !----------------------------------------------------------------
@@ -426,7 +446,7 @@ module xc_f03_lib_m
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(c_double),    intent(in)  :: rho(*), sigma(*)
-      real(c_double),    intent(out) :: zk(*), vrho(*), vsigma(*)      
+      real(c_double),    intent(out) :: zk(*), vrho(*), vsigma(*)
     end subroutine xc_gga_exc_vxc
 
     subroutine xc_gga_vxc(p, np, rho, sigma, vrho, vsigma) bind(c)
@@ -450,7 +470,7 @@ module xc_f03_lib_m
       type(c_ptr),    value       :: p
       integer(c_int), value       :: np
       real(c_double),    intent(in)  :: rho(*), sigma(*)
-      real(c_double),    intent(out) :: v3rho3(*), v3rho2sigma(*), v3rhosigma2(*), v3sigma3(*)      
+      real(c_double),    intent(out) :: v3rho3(*), v3rho2sigma(*), v3rhosigma2(*), v3sigma3(*)
     end subroutine xc_gga_kxc
   end interface
 
@@ -570,26 +590,26 @@ module xc_f03_lib_m
   end interface
 
   contains
-  
+
   !----------------------------------------------------------------
   subroutine xc_f03_version(major, minor, micro)
     integer(c_int), intent(out) :: major, minor, micro
 
     call xc_version(major, minor, micro)
-    
+
   end subroutine xc_f03_version
 
   subroutine xc_f03_version_string(version)
     character(len=*), intent(out) :: version
 
     type(c_ptr) :: c_version
-    
+
     c_version = xc_version_string()
     call c_to_f_string_ptr(c_version, version)
 
   end subroutine xc_f03_version_string
 
-  
+
   !----------------------------------------------------------------
   integer(c_int) function xc_f03_func_info_get_number(info) result(number)
     type(xc_f03_func_info_t), intent(in) :: info
@@ -597,10 +617,10 @@ module xc_f03_lib_m
     number = xc_func_info_get_number(info%ptr)
 
   end function xc_f03_func_info_get_number
-    
+
   integer(c_int) function xc_f03_func_info_get_kind(info) result(kind)
     type(xc_f03_func_info_t), intent(in) :: info
-    
+
     kind = xc_func_info_get_kind(info%ptr)
 
   end function xc_f03_func_info_get_kind
@@ -609,12 +629,12 @@ module xc_f03_lib_m
     type(xc_f03_func_info_t), intent(in) :: info
 
     call c_to_f_string_ptr(xc_func_info_get_name(info%ptr), name)
-        
+
   end function xc_f03_func_info_get_name
 
   integer(c_int) function xc_f03_func_info_get_family(info) result(family)
     type(xc_f03_func_info_t), intent(in) :: info
-    
+
     family = xc_func_info_get_family(info%ptr)
 
   end function xc_f03_func_info_get_family
@@ -631,7 +651,7 @@ module xc_f03_lib_m
     integer(c_int),           intent(inout) :: number ! number of the reference. Must be 0 in the first call
 
     type(c_ptr) :: next_ref
-    
+
     reference%ptr = xc_func_info_get_references(info%ptr, number)
     next_ref = xc_func_info_get_references(info%ptr, number + 1)
     if (c_associated(next_ref)) then
@@ -639,8 +659,31 @@ module xc_f03_lib_m
     else
       number = -1
     end if
-    
+
   end function xc_f03_func_info_get_references
+
+  integer(c_int) function xc_f03_func_info_get_n_ext_params(info) result(n_ext_params)
+    type(xc_f03_func_info_t), intent(in) :: info
+
+    n_ext_params = xc_func_info_get_n_ext_params(info%ptr)
+
+  end function xc_f03_func_info_get_n_ext_params
+
+  character(len=128) function xc_f03_func_info_get_ext_params_description(info, number) result(description)
+    type(xc_f03_func_info_t), intent(in) :: info
+    integer(c_int),           intent(in) :: number
+
+    call c_to_f_string_ptr(xc_func_info_get_ext_params_description(info%ptr, number), description)
+
+  end function xc_f03_func_info_get_ext_params_description
+
+  real(c_double) function xc_f03_func_info_get_ext_params_default_value(info, number) result(val)
+    type(xc_f03_func_info_t), intent(in) :: info
+    integer(c_int),           intent(in) :: number
+
+    val = xc_func_info_get_ext_params_default_value(info%ptr, number)
+
+  end function xc_f03_func_info_get_ext_params_default_value
 
   !----------------------------------------------------------------
   character(len=120) function xc_f03_func_reference_get_ref(reference) result(ref)
@@ -673,10 +716,10 @@ module xc_f03_lib_m
     integer(c_int), optional, intent(out)   :: err
 
     integer(c_int) :: ierr
-    
+
     p%ptr = xc_func_alloc()
     ierr = xc_func_init(p%ptr, functional, nspin)
-    
+
     if(present(err)) err = ierr
   end subroutine xc_f03_func_init
 
@@ -694,8 +737,8 @@ module xc_f03_lib_m
     info%ptr = xc_func_get_info(p%ptr)
 
   end function xc_f03_func_get_info
-  
-  character(len=128) function xc_f03_functional_get_name(number) result(name)     
+
+  character(len=128) function xc_f03_functional_get_name(number) result(name)
     integer(c_int), intent(in) :: number
 
     call c_to_f_string_ptr(xc_functional_get_name(number), name)
@@ -704,11 +747,11 @@ module xc_f03_lib_m
 
   integer(c_int) function xc_f03_functional_get_number(func_string) result(number)
     character(len=*), intent(in) :: func_string
-    
+
     number = xc_functional_get_number(f_to_c_string(func_string))
 
   end function xc_f03_functional_get_number
- 
+
   integer(c_int) function xc_f03_family_from_id(id, family, number)
     integer(c_int), intent(in)                    :: id
     integer(c_int), intent(out), optional, target :: family, number
@@ -728,9 +771,9 @@ module xc_f03_lib_m
     else
       c_number = C_NULL_PTR
     end if
- 
+
     xc_f03_family_from_id = xc_family_from_id(id, c_family, c_number)
-    
+
   end function xc_f03_family_from_id
 
   subroutine xc_f03_available_functional_names(list)
@@ -739,7 +782,7 @@ module xc_f03_lib_m
     integer(c_int) :: n, i, maxlen
     character(kind=c_char), allocatable, target :: names(:,:)
     type(c_ptr), allocatable :: c_list(:)
-    
+
     n = xc_f03_number_of_functionals()
     maxlen = xc_f03_maximum_name_length()
 
@@ -748,19 +791,19 @@ module xc_f03_lib_m
     do i = 1, n
       c_list(i) = c_loc(names(1,i))
     end do
-      
+
     call xc_available_functional_names(c_list)
-    
+
     do i = 1, n
       call c_to_f_string_ptr(c_list(i), list(i))
     end do
 
     deallocate(c_list)
     deallocate(names)
-    
+
   end subroutine xc_f03_available_functional_names
 
-  
+
   subroutine xc_f03_func_set_dens_threshold(p, dens_threshold)
     type(xc_f03_func_t), intent(in) :: p
     real(c_double),       intent(in) :: dens_threshold
@@ -776,10 +819,10 @@ module xc_f03_lib_m
     call xc_func_set_ext_params(p%ptr, ext_params)
 
   end subroutine xc_f03_func_set_ext_params
-  
+
   integer(c_int) function xc_f03_func_get_n_ext_params(p) result(n_ext_params)
     type(xc_f03_func_t), intent(in) :: p
-    
+
     n_ext_params = xc_func_get_n_ext_params(p%ptr)
 
   end function xc_f03_func_get_n_ext_params
@@ -789,7 +832,7 @@ module xc_f03_lib_m
     integer(c_int),           intent(in) :: number
 
     call c_to_f_string_ptr(xc_func_get_ext_params_description(p%ptr, number), description)
-        
+
   end function xc_f03_func_get_ext_params_description
 
   real(c_double) function xc_f03_func_get_ext_params_default_value(p, number) result(val)
@@ -797,7 +840,7 @@ module xc_f03_lib_m
     integer(c_int),           intent(in) :: number
 
     val = xc_func_get_ext_params_default_value(p%ptr, number)
-        
+
   end function xc_f03_func_get_ext_params_default_value
 
   ! LDAs
@@ -862,7 +905,7 @@ module xc_f03_lib_m
 
   end subroutine xc_f03_lda_kxc
 
-  
+
   ! GGAs
   !----------------------------------------------------------------
   subroutine xc_f03_gga(p, np, rho, sigma, zk, vrho, vsigma, &
@@ -876,7 +919,7 @@ module xc_f03_lib_m
 
     call xc_gga(p%ptr, np, rho, sigma, zk, vrho, vsigma, &
       v2rho2, v2rhosigma, v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
-    
+
   end subroutine xc_f03_gga
 
   subroutine xc_f03_gga_exc(p, np, rho, sigma, zk)
@@ -916,7 +959,7 @@ module xc_f03_lib_m
     real(c_double),      intent(out) :: v2rho2(*), v2rhosigma(*), v2sigma2(*)
 
     call xc_gga_fxc(p%ptr, np, rho, sigma, v2rho2, v2rhosigma, v2sigma2)
-    
+
   end subroutine xc_f03_gga_fxc
 
   subroutine xc_f03_gga_kxc(p, np, rho, sigma, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
@@ -937,23 +980,23 @@ module xc_f03_lib_m
     real(c_double),      intent(out) :: dedd(*)
 
     call xc_gga_lb_modified(p%ptr, np, rho, grho, r, dedd)
-    
+
   end subroutine xc_f03_gga_lb_modified
 
   real(c_double) function xc_f03_gga_ak13_get_asymptotic(homo) result(asymptotic)
     real(c_double), intent(in) :: homo
 
     asymptotic = xc_gga_ak13_get_asymptotic(homo)
-    
+
   end function xc_f03_gga_ak13_get_asymptotic
 
   real(c_double) function xc_f03_hyb_exx_coef(p) result(coef)
     type(xc_f03_func_t), intent(in) :: p
 
     coef = xc_hyb_exx_coef(p%ptr)
-    
+
   end function xc_f03_hyb_exx_coef
-  
+
   subroutine xc_f03_hyb_cam_coef(p, omega, alpha, beta)
     type(xc_f03_func_t), intent(in)  :: p
     real(c_double),       intent(out) :: omega, alpha, beta
@@ -961,15 +1004,15 @@ module xc_f03_lib_m
     call xc_hyb_cam_coef(p%ptr, omega, alpha, beta)
 
   end subroutine xc_f03_hyb_cam_coef
-  
+
   subroutine xc_f03_nlc_coef(p, nlc_b, nlc_c)
     type(xc_f03_func_t), intent(in)  :: p
     real(c_double),       intent(out) :: nlc_b, nlc_c
 
     call xc_nlc_coef(p%ptr, nlc_b, nlc_c)
-    
+
   end subroutine xc_f03_nlc_coef
-  
+
 
   ! the meta-GGAs
   !----------------------------------------------------------------
@@ -1008,7 +1051,7 @@ module xc_f03_lib_m
     real(c_double),      intent(out) :: zk(*)
 
     call xc_mgga_exc(p%ptr, np, rho, sigma, lapl, tau, zk)
-    
+
   end subroutine xc_f03_mgga_exc
 
   subroutine xc_f03_mgga_exc_vxc(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau)
@@ -1018,7 +1061,7 @@ module xc_f03_lib_m
     real(c_double),      intent(out) :: zk(*), vrho(*), vsigma(*), vlapl(*), vtau(*)
 
     call xc_mgga_exc_vxc(p%ptr, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau)
-    
+
   end subroutine xc_f03_mgga_exc_vxc
 
   subroutine xc_f03_mgga_vxc(p, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau)
@@ -1067,13 +1110,13 @@ module xc_f03_lib_m
          v3lapltau2, v3tau3)
   end subroutine xc_f03_mgga_kxc
 
-    
+
   ! Helper functions to convert between C and Fortran strings
   ! Based on the routines by Joseph M. Krahn
   function f_to_c_string(f_string) result(c_string)
     character(len=*), intent(in) :: f_string
     character(kind=c_char,len=1) :: c_string(len_trim(f_string)+1)
-      
+
     integer :: i, strlen
 
     strlen = len_trim(f_string)
@@ -1119,8 +1162,8 @@ module xc_f03_lib_m
       if (i < len(f_string)) f_string(i:) = ' '
     end if
 
-  end subroutine c_to_f_string_ptr 
-  
+  end subroutine c_to_f_string_ptr
+
 end module xc_f03_lib_m
 
 !! Local Variables:

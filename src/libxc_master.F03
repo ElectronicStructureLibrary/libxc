@@ -308,7 +308,7 @@ module xc_f03_lib_m
 
     integer(c_int) function xc_functional_get_number(func_string) bind(c)
       import
-      character(kind=c_char) :: func_string(*)
+      character(kind=c_char), intent(in) :: func_string(*)
     end function xc_functional_get_number
 
     integer(c_int) function xc_family_from_id(id, family, number) bind(c)

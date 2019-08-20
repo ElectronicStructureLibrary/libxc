@@ -147,6 +147,9 @@ char const *xc_func_info_get_name(const xc_func_info_type *info);
 int xc_func_info_get_family(const xc_func_info_type *info);
 int xc_func_info_get_flags(const xc_func_info_type *info);
 const func_reference_type *xc_func_info_get_references(const xc_func_info_type *info, int number);
+int xc_func_info_get_n_ext_params(const xc_func_info_type *info);
+char const *xc_func_info_get_ext_params_description(const xc_func_info_type *info, int number);
+double xc_func_info_get_ext_params_default_value(const xc_func_info_type *info, int number);
 
 struct xc_dimensions{
   int rho, sigma, lapl, tau;       /* spin dimensions of the arrays */
@@ -226,9 +229,9 @@ void  xc_func_free(xc_func_type *p);
 const xc_func_info_type *xc_func_get_info(const xc_func_type *p);
 void  xc_func_set_dens_threshold(xc_func_type *p, double dens_threshold);
 void  xc_func_set_ext_params(xc_func_type *p, double *ext_params);
-int   xc_func_get_n_ext_params(xc_func_type *p);
-char const *xc_func_get_ext_params_description(xc_func_type *p, int number);
-double xc_func_get_ext_params_default_value(xc_func_type *p, int number);
+int   xc_func_get_n_ext_params(const xc_func_type *p);
+char const *xc_func_get_ext_params_description(const xc_func_type *p, int number);
+double xc_func_get_ext_params_default_value(const xc_func_type *p, int number);
 
 #include "xc_funcs.h"
 #include "xc_funcs_removed.h"

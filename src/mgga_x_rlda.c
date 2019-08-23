@@ -32,7 +32,7 @@ mgga_x_rlda_init(xc_func_type *p)
     /* default values set by set_ext_params */
     break;
   case XC_MGGA_X_MK00:
-    params->prefactor  = 20.0/9.0; /* 4/5 with the Eq. (3) */
+    params->prefactor  = 4.0/5.0;
     break;
   default:
     fprintf(stderr, "Internal error in mgga_x_rlda\n");

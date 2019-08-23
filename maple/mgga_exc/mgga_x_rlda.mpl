@@ -14,12 +14,8 @@
   params = (mgga_x_rlda_params * )(p->params);
 *)
 
-(* The pre-factor should be 9 Pi/4 * 3/5, with an extra
-   1/2 coming from the spin sum rule. However, in the GDME
-   paper Eq. (30), they multiply if by 5/3, which I think is wrong.
-   As such the pre-factor below differs by 5^2/3^2 from Eq. (30)
-*)
-rlda_a1 := (9/20) * 3*Pi * params_a_prefactor/(2 * X_FACTOR_C):
+(* the extra factor of 1/2 comes from the spin sum rule *)
+rlda_a1 := (5/4) * 3*Pi * params_a_prefactor/(2 * X_FACTOR_C):
 
 rlda_f := (x, u, t) -> my_piecewise3(2*t - u/4 > 1e-10, 
   rlda_a1/(2*t - u/4), 0):

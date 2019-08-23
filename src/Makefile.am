@@ -98,7 +98,7 @@ libxc_la_FUNC_SOURCES = \
 	mgga_c_revscan.c mgga_x_br89_explicit.c mgga_xc_b98.c		\
 	mgga_x_rtpss.c mgga_x_msb.c mgga_x_mvsb.c mgga_x_regtpss.c	\
 	mgga_x_rscan.c mgga_c_rscan.c mgga_x_2d_js17.c mgga_x_tb09.c    \
-	mgga_x_edmgga.c mgga_x_gdme.c mgga_x_rlda.c mgga_x_revtm.c 		\
+	mgga_x_edmgga.c mgga_x_gdme.c mgga_x_rlda.c mgga_x_revtm.c	\
 	mgga_x_scanl.c mgga_c_scanl.c
 
 libxc_la_SOURCES = references.c $(libxc_la_FUNC_SOURCES)
@@ -213,4 +213,3 @@ libxcf03.f90 : libxc_master.F03 libxc_inc.f03
 	fi
 
 $(XCF03LIBMODS)   : $(LTPREF03)libxcf03.lo
-

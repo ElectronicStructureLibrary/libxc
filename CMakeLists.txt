@@ -336,6 +336,8 @@ mgga_x_2d_js17.c
 mgga_x_edmgga.c
 mgga_x_gdme.c
 mgga_x_rlda.c
+mgga_x_scanl.c
+mgga_c_scanl.c
 mix_func.c
 references.c
 special_functions.c

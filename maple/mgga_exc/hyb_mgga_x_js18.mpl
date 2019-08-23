@@ -25,15 +25,17 @@ js18_L := (x, t) ->
   (3*(tm_lambda^2 - tm_lambda + 1/2)*(t - K_FACTOR_C - x^2/72) - (t - K_FACTOR_C)
    + 7/18*(2*tm_lambda - 1)^2*x^2)/K_FACTOR_C:
 
+js18_A := (rs, z, x) -> a_cnst*rs/(tm_f0(x)*(1 + z)^(1/3)):
+
 js18_DME_SR := (rs, z, x, t) ->
-  + attenuation_erf(a_cnst*rs/(1 + z)^(1/3))/tm_f0(x)^2
-  + attenuation_erf_f2(a_cnst*rs/(1 + z)^(1/3))*7*js18_L(x, t)/(9*tm_f0(x)^4)
-  + attenuation_erf_f3(a_cnst*rs/(1 + z)^(1/3))*245*js18_M(x)/(54*tm_f0(x)^4):
+  + attenuation_erf   (js18_A(rs, z, x))/tm_f0(x)^2
+  + attenuation_erf_f2(js18_A(rs, z, x))*7*js18_L(x, t)/(9*tm_f0(x)^4)
+  + attenuation_erf_f3(js18_A(rs, z, x))*245*js18_M(x)/(54*tm_f0(x)^4):
 
-
+(* This expression (10) has \tilde A, and not A *)
 js18_f_SR := (rs, z, x, t) -> tm_w(x, t)*js18_DME_SR(rs, z, x, t)
   + (1 - tm_w(x, t))*attenuation_erf(a_cnst*rs/(1 + z)^(1/3))*tm_fx_SC(x, t):
 
-js18_f := (rs, z, x, u, t) -> -p_a_cam_alpha*js18_f_SR(rs, z, x, t) + tm_f(x, u, t):
+js18_f := (rs, z, x, u, t) -> -p_a_cam_beta*js18_f_SR(rs, z, x, t) + tm_f(x, u, t):
 
 f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) -> mgga_exchange_nsp(js18_f, rs, z, xs0, xs1, u0, u1, t0, t1):

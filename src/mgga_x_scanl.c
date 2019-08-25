@@ -58,7 +58,7 @@ const xc_func_info_type xc_func_info_mgga_x_scanl = {
 };
 
 const xc_func_info_type xc_func_info_mgga_x_revscanl = {
-  XC_MGGA_X_REVSCAN,
+  XC_MGGA_X_REVSCANL,
   XC_EXCHANGE,
   "Deorbitalized revised SCAN (revSCAN-L) exchange",
   XC_FAMILY_MGGA,

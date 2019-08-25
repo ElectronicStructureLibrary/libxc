@@ -89,6 +89,7 @@ extern func_reference_type xc_ref_DePristo1987_438;
 extern func_reference_type xc_ref_Dirac1930_376;
 extern func_reference_type xc_ref_Eich2014_224107;
 extern func_reference_type xc_ref_Elliott2009_1485;
+extern func_reference_type xc_ref_Engel1992_7;
 extern func_reference_type xc_ref_Engel1993_13164;
 extern func_reference_type xc_ref_Engel1995_2750;
 extern func_reference_type xc_ref_Entwistle2016_205134;

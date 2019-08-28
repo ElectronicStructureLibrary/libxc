@@ -42,6 +42,9 @@ include(CMakePackageConfigHelpers)
 
 set(PN ${PROJECT_NAME})
 
+# Need BASH to run test suite
+find_program(BASH_EXECUTABLE bash)
+
 # link -lm only if necessary
 find_package(StandardMathLibraryC)
 # check if cbrt exists and declare HAVE_CBRT if it does

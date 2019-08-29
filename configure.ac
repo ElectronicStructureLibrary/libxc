@@ -100,6 +100,9 @@ AC_FUNC_ALLOCA
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_SIZEOF(void*)
 
+# Need BASH to run tests
+AC_CHECK_PROG([BASH_SHELL],[bash],[yes])
+
 # Check for presence of some C99 libm functions
 AC_CHECK_LIB([m],[cbrt],[AC_DEFINE([HAVE_CBRT],[1],[libm includes cbrt])])
 AC_CHECK_LIB([m],[feenableexcept],[AC_DEFINE([HAVE_FEENABLEEXCEPT],[1],[libm includes feenableexcept])])

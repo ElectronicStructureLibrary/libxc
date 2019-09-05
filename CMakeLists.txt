@@ -346,6 +346,7 @@ mgga_c_scanl.c
 mix_func.c
 references.c
 special_functions.c
+math_brent.c
 util.c
 version.c
 )

@@ -344,6 +344,7 @@ mgga_x_rlda.c
 mgga_x_scanl.c
 mgga_c_scanl.c
 mgga_x_mbrxh_bg.c
+mgga_x_mbrxc_bg.c
 mix_func.c
 references.c
 special_functions.c

@@ -271,7 +271,7 @@ const xc_func_info_type xc_func_info_mgga_c_revm11 = {
   XC_CORRELATION,
   "Revised Minnesota M11 correlation functional",
   XC_FAMILY_MGGA,
-  {&xc_ref_Verma2019, NULL, NULL, NULL, NULL},
+  {&xc_ref_Verma2019_2966, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23,
   0, NULL, NULL,

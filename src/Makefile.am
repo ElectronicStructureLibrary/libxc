@@ -31,7 +31,7 @@ xc_sanity_LDFLAGS =
 lib_LTLIBRARIES = libxc.la
 
 libxc_la_FUNC_SOURCES = \
-	special_functions.c bessel.c expint_e1.c integrate.c util.c	\
+	special_functions.c bessel.c expint_e1.c integrate.c math_brent.c util.c	\
 	mix_func.c func_info.c functionals.c version.c func_reference.c \
 	lda.c \
 	lda_x.c lda_x_2d.c lda_c_wigner.c lda_c_gombas.c lda_c_rpa.c	\
@@ -79,7 +79,7 @@ libxc_la_FUNC_SOURCES = \
 	hyb_gga_xc_camy_blyp.c hyb_gga_xc_camy_b3lyp.c			\
 	hyb_gga_xc_lcy_pbe.c hyb_gga_xc_lcy_blyp.c gga_xc_vv10.c	\
 	hyb_gga_xc_edf2.c gga_k_pw86.c gga_k_mpbe.c gga_k_apbe.c        \
-        gga_x_fd_lb94.c \
+        gga_x_fd_lb94.c gga_x_ncap.c \
 	mgga.c \
 	mgga_x_lta.c mgga_x_tpss.c mgga_x_br89.c mgga_x_gvt4.c		\
 	mgga_x_m06l.c mgga_x_tau_hcth.c mgga_x_2d_prhg07.c		\
@@ -97,8 +97,9 @@ libxc_la_FUNC_SOURCES = \
 	hyb_mgga_xc_kcis.c mgga_c_b88.c mgga_x_gx.c mgga_x_pbe_gx.c	\
 	mgga_c_revscan.c mgga_x_br89_explicit.c mgga_xc_b98.c		\
 	mgga_x_rtpss.c mgga_x_msb.c mgga_x_mvsb.c mgga_x_regtpss.c	\
-	mgga_x_rscan.c mgga_c_rscan.c mgga_x_2d_js17.c \
-	mgga_x_edmgga.c mgga_x_gdme.c mgga_x_rlda.c mgga_x_revtm.c
+	mgga_x_rscan.c mgga_c_rscan.c mgga_x_2d_js17.c mgga_x_tb09.c    \
+	mgga_x_edmgga.c mgga_x_gdme.c mgga_x_rlda.c mgga_x_revtm.c	\
+	mgga_x_scanl.c mgga_c_scanl.c mgga_x_mbrxh_bg.c mgga_x_mbrxc_bg.c 
 
 libxc_la_SOURCES = references.c $(libxc_la_FUNC_SOURCES)
 libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)
@@ -212,4 +213,3 @@ libxcf03.f90 : libxc_master.F03 libxc_inc.f03
 	fi
 
 $(XCF03LIBMODS)   : $(LTPREF03)libxcf03.lo
-

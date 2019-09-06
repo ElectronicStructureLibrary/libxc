@@ -9,7 +9,8 @@
 
 #include "util.h"
 
-#define XC_GGA_X_EV93  35 /* Engel and Vosko */
+#define XC_GGA_X_EV93     35 /* Engel and Vosko */
+#define XC_GGA_X_ECMV92  215 /* Engel, Chevary, Macdonald, and Vosko */
 
 typedef struct{
   /* numerator */
@@ -34,7 +35,22 @@ gga_x_ev93_init(xc_func_type *p)
   p->params = malloc(sizeof(gga_x_ev93_params));
   params = (gga_x_ev93_params *) (p->params);
 
-  /* default set by set_ext_params */
+  switch(p->info->number) {
+  case XC_GGA_X_EV93:
+    /* default set by set_ext_params */
+    break;
+  case XC_GGA_X_ECMV92:
+    params->a1=27.8428;
+    params->a2=11.7683;
+    params->a3=0.0;
+    params->b1=27.5026;
+    params->b2=5.7728;
+    params->b3=0.0;
+    break;
+  default:
+    fprintf(stderr, "Internal error in gga_x_ev93\n");
+    exit(1);
+  }
 }
 
 static const func_params_type ext_params[] = {
@@ -71,6 +87,19 @@ const xc_func_info_type xc_func_info_gga_x_ev93 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-25,
   6, ext_params, set_ext_params,
+  gga_x_ev93_init, NULL,
+  NULL, work_gga, NULL
+};
+
+const xc_func_info_type xc_func_info_gga_x_ecmv92 = {
+  XC_GGA_X_ECMV92,
+  XC_EXCHANGE,
+  "Engel, Chevary, Macdonald and Vosko",
+  XC_FAMILY_GGA,
+  {&xc_ref_Engel1992_7, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-25,
+  0, NULL, NULL,
   gga_x_ev93_init, NULL,
   NULL, work_gga, NULL
 };

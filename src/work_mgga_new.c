@@ -58,3 +58,5 @@ work_mgga(const XC(func_type) *p, int np,
     internal_counters_mgga_next(&(p->dim), 0, &rho, &sigma, &lapl, &tau, &zk, MGGA_OUT_PARAMS_NO_EXC(&));
   }   /* for(ip) */
 }
+
+  

@@ -8,16 +8,22 @@
 
 (* type: mgga_exc *)
 
+$ifdef mgga_k_pcopt_params
+pc07_a := 1.784720:
+pc07_b := 0.258304:
+$else
 pc07_a := 0.5389:
 pc07_b := 3:
+$endif
 
 pc07_p := x -> X2S^2*x^2:
 pc07_q := u -> X2S^2*u:
 
 (* Equation (15) *)
+(* Redefined with decaying exponentials to avoid inf/inf situations *)
 pc07_fab := z -> my_piecewise3(
     z<=0, 0, my_piecewise3(z>=pc07_a, 1,
-    (1 + exp(pc07_a/(pc07_a-z)))^pc07_b/(exp(pc07_a/z) + exp(pc07_a/(pc07_a-z)))^pc07_b)
+    exp(-pc07_a*pc07_b/z) * (1+exp(-pc07_a/(pc07_a-z)))^pc07_b/(exp(-pc07_a/z) + exp(-pc07_a/(pc07_a-z)))^pc07_b)
 ):
 
 (* Equation (7) *)

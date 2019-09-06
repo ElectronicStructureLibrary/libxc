@@ -55,7 +55,7 @@ mgga_x_gdme_init(xc_func_type *p)
 }
 
 static func_params_type ext_params[] = {
-  {"_a",  0.5,             "center of the s expansion of density-matrix"},
+  {"_a",  0.5,            "center of the s expansion of density-matrix"},
   {"_AA", 9.0*M_PI/4.0,   "parameter of the first (LDA) term"},
   {"_BB", 35.0*M_PI/12.0, "parameter of the correction term"}
 };

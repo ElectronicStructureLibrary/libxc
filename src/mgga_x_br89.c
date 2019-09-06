@@ -46,86 +46,23 @@ mgga_x_br89_init(xc_func_type *p)
 }
 
 
-/* This code follows the inversion done in the PINY_MD package */
 static double
-br_newt_raph(double a, double tol,  double * res, int *ierr)
+br89_x_Q(double x, void *_rhs)
 {
-  int count;
-  double x, f;
-  static int max_iter = 50;
+  double rhs, xm2, arg, eee;
+  rhs = *((double *)_rhs);
 
-   *ierr = 1;
-   if(a == 0.0)
-     return 0.0;
+  xm2 = x - 2.0;
+  arg = 2.0*x/3.0;
+  eee = exp(-arg);
 
-   /* starting point */
-   x = (a < 0.0) ? -1.0 : 1.0;
-
-   count = 0;
-   do {
-     double arg, eee, xm2, fp;
-
-     xm2 = x - 2.0;
-     arg = 2.0*x/3.0;
-     eee = exp(-arg)/a;
-
-     f  = x*eee - xm2;
-     fp = eee*(1.0 - 2.0/3.0*x) - 1.0;
-
-     x -= f/fp;
-     x  = fabs(x);
-
-     count ++;
-     *res = fabs(f);
-   } while((*res > tol) && (count < max_iter));
-
-   if(count == max_iter) *ierr=0;
-   return x;
+  return x*eee - rhs*xm2;
 }
 
-static double
-br_bisect(double a, double tol, int *ierr) {
-  int count;
-  double f, x, x1, x2;
-  static int max_iter = 500;
-
-  *ierr = 1;
-  if(a == 0.0)
-    return 0.0;
-
-  /* starting interval */
-  if(a > 0.0) {
-    x1 = 2.0 + tol;
-    x2 = 1.0/a + 2.0;
-  }else{
-    x2 = 2.0 - tol;
-    x1 = 0.0;
-  }
-
-  /* bisection */
-  count = 0;
-  do{
-    double arg, eee, xm2;
-    x   = 0.5*(x1 + x2);
-    xm2 = x - 2.0;
-    arg = 2.0*x/3.0;
-    eee = exp(-arg);
-    f   = x*eee - a*xm2;
-
-    if(f > 0.0) x1 = x;
-    if(f < 0.0) x2 = x;
-
-    count++;
-  }while((fabs(f) > tol)  && (count < max_iter));
-
-  if(count == max_iter) *ierr=0;
-  return x;
-}
 
 double xc_mgga_x_br89_get_x(double Q)
 {
-  double rhs, br_x, tol, res;
-  int ierr;
+  double rhs, tol, x1, x2;
 
   tol = 5e-12;
 
@@ -133,17 +70,16 @@ double xc_mgga_x_br89_get_x(double Q)
      Remember we use a different definition of tau */
   rhs = 2.0/3.0*pow(M_PI, 2.0/3.0)/Q;
 
-  br_x = br_newt_raph(rhs, tol, &res, &ierr);
-  if(ierr == 0){
-    br_x = br_bisect(rhs, tol, &ierr);
-    if(ierr == 0){
-      fprintf(stderr,
-	      "Warning: Convergence not reached in Becke-Roussel functional\n"
-	      "For rhs = %e (residual = %e)\n", rhs, res);
-    }
+  /* starting interval */
+  if(rhs > 0.0) {
+    x1 = 2.0 + tol;
+    x2 = 1.0/rhs + 2.0;
+  }else{
+    x2 = 2.0 - tol;
+    x1 = 0.0;
   }
 
-  return br_x;
+  return xc_math_brent(br89_x_Q, x1, x2, tol, 500, &rhs);
 }
 
 #include "maple2c/mgga_exc/mgga_x_br89.c"

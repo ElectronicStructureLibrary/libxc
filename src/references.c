@@ -2456,3 +2456,10 @@ func_reference_type xc_ref_vonBarth1972_1629 = {
 };
 
 
+func_reference_type xc_ref_Patra2019_045147 = {
+  "B. Patra, S. Jana, L. A. Constantin, and P. Samal, Phys. Rev. B 100, 045147 (2019)",
+  "10.1103/PhysRevB.100.045147",
+  "@article{Patra2019_045147,\n  title = {Efficient band gap prediction of semiconductors and insulators from a semilocal exchange-correlation functional},\n  author = {Patra, Bikash and Jana, Subrata and Constantin, Lucian A. and Samal, Prasanjit},\n  journal = {Phys. Rev. B},\n  volume = {100},\n  issue = {4},\n  pages = {045147},\n  numpages = {12},\n  year = {2019},\n  month = {Jul},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.100.045147},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.100.045147}\n}"
+};
+
+

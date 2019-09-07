@@ -54,7 +54,7 @@ const xc_func_info_type xc_func_info_mgga_x_mbrxc_bg = {
   "Modified Becke-Roussel for band gaps - cuspless hole",
   XC_FAMILY_MGGA,
   {&xc_ref_Patra2019_045147, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_DEVELOPMENT,
   1.0e-12,
   0, NULL, NULL,
   NULL, NULL,

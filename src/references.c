@@ -370,6 +370,13 @@ func_reference_type xc_ref_Chachiyo2017 = {
 };
 
 
+func_reference_type xc_ref_Chachiyo2018_00712 = {
+  "T. {Chachiyo and H. {Chachiyo}, }arXiv e-prints , arXiv:1811.00712 (2018), arXiv:1811.00712 [cond-mat.mtrl-sci]",
+  "",
+  "@article{Chachiyo2018_00712,\n       author = {{Chachiyo}, Teepanis and {Chachiyo}, Hathaithip},\n        title = \"{Understanding electron correlation energy through density functional theory}\",\n      journal = {arXiv e-prints},\n     keywords = {Condensed Matter - Materials Science, Physics - Chemical Physics},\n         year = \"2018\",\n        month = \"Nov\",\n          eid = {arXiv:1811.00712},\n        pages = {arXiv:1811.00712},\narchivePrefix = {arXiv},\n       eprint = {1811.00712},\n primaryClass = {cond-mat.mtrl-sci}\n}"
+};
+
+
 func_reference_type xc_ref_Chai2008_084106 = {
   "J.-D. Chai and M. Head-Gordon, J. Chem. Phys. 128, 084106 (2008)",
   "10.1063/1.2834918",
@@ -1403,6 +1410,13 @@ func_reference_type xc_ref_PachecoKato2016_268 = {
   "J. C. Pacheco-Kato, J. M. del Campo, J. L. Gázquez, S. Trickey, and A. Vela, Chem. Phys. Lett. 651, 268 (2016)",
   "10.1016/j.cplett.2016.03.028",
   "@article{PachecoKato2016_268,\ntitle = \"A PW91-like exchange with a simple analytical form\",\njournal = \"Chemical Physics Letters\",\nvolume = \"651\",\npages = \"268-273\",\nyear = \"2016\",\nissn = \"0009-2614\",\ndoi = \"10.1016/j.cplett.2016.03.028\",\nurl = \"http://www.sciencedirect.com/science/article/pii/S0009261416301373\",\nauthor = \"Juan C. Pacheco-Kato and Jorge M. del Campo and José L. Gázquez and S.B. Trickey and Alberto Vela\"\n}"
+};
+
+
+func_reference_type xc_ref_Patra2019_045147 = {
+  "B. Patra, S. Jana, L. A. Constantin, and P. Samal, Phys. Rev. B 100, 045147 (2019)",
+  "10.1103/PhysRevB.100.045147",
+  "@article{Patra2019_045147,\n  title = {Efficient band gap prediction of semiconductors and insulators from a semilocal exchange-correlation functional},\n  author = {Patra, Bikash and Jana, Subrata and Constantin, Lucian A. and Samal, Prasanjit},\n  journal = {Phys. Rev. B},\n  volume = {100},\n  issue = {4},\n  pages = {045147},\n  numpages = {12},\n  year = {2019},\n  month = {Jul},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.100.045147},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.100.045147}\n}"
 };
 
 
@@ -2453,13 +2467,6 @@ func_reference_type xc_ref_vonBarth1972_1629 = {
   "U. von Barth and L. Hedin, J. Phys. C: Solid State Phys. 5, 1629 (1972)",
   "10.1088/0022-3719/5/13/012",
   "@article{vonBarth1972_1629,\n  title = {A local exchange-correlation potential for the spin polarized case. i},\n  author = {U. von Barth and L. Hedin},\n  journal = {J. Phys. C: Solid State Phys.},\n  volume = {5},\n  number = {13},\n  pages = {1629},\n  year = {1972},\n  doi = {10.1088/0022-3719/5/13/012},\n  url = {http://stacks.iop.org/0022-3719/5/i=13/a=012}\n}"
-};
-
-
-func_reference_type xc_ref_Patra2019_045147 = {
-  "B. Patra, S. Jana, L. A. Constantin, and P. Samal, Phys. Rev. B 100, 045147 (2019)",
-  "10.1103/PhysRevB.100.045147",
-  "@article{Patra2019_045147,\n  title = {Efficient band gap prediction of semiconductors and insulators from a semilocal exchange-correlation functional},\n  author = {Patra, Bikash and Jana, Subrata and Constantin, Lucian A. and Samal, Prasanjit},\n  journal = {Phys. Rev. B},\n  volume = {100},\n  issue = {4},\n  pages = {045147},\n  numpages = {12},\n  year = {2019},\n  month = {Jul},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.100.045147},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.100.045147}\n}"
 };
 
 

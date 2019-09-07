@@ -107,6 +107,7 @@ gga_c_acgga.c
 gga_c_acggap.c
 gga_c_am05.c
 gga_c_bmk.c
+gga_c_chachiyo.c
 gga_c_cs1.c
 gga_c_ft97.c
 gga_c_gapc.c
@@ -246,6 +247,7 @@ lda_c_1d_loos.c
 lda_c_2d_amgb.c
 lda_c_2d_prm.c
 lda_c_chachiyo.c
+lda_c_chachiyo_mod.c
 lda_c_gombas.c
 lda_c_hl.c
 lda_c_lp96.c

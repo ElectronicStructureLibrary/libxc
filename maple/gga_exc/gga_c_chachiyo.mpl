@@ -20,7 +20,7 @@ $include "lda_c_chachiyo_mod.mpl"
 (* Reduced gradient parameter *)
 cha_t := (rs, xt) -> (Pi/3)^(1/6) / 4 * n_total(rs)^(1/6) * xt:
 
-(* Full functional is *)
-f_chachiyo_gga := (rs, z, xt, xs0, xs1) -> f_chachiyo(rs, z) * (1 + cha_t(rs, xt)^2)^(params_a_h * n_total(rs) / f_chachiyo(rs, z)):
+(* The full functional that agrees with the given reference values is *)
+f_chachiyo_gga := (rs, z, xt, xs0, xs1) -> f_chachiyo(rs, z) * (1 + cha_t(rs, xt)^2)^(params_a_h / f_chachiyo(rs, z)):
 
 f  := (rs, z, xt, xs0, xs1) -> f_chachiyo_gga(rs, z, xt, xs0, xs1):

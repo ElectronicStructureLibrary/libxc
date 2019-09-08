@@ -31,8 +31,9 @@ xc_sanity_LDFLAGS =
 lib_LTLIBRARIES = libxc.la
 
 libxc_la_FUNC_SOURCES = \
-	special_functions.c bessel.c expint_e1.c integrate.c math_brent.c util.c	\
-	mix_func.c func_info.c functionals.c version.c func_reference.c \
+	special_functions.c bessel.c expint_e1.c integrate.c		\
+	math_brent.c util.c mix_func.c func_info.c functionals.c	\
+	version.c func_reference.c \
 	lda.c \
 	lda_x.c lda_x_2d.c lda_c_wigner.c lda_c_gombas.c lda_c_rpa.c	\
 	lda_c_hl.c lda_c_vwn.c lda_c_vwn_1.c lda_c_vwn_2.c		\
@@ -40,11 +41,11 @@ libxc_la_FUNC_SOURCES = \
 	lda_c_pw.c lda_c_pk09.c lda_c_lp96.c lda_c_ml1.c lda_c_rc04.c	\
 	lda_xc_teter93.c lda_c_1d_csc.c lda_c_1d_loos.c			\
 	lda_c_2d_amgb.c lda_c_2d_prm.c lda_k_tf.c lda_xc_zlp.c		\
-	lda_xc_ksdt.c lda_c_chachiyo.c lda_xc_1d_ehwlrg.c lda_x_rel.c	\
-	lda_x_erf.c lda_k_zlp.c lda_c_gk72.c lda_xc_bn05.c		\
-	lda_c_pmgb06.c lda_k_gds08_worker.c lda_xc_tih.c		\
-	lda_x_1d_exponential.c lda_x_1d_soft.c hyb_lda_xc_cam_lda0.c    \
-  lda_x_sloc.c \
+	lda_xc_ksdt.c lda_c_chachiyo.c lda_c_chachiyo_mod.c		\
+	lda_xc_1d_ehwlrg.c lda_x_rel.c lda_x_erf.c lda_k_zlp.c		\
+	lda_c_gk72.c lda_xc_bn05.c lda_c_pmgb06.c			\
+	lda_k_gds08_worker.c lda_xc_tih.c lda_x_1d_exponential.c	\
+	lda_x_1d_soft.c hyb_lda_xc_cam_lda0.c lda_x_sloc.c \
 	gga.c \
 	gga_x_lg93.c gga_x_pbe.c gga_x_rpbe.c gga_x_pbea.c		\
 	gga_x_mpbe.c gga_x_herman.c gga_x_b86.c gga_x_b88.c		\
@@ -72,14 +73,15 @@ libxc_la_FUNC_SOURCES = \
 	gga_c_hcth_a.c hyb_gga_xc_wb97.c gga_c_bmk.c gga_c_gapc.c	\
 	gga_c_gaploc.c gga_c_zvpbeint.c gga_c_w94.c gga_c_cs1.c		\
 	gga_c_op_xalpha.c gga_c_op_b88.c gga_c_op_pbe.c			\
-	gga_c_op_g96.c gga_c_op_pw91.c gga_x_pbetrans.c	gga_k_apbeint.c	\
-	gga_x_chachiyo.c gga_k_gds08.c gga_k_exp4.c hyb_gga_xc_pbeh.c	\
-	hyb_gga_xc_b1wc.c hyb_gga_xc_hse.c hyb_gga_xc_cam_b3lyp.c	\
-	hyb_gga_xc_cam_qtp.c gga_k_lc94.c gga_c_zvpbeloc.c \
-	hyb_gga_xc_camy_blyp.c hyb_gga_xc_camy_b3lyp.c			\
-	hyb_gga_xc_lcy_pbe.c hyb_gga_xc_lcy_blyp.c gga_xc_vv10.c	\
-	hyb_gga_xc_edf2.c gga_k_pw86.c gga_k_mpbe.c gga_k_apbe.c        \
-        gga_x_fd_lb94.c gga_x_ncap.c \
+	gga_c_op_g96.c gga_c_op_pw91.c gga_x_pbetrans.c			\
+	gga_k_apbeint.c gga_x_chachiyo.c gga_k_gds08.c gga_k_exp4.c	\
+	hyb_gga_xc_pbeh.c hyb_gga_xc_b1wc.c hyb_gga_xc_hse.c		\
+	hyb_gga_xc_cam_b3lyp.c hyb_gga_xc_cam_qtp.c gga_k_lc94.c	\
+	gga_c_zvpbeloc.c hyb_gga_xc_camy_blyp.c				\
+	hyb_gga_xc_camy_b3lyp.c hyb_gga_xc_lcy_pbe.c			\
+	hyb_gga_xc_lcy_blyp.c gga_xc_vv10.c hyb_gga_xc_edf2.c		\
+	gga_k_pw86.c gga_k_mpbe.c gga_k_apbe.c gga_x_fd_lb94.c		\
+	gga_x_ncap.c gga_c_chachiyo.c \
 	mgga.c \
 	mgga_x_lta.c mgga_x_tpss.c mgga_x_br89.c mgga_x_gvt4.c		\
 	mgga_x_m06l.c mgga_x_tau_hcth.c mgga_x_2d_prhg07.c		\
@@ -97,9 +99,10 @@ libxc_la_FUNC_SOURCES = \
 	hyb_mgga_xc_kcis.c mgga_c_b88.c mgga_x_gx.c mgga_x_pbe_gx.c	\
 	mgga_c_revscan.c mgga_x_br89_explicit.c mgga_xc_b98.c		\
 	mgga_x_rtpss.c mgga_x_msb.c mgga_x_mvsb.c mgga_x_regtpss.c	\
-	mgga_x_rscan.c mgga_c_rscan.c mgga_x_2d_js17.c mgga_x_tb09.c    \
+	mgga_x_rscan.c mgga_c_rscan.c mgga_x_2d_js17.c mgga_x_tb09.c	\
 	mgga_x_edmgga.c mgga_x_gdme.c mgga_x_rlda.c mgga_x_revtm.c	\
-	mgga_x_scanl.c mgga_c_scanl.c mgga_x_mbrxh_bg.c mgga_x_mbrxc_bg.c 
+	mgga_x_scanl.c mgga_c_scanl.c mgga_x_mbrxh_bg.c			\
+	mgga_x_mbrxc_bg.c
 
 libxc_la_SOURCES = references.c $(libxc_la_FUNC_SOURCES)
 libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)

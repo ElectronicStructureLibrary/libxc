@@ -17,4 +17,5 @@
 e0 := rs -> params_a_ap*log(1 + params_a_bp/rs + params_a_bp/rs^2):
 e1 := rs -> params_a_af*log(1 + params_a_bf/rs + params_a_bf/rs^2):
 
-f := (rs, zeta) -> e0(rs) + (e1(rs) - e0(rs))*f_zeta(zeta):
+f_chachiyo := (rs, zeta) -> e0(rs) + (e1(rs) - e0(rs))*f_zeta(zeta):
+f := (rs, zeta) -> f_chachiyo(rs, zeta):

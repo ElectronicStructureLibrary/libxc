@@ -49,5 +49,5 @@ const xc_func_info_type xc_func_info_gga_c_chachiyo = {
   1e-24,
   0, NULL, NULL,
   gga_c_chachiyo_init, NULL,
-  work_gga, NULL, NULL
+  NULL, work_gga, NULL
 };

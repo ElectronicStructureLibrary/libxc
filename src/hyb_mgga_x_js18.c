@@ -31,5 +31,5 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_js18 = {
   1e-32,
   0, NULL, NULL,
   hyb_mgga_x_js18_init, NULL,
-  NULL, NULL, NULL
+  NULL, NULL, work_mgga
 };

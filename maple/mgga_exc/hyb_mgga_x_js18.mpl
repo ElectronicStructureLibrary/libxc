@@ -11,8 +11,9 @@
 $include "mgga_x_tm.mpl"
 $include "lda_x_erf.mpl"
 
+(* Eq. (11) has erf and not a*erf *)
 attenuation_erf_f2 := a ->
-  1 + 24*a^2*((20*a^2 - 64*a^4)*exp(-1/(4*a^2)) - 3 - 36*a^2 + 64*a^4 + 10*sqrt(Pi)*erf(1/(2*a))):
+  1 + 24*a^2*((20*a^2 - 64*a^4)*exp(-1/(4*a^2)) - 3 - 36*a^2 + 64*a^4 + 10*sqrt(Pi)*a*erf(1/(2*a))):
 
 attenuation_erf_f3 := a ->
   1 + 8*a/7*(
@@ -38,4 +39,5 @@ js18_f_SR := (rs, z, x, t) -> tm_w(x, t)*js18_DME_SR(rs, z, x, t)
 
 js18_f := (rs, z, x, u, t) -> -p_a_cam_beta*js18_f_SR(rs, z, x, t) + tm_f(x, u, t):
 
-f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) -> mgga_exchange_nsp(js18_f, rs, z, xs0, xs1, u0, u1, t0, t1):
+f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->
+  mgga_exchange_nsp(js18_f, rs, z, xs0, xs1, u0, u1, t0, t1):

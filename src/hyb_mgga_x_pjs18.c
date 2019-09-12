@@ -15,7 +15,8 @@ static void
 hyb_mgga_x_pjs18_init(xc_func_type *p)
 {
   p->cam_omega =  0.33;
-  p->cam_beta  =  0.1;
+  p->cam_alpha =  1.0;
+  p->cam_beta  = -1.0;
 }
 
 #include "maple2c/mgga_exc/hyb_mgga_x_pjs18.c"

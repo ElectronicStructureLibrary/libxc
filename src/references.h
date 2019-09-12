@@ -212,6 +212,7 @@ extern func_reference_type xc_ref_Ortiz1994_1391;
 extern func_reference_type xc_ref_Ortiz1994_1391_err;
 extern func_reference_type xc_ref_OuYang1991_379;
 extern func_reference_type xc_ref_PachecoKato2016_268;
+extern func_reference_type xc_ref_Patra2018_8991;
 extern func_reference_type xc_ref_Paziani2006_155111;
 extern func_reference_type xc_ref_Pearson1983;
 extern func_reference_type xc_ref_Pearson1985_881;

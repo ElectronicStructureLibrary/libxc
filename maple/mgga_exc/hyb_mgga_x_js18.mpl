@@ -8,30 +8,7 @@
 
 (* type: mgga_exc *)
 
-$include "mgga_x_tm.mpl"
-$include "lda_x_erf.mpl"
-
-(* Eq. (11) has erf and not a*erf *)
-attenuation_erf_f2 := a ->
-  1 + 24*a^2*((20*a^2 - 64*a^4)*exp(-1/(4*a^2)) - 3 - 36*a^2 + 64*a^4 + 10*sqrt(Pi)*a*erf(1/(2*a))):
-
-attenuation_erf_f3 := a ->
-  1 + 8*a/7*(
-      + (-8*a + 256*a^3 - 576*a^5 + 3849*a^7 - 122880*a^9)*exp(-1/(4*a^2))
-      + 24*a^3*(-35 + 224*a^2 - 1440*a^4 + 5120*a^6)
-      + 2*sqrt(Pi)*(-2 + 60*a^2)*erf(1/(2*a))):
-
-js18_M := x -> (2*tm_lambda - 1)^2*tm_p(x):
-js18_L := (x, t) ->
-  (3*(tm_lambda^2 - tm_lambda + 1/2)*(t - K_FACTOR_C - x^2/72) - (t - K_FACTOR_C)
-   + 7/18*(2*tm_lambda - 1)^2*x^2)/K_FACTOR_C:
-
-js18_A := (rs, z, x) -> a_cnst*rs/(tm_f0(x)*(1 + z)^(1/3)):
-
-js18_DME_SR := (rs, z, x, t) ->
-  + attenuation_erf   (js18_A(rs, z, x))/tm_f0(x)^2
-  + attenuation_erf_f2(js18_A(rs, z, x))*7*js18_L(x, t)/(9*tm_f0(x)^4)
-  + attenuation_erf_f3(js18_A(rs, z, x))*245*js18_M(x)/(54*tm_f0(x)^4):
+$include "hyb_mgga_x_pjs18.mpl"
 
 (* This expression (10) has \tilde A, and not A *)
 js18_f_SR := (rs, z, x, t) -> tm_w(x, t)*js18_DME_SR(rs, z, x, t)

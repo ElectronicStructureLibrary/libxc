@@ -12,8 +12,8 @@
 $include "mgga_x_tm.mpl"
 $include "lda_x_erf.mpl"
 
-(* See text after eq 7 *)
-js18_H := x -> (2*tm_lambda - 1)^2 * x^2;
+(* See text after eq 7  *)
+js18_H := x -> (2*tm_lambda - 1)^2 * tm_p(x):
 (* See text after eq 7 *)
 js18_G := (x, t) ->
   (3*(tm_lambda^2 - tm_lambda + 1/2)*(t - K_FACTOR_C - x^2/72) - (t - K_FACTOR_C)

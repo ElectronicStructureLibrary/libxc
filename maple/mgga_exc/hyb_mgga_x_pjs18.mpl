@@ -19,7 +19,8 @@ js18_G := (x, t) ->
   (3*(tm_lambda^2 - tm_lambda + 1/2)*(t - K_FACTOR_C - x^2/72) - (t - K_FACTOR_C)
    + 7/18*(2*tm_lambda - 1)^2*x^2)/K_FACTOR_C:
 
-js18_A := (rs, z, x) -> a_cnst*rs/(tm_f0(x)*(1 + z)^(1/3)):
+(* not to run into problems with erfs and exp *)
+js18_A := (rs, z, x) -> m_max(1e-10, a_cnst*rs/(tm_f0(x)*(1 + z)^(1/3))):
 
 js18_DME_SR := (rs, z, x, t) ->
   + attenuation_erf   (js18_A(rs, z, x))/tm_f0(x)^2

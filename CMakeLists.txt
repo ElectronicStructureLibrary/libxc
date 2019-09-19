@@ -227,6 +227,7 @@ hyb_gga_xc_camy_b3lyp.c
 hyb_gga_xc_camy_blyp.c
 hyb_gga_xc_edf2.c
 hyb_gga_xc_hse.c
+hyb_gga_xc_lc_blyp.c
 hyb_gga_xc_lcy_blyp.c
 hyb_gga_xc_lcy_pbe.c
 hyb_gga_xc_o3lyp.c

@@ -165,6 +165,7 @@ extern func_reference_type xc_ref_Klimes2011_195131;
 extern func_reference_type xc_ref_Koehl1996_835;
 extern func_reference_type xc_ref_Kohn1965_A1133;
 extern func_reference_type xc_ref_Kompaneets1956_427;
+extern func_reference_type xc_ref_Kraisler2010_042516;
 extern func_reference_type xc_ref_Krieger1999_463;
 extern func_reference_type xc_ref_Krieger2001_48;
 extern func_reference_type xc_ref_Krukau2006_224106;

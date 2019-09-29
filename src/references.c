@@ -1077,6 +1077,13 @@ func_reference_type xc_ref_Kompaneets1956_427 = {
 };
 
 
+func_reference_type xc_ref_Kraisler2010_042516 = {
+  "E. Kraisler, G. Makov, and I. Kelson, Phys. Rev. A 82, 042516 (2010)",
+  "10.1103/PhysRevA.82.042516",
+  "@article{Kraisler2010_042516,\n  title = {Ensemble $v$-representable ab initio density-functional calculation of energy and spin in atoms: A test of exchange-correlation approximations},\n  author = {Kraisler, Eli and Makov, Guy and Kelson, Itzhak},\n  journal = {Phys. Rev. A},\n  volume = {82},\n  issue = {4},\n  pages = {042516},\n  numpages = {13},\n  year = {2010},\n  month = {Oct},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.82.042516},\n  url = {https://link.aps.org/doi/10.1103/PhysRevA.82.042516}\n}"
+};
+
+
 func_reference_type xc_ref_Krieger1999_463 = {
   "J. B. Krieger, J. Chen, G. J. Iafrate, and A. Savin, \\enquote {Construction of an accurate self-interaction-corrected correlation energy functional based on an electron gas with a gap,} in Electron Correlations and Materials Properties, edited by A. Gonis, N. Kioussis, and M. Ciftan (Springer US, Boston, MA, 1999) pp. 463--477",
   "10.1007/978-1-4615-4715-0_28",

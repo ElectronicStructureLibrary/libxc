@@ -8,7 +8,7 @@
 
 (* type: mgga_exc *)
 
-task_alpha := (x, t) -> (t - x^2/8)/K_FACTOR_C:
+task_alpha := (x, t) -> (t/K_FACTOR_C) * m_max(1 - x^2/(8*t), 1e-10):
 
 task_gx := x -> my_piecewise3(x > 0, 1 - exp(-4.9479*x^(-1/4)), 0):
 

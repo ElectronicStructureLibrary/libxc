@@ -103,7 +103,7 @@ libxc_la_FUNC_SOURCES = \
 	mgga_x_rscan.c mgga_c_rscan.c mgga_x_2d_js17.c mgga_x_tb09.c	\
 	mgga_x_edmgga.c mgga_x_gdme.c mgga_x_rlda.c mgga_x_revtm.c	\
 	mgga_x_scanl.c mgga_c_scanl.c mgga_x_mbrxh_bg.c			\
-	mgga_x_mbrxc_bg.c
+	mgga_x_mbrxc_bg.c mgga_x_task.c
 
 libxc_la_SOURCES = references.c $(libxc_la_FUNC_SOURCES)
 libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)

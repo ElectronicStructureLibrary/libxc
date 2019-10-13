@@ -307,6 +307,13 @@ func_reference_type xc_ref_Burke2014_4834 = {
 };
 
 
+func_reference_type xc_ref_Caldeira2019_62 = {
+  "M. T. Caldeira and R. Custodio, Journal of Molecular Modeling 25, 62 (2019)",
+  "10.1007/s00894-019-3952-4",
+  "@article{Caldeira2019_62,\n  author=\"Caldeira, Mariana Toretti and Custodio, Rog{\\'e}rio\",\n  title=\"Partial combination of composite strategy and the B3LYP functional for the calculation of enthalpies of formation\",\n  journal=\"Journal of Molecular Modeling\",\n  year=\"2019\",\n  month=\"Feb\",\n  day=\"12\",\n  volume=\"25\",\n  number=\"3\",\n  pages=\"62\",\n  issn=\"0948-5023\",\n  doi=\"10.1007/s00894-019-3952-4\",\n  url=\"https://doi.org/10.1007/s00894-019-3952-4\"\n}"
+};
+
+
 func_reference_type xc_ref_Campi1978_263 = {
   "X. Campi and A. Bouyssy, Phys. Lett. B 73, 263 (1978)",
   "https://doi.org/10.1016/0370-2693(78)90509-9",

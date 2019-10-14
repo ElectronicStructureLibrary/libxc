@@ -206,6 +206,7 @@ AC_CONFIG_FILES([Makefile
   src/maple2c/lda_exc/Makefile
   src/maple2c/lda_vxc/Makefile
   src/maple2c/gga_exc/Makefile
+  src/maple2c/gga_vxc/Makefile
   src/maple2c/mgga_exc/Makefile
   testsuite/Makefile
   testsuite/pytest/Makefile
@@ -219,6 +220,7 @@ AC_CONFIG_FILES([Makefile
   maple/lda_exc/Makefile
   maple/lda_vxc/Makefile
   maple/gga_exc/Makefile
+  maple/gga_vxc/Makefile
   maple/mgga_exc/Makefile
   pylibxc/Makefile
   cmake/Makefile

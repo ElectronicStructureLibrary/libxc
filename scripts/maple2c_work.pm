@@ -85,7 +85,7 @@ $code
   my @incdirs = ("maple", 
                  "maple/lda_exc",  "maple/lda_vxc", 
                  "maple/gga_exc",  "maple/gga_vxc",
-                 "maple/mgga_exc", "maple/mgga_exc"
+                 "maple/mgga_exc", "maple/mgga_vxc"
       );
   my $maple_inc = "";
   foreach my $idir (@incdirs){

@@ -1,6 +1,5 @@
 Improve existing functionals:
   *) Check all flags to see if they have the right derivatives
-  *) Missing gga_vxc and mgga_vxc
   *) Add XC_FLAGS_STABLE or XC_FLAGS_DEVELOPMENT to all functionals in libxc.
 
 Add functionals:

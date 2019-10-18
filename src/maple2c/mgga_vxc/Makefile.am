@@ -5,4 +5,4 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
-noinst_HEADERS = mgga_x_tb09.c
+noinst_HEADERS = mgga_x_tb09.c mgga_x_2d_prp10.c

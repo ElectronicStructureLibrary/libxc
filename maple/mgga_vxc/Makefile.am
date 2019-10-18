@@ -6,4 +6,4 @@
 ##
 
 dist_noinst_SCRIPTS = \
-mgga_x_tb09.mpl
+mgga_x_tb09.mpl mgga_x_2d_prp10.mpl

@@ -5,4 +5,4 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
-dist_noinst_SCRIPTS = get_funcs.pl get_references.pl maple2c.pl maple2c_new.pl maple2c_work.pm
+dist_noinst_SCRIPTS = get_funcs.pl get_references.pl maple2c_new.pl maple2c_work.pm

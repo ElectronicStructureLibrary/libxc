@@ -7,7 +7,7 @@
 
 noinst_HEADERS = \
 hyb_mgga_xc_wb97mv.mpl  mgga_c_vsxc.mpl           mgga_x_mbeefvdw.mpl	\
-hyb_mgga_x_dldf.mpl     mgga_k_pc07.mpl           \
+hyb_mgga_x_dldf.mpl     mgga_k_pc07.mpl           mgga_x_2d_prhg07.mpl  \
 hyb_mgga_x_m05.mpl      mgga_x_br89_explicit.mpl  mgga_x_mn12.mpl	\
 mgga_c_b88.mpl          mgga_xc_b97mv.mpl         mgga_x_msb.mpl	\
 mgga_c_bc95.mpl         mgga_xc_b98.mpl           mgga_x_ms.mpl		\

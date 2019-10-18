@@ -136,6 +136,8 @@ xc_cheb_eval(const double x, const double *cs, const int N)
 
 double xc_bessel_I0_scaled(const double x);
 double xc_bessel_I0(const double x);
+double xc_bessel_I1_scaled(const double x);
+double xc_bessel_I1(const double x);
 double xc_bessel_K0_scaled(const double x);
 double xc_bessel_K0(const double x);
 double xc_bessel_K1_scaled(const double x);

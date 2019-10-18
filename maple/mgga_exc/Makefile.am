@@ -7,7 +7,7 @@
 
 noinst_HEADERS = \
 hyb_mgga_xc_wb97mv.mpl  mgga_c_vsxc.mpl           mgga_x_mbeefvdw.mpl	\
-hyb_mgga_x_dldf.mpl     mgga_k_pc07.mpl           mgga_x_mk00.mpl	\
+hyb_mgga_x_dldf.mpl     mgga_k_pc07.mpl           \
 hyb_mgga_x_m05.mpl      mgga_x_br89_explicit.mpl  mgga_x_mn12.mpl	\
 mgga_c_b88.mpl          mgga_xc_b97mv.mpl         mgga_x_msb.mpl	\
 mgga_c_bc95.mpl         mgga_xc_b98.mpl           mgga_x_ms.mpl		\
@@ -22,7 +22,8 @@ mgga_c_revtpss.mpl      mgga_x_m08.mpl            mgga_x_tau_hcth.mpl	\
 mgga_c_scan.mpl         mgga_x_m11_l.mpl          mgga_x_tm.mpl		\
 mgga_c_tpssloc.mpl      mgga_x_m11.mpl            mgga_x_tpss.mpl	\
 mgga_c_tpss.mpl         mgga_x_mbeef.mpl          mgga_x_vt84.mpl	\
-mgga_x_regtpss.mpl	mgga_x_rscan.mpl          mgga_c_rscan.mpl      \
+mgga_x_regtpss.mpl      mgga_x_rscan.mpl          mgga_c_rscan.mpl      \
 mgga_x_edmgga.mpl       mgga_x_gdme.mpl           mgga_x_revtm.mpl      \
 mgga_x_rlda.mpl         mgga_x_scanl.mpl          mgga_c_scanl.mpl      \
+mgga_x_mbrxh_bg.mpl     mgga_x_mbrxc_bg.mpl       mgga_x_task.mpl    \
 hyb_mgga_x_js18.mpl     hyb_mgga_x_pjs18.mpl

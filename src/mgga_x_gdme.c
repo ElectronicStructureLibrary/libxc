@@ -35,18 +35,18 @@ mgga_x_gdme_init(xc_func_type *p)
     break;
   case XC_MGGA_X_GDME_0:
     params->a  = 0.0;
-    params->AA = -9.0*M_PI/4.0;
-    params->BB = -35.0*M_PI/12.0;
+    params->AA = 9.0*M_PI/4.0;
+    params->BB = 35.0*M_PI/12.0;
     break;
   case XC_MGGA_X_GDME_KOS:
     params->a  = 0.00638;
-    params->AA = -9.0*M_PI/4.0;
-    params->BB = -35.0*M_PI/12.0;
+    params->AA = 9.0*M_PI/4.0;
+    params->BB = 35.0*M_PI/12.0;
     break;
   case XC_MGGA_X_GDME_VT:
     params->a  = 0.0;
-    params->AA = -7.31275;
-    params->BB = -5.43182;
+    params->AA = 7.31275;
+    params->BB = 5.43182;
     break;    
   default:
     fprintf(stderr, "Internal error in mgga_x_gdme\n");
@@ -55,9 +55,9 @@ mgga_x_gdme_init(xc_func_type *p)
 }
 
 static func_params_type ext_params[] = {
-  {"_a",  0.5,             "center of the s expansion of density-matrix"},
-  {"_AA", -9.0*M_PI/4.0,   "parameter of the first (LDA) term"},
-  {"_BB", -35.0*M_PI/12.0, "parameter of the correction term"}
+  {"_a",  0.5,            "center of the s expansion of density-matrix"},
+  {"_AA", 9.0*M_PI/4.0,   "parameter of the first (LDA) term"},
+  {"_BB", 35.0*M_PI/12.0, "parameter of the correction term"}
 };
 
 static void 

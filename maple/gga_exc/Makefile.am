@@ -42,4 +42,6 @@ gga_c_zvpbeint.mpl   gga_x_ft97.mpl        gga_x_wpbeh.mpl	\
 gga_k_apbeint.mpl    gga_x_g96.mpl         hyb_gga_xc_wb97.mpl	\
 gga_k_apbe.mpl       gga_x_hcth_a.mpl      gga_k_dk.mpl         \
 gga_x_herman.mpl     gga_x_gg99.mpl        gga_c_zvpbeloc.mpl   \
-gga_x_fd_lb94.mpl    gga_x_ncap.mpl
+gga_x_fd_lb94.mpl    gga_x_ncap.mpl        gga_c_chachiyo.mpl	\
+gga_c_pbe_vwn.mpl
+

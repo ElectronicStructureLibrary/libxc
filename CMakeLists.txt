@@ -42,6 +42,9 @@ include(CMakePackageConfigHelpers)
 
 set(PN ${PROJECT_NAME})
 
+# Need BASH to run test suite
+find_program(BASH_EXECUTABLE bash)
+
 # link -lm only if necessary
 find_package(StandardMathLibraryC)
 # check if cbrt exists and declare HAVE_CBRT if it does
@@ -104,6 +107,7 @@ gga_c_acgga.c
 gga_c_acggap.c
 gga_c_am05.c
 gga_c_bmk.c
+gga_c_chachiyo.c
 gga_c_cs1.c
 gga_c_ft97.c
 gga_c_gapc.c
@@ -119,6 +123,7 @@ gga_c_op_xalpha.c
 gga_c_optc.c
 gga_c_p86.c
 gga_c_pbe.c
+gga_c_pbe_vwn.c
 gga_c_pbeloc.c
 gga_c_pw91.c
 gga_c_q2d.c
@@ -223,6 +228,7 @@ hyb_gga_xc_camy_b3lyp.c
 hyb_gga_xc_camy_blyp.c
 hyb_gga_xc_edf2.c
 hyb_gga_xc_hse.c
+hyb_gga_xc_lc_blyp.c
 hyb_gga_xc_lcy_blyp.c
 hyb_gga_xc_lcy_pbe.c
 hyb_gga_xc_o3lyp.c
@@ -245,6 +251,7 @@ lda_c_1d_loos.c
 lda_c_2d_amgb.c
 lda_c_2d_prm.c
 lda_c_chachiyo.c
+lda_c_chachiyo_mod.c
 lda_c_gombas.c
 lda_c_hl.c
 lda_c_lp96.c
@@ -311,7 +318,6 @@ mgga_x_m11.c
 mgga_x_m11_l.c
 mgga_x_mbeef.c
 mgga_x_mbeefvdw.c
-mgga_x_mk00.c
 mgga_x_mn12.c
 mgga_x_ms.c
 mgga_x_msb.c
@@ -342,9 +348,13 @@ mgga_x_gdme.c
 mgga_x_rlda.c
 mgga_x_scanl.c
 mgga_c_scanl.c
+mgga_x_mbrxh_bg.c
+mgga_x_mbrxc_bg.c
+mgga_x_task.c
 mix_func.c
 references.c
 special_functions.c
+math_brent.c
 util.c
 version.c
 )

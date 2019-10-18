@@ -28,11 +28,11 @@ typedef struct{
   double qtot;      /* total charge in the region */
 
   double aa;     /* the parameters of LB94 */
-  double gamm;
+  double gamma;
 
   double alpha;
   double beta;
-} xc_gga_x_lb_params;
+} gga_x_lb_params;
 
 /************************************************************************
   Calculates van Leeuwen Baerends functional
@@ -41,7 +41,7 @@ typedef struct{
 static void
 gga_lb_init(xc_func_type *p)
 {
-  xc_gga_x_lb_params *params;
+  gga_x_lb_params *params;
 
   assert(p->params == NULL);
 
@@ -51,9 +51,9 @@ gga_lb_init(xc_func_type *p)
 
   xc_func_init(p->func_aux[0], XC_LDA_X, p->nspin);
 
-  p->params = malloc(sizeof(xc_gga_x_lb_params));
+  p->params = malloc(sizeof(gga_x_lb_params));
 
-  params = (xc_gga_x_lb_params *) (p->params);
+  params = (gga_x_lb_params *) (p->params);
   switch(p->info->number){
   case XC_GGA_X_LB:
     params->alpha = 1.0;
@@ -73,12 +73,12 @@ xc_gga_lb_modified(const xc_func_type *func, int np, const double *rho, const do
   int ip, is, is2;
   double ds, gdm, x, sfact;
 
-  xc_gga_x_lb_params *params;
+  gga_x_lb_params *params;
 
   assert(func != NULL);
 
   assert(func->params != NULL);
-  params = (xc_gga_x_lb_params *) (func->params);
+  params = (gga_x_lb_params *) (func->params);
 
   xc_lda_vxc(func->func_aux[0], np, rho, vrho);
 
@@ -102,16 +102,16 @@ xc_gga_lb_modified(const xc_func_type *func, int np, const double *rho, const do
         x =  gdm/pow(ds, 4.0/3.0);
 	
         if(x < 300.0) /* the actual functional */	   
-          f = -params->beta*x*x/(1.0 + 3.0*params->beta*x*asinh(params->gamm*x));
+          f = -params->beta*x*x/(1.0 + 3.0*params->beta*x*asinh(params->gamma*x));
         else          /* asymptotic expansion */
-          f = -x/(3.0*log(2.0*params->gamm*x));
+          f = -x/(3.0*log(2.0*params->gamma*x));
         
         vrho[is] += f * CBRT(ds);
 	
       }else if(r > 0.0){
         /* the asymptotic expansion of LB94 */
         x = r + (3.0/params->aa)*
-          log(2.0*params->gamm * params->aa * 1.0 / CBRT(params->qtot));
+          log(2.0*params->gamma * params->aa * 1.0 / CBRT(params->qtot));
         
         /* x = x + pow(qtot*exp(-aa*r), 1.0/3.0)/(beta*aa*aa); */
         
@@ -151,10 +151,10 @@ static const func_params_type ext_params[] = {
 static void 
 set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  xc_gga_x_lb_params *params;
+  gga_x_lb_params *params;
 
   assert(p!=NULL && p->params!=NULL);
-  params = (xc_gga_x_lb_params *) (p->params);
+  params = (gga_x_lb_params *) (p->params);
 
   params->modified  = (int)round(get_ext_param(p->info->ext_params, ext_params, 0));
   params->threshold = get_ext_param(p->info->ext_params, ext_params, 1);
@@ -162,14 +162,17 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->qtot      = get_ext_param(p->info->ext_params, ext_params, 3);
 
   if(params->modified){
-    params->aa   = (params->ip > 0.0) ? 2.0*sqrt(2.0*params->ip) : 0.5;
-    params->gamm = CBRT(params->qtot)/(2.0*params->aa);
+    params->aa    = (params->ip > 0.0) ? 2.0*sqrt(2.0*params->ip) : 0.5;
+    params->gamma = CBRT(params->qtot)/(2.0*params->aa);
   }else{
-    params->aa   = 0.5;
-    params->gamm = 1.0;
+    params->aa    = 0.5;
+    params->gamma = 1.0;
   }
 }
 
+#include "maple2c/gga_vxc/gga_x_lb.c"
+#define XC_NO_EXC
+#include "work_gga_new.c"
 
 const xc_func_info_type xc_func_info_gga_x_lb = {
   XC_GGA_X_LB,
@@ -181,7 +184,7 @@ const xc_func_info_type xc_func_info_gga_x_lb = {
   1e-32,
   4, ext_params, set_ext_params,
   gga_lb_init, NULL,
-  NULL, gga_x_lb, NULL
+  NULL, work_gga, NULL
 };
 
 

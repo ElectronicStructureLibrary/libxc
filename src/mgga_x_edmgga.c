@@ -9,6 +9,7 @@
 #include "util.h"
 
 #define XC_MGGA_X_EDMGGA          686 /* Tao 2001 */
+#define XC_HYB_MGGA_XC_EDMGGAH    695 /* Tao 2001 hybrid */
 
 #include "maple2c/mgga_exc/mgga_x_edmgga.c"
 #include "work_mgga_new.c"
@@ -19,9 +20,32 @@ const xc_func_info_type xc_func_info_mgga_x_edmgga = {
   "Tao 2001",
   XC_FAMILY_MGGA,
   {&xc_ref_Tao2001_3519, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_DEVELOPMENT,
   1.0e-23,
   0, NULL, NULL,
   NULL, NULL,
   NULL, NULL, work_mgga,
+};
+
+static void
+hyb_mgga_xc_edmggah_init(xc_func_type *p)
+{
+  static int   funcs_id  [2] = {XC_MGGA_X_EDMGGA, XC_MGGA_C_CS};
+  static double funcs_coef[2] = {0.78, 1.0};
+
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+  p->cam_alpha = 0.22;
+}
+
+const xc_func_info_type xc_func_info_hyb_mgga_xc_edmggah = {
+  XC_HYB_MGGA_XC_EDMGGAH,
+  XC_EXCHANGE_CORRELATION,
+  "EDMGGA hybrid",
+  XC_FAMILY_HYB_MGGA,
+  {&xc_ref_Tao2002_2335, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_DEVELOPMENT,
+  1e-32,
+  0, NULL, NULL,
+  hyb_mgga_xc_edmggah_init,
+  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };

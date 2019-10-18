@@ -22,7 +22,7 @@ params_a_c_x  := [0.8085,  0.6682, 0.1420]:
 params_a_c_ss := [0.2606, -0.9608, 0.9023]:
 params_a_c_ab := [1.2033, -2.2717, 0.9596]:
 
-b98_q := (x, u, t) -> (u/4 - t + x^2/8 + K_FACTOR_C)/K_FACTOR_C:
+b98_q := (x, u, t) -> 1 - (t - x^2/8 - u/4)/K_FACTOR_C:
 
 b98_g := (gamma, cc, q) -> add(cc[i]*(gamma*q/sqrt(1 + gamma^2*q^2))^(i-1), i=1..3):
 

@@ -41,6 +41,7 @@ AC_DEFUN([ACX_FC_INTEGER_SIZE],[
 
   open(1, file='conftest.out')
   write(1,'(i1)') i
+  close(1)
 ])],
       [ac_fcintegersize=`cat conftest.out`],
       [AC_MSG_FAILURE(f90 program to find the size of a Fortran integer failed)],

@@ -100,6 +100,9 @@ AC_FUNC_ALLOCA
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_SIZEOF(void*)
 
+# Need BASH to run tests
+AC_CHECK_PROG([BASH_SHELL],[bash],[yes])
+
 # Check for presence of some C99 libm functions
 AC_CHECK_LIB([m],[cbrt],[AC_DEFINE([HAVE_CBRT],[1],[libm includes cbrt])])
 AC_CHECK_LIB([m],[feenableexcept],[AC_DEFINE([HAVE_FEENABLEEXCEPT],[1],[libm includes feenableexcept])])
@@ -203,6 +206,7 @@ AC_CONFIG_FILES([Makefile
   src/maple2c/lda_exc/Makefile
   src/maple2c/lda_vxc/Makefile
   src/maple2c/gga_exc/Makefile
+  src/maple2c/gga_vxc/Makefile
   src/maple2c/mgga_exc/Makefile
   testsuite/Makefile
   testsuite/pytest/Makefile
@@ -216,6 +220,7 @@ AC_CONFIG_FILES([Makefile
   maple/lda_exc/Makefile
   maple/lda_vxc/Makefile
   maple/gga_exc/Makefile
+  maple/gga_vxc/Makefile
   maple/mgga_exc/Makefile
   pylibxc/Makefile
   cmake/Makefile

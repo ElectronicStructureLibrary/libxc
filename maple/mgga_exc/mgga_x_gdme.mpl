@@ -15,8 +15,8 @@
   params = (mgga_x_gdme_params * )(p->params);
 *)
 
-gdme_at := (params_a_AA + 3/5*params_a_BB)*2^(1/3)/(3*Pi^2)^(2/3) / X_FACTOR_C:
-gdme_bt := params_a_BB*2^(4/3)/(3*Pi^2)^(4/3) / X_FACTOR_C:
+gdme_at := (params_a_AA + 3/5*params_a_BB)*2^(1/3)/(X_FACTOR_C*(3*Pi^2)^(2/3)):
+gdme_bt := params_a_BB/(X_FACTOR_C*2^(1/3)*(3*Pi^2)^(4/3)):
 
 gdme_f := (x, u, t) -> gdme_at + gdme_bt*((params_a_a^2 - params_a_a + 1/2)*u - 2*t):
 

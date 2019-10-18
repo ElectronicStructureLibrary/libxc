@@ -66,6 +66,7 @@ my %commands = (
   "lda_exc"   => \&work_lda_exc,
   "lda_vxc"   => \&work_lda_vxc,
   "gga_exc"   => \&work_gga_exc,
+  "gga_vxc"   => \&work_gga_vxc,
   "mgga_exc"  => \&work_mgga_exc,
     );
 
@@ -348,6 +349,138 @@ C([$maple_zk$out_c], optimize, deducetypes=false):
 
   maple2c_run(\@variables, \@derivatives, \@variants, 0, $input_args, $output_args);
 }
+
+sub work_gga_vxc {
+  # these are the variables that the functional depends on
+  my @variables = ("rho_0_", "rho_1_", "sigma_0_", "sigma_1_", "sigma_2_");
+
+  # the definition of the derivatives that libxc transmits to the calling program
+  my @derivatives1 = (
+    [
+     [[0,0,0,0,0], "vrho_0_"]
+    ],
+    [
+     [[1,0,0,0,0], "v2rho2_0_"], [[0,1,0,0,0], "v2rho2_1_"],
+     [[0,0,1,0,0], "v2rhosigma_0_"], [[0,0,0,1,0], "v2rhosigma_1_"],  [[0,0,0,0,1], "v2rhosigma_2_"],
+    ],
+    [
+     [[2,0,0,0,0], "v3rho3_0_"], [[1,1,0,0,0], "v3rho3_1_"], [[0,2,0,0,0], "v3rho3_2_"],
+     [[1,0,1,0,0], "v3rho2sigma_0_"], [[1,0,0,1,0], "v3rho2sigma_1_"],  [[1,0,0,0,1], "v3rho2sigma_2_"],
+     [[0,1,1,0,0], "v3rho2sigma_3_"], [[0,1,0,1,0], "v3rho2sigma_4_"],  [[0,1,0,0,1], "v3rho2sigma_5_"],
+     [[0,0,2,0,0], "v3rhosigma2_0_"], [[0,0,1,1,0], "v3rhosigma2_1_"],  [[0,0,1,0,1], "v3rhosigma2_2_"],
+     [[0,0,0,2,0], "v3rhosigma2_3_"], [[0,0,0,1,1], "v3rhosigma2_4_"],  [[0,0,0,0,2], "v3rhosigma2_5_"],
+    ]
+      );
+  my @derivatives2 = (
+    [
+     [[0,0,0,0,0], "vrho_1_"]
+    ],
+    [
+     [[0,1,0,0,0], "v2rho2_2_"],
+     [[0,0,1,0,0], "v2rhosigma_3_"], [[0,0,0,1,0], "v2rhosigma_4_"],  [[0,0,0,0,1], "v2rhosigma_5_"],
+    ],
+    [
+     [[0,2,0,0,0], "v3rho3_3_"],
+     [[0,1,1,0,0], "v3rho2sigma_6_"], [[0,1,0,1,0], "v3rho2sigma_7_"],  [[0,1,0,0,1], "v3rho2sigma_8_"],
+     [[0,0,2,0,0], "v3rhosigma2_6_"], [[0,0,1,1,0], "v3rhosigma2_7_"],  [[0,0,1,0,1], "v3rhosigma2_8_"],
+     [[0,0,0,2,0], "v3rhosigma2_9_"], [[0,0,0,1,1], "v3rhosigma2_10_"], [[0,0,0,0,2], "v3rhosigma2_11_"],
+    ]
+      );
+  
+  my @derivatives = ();
+  for(my $i=0; $i<=$#derivatives1; $i++){
+    @{$derivatives[$i]} = ();
+    push(@{$derivatives[$i]}, @{$derivatives1[$i]});
+    push(@{$derivatives[$i]}, @{$derivatives2[$i]});
+  }
+
+  my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
+  # override output arguments
+  $output_args = "double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2, double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3";
+  
+  # honor max_order
+  splice @derivatives1, $config{"max_order"}+1, $#derivatives1, ;
+  splice @derivatives2, $config{"max_order"}+1, $#derivatives2, ;
+  splice @derivatives,  $config{"max_order"}+1, $#derivatives,  ;
+
+  # we obtain the missing pieces for maple
+  # unpolarized calculation
+  my ($der_def_unpol, @out_c_unpol) = 
+      maple2c_create_derivatives(\@variables, \@derivatives1, "mf0", "unpol");
+  my $out_c_unpol = join(", ", @out_c_unpol);
+
+  # polarized calculation
+  my ($der_def_pol, @out_c_pol1) = 
+      maple2c_create_derivatives(\@variables, \@derivatives1, "mf0", "pol");
+  my ($der_def_pol2, @out_c_pol2) = 
+      maple2c_create_derivatives(\@variables, \@derivatives2, "mf1", "pol");
+
+  $der_def_pol .= $der_def_pol2;
+  
+  push(@out_c_pol1, @out_c_pol2);
+  my $out_c_pol = join(", ", @out_c_pol1);
+
+  # we join all the pieces
+  my $maple_code1 = "
+(* mf is the up potential *)
+mzk   := (r0, r1, s0, s1, s2) -> \\
+  $config{'simplify_begin'} \\
+    f(r_ws(dens(r0, r1)), zeta(r0, r1), xt(r0, r1, s0, s1, s2), xs0(r0, r1, s0, s2), xs1(r0, r1, s0, s2)) \\
+  $config{'simplify_end'}:
+mf0   := (r0, r1, s0, s1, s2) -> eval(mzk(r0, r1, s0, s1, s2)):
+mf1   := (r0, r1, s0, s1, s2) -> eval(mzk(r1, r0, s0, s2, s1)):
+
+\$include <util.mpl>
+";
+
+  my $maple_vrho0 = "vrho_0_ = mf0(".join(", ", @variables).")";
+  my $maple_vrho1 = "vrho_1_ = mf1(".join(", ", @variables).")"; 
+
+  # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
+  @variants = (
+    "unpol", "
+dens := (r0, r1) -> r0:
+zeta := (r0, r1) -> 0:
+xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0/4)/((r0/2)^(1 + 1/DIMENSIONS)):
+xs1  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0/4)/((r0/2)^(1 + 1/DIMENSIONS)):
+xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
+
+$der_def_unpol
+
+$maple_code1
+C([$maple_vrho0, $out_c_unpol], optimize, deducetypes=false):
+",
+
+    "ferr", "
+dens := (r0, r1) -> r0:
+zeta := (r0, r1) -> 1:
+xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
+xs1  := (r0, r1, sigma0, sigma2) -> 0:
+xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
+
+$der_def_unpol
+
+$maple_code1
+C([$maple_vrho0, $out_c_unpol], optimize, deducetypes=false):
+",
+
+    "pol", "
+dens := (r0, r1) -> r0 + r1:
+zeta := (r0, r1) -> (r0 - r1)/(r0 + r1):
+xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
+xs1  := (r0, r1, sigma0, sigma2) -> sqrt(sigma2)/r1^(1 + 1/DIMENSIONS):
+xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0 + 2*sigma1 + sigma2)/(r0 + r1)^(1 + 1/DIMENSIONS):
+
+$der_def_pol
+
+$maple_code1
+C([$maple_vrho0, $maple_vrho1, $out_c_pol], optimize, deducetypes=false):
+"
+      );
+
+  maple2c_run(\@variables, \@derivatives, \@variants, 1, $input_args, $output_args);
+}
+
 
 sub work_mgga_exc {
   # these are the variables that the functional depends on

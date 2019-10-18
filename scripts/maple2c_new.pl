@@ -351,6 +351,16 @@ C([$maple_zk$out_c], optimize, deducetypes=false):
   maple2c_run(\@variables, \@derivatives, \@variants, 0, $input_args, $output_args);
 }
 
+sub sort_alphanumerically {
+  $a =~ /([^_]+)_([0-9]+)_/;
+  my ($name1, $num1) = ($1, $2);
+
+  $b =~ /([^_]+)_([0-9]+)_/;
+  my ($name2, $num2) = ($1, $2);
+
+  return $name1 cmp $name2 || $num1 <=> $num2;
+}
+
 sub work_gga_vxc {
   # these are the variables that the functional depends on
   my @variables = ("rho_0_", "rho_1_", "sigma_0_", "sigma_1_", "sigma_2_");
@@ -419,7 +429,7 @@ sub work_gga_vxc {
   $der_def_pol .= $der_def_pol2;
   
   push(@out_c_pol1, @out_c_pol2);
-  my $out_c_pol = join(", ", @out_c_pol1);
+  my $out_c_pol = join(", ", sort sort_alphanumerically @out_c_pol1);
 
   # we join all the pieces
   my $maple_code1 = "
@@ -429,7 +439,7 @@ mzk   := (r0, r1, s0, s1, s2) -> \\
     f(r_ws(dens(r0, r1)), zeta(r0, r1), xt(r0, r1, s0, s1, s2), xs0(r0, r1, s0, s2), xs1(r0, r1, s0, s2)) \\
   $config{'simplify_end'}:
 mf0   := (r0, r1, s0, s1, s2) -> eval(mzk(r0, r1, s0, s1, s2)):
-mf1   := (r0, r1, s0, s1, s2) -> eval(mzk(r1, r0, s0, s2, s1)):
+mf1   := (r0, r1, s0, s1, s2) -> eval(mzk(r1, r0, s2, s1, s0)):
 
 \$include <util.mpl>
 ";
@@ -894,7 +904,7 @@ sub work_mgga_vxc {
   $der_def_pol .= $der_def_pol2;
   
   push(@out_c_pol1, @out_c_pol2);
-  my $out_c_pol = join(", ", @out_c_pol1);
+  my $out_c_pol = join(", ", sort sort_alphanumerically @out_c_pol1);
 
   # we join all the pieces
   my $maple_code1 = "
@@ -904,7 +914,7 @@ mzk   := (r0, r1, s0, s1, s2, l0, l1, tau0, tau1) -> \\
     f(r_ws(dens(r0, r1)), zeta(r0, r1), xt(r0, r1, s0, s1, s2), xs0(r0, r1, s0, s2), xs1(r0, r1, s0, s2), u0(r0, r1, l0, l1), u1(r0, r1, l0, l1), t0(r0, r1, tau0, tau1), t1(r0, r1, tau0, tau1)) \\
   $config{'simplify_end'}:
 mf0   := (r0, r1, s0, s1, s2, l0, l1, tau0, tau1) -> eval(mzk(r0, r1, s0, s1, s2, l0, l1, tau0, tau1)):
-mf1   := (r0, r1, s0, s1, s2, l0, l1, tau0, tau1) -> eval(mzk(r1, r0, s0, s2, s1, l1, l0, tau1, tau0)):
+mf1   := (r0, r1, s0, s1, s2, l0, l1, tau0, tau1) -> eval(mzk(r1, r0, s2, s1, s0, l1, l0, tau1, tau0)):
 
 \$include <util.mpl>
 ";

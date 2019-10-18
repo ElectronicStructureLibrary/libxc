@@ -37,16 +37,9 @@ gga_lb_init(xc_func_type *p)
   gga_x_lb_params *params;
 
   assert(p->params == NULL);
-
-  p->n_func_aux  = 1;
-  p->func_aux    = (xc_func_type **) malloc(1*sizeof(xc_func_type *));
-  p->func_aux[0] = (xc_func_type *)  malloc(  sizeof(xc_func_type));
-
-  xc_func_init(p->func_aux[0], XC_LDA_X, p->nspin);
-
   p->params = malloc(sizeof(gga_x_lb_params));
-
   params = (gga_x_lb_params *) (p->params);
+  
   switch(p->info->number){
   case XC_GGA_X_LB:
     params->alpha = 1.0;

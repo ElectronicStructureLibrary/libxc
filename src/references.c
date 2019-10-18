@@ -979,6 +979,13 @@ func_reference_type xc_ref_Jana2017_4804 = {
 };
 
 
+func_reference_type xc_ref_Jana2018_8999 = {
+  "S. Jana and P. Samal, Phys. Chem. Chem. Phys. 20, 8999 (2018)",
+  "10.1039/C8CP00333E",
+  "@article{Jana2018_8999,\n  author =\"Jana, Subrata and Samal, Prasanjit\",\n  title  =\"A meta-GGA level screened range-separated hybrid functional by employing short range Hartree–Fock with a long range semilocal functional\",\n  journal  =\"Phys. Chem. Chem. Phys.\",\n  year  =\"2018\",\n  volume  =\"20\",\n  issue  =\"13\",\n  pages  =\"8999-9005\",\n  publisher  =\"The Royal Society of Chemistry\",\n  doi  =\"10.1039/C8CP00333E\",\n  url  =\"http://dx.doi.org/10.1039/C8CP00333E\"\n}"
+};
+
+
 func_reference_type xc_ref_Jana2019_6356 = {
   "S. Jana, K. Sharma, and P. Samal, J. Phys. Chem. A 123, 6356 (2019), pMID: 31241950, https://doi.org/10.1021/acs.jpca.9b02921",
   "10.1021/acs.jpca.9b02921",
@@ -1438,6 +1445,13 @@ func_reference_type xc_ref_PachecoKato2016_268 = {
   "J. C. Pacheco-Kato, J. M. del Campo, J. L. Gázquez, S. Trickey, and A. Vela, Chem. Phys. Lett. 651, 268 (2016)",
   "10.1016/j.cplett.2016.03.028",
   "@article{PachecoKato2016_268,\ntitle = \"A PW91-like exchange with a simple analytical form\",\njournal = \"Chemical Physics Letters\",\nvolume = \"651\",\npages = \"268-273\",\nyear = \"2016\",\nissn = \"0009-2614\",\ndoi = \"10.1016/j.cplett.2016.03.028\",\nurl = \"http://www.sciencedirect.com/science/article/pii/S0009261416301373\",\nauthor = \"Juan C. Pacheco-Kato and Jorge M. del Campo and José L. Gázquez and S.B. Trickey and Alberto Vela\"\n}"
+};
+
+
+func_reference_type xc_ref_Patra2018_8991 = {
+  "B. Patra, S. Jana, and P. Samal, Phys. Chem. Chem. Phys. 20, 8991 (2018)",
+  "10.1039/C8CP00717A",
+  "@Article{Patra2018_8991,\nauthor =\"Patra, Bikash and Jana, Subrata and Samal, Prasanjit\",\ntitle  =\"Long-range corrected density functional through the density matrix expansion based semilocal exchange hole\",\njournal  =\"Phys. Chem. Chem. Phys.\",\nyear  =\"2018\",\nvolume  =\"20\",\nissue  =\"13\",\npages  =\"8991-8998\",\npublisher  =\"The Royal Society of Chemistry\",\ndoi  =\"10.1039/C8CP00717A\",\nurl  =\"http://dx.doi.org/10.1039/C8CP00717A\",\n}"
 };
 
 

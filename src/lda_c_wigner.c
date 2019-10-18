@@ -65,7 +65,7 @@ lda_c_wigner_init(xc_func_type *p)
 }
 
 #include "maple2c/lda_exc/lda_c_wigner.c"
-#include "work_lda_new.c"
+#include "work_lda.c"
 
 const xc_func_info_type xc_func_info_lda_c_wigner = {
   XC_LDA_C_WIGNER,

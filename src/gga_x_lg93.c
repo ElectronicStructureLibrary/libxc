@@ -11,7 +11,7 @@
 #define XC_GGA_X_LG93  113 /* Lacks & Gordon 93 */
 
 #include "maple2c/gga_exc/gga_x_lg93.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_x_lg93 = {
   XC_GGA_X_LG93,

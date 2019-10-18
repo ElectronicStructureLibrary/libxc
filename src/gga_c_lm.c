@@ -17,7 +17,7 @@
 #define XC_GGA_C_LM          137 /* Langreth and Mehl correlation          */
 
 #include "maple2c/gga_exc/gga_c_lm.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_c_lm = {
   XC_GGA_C_LM,

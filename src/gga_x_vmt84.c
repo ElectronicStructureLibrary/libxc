@@ -41,7 +41,7 @@ gga_x_vmt84_init(xc_func_type *p)
 }
 
 #include "maple2c/gga_exc/gga_x_vmt84.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_x_vmt84_pbe = {
   XC_GGA_X_VMT84_PBE,

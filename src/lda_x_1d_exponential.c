@@ -45,7 +45,7 @@ static void func2(double *x, int n, void *dummy)
 }
 
 #include "maple2c/lda_exc/lda_x_1d_exponential.c"
-#include "work_lda_new.c"
+#include "work_lda.c"
 
 static const func_params_type ext_params[] = {
   {"beta", 1.0, "Screening parameter"}

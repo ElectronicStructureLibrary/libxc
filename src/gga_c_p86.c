@@ -11,7 +11,7 @@
 #define XC_GGA_C_P86          132 /* Perdew 86 */
 
 #include "maple2c/gga_exc/gga_c_p86.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_c_p86 = {
   XC_GGA_C_P86,

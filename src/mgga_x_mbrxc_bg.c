@@ -45,7 +45,7 @@ double xc_mgga_x_mbrxc_get_x(double Q)
 }
 
 #include "maple2c/mgga_exc/mgga_x_mbrxc_bg.c"
-#include "work_mgga_new.c"
+#include "work_mgga.c"
 
 
 const xc_func_info_type xc_func_info_mgga_x_mbrxc_bg = {

@@ -29,7 +29,7 @@ lda_x_sloc_init(xc_func_type *p)
 }
 
 #include "maple2c/lda_exc/lda_x_sloc.c"
-#include "work_lda_new.c"
+#include "work_lda.c"
 
 static const func_params_type ext_params_sloc[] = {
   {"_a", 1.67, "Prefactor"},

@@ -12,7 +12,7 @@
 #define XC_MGGA_XC_ZLP          42 /* Zhao, Levy & Parr, Eq. (21) */
 
 #include "maple2c/mgga_exc/mgga_xc_zlp.c"
-#include "work_mgga_new.c"
+#include "work_mgga.c"
 
 const xc_func_info_type xc_func_info_mgga_xc_zlp = {
   XC_MGGA_XC_ZLP,

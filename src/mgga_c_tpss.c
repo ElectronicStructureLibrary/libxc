@@ -67,7 +67,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 }
 
 #include "maple2c/mgga_exc/mgga_c_tpss.c"
-#include "work_mgga_new.c"
+#include "work_mgga.c"
 
 
 const xc_func_info_type xc_func_info_mgga_c_tpss = {

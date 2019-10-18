@@ -13,7 +13,7 @@
 #define XC_MGGA_X_2D_JS17         609 /* JS17 meta-GGA for 2D */
 
 #include "maple2c/mgga_exc/mgga_x_2d_js17.c"
-#include "work_mgga_new.c"
+#include "work_mgga.c"
 
 const xc_func_info_type xc_func_info_mgga_x_2d_js17 = {
   XC_MGGA_X_2D_JS17,

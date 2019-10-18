@@ -28,7 +28,7 @@ gga_x_am05_init(xc_func_type *p)
 }
 
 #include "maple2c/gga_exc/gga_x_am05.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 static const func_params_type ext_params[] = {
   {"_alpha", 2.804L, "alpha"},

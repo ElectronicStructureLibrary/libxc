@@ -14,7 +14,7 @@
 #define XC_MGGA_C_SCANL_VV10     704 /* SCAN correlation +  VV10 correlation */
 
 #include "maple2c/mgga_exc/mgga_c_scanl.c"
-#include "work_mgga_new.c"
+#include "work_mgga.c"
 
 const xc_func_info_type xc_func_info_mgga_c_scanl = {
   XC_MGGA_C_SCANL,

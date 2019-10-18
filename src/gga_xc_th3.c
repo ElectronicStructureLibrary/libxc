@@ -56,7 +56,7 @@ gga_xc_th3_init(xc_func_type *p)
 }
 
 #include "maple2c/gga_exc/gga_xc_th3.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_xc_th3 = {
   XC_GGA_XC_TH3,

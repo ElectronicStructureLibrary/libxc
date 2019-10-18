@@ -11,7 +11,7 @@
 #define XC_LDA_C_VWN_RPA  8   /* Vosko, Wilk, & Nusair (RPA) */
 
 #include "maple2c/lda_exc/lda_c_vwn_rpa.c"
-#include "work_lda_new.c"
+#include "work_lda.c"
 
 const xc_func_info_type xc_func_info_lda_c_vwn_rpa = {
   XC_LDA_C_VWN_RPA,

@@ -47,7 +47,7 @@ lda_x_init(xc_func_type *p)
 }
 
 #include "maple2c/lda_exc/lda_x.c"
-#include "work_lda_new.c"
+#include "work_lda.c"
 
 const xc_func_info_type xc_func_info_lda_x = {
   XC_LDA_X,

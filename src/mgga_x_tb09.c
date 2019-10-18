@@ -46,7 +46,7 @@ mgga_x_tb09_init(xc_func_type *p)
 
 #include "maple2c/mgga_vxc/mgga_x_tb09.c"
 #define XC_NO_EXC
-#include "work_mgga_new.c"
+#include "work_mgga.c"
 
 const xc_func_info_type xc_func_info_mgga_x_bj06 = {
   XC_MGGA_X_BJ06,

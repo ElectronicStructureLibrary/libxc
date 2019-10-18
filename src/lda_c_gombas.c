@@ -15,7 +15,7 @@
 #define XC_LDA_C_GOMBAS  24   /* Gombas parametrization       */
 
 #include "maple2c/lda_exc/lda_c_gombas.c"
-#include "work_lda_new.c"
+#include "work_lda.c"
 
 const xc_func_info_type xc_func_info_lda_c_gombas = {
   XC_LDA_C_GOMBAS,

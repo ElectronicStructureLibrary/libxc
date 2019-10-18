@@ -12,7 +12,7 @@
 #define XC_MGGA_XC_LP90          564 /* Lee & Parr, Eq. (56) */
 
 #include "maple2c/mgga_exc/mgga_xc_lp90.c"
-#include "work_mgga_new.c"
+#include "work_mgga.c"
 
 const xc_func_info_type xc_func_info_mgga_xc_lp90 = {
   XC_MGGA_XC_LP90,

@@ -46,7 +46,7 @@ gga_x_ft97_init(xc_func_type *p)
 }
 
 #include "maple2c/gga_exc/gga_x_ft97.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 static const func_params_type ext_params[] = {
   {"_beta0", 0.00293, "beta0"},

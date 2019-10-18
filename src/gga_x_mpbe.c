@@ -40,7 +40,7 @@ gga_x_mpbe_init(xc_func_type *p)
 
 
 #include "maple2c/gga_exc/gga_x_mpbe.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_x_mpbe = {
   XC_GGA_X_MPBE,

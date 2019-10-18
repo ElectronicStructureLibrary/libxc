@@ -11,7 +11,7 @@
 #define XC_MGGA_K_PC07          543 /* Perdew and Constantin 2007 */
 
 #include "maple2c/mgga_exc/mgga_k_pc07.c"
-#include "work_mgga_new.c"
+#include "work_mgga.c"
 
 const xc_func_info_type xc_func_info_mgga_k_pc07 = {
   XC_MGGA_K_PC07,

@@ -28,7 +28,7 @@ gga_c_optc_init(xc_func_type *p)
 }
 
 #include "maple2c/gga_exc/gga_c_optc.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 static const func_params_type ext_params[] = {
   {"_c1", 1.1015L, "c1"},

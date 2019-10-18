@@ -11,7 +11,7 @@
 #define XC_GGA_X_C09X         158 /* C09x to be used with the VdW of Rutgers-Chalmers     */
 
 #include "maple2c/gga_exc/gga_x_c09x.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_x_c09x = {
   XC_GGA_X_C09X,

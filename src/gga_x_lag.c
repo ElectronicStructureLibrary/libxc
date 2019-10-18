@@ -11,7 +11,7 @@
 #define XC_GGA_X_LAG   193 /* Local Airy Gas */
 
 #include "maple2c/gga_exc/gga_x_lag.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_x_lag = {
   XC_GGA_X_LAG,

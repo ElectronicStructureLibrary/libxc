@@ -31,7 +31,7 @@ gga_x_ncap_init(xc_func_type *p)
 }
 
 #include "maple2c/gga_exc/gga_x_ncap.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 static const func_params_type ext_params[] = {
   {"_alpha", 0.34511172247159020479L, "alpha"}, /* alpha parameter */

@@ -11,7 +11,7 @@
 #define XC_GGA_K_FR_PW86      515 /* Fuentealba & Reyes (PW86 version) */
 
 #include "maple2c/gga_exc/gga_k_pw86.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_k_fr_pw86 = {
   XC_GGA_K_FR_PW86,

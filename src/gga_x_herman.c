@@ -11,7 +11,7 @@
 #define XC_GGA_X_HERMAN          104 /* Herman et al original GGA                  */
 
 #include "maple2c/gga_exc/gga_x_herman.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_x_herman = {
   XC_GGA_X_HERMAN,

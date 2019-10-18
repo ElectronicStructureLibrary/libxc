@@ -28,7 +28,7 @@ mgga_x_gx_init(xc_func_type *p)
 }
 
 #include "maple2c/mgga_exc/mgga_x_gx.c"
-#include "work_mgga_new.c"
+#include "work_mgga.c"
 
 static const func_params_type ext_params[] = {
   {"_c0", 0.827411L, "c0"}, /* c_0 */

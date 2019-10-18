@@ -11,7 +11,7 @@
 #define XC_GGA_K_MEYER        57 /* Meyer,  Wang, and Young */
 
 #include "maple2c/gga_exc/gga_k_meyer.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_k_meyer = {
   XC_GGA_K_MEYER,

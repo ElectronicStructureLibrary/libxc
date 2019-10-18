@@ -67,7 +67,7 @@ static void func1(double *x, int n, void *dummy)
 }
 
 #include "maple2c/gga_exc/gga_x_fd_lb94.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_x_fd_lb94 = {
   XC_GGA_X_FD_LB94,

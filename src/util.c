@@ -214,7 +214,8 @@ internal_counters_lda_next
 
 void
 internal_counters_lda_prev
-  (const xc_dimensions *dim, int offset, const double **rho, double **zk, LDA_OUT_PARAMS_NO_EXC(double **))
+  (const xc_dimensions *dim, int offset, const double **rho,
+   double **zk, LDA_OUT_PARAMS_NO_EXC(double **))
 {
   *rho -= dim->rho + offset;
   if(*zk != NULL)     *zk     -= dim->zk     + offset;
@@ -227,15 +228,11 @@ internal_counters_lda_prev
 void
 internal_counters_gga_next
   (
-   const xc_dimensions *dim, int offset,
-   const double **rho, const double **sigma,
-   double **zk,
-   double **vrho, double **vsigma,
-   double **v2rho2, double **v2rhosigma, double **v2sigma2,
-   double **v3rho3, double **v3rho2sigma, double **v3rhosigma2, double **v3sigma3
-   )
+   const xc_dimensions *dim, int offset, const double **rho, const double **sigma,
+   double **zk, GGA_OUT_PARAMS_NO_EXC(double **))
 {
-  internal_counters_lda_next(dim, offset, rho, zk, vrho, v2rho2, v3rho3, NULL);
+  double *v4rho4 = NULL;
+  internal_counters_lda_next(dim, offset, rho, zk, vrho, v2rho2, v3rho3, &v4rho4);
 
   *sigma += dim->sigma + offset;
   if(*vrho != NULL) *vsigma += dim->vsigma + offset;
@@ -252,16 +249,11 @@ internal_counters_gga_next
 
 void
 internal_counters_gga_prev
-  (
-   const xc_dimensions *dim, int offset,
-   const double **rho, const double **sigma,
-   double **zk,
-   double **vrho, double **vsigma,
-   double **v2rho2, double **v2rhosigma, double **v2sigma2,
-   double **v3rho3, double **v3rho2sigma, double **v3rhosigma2, double **v3sigma3
-   )
+(const xc_dimensions *dim, int offset, const double **rho, const double **sigma,
+ double **zk, GGA_OUT_PARAMS_NO_EXC(double **))
 {
-  internal_counters_lda_prev(dim, offset, rho, zk, vrho, v2rho2, v3rho3, NULL);
+  double *v4rho4 = NULL;
+  internal_counters_lda_prev(dim, offset, rho, zk, vrho, v2rho2, v3rho3, &v4rho4);
 
   *sigma -= dim->sigma + offset;
   if(*vrho != NULL) *vsigma -= dim->vsigma   + offset;

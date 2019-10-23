@@ -48,6 +48,9 @@ mgga_x_tb09_init(xc_func_type *p)
 #define XC_NO_EXC
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_bj06 = {
   XC_MGGA_X_BJ06,
   XC_EXCHANGE,
@@ -76,6 +79,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->c = get_ext_param(p->info->ext_params, ext_params, 0);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_tb09 = {
   XC_MGGA_X_TB09,
   XC_EXCHANGE,
@@ -89,6 +95,9 @@ const xc_func_info_type xc_func_info_mgga_x_tb09 = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_rpp09 = {
   XC_MGGA_X_RPP09,
   XC_EXCHANGE,

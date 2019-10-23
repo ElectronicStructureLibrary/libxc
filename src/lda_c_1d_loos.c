@@ -13,6 +13,9 @@
 #include "maple2c/lda_exc/lda_c_1d_loos.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_1d_loos = {
   XC_LDA_C_1D_LOOS,
   XC_CORRELATION,

@@ -26,6 +26,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 #include "maple2c/lda_exc/lda_x_erf.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_x_erf = {
   XC_LDA_X_ERF,
   XC_EXCHANGE,

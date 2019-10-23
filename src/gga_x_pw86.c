@@ -49,6 +49,9 @@ gga_x_pw86_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_x_pw86.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_pw86 = {
   XC_GGA_X_PW86,
   XC_EXCHANGE,
@@ -62,6 +65,9 @@ const xc_func_info_type xc_func_info_gga_x_pw86 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_rpw86 = {
   XC_GGA_X_RPW86,
   XC_EXCHANGE,

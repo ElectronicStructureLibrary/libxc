@@ -13,6 +13,9 @@
 #include "maple2c/gga_exc/gga_k_ol1.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_ol1 = {
   XC_GGA_K_OL1,
   XC_KINETIC,

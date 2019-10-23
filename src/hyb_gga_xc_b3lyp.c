@@ -62,6 +62,9 @@ xc_hyb_gga_xc_b3pw91_init(xc_func_type *p)
   xc_mix_init(p, 4, funcs_id, funcs_coef);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_b3pw91 = {
   XC_HYB_GGA_XC_B3PW91,
   XC_EXCHANGE_CORRELATION,
@@ -93,6 +96,9 @@ xc_hyb_gga_xc_b3lyp_init(xc_func_type *p)
   xc_mix_init(p, 4, funcs_id, funcs_coef);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp = {
   XC_HYB_GGA_XC_B3LYP,
   XC_EXCHANGE_CORRELATION,
@@ -116,6 +122,9 @@ xc_hyb_gga_xc_b3lyp5_init(xc_func_type *p)
   xc_mix_init(p, 4, funcs_id, funcs_coef);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp5 = {
   XC_HYB_GGA_XC_B3LYP5,
   XC_EXCHANGE_CORRELATION,
@@ -147,6 +156,9 @@ xc_hyb_gga_xc_b3p86_init(xc_func_type *p)
   xc_mix_init(p, 4, funcs_id, funcs_coef);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_b3p86 = {
   XC_HYB_GGA_XC_B3P86,
   XC_EXCHANGE_CORRELATION,
@@ -177,6 +189,9 @@ xc_hyb_gga_xc_mpw3pw_init(xc_func_type *p)
   xc_mix_init(p, 4, funcs_id, funcs_coef);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_mpw3pw = {
   XC_HYB_GGA_XC_MPW3PW,
   XC_EXCHANGE_CORRELATION,
@@ -207,6 +222,9 @@ xc_hyb_gga_xc_mpw3lyp_init(xc_func_type *p)
   xc_mix_init(p, 4, funcs_id, funcs_coef);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_mpw3lyp = {
   XC_HYB_GGA_XC_MPW3LYP,
   XC_EXCHANGE_CORRELATION,
@@ -258,6 +276,9 @@ xc_hyb_gga_xc_mb3lyp_rc04_init(xc_func_type *p)
   xc_mix_init(p, 4, funcs_id, funcs_coef);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_mb3lyp_rc04 = {
   XC_HYB_GGA_XC_MB3LYP_RC04,
   XC_EXCHANGE_CORRELATION,
@@ -279,6 +300,9 @@ static const func_params_type ext_params_revb3lyp[] = {
   {"_ac", 0.84, "Fraction of LYP correlation correction"}
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_revb3lyp = {
   XC_HYB_GGA_XC_REVB3LYP,
   XC_EXCHANGE_CORRELATION,
@@ -300,6 +324,9 @@ static const func_params_type ext_params_b3lyps[] = {
   {"_ac", 0.81, "Fraction of LYP correlation correction"}
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyps = {
   XC_HYB_GGA_XC_B3LYPs,
   XC_EXCHANGE_CORRELATION,
@@ -322,6 +349,9 @@ static const func_params_type ext_params_b5050lyp[] = {
   {"_ac", 0.81, "Fraction of LYP correlation correction"}
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_b5050lyp = {
   XC_HYB_GGA_XC_B5050LYP,
   XC_EXCHANGE_CORRELATION,
@@ -368,6 +398,9 @@ xc_hyb_gga_xc_kmlyp_init(xc_func_type *p)
   xc_mix_init(p, 3, funcs_id, funcs_coef);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_kmlyp = {
   XC_HYB_GGA_XC_KMLYP,
   XC_EXCHANGE_CORRELATION,
@@ -388,6 +421,9 @@ static const func_params_type ext_params_qtp17[] = {
   {"_ac", 0.80, "Fraction of LYP correlation correction"},
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_qtp17 = {
   XC_HYB_GGA_XC_QTP17,
   XC_EXCHANGE_CORRELATION,
@@ -430,6 +466,9 @@ xc_hyb_gga_xc_apf_init(xc_func_type *p)
   p->cam_alpha = fb3pw91*xb3pw91 + fpbe0*xpbe0;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_apf = {
   XC_HYB_GGA_XC_APF,
   XC_EXCHANGE_CORRELATION,
@@ -463,6 +502,9 @@ xc_hyb_gga_xc_wc04_init(xc_func_type *p)
   p->cam_alpha = PP[0];
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_wc04 = {
   XC_HYB_GGA_XC_WC04,
   XC_EXCHANGE_CORRELATION,
@@ -497,6 +539,9 @@ xc_hyb_gga_xc_wp04_init(xc_func_type *p)
   p->cam_alpha = PP[0];
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_wp04 = {
   XC_HYB_GGA_XC_WP04,
   XC_EXCHANGE_CORRELATION,
@@ -561,6 +606,9 @@ xc_hyb_gga_xc_b3lyp_mcm_init(xc_func_type *p)
   xc_mix_init(p, 4, funcs_id, funcs_coef);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp_mcm1 = {
   XC_HYB_GGA_XC_B3LYP_MCM1,
   XC_EXCHANGE_CORRELATION,
@@ -574,6 +622,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp_mcm1 = {
   NULL, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp_mcm2 = {
   XC_HYB_GGA_XC_B3LYP_MCM2,
   XC_EXCHANGE_CORRELATION,

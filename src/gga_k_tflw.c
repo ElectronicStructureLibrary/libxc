@@ -143,6 +143,9 @@ tfvw_set_ext_params(xc_func_type *p, const double *ext_params)
   gga_k_tflw_set_params(p, gamma, lambda, 1.0);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_tfvw = {
   XC_GGA_K_TFVW,
   XC_KINETIC,
@@ -156,6 +159,9 @@ const xc_func_info_type xc_func_info_gga_k_tfvw = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_vw = {
   XC_GGA_K_VW,
   XC_KINETIC,
@@ -169,6 +175,9 @@ const xc_func_info_type xc_func_info_gga_k_vw = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_ge2 = {
   XC_GGA_K_GE2,
   XC_KINETIC,
@@ -182,6 +191,9 @@ const xc_func_info_type xc_func_info_gga_k_ge2 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_golden = {
   XC_GGA_K_GOLDEN,
   XC_KINETIC,
@@ -195,6 +207,9 @@ const xc_func_info_type xc_func_info_gga_k_golden = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_yt65 = {
   XC_GGA_K_YT65,
   XC_KINETIC,
@@ -208,6 +223,9 @@ const xc_func_info_type xc_func_info_gga_k_yt65 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_baltin = {
   XC_GGA_K_BALTIN,
   XC_KINETIC,
@@ -221,6 +239,9 @@ const xc_func_info_type xc_func_info_gga_k_baltin = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_lieb = {
   XC_GGA_K_LIEB,
   XC_KINETIC,
@@ -248,6 +269,9 @@ N_set_ext_params(xc_func_type *p, const double *ext_params)
 }
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_absp1 = {
   XC_GGA_K_ABSP1,
   XC_KINETIC,
@@ -261,6 +285,9 @@ const xc_func_info_type xc_func_info_gga_k_absp1 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_absp2 = {
   XC_GGA_K_ABSP2,
   XC_KINETIC,
@@ -274,6 +301,9 @@ const xc_func_info_type xc_func_info_gga_k_absp2 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_absp3 = {
   XC_GGA_K_ABSP3,
   XC_KINETIC,
@@ -287,6 +317,9 @@ const xc_func_info_type xc_func_info_gga_k_absp3 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_absp4 = {
   XC_GGA_K_ABSP4,
   XC_KINETIC,
@@ -300,6 +333,9 @@ const xc_func_info_type xc_func_info_gga_k_absp4 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_gr = {
   XC_GGA_K_GR,
   XC_KINETIC,
@@ -313,6 +349,9 @@ const xc_func_info_type xc_func_info_gga_k_gr = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_ludena = {
   XC_GGA_K_LUDENA,
   XC_KINETIC,
@@ -326,6 +365,9 @@ const xc_func_info_type xc_func_info_gga_k_ludena = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_gp85 = {
   XC_GGA_K_GP85,
   XC_KINETIC,

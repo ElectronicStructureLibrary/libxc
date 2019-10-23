@@ -47,6 +47,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->c2 = get_ext_param(p->info->ext_params, ext_params, 1);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_c_optc = {
   XC_GGA_C_OPTC,
   XC_CORRELATION,

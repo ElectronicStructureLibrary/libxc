@@ -56,6 +56,9 @@ lda_c_hl_init(xc_func_type *p)
 #include "maple2c/lda_exc/lda_c_hl.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_hl = {
   XC_LDA_C_HL,
   XC_CORRELATION,
@@ -69,6 +72,9 @@ const xc_func_info_type xc_func_info_lda_c_hl = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_gl = {
   XC_LDA_C_GL,
   XC_CORRELATION,
@@ -82,6 +88,9 @@ const xc_func_info_type xc_func_info_lda_c_gl = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_vbh = {
   XC_LDA_C_vBH,
   XC_CORRELATION,

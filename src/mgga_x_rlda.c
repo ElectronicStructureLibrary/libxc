@@ -58,6 +58,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 #include "maple2c/mgga_exc/mgga_x_rlda.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_rlda = {
   XC_MGGA_X_RLDA,
   XC_EXCHANGE,
@@ -71,6 +74,9 @@ const xc_func_info_type xc_func_info_mgga_x_rlda = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_mk00 = {
   XC_MGGA_X_MK00,
   XC_EXCHANGE,
@@ -98,6 +104,9 @@ mgga_x_mk00b_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[1], par_x_b88);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_mk00b = {
   XC_MGGA_X_MK00B,
   XC_EXCHANGE,

@@ -28,6 +28,9 @@ hyb_gga_xc_pbeh_init(xc_func_type *p)
 }
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_pbeh = {
   XC_HYB_GGA_XC_PBEH,
   XC_EXCHANGE_CORRELATION,
@@ -51,6 +54,9 @@ hyb_gga_xc_pbe0_13_init(xc_func_type *p)
   p->cam_alpha = 1.0/3.0;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_pbe0_13 = {
   XC_HYB_GGA_XC_PBE0_13,
   XC_EXCHANGE_CORRELATION,
@@ -75,6 +81,9 @@ hyb_gga_xc_hpbeint_init(xc_func_type *p)
   p->cam_alpha = 1.0/6.0;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_hpbeint = {
   XC_HYB_GGA_XC_HPBEINT,
   XC_EXCHANGE_CORRELATION,
@@ -99,6 +108,9 @@ hyb_gga_xc_pbemol0_init(xc_func_type *p)
   p->cam_alpha = 0.25;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_pbe_mol0 = {
   XC_HYB_GGA_XC_PBE_MOL0,
   XC_EXCHANGE_CORRELATION,
@@ -123,6 +135,9 @@ hyb_gga_xc_pbesol0_init(xc_func_type *p)
   p->cam_alpha = 0.25;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_pbe_sol0 = {
   XC_HYB_GGA_XC_PBE_SOL0,
   XC_EXCHANGE_CORRELATION,
@@ -151,6 +166,9 @@ hyb_gga_xc_pbeb0_init(xc_func_type *p)
   p->cam_alpha = 0.25;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_pbeb0 = {
   XC_HYB_GGA_XC_PBEB0,
   XC_EXCHANGE_CORRELATION,
@@ -179,6 +197,9 @@ hyb_gga_xc_pbemolb0_init(xc_func_type *p)
   p->cam_alpha = 0.25;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_pbe_molb0 = {
   XC_HYB_GGA_XC_PBE_MOLB0,
   XC_EXCHANGE_CORRELATION,
@@ -203,6 +224,9 @@ hyb_gga_xc_pbe50_init(xc_func_type *p)
   p->cam_alpha = 0.5;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_pbe50 = {
   XC_HYB_GGA_XC_PBE50,
   XC_EXCHANGE_CORRELATION,

@@ -69,6 +69,9 @@ static void func1(double *x, int n, void *dummy)
 #include "maple2c/gga_exc/gga_x_fd_lb94.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_fd_lb94 = {
   XC_GGA_X_FD_LB94,
   XC_EXCHANGE,
@@ -82,6 +85,9 @@ const xc_func_info_type xc_func_info_gga_x_fd_lb94 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_fd_revlb94 = {
   XC_GGA_X_FD_REVLB94,
   XC_EXCHANGE,

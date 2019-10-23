@@ -14,6 +14,9 @@
 #include "maple2c/mgga_exc/mgga_xc_lp90.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_xc_lp90 = {
   XC_MGGA_XC_LP90,
   XC_EXCHANGE_CORRELATION,

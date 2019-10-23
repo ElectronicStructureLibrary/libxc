@@ -136,6 +136,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 #include "maple2c/mgga_exc/mgga_c_m06l.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_m06_l = {
   XC_MGGA_C_M06_L,
   XC_CORRELATION,
@@ -149,6 +152,9 @@ const xc_func_info_type xc_func_info_mgga_c_m06_l = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_m06_hf = {
   XC_MGGA_C_M06_HF,
   XC_CORRELATION,
@@ -162,6 +168,9 @@ const xc_func_info_type xc_func_info_mgga_c_m06_hf = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_m06 = {
   XC_MGGA_C_M06,
   XC_CORRELATION,
@@ -175,6 +184,9 @@ const xc_func_info_type xc_func_info_mgga_c_m06 = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_m06_2x = {
   XC_MGGA_C_M06_2X,
   XC_CORRELATION,
@@ -188,6 +200,9 @@ const xc_func_info_type xc_func_info_mgga_c_m06_2x = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_revm06_l = {
   XC_MGGA_C_REVM06_L,
   XC_CORRELATION,
@@ -201,6 +216,9 @@ const xc_func_info_type xc_func_info_mgga_c_revm06_l = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_revm06 = {
   XC_MGGA_C_REVM06,
   XC_CORRELATION,

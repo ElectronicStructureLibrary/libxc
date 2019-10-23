@@ -65,6 +65,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 #include "maple2c/gga_exc/gga_c_lyp.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_c_lyp = {
   XC_GGA_C_LYP,
   XC_CORRELATION,
@@ -78,6 +81,9 @@ const xc_func_info_type xc_func_info_gga_c_lyp = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_c_tm_lyp = {
   XC_GGA_C_TM_LYP,
   XC_CORRELATION,

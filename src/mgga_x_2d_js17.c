@@ -15,6 +15,9 @@
 #include "maple2c/mgga_exc/mgga_x_2d_js17.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_2d_js17 = {
   XC_MGGA_X_2D_JS17,
   XC_EXCHANGE,

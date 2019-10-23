@@ -13,6 +13,9 @@
 #include "maple2c/lda_exc/lda_xc_bn05.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_xc_bn05 = {
   XC_LDA_XC_BN05,
   XC_EXCHANGE_CORRELATION,

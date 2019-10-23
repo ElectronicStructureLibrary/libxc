@@ -109,6 +109,9 @@ gga_k_dk_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_k_dk.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_dk = {
   XC_GGA_K_DK,
   XC_KINETIC,
@@ -122,6 +125,9 @@ const xc_func_info_type xc_func_info_gga_k_dk = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_perdew = {
   XC_GGA_K_PERDEW,
   XC_KINETIC,
@@ -135,6 +141,9 @@ const xc_func_info_type xc_func_info_gga_k_perdew = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_vsk = {
   XC_GGA_K_VSK,
   XC_KINETIC,
@@ -148,6 +157,9 @@ const xc_func_info_type xc_func_info_gga_k_vsk = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_vjks = {
   XC_GGA_K_VJKS,
   XC_KINETIC,
@@ -161,6 +173,9 @@ const xc_func_info_type xc_func_info_gga_k_vjks = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_ernzerhof = {
   XC_GGA_K_ERNZERHOF,
   XC_KINETIC,

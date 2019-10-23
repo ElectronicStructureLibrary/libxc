@@ -58,6 +58,9 @@ gga_lb_init(xc_func_type *p)
 #define XC_NO_EXC
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_lb = {
   XC_GGA_X_LB,
   XC_EXCHANGE,
@@ -72,6 +75,9 @@ const xc_func_info_type xc_func_info_gga_x_lb = {
 };
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_lbm = {
   XC_GGA_X_LBM,
   XC_EXCHANGE,

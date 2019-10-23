@@ -17,6 +17,9 @@
 #include "maple2c/lda_exc/lda_c_rpa.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_rpa = {
   XC_LDA_C_RPA,
   XC_CORRELATION,

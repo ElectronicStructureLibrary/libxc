@@ -65,6 +65,9 @@ mgga_x_m08_init(xc_func_type *p)
 #include "work_mgga.c"
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_x_m08_hx = {
   XC_HYB_MGGA_X_M08_HX,
   XC_EXCHANGE,
@@ -78,6 +81,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m08_hx = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_x_m08_so = {
   XC_HYB_MGGA_X_M08_SO,
   XC_EXCHANGE,

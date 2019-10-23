@@ -14,6 +14,9 @@
 #include "maple2c/mgga_exc/mgga_x_edmgga.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_edmgga = {
   XC_MGGA_X_EDMGGA,
   XC_EXCHANGE,
@@ -37,6 +40,9 @@ hyb_mgga_xc_edmggah_init(xc_func_type *p)
   p->cam_alpha = 0.22;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_xc_edmggah = {
   XC_HYB_MGGA_XC_EDMGGAH,
   XC_EXCHANGE_CORRELATION,

@@ -14,6 +14,9 @@
 #include "maple2c/mgga_exc/mgga_x_pbe_gx.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_pbe_gx = {
   XC_MGGA_X_PBE_GX,
   XC_EXCHANGE,

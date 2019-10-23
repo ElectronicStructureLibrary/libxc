@@ -15,6 +15,9 @@
 #include "work_mgga.c"
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_pkzb = {
   XC_MGGA_X_PKZB,
   XC_EXCHANGE,

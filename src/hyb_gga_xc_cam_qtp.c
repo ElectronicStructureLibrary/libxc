@@ -85,6 +85,9 @@ xc_hyb_gga_xc_cam_qtp_init(xc_func_type *p)
   p->cam_beta  = cam_beta;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_00 = {
   XC_HYB_GGA_XC_CAM_QTP_00,
   XC_EXCHANGE_CORRELATION,
@@ -98,6 +101,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_00 = {
   NULL, NULL, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_01 = {
   XC_HYB_GGA_XC_CAM_QTP_01,
   XC_EXCHANGE_CORRELATION,
@@ -111,6 +117,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_01 = {
   NULL, NULL, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_02 = {
   XC_HYB_GGA_XC_CAM_QTP_02,
   XC_EXCHANGE_CORRELATION,
@@ -124,6 +133,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_02 = {
   NULL, NULL, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_lc_qtp = {
   XC_HYB_GGA_XC_LC_QTP,
   XC_EXCHANGE_CORRELATION,

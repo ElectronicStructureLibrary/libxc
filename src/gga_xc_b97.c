@@ -266,6 +266,9 @@ gga_xc_b97_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_xc_b97.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_b97 = {
   XC_HYB_GGA_XC_B97,
   XC_EXCHANGE_CORRELATION,
@@ -279,6 +282,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_b97_1 = {
   XC_HYB_GGA_XC_B97_1,
   XC_EXCHANGE_CORRELATION,
@@ -292,6 +298,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97_1 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_b97_2 = {
   XC_HYB_GGA_XC_B97_2,
   XC_EXCHANGE_CORRELATION,
@@ -305,6 +314,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97_2 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_xc_b97_d = {
   XC_GGA_XC_B97_D,
   XC_EXCHANGE_CORRELATION,
@@ -318,6 +330,9 @@ const xc_func_info_type xc_func_info_gga_xc_b97_d = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_b97_k = {
   XC_HYB_GGA_XC_B97_K,
   XC_EXCHANGE_CORRELATION,
@@ -331,6 +346,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97_k = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_b97_3 = {
   XC_HYB_GGA_XC_B97_3,
   XC_EXCHANGE_CORRELATION,
@@ -344,6 +362,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97_3 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_xc_hcth_93 = {
   XC_GGA_XC_HCTH_93,
   XC_EXCHANGE_CORRELATION,
@@ -357,6 +378,9 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_93 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_xc_hcth_120 = {
   XC_GGA_XC_HCTH_120,
   XC_EXCHANGE_CORRELATION,
@@ -370,6 +394,9 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_120 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_xc_hcth_147 = {
   XC_GGA_XC_HCTH_147,
   XC_EXCHANGE_CORRELATION,
@@ -383,6 +410,9 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_147 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_xc_hcth_407 = {
   XC_GGA_XC_HCTH_407,
   XC_EXCHANGE_CORRELATION,
@@ -396,6 +426,9 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_407 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1a = {
   XC_HYB_GGA_XC_SB98_1a,
   XC_EXCHANGE_CORRELATION,
@@ -409,6 +442,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1a = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1b = {
   XC_HYB_GGA_XC_SB98_1b,
   XC_EXCHANGE_CORRELATION,
@@ -422,6 +458,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1b = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1c = {
   XC_HYB_GGA_XC_SB98_1c,
   XC_EXCHANGE_CORRELATION,
@@ -435,6 +474,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1c = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2a = {
   XC_HYB_GGA_XC_SB98_2a,
   XC_EXCHANGE_CORRELATION,
@@ -448,6 +490,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2a = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2b = {
   XC_HYB_GGA_XC_SB98_2b,
   XC_EXCHANGE_CORRELATION,
@@ -461,6 +506,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2b = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2c = {
   XC_HYB_GGA_XC_SB98_2c,
   XC_EXCHANGE_CORRELATION,
@@ -474,6 +522,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2c = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_xc_b97_gga1 = {
   XC_GGA_XC_B97_GGA1,
   XC_EXCHANGE_CORRELATION,
@@ -487,6 +538,9 @@ const xc_func_info_type xc_func_info_gga_xc_b97_gga1 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_xc_hcth_p14 = {
   XC_GGA_XC_HCTH_P14,
   XC_EXCHANGE_CORRELATION,
@@ -500,6 +554,9 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_p14 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_xc_hcth_p76 = {
   XC_GGA_XC_HCTH_P76,
   XC_EXCHANGE_CORRELATION,
@@ -513,6 +570,9 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_p76 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_xc_hcth_407p = {
   XC_GGA_XC_HCTH_407P,
   XC_EXCHANGE_CORRELATION,
@@ -526,6 +586,9 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_407p = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_b97_1p = {
   XC_HYB_GGA_XC_B97_1p,
   XC_EXCHANGE_CORRELATION,
@@ -539,6 +602,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97_1p = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_xc_hle16 = {
   XC_GGA_XC_HLE16,
   XC_EXCHANGE_CORRELATION,

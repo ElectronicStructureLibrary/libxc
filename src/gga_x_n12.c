@@ -75,6 +75,9 @@ gga_x_n12_init(xc_func_type *p)
 #include "work_gga.c"
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_n12 = {
   XC_GGA_X_N12,
   XC_EXCHANGE,
@@ -88,6 +91,9 @@ const xc_func_info_type xc_func_info_gga_x_n12 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_x_n12_sx = {
   XC_HYB_GGA_X_N12_SX,
   XC_EXCHANGE,
@@ -101,6 +107,9 @@ const xc_func_info_type xc_func_info_hyb_gga_x_n12_sx = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_gam = {
   XC_GGA_X_GAM,
   XC_EXCHANGE,

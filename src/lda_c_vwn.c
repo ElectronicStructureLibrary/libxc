@@ -18,6 +18,9 @@
 #include "maple2c/lda_exc/lda_c_vwn.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_vwn = {
   XC_LDA_C_VWN,
   XC_CORRELATION,

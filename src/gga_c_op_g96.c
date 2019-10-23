@@ -14,6 +14,9 @@
 #include "maple2c/gga_exc/gga_c_op_g96.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_c_op_g96 = {
   XC_GGA_C_OP_G96,
   XC_CORRELATION,

@@ -26,6 +26,9 @@ gga_xc_oblyp_d_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[1], par_c_lyp);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_xc_oblyp_d = {
   XC_GGA_XC_OBLYP_D,
   XC_EXCHANGE_CORRELATION,
@@ -54,6 +57,9 @@ gga_xc_opwlyp_d_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[1], par_c_lyp);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_xc_opwlyp_d = {
   XC_GGA_XC_OPWLYP_D,
   XC_EXCHANGE_CORRELATION,
@@ -82,6 +88,9 @@ gga_xc_opbe_d_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[1], par_c_pbe);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_xc_opbe_d = {
   XC_GGA_XC_OPBE_D,
   XC_EXCHANGE_CORRELATION,

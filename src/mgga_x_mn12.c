@@ -120,6 +120,9 @@ mgga_x_mn12_init(xc_func_type *p)
 #include "work_mgga.c"
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_mn12_l = {
   XC_MGGA_X_MN12_L,
   XC_EXCHANGE,
@@ -133,6 +136,9 @@ const xc_func_info_type xc_func_info_mgga_x_mn12_l = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_x_mn12_sx = {
   XC_HYB_MGGA_X_MN12_SX,
   XC_EXCHANGE,
@@ -146,6 +152,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_mn12_sx = {
   NULL, NULL, work_mgga
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_mn15_l = {
   XC_MGGA_X_MN15_L,
   XC_EXCHANGE,
@@ -159,6 +168,9 @@ const xc_func_info_type xc_func_info_mgga_x_mn15_l = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_x_mn15 = {
   XC_HYB_MGGA_X_MN15,
   XC_EXCHANGE,

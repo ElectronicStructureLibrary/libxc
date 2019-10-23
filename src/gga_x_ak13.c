@@ -71,6 +71,9 @@ double xc_gga_ak13_pars_get_asymptotic (double homo, const double *ext_params)
   return (aa2/2.0)*(1.0 + factor*sqrt(1.0 - 4.0*homo/aa2));
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_ak13 = {
   XC_GGA_X_AK13,
   XC_EXCHANGE,

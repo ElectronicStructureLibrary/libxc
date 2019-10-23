@@ -18,6 +18,9 @@
 #include "maple2c/lda_exc/lda_k_zlp.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_k_zlp = {
   XC_LDA_K_ZLP,
   XC_KINETIC,

@@ -43,6 +43,9 @@ xc_hyb_gga_xc_camy_b3lyp_init(xc_func_type *p)
   p->cam_beta  = beta;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_camy_b3lyp = {
   XC_HYB_GGA_XC_CAMY_B3LYP,
   XC_EXCHANGE_CORRELATION,
@@ -93,6 +96,9 @@ hyb_gga_xc_camy_pbeh_init(xc_func_type *p)
   xc_mix_init(p, 3, funcs_id, funcs_coef);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_camy_pbeh = {
   XC_HYB_GGA_XC_CAMY_PBEH,
   XC_EXCHANGE_CORRELATION,

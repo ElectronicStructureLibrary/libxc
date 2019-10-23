@@ -39,6 +39,9 @@ gga_c_chachiyo_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_c_chachiyo.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_c_chachiyo = {
   XC_GGA_C_CHACHIYO,
   XC_CORRELATION,

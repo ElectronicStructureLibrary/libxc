@@ -43,6 +43,9 @@ lda_c_lp96_init(xc_func_type *p)
 #include "maple2c/lda_exc/lda_c_lp96.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_lp96 = {
   XC_LDA_C_LP96,
   XC_CORRELATION,
@@ -56,6 +59,9 @@ const xc_func_info_type xc_func_info_lda_c_lp96 = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_k_lp96 = {
   XC_LDA_K_LP96,
   XC_KINETIC,

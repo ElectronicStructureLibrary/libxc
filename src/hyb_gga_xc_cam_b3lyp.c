@@ -62,6 +62,9 @@ xc_hyb_gga_xc_cam_b3lyp_init(xc_func_type *p)
   p->cam_beta  = beta;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_cam_b3lyp = {
   XC_HYB_GGA_XC_CAM_B3LYP,
   XC_EXCHANGE_CORRELATION,
@@ -75,6 +78,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_b3lyp = {
   NULL, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_tuned_cam_b3lyp = {
   XC_HYB_GGA_XC_TUNED_CAM_B3LYP,
   XC_EXCHANGE_CORRELATION,
@@ -116,6 +122,9 @@ xc_hyb_gga_xc_rcam_b3lyp_init(xc_func_type *p)
   p->cam_beta  = beta;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_rcam_b3lyp = {
   XC_HYB_GGA_XC_RCAM_B3LYP,
   XC_EXCHANGE_CORRELATION,
@@ -166,6 +175,9 @@ hyb_gga_xc_cam_pbeh_init(xc_func_type *p)
   xc_mix_init(p, 3, funcs_id, funcs_coef);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_cam_pbeh = {
   XC_HYB_GGA_XC_CAM_PBEH,
   XC_EXCHANGE_CORRELATION,

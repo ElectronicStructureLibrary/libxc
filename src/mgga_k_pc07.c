@@ -13,6 +13,9 @@
 #include "maple2c/mgga_exc/mgga_k_pc07.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_k_pc07 = {
   XC_MGGA_K_PC07,
   XC_KINETIC,

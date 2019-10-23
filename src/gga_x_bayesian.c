@@ -13,6 +13,9 @@
 #include "maple2c/gga_exc/gga_x_bayesian.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_bayesian = {
   XC_GGA_X_BAYESIAN,
   XC_EXCHANGE,

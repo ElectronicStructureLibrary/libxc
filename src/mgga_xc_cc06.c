@@ -15,6 +15,9 @@
 #include "work_mgga.c"
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_xc_cc06 = {
   XC_MGGA_XC_CC06,
   XC_EXCHANGE_CORRELATION,

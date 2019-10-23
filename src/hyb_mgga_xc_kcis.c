@@ -57,6 +57,9 @@ hyb_mgga_xc_kcis_init(xc_func_type *p)
   p->cam_alpha = exx;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_xc_mpw1kcis = {
   XC_HYB_MGGA_XC_MPW1KCIS,
   XC_EXCHANGE_CORRELATION,
@@ -70,6 +73,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_mpw1kcis = {
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_xc_mpwkcis1k = {
   XC_HYB_MGGA_XC_MPWKCIS1K,
   XC_EXCHANGE_CORRELATION,
@@ -83,6 +89,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_mpwkcis1k = {
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_xc_pbe1kcis = {
   XC_HYB_MGGA_XC_PBE1KCIS,
   XC_EXCHANGE_CORRELATION,
@@ -96,6 +105,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_pbe1kcis = {
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_xc_tpss1kcis = {
   XC_HYB_MGGA_XC_TPSS1KCIS,
   XC_EXCHANGE_CORRELATION,

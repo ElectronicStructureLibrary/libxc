@@ -53,6 +53,9 @@ lda_xc_1d_ehwlrg_init(xc_func_type *p)
 #include "maple2c/lda_exc/lda_xc_1d_ehwlrg.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_1 = {
   XC_LDA_XC_1D_EHWLRG_1,
   XC_EXCHANGE_CORRELATION,
@@ -66,6 +69,9 @@ const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_1 = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_2 = {
   XC_LDA_XC_1D_EHWLRG_2,
   XC_EXCHANGE_CORRELATION,
@@ -80,6 +86,9 @@ const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_2 = {
 };
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_3 = {
   XC_LDA_XC_1D_EHWLRG_3,
   XC_EXCHANGE_CORRELATION,

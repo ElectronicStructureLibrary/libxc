@@ -139,6 +139,9 @@ lda_c_pw_init(xc_func_type *p)
 #include "maple2c/lda_exc/lda_c_pw.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_pw = {
   XC_LDA_C_PW,
   XC_CORRELATION,
@@ -152,6 +155,9 @@ const xc_func_info_type xc_func_info_lda_c_pw = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_pw_mod = {
   XC_LDA_C_PW_MOD,
   XC_CORRELATION,
@@ -165,6 +171,9 @@ const xc_func_info_type xc_func_info_lda_c_pw_mod = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_ob_pw = {
   XC_LDA_C_OB_PW,
   XC_CORRELATION,
@@ -178,6 +187,9 @@ const xc_func_info_type xc_func_info_lda_c_ob_pw = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_pw_rpa = {
   XC_LDA_C_PW_RPA,
   XC_CORRELATION,
@@ -191,6 +203,9 @@ const xc_func_info_type xc_func_info_lda_c_pw_rpa = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_upw92 = {
   XC_LDA_C_UPW92,
   XC_CORRELATION,
@@ -204,6 +219,9 @@ const xc_func_info_type xc_func_info_lda_c_upw92 = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_rpw92 = {
   XC_LDA_C_RPW92,
   XC_CORRELATION,

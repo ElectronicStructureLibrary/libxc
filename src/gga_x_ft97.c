@@ -67,6 +67,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->beta2 = get_ext_param(p->info->ext_params, ext_params, 2);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_ft97_a = {
   XC_GGA_X_FT97_A,
   XC_EXCHANGE,
@@ -80,6 +83,9 @@ const xc_func_info_type xc_func_info_gga_x_ft97_a = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_ft97_b = {
   XC_GGA_X_FT97_B,
   XC_EXCHANGE,

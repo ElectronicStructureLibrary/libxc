@@ -43,6 +43,9 @@ lda_k_tf_init(xc_func_type *p)
 #include "maple2c/lda_exc/lda_k_tf.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_k_tf = {
   XC_LDA_K_TF,
   XC_KINETIC,
@@ -56,6 +59,9 @@ const xc_func_info_type xc_func_info_lda_k_tf = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_k_lp = {
   XC_LDA_K_LP,
   XC_KINETIC,

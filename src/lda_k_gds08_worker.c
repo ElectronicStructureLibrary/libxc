@@ -44,6 +44,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 #include "maple2c/lda_exc/lda_k_gds08_worker.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_k_gds08_worker = {
   XC_LDA_K_GDS08_WORKER,
   XC_KINETIC,

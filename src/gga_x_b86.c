@@ -82,6 +82,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 #include "maple2c/gga_exc/gga_x_b86.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_b86 = {
   XC_GGA_X_B86,
   XC_EXCHANGE,
@@ -95,6 +98,9 @@ const xc_func_info_type xc_func_info_gga_x_b86 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_b86_mgc = {
   XC_GGA_X_B86_MGC,
   XC_EXCHANGE,
@@ -108,6 +114,9 @@ const xc_func_info_type xc_func_info_gga_x_b86_mgc = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_b86_r = {
   XC_GGA_X_B86_R,
   XC_EXCHANGE,
@@ -122,6 +131,9 @@ const xc_func_info_type xc_func_info_gga_x_b86_r = {
 
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_optb86b_vdw = {
   XC_GGA_X_OPTB86B_VDW,
   XC_EXCHANGE,

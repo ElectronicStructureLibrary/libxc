@@ -14,6 +14,9 @@
 #define XC_NO_EXC
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_xc_tih = {
   XC_LDA_XC_TIH,
   XC_EXCHANGE_CORRELATION,

@@ -14,6 +14,9 @@
 #include "maple2c/mgga_exc/mgga_c_pkzb.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_pkzb = {
   XC_MGGA_C_PKZB,
   XC_CORRELATION,

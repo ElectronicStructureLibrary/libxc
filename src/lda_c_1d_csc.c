@@ -103,6 +103,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 }
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_1d_csc = {
   XC_LDA_C_1D_CSC,
   XC_CORRELATION,

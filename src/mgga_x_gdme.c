@@ -78,6 +78,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 #include "maple2c/mgga_exc/mgga_x_gdme.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_gdme_nv = {
   XC_MGGA_X_GDME_NV,
   XC_EXCHANGE,
@@ -91,6 +94,9 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_nv = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_gdme_0 = {
   XC_MGGA_X_GDME_0,
   XC_EXCHANGE,
@@ -104,6 +110,9 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_0 = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_gdme_kos = {
   XC_MGGA_X_GDME_KOS,
   XC_EXCHANGE,
@@ -117,6 +126,9 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_kos = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_gdme_vt = {
   XC_MGGA_X_GDME_VT,
   XC_EXCHANGE,

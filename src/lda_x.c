@@ -49,6 +49,9 @@ lda_x_init(xc_func_type *p)
 #include "maple2c/lda_exc/lda_x.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_x = {
   XC_LDA_X,
   XC_EXCHANGE,
@@ -77,6 +80,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->alpha = 1.5*get_ext_param(p->info->ext_params, ext_params, 0) - 1.0;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_xalpha = {
   XC_LDA_C_XALPHA,
   XC_CORRELATION,
@@ -111,6 +117,9 @@ N_set_ext_params(xc_func_type *p, const double *ext_params)
   params->alpha = 1.0 - 8.0/3.0*dx + 2.0*dx2 - dx2*dx2/3.0;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_x_rae = {
   XC_LDA_X_RAE,
   XC_EXCHANGE,
@@ -136,6 +145,9 @@ hyb_lda_xc_lda0_init(xc_func_type *p)
   p->cam_alpha = 0.25;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_lda_xc_lda0 = {
   XC_HYB_LDA_XC_LDA0,
   XC_EXCHANGE,

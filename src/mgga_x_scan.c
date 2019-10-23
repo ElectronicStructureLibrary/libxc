@@ -46,6 +46,9 @@ mgga_x_scan_init(xc_func_type *p)
 #include "maple2c/mgga_exc/mgga_x_scan.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_scan = {
   XC_MGGA_X_SCAN,
   XC_EXCHANGE,
@@ -59,6 +62,9 @@ const xc_func_info_type xc_func_info_mgga_x_scan = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_revscan = {
   XC_MGGA_X_REVSCAN,
   XC_EXCHANGE,
@@ -83,6 +89,9 @@ hyb_mgga_x_scan0_init(xc_func_type *p)
 }
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_x_scan0 = {
   XC_HYB_MGGA_X_SCAN0,
   XC_EXCHANGE,
@@ -108,6 +117,9 @@ hyb_mgga_x_revscan0_init(xc_func_type *p)
 }
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_x_revscan0 = {
   XC_HYB_MGGA_X_REVSCAN0,
   XC_EXCHANGE,

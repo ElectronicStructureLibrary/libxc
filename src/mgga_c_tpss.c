@@ -70,6 +70,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 #include "work_mgga.c"
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_tpss = {
   XC_MGGA_C_TPSS,
   XC_CORRELATION,
@@ -83,6 +86,9 @@ const xc_func_info_type xc_func_info_mgga_c_tpss = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_tm = {
   XC_MGGA_C_TM,
   XC_CORRELATION,

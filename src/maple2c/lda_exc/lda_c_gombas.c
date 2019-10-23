@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : .//maple/lda_exc/lda_c_gombas.mpl
+  Maple source      : ./maple/lda_exc/lda_c_gombas.mpl
   Type of functional: lda_exc
 */
 
@@ -449,13 +449,16 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
     v4rho4[0] = -0.56328040085333333332e-5 * t70 + 0.40091131733333333332e-3 * t75 - 0.83225955555555555555e-2 * t79 - 0.1244e0 * t86 - 0.82933333333333333334e-1 * t89 + 0.82933333333333333334e-1 * t91 - 0.27644444444444444444e-1 * t96 + 0.82933333333333333334e-1 * t98 - 0.55288888888888888890e-1 * t100 + t1 * t160;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[2] = v4rho4[0];
+    v4rho4[1] = v4rho4[0];
+
+  if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
+    v4rho4[2] = v4rho4[1];
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho4[3] = v4rho4[2];
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[1] = v4rho4[3];
+    v4rho4[4] = v4rho4[3];
 
 #ifndef XC_DONT_COMPILE_MXC
 

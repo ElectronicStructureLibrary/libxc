@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : .//maple/lda_exc/lda_c_rpa.mpl
+  Maple source      : ./maple/lda_exc/lda_c_rpa.mpl
   Type of functional: lda_exc
 */
 
@@ -353,13 +353,16 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
     v4rho4[0] = -0.82933333333333333336e-1 * t51 - 0.93333333333333333333e-2 * t57 + 0.46296296296296296300e-2 * t59 + t7 * (0.62200000000000000002e-1 / t66 + 0.77777777777777777777e-2 * t4 * t71 * t13 - 0.30802469135802469139e-2 * t4 * t71);
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[2] = v4rho4[0];
+    v4rho4[1] = v4rho4[0];
+
+  if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
+    v4rho4[2] = v4rho4[1];
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho4[3] = v4rho4[2];
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[1] = v4rho4[3];
+    v4rho4[4] = v4rho4[3];
 
 #ifndef XC_DONT_COMPILE_MXC
 

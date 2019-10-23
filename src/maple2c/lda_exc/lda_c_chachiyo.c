@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : .//maple/lda_exc/lda_c_chachiyo.mpl
+  Maple source      : ./maple/lda_exc/lda_c_chachiyo.mpl
   Type of functional: lda_exc
 */
 
@@ -564,6 +564,9 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t547 = 0.32e2 * t171 * t464;
   t556 = -0.8e1 * t293 * t260 * t78 + 0.8e1 * t306 * t260 * t80 + 0.40e2 / 0.81e2 * t451 * t88 * t253 - 0.8e1 / 0.9e1 * t290 * t78 * t144 - 0.16e2 / 0.9e1 * t252 * t36 * t141 * t137 + 0.8e1 / 0.3e1 * t136 * t141 * t78 + 0.8e1 / 0.3e1 * t293 * t141 * t144 + t529 + 0.40e2 / 0.81e2 * t472 * t90 * t268 - 0.8e1 / 0.9e1 * t303 * t80 * t152 + 0.16e2 / 0.9e1 * t267 * t36 * t141 * t149 - 0.8e1 / 0.3e1 * t148 * t141 * t80 - 0.8e1 / 0.3e1 * t306 * t141 * t152 - t547 + 0.4e1 / 0.9e1 * t162 * t263 - 0.16e2 * t40 * t260 + 0.4e1 / 0.9e1 * t168 * t274 + 0.16e2 * t43 * t260;
   t559 = t35 * t556 * t50 + t399 - t401 + t404 - t408 - t414 + t439 + 0.3e1 * t441 + 0.3e1 * t444 + t447 + t499 + t502 + 0.3e1 * t504;
+  if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
+    v4rho4[1] = t9 * t559 + 0.9e1 * t246 + 0.6e1 * t249 + t279 + 0.3e1 * t318 + t356 + t380 - t381 + t382 + t383 + t494;
+
   t573 = t129 * t194 * t50;
   t575 = t72 * t349 * t50;
   t586 = t36 * t36;
@@ -586,7 +589,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t706 = t188 * t188;
   t711 = t191 * t191;
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[1] = t380 - t381 + t382 + t383 + 0.12e2 * t286 + 0.12e2 * t324 + 0.4e1 * t377 + t9 * (t399 - t401 + t404 - t408 - t414 + t439 + 0.4e1 * t499 + 0.6e1 * t573 + 0.4e1 * t640 + t35 * (0.40e2 / 0.81e2 * t451 * t692 - 0.16e2 / 0.9e1 * t325 * t185 + 0.4e1 / 0.3e1 * t136 * t697 + 0.16e2 / 0.9e1 * t162 * t364 + 0.4e1 / 0.3e1 * t40 * t703 + 0.40e2 / 0.81e2 * t472 * t706 - 0.16e2 / 0.9e1 * t338 * t191 + 0.4e1 / 0.3e1 * t148 * t711 + 0.16e2 / 0.9e1 * t168 * t372 - 0.4e1 / 0.3e1 * t43 * t703) * t50);
+    v4rho4[4] = t380 - t381 + t382 + t383 + 0.12e2 * t286 + 0.12e2 * t324 + 0.4e1 * t377 + t9 * (t399 - t401 + t404 - t408 - t414 + t439 + 0.4e1 * t499 + 0.6e1 * t573 + 0.4e1 * t640 + t35 * (0.40e2 / 0.81e2 * t451 * t692 - 0.16e2 / 0.9e1 * t325 * t185 + 0.4e1 / 0.3e1 * t136 * t697 + 0.16e2 / 0.9e1 * t162 * t364 + 0.4e1 / 0.3e1 * t40 * t703 + 0.40e2 / 0.81e2 * t472 * t706 - 0.16e2 / 0.9e1 * t338 * t191 + 0.4e1 / 0.3e1 * t148 * t711 + 0.16e2 / 0.9e1 * t168 * t372 - 0.4e1 / 0.3e1 * t43 * t703) * t50);
 
 #ifndef XC_DONT_COMPILE_MXC
 

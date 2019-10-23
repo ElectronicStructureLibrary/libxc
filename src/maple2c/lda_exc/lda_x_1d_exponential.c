@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : .//maple/lda_exc/lda_x_1d_exponential.mpl
+  Maple source      : ./maple/lda_exc/lda_x_1d_exponential.mpl
   Type of functional: lda_exc
 */
 
@@ -743,6 +743,9 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t790 = t245 * t248;
   t792 = t790 * t209 * t105;
   t800 = t54 * t614 * t106 - 0.6e1 * t64 * t99 * t106 - t128 * t650 * t251 - 0.2e1 * t128 * t665 * t251 - t128 * t675 * t251 + 0.2e1 * t128 * t777 * t779 - 0.2e1 * t304 * t246 * t251 + 0.6e1 * t454 * t258 * t792 + 0.2e1 * t306 * t662 + t634 + t636 - t639 - t682 - t686 - t689 + t693 - t697;
+  if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
+    v4rho4[1] = -t226 - t277 - 0.23873241463784300365e0 * t295 - 0.23873241463784300365e0 * t310 + t2 * (-0.79577471545947667883e-1 * (t722 + t751) * t14 - 0.79577471545947667883e-1 * (t771 + t800) * t14);
+
   t812 = 0.2e1 * t32 * M_PI * params->beta;
   t813 = t65 * t323;
   t814 = 0.2e1 * t813;
@@ -819,7 +822,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t1430 = -t427;
   t1467 = -t155 * t427 * t1430 * t245 * t251 - 0.2e1 * t154 * t1377 * t260 * t263 - 0.2e1 * t155 * t1377 * t245 * t251 + 0.2e1 * t1383 * t154 * t428 * t658 - t154 * t1391 * t260 * t263 - t155 * t1391 * t245 * t251 - t436 * t1430 * t245 * t681 - 0.2e1 * t421 * t427 * t260 * t263 - 0.3e1 * t415 * t428 * t251 - 0.2e1 * t422 * t428 * t251 - 0.4e1 * t1187 - 0.4e1 * t1193 + t1231 + 0.6e1 * t1267 - t639 + 0.12e2 * t923;
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[1] = -0.31830988618379067153e0 * t411 - 0.31830988618379067153e0 * t446 + t2 * (-0.79577471545947667883e-1 * (t1328 + t1371) * t14 - 0.79577471545947667883e-1 * (t1426 + t1467) * t14);
+    v4rho4[4] = -0.31830988618379067153e0 * t411 - 0.31830988618379067153e0 * t446 + t2 * (-0.79577471545947667883e-1 * (t1328 + t1371) * t14 - 0.79577471545947667883e-1 * (t1426 + t1467) * t14);
 
 #ifndef XC_DONT_COMPILE_MXC
 

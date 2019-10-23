@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : .//maple/lda_vxc/lda_xc_tih.mpl
+  Maple source      : ./maple/lda_vxc/lda_xc_tih.mpl
   Type of functional: lda_vxc
 */
 

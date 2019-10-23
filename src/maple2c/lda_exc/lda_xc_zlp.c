@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : .//maple/lda_exc/lda_xc_zlp.mpl
+  Maple source      : ./maple/lda_exc/lda_xc_zlp.mpl
   Type of functional: lda_exc
 */
 
@@ -332,13 +332,16 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
     v4rho4[0] = -0.49718400000000000000e1 * t70 * t2 - 0.24859200000000000000e1 * t43 * t19 + 0.11048533333333333333e1 * t22 * t40 - 0.46035555555555555555e0 * t9 * t67 - 0.93222000000000000000e0 * t13 * (-0.98765432098765432088e0 / t81 * t15 + 0.13031638394136221436e3 / t2 / t81 * t36 - 0.55022846152310189495e4 / t18 / t81 * t63 + 0.87120096888481155292e5 / t81 / t1 / t95 + 0.93566617283950617285e-2 * t6 * t61);
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[2] = v4rho4[0];
+    v4rho4[1] = v4rho4[0];
+
+  if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
+    v4rho4[2] = v4rho4[1];
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho4[3] = v4rho4[2];
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[1] = v4rho4[3];
+    v4rho4[4] = v4rho4[3];
 
 #ifndef XC_DONT_COMPILE_MXC
 

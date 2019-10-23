@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : .//maple/lda_exc/lda_c_pz.mpl
+  Maple source      : ./maple/lda_exc/lda_c_pz.mpl
   Type of functional: lda_exc
 */
 
@@ -656,6 +656,9 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t713 = 0.32e2 * t265 * t552;
   t731 = 0.32e2 * t271 * t552;
   t740 = -0.8e1 * t432 * t321 * t138 + 0.8e1 * t445 * t321 * t140 + 0.40e2 / 0.81e2 * t637 * t148 * t394 - 0.8e1 / 0.9e1 * t429 * t138 * t244 - 0.16e2 / 0.9e1 * t393 * t70 * t241 * t237 + 0.8e1 / 0.3e1 * t236 * t241 * t138 + 0.8e1 / 0.3e1 * t432 * t241 * t244 + t713 + 0.40e2 / 0.81e2 * t656 * t150 * t407 - 0.8e1 / 0.9e1 * t442 * t140 * t252 + 0.16e2 / 0.9e1 * t406 * t70 * t241 * t249 - 0.8e1 / 0.3e1 * t248 * t241 * t140 - 0.8e1 / 0.3e1 * t445 * t241 * t252 - t731 + 0.4e1 / 0.9e1 * t262 * t402 - 0.16e2 * t74 * t321 + 0.4e1 / 0.9e1 * t268 * t413 + 0.16e2 * t77 * t321;
+  if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
+    v4rho4[1] = t519 + t520 + 0.9e1 * t387 + 0.6e1 * t390 + t418 + t495 + t678 + 0.3e1 * t457 + t7 * (t69 * t740 * t84 + t582 + t625 + 0.3e1 * t627 + 0.3e1 * t630 + t633 + t683 + t686 + 0.3e1 * t688);
+
   t757 = t229 * t294 * t84;
   t759 = t132 * t488 * t84;
   t770 = t70 * t70;
@@ -676,7 +679,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t890 = t288 * t288;
   t895 = t291 * t291;
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[1] = t519 + t520 + 0.12e2 * t425 + 0.12e2 * t463 + 0.4e1 * t516 + t7 * (t582 + t625 + 0.4e1 * t683 + 0.6e1 * t757 + 0.4e1 * t824 + t69 * (0.40e2 / 0.81e2 * t637 * t876 - 0.16e2 / 0.9e1 * t464 * t285 + 0.4e1 / 0.3e1 * t236 * t881 + 0.16e2 / 0.9e1 * t262 * t503 + 0.4e1 / 0.3e1 * t74 * t887 + 0.40e2 / 0.81e2 * t656 * t890 - 0.16e2 / 0.9e1 * t477 * t291 + 0.4e1 / 0.3e1 * t248 * t895 + 0.16e2 / 0.9e1 * t268 * t511 - 0.4e1 / 0.3e1 * t77 * t887) * t84);
+    v4rho4[4] = t519 + t520 + 0.12e2 * t425 + 0.12e2 * t463 + 0.4e1 * t516 + t7 * (t582 + t625 + 0.4e1 * t683 + 0.6e1 * t757 + 0.4e1 * t824 + t69 * (0.40e2 / 0.81e2 * t637 * t876 - 0.16e2 / 0.9e1 * t464 * t285 + 0.4e1 / 0.3e1 * t236 * t881 + 0.16e2 / 0.9e1 * t262 * t503 + 0.4e1 / 0.3e1 * t74 * t887 + 0.40e2 / 0.81e2 * t656 * t890 - 0.16e2 / 0.9e1 * t477 * t291 + 0.4e1 / 0.3e1 * t248 * t895 + 0.16e2 / 0.9e1 * t268 * t511 - 0.4e1 / 0.3e1 * t77 * t887) * t84);
 
 #ifndef XC_DONT_COMPILE_MXC
 

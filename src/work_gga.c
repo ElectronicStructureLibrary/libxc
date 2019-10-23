@@ -11,12 +11,13 @@
  * @brief This file is to be included in GGA functionals.
  */
 
+/* hack to avoid compiler warnings */
+#define NOARG
 
-#define OUT_PARAMS_NO_EXC vrho, vsigma, v2rho2, v2rhosigma, v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3
 #ifdef XC_NO_EXC
-#define OUT_PARAMS OUT_PARAMS_NO_EXC
+#define OUT_PARAMS GGA_OUT_PARAMS_NO_EXC(NOARG)
 #else
-#define OUT_PARAMS zk, OUT_PARAMS_NO_EXC
+#define OUT_PARAMS zk, GGA_OUT_PARAMS_NO_EXC(NOARG)
 #endif
 
 /**

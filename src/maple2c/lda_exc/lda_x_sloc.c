@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : .//maple/lda_exc/lda_x_sloc.mpl
+  Maple source      : ./maple/lda_exc/lda_x_sloc.mpl
   Type of functional: lda_exc
 */
 
@@ -534,6 +534,9 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t599 = t47 * t55 * t107;
   t600 = 0.3e1 * t599;
   t602 = t47 * t130 * t44;
+  if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
+    v4rho4[1] = t353 - t370 - t461 - t382 - 0.3e1 * t463 - t20 * t21 * (t536 + t584) - t365 - 0.3e1 * t589 + 0.3e1 * t359 - 0.3e1 * t362 - 0.3e1 * t376 - 0.3e1 * t379 - t597 - t600 - t357 + t374 + t602;
+
   t606 = t4 * t17 * t308;
   t620 = t477 * t69 * t26;
   t629 = t506 * t69 * t31;
@@ -595,7 +598,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t899 = 0.24e2 * t162 + 0.24e2 * t435;
   t919 = t22 * t899 * t27 - t30 * t899 * t32 + 0.12e2 * t22 * t856 + 0.12e2 * t30 * t879 - 0.6e1 * t30 * t883 - 0.3e1 * t30 * t887 - 0.4e1 * t30 * t890 + t452 * t860 + t454 * t883 - 0.18e2 * t62 * t856 - 0.18e2 * t76 * t879 + 0.11e2 * t76 * t883;
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[1] = t353 - t357 + 0.4e1 * t602 - 0.6e1 * t736 - 0.4e1 * t747 - t370 + t374 - 0.4e1 * t461 - 0.6e1 * t739 - 0.4e1 * t749 - t20 * t21 * (t893 + t919);
+    v4rho4[4] = t353 - t357 + 0.4e1 * t602 - 0.6e1 * t736 - 0.4e1 * t747 - t370 + t374 - 0.4e1 * t461 - 0.6e1 * t739 - 0.4e1 * t749 - t20 * t21 * (t893 + t919);
 
 #ifndef XC_DONT_COMPILE_MXC
 

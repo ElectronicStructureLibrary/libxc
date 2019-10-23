@@ -208,32 +208,23 @@ void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
 
 void internal_counters_set_lda (int nspin, xc_dimensions *dim);
 void internal_counters_lda_next
-(const xc_dimensions *dim, int offset,
- const double **rho, double **zk, double **vrho, double **v2rho2, double **v3rho3
- );
+(const xc_dimensions *dim, int offset, const double **rho, double **zk, LDA_OUT_PARAMS_NO_EXC(double **));
 void internal_counters_lda_prev
-(const xc_dimensions *dim, int offset,
- const double **rho, double **zk, double **vrho, double **v2rho2, double **v3rho3
- );
+(const xc_dimensions *dim, int offset, const double **rho, double **zk, LDA_OUT_PARAMS_NO_EXC(double **));
+
+/* This are the derivatives of a mgga */
+#define GGA_OUT_PARAMS_NO_EXC(PTYPE)                                 \
+ PTYPE vrho, PTYPE vsigma,                                           \
+ PTYPE v2rho2, PTYPE v2rhosigma, PTYPE v2sigma2,                     \
+ PTYPE v3rho3, PTYPE v3rho2sigma, PTYPE v3rhosigma2, PTYPE v3sigma3
 
 void internal_counters_set_gga (int nspin, xc_dimensions *dim);
 void internal_counters_gga_next
-(const xc_dimensions *dim, int offset,
- const double **rho, const double **sigma,
- double **zk,
- double **vrho, double **vsigma,
- double **v2rho2, double **v2rhosigma, double **v2sigma2,
- double **v3rho3, double **v3rho2sigma, double **v3rhosigma2, double **v3sigma3
- );
-
+(const xc_dimensions *dim, int offset, const double **rho, const double **sigma,
+ double **zk, GGA_OUT_PARAMS_NO_EXC(double **));
 void internal_counters_gga_prev
-(const xc_dimensions *dim, int offset,
- const double **rho, const double **sigma,
- double **zk,
- double **vrho, double **vsigma,
- double **v2rho2, double **v2rhosigma, double **v2sigma2,
- double **v3rho3, double **v3rho2sigma, double **v3rhosigma2, double **v3sigma3
-);
+(const xc_dimensions *dim, int offset, const double **rho, const double **sigma,
+ double **zk, GGA_OUT_PARAMS_NO_EXC(double **));
 
 /* This are the derivatives of a mgga */
 #define MGGA_OUT_PARAMS_NO_EXC(PTYPE)                                     \

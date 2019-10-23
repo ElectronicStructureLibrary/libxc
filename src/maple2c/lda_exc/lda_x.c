@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : .//maple/lda_exc/lda_x.mpl
+  Maple source      : ./maple/lda_exc/lda_x.mpl
   Type of functional: lda_exc
 */
 
@@ -410,6 +410,9 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t367 = 0.32e2 * t98 * t305;
   t385 = 0.32e2 * t104 * t305;
   t394 = -0.8e1 * t187 * t154 * t35 + 0.8e1 * t200 * t154 * t37 + 0.40e2 / 0.81e2 * t292 * t45 * t147 - 0.8e1 / 0.9e1 * t184 * t35 * t74 - 0.16e2 / 0.9e1 * t146 * t11 * t71 * t67 + 0.8e1 / 0.3e1 * t66 * t71 * t35 + 0.8e1 / 0.3e1 * t187 * t71 * t74 + t367 + 0.40e2 / 0.81e2 * t313 * t47 * t162 - 0.8e1 / 0.9e1 * t197 * t37 * t82 + 0.16e2 / 0.9e1 * t161 * t11 * t71 * t79 - 0.8e1 / 0.3e1 * t78 * t71 * t37 - 0.8e1 / 0.3e1 * t200 * t71 * t82 - t385 + 0.4e1 / 0.9e1 * t95 * t157 - 0.16e2 * t16 * t154 + 0.4e1 / 0.9e1 * t101 * t168 + 0.16e2 * t19 * t154;
+  if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
+    v4rho4[1] = -t274 / 0.8e1 - t278 / 0.8e1 + t282 / 0.12e2 - t289 + t338 / 0.36e2 - t341 - 0.3e1 / 0.8e1 * t342 - 0.3e1 / 0.32e2 * t30 * t31 * t9 * t394;
+
   t404 = t179 * t128;
   t406 = t92 * t245;
   t417 = t11 * t11;
@@ -430,7 +433,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t532 = t120 * t120;
   t537 = t123 * t123;
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[1] = t338 / 0.9e1 - t404 / 0.4e1 - t468 / 0.2e1 - t289 - 0.3e1 / 0.32e2 * t30 * t31 * t9 * (0.40e2 / 0.81e2 * t292 * t518 - 0.16e2 / 0.9e1 * t219 * t117 + 0.4e1 / 0.3e1 * t66 * t523 + 0.16e2 / 0.9e1 * t95 * t256 + 0.4e1 / 0.3e1 * t16 * t529 + 0.40e2 / 0.81e2 * t313 * t532 - 0.16e2 / 0.9e1 * t232 * t123 + 0.4e1 / 0.3e1 * t78 * t537 + 0.16e2 / 0.9e1 * t101 * t264 - 0.4e1 / 0.3e1 * t19 * t529);
+    v4rho4[4] = t338 / 0.9e1 - t404 / 0.4e1 - t468 / 0.2e1 - t289 - 0.3e1 / 0.32e2 * t30 * t31 * t9 * (0.40e2 / 0.81e2 * t292 * t518 - 0.16e2 / 0.9e1 * t219 * t117 + 0.4e1 / 0.3e1 * t66 * t523 + 0.16e2 / 0.9e1 * t95 * t256 + 0.4e1 / 0.3e1 * t16 * t529 + 0.40e2 / 0.81e2 * t313 * t532 - 0.16e2 / 0.9e1 * t232 * t123 + 0.4e1 / 0.3e1 * t78 * t537 + 0.16e2 / 0.9e1 * t101 * t264 - 0.4e1 / 0.3e1 * t19 * t529);
 
 #ifndef XC_DONT_COMPILE_MXC
 

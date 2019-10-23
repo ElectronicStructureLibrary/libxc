@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : .//maple/lda_exc/lda_xc_1d_ehwlrg.mpl
+  Maple source      : ./maple/lda_exc/lda_xc_1d_ehwlrg.mpl
   Type of functional: lda_exc
 */
 
@@ -329,13 +329,16 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
     v4rho4[0] = -(t5 * t6) * t23 * t45 - 0.2e1 * (t5 * t6) * t37 * t45 + (t5 * t6) * t55 * t45 + 0.2e1 * (t5 * t6) * params->alpha * t45 - 0.4e1 * t14 * t31 + 0.4e1 * t14 * t38 + 0.12e2 * t26 * t17 + 0.12e2 * t26 * t24;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[2] = v4rho4[0];
+    v4rho4[1] = v4rho4[0];
+
+  if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
+    v4rho4[2] = v4rho4[1];
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho4[3] = v4rho4[2];
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[1] = v4rho4[3];
+    v4rho4[4] = v4rho4[3];
 
 #ifndef XC_DONT_COMPILE_MXC
 

@@ -11,10 +11,13 @@
  * @brief This file is to be included in MGGA functionals.
  */
    
+/* hack to avoid compiler warnings */
+#define NOARG
+
 #ifdef XC_NO_EXC
-#define OUT_PARAMS(P_) MGGA_OUT_PARAMS_NO_EXC(P_)
+#define OUT_PARAMS MGGA_OUT_PARAMS_NO_EXC(NOARG)
 #else
-#define OUT_PARAMS(P_) P_ zk, MGGA_OUT_PARAMS_NO_EXC(P_)
+#define OUT_PARAMS zk, MGGA_OUT_PARAMS_NO_EXC(NOARG)
 #endif
 
 /**
@@ -41,17 +44,17 @@ work_mgga(const XC(func_type) *p, int np,
 
     if(dens > p->dens_threshold){
       if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
-        func_unpol(p, order, rho, sigma, lapl, tau, OUT_PARAMS());
+        func_unpol(p, order, rho, sigma, lapl, tau, OUT_PARAMS);
       
       }else if(zeta >  1.0 - 1e-10){              /* ferromagnetic case - spin 0 */
-        func_ferr(p, order, rho, sigma, lapl, tau, OUT_PARAMS());
+        func_ferr(p, order, rho, sigma, lapl, tau, OUT_PARAMS);
         
       }else if(zeta < -1.0 + 1e-10){              /* ferromagnetic case - spin 1 */
         internal_counters_mgga_next(&(p->dim), -1, &rho, &sigma, &lapl, &tau, &zk, MGGA_OUT_PARAMS_NO_EXC(&));
-        func_ferr(p, order, rho, sigma, lapl, tau, OUT_PARAMS());
+        func_ferr(p, order, rho, sigma, lapl, tau, OUT_PARAMS);
         internal_counters_mgga_prev(&(p->dim), -1, &rho, &sigma, &lapl, &tau, &zk, MGGA_OUT_PARAMS_NO_EXC(&));
       }else{                                      /* polarized (general) case */
-        func_pol(p, order, rho, sigma, lapl, tau, OUT_PARAMS());
+        func_pol(p, order, rho, sigma, lapl, tau, OUT_PARAMS);
       } /* polarization */
     }
     

@@ -107,7 +107,7 @@ gga_k_dk_init(xc_func_type *p)
 }
 
 #include "maple2c/gga_exc/gga_k_dk.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_k_dk = {
   XC_GGA_K_DK,

@@ -86,7 +86,7 @@ lda_xc_ksdt_init(xc_func_type *p)
 }
 
 #include "maple2c/lda_exc/lda_xc_ksdt.c"
-#include "work_lda_new.c"
+#include "work_lda.c"
 
 static const func_params_type ext_params[] = {
   {"T", 0.0, "Temperature"},

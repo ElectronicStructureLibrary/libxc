@@ -41,7 +41,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 }
 
 #include "maple2c/mgga_exc/mgga_c_bc95.c"
-#include "work_mgga_new.c"
+#include "work_mgga.c"
 
 const xc_func_info_type xc_func_info_mgga_c_bc95 = {
   XC_MGGA_C_BC95,

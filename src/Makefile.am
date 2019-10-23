@@ -85,7 +85,7 @@ libxc_la_FUNC_SOURCES = \
 	gga_c_pbe_vwn.c \
 	mgga.c \
 	mgga_x_lta.c mgga_x_tpss.c mgga_x_br89.c mgga_x_gvt4.c		\
-	mgga_x_m06l.c mgga_x_tau_hcth.c mgga_x_2d_prhg07.c		\
+	mgga_x_m06l.c mgga_x_tau_hcth.c mgga_x_2d_prhg07.c mgga_x_2d_prp10.c	\
 	mgga_x_pkzb.c hyb_mgga_x_m05.c mgga_x_m08.c mgga_x_ms.c		\
 	mgga_x_mn12.c mgga_c_vsxc.c mgga_c_pkzb.c		\
 	mgga_c_bc95.c mgga_c_m08.c mgga_xc_cc06.c mgga_c_cs.c		\
@@ -131,9 +131,8 @@ endif
 
 
 noinst_HEADERS = \
-	string_f.h references.h util.h work_lda_new.c \
-	work_gga_new.c \
-	work_mgga_x.c work_mgga_new.c \
+	string_f.h references.h util.h \
+  work_lda.c work_gga.c work_mgga.c \
 	libxc_master.F90 libxc_master.F03
 include_HEADERS = xc.h xc_funcs_removed.h
 nodist_include_HEADERS = xc_funcs.h xc_funcs_worker.h

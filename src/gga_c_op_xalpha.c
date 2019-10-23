@@ -12,7 +12,7 @@
 #define XC_GGA_C_OP_XALPHA   84 /* one-parameter progressive functional (XALPHA version)  */
 
 #include "maple2c/gga_exc/gga_c_op_xalpha.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_c_op_xalpha = {
   XC_GGA_C_OP_XALPHA,

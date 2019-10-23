@@ -112,8 +112,8 @@ typedef struct{
   void (*init)(struct xc_func_type *p);
   void (*end) (struct xc_func_type *p);
   void (*lda) (const struct xc_func_type *p, int np,
-	       const double *rho,
-	       double *zk, double *vrho, double *v2rho2, double *v3rho3);
+               const double *rho,
+               double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4);
   void (*gga) (const struct xc_func_type *p, int np,
 	       const double *rho, const double *sigma,
 	       double *zk, double *vrho, double *vsigma,
@@ -176,6 +176,9 @@ struct xc_dimensions{
   int v3lapl3, v3lapl2tau;
   int v3lapltau2;
   int v3tau3;
+
+  /* Fourth-order derivatives */
+  int v4rho4;
 };
 
 typedef struct xc_dimensions xc_dimensions;
@@ -237,12 +240,14 @@ double xc_func_get_ext_params_default_value(const xc_func_type *p, int number);
 #include "xc_funcs.h"
 #include "xc_funcs_removed.h"
 
-void xc_lda        (const xc_func_type *p, int np, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3);
-void xc_lda_exc    (const xc_func_type *p, int np, const double *rho, double *zk);
+void xc_lda(const xc_func_type *p, int np, const double *rho,
+     double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4);
+void xc_lda_exc(const xc_func_type *p, int np, const double *rho, double *zk);
 void xc_lda_exc_vxc(const xc_func_type *p, int np, const double *rho, double *zk, double *vrho);
-void xc_lda_vxc    (const xc_func_type *p, int np, const double *rho, double *vrho);
-void xc_lda_fxc    (const xc_func_type *p, int np, const double *rho, double *v2rho2);
-void xc_lda_kxc    (const xc_func_type *p, int np, const double *rho, double *v3rho3);
+void xc_lda_vxc(const xc_func_type *p, int np, const double *rho, double *vrho);
+void xc_lda_fxc(const xc_func_type *p, int np, const double *rho, double *v2rho2);
+void xc_lda_kxc(const xc_func_type *p, int np, const double *rho, double *v3rho3);
+void xc_lda_lxc(const xc_func_type *p, int np, const double *rho, double *v4rho4);
 
 void xc_gga     (const xc_func_type *p, int np, const double *rho, const double *sigma,
 		 double *zk, double *vrho, double *vsigma,

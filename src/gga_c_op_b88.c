@@ -12,7 +12,7 @@
 #define XC_GGA_C_OP_B88      87 /* one-parameter progressive functional (B88 version)     */
 
 #include "maple2c/gga_exc/gga_c_op_b88.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_c_op_b88 = {
   XC_GGA_C_OP_B88,

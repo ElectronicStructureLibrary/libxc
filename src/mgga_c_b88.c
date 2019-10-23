@@ -12,7 +12,7 @@
 #define XC_MGGA_C_B88          571 /* Meta-GGA correlation by Becke */
 
 #include "maple2c/mgga_exc/mgga_c_b88.c"
-#include "work_mgga_new.c"
+#include "work_mgga.c"
 
 const xc_func_info_type xc_func_info_mgga_c_b88 = {
   XC_MGGA_C_B88,

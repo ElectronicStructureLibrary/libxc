@@ -16,7 +16,7 @@
 #define XC_LDA_K_ZLP     550   /* kinetic energy version of ZLP */
 
 #include "maple2c/lda_exc/lda_k_zlp.c"
-#include "work_lda_new.c"
+#include "work_lda.c"
 
 const xc_func_info_type xc_func_info_lda_k_zlp = {
   XC_LDA_K_ZLP,

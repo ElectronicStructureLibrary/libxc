@@ -7,26 +7,26 @@
 */
 
 /**
- * @file work_lda.c
- * @brief This file is to be included in LDA functionals. As often these
- *        functionals are written as a function of rs and zeta, this
- *        routine performs the necessary conversions between this and a functional
- *        of rho.
+ * @file work_gga.c
+ * @brief This file is to be included in GGA functionals.
  */
 
+/* hack to avoid compiler warnings */
+#define NOARG
 
 #ifdef XC_NO_EXC
-#define OUT_PARAMS vrho, v2rho2, v3rho3
+#define OUT_PARAMS GGA_OUT_PARAMS_NO_EXC(NOARG)
 #else
-#define OUT_PARAMS zk, vrho, v2rho2, v3rho3
+#define OUT_PARAMS zk, GGA_OUT_PARAMS_NO_EXC(NOARG)
 #endif
 
 /**
  * @param[in,out] func_type: pointer to functional structure
  */
 static void 
-work_lda(const XC(func_type) *p, int np, const double *rho, 
-	 double *zk, double *vrho, double *v2rho2, double *v3rho3)
+work_gga(const XC(func_type) *p, int np,
+         const double *rho, const double *sigma,
+         double *zk, GGA_OUT_PARAMS_NO_EXC(double *))
 {
   int ip, order;
   double dens, zeta;
@@ -44,21 +44,21 @@ work_lda(const XC(func_type) *p, int np, const double *rho,
 
     if(dens > p->dens_threshold){
       if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
-        func_unpol(p, order, rho, OUT_PARAMS);
+        func_unpol(p, order, rho, sigma, OUT_PARAMS);
       
       }else if(zeta >  1.0 - 1e-10){              /* ferromagnetic case - spin 0 */
-        func_ferr(p, order, rho, OUT_PARAMS);
+        func_ferr(p, order, rho, sigma, OUT_PARAMS);
         
       }else if(zeta < -1.0 + 1e-10){              /* ferromagnetic case - spin 1 */
-        internal_counters_lda_next(&(p->dim), -1, &rho, &zk, &vrho, &v2rho2, &v3rho3);
-        func_ferr(p, order, rho, OUT_PARAMS);
-        internal_counters_lda_prev(&(p->dim), -1, &rho, &zk, &vrho, &v2rho2, &v3rho3);
+        internal_counters_gga_next(&(p->dim), -1, &rho, &sigma, &zk, GGA_OUT_PARAMS_NO_EXC(&));
+        func_ferr(p, order, rho, sigma, OUT_PARAMS);
+        internal_counters_gga_prev(&(p->dim), -1, &rho, &sigma, &zk, GGA_OUT_PARAMS_NO_EXC(&));
 
       }else{                                      /* polarized (general) case */
-        func_pol(p, order, rho, OUT_PARAMS);
+        func_pol(p, order, rho, sigma, OUT_PARAMS);
       } /* polarization */
     }
     
-    internal_counters_lda_next(&(p->dim), 0, &rho, &zk, &vrho, &v2rho2, &v3rho3);
+    internal_counters_gga_next(&(p->dim), 0, &rho, &sigma, &zk, GGA_OUT_PARAMS_NO_EXC(&));
   }   /* for(ip) */
 }

@@ -11,7 +11,7 @@
 #define XC_LDA_C_VWN_4   31   /* Vosko, Wilk, & Nusair (4)   */
 
 #include "maple2c/lda_exc/lda_c_vwn_4.c"
-#include "work_lda_new.c"
+#include "work_lda.c"
 
 const xc_func_info_type xc_func_info_lda_c_vwn_4 = {
   XC_LDA_C_VWN_4,
@@ -19,7 +19,7 @@ const xc_func_info_type xc_func_info_lda_c_vwn_4 = {
   "Vosko, Wilk & Nusair (VWN4)",
   XC_FAMILY_LDA,
   {&xc_ref_Vosko1980_1200, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-24,
   0, NULL, NULL,
   NULL, NULL,

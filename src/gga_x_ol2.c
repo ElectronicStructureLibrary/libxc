@@ -27,7 +27,7 @@ gga_x_ol2_init(xc_func_type *p)
 }
 
 #include "maple2c/gga_exc/gga_x_ol2.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 static const func_params_type ext_params[] = {
   {"_aa", 0.09564574034649151285038696952714226444963L, "aa"}, /* M_CBRT2*0.07064/X_FACTOR_C */

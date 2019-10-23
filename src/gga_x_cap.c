@@ -28,7 +28,7 @@ gga_x_cap_init(xc_func_type *p)
 }
 
 #include "maple2c/gga_exc/gga_x_cap.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 static const func_params_type ext_params[] = {
   {"_alphaoAx", -0.2195149727645171L, "alphaoAx"}, /* alpha over A_x = -cap_mu */

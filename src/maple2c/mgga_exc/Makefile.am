@@ -21,7 +21,5 @@ mgga_c_m06l.c         mgga_xc_cc06.c          mgga_x_mn12.c      mgga_x_vt84.c  
 mgga_c_m08.c          mgga_xc_lp90.c          mgga_x_msb.c       mgga_x_regtpss.c   \
 mgga_x_rscan.c        mgga_c_rscan.c          mgga_x_2d_js17.c   mgga_x_revtm.c     \
 mgga_x_edmgga.c       mgga_x_gdme.c           mgga_x_rlda.c      mgga_x_scanl.c     \
-mgga_c_scanl.c        hyb_mgga_x_js18.c       hyb_mgga_x_pjs18.c mgga_x_mbrxh_bg.c  \
-mgga_x_mbrxc_bg.c     mgga_x_task.c
-
-
+mgga_c_scanl.c        mgga_x_mbrxh_bg.c       mgga_x_mbrxc_bg.c  mgga_x_task.c      \
+mgga_x_2d_prhg07.c    hyb_mgga_x_js18.c       hyb_mgga_x_pjs18.c

@@ -28,7 +28,7 @@ gga_x_ak13_init(xc_func_type *p)
 }
 
 #include "maple2c/gga_exc/gga_x_ak13.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 static const func_params_type ext_params[] = {
   {"_B1",  1.74959015598863046792081721182, "B1"}, /* 3*muGE/5 + 8 pi/15 */

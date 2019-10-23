@@ -11,7 +11,7 @@
 #define XC_LDA_C_1D_LOOS          26 /* P-F Loos correlation LDA     */
 
 #include "maple2c/lda_exc/lda_c_1d_loos.c"
-#include "work_lda_new.c"
+#include "work_lda.c"
 
 const xc_func_info_type xc_func_info_lda_c_1d_loos = {
   XC_LDA_C_1D_LOOS,

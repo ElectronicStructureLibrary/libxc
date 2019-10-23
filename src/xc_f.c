@@ -181,53 +181,59 @@ void FC_FUNC(xc_f90_func_set_ext_params, XC_F90_FUNC_SET_EXT_PARAMS)
 
 void FC_FUNC(xc_f90_lda, XC_F90_LDA)
      (void **p, CC_FORTRAN_INT *np, double *rho, 
-      double *zk, double *vrho, double *v2rho2, double *v3rho3)
+      double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
-  xc_lda((xc_func_type *)(*p), *np, rho, zk, vrho, v2rho2, v3rho3);
+  xc_lda((xc_func_type *)(*p), *np, rho, zk, vrho, v2rho2, v3rho3, v4rho4);
 }
 
 void FC_FUNC(xc_f90_lda_exc, XC_F90_LDA_EXC)
      (void **p, CC_FORTRAN_INT *np, double *rho,
       double *zk)
 {
-  xc_lda((xc_func_type *)(*p), *np, rho, zk, NULL, NULL, NULL);
+  xc_lda((xc_func_type *)(*p), *np, rho, zk, NULL, NULL, NULL, NULL);
 }
 
 void FC_FUNC(xc_f90_lda_exc_vxc, XC_F90_LDA_EXC_VXC)
      (void **p, CC_FORTRAN_INT *np, double *rho, 
       double *zk, double *vrho)
 {
-  xc_lda((xc_func_type *)(*p), *np, rho, zk, vrho, NULL, NULL);
+  xc_lda((xc_func_type *)(*p), *np, rho, zk, vrho, NULL, NULL, NULL);
 }
 
 void FC_FUNC(xc_f90_lda_vxc, XC_F90_LDA_VXC)
      (void **p, CC_FORTRAN_INT *np, double *rho, 
       double *vrho)
 {
-  xc_lda((xc_func_type *)(*p), *np, rho, NULL, vrho, NULL, NULL);
+  xc_lda((xc_func_type *)(*p), *np, rho, NULL, vrho, NULL, NULL, NULL);
 }
 
 void FC_FUNC(xc_f90_lda_vxc_fxc, XC_F90_LDA_VXC_FXC)
      (void **p, CC_FORTRAN_INT *np, double *rho,
       double *vrho, double *v2rho2)
 {
-  xc_lda((xc_func_type *)(*p), *np, rho, NULL, vrho, v2rho2, NULL);
+  xc_lda((xc_func_type *)(*p), *np, rho, NULL, vrho, v2rho2, NULL, NULL);
 }
 
 void FC_FUNC(xc_f90_lda_fxc, XC_F90_LDA_FXC)
      (void **p, CC_FORTRAN_INT *np, double *rho,
       double *v2rho2)
 {
-  xc_lda((xc_func_type *)(*p), *np, rho, NULL, NULL, v2rho2, NULL);
+  xc_lda((xc_func_type *)(*p), *np, rho, NULL, NULL, v2rho2, NULL, NULL);
 }
 
 void FC_FUNC(xc_f90_lda_kxc, XC_F90_LDA_KXC)
      (void **p, CC_FORTRAN_INT *np, double *rho,
       double *v3rho3)
 {
-  xc_lda((xc_func_type *)(*p), *np, rho, NULL, NULL, NULL, v3rho3);
+  xc_lda((xc_func_type *)(*p), *np, rho, NULL, NULL, NULL, v3rho3, NULL);
 }
 
+void FC_FUNC(xc_f90_lda_lxc, XC_F90_LDA_LXC)
+     (void **p, CC_FORTRAN_INT *np, double *rho,
+      double *v4rho4)
+{
+  xc_lda((xc_func_type *)(*p), *np, rho, NULL, NULL, NULL, NULL, v4rho4);
+}
 
 /* GGAs */
 

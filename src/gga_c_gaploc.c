@@ -11,7 +11,7 @@
 #define XC_GGA_C_GAPLOC  556 /* Gaploc */
 
 #include "maple2c/gga_exc/gga_c_gaploc.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_c_gaploc = {
   XC_GGA_C_GAPLOC,

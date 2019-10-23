@@ -20,7 +20,7 @@ hyb_mgga_x_pjs18_init(xc_func_type *p)
 }
 
 #include "maple2c/mgga_exc/hyb_mgga_x_pjs18.c"
-#include "work_mgga_new.c"
+#include "work_mgga.c"
 
 const xc_func_info_type xc_func_info_hyb_mgga_x_pjs18 = {
   XC_HYB_MGGA_X_PJS18,

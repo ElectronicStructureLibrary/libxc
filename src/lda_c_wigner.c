@@ -65,7 +65,7 @@ lda_c_wigner_init(xc_func_type *p)
 }
 
 #include "maple2c/lda_exc/lda_c_wigner.c"
-#include "work_lda_new.c"
+#include "work_lda.c"
 
 const xc_func_info_type xc_func_info_lda_c_wigner = {
   XC_LDA_C_WIGNER,
@@ -73,7 +73,7 @@ const xc_func_info_type xc_func_info_lda_c_wigner = {
   "Wigner",
   XC_FAMILY_LDA,
   {&xc_ref_Wigner1938_678, &xc_ref_Stewart1995_4337, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-24,
   0, NULL, NULL,
   lda_c_wigner_init, NULL,
@@ -86,7 +86,7 @@ const xc_func_info_type xc_func_info_lda_xc_lp_a = {
   "Lee-Parr reparametrization A",
   XC_FAMILY_LDA,
   {&xc_ref_Lee1990_193, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-24,
   0, NULL, NULL,
   lda_c_wigner_init, NULL,
@@ -99,7 +99,7 @@ const xc_func_info_type xc_func_info_lda_xc_lp_b = {
   "Lee-Parr reparametrization B",
   XC_FAMILY_LDA,
   {&xc_ref_Lee1990_193, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-24,
   0, NULL, NULL,
   lda_c_wigner_init, NULL,
@@ -112,7 +112,7 @@ const xc_func_info_type xc_func_info_lda_c_mcweeny = {
   "McWeeny 76",
   XC_FAMILY_LDA,
   {&xc_ref_McWeeny1976_3, &xc_ref_Brual1978_1177, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-24,
   0, NULL, NULL,
   lda_c_wigner_init, NULL,
@@ -125,7 +125,7 @@ const xc_func_info_type xc_func_info_lda_c_br78 = {
   "Brual & Rothstein 78",
   XC_FAMILY_LDA,
   {&xc_ref_Brual1978_1177, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-24,
   0, NULL, NULL,
   lda_c_wigner_init, NULL,
@@ -138,7 +138,7 @@ const xc_func_info_type xc_func_info_lda_c_ow_lyp = {
   "Wigner with corresponding LYP parameters",
   XC_FAMILY_LDA,
   {&xc_ref_Stewart1995_4337, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-24,
   0, NULL, NULL,
   lda_c_wigner_init, NULL,
@@ -151,7 +151,7 @@ const xc_func_info_type xc_func_info_lda_c_ow = {
   "Optimized Wigner",
   XC_FAMILY_LDA,
   {&xc_ref_Stewart1995_4337, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-24,
   0, NULL, NULL,
   lda_c_wigner_init, NULL,

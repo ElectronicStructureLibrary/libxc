@@ -11,7 +11,7 @@
 #define XC_GGA_X_G96          107 /* Gill 96                                        */
 
 #include "maple2c/gga_exc/gga_x_g96.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_x_g96 = {
   XC_GGA_X_G96,

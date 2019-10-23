@@ -12,7 +12,7 @@
 #define XC_HYB_MGGA_XC_B0KCIS  563 /* Hybrid based on KCIS */
 
 #include "maple2c/mgga_exc/mgga_c_kcis.c"
-#include "work_mgga_new.c"
+#include "work_mgga.c"
 
 const xc_func_info_type xc_func_info_mgga_c_kcis = {
   XC_MGGA_C_KCIS,

@@ -11,7 +11,7 @@
 #define XC_MGGA_X_GVT4          204 /* GVT4 from Van Voorhis and Scuseria */
 
 #include "maple2c/mgga_exc/mgga_x_gvt4.c"
-#include "work_mgga_new.c"
+#include "work_mgga.c"
 
 const xc_func_info_type xc_func_info_mgga_x_gvt4 = {
   XC_MGGA_X_GVT4,

@@ -14,7 +14,7 @@
 /* get the lda functional */
 void 
 xc_lda(const xc_func_type *func, int np, const double *rho, 
-	double *zk, double *vrho, double *v2rho2, double *v3rho3)
+       double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
   const xc_dimensions *dim = &(func->dim);
   
@@ -56,9 +56,12 @@ xc_lda(const xc_func_type *func, int np, const double *rho,
   if(v3rho3 != NULL)
     memset(v3rho3, 0, np*sizeof(double)*dim->v3rho3);
 
+  if(v4rho4 != NULL)
+    memset(v4rho4, 0, np*sizeof(double)*dim->v4rho4);
+
   /* call the LDA routines */
   if(func->info->lda != NULL)
-    func->info->lda(func, np, rho, zk, vrho, v2rho2, v3rho3);
+    func->info->lda(func, np, rho, zk, vrho, v2rho2, v3rho3, v4rho4);
 
   if(func->mix_coef != NULL)
     xc_mix_func(func, np, rho, NULL, NULL, NULL, zk, vrho, NULL, NULL, NULL,
@@ -80,30 +83,36 @@ xc_lda(const xc_func_type *func, int np, const double *rho,
 void
 xc_lda_exc(const xc_func_type *p, int np, const double *rho, double *zk)
 {
-  xc_lda(p, np, rho, zk, NULL, NULL, NULL);
+  xc_lda(p, np, rho, zk, NULL, NULL, NULL, NULL);
 }
 
 void
 xc_lda_exc_vxc(const xc_func_type *p, int np, const double *rho, double *zk, double *vrho)
 {
-  xc_lda(p, np, rho, zk, vrho, NULL, NULL);
+  xc_lda(p, np, rho, zk, vrho, NULL, NULL, NULL);
 }
 
 void
 xc_lda_vxc(const xc_func_type *p, int np, const double *rho, double *vrho)
 {
-  xc_lda(p, np, rho, NULL, vrho, NULL, NULL);
+  xc_lda(p, np, rho, NULL, vrho, NULL, NULL, NULL);
 }
 
 void
 xc_lda_fxc(const xc_func_type *p, int np, const double *rho, double *v2rho2)
 {
-  xc_lda(p, np, rho, NULL, NULL, v2rho2, NULL);
+  xc_lda(p, np, rho, NULL, NULL, v2rho2, NULL, NULL);
 }
 
 void
 xc_lda_kxc(const xc_func_type *p, int np, const double *rho, double *v3rho3)
 {
-  xc_lda(p, np, rho, NULL, NULL, NULL, v3rho3);
+  xc_lda(p, np, rho, NULL, NULL, NULL, v3rho3, NULL);
+}
+
+void
+xc_lda_lxc(const xc_func_type *p, int np, const double *rho, double *v4rho4)
+{
+  xc_lda(p, np, rho, NULL, NULL, NULL, NULL, v4rho4);
 }
 

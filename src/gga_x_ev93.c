@@ -24,7 +24,7 @@ typedef struct{
 } gga_x_ev93_params;
 
 #include "maple2c/gga_exc/gga_x_ev93.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 static void
 gga_x_ev93_init(xc_func_type *p)

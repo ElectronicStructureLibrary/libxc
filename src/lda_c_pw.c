@@ -137,7 +137,7 @@ lda_c_pw_init(xc_func_type *p)
 }
 
 #include "maple2c/lda_exc/lda_c_pw.c"
-#include "work_lda_new.c"
+#include "work_lda.c"
 
 const xc_func_info_type xc_func_info_lda_c_pw = {
   XC_LDA_C_PW,
@@ -145,7 +145,7 @@ const xc_func_info_type xc_func_info_lda_c_pw = {
   "Perdew & Wang",
   XC_FAMILY_LDA,
   {&xc_ref_Perdew1992_13244, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-24,
   0, NULL, NULL,
   lda_c_pw_init, NULL,
@@ -158,7 +158,7 @@ const xc_func_info_type xc_func_info_lda_c_pw_mod = {
   "Perdew & Wang (modified)",
   XC_FAMILY_LDA,
   {&xc_ref_Perdew1992_13244_mod, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-24,
   0, NULL, NULL,
   lda_c_pw_init, NULL,
@@ -171,7 +171,7 @@ const xc_func_info_type xc_func_info_lda_c_ob_pw = {
   "Ortiz & Ballone (PW parametrization)",
   XC_FAMILY_LDA,
   {&xc_ref_Ortiz1994_1391, &xc_ref_Ortiz1994_1391_err, &xc_ref_Perdew1992_13244_mod, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-24,
   0, NULL, NULL,
   lda_c_pw_init, NULL,
@@ -184,7 +184,7 @@ const xc_func_info_type xc_func_info_lda_c_pw_rpa = {
   "Perdew & Wang (fit to the RPA energy)",
   XC_FAMILY_LDA,
   {&xc_ref_Perdew1992_13244, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-24,
   0, NULL, NULL,
   lda_c_pw_init, NULL,
@@ -197,7 +197,7 @@ const xc_func_info_type xc_func_info_lda_c_upw92 = {
   "Ruggeri, Rios, and Alavi unrestricted fit",
   XC_FAMILY_LDA,
   {&xc_ref_Ruggeri2018_161105, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-24,
   0, NULL, NULL,
   lda_c_pw_init, NULL,
@@ -210,7 +210,7 @@ const xc_func_info_type xc_func_info_lda_c_rpw92 = {
   "Ruggeri, Rios, and Alavi restricted fit",
   XC_FAMILY_LDA,
   {&xc_ref_Ruggeri2018_161105, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-24,
   0, NULL, NULL,
   lda_c_pw_init, NULL,

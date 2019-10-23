@@ -264,7 +264,7 @@ gga_xc_b97_init(xc_func_type *p)
 }
 
 #include "maple2c/gga_exc/gga_xc_b97.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_hyb_gga_xc_b97 = {
   XC_HYB_GGA_XC_B97,

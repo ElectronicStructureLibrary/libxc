@@ -12,7 +12,7 @@
 #define XC_GGA_X_KGG99  544 /* Gilbert and Gill 1999 (mixed) */
 
 #include "maple2c/gga_exc/gga_x_gg99.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_x_gg99 = {
   XC_GGA_X_GG99,

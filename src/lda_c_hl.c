@@ -54,7 +54,7 @@ lda_c_hl_init(xc_func_type *p)
 }
 
 #include "maple2c/lda_exc/lda_c_hl.c"
-#include "work_lda_new.c"
+#include "work_lda.c"
 
 const xc_func_info_type xc_func_info_lda_c_hl = {
   XC_LDA_C_HL,
@@ -62,7 +62,7 @@ const xc_func_info_type xc_func_info_lda_c_hl = {
   "Hedin & Lundqvist",
   XC_FAMILY_LDA,
   {&xc_ref_Hedin1971_2064, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-16,
   0, NULL, NULL,
   lda_c_hl_init, NULL,
@@ -75,7 +75,7 @@ const xc_func_info_type xc_func_info_lda_c_gl = {
   "Gunnarson & Lundqvist",
   XC_FAMILY_LDA,
   {&xc_ref_Gunnarsson1976_4274, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-17,
   0, NULL, NULL,
   lda_c_hl_init, NULL,
@@ -88,7 +88,7 @@ const xc_func_info_type xc_func_info_lda_c_vbh = {
   "von Barth & Hedin",
   XC_FAMILY_LDA,
   {&xc_ref_vonBarth1972_1629, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-17,
   0, NULL, NULL,
   lda_c_hl_init, NULL,

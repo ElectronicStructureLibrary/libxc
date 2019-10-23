@@ -243,7 +243,7 @@ module xc_f90_lib_m
   ! LDAs
   !----------------------------------------------------------------
   interface
-    subroutine xc_f90_lda(p, np, rho, zk, vrho, fxc, kxc)
+    subroutine xc_f90_lda(p, np, rho, zk, vrho, fxc, kxc, lxc)
       use xc_f90_types_m
       type(xc_f90_pointer_t), intent(in)  :: p
       integer,                intent(in)  :: np
@@ -252,6 +252,7 @@ module xc_f90_lib_m
       real(xc_f90_kind),      intent(out) :: vrho  ! v(nspin) the potential
       real(xc_f90_kind),      intent(out) :: fxc   ! v(nspin,nspin) the xc kernel
       real(xc_f90_kind),      intent(out) :: kxc   ! v(nspin,nspin,nspin) the derivative of xc kernel
+      real(xc_f90_kind),      intent(out) :: lxc   ! the derivative of kxc
     end subroutine xc_f90_lda
 
     subroutine xc_f90_lda_exc(p, np, rho, zk)
@@ -303,6 +304,14 @@ module xc_f90_lib_m
       real(xc_f90_kind),      intent(in)  :: rho   ! rho(nspin) the density
       real(xc_f90_kind),      intent(out) :: kxc
     end subroutine xc_f90_lda_kxc
+
+    subroutine xc_f90_lda_lxc(p, np, rho, lxc)
+      use xc_f90_types_m
+      type(xc_f90_pointer_t), intent(in)  :: p
+      integer,                intent(in)  :: np
+      real(xc_f90_kind),      intent(in)  :: rho   ! rho(nspin) the density
+      real(xc_f90_kind),      intent(out) :: lxc
+    end subroutine xc_f90_lda_lxc
   end interface
 
   ! GGAs

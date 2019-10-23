@@ -12,7 +12,7 @@
 #define XC_MGGA_X_MBRXH_BG  697 /* Modified Becke-Roussel for band gaps - hydrogen hole */
 
 #include "maple2c/mgga_exc/mgga_x_mbrxh_bg.c"
-#include "work_mgga_new.c"
+#include "work_mgga.c"
 
 const xc_func_info_type xc_func_info_mgga_x_mbrxh_bg = {
   XC_MGGA_X_MBRXH_BG,

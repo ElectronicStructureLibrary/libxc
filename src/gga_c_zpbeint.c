@@ -40,7 +40,7 @@ gga_c_zpbeint_init(xc_func_type *p)
 }
 
 #include "maple2c/gga_exc/gga_c_zpbeint.c"
-#include "work_gga_new.c"
+#include "work_gga.c"
 
 const xc_func_info_type xc_func_info_gga_c_zpbeint = {
   XC_GGA_C_ZPBEINT,

@@ -16,6 +16,15 @@ att_erf_aux3 := a -> 2*a^2*att_erf_aux2(a) + 1/2:
 attenuation_erf := a ->
   1 - 8/3*a*(att_erf_aux1(a) + 2*a*(att_erf_aux2(a) - att_erf_aux3(a))):
 
+attenuation_erf_f2 := a ->
+  1 + 24*a^2*((20*a^2 - 64*a^4)*exp(-1/(4*a^2)) - 3 - 36*a^2 + 64*a^4 + 10*sqrt(Pi)*a*erf(1/(2*a))):
+
+attenuation_erf_f3 := a ->
+  1 + 8*a/7*(
+      + (-8*a + 256*a^3 - 576*a^5 + 3849*a^7 - 122880*a^9)*exp(-1/(4*a^2))
+      + 24*a^3*(-35 + 224*a^2 - 1440*a^4 + 5120*a^6)
+      + 2*sqrt(Pi)*(-2 + 60*a^2)*erf(1/(2*a))):
+
 (* erf_gau
     Int. J. of Quant. Chem. 100, 1047-1056 (2004)
 *)

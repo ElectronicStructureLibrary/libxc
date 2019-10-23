@@ -248,6 +248,8 @@ hyb_mgga_xc_b88b95.c
 hyb_mgga_xc_kcis.c
 hyb_mgga_xc_tpssh.c
 hyb_mgga_xc_wb97mv.c
+hyb_mgga_x_js18.c
+hyb_mgga_x_pjs18.c
 integrate.c
 lda.c
 lda_c_1d_csc.c

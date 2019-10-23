@@ -16,9 +16,31 @@
 static inline void
 func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
-  double t2, t3, t4, t5, t7, t8, t15, t20;
-  double t22, t23, t24, t26, t30, t31, t34, t35;
+
+#ifndef XC_DONT_COMPILE_EXC
+  double t2, t3, t4, t5, t7, t8;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t15;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t20, t22, t23, t24, t26;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t30, t31, t34, t35;
+
+#ifndef XC_DONT_COMPILE_LXC
   double t50, t53;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
   lda_x_1d_exponential_params *params;
 
@@ -100,9 +122,31 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
 static inline void
 func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
-  double t3, t4, t6, t7, t9, t10, t17, t22;
-  double t24, t26, t27, t29, t33, t34, t37, t38;
+
+#ifndef XC_DONT_COMPILE_EXC
+  double t3, t4, t6, t7, t9, t10;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t17;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t22, t24, t26, t27, t29;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t33, t34, t37, t38;
+
+#ifndef XC_DONT_COMPILE_LXC
   double t53, t56;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
   lda_x_1d_exponential_params *params;
 
@@ -184,11 +228,18 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 static inline void
 func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t2, t3, t4, t5, t6, t7, t8;
   double t9, t11, t12, t13, t14, t15, t19, t20;
-  double t21, t22, t23, t25, t26, t30, t31, t32;
-  double t33, t34, t36, t37, t39, t40, t41, t43;
-  double t45, t46, t49, t52, t53, t54, t57, t58;
+  double t21, t22, t23, t25, t26, t30;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t31, t32, t33, t34, t36, t37, t39, t40;
+  double t41, t43, t45, t46, t49, t52, t53, t54;
+  double t57, t58;
+
+#ifndef XC_DONT_COMPILE_FXC
   double t64, t65, t67, t69, t71, t72, t73, t74;
   double t75, t76, t77, t78, t79, t80, t81, t82;
   double t84, t85, t86, t87, t88, t90, t92, t93;
@@ -196,50 +247,65 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   double t104, t105, t106, t108, t109, t110, t111, t113;
   double t115, t116, t121, t124, t128, t131, t138, t140;
   double t142, t143, t145, t148, t149, t150, t152, t154;
-  double t155, t157, t160, t161, t166, t167, t168, t170;
-  double t172, t175, t177, t179, t180, t182, t185, t186;
-  double t188, t189, t190, t191, t192, t193, t194, t195;
-  double t196, t197, t198, t201, t203, t204, t205, t206;
-  double t207, t208, t209, t210, t211, t212, t213, t214;
-  double t215, t216, t217, t218, t219, t220, t221, t223;
-  double t224, t225, t226, t227, t229, t232, t234, t236;
-  double t237, t239, t242, t244, t245, t246, t247, t248;
-  double t249, t250, t251, t254, t256, t257, t258, t259;
-  double t260, t261, t262, t263, t264, t265, t266, t267;
-  double t268, t269, t270, t271, t272, t274, t275, t276;
-  double t277, t280, t281, t286, t289, t291, t294, t295;
-  double t301, t304, t306, t309, t310, t316, t318, t320;
-  double t323, t325, t326, t327, t328, t330, t333, t335;
-  double t336, t338, t341, t343, t344, t346, t348, t350;
-  double t353, t354, t355, t357, t360, t362, t363, t365;
-  double t368, t370, t371, t378, t380, t383, t386, t387;
-  double t389, t392, t393, t394, t397, t399, t401, t402;
-  double t404, t406, t407, t410, t411, t412, t413, t415;
-  double t418, t421, t422, t424, t427, t428, t429, t432;
-  double t434, t436, t437, t439, t441, t442, t445, t446;
-  double t447, t453, t454, t456, t458, t459, t460, t461;
-  double t462, t463, t468, t473, t479, t480, t482, t486;
-  double t488, t490, t492, t494, t495, t496, t498, t500;
-  double t501, t503, t504, t505, t507, t510, t512, t513;
-  double t522, t524, t525, t527, t536, t542, t544, t547;
-  double t548, t549, t552, t556, t559, t560, t562, t563;
-  double t564, t568, t571, t575, t576, t582, t583, t584;
-  double t585, t586, t587, t588, t589, t594, t599, t605;
-  double t606, t608, t612, t614, t616, t618, t620, t621;
-  double t622, t624, t626, t627, t629, t632, t634, t636;
-  double t637, t639, t648, t650, t656, t658, t661, t662;
-  double t665, t675, t678, t681, t682, t686, t689, t691;
-  double t692, t693, t697, t698, t709, t722, t728, t730;
-  double t741, t743, t751, t767, t771, t777, t779, t790;
-  double t792, t800, t812, t813, t814, t815, t827, t829;
-  double t831, t845, t851, t853, t857, t873, t899, t905;
-  double t915, t921, t923, t938, t941, t946, t948, t952;
-  double t968, t994, t1000, t1011, t1023, t1024, t1025, t1039;
-  double t1042, t1046, t1053, t1055, t1057, t1065, t1068, t1101;
-  double t1102, t1137, t1139, t1154, t1155, t1165, t1170, t1179;
-  double t1182, t1187, t1193, t1202, t1231, t1232, t1267, t1269;
-  double t1279, t1290, t1297, t1305, t1316, t1328, t1334, t1371;
-  double t1377, t1383, t1391, t1405, t1426, t1430, t1467;
+  double t155, t157, t160, t161;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t166, t167, t168, t170, t172, t175, t177, t179;
+  double t180, t182, t185, t186, t188, t189, t190, t191;
+  double t192, t193, t194, t195, t196, t197, t198, t201;
+  double t203, t204, t205, t206, t207, t208, t209, t210;
+  double t211, t212, t213, t214, t215, t216, t217, t218;
+  double t219, t220, t221, t223, t224, t225, t226, t227;
+  double t229, t232, t234, t236, t237, t239, t242, t244;
+  double t245, t246, t247, t248, t249, t250, t251, t254;
+  double t256, t257, t258, t259, t260, t261, t262, t263;
+  double t264, t265, t266, t267, t268, t269, t270, t271;
+  double t272, t274, t275, t276, t277, t280, t281, t286;
+  double t289, t291, t294, t295, t301, t304, t306, t309;
+  double t310, t316, t318, t320, t323, t325, t326, t327;
+  double t328, t330, t333, t335, t336, t338, t341, t343;
+  double t344, t346, t348, t350, t353, t354, t355, t357;
+  double t360, t362, t363, t365, t368, t370, t371, t378;
+  double t380, t383, t386, t387, t389, t392, t393, t394;
+  double t397, t399, t401, t402, t404, t406, t407, t410;
+  double t411, t412, t413, t415, t418, t421, t422, t424;
+  double t427, t428, t429, t432, t434, t436, t437, t439;
+  double t441, t442, t445, t446, t447;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t453, t454, t456, t458, t459, t460, t461, t462;
+  double t463, t468, t473, t479, t480, t482, t486, t488;
+  double t490, t492, t494, t495, t496, t498, t500, t501;
+  double t503, t504, t505, t507, t510, t512, t513, t522;
+  double t524, t525, t527, t536, t542, t544, t547, t548;
+  double t549, t552, t556, t559, t560, t562, t563, t564;
+  double t568, t571, t575, t576, t582, t583, t584, t585;
+  double t586, t587, t588, t589, t594, t599, t605, t606;
+  double t608, t612, t614, t616, t618, t620, t621, t622;
+  double t624, t626, t627, t629, t632, t634, t636, t637;
+  double t639, t648, t650, t656, t658, t661, t662, t665;
+  double t675, t678, t681, t682, t686, t689, t691, t692;
+  double t693, t697, t698, t709, t722, t728, t730, t741;
+  double t743, t751, t767, t771, t777, t779, t790, t792;
+  double t800, t812, t813, t814, t815, t827, t829, t831;
+  double t845, t851, t853, t857, t873, t899, t905, t915;
+  double t921, t923, t938, t941, t946, t948, t952, t968;
+  double t994, t1000, t1011, t1023, t1024, t1025, t1039, t1042;
+  double t1046, t1053, t1055, t1057, t1065, t1068, t1101, t1102;
+  double t1137, t1139, t1154, t1155, t1165, t1170, t1179, t1182;
+  double t1187, t1193, t1202, t1231, t1232, t1267, t1269, t1279;
+  double t1290, t1297, t1305, t1316, t1328, t1334, t1371, t1377;
+  double t1383, t1391, t1405, t1426, t1430, t1467;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
   lda_x_1d_exponential_params *params;
 

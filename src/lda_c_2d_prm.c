@@ -43,7 +43,6 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 {
   static double prm_q = 3.9274; /* 2.258 */
   lda_c_2d_prm_params *params;
-  double ff;
 
   assert(p != NULL && p->params != NULL);
   params = (lda_c_2d_prm_params *) (p->params);

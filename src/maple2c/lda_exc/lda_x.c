@@ -7,7 +7,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
   Maple version     : Maple 2016 (X86 64 LINUX)
-  Maple source      : ./maple/lda_exc/lda_x.mpl
+  Maple source      : .//maple/lda_exc/lda_x.mpl
   Type of functional: lda_exc
 */
 
@@ -16,8 +16,22 @@
 static inline void
 func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t4, t5, t6, t7, t8, t9, t10;
-  double t11, t13, t16, t25;
+  double t11, t13;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t16;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t25;
+#endif
+
+#endif
+
+#endif
+
 
   lda_x_params *params;
 
@@ -93,8 +107,21 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
 static inline void
 func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t2, t4, t5, t6, t7, t8, t10;
-  double t13, t22;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t13;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t22;
+#endif
+
+#endif
+
+#endif
+
 
   lda_x_params *params;
 
@@ -168,23 +195,45 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 static inline void
 func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t4, t5, t6, t7, t8, t9, t10;
   double t11, t12, t13, t14, t15, t16, t18, t19;
-  double t21, t22, t25, t27, t30, t31, t32, t33;
-  double t34, t35, t37, t40, t45, t47, t52, t57;
-  double t59, t60, t64, t65, t66, t67, t71, t72;
-  double t74, t77, t78, t79, t82, t85, t92, t93;
-  double t95, t98, t101, t104, t109, t113, t117, t120;
-  double t123, t128, t133, t137, t140, t144, t146, t147;
-  double t150, t153, t154, t155, t157, t161, t162, t165;
-  double t168, t171, t179, t180, t183, t184, t187, t197;
-  double t200, t212, t217, t219, t224, t229, t232, t237;
-  double t240, t245, t250, t256, t259, t264, t269, t274;
-  double t278, t282, t289, t290, t292, t293, t299, t305;
-  double t306, t308, t311, t313, t314, t320, t338, t340;
-  double t341, t342, t367, t385, t394, t404, t406, t417;
-  double t420, t459, t468, t488, t510, t518, t523, t529;
-  double t532, t537;
+  double t21, t22, t25;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t27, t30, t31, t32, t33, t34, t35, t37;
+  double t40, t45, t47, t52;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t57, t59, t60, t64, t65, t66, t67, t71;
+  double t72, t74, t77, t78, t79, t82, t85, t92;
+  double t93, t95, t98, t101, t104, t109, t113, t117;
+  double t120, t123, t128;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t133, t137, t140, t144, t146, t147, t150, t153;
+  double t154, t155, t157, t161, t162, t165, t168, t171;
+  double t179, t180, t183, t184, t187, t197, t200, t212;
+  double t217, t219, t224, t229, t232, t237, t240, t245;
+  double t250, t256, t259, t264, t269;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t274, t278, t282, t289, t290, t292, t293, t299;
+  double t305, t306, t308, t311, t313, t314, t320, t338;
+  double t340, t341, t342, t367, t385, t394, t404, t406;
+  double t417, t420, t459, t468, t488, t510, t518, t523;
+  double t529, t532, t537;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
   lda_x_params *params;
 

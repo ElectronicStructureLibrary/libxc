@@ -16,9 +16,32 @@
 static inline void
 func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t2, t3, t4, t5, t6, t7, t8;
-  double t12, t15, t16, t22, t23, t28, t33, t35;
-  double t36, t42, t43, t44, t55, t58, t59, t64;
+  double t12;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t15, t16;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t22, t23, t28, t33, t35, t36;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t42, t43, t44, t55, t58, t59;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t64;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
   lda_c_wigner_params *params;
 
@@ -169,22 +192,43 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 static inline void
 func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t2, t3, t4, t5, t7, t8, t9;
   double t10, t11, t12, t13, t14, t15, t16, t20;
-  double t21, t22, t23, t24, t25, t27, t29, t33;
-  double t34, t36, t37, t39, t41, t44, t45, t47;
-  double t51, t53, t54, t56, t57, t58, t60, t61;
-  double t66, t68, t70, t74, t75, t77, t79, t81;
-  double t82, t83, t84, t89, t93, t97, t98, t100;
-  double t101, t103, t104, t108, t110, t114, t116, t117;
-  double t118, t119, t121, t123, t124, t129, t133, t136;
-  double t137, t139, t141, t143, t145, t146, t147, t149;
-  double t150, t151, t157, t160, t166, t167, t168, t173;
-  double t179, t185, t188, t191, t193, t198, t204, t210;
-  double t211, t212, t213, t217, t223, t227, t230, t242;
-  double t244, t248, t250, t255, t262, t263, t265, t269;
-  double t273, t274, t286, t296, t300, t304, t306, t314;
-  double t320;
+  double t21;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t22, t23, t24, t25, t27, t29, t33, t34;
+  double t36, t37, t39, t41;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t44, t45, t47, t51, t53, t54, t56, t57;
+  double t58, t60, t61, t66, t68, t70, t74, t75;
+  double t77, t79, t81, t82, t83, t84, t89, t93;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t97, t98, t100, t101, t103, t104, t108, t110;
+  double t114, t116, t117, t118, t119, t121, t123, t124;
+  double t129, t133, t136, t137, t139, t141, t143, t145;
+  double t146, t147, t149, t150, t151, t157, t160, t166;
+  double t167, t168, t173, t179;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t185, t188, t191, t193, t198, t204, t210, t211;
+  double t212, t213, t217, t223, t227, t230, t242, t244;
+  double t248, t250, t255, t262, t263, t265, t269, t273;
+  double t274, t286, t296, t300, t304, t306, t314, t320;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
   lda_c_wigner_params *params;
 

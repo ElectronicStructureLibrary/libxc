@@ -16,9 +16,31 @@
 static inline void
 func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
-  double t1, t4, t5, t6, t8, t13, t15, t16;
-  double t22, t23, t25, t29, t30, t36, t37, t44;
-  double t54;
+
+#ifndef XC_DONT_COMPILE_EXC
+  double t1, t4, t5;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t6, t8;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t13, t15, t16, t22, t23;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t25, t29, t30, t36, t37;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t44, t54;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
   lda_xc_1d_ehwlrg_params *params;
  
@@ -99,9 +121,31 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
 static inline void
 func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
-  double t1, t4, t5, t6, t8, t13, t15, t16;
-  double t22, t23, t25, t29, t30, t36, t37, t44;
-  double t54;
+
+#ifndef XC_DONT_COMPILE_EXC
+  double t1, t4, t5;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t6, t8;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t13, t15, t16, t22, t23;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t25, t29, t30, t36, t37;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t44, t54;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
   lda_xc_1d_ehwlrg_params *params;
  
@@ -182,9 +226,31 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 static inline void
 func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
-  double t1, t3, t5, t6, t7, t9, t14, t16;
-  double t17, t23, t24, t26, t30, t31, t37, t38;
+
+#ifndef XC_DONT_COMPILE_EXC
+  double t1, t3, t5, t6;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t7, t9;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t14, t16, t17, t23, t24;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t26, t30, t31, t37, t38;
+
+#ifndef XC_DONT_COMPILE_LXC
   double t45, t55;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
   lda_xc_1d_ehwlrg_params *params;
  

@@ -16,7 +16,16 @@
 static inline void
 func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
-  double t1, t2, t4, t5, t6, t14;
+
+#ifndef XC_DONT_COMPILE_EXC
+  double t1, t2, t4, t5, t6;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t14;
+#endif
+
+#endif
+
 
 
   t1 = M_SQRT2;
@@ -82,7 +91,16 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
 static inline void
 func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
-  double t1, t2, t3, t4, t12;
+
+#ifndef XC_DONT_COMPILE_EXC
+  double t1, t2, t3, t4;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t12;
+#endif
+
+#endif
+
 
 
   t1 = sqrt(M_PI);
@@ -147,22 +165,44 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 static inline void
 func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t2, t3, t4, t5, t6, t7, t8;
   double t9, t10, t11, t12, t13, t14, t16, t17;
-  double t19, t21, t22, t23, t24, t25, t26, t27;
-  double t29, t32, t36, t38, t42, t46, t48, t50;
-  double t51, t52, t56, t57, t59, t62, t63, t66;
-  double t69, t74, t75, t77, t80, t83, t86, t90;
-  double t94, t98, t101, t104, t108, t112, t115, t117;
-  double t120, t121, t122, t125, t128, t129, t130, t132;
-  double t135, t136, t139, t142, t145, t151, t152, t154;
-  double t155, t158, t168, t171, t182, t186, t188, t193;
-  double t198, t201, t206, t209, t213, t218, t224, t227;
-  double t232, t236, t240, t243, t246, t252, t253, t255;
-  double t256, t262, t268, t269, t271, t274, t276, t277;
-  double t283, t299, t301, t302, t303, t328, t346, t355;
-  double t361, t362, t373, t376, t415, t423, t443, t465;
-  double t472, t477, t483, t486, t491;
+  double t19;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t21, t22, t23, t24, t25, t26, t27, t29;
+  double t32, t36, t38, t42;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t46, t48, t50, t51, t52, t56, t57, t59;
+  double t62, t63, t66, t69, t74, t75, t77, t80;
+  double t83, t86, t90, t94, t98, t101, t104, t108;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t112, t115, t117, t120, t121, t122, t125, t128;
+  double t129, t130, t132, t135, t136, t139, t142, t145;
+  double t151, t152, t154, t155, t158, t168, t171, t182;
+  double t186, t188, t193, t198, t201, t206, t209, t213;
+  double t218, t224, t227, t232, t236;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t240, t243, t246, t252, t253, t255, t256, t262;
+  double t268, t269, t271, t274, t276, t277, t283, t299;
+  double t301, t302, t303, t328, t346, t355, t361, t362;
+  double t373, t376, t415, t423, t443, t465, t472, t477;
+  double t483, t486, t491;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
 
   t1 = M_SQRT2;

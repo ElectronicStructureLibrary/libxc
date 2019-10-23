@@ -16,10 +16,26 @@
 static inline void
 func_unpol(const xc_func_type *p, int order, const double *rho, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_VXC
   double t3, t7, t11, t15, t19, t23, t27, t31;
+
+#ifndef XC_DONT_COMPILE_FXC
   double t33, t35, t37, t39, t41, t43, t45, t47;
+
+#ifndef XC_DONT_COMPILE_KXC
   double t50, t54, t58, t62, t66, t70, t74, t78;
+
+#ifndef XC_DONT_COMPILE_LXC
   double t81, t85, t89, t93, t97, t101, t105, t109;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
 
   t3 = tanh(0.10953e1 + 0.334789e-1 * rho[0]);
@@ -101,10 +117,26 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *vrho, do
 static inline void
 func_ferr(const xc_func_type *p, int order, const double *rho, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_VXC
   double t3, t7, t11, t15, t19, t23, t27, t31;
+
+#ifndef XC_DONT_COMPILE_FXC
   double t33, t35, t37, t39, t41, t43, t45, t47;
+
+#ifndef XC_DONT_COMPILE_KXC
   double t50, t54, t58, t62, t66, t70, t74, t78;
+
+#ifndef XC_DONT_COMPILE_LXC
   double t81, t85, t89, t93, t97, t101, t105, t109;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
 
   t3 = tanh(0.10953e1 + 0.334789e-1 * rho[0]);
@@ -186,10 +218,26 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *vrho, dou
 static inline void
 func_pol(const xc_func_type *p, int order, const double *rho, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_VXC
   double t4, t9, t14, t19, t24, t29, t34, t39;
+
+#ifndef XC_DONT_COMPILE_FXC
   double t41, t43, t45, t47, t49, t51, t53, t55;
+
+#ifndef XC_DONT_COMPILE_KXC
   double t58, t62, t66, t70, t74, t78, t82, t86;
+
+#ifndef XC_DONT_COMPILE_LXC
   double t89, t93, t97, t101, t105, t109, t113, t117;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
 
   t4 = tanh(0.10953e1 + 0.334789e-1 * rho[0] + 0.334789e-1 * rho[1]);

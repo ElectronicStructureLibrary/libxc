@@ -16,10 +16,32 @@
 static inline void
 func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t2, t4, t5, t6, t7, t8, t9;
-  double t10, t11, t13, t14, t17, t19, t21, t22;
-  double t23, t28, t31, t35, t45, t50, t51, t52;
-  double t55, t61, t75, t84, t86, t89, t108, t122;
+  double t10, t11, t13, t14, t17, t19;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t21, t22, t23, t28, t31;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t35, t45, t50, t51, t52, t55;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t61, t75, t84, t86, t89;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t108, t122;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
 
   t1 = M_CBRT3;
@@ -111,11 +133,32 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
 static inline void
 func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t2, t4, t5, t7, t8, t9, t10;
   double t11, t12, t13, t14, t16, t17, t20, t22;
-  double t24, t26, t27, t32, t35, t39, t49, t54;
-  double t55, t56, t59, t65, t79, t88, t90, t93;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t24, t26, t27, t32, t35;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t39, t49, t54, t55, t56, t59;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t65, t79, t88, t90, t93;
+
+#ifndef XC_DONT_COMPILE_LXC
   double t112, t126;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
 
   t1 = M_CBRT3;
@@ -209,32 +252,54 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 static inline void
 func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t2, t4, t5, t7, t8, t9, t10;
   double t11, t12, t13, t14, t15, t17, t18, t19;
   double t22, t23, t24, t25, t26, t28, t29, t32;
-  double t34, t35, t36, t38, t39, t40, t41, t42;
-  double t44, t47, t48, t52, t56, t59, t62, t63;
-  double t65, t69, t70, t73, t75, t77, t80, t83;
-  double t84, t85, t88, t89, t90, t92, t95, t96;
-  double t99, t102, t103, t108, t116, t117, t118, t121;
-  double t124, t127, t128, t130, t133, t136, t139, t143;
-  double t144, t147, t148, t152, t156, t159, t162, t166;
-  double t167, t171, t173, t175, t177, t180, t183, t184;
-  double t187, t190, t193, t195, t196, t199, t202, t203;
-  double t204, t206, t210, t211, t214, t217, t220, t221;
-  double t226, t229, t242, t244, t247, t250, t255, t256;
-  double t259, t260, t262, t265, t275, t278, t289, t290;
-  double t293, t295, t296, t297, t305, t307, t312, t317;
-  double t320, t325, t328, t332, t333, t336, t337, t344;
-  double t350, t353, t358, t362, t363, t370, t374, t379;
-  double t382, t385, t388, t391, t395, t398, t401, t402;
-  double t404, t405, t411, t417, t418, t420, t423, t425;
-  double t426, t432, t446, t449, t452, t466, t473, t478;
-  double t485, t488, t489, t490, t492, t494, t495, t496;
-  double t521, t539, t548, t554, t557, t558, t560, t562;
-  double t571, t580, t582, t584, t595, t598, t637, t643;
-  double t646, t648, t655, t681, t703, t709, t711, t713;
-  double t722, t727, t733, t736, t741;
+  double t34;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t35, t36, t38, t39, t40, t41, t42, t44;
+  double t47, t48, t52, t56, t59, t62, t63, t65;
+  double t69, t70;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t73, t75, t77, t80, t83, t84, t85, t88;
+  double t89, t90, t92, t95, t96, t99, t102, t103;
+  double t108, t116, t117, t118, t121, t124, t127, t128;
+  double t130, t133, t136, t139, t143, t144, t147, t148;
+  double t152, t156, t159, t162, t166, t167;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t171, t173, t175, t177, t180, t183, t184, t187;
+  double t190, t193, t195, t196, t199, t202, t203, t204;
+  double t206, t210, t211, t214, t217, t220, t221, t226;
+  double t229, t242, t244, t247, t250, t255, t256, t259;
+  double t260, t262, t265, t275, t278, t289, t290, t293;
+  double t295, t296, t297, t305, t307, t312, t317, t320;
+  double t325, t328, t332, t333, t336, t337, t344, t350;
+  double t353, t358, t362, t363;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t370, t374, t379, t382, t385, t388, t391, t395;
+  double t398, t401, t402, t404, t405, t411, t417, t418;
+  double t420, t423, t425, t426, t432, t446, t449, t452;
+  double t466, t473, t478, t485, t488, t489, t490, t492;
+  double t494, t495, t496, t521, t539, t548, t554, t557;
+  double t558, t560, t562, t571, t580, t582, t584, t595;
+  double t598, t637, t643, t646, t648, t655, t681, t703;
+  double t709, t711, t713, t722, t727, t733, t736, t741;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
 
   t1 = M_CBRT3;

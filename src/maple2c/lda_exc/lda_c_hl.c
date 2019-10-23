@@ -16,14 +16,36 @@
 static inline void
 func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t2, t5, t6, t7, t8, t11, t12;
   double t13, t14, t15, t16, t17, t18, t23, t24;
   double t26, t27, t28, t30, t31, t35, t36, t39;
+
+#ifndef XC_DONT_COMPILE_VXC
   double t45, t46, t47, t49, t53, t54, t55, t61;
-  double t67, t71, t75, t76, t81, t85, t92, t93;
-  double t94, t95, t96, t100, t106, t110, t114, t115;
-  double t120, t126, t131, t140, t143, t147, t151, t155;
+  double t67, t71;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t75, t76, t81, t85, t92, t93, t94, t95;
+  double t96, t100, t106, t110;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t114, t115, t120, t126, t131, t140, t143, t147;
+  double t151, t155;
+
+#ifndef XC_DONT_COMPILE_LXC
   double t165, t171, t188, t191;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
   lda_c_hl_params *params;
 
@@ -147,14 +169,36 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
 static inline void
 func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t2, t5, t6, t7, t8, t11, t12;
   double t13, t14, t15, t16, t17, t18, t23, t24;
   double t26, t27, t28, t30, t31, t35, t36, t39;
+
+#ifndef XC_DONT_COMPILE_VXC
   double t45, t46, t47, t49, t53, t54, t55, t61;
-  double t67, t71, t75, t76, t81, t85, t92, t93;
-  double t94, t95, t96, t100, t106, t110, t114, t115;
-  double t120, t126, t131, t140, t143, t147, t151, t155;
+  double t67, t71;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t75, t76, t81, t85, t92, t93, t94, t95;
+  double t96, t100, t106, t110;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t114, t115, t120, t126, t131, t140, t143, t147;
+  double t151, t155;
+
+#ifndef XC_DONT_COMPILE_LXC
   double t165, t171, t188, t191;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
   lda_c_hl_params *params;
 
@@ -278,36 +322,59 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 static inline void
 func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t2, t3, t4, t5, t6, t7, t8;
   double t9, t12, t13, t14, t15, t16, t17, t18;
   double t19, t20, t24, t25, t27, t28, t29, t31;
   double t32, t36, t37, t39, t40, t45, t46, t47;
   double t48, t49, t51, t52, t55, t58, t59, t60;
   double t61, t62, t63, t64, t67, t71, t72, t74;
-  double t78, t84, t85, t86, t87, t88, t89, t93;
-  double t94, t95, t101, t107, t112, t113, t114, t116;
-  double t120, t121, t122, t126, t127, t128, t140, t141;
-  double t144, t146, t150, t151, t154, t156, t157, t158;
-  double t159, t163, t164, t167, t174, t175, t176, t177;
-  double t178, t182, t188, t193, t194, t195, t196, t199;
-  double t201, t204, t205, t206, t209, t213, t214, t215;
-  double t216, t221, t228, t229, t230, t231, t243, t244;
-  double t247, t250, t253, t256, t260, t261, t262, t266;
-  double t270, t273, t276, t280, t281, t282, t285, t288;
-  double t289, t290, t291, t295, t296, t301, t302, t304;
-  double t306, t315, t318, t322, t326, t331, t333, t334;
-  double t337, t340, t342, t346, t347, t350, t353, t357;
-  double t358, t359, t361, t362, t370, t379, t382, t394;
-  double t395, t399, t400, t403, t413, t416, t427, t428;
-  double t429, t430, t431, t436, t441, t446, t449, t454;
-  double t457, t461, t462, t463, t469, t475, t478, t483;
-  double t487, t488, t490, t493, t497, t499, t500, t504;
-  double t505, t510, t511, t527, t530, t533, t537, t541;
-  double t546, t547, t549, t550, t556, t561, t563, t566;
-  double t568, t569, t575, t586, t588, t590, t612, t615;
-  double t630, t636, t660, t678, t687, t690, t692, t693;
-  double t694, t715, t718, t757, t760, t762, t790, t812;
-  double t815, t824, t829, t835, t838, t843;
+  double t78, t84, t85;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t86, t87, t88, t89, t93, t94, t95, t101;
+  double t107, t112, t113, t114, t116, t120, t121, t122;
+  double t126, t127, t128, t140, t141, t144, t146, t150;
+  double t151;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t154, t156, t157, t158, t159, t163, t164, t167;
+  double t174, t175, t176, t177, t178, t182, t188, t193;
+  double t194, t195, t196, t199, t201, t204, t205, t206;
+  double t209, t213, t214, t215, t216, t221, t228, t229;
+  double t230, t231, t243, t244, t247, t250, t253, t256;
+  double t260, t261, t262, t266, t270, t273, t276, t280;
+  double t281, t282;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t285, t288, t289, t290, t291, t295, t296, t301;
+  double t302, t304, t306, t315, t318, t322, t326, t331;
+  double t333, t334, t337, t340, t342, t346, t347, t350;
+  double t353, t357, t358, t359, t361, t362, t370, t379;
+  double t382, t394, t395, t399, t400, t403, t413, t416;
+  double t427, t428, t429, t430, t431, t436, t441, t446;
+  double t449, t454, t457, t461, t462, t463, t469, t475;
+  double t478, t483, t487, t488, t490;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t493, t497, t499, t500, t504, t505, t510, t511;
+  double t527, t530, t533, t537, t541, t546, t547, t549;
+  double t550, t556, t561, t563, t566, t568, t569, t575;
+  double t586, t588, t590, t612, t615, t630, t636, t660;
+  double t678, t687, t690, t692, t693, t694, t715, t718;
+  double t757, t760, t762, t790, t812, t815, t824, t829;
+  double t835, t838, t843;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
   lda_c_hl_params *params;
 

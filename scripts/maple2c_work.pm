@@ -98,9 +98,9 @@ $code
 
   # find all variables defined in the c code
   my $new_c_code = "";
-  my $variables  = "";
-  my $n_var = 0;
 
+  my @variables  = ("", "", "", "", "", "");
+  my @n_var = (0, 0, 0, 0, 0, 0);
   my @test_1 = ("zk", "vrho", "v2rho2", "v3rho3", "v4rho4", "v5rho5");
   my @test_2 = ("EXC", "VXC", "FXC", "KXC", "LXC", "MXC");  
   
@@ -144,27 +144,37 @@ $code
     }
 
     if(($found == 0) && ($_ =~ /^(t\d+) =/)){
-      if($n_var % 8 == 0){
-        $variables .= ";\n" if($n_var != 0);
-        $variables .= "  double ";
+      if($n_var[$total_order] % 8 == 0){
+        $variables[$total_order] .= ";\n" if($n_var[$total_order] != 0);
+        $variables[$total_order] .= "  double ";
       }else{
-        $variables .= ", ";
+        $variables[$total_order] .= ", ";
       }
-      $n_var++;
+      $n_var[$total_order]++;
 
-      $variables .= "$1";
+      $variables[$total_order] .= "$1";
+      
       $new_c_code .= "  ".$_;
     }elsif($found == 0){
       $new_c_code .= "  ".$_;
     }	
   }
-  $variables .= ";\n" if($n_var != 0);
-
+  
+  my $all_variables = "";
+  for(my $i=0; $i<$total_order; $i++){
+    if($n_var[$i] != 0){
+      $all_variables .= "\n#ifndef XC_DONT_COMPILE_".$test_2[$i]."\n". $variables[$i]. ";\n";
+    }
+  }
+  for(my $i=0; $i<$total_order; $i++){
+    $all_variables .= "#endif\n\n" if($n_var[$i] != 0);
+  }
+  
   for(my $i=$start_order; $i<$total_order; $i++){
     $new_c_code .= "#endif\n\n";
   }
   
-  return ($variables, maple2c_replace($new_c_code));
+  return ($all_variables, maple2c_replace($new_c_code));
 }
 
 sub maple2c_replace {

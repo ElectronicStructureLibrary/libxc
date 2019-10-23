@@ -16,14 +16,35 @@
 static inline void
 func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
-  double t1, t2, t4, t6, t7, t9, t10, t11;
-  double t12, t14, t15, t18, t22, t23, t24, t25;
+
+#ifndef XC_DONT_COMPILE_EXC
+  double t1, t2, t4, t6, t7, t9, t10;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t11, t12, t14, t15, t18, t22, t23, t24;
+  double t25;
+
+#ifndef XC_DONT_COMPILE_FXC
   double t32, t33, t35, t36, t39, t40, t44, t47;
-  double t48, t49, t51, t52, t53, t54, t56, t65;
-  double t66, t67, t68, t69, t71, t73, t74, t77;
-  double t78, t80, t83, t84, t85, t87, t88, t90;
-  double t93, t94, t95, t97, t99, t114, t127, t148;
-  double t159;
+  double t48, t49, t51, t52, t53, t54, t56;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t65, t66, t67, t68, t69, t71, t73, t74;
+  double t77, t78, t80, t83, t84, t85, t87, t88;
+  double t90, t93, t94, t95, t97, t99;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t114, t127, t148, t159;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
 
   t1 = POW_1_3(rho[0]);
@@ -140,14 +161,35 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
 static inline void
 func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
-  double t1, t2, t4, t6, t7, t9, t10, t11;
-  double t12, t14, t15, t18, t22, t23, t24, t25;
+
+#ifndef XC_DONT_COMPILE_EXC
+  double t1, t2, t4, t6, t7, t9, t10;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t11, t12, t14, t15, t18, t22, t23, t24;
+  double t25;
+
+#ifndef XC_DONT_COMPILE_FXC
   double t32, t33, t35, t36, t39, t40, t44, t47;
-  double t48, t49, t51, t52, t53, t54, t56, t65;
-  double t66, t67, t68, t69, t71, t73, t74, t77;
-  double t78, t80, t83, t84, t85, t87, t88, t90;
-  double t93, t94, t95, t97, t99, t114, t127, t148;
-  double t159;
+  double t48, t49, t51, t52, t53, t54, t56;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t65, t66, t67, t68, t69, t71, t73, t74;
+  double t77, t78, t80, t83, t84, t85, t87, t88;
+  double t90, t93, t94, t95, t97, t99;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t114, t127, t148, t159;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
 
   t1 = POW_1_3(rho[0]);
@@ -264,14 +306,35 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 static inline void
 func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t2, t3, t5, t7, t8, t10, t11;
+
+#ifndef XC_DONT_COMPILE_VXC
   double t12, t13, t15, t16, t19, t23, t24, t25;
-  double t26, t33, t34, t36, t37, t40, t41, t45;
-  double t48, t49, t50, t52, t53, t54, t55, t57;
+  double t26;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t33, t34, t36, t37, t40, t41, t45, t48;
+  double t49, t50, t52, t53, t54, t55, t57;
+
+#ifndef XC_DONT_COMPILE_KXC
   double t66, t67, t68, t69, t70, t72, t74, t75;
   double t78, t79, t81, t84, t85, t86, t88, t89;
-  double t91, t94, t95, t96, t98, t100, t115, t128;
-  double t149, t160;
+  double t91, t94, t95, t96, t98, t100;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t115, t128, t149, t160;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
 
   t1 = rho[0] + rho[1];

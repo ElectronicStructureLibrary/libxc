@@ -16,9 +16,31 @@
 static inline void
 func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
-  double t1, t4, t5, t8, t9, t12, t14, t17;
-  double t18, t21, t28, t34, t35, t39, t42, t51;
-  double t60, t62, t66, t69, t80, t94;
+
+#ifndef XC_DONT_COMPILE_EXC
+  double t1, t4, t5, t8, t9;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t12, t14, t17, t18, t21;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t28, t34, t35, t39, t42;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t51, t60, t62, t66, t69;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t80, t94;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
 
   t1 = POW_1_3(rho[0]);
@@ -100,9 +122,31 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
 static inline void
 func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
-  double t1, t4, t5, t8, t9, t12, t14, t17;
-  double t18, t21, t28, t34, t35, t39, t42, t51;
-  double t60, t62, t66, t69, t80, t94;
+
+#ifndef XC_DONT_COMPILE_EXC
+  double t1, t4, t5, t8, t9;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t12, t14, t17, t18, t21;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t28, t34, t35, t39, t42;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t51, t60, t62, t66, t69;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t80, t94;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
 
   t1 = POW_1_3(rho[0]);
@@ -184,9 +228,31 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 static inline void
 func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
-  double t1, t2, t5, t6, t9, t10, t13, t15;
-  double t18, t19, t22, t29, t35, t36, t40, t43;
-  double t52, t61, t63, t67, t70, t81, t95;
+
+#ifndef XC_DONT_COMPILE_EXC
+  double t1, t2, t5, t6, t9, t10;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t13, t15, t18, t19, t22;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t29, t35, t36, t40, t43;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t52, t61, t63, t67, t70;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t81, t95;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
 
   t1 = rho[0] + rho[1];

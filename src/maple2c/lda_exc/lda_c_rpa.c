@@ -16,10 +16,32 @@
 static inline void
 func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t3, t4, t5, t6, t7, t9, t10;
-  double t12, t13, t16, t17, t18, t22, t24, t26;
-  double t33, t34, t38, t40, t42, t49, t50, t54;
-  double t56, t58, t65, t70;
+  double t12, t13, t16, t17;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t18, t22, t24, t26;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t33, t34, t38, t40, t42;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t49, t50, t54, t56, t58;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t65, t70;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
 
   t1 = M_CBRT3;
@@ -107,10 +129,32 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
 static inline void
 func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t3, t4, t5, t6, t7, t9, t10;
-  double t12, t13, t16, t17, t18, t22, t24, t26;
-  double t33, t34, t38, t40, t42, t49, t50, t54;
-  double t56, t58, t65, t70;
+  double t12, t13, t16, t17;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t18, t22, t24, t26;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t33, t34, t38, t40, t42;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t49, t50, t54, t56, t58;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t65, t70;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
 
   t1 = M_CBRT3;
@@ -198,10 +242,32 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 static inline void
 func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
+
+#ifndef XC_DONT_COMPILE_EXC
   double t1, t3, t4, t5, t6, t7, t8, t10;
-  double t11, t13, t14, t17, t18, t19, t23, t25;
-  double t27, t34, t35, t39, t41, t43, t50, t51;
-  double t55, t57, t59, t66, t71;
+  double t11, t13, t14, t17, t18;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t19, t23, t25, t27;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t34, t35, t39, t41, t43;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t50, t51, t55, t57, t59;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t66, t71;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
 
   t1 = M_CBRT3;

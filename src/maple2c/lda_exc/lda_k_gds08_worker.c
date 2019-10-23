@@ -16,9 +16,31 @@
 static inline void
 func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
-  double t1, t2, t3, t4, t5, t6, t7, t8;
-  double t14, t15, t16, t17, t19, t27, t28, t30;
-  double t32, t39, t40;
+
+#ifndef XC_DONT_COMPILE_EXC
+  double t1, t2, t3, t4;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t5, t6, t7, t8;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t14, t15, t16, t17, t19;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t27, t28, t30, t32;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t39, t40;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
   lda_k_gds08_params *params;
 
@@ -101,9 +123,31 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
 static inline void
 func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
-  double t1, t2, t3, t4, t5, t6, t7, t8;
-  double t14, t15, t16, t17, t19, t27, t28, t30;
-  double t32, t39, t40;
+
+#ifndef XC_DONT_COMPILE_EXC
+  double t1, t2, t3, t4;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t5, t6, t7, t8;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t14, t15, t16, t17, t19;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t27, t28, t30, t32;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t39, t40;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
   lda_k_gds08_params *params;
 
@@ -186,9 +230,31 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 static inline void
 func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
 {
-  double t1, t2, t3, t4, t5, t6, t7, t8;
-  double t9, t15, t16, t17, t18, t20, t28, t29;
-  double t31, t33, t40, t41;
+
+#ifndef XC_DONT_COMPILE_EXC
+  double t1, t2, t3, t4, t5;
+
+#ifndef XC_DONT_COMPILE_VXC
+  double t6, t7, t8, t9;
+
+#ifndef XC_DONT_COMPILE_FXC
+  double t15, t16, t17, t18, t20;
+
+#ifndef XC_DONT_COMPILE_KXC
+  double t28, t29, t31, t33;
+
+#ifndef XC_DONT_COMPILE_LXC
+  double t40, t41;
+#endif
+
+#endif
+
+#endif
+
+#endif
+
+#endif
+
 
   lda_k_gds08_params *params;
 

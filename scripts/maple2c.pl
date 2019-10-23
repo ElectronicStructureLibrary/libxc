@@ -87,7 +87,8 @@ sub work_lda_exc {
     [[[1,0], "vrho_0_"],   [[0,1], "vrho_1_"]],
     [[[2,0], "v2rho2_0_"], [[1,1], "v2rho2_1_"], [[0,2], "v2rho2_2_"]],
     [[[3,0], "v3rho3_0_"], [[2,1], "v3rho3_1_"], [[1,2], "v3rho3_2_"], [[0,3], "v3rho3_3_"]],
-    );
+    [[[4,0], "v4rho4_0_"], [[3,1], "v4rho4_1_"], [[2,2], "v4rho4_2_"], [[1,3], "v4rho4_3_"], [[0,4], "v4rho4_1_"]]
+      );
 
   # get arguments of the functions
   my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
@@ -160,11 +161,13 @@ sub work_lda_vxc {
     [[[0,0], "vrho_0_"]],
     [[[1,0], "v2rho2_0_"], [[0,1], "v2rho2_1_"]],
     [[[2,0], "v3rho3_0_"], [[1,1], "v3rho3_1_"], [[0,2], "v3rho3_2_"]],
+    [[[3,0], "v4rho4_0_"], [[2,1], "v4rho4_1_"], [[1,2], "v4rho4_2_"], [[0,3], "v4rho4_3_"]],
       );
   my @derivatives2 = (
     [[[0,0], "vrho_1_"]],
     [[[0,1], "v2rho2_2_"]],
-    [[[0,2], "v3rho3_3_"]],    
+    [[[0,2], "v3rho3_3_"]],
+    [[[0,3], "v4rho4_4_"]],
       );
   
   my @derivatives = ();
@@ -195,7 +198,7 @@ sub work_lda_vxc {
   $der_def_pol .= $der_def_pol2;
   
   push(@out_c_pol1, @out_c_pol2);
-  my $out_c_pol = join(", ", sort(@out_c_pol1));
+  my $out_c_pol = join(", ", sort sort_alphanumerically @out_c_pol1);
 
   # we join all the pieces
   my $maple_code1 = "

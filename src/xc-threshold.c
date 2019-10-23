@@ -474,7 +474,7 @@ int main(int argc, char *argv[])
     switch(func.info->family) {
     case XC_FAMILY_LDA:
     case XC_FAMILY_HYB_LDA:
-      xc_lda(&func, 1, values.rho, pzk, pvrho, pv2rho2, pv3rho3);
+      xc_lda(&func, 1, values.rho, pzk, pvrho, pv2rho2, pv3rho3, NULL);
       break;
     case XC_FAMILY_GGA:
     case XC_FAMILY_HYB_GGA:

@@ -205,7 +205,7 @@ xc_mix_func(const xc_func_type *func, int np,
     /* Evaluate the functional */
     switch(aux->info->family){
     case XC_FAMILY_LDA:
-      xc_lda(aux, np, rho, zk_, vrho_, v2rho2_, v3rho3_);
+      xc_lda(aux, np, rho, zk_, vrho_, v2rho2_, v3rho3_, NULL);
       break;
     case XC_FAMILY_GGA:
       xc_gga(aux, np, rho, sigma, zk_, vrho_, vsigma_,

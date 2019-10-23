@@ -45,6 +45,12 @@
 # define XC_FLAGS_I_HAVE_KXC XC_FLAGS_HAVE_KXC
 #endif
 
+#ifdef XC_DONT_COMPILE_LXC
+# define XC_FLAGS_I_HAVE_LXC 0
+#else
+# define XC_FLAGS_I_HAVE_LXC XC_FLAGS_HAVE_KXC
+#endif
+
 #define XC_FLAGS_I_HAVE_ALL (XC_FLAGS_HAVE_EXC   | XC_FLAGS_I_HAVE_VXC | \
                              XC_FLAGS_I_HAVE_FXC | XC_FLAGS_I_HAVE_KXC)
 
@@ -195,6 +201,11 @@ typedef struct xc_functional_key_t {
 void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
 
 /* Functions to handle the internal counters */
+
+/* This are the derivatives of an lda */
+#define LDA_OUT_PARAMS_NO_EXC(PTYPE)                                     \
+ PTYPE vrho, PTYPE v2rho2, PTYPE v3rho3, PTYPE v4rho4
+
 void internal_counters_set_lda (int nspin, xc_dimensions *dim);
 void internal_counters_lda_next
 (const xc_dimensions *dim, int offset,

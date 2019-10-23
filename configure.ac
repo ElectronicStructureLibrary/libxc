@@ -123,6 +123,7 @@ if test x"${ac_cv_build_vxc}" == x"no"; then
   AC_DEFINE(XC_DONT_COMPILE_VXC, 1, [defined if first derivatives are disabled])
   AC_DEFINE(XC_DONT_COMPILE_FXC, 1, [defined if second derivatives are disabled])
   AC_DEFINE(XC_DONT_COMPILE_KXC, 1, [defined if third derivatives are disabled])
+  AC_DEFINE(XC_DONT_COMPILE_LXC, 1, [defined if fourth derivatives are disabled])
 fi
 
 AC_ARG_ENABLE([fxc],

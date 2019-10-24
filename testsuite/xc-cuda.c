@@ -15,7 +15,7 @@
 
 int main()
 {
-  xc_func_type func;
+
   int N = 5;
   double rho[N] = {0.1, 0.2, 0.3, 0.4, 0.5};
   double sigma[N] = {0.2, 0.3, 0.4, 0.5, 0.6};
@@ -25,7 +25,9 @@ int main()
   xc_version(&vmajor, &vminor, &vmicro);
   printf("Libxc version: %d.%d.%d\n", vmajor, vminor, vmicro);
 
-  if(xc_func_init(&func, func_id, XC_UNPOLARIZED) != 0){
+  xc_func_type * func = xc_func_alloc();
+  
+  if(xc_func_init(func, func_id, XC_UNPOLARIZED) != 0){
     fprintf(stderr, "Functional '%d' not found\n", func_id);
     return 1;
   }
@@ -38,14 +40,14 @@ int main()
 
   cudaMemcpy(rho_cuda, rho, N*sizeof(double), cudaMemcpyHostToDevice);
   
-  switch(func.info->family)
+  switch(func->info->family)
   {
   case XC_FAMILY_LDA:
-    xc_lda_exc(&func, 5, rho_cuda, exc_cuda);
+    xc_lda_exc(func, 5, rho_cuda, exc_cuda);
     break;
   case XC_FAMILY_GGA:
   case XC_FAMILY_HYB_GGA:
-    xc_gga_exc(&func, 5, rho, sigma, exc);
+    xc_gga_exc(func, 5, rho, sigma, exc);
     break;
   }
 
@@ -55,5 +57,6 @@ int main()
     printf("%lf %le\n", rho[i], exc[i]);
   }
 
-  xc_func_end(&func);
+  xc_func_end(func);
+  xc_func_free(func);
 }

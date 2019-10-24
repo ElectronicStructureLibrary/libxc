@@ -11,6 +11,10 @@
 #include "funcs_lda.c"
 #include "funcs_hyb_lda.c"
 
+#ifdef HAVE_CUDA
+#include <cuda.h>
+#endif
+
 /* get the lda functional */
 void 
 xc_lda(const xc_func_type *func, int np, const double *rho, 
@@ -43,6 +47,10 @@ xc_lda(const xc_func_type *func, int np, const double *rho,
     exit(1);
   }
 
+#ifdef HAVE_CUDA
+#define memset cudaMemset
+#endif
+  
   /* initialize output */
   if(zk != NULL)
     memset(zk,     0, np*sizeof(double)*dim->zk);
@@ -58,6 +66,8 @@ xc_lda(const xc_func_type *func, int np, const double *rho,
 
   if(v4rho4 != NULL)
     memset(v4rho4, 0, np*sizeof(double)*dim->v4rho4);
+
+#undef memset
 
   /* call the LDA routines */
   if(func->info->lda != NULL)

@@ -9,6 +9,8 @@
 
 SUBDIRS = maple2c
 
+CC+="-dc"
+
 bin_PROGRAMS = xc-info xc-threshold
 noinst_PROGRAMS = genwiki xc-sanity
 

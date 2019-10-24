@@ -9,6 +9,7 @@
 
 SUBDIRS = maple2c
 
+#this is a hack for nvcc, this should be improved.
 CC+="-dc"
 
 bin_PROGRAMS = xc-info xc-threshold

@@ -87,6 +87,9 @@ AC_DISABLE_SHARED
 LT_PREREQ([2.2])
 LT_INIT
 
+# enable cuda first, since this is required for the compiler selection
+AC_ARG_ENABLE(cuda, AS_HELP_STRING([--enable-cuda], [Cuda support (experimental)]))
+
 # Checks for programs.
 AC_PROG_CC
 
@@ -120,6 +123,9 @@ AC_ARG_WITH([custom-fmoddir],
 	    [AC_SUBST([FMODDIR],["$withval"])],
 	    [AC_SUBST([FMODDIR],['${includedir}'])])
 
+if test x"${enable_cuda}" == x"yes" ; then
+  AC_DEFINE(HAVE_CUDA, 1, [defined if cuda support is enabled])
+fi
 
 # Enable/disable derivatives
 AC_ARG_ENABLE([vxc],

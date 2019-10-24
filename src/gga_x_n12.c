@@ -49,7 +49,7 @@ gga_x_n12_init(xc_func_type *p)
   assert(p != NULL);
 
   assert(p->params == NULL);
-  p->params = malloc(sizeof(gga_x_n12_params));
+  p->params = libxc_malloc(sizeof(gga_x_n12_params));
   params = (gga_x_n12_params *) (p->params);
 
   switch(p->info->number){

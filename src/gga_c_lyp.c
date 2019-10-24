@@ -21,7 +21,7 @@ void xc_gga_c_lyp_init(xc_func_type *p)
   gga_c_lyp_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_c_lyp_params));
+  p->params = libxc_malloc(sizeof(gga_c_lyp_params));
   params = (gga_c_lyp_params *) (p->params);      
 
   /* values of constants in standard LYP functional */

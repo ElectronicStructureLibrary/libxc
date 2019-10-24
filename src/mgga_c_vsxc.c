@@ -28,7 +28,7 @@ mgga_c_vsxc_init(xc_func_type *p)
   mgga_c_vsxc_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(mgga_c_vsxc_params));
+  p->params = libxc_malloc(sizeof(mgga_c_vsxc_params));
   params = (mgga_c_vsxc_params *)p->params;
 
   switch(p->info->number){

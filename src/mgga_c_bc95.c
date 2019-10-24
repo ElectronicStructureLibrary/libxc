@@ -20,7 +20,7 @@ static void
 mgga_c_bc95_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(mgga_c_bc95_params));
+  p->params = libxc_malloc(sizeof(mgga_c_bc95_params));
 }
 
 static const func_params_type ext_params[] = {

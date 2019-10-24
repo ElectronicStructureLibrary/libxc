@@ -117,7 +117,7 @@ gga_k_tflw_init(xc_func_type *p)
 {
 
   assert(p->params == NULL);
-  p->params = malloc(sizeof(gga_k_tflw_params));
+  p->params = libxc_malloc(sizeof(gga_k_tflw_params));
 
   /* This automatically sets gamma and lambda depending on the functional chosen.
      We put by default N = 1.0 */

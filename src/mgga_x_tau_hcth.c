@@ -36,7 +36,7 @@ mgga_x_tau_hcth_init(xc_func_type *p)
   assert(p != NULL);
   assert(p->params == NULL);
 
-  p->params = malloc(sizeof(mgga_x_tau_hcth_params));
+  p->params = libxc_malloc(sizeof(mgga_x_tau_hcth_params));
   params = (mgga_x_tau_hcth_params *)(p->params);
 
   switch(p->info->number){

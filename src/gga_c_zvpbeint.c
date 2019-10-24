@@ -21,7 +21,7 @@ gga_c_zvpbeint_init(xc_func_type *p)
   gga_c_zvpbeint_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_c_zvpbeint_params));
+  p->params = libxc_malloc(sizeof(gga_c_zvpbeint_params));
   params = (gga_c_zvpbeint_params *) (p->params);
  
   switch(p->info->number){

@@ -20,7 +20,7 @@ gga_x_ol2_init(xc_func_type *p)
   gga_x_ol2_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_x_ol2_params));
+  p->params = libxc_malloc(sizeof(gga_x_ol2_params));
   params = (gga_x_ol2_params *) (p->params);
 
   /* defaults set by set_ext_params */

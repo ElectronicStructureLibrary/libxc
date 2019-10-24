@@ -21,7 +21,7 @@ mgga_x_gx_init(xc_func_type *p)
   mgga_x_gx_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(mgga_x_gx_params));
+  p->params = libxc_malloc(sizeof(mgga_x_gx_params));
   params = (mgga_x_gx_params *) (p->params);
 
   /* defaults set by set_ext_params */

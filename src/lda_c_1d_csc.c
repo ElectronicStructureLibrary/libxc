@@ -38,7 +38,7 @@ static void
 lda_c_1d_csc_init(xc_func_type *p)
 {
   assert(p != NULL && p->params == NULL);
-  p->params = malloc(sizeof(lda_c_1d_csc_params));
+  p->params = libxc_malloc(sizeof(lda_c_1d_csc_params));
 }
 
 #include "maple2c/lda_exc/lda_c_1d_csc.c"

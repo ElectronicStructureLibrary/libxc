@@ -43,7 +43,7 @@ mgga_x_m08_init(xc_func_type *p)
   mgga_x_m08_params *params;
 
   assert(p->params == NULL);
-  p->params = malloc(sizeof(mgga_x_m08_params));
+  p->params = libxc_malloc(sizeof(mgga_x_m08_params));
   params = (mgga_x_m08_params *) (p->params);
 
   switch(p->info->number){

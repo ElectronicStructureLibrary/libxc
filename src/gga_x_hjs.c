@@ -50,7 +50,7 @@ gga_x_hjs_init(xc_func_type *p)
   gga_x_hjs_params *params;
   
   assert(p->params == NULL);
-  p->params = malloc(sizeof(gga_x_hjs_params));
+  p->params = libxc_malloc(sizeof(gga_x_hjs_params));
   params = (gga_x_hjs_params *) (p->params);
   
   /* omega = 0.11 is set by ext_params */

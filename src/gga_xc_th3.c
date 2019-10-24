@@ -37,7 +37,7 @@ gga_xc_th3_init(xc_func_type *p)
   gga_xc_th3_params *params;
 
   assert(p->params == NULL);
-  p->params = malloc(sizeof(gga_xc_th3_params));
+  p->params = libxc_malloc(sizeof(gga_xc_th3_params));
   params = (gga_xc_th3_params *)p->params;
 
   switch(p->info->number){

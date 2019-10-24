@@ -23,7 +23,7 @@ mgga_x_br89_init(xc_func_type *p)
 {
   mgga_x_br89_params *params;
 
-  p->params = malloc(sizeof(mgga_x_br89_params));
+  p->params = libxc_malloc(sizeof(mgga_x_br89_params));
   params = (mgga_x_br89_params *)p->params;
 
   switch(p->info->number){

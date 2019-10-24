@@ -28,7 +28,7 @@ lda_c_2d_prm_init(xc_func_type *p)
 {
   assert(p != NULL && p->params == NULL);
 
-  p->params = malloc(sizeof(lda_c_2d_prm_params));
+  p->params = libxc_malloc(sizeof(lda_c_2d_prm_params));
 }
 
 #include "maple2c/lda_exc/lda_c_2d_prm.c"

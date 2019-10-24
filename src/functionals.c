@@ -188,7 +188,7 @@ xc_func_type *xc_func_alloc()
 {
   xc_func_type *func;
 
-  func = (xc_func_type *) malloc (sizeof (xc_func_type));
+  func = (xc_func_type *) libxc_malloc (sizeof (xc_func_type));
   return func;
 }
 
@@ -275,20 +275,20 @@ void xc_func_end(xc_func_type *func)
 
     for(ii=0; ii<func->n_func_aux; ii++){
       xc_func_end(func->func_aux[ii]);
-      free(func->func_aux[ii]);
+      libxc_free(func->func_aux[ii]);
     }
-    free(func->func_aux);
+    libxc_free(func->func_aux);
     func->n_func_aux = 0;
   }
 
   if(func->mix_coef != NULL){
-    free(func->mix_coef);
+    libxc_free(func->mix_coef);
     func->mix_coef = NULL;
   }
 
   /* deallocate any used parameter */
   if(func->params != NULL){
-    free(func->params);
+    libxc_free(func->params);
     func->params = NULL;
   }
 
@@ -298,7 +298,7 @@ void xc_func_end(xc_func_type *func)
 /*------------------------------------------------------*/
 void  xc_func_free(xc_func_type *p)
 {
-  free(p);
+  libxc_free(p);
 }
 
 /*------------------------------------------------------*/

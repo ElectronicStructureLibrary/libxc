@@ -19,7 +19,7 @@ static void
 lda_x_1d_exponential_init(xc_func_type *p)
 {
   assert(p->params == NULL);
-  p->params = malloc(sizeof(lda_x_1d_exponential_params));
+  p->params = libxc_malloc(sizeof(lda_x_1d_exponential_params));
 }
 
 static inline double FT_inter(double x)

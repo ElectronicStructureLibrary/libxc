@@ -25,7 +25,7 @@ mgga_c_revtpss_init(xc_func_type *p)
   mgga_c_revtpss_params *params;
 
   assert(p != NULL && p->params == NULL);
-  p->params = malloc(sizeof(mgga_c_revtpss_params));
+  p->params = libxc_malloc(sizeof(mgga_c_revtpss_params));
   params = (mgga_c_revtpss_params *)p->params;
 
   switch(p->info->number){

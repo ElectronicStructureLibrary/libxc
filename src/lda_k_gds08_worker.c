@@ -19,7 +19,7 @@ static void
 lda_k_gds08_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(lda_k_gds08_params));
+  p->params = libxc_malloc(sizeof(lda_k_gds08_params));
 }
 
 static func_params_type ext_params[] = {

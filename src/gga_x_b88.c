@@ -26,7 +26,7 @@ gga_x_b88_init(xc_func_type *p)
   gga_x_b88_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_x_b88_params));
+  p->params = libxc_malloc(sizeof(gga_x_b88_params));
   params = (gga_x_b88_params *) (p->params);
   
   /* value of beta in standard Becke 88 functional */

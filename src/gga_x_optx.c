@@ -19,7 +19,7 @@ static void
 gga_x_optx_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_x_optx_params));
+  p->params = libxc_malloc(sizeof(gga_x_optx_params));
 }
 
 static const func_params_type ext_params[] = {

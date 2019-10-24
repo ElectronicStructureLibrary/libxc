@@ -21,12 +21,12 @@ xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix
 
   /* allocate structures needed for */
   p->n_func_aux = n_funcs;
-  p->mix_coef   = (double *) malloc(n_funcs*sizeof(double));
-  p->func_aux   = (xc_func_type **) malloc(n_funcs*sizeof(xc_func_type *));
+  p->mix_coef   = (double *) libxc_malloc(n_funcs*sizeof(double));
+  p->func_aux   = (xc_func_type **) libxc_malloc(n_funcs*sizeof(xc_func_type *));
 
   for(ii=0; ii<n_funcs; ii++){
     p->mix_coef[ii] = mix_coef[ii];
-    p->func_aux[ii] = (xc_func_type *) malloc(sizeof(xc_func_type));
+    p->func_aux[ii] = (xc_func_type *) libxc_malloc(sizeof(xc_func_type));
     xc_func_init (p->func_aux[ii], funcs_id[ii], p->nspin);
   }
 
@@ -41,11 +41,10 @@ xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix
 #define is_mgga(id)   ((id) == XC_FAMILY_MGGA || (id) == XC_FAMILY_HYB_MGGA)
 #define is_gga(id)    ((id) == XC_FAMILY_GGA  || (id) == XC_FAMILY_HYB_GGA || is_mgga(id))
 #define is_lda(id)    ((id) == XC_FAMILY_LDA  || (id) == XC_FAMILY_HYB_LDA ||  is_gga(id))
-#define safe_free(pt) if(pt != NULL) free(pt)
+#define safe_free(pt) if(pt != NULL) libxc_free(pt)
 #define sum_var(VAR) \
     for(ip = 0; ip < np*dim->VAR; ip++)               \
         VAR[ip] += func->mix_coef[ii] * VAR ## _[ip]
-    
 
 void
 xc_mix_func(const xc_func_type *func, int np,
@@ -156,103 +155,103 @@ xc_mix_func(const xc_func_type *func, int np,
 
   /* allocate buffers */
   if(zk != NULL)
-    zk_ = (double *) malloc(sizeof(double)*np*dim->zk);
+    zk_ = (double *) libxc_malloc(sizeof(double)*np*dim->zk);
 
   if(vrho != NULL){
-    vrho_ = (double *) malloc(sizeof(double)*np*dim->vrho);
+    vrho_ = (double *) libxc_malloc(sizeof(double)*np*dim->vrho);
     if(is_gga(func->info->family)){
-      vsigma_ = (double *) malloc(sizeof(double)*np*dim->vsigma);
+      vsigma_ = (double *) libxc_malloc(sizeof(double)*np*dim->vsigma);
     }
     if(is_mgga(func->info->family)){
       if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
-        vlapl_ = (double *) malloc(sizeof(double)*np*dim->vlapl);
+        vlapl_ = (double *) libxc_malloc(sizeof(double)*np*dim->vlapl);
       }
-      vtau_  = (double *) malloc(sizeof(double)*np*dim->vtau);
+      vtau_  = (double *) libxc_malloc(sizeof(double)*np*dim->vtau);
     }
   }
 
   if(v2rho2 != NULL){
-    v2rho2_ = (double *) malloc(sizeof(double)*np*dim->v2rho2);
+    v2rho2_ = (double *) libxc_malloc(sizeof(double)*np*dim->v2rho2);
     if(is_gga(func->info->family)){
-      v2rhosigma_  = (double *) malloc(sizeof(double)*np*dim->v2rhosigma);
-      v2sigma2_    = (double *) malloc(sizeof(double)*np*dim->v2sigma2);
+      v2rhosigma_  = (double *) libxc_malloc(sizeof(double)*np*dim->v2rhosigma);
+      v2sigma2_    = (double *) libxc_malloc(sizeof(double)*np*dim->v2sigma2);
     }
     if(is_mgga(func->info->family)){
-      v2rholapl_   = (double *) malloc(sizeof(double)*np*dim->v2rholapl);
-      v2rhotau_    = (double *) malloc(sizeof(double)*np*dim->v2rhotau);
-      v2sigmalapl_ = (double *) malloc(sizeof(double)*np*dim->v2sigmalapl);
-      v2sigmatau_  = (double *) malloc(sizeof(double)*np*dim->v2sigmatau);
-      v2lapl2_     = (double *) malloc(sizeof(double)*np*dim->v2lapl2);
-      v2lapltau_   = (double *) malloc(sizeof(double)*np*dim->v2lapltau);
-      v2tau2_      = (double *) malloc(sizeof(double)*np*dim->v2tau2);
+      v2rholapl_   = (double *) libxc_malloc(sizeof(double)*np*dim->v2rholapl);
+      v2rhotau_    = (double *) libxc_malloc(sizeof(double)*np*dim->v2rhotau);
+      v2sigmalapl_ = (double *) libxc_malloc(sizeof(double)*np*dim->v2sigmalapl);
+      v2sigmatau_  = (double *) libxc_malloc(sizeof(double)*np*dim->v2sigmatau);
+      v2lapl2_     = (double *) libxc_malloc(sizeof(double)*np*dim->v2lapl2);
+      v2lapltau_   = (double *) libxc_malloc(sizeof(double)*np*dim->v2lapltau);
+      v2tau2_      = (double *) libxc_malloc(sizeof(double)*np*dim->v2tau2);
     }
   }
 
   if(v3rho3 != NULL){
-    v3rho3_      = (double *) malloc(sizeof(double)*np*dim->v3rho3);
+    v3rho3_      = (double *) libxc_malloc(sizeof(double)*np*dim->v3rho3);
     if(is_gga(func->info->family)){
-      v3rho2sigma_ = (double *) malloc(sizeof(double)*np*dim->v3rho2sigma);
-      v3rhosigma2_ = (double *) malloc(sizeof(double)*np*dim->v3rhosigma2);
-      v3sigma3_    = (double *) malloc(sizeof(double)*np*dim->v3sigma3);
+      v3rho2sigma_ = (double *) libxc_malloc(sizeof(double)*np*dim->v3rho2sigma);
+      v3rhosigma2_ = (double *) libxc_malloc(sizeof(double)*np*dim->v3rhosigma2);
+      v3sigma3_    = (double *) libxc_malloc(sizeof(double)*np*dim->v3sigma3);
     }
     if(is_mgga(func->info->family)){
-      v3rho2lapl_     = (double *) malloc(sizeof(double)*np*dim->v3rho2lapl);
-      v3rho2tau_      = (double *) malloc(sizeof(double)*np*dim->v3rho2tau);
-      v3rhosigmalapl_ = (double *) malloc(sizeof(double)*np*dim->v3rhosigmalapl);
-      v3rhosigmatau_  = (double *) malloc(sizeof(double)*np*dim->v3rhosigmatau);
-      v3rholapl2_     = (double *) malloc(sizeof(double)*np*dim->v3rholapl2);
-      v3rholapltau_   = (double *) malloc(sizeof(double)*np*dim->v3rholapltau);
-      v3rhotau2_      = (double *) malloc(sizeof(double)*np*dim->v3rhotau2);
-      v3sigma2lapl_   = (double *) malloc(sizeof(double)*np*dim->v3sigma2lapl);
-      v3sigma2tau_    = (double *) malloc(sizeof(double)*np*dim->v3sigma2tau);
-      v3sigmalapl2_   = (double *) malloc(sizeof(double)*np*dim->v3sigmalapl2);
-      v3sigmalapltau_ = (double *) malloc(sizeof(double)*np*dim->v3sigmalapltau);
-      v3sigmatau2_    = (double *) malloc(sizeof(double)*np*dim->v3sigmatau2);
-      v3lapl3_        = (double *) malloc(sizeof(double)*np*dim->v3lapl3);
-      v3lapl2tau_     = (double *) malloc(sizeof(double)*np*dim->v3lapl2tau);
-      v3lapltau2_     = (double *) malloc(sizeof(double)*np*dim->v3lapltau2);
-      v3tau3_         = (double *) malloc(sizeof(double)*np*dim->v3tau3);
+      v3rho2lapl_     = (double *) libxc_malloc(sizeof(double)*np*dim->v3rho2lapl);
+      v3rho2tau_      = (double *) libxc_malloc(sizeof(double)*np*dim->v3rho2tau);
+      v3rhosigmalapl_ = (double *) libxc_malloc(sizeof(double)*np*dim->v3rhosigmalapl);
+      v3rhosigmatau_  = (double *) libxc_malloc(sizeof(double)*np*dim->v3rhosigmatau);
+      v3rholapl2_     = (double *) libxc_malloc(sizeof(double)*np*dim->v3rholapl2);
+      v3rholapltau_   = (double *) libxc_malloc(sizeof(double)*np*dim->v3rholapltau);
+      v3rhotau2_      = (double *) libxc_malloc(sizeof(double)*np*dim->v3rhotau2);
+      v3sigma2lapl_   = (double *) libxc_malloc(sizeof(double)*np*dim->v3sigma2lapl);
+      v3sigma2tau_    = (double *) libxc_malloc(sizeof(double)*np*dim->v3sigma2tau);
+      v3sigmalapl2_   = (double *) libxc_malloc(sizeof(double)*np*dim->v3sigmalapl2);
+      v3sigmalapltau_ = (double *) libxc_malloc(sizeof(double)*np*dim->v3sigmalapltau);
+      v3sigmatau2_    = (double *) libxc_malloc(sizeof(double)*np*dim->v3sigmatau2);
+      v3lapl3_        = (double *) libxc_malloc(sizeof(double)*np*dim->v3lapl3);
+      v3lapl2tau_     = (double *) libxc_malloc(sizeof(double)*np*dim->v3lapl2tau);
+      v3lapltau2_     = (double *) libxc_malloc(sizeof(double)*np*dim->v3lapltau2);
+      v3tau3_         = (double *) libxc_malloc(sizeof(double)*np*dim->v3tau3);
     }
   }
   if(v4rho4 != NULL){
-    v4rho4_            = (double *) malloc(sizeof(double)*np*dim->v4rho4);
+    v4rho4_            = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho4);
     if(is_gga(func->info->family)){
-      v4rho3sigma_       = (double *) malloc(sizeof(double)*np*dim->v4rho3sigma);
-      v4rho2sigma2_      = (double *) malloc(sizeof(double)*np*dim->v4rho2sigma2);
-      v4rhosigma3_       = (double *) malloc(sizeof(double)*np*dim->v4rhosigma3);
-      v4sigma4_          = (double *) malloc(sizeof(double)*np*dim->v4sigma4);
+      v4rho3sigma_       = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho3sigma);
+      v4rho2sigma2_      = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho2sigma2);
+      v4rhosigma3_       = (double *) libxc_malloc(sizeof(double)*np*dim->v4rhosigma3);
+      v4sigma4_          = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigma4);
     }
     if(is_mgga(func->info->family)){
-      v4rho3lapl_        = (double *) malloc(sizeof(double)*np*dim->v4rho3lapl);
-      v4rho3tau_         = (double *) malloc(sizeof(double)*np*dim->v4rho3tau);
-      v4rho2sigmalapl_   = (double *) malloc(sizeof(double)*np*dim->v4rho2sigmalapl);
-      v4rho2sigmatau_    = (double *) malloc(sizeof(double)*np*dim->v4rho2sigmatau);
-      v4rho2lapl2_       = (double *) malloc(sizeof(double)*np*dim->v4rho2lapl2);
-      v4rho2lapltau_     = (double *) malloc(sizeof(double)*np*dim->v4rho2lapltau);
-      v4rho2tau2_        = (double *) malloc(sizeof(double)*np*dim->v4rho2tau2);
-      v4rhosigma2lapl_   = (double *) malloc(sizeof(double)*np*dim->v4rhosigma2lapl);
-      v4rhosigma2tau_    = (double *) malloc(sizeof(double)*np*dim->v4rhosigma2tau);
-      v4rhosigmalapl2_   = (double *) malloc(sizeof(double)*np*dim->v4rhosigmalapl2);
-      v4rhosigmalapltau_ = (double *) malloc(sizeof(double)*np*dim->v4rhosigmalapltau);
-      v4rhosigmatau2_    = (double *) malloc(sizeof(double)*np*dim->v4rhosigmatau2);
-      v4rholapl3_        = (double *) malloc(sizeof(double)*np*dim->v4rholapl3);
-      v4rholapl2tau_     = (double *) malloc(sizeof(double)*np*dim->v4rholapl2tau);
-      v4rholapltau2_     = (double *) malloc(sizeof(double)*np*dim->v4rholapltau2);
-      v4rhotau3_         = (double *) malloc(sizeof(double)*np*dim->v4rhotau3);
-      v4sigma3lapl_      = (double *) malloc(sizeof(double)*np*dim->v4sigma3lapl);
-      v4sigma3tau_       = (double *) malloc(sizeof(double)*np*dim->v4sigma3tau);
-      v4sigma2lapl2_     = (double *) malloc(sizeof(double)*np*dim->v4sigma2lapl2);
-      v4sigma2lapltau_   = (double *) malloc(sizeof(double)*np*dim->v4sigma2lapltau);
-      v4sigma2tau2_      = (double *) malloc(sizeof(double)*np*dim->v4sigma2tau2);
-      v4sigmalapl3_      = (double *) malloc(sizeof(double)*np*dim->v4sigmalapl3);
-      v4sigmalapl2tau_   = (double *) malloc(sizeof(double)*np*dim->v4sigmalapl2tau);
-      v4sigmalapltau2_   = (double *) malloc(sizeof(double)*np*dim->v4sigmalapltau2);
-      v4sigmatau3_       = (double *) malloc(sizeof(double)*np*dim->v4sigmatau3);
-      v4lapl4_           = (double *) malloc(sizeof(double)*np*dim->v4lapl4);
-      v4lapl3tau_        = (double *) malloc(sizeof(double)*np*dim->v4lapl3tau);
-      v4lapl2tau2_       = (double *) malloc(sizeof(double)*np*dim->v4lapl2tau2);
-      v4lapltau3_        = (double *) malloc(sizeof(double)*np*dim->v4lapltau3);
-      v4tau4_            = (double *) malloc(sizeof(double)*np*dim->v4tau4);
+      v4rho3lapl_        = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho3lapl);
+      v4rho3tau_         = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho3tau);
+      v4rho2sigmalapl_   = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho2sigmalapl);
+      v4rho2sigmatau_    = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho2sigmatau);
+      v4rho2lapl2_       = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho2lapl2);
+      v4rho2lapltau_     = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho2lapltau);
+      v4rho2tau2_        = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho2tau2);
+      v4rhosigma2lapl_   = (double *) libxc_malloc(sizeof(double)*np*dim->v4rhosigma2lapl);
+      v4rhosigma2tau_    = (double *) libxc_malloc(sizeof(double)*np*dim->v4rhosigma2tau);
+      v4rhosigmalapl2_   = (double *) libxc_malloc(sizeof(double)*np*dim->v4rhosigmalapl2);
+      v4rhosigmalapltau_ = (double *) libxc_malloc(sizeof(double)*np*dim->v4rhosigmalapltau);
+      v4rhosigmatau2_    = (double *) libxc_malloc(sizeof(double)*np*dim->v4rhosigmatau2);
+      v4rholapl3_        = (double *) libxc_malloc(sizeof(double)*np*dim->v4rholapl3);
+      v4rholapl2tau_     = (double *) libxc_malloc(sizeof(double)*np*dim->v4rholapl2tau);
+      v4rholapltau2_     = (double *) libxc_malloc(sizeof(double)*np*dim->v4rholapltau2);
+      v4rhotau3_         = (double *) libxc_malloc(sizeof(double)*np*dim->v4rhotau3);
+      v4sigma3lapl_      = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigma3lapl);
+      v4sigma3tau_       = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigma3tau);
+      v4sigma2lapl2_     = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigma2lapl2);
+      v4sigma2lapltau_   = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigma2lapltau);
+      v4sigma2tau2_      = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigma2tau2);
+      v4sigmalapl3_      = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigmalapl3);
+      v4sigmalapl2tau_   = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigmalapl2tau);
+      v4sigmalapltau2_   = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigmalapltau2);
+      v4sigmatau3_       = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigmatau3);
+      v4lapl4_           = (double *) libxc_malloc(sizeof(double)*np*dim->v4lapl4);
+      v4lapl3tau_        = (double *) libxc_malloc(sizeof(double)*np*dim->v4lapl3tau);
+      v4lapl2tau2_       = (double *) libxc_malloc(sizeof(double)*np*dim->v4lapl2tau2);
+      v4lapltau3_        = (double *) libxc_malloc(sizeof(double)*np*dim->v4lapltau3);
+      v4tau4_            = (double *) libxc_malloc(sizeof(double)*np*dim->v4tau4);
     }
   }
 

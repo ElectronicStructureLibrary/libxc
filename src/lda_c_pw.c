@@ -108,7 +108,7 @@ lda_c_pw_init(xc_func_type *p)
   lda_c_pw_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(lda_c_pw_params));
+  p->params = libxc_malloc(sizeof(lda_c_pw_params));
   params = (lda_c_pw_params *) (p->params);
 
   switch(p->info->number){

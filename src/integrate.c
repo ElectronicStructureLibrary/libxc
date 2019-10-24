@@ -22,7 +22,7 @@
 #define FALSE 0
 #define TRUE 1
 
-double xc_integrate(integr_fn func, void *ex, double a, double b)
+GPU_FUNCTION double xc_integrate(integr_fn func, void *ex, double a, double b)
 {
   double epsabs, epsrel, result, abserr, *alist, *blist, *rlist, *elist;
   int limit, neval, ierr, *iord, last;

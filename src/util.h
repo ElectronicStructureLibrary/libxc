@@ -26,6 +26,12 @@
 /* need config to figure out what needs to be defined or not */
 #include "config.h"
 
+#ifdef HAVE_CUDA
+#define GPU_FUNCTION __host__ __device__
+#else
+#define GPU_FUNCTION
+#endif
+
 /* This takes care of disabling specific derivatives from the info structures */
 #define XC_FLAGS_I_HAVE_EXC XC_FLAGS_HAVE_EXC
 
@@ -124,6 +130,7 @@ double LambertW(double z);
 double xc_dilogarithm(const double x);
 
 /* we define this function here, so it can be properly inlined by all compilers */
+GPU_FUNCTION
 static inline double
 xc_cheb_eval(const double x, const double *cs, const int N)
 {
@@ -151,16 +158,16 @@ double xc_bessel_K0(const double x);
 double xc_bessel_K1_scaled(const double x);
 double xc_bessel_K1(const double x);
 
-double xc_expint_e1_impl(double x, const int scale);
-static inline double expint_e1(const double x)         { return  xc_expint_e1_impl( x, 0); }
-static inline double expint_e1_scaled(const double x)  { return  xc_expint_e1_impl( x, 1); }
-static inline double expint_Ei(const double x)         { return -xc_expint_e1_impl(-x, 0); }
+GPU_FUNCTION double xc_expint_e1_impl(double x, const int scale);
+GPU_FUNCTION static inline double expint_e1(const double x)         { return  xc_expint_e1_impl( x, 0); }
+GPU_FUNCTION static inline double expint_e1_scaled(const double x)  { return  xc_expint_e1_impl( x, 1); }
+GPU_FUNCTION static inline double expint_Ei(const double x)         { return -xc_expint_e1_impl(-x, 0); }
 #define Ei(x) expint_Ei(x)
-static inline double expint_Ei_scaled(const double x)  { return -xc_expint_e1_impl(-x, 1); }
+GPU_FUNCTION static inline double expint_Ei_scaled(const double x)  { return -xc_expint_e1_impl(-x, 1); }
 
 /* integration */
 typedef void integr_fn(double *x, int n, void *ex);
-double xc_integrate(integr_fn func, void *ex, double a, double b);
+GPU_FUNCTION double xc_integrate(integr_fn func, void *ex, double a, double b);
 void xc_rdqagse(integr_fn f, void *ex, double *a, double *b, 
 	     double *epsabs, double *epsrel, int *limit, double *result,
 	     double *abserr, int *neval, int *ier, double *alist__,
@@ -200,14 +207,14 @@ typedef struct xc_functional_key_t {
 
 
 /* The following inlines confuse the xlc compiler */
-void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
+GPU_FUNCTION void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
 
 /* Functions to handle the internal counters */
 
 void internal_counters_set_lda (int nspin, xc_dimensions *dim);
-void internal_counters_lda_next
+GPU_FUNCTION void internal_counters_lda_next
 (const xc_dimensions *dim, int offset, const double **rho, double **zk, LDA_OUT_PARAMS_NO_EXC(double **));
-void internal_counters_lda_prev
+GPU_FUNCTION void internal_counters_lda_prev
 (const xc_dimensions *dim, int offset, const double **rho, double **zk, LDA_OUT_PARAMS_NO_EXC(double **));
 
 void internal_counters_set_gga (int nspin, xc_dimensions *dim);

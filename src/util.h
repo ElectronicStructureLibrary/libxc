@@ -249,7 +249,20 @@ double get_ext_param(const func_params_type *params, const double *values, int i
 
 double xc_mgga_x_br89_get_x(double Q);
 
+#ifndef HAVE_CUDA
 #define libxc_malloc malloc
 #define libxc_free free
+#else
+
+template <class int_type>
+auto libxc_malloc(const int_type size){
+  void * mem;
+  cudaMallocManaged(&mem, size);
+  return mem;
+}
+
+#define libxc_free cudaFree
+
+#endif
 
 #endif

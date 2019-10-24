@@ -89,6 +89,13 @@ LT_INIT
 
 # Checks for programs.
 AC_PROG_CC
+
+#we may need to set the linker for the cuda case, so pass that to automake
+if test x"$CCLD" == x ; then
+   CCLD=$CC
+fi
+AC_SUBST(CCLD)
+
 AC_LANG_PREPROC
 AM_PROG_CC_C_O
 AC_C_INLINE

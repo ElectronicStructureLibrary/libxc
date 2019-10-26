@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
+ Copyright (C) 2019 X. Andrade
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -376,7 +377,7 @@ internal_counters_gga_prev
 #endif
 }
 
-void
+GPU_FUNCTION void
 internal_counters_mgga_next
   (const xc_dimensions *dim, int offset,
    const double **rho, const double **sigma, const double **lapl, const double **tau,
@@ -470,7 +471,7 @@ internal_counters_mgga_next
 #endif
 }
 
-void
+GPU_FUNCTION void
 internal_counters_mgga_prev
   (const xc_dimensions *dim, int offset,
    const double **rho, const double **sigma, const double **lapl, const double **tau,

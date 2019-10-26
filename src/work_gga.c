@@ -86,8 +86,6 @@ work_gga(const XC(func_type) *p, int np,
 }
 
 #ifdef HAVE_CUDA
-#pragma push
-#pragma diag_suppress 177
 
 __global__ static void 
 work_gga_gpu(const XC(func_type) *p, int np,
@@ -129,5 +127,4 @@ work_gga_gpu(const XC(func_type) *p, int np,
   }   /* for(ip) */
 }
 
-#pragma pop
 #endif

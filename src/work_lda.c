@@ -92,8 +92,6 @@ work_lda(const XC(func_type) *p, int np, const double *rho,
 }
 
 #ifdef HAVE_CUDA
-#pragma push
-#pragma diag_suppress 177
 
 __global__ static void 
 work_lda_gpu(const XC(func_type) *p, int np, const double *rho,
@@ -136,5 +134,4 @@ work_lda_gpu(const XC(func_type) *p, int np, const double *rho,
   
 }
 
-#pragma pop
 #endif

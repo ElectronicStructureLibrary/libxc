@@ -219,10 +219,10 @@ GPU_FUNCTION void internal_counters_lda_prev
 (const xc_dimensions *dim, int offset, const double **rho, double **zk, LDA_OUT_PARAMS_NO_EXC(double **));
 
 void internal_counters_set_gga (int nspin, xc_dimensions *dim);
-void internal_counters_gga_next
+GPU_FUNCTION void internal_counters_gga_next
 (const xc_dimensions *dim, int offset, const double **rho, const double **sigma,
  double **zk, GGA_OUT_PARAMS_NO_EXC(double **));
-void internal_counters_gga_prev
+GPU_FUNCTION void internal_counters_gga_prev
 (const xc_dimensions *dim, int offset, const double **rho, const double **sigma,
  double **zk, GGA_OUT_PARAMS_NO_EXC(double **));
 

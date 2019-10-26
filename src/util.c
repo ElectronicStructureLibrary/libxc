@@ -12,8 +12,8 @@
 
 /* this function converts the spin-density into total density and
 	 relative magnetization */
-/* inline */ void
-GPU_FUNCTION xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta)
+/* inline */ GPU_FUNCTION void
+xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta)
 {
   if(nspin==XC_UNPOLARIZED){
     *d    = max(rho[0], 0.0);
@@ -307,7 +307,7 @@ internal_counters_lda_prev
 #endif
 }
 
-void
+GPU_FUNCTION void
 internal_counters_gga_next
   (
    const xc_dimensions *dim, int offset, const double **rho, const double **sigma,
@@ -342,7 +342,7 @@ internal_counters_gga_next
 #endif
 }
 
-void
+GPU_FUNCTION void
 internal_counters_gga_prev
 (const xc_dimensions *dim, int offset, const double **rho, const double **sigma,
  double **zk, GGA_OUT_PARAMS_NO_EXC(double **))

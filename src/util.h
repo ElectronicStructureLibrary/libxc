@@ -168,7 +168,10 @@ GPU_FUNCTION static inline double expint_Ei_scaled(const double x)  { return -xc
 
 /* integration */
 typedef void integr_fn(double *x, int n, void *ex);
+
 GPU_FUNCTION double xc_integrate(integr_fn func, void *ex, double a, double b);
+
+GPU_FUNCTION
 void xc_rdqagse(integr_fn f, void *ex, double *a, double *b, 
 	     double *epsabs, double *epsrel, int *limit, double *result,
 	     double *abserr, int *neval, int *ier, double *alist__,
@@ -176,6 +179,8 @@ void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
 
 /* root finding */
 typedef double xc_brent_f(double, void *);
+
+GPU_FUNCTION
 double xc_math_brent(xc_brent_f f, double lower_bound, double upper_bound,
                      double TOL, double MAX_ITER, void *f_params);
 
@@ -250,6 +255,7 @@ const char *get_kind(const xc_func_type *func);
 const char *get_family(const xc_func_type *func);
 double get_ext_param(const func_params_type *params, const double *values, int index);
 
+GPU_FUNCTION
 double xc_mgga_x_br89_get_x(double Q);
 
 #ifndef HAVE_CUDA

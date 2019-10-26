@@ -46,7 +46,7 @@ mgga_x_br89_init(xc_func_type *p)
 }
 
 
-static double
+GPU_FUNCTION static double
 br89_x_Q(double x, void *_rhs)
 {
   double rhs, xm2, arg, eee;
@@ -59,7 +59,7 @@ br89_x_Q(double x, void *_rhs)
   return x*eee - rhs*xm2;
 }
 
-
+GPU_FUNCTION
 double xc_mgga_x_br89_get_x(double Q)
 {
   double rhs, tol, x1, x2;

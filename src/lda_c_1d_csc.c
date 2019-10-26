@@ -11,10 +11,11 @@
 #define XC_LDA_C_1D_CSC          18 /* Casula, Sorella, and Senatore 1D correlation     */
 
 typedef struct{
+  double para[10], ferro[10];
+
   int interaction;  /* 0: exponentially screened; 1: soft-Coulomb */
   double bb;         /* screening parameter */
 
-  const double *para, *ferro;
 } lda_c_1d_csc_params;
 
 static const double par_para[][10] = { /* paramagnetic */
@@ -60,39 +61,46 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->interaction = (int)round(get_ext_param(p->info->ext_params, ext_params, 0));
   params->bb = get_ext_param(p->info->ext_params, ext_params, 1);
 
-  params->para = params->ferro = NULL;
+  const double * ppara = NULL;
+  const double * pferro = NULL;
 
   if(params->interaction == 0){
     if      (params->bb == 0.1){
-      params->para  = par_para[0];
-      params->ferro = par_para[0];
+      ppara  = par_para[0];
+      pferro = par_para[0];
     }else if(params->bb == 0.3){
-      params->para  = par_para[1];
-      params->ferro = par_para[1];
+      ppara  = par_para[1];
+      pferro = par_para[1];
     }else if(params->bb == 0.5){
-      params->para  = par_para[2];
-      params->ferro = par_para[2];
+      ppara  = par_para[2];
+      pferro = par_para[2];
     }else if(params->bb == 0.75){
-      params->para  = par_para[3];
-      params->ferro = par_para[3];
+      ppara  = par_para[3];
+      pferro = par_para[3];
     }else if(params->bb == 1.0){
-      params->para  = par_para[4];
-      params->ferro = par_para[4];
+      ppara  = par_para[4];
+      pferro = par_para[4];
     }else if(params->bb == 2.0){
-      params->para  = par_para[5];
-      params->ferro = par_para[5];
+      ppara  = par_para[5];
+      pferro = par_para[5];
     }else if(params->bb == 4.0){
-      params->para  = par_para[6];
-      params->ferro = par_para[6];
+      ppara  = par_para[6];
+      pferro = par_para[6];
     }
   }else if(params->interaction == 1){
     if     (params->bb == 0.5){
-      params->para  = par_para[7];
-      params->ferro = par_para[7];
+      ppara  = par_para[7];
+      pferro = par_para[7];
     }else if(params->bb == 1.0){
-      params->para  = par_para[8];
-      params->ferro = par_ferro[0];
+      ppara  = par_para[8];
+      pferro = par_ferro[0];
     }
+  }
+  
+  //we must copy the values (instead of pointing to them) so that they are available on the GPU
+  for(int ii = 0; ii < 10; ii++){
+    params->para[ii] = ppara[ii];
+    params->ferro[ii] = pferro[ii];
   }
 
   if(params->para == NULL){

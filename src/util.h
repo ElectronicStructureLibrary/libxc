@@ -149,14 +149,14 @@ xc_cheb_eval(const double x, const double *cs, const int N)
   return 0.5*(b0 - b2);
 }
 
-double xc_bessel_I0_scaled(const double x);
-double xc_bessel_I0(const double x);
-double xc_bessel_I1_scaled(const double x);
-double xc_bessel_I1(const double x);
-double xc_bessel_K0_scaled(const double x);
-double xc_bessel_K0(const double x);
-double xc_bessel_K1_scaled(const double x);
-double xc_bessel_K1(const double x);
+GPU_FUNCTION double xc_bessel_I0_scaled(const double x);
+GPU_FUNCTION double xc_bessel_I0(const double x);
+GPU_FUNCTION double xc_bessel_I1_scaled(const double x);
+GPU_FUNCTION double xc_bessel_I1(const double x);
+GPU_FUNCTION double xc_bessel_K0_scaled(const double x);
+GPU_FUNCTION double xc_bessel_K0(const double x);
+GPU_FUNCTION double xc_bessel_K1_scaled(const double x);
+GPU_FUNCTION double xc_bessel_K1(const double x);
 
 GPU_FUNCTION double xc_expint_e1_impl(double x, const int scale);
 GPU_FUNCTION static inline double expint_e1(const double x)         { return  xc_expint_e1_impl( x, 0); }

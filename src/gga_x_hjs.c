@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
+ Copyright (C) 2019 X. Andrade
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -16,7 +17,7 @@
 typedef struct{
   double omega;
 
-  const double *a, *b; /* pointers to the a and b parameters */
+  double a[6], b[9]; /* pointers to the a and b parameters */
 } gga_x_hjs_params;
 
 static const double a_PBE[] = 
@@ -56,24 +57,24 @@ gga_x_hjs_init(xc_func_type *p)
   /* omega = 0.11 is set by ext_params */
   switch(p->info->number){
   case XC_GGA_X_HJS_PBE:
-    params->a = a_PBE;
-    params->b = b_PBE;
+    for(int ii = 0; ii < 6; ii++) params->a[ii] = a_PBE[ii];
+    for(int ii = 0; ii < 9; ii++) params->b[ii] = b_PBE[ii];
     break;
   case XC_GGA_X_HJS_PBE_SOL:
-    params->a = a_PBE_sol;
-    params->b = b_PBE_sol;
+    for(int ii = 0; ii < 6; ii++) params->a[ii] = a_PBE_sol[ii];
+    for(int ii = 0; ii < 9; ii++) params->b[ii] = b_PBE_sol[ii];
     break;
   case XC_GGA_X_HJS_B88:
-    params->a = a_B88;
-    params->b = b_B88;
+    for(int ii = 0; ii < 6; ii++) params->a[ii] = a_B88[ii];
+    for(int ii = 0; ii < 9; ii++) params->b[ii] = b_B88[ii];
     break;
   case XC_GGA_X_HJS_B97X:
-    params->a = a_B97x;
-    params->b = b_B97x;
+    for(int ii = 0; ii < 6; ii++) params->a[ii] = a_B97x[ii];
+    for(int ii = 0; ii < 9; ii++) params->b[ii] = b_B97x[ii];
     break;
   case XC_GGA_X_HJS_B88_V2:
-    params->a = a_B88_V2;
-    params->b = b_B88_V2;
+    for(int ii = 0; ii < 6; ii++) params->a[ii] = a_B88_V2[ii];
+    for(int ii = 0; ii < 9; ii++) params->b[ii] = b_B88_V2[ii];
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_hjs_init\n");

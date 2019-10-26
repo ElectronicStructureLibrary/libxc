@@ -251,6 +251,7 @@ double xc_mgga_x_br89_get_x(double Q);
 
 #ifndef HAVE_CUDA
 #define libxc_malloc malloc
+#define libxc_calloc calloc
 #define libxc_free free
 #else
 
@@ -258,6 +259,14 @@ template <class int_type>
 auto libxc_malloc(const int_type size){
   void * mem;
   cudaMallocManaged(&mem, size);
+  return mem;
+}
+
+template <class int_type1, class int_type2>
+auto libxc_calloc(const int_type1 size1, const int_type2 size2){
+  void * mem;
+  cudaMallocManaged(&mem, size1*size2);
+  cudaMemset(mem, 0, size1*size2);
   return mem;
 }
 

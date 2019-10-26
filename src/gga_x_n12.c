@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
+ Copyright (C) 2019 X. Andrade
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -37,7 +38,7 @@ static const double CC_GAM[4][4] = {
 };
 
 typedef struct{
-  const double (*CC)[4];
+  double CC[4][4];
 } gga_x_n12_params;
 
 
@@ -52,23 +53,32 @@ gga_x_n12_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_x_n12_params));
   params = (gga_x_n12_params *) (p->params);
 
+  const double (*pCC)[4];
+  
   switch(p->info->number){
   case XC_GGA_X_N12: 
-    params->CC = CC_N12;
+    pCC = CC_N12;
     break;
   case XC_HYB_GGA_X_N12_SX:
-    params->CC = CC_N12_SX;
+    pCC = CC_N12_SX;
     p->cam_alpha = 0.00;
     p->cam_beta  = 0.25;
     p->cam_omega = 0.11;
     break;
   case XC_GGA_X_GAM:
-    params->CC = CC_GAM;
+    pCC = CC_GAM;
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_n12\n");
     exit(1);
   }
+
+  for(int ii = 0; ii < 4; ii++){
+    for(int jj = 0; jj < 4; jj++){
+      params->CC[ii][jj] = pCC[ii][jj];
+    }
+  }
+  
 }
 
 #include "maple2c/gga_exc/gga_x_n12.c"

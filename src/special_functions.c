@@ -24,8 +24,10 @@ GPU_FUNCTION double LambertW(double z)
 
   /* Sanity check - function is only defined for z >= -1/e */
   if(z + 1.0/M_E < -10*DBL_EPSILON) {
+#ifndef HAVE_CUDA
     fprintf(stderr,"Error - Lambert function called with argument z = %e.\n",z);
     exit(1);
+#endif
   } else if(z < -1.0/M_E)
     /* Value of W(x) at x=-1/e is -1 */
     return -1.0;
@@ -69,11 +71,15 @@ GPU_FUNCTION double LambertW(double z)
     if(fabs(dw) < 10*DBL_EPSILON*(1.0 + fabs(w)))
       return w;
   }
-
+  
+#ifndef HAVE_CUDA
   /* This should never happen! */
   fprintf(stderr, "%s\n%s\n", "lambert_w: iteration limit reached",
 	  "Should never happen: execution aborted");
   exit(1);
+#else
+  return 0.0;
+#endif
 }
 
 /*

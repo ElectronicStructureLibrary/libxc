@@ -1,5 +1,6 @@
 /*
- Copyright (C) 2006-2019 M.A.L. Marques, X. Andrade
+ Copyright (C) 2006-2018 M.A.L. Marques
+ Copyright (C) 2019 X. Andrade
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this

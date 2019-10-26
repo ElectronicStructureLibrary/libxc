@@ -47,27 +47,21 @@ xc_lda(const xc_func_type *func, int np, const double *rho,
     exit(1);
   }
 
-#ifdef HAVE_CUDA
-#define memset cudaMemset
-#endif
-  
   /* initialize output */
   if(zk != NULL)
-    memset(zk,     0, np*sizeof(double)*dim->zk);
+    libxc_memset(zk,     0, np*sizeof(double)*dim->zk);
 
   if(vrho != NULL)
-    memset(vrho,   0, np*sizeof(double)*dim->vrho);
+    libxc_memset(vrho,   0, np*sizeof(double)*dim->vrho);
 
   if(v2rho2 != NULL)
-    memset(v2rho2, 0, np*sizeof(double)*dim->v2rho2);
+    libxc_memset(v2rho2, 0, np*sizeof(double)*dim->v2rho2);
 
   if(v3rho3 != NULL)
-    memset(v3rho3, 0, np*sizeof(double)*dim->v3rho3);
+    libxc_memset(v3rho3, 0, np*sizeof(double)*dim->v3rho3);
 
   if(v4rho4 != NULL)
-    memset(v4rho4, 0, np*sizeof(double)*dim->v4rho4);
-
-#undef memset
+    libxc_memset(v4rho4, 0, np*sizeof(double)*dim->v4rho4);
 
   /* call the LDA routines */
   if(func->info->lda != NULL)

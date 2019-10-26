@@ -39,9 +39,16 @@ work_lda(const XC(func_type) *p, int np, const double *rho,
 {
 
 #ifdef HAVE_CUDA
+
+  //make a copy of 'p' since it might be in host-only memory
+  XC(func_type) * pcuda = (XC(func_type) *) libxc_malloc(sizeof(XC(func_type)));
+
+  *pcuda = *p;
   
-  work_lda_gpu<<<1, 1>>>(p, np, rho, zk, LDA_OUT_PARAMS_NO_EXC(NOARG));
- 
+  work_lda_gpu<<<1, 1>>>(pcuda, np, rho, zk, LDA_OUT_PARAMS_NO_EXC(NOARG));
+
+  libxc_free(pcuda);
+  
 #else
   
   int ip, order;

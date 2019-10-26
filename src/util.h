@@ -127,8 +127,8 @@
 
 /* special functions */
 #define Heaviside(x) (((x) >= 0) ? 1.0 : 0.0)
-double LambertW(double z);
-double xc_dilogarithm(const double x);
+GPU_FUNCTION double LambertW(double z);
+GPU_FUNCTION double xc_dilogarithm(const double x);
 
 /* we define this function here, so it can be properly inlined by all compilers */
 GPU_FUNCTION

@@ -1,6 +1,7 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
-
+ Copyright (C) 2019 X. Andrade
+ 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -16,7 +17,7 @@
          Adv. in Comp. Math. 5(4):329-359. 
 */
 
-double LambertW(double z)
+GPU_FUNCTION double LambertW(double z)
 {
   double w;
   int i;
@@ -81,9 +82,15 @@ double LambertW(double z)
   based on the SLATEC routine by W. Fullerton
 */
 
+#ifdef HAVE_CUDA
+__device__
+#endif
+static const double pi26 = 1.644934066848226436472415166646025189219;
 
-static double pi26 = 1.644934066848226436472415166646025189219;
-static double spencs[38] = 
+#ifdef HAVE_CUDA
+__device__
+#endif
+static const double spencs[38] = 
   {
     +.1527365598892405872946684910028e+0,
     +.8169658058051014403501838185271e-1,
@@ -126,6 +133,7 @@ static double spencs[38] =
   };
 
 
+GPU_FUNCTION
 double xc_dilogarithm(const double x)
 {
   const int nspenc = 38;

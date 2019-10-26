@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
+ Copyright (C) 2019 X. Andrade
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -120,11 +121,11 @@ GPU_FUNCTION double xc_expint_e1_impl(double x, const int scale){
   }else if(x <= xmax || scale){
     const double s = 1.0/x * ( scale ? 1.0 : exp(-x) );
     e1 = s * (1.0 + xc_cheb_eval(8.0/x - 1.0, AE14_data, 26));
-  }else
-
+  }else{
 #ifndef HAVE_CUDA
   fprintf(stderr, "Argument %14.10le is larger than xmax=%14.10le in expint_e1\n", x, xmax);
 #endif
+  }
   
   return e1;
 }

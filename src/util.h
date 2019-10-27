@@ -29,6 +29,7 @@
 
 #ifdef HAVE_CUDA
 #define GPU_FUNCTION __host__ __device__
+#define CUDA_BLOCK_SIZE 1024
 #else
 #define GPU_FUNCTION
 #endif

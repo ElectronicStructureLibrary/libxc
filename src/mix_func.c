@@ -38,9 +38,21 @@ xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix
   p->nlc_C     = 0.0;
 }
 
+#ifdef HAVE_CUDA
+__global__ static void add_to_mix_gpu(long np, double * dst, double coeff, double *src){
+  int ip = blockIdx.x * blockDim.x + threadIdx.x;
+  if(ip < np) dst[ip] += coeff*src[ip];
+}
+#endif
 
 static void add_to_mix(long np, double * dst, double coeff, double *src){
+#ifndef HAVE_CUDA
   for(long ip = 0; ip < np; ip++) dst[ip] += coeff*src[ip];
+#else
+  int nblocks = np/CUDA_BLOCK_SIZE;
+  if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
+  add_to_mix_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(np, dst, coeff, src);
+#endif
 }
 
 #define is_mgga(id)   ((id) == XC_FAMILY_MGGA || (id) == XC_FAMILY_HYB_MGGA)

@@ -38,13 +38,16 @@ xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix
   p->nlc_C     = 0.0;
 }
 
+
+static void add_to_mix(long np, double * dst, double coeff, double *src){
+  for(long ip = 0; ip < np; ip++) dst[ip] += coeff*src[ip];
+}
+
 #define is_mgga(id)   ((id) == XC_FAMILY_MGGA || (id) == XC_FAMILY_HYB_MGGA)
 #define is_gga(id)    ((id) == XC_FAMILY_GGA  || (id) == XC_FAMILY_HYB_GGA || is_mgga(id))
 #define is_lda(id)    ((id) == XC_FAMILY_LDA  || (id) == XC_FAMILY_HYB_LDA ||  is_gga(id))
 #define safe_free(pt) if(pt != NULL) libxc_free(pt)
-#define sum_var(VAR) \
-    for(ip = 0; ip < np*dim->VAR; ip++)               \
-        VAR[ip] += func->mix_coef[ii] * VAR ## _[ip]
+#define sum_var(VAR) add_to_mix(np*dim->VAR, VAR, func->mix_coef[ii], VAR ## _);
 
 void
 xc_mix_func(const xc_func_type *func, int np,
@@ -71,7 +74,7 @@ xc_mix_func(const xc_func_type *func, int np,
     *v4sigmalapltau2_, *v4sigmatau3_, *v4lapl4_, *v4lapl3tau_,
     *v4lapl2tau2_, *v4lapltau3_, *v4tau4_;
 
-  int ip, ii;
+  int ii;
 
   const xc_dimensions *dim = &(func->dim);
 
@@ -345,6 +348,7 @@ xc_mix_func(const xc_func_type *func, int np,
         sum_var(v3rhosigma2);
         sum_var(v3sigma3);
       }
+      
       if(is_mgga(aux->info->family)) {
         if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) {
           sum_var(v3rho2lapl);

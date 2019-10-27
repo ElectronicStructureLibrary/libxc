@@ -46,9 +46,7 @@ if nspin == 2
    
 */
 void xc_gga(const xc_func_type *func, int np, const double *rho, const double *sigma,
-	     double *zk, double *vrho, double *vsigma,
-	     double *v2rho2, double *v2rhosigma, double *v2sigma2,
-	     double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
+            double *zk, GGA_OUT_PARAMS_NO_EXC(double *))
 {
   const xc_dimensions *dim = &(func->dim);
   
@@ -73,6 +71,12 @@ void xc_gga(const xc_func_type *func, int np, const double *rho, const double *s
 
   if(v3rho3 != NULL && !(func->info->flags & XC_FLAGS_HAVE_KXC)){
     fprintf(stderr, "Functional '%s' does not provide an implementation of kxc\n",
+	    func->info->name);
+    exit(1);
+  }
+
+  if(v4rho4 != NULL && !(func->info->flags & XC_FLAGS_HAVE_LXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of lxc\n",
 	    func->info->name);
     exit(1);
   }
@@ -105,25 +109,29 @@ void xc_gga(const xc_func_type *func, int np, const double *rho, const double *s
     memset(v3sigma3,    0, dim->v3sigma3   *np*sizeof(double));
   }
 
+  if(v4rho4 != NULL){
+    assert(v4rho3sigma!=NULL && v4rho2sigma2!=NULL && v4rhosigma3!=NULL && v4sigma4!=NULL);
+
+    memset(v4rho4,       0, dim->v4rho4      *np*sizeof(double));     
+    memset(v4rho3sigma,  0, dim->v4rho3sigma *np*sizeof(double));
+    memset(v4rho2sigma2, 0, dim->v4rho2sigma2*np*sizeof(double));
+    memset(v4rhosigma3,  0, dim->v4rhosigma3 *np*sizeof(double));
+    memset(v4sigma4,     0, dim->v4sigma4    *np*sizeof(double));
+   } 
+
   /* call functional */
   if(func->info->gga != NULL)
-    func->info->gga(func, np, rho, sigma, zk, vrho, vsigma, 
-		    v2rho2, v2rhosigma, v2sigma2,
-		    v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
+    func->info->gga(func, np, rho, sigma, zk, GGA_OUT_PARAMS_NO_EXC());
 
   if(func->mix_coef != NULL)
     xc_mix_func(func, np, rho, sigma, NULL, NULL, zk, vrho, vsigma, NULL, NULL,
                 v2rho2, v2rhosigma, NULL, NULL, v2sigma2, NULL, NULL, NULL, NULL, NULL,
-                v3rho3, v3rho2sigma, NULL, NULL,
-                v3rhosigma2, NULL, NULL,
-                NULL, NULL,
-                NULL,
-                v3sigma3, NULL, NULL,
-                NULL, NULL,
-                NULL,
-                NULL, NULL,
-                NULL,
-                NULL);
+                v3rho3, v3rho2sigma, NULL, NULL, v3rhosigma2, NULL, NULL, NULL, NULL, NULL,
+                v3sigma3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                v4rho4, v4rho3sigma, NULL, NULL, v4rho2sigma2, NULL, NULL, NULL, NULL, NULL,
+                v4rhosigma3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                v4sigma4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, NULL, NULL);
 }
 
 /* specializations */
@@ -132,7 +140,8 @@ void
 xc_gga_exc(const xc_func_type *p, int np, const double *rho, const double *sigma, 
 	    double *zk)
 {
-  xc_gga(p, np, rho, sigma, zk, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+  xc_gga(p, np, rho, sigma, zk, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+         NULL, NULL, NULL, NULL, NULL);
 }
 
 /* returns only potential */
@@ -140,7 +149,8 @@ void
 xc_gga_vxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 	    double *vrho, double *vsigma)
 {
-  xc_gga(p, np, rho, sigma, NULL, vrho, vsigma, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+  xc_gga(p, np, rho, sigma, NULL, vrho, vsigma, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+         NULL, NULL, NULL, NULL, NULL);
 }
 
 /* returns both energy and potential (the most common call usually) */
@@ -148,7 +158,8 @@ void
 xc_gga_exc_vxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 		double *zk, double *vrho, double *vsigma)
 {
-  xc_gga(p, np, rho, sigma, zk, vrho, vsigma, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+  xc_gga(p, np, rho, sigma, zk, vrho, vsigma, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+         NULL, NULL, NULL, NULL, NULL);
 }
 
 /* returns second derivatives */
@@ -156,7 +167,8 @@ void
 xc_gga_fxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 	    double *v2rho2, double *v2rhosigma, double *v2sigma2)
 {
-  xc_gga(p, np, rho, sigma, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2, NULL, NULL, NULL, NULL);
+  xc_gga(p, np, rho, sigma, NULL, NULL, NULL, v2rho2, v2rhosigma, v2sigma2, NULL, NULL, NULL, NULL,
+         NULL, NULL, NULL, NULL, NULL);
 }
 
 /* returns third derivatives */
@@ -164,5 +176,15 @@ void
 xc_gga_kxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
 	    double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
-  xc_gga(p, np, rho, sigma, NULL, NULL, NULL, NULL, NULL, NULL, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
+  xc_gga(p, np, rho, sigma, NULL, NULL, NULL, NULL, NULL, NULL, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3,
+         NULL, NULL, NULL, NULL, NULL);
+}
+
+/* returns fourth derivatives */
+void
+xc_gga_lxc(const xc_func_type *p, int np, const double *rho, const double *sigma,
+	    double *v4rho4, double *v4rho3sigma, double *v4rho2sigma2, double *v4rhosigma3, double *v4sigma4)
+{
+  xc_gga(p, np, rho, sigma, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+         v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3, v4sigma4);
 }

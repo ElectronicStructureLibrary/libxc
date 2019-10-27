@@ -54,7 +54,7 @@ const xc_func_info_type xc_func_info_lda_x_sloc = {
   "simple local model for Slater potential",
   XC_FAMILY_LDA,
   {&xc_ref_Finzel2017_40, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
   2, ext_params_sloc, set_ext_params,
   lda_x_sloc_init, NULL,

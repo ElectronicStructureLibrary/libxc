@@ -5,7 +5,8 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
-dist_noinst_SCRIPTS = \
+
+lda_order_4 = \
   lda_c_1d_csc.mpl    lda_c_pz.mpl            lda_x_1d_exponential.mpl	\
   lda_c_1d_loos.mpl   lda_c_rc04.mpl          lda_x_1d_soft.mpl		\
   lda_c_2d_amgb.mpl   lda_c_rpa.mpl           lda_x_2d.mpl		\
@@ -16,7 +17,21 @@ dist_noinst_SCRIPTS = \
   lda_c_hl.mpl        lda_c_vwn.mpl           lda_xc_zlp.mpl		\
   lda_c_lp96.mpl      lda_c_vwn_rpa.mpl       lda_x_erf.mpl		\
   lda_c_ml1.mpl       lda_c_wigner.mpl        lda_x.mpl			\
-  lda_c_pk09.mpl      lda_k_gds08_worker.mpl  lda_x_rel.mpl		\
+  lda_k_gds08_worker.mpl  lda_x_rel.mpl		\
   lda_c_pmgb06.mpl    lda_k_tf.mpl            lda_c_pw.mpl		\
   lda_k_zlp.mpl       lda_x_sloc.mpl          lda_c_chachiyo_mod.mpl
+
+lda_order_1 = lda_c_pk09.mpl
+
+dist_noinst_SCRIPTS = $(lda_order_4) $(lda_order_1)
+
+maple2c:
+	@for funct in $(lda_order_4); do \
+	  echo Processing: $${funct%.*}; \
+	  $(top_srcdir)/scripts/maple2c.pl $(top_srcdir) $${funct%.*} 4; \
+	done
+	@for funct in $(lda_order_1); do \
+	  echo Processing: $${funct%.*}; \
+	  $(top_srcdir)/scripts/maple2c.pl $(top_srcdir) $${funct%.*} 1; \
+	done
 

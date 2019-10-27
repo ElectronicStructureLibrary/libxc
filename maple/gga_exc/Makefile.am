@@ -45,3 +45,8 @@ gga_x_herman.mpl     gga_x_gg99.mpl        gga_c_zvpbeloc.mpl   \
 gga_x_fd_lb94.mpl    gga_x_ncap.mpl        gga_c_chachiyo.mpl	\
 gga_c_pbe_vwn.mpl
 
+maple2c:
+	@for funct in $(dist_noinst_SCRIPTS); do \
+		echo Processing: $${funct%.*}; \
+    $(top_srcdir)/scripts/maple2c.pl $(top_srcdir) $${funct%.*} 3; \
+	done

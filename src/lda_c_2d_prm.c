@@ -63,7 +63,7 @@ const xc_func_info_type xc_func_info_lda_c_2d_prm = {
   "PRM (for 2D systems)",
   XC_FAMILY_LDA,
   {&xc_ref_Pittalis2008_195322, NULL, NULL, NULL, NULL},
-  XC_FLAGS_2D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_2D | MAPLE2C_FLAGS,
   1e-32,
   1, ext_params, set_ext_params,
   lda_c_2d_prm_init, NULL,

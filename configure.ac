@@ -133,6 +133,7 @@ AC_ARG_ENABLE([fxc],
 if test x"${ac_cv_build_fxc}" == x"no"; then
   AC_DEFINE(XC_DONT_COMPILE_FXC, 1, [defined if second derivatives are disabled])
   AC_DEFINE(XC_DONT_COMPILE_KXC, 1, [defined if third derivatives are disabled])
+  AC_DEFINE(XC_DONT_COMPILE_LXC, 1, [defined if fourth derivatives are disabled])
 fi
 
 AC_ARG_ENABLE([kxc],
@@ -141,6 +142,15 @@ AC_ARG_ENABLE([kxc],
 	      [ac_cv_build_kxc=no])
 if test x"${ac_cv_build_kxc}" == x"no"; then
   AC_DEFINE(XC_DONT_COMPILE_KXC, 1, [defined if third derivatives are disabled])
+  AC_DEFINE(XC_DONT_COMPILE_LXC, 1, [defined if fourth derivatives are disabled])
+fi
+
+AC_ARG_ENABLE([lxc],
+	      AS_HELP_STRING([--disable-lxc], [don't build fourth derivatives]),
+	      [ac_cv_build_lxc=$enableval],
+	      [ac_cv_build_lxc=no])
+if test x"${ac_cv_build_lxc}" == x"no"; then
+  AC_DEFINE(XC_DONT_COMPILE_LXC, 1, [defined if fourth derivatives are disabled])
 fi
 
 # build/install fortran bits unless --disable-fortran is used

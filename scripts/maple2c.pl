@@ -11,6 +11,7 @@ use FindBin;                 # locate this script
 use lib "$FindBin::Bin/.";   # use current directory
 
 use maple2c_work;
+use maple2c_derivatives;
 
 die "Usage: $0 srcdir functional max_order (optional args) (simplify)\n"
     if ($#ARGV < 2);
@@ -82,19 +83,25 @@ sub work_lda_exc {
   my @variables = ("rho_0_", "rho_1_");
 
   # the definition of the derivatives that libxc transmits to the calling program
-  my @derivatives = (
-    [[[0,0], "_s_zk"]],
-    [[[1,0], "vrho_0_"],   [[0,1], "vrho_1_"]],
-    [[[2,0], "v2rho2_0_"], [[1,1], "v2rho2_1_"], [[0,2], "v2rho2_2_"]],
-    [[[3,0], "v3rho3_0_"], [[2,1], "v3rho3_1_"], [[1,2], "v3rho3_2_"], [[0,3], "v3rho3_3_"]],
-    [[[4,0], "v4rho4_0_"], [[3,1], "v4rho4_1_"], [[2,2], "v4rho4_2_"], [[1,3], "v4rho4_3_"], [[0,4], "v4rho4_4_"]]
+  my @partials = (
+    ["zk"],
+    ["vrho"],
+    ["v2rho2"],
+    ["v3rho3"],
+    ["v4rho4"]
       );
+  
+  my @derivatives = ();
+  for(my $order=0; $order< $config{"max_order"}+1; $order++){
+    $derivatives[$order] = [];
+    foreach my $der (@{$partials[$order]}){
+      push @{$derivatives[$order]}, maple2c_derivatives($der, "lda");
+    }
+  }
 
   # get arguments of the functions
-  my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
-
-  # honor max_order
-  splice @derivatives, $config{"max_order"}+1, $#derivatives, ;
+  $input_args  = "const double *rho";
+  $output_args = "double *zk, LDA_OUT_PARAMS_NO_EXC(double *)";
 
   my ($der_def_unpol, @out_c_unpol) = 
       maple2c_create_derivatives(\@variables, \@derivatives, "mf", "unpol");
@@ -103,6 +110,8 @@ sub work_lda_exc {
       maple2c_create_derivatives(\@variables, \@derivatives, "mf", "pol");
   my $out_c_pol = join(", ", @out_c_pol);
 
+  print $def_def_unpol;
+  
   # we join all the pieces
   my $maple_code = "
 # zk is energy per unit particle
@@ -113,7 +122,7 @@ mf   := (r0, r1) -> eval(dens(r0, r1)*mzk(r0, r1)):
 
 \$include <util.mpl>
 ";
-  my $maple_zk = " _s_zk = mzk(".join(", ", @variables).")";
+  my $maple_zk = " zk_0_ = mzk(".join(", ", @variables).")";
 
   # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
   @variants = (
@@ -307,7 +316,7 @@ mf   := (r0, r1, s0, s1, s2) -> eval(dens(r0, r1)*mzk(r0, r1, s0, s1, s2)):
 
 \$include <util.mpl>
 ";
-  my $maple_zk = " _s_zk = mzk(".join(", ", @variables).")";
+  my $maple_zk = "zk_0_ = mzk(".join(", ", @variables).")";
 
   # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
   @variants = (
@@ -753,7 +762,7 @@ mf   := (r0, r1, s0, s1, s2, l0, l1, tau0, tau1) -> eval(dens(r0, r1)*mzk(r0, r1
 
 \$include <util.mpl>
 ";
-  my $maple_zk = " _s_zk = mzk(".join(", ", @variables).")";
+  my $maple_zk = " zk_0_ = mzk(".join(", ", @variables).")";
 
   # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
   @variants = (

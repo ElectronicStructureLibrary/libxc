@@ -7,3 +7,10 @@
 
 dist_noinst_SCRIPTS = \
 gga_x_lb.mpl
+
+maple2c:
+	@for funct in $(dist_noinst_SCRIPTS); do \
+    echo Processing: $${funct%.*}; \
+    $(top_srcdir)/scripts/maple2c.pl $(top_srcdir) $${funct%.*} 4; \
+  done
+

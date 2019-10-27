@@ -108,13 +108,13 @@ else
 end if:
 
 # This is the Stoll decomposition in our language
-lda_stoll_par  := (lda_func, rs, z, spin) ->
-  lda_func(rs*(2/(1 + z))^(1/3), spin)*(1 + z)/2:
+lda_stoll_par  := (lda_func, rs, z) -> 
+  (1 + z)/2 * lda_func(rs*(2/(1 + z))^(1/3), 1):
 
 lda_stoll_perp := (lda_func, rs, z) ->
   + lda_func(rs, z)
-  - lda_stoll_par(lda_func, rs,  z,  1)
-  - lda_stoll_par(lda_func, rs, -z, -1):
+  - lda_stoll_par(lda_func, rs,  z)
+  - lda_stoll_par(lda_func, rs, -z):
 
 gga_stoll_par  := (gga_func, rs, z, xs, spin) ->
  + gga_func(rs*(2/(1 + z))^(1/3), spin, xs, xs*(1 + spin)/2, xs*(1 - spin)/2)

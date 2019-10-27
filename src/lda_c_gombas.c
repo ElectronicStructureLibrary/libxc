@@ -23,7 +23,7 @@ const xc_func_info_type xc_func_info_lda_c_gombas = {
   "Gombas",
   XC_FAMILY_LDA,
   {&xc_ref_Gombas1965_137, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
   0, NULL, NULL,
   NULL, NULL,

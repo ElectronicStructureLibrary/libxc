@@ -20,7 +20,7 @@ const xc_func_info_type xc_func_info_lda_x_2d = {
   "Slater exchange",
   XC_FAMILY_LDA,
   {&xc_ref_Dirac1930_376, &xc_ref_Bloch1929_545, NULL, NULL, NULL},
-  XC_FLAGS_2D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
+  XC_FLAGS_2D | MAPLE2C_FLAGS,
   1e-24,
   0, NULL, NULL,
   NULL, NULL,

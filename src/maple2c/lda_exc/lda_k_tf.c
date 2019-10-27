@@ -12,9 +12,11 @@
 */
 
 #define maple2c_order 4
+#define MAPLE2C_FLAGS (XC_FLAGS_I_HAVE_EXC | XC_FLAGS_I_HAVE_VXC | XC_FLAGS_I_HAVE_FXC | XC_FLAGS_I_HAVE_KXC | XC_FLAGS_I_HAVE_LXC)
+
 
 static inline void
-func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
+func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -44,7 +46,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
   t11 = t10 * t10;
   t13 = t2 * t9 * t11;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = t13 / 0.3e1;
+    zk[0] = t13 / 0.3e1;
 
 #ifndef XC_DONT_COMPILE_VXC
 
@@ -99,7 +101,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
 
 
 static inline void
-func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
+func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -131,7 +133,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
   t14 = t13 * t13;
   t16 = t5 * t12 * t14;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = t16 / 0.3e1;
+    zk[0] = t16 / 0.3e1;
 
 #ifndef XC_DONT_COMPILE_VXC
 
@@ -186,7 +188,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 
 
 static inline void
-func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
+func_pol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -256,7 +258,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t27 = t24 * t26;
   t28 = t17 * t27;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = t28 / 0.3e1;
+    zk[0] = t28 / 0.3e1;
 
 #ifndef XC_DONT_COMPILE_VXC
 

@@ -297,12 +297,6 @@ void FC_FUNC(xc_f90_gga_kxc, XC_F90_GGA_KXC)
 }
 
 
-void FC_FUNC(xc_f90_gga_lb_modified, XC_F90_GGA_LB_MODIFIED)
-     (void **p, CC_FORTRAN_INT *np, double *rho, double *sigma, double *r, double *vrho)
-{
-  xc_gga_lb_modified((xc_func_type *)(*p), *np, rho, sigma, *r, vrho);
-}
-
 void FC_FUNC(xc_f90_gga_ak13_get_asymptotic, XC_F90_GGA_AK13_GET_ASYMPTOTIC)
   (double *homo, double *asymp)
 {

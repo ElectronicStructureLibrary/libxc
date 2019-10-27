@@ -15,7 +15,7 @@
 #define XC_HYB_GGA_XC_MPW3LYP       419 /* mixture of mPW and LYP                */
 #define XC_HYB_GGA_XC_MB3LYP_RC04   437 /* B3LYP with RC04 LDA                   */
 #define XC_HYB_GGA_XC_REVB3LYP      454 /* Revised B3LYP                         */
-#define XC_HYB_GGA_XC_B3LYPs        459 /* B3LYP* functional                     */
+#define XC_HYB_GGA_XC_B3LYPS        459 /* B3LYP* functional                     */
 #define XC_HYB_GGA_XC_B3LYP5        475 /* B3LYP with VWN functional 5 instead of RPA */
 #define XC_HYB_GGA_XC_B5050LYP      572 /* Like B3LYP but more exact exchange    */
 #define XC_HYB_GGA_XC_KMLYP         485 /* Kang-Musgrave hybrid                  */
@@ -328,7 +328,7 @@ static const func_params_type ext_params_b3lyps[] = {
 extern "C"
 #endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyps = {
-  XC_HYB_GGA_XC_B3LYPs,
+  XC_HYB_GGA_XC_B3LYPS,
   XC_EXCHANGE_CORRELATION,
   "B3LYP*",
   XC_FAMILY_HYB_GGA,

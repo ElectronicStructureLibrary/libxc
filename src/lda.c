@@ -11,10 +11,6 @@
 #include "funcs_lda.c"
 #include "funcs_hyb_lda.c"
 
-#ifdef HAVE_CUDA
-#include <cuda.h>
-#endif
-
 /* get the lda functional */
 void 
 xc_lda(const xc_func_type *func, int np, const double *rho, 

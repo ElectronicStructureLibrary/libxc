@@ -18,6 +18,10 @@
 #include <string.h>
 #include <assert.h>
 
+#ifdef HAVE_CUDA
+#include <cuda.h>
+#endif
+
 #include "xc.h"
 #include "xc_funcs_worker.h"
 

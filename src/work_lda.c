@@ -27,7 +27,7 @@
 
 #ifdef HAVE_CUDA
 __global__ static void 
-work_lda_gpu(const XC(func_type) *p, int np, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *));
+work_lda_gpu(const XC(func_type) *p, int order, int np, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *));
 #endif
 
 /**
@@ -39,6 +39,16 @@ work_lda(const XC(func_type) *p, int np, const double *rho,
 	 double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
 
+  int order = -1;
+  
+  if(zk     != NULL) order = 0;
+  if(vrho   != NULL) order = 1;
+  if(v2rho2 != NULL) order = 2;
+  if(v3rho3 != NULL) order = 3;
+  if(v4rho4 != NULL) order = 4;
+
+  if(order < 0) return;
+  
 #ifdef HAVE_CUDA
 
   //make a copy of 'p' since it might be in host-only memory
@@ -49,23 +59,14 @@ work_lda(const XC(func_type) *p, int np, const double *rho,
   int nblocks = np/CUDA_BLOCK_SIZE;
   if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
     
-  work_lda_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(pcuda, np, rho, zk, LDA_OUT_PARAMS_NO_EXC(NOARG));
+  work_lda_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(pcuda, order, np, rho, zk, LDA_OUT_PARAMS_NO_EXC(NOARG));
 
   libxc_free(pcuda);
   
 #else
   
-  int ip, order;
+  int ip;
   double dens, zeta;
-
-  order = -1; 
-  if(zk     != NULL) order = 0;
-  if(vrho   != NULL) order = 1;
-  if(v2rho2 != NULL) order = 2;
-  if(v3rho3 != NULL) order = 3;
-  if(v4rho4 != NULL) order = 4;
-
-  if(order < 0) return;
 
   for(ip = 0; ip < np; ip++){
     xc_rho2dzeta(p->nspin, rho, &dens, &zeta);
@@ -97,25 +98,15 @@ work_lda(const XC(func_type) *p, int np, const double *rho,
 #ifdef HAVE_CUDA
 
 __global__ static void 
-work_lda_gpu(const XC(func_type) *p, int np, const double *rho,
+work_lda_gpu(const XC(func_type) *p, int order, int np, const double *rho,
              double *zk, LDA_OUT_PARAMS_NO_EXC(double *)) {
 
-  int order;
   double dens, zeta;
 
   int ip = blockIdx.x * blockDim.x + threadIdx.x;
 
   if(ip >= np) return;
   
-  order = -1; 
-  if(zk     != NULL) order = 0;
-  if(vrho   != NULL) order = 1;
-  if(v2rho2 != NULL) order = 2;
-  if(v3rho3 != NULL) order = 3;
-  if(v4rho4 != NULL) order = 4;
-
-  if(order < 0) return;
-
   internal_counters_lda_random(&(p->dim), ip, 0, &rho, &zk, LDA_OUT_PARAMS_NO_EXC(&));
 
   xc_rho2dzeta(p->nspin, rho, &dens, &zeta);

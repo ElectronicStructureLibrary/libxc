@@ -27,7 +27,7 @@
 
 #ifdef HAVE_CUDA
 __global__ static void 
-work_lda_gpu(const XC(func_type) *p, int np, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *));
+work_lda_gpu(const XC(func_type) *p, int ip, int np, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *));
 #endif
 
 /**
@@ -45,8 +45,10 @@ work_lda(const XC(func_type) *p, int np, const double *rho,
   XC(func_type) * pcuda = (XC(func_type) *) libxc_malloc(sizeof(XC(func_type)));
 
   *pcuda = *p;
-  
-  work_lda_gpu<<<1, 1>>>(pcuda, np, rho, zk, LDA_OUT_PARAMS_NO_EXC(NOARG));
+
+  for(int ip = 0; ip < np; ip++){
+    work_lda_gpu<<<1, 1>>>(pcuda, ip, np, rho, zk, LDA_OUT_PARAMS_NO_EXC(NOARG));
+  }
 
   libxc_free(pcuda);
   
@@ -94,10 +96,10 @@ work_lda(const XC(func_type) *p, int np, const double *rho,
 #ifdef HAVE_CUDA
 
 __global__ static void 
-work_lda_gpu(const XC(func_type) *p, int np, const double *rho,
+work_lda_gpu(const XC(func_type) *p, int ip, int np, const double *rho,
              double *zk, LDA_OUT_PARAMS_NO_EXC(double *)) {
 
-  int ip, order;
+  int order;
   double dens, zeta;
 
   order = -1; 
@@ -109,29 +111,32 @@ work_lda_gpu(const XC(func_type) *p, int np, const double *rho,
 
   if(order < 0) return;
 
-  for(ip = 0; ip < np; ip++){
-    xc_rho2dzeta(p->nspin, rho, &dens, &zeta);
+  internal_counters_lda_random(&(p->dim), ip, 0, &rho, &zk, LDA_OUT_PARAMS_NO_EXC(&));
 
-    if(dens > p->dens_threshold){
-      if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
-        func_unpol(p, order, rho, OUT_PARAMS);
-      
-      }else if(zeta >  1.0 - 1e-10){              /* ferromagnetic case - spin 0 */
-        func_ferr(p, order, rho, OUT_PARAMS);
-        
-      }else if(zeta < -1.0 + 1e-10){              /* ferromagnetic case - spin 1 */
-        internal_counters_lda_next(&(p->dim), -1, &rho, &zk, LDA_OUT_PARAMS_NO_EXC(&));
-        func_ferr(p, order, rho, OUT_PARAMS);
-        internal_counters_lda_prev(&(p->dim), -1, &rho, &zk, LDA_OUT_PARAMS_NO_EXC(&));
-
-      }else{                                      /* polarized (general) case */
-        func_pol(p, order, rho, OUT_PARAMS);
-      } /* polarization */
-    }
-    
-    internal_counters_lda_next(&(p->dim), 0, &rho, &zk, LDA_OUT_PARAMS_NO_EXC(&));
-  }   /* for(ip) */
+  xc_rho2dzeta(p->nspin, rho, &dens, &zeta);
   
+  if(dens > p->dens_threshold){
+    if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
+
+      func_unpol(p, order, rho, OUT_PARAMS);
+      
+    }else if(zeta >  1.0 - 1e-10){              /* ferromagnetic case - spin 0 */
+
+      func_ferr(p, order, rho, OUT_PARAMS);
+      
+    }else if(zeta < -1.0 + 1e-10){              /* ferromagnetic case - spin 1 */
+      
+      internal_counters_lda_next(&(p->dim), -1, &rho, &zk, LDA_OUT_PARAMS_NO_EXC(&));
+      func_ferr(p, order, rho, OUT_PARAMS);
+      
+    }else{                                      /* polarized (general) case */
+      
+      func_pol(p, order, rho, OUT_PARAMS);
+      
+    } /* polarization */
+  }
+    
+    
 }
 
 #endif

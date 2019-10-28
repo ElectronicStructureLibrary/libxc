@@ -219,6 +219,8 @@ GPU_FUNCTION void xc_rho2dzeta(int nspin, const double *rho, double *d, double *
 /* Functions to handle the internal counters */
 
 void internal_counters_set_lda (int nspin, xc_dimensions *dim);
+GPU_FUNCTION void internal_counters_lda_random
+(const xc_dimensions *dim, int ip, int offset, const double **rho, double **zk, LDA_OUT_PARAMS_NO_EXC(double **));
 GPU_FUNCTION void internal_counters_lda_next
 (const xc_dimensions *dim, int offset, const double **rho, double **zk, LDA_OUT_PARAMS_NO_EXC(double **));
 GPU_FUNCTION void internal_counters_lda_prev

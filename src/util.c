@@ -321,6 +321,27 @@ internal_counters_lda_prev
 }
 
 GPU_FUNCTION void
+internal_counters_gga_random
+  (const xc_dimensions *dim, int pos, int offset, const double **rho, const double **sigma,
+   double **zk, GGA_OUT_PARAMS_NO_EXC(double **))
+{
+  double *v4rho4 = NULL;
+  internal_counters_lda_random(dim, pos, offset, rho, zk, vrho, v2rho2, v3rho3, &v4rho4);
+
+  *sigma += pos*dim->sigma + offset;
+  if(*vrho != NULL) *vsigma += pos*dim->vsigma + offset;
+  if(*v2rho2 != NULL) {
+    *v2rhosigma += pos*dim->v2rhosigma + offset;
+    *v2sigma2   += pos*dim->v2sigma2  + offset;
+  }
+  if(*v3rho3 != NULL) {
+    *v3rho2sigma += pos*dim->v3rho2sigma + offset;
+    *v3rhosigma2 += pos*dim->v3rhosigma2 + offset;
+    *v3sigma3    += pos*dim->v3sigma3    + offset;
+  }
+}
+
+GPU_FUNCTION void
 internal_counters_gga_next
   (
    const xc_dimensions *dim, int offset, const double **rho, const double **sigma,

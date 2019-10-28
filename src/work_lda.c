@@ -27,7 +27,7 @@
 
 #ifdef HAVE_CUDA
 __global__ static void 
-work_lda_gpu(const XC(func_type) *p, int ip, int np, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *));
+work_lda_gpu(const XC(func_type) *p, int np, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *));
 #endif
 
 /**
@@ -46,9 +46,10 @@ work_lda(const XC(func_type) *p, int np, const double *rho,
 
   *pcuda = *p;
 
-  for(int ip = 0; ip < np; ip++){
-    work_lda_gpu<<<1, 1>>>(pcuda, ip, np, rho, zk, LDA_OUT_PARAMS_NO_EXC(NOARG));
-  }
+  int nblocks = np/CUDA_BLOCK_SIZE;
+  if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
+    
+  work_lda_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(pcuda, np, rho, zk, LDA_OUT_PARAMS_NO_EXC(NOARG));
 
   libxc_free(pcuda);
   
@@ -96,12 +97,16 @@ work_lda(const XC(func_type) *p, int np, const double *rho,
 #ifdef HAVE_CUDA
 
 __global__ static void 
-work_lda_gpu(const XC(func_type) *p, int ip, int np, const double *rho,
+work_lda_gpu(const XC(func_type) *p, int np, const double *rho,
              double *zk, LDA_OUT_PARAMS_NO_EXC(double *)) {
 
   int order;
   double dens, zeta;
 
+  int ip = blockIdx.x * blockDim.x + threadIdx.x;
+
+  if(ip >= np) return;
+  
   order = -1; 
   if(zk     != NULL) order = 0;
   if(vrho   != NULL) order = 1;

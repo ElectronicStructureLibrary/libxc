@@ -12,9 +12,11 @@
 */
 
 #define maple2c_order 4
+#define MAPLE2C_FLAGS (XC_FLAGS_I_HAVE_EXC | XC_FLAGS_I_HAVE_VXC | XC_FLAGS_I_HAVE_FXC | XC_FLAGS_I_HAVE_KXC | XC_FLAGS_I_HAVE_LXC)
+
 
 static inline void
-func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
+func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -58,7 +60,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
   t8 = 0.1e1 / t7;
   t12 = params->b + t4 * t6 * t8 / 0.4e1;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = params->a / t12;
+    zk[0] = params->a / t12;
 
 #ifndef XC_DONT_COMPILE_VXC
 
@@ -127,7 +129,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
 
 
 static inline void
-func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
+func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
 
   lda_c_wigner_params *params;
@@ -136,7 +138,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
   params = (lda_c_wigner_params * )(p->params);
 
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = 0.0e0;
+    zk[0] = 0.0e0;
 
 #ifndef XC_DONT_COMPILE_VXC
 
@@ -190,7 +192,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 
 
 static inline void
-func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
+func_pol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -253,7 +255,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t20 = params->b + t12 * t14 * t16 / 0.4e1;
   t21 = 0.1e1 / t20;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = t8 * t21;
+    zk[0] = t8 * t21;
 
 #ifndef XC_DONT_COMPILE_VXC
 
@@ -272,11 +274,11 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t37 = t34 * t9 * t36;
   t39 = t16 * t7 * params->a * t37 / 0.12e2;
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[0] = t3 * t27 * t29 + (t8 * t21) + t39;
+    vrho[0] = t3 * t27 * t29 + t39 + (t8 * t21);
 
   t41 = 0.2e1 * t22 + 0.2e1 * t25;
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[1] = t3 * t41 * t29 + (t8 * t21) + t39;
+    vrho[1] = t3 * t41 * t29 + t39 + (t8 * t21);
 
 #ifndef XC_DONT_COMPILE_FXC
 

@@ -12,9 +12,11 @@
 */
 
 #define maple2c_order 4
+#define MAPLE2C_FLAGS (XC_FLAGS_I_HAVE_EXC | XC_FLAGS_I_HAVE_VXC | XC_FLAGS_I_HAVE_FXC | XC_FLAGS_I_HAVE_KXC | XC_FLAGS_I_HAVE_LXC)
+
 
 static inline void
-func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
+func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -77,7 +79,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
   t36 = t17 * t17;
   t39 = 0.1e1 / t5;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = -t1 * (t11 * t24 - t27 * t30 * t31 / 0.4e1 + t35 * t36 / t18 * t39 / 0.8e1 - 0.1e1 / 0.3e1);
+    zk[0] = -t1 * (t11 * t24 - t27 * t30 * t31 / 0.4e1 + t35 * t36 / t18 * t39 / 0.8e1 - 0.1e1 / 0.3e1);
 
 #ifndef XC_DONT_COMPILE_VXC
 
@@ -167,7 +169,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
 
 
 static inline void
-func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
+func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -230,7 +232,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
   t36 = t17 * t17;
   t39 = 0.1e1 / t5;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = -t1 * (t11 * t24 - t27 * t30 * t31 / 0.4e1 + t35 * t36 / t18 * t39 / 0.8e1 - 0.1e1 / 0.3e1);
+    zk[0] = -t1 * (t11 * t24 - t27 * t30 * t31 / 0.4e1 + t35 * t36 / t18 * t39 / 0.8e1 - 0.1e1 / 0.3e1);
 
 #ifndef XC_DONT_COMPILE_VXC
 
@@ -320,7 +322,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 
 
 static inline void
-func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
+func_pol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -433,7 +435,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t84 = -t60 * (t67 * t72 - t28 * t31 * t74 / 0.4e1 + t36 * t39 * t78 / 0.8e1 - 0.1e1 / 0.3e1) + t45;
   t85 = t59 * t84;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = -t45 + t85;
+    zk[0] = -t45 + t85;
 
 #ifndef XC_DONT_COMPILE_VXC
 

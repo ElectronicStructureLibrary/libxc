@@ -32,7 +32,7 @@ gga_x_ak13_init(xc_func_type *p)
 
 static const func_params_type ext_params[] = {
   {"_B1",  1.74959015598863046792081721182, "B1"}, /* 3*muGE/5 + 8 pi/15 */
-  {"_B2", -1.62613336586517367779736042170, "B2"} /* muGE - B1 */
+  {"_B2", -1.62613336586517367779736042170, "B2"}  /* muGE - B1 */
 };
 
 static void
@@ -56,10 +56,9 @@ double xc_gga_ak13_get_asymptotic (double homo)
 double xc_gga_ak13_pars_get_asymptotic (double homo, const double *ext_params)
 {
   double Qx, aa, aa2, factor;
-  double ak13_B1, ak13_B2;
+  double ak13_B1;
 
   ak13_B1 = ext_params[0];
-  ak13_B2 = ext_params[1];
 
   Qx = sqrt(2.0)*ak13_B1/(3.0*CBRT(3.0*M_PI*M_PI));
 
@@ -80,7 +79,7 @@ const xc_func_info_type xc_func_info_gga_x_ak13 = {
   "Armiento & Kuemmel 2013",
   XC_FAMILY_GGA,
   {&xc_ref_Armiento2013_036402, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
   2, ext_params, set_ext_params,
   gga_x_ak13_init, NULL,

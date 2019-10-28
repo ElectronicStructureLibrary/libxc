@@ -70,7 +70,7 @@ const xc_func_info_type xc_func_info_lda_x_1d_soft = {
   "Exchange in 1D for an soft-Coulomb interaction",
   XC_FAMILY_LDA,
   {&xc_ref_Helbig2011_032503, NULL, NULL, NULL, NULL},
-  XC_FLAGS_1D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_1D | MAPLE2C_FLAGS,
   1e-26,
   1, ext_params, set_ext_params,
   lda_x_1d_exponential_init, NULL,

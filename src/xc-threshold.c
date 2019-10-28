@@ -478,20 +478,23 @@ int main(int argc, char *argv[])
       break;
     case XC_FAMILY_GGA:
     case XC_FAMILY_HYB_GGA:
-      xc_gga(&func, 1, values.rho, values.sigma,
-	     pzk, pvrho, pvsigma, pv2rho2, pv2rhosigma, pv2sigma2, NULL, NULL, NULL, NULL);
+      xc_gga(&func, 1, values.rho, values.sigma, pzk, pvrho, pvsigma,
+             pv2rho2, pv2rhosigma, pv2sigma2, NULL, NULL, NULL, NULL,
+             NULL, NULL, NULL, NULL, NULL);
       break;
 
     case XC_FAMILY_MGGA:
     case XC_FAMILY_HYB_MGGA:
       xc_mgga(&func, 1, values.rho, values.sigma, values.lapl, values.tau,
-	      pzk, pvrho, pvsigma, pvlapl, pvtau,
-        pv2rho2, pv2rhosigma, pv2rholapl, pv2rhotau, 
-        pv2sigma2, pv2sigmalapl, pv2sigmatau,
-        pv2lapl2, pv2lapltau,
-        pv2tau2,
-        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+              pzk, pvrho, pvsigma, pvlapl, pvtau,
+              pv2rho2, pv2rhosigma, pv2rholapl, pv2rhotau, pv2sigma2, pv2sigmalapl, pv2sigmatau, pv2lapl2, pv2lapltau, pv2tau2,
+              NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+              NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+              NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+              NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+              NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+              NULL, NULL, NULL, NULL, NULL
+              );
       break;
     }
 

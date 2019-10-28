@@ -48,7 +48,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b88_v2 = {
   "HJS screened exchange B88 corrected version",
   XC_FAMILY_GGA,
   {&xc_ref_Weintraub2009_754, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-6, /* densities smaller than 1e-6 yield NaNs */
   1, ext_params, set_ext_params,
   gga_x_hjs_init, NULL, 

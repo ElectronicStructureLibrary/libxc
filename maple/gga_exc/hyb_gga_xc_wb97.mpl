@@ -21,9 +21,16 @@ $include "lda_x_erf.mpl"
 
 $include "b97.mpl"
 
+if evalb(Polarization = "ferr") then
+  wb97_x := (rs, z, xs0, xs1) ->
+    lda_x_erf_spin(rs,  1) * b97_g(0.004, params_a_c_x, xs0):
+else
+  wb97_x := (rs, z, xs0, xs1) ->
+    (1 + z)/2 * lda_x_erf_spin(rs*(2/(1 + z))^(1/3),  1) * b97_g(0.004, params_a_c_x, xs0) +
+    (1 - z)/2 * lda_x_erf_spin(rs*(2/(1 - z))^(1/3),  1) * b97_g(0.004, params_a_c_x, xs1)
+end if:
+
 f := (rs, z, xt, xs0, xs1) ->
-  + b97_f(f_lda_x_erf, 0.004, params_a_c_x, 0, [0, 0, 0, 0, 0],
-        rs, z, xs0, xs1)
-  + b97_f(f_pw, 0.2, params_a_c_ss, 0.006, params_a_c_ab,
-        rs, z, xs0, xs1):
+  wb97_x(rs, z, xs0, xs1) +
+  b97_f(f_pw, 0.2, params_a_c_ss, 0.006, params_a_c_ab, rs, z, xs0, xs1):
 

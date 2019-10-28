@@ -67,7 +67,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe_vwn = {
   "Perdew, Burke & Ernzerhof based on VWN correlation",
   XC_FAMILY_GGA,
   {&xc_ref_Kraisler2010_042516, &xc_ref_Perdew1996_3865, &xc_ref_Perdew1996_3865_err, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   3, ext_params, set_ext_params,
   gga_c_pbe_vwn_init, NULL, 

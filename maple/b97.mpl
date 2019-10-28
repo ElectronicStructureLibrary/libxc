@@ -16,8 +16,8 @@ if evalb(Polarization = "ferr") then
   b97_fperp := (lda_func, mgamma, cc, rs, z, xs0, xs1) -> 0:
 else
   b97_fpar  := (lda_func, mgamma, cc, rs, z, xs0, xs1) ->
-    + lda_stoll_par(lda_func, rs,  z,  1) * b97_g(mgamma, cc, xs0) 
-    + lda_stoll_par(lda_func, rs, -z, -1) * b97_g(mgamma, cc, xs1):
+    + lda_stoll_par(lda_func, rs,  z) * b97_g(mgamma, cc, xs0) 
+    + lda_stoll_par(lda_func, rs, -z) * b97_g(mgamma, cc, xs1):
 
   b97_fperp := (lda_func, mgamma, cc, rs, z, xs0, xs1) ->
     lda_stoll_perp(lda_func, rs, z) * b97_g(mgamma, cc, sqrt(xs0^2 + xs1^2)/sqrt(2)):

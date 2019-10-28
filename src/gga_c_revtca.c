@@ -22,7 +22,7 @@ const xc_func_info_type xc_func_info_gga_c_revtca = {
   "Tognetti, Cortona, Adamo (revised)",
   XC_FAMILY_GGA,
   {&xc_ref_Tognetti2008_536, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
   0, NULL, NULL,
   NULL, NULL, 

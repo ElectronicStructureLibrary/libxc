@@ -30,7 +30,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_js18 = {
   "JS18",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Jana2018_8999, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | MAPLE2C_FLAGS,
   1e-32,
   0, NULL, NULL,
   hyb_mgga_x_js18_init, NULL,

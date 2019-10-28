@@ -11,6 +11,7 @@ use FindBin;                 # locate this script
 use lib "$FindBin::Bin/.";   # use current directory
 
 use maple2c_work;
+use maple2c_derivatives;
 
 die "Usage: $0 srcdir functional max_order (optional args) (simplify)\n"
     if ($#ARGV < 2);
@@ -77,30 +78,162 @@ if ($commands{$config{"functype"}}) {
   die "No such type: $string\n";
 } 
 
-sub work_lda_exc {
+#####################################################################
+# Returns the variables of a LDA and constructs all spin variants of 
+# the derivatives
+sub lda_var_der() {
   # these are the variables that the functional depends on
   my @variables = ("rho_0_", "rho_1_");
 
   # the definition of the derivatives that libxc transmits to the calling program
-  my @derivatives = (
-    [[[0,0], "_s_zk"]],
-    [[[1,0], "vrho_0_"],   [[0,1], "vrho_1_"]],
-    [[[2,0], "v2rho2_0_"], [[1,1], "v2rho2_1_"], [[0,2], "v2rho2_2_"]],
-    [[[3,0], "v3rho3_0_"], [[2,1], "v3rho3_1_"], [[1,2], "v3rho3_2_"], [[0,3], "v3rho3_3_"]],
-    [[[4,0], "v4rho4_0_"], [[3,1], "v4rho4_1_"], [[2,2], "v4rho4_2_"], [[1,3], "v4rho4_3_"], [[0,4], "v4rho4_4_"]]
+  my @partials = (
+    ["zk"],
+    ["vrho"],
+    ["v2rho2"],
+    ["v3rho3"],
+    ["v4rho4"]
       );
+  
+  my @derivatives = ();
+  for(my $order=0; $order< $config{"max_order"}+1; $order++){
+    $derivatives[$order] = [];
+    foreach my $der (@{$partials[$order]}){
+      push @{$derivatives[$order]}, maple2c_derivatives($der, "lda");
+    }
+  }
 
+  return (\@variables, \@derivatives);
+}
+
+
+#####################################################################
+# Returns the variables of a GGA and constructs all spin variants of 
+# the derivatives
+sub gga_var_der() {
+  # these are the variables that the functional depends on
+  my @variables = ("rho_0_", "rho_1_", "sigma_0_", "sigma_1_", "sigma_2_");
+
+  # the definition of the derivatives that libxc transmits to the calling program
+  my @partials = (
+    ["zk"],
+    ["vrho", "vsigma"],
+    ["v2rho2", "v2rhosigma", "v2sigma2"],
+    ["v3rho3", "v3rho2sigma", "v3rhosigma2", "v3sigma3"],
+    ["v4rho4", "v4rho3sigma", "v4rho2sigma2", "v4rhosigma3", "v4sigma4"]
+      );
+  
+  my @derivatives = ();
+  for(my $order=0; $order< $config{"max_order"}+1; $order++){
+    $derivatives[$order] = [];
+    foreach my $der (@{$partials[$order]}){
+      push @{$derivatives[$order]}, maple2c_derivatives($der, "gga");
+    }
+  }
+
+  return (\@variables, \@derivatives);
+}
+
+
+#####################################################################
+# Returns the variables of a MGGA and constructs all spin variants of 
+# the derivatives
+sub mgga_var_der() {
+  # these are the variables that the functional depends on
+  my @variables = ("rho_0_", "rho_1_", "sigma_0_", "sigma_1_", "sigma_2_", "lapl_0_", "lapl_1_", "tau_0_", "tau_1_");
+
+  # the definition of the derivatives that libxc transmits to the calling program
+  my @partials = (
+    ["zk"],
+    ["vrho", "vsigma", "vlapl", "vtau"],
+    ["v2rho2", "v2rhosigma", "v2rholapl", "v2rhotau", "v2sigma2", 
+     "v2sigmalapl", "v2sigmatau", "v2lapl2", "v2lapltau", "v2tau2"],
+    ["v3rho3", "v3rho2sigma", "v3rho2lapl", "v3rho2tau", "v3rhosigma2", 
+     "v3rhosigmalapl", "v3rhosigmatau", "v3rholapl2", "v3rholapltau",
+     "v3rhotau2", "v3sigma3", "v3sigma2lapl", "v3sigma2tau", "v3sigmalapl2",
+     "v3sigmalapltau", "v3sigmatau2", "v3lapl3", "v3lapl2tau", "v3lapltau2",
+     "v3tau3"],
+    ["v4rho4", "v4rho3sigma", "v4rho3lapl", "v4rho3tau", "v4rho2sigma2",
+     "v4rho2sigmalapl", "v4rho2sigmatau", "v4rho2lapl2", "v4rho2lapltau",
+     "v4rho2tau2", "v4rhosigma3", "v4rhosigma2lapl", "v4rhosigma2tau",
+     "v4rhosigmalapl2", "v4rhosigmalapltau", "v4rhosigmatau2",
+     "v4rholapl3", "v4rholapl2tau", "v4rholapltau2", "v4rhotau3",
+     "v4sigma4", "v4sigma3lapl", "v4sigma3tau", "v4sigma2lapl2",
+     "v4sigma2lapltau", "v4sigma2tau2", "v4sigmalapl3", "v4sigmalapl2tau",
+     "v4sigmalapltau2", "v4sigmatau3", "v4lapl4", "v4lapl3tau",
+     "v4lapl2tau2", "v4lapltau3", "v4tau4",
+    ]
+      );
+  
+  my @derivatives = ();
+  for(my $order=0; $order< $config{"max_order"}+1; $order++){
+    $derivatives[$order] = [];
+    foreach my $der (@{$partials[$order]}){
+      push @{$derivatives[$order]}, maple2c_derivatives($der, "mgga");
+    }
+  }
+
+  return (\@variables, \@derivatives);
+}
+
+#####################################################################
+# This separates the derivatives of vxc into derivatives of vxc_0 
+# and vxc_1. All other derivatives (e.g. vsigma) are ignored.
+sub filter_vxc_derivatives {
+  my @all_derivatives = @{$_[0]};
+
+  my @derivatives  = ();
+  my @derivatives1 = ();
+  my @derivatives2 = ();
+
+  for(my $order=0; $order < $#all_derivatives; $order++){
+    $derivatives [$order] = [];
+    $derivatives1[$order] = [];
+    $derivatives2[$order] = [];
+    foreach my $der (@{$all_derivatives[$order + 1]}){
+      if(${$der}[0][0] > 0){
+        ${$der}[0][0]--;
+        push @{$derivatives1[$order]}, $der;
+        push @{$derivatives [$order]}, $der;
+      }elsif(${$der}[0][1] > 0){
+        ${$der}[0][1]--;
+        push @{$derivatives2[$order]}, $der;
+        push @{$derivatives [$order]}, $der;
+      }
+    }
+  }
+
+  return (\@derivatives, \@derivatives1, \@derivatives2);
+}
+
+#####################################################################
+# sort by character and then by number
+sub sort_alphanumerically {
+  $a =~ /([^_]+)_([0-9]+)_/;
+  my ($name1, $num1) = ($1, $2);
+
+  $b =~ /([^_]+)_([0-9]+)_/;
+  my ($name2, $num2) = ($1, $2);
+
+  return $name1 cmp $name2 || $num1 <=> $num2;
+}
+
+
+#####################################################################
+# Process a LDA functional for the energy
+sub work_lda_exc {
+  my $variables, $derivatives;
+
+  ($variables, $derivatives) = lda_var_der();
+  
   # get arguments of the functions
-  my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
-
-  # honor max_order
-  splice @derivatives, $config{"max_order"}+1, $#derivatives, ;
+  $input_args  = "const double *rho";
+  $output_args = "double *zk, LDA_OUT_PARAMS_NO_EXC(double *)";
 
   my ($der_def_unpol, @out_c_unpol) = 
-      maple2c_create_derivatives(\@variables, \@derivatives, "mf", "unpol");
+      maple2c_create_derivatives($variables, $derivatives, "mf", "unpol");
   my $out_c_unpol = join(", ", @out_c_unpol);
   my ($der_def_pol, @out_c_pol) = 
-      maple2c_create_derivatives(\@variables, \@derivatives, "mf", "pol");
+      maple2c_create_derivatives($variables, $derivatives, "mf", "pol");
   my $out_c_pol = join(", ", @out_c_pol);
 
   # we join all the pieces
@@ -113,7 +246,7 @@ mf   := (r0, r1) -> eval(dens(r0, r1)*mzk(r0, r1)):
 
 \$include <util.mpl>
 ";
-  my $maple_zk = " _s_zk = mzk(".join(", ", @variables).")";
+  my $maple_zk = " zk_0_ = mzk(".join(", ", @{$variables}).")";
 
   # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
   @variants = (
@@ -148,52 +281,33 @@ C([$maple_zk, $out_c_pol], optimize, deducetypes=false):
 \n",
       );
 
-  maple2c_run(\@variables, \@derivatives, \@variants, 0, $input_args, $output_args);
+  maple2c_run($variables, $derivatives, \@variants, 0, $input_args, $output_args);
 }
 
-
+#####################################################################
+# Process a LDA functional for the potential
 sub work_lda_vxc {
-  # these are the variables that the functional depends on
-  my @variables = ("rho_0_", "rho_1_");
+  my $variables, $all_derivatives;
 
-  # the definition of the derivatives that libxc transmits to the calling program
-  my @derivatives1 = (
-    [[[0,0], "vrho_0_"]],
-    [[[1,0], "v2rho2_0_"], [[0,1], "v2rho2_1_"]],
-    [[[2,0], "v3rho3_0_"], [[1,1], "v3rho3_1_"], [[0,2], "v3rho3_2_"]],
-    [[[3,0], "v4rho4_0_"], [[2,1], "v4rho4_1_"], [[1,2], "v4rho4_2_"], [[0,3], "v4rho4_3_"]],
-      );
-  my @derivatives2 = (
-    [[[0,0], "vrho_1_"]],
-    [[[0,1], "v2rho2_2_"]],
-    [[[0,2], "v3rho3_3_"]],
-    [[[0,3], "v4rho4_4_"]],
-      );
-  
-  my @derivatives = ();
-  for(my $i=0; $i<=$#derivatives1; $i++){
-    @{$derivatives[$i]} = @{$derivatives1[$i]};
-    push(@{$derivatives[$i]}, @{$derivatives2[$i]});
-  }
+  ($variables, $all_derivatives) = lda_var_der();
+  my $derivatives, $derivatives1, $derivatives2;
+  ($derivatives, $derivatives1, $derivatives2) = filter_vxc_derivatives($all_derivatives);
 
-  my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
-
-  # honor max_order
-  splice @derivatives1, $config{"max_order"}+1, $#derivatives1, ;
-  splice @derivatives2, $config{"max_order"}+1, $#derivatives2, ;
-  splice @derivatives,  $config{"max_order"}+1, $#derivatives,  ;
+  # get arguments of the functions
+  $input_args  = "const double *rho";
+  $output_args = "LDA_OUT_PARAMS_NO_EXC(double *)";
 
   # we obtain the missing pieces for maple
   # unpolarized calculation
   my ($der_def_unpol, @out_c_unpol) = 
-      maple2c_create_derivatives(\@variables, \@derivatives1, "mf0", "unpol");
+      maple2c_create_derivatives($variables, $derivatives1, "mf0", "unpol");
   my $out_c_unpol = join(", ", @out_c_unpol);
-
+  
   # polarized calculation
   my ($der_def_pol, @out_c_pol1) = 
-      maple2c_create_derivatives(\@variables, \@derivatives1, "mf0", "pol");
+      maple2c_create_derivatives($variables, $derivatives1, "mf0", "pol");
   my ($der_def_pol2, @out_c_pol2) = 
-      maple2c_create_derivatives(\@variables, \@derivatives2, "mf1", "pol");
+      maple2c_create_derivatives($variables, $derivatives2, "mf1", "pol");
 
   $der_def_pol .= $der_def_pol2;
   
@@ -210,8 +324,8 @@ mf1   := (r0, r1) -> eval(mzk(r1, r0)):
 \$include <util.mpl>
 ";
 
-  my $maple_vrho0 = "vrho_0_ = mf0(".join(", ", @variables).")";
-  my $maple_vrho1 = "vrho_1_ = mf1(".join(", ", @variables).")"; 
+  my $maple_vrho0 = "vrho_0_ = mf0(".join(", ", @{$variables}).")";
+  my $maple_vrho1 = "vrho_1_ = mf1(".join(", ", @{$variables}).")"; 
 
   # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
   @variants = (
@@ -246,51 +360,23 @@ C([$maple_vrho0, $maple_vrho1, $out_c_pol], optimize, deducetypes=false):
 "
       );
 
-  maple2c_run(\@variables, \@derivatives, \@variants, 1, $input_args, $output_args);
+  maple2c_run($variables, $derivatives, \@variants, 1, $input_args, $output_args);
 }
 
-sub work_gga_exc {
-  # these are the variables that the functional depends on
-  my @variables = ("rho_0_", "rho_1_", "sigma_0_", "sigma_1_", "sigma_2_");
 
-  # the definition of the derivatives that libxc transmits to the calling program
-  my @derivatives = (
-    [
-     [[0,0,0,0,0], "_s_zk"]
-    ], [
-      [[1,0,0,0,0], "vrho_0_"],   [[0,1,0,0,0], "vrho_1_"],
-      [[0,0,1,0,0], "vsigma_0_"], [[0,0,0,1,0], "vsigma_1_"], [[0,0,0,0,1], "vsigma_2_"]
-    ], [
-      [[2,0,0,0,0], "v2rho2_0_"], [[1,1,0,0,0], "v2rho2_1_"], [[0,2,0,0,0], "v2rho2_2_"],
-      [[1,0,1,0,0], "v2rhosigma_0_"], [[1,0,0,1,0], "v2rhosigma_1_"],  [[1,0,0,0,1], "v2rhosigma_2_"],
-      [[0,1,1,0,0], "v2rhosigma_3_"], [[0,1,0,1,0], "v2rhosigma_4_"],  [[0,1,0,0,1], "v2rhosigma_5_"],
-      [[0,0,2,0,0], "v2sigma2_0_"], [[0,0,1,1,0], "v2sigma2_1_"], [[0,0,1,0,1], "v2sigma2_2_"],
-      [[0,0,0,2,0], "v2sigma2_3_"], [[0,0,0,1,1], "v2sigma2_4_"], [[0,0,0,0,2], "v2sigma2_5_"], 
-    ], [
-      [[3,0,0,0,0], "v3rho3_0_"], [[2,1,0,0,0], "v3rho3_1_"], 
-      [[1,2,0,0,0], "v3rho3_2_"], [[0,3,0,0,0], "v3rho3_3_"],
-      [[2,0,1,0,0], "v3rho2sigma_0_"], [[2,0,0,1,0], "v3rho2sigma_1_"],  [[2,0,0,0,1], "v3rho2sigma_2_"],
-      [[1,1,1,0,0], "v3rho2sigma_3_"], [[1,1,0,1,0], "v3rho2sigma_4_"],  [[1,1,0,0,1], "v3rho2sigma_5_"],
-      [[0,2,1,0,0], "v3rho2sigma_6_"], [[0,2,0,1,0], "v3rho2sigma_7_"],  [[0,2,0,0,1], "v3rho2sigma_8_"],
-      [[1,0,2,0,0], "v3rhosigma2_0_"], [[1,0,1,1,0], "v3rhosigma2_1_"],  [[1,0,1,0,1], "v3rhosigma2_2_"],
-      [[1,0,0,2,0], "v3rhosigma2_3_"], [[1,0,0,1,1], "v3rhosigma2_4_"],  [[1,0,0,0,2], "v3rhosigma2_5_"],
-      [[0,1,2,0,0], "v3rhosigma2_6_"], [[0,1,1,1,0], "v3rhosigma2_7_"],  [[0,1,1,0,1], "v3rhosigma2_8_"],
-      [[0,1,0,2,0], "v3rhosigma2_9_"], [[0,1,0,1,1], "v3rhosigma2_10_"], [[0,1,0,0,2], "v3rhosigma2_11_"],
-      [[0,0,3,0,0], "v3sigma3_0_"], [[0,0,2,1,0], "v3sigma3_1_"], [[0,0,2,0,1], "v3sigma3_2_"],
-      [[0,0,1,2,0], "v3sigma3_3_"], [[0,0,1,1,1], "v3sigma3_4_"], [[0,0,1,0,2], "v3sigma3_5_"],
-      [[0,0,0,3,0], "v3sigma3_6_"], [[0,0,0,2,1], "v3sigma3_7_"], [[0,0,0,1,2], "v3sigma3_8_"],
-      [[0,0,0,0,3], "v3sigma3_9_"],
-    ],
-      );
+#####################################################################
+# Process a GGA functional for the energy
+sub work_gga_exc {
+  my $variables, $derivatives;
+
+  ($variables, $derivatives) = gga_var_der();
 
   # get arguments of the functions
-  my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
+  $input_args  = "const double *rho, const double *sigma";
+  $output_args = "double *zk, GGA_OUT_PARAMS_NO_EXC(double *)";
 
-  # honor max_order
-  splice @derivatives, $config{"max_order"}+1, $#derivatives, ;
-  
   my ($der_def, @out_c) = 
-      maple2c_create_derivatives(\@variables, \@derivatives, "mf");
+      maple2c_create_derivatives($variables, $derivatives, "mf");
   my $out_c = join(", ", @out_c);
   $out_c = ", $out_c" if ($out_c ne "");
 
@@ -307,7 +393,7 @@ mf   := (r0, r1, s0, s1, s2) -> eval(dens(r0, r1)*mzk(r0, r1, s0, s1, s2)):
 
 \$include <util.mpl>
 ";
-  my $maple_zk = " _s_zk = mzk(".join(", ", @variables).")";
+  my $maple_zk = "zk_0_ = mzk(".join(", ", @{$variables}).")";
 
   # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
   @variants = (
@@ -351,83 +437,33 @@ C([$maple_zk$out_c], optimize, deducetypes=false):
 \n",
       );
 
-  maple2c_run(\@variables, \@derivatives, \@variants, 0, $input_args, $output_args);
+  maple2c_run($variables, $derivatives, \@variants, 0, $input_args, $output_args);
 }
 
-sub sort_alphanumerically {
-  $a =~ /([^_]+)_([0-9]+)_/;
-  my ($name1, $num1) = ($1, $2);
-
-  $b =~ /([^_]+)_([0-9]+)_/;
-  my ($name2, $num2) = ($1, $2);
-
-  return $name1 cmp $name2 || $num1 <=> $num2;
-}
-
+#####################################################################
+# Process a GGA functional for the potential
 sub work_gga_vxc {
-  # these are the variables that the functional depends on
-  my @variables = ("rho_0_", "rho_1_", "sigma_0_", "sigma_1_", "sigma_2_");
+  my $variables, $all_derivatives;
 
-  # the definition of the derivatives that libxc transmits to the calling program
-  my @derivatives1 = (
-    [
-     [[0,0,0,0,0], "vrho_0_"]
-    ],
-    [
-     [[1,0,0,0,0], "v2rho2_0_"], [[0,1,0,0,0], "v2rho2_1_"],
-     [[0,0,1,0,0], "v2rhosigma_0_"], [[0,0,0,1,0], "v2rhosigma_1_"],  [[0,0,0,0,1], "v2rhosigma_2_"],
-    ],
-    [
-     [[2,0,0,0,0], "v3rho3_0_"], [[1,1,0,0,0], "v3rho3_1_"], [[0,2,0,0,0], "v3rho3_2_"],
-     [[1,0,1,0,0], "v3rho2sigma_0_"], [[1,0,0,1,0], "v3rho2sigma_1_"],  [[1,0,0,0,1], "v3rho2sigma_2_"],
-     [[0,1,1,0,0], "v3rho2sigma_3_"], [[0,1,0,1,0], "v3rho2sigma_4_"],  [[0,1,0,0,1], "v3rho2sigma_5_"],
-     [[0,0,2,0,0], "v3rhosigma2_0_"], [[0,0,1,1,0], "v3rhosigma2_1_"],  [[0,0,1,0,1], "v3rhosigma2_2_"],
-     [[0,0,0,2,0], "v3rhosigma2_3_"], [[0,0,0,1,1], "v3rhosigma2_4_"],  [[0,0,0,0,2], "v3rhosigma2_5_"],
-    ]
-      );
-  my @derivatives2 = (
-    [
-     [[0,0,0,0,0], "vrho_1_"]
-    ],
-    [
-     [[0,1,0,0,0], "v2rho2_2_"],
-     [[0,0,1,0,0], "v2rhosigma_3_"], [[0,0,0,1,0], "v2rhosigma_4_"],  [[0,0,0,0,1], "v2rhosigma_5_"],
-    ],
-    [
-     [[0,2,0,0,0], "v3rho3_3_"],
-     [[0,1,1,0,0], "v3rho2sigma_6_"], [[0,1,0,1,0], "v3rho2sigma_7_"],  [[0,1,0,0,1], "v3rho2sigma_8_"],
-     [[0,0,2,0,0], "v3rhosigma2_6_"], [[0,0,1,1,0], "v3rhosigma2_7_"],  [[0,0,1,0,1], "v3rhosigma2_8_"],
-     [[0,0,0,2,0], "v3rhosigma2_9_"], [[0,0,0,1,1], "v3rhosigma2_10_"], [[0,0,0,0,2], "v3rhosigma2_11_"],
-    ]
-      );
+  ($variables, $all_derivatives) = gga_var_der();
+  my $derivatives, $derivatives1, $derivatives2;
+  ($derivatives, $derivatives1, $derivatives2) = filter_vxc_derivatives($all_derivatives);
+    
+  # get arguments of the functions
+  $input_args  = "const double *rho, const double *sigma";
+  $output_args = "GGA_OUT_PARAMS_NO_EXC(double *)";
   
-  my @derivatives = ();
-  for(my $i=0; $i<=$#derivatives1; $i++){
-    @{$derivatives[$i]} = ();
-    push(@{$derivatives[$i]}, @{$derivatives1[$i]});
-    push(@{$derivatives[$i]}, @{$derivatives2[$i]});
-  }
-
-  my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
-  # override output arguments
-  $output_args = "double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2, double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3";
-  
-  # honor max_order
-  splice @derivatives1, $config{"max_order"}+1, $#derivatives1, ;
-  splice @derivatives2, $config{"max_order"}+1, $#derivatives2, ;
-  splice @derivatives,  $config{"max_order"}+1, $#derivatives,  ;
-
   # we obtain the missing pieces for maple
   # unpolarized calculation
   my ($der_def_unpol, @out_c_unpol) = 
-      maple2c_create_derivatives(\@variables, \@derivatives1, "mf0", "unpol");
+      maple2c_create_derivatives($variables, $derivatives1, "mf0", "unpol");
   my $out_c_unpol = join(", ", @out_c_unpol);
 
   # polarized calculation
   my ($der_def_pol, @out_c_pol1) = 
-      maple2c_create_derivatives(\@variables, \@derivatives1, "mf0", "pol");
+      maple2c_create_derivatives($variables, $derivatives1, "mf0", "pol");
   my ($der_def_pol2, @out_c_pol2) = 
-      maple2c_create_derivatives(\@variables, \@derivatives2, "mf1", "pol");
+      maple2c_create_derivatives($variables, $derivatives2, "mf1", "pol");
 
   $der_def_pol .= $der_def_pol2;
   
@@ -447,8 +483,8 @@ mf1   := (r0, r1, s0, s1, s2) -> eval(mzk(r1, r0, s2, s1, s0)):
 \$include <util.mpl>
 ";
 
-  my $maple_vrho0 = "vrho_0_ = mf0(".join(", ", @variables).")";
-  my $maple_vrho1 = "vrho_1_ = mf1(".join(", ", @variables).")"; 
+  my $maple_vrho0 = "vrho_0_ = mf0(".join(", ", @{$variables}).")";
+  my $maple_vrho1 = "vrho_1_ = mf1(".join(", ", @{$variables}).")"; 
 
   # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
   @variants = (
@@ -492,251 +528,22 @@ C([$maple_vrho0, $maple_vrho1, $out_c_pol], optimize, deducetypes=false):
 "
       );
 
-  maple2c_run(\@variables, \@derivatives, \@variants, 1, $input_args, $output_args);
+  maple2c_run(variables, $derivatives, \@variants, 1, $input_args, $output_args);
 }
 
-
+#####################################################################
+# Process a MGGA functional for the energy
 sub work_mgga_exc {
-  # these are the variables that the functional depends on
-  my @variables = ("rho_0_", "rho_1_", "sigma_0_", "sigma_1_", "sigma_2_", "lapl_0_", "lapl_1_", "tau_0_", "tau_1_");
+  my $variables, $derivatives;
 
-  # the definition of the derivatives that libxc transmits to the calling program
-  my @derivatives = (
-    [
-     [[0,0,0,0,0,0,0,0,0], "_s_zk"]
-    ], [
-      [[1,0,0,0,0,0,0,0,0], "vrho_0_"],   
-      [[0,1,0,0,0,0,0,0,0], "vrho_1_"],
-      [[0,0,1,0,0,0,0,0,0], "vsigma_0_"],
-      [[0,0,0,1,0,0,0,0,0], "vsigma_1_"],
-      [[0,0,0,0,1,0,0,0,0], "vsigma_2_"],
-      [[0,0,0,0,0,1,0,0,0], "vlapl_0_"],
-      [[0,0,0,0,0,0,1,0,0], "vlapl_1_"],
-      [[0,0,0,0,0,0,0,1,0], "vtau_0_"],
-      [[0,0,0,0,0,0,0,0,1], "vtau_1_"],
-    ], [
-      [[2,0,0,0,0,0,0,0,0], "v2rho2_0_"],
-      [[1,1,0,0,0,0,0,0,0], "v2rho2_1_"],
-      [[0,2,0,0,0,0,0,0,0], "v2rho2_2_"],
-      [[1,0,1,0,0,0,0,0,0], "v2rhosigma_0_"],
-      [[1,0,0,1,0,0,0,0,0], "v2rhosigma_1_"],
-      [[1,0,0,0,1,0,0,0,0], "v2rhosigma_2_"],
-      [[0,1,1,0,0,0,0,0,0], "v2rhosigma_3_"],
-      [[0,1,0,1,0,0,0,0,0], "v2rhosigma_4_"],
-      [[0,1,0,0,1,0,0,0,0], "v2rhosigma_5_"],
-      [[1,0,0,0,0,1,0,0,0], "v2rholapl_0_"],
-      [[1,0,0,0,0,0,1,0,0], "v2rholapl_1_"],
-      [[0,1,0,0,0,1,0,0,0], "v2rholapl_2_"],
-      [[0,1,0,0,0,0,1,0,0], "v2rholapl_3_"],
-      [[1,0,0,0,0,0,0,1,0], "v2rhotau_0_"],
-      [[1,0,0,0,0,0,0,0,1], "v2rhotau_1_"],
-      [[0,1,0,0,0,0,0,1,0], "v2rhotau_2_"],
-      [[0,1,0,0,0,0,0,0,1], "v2rhotau_3_"],
-      [[0,0,2,0,0,0,0,0,0], "v2sigma2_0_"],
-      [[0,0,1,1,0,0,0,0,0], "v2sigma2_1_"],
-      [[0,0,1,0,1,0,0,0,0], "v2sigma2_2_"],
-      [[0,0,0,2,0,0,0,0,0], "v2sigma2_3_"],
-      [[0,0,0,1,1,0,0,0,0], "v2sigma2_4_"],
-      [[0,0,0,0,2,0,0,0,0], "v2sigma2_5_"],
-      [[0,0,1,0,0,1,0,0,0], "v2sigmalapl_0_"],
-      [[0,0,1,0,0,0,1,0,0], "v2sigmalapl_1_"],
-      [[0,0,0,1,0,1,0,0,0], "v2sigmalapl_2_"],
-      [[0,0,0,1,0,0,1,0,0], "v2sigmalapl_3_"],
-      [[0,0,0,0,1,1,0,0,0], "v2sigmalapl_4_"],
-      [[0,0,0,0,1,0,1,0,0], "v2sigmalapl_5_"],
-      [[0,0,1,0,0,0,0,1,0], "v2sigmatau_0_"],
-      [[0,0,1,0,0,0,0,0,1], "v2sigmatau_1_"],
-      [[0,0,0,1,0,0,0,1,0], "v2sigmatau_2_"],
-      [[0,0,0,1,0,0,0,0,1], "v2sigmatau_3_"],
-      [[0,0,0,0,1,0,0,1,0], "v2sigmatau_4_"],
-      [[0,0,0,0,1,0,0,0,1], "v2sigmatau_5_"],
-      [[0,0,0,0,0,2,0,0,0], "v2lapl2_0_"],
-      [[0,0,0,0,0,1,1,0,0], "v2lapl2_1_"],
-      [[0,0,0,0,0,0,2,0,0], "v2lapl2_2_"],
-      [[0,0,0,0,0,1,0,1,0], "v2lapltau_0_"],
-      [[0,0,0,0,0,1,0,0,1], "v2lapltau_1_"],
-      [[0,0,0,0,0,0,1,1,0], "v2lapltau_2_"],
-      [[0,0,0,0,0,0,1,0,1], "v2lapltau_3_"],
-      [[0,0,0,0,0,0,0,2,0], "v2tau2_0_"],
-      [[0,0,0,0,0,0,0,1,1], "v2tau2_1_"],
-      [[0,0,0,0,0,0,0,0,2], "v2tau2_2_"],
-    ], [
-      [[3,0,0,0,0,0,0,0,0], "v3rho3_0_"],
-      [[2,1,0,0,0,0,0,0,0], "v3rho3_1_"], 
-      [[1,2,0,0,0,0,0,0,0], "v3rho3_2_"],
-      [[0,3,0,0,0,0,0,0,0], "v3rho3_3_"],
-      [[2,0,1,0,0,0,0,0,0], "v3rho2sigma_0_"],
-      [[2,0,0,1,0,0,0,0,0], "v3rho2sigma_1_"], 
-      [[2,0,0,0,1,0,0,0,0], "v3rho2sigma_2_"],
-      [[1,1,1,0,0,0,0,0,0], "v3rho2sigma_3_"],
-      [[1,1,0,1,0,0,0,0,0], "v3rho2sigma_4_"], 
-      [[1,1,0,0,1,0,0,0,0], "v3rho2sigma_5_"],
-      [[0,2,1,0,0,0,0,0,0], "v3rho2sigma_6_"],
-      [[0,2,0,1,0,0,0,0,0], "v3rho2sigma_7_"],
-      [[0,2,0,0,1,0,0,0,0], "v3rho2sigma_8_"],
-      [[2,0,0,0,0,1,0,0,0], "v3rho2lapl_0_"],
-      [[2,0,0,0,0,0,1,0,0], "v3rho2lapl_1_"],
-      [[1,1,0,0,0,1,0,0,0], "v3rho2lapl_2_"],
-      [[1,1,0,0,0,0,1,0,0], "v3rho2lapl_3_"],
-      [[0,2,0,0,0,1,0,0,0], "v3rho2lapl_4_"],
-      [[0,2,0,0,0,0,1,0,0], "v3rho2lapl_5_"],
-      [[2,0,0,0,0,0,0,1,0], "v3rho2tau_0_"],
-      [[2,0,0,0,0,0,0,0,1], "v3rho2tau_1_"],
-      [[1,1,0,0,0,0,0,1,0], "v3rho2tau_2_"],
-      [[1,1,0,0,0,0,0,0,1], "v3rho2tau_3_"],
-      [[0,2,0,0,0,0,0,1,0], "v3rho2tau_4_"],
-      [[0,2,0,0,0,0,0,0,1], "v3rho2tau_5_"],
-      [[1,0,2,0,0,0,0,0,0], "v3rhosigma2_0_"],
-      [[1,0,1,1,0,0,0,0,0], "v3rhosigma2_1_"],
-      [[1,0,1,0,1,0,0,0,0], "v3rhosigma2_2_"],
-      [[1,0,0,2,0,0,0,0,0], "v3rhosigma2_3_"],
-      [[1,0,0,1,1,0,0,0,0], "v3rhosigma2_4_"],
-      [[1,0,0,0,2,0,0,0,0], "v3rhosigma2_5_"],
-      [[0,1,2,0,0,0,0,0,0], "v3rhosigma2_6_"],
-      [[0,1,1,1,0,0,0,0,0], "v3rhosigma2_7_"],
-      [[0,1,1,0,1,0,0,0,0], "v3rhosigma2_8_"],
-      [[0,1,0,2,0,0,0,0,0], "v3rhosigma2_9_"],
-      [[0,1,0,1,1,0,0,0,0], "v3rhosigma2_10_"],
-      [[0,1,0,0,2,0,0,0,0], "v3rhosigma2_11_"],
-      [[1,0,1,0,0,1,0,0,0], "v3rhosigmalapl_0_"],
-      [[1,0,1,0,0,0,1,0,0], "v3rhosigmalapl_1_"],
-      [[1,0,0,1,0,1,0,0,0], "v3rhosigmalapl_2_"],
-      [[1,0,0,1,0,0,1,0,0], "v3rhosigmalapl_3_"],
-      [[1,0,0,0,1,1,0,0,0], "v3rhosigmalapl_4_"],
-      [[1,0,0,0,1,0,1,0,0], "v3rhosigmalapl_5_"],
-      [[0,1,1,0,0,1,0,0,0], "v3rhosigmalapl_6_"],
-      [[0,1,1,0,0,0,1,0,0], "v3rhosigmalapl_7_"],
-      [[0,1,0,1,0,1,0,0,0], "v3rhosigmalapl_8_"],
-      [[0,1,0,1,0,0,1,0,0], "v3rhosigmalapl_9_"],
-      [[0,1,0,0,1,1,0,0,0], "v3rhosigmalapl_10_"],
-      [[0,1,0,0,1,0,1,0,0], "v3rhosigmalapl_11_"],
-      [[1,0,1,0,0,0,0,1,0], "v3rhosigmatau_0_"],
-      [[1,0,1,0,0,0,0,0,1], "v3rhosigmatau_1_"],
-      [[1,0,0,1,0,0,0,1,0], "v3rhosigmatau_2_"],
-      [[1,0,0,1,0,0,0,0,1], "v3rhosigmatau_3_"],
-      [[1,0,0,0,1,0,0,1,0], "v3rhosigmatau_4_"],
-      [[1,0,0,0,1,0,0,0,1], "v3rhosigmatau_5_"],
-      [[0,1,1,0,0,0,0,1,0], "v3rhosigmatau_6_"],
-      [[0,1,1,0,0,0,0,0,1], "v3rhosigmatau_7_"],
-      [[0,1,0,1,0,0,0,1,0], "v3rhosigmatau_8_"],
-      [[0,1,0,1,0,0,0,0,1], "v3rhosigmatau_9_"],
-      [[0,1,0,0,1,0,0,1,0], "v3rhosigmatau_10_"],
-      [[0,1,0,0,1,0,0,0,1], "v3rhosigmatau_11_"],
-      [[1,0,0,0,0,2,0,0,0], "v3rholapl2_0_"],
-      [[1,0,0,0,0,1,1,0,0], "v3rholapl2_1_"],
-      [[1,0,0,0,0,0,2,0,0], "v3rholapl2_2_"],
-      [[0,1,0,0,0,2,0,0,0], "v3rholapl2_3_"],
-      [[0,1,0,0,0,1,1,0,0], "v3rholapl2_4_"],
-      [[0,1,0,0,0,0,2,0,0], "v3rholapl2_5_"],
-      [[1,0,0,0,0,1,0,1,0], "v3rholapltau_0_"],
-      [[1,0,0,0,0,1,0,0,1], "v3rholapltau_1_"],
-      [[1,0,0,0,0,0,1,1,0], "v3rholapltau_2_"],
-      [[1,0,0,0,0,0,1,0,1], "v3rholapltau_3_"],
-      [[0,1,0,0,0,1,0,1,0], "v3rholapltau_4_"],
-      [[0,1,0,0,0,1,0,0,1], "v3rholapltau_5_"],
-      [[0,1,0,0,0,0,1,1,0], "v3rholapltau_6_"],
-      [[0,1,0,0,0,0,1,0,1], "v3rholapltau_7_"],
-      [[1,0,0,0,0,0,0,2,0], "v3rhotau2_0_"],
-      [[1,0,0,0,0,0,0,1,1], "v3rhotau2_1_"],
-      [[1,0,0,0,0,0,0,0,2], "v3rhotau2_2_"],
-      [[0,1,0,0,0,0,0,2,0], "v3rhotau2_3_"],
-      [[0,1,0,0,0,0,0,1,1], "v3rhotau2_4_"],
-      [[0,1,0,0,0,0,0,0,2], "v3rhotau2_5_"],
-      [[0,0,3,0,0,0,0,0,0], "v3sigma3_0_"],
-      [[0,0,2,1,0,0,0,0,0], "v3sigma3_1_"],
-      [[0,0,2,0,1,0,0,0,0], "v3sigma3_2_"],
-      [[0,0,1,2,0,0,0,0,0], "v3sigma3_3_"],
-      [[0,0,1,1,1,0,0,0,0], "v3sigma3_4_"],
-      [[0,0,1,0,2,0,0,0,0], "v3sigma3_5_"],
-      [[0,0,0,3,0,0,0,0,0], "v3sigma3_6_"],
-      [[0,0,0,2,1,0,0,0,0], "v3sigma3_7_"],
-      [[0,0,0,1,2,0,0,0,0], "v3sigma3_8_"],
-      [[0,0,0,0,3,0,0,0,0], "v3sigma3_9_"],
-      [[0,0,2,0,0,1,0,0,0], "v3sigma2lapl_0_"],
-      [[0,0,2,0,0,0,1,0,0], "v3sigma2lapl_1_"],
-      [[0,0,1,1,0,1,0,0,0], "v3sigma2lapl_2_"],
-      [[0,0,1,1,0,0,1,0,0], "v3sigma2lapl_3_"],
-      [[0,0,1,0,1,1,0,0,0], "v3sigma2lapl_4_"],
-      [[0,0,1,0,1,0,1,0,0], "v3sigma2lapl_5_"],
-      [[0,0,0,2,0,1,0,0,0], "v3sigma2lapl_6_"],
-      [[0,0,0,2,0,0,1,0,0], "v3sigma2lapl_7_"],
-      [[0,0,0,1,1,1,0,0,0], "v3sigma2lapl_8_"],
-      [[0,0,0,1,1,0,1,0,0], "v3sigma2lapl_9_"],
-      [[0,0,0,0,2,1,0,0,0], "v3sigma2lapl_10_"],
-      [[0,0,0,0,2,0,1,0,0], "v3sigma2lapl_11_"],
-      [[0,0,2,0,0,0,0,1,0], "v3sigma2tau_0_"],
-      [[0,0,2,0,0,0,0,0,1], "v3sigma2tau_1_"],
-      [[0,0,1,1,0,0,0,1,0], "v3sigma2tau_2_"],
-      [[0,0,1,1,0,0,0,0,1], "v3sigma2tau_3_"],
-      [[0,0,1,0,1,0,0,1,0], "v3sigma2tau_4_"],
-      [[0,0,1,0,1,0,0,0,1], "v3sigma2tau_5_"],
-      [[0,0,0,2,0,0,0,1,0], "v3sigma2tau_6_"],
-      [[0,0,0,2,0,0,0,0,1], "v3sigma2tau_7_"],
-      [[0,0,0,1,1,0,0,1,0], "v3sigma2tau_8_"],
-      [[0,0,0,1,1,0,0,0,1], "v3sigma2tau_9_"],
-      [[0,0,0,0,2,0,0,1,0], "v3sigma2tau_10_"],
-      [[0,0,0,0,2,0,0,0,1], "v3sigma2tau_11_"],
-      [[0,0,1,0,0,2,0,0,0], "v3sigmalapl2_0_"],
-      [[0,0,1,0,0,1,1,0,0], "v3sigmalapl2_1_"],
-      [[0,0,1,0,0,0,2,0,0], "v3sigmalapl2_2_"],
-      [[0,0,0,1,0,2,0,0,0], "v3sigmalapl2_3_"],
-      [[0,0,0,1,0,1,1,0,0], "v3sigmalapl2_4_"],
-      [[0,0,0,1,0,0,2,0,0], "v3sigmalapl2_5_"],
-      [[0,0,0,0,1,2,0,0,0], "v3sigmalapl2_6_"],
-      [[0,0,0,0,1,1,1,0,0], "v3sigmalapl2_7_"],
-      [[0,0,0,0,1,0,2,0,0], "v3sigmalapl2_8_"],
-      [[0,0,1,0,0,1,0,1,0], "v3sigmalapltau_0_"],
-      [[0,0,1,0,0,1,0,0,1], "v3sigmalapltau_1_"],
-      [[0,0,1,0,0,0,1,1,0], "v3sigmalapltau_2_"],
-      [[0,0,1,0,0,0,1,0,1], "v3sigmalapltau_3_"],
-      [[0,0,0,1,0,1,0,1,0], "v3sigmalapltau_4_"],
-      [[0,0,0,1,0,1,0,0,1], "v3sigmalapltau_5_"],
-      [[0,0,0,1,0,0,1,1,0], "v3sigmalapltau_6_"],
-      [[0,0,0,1,0,0,1,0,1], "v3sigmalapltau_7_"],
-      [[0,0,0,0,1,1,0,1,0], "v3sigmalapltau_8_"],
-      [[0,0,0,0,1,1,0,0,1], "v3sigmalapltau_9_"],
-      [[0,0,0,0,1,0,1,1,0], "v3sigmalapltau_10_"],
-      [[0,0,0,0,1,0,1,0,1], "v3sigmalapltau_11_"],
-      [[0,0,1,0,0,0,0,2,0], "v3sigmatau2_0_"],
-      [[0,0,1,0,0,0,0,1,1], "v3sigmatau2_1_"],
-      [[0,0,1,0,0,0,0,0,2], "v3sigmatau2_2_"],
-      [[0,0,0,1,0,0,0,2,0], "v3sigmatau2_3_"],
-      [[0,0,0,1,0,0,0,1,1], "v3sigmatau2_4_"],
-      [[0,0,0,1,0,0,0,0,2], "v3sigmatau2_5_"],
-      [[0,0,0,0,1,0,0,2,0], "v3sigmatau2_6_"],
-      [[0,0,0,0,1,0,0,1,1], "v3sigmatau2_7_"],
-      [[0,0,0,0,1,0,0,0,2], "v3sigmatau2_8_"],
-      [[0,0,0,0,0,3,0,0,0], "v3lapl3_0_"],
-      [[0,0,0,0,0,2,1,0,0], "v3lapl3_1_"],
-      [[0,0,0,0,0,1,2,0,0], "v3lapl3_2_"],
-      [[0,0,0,0,0,0,3,0,0], "v3lapl3_3_"],
-      [[0,0,0,0,0,2,0,1,0], "v3lapl2tau_0_"],
-      [[0,0,0,0,0,2,0,0,1], "v3lapl2tau_1_"],
-      [[0,0,0,0,0,1,1,1,0], "v3lapl2tau_2_"],
-      [[0,0,0,0,0,1,1,0,1], "v3lapl2tau_3_"],
-      [[0,0,0,0,0,0,2,1,0], "v3lapl2tau_4_"],
-      [[0,0,0,0,0,0,2,0,1], "v3lapl2tau_5_"],
-      [[0,0,0,0,0,1,0,2,0], "v3lapltau2_0_"],
-      [[0,0,0,0,0,1,0,1,1], "v3lapltau2_1_"],
-      [[0,0,0,0,0,1,0,0,2], "v3lapltau2_2_"],
-      [[0,0,0,0,0,0,1,2,0], "v3lapltau2_3_"],
-      [[0,0,0,0,0,0,1,1,1], "v3lapltau2_4_"],
-      [[0,0,0,0,0,0,1,0,2], "v3lapltau2_5_"],
-      [[0,0,0,0,0,0,0,3,0], "v3tau3_0_"],
-      [[0,0,0,0,0,0,0,2,1], "v3tau3_1_"],
-      [[0,0,0,0,0,0,0,1,2], "v3tau3_2_"],
-      [[0,0,0,0,0,0,0,0,3], "v3tau3_3_"],
-    ],
-      );
-
-  # get arguments of the functions
-  my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
-
-  # honor max_order
-  splice @derivatives, $config{"max_order"}+1, $#derivatives, ;
+  ($variables, $derivatives) = mgga_var_der();
   
+  # get arguments of the functions
+  $input_args  = "const double *rho, const double *sigma, const double *lapl, const double *tau";
+  $output_args = "double *zk, MGGA_OUT_PARAMS_NO_EXC(double *)";
+
   my ($der_def, @out_c) = 
-      maple2c_create_derivatives(\@variables, \@derivatives, "mf");
+      maple2c_create_derivatives($variables, $derivatives, "mf");
   my $out_c = join(", ", @out_c);
   $out_c = ", $out_c" if ($out_c ne "");
 
@@ -753,7 +560,7 @@ mf   := (r0, r1, s0, s1, s2, l0, l1, tau0, tau1) -> eval(dens(r0, r1)*mzk(r0, r1
 
 \$include <util.mpl>
 ";
-  my $maple_zk = " _s_zk = mzk(".join(", ", @variables).")";
+  my $maple_zk = " zk_0_ = mzk(".join(", ", @{$variables}).")";
 
   # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
   @variants = (
@@ -809,100 +616,33 @@ C([$maple_zk$out_c], optimize, deducetypes=false):
 \n",
       );
 
-  maple2c_run(\@variables, \@derivatives, \@variants, 0, $input_args, $output_args);
+  maple2c_run($variables, $derivatives, \@variants, 0, $input_args, $output_args);
 }
 
-
+#####################################################################
+# Process a MGGA functional for the potential
 sub work_mgga_vxc {
-  # these are the variables that the functional depends on
-  my @variables = ("rho_0_", "rho_1_", "sigma_0_", "sigma_1_", "sigma_2_", "lapl_0_", "lapl_1_", "tau_0_", "tau_1_");
+  my $variables, $all_derivatives;
 
-  # the definition of the derivatives that libxc transmits to the calling program
-  my @derivatives1 = (
-    [
-     [[0,0,0,0,0], "vrho_0_"]
-    ],
-    [
-     [[1,0,0,0,0,0,0,0,0], "v2rho2_0_"], [[0,1,0,0,0,0,0,0,0], "v2rho2_1_"],
-     [[0,0,1,0,0,0,0,0,0], "v2rhosigma_0_"], [[0,0,0,1,0,0,0,0,0], "v2rhosigma_1_"],  [[0,0,0,0,1,0,0,0,0], "v2rhosigma_2_"],
-     [[0,0,0,0,0,1,0,0,0], "v2rholapl_0_"], [[0,0,0,0,0,0,1,0,0], "v2rholapl_1_"],
-     [[0,0,0,0,0,0,0,1,0], "v2rhotau_0_"], [[0,0,0,0,0,0,0,0,1], "v2rhotau_1_"],
-    ],
-    [
-     [[2,0,0,0,0,0,0,0,0], "v3rho3_0_"], [[1,1,0,0,0,0,0,0,0], "v3rho3_1_"], [[0,2,0,0,0,0,0,0,0], "v3rho3_2_"],
-     [[1,0,1,0,0,0,0,0,0], "v3rho2sigma_0_"], [[1,0,0,1,0,0,0,0,0], "v3rho2sigma_1_"],  [[1,0,0,0,1,0,0,0,0], "v3rho2sigma_2_"],
-     [[0,1,1,0,0,0,0,0,0], "v3rho2sigma_3_"], [[0,1,0,1,0,0,0,0,0], "v3rho2sigma_4_"],  [[0,1,0,0,1,0,0,0,0], "v3rho2sigma_5_"],
-     [[1,0,0,0,0,1,0,0,0], "v3rho2lapl_0_"], [[1,0,0,0,0,0,1,0,0], "v3rho2lapl_1_"], [[0,1,0,0,0,1,0,0,0], "v3rho2lapl_2_"],
-     [[0,1,0,0,0,0,1,0,0], "v3rho2lapl_3_"],
-     [[1,0,0,0,0,0,0,1,0], "v3rho2tau_0_"], [[1,0,0,0,0,0,0,0,1], "v3rho2tau_1_"], [[0,1,0,0,0,0,0,1,0], "v3rho2tau_2_"],
-     [[0,1,0,0,0,0,0,0,1], "v3rho2tau_3_"],
-     [[0,0,2,0,0,0,0,0,0], "v3rhosigma2_0_"], [[0,0,1,1,0,0,0,0,0], "v3rhosigma2_1_"],  [[0,0,1,0,1,0,0,0,0], "v3rhosigma2_2_"],
-     [[0,0,0,2,0,0,0,0,0], "v3rhosigma2_3_"], [[0,0,0,1,1,0,0,0,0], "v3rhosigma2_4_"],  [[0,0,0,0,2,0,0,0,0], "v3rhosigma2_5_"],
-     [[0,0,1,0,0,1,0,0,0], "v3rhosigmalapl_0_"], [[0,0,1,0,0,0,1,0,0], "v3rhosigmalapl_1_"], [[0,0,0,1,0,1,0,0,0], "v3rhosigmalapl_2_"],
-     [[0,0,0,1,0,0,1,0,0], "v3rhosigmalapl_3_"], [[0,0,0,0,1,1,0,0,0], "v3rhosigmalapl_4_"], [[0,0,0,0,1,0,1,0,0], "v3rhosigmalapl_5_"],
-     [[0,0,1,0,0,0,0,1,0], "v3rhosigmatau_0_"], [[0,0,1,0,0,0,0,0,1], "v3rhosigmatau_1_"], [[0,0,0,1,0,0,0,1,0], "v3rhosigmatau_2_"],
-     [[0,0,0,1,0,0,0,0,1], "v3rhosigmatau_3_"], [[0,0,0,0,1,0,0,1,0], "v3rhosigmatau_4_"], [[0,0,0,0,1,0,0,0,1], "v3rhosigmatau_5_"],
-     [[0,0,0,0,0,2,0,0,0], "v3rholapl2_0_"], [[0,0,0,0,0,1,1,0,0], "v3rholapl2_1_"], [[0,0,0,0,0,0,2,0,0], "v3rholapl2_2_"],
-     [[0,0,0,0,0,1,0,1,0], "v3rholapltau_0_"], [[0,0,0,0,0,1,0,0,1], "v3rholapltau_1_"], [[0,0,0,0,0,0,1,1,0], "v3rholapltau_2_"],
-     [[0,0,0,0,0,0,1,0,1], "v3rholapltau_3_"],
-     [[0,0,0,0,0,0,0,2,0], "v3rhotau2_0_"], [[0,0,0,0,0,0,0,1,1], "v3rhotau2_1_"], [[0,0,0,0,0,0,0,0,2], "v3rhotau2_2_"],
-    ]
-      );
-  my @derivatives2 = (
-    [
-     [[0,0,0,0,0,0,0,0,0], "vrho_1_"]
-    ],
-    [
-     [[0,1,0,0,0,0,0,0,0], "v2rho2_2_"],
-     [[0,0,1,0,0,0,0,0,0], "v2rhosigma_3_"], [[0,0,0,1,0,0,0,0,0], "v2rhosigma_4_"],  [[0,0,0,0,1,0,0,0,0], "v2rhosigma_5_"],
-     [[0,0,0,0,0,1,0,0,0], "v2rholapl_2_"], [[0,0,0,0,0,0,1,0,0], "v2rholapl_3_"],
-     [[0,0,0,0,0,0,0,1,0], "v2rhotau_2_"], [[0,0,0,0,0,0,0,0,1], "v2rhotau_3_"],
-    ],
-    [
-     [[0,2,0,0,0,0,0,0,0], "v3rho3_3_"],
-     [[0,1,1,0,0,0,0,0,0], "v3rho2sigma_6_"], [[0,1,0,1,0,0,0,0,0], "v3rho2sigma_7_"],  [[0,1,0,0,1,0,0,0,0], "v3rho2sigma_8_"],
-     [[0,1,0,0,0,0,0,1,0], "v3rho2tau_4_"], [[0,1,0,0,0,0,0,0,1], "v3rho2tau_5_"],
-     [[0,1,0,0,0,1,0,0,0], "v3rho2lapl_4_"], [[0,1,0,0,0,0,1,0,0], "v3rho2lapl_5_"],
-     [[0,0,2,0,0,0,0,0,0], "v3rhosigma2_6_"], [[0,0,1,1,0,0,0,0,0], "v3rhosigma2_7_"],  [[0,0,1,0,1,0,0,0,0], "v3rhosigma2_8_"],
-     [[0,0,0,2,0,0,0,0,0], "v3rhosigma2_9_"], [[0,0,0,1,1,0,0,0,0], "v3rhosigma2_10_"], [[0,0,0,0,2,0,0,0,0], "v3rhosigma2_11_"],
-     [[0,0,1,0,0,1,0,0,0], "v3rhosigmalapl_6_"], [[0,0,1,0,0,0,1,0,0], "v3rhosigmalapl_7_"], [[0,0,0,1,0,1,0,0,0], "v3rhosigmalapl_8_"],
-     [[0,0,0,1,0,0,1,0,0], "v3rhosigmalapl_9_"], [[0,0,0,0,1,1,0,0,0], "v3rhosigmalapl_10_"], [[0,0,0,0,1,0,1,0,0], "v3rhosigmalapl_11_"],
-     [[0,0,1,0,0,0,0,1,0], "v3rhosigmatau_6_"], [[0,0,1,0,0,0,0,0,1], "v3rhosigmatau_7_"], [[0,0,0,1,0,0,0,1,0], "v3rhosigmatau_8_"],
-     [[0,0,0,1,0,0,0,0,1], "v3rhosigmatau_9_"], [[0,0,0,0,1,0,0,1,0], "v3rhosigmatau_10_"], [[0,0,0,0,1,0,0,0,1], "v3rhosigmatau_11_"],
-     [[0,0,0,0,0,2,0,0,0], "v3rholapl2_3_"], [[0,0,0,0,0,1,1,0,0], "v3rholapl2_4_"], [[0,0,0,0,0,0,2,0,0], "v3rholapl2_5_"],
-     [[0,0,0,0,0,1,0,1,0], "v3rholapltau_4_"], [[0,0,0,0,0,1,0,0,1], "v3rholapltau_5_"], [[0,0,0,0,0,0,1,1,0], "v3rholapltau_6_"],
-     [[0,0,0,0,0,0,1,0,1], "v3rholapltau_7_"],
-     [[0,0,0,0,0,0,0,2,0], "v3rhotau2_3_"], [[0,0,0,0,0,0,0,1,1], "v3rhotau2_4_"], [[0,0,0,0,0,0,0,0,2], "v3rhotau2_5_"],
-    ]
-      );
-  
-  my @derivatives = ();
-  for(my $i=0; $i<=$#derivatives1; $i++){
-    @{$derivatives[$i]} = ();
-    push(@{$derivatives[$i]}, @{$derivatives1[$i]});
-    push(@{$derivatives[$i]}, @{$derivatives2[$i]});
-  }
+  ($variables, $all_derivatives) = mgga_var_der();
+  my $derivatives, $derivatives1, $derivatives2;
+  ($derivatives, $derivatives1, $derivatives2) = filter_vxc_derivatives($all_derivatives);
 
-  my ($input_args, $output_args) = maple2c_construct_arguments(\@variables, \@derivatives);
-  # override output arguments
-  $output_args = "double *vrho, double *vsigma, double *vlapl, double *vtau, double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau, double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2, double *v2lapltau, double *v2tau2, double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau, double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau, double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3, double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau, double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2, double *v3tau3";
-  
-  # honor max_order
-  splice @derivatives1, $config{"max_order"}+1, $#derivatives1, ;
-  splice @derivatives2, $config{"max_order"}+1, $#derivatives2, ;
-  splice @derivatives,  $config{"max_order"}+1, $#derivatives,  ;
+  # get arguments of the functions
+  $input_args  = "const double *rho, const double *sigma, const double *lapl, const double *tau";
+  $output_args = "MGGA_OUT_PARAMS_NO_EXC(double *)";
 
   # we obtain the missing pieces for maple
   # unpolarized calculation
   my ($der_def_unpol, @out_c_unpol) = 
-      maple2c_create_derivatives(\@variables, \@derivatives1, "mf0", "unpol");
+      maple2c_create_derivatives($variables, $derivatives1, "mf0", "unpol");
   my $out_c_unpol = join(", ", @out_c_unpol);
 
   # polarized calculation
   my ($der_def_pol, @out_c_pol1) = 
-      maple2c_create_derivatives(\@variables, \@derivatives1, "mf0", "pol");
+      maple2c_create_derivatives($variables, $derivatives1, "mf0", "pol");
   my ($der_def_pol2, @out_c_pol2) = 
-      maple2c_create_derivatives(\@variables, \@derivatives2, "mf1", "pol");
+      maple2c_create_derivatives($variables, $derivatives2, "mf1", "pol");
 
   $der_def_pol .= $der_def_pol2;
   
@@ -922,8 +662,8 @@ mf1   := (r0, r1, s0, s1, s2, l0, l1, tau0, tau1) -> eval(mzk(r1, r0, s2, s1, s0
 \$include <util.mpl>
 ";
 
-  my $maple_vrho0 = "vrho_0_ = mf0(".join(", ", @variables).")";
-  my $maple_vrho1 = "vrho_1_ = mf1(".join(", ", @variables).")"; 
+  my $maple_vrho0 = "vrho_0_ = mf0(".join(", ", @{$variables}).")";
+  my $maple_vrho1 = "vrho_1_ = mf1(".join(", ", @{$variables}).")"; 
 
   # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
   @variants = (
@@ -979,5 +719,5 @@ C([$maple_vrho0, $maple_vrho1, $out_c_pol], optimize, deducetypes=false):
 "
       );
 
-  maple2c_run(\@variables, \@derivatives, \@variants, 1, $input_args, $output_args);
+  maple2c_run($variables, $derivatives, \@variants, 1, $input_args, $output_args);
 }

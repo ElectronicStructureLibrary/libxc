@@ -23,7 +23,7 @@ const xc_func_info_type xc_func_info_mgga_xc_zlp = {
   "Zhao, Levy & Parr, Eq. (21)",
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao1993_918, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-23,
   0, NULL, NULL,
   NULL, NULL,

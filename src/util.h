@@ -27,6 +27,8 @@
 #include "config.h"
 
 /* This takes care of disabling specific derivatives from the info structures */
+#define XC_FLAGS_I_HAVE_EXC XC_FLAGS_HAVE_EXC
+
 #ifdef XC_DONT_COMPILE_VXC
 # define XC_FLAGS_I_HAVE_VXC 0
 #else
@@ -202,21 +204,11 @@ void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
 
 /* Functions to handle the internal counters */
 
-/* This are the derivatives of an lda */
-#define LDA_OUT_PARAMS_NO_EXC(PTYPE)                                     \
- PTYPE vrho, PTYPE v2rho2, PTYPE v3rho3, PTYPE v4rho4
-
 void internal_counters_set_lda (int nspin, xc_dimensions *dim);
 void internal_counters_lda_next
 (const xc_dimensions *dim, int offset, const double **rho, double **zk, LDA_OUT_PARAMS_NO_EXC(double **));
 void internal_counters_lda_prev
 (const xc_dimensions *dim, int offset, const double **rho, double **zk, LDA_OUT_PARAMS_NO_EXC(double **));
-
-/* This are the derivatives of a mgga */
-#define GGA_OUT_PARAMS_NO_EXC(PTYPE)                                 \
- PTYPE vrho, PTYPE vsigma,                                           \
- PTYPE v2rho2, PTYPE v2rhosigma, PTYPE v2sigma2,                     \
- PTYPE v3rho3, PTYPE v3rho2sigma, PTYPE v3rhosigma2, PTYPE v3sigma3
 
 void internal_counters_set_gga (int nspin, xc_dimensions *dim);
 void internal_counters_gga_next
@@ -226,31 +218,11 @@ void internal_counters_gga_prev
 (const xc_dimensions *dim, int offset, const double **rho, const double **sigma,
  double **zk, GGA_OUT_PARAMS_NO_EXC(double **));
 
-/* This are the derivatives of a mgga */
-#define MGGA_OUT_PARAMS_NO_EXC(PTYPE)                                     \
- PTYPE vrho, PTYPE vsigma, PTYPE vlapl, PTYPE vtau,                       \
- PTYPE v2rho2, PTYPE v2rhosigma, PTYPE v2rholapl, PTYPE v2rhotau,         \
- PTYPE v2sigma2, PTYPE v2sigmalapl, PTYPE v2sigmatau,                     \
- PTYPE v2lapl2, PTYPE v2lapltau,                                          \
- PTYPE v2tau2,                                                            \
- PTYPE v3rho3, PTYPE v3rho2sigma, PTYPE v3rho2lapl, PTYPE v3rho2tau,      \
- PTYPE v3rhosigma2, PTYPE v3rhosigmalapl, PTYPE v3rhosigmatau,            \
- PTYPE v3rholapl2, PTYPE v3rholapltau,                                    \
- PTYPE v3rhotau2,                                                         \
- PTYPE v3sigma3, PTYPE v3sigma2lapl, PTYPE v3sigma2tau,                   \
- PTYPE v3sigmalapl2, PTYPE v3sigmalapltau,                                \
- PTYPE v3sigmatau2,                                                       \
- PTYPE v3lapl3, PTYPE v3lapl2tau,                                         \
- PTYPE v3lapltau2,                                                        \
- PTYPE v3tau3
-
 void internal_counters_set_mgga(int nspin, xc_dimensions *dim);
-
 void internal_counters_mgga_next
 (const xc_dimensions *dim, int offset,
  const double **rho, const double **sigma, const double **lapl, const double **tau,
  double **zk, MGGA_OUT_PARAMS_NO_EXC(double **));
-
 void internal_counters_mgga_prev
 (const xc_dimensions *dim, int offset,
  const double **rho, const double **sigma, const double **lapl, const double **tau,

@@ -101,6 +101,6 @@ double xc_math_brent
 
   }
 
-  fprintf(stderr, "Warning: Convergence not reached in brent functional\n");
-  return (b+a)/2.0;
+  fprintf(stderr, "Warning: Convergence not reached in brent\n");
+  return (b + a)/2.0;
 }

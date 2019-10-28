@@ -24,7 +24,7 @@ const xc_func_info_type xc_func_info_mgga_x_2d_js17 = {
   "JS17 meta-GGA for 2D",
   XC_FAMILY_MGGA,
   {&xc_ref_Jana2017_4804, NULL, NULL, NULL, NULL},
-  XC_FLAGS_2D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_2D | MAPLE2C_FLAGS,
   1.0e-23,
   0, NULL, NULL,
   NULL, NULL,

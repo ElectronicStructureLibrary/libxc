@@ -28,7 +28,7 @@ const xc_func_info_type xc_func_info_lda_c_2d_amgb = {
   "AMGB (for 2D systems)",
   XC_FAMILY_LDA,
   {&xc_ref_Attaccalite2002_256601, NULL, NULL, NULL, NULL},
-  XC_FLAGS_2D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_2D | MAPLE2C_FLAGS,
   1e-9,
   0, NULL, NULL,
   NULL, NULL,

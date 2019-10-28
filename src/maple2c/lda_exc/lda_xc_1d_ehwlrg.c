@@ -12,9 +12,11 @@
 */
 
 #define maple2c_order 4
+#define MAPLE2C_FLAGS (XC_FLAGS_I_HAVE_EXC | XC_FLAGS_I_HAVE_VXC | XC_FLAGS_I_HAVE_FXC | XC_FLAGS_I_HAVE_KXC | XC_FLAGS_I_HAVE_LXC)
+
 
 static inline void
-func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
+func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -51,7 +53,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
   t4 = rho[0] * params->a2 + t1 * params->a3 + params->a1;
   t5 = pow(rho[0], params->alpha);
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = t4 * t5;
+    zk[0] = t4 * t5;
 
 #ifndef XC_DONT_COMPILE_VXC
 
@@ -74,7 +76,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
   t22 = params->alpha * params->alpha;
   t23 = t22 * t15;
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = (t4 * t5) * t16 + (t4 * t5) * t23 + 0.2e1 * t13 * params->alpha + 0.2e1 * t6 * t5 + 0.2e1 * t13;
+    v2rho2[0] = 0.2e1 * t13 * params->alpha + (t4 * t5) * t16 + (t4 * t5) * t23 + 0.2e1 * t6 * t5 + 0.2e1 * t13;
 
 #ifndef XC_DONT_COMPILE_KXC
 
@@ -87,7 +89,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
   t36 = t22 * params->alpha;
   t37 = t36 * t29;
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = -(t4 * t5) * t30 + (t4 * t5) * t37 + 0.3e1 * t13 * t16 + 0.3e1 * t13 * t23 + 0.6e1 * t25 * params->alpha + 0.6e1 * t25;
+    v3rho3[0] = 0.3e1 * t13 * t16 + 0.3e1 * t13 * t23 + 0.6e1 * t25 * params->alpha - (t4 * t5) * t30 + (t4 * t5) * t37 + 0.6e1 * t25;
 
 #ifndef XC_DONT_COMPILE_LXC
 
@@ -119,7 +121,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, doub
 
 
 static inline void
-func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
+func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -156,7 +158,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
   t4 = rho[0] * params->a2 + t1 * params->a3 + params->a1;
   t5 = pow(rho[0], params->alpha);
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = t4 * t5;
+    zk[0] = t4 * t5;
 
 #ifndef XC_DONT_COMPILE_VXC
 
@@ -179,7 +181,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
   t22 = params->alpha * params->alpha;
   t23 = t22 * t15;
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = (t4 * t5) * t16 + (t4 * t5) * t23 + 0.2e1 * t13 * params->alpha + 0.2e1 * t6 * t5 + 0.2e1 * t13;
+    v2rho2[0] = 0.2e1 * t13 * params->alpha + (t4 * t5) * t16 + (t4 * t5) * t23 + 0.2e1 * t6 * t5 + 0.2e1 * t13;
 
 #ifndef XC_DONT_COMPILE_KXC
 
@@ -192,7 +194,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
   t36 = t22 * params->alpha;
   t37 = t36 * t29;
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = -(t4 * t5) * t30 + (t4 * t5) * t37 + 0.3e1 * t13 * t16 + 0.3e1 * t13 * t23 + 0.6e1 * t25 * params->alpha + 0.6e1 * t25;
+    v3rho3[0] = 0.3e1 * t13 * t16 + 0.3e1 * t13 * t23 + 0.6e1 * t25 * params->alpha - (t4 * t5) * t30 + (t4 * t5) * t37 + 0.6e1 * t25;
 
 #ifndef XC_DONT_COMPILE_LXC
 
@@ -224,7 +226,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, doubl
 
 
 static inline void
-func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4)
+func_pol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -262,7 +264,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t5 = params->a2 * t1 + params->a3 * t3 + params->a1;
   t6 = pow(t1, params->alpha);
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = t5 * t6;
+    zk[0] = t5 * t6;
 
 #ifndef XC_DONT_COMPILE_VXC
 
@@ -288,7 +290,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t23 = params->alpha * params->alpha;
   t24 = t23 * t16;
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = (t5 * t6) * t17 + (t5 * t6) * t24 + 0.2e1 * t14 * params->alpha + 0.2e1 * t7 * t6 + 0.2e1 * t14;
+    v2rho2[0] = 0.2e1 * t14 * params->alpha + (t5 * t6) * t17 + (t5 * t6) * t24 + 0.2e1 * t7 * t6 + 0.2e1 * t14;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rho2[1] = v2rho2[0];
@@ -307,7 +309,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk, double
   t37 = t23 * params->alpha;
   t38 = t37 * t30;
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = -(t5 * t6) * t31 + (t5 * t6) * t38 + 0.3e1 * t14 * t17 + 0.3e1 * t14 * t24 + 0.6e1 * t26 * params->alpha + 0.6e1 * t26;
+    v3rho3[0] = 0.3e1 * t14 * t17 + 0.3e1 * t14 * t24 + 0.6e1 * t26 * params->alpha - (t5 * t6) * t31 + (t5 * t6) * t38 + 0.6e1 * t26;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho3[1] = v3rho3[0];

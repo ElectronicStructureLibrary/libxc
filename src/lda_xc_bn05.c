@@ -22,7 +22,7 @@ const xc_func_info_type xc_func_info_lda_xc_bn05 = {
   "Baer and Neuhauser, gamma=1",
   XC_FAMILY_LDA,
   {&xc_ref_Baer2005_043002, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   5e-24,
   0, NULL, NULL,
   NULL, NULL,

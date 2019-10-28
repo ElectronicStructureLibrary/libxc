@@ -66,16 +66,12 @@ xc_lda(const xc_func_type *func, int np, const double *rho,
   if(func->mix_coef != NULL)
     xc_mix_func(func, np, rho, NULL, NULL, NULL, zk, vrho, NULL, NULL, NULL,
                 v2rho2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                v3rho3, NULL, NULL, NULL,
-                NULL, NULL, NULL,
-                NULL, NULL,
-                NULL,
-                NULL, NULL, NULL,
-                NULL, NULL,
-                NULL,
-                NULL, NULL,
-                NULL,
-                NULL);
+                v3rho3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                v4rho4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, NULL, NULL);
 }
 
 

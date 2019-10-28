@@ -23,7 +23,7 @@ const xc_func_info_type xc_func_info_mgga_x_mbeefvdw = {
   "mBEEF-vdW exchange",
   XC_FAMILY_MGGA,
   {&xc_ref_Lundgaard2016_235162, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-10,
   0, NULL, NULL,
   NULL, NULL, 

@@ -96,14 +96,13 @@ $code
   my $c_code = `maple $maple_inc -q -u /tmp/$$.mpl`;
   #unlink "/tmp/$$.mpl";
 
-  # find all variables defined in the c code
-  my $new_c_code = "";
-
   my @variables  = ("", "", "", "", "", "");
   my @n_var = (0, 0, 0, 0, 0, 0);
   my @test_1 = ("zk", "vrho", "v2rho2", "v3rho3", "v4rho4", "v5rho5");
   my @test_2 = ("EXC", "VXC", "FXC", "KXC", "LXC", "MXC");  
   
+  my $new_c_code = "";
+      
   my $total_order = $start_order;
   for (split /^/, $c_code) {
     my $found = 0;
@@ -228,9 +227,9 @@ sub maple2c_replace {
   my ($text) = @_;
 
   # _s_zk unfortunatly appears in some expressions
-  if($text =~ /_s_zk = (.*);/m){
+  if($text =~ /zk_0_ = (.*);/m){
     my $zk = $1;
-    $text =~ s/_s_zk(?! =)/($zk)/g;
+    $text =~ s/zk_0_(?! =)/($zk)/g;
   }
   
   for(my $j=0; $j<$#math_replace; $j+=2){
@@ -311,6 +310,15 @@ sub maple2c_run
   open my $out, '>', $fname or die "Could not open file $fname for writing\n";
   maple2c_print_header($out, $config{'mathfile'}, 
                        $config{'functype'}, $config{'max_order'});
+
+  my @test_2 = ("EXC", "VXC", "FXC", "KXC", "LXC", "MXC");  
+
+  print $out "#define MAPLE2C_FLAGS (";
+  for(my $i=$start_order; $i<=$config{'max_order'}; $i++){
+      print $out " | " if($i != $start_order);
+      print $out "XC_FLAGS_I_HAVE_" . $test_2[$i];
+  }
+  print $out ")\n\n";
 
   for(my $j=0; $j<$#{$variants}; $j+=2){
     ($vars_def, $c_code) = maple2c_run_maple(${$variants}[$j], 

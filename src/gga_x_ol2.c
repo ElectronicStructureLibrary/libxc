@@ -48,6 +48,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->cc = get_ext_param(p->info->ext_params, ext_params, 2);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_ol2 = {
   XC_GGA_X_OL2,
   XC_EXCHANGE,

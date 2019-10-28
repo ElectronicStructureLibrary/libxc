@@ -44,6 +44,9 @@ mgga_c_vsxc_init(xc_func_type *p)
 #include "maple2c/mgga_exc/mgga_c_vsxc.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_vsxc = {
   XC_MGGA_C_VSXC,
   XC_CORRELATION,

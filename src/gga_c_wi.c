@@ -49,6 +49,9 @@ gga_c_wi_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_c_wi.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_c_wi0 = {
   XC_GGA_C_WI0,
   XC_CORRELATION,
@@ -62,6 +65,9 @@ const xc_func_info_type xc_func_info_gga_c_wi0 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_c_wi = {
   XC_GGA_C_WI,
   XC_CORRELATION,

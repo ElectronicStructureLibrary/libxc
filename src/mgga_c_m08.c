@@ -162,6 +162,9 @@ mgga_c_m08_init(xc_func_type *p)
 #include "work_mgga.c"
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_m08_hx = {
   XC_MGGA_C_M08_HX,
   XC_CORRELATION,
@@ -175,6 +178,9 @@ const xc_func_info_type xc_func_info_mgga_c_m08_hx = {
   NULL, NULL, work_mgga
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_m08_so = {
   XC_MGGA_C_M08_SO,
   XC_CORRELATION,
@@ -188,6 +194,9 @@ const xc_func_info_type xc_func_info_mgga_c_m08_so = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_m11 = {
   XC_MGGA_C_M11,
   XC_CORRELATION,
@@ -201,6 +210,9 @@ const xc_func_info_type xc_func_info_mgga_c_m11 = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_m11_l = {
   XC_MGGA_C_M11_L,
   XC_CORRELATION,
@@ -214,6 +226,9 @@ const xc_func_info_type xc_func_info_mgga_c_m11_l = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_mn12_l = {
   XC_MGGA_C_MN12_L,
   XC_CORRELATION,
@@ -227,6 +242,9 @@ const xc_func_info_type xc_func_info_mgga_c_mn12_l = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_mn12_sx = {
   XC_MGGA_C_MN12_SX,
   XC_CORRELATION,
@@ -240,6 +258,9 @@ const xc_func_info_type xc_func_info_mgga_c_mn12_sx = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_mn15_l = {
   XC_MGGA_C_MN15_L,
   XC_CORRELATION,
@@ -253,6 +274,9 @@ const xc_func_info_type xc_func_info_mgga_c_mn15_l = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_mn15 = {
   XC_MGGA_C_MN15,
   XC_CORRELATION,
@@ -266,6 +290,9 @@ const xc_func_info_type xc_func_info_mgga_c_mn15 = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_revm11 = {
   XC_MGGA_C_REVM11,
   XC_CORRELATION,

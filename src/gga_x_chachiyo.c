@@ -13,6 +13,9 @@
 #include "maple2c/gga_exc/gga_x_chachiyo.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_chachiyo = {
   XC_GGA_X_CHACHIYO,
   XC_EXCHANGE,

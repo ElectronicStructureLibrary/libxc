@@ -16,6 +16,9 @@
 #include "work_gga.c"
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_beefvdw = {
   XC_GGA_X_BEEFVDW,
   XC_EXCHANGE,
@@ -39,6 +42,9 @@ gga_xc_beefvdw_init(xc_func_type *p)
   xc_mix_init(p, 3, funcs_id, funcs_coef);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_xc_beefvdw = {
   XC_GGA_XC_BEEFVDW,
   XC_EXCHANGE_CORRELATION,

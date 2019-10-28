@@ -58,6 +58,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 #include "maple2c/mgga_exc/mgga_x_br89_explicit.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_br89_explicit = {
   XC_MGGA_X_BR89_EXPLICIT,
   XC_EXCHANGE,
@@ -71,6 +74,9 @@ const xc_func_info_type xc_func_info_mgga_x_br89_explicit = {
   NULL, NULL, work_mgga
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_br89_explicit_1 = {
   XC_MGGA_X_BR89_EXPLICIT_1,
   XC_EXCHANGE,

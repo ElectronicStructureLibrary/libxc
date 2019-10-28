@@ -14,6 +14,9 @@
 #include "maple2c/gga_exc/gga_c_q2d.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_c_q2d = {
   XC_GGA_C_Q2D,
   XC_CORRELATION,

@@ -49,6 +49,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->alphainf = get_ext_param(p->info->ext_params, ext_params, 2);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_gx = {
   XC_MGGA_X_GX,
   XC_EXCHANGE,

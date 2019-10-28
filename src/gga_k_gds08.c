@@ -23,6 +23,9 @@ gga_k_gds08_init(xc_func_type *p)
   xc_mix_init(p, 2, funcs_id, funcs_coef);  
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_gds08 = {
   XC_GGA_K_GDS08,
   XC_KINETIC,
@@ -49,6 +52,9 @@ gga_k_ghds10_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[1], par_k_gds08);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_ghds10 = {
   XC_GGA_K_GHDS10,
   XC_KINETIC,
@@ -75,6 +81,9 @@ gga_k_ghds10r_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[1], par_k_gds08);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_ghds10r = {
   XC_GGA_K_GHDS10R,
   XC_KINETIC,
@@ -101,6 +110,9 @@ gga_k_tkvln_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[1], par_k_gds08);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_tkvln = {
   XC_GGA_K_TKVLN,
   XC_KINETIC,

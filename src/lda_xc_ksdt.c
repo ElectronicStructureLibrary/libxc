@@ -105,6 +105,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   if(params->T < 1e-8) params->T = 1e-8;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_xc_ksdt = {
   XC_LDA_XC_KSDT,
   XC_EXCHANGE_CORRELATION,
@@ -118,6 +121,9 @@ const xc_func_info_type xc_func_info_lda_xc_ksdt = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_xc_gdsmfb = {
   XC_LDA_XC_GDSMFB,
   XC_EXCHANGE_CORRELATION,

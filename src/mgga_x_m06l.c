@@ -92,6 +92,9 @@ mgga_x_m06l_init(xc_func_type *p)
 #include "maple2c/mgga_exc/mgga_x_m06l.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_m06_l = {
   XC_MGGA_X_M06_L,
   XC_EXCHANGE,
@@ -105,6 +108,9 @@ const xc_func_info_type xc_func_info_mgga_x_m06_l = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_x_m06_hf = {
   XC_HYB_MGGA_X_M06_HF,
   XC_EXCHANGE,
@@ -118,6 +124,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m06_hf = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_x_m06 = {
   XC_HYB_MGGA_X_M06,
   XC_EXCHANGE,
@@ -131,6 +140,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m06 = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_revm06_l = {
   XC_MGGA_X_REVM06_L,
   XC_EXCHANGE,
@@ -144,6 +156,9 @@ const xc_func_info_type xc_func_info_mgga_x_revm06_l = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_x_revm06 = {
   XC_HYB_MGGA_X_REVM06,
   XC_EXCHANGE,

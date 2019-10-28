@@ -100,6 +100,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 #include "maple2c/gga_exc/gga_x_hjs.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_hjs_pbe = {
   XC_GGA_X_HJS_PBE,
   XC_EXCHANGE,
@@ -113,6 +116,9 @@ const xc_func_info_type xc_func_info_gga_x_hjs_pbe = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_hjs_pbe_sol = {
   XC_GGA_X_HJS_PBE_SOL,
   XC_EXCHANGE,
@@ -126,6 +132,9 @@ const xc_func_info_type xc_func_info_gga_x_hjs_pbe_sol = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_hjs_b88 = {
   XC_GGA_X_HJS_B88,
   XC_EXCHANGE,
@@ -139,6 +148,9 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b88 = {
   NULL,  work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_hjs_b97x = {
   XC_GGA_X_HJS_B97X,
   XC_EXCHANGE,

@@ -54,6 +54,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->zeta = get_ext_param(p->info->ext_params, ext_params, 3);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_ncap = {
   XC_GGA_X_NCAP,
   XC_EXCHANGE,
@@ -77,6 +80,9 @@ xc_gga_xc_ncap_init(xc_func_type *p)
   xc_mix_init(p, 2, funcs_id, funcs_coef);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_xc_ncap = {
   XC_GGA_XC_NCAP,
   XC_EXCHANGE_CORRELATION,

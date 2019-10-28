@@ -58,6 +58,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 #include "maple2c/mgga_exc/mgga_x_mvs.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_mvs = {
   XC_MGGA_X_MVS,
   XC_EXCHANGE,

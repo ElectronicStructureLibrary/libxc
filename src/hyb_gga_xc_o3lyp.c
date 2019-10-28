@@ -37,6 +37,9 @@ gga_xc_o3lyp_init(xc_func_type *p)
   p->cam_alpha = a;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_o3lyp = {
   XC_HYB_GGA_XC_O3LYP,
   XC_EXCHANGE_CORRELATION,
@@ -71,6 +74,9 @@ gga_xc_x3lyp_init(xc_func_type *p)
   p->cam_alpha = a0;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_x3lyp = {
   XC_HYB_GGA_XC_X3LYP,
   XC_EXCHANGE_CORRELATION,

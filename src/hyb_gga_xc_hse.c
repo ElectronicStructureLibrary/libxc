@@ -100,6 +100,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   xc_func_set_ext_params(p->func_aux[1], &omega_PBE);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_hse03 = {
   XC_HYB_GGA_XC_HSE03,
   XC_EXCHANGE_CORRELATION,
@@ -113,6 +116,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hse03 = {
   NULL, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_hse06 = {
   XC_HYB_GGA_XC_HSE06,
   XC_EXCHANGE_CORRELATION,
@@ -126,6 +132,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hse06 = {
   NULL, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_hse12 = {
   XC_HYB_GGA_XC_HSE12,
   XC_EXCHANGE_CORRELATION,
@@ -139,6 +148,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hse12 = {
   NULL, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_hse12s = {
   XC_HYB_GGA_XC_HSE12S,
   XC_EXCHANGE_CORRELATION,
@@ -168,6 +180,9 @@ hyb_gga_xc_hse_sol_init(xc_func_type *p)
 }
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_hse_sol = {
   XC_HYB_GGA_XC_HSE_SOL,
   XC_EXCHANGE_CORRELATION,
@@ -195,6 +210,9 @@ hyb_gga_xc_lc_wpbe_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe = {
   XC_HYB_GGA_XC_LC_WPBE,
   XC_EXCHANGE_CORRELATION,
@@ -237,6 +255,9 @@ hyb_gga_xc_lrc_wpbe_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_lrc_wpbeh = {
   XC_HYB_GGA_XC_LRC_WPBEH,
   XC_EXCHANGE_CORRELATION,
@@ -250,6 +271,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lrc_wpbeh = {
   NULL, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_lrc_wpbe = {
   XC_HYB_GGA_XC_LRC_WPBE,
   XC_EXCHANGE_CORRELATION,
@@ -319,6 +343,9 @@ hyb_gga_xc_lc_wpbeh_whs_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe_whs = {
   XC_HYB_GGA_XC_LC_WPBE_WHS,
   XC_EXCHANGE_CORRELATION,
@@ -332,6 +359,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe_whs = {
   NULL, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbeh_whs = {
   XC_HYB_GGA_XC_LC_WPBEH_WHS,
   XC_EXCHANGE_CORRELATION,
@@ -345,6 +375,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbeh_whs = {
   NULL, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe08_whs = {
   XC_HYB_GGA_XC_LC_WPBE08_WHS,
   XC_EXCHANGE_CORRELATION,
@@ -358,6 +391,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe08_whs = {
   NULL, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbesol_whs = {
   XC_HYB_GGA_XC_LC_WPBESOL_WHS,
   XC_EXCHANGE_CORRELATION,
@@ -405,6 +441,9 @@ hyb_gga_xc_hjs_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[1], &omega);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_pbe = {
   XC_HYB_GGA_XC_HJS_PBE,
   XC_EXCHANGE_CORRELATION,
@@ -418,6 +457,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_pbe = {
   NULL, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_pbe_sol = {
   XC_HYB_GGA_XC_HJS_PBE_SOL,
   XC_EXCHANGE_CORRELATION,
@@ -431,6 +473,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_pbe_sol = {
   NULL, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_b88 = {
   XC_HYB_GGA_XC_HJS_B88,
   XC_EXCHANGE_CORRELATION,
@@ -444,6 +489,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_b88 = {
   NULL, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_b97x = {
   XC_HYB_GGA_XC_HJS_B97X,
   XC_EXCHANGE_CORRELATION,

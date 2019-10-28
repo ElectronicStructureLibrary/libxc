@@ -24,6 +24,9 @@ mgga_xc_otpss_d_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[1], par_c_tpss);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_xc_otpss_d = {
   XC_MGGA_XC_OTPSS_D,
   XC_EXCHANGE_CORRELATION,

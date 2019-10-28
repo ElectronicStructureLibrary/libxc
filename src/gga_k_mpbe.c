@@ -49,6 +49,9 @@ gga_k_mpbe_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_k_mpbe.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_pbe3 = {
   XC_GGA_K_PBE3,
   XC_KINETIC,
@@ -62,6 +65,9 @@ const xc_func_info_type xc_func_info_gga_k_pbe3 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_pbe4 = {
   XC_GGA_K_PBE4,
   XC_KINETIC,

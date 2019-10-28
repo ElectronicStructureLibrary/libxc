@@ -62,6 +62,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->beta = get_ext_param(p->info->ext_params, ext_params, 0);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_x_1d_exponential = {
   XC_LDA_X_1D_EXPONENTIAL,
   XC_EXCHANGE,

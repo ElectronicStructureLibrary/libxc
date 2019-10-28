@@ -30,6 +30,9 @@ xc_hyb_gga_xc_lcy_pbe_init(xc_func_type *p)
   p->cam_beta  = -1.0;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_lcy_pbe = {
   XC_HYB_GGA_XC_LCY_PBE,
   XC_EXCHANGE_CORRELATION,

@@ -42,6 +42,9 @@ gga_c_zpbeint_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_c_zpbeint.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_c_zpbeint = {
   XC_GGA_C_ZPBEINT,
   XC_CORRELATION,
@@ -55,6 +58,9 @@ const xc_func_info_type xc_func_info_gga_c_zpbeint = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_c_zpbesol = {
   XC_GGA_C_ZPBESOL,
   XC_CORRELATION,

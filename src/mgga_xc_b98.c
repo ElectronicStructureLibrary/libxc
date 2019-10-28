@@ -20,6 +20,9 @@ hyb_mgga_xc_b98_init(xc_func_type *p)
 #include "maple2c/mgga_exc/mgga_xc_b98.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_xc_b98 = {
   XC_HYB_MGGA_XC_B98,
   XC_EXCHANGE_CORRELATION,

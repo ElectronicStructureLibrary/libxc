@@ -22,6 +22,9 @@ hyb_mgga_xc_tpssh_init(xc_func_type *p)
 }
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_xc_tpssh = {
   XC_HYB_MGGA_XC_TPSSH,
   XC_EXCHANGE_CORRELATION,
@@ -47,6 +50,9 @@ hyb_mgga_xc_revtpssh_init(xc_func_type *p)
 }
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_xc_revtpssh = {
   XC_HYB_MGGA_XC_REVTPSSH,
   XC_EXCHANGE_CORRELATION,

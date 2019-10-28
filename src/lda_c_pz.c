@@ -86,6 +86,9 @@ lda_c_pz_init(xc_func_type *p)
 #include "maple2c/lda_exc/lda_c_pz.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_pz = {
   XC_LDA_C_PZ,
   XC_CORRELATION,
@@ -99,6 +102,9 @@ const xc_func_info_type xc_func_info_lda_c_pz = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_pz_mod = {
   XC_LDA_C_PZ_MOD,
   XC_CORRELATION,
@@ -112,6 +118,9 @@ const xc_func_info_type xc_func_info_lda_c_pz_mod = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_ob_pz = {
   XC_LDA_C_OB_PZ,
   XC_CORRELATION,

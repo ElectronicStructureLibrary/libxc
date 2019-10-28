@@ -14,6 +14,9 @@
 #include "maple2c/gga_exc/gga_x_gg99.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_gg99 = {
   XC_GGA_X_GG99,
   XC_EXCHANGE,
@@ -39,6 +42,9 @@ gga_x_kgg_init(xc_func_type *p)
   xc_mix_init(p, 2, funcs_id, funcs_coef);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_kgg99 = {
   XC_GGA_X_KGG99,
   XC_EXCHANGE,

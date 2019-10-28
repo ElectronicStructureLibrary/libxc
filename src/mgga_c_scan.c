@@ -16,6 +16,9 @@
 #include "maple2c/mgga_exc/mgga_c_scan.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_scan = {
   XC_MGGA_C_SCAN,
   XC_CORRELATION,
@@ -42,6 +45,9 @@ mgga_c_scan_rvv10_init(xc_func_type *p)
   p->nlc_C = 0.0093;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_scan_rvv10 = {
   XC_MGGA_C_SCAN_RVV10,
   XC_CORRELATION,
@@ -67,6 +73,9 @@ mgga_c_scan_vv10_init(xc_func_type *p)
   p->nlc_C = 0.0093;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_scan_vv10 = {
   XC_MGGA_C_SCAN_VV10,
   XC_CORRELATION,

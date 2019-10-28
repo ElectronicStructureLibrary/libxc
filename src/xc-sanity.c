@@ -21,7 +21,7 @@ int main(void) {
 
   /* Get list of available functionals */
   N=xc_number_of_functionals();
-  flist=malloc(N*sizeof(int));
+  flist = (int *) malloc(N*sizeof(int));
   xc_available_functional_numbers(flist);
 
   /* Loop over functionals */

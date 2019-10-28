@@ -209,10 +209,10 @@ void second_derivatives(xc_func_type *func, double point[5], double der[5][5])
 }
 
 
-void print_error(char *type, char *what, double diff, xc_func_type *func, double *p)
+void print_error(const char *type, const char *what, double diff, xc_func_type *func, double *p)
 {
-  static char *red="\033[31;1m", *norm="\033[0m";
-  char *color;
+  static const char *red="\033[31;1m", *norm="\033[0m";
+  const char *color;
 
   color = (diff > 5e-4) ? red : norm;
   

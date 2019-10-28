@@ -77,6 +77,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 #include "maple2c/mgga_exc/mgga_x_ms.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_ms0 = {
   XC_MGGA_X_MS0,
   XC_EXCHANGE,
@@ -90,6 +93,9 @@ const xc_func_info_type xc_func_info_mgga_x_ms0 = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_ms1 = {
   XC_MGGA_X_MS1,
   XC_EXCHANGE,
@@ -103,6 +109,9 @@ const xc_func_info_type xc_func_info_mgga_x_ms1 = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_ms2 = {
   XC_MGGA_X_MS2,
   XC_EXCHANGE,
@@ -126,6 +135,9 @@ hyb_mgga_x_ms2h_init(xc_func_type *p)
   p->cam_alpha = 0.09;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_x_ms2h = {
   XC_HYB_MGGA_X_MS2H,
   XC_EXCHANGE,

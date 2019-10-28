@@ -67,6 +67,9 @@ lda_c_wigner_init(xc_func_type *p)
 #include "maple2c/lda_exc/lda_c_wigner.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_wigner = {
   XC_LDA_C_WIGNER,
   XC_CORRELATION,
@@ -80,6 +83,9 @@ const xc_func_info_type xc_func_info_lda_c_wigner = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_xc_lp_a = {
   XC_LDA_XC_LP_A,
   XC_EXCHANGE_CORRELATION,
@@ -93,6 +99,9 @@ const xc_func_info_type xc_func_info_lda_xc_lp_a = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_xc_lp_b = {
   XC_LDA_XC_LP_B,
   XC_EXCHANGE_CORRELATION,
@@ -106,6 +115,9 @@ const xc_func_info_type xc_func_info_lda_xc_lp_b = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_mcweeny = {
   XC_LDA_C_MCWEENY,
   XC_CORRELATION,
@@ -119,6 +131,9 @@ const xc_func_info_type xc_func_info_lda_c_mcweeny = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_br78 = {
   XC_LDA_C_BR78,
   XC_CORRELATION,
@@ -132,6 +147,9 @@ const xc_func_info_type xc_func_info_lda_c_br78 = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_ow_lyp = {
   XC_LDA_C_OW_LYP,
   XC_CORRELATION,
@@ -145,6 +163,9 @@ const xc_func_info_type xc_func_info_lda_c_ow_lyp = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_ow = {
   XC_LDA_C_OW,
   XC_CORRELATION,

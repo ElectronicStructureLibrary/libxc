@@ -10,7 +10,7 @@
 
 #define XC_LDA_C_HL   4   /* Hedin & Lundqvist            */
 #define XC_LDA_C_GL   5   /* Gunnarson & Lundqvist        */
-#define XC_LDA_C_vBH 17   /* von Barth & Hedin            */
+#define XC_LDA_C_VBH 17   /* von Barth & Hedin            */
 
 typedef struct {
   double r[2], c[2];
@@ -44,7 +44,7 @@ lda_c_hl_init(xc_func_type *p)
   case XC_LDA_C_GL:
     memcpy(params, &par_gl, sizeof(lda_c_hl_params));
     break;
-  case XC_LDA_C_vBH:
+  case XC_LDA_C_VBH:
     memcpy(params, &par_vbh, sizeof(lda_c_hl_params));
     break;
   default:
@@ -56,6 +56,9 @@ lda_c_hl_init(xc_func_type *p)
 #include "maple2c/lda_exc/lda_c_hl.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_hl = {
   XC_LDA_C_HL,
   XC_CORRELATION,
@@ -69,6 +72,9 @@ const xc_func_info_type xc_func_info_lda_c_hl = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_gl = {
   XC_LDA_C_GL,
   XC_CORRELATION,
@@ -82,8 +88,11 @@ const xc_func_info_type xc_func_info_lda_c_gl = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_vbh = {
-  XC_LDA_C_vBH,
+  XC_LDA_C_VBH,
   XC_CORRELATION,
   "von Barth & Hedin",
   XC_FAMILY_LDA,

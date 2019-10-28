@@ -67,6 +67,9 @@ gga_k_apbe_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_k_apbe.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_apbe = {
   XC_GGA_K_APBE,
   XC_KINETIC,
@@ -80,6 +83,9 @@ const xc_func_info_type xc_func_info_gga_k_apbe = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_revapbe = {
   XC_GGA_K_REVAPBE,
   XC_KINETIC,
@@ -93,6 +99,9 @@ const xc_func_info_type xc_func_info_gga_k_revapbe = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_tw1 = {
   XC_GGA_K_TW1,
   XC_KINETIC,
@@ -106,6 +115,9 @@ const xc_func_info_type xc_func_info_gga_k_tw1 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_tw2 = {
   XC_GGA_K_TW2,
   XC_KINETIC,
@@ -119,6 +131,9 @@ const xc_func_info_type xc_func_info_gga_k_tw2 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_tw3 = {
   XC_GGA_K_TW3,
   XC_KINETIC,
@@ -132,6 +147,9 @@ const xc_func_info_type xc_func_info_gga_k_tw3 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_tw4 = {
   XC_GGA_K_TW4,
   XC_KINETIC,

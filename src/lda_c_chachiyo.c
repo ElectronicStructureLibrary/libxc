@@ -44,6 +44,9 @@ lda_c_chachiyo_init(xc_func_type *p)
 #include "maple2c/lda_exc/lda_c_chachiyo.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_chachiyo = {
   XC_LDA_C_CHACHIYO,
   XC_CORRELATION,
@@ -57,6 +60,9 @@ const xc_func_info_type xc_func_info_lda_c_chachiyo = {
   work_lda, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_karasiev = {
   XC_LDA_C_KARASIEV,
   XC_CORRELATION,

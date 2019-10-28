@@ -48,6 +48,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->b = get_ext_param(p->info->ext_params, ext_params, 1);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_x_sloc = {
   XC_LDA_X_SLOC,
   XC_EXCHANGE,

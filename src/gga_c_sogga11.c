@@ -51,6 +51,9 @@ gga_c_sogga11_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_c_sogga11.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_c_sogga11 = {
   XC_GGA_C_SOGGA11,
   XC_CORRELATION,
@@ -64,6 +67,9 @@ const xc_func_info_type xc_func_info_gga_c_sogga11 = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_c_sogga11_x = {
   XC_GGA_C_SOGGA11_X,
   XC_CORRELATION,

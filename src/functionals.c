@@ -64,7 +64,7 @@ char *xc_functional_get_name(int number)
     if(xc_functional_keys[ii].number == number) {
       /* return duplicated: caller has the responsibility to dealloc string.
          Do this the old way since strdup and strndup aren't C standard. */
-      p=malloc(strlen(xc_functional_keys[ii].name)+1);
+      p = (char *) malloc(strlen(xc_functional_keys[ii].name) + 1);
       strcpy(p,xc_functional_keys[ii].name);
       return p;
     }

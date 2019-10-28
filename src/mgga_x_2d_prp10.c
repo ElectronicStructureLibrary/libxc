@@ -15,6 +15,9 @@
 #define XC_NO_EXC
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_2d_prhg07_prp10 = {
   XC_MGGA_X_2D_PRHG07_PRP10,
   XC_EXCHANGE,

@@ -43,6 +43,9 @@ gga_x_vmt84_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_x_vmt84.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_vmt84_pbe = {
   XC_GGA_X_VMT84_PBE,
   XC_EXCHANGE,
@@ -56,6 +59,9 @@ const xc_func_info_type xc_func_info_gga_x_vmt84_pbe = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_vmt84_ge = {
   XC_GGA_X_VMT84_GE,
   XC_EXCHANGE,

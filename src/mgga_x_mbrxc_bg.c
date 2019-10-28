@@ -48,6 +48,9 @@ double xc_mgga_x_mbrxc_get_x(double Q)
 #include "work_mgga.c"
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_mbrxc_bg = {
   XC_MGGA_X_MBRXC_BG,
   XC_EXCHANGE,

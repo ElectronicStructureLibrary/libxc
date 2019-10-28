@@ -127,6 +127,9 @@ set_ext_params_PBE(xc_func_type *p, const double *ext_params)
 #include "work_gga.c"
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_pbe = {
   XC_GGA_X_PBE,
   XC_EXCHANGE,
@@ -140,6 +143,9 @@ const xc_func_info_type xc_func_info_gga_x_pbe = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_pbe_r = {
   XC_GGA_X_PBE_R,
   XC_EXCHANGE,
@@ -153,6 +159,9 @@ const xc_func_info_type xc_func_info_gga_x_pbe_r = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_pbe_sol = {
   XC_GGA_X_PBE_SOL,
   XC_EXCHANGE,
@@ -166,6 +175,9 @@ const xc_func_info_type xc_func_info_gga_x_pbe_sol = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_xpbe = {
   XC_GGA_X_XPBE,
   XC_EXCHANGE,
@@ -179,6 +191,9 @@ const xc_func_info_type xc_func_info_gga_x_xpbe = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_pbe_jsjr = {
   XC_GGA_X_PBE_JSJR,
   XC_EXCHANGE,
@@ -192,6 +207,9 @@ const xc_func_info_type xc_func_info_gga_x_pbe_jsjr = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_pbek1_vdw = {
   XC_GGA_X_PBEK1_VDW,
   XC_EXCHANGE,
@@ -205,6 +223,9 @@ const xc_func_info_type xc_func_info_gga_x_pbek1_vdw = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_apbe = {
   XC_GGA_X_APBE,
   XC_EXCHANGE,
@@ -218,6 +239,9 @@ const xc_func_info_type xc_func_info_gga_x_apbe = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_pbe_tca = {
   XC_GGA_X_PBE_TCA,
   XC_EXCHANGE,
@@ -253,6 +277,9 @@ set_ext_params_N(xc_func_type *p, const double *ext_params)
 }
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_lambda_lo_n = {
   XC_GGA_X_LAMBDA_LO_N,
   XC_EXCHANGE,
@@ -266,6 +293,9 @@ const xc_func_info_type xc_func_info_gga_x_lambda_lo_n = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_lambda_ch_n = {
   XC_GGA_X_LAMBDA_CH_N,
   XC_EXCHANGE,
@@ -279,6 +309,9 @@ const xc_func_info_type xc_func_info_gga_x_lambda_ch_n = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_lambda_oc2_n = {
   XC_GGA_X_LAMBDA_OC2_N,
   XC_EXCHANGE,
@@ -292,6 +325,9 @@ const xc_func_info_type xc_func_info_gga_x_lambda_oc2_n = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_pbe_mol = {
   XC_GGA_X_PBE_MOL,
   XC_EXCHANGE,
@@ -305,6 +341,9 @@ const xc_func_info_type xc_func_info_gga_x_pbe_mol = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_bcgp = {
   XC_GGA_X_BCGP,
   XC_EXCHANGE,
@@ -318,6 +357,9 @@ const xc_func_info_type xc_func_info_gga_x_bcgp = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_pbefe = {
   XC_GGA_X_PBEFE,
   XC_EXCHANGE,

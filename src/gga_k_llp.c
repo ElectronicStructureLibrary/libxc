@@ -44,6 +44,9 @@ gga_k_llp_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_k_llp.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_llp = {
   XC_GGA_K_LLP,
   XC_KINETIC,
@@ -57,6 +60,9 @@ const xc_func_info_type xc_func_info_gga_k_llp = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_fr_b88 = {
   XC_GGA_K_FR_B88,
   XC_KINETIC,

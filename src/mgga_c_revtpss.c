@@ -67,6 +67,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 #include "maple2c/mgga_exc/mgga_c_revtpss.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_revtpss = {
   XC_MGGA_C_REVTPSS,
   XC_CORRELATION,
@@ -80,6 +83,9 @@ const xc_func_info_type xc_func_info_mgga_c_revtpss = {
   NULL, NULL, work_mgga
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_revtm = {
   XC_MGGA_C_REVTM,
   XC_CORRELATION,

@@ -38,6 +38,9 @@ hyb_gga_xc_lc_vv10_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[0], &p->cam_omega);  
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_xc_vv10 = {
   XC_GGA_XC_VV10,
   XC_EXCHANGE_CORRELATION,
@@ -51,6 +54,9 @@ const xc_func_info_type xc_func_info_gga_xc_vv10 = {
   NULL, NULL, NULL, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_lc_vv10 = {
   XC_HYB_GGA_XC_LC_VV10,
   XC_EXCHANGE_CORRELATION,

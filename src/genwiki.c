@@ -33,7 +33,7 @@ void sort_funcs(int * list, int nfunc) {
 }
 
 /* Sanitizes links so that they are parsed correctly on the wiki */
-char * sanitize_link(char * doi) {
+char * sanitize_link(const char * doi) {
   int i, j, MAXLEN=4096;
   char buf[MAXLEN], *r;
 
@@ -141,7 +141,7 @@ char * sanitize_link(char * doi) {
   buf[j++]='\0';
 
   /* Allocate return array */
-  r=malloc(strlen(buf)+1);
+  r = (char *) malloc(strlen(buf) + 1);
   strcpy(r,buf);
 
   return r;
@@ -227,7 +227,7 @@ int main(void) {
 	  for(i=0; i<5; i++){
 	    if(func.info->refs[i]==NULL) break;
 	    if(strlen(func.info->refs[i]->doi) > 0) {
-	      char *h=sanitize_link(func.info->refs[i]->doi);
+	      char *h = sanitize_link(func.info->refs[i]->doi);
 	      printf("  *  [%s](http://dx.doi.org/%s) (doi: %s)\n", func.info->refs[i]->ref, h, func.info->refs[i]->doi);
 	      free(h);
 	    } else

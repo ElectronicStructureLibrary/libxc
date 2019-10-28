@@ -73,34 +73,34 @@ void allocate_memory(values_t *data, int nspin, int order)
 
   switch(nspin) {
     case (XC_UNPOLARIZED):
-      data->rho = calloc(data->n, sizeof(double));
-      data->sigma = calloc(data->n, sizeof(double));
-      data->lapl = calloc(data->n, sizeof(double));
-      data->tau = calloc(data->n, sizeof(double));
+      data->rho = (double*) calloc(data->n, sizeof(double));
+      data->sigma = (double*) calloc(data->n, sizeof(double));
+      data->lapl = (double*) calloc(data->n, sizeof(double));
+      data->tau = (double*) calloc(data->n, sizeof(double));
       switch (order) {
         case (0):
-          data->zk = calloc(data->n, sizeof(double));
+          data->zk = (double*) calloc(data->n, sizeof(double));
           break;
         case (1):
-          data->vrho = calloc(data->n, sizeof(double));
-          data->vsigma = calloc(data->n, sizeof(double));
-          data->vlapl = calloc(data->n, sizeof(double));
-          data->vtau = calloc(data->n, sizeof(double));
+          data->vrho = (double*) calloc(data->n, sizeof(double));
+          data->vsigma = (double*) calloc(data->n, sizeof(double));
+          data->vlapl = (double*) calloc(data->n, sizeof(double));
+          data->vtau = (double*) calloc(data->n, sizeof(double));
           break;
         case (2):
-          data->v2rho2 = calloc(data->n, sizeof(double));
-          data->v2tau2 = calloc(data->n, sizeof(double));
-          data->v2lapl2 = calloc(data->n, sizeof(double));
-          data->v2rhotau = calloc(data->n, sizeof(double));
-          data->v2rholapl = calloc(data->n, sizeof(double));
-          data->v2lapltau = calloc(data->n, sizeof(double));
-          data->v2sigma2 = calloc(data->n, sizeof(double));
-          data->v2rhosigma = calloc(data->n, sizeof(double));
-          data->v2sigmatau = calloc(data->n, sizeof(double));
-          data->v2sigmalapl = calloc(data->n, sizeof(double));
+          data->v2rho2 = (double*) calloc(data->n, sizeof(double));
+          data->v2tau2 = (double*) calloc(data->n, sizeof(double));
+          data->v2lapl2 = (double*) calloc(data->n, sizeof(double));
+          data->v2rhotau = (double*) calloc(data->n, sizeof(double));
+          data->v2rholapl = (double*) calloc(data->n, sizeof(double));
+          data->v2lapltau = (double*) calloc(data->n, sizeof(double));
+          data->v2sigma2 = (double*) calloc(data->n, sizeof(double));
+          data->v2rhosigma = (double*) calloc(data->n, sizeof(double));
+          data->v2sigmatau = (double*) calloc(data->n, sizeof(double));
+          data->v2sigmalapl = (double*) calloc(data->n, sizeof(double));
           break;
         case (3):
-          data->v3rho3 = calloc(data->n, sizeof(double));
+          data->v3rho3 = (double*) calloc(data->n, sizeof(double));
           break;
         default:
           fprintf(stderr, "order = %i not recognized.\n", order);
@@ -109,34 +109,34 @@ void allocate_memory(values_t *data, int nspin, int order)
       break;
 
     case (XC_POLARIZED):
-      data->rho = calloc(2*data->n, sizeof(double));
-      data->sigma = calloc(3*data->n, sizeof(double));
-      data->lapl = calloc(2*data->n, sizeof(double));
-      data->tau = calloc(2*data->n, sizeof(double));
+      data->rho = (double*) calloc(2*data->n, sizeof(double));
+      data->sigma = (double*) calloc(3*data->n, sizeof(double));
+      data->lapl = (double*) calloc(2*data->n, sizeof(double));
+      data->tau = (double*) calloc(2*data->n, sizeof(double));
       switch (order) {
         case (0):
-          data->zk = calloc(data->n, sizeof(double));
+          data->zk = (double*) calloc(data->n, sizeof(double));
           break;
         case (1):
-          data->vrho = calloc(2*data->n, sizeof(double));
-          data->vsigma = calloc(3*data->n, sizeof(double));
-          data->vlapl = calloc(2*data->n, sizeof(double));
-          data->vtau = calloc(2*data->n, sizeof(double));
+          data->vrho = (double*) calloc(2*data->n, sizeof(double));
+          data->vsigma = (double*) calloc(3*data->n, sizeof(double));
+          data->vlapl = (double*) calloc(2*data->n, sizeof(double));
+          data->vtau = (double*) calloc(2*data->n, sizeof(double));
           break;
         case (2):
-          data->v2rho2 = calloc(3*data->n, sizeof(double));
-          data->v2tau2 = calloc(3*data->n, sizeof(double));
-          data->v2lapl2 = calloc(3*data->n, sizeof(double));
-          data->v2rhotau = calloc(4*data->n, sizeof(double));
-          data->v2rholapl = calloc(4*data->n, sizeof(double));
-          data->v2lapltau = calloc(4*data->n, sizeof(double));
-          data->v2sigma2 = calloc(6*data->n, sizeof(double));
-          data->v2rhosigma = calloc(6*data->n, sizeof(double));
-          data->v2sigmatau = calloc(6*data->n, sizeof(double));
-          data->v2sigmalapl = calloc(6*data->n, sizeof(double));
+          data->v2rho2 = (double*) calloc(3*data->n, sizeof(double));
+          data->v2tau2 = (double*) calloc(3*data->n, sizeof(double));
+          data->v2lapl2 = (double*) calloc(3*data->n, sizeof(double));
+          data->v2rhotau = (double*) calloc(4*data->n, sizeof(double));
+          data->v2rholapl = (double*) calloc(4*data->n, sizeof(double));
+          data->v2lapltau = (double*) calloc(4*data->n, sizeof(double));
+          data->v2sigma2 = (double*) calloc(6*data->n, sizeof(double));
+          data->v2rhosigma = (double*) calloc(6*data->n, sizeof(double));
+          data->v2sigmatau = (double*) calloc(6*data->n, sizeof(double));
+          data->v2sigmalapl = (double*) calloc(6*data->n, sizeof(double));
           break;
         case (3):
-          data->v3rho3 = calloc(4*data->n, sizeof(double));
+          data->v3rho3 = (double*) calloc(4*data->n, sizeof(double));
           break;
         default:
           fprintf(stderr, "order = %i not recognized.\n", order);

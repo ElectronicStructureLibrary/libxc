@@ -44,6 +44,9 @@ xc_hyb_lda_xc_cam_lda0_init(xc_func_type *p)
   p->cam_beta  = beta;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_lda_xc_cam_lda0 = {
   XC_HYB_LDA_XC_CAM_LDA0,
   XC_EXCHANGE_CORRELATION,

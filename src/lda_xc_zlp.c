@@ -14,6 +14,9 @@
 #include "maple2c/lda_exc/lda_xc_zlp.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_xc_zlp = {
   XC_LDA_XC_ZLP,
   XC_EXCHANGE_CORRELATION,

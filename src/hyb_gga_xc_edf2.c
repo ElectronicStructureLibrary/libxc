@@ -26,6 +26,9 @@ hyb_gga_xc_edf2_init(xc_func_type *p)
   p->cam_alpha = 0.1695;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_edf2 = {
   XC_HYB_GGA_XC_EDF2,
   XC_EXCHANGE_CORRELATION,

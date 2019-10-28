@@ -83,6 +83,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 #include "maple2c/mgga_exc/mgga_c_m05.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_m05 = {
   XC_MGGA_C_M05,
   XC_CORRELATION,
@@ -97,6 +100,9 @@ const xc_func_info_type xc_func_info_mgga_c_m05 = {
 };
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_m05_2x = {
   XC_MGGA_C_M05_2X,
   XC_CORRELATION,
@@ -110,6 +116,9 @@ const xc_func_info_type xc_func_info_mgga_c_m05_2x = {
   NULL, NULL, work_mgga
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_dldf = {
   XC_MGGA_C_DLDF,
   XC_CORRELATION,

@@ -48,6 +48,9 @@ gga_k_apbe_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_k_apbeint.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_apbeint = {
   XC_GGA_K_APBEINT,
   XC_KINETIC,
@@ -61,6 +64,9 @@ const xc_func_info_type xc_func_info_gga_k_apbeint = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_k_revapbeint = {
   XC_GGA_K_REVAPBEINT,
   XC_KINETIC,

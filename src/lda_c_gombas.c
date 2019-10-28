@@ -17,6 +17,9 @@
 #include "maple2c/lda_exc/lda_c_gombas.c"
 #include "work_lda.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_lda_c_gombas = {
   XC_LDA_C_GOMBAS,
   XC_CORRELATION,

@@ -21,6 +21,9 @@ hyb_mgga_x_mvsh_init(xc_func_type *p)
 }
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_x_mvsh = {
   XC_HYB_MGGA_X_MVSH,
   XC_EXCHANGE,

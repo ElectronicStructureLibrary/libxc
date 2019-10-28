@@ -88,6 +88,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 #include "maple2c/mgga_exc/mgga_x_tpss.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_tpss = {
   XC_MGGA_X_TPSS,
   XC_EXCHANGE,
@@ -101,6 +104,9 @@ const xc_func_info_type xc_func_info_mgga_x_tpss = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_modtpss = {
   XC_MGGA_X_MODTPSS,
   XC_EXCHANGE,
@@ -114,6 +120,9 @@ const xc_func_info_type xc_func_info_mgga_x_modtpss = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_revtpss = {
   XC_MGGA_X_REVTPSS,
   XC_EXCHANGE,
@@ -127,6 +136,9 @@ const xc_func_info_type xc_func_info_mgga_x_revtpss = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_bloc = {
   XC_MGGA_X_BLOC,
   XC_EXCHANGE,

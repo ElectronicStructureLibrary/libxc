@@ -47,6 +47,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->c = get_ext_param(p->info->ext_params, ext_params, 1);
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_cap = {
   XC_GGA_X_CAP,
   XC_EXCHANGE,
@@ -74,6 +77,9 @@ xc_hyb_gga_xc_cap0_init(xc_func_type *p)
   p->cam_alpha = 0.75;
 }
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_gga_xc_cap0 = {
   XC_HYB_GGA_XC_CAP0,
   XC_EXCHANGE_CORRELATION,

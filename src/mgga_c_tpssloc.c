@@ -14,6 +14,9 @@
 #include "maple2c/mgga_exc/mgga_c_tpssloc.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_c_tpssloc = {
   XC_MGGA_C_TPSSLOC,
   XC_CORRELATION,

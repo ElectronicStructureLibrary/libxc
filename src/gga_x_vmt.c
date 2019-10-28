@@ -45,6 +45,9 @@ gga_x_vmt_init(xc_func_type *p)
 #include "work_gga.c"
 
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_vmt_pbe = {
   XC_GGA_X_VMT_PBE,
   XC_EXCHANGE,
@@ -58,6 +61,9 @@ const xc_func_info_type xc_func_info_gga_x_vmt_pbe = {
   NULL, work_gga, NULL
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_x_vmt_ge = {
   XC_GGA_X_VMT_GE,
   XC_EXCHANGE,

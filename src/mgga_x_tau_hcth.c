@@ -64,6 +64,9 @@ mgga_x_tau_hcth_init(xc_func_type *p)
 #include "maple2c/mgga_exc/mgga_x_tau_hcth.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_mgga_x_tau_hcth = {
   XC_MGGA_X_TAU_HCTH,
   XC_EXCHANGE,
@@ -77,6 +80,9 @@ const xc_func_info_type xc_func_info_mgga_x_tau_hcth = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_x_bmk = {
   XC_HYB_MGGA_X_BMK,
   XC_EXCHANGE,
@@ -90,6 +96,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_bmk = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_x_tau_hcth = {
   XC_HYB_MGGA_X_TAU_HCTH,
   XC_EXCHANGE,

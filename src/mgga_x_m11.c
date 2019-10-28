@@ -68,6 +68,9 @@ mgga_x_m11_init(xc_func_type *p)
 #include "maple2c/mgga_exc/mgga_x_m11.c"
 #include "work_mgga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_x_m11 = {
   XC_HYB_MGGA_X_M11,
   XC_EXCHANGE,
@@ -81,6 +84,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m11 = {
   NULL, NULL, work_mgga,
 };
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_hyb_mgga_x_revm11 = {
   XC_HYB_MGGA_X_REVM11,
   XC_EXCHANGE,

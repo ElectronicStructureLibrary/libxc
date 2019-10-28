@@ -115,7 +115,7 @@ const char *xc_version_string();
 struct xc_func_type;
 
 typedef struct{
-  char *ref, *doi, *bibtex;
+  const char *ref, *doi, *bibtex;
 } func_reference_type;
 
 char const *xc_func_reference_get_ref(const func_reference_type *reference);
@@ -123,17 +123,17 @@ char const *xc_func_reference_get_doi(const func_reference_type *reference);
 char const *xc_func_reference_get_bibtex(const func_reference_type *reference);
 
 typedef struct{
-  char *name; /* ATTENTION: if name starts with a _ it is an *internal* parameter, 
+  const char *name; /* ATTENTION: if name starts with a _ it is an *internal* parameter, 
                  changing the value effectively changes the functional! */
   double value;
-  char *description;
+  const char *description;
 } func_params_type;
 
 typedef struct{
   int   number;   /* identifier number */
   int   kind;     /* XC_EXCHANGE, XC_CORRELATION, XC_EXCHANGE_CORRELATION, XC_KINETIC */
 
-  char *name;     /* name of the functional, e.g. "PBE" */
+  const char *name;     /* name of the functional, e.g. "PBE" */
   int   family;   /* type of the functional, e.g. XC_FAMILY_GGA */
   func_reference_type *refs[XC_MAX_REFERENCES];  /* index of the references */
 

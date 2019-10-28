@@ -239,6 +239,11 @@ GPU_FUNCTION void internal_counters_gga_prev
 
 void internal_counters_set_mgga(int nspin, xc_dimensions *dim);
 
+GPU_FUNCTION void internal_counters_mgga_random
+(const xc_dimensions *dim, const int pos, int offset,
+ const double **rho, const double **sigma, const double **lapl, const double **tau,
+ double **zk, MGGA_OUT_PARAMS_NO_EXC(double **));
+
 GPU_FUNCTION void internal_counters_mgga_next
 (const xc_dimensions *dim, int offset,
  const double **rho, const double **sigma, const double **lapl, const double **tau,

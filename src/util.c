@@ -411,6 +411,58 @@ internal_counters_gga_prev
 }
 
 GPU_FUNCTION void
+internal_counters_mgga_random
+  (const xc_dimensions *dim, int pos, int offset,
+   const double **rho, const double **sigma, const double **lapl, const double **tau,
+   double **zk, MGGA_OUT_PARAMS_NO_EXC(double **))
+{
+  internal_counters_gga_random(dim, pos, offset, rho, sigma, zk, vrho, vsigma,
+                               v2rho2, v2rhosigma, v2sigma2,
+                               v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
+  
+  if (*lapl != NULL)
+    *lapl += pos*dim->lapl + offset;
+  *tau  += pos*dim->tau  + offset;
+
+  if(*vrho != NULL) {
+    if (*vlapl != NULL)
+      *vlapl += pos*dim->vlapl + offset;
+    *vtau  += pos*dim->vtau  + offset;
+  }
+  if(*v2rho2 != NULL) {
+    if (*v2rholapl != NULL)
+      *v2rholapl   += pos*dim->v2rholapl   + offset;
+    *v2rhotau    += pos*dim->v2rhotau    + offset;
+    if (*v2sigmalapl != NULL)
+      *v2sigmalapl += pos*dim->v2sigmalapl + offset;
+    *v2sigmatau  += pos*dim->v2sigmatau  + offset;
+    if (*v2lapl2 != NULL)
+      *v2lapl2     += pos*dim->v2lapl2     + offset;
+    if (*v2lapltau != NULL)
+      *v2lapltau   += pos*dim->v2lapltau   + offset;
+    *v2tau2      += pos*dim->v2tau2      + offset;
+  }
+  if(*v3rho3 != NULL) {
+    *v3rho2lapl     += pos*dim->v3rho2lapl     + offset;
+    *v3rho2tau      += pos*dim->v3rho2tau      + offset;
+    *v3rhosigmalapl += pos*dim->v3rhosigmalapl + offset;
+    *v3rhosigmatau  += pos*dim->v3rhosigmatau  + offset;
+    *v3rholapl2     += pos*dim->v3rholapl2     + offset;    
+    *v3rholapltau   += pos*dim->v3rholapltau   + offset;
+    *v3rhotau2      += pos*dim->v3rhotau2      + offset;
+    *v3sigma2lapl   += pos*dim->v3sigma2lapl   + offset;
+    *v3sigma2tau    += pos*dim->v3sigma2tau    + offset;
+    *v3sigmalapl2   += pos*dim->v3sigmalapl2   + offset;
+    *v3sigmalapltau += pos*dim->v3sigmalapltau + offset; 
+    *v3sigmatau2    += pos*dim->v3sigmatau2    + offset;
+    *v3lapl3        += pos*dim->v3lapl3        + offset;
+    *v3lapl2tau     += pos*dim->v3lapl2tau     + offset; 
+    *v3lapltau2     += pos*dim->v3lapltau2     + offset;
+    *v3tau3         += pos*dim->v3tau3         + offset;
+  }
+}
+
+GPU_FUNCTION void
 internal_counters_mgga_next
   (const xc_dimensions *dim, int offset,
    const double **rho, const double **sigma, const double **lapl, const double **tau,

@@ -308,7 +308,9 @@ xc_mix_func(const xc_func_type *func, int np,
       }
       
       if(is_mgga(aux->info->family)) {
-        sum_var(vlapl);
+        if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) {
+          sum_var(vlapl);
+        }
         sum_var(vtau);
       }
     }

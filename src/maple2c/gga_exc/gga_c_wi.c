@@ -12,9 +12,11 @@
 */
 
 #define maple2c_order 3
+#define MAPLE2C_FLAGS (XC_FLAGS_I_HAVE_EXC | XC_FLAGS_I_HAVE_VXC | XC_FLAGS_I_HAVE_FXC | XC_FLAGS_I_HAVE_KXC)
+
 
 static inline void
-func_unpol(const xc_func_type *p, int order, const double *rho, const double *sigma, double *zk, double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2, double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3, double *v4rho4, double *v4rho3sigma, double *v4rho2sigma2, double *v4rhosigma3, double *v4sigma4)
+func_unpol(const xc_func_type *p, int order, const double *rho, const double *sigma, double *zk, GGA_OUT_PARAMS_NO_EXC(double *))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -80,7 +82,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t42 = params->c + t16 * t18 / t3 * t38 / 0.4e1;
   t43 = 0.1e1 / t42;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = t12 * t43;
+    zk[0] = t12 * t43;
 
 #ifndef XC_DONT_COMPILE_VXC
 
@@ -231,7 +233,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
 
 
 static inline void
-func_ferr(const xc_func_type *p, int order, const double *rho, const double *sigma, double *zk, double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2, double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3, double *v4rho4, double *v4rho3sigma, double *v4rho2sigma2, double *v4rhosigma3, double *v4sigma4)
+func_ferr(const xc_func_type *p, int order, const double *rho, const double *sigma, double *zk, GGA_OUT_PARAMS_NO_EXC(double *))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -297,7 +299,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, const double *sig
   t42 = params->c + t16 * t18 / t3 * t38 / 0.4e1;
   t43 = 0.1e1 / t42;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = t12 * t43;
+    zk[0] = t12 * t43;
 
 #ifndef XC_DONT_COMPILE_VXC
 
@@ -448,7 +450,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, const double *sig
 
 
 static inline void
-func_pol(const xc_func_type *p, int order, const double *rho, const double *sigma, double *zk, double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2, double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3, double *v4rho4, double *v4rho3sigma, double *v4rho2sigma2, double *v4rhosigma3, double *v4sigma4)
+func_pol(const xc_func_type *p, int order, const double *rho, const double *sigma, double *zk, GGA_OUT_PARAMS_NO_EXC(double *))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -526,7 +528,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t45 = params->c + t19 * t21 / t6 * t41 / 0.4e1;
   t46 = 0.1e1 / t45;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    *zk = t15 * t46;
+    zk[0] = t15 * t46;
 
 #ifndef XC_DONT_COMPILE_VXC
 

@@ -45,7 +45,7 @@ const xc_func_info_type xc_func_info_gga_k_lc94 = {
   "Lembarki & Chermette",
   XC_FAMILY_GGA,
   {&xc_ref_Lembarki1994_5328, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
   0, NULL, NULL,
   gga_k_lc94_init, NULL,

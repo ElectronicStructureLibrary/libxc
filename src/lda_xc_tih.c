@@ -20,7 +20,7 @@ const xc_func_info_type xc_func_info_lda_xc_tih = {
   "Neural network LDA from Tozer et al",
   XC_FAMILY_LDA,
   {&xc_ref_Tozer1996_9200, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_VXC | XC_FLAGS_I_HAVE_FXC | XC_FLAGS_I_HAVE_KXC,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   5e-24,
   0, NULL, NULL,
   NULL, NULL,

@@ -308,9 +308,6 @@ int main(int argc, char *argv[])
   /* Helpers for properties that may not have been implemented */
   double *zk, *vrho, *v2rho2, *v3rho3;
 
-  static const char efmt[] =" % .16e";
-  static const char efmt2[]=" % .16e % .16e";
-  static const char efmt3[]=" % .16e % .16e % .16e";
   static const char sfmt[] =" %23s";
   static const char sfmt2[]=" %23s %23s";
   static const char sfmt3[]=" %23s %23s %23s";
@@ -397,17 +394,20 @@ int main(int argc, char *argv[])
   case XC_FAMILY_GGA:
   case XC_FAMILY_HYB_GGA:
     xc_gga(&func, d.n, d.rho, d.sigma, zk, vrho, d.vsigma,
-           v2rho2, d.v2rhosigma, d.v2sigma2, NULL, NULL, NULL, NULL);
+           v2rho2, d.v2rhosigma, d.v2sigma2, NULL, NULL, NULL, NULL,
+           NULL, NULL, NULL, NULL, NULL);
     break;
   case XC_FAMILY_MGGA:
   case XC_FAMILY_HYB_MGGA:
     xc_mgga(&func, d.n, d.rho, d.sigma, d.lapl, d.tau, zk, vrho, d.vsigma, d.vlapl, d.vtau,
-            v2rho2, d.v2rhosigma, d.v2rholapl, d.v2rhotau, 
-            d.v2sigma2, d.v2sigmalapl, d.v2sigmatau,
-            d.v2lapl2, d.v2lapltau,
-            d.v2tau2,
+            v2rho2, d.v2rhosigma, d.v2rholapl, d.v2rhotau, d.v2sigma2, d.v2sigmalapl, d.v2sigmatau, d.v2lapl2, d.v2lapltau, d.v2tau2,
             NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-            NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+            NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+            NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+            NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+            NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+            NULL, NULL, NULL, NULL, NULL            
+            );
             
     break;
 

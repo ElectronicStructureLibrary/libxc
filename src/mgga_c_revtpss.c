@@ -73,7 +73,7 @@ const xc_func_info_type xc_func_info_mgga_c_revtpss = {
   "revised TPSS correlation",
   XC_FAMILY_MGGA,
   {&xc_ref_Perdew2009_026403, &xc_ref_Perdew2009_026403_err, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-13, /* densities smaller than 1e-26 give NaNs */
   5, ext_params, set_ext_params,
   mgga_c_revtpss_init, NULL,
@@ -86,7 +86,7 @@ const xc_func_info_type xc_func_info_mgga_c_revtm = {
   "revised Tao and Mo 2016 exchange",
   XC_FAMILY_MGGA,
   {&xc_ref_Jana2019_6356, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-13, /* densities smaller than 1e-26 give NaNs */
   0, NULL, NULL,
   mgga_c_revtpss_init, NULL,

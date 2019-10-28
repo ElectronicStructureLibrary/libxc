@@ -314,9 +314,9 @@ sub maple2c_run
   my @test_2 = ("EXC", "VXC", "FXC", "KXC", "LXC", "MXC");  
 
   print $out "#define MAPLE2C_FLAGS (";
-  for(my $i=0; $i<=$config{'max_order'}; $i++){
-      print $out " | " if($i != 0);
-      print $out "XC_FLAGS_I_HAVE_" . $test_2[$i + $start_order];
+  for(my $i=$start_order; $i<=$config{'max_order'}; $i++){
+      print $out " | " if($i != $start_order);
+      print $out "XC_FLAGS_I_HAVE_" . $test_2[$i];
   }
   print $out ")\n\n";
 

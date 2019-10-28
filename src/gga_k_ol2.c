@@ -41,7 +41,7 @@ const xc_func_info_type xc_func_info_gga_k_ol2 = {
   "Ou-Yang and Levy v.2",
   XC_FAMILY_GGA,
   {&xc_ref_OuYang1991_379, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   5e-26,
   0, NULL, NULL,
   gga_k_ol2_init, NULL, 

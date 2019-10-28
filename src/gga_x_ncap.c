@@ -60,7 +60,7 @@ const xc_func_info_type xc_func_info_gga_x_ncap = {
   "Nearly correct asymptotic potential",
   XC_FAMILY_GGA,
   {&xc_ref_Carmona2019_303, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
   4, ext_params, set_ext_params,
   gga_x_ncap_init, NULL,

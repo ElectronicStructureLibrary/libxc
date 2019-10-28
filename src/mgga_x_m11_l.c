@@ -60,7 +60,7 @@ const xc_func_info_type xc_func_info_mgga_x_m11_l = {
   "Minnesota M11-L exchange functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Peverati2012_117, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-13,
   0, NULL, NULL,
   mgga_x_m11_l_init, NULL, 

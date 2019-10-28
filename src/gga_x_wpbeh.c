@@ -67,7 +67,7 @@ const xc_func_info_type xc_func_info_gga_x_wpbeh = {
   "short-range part of the PBE (default w=0 gives PBEh)",
   XC_FAMILY_GGA,
   {&xc_ref_Heyd2003_8207, &xc_ref_Heyd2003_8207_err, &xc_ref_Ernzerhof1998_3313, &xc_ref_Heyd2004_7274, &xc_ref_Henderson2009_044108},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
   1, ext_params, set_ext_params,
   gga_x_wpbeh_init, NULL, 

@@ -5,11 +5,13 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
-dist_noinst_SCRIPTS = \
-gga_x_lb.mpl
+gga_order_4 = \
+  gga_x_lb.mpl
+
+dist_noinst_SCRIPTS = $(gga_order_4)
 
 maple2c:
-	@for funct in $(dist_noinst_SCRIPTS); do \
+	@for funct in $(gga_order_4); do \
     echo Processing: $${funct%.*}; \
     $(top_srcdir)/scripts/maple2c.pl $(top_srcdir) $${funct%.*} 4; \
   done

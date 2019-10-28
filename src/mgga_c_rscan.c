@@ -20,7 +20,7 @@ const xc_func_info_type xc_func_info_mgga_c_rscan = {
   "Regularized SCAN correlation by Bartok and Yates",
   XC_FAMILY_MGGA,
   {&xc_ref_Bartok2019_161101, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-26,
   0, NULL, NULL,
   NULL, NULL, 

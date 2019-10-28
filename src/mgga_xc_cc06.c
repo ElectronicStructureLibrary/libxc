@@ -21,7 +21,7 @@ const xc_func_info_type xc_func_info_mgga_xc_cc06 = {
   "Cancio and Chou 2006",
   XC_FAMILY_MGGA,
   {&xc_ref_Cancio2006_081202, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-23,
   0, NULL, NULL,
   NULL, NULL, 

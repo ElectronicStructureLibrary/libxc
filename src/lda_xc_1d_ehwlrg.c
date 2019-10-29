@@ -50,6 +50,7 @@ lda_xc_1d_ehwlrg_init(xc_func_type *p)
   }
 }
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_xc_1d_ehwlrg.c"
 #include "work_lda.c"
 

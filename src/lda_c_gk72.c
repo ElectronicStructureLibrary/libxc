@@ -14,6 +14,7 @@
 
 #define XC_LDA_C_GK72  578   /* Gordon and Kim 1972 */
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_gk72.c"
 #include "work_lda.c"
 

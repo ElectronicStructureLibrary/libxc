@@ -136,6 +136,7 @@ lda_c_pw_init(xc_func_type *p)
   }
 }
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_pw.c"
 #include "work_lda.c"
 

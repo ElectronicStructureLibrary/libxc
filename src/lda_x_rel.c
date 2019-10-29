@@ -10,6 +10,7 @@
 
 #define XC_LDA_X_REL   532   /* Relativistic exchange        */
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_x_rel.c"
 #include "work_lda.c"
 

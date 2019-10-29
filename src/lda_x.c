@@ -46,6 +46,7 @@ lda_x_init(xc_func_type *p)
   params->alpha = 1.0;
 }
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_x.c"
 #include "work_lda.c"
 

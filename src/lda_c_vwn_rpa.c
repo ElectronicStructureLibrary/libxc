@@ -10,6 +10,7 @@
 
 #define XC_LDA_C_VWN_RPA  8   /* Vosko, Wilk, & Nusair (RPA) */
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_vwn_rpa.c"
 #include "work_lda.c"
 

@@ -14,6 +14,7 @@
 
 #define XC_LDA_C_GOMBAS  24   /* Gombas parametrization       */
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_gombas.c"
 #include "work_lda.c"
 

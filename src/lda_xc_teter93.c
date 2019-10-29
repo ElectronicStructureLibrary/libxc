@@ -11,6 +11,7 @@
 
 #define XC_LDA_XC_TETER93     20   /* Teter 93 parametrization                */
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_xc_teter93.c"
 #include "work_lda.c"
 

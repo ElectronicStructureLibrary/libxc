@@ -15,6 +15,7 @@
 
 #define XC_LDA_K_ZLP     550   /* kinetic energy version of ZLP */
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_k_zlp.c"
 #include "work_lda.c"
 

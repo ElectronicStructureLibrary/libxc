@@ -40,6 +40,7 @@ lda_k_tf_init(xc_func_type *p)
   }
 }
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_k_tf.c"
 #include "work_lda.c"
 

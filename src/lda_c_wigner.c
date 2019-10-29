@@ -64,6 +64,7 @@ lda_c_wigner_init(xc_func_type *p)
   }
 }
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_wigner.c"
 #include "work_lda.c"
 

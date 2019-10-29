@@ -28,6 +28,7 @@ lda_x_sloc_init(xc_func_type *p)
   /* default set by set_ext_params */
 }
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_x_sloc.c"
 #include "work_lda.c"
 

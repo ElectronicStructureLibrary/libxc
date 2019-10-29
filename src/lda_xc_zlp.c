@@ -11,6 +11,7 @@
 
 #define XC_LDA_XC_ZLP     43   /* Zhao, Levy & Parr, Eq. (20)  */
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_xc_zlp.c"
 #include "work_lda.c"
 

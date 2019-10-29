@@ -10,8 +10,9 @@
 
 #define XC_LDA_XC_TIH   599   /* Neural network LDA from Tozer et al */
 
-#include "maple2c/lda_vxc/lda_xc_tih.c"
 #define XC_NO_EXC
+#include "decl_lda.h"
+#include "maple2c/lda_vxc/lda_xc_tih.c"
 #include "work_lda.c"
 
 #ifdef __cplusplus

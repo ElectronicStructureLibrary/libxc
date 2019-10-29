@@ -44,6 +44,7 @@ static void func2(double *x, int n, void *dummy)
     x[ii] = x[ii]*FT_inter(x[ii]);
 }
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_x_1d_exponential.c"
 #include "work_lda.c"
 

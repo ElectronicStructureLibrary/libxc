@@ -10,6 +10,7 @@
 
 #define XC_LDA_C_VWN_3   30   /* Vosko, Wilk, & Nusair (3)   */
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_vwn_3.c"
 #include "work_lda.c"
 

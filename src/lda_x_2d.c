@@ -11,6 +11,7 @@
 
 #define XC_LDA_X_2D  19 /* Exchange in 2D */
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_x_2d.c"
 #include "work_lda.c"
 

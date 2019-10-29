@@ -75,8 +75,24 @@ After `find_package(Libxc ...)`,
 * include header files using `target_include_directories(mytarget PRIVATE $<TARGET_PROPERTY:Libxc::xc,INTERFACE_INCLUDE_DIRECTORIES>)`
 * compile target applying `-DUSING_Libxc` definition using `target_compile_definitions(mytarget PRIVATE $<TARGET_PROPERTY:Libxc::xc,INTERFACE_COMPILE_DEFINITIONS>)`
 
+### GPU support with CUDA
 
-#### Python Library
+Libxc has experimental support for GPU execution using Cuda.
+It is enabled with the `--enable-cuda` configure option (CMake is not supported).
+To compile libxc you have to pass the `nvcc -x cu` as compiler and `nvcc` (without `-x cu`) as the linker.
+This is an example of configuring libxc with cuda support (note that you have to adjust the location of `nvcc` and your GPUs architecture):
+
+```bash
+export CC="/usr/local/cuda/bin/nvcc -x cu"
+export CFLAGS="-arch=sm_70 -g -O3 --std=c++14 --compiler-options -g,-Wall,-Wfatal-errors,-Wno-unused-variable,-Wno-unused-but-set-variable"
+export CCLD="/usr/local/cuda/bin/nvcc"
+./configure --enable-cuda
+```
+
+When running with libxc compiled with Cuda, both the input and output arrays must always be allocated on the GPU (or using unified memory).
+Libxc will fail (most likely you will get a segmentation fault) if a CPU array is passed.
+
+### Python Library
 
 Optional Python bindings are available through the cytpes module. To install
 into Python site-packages plese run:

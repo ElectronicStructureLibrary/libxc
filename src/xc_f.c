@@ -17,6 +17,7 @@
 
 #include "xc.h"
 #include "string_f.h"
+#include "util.h"
 
 /* version */
 void FC_FUNC(xc_f90_version, XC_F90_VERSION)

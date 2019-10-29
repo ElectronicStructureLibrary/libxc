@@ -12,6 +12,7 @@
 #define XC_GGA_X_BEEFVDW          285 /* BEEF-vdW exchange */
 #define XC_GGA_XC_BEEFVDW         286 /* BEEF-vdW exchange-correlation */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_beefvdw.c"
 #include "work_gga.c"
 

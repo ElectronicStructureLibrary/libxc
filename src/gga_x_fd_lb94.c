@@ -69,6 +69,7 @@ static void func1(double *x, int n, void *dummy)
     x[ii] = FT_inter(1, x[ii]);
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_fd_lb94.c"
 #include "work_gga.c"
 

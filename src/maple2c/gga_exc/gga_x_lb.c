@@ -13,7 +13,7 @@
 
 #define maple2c_order 3
 
-GPU_FUNCTION static inline void
+static inline void
 func_unpol(const xc_func_type *p, int order, const double *rho, const double *sigma, double *zk, double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2, double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
   double t1, t4, t5, t6, t7, t8, t9, t10;
@@ -216,7 +216,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
 }
 
 
-GPU_FUNCTION static inline void
+static inline void
 func_ferr(const xc_func_type *p, int order, const double *rho, const double *sigma, double *zk, double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2, double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
   double t1, t2, t4, t5, t6, t7, t8, t11;
@@ -417,7 +417,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, const double *sig
 }
 
 
-GPU_FUNCTION static inline void
+static inline void
 func_pol(const xc_func_type *p, int order, const double *rho, const double *sigma, double *zk, double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2, double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3)
 {
   double t1, t2, t4, t5, t6, t7, t8, t9;

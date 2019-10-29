@@ -263,6 +263,7 @@ gga_xc_b97_init(xc_func_type *p)
   }
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_xc_b97.c"
 #include "work_gga.c"
 

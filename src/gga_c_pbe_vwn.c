@@ -55,6 +55,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->BB    = get_ext_param(p->info->ext_params, ext_params, 2);
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_pbe_vwn.c"
 #include "work_gga.c"
 

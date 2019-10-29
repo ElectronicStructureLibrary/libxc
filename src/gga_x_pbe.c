@@ -123,6 +123,7 @@ set_ext_params_PBE(xc_func_type *p, const double *ext_params)
   params->mu    = get_ext_param(p->info->ext_params, ext_params, 1);
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_pbe.c"
 #include "work_gga.c"
 

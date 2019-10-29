@@ -11,6 +11,7 @@
 
 #define XC_GGA_C_WL  147 /* Wilson & Levy */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_wl.c"
 #include "work_gga.c"
 

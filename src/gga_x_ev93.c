@@ -23,6 +23,7 @@ typedef struct{
   double b3;
 } gga_x_ev93_params;
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_ev93.c"
 #include "work_gga.c"
 

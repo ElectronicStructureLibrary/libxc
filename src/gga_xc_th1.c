@@ -89,6 +89,7 @@ gga_xc_th1_init(xc_func_type *p)
   
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_xc_th1.c"
 #include "work_gga.c"
 

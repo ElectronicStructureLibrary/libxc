@@ -45,6 +45,7 @@ gga_x_dk87_init(xc_func_type *p)
   }
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_dk87.c"
 #include "work_gga.c"
 

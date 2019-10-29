@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_LG93  113 /* Lacks & Gordon 93 */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_lg93.c"
 #include "work_gga.c"
 

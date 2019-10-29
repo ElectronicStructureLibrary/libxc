@@ -27,6 +27,7 @@ gga_c_optc_init(xc_func_type *p)
   /* defaults set by set_ext_params */
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_optc.c"
 #include "work_gga.c"
 

@@ -11,6 +11,7 @@
 
 #define XC_GGA_C_OP_G96      85 /* one-parameter progressive functional (G96 version)     */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_op_g96.c"
 #include "work_gga.c"
 

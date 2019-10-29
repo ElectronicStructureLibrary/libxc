@@ -10,6 +10,7 @@
 
 #define XC_GGA_K_THAKKAR      523 /* Thakkar 1992 */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_thakkar.c"
 #include "work_gga.c"
 

@@ -10,6 +10,7 @@
 
 #define XC_GGA_C_PBELOC       246 /* Semilocal dynamical correlation                    */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_pbeloc.c"
 #include "work_gga.c"
 

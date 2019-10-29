@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_HERMAN          104 /* Herman et al original GGA                  */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_herman.c"
 #include "work_gga.c"
 

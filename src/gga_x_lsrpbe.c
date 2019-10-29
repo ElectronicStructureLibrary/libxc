@@ -48,6 +48,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   printf("mu = %.10f\n",params->mu);
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_lsrpbe.c"
 #include "work_gga.c"
 

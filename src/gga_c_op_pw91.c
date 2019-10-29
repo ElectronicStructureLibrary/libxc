@@ -11,6 +11,7 @@
 
 #define XC_GGA_C_OP_PW91    262 /* one-parameter progressive functional (PW91 version)  */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_op_pw91.c"
 #include "work_gga.c"
 

@@ -11,6 +11,7 @@
 #define XC_GGA_X_GG99   535 /* Gilbert and Gill 1999 */
 #define XC_GGA_X_KGG99  544 /* Gilbert and Gill 1999 (mixed) */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_gg99.c"
 #include "work_gga.c"
 

@@ -11,6 +11,7 @@
 
 #define XC_GGA_C_Q2D          47 /* Chiodo et al  */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_q2d.c"
 #include "work_gga.c"
 

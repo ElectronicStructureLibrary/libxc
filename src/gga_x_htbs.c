@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_HTBS         191 /* Haas, Tran, Blaha, and Schwarz  */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_htbs.c"
 #include "work_gga.c"
 

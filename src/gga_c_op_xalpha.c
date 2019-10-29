@@ -11,6 +11,7 @@
 
 #define XC_GGA_C_OP_XALPHA   84 /* one-parameter progressive functional (XALPHA version)  */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_op_xalpha.c"
 #include "work_gga.c"
 

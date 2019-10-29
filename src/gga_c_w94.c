@@ -11,6 +11,7 @@
 
 #define XC_GGA_C_W94 561 /* Wilson 94 (Eq. 25) */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_w94.c"
 #include "work_gga.c"
 

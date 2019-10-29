@@ -86,6 +86,7 @@ gga_c_bmk_init(xc_func_type *p)
   }
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_bmk.c"
 #include "work_gga.c"
 

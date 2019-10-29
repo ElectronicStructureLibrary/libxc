@@ -41,6 +41,7 @@ gga_k_llp_init(xc_func_type *p)
   }
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_llp.c"
 #include "work_gga.c"
 

@@ -10,6 +10,7 @@
 
 #define XC_GGA_C_ACGGA           39 /* acGGA, asymptotically corrected GGA */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_acgga.c"
 #include "work_gga.c"
 

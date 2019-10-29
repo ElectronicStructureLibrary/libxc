@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_LAG   193 /* Local Airy Gas */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_lag.c"
 #include "work_gga.c"
 

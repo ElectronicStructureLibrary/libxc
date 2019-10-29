@@ -10,6 +10,7 @@
 
 #define XC_GGA_K_MEYER        57 /* Meyer,  Wang, and Young */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_meyer.c"
 #include "work_gga.c"
 

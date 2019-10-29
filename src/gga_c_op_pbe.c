@@ -11,6 +11,7 @@
 
 #define XC_GGA_C_OP_PBE      86 /* one-parameter progressive functional (PBE version)     */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_op_pbe.c"
 #include "work_gga.c"
 

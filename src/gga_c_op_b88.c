@@ -11,6 +11,7 @@
 
 #define XC_GGA_C_OP_B88      87 /* one-parameter progressive functional (B88 version)     */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_op_b88.c"
 #include "work_gga.c"
 

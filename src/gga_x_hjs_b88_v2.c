@@ -36,6 +36,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->omega = get_ext_param(p->info->ext_params, ext_params, 0);
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_hjs_b88_v2.c"
 #include "work_gga.c"
 

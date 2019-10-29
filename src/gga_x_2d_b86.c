@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_2D_B86          128 /* Becke 86 Xalpha, beta, gamma                    */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_2d_b86.c"
 #include "work_gga.c"
 

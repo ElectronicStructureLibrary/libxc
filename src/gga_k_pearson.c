@@ -10,6 +10,7 @@
 
 #define XC_GGA_K_PEARSON          511 /* Pearson */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_pearson.c"
 #include "work_gga.c"
 

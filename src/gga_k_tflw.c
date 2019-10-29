@@ -124,6 +124,7 @@ gga_k_tflw_init(xc_func_type *p)
   gga_k_tflw_set_params(p, -1.0, -1.0, 1.0);
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_tflw.c"
 #include "work_gga.c"
 

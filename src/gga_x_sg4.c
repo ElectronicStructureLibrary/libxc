@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_SG4         533 /* Semiclassical GGA at fourth order */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_sg4.c"
 #include "work_gga.c"
 

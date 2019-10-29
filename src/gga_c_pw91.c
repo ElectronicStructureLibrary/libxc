@@ -10,6 +10,7 @@
 
 #define XC_GGA_C_PW91 134 /* Perdew & Wang 91 */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_pw91.c"
 #include "work_gga.c"
 

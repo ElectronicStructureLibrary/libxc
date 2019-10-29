@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_PBEA  121 /* Madsen (PBE-like) */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_pbea.c"
 #include "work_gga.c"
 

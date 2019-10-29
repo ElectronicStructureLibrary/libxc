@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_PBEPOW         539 /* PBE power */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_pbepow.c"
 #include "work_gga.c"
 

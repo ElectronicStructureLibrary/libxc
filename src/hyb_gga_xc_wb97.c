@@ -84,6 +84,7 @@ gga_xc_wb97_init(xc_func_type *p)
   }
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/hyb_gga_xc_wb97.c"
 #include "work_gga.c"
 

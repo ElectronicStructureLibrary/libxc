@@ -10,6 +10,7 @@
 
 #define XC_GGA_C_REGTPSS       83 /* Regularized TPSS correlation (ex-VPBE)             */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_regtpss.c"
 #include "work_gga.c"
 

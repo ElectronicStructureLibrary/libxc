@@ -59,6 +59,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params-> mu += params->alpha*(1.0 + params->kappa);
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_lspbe.c"
 #include "work_gga.c"
 

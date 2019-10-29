@@ -51,6 +51,7 @@ gga_x_sogga11_init(xc_func_type *p)
   }
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_sogga11.c"
 #include "work_gga.c"
 

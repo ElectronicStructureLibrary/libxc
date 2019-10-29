@@ -9,7 +9,7 @@
 
 SUBDIRS = pytest
 
-noinst_PROGRAMS = xc-get_data xc-consistency xc-regression xc-error xc-cuda
+noinst_PROGRAMS = xc-get_data xc-consistency xc-regression xc-error
 dist_noinst_SCRIPTS = xc-run_testsuite xc-reference.pl
 TESTS = xc-run_testsuite
 TESTS_ENVIRONMENT = buildir=$(top_builddir)/testsuite
@@ -29,10 +29,6 @@ xc_regression_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
 xc_error_SOURCES = xc-error.c
 xc_error_LDADD = -lm
 xc_error_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
-
-xc_cuda_SOURCES = xc-cuda.c
-xc_cuda_LDADD =  -L../src/ -lxc -lm
-xc_cuda_CPPFLAGS = -I$(srcdir)/../src/ -I$(top_builddir)/src
 
 dist_noinst_DATA = CMakeLists.txt $(srcdir)/df_repo/*.data $(srcdir)/regression/*/*.bz2 $(srcdir)/input/*
 

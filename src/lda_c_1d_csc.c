@@ -97,6 +97,12 @@ set_ext_params(xc_func_type *p, const double *ext_params)
       pferro = par_ferro[0];
     }
   }
+
+  if(ppara == NULL){
+    fprintf(stderr, "Invalid value of parameters (inter,b) = (%d,%f) in lda_c_1d_csc_set_params", 
+	    params->interaction, params->bb);
+    exit(1);
+  }
   
   //we must copy the values (instead of pointing to them) so that they are available on the GPU
   for(int ii = 0; ii < 10; ii++){
@@ -104,11 +110,6 @@ set_ext_params(xc_func_type *p, const double *ext_params)
     params->ferro[ii] = pferro[ii];
   }
 
-  if(params->para == NULL){
-    fprintf(stderr, "Invalid value of parameters (inter,b) = (%d,%f) in lda_c_1d_csc_set_params", 
-	    params->interaction, params->bb);
-    exit(1);
-  }
 }
 
 

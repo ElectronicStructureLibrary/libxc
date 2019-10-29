@@ -19,6 +19,7 @@ hyb_mgga_x_pjs18_init(xc_func_type *p)
   p->cam_beta  = -1.0;
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/hyb_mgga_x_pjs18.c"
 #include "work_mgga.c"
 

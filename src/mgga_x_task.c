@@ -11,6 +11,7 @@
 
 #define XC_MGGA_X_TASK      707 /* TASK exchange of Aschebrock and Kuemmel */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_task.c"
 #include "work_mgga.c"
 

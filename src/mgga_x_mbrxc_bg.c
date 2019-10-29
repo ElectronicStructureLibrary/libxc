@@ -44,6 +44,7 @@ double xc_mgga_x_mbrxc_get_x(double Q)
   return xc_math_brent(mbrxc_x_Q, x1, x2, tol, 500, &rhs);
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_mbrxc_bg.c"
 #include "work_mgga.c"
 

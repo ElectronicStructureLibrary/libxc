@@ -44,8 +44,9 @@ mgga_x_tb09_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/mgga_vxc/mgga_x_tb09.c"
 #define XC_NO_EXC
+#include "decl_mgga.h"
+#include "maple2c/mgga_vxc/mgga_x_tb09.c"
 #include "work_mgga.c"
 
 #ifdef __cplusplus

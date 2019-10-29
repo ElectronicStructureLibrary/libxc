@@ -116,6 +116,7 @@ mgga_x_mn12_init(xc_func_type *p)
   }
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_mn12.c"
 #include "work_mgga.c"
 

@@ -21,6 +21,7 @@ hyb_mgga_xc_wb97mv_init(xc_func_type *p)
   p->nlc_C = 0.01;
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/hyb_mgga_xc_wb97mv.c"
 #include "work_mgga.c"
 

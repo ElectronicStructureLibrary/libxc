@@ -13,6 +13,7 @@
 #define XC_MGGA_C_SCANL_RVV10    703 /* SCAN correlation + rVV10 correlation */
 #define XC_MGGA_C_SCANL_VV10     704 /* SCAN correlation +  VV10 correlation */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_scanl.c"
 #include "work_mgga.c"
 

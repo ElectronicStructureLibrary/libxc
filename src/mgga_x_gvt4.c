@@ -10,6 +10,7 @@
 
 #define XC_MGGA_X_GVT4          204 /* GVT4 from Van Voorhis and Scuseria */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_gvt4.c"
 #include "work_mgga.c"
 

@@ -158,6 +158,7 @@ mgga_c_m08_init(xc_func_type *p)
 }
 
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_m08.c"
 #include "work_mgga.c"
 

@@ -11,6 +11,7 @@
 #define XC_MGGA_C_KCIS         562 /* Krieger, Chen, Iafrate, and Savin */
 #define XC_HYB_MGGA_XC_B0KCIS  563 /* Hybrid based on KCIS */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_kcis.c"
 #include "work_mgga.c"
 

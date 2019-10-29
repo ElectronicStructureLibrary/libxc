@@ -43,6 +43,7 @@ mgga_x_msb_init(xc_func_type *p)
   }
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_msb.c"
 #include "work_mgga.c"
 

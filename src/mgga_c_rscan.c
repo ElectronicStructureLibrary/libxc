@@ -11,6 +11,7 @@
 
 #define XC_MGGA_C_RSCAN         494 /* Regularized SCAN correlation */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_rscan.c"
 #include "work_mgga.c"
 

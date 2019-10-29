@@ -37,6 +37,7 @@ mgga_x_rscan_init(xc_func_type *p)
   }  
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_rscan.c"
 #include "work_mgga.c"
 

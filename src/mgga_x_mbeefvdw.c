@@ -11,6 +11,7 @@
 
 #define XC_MGGA_X_MBEEFVDW       250 /* mBEEF-vdW exchange */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_mbeefvdw.c"
 #include "work_mgga.c"
 

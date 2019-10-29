@@ -11,6 +11,7 @@
 
 #define XC_MGGA_C_B88          571 /* Meta-GGA correlation by Becke */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_b88.c"
 #include "work_mgga.c"
 

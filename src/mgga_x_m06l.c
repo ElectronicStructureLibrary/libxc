@@ -89,6 +89,7 @@ mgga_x_m06l_init(xc_func_type *p)
   }
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_m06l.c"
 #include "work_mgga.c"
 

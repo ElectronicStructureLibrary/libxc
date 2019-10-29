@@ -41,6 +41,7 @@ mgga_x_scanl_init(xc_func_type *p)
   }  
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_scanl.c"
 #include "work_mgga.c"
 

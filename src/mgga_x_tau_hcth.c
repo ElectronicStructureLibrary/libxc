@@ -64,6 +64,7 @@ mgga_x_tau_hcth_init(xc_func_type *p)
   
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_tau_hcth.c"
 #include "work_mgga.c"
 

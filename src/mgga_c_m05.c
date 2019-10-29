@@ -80,6 +80,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->Fermi_D_cnst = max(get_ext_param(p->info->ext_params, ext_params, 0), 1e-10);
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_m05.c"
 #include "work_mgga.c"
 

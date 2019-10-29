@@ -85,6 +85,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->BLOC_b = get_ext_param(p->info->ext_params, ext_params, 6);
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_tpss.c"
 #include "work_mgga.c"
 

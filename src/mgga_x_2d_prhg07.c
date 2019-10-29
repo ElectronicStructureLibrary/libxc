@@ -11,6 +11,7 @@
 
 #define XC_MGGA_X_2D_PRHG07         210   /* Pittalis, Rasanen, Helbig, Gross Exchange Functional */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_2d_prhg07.c"
 #include "work_mgga.c"
 

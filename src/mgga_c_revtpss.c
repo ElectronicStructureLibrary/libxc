@@ -64,6 +64,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->C0_c[3] = get_ext_param(p->info->ext_params, ext_params, 4);
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_revtpss.c"
 #include "work_mgga.c"
 

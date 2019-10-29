@@ -17,6 +17,7 @@ mgga_x_dldf_init(xc_func_type *p)
   p->cam_alpha   = 0.6144129;
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/hyb_mgga_x_dldf.c"
 #include "work_mgga.c"
 

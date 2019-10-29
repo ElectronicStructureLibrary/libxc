@@ -11,6 +11,7 @@
 
 #define XC_MGGA_X_SA_TPSS          542 /* TPSS with correct surface asymptotics */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_sa_tpss.c"
 #include "work_mgga.c"
 

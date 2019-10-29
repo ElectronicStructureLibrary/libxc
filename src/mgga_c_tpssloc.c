@@ -11,6 +11,7 @@
 
 #define XC_MGGA_C_TPSSLOC       247 /* Semilocal dynamical correlation */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_tpssloc.c"
 #include "work_mgga.c"
 

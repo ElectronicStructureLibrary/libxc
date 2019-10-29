@@ -65,6 +65,7 @@ mgga_x_m05_init(xc_func_type *p)
 
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/hyb_mgga_x_m05.c"
 #include "work_mgga.c"
 

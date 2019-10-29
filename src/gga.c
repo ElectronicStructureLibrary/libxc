@@ -112,11 +112,11 @@ void xc_gga(const xc_func_type *func, int np, const double *rho, const double *s
   if(v4rho4 != NULL){
     assert(v4rho3sigma!=NULL && v4rho2sigma2!=NULL && v4rhosigma3!=NULL && v4sigma4!=NULL);
 
-    memset(v4rho4,       0, dim->v4rho4      *np*sizeof(double));     
-    memset(v4rho3sigma,  0, dim->v4rho3sigma *np*sizeof(double));
-    memset(v4rho2sigma2, 0, dim->v4rho2sigma2*np*sizeof(double));
-    memset(v4rhosigma3,  0, dim->v4rhosigma3 *np*sizeof(double));
-    memset(v4sigma4,     0, dim->v4sigma4    *np*sizeof(double));
+    libxc_memset(v4rho4,       0, dim->v4rho4      *np*sizeof(double));     
+    libxc_memset(v4rho3sigma,  0, dim->v4rho3sigma *np*sizeof(double));
+    libxc_memset(v4rho2sigma2, 0, dim->v4rho2sigma2*np*sizeof(double));
+    libxc_memset(v4rhosigma3,  0, dim->v4rhosigma3 *np*sizeof(double));
+    libxc_memset(v4sigma4,     0, dim->v4sigma4    *np*sizeof(double));
    } 
 
   /* call functional */

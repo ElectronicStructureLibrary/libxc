@@ -9,8 +9,10 @@
 
 SUBDIRS = maple2c
 
+if HAVE_CUDA
 #this is a hack for nvcc, this should be improved.
 CC+="-dc"
+endif
 
 bin_PROGRAMS = xc-info xc-threshold
 noinst_PROGRAMS = genwiki xc-sanity

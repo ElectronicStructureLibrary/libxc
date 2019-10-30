@@ -403,21 +403,6 @@ module xc_f90_lib_m
     end subroutine xc_f90_gga_kxc
   end interface
 
-
-  !----------------------------------------------------------------
-  interface
-    subroutine xc_f90_gga_lb_modified(p, np, rho, grho, r, dedd)
-      use xc_f90_types_m
-      type(xc_f90_pointer_t), intent(in)  :: p
-      integer,                intent(in)  :: np
-      real(xc_f90_kind),      intent(in)  :: rho   ! rho(nspin) the density
-      real(xc_f90_kind),      intent(in)  :: grho  ! grho(3,nspin) the gradient of the density
-      real(xc_f90_kind),      intent(in)  :: r     ! distance from center of finite system
-      real(xc_f90_kind),      intent(out) :: dedd
-    end subroutine xc_f90_gga_lb_modified
-  end interface
-
-
   !----------------------------------------------------------------
   interface
     subroutine xc_f90_gga_ak13_get_asymptotic(homo, asymp)

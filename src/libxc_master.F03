@@ -97,7 +97,6 @@ module xc_f03_lib_m
     xc_f03_gga_vxc, &
     xc_f03_gga_fxc, &
     xc_f03_gga_kxc, &
-    xc_f03_gga_lb_modified, &
     xc_f03_gga_ak13_get_asymptotic, &
     xc_f03_hyb_exx_coef, &
     xc_f03_hyb_cam_coef, &
@@ -476,15 +475,6 @@ module xc_f03_lib_m
 
 
   interface
-    subroutine xc_gga_lb_modified(p, np, rho, grho, r, dedd) bind(c)
-      import
-      type(c_ptr),    value       :: p
-      integer(c_int), value       :: np
-      real(c_double),    intent(in)  :: rho(*), grho(*)
-      real(c_double),    value       :: r
-      real(c_double),    intent(out) :: dedd(*)
-    end subroutine xc_gga_lb_modified
-
     real(c_double) function xc_gga_ak13_get_asymptotic(homo) bind(c)
       import
       real(c_double), value :: homo
@@ -971,17 +961,6 @@ module xc_f03_lib_m
     call xc_gga_kxc(p%ptr, np, rho, sigma, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
 
   end subroutine xc_f03_gga_kxc
-
-  subroutine xc_f03_gga_lb_modified(p, np, rho, grho, r, dedd)
-    type(xc_f03_func_t), intent(in)  :: p
-    integer(c_int),      intent(in)  :: np
-    real(c_double),      intent(in)  :: rho(*), grho(*)
-    real(c_double),      intent(in)  :: r
-    real(c_double),      intent(out) :: dedd(*)
-
-    call xc_gga_lb_modified(p%ptr, np, rho, grho, r, dedd)
-
-  end subroutine xc_f03_gga_lb_modified
 
   real(c_double) function xc_f03_gga_ak13_get_asymptotic(homo) result(asymptotic)
     real(c_double), intent(in) :: homo

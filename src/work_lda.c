@@ -8,10 +8,7 @@
 
 /**
  * @file work_lda.c
- * @brief This file is to be included in LDA functionals. As often these
- *        functionals are written as a function of rs and zeta, this
- *        routine performs the necessary conversions between this and a functional
- *        of rho.
+ * @brief This file is to be included in LDA functionals.
  */
 
 
@@ -28,7 +25,7 @@
  * @param[in,out] func_type: pointer to functional structure
  */
 static void 
-work_lda(const XC(func_type) *p, int np, const double *rho, 
+work_lda(const XC(func_type) *p, size_t np, const double *rho, 
 	 double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
   int ip, order;

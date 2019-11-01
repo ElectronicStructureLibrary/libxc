@@ -24,7 +24,7 @@
  * @param[in,out] func_type: pointer to functional structure
  */
 static void 
-work_gga(const XC(func_type) *p, int np,
+work_gga(const XC(func_type) *p, size_t np,
          const double *rho, const double *sigma,
          double *zk, GGA_OUT_PARAMS_NO_EXC(double *))
 {

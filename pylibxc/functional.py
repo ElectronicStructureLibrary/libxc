@@ -65,7 +65,7 @@ def _build_comute_argtype(num_nd, num_nd_write):
     """
     Small function to build the correct argtypes for the LibXC computers
     """
-    ret = [_xc_func_p, ctypes.c_int]
+    ret = [_xc_func_p, ctypes.c_size_t]
     ret += [_ndptr] * num_nd
     ret += [_ndptr_w] * num_nd_write
     return tuple(ret)
@@ -565,7 +565,7 @@ class LibXCFunctional(object):
             raise ValueError("Rho input has an invalid shape, must be divisible by %d" % self._spin)
 
         # Find the right compute function
-        args = [self.xc_func, ctypes.c_int(npoints)]
+        args = [self.xc_func, ctypes.c_size_t(npoints)]
         if self.get_family() in [flags.XC_FAMILY_LDA, flags.XC_FAMILY_HYB_LDA]:
 
             # Build input args

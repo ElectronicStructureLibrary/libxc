@@ -12,7 +12,7 @@
 #include "funcs_hyb_mgga.c"
 
 void 
-xc_mgga(const xc_func_type *func, int np,
+xc_mgga(const xc_func_type *func, size_t np,
         const double *rho, const double *sigma, const double *lapl, const double *tau,
         double *zk, MGGA_OUT_PARAMS_NO_EXC(double *))
 {
@@ -230,7 +230,7 @@ xc_mgga(const xc_func_type *func, int np,
 
 /* specializations */
 void
-xc_mgga_exc(const xc_func_type *p, int np, 
+xc_mgga_exc(const xc_func_type *p, size_t np, 
             const double *rho, const double *sigma, const double *lapl, const double *tau,
             double *zk)
 {
@@ -246,7 +246,7 @@ xc_mgga_exc(const xc_func_type *p, int np,
 }
 
 void
-xc_mgga_exc_vxc(const xc_func_type *p, int np,
+xc_mgga_exc_vxc(const xc_func_type *p, size_t np,
                 const double *rho, const double *sigma, const double *lapl, const double *tau,
                 double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau)
 {
@@ -262,7 +262,7 @@ xc_mgga_exc_vxc(const xc_func_type *p, int np,
 }
 
 void
-xc_mgga_vxc(const xc_func_type *p, int np,
+xc_mgga_vxc(const xc_func_type *p, size_t np,
             const double *rho, const double *sigma, const double *lapl, const double *tau,
             double *vrho, double *vsigma, double *vlapl, double *vtau)
 {
@@ -278,7 +278,7 @@ xc_mgga_vxc(const xc_func_type *p, int np,
 }
 
 void
-xc_mgga_fxc(const xc_func_type *p, int np,
+xc_mgga_fxc(const xc_func_type *p, size_t np,
             const double *rho, const double *sigma, const double *lapl, const double *tau,
             double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
             double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
@@ -296,7 +296,7 @@ xc_mgga_fxc(const xc_func_type *p, int np,
           );
 }
 
-void xc_mgga_kxc(const xc_func_type *p, int np,
+void xc_mgga_kxc(const xc_func_type *p, size_t np,
                  const double *rho, const double *sigma, const double *lapl, const double *tau,
                  double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
                  double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
@@ -318,7 +318,7 @@ void xc_mgga_kxc(const xc_func_type *p, int np,
           );
 }
 
-void xc_mgga_lxc(const xc_func_type *p, int np,
+void xc_mgga_lxc(const xc_func_type *p, size_t np,
                  const double *rho, const double *sigma, const double *lapl, const double *tau,
                  double *v4rho4, double *v4rho3sigma, double *v4rho3lapl, double *v4rho3tau, double *v4rho2sigma2,
                  double *v4rho2sigmalapl, double *v4rho2sigmatau, double *v4rho2lapl2, double *v4rho2lapltau,

@@ -48,7 +48,7 @@ xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix
     
 
 void
-xc_mix_func(const xc_func_type *func, int np,
+xc_mix_func(const xc_func_type *func, size_t np,
             const double *rho, const double *sigma, const double *lapl, const double *tau,
             double *zk, MGGA_OUT_PARAMS_NO_EXC(double *))
 {

@@ -72,7 +72,8 @@ xc_mix_func(const xc_func_type *func, size_t np,
     *v4sigmalapltau2_, *v4sigmatau3_, *v4lapl4_, *v4lapl3tau_,
     *v4lapl2tau2_, *v4lapltau3_, *v4tau4_;
 
-  int ip, ii;
+  size_t ip;
+  int ii;
 
   const xc_dimensions *dim = &(func->dim);
 

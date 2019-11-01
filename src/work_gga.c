@@ -28,7 +28,8 @@ work_gga(const XC(func_type) *p, size_t np,
          const double *rho, const double *sigma,
          double *zk, GGA_OUT_PARAMS_NO_EXC(double *))
 {
-  int ip, order;
+  size_t ip;
+  int order;
   double dens, zeta;
 
   order = -1;

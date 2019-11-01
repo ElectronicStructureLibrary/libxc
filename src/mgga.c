@@ -220,7 +220,7 @@ xc_mgga(const xc_func_type *func, size_t np,
 
   /* call functional */
   if(func->info->mgga != NULL)
-    func->info->mgga(func, np, rho, sigma, lapl, tau, zk, MGGA_OUT_PARAMS_NO_EXC());
+    func->info->mgga(func, np, rho, sigma, lapl, tau, zk, MGGA_OUT_PARAMS_NO_EXC(XC_NOARG));
 
   /* WARNING: Kxc is not properly mixed */
   if(func->mix_coef != NULL)

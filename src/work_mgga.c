@@ -28,7 +28,8 @@ work_mgga(const XC(func_type) *p, size_t np,
          const double *rho, const double *sigma, const double *lapl, const double *tau,
           double *zk, MGGA_OUT_PARAMS_NO_EXC(double *))
 {
-  int ip, order;
+  size_t ip;
+  int order;
   double dens, zeta;
 
   order = -1;

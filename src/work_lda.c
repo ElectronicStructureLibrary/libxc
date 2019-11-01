@@ -28,7 +28,8 @@ static void
 work_lda(const XC(func_type) *p, size_t np, const double *rho, 
 	 double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
-  int ip, order;
+  size_t ip;
+  int order;
   double dens, zeta;
 
   order = -1;

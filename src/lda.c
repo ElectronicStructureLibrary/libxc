@@ -61,7 +61,7 @@ xc_lda(const xc_func_type *func, size_t np, const double *rho,
 
   /* call the LDA routines */
   if(func->info->lda != NULL)
-    func->info->lda(func, np, rho, zk, vrho, v2rho2, v3rho3, v4rho4);
+    func->info->lda(func, np, rho, zk, LDA_OUT_PARAMS_NO_EXC(XC_NOARG));
 
   if(func->mix_coef != NULL)
     xc_mix_func(func, np, rho, NULL, NULL, NULL, zk, vrho, NULL, NULL, NULL,

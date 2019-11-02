@@ -63,7 +63,7 @@ static void add_to_mix(long np, double * dst, double coeff, double *src){
 #define sum_var(VAR) add_to_mix(np*dim->VAR, VAR, func->mix_coef[ii], VAR ## _);
 
 void
-xc_mix_func(const xc_func_type *func, int np,
+xc_mix_func(const xc_func_type *func, size_t np,
             const double *rho, const double *sigma, const double *lapl, const double *tau,
             double *zk, MGGA_OUT_PARAMS_NO_EXC(double *))
 {

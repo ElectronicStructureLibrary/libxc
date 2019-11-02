@@ -13,7 +13,7 @@
 
 /* get the lda functional */
 void 
-xc_lda(const xc_func_type *func, int np, const double *rho, 
+xc_lda(const xc_func_type *func, size_t np, const double *rho, 
        double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
   const xc_dimensions *dim = &(func->dim);
@@ -61,7 +61,7 @@ xc_lda(const xc_func_type *func, int np, const double *rho,
 
   /* call the LDA routines */
   if(func->info->lda != NULL)
-    func->info->lda(func, np, rho, zk, vrho, v2rho2, v3rho3, v4rho4);
+    func->info->lda(func, np, rho, zk, LDA_OUT_PARAMS_NO_EXC(XC_NOARG));
 
   if(func->mix_coef != NULL)
     xc_mix_func(func, np, rho, NULL, NULL, NULL, zk, vrho, NULL, NULL, NULL,
@@ -77,37 +77,37 @@ xc_lda(const xc_func_type *func, int np, const double *rho,
 
 /* specializations */
 void
-xc_lda_exc(const xc_func_type *p, int np, const double *rho, double *zk)
+xc_lda_exc(const xc_func_type *p, size_t np, const double *rho, double *zk)
 {
   xc_lda(p, np, rho, zk, NULL, NULL, NULL, NULL);
 }
 
 void
-xc_lda_exc_vxc(const xc_func_type *p, int np, const double *rho, double *zk, double *vrho)
+xc_lda_exc_vxc(const xc_func_type *p, size_t np, const double *rho, double *zk, double *vrho)
 {
   xc_lda(p, np, rho, zk, vrho, NULL, NULL, NULL);
 }
 
 void
-xc_lda_vxc(const xc_func_type *p, int np, const double *rho, double *vrho)
+xc_lda_vxc(const xc_func_type *p, size_t np, const double *rho, double *vrho)
 {
   xc_lda(p, np, rho, NULL, vrho, NULL, NULL, NULL);
 }
 
 void
-xc_lda_fxc(const xc_func_type *p, int np, const double *rho, double *v2rho2)
+xc_lda_fxc(const xc_func_type *p, size_t np, const double *rho, double *v2rho2)
 {
   xc_lda(p, np, rho, NULL, NULL, v2rho2, NULL, NULL);
 }
 
 void
-xc_lda_kxc(const xc_func_type *p, int np, const double *rho, double *v3rho3)
+xc_lda_kxc(const xc_func_type *p, size_t np, const double *rho, double *v3rho3)
 {
   xc_lda(p, np, rho, NULL, NULL, NULL, v3rho3, NULL);
 }
 
 void
-xc_lda_lxc(const xc_func_type *p, int np, const double *rho, double *v4rho4)
+xc_lda_lxc(const xc_func_type *p, size_t np, const double *rho, double *v4rho4)
 {
   xc_lda(p, np, rho, NULL, NULL, NULL, NULL, v4rho4);
 }

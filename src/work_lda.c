@@ -9,10 +9,7 @@
 
 /**
  * @file work_lda.c
- * @brief This file is to be included in LDA functionals. As often these
- *        functionals are written as a function of rs and zeta, this
- *        routine performs the necessary conversions between this and a functional
- *        of rho.
+ * @brief This file is to be included in LDA functionals.
  */
 
 
@@ -35,10 +32,9 @@ work_lda_gpu(const XC(func_type) *p, int order, int np, const double *rho, doubl
  */
 
 static void 
-work_lda(const XC(func_type) *p, int np, const double *rho, 
+work_lda(const XC(func_type) *p, size_t np, const double *rho, 
 	 double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
 {
-
   int order = -1;
   
   if(zk     != NULL) order = 0;
@@ -65,7 +61,7 @@ work_lda(const XC(func_type) *p, int np, const double *rho,
   
 #else
   
-  int ip;
+  size_t ip;
   double dens, zeta;
 
   for(ip = 0; ip < np; ip++){

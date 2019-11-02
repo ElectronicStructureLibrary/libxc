@@ -117,29 +117,18 @@ if COMPILE_FORTRAN
   lib_LTLIBRARIES += libxcf90.la
 
   libxcf90_la_SOURCES = xc_f.c
-  nodist_libxcf90_la_SOURCES = libxc_funcs.f90 libxc.f90
+  nodist_libxcf90_la_SOURCES = libxcf90.f90
 
   # libtool stuff
   libxcf90_la_LDFLAGS = -version-info $(XC_LT_VERSION)
   libxcf90_la_LIBADD = libxc.la
 endif
 
-if COMPILE_FORTRAN03
-  lib_LTLIBRARIES += libxcf03.la
-
-  nodist_libxcf03_la_SOURCES = libxcf03.f90
-
-  # libtool stuff
-  libxcf03_la_LDFLAGS = -version-info $(XC_LT_VERSION)
-  libxcf03_la_LIBADD = libxc.la
-endif
-
-
 noinst_HEADERS = \
 	string_f.h references.h util.h \
 	decl_lda.h decl_gga.h decl_mgga.h \
   work_lda.c work_gga.c work_mgga.c \
-	libxc_master.F90 libxc_master.F03
+	libxc_master.F90
 include_HEADERS = xc.h xc_funcs_removed.h
 nodist_include_HEADERS = xc_funcs.h xc_funcs_worker.h
 
@@ -151,43 +140,24 @@ fmod_DATA =
 
 if COMPILE_FORTRAN
 
+# Double precision modules are always compiled
 if F90_MOD_UPPERCASE
-  LIBFUNCMOD = LIBXC_FUNCS_M.@ax_cv_f90_modext@
+  XCF90LIBMODS = XC_F90_LIB_M.@ax_cv_f90_modext@
 else
-  LIBFUNCMOD = libxc_funcs_m.@ax_cv_f90_modext@
+  XCF90LIBMODS = xc_f90_lib_m.@ax_cv_f90_modext@
 endif
-fmod_DATA += $(LIBFUNCMOD)
-
-if F90_MOD_UPPERCASE
-  XCLIBMODS = XC_F90_LIB_M.@ax_cv_f90_modext@ XC_F90_TYPES_M.@ax_cv_f90_modext@
-else
-  XCLIBMODS = xc_f90_lib_m.@ax_cv_f90_modext@ xc_f90_types_m.@ax_cv_f90_modext@
-endif
-fmod_DATA += $(XCLIBMODS)
+fmod_DATA += $(XCF90LIBMODS)
 
 endif # COMPILE_FORTRAN
 
 
-if COMPILE_FORTRAN03
-
-# Double precision modules are always compiled
-if F90_MOD_UPPERCASE
-  XCF03LIBMODS = XC_F03_LIB_M.@ax_cv_f90_modext@
-else
-  XCF03LIBMODS = xc_f03_lib_m.@ax_cv_f90_modext@
-endif
-fmod_DATA += $(XCF03LIBMODS)
-
-endif # COMPILE_FORTRAN03
-
-
 CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
-  libxc.f90 libxc_funcs.f90 libxcf03.f90 libxc_inc.f03 xc_funcs.h xc_funcs_worker.h \
+  libxc.f90 xc_funcs.h xc_funcs_worker.h \
   xc_f_inc.c libxc_docs.txt
 
 xc_f.o : xc_f_inc.c
 
-xc_funcs.h xc_funcs_worker.h libxc_inc.f03 libxc_funcs.f90 \
+xc_funcs.h xc_funcs_worker.h libxc_inc.f90 \
 funcs_lda.c funcs_hyb_lda.c funcs_gga.c funcs_hyb_gga.c \
 funcs_mgga.c funcs_hyb_mgga.c funcs_key.c: $(srcdir)/../scripts/get_funcs.pl
 	$(srcdir)/../scripts/get_funcs.pl $(srcdir) $(top_builddir)/src
@@ -202,26 +172,12 @@ LTPREF = $(subst xc_f.lo,,$(firstword $(am_libxcf90_la_OBJECTS)))
 #src/Makefile.am:140: subst xc_f.lo,,$(firstword $(am_libxcf90_la_OBJECTS: non-POSIX variable name
 #src/Makefile.am:140: (probably a GNU make extension)
 
-$(LIBFUNCMOD) $(LIBSFUNCMOD): $(LTPREF)libxc_funcs.lo
-
-libxc.f90 : libxc_master.F90 $(LIBFUNCMOD)
-	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) -I$(top_builddir)/src $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxc.f90
+LTPREF90 = $(subst libxcf90.lo,,$(firstword $(nodist_libxcf90_la_OBJECTS)))
+libxcf90.f90 : libxc_master.F90 libxc_inc.f90
+	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) -I$(top_builddir)/src $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxcf90.f90
 	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
-		grep -v "^#" $(top_builddir)/src/libxc.f90 > $(top_builddir)/src/libxc.f91; \
-		mv -f $(top_builddir)/src/libxc.f91 $(top_builddir)/src/libxc.f90; \
+		grep -v "^#" $(top_builddir)/src/libxcf90.f90 > $(top_builddir)/src/libxcf90.f91; \
+		mv -f $(top_builddir)/src/libxcf90.f91 $(top_builddir)/src/libxcf90.f90; \
 	fi
 
-$(LTPREF)libxc.lo   $(LTPREF)libxc.o   : $(LIBFUNCMOD)
-
-$(XCLIBMODS)   : $(LTPREF)libxc.lo
-
-
-LTPREF03 = $(subst libxcf03.lo,,$(firstword $(nodist_libxcf03_la_OBJECTS)))
-libxcf03.f90 : libxc_master.F03 libxc_inc.f03
-	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) -I$(top_builddir)/src $(srcdir)/libxc_master.F03 > $(top_builddir)/src/libxcf03.f90
-	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
-		grep -v "^#" $(top_builddir)/src/libxcf03.f90 > $(top_builddir)/src/libxcf03.f91; \
-		mv -f $(top_builddir)/src/libxcf03.f91 $(top_builddir)/src/libxcf03.f90; \
-	fi
-
-$(XCF03LIBMODS)   : $(LTPREF03)libxcf03.lo
+$(XCF90LIBMODS) : $(LTPREF90)libxcf90.lo

@@ -30,7 +30,7 @@ work_gga_gpu(const XC(func_type) *p, int order, int np, const double *rho, const
  * @param[in,out] func_type: pointer to functional structure
  */
 static void 
-work_gga(const XC(func_type) *p, int np,
+work_gga(const XC(func_type) *p, size_t np,
          const double *rho, const double *sigma,
          double *zk, GGA_OUT_PARAMS_NO_EXC(double *))
 {
@@ -59,7 +59,7 @@ work_gga(const XC(func_type) *p, int np,
   
 #else
   
-  int ip;
+  size_t ip;
   double dens, zeta;
 
   for(ip = 0; ip < np; ip++){

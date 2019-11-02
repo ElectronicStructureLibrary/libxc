@@ -23,7 +23,7 @@
 
 #ifdef HAVE_CUDA
 __global__ static void 
-work_mgga_gpu(const XC(func_type) *p, int order, int np, const double *rho, const double *sigma, const double *lapl, const double *tau,
+work_mgga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, const double *sigma, const double *lapl, const double *tau,
               double *zk, MGGA_OUT_PARAMS_NO_EXC(double *));
 #endif
 
@@ -51,7 +51,7 @@ work_mgga(const XC(func_type) *p, size_t np,
 
   *pcuda = *p;
 
-  int nblocks = np/CUDA_BLOCK_SIZE;
+  auto nblocks = np/CUDA_BLOCK_SIZE;
   if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
   
   work_mgga_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(pcuda, order, np, rho, sigma, lapl, tau, zk, MGGA_OUT_PARAMS_NO_EXC(NOARG));
@@ -91,12 +91,12 @@ work_mgga(const XC(func_type) *p, size_t np,
 
 #ifdef HAVE_CUDA
 __global__ static void 
-work_mgga_gpu(const XC(func_type) *p, int order, int np,
+work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
               const double *rho, const double *sigma, const double *lapl, const double *tau,
               double *zk, MGGA_OUT_PARAMS_NO_EXC(double *))
 {
 
-  int ip = blockIdx.x * blockDim.x + threadIdx.x;
+  size_t ip = blockIdx.x * blockDim.x + threadIdx.x;
 
   if(ip >= np) return;
   

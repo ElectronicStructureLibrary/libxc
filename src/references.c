@@ -83,10 +83,10 @@ func_reference_type xc_ref_Armiento2013_036402 = {
 };
 
 
-func_reference_type xc_ref_Aschebrock2019 = {
-  "T. Aschebrock and S. Kümmel, to be published (2019)",
-  "",
-  "@article{Aschebrock2019,\n  title = {Ultranonlocality and accurate band gaps from a Meta-Generalized Gradient Approximation},\n  author = {Thilo Aschebrock and Stephan Kümmel},\n  journal = {to be published},\n  year = {2019},\n}"
+func_reference_type xc_ref_Aschebrock2019_033082 = {
+  "T. Aschebrock and S. Kümmel, Phys. Rev. Research 1, 033082 (2019)",
+  "10.1103/PhysRevResearch.1.033082",
+  "@article{Aschebrock2019_033082,\n  title = {Ultranonlocality and accurate band gaps from a meta-generalized gradient approximation},\n  author = {Aschebrock, Thilo and Kümmel, Stephan},\n  journal = {Phys. Rev. Research},\n  volume = {1},\n  issue = {3},\n  pages = {033082},\n  numpages = {14},\n  year = {2019},\n  month = {Nov},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevResearch.1.033082},\n  url = {https://link.aps.org/doi/10.1103/PhysRevResearch.1.033082}\n}"
 };
 
 

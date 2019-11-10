@@ -23,7 +23,7 @@ extern func_reference_type xc_ref_Akinaga2008_348;
 extern func_reference_type xc_ref_Anderson2017_1656;
 extern func_reference_type xc_ref_Armiento2005_085108;
 extern func_reference_type xc_ref_Armiento2013_036402;
-extern func_reference_type xc_ref_Aschebrock2019;
+extern func_reference_type xc_ref_Aschebrock2019_033082;
 extern func_reference_type xc_ref_Attaccalite2002_256601;
 extern func_reference_type xc_ref_Austin2012_4989;
 extern func_reference_type xc_ref_Baer2005_043002;

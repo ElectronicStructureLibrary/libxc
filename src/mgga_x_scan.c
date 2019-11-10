@@ -59,7 +59,7 @@ const xc_func_info_type xc_func_info_mgga_x_scan = {
   1e-23,
   0, NULL, NULL,
   mgga_x_scan_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, work_mgga
 };
 
 #ifdef __cplusplus
@@ -75,7 +75,7 @@ const xc_func_info_type xc_func_info_mgga_x_revscan = {
   1e-23,
   0, NULL, NULL,
   mgga_x_scan_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, work_mgga
 };
 
 static void

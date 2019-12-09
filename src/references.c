@@ -1966,6 +1966,13 @@ func_reference_type xc_ref_Swart2009_69 = {
 };
 
 
+func_reference_type xc_ref_Swart2013_166 = {
+  "M. Swart, Chem. Phys. Lett. 580, 166 (2013)",
+  "https://doi.org/10.1016/j.cplett.2013.06.045",
+  "@article{Swart2013_166,\n  title = \"A new family of hybrid density functionals\",\n  author = \"Marcel Swart\",\n  journal = \"Chemical Physics Letters\",\n  volume = \"580\",\n  pages = \"166 - 171\",\n  year = \"2013\",\n  issn = \"0009-2614\",\n  doi = \"https://doi.org/10.1016/j.cplett.2013.06.045\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261413008221\"\n}"
+};
+
+
 func_reference_type xc_ref_Tao2001_3519 = {
   "J. Tao, J. Chem. Phys. 115, 3519 (2001)",
   "10.1063/1.1388047",
@@ -2163,7 +2170,7 @@ func_reference_type xc_ref_Verma2014_18A534 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn--Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757},\neprint = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };

@@ -208,6 +208,7 @@ set(raw_sources_list
   gga_x_q2d.c
   gga_x_rge2.c
   gga_x_rpbe.c
+  gga_x_s12.c
   gga_x_sfat.c
   gga_x_sfat_pbe.c
   gga_x_sg4.c

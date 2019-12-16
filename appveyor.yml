@@ -1,26 +1,43 @@
 clone_depth: 1
-platform: x64
+platform:
+  - x64
 
 image:
   - Visual Studio 2015
   - Visual Studio 2017
+  - Visual Studio 2019
+  - Ubuntu1604
+  - Ubuntu1804
+  - macos
 
 configuration:
+  - Debug
   - Release
 
 before_build:
   - mkdir libxc_build && cd libxc_build
-  - cmake -A %PLATFORM%
+  - cmd: cmake -A %PLATFORM%
           -DCMAKE_BUILD_TYPE=%CONFIGURATION%
           -DENABLE_XHOST=OFF
           -DDISABLE_KXC=ON
+          -DDISABLE_LXC=ON
           -DCMAKE_C_FLAGS="/wd4101 /wd4996"
+          ..
+  - sh: cmake
+          -DCMAKE_BUILD_TYPE=$CONFIGURATION
+          -DENABLE_XHOST=OFF
+          -DDISABLE_KXC=ON
+          -DDISABLE_LXC=ON
           ..
 
 build_script:
-  - cmake --build .
+  - cmd: cmake --build .
           --config %CONFIGURATION%
+  - sh: cmake --build .
+          --config $CONFIGURATION
 
 test_script:
-  - ctest --build-config %CONFIGURATION%
+  - cmd: ctest --build-config %CONFIGURATION%
+          --output-on-failure
+  - sh: ctest --build-config $CONFIGURATION
           --output-on-failure

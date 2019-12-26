@@ -10,6 +10,7 @@
 
 #define XC_GGA_K_EXP4          597 /* Intermediate form between PBE3 and PBE4 */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_exp4.c"
 #include "work_gga.c"
 

@@ -22,7 +22,7 @@ mgga_x_mvsb_init(xc_func_type *p)
   mgga_x_mvsb_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(mgga_x_mvsb_params));
+  p->params = libxc_malloc(sizeof(mgga_x_mvsb_params));
   params = (mgga_x_mvsb_params *)p->params;
 
   switch(p->info->number){
@@ -63,6 +63,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 }
 
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_mvsb.c"
 #include "work_mgga.c"
 

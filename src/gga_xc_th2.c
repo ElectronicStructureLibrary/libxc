@@ -10,6 +10,7 @@
 
 #define XC_GGA_XC_TH2          155 /* Tozer and Handy v. 2 */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_xc_th2.c"
 #include "work_gga.c"
 

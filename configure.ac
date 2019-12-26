@@ -1,4 +1,5 @@
 ## Copyright (C) 2002-2006 M. Marques, A. Castro, A. Rubio, G. Bertsch
+## Copyright (C) 2019 X. Andrade
 ##
 ## This Source Code Form is subject to the terms of the Mozilla Public
 ## License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -87,8 +88,24 @@ AC_DISABLE_SHARED
 LT_PREREQ([2.2])
 LT_INIT
 
+# enable cuda first, since this is required for the compiler selection
+AC_ARG_ENABLE(cuda, AS_HELP_STRING([--enable-cuda], [Cuda support (experimental)]))
+
+if test x"${enable_cuda}" == x"yes" ; then
+  AC_DEFINE(HAVE_CUDA, 1, [defined if cuda support is enabled])
+fi
+
+AM_CONDITIONAL([HAVE_CUDA], [test x"${enable_cuda}" == x"yes"])
+
 # Checks for programs.
 AC_PROG_CC
+
+#we may need to set the linker for the cuda case, so pass that to automake
+if test x"$CCLD" == x ; then
+   CCLD=$CC
+fi
+AC_SUBST(CCLD)
+
 AC_LANG_PREPROC
 AM_PROG_CC_C_O
 AC_C_INLINE
@@ -112,7 +129,6 @@ AC_ARG_WITH([custom-fmoddir],
 			    [Instalation directory for Fortran module files (includedir by default)])],
 	    [AC_SUBST([FMODDIR],["$withval"])],
 	    [AC_SUBST([FMODDIR],['${includedir}'])])
-
 
 # Enable/disable derivatives
 AC_ARG_ENABLE([vxc],

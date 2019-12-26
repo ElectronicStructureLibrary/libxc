@@ -11,6 +11,7 @@
 
 #define XC_MGGA_XC_CC06          229 /* Cancio and Chou 2006 */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_xc_cc06.c"
 #include "work_mgga.c"
 

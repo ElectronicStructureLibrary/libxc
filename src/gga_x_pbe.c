@@ -35,7 +35,7 @@ gga_x_pbe_init(xc_func_type *p)
   gga_x_pbe_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_x_pbe_params));
+  p->params = libxc_malloc(sizeof(gga_x_pbe_params));
   params = (gga_x_pbe_params *) (p->params);
  
   params->lambda = 0.0;
@@ -123,6 +123,7 @@ set_ext_params_PBE(xc_func_type *p, const double *ext_params)
   params->mu    = get_ext_param(p->info->ext_params, ext_params, 1);
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_pbe.c"
 #include "work_gga.c"
 

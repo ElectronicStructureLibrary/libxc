@@ -10,6 +10,7 @@
 
 #define XC_GGA_K_OL1          512 /* Ou-Yang and Levy v.1 */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_ol1.c"
 #include "work_gga.c"
 

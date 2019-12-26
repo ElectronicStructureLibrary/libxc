@@ -18,7 +18,7 @@ static void
 gga_x_wpbeh_init(xc_func_type *p)
 {
   assert(p->params == NULL);
-  p->params = malloc(sizeof(gga_x_wpbeh_params));
+  p->params = libxc_malloc(sizeof(gga_x_wpbeh_params));
 }
 
 /* The default value is actually PBEh */
@@ -58,6 +58,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
    *) TM Henderson, AF Izmaylov, G Scalmani, and GE Scuseria, J. Chem. Phys. 131, 044108 (2009)
 */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_wpbeh.c"
 #include "work_gga.c"
 

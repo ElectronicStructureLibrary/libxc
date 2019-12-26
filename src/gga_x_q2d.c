@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_Q2D          48 /* Chiodo et al  */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_q2d.c"
 #include "work_gga.c"
 

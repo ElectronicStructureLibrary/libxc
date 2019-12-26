@@ -10,6 +10,7 @@
 
 #define XC_GGA_C_CS1          565 /* A dynamical correlation functional */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_cs1.c"
 #include "work_gga.c"
 

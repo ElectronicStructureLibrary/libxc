@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_BPCCAC  98 /* BPCCAC (GRAC for the energy) */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_bpccac.c"
 #include "work_gga.c"
 

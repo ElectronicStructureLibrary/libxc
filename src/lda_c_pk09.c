@@ -10,6 +10,7 @@
 
 #define XC_LDA_C_PK09   554   /* Proynov and Kong 2009 */
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_pk09.c"
 #include "work_lda.c"
 

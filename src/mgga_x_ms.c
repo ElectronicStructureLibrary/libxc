@@ -24,7 +24,7 @@ mgga_x_ms_init(xc_func_type *p)
   mgga_x_ms_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(mgga_x_ms_params));
+  p->params = libxc_malloc(sizeof(mgga_x_ms_params));
   params = (mgga_x_ms_params *)p->params;
 
   switch(p->info->number){
@@ -74,6 +74,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->b     = get_ext_param(p->info->ext_params, ext_params, 2);
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_ms.c"
 #include "work_mgga.c"
 

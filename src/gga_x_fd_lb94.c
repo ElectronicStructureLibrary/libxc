@@ -22,7 +22,7 @@ gga_x_fd_lb94_init(xc_func_type *p)
   gga_x_fd_lb94_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_x_fd_lb94_params));
+  p->params = libxc_malloc(sizeof(gga_x_fd_lb94_params));
   params = (gga_x_fd_lb94_params *) (p->params);
  
   switch(p->info->number){
@@ -38,6 +38,7 @@ gga_x_fd_lb94_init(xc_func_type *p)
   }
 }
 
+GPU_FUNCTION
 static inline double FT_inter(int n, double x)
 {
   static double fd_beta = 0.05, fd_csi = M_CBRT2;
@@ -50,6 +51,7 @@ static inline double FT_inter(int n, double x)
     (1 + 3*fd_beta*fd_csi*x*log(fd_csi*x + sqrt(fd_csi*fd_csi*x*x + 1)));
 }
 
+GPU_FUNCTION
 static void func0(double *x, int n, void *dummy)
 {
   int ii;
@@ -58,6 +60,7 @@ static void func0(double *x, int n, void *dummy)
     x[ii] = FT_inter(0, x[ii]);
 }
 
+GPU_FUNCTION
 static void func1(double *x, int n, void *dummy)
 {
   int ii;
@@ -66,6 +69,7 @@ static void func1(double *x, int n, void *dummy)
     x[ii] = FT_inter(1, x[ii]);
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_fd_lb94.c"
 #include "work_gga.c"
 

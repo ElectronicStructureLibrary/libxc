@@ -1,6 +1,7 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
-
+ Copyright (C) 2019 X. Andrade
+ 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -16,15 +17,17 @@
          Adv. in Comp. Math. 5(4):329-359. 
 */
 
-double LambertW(double z)
+GPU_FUNCTION double LambertW(double z)
 {
   double w;
   int i;
 
   /* Sanity check - function is only defined for z >= -1/e */
   if(z + 1.0/M_E < -10*DBL_EPSILON) {
+#ifndef HAVE_CUDA
     fprintf(stderr,"Error - Lambert function called with argument z = %e.\n",z);
     exit(1);
+#endif
   } else if(z < -1.0/M_E)
     /* Value of W(x) at x=-1/e is -1 */
     return -1.0;
@@ -68,11 +71,15 @@ double LambertW(double z)
     if(fabs(dw) < 10*DBL_EPSILON*(1.0 + fabs(w)))
       return w;
   }
-
+  
+#ifndef HAVE_CUDA
   /* This should never happen! */
   fprintf(stderr, "%s\n%s\n", "lambert_w: iteration limit reached",
 	  "Should never happen: execution aborted");
   exit(1);
+#else
+  return 0.0;
+#endif
 }
 
 /*
@@ -81,9 +88,15 @@ double LambertW(double z)
   based on the SLATEC routine by W. Fullerton
 */
 
+#ifdef HAVE_CUDA
+__device__
+#endif
+static const double pi26 = 1.644934066848226436472415166646025189219;
 
-static double pi26 = 1.644934066848226436472415166646025189219;
-static double spencs[38] = 
+#ifdef HAVE_CUDA
+__device__
+#endif
+static const double spencs[38] = 
   {
     +.1527365598892405872946684910028e+0,
     +.8169658058051014403501838185271e-1,
@@ -126,6 +139,7 @@ static double spencs[38] =
   };
 
 
+GPU_FUNCTION
 double xc_dilogarithm(const double x)
 {
   const int nspenc = 38;

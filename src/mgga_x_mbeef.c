@@ -11,6 +11,7 @@
 
 #define XC_MGGA_X_MBEEF          249 /* mBEEF exchange */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_mbeef.c"
 #include "work_mgga.c"
 

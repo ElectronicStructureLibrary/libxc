@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_HCTH_A          34 /* HCTH-A */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_hcth_a.c"
 #include "work_gga.c"
 

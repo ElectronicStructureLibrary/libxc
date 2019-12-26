@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_LV_RPW86 58 /* Berland and Hyldgaard */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_lv_rpw86.c"
 #include "work_gga.c"
 

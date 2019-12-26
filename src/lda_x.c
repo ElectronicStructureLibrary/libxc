@@ -40,12 +40,13 @@ lda_x_init(xc_func_type *p)
   lda_x_params *params;
 
   assert(p != NULL && p->params == NULL);
-  p->params = malloc(sizeof(lda_x_params));
+  p->params = libxc_malloc(sizeof(lda_x_params));
   params = (lda_x_params *) (p->params);
 
   params->alpha = 1.0;
 }
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_x.c"
 #include "work_lda.c"
 

@@ -23,7 +23,7 @@ mgga_x_br89_init(xc_func_type *p)
 {
   mgga_x_br89_params *params;
 
-  p->params = malloc(sizeof(mgga_x_br89_params));
+  p->params = libxc_malloc(sizeof(mgga_x_br89_params));
   params = (mgga_x_br89_params *)p->params;
 
   switch(p->info->number){
@@ -46,7 +46,7 @@ mgga_x_br89_init(xc_func_type *p)
 }
 
 
-static double
+GPU_FUNCTION static double
 br89_x_Q(double x, void *_rhs)
 {
   double rhs, xm2, arg, eee;
@@ -59,7 +59,7 @@ br89_x_Q(double x, void *_rhs)
   return x*eee - rhs*xm2;
 }
 
-
+GPU_FUNCTION
 double xc_mgga_x_br89_get_x(double Q)
 {
   double rhs, tol, x1, x2;
@@ -82,6 +82,7 @@ double xc_mgga_x_br89_get_x(double Q)
   return xc_math_brent(br89_x_Q, x1, x2, tol, 500, &rhs);
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_br89.c"
 #include "work_mgga.c"
 

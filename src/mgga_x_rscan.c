@@ -24,7 +24,7 @@ mgga_x_rscan_init(xc_func_type *p)
   mgga_x_rscan_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(mgga_x_rscan_params));
+  p->params = libxc_malloc(sizeof(mgga_x_rscan_params));
   params = (mgga_x_rscan_params *)p->params;
 
   switch(p->info->number){
@@ -37,6 +37,7 @@ mgga_x_rscan_init(xc_func_type *p)
   }  
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_rscan.c"
 #include "work_mgga.c"
 

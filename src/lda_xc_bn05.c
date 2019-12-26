@@ -10,6 +10,7 @@
 
 #define XC_LDA_XC_BN05   588   /* Baer and Neuhauser, gamma=1 */
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_xc_bn05.c"
 #include "work_lda.c"
 

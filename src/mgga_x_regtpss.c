@@ -10,6 +10,7 @@
 
 #define XC_MGGA_X_REGTPSS          603 /* Regularized TPSS */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_regtpss.c"
 #include "work_mgga.c"
 

@@ -21,7 +21,7 @@ static void
 gga_x_ssb_sw_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_x_ssb_sw_params));
+  p->params = libxc_malloc(sizeof(gga_x_ssb_sw_params));
 }
 
 static const func_params_type ext_params[] = {
@@ -47,6 +47,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->E = get_ext_param(p->info->ext_params, ext_params, 4);
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_ssb_sw.c"
 #include "work_gga.c"
 

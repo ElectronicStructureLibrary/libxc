@@ -10,6 +10,7 @@
 
 #define XC_GGA_C_SCAN_E0        553 /* GGA component of SCAN */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_scan_e0.c"
 #include "work_gga.c"
 

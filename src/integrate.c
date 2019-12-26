@@ -22,7 +22,7 @@
 #define FALSE 0
 #define TRUE 1
 
-double xc_integrate(integr_fn func, void *ex, double a, double b)
+GPU_FUNCTION double xc_integrate(integr_fn func, void *ex, double a, double b)
 {
   double epsabs, epsrel, result, abserr, *alist, *blist, *rlist, *elist;
   int limit, neval, ierr, *iord, last;
@@ -51,14 +51,14 @@ double xc_integrate(integr_fn func, void *ex, double a, double b)
 
 /* f2c-ed translations + modifications of QUADPACK functions from here down */
 
-static void rdqk21(integr_fn f, void *ex,
+GPU_FUNCTION static void rdqk21(integr_fn f, void *ex,
 		   double *, double *, double *, double *, double *, double *);
 
-static void rdqpsrt(int *, int *, int *, double *, double *, int *, int *);
+GPU_FUNCTION static void rdqpsrt(int *, int *, int *, double *, double *, int *, int *);
 
-static void rdqelg(int *, double *, double *, double *, double *, int *);
+GPU_FUNCTION static void rdqelg(int *, double *, double *, double *, double *, int *);
 
-void xc_rdqagse(integr_fn f, void *ex, double *a, double *b, 
+GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b, 
 	     double *epsabs, double *epsrel, int *limit, double *result,
 	     double *abserr, int *neval, int *ier, double *alist__,
 	     double *blist, double *rlist, double *elist, int *iord, int *last)
@@ -578,7 +578,7 @@ void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
 } /* rdqagse_ */
 
 
-static void rdqelg(int *n, double *epstab, double *
+GPU_FUNCTION static void rdqelg(int *n, double *epstab, double *
 		   result, double *abserr, double *res3la, int *nres)
 {
   /* Local variables */
@@ -779,7 +779,7 @@ static void rdqelg(int *n, double *epstab, double *
   return;
 } /* rdqelg_ */
 
-static void  rdqk21(integr_fn f, void *ex, double *a, double *b, double *result,
+GPU_FUNCTION static void  rdqk21(integr_fn f, void *ex, double *a, double *b, double *result,
 		    double *abserr, double *resabs, double *resasc)
 {
   /* Initialized data */

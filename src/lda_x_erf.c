@@ -23,6 +23,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 }
 
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_x_erf.c"
 #include "work_lda.c"
 

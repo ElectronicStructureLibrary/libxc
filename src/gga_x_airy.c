@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_AIRY  192 /* Constantin et al based on the Airy gas */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_airy.c"
 #include "work_gga.c"
 

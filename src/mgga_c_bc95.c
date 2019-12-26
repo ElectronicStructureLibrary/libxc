@@ -20,7 +20,7 @@ static void
 mgga_c_bc95_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(mgga_c_bc95_params));
+  p->params = libxc_malloc(sizeof(mgga_c_bc95_params));
 }
 
 static const func_params_type ext_params[] = {
@@ -40,6 +40,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->copp = get_ext_param(p->info->ext_params, ext_params, 1);
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_bc95.c"
 #include "work_mgga.c"
 

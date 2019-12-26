@@ -10,6 +10,7 @@
 
 #define XC_GGA_C_GAPC  555 /* GapC */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_gapc.c"
 #include "work_gga.c"
 

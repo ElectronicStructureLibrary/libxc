@@ -10,6 +10,7 @@
 
 #define XC_MGGA_X_REVTM          693 /* revised Tao and Mo 2016 exchange */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_revtm.c"
 #include "work_mgga.c"
 

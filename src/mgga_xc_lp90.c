@@ -11,6 +11,7 @@
 
 #define XC_MGGA_XC_LP90          564 /* Lee & Parr, Eq. (56) */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_xc_lp90.c"
 #include "work_mgga.c"
 

@@ -10,6 +10,7 @@
 
 #define XC_LDA_C_1D_LOOS          26 /* P-F Loos correlation LDA     */
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_1d_loos.c"
 #include "work_lda.c"
 

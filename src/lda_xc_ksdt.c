@@ -69,7 +69,7 @@ lda_xc_ksdt_init(xc_func_type *p)
   lda_xc_ksdt_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(lda_xc_ksdt_params));
+  p->params = libxc_malloc(sizeof(lda_xc_ksdt_params));
   params = (lda_xc_ksdt_params *)(p->params);
 
   switch(p->info->number){
@@ -85,6 +85,7 @@ lda_xc_ksdt_init(xc_func_type *p)
   }
 }
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_xc_ksdt.c"
 #include "work_lda.c"
 

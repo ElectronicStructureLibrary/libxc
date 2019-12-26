@@ -22,7 +22,7 @@ gga_k_llp_init(xc_func_type *p)
   gga_k_llp_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_k_llp_params));
+  p->params = libxc_malloc(sizeof(gga_k_llp_params));
   params = (gga_k_llp_params *) (p->params);
   
   /* value of beta in standard Becke 88 functional */
@@ -41,6 +41,7 @@ gga_k_llp_init(xc_func_type *p)
   }
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_llp.c"
 #include "work_gga.c"
 

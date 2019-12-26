@@ -10,6 +10,7 @@
 
 #define XC_LDA_C_VWN_4   31   /* Vosko, Wilk, & Nusair (4)   */
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_vwn_4.c"
 #include "work_lda.c"
 

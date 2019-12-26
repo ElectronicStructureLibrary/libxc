@@ -14,6 +14,7 @@
 
 #define XC_LDA_C_RPA  3   /* Random Phase Approximation   */
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_rpa.c"
 #include "work_lda.c"
 

@@ -15,6 +15,7 @@
 #include <math.h>
 #include "util.h"
 
+GPU_FUNCTION
 double xc_math_brent
 (xc_brent_f f,
  double lower_bound, double upper_bound,
@@ -33,8 +34,10 @@ double xc_math_brent
   fs = 0;
 
   if (fa * fb > 0){
+#ifndef HAVE_CUDA
     fprintf(stderr, "Brent: bracketing error\n");
     exit(1);
+#endif
   }
 
   if (fabs(fa) < fabs(fb)){
@@ -101,6 +104,10 @@ double xc_math_brent
 
   }
 
+#ifndef HAVE_CUDA
   fprintf(stderr, "Warning: Convergence not reached in brent\n");
+#endif
+
   return (b + a)/2.0;
+
 }

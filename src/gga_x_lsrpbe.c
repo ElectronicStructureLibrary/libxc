@@ -21,7 +21,7 @@ static void
 gga_x_lsrpbe_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_x_lsrpbe_params));
+  p->params = libxc_malloc(sizeof(gga_x_lsrpbe_params));
 }
 
 static const func_params_type ext_params[] = {
@@ -48,6 +48,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   printf("mu = %.10f\n",params->mu);
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_lsrpbe.c"
 #include "work_gga.c"
 

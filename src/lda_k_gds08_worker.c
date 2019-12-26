@@ -19,7 +19,7 @@ static void
 lda_k_gds08_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(lda_k_gds08_params));
+  p->params = libxc_malloc(sizeof(lda_k_gds08_params));
 }
 
 static func_params_type ext_params[] = {
@@ -41,6 +41,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->C = get_ext_param(p->info->ext_params, ext_params, 2);
 }
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_k_gds08_worker.c"
 #include "work_lda.c"
 

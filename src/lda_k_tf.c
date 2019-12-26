@@ -22,7 +22,7 @@ lda_k_tf_init(xc_func_type *p)
   lda_k_tf_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(lda_k_tf_params));
+  p->params = libxc_malloc(sizeof(lda_k_tf_params));
   params = (lda_k_tf_params *) (p->params);
 
   switch(p->info->number){
@@ -40,6 +40,7 @@ lda_k_tf_init(xc_func_type *p)
   }
 }
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_k_tf.c"
 #include "work_lda.c"
 

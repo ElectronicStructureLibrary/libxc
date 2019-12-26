@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_2D_B88        127 /* Becke 88 in 2D */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_2d_b88.c"
 #include "work_gga.c"
 

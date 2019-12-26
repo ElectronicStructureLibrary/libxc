@@ -37,7 +37,7 @@ gga_lb_init(xc_func_type *p)
   gga_x_lb_params *params;
 
   assert(p->params == NULL);
-  p->params = malloc(sizeof(gga_x_lb_params));
+  p->params = libxc_malloc(sizeof(gga_x_lb_params));
   params = (gga_x_lb_params *) (p->params);
   
   switch(p->info->number){
@@ -54,8 +54,9 @@ gga_lb_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/gga_vxc/gga_x_lb.c"
 #define XC_NO_EXC
+#include "decl_gga.h"
+#include "maple2c/gga_vxc/gga_x_lb.c"
 #include "work_gga.c"
 
 #ifdef __cplusplus

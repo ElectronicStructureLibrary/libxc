@@ -10,6 +10,7 @@
 
 #define XC_GGA_C_P86          132 /* Perdew 86 */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_p86.c"
 #include "work_gga.c"
 

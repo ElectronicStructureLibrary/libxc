@@ -11,6 +11,7 @@
 
 #define XC_MGGA_X_PKZB          213 /* Perdew, Kurth, Zupan, and Blaha */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_pkzb.c"
 #include "work_mgga.c"
 

@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
+ Copyright (C) 2019 X. Andrade
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -17,6 +18,10 @@
 #include <string.h>
 #include <assert.h>
 
+#ifdef HAVE_CUDA
+#include <cuda.h>
+#endif
+
 #include "xc.h"
 #include "xc_funcs_worker.h"
 
@@ -25,6 +30,13 @@
 
 /* need config to figure out what needs to be defined or not */
 #include "config.h"
+
+#ifdef HAVE_CUDA
+#define GPU_FUNCTION __host__ __device__
+#define CUDA_BLOCK_SIZE 256
+#else
+#define GPU_FUNCTION
+#endif
 
 /* This takes care of disabling specific derivatives from the info structures */
 #define XC_FLAGS_I_HAVE_EXC XC_FLAGS_HAVE_EXC
@@ -120,10 +132,11 @@
 
 /* special functions */
 #define Heaviside(x) (((x) >= 0) ? 1.0 : 0.0)
-double LambertW(double z);
-double xc_dilogarithm(const double x);
+GPU_FUNCTION double LambertW(double z);
+GPU_FUNCTION double xc_dilogarithm(const double x);
 
 /* we define this function here, so it can be properly inlined by all compilers */
+GPU_FUNCTION
 static inline double
 xc_cheb_eval(const double x, const double *cs, const int N)
 {
@@ -142,25 +155,28 @@ xc_cheb_eval(const double x, const double *cs, const int N)
   return 0.5*(b0 - b2);
 }
 
-double xc_bessel_I0_scaled(const double x);
-double xc_bessel_I0(const double x);
-double xc_bessel_I1_scaled(const double x);
-double xc_bessel_I1(const double x);
-double xc_bessel_K0_scaled(const double x);
-double xc_bessel_K0(const double x);
-double xc_bessel_K1_scaled(const double x);
-double xc_bessel_K1(const double x);
+GPU_FUNCTION double xc_bessel_I0_scaled(const double x);
+GPU_FUNCTION double xc_bessel_I0(const double x);
+GPU_FUNCTION double xc_bessel_I1_scaled(const double x);
+GPU_FUNCTION double xc_bessel_I1(const double x);
+GPU_FUNCTION double xc_bessel_K0_scaled(const double x);
+GPU_FUNCTION double xc_bessel_K0(const double x);
+GPU_FUNCTION double xc_bessel_K1_scaled(const double x);
+GPU_FUNCTION double xc_bessel_K1(const double x);
 
-double xc_expint_e1_impl(double x, const int scale);
-static inline double expint_e1(const double x)         { return  xc_expint_e1_impl( x, 0); }
-static inline double expint_e1_scaled(const double x)  { return  xc_expint_e1_impl( x, 1); }
-static inline double expint_Ei(const double x)         { return -xc_expint_e1_impl(-x, 0); }
+GPU_FUNCTION double xc_expint_e1_impl(double x, const int scale);
+GPU_FUNCTION static inline double expint_e1(const double x)         { return  xc_expint_e1_impl( x, 0); }
+GPU_FUNCTION static inline double expint_e1_scaled(const double x)  { return  xc_expint_e1_impl( x, 1); }
+GPU_FUNCTION static inline double expint_Ei(const double x)         { return -xc_expint_e1_impl(-x, 0); }
 #define Ei(x) expint_Ei(x)
-static inline double expint_Ei_scaled(const double x)  { return -xc_expint_e1_impl(-x, 1); }
+GPU_FUNCTION static inline double expint_Ei_scaled(const double x)  { return -xc_expint_e1_impl(-x, 1); }
 
 /* integration */
 typedef void integr_fn(double *x, int n, void *ex);
-double xc_integrate(integr_fn func, void *ex, double a, double b);
+
+GPU_FUNCTION double xc_integrate(integr_fn func, void *ex, double a, double b);
+
+GPU_FUNCTION
 void xc_rdqagse(integr_fn f, void *ex, double *a, double *b, 
 	     double *epsabs, double *epsrel, int *limit, double *result,
 	     double *abserr, int *neval, int *ier, double *alist__,
@@ -168,6 +184,8 @@ void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
 
 /* root finding */
 typedef double xc_brent_f(double, void *);
+
+GPU_FUNCTION
 double xc_math_brent(xc_brent_f f, double lower_bound, double upper_bound,
                      double TOL, double MAX_ITER, void *f_params);
 
@@ -200,30 +218,42 @@ typedef struct xc_functional_key_t {
 
 
 /* The following inlines confuse the xlc compiler */
-void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
+GPU_FUNCTION void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
 
 /* Functions to handle the internal counters */
 
 void internal_counters_set_lda (int nspin, xc_dimensions *dim);
-void internal_counters_lda_next
+GPU_FUNCTION void internal_counters_lda_random
+(const xc_dimensions *dim, int ip, int offset, const double **rho, double **zk, LDA_OUT_PARAMS_NO_EXC(double **));
+GPU_FUNCTION void internal_counters_lda_next
 (const xc_dimensions *dim, int offset, const double **rho, double **zk, LDA_OUT_PARAMS_NO_EXC(double **));
-void internal_counters_lda_prev
+GPU_FUNCTION void internal_counters_lda_prev
 (const xc_dimensions *dim, int offset, const double **rho, double **zk, LDA_OUT_PARAMS_NO_EXC(double **));
 
 void internal_counters_set_gga (int nspin, xc_dimensions *dim);
-void internal_counters_gga_next
+GPU_FUNCTION void internal_counters_gga_random
+(const xc_dimensions *dim, int pos, int offset, const double **rho, const double **sigma,
+ double **zk, GGA_OUT_PARAMS_NO_EXC(double **));
+GPU_FUNCTION void internal_counters_gga_next
 (const xc_dimensions *dim, int offset, const double **rho, const double **sigma,
  double **zk, GGA_OUT_PARAMS_NO_EXC(double **));
-void internal_counters_gga_prev
+GPU_FUNCTION void internal_counters_gga_prev
 (const xc_dimensions *dim, int offset, const double **rho, const double **sigma,
  double **zk, GGA_OUT_PARAMS_NO_EXC(double **));
 
 void internal_counters_set_mgga(int nspin, xc_dimensions *dim);
-void internal_counters_mgga_next
+
+GPU_FUNCTION void internal_counters_mgga_random
+(const xc_dimensions *dim, const int pos, int offset,
+ const double **rho, const double **sigma, const double **lapl, const double **tau,
+ double **zk, MGGA_OUT_PARAMS_NO_EXC(double **));
+
+GPU_FUNCTION void internal_counters_mgga_next
 (const xc_dimensions *dim, int offset,
  const double **rho, const double **sigma, const double **lapl, const double **tau,
  double **zk, MGGA_OUT_PARAMS_NO_EXC(double **));
-void internal_counters_mgga_prev
+
+GPU_FUNCTION void internal_counters_mgga_prev
 (const xc_dimensions *dim, int offset,
  const double **rho, const double **sigma, const double **lapl, const double **tau,
  double **zk, MGGA_OUT_PARAMS_NO_EXC(double **));
@@ -240,5 +270,34 @@ const char *get_kind(const xc_func_type *func);
 const char *get_family(const xc_func_type *func);
 double get_ext_param(const func_params_type *params, const double *values, int index);
 
+GPU_FUNCTION
 double xc_mgga_x_br89_get_x(double Q);
+
+#ifndef HAVE_CUDA
+#define libxc_malloc malloc
+#define libxc_calloc calloc
+#define libxc_free free
+#define libxc_memset memset
+#else
+
+template <class int_type>
+auto libxc_malloc(const int_type size){
+  void * mem;
+  cudaMallocManaged(&mem, size);
+  return mem;
+}
+
+template <class int_type1, class int_type2>
+auto libxc_calloc(const int_type1 size1, const int_type2 size2){
+  void * mem;
+  cudaMallocManaged(&mem, size1*size2);
+  cudaMemset(mem, 0, size1*size2);
+  return mem;
+}
+
+#define libxc_free cudaFree
+#define libxc_memset cudaMemset
+
+#endif
+
 #endif

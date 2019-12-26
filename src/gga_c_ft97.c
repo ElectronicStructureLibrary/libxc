@@ -11,6 +11,7 @@
 
 #define XC_GGA_C_FT97          88 /* Filatov & Thiel correlation */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_ft97.c"
 #include "work_gga.c"
 

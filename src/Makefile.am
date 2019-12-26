@@ -9,6 +9,11 @@
 
 SUBDIRS = maple2c
 
+if HAVE_CUDA
+#this is a hack for nvcc, this should be improved.
+CC+="-dc"
+endif
+
 bin_PROGRAMS = xc-info xc-threshold
 noinst_PROGRAMS = genwiki xc-sanity
 
@@ -121,6 +126,7 @@ endif
 
 noinst_HEADERS = \
 	string_f.h references.h util.h \
+	decl_lda.h decl_gga.h decl_mgga.h \
   work_lda.c work_gga.c work_mgga.c \
 	libxc_master.F90
 include_HEADERS = xc.h xc_funcs_removed.h

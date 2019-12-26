@@ -25,7 +25,7 @@ gga_k_dk_init(xc_func_type *p)
   double ff, *aa, *bb;
 
   assert(p->params == NULL);
-  p->params = malloc(sizeof(gga_k_dk_params));
+  p->params = libxc_malloc(sizeof(gga_k_dk_params));
 
   /* shortcuts for a and b */
   aa  = ((gga_k_dk_params *) (p->params))->aa;
@@ -106,6 +106,7 @@ gga_k_dk_init(xc_func_type *p)
   }
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_dk.c"
 #include "work_gga.c"
 

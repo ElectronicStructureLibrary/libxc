@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_WC         118 /* Wu & Cohen */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_wc.c"
 #include "work_gga.c"
 

@@ -30,7 +30,7 @@ gga_c_wi_init(xc_func_type *p)
   gga_c_wi_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_c_wi_params));
+  p->params = libxc_malloc(sizeof(gga_c_wi_params));
   params = (gga_c_wi_params *) (p->params);
 
   switch(p->info->number){
@@ -46,6 +46,7 @@ gga_c_wi_init(xc_func_type *p)
   }
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_wi.c"
 #include "work_gga.c"
 

@@ -117,13 +117,14 @@ gga_k_tflw_init(xc_func_type *p)
 {
 
   assert(p->params == NULL);
-  p->params = malloc(sizeof(gga_k_tflw_params));
+  p->params = libxc_malloc(sizeof(gga_k_tflw_params));
 
   /* This automatically sets gamma and lambda depending on the functional chosen.
      We put by default N = 1.0 */
   gga_k_tflw_set_params(p, -1.0, -1.0, 1.0);
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_tflw.c"
 #include "work_gga.c"
 

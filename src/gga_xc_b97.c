@@ -174,7 +174,7 @@ gga_xc_b97_init(xc_func_type *p)
   gga_xc_b97_params *params;
 
   assert(p->params == NULL);
-  p->params = malloc(sizeof(gga_xc_b97_params));
+  p->params = libxc_malloc(sizeof(gga_xc_b97_params));
   params = (gga_xc_b97_params *)(p->params);
 
   switch(p->info->number){
@@ -263,6 +263,7 @@ gga_xc_b97_init(xc_func_type *p)
   }
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_xc_b97.c"
 #include "work_gga.c"
 

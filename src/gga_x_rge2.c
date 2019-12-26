@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_RGE2         142 /* Regularized PBE                                */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_rge2.c"
 #include "work_gga.c"
 

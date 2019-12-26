@@ -21,12 +21,13 @@ gga_c_optc_init(xc_func_type *p)
   gga_c_optc_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_c_optc_params));
+  p->params = libxc_malloc(sizeof(gga_c_optc_params));
   params = (gga_c_optc_params *) (p->params);
 
   /* defaults set by set_ext_params */
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_optc.c"
 #include "work_gga.c"
 

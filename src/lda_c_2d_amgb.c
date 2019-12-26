@@ -16,6 +16,7 @@
 
 #define XC_LDA_C_2D_AMGB  15   /* Attaccalite et al             */
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_2d_amgb.c"
 #include "work_lda.c"
 

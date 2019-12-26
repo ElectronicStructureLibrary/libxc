@@ -21,7 +21,7 @@ gga_x_pbe_init(xc_func_type *p)
   gga_x_pbeint_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_x_pbeint_params));
+  p->params = libxc_malloc(sizeof(gga_x_pbeint_params));
   params = (gga_x_pbeint_params *) (p->params);
  
   switch(p->info->number){
@@ -55,6 +55,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->muGE  = get_ext_param(p->info->ext_params, ext_params, 3);
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_pbeint.c"
 #include "work_gga.c"
 

@@ -11,7 +11,7 @@
 
 #define XC_MGGA_X_MBRXC_BG  696 /* Modified Becke-Roussel for band gaps - cuspless hole */
 
-static double
+GPU_FUNCTION static double
 mbrxc_x_Q(double x, void *_rhs)
 {
   double rhs;
@@ -20,7 +20,7 @@ mbrxc_x_Q(double x, void *_rhs)
   return pow(1.0 + x, 5.0/3.0)*exp(-2.0*x/3.0) - rhs*(x - 3.0);
 }
 
-
+GPU_FUNCTION
 double xc_mgga_x_mbrxc_get_x(double Q)
 {
   double rhs, tol, x1, x2;
@@ -44,6 +44,7 @@ double xc_mgga_x_mbrxc_get_x(double Q)
   return xc_math_brent(mbrxc_x_Q, x1, x2, tol, 500, &rhs);
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_mbrxc_bg.c"
 #include "work_mgga.c"
 

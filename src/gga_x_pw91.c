@@ -24,7 +24,7 @@ gga_x_pw91_init(xc_func_type *p)
   gga_x_pw91_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_x_pw91_params));
+  p->params = libxc_malloc(sizeof(gga_x_pw91_params));
   params = (gga_x_pw91_params *) (p->params);
 
   switch(p->info->number){
@@ -74,6 +74,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->f    =  1.0e-6/(X_FACTOR_C*pow(X2S, params->expo));
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_pw91.c"
 #include "work_gga.c"
 

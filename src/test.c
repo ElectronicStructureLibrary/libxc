@@ -147,18 +147,18 @@ void test_gga()
   double *v2rho2, *v2rhosigma, *v2sigma2;
   double *v3rho3, *v3rho2sigma, *v3rhosigma2, *v3sigma3;
 
-  rho         = malloc( 2*npoints*sizeof(double));
-  sigma       = malloc( 3*npoints*sizeof(double));
-  zk          = malloc( 1*npoints*sizeof(double));
-  vrho        = malloc( 2*npoints*sizeof(double));
-  vsigma      = malloc( 3*npoints*sizeof(double));
-  v2rho2      = malloc( 3*npoints*sizeof(double));
-  v2rhosigma  = malloc( 6*npoints*sizeof(double));
-  v2sigma2    = malloc( 6*npoints*sizeof(double));
-  v3rho3      = malloc( 4*npoints*sizeof(double));
-  v3rho2sigma = malloc( 9*npoints*sizeof(double));
-  v3rhosigma2 = malloc(12*npoints*sizeof(double));
-  v3sigma3    = malloc(10*npoints*sizeof(double));
+  rho         = libxc_malloc( 2*npoints*sizeof(double));
+  sigma       = libxc_malloc( 3*npoints*sizeof(double));
+  zk          = libxc_malloc( 1*npoints*sizeof(double));
+  vrho        = libxc_malloc( 2*npoints*sizeof(double));
+  vsigma      = libxc_malloc( 3*npoints*sizeof(double));
+  v2rho2      = libxc_malloc( 3*npoints*sizeof(double));
+  v2rhosigma  = libxc_malloc( 6*npoints*sizeof(double));
+  v2sigma2    = libxc_malloc( 6*npoints*sizeof(double));
+  v3rho3      = libxc_malloc( 4*npoints*sizeof(double));
+  v3rho2sigma = libxc_malloc( 9*npoints*sizeof(double));
+  v3rhosigma2 = libxc_malloc(12*npoints*sizeof(double));
+  v3sigma3    = libxc_malloc(10*npoints*sizeof(double));
 
   
   xc_func_init(&gga,  XC_GGA_C_PW91,  XC_POLARIZED);
@@ -206,10 +206,10 @@ void test_gga()
 
   xc_func_end(&gga);
 
-  free(rho); free(sigma);
-  free(zk); free(vrho); free(vsigma);
-  free(v2rho2); free(v2rhosigma); free(v2sigma2);
-  free(v3rho3); free(v3rho2sigma); free(v3rhosigma2); free(v3sigma3);
+  libxc_free(rho); libxc_free(sigma);
+  libxc_free(zk); libxc_free(vrho); libxc_free(vsigma);
+  libxc_free(v2rho2); libxc_free(v2rhosigma); libxc_free(v2sigma2);
+  libxc_free(v3rho3); libxc_free(v3rho2sigma); libxc_free(v3rhosigma2); libxc_free(v3sigma3);
 }
 
 

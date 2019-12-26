@@ -11,6 +11,7 @@
 
 #define XC_LDA_C_RC04          27 /* Ragot-Cortona */
 
+#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_rc04.c"
 #include "work_lda.c"
 

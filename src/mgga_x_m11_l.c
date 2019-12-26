@@ -37,7 +37,7 @@ mgga_x_m11_l_init(xc_func_type *p)
   mgga_x_m11_l_params *params;
 
   assert(p->params == NULL);
-  p->params = malloc(sizeof(mgga_x_m11_l_params));
+  p->params = libxc_malloc(sizeof(mgga_x_m11_l_params));
   params = (mgga_x_m11_l_params *) (p->params);
 
   switch(p->info->number){
@@ -51,6 +51,7 @@ mgga_x_m11_l_init(xc_func_type *p)
   }
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_m11_l.c"
 #include "work_mgga.c"
 

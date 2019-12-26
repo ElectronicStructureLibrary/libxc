@@ -11,6 +11,7 @@
 
 #define XC_MGGA_X_PBE_GX          576 /* PBE-GX functional of Loos */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_pbe_gx.c"
 #include "work_mgga.c"
 

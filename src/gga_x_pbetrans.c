@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_PBETRANS  291 /* Gradient-based interpolation between PBE and revPBE */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_pbetrans.c"
 #include "work_gga.c"
 

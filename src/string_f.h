@@ -17,7 +17,7 @@
   fc = _fcdtocp(f);                                         \
   for(slen=_fcdlen(f)-1; slen>=0 && fc[slen]==' '; slen--); \
   slen++;                                                   \
-  c = (char *)malloc(slen+1);                               \
+  c = (char *)libxc_malloc(slen+1);                               \
   strncpy(c, _fcdtocp(f), slen);                            \
   c[slen] = '\0';                                           \
 }
@@ -52,7 +52,7 @@
   for(ll--; ll>=0; ll--)                   \
     if(f[ll] != ' ') break;                \
   ll++;                                    \
-  c = (char *)malloc((ll+1)*sizeof(char)); \
+  c = (char *)libxc_malloc((ll+1)*sizeof(char)); \
   for(i=0; i<ll; i++) c[i] = f[i];         \
   c[i] = '\0';                             \
 }

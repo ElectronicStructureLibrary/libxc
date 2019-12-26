@@ -21,7 +21,7 @@ void xc_gga_c_lyp_init(xc_func_type *p)
   gga_c_lyp_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_c_lyp_params));
+  p->params = libxc_malloc(sizeof(gga_c_lyp_params));
   params = (gga_c_lyp_params *) (p->params);      
 
   /* values of constants in standard LYP functional */
@@ -62,6 +62,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->d = get_ext_param(p->info->ext_params, ext_params, 3);
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_lyp.c"
 #include "work_gga.c"
 

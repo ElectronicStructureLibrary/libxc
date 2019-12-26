@@ -23,7 +23,7 @@ mgga_x_tb09_init(xc_func_type *p)
 {
   mgga_x_tb09_params *params;
 
-  p->params = malloc(sizeof(mgga_x_tb09_params));
+  p->params = libxc_malloc(sizeof(mgga_x_tb09_params));
   params = (mgga_x_tb09_params *)p->params;
 
   params->c = 0;
@@ -44,8 +44,9 @@ mgga_x_tb09_init(xc_func_type *p)
   }
 }
 
-#include "maple2c/mgga_vxc/mgga_x_tb09.c"
 #define XC_NO_EXC
+#include "decl_mgga.h"
+#include "maple2c/mgga_vxc/mgga_x_tb09.c"
 #include "work_mgga.c"
 
 #ifdef __cplusplus

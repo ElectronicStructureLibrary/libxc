@@ -83,40 +83,40 @@ void xc_gga(const xc_func_type *func, size_t np, const double *rho, const double
 
   /* initialize output to zero */
   if(zk != NULL)
-    memset(zk, 0, dim->zk*np*sizeof(double));
+    libxc_memset(zk, 0, dim->zk*np*sizeof(double));
 
   if(vrho != NULL){
     assert(vsigma != NULL);
     
-    memset(vrho,   0, dim->vrho  *np*sizeof(double));
-    memset(vsigma, 0, dim->vsigma*np*sizeof(double));
+    libxc_memset(vrho,   0, dim->vrho  *np*sizeof(double));
+    libxc_memset(vsigma, 0, dim->vsigma*np*sizeof(double));
   }
 
   if(v2rho2 != NULL){
     assert(v2rhosigma!=NULL && v2sigma2!=NULL);
 
-    memset(v2rho2,     0, dim->v2rho2    *np*sizeof(double));
-    memset(v2rhosigma, 0, dim->v2rhosigma*np*sizeof(double));
-    memset(v2sigma2,   0, dim->v2sigma2  *np*sizeof(double));
+    libxc_memset(v2rho2,     0, dim->v2rho2    *np*sizeof(double));
+    libxc_memset(v2rhosigma, 0, dim->v2rhosigma*np*sizeof(double));
+    libxc_memset(v2sigma2,   0, dim->v2sigma2  *np*sizeof(double));
   }
 
   if(v3rho3 != NULL){
     assert(v3rho2sigma!=NULL && v3rhosigma2!=NULL && v3sigma3!=NULL);
 
-    memset(v3rho3,      0, dim->v3rho3     *np*sizeof(double));
-    memset(v3rho2sigma, 0, dim->v3rho2sigma*np*sizeof(double));
-    memset(v3rhosigma2, 0, dim->v3rhosigma2*np*sizeof(double));
-    memset(v3sigma3,    0, dim->v3sigma3   *np*sizeof(double));
+    libxc_memset(v3rho3,      0, dim->v3rho3     *np*sizeof(double));
+    libxc_memset(v3rho2sigma, 0, dim->v3rho2sigma*np*sizeof(double));
+    libxc_memset(v3rhosigma2, 0, dim->v3rhosigma2*np*sizeof(double));
+    libxc_memset(v3sigma3,    0, dim->v3sigma3   *np*sizeof(double));
   }
 
   if(v4rho4 != NULL){
     assert(v4rho3sigma!=NULL && v4rho2sigma2!=NULL && v4rhosigma3!=NULL && v4sigma4!=NULL);
 
-    memset(v4rho4,       0, dim->v4rho4      *np*sizeof(double));     
-    memset(v4rho3sigma,  0, dim->v4rho3sigma *np*sizeof(double));
-    memset(v4rho2sigma2, 0, dim->v4rho2sigma2*np*sizeof(double));
-    memset(v4rhosigma3,  0, dim->v4rhosigma3 *np*sizeof(double));
-    memset(v4sigma4,     0, dim->v4sigma4    *np*sizeof(double));
+    libxc_memset(v4rho4,       0, dim->v4rho4      *np*sizeof(double));     
+    libxc_memset(v4rho3sigma,  0, dim->v4rho3sigma *np*sizeof(double));
+    libxc_memset(v4rho2sigma2, 0, dim->v4rho2sigma2*np*sizeof(double));
+    libxc_memset(v4rhosigma3,  0, dim->v4rhosigma3 *np*sizeof(double));
+    libxc_memset(v4sigma4,     0, dim->v4sigma4    *np*sizeof(double));
    } 
 
   /* call functional */

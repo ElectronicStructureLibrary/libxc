@@ -17,6 +17,7 @@
 
 #include "xc.h"
 #include "string_f.h"
+#include "util.h"
 
 /* version */
 void FC_FUNC(xc_f90_version, XC_F90_VERSION)
@@ -98,7 +99,7 @@ void FC_FUNC(xc_f90_functional_get_name, XC_F90_FUNCTIONAL_GET_NAME)
   if ( name == NULL ) name = strndup("unknown", 256);
 
   TO_F_STR1(name, func_string);
-  free(name);
+  libxc_free(name);
 }
 
 
@@ -111,7 +112,7 @@ CC_FORTRAN_INT  FC_FUNC(xc_f90_functional_get_number, XC_F90_FUNCTIONAL_GET_NUMB
   TO_C_STR1(func_string, name);
   
   ret = xc_functional_get_number(name);
-  free(name);
+  libxc_free(name);
 
   return (CC_FORTRAN_INT) ret;
 }
@@ -149,7 +150,7 @@ void FC_FUNC(xc_f90_func_init, XC_F90_FUNC_INIT)
 {
   xc_func_type *func_p;
   
-  func_p = (xc_func_type *)malloc(sizeof(xc_func_type));
+  func_p = (xc_func_type *)libxc_malloc(sizeof(xc_func_type));
   xc_func_init(func_p, (int) (*functional), (int) (*nspin));
 
   *p    = (void *) func_p;
@@ -160,7 +161,7 @@ void FC_FUNC(xc_f90_func_end, XC_F90_FUNC_END)
      (void **p)
 {
   xc_func_end((xc_func_type *)(*p));
-  free(*p);
+  libxc_free(*p);
   *p = NULL;
 }
 

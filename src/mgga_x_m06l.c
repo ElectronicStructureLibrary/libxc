@@ -46,7 +46,7 @@ static const double a_revm06[12] = {
 static const double d_revm06[6] = {-0.05523940140, 0.0, -0.003782631233, 0.0, 0.0, 0.0};
 
 typedef struct{
-  const double *a, *d;
+  double a[12], d[6];
 } mgga_x_m06l_params;
 
 
@@ -56,31 +56,31 @@ mgga_x_m06l_init(xc_func_type *p)
   mgga_x_m06l_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(mgga_x_m06l_params));
+  p->params = libxc_malloc(sizeof(mgga_x_m06l_params));
   params = (mgga_x_m06l_params *)p->params;
 
   switch(p->info->number){
   case XC_MGGA_X_M06_L:
-    params->a = a_m06l;
-    params->d = d_m06l;
+    for(int ii = 0; ii < 12; ii++) params->a[ii] = a_m06l[ii];
+    for(int ii = 0; ii <  6; ii++) params->d[ii] = d_m06l[ii];
     break;
   case XC_HYB_MGGA_X_M06_HF:
-    params->a = a_m06hf;
-    params->d = d_m06hf;
+    for(int ii = 0; ii < 12; ii++) params->a[ii] = a_m06hf[ii];
+    for(int ii = 0; ii <  6; ii++) params->d[ii] = d_m06hf[ii];
     p->cam_alpha = 1.0;
     break;
   case XC_HYB_MGGA_X_M06:
-    params->a = a_m06;
-    params->d = d_m06;
+    for(int ii = 0; ii < 12; ii++) params->a[ii] = a_m06[ii];
+    for(int ii = 0; ii <  6; ii++) params->d[ii] = d_m06[ii];
     p->cam_alpha = 0.27;
     break;
   case XC_MGGA_X_REVM06_L:
-    params->a = a_revm06l;
-    params->d = d_revm06l;
+    for(int ii = 0; ii < 12; ii++) params->a[ii] = a_revm06l[ii];
+    for(int ii = 0; ii <  6; ii++) params->d[ii] = d_revm06l[ii];
     break;
   case XC_HYB_MGGA_X_REVM06:
-    params->a = a_revm06;
-    params->d = d_revm06;
+    for(int ii = 0; ii < 12; ii++) params->a[ii] = a_revm06[ii];
+    for(int ii = 0; ii <  6; ii++) params->d[ii] = d_revm06[ii];
     p->cam_alpha = 0.4041;
     break;
   default:
@@ -89,6 +89,7 @@ mgga_x_m06l_init(xc_func_type *p)
   }
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_m06l.c"
 #include "work_mgga.c"
 

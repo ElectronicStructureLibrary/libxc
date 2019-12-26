@@ -11,6 +11,7 @@
 
 #define XC_MGGA_XC_ZLP          42 /* Zhao, Levy & Parr, Eq. (21) */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_xc_zlp.c"
 #include "work_mgga.c"
 

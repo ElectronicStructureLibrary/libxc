@@ -22,7 +22,7 @@ mgga_x_rtpss_init(xc_func_type *p)
   mgga_x_rtpss_params *params;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(mgga_x_rtpss_params));
+  p->params = libxc_malloc(sizeof(mgga_x_rtpss_params));
   params = (mgga_x_rtpss_params *)p->params;
 
   switch(p->info->number){
@@ -58,6 +58,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params->mu     = get_ext_param(p->info->ext_params, ext_params, 4);
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_rtpss.c"
 #include "work_mgga.c"
 

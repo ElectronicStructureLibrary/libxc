@@ -11,6 +11,7 @@
 
 #define XC_MGGA_X_VT84          541 /* meta-GGA version of VT{8,4} GGA */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_vt84.c"
 #include "work_mgga.c"
 

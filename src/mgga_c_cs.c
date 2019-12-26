@@ -21,6 +21,7 @@
   understand why...
 */
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_cs.c"
 #include "work_mgga.c"
 

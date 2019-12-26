@@ -12,6 +12,7 @@
 #define XC_HYB_GGA_XC_APBE0     607 /* Hybrid based on APBE */
 #define XC_HYB_GGA_XC_HAPBE     608 /* Hybrid based in APBE and zvPBEloc */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_zvpbeloc.c"
 #include "work_gga.c"
 

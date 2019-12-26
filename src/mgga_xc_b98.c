@@ -17,6 +17,7 @@ hyb_mgga_xc_b98_init(xc_func_type *p)
   p->cam_alpha = 0.1985;
 }
 
+#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_xc_b98.c"
 #include "work_mgga.c"
 

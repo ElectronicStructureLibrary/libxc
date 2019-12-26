@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_G96          107 /* Gill 96                                        */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_g96.c"
 #include "work_gga.c"
 

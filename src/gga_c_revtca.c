@@ -10,6 +10,7 @@
 
 #define XC_GGA_C_REVTCA        99 /* Tognetti, Cortona, Adamo (revised) */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_revtca.c"
 #include "work_gga.c"
 

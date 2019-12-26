@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_BAYESIAN          125 /* Bayesian best fit for the enhancement factor */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_bayesian.c"
 #include "work_gga.c"
 

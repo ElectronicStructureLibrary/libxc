@@ -22,8 +22,8 @@ int compare(const void *f1, const void *f2) {
 
   int val=strcmp(n1,n2);
 
-  free(n1);
-  free(n2);
+  libxc_free(n1);
+  libxc_free(n2);
 
   return val;
 }
@@ -141,7 +141,7 @@ char * sanitize_link(const char * doi) {
   buf[j++]='\0';
 
   /* Allocate return array */
-  r = (char *) malloc(strlen(buf) + 1);
+  r = (char *) libxc_malloc(strlen(buf) + 1);
   strcpy(r,buf);
 
   return r;
@@ -229,13 +229,13 @@ int main(void) {
 	    if(strlen(func.info->refs[i]->doi) > 0) {
 	      char *h = sanitize_link(func.info->refs[i]->doi);
 	      printf("  *  [%s](http://dx.doi.org/%s) (doi: %s)\n", func.info->refs[i]->ref, h, func.info->refs[i]->doi);
-	      free(h);
+	      libxc_free(h);
 	    } else
 	      printf("  *  %s\n", func.info->refs[i]->ref);
 	  }
 	  
 	  xc_func_end(&func);
-	  free(fname);
+	  libxc_free(fname);
 	}
       }
     }

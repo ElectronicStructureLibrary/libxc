@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_CHACHIYO     298 /* Chachiyo exchange */
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_chachiyo.c"
 #include "work_gga.c"
 

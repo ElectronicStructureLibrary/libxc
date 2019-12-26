@@ -26,7 +26,7 @@ gga_x_b86_init(xc_func_type *p)
   double mu, kappa;
 
   assert(p!=NULL && p->params == NULL);
-  p->params = malloc(sizeof(gga_x_b86_params));
+  p->params = libxc_malloc(sizeof(gga_x_b86_params));
   params = (gga_x_b86_params *) (p->params);
 
   /* value of beta and gamma in Becke 86 functional */
@@ -79,6 +79,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 }
 
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_b86.c"
 #include "work_gga.c"
 

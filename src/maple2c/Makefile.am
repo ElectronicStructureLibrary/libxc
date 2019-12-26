@@ -5,5 +5,5 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
-SUBDIRS = lda_exc lda_vxc gga_exc mgga_exc
+SUBDIRS = lda_exc lda_vxc gga_exc gga_vxc mgga_exc mgga_vxc
 

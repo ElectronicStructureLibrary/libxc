@@ -15,7 +15,21 @@ from . import structs
 
 # Build out a few common tmps
 _ndptr = np.ctypeslib.ndpointer(dtype=np.double, flags=("C", "A"))
-_ndptr_w = np.ctypeslib.ndpointer(dtype=np.double, flags=("W", "C", "A"))  # Writable
+
+# Workaround to be able to pass NULL pointers to libxc
+# by subclassing the pointer
+_ndptr_w_base = np.ctypeslib.ndpointer(dtype=np.double, flags=("W", "C", "A"))  # Writable
+
+def _from_param(cls, obj):
+    if obj is None:
+        return obj
+    return _ndptr_w_base.from_param(obj)
+
+_ndptr_w = type(
+    'Writable NP Array',
+    (_ndptr_w_base,),
+    {'from_param': classmethod(_from_param)}
+)
 
 _xc_func_p = ctypes.POINTER(structs.xc_func_type)
 _xc_func_info_p = ctypes.POINTER(structs.xc_func_info_type)
@@ -72,28 +86,31 @@ def _build_comute_argtype(num_nd, num_nd_write):
 
 
 # LDA computers
-core.xc_lda.argtypes = _build_comute_argtype(1, 4)
+core.xc_lda.argtypes = _build_comute_argtype(1, 5)
 core.xc_lda_exc_vxc.argtypes = _build_comute_argtype(1, 2)
 core.xc_lda_exc.argtypes = _build_comute_argtype(1, 1)
 core.xc_lda_vxc.argtypes = _build_comute_argtype(1, 1)
 core.xc_lda_fxc.argtypes = _build_comute_argtype(1, 1)
 core.xc_lda_kxc.argtypes = _build_comute_argtype(1, 1)
+core.xc_lda_lxc.argtypes = _build_comute_argtype(1, 1)
 
 # GGA computers
-core.xc_gga.argtypes = _build_comute_argtype(2, 10)
+core.xc_gga.argtypes = _build_comute_argtype(2, 15)
 core.xc_gga_exc_vxc.argtypes = _build_comute_argtype(2, 3)
 core.xc_gga_exc.argtypes = _build_comute_argtype(2, 1)
 core.xc_gga_vxc.argtypes = _build_comute_argtype(2, 2)
 core.xc_gga_fxc.argtypes = _build_comute_argtype(2, 3)
 core.xc_gga_kxc.argtypes = _build_comute_argtype(2, 4)
+core.xc_gga_lxc.argtypes = _build_comute_argtype(2, 5)
 
 # MGGA computers
-core.xc_mgga.argtypes = _build_comute_argtype(4, 35)
+core.xc_mgga.argtypes = _build_comute_argtype(4, 70)
 core.xc_mgga_exc_vxc.argtypes = _build_comute_argtype(4, 5)
 core.xc_mgga_exc.argtypes = _build_comute_argtype(4, 1)
 core.xc_mgga_vxc.argtypes = _build_comute_argtype(4, 4)
 core.xc_mgga_fxc.argtypes = _build_comute_argtype(4, 10)
 core.xc_mgga_kxc.argtypes = _build_comute_argtype(4, 20)
+core.xc_mgga_kxc.argtypes = _build_comute_argtype(4, 35)
 
 ### Build LibXCFunctional class
 
@@ -124,6 +141,24 @@ def _check_arrays(current_arrays, required, sizes, factor):
 
     ret = [current_arrays[x] for x in required]
     return ret
+
+def my_check_arrays(current_arrays, fields, sizes, factor, required):
+    """
+    A specialized function built to construct and check the sizes of arrays given to the LibXCFunctional class.
+    """
+
+    # Nothing supplied so we build it out
+    if current_arrays is None:
+        current_arrays = {}
+
+    for label in fields:
+        if required:
+            size = sizes[label]
+            current_arrays[label] = np.zeros((size, factor))
+        else:
+            current_arrays[label] = None # np.empty((1))
+
+    return current_arrays
 
 
 class LibXCFunctional(object):
@@ -211,7 +246,7 @@ class LibXCFunctional(object):
         self.xc_func_sizes = {}
         for attr in self.xc_func_size_names:
             self.xc_func_sizes[attr] = getattr(self.xc_func.contents.dim, attr)
-
+            
         # Unpack functional info
         self.xc_func_info = core.xc_func_get_info(self.xc_func)
         self._number = core.xc_func_info_get_number(self.xc_func_info)
@@ -449,7 +484,7 @@ class LibXCFunctional(object):
 
         core.xc_func_set_dens_threshold(self.xc_func, ctypes.c_double(dens_threshold))
 
-    def compute(self, inp, output=None, do_exc=True, do_vxc=True, do_fxc=False, do_kxc=False):
+    def compute(self, inp, output=None, do_exc=True, do_vxc=True, do_fxc=False, do_kxc=False, do_lxc=False):
         """
         Evaluates the functional and its derivatives on a grid.
 
@@ -462,7 +497,7 @@ class LibXCFunctional(object):
                 lapl - the laplacian of the density
                 tau - the kinetic energy density
 
-            Each family of functionals requires different derivates:
+            Each family of functionals requires different derivatives:
                 LDA: rho
                 GGA: rho, sigma
                 MGGA: rho, sigma, lapl (optional), tau
@@ -476,16 +511,36 @@ class LibXCFunctional(object):
                     VCX: vrho
                     FXC: v2rho2
                     KXC: v3rho3
+                    LXC: v4rho4
                 GGA:
                     EXC: zk
                     VCX: vrho, vsigma
                     FXC: v2rho2, v2rhosigma, v2sigma2
                     KXC: v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3
+                    LXC: v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3, v4sigma4
                 MGGA:
                     EXC: zk
                     VCX: vrho, vsigma, vlapl (optional), vtau
+                    FXC: v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2,
+                         v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2
+                    KXC: v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2,
+                         v3rhosigmalapl, v3rhosigmatau, v3rholapl2, v3rholapltau,
+                         v3rhotau2, v3sigma3, v3sigma2lapl, v3sigma2tau,
+                         v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3,
+                         v3lapl2tau, v3lapltau2, v3tau3
+                    LXC: v4rho4, v4rho3sigma, v4rho3lapl, v4rho3tau, v4rho2sigma2,
+                         v4rho2sigmalapl, v4rho2sigmatau, v4rho2lapl2, v4rho2lapltau,
+                         v4rho2tau2, v4rhosigma3, v4rhosigma2lapl, v4rhosigma2tau,
+                         v4rhosigmalapl2, v4rhosigmalapltau, v4rhosigmatau2,
+                         v4rholapl3, v4rholapl2tau, v4rholapltau2, v4rhotau3,
+                         v4sigma4, v4sigma3lapl, v4sigma3tau, v4sigma2lapl2,
+                         v4sigma2lapltau, v4sigma2tau2, v4sigmalapl3, v4sigmalapl2tau,
+                         v4sigmalapltau2, v4sigmatau3, v4lapl4, v4lapl3tau,
+                         v4lapl2tau2, v4lapltau3, v4tau4
 
-            For unpolarized functional the spin pieces are summed together. However, for polarized functionals the following order will be used for output quantities:
+            For unpolarized functional the spin pieces are summed together. 
+            However, for polarized functionals the following order will be used for output quantities:
+            (The last index is the fastest)
 
                 VXC:
                     vrho         = (u, d)
@@ -513,6 +568,8 @@ class LibXCFunctional(object):
             Do evaluate the 2nd derivative of the functional?
         do_kxc : bool (optional, False)
             Do evaluate the 3rd derivative of the functional?
+        do_lxc : bool (optional, False)
+            Do evaluate the 4th derivative of the functional?
 
         Returns
         -------
@@ -550,6 +607,8 @@ class LibXCFunctional(object):
             raise ValueError("Functional '%s' does not have FXC capabilities." % self.get_name())
         if not self._have_kxc and do_kxc:
             raise ValueError("Functional '%s' does not have KXC capabilities." % self.get_name())
+        if not self._have_lxc and do_lxc:
+            raise ValueError("Functional '%s' does not have LXC capabilities." % self.get_name())
 
         # Parse input arrays
         if isinstance(inp, np.ndarray):
@@ -567,139 +626,112 @@ class LibXCFunctional(object):
         # Find the right compute function
         args = [self.xc_func, ctypes.c_size_t(npoints)]
         if self.get_family() in [flags.XC_FAMILY_LDA, flags.XC_FAMILY_HYB_LDA]:
+            input_labels   = ["rho"]
+            input_num_args = 1
+
+            output_labels = [
+                "zk",       # 1, 1
+                "vrho",     # 1, 2
+                "v2rho2",   # 1, 3
+                "v3rho3",   # 1, 4
+                "v4rho4"    # 1, 5
+            ]
 
             # Build input args
-            required_input = ["rho"]
-            args.extend(_check_arrays(inp, required_input, self.xc_func_sizes, npoints))
-            input_num_args = len(args)
+            output = my_check_arrays(output, output_labels[0:1],
+                            self.xc_func_sizes, npoints, do_exc)
+            output = my_check_arrays(output, output_labels[1:2],
+                            self.xc_func_sizes, npoints, do_vxc)
+            output = my_check_arrays(output, output_labels[2:3],
+                            self.xc_func_sizes, npoints, do_fxc)
+            output = my_check_arrays(output, output_labels[3:4],
+                            self.xc_func_sizes, npoints, do_kxc)
+            output = my_check_arrays(output, output_labels[4:5],
+                            self.xc_func_sizes, npoints, do_lxc)
 
-            # Hybrid computers
-            if do_exc and do_vxc and do_fxc and do_kxc:
-                required_fields = ["zk", "vrho", "v2rho2", "v3rho3"]
-                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                core.xc_lda(*args)
-                do_exc = do_vxc = do_fxc = do_kxc = False
+            args.extend([   inp[x] for x in  input_labels])
+            args.extend([output[x] for x in output_labels])
 
-            if do_exc and do_vxc:
-                required_fields = ["zk", "vrho"]
-                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                core.xc_lda_exc_vxc(*args)
-                do_exc = do_vxc = False
-
-            # Individual computers
-            if do_exc:
-                required_fields = ["zk"]
-                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                core.xc_lda_exc(*args)
-            if do_vxc:
-                required_fields = ["vrho"]
-                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                core.xc_lda_vxc(*args)
-            if do_fxc:
-                required_fields = ["v2rho2"]
-                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                core.xc_lda_fxc(*args)
-            if do_kxc:
-                required_fields = ["v3rho3"]
-                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                core.xc_lda_kxc(*args)
+            core.xc_lda(*args)
 
         elif self.get_family() in [flags.XC_FAMILY_GGA, flags.XC_FAMILY_HYB_GGA]:
+            input_labels   = ["rho", "sigma"]
+            input_num_args = 2
+
+            output_labels = [
+                "zk",                                                               # 1, 1
+                "vrho", "vsigma",                                                   # 2, 3
+                "v2rho2", "v2rhosigma", "v2sigma2",                                 # 3, 6
+                "v3rho3", "v3rho2sigma", "v3rhosigma2", "v3sigma3",                 # 4, 10
+                "v4rho4", "v4rho3sigma", "v4rho2sigma2", "v4rhosigma3", "v4sigma4"  # 5, 15
+            ]
 
             # Build input args
-            required_input = ["rho", "sigma"]
-            args.extend(_check_arrays(inp, required_input, self.xc_func_sizes, npoints))
-            input_num_args = len(args)
+            output = my_check_arrays(output, output_labels[0:1],
+                            self.xc_func_sizes, npoints, do_exc)
+            output = my_check_arrays(output, output_labels[1:3],
+                            self.xc_func_sizes, npoints, do_vxc)
+            output = my_check_arrays(output, output_labels[3:6],
+                            self.xc_func_sizes, npoints, do_fxc)
+            output = my_check_arrays(output, output_labels[6:10],
+                            self.xc_func_sizes, npoints, do_kxc)
+            output = my_check_arrays(output, output_labels[10:15],
+                            self.xc_func_sizes, npoints, do_lxc)
 
-            # Hybrid computers
-            if do_exc and do_vxc and do_fxc and do_kxc:
-                required_fields = [
-                    "zk", "vrho", "vsigma", "v2rho2", "v2rhosigma", "v2sigma2", "v3rho3", "v3rho2sigma", "v3rhosigma2",
-                    "v3sigma3"
-                ]
-                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                core.xc_gga(*args)
-                do_exc = do_vxc = do_fxc = do_kxc = False
+            args.extend([   inp[x] for x in  input_labels])
+            args.extend([output[x] for x in output_labels])
 
-            if do_exc and do_vxc:
-                required_fields = ["zk", "vrho", "vsigma"]
-                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                core.xc_gga_exc_vxc(*args)
-                do_exc = do_vxc = False
-
-            # Individual computers
-            if do_exc:
-                required_fields = ["zk"]
-                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                core.xc_gga_exc(*args)
-            if do_vxc:
-                required_fields = ["vrho", "vsigma"]
-                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                core.xc_gga_vxc(*args)
-            if do_fxc:
-                required_fields = ["v2rho2", "v2rhosigma", "v2sigma2"]
-                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                core.xc_gga_fxc(*args)
-            if do_kxc:
-                required_fields = ["v3rho3", "v3rho2sigma", "v3rhosigma2", "v3sigma3"]
-                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                core.xc_gga_kxc(*args)
+            core.xc_gga(*args)
 
         elif self.get_family() in [flags.XC_FAMILY_MGGA, flags.XC_FAMILY_HYB_MGGA]:
             # Build input args
             if self._needs_laplacian:
-                required_input = ["rho", "sigma", "lapl", "tau"]
-                args.extend(_check_arrays(inp, required_input, self.xc_func_sizes, npoints))
+                input_labels = ["rho", "sigma", "lapl", "tau"]
             else:
-                required_input = ["rho", "sigma", "tau"]
-                args.extend(_check_arrays(inp, required_input, self.xc_func_sizes, npoints))
+                input_labels = ["rho", "sigma", "tau"]
+            input_num_args = 4
+            
+            output_labels = [
+                "zk",                                                                # 1, 1
+                "vrho", "vsigma", "vlapl", "vtau",                                   # 4, 5
+                "v2rho2", "v2rhosigma", "v2rholapl", "v2rhotau", "v2sigma2",         # 10, 15
+                "v2sigmalapl", "v2sigmatau", "v2lapl2", "v2lapltau",  "v2tau2",
+                "v3rho3", "v3rho2sigma", "v3rho2lapl", "v3rho2tau", "v3rhosigma2",   # 20, 35
+                "v3rhosigmalapl", "v3rhosigmatau", "v3rholapl2", "v3rholapltau",
+                "v3rhotau2", "v3sigma3", "v3sigma2lapl", "v3sigma2tau",
+                "v3sigmalapl2", "v3sigmalapltau", "v3sigmatau2", "v3lapl3",
+                "v3lapl2tau", "v3lapltau2", "v3tau3",
+                "v4rho4", "v4rho3sigma", "v4rho3lapl", "v4rho3tau", "v4rho2sigma2",  # 35, 70
+                "v4rho2sigmalapl", "v4rho2sigmatau", "v4rho2lapl2", "v4rho2lapltau",
+                "v4rho2tau2", "v4rhosigma3", "v4rhosigma2lapl", "v4rhosigma2tau",
+                "v4rhosigmalapl2", "v4rhosigmalapltau", "v4rhosigmatau2",
+                "v4rholapl3", "v4rholapl2tau", "v4rholapltau2", "v4rhotau3",
+                "v4sigma4", "v4sigma3lapl", "v4sigma3tau", "v4sigma2lapl2",
+                "v4sigma2lapltau", "v4sigma2tau2", "v4sigmalapl3", "v4sigmalapl2tau",
+                "v4sigmalapltau2", "v4sigmatau3", "v4lapl4", "v4lapl3tau",
+                "v4lapl2tau2", "v4lapltau3", "v4tau4"
+            ]
+            
+            # Build input args
+            output = my_check_arrays(output, output_labels[0:1],
+                            self.xc_func_sizes, npoints, do_exc)
+            output = my_check_arrays(output, output_labels[1:5],
+                            self.xc_func_sizes, npoints, do_vxc)
+            output = my_check_arrays(output, output_labels[5:15],
+                            self.xc_func_sizes, npoints, do_fxc)
+            output = my_check_arrays(output, output_labels[15:35],
+                            self.xc_func_sizes, npoints, do_kxc)
+            output = my_check_arrays(output, output_labels[35:70],
+                            self.xc_func_sizes, npoints, do_lxc)
+
+            args.extend([   inp[x] for x in  input_labels])
+            if not self._needs_laplacian:
                 args.insert(-1, np.empty((1)))  # Add none ptr to laplacian
-            input_num_args = len(args)
+            args.extend([output[x] for x in output_labels])
 
-            # Hybrid computers
+            core.xc_mgga(*args)
 
-            # Wait until FXC and KXC are available
-            # if do_exc and do_vxc and do_fxc and do_kxc:
-            #     required_fields = [
-            #         "zk", "vrho", "vsigma", "vlapl", "vtau", "v2rho2", "v2sigma2", "v2lapl2", "v2tau2", "v2rhosigma",
-            #         "v2rholapl", "v2rhotau", "v2sigmalapl", "v2sigmatau", "v2lapltau"
-            #     ]
-            #     args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-            #     core.xc_mgga(*args)
-            #     do_exc = do_vxc = do_fxc = do_kxc = False
-
-            if do_exc and do_vxc:
-                required_fields = ["zk", "vrho", "vsigma", "vlapl", "vtau"]
-                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                core.xc_mgga_exc_vxc(*args)
-                do_exc = do_vxc = False
-
-            # Individual computers
-            if do_exc:
-                required_fields = ["zk"]
-                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                core.xc_mgga_exc(*args)
-            if do_vxc:
-                required_fields = ["vrho", "vsigma", "vlapl", "vtau"]
-                args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                core.xc_mgga_vxc(*args)
-            if do_fxc:
-                pass
-                #raise KeyError("FXC quantities (2rd derivitives) are not defined for MGGA's! (%d)")
-                # required_fields = [
-                #     "v2rho2", "v2sigma2", "v2lapl2", "v2tau2", "v2rhosigma", "v2rholapl", "v2rhotau", "v2sigmalapl",
-                #     "v2sigmatau", "v2lapltau"
-                # ]
-                # args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                # core.xc_mgga_fxc(*args)
-            if do_kxc:
-                pass
-                #raise KeyError("KXC quantities (3rd derivatives) are not defined for MGGA's! (%d)")
-                # required_fields = ["v3rho3", "v3rho2sigma", "v3rhosigma2", "v3sigma3"]
-                # args.extend(_check_arrays(output, required_fields, self.xc_func_sizes, npoints))
-                # core.xc_gga_kxc(*args)
         else:
             raise KeyError("Functional kind not recognized! (%d)" % self.get_kind())
 
-        # Return a dictionary
-        return {k: v for k, v in zip(required_fields, args[input_num_args:])}
+        return {k: v for k, v in zip(output_labels, args[2+input_num_args:]) if not v is None}

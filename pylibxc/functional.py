@@ -114,35 +114,7 @@ core.xc_mgga_kxc.argtypes = _build_comute_argtype(4, 35)
 
 ### Build LibXCFunctional class
 
-
-def _check_arrays(current_arrays, required, sizes, factor):
-    """
-    A specialized function built to construct and check the sizes of arrays given to the LibXCFunctional class.
-    """
-
-    # Nothing supplied so we build it out
-    if current_arrays is None:
-        current_arrays = {}
-        for label in required:
-            size = sizes[label]
-            current_arrays[label] = np.zeros((size, factor))
-
-    # Supplied arrays, check sizes
-    else:
-        missing = set(required) - set(current_arrays)
-        if len(missing):
-            raise KeyError("Missing the following output arrays: %s" % ", ".join(missing))
-
-        for label in required:
-            size = sizes[label] * factor
-            if size != current_arrays[label].size:
-                raise ValueError("Supplied output array '%s' does not have the correct shape number of points by %d" %
-                                 (label, size))
-
-    ret = [current_arrays[x] for x in required]
-    return ret
-
-def my_check_arrays(current_arrays, fields, sizes, factor, required):
+def _check_arrays(current_arrays, fields, sizes, factor, required):
     """
     A specialized function built to construct and check the sizes of arrays given to the LibXCFunctional class.
     """
@@ -638,15 +610,15 @@ class LibXCFunctional(object):
             ]
 
             # Build input args
-            output = my_check_arrays(output, output_labels[0:1],
+            output = _check_arrays(output, output_labels[0:1],
                             self.xc_func_sizes, npoints, do_exc)
-            output = my_check_arrays(output, output_labels[1:2],
+            output = _check_arrays(output, output_labels[1:2],
                             self.xc_func_sizes, npoints, do_vxc)
-            output = my_check_arrays(output, output_labels[2:3],
+            output = _check_arrays(output, output_labels[2:3],
                             self.xc_func_sizes, npoints, do_fxc)
-            output = my_check_arrays(output, output_labels[3:4],
+            output = _check_arrays(output, output_labels[3:4],
                             self.xc_func_sizes, npoints, do_kxc)
-            output = my_check_arrays(output, output_labels[4:5],
+            output = _check_arrays(output, output_labels[4:5],
                             self.xc_func_sizes, npoints, do_lxc)
 
             args.extend([   inp[x] for x in  input_labels])
@@ -667,15 +639,15 @@ class LibXCFunctional(object):
             ]
 
             # Build input args
-            output = my_check_arrays(output, output_labels[0:1],
+            output = _check_arrays(output, output_labels[0:1],
                             self.xc_func_sizes, npoints, do_exc)
-            output = my_check_arrays(output, output_labels[1:3],
+            output = _check_arrays(output, output_labels[1:3],
                             self.xc_func_sizes, npoints, do_vxc)
-            output = my_check_arrays(output, output_labels[3:6],
+            output = _check_arrays(output, output_labels[3:6],
                             self.xc_func_sizes, npoints, do_fxc)
-            output = my_check_arrays(output, output_labels[6:10],
+            output = _check_arrays(output, output_labels[6:10],
                             self.xc_func_sizes, npoints, do_kxc)
-            output = my_check_arrays(output, output_labels[10:15],
+            output = _check_arrays(output, output_labels[10:15],
                             self.xc_func_sizes, npoints, do_lxc)
 
             args.extend([   inp[x] for x in  input_labels])
@@ -713,15 +685,15 @@ class LibXCFunctional(object):
             ]
             
             # Build input args
-            output = my_check_arrays(output, output_labels[0:1],
+            output = _check_arrays(output, output_labels[0:1],
                             self.xc_func_sizes, npoints, do_exc)
-            output = my_check_arrays(output, output_labels[1:5],
+            output = _check_arrays(output, output_labels[1:5],
                             self.xc_func_sizes, npoints, do_vxc)
-            output = my_check_arrays(output, output_labels[5:15],
+            output = _check_arrays(output, output_labels[5:15],
                             self.xc_func_sizes, npoints, do_fxc)
-            output = my_check_arrays(output, output_labels[15:35],
+            output = _check_arrays(output, output_labels[15:35],
                             self.xc_func_sizes, npoints, do_kxc)
-            output = my_check_arrays(output, output_labels[35:70],
+            output = _check_arrays(output, output_labels[35:70],
                             self.xc_func_sizes, npoints, do_lxc)
 
             args.extend([   inp[x] for x in  input_labels])

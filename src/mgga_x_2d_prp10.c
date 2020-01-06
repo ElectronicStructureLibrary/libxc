@@ -25,7 +25,7 @@ const xc_func_info_type xc_func_info_mgga_x_2d_prhg07_prp10 = {
   "PRHG07 with Pittalis-Rasanen-Proetto 2010 correction",
   XC_FAMILY_MGGA,
   {&xc_ref_Pittalis2007_235314, &xc_ref_Pittalis2010_115108, NULL, NULL, NULL},
-  XC_FLAGS_2D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
+  XC_FLAGS_DEVELOPMENT | XC_FLAGS_2D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-23,
   0, NULL, NULL,
   NULL, NULL,

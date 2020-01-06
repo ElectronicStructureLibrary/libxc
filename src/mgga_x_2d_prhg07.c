@@ -24,7 +24,7 @@ const xc_func_info_type xc_func_info_mgga_x_2d_prhg07 = {
   "Pittalis-Rasanen-Helbig-Gross 2007",
   XC_FAMILY_MGGA,
   {&xc_ref_Pittalis2007_235314, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
+  XC_FLAGS_DEVELOPMENT | XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-12,
   0, NULL, NULL,
   NULL, NULL,

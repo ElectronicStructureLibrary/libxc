@@ -152,7 +152,7 @@ endif # COMPILE_FORTRAN
 
 
 CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
-  libxc.f90 xc_funcs.h xc_funcs_worker.h \
+  libxc_inc.f90 libxcf90.f90 xc_funcs.h xc_funcs_worker.h \
   xc_f_inc.c libxc_docs.txt
 
 xc_f.o : xc_f_inc.c

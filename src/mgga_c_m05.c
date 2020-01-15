@@ -94,7 +94,7 @@ const xc_func_info_type xc_func_info_mgga_c_m05 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2005_161103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1.0e-23,
+  1.0e-15,
   1, ext_params, set_ext_params,
   mgga_c_vsxc_init, NULL, 
   NULL, NULL, work_mgga
@@ -111,7 +111,7 @@ const xc_func_info_type xc_func_info_mgga_c_m05_2x = {
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2006_364, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1.0e-23,
+  1.0e-15,
   1, ext_params, set_ext_params,
   mgga_c_vsxc_init, NULL, 
   NULL, NULL, work_mgga
@@ -127,7 +127,7 @@ const xc_func_info_type xc_func_info_mgga_c_dldf = {
   XC_FAMILY_MGGA,
   {&xc_ref_Pernal2009_263201, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  5.0e-23,
+  5.0e-15,
   1, ext_params, set_ext_params,
   mgga_c_vsxc_init, NULL,
   NULL, NULL, work_mgga

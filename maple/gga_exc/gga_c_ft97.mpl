@@ -62,7 +62,7 @@ fss := (rs, gr) ->
 eq15 := mu -> (3 + 2*(sqrt(mu) + mu))/(3 + 6*(sqrt(mu) + mu)):
 
 my_Ei_scaled := x -> my_piecewise3(
-  x < 700, exp(x)*Ei(-x),
+  x < 690, exp(x)*Ei(-x),
   -(x^2 + 4.03640*x + 1.15198)/(x^3 + 5.03627*x^2 + 4.19160*x)
 ):
 

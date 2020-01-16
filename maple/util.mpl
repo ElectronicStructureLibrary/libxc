@@ -17,6 +17,13 @@ m_abs := (x)      -> my_piecewise3(x > 0, x, -x):
 `diff/my_piecewise3` :=
     proc(c, x1, x2, x) my_piecewise3(c, diff(x1, x), diff(x2, x)) end proc:
 
+# Some special functions need special care
+
+my_Ei_scaled := x -> my_piecewise3(
+  x < 200, -exp(x)*Ei(-x),
+  (x^2 + 4.03640*x + 1.15198)/(x^3 + 5.03627*x^2 + 4.19160*x)
+):
+
 
 # a series of useful definitions
 
@@ -108,7 +115,7 @@ else
 end if:
 
 # This is the Stoll decomposition in our language
-lda_stoll_par  := (lda_func, rs, z) -> 
+lda_stoll_par  := (lda_func, rs, z) ->
   (1 + z)/2 * lda_func(rs*(2/(1 + z))^(1/3), 1):
 
 lda_stoll_perp := (lda_func, rs, z) ->

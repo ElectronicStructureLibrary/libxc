@@ -81,6 +81,51 @@ work_mgga(const XC(func_type) *p, size_t np,
         func_pol(p, order, rho, sigma, lapl, tau, OUT_PARAMS);
       } /* polarization */
     }
+
+    /* check for NaNs */
+#ifdef XC_DEBUG
+    {
+      size_t ii;
+      const xc_dimensions *dim = &(p->dim);
+      int is_OK = 1;
+      
+      if(zk != NULL)
+        is_OK = is_OK & isfinite(*zk);
+
+      if(vrho != NULL){
+        for(ii=0; ii < dim->vrho; ii++)
+          is_OK = is_OK && isfinite(vrho[ii]);
+        for(ii=0; ii < dim->vsigma; ii++)
+          is_OK = is_OK && isfinite(vsigma[ii]);
+        if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+          for(ii=0; ii < dim->vlapl; ii++)
+            is_OK = is_OK && isfinite(vlapl[ii]);
+        for(ii=0; ii < dim->vtau; ii++)
+          is_OK = is_OK && isfinite(vtau[ii]);
+      }
+      
+      if(!is_OK){
+        printf("Problem in the evaluation of the functional\n");
+        if(p->nspin == XC_UNPOLARIZED){
+          printf("./xc-get_data %d 1 ", p->info->number);
+          if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+            printf("%le 0.0 %le 0.0 0.0 %le 0.0 %le 0.0\n",
+                   *rho, *sigma, *lapl, *tau);
+          else
+            printf("%le 0.0 %le 0.0 0.0 0.0 0.0 %le 0.0\n",
+                  *rho, *sigma, *tau);
+        }else{
+          printf("./xc-get_data %d 2 ", p->info->number);
+          if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+            printf("%le %le %le %le %le %le %le %le %le\n",
+                   rho[0], rho[1], sigma[0], sigma[1], sigma[2], lapl[0], lapl[1], tau[0], tau[1]);
+          else
+            printf("%le %le %le %le %le 0.0 0.0 %le %le\n",
+                   rho[0], rho[1], sigma[0], sigma[1], sigma[2], tau[0], tau[1]);
+        }
+      }
+    }
+#endif
     
     internal_counters_mgga_next(&(p->dim), 0, &rho, &sigma, &lapl, &tau, &zk, MGGA_OUT_PARAMS_NO_EXC(&));
   }   /* for(ip) */

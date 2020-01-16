@@ -132,7 +132,7 @@ const xc_func_info_type xc_func_info_gga_c_gam = {
   XC_FAMILY_GGA,
   {&xc_ref_Yu2015_12146, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
-  1e-23,
+  1e-15,
   0, NULL, NULL,
   gga_c_bmk_init, NULL,
   NULL, work_gga, NULL

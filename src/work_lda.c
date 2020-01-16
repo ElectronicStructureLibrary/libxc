@@ -84,6 +84,34 @@ work_lda(const XC(func_type) *p, size_t np, const double *rho,
       } /* polarization */
     }
     
+    /* check for NaNs */
+#ifdef XC_DEBUG
+    {
+      size_t ii;
+      const xc_dimensions *dim = &(p->dim);
+      int is_OK = 1;
+      
+      if(zk != NULL)
+        is_OK = is_OK & isfinite(*zk);
+
+      if(vrho != NULL){
+        for(ii=0; ii < dim->vrho; ii++)
+          is_OK = is_OK && isfinite(vrho[ii]);
+      }
+      
+      if(!is_OK){
+        printf("Problem in the evaluation of the functional\n");
+        if(p->nspin == XC_UNPOLARIZED){
+          printf("./xc-get_data %d 1 %le 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0\n",
+                 p->info->number, *rho);
+        }else{
+          printf("./xc-get_data %d 2 %le %le 0.0 0.0 0.0 0.0 0.0 0.0 0.0\n",
+                 p->info->number, rho[0], rho[1]);
+        }
+      }
+    }
+#endif
+    
     internal_counters_lda_next(&(p->dim), 0, &rho, &zk, LDA_OUT_PARAMS_NO_EXC(&));
   }   /* for(ip) */
 

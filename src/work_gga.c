@@ -82,6 +82,36 @@ work_gga(const XC(func_type) *p, size_t np,
       } /* polarization */
     }
     
+    /* check for NaNs */
+#ifdef XC_DEBUG
+    {
+      size_t ii;
+      const xc_dimensions *dim = &(p->dim);
+      int is_OK = 1;
+      
+      if(zk != NULL)
+        is_OK = is_OK & isfinite(*zk);
+
+      if(vrho != NULL){
+        for(ii=0; ii < dim->vrho; ii++)
+          is_OK = is_OK && isfinite(vrho[ii]);
+        for(ii=0; ii < dim->vsigma; ii++)
+          is_OK = is_OK && isfinite(vsigma[ii]);
+      }
+      
+      if(!is_OK){
+        printf("Problem in the evaluation of the functional\n");
+        if(p->nspin == XC_UNPOLARIZED){
+          printf("./xc-get_data %d 1 %le 0.0 %le 0.0 0.0 0.0 0.0 0.0 0.0\n",
+                 p->info->number, *rho, *sigma);
+        }else{
+          printf("./xc-get_data %d 2 %le %le %le %le %le 0.0 0.0 0.0 0.0\n",
+                 p->info->number, rho[0], rho[1], sigma[0], sigma[1], sigma[2]);
+        }
+      }
+    }
+#endif
+
     internal_counters_gga_next(&(p->dim), 0, &rho, &sigma, &zk, GGA_OUT_PARAMS_NO_EXC(&));
   }   /* for(ip) */
 

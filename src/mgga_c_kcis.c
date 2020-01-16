@@ -52,7 +52,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_b0kcis = {
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Toulouse2002_10465, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   0, NULL, NULL,
   xc_hyb_mgga_xc_b0kcis_init, NULL, 
   NULL, NULL, work_mgga

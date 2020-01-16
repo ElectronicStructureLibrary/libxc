@@ -16,7 +16,7 @@ $define xc_dimensions_2d
 prhg07_C := (x, u, t) -> (u - 4*t + x^2/2)/4:
 
 (* This is the solution of solve((y-1)*exp(y) = x/Pi) *)
-prhg07_y := x -> LambertW(m_max(x/Pi, -1) * exp(-1)) + 1:
+prhg07_y := x -> LambertW(m_max(x/Pi, -0.9999999999) * exp(-1)) + 1:
 
 prhg07_v := y -> Pi/X_FACTOR_2D_C * BesselI(0, y/2):
 

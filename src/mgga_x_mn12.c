@@ -179,7 +179,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_mn15 = {
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Yu2016_5032, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-23,
   0, NULL, NULL,
   mgga_x_mn12_init, NULL,
   NULL, NULL, work_mgga,

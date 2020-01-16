@@ -9,8 +9,8 @@
 (* type: gga_exc *)
 
 C0 := (1 - log(2))/(2*Pi^2): (* Equation (9) *)
-C1 := 4*C0/3:                  (* Equations (13), (28), (33) *)
-C2 := RS_FACTOR:                   (* Equation (8) *)
+C1 := 4*C0/3:                (* Equations (13), (28), (33) *)
+C2 := RS_FACTOR:             (* Equation (8) *)
 C3 := C2/3:
 
 (* several cutoffs *)
@@ -61,13 +61,8 @@ fss := (rs, gr) ->
 (* Equation (15) *)
 eq15 := mu -> (3 + 2*(sqrt(mu) + mu))/(3 + 6*(sqrt(mu) + mu)):
 
-my_Ei_scaled := x -> my_piecewise3(
-  x < 690, exp(x)*Ei(-x),
-  -(x^2 + 4.03640*x + 1.15198)/(x^3 + 5.03627*x^2 + 4.19160*x)
-):
-
 f_eab := mu ->
-  C0*(my_Ei_scaled(mu)*(1 + 2*mu*eq15(mu)) + 2*eq15(mu)):
+  C0*(-my_Ei_scaled(mu)*(1 + 2*mu*eq15(mu)) + 2*eq15(mu)):
 
 (* Equation (13) *)
 (*

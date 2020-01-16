@@ -21,8 +21,10 @@ hjs_DD :=  0.609650:
 
 hjs_fH := s -> add(params_a_a[i]*s^(1+i), i=1..6)/(1 + add(params_a_b[i]*s^i, i=1..9)):
 
-hjs_zeta   := s -> s^2*hjs_fH(s):
-hjs_eta    := s -> hjs_AA + hjs_zeta(s):
+(* The m_max functions are necessary as in some cases the arguments of the
+   sqrt become negative *)
+hjs_zeta   := s -> m_max(s^2*hjs_fH(s), 1e-10):
+hjs_eta    := s -> m_max(hjs_AA + hjs_zeta(s), 1e-10):
 hjs_lambda := s -> hjs_DD + hjs_zeta(s):
 hjs_chi    := (rs, z, s) -> nu(rs, z)/sqrt(hjs_lambda(s) + nu(rs, z)^2):
 

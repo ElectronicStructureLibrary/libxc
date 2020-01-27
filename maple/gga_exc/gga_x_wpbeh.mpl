@@ -121,10 +121,6 @@ term5 := (w, s) -> -w^5*(
 t10 := (w, s) ->
   1/2*wpbeh_A*log(aux4(w, s)/aux6(w, s)):
 
-my_Ei_scaled := x -> my_piecewise3(
-  x < expfcutoff, exp(x)*Ei(-x),
-  -(x^2 + 4.03640*x + 1.15198)/(x^3 + 5.03627*x^2 + 4.19160*x)
-):
 my_erfc_scaled := x -> my_piecewise3(
   x < expfcutoff, Pi*exp(x)*erfc(sqrt(x)),
   sqrt(Pi/x)*(1 - 1/(2*x) + 3/(4*x^2))
@@ -132,7 +128,7 @@ my_erfc_scaled := x -> my_piecewise3(
 
 (* Use simple gaussian approximation for large w *)
 term1_largew := (w, s) ->
-  -1/2*wpbeh_A*(my_Ei_scaled(aux5(w, s)) + log(aux6(w, s)) - log(aux4(w, s))):
+  -1/2*wpbeh_A*(-xc_E1_scaled(aux5(w, s)) + log(aux6(w, s)) - log(aux4(w, s))):
 
 (* For everything else use the full blown expression *)
 ea1 := -1.128223946706117:
@@ -158,7 +154,7 @@ np2 := w ->
   - 6561*ea8*w^8/(256*wpbeh_A^3):
 
 t1 := (w, s) ->
-  1/2*(np1(w)*my_erfc_scaled(aux5(w, s)) + np2(w)*my_Ei_scaled(aux5(w, s))):
+  1/2*(np1(w)*my_erfc_scaled(aux5(w, s)) - np2(w)*xc_E1_scaled(aux5(w, s))):
 
 f2 := (w, s) ->
   1/2*ea1*sqrt(Pi)*wpbeh_A/sqrt(aux6(w, s)):

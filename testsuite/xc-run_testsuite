@@ -43,6 +43,9 @@ for dir in $(ls -d $srcdir/regression/*); do
   for i in $(ls $dir/*.bz2 | LANG=C sort); do
     refname=$(basename ${i} .bz2)
     func=${refname%%.*}
+    #if [ $func != "gga_x_wpbeh" ]; then
+    #  continue
+    #fi
     testcase=${refname#*.}
     system=${testcase%%.*}
     order=${testcase##*.}

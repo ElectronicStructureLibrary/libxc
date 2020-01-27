@@ -12,6 +12,11 @@
  * @brief This file is to be included in GGA functionals.
  */
 
+#ifdef DEBUG
+#define __USE_GNU
+#include <fenv.h>
+#endif
+
 /* hack to avoid compiler warnings */
 #define NOARG
 
@@ -42,7 +47,11 @@ work_gga(const XC(func_type) *p, size_t np,
   if(v3rho3 != NULL) order = 3;
 
   if(order < 0) return;
-  
+
+#ifdef XC_DEBUG
+  feenableexcept(FE_DIVBYZERO | FE_INVALID);
+#endif
+    
 #ifdef HAVE_CUDA
 
   //make a copy of 'p' since it might be in host-only memory

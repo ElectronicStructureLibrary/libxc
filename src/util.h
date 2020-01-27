@@ -134,6 +134,7 @@
 #define Heaviside(x) (((x) >= 0) ? 1.0 : 0.0)
 GPU_FUNCTION double LambertW(double z);
 GPU_FUNCTION double xc_dilogarithm(const double x);
+#define xc_E1_scaled(x) xc_expint_e1_impl(x, 1)
 
 /* we define this function here, so it can be properly inlined by all compilers */
 GPU_FUNCTION

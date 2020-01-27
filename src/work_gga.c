@@ -12,7 +12,7 @@
  * @brief This file is to be included in GGA functionals.
  */
 
-#ifdef DEBUG
+#ifdef XC_DEBUG
 #define __USE_GNU
 #include <fenv.h>
 #endif

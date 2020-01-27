@@ -21,7 +21,7 @@ s_scaling_1 := s -> my_piecewise3(
 (* first version of the scaling by TM Henderson, apparently used by Gaussian *)
 s_scaling_2 := s -> my_piecewise3(
   s < 1,  s,
-  m_min(s, 15) - log(1 + exp(m_min(s, 15) - smax))
+  my_piecewise3(s > 15, smax, m_min(s, 15) - log(1 + exp(m_min(s, 15) - smax)))
 ):
 
 (* second version of the scaling by TM Henderson *)

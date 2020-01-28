@@ -79,6 +79,7 @@ set_ext_params_s12h(xc_func_type *p, const double *ext_params)
   p->cam_omega = 0.0;
 }
 
+#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_s12.c"
 #include "work_gga.c"
 

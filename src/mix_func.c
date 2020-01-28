@@ -112,10 +112,10 @@ xc_mix_func(const xc_func_type *func, size_t np,
       have_lxc = 0;
   }
   /* Then, for the actual checks */
-  assert(have_lxc == (func->info->flags & XC_FLAGS_HAVE_LXC));
-  assert(have_kxc == (func->info->flags & XC_FLAGS_HAVE_KXC));
-  assert(have_fxc == (func->info->flags & XC_FLAGS_HAVE_FXC));
-  assert(have_vxc == (func->info->flags & XC_FLAGS_HAVE_VXC));
+  assert(have_lxc == (func->info->flags & XC_FLAGS_I_HAVE_LXC));
+  assert(have_kxc == (func->info->flags & XC_FLAGS_I_HAVE_KXC));
+  assert(have_fxc == (func->info->flags & XC_FLAGS_I_HAVE_FXC));
+  assert(have_vxc == (func->info->flags & XC_FLAGS_I_HAVE_VXC));
 
   /* Check compatibility of the individual components */
   for(ii=0; ii<func->n_func_aux; ii++){

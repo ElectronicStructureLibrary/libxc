@@ -105,6 +105,7 @@ message(STATUS "Libxc SO Full ${${PROJECT_NAME}_SOVERSION} Major ${${PROJECT_NAM
 set(raw_sources_list
   bessel.c
   expint_e1.c
+  faddeeva.c
   func_info.c
   func_reference.c
   functionals.c

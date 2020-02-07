@@ -172,6 +172,8 @@ GPU_FUNCTION static inline double expint_Ei(const double x)         { return -xc
 #define Ei(x) expint_Ei(x)
 GPU_FUNCTION static inline double expint_Ei_scaled(const double x)  { return -xc_expint_e1_impl(-x, 1); }
 
+GPU_FUNCTION double xc_erfcx(double x);
+
 /* integration */
 typedef void integr_fn(double *x, int n, void *ex);
 

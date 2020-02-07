@@ -17,14 +17,14 @@ m_abs := (x)      -> my_piecewise3(x > 0, x, -x):
 `diff/my_piecewise3` :=
     proc(c, x1, x2, x) my_piecewise3(c, diff(x1, x), diff(x2, x)) end proc:
 
-# This is the derivative of xc_Ei_scaled = -exp(x)*Ei(-x) = exp(x)E1(x)
+# This is the derivative of xc_E1_scaled = -exp(x)*Ei(-x) = exp(x)E1(x)
 
 `diff/xc_E1_scaled` :=
   proc(y, x) (xc_E1_scaled(y) - 1/y) * diff(y, x) end proc:
 
-# The derivative of xc_erfcx = exp(x)*erfc(x^2) = xc_erfcx(x) - 2*exp(x-x^2)/sqrt(Pi)
+# The derivative of xc_erfcx = exp(x^2)*erfc(x) = 2*x*xc_erfcx(x) - 2/sqrt(Pi)
 `diff/xc_erfcx` :=
-  proc(y, x) (xc_erfcx(y) - 2*exp(y - y^2)/sqrt(Pi)) * diff(y, x) end proc:
+  proc(y, x) (2*y*xc_erfcx(y) - 2/sqrt(Pi)) * diff(y, x) end proc:
 
 
 # a series of useful definitions

@@ -18,6 +18,7 @@
 #define XC_HYB_GGA_XC_BHANDH    435  /* Becke half-and-half                              */
 #define XC_HYB_GGA_XC_BHANDHLYP 436  /* Becke half-and-half with B88 exchange            */
 #define XC_HYB_GGA_XC_MPWLYP1M  453  /* MPW with 1 par. for metals/LYP                   */
+#define XC_HYB_GGA_XC_BLYP35    499  /* Becke 1-parameter mixture for mixed-valence systems */
 
 void
 xc_hyb_gga_xc_b1wc_init(xc_func_type *p)
@@ -252,6 +253,33 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_bhandhlyp = {
   1e-32,
   0, NULL, NULL,
   xc_hyb_gga_xc_bhandhlyp_init,
+  NULL, NULL, NULL, NULL
+};
+
+
+void
+xc_hyb_gga_xc_blyp35_init(xc_func_type *p)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_LYP};
+  static double funcs_coef[2] = {0.65, 1.0};
+
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+  p->cam_alpha = 0.35;
+}
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_hyb_gga_xc_blyp35 = {
+  XC_HYB_GGA_XC_BLYP35,
+  XC_EXCHANGE_CORRELATION,
+  "BLYP35",
+  XC_FAMILY_HYB_GGA,
+  {&xc_ref_Renz2009_16292, &xc_ref_Kaupp2011_16973, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-32,
+  0, NULL, NULL,
+  xc_hyb_gga_xc_blyp35_init,
   NULL, NULL, NULL, NULL
 };
 

@@ -88,6 +88,7 @@ system "cd $dir && latex $$.tex && bibtex $$.aux && latex $$.tex && latex $$.tex
    "Journal of Computational Methods in Science and Engineering" => "J. Comput. Methods Sci. Eng.",
    "Journal of the Physical Society of Japan" => "J. Phys. Soc. Jpn.",
    "Physics Letters A" => "Phys. Lett. A",
+   "Journal of the American Chemical Society" => "J. Am. Chem. Soc.",
    "Journal of Molecular Structure: THEOCHEM" => "J. Mol. Struct.: THEOCHEM",
    "Computational and Theoretical Chemistry" => "Comput. Theor. Chem.",
    "Journal of Photochemistry and Photobiology A: Chemistry" => "J. Photochem. Photobiol., A",

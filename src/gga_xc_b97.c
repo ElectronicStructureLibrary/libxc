@@ -428,7 +428,7 @@ static const func_params_type ext_params_par_b97_1p[] = {
 
 static const func_params_type ext_params_par_hle16[] = {
   { "_cx0",     1.3523, "u^0 coefficient for exchange"},
-  { "_cx1", -0.6479238, "u^1 coefficient for exchange"},
+  { "_cx1", -0.64792375, "u^1 coefficient for exchange"},
   { "_cx2",   4.282025, "u^2 coefficient for exchange"},
   { "_cx3", -3.2862625, "u^3 coefficient for exchange"},
   { "_cx4",  2.8606875, "u^4 coefficient for exchange"},

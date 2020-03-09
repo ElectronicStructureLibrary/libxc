@@ -169,11 +169,15 @@ module xc_f90_lib_m
   integer(c_int), parameter, public :: &
     XC_GGA_X_BGCP           =  38,     &
     XC_GGA_C_BGCP           =  39,     &
+    XC_GGA_C_BCGP           =  39,     &
     XC_GGA_C_VPBE           =  83,     &
     XC_GGA_XC_LB            = 160,     &
     XC_MGGA_C_CC06          = 229,     &
     XC_GGA_K_ABSR1          = 506,     &
-    XC_GGA_K_ABSR2          = 507
+    XC_GGA_K_ABSR2          = 507,     &
+    XC_LDA_C_LP_A           = 547,     &
+    XC_LDA_C_LP_B           = 548,     &
+    XC_MGGA_C_LP90          = 564
 
   !----------------------------------------------------------------
   interface

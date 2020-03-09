@@ -24,11 +24,7 @@ lda_x_1d_exponential_init(xc_func_type *p)
 
 static inline double FT_inter(double x)
 {
-  double x2 = x*x;
-  if(x2 < 200.0)
-    return expint_e1(x2)*exp(x2);
-  else
-    return  (x*(x + 4.03640) + 1.15198)/(x*(x*(x + 5.03627) + 4.19160));
+  return xc_E1_scaled(x*x);
 }
 
 static void func1(double *x, int n, void *dummy)

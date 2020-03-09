@@ -17,6 +17,10 @@
    or
      Ei(X) = -E1(-X).
 
+   if scale = 1, the function is multiplied by exp(X), i.e. the function
+   calculated is
+     exp(X) E1(X) = -exp(x) Ei(-X)
+
    Based on the SLATEC routine by W. Fullerton and on the GSL.
 */
 

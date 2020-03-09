@@ -36,7 +36,7 @@ xc_sanity_LDFLAGS =
 lib_LTLIBRARIES = libxc.la
 
 libxc_la_FUNC_SOURCES = \
-	special_functions.c bessel.c expint_e1.c integrate.c		\
+	special_functions.c bessel.c expint_e1.c faddeeva.c integrate.c		\
 	math_brent.c util.c mix_func.c func_info.c functionals.c	\
 	version.c func_reference.c \
 	lda.c \

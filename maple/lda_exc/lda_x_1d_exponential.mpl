@@ -21,7 +21,7 @@ $define xc_dimensions_1d
 `diff/int1` := proc(g, x) diff(g, x) * f_inter(g)   end proc:
 `diff/int2` := proc(g, x) diff(g, x) * f_inter(g)*g end proc:
 
-f_inter := x -> my_Ei_scaled(x^2):
+f_inter := x -> xc_E1_scaled(x^2):
 
 x1d_R := (rs, z) -> Pi*params_a_beta/(2*rs):
 x1d_f_spin := (rs, z) ->

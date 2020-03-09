@@ -121,11 +121,6 @@ term5 := (w, s) -> -w^5*(
 t10 := (w, s) ->
   1/2*wpbeh_A*log(aux4(w, s)/aux6(w, s)):
 
-my_erfc_scaled := x -> my_piecewise3(
-  x < expfcutoff, Pi*exp(x)*erfc(sqrt(x)),
-  sqrt(Pi/x)*(1 - 1/(2*x) + 3/(4*x^2))
-):
-
 (* Use simple gaussian approximation for large w *)
 term1_largew := (w, s) ->
   -1/2*wpbeh_A*(-xc_E1_scaled(aux5(w, s)) + log(aux6(w, s)) - log(aux4(w, s))):
@@ -154,7 +149,7 @@ np2 := w ->
   - 6561*ea8*w^8/(256*wpbeh_A^3):
 
 t1 := (w, s) ->
-  1/2*(np1(w)*my_erfc_scaled(aux5(w, s)) - np2(w)*xc_E1_scaled(aux5(w, s))):
+  1/2*(np1(w)*Pi*xc_erfcx(sqrt(aux5(w, s))) - np2(w)*xc_E1_scaled(aux5(w, s))):
 
 f2 := (w, s) ->
   1/2*ea1*sqrt(Pi)*wpbeh_A/sqrt(aux6(w, s)):
@@ -185,7 +180,7 @@ t2t9 := (w, s) ->
 
 term1 := (w, s) -> my_piecewise3(
   w > wcutoff, term1_largew(w, s),
-  t1(w, s) + t2t9(w, s) + t10(w, s)
+  t1(m_min(w, wcutoff), s) + t2t9(m_min(w, wcutoff), s) + t10(m_min(w, wcutoff), s)
 ):
 
 f_wpbeh0 := (w, s) -> - 8/9 *(
@@ -193,7 +188,7 @@ f_wpbeh0 := (w, s) -> - 8/9 *(
 ):
 
 f_wpbeh := (rs, z, x) ->
-  f_wpbeh0(nu(rs, z), s_scaling_2(X2S*x)):
+  f_wpbeh0(nu(rs, z), m_max(1e-15, s_scaling_2(X2S*x))):
 
 f  := (rs, z, xt, xs0, xs1) ->
   gga_exchange_nsp(f_wpbeh, rs, z, xs0, xs1):

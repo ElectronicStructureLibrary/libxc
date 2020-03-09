@@ -20,13 +20,12 @@ d := 11.02e-3/RS_FACTOR:
 if evalb(Polarization = "unpol") then
     f_num := z -> a:
 else
-    f_num := z -> a*sqrt(1 - m_abs(z)^(5/3)):
+    (* without the max function we get a float exception for derivatives > 2 *)
+    f_num := z -> a*sqrt(1 -  m_max(m_abs(z), 1e-10)^(5/3)):
 end if:
 f_den := (rs, xt) -> b + c*xt^(51/16) + d*xt^2*rs + rs:
 
 (* Equation (25) *)
-fa := (rs, z, xt, xs0, xs1) ->
-  f_num(z)/f_den(rs, xt):
-
 f := (rs, z, xt, xs0, xs1) ->
   f_num(z)/f_den(rs, xt):
+

@@ -24,8 +24,12 @@ gg99_r_branch1 := x -> arcsinh( (gg99_a * x * sqrt(x^2 + (gg99_b + sqrt(gg99_b^2
 
 gg99_r_branch2 := x-> arcsinh(sqrt(x^3*(3/gg99_b)*cos(arctan(sqrt(1/(gg99_b^2)*x^6-1))/3))):
 
-(* Glue the pieces together *)
-gg99_r := x -> my_piecewise3( x < gg99_b^(1/3), gg99_r_branch1(x), gg99_r_branch2(x)):
+(* Glue the pieces together. The min and max are required
+   to avoid float exceptions *)
+gg99_r := x -> my_piecewise3(x < gg99_b^(1/3),
+  gg99_r_branch1(m_min(x, gg99_b^(1/3) - 1e-10)),
+  gg99_r_branch2(m_max(x, gg99_b^(1/3) + 1e-10))
+  ):
 
 (* Equation 21 *)
 gg99_f0 := r -> (Pi^2 - 12*r*log(1 + exp(-2*r)) +

@@ -9,30 +9,30 @@
 
 /* These are old names kept for compatibility */
 #define XC_GGA_X_BGCP          38
-#define XC_GGA_C_BGCP          39
+#define XC_GGA_C_BGCP          39 /* renamed to gga_c_acgga by request of authors */
+#define XC_GGA_C_BCGP          39 /* This was a misspel */
 #define XC_GGA_C_VPBE          83
-#define XC_MGGA_C_CC06        229
 #define XC_GGA_XC_LB          160
+#define XC_MGGA_C_CC06        229
 #define XC_GGA_K_ABSR1        506
 #define XC_GGA_K_ABSR2        507
-#define XC_HYB_GGA_XC_mPW1PW  418
-#define XC_HYB_GGA_XC_mPW1K   405
 #define XC_LDA_C_LP_A         547 /* the next 3 functionals should be XC, not C */
 #define XC_LDA_C_LP_B         548
 #define XC_MGGA_C_LP90        564
-#define XC_GGA_C_BCGP          39 /* renamed to gga_c_acgga by request of authors */
 
 /* These were converted to all caps */
 #define XC_LDA_C_vBH           17
-#define XC_GGA_X_PBEpow       539
-#define XC_HYB_GGA_XC_B3LYPs  459
+#define XC_HYB_GGA_XC_B97_1p  266
+#define XC_HYB_GGA_XC_mPW1K   405
+#define XC_HYB_GGA_XC_mPW1PW  418
 #define XC_HYB_GGA_XC_SB98_1a 420
 #define XC_HYB_GGA_XC_SB98_1b 421
 #define XC_HYB_GGA_XC_SB98_1c 422
 #define XC_HYB_GGA_XC_SB98_2a 423
 #define XC_HYB_GGA_XC_SB98_2b 424
 #define XC_HYB_GGA_XC_SB98_2c 425
-#define XC_HYB_GGA_XC_B97_1p  266
+#define XC_HYB_GGA_XC_B3LYPs  459
+#define XC_GGA_X_PBEpow       539
 
 /* These are functionals that were removed */
 #define XC_GGA_XC_B97      167 /* Becke 97                                 */

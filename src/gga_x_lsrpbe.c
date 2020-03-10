@@ -44,8 +44,6 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 
   /* adapt used mu value to yield wanted mu near origin (eq 9) */
   params-> mu += params->alpha*(1.0 + params->kappa);
-
-  printf("mu = %.10f\n",params->mu);
 }
 
 #include "decl_gga.h"

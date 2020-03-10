@@ -116,7 +116,7 @@ while($_=<BBL>){
 
       $item =~ s/\\bibf*namefont\s*\{(.*?)\}/$1/g;
       $item =~ s/\\bibinfo\s*\{.*?\}\s*\{(.*?)\}/$1/g;
-      $item =~ s/\\bibinfo\s*\{editor \{(.*?)\}(.*?)\}/$1$2/g; # result of nested bibinfos for book with editor
+      $item =~ s/\\bibinfo\s*\{editor\s+\{(.*?)\}(.*?)\}/$1$2/g; # result of nested bibinfos for book with editor
       $item =~ s/\\bibfield\s*\{.*?\}\s*\{(.*?)\}/$1/g;
       $item =~ s/\\href.*?\{.*?\}\s*\{(.*?)\}/$1/g;
       $item =~ s/,\\ \\Eprint.*?\{.*?\}\s*\{(http:\/\/.*?)\}\s*//g; # wipe URL that is not arxiv
@@ -125,6 +125,7 @@ while($_=<BBL>){
 
       $item =~ s/\\textbf\s*\{(.*?)\}/$1/g;
       $item =~ s/\\emph\s*\{(.*?)\}/$1/g;
+      $item =~ s/\\enquote\s*\{(.*?)\}/$1/g;
 
       $item =~ s/\\ / /g;
       $item =~ s/~/ /g;

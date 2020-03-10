@@ -167,6 +167,7 @@ module xc_f90_lib_m
 
   ! These are old names kept for compatibility
   integer(c_int), parameter, public :: &
+    XC_LDA_X_1D             =  21,     &
     XC_GGA_X_BGCP           =  38,     &
     XC_GGA_C_BGCP           =  39,     &
     XC_GGA_C_BCGP           =  39,     &

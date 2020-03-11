@@ -30,9 +30,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_mvsh = {
   "MVSh hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Sun2015_685, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_I_HAVE_LXC,
   1e-32,
   0, NULL, NULL,
-  hyb_mgga_x_mvsh_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_mgga_x_mvsh_init, NULL,
+  NULL, NULL, NULL /* this is taken care of by the generic routine */
 };

@@ -28,6 +28,7 @@ XC_FLAGS_HAVE_VXC = (1 << 1)  # = 2
 XC_FLAGS_HAVE_FXC = (1 << 2)  # = 4
 XC_FLAGS_HAVE_KXC = (1 << 3)  # = 8
 XC_FLAGS_HAVE_LXC = (1 << 4)  # = 16
+XC_FLAGS_HAVE_ALL = 15 # The most common case
 XC_FLAGS_1D = (1 << 5)  # = 32
 XC_FLAGS_2D = (1 << 6)  # = 64
 XC_FLAGS_3D = (1 << 7)  # = 128

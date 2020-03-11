@@ -143,6 +143,7 @@ module xc_f90_lib_m
     XC_FLAGS_HAVE_FXC        =     4,   &
     XC_FLAGS_HAVE_KXC        =     8,   &
     XC_FLAGS_HAVE_LXC        =    16,   &
+    XC_FLAGS_HAVE_ALL        =    15,   & ! The most common case
     XC_FLAGS_1D              =    32,   &
     XC_FLAGS_2D              =    64,   &
     XC_FLAGS_3D              =   128,   &

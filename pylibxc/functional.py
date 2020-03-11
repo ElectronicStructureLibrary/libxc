@@ -126,7 +126,7 @@ def _check_arrays(current_arrays, fields, sizes, factor, required):
     for label in fields:
         if required:
             size = sizes[label]
-            current_arrays[label] = np.zeros((size, factor))
+            current_arrays[label] = np.zeros((factor, size))
         else:
             current_arrays[label] = None # np.empty((1))
 

@@ -63,7 +63,8 @@ extern "C" {
 
   /* This is the case for most functionals in libxc */
 #define XC_FLAGS_HAVE_ALL         (XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | \
-                                   XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC)
+                                   XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC | \
+                                   XC_FLAGS_HAVE_LXC)
   
   /* This magic value means use default parameter */
 #define XC_EXT_PARAMS_DEFAULT   -999998888

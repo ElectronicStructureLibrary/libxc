@@ -66,7 +66,8 @@
 #endif
 
 #define XC_FLAGS_I_HAVE_ALL (XC_FLAGS_HAVE_EXC   | XC_FLAGS_I_HAVE_VXC | \
-                             XC_FLAGS_I_HAVE_FXC | XC_FLAGS_I_HAVE_KXC)
+                             XC_FLAGS_I_HAVE_FXC | XC_FLAGS_I_HAVE_KXC | \
+                             XC_FLAGS_I_HAVE_LXC)
 
 /* Useful mathematical expressions */
 #ifndef M_E

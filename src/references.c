@@ -1924,6 +1924,13 @@ func_reference_type xc_ref_Song2007_154109 = {
 };
 
 
+func_reference_type xc_ref_Song2008_184113 = {
+  "J.-W. Song, M. A. Watson, A. Nakata, and K. Hirao, J. Chem. Phys. 129, 184113 (2008)",
+  "10.1063/1.3010372",
+  "@article{Song2008_184113,\nauthor = {Song,Jong-Won  and Watson,Mark A.  and Nakata,Ayako  and Hirao,Kimihiko },\ntitle = {Core-excitation energy calculations with a long-range corrected hybrid exchange-correlation functional including a short-range Gaussian attenuation (LCgau-BOP)},\njournal = {The Journal of Chemical Physics},\nvolume = {129},\nnumber = {18},\npages = {184113},\nyear = {2008},\ndoi = {10.1063/1.3010372},\nURL = {https://doi.org/10.1063/1.3010372},\n}"
+};
+
+
 func_reference_type xc_ref_Staroverov2003_12129 = {
   "V. N. Staroverov, G. E. Scuseria, J. Tao, and J. P. Perdew, J. Chem. Phys. 119, 12129 (2003)",
   "10.1063/1.1626543",

@@ -285,6 +285,7 @@ extern func_reference_type xc_ref_Seth2012_901;
 extern func_reference_type xc_ref_Seth2013_2286;
 extern func_reference_type xc_ref_Shao2003_4807;
 extern func_reference_type xc_ref_Slater1951_385;
+extern func_reference_type xc_ref_Song2007_154109;
 extern func_reference_type xc_ref_Staroverov2003_12129;
 extern func_reference_type xc_ref_Stephens1994_11623;
 extern func_reference_type xc_ref_Stewart1995_4337;

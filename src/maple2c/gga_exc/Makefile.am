@@ -28,5 +28,5 @@ gga_c_p86.c        gga_k_llp.c       gga_xc_b97.c        gga_x_lv_rpw86.c    gga
 gga_c_pbe.c        gga_k_meyer.c     gga_x_chachiyo.c    gga_x_mpbe.c        gga_x_wc.c        \
 gga_c_pbeloc.c     gga_k_mpbe.c      gga_xc_th1.c        gga_x_n12.c         gga_x_wpbeh.c     \
 gga_c_pbe_vwn.c    gga_k_ol1.c       gga_xc_th2.c        gga_x_ncap.c        hyb_gga_xc_wb97.c \
-gga_c_pw91.c       gga_k_ol2.c       gga_xc_th3.c        gga_x_ol2.c
+gga_c_pw91.c       gga_k_ol2.c       gga_xc_th3.c        gga_x_ol2.c         gga_x_lcgau.c
 

@@ -27,7 +27,8 @@ lcgau_arg := (rs, z, xs) ->
 (* Eq. 4 + Eq. 8 *)
 lcgau_f := (rs, z, xs) ->  b88_f(xs) * (
   + attenuation_erf(lcgau_arg(rs, z, xs))
-  +  params_a_k * attenuation_gau2(lcgau_arg(rs, z, xs))
+  +  params_a_k1 * attenuation_gau2(lcgau_arg(rs, z, xs), params_a_a1)
+  +  params_a_k2 * attenuation_gau2(lcgau_arg(rs, z, xs), params_a_a2)
   ):
 
 f := (rs, zeta, xt, xs0, xs1) -> gga_exchange_nsp(lcgau_f, rs, zeta, xs0, xs1):

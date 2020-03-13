@@ -10,9 +10,10 @@
 
 #define XC_GGA_X_LCGAU 708      /* Long-range Gaussian */
 #define XC_GGA_X_LCGAU_CORE 709 /* Long-range Gaussian fitted to core excitations */
+#define XC_GGA_X_LC2GAU 710     /* Long-range Gaussian 2 */
 
 typedef struct{
-  double a, k;
+  double a1, k1, a2, k2;
 } gga_x_lcgau_params;
 
 static void 
@@ -30,8 +31,17 @@ gga_x_lgau_init(xc_func_type *p)
     break;
   case XC_GGA_X_LCGAU_CORE:
     p->cam_omega = 0.42;
-    params->a    = 0.0335;
-    params->k    = 5.9;
+    params->a1   = 0.0335;
+    params->k1   = -5.9;
+    params->a2   = 0.0335;
+    params->k2   = 0.0;
+    break;
+  case XC_GGA_X_LC2GAU:
+    p->cam_omega = 0.42;
+    params->a1   = 0.012;
+    params->k1   = -100.0;
+    params->a2   = 0.01046;
+    params->k2   = 101.0;
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_lcgau\n");
@@ -41,8 +51,10 @@ gga_x_lgau_init(xc_func_type *p)
 
 static const func_params_type ext_params[] = {
   {"_omega", 0.42, "Screening parameter"},
-  {"_a", 0.011, "1/a multiplies the exponent of the exponential"},
-  {"_k", 18.0, "prefactor"}
+  {"_a1", 0.011, "1/a multiplies the exponent of the exponential"},
+  {"_k1", -18.0, "prefactor"},
+  {"_a2", 0.011, "1/a multiplies the exponent of the exponential"},
+  {"_k2", 0.0, "prefactor"}
 };
 
 static void 
@@ -54,8 +66,10 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params = (gga_x_lcgau_params *) (p->params);
 
   p->cam_omega = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->a = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->k = get_ext_param(p->info->ext_params, ext_params, 2);
+  params->a1 = get_ext_param(p->info->ext_params, ext_params, 1);
+  params->k1 = get_ext_param(p->info->ext_params, ext_params, 2);
+  params->a2 = get_ext_param(p->info->ext_params, ext_params, 3);
+  params->k2 = get_ext_param(p->info->ext_params, ext_params, 4);
 }
 
 #include "decl_gga.h"
@@ -88,6 +102,23 @@ const xc_func_info_type xc_func_info_gga_x_lcgau_core = {
   "Long-range Gaussian fitted to core excitations",
   XC_FAMILY_GGA,
   {&xc_ref_Song2008_184113, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-8,
+  0, NULL, NULL,
+  gga_x_lgau_init, NULL, 
+  NULL, work_gga, NULL
+};
+
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_gga_x_lc2gau = {
+  XC_GGA_X_LC2GAU,
+  XC_EXCHANGE,
+  "Long-range Gaussian 2",
+  XC_FAMILY_GGA,
+  {&xc_ref_Song2009_144108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-8,
   0, NULL, NULL,

@@ -75,7 +75,7 @@ my %commands = (
 if ($commands{$config{"functype"}}) {
   $commands{$config{"functype"}}->();
 } else {
-  die "No such type: $string\n";
+  die "No such type: ".$config{"functype"}."\n";
 } 
 
 #####################################################################

@@ -33,6 +33,15 @@ att_gau_aux2 := a -> exp(-3/(4*a^2)):
 attenuation_erf_gau := a ->
   8/3*a*(att_gau_aux1(a) - 2*sqrt(3)*a + 16*a^3/sqrt(27) + (2*a/sqrt(3) - 16*a^3/sqrt(27))*att_gau_aux2(a)):
 
+(* erf_gau2
+    J. Chem. Phys. 127, 154109 (2007)
+    You can recover attenuation_erf_gau by putting a1 = 3
+*)
+att_gau2_aux1 := (a, a1) -> sqrt(Pi)*erf(sqrt(a1)/(2*a)):
+att_gau2_aux2 := (a, a1) -> exp(-a1/(4*a^2)) - 1:
+attenuation_gau2 := (a, a1) ->
+  8/3*a*(att_gau2_aux1(a, a1) + 2*a/sqrt(a1)*att_gau2_aux2(a, a1)*(1 - 8*a^2/a1) - 4*a/sqrt(a1)):
+
 (* yukawa
     Chem. Phys. Lett. 462(2008) 348-351
 *)

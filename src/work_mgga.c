@@ -61,24 +61,39 @@ work_mgga(const XC(func_type) *p, size_t np,
 #else
 
   size_t ip;
+  double my_rho[2] = {0.0, 0.0}, my_sigma[3] = {0.0, 0.0, 0.0}, my_tau[2] = {0.0, 0.0};
   double dens, zeta;
 
   for(ip = 0; ip < np; ip++){
-    xc_rho2dzeta(p->nspin, rho, &dens, &zeta);
+    /* sanity check on input parameters */
+    my_rho[0]   = max(0.0, rho[0]);
+    my_sigma[0] = max(0.0, sigma[0]);
+    my_tau[0]   = max(0.0, tau[0]);
+    /* lapl can have any values */
+    if(p->nspin == XC_POLARIZED){
+      my_rho[1]   = max(0.0, rho[1]);
+      my_sigma[1] = sigma[1];
+      my_sigma[2] = max(0.0, sigma[2]);
+      my_tau[1]   = max(0.0, tau[1]);
+    }
+    
+    xc_rho2dzeta(p->nspin, my_rho, &dens, &zeta);
 
+    fprintf(stderr, "zeta = %lf\n", zeta);
+    
     if(dens > p->dens_threshold){
       if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
-        func_unpol(p, order, rho, sigma, lapl, tau, OUT_PARAMS);
+        func_unpol(p, order, my_rho, my_sigma, lapl, my_tau, OUT_PARAMS);
       
       }else if(zeta >  1.0 - 1e-10){              /* ferromagnetic case - spin 0 */
-        func_ferr(p, order, rho, sigma, lapl, tau, OUT_PARAMS);
+        func_ferr(p, order, my_rho, my_sigma, lapl, my_tau, OUT_PARAMS);
         
       }else if(zeta < -1.0 + 1e-10){              /* ferromagnetic case - spin 1 */
         internal_counters_mgga_next(&(p->dim), -1, &rho, &sigma, &lapl, &tau, &zk, MGGA_OUT_PARAMS_NO_EXC(&));
-        func_ferr(p, order, rho, sigma, lapl, tau, OUT_PARAMS);
+        func_ferr(p, order, &my_rho[1], &my_sigma[2], lapl, &my_tau[1], OUT_PARAMS);
         internal_counters_mgga_prev(&(p->dim), -1, &rho, &sigma, &lapl, &tau, &zk, MGGA_OUT_PARAMS_NO_EXC(&));
       }else{                                      /* polarized (general) case */
-        func_pol(p, order, rho, sigma, lapl, tau, OUT_PARAMS);
+        func_pol(p, order, my_rho, my_sigma, lapl, my_tau, OUT_PARAMS);
       } /* polarization */
     }
 
@@ -145,29 +160,37 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
 
   if(ip >= np) return;
   
+  double my_rho[2] = {0.0, 0.0}, my_sigma[3] = {0.0, 0.0, 0.0}, my_tau[2] = {0.0, 0.0};
   double dens, zeta;
 
   internal_counters_mgga_random(&(p->dim), ip, 0, &rho, &sigma, &lapl, &tau, &zk, MGGA_OUT_PARAMS_NO_EXC(&));
   
-  xc_rho2dzeta(p->nspin, rho, &dens, &zeta);
+  /* sanity check on input parameters */
+  my_rho[0]   = max(0.0, rho[0]);
+  my_sigma[0] = max(0.0, sigma[0]);
+  my_tau[0]   = max(0.0, tau[0]);
+  /* lapl can have any values */
+  if(p->nspin == XC_POLARIZED){
+    my_rho[1]   = max(0.0, rho[1]);
+    my_sigma[1] = sigma[1];
+    my_sigma[2] = max(0.0, sigma[2]);
+    my_tau[1]   = max(0.0, tau[1]);
+  }  
+  xc_rho2dzeta(p->nspin, my_rho, &dens, &zeta);
   
   if(dens > p->dens_threshold){
     if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
-
-      func_unpol(p, order, rho, sigma, lapl, tau, OUT_PARAMS);
+      func_unpol(p, order, my_rho, my_sigma, lapl, my_tau, OUT_PARAMS);
       
     }else if(zeta >  1.0 - 1e-10){              /* ferromagnetic case - spin 0 */
-
-      func_ferr(p, order, rho, sigma, lapl, tau, OUT_PARAMS);
+      func_ferr(p, order, my_rho, my_sigma, lapl, my_tau, OUT_PARAMS);
       
     }else if(zeta < -1.0 + 1e-10){              /* ferromagnetic case - spin 1 */
-
       internal_counters_mgga_next(&(p->dim), -1, &rho, &sigma, &lapl, &tau, &zk, MGGA_OUT_PARAMS_NO_EXC(&));
-      func_ferr(p, order, rho, sigma, lapl, tau, OUT_PARAMS);
+      func_ferr(p, order, &my_rho[1], &my_sigma[2], lapl, &my_tau[1], OUT_PARAMS);
 
     }else{                                      /* polarized (general) case */
-
-      func_pol(p, order, rho, sigma, lapl, tau, OUT_PARAMS);
+      func_pol(p, order, my_rho, my_sigma, lapl, my_tau, OUT_PARAMS);
 
     } /* polarization */
   }

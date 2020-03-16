@@ -64,8 +64,8 @@ ax   := (3*Pi^2)^(1/3):
 k_fs := (rs, z) -> ax*RS_FACTOR/rs * (1 + z)^(1/3):
 
 (* Equation (17) *)
-k_uu := (rs, z) -> alpha_eff(rs, z)*k_fs(rs,  z):
-k_dd := (rs, z) -> alpha_eff(rs, z)*k_fs(rs, -z):
+k_uu := (rs, z) -> alpha_eff(rs,  z)*k_fs(rs,  z):
+k_dd := (rs, z) -> alpha_eff(rs, -z)*k_fs(rs, -z):
 
 (* Equation (18) *)
 k_ud := (rs, z) -> beta_eff(rs)
@@ -157,9 +157,9 @@ ec_par := (rs, z) ->
   + (1 - z)^2/8*(Q_1ud(k_dd(rs, z)) + Q_2ud(k_dd(rs, z)) + Q_3ud(k_dd(rs, z))):
 
 # This avoids divisions by zero for the ferromagnetic case
+pk09_m_z := z -> m_max(m_min(z, 1 - 1e-10), -1 + 1e-10):
 if evalb(Polarization = "ferr") then
-  f := (rs, z) -> 1/4*(Q_1ud(k_uu(rs, z)) + Q_2ud(k_uu(rs, z)) + Q_3ud(k_uu(rs, z))):
+  f := (rs, z) -> n_total(rs)*ec_par(rs, 1 - 1e-10):
 else
-  f := (rs, z) -> ec_opp(rs, z) + ec_par(rs, z):
+  f := (rs, z) -> n_total(rs)*(ec_opp(rs, pk09_m_z(z)) + ec_par(rs, pk09_m_z(z))):
 fi:
-

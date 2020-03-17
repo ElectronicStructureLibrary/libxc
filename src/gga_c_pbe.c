@@ -25,7 +25,8 @@
 #define XC_GGA_C_PBEINT        62 /* PBE for hybrid interfaces                          */
 #define XC_GGA_C_PBEFE        258 /* PBE for formation energies                         */
 #define XC_GGA_C_PBE_MOL      272 /* Del Campo, Gazquez, Trickey and Vela (PBE-like)    */
-#define XC_GGA_C_TM_PBE       560  /* Thakkar and McCarthy reparametrization */
+#define XC_GGA_C_TM_PBE       560 /* Thakkar and McCarthy reparametrization             */
+#define XC_GGA_C_PBE_LC20     712 /* beta fitted to LC20 to be used with MGGAC          */
 
 typedef struct{
   double beta, gamma, BB;
@@ -81,6 +82,9 @@ static void gga_c_pbe_init(xc_func_type *p)
   case XC_GGA_C_TM_PBE:
     params->gamma = -0.0156;
     params->beta  = 3.38*params->gamma;
+    break;
+  case XC_GGA_C_PBE_LC20:
+    params->beta = 0.030;
     break;
   default:
     fprintf(stderr, "Internal error in gga_c_pbe\n");
@@ -282,6 +286,22 @@ const xc_func_info_type xc_func_info_gga_c_tm_pbe = {
   {&xc_ref_Thakkar2009_134109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
+  0, NULL, NULL,
+  gga_c_pbe_init, NULL, 
+  NULL, work_gga, NULL
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_gga_c_pbe_lc20 = {
+  XC_GGA_C_PBE_LC20,
+  XC_EXCHANGE,
+  "beta fitted to LC20 to be used with MGGAC",
+  XC_FAMILY_GGA,
+  {&xc_ref_Patra2019_155140, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1.0e-12,
   0, NULL, NULL,
   gga_c_pbe_init, NULL, 
   NULL, work_gga, NULL

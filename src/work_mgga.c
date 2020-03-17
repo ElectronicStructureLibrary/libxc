@@ -65,21 +65,22 @@ work_mgga(const XC(func_type) *p, size_t np,
   double dens, zeta;
 
   for(ip = 0; ip < np; ip++){
-    /* sanity check on input parameters */
+    /* sanity check of input parameters */
     my_rho[0]   = max(0.0, rho[0]);
-    my_sigma[0] = max(0.0, sigma[0]);
-    my_tau[0]   = max(0.0, tau[0]);
+    /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
+    my_tau[0]   = max(1e-40, tau[0]);
+    /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
+    my_sigma[0] = min(max(1e-40, sigma[0]), 8.0*my_rho[0]*my_tau[0]);
     /* lapl can have any values */
     if(p->nspin == XC_POLARIZED){
       my_rho[1]   = max(0.0, rho[1]);
-      my_sigma[1] = sigma[1];
-      my_sigma[2] = max(0.0, sigma[2]);
-      my_tau[1]   = max(0.0, tau[1]);
+      my_tau[1]   = max(1e-40, tau[1]);
+      my_sigma[2] = min(max(1e-40, sigma[2]), 8.0*my_rho[1]*my_tau[1]);
+      /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
+      my_sigma[1] = max(sigma[1], -(sigma[0] + sigma[1])/2.0);
     }
     
     xc_rho2dzeta(p->nspin, my_rho, &dens, &zeta);
-
-    fprintf(stderr, "zeta = %lf\n", zeta);
     
     if(dens > p->dens_threshold){
       if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
@@ -165,17 +166,20 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
 
   internal_counters_mgga_random(&(p->dim), ip, 0, &rho, &sigma, &lapl, &tau, &zk, MGGA_OUT_PARAMS_NO_EXC(&));
   
-  /* sanity check on input parameters */
+  /* sanity check of input parameters */
   my_rho[0]   = max(0.0, rho[0]);
-  my_sigma[0] = max(0.0, sigma[0]);
-  my_tau[0]   = max(0.0, tau[0]);
+  /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
+  my_tau[0]   = max(1e-40, tau[0]);
+  /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
+  my_sigma[0] = min(max(1e-40, sigma[0]), 8.0*my_rho[0]*my_tau[0]);
   /* lapl can have any values */
   if(p->nspin == XC_POLARIZED){
     my_rho[1]   = max(0.0, rho[1]);
-    my_sigma[1] = sigma[1];
-    my_sigma[2] = max(0.0, sigma[2]);
-    my_tau[1]   = max(0.0, tau[1]);
-  }  
+    my_tau[1]   = max(1e-40, tau[1]);
+    my_sigma[2] = min(max(1e-40, sigma[2]), 8.0*my_rho[1]*my_tau[1]);
+    /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
+    my_sigma[1] = max(sigma[1], -(sigma[0] + sigma[1])/2.0);
+  }
   xc_rho2dzeta(p->nspin, my_rho, &dens, &zeta);
   
   if(dens > p->dens_threshold){

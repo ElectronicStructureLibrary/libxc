@@ -18,7 +18,7 @@
 
    vrho_s            = d zk / d rho_s
    vsigma_st         = d n*zk / d sigma_st
-   
+
    v2rho2_st         = d^2 n*zk / d rho_s d rho_t
    v2rhosigma_svx    = d^2 n*zk / d rho_s d sigma_tv
    v2sigma2_stvx     = d^2 n*zk / d sigma_st d sigma_vx
@@ -43,13 +43,13 @@ if nspin == 2
    v3rho2sigma(9)  = (u_u_uu, u_u_ud, u_u_dd, u_d_uu, u_d_ud, u_d_dd, d_d_uu, d_d_ud, d_d_dd)
    v3rhosigma2(12) = (u_uu_uu, u_uu_ud, u_uu_dd, u_ud_ud, u_ud_dd, u_dd_dd, d_uu_uu, d_uu_ud, d_uu_dd, d_ud_ud, d_ud_dd, d_dd_dd)
    v3sigma(10)     = (uu_uu_uu, uu_uu_ud, uu_uu_dd, uu_ud_ud, uu_ud_dd, uu_dd_dd, ud_ud_ud, ud_ud_dd, ud_dd_dd, dd_dd_dd)
-   
+
 */
 void xc_gga(const xc_func_type *func, size_t np, const double *rho, const double *sigma,
             double *zk, GGA_OUT_PARAMS_NO_EXC(double *))
 {
   const xc_dimensions *dim = &(func->dim);
-  
+
   /* sanity check */
   if(zk != NULL && !(func->info->flags & XC_FLAGS_HAVE_EXC)){
     fprintf(stderr, "Functional '%s' does not provide an implementation of Exc\n",
@@ -87,7 +87,7 @@ void xc_gga(const xc_func_type *func, size_t np, const double *rho, const double
 
   if(vrho != NULL){
     assert(vsigma != NULL);
-    
+
     libxc_memset(vrho,   0, dim->vrho  *np*sizeof(double));
     libxc_memset(vsigma, 0, dim->vsigma*np*sizeof(double));
   }
@@ -112,12 +112,12 @@ void xc_gga(const xc_func_type *func, size_t np, const double *rho, const double
   if(v4rho4 != NULL){
     assert(v4rho3sigma!=NULL && v4rho2sigma2!=NULL && v4rhosigma3!=NULL && v4sigma4!=NULL);
 
-    libxc_memset(v4rho4,       0, dim->v4rho4      *np*sizeof(double));     
+    libxc_memset(v4rho4,       0, dim->v4rho4      *np*sizeof(double));
     libxc_memset(v4rho3sigma,  0, dim->v4rho3sigma *np*sizeof(double));
     libxc_memset(v4rho2sigma2, 0, dim->v4rho2sigma2*np*sizeof(double));
     libxc_memset(v4rhosigma3,  0, dim->v4rhosigma3 *np*sizeof(double));
     libxc_memset(v4sigma4,     0, dim->v4sigma4    *np*sizeof(double));
-   } 
+   }
 
   /* call functional */
   if(func->info->gga != NULL)
@@ -137,7 +137,7 @@ void xc_gga(const xc_func_type *func, size_t np, const double *rho, const double
 /* specializations */
 /* returns only energy */
 void
-xc_gga_exc(const xc_func_type *p, size_t np, const double *rho, const double *sigma, 
+xc_gga_exc(const xc_func_type *p, size_t np, const double *rho, const double *sigma,
 	    double *zk)
 {
   xc_gga(p, np, rho, sigma, zk, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
@@ -170,11 +170,25 @@ void xc_gga_exc_vxc_fxc (const xc_func_type *p, size_t np, const double *rho, co
          NULL, NULL, NULL, NULL, NULL);
 }
 
+void xc_gga_vxc_fxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
+                         double *vrho, double *vsigma,
+                         double *v2rho2, double *v2rhosigma, double *v2sigma2) {
+  xc_gga(p, np, rho, sigma, NULL, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2, NULL, NULL, NULL, NULL,
+         NULL, NULL, NULL, NULL, NULL);
+}
+
 /* returns energy, first, second and third derivatives */
 void xc_gga_exc_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
                              double *zk, double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2,
                              double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3) {
   xc_gga(p, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3,
+         NULL, NULL, NULL, NULL, NULL);
+}
+
+void xc_gga_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
+                             double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2,
+                             double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3) {
+  xc_gga(p, np, rho, sigma, NULL, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3,
          NULL, NULL, NULL, NULL, NULL);
 }
 

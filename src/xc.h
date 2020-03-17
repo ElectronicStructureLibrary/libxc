@@ -15,7 +15,7 @@ extern "C" {
 
 #include <xc_version.h>
 #include <stddef.h>
-  
+
 #define XC_UNPOLARIZED          1
 #define XC_POLARIZED            2
 
@@ -65,7 +65,7 @@ extern "C" {
 #define XC_FLAGS_HAVE_ALL         (XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | \
                                    XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC | \
                                    XC_FLAGS_HAVE_LXC)
-  
+
   /* This magic value means use default parameter */
 #define XC_EXT_PARAMS_DEFAULT   -999998888
 
@@ -109,8 +109,8 @@ extern "C" {
   P_ v4sigma2lapltau, P_ v4sigma2tau2, P_ v4sigmalapl3, P_ v4sigmalapl2tau,\
   P_ v4sigmalapltau2, P_ v4sigmatau3, P_ v4lapl4, P_ v4lapl3tau,           \
   P_ v4lapl2tau2, P_ v4lapltau3, P_ v4tau4
- 
-  
+
+
 void xc_version(int *major, int *minor, int *micro);
 const char *xc_version_string();
 
@@ -125,7 +125,7 @@ char const *xc_func_reference_get_doi(const func_reference_type *reference);
 char const *xc_func_reference_get_bibtex(const func_reference_type *reference);
 
 typedef struct{
-  const char *name; /* ATTENTION: if name starts with a _ it is an *internal* parameter, 
+  const char *name; /* ATTENTION: if name starts with a _ it is an *internal* parameter,
                  changing the value effectively changes the functional! */
   double value;
   const char *description;
@@ -182,7 +182,7 @@ struct xc_dimensions{
 };
 
 typedef struct xc_dimensions xc_dimensions;
-  
+
 struct xc_func_type{
   const xc_func_info_type *info;       /* all the information concerning this functional */
   int nspin;                           /* XC_UNPOLARIZED or XC_POLARIZED  */
@@ -277,16 +277,26 @@ void xc_gga_exc_vxc_fxc (const xc_func_type *p, size_t np, const double *rho, co
 void xc_mgga_exc_vxc_fxc(const xc_func_type *p, size_t np,
                          const double *rho, const double *sigma, const double *lapl, const double *tau,
                          double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
-                         double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+                         double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
                          double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
                          double *v2lapltau, double *v2tau2);
-  
+
+void xc_lda_vxc_fxc (const xc_func_type *p, size_t np, const double *rho, double *vrho, double *v2rho2);
+void xc_gga_vxc_fxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
+                         double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2);
+void xc_mgga_vxc_fxc(const xc_func_type *p, size_t np,
+                         const double *rho, const double *sigma, const double *lapl, const double *tau,
+                         double *vrho, double *vsigma, double *vlapl, double *vtau,
+                         double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+                         double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
+                         double *v2lapltau, double *v2tau2);
+
 void xc_lda_fxc (const xc_func_type *p, size_t np, const double *rho, double *v2rho2);
 void xc_gga_fxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
 		 double *v2rho2, double *v2rhosigma, double *v2sigma2);
 void xc_mgga_fxc(const xc_func_type *p, size_t np,
      const double *rho, const double *sigma, const double *lapl, const double *tau,
-     double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+     double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
      double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
      double *v2lapltau, double *v2tau2);
 
@@ -298,10 +308,27 @@ void xc_gga_exc_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho
 void xc_mgga_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np,
                              const double *rho, const double *sigma, const double *lapl, const double *tau,
                              double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
-                             double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+                             double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
                              double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
                              double *v2lapltau, double *v2tau2,
-                             double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau, 
+                             double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
+                             double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
+                             double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
+                             double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
+                             double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
+                             double *v3tau3);
+
+void xc_lda_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, double *vrho, double *v2rho2, double *v3rho3);
+void xc_gga_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
+                             double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2,
+                             double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
+void xc_mgga_vxc_fxc_kxc(const xc_func_type *p, size_t np,
+                             const double *rho, const double *sigma, const double *lapl, const double *tau,
+                             double *vrho, double *vsigma, double *vlapl, double *vtau,
+                             double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+                             double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
+                             double *v2lapltau, double *v2tau2,
+                             double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
                              double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
                              double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
                              double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
@@ -313,7 +340,7 @@ void xc_gga_kxc (const xc_func_type *p, size_t np, const double *rho, const doub
 		 double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
 void xc_mgga_kxc(const xc_func_type *p, size_t np,
      const double *rho, const double *sigma, const double *lapl, const double *tau,
-     double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau, 
+     double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
      double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
      double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
      double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
@@ -347,7 +374,7 @@ double xc_gga_ak13_get_asymptotic (double homo);
 double xc_gga_ak13_pars_get_asymptotic (double homo, const double *ext_params);
 
 /* the meta-GGAs */
-  
+
 double xc_hyb_exx_coef(const xc_func_type *p);
 void xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *beta);
 void xc_nlc_coef(const xc_func_type *p, double *nlc_b, double *nlc_C);

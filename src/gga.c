@@ -162,6 +162,23 @@ xc_gga_exc_vxc(const xc_func_type *p, size_t np, const double *rho, const double
          NULL, NULL, NULL, NULL, NULL);
 }
 
+/* returns energy, first and second derivatives */
+void xc_gga_exc_vxc_fxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
+                         double *zk, double *vrho, double *vsigma,
+                         double *v2rho2, double *v2rhosigma, double *v2sigma2) {
+  xc_gga(p, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2, NULL, NULL, NULL, NULL,
+         NULL, NULL, NULL, NULL, NULL);
+}
+
+/* returns energy, first, second and third derivatives */
+void xc_gga_exc_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
+                             double *zk, double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2,
+                             double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3) {
+  xc_gga(p, np, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3,
+         NULL, NULL, NULL, NULL, NULL);
+}
+
+
 /* returns second derivatives */
 void
 xc_gga_fxc(const xc_func_type *p, size_t np, const double *rho, const double *sigma,

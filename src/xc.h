@@ -271,6 +271,16 @@ void xc_mgga_vxc(const xc_func_type *p, size_t np,
      double *vrho, double *vsigma, double *vlapl, double *vtau);
 
 #ifndef XC_DONT_COMPILE_FXC
+void xc_lda_exc_vxc_fxc (const xc_func_type *p, size_t np, const double *rho, double *zk, double *vrho, double *v2rho2);
+void xc_gga_exc_vxc_fxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
+                         double *zk, double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2);
+void xc_mgga_exc_vxc_fxc(const xc_func_type *p, size_t np,
+                         const double *rho, const double *sigma, const double *lapl, const double *tau,
+                         double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
+                         double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+                         double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
+                         double *v2lapltau, double *v2tau2);
+  
 void xc_lda_fxc (const xc_func_type *p, size_t np, const double *rho, double *v2rho2);
 void xc_gga_fxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
 		 double *v2rho2, double *v2rhosigma, double *v2sigma2);
@@ -281,6 +291,23 @@ void xc_mgga_fxc(const xc_func_type *p, size_t np,
      double *v2lapltau, double *v2tau2);
 
 #ifndef XC_DONT_COMPILE_KXC
+void xc_lda_exc_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3);
+void xc_gga_exc_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
+                             double *zk, double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2,
+                             double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
+void xc_mgga_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np,
+                             const double *rho, const double *sigma, const double *lapl, const double *tau,
+                             double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
+                             double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau, 
+                             double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
+                             double *v2lapltau, double *v2tau2,
+                             double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau, 
+                             double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
+                             double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
+                             double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
+                             double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
+                             double *v3tau3);
+
 void xc_lda_kxc (const xc_func_type *p, size_t np, const double *rho, double *v3rho3);
 void xc_gga_kxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
 		 double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);

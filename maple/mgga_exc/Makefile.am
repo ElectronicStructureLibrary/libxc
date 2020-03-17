@@ -26,7 +26,7 @@ mgga_order_3 = \
   mgga_c_kcis.mpl mgga_xc_lp90.mpl mgga_c_m05.mpl mgga_xc_zlp.mpl              \
   mgga_c_m06l.mpl mgga_c_m08.mpl mgga_c_pkzb.mpl mgga_c_revscan.mpl            \
   mgga_c_revtpss.mpl mgga_c_scan.mpl mgga_c_tpssloc.mpl mgga_c_tpss.mpl        \
-  mgga_c_rscan.mpl mgga_x_br89.mpl mgga_x_2d_js17.mpl
+  mgga_c_rscan.mpl mgga_x_br89.mpl mgga_x_2d_js17.mpl mgga_x_mggac.mpl
 
 dist_noinst_HEADERS = $(mgga_order_4) $(mgga_order_3)
 

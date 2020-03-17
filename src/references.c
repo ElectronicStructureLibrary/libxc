@@ -1469,6 +1469,13 @@ func_reference_type xc_ref_Patra2019_045147 = {
 };
 
 
+func_reference_type xc_ref_Patra2019_155140 = {
+  "B. Patra, S. Jana, L. A. Constantin, and P. Samal, Phys. Rev. B 100, 155140 (2019)",
+  "10.1103/PhysRevB.100.155140",
+  "@article{Patra2019_155140,\n  title = {Relevance of the Pauli kinetic energy density for semilocal functionals},\n  author = {Patra, Bikash and Jana, Subrata and Constantin, Lucian A. and Samal, Prasanjit},\n  journal = {Phys. Rev. B},\n  volume = {100},\n  issue = {15},\n  pages = {155140},\n  numpages = {7},\n  year = {2019},\n  month = {Oct},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.100.155140},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.100.155140}\n}"
+};
+
+
 func_reference_type xc_ref_Paziani2006_155111 = {
   "S. Paziani, S. Moroni, P. Gori-Giorgi, and G. B. Bachelet, Phys. Rev. B 73, 155111 (2006)",
   "10.1103/PhysRevB.73.155111",

@@ -54,6 +54,7 @@ static void
 mgga_x_m06l_init(xc_func_type *p)
 {
   mgga_x_m06l_params *params;
+  int ii;
 
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_m06l_params));
@@ -61,26 +62,26 @@ mgga_x_m06l_init(xc_func_type *p)
 
   switch(p->info->number){
   case XC_MGGA_X_M06_L:
-    for(int ii = 0; ii < 12; ii++) params->a[ii] = a_m06l[ii];
-    for(int ii = 0; ii <  6; ii++) params->d[ii] = d_m06l[ii];
+    for(ii = 0; ii < 12; ii++) params->a[ii] = a_m06l[ii];
+    for(ii = 0; ii <  6; ii++) params->d[ii] = d_m06l[ii];
     break;
   case XC_HYB_MGGA_X_M06_HF:
-    for(int ii = 0; ii < 12; ii++) params->a[ii] = a_m06hf[ii];
-    for(int ii = 0; ii <  6; ii++) params->d[ii] = d_m06hf[ii];
+    for(ii = 0; ii < 12; ii++) params->a[ii] = a_m06hf[ii];
+    for(ii = 0; ii <  6; ii++) params->d[ii] = d_m06hf[ii];
     p->cam_alpha = 1.0;
     break;
   case XC_HYB_MGGA_X_M06:
-    for(int ii = 0; ii < 12; ii++) params->a[ii] = a_m06[ii];
-    for(int ii = 0; ii <  6; ii++) params->d[ii] = d_m06[ii];
+    for(ii = 0; ii < 12; ii++) params->a[ii] = a_m06[ii];
+    for(ii = 0; ii <  6; ii++) params->d[ii] = d_m06[ii];
     p->cam_alpha = 0.27;
     break;
   case XC_MGGA_X_REVM06_L:
-    for(int ii = 0; ii < 12; ii++) params->a[ii] = a_revm06l[ii];
-    for(int ii = 0; ii <  6; ii++) params->d[ii] = d_revm06l[ii];
+    for(ii = 0; ii < 12; ii++) params->a[ii] = a_revm06l[ii];
+    for(ii = 0; ii <  6; ii++) params->d[ii] = d_revm06l[ii];
     break;
   case XC_HYB_MGGA_X_REVM06:
-    for(int ii = 0; ii < 12; ii++) params->a[ii] = a_revm06[ii];
-    for(int ii = 0; ii <  6; ii++) params->d[ii] = d_revm06[ii];
+    for(ii = 0; ii < 12; ii++) params->a[ii] = a_revm06[ii];
+    for(ii = 0; ii <  6; ii++) params->d[ii] = d_revm06[ii];
     p->cam_alpha = 0.4041;
     break;
   default:

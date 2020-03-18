@@ -46,6 +46,7 @@ static void
 gga_x_n12_init(xc_func_type *p)
 {
   gga_x_n12_params *params;
+  int ii, jj;
 
   assert(p != NULL);
 
@@ -73,8 +74,8 @@ gga_x_n12_init(xc_func_type *p)
     exit(1);
   }
 
-  for(int ii = 0; ii < 4; ii++){
-    for(int jj = 0; jj < 4; jj++){
+  for(ii = 0; ii < 4; ii++){
+    for(jj = 0; jj < 4; jj++){
       params->CC[ii][jj] = pCC[ii][jj];
     }
   }

@@ -101,6 +101,12 @@ xc_lda_vxc_fxc(const xc_func_type *p, size_t np, const double *rho, double *vrho
 }
 
 void
+xc_lda_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3)
+{
+  xc_lda(p, np, rho, zk, vrho, v2rho2, v3rho3, NULL);
+}
+
+void
 xc_lda_vxc_fxc_kxc(const xc_func_type *p, size_t np, const double *rho, double *vrho, double *v2rho2, double *v3rho3)
 {
   xc_lda(p, np, rho, NULL, vrho, v2rho2, v3rho3, NULL);

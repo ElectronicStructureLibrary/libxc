@@ -65,6 +65,8 @@ double xc_mgga_x_br89_get_x(double Q)
   double rhs, tol, x1, x2;
 
   tol = 5e-12;
+  if(fabs(Q) < 5e-12)
+    return 2.0;
 
   /* build right-hand side of the non-linear equation
      Remember we use a different definition of tau */
@@ -72,10 +74,10 @@ double xc_mgga_x_br89_get_x(double Q)
 
   /* starting interval */
   if(rhs > 0.0) {
-    x1 = 2.0 + tol;
+    x1 = 2.0;
     x2 = 1.0/rhs + 2.0;
   }else{
-    x2 = 2.0 - tol;
+    x2 = 2.0;
     x1 = 0.0;
   }
 

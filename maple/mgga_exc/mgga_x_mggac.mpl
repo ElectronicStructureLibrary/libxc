@@ -22,6 +22,6 @@ mggac_b5 := -3*mggac_b3:
 (* new definition of Q. The rest of the functional remains the same *)
 (* We have Lambda = (32 Pi^2)^(2/3)/(6 Q) *)
 mbrxc_Q := (x, t) ->
-      + (32*Pi^2)^(2/3)/6
+      + (32*Pi)^(2/3)/6
       * (1 + mggac_b4*task_alpha(x, t) + mggac_b5*task_alpha(x, t)^2)
       / (mggac_b1 + mggac_b2*task_alpha(x, t) + mggac_b3*task_alpha(x, t)^2):

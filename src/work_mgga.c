@@ -79,8 +79,6 @@ work_mgga(const XC(func_type) *p, size_t np,
     
     xc_rho2dzeta(p->nspin, my_rho, &dens, &zeta);
 
-    fprintf(stderr, "zeta = %lf\n", zeta);
-    
     if(dens > p->dens_threshold){
       if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
         func_unpol(p, order, my_rho, my_sigma, lapl, my_tau, OUT_PARAMS);

@@ -32,6 +32,7 @@ static void
 mgga_x_tau_hcth_init(xc_func_type *p)
 {
   mgga_x_tau_hcth_params *params;
+  int ii;
 
   assert(p != NULL);
   assert(p->params == NULL);
@@ -39,7 +40,7 @@ mgga_x_tau_hcth_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(mgga_x_tau_hcth_params));
   params = (mgga_x_tau_hcth_params *)(p->params);
 
-  for(int ii = 0; ii < 4; ii++){
+  for(ii = 0; ii < 4; ii++){
     switch(p->info->number){
     case XC_MGGA_X_TAU_HCTH:
       params->cx_local[ii]  = tHCTH_cx_local[ii];

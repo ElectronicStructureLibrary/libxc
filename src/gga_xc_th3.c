@@ -36,12 +36,13 @@ static void
 gga_xc_th3_init(xc_func_type *p)
 {
   gga_xc_th3_params *params;
+  int ii;
 
   assert(p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_xc_th3_params));
   params = (gga_xc_th3_params *)p->params;
 
-  for(int ii = 0; ii < 19; ii++){
+  for(ii = 0; ii < 19; ii++){
     switch(p->info->number){
     case XC_GGA_XC_TH3:
       params->omega[ii] = omega_TH3[ii];

@@ -1,6 +1,5 @@
 cmake_policy(SET CMP0048 NEW)  # project_VERSION* variables populated from project(... VERSION x.x.x) string
 project(Libxc
-  VERSION 4.3.4
   LANGUAGES C)
 set(Libxc_AUTHORS      "Miguel A.L. Marques and others")
 set(Libxc_DESCRIPTION  "Exchange-correlation functionals for density-functional theory")
@@ -79,6 +78,20 @@ endif(DISABLE_LXC)
 
 # <<<  Build  >>>
 
+# extract project version from source
+file(STRINGS "configure.ac" _libxc_configure_ac
+     REGEX "AC_INIT")
+foreach(ver ${_libxc_configure_ac})
+    if (ver MATCHES "^AC_INIT..libxc...([0-9]+).([0-9]+).([0-9]+).*$")
+        set(${PROJECT_NAME}_VERSION_MAJOR ${CMAKE_MATCH_1})
+        set(${PROJECT_NAME}_VERSION_MINOR ${CMAKE_MATCH_2})
+        set(${PROJECT_NAME}_VERSION_MICRO ${CMAKE_MATCH_3})
+    endif()
+endforeach()
+
+set(${PROJECT_NAME}_VERSION ${${PROJECT_NAME}_VERSION_MAJOR}.${${PROJECT_NAME}_VERSION_MINOR}.${${PROJECT_NAME}_VERSION_MICRO})
+message(STATUS "Version: Full ${${PROJECT_NAME}_VERSION}")
+
 # repurpose xc_version from Make for CMake
 set(VERSION ${PROJECT_VERSION})
 set(XC_MAJOR_VERSION ${PROJECT_VERSION_MAJOR})
@@ -100,7 +113,7 @@ foreach(ver ${_libxc_configure_ac})
 endforeach()
 set(${PROJECT_NAME}_SOVERSION ${XC_CURRENT}:${XC_REVISION}:${XC_AGE})
 math(EXPR ${PROJECT_NAME}_SOMAJOR "${XC_CURRENT} - ${XC_AGE}")
-message(STATUS "Libxc SO Full ${${PROJECT_NAME}_SOVERSION} Major ${${PROJECT_NAME}_SOMAJOR}")
+message(STATUS "SO Version: Full ${${PROJECT_NAME}_SOVERSION} Major ${${PROJECT_NAME}_SOMAJOR}")
 
 set(raw_sources_list
   bessel.c

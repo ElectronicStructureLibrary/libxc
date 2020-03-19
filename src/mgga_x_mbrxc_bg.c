@@ -26,6 +26,8 @@ double xc_mgga_x_mbrxc_get_x(double Q)
   double rhs, tol, x1, x2;
 
   tol = 5e-12;
+  if(fabs(Q) < 5e-12)
+    return 3.0;
 
   /* build right-hand side of the non-linear equation
      Remember we use a different definition of tau */
@@ -34,11 +36,11 @@ double xc_mgga_x_mbrxc_get_x(double Q)
   /* starting interval */
   if(rhs > 0.0) {
     /* I checked that the solution is always in this interval */
-    x1 = 3.0 + tol;
+    x1 = 3.0;
     x2 = 2.0/rhs + 3.0;
   }else{
-    x2 = 3.0 - tol;
-    x1 = 0.0;
+    x2 = 3.0;
+    x1 = -1.0;
   }
 
   return xc_math_brent(mbrxc_x_Q, x1, x2, tol, 500, &rhs);

@@ -361,6 +361,7 @@ set(raw_sources_list
   mgga_x_mbrxh_bg.c
   mgga_x_mbrxc_bg.c
   mgga_x_task.c
+  mgga_x_mggac.c
   mix_func.c
   references.c
   special_functions.c

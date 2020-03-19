@@ -35,7 +35,7 @@ double xc_math_brent
 
   if (fa * fb > 0){
 #ifndef HAVE_CUDA
-    fprintf(stderr, "Brent: bracketing error\n");
+    fprintf(stderr, "Brent: bracketing error [%lf,%lf]\n", a, b);
     exit(1);
 #endif
   }

@@ -56,6 +56,7 @@ static void
 set_ext_params(xc_func_type *p, const double *ext_params)
 {
   lda_c_1d_csc_params *params;
+  int ii;
 
   assert(p != NULL && p->params != NULL);
   params = (lda_c_1d_csc_params *)(p->params);
@@ -106,7 +107,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   }
   
   //we must copy the values (instead of pointing to them) so that they are available on the GPU
-  for(int ii = 0; ii < 10; ii++){
+  for(ii = 0; ii < 10; ii++){
     params->para[ii] = ppara[ii];
     params->ferro[ii] = pferro[ii];
   }

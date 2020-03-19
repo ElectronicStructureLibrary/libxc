@@ -79,7 +79,7 @@ void test_lda()
 
     //dens = rho[0] + rho[1];
 
-    xc_lda(&l1, 1, rho, &ec1, vc1, NULL, NULL);
+    //xc_lda_exc_vxc_fxc(&l1, 1, rho, &ec1, vc1, NULL, NULL);
     //xc_lda(&l2, 1, rho, &ec2, vc2, NULL, NULL);
     //xc_lda_fxc_fd(&l2, rho, fxc2);
     //xc_lda_kxc_fd(&l2, rho, kxc2);
@@ -132,7 +132,7 @@ void test_enhance()
     //printf("%le", x);
     //xc_gga_x_b88_enhance(&gga1, 1, x, &f, &dfdx, &d2fdx2, &d3fdx3);
     //printf("\t%le", -f*X_FACTOR_C);
-    xc_gga_x_gg99_enhance(&gga2, 1, x, &f, &dfdx, &d2fdx2, &d3fdx3);
+    //xc_gga_x_gg99_enhance(&gga2, 1, x, &f, &dfdx, &d2fdx2, &d3fdx3);
     printf("%le\t%le\t%le\n", x, f, dfdx);
   }
 }
@@ -183,7 +183,7 @@ void test_gga()
      sigma[1] = 0.00002;
      sigma[2] = 0.5 + i/1000.0;
 
-     xc_gga(&gga, 1, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2, NULL, v3rho2sigma, v3rhosigma2, v3sigma3);
+     //xc_gga(&gga, 1, rho, sigma, zk, vrho, vsigma, v2rho2, v2rhosigma, v2sigma2, NULL, v3rho2sigma, v3rhosigma2, v3sigma3);
 
      fprintf(stderr, "%16.10le\t%16.10le\t%16.10le\n", sigma[2], vsigma[2], v2sigma2[5]);
    }
@@ -313,6 +313,26 @@ void test_neg_rho()
   }
 }
 
+double xc_mgga_x_mbrxc_get_x(double Q);
+double xc_mgga_x_br89_get_x(double Q);
+void test_mbrxc()
+{
+  double Q, x, rhs, Q2;
+
+  for(Q=-10.1e4; Q<10.1e4; Q+=.01e4){
+  printf("Q = %lf ", Q);
+  fflush(stdout);
+
+  //x = xc_mgga_x_mbrxc_get_x(Q);
+  //rhs = pow(1.0 + x, 5.0/3.0)*exp(-2.0*x/3.0)/(x - 3.0);
+  //Q2 = pow(32.0*M_PI, 2.0/3.0)/(6.0*rhs);
+
+  x = xc_mgga_x_br89_get_x(Q);
+  rhs = x*exp(-2.0*x/3.0)/(x - 2.0);
+  Q2 = 2.0/3.0*pow(M_PI, 2.0/3.0)/rhs;
+  printf("Q2 = %lf x = %lf\n", Q2, x);
+  }
+}
 
 int main()
 {
@@ -322,10 +342,11 @@ int main()
 
   //test_lda();
   //test_enhance();
-  test_gga(); 
+  //test_gga(); 
   //test_ak13();
   //test_mgga();
-
+  test_mbrxc();
+  
   //printf("number = '%d'; key = '%s'", 25, xc_functional_get_name(25));
 
   return 0;

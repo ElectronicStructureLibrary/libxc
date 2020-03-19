@@ -48,7 +48,8 @@ __global__ static void add_to_mix_gpu(size_t np, double * dst, double coeff, dou
 
 static void add_to_mix(size_t np, double * dst, double coeff, double *src){
 #ifndef HAVE_CUDA
-  for(size_t ip = 0; ip < np; ip++) dst[ip] += coeff*src[ip];
+  size_t ip;
+  for(ip = 0; ip < np; ip++) dst[ip] += coeff*src[ip];
 #else
   auto nblocks = np/CUDA_BLOCK_SIZE;
   if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;

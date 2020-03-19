@@ -11,14 +11,14 @@
 #include "funcs_mgga.c"
 #include "funcs_hyb_mgga.c"
 
-void 
+void
 xc_mgga(const xc_func_type *func, size_t np,
         const double *rho, const double *sigma, const double *lapl, const double *tau,
         double *zk, MGGA_OUT_PARAMS_NO_EXC(double *))
 {
   assert(func != NULL);
   const xc_dimensions *dim = &(func->dim);
-  
+
   /* sanity check */
   if(zk != NULL && !(func->info->flags & XC_FLAGS_HAVE_EXC)){
     fprintf(stderr, "Functional '%s' does not provide an implementation of Exc\n",
@@ -75,7 +75,7 @@ xc_mgga(const xc_func_type *func, size_t np,
       assert(v2lapl2     != NULL);
       assert(v2lapltau   != NULL);
     }
-      
+
     libxc_memset(v2rho2,     0, dim->v2rho2     *np*sizeof(double));
     libxc_memset(v2rhosigma, 0, dim->v2rhosigma *np*sizeof(double));
     libxc_memset(v2rhotau,   0, dim->v2rhotau   *np*sizeof(double));
@@ -102,7 +102,7 @@ xc_mgga(const xc_func_type *func, size_t np,
     assert(v3sigmatau2   != NULL);
     assert(v3tau3        != NULL);
 
-    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){    
+    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
       assert(v3rho2lapl     != NULL);
       assert(v3rhosigmalapl != NULL);
       assert(v3rholapl2     != NULL);
@@ -113,7 +113,7 @@ xc_mgga(const xc_func_type *func, size_t np,
       assert(v3lapl3        != NULL);
       assert(v3lapl2tau     != NULL);
     }
-	
+
     libxc_memset(v3rho3,        0, dim->v3rho3       *np*sizeof(double));
     libxc_memset(v3rho2sigma,   0, dim->v3rho2sigma  *np*sizeof(double));
     libxc_memset(v3rho2tau,     0, dim->v3rho2tau    *np*sizeof(double));
@@ -122,12 +122,12 @@ xc_mgga(const xc_func_type *func, size_t np,
     libxc_memset(v3rhotau2,     0, dim->v3rhotau2    *np*sizeof(double));
     libxc_memset(v3sigma3,      0, dim->v3sigma3     *np*sizeof(double));
     libxc_memset(v3sigma2tau,   0, dim->v3sigma2tau  *np*sizeof(double));
-    libxc_memset(v3sigmatau2,   0, dim->v3sigmatau2  *np*sizeof(double));  
+    libxc_memset(v3sigmatau2,   0, dim->v3sigmatau2  *np*sizeof(double));
     libxc_memset(v3tau3,        0, dim->v3tau3       *np*sizeof(double));
 
     if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
       libxc_memset(v3rho2lapl,     0, dim->v3rho2lapl    *np*sizeof(double));
-      libxc_memset(v3rhosigmalapl, 0, dim->v3rhosigmalapl*np*sizeof(double));      
+      libxc_memset(v3rhosigmalapl, 0, dim->v3rhosigmalapl*np*sizeof(double));
       libxc_memset(v3rholapl2,     0, dim->v3rholapl2    *np*sizeof(double));
       libxc_memset(v3rholapltau,   0, dim->v3rholapltau  *np*sizeof(double));
       libxc_memset(v3sigma2lapl,   0, dim->v3sigma2lapl  *np*sizeof(double));
@@ -154,8 +154,8 @@ xc_mgga(const xc_func_type *func, size_t np,
     assert(v4sigma2tau2   != NULL);
     assert(v4sigmatau3    != NULL);
     assert(v4tau4         != NULL);
-    
-    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){    
+
+    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
       assert(v4rho3lapl        != NULL);
       assert(v4rho2sigmalapl   != NULL);
       assert(v4rho2lapl2       != NULL);
@@ -193,8 +193,8 @@ xc_mgga(const xc_func_type *func, size_t np,
     libxc_memset(v4sigma2tau2,   0, dim->v4sigma2tau2  *np*sizeof(double));
     libxc_memset(v4sigmatau3,    0, dim->v4sigmatau3   *np*sizeof(double));
     libxc_memset(v4tau4,         0, dim->v4tau4        *np*sizeof(double));
-    
-    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){    
+
+    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
       libxc_memset(v4rho3lapl,        0, dim->v4rho3lapl       *np*sizeof(double));
       libxc_memset(v4rho2sigmalapl,   0, dim->v4rho2sigmalapl  *np*sizeof(double));
       libxc_memset(v4rho2lapl2,       0, dim->v4rho2lapl2      *np*sizeof(double));
@@ -229,11 +229,11 @@ xc_mgga(const xc_func_type *func, size_t np,
 
 /* specializations */
 void
-xc_mgga_exc(const xc_func_type *p, size_t np, 
+xc_mgga_exc(const xc_func_type *p, size_t np,
             const double *rho, const double *sigma, const double *lapl, const double *tau,
             double *zk)
 {
-  xc_mgga(p, np, rho, sigma, lapl, tau, zk, NULL, NULL, NULL, NULL, 
+  xc_mgga(p, np, rho, sigma, lapl, tau, zk, NULL, NULL, NULL, NULL,
           NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
           NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
           NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
@@ -249,7 +249,7 @@ xc_mgga_exc_vxc(const xc_func_type *p, size_t np,
                 const double *rho, const double *sigma, const double *lapl, const double *tau,
                 double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau)
 {
-  xc_mgga(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, 
+  xc_mgga(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau,
           NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
           NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
           NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
@@ -260,12 +260,101 @@ xc_mgga_exc_vxc(const xc_func_type *p, size_t np,
           );
 }
 
+void xc_mgga_exc_vxc_fxc(const xc_func_type *p, size_t np,
+                         const double *rho, const double *sigma, const double *lapl, const double *tau,
+                         double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
+                         double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+                         double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
+                         double *v2lapltau, double *v2tau2) {
+  xc_mgga(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau,
+          v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2,
+          v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL
+          );
+}
+
+void xc_mgga_vxc_fxc(const xc_func_type *p, size_t np,
+                         const double *rho, const double *sigma, const double *lapl, const double *tau,
+                         double *vrho, double *vsigma, double *vlapl, double *vtau,
+                         double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+                         double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
+                         double *v2lapltau, double *v2tau2) {
+  xc_mgga(p, np, rho, sigma, lapl, tau, NULL, vrho, vsigma, vlapl, vtau,
+          v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2,
+          v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL
+          );
+}
+
+void xc_mgga_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np,
+                             const double *rho, const double *sigma, const double *lapl, const double *tau,
+                             double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
+                             double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+                             double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
+                             double *v2lapltau, double *v2tau2,
+                             double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
+                             double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
+                             double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
+                             double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
+                             double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
+                             double *v3tau3) {
+  xc_mgga(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau,
+          v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2,
+          v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2,
+          v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl,
+          v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl,
+          v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau,
+          v3lapltau2, v3tau3,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL
+          );
+}
+
+void xc_mgga_vxc_fxc_kxc(const xc_func_type *p, size_t np,
+                             const double *rho, const double *sigma, const double *lapl, const double *tau,
+                             double *vrho, double *vsigma, double *vlapl, double *vtau,
+                             double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+                             double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
+                             double *v2lapltau, double *v2tau2,
+                             double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
+                             double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
+                             double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
+                             double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
+                             double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
+                             double *v3tau3) {
+  xc_mgga(p, np, rho, sigma, lapl, tau, NULL, vrho, vsigma, vlapl, vtau,
+          v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2,
+          v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2,
+          v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl,
+          v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl,
+          v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau,
+          v3lapltau2, v3tau3,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL
+          );
+}
+
+
 void
 xc_mgga_vxc(const xc_func_type *p, size_t np,
             const double *rho, const double *sigma, const double *lapl, const double *tau,
             double *vrho, double *vsigma, double *vlapl, double *vtau)
 {
-  xc_mgga(p, np, rho, sigma, lapl, tau, NULL, vrho, vsigma, vlapl, vtau, 
+  xc_mgga(p, np, rho, sigma, lapl, tau, NULL, vrho, vsigma, vlapl, vtau,
           NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
           NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
           NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,

@@ -42,32 +42,33 @@ gga_x_pbe_init(xc_func_type *p)
   params->lambda = 0.0;
 }
 
-/* PBE: mu = beta*pi^2/3, beta = 0.06672455060314922 */
-static const char  *pbe_names[]  = {"_kappa", "_mu"};
-static const char  *pbe_desc[]   = {"Asymptotic value of the enhancement function",
-                                    "Coefficient of the 2nd order expansion"};
+#define PBE_N_PAR 2
+static const char  *pbe_names[PBE_N_PAR]  = {"_kappa", "_mu"};
+static const char  *pbe_desc[PBE_N_PAR]   = {
+  "Asymptotic value of the enhancement function",
+  "Coefficient of the 2nd order expansion"};
 
-static const double pbe_values[] =
+static const double pbe_values[PBE_N_PAR] =
   {0.8040, MU_PBE};
-static const double pbe_r_values[] =
+static const double pbe_r_values[PBE_N_PAR] =
   {1.245, MU_PBE};
-static const double pbe_sol_values[] =
+static const double pbe_sol_values[PBE_N_PAR] =
   {0.804, MU_GE};
-static const double pbe_xpbe_values[] =
+static const double pbe_xpbe_values[PBE_N_PAR] =
   {0.91954, 0.23214};
-static const double pbe_jsjr_values[] =
+static const double pbe_jsjr_values[PBE_N_PAR] =
   {0.8040, 0.046*M_PI*M_PI/3.0};
-static const double pbe_k1_vdw_values[] =
+static const double pbe_k1_vdw_values[PBE_N_PAR] =
   {1.0, MU_PBE};
-static const double pbe_apbe_values[] =
+static const double pbe_apbe_values[PBE_N_PAR] =
   {0.8040, 0.260};
-static const double pbe_tca_values[] =
+static const double pbe_tca_values[PBE_N_PAR] =
   {1.227, MU_PBE};
-static const double pbe_mol_values[] =
+static const double pbe_mol_values[PBE_N_PAR] =
   {0.8040, 0.27583};
-static const double pbe_bcgp_values[] =
+static const double pbe_bcgp_values[PBE_N_PAR] =
   {0.8040, 0.249};
-static const double pbe_fe_values[] =
+static const double pbe_fe_values[PBE_N_PAR] =
   {0.437, 0.346};
 
 #include "decl_gga.h"
@@ -86,7 +87,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe = {
   {&xc_ref_Perdew1996_3865, &xc_ref_Perdew1996_3865_err, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  {2, pbe_names, pbe_desc, pbe_values, set_ext_params_cpy},
+  {PBE_N_PAR, pbe_names, pbe_desc, pbe_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -102,7 +103,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_r = {
   {&xc_ref_Zhang1998_890, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  {2, pbe_names, pbe_desc, pbe_r_values, set_ext_params_cpy},
+  {PBE_N_PAR, pbe_names, pbe_desc, pbe_r_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -118,7 +119,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_sol = {
   {&xc_ref_Perdew2008_136406, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  {2, pbe_names, pbe_desc, pbe_sol_values, set_ext_params_cpy},
+  {PBE_N_PAR, pbe_names, pbe_desc, pbe_sol_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -134,7 +135,7 @@ const xc_func_info_type xc_func_info_gga_x_xpbe = {
   {&xc_ref_Xu2004_4068, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  {2, pbe_names, pbe_desc, pbe_xpbe_values, set_ext_params_cpy},
+  {PBE_N_PAR, pbe_names, pbe_desc, pbe_xpbe_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -150,7 +151,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_jsjr = {
   {&xc_ref_Pedroza2009_201106, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  {2, pbe_names, pbe_desc, pbe_jsjr_values, set_ext_params_cpy},
+  {PBE_N_PAR, pbe_names, pbe_desc, pbe_jsjr_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -166,7 +167,7 @@ const xc_func_info_type xc_func_info_gga_x_pbek1_vdw = {
   {&xc_ref_Klimes2010_022201, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  {2, pbe_names, pbe_desc, pbe_k1_vdw_values, set_ext_params_cpy},
+  {PBE_N_PAR, pbe_names, pbe_desc, pbe_k1_vdw_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -182,7 +183,7 @@ const xc_func_info_type xc_func_info_gga_x_apbe = {
   {&xc_ref_Constantin2011_186406, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  {2, pbe_names, pbe_desc, pbe_apbe_values, set_ext_params_cpy},
+  {PBE_N_PAR, pbe_names, pbe_desc, pbe_apbe_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -198,7 +199,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_tca = {
   {&xc_ref_Tognetti2008_536, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  {2, pbe_names, pbe_desc, pbe_tca_values, set_ext_params_cpy},
+  {PBE_N_PAR, pbe_names, pbe_desc, pbe_tca_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -214,7 +215,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_mol = {
   {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  {2, pbe_names, pbe_desc, pbe_mol_values, set_ext_params_cpy},
+  {PBE_N_PAR, pbe_names, pbe_desc, pbe_mol_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -230,7 +231,7 @@ const xc_func_info_type xc_func_info_gga_x_bcgp = {
   {&xc_ref_Burke2014_4834, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  {2, pbe_names, pbe_desc, pbe_bcgp_values, set_ext_params_cpy},
+  {PBE_N_PAR, pbe_names, pbe_desc, pbe_bcgp_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -246,21 +247,22 @@ const xc_func_info_type xc_func_info_gga_x_pbefe = {
   {&xc_ref_Perez2015_3844, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  {2, pbe_names, pbe_desc, pbe_fe_values, set_ext_params_cpy},
+  {PBE_N_PAR, pbe_names, pbe_desc, pbe_fe_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
 
-static const char  *pbe_lambda_names[]  = {"_N", "_kappa", "_mu"};
-static const char  *pbe_lambda_desc[]   = {
+#define PBEL_N_PAR 3
+static const char  *pbe_lambda_names[PBEL_N_PAR]  = {"_N", "_kappa", "_mu"};
+static const char  *pbe_lambda_desc[PBEL_N_PAR]   = {
   "Number of electrons",
   "Asymptotic value of the enhancement function",
   "Coefficient of the 2nd order expansion"};
-static const double pbe_lambda_lo_n_values[] =
+static const double pbe_lambda_lo_n_values[PBEL_N_PAR] =
   {1e23, MU_PBE, 2.273};
-static const double pbe_lambda_ch_n_values[] =
+static const double pbe_lambda_ch_n_values[PBEL_N_PAR] =
   {1e23, MU_PBE, 2.215};
-static const double pbe_lambda_oc2_n_values[] =
+static const double pbe_lambda_oc2_n_values[PBEL_N_PAR] =
   {1e23, MU_PBE, 2.00};
 
 static void 
@@ -294,7 +296,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_lo_n = {
   {&xc_ref_Odashima2009_798, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  {3, pbe_lambda_names, pbe_lambda_desc, pbe_lambda_lo_n_values, pbe_lambda_set_ext_params},
+  {PBEL_N_PAR, pbe_lambda_names, pbe_lambda_desc, pbe_lambda_lo_n_values, pbe_lambda_set_ext_params},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -310,7 +312,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_ch_n = {
   {&xc_ref_Odashima2009_798, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  {3, pbe_lambda_names, pbe_lambda_desc, pbe_lambda_ch_n_values, pbe_lambda_set_ext_params},
+  {PBEL_N_PAR, pbe_lambda_names, pbe_lambda_desc, pbe_lambda_ch_n_values, pbe_lambda_set_ext_params},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -326,7 +328,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_oc2_n = {
   {&xc_ref_Odashima2009_798, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  {3, pbe_lambda_names, pbe_lambda_desc, pbe_lambda_oc2_n_values, pbe_lambda_set_ext_params},
+  {PBEL_N_PAR, pbe_lambda_names, pbe_lambda_desc, pbe_lambda_oc2_n_values, pbe_lambda_set_ext_params},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
 };

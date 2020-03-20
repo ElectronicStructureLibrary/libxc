@@ -19,35 +19,19 @@ typedef struct{
 static void
 gga_c_am05_init(xc_func_type *p)
 {
-  gga_c_am05_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_c_am05_params));
-  params = (gga_c_am05_params *) (p->params);
-
-  /* defaults set by set_ext_params */
 }
 
 #include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_am05.c"
 #include "work_gga.c"
 
-static const func_params_type ext_params[] = {
-  {"_alpha", 2.804L, "alpha"},
-  {"_gamma", 0.8098L, "gamma"}
-};
-
-static void
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  gga_c_am05_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_c_am05_params *) (p->params);
-
-  params->alpha = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->gamma = get_ext_param(p->info->ext_params, ext_params, 1);
-}
+#define AM05_N_PAR 4
+static const char  *am05_names[AM05_N_PAR]  = {"_alpha", "_gamma"};
+static const char  *am05_desc[AM05_N_PAR]   = {"alpha", "gamma"};
+static const double am05_values[AM05_N_PAR] =
+  {2.804L, 0.8098L};
 
 #ifdef __cplusplus
 extern "C"
@@ -60,7 +44,7 @@ const xc_func_info_type xc_func_info_gga_c_am05 = {
   {&xc_ref_Armiento2005_085108, &xc_ref_Mattsson2008_084714, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  2, ext_params, set_ext_params,
+  {AM05_N_PAR, am05_names, am05_desc, am05_values, set_ext_params_cpy},
   gga_c_am05_init, NULL,
   NULL, work_gga, NULL
 };

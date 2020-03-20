@@ -25,7 +25,7 @@ const xc_func_info_type xc_func_info_gga_c_pw91 = {
   {&xc_ref_Perdew1991, &xc_ref_Perdew1992_6671, &xc_ref_Perdew1992_6671_err, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL, 
   NULL, work_gga, NULL
 };

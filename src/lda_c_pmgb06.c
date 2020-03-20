@@ -10,17 +10,9 @@
 
 #define XC_LDA_C_PMGB06   590   /* Long-range LDA correlation functional */
 
-static const func_params_type ext_params[] = {
-  {"omega",  0.3, "screening parameter"},
-};
-
-static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  assert(p != NULL);
-
-  p->cam_omega = get_ext_param(p->info->ext_params, ext_params, 0);
-}
+static const char  *omega_names[]  = {"omega"};
+static const char  *omega_desc[]   = {"screening parameter"};
+static const double omega_values[] = {0.3};
 
 #include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_pmgb06.c"
@@ -37,7 +29,7 @@ const xc_func_info_type xc_func_info_lda_c_pmgb06 = {
   {&xc_ref_Paziani2006_155111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1e-13,
-  1, ext_params, set_ext_params,
+  {1, omega_names, omega_desc, omega_values, set_ext_params_omega},
   NULL, NULL, 
   work_lda, NULL, NULL
 };

@@ -56,7 +56,7 @@ const xc_func_info_type xc_func_info_mgga_x_scanl = {
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161, &xc_ref_Sun2015_036402, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-20,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_scanl_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -72,7 +72,7 @@ const xc_func_info_type xc_func_info_mgga_x_revscanl = {
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161, &xc_ref_Mezei2018_2469, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-20,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_scanl_init, NULL,
   NULL, NULL, work_mgga,
 };

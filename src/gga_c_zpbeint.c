@@ -54,7 +54,7 @@ const xc_func_info_type xc_func_info_gga_c_zpbeint = {
   {&xc_ref_Constantin2011_233103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_zpbeint_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -70,7 +70,7 @@ const xc_func_info_type xc_func_info_gga_c_zpbesol = {
   {&xc_ref_Constantin2011_233103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_zpbeint_init, NULL, 
   NULL, work_gga, NULL
 };

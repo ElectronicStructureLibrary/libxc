@@ -47,13 +47,12 @@ lda_c_1d_csc_init(xc_func_type *p)
 #include "maple2c/lda_exc/lda_c_1d_csc.c"
 #include "work_lda.c"
 
-static const func_params_type ext_params[] = {
-  {"interaction",  1, "0 (exponentially screened) | 1 (soft-Coulomb)"},
-  {"beta", 1.0, "Screening parameter"}
-};
+static const char  *csc_names[]  = {"interaction", "beta"};
+static const char  *csc_desc[]   = {"0 (exponentially screened) | 1 (soft-Coulomb)", "Screening parameter"};
+static const double csc_values[] = {1, 1.0};
 
 static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
+csc_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   lda_c_1d_csc_params *params;
   int ii;
@@ -61,8 +60,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   assert(p != NULL && p->params != NULL);
   params = (lda_c_1d_csc_params *)(p->params);
 
-  params->interaction = (int)round(get_ext_param(p->info->ext_params, ext_params, 0));
-  params->bb = get_ext_param(p->info->ext_params, ext_params, 1);
+  params->interaction = (int)round(get_ext_param(p, ext_params, 0));
+  params->bb = get_ext_param(p, ext_params, 1);
 
   const double * ppara = NULL;
   const double * pferro = NULL;
@@ -126,7 +125,7 @@ const xc_func_info_type xc_func_info_lda_c_1d_csc = {
   {&xc_ref_Casula2006_245427, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D | MAPLE2C_FLAGS,
   5e-26,
-  2, ext_params, set_ext_params,
+  {2, csc_names, csc_desc, csc_values, csc_set_ext_params},
   lda_c_1d_csc_init, NULL,
   work_lda, NULL, NULL
 };

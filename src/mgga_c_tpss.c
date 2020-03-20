@@ -98,7 +98,7 @@ const xc_func_info_type xc_func_info_mgga_c_tm = {
   {&xc_ref_Tao2016_073001, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23, /* densities smaller than 1e-26 give NaNs */
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_c_tpss_init, NULL,
   NULL, NULL, work_mgga,
 };

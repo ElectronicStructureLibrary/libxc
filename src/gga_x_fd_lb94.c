@@ -84,7 +84,7 @@ const xc_func_info_type xc_func_info_gga_x_fd_lb94 = {
   {&xc_ref_Gaiduk2011_012509, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-26,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_fd_lb94_init, NULL,
   NULL, work_gga, NULL
 };
@@ -100,7 +100,7 @@ const xc_func_info_type xc_func_info_gga_x_fd_revlb94 = {
   {&xc_ref_Gaiduk2011_012509, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-26,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_fd_lb94_init, NULL,
   NULL, work_gga, NULL
 };

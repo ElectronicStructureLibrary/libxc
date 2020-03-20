@@ -89,7 +89,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cap0 = {
   {&xc_ref_Carmona2016_120, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_cap0_init, NULL,
   NULL, NULL, NULL
 };

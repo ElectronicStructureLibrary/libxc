@@ -34,7 +34,7 @@ const xc_func_info_type xc_func_info_gga_k_gds08 = {
   {&xc_ref_Ghiringhelli2008_073104, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_k_gds08_init, NULL,
   NULL, NULL, NULL
 };
@@ -63,7 +63,7 @@ const xc_func_info_type xc_func_info_gga_k_ghds10 = {
   {&xc_ref_Ghiringhelli2010_014106, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_k_ghds10_init, NULL,
   NULL, NULL, NULL
 };
@@ -92,7 +92,7 @@ const xc_func_info_type xc_func_info_gga_k_ghds10r = {
   {&xc_ref_Trickey2011_075146, &xc_ref_Ghiringhelli2010_014106, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_k_ghds10r_init, NULL,
   NULL, NULL, NULL
 };
@@ -121,7 +121,7 @@ const xc_func_info_type xc_func_info_gga_k_tkvln = {
   {&xc_ref_Trickey2011_075146, &xc_ref_Ghiringhelli2010_014106, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_k_tkvln_init, NULL,
   NULL, NULL, NULL
 };

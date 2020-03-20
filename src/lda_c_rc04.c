@@ -26,7 +26,7 @@ const xc_func_info_type xc_func_info_lda_c_rc04 = {
   {&xc_ref_Ragot2004_7671, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   work_lda, NULL, NULL
 };

@@ -66,7 +66,7 @@ const xc_func_info_type xc_func_info_mgga_x_m11_l = {
   {&xc_ref_Peverati2012_117, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-13,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_m11_l_init, NULL, 
   NULL, NULL, work_mgga,
 };

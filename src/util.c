@@ -90,7 +90,7 @@ const char *get_family(const xc_func_type *func) {
 /* this function checks if it should use the default or
    the user assigned value for an external parameter */
 double
-get_ext_param(const func_params_type *params, const double *values, int index)
+get_ext_param(const xc_func_type *func, const double *values, int index)
 {
   /* 
      If libxc finds a file in the current directory name
@@ -125,9 +125,34 @@ get_ext_param(const func_params_type *params, const double *values, int index)
   */
 
   if(values == NULL || values[index] == XC_EXT_PARAMS_DEFAULT)
-    return params[index].value; /* return default value */
+    return func->info->ext_params.values[index]; /* return default value */
   else
     return values[index]; /* return user assigned value */
+}
+
+/* assumes that p->params is just a series of doubles
+   so it can be accessed as a array, and and copies 
+   ext_params to this. */
+void
+set_ext_params_cpy(xc_func_type *p, const double *ext_params)
+{
+  double *params;
+  int ii;
+  
+  assert(p != NULL && p->params != NULL);
+  params = (double *) (p->params);
+
+  for(ii=0; ii<p->info->ext_params.n; ii++)
+    params[ii] = get_ext_param(p, ext_params, ii);
+}
+
+/* sets the screening parameter */
+void
+set_ext_params_omega(xc_func_type *p, const double *ext_params)
+{
+  assert(p != NULL);
+
+  p->cam_omega = get_ext_param(p, ext_params, 0);
 }
 
 /* these functional handle the internal counters

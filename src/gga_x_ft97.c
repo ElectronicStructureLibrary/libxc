@@ -95,7 +95,7 @@ const xc_func_info_type xc_func_info_gga_x_ft97_b = {
   {&xc_ref_Filatov1997_847, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-22,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_ft97_init, NULL,
   NULL, work_gga, NULL
 };

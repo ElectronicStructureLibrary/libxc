@@ -105,7 +105,7 @@ const xc_func_info_type xc_func_info_mgga_x_m06_l = {
   {&xc_ref_Zhao2006_194101, &xc_ref_Zhao2008_215, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1.0e-22,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_m06l_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -121,7 +121,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m06_hf = {
   {&xc_ref_Zhao2006_13126, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1.0e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_m06l_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -137,7 +137,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m06 = {
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1.0e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_m06l_init, NULL, 
   NULL, NULL, work_mgga,
 };
@@ -153,7 +153,7 @@ const xc_func_info_type xc_func_info_mgga_x_revm06_l = {
   {&xc_ref_Wang2017_8487, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   5.0e-13,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_m06l_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -169,7 +169,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_revm06 = {
   {&xc_ref_Wang2018_10257, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1.0e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_m06l_init, NULL, 
   NULL, NULL, work_mgga,
 };

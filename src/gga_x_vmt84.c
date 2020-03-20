@@ -55,7 +55,7 @@ const xc_func_info_type xc_func_info_gga_x_vmt84_pbe = {
   {&xc_ref_Vela2012_144115, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_vmt84_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -71,7 +71,7 @@ const xc_func_info_type xc_func_info_gga_x_vmt84_ge = {
   {&xc_ref_Vela2012_144115, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_vmt84_init, NULL, 
   NULL, work_gga, NULL
 };

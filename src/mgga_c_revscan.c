@@ -27,7 +27,7 @@ const xc_func_info_type xc_func_info_mgga_c_revscan = {
   {&xc_ref_Mezei2018_2469, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-26,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL, 
   NULL, NULL, work_mgga,
 };
@@ -55,7 +55,7 @@ const xc_func_info_type xc_func_info_mgga_c_revscan_vv10 = {
   {&xc_ref_Mezei2018_2469, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_VV10 | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_c_revscan_vv10_init, NULL,
   NULL, NULL, NULL
 };

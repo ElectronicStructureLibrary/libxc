@@ -80,7 +80,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m11 = {
   {&xc_ref_Peverati2011_2810, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | MAPLE2C_FLAGS,
   1e-11,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_m11_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -96,7 +96,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_revm11 = {
   {&xc_ref_Verma2019_2966, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | MAPLE2C_FLAGS,
   1e-11,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_m11_init, NULL,
   NULL, NULL, work_mgga,
 };

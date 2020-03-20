@@ -26,7 +26,7 @@ const xc_func_info_type xc_func_info_lda_xc_tih = {
   {&xc_ref_Tozer1996_9200, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   5e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   work_lda, NULL, NULL
 };

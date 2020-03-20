@@ -61,7 +61,7 @@ const xc_func_info_type xc_func_info_gga_x_pw86 = {
   {&xc_ref_Perdew1986_8800, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_pw86_init, NULL,
   NULL, work_gga, NULL
 };
@@ -77,7 +77,7 @@ const xc_func_info_type xc_func_info_gga_x_rpw86 = {
   {&xc_ref_Murray2009_2754, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_pw86_init, NULL,
   NULL, work_gga, NULL
 };

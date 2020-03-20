@@ -106,7 +106,7 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_0 = {
   {&xc_ref_Koehl1996_835, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_gdme_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -122,7 +122,7 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_kos = {
   {&xc_ref_Koehl1996_835, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_gdme_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -138,7 +138,7 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_vt = {
   {&xc_ref_Koehl1996_835, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_gdme_init, NULL,
   NULL, NULL, work_mgga,
 };

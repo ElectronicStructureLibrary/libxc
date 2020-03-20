@@ -92,7 +92,7 @@ const xc_func_info_type xc_func_info_gga_xc_ncap = {
   {&xc_ref_Carmona2019_303, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_gga_xc_ncap_init, NULL,
   NULL, NULL, NULL
 };

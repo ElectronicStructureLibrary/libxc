@@ -56,7 +56,7 @@ const xc_func_info_type xc_func_info_gga_k_llp = {
   {&xc_ref_Lee1991_768, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_k_llp_init, NULL,
   NULL, work_gga, NULL
 };
@@ -72,7 +72,7 @@ const xc_func_info_type xc_func_info_gga_k_fr_b88 = {
   {&xc_ref_Fuentealba1995_31, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_k_llp_init, NULL,
   NULL, work_gga, NULL
 };

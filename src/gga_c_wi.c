@@ -61,7 +61,7 @@ const xc_func_info_type xc_func_info_gga_c_wi0 = {
   {&xc_ref_Wilson1998_523, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_wi_init, NULL,
   NULL, work_gga, NULL
 };
@@ -77,7 +77,7 @@ const xc_func_info_type xc_func_info_gga_c_wi = {
   {&xc_ref_Wilson1998_523, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-10,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_wi_init, NULL,
   NULL, work_gga, NULL
 };

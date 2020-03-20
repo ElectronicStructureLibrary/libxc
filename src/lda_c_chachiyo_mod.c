@@ -57,7 +57,7 @@ const xc_func_info_type xc_func_info_lda_c_chachiyo_mod = {
   {&xc_ref_Chachiyo2018_00712, &xc_ref_Chachiyo2016_021101, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_chachiyo_mod_init, NULL,
   work_lda, NULL, NULL
 };
@@ -73,7 +73,7 @@ const xc_func_info_type xc_func_info_lda_c_karasiev_mod = {
   {&xc_ref_Chachiyo2018_00712, &xc_ref_Karasiev2016_157101, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_chachiyo_mod_init, NULL,
   work_lda, NULL, NULL
 };

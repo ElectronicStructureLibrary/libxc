@@ -142,7 +142,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe_sol = {
   {&xc_ref_Perdew2008_136406, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -158,7 +158,7 @@ const xc_func_info_type xc_func_info_gga_c_xpbe = {
   {&xc_ref_Xu2004_4068, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -174,7 +174,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe_jrgx = {
   {&xc_ref_Pedroza2009_201106, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -190,7 +190,7 @@ const xc_func_info_type xc_func_info_gga_c_rge2 = {
   {&xc_ref_Ruzsinszky2009_763, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -206,7 +206,7 @@ const xc_func_info_type xc_func_info_gga_c_apbe = {
   {&xc_ref_Constantin2011_186406, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -222,7 +222,7 @@ const xc_func_info_type xc_func_info_gga_c_spbe = {
   {&xc_ref_Swart2009_094103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -238,7 +238,7 @@ const xc_func_info_type xc_func_info_gga_c_pbeint = {
   {&xc_ref_Fabiano2010_113104, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -254,7 +254,7 @@ const xc_func_info_type xc_func_info_gga_c_pbefe = {
   {&xc_ref_Perez2015_3844, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -270,7 +270,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe_mol = {
   {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -286,7 +286,7 @@ const xc_func_info_type xc_func_info_gga_c_tm_pbe = {
   {&xc_ref_Thakkar2009_134109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_pbe_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -302,7 +302,7 @@ const xc_func_info_type xc_func_info_gga_c_mggac = {
   {&xc_ref_Patra2019_155140, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1.0e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_pbe_init, NULL, 
   NULL, work_gga, NULL
 };

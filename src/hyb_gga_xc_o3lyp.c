@@ -48,7 +48,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_o3lyp = {
   {&xc_ref_Cohen2001_607, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_o3lyp_init,
   NULL, NULL, NULL, NULL
 };
@@ -85,7 +85,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_x3lyp = {
   {&xc_ref_Xu2004_2673, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_x3lyp_init,
   NULL, NULL, NULL, NULL
 };

@@ -28,7 +28,7 @@ const xc_func_info_type xc_func_info_gga_x_beefvdw = {
   {&xc_ref_Wellendorff2012_235149, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL, 
   NULL, work_gga, NULL,
 };
@@ -54,7 +54,7 @@ const xc_func_info_type xc_func_info_gga_xc_beefvdw = {
   {&xc_ref_Wellendorff2012_235149, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_beefvdw_init, NULL, 
   NULL, NULL, NULL,
 };

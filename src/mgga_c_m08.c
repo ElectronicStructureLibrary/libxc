@@ -174,7 +174,7 @@ const xc_func_info_type xc_func_info_mgga_c_m08_hx = {
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_c_m08_init, NULL,
   NULL, NULL, work_mgga
 };
@@ -190,7 +190,7 @@ const xc_func_info_type xc_func_info_mgga_c_m08_so = {
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_c_m08_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -206,7 +206,7 @@ const xc_func_info_type xc_func_info_mgga_c_m11 = {
   {&xc_ref_Peverati2011_2810, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_c_m08_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -222,7 +222,7 @@ const xc_func_info_type xc_func_info_mgga_c_m11_l = {
   {&xc_ref_Peverati2012_117, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_c_m08_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -238,7 +238,7 @@ const xc_func_info_type xc_func_info_mgga_c_mn12_l = {
   {&xc_ref_Peverati2012_13171, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_c_m08_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -254,7 +254,7 @@ const xc_func_info_type xc_func_info_mgga_c_mn12_sx = {
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_c_m08_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -270,7 +270,7 @@ const xc_func_info_type xc_func_info_mgga_c_mn15_l = {
   {&xc_ref_Yu2016_1280, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_c_m08_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -286,7 +286,7 @@ const xc_func_info_type xc_func_info_mgga_c_mn15 = {
   {&xc_ref_Yu2016_5032, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_c_m08_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -302,7 +302,7 @@ const xc_func_info_type xc_func_info_mgga_c_revm11 = {
   {&xc_ref_Verma2019_2966, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_c_m08_init, NULL,
   NULL, NULL, work_mgga,
 };

@@ -86,7 +86,7 @@ const xc_func_info_type xc_func_info_mgga_x_mk00 = {
   {&xc_ref_Manby2000_7002, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1.0e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_rlda_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -116,7 +116,7 @@ const xc_func_info_type xc_func_info_mgga_x_mk00b = {
   {&xc_ref_Manby2000_7002, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1.0e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_mk00b_init, NULL,
   NULL, NULL, NULL,
 };

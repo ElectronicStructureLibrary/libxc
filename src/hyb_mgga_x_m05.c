@@ -81,7 +81,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m05 = {
   {&xc_ref_Zhao2005_161103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-20,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_m05_init, NULL, 
   NULL, NULL, work_mgga,
 };
@@ -98,7 +98,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m05_2x = {
   {&xc_ref_Zhao2006_364, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-20,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_m05_init, NULL, 
   NULL, NULL, work_mgga,
 };
@@ -114,7 +114,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m06_2x = {
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1.0e-20,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_m05_init, NULL,
   NULL, NULL, work_mgga,
 };

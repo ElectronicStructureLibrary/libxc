@@ -32,7 +32,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_dldf = {
   {&xc_ref_Pernal2009_263201, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1.0e-22,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_dldf_init, NULL,
   NULL, NULL, work_mgga,
 };

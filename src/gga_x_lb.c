@@ -70,7 +70,7 @@ const xc_func_info_type xc_func_info_gga_x_lb = {
   {&xc_ref_vanLeeuwen1994_2421, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_lb_init, NULL,
   NULL, work_gga, NULL
 };
@@ -87,7 +87,7 @@ const xc_func_info_type xc_func_info_gga_x_lbm = {
   {&xc_ref_Schipper2000_1344, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_lb_init, NULL,
   NULL, work_gga, NULL
 };

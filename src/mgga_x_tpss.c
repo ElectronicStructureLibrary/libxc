@@ -116,7 +116,7 @@ const xc_func_info_type xc_func_info_mgga_x_modtpss = {
   {&xc_ref_Perdew2007_042506, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_tpss_init, NULL, 
   NULL, NULL, work_mgga,
 };
@@ -132,7 +132,7 @@ const xc_func_info_type xc_func_info_mgga_x_revtpss = {
   {&xc_ref_Perdew2009_026403, &xc_ref_Perdew2009_026403_err, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_tpss_init, NULL, 
   NULL, NULL, work_mgga,
 };
@@ -148,7 +148,7 @@ const xc_func_info_type xc_func_info_mgga_x_bloc = {
   {&xc_ref_Constantin2013_2256, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_tpss_init, NULL, 
   NULL, NULL, work_mgga,
 };

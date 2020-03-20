@@ -26,7 +26,7 @@ const xc_func_info_type xc_func_info_lda_xc_zlp = {
   {&xc_ref_Zhao1993_918, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   work_lda, NULL, NULL
 };

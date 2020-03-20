@@ -151,7 +151,7 @@ const xc_func_info_type xc_func_info_lda_c_pw = {
   {&xc_ref_Perdew1992_13244, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_pw_init, NULL,
   work_lda, NULL, NULL
 };
@@ -167,7 +167,7 @@ const xc_func_info_type xc_func_info_lda_c_pw_mod = {
   {&xc_ref_Perdew1992_13244_mod, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_pw_init, NULL,
   work_lda, NULL, NULL
 };
@@ -183,7 +183,7 @@ const xc_func_info_type xc_func_info_lda_c_ob_pw = {
   {&xc_ref_Ortiz1994_1391, &xc_ref_Ortiz1994_1391_err, &xc_ref_Perdew1992_13244_mod, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_pw_init, NULL,
   work_lda, NULL, NULL
 };
@@ -199,7 +199,7 @@ const xc_func_info_type xc_func_info_lda_c_pw_rpa = {
   {&xc_ref_Perdew1992_13244, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_pw_init, NULL,
   work_lda, NULL, NULL
 };
@@ -215,7 +215,7 @@ const xc_func_info_type xc_func_info_lda_c_upw92 = {
   {&xc_ref_Ruggeri2018_161105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_pw_init, NULL,
   work_lda, NULL, NULL
 };
@@ -231,7 +231,7 @@ const xc_func_info_type xc_func_info_lda_c_rpw92 = {
   {&xc_ref_Ruggeri2018_161105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_pw_init, NULL,
   work_lda, NULL, NULL
 };

@@ -68,7 +68,7 @@ const xc_func_info_type xc_func_info_lda_c_hl = {
   {&xc_ref_Hedin1971_2064, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-16,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_hl_init, NULL,
   work_lda, NULL, NULL
 };
@@ -84,7 +84,7 @@ const xc_func_info_type xc_func_info_lda_c_gl = {
   {&xc_ref_Gunnarsson1976_4274, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-17,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_hl_init, NULL,
   work_lda, NULL, NULL
 };
@@ -100,7 +100,7 @@ const xc_func_info_type xc_func_info_lda_c_vbh = {
   {&xc_ref_vonBarth1972_1629, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-17,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_hl_init, NULL,
   work_lda, NULL, NULL
 };

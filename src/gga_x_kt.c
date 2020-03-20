@@ -82,7 +82,7 @@ const xc_func_info_type xc_func_info_gga_xc_kt1 = {
   {&xc_ref_Keal2003_3015, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_kt1_init, NULL, 
   NULL, NULL, NULL
 };
@@ -108,7 +108,7 @@ const xc_func_info_type xc_func_info_gga_xc_kt2 = {
   {&xc_ref_Keal2003_3015, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_kt2_init, NULL, 
   NULL, NULL, NULL
 };
@@ -149,7 +149,7 @@ const xc_func_info_type xc_func_info_gga_xc_kt3 = {
   {&xc_ref_Keal2004_5654, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_kt3_init, NULL, 
   NULL, NULL, NULL
 };

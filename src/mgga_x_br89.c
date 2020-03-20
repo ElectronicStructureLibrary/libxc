@@ -99,7 +99,7 @@ const xc_func_info_type xc_func_info_mgga_x_br89 = {
   {&xc_ref_Becke1989_3761, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_br89_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -115,7 +115,7 @@ const xc_func_info_type xc_func_info_mgga_x_br89_1 = {
   {&xc_ref_Becke1989_3761, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_br89_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -131,7 +131,7 @@ const xc_func_info_type xc_func_info_mgga_x_b00 = {
   {&xc_ref_Becke2000_4020, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_br89_init, NULL,
   NULL, NULL, work_mgga,
 };

@@ -101,7 +101,7 @@ const xc_func_info_type xc_func_info_gga_c_n12 = {
   {&xc_ref_Peverati2012_2310, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-20,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_bmk_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -117,7 +117,7 @@ const xc_func_info_type xc_func_info_gga_c_n12_sx = {
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-20,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_bmk_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -133,7 +133,7 @@ const xc_func_info_type xc_func_info_gga_c_gam = {
   {&xc_ref_Yu2015_12146, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1e-15,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_bmk_init, NULL,
   NULL, work_gga, NULL
 };
@@ -149,7 +149,7 @@ const xc_func_info_type xc_func_info_gga_c_bmk = {
   {&xc_ref_Boese2004_3405, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-20,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_bmk_init, NULL,
   NULL, work_gga, NULL
 };
@@ -165,7 +165,7 @@ const xc_func_info_type xc_func_info_gga_c_tau_hcth = {
   {&xc_ref_Boese2002_9559, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-20,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_bmk_init, NULL,
   NULL, work_gga, NULL
 };
@@ -181,7 +181,7 @@ const xc_func_info_type xc_func_info_gga_c_hyb_tau_hcth = {
   {&xc_ref_Boese2002_9559, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-20,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_bmk_init, NULL,
   NULL, work_gga, NULL
 };

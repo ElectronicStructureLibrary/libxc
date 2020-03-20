@@ -477,7 +477,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_apf = {
   {&xc_ref_Austin2012_4989, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_apf_init, NULL,
   NULL, NULL, NULL
 };
@@ -513,7 +513,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wc04 = {
   {&xc_ref_Wiitala2006_1085, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_wc04_init, NULL,
   NULL, NULL, NULL
 };
@@ -550,7 +550,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wp04 = {
   {&xc_ref_Wiitala2006_1085, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_wp04_init, NULL,
   NULL, NULL, NULL
 };

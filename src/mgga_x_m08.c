@@ -77,7 +77,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m08_hx = {
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-20,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_m08_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -93,7 +93,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m08_so = {
   {&xc_ref_Zhao2008_1849, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-20,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_m08_init, NULL,
   NULL, NULL, work_mgga,
 };

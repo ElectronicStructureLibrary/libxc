@@ -25,7 +25,7 @@ const xc_func_info_type xc_func_info_gga_c_hcth_a = {
   {&xc_ref_Hamprecht1998_6264, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-16,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   NULL, work_gga, NULL
 };

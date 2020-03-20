@@ -94,7 +94,7 @@ const xc_func_info_type xc_func_info_mgga_x_mvsbs = {
   {&xc_ref_Furness2018, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_mvsb_init, NULL,
   NULL, NULL, work_mgga,
 };

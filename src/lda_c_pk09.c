@@ -25,7 +25,7 @@ const xc_func_info_type xc_func_info_lda_c_pk09 = {
   {&xc_ref_Proynov2009_014103, &xc_ref_Proynov2017_059904, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   work_lda, NULL, NULL
 };

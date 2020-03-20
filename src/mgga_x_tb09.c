@@ -60,7 +60,7 @@ const xc_func_info_type xc_func_info_mgga_x_bj06 = {
   {&xc_ref_Becke2006_221101, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_tb09_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -107,7 +107,7 @@ const xc_func_info_type xc_func_info_mgga_x_rpp09 = {
   {&xc_ref_Rasanen2010_044112, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_tb09_init, NULL,
   NULL, NULL, work_mgga,
 };

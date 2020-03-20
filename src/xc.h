@@ -125,10 +125,14 @@ char const *xc_func_reference_get_doi(const func_reference_type *reference);
 char const *xc_func_reference_get_bibtex(const func_reference_type *reference);
 
 typedef struct{
-  const char *name; /* ATTENTION: if name starts with a _ it is an *internal* parameter,
-                 changing the value effectively changes the functional! */
-  double value;
-  const char *description;
+  int n; /* Number of parameters */
+
+  const char **names; /* ATTENTION: if name starts with a _ it is an *internal* parameter,
+                        changing the value effectively changes the functional! */
+  const char **descriptions; /* long description of the parameters */
+  const double *values; /* default values of the parameters */
+
+  void (*set)(struct xc_func_type *p, const double *ext_params);
 } func_params_type;
 
 typedef struct{
@@ -144,9 +148,7 @@ typedef struct{
   double dens_threshold;
 
   /* this allows to have external parameters in the functional */
-  int n_ext_params;
-  const func_params_type *ext_params;
-  void (*set_ext_params)(struct xc_func_type *p, const double *ext_params);
+  func_params_type ext_params;
 
   void (*init)(struct xc_func_type *p);
   void (*end) (struct xc_func_type *p);

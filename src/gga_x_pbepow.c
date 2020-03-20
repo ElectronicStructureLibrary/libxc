@@ -25,7 +25,7 @@ const xc_func_info_type xc_func_info_gga_x_pbepow = {
   {&xc_ref_Bremond2016_244102, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15, /* Gives NaN for densities as small as 1e-3 */
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL, 
   NULL, work_gga, NULL
 };

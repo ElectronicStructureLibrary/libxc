@@ -63,7 +63,7 @@ const xc_func_info_type xc_func_info_gga_c_sogga11 = {
   {&xc_ref_Peverati2011_1991, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_sogga11_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -79,7 +79,7 @@ const xc_func_info_type xc_func_info_gga_c_sogga11_x = {
   {&xc_ref_Peverati2011_191102, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_c_sogga11_init, NULL, 
   NULL, work_gga, NULL
 };

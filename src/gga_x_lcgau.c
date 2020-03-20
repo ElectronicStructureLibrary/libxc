@@ -104,7 +104,7 @@ const xc_func_info_type xc_func_info_gga_x_lcgau_core = {
   {&xc_ref_Song2008_184113, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1e-8,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_lgau_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -121,7 +121,7 @@ const xc_func_info_type xc_func_info_gga_x_lc2gau = {
   {&xc_ref_Song2009_144108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1e-8,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_lgau_init, NULL, 
   NULL, work_gga, NULL
 };

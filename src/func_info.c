@@ -49,19 +49,19 @@ int xc_func_info_get_n_ext_params(const xc_func_info_type *info)
 {
   assert(info!=NULL);
 
-  return info->n_ext_params;
+  return info->ext_params.n;
 }
 
 char const *xc_func_info_get_ext_params_description(const xc_func_info_type *info, int number)
 {
-  assert(number >=0 && number < info->n_ext_params);
+  assert(number >=0 && number < info->ext_params.n);
 
-  return info->ext_params[number].description;
+  return info->ext_params.descriptions[number];
 }
 
 double xc_func_info_get_ext_params_default_value(const xc_func_info_type *info, int number)
 {
-  assert(number >=0 && number < info->n_ext_params);
+  assert(number >=0 && number < info->ext_params.n);
 
-  return info->ext_params[number].value;
+  return info->ext_params.values[number];
 }

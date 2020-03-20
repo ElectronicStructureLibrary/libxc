@@ -33,7 +33,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_tpssh = {
   {&xc_ref_Staroverov2003_12129, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   hyb_mgga_xc_tpssh_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
@@ -61,7 +61,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_revtpssh = {
   {&xc_ref_Csonka2010_3688, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   hyb_mgga_xc_revtpssh_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };

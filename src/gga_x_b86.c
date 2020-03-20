@@ -110,7 +110,7 @@ const xc_func_info_type xc_func_info_gga_x_b86_mgc = {
   {&xc_ref_Becke1986_4524, &xc_ref_Becke1986_7184, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_b86_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -126,7 +126,7 @@ const xc_func_info_type xc_func_info_gga_x_b86_r = {
   {&xc_ref_Hamada2014_121103, &xc_ref_Becke1986_4524, &xc_ref_Becke1986_7184, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_b86_init, NULL, 
   NULL, work_gga, NULL
 
@@ -143,7 +143,7 @@ const xc_func_info_type xc_func_info_gga_x_optb86b_vdw = {
   {&xc_ref_Klimes2011_195131, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_b86_init, NULL,
   NULL, work_gga, NULL
 };

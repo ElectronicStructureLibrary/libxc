@@ -58,7 +58,7 @@ const xc_func_info_type xc_func_info_mgga_x_scan = {
   {&xc_ref_Sun2015_036402, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_scan_init, NULL,
   NULL, NULL, work_mgga
 };
@@ -74,7 +74,7 @@ const xc_func_info_type xc_func_info_mgga_x_revscan = {
   {&xc_ref_Mezei2018_2469, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_x_scan_init, NULL,
   NULL, NULL, work_mgga
 };
@@ -101,7 +101,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_scan0 = {
   {&xc_ref_Hui2016_044114, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   hyb_mgga_x_scan0_init, NULL,
   NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
@@ -129,7 +129,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_revscan0 = {
   {&xc_ref_Mezei2018_2469, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   hyb_mgga_x_revscan0_init, NULL,
   NULL, NULL, NULL /* this is taken care of by the generic routine */
 };

@@ -31,7 +31,7 @@ const xc_func_info_type xc_func_info_gga_c_lm = {
   {&xc_ref_Langreth1981_446, &xc_ref_Hu1985_391, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   NULL, work_gga, NULL
 };

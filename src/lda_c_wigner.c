@@ -79,7 +79,7 @@ const xc_func_info_type xc_func_info_lda_c_wigner = {
   {&xc_ref_Wigner1938_678, &xc_ref_Stewart1995_4337, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
 };
@@ -95,7 +95,7 @@ const xc_func_info_type xc_func_info_lda_xc_lp_a = {
   {&xc_ref_Lee1990_193, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
 };
@@ -111,7 +111,7 @@ const xc_func_info_type xc_func_info_lda_xc_lp_b = {
   {&xc_ref_Lee1990_193, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
 };
@@ -127,7 +127,7 @@ const xc_func_info_type xc_func_info_lda_c_mcweeny = {
   {&xc_ref_McWeeny1976_3, &xc_ref_Brual1978_1177, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
 };
@@ -143,7 +143,7 @@ const xc_func_info_type xc_func_info_lda_c_br78 = {
   {&xc_ref_Brual1978_1177, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
 };
@@ -159,7 +159,7 @@ const xc_func_info_type xc_func_info_lda_c_ow_lyp = {
   {&xc_ref_Stewart1995_4337, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
 };
@@ -175,7 +175,7 @@ const xc_func_info_type xc_func_info_lda_c_ow = {
   {&xc_ref_Stewart1995_4337, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
 };

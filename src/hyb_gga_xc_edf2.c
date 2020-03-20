@@ -37,7 +37,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_edf2 = {
   {&xc_ref_Lin2004_365, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   hyb_gga_xc_edf2_init, 
   NULL, NULL, NULL, NULL
 };

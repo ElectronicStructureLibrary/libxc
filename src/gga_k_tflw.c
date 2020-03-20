@@ -171,7 +171,7 @@ const xc_func_info_type xc_func_info_gga_k_vw = {
   {&xc_ref_Weizsacker1935_431, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -187,7 +187,7 @@ const xc_func_info_type xc_func_info_gga_k_ge2 = {
   {&xc_ref_Kompaneets1956_427, &xc_ref_Kirznits1957_115, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -203,7 +203,7 @@ const xc_func_info_type xc_func_info_gga_k_golden = {
   {&xc_ref_Golden1957_604, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -219,7 +219,7 @@ const xc_func_info_type xc_func_info_gga_k_yt65 = {
   {&xc_ref_Yonei1965_1051, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -235,7 +235,7 @@ const xc_func_info_type xc_func_info_gga_k_baltin = {
   {&xc_ref_Baltin1972_1176, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -251,7 +251,7 @@ const xc_func_info_type xc_func_info_gga_k_lieb = {
   {&xc_ref_Lieb1981_603, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };

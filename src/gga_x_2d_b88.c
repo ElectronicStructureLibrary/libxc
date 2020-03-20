@@ -25,7 +25,7 @@ const xc_func_info_type xc_func_info_gga_x_2d_b88 = {
   {&xc_ref_Vilhena2014, NULL, NULL, NULL, NULL},
   XC_FLAGS_2D | MAPLE2C_FLAGS,
   1e-22,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   NULL, work_gga, NULL
 };

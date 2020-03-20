@@ -27,7 +27,7 @@ const xc_func_info_type xc_func_info_gga_c_zvpbeloc = {
   {&xc_ref_Fabiano2015_122, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-10,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL, 
   NULL, work_gga, NULL
 };
@@ -54,7 +54,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_apbe0 = {
   {&xc_ref_Fabiano2015_122, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-10,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_apbe0_init, NULL, 
   NULL, NULL, NULL
 };
@@ -81,7 +81,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hapbe = {
   {&xc_ref_Fabiano2015_122, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-10,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_hapbe_init, NULL, 
   NULL, NULL, NULL
 };

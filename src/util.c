@@ -137,12 +137,21 @@ void
 set_ext_params_cpy(xc_func_type *p, const double *ext_params)
 {
   double *params;
-  int ii;
+  int ii, nparams;
   
   assert(p != NULL && p->params != NULL);
   params = (double *) (p->params);
 
-  for(ii=0; ii<p->info->ext_params.n; ii++)
+  nparams = p->info->ext_params.n;
+  if(p->info->family == XC_FAMILY_HYB_LDA ||
+     p->info->family == XC_FAMILY_HYB_GGA ||
+     p->info->family == XC_FAMILY_HYB_MGGA){
+    /* last parameter is the mixing */
+    nparams--;
+    p->cam_alpha = get_ext_param(p, ext_params, nparams);
+  }
+  
+  for(ii=0; ii<nparams; ii++)
     params[ii] = get_ext_param(p, ext_params, ii);
 }
 

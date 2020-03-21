@@ -24,23 +24,25 @@ gga_x_lsrpbe_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_x_lsrpbe_params));
 }
 
-static const func_params_type ext_params[] = {
-  {"_kappa", 0.8040, "Asymptotic value of the enhancement function"},
-  {"_mu",    MU_PBE, "Coefficient of the 2nd order expansion of the full Lsrpbe functional"},
-  {"_alpha", 0.00680892, "Exponent that should satisfy the PW91 criterion"}
+#define LSRPBE_N_PAR 3
+static const char  *lsrpbe_names[LSRPBE_N_PAR]  = {"_kappa", "_mu", "_alpha"};
+static const char  *lsrpbe_desc[LSRPBE_N_PAR]   = {
+  "Asymptotic value of the enhancement function",
+  "Coefficient of the 2nd order expansion of the full Lspbe functional",
+  "Exponent that should satisfy the PW91 criterion"
 };
+static const double lsrpbe_values[LSRPBE_N_PAR] =
+  {0.8040, MU_PBE, 0.00680892};
 
 static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
+lsrpbe_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   gga_x_lsrpbe_params *params;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_lsrpbe_params *) (p->params);
 
-  params->kappa = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->mu    = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->alpha = get_ext_param(p->info->ext_params, ext_params, 2);
+  set_ext_params_cpy(p, ext_params);
 
   /* adapt used mu value to yield wanted mu near origin (eq 9) */
   params-> mu += params->alpha*(1.0 + params->kappa);
@@ -61,7 +63,7 @@ const xc_func_info_type xc_func_info_gga_x_lsrpbe = {
   {&xc_ref_PachecoKato2016_268, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  3, ext_params, set_ext_params,
+  {LSRPBE_N_PAR, lsrpbe_names, lsrpbe_desc, lsrpbe_values, lsrpbe_set_ext_params},
   gga_x_lsrpbe_init, NULL, 
   NULL, work_gga, NULL
 };

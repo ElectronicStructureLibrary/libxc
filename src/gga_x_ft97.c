@@ -23,16 +23,16 @@ gga_x_ft97_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_x_ft97_params));
 }
 
-/* These parameters are what Filatov and Thiel actually used, not
-   the ones they published in the paper... the differences being that
-   beta1 has one more digit, and beta2 is squared: 2501.149^2 */
-#define FT97_N_PAR 2
-static const char  *ft97_names[FT97_N_PAR]  = {"_beta0", "_beta1", "beta2"};
+#define FT97_N_PAR 3
+static const char  *ft97_names[FT97_N_PAR]  = {"_beta0", "_beta1", "_beta2"};
 static const char  *ft97_desc[FT97_N_PAR]   = {
   "beta/X_FACTOR_C is the coefficient of the gradient expansion",
   "gamma should be 6 to get the right asymptotics of Ex"};
 static const double ft97a_values[FT97_N_PAR] = 
   {0.00293, 0.0, 0.0};
+/* These parameters are what Filatov and Thiel actually used, not
+   the ones they published in the paper... the differences being that
+   beta1 has one more digit, and beta2 is squared: 2501.149^2 */
 static const double ft97b_values[FT97_N_PAR] =
   {0.002913644, 0.0009474169, 6255746.320201};
 

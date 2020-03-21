@@ -18,40 +18,24 @@ typedef struct{
 static void
 gga_x_ak13_init(xc_func_type *p)
 {
-  gga_x_ak13_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_ak13_params));
-  params = (gga_x_ak13_params *) (p->params);
-
-  /* defaults set by set_ext_params */
 }
 
 #include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_ak13.c"
 #include "work_gga.c"
 
-static const func_params_type ext_params[] = {
-  {"_B1",  1.74959015598863046792081721182, "B1"}, /* 3*muGE/5 + 8 pi/15 */
-  {"_B2", -1.62613336586517367779736042170, "B2"}  /* muGE - B1 */
-};
-
-static void
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  gga_x_ak13_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_x_ak13_params *) (p->params);
-
-  params->B1 = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->B2 = get_ext_param(p->info->ext_params, ext_params, 1);
-}
+#define AK13_N_PAR 2
+static const char  *ak13_names[AK13_N_PAR]  = {"_B1", "_B2"};
+static const char  *ak13_desc[AK13_N_PAR]   = {"B1", "B2"};
+/* B1 = 3*muGE/5 + 8 pi/15   B2 = muGE - B1 */
+static const double ak13_values[AK13_N_PAR] =
+  {1.74959015598863046792081721182, -1.62613336586517367779736042170};
 
 double xc_gga_ak13_get_asymptotic (double homo)
 {
-  const double params[2] = {1.74959015598863046792081721182, -1.62613336586517367779736042170};
-  return xc_gga_ak13_pars_get_asymptotic(homo, params);
+  return xc_gga_ak13_pars_get_asymptotic(homo, ak13_values);
 }
 
 double xc_gga_ak13_pars_get_asymptotic (double homo, const double *ext_params)
@@ -82,7 +66,7 @@ const xc_func_info_type xc_func_info_gga_x_ak13 = {
   {&xc_ref_Armiento2013_036402, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  2, ext_params, set_ext_params,
+  {2, ak13_names, ak13_desc, ak13_values, set_ext_params_cpy},
   gga_x_ak13_init, NULL,
   NULL, work_gga, NULL
 };

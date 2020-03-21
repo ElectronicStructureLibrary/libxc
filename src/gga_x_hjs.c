@@ -15,9 +15,8 @@
 #define XC_GGA_X_HJS_B97X    528 /* HJS screened exchange B97x version */
 
 typedef struct{
-  double omega;
-
   double a[6], b[9]; /* pointers to the a and b parameters */
+  double omega;
 } gga_x_hjs_params;
 
 static const double a_PBE[] = 
@@ -83,21 +82,9 @@ gga_x_hjs_init(xc_func_type *p)
   }
 }
 
-static func_params_type ext_params[] = {
-  {"_omega", 0.11, "Screening parameter for HF"},
-};
-
-static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  gga_x_hjs_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_x_hjs_params *) (p->params);
-
-  params->omega = get_ext_param(p->info->ext_params, ext_params, 0);
-}
-
+static const char  *omega_names[]  = {"omega"};
+static const char  *omega_desc[]   = {"screening parameter"};
+static const double omega_values[] = {0.11};
 
 #include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_hjs.c"
@@ -114,7 +101,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_pbe = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   5e-12,
-  1, ext_params, set_ext_params,
+  {1, omega_names, omega_desc, omega_values, set_ext_params_omega},
   gga_x_hjs_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -130,7 +117,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_pbe_sol = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   5e-12,
-  1, ext_params, set_ext_params,
+  {1, omega_names, omega_desc, omega_values, set_ext_params_omega},
   gga_x_hjs_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -146,7 +133,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b88 = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-7, /* densities smaller than 1e-7 yield NaNs */
-  1, ext_params, set_ext_params,
+  {1, omega_names, omega_desc, omega_values, set_ext_params_omega},
   gga_x_hjs_init, NULL, 
   NULL,  work_gga, NULL
 };
@@ -162,7 +149,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b97x = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-10,
-  1, ext_params, set_ext_params,
+  {1, omega_names, omega_desc, omega_values, set_ext_params_omega},
   gga_x_hjs_init, NULL, 
   NULL, work_gga, NULL
 };

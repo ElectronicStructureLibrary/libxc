@@ -155,13 +155,16 @@ set_ext_params_cpy(xc_func_type *p, const double *ext_params)
     params[ii] = get_ext_param(p, ext_params, ii);
 }
 
-/* sets the screening parameter */
+/* 
+   Sets the screening parameter. This should be the last
+   parameter of the functional
+*/
 void
 set_ext_params_omega(xc_func_type *p, const double *ext_params)
 {
   assert(p != NULL);
 
-  p->cam_omega = get_ext_param(p, ext_params, 0);
+  p->cam_omega = get_ext_param(p, ext_params, p->info->ext_params.n-1);
 }
 
 /* these functional handle the internal counters

@@ -17,52 +17,22 @@ typedef struct{
   double C0_c[4];
 } mgga_c_revtpss_params;
 
-static const mgga_c_revtpss_params par_revtm = {2.8, {0.0, 0.1, 0.32, 0.0}};
-
 static void 
 mgga_c_revtpss_init(xc_func_type *p)
 {
-  mgga_c_revtpss_params *params;
-
   assert(p != NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_c_revtpss_params));
-  params = (mgga_c_revtpss_params *)p->params;
-
-  switch(p->info->number){
-  case XC_MGGA_C_REVTPSS:
-    /* default set by set_ext_params */
-    break;
-  case XC_MGGA_C_REVTM:
-    memcpy(params, &par_revtm, sizeof(mgga_c_revtpss_params));
-    break;
-  default:
-    fprintf(stderr, "Internal error in mgga_c_revtpss\n");
-    exit(1);
-  }
 }
 
-static const func_params_type ext_params[] = {
-  {"_d", 2.8, "d"},
-  {"_C0_c0", 0.59,   "C0_c[0]"},
-  {"_C0_c1", 0.9269, "C0_c[1]"},
-  {"_C0_c2", 0.6225, "C0_c[2]"},
-  {"_C0_c3", 2.1540, "C0_c[3]"}
+#define REVTPSS_N_PAR 5
+static const char  *revtpss_names[REVTPSS_N_PAR]  = {"_d", "_C0_c0", "_C0_c1", "_C0_c2", "_C0_c3"};
+static const char  *revtpss_desc[REVTPSS_N_PAR]   = {"d", "C0_c0", "C0_c1", "C0_c2", "C0_c3"};
+static const double revtpss_values[REVTPSS_N_PAR] = {
+  2.8, 0.59, 0.9269, 0.6225, 2.1540
 };
-
-static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  mgga_c_revtpss_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (mgga_c_revtpss_params *) (p->params);
-
-  params->d       = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->C0_c[0] = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->C0_c[1] = get_ext_param(p->info->ext_params, ext_params, 2);
-  params->C0_c[2] = get_ext_param(p->info->ext_params, ext_params, 3);
-  params->C0_c[3] = get_ext_param(p->info->ext_params, ext_params, 4);
-}
+static const double revtm_values[REVTPSS_N_PAR] = {
+  2.8, 0.0, 0.1, 0.32, 0.0
+};
 
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_revtpss.c"
@@ -79,7 +49,7 @@ const xc_func_info_type xc_func_info_mgga_c_revtpss = {
   {&xc_ref_Perdew2009_026403, &xc_ref_Perdew2009_026403_err, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-13, /* densities smaller than 1e-26 give NaNs */
-  5, ext_params, set_ext_params,
+  {REVTPSS_N_PAR, revtpss_names, revtpss_desc, revtpss_values, set_ext_params_cpy},
   mgga_c_revtpss_init, NULL,
   NULL, NULL, work_mgga
 };
@@ -95,7 +65,7 @@ const xc_func_info_type xc_func_info_mgga_c_revtm = {
   {&xc_ref_Jana2019_6356, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-13, /* densities smaller than 1e-26 give NaNs */
-  {0, NULL, NULL, NULL, NULL},
+  {REVTPSS_N_PAR, revtpss_names, revtpss_desc, revtm_values, set_ext_params_cpy},
   mgga_c_revtpss_init, NULL,
   NULL, NULL, work_mgga
 };

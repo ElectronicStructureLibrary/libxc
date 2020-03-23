@@ -12,68 +12,63 @@
 #define XC_HYB_GGA_X_S12H     496 /* Swart 2012 GGA hybrid exchange                             */
 
 typedef struct {
-  double A;
-  double B;
-  double C;
-  double D;
-  double E;
+  double A, B, C, D, E;
   double bx;
 } gga_x_s12_params;
 
 static void
 gga_x_s12_init(xc_func_type *p)
 {
+  gga_x_s12_params *params;
+
   assert(p!=NULL && p->params == NULL);
   p->params = malloc(sizeof(gga_x_s12_params));
+  params = (gga_x_s12_params *) (p->params);
+
+  params->bx  = 1.0; /* we initialize it here */
 }
 
-static const func_params_type ext_params_s12g[] = {
-  {"_A", 1.03842032, "A parameter"},
-  {"_B", 1.757-1.03842032, "B parameter"},
-  {"_C", 0.00403198, "C parameter"},
-  {"_D", 0.00104596, "D parameter"},
-  {"_E", 0.00594635, "E parameter"}
+#define S12G_N_PAR 5
+static const char  *s12g_names[S12G_N_PAR]  = {"_A", "_B", "_C", "_D", "_E"};
+static const char  *s12g_desc[S12G_N_PAR]   = {
+  "A parameter",
+  "B parameter",
+  "C parameter",
+  "D parameter",
+  "E parameter"
+};
+static const double s12g_values[S12G_N_PAR] = {
+  1.03842032, 1.757-1.03842032, 0.00403198, 0.00104596, 0.00594635
+};
+
+#define S12H_N_PAR 6
+static const char  *s12h_names[S12H_N_PAR]  = {"_A", "_B", "_C", "_D", "_E", "_alpha"};
+static const char  *s12h_desc[S12H_N_PAR]   = {
+  "A parameter",
+  "B parameter",
+  "C parameter",
+  "D parameter",
+  "E parameter",
+  "Fraction of exact exchange"
+};
+static const double s12h_values[S12H_N_PAR] = {
+  1.02543951, 1.757-1.02543951, 0.00761554, 0.00211063, 0.00604672, 0.25
 };
 
 static void 
-set_ext_params_s12g(xc_func_type *p, const double *ext_params)
+s12h_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   gga_x_s12_params *params;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_s12_params *) (p->params);
 
-  params->A   = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->B   = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->C   = get_ext_param(p->info->ext_params, ext_params, 2);
-  params->D   = get_ext_param(p->info->ext_params, ext_params, 3);
-  params->E   = get_ext_param(p->info->ext_params, ext_params, 4);
-  params->bx  = 1.0;
-}
-
-static const func_params_type ext_params_s12h[] = {
-  {"_A", 1.02543951, "A parameter"},
-  {"_B", 1.757-1.02543951, "B parameter"},
-  {"_C", 0.00761554, "C parameter"},
-  {"_D", 0.00211063, "D parameter"},
-  {"_E", 0.00604672, "E parameter"},
-  {"_alpha", 0.25, "Fraction of exact exchange"}
-};
-
-static void 
-set_ext_params_s12h(xc_func_type *p, const double *ext_params)
-{
-  gga_x_s12_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_x_s12_params *) (p->params);
-
-  params->A    = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->B    = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->C    = get_ext_param(p->info->ext_params, ext_params, 2);
-  params->D    = get_ext_param(p->info->ext_params, ext_params, 3);
-  params->E    = get_ext_param(p->info->ext_params, ext_params, 4);
-  p->cam_alpha = get_ext_param(p->info->ext_params, ext_params, 5);
+  params->A    = get_ext_param(p, ext_params, 0);
+  params->B    = get_ext_param(p, ext_params, 1);
+  params->C    = get_ext_param(p, ext_params, 2);
+  params->D    = get_ext_param(p, ext_params, 3);
+  params->E    = get_ext_param(p, ext_params, 4);
+  p->cam_alpha = get_ext_param(p, ext_params, 5);
   params->bx   = 1.0 - p->cam_alpha;
   p->cam_beta  = 0.0;
   p->cam_omega = 0.0;
@@ -94,7 +89,7 @@ const xc_func_info_type xc_func_info_gga_x_s12g = {
   {&xc_ref_Swart2013_166, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  5, ext_params_s12g, set_ext_params_s12g,
+  {S12G_N_PAR, s12g_names, s12g_desc, s12g_values, set_ext_params_cpy},
   gga_x_s12_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -110,7 +105,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_s12h = {
   {&xc_ref_Swart2013_166, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  6, ext_params_s12h, set_ext_params_s12h,
+  {S12H_N_PAR, s12h_names, s12h_desc, s12h_values, s12h_set_ext_params},
   gga_x_s12_init, NULL, 
   NULL, work_gga, NULL
 };

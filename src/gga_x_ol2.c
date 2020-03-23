@@ -17,37 +17,24 @@ typedef struct{
 static void 
 gga_x_ol2_init(xc_func_type *p)
 {
-  gga_x_ol2_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_ol2_params));
-  params = (gga_x_ol2_params *) (p->params);
-
-  /* defaults set by set_ext_params */
 }
 
 #include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_ol2.c"
 #include "work_gga.c"
 
-static const func_params_type ext_params[] = {
-  {"_aa", 0.09564574034649151285038696952714226444963L, "aa"}, /* M_CBRT2*0.07064/X_FACTOR_C */
-  {"_bb", 0.09564574034649151285038696952714226444963L, "bb"}, /* M_CBRT2*0.07064/X_FACTOR_C */
-  {"_cc", 4.098833606342553442039881031486386917472L,   "cc"}  /* M_CBRT2*M_CBRT2*0.07064*34.0135/X_FACTOR_C */
+#define OL2_N_PAR 3
+static const char  *ol2_names[OL2_N_PAR]  = {"_aa", "_bb", "_cc"};
+static const char  *ol2_desc[OL2_N_PAR]   = {
+  "aa", "bb", "cc"
 };
-
-static void
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  gga_x_ol2_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_x_ol2_params *) (p->params);
-
-  params->aa = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->bb = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->cc = get_ext_param(p->info->ext_params, ext_params, 2);
-}
+static const double ol2_values[OL2_N_PAR] = {
+  0.09564574034649151285038696952714226444963L, /* M_CBRT2*0.07064/X_FACTOR_C */
+  0.09564574034649151285038696952714226444963L, /* M_CBRT2*0.07064/X_FACTOR_C */
+  4.098833606342553442039881031486386917472L    /* M_CBRT2*M_CBRT2*0.07064*34.0135/X_FACTOR_C */
+};
 
 #ifdef __cplusplus
 extern "C"
@@ -60,7 +47,7 @@ const xc_func_info_type xc_func_info_gga_x_ol2 = {
   {&xc_ref_Fuentealba1995_31, &xc_ref_OuYang1991_379, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   5e-26,
-  3, ext_params, set_ext_params,
+  {OL2_N_PAR, ol2_names, ol2_desc, ol2_values, set_ext_params_cpy},
   gga_x_ol2_init, NULL, 
   NULL, work_gga, NULL
 };

@@ -23,22 +23,13 @@ mgga_c_bc95_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(mgga_c_bc95_params));
 }
 
-static const func_params_type ext_params[] = {
-  {"_css",  0.038,  "Parallel spin"},
-  {"_copp", 0.0031, "Opposite spin"},
+#define BC95_N_PAR 2
+static const char  *bc95_names[BC95_N_PAR]  = {"_css", "_copp"};
+static const char  *bc95_desc[BC95_N_PAR]   = {
+  "Parallel spin",
+  "Opposite spin"
 };
-
-static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  mgga_c_bc95_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (mgga_c_bc95_params *) (p->params);
-
-  params->css  = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->copp = get_ext_param(p->info->ext_params, ext_params, 1);
-}
+static const double bc95_values[BC95_N_PAR] = {0.038, 0.0031};
 
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_bc95.c"
@@ -55,7 +46,7 @@ const xc_func_info_type xc_func_info_mgga_c_bc95 = {
   {&xc_ref_Becke1996_1040, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  2, ext_params, set_ext_params,
+  {BC95_N_PAR, bc95_names, bc95_desc, bc95_values, set_ext_params_cpy},
   mgga_c_bc95_init, NULL,
   NULL, NULL, work_mgga,
 };

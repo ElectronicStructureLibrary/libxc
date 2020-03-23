@@ -26,64 +26,34 @@ typedef struct{
   double BLOC_a, BLOC_b;
 } mgga_x_tpss_params;
 
-static const mgga_x_tpss_params par_modtpss = {0.40, 1.38496, 1.37, 0.804, 0.252, 2.0, 0.0};
-static const mgga_x_tpss_params par_revtpss = {0.40, 2.35203946, 2.16769874, 0.804, 0.14, 3.0, 0.0};
-static const mgga_x_tpss_params par_bloc    = {0.40, 1.59096, 1.537, 0.804, 0.21951, 4.0, -3.3};
 
 static void 
 mgga_x_tpss_init(xc_func_type *p)
 {
-  mgga_x_tpss_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_tpss_params));
-  params = (mgga_x_tpss_params *)p->params;
-
-  switch(p->info->number){
-  case XC_MGGA_X_TPSS:
-    /* default set by set_ext_params */
-    break;
-  case XC_MGGA_X_MODTPSS:
-    memcpy(params, &par_modtpss, sizeof(mgga_x_tpss_params));
-    break;
-  case XC_MGGA_X_REVTPSS:
-    memcpy(params, &par_revtpss, sizeof(mgga_x_tpss_params));
-    break;
-  case XC_MGGA_X_BLOC:
-    memcpy(params, &par_bloc, sizeof(mgga_x_tpss_params));
-    break;
-  default:
-    fprintf(stderr, "Internal error in mgga_x_tpss\n");
-    exit(1);
-  }
 }
 
-static const func_params_type ext_params[] = {
-  {"_b",      0.40,    "b"},
-  {"_c",      1.59096, "c"},
-  {"_e",      1.537,   "e"},
-  {"_kappa",  0.8040,  "Asymptotic value of the enhancement function"},
-  {"_mu",     0.21951, "Coefficient of the 2nd order expansion"},
-  {"_BLOC_a", 2.0,     "BLOC_a"},
-  {"_BLOC_b", 0.0,     "BLOC_b"},
+#define TPSS_N_PAR 7
+static const char  *tpss_names[TPSS_N_PAR]  = {"_b", "_c", "_e", "_kappa", "_mu", "_BLOC_a", "_BLOC_b"};
+static const char  *tpss_desc[TPSS_N_PAR]   = {
+  "b", "c", "e",
+  "Asymptotic value of the enhancement function",
+  "Coefficient of the 2nd order expansion",
+  "BLOC_a", "BLOC_b"
 };
-
-static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  mgga_x_tpss_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (mgga_x_tpss_params *) (p->params);
-
-  params->b      = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->c      = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->e      = get_ext_param(p->info->ext_params, ext_params, 2);
-  params->kappa  = get_ext_param(p->info->ext_params, ext_params, 3);
-  params->mu     = get_ext_param(p->info->ext_params, ext_params, 4);
-  params->BLOC_a = get_ext_param(p->info->ext_params, ext_params, 5);
-  params->BLOC_b = get_ext_param(p->info->ext_params, ext_params, 6);
-}
+static const double tpss_values[TPSS_N_PAR] = {
+  0.40, 1.59096, 1.537, 0.8040, 0.21951, 2.0, 0.0
+};
+static const double modtpss_values[TPSS_N_PAR] = {
+  0.40, 1.38496, 1.37, 0.804, 0.252, 2.0, 0.0
+};
+static const double revtpss_values[TPSS_N_PAR] = {
+  0.40, 2.35203946, 2.16769874, 0.804, 0.14, 3.0, 0.0
+};
+static const double bloc_values[TPSS_N_PAR]    = {
+  0.40, 1.59096, 1.537, 0.804, 0.21951, 4.0, -3.3
+};
 
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_tpss.c"
@@ -100,7 +70,7 @@ const xc_func_info_type xc_func_info_mgga_x_tpss = {
   {&xc_ref_Tao2003_146401, &xc_ref_Perdew2004_6898, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  7, ext_params, set_ext_params,
+  {TPSS_N_PAR, tpss_names, tpss_desc, tpss_values, set_ext_params_cpy},
   mgga_x_tpss_init, NULL, 
   NULL, NULL, work_mgga,
 };
@@ -116,7 +86,7 @@ const xc_func_info_type xc_func_info_mgga_x_modtpss = {
   {&xc_ref_Perdew2007_042506, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  {0, NULL, NULL, NULL, NULL},
+  {TPSS_N_PAR, tpss_names, tpss_desc, modtpss_values, set_ext_params_cpy},
   mgga_x_tpss_init, NULL, 
   NULL, NULL, work_mgga,
 };
@@ -132,7 +102,7 @@ const xc_func_info_type xc_func_info_mgga_x_revtpss = {
   {&xc_ref_Perdew2009_026403, &xc_ref_Perdew2009_026403_err, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  {0, NULL, NULL, NULL, NULL},
+  {TPSS_N_PAR, tpss_names, tpss_desc, revtpss_values, set_ext_params_cpy},
   mgga_x_tpss_init, NULL, 
   NULL, NULL, work_mgga,
 };
@@ -148,7 +118,7 @@ const xc_func_info_type xc_func_info_mgga_x_bloc = {
   {&xc_ref_Constantin2013_2256, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  {0, NULL, NULL, NULL, NULL},
+  {TPSS_N_PAR, tpss_names, tpss_desc, bloc_values, set_ext_params_cpy},
   mgga_x_tpss_init, NULL, 
   NULL, NULL, work_mgga,
 };

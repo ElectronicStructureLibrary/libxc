@@ -28,22 +28,29 @@
 
 /*************************************************************/
 
-static const func_params_type ext_params_b3pw91[] = {
-  {"_a0", 0.20, "Fraction of exact exchange"},
-  {"_ax", 0.72, "Fraction of B88 exchange correction"},
-  {"_ac", 0.81, "Fraction of PW91 correlation correction"}
+#define B3LYP_N_PAR 3
+static const char  *b3lyp_names[B3LYP_N_PAR]  = {"_a0", "_ax", "_ac"};
+static const char  *b3lyp_desc[B3LYP_N_PAR]   = {
+  "Fraction of exact exchange",
+  "Fraction of GGA exchange correction",
+  "Fraction of GGA correlation correction"
 };
+static const double b3lyp_values[B3LYP_N_PAR]    = {0.20, 0.72, 0.81};
+static const double mpw3lyp_values[B3LYP_N_PAR]  = {0.218, 0.709, 0.871};
+static const double revb3lyp_values[B3LYP_N_PAR] = {0.20, 0.67, 0.84};
+static const double b3lyps_values[B3LYP_N_PAR]   = {0.15, 0.72, 0.81};
+static const double b5050lyp_values[B3LYP_N_PAR] = {0.50, 0.42, 0.81};
 
 static void
-set_ext_params_b3pw91(xc_func_type *p, const double *ext_params)
+b3pw91_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   double a0, ax, ac;
 
   assert(p != NULL);
 
-  a0 = get_ext_param(p->info->ext_params, ext_params, 0);
-  ax = get_ext_param(p->info->ext_params, ext_params, 1);
-  ac = get_ext_param(p->info->ext_params, ext_params, 2);
+  a0 = get_ext_param(p, ext_params, 0);
+  ax = get_ext_param(p, ext_params, 1);
+  ac = get_ext_param(p, ext_params, 2);
 
   p->mix_coef[0] = 1.0 - a0 - ax;
   p->mix_coef[1] = ax;
@@ -73,19 +80,11 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3pw91 = {
   {&xc_ref_Becke1993_5648, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  3, ext_params_b3pw91, set_ext_params_b3pw91,
+  {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b3lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_b3pw91_init, NULL,
   NULL, NULL, NULL
 };
 
-
-/*************************************************************/
-
-static const func_params_type ext_params_b3lyp[] = {
-  {"_a0", 0.20, "Fraction of exact exchange"},
-  {"_ax", 0.72, "Fraction of B88 exchange correction"},
-  {"_ac", 0.81, "Fraction of LYP correlation correction"}
-};
 
 void
 xc_hyb_gga_xc_b3lyp_init(xc_func_type *p)
@@ -107,7 +106,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp = {
   {&xc_ref_Stephens1994_11623, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  3, ext_params_b3lyp, set_ext_params_b3pw91,
+  {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b3lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_b3lyp_init, NULL,
   NULL, NULL, NULL
 };
@@ -133,19 +132,11 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp5 = {
   {&xc_ref_Stephens1994_11623, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  3, ext_params_b3lyp, set_ext_params_b3pw91,
+  {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b3lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_b3lyp5_init, NULL,
   NULL, NULL, NULL
 };
 
-
-/*************************************************************/
-
-static const func_params_type ext_params_b3p86[] = {
-  {"_a0", 0.20, "Fraction of exact exchange"},
-  {"_ax", 0.72, "Fraction of B88 exchange correction"},
-  {"_ac", 0.81, "Fraction of P86 correlation correction"}
-};
 
 void
 xc_hyb_gga_xc_b3p86_init(xc_func_type *p)
@@ -167,18 +158,11 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3p86 = {
   {&xc_ref_gaussianimplementation, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  3, ext_params_b3p86, set_ext_params_b3pw91,
+  {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b3lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_b3p86_init, NULL,
   NULL, NULL, NULL
 };
 
-
-/*************************************************************/
-static const func_params_type ext_params_mpw3pw[] = {
-  {"_a0", 0.20, "Fraction of exact exchange"},
-  {"_ax", 0.72, "Fraction of mPW91 exchange correction"},
-  {"_ac", 0.81, "Fraction of PW91 correlation correction"}
-};
 
 void
 xc_hyb_gga_xc_mpw3pw_init(xc_func_type *p)
@@ -200,18 +184,11 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mpw3pw = {
   {&xc_ref_Adamo1998_664, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  3, ext_params_mpw3pw, set_ext_params_b3pw91,
+  {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b3lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_mpw3pw_init, NULL,
   NULL, NULL, NULL
 };
 
-
-/*************************************************************/
-static const func_params_type ext_params_mpw3lyp[] = {
-  {"_a0", 0.218, "Fraction of exact exchange"},
-  {"_ax", 0.709, "Fraction of mPW91 exchange correction"},
-  {"_ac", 0.871, "Fraction of LYP correlation correction"}
-};
 
 void
 xc_hyb_gga_xc_mpw3lyp_init(xc_func_type *p)
@@ -233,31 +210,33 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mpw3lyp = {
   {&xc_ref_Zhao2004_6908, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  3, ext_params_mpw3lyp, set_ext_params_b3pw91,
+  {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, mpw3lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_mpw3lyp_init, NULL,
   NULL, NULL, NULL
 };
 
 
-/*************************************************************/
-static const func_params_type ext_params_mb3lyp_rc04[] = {
-  {"_a0", 0.20, "Fraction of exact exchange"},
-  {"_ax", 0.72, "Fraction of B88 exchange correction"},
-  {"_ac", 0.81, "Fraction of LYP correlation correction"},
-  {"_d",  0.57, "Correction factor for RC04 part"}
+#define RC04_N_PAR 4
+static const char  *rc04_names[RC04_N_PAR]  = {"_a0", "_ax", "_ac", "_d"};
+static const char  *rc04_desc[RC04_N_PAR]   = {
+  "Fraction of exact exchange",
+  "Fraction of GGA exchange correction",
+  "Fraction of GGA correlation correction",
+  "Correction factor for RC04 part"
 };
+static const double rc04_values[RC04_N_PAR]  = {0.20, 0.72, 0.81, 0.57};
 
 static void
-set_ext_params_mb3lyp_rc04(xc_func_type *p, const double *ext_params)
+rc04_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   double a0, ax, ac, d;
 
   assert(p != NULL);
 
-  a0 = get_ext_param(p->info->ext_params, ext_params, 0);
-  ax = get_ext_param(p->info->ext_params, ext_params, 1);
-  ac = get_ext_param(p->info->ext_params, ext_params, 2);
-  d = get_ext_param(p->info->ext_params, ext_params, 3);
+  a0 = get_ext_param(p, ext_params, 0);
+  ax = get_ext_param(p, ext_params, 1);
+  ac = get_ext_param(p, ext_params, 2);
+  d  = get_ext_param(p, ext_params, 3);
 
   p->mix_coef[0] = 1.0 - a0 - ax;
   p->mix_coef[1] = ax;
@@ -287,19 +266,12 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mb3lyp_rc04 = {
   {&xc_ref_Tognetti2007_381, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  4, ext_params_mb3lyp_rc04, set_ext_params_mb3lyp_rc04,
+  {RC04_N_PAR, rc04_names, rc04_desc, rc04_values, rc04_set_ext_params},
   xc_hyb_gga_xc_mb3lyp_rc04_init, NULL,
   NULL, NULL, NULL
 };
 
 /*************************************************************/
-
-static const func_params_type ext_params_revb3lyp[] = {
-  {"_a0", 0.20, "Fraction of exact exchange"},
-  {"_ax", 0.67, "Fraction of B88 exchange correction"},
-  {"_ac", 0.84, "Fraction of LYP correlation correction"}
-};
-
 #ifdef __cplusplus
 extern "C"
 #endif
@@ -311,19 +283,13 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_revb3lyp = {
   {&xc_ref_Lu2013_64, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  3, ext_params_revb3lyp, set_ext_params_b3pw91,
+  {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, revb3lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_b3lyp_init, NULL,
   NULL, NULL, NULL
 };
 
 
 /*************************************************************/
-static const func_params_type ext_params_b3lyps[] = {
-  {"_a0", 0.15, "Fraction of exact exchange"},
-  {"_ax", 0.72, "Fraction of B88 exchange correction"},
-  {"_ac", 0.81, "Fraction of LYP correlation correction"}
-};
-
 #ifdef __cplusplus
 extern "C"
 #endif
@@ -335,20 +301,13 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyps = {
   {&xc_ref_Reiher2001_48, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  3, ext_params_b3lyps, set_ext_params_b3pw91,
+  {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b3lyps_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_b3lyp_init, NULL,
   NULL, NULL, NULL
 };
 
 
 /*************************************************************/
-
-static const func_params_type ext_params_b5050lyp[] = {
-  {"_a0", 0.50, "Fraction of exact exchange"},
-  {"_ax", 0.42, "Fraction of B88 exchange correction"},
-  {"_ac", 0.81, "Fraction of LYP correlation correction"}
-};
-
 #ifdef __cplusplus
 extern "C"
 #endif
@@ -360,27 +319,31 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b5050lyp = {
   {&xc_ref_Shao2003_4807, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  3, ext_params_b5050lyp, set_ext_params_b3pw91,
+  {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b5050lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_b3lyp_init, NULL,
   NULL, NULL, NULL
 };
 
 
 /*************************************************************/
-static const func_params_type ext_params_kmlyp[] = {
-  {"_a0", 0.557, "Fraction of exact exchange"},
-  {"_ac", 0.448, "Fraction of LYP correlation correction"},
+#define KMLYP_N_PAR 2
+static const char  *kmlyp_names[KMLYP_N_PAR]  = {"_a0", "_ac"};
+static const char  *kmlyp_desc[KMLYP_N_PAR]   = {
+  "Fraction of exact exchange",
+  "Fraction of GGA correlation correction"
 };
+static const double kmlyp_values[KMLYP_N_PAR] = {0.557, 0.448};
+static const double qtp17_values[KMLYP_N_PAR] = {0.62, 0.80};
 
 static void
-set_ext_params_kmlyp(xc_func_type *p, const double *ext_params)
+kmlyp_set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  double a0, ax, ac;
+  double a0, ac;
 
   assert(p != NULL);
 
-  a0 = get_ext_param(p->info->ext_params, ext_params, 0);
-  ac = get_ext_param(p->info->ext_params, ext_params, 1);
+  a0 = get_ext_param(p, ext_params, 0);
+  ac = get_ext_param(p, ext_params, 1);
 
   p->mix_coef[0] = 1.0 - a0;
   p->mix_coef[1] = 1.0 - ac;
@@ -409,18 +372,13 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_kmlyp = {
   {&xc_ref_Kang2001_11040, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  2, ext_params_kmlyp, set_ext_params_kmlyp,
+  {KMLYP_N_PAR, kmlyp_names, kmlyp_desc, kmlyp_values, kmlyp_set_ext_params},
   xc_hyb_gga_xc_kmlyp_init, NULL,
   NULL, NULL, NULL
 };
 
 
 /*************************************************************/
-static const func_params_type ext_params_qtp17[] = {
-  {"_a0", 0.62, "Fraction of exact exchange"},
-  {"_ac", 0.80, "Fraction of LYP correlation correction"},
-};
-
 #ifdef __cplusplus
 extern "C"
 #endif
@@ -432,7 +390,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_qtp17 = {
   {&xc_ref_Jin2018_064111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  2, ext_params_qtp17, set_ext_params_kmlyp,
+  {KMLYP_N_PAR, kmlyp_names, kmlyp_desc, qtp17_values, kmlyp_set_ext_params},
   xc_hyb_gga_xc_kmlyp_init, NULL,
   NULL, NULL, NULL
 };
@@ -557,37 +515,36 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wp04 = {
 
 
 /*************************************************************/
-static const func_params_type ext_params_b3lyp_mcm1[] = {
-  {"_P1", 1.0000, "Scale factor for pure exchange"},
-  {"_P2", 0.1986, "Fraction of exact exchange"},
-  {"_P3", 0.6709, "Fraction of non-local exchange correction"},
-  {"_P4", 0.8029, "Fraction of local exchange"},
-  {"_P5", 1.1383, "Fraction of non-local correlation correction"},
-  {"_P6", 0.9604, "Fraction of local correlation"}
+#define MCM1_N_PAR 6
+static const char  *mcm1_names[MCM1_N_PAR]  = {"_P1", "_P2", "_P3", "_P4", "_P5", "_P6"};
+static const char  *mcm1_desc[MCM1_N_PAR]   = {
+  "Scale factor for pure exchange",
+  "Fraction of exact exchange",
+  "Fraction of non-local exchange correction",
+  "Fraction of local exchange",
+  "Fraction of non-local correlation correction",
+  "Fraction of local correlation"
 };
-
-static const func_params_type ext_params_b3lyp_mcm2[] = {
-  {"_P1", 1.0000, "Scale factor for pure exchange"},
-  {"_P2", 0.2228, "Fraction of exact exchange"},
-  {"_P3", 0.7290, "Fraction of non-local exchange correction"},
-  {"_P4", 0.8080, "Fraction of local exchange"},
-  {"_P5", 0.9421, "Fraction of non-local correlation correction"},
-  {"_P6", 0.9589, "Fraction of local correlation"}
+static const double mcm1_values[MCM1_N_PAR] = {
+  1.0000, 0.1986, 0.6709, 0.8029, 1.1383, 0.9604
+};
+static const double mcm2_values[MCM1_N_PAR] = {
+  1.0000, 0.2228, 0.7290, 0.8080, 0.9421, 0.9589
 };
 
 static void
-set_ext_params_b3lyp_mcm(xc_func_type *p, const double *ext_params)
+mcm1_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   double p1, p2, p3, p4, p5, p6;
 
   assert(p != NULL);
 
-  p1 = get_ext_param(p->info->ext_params, ext_params, 0);
-  p2 = get_ext_param(p->info->ext_params, ext_params, 1);
-  p3 = get_ext_param(p->info->ext_params, ext_params, 2);
-  p4 = get_ext_param(p->info->ext_params, ext_params, 3);
-  p5 = get_ext_param(p->info->ext_params, ext_params, 4);
-  p6 = get_ext_param(p->info->ext_params, ext_params, 5);
+  p1 = get_ext_param(p, ext_params, 0);
+  p2 = get_ext_param(p, ext_params, 1);
+  p3 = get_ext_param(p, ext_params, 2);
+  p4 = get_ext_param(p, ext_params, 3);
+  p5 = get_ext_param(p, ext_params, 4);
+  p6 = get_ext_param(p, ext_params, 5);
 
   p->mix_coef[0] = p1*(p4 - p3);
   p->mix_coef[1] = p1*p3;
@@ -617,7 +574,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp_mcm1 = {
   {&xc_ref_Caldeira2019_62, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  6, ext_params_b3lyp_mcm1, set_ext_params_b3lyp_mcm,
+  {MCM1_N_PAR, mcm1_names, mcm1_desc, mcm1_values, mcm1_set_ext_params},
   xc_hyb_gga_xc_b3lyp_mcm_init, NULL,
   NULL, NULL, NULL
 };
@@ -633,7 +590,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp_mcm2 = {
   {&xc_ref_Caldeira2019_62, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  6, ext_params_b3lyp_mcm2, set_ext_params_b3lyp_mcm,
+  {MCM1_N_PAR, mcm1_names, mcm1_desc, mcm2_values, mcm1_set_ext_params},
   xc_hyb_gga_xc_b3lyp_mcm_init, NULL,
   NULL, NULL, NULL
 };

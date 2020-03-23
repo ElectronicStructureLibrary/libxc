@@ -26,7 +26,7 @@ gga_c_optc_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_c_optc.c"
 #include "work_gga.c"
 
-#define OPTC_N_PAR 16
+#define OPTC_N_PAR 2
 static const char  *optc_names[OPTC_N_PAR]  = {"_c1", "_c2"};
 static const char  *optc_desc[OPTC_N_PAR]   = {"c1", "c2"};
 static const double optc_values[OPTC_N_PAR] =

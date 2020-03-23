@@ -30,119 +30,33 @@ Celebration of the Contributions of Robert G. Parr, edited by KD Sen
 #define XC_GGA_K_GP85          510 /* gamma-TFvW form by Ghosh and Parr */
 
 typedef struct{
-  double gamma, lambda;
+  double lambda, gamma;
 } gga_k_tflw_params;
-
-
-/* for automatically assigning lambda and gamma set them to -1 */
-static void 
-gga_k_tflw_set_params(xc_func_type *p, double gamma, double lambda, double N)
-{
-  gga_k_tflw_params *params;
-  double C0 = CBRT(M_PI/3.0);
-  double C1 = CBRT(M_PI*M_PI/36.0)/6.0 - CBRT(M_PI*M_PI/9.0)/4.0;
-  
-  assert(p != NULL && p->params != NULL);
-  params = (gga_k_tflw_params *) (p->params);
-
-  params->gamma = 1.0;
-  if(gamma > 0.0){
-    params->gamma = gamma;
-  }else if(N > 0.0){
-    switch(p->info->number){
-    case XC_GGA_K_TFVW:
-      params->gamma = 1.0;
-      break;
-    case XC_GGA_K_VW:
-      params->gamma = 0.0;
-      break;
-    case XC_GGA_K_ABSP1:      /* Ref. 79 */
-      params->gamma = 1.0 - 1.412/CBRT(N);
-      break;
-    case XC_GGA_K_ABSP2:      /* Ref. 79 */
-      params->gamma = 1.0 - 1.332/CBRT(N);
-      break;
-    case XC_GGA_K_ABSP3:      /* Ref. 79 */
-      params->gamma = 1.0 - 1.513/pow(N, 0.35);
-      break;
-    case XC_GGA_K_ABSP4:      /* Ref. 79 */
-      params->gamma = 1.0/(1.0 + 1.332/CBRT(N));
-      break;
-    case XC_GGA_K_GR:         /* Ref. 80 */
-      params->gamma = (1.0 - 2.0/N)*(1.0 - C0/CBRT(N) + C1*CBRT(N*N));
-      break;
-    case XC_GGA_K_LUDENA:     /* Ref. 82 */
-      params->gamma = CBRT(6.0*M_PI)*M_PI*M_PI*(1.0 - 1.0/(N*N));
-	break;
-    case XC_GGA_K_GP85:       /* Ref. 86 */
-      params->gamma = CBRT(6.0*M_PI*M_PI)*M_PI*M_PI/4.0*
-	(1.0 - 1.0/N)*(1.0 + 1.0/N + 6.0/(N*N));
-      break;
-    }
-  }
-
-  params->lambda = 1.0;
-  if(lambda > 0.0){
-    params->lambda  = lambda;
-  }else{
-    switch(p->info->number){
-    case XC_GGA_K_TFVW:
-      params->lambda = 1.0;
-      break;
-    case XC_GGA_K_GE2:
-      params->lambda = 1.0/9.0;
-      break;
-    case XC_GGA_K_GOLDEN:     /* Ref. 33 */
-      params->lambda = 13.0/45.0;
-      break;
-    case XC_GGA_K_YT65:       /* Ref. 57 */
-      params->lambda = 1.0/5.0;
-      break;
-    case XC_GGA_K_BALTIN:     /* Ref. 66 */
-      params->lambda = 5.0/9.0;
-      break;
-    case XC_GGA_K_LIEB:       /* Ref. 12 */
-      params->lambda = 0.185909191;   /* 1/5.37897... */
-      break;
-    case XC_GGA_K_ABSP4:      /* Ref. 79 */
-      params->lambda = 1.0/(1.0 + 1.332/CBRT(N));
-      break;
-    }
-  }
-}
 
 
 static void 
 gga_k_tflw_init(xc_func_type *p)
 {
-
   assert(p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_k_tflw_params));
-
-  /* This automatically sets gamma and lambda depending on the functional chosen.
-     We put by default N = 1.0 */
-  gga_k_tflw_set_params(p, -1.0, -1.0, 1.0);
 }
 
 #include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_tflw.c"
 #include "work_gga.c"
 
-static const func_params_type tfvw_ext_params[] = {
-  {"Lambda", 1.0, "Lambda"},
-  {"Gamma", 1.0, "Gamma"},
+#define TFVW_N_PAR 3
+static const char  *tfvw_names[TFVW_N_PAR]  = {"_lambda", "_gamma"};
+static const char  *tfvw_desc[TFVW_N_PAR]   = {
+  "Lambda", "Gamma"
 };
-
-static void 
-tfvw_set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  double lambda, gamma;
-
-  lambda = get_ext_param(p->info->ext_params, ext_params, 0);
-  gamma  = get_ext_param(p->info->ext_params, ext_params, 1);
-
-  gga_k_tflw_set_params(p, gamma, lambda, 1.0);
-}
+static const double tfvw_values[TFVW_N_PAR]        = {1.0, 1.0};
+static const double tfvw_vw_values[TFVW_N_PAR]     = {1.0, 0.0};
+static const double tfvw_ge2_values[TFVW_N_PAR]    = {1.0/9.0, 1.0};
+static const double tfvw_golden_values[TFVW_N_PAR] = {13.0/45.0, 1.0};
+static const double tfvw_yt65_values[TFVW_N_PAR]   = {1.0/5.0, 1.0};
+static const double tfvw_baltin_values[TFVW_N_PAR] = {5.0/9.0, 1.0};
+static const double tfvw_lieb_values[TFVW_N_PAR]   = {0.185909191, 1.0}; /* 1/5.37897... */
 
 #ifdef __cplusplus
 extern "C"
@@ -155,7 +69,7 @@ const xc_func_info_type xc_func_info_gga_k_tfvw = {
   {&xc_ref_Weizsacker1935_431, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  2, tfvw_ext_params, tfvw_set_ext_params,
+  {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -171,7 +85,7 @@ const xc_func_info_type xc_func_info_gga_k_vw = {
   {&xc_ref_Weizsacker1935_431, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  {0, NULL, NULL, NULL, NULL},
+  {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_vw_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -187,7 +101,7 @@ const xc_func_info_type xc_func_info_gga_k_ge2 = {
   {&xc_ref_Kompaneets1956_427, &xc_ref_Kirznits1957_115, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  {0, NULL, NULL, NULL, NULL},
+  {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_ge2_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -203,7 +117,7 @@ const xc_func_info_type xc_func_info_gga_k_golden = {
   {&xc_ref_Golden1957_604, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  {0, NULL, NULL, NULL, NULL},
+  {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_golden_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -219,7 +133,7 @@ const xc_func_info_type xc_func_info_gga_k_yt65 = {
   {&xc_ref_Yonei1965_1051, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  {0, NULL, NULL, NULL, NULL},
+  {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_yt65_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -235,7 +149,7 @@ const xc_func_info_type xc_func_info_gga_k_baltin = {
   {&xc_ref_Baltin1972_1176, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  {0, NULL, NULL, NULL, NULL},
+  {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_baltin_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -251,22 +165,56 @@ const xc_func_info_type xc_func_info_gga_k_lieb = {
   {&xc_ref_Lieb1981_603, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  {0, NULL, NULL, NULL, NULL},
+  {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_lieb_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
 
-static const func_params_type N_ext_params[] = {
-  {"N", 1.0, "Number of electrons"},
-};
+static const char  *N_names[]  = {"N"};
+static const char  *N_desc[]   = {"Number of electrons"};
+static const double N_values[] = {1.0};
 
 static void 
 N_set_ext_params(xc_func_type *p, const double *ext_params)
 {
+  double C0 = CBRT(M_PI/3.0);
+  double C1 = CBRT(M_PI*M_PI/36.0)/6.0 - CBRT(M_PI*M_PI/9.0)/4.0;
   double N;
+  gga_k_tflw_params *params;
 
-  N = get_ext_param(p->info->ext_params, ext_params, 0);
-  gga_k_tflw_set_params(p, -1.0, -1.0, N);
+  assert(p != NULL && p->params != NULL);
+  params = (gga_k_tflw_params *) (p->params);
+
+  N = get_ext_param(p, ext_params, 0);
+  
+  params->gamma = 1.0;
+  params->lambda = 1.0;
+
+  switch(p->info->number){
+  case XC_GGA_K_ABSP1:
+    params->gamma = 1.0 - 1.412/CBRT(N);
+    break;
+  case XC_GGA_K_ABSP2:
+    params->gamma = 1.0 - 1.332/CBRT(N);
+    break;
+  case XC_GGA_K_ABSP3:
+    params->gamma = 1.0 - 1.513/pow(N, 0.35);
+    break;
+  case XC_GGA_K_ABSP4:
+    params->gamma = 1.0/(1.0 + 1.332/CBRT(N));
+    params->lambda = params->gamma;
+    break;
+  case XC_GGA_K_GR:
+    params->gamma = (1.0 - 2.0/N)*(1.0 - C0/CBRT(N) + C1*CBRT(N*N));
+    break;
+  case XC_GGA_K_LUDENA:
+    params->gamma = CBRT(6.0*M_PI)*M_PI*M_PI*(1.0 - 1.0/(N*N));
+    break;
+  case XC_GGA_K_GP85:
+    params->gamma = CBRT(6.0*M_PI*M_PI)*M_PI*M_PI/4.0*
+      (1.0 - 1.0/N)*(1.0 + 1.0/N + 6.0/(N*N));
+    break;
+  }
 }
 
 
@@ -281,7 +229,7 @@ const xc_func_info_type xc_func_info_gga_k_absp1 = {
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  1, N_ext_params, N_set_ext_params,
+  {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -297,7 +245,7 @@ const xc_func_info_type xc_func_info_gga_k_absp2 = {
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  1, N_ext_params, N_set_ext_params,
+  {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -313,7 +261,7 @@ const xc_func_info_type xc_func_info_gga_k_absp3 = {
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  1, N_ext_params, N_set_ext_params,
+  {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -329,7 +277,7 @@ const xc_func_info_type xc_func_info_gga_k_absp4 = {
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  1, N_ext_params, N_set_ext_params,
+  {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -345,7 +293,7 @@ const xc_func_info_type xc_func_info_gga_k_gr = {
   {&xc_ref_Gazquez1982_1467, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  1, N_ext_params, N_set_ext_params,
+  {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -361,7 +309,7 @@ const xc_func_info_type xc_func_info_gga_k_ludena = {
   {&xc_ref_Ludena1986, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  1, N_ext_params, N_set_ext_params,
+  {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -377,7 +325,7 @@ const xc_func_info_type xc_func_info_gga_k_gp85 = {
   {&xc_ref_Ghosh1985_3307, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  1, N_ext_params, N_set_ext_params,
+  {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
 };

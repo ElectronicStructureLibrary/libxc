@@ -22,6 +22,7 @@ lda_k_gds08_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(lda_k_gds08_params));
 }
 
+#define GDS08_N_PAR 3
 static const char  *gds08_names[]  = {"_A", "_B", "_C"};
 static const char  *gds08_desc[]   = {"linear term", "term proportional to the logarithm of the density", "term proportional to the square of the logarithm"};
 static const double gds08_values[] = {0.860, 0.224, 0.0};
@@ -41,7 +42,7 @@ const xc_func_info_type xc_func_info_lda_k_gds08_worker = {
   {&xc_ref_Ghiringhelli2008_073104, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  {3, gds08_names, gds08_desc, gds08_values, set_ext_params_cpy},
+  {GDS08_N_PAR, gds08_names, gds08_desc, gds08_values, set_ext_params_cpy},
   lda_k_gds08_init, NULL,
   work_lda, NULL, NULL
 };

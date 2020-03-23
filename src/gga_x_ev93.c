@@ -29,11 +29,11 @@ gga_x_ev93_init(xc_func_type *p)
 }
 
 #define EV93_N_PAR 6
-static const char  *ev93_names[]  = {"_a1", "_a2", "_a3", "_b1", "_b2", "_b3"};
-static const char  *ev93_desc[]   = {"a1", "a2", "a3", "b1", "b2", "b3"};
-static const double ev93_values[] =
+static const char  *ev93_names[EV93_N_PAR]  = {"_a1", "_a2", "_a3", "_b1", "_b2", "_b3"};
+static const char  *ev93_desc[EV93_N_PAR]   = {"a1", "a2", "a3", "b1", "b2", "b3"};
+static const double ev93_values[EV93_N_PAR] =
   {1.647127, 0.980118, 0.017399, 1.523671, 0.367229, 0.011282};
-static const double ecmv92_values[] =
+static const double ecmv92_values[EV93_N_PAR] =
   {27.8428, 11.7683, 0.0, 27.5026, 5.7728, 0.0};
   
 #ifdef __cplusplus

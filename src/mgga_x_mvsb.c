@@ -19,49 +19,20 @@ typedef struct {
 static void
 mgga_x_mvsb_init(xc_func_type *p)
 {
-  mgga_x_mvsb_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_mvsb_params));
-  params = (mgga_x_mvsb_params *)p->params;
-
-  switch(p->info->number){
-  case XC_MGGA_X_MVSB:
-    /* set by set_ext_params */
-    break;
-  case XC_MGGA_X_MVSBS:
-    params->e1 = -2.3800;
-    params->c1 =  6.3783;
-    params->k0 =  0.174;
-    params->b  =  0.0233;
-    break;
-  default:
-    fprintf(stderr, "Internal error in mgga_x_mvs\n");
-    exit(1);
-  }
 }
 
-static const func_params_type ext_params[] = {
-  {"_e1", -1.6665, "e1 parameter"},
-  {"_c1", 7.8393, "c1 parameter"},
-  {"_k0", 0.174, "k0 parameter"},
-  {"_b", 0.0233, "b parameter"}
+#define MVSB_N_PAR 4
+static const char  *mvsb_names[MVSB_N_PAR]  = {"_e1", "_c1", "_k0", "_b",};
+static const char  *mvsb_desc[MVSB_N_PAR]   = {
+  "e1 parameter",
+  "c1 parameter",
+  "k0 parameter",
+  "b parameter"
 };
-
-static void
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  mgga_x_mvsb_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (mgga_x_mvsb_params *) (p->params);
-
-  params->e1 = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->c1 = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->k0 = get_ext_param(p->info->ext_params, ext_params, 2);
-  params->b  = get_ext_param(p->info->ext_params, ext_params, 3);
-}
-
+static const double mvsb_values[MVSB_N_PAR]  = {-1.6665, 7.8393, 0.174, 0.0233};
+static const double mvsbs_values[MVSB_N_PAR] = {-2.3800, 6.3783, 0.174, 0.0233};
 
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_mvsb.c"
@@ -78,7 +49,7 @@ const xc_func_info_type xc_func_info_mgga_x_mvsb = {
   {&xc_ref_Furness2018, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  4, ext_params, set_ext_params,
+  {MVSB_N_PAR, mvsb_names, mvsb_desc, mvsb_values, set_ext_params_cpy},
   mgga_x_mvsb_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -94,7 +65,7 @@ const xc_func_info_type xc_func_info_mgga_x_mvsbs = {
   {&xc_ref_Furness2018, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  {0, NULL, NULL, NULL, NULL},
+  {MVSB_N_PAR, mvsb_names, mvsb_desc, mvsbs_values, set_ext_params_cpy},
   mgga_x_mvsb_init, NULL,
   NULL, NULL, work_mgga,
 };

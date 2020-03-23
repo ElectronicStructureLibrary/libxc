@@ -19,44 +19,20 @@ typedef struct {
 static void 
 mgga_x_rtpss_init(xc_func_type *p)
 {
-  mgga_x_rtpss_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_rtpss_params));
-  params = (mgga_x_rtpss_params *)p->params;
-
-  switch(p->info->number){
-  case XC_MGGA_X_RTPSS:
-    /* default set by set_ext_params */
-    break;
-  default:
-    fprintf(stderr, "Internal error in mgga_x_rtpss\n");
-    exit(1);
-  }
 }
 
-static const func_params_type ext_params[] = {
-  {"_b",      0.40,    "b"},
-  {"_c",      1.59096, "c"},
-  {"_e",      1.537,   "e"},
-  {"_kappa",  0.8040,  "Asymptotic value of the enhancement function"},
-  {"_mu",     0.21951, "Coefficient of the 2nd order expansion"},
+#define RTPSS_N_PAR 5
+static const char  *rtpss_names[RTPSS_N_PAR]  = {"_b", "_c", "_e", "_kappa", "_mu"};
+static const char  *rtpss_desc[RTPSS_N_PAR]   = {
+  "b", "c", "e",
+  "Asymptotic value of the enhancement function",
+  "Coefficient of the 2nd order expansion"
 };
-
-static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  mgga_x_rtpss_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (mgga_x_rtpss_params *) (p->params);
-
-  params->b      = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->c      = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->e      = get_ext_param(p->info->ext_params, ext_params, 2);
-  params->kappa  = get_ext_param(p->info->ext_params, ext_params, 3);
-  params->mu     = get_ext_param(p->info->ext_params, ext_params, 4);
-}
+static const double rtpss_values[RTPSS_N_PAR] = {
+  0.40, 1.59096, 1.537, 0.8040, 0.21951
+};
 
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_rtpss.c"
@@ -73,7 +49,7 @@ const xc_func_info_type xc_func_info_mgga_x_rtpss = {
   {&xc_ref_Garza2018_3083, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  5, ext_params, set_ext_params,
+  {RTPSS_N_PAR, rtpss_names, rtpss_desc, rtpss_values, set_ext_params_cpy},
   mgga_x_rtpss_init, NULL, 
   NULL, NULL, work_mgga,
 };

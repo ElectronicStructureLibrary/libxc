@@ -12,48 +12,26 @@
 #define XC_GGA_XC_NCAP 181 /* Nearly correct asymptotic potential + P86 correlation */
 
 typedef struct{
-  double zeta;
-  double mu;
-  double alpha;
-  double beta;
+  double alpha, beta, mu, zeta;
 } gga_x_ncap_params;
 
 static void
 gga_x_ncap_init(xc_func_type *p)
 {
-  gga_x_ncap_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_ncap_params));
-  params = (gga_x_ncap_params *) (p->params);
-
-  /* defaults set by set_ext_params */
 }
 
 #include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_ncap.c"
 #include "work_gga.c"
 
-static const func_params_type ext_params[] = {
-  {"_alpha", 0.34511172247159020479L, "alpha"}, /* alpha parameter */
-  {"_beta", 0.018085697L, "beta"}, /* beta parameter */
-  {"_mu", 0.219514973L, "mu"}, /* mu parameter */
-  {"_zeta", 0.304121419L, "zeta"} /* zeta parameter */
+#define NCAP_N_PAR 4
+static const char  *ncap_names[NCAP_N_PAR]  = {"_alpha", "_beta", "_mu", "_zeta"};
+static const char  *ncap_desc[NCAP_N_PAR]   = {"alpha", "beta", "mu", "zeta"};
+static const double ncap_values[NCAP_N_PAR] = {
+  0.34511172247159020479L, 0.018085697L, 0.219514973L, 0.304121419L
 };
-
-static void
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  gga_x_ncap_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_x_ncap_params *) (p->params);
-
-  params->alpha = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->beta = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->mu = get_ext_param(p->info->ext_params, ext_params, 2);
-  params->zeta = get_ext_param(p->info->ext_params, ext_params, 3);
-}
 
 #ifdef __cplusplus
 extern "C"
@@ -66,7 +44,7 @@ const xc_func_info_type xc_func_info_gga_x_ncap = {
   {&xc_ref_Carmona2019_303, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  4, ext_params, set_ext_params,
+  {NCAP_N_PAR, ncap_names, ncap_desc, ncap_values, set_ext_params_cpy},
   gga_x_ncap_init, NULL,
   NULL, work_gga, NULL
 };

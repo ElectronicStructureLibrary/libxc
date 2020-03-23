@@ -27,7 +27,7 @@ gga_c_am05_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_c_am05.c"
 #include "work_gga.c"
 
-#define AM05_N_PAR 4
+#define AM05_N_PAR 2
 static const char  *am05_names[AM05_N_PAR]  = {"_alpha", "_gamma"};
 static const char  *am05_desc[AM05_N_PAR]   = {"alpha", "gamma"};
 static const double am05_values[AM05_N_PAR] =

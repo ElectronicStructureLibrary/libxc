@@ -19,57 +19,42 @@ typedef struct{
 static void 
 gga_x_lgau_init(xc_func_type *p)
 {
-  gga_x_lcgau_params *params;
-  
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_lcgau_params));
-  params = (gga_x_lcgau_params *) (p->params);
-
-  switch(p->info->number){
-  case XC_GGA_X_LCGAU:
-    /* default values set by set_ext_params */
-    break;
-  case XC_GGA_X_LCGAU_CORE:
-    p->cam_omega = 0.42;
-    params->a1   = 0.0335;
-    params->k1   = -5.9;
-    params->a2   = 0.0335;
-    params->k2   = 0.0;
-    break;
-  case XC_GGA_X_LC2GAU:
-    p->cam_omega = 0.42;
-    params->a1   = 0.012;
-    params->k1   = -100.0;
-    params->a2   = 0.01046;
-    params->k2   = 101.0;
-    break;
-  default:
-    fprintf(stderr, "Internal error in gga_x_lcgau\n");
-    exit(1);
-  }
 }
 
-static const func_params_type ext_params[] = {
-  {"_omega", 0.42, "Screening parameter"},
-  {"_a1", 0.011, "1/a multiplies the exponent of the exponential"},
-  {"_k1", -18.0, "prefactor"},
-  {"_a2", 0.011, "1/a multiplies the exponent of the exponential"},
-  {"_k2", 0.0, "prefactor"}
+#define LCGAU_N_PAR 5
+static const char  *lcgau_names[LCGAU_N_PAR]  = {"_a1", "_k1", "_a2", "_k2", "_omega"};
+static const char  *lcgau_desc[LCGAU_N_PAR]   = {
+  "1/a multiplies the exponent of the exponential",
+  "prefactor",
+  "1/a multiplies the exponent of the exponential",
+  "prefactor"
+  "Screening parameter",
+};
+static const double lcgau_values[LCGAU_N_PAR] = {
+  0.011, -18.0, 0.011, 0.0, 0.42
+};
+static const double lcgau_core_values[LCGAU_N_PAR] = {
+  0.0335, -5.9, 0.0335, 0.0, 0.42
+};
+static const double lc2gau_values[LCGAU_N_PAR] = {
+  0.012, -100.0, 0.01046, 101.0, 0.42
 };
 
 static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
+lcgau_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   gga_x_lcgau_params *params;
 
   assert(p != NULL && p->params != NULL);
   params = (gga_x_lcgau_params *) (p->params);
 
-  p->cam_omega = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->a1 = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->k1 = get_ext_param(p->info->ext_params, ext_params, 2);
-  params->a2 = get_ext_param(p->info->ext_params, ext_params, 3);
-  params->k2 = get_ext_param(p->info->ext_params, ext_params, 4);
+  params->a1 = get_ext_param(p, ext_params, 0);
+  params->k1 = get_ext_param(p, ext_params, 1);
+  params->a2 = get_ext_param(p, ext_params, 2);
+  params->k2 = get_ext_param(p, ext_params, 3);
+  p->cam_omega = get_ext_param(p, ext_params, 4);
 }
 
 #include "decl_gga.h"
@@ -87,7 +72,7 @@ const xc_func_info_type xc_func_info_gga_x_lcgau = {
   {&xc_ref_Song2007_154109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1e-8,
-  3, ext_params, set_ext_params,
+  {LCGAU_N_PAR, lcgau_names, lcgau_desc, lcgau_values, lcgau_set_ext_params},
   gga_x_lgau_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -104,7 +89,7 @@ const xc_func_info_type xc_func_info_gga_x_lcgau_core = {
   {&xc_ref_Song2008_184113, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1e-8,
-  {0, NULL, NULL, NULL, NULL},
+  {LCGAU_N_PAR, lcgau_names, lcgau_desc, lcgau_core_values, lcgau_set_ext_params},
   gga_x_lgau_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -121,7 +106,7 @@ const xc_func_info_type xc_func_info_gga_x_lc2gau = {
   {&xc_ref_Song2009_144108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1e-8,
-  {0, NULL, NULL, NULL, NULL},
+  {LCGAU_N_PAR, lcgau_names, lcgau_desc, lc2gau_values, lcgau_set_ext_params},
   gga_x_lgau_init, NULL, 
   NULL, work_gga, NULL
 };

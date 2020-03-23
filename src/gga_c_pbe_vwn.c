@@ -16,44 +16,20 @@ typedef struct{
 
 static void gga_c_pbe_vwn_init(xc_func_type *p)
 {
-  gga_c_pbe_vwn_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_c_pbe_vwn_params));
-  params = (gga_c_pbe_vwn_params *) (p->params);
-
-  /* most functionals have the same gamma and B */
-  params->gamma = (1.0 - log(2.0))/(M_PI*M_PI);
-  params->BB = 1.0; 
-
-  switch(p->info->number){
-  case XC_GGA_C_PBE_VWN:
-    /* default set by set_ext_params */
-    break;
-  default:
-    fprintf(stderr, "Internal error in gga_c_pbe_vwn\n");
-    exit(1);
-  }
 }
 
-static const func_params_type ext_params[] = {
-  {"_beta",  0.06672455060314922,     "beta constant"},
-  {"_gamma", 0.031090690869654895034, "(1 - ln(2))/Pi^2 in the PBE"},
-  {"_B",     1.0, "Multiplies the A t^2 term. Used in the SPBE functional"},
+#define PBEVWN_N_PAR 3
+static const char  *pbevwn_names[PBEVWN_N_PAR]  = {"_beta", "_gamma", "_B"};
+static const char  *pbevwn_desc[PBEVWN_N_PAR]   = {
+  "beta constant",
+  "(1 - ln(2))/Pi^2 in the PBE",
+  "Multiplies the A t^2 term. Used in the SPBE functional"
 };
-
-static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  gga_c_pbe_vwn_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_c_pbe_vwn_params *) (p->params);
-
-  params->beta  = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->gamma = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->BB    = get_ext_param(p->info->ext_params, ext_params, 2);
-}
+static const double pbevwn_values[PBEVWN_N_PAR] = {
+  0.06672455060314922, 0.031090690869654895034, 1.0
+};
 
 #include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_pbe_vwn.c"
@@ -70,7 +46,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe_vwn = {
   {&xc_ref_Kraisler2010_042516, &xc_ref_Perdew1996_3865, &xc_ref_Perdew1996_3865_err, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  3, ext_params, set_ext_params,
+  {PBEVWN_N_PAR, pbevwn_names, pbevwn_desc, pbevwn_values, set_ext_params_cpy},
   gga_c_pbe_vwn_init, NULL, 
   NULL, work_gga, NULL
 };

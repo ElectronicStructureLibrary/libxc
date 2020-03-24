@@ -10,17 +10,6 @@
 
 #define XC_GGA_X_HJS_B88_V2   46 /* HJS screened exchange corrected B88 version */
 
-typedef struct{
-  double omega;
-} gga_x_hjs_b88_v2_params;
-
-static void
-gga_x_hjs_init(xc_func_type *p)
-{
-  assert(p->params == NULL);
-  p->params = libxc_malloc(sizeof(gga_x_hjs_b88_v2_params));
-}
-
 static const char  *omega_names[]  = {"omega"};
 static const char  *omega_desc[]   = {"screening parameter"};
 static const double omega_values[] = {0.11};
@@ -41,6 +30,6 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b88_v2 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-6, /* densities smaller than 1e-6 yield NaNs */
   {1, omega_names, omega_desc, omega_values, set_ext_params_omega},
-  gga_x_hjs_init, NULL, 
+  NULL, NULL, 
   NULL, work_gga, NULL
 };

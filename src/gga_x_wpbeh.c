@@ -10,17 +10,6 @@
 
 #define XC_GGA_X_WPBEH 524 /* short-range version of the PBE */
 
-typedef struct{
-  double omega;
-} gga_x_wpbeh_params;
-
-static void
-gga_x_wpbeh_init(xc_func_type *p)
-{
-  assert(p->params == NULL);
-  p->params = libxc_malloc(sizeof(gga_x_wpbeh_params));
-}
-
 /* This implementation follows the one from espresso, that, in turn,
    follows the one of the thesis of Jochen Heyd. Analytic derivatives
    are only implemented in espresso though. These implementations can
@@ -63,6 +52,6 @@ const xc_func_info_type xc_func_info_gga_x_wpbeh = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
   {1, omega_names, omega_desc, omega_values, set_ext_params_omega},
-  gga_x_wpbeh_init, NULL, 
+  NULL, NULL, 
   NULL, work_gga, NULL
 };

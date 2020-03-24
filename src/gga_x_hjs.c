@@ -16,7 +16,6 @@
 
 typedef struct{
   double a[6], b[9]; /* pointers to the a and b parameters */
-  double omega;
 } gga_x_hjs_params;
 
 static const double a_PBE[] = 

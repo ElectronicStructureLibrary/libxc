@@ -7,12 +7,6 @@
 *)
 
 (* type: gga_exc *)
-(* prefix:
-  gga_x_hjs_b88_v2_params *params;
-
-  assert(p->params != NULL);
-  params = (gga_x_hjs_b88_v2_params * )(p->params);
-*)
 
 $include "gga_x_hjs.mpl"
 

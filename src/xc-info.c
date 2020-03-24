@@ -10,7 +10,8 @@
 #include <ctype.h>
 #include "util.h"
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
   int i, func_id, error, npar;
   xc_func_type func;
   char *fname;
@@ -37,9 +38,9 @@ int main(int argc, char **argv) {
   fname = xc_functional_get_name(func_id);
 
   /* Print out info */
-  printf("%10s: %-20i\t%10s: %-25s\n","func_id", func_id, "name", fname);
-  printf("%10s: %-20s\t%10s: %-25s\n","family", get_family(&func), "kind", get_kind(&func));
-  printf("%10s: %s\n","comment", func.info->name);
+  printf("%10s: %-20i\n%10s: %-25s\n", "func_id", func_id, "name", fname);
+  printf("%10s: %-20s\n%10s: %-25s\n", "family", get_family(&func), "kind", get_kind(&func));
+  printf("%10s: %s\n", "comment", func.info->name);
 
   /* Print out hybrid exchange info */
   if(func.info->family==XC_FAMILY_HYB_LDA || func.info->family==XC_FAMILY_HYB_GGA || func.info->family==XC_FAMILY_HYB_MGGA) {
@@ -74,31 +75,35 @@ int main(int argc, char **argv) {
   }
 
   printf("\nReference(s):\n");
-  for(i=0; i<5; i++){
-    if(func.info->refs[i]==NULL) break;
-    printf("%s", func.info->refs[i]->ref);
+  for(i = 0; i < 5; i++){
+    if(func.info->refs[i] == NULL) break;
+    printf("  *) %s\n", func.info->refs[i]->ref);
     if(strlen(func.info->refs[i]->doi) > 0){
-       printf(" (%s)", func.info->refs[i]->doi);
+       printf("     doi: %s\n", func.info->refs[i]->doi);
     }
-    printf("\n");
   }
 
   printf("\nImplementation has support for:\n");
   if(func.info->flags & XC_FLAGS_HAVE_EXC)
-    printf("\t- energy\n");
+    printf("  *) energy\n");
   if(func.info->flags & XC_FLAGS_HAVE_VXC)
-    printf("\t- first derivative\n");
+    printf("  *) first derivative\n");
   if(func.info->flags & XC_FLAGS_HAVE_FXC)
-    printf("\t- second derivative\n");
-  if(func.info->flags & XC_FLAGS_HAVE_FXC)
-    printf("\t- third derivative\n");
+    printf("  *) second derivative\n");
+  if(func.info->flags & XC_FLAGS_HAVE_KXC)
+    printf("  *) third derivative\n");
+  if(func.info->flags & XC_FLAGS_HAVE_KXC)
+    printf("  *) fourth derivative\n");
 
   /* Query parameters */
-  npar=xc_func_get_n_ext_params(&func);
-  if(npar>0) {
+  npar = xc_func_info_get_n_ext_params(func.info);
+  if(npar > 0) {
     printf("\nFunctional has %i external parameters:\n",npar);
-    for(i=0;i<npar;i++)
-      printf("params[%i] % e %s\n",i,xc_func_get_ext_params_default_value(&func,i),xc_func_get_ext_params_description(&func,i));
+    for(i = 0; i < npar; i++)
+      printf("%10s: (%e) -> %s\n",
+             xc_func_info_get_ext_params_name(func.info, i),
+             xc_func_info_get_ext_params_default_value(func.info, i),
+             xc_func_info_get_ext_params_description(func.info, i));
   } else {
     printf("\nFunctional has no external parameters.\n");
   }

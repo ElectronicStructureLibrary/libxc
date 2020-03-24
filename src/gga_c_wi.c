@@ -6,7 +6,6 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-
 #include "util.h"
 
 #define XC_GGA_C_WI0 153 /* Wilson & Ivanov initial version */
@@ -16,34 +15,21 @@ typedef struct {
   double a, b, c, d, k;
 } gga_c_wi_params;
 
-static const gga_c_wi_params wi0_params = {
-  -0.44, 0.0032407, 7.8, 0.0073, 0.000311
-};
+#define N_PAR 5
+static const char *names[N_PAR] = {"_a", "_b", "_c", "_d", "_k"};
+static const char *desc[N_PAR] = {"a parameter", "b parameter", "c parameter",
+                                  "d parameter", "k parameter"};
 
-static const gga_c_wi_params wi_params = {
-  -0.00652, 0.0007, 0.21, 0.002, 0.001
-};
+static const double wi0_params[N_PAR] = {-0.44, 0.0032407, 7.8, 0.0073,
+                                         0.000311};
+static const double wi_params[N_PAR] = {-0.00652, 0.0007, 0.21, 0.002, 0.001};
 
-static void 
-gga_c_wi_init(xc_func_type *p)
-{
+static void gga_c_wi_init(xc_func_type *p) {
   gga_c_wi_params *params;
 
-  assert(p!=NULL && p->params == NULL);
+  assert(p != NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_c_wi_params));
-  params = (gga_c_wi_params *) (p->params);
-
-  switch(p->info->number){
-  case XC_GGA_C_WI0: 
-    memcpy(params, &wi0_params, sizeof(gga_c_wi_params));
-    break;
-  case XC_GGA_C_WI:
-    memcpy(params, &wi_params, sizeof(gga_c_wi_params));
-    break;
-  default:
-    fprintf(stderr, "Internal error in gga_c_wi\n");
-    exit(1);
-  }
+  params = (gga_c_wi_params *)(p->params);
 }
 
 #include "decl_gga.h"
@@ -53,31 +39,35 @@ gga_c_wi_init(xc_func_type *p)
 #ifdef __cplusplus
 extern "C"
 #endif
-const xc_func_info_type xc_func_info_gga_c_wi0 = {
-  XC_GGA_C_WI0,
-  XC_CORRELATION,
-  "Wilson & Ivanov initial version",
-  XC_FAMILY_GGA,
-  {&xc_ref_Wilson1998_523, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-14,
-  {0, NULL, NULL, NULL, NULL},
-  gga_c_wi_init, NULL,
-  NULL, work_gga, NULL
-};
+    const xc_func_info_type xc_func_info_gga_c_wi0 = {
+        XC_GGA_C_WI0,
+        XC_CORRELATION,
+        "Wilson & Ivanov initial version",
+        XC_FAMILY_GGA,
+        {&xc_ref_Wilson1998_523, NULL, NULL, NULL, NULL},
+        XC_FLAGS_3D | MAPLE2C_FLAGS,
+        1e-14,
+        {N_PAR, names, desc, wi0_params, set_ext_params_cpy},
+        gga_c_wi_init,
+        NULL,
+        NULL,
+        work_gga,
+        NULL};
 
 #ifdef __cplusplus
 extern "C"
 #endif
-const xc_func_info_type xc_func_info_gga_c_wi = {
-  XC_GGA_C_WI,
-  XC_CORRELATION,
-  "Wilson & Ivanov",
-  XC_FAMILY_GGA,
-  {&xc_ref_Wilson1998_523, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-10,
-  {0, NULL, NULL, NULL, NULL},
-  gga_c_wi_init, NULL,
-  NULL, work_gga, NULL
-};
+    const xc_func_info_type xc_func_info_gga_c_wi = {
+        XC_GGA_C_WI,
+        XC_CORRELATION,
+        "Wilson & Ivanov",
+        XC_FAMILY_GGA,
+        {&xc_ref_Wilson1998_523, NULL, NULL, NULL, NULL},
+        XC_FLAGS_3D | MAPLE2C_FLAGS,
+        1e-10,
+        {N_PAR, names, desc, wi_params, set_ext_params_cpy},
+        gga_c_wi_init,
+        NULL,
+        NULL,
+        work_gga,
+        NULL};

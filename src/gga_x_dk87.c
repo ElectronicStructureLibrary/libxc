@@ -8,41 +8,30 @@
 
 #include "util.h"
 
-#define XC_GGA_X_DK87_R1      111 /* dePristo & Kress 87 (version R1)               */
-#define XC_GGA_X_DK87_R2      112 /* dePristo & Kress 87 (version R2)               */
+#define XC_GGA_X_DK87_R1                                                       \
+  111 /* dePristo & Kress 87 (version R1)               */
+#define XC_GGA_X_DK87_R2                                                       \
+  112 /* dePristo & Kress 87 (version R2)               */
 
 typedef struct {
   double a1, b1, alpha;
 } gga_x_dk87_params;
 
-static const gga_x_dk87_params par_dk87_r1 = {
-  0.861504, 0.044286, 1.0
-};
+#define N_PAR 3
+static const char *names[N_PAR] = {"_a1", "_b1", "_alpha"};
+static const char *desc[N_PAR] = {"a1 parameter", "b1 parameter",
+                                  "alpha parameter"};
 
-static const gga_x_dk87_params par_dk87_r2 = {
-  0.861213, 0.042076, 0.98
-};
+static const double par_dk87_r1[N_PAR] = {0.861504, 0.044286, 1.0};
 
-static void 
-gga_x_dk87_init(xc_func_type *p)
-{
+static const double par_dk87_r2[N_PAR] = {0.861213, 0.042076, 0.98};
+
+static void gga_x_dk87_init(xc_func_type *p) {
   gga_x_dk87_params *params;
 
-  assert(p!=NULL && p->params == NULL);
+  assert(p != NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_dk87_params));
-  params = (gga_x_dk87_params *) (p->params);
-
-  switch(p->info->number){
-  case XC_GGA_X_DK87_R1: 
-    memcpy(params, &par_dk87_r1, sizeof(gga_x_dk87_params));
-    break;
-  case XC_GGA_X_DK87_R2:
-    memcpy(params, &par_dk87_r2, sizeof(gga_x_dk87_params));
-    break;
-  default:
-    fprintf(stderr, "Internal error in gga_x_dk87\n");
-    exit(1);
-  }
+  params = (gga_x_dk87_params *)(p->params);
 }
 
 #include "decl_gga.h"
@@ -52,31 +41,35 @@ gga_x_dk87_init(xc_func_type *p)
 #ifdef __cplusplus
 extern "C"
 #endif
-const xc_func_info_type xc_func_info_gga_x_dk87_r1 = {
-  XC_GGA_X_DK87_R1,
-  XC_EXCHANGE,
-  "dePristo & Kress 87 version R1",
-  XC_FAMILY_GGA,
-  {&xc_ref_DePristo1987_1425, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
-  {0, NULL, NULL, NULL, NULL},
-  gga_x_dk87_init, NULL, 
-  NULL, work_gga, NULL
-};
+    const xc_func_info_type xc_func_info_gga_x_dk87_r1 = {
+        XC_GGA_X_DK87_R1,
+        XC_EXCHANGE,
+        "dePristo & Kress 87 version R1",
+        XC_FAMILY_GGA,
+        {&xc_ref_DePristo1987_1425, NULL, NULL, NULL, NULL},
+        XC_FLAGS_3D | MAPLE2C_FLAGS,
+        1e-24,
+        {N_PAR, names, desc, par_dk87_r1, set_ext_params_cpy},
+        gga_x_dk87_init,
+        NULL,
+        NULL,
+        work_gga,
+        NULL};
 
 #ifdef __cplusplus
 extern "C"
 #endif
-const xc_func_info_type xc_func_info_gga_x_dk87_r2 = {
-  XC_GGA_X_DK87_R2,
-  XC_EXCHANGE,
-  "dePristo & Kress 87 version R2",
-  XC_FAMILY_GGA,
-  {&xc_ref_DePristo1987_1425, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
-  {0, NULL, NULL, NULL, NULL},
-  gga_x_dk87_init, NULL, 
-  NULL, work_gga, NULL
-};
+    const xc_func_info_type xc_func_info_gga_x_dk87_r2 = {
+        XC_GGA_X_DK87_R2,
+        XC_EXCHANGE,
+        "dePristo & Kress 87 version R2",
+        XC_FAMILY_GGA,
+        {&xc_ref_DePristo1987_1425, NULL, NULL, NULL, NULL},
+        XC_FLAGS_3D | MAPLE2C_FLAGS,
+        1e-24,
+        {N_PAR, names, desc, par_dk87_r2, set_ext_params_cpy},
+        gga_x_dk87_init,
+        NULL,
+        NULL,
+        work_gga,
+        NULL};

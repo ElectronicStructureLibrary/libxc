@@ -39,7 +39,7 @@ static const double b88_optb88_values[B88_N_PAR] =
 static const double b88_mb88_values[B88_N_PAR] =
   {0.0011, 6.0};
 static const double b88_eb88_values[B88_N_PAR] =
-  {0.0050/M_CBRT2, 6.0};
+  {0.0039685026299204986870L, 6.0}; /* 0.0050/M_CBRT2 */
 static const double b88_b88m_values[B88_N_PAR] =
   {0.0045, 6.0};
 static const double b88_6311g_values[B88_N_PAR] =

@@ -60,15 +60,18 @@ core.xc_func_info_get_flags.argtypes = (_xc_func_info_p, )
 core.xc_func_info_get_references.argtypes = (_xc_func_info_p, ctypes.c_int)
 core.xc_func_info_get_references.restype = ctypes.POINTER(structs.func_reference_type)
 
+core.xc_func_info_get_n_ext_params.argtypes = (_xc_func_info_p, )
+
+core.xc_func_info_get_ext_params_name.argtypes = (_xc_func_info_p, ctypes.c_int)
+core.xc_func_info_get_ext_params_name.restype = ctypes.c_char_p
+
+core.xc_func_info_get_ext_params_description.argtypes = (_xc_func_info_p, ctypes.c_int)
+core.xc_func_info_get_ext_params_description.restype = ctypes.c_char_p
+
+core.xc_func_info_get_ext_params_default_value.argtypes = (_xc_func_info_p, ctypes.c_int)
+core.xc_func_info_get_ext_params_default_value.restype = ctypes.c_double
+
 # Setters
-core.xc_func_get_n_ext_params.argtypes = (_xc_func_p, )
-
-core.xc_func_get_ext_params_description.argtypes = (_xc_func_p, ctypes.c_int)
-core.xc_func_get_ext_params_description.restype = ctypes.c_char_p
-
-core.xc_func_get_ext_params_default_value.argtypes = (_xc_func_p, ctypes.c_int)
-core.xc_func_get_ext_params_default_value.restype = ctypes.c_double
-
 core.xc_func_set_ext_params.argtypes = (_xc_func_p, _ndptr)
 
 core.xc_func_set_dens_threshold.argtypes = (_xc_func_p, ctypes.c_double)
@@ -405,15 +408,28 @@ class LibXCFunctional(object):
 
     ### Setters
 
+    def get_ext_param_names(self):
+        """
+        Gets the description of all external parameters
+        """
+        num_param = core.xc_func_info_get_n_ext_params(self.xc_func_info)
+
+        ret = []
+        for p in range(num_param):
+            tmp = core.xc_func_info_get_ext_params_name(self.xc_func_info, p)
+            ret.append(tmp.decode("UTF-8"))
+
+        return ret
+
     def get_ext_param_descriptions(self):
         """
         Gets the description of all external parameters
         """
-        num_param = core.xc_func_get_n_ext_params(self.xc_func)
+        num_param = core.xc_func_info_get_n_ext_params(self.xc_func_info)
 
         ret = []
         for p in range(num_param):
-            tmp = core.xc_func_get_ext_params_description(self.xc_func, p)
+            tmp = core.xc_func_info_get_ext_params_description(self.xc_func_info, p)
             ret.append(tmp.decode("UTF-8"))
 
         return ret
@@ -422,11 +438,11 @@ class LibXCFunctional(object):
         """
         Gets the default value of all external parameters.
         """
-        num_param = core.xc_func_get_n_ext_params(self.xc_func)
+        num_param = core.xc_func_info_get_n_ext_params(self.xc_func_info)
 
         ret = []
         for p in range(num_param):
-            tmp = core.xc_func_get_ext_params_default_value(self.xc_func, p)
+            tmp = core.xc_func_get_ext_params_info_default_value(self.xc_func_info, p)
             ret.append(tmp)
 
         return ret
@@ -435,7 +451,7 @@ class LibXCFunctional(object):
         """
         Sets all external parameters.
         """
-        num_param = core.xc_func_get_n_ext_params(self.xc_func)
+        num_param = core.xc_func_info_get_n_ext_params(self.xc_func_info)
         if num_param == 0:
             raise ValueError("The LibXCFunctional '%s' has no extermal parameters to set." % self.get_name())
 

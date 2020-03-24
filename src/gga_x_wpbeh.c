@@ -51,7 +51,7 @@ const xc_func_info_type xc_func_info_gga_x_wpbeh = {
   {&xc_ref_Heyd2003_8207, &xc_ref_Heyd2003_8207_err, &xc_ref_Ernzerhof1998_3313, &xc_ref_Heyd2004_7274, &xc_ref_Henderson2009_044108},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  {1, omega_names, omega_desc, omega_values, set_ext_params_omega},
+  {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
   NULL, NULL, 
   NULL, work_gga, NULL
 };

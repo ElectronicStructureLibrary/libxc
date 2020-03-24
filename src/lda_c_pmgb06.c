@@ -29,7 +29,7 @@ const xc_func_info_type xc_func_info_lda_c_pmgb06 = {
   {&xc_ref_Paziani2006_155111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1e-13,
-  {1, omega_names, omega_desc, omega_values, set_ext_params_omega},
+  {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
   NULL, NULL, 
   work_lda, NULL, NULL
 };

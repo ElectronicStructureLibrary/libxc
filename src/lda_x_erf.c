@@ -29,7 +29,7 @@ const xc_func_info_type xc_func_info_lda_x_erf = {
   {&xc_ref_Gill1996_1005, &xc_ref_Toulouse2004_1047, &xc_ref_Tawada2004_8425, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-13,
-  {1, omega_names, omega_desc, omega_values, set_ext_params_omega},
+  {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
   NULL, NULL, 
   work_lda, NULL, NULL
 };

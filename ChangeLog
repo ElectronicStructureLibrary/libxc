@@ -1,4 +1,4 @@
-## [5.0.0] - To be released
+## [5.0.0]
 
 ### Added
 - Framework to include worker functionals. These functionals are not intended to be use on their own, but as part of other functionals.

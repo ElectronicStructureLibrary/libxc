@@ -83,14 +83,14 @@ file(STRINGS "configure.ac" _libxc_configure_ac
      REGEX "AC_INIT")
 foreach(ver ${_libxc_configure_ac})
     if (ver MATCHES "^AC_INIT..libxc...([0-9]+).([0-9]+).([0-9]+).*$")
-        set(${PROJECT_NAME}_VERSION_MAJOR ${CMAKE_MATCH_1})
-        set(${PROJECT_NAME}_VERSION_MINOR ${CMAKE_MATCH_2})
-        set(${PROJECT_NAME}_VERSION_MICRO ${CMAKE_MATCH_3})
+        set(PROJECT_VERSION_MAJOR ${CMAKE_MATCH_1})
+        set(PROJECT_VERSION_MINOR ${CMAKE_MATCH_2})
+        set(PROJECT_VERSION_MICRO ${CMAKE_MATCH_3})
     endif()
 endforeach()
 
-set(${PROJECT_NAME}_VERSION ${${PROJECT_NAME}_VERSION_MAJOR}.${${PROJECT_NAME}_VERSION_MINOR}.${${PROJECT_NAME}_VERSION_MICRO})
-message(STATUS "Version: Full ${${PROJECT_NAME}_VERSION}")
+set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_MICRO})
+message(STATUS "Version: Full ${PROJECT_VERSION}")
 
 # repurpose xc_version from Make for CMake
 set(VERSION ${PROJECT_VERSION})

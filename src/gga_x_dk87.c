@@ -8,10 +8,8 @@
 
 #include "util.h"
 
-#define XC_GGA_X_DK87_R1                                                       \
-  111 /* dePristo & Kress 87 (version R1)               */
-#define XC_GGA_X_DK87_R2                                                       \
-  112 /* dePristo & Kress 87 (version R2)               */
+#define XC_GGA_X_DK87_R1 111 /* dePristo & Kress 87 (version R1) */
+#define XC_GGA_X_DK87_R2 112 /* dePristo & Kress 87 (version R2) */
 
 typedef struct {
   double a1, b1, alpha;
@@ -41,35 +39,31 @@ static void gga_x_dk87_init(xc_func_type *p) {
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_gga_x_dk87_r1 = {
-        XC_GGA_X_DK87_R1,
-        XC_EXCHANGE,
-        "dePristo & Kress 87 version R1",
-        XC_FAMILY_GGA,
-        {&xc_ref_DePristo1987_1425, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS,
-        1e-24,
-        {N_PAR, names, desc, par_dk87_r1, set_ext_params_cpy},
-        gga_x_dk87_init,
-        NULL,
-        NULL,
-        work_gga,
-        NULL};
+const xc_func_info_type xc_func_info_gga_x_dk87_r1 = {
+  XC_GGA_X_DK87_R1,
+  XC_EXCHANGE,
+  "dePristo & Kress 87 version R1",
+  XC_FAMILY_GGA,
+  {&xc_ref_DePristo1987_1425, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-24,
+  {N_PAR, names, desc, par_dk87_r1, set_ext_params_cpy},
+  gga_x_dk87_init, NULL,
+  NULL, work_gga, NULL
+};
 
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_gga_x_dk87_r2 = {
-        XC_GGA_X_DK87_R2,
-        XC_EXCHANGE,
-        "dePristo & Kress 87 version R2",
-        XC_FAMILY_GGA,
-        {&xc_ref_DePristo1987_1425, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS,
-        1e-24,
-        {N_PAR, names, desc, par_dk87_r2, set_ext_params_cpy},
-        gga_x_dk87_init,
-        NULL,
-        NULL,
-        work_gga,
-        NULL};
+const xc_func_info_type xc_func_info_gga_x_dk87_r2 = {
+  XC_GGA_X_DK87_R2,
+  XC_EXCHANGE,
+  "dePristo & Kress 87 version R2",
+  XC_FAMILY_GGA,
+  {&xc_ref_DePristo1987_1425, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-24,
+  {N_PAR, names, desc, par_dk87_r2, set_ext_params_cpy},
+  gga_x_dk87_init, NULL,
+  NULL, work_gga, NULL
+};

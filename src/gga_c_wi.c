@@ -39,35 +39,31 @@ static void gga_c_wi_init(xc_func_type *p) {
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_gga_c_wi0 = {
-        XC_GGA_C_WI0,
-        XC_CORRELATION,
-        "Wilson & Ivanov initial version",
-        XC_FAMILY_GGA,
-        {&xc_ref_Wilson1998_523, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS,
-        1e-14,
-        {N_PAR, names, desc, wi0_params, set_ext_params_cpy},
-        gga_c_wi_init,
-        NULL,
-        NULL,
-        work_gga,
-        NULL};
+const xc_func_info_type xc_func_info_gga_c_wi0 = {
+  XC_GGA_C_WI0,
+  XC_CORRELATION,
+  "Wilson & Ivanov initial version",
+  XC_FAMILY_GGA,
+  {&xc_ref_Wilson1998_523, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-14,
+  {N_PAR, names, desc, wi0_params, set_ext_params_cpy},
+  gga_c_wi_init, NULL,
+  NULL, work_gga, NULL
+};
 
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_gga_c_wi = {
-        XC_GGA_C_WI,
-        XC_CORRELATION,
-        "Wilson & Ivanov",
-        XC_FAMILY_GGA,
-        {&xc_ref_Wilson1998_523, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS,
-        1e-10,
-        {N_PAR, names, desc, wi_params, set_ext_params_cpy},
-        gga_c_wi_init,
-        NULL,
-        NULL,
-        work_gga,
-        NULL};
+const xc_func_info_type xc_func_info_gga_c_wi = {
+  XC_GGA_C_WI,
+  XC_CORRELATION,
+  "Wilson & Ivanov",
+  XC_FAMILY_GGA,
+  {&xc_ref_Wilson1998_523, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-10,
+  {N_PAR, names, desc, wi_params, set_ext_params_cpy},
+  gga_c_wi_init, NULL,
+  NULL, work_gga, NULL
+};

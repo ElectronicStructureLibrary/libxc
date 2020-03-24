@@ -44,35 +44,31 @@ static void gga_c_sogga11_init(xc_func_type *p) {
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_gga_c_sogga11 = {
-        XC_GGA_C_SOGGA11,
-        XC_CORRELATION,
-        "Second-order generalized gradient approximation 2011",
-        XC_FAMILY_GGA,
-        {&xc_ref_Peverati2011_1991, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS,
-        1e-23,
-        {N_PAR, names, desc, par_sogga11, set_ext_params_cpy},
-        gga_c_sogga11_init,
-        NULL,
-        NULL,
-        work_gga,
-        NULL};
+const xc_func_info_type xc_func_info_gga_c_sogga11 = {
+  XC_GGA_C_SOGGA11,
+  XC_CORRELATION,
+  "Second-order generalized gradient approximation 2011",
+  XC_FAMILY_GGA,
+  {&xc_ref_Peverati2011_1991, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-23,
+  {N_PAR, names, desc, par_sogga11, set_ext_params_cpy},
+  gga_c_sogga11_init, NULL,
+  NULL, work_gga, NULL
+};
 
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_gga_c_sogga11_x = {
-        XC_GGA_C_SOGGA11_X,
-        XC_CORRELATION,
-        "To be used with HYB_GGA_X_SOGGA11_X",
-        XC_FAMILY_GGA,
-        {&xc_ref_Peverati2011_191102, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS,
-        1e-23,
-        {N_PAR, names, desc, par_sogga11_x, set_ext_params_cpy},
-        gga_c_sogga11_init,
-        NULL,
-        NULL,
-        work_gga,
-        NULL};
+const xc_func_info_type xc_func_info_gga_c_sogga11_x = {
+  XC_GGA_C_SOGGA11_X,
+  XC_CORRELATION,
+  "To be used with HYB_GGA_X_SOGGA11_X",
+  XC_FAMILY_GGA,
+  {&xc_ref_Peverati2011_191102, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-23,
+  {N_PAR, names, desc, par_sogga11_x, set_ext_params_cpy},
+  gga_c_sogga11_init, NULL,
+  NULL, work_gga, NULL
+};

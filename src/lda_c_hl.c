@@ -43,53 +43,47 @@ static void lda_c_hl_init(xc_func_type *p) {
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_lda_c_hl = {
-        XC_LDA_C_HL,
-        XC_CORRELATION,
-        "Hedin & Lundqvist",
-        XC_FAMILY_LDA,
-        {&xc_ref_Hedin1971_2064, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS,
-        1e-16,
-        {N_PAR, names, desc, par_hl, set_ext_params_cpy},
-        lda_c_hl_init,
-        NULL,
-        work_lda,
-        NULL,
-        NULL};
+const xc_func_info_type xc_func_info_lda_c_hl = {
+  XC_LDA_C_HL,
+  XC_CORRELATION,
+  "Hedin & Lundqvist",
+  XC_FAMILY_LDA,
+  {&xc_ref_Hedin1971_2064, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-16,
+  {N_PAR, names, desc, par_hl, set_ext_params_cpy},
+  lda_c_hl_init, NULL,
+  work_lda, NULL, NULL
+};
 
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_lda_c_gl = {
-        XC_LDA_C_GL,
-        XC_CORRELATION,
-        "Gunnarson & Lundqvist",
-        XC_FAMILY_LDA,
-        {&xc_ref_Gunnarsson1976_4274, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS,
-        1e-17,
-        {N_PAR, names, desc, par_gl, set_ext_params_cpy},
-        lda_c_hl_init,
-        NULL,
-        work_lda,
-        NULL,
-        NULL};
+const xc_func_info_type xc_func_info_lda_c_gl = {
+  XC_LDA_C_GL,
+  XC_CORRELATION,
+  "Gunnarson & Lundqvist",
+  XC_FAMILY_LDA,
+  {&xc_ref_Gunnarsson1976_4274, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-17,
+  {N_PAR, names, desc, par_gl, set_ext_params_cpy},
+  lda_c_hl_init, NULL,
+  work_lda, NULL, NULL
+};
 
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_lda_c_vbh = {
-        XC_LDA_C_VBH,
-        XC_CORRELATION,
-        "von Barth & Hedin",
-        XC_FAMILY_LDA,
-        {&xc_ref_vonBarth1972_1629, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS,
-        1e-17,
-        {N_PAR, names, desc, par_vbh, set_ext_params_cpy},
-        lda_c_hl_init,
-        NULL,
-        work_lda,
-        NULL,
-        NULL};
+const xc_func_info_type xc_func_info_lda_c_vbh = {
+  XC_LDA_C_VBH,
+  XC_CORRELATION,
+  "von Barth & Hedin",
+  XC_FAMILY_LDA,
+  {&xc_ref_vonBarth1972_1629, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-17,
+  {N_PAR, names, desc, par_vbh, set_ext_params_cpy},
+  lda_c_hl_init, NULL,
+  work_lda, NULL, NULL
+};

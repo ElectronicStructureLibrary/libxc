@@ -44,35 +44,31 @@ static void gga_x_pw86_init(xc_func_type *p) {
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_gga_x_pw86 = {
-        XC_GGA_X_PW86,
-        XC_EXCHANGE,
-        "Perdew & Wang 86",
-        XC_FAMILY_GGA,
-        {&xc_ref_Perdew1986_8800, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS,
-        1e-24,
-        {N_PAR, names, desc, par_pw86, set_ext_params_cpy},
-        gga_x_pw86_init,
-        NULL,
-        NULL,
-        work_gga,
-        NULL};
+const xc_func_info_type xc_func_info_gga_x_pw86 = {
+  XC_GGA_X_PW86,
+  XC_EXCHANGE,
+  "Perdew & Wang 86",
+  XC_FAMILY_GGA,
+  {&xc_ref_Perdew1986_8800, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-24,
+  {N_PAR, names, desc, par_pw86, set_ext_params_cpy},
+  gga_x_pw86_init, NULL,
+  NULL, work_gga, NULL
+};
 
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_gga_x_rpw86 = {
-        XC_GGA_X_RPW86,
-        XC_EXCHANGE,
-        "Refitted Perdew & Wang 86",
-        XC_FAMILY_GGA,
-        {&xc_ref_Murray2009_2754, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS,
-        1e-24,
-        {N_PAR, names, desc, par_rpw86, set_ext_params_cpy},
-        gga_x_pw86_init,
-        NULL,
-        NULL,
-        work_gga,
-        NULL};
+const xc_func_info_type xc_func_info_gga_x_rpw86 = {
+  XC_GGA_X_RPW86,
+  XC_EXCHANGE,
+  "Refitted Perdew & Wang 86",
+  XC_FAMILY_GGA,
+  {&xc_ref_Murray2009_2754, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-24,
+  {N_PAR, names, desc, par_rpw86, set_ext_params_cpy},
+  gga_x_pw86_init, NULL,
+  NULL, work_gga, NULL
+};

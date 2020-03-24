@@ -77,107 +77,95 @@ static void gga_c_bmk_init(xc_func_type *p) {
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_gga_c_n12 = {
-        XC_GGA_C_N12,
-        XC_CORRELATION,
-        "Minnesota N12 functional",
-        XC_FAMILY_GGA,
-        {&xc_ref_Peverati2012_2310, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS,
-        1e-20,
-        {BMK_N_PAR, bmk_names, bmk_desc, par_n12, set_ext_params_cpy},
-        gga_c_bmk_init,
-        NULL,
-        NULL,
-        work_gga,
-        NULL};
+const xc_func_info_type xc_func_info_gga_c_n12 = {
+  XC_GGA_C_N12,
+  XC_CORRELATION,
+  "Minnesota N12 functional",
+  XC_FAMILY_GGA,
+  {&xc_ref_Peverati2012_2310, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-20,
+  {BMK_N_PAR, bmk_names, bmk_desc, par_n12, set_ext_params_cpy},
+  gga_c_bmk_init, NULL,
+  NULL, work_gga, NULL
+};
 
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_gga_c_n12_sx = {
-        XC_GGA_C_N12_SX,
-        XC_CORRELATION,
-        "Minnesota N12-SX functional",
-        XC_FAMILY_GGA,
-        {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS,
-        1e-20,
-        {BMK_N_PAR, bmk_names, bmk_desc, par_n12_sx, set_ext_params_cpy},
-        gga_c_bmk_init,
-        NULL,
-        NULL,
-        work_gga,
-        NULL};
+const xc_func_info_type xc_func_info_gga_c_n12_sx = {
+  XC_GGA_C_N12_SX,
+  XC_CORRELATION,
+  "Minnesota N12-SX functional",
+  XC_FAMILY_GGA,
+  {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-20,
+  {BMK_N_PAR, bmk_names, bmk_desc, par_n12_sx, set_ext_params_cpy},
+  gga_c_bmk_init, NULL,
+  NULL, work_gga, NULL
+};
 
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_gga_c_gam = {
-        XC_GGA_C_GAM,
-        XC_CORRELATION,
-        "GAM functional from Minnesota",
-        XC_FAMILY_GGA,
-        {&xc_ref_Yu2015_12146, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
-        1e-15,
-        {BMK_N_PAR, bmk_names, bmk_desc, par_gam, set_ext_params_cpy},
-        gga_c_bmk_init,
-        NULL,
-        NULL,
-        work_gga,
-        NULL};
+const xc_func_info_type xc_func_info_gga_c_gam = {
+  XC_GGA_C_GAM,
+  XC_CORRELATION,
+  "GAM functional from Minnesota",
+  XC_FAMILY_GGA,
+  {&xc_ref_Yu2015_12146, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
+  1e-15,
+  {BMK_N_PAR, bmk_names, bmk_desc, par_gam, set_ext_params_cpy},
+  gga_c_bmk_init, NULL,
+  NULL, work_gga, NULL
+};
 
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_gga_c_bmk = {
-        XC_GGA_C_BMK,
-        XC_CORRELATION,
-        "Boese-Martin for kinetics",
-        XC_FAMILY_GGA,
-        {&xc_ref_Boese2004_3405, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS,
-        1e-20,
-        {BMK_N_PAR, bmk_names, bmk_desc, par_bmk, set_ext_params_cpy},
-        gga_c_bmk_init,
-        NULL,
-        NULL,
-        work_gga,
-        NULL};
+const xc_func_info_type xc_func_info_gga_c_bmk = {
+  XC_GGA_C_BMK,
+  XC_CORRELATION,
+  "Boese-Martin for kinetics",
+  XC_FAMILY_GGA,
+  {&xc_ref_Boese2004_3405, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-20,
+  {BMK_N_PAR, bmk_names, bmk_desc, par_bmk, set_ext_params_cpy},
+  gga_c_bmk_init, NULL,
+  NULL, work_gga, NULL
+};
 
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_gga_c_tau_hcth = {
-        XC_GGA_C_TAU_HCTH,
-        XC_CORRELATION,
-        "correlation part of tau-hcth",
-        XC_FAMILY_GGA,
-        {&xc_ref_Boese2002_9559, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS,
-        1e-20,
-        {BMK_N_PAR, bmk_names, bmk_desc, par_tau_hcth, set_ext_params_cpy},
-        gga_c_bmk_init,
-        NULL,
-        NULL,
-        work_gga,
-        NULL};
+const xc_func_info_type xc_func_info_gga_c_tau_hcth = {
+  XC_GGA_C_TAU_HCTH,
+  XC_CORRELATION,
+  "correlation part of tau-hcth",
+  XC_FAMILY_GGA,
+  {&xc_ref_Boese2002_9559, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-20,
+  {BMK_N_PAR, bmk_names, bmk_desc, par_tau_hcth, set_ext_params_cpy},
+  gga_c_bmk_init, NULL,
+  NULL, work_gga, NULL
+};
 
 #ifdef __cplusplus
 extern "C"
 #endif
-    const xc_func_info_type xc_func_info_gga_c_hyb_tau_hcth = {
-        XC_GGA_C_HYB_TAU_HCTH,
-        XC_CORRELATION,
-        "correlation part of hyb-tau-hcth",
-        XC_FAMILY_GGA,
-        {&xc_ref_Boese2002_9559, NULL, NULL, NULL, NULL},
-        XC_FLAGS_3D | MAPLE2C_FLAGS,
-        1e-20,
-        {BMK_N_PAR, bmk_names, bmk_desc, par_hyb_tau_hcth, set_ext_params_cpy},
-        gga_c_bmk_init,
-        NULL,
-        NULL,
-        work_gga,
-        NULL};
+const xc_func_info_type xc_func_info_gga_c_hyb_tau_hcth = {
+  XC_GGA_C_HYB_TAU_HCTH,
+  XC_CORRELATION,
+  "correlation part of hyb-tau-hcth",
+  XC_FAMILY_GGA,
+  {&xc_ref_Boese2002_9559, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-20,
+  {BMK_N_PAR, bmk_names, bmk_desc, par_hyb_tau_hcth, set_ext_params_cpy},
+  gga_c_bmk_init, NULL,
+  NULL, work_gga, NULL
+};

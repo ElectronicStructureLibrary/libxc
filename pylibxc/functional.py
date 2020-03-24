@@ -442,7 +442,7 @@ class LibXCFunctional(object):
 
         ret = []
         for p in range(num_param):
-            tmp = core.xc_func_get_ext_params_info_default_value(self.xc_func_info, p)
+            tmp = core.xc_func_info_get_ext_params_default_value(self.xc_func_info, p)
             ret.append(tmp)
 
         return ret

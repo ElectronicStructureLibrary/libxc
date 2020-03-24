@@ -52,6 +52,13 @@ int xc_func_info_get_n_ext_params(const xc_func_info_type *info)
   return info->ext_params.n;
 }
 
+char const *xc_func_info_get_ext_params_name(const xc_func_info_type *info, int number)
+{
+  assert(number >=0 && number < info->n_ext_params);
+
+  return info->ext_params[number].name;
+}
+
 char const *xc_func_info_get_ext_params_description(const xc_func_info_type *info, int number)
 {
   assert(number >=0 && number < info->ext_params.n);

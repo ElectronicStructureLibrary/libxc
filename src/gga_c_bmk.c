@@ -63,11 +63,8 @@ static const double par_hyb_tau_hcth[BMK_N_PAR] = {
     0.80490, 3.8388, -13.547, 3.9133, 0.0};
 
 static void gga_c_bmk_init(xc_func_type *p) {
-  gga_c_bmk_params *params;
-
   assert(p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_c_bmk_params));
-  params = (gga_c_bmk_params *)(p->params);
 }
 
 #include "decl_gga.h"

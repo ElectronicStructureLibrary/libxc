@@ -28,10 +28,8 @@ static const double b00_values[BR89_N_PAR] = {1.0, 0.928};
 static void
 mgga_x_br89_init(xc_func_type *p)
 {
-  mgga_x_br89_params *params;
-
+  assert(p != NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_br89_params));
-  params = (mgga_x_br89_params *)p->params;
 }
 
 GPU_FUNCTION static double

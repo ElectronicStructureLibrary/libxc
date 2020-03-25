@@ -21,7 +21,7 @@ typedef struct{
 #define N_PAR_SCAN 4
 static const char *scan_names[N_PAR_SCAN] = {"_c1", "_c2", "_d", "_k1"};
 static const char *scan_desc[N_PAR_SCAN] = {"c1 parameter", "c2 parameter", "d parameter",
-                                  "k1 parameter"};
+                                            "k1 parameter"};
 
 static const double par_scan[N_PAR_SCAN] = {0.667, 0.8, 1.24, 0.065};
 static const double par_revscan[N_PAR_SCAN] = {0.607, 0.7, 1.37, 0.065};
@@ -29,11 +29,8 @@ static const double par_revscan[N_PAR_SCAN] = {0.607, 0.7, 1.37, 0.065};
 static void 
 mgga_x_scan_init(xc_func_type *p)
 {
-  mgga_x_scan_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_scan_params));
-  params = (mgga_x_scan_params *)p->params;
 }
 
 #include "decl_mgga.h"
@@ -95,11 +92,8 @@ scan0_set_ext_params(xc_func_type *p, const double *ext_params)
 static void
 hyb_mgga_x_scan0_init(xc_func_type *p)
 {
-  mgga_x_scan_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_scan_params));
-  params = (mgga_x_scan_params *)p->params;
 
   static int   funcs_id  [1] = {XC_MGGA_X_SCAN};
   static double funcs_coef[1] = {0.0}; /* set by ext_params */
@@ -107,7 +101,6 @@ hyb_mgga_x_scan0_init(xc_func_type *p)
   xc_mix_init(p, 1, funcs_id, funcs_coef);
   p->cam_alpha = 0.0; /* set by ext_params */
 }
-
 
 #ifdef __cplusplus
 extern "C"
@@ -125,15 +118,11 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_scan0 = {
   NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
 
-
 static void
 hyb_mgga_x_revscan0_init(xc_func_type *p)
 {
-  mgga_x_scan_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_scan_params));
-  params = (mgga_x_scan_params *)p->params;
 
   static int   funcs_id  [1] = {XC_MGGA_X_REVSCAN};
   static double funcs_coef[1] = {0.0}; /* set by ext_params */
@@ -141,7 +130,6 @@ hyb_mgga_x_revscan0_init(xc_func_type *p)
   xc_mix_init(p, 1, funcs_id, funcs_coef);
   p->cam_alpha = 0.0; /* set by ext_params */
 }
-
 
 #ifdef __cplusplus
 extern "C"

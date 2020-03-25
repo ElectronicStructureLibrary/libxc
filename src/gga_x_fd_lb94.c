@@ -16,26 +16,18 @@ typedef struct{
   double beta;         /* screening parameter beta */
 } gga_x_fd_lb94_params;
 
+#define N_PAR 1
+static const char *names[N_PAR] = {"_beta"};
+static const char *desc[N_PAR] = {"beta parameter"};
+
+static const double lb94_par[N_PAR] = {0.05};
+static const double revlb94_par[N_PAR] = {0.004};
+
 static void 
 gga_x_fd_lb94_init(xc_func_type *p)
 {
-  gga_x_fd_lb94_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_fd_lb94_params));
-  params = (gga_x_fd_lb94_params *) (p->params);
- 
-  switch(p->info->number){
-  case XC_GGA_X_FD_LB94:
-    params->beta = 0.05;
-    break;
-  case XC_GGA_X_FD_REVLB94:
-    params->beta = 0.004;
-    break;
-   default:
-    fprintf(stderr, "Internal error in gga_x_fd_lb94\n");
-    exit(1);
-  }
 }
 
 GPU_FUNCTION
@@ -84,7 +76,7 @@ const xc_func_info_type xc_func_info_gga_x_fd_lb94 = {
   {&xc_ref_Gaiduk2011_012509, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-26,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, lb94_par, set_ext_params_cpy},
   gga_x_fd_lb94_init, NULL,
   NULL, work_gga, NULL
 };
@@ -100,7 +92,7 @@ const xc_func_info_type xc_func_info_gga_x_fd_revlb94 = {
   {&xc_ref_Gaiduk2011_012509, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-26,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, revlb94_par, set_ext_params_cpy},
   gga_x_fd_lb94_init, NULL,
   NULL, work_gga, NULL
 };

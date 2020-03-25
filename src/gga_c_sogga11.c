@@ -30,11 +30,8 @@ static const double par_sogga11_x[N_PAR] = {
     0.50000, -79.2439, 16.3725, 2.08129,  7.50769,  -10.1861};
 
 static void gga_c_sogga11_init(xc_func_type *p) {
-  gga_c_sogga11_params *params;
-
   assert(p != NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_c_sogga11_params));
-  params = (gga_c_sogga11_params *)(p->params);
 }
 
 #include "decl_gga.h"

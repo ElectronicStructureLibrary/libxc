@@ -95,13 +95,9 @@ static const double par_revm11[N_PAR] = {
 static void
 mgga_c_m08_init(xc_func_type *p)
 {
-  mgga_c_m08_params *params;
-
   assert(p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_c_m08_params));
-  params = (mgga_c_m08_params *) (p->params);
 }
-
 
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_m08.c"

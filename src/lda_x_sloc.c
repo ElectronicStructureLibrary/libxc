@@ -19,13 +19,8 @@ typedef struct{
 static void
 lda_x_sloc_init(xc_func_type *p)
 {
-  lda_x_sloc_params *params;
-
   assert(p != NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(lda_x_sloc_params));
-  params = (lda_x_sloc_params *) (p->params);
-
-  /* default set by set_ext_params */
 }
 
 #include "decl_lda.h"

@@ -29,11 +29,8 @@ static const double par_vsxc[N_PAR] = {
 static void 
 mgga_c_vsxc_init(xc_func_type *p)
 {
-  mgga_c_vsxc_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_c_vsxc_params));
-  params = (mgga_c_vsxc_params *)p->params;
 }
 
 #include "decl_mgga.h"

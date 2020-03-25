@@ -25,12 +25,8 @@ static const double pars_B88_V2[N_PARS] =
 static void
 gga_x_hjs_init(xc_func_type *p)
 {
-  gga_x_hjs_params *params;
-  int ii;
-
   assert(p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_hjs_params));
-  params = (gga_x_hjs_params *) (p->params);
 }
 
 #include "decl_gga.h"

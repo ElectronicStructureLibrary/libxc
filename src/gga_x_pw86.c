@@ -23,18 +23,11 @@ static const char *desc[N_PAR] = {"Coefficient of s^2 term",
 
 static const double par_pw86[3] = {1.296, 14.0, 0.2};
 
-static const double par_rpw86[3] = {
-    15.0 * 0.1234,
-    17.33,
-    0.163,
-};
+static const double par_rpw86[3] = {15.0 * 0.1234, 17.33, 0.163};
 
 static void gga_x_pw86_init(xc_func_type *p) {
-  gga_x_pw86_params *params;
-
   assert(p != NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_pw86_params));
-  params = (gga_x_pw86_params *)(p->params);
 }
 
 #include "decl_gga.h"

@@ -27,11 +27,8 @@ static const double par_revscanl[N_PAR_SCAN] = {0.607, 0.7, 1.37, 0.065};
 static void 
 mgga_x_scanl_init(xc_func_type *p)
 {
-  mgga_x_scan_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_scan_params));
-  params = (mgga_x_scan_params *)p->params;
 }
 
 #include "decl_mgga.h"

@@ -25,11 +25,8 @@ static const double wi0_par[N_PAR] = {-0.44, 0.0032407, 7.8, 0.0073,
 static const double wi_par[N_PAR] = {-0.00652, 0.0007, 0.21, 0.002, 0.001};
 
 static void gga_c_wi_init(xc_func_type *p) {
-  gga_c_wi_params *params;
-
   assert(p != NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_c_wi_params));
-  params = (gga_c_wi_params *)(p->params);
 }
 
 #include "decl_gga.h"

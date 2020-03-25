@@ -29,11 +29,8 @@ static const double par_gl[N_PAR] = {11.4, 15.9, 0.0333, 0.0203};
 static const double par_vbh[N_PAR] = {30.0, 75.0, 0.0252, 0.0127};
 
 static void lda_c_hl_init(xc_func_type *p) {
-  lda_c_hl_params *params;
-
   assert(p != NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(lda_c_hl_params));
-  params = (lda_c_hl_params *)(p->params);
 }
 
 #include "decl_lda.h"

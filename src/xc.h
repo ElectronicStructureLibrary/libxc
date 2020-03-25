@@ -116,10 +116,7 @@ const char *xc_version_string();
 
 struct xc_func_type;
 
-typedef struct{
-  const char *ref, *doi, *bibtex;
-} func_reference_type;
-
+typedef struct func_reference func_reference_type;
 char const *xc_func_reference_get_ref(const func_reference_type *reference);
 char const *xc_func_reference_get_doi(const func_reference_type *reference);
 char const *xc_func_reference_get_bibtex(const func_reference_type *reference);

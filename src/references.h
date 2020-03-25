@@ -13,6 +13,11 @@
 
 #include <xc.h>
 
+struct func_reference {
+  const char *ref, *doi, *bibtex;
+};
+
+
 extern func_reference_type xc_ref_Acharya1980_6978;
 extern func_reference_type xc_ref_Adamo1997_242;
 extern func_reference_type xc_ref_Adamo1998_664;

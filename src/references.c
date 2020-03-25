@@ -11,7 +11,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-#include <xc.h>
+#include "references.h"
 
 func_reference_type xc_ref_Acharya1980_6978 = {
   "P. K. Acharya, L. J. Bartolotti, S. B. Sears, and R. G. Parr, Proc. Natl. Acad. Sci. U. S. A. 77, 6978 (1980)",

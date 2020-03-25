@@ -7,7 +7,7 @@
 */
 
 #include <xc.h>
-
+#include "references.h"
 
 char const *xc_func_reference_get_ref(const func_reference_type *reference)
 {

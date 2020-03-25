@@ -308,6 +308,15 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyps = {
 
 
 /*************************************************************/
+void
+xc_hyb_gga_xc_b5050lyp_init(xc_func_type *p)
+{
+  static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_VWN, XC_GGA_C_LYP};
+  static double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0}; /* set by ext_params */
+
+  xc_mix_init(p, 4, funcs_id, funcs_coef);
+}
+
 #ifdef __cplusplus
 extern "C"
 #endif
@@ -320,7 +329,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b5050lyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
   {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b5050lyp_values, b3pw91_set_ext_params},
-  xc_hyb_gga_xc_b3lyp_init, NULL,
+  xc_hyb_gga_xc_b5050lyp_init, NULL,
   NULL, NULL, NULL
 };
 

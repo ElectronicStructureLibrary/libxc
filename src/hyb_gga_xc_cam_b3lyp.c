@@ -166,7 +166,7 @@ cam_set_ext_params(xc_func_type *p, const double *ext_params)
   p->cam_alpha = alpha;
   p->cam_beta  = beta;
   p->cam_omega = omega_HF;
-  xc_func_set_ext_params(p->func_aux[1], &omega_PBE);
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", omega_PBE);
 }
 
 static void

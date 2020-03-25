@@ -237,9 +237,7 @@ void  xc_func_free(xc_func_type *p);
 const xc_func_info_type *xc_func_get_info(const xc_func_type *p);
 void  xc_func_set_dens_threshold(xc_func_type *p, double dens_threshold);
 void  xc_func_set_ext_params(xc_func_type *p, double *ext_params);
-int   xc_func_get_n_ext_params(const xc_func_type *p);
-char const *xc_func_get_ext_params_description(const xc_func_type *p, int number);
-double xc_func_get_ext_params_default_value(const xc_func_type *p, int number);
+void  xc_func_set_ext_params_name(xc_func_type *p, const char *name, double par);
 
 #include "xc_funcs.h"
 #include "xc_funcs_removed.h"

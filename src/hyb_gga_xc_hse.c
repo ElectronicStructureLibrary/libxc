@@ -85,7 +85,8 @@ hse03_set_ext_params(xc_func_type *p, const double *ext_params)
 
   p->cam_beta  = beta;
   p->cam_omega = omega_HF;
-  xc_func_set_ext_params(p->func_aux[1], &omega_PBE);
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", 0.0);
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", omega_PBE);
 }
 
 #ifdef __cplusplus
@@ -158,13 +159,11 @@ hyb_gga_xc_hse_sol_init(xc_func_type *p)
   int   funcs_id  [3] = {XC_GGA_X_HJS_PBE_SOL, XC_GGA_X_HJS_PBE_SOL, XC_GGA_C_PBE};
   double funcs_coef[3] = {1.0, -0.25, 1.0};
 
-  static double zero = 0.0, omega = 0.11;
-
   xc_mix_init(p, 3, funcs_id, funcs_coef);
-  p->cam_omega = omega;
+  p->cam_omega = 0.11;
   p->cam_beta  = 0.25;
-  xc_func_set_ext_params(p->func_aux[0], &zero);
-  xc_func_set_ext_params(p->func_aux[1], &omega);
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", 0.0);
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", 0.11);
 }
 
 
@@ -195,7 +194,7 @@ hyb_gga_xc_lc_wpbe_init(xc_func_type *p)
   p->cam_omega =  0.4;
   p->cam_alpha =  1.0;
   p->cam_beta  = -1.0;
-  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->cam_omega);
 }
 
 #ifdef __cplusplus
@@ -226,7 +225,7 @@ hyb_gga_xc_lrc_wpbeh_init(xc_func_type *p)
   p->cam_omega =  0.2;
   p->cam_alpha =  1.0;
   p->cam_beta  = -0.8;
-  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->cam_omega);
 }
 
 static void
@@ -240,7 +239,7 @@ hyb_gga_xc_lrc_wpbe_init(xc_func_type *p)
   p->cam_omega =  0.3;
   p->cam_alpha =  1.0;
   p->cam_beta  = -1.0;
-  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->cam_omega);
 }
 
 #ifdef __cplusplus
@@ -286,7 +285,7 @@ hyb_gga_xc_lc_wpbe_whs_init(xc_func_type *p)
   p->cam_omega =  0.4;
   p->cam_alpha =  1.0;
   p->cam_beta  = -1.0;
-  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->cam_omega);
 }
 
 static void
@@ -300,7 +299,7 @@ hyb_gga_xc_lc_wpbe08_whs_init(xc_func_type *p)
   p->cam_omega =  0.45;
   p->cam_alpha =  1.0;
   p->cam_beta  = -1.0;
-  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->cam_omega);
 }
 
 static void
@@ -314,7 +313,7 @@ hyb_gga_xc_lc_wpbesol_whs_init(xc_func_type *p)
   p->cam_omega =  0.60;
   p->cam_alpha =  1.0;
   p->cam_beta  = -1.0;
-  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->cam_omega);
 }
 
 static void
@@ -328,7 +327,7 @@ hyb_gga_xc_lc_wpbeh_whs_init(xc_func_type *p)
   p->cam_omega =  0.4;
   p->cam_alpha =  1.0;
   p->cam_beta  = -0.75;
-  xc_func_set_ext_params(p->func_aux[0], &(p->cam_omega));
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->cam_omega);
 }
 
 #ifdef __cplusplus
@@ -401,8 +400,6 @@ hyb_gga_xc_hjs_init(xc_func_type *p)
   static int   funcs_id  [3] = {-1, -1, XC_GGA_C_PBE};
   static double funcs_coef[3] = {1.0, -0.25, 1.0};
 
-  static double zero = 0.0, omega = 0.11;
-
   switch(p->info->number){
   case XC_HYB_GGA_XC_HJS_PBE:
     funcs_id[0] = funcs_id[1] = XC_GGA_X_HJS_PBE;
@@ -423,10 +420,10 @@ hyb_gga_xc_hjs_init(xc_func_type *p)
 
   xc_mix_init(p, 3, funcs_id, funcs_coef);
 
-  p->cam_omega = omega;
+  p->cam_omega = 0.11;
   p->cam_beta  = 0.25;
-  xc_func_set_ext_params(p->func_aux[0], &zero);
-  xc_func_set_ext_params(p->func_aux[1], &omega);
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", 0.0);
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", 0.11);
 }
 
 #ifdef __cplusplus

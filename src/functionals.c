@@ -330,11 +330,32 @@ void xc_func_set_dens_threshold(xc_func_type *p, double dens_threshold)
 
 /*------------------------------------------------------*/
 /* get/set external parameters                          */
-void xc_func_set_ext_params(xc_func_type *p, double *ext_params)
+void
+xc_func_set_ext_params(xc_func_type *p, double *ext_params)
 {
   assert(p->info->ext_params.n > 0);
   p->info->ext_params.set(p, ext_params);
 }
+
+void
+xc_func_set_ext_params_name(xc_func_type *p, const char *name, double par)
+{
+  int ii;
+  double *ext_params;
+
+  assert(p != NULL && p->info->ext_params.n > 0);
+  
+  ext_params = libxc_malloc(p->info->ext_params.n*sizeof(double));
+  for(ii=0; ii<p->info->ext_params.n; ii++){
+    if(strcmp(p->info->ext_params.names[ii], name) == 0)
+      ext_params[ii] = par;
+    else
+      ext_params[ii] = XC_EXT_PARAMS_DEFAULT;
+  }
+  xc_func_set_ext_params(p, ext_params);
+  libxc_free(ext_params);
+}
+
 
 /*------------------------------------------------------*/
 /* returns the mixing coefficient for the hybrid GGAs */

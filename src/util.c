@@ -171,7 +171,7 @@ set_ext_params_cpy_omega(xc_func_type *p, const double *ext_params)
 {
   int nparams;
   assert(p != NULL);
-  nparams = p->info->ext_params.n;
+  nparams = p->info->ext_params.n-1;
   copy_params(p, ext_params, nparams);
   p->cam_alpha = 0.0;
   p->cam_beta = 0.0;

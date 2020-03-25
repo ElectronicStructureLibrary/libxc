@@ -242,7 +242,7 @@ const xc_func_info_type xc_func_info_gga_xc_b97_d = {
   {&xc_ref_Grimme2006_1787, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  {B97_N_PAR-1, b97_names, b97_desc, b97_d_values, set_ext_params_cpy_exx},
+  {B97_N_PAR-1, b97_names, b97_desc, b97_d_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };

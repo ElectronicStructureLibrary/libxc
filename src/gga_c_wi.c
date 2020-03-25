@@ -20,9 +20,9 @@ static const char *names[N_PAR] = {"_a", "_b", "_c", "_d", "_k"};
 static const char *desc[N_PAR] = {"a parameter", "b parameter", "c parameter",
                                   "d parameter", "k parameter"};
 
-static const double wi0_params[N_PAR] = {-0.44, 0.0032407, 7.8, 0.0073,
+static const double wi0_par[N_PAR] = {-0.44, 0.0032407, 7.8, 0.0073,
                                          0.000311};
-static const double wi_params[N_PAR] = {-0.00652, 0.0007, 0.21, 0.002, 0.001};
+static const double wi_par[N_PAR] = {-0.00652, 0.0007, 0.21, 0.002, 0.001};
 
 static void gga_c_wi_init(xc_func_type *p) {
   gga_c_wi_params *params;
@@ -47,7 +47,7 @@ const xc_func_info_type xc_func_info_gga_c_wi0 = {
   {&xc_ref_Wilson1998_523, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
-  {N_PAR, names, desc, wi0_params, set_ext_params_cpy},
+  {N_PAR, names, desc, wi0_par, set_ext_params_cpy},
   gga_c_wi_init, NULL,
   NULL, work_gga, NULL
 };
@@ -63,7 +63,7 @@ const xc_func_info_type xc_func_info_gga_c_wi = {
   {&xc_ref_Wilson1998_523, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-10,
-  {N_PAR, names, desc, wi_params, set_ext_params_cpy},
+  {N_PAR, names, desc, wi_par, set_ext_params_cpy},
   gga_c_wi_init, NULL,
   NULL, work_gga, NULL
 };

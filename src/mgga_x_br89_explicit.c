@@ -16,7 +16,11 @@ typedef struct{
   double gamma;
 } mgga_x_br89_params;
 
-static const mgga_x_br89_params par_one = {1.0};
+#define BR89_N_PAR 1
+static const char  *br89_names[BR89_N_PAR]    = {"_gamma"};
+static const char  *br89_desc[BR89_N_PAR]     = {"gamma"};
+static const double br89_values[BR89_N_PAR]   = {0.8};
+static const double br89_1_values[BR89_N_PAR] = {1.0};
 
 static void
 mgga_x_br89_init(xc_func_type *p)
@@ -24,12 +28,6 @@ mgga_x_br89_init(xc_func_type *p)
   assert(p != NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_br89_params));
 }
-
-#define BR89_N_PAR 3
-static const char  *br89_names[BR89_N_PAR]    = {"_gamma"};
-static const char  *br89_desc[BR89_N_PAR]     = {"gamma"};
-static const double br89_values[BR89_N_PAR]   = {0.8};
-static const double br89_1_values[BR89_N_PAR] = {1.0};
 
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_br89_explicit.c"

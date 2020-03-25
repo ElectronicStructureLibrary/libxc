@@ -17,6 +17,13 @@ typedef struct{
   double gamma, at;
 } mgga_x_br89_params;
 
+#define BR89_N_PAR 2
+static const char  *br89_names[BR89_N_PAR]    = {"_gamma", "_at"};
+static const char  *br89_desc[BR89_N_PAR]     = {"gamma", "at"};
+
+static const double br89_values[BR89_N_PAR]   = {0.8, 0.0};
+static const double br89_1_values[BR89_N_PAR] = {1.0, 0.0};
+static const double b00_values[BR89_N_PAR] = {1.0, 0.928};
 
 static void
 mgga_x_br89_init(xc_func_type *p)
@@ -25,26 +32,7 @@ mgga_x_br89_init(xc_func_type *p)
 
   p->params = libxc_malloc(sizeof(mgga_x_br89_params));
   params = (mgga_x_br89_params *)p->params;
-
-  switch(p->info->number){
-  case XC_MGGA_X_BR89:
-    params->gamma = 0.8;
-    params->at    = 0.0;
-    break;
-  case XC_MGGA_X_BR89_1:
-    params->gamma = 1.0;
-    params->at    = 0.0;
-    break;
-  case XC_MGGA_X_B00:
-    params->gamma = 1.0;
-    params->at    = 0.928;
-    break;
-  default:
-    fprintf(stderr, "Internal error in mgga_x_br89\n");
-    exit(1);
-  }
 }
-
 
 GPU_FUNCTION static double
 br89_x_Q(double x, void *_rhs)
@@ -99,7 +87,7 @@ const xc_func_info_type xc_func_info_mgga_x_br89 = {
   {&xc_ref_Becke1989_3761, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-12,
-  {0, NULL, NULL, NULL, NULL},
+  {BR89_N_PAR, br89_names, br89_desc, br89_values, set_ext_params_cpy},
   mgga_x_br89_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -115,7 +103,7 @@ const xc_func_info_type xc_func_info_mgga_x_br89_1 = {
   {&xc_ref_Becke1989_3761, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-12,
-  {0, NULL, NULL, NULL, NULL},
+  {BR89_N_PAR, br89_names, br89_desc, br89_1_values, set_ext_params_cpy},
   mgga_x_br89_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -131,7 +119,7 @@ const xc_func_info_type xc_func_info_mgga_x_b00 = {
   {&xc_ref_Becke2000_4020, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-23,
-  {0, NULL, NULL, NULL, NULL},
+  {BR89_N_PAR, br89_names, br89_desc, b00_values, set_ext_params_cpy},
   mgga_x_br89_init, NULL,
   NULL, NULL, work_mgga,
 };

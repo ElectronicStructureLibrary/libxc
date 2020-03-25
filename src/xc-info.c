@@ -99,9 +99,9 @@ int main(int argc, char **argv)
   npar = xc_func_info_get_n_ext_params(func.info);
   if(npar > 0) {
     printf("\nFunctional has %i external parameters:\n",npar);
-    printf("%3s %13s : %6s %s\n","idx","value","name","description");
+    printf("%3s %13s %8s %s\n","idx","value","name","description");
     for(i = 0; i < npar; i++)
-      printf("%3i % e : \"%4s\" -> %s\n", i,
+      printf("%3i % e %8s %s\n", i,
              xc_func_info_get_ext_params_default_value(func.info, i),
              xc_func_info_get_ext_params_name(func.info, i),
              xc_func_info_get_ext_params_description(func.info, i));

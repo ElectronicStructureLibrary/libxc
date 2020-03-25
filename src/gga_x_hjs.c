@@ -19,8 +19,8 @@ typedef struct{
 } gga_x_hjs_params;
 
 #define N_PARS 16
-static const char  *names[N_PARS]  = {"_a0", "_a1", "_a2", "_a3", "_a4", "_a5", "_b0", "_b1", "_b2", "_b3", "_b4", "_b5", "_omega"};
-static const char  *desc[N_PARS]   = {"_a0", "_a1", "_a2", "_a3", "_a4", "_a5", "_b0", "_b1", "_b2", "_b3", "_b4", "_b5", "_omega"};
+static const char  *names[N_PARS]  = {"_a0", "_a1", "_a2", "_a3", "_a4", "_a5", "_b0", "_b1", "_b2", "_b3", "_b4", "_b5", "_b6", "_b7", "_b8", "_omega"};
+static const char  *desc[N_PARS]   = {"a0", "a1", "a2", "a3", "a4", "a5", "b0", "b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "omega"};
 
 static const double pars_PBE[N_PARS] =
   {0.0159941, 0.0852995, -0.160368, 0.152645, -0.0971263, 0.0422061,

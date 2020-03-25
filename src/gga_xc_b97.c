@@ -242,7 +242,7 @@ const xc_func_info_type xc_func_info_gga_xc_b97_d = {
   {&xc_ref_Grimme2006_1787, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  {B97_N_PAR-1, b97_names, b97_desc, b97_d_values, set_ext_params_cpy_exx},
+  {B97_N_PAR-1, b97_names, b97_desc, b97_d_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -290,7 +290,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_93 = {
   {&xc_ref_Hamprecht1998_6264, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  {B97_N_PAR-1, b97_names, b97_desc, b97_hcth_93_values, set_ext_params_cpy_exx},
+  {B97_N_PAR-1, b97_names, b97_desc, b97_hcth_93_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -306,7 +306,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_120 = {
   {&xc_ref_Boese2000_1670, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  {B97_N_PAR-1, b97_names, b97_desc, b97_hcth_120_values, set_ext_params_cpy_exx},
+  {B97_N_PAR-1, b97_names, b97_desc, b97_hcth_120_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -322,7 +322,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_147 = {
   {&xc_ref_Boese2000_1670, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  {B97_N_PAR-1, b97_names, b97_desc, b97_hcth_147_values, set_ext_params_cpy_exx},
+  {B97_N_PAR-1, b97_names, b97_desc, b97_hcth_147_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -338,7 +338,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_407 = {
   {&xc_ref_Boese2001_5497, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  {B97_N_PAR-1, b97_names, b97_desc, b97_hcth_407_values, set_ext_params_cpy_exx},
+  {B97_N_PAR-1, b97_names, b97_desc, b97_hcth_407_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -450,7 +450,7 @@ const xc_func_info_type xc_func_info_gga_xc_b97_gga1 = {
   {&xc_ref_Cohen2000_160, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  {B97_N_PAR-1, b97_names, b97_desc, b97_gga1_values, set_ext_params_cpy_exx},
+  {B97_N_PAR-1, b97_names, b97_desc, b97_gga1_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -466,7 +466,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_p14 = {
   {&xc_ref_Menconi2001_3958, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  {B97_N_PAR - 1, b97_names, b97_desc, b97_hcth_p14_values, set_ext_params_cpy_exx},
+  {B97_N_PAR-1, b97_names, b97_desc, b97_hcth_p14_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -482,7 +482,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_p76 = {
   {&xc_ref_Menconi2001_3958, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  {B97_N_PAR - 1, b97_names, b97_desc, b97_hcth_p76_values, set_ext_params_cpy_exx},
+  {B97_N_PAR-1, b97_names, b97_desc, b97_hcth_p76_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -498,7 +498,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_407p = {
   {&xc_ref_Boese2003_5965, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  {B97_N_PAR - 1, b97_names, b97_desc, b97_hcth_407p_values, set_ext_params_cpy_exx},
+  {B97_N_PAR-1, b97_names, b97_desc, b97_hcth_407p_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -530,7 +530,7 @@ const xc_func_info_type xc_func_info_gga_xc_hle16 = {
   {&xc_ref_Verma2017_380, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  {B97_N_PAR - 1, b97_names, b97_desc, b97_hle16_values, set_ext_params_cpy_exx},
+  {B97_N_PAR, b97_names, b97_desc, b97_hle16_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };

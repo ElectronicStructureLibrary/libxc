@@ -30,10 +30,11 @@ mgga_x_tb09_init(xc_func_type *p)
 #include "maple2c/mgga_vxc/mgga_x_tb09.c"
 #include "work_mgga.c"
 
-#define BJ06_N_PAR 3
+#define BJ06_N_PAR 2
 static const char  *bj06_names[BJ06_N_PAR]  = {"c", "_alpha"};
 static const char  *bj06_desc[BJ06_N_PAR]   = {
-  "This parameter involves an average over the unit cell and must be calculated by the calling program."
+  "This parameter involves an average over the unit cell and must be calculated by the calling program.",
+  "alpha = 0 for BJ06 and 1 for RPP"
 };
 static const double bj06_values[BJ06_N_PAR]  = {1.0, 0.0};
 static const double rpp09_values[BJ06_N_PAR] = {1.0, 1.0};

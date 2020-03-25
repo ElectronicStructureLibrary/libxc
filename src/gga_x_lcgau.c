@@ -29,7 +29,7 @@ static const char  *lcgau_desc[LCGAU_N_PAR]   = {
   "1/a multiplies the exponent of the exponential",
   "prefactor",
   "1/a multiplies the exponent of the exponential",
-  "prefactor"
+  "prefactor",
   "Screening parameter",
 };
 static const double lcgau_values[LCGAU_N_PAR] = {

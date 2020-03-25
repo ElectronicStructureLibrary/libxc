@@ -26,8 +26,8 @@ gga_x_ft97_init(xc_func_type *p)
 #define FT97_N_PAR 3
 static const char  *ft97_names[FT97_N_PAR]  = {"_beta0", "_beta1", "_beta2"};
 static const char  *ft97_desc[FT97_N_PAR]   = {
-  "beta/X_FACTOR_C is the coefficient of the gradient expansion",
-  "gamma should be 6 to get the right asymptotics of Ex"};
+  "beta0", "beta1", "beta2"
+};
 static const double ft97a_values[FT97_N_PAR] = 
   {0.00293, 0.0, 0.0};
 /* These parameters are what Filatov and Thiel actually used, not

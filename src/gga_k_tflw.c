@@ -45,7 +45,7 @@ gga_k_tflw_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_k_tflw.c"
 #include "work_gga.c"
 
-#define TFVW_N_PAR 3
+#define TFVW_N_PAR 2
 static const char  *tfvw_names[TFVW_N_PAR]  = {"_lambda", "_gamma"};
 static const char  *tfvw_desc[TFVW_N_PAR]   = {
   "Lambda", "Gamma"

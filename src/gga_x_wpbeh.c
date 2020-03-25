@@ -35,7 +35,7 @@
 #include "maple2c/gga_exc/gga_x_wpbeh.c"
 #include "work_gga.c"
 
-static const char  *omega_names[]  = {"omega"};
+static const char  *omega_names[]  = {"_omega"};
 static const char  *omega_desc[]   = {"screening parameter"};
 /* The default value is actually PBEh */
 static const double omega_values[] = {0.0};

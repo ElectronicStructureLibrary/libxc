@@ -131,22 +131,32 @@ get_ext_param(const xc_func_type *func, const double *values, int index)
     return values[index]; /* return user assigned value */
 }
 
-/* assumes that p->params is just a series of doubles
+
+/* Copy n parameters, assumes that p->params is just a series of doubles
    so it can be accessed as a array, and and copies
    ext_params to this. */
+static void copy_params(xc_func_type *p, const double *ext_params, int nparams) {
+  double *params;
+  int ii;
+
+  assert(nparams >= 0);
+  if(nparams) {
+    /* Some functionals only set the cam parameters which require no extra storage */
+    assert(p->params != NULL);
+    params = (double *) (p->params);
+    for(ii=0; ii<nparams; ii++)
+      params[ii] = get_ext_param(p, ext_params, ii);
+  }
+}
+
+/* Just copy the parameters */
 void
 set_ext_params_cpy(xc_func_type *p, const double *ext_params)
 {
-  double *params;
-  int ii, nparams;
-
-  assert(p != NULL && p->params != NULL);
-  params = (double *) (p->params);
-
+  int nparams;
+  assert(p != NULL);
   nparams = p->info->ext_params.n;
-  for(ii=0; ii<nparams; ii++)
-    params[ii] = get_ext_param(p, ext_params, ii);
-
+  copy_params(p, ext_params, nparams);
   p->cam_alpha = 0.0;
   p->cam_beta = 0.0;
   p->cam_omega = 0.0;
@@ -159,18 +169,10 @@ set_ext_params_cpy(xc_func_type *p, const double *ext_params)
 void
 set_ext_params_cpy_omega(xc_func_type *p, const double *ext_params)
 {
-  double *params;
-  int ii, nparams;
-
+  int nparams;
   assert(p != NULL);
-  nparams = p->info->ext_params.n-1;
-  if(nparams) {
-    assert(p->params != NULL);
-    params = (double *) (p->params);
-    for(ii=0; ii<nparams; ii++)
-      params[ii] = get_ext_param(p, ext_params, ii);
-  }
-
+  nparams = p->info->ext_params.n;
+  copy_params(p, ext_params, nparams);
   p->cam_alpha = 0.0;
   p->cam_beta = 0.0;
   p->cam_omega = get_ext_param(p, ext_params, nparams);
@@ -183,18 +185,10 @@ set_ext_params_cpy_omega(xc_func_type *p, const double *ext_params)
 void
 set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params)
 {
-  double *params;
-  int ii, nparams;
-
+  int nparams;
   assert(p != NULL);
   nparams = p->info->ext_params.n-1;
-  if(nparams) {
-    assert(p->params != NULL);
-    params = (double *) (p->params);
-    for(ii=0; ii<nparams; ii++)
-      params[ii] = get_ext_param(p, ext_params, ii);
-  }
-
+  copy_params(p, ext_params, nparams);
   p->cam_alpha = get_ext_param(p, ext_params, nparams);
   p->cam_beta = 0.0;
   p->cam_omega = 0.0;
@@ -207,18 +201,10 @@ set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params)
 void
 set_ext_params_cpy_cam(xc_func_type *p, const double *ext_params)
 {
-  double *params;
-  int ii, nparams;
-
+  int nparams;
   assert(p != NULL);
   nparams = p->info->ext_params.n-3;
-  if(nparams) {
-    assert(p->params != NULL);
-    params = (double *) (p->params);
-    for(ii=0; ii<nparams; ii++)
-      params[ii] = get_ext_param(p, ext_params, ii);
-  }
-
+  copy_params(p, ext_params, p->info->ext_params.n-3);
   p->cam_alpha = get_ext_param(p, ext_params, nparams);
   p->cam_beta  = get_ext_param(p, ext_params, nparams+1);
   p->cam_omega = get_ext_param(p, ext_params, nparams+2);

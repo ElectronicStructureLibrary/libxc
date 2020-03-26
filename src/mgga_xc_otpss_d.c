@@ -35,7 +35,7 @@ const xc_func_info_type xc_func_info_mgga_xc_otpss_d = {
   {&xc_ref_Goerigk2010_107, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   mgga_xc_otpss_d_init,
   NULL, NULL, NULL, NULL
 };

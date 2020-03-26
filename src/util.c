@@ -1,6 +1,7 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
- Copyright (C) 2019 X. Andrade
+               2019 X. Andrade
+               2020 Susi Lehtola
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -90,9 +91,9 @@ const char *get_family(const xc_func_type *func) {
 /* this function checks if it should use the default or
    the user assigned value for an external parameter */
 double
-get_ext_param(const func_params_type *params, const double *values, int index)
+get_ext_param(const xc_func_type *func, const double *values, int index)
 {
-  /* 
+  /*
      If libxc finds a file in the current directory name
      "libxc.params", it will try to read the parameters for the
      current functional from it. This file should contain one
@@ -125,9 +126,88 @@ get_ext_param(const func_params_type *params, const double *values, int index)
   */
 
   if(values == NULL || values[index] == XC_EXT_PARAMS_DEFAULT)
-    return params[index].value; /* return default value */
+    return func->info->ext_params.values[index]; /* return default value */
   else
     return values[index]; /* return user assigned value */
+}
+
+
+/* Copy n parameters, assumes that p->params is just a series of doubles
+   so it can be accessed as a array, and and copies
+   ext_params to this. */
+static void copy_params(xc_func_type *p, const double *ext_params, int nparams) {
+  double *params;
+  int ii;
+
+  assert(nparams >= 0);
+  if(nparams) {
+    /* Some functionals only set the cam parameters which require no extra storage */
+    assert(p->params != NULL);
+    params = (double *) (p->params);
+    for(ii=0; ii<nparams; ii++)
+      params[ii] = get_ext_param(p, ext_params, ii);
+  }
+}
+
+/* Just copy the parameters */
+void
+set_ext_params_cpy(xc_func_type *p, const double *ext_params)
+{
+  int nparams;
+  assert(p != NULL);
+  nparams = p->info->ext_params.n;
+  copy_params(p, ext_params, nparams);
+  p->cam_alpha = 0.0;
+  p->cam_beta = 0.0;
+  p->cam_omega = 0.0;
+}
+
+/*
+   Copies parameters and sets the screening parameter, which should be
+   the last parameter of the functional.
+*/
+void
+set_ext_params_cpy_omega(xc_func_type *p, const double *ext_params)
+{
+  int nparams;
+  assert(p != NULL);
+  nparams = p->info->ext_params.n-1;
+  copy_params(p, ext_params, nparams);
+  p->cam_alpha = 0.0;
+  p->cam_beta = 0.0;
+  p->cam_omega = get_ext_param(p, ext_params, nparams);
+}
+
+/*
+   Copies parameters and sets the exact exchange coefficient, which
+   should be the last parameter of the functional.
+*/
+void
+set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params)
+{
+  int nparams;
+  assert(p != NULL);
+  nparams = p->info->ext_params.n-1;
+  copy_params(p, ext_params, nparams);
+  p->cam_alpha = get_ext_param(p, ext_params, nparams);
+  p->cam_beta = 0.0;
+  p->cam_omega = 0.0;
+}
+
+/*
+   Copies parameters and sets the CAM coefficients, which
+   should be the three last parameters of the functional.
+*/
+void
+set_ext_params_cpy_cam(xc_func_type *p, const double *ext_params)
+{
+  int nparams;
+  assert(p != NULL);
+  nparams = p->info->ext_params.n-3;
+  copy_params(p, ext_params, p->info->ext_params.n-3);
+  p->cam_alpha = get_ext_param(p, ext_params, nparams);
+  p->cam_beta  = get_ext_param(p, ext_params, nparams+1);
+  p->cam_omega = get_ext_param(p, ext_params, nparams+2);
 }
 
 /* these functional handle the internal counters
@@ -158,7 +238,7 @@ internal_counters_set_gga(int nspin, xc_dimensions *dim)
     dim->v2rhosigma  = dim->v2sigma2 = 1;
     dim->v3rho2sigma = dim->v3rhosigma2 = dim->v3sigma3 = 1;
     dim->v4rho3sigma = dim->v4rho2sigma2 = dim->v4rhosigma3 = dim->v4sigma4 = 1;
-    
+
   }else{
     dim->sigma = 3;
 
@@ -166,7 +246,7 @@ internal_counters_set_gga(int nspin, xc_dimensions *dim)
 
     dim->v2rhosigma = 2*3;
     dim->v2sigma2 = 6;
-    
+
     dim->v3rho2sigma = 3*3;
     dim->v3rhosigma2 = 2*6;
     dim->v3sigma3    = 10;
@@ -451,7 +531,7 @@ internal_counters_mgga_random
       *vlapl += pos*dim->vlapl + offset;
     *vtau  += pos*dim->vtau  + offset;
   }
-  
+
 #ifndef XC_DONT_COMPILE_FXC
   if(*v2rho2 != NULL) {
     if (*lapl != NULL){
@@ -464,7 +544,7 @@ internal_counters_mgga_random
     *v2sigmatau  += pos*dim->v2sigmatau  + offset;
     *v2tau2      += pos*dim->v2tau2      + offset;
   }
-  
+
 #ifndef XC_DONT_COMPILE_KXC
   if(*v3rho3 != NULL) {
     if (*lapl != NULL){
@@ -545,7 +625,7 @@ internal_counters_mgga_next
       *vlapl += dim->vlapl + offset;
     *vtau  += dim->vtau  + offset;
   }
-  
+
 #ifndef XC_DONT_COMPILE_FXC
   if(*v2rho2 != NULL) {
     if (*lapl != NULL){
@@ -558,7 +638,7 @@ internal_counters_mgga_next
     *v2sigmatau  += dim->v2sigmatau  + offset;
     *v2tau2      += dim->v2tau2      + offset;
   }
-  
+
 #ifndef XC_DONT_COMPILE_KXC
   if(*v3rho3 != NULL) {
     if (*lapl != NULL){
@@ -639,7 +719,7 @@ internal_counters_mgga_prev
       *vlapl -= dim->vlapl + offset;
     *vtau  -= dim->vtau  + offset;
   }
-  
+
 #ifndef XC_DONT_COMPILE_FXC
   if(*v2rho2 != NULL) {
     if(*lapl != NULL){
@@ -652,7 +732,7 @@ internal_counters_mgga_prev
     *v2sigmatau  -= dim->v2sigmatau  + offset;
     *v2tau2      -= dim->v2tau2      + offset;
   }
-  
+
 #ifndef XC_DONT_COMPILE_KXC
   if(*v3rho3 != NULL) {
     if (*lapl != NULL){

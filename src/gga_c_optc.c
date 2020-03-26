@@ -18,35 +18,19 @@ typedef struct{
 static void
 gga_c_optc_init(xc_func_type *p)
 {
-  gga_c_optc_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_c_optc_params));
-  params = (gga_c_optc_params *) (p->params);
-
-  /* defaults set by set_ext_params */
 }
 
 #include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_optc.c"
 #include "work_gga.c"
 
-static const func_params_type ext_params[] = {
-  {"_c1", 1.1015L, "c1"},
-  {"_c2", 0.6625L, "c2"}
-};
-
-static void
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  gga_c_optc_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_c_optc_params *) (p->params);
-
-  params->c1 = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->c2 = get_ext_param(p->info->ext_params, ext_params, 1);
-}
+#define OPTC_N_PAR 2
+static const char  *optc_names[OPTC_N_PAR]  = {"_c1", "_c2"};
+static const char  *optc_desc[OPTC_N_PAR]   = {"c1", "c2"};
+static const double optc_values[OPTC_N_PAR] =
+  {1.1015L, 0.6625L};
 
 #ifdef __cplusplus
 extern "C"
@@ -59,7 +43,7 @@ const xc_func_info_type xc_func_info_gga_c_optc = {
   {&xc_ref_Cohen2001_607, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
-  2, ext_params, set_ext_params,
+  {OPTC_N_PAR, optc_names, optc_desc, optc_values, set_ext_params_cpy},
   gga_c_optc_init, NULL,
   NULL, work_gga, NULL
 };

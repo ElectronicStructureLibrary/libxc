@@ -7,12 +7,6 @@
 *)
 
 (* type: gga_exc *)
-(* prefix:
-  gga_x_wpbeh_params *params;
-
-  assert(p->params != NULL);
-  params = (gga_x_wpbeh_params * )(p->params);
-*)
 
 $include "scaling.mpl"
 

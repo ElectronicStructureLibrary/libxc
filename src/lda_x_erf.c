@@ -10,22 +10,13 @@
 
 #define XC_LDA_X_ERF   546   /* Attenuated exchange LDA (erf) */
 
-static const func_params_type ext_params[] = {
-  {"omega",  0.3, "screening parameter"},
-};
-
-static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  assert(p != NULL);
-
-  p->cam_omega = get_ext_param(p->info->ext_params, ext_params, 0);
-}
-
-
 #include "decl_lda.h"
 #include "maple2c/lda_exc/lda_x_erf.c"
 #include "work_lda.c"
+
+static const char  *omega_names[]  = {"omega"};
+static const char  *omega_desc[]   = {"screening parameter"};
+static const double omega_values[] = {0.3};
 
 #ifdef __cplusplus
 extern "C"
@@ -38,7 +29,7 @@ const xc_func_info_type xc_func_info_lda_x_erf = {
   {&xc_ref_Gill1996_1005, &xc_ref_Toulouse2004_1047, &xc_ref_Tawada2004_8425, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-13,
-  1, ext_params, set_ext_params,
+  {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
   NULL, NULL, 
   work_lda, NULL, NULL
 };

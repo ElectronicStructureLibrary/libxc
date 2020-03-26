@@ -55,7 +55,7 @@ const xc_func_info_type xc_func_info_lda_c_lp96 = {
   {&xc_ref_Liu1996_2211, &xc_ref_Liu2000_29, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-16,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_lp96_init, NULL,
   work_lda, NULL, NULL
 };
@@ -71,7 +71,7 @@ const xc_func_info_type xc_func_info_lda_k_lp96 = {
   {&xc_ref_Liu1996_2211, &xc_ref_Liu2000_29, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-16,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_c_lp96_init, NULL,
   work_lda, NULL, NULL
 };

@@ -24,28 +24,17 @@ gga_x_ssb_sw_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_x_ssb_sw_params));
 }
 
-static const func_params_type ext_params[] = {
-  {"_A", 1.0515,   "Constant s limit"},
-  {"_B", 0.191458, "B s^2/(1 + C s^2)"},
-  {"_C", 0.254443, "B s^2/(1 + C s^2)"},
-  {"_D", 0.180708, "D s^2/(1 + E s^4)"},
-  {"_E", 4.036674, "D s^2/(1 + E s^4)"},
+#define SSB_N_PAR 5
+static const char  *ssb_names[SSB_N_PAR]  = {"_A", "_B", "_C", "_D", "_E"};
+static const char  *ssb_desc[SSB_N_PAR]   = {
+  "Constant s limit",
+  "B s^2/(1 + C s^2)",
+  "B s^2/(1 + C s^2)",
+  "D s^2/(1 + E s^4)",
+  "D s^2/(1 + E s^4)"
 };
-
-static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  gga_x_ssb_sw_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_x_ssb_sw_params *) (p->params);
-
-  params->A = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->B = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->C = get_ext_param(p->info->ext_params, ext_params, 2);
-  params->D = get_ext_param(p->info->ext_params, ext_params, 3);
-  params->E = get_ext_param(p->info->ext_params, ext_params, 4);
-}
+static const double ssb_values[SSB_N_PAR] =
+  {1.0515, 0.191458, 0.254443, 0.180708, 4.036674};
 
 #include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_ssb_sw.c"
@@ -62,7 +51,7 @@ const xc_func_info_type xc_func_info_gga_x_ssb_sw = {
   {&xc_ref_Swart2009_69, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-22,
-  5, ext_params, set_ext_params,
+  {SSB_N_PAR, ssb_names, ssb_desc, ssb_values, set_ext_params_cpy},
   gga_x_ssb_sw_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -97,7 +86,7 @@ const xc_func_info_type xc_func_info_gga_x_ssb = {
   {&xc_ref_Swart2009_094103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_ssb_init, NULL, 
   NULL, NULL, NULL
 };
@@ -113,6 +102,7 @@ gga_x_ssb_d_init(xc_func_type *p)
 
   static double par_x_ssb_sw[] = {1.079966, 0.197465, 0.272729, 0.197465*(1.0 + 0.749940), 5.873645};
   static double par_x_kt[] = {-1, 0.1};
+  
   par_x_kt[0] = u*F*X_FACTOR_C*B*(X2S*X2S);
   
   xc_mix_init(p, 3, funcs_id, funcs_coef);  
@@ -132,7 +122,7 @@ const xc_func_info_type xc_func_info_gga_x_ssb_d = {
   {&xc_ref_Swart2009_094103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_ssb_d_init, NULL, 
   NULL, NULL, NULL
 };

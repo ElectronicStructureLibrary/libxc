@@ -25,7 +25,7 @@ const xc_func_info_type xc_func_info_lda_c_1d_loos = {
   {&xc_ref_Loos2013_064108, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D | MAPLE2C_FLAGS,
   5e-28,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   work_lda, NULL, NULL
 };

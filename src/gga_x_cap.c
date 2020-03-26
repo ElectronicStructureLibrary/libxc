@@ -18,35 +18,21 @@ typedef struct{
 static void
 gga_x_cap_init(xc_func_type *p)
 {
-  gga_x_cap_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_cap_params));
-  params = (gga_x_cap_params *) (p->params);
-
-  /* defaults set by set_ext_params */
 }
 
 #include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_cap.c"
 #include "work_gga.c"
 
-static const func_params_type ext_params[] = {
-  {"_alphaoAx", -0.2195149727645171L, "alphaoAx"}, /* alpha over A_x = -cap_mu */
-  {"_c", 0.05240533950570443L, "c"} /* c = 3/(4 pi) cap_mu */
+#define CAP_N_PAR 2
+static const char  *cap_names[CAP_N_PAR]  = {"_alphaoAx", "_c"};
+static const char  *cap_desc[CAP_N_PAR]   = {"alphaoAx", "c"};
+static const double cap_values[CAP_N_PAR] = {
+  -0.2195149727645171L,  /* alpha over A_x = -cap_mu */
+  0.05240533950570443L   /* c = 3/(4 pi) cap_mu */
 };
-
-static void
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  gga_x_cap_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_x_cap_params *) (p->params);
-
-  params->alphaoAx = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->c = get_ext_param(p->info->ext_params, ext_params, 1);
-}
 
 #ifdef __cplusplus
 extern "C"
@@ -59,7 +45,7 @@ const xc_func_info_type xc_func_info_gga_x_cap = {
   {&xc_ref_Carmona2015_054105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  2, ext_params, set_ext_params,
+  {CAP_N_PAR, cap_names, cap_desc, cap_values, set_ext_params_cpy},
   gga_x_cap_init, NULL,
   NULL, work_gga, NULL
 };
@@ -89,7 +75,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cap0 = {
   {&xc_ref_Carmona2016_120, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_cap0_init, NULL,
   NULL, NULL, NULL
 };

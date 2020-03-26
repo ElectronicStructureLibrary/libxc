@@ -62,7 +62,7 @@ const xc_func_info_type xc_func_info_mgga_x_mbrxc_bg = {
   {&xc_ref_Patra2019_045147, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1.0e-12,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   NULL, NULL, work_mgga,
 };

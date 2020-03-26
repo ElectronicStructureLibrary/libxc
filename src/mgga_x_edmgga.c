@@ -26,7 +26,7 @@ const xc_func_info_type xc_func_info_mgga_x_edmgga = {
   {&xc_ref_Tao2001_3519, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1.0e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   NULL, NULL, work_mgga,
 };
@@ -52,7 +52,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_edmggah = {
   {&xc_ref_Tao2002_2335, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_DEVELOPMENT,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   hyb_mgga_xc_edmggah_init, NULL, 
   NULL, NULL, NULL
 };

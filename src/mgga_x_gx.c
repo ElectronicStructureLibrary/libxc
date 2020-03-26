@@ -18,37 +18,18 @@ typedef struct{
 static void
 mgga_x_gx_init(xc_func_type *p)
 {
-  mgga_x_gx_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_gx_params));
-  params = (mgga_x_gx_params *) (p->params);
-
-  /* defaults set by set_ext_params */
 }
 
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_gx.c"
 #include "work_mgga.c"
 
-static const func_params_type ext_params[] = {
-  {"_c0", 0.827411L, "c0"}, /* c_0 */
-  {"_c1", -0.643560L, "c1"}, /* c_1 */
-  {"_alphainf", 0.852, "alphainf"}, /* \alpha_\infty */
-};
-
-static void
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  mgga_x_gx_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (mgga_x_gx_params *) (p->params);
-
-  params->c0 = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->c1 = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->alphainf = get_ext_param(p->info->ext_params, ext_params, 2);
-}
+#define GX_N_PAR 3
+static const char  *gx_names[GX_N_PAR]  = {"_c0", "_c1", "_alphainf"};
+static const char  *gx_desc[GX_N_PAR]   = {"c0", "c1", "alphainf"};
+static const double gx_values[GX_N_PAR] = {0.827411L, -0.643560L, 0.852};
 
 #ifdef __cplusplus
 extern "C"
@@ -61,7 +42,7 @@ const xc_func_info_type xc_func_info_mgga_x_gx = {
   {&xc_ref_Loos2017_114108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-20,
-  3, ext_params, set_ext_params,
+  {GX_N_PAR, gx_names, gx_desc, gx_values, set_ext_params_cpy},
   mgga_x_gx_init, NULL,
   NULL, NULL, work_mgga,
 };

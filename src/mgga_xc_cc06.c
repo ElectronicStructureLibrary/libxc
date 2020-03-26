@@ -27,7 +27,7 @@ const xc_func_info_type xc_func_info_mgga_xc_cc06 = {
   {&xc_ref_Cancio2006_081202, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL, 
   NULL, NULL, work_mgga,
 };

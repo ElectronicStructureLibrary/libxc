@@ -61,7 +61,7 @@ const xc_func_info_type xc_func_info_gga_k_pbe3 = {
   {&xc_ref_Karasiev2006_111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_k_mpbe_init, NULL,
   NULL, work_gga, NULL
 };
@@ -77,7 +77,7 @@ const xc_func_info_type xc_func_info_gga_k_pbe4 = {
   {&xc_ref_Karasiev2006_111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_k_mpbe_init, NULL,
   NULL, work_gga, NULL
 };

@@ -10,34 +10,6 @@
 
 #define XC_GGA_X_WPBEH 524 /* short-range version of the PBE */
 
-typedef struct{
-  double omega;
-} gga_x_wpbeh_params;
-
-static void
-gga_x_wpbeh_init(xc_func_type *p)
-{
-  assert(p->params == NULL);
-  p->params = libxc_malloc(sizeof(gga_x_wpbeh_params));
-}
-
-/* The default value is actually PBEh */
-static func_params_type ext_params[] = {
-  {"_omega", 0.0, "Screening parameter for HF"},
-};
-
-static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  gga_x_wpbeh_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_x_wpbeh_params *) (p->params);
-
-  params->omega = get_ext_param(p->info->ext_params, ext_params, 0);
-}
-
-
 /* This implementation follows the one from espresso, that, in turn,
    follows the one of the thesis of Jochen Heyd. Analytic derivatives
    are only implemented in espresso though. These implementations can
@@ -55,12 +27,18 @@ set_ext_params(xc_func_type *p, const double *ext_params)
 
    Also the whole mess with the rescaling of s is explained in
 
-   *) TM Henderson, AF Izmaylov, G Scalmani, and GE Scuseria, J. Chem. Phys. 131, 044108 (2009)
+   *) TM Henderson, AF Izmaylov, G Scalmani, and GE Scuseria, 
+      J. Chem. Phys. 131, 044108 (2009)
 */
 
 #include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_wpbeh.c"
 #include "work_gga.c"
+
+static const char  *omega_names[]  = {"_omega"};
+static const char  *omega_desc[]   = {"screening parameter"};
+/* The default value is actually PBEh */
+static const double omega_values[] = {0.0};
 
 #ifdef __cplusplus
 extern "C"
@@ -73,7 +51,7 @@ const xc_func_info_type xc_func_info_gga_x_wpbeh = {
   {&xc_ref_Heyd2003_8207, &xc_ref_Heyd2003_8207_err, &xc_ref_Ernzerhof1998_3313, &xc_ref_Heyd2004_7274, &xc_ref_Henderson2009_044108},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  1, ext_params, set_ext_params,
-  gga_x_wpbeh_init, NULL, 
+  {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
+  NULL, NULL, 
   NULL, work_gga, NULL
 };

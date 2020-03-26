@@ -26,7 +26,7 @@ const xc_func_info_type xc_func_info_mgga_x_mbeef = {
   {&xc_ref_Wellendorff2014_144107, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   5e-7,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   NULL, NULL, work_mgga,
 };

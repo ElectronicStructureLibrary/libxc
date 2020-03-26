@@ -61,14 +61,14 @@ const xc_func_info_type xc_func_info_lda_x = {
   {&xc_ref_Dirac1930_376, &xc_ref_Bloch1929_545, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_x_init, NULL,
   work_lda, NULL, NULL
 };
 
-static const func_params_type ext_params[] = {
-  {"alpha", 1.0, "X-alpha multiplicative parameter"},
-};
+static const char  *xalpha_names[]  = {"alpha"};
+static const char  *xalpha_desc[]   = {"X-alpha multiplicative parameter"};
+static const double xalpha_values[] = {1.0};
 
 static void 
 set_ext_params(xc_func_type *p, const double *ext_params)
@@ -78,7 +78,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   assert(p != NULL && p->params != NULL);
   params = (lda_x_params *)(p->params);
 
-  params->alpha = 1.5*get_ext_param(p->info->ext_params, ext_params, 0) - 1.0;
+  params->alpha = 1.5*get_ext_param(p, ext_params, 0) - 1.0;
 }
 
 #ifdef __cplusplus
@@ -92,26 +92,25 @@ const xc_func_info_type xc_func_info_lda_c_xalpha = {
   {&xc_ref_Slater1951_385, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  1, ext_params, set_ext_params,
+  {1, xalpha_names, xalpha_desc, xalpha_values, set_ext_params},
   lda_x_init, NULL,
   work_lda, NULL, NULL
 };
 
-static const func_params_type N_ext_params[] = {
-  {"N", 1.0, "Number of electrons"},
-};
+static const char  *N_names[]  = {"N"};
+static const char  *N_desc[]   = {"Number of electrons"};
+static const double N_values[] = {1.0};
 
 static void 
 N_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   lda_x_params *params;
-  double ff, N, dx, dx2;
+  double N, dx, dx2;
 
   assert(p != NULL && p->params != NULL);
   params = (lda_x_params *)(p->params);
 
-  ff = (ext_params == NULL) ? p->info->ext_params[0].value : ext_params[0];
-  N = ff;
+  N = get_ext_param(p, ext_params, 0);
 
   dx  = 1.0/CBRT(4.0*N);
   dx2 = dx*dx;
@@ -129,7 +128,7 @@ const xc_func_info_type xc_func_info_lda_x_rae = {
   {&xc_ref_Rae1973_574, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  1, N_ext_params, N_set_ext_params,
+  {1, N_names, N_desc, N_values, N_set_ext_params},
   lda_x_init, NULL,
   work_lda, NULL, NULL
 };
@@ -157,7 +156,7 @@ const xc_func_info_type xc_func_info_hyb_lda_xc_lda0 = {
   {&xc_ref_Rinke2012_126404, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   hyb_lda_xc_lda0_init, NULL,
   NULL, NULL, NULL /* this is taken care of by the generic routine */
 };

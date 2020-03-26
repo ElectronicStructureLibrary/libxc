@@ -25,7 +25,7 @@ const xc_func_info_type xc_func_info_gga_c_cs1 = {
   {&xc_ref_Handy2002_5411, &xc_ref_Proynov2006_436, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-20,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   NULL, work_gga, NULL
 };

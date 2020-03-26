@@ -89,12 +89,12 @@ lda_xc_ksdt_init(xc_func_type *p)
 #include "maple2c/lda_exc/lda_xc_ksdt.c"
 #include "work_lda.c"
 
-static const func_params_type ext_params[] = {
-  {"T", 0.0, "Temperature"},
-};
+static const char  *T_names[]  = {"T"};
+static const char  *T_desc[]   = {"Temperature"};
+static const double T_values[] = {0.0};
 
 static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
+T_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   lda_xc_ksdt_params *params;
 
@@ -102,7 +102,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   params = (lda_xc_ksdt_params *) (p->params);
 
   /* the temperature is in units of k_B */
-  params->T = get_ext_param(p->info->ext_params, ext_params, 0);
+  params->T = get_ext_param(p, ext_params, 0);
   if(params->T < 1e-8) params->T = 1e-8;
 }
 
@@ -117,7 +117,7 @@ const xc_func_info_type xc_func_info_lda_xc_ksdt = {
   {&xc_ref_Karasiev2014_076403, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  1, ext_params, set_ext_params,
+  {1, T_names, T_desc, T_values, T_set_ext_params},
   lda_xc_ksdt_init, NULL,
   work_lda, NULL, NULL
 };
@@ -133,7 +133,7 @@ const xc_func_info_type xc_func_info_lda_xc_gdsmfb = {
   {&xc_ref_Groth2017_135001, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  1, ext_params, set_ext_params,
+  {1, T_names, T_desc, T_values, T_set_ext_params},
   lda_xc_ksdt_init, NULL,
   work_lda, NULL, NULL
 };

@@ -9,16 +9,16 @@
 
 #include "util.h"
 
-#define XC_GGA_XC_HCTH_93     161 /* HCTH functional fitted to  93 molecules  */
-#define XC_GGA_XC_HCTH_120    162 /* HCTH functional fitted to 120 molecules  */
-#define XC_GGA_XC_HCTH_147    163 /* HCTH functional fitted to 147 molecules  */
-#define XC_GGA_XC_HCTH_407    164 /* HCTH functional fitted to 407 molecules  */
 #define XC_HYB_GGA_XC_B97     407 /* Becke 97                                 */
 #define XC_HYB_GGA_XC_B97_1   408 /* Becke 97-1                               */
 #define XC_HYB_GGA_XC_B97_2   410 /* Becke 97-2                               */
 #define XC_GGA_XC_B97_D       170 /* Grimme functional to be used with C6 vdW term */
 #define XC_HYB_GGA_XC_B97_K   413 /* Boese-Martin for Kinetics                */
 #define XC_HYB_GGA_XC_B97_3   414 /* Becke 97-3                               */
+#define XC_GGA_XC_HCTH_93     161 /* HCTH functional fitted to  93 molecules  */
+#define XC_GGA_XC_HCTH_120    162 /* HCTH functional fitted to 120 molecules  */
+#define XC_GGA_XC_HCTH_147    163 /* HCTH functional fitted to 147 molecules  */
+#define XC_GGA_XC_HCTH_407    164 /* HCTH functional fitted to 407 molecules  */
 #define XC_HYB_GGA_XC_SB98_1A 420 /* Schmider-Becke 98 parameterization 1a    */
 #define XC_HYB_GGA_XC_SB98_1B 421 /* Schmider-Becke 98 parameterization 1b    */
 #define XC_HYB_GGA_XC_SB98_1C 422 /* Schmider-Becke 98 parameterization 1c    */
@@ -36,474 +36,147 @@ typedef struct {
   double c_x[5], c_ss[5], c_ab[5];
 } gga_xc_b97_params;
 
-static const func_params_type ext_params_par_hcth_93[] = {
-  { "_cx0",     1.0932, "u^0 coefficient for exchange"},
-  { "_cx1",  -0.744056, "u^1 coefficient for exchange"},
-  { "_cx2",     5.5992, "u^2 coefficient for exchange"},
-  { "_cx3",   -6.78549, "u^3 coefficient for exchange"},
-  { "_cx4",    4.49357, "u^4 coefficient for exchange"},
-  {"_css0",   0.222601, "u^0 coefficient for same-spin correlation"},
-  {"_css1", -0.0338622, "u^1 coefficient for same-spin correlation"},
-  {"_css2",  -0.012517, "u^2 coefficient for same-spin correlation"},
-  {"_css3",  -0.802496, "u^3 coefficient for same-spin correlation"},
-  {"_css4",    1.55396, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",   0.729974, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",    3.35287, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",    -11.543, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",    8.08564, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",   -4.47857, "u^4 coefficient for opposite-spin correlation"},
+#define B97_N_PAR 16
+static const char  *b97_names[B97_N_PAR]  = {
+  "_cx0",  "_cx1",  "_cx2",  "_cx3",  "_cx4",
+  "_css0", "_css1", "_css2", "_css3", "_css4",
+  "_cos0", "_cos1", "_cos2", "_cos3", "_cos4",
+  "_cxx"};
+static const char  *b97_desc[B97_N_PAR]   = {
+  "u^0 coefficient for exchange",
+  "u^1 coefficient for exchange",
+  "u^2 coefficient for exchange",
+  "u^3 coefficient for exchange",
+  "u^4 coefficient for exchange",
+  "u^0 coefficient for same-spin correlation",
+  "u^1 coefficient for same-spin correlation",
+  "u^2 coefficient for same-spin correlation",
+  "u^3 coefficient for same-spin correlation",
+  "u^4 coefficient for same-spin correlation",
+  "u^0 coefficient for opposite-spin correlation",
+  "u^1 coefficient for opposite-spin correlation",
+  "u^2 coefficient for opposite-spin correlation",
+  "u^3 coefficient for opposite-spin correlation",
+  "u^4 coefficient for opposite-spin correlation",
+  "coefficient for exact exchange"
 };
-
-static const func_params_type ext_params_par_hcth_120[] = {
-  { "_cx0",    1.09163, "u^0 coefficient for exchange"},
-  { "_cx1",  -0.747215, "u^1 coefficient for exchange"},
-  { "_cx2",    5.07833, "u^2 coefficient for exchange"},
-  { "_cx3",   -4.10746, "u^3 coefficient for exchange"},
-  { "_cx4",    1.17173, "u^4 coefficient for exchange"},
-  {"_css0",   0.489508, "u^0 coefficient for same-spin correlation"},
-  {"_css1",  -0.260699, "u^1 coefficient for same-spin correlation"},
-  {"_css2",   0.432917, "u^2 coefficient for same-spin correlation"},
-  {"_css3",   -1.99247, "u^3 coefficient for same-spin correlation"},
-  {"_css4",    2.48531, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",    0.51473, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",    6.92982, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",   -24.7073, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",    23.1098, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",   -11.3234, "u^4 coefficient for opposite-spin correlation"},
-};
-
-static const func_params_type ext_params_par_hcth_147[] = {
-  { "_cx0",    1.09025, "u^0 coefficient for exchange"},
-  { "_cx1",  -0.799194, "u^1 coefficient for exchange"},
-  { "_cx2",    5.57212, "u^2 coefficient for exchange"},
-  { "_cx3",    -5.8676, "u^3 coefficient for exchange"},
-  { "_cx4",    3.04544, "u^4 coefficient for exchange"},
-  {"_css0",   0.562576, "u^0 coefficient for same-spin correlation"},
-  {"_css1",  0.0171436, "u^1 coefficient for same-spin correlation"},
-  {"_css2",   -1.30636, "u^2 coefficient for same-spin correlation"},
-  {"_css3",    1.05747, "u^3 coefficient for same-spin correlation"},
-  {"_css4",   0.885429, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",   0.542352, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",    7.01464, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",   -28.3822, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",    35.0329, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",   -20.4284, "u^4 coefficient for opposite-spin correlation"},
-};
-
-static const func_params_type ext_params_par_hcth_407[] = {
-  { "_cx0",    1.08184, "u^0 coefficient for exchange"},
-  { "_cx1",  -0.518339, "u^1 coefficient for exchange"},
-  { "_cx2",    3.42562, "u^2 coefficient for exchange"},
-  { "_cx3",   -2.62901, "u^3 coefficient for exchange"},
-  { "_cx4",    2.28855, "u^4 coefficient for exchange"},
-  {"_css0",    1.18777, "u^0 coefficient for same-spin correlation"},
-  {"_css1",   -2.40292, "u^1 coefficient for same-spin correlation"},
-  {"_css2",    5.61741, "u^2 coefficient for same-spin correlation"},
-  {"_css3",   -9.17923, "u^3 coefficient for same-spin correlation"},
-  {"_css4",    6.24798, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",   0.589076, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",    4.42374, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",   -19.2218, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",    42.5721, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",   -42.0052, "u^4 coefficient for opposite-spin correlation"},
-};
-
-static const func_params_type ext_params_par_b97[] = {
-  { "_cx0",     0.8094, "u^0 coefficient for exchange"},
-  { "_cx1",     0.5073, "u^1 coefficient for exchange"},
-  { "_cx2",     0.7481, "u^2 coefficient for exchange"},
-  { "_cx3",        0.0, "u^3 coefficient for exchange"},
-  { "_cx4",        0.0, "u^4 coefficient for exchange"},
-  {"_css0",     0.1737, "u^0 coefficient for same-spin correlation"},
-  {"_css1",     2.3487, "u^1 coefficient for same-spin correlation"},
-  {"_css2",    -2.4868, "u^2 coefficient for same-spin correlation"},
-  {"_css3",        0.0, "u^3 coefficient for same-spin correlation"},
-  {"_css4",        0.0, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",     0.9454, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",     0.7471, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",    -4.5961, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",        0.0, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",        0.0, "u^4 coefficient for opposite-spin correlation"},
-  {"_cxx",      0.1943, "coefficient for exact exchange"}
-};
-
-static const func_params_type ext_params_par_b97_1[] = {
-  { "_cx0",   0.789518, "u^0 coefficient for exchange"},
-  { "_cx1",   0.573805, "u^1 coefficient for exchange"},
-  { "_cx2",   0.660975, "u^2 coefficient for exchange"},
-  { "_cx3",        0.0, "u^3 coefficient for exchange"},
-  { "_cx4",        0.0, "u^4 coefficient for exchange"},
-  {"_css0",  0.0820011, "u^0 coefficient for same-spin correlation"},
-  {"_css1",    2.71681, "u^1 coefficient for same-spin correlation"},
-  {"_css2",   -2.87103, "u^2 coefficient for same-spin correlation"},
-  {"_css3",        0.0, "u^3 coefficient for same-spin correlation"},
-  {"_css4",        0.0, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",   0.955689, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",   0.788552, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",   -5.47869, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",        0.0, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",        0.0, "u^4 coefficient for opposite-spin correlation"},
-  {"_cxx",        0.21, "coefficient for exact exchange"}
-};
-
-static const func_params_type ext_params_par_b97_2[] = {
-  { "_cx0",   0.827642, "u^0 coefficient for exchange"},
-  { "_cx1",    0.04784, "u^1 coefficient for exchange"},
-  { "_cx2",    1.76125, "u^2 coefficient for exchange"},
-  { "_cx3",        0.0, "u^3 coefficient for exchange"},
-  { "_cx4",        0.0, "u^4 coefficient for exchange"},
-  {"_css0",   0.585808, "u^0 coefficient for same-spin correlation"},
-  {"_css1",  -0.691682, "u^1 coefficient for same-spin correlation"},
-  {"_css2",   0.394796, "u^2 coefficient for same-spin correlation"},
-  {"_css3",        0.0, "u^3 coefficient for same-spin correlation"},
-  {"_css4",        0.0, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",   0.999849, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",    1.40626, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",    -7.4406, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",        0.0, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",        0.0, "u^4 coefficient for opposite-spin correlation"},
-  {"_cxx",        0.21, "coefficient for exact exchange"}
-};
-
-static const func_params_type ext_params_par_b97_d[] = {
-  { "_cx0",    1.08662, "u^0 coefficient for exchange"},
-  { "_cx1",   -0.52127, "u^1 coefficient for exchange"},
-  { "_cx2",    3.25429, "u^2 coefficient for exchange"},
-  { "_cx3",        0.0, "u^3 coefficient for exchange"},
-  { "_cx4",        0.0, "u^4 coefficient for exchange"},
-  {"_css0",     0.2234, "u^0 coefficient for same-spin correlation"},
-  {"_css1",   -1.56208, "u^1 coefficient for same-spin correlation"},
-  {"_css2",    1.94293, "u^2 coefficient for same-spin correlation"},
-  {"_css3",        0.0, "u^3 coefficient for same-spin correlation"},
-  {"_css4",        0.0, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",    0.69041, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",     6.3027, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",   -14.9712, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",        0.0, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",        0.0, "u^4 coefficient for opposite-spin correlation"},
-};
-
-static const func_params_type ext_params_par_b97_k[] = {
-  { "_cx0",   0.507863, "u^0 coefficient for exchange"},
-  { "_cx1",    1.46873, "u^1 coefficient for exchange"},
-  { "_cx2",   -1.51301, "u^2 coefficient for exchange"},
-  { "_cx3",        0.0, "u^3 coefficient for exchange"},
-  { "_cx4",        0.0, "u^4 coefficient for exchange"},
-  {"_css0",    0.12355, "u^0 coefficient for same-spin correlation"},
-  {"_css1",    2.65399, "u^1 coefficient for same-spin correlation"},
-  {"_css2",   -3.20694, "u^2 coefficient for same-spin correlation"},
-  {"_css3",        0.0, "u^3 coefficient for same-spin correlation"},
-  {"_css4",        0.0, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",    1.58613, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",   -6.20977, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",    6.46106, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",        0.0, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",        0.0, "u^4 coefficient for opposite-spin correlation"},
-  {"_cxx",        0.42, "coefficient for exact exchange"}
-};
-
-static const func_params_type ext_params_par_b97_3[] = {
-  { "_cx0",  0.7334648, "u^0 coefficient for exchange"},
-  { "_cx1",   0.292527, "u^1 coefficient for exchange"},
-  { "_cx2",   3.338789, "u^2 coefficient for exchange"},
-  { "_cx3",  -10.51158, "u^3 coefficient for exchange"},
-  { "_cx4",   10.60907, "u^4 coefficient for exchange"},
-  {"_css0",  0.5623649, "u^0 coefficient for same-spin correlation"},
-  {"_css1",   -1.32298, "u^1 coefficient for same-spin correlation"},
-  {"_css2",   6.359191, "u^2 coefficient for same-spin correlation"},
-  {"_css3",  -7.464002, "u^3 coefficient for same-spin correlation"},
-  {"_css4",   1.827082, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",    1.13383, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",  -2.811967, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",   7.431302, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",  -1.969342, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",  -11.74423, "u^4 coefficient for opposite-spin correlation"},
-  {"_cxx", 2.692880E-01, "coefficient for exact exchange"}
-};
-
-static const func_params_type ext_params_par_sb98_1a[] = {
-  { "_cx0",   0.845975, "u^0 coefficient for exchange"},
-  { "_cx1",   0.228183, "u^1 coefficient for exchange"},
-  { "_cx2",   0.749949, "u^2 coefficient for exchange"},
-  { "_cx3",        0.0, "u^3 coefficient for exchange"},
-  { "_cx4",        0.0, "u^4 coefficient for exchange"},
-  {"_css0",  -0.817637, "u^0 coefficient for same-spin correlation"},
-  {"_css1",  -0.054676, "u^1 coefficient for same-spin correlation"},
-  {"_css2",   0.592163, "u^2 coefficient for same-spin correlation"},
-  {"_css3",        0.0, "u^3 coefficient for same-spin correlation"},
-  {"_css4",        0.0, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",   0.975483, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",   0.398379, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",    -3.7354, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",        0.0, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",        0.0, "u^4 coefficient for opposite-spin correlation"},
-  {"_cxx",    0.229015, "coefficient for exact exchange"}
-};
-
-static const func_params_type ext_params_par_sb98_1b[] = {
-  { "_cx0",   0.800103, "u^0 coefficient for exchange"},
-  { "_cx1",  -0.084192, "u^1 coefficient for exchange"},
-  { "_cx2",    1.47742, "u^2 coefficient for exchange"},
-  { "_cx3",        0.0, "u^3 coefficient for exchange"},
-  { "_cx4",        0.0, "u^4 coefficient for exchange"},
-  {"_css0",    1.44946, "u^0 coefficient for same-spin correlation"},
-  {"_css1",   -2.37073, "u^1 coefficient for same-spin correlation"},
-  {"_css2",    2.13564, "u^2 coefficient for same-spin correlation"},
-  {"_css3",        0.0, "u^3 coefficient for same-spin correlation"},
-  {"_css4",        0.0, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",   0.977621, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",   0.931199, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",   -4.76973, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",        0.0, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",        0.0, "u^4 coefficient for opposite-spin correlation"},
-  {"_cxx",    0.199352, "coefficient for exact exchange"}
-};
-
-static const func_params_type ext_params_par_sb98_1c[] = {
-  { "_cx0",   0.810936, "u^0 coefficient for exchange"},
-  { "_cx1",    0.49609, "u^1 coefficient for exchange"},
-  { "_cx2",   0.772385, "u^2 coefficient for exchange"},
-  { "_cx3",        0.0, "u^3 coefficient for exchange"},
-  { "_cx4",        0.0, "u^4 coefficient for exchange"},
-  {"_css0",   0.262077, "u^0 coefficient for same-spin correlation"},
-  {"_css1",    2.12576, "u^1 coefficient for same-spin correlation"},
-  {"_css2",   -2.30465, "u^2 coefficient for same-spin correlation"},
-  {"_css3",        0.0, "u^3 coefficient for same-spin correlation"},
-  {"_css4",        0.0, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",   0.939269, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",   0.898121, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",   -4.91276, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",        0.0, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",        0.0, "u^4 coefficient for opposite-spin correlation"},
-  {"_cxx",    0.192416, "coefficient for exact exchange"}
-};
-
-static const func_params_type ext_params_par_sb98_2a[] = {
-  { "_cx0",     0.7492, "u^0 coefficient for exchange"},
-  { "_cx1",   0.402322, "u^1 coefficient for exchange"},
-  { "_cx2",   0.620779, "u^2 coefficient for exchange"},
-  { "_cx3",        0.0, "u^3 coefficient for exchange"},
-  { "_cx4",        0.0, "u^4 coefficient for exchange"},
-  {"_css0",    1.26686, "u^0 coefficient for same-spin correlation"},
-  {"_css1",    1.67146, "u^1 coefficient for same-spin correlation"},
-  {"_css2",   -1.22565, "u^2 coefficient for same-spin correlation"},
-  {"_css3",        0.0, "u^3 coefficient for same-spin correlation"},
-  {"_css4",        0.0, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",   0.964641, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",   0.050527, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",   -3.01966, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",        0.0, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",        0.0, "u^4 coefficient for opposite-spin correlation"},
-  {"_cxx",    0.232055, "coefficient for exact exchange"}
-};
-
-static const func_params_type ext_params_par_sb98_2b[] = {
-  { "_cx0",   0.770587, "u^0 coefficient for exchange"},
-  { "_cx1",   0.180767, "u^1 coefficient for exchange"},
-  { "_cx2",   0.955246, "u^2 coefficient for exchange"},
-  { "_cx3",        0.0, "u^3 coefficient for exchange"},
-  { "_cx4",        0.0, "u^4 coefficient for exchange"},
-  {"_css0",   0.170473, "u^0 coefficient for same-spin correlation"},
-  {"_css1",    1.24051, "u^1 coefficient for same-spin correlation"},
-  {"_css2",  -0.862711, "u^2 coefficient for same-spin correlation"},
-  {"_css3",        0.0, "u^3 coefficient for same-spin correlation"},
-  {"_css4",        0.0, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",   0.965362, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",     0.8633, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",   -4.61778, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",        0.0, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",        0.0, "u^4 coefficient for opposite-spin correlation"},
-  {"_cxx",    0.237978, "coefficient for exact exchange"}
-};
-
-static const func_params_type ext_params_par_sb98_2c[] = {
-  { "_cx0",   0.790194, "u^0 coefficient for exchange"},
-  { "_cx1",   0.400271, "u^1 coefficient for exchange"},
-  { "_cx2",   0.832857, "u^2 coefficient for exchange"},
-  { "_cx3",        0.0, "u^3 coefficient for exchange"},
-  { "_cx4",        0.0, "u^4 coefficient for exchange"},
-  {"_css0",  -0.120163, "u^0 coefficient for same-spin correlation"},
-  {"_css1",    2.82332, "u^1 coefficient for same-spin correlation"},
-  {"_css2",   -2.59412, "u^2 coefficient for same-spin correlation"},
-  {"_css3",        0.0, "u^3 coefficient for same-spin correlation"},
-  {"_css4",        0.0, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",   0.934715, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",    1.14105, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",   -5.33398, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",        0.0, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",        0.0, "u^4 coefficient for opposite-spin correlation"},
-  {"_cxx",    0.219847, "coefficient for exact exchange"}
-};
-
-static const func_params_type ext_params_par_b97_gga1[] = {
-  { "_cx0",     1.1068, "u^0 coefficient for exchange"},
-  { "_cx1",    -0.8765, "u^1 coefficient for exchange"},
-  { "_cx2",     4.2639, "u^2 coefficient for exchange"},
-  { "_cx3",        0.0, "u^3 coefficient for exchange"},
-  { "_cx4",        0.0, "u^4 coefficient for exchange"},
-  {"_css0",     0.4883, "u^0 coefficient for same-spin correlation"},
-  {"_css1",     -2.117, "u^1 coefficient for same-spin correlation"},
-  {"_css2",     2.3235, "u^2 coefficient for same-spin correlation"},
-  {"_css3",        0.0, "u^3 coefficient for same-spin correlation"},
-  {"_css4",        0.0, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",     0.7961, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",      5.706, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",    -14.982, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",        0.0, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",        0.0, "u^4 coefficient for opposite-spin correlation"},
-};
-
-static const func_params_type ext_params_par_hcth_p14[] = {
-  { "_cx0",    1.03161, "u^0 coefficient for exchange"},
-  { "_cx1",  -0.360781, "u^1 coefficient for exchange"},
-  { "_cx2",    3.51994, "u^2 coefficient for exchange"},
-  { "_cx3",   -4.95944, "u^3 coefficient for exchange"},
-  { "_cx4",    2.41165, "u^4 coefficient for exchange"},
-  {"_css0",    2.82414, "u^0 coefficient for same-spin correlation"},
-  {"_css1",  0.0318843, "u^1 coefficient for same-spin correlation"},
-  {"_css2",   -1.78512, "u^2 coefficient for same-spin correlation"},
-  {"_css3",    2.39795, "u^3 coefficient for same-spin correlation"},
-  {"_css4",  -0.876909, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",  0.0821827, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",    4.56466, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",   -13.5529, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",     13.382, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",   -3.17493, "u^4 coefficient for opposite-spin correlation"},
-};
-
-static const func_params_type ext_params_par_hcth_p76[] = {
-  { "_cx0",    1.16525, "u^0 coefficient for exchange"},
-  { "_cx1",  -0.583033, "u^1 coefficient for exchange"},
-  { "_cx2",    2.51769, "u^2 coefficient for exchange"},
-  { "_cx3",    3.81278, "u^3 coefficient for exchange"},
-  { "_cx4",   -5.45906, "u^4 coefficient for exchange"},
-  {"_css0",   -3.92143, "u^0 coefficient for same-spin correlation"},
-  {"_css1",   -1.10098, "u^1 coefficient for same-spin correlation"},
-  {"_css2",  -0.091405, "u^2 coefficient for same-spin correlation"},
-  {"_css3",  -0.859723, "u^3 coefficient for same-spin correlation"},
-  {"_css4",    2.07184, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",   0.192949, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",   -5.73335, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",    50.8757, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",    135.475, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",    101.268, "u^4 coefficient for opposite-spin correlation"},
-};
-
-static const func_params_type ext_params_par_hcth_407p[] = {
-  { "_cx0",    1.08018, "u^0 coefficient for exchange"},
-  { "_cx1",    -0.4117, "u^1 coefficient for exchange"},
-  { "_cx2",     2.4368, "u^2 coefficient for exchange"},
-  { "_cx3",      1.389, "u^3 coefficient for exchange"},
-  { "_cx4",    -1.3529, "u^4 coefficient for exchange"},
-  {"_css0",    0.80302, "u^0 coefficient for same-spin correlation"},
-  {"_css1",    -1.0479, "u^1 coefficient for same-spin correlation"},
-  {"_css2",     4.9807, "u^2 coefficient for same-spin correlation"},
-  {"_css3",     -12.89, "u^3 coefficient for same-spin correlation"},
-  {"_css4",     9.6446, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",    0.73604, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",      3.027, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",    -10.075, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",     20.611, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",    -29.418, "u^4 coefficient for opposite-spin correlation"},
-};
-
-static const func_params_type ext_params_par_b97_1p[] = {
-  { "_cx0",     0.8773, "u^0 coefficient for exchange"},
-  { "_cx1",     0.2149, "u^1 coefficient for exchange"},
-  { "_cx2",     1.5204, "u^2 coefficient for exchange"},
-  { "_cx3",        0.0, "u^3 coefficient for exchange"},
-  { "_cx4",        0.0, "u^4 coefficient for exchange"},
-  {"_css0",     0.2228, "u^0 coefficient for same-spin correlation"},
-  {"_css1",     1.3678, "u^1 coefficient for same-spin correlation"},
-  {"_css2",    -1.5068, "u^2 coefficient for same-spin correlation"},
-  {"_css3",        0.0, "u^3 coefficient for same-spin correlation"},
-  {"_css4",        0.0, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",     0.9253, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",      2.027, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",    -7.3431, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",        0.0, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",        0.0, "u^4 coefficient for opposite-spin correlation"},
-  {"_cxx",        0.15, "coefficient for exact exchange"}
-};
-
-static const func_params_type ext_params_par_hle16[] = {
-  { "_cx0",     1.3523, "u^0 coefficient for exchange"},
-  { "_cx1", -0.64792375, "u^1 coefficient for exchange"},
-  { "_cx2",   4.282025, "u^2 coefficient for exchange"},
-  { "_cx3", -3.2862625, "u^3 coefficient for exchange"},
-  { "_cx4",  2.8606875, "u^4 coefficient for exchange"},
-  {"_css0",   0.593885, "u^0 coefficient for same-spin correlation"},
-  {"_css1",   -1.20146, "u^1 coefficient for same-spin correlation"},
-  {"_css2",   2.808705, "u^2 coefficient for same-spin correlation"},
-  {"_css3",  -4.589615, "u^3 coefficient for same-spin correlation"},
-  {"_css4",    3.12399, "u^4 coefficient for same-spin correlation"},
-  {"_cos0",   0.294538, "u^0 coefficient for opposite-spin correlation"},
-  {"_cos1",    2.21187, "u^1 coefficient for opposite-spin correlation"},
-  {"_cos2",    -9.6109, "u^2 coefficient for opposite-spin correlation"},
-  {"_cos3",   21.28605, "u^3 coefficient for opposite-spin correlation"},
-  {"_cos4",   -21.0026, "u^4 coefficient for opposite-spin correlation"},
-};
+static const double b97_values[B97_N_PAR] =
+  {0.8094, 0.5073, 0.7481, 0.0, 0.0,
+   0.1737, 2.3487, -2.4868, 0.0, 0.0,
+   0.9454, 0.7471, -4.5961, 0.0, 0.0,
+   0.1943};
+static const double b97_1_values[B97_N_PAR] =
+  {0.789518, 0.573805, 0.660975, 0.0, 0.0,
+   0.0820011, 2.71681, -2.87103, 0.0, 0.0,
+   0.955689, 0.788552, -5.47869, 0.0, 0.0,
+   0.21};
+static const double b97_2_values[B97_N_PAR] =
+  {0.827642, 0.04784, 1.76125, 0.0, 0.0,
+   0.585808, -0.691682, 0.394796, 0.0, 0.0,
+   0.999849, 1.40626, -7.4406, 0.0, 0.0,
+   0.21};
+static const double b97_d_values[B97_N_PAR] =
+  {1.08662, -0.52127, 3.25429, 0.0, 0.0,
+   0.2234, -1.56208, 1.94293, 0.0, 0.0,
+   0.69041, 6.3027, -14.9712, 0.0, 0.0,
+   0.0};
+static const double b97_k_values[B97_N_PAR] =
+  {0.507863, 1.46873, -1.51301, 0.0, 0.0,
+   0.12355, 2.65399, -3.20694, 0.0, 0.0,
+   1.58613, -6.20977, 6.46106, 0.0, 0.0,
+   0.42};
+static const double b97_3_values[B97_N_PAR] =
+  {0.7334648, 0.292527, 3.338789, -10.51158, 10.60907,
+   0.5623649, -1.32298, 6.359191, -7.464002, 1.827082,
+   1.13383, -2.811967, 7.431302, -1.969342, -11.74423,
+   2.692880E-01};
+static const double b97_hcth_93_values[B97_N_PAR] =
+  {1.0932, -0.744056, 5.5992, -6.78549, 4.49357,
+   0.222601, -0.0338622, -0.012517, -0.802496, 1.55396,
+   0.729974, 3.35287, -11.543, 8.08564, -4.47857,
+   0.0};
+static const double b97_hcth_120_values[B97_N_PAR] =
+  {1.09163, -0.747215, 5.07833, -4.10746, 1.17173,
+   0.489508, -0.260699, 0.432917, -1.99247, 2.48531,
+   0.51473, 6.92982, -24.7073, 23.1098, -11.3234,
+   0.0};
+static const double b97_hcth_147_values[B97_N_PAR] =
+  {1.09025, -0.799194, 5.57212, -5.8676, 3.04544,
+   0.562576, 0.0171436, -1.30636, 1.05747, 0.885429,
+   0.542352, 7.01464, -28.3822, 35.0329, -20.4284,
+   0.0};
+static const double b97_hcth_407_values[B97_N_PAR] =
+  {1.08184, -0.518339, 3.42562, -2.62901, 2.28855,
+   1.18777, -2.40292, 5.61741, -9.17923, 6.24798,
+   0.589076, 4.42374, -19.2218, 42.5721, -42.0052,
+   0.0};
+static const double b97_sb98_1a_values[B97_N_PAR] =
+  {0.845975, 0.228183, 0.749949, 0.0, 0.0,
+   -0.817637, -0.054676, 0.592163, 0.0, 0.0,
+   0.975483, 0.398379, -3.7354, 0.0, 0.0,
+   0.229015};
+static const double b97_sb98_1b_values[B97_N_PAR] =
+  {0.800103, -0.084192, 1.47742, 0.0, 0.0,
+   1.44946, -2.37073, 2.13564, 0.0, 0.0,
+   0.977621, 0.931199, -4.76973, 0.0, 0.0,
+   0.199352};
+static const double b97_sb98_1c_values[B97_N_PAR] =
+  {0.810936, 0.49609, 0.772385, 0.0, 0.0,
+   0.262077, 2.12576, -2.30465, 0.0, 0.0,
+   0.939269, 0.898121, -4.91276, 0.0, 0.0,
+   0.192416};
+static const double b97_sb98_2a_values[B97_N_PAR] =
+  {0.7492, 0.402322, 0.620779, 0.0, 0.0,
+   1.26686, 1.67146, -1.22565, 0.0, 0.0,
+   0.964641, 0.050527, -3.01966, 0.0, 0.0,
+   0.232055};
+static const double b97_sb98_2b_values[B97_N_PAR] =
+  {0.770587, 0.180767, 0.955246, 0.0, 0.0,
+   0.170473, 1.24051, -0.862711, 0.0, 0.0,
+   0.965362, 0.8633, -4.61778, 0.0, 0.0,
+   0.237978};
+static const double b97_sb98_2c_values[B97_N_PAR] =
+  {0.790194, 0.400271, 0.832857, 0.0, 0.0,
+   -0.120163, 2.82332, -2.59412, 0.0, 0.0,
+   0.934715, 1.14105, -5.33398, 0.0, 0.0,
+   0.219847};
+static const double b97_gga1_values[B97_N_PAR] =
+  {1.1068, -0.8765, 4.2639, 0.0, 0.0,
+   0.4883, -2.117, 2.3235, 0.0, 0.0,
+   0.7961, 5.706, -14.982, 0.0, 0.0,
+   0.0};
+static const double b97_hcth_p14_values[B97_N_PAR] =
+  {1.03161, -0.360781, 3.51994, -4.95944, 2.41165,
+   2.82414, 0.0318843, -1.78512, 2.39795, -0.876909,
+   0.0821827, 4.56466, -13.5529, 13.382, -3.17493,
+   0.0};
+static const double b97_hcth_p76_values[B97_N_PAR] =
+  {1.16525, -0.583033, 2.51769, 3.81278, -5.45906,
+   -3.92143, -1.10098, -0.091405, -0.859723, 2.07184,
+   0.192949, -5.73335, 50.8757, 135.475, 101.268,
+   0.0};
+static const double b97_hcth_407p_values[B97_N_PAR] =
+  {1.08018, -0.4117, 2.4368, 1.389, -1.3529,
+   0.80302, -1.0479, 4.9807, -12.89, 9.6446,
+   0.73604, 3.027, -10.075, 20.611, -29.418,
+   0.0};
+static const double b97_1p_values[B97_N_PAR] =
+  {0.8773, 0.2149, 1.5204, 0.0, 0.0,
+   0.2228, 1.3678, -1.5068, 0.0, 0.0,
+   0.9253, 2.027, -7.3431, 0.0, 0.0,
+   0.15};
+static const double b97_hle16_values[B97_N_PAR] =
+  {1.3523, -0.64792375, 4.282025, -3.2862625, 2.8606875,
+   0.593885, -1.20146, 2.808705, -4.589615, 3.12399,
+   0.294538, 2.21187, -9.6109, 21.28605, -21.0026,
+   0.0};
 
 
 static void
 gga_xc_b97_init(xc_func_type *p)
 {
-  gga_xc_b97_params *params;
-
   assert(p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_xc_b97_params));
-  params = (gga_xc_b97_params *)(p->params);
-}
-
-static void
-set_ext_params_pure(xc_func_type *p, const double *ext_params)
-{
-  gga_xc_b97_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_xc_b97_params *) (p->params);
-
-  params->c_x[0] = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->c_x[1] = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->c_x[2] = get_ext_param(p->info->ext_params, ext_params, 2);
-  params->c_x[3] = get_ext_param(p->info->ext_params, ext_params, 3);
-  params->c_x[4] = get_ext_param(p->info->ext_params, ext_params, 4);
-  params->c_ss[0] = get_ext_param(p->info->ext_params, ext_params, 5);
-  params->c_ss[1] = get_ext_param(p->info->ext_params, ext_params, 6);
-  params->c_ss[2] = get_ext_param(p->info->ext_params, ext_params, 7);
-  params->c_ss[3] = get_ext_param(p->info->ext_params, ext_params, 8);
-  params->c_ss[4] = get_ext_param(p->info->ext_params, ext_params, 9);
-  params->c_ab[0] = get_ext_param(p->info->ext_params, ext_params, 10);
-  params->c_ab[1] = get_ext_param(p->info->ext_params, ext_params, 11);
-  params->c_ab[2] = get_ext_param(p->info->ext_params, ext_params, 12);
-  params->c_ab[3] = get_ext_param(p->info->ext_params, ext_params, 13);
-  params->c_ab[4] = get_ext_param(p->info->ext_params, ext_params, 14);
-}
-
-static void
-set_ext_params_hybrid(xc_func_type *p, const double *ext_params)
-{
-  gga_xc_b97_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_xc_b97_params *) (p->params);
-
-  params->c_x[0] = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->c_x[1] = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->c_x[2] = get_ext_param(p->info->ext_params, ext_params, 2);
-  params->c_x[3] = get_ext_param(p->info->ext_params, ext_params, 3);
-  params->c_x[4] = get_ext_param(p->info->ext_params, ext_params, 4);
-  params->c_ss[0] = get_ext_param(p->info->ext_params, ext_params, 5);
-  params->c_ss[1] = get_ext_param(p->info->ext_params, ext_params, 6);
-  params->c_ss[2] = get_ext_param(p->info->ext_params, ext_params, 7);
-  params->c_ss[3] = get_ext_param(p->info->ext_params, ext_params, 8);
-  params->c_ss[4] = get_ext_param(p->info->ext_params, ext_params, 9);
-  params->c_ab[0] = get_ext_param(p->info->ext_params, ext_params, 10);
-  params->c_ab[1] = get_ext_param(p->info->ext_params, ext_params, 11);
-  params->c_ab[2] = get_ext_param(p->info->ext_params, ext_params, 12);
-  params->c_ab[3] = get_ext_param(p->info->ext_params, ext_params, 13);
-  params->c_ab[4] = get_ext_param(p->info->ext_params, ext_params, 14);
-  p->cam_alpha = get_ext_param(p->info->ext_params, ext_params, 15);
 }
 
 #include "decl_gga.h"
@@ -521,7 +194,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97 = {
   {&xc_ref_Becke1997_8554, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  16, ext_params_par_b97, set_ext_params_hybrid,
+  {B97_N_PAR, b97_names, b97_desc, b97_values, set_ext_params_cpy_exx},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -537,7 +210,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97_1 = {
   {&xc_ref_Hamprecht1998_6264, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  16, ext_params_par_b97_1, set_ext_params_hybrid,
+  {B97_N_PAR, b97_names, b97_desc, b97_1_values, set_ext_params_cpy_exx},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -553,7 +226,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97_2 = {
   {&xc_ref_Wilson2001_9233, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  16, ext_params_par_b97_2, set_ext_params_hybrid,
+  {B97_N_PAR, b97_names, b97_desc, b97_2_values, set_ext_params_cpy_exx},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -569,7 +242,7 @@ const xc_func_info_type xc_func_info_gga_xc_b97_d = {
   {&xc_ref_Grimme2006_1787, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  15, ext_params_par_b97_d, set_ext_params_pure,
+  {B97_N_PAR-1, b97_names, b97_desc, b97_d_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -585,7 +258,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97_k = {
   {&xc_ref_Boese2004_3405, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  16, ext_params_par_b97_k, set_ext_params_hybrid,
+  {B97_N_PAR, b97_names, b97_desc, b97_k_values, set_ext_params_cpy_exx},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -601,7 +274,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97_3 = {
   {&xc_ref_Keal2005_121103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  16, ext_params_par_b97_3, set_ext_params_hybrid,
+  {B97_N_PAR, b97_names, b97_desc, b97_3_values, set_ext_params_cpy_exx},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -617,7 +290,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_93 = {
   {&xc_ref_Hamprecht1998_6264, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  15, ext_params_par_hcth_93, set_ext_params_pure,
+  {B97_N_PAR - 1, b97_names, b97_desc, b97_hcth_93_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -633,7 +306,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_120 = {
   {&xc_ref_Boese2000_1670, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  15, ext_params_par_hcth_120, set_ext_params_pure,
+  {B97_N_PAR - 1, b97_names, b97_desc, b97_hcth_120_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -649,7 +322,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_147 = {
   {&xc_ref_Boese2000_1670, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  15, ext_params_par_hcth_147, set_ext_params_pure,
+  {B97_N_PAR - 1, b97_names, b97_desc, b97_hcth_147_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -665,7 +338,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_407 = {
   {&xc_ref_Boese2001_5497, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  15, ext_params_par_hcth_407, set_ext_params_pure,
+  {B97_N_PAR - 1, b97_names, b97_desc, b97_hcth_407_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -681,7 +354,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1a = {
   {&xc_ref_Schmider1998_9624, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  16, ext_params_par_sb98_1a, set_ext_params_hybrid,
+  {B97_N_PAR, b97_names, b97_desc, b97_sb98_1a_values, set_ext_params_cpy_exx},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -697,7 +370,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1b = {
   {&xc_ref_Schmider1998_9624, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  16, ext_params_par_sb98_1b, set_ext_params_hybrid,
+  {B97_N_PAR, b97_names, b97_desc, b97_sb98_1b_values, set_ext_params_cpy_exx},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -713,7 +386,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_1c = {
   {&xc_ref_Schmider1998_9624, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  16, ext_params_par_sb98_1c, set_ext_params_hybrid,
+  {B97_N_PAR, b97_names, b97_desc, b97_sb98_1c_values, set_ext_params_cpy_exx},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -729,7 +402,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2a = {
   {&xc_ref_Schmider1998_9624, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  16, ext_params_par_sb98_2a, set_ext_params_hybrid,
+  {B97_N_PAR, b97_names, b97_desc, b97_sb98_2a_values, set_ext_params_cpy_exx},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -745,7 +418,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2b = {
   {&xc_ref_Schmider1998_9624, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  16, ext_params_par_sb98_2b, set_ext_params_hybrid,
+  {B97_N_PAR, b97_names, b97_desc, b97_sb98_2b_values, set_ext_params_cpy_exx},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -761,7 +434,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_sb98_2c = {
   {&xc_ref_Schmider1998_9624, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  16, ext_params_par_sb98_2c, set_ext_params_hybrid,
+  {B97_N_PAR, b97_names, b97_desc, b97_sb98_2c_values, set_ext_params_cpy_exx},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -777,7 +450,7 @@ const xc_func_info_type xc_func_info_gga_xc_b97_gga1 = {
   {&xc_ref_Cohen2000_160, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  15, ext_params_par_b97_gga1, set_ext_params_pure,
+  {B97_N_PAR - 1, b97_names, b97_desc, b97_gga1_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -793,7 +466,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_p14 = {
   {&xc_ref_Menconi2001_3958, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  15, ext_params_par_hcth_p14, set_ext_params_pure,
+  {B97_N_PAR - 1, b97_names, b97_desc, b97_hcth_p14_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -809,7 +482,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_p76 = {
   {&xc_ref_Menconi2001_3958, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  15, ext_params_par_hcth_p76, set_ext_params_pure,
+  {B97_N_PAR - 1, b97_names, b97_desc, b97_hcth_p76_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -825,7 +498,7 @@ const xc_func_info_type xc_func_info_gga_xc_hcth_407p = {
   {&xc_ref_Boese2003_5965, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  15, ext_params_par_hcth_407p, set_ext_params_pure,
+  {B97_N_PAR - 1, b97_names, b97_desc, b97_hcth_407p_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -841,7 +514,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b97_1p = {
   {&xc_ref_Cohen2000_160, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  16, ext_params_par_b97_1p, set_ext_params_hybrid,
+  {B97_N_PAR, b97_names, b97_desc, b97_1p_values, set_ext_params_cpy_exx},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -857,7 +530,7 @@ const xc_func_info_type xc_func_info_gga_xc_hle16 = {
   {&xc_ref_Verma2017_380, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  15, ext_params_par_hle16, set_ext_params_pure,
+  {B97_N_PAR - 1, b97_names, b97_desc, b97_hle16_values, set_ext_params_cpy},
   gga_xc_b97_init, NULL,
   NULL, work_gga, NULL
 };

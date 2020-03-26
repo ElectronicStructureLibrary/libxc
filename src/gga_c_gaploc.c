@@ -25,7 +25,7 @@ const xc_func_info_type xc_func_info_gga_c_gaploc = {
   {&xc_ref_Fabiano2014_2016, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-18,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL, 
   NULL, work_gga, NULL
 };

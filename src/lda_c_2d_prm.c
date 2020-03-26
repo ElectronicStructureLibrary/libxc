@@ -35,12 +35,12 @@ lda_c_2d_prm_init(xc_func_type *p)
 #include "maple2c/lda_exc/lda_c_2d_prm.c"
 #include "work_lda.c"
 
-static const func_params_type ext_params[] = {
-  {"N", 2.0, "Number of electrons"},
-};
+static const char  *N_names[]  = {"N"};
+static const char  *N_desc[]   = {"Number of electrons"};
+static const double N_values[] = {2.0};
 
 static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
+N_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   static double prm_q = 3.9274; /* 2.258 */
   lda_c_2d_prm_params *params;
@@ -48,7 +48,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   assert(p != NULL && p->params != NULL);
   params = (lda_c_2d_prm_params *) (p->params);
 
-  params->N = get_ext_param(p->info->ext_params, ext_params, 0);
+  params->N = get_ext_param(p, ext_params, 0);
 
   if(params->N <= 1.0){
     fprintf(stderr, "PRM functional cannot be used for N_electrons <= 1\n");
@@ -69,7 +69,7 @@ const xc_func_info_type xc_func_info_lda_c_2d_prm = {
   {&xc_ref_Pittalis2008_195322, NULL, NULL, NULL, NULL},
   XC_FLAGS_2D | MAPLE2C_FLAGS,
   1e-32,
-  1, ext_params, set_ext_params,
+  {1, N_names, N_desc, N_values, N_set_ext_params},
   lda_c_2d_prm_init, NULL,
   work_lda, NULL, NULL
 };

@@ -74,7 +74,7 @@ const xc_func_info_type xc_func_info_gga_xc_th3 = {
   {&xc_ref_Handy1998_707, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-18,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_th3_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -90,7 +90,7 @@ const xc_func_info_type xc_func_info_gga_xc_th4 = {
   {&xc_ref_Handy1998_707, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_th3_init, NULL, 
   NULL, work_gga, NULL
 };

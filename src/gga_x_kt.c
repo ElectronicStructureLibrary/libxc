@@ -24,26 +24,17 @@ gga_x_kt_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_x_kt_params));
 }
 
-static const func_params_type ext_params[] = {
-  {"_gamma", -0.006, "gamma"},
-  {"_delta",    0.1, "delta"},
-};
-
-static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  gga_x_kt_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_x_kt_params *) (p->params);
-
-  params->gamma = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->delta = get_ext_param(p->info->ext_params, ext_params, 1);
-}
-
 #include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_kt.c"
 #include "work_gga.c"
+
+#define KT_N_PAR 2
+static const char  *kt_names[KT_N_PAR]  = {"_gamma", "_delta"};
+static const char  *kt_desc[KT_N_PAR]   = {
+  "gamma",
+  "delta"};
+static const double kt_values[KT_N_PAR] = 
+  {-0.006, 0.1};
 
 #ifdef __cplusplus
 extern "C"
@@ -56,7 +47,7 @@ const xc_func_info_type xc_func_info_gga_x_kt1 = {
   {&xc_ref_Keal2003_3015, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  2, ext_params, set_ext_params,
+  {KT_N_PAR, kt_names, kt_desc, kt_values, set_ext_params_cpy},
   gga_x_kt_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -82,7 +73,7 @@ const xc_func_info_type xc_func_info_gga_xc_kt1 = {
   {&xc_ref_Keal2003_3015, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_kt1_init, NULL, 
   NULL, NULL, NULL
 };
@@ -108,7 +99,7 @@ const xc_func_info_type xc_func_info_gga_xc_kt2 = {
   {&xc_ref_Keal2003_3015, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_kt2_init, NULL, 
   NULL, NULL, NULL
 };
@@ -135,7 +126,7 @@ gga_xc_kt3_init(xc_func_type *p)
   funcs_coef[3] = eps/a2;
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
-  set_ext_params(p->func_aux[2], par_kt);
+  set_ext_params_cpy(p->func_aux[2], par_kt);
 }
 
 #ifdef __cplusplus
@@ -149,7 +140,7 @@ const xc_func_info_type xc_func_info_gga_xc_kt3 = {
   {&xc_ref_Keal2004_5654, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_kt3_init, NULL, 
   NULL, NULL, NULL
 };

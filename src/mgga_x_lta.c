@@ -18,39 +18,15 @@ typedef struct{
 static void 
 mgga_x_lta_init(xc_func_type *p)
 {
-  mgga_x_lta_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_lta_params));
-  params = (mgga_x_lta_params *) (p->params);
-
-  switch(p->info->number){
-  case XC_MGGA_X_LTA:
-    /* default values set by set_ext_params */
-    break;
-  case XC_MGGA_X_TLDA:
-    params->power = 1.0/5.0;
-    break;
-  default:     
-    fprintf(stderr, "Internal error in mgga_x_lta\n");
-    exit(1);
-  } 
 }
 
-static func_params_type ext_params[] = {
-  {"_power", 4.0/5.0, "power of t"},
-};
-
-static void
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  mgga_x_lta_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (mgga_x_lta_params *) (p->params);
-
-  params->power  = get_ext_param(p->info->ext_params, ext_params, 0);
-}
+#define LTA_N_PAR 1
+static const char  *lta_names[LTA_N_PAR]   = {"_power"};
+static const char  *lta_desc[LTA_N_PAR]    = {"power of t"};
+static const double lta_values[LTA_N_PAR]  = {4.0/5.0};
+static const double tlda_values[LTA_N_PAR] = {1.0/5.0};
 
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_lta.c"
@@ -67,7 +43,7 @@ const xc_func_info_type xc_func_info_mgga_x_lta = {
   {&xc_ref_Ernzerhof1999_911, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1.0e-23,
-  1, ext_params, set_ext_params,
+  {LTA_N_PAR, lta_names, lta_desc, lta_values, set_ext_params_cpy},
   mgga_x_lta_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -83,7 +59,7 @@ const xc_func_info_type xc_func_info_mgga_x_tlda = {
   {&xc_ref_Eich2014_224107, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1.0e-23,
-  0, NULL, NULL,
+  {LTA_N_PAR, lta_names, lta_desc, tlda_values, set_ext_params_cpy},
   mgga_x_lta_init, NULL,
   NULL, NULL, work_mgga,
 };

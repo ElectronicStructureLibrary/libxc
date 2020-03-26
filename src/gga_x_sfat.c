@@ -15,19 +15,13 @@
    Akinaga, Ten-no, Chem. Phys. Lett. 462 (2008) 348-351
 */
 
-static const func_params_type ext_params[] = {
-  {"_omega", 0.44, "Screening parameter"},
-};
-
-static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  p->cam_omega = get_ext_param(p->info->ext_params, ext_params, 0);
-}
-
 #include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_sfat.c"
 #include "work_gga.c"
+
+static const char  *omega_names[]  = {"omega"};
+static const char  *omega_desc[]   = {"screening parameter"};
+static const double omega_values[] = {0.44};
 
 #ifdef __cplusplus
 extern "C"
@@ -40,7 +34,7 @@ const xc_func_info_type xc_func_info_gga_x_sfat = {
   {&xc_ref_Savin1995_327, &xc_ref_Akinaga2008_348, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-19,
-  1, ext_params, set_ext_params,
+  {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
   NULL, NULL,
   NULL, work_gga, NULL
 };

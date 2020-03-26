@@ -22,61 +22,24 @@ typedef struct{
 static void
 gga_x_b86_init(xc_func_type *p)
 {
-  gga_x_b86_params *params;
-  double mu, kappa;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_b86_params));
-  params = (gga_x_b86_params *) (p->params);
-
-  /* value of beta and gamma in Becke 86 functional */
-  switch(p->info->number){
-  case XC_GGA_X_B86:
-    /* default set by set_ext_params */
-    break;
-  case XC_GGA_X_B86_MGC:
-    params->beta  = 0.00375/X_FACTOR_C;
-    params->gamma = 0.007;
-    params->omega = 4.0/5.0;
-    break;
-  case XC_GGA_X_B86_R:
-    mu = MU_GE;
-    kappa = 0.7114;
-
-    params->beta  = mu*X2S*X2S;
-    params->gamma = mu*X2S*X2S/kappa;
-    params->omega = 4.0/5.0;
-    break;
-  case XC_GGA_X_OPTB86B_VDW:
-    mu = MU_GE;
-    params->beta  = mu*X2S*X2S;
-    params->gamma = mu*X2S*X2S;
-    params->omega = 4.0/5.0;
-    break;
-  default:
-    fprintf(stderr, "Internal error in gga_x_b86\n");
-    exit(1);
-  }
 }
 
-static const func_params_type ext_params[] = {
-  {"_beta", 0.0036/X_FACTOR_C, "Small x limit"},
-  {"_gamma", 0.004, "Parameter in the denominator"},
-  {"_omega", 1.0, "Exponent of denominator"},
-};
-
-static void
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  gga_x_b86_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_x_b86_params *) (p->params);
-
-  params->beta  = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->gamma = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->omega = get_ext_param(p->info->ext_params, ext_params, 2);
-}
+#define B86_N_PAR 3
+static const char  *b86_names[B86_N_PAR]  = {"_beta", "_gamma", "_omega"};
+static const char  *b86_desc[B86_N_PAR]   = {
+  "Small x limit",
+  "Parameter in the denominator",
+  "Exponent of denominator"};
+static const double b86_values[B86_N_PAR] =
+  {0.0036/X_FACTOR_C, 0.004, 1.0};
+static const double b86_mgc_values[B86_N_PAR] =
+  {0.00375/X_FACTOR_C, 0.007, 4.0/5.0};
+static const double b86_r_values[B86_N_PAR] =
+  {MU_GE*X2S*X2S, MU_GE*X2S*X2S/0.7114, 4.0/5.0};
+static const double b86_optb86b_values[B86_N_PAR] =
+  {MU_GE*X2S*X2S, MU_GE*X2S*X2S, 4.0/5.0};
 
 
 #include "decl_gga.h"
@@ -94,7 +57,7 @@ const xc_func_info_type xc_func_info_gga_x_b86 = {
   {&xc_ref_Becke1986_4524, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  3, ext_params, set_ext_params,
+  {B86_N_PAR, b86_names, b86_desc, b86_values, set_ext_params_cpy},
   gga_x_b86_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -110,7 +73,7 @@ const xc_func_info_type xc_func_info_gga_x_b86_mgc = {
   {&xc_ref_Becke1986_4524, &xc_ref_Becke1986_7184, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {B86_N_PAR, b86_names, b86_desc, b86_mgc_values, set_ext_params_cpy},
   gga_x_b86_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -126,7 +89,7 @@ const xc_func_info_type xc_func_info_gga_x_b86_r = {
   {&xc_ref_Hamada2014_121103, &xc_ref_Becke1986_4524, &xc_ref_Becke1986_7184, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {B86_N_PAR, b86_names, b86_desc, b86_r_values, set_ext_params_cpy},
   gga_x_b86_init, NULL, 
   NULL, work_gga, NULL
 
@@ -143,7 +106,7 @@ const xc_func_info_type xc_func_info_gga_x_optb86b_vdw = {
   {&xc_ref_Klimes2011_195131, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {B86_N_PAR, b86_names, b86_desc, b86_optb86b_values, set_ext_params_cpy},
   gga_x_b86_init, NULL,
   NULL, work_gga, NULL
 };

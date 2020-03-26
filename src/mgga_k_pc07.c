@@ -25,7 +25,7 @@ const xc_func_info_type xc_func_info_mgga_k_pc07 = {
   {&xc_ref_Perdew2007_155109, NULL, NULL, NULL, NULL},
   XC_FLAGS_DEVELOPMENT | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_3D | MAPLE2C_FLAGS,
   1.0e-23,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   NULL, NULL, work_mgga,
 };

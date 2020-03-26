@@ -41,7 +41,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b1wc = {
   {&xc_ref_Bilc2008_165107, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_b1wc_init,
   NULL, NULL, NULL, NULL
 };
@@ -68,7 +68,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b1lyp = {
   {&xc_ref_Adamo1997_242, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_b1lyp_init,
   NULL, NULL, NULL, NULL
 };
@@ -95,7 +95,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b1pw91 = {
   {&xc_ref_Adamo1997_242, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_b1pw91_init,
   NULL, NULL, NULL, NULL
 };
@@ -138,7 +138,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mpw1lyp = {
   {&xc_ref_Adamo1998_664, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_mpw1pw_init,
   NULL, NULL, NULL, NULL
 };
@@ -154,7 +154,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mpw1pbe = {
   {&xc_ref_Adamo1998_664, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_mpw1pw_init,
   NULL, NULL, NULL, NULL
 };
@@ -170,7 +170,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mpw1pw = {
   {&xc_ref_Adamo1998_664, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_mpw1pw_init,
   NULL, NULL, NULL, NULL
 };
@@ -197,7 +197,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mpw1k = {
   {&xc_ref_Lynch2000_4811, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_mpw1k_init,
   NULL, NULL, NULL, NULL
 };
@@ -224,7 +224,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_bhandh = {
   {&xc_ref_Becke1993_1372, &xc_ref_gaussianimplementation, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_bhandh_init,
   NULL, NULL, NULL, NULL
 };
@@ -251,7 +251,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_bhandhlyp = {
   {&xc_ref_Becke1993_1372, &xc_ref_gaussianimplementation, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_bhandhlyp_init,
   NULL, NULL, NULL, NULL
 };
@@ -278,7 +278,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_blyp35 = {
   {&xc_ref_Renz2009_16292, &xc_ref_Kaupp2011_16973, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_blyp35_init,
   NULL, NULL, NULL, NULL
 };
@@ -305,7 +305,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mpwlyp1m = {
   {&xc_ref_Schultz2005_11127, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_mpwlyp1m_init,
   NULL, NULL, NULL, NULL
 };

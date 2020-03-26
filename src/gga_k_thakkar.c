@@ -25,7 +25,7 @@ const xc_func_info_type xc_func_info_gga_k_thakkar = {
   {&xc_ref_Thakkar1992_6920, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   5e-26,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   NULL, work_gga, NULL
 };

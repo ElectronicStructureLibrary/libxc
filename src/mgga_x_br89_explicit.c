@@ -16,43 +16,17 @@ typedef struct{
   double gamma;
 } mgga_x_br89_params;
 
-static const mgga_x_br89_params par_one = {1.0};
+#define BR89_N_PAR 1
+static const char  *br89_names[BR89_N_PAR]    = {"_gamma"};
+static const char  *br89_desc[BR89_N_PAR]     = {"gamma"};
+static const double br89_values[BR89_N_PAR]   = {0.8};
+static const double br89_1_values[BR89_N_PAR] = {1.0};
 
 static void
 mgga_x_br89_init(xc_func_type *p)
 {
-  mgga_x_br89_params *params;
-
   assert(p != NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_br89_params));
-  params = (mgga_x_br89_params *)p->params;
-
-  switch(p->info->number){
-  case XC_MGGA_X_BR89_EXPLICIT:
-    /* default set by set_ext_params */
-    break;
-  case XC_MGGA_X_BR89_EXPLICIT_1:
-    memcpy(params, &par_one, sizeof(mgga_x_br89_params));
-    break;
-  default:
-    fprintf(stderr, "Internal error in mgga_x_br89_explicit\n");
-    exit(1);
-  }
-}
-
-static const func_params_type ext_params[] = {
-  {"_gamma", 0.8, "gamma"},
-};
-
-static void
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  mgga_x_br89_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (mgga_x_br89_params *) (p->params);
-
-  params->gamma = get_ext_param(p->info->ext_params, ext_params, 0);
 }
 
 #include "decl_mgga.h"
@@ -70,7 +44,7 @@ const xc_func_info_type xc_func_info_mgga_x_br89_explicit = {
   {&xc_ref_Becke1989_3761, &xc_ref_Proynov2008_103, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-12,
-  1, ext_params, set_ext_params,
+  {BR89_N_PAR, br89_names, br89_desc, br89_values, set_ext_params_cpy},
   mgga_x_br89_init, NULL,
   NULL, NULL, work_mgga
 };
@@ -86,7 +60,7 @@ const xc_func_info_type xc_func_info_mgga_x_br89_explicit_1 = {
   {&xc_ref_Becke1989_3761, &xc_ref_Proynov2008_103, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-12,
-  0, NULL, NULL,
+  {BR89_N_PAR, br89_names, br89_desc, br89_1_values, set_ext_params_cpy},
   mgga_x_br89_init, NULL,
   NULL, NULL, work_mgga
 };

@@ -23,60 +23,27 @@ typedef struct{
 static void 
 gga_x_b88_init(xc_func_type *p)
 {
-  gga_x_b88_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_b88_params));
-  params = (gga_x_b88_params *) (p->params);
-  
-  /* value of beta in standard Becke 88 functional */
-  switch(p->info->number){
-  case XC_GGA_X_B88:
-    /* deffault values set by set_ext_params */
-    break;
-  case XC_GGA_X_OPTB88_VDW:
-    params->beta  = 0.00336865923905927;
-    params->gamma = 6.98131700797731;
-    break;
-  case XC_GGA_X_MB88:
-    params->beta  = 0.0011;
-    params->gamma = 6.0;
-    break;
-  case XC_GGA_X_EB88:
-    params->beta  = 0.0050/M_CBRT2;
-    params->gamma = 6.0;
-    break;
-  case XC_GGA_X_B88M:
-    params->beta  = 0.0045;
-    params->gamma = 6.0;
-    break;
-  case XC_GGA_X_B88_6311G:
-    params->beta  = 0.0051;
-    params->gamma = 6.0;
-    break;
-  default:
-    fprintf(stderr, "Internal error in gga_x_b88\n");
-    exit(1);
-  }
 }
 
-static func_params_type ext_params[] = {
-  {"_beta", 0.0042, "beta/X_FACTOR_C is the coefficient of the gradient expansion"},
-  {"_gamma", 6.0, "gamma should be 6 to get the right asymptotics of Ex"},
-};
-
-static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  gga_x_b88_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (gga_x_b88_params *) (p->params);
-
-  params->beta  = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->gamma = get_ext_param(p->info->ext_params, ext_params, 1);
-}
-
+#define B88_N_PAR 2
+static const char  *b88_names[B88_N_PAR]  = {"_beta", "_gamma"};
+static const char  *b88_desc[B88_N_PAR]   = {
+  "beta/X_FACTOR_C is the coefficient of the gradient expansion",
+  "gamma should be 6 to get the right asymptotics of Ex"};
+static const double b88_values[B88_N_PAR] =
+  {0.0042, 6.0};
+static const double b88_optb88_values[B88_N_PAR] =
+  {0.00336865923905927, 6.98131700797731};
+static const double b88_mb88_values[B88_N_PAR] =
+  {0.0011, 6.0};
+static const double b88_eb88_values[B88_N_PAR] =
+  {0.0039685026299204986870L, 6.0}; /* 0.0050/M_CBRT2 */
+static const double b88_b88m_values[B88_N_PAR] =
+  {0.0045, 6.0};
+static const double b88_6311g_values[B88_N_PAR] =
+  {0.0051, 6.0};
 
 #include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_b88.c"
@@ -93,7 +60,7 @@ const xc_func_info_type xc_func_info_gga_x_b88 = {
   {&xc_ref_Becke1988_3098, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  2, ext_params, set_ext_params,
+  {B88_N_PAR, b88_names, b88_desc, b88_values, set_ext_params_cpy},
   gga_x_b88_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -109,7 +76,7 @@ const xc_func_info_type xc_func_info_gga_x_optb88_vdw = {
   {&xc_ref_Klimes2010_022201, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  0, NULL, NULL,
+  {B88_N_PAR, b88_names, b88_desc, b88_optb88_values, set_ext_params_cpy},
   gga_x_b88_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -125,7 +92,7 @@ const xc_func_info_type xc_func_info_gga_x_mb88 = {
   {&xc_ref_Tognetti2009_14415, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  0, NULL, NULL,
+  {B88_N_PAR, b88_names, b88_desc, b88_mb88_values, set_ext_params_cpy},
   gga_x_b88_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -141,7 +108,7 @@ const xc_func_info_type xc_func_info_gga_x_eb88 = {
   {&xc_ref_Elliott2009_1485, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  0, NULL, NULL,
+  {B88_N_PAR, b88_names, b88_desc, b88_eb88_values, set_ext_params_cpy},
   gga_x_b88_init,  NULL, 
   NULL, work_gga, NULL
 };
@@ -157,7 +124,7 @@ const xc_func_info_type xc_func_info_gga_x_b88m = {
   {&xc_ref_Proynov2000_10013, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  0, NULL, NULL,
+  {B88_N_PAR, b88_names, b88_desc, b88_b88m_values, set_ext_params_cpy},
   gga_x_b88_init,  NULL, 
   NULL, work_gga, NULL
 };
@@ -173,7 +140,7 @@ const xc_func_info_type xc_func_info_gga_x_b88_6311g = {
   {&xc_ref_Ugalde1994_423, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-25,
-  0, NULL, NULL,
+  {B88_N_PAR, b88_names, b88_desc, b88_6311g_values, set_ext_params_cpy},
   gga_x_b88_init,  NULL, 
   NULL, work_gga, NULL
 };

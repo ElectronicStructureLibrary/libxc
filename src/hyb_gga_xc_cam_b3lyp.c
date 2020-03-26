@@ -73,7 +73,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_b3lyp = {
   {&xc_ref_Yanai2004_51, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_cam_b3lyp_init, NULL,
   NULL, NULL, NULL
 };
@@ -89,7 +89,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_tuned_cam_b3lyp = {
   {&xc_ref_Okuno2012_29, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_cam_b3lyp_init, NULL,
   NULL, NULL, NULL
 };
@@ -133,29 +133,32 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_rcam_b3lyp = {
   {&xc_ref_Cohen2007_191109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_rcam_b3lyp_init, NULL,
   NULL, NULL, NULL
 };
 
-static func_params_type ext_params_cam[] = {
-  {"_alpha",0.2, "Mixing parameter"},
-  {"_beta", 0.8, "Mixing parameter in the SR"},
-  {"_omega_HF", 0.70, "Screening parameter for HF"},
-  {"_omega_PBE", 0.70, "Screening parameter for PBE"},
+#define CAM_N_PAR 4
+static const char  *cam_names[CAM_N_PAR]  = {"_alpha", "_beta", "_omega_HF", "_omega_PBE"};
+static const char  *cam_desc[CAM_N_PAR]   = {
+  "Mixing parameter",
+  "Mixing parameter in the SR",
+  "Screening parameter for HF",
+  "Screening parameter for PBE"
 };
+static const double cam_values[CAM_N_PAR] = {0.2, 0.8, 0.7, 0.7};
 
 static void
-set_ext_params(xc_func_type *p, const double *ext_params)
+cam_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   double alpha, beta, omega_HF, omega_PBE;
 
   assert(p != NULL);
 
-  alpha     = get_ext_param(p->info->ext_params, ext_params, 0);
-  beta      = get_ext_param(p->info->ext_params, ext_params, 1);
-  omega_HF  = get_ext_param(p->info->ext_params, ext_params, 2);
-  omega_PBE = get_ext_param(p->info->ext_params, ext_params, 3);
+  alpha     = get_ext_param(p, ext_params, 0);
+  beta      = get_ext_param(p, ext_params, 1);
+  omega_HF  = get_ext_param(p, ext_params, 2);
+  omega_PBE = get_ext_param(p, ext_params, 3);
 
   p->mix_coef[0] = 1.0 - alpha;
   p->mix_coef[1] = -beta;
@@ -163,7 +166,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   p->cam_alpha = alpha;
   p->cam_beta  = beta;
   p->cam_omega = omega_HF;
-  xc_func_set_ext_params(p->func_aux[1], &omega_PBE);
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", omega_PBE);
 }
 
 static void
@@ -186,7 +189,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_pbeh = {
   {&xc_ref_Chen2018_073803, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-32, 
-  4, ext_params_cam, set_ext_params,
+  {CAM_N_PAR, cam_names, cam_desc, cam_values, cam_set_ext_params},
   hyb_gga_xc_cam_pbeh_init,
   NULL, NULL, NULL, NULL
 };

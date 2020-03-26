@@ -35,7 +35,7 @@ hyb_gga_xc_lc_vv10_init(xc_func_type *p)
   p->cam_beta  = -1.0;
   p->nlc_b = 6.3;
   p->nlc_C = 0.0089;
-  xc_func_set_ext_params(p->func_aux[0], &p->cam_omega);  
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->cam_omega);  
 }
 
 #ifdef __cplusplus
@@ -49,7 +49,7 @@ const xc_func_info_type xc_func_info_gga_xc_vv10 = {
   {&xc_ref_Vydrov2010_244103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_vv10_init,
   NULL, NULL, NULL, NULL
 };
@@ -65,7 +65,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_vv10 = {
   {&xc_ref_Vydrov2010_244103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_VV10 | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   hyb_gga_xc_lc_vv10_init,
   NULL, NULL, NULL, NULL
 };

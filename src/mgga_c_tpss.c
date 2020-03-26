@@ -17,59 +17,26 @@ typedef struct{
   double C0_c[4];
 } mgga_c_tpss_params;
 
-static const mgga_c_tpss_params par_tm = {0.06672455060314922, 2.8, {0.0, 0.1, 0.32, 0.0}};
-
 static void 
 mgga_c_tpss_init(xc_func_type *p)
 {
-  mgga_c_tpss_params *params;
-
   assert(p != NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_c_tpss_params));
-  params = (mgga_c_tpss_params *)p->params;
-
-  switch(p->info->number){
-  case XC_MGGA_C_TPSS:
-    /* default set by set_ext_params */
-    break;
-  case XC_MGGA_C_TM:
-    memcpy(params, &par_tm, sizeof(mgga_c_tpss_params));
-    break;
-  default:
-    fprintf(stderr, "Internal error in mgga_c_tpss\n");
-    exit(1);
-  }
 }
 
-static const func_params_type ext_params[] = {
-  {"_beta", 0.06672455060314922, "beta"},
-  {"_d", 2.8, "d"},
-  {"_C0_c0", 0.53, "C0_c[0]"},
-  {"_C0_c1", 0.87, "C0_c[1]"},
-  {"_C0_c2", 0.50, "C0_c[2]"},
-  {"_C0_c3", 2.26, "C0_c[3]"}
+#define TPSS_N_PAR 6
+static const char  *tpss_names[TPSS_N_PAR]  = {"_beta", "_d", "_C0_c0", "_C0_c1", "_C0_c2", "_C0_c3"};
+static const char  *tpss_desc[TPSS_N_PAR]   = {"beta", "d", "C0_c0", "C0_c1", "C0_c2", "C0_c3"};
+static const double tpss_values[TPSS_N_PAR] = {
+  0.06672455060314922, 2.8, 0.53, 0.87, 0.50, 2.26
 };
-
-static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  mgga_c_tpss_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (mgga_c_tpss_params *) (p->params);
-
-  params->beta    = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->d       = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->C0_c[0] = get_ext_param(p->info->ext_params, ext_params, 2);
-  params->C0_c[1] = get_ext_param(p->info->ext_params, ext_params, 3);
-  params->C0_c[2] = get_ext_param(p->info->ext_params, ext_params, 4);
-  params->C0_c[3] = get_ext_param(p->info->ext_params, ext_params, 5);
-}
+static const double tm_values[TPSS_N_PAR]   = {
+  0.06672455060314922, 2.8, 0.0, 0.1, 0.32, 0.0
+};
 
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_tpss.c"
 #include "work_mgga.c"
-
 
 #ifdef __cplusplus
 extern "C"
@@ -82,7 +49,7 @@ const xc_func_info_type xc_func_info_mgga_c_tpss = {
   {&xc_ref_Tao2003_146401, &xc_ref_Perdew2004_6898, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23, /* densities smaller than 1e-26 give NaNs */
-  6, ext_params, set_ext_params,
+  {TPSS_N_PAR, tpss_names, tpss_desc, tpss_values, set_ext_params_cpy},
   mgga_c_tpss_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -98,7 +65,7 @@ const xc_func_info_type xc_func_info_mgga_c_tm = {
   {&xc_ref_Tao2016_073001, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23, /* densities smaller than 1e-26 give NaNs */
-  0, NULL, NULL,
+  {TPSS_N_PAR, tpss_names, tpss_desc, tm_values, set_ext_params_cpy},
   mgga_c_tpss_init, NULL,
   NULL, NULL, work_mgga,
 };

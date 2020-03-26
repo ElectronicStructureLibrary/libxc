@@ -6,46 +6,32 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-
 #include "util.h"
 
-#define XC_GGA_C_SOGGA11       152 /* Second-order generalized gradient approximation 2011 */
-#define XC_GGA_C_SOGGA11_X     159 /* To be used with HYB_GGA_X_SOGGA11_X  */
+#define XC_GGA_C_SOGGA11   152 /* SOGGA11 correlation */
+#define XC_GGA_C_SOGGA11_X 159 /* SOGGA11-X correlation  */
 
 typedef struct {
   double sogga11_a[6], sogga11_b[6];
 } gga_c_sogga11_params;
 
-static const gga_c_sogga11_params par_sogga11 = {
-  {0.50000, -4.62334,  8.00410, -130.226,  38.2685,   69.5599},
-  {0.50000,   3.62334, 9.36393, 34.5114, -18.5684,   -0.16519}
-};
+#define N_PAR 12
+static const char *names[N_PAR] = {"_a0", "_a1", "_a2", "_a3", "_a4", "_a5",
+                                   "_b0", "_b1", "_b2", "_b3", "_b4", "_b5"};
+static const char *desc[N_PAR] = {"a0", "a1", "a2", "a3", "a4", "a5",
+                                  "b0", "b1", "b2", "b3", "b4", "b5"};
 
-static const gga_c_sogga11_params par_sogga11_x = {
-  {0.50000, 78.2439,  25.7211,   -13.8830, -9.87375, -14.1357},
-  {0.50000, -79.2439, 16.3725,   2.08129,  7.50769, -10.1861}
-};
+static const double par_sogga11[N_PAR] = {
+    0.50000, -4.62334, 8.00410, -130.226, 38.2685,  69.5599,
+    0.50000, 3.62334,  9.36393, 34.5114,  -18.5684, -0.16519};
 
-static void 
-gga_c_sogga11_init(xc_func_type *p)
-{
-  gga_c_sogga11_params *params;
+static const double par_sogga11_x[N_PAR] = {
+    0.50000, 78.2439,  25.7211, -13.8830, -9.87375, -14.1357,
+    0.50000, -79.2439, 16.3725, 2.08129,  7.50769,  -10.1861};
 
-  assert(p!=NULL && p->params == NULL);
+static void gga_c_sogga11_init(xc_func_type *p) {
+  assert(p != NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_c_sogga11_params));
-  params = (gga_c_sogga11_params *) (p->params);
-
-  switch(p->info->number){
-  case XC_GGA_C_SOGGA11:
-    memcpy(params, &par_sogga11, sizeof(gga_c_sogga11_params));
-    break;
-  case XC_GGA_C_SOGGA11_X:
-    memcpy(params, &par_sogga11_x, sizeof(gga_c_sogga11_params));
-    break;
-  default:
-    fprintf(stderr, "Internal error in gga_c_sogga11\n");
-    exit(1);
-  } 
 }
 
 #include "decl_gga.h"
@@ -63,8 +49,8 @@ const xc_func_info_type xc_func_info_gga_c_sogga11 = {
   {&xc_ref_Peverati2011_1991, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
-  gga_c_sogga11_init, NULL, 
+  {N_PAR, names, desc, par_sogga11, set_ext_params_cpy},
+  gga_c_sogga11_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -79,7 +65,7 @@ const xc_func_info_type xc_func_info_gga_c_sogga11_x = {
   {&xc_ref_Peverati2011_191102, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
-  0, NULL, NULL,
-  gga_c_sogga11_init, NULL, 
+  {N_PAR, names, desc, par_sogga11_x, set_ext_params_cpy},
+  gga_c_sogga11_init, NULL,
   NULL, work_gga, NULL
 };

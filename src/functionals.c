@@ -65,7 +65,7 @@ char *xc_functional_get_name(int number)
     if(xc_functional_keys[ii].number == number) {
       /* return duplicated: caller has the responsibility to dealloc string.
          Do this the old way since strdup and strndup aren't C standard. */
-      p = (char *) malloc(strlen(xc_functional_keys[ii].name) + 1);
+      p = (char *) libxc_malloc(strlen(xc_functional_keys[ii].name) + 1);
       strcpy(p,xc_functional_keys[ii].name);
       return p;
     }
@@ -259,8 +259,8 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
     func->info->init(func);
 
   /* see if we need to initialize the external parameters */
-  if(func->info->n_ext_params > 0)
-    func->info->set_ext_params(func, NULL);
+  if(func->info->ext_params.n > 0)
+    func->info->ext_params.set(func, NULL);
 
   func->dens_threshold = func->info->dens_threshold;
 
@@ -330,11 +330,32 @@ void xc_func_set_dens_threshold(xc_func_type *p, double dens_threshold)
 
 /*------------------------------------------------------*/
 /* get/set external parameters                          */
-void xc_func_set_ext_params(xc_func_type *p, double *ext_params)
+void
+xc_func_set_ext_params(xc_func_type *p, double *ext_params)
 {
-  assert(p->info->n_ext_params > 0);
-  p->info->set_ext_params(p, ext_params);
+  assert(p->info->ext_params.n > 0);
+  p->info->ext_params.set(p, ext_params);
 }
+
+void
+xc_func_set_ext_params_name(xc_func_type *p, const char *name, double par)
+{
+  int ii;
+  double *ext_params;
+
+  assert(p != NULL && p->info->ext_params.n > 0);
+  
+  ext_params = libxc_malloc(p->info->ext_params.n*sizeof(double));
+  for(ii=0; ii<p->info->ext_params.n; ii++){
+    if(strcmp(p->info->ext_params.names[ii], name) == 0)
+      ext_params[ii] = par;
+    else
+      ext_params[ii] = XC_EXT_PARAMS_DEFAULT;
+  }
+  xc_func_set_ext_params(p, ext_params);
+  libxc_free(ext_params);
+}
+
 
 /*------------------------------------------------------*/
 /* returns the mixing coefficient for the hybrid GGAs */

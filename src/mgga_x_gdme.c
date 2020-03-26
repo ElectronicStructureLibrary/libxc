@@ -23,57 +23,21 @@ typedef struct{
 static void 
 mgga_x_gdme_init(xc_func_type *p)
 {
-  mgga_x_gdme_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_gdme_params));
-  params = (mgga_x_gdme_params *) (p->params);
-
-  switch(p->info->number){
-  case XC_MGGA_X_GDME_NV:
-    /* default values set by set_ext_params */
-    break;
-  case XC_MGGA_X_GDME_0:
-    params->a  = 0.0;
-    params->AA = 9.0*M_PI/4.0;
-    params->BB = 35.0*M_PI/12.0;
-    break;
-  case XC_MGGA_X_GDME_KOS:
-    params->a  = 0.00638;
-    params->AA = 9.0*M_PI/4.0;
-    params->BB = 35.0*M_PI/12.0;
-    break;
-  case XC_MGGA_X_GDME_VT:
-    params->a  = 0.0;
-    params->AA = 7.31275;
-    params->BB = 5.43182;
-    break;    
-  default:
-    fprintf(stderr, "Internal error in mgga_x_gdme\n");
-    exit(1);
-  }
 }
 
-static func_params_type ext_params[] = {
-  {"_a",  0.5,            "center of the s expansion of density-matrix"},
-  {"_AA", 9.0*M_PI/4.0,   "parameter of the first (LDA) term"},
-  {"_BB", 35.0*M_PI/12.0, "parameter of the correction term"}
+#define GDME_N_PAR 3
+static const char  *gdme_names[GDME_N_PAR]  = {"_a", "_AA", "_BB"};
+static const char  *gdme_desc[GDME_N_PAR]   = {
+  "center of the s expansion of density-matrix",
+  "parameter of the first (LDA) term",
+  "parameter of the correction term"
 };
-
-static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  mgga_x_gdme_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (mgga_x_gdme_params *) (p->params);
-
-  params->a  = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->AA = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->BB = get_ext_param(p->info->ext_params, ext_params, 2);
-}
-
-
+static const double gdme_nv_values[GDME_N_PAR]  = {0.5, 9.0*M_PI/4.0, 35.0*M_PI/12.0};
+static const double gdme_0_values[GDME_N_PAR]   = {0.0, 9.0*M_PI/4.0, 35.0*M_PI/12.0};
+static const double gdme_kos_values[GDME_N_PAR] = {0.00638, 9.0*M_PI/4.0, 35.0*M_PI/12.0};
+static const double gdme_vt_values[GDME_N_PAR]  = {0.0, 7.31275, 5.43182};
 
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_gdme.c"
@@ -90,7 +54,7 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_nv = {
   {&xc_ref_Negele1972_1472, &xc_ref_Koehl1996_835, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-23,
-  3, ext_params, set_ext_params,
+  {GDME_N_PAR, gdme_names, gdme_desc, gdme_nv_values, set_ext_params_cpy},
   mgga_x_gdme_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -106,7 +70,7 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_0 = {
   {&xc_ref_Koehl1996_835, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-23,
-  0, NULL, NULL,
+  {GDME_N_PAR, gdme_names, gdme_desc, gdme_0_values, set_ext_params_cpy},
   mgga_x_gdme_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -122,7 +86,7 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_kos = {
   {&xc_ref_Koehl1996_835, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-23,
-  0, NULL, NULL,
+  {GDME_N_PAR, gdme_names, gdme_desc, gdme_kos_values, set_ext_params_cpy},
   mgga_x_gdme_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -138,7 +102,7 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_vt = {
   {&xc_ref_Koehl1996_835, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-23,
-  0, NULL, NULL,
+  {GDME_N_PAR, gdme_names, gdme_desc, gdme_vt_values, set_ext_params_cpy},
   mgga_x_gdme_init, NULL,
   NULL, NULL, work_mgga,
 };

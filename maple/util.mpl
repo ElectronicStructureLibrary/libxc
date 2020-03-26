@@ -155,4 +155,4 @@ mgga_series_w := (a, n, t) -> add(a[i]*mgga_w(t)^(i-1), i=1..n):
 
 # Used in screened functionals
 kF := (rs, z) -> (3*Pi^2*(1 + z))^(1/3) * RS_FACTOR/rs:
-nu := (rs, z) -> params_a_omega/kF(rs, z):
+nu := (rs, z) -> p_a_cam_omega/kF(rs, z):

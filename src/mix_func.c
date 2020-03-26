@@ -96,7 +96,6 @@ xc_mix_func(const xc_func_type *func, size_t np,
      First, check for the lowest common derivative (also need to make
      sure the derivatives have been compiled in!)
   */
-  int need_laplacian = 0;
   int have_vxc = XC_FLAGS_I_HAVE_VXC;
   int have_fxc = XC_FLAGS_I_HAVE_FXC;
   int have_kxc = XC_FLAGS_I_HAVE_KXC;
@@ -118,20 +117,25 @@ xc_mix_func(const xc_func_type *func, size_t np,
   assert(have_fxc == (func->info->flags & XC_FLAGS_I_HAVE_FXC));
   assert(have_vxc == (func->info->flags & XC_FLAGS_I_HAVE_VXC));
 
+  /* Sanity check: if component needs the Laplacian, then the mix
+     must require it too */
+  int need_laplacian = 0;
+  for(ii=0; ii<func->n_func_aux; ii++){
+    aux = func->func_aux[ii];
+    if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+      need_laplacian = XC_FLAGS_NEEDS_LAPLACIAN;
+  }
+  assert((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) == need_laplacian);
+  
   /* Check compatibility of the individual components */
   for(ii=0; ii<func->n_func_aux; ii++){
     aux = func->func_aux[ii];
-
     /* Sanity check: if component is GGA or meta-GGA, mix functional
        must also be GGA or meta-GGA */
     if(is_gga(aux->info->family))
       assert(is_gga(func->info->family));
     if(is_mgga(aux->info->family) && !is_mgga(func->info->family))
       assert(is_mgga(func->info->family));
-    /* Sanity check: if component needs the Laplacian, then the mix
-       must require it too */
-    if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
-      need_laplacian = XC_FLAGS_NEEDS_LAPLACIAN;
     /* Sanity checks: if mix functional has higher derivatives, these
        must also exist in the individual components */
     if(func->info->flags & XC_FLAGS_HAVE_VXC)
@@ -143,8 +147,6 @@ xc_mix_func(const xc_func_type *func, size_t np,
     if(func->info->flags & XC_FLAGS_HAVE_LXC)
       assert(aux->info->flags & XC_FLAGS_HAVE_LXC);
   }
-  /* Check Laplacian flag */
-  assert((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) == need_laplacian);
 
   /* prepare buffers that will hold the results from the individual functionals */
   zk_ = NULL;

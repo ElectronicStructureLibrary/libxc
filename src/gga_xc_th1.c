@@ -105,7 +105,7 @@ const xc_func_info_type xc_func_info_gga_xc_th_fl = {
   {&xc_ref_Tozer1997_183, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_th1_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -121,7 +121,7 @@ const xc_func_info_type xc_func_info_gga_xc_th_fc = {
   {&xc_ref_Tozer1997_183, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_th1_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -137,7 +137,7 @@ const xc_func_info_type xc_func_info_gga_xc_th_fcfo = {
   {&xc_ref_Tozer1997_183, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_th1_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -153,7 +153,7 @@ const xc_func_info_type xc_func_info_gga_xc_th_fco = {
   {&xc_ref_Tozer1997_183, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_th1_init, NULL, 
   NULL, work_gga, NULL
 };
@@ -169,7 +169,7 @@ const xc_func_info_type xc_func_info_gga_xc_th1 = {
   {&xc_ref_Tozer1998_2545, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_xc_th1_init, NULL, 
   NULL, work_gga, NULL
 };

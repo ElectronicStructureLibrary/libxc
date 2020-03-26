@@ -17,28 +17,23 @@
 #define XC_HYB_GGA_XC_PBE_MOLB0 276 /* PBEmolbeta0         */
 #define XC_HYB_GGA_XC_PBE50     290 /* PBE0 with 50% exx   */
 
-static func_params_type ext_params_pbeh[] = {
-  {"_beta", 0.25, "Mixing parameter"}
-};
-static func_params_type ext_params_pbe0_13[] = {
-  {"_beta", 1.0/3.0, "Mixing parameter"}
-};
-static func_params_type ext_params_pbe50[] = {
-  {"_beta", 0.50, "Mixing parameter"}
-};
-static func_params_type ext_params_hpbeint[] = {
-  {"_beta", 1.0/6.0, "Mixing parameter"}
-};
+#define PBEH_N_PAR 1
+static const char  *pbeh_names[PBEH_N_PAR]      = {"_beta"};
+static const char  *pbeh_desc[PBEH_N_PAR]       = {"Mixing parameter"};
+static const double pbeh_values[PBEH_N_PAR]     = {0.25};
+static const double pbeh_13_values[PBEH_N_PAR]  = {1.0/3.0};
+static const double pbeh_50_values[PBEH_N_PAR]  = {0.50};
+static const double pbeh_int_values[PBEH_N_PAR] = {1.0/6.0};
 
 static void
-set_ext_params(xc_func_type *p, const double *ext_params)
+pbeh_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   double beta;
 
   assert(p != NULL);
-  beta      = get_ext_param(p->info->ext_params, ext_params, 0);
+  beta = get_ext_param(p, ext_params, 0);
 
-  p->mix_coef[0] = 1.0-beta;
+  p->mix_coef[0] = 1.0 - beta;
   p->cam_alpha  = beta;
 }
 
@@ -66,7 +61,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbeh = {
   {&xc_ref_Adamo1999_6158, &xc_ref_Ernzerhof1999_5029, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  1, ext_params_pbeh, set_ext_params,
+  {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_values, pbeh_set_ext_params},
   hyb_gga_xc_pbeh_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
@@ -93,7 +88,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbe0_13 = {
   {&xc_ref_Cortona2012_086101, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  1, ext_params_pbe0_13, set_ext_params,
+  {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_13_values, pbeh_set_ext_params},
   hyb_gga_xc_pbe0_13_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
@@ -121,7 +116,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hpbeint = {
   {&xc_ref_Fabiano2013_673, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_DEVELOPMENT,
   1e-32,
-  1, ext_params_hpbeint, set_ext_params,
+  {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_int_values, pbeh_set_ext_params},
   hyb_gga_xc_hpbeint_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
@@ -149,7 +144,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbe_mol0 = {
   {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  1, ext_params_pbeh, set_ext_params,
+  {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_values, pbeh_set_ext_params},
   hyb_gga_xc_pbemol0_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
@@ -177,7 +172,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbe_sol0 = {
   {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  1, ext_params_pbeh, set_ext_params,
+  {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_values, pbeh_set_ext_params},
   hyb_gga_xc_pbesol0_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
@@ -209,7 +204,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbeb0 = {
   {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  1, ext_params_pbeh, set_ext_params,
+  {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_values, pbeh_set_ext_params},
   hyb_gga_xc_pbeb0_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
@@ -241,7 +236,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbe_molb0 = {
   {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  1, ext_params_pbeh, set_ext_params,
+  {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_values, pbeh_set_ext_params},
   hyb_gga_xc_pbemolb0_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };
@@ -269,7 +264,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbe50 = {
   {&xc_ref_Bernard2012_204103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,
-  1, ext_params_pbe50, set_ext_params,
+  {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_50_values, pbeh_set_ext_params},
   hyb_gga_xc_pbe50_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };

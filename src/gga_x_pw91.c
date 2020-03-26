@@ -15,6 +15,8 @@ typedef struct{
   double a, b, c, d, f, alpha, expo;
 } gga_x_pw91_params;
 
+/* in the PW91 paper the parameters are given with few
+   significant digits. */
 static gga_x_pw91_params par_x_pw91 = /* b_PW91 ~ 0.0042 */
   {0.19645, 7.7956, 0.2743, -0.1508, 0.004, 100.0, 4.0};
 
@@ -46,14 +48,17 @@ gga_x_pw91_init(xc_func_type *p)
   b_mPW91 is 0.00426 instead of 0.0046
   also the power seems to be 3.72 and not 3.73
 */
-static const func_params_type ext_params[] = {
-  {"_bt",    0.00426, "a = 6 bt/X2S"},
-  {"_alpha", 100.0,   "parameter of the exponential term"},
-  {"_expo",  3.72,    "exponent of the power in the numerator"},
-};
+#define PW91_N_PAR 3
+static const char  *pw91_names[PW91_N_PAR]  = {"_bt", "_alpha", "_expo"};
+static const char  *pw91_desc[PW91_N_PAR]   = {
+  "a = 6 bt/X2S",
+  "parameter of the exponential term",
+  "exponent of the power in the numerator"};
+static const double mpw91_values[PW91_N_PAR] =
+  {0.00426, 100.0, 3.72};
 
 static void 
-set_ext_params(xc_func_type *p, const double *ext_params)
+pw91_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   gga_x_pw91_params *params;
   double bt, beta;
@@ -61,10 +66,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   assert(p != NULL && p->params != NULL);
   params = (gga_x_pw91_params *) (p->params);
 
-  bt = get_ext_param(p->info->ext_params, ext_params, 0);
-  params->alpha = get_ext_param(p->info->ext_params, ext_params, 1);
-  params->expo  = get_ext_param(p->info->ext_params, ext_params, 2);
-
+  bt = get_ext_param(p, ext_params, 0);
+  params->alpha = get_ext_param(p, ext_params, 1);
+  params->expo  = get_ext_param(p, ext_params, 2);
 
   beta         =  5.0*pow(36.0*M_PI,-5.0/3.0);
   params->a    =  6.0*bt/X2S;
@@ -89,7 +93,7 @@ const xc_func_info_type xc_func_info_gga_x_pw91 = {
   {&xc_ref_Perdew1991, &xc_ref_Perdew1992_6671, &xc_ref_Perdew1992_6671_err, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_pw91_init, NULL,
   NULL, work_gga, NULL
 };
@@ -105,7 +109,7 @@ const xc_func_info_type xc_func_info_gga_x_mpw91 = {
   {&xc_ref_Adamo1998_664, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-31,
-  3, ext_params, set_ext_params,
+  {PW91_N_PAR, pw91_names, pw91_desc, mpw91_values, pw91_set_ext_params},
   gga_x_pw91_init, NULL,
   NULL, work_gga, NULL
 };

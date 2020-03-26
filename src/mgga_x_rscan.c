@@ -16,25 +16,18 @@ typedef struct{
   double taur, alphar; 
 } mgga_x_rscan_params;
 
-static const mgga_x_rscan_params par_rscan = {0.667, 0.8, 1.24, 0.065, 1.0e-4, 1.0e-3};
+#define N_PAR 6
+static const char *names[N_PAR] = {"_c1", "_c2", "_d", "_k1", "_taur", "_alphar"};
+static const char *desc[N_PAR] = {"c1 parameter", "c2 parameter", "d parameter",
+                                  "k1 parameter", "taur parameter", "alphar parameter"};
+
+static const double par_rscan[N_PAR] = {0.667, 0.8, 1.24, 0.065, 1.0e-4, 1.0e-3};
 
 static void 
 mgga_x_rscan_init(xc_func_type *p)
 {
-  mgga_x_rscan_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_rscan_params));
-  params = (mgga_x_rscan_params *)p->params;
-
-  switch(p->info->number){
-  case XC_MGGA_X_RSCAN:
-    memcpy(params, &par_rscan, sizeof(mgga_x_rscan_params));
-    break;
-  default:
-    fprintf(stderr, "Internal error in mgga_x_rscan\n");
-    exit(1);
-  }  
 }
 
 #include "decl_mgga.h"
@@ -52,7 +45,7 @@ const xc_func_info_type xc_func_info_mgga_x_rscan = {
   {&xc_ref_Bartok2019_161101, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-11,
-  0, NULL, NULL,
+  {N_PAR, names, desc, par_rscan, set_ext_params_cpy},
   mgga_x_rscan_init, NULL,
   NULL, NULL, work_mgga,
 };

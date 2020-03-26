@@ -47,20 +47,9 @@ static void func2(double *x, int n, void *dummy)
 #include "maple2c/lda_exc/lda_x_1d_exponential.c"
 #include "work_lda.c"
 
-static const func_params_type ext_params[] = {
-  {"beta", 1.0, "Screening parameter"}
-};
-static void 
-
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  lda_x_1d_exponential_params *params;
-
-  assert(p != NULL && p->params != NULL);
-  params = (lda_x_1d_exponential_params *)(p->params);
-
-  params->beta = get_ext_param(p->info->ext_params, ext_params, 0);
-}
+static const char  *exp1d_names[]  = {"beta"};
+static const char  *exp1d_desc[]   = {"Parameter of the exponential"};
+static const double exp1d_values[] = {1.0};
 
 #ifdef __cplusplus
 extern "C"
@@ -73,7 +62,7 @@ const xc_func_info_type xc_func_info_lda_x_1d_exponential = {
   {&xc_ref_Helbig2011_032503, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D | MAPLE2C_FLAGS,
   1e-26,
-  1, ext_params, set_ext_params,
+  {1, exp1d_names, exp1d_desc, exp1d_values, set_ext_params_cpy},
   lda_x_1d_exponential_init, NULL,
   work_lda, NULL, NULL
 };

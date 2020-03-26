@@ -16,29 +16,19 @@ typedef struct{
   double c1, c2, d, k1;
 } mgga_x_scan_params;
 
-static const mgga_x_scan_params par_scanl = {0.667, 0.8, 1.24, 0.065};
-static const mgga_x_scan_params par_revscanl = {0.607, 0.7, 1.37, 0.065};
+#define N_PAR_SCAN 4
+static const char *scan_names[N_PAR_SCAN] = {"_c1", "_c2", "_d", "_k1"};
+static const char *scan_desc[N_PAR_SCAN] = {"c1 parameter", "c2 parameter", "d parameter",
+                                  "k1 parameter"};
+
+static const double par_scanl[N_PAR_SCAN] = {0.667, 0.8, 1.24, 0.065};
+static const double par_revscanl[N_PAR_SCAN] = {0.607, 0.7, 1.37, 0.065};
 
 static void 
 mgga_x_scanl_init(xc_func_type *p)
 {
-  mgga_x_scan_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_scan_params));
-  params = (mgga_x_scan_params *)p->params;
-
-  switch(p->info->number){
-  case XC_MGGA_X_SCANL:
-    memcpy(params, &par_scanl, sizeof(mgga_x_scan_params));
-    break;
-  case XC_MGGA_X_REVSCANL:
-    memcpy(params, &par_revscanl, sizeof(mgga_x_scan_params));
-    break;
-  default:
-    fprintf(stderr, "Internal error in mgga_x_scan\n");
-    exit(1);
-  }  
 }
 
 #include "decl_mgga.h"
@@ -56,7 +46,7 @@ const xc_func_info_type xc_func_info_mgga_x_scanl = {
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161, &xc_ref_Sun2015_036402, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-20,
-  0, NULL, NULL,
+  {N_PAR_SCAN, scan_names, scan_desc, par_scanl, set_ext_params_cpy},
   mgga_x_scanl_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -72,7 +62,7 @@ const xc_func_info_type xc_func_info_mgga_x_revscanl = {
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161, &xc_ref_Mezei2018_2469, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-20,
-  0, NULL, NULL,
+  {N_PAR_SCAN, scan_names, scan_desc, par_revscanl, set_ext_params_cpy},
   mgga_x_scanl_init, NULL,
   NULL, NULL, work_mgga,
 };

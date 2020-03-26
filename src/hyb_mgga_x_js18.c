@@ -33,7 +33,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_js18 = {
   {&xc_ref_Jana2018_8999, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   hyb_mgga_x_js18_init, NULL,
   NULL, NULL, work_mgga
 };

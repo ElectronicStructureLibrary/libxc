@@ -65,7 +65,7 @@ const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_1 = {
   {&xc_ref_Entwistle2016_205134, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_xc_1d_ehwlrg_init, NULL,
   work_lda, NULL, NULL
 };
@@ -81,7 +81,7 @@ const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_2 = {
   {&xc_ref_Entwistle2016_205134, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_xc_1d_ehwlrg_init, NULL,
   work_lda, NULL, NULL
 };
@@ -98,7 +98,7 @@ const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_3 = {
   {&xc_ref_Entwistle2016_205134, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D | MAPLE2C_FLAGS,
   1e-32,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   lda_xc_1d_ehwlrg_init, NULL,
   work_lda, NULL, NULL
 };

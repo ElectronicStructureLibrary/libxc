@@ -98,7 +98,7 @@ const xc_func_info_type xc_func_info_gga_x_n12 = {
   {&xc_ref_Peverati2012_2310, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_n12_init, NULL,
   NULL, work_gga, NULL
 };
@@ -114,7 +114,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_n12_sx = {
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_n12_init, NULL,
   NULL, work_gga, NULL
 };
@@ -130,7 +130,7 @@ const xc_func_info_type xc_func_info_gga_x_gam = {
   {&xc_ref_Yu2015_12146, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  0, NULL, NULL,
+  {0, NULL, NULL, NULL, NULL},
   gga_x_n12_init, NULL,
   NULL, work_gga, NULL
 };

@@ -63,9 +63,9 @@ AC_CONFIG_MACRO_DIR([m4])
 # interfaces have been removed. removal has precedence over adding,
 # so set to 0 if both happened.
 
-XC_CURRENT=8
-XC_REVISION=4
-XC_AGE=3
+XC_CURRENT=9
+XC_REVISION=0
+XC_AGE=0
 
 XC_LT_VERSION="${XC_CURRENT}:${XC_REVISION}:${XC_AGE}"
 AC_SUBST(XC_LT_VERSION)

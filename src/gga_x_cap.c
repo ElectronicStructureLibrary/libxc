@@ -61,7 +61,9 @@ xc_hyb_gga_xc_cap0_init(xc_func_type *p)
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
   xc_func_set_ext_params(p->func_aux[1], par_c_pbe);
-  p->cam_alpha = 0.75;
+    
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_alpha[0] = 0.75;
 }
 
 #ifdef __cplusplus

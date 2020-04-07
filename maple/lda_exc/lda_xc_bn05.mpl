@@ -13,7 +13,7 @@ $define lda_c_pw_params
 $define lda_c_pw_modified_params
 $include "lda_c_pw.mpl"
 
-p_a_cam_omega := 1:
+p_a_hyb_omega_0_ := 1:
 bn05_A  := 3.4602:
 bn05_C0 := 3.2:
 bn05_C1 := -0.9:

@@ -57,9 +57,11 @@ xc_hyb_gga_xc_cam_b3lyp_init(xc_func_type *p)
 
   xc_func_set_ext_params(p->func_aux[1], &omega);
 
-  p->cam_omega = omega;
-  p->cam_alpha = alpha;
-  p->cam_beta  = beta;
+  p->hyb_type[0]  = XC_HYB_ERF_SR;
+  p->hyb_alpha[0] = beta;
+  p->hyb_omega[0] = omega;
+  p->hyb_type[1]  = XC_HYB_FOCK;
+  p->hyb_alpha[1] = alpha;
 }
 
 #ifdef __cplusplus
@@ -117,9 +119,11 @@ xc_hyb_gga_xc_rcam_b3lyp_init(xc_func_type *p)
   xc_mix_init(p, 4, funcs_id, funcs_coef);
   xc_func_set_ext_params(p->func_aux[2], &omega);
 
-  p->cam_omega = omega;
-  p->cam_alpha = alpha;
-  p->cam_beta  = beta;
+  p->hyb_type[0]  = XC_HYB_ERF_SR;
+  p->hyb_alpha[0] = beta;
+  p->hyb_omega[0] = omega;
+  p->hyb_type[1]  = XC_HYB_FOCK;
+  p->hyb_alpha[1] = alpha;
 }
 
 #ifdef __cplusplus
@@ -163,9 +167,12 @@ cam_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[0] = 1.0 - alpha;
   p->mix_coef[1] = -beta;
 
-  p->cam_alpha = alpha;
-  p->cam_beta  = beta;
-  p->cam_omega = omega_HF;
+  p->hyb_type[0]  = XC_HYB_ERF_SR;
+  p->hyb_alpha[0] = beta;
+  p->hyb_omega[0] = omega_HF;
+  p->hyb_type[1]  = XC_HYB_FOCK;
+  p->hyb_alpha[1] = alpha;
+
   xc_func_set_ext_params_name(p->func_aux[1], "_omega", omega_PBE);
 }
 

@@ -85,8 +85,9 @@ scan0_set_ext_params(xc_func_type *p, const double *ext_params)
   double a0;
   assert(p != NULL);
   a0 = get_ext_param(p, ext_params, 0);
+
   p->mix_coef[0] = 1.0 - a0;
-  p->cam_alpha = a0;
+  p->hyb_alpha[0] = a0;
 }
 
 static void
@@ -99,7 +100,8 @@ hyb_mgga_x_scan0_init(xc_func_type *p)
   static double funcs_coef[1] = {0.0}; /* set by ext_params */
 
   xc_mix_init(p, 1, funcs_id, funcs_coef);
-  p->cam_alpha = 0.0; /* set by ext_params */
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_alpha[0] = 0.0; /* set by ext_params */
 }
 
 #ifdef __cplusplus
@@ -128,7 +130,9 @@ hyb_mgga_x_revscan0_init(xc_func_type *p)
   static double funcs_coef[1] = {0.0}; /* set by ext_params */
 
   xc_mix_init(p, 1, funcs_id, funcs_coef);
-  p->cam_alpha = 0.0; /* set by ext_params */
+
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_alpha[0] = 0.0; /* set by ext_params */
 }
 
 #ifdef __cplusplus

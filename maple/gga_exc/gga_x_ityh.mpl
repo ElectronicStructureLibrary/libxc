@@ -16,7 +16,7 @@ ityh_enhancement := xs -> b88_f(xs):
 ityh_attenuation := a  -> attenuation_erf(a):
 
 ityh_k_GGA := (rs, z, xs) -> sqrt(9*Pi/(2*X_FACTOR_C*ityh_enhancement(xs))) * n_spin(rs, z)^(1/3):
-ityh_f_aa  := (rs, z, xs) -> ityh_attenuation(p_a_cam_omega/(2*ityh_k_GGA(rs, z, xs))):
+ityh_f_aa  := (rs, z, xs) -> ityh_attenuation(p_a_hyb_omega_0_/(2*ityh_k_GGA(rs, z, xs))):
 
 ityh_f := (rs, z, xs) -> ityh_f_aa(rs, z, xs) * ityh_enhancement(xs):
 

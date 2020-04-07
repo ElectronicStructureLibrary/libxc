@@ -14,9 +14,12 @@
 static void
 hyb_mgga_xc_wb97mv_init(xc_func_type *p)
 {
-  p->cam_omega =  0.3;
-  p->cam_alpha =  1.0;
-  p->cam_beta  = -(1.0 - 0.15);
+  p->hyb_type[1]  = XC_HYB_FOCK;
+  p->hyb_alpha[1] = 1.0;
+  p->hyb_type[0]  = XC_HYB_ERF_SR;
+  p->hyb_alpha[0] = -(1.0 - 0.15);
+  p->hyb_omega[0] = 0.3;
+  
   p->nlc_b = 6.0;
   p->nlc_C = 0.01;
 }

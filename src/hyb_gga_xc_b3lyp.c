@@ -57,7 +57,8 @@ b3pw91_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[2] = 1.0 - ac;
   p->mix_coef[3] = ac;
 
-  p->cam_alpha = a0;
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_alpha[0] = a0;
 }
 
 void
@@ -243,7 +244,8 @@ rc04_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[2] = 1.0 - d*ac;
   p->mix_coef[3] = ac;
 
-  p->cam_alpha = a0;
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_alpha[0] = a0;
 }
 
 void
@@ -358,7 +360,9 @@ kmlyp_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[1] = 1.0 - ac;
   p->mix_coef[2] = ac;
 
-  p->cam_alpha = a0;
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_alpha[0] = a0;
+
 }
 
 void
@@ -430,7 +434,8 @@ xc_hyb_gga_xc_apf_init(xc_func_type *p)
   funcs_coef[5]=fpbe0;
 
   xc_mix_init(p, 6, funcs_id, funcs_coef);
-  p->cam_alpha = fb3pw91*xb3pw91 + fpbe0*xpbe0;
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_alpha[0] = fb3pw91*xb3pw91 + fpbe0*xpbe0;
 }
 
 #ifdef __cplusplus
@@ -466,7 +471,8 @@ xc_hyb_gga_xc_wc04_init(xc_func_type *p)
   funcs_coef[3] = PP[3];
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
-  p->cam_alpha = PP[0];
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_alpha[0] = PP[0];
 }
 
 #ifdef __cplusplus
@@ -503,7 +509,8 @@ xc_hyb_gga_xc_wp04_init(xc_func_type *p)
   funcs_coef[3] = PP[3];
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
-  p->cam_alpha = PP[0];
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_alpha[0] = PP[0];
 }
 
 #ifdef __cplusplus
@@ -560,7 +567,8 @@ mcm1_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[2] = p6 - p5;
   p->mix_coef[3] = p5;
 
-  p->cam_alpha = p2;
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_alpha[0] = p2;
 }
 
 void

@@ -52,30 +52,38 @@ gga_xc_wb97_init(xc_func_type *p)
 
   switch(p->info->number){
   case XC_HYB_GGA_XC_WB97:
-    p->cam_alpha =  1.0;
-    p->cam_omega =  0.4;
-    p->cam_beta  = -1.0;
     memcpy(params, &par_wb97, sizeof(gga_xc_wb97_params));
+    p->hyb_type[0]  = XC_HYB_ERF_SR;
+    p->hyb_alpha[0] = -1.0;
+    p->hyb_omega[0] = 0.4;
+    p->hyb_type[1]  = XC_HYB_FOCK;
+    p->hyb_alpha[1] = 1.0;
     break;
   case XC_HYB_GGA_XC_WB97X:
-    p->cam_alpha =  1.0;
-    p->cam_omega =  0.3;
-    p->cam_beta  = -(1.0 - 1.57706e-01);
     memcpy(params, &par_wb97x, sizeof(gga_xc_wb97_params));
+    p->hyb_type[0]  = XC_HYB_ERF_SR;
+    p->hyb_alpha[0] = -(1.0 - 1.57706e-01);
+    p->hyb_omega[0] = 0.3;
+    p->hyb_type[1]  = XC_HYB_FOCK;
+    p->hyb_alpha[1] = 1.0;
     break;
   case XC_HYB_GGA_XC_WB97X_V:
-    p->cam_alpha =  1.0;
-    p->cam_omega =  0.3;
-    p->cam_beta  = -(1.0 - 0.167);
+    memcpy(params, &par_wb97x_v, sizeof(gga_xc_wb97_params));
+    p->hyb_type[0]  = XC_HYB_ERF_SR;
+    p->hyb_alpha[0] = -(1.0 - 0.167);
+    p->hyb_omega[0] = 0.3;
+    p->hyb_type[1]  = XC_HYB_FOCK;
+    p->hyb_alpha[1] = 1.0;
     p->nlc_b = 6.0;
     p->nlc_C = 0.01;
-    memcpy(params, &par_wb97x_v, sizeof(gga_xc_wb97_params));
     break;
   case XC_HYB_GGA_XC_WB97X_D:
-    p->cam_alpha =  1.0;
-    p->cam_omega =  0.2;
-    p->cam_beta  = -(1.0 - 2.22036e-01);
     memcpy(params, &par_wb97x_d, sizeof(gga_xc_wb97_params));
+    p->hyb_type[0]  = XC_HYB_ERF_SR;
+    p->hyb_alpha[0] = -(1.0 - 2.22036e-01);
+    p->hyb_omega[0] = 0.2;
+    p->hyb_type[1]  = XC_HYB_FOCK;
+    p->hyb_alpha[1] = 1.0;
     break;
   default:
     fprintf(stderr, "Internal error in gga_wb97\n");

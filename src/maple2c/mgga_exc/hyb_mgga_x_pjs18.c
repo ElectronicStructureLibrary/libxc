@@ -215,7 +215,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t14 = t13 * t13;
   t15 = t4 * t4;
   t16 = t14 * t15;
-  t17 = t16 * p->cam_omega;
+  t17 = t16 * p->hyb_omega[0];
   t18 = 0.1e1 / t11;
   t19 = t2 * t18;
   t20 = M_CBRT6;
@@ -506,7 +506,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t683 = t286 * t682;
   t688 = t301 * t167;
   t689 = t527 * t688;
-  t695 = p->cam_omega * t2;
+  t695 = p->hyb_omega[0] * t2;
   t696 = t16 * t695;
   t697 = t18 * t470;
   t706 = -0.40121303703703703704e0 * t25 * t439 - 0.57385579652827622400e-1 * t37 * t297 * t163;
@@ -1929,7 +1929,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, const double *sig
   t11 = t10 * t10;
   t12 = t4 * t4;
   t13 = t11 * t12;
-  t14 = t13 * p->cam_omega;
+  t14 = t13 * p->hyb_omega[0];
   t15 = 0.1e1 / t8;
   t16 = t2 * t15;
   t17 = M_CBRT6;
@@ -2010,7 +2010,7 @@ func_ferr(const xc_func_type *p, int order, const double *rho, const double *sig
   t142 = t4 * t7;
   t143 = 0.1e1 / t140;
   t144 = t2 * t143;
-  t148 = p->cam_omega * t2;
+  t148 = p->hyb_omega[0] * t2;
   t149 = t13 * t148;
   t151 = 0.1e1 / t43 / t42;
   t152 = t15 * t151;
@@ -4346,7 +4346,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t20 = t19 * t19;
   t21 = t4 * t4;
   t22 = t20 * t21;
-  t23 = t22 * p->cam_omega;
+  t23 = t22 * p->hyb_omega[0];
   t24 = 0.1e1 / t17;
   t25 = t2 * t24;
   t26 = M_CBRT6;
@@ -4507,7 +4507,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t282 = 0.1e1 / t281;
   t283 = t2 * t282;
   t285 = t23 * t283 * t57;
-  t287 = p->cam_omega * t2;
+  t287 = p->hyb_omega[0] * t2;
   t288 = t22 * t287;
   t290 = 0.1e1 / t53 / t52;
   t291 = t24 * t290;

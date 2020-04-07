@@ -95,7 +95,8 @@ hyb_mgga_x_ms2h_init(xc_func_type *p)
   static double funcs_coef[1] = {0.91};
 
   xc_mix_init(p, 1, funcs_id, funcs_coef);
-  p->cam_alpha = 0.09;
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_alpha[0] = 0.09;
 }
 
 #ifdef __cplusplus

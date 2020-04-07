@@ -43,7 +43,8 @@ gga_x_sogga11_init(xc_func_type *p)
     break;
   case XC_HYB_GGA_X_SOGGA11_X:
     memcpy(params, &par_sogga11_x, sizeof(gga_x_sogga11_params));
-    p->cam_alpha = 0.4015;
+    p->hyb_type[0]  = XC_HYB_FOCK;
+    p->hyb_alpha[0] = 0.4015;
     break;
   default:
     fprintf(stderr, "Internal error in gga_x_sogga11\n");

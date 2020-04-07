@@ -12,7 +12,7 @@ $define lda_x_params
 $include "lda_x.mpl"
 $include "attenuation.mpl"
 
-a_cnst := (4/(9*Pi))^(1/3)*p_a_cam_omega/2:
+a_cnst := (4/(9*Pi))^(1/3)*p_a_hyb_omega_0_/2:
 
 lda_x_erf_spin := (rs, z) -> 
   lda_x_ax*(1 + z)^(4/3)/rs * attenuation_erf(a_cnst*rs/(1 + z)^(1/3)):

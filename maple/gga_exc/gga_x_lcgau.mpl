@@ -22,7 +22,7 @@ $include "gga_x_b88.mpl"
    Note that there is a misprint sqrt(mu) -> sqrt(pi)
 *)
 lcgau_arg := (rs, z, xs) ->
-  p_a_cam_omega*sqrt(2*X_FACTOR_C*b88_f(xs)/Pi)/(6*n_spin(rs, z)^(1/3)):
+  p_a_hyb_omega_0_*sqrt(2*X_FACTOR_C*b88_f(xs)/Pi)/(6*n_spin(rs, z)^(1/3)):
 
 (* Eq. 4 + Eq. 8 *)
 lcgau_f := (rs, z, xs) ->  b88_f(xs) * (

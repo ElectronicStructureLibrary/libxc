@@ -80,9 +80,11 @@ xc_hyb_gga_xc_cam_qtp_init(xc_func_type *p)
 
   xc_func_set_ext_params(p->func_aux[1], &omega);
 
-  p->cam_omega = omega;
-  p->cam_alpha = cam_alpha;
-  p->cam_beta  = cam_beta;
+  p->hyb_type[0]  = XC_HYB_ERF_SR;
+  p->hyb_alpha[0] = cam_beta;
+  p->hyb_omega[0] = omega;
+  p->hyb_type[1]  = XC_HYB_FOCK;
+  p->hyb_alpha[1] = cam_alpha;
 }
 
 #ifdef __cplusplus

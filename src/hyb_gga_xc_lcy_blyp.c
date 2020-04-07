@@ -25,9 +25,11 @@ xc_hyb_gga_xc_lcy_blyp_init(xc_func_type *p)
 
   xc_func_set_ext_params(p->func_aux[0], &gamma);
   
-  p->cam_omega = gamma;
-  p->cam_alpha = 1.0;
-  p->cam_beta  = -1.0;
+  p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
+  p->hyb_alpha[0] = -1.0;
+  p->hyb_omega[0] = gamma;
+  p->hyb_type[1]  = XC_HYB_FOCK;
+  p->hyb_alpha[1] = 1.0;
 }
 
 #ifdef __cplusplus

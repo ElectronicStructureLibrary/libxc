@@ -61,14 +61,22 @@ extern "C" {
 #define XC_FLAGS_DEVELOPMENT      (1 << 14) /* 16384 */
 #define XC_FLAGS_NEEDS_LAPLACIAN  (1 << 15) /* 32768 */
 
-  /* This is the case for most functionals in libxc */
+/* This is the case for most functionals in libxc */
 #define XC_FLAGS_HAVE_ALL         (XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | \
                                    XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC | \
                                    XC_FLAGS_HAVE_LXC)
 
-  /* This magic value means use default parameter */
+/* This magic value means use default parameter */
 #define XC_EXT_PARAMS_DEFAULT   -999998888
 
+/* Different flavors of many-body terms used in hybrids */
+#define XC_HYB_NONE             0
+#define XC_HYB_FOCK             1  /* Normal hybrid */
+#define XC_HYB_MP2              2  /* Used for double hybrids */
+#define XC_HYB_ERF_SR           4  /* Short range of range separated - erf version */
+#define XC_HYB_YUKAWA_SR        8  /* Short range of range separated - Yakawa version */
+#define XC_HYB_GAUSSIAN_SR     16  /* Short range of range separated - Gaussian version */
+  
 #define XC_TAU_EXPLICIT         0
 #define XC_TAU_EXPANSION        1
 
@@ -197,18 +205,18 @@ struct xc_func_type{
 
   /**
      Parameters for range-separated hybrids
-     cam_omega: the range separation constant
-     cam_alpha: fraction of full Hartree-Fock exchange, used both for
+     hyb_type[i]:  XC_HYB_NONE, XC_HYB_FOCK, XC_HYB_ERF_SR, etc.
+     hyb_omega[i]: the range separation constant
+     hyb_alpha[i]: fraction of exchange, used both for
                 usual hybrids as well as range-separated ones
-     cam_beta:  fraction of short-range only(!) exchange in
-                range-separated hybrids
 
      N.B. Different conventions for alpha and beta can be found in
      literature. In the convention used in libxc, at short range the
      fraction of exact exchange is cam_alpha+cam_beta, while at long
      range it is cam_alpha.
   */
-  double cam_omega, cam_alpha, cam_beta;
+  int hyb_type[5];
+  double hyb_omega[5], hyb_alpha[5];
 
   double nlc_b;                /* Non-local correlation, b parameter */
   double nlc_C;                /* Non-local correlation, C parameter */

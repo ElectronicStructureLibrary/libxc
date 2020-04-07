@@ -196,7 +196,7 @@ xc_func_type *xc_func_alloc()
 /*------------------------------------------------------*/
 int xc_func_init(xc_func_type *func, int functional, int nspin)
 {
-  int number;
+  int ii, number;
 
   assert(func != NULL);
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
@@ -209,7 +209,11 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
   func->n_func_aux = 0;
   func->func_aux   = NULL;
   func->mix_coef   = NULL;
-  func->cam_omega = func->cam_alpha = func->cam_beta = 0.0;
+  for(ii=0; ii<5; ii++){
+    func->hyb_type[ii]  = XC_HYB_NONE;
+    func->hyb_alpha[ii] = 0.0;
+    func->hyb_omega[ii] = 0.0; 
+  }
   func->nlc_b = func->nlc_C = 0.0;
 
   // we have to make a copy because the *_known_funct arrays live in
@@ -358,22 +362,24 @@ xc_func_set_ext_params_name(xc_func_type *p, const char *name, double par)
 
 
 /*------------------------------------------------------*/
-/* returns the mixing coefficient for the hybrid GGAs */
+/* returns the mixing coefficient for the hybrid functions */
 double xc_hyb_exx_coef(const xc_func_type *p)
 {
   assert(p!=NULL);
- 
-  return p->cam_alpha;
+  assert(p->hyb_type[0] == XC_HYB_FOCK);
+  
+  return p->hyb_alpha[0];
 }
 
 /* returns the CAM parameters for screened hybrids */
 void xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *beta)
 {
   assert(p!=NULL);
+  assert(p->hyb_type[1] == XC_HYB_ERF_SR && p->hyb_type[0] == XC_HYB_FOCK);
 
-  *omega = p->cam_omega;
-  *alpha = p->cam_alpha;
-  *beta  = p->cam_beta;
+  *alpha = p->hyb_alpha[1];
+  *omega = p->hyb_omega[0];
+  *beta  = p->hyb_alpha[0];
 }
 
 /* returns the NLC parameters */

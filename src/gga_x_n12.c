@@ -62,9 +62,9 @@ gga_x_n12_init(xc_func_type *p)
     break;
   case XC_HYB_GGA_X_N12_SX:
     pCC = CC_N12_SX;
-    p->cam_alpha = 0.00;
-    p->cam_beta  = 0.25;
-    p->cam_omega = 0.11;
+    p->hyb_type[0]  = XC_HYB_ERF_SR;
+    p->hyb_alpha[0] = 0.25;
+    p->hyb_omega[0] = 0.11;
     break;
   case XC_GGA_X_GAM:
     pCC = CC_GAM;

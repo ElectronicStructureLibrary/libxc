@@ -68,10 +68,11 @@ s12h_set_ext_params(xc_func_type *p, const double *ext_params)
   params->C    = get_ext_param(p, ext_params, 2);
   params->D    = get_ext_param(p, ext_params, 3);
   params->E    = get_ext_param(p, ext_params, 4);
-  p->cam_alpha = get_ext_param(p, ext_params, 5);
-  params->bx   = 1.0 - p->cam_alpha;
-  p->cam_beta  = 0.0;
-  p->cam_omega = 0.0;
+
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_alpha[0] = get_ext_param(p, ext_params, 5);
+
+  params->bx   = 1.0 - p->hyb_alpha[0];
 }
 
 #include "decl_gga.h"

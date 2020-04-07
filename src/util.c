@@ -141,7 +141,7 @@ static void copy_params(xc_func_type *p, const double *ext_params, int nparams) 
 
   assert(nparams >= 0);
   if(nparams) {
-    /* Some functionals only set the cam parameters which require no extra storage */
+    /* Some functionals only set the hybrid parameters which require no extra storage */
     assert(p->params != NULL);
     params = (double *) (p->params);
     for(ii=0; ii<nparams; ii++)
@@ -157,9 +157,6 @@ set_ext_params_cpy(xc_func_type *p, const double *ext_params)
   assert(p != NULL);
   nparams = p->info->ext_params.n;
   copy_params(p, ext_params, nparams);
-  p->cam_alpha = 0.0;
-  p->cam_beta = 0.0;
-  p->cam_omega = 0.0;
 }
 
 /*
@@ -173,9 +170,11 @@ set_ext_params_cpy_omega(xc_func_type *p, const double *ext_params)
   assert(p != NULL);
   nparams = p->info->ext_params.n-1;
   copy_params(p, ext_params, nparams);
-  p->cam_alpha = 0.0;
-  p->cam_beta = 0.0;
-  p->cam_omega = get_ext_param(p, ext_params, nparams);
+
+  /* This omega is only meant for internal use */
+  p->hyb_type[0]  = XC_HYB_NONE;
+  p->hyb_alpha[0] = 0.0;
+  p->hyb_omega[0] = get_ext_param(p, ext_params, nparams);
 }
 
 /*
@@ -189,13 +188,14 @@ set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params)
   assert(p != NULL);
   nparams = p->info->ext_params.n-1;
   copy_params(p, ext_params, nparams);
-  p->cam_alpha = get_ext_param(p, ext_params, nparams);
-  p->cam_beta = 0.0;
-  p->cam_omega = 0.0;
+
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_alpha[0] = get_ext_param(p, ext_params, nparams);
+  p->hyb_omega[0] = 0.0;
 }
 
 /*
-   Copies parameters and sets the CAM coefficients, which
+   Copies parameters and sets the HYB coefficients, which
    should be the three last parameters of the functional.
 */
 void
@@ -203,11 +203,22 @@ set_ext_params_cpy_cam(xc_func_type *p, const double *ext_params)
 {
   int nparams;
   assert(p != NULL);
-  nparams = p->info->ext_params.n-3;
-  copy_params(p, ext_params, p->info->ext_params.n-3);
-  p->cam_alpha = get_ext_param(p, ext_params, nparams);
-  p->cam_beta  = get_ext_param(p, ext_params, nparams+1);
-  p->cam_omega = get_ext_param(p, ext_params, nparams+2);
+  nparams = p->info->ext_params.n - 3;
+  copy_params(p, ext_params, p->info->ext_params.n - 3);
+
+  p->hyb_type[0]  = XC_HYB_ERF_SR;
+  p->hyb_alpha[0] = get_ext_param(p, ext_params, nparams + 1);
+  p->hyb_omega[0] = get_ext_param(p, ext_params, nparams + 2);
+
+  p->hyb_type[1]  = XC_HYB_FOCK;
+  p->hyb_alpha[1] = get_ext_param(p, ext_params, nparams);
+  p->hyb_omega[1] = 0.0;
+}
+
+set_ext_params_cpy_camy(xc_func_type *p, const double *ext_params)
+{
+  set_ext_params_cpy_cam(p, ext_params);
+  p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
 }
 
 /* these functional handle the internal counters

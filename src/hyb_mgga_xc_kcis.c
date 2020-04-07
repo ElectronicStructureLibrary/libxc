@@ -54,7 +54,8 @@ hyb_mgga_xc_kcis_init(xc_func_type *p)
   funcs_coef[1] = 1.0;
   
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = exx;
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_alpha[0] = exx;
 }
 
 #ifdef __cplusplus

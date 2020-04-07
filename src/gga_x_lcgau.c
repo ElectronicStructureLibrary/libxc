@@ -54,7 +54,12 @@ lcgau_set_ext_params(xc_func_type *p, const double *ext_params)
   params->k1 = get_ext_param(p, ext_params, 1);
   params->a2 = get_ext_param(p, ext_params, 2);
   params->k2 = get_ext_param(p, ext_params, 3);
-  p->cam_omega = get_ext_param(p, ext_params, 4);
+
+  /* WARNING: THE HYBRID PARAMETERS ARE WRONG! */
+  p->hyb_type[0]  = XC_HYB_GAUSSIAN_SR;
+  p->hyb_alpha[0] = 1.0;
+
+  p->hyb_omega[0] = get_ext_param(p, ext_params, 4);
 }
 
 #include "decl_gga.h"

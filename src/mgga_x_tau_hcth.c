@@ -47,12 +47,14 @@ mgga_x_tau_hcth_init(xc_func_type *p)
       params->cx_nlocal[ii] = tHCTH_cx_nlocal[ii];
       break;
     case XC_HYB_MGGA_X_BMK:
-      p->cam_alpha = 0.42;
+      p->hyb_type[0]  = XC_HYB_FOCK;
+      p->hyb_alpha[0] = 0.42;
       params->cx_local[ii]  = BMK_cx_local[ii];
       params->cx_nlocal[ii] = BMK_cx_nlocal[ii];
     break;
     case XC_HYB_MGGA_X_TAU_HCTH:
-      p->cam_alpha = 0.15;
+      p->hyb_type[0]  = XC_HYB_FOCK;
+      p->hyb_alpha[0] = 0.15;
       params->cx_local[ii]  = hyb_tHCTH_cx_local[ii];
       params->cx_nlocal[ii] = hyb_tHCTH_cx_nlocal[ii];
       break;

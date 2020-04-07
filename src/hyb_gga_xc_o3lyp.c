@@ -34,7 +34,8 @@ gga_xc_o3lyp_init(xc_func_type *p)
   funcs_coef[3] = CC;
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
-  p->cam_alpha = a;
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_alpha[0] = a;
 }
 
 #ifdef __cplusplus
@@ -71,7 +72,8 @@ gga_xc_x3lyp_init(xc_func_type *p)
   funcs_coef[4] = ac;
 
   xc_mix_init(p, 5, funcs_id, funcs_coef);
-  p->cam_alpha = a0;
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_alpha[0] = a0;
 }
 
 #ifdef __cplusplus

@@ -31,20 +31,6 @@ gga_x_pw91_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_x_pw91_params));
 }
 
-static void
-pw91_set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  gga_x_pw91_params *params;
-
-  params->a     = get_ext_param(p, ext_params, 0);
-  params->b     = get_ext_param(p, ext_params, 1);
-  params->c     = get_ext_param(p, ext_params, 2);
-  params->d     = get_ext_param(p, ext_params, 3);
-  params->f     = get_ext_param(p, ext_params, 4);
-  params->alpha = get_ext_param(p, ext_params, 5);
-  params->expo  = get_ext_param(p, ext_params, 6);
-}
-
 /*
   === from nwchem source (xc_xmpw91.F) ===
   C. Adamo confirmed that there is a typo in the JCP paper
@@ -96,7 +82,7 @@ const xc_func_info_type xc_func_info_gga_x_pw91 = {
   {&xc_ref_Perdew1991, &xc_ref_Perdew1992_6671, &xc_ref_Perdew1992_6671_err, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  {PW91_N_PAR, pw91_names, pw91_desc, pw91_values, pw91_set_ext_params},
+  {PW91_N_PAR, pw91_names, pw91_desc, pw91_values, set_ext_params_cpy},
   gga_x_pw91_init, NULL,
   NULL, work_gga, NULL
 };

@@ -15,31 +15,20 @@ typedef struct{
   double a, b, c, d, f, alpha, expo;
 } gga_x_pw91_params;
 
+#define PW91_N_PAR 7
+static const char  *pw91_names[PW91_N_PAR]  = {"_a", "_b", "_c", "_d", "_f", "_alpha", "_expo"};
+static const char  *pw91_desc[PW91_N_PAR]   = {"a parameter", "b parameter", "c parameter", "d parameter", "f parameter", "alpha parameter", "exponent"};
+
 /* in the PW91 paper the parameters are given with few
    significant digits. */
-static gga_x_pw91_params par_x_pw91 = /* b_PW91 ~ 0.0042 */
+static const double pw91_values[PW91_N_PAR] = /* b_PW91 ~ 0.0042 */
   {0.19645, 7.7956, 0.2743, -0.1508, 0.004, 100.0, 4.0};
 
-static void 
+static void
 gga_x_pw91_init(xc_func_type *p)
 {
-  gga_x_pw91_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_pw91_params));
-  params = (gga_x_pw91_params *) (p->params);
-
-  switch(p->info->number){
-  case XC_GGA_X_PW91:
-    memcpy(params, &par_x_pw91, sizeof(gga_x_pw91_params));
-    break;
-  case XC_GGA_X_MPW91:
-    /* default set by set_ext_params */
-    break;
-  default:
-    fprintf(stderr, "Internal error in gga_x_pw91\n");
-    exit(1);
-  } 
 }
 
 /*
@@ -48,21 +37,21 @@ gga_x_pw91_init(xc_func_type *p)
   b_mPW91 is 0.00426 instead of 0.0046
   also the power seems to be 3.72 and not 3.73
 */
-#define PW91_N_PAR 3
-static const char  *pw91_names[PW91_N_PAR]  = {"_bt", "_alpha", "_expo"};
-static const char  *pw91_desc[PW91_N_PAR]   = {
+#define MPW91_N_PAR 3
+static const char  *mpw91_names[MPW91_N_PAR]  = {"_bt", "_alpha", "_expo"};
+static const char  *mpw91_desc[MPW91_N_PAR]   = {
   "a = 6 bt/X2S",
   "parameter of the exponential term",
   "exponent of the power in the numerator"};
-static const double mpw91_values[PW91_N_PAR] =
+static const double mpw91_values[MPW91_N_PAR] =
   {0.00426, 100.0, 3.72};
 
-static void 
-pw91_set_ext_params(xc_func_type *p, const double *ext_params)
+static void
+mpw91_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   gga_x_pw91_params *params;
   double bt, beta;
-  
+
   assert(p != NULL && p->params != NULL);
   params = (gga_x_pw91_params *) (p->params);
 
@@ -93,7 +82,7 @@ const xc_func_info_type xc_func_info_gga_x_pw91 = {
   {&xc_ref_Perdew1991, &xc_ref_Perdew1992_6671, &xc_ref_Perdew1992_6671_err, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  {0, NULL, NULL, NULL, NULL},
+  {PW91_N_PAR, pw91_names, pw91_desc, pw91_values, set_ext_params_cpy},
   gga_x_pw91_init, NULL,
   NULL, work_gga, NULL
 };
@@ -109,7 +98,7 @@ const xc_func_info_type xc_func_info_gga_x_mpw91 = {
   {&xc_ref_Adamo1998_664, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-31,
-  {PW91_N_PAR, pw91_names, pw91_desc, mpw91_values, pw91_set_ext_params},
+  {MPW91_N_PAR, mpw91_names, mpw91_desc, mpw91_values, mpw91_set_ext_params},
   gga_x_pw91_init, NULL,
   NULL, work_gga, NULL
 };

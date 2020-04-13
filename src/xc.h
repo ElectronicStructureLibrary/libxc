@@ -83,7 +83,7 @@ extern "C" {
 */
 #define XC_HYB_NONE             0
 #define XC_HYB_FOCK             1  /* Normal hybrid */
-#define XC_HYB_MP2              2  /* Used for double hybrids */
+#define XC_HYB_PT2              2  /* Used for double hybrids */
 #define XC_HYB_ERF_SR           4  /* Short range of range separated - erf version */
 #define XC_HYB_YUKAWA_SR        8  /* Short range of range separated - Yakawa version */
 #define XC_HYB_GAUSSIAN_SR     16  /* Short range of range separated - Gaussian version */

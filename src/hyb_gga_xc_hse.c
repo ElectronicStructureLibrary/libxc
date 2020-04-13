@@ -68,6 +68,7 @@ hyb_gga_xc_hse_init(xc_func_type *p)
 
   /* Note that the value of funcs_coef[1] will be set by set_ext_params */
   xc_mix_init(p, 3, funcs_id, funcs_coef);
+  xc_hyb_init_sr(p, 0.0, 0.0);
 }
 
 static void
@@ -83,8 +84,9 @@ hse03_set_ext_params(xc_func_type *p, const double *ext_params)
 
   p->mix_coef[1] = -beta;
 
-  p->cam_beta  = beta;
-  p->cam_omega = omega_HF;
+  p->hyb_coeff[0] = beta;
+  p->hyb_omega[0] = omega_HF;
+
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", 0.0);
   xc_func_set_ext_params_name(p->func_aux[1], "_omega", omega_PBE);
 }
@@ -160,10 +162,10 @@ hyb_gga_xc_hse_sol_init(xc_func_type *p)
   double funcs_coef[3] = {1.0, -0.25, 1.0};
 
   xc_mix_init(p, 3, funcs_id, funcs_coef);
-  p->cam_omega = 0.11;
-  p->cam_beta  = 0.25;
+  xc_hyb_init_sr(p, 0.11, 0.25);
+
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", 0.0);
-  xc_func_set_ext_params_name(p->func_aux[1], "_omega", 0.11);
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_omega[0]);
 }
 
 
@@ -190,11 +192,9 @@ hyb_gga_xc_lc_wpbe_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_hyb_init_cam(p, 0.4, 1.0, -1.0);
 
-  p->cam_omega =  0.4;
-  p->cam_alpha =  1.0;
-  p->cam_beta  = -1.0;
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->cam_omega);
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
 }
 
 #ifdef __cplusplus
@@ -221,11 +221,9 @@ hyb_gga_xc_lrc_wpbeh_init(xc_func_type *p)
   static double funcs_coef[2] = {0.8, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_hyb_init_cam(p, 0.2, 1.0, -0.8);
 
-  p->cam_omega =  0.2;
-  p->cam_alpha =  1.0;
-  p->cam_beta  = -0.8;
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->cam_omega);
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
 }
 
 static void
@@ -235,11 +233,9 @@ hyb_gga_xc_lrc_wpbe_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_hyb_init_cam(p, 0.3, 1.0, -1.0);
 
-  p->cam_omega =  0.3;
-  p->cam_alpha =  1.0;
-  p->cam_beta  = -1.0;
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->cam_omega);
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
 }
 
 #ifdef __cplusplus
@@ -281,11 +277,9 @@ hyb_gga_xc_lc_wpbe_whs_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_hyb_init_cam(p, 0.4, 1.0, -1.0);
 
-  p->cam_omega =  0.4;
-  p->cam_alpha =  1.0;
-  p->cam_beta  = -1.0;
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->cam_omega);
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
 }
 
 static void
@@ -295,11 +289,9 @@ hyb_gga_xc_lc_wpbe08_whs_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_hyb_init_cam(p, 0.45, 1.0, -1.0);
 
-  p->cam_omega =  0.45;
-  p->cam_alpha =  1.0;
-  p->cam_beta  = -1.0;
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->cam_omega);
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
 }
 
 static void
@@ -309,11 +301,9 @@ hyb_gga_xc_lc_wpbesol_whs_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_hyb_init_cam(p, 0.60, 1.0, -1.0);
 
-  p->cam_omega =  0.60;
-  p->cam_alpha =  1.0;
-  p->cam_beta  = -1.0;
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->cam_omega);
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
 }
 
 static void
@@ -323,11 +313,9 @@ hyb_gga_xc_lc_wpbeh_whs_init(xc_func_type *p)
   static double funcs_coef[2] = {0.75, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_hyb_init_cam(p, 0.4, 1.0, -0.75);
 
-  p->cam_omega =  0.4;
-  p->cam_alpha =  1.0;
-  p->cam_beta  = -0.75;
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->cam_omega);
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
 }
 
 #ifdef __cplusplus
@@ -419,11 +407,10 @@ hyb_gga_xc_hjs_init(xc_func_type *p)
   }
 
   xc_mix_init(p, 3, funcs_id, funcs_coef);
+  xc_hyb_init_sr(p, 0.11, 0.25);
 
-  p->cam_omega = 0.11;
-  p->cam_beta  = 0.25;
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", 0.0);
-  xc_func_set_ext_params_name(p->func_aux[1], "_omega", 0.11);
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_omega[0]);
 }
 
 #ifdef __cplusplus

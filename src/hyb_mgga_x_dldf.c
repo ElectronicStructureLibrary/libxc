@@ -14,7 +14,7 @@
 static void
 mgga_x_dldf_init(xc_func_type *p)
 {
-  p->cam_alpha   = 0.6144129;
+  xc_hyb_init_hybrid(p, 0.6144129);
 }
 
 #include "decl_mgga.h"

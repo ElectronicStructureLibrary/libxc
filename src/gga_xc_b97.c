@@ -177,6 +177,22 @@ gga_xc_b97_init(xc_func_type *p)
 {
   assert(p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_xc_b97_params));
+
+  if(p->info->number == XC_HYB_GGA_XC_B97   ||
+     p->info->number == XC_HYB_GGA_XC_B97_1 ||
+     p->info->number == XC_HYB_GGA_XC_B97_2 ||
+     p->info->number == XC_HYB_GGA_XC_B97_K ||
+     p->info->number == XC_HYB_GGA_XC_B97_3 ||
+     p->info->number == XC_HYB_GGA_XC_SB98_1A ||
+     p->info->number == XC_HYB_GGA_XC_SB98_1B ||
+     p->info->number == XC_HYB_GGA_XC_SB98_1C ||
+     p->info->number == XC_HYB_GGA_XC_SB98_2A ||
+     p->info->number == XC_HYB_GGA_XC_SB98_2B ||
+     p->info->number == XC_HYB_GGA_XC_SB98_2C ||
+     p->info->number == XC_HYB_GGA_XC_B97_1P){
+    xc_hyb_init_hybrid(p, 0.0);
+  }
+     
 }
 
 #include "decl_gga.h"

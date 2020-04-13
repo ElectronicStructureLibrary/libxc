@@ -29,13 +29,11 @@ hyb_gga_xc_lc_vv10_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0, 1.0};
   
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  
-  p->cam_omega = 0.45;
-  p->cam_alpha =  1.0;
-  p->cam_beta  = -1.0;
+  xc_hyb_init_cam(p, 0.45, 1.0, -1.0);
+
   p->nlc_b = 6.3;
   p->nlc_C = 0.0089;
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->cam_omega);  
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);  
 }
 
 #ifdef __cplusplus

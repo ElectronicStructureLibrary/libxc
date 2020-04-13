@@ -194,6 +194,29 @@ xc_func_type *xc_func_alloc()
 }
 
 /*------------------------------------------------------*/
+void xc_func_nullify(xc_func_type *func)
+{
+  assert(func != NULL);
+
+  func->info       = NULL;
+  func->nspin      = XC_UNPOLARIZED;
+
+  func->n_func_aux = 0;
+  func->func_aux   = NULL;
+  func->mix_coef   = NULL;
+
+  func->hyb_number_terms = 0;
+  func->hyb_type   = NULL;
+  func->hyb_coeff  = NULL;
+  func->hyb_omega  = NULL;
+
+  func->nlc_b = func->nlc_C = 0.0;
+
+  func->params     = NULL;
+  func->dens_threshold = 0.0;
+}
+
+/*------------------------------------------------------*/
 int xc_func_init(xc_func_type *func, int functional, int nspin)
 {
   int number;
@@ -201,16 +224,10 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
   assert(func != NULL);
   assert(nspin==XC_UNPOLARIZED || nspin==XC_POLARIZED);
 
+  xc_func_nullify(func);
+
   /* initialize structure */
   func->nspin       = nspin;
-
-  func->params     = NULL;
-
-  func->n_func_aux = 0;
-  func->func_aux   = NULL;
-  func->mix_coef   = NULL;
-  func->cam_omega = func->cam_alpha = func->cam_beta = 0.0;
-  func->nlc_b = func->nlc_C = 0.0;
 
   // we have to make a copy because the *_known_funct arrays live in
   // host memory (libxc_malloc instead returns memory than can be read
@@ -286,22 +303,26 @@ void xc_func_end(xc_func_type *func)
       libxc_free(func->func_aux[ii]);
     }
     libxc_free(func->func_aux);
-    func->n_func_aux = 0;
   }
 
-  if(func->mix_coef != NULL){
+  /* deallocate coefficients for mixed functionals */
+  if(func->mix_coef != NULL)
     libxc_free(func->mix_coef);
-    func->mix_coef = NULL;
+
+  /* deallocate hybrid coefficients */
+  if(func->hyb_type != NULL){
+    libxc_free(func->hyb_type);
+    libxc_free(func->hyb_omega);
+    libxc_free(func->hyb_coeff);
   }
 
   /* deallocate any used parameter */
-  if(func->params != NULL){
+  if(func->params != NULL)
     libxc_free(func->params);
-    func->params = NULL;
-  }
-
+  
   libxc_free((void *) func->info);
-  func->info = NULL;  
+
+  xc_func_nullify(func);
 }
 
 /*------------------------------------------------------*/
@@ -356,25 +377,6 @@ xc_func_set_ext_params_name(xc_func_type *p, const char *name, double par)
   libxc_free(ext_params);
 }
 
-
-/*------------------------------------------------------*/
-/* returns the mixing coefficient for the hybrid GGAs */
-double xc_hyb_exx_coef(const xc_func_type *p)
-{
-  assert(p!=NULL);
- 
-  return p->cam_alpha;
-}
-
-/* returns the CAM parameters for screened hybrids */
-void xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *beta)
-{
-  assert(p!=NULL);
-
-  *omega = p->cam_omega;
-  *alpha = p->cam_alpha;
-  *beta  = p->cam_beta;
-}
 
 /* returns the NLC parameters */
 void xc_nlc_coef(const xc_func_type *p, double *nlc_b, double *nlc_C)

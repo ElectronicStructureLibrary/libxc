@@ -23,7 +23,8 @@ hyb_gga_xc_edf2_init(xc_func_type *p)
   xc_mix_init(p, 6, funcs_id, funcs_coef);  
   xc_func_set_ext_params(p->func_aux[2], par_x_b88);
   xc_func_set_ext_params(p->func_aux[5], par_c_lyp);
-  p->cam_alpha = 0.1695;
+
+  xc_hyb_init_hybrid(p, 0.1695);
 }
 
 #ifdef __cplusplus

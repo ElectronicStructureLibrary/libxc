@@ -39,9 +39,8 @@ xc_hyb_lda_xc_cam_lda0_init(xc_func_type *p)
 
   /* Set parameters */
   xc_func_set_ext_params(p->func_aux[1], &omega);
-  p->cam_omega = omega;
-  p->cam_alpha = alpha;
-  p->cam_beta  = beta;
+
+  xc_hyb_init_cam(p, omega, alpha, beta);
 }
 
 #ifdef __cplusplus

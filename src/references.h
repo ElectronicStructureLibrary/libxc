@@ -127,6 +127,7 @@ extern func_reference_type xc_ref_Goerigk2010_107;
 extern func_reference_type xc_ref_Golden1957_604;
 extern func_reference_type xc_ref_Gombas1965_137;
 extern func_reference_type xc_ref_Gordon1972_3122;
+extern func_reference_type xc_ref_Grimme2006_034108;
 extern func_reference_type xc_ref_Grimme2006_1787;
 extern func_reference_type xc_ref_Groth2017_135001;
 extern func_reference_type xc_ref_Gunnarsson1976_4274;

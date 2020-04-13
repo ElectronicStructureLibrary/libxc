@@ -1,3 +1,4 @@
+
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
                2019      Susi Lehtola
@@ -142,7 +143,7 @@ hyb_lda_xc_lda0_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0 - 0.25, 1.0 - 0.25};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.25;
+  xc_hyb_init_hybrid(p, 0.25);
 }
 
 #ifdef __cplusplus

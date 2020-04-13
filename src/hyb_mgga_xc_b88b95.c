@@ -28,7 +28,7 @@ xc_hyb_mgga_xc_b88b95_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0 - 0.28, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.28;
+  xc_hyb_init_hybrid(p, 0.28);
 }
 
 #ifdef __cplusplus
@@ -56,7 +56,7 @@ xc_hyb_mgga_xc_b86b95_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0 - 0.28, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.28;
+  xc_hyb_init_hybrid(p, 0.28);
 }
 
 #ifdef __cplusplus
@@ -84,7 +84,7 @@ xc_hyb_mgga_xc_pw86b95_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0 - 0.29, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.29;
+  xc_hyb_init_hybrid(p, 0.29);
 }
 
 #ifdef __cplusplus
@@ -112,7 +112,7 @@ xc_hyb_mgga_xc_bb1k_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0 - 0.42, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.42;
+  xc_hyb_init_hybrid(p, 0.42);
 }
 
 #ifdef __cplusplus
@@ -140,7 +140,7 @@ xc_hyb_mgga_xc_mpw1b95_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0 - 0.31, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.31;
+  xc_hyb_init_hybrid(p, 0.31);
 }
 
 #ifdef __cplusplus
@@ -168,7 +168,7 @@ xc_hyb_mgga_xc_mpwb1k_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0 - 0.44, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.44;
+  xc_hyb_init_hybrid(p, 0.44);
 }
 
 #ifdef __cplusplus
@@ -202,7 +202,7 @@ xc_hyb_mgga_xc_x1b95_init(xc_func_type *p)
   funcs_coef[2] = 1.0;
 
   xc_mix_init(p, 3, funcs_id, funcs_coef);
-  p->cam_alpha = a0;
+  xc_hyb_init_hybrid(p, a0);
 }
 
 #ifdef __cplusplus
@@ -236,7 +236,7 @@ xc_hyb_mgga_xc_xb1k_init(xc_func_type *p)
   funcs_coef[2] = 1.0;
 
   xc_mix_init(p, 3, funcs_id, funcs_coef);
-  p->cam_alpha = a0;
+  xc_hyb_init_hybrid(p, a0);
 }
 
 #ifdef __cplusplus
@@ -269,7 +269,8 @@ xc_hyb_mgga_xc_pw6b95_init(xc_func_type *p)
   xc_mix_init(p, 2, funcs_id, funcs_coef);
   xc_func_set_ext_params(p->func_aux[0], par_x_pw91);
   xc_func_set_ext_params(p->func_aux[1], par_c_bc95);
-  p->cam_alpha = 0.28;
+
+  xc_hyb_init_hybrid(p, 0.28);
 }
 
 #ifdef __cplusplus
@@ -302,7 +303,8 @@ xc_hyb_mgga_xc_pwb6k_init(xc_func_type *p)
   xc_mix_init(p, 2, funcs_id, funcs_coef);
   xc_func_set_ext_params(p->func_aux[0], par_x_pw91);
   xc_func_set_ext_params(p->func_aux[1], par_c_bc95);
-  p->cam_alpha = 0.46;
+
+  xc_hyb_init_hybrid(p, 0.46);
 }
 
 #ifdef __cplusplus

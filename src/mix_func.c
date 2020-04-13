@@ -32,9 +32,11 @@ xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix
   }
 
   /* initialize variables */
-  p->cam_omega = 0.0;
-  p->cam_alpha = 0.0;
-  p->cam_beta  = 0.0;
+  p->hyb_number_terms = 0;
+  p->hyb_type  = NULL;
+  p->hyb_coeff = NULL;
+  p->hyb_omega = NULL;
+
   p->nlc_b     = 0.0;
   p->nlc_C     = 0.0;
 }

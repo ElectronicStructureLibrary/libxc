@@ -57,9 +57,7 @@ xc_hyb_gga_xc_cam_b3lyp_init(xc_func_type *p)
 
   xc_func_set_ext_params(p->func_aux[1], &omega);
 
-  p->cam_omega = omega;
-  p->cam_alpha = alpha;
-  p->cam_beta  = beta;
+  xc_hyb_init_cam(p, omega, alpha, beta);
 }
 
 #ifdef __cplusplus
@@ -117,9 +115,7 @@ xc_hyb_gga_xc_rcam_b3lyp_init(xc_func_type *p)
   xc_mix_init(p, 4, funcs_id, funcs_coef);
   xc_func_set_ext_params(p->func_aux[2], &omega);
 
-  p->cam_omega = omega;
-  p->cam_alpha = alpha;
-  p->cam_beta  = beta;
+  xc_hyb_init_cam(p, alpha, beta, omega);
 }
 
 #ifdef __cplusplus
@@ -163,9 +159,8 @@ cam_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[0] = 1.0 - alpha;
   p->mix_coef[1] = -beta;
 
-  p->cam_alpha = alpha;
-  p->cam_beta  = beta;
-  p->cam_omega = omega_HF;
+  xc_hyb_init_cam(p, omega_HF, alpha, beta);
+
   xc_func_set_ext_params_name(p->func_aux[1], "_omega", omega_PBE);
 }
 

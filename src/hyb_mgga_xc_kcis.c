@@ -48,13 +48,13 @@ hyb_mgga_xc_kcis_init(xc_func_type *p)
 
   /* Initialize mix */
   funcs_id[0] = xid;
-  funcs_coef[0] = 1.0-exx;
+  funcs_coef[0] = 1.0 - exx;
 
   funcs_id[1] = XC_MGGA_C_KCIS;
   funcs_coef[1] = 1.0;
   
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = exx;
+  xc_hyb_init_hybrid(p, exx);
 }
 
 #ifdef __cplusplus

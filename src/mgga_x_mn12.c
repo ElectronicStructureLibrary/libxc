@@ -172,6 +172,10 @@ mgga_x_mn12_init(xc_func_type *p)
 {
   assert(p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_mn12_params));
+
+  if(p->info->number == XC_HYB_MGGA_X_MN12_SX ||
+     p->info->number == XC_HYB_MGGA_X_MN15)
+    xc_hyb_init_hybrid(p, 0.0);
 }
 
 #include "decl_mgga.h"

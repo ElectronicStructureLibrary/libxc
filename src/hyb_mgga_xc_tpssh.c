@@ -18,7 +18,7 @@ hyb_mgga_xc_tpssh_init(xc_func_type *p)
   static double funcs_coef[2] = {0.9, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.10;
+  xc_hyb_init_hybrid(p, 0.10);
 }
 
 
@@ -46,7 +46,7 @@ hyb_mgga_xc_revtpssh_init(xc_func_type *p)
   static double funcs_coef[2] = {0.9, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.10;
+  xc_hyb_init_hybrid(p, 0.10);
 }
 
 

@@ -811,6 +811,13 @@ func_reference_type xc_ref_Gordon1972_3122 = {
 };
 
 
+func_reference_type xc_ref_Grimme2006_034108 = {
+  "S. Grimme, J. Chem. Phys. 124, 034108 (2006)",
+  "10.1063/1.2148954",
+  "@article{Grimme2006_034108,\nauthor = {Grimme,Stefan },\ntitle = {Semiempirical hybrid density functional with perturbative second-order correlation},\njournal = {The Journal of Chemical Physics},\nvolume = {124},\nnumber = {3},\npages = {034108},\nyear = {2006},\ndoi = {10.1063/1.2148954},\nURL = {https://doi.org/10.1063/1.2148954},\n}"
+};
+
+
 func_reference_type xc_ref_Grimme2006_1787 = {
   "S. Grimme, J. Comput. Chem. 27, 1787 (2006)",
   "10.1002/jcc.20495",

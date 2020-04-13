@@ -61,17 +61,43 @@ extern "C" {
 #define XC_FLAGS_DEVELOPMENT      (1 << 14) /* 16384 */
 #define XC_FLAGS_NEEDS_LAPLACIAN  (1 << 15) /* 32768 */
 
-  /* This is the case for most functionals in libxc */
+/* This is the case for most functionals in libxc */
 #define XC_FLAGS_HAVE_ALL         (XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | \
                                    XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC | \
                                    XC_FLAGS_HAVE_LXC)
 
-  /* This magic value means use default parameter */
+/* This magic value means use default parameter */
 #define XC_EXT_PARAMS_DEFAULT   -999998888
 
-#define XC_TAU_EXPLICIT         0
-#define XC_TAU_EXPANSION        1
+/* Different flavors of many-body terms used in hybrids
+   The Fock term to be added to the Hamiltonian reads
 
+     F = -1/2 <i j| f(r_12)/r_12 |j i>
+
+   where the function f(r) is
+
+   *) XC_HYB_FOCK           f(r) = coeff
+   *) XC_HYB_ERF_SR         f(r) = coeff * (1 - erf(omega r))
+   *) XC_HYB_YUKAWA_SR      f(r) = coeff * exp(-omega r)
+   *) XC_HYB_GAUSSIAN_SR    f(r) = coeff * 2*omega/sqrt(pi) * exp(-omega^2 r^2)
+*/
+#define XC_HYB_NONE             0
+#define XC_HYB_FOCK             1  /* Normal hybrid */
+#define XC_HYB_PT2              2  /* Used for double hybrids */
+#define XC_HYB_ERF_SR           4  /* Short range of range separated - erf version */
+#define XC_HYB_YUKAWA_SR        8  /* Short range of range separated - Yakawa version */
+#define XC_HYB_GAUSSIAN_SR     16  /* Short range of range separated - Gaussian version */
+
+/* Different types of hybrid functionals. */
+#define XC_HYB_SEMILOCAL        0  /* Standard semi-local functional (not a hybrid) */
+#define XC_HYB_HYBRID           1  /* Standard hybrid functional */
+#define XC_HYB_SHORT_RANGE      2  /* Standard short-range hybrid */
+#define XC_HYB_CAM              3  /* Coulomb attenuated hybrid */
+#define XC_HYB_CAMY             4  /* Coulomb attenuated hybrid with a Yukawa screening */
+#define XC_HYB_CAMG             5  /* Coulomb attenuated hybrid with a Gaussian screening */
+#define XC_HYB_DOUBLE           6  /* Double hybrid */
+#define XC_HYB_MIXTURE      32768  /* More complicated mixture (have to check individual terms) */
+  
 #define XC_MAX_REFERENCES       5
 
 /* This are the derivatives that a functional returns */
@@ -124,6 +150,7 @@ char const *xc_func_reference_get_ref(const func_reference_type *reference);
 char const *xc_func_reference_get_doi(const func_reference_type *reference);
 char const *xc_func_reference_get_bibtex(const func_reference_type *reference);
 
+  
 typedef struct{
   int n; /* Number of parameters */
 
@@ -135,6 +162,7 @@ typedef struct{
   void (*set)(struct xc_func_type *p, const double *ext_params);
 } func_params_type;
 
+  
 typedef struct{
   int   number;   /* identifier number */
   int   kind;     /* XC_EXCHANGE, XC_CORRELATION, XC_EXCHANGE_CORRELATION, XC_KINETIC */
@@ -163,9 +191,11 @@ typedef struct{
                double *zk, MGGA_OUT_PARAMS_NO_EXC(double *));
 } xc_func_info_type;
 
+  
 /* for API compability with older versions of libxc */
 #define XC(func) xc_ ## func
 
+  
 int xc_func_info_get_number(const xc_func_info_type *info);
 int xc_func_info_get_kind(const xc_func_info_type *info);
 char const *xc_func_info_get_name(const xc_func_info_type *info);
@@ -173,11 +203,13 @@ int xc_func_info_get_family(const xc_func_info_type *info);
 int xc_func_info_get_flags(const xc_func_info_type *info);
 const func_reference_type *xc_func_info_get_references(const xc_func_info_type *info, int number);
 
+  
 int xc_func_info_get_n_ext_params(const xc_func_info_type *info);
 char const *xc_func_info_get_ext_params_name(const xc_func_info_type *p, int number);
 char const *xc_func_info_get_ext_params_description(const xc_func_info_type *info, int number);
 double xc_func_info_get_ext_params_default_value(const xc_func_info_type *info, int number);
 
+  
 struct xc_dimensions{
   int rho, sigma, lapl, tau;       /* spin dimensions of the arrays */
   int zk;
@@ -187,6 +219,7 @@ struct xc_dimensions{
 
 typedef struct xc_dimensions xc_dimensions;
 
+  
 struct xc_func_type{
   const xc_func_info_type *info;       /* all the information concerning this functional */
   int nspin;                           /* XC_UNPOLARIZED or XC_POLARIZED  */
@@ -197,18 +230,18 @@ struct xc_func_type{
 
   /**
      Parameters for range-separated hybrids
-     cam_omega: the range separation constant
-     cam_alpha: fraction of full Hartree-Fock exchange, used both for
+     hyb_type[i]:  XC_HYB_NONE, XC_HYB_FOCK, XC_HYB_ERF_SR, etc.
+     hyb_omega[i]: the range separation constant
+     hyb_coeff[i]: fraction of exchange, used both for
                 usual hybrids as well as range-separated ones
-     cam_beta:  fraction of short-range only(!) exchange in
-                range-separated hybrids
 
      N.B. Different conventions for alpha and beta can be found in
      literature. In the convention used in libxc, at short range the
      fraction of exact exchange is cam_alpha+cam_beta, while at long
      range it is cam_alpha.
   */
-  double cam_omega, cam_alpha, cam_beta;
+  int hyb_number_terms, *hyb_type;
+  double *hyb_coeff, *hyb_omega;
 
   double nlc_b;                /* Non-local correlation, b parameter */
   double nlc_C;                /* Non-local correlation, C parameter */
@@ -221,6 +254,7 @@ struct xc_func_type{
 
 typedef struct xc_func_type xc_func_type;
 
+  
 /* functionals */
 int   xc_functional_get_number(const char *name);
 char *xc_functional_get_name(int number);
@@ -239,9 +273,11 @@ void  xc_func_set_dens_threshold(xc_func_type *p, double dens_threshold);
 void  xc_func_set_ext_params(xc_func_type *p, double *ext_params);
 void  xc_func_set_ext_params_name(xc_func_type *p, const char *name, double par);
 
+  
 #include "xc_funcs.h"
 #include "xc_funcs_removed.h"
 
+  
 void xc_lda (const xc_func_type *p, size_t np, const double *rho,
             double *zk, LDA_OUT_PARAMS_NO_EXC(double *));
 void xc_gga (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
@@ -375,8 +411,9 @@ double xc_gga_ak13_get_asymptotic (double homo);
 /* Calculate asymptotic value of the AK13 potential with customized parameter values */
 double xc_gga_ak13_pars_get_asymptotic (double homo, const double *ext_params);
 
-/* the meta-GGAs */
 
+/* the hybrids and van der Waals functions */
+int xc_hyb_type(const xc_func_type *p);
 double xc_hyb_exx_coef(const xc_func_type *p);
 void xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *beta);
 void xc_nlc_coef(const xc_func_type *p, double *nlc_b, double *nlc_C);

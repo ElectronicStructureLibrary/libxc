@@ -27,7 +27,7 @@ xc_hyb_gga_xc_b1wc_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0 - 0.16, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.16;
+  xc_hyb_init_hybrid(p, 0.16);
 }
 
 #ifdef __cplusplus
@@ -54,7 +54,7 @@ xc_hyb_gga_xc_b1lyp_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.25;
+  xc_hyb_init_hybrid(p, 0.25);
 }
 
 #ifdef __cplusplus
@@ -81,7 +81,7 @@ xc_hyb_gga_xc_b1pw91_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0 - 0.25, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.25;
+  xc_hyb_init_hybrid(p, 0.25);
 }
 
 #ifdef __cplusplus
@@ -124,7 +124,7 @@ xc_hyb_gga_xc_mpw1pw_init(xc_func_type *p)
   }
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.25;
+  xc_hyb_init_hybrid(p, 0.25);
 }
 
 #ifdef __cplusplus
@@ -183,7 +183,7 @@ xc_hyb_gga_xc_mpw1k_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0 - 0.428, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.428;
+  xc_hyb_init_hybrid(p, 0.428);
 }
 
 #ifdef __cplusplus
@@ -210,7 +210,7 @@ xc_hyb_gga_xc_bhandh_init(xc_func_type *p)
   static double funcs_coef[2] = {0.5, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.5;
+  xc_hyb_init_hybrid(p, 0.5);
 }
 
 #ifdef __cplusplus
@@ -237,7 +237,7 @@ xc_hyb_gga_xc_bhandhlyp_init(xc_func_type *p)
   static double funcs_coef[2] = {0.5, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.5;
+  xc_hyb_init_hybrid(p, 0.5);
 }
 
 #ifdef __cplusplus
@@ -264,7 +264,7 @@ xc_hyb_gga_xc_blyp35_init(xc_func_type *p)
   static double funcs_coef[2] = {0.65, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.35;
+  xc_hyb_init_hybrid(p, 0.35);
 }
 
 #ifdef __cplusplus
@@ -291,7 +291,7 @@ xc_hyb_gga_xc_mpwlyp1m_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0 - 0.05, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  p->cam_alpha = 0.05;
+  xc_hyb_init_hybrid(p, 0.05);
 }
 
 #ifdef __cplusplus

@@ -41,6 +41,16 @@ static const double revb3lyp_values[B3LYP_N_PAR] = {0.20, 0.67, 0.84};
 static const double b3lyps_values[B3LYP_N_PAR]   = {0.15, 0.72, 0.81};
 static const double b5050lyp_values[B3LYP_N_PAR] = {0.50, 0.42, 0.81};
 
+void
+xc_hyb_gga_xc_b3pw91_init(xc_func_type *p)
+{
+  static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_PW, XC_GGA_C_PW91};
+  static double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0}; /* set by ext_params */
+
+  xc_mix_init(p, 4, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
+}
+
 static void
 b3pw91_set_ext_params(xc_func_type *p, const double *ext_params)
 {
@@ -57,16 +67,7 @@ b3pw91_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[2] = 1.0 - ac;
   p->mix_coef[3] = ac;
 
-  p->cam_alpha = a0;
-}
-
-void
-xc_hyb_gga_xc_b3pw91_init(xc_func_type *p)
-{
-  static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_PW, XC_GGA_C_PW91};
-  static double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0}; /* set by ext_params */
-
-  xc_mix_init(p, 4, funcs_id, funcs_coef);
+  p->hyb_coeff[0] = a0;
 }
 
 #ifdef __cplusplus
@@ -93,6 +94,7 @@ xc_hyb_gga_xc_b3lyp_init(xc_func_type *p)
   static double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0}; /* set by ext_params */
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -119,6 +121,7 @@ xc_hyb_gga_xc_b3lyp5_init(xc_func_type *p)
   static double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0}; /* set by ext_params */
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -145,6 +148,7 @@ xc_hyb_gga_xc_b3p86_init(xc_func_type *p)
   static double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0}; /* set by ext_params */
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -171,6 +175,7 @@ xc_hyb_gga_xc_mpw3pw_init(xc_func_type *p)
   static double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0}; /* set by ext_params */
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -197,6 +202,7 @@ xc_hyb_gga_xc_mpw3lyp_init(xc_func_type *p)
   static double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0}; /* set by ext_params */
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -243,7 +249,7 @@ rc04_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[2] = 1.0 - d*ac;
   p->mix_coef[3] = ac;
 
-  p->cam_alpha = a0;
+  p->hyb_coeff[0] = a0;
 }
 
 void
@@ -253,6 +259,7 @@ xc_hyb_gga_xc_mb3lyp_rc04_init(xc_func_type *p)
   static double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0}; /* set by ext_params */
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -315,6 +322,7 @@ xc_hyb_gga_xc_b5050lyp_init(xc_func_type *p)
   static double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0}; /* set by ext_params */
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -358,7 +366,8 @@ kmlyp_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[1] = 1.0 - ac;
   p->mix_coef[2] = ac;
 
-  p->cam_alpha = a0;
+  p->hyb_coeff[0] = a0;
+
 }
 
 void
@@ -368,6 +377,7 @@ xc_hyb_gga_xc_kmlyp_init(xc_func_type *p)
   static double funcs_coef[4] = {0.0, 0.0, 0.0}; /* set by ext_params */
 
   xc_mix_init(p, 3, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -430,7 +440,7 @@ xc_hyb_gga_xc_apf_init(xc_func_type *p)
   funcs_coef[5]=fpbe0;
 
   xc_mix_init(p, 6, funcs_id, funcs_coef);
-  p->cam_alpha = fb3pw91*xb3pw91 + fpbe0*xpbe0;
+  xc_hyb_init_hybrid(p, fb3pw91*xb3pw91 + fpbe0*xpbe0);
 }
 
 #ifdef __cplusplus
@@ -466,7 +476,7 @@ xc_hyb_gga_xc_wc04_init(xc_func_type *p)
   funcs_coef[3] = PP[3];
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
-  p->cam_alpha = PP[0];
+  xc_hyb_init_hybrid(p, PP[0]);
 }
 
 #ifdef __cplusplus
@@ -503,7 +513,7 @@ xc_hyb_gga_xc_wp04_init(xc_func_type *p)
   funcs_coef[3] = PP[3];
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
-  p->cam_alpha = PP[0];
+  xc_hyb_init_hybrid(p, PP[0]);
 }
 
 #ifdef __cplusplus
@@ -560,7 +570,7 @@ mcm1_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[2] = p6 - p5;
   p->mix_coef[3] = p5;
 
-  p->cam_alpha = p2;
+  p->hyb_coeff[0] = p2;
 }
 
 void
@@ -570,6 +580,7 @@ xc_hyb_gga_xc_b3lyp_mcm_init(xc_func_type *p)
   static double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0}; /* set by ext_params */
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus

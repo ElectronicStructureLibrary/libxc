@@ -34,7 +34,7 @@ pbeh_set_ext_params(xc_func_type *p, const double *ext_params)
   beta = get_ext_param(p, ext_params, 0);
 
   p->mix_coef[0] = 1.0 - beta;
-  p->cam_alpha  = beta;
+  p->hyb_coeff[0] = beta;
 }
 
 
@@ -44,9 +44,10 @@ hyb_gga_xc_pbeh_init(xc_func_type *p)
   static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
   static double funcs_coef[2] = {0.0, 1.0};
 
-  /* Note that the value of funcs_coef[0] and cam_alpha will be set
+  /* Note that the value of funcs_coef[0] and hyb_coeff will be set
       by set_ext_params */
   xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 
@@ -72,9 +73,10 @@ hyb_gga_xc_pbe0_13_init(xc_func_type *p)
   static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
   static double funcs_coef[2] = {0.0, 1.0};
 
-  /* Note that the value of funcs_coef[0] and cam_alpha will be set
+  /* Note that the value of funcs_coef[0] and hyb_coeff will be set
       by set_ext_params */
   xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -100,9 +102,10 @@ hyb_gga_xc_hpbeint_init(xc_func_type *p)
   static int   funcs_id  [2] = {XC_GGA_X_PBEINT, XC_GGA_C_PBEINT};
   static double funcs_coef[2] = {0.0, 1.0};
 
-  /* Note that the value of funcs_coef[0] and cam_alpha will be set
+  /* Note that the value of funcs_coef[0] and hyb_coeff will be set
       by set_ext_params */
   xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -128,9 +131,10 @@ hyb_gga_xc_pbemol0_init(xc_func_type *p)
   static int   funcs_id  [2] = {XC_GGA_X_PBE_MOL, XC_GGA_C_PBE_MOL};
   static double funcs_coef[2] = {0.0, 1.0};
 
-  /* Note that the value of funcs_coef[0] and cam_alpha will be set
+  /* Note that the value of funcs_coef[0] and hyb_coeff will be set
       by set_ext_params */
   xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -159,6 +163,7 @@ hyb_gga_xc_pbesol0_init(xc_func_type *p)
   /* Note that the value of funcs_coef[0] and cam_alpha will be set
       by set_ext_params */
   xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -191,6 +196,8 @@ hyb_gga_xc_pbeb0_init(xc_func_type *p)
       by set_ext_params */
   xc_mix_init(p, 2, funcs_id, funcs_coef);
   xc_func_set_ext_params(p->func_aux[1], par_c_pbe);
+
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -223,6 +230,8 @@ hyb_gga_xc_pbemolb0_init(xc_func_type *p)
       set_ext_params */
   xc_mix_init(p, 2, funcs_id, funcs_coef);
   xc_func_set_ext_params(p->func_aux[1], par_c_pbe);
+
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -251,6 +260,7 @@ hyb_gga_xc_pbe50_init(xc_func_type *p)
   /* Note that the value of funcs_coef[0] and cam_alpha will be set by
       set_ext_params */
   xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus

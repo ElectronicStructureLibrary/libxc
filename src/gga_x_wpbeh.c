@@ -35,6 +35,13 @@
 #include "maple2c/gga_exc/gga_x_wpbeh.c"
 #include "work_gga.c"
 
+static void
+xc_gga_x_wpbeh_init(xc_func_type *p)
+{
+  xc_hyb_init_hybrid(p, 0.0);
+  p->hyb_type[0] = XC_HYB_NONE;
+}
+
 static const char  *omega_names[]  = {"_omega"};
 static const char  *omega_desc[]   = {"screening parameter"};
 /* The default value is actually PBEh */
@@ -52,6 +59,6 @@ const xc_func_info_type xc_func_info_gga_x_wpbeh = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
   {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
-  NULL, NULL, 
+  xc_gga_x_wpbeh_init, NULL, 
   NULL, work_gga, NULL
 };

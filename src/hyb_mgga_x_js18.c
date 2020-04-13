@@ -14,8 +14,7 @@
 static void
 hyb_mgga_x_js18_init(xc_func_type *p)
 {
-  p->cam_omega =  0.33;
-  p->cam_beta  =  0.1;
+  xc_hyb_init_sr(p, 0.33, 0.1);
 }
 
 #include "decl_mgga.h"

@@ -48,15 +48,15 @@ mgga_x_m05_init(xc_func_type *p)
   switch(p->info->number){
   case XC_HYB_MGGA_X_M05: 
     memcpy(params, &par_m05, sizeof(mgga_x_m05_params));
-    p->cam_alpha   = 0.28;
+    xc_hyb_init_hybrid(p, 0.28);
     break;
   case XC_HYB_MGGA_X_M05_2X:
     memcpy(params, &par_m05_2x, sizeof(mgga_x_m05_params));
-    p->cam_alpha   = 0.56;
+    xc_hyb_init_hybrid(p, 0.56);
     break;
   case XC_HYB_MGGA_X_M06_2X:
     memcpy(params, &par_m06_2x, sizeof(mgga_x_m05_params));
-    p->cam_alpha   = 0.54;
+    xc_hyb_init_hybrid(p, 0.54);
     break;
   default:
     fprintf(stderr, "Internal error in hyb_mgga_x_m05\n");

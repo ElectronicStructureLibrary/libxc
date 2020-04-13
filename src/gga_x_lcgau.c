@@ -12,15 +12,14 @@
 #define XC_GGA_X_LCGAU_CORE 709 /* Long-range Gaussian fitted to core excitations */
 #define XC_GGA_X_LC2GAU 710     /* Long-range Gaussian 2 */
 
-typedef struct{
-  double a1, k1, a2, k2;
-} gga_x_lcgau_params;
-
 static void 
 gga_x_lgau_init(xc_func_type *p)
 {
-  assert(p!=NULL && p->params == NULL);
-  p->params = libxc_malloc(sizeof(gga_x_lcgau_params));
+  int hyb_type[4] = {XC_HYB_ERF_SR, XC_HYB_FOCK, XC_HYB_GAUSSIAN_SR, XC_HYB_GAUSSIAN_SR};
+  double hyb_coeff[4] = {-1.0, 1.0, 0.0, 0.0};
+  double hyb_omega[4] = {0.0,  0.0, 0.0, 0.0};
+  
+  xc_hyb_init(p, 4, hyb_type, hyb_coeff, hyb_omega);
 }
 
 #define LCGAU_N_PAR 5
@@ -33,28 +32,32 @@ static const char  *lcgau_desc[LCGAU_N_PAR]   = {
   "Screening parameter",
 };
 static const double lcgau_values[LCGAU_N_PAR] = {
-  0.011, -18.0, 0.011, 0.0, 0.42
+  0.011, 18.0, 0.011, 0.0, 0.42
 };
 static const double lcgau_core_values[LCGAU_N_PAR] = {
-  0.0335, -5.9, 0.0335, 0.0, 0.42
+  0.0335, 5.9, 0.0335, 0.0, 0.42
 };
 static const double lc2gau_values[LCGAU_N_PAR] = {
-  0.012, -100.0, 0.01046, 101.0, 0.42
+  0.012, 100.0, 0.01046, -101.0, 0.42
 };
 
 static void 
 lcgau_set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  gga_x_lcgau_params *params;
+  double a1, a2, k1, k2, omega;
+  
+  a1    = get_ext_param(p, ext_params, 0);
+  k1    = get_ext_param(p, ext_params, 1);
+  a2    = get_ext_param(p, ext_params, 2);
+  k2    = get_ext_param(p, ext_params, 3);
+  omega = get_ext_param(p, ext_params, 4);
 
-  assert(p != NULL && p->params != NULL);
-  params = (gga_x_lcgau_params *) (p->params);
+  p->hyb_omega[0] = omega;
+  p->hyb_omega[2] = omega/sqrt(a1);
+  p->hyb_omega[3] = omega/sqrt(a2);
 
-  params->a1 = get_ext_param(p, ext_params, 0);
-  params->k1 = get_ext_param(p, ext_params, 1);
-  params->a2 = get_ext_param(p, ext_params, 2);
-  params->k2 = get_ext_param(p, ext_params, 3);
-  p->cam_omega = get_ext_param(p, ext_params, 4);
+  p->hyb_coeff[2] = k1*sqrt(a1);
+  p->hyb_coeff[3] = k2*sqrt(a2);
 }
 
 #include "decl_gga.h"

@@ -98,9 +98,6 @@ extern "C" {
 #define XC_HYB_DOUBLE           6  /* Double hybrid */
 #define XC_HYB_MIXTURE      32768  /* More complicated mixture (have to check individual terms) */
   
-#define XC_TAU_EXPLICIT         0
-#define XC_TAU_EXPANSION        1
-
 #define XC_MAX_REFERENCES       5
 
 /* This are the derivatives that a functional returns */

@@ -115,6 +115,17 @@ core.xc_mgga_fxc.argtypes = _build_comute_argtype(4, 10)
 core.xc_mgga_kxc.argtypes = _build_comute_argtype(4, 20)
 core.xc_mgga_kxc.argtypes = _build_comute_argtype(4, 35)
 
+# hybrid functions
+core.xc_hyb_type.argtypes = (_xc_func_p, )
+core.xc_hyb_type.restype  = ctypes.c_int
+
+core.xc_hyb_exx_coef.argtypes = (_xc_func_p, )
+core.xc_hyb_exx_coef.restype  = ctypes.c_double
+
+core.xc_hyb_cam_coef.argtypes = (_xc_func_p, ctypes.POINTER(ctypes.c_double),
+                                 ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_double))
+
+
 ### Build LibXCFunctional class
 
 def _check_arrays(current_arrays, fields, sizes, factor, required):
@@ -241,18 +252,11 @@ class LibXCFunctional(object):
         self._have_lxc = self._flags & flags.XC_FLAGS_HAVE_LXC
 
         # Set omega
-        self._have_cam = self._flags & flags.XC_FLAGS_HYB_CAM
-        self._have_cam |= self._flags & flags.XC_FLAGS_HYB_CAMY
-        self._have_cam |= self._flags & flags.XC_FLAGS_HYB_LC
-        self._have_cam |= self._flags & flags.XC_FLAGS_HYB_LCY
-        self._cam_omega = self._cam_alpha = self._cam_beta = False
-        if self._have_cam:
-            self._cam_omega = self.xc_func.contents.cam_omega
-            self._cam_alpha = self.xc_func.contents.cam_alpha
-            self._cam_beta = self.xc_func.contents.cam_beta
-
-        elif self._family in [flags.XC_FAMILY_HYB_LDA, flags.XC_FAMILY_HYB_GGA, flags.XC_FAMILY_HYB_MGGA]:
-            self._cam_alpha = self.xc_func.contents.cam_alpha
+        self._hyb_type = core.xc_hyb_type(self.xc_func)
+        if self._hyb_type != flags.XC_HYB_SEMILOCAL:
+            self._hyb_types = self.xc_func.contents.hyb_type
+            self._hyb_omega = self.xc_func.contents.hyb_omega
+            self._hyb_coeff = self.xc_func.contents.hyb_coeff
 
         # VV10
         self._have_vv10 = self._flags & flags.XC_FLAGS_VV10
@@ -381,20 +385,20 @@ class LibXCFunctional(object):
         Returns the amount of global exchange to include.
         """
 
-        if self._cam_alpha is False:
+        if self._hyb_type != flags.XC_HYB_HYBRID:
             raise ValueError("Can only be called on Hybrid functionals.")
 
-        return self._cam_alpha
+        return self._hyb_coeff[0]
 
     def get_cam_coef(self):
         """
         Returns the (omega, alpha, beta) quantites
         """
 
-        if self._cam_omega is False:
+        if self._hyb_type != flags.XC_HYB_CAM:
             raise ValueError("Can only be called on CAM functionals.")
 
-        return (self._cam_omega, self._cam_alpha, self._cam_beta)
+        return (self._hyb_omega[0], self._hyb_coeff[1], self._hyb_coeff[0])
 
     def get_vv10_coef(self):
         """

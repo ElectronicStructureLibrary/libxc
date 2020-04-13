@@ -248,7 +248,9 @@ def test_hyb_getters():
 def test_cam_getters():
 
     func = pylibxc.LibXCFunctional("hyb_gga_xc_cam_b3lyp", "unpolarized")
-    assert pytest.approx(0.65) == func.get_hyb_exx_coef()
+
+    with pytest.raises(ValueError):
+        assert pytest.approx(0.65) == func.get_hyb_exx_coef()
 
     omega, alpha, beta = func.get_cam_coef()
     assert pytest.approx(0.33) == omega

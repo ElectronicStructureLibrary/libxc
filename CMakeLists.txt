@@ -267,7 +267,7 @@ set(raw_sources_list
   hyb_mgga_xc_wb97mv.c
   hyb_mgga_x_js18.c
   hyb_mgga_x_pjs18.c
-  hyb_mgga_x_b2plyp.c
+  hyb_gga_xc_b2plyp.c
   integrate.c
   lda.c
   lda_c_1d_csc.c

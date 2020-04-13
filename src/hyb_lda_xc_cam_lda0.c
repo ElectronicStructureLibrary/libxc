@@ -40,11 +40,7 @@ xc_hyb_lda_xc_cam_lda0_init(xc_func_type *p)
   /* Set parameters */
   xc_func_set_ext_params(p->func_aux[1], &omega);
 
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_alpha[0] = beta;
-  p->hyb_omega[0] = omega;
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_alpha[1] = alpha;
+  xc_hyb_init_cam(p, omega, alpha, beta);
 }
 
 #ifdef __cplusplus

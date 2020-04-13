@@ -14,9 +14,7 @@
 static void
 hyb_mgga_x_js18_init(xc_func_type *p)
 {
-  p->hyb_type[0] = XC_HYB_ERF_SR;
-  p->hyb_alpha[0] = 0.1;
-  p->hyb_omega[0] = 0.33;
+  xc_hyb_init_sr(p, 0.33, 0.1);
 }
 
 #include "decl_mgga.h"

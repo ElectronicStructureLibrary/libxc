@@ -122,6 +122,7 @@ set(raw_sources_list
   func_info.c
   func_reference.c
   functionals.c
+  hybrids.c
   gga.c
   gga_c_acgga.c
   gga_c_acggap.c

@@ -173,7 +173,7 @@ set_ext_params_cpy_omega(xc_func_type *p, const double *ext_params)
 
   /* This omega is only meant for internal use */
   p->hyb_type[0]  = XC_HYB_NONE;
-  p->hyb_alpha[0] = 0.0;
+  p->hyb_coeff[0] = 0.0;
   p->hyb_omega[0] = get_ext_param(p, ext_params, nparams);
 }
 
@@ -190,7 +190,7 @@ set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params)
   copy_params(p, ext_params, nparams);
 
   p->hyb_type[0]  = XC_HYB_FOCK;
-  p->hyb_alpha[0] = get_ext_param(p, ext_params, nparams);
+  p->hyb_coeff[0] = get_ext_param(p, ext_params, nparams);
   p->hyb_omega[0] = 0.0;
 }
 
@@ -207,14 +207,15 @@ set_ext_params_cpy_cam(xc_func_type *p, const double *ext_params)
   copy_params(p, ext_params, p->info->ext_params.n - 3);
 
   p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_alpha[0] = get_ext_param(p, ext_params, nparams + 1);
+  p->hyb_coeff[0] = get_ext_param(p, ext_params, nparams + 1);
   p->hyb_omega[0] = get_ext_param(p, ext_params, nparams + 2);
 
   p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_alpha[1] = get_ext_param(p, ext_params, nparams);
+  p->hyb_coeff[1] = get_ext_param(p, ext_params, nparams);
   p->hyb_omega[1] = 0.0;
 }
 
+void
 set_ext_params_cpy_camy(xc_func_type *p, const double *ext_params)
 {
   set_ext_params_cpy_cam(p, ext_params);

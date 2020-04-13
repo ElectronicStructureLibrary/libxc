@@ -14,8 +14,7 @@
 static void
 hyb_mgga_xc_b98_init(xc_func_type *p)
 {
-  p->hyb_type[0] = XC_HYB_FOCK;
-  p->hyb_alpha[0] = 0.1985;
+  xc_hyb_init_hybrid(p, 0.1985);
 }
 
 #include "decl_mgga.h"

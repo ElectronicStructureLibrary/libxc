@@ -26,6 +26,9 @@ gga_x_s12_init(xc_func_type *p)
   params = (gga_x_s12_params *) (p->params);
 
   params->bx  = 1.0; /* we initialize it here */
+
+  if(p->info->number == XC_HYB_GGA_X_S12H)
+    xc_hyb_init_hybrid(p, 0.0);
 }
 
 #define S12G_N_PAR 5
@@ -69,10 +72,8 @@ s12h_set_ext_params(xc_func_type *p, const double *ext_params)
   params->D    = get_ext_param(p, ext_params, 3);
   params->E    = get_ext_param(p, ext_params, 4);
 
-  p->hyb_type[0]  = XC_HYB_FOCK;
-  p->hyb_alpha[0] = get_ext_param(p, ext_params, 5);
-
-  params->bx   = 1.0 - p->hyb_alpha[0];
+  p->hyb_coeff[0] = get_ext_param(p, ext_params, 5);
+  params->bx   = 1.0 - p->hyb_coeff[0];
 }
 
 #include "decl_gga.h"

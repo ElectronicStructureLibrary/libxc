@@ -35,12 +35,8 @@ xc_hyb_gga_xc_camy_blyp_init(xc_func_type *p)
   xc_mix_init(p, 3, funcs_id, funcs_coef);
 
   xc_func_set_ext_params(p->func_aux[1], &omega);
-
-  p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
-  p->hyb_alpha[0] = beta;
-  p->hyb_omega[0] = omega;
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_alpha[1] = alpha;
+  
+  xc_hyb_init_camy(p, omega, alpha, beta);
 }
 
 #ifdef __cplusplus

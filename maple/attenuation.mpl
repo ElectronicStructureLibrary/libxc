@@ -25,22 +25,15 @@ attenuation_erf_f3 := a ->
       + 24*a^3*(-35 + 224*a^2 - 1440*a^4 + 5120*a^6)
       + 2*sqrt(Pi)*(-2 + 60*a^2)*erf(1/(2*a))):
 
-(* erf_gau
-    Int. J. of Quant. Chem. 100, 1047-1056 (2004)
-*)
-att_gau_aux1 := a -> sqrt(Pi)*erf(sqrt(3)/(2*a)):
-att_gau_aux2 := a -> exp(-3/(4*a^2)):
-attenuation_erf_gau := a ->
-  8/3*a*(att_gau_aux1(a) - 2*sqrt(3)*a + 16*a^3/sqrt(27) + (2*a/sqrt(3) - 16*a^3/sqrt(27))*att_gau_aux2(a)):
-
-(* erf_gau2
+(* erf_gau - screening function = + 2 mu/sqrt(pi) exp(-mu^2 r^2)
     J. Chem. Phys. 127, 154109 (2007)
-    You can recover attenuation_erf_gau by putting a1 = 3
+    You can recover the result in Int. J. of Quant. Chem. 100, 1047-1056 (2004)
+    by putting a = a/sqrt(3) and multiplying the whole attenuation function by -sqrt(3)
 *)
-att_gau2_aux1 := (a, a1) -> sqrt(Pi)*erf(sqrt(a1)/(2*a)):
-att_gau2_aux2 := (a, a1) -> exp(-a1/(4*a^2)) - 1:
-attenuation_gau2 := (a, a1) ->
-  8/3*a*(att_gau2_aux1(a, a1) + 2*a/sqrt(a1)*att_gau2_aux2(a, a1)*(1 - 8*a^2/a1) - 4*a/sqrt(a1)):
+att_gau_aux1 := (a) -> sqrt(Pi)*erf(1/(2*a)):
+att_gau_aux2 := (a) -> exp(-1/(4*a^2)) - 1:
+attenuation_gau := (a) ->
+  -8/3*a*(att_gau_aux1(a) + 2*a*att_gau_aux2(a)*(1 - 8*a^2) - 4*a):
 
 (* yukawa
     Chem. Phys. Lett. 462(2008) 348-351

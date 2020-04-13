@@ -29,12 +29,7 @@ hyb_gga_xc_lc_vv10_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0, 1.0};
   
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_alpha[0] = -1.0;
-  p->hyb_omega[0] = 0.45;
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_alpha[1] = 1.0;
+  xc_hyb_init_cam(p, 0.45, 1.0, -1.0);
 
   p->nlc_b = 6.3;
   p->nlc_C = 0.0089;

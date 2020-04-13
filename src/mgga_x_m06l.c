@@ -68,14 +68,12 @@ mgga_x_m06l_init(xc_func_type *p)
   case XC_HYB_MGGA_X_M06_HF:
     for(ii = 0; ii < 12; ii++) params->a[ii] = a_m06hf[ii];
     for(ii = 0; ii <  6; ii++) params->d[ii] = d_m06hf[ii];
-    p->hyb_type[0]  = XC_HYB_FOCK;
-    p->hyb_alpha[0] = 1.0;
+    xc_hyb_init_hybrid(p, 1.0);
     break;
   case XC_HYB_MGGA_X_M06:
     for(ii = 0; ii < 12; ii++) params->a[ii] = a_m06[ii];
     for(ii = 0; ii <  6; ii++) params->d[ii] = d_m06[ii];
-    p->hyb_type[0]  = XC_HYB_FOCK;
-    p->hyb_alpha[0] = 0.27;
+    xc_hyb_init_hybrid(p, 0.27);
     break;
   case XC_MGGA_X_REVM06_L:
     for(ii = 0; ii < 12; ii++) params->a[ii] = a_revm06l[ii];
@@ -84,8 +82,7 @@ mgga_x_m06l_init(xc_func_type *p)
   case XC_HYB_MGGA_X_REVM06:
     for(ii = 0; ii < 12; ii++) params->a[ii] = a_revm06[ii];
     for(ii = 0; ii <  6; ii++) params->d[ii] = d_revm06[ii];
-    p->hyb_type[0]  = XC_HYB_FOCK;
-    p->hyb_alpha[0] = 0.4041;
+    xc_hyb_init_hybrid(p, 0.4041);
     break;
   default:
     fprintf(stderr, "Internal error in mgga_x_m06l\n");

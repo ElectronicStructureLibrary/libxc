@@ -13,7 +13,7 @@
 #define XC_GGA_XC_MOHLYP      194 /* Functional for organometallic chemistry */
 #define XC_GGA_XC_MOHLYP2     195 /* Functional for barrier heights */
 #define XC_GGA_X_SOGGA        150 /* Second-order generalized gradient approximation */
-#define XC_GGA_XC_LB07   589   /* Livshits and Baer, empirical functional */
+#define XC_GGA_XC_LB07        589   /* Livshits and Baer, empirical functional */
 
 static void
 gga_xc_edf1_init(xc_func_type *p)
@@ -176,6 +176,7 @@ gga_xc_lb07_init(xc_func_type *p)
   static double par_x_erf[] = {0.5}; /* gamma = 0.5 */
   
   xc_mix_init(p, 2, funcs_id, funcs_coef);
+  
   xc_func_set_ext_params(p->func_aux[0], par_x_erf);
 }
 

@@ -7,12 +7,6 @@
 *)
 
 (* type: gga_exc *)
-(* prefix:
-  gga_x_lcgau_params *params;
-
-  assert(p->params != NULL);
-  params = (gga_x_lcgau_params * )(p->params);
-*)
 
 $include "attenuation.mpl"
 $define gga_x_b88_params
@@ -22,13 +16,13 @@ $include "gga_x_b88.mpl"
    Note that there is a misprint sqrt(mu) -> sqrt(pi)
 *)
 lcgau_arg := (rs, z, xs) ->
-  p_a_hyb_omega_0_*sqrt(2*X_FACTOR_C*b88_f(xs)/Pi)/(6*n_spin(rs, z)^(1/3)):
+  sqrt(2*X_FACTOR_C*b88_f(xs)/Pi)/(6*n_spin(rs, z)^(1/3)):
 
 (* Eq. 4 + Eq. 8 *)
 lcgau_f := (rs, z, xs) ->  b88_f(xs) * (
-  + attenuation_erf(lcgau_arg(rs, z, xs))
-  +  params_a_k1 * attenuation_gau2(lcgau_arg(rs, z, xs), params_a_a1)
-  +  params_a_k2 * attenuation_gau2(lcgau_arg(rs, z, xs), params_a_a2)
+  + attenuation_erf(p_a_hyb_omega_0_*lcgau_arg(rs, z, xs))
+  +  p_a_hyb_coeff_2_*attenuation_gau(p_a_hyb_omega_2_*lcgau_arg(rs, z, xs))
+  +  p_a_hyb_coeff_3_*attenuation_gau(p_a_hyb_omega_3_*lcgau_arg(rs, z, xs))
   ):
 
 f := (rs, zeta, xt, xs0, xs1) -> gga_exchange_nsp(lcgau_f, rs, zeta, xs0, xs1):

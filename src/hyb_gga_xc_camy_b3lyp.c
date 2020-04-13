@@ -37,12 +37,8 @@ xc_hyb_gga_xc_camy_b3lyp_init(xc_func_type *p)
   xc_mix_init(p, 4, funcs_id, funcs_coef);
 
   xc_func_set_ext_params(p->func_aux[1], &omega);
-  
-  p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
-  p->hyb_alpha[0] = beta;
-  p->hyb_omega[0] = omega;
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_alpha[1] = alpha;
+
+  xc_hyb_init_camy(p, omega, alpha, beta);
 }
 
 #ifdef __cplusplus
@@ -86,11 +82,9 @@ cam_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[0] = 1.0 - alpha;
   p->mix_coef[1] = -beta;
 
-  p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
-  p->hyb_alpha[0] = beta;
+  p->hyb_coeff[0] = beta;
   p->hyb_omega[0] = omega_HF;
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_alpha[1] = alpha;
+  p->hyb_coeff[1] = alpha;
 
   xc_func_set_ext_params(p->func_aux[1], &omega_PBE);
 }
@@ -102,6 +96,7 @@ hyb_gga_xc_camy_pbeh_init(xc_func_type *p)
   static double funcs_coef[3] = {0.2, 0.8, 1.0};
 
   xc_mix_init(p, 3, funcs_id, funcs_coef);
+  xc_hyb_init_camy(p, 0.0, 0.0, 0.0);
 }
 
 #ifdef __cplusplus

@@ -61,7 +61,7 @@ def test_libxc_functional_info():
     assert func.get_number() == 531
     assert func.get_kind() == 2
     assert func.get_name() == "wB97M-V exchange-correlation functional"
-    assert func.get_family() == 64
+    assert func.get_family() == 4
     assert func.get_flags() == 1423
     assert len(func.get_bibtex()) == 1
     assert len(func.get_references()) == 1

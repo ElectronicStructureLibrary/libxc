@@ -47,15 +47,7 @@ extern "C" {
 #define XC_FLAGS_1D               (1 <<  5) /*    32 */
 #define XC_FLAGS_2D               (1 <<  6) /*    64 */
 #define XC_FLAGS_3D               (1 <<  7) /*   128 */
-/* range separation via error function (usual case) */
-#define XC_FLAGS_HYB_CAM          (1 <<  8) /*   256 */
-/* range separation via Yukawa function (rare) */
-#define XC_FLAGS_HYB_CAMY         (1 <<  9) /*   512 */
 #define XC_FLAGS_VV10             (1 << 10) /*  1024 */
-/* range separation via error function i.e. same as XC_FLAGS_HYB_CAM; deprecated */
-#define XC_FLAGS_HYB_LC           (1 << 11) /*  2048 */
-/* range separation via Yukawa function i.e. same as XC_FLAGS_HYB_CAMY; deprecated */
-#define XC_FLAGS_HYB_LCY          (1 << 12) /*  4096 */
 #define XC_FLAGS_STABLE           (1 << 13) /*  8192 */
 /* functionals marked with the development flag may have significant problems in the implementation */
 #define XC_FLAGS_DEVELOPMENT      (1 << 14) /* 16384 */

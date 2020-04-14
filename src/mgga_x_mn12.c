@@ -207,7 +207,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_mn12_sx = {
   "Minnesota MN12-SX hybrid exchange functional",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,
   {N_PAR_C, names_c, desc_c, par_mn12_sx, set_ext_params_cpy_cam},
   mgga_x_mn12_init, NULL,

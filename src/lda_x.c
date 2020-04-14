@@ -151,7 +151,7 @@ extern "C"
 #endif
 const xc_func_info_type xc_func_info_hyb_lda_xc_lda0 = {
   XC_HYB_LDA_XC_LDA0,
-  XC_EXCHANGE,
+  XC_EXCHANGE_CORRELATION,
   "LDA hybrid exchange (LDA0)",
   XC_FAMILY_HYB_LDA,
   {&xc_ref_Rinke2012_126404, NULL, NULL, NULL, NULL},

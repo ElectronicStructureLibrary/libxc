@@ -260,7 +260,7 @@ extern "C"
 #endif
 const xc_func_info_type xc_func_info_gga_c_mggac = {
   XC_GGA_C_MGGAC,
-  XC_EXCHANGE,
+  XC_CORRELATION,
   "beta fitted to LC20 to be used with MGGAC",
   XC_FAMILY_GGA,
   {&xc_ref_Patra2019_155140, NULL, NULL, NULL, NULL},

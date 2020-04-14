@@ -157,11 +157,7 @@ module xc_f90_lib_m
     XC_FLAGS_1D              =    32,   &
     XC_FLAGS_2D              =    64,   &
     XC_FLAGS_3D              =   128,   &
-    XC_FLAGS_HYB_CAM         =   256,   &
-    XC_FLAGS_HYB_CAMY        =   512,   &
     XC_FLAGS_VV10            =  1024,   &
-    XC_FLAGS_HYB_LC          =  2048,   &
-    XC_FLAGS_HYB_LCY         =  4096,   &
     XC_FLAGS_STABLE          =  8192,   &
     XC_FLAGS_DEVELOPMENT     = 16384,   &
     XC_FLAGS_NEEDS_LAPLACIAN = 32768

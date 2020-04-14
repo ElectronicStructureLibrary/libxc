@@ -32,11 +32,7 @@ XC_FLAGS_HAVE_ALL = 31 # The most common case
 XC_FLAGS_1D = (1 << 5)  # = 32
 XC_FLAGS_2D = (1 << 6)  # = 64
 XC_FLAGS_3D = (1 << 7)  # = 128
-XC_FLAGS_HYB_CAM = (1 << 8)  # = 256
-XC_FLAGS_HYB_CAMY = (1 << 9)  # = 512
 XC_FLAGS_VV10 = (1 << 10)  #  1024
-XC_FLAGS_HYB_LC = (1 << 11)  #  2048
-XC_FLAGS_HYB_LCY = (1 << 12)  #  4096
 XC_FLAGS_STABLE = (1 << 13)  #  8192
 XC_FLAGS_DEVELOPMENT = (1 << 14)  # 16384
 XC_FLAGS_NEEDS_LAPLACIAN = (1 << 15)  # 32768

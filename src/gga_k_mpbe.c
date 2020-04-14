@@ -16,35 +16,18 @@ typedef struct{
   double c1, c2, c3;
 } gga_k_mpbe_params;
 
+#define N_PAR 4
+static const char  *names[N_PAR]  = {"_a", "_c1", "_c2", "_c3"};
+static const char  *desc[N_PAR]   = {"a", "c1", "c2", "c3"};
+static const double kpbe3_val[N_PAR] = {4.1355, -3.7425, 50.258, 0.0};
+static const double kpbe4_val[N_PAR] = {1.7107, -7.2333, 61.645, -93.683};
 
 static void 
 gga_k_mpbe_init(xc_func_type *p)
 {
-  gga_k_mpbe_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_k_mpbe_params));
-  params = (gga_k_mpbe_params *) (p->params);
- 
-  switch(p->info->number){
-  case XC_GGA_K_PBE3:
-    params->a  =  4.1355;
-    params->c1 = -3.7425;
-    params->c2 = 50.258;
-    params->c3 =  0.0;
-    break;
-  case XC_GGA_K_PBE4:
-    params->a  =   1.7107;
-    params->c1 =  -7.2333;
-    params->c2 =  61.645;
-    params->c3 = -93.683;
-    break;
-  default:
-    fprintf(stderr, "Internal error in gga_k_mpbe\n");
-    exit(1);
-  }
 }
-
 
 #include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_mpbe.c"
@@ -61,7 +44,7 @@ const xc_func_info_type xc_func_info_gga_k_pbe3 = {
   {&xc_ref_Karasiev2006_111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, kpbe3_val, set_ext_params_cpy},
   gga_k_mpbe_init, NULL,
   NULL, work_gga, NULL
 };
@@ -77,7 +60,7 @@ const xc_func_info_type xc_func_info_gga_k_pbe4 = {
   {&xc_ref_Karasiev2006_111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-21,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, kpbe4_val, set_ext_params_cpy},
   gga_k_mpbe_init, NULL,
   NULL, work_gga, NULL
 };

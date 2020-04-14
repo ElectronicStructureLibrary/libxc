@@ -185,6 +185,7 @@ set(raw_sources_list
   gga_k_apbe.c
   gga_k_apbeint.c
   gga_k_lc94.c
+  gga_k_lkt.c
   gga_x_bayesian.c
   gga_x_beefvdw.c
   gga_x_bpccac.c

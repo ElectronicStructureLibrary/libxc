@@ -140,7 +140,7 @@ def xc_family_from_id(func_id):
     Examples
     --------
     >>> pylibxc.util.xc_family_from_id(72)
-    (4, 3)
+    (4, 4)
 
     """
     family = ctypes.c_int()

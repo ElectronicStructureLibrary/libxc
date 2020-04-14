@@ -30,7 +30,7 @@ def test_xc_functional_get_name():
 
 
 def test_xc_family_from_id():
-    assert (4, 3) == pylibxc.util.xc_family_from_id(72)
+    assert (4, 4) == pylibxc.util.xc_family_from_id(72)
     assert (0, 0) == pylibxc.util.xc_family_from_id(500000)
 
 

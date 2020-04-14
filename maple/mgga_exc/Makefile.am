@@ -6,7 +6,7 @@
 ##
 
 mgga_order_4 = \
-  mgga_x_lta.mpl
+  mgga_x_lta.mpl mgga_x_th.mpl
 
 mgga_order_3 = \
   mgga_x_mbeefvdw.mpl hyb_mgga_x_dldf.mpl mgga_k_pc07.mpl mgga_x_2d_prhg07.mpl \

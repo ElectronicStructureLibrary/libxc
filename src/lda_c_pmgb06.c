@@ -31,7 +31,7 @@ extern "C"
 #endif
 const xc_func_info_type xc_func_info_lda_c_pmgb06 = {
   XC_LDA_C_PMGB06,
-  XC_EXCHANGE,
+  XC_CORRELATION,
   "Long-range LDA correlation functional",
   XC_FAMILY_LDA,
   {&xc_ref_Paziani2006_155111, NULL, NULL, NULL, NULL},

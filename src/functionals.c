@@ -87,15 +87,6 @@ int xc_family_from_id(int id, int *family, int *number)
     }
   }
 
-  /* or is it a hybrid LDA? */
-  for(ii=0; xc_hyb_lda_known_funct[ii]!=NULL; ii++){
-    if(xc_hyb_lda_known_funct[ii]->number == id){
-      if(family != NULL) *family = XC_FAMILY_HYB_LDA;
-      if(number != NULL) *number = ii;
-      return XC_FAMILY_HYB_LDA;
-    }
-  }
-
   /* or is it a GGA? */
   for(ii=0; xc_gga_known_funct[ii]!=NULL; ii++){
     if(xc_gga_known_funct[ii]->number == id){
@@ -105,30 +96,12 @@ int xc_family_from_id(int id, int *family, int *number)
     }
   }
 
-  /* or is it a hybrid GGA? */
-  for(ii=0; xc_hyb_gga_known_funct[ii]!=NULL; ii++){
-    if(xc_hyb_gga_known_funct[ii]->number == id){
-      if(family != NULL) *family = XC_FAMILY_HYB_GGA;
-      if(number != NULL) *number = ii;
-      return XC_FAMILY_HYB_GGA;
-    }
-  }
-
   /* or is it a meta GGA? */
   for(ii=0; xc_mgga_known_funct[ii]!=NULL; ii++){
     if(xc_mgga_known_funct[ii]->number == id){
       if(family != NULL) *family = XC_FAMILY_MGGA;
       if(number != NULL) *number = ii;
       return XC_FAMILY_MGGA;
-    }
-  }
-
-  /* or is it a hybrid meta GGA? */
-  for(ii=0; xc_hyb_mgga_known_funct[ii]!=NULL; ii++){
-    if(xc_hyb_mgga_known_funct[ii]->number == id){
-      if(family != NULL) *family = XC_FAMILY_HYB_MGGA;
-      if(number != NULL) *number = ii;
-      return XC_FAMILY_HYB_MGGA;
     }
   }
 
@@ -240,28 +213,13 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
     internal_counters_set_lda(func->nspin, &(func->dim));
     break;
 
-  case(XC_FAMILY_HYB_LDA):
-    *finfo = *xc_hyb_lda_known_funct[number];
-    internal_counters_set_lda(func->nspin, &(func->dim));
-    break;
-
   case(XC_FAMILY_GGA):
     *finfo = *xc_gga_known_funct[number];
     internal_counters_set_gga(func->nspin, &(func->dim));
     break;
 
-  case(XC_FAMILY_HYB_GGA):
-    *finfo = *xc_hyb_gga_known_funct[number];
-    internal_counters_set_gga(func->nspin, &(func->dim));
-    break;
-
   case(XC_FAMILY_MGGA):
     *finfo = *xc_mgga_known_funct[number];
-    internal_counters_set_mgga(func->nspin, &(func->dim));
-    break;
-
-  case(XC_FAMILY_HYB_MGGA):
-    *finfo = *xc_hyb_mgga_known_funct[number];
     internal_counters_set_mgga(func->nspin, &(func->dim));
     break;
 

@@ -105,7 +105,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_ms2h = {
   XC_HYB_MGGA_X_MS2H,
   XC_EXCHANGE,
   "MS2 hybrid exchange of Sun, et al",
-  XC_FAMILY_HYB_MGGA,
+  XC_FAMILY_MGGA,
   {&xc_ref_Sun2013_044113, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,

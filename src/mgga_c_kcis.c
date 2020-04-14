@@ -49,7 +49,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_b0kcis = {
   XC_HYB_MGGA_XC_B0KCIS,
   XC_EXCHANGE_CORRELATION,
   "Hybrid based on KCIS",
-  XC_FAMILY_HYB_MGGA,
+  XC_FAMILY_MGGA,
   {&xc_ref_Toulouse2002_10465, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,

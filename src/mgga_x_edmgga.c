@@ -48,7 +48,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_edmggah = {
   XC_HYB_MGGA_XC_EDMGGAH,
   XC_EXCHANGE_CORRELATION,
   "EDMGGA hybrid",
-  XC_FAMILY_HYB_MGGA,
+  XC_FAMILY_MGGA,
   {&xc_ref_Tao2002_2335, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_DEVELOPMENT,
   1e-32,

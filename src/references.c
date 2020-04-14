@@ -230,6 +230,13 @@ func_reference_type xc_ref_Bernard2012_204103 = {
 };
 
 
+func_reference_type xc_ref_Besley2009_10350 = {
+  "N. A. Besley, M. J. G. Peach, and D. J. Tozer, Phys. Chem. Chem. Phys. 11, 10350 (2009)",
+  "10.1039/B912718F",
+  "@Article{Besley2009_10350,\n  author =\"Besley, Nicholas A. and Peach, Michael J. G. and Tozer, David J.\",\n  title  =\"Time-dependent density functional theory calculations of near-edge X-ray absorption fine structure with short-range corrected functionals\",\n  journal  =\"Phys. Chem. Chem. Phys.\",\n  year  =\"2009\",\n  volume  =\"11\",\n  issue  =\"44\",\n  pages  =\"10350-10358\",\n  publisher  =\"The Royal Society of Chemistry\",\n  doi  =\"10.1039/B912718F\",\n  url  =\"http://dx.doi.org/10.1039/B912718F\",\n}"
+};
+
+
 func_reference_type xc_ref_Bilc2008_165107 = {
   "D. I. Bilc, R. Orlando, R. Shaltaf, G.-M. Rignanese, J. Íñiguez, and P. Ghosez, Phys. Rev. B 77, 165107 (2008)",
   "10.1103/PhysRevB.77.165107",

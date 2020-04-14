@@ -79,7 +79,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_sogga11_x = {
   XC_HYB_GGA_X_SOGGA11_X,
   XC_EXCHANGE,
   "Hybrid based on SOGGA11 form",
-  XC_FAMILY_HYB_GGA,
+  XC_FAMILY_GGA,
   {&xc_ref_Peverati2011_191102, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-32,

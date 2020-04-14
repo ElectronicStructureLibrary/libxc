@@ -88,7 +88,7 @@ libxc_la_FUNC_SOURCES = \
 	gga_k_pw86.c gga_k_mpbe.c gga_k_apbe.c gga_x_fd_lb94.c		\
 	gga_x_ncap.c gga_c_chachiyo.c hyb_gga_xc_lc_blyp.c		\
 	gga_c_pbe_vwn.c gga_x_s12.c gga_x_lcgau.c hyb_gga_xc_b2plyp.c \
-	gga_k_lkt.c \
+	hyb_gga_xc_src1_blyp.c gga_k_lkt.c \
 	mgga.c \
 	mgga_x_lta.c mgga_x_tpss.c mgga_x_br89.c mgga_x_gvt4.c		\
 	mgga_x_m06l.c mgga_x_tau_hcth.c mgga_x_2d_prhg07.c mgga_x_2d_prp10.c	\
@@ -159,8 +159,7 @@ CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
 xc_f.o : xc_f_inc.c
 
 xc_funcs.h xc_funcs_worker.h libxc_inc.f90 \
-funcs_lda.c funcs_hyb_lda.c funcs_gga.c funcs_hyb_gga.c \
-funcs_mgga.c funcs_hyb_mgga.c funcs_key.c: $(srcdir)/../scripts/get_funcs.pl
+funcs_lda.c funcs_gga.c funcs_mgga.c funcs_key.c: $(srcdir)/../scripts/get_funcs.pl
 	$(srcdir)/../scripts/get_funcs.pl $(srcdir) $(top_builddir)/src
 
 references.h references.c: $(srcdir)/../scripts/get_references.pl $(srcdir)/../libxc.bib

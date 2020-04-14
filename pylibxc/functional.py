@@ -617,7 +617,7 @@ class LibXCFunctional(object):
 
         # Find the right compute function
         args = [self.xc_func, ctypes.c_size_t(npoints)]
-        if self.get_family() in [flags.XC_FAMILY_LDA, flags.XC_FAMILY_HYB_LDA]:
+        if self.get_family() == flags.XC_FAMILY_LDA:
             input_labels   = ["rho"]
             input_num_args = 1
 
@@ -646,7 +646,7 @@ class LibXCFunctional(object):
 
             core.xc_lda(*args)
 
-        elif self.get_family() in [flags.XC_FAMILY_GGA, flags.XC_FAMILY_HYB_GGA]:
+        elif self.get_family() == flags.XC_FAMILY_GGA:
             input_labels   = ["rho", "sigma"]
             input_num_args = 2
 
@@ -675,7 +675,7 @@ class LibXCFunctional(object):
 
             core.xc_gga(*args)
 
-        elif self.get_family() in [flags.XC_FAMILY_MGGA, flags.XC_FAMILY_HYB_MGGA]:
+        elif self.get_family() == flags.XC_FAMILY_MGGA:
             # Build input args
             if self._needs_laplacian:
                 input_labels = ["rho", "sigma", "lapl", "tau"]

@@ -142,10 +142,7 @@ module xc_f90_lib_m
     XC_FAMILY_GGA           =   2,     &
     XC_FAMILY_MGGA          =   4,     &
     XC_FAMILY_LCA           =   8,     &
-    XC_FAMILY_OEP           =  16,     &
-    XC_FAMILY_HYB_GGA       =  32,     &
-    XC_FAMILY_HYB_MGGA      =  64,     &
-    XC_FAMILY_HYB_LDA       = 128
+    XC_FAMILY_OEP           =  16
 
   integer(c_int), parameter, public :: &
     XC_FLAGS_HAVE_EXC        =     1,   &

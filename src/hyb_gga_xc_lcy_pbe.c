@@ -35,7 +35,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lcy_pbe = {
   XC_HYB_GGA_XC_LCY_PBE,
   XC_EXCHANGE_CORRELATION,
   "LCY version of PBE",
-  XC_FAMILY_HYB_GGA,
+  XC_FAMILY_GGA,
   {&xc_ref_Seth2012_901, &xc_ref_Seth2013_2286, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,

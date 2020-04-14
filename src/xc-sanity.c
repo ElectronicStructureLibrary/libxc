@@ -85,17 +85,14 @@ int main(void) {
     
     switch(func.info->family) {
     case(XC_FAMILY_LDA):
-    case(XC_FAMILY_HYB_LDA):
       strcat(family, "lda_");
       break;
       
     case(XC_FAMILY_GGA):
-    case(XC_FAMILY_HYB_GGA):
       strcat(family, "gga_");
       break;
 
     case(XC_FAMILY_MGGA):
-    case(XC_FAMILY_HYB_MGGA):
       strcat(family, "mgga_");
       break;
 

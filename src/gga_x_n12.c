@@ -108,7 +108,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_n12_sx = {
   XC_HYB_GGA_X_N12_SX,
   XC_EXCHANGE,
   "Minnesota N12-SX exchange functional",
-  XC_FAMILY_HYB_GGA,
+  XC_FAMILY_GGA,
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,

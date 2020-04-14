@@ -46,7 +46,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_camy_blyp = {
   XC_HYB_GGA_XC_CAMY_BLYP,
   XC_EXCHANGE_CORRELATION,
   "CAMY version of BLYP",
-  XC_FAMILY_HYB_GGA,
+  XC_FAMILY_GGA,
   {&xc_ref_Akinaga2008_348, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-32,

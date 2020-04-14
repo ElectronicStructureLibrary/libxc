@@ -33,9 +33,6 @@ extern "C" {
 #define XC_FAMILY_MGGA          4
 #define XC_FAMILY_LCA           8
 #define XC_FAMILY_OEP          16
-#define XC_FAMILY_HYB_GGA      32
-#define XC_FAMILY_HYB_MGGA     64
-#define XC_FAMILY_HYB_LDA     128
 
 /* flags that can be used in info.flags. Don't reorder these since it
    will break the ABI of the library. */

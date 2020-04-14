@@ -232,19 +232,16 @@ int main(int argc, char *argv[])
   switch(func.info->family)
     {
     case XC_FAMILY_LDA:
-    case XC_FAMILY_HYB_LDA:
       xc_lda(&func, 1, xc.rho, pzk, pvrho, pv2rho2, pv3rho3, NULL);
       break;
 
     case XC_FAMILY_GGA:
-    case XC_FAMILY_HYB_GGA:
       xc_gga(&func, 1, xc.rho, xc.sigma, pzk, pvrho, pvsigma,
              pv2rho2, pv2rhosigma, pv2sigma2, NULL, NULL, NULL, NULL,
              NULL, NULL, NULL, NULL, NULL);
       break;
 
     case XC_FAMILY_MGGA:
-    case XC_FAMILY_HYB_MGGA:
       xc_mgga(&func, 1, xc.rho, xc.sigma, xc.lapl, xc.tau,
               pzk, pvrho, pvsigma, pvlapl, pvtau,
               pv2rho2, pv2rhosigma, pv2rholapl, pv2rhotau, pv2sigma2, pv2sigmalapl, pv2sigmatau, pv2lapl2, pv2lapltau, pv2tau2,

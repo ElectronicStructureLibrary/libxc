@@ -65,11 +65,9 @@ double get_point(xc_func_type *func, double point[5], double *e, double der[5], 
   switch(func->info->family)
     {
     case XC_FAMILY_LDA:
-    case XC_FAMILY_HYB_LDA:
       xc_lda_exc_vxc(func, 1, &(point[0]), e, &(der[0]));
       break;
     case XC_FAMILY_GGA:
-    case XC_FAMILY_HYB_GGA:
       xc_gga_exc_vxc(func, 1, &(point[0]), &(point[2]),
 		     e, &(der[0]), &(der[2]));
       break;
@@ -104,11 +102,9 @@ void get_fxc(xc_func_type *func, double point[5], double der[5][5])
   switch(func->info->family)
     {
     case XC_FAMILY_LDA:
-    case XC_FAMILY_HYB_LDA:
       xc_lda_fxc(func, 1, &(point[0]), v2rho);
       break;
     case XC_FAMILY_GGA:
-    case XC_FAMILY_HYB_GGA:
       xc_gga_fxc(func, 1, &(point[0]), &(point[2]),
 		 v2rho, v2rhosigma, v2sigma);
       break;
@@ -401,27 +397,27 @@ void test_functional(int functional)
       print_error("Max.", "v2rho2", max_diff[i][j], &func, val);
 
       if(info->family > XC_FAMILY_LDA){
-	diff = avg_diff[3][0] + avg_diff[4][0] + avg_diff[5][0] + avg_diff[3][1] + avg_diff[4][1] + avg_diff[5][1];
-	diff = diff/6.0;
-	print_error("Avg.", "v2rhosig", diff, NULL, NULL);
-	if(max_diff[3][0] > max_diff[4][0]) {i=3; j=0;} else {i=4; j=0;}
-	if(max_diff[5][0] > max_diff[i][j]) {i=5; j=0;}
-	if(max_diff[3][1] > max_diff[i][j]) {i=3; j=1;}
-	if(max_diff[4][1] > max_diff[i][j]) {i=4; j=1;}
-	if(max_diff[5][1] > max_diff[i][j]) {i=5; j=1;}
-	get_val(xc_trial_points[p_max[i][j]], val);
-	print_error("Max.", "v2rhosig", max_diff[i][j], &func, val);
-
-	diff = avg_diff[3][2] + avg_diff[4][2] + avg_diff[5][2] + avg_diff[4][3] + avg_diff[5][3] + avg_diff[5][4];
-	diff = diff/6.0;
-	print_error("Avg.", "v2sig2", diff, NULL, NULL);
-	if(max_diff[3][2] > max_diff[4][2]) {i=3; j=2;} else {i=4; j=2;}
-	if(max_diff[5][2] > max_diff[i][j]) {i=5; j=2;}
-	if(max_diff[4][3] > max_diff[i][j]) {i=4; j=3;}
-	if(max_diff[5][3] > max_diff[i][j]) {i=5; j=3;}
-	if(max_diff[5][4] > max_diff[i][j]) {i=5; j=4;}
-	get_val(xc_trial_points[p_max[i][j]], val);
-	print_error("Max.", "v2sig2", max_diff[i][j], &func, val);
+        diff = avg_diff[3][0] + avg_diff[4][0] + avg_diff[5][0] + avg_diff[3][1] + avg_diff[4][1] + avg_diff[5][1];
+        diff = diff/6.0;
+        print_error("Avg.", "v2rhosig", diff, NULL, NULL);
+        if(max_diff[3][0] > max_diff[4][0]) {i=3; j=0;} else {i=4; j=0;}
+        if(max_diff[5][0] > max_diff[i][j]) {i=5; j=0;}
+        if(max_diff[3][1] > max_diff[i][j]) {i=3; j=1;}
+        if(max_diff[4][1] > max_diff[i][j]) {i=4; j=1;}
+        if(max_diff[5][1] > max_diff[i][j]) {i=5; j=1;}
+        get_val(xc_trial_points[p_max[i][j]], val);
+        print_error("Max.", "v2rhosig", max_diff[i][j], &func, val);
+        
+        diff = avg_diff[3][2] + avg_diff[4][2] + avg_diff[5][2] + avg_diff[4][3] + avg_diff[5][3] + avg_diff[5][4];
+        diff = diff/6.0;
+        print_error("Avg.", "v2sig2", diff, NULL, NULL);
+        if(max_diff[3][2] > max_diff[4][2]) {i=3; j=2;} else {i=4; j=2;}
+        if(max_diff[5][2] > max_diff[i][j]) {i=5; j=2;}
+        if(max_diff[4][3] > max_diff[i][j]) {i=4; j=3;}
+        if(max_diff[5][3] > max_diff[i][j]) {i=5; j=3;}
+        if(max_diff[5][4] > max_diff[i][j]) {i=5; j=4;}
+        get_val(xc_trial_points[p_max[i][j]], val);
+        print_error("Max.", "v2sig2", max_diff[i][j], &func, val);
       }
     }
   }

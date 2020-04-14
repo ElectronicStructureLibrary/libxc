@@ -105,14 +105,14 @@ void print_header(xc_func_type *func)
   } else {
     printf("    rhoa       rhob  ");
   }
-  if (func->info->family != XC_FAMILY_LDA && func->info->family != XC_FAMILY_HYB_LDA) {
+  if (func->info->family != XC_FAMILY_LDA) {
     if (func->nspin == 1) {
       printf("    sigma  ");
     } else {
       printf("   sigmaaa    sigmaab    sigmabb ");
     }
   }
-  if (func->info->family == XC_FAMILY_MGGA || func->info->family == XC_FAMILY_HYB_MGGA) {
+  if (func->info->family == XC_FAMILY_MGGA) {
     if (func->nspin == 1) {
       printf("     lapl       tau   ");
     } else {
@@ -129,14 +129,14 @@ void print_header(xc_func_type *func)
     } else {
       printf("    vrhoa      vrhob   ");
     }
-    if (func->info->family != XC_FAMILY_LDA && func->info->family != XC_FAMILY_HYB_LDA) {
+    if (func->info->family != XC_FAMILY_LDA) {
       if (func->nspin == 1) {
         printf("    vsigma ");
       } else {
         printf("  vsigmaaa   vsigmaab   vsigmabb ");
       }
     }
-    if (func->info->family == XC_FAMILY_MGGA || func->info->family == XC_FAMILY_HYB_MGGA) {
+    if (func->info->family == XC_FAMILY_MGGA) {
       if (func->nspin == 1) {
         printf("    vlapl       vtau  ");
       } else {
@@ -151,28 +151,28 @@ void print_header(xc_func_type *func)
     } else {
       printf("  v2rhoaa    v2rhoab    v2rhobb  ");
     }
-    if (func->info->family != XC_FAMILY_LDA && func->info->family != XC_FAMILY_HYB_LDA) {
+    if (func->info->family != XC_FAMILY_LDA) {
       if (func->nspin == 1) {
         printf("     v2sigma2 ");
       } else {
         printf("  v2sigmaaaaa v2sigmaaaab v2sigmaaabb v2sigmaabab v2sigmaabbb v2sigmabbbb");
       }
     }
-    if (func->info->family == XC_FAMILY_MGGA || func->info->family == XC_FAMILY_HYB_MGGA) {
+    if (func->info->family == XC_FAMILY_MGGA) {
       if (func->nspin == 1) {
         printf("  v2lapl2     v2tau2  ");
       } else {
         printf("  v2laplaa   v2laplab   v2laplbb   v2tauaa    v2tauab    v2taubb  ");
       }
     }
-    if (func->info->family != XC_FAMILY_LDA && func->info->family != XC_FAMILY_HYB_LDA) {
+    if (func->info->family != XC_FAMILY_LDA) {
       if (func->nspin == 1) {
         printf("    v2rhosigma ");
       } else {
         printf("  v2rhoasigmaaa v2rhoasigmaab v2rhoasigmabb v2rhobsigmaaa v2rhobsigmaab v2rhobsigmabb");
       }
     }
-    if (func->info->family == XC_FAMILY_MGGA || func->info->family == XC_FAMILY_HYB_MGGA) {
+    if (func->info->family == XC_FAMILY_MGGA) {
       if (func->nspin == 1) {
         printf("  v2rholapl    v2rhotau     v2sigmalapl     v2sigmatau   v2lapltau ");
       } else {
@@ -187,7 +187,7 @@ void print_header(xc_func_type *func)
   }
 
   if (func->info->flags & XC_FLAGS_HAVE_KXC) {
-    if (func->info->family == XC_FAMILY_LDA || func->info->family == XC_FAMILY_HYB_LDA) {
+    if (func->info->family == XC_FAMILY_LDA) {
       if (func->nspin == 1) {
         printf("    v3rho3 ");
       } else {
@@ -205,11 +205,11 @@ void print_values(xc_values_type *values, xc_func_type *func){
   /* Print densities and its derivatives */
   printf(" % 10.2e", values->rho[0]);
   if (func->nspin == 2) printf(" % 10.2e", values->rho[1]);
-  if (func->info->family != XC_FAMILY_LDA && func->info->family != XC_FAMILY_HYB_LDA) {
+  if (func->info->family != XC_FAMILY_LDA) {
     printf(" % 10.2e", values->sigma[0]);
     if (func->nspin == 2) printf(" % 10.2e % 10.2e", values->sigma[1], values->sigma[2]);
   }
-  if (func->info->family == XC_FAMILY_MGGA || func->info->family == XC_FAMILY_HYB_MGGA) {
+  if (func->info->family == XC_FAMILY_MGGA) {
     printf(" % 10.2e", values->lapl[0]);
     if (func->nspin == 2) printf(" % 10.2e", values->lapl[1]);
     printf(" % 10.2e", values->tau[0]);
@@ -223,11 +223,11 @@ void print_values(xc_values_type *values, xc_func_type *func){
   if (func->info->flags & XC_FLAGS_HAVE_VXC) {
     printf(" % 10.2e", values->vrho[0]);
     if (func->nspin == 2) printf(" % 10.2e", values->vrho[1]);
-    if (func->info->family != XC_FAMILY_LDA && func->info->family != XC_FAMILY_HYB_LDA) {
+    if (func->info->family != XC_FAMILY_LDA) {
       printf(" % 10.2e", values->vsigma[0]);
       if (func->nspin == 2) printf(" % 10.2e % 10.2e", values->vsigma[1], values->vsigma[2]);
     }
-    if (func->info->family == XC_FAMILY_MGGA || func->info->family == XC_FAMILY_HYB_MGGA) {
+    if (func->info->family == XC_FAMILY_MGGA) {
       printf(" % 10.2e", values->vlapl[0]);
       if (func->nspin == 2) printf(" % 10.2e", values->vlapl[1]);
       printf(" % 10.2e", values->vtau[0]);
@@ -238,25 +238,25 @@ void print_values(xc_values_type *values, xc_func_type *func){
   if (func->info->flags & XC_FLAGS_HAVE_FXC) {
     printf(" % 10.2e", values->v2rho2[0]);
     if (func->nspin == 2) printf(" % 10.2e % 10.2e", values->v2rho2[1], values->v2rho2[2]);
-    if (func->info->family != XC_FAMILY_LDA && func->info->family != XC_FAMILY_HYB_LDA) {
+    if (func->info->family != XC_FAMILY_LDA) {
       printf("  % 11.2e", values->v2sigma2[0]);
       if (func->nspin == 2) printf(" % 11.2e % 11.2e % 11.2e % 11.2e % 11.2e",
                                      values->v2sigma2[1], values->v2sigma2[2],
                                      values->v2sigma2[3], values->v2sigma2[4], values->v2sigma2[5]);
     }
-    if (func->info->family == XC_FAMILY_MGGA || func->info->family == XC_FAMILY_HYB_MGGA) {
+    if (func->info->family == XC_FAMILY_MGGA) {
       printf(" % 10.2e", values->v2lapl2[0]);
       if (func->nspin == 2) printf(" % 10.2e % 10.2e", values->v2lapl2[1], values->v2lapl2[2]);
       printf(" % 10.2e", values->v2tau2[0]);
       if (func->nspin == 2) printf(" % 10.2e % 10.2e", values->v2tau2[1], values->v2tau2[2]);
     }
-    if (func->info->family != XC_FAMILY_LDA && func->info->family != XC_FAMILY_HYB_LDA) {
+    if (func->info->family != XC_FAMILY_LDA) {
       printf(" % 13.2e", values->v2rhosigma[0]);
       if (func->nspin == 2) printf(" % 13.2e % 13.2e % 13.2e % 13.2e % 13.2e",
                                      values->v2rhosigma[1], values->v2rhosigma[2],
                                      values->v2rhosigma[3], values->v2rhosigma[4], values->v2rhosigma[5]);
     }
-    if (func->info->family == XC_FAMILY_MGGA || func->info->family == XC_FAMILY_HYB_MGGA) {
+    if (func->info->family == XC_FAMILY_MGGA) {
       printf("  % 11.2e", values->v2rholapl[0]);
       if (func->nspin == 2) printf(" % 11.2e % 11.2e", values->v2rholapl[1], values->v2rhosigma[2]);
       printf("  % 10.2e", values->v2rhotau[0]);
@@ -275,7 +275,7 @@ void print_values(xc_values_type *values, xc_func_type *func){
   }
 
   if (func->info->flags & XC_FLAGS_HAVE_KXC) {
-    if (func->info->family == XC_FAMILY_LDA || func->info->family == XC_FAMILY_HYB_LDA) {
+    if (func->info->family == XC_FAMILY_LDA) {
       printf(" % 10.2e", values->v3rho3[0]);
       if (func->nspin == 2) printf(" % 10.2e % 10.2e % 10.2e", values->v3rho3[1], values->v3rho3[2], values->v3rho3[3]);
     }
@@ -473,18 +473,15 @@ int main(int argc, char *argv[])
     /* Evaluate functional */
     switch(func.info->family) {
     case XC_FAMILY_LDA:
-    case XC_FAMILY_HYB_LDA:
       xc_lda(&func, 1, values.rho, pzk, pvrho, pv2rho2, pv3rho3, NULL);
       break;
     case XC_FAMILY_GGA:
-    case XC_FAMILY_HYB_GGA:
       xc_gga(&func, 1, values.rho, values.sigma, pzk, pvrho, pvsigma,
              pv2rho2, pv2rhosigma, pv2sigma2, NULL, NULL, NULL, NULL,
              NULL, NULL, NULL, NULL, NULL);
       break;
 
     case XC_FAMILY_MGGA:
-    case XC_FAMILY_HYB_MGGA:
       xc_mgga(&func, 1, values.rho, values.sigma, values.lapl, values.tau,
               pzk, pvrho, pvsigma, pvlapl, pvtau,
               pv2rho2, pv2rhosigma, pv2rholapl, pv2rhotau, pv2sigma2, pv2sigmalapl, pv2sigmatau, pv2lapl2, pv2lapltau, pv2tau2,

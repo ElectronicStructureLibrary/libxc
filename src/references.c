@@ -1147,6 +1147,13 @@ func_reference_type xc_ref_Jana2018_8999 = {
 };
 
 
+func_reference_type xc_ref_Jana2019_042515 = {
+  "S. Jana, A. Patra, L. A. Constantin, H. Myneni, and P. Samal, Phys. Rev. A 99, 042515 (2019)",
+  "10.1103/PhysRevA.99.042515",
+  "@article{Jana2019_042515,\n  title = {Long-range screened hybrid-functional theory satisfying the local-density linear response},\n  author = {Jana, Subrata and Patra, Abhilash and Constantin, Lucian A. and Myneni, Hemanadhan and Samal, Prasanjit},\n  journal = {Phys. Rev. A},\n  volume = {99},\n  issue = {4},\n  pages = {042515},\n  numpages = {14},\n  year = {2019},\n  month = {Apr},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.99.042515},\n  url = {https://link.aps.org/doi/10.1103/PhysRevA.99.042515}\n}"
+};
+
+
 func_reference_type xc_ref_Jana2019_6356 = {
   "S. Jana, K. Sharma, and P. Samal, J. Phys. Chem. A 123, 6356 (2019)",
   "10.1021/acs.jpca.9b02921",

@@ -175,6 +175,7 @@ extern func_reference_type xc_ref_Iikura2001_3540;
 extern func_reference_type xc_ref_Jana2017_4804;
 extern func_reference_type xc_ref_Jana2018_1;
 extern func_reference_type xc_ref_Jana2018_8999;
+extern func_reference_type xc_ref_Jana2019_042515;
 extern func_reference_type xc_ref_Jana2019_6356;
 extern func_reference_type xc_ref_Jana2021_024103;
 extern func_reference_type xc_ref_Jana2021_063007;

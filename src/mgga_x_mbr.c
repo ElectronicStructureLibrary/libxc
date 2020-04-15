@@ -6,22 +6,13 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-
 #include "util.h"
 
-/************************************************************************
- Implements Tao, Perdew, Staroverov & Scuseria 
-   meta-Generalized Gradient Approximation.
-
-  Exchange part
-************************************************************************/
-
-#define XC_MGGA_X_MBR 716 /* modified Becke-Russel */
+#define XC_MGGA_X_MBR 716 /* modified Becke-Roussel */
 
 typedef struct{
   double gamma, beta, lambda;
 } mgga_x_mbr_params;
-
 
 static void 
 mgga_x_mbr_init(xc_func_type *p)
@@ -45,7 +36,7 @@ extern "C"
 const xc_func_info_type xc_func_info_mgga_x_mbr = {
   XC_MGGA_X_MBR,
   XC_EXCHANGE,
-  "modified Becke-Russel",
+  "modified Becke-Roussel",
   XC_FAMILY_MGGA,
   {&xc_ref_Patra2019_19639, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,

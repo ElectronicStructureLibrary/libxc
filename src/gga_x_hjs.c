@@ -177,7 +177,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_pbeint = {
 extern "C"
 #endif
 const xc_func_info_type xc_func_info_gga_x_hjs_sg4 = {
-  XC_GGA_X_HJS_PBEINT,
+  XC_GGA_X_HJS_SG4,
   XC_EXCHANGE,
   "HJS screened exchange SG4 version",
   XC_FAMILY_GGA,

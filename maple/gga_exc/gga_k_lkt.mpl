@@ -14,7 +14,8 @@
   params = (gga_k_lkt_params * )(p->params);
 *)
 
-lkt_f0 := s -> 1./cosh(params_a_a * s) + 5*s^2/3 :
+(* The m_min avoids divisions by zero *)
+lkt_f0 := s -> 1/cosh(params_a_a * m_min(200, s)) + 5*s^2/3 :
 lkt_f := x -> lkt_f0(X2S*x):
 
 f := (rs, z, xt, xs0, xs1) -> gga_kinetic(lkt_f, rs, z, xs0, xs1):

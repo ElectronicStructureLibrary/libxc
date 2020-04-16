@@ -60,7 +60,7 @@ int main(int argc, char **argv)
   case XC_HYB_CAMG:
     printf("\nThis is a CAMG functional.\n");
     break;
-  case XC_HYB_DOUBLE:
+  case XC_HYB_DOUBLE_HYBRID:
     printf("\nThis is a double hybrid functional.\n");
     break;
   case XC_HYB_MIXTURE:

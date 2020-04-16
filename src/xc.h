@@ -83,7 +83,7 @@ extern "C" {
 #define XC_HYB_CAM              2  /* Coulomb attenuated hybrid */
 #define XC_HYB_CAMY             3  /* Coulomb attenuated hybrid with a Yukawa screening */
 #define XC_HYB_CAMG             4  /* Coulomb attenuated hybrid with a Gaussian screening */
-#define XC_HYB_DOUBLE           5  /* Double hybrid */
+#define XC_HYB_DOUBLE_HYBRID    5  /* Double hybrid */
 #define XC_HYB_MIXTURE      32768  /* More complicated mixture (have to check individual terms) */
   
 #define XC_MAX_REFERENCES       5

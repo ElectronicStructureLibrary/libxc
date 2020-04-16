@@ -111,7 +111,7 @@ xc_hyb_type(const xc_func_type *p)
     if(p->hyb_type[0] == XC_HYB_GAUSSIAN_SR && p->hyb_type[1] == XC_HYB_FOCK)
       return XC_HYB_CAMG;
     if(p->hyb_type[0] == XC_HYB_PT2         && p->hyb_type[1] == XC_HYB_FOCK)
-      return XC_HYB_DOUBLE;
+      return XC_HYB_DOUBLE_HYBRID;
   }
 
   return XC_HYB_MIXTURE;

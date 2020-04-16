@@ -39,7 +39,7 @@ for func in $funcs; do
       else
         nspin=2
       fi
-      for order in 0 1 2; do
+      for order in 0 1; do # change to 0 1 2 to get also fxc
         refname=$func.$system.$spin.$order
 
         $builddir/xc-regression $func $nspin $order $srcdir/input/$system $srcdir/regression/$dir/$refname > /dev/null

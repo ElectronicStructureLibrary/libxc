@@ -94,11 +94,16 @@ xc_hyb_type(const xc_func_type *p)
     if(p->hyb_type[0] == XC_HYB_FOCK)
       return XC_HYB_HYBRID;
 
+    /* range-separated hybrids */
     if(p->hyb_type[0] == XC_HYB_ERF_SR)
-      return XC_HYB_SHORT_RANGE;
+      return XC_HYB_CAM;
+    if(p->hyb_type[0] == XC_HYB_YUKAWA_SR)
+      return XC_HYB_CAMY;
+    if(p->hyb_type[0] == XC_HYB_GAUSSIAN_SR)
+      return XC_HYB_CAMG;
   }
 
-  if(p->hyb_number_terms == 2){
+  if(p->hyb_number_terms == 2) {
     if(p->hyb_type[0] == XC_HYB_ERF_SR      && p->hyb_type[1] == XC_HYB_FOCK)
       return XC_HYB_CAM;
     if(p->hyb_type[0] == XC_HYB_YUKAWA_SR   && p->hyb_type[1] == XC_HYB_FOCK)
@@ -106,7 +111,7 @@ xc_hyb_type(const xc_func_type *p)
     if(p->hyb_type[0] == XC_HYB_GAUSSIAN_SR && p->hyb_type[1] == XC_HYB_FOCK)
       return XC_HYB_CAMG;
     if(p->hyb_type[0] == XC_HYB_PT2         && p->hyb_type[1] == XC_HYB_FOCK)
-      return XC_HYB_DOUBLE;
+      return XC_HYB_DOUBLE_HYBRID;
   }
 
   return XC_HYB_MIXTURE;
@@ -129,9 +134,24 @@ void
 xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *beta)
 {
   assert(p!=NULL);
-  assert(xc_hyb_type(p) == XC_HYB_CAM || xc_hyb_type(p) == XC_HYB_CAMY || xc_hyb_type(p) == XC_HYB_CAMG);
+  assert(xc_hyb_type(p) == XC_HYB_CAM || xc_hyb_type(p) == XC_HYB_CAMY || xc_hyb_type(p) == XC_HYB_CAMG || xc_hyb_type(p) == XC_HYB_HYBRID);
 
-  *omega = p->hyb_omega[0];
-  *beta  = p->hyb_coeff[0];
-  *alpha = p->hyb_coeff[1];
+  if(p->hyb_number_terms == 1) {
+    if(p->hyb_type[0] == XC_HYB_FOCK) {
+      /* Regular hybrids */
+      *omega = 0.0;
+      *beta = 0.0;
+      *alpha = p->hyb_coeff[0];
+    } else {
+      /* Short-range only hybrid */
+      *omega = p->hyb_omega[0];
+      *beta  = p->hyb_coeff[0];
+      *alpha = 0.0;
+    }
+  } else if(p->hyb_number_terms == 2) {
+    /* Both short- and long-range exact exchange */
+    *omega = p->hyb_omega[0];
+    *beta  = p->hyb_coeff[0];
+    *alpha = p->hyb_coeff[1];
+  }
 }

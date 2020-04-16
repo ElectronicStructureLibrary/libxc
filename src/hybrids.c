@@ -134,13 +134,22 @@ void
 xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *beta)
 {
   assert(p!=NULL);
-  assert(xc_hyb_type(p) == XC_HYB_CAM || xc_hyb_type(p) == XC_HYB_CAMY || xc_hyb_type(p) == XC_HYB_CAMG);
+  assert(xc_hyb_type(p) == XC_HYB_CAM || xc_hyb_type(p) == XC_HYB_CAMY || xc_hyb_type(p) == XC_HYB_CAMG || xc_hyb_type(p) == XC_HYB_HYBRID);
 
   if(p->hyb_number_terms == 1) {
-    *omega = p->hyb_omega[0];
-    *beta  = p->hyb_coeff[0];
-    *alpha = 0.0;
+    if(p->hyb_type[0] == XC_HYB_FOCK) {
+      /* Regular hybrids */
+      *omega = 0.0;
+      *beta = 0.0;
+      *alpha = p->hyb_coeff[0];
+    } else {
+      /* Short-range only hybrid */
+      *omega = p->hyb_omega[0];
+      *beta  = p->hyb_coeff[0];
+      *alpha = 0.0;
+    }
   } else if(p->hyb_number_terms == 2) {
+    /* Both short- and long-range exact exchange */
     *omega = p->hyb_omega[0];
     *beta  = p->hyb_coeff[0];
     *alpha = p->hyb_coeff[1];

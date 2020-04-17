@@ -221,17 +221,17 @@ int main(void) {
 	    fname[i]=toupper(fname[i]);
 	  
 	  /* Print out info */
-	  printf("*  **%s**: %s\n",fname,func.info->name);
+	  printf("* **%s** (id=%i): %s\n",fname,func_id,func.info->name);
 
 	  /* Print out references */
 	  for(i=0; i<5; i++){
 	    if(func.info->refs[i]==NULL) break;
 	    if(strlen(func.info->refs[i]->doi) > 0) {
 	      char *h = sanitize_link(func.info->refs[i]->doi);
-	      printf("  *  [%s](http://dx.doi.org/%s) (doi: `%s`)\n", func.info->refs[i]->ref, h, func.info->refs[i]->doi);
+	      printf("  - [%s](http://doi.org/%s) (doi: `%s`)\n", func.info->refs[i]->ref, h, func.info->refs[i]->doi);
 	      libxc_free(h);
 	    } else
-	      printf("  *  %s\n", func.info->refs[i]->ref);
+	      printf("  - %s\n", func.info->refs[i]->ref);
 	  }
 	  
 	  xc_func_end(&func);

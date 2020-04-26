@@ -77,7 +77,7 @@ work_mgga(const XC(func_type) *p, size_t np,
       my_tau[1]   = max(1e-40, tau[1]);
       my_sigma[2] = min(max(1e-40, sigma[2]), 8.0*my_rho[1]*my_tau[1]);
       /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
-      my_sigma[1] = max(sigma[1], -(sigma[0] + sigma[1])/2.0);
+      my_sigma[1] = max(sigma[1], -(sigma[0] + sigma[2])/2.0);
     }
     
     xc_rho2dzeta(p->nspin, my_rho, &dens, &zeta);
@@ -178,7 +178,7 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
     my_tau[1]   = max(1e-40, tau[1]);
     my_sigma[2] = min(max(1e-40, sigma[2]), 8.0*my_rho[1]*my_tau[1]);
     /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
-    my_sigma[1] = max(sigma[1], -(sigma[0] + sigma[1])/2.0);
+    my_sigma[1] = max(sigma[1], -(sigma[0] + sigma[2])/2.0);
   }
   xc_rho2dzeta(p->nspin, my_rho, &dens, &zeta);
   

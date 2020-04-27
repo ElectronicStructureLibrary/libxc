@@ -27,14 +27,14 @@
 #endif
 
 #ifdef HAVE_CUDA
-__global__ static void 
+__global__ static void
 work_gga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, const double *sigma, double *zk, GGA_OUT_PARAMS_NO_EXC(double *));
 #endif
 
 /**
  * @param[in,out] func_type: pointer to functional structure
  */
-static void 
+static void
 work_gga(const XC(func_type) *p, size_t np,
          const double *rho, const double *sigma,
          double *zk, GGA_OUT_PARAMS_NO_EXC(double *))
@@ -51,7 +51,7 @@ work_gga(const XC(func_type) *p, size_t np,
 #ifdef XC_DEBUG
   feenableexcept(FE_DIVBYZERO | FE_INVALID);
 #endif
-    
+
 #ifdef HAVE_CUDA
 
   //make a copy of 'p' since it might be in host-only memory
@@ -61,13 +61,13 @@ work_gga(const XC(func_type) *p, size_t np,
 
   auto nblocks = np/CUDA_BLOCK_SIZE;
   if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
-    
+
   work_gga_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(pcuda, order, np, rho, sigma, zk, GGA_OUT_PARAMS_NO_EXC(NOARG));
 
   libxc_free(pcuda);
-  
+
 #else
-  
+
   size_t ip;
   double my_rho[2] = {0.0, 0.0}, my_sigma[3] = {0.0, 0.0, 0.0};
   double dens, zeta;
@@ -77,20 +77,25 @@ work_gga(const XC(func_type) *p, size_t np,
     my_rho[0]   = max(0.0, rho[0]);
     my_sigma[0] = max(1e-40, sigma[0]);
     if(p->nspin == XC_POLARIZED){
+      double s_ave = 0.5*(sigma[0] + sigma[2]);
+
       my_rho[1]   = max(0.0, rho[1]);
       my_sigma[2] = max(1e-40, sigma[2]);
+      my_sigma[1] = sigma[1];
       /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
-      my_sigma[1] = max(sigma[1], -(sigma[0] + sigma[2])/2.0);
+      my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
+      /* Since |grad n_up - grad n_down|^2 > 0 we also have */
+      my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
     }
     xc_rho2dzeta(p->nspin, my_rho, &dens, &zeta);
 
     if(dens > p->dens_threshold){
       if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
         func_unpol(p, order, my_rho, my_sigma, OUT_PARAMS);
-      
+
       }else if(zeta >  1.0 - 1e-10){              /* ferromagnetic case - spin 0 */
         func_ferr(p, order, my_rho, my_sigma, OUT_PARAMS);
-        
+
       }else if(zeta < -1.0 + 1e-10){              /* ferromagnetic case - spin 1 */
         internal_counters_gga_next(&(p->dim), -1, &rho, &sigma, &zk, GGA_OUT_PARAMS_NO_EXC(&));
         func_ferr(p, order, &my_rho[1], &my_sigma[2], OUT_PARAMS);
@@ -100,14 +105,14 @@ work_gga(const XC(func_type) *p, size_t np,
         func_pol(p, order, my_rho, my_sigma, OUT_PARAMS);
       } /* polarization */
     }
-    
+
     /* check for NaNs */
 #ifdef XC_DEBUG
     {
       size_t ii;
       const xc_dimensions *dim = &(p->dim);
       int is_OK = 1;
-      
+
       if(zk != NULL)
         is_OK = is_OK & isfinite(*zk);
 
@@ -117,7 +122,7 @@ work_gga(const XC(func_type) *p, size_t np,
         for(ii=0; ii < dim->vsigma; ii++)
           is_OK = is_OK && isfinite(vsigma[ii]);
       }
-      
+
       if(!is_OK){
         printf("Problem in the evaluation of the functional\n");
         if(p->nspin == XC_UNPOLARIZED){
@@ -139,7 +144,7 @@ work_gga(const XC(func_type) *p, size_t np,
 
 #ifdef HAVE_CUDA
 
-__global__ static void 
+__global__ static void
 work_gga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, const double *sigma,
              double *zk, GGA_OUT_PARAMS_NO_EXC(double *))
 {
@@ -151,25 +156,30 @@ work_gga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, co
   if(ip >= np) return;
 
   internal_counters_gga_random(&(p->dim), ip, 0, &rho, &sigma, &zk, GGA_OUT_PARAMS_NO_EXC(&));
-  
+
   /* sanity check on input parameters */
   my_rho[0]   = max(0.0, rho[0]);
   my_sigma[0] = max(1e-40, sigma[0]);
   if(p->nspin == XC_POLARIZED){
+    double s_ave = 0.5*(sigma[0] + sigma[2]);
+
     my_rho[1]   = max(0.0, rho[1]);
     my_sigma[2] = max(1e-40, sigma[2]);
+    my_sigma[1] = sigma[1];
     /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
-    my_sigma[1] = max(sigma[1], -(sigma[0] + sigma[2])/2.0);
+    my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
+    /* Since |grad n_up - grad n_down|^2 > 0 we also have */
+    my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
   }
   xc_rho2dzeta(p->nspin, my_rho, &dens, &zeta);
-  
+
   if(dens > p->dens_threshold){
     if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
       func_unpol(p, order, my_rho, my_sigma, OUT_PARAMS);
-      
+
     } else if(zeta >  1.0 - 1e-10){              /* ferromagnetic case - spin 0 */
       func_ferr(p, order, my_rho, my_sigma, OUT_PARAMS);
-      
+
     } else if(zeta < -1.0 + 1e-10){              /* ferromagnetic case - spin 1 */
       internal_counters_gga_next(&(p->dim), -1, &rho, &sigma, &zk, GGA_OUT_PARAMS_NO_EXC(&));
       func_ferr(p, order, &my_rho[1], &my_sigma[2], OUT_PARAMS);
@@ -178,7 +188,7 @@ work_gga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, co
       func_pol(p, order, my_rho, my_sigma, OUT_PARAMS);
 
     } /* polarization */
-  }  
+  }
 }
 
 #endif

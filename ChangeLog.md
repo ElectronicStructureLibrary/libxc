@@ -4,6 +4,7 @@
 - Bugs in worker functions affecting all GGAs and meta-GGAs.
 - Incorrect definition of GGA_XC_KT3.
 - Incorrect calculation of opposite-spin potentials for the ferromagnetic case.
+- Implementation of MGGA_X_MS2B still corresponded to the original preprint, not the final published version.
 
 ### Changed
 - The renaming libxcf03 -> libxcf90 of 5.0.0 was reverted, as it proved to be problematic in downstream codes.

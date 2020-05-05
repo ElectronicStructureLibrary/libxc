@@ -13,6 +13,7 @@
 #define XC_MGGA_X_MS1          222 /* MS1 exchange of Sun, et al */
 #define XC_MGGA_X_MS2          223 /* MS2 exchange of Sun, et al */
 #define XC_HYB_MGGA_X_MS2H     224 /* MS2 hybrid exchange of Sun, et al */
+#define XC_MGGA_X_MS2_REV      228 /* MS2 exchange of Sun, et al with a revised value for c  */
 
 typedef struct{
   double kappa, c, b;
@@ -35,6 +36,7 @@ static const char  *ms0_desc[MS0_N_PAR]   = {
 static const double ms0_values[MS0_N_PAR]  = {0.29, 0.28771, 1.0};
 static const double ms1_values[MS0_N_PAR] = {0.404, 0.18150, 1.0};
 static const double ms2_values[MS0_N_PAR] = {0.504, 0.14601, 4.0};
+static const double ms2rev_values[MS0_N_PAR] = {0.504, 0.14607, 4.0};
 
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_ms.c"
@@ -84,6 +86,22 @@ const xc_func_info_type xc_func_info_mgga_x_ms2 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-23,
   {MS0_N_PAR, ms0_names, ms0_desc, ms2_values, set_ext_params_cpy},
+  mgga_x_ms_init, NULL,
+  NULL, NULL, work_mgga,
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_mgga_x_ms2_rev = {
+  XC_MGGA_X_MS2_REV,
+  XC_EXCHANGE,
+  "MS2 exchange of Sun, et al with revised value for c",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Sun2013_044113, &xc_ref_Furness2019_041119, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-23,
+  {MS0_N_PAR, ms0_names, ms0_desc, ms2rev_values, set_ext_params_cpy},
   mgga_x_ms_init, NULL,
   NULL, NULL, work_mgga,
 };

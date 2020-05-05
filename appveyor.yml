@@ -33,11 +33,15 @@ before_build:
 build_script:
   - cmd: cmake --build .
           --config %CONFIGURATION%
+          --parallel 2
   - sh: cmake --build .
           --config $CONFIGURATION
+          --parallel 2
 
 test_script:
   - cmd: ctest --build-config %CONFIGURATION%
           --output-on-failure
+          --parallel 2
   - sh: ctest --build-config $CONFIGURATION
           --output-on-failure
+          --parallel 2

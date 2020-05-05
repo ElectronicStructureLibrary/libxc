@@ -1,3 +1,13 @@
+## [5.0.1] to be released
+
+### Fixed
+- Bugs in worker functions affecting all GGAs and meta-GGAs.
+- Incorrect definition of GGA_XC_KT3.
+- Incorrect calculation of opposite-spin potentials for the ferromagnetic case.
+
+### Changed
+- The renaming libxcf03 -> libxcf90 of 5.0.0 was reverted, as it proved to be problematic in downstream codes.
+
 ## [5.0.0] - 2020-04-06
 
 ### Added
@@ -6,8 +16,8 @@
 - HYB_LDA functionals: XC_LDA0, XC_CAM_LDA0
 - GGA functionals: X_LSPBE, X_LSRPBE, XC_KT3, XC_LB07, K_GDS08, K_GHDS10, K_GHDS10R, K_TKVLN, X_OPTB86B_VDW, C_ACGGAP, X_FD_LB94, X_FD_REVLB94, C_ZVPBELOC, X_B88_6311G, X_NCAP, X_ECMV92, C_CHACHIYO, C_PBE_VWN, X_S12G, X_LCGAU, X_LCGAU_CORE, X_LC2GAU, C_MGGAC
 - HYB_GGA: XC_LC_WPBE_WHS, XC_LC_WPBEH_WHS, XC_LC_WPBE08_WHS, XC_LC_WPBESOL_WHS, XC_APF, XC_CAM_QTP_00, XC_CAM_QTP_02, XC_LC_QTP, XC_APBE0, XC_HAPBE, XC_WC04, XC_WP04, XC_CAM_PBEH, XC_CAMY_PBEH, XC_QTP17, XC_LC_BLYP, X_S12H, XC_BLYP35
-- MGGA functionals: X_RTPSS, X_MS2B, X_MS2BS, X_MVSB, X_MVSBS, C_TM, X_BR89_1, X_BR89_EXPLICIT_1, C_REVM11, X_REGTPSS, X_2D_JS17, X_RSCAN, C_RSCAN, X_TLDA, X_EDMGGA, X_GDME_NV, X_GDME_0, X_GDME_KOS, X_GDME_VT, X_REVTM, C_REVTM, X_REVM06, C_REVM06, X_SCANL, X_REVSCANL, C_SCANL, C_SCANL_RVV10, C_SCANL_VV10, X_MBRXH_BG, X_MBRXC_BG, X_TASK, X_MGGAC
-- HYB_MGGA functionals: X_REVM11, XC_RCAM_B3LYP, X_JS18, X_PJS18, XC_B3LYP_MCM1, XC_B3LYP_MCM2
+- MGGA functionals: X_RTPSS, X_MS2B, X_MS2BS, X_MVSB, X_MVSBS, C_TM, X_BR89_1, X_BR89_EXPLICIT_1, C_REVM11, X_REGTPSS, X_2D_JS17, X_RSCAN, C_RSCAN, X_TLDA, X_EDMGGA, X_GDME_NV, X_GDME_0, X_GDME_KOS, X_GDME_VT, X_REVTM, C_REVTM, C_REVM06, X_SCANL, X_REVSCANL, C_SCANL, C_SCANL_RVV10, C_SCANL_VV10, X_MBRXH_BG, X_MBRXC_BG, X_TASK, X_MGGAC
+- HYB_MGGA functionals: X_REVM11, XC_RCAM_B3LYP, X_JS18, X_PJS18, XC_B3LYP_MCM1, XC_B3LYP_MCM2, X_REVM06
 - Worker functionals: LDA_K_GDS08_WORKER.
 - Correction to the Fermi_D term in MGGA_C_M05, MGGA_C_M05_2X, and MGGA_C_DLDF to avoid divergences when the kinetic energy density is zero, but not the density. This is similar to the correction proposed in from JCP 127, 214103 (2007). The correction is controlled by the `Fermi_D_cnst` external parameter, and its default value is 1e-10.
 - Access to the internal parameters of several functionals. This is done using the same functions as for the external parameters.
@@ -31,9 +41,11 @@
 - Missing terms in LDA_XC_KSDT and LDA_XC_GDSMFB.
 - Incorrect parameter of GGA_C_GAPC.
 - Incorrect definition of MGGA_C_KCIS.
+- Incorrect definition of GGA_C_OPTC.
 
 ### Removed
 - xc_mix_func function from public API.
+- obsolete custom Fortran interface libxcf90 replaced with the 2003 version (libxcf03) that employs standard iso_c_binding to wrap the C functions to Fortran.
 
 ## [4.3.4] - 2019-03-04
 

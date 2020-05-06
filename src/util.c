@@ -163,6 +163,7 @@ set_ext_params_cpy_omega(xc_func_type *p, const double *ext_params)
   copy_params(p, ext_params, nparams);
 
   /* This omega is only meant for internal use */
+  assert(p->hyb_number_terms == 1);
   p->hyb_type[0]  = XC_HYB_NONE;
   p->hyb_coeff[0] = 0.0;
   p->hyb_omega[0] = get_ext_param(p, ext_params, nparams);
@@ -180,6 +181,7 @@ set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params)
   nparams = p->info->ext_params.n-1;
   copy_params(p, ext_params, nparams);
 
+  assert(p->hyb_number_terms == 1);
   p->hyb_type[0]  = XC_HYB_FOCK;
   p->hyb_coeff[0] = get_ext_param(p, ext_params, nparams);
   p->hyb_omega[0] = 0.0;
@@ -197,6 +199,7 @@ set_ext_params_cpy_cam(xc_func_type *p, const double *ext_params)
   nparams = p->info->ext_params.n - 3;
   copy_params(p, ext_params, p->info->ext_params.n - 3);
 
+  assert(p->hyb_number_terms == 2);
   p->hyb_type[0]  = XC_HYB_ERF_SR;
   p->hyb_coeff[0] = get_ext_param(p, ext_params, nparams + 1);
   p->hyb_omega[0] = get_ext_param(p, ext_params, nparams + 2);

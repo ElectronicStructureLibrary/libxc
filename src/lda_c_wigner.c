@@ -9,7 +9,7 @@
 #include "util.h"
 
 #define XC_LDA_C_WIGNER    2   /* Wigner parametrization       */
-#define XC_LDA_XC_LP_A   547   /* Lee-Parr reparametrization B */
+#define XC_LDA_XC_LP_A   547   /* Lee-Parr reparametrization A */
 #define XC_LDA_XC_LP_B   548   /* Lee-Parr reparametrization B */
 #define XC_LDA_C_MCWEENY 551   /* McWeeny 76 */
 #define XC_LDA_C_BR78    552   /* Brual & Rothstein 78 */
@@ -20,48 +20,23 @@ typedef struct {
   double a, b;
 } lda_c_wigner_params;
 
+#define N_PAR 2
+static const char  *names[N_PAR]  = {"_a", "_b"};
+static const char  *desc[N_PAR]   = {"a parameter", "b parameter"};
+
+static const double val_wigner[N_PAR] = {-0.44, 7.8};
+static const double val_lp_a[N_PAR] = {-0.8626*RS_FACTOR, 0.0};
+static const double val_lp_b[N_PAR] = {-0.906*RS_FACTOR, 2.1987e-2*RS_FACTOR};
+static const double val_mcweeny[N_PAR] = {-RS_FACTOR/2.946, RS_FACTOR*9.652/2.946};
+static const double val_br78[N_PAR] = {-RS_FACTOR/21.437, RS_FACTOR*9.810/21.437};
+static const double val_ow_lyp[N_PAR] = {-0.04918*RS_FACTOR/0.349, RS_FACTOR/0.349};
+static const double val_ow[N_PAR] = {-0.0526*RS_FACTOR/0.349, RS_FACTOR/0.349};
+
 static void 
 lda_c_wigner_init(xc_func_type *p)
 {
-  lda_c_wigner_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(lda_c_wigner_params));
-  params = (lda_c_wigner_params *) (p->params);
-
-  switch(p->info->number){
-  case XC_LDA_C_WIGNER:
-    params->a = -0.44;
-    params->b =  7.8;
-    break;
-  case XC_LDA_XC_LP_A:
-    params->a = -0.8626*RS_FACTOR;
-    params->b = 0.0;
-    break;
-  case XC_LDA_XC_LP_B:
-    params->a = -0.906*RS_FACTOR;
-    params->b =  2.1987e-2*RS_FACTOR;
-    break;
-  case XC_LDA_C_MCWEENY:
-    params->a = -RS_FACTOR/2.946;
-    params->b =  RS_FACTOR*9.652/2.946;
-    break;
-  case XC_LDA_C_BR78:
-    params->a = -RS_FACTOR/21.437;
-    params->b =  RS_FACTOR*9.810/21.437;
-    break;
-  case XC_LDA_C_OW_LYP:
-    params->a = -0.04918*RS_FACTOR/0.349;
-    params->b = RS_FACTOR/0.349;
-    break;
-  case XC_LDA_C_OW:
-    params->a = -0.0526*RS_FACTOR/0.349;
-    params->b = RS_FACTOR/0.349;
-    break;
-  default:
-    fprintf(stderr, "Internal error in lda_c_wigner\n");
-    exit(1);
-  }
 }
 
 #include "decl_lda.h"
@@ -79,7 +54,7 @@ const xc_func_info_type xc_func_info_lda_c_wigner = {
   {&xc_ref_Wigner1938_678, &xc_ref_Stewart1995_4337, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, val_wigner, set_ext_params_cpy},
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
 };
@@ -95,7 +70,7 @@ const xc_func_info_type xc_func_info_lda_xc_lp_a = {
   {&xc_ref_Lee1990_193, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, val_lp_a, set_ext_params_cpy},
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
 };
@@ -111,7 +86,7 @@ const xc_func_info_type xc_func_info_lda_xc_lp_b = {
   {&xc_ref_Lee1990_193, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, val_lp_b, set_ext_params_cpy},
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
 };
@@ -127,7 +102,7 @@ const xc_func_info_type xc_func_info_lda_c_mcweeny = {
   {&xc_ref_McWeeny1976_3, &xc_ref_Brual1978_1177, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, val_mcweeny, set_ext_params_cpy},
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
 };
@@ -143,7 +118,7 @@ const xc_func_info_type xc_func_info_lda_c_br78 = {
   {&xc_ref_Brual1978_1177, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, val_br78, set_ext_params_cpy},
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
 };
@@ -159,7 +134,7 @@ const xc_func_info_type xc_func_info_lda_c_ow_lyp = {
   {&xc_ref_Stewart1995_4337, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, val_ow_lyp, set_ext_params_cpy},
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
 };
@@ -175,7 +150,7 @@ const xc_func_info_type xc_func_info_lda_c_ow = {
   {&xc_ref_Stewart1995_4337, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-24,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, val_ow, set_ext_params_cpy},
   lda_c_wigner_init, NULL,
   work_lda, NULL, NULL
 };

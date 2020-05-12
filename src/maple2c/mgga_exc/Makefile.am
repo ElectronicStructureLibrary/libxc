@@ -12,7 +12,7 @@ hyb_mgga_x_js18.c     mgga_c_rscan.c          mgga_xc_cc06.c   mgga_x_mbeefvdw.c
 hyb_mgga_x_m05.c      mgga_c_scan.c           mgga_xc_lp90.c   mgga_x_mbrxc_bg.c  mgga_x_rtpss.c    \
 hyb_mgga_x_pjs18.c    mgga_xc_zlp.c    mgga_x_mbrxh_bg.c  mgga_x_sa_tpss.c  \
 mgga_c_b88.c          mgga_c_tpss.c           mgga_x_edmgga.c  mgga_x_mn12.c      mgga_x_scan.c     \
-mgga_c_bc95.c         mgga_c_tpssloc.c        mgga_x_gdme.c    mgga_x_msb.c       mgga_c_scanl.c    \
+mgga_c_bc95.c         mgga_c_tpssloc.c        mgga_x_gdme.c    mgga_x_msb.c       \
 mgga_c_cs.c           mgga_c_vsxc.c           mgga_x_gvt4.c    mgga_x_ms.c        mgga_x_task.c     \
 mgga_c_kcis.c         mgga_k_pc07.c           mgga_x_gx.c      mgga_x_mvsb.c      mgga_x_tau_hcth.c \
 mgga_c_m05.c          mgga_x_2d_js17.c        mgga_x_lta.c     mgga_x_mvs.c       mgga_x_tm.c       \

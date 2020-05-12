@@ -19,7 +19,7 @@ mgga_order_3 = \
   mgga_x_tpss.mpl mgga_x_mbeef.mpl              \
   mgga_x_vt84.mpl mgga_x_regtpss.mpl mgga_x_rscan.mpl mgga_x_edmgga.mpl        \
   mgga_x_gdme.mpl mgga_x_revtm.mpl mgga_x_rlda.mpl       \
-  mgga_c_scanl.mpl mgga_x_mbrxh_bg.mpl mgga_x_mbrxc_bg.mpl mgga_x_task.mpl     \
+  mgga_x_mbrxh_bg.mpl mgga_x_mbrxc_bg.mpl mgga_x_task.mpl     \
   hyb_mgga_x_js18.mpl hyb_mgga_x_pjs18.mpl \
   hyb_mgga_xc_wb97mv.mpl mgga_c_vsxc.mpl mgga_c_b88.mpl mgga_xc_b97mv.mpl      \
   mgga_c_bc95.mpl mgga_xc_b98.mpl mgga_c_cs.mpl mgga_xc_cc06.mpl               \

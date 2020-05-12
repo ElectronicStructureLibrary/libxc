@@ -69,28 +69,17 @@ work_lda(const XC(func_type) *p, size_t np, const double *rho,
 
   for(ip = 0; ip < np; ip++){
     /* sanity check on input parameters */
-    my_rho[0] = max(0.0, rho[0]);
+    my_rho[0] = max(p->dens_threshold, rho[0]);
     if(p->nspin == XC_POLARIZED){
-      my_rho[1] = max(0.0, rho[1]);
+      my_rho[1] = max(p->dens_threshold, rho[1]);
     }
     
     xc_rho2dzeta(p->nspin, my_rho, &dens, &zeta);
 
-    if(dens > p->dens_threshold){
-      if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
-        func_unpol(p, order, my_rho OUT_PARAMS);
-      
-      }else if(zeta >  1.0 - 1e-10){              /* ferromagnetic case - spin 0 */
-        func_ferr(p, order, my_rho OUT_PARAMS);
-        
-      }else if(zeta < -1.0 + 1e-10){              /* ferromagnetic case - spin 1 */
-        internal_counters_lda_next(&(p->dim), -1, &rho, &zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
-        func_ferr(p, order, &my_rho[1] OUT_PARAMS);
-        internal_counters_lda_prev(&(p->dim), -1, &rho, &zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
-
-      }else{                                      /* polarized (general) case */
-        func_pol(p, order, my_rho OUT_PARAMS);
-      } /* polarization */
+    if(p->nspin == XC_UNPOLARIZED){
+      func_unpol(p, order, my_rho OUT_PARAMS);
+    }else{
+      func_pol  (p, order, my_rho OUT_PARAMS);
     }
     
     /* check for NaNs */

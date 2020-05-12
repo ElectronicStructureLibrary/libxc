@@ -248,7 +248,7 @@ mf   := (r0, r1) -> eval(dens(r0, r1)*mzk(r0, r1)):
 ";
   my $maple_zk = " zk_0_ = mzk(".join(", ", @{$variables}).")";
 
-  # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
+  # we build 2 variants of the functional, for unpolarized, and polarized densities
   @variants = (
     "unpol", "
 dens := (r0, r1) -> r0:
@@ -259,16 +259,6 @@ $der_def_unpol
 $maple_code
 C([$maple_zk, $out_c_unpol], optimize, deducetypes=false):
 ",
-
-    "ferr", "
-dens := (r0, r1) -> r0:
-zeta := (r0, r1) -> 1:
-
-$der_def_unpol
-
-$maple_code
-C([$maple_zk, $out_c_unpol], optimize, deducetypes=false):
-\n",
 
     "pol", "
 dens := (r0, r1) -> r0 + r1:
@@ -327,21 +317,11 @@ mf1   := (r0, r1) -> eval(mzk(r1, r0)):
   my $maple_vrho0 = "vrho_0_ = mf0(".join(", ", @{$variables}).")";
   my $maple_vrho1 = "vrho_1_ = mf1(".join(", ", @{$variables}).")"; 
 
-  # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
+  # we build 2 variants of the functional, for unpolarized, and polarized densities
   @variants = (
     "unpol", "
 dens := (r0, r1) -> r0:
 zeta := (r0, r1) -> 0:
-
-$der_def_unpol
-
-$maple_code1
-C([$maple_vrho0, $out_c_unpol], optimize, deducetypes=false):
-",
-
-    "ferr", "
-dens := (r0, r1) -> r0:
-zeta := (r0, r1) -> 1:
 
 $der_def_unpol
 

@@ -272,7 +272,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mb3lyp_rc04 = {
   XC_FAMILY_GGA,
   {&xc_ref_Tognetti2007_381, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-24,
   {RC04_N_PAR, rc04_names, rc04_desc, rc04_values, rc04_set_ext_params},
   xc_hyb_gga_xc_mb3lyp_rc04_init, NULL,
   NULL, NULL, NULL

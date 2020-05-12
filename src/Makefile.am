@@ -37,7 +37,7 @@ lib_LTLIBRARIES = libxc.la
 
 libxc_la_FUNC_SOURCES = \
 	special_functions.c bessel.c expint_e1.c faddeeva.c integrate.c		\
-	math_brent.c util.c mix_func.c func_info.c functionals.c hybrids.c \
+	math_brent.c util.c mix_func.c deorbitalize_func.c func_info.c functionals.c hybrids.c \
 	version.c func_reference.c \
 	lda.c \
 	lda_x.c lda_x_2d.c lda_c_wigner.c lda_c_gombas.c lda_c_rpa.c	\

@@ -227,7 +227,7 @@ sub work_lda_exc {
   
   # get arguments of the functions
   $input_args  = "const double *rho";
-  $output_args = "double *zk, LDA_OUT_PARAMS_NO_EXC(double *)";
+  $output_args = ", double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, )";
 
   my ($der_def_unpol, @out_c_unpol) = 
       maple2c_create_derivatives($variables, $derivatives, "mf", "unpol");
@@ -295,7 +295,7 @@ sub work_lda_vxc {
 
   # get arguments of the functions
   $input_args  = "const double *rho";
-  $output_args = "LDA_OUT_PARAMS_NO_EXC(double *)";
+  $output_args = "LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, )";
 
   # we obtain the missing pieces for maple
   # unpolarized calculation
@@ -373,7 +373,7 @@ sub work_gga_exc {
 
   # get arguments of the functions
   $input_args  = "const double *rho, const double *sigma";
-  $output_args = "double *zk, GGA_OUT_PARAMS_NO_EXC(double *)";
+  $output_args = ", double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, )";
 
   my ($der_def, @out_c) = 
       maple2c_create_derivatives($variables, $derivatives, "mf");
@@ -451,7 +451,7 @@ sub work_gga_vxc {
     
   # get arguments of the functions
   $input_args  = "const double *rho, const double *sigma";
-  $output_args = "GGA_OUT_PARAMS_NO_EXC(double *)";
+  $output_args = "GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, )";
   
   # we obtain the missing pieces for maple
   # unpolarized calculation
@@ -540,7 +540,7 @@ sub work_mgga_exc {
   
   # get arguments of the functions
   $input_args  = "const double *rho, const double *sigma, const double *lapl, const double *tau";
-  $output_args = "double *zk, MGGA_OUT_PARAMS_NO_EXC(double *)";
+  $output_args = ", double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, )";
 
   my ($der_def, @out_c) = 
       maple2c_create_derivatives($variables, $derivatives, "mf");
@@ -630,7 +630,7 @@ sub work_mgga_vxc {
 
   # get arguments of the functions
   $input_args  = "const double *rho, const double *sigma, const double *lapl, const double *tau";
-  $output_args = "MGGA_OUT_PARAMS_NO_EXC(double *)";
+  $output_args = "MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, )";
 
   # we obtain the missing pieces for maple
   # unpolarized calculation

@@ -228,46 +228,70 @@ GPU_FUNCTION void xc_rho2dzeta(int nspin, const double *rho, double *d, double *
 
 void internal_counters_set_lda (int nspin, xc_dimensions *dim);
 GPU_FUNCTION void internal_counters_lda_random
-(const xc_dimensions *dim, int ip, int offset, const double **rho, double **zk, LDA_OUT_PARAMS_NO_EXC(double **));
+(const xc_dimensions *dim, int ip, int offset,
+ const double **rho,
+ double **zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double **, XC_NOARG));
 GPU_FUNCTION void internal_counters_lda_next
-(const xc_dimensions *dim, int offset, const double **rho, double **zk, LDA_OUT_PARAMS_NO_EXC(double **));
+(const xc_dimensions *dim, int offset,
+ const double **rho,
+ double **zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double **, XC_NOARG));
 GPU_FUNCTION void internal_counters_lda_prev
-(const xc_dimensions *dim, int offset, const double **rho, double **zk, LDA_OUT_PARAMS_NO_EXC(double **));
+(const xc_dimensions *dim, int offset,
+ const double **rho,
+ double **zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double **, XC_NOARG));
 
 void internal_counters_set_gga (int nspin, xc_dimensions *dim);
 GPU_FUNCTION void internal_counters_gga_random
-(const xc_dimensions *dim, int pos, int offset, const double **rho, const double **sigma,
- double **zk, GGA_OUT_PARAMS_NO_EXC(double **));
+(const xc_dimensions *dim, int pos, int offset,
+ const double **rho, const double **sigma,
+ double **zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ));
 GPU_FUNCTION void internal_counters_gga_next
-(const xc_dimensions *dim, int offset, const double **rho, const double **sigma,
- double **zk, GGA_OUT_PARAMS_NO_EXC(double **));
+(const xc_dimensions *dim, int offset,
+ const double **rho, const double **sigma,
+ double **zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ));
 GPU_FUNCTION void internal_counters_gga_prev
-(const xc_dimensions *dim, int offset, const double **rho, const double **sigma,
- double **zk, GGA_OUT_PARAMS_NO_EXC(double **));
+(const xc_dimensions *dim, int offset,
+ const double **rho, const double **sigma,
+ double **zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ));
 
 void internal_counters_set_mgga(int nspin, xc_dimensions *dim);
-
 GPU_FUNCTION void internal_counters_mgga_random
 (const xc_dimensions *dim, const int pos, int offset,
  const double **rho, const double **sigma, const double **lapl, const double **tau,
- double **zk, MGGA_OUT_PARAMS_NO_EXC(double **));
-
+ double **zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ));
 GPU_FUNCTION void internal_counters_mgga_next
 (const xc_dimensions *dim, int offset,
  const double **rho, const double **sigma, const double **lapl, const double **tau,
- double **zk, MGGA_OUT_PARAMS_NO_EXC(double **));
-
+ double **zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ));
 GPU_FUNCTION void internal_counters_mgga_prev
 (const xc_dimensions *dim, int offset,
  const double **rho, const double **sigma, const double **lapl, const double **tau,
- double **zk, MGGA_OUT_PARAMS_NO_EXC(double **));
+ double **zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ));
+
+/* Functionals that are defined as deorbitalized */
+void xc_mgga_vars_allocate_all
+  (int family, size_t np, const xc_dimensions *dim,
+   int do_zk, int do_vrho, int do_v2rho2, int do_v3rho3, int do_v4rho4,
+   double **zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ));
+void xc_mgga_vars_free_all
+  (double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
+void xc_mgga_evaluate_functional
+  (const xc_func_type *func, size_t np,
+   const double *rho, const double *sigma, const double *lapl, const double *tau,
+   double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
+void xc_deorbitalize_init
+  (xc_func_type *p, int mgga_id, int ked_id);
+void xc_deorbitalize_func
+  (const xc_func_type *func, size_t np,
+   const double *rho, const double *sigma, const double *lapl, const double *tau,
+   double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
 
 /* Functionals that are defined as mixtures of others */
 void xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix_coef);
 void xc_mix_func
   (const xc_func_type *func, size_t np,
    const double *rho, const double *sigma, const double *lapl, const double *tau,
-   double *zk, MGGA_OUT_PARAMS_NO_EXC(double *));
+   double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
 
 /* Hybrid functionals */
 void xc_hyb_init(xc_func_type *p, int n_terms, const int *type, const double *coeff, const double *omega);

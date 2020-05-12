@@ -90,14 +90,20 @@ extern "C" {
 
 /* This are the derivatives that a functional returns */
 #define XC_NOARG
-#define LDA_OUT_PARAMS_NO_EXC(P_)                                          \
-  P_ vrho, P_ v2rho2, P_ v3rho3, P_ v4rho4
+#define XC_COMMA ,
+#define LDA_OUT_PARAMS_NO_EXC(P1_, P2_) \
+  P1_ P2_ ## vrho   P1_ P2_ ## v2rho2 \
+  P1_ P2_ ## v3rho3 P1_ P2_ ## v4rho4
 
-#define GGA_OUT_PARAMS_NO_EXC(P_)                                          \
-  P_ vrho, P_ vsigma,                                                      \
-  P_ v2rho2, P_ v2rhosigma, P_ v2sigma2,                                   \
-  P_ v3rho3, P_ v3rho2sigma, P_ v3rhosigma2, P_ v3sigma3,                  \
-  P_ v4rho4, P_ v4rho3sigma, P_ v4rho2sigma2, P_ v4rhosigma3, P_ v4sigma4  \
+#define GGA_OUT_PARAMS_NO_EXC(P1_, P2_) \
+  P1_ P2_ ## vrho         P1_ P2_ ## vsigma       \
+  P1_ P2_ ## v2rho2       P1_ P2_ ## v2rhosigma   \
+  P1_ P2_ ## v2sigma2                             \
+  P1_ P2_ ## v3rho3       P1_ P2_ ## v3rho2sigma  \
+  P1_ P2_ ## v3rhosigma2  P1_ P2_ ## v3sigma3     \
+  P1_ P2_ ## v4rho4       P1_ P2_ ## v4rho3sigma  \
+  P1_ P2_ ## v4rho2sigma2 P1_ P2_ ## v4rhosigma3  \
+  P1_ P2_ ## v4sigma4
 
 /* This are the derivatives of a mgga
        1st order:  4
@@ -105,24 +111,42 @@ extern "C" {
        3rd order: 20
        4th order: 35
  */
-#define MGGA_OUT_PARAMS_NO_EXC(P_)                                         \
-  P_ vrho, P_ vsigma, P_ vlapl, P_ vtau,                                   \
-  P_ v2rho2, P_ v2rhosigma, P_ v2rholapl, P_ v2rhotau, P_ v2sigma2,        \
-  P_ v2sigmalapl, P_ v2sigmatau, P_ v2lapl2, P_ v2lapltau,  P_ v2tau2,     \
-  P_ v3rho3, P_ v3rho2sigma, P_ v3rho2lapl, P_ v3rho2tau, P_ v3rhosigma2,  \
-  P_ v3rhosigmalapl, P_ v3rhosigmatau, P_ v3rholapl2, P_ v3rholapltau,     \
-  P_ v3rhotau2, P_ v3sigma3, P_ v3sigma2lapl, P_ v3sigma2tau,              \
-  P_ v3sigmalapl2, P_ v3sigmalapltau, P_ v3sigmatau2, P_ v3lapl3,          \
-  P_ v3lapl2tau, P_ v3lapltau2, P_ v3tau3,                                 \
-  P_ v4rho4, P_ v4rho3sigma, P_ v4rho3lapl, P_ v4rho3tau, P_ v4rho2sigma2, \
-  P_ v4rho2sigmalapl, P_ v4rho2sigmatau, P_ v4rho2lapl2, P_ v4rho2lapltau, \
-  P_ v4rho2tau2, P_ v4rhosigma3, P_ v4rhosigma2lapl, P_ v4rhosigma2tau,    \
-  P_ v4rhosigmalapl2, P_ v4rhosigmalapltau, P_ v4rhosigmatau2,             \
-  P_ v4rholapl3, P_ v4rholapl2tau, P_ v4rholapltau2, P_ v4rhotau3,         \
-  P_ v4sigma4, P_ v4sigma3lapl, P_ v4sigma3tau, P_ v4sigma2lapl2,          \
-  P_ v4sigma2lapltau, P_ v4sigma2tau2, P_ v4sigmalapl3, P_ v4sigmalapl2tau,\
-  P_ v4sigmalapltau2, P_ v4sigmatau3, P_ v4lapl4, P_ v4lapl3tau,           \
-  P_ v4lapl2tau2, P_ v4lapltau3, P_ v4tau4
+#define MGGA_OUT_PARAMS_NO_EXC(P1_, P2_) \
+  P1_ P2_ ## vrho              P1_ P2_ ## vsigma          \
+  P1_ P2_ ## vlapl             P1_ P2_ ## vtau            \
+  P1_ P2_ ## v2rho2            P1_ P2_ ## v2rhosigma      \
+  P1_ P2_ ## v2rholapl         P1_ P2_ ## v2rhotau        \
+  P1_ P2_ ## v2sigma2          P1_ P2_ ## v2sigmalapl     \
+  P1_ P2_ ## v2sigmatau        P1_ P2_ ## v2lapl2         \
+  P1_ P2_ ## v2lapltau         P1_ P2_ ## v2tau2          \
+  P1_ P2_ ## v3rho3            P1_ P2_ ## v3rho2sigma     \
+  P1_ P2_ ## v3rho2lapl        P1_ P2_ ## v3rho2tau       \
+  P1_ P2_ ## v3rhosigma2       P1_ P2_ ## v3rhosigmalapl  \
+  P1_ P2_ ## v3rhosigmatau     P1_ P2_ ## v3rholapl2      \
+  P1_ P2_ ## v3rholapltau      P1_ P2_ ## v3rhotau2       \
+  P1_ P2_ ## v3sigma3          P1_ P2_ ## v3sigma2lapl    \
+  P1_ P2_ ## v3sigma2tau       P1_ P2_ ## v3sigmalapl2    \
+  P1_ P2_ ## v3sigmalapltau    P1_ P2_ ## v3sigmatau2     \
+  P1_ P2_ ## v3lapl3           P1_ P2_ ## v3lapl2tau      \
+  P1_ P2_ ## v3lapltau2        P1_ P2_ ## v3tau3          \
+  P1_ P2_ ## v4rho4            P1_ P2_ ## v4rho3sigma     \
+  P1_ P2_ ## v4rho3lapl        P1_ P2_ ## v4rho3tau       \
+  P1_ P2_ ## v4rho2sigma2      P1_ P2_ ## v4rho2sigmalapl \
+  P1_ P2_ ## v4rho2sigmatau    P1_ P2_ ## v4rho2lapl2     \
+  P1_ P2_ ## v4rho2lapltau     P1_ P2_ ## v4rho2tau2      \
+  P1_ P2_ ## v4rhosigma3       P1_ P2_ ## v4rhosigma2lapl \
+  P1_ P2_ ## v4rhosigma2tau    P1_ P2_ ## v4rhosigmalapl2 \
+  P1_ P2_ ## v4rhosigmalapltau P1_ P2_ ## v4rhosigmatau2  \
+  P1_ P2_ ## v4rholapl3        P1_ P2_ ## v4rholapl2tau   \
+  P1_ P2_ ## v4rholapltau2     P1_ P2_ ## v4rhotau3       \
+  P1_ P2_ ## v4sigma4          P1_ P2_ ## v4sigma3lapl    \
+  P1_ P2_ ## v4sigma3tau       P1_ P2_ ## v4sigma2lapl2   \
+  P1_ P2_ ## v4sigma2lapltau   P1_ P2_ ## v4sigma2tau2    \
+  P1_ P2_ ## v4sigmalapl3      P1_ P2_ ## v4sigmalapl2tau \
+  P1_ P2_ ## v4sigmalapltau2   P1_ P2_ ## v4sigmatau3     \
+  P1_ P2_ ## v4lapl4           P1_ P2_ ## v4lapl3tau      \
+  P1_ P2_ ## v4lapl2tau2       P1_ P2_ ## v4lapltau3      \
+  P1_ P2_ ## v4tau4
 
 
 void xc_version(int *major, int *minor, int *micro);
@@ -170,13 +194,13 @@ typedef struct{
   void (*end) (struct xc_func_type *p);
   void (*lda) (const struct xc_func_type *p, size_t np,
                const double *rho,
-               double *zk, LDA_OUT_PARAMS_NO_EXC(double *));
+               double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
   void (*gga) (const struct xc_func_type *p, size_t np,
                const double *rho, const double *sigma,
-               double *zk, GGA_OUT_PARAMS_NO_EXC(double *));
+               double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
   void (*mgga)(const struct xc_func_type *p, size_t np,
                const double *rho, const double *sigma, const double *lapl_rho, const double *tau,
-               double *zk, MGGA_OUT_PARAMS_NO_EXC(double *));
+               double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
 } xc_func_info_type;
 
   
@@ -200,9 +224,7 @@ double xc_func_info_get_ext_params_default_value(const xc_func_info_type *info, 
   
 struct xc_dimensions{
   int rho, sigma, lapl, tau;       /* spin dimensions of the arrays */
-  int zk;
-
-  int MGGA_OUT_PARAMS_NO_EXC(XC_NOARG);
+  int zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, );
 };
 
 typedef struct xc_dimensions xc_dimensions;
@@ -258,7 +280,7 @@ void  xc_func_end(xc_func_type *p);
 void  xc_func_free(xc_func_type *p);
 const xc_func_info_type *xc_func_get_info(const xc_func_type *p);
 void  xc_func_set_dens_threshold(xc_func_type *p, double dens_threshold);
-void  xc_func_set_ext_params(xc_func_type *p, double *ext_params);
+void  xc_func_set_ext_params(xc_func_type *p, const double *ext_params);
 void  xc_func_set_ext_params_name(xc_func_type *p, const char *name, double par);
 
   
@@ -267,12 +289,12 @@ void  xc_func_set_ext_params_name(xc_func_type *p, const char *name, double par)
 
   
 void xc_lda (const xc_func_type *p, size_t np, const double *rho,
-            double *zk, LDA_OUT_PARAMS_NO_EXC(double *));
+             double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
 void xc_gga (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
-             double *zk, GGA_OUT_PARAMS_NO_EXC(double *));
+             double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
 void xc_mgga(const xc_func_type *p, size_t np,
              const double *rho, const double *sigma, const double *lapl_rho, const double *tau,
-             double *zk, MGGA_OUT_PARAMS_NO_EXC(double *));
+             double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
 
 void xc_lda_exc (const xc_func_type *p, size_t np, const double *rho, double *zk);
 void xc_gga_exc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,

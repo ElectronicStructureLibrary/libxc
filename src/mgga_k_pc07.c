@@ -10,6 +10,22 @@
 
 #define XC_MGGA_K_PC07          543 /* Perdew and Constantin 2007 */
 
+typedef struct{
+  double a, b;
+} mgga_k_pc07_params;
+
+static void 
+mgga_k_pc07_init(xc_func_type *p)
+{
+  assert(p!=NULL && p->params == NULL);
+  p->params = libxc_malloc(sizeof(mgga_k_pc07_params));
+}
+
+#define PC07_N_PAR 2
+static const char  *pc07_names[PC07_N_PAR]  = {"_a", "_b"};
+static const char  *pc07_desc[PC07_N_PAR]   = { "a",  "b"};
+static const double pc07_values[PC07_N_PAR] = {0.5389, 3};
+
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_k_pc07.c"
 #include "work_mgga.c"
@@ -25,7 +41,7 @@ const xc_func_info_type xc_func_info_mgga_k_pc07 = {
   {&xc_ref_Perdew2007_155109, NULL, NULL, NULL, NULL},
   XC_FLAGS_DEVELOPMENT | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_3D | MAPLE2C_FLAGS,
   1.0e-23,
-  {0, NULL, NULL, NULL, NULL},
-  NULL, NULL,
+  {PC07_N_PAR, pc07_names, pc07_desc, pc07_values, set_ext_params_cpy},
+  mgga_k_pc07_init, NULL,
   NULL, NULL, work_mgga,
 };

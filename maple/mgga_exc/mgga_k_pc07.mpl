@@ -7,14 +7,12 @@
 *)
 
 (* type: mgga_exc *)
+(* prefix:
+  mgga_k_pc07_params *params;
 
-$ifdef mgga_k_pcopt_params
-pc07_a := 1.784720:
-pc07_b := 0.258304:
-$else
-pc07_a := 0.5389:
-pc07_b := 3:
-$endif
+  assert(p->params != NULL);
+  params = (mgga_k_pc07_params * ) (p->params);
+*)
 
 pc07_p := x -> X2S^2*x^2:
 pc07_q := u -> X2S^2*u:
@@ -22,8 +20,8 @@ pc07_q := u -> X2S^2*u:
 (* Equation (15) *)
 (* Redefined with decaying exponentials to avoid inf/inf situations *)
 pc07_fab := z -> my_piecewise3(
-    z<=0, 0, my_piecewise3(z>=pc07_a, 1,
-    exp(-pc07_a*pc07_b/z) * (1+exp(-pc07_a/(pc07_a-z)))^pc07_b/(exp(-pc07_a/z) + exp(-pc07_a/(pc07_a-z)))^pc07_b)
+    z<=0, 0, my_piecewise3(z>=params_a_a, 1,
+    exp(-params_a_a*params_a_b/z) * (1+exp(-params_a_a/(params_a_a-z)))^params_a_b/(exp(-params_a_a/z) + exp(-params_a_a/(params_a_a-z)))^params_a_b)
 ):
 
 (* Equation (7) *)

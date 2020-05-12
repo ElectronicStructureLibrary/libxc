@@ -12,28 +12,47 @@
 #define XC_MGGA_X_SCANL         700 /* Deorbitalized SCAN exchange */
 #define XC_MGGA_X_REVSCANL      701 /* Deorbitalized revSCAN exchange */
 
-typedef struct{
-  double c1, c2, d, k1;
-} mgga_x_scan_params;
+#define N_PAR_SCANL 6
+static const char *scanl_names[N_PAR_SCANL] = {
+  "_c1", "_c2", "_d", "_k1", /* parameters of scan */
+  "_a", "_b"                 /* parameters of pc07 */
+};
+static const char *scanl_desc[N_PAR_SCANL] = {
+  "scan c1", "scan c2", "scan d", "scan k1",
+  "pc07 a", "pc07 b"
+};
 
-#define N_PAR_SCAN 4
-static const char *scan_names[N_PAR_SCAN] = {"_c1", "_c2", "_d", "_k1"};
-static const char *scan_desc[N_PAR_SCAN] = {"c1 parameter", "c2 parameter", "d parameter",
-                                  "k1 parameter"};
-
-static const double par_scanl[N_PAR_SCAN] = {0.667, 0.8, 1.24, 0.065};
-static const double par_revscanl[N_PAR_SCAN] = {0.607, 0.7, 1.37, 0.065};
+static const double par_scanl[N_PAR_SCANL] = {
+  0.667, 0.8, 1.24, 0.065,
+  1.784720, 0.258304
+};
+static const double par_revscanl[N_PAR_SCANL] = {
+  0.607, 0.7, 1.37, 0.065,
+  1.784720, 0.258304
+};
 
 static void 
 mgga_x_scanl_init(xc_func_type *p)
 {
-  assert(p!=NULL && p->params == NULL);
-  p->params = libxc_malloc(sizeof(mgga_x_scan_params));
+  xc_deorbitalize_init(p, XC_MGGA_X_SCAN, XC_MGGA_K_PC07);
 }
 
-#include "decl_mgga.h"
-#include "maple2c/mgga_exc/mgga_x_scanl.c"
-#include "work_mgga.c"
+static void
+scanl_set_ext_params(xc_func_type *p, const double *ext_params)
+{
+  const double *par;
+
+  switch(p->info->number){
+  case(XC_MGGA_X_SCANL):
+    par = (ext_params == NULL) ? par_scanl : ext_params;
+    break;
+  case(XC_MGGA_X_REVSCANL):
+    par = (ext_params == NULL) ? par_revscanl : ext_params;
+    break;
+  }
+  xc_func_set_ext_params(p->func_aux[0], &par[0]);
+  xc_func_set_ext_params(p->func_aux[1], &par[4]);
+}
 
 #ifdef __cplusplus
 extern "C"
@@ -44,11 +63,11 @@ const xc_func_info_type xc_func_info_mgga_x_scanl = {
   "Deorbitalized SCAN (SCAN-L) exchange",
   XC_FAMILY_MGGA,
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161, &xc_ref_Sun2015_036402, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
   1e-20,
-  {N_PAR_SCAN, scan_names, scan_desc, par_scanl, set_ext_params_cpy},
+  {N_PAR_SCANL, scanl_names, scanl_desc, par_scanl, scanl_set_ext_params},
   mgga_x_scanl_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, xc_deorbitalize_func,
 };
 
 #ifdef __cplusplus
@@ -60,10 +79,12 @@ const xc_func_info_type xc_func_info_mgga_x_revscanl = {
   "Deorbitalized revised SCAN (revSCAN-L) exchange",
   XC_FAMILY_MGGA,
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161, &xc_ref_Mezei2018_2469, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
   1e-20,
-  {N_PAR_SCAN, scan_names, scan_desc, par_revscanl, set_ext_params_cpy},
+  {N_PAR_SCANL, scanl_names, scanl_desc, par_revscanl, scanl_set_ext_params},
   mgga_x_scanl_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, xc_deorbitalize_func,
 };
+
+
 

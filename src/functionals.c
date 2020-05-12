@@ -310,7 +310,7 @@ void xc_func_set_dens_threshold(xc_func_type *p, double dens_threshold)
 /*------------------------------------------------------*/
 /* get/set external parameters                          */
 void
-xc_func_set_ext_params(xc_func_type *p, double *ext_params)
+xc_func_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   assert(p->info->ext_params.n > 0);
   p->info->ext_params.set(p, ext_params);

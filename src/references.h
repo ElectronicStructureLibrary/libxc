@@ -143,6 +143,7 @@ extern func_reference_type xc_ref_Handy2001_403;
 extern func_reference_type xc_ref_Handy2002_5411;
 extern func_reference_type xc_ref_Hedin1971_2064;
 extern func_reference_type xc_ref_Helbig2011_032503;
+extern func_reference_type xc_ref_Henderson2007_221103;
 extern func_reference_type xc_ref_Henderson2008_194105;
 extern func_reference_type xc_ref_Henderson2009_044108;
 extern func_reference_type xc_ref_Herman1969_807;

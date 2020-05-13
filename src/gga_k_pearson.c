@@ -24,7 +24,7 @@ const xc_func_info_type xc_func_info_gga_k_pearson = {
   XC_FAMILY_GGA,
   {&xc_ref_Lacks1994_4446, &xc_ref_Pearson1985_881, &xc_ref_Pearson1983, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-14,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   NULL, work_gga, NULL

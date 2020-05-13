@@ -24,7 +24,7 @@ const xc_func_info_type xc_func_info_gga_c_acgga = {
   XC_FAMILY_GGA,
   {&xc_ref_Cancio2018_084116, &xc_ref_Burke2014_4834, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-14,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL, 
   NULL, work_gga, NULL

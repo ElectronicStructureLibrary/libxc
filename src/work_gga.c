@@ -40,7 +40,6 @@ work_gga(const XC(func_type) *p, size_t np,
          const double *rho, const double *sigma,
          double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
-
   int order = -1;
   if(zk     != NULL) order = 0;
   if(vrho   != NULL) order = 1;
@@ -73,16 +72,15 @@ work_gga(const XC(func_type) *p, size_t np,
 
   size_t ip;
   double my_rho[2] = {0.0, 0.0}, my_sigma[3] = {0.0, 0.0, 0.0};
-  double dens, zeta;
 
   for(ip = 0; ip < np; ip++){
-    /* sanity check on input parameters */
-    my_rho[0]   = max(0.0, rho[0]);
+    /* sanity check of input parameters */
+    my_rho[0]   = max(p->dens_threshold, rho[0]);
     my_sigma[0] = max(1e-40, sigma[0]);
     if(p->nspin == XC_POLARIZED){
       double s_ave = 0.5*(sigma[0] + sigma[2]);
 
-      my_rho[1]   = max(0.0, rho[1]);
+      my_rho[1]   = max(p->dens_threshold, rho[1]);
       my_sigma[2] = max(1e-40, sigma[2]);
       my_sigma[1] = sigma[1];
       /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
@@ -90,25 +88,11 @@ work_gga(const XC(func_type) *p, size_t np,
       /* Since |grad n_up - grad n_down|^2 > 0 we also have */
       my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
     }
-    xc_rho2dzeta(p->nspin, my_rho, &dens, &zeta);
 
-    if(dens > p->dens_threshold){
-      if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
-        func_unpol(p, order, my_rho, my_sigma OUT_PARAMS);
-      
-      }else if(zeta >  1.0 - 1e-10){              /* ferromagnetic case - spin 0 */
-        func_ferr(p, order, my_rho, my_sigma OUT_PARAMS);
-        
-      }else if(zeta < -1.0 + 1e-10){              /* ferromagnetic case - spin 1 */
-        internal_counters_gga_next(&(p->dim), -1, &rho, &sigma,
-                                   &zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
-        func_ferr(p, order, &my_rho[1], &my_sigma[2] OUT_PARAMS);
-        internal_counters_gga_prev(&(p->dim), -1, &rho, &sigma,
-                                   &zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
-
-      }else{                                      /* polarized (general) case */
-        func_pol(p, order, my_rho, my_sigma OUT_PARAMS);
-      } /* polarization */
+    if(p->nspin == XC_UNPOLARIZED){
+      func_unpol(p, order, my_rho, my_sigma OUT_PARAMS);      
+    }else{
+      func_pol  (p, order, my_rho, my_sigma OUT_PARAMS);
     }
 
     /* check for NaNs */
@@ -155,8 +139,6 @@ work_gga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, co
              double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
   double my_rho[2] = {0.0, 0.0}, my_sigma[3] = {0.0, 0.0, 0.0};
-  double dens, zeta;
-
   size_t ip = blockIdx.x*blockDim.x + threadIdx.x;
 
   if(ip >= np) return;
@@ -165,12 +147,12 @@ work_gga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, co
                                &zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
   
   /* sanity check on input parameters */
-  my_rho[0]   = max(0.0, rho[0]);
+  my_rho[0]   = max(p->dens_threshold, rho[0]);
   my_sigma[0] = max(1e-40, sigma[0]);
   if(p->nspin == XC_POLARIZED){
     double s_ave = 0.5*(sigma[0] + sigma[2]);
 
-    my_rho[1]   = max(0.0, rho[1]);
+    my_rho[1]   = max(p->dens_threshold, rho[1]);
     my_sigma[2] = max(1e-40, sigma[2]);
     my_sigma[1] = sigma[1];
     /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
@@ -178,24 +160,11 @@ work_gga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, co
     /* Since |grad n_up - grad n_down|^2 > 0 we also have */
     my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
   }
-  xc_rho2dzeta(p->nspin, my_rho, &dens, &zeta);
 
-  if(dens > p->dens_threshold){
-    if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
-      func_unpol(p, order, my_rho, my_sigma OUT_PARAMS);
-      
-    } else if(zeta >  1.0 - 1e-10){              /* ferromagnetic case - spin 0 */
-      func_ferr(p, order, my_rho, my_sigma OUT_PARAMS);
-      
-    } else if(zeta < -1.0 + 1e-10){              /* ferromagnetic case - spin 1 */
-      internal_counters_gga_next(&(p->dim), -1, &rho, &sigma,
-                                 &zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
-      func_ferr(p, order, &my_rho[1], &my_sigma[2] OUT_PARAMS);
-
-    } else {                                      /* polarized (general) case */
-      func_pol(p, order, my_rho, my_sigma OUT_PARAMS);
-
-    } /* polarization */
+  if(p->nspin == XC_UNPOLARIZED){
+    func_unpol(p, order, my_rho, my_sigma OUT_PARAMS);
+  } else {                                      /* polarized (general) case */
+    func_pol  (p, order, my_rho, my_sigma OUT_PARAMS);
   }
 }
 

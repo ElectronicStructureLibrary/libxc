@@ -355,9 +355,9 @@ internal_counters_set_mgga(int nspin, xc_dimensions *dim)
 GPU_FUNCTION void
 internal_counters_lda_random
   (const xc_dimensions *dim, int pos, int offset, const double **rho,
-   double **zk, LDA_OUT_PARAMS_NO_EXC(double **))
+   double **zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ))
 {
-  *rho += pos*dim->rho + offset;
+  if(*rho != NULL)    *rho    += pos*dim->rho    + offset;
   if(*zk != NULL)     *zk     += pos*dim->zk     + offset;
 #ifndef XC_DONT_COMPILE_VXC
   if(*vrho != NULL)   *vrho   += pos*dim->vrho   + offset;
@@ -376,9 +376,9 @@ internal_counters_lda_random
 GPU_FUNCTION void
 internal_counters_lda_next
   (const xc_dimensions *dim, int offset, const double **rho,
-   double **zk, LDA_OUT_PARAMS_NO_EXC(double **))
+   double **zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ))
 {
-  *rho += dim->rho + offset;
+  if(*rho != NULL)    *rho    += dim->rho    + offset;
   if(*zk != NULL)     *zk     += dim->zk     + offset;
 #ifndef XC_DONT_COMPILE_VXC
   if(*vrho != NULL)   *vrho   += dim->vrho   + offset;
@@ -397,9 +397,9 @@ internal_counters_lda_next
 GPU_FUNCTION void
 internal_counters_lda_prev
   (const xc_dimensions *dim, int offset, const double **rho,
-   double **zk, LDA_OUT_PARAMS_NO_EXC(double **))
+   double **zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ))
 {
-  *rho -= dim->rho + offset;
+  if(*rho != NULL)    *rho    -= dim->rho    + offset;  
   if(*zk != NULL)     *zk     -= dim->zk     + offset;
 #ifndef XC_DONT_COMPILE_VXC
   if(*vrho != NULL)   *vrho   -= dim->vrho   + offset;
@@ -419,11 +419,11 @@ GPU_FUNCTION void
 internal_counters_gga_random
   (
    const xc_dimensions *dim, int pos, int offset, const double **rho, const double **sigma,
-   double **zk, GGA_OUT_PARAMS_NO_EXC(double **))
+   double **zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ))
 {
-  internal_counters_lda_random(dim, pos, offset, rho, zk, LDA_OUT_PARAMS_NO_EXC(XC_NOARG));
+  internal_counters_lda_random(dim, pos, offset, rho, zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
 
-  *sigma += pos*dim->sigma + offset;
+  if(*sigma != NULL) *sigma += pos*dim->sigma  + offset;
 #ifndef XC_DONT_COMPILE_VXC
   if(*vrho != NULL) *vsigma += pos*dim->vsigma + offset;
 #ifndef XC_DONT_COMPILE_FXC
@@ -454,11 +454,11 @@ GPU_FUNCTION void
 internal_counters_gga_next
   (
    const xc_dimensions *dim, int offset, const double **rho, const double **sigma,
-   double **zk, GGA_OUT_PARAMS_NO_EXC(double **))
+   double **zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ))
 {
-  internal_counters_lda_next(dim, offset, rho, zk, LDA_OUT_PARAMS_NO_EXC(XC_NOARG));
+  internal_counters_lda_next(dim, offset, rho, zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
 
-  *sigma += dim->sigma + offset;
+  if(*sigma != NULL) *sigma += dim->sigma  + offset;
 #ifndef XC_DONT_COMPILE_VXC
   if(*vrho != NULL) *vsigma += dim->vsigma + offset;
 #ifndef XC_DONT_COMPILE_FXC
@@ -488,13 +488,13 @@ internal_counters_gga_next
 GPU_FUNCTION void
 internal_counters_gga_prev
 (const xc_dimensions *dim, int offset, const double **rho, const double **sigma,
- double **zk, GGA_OUT_PARAMS_NO_EXC(double **))
+ double **zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ))
 {
-  internal_counters_lda_prev(dim, offset, rho, zk, LDA_OUT_PARAMS_NO_EXC(XC_NOARG));
+  internal_counters_lda_prev(dim, offset, rho, zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
 
-  *sigma -= dim->sigma + offset;
+  if(*sigma != NULL) *sigma -= dim->sigma  + offset;
 #ifndef XC_DONT_COMPILE_VXC
-  if(*vrho != NULL) *vsigma -= dim->vsigma   + offset;
+  if(*vrho != NULL) *vsigma -= dim->vsigma + offset;
 #ifndef XC_DONT_COMPILE_FXC
   if(*v2rho2 != NULL) {
     *v2rhosigma -= dim->v2rhosigma + offset;
@@ -523,24 +523,23 @@ GPU_FUNCTION void
 internal_counters_mgga_random
   (const xc_dimensions *dim, int pos, int offset,
    const double **rho, const double **sigma, const double **lapl, const double **tau,
-   double **zk, MGGA_OUT_PARAMS_NO_EXC(double **))
+   double **zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ))
 {
-  internal_counters_gga_random(dim, pos, offset, rho, sigma, zk, GGA_OUT_PARAMS_NO_EXC(XC_NOARG));
+  internal_counters_gga_random(dim, pos, offset, rho, sigma, zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
 
-  if (*lapl != NULL)
-    *lapl += pos*dim->lapl + offset;
-  *tau  += pos*dim->tau  + offset;
+  if(*lapl != NULL) *lapl += pos*dim->lapl + offset;
+  if(*tau != NULL)  *tau  += pos*dim->tau  + offset;
 
 #ifndef XC_DONT_COMPILE_VXC
   if(*vrho != NULL) {
-    if (*lapl != NULL)
+    if (*vlapl != NULL)
       *vlapl += pos*dim->vlapl + offset;
     *vtau  += pos*dim->vtau  + offset;
   }
 
 #ifndef XC_DONT_COMPILE_FXC
   if(*v2rho2 != NULL) {
-    if (*lapl != NULL){
+    if (*v2lapl2 != NULL){
       *v2rholapl   += pos*dim->v2rholapl   + offset;
       *v2sigmalapl += pos*dim->v2sigmalapl + offset;
       *v2lapl2     += pos*dim->v2lapl2     + offset;
@@ -553,7 +552,7 @@ internal_counters_mgga_random
 
 #ifndef XC_DONT_COMPILE_KXC
   if(*v3rho3 != NULL) {
-    if (*lapl != NULL){
+    if (*v3lapl3 != NULL){
       *v3rho2lapl     += pos*dim->v3rho2lapl     + offset;
       *v3rhosigmalapl += pos*dim->v3rhosigmalapl + offset;
       *v3rholapl2     += pos*dim->v3rholapl2     + offset;
@@ -574,7 +573,7 @@ internal_counters_mgga_random
   }
 #ifndef XC_DONT_COMPILE_LXC
   if(*v4rho4 != NULL) {
-    if (*lapl != NULL){
+    if (*v4lapl4 != NULL){
       *v4rho3lapl        += pos*dim->v4rho3lapl        + offset;
       *v4rho2sigmalapl   += pos*dim->v4rho2sigmalapl   + offset;
       *v4rho2lapl2       += pos*dim->v4rho2lapl2       + offset;
@@ -617,24 +616,23 @@ GPU_FUNCTION void
 internal_counters_mgga_next
   (const xc_dimensions *dim, int offset,
    const double **rho, const double **sigma, const double **lapl, const double **tau,
-   double **zk, MGGA_OUT_PARAMS_NO_EXC(double **))
+   double **zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ))
 {
-  internal_counters_gga_next(dim, offset, rho, sigma, zk, GGA_OUT_PARAMS_NO_EXC(XC_NOARG));
+  internal_counters_gga_next(dim, offset, rho, sigma, zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
 
-  if (*lapl != NULL)
-    *lapl += dim->lapl + offset;
-  *tau  += dim->tau  + offset;
+  if(*lapl != NULL) *lapl += dim->lapl + offset;
+  if(*tau != NULL)  *tau  += dim->tau  + offset;
 
 #ifndef XC_DONT_COMPILE_VXC
   if(*vrho != NULL) {
-    if (*lapl != NULL)
+    if (*vlapl != NULL)
       *vlapl += dim->vlapl + offset;
     *vtau  += dim->vtau  + offset;
   }
 
 #ifndef XC_DONT_COMPILE_FXC
   if(*v2rho2 != NULL) {
-    if (*lapl != NULL){
+    if (*v2lapl2 != NULL){
       *v2rholapl   += dim->v2rholapl   + offset;
       *v2sigmalapl += dim->v2sigmalapl + offset;
       *v2lapl2     += dim->v2lapl2     + offset;
@@ -647,7 +645,7 @@ internal_counters_mgga_next
 
 #ifndef XC_DONT_COMPILE_KXC
   if(*v3rho3 != NULL) {
-    if (*lapl != NULL){
+    if (*v3lapl3 != NULL){
       *v3rho2lapl     += dim->v3rho2lapl     + offset;
       *v3rhosigmalapl += dim->v3rhosigmalapl + offset;
       *v3rholapl2     += dim->v3rholapl2     + offset;
@@ -668,7 +666,7 @@ internal_counters_mgga_next
   }
 #ifndef XC_DONT_COMPILE_LXC
   if(*v4rho4 != NULL) {
-    if (*lapl != NULL){
+    if (*v4lapl4 != NULL){
       *v4rho3lapl        += dim->v4rho3lapl        + offset;
       *v4rho2sigmalapl   += dim->v4rho2sigmalapl   + offset;
       *v4rho2lapl2       += dim->v4rho2lapl2       + offset;
@@ -711,24 +709,23 @@ GPU_FUNCTION void
 internal_counters_mgga_prev
   (const xc_dimensions *dim, int offset,
    const double **rho, const double **sigma, const double **lapl, const double **tau,
-   double **zk, MGGA_OUT_PARAMS_NO_EXC(double **))
+   double **zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ))
 {
-  internal_counters_gga_prev(dim, offset, rho, sigma, zk, GGA_OUT_PARAMS_NO_EXC(XC_NOARG));
+  internal_counters_gga_prev(dim, offset, rho, sigma, zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
 
-  if(*lapl != NULL)
-    *lapl -= dim->lapl + offset;
-  *tau  -= dim->tau  + offset;
+  if(*lapl != NULL) *lapl -= dim->lapl + offset;
+  if(*tau != NULL)  *tau  -= dim->tau  + offset;
 
 #ifndef XC_DONT_COMPILE_VXC
   if(*vrho != NULL) {
-    if(*lapl != NULL)
+    if(*vlapl != NULL)
       *vlapl -= dim->vlapl + offset;
     *vtau  -= dim->vtau  + offset;
   }
 
 #ifndef XC_DONT_COMPILE_FXC
   if(*v2rho2 != NULL) {
-    if(*lapl != NULL){
+    if(*v2lapl2 != NULL){
       *v2rholapl   -= dim->v2rholapl   + offset;
       *v2sigmalapl -= dim->v2sigmalapl + offset;
       *v2lapl2     -= dim->v2lapl2     + offset;
@@ -741,7 +738,7 @@ internal_counters_mgga_prev
 
 #ifndef XC_DONT_COMPILE_KXC
   if(*v3rho3 != NULL) {
-    if (*lapl != NULL){
+    if (*v3lapl3 != NULL){
       *v3rho2lapl     -= dim->v3rho2lapl     + offset;
       *v3rhosigmalapl -= dim->v3rhosigmalapl + offset;
       *v3rholapl2     -= dim->v3rholapl2     + offset;
@@ -762,7 +759,7 @@ internal_counters_mgga_prev
   }
 #ifndef XC_DONT_COMPILE_LXC
   if(*v4rho4 != NULL) {
-    if (*lapl != NULL){
+    if (*v4lapl4 != NULL){
       *v4rho3lapl        -= dim->v4rho3lapl        + offset;
       *v4rho2sigmalapl   -= dim->v4rho2sigmalapl   + offset;
       *v4rho2lapl2       -= dim->v4rho2lapl2       + offset;

@@ -13,7 +13,7 @@
 void
 xc_mgga(const xc_func_type *func, size_t np,
         const double *rho, const double *sigma, const double *lapl, const double *tau,
-        double *zk, MGGA_OUT_PARAMS_NO_EXC(double *))
+        double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
   assert(func != NULL);
   const xc_dimensions *dim = &(func->dim);
@@ -43,6 +43,11 @@ xc_mgga(const xc_func_type *func, size_t np,
     exit(1);
   }
 
+  if(v4rho4 != NULL && !(func->info->flags & XC_FLAGS_HAVE_LXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of lxc\n",
+            func->info->name);
+    exit(1);
+  }
 
   /* initialize output to zero */
   if(zk != NULL)
@@ -219,11 +224,12 @@ xc_mgga(const xc_func_type *func, size_t np,
 
   /* call functional */
   if(func->info->mgga != NULL)
-    func->info->mgga(func, np, rho, sigma, lapl, tau, zk, MGGA_OUT_PARAMS_NO_EXC(XC_NOARG));
+    func->info->mgga(func, np, rho, sigma, lapl, tau,
+                     zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
 
   if(func->mix_coef != NULL)
     xc_mix_func(func, np, rho, sigma, lapl, tau,
-                zk, MGGA_OUT_PARAMS_NO_EXC(XC_NOARG));
+                zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
 }
 
 /* specializations */

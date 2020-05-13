@@ -63,33 +63,15 @@ static void add_to_mix(size_t np, double * dst, double coeff, double *src){
 #define is_gga(id)    ((id) == XC_FAMILY_GGA || is_mgga(id))
 #define is_lda(id)    ((id) == XC_FAMILY_LDA ||  is_gga(id))
 #define safe_free(pt) if(pt != NULL) libxc_free(pt)
-#define sum_var(VAR) add_to_mix(np*dim->VAR, VAR, func->mix_coef[ii], VAR ## _);
+#define sum_var(VAR) add_to_mix(np*dim->VAR, VAR, func->mix_coef[ii], x ## VAR);
 
 void
 xc_mix_func(const xc_func_type *func, size_t np,
             const double *rho, const double *sigma, const double *lapl, const double *tau,
-            double *zk, MGGA_OUT_PARAMS_NO_EXC(double *))
+            double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
   const xc_func_type *aux;
-  double *zk_;
-  double *vrho_, *vsigma_, *vlapl_, *vtau_;
-  double *v2rho2_, *v2rhosigma_, *v2rholapl_, *v2rhotau_, *v2sigma2_,
-    *v2sigmalapl_, *v2sigmatau_, *v2lapl2_, *v2lapltau_,  *v2tau2_;
-  double *v3rho3_, *v3rho2sigma_, *v3rho2lapl_, *v3rho2tau_, *v3rhosigma2_,
-    *v3rhosigmalapl_, *v3rhosigmatau_, *v3rholapl2_, *v3rholapltau_,
-    *v3rhotau2_, *v3sigma3_, *v3sigma2lapl_, *v3sigma2tau_,
-    *v3sigmalapl2_, *v3sigmalapltau_, *v3sigmatau2_, *v3lapl3_,
-    *v3lapl2tau_, *v3lapltau2_, *v3tau3_;
-  double *v4rho4_, *v4rho3sigma_, *v4rho3lapl_, *v4rho3tau_, *v4rho2sigma2_,
-    *v4rho2sigmalapl_, *v4rho2sigmatau_, *v4rho2lapl2_, *v4rho2lapltau_,
-    *v4rho2tau2_, *v4rhosigma3_, *v4rhosigma2lapl_, *v4rhosigma2tau_,
-    *v4rhosigmalapl2_, *v4rhosigmalapltau_, *v4rhosigmatau2_,
-    *v4rholapl3_, *v4rholapl2tau_, *v4rholapltau2_, *v4rhotau3_,
-    *v4sigma4_, *v4sigma3lapl_, *v4sigma3tau_, *v4sigma2lapl2_,
-    *v4sigma2lapltau_, *v4sigma2tau2_, *v4sigmalapl3_, *v4sigmalapl2tau_,
-    *v4sigmalapltau2_, *v4sigmatau3_, *v4lapl4_, *v4lapl3tau_,
-    *v4lapl2tau2_, *v4lapltau3_, *v4tau4_;
-
+  double *xzk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA *, x);
   int ii;
 
   const xc_dimensions *dim = &(func->dim);
@@ -151,130 +133,12 @@ xc_mix_func(const xc_func_type *func, size_t np,
   }
 
   /* prepare buffers that will hold the results from the individual functionals */
-  zk_ = NULL;
-
-  vrho_ = vsigma_ = vlapl_ = vtau_ = NULL;
-
-  v2rho2_ = v2rhosigma_ = v2rholapl_ = v2rhotau_ = v2sigma2_ =
-    v2sigmalapl_ = v2sigmatau_ = v2lapl2_ = v2lapltau_ =  v2tau2_ = NULL;
-
-  v3rho3_ = v3rho2sigma_ = v3rho2lapl_ = v3rho2tau_ = v3rhosigma2_ =
-    v3rhosigmalapl_ = v3rhosigmatau_ = v3rholapl2_ = v3rholapltau_ =
-    v3rhotau2_ = v3sigma3_ = v3sigma2lapl_ = v3sigma2tau_ =
-    v3sigmalapl2_ = v3sigmalapltau_ = v3sigmatau2_ = v3lapl3_ =
-    v3lapl2tau_ = v3lapltau2_ = v3tau3_ = NULL;
-
-  v4rho4_ = v4rho3sigma_ = v4rho3lapl_ = v4rho3tau_ = v4rho2sigma2_ =
-    v4rho2sigmalapl_ = v4rho2sigmatau_ = v4rho2lapl2_ = v4rho2lapltau_ =
-    v4rho2tau2_ = v4rhosigma3_ = v4rhosigma2lapl_ = v4rhosigma2tau_ =
-    v4rhosigmalapl2_ = v4rhosigmalapltau_ = v4rhosigmatau2_ =
-    v4rholapl3_ = v4rholapl2tau_ = v4rholapltau2_ = v4rhotau3_ =
-    v4sigma4_ = v4sigma3lapl_ = v4sigma3tau_ = v4sigma2lapl2_ =
-    v4sigma2lapltau_ = v4sigma2tau2_ = v4sigmalapl3_ = v4sigmalapl2tau_ =
-    v4sigmalapltau2_ = v4sigmatau3_ = v4lapl4_ = v4lapl3tau_ =
-    v4lapl2tau2_ = v4lapltau3_ = v4tau4_ = NULL;
+  xzk MGGA_OUT_PARAMS_NO_EXC(=, x) = NULL;
 
   /* allocate buffers */
-  if(zk != NULL)
-    zk_ = (double *) libxc_malloc(sizeof(double)*np*dim->zk);
-
-  if(vrho != NULL){
-    vrho_ = (double *) libxc_malloc(sizeof(double)*np*dim->vrho);
-    if(is_gga(func->info->family)){
-      vsigma_ = (double *) libxc_malloc(sizeof(double)*np*dim->vsigma);
-    }
-    if(is_mgga(func->info->family)){
-      if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
-        vlapl_ = (double *) libxc_malloc(sizeof(double)*np*dim->vlapl);
-      }
-      vtau_  = (double *) libxc_malloc(sizeof(double)*np*dim->vtau);
-    }
-  }
-
-  if(v2rho2 != NULL){
-    v2rho2_ = (double *) libxc_malloc(sizeof(double)*np*dim->v2rho2);
-    if(is_gga(func->info->family)){
-      v2rhosigma_  = (double *) libxc_malloc(sizeof(double)*np*dim->v2rhosigma);
-      v2sigma2_    = (double *) libxc_malloc(sizeof(double)*np*dim->v2sigma2);
-    }
-    if(is_mgga(func->info->family)){
-      v2rholapl_   = (double *) libxc_malloc(sizeof(double)*np*dim->v2rholapl);
-      v2rhotau_    = (double *) libxc_malloc(sizeof(double)*np*dim->v2rhotau);
-      v2sigmalapl_ = (double *) libxc_malloc(sizeof(double)*np*dim->v2sigmalapl);
-      v2sigmatau_  = (double *) libxc_malloc(sizeof(double)*np*dim->v2sigmatau);
-      v2lapl2_     = (double *) libxc_malloc(sizeof(double)*np*dim->v2lapl2);
-      v2lapltau_   = (double *) libxc_malloc(sizeof(double)*np*dim->v2lapltau);
-      v2tau2_      = (double *) libxc_malloc(sizeof(double)*np*dim->v2tau2);
-    }
-  }
-
-  if(v3rho3 != NULL){
-    v3rho3_      = (double *) libxc_malloc(sizeof(double)*np*dim->v3rho3);
-    if(is_gga(func->info->family)){
-      v3rho2sigma_ = (double *) libxc_malloc(sizeof(double)*np*dim->v3rho2sigma);
-      v3rhosigma2_ = (double *) libxc_malloc(sizeof(double)*np*dim->v3rhosigma2);
-      v3sigma3_    = (double *) libxc_malloc(sizeof(double)*np*dim->v3sigma3);
-    }
-    if(is_mgga(func->info->family)){
-      v3rho2lapl_     = (double *) libxc_malloc(sizeof(double)*np*dim->v3rho2lapl);
-      v3rho2tau_      = (double *) libxc_malloc(sizeof(double)*np*dim->v3rho2tau);
-      v3rhosigmalapl_ = (double *) libxc_malloc(sizeof(double)*np*dim->v3rhosigmalapl);
-      v3rhosigmatau_  = (double *) libxc_malloc(sizeof(double)*np*dim->v3rhosigmatau);
-      v3rholapl2_     = (double *) libxc_malloc(sizeof(double)*np*dim->v3rholapl2);
-      v3rholapltau_   = (double *) libxc_malloc(sizeof(double)*np*dim->v3rholapltau);
-      v3rhotau2_      = (double *) libxc_malloc(sizeof(double)*np*dim->v3rhotau2);
-      v3sigma2lapl_   = (double *) libxc_malloc(sizeof(double)*np*dim->v3sigma2lapl);
-      v3sigma2tau_    = (double *) libxc_malloc(sizeof(double)*np*dim->v3sigma2tau);
-      v3sigmalapl2_   = (double *) libxc_malloc(sizeof(double)*np*dim->v3sigmalapl2);
-      v3sigmalapltau_ = (double *) libxc_malloc(sizeof(double)*np*dim->v3sigmalapltau);
-      v3sigmatau2_    = (double *) libxc_malloc(sizeof(double)*np*dim->v3sigmatau2);
-      v3lapl3_        = (double *) libxc_malloc(sizeof(double)*np*dim->v3lapl3);
-      v3lapl2tau_     = (double *) libxc_malloc(sizeof(double)*np*dim->v3lapl2tau);
-      v3lapltau2_     = (double *) libxc_malloc(sizeof(double)*np*dim->v3lapltau2);
-      v3tau3_         = (double *) libxc_malloc(sizeof(double)*np*dim->v3tau3);
-    }
-  }
-  if(v4rho4 != NULL){
-    v4rho4_            = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho4);
-    if(is_gga(func->info->family)){
-      v4rho3sigma_       = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho3sigma);
-      v4rho2sigma2_      = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho2sigma2);
-      v4rhosigma3_       = (double *) libxc_malloc(sizeof(double)*np*dim->v4rhosigma3);
-      v4sigma4_          = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigma4);
-    }
-    if(is_mgga(func->info->family)){
-      v4rho3lapl_        = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho3lapl);
-      v4rho3tau_         = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho3tau);
-      v4rho2sigmalapl_   = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho2sigmalapl);
-      v4rho2sigmatau_    = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho2sigmatau);
-      v4rho2lapl2_       = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho2lapl2);
-      v4rho2lapltau_     = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho2lapltau);
-      v4rho2tau2_        = (double *) libxc_malloc(sizeof(double)*np*dim->v4rho2tau2);
-      v4rhosigma2lapl_   = (double *) libxc_malloc(sizeof(double)*np*dim->v4rhosigma2lapl);
-      v4rhosigma2tau_    = (double *) libxc_malloc(sizeof(double)*np*dim->v4rhosigma2tau);
-      v4rhosigmalapl2_   = (double *) libxc_malloc(sizeof(double)*np*dim->v4rhosigmalapl2);
-      v4rhosigmalapltau_ = (double *) libxc_malloc(sizeof(double)*np*dim->v4rhosigmalapltau);
-      v4rhosigmatau2_    = (double *) libxc_malloc(sizeof(double)*np*dim->v4rhosigmatau2);
-      v4rholapl3_        = (double *) libxc_malloc(sizeof(double)*np*dim->v4rholapl3);
-      v4rholapl2tau_     = (double *) libxc_malloc(sizeof(double)*np*dim->v4rholapl2tau);
-      v4rholapltau2_     = (double *) libxc_malloc(sizeof(double)*np*dim->v4rholapltau2);
-      v4rhotau3_         = (double *) libxc_malloc(sizeof(double)*np*dim->v4rhotau3);
-      v4sigma3lapl_      = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigma3lapl);
-      v4sigma3tau_       = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigma3tau);
-      v4sigma2lapl2_     = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigma2lapl2);
-      v4sigma2lapltau_   = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigma2lapltau);
-      v4sigma2tau2_      = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigma2tau2);
-      v4sigmalapl3_      = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigmalapl3);
-      v4sigmalapl2tau_   = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigmalapl2tau);
-      v4sigmalapltau2_   = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigmalapltau2);
-      v4sigmatau3_       = (double *) libxc_malloc(sizeof(double)*np*dim->v4sigmatau3);
-      v4lapl4_           = (double *) libxc_malloc(sizeof(double)*np*dim->v4lapl4);
-      v4lapl3tau_        = (double *) libxc_malloc(sizeof(double)*np*dim->v4lapl3tau);
-      v4lapl2tau2_       = (double *) libxc_malloc(sizeof(double)*np*dim->v4lapl2tau2);
-      v4lapltau3_        = (double *) libxc_malloc(sizeof(double)*np*dim->v4lapltau3);
-      v4tau4_            = (double *) libxc_malloc(sizeof(double)*np*dim->v4tau4);
-    }
-  }
+  xc_mgga_vars_allocate_all(func->info->family, np, dim,
+                            zk != NULL, vrho != NULL, v2rho2 != NULL, v3rho3 != NULL, v4rho4 != NULL,
+                            &xzk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, x));
 
   /* Proceed by computing the mix */
   for(ii=0; ii<func->n_func_aux; ii++){
@@ -283,34 +147,16 @@ xc_mix_func(const xc_func_type *func, size_t np,
     /* Evaluate the functional */
     switch(aux->info->family){
     case XC_FAMILY_LDA:
-      xc_lda(aux, np, rho, zk_, vrho_, v2rho2_, v3rho3_, v4rho4_);
+      xc_lda(aux, np, rho,
+             xzk LDA_OUT_PARAMS_NO_EXC(XC_COMMA, x));
       break;
     case XC_FAMILY_GGA:
-      xc_gga(aux, np, rho, sigma, zk_, vrho_, vsigma_,
-             v2rho2_, v2rhosigma_, v2sigma2_,
-             v3rho3_, v3rho2sigma_, v3rhosigma2_, v3sigma3_,
-             v4rho4_, v4rho3sigma_, v4rho2sigma2_, v4rhosigma3_, v4sigma4_);
+      xc_gga(aux, np, rho, sigma,
+             xzk GGA_OUT_PARAMS_NO_EXC(XC_COMMA, x));
       break;
     case XC_FAMILY_MGGA:
       xc_mgga(aux, np, rho, sigma, lapl, tau,
-              zk_,
-              vrho_, vsigma_, vlapl_, vtau_,
-              v2rho2_, v2rhosigma_, v2rholapl_, v2rhotau_, v2sigma2_,
-              v2sigmalapl_, v2sigmatau_, v2lapl2_, v2lapltau_,  v2tau2_,
-              v3rho3_, v3rho2sigma_, v3rho2lapl_, v3rho2tau_, v3rhosigma2_,
-              v3rhosigmalapl_, v3rhosigmatau_, v3rholapl2_, v3rholapltau_,
-              v3rhotau2_, v3sigma3_, v3sigma2lapl_, v3sigma2tau_,
-              v3sigmalapl2_, v3sigmalapltau_, v3sigmatau2_, v3lapl3_,
-              v3lapl2tau_, v3lapltau2_, v3tau3_,
-              v4rho4_, v4rho3sigma_, v4rho3lapl_, v4rho3tau_, v4rho2sigma2_,
-              v4rho2sigmalapl_, v4rho2sigmatau_, v4rho2lapl2_, v4rho2lapltau_,
-              v4rho2tau2_, v4rhosigma3_, v4rhosigma2lapl_, v4rhosigma2tau_,
-              v4rhosigmalapl2_, v4rhosigmalapltau_, v4rhosigmatau2_,
-              v4rholapl3_, v4rholapl2tau_, v4rholapltau2_, v4rhotau3_,
-              v4sigma4_, v4sigma3lapl_, v4sigma3tau_, v4sigma2lapl2_,
-              v4sigma2lapltau_, v4sigma2tau2_, v4sigmalapl3_, v4sigmalapl2tau_,
-              v4sigmalapltau2_, v4sigmatau3_, v4lapl4_, v4lapl3tau_,
-              v4lapl2tau2_, v4lapltau3_, v4tau4_);
+              xzk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, x));
       break;
     }
 
@@ -441,34 +287,6 @@ xc_mix_func(const xc_func_type *func, size_t np,
   } /* end functional loop */
 
   /* deallocate internal buffers */
-  safe_free(zk_);
-#ifndef XC_DONT_COMPILE_VXC
-  safe_free(vrho_); safe_free(vsigma_); safe_free(vlapl_); safe_free(vtau_);
-#ifndef XC_DONT_COMPILE_FXC
-  safe_free(v2rho2_); safe_free(v2rhosigma_); safe_free(v2rholapl_); safe_free(v2rhotau_);
-  safe_free(v2sigma2_); safe_free(v2sigmalapl_); safe_free(v2sigmatau_);
-  safe_free(v2lapl2_); safe_free(v2lapltau_); safe_free(v2tau2_);
-#ifndef XC_DONT_COMPILE_KXC
-  safe_free(v3rho3_); safe_free(v3rho2sigma_); safe_free(v3rho2lapl_); safe_free(v3rho2tau_);
-  safe_free(v3rhosigma2_); safe_free(v3rhosigmalapl_); safe_free(v3rhosigmatau_);
-  safe_free(v3rholapl2_); safe_free(v3rholapltau_); safe_free(v3rhotau2_);
-  safe_free(v3sigma3_); safe_free(v3sigma2lapl_); safe_free(v3sigma2tau_);
-  safe_free(v3sigmalapl2_); safe_free(v3sigmalapltau_); safe_free(v3sigmatau2_);
-  safe_free(v3lapl3_); safe_free(v3lapl2tau_); safe_free(v3lapltau2_); safe_free(v3tau3_);
-#ifndef XC_DONT_COMPILE_LXC
-  safe_free(v4rho4_); safe_free(v4rho3sigma_); safe_free(v4rho3lapl_); safe_free(v4rho3tau_);
-  safe_free(v4rho2sigma2_); safe_free(v4rho2sigmalapl_); safe_free(v4rho2sigmatau_);
-  safe_free(v4rho2lapl2_); safe_free(v4rho2lapltau_); safe_free(v4rho2tau2_);
-  safe_free(v4rhosigma3_); safe_free(v4rhosigma2lapl_); safe_free(v4rhosigma2tau_);
-  safe_free(v4rhosigmalapl2_); safe_free(v4rhosigmalapltau_); safe_free(v4rhosigmatau2_);
-  safe_free(v4rholapl3_); safe_free(v4rholapl2tau_); safe_free(v4rholapltau2_); safe_free(v4rhotau3_);
-  safe_free(v4sigma4_); safe_free(v4sigma3lapl_); safe_free(v4sigma3tau_); safe_free(v4sigma2lapl2_);
-  safe_free(v4sigma2lapltau_); safe_free(v4sigma2tau2_); safe_free(v4sigmalapl3_); safe_free(v4sigmalapl2tau_);
-  safe_free(v4sigmalapltau2_); safe_free(v4sigmatau3_); safe_free(v4lapl4_); safe_free(v4lapl3tau_);
-  safe_free(v4lapl2tau2_); safe_free(v4lapltau3_); safe_free(v4tau4_);
-#endif
-#endif
-#endif
-#endif
+  xc_mgga_vars_free_all(xzk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, x));
 }
 

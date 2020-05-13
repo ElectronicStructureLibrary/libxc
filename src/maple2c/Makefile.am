@@ -7,3 +7,4 @@
 
 SUBDIRS = lda_exc lda_vxc gga_exc gga_vxc mgga_exc mgga_vxc
 
+noinst_HEADERS = deorbitalize_1.c deorbitalize_2.c deorbitalize_3.c deorbitalize_4.c

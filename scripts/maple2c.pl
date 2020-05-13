@@ -227,7 +227,7 @@ sub work_lda_exc {
   
   # get arguments of the functions
   $input_args  = "const double *rho";
-  $output_args = "double *zk, LDA_OUT_PARAMS_NO_EXC(double *)";
+  $output_args = ", double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, )";
 
   my ($der_def_unpol, @out_c_unpol) = 
       maple2c_create_derivatives($variables, $derivatives, "mf", "unpol");
@@ -248,7 +248,7 @@ mf   := (r0, r1) -> eval(dens(r0, r1)*mzk(r0, r1)):
 ";
   my $maple_zk = " zk_0_ = mzk(".join(", ", @{$variables}).")";
 
-  # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
+  # we build 2 variants of the functional, for unpolarized, and polarized densities
   @variants = (
     "unpol", "
 dens := (r0, r1) -> r0:
@@ -259,16 +259,6 @@ $der_def_unpol
 $maple_code
 C([$maple_zk, $out_c_unpol], optimize, deducetypes=false):
 ",
-
-    "ferr", "
-dens := (r0, r1) -> r0:
-zeta := (r0, r1) -> 1:
-
-$der_def_unpol
-
-$maple_code
-C([$maple_zk, $out_c_unpol], optimize, deducetypes=false):
-\n",
 
     "pol", "
 dens := (r0, r1) -> r0 + r1:
@@ -295,7 +285,7 @@ sub work_lda_vxc {
 
   # get arguments of the functions
   $input_args  = "const double *rho";
-  $output_args = "LDA_OUT_PARAMS_NO_EXC(double *)";
+  $output_args = "LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, )";
 
   # we obtain the missing pieces for maple
   # unpolarized calculation
@@ -327,21 +317,11 @@ mf1   := (r0, r1) -> eval(mzk(r1, r0)):
   my $maple_vrho0 = "vrho_0_ = mf0(".join(", ", @{$variables}).")";
   my $maple_vrho1 = "vrho_1_ = mf1(".join(", ", @{$variables}).")"; 
 
-  # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
+  # we build 2 variants of the functional, for unpolarized, and polarized densities
   @variants = (
     "unpol", "
 dens := (r0, r1) -> r0:
 zeta := (r0, r1) -> 0:
-
-$der_def_unpol
-
-$maple_code1
-C([$maple_vrho0, $out_c_unpol], optimize, deducetypes=false):
-",
-
-    "ferr", "
-dens := (r0, r1) -> r0:
-zeta := (r0, r1) -> 1:
 
 $der_def_unpol
 
@@ -373,7 +353,7 @@ sub work_gga_exc {
 
   # get arguments of the functions
   $input_args  = "const double *rho, const double *sigma";
-  $output_args = "double *zk, GGA_OUT_PARAMS_NO_EXC(double *)";
+  $output_args = ", double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, )";
 
   my ($der_def, @out_c) = 
       maple2c_create_derivatives($variables, $derivatives, "mf");
@@ -451,7 +431,7 @@ sub work_gga_vxc {
     
   # get arguments of the functions
   $input_args  = "const double *rho, const double *sigma";
-  $output_args = "GGA_OUT_PARAMS_NO_EXC(double *)";
+  $output_args = "GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, )";
   
   # we obtain the missing pieces for maple
   # unpolarized calculation
@@ -540,7 +520,7 @@ sub work_mgga_exc {
   
   # get arguments of the functions
   $input_args  = "const double *rho, const double *sigma, const double *lapl, const double *tau";
-  $output_args = "double *zk, MGGA_OUT_PARAMS_NO_EXC(double *)";
+  $output_args = ", double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, )";
 
   my ($der_def, @out_c) = 
       maple2c_create_derivatives($variables, $derivatives, "mf");
@@ -630,7 +610,7 @@ sub work_mgga_vxc {
 
   # get arguments of the functions
   $input_args  = "const double *rho, const double *sigma, const double *lapl, const double *tau";
-  $output_args = "MGGA_OUT_PARAMS_NO_EXC(double *)";
+  $output_args = "MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, )";
 
   # we obtain the missing pieces for maple
   # unpolarized calculation

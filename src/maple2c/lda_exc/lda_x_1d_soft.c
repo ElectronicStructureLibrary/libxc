@@ -16,7 +16,7 @@
 
 
 static inline void
-func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
+func_unpol(const xc_func_type *p, int order, const double *rho, double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -114,105 +114,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_
 
 
 static inline void
-func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
-{
-
-#ifndef XC_DONT_COMPILE_EXC
-  double t3, t4, t6, t7, t9, t10;
-
-#ifndef XC_DONT_COMPILE_VXC
-  double t17;
-
-#ifndef XC_DONT_COMPILE_FXC
-  double t22;
-
-#ifndef XC_DONT_COMPILE_KXC
-  double t24;
-
-#ifndef XC_DONT_COMPILE_LXC
-  double t32;
-#endif
-
-#endif
-
-#endif
-
-#endif
-
-#endif
-
-
-  lda_x_1d_exponential_params *params;
-
-  assert(p->params != NULL);
-  params = (lda_x_1d_exponential_params * )(p->params);
-
-  t3 = 0.2e1 * M_PI * params->beta * rho[0];
-  t4 = xc_integrate(func1, NULL, 0.0, t3);
-  t6 = xc_integrate(func2, NULL, 0.0, t3);
-  t7 = 0.1e1 / M_PI;
-  t9 = 0.1e1 / params->beta;
-  t10 = 0.1e1 / rho[0];
-  if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    zk[0] = -0.79577471545947667883e-1 * (-t6 * t7 * t9 * t10 + 0.2e1 * t4) * t9;
-
-#ifndef XC_DONT_COMPILE_VXC
-
-  if(order < 1) return;
-
-
-  t17 = params->beta * params->beta;
-  if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[0] = (-0.79577471545947667883e-1 * (-t6 * t7 * t9 * t10 + 0.2e1 * t4) * t9) - 0.79577471545947667883e-1 * t10 * t6 * t7 / t17;
-
-#ifndef XC_DONT_COMPILE_FXC
-
-  if(order < 2) return;
-
-
-  t22 = xc_bessel_K0( t3);
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = -0.20000000000000000000e1 * t22;
-
-#ifndef XC_DONT_COMPILE_KXC
-
-  if(order < 3) return;
-
-
-  t24 = xc_bessel_K1( t3);
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = 0.12566370614359172954e2 * t24 * params->beta;
-
-#ifndef XC_DONT_COMPILE_LXC
-
-  if(order < 4) return;
-
-
-  t32 = M_PI * M_PI;
-  if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[0] = 0.80000000000000000000e1 * (-t22 - t7 * t9 * t10 * t24 / 0.2e1) * t32 * t17;
-
-#ifndef XC_DONT_COMPILE_MXC
-
-  if(order < 5) return;
-
-
-#endif
-
-#endif
-
-#endif
-
-#endif
-
-#endif
-
-
-}
-
-
-static inline void
-func_pol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
+func_pol(const xc_func_type *p, int order, const double *rho, double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
 
 #ifndef XC_DONT_COMPILE_EXC

@@ -10,7 +10,6 @@ use Exporter;
 maple2c_create_derivatives 
 maple2c_run_maple
 maple2c_replace
-maple2c_construct_arguments
 maple2c_print_header
 maple2c_run
 );
@@ -242,41 +241,6 @@ sub maple2c_replace {
   return $text;
 }
 
-sub maple2c_construct_arguments
-{
-  my ($variables, $derivatives) = @_;
-
-  # construct the arguments of the function
-  my ($input_args, $last_arg) = "";
-  foreach my $arg_v (@{$variables}){
-    # make a copy not to destroy original variable
-    my $arg = $arg_v;
-    $arg =~ s/_.*$//;
-
-    next if($arg eq $last_arg);
-    $last_arg = $arg;
-      
-    $input_args .= ", " if $input_args ne "";
-    $input_args .= "const double *$arg";
-  }
-  
-  my ($output_args, $last_arg) = ("", "");
-  foreach my $der_order (@{$derivatives}){
-    foreach my $der (@{$der_order}){
-      my $arg = ${$der}[1];
-      $arg = "*".$arg if(! ($arg =~ s/_s_/*/g));
-      $arg =~ s/_.*$//;
-
-      next if($arg eq $last_arg);
-      $last_arg = $arg;
-      
-      $output_args .= ", " if $output_args ne "";
-      $output_args .= "double $arg";
-    }
-  }
-  return ($input_args, $output_args);
-}
-
 sub maple2c_print_header
 {
   my ($out) = @_;
@@ -326,7 +290,7 @@ sub maple2c_run
 
     print $out "
 static inline void
-func_${$variants}[$j](const xc_func_type *p, int order, $input_args, $output_args)
+func_${$variants}[$j](const xc_func_type *p, int order, $input_args $output_args)
 {
 $vars_def
 $config{'prefix'}

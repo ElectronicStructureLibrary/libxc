@@ -16,15 +16,15 @@
 #define NOARG
 
 #ifdef XC_NO_EXC
-#define OUT_PARAMS MGGA_OUT_PARAMS_NO_EXC(NOARG)
+#define OUT_PARAMS MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, )
 #else
-#define OUT_PARAMS zk, MGGA_OUT_PARAMS_NO_EXC(NOARG)
+#define OUT_PARAMS XC_COMMA zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, )
 #endif
 
 #ifdef HAVE_CUDA
 __global__ static void
 work_mgga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, const double *sigma, const double *lapl, const double *tau,
-              double *zk, MGGA_OUT_PARAMS_NO_EXC(double *));
+              double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
 #endif
 
 /**
@@ -33,7 +33,7 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, c
 static void
 work_mgga(const XC(func_type) *p, size_t np,
          const double *rho, const double *sigma, const double *lapl, const double *tau,
-          double *zk, MGGA_OUT_PARAMS_NO_EXC(double *))
+          double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
 
   int order = -1;
@@ -41,6 +41,7 @@ work_mgga(const XC(func_type) *p, size_t np,
   if(vrho   != NULL) order = 1;
   if(v2rho2 != NULL) order = 2;
   if(v3rho3 != NULL) order = 3;
+  if(v4rho4 != NULL) order = 4;
 
   if(order < 0) return;
 
@@ -53,9 +54,10 @@ work_mgga(const XC(func_type) *p, size_t np,
 
   auto nblocks = np/CUDA_BLOCK_SIZE;
   if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
-
-  work_mgga_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(pcuda, order, np, rho, sigma, lapl, tau, zk, MGGA_OUT_PARAMS_NO_EXC(NOARG));
-
+  
+  work_mgga_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(pcuda, order, np, rho, sigma, lapl, tau,
+                                              zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
+ 
   libxc_free(pcuda);
 
 #else
@@ -90,17 +92,19 @@ work_mgga(const XC(func_type) *p, size_t np,
 
     if(dens > p->dens_threshold){
       if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
-        func_unpol(p, order, my_rho, my_sigma, lapl, my_tau, OUT_PARAMS);
-
+        func_unpol(p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
+        
       }else if(zeta >  1.0 - 1e-10){              /* ferromagnetic case - spin 0 */
-        func_ferr(p, order, my_rho, my_sigma, lapl, my_tau, OUT_PARAMS);
-
+        func_ferr(p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
+        
       }else if(zeta < -1.0 + 1e-10){              /* ferromagnetic case - spin 1 */
-        internal_counters_mgga_next(&(p->dim), -1, &rho, &sigma, &lapl, &tau, &zk, MGGA_OUT_PARAMS_NO_EXC(&));
-        func_ferr(p, order, &my_rho[1], &my_sigma[2], lapl, &my_tau[1], OUT_PARAMS);
-        internal_counters_mgga_prev(&(p->dim), -1, &rho, &sigma, &lapl, &tau, &zk, MGGA_OUT_PARAMS_NO_EXC(&));
+        internal_counters_mgga_next(&(p->dim), -1, &rho, &sigma, &lapl, &tau,
+                                    &zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
+        func_ferr(p, order, &my_rho[1], &my_sigma[2], lapl, &my_tau[1] OUT_PARAMS);
+        internal_counters_mgga_prev(&(p->dim), -1, &rho, &sigma, &lapl, &tau,
+                                    &zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
       }else{                                      /* polarized (general) case */
-        func_pol(p, order, my_rho, my_sigma, lapl, my_tau, OUT_PARAMS);
+        func_pol(p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
       } /* polarization */
     }
 
@@ -148,8 +152,9 @@ work_mgga(const XC(func_type) *p, size_t np,
       }
     }
 #endif
-
-    internal_counters_mgga_next(&(p->dim), 0, &rho, &sigma, &lapl, &tau, &zk, MGGA_OUT_PARAMS_NO_EXC(&));
+    
+    internal_counters_mgga_next(&(p->dim), 0, &rho, &sigma, &lapl, &tau,
+                                &zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
   }   /* for(ip) */
 
 #endif
@@ -160,7 +165,7 @@ work_mgga(const XC(func_type) *p, size_t np,
 __global__ static void
 work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
               const double *rho, const double *sigma, const double *lapl, const double *tau,
-              double *zk, MGGA_OUT_PARAMS_NO_EXC(double *))
+              double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
 
   size_t ip = blockIdx.x * blockDim.x + threadIdx.x;
@@ -170,8 +175,9 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
   double my_rho[2] = {0.0, 0.0}, my_sigma[3] = {0.0, 0.0, 0.0}, my_tau[2] = {0.0, 0.0};
   double dens, zeta;
 
-  internal_counters_mgga_random(&(p->dim), ip, 0, &rho, &sigma, &lapl, &tau, &zk, MGGA_OUT_PARAMS_NO_EXC(&));
-
+  internal_counters_mgga_random(&(p->dim), ip, 0, &rho, &sigma, &lapl, &tau,
+                                &zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
+  
   /* sanity check of input parameters */
   my_rho[0]   = max(0.0, rho[0]);
   /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
@@ -196,17 +202,18 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
 
   if(dens > p->dens_threshold){
     if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
-      func_unpol(p, order, my_rho, my_sigma, lapl, my_tau, OUT_PARAMS);
-
+      func_unpol(p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
+      
     }else if(zeta >  1.0 - 1e-10){              /* ferromagnetic case - spin 0 */
-      func_ferr(p, order, my_rho, my_sigma, lapl, my_tau, OUT_PARAMS);
-
+      func_ferr(p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
+      
     }else if(zeta < -1.0 + 1e-10){              /* ferromagnetic case - spin 1 */
-      internal_counters_mgga_next(&(p->dim), -1, &rho, &sigma, &lapl, &tau, &zk, MGGA_OUT_PARAMS_NO_EXC(&));
-      func_ferr(p, order, &my_rho[1], &my_sigma[2], lapl, &my_tau[1], OUT_PARAMS);
+      internal_counters_mgga_next(&(p->dim), -1, &rho, &sigma, &lapl, &tau,
+                                  &zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
+      func_ferr(p, order, &my_rho[1], &my_sigma[2], lapl, &my_tau[1] OUT_PARAMS);
 
     }else{                                      /* polarized (general) case */
-      func_pol(p, order, my_rho, my_sigma, lapl, my_tau, OUT_PARAMS);
+      func_pol(p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
 
     } /* polarization */
   }

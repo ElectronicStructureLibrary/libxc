@@ -16,7 +16,7 @@
 
 
 static inline void
-func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
+func_unpol(const xc_func_type *p, int order, const double *rho, double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -133,126 +133,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_
 
 
 static inline void
-func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
-{
-
-#ifndef XC_DONT_COMPILE_EXC
-  double t1, t2, t4, t5, t7, t8, t9, t10;
-  double t11, t12, t13, t14, t16, t17, t20, t22;
-
-#ifndef XC_DONT_COMPILE_VXC
-  double t24, t26, t27, t32, t35;
-
-#ifndef XC_DONT_COMPILE_FXC
-  double t39, t49, t54, t55, t56, t59;
-
-#ifndef XC_DONT_COMPILE_KXC
-  double t65, t79, t88, t90, t93;
-
-#ifndef XC_DONT_COMPILE_LXC
-  double t112, t126;
-#endif
-
-#endif
-
-#endif
-
-#endif
-
-#endif
-
-
-
-  t1 = M_CBRT3;
-  t2 = t1 * t1;
-  t4 = POW_1_3(0.1e1 / M_PI);
-  t5 = 0.1e1 / t4;
-  t7 = M_CBRT4;
-  t8 = t2 * t5 * t7;
-  t9 = M_CBRT2;
-  t10 = t9 * t9;
-  t11 = POW_1_3(rho[0]);
-  t12 = t11 * t11;
-  t13 = t10 * t12;
-  t14 = 0.1e1 / t11;
-  t16 = 0.1e1 + 0.51020408163265306120e3 * t14;
-  t17 = log(t16);
-  t20 = 0.1e1 - 0.19600000000000000000e-2 * t11 * t17;
-  t22 = t8 * t13 * t20;
-  if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    zk[0] = 0.10790666666666666667e1 * t22;
-
-#ifndef XC_DONT_COMPILE_VXC
-
-  if(order < 1) return;
-
-
-  t24 = t12 * rho[0];
-  t26 = t24 * t2 * t5;
-  t27 = t7 * t10;
-  t32 = 0.1e1 / t16;
-  t35 = -0.65333333333333333333e-3 / t12 * t17 + 0.33333333333333333331e0 / rho[0] * t32;
-  if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[0] = 0.17984444444444444445e1 * t22 + 0.10790666666666666667e1 * t26 * t27 * t35;
-
-#ifndef XC_DONT_COMPILE_FXC
-
-  if(order < 2) return;
-
-
-  t39 = t10 * t14;
-  t49 = rho[0] * rho[0];
-  t54 = 0.1e1 / t11 / t49;
-  t55 = t16 * t16;
-  t56 = 0.1e1 / t55;
-  t59 = 0.43555555555555555555e-3 / t24 * t17 - 0.22222222222222222221e0 / t49 * t32 + 0.56689342403628117906e2 * t54 * t56;
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = 0.11989629629629629630e1 * t8 * t39 * t20 + 0.35968888888888888890e1 * t8 * t13 * t35 + 0.10790666666666666667e1 * t26 * t27 * t59;
-
-#ifndef XC_DONT_COMPILE_KXC
-
-  if(order < 3) return;
-
-
-  t65 = t10 / t11 / rho[0];
-  t79 = t49 * rho[0];
-  t88 = 0.1e1 / t12 / t79;
-  t90 = 0.1e1 / t55 / t16;
-  t93 = -0.72592592592592592592e-3 / t12 / t49 * t17 + 0.37037037037037037035e0 / t79 * t32 - 0.17006802721088435372e3 / t11 / t79 * t56 + 0.19282089252934733980e5 * t88 * t90;
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = -0.39965432098765432100e0 * t8 * t65 * t20 + 0.35968888888888888890e1 * t8 * t39 * t35 + 0.53953333333333333335e1 * t8 * t13 * t59 + 0.10790666666666666667e1 * t26 * t27 * t93;
-
-#ifndef XC_DONT_COMPILE_LXC
-
-  if(order < 4) return;
-
-
-  t112 = t49 * t49;
-  t126 = t55 * t55;
-  if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[0] = 0.53287242798353909467e0 * t8 * t10 * t54 * t20 - 0.15986172839506172840e1 * t8 * t65 * t35 + 0.71937777777777777780e1 * t8 * t39 * t59 + 0.71937777777777777780e1 * t8 * t13 * t93 + 0.10790666666666666667e1 * t26 * t27 * (0.19358024691358024691e-2 * t88 * t17 - 0.98765432098765432089e0 / t112 * t32 + 0.62988158226253464341e3 / t11 / t112 * t56 - 0.12854726168623155987e6 / t12 / t112 * t90 + 0.98378006392524152953e7 / t112 / rho[0] / t126);
-
-#ifndef XC_DONT_COMPILE_MXC
-
-  if(order < 5) return;
-
-
-#endif
-
-#endif
-
-#endif
-
-#endif
-
-#endif
-
-
-}
-
-
-static inline void
-func_pol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
+func_pol(const xc_func_type *p, int order, const double *rho, double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
 
 #ifndef XC_DONT_COMPILE_EXC

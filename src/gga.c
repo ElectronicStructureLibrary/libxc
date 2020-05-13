@@ -45,7 +45,7 @@ if nspin == 2
 
 */
 void xc_gga(const xc_func_type *func, size_t np, const double *rho, const double *sigma,
-            double *zk, GGA_OUT_PARAMS_NO_EXC(double *))
+            double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
   const xc_dimensions *dim = &(func->dim);
 
@@ -120,7 +120,7 @@ void xc_gga(const xc_func_type *func, size_t np, const double *rho, const double
 
   /* call functional */
   if(func->info->gga != NULL)
-    func->info->gga(func, np, rho, sigma, zk, GGA_OUT_PARAMS_NO_EXC(XC_NOARG));
+    func->info->gga(func, np, rho, sigma, zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
 
   if(func->mix_coef != NULL)
     xc_mix_func(func, np, rho, sigma, NULL, NULL, zk, vrho, vsigma, NULL, NULL,

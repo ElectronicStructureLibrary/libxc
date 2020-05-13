@@ -16,7 +16,7 @@
 
 
 static inline void
-func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
+func_unpol(const xc_func_type *p, int order, const double *rho, double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -121,112 +121,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_
 
 
 static inline void
-func_ferr(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
-{
-
-#ifndef XC_DONT_COMPILE_EXC
-  double t1, t4, t5;
-
-#ifndef XC_DONT_COMPILE_VXC
-  double t6, t8;
-
-#ifndef XC_DONT_COMPILE_FXC
-  double t13, t15, t16, t22, t23;
-
-#ifndef XC_DONT_COMPILE_KXC
-  double t25, t29, t30, t36, t37;
-
-#ifndef XC_DONT_COMPILE_LXC
-  double t44, t54;
-#endif
-
-#endif
-
-#endif
-
-#endif
-
-#endif
-
-
-  lda_xc_1d_ehwlrg_params *params;
- 
-  assert(p->params != NULL);
-  params = (lda_xc_1d_ehwlrg_params * )(p->params);
-
-  t1 = rho[0] * rho[0];
-  t4 = rho[0] * params->a2 + t1 * params->a3 + params->a1;
-  t5 = pow(rho[0], params->alpha);
-  if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    zk[0] = t4 * t5;
-
-#ifndef XC_DONT_COMPILE_VXC
-
-  if(order < 1) return;
-
-
-  t6 = rho[0] * params->a3;
-  t8 = 0.2e1 * t6 + params->a2;
-  if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[0] = rho[0] * t8 * t5 + t4 * t5 * params->alpha + (t4 * t5);
-
-#ifndef XC_DONT_COMPILE_FXC
-
-  if(order < 2) return;
-
-
-  t13 = t8 * t5;
-  t15 = 0.1e1 / rho[0];
-  t16 = params->alpha * t15;
-  t22 = params->alpha * params->alpha;
-  t23 = t22 * t15;
-  if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = 0.2e1 * t13 * params->alpha + (t4 * t5) * t16 + (t4 * t5) * t23 + 0.2e1 * t6 * t5 + 0.2e1 * t13;
-
-#ifndef XC_DONT_COMPILE_KXC
-
-  if(order < 3) return;
-
-
-  t25 = params->a3 * t5;
-  t29 = 0.1e1 / t1;
-  t30 = params->alpha * t29;
-  t36 = t22 * params->alpha;
-  t37 = t36 * t29;
-  if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = 0.3e1 * t13 * t16 + 0.3e1 * t13 * t23 + 0.6e1 * t25 * params->alpha - (t4 * t5) * t30 + (t4 * t5) * t37 + 0.6e1 * t25;
-
-#ifndef XC_DONT_COMPILE_LXC
-
-  if(order < 4) return;
-
-
-  t44 = 0.1e1 / t1 / rho[0];
-  t54 = t22 * t22;
-  if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[0] = -(t4 * t5) * t22 * t44 - 0.2e1 * (t4 * t5) * t36 * t44 + (t4 * t5) * t54 * t44 + 0.2e1 * (t4 * t5) * params->alpha * t44 - 0.4e1 * t13 * t30 + 0.4e1 * t13 * t37 + 0.12e2 * t25 * t16 + 0.12e2 * t25 * t23;
-
-#ifndef XC_DONT_COMPILE_MXC
-
-  if(order < 5) return;
-
-
-#endif
-
-#endif
-
-#endif
-
-#endif
-
-#endif
-
-
-}
-
-
-static inline void
-func_pol(const xc_func_type *p, int order, const double *rho, double *zk, LDA_OUT_PARAMS_NO_EXC(double *))
+func_pol(const xc_func_type *p, int order, const double *rho, double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
 
 #ifndef XC_DONT_COMPILE_EXC

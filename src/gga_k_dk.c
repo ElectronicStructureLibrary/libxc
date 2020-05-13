@@ -120,7 +120,7 @@ const xc_func_info_type xc_func_info_gga_k_dk = {
   XC_FAMILY_GGA,
   {&xc_ref_DePristo1987_438, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-14,
   {0, NULL, NULL, NULL, NULL},
   gga_k_dk_init, NULL,
   NULL, work_gga, NULL
@@ -136,7 +136,7 @@ const xc_func_info_type xc_func_info_gga_k_perdew = {
   XC_FAMILY_GGA,
   {&xc_ref_Perdew1992_79, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-14,
   {0, NULL, NULL, NULL, NULL},
   gga_k_dk_init, NULL,
   NULL, work_gga, NULL
@@ -152,7 +152,7 @@ const xc_func_info_type xc_func_info_gga_k_vsk = {
   XC_FAMILY_GGA,
   {&xc_ref_Vitos1998_12611, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-14,
   {0, NULL, NULL, NULL, NULL},
   gga_k_dk_init, NULL,
   NULL, work_gga, NULL
@@ -168,7 +168,7 @@ const xc_func_info_type xc_func_info_gga_k_vjks = {
   XC_FAMILY_GGA,
   {&xc_ref_Vitos2000_052511, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-14,
   {0, NULL, NULL, NULL, NULL},
   gga_k_dk_init, NULL,
   NULL, work_gga, NULL
@@ -184,7 +184,7 @@ const xc_func_info_type xc_func_info_gga_k_ernzerhof = {
   XC_FAMILY_GGA,
   {&xc_ref_Ernzerhof2000_59, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-14,
   {0, NULL, NULL, NULL, NULL},
   gga_k_dk_init, NULL,
   NULL, work_gga, NULL

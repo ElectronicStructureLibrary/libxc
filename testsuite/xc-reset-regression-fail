@@ -23,8 +23,6 @@ if [ ! -f $builddir/test-suite.log ]; then
 fi
 
 for func in $funcs; do
-  echo "processing $func"
-
   dir=${func%%_*}
   tmp=${func//${dir}_/}
   if [ "x$dir" = "xhyb" ]; then
@@ -49,6 +47,8 @@ for func in $funcs; do
     fi
 
     refname=$func.$system.$spin.$order
+
+    echo "processing $refname"
 
     $builddir/xc-regression $func $nspin $order $srcdir/input/$system $srcdir/regression/$dir/$refname > /dev/null
     rm -f $srcdir/regression/$dir/$refname.bz2

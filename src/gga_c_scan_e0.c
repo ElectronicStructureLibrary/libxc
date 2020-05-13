@@ -24,7 +24,7 @@ const xc_func_info_type xc_func_info_gga_c_scan_e0 = {
   XC_FAMILY_GGA,
   {&xc_ref_Sun2015_036402, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-26,
+  1e-14,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL, 
   NULL, work_gga, NULL

@@ -375,7 +375,7 @@ mf   := (r0, r1, s0, s1, s2) -> eval(dens(r0, r1)*mzk(r0, r1, s0, s1, s2)):
 ";
   my $maple_zk = "zk_0_ = mzk(".join(", ", @{$variables}).")";
 
-  # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
+  # we build 2 variants of the functional, for unpolarized and polarized densities
   @variants = (
     "unpol", "
 dens := (r0, r1) -> r0:
@@ -389,19 +389,6 @@ $der_def
 $maple_code
 C([$maple_zk$out_c], optimize, deducetypes=false):
 ",
-
-    "ferr", "
-dens := (r0, r1) -> r0:
-zeta := (r0, r1) -> 1:
-xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
-xs1  := (r0, r1, sigma0, sigma2) -> 0:
-xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
-
-$der_def
-
-$maple_code
-C([$maple_zk$out_c], optimize, deducetypes=false):
-\n",
 
     "pol", "
 dens := (r0, r1) -> r0 + r1:
@@ -466,26 +453,13 @@ mf1   := (r0, r1, s0, s1, s2) -> eval(mzk(r1, r0, s2, s1, s0)):
   my $maple_vrho0 = "vrho_0_ = mf0(".join(", ", @{$variables}).")";
   my $maple_vrho1 = "vrho_1_ = mf1(".join(", ", @{$variables}).")"; 
 
-  # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
+  # we build 2 variants of the functional, for unpolarized and polarized densities
   @variants = (
     "unpol", "
 dens := (r0, r1) -> r0:
 zeta := (r0, r1) -> 0:
 xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0/4)/((r0/2)^(1 + 1/DIMENSIONS)):
 xs1  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0/4)/((r0/2)^(1 + 1/DIMENSIONS)):
-xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
-
-$der_def_unpol
-
-$maple_code1
-C([$maple_vrho0, $out_c_unpol], optimize, deducetypes=false):
-",
-
-    "ferr", "
-dens := (r0, r1) -> r0:
-zeta := (r0, r1) -> 1:
-xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
-xs1  := (r0, r1, sigma0, sigma2) -> 0:
 xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
 
 $der_def_unpol
@@ -542,7 +516,7 @@ mf   := (r0, r1, s0, s1, s2, l0, l1, tau0, tau1) -> eval(dens(r0, r1)*mzk(r0, r1
 ";
   my $maple_zk = " zk_0_ = mzk(".join(", ", @{$variables}).")";
 
-  # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
+  # we build 2 variants of the functional, for unpolarized and polarized densities
   @variants = (
     "unpol", "
 dens := (r0, r1) -> r0:
@@ -560,23 +534,6 @@ $der_def
 $maple_code
 C([$maple_zk$out_c], optimize, deducetypes=false):
 ",
-
-    "ferr", "
-dens := (r0, r1) -> r0:
-zeta := (r0, r1) -> 1:
-xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
-xs1  := (r0, r1, sigma0, sigma2) -> 0:
-xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
-u0   := (r0, r1, l0, l1) -> l0/(r0^(1 + 2/DIMENSIONS)):
-u1   := (r0, r1, l0, l1) -> 0:
-t0   := (r0, r1, tau0, tau1) -> tau0/(r0^(1 + 2/DIMENSIONS)):
-t1   := (r0, r1, tau0, tau1) -> 0:
-
-$der_def
-
-$maple_code
-C([$maple_zk$out_c], optimize, deducetypes=false):
-\n",
 
     "pol", "
 dens := (r0, r1) -> r0 + r1:
@@ -645,7 +602,7 @@ mf1   := (r0, r1, s0, s1, s2, l0, l1, tau0, tau1) -> eval(mzk(r1, r0, s2, s1, s0
   my $maple_vrho0 = "vrho_0_ = mf0(".join(", ", @{$variables}).")";
   my $maple_vrho1 = "vrho_1_ = mf1(".join(", ", @{$variables}).")"; 
 
-  # we build 3 variants of the functional, for unpolarized, ferromagnetic, and polarized densities
+  # we build 2 variants of the functional, for unpolarized and polarized densities
   @variants = (
     "unpol", "
 dens := (r0, r1) -> r0:
@@ -657,23 +614,6 @@ u0   := (r0, r1, l0, l1) -> (l0/2)/((r0/2)^(1 + 2/DIMENSIONS)):
 u1   := (r0, r1, l0, l1) -> (l0/2)/((r0/2)^(1 + 2/DIMENSIONS)):
 t0   := (r0, r1, tau0, tau1) -> (tau0/2)/((r0/2)^(1 + 2/DIMENSIONS)):
 t1   := (r0, r1, tau0, tau1) -> (tau0/2)/((r0/2)^(1 + 2/DIMENSIONS)):
-
-$der_def_unpol
-
-$maple_code1
-C([$maple_vrho0, $out_c_unpol], optimize, deducetypes=false):
-",
-
-    "ferr", "
-dens := (r0, r1) -> r0:
-zeta := (r0, r1) -> 1:
-xs0  := (r0, r1, sigma0, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
-xs1  := (r0, r1, sigma0, sigma2) -> 0:
-xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
-u0   := (r0, r1, l0, l1) -> l0/(r0^(1 + 2/DIMENSIONS)):
-u1   := (r0, r1, l0, l1) -> 0:
-t0   := (r0, r1, tau0, tau1) -> tau0/(r0^(1 + 2/DIMENSIONS)):
-t1   := (r0, r1, tau0, tau1) -> 0:
 
 $der_def_unpol
 

@@ -90,7 +90,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97 = {
   XC_FAMILY_GGA,
   {&xc_ref_Chai2008_084106, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-23,
+  1e-14,
   {0, NULL, NULL, NULL, NULL},
   gga_xc_wb97_init, NULL,
   NULL, work_gga, NULL
@@ -106,7 +106,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x = {
   XC_FAMILY_GGA,
   {&xc_ref_Chai2008_084106, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-23,
+  1e-14,
   {0, NULL, NULL, NULL, NULL},
   gga_xc_wb97_init, NULL,
   NULL, work_gga, NULL
@@ -122,7 +122,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x_v = {
   XC_FAMILY_GGA,
   {&xc_ref_Mardirossian2014_9904, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_VV10 | MAPLE2C_FLAGS,
-  1e-23,
+  1e-14,
   {0, NULL, NULL, NULL, NULL},
   gga_xc_wb97_init, NULL,
   NULL, work_gga, NULL
@@ -138,7 +138,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x_d = {
   XC_FAMILY_GGA,
   {&xc_ref_Chai2008_6615, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-23,
+  1e-14,
   {0, NULL, NULL, NULL, NULL},
   gga_xc_wb97_init, NULL,
   NULL, work_gga, NULL

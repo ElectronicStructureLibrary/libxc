@@ -24,6 +24,7 @@
 #define XC_HYB_GGA_XC_LC_WPBEH_WHS 487 /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
 #define XC_HYB_GGA_XC_LC_WPBE08_WHS 488 /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
 #define XC_HYB_GGA_XC_LC_WPBESOL_WHS 489 /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
+#define XC_HYB_GGA_XC_HISS        717 /* Middle-range hybrid from Henderson, Izmaylov, Scuseria, and Savin */
 
 /* Note that there is an enormous mess in the literature concerning
    the values of omega in HSE. This is due to an error in the
@@ -474,5 +475,38 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_b97x = {
   1e-32,
   {0, NULL, NULL, NULL, NULL},
   hyb_gga_xc_hjs_init, NULL,
+  NULL, NULL, NULL
+};
+
+static void
+hyb_gga_xc_hiss_init(xc_func_type *p)
+{
+  /* C_MR = 0.60 */
+  static int    funcs_id  [3] = {XC_GGA_X_HJS_PBE, XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
+  static double funcs_coef[3] = {1.0 - 0.60, -(1.0 - 0.60), 1.0};
+  static int    hyb_type[2]   = {XC_HYB_ERF_SR, XC_HYB_ERF_SR};
+  static double hyb_omega[2]  = {0.20,  0.84};
+  static double hyb_coeff[2]  = {0.60, -0.60};
+  
+  xc_mix_init(p, 3, funcs_id, funcs_coef);
+  xc_hyb_init(p, 2, hyb_type, hyb_coeff, hyb_omega);
+
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", hyb_omega[0]);
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", hyb_omega[1]);
+}
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_hyb_gga_xc_hiss = {
+  XC_HYB_GGA_XC_HISS,
+  XC_EXCHANGE_CORRELATION,
+  "Middle-range hybrid from Henderson, Izmaylov, Scuseria, and Savin",
+  XC_FAMILY_GGA,
+  {&xc_ref_Henderson2007_221103, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-32,
+  {0, NULL, NULL, NULL, NULL},
+  hyb_gga_xc_hiss_init, NULL,
   NULL, NULL, NULL
 };

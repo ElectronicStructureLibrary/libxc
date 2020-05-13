@@ -14,10 +14,6 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
            MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
 
 GPU_FUNCTION static inline void
-func_ferr (const xc_func_type *p, int order, const double *rho, const double *sigma, const double *lapl, const double *tau
-           MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
-
-GPU_FUNCTION static inline void
 func_pol  (const xc_func_type *p, int order, const double *rho, const double *sigma, const double *lapl, const double *tau
            MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
 
@@ -26,10 +22,6 @@ func_pol  (const xc_func_type *p, int order, const double *rho, const double *si
 GPU_FUNCTION static inline void
 func_unpol(const xc_func_type *p, int order, const double *rho, const double *sigma, const double *lapl, const double *tau,
            double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
-
-GPU_FUNCTION static inline void
-func_ferr(const xc_func_type *p, int order, const double *rho, const double *sigma, const double *lapl, const double *tau,
-          double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
 
 GPU_FUNCTION static inline void
 func_pol(const xc_func_type *p, int order, const double *rho, const double *sigma, const double *lapl, const double *tau,

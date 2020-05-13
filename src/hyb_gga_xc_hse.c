@@ -501,7 +501,7 @@ extern "C"
 const xc_func_info_type xc_func_info_hyb_gga_xc_hiss = {
   XC_HYB_GGA_XC_HISS,
   XC_EXCHANGE_CORRELATION,
-  "Middle-range hybrid (A) from Henderson, Izmaylov, Scuseria, and Savin",
+  "Middle-range hybrid from Henderson, Izmaylov, Scuseria, and Savin",
   XC_FAMILY_GGA,
   {&xc_ref_Henderson2007_221103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,

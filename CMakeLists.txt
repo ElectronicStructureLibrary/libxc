@@ -166,6 +166,8 @@ set(raw_sources_list
   gga_c_zvpbeint.c
   gga_c_zvpbeloc.c
   gga_k_dk.c
+  gga_k_pg.c
+  gga_k_rational_p.c
   gga_k_meyer.c
   gga_k_ol1.c
   gga_k_ol2.c

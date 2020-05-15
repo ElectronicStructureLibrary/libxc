@@ -68,16 +68,16 @@ work_lda(const XC(func_type) *p, size_t np, const double *rho,
 
   for(ip = 0; ip < np; ip++){
     /* sanity check of input parameters */
-    my_rho[0] = max(p->dens_threshold, rho[0]);
+    my_rho[0] = max(0.0, rho[0]);
     if(p->nspin == XC_POLARIZED){
-      my_rho[1] = max(p->dens_threshold, rho[1]);
+      my_rho[1] = max(0.0, rho[1]);
     }
     
-    if(p->nspin == XC_UNPOLARIZED){
+    /* Evaluate functional and screen low densities */
+    if((p->nspin == XC_UNPOLARIZED) && (my_rho[0] >= p->dens_threshold))
       func_unpol(p, order, my_rho OUT_PARAMS);
-    }else{
+    else if((p->nspin == XC_POLARIZED) && ((my_rho[0] + my_rho[1]) >= p->dens_threshold))
       func_pol  (p, order, my_rho OUT_PARAMS);
-    }
     
     /* check for NaNs */
 #ifdef XC_DEBUG
@@ -129,16 +129,15 @@ work_lda_gpu(const XC(func_type) *p, int order, size_t np, const double *rho,
   
   internal_counters_lda_random(&(p->dim), ip, 0, &rho, &zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
 
-  my_rho[0] = max(p->dens_threshold, rho[0]);
+  my_rho[0] = max(0.0, rho[0]);
   if(p->nspin == XC_POLARIZED){
-    my_rho[1] = max(p->dens_threshold, rho[1]);
+    my_rho[1] = max(0.0, rho[1]);
   }
   
-  if(p->nspin == XC_UNPOLARIZED){             /* unpolarized case */
+  if((p->nspin == XC_UNPOLARIZED) && (my_rho[0] >= p->dens_threshold))
     func_unpol(p, order, my_rho OUT_PARAMS);
-  }else{                                      /* polarized (general) case */      
+  else if((p->nspin == XC_POLARIZED) && ((my_rho[0] + my_rho[1]) >= p->dens_threshold))
     func_pol  (p, order, my_rho OUT_PARAMS);
-  }    
 }
 
 #endif

@@ -12,6 +12,11 @@
  * @brief This file is to be included in MGGA functionals.
  */
 
+#ifdef XC_DEBUG
+#define __USE_GNU
+#include <fenv.h>
+#endif
+
 /* hack to avoid compiler warnings */
 #define NOARG
 
@@ -37,6 +42,12 @@ work_mgga(const XC(func_type) *p, size_t np,
 {
 
   int order = -1;
+  size_t ip;
+  double dens;
+  double my_rho[2]={0.0, 0.0};
+  double my_sigma[3]={0.0, 0.0, 0.0};
+  double my_tau[2]={0.0, 0.0};
+
   if(zk     != NULL) order = 0;
   if(vrho   != NULL) order = 1;
   if(v2rho2 != NULL) order = 2;
@@ -44,6 +55,10 @@ work_mgga(const XC(func_type) *p, size_t np,
   if(v4rho4 != NULL) order = 4;
 
   if(order < 0) return;
+
+#ifdef XC_DEBUG
+  feenableexcept(FE_DIVBYZERO | FE_INVALID);
+#endif
 
 #ifdef HAVE_CUDA
 
@@ -54,17 +69,13 @@ work_mgga(const XC(func_type) *p, size_t np,
 
   auto nblocks = np/CUDA_BLOCK_SIZE;
   if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
-  
+
   work_mgga_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(pcuda, order, np, rho, sigma, lapl, tau,
                                               zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
- 
+
   libxc_free(pcuda);
 
 #else
-
-  size_t ip;
-  double my_rho[2] = {0.0, 0.0}, my_sigma[3] = {0.0, 0.0, 0.0}, my_tau[2] = {0.0, 0.0};
-
   for(ip = 0; ip < np; ip++){
     /* sanity check of input parameters */
     my_rho[0]   = max(0.0, rho[0]);
@@ -87,11 +98,14 @@ work_mgga(const XC(func_type) *p, size_t np,
       my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
     }
 
-    /* Evaluate functional and screen low densities */
-    if((p->nspin == XC_UNPOLARIZED) && (my_rho[0] >= p->dens_threshold))
-      func_unpol(p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
-    else if((p->nspin == XC_POLARIZED) && ((my_rho[0] + my_rho[1]) >= p->dens_threshold))
-      func_pol  (p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
+    /* Screen low densities */
+    dens = (p->nspin == XC_POLARIZED) ? my_rho[0]+my_rho[1] : my_rho[0];
+    if(dens >= p->dens_threshold) {
+      if(p->nspin == XC_UNPOLARIZED)
+        func_unpol(p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
+      else if(p->nspin == XC_POLARIZED)
+        func_pol  (p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
+    }
 
     /* check for NaNs */
 #ifdef XC_DEBUG
@@ -137,7 +151,7 @@ work_mgga(const XC(func_type) *p, size_t np,
       }
     }
 #endif
-    
+
     internal_counters_mgga_next(&(p->dim), 0, &rho, &sigma, &lapl, &tau,
                                 &zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
   }   /* for(ip) */
@@ -154,14 +168,16 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
 {
 
   size_t ip = blockIdx.x * blockDim.x + threadIdx.x;
+  double my_rho[2] = {0.0, 0.0};
+  double my_sigma[3] = {0.0, 0.0, 0.0};
+  double my_tau[2] = {0.0, 0.0};
+  double dens;
 
   if(ip >= np) return;
 
-  double my_rho[2] = {0.0, 0.0}, my_sigma[3] = {0.0, 0.0, 0.0}, my_tau[2] = {0.0, 0.0};
-
   internal_counters_mgga_random(&(p->dim), ip, 0, &rho, &sigma, &lapl, &tau,
                                 &zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
-  
+
   /* sanity check of input parameters */
   my_rho[0]   = max(0.0, rho[0]);
   /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
@@ -183,10 +199,13 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
     my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
   }
 
-  /* Evaluate functional and screen low densities */
-  if((p->nspin == XC_UNPOLARIZED) && (my_rho[0] >= p->dens_threshold))
-    func_unpol(p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
-  else if((p->nspin == XC_POLARIZED) && ((my_rho[0] + my_rho[1]) >= p->dens_threshold))
-    func_pol  (p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
+  /* Screen low densities */
+  dens = (p->nspin == XC_POLARIZED) ? my_rho[0]+my_rho[1] : my_rho[0];
+  if(dens >= p->dens_threshold) {
+    if(p->nspin == XC_UNPOLARIZED)
+      func_unpol(p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
+    else if(p->nspin == XC_POLARIZED)
+      func_pol  (p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
+  }
 }
 #endif

@@ -57,7 +57,8 @@ work_mgga(const XC(func_type) *p, size_t np,
   if(order < 0) return;
 
 #ifdef XC_DEBUG
-  feenableexcept(FE_DIVBYZERO | FE_INVALID);
+  /* This throws an exception when floating point errors are encountered */
+  /*feenableexcept(FE_DIVBYZERO | FE_INVALID);*/
 #endif
 
 #ifdef HAVE_CUDA
@@ -78,7 +79,8 @@ work_mgga(const XC(func_type) *p, size_t np,
 #else
   for(ip = 0; ip < np; ip++){
     /* sanity check of input parameters */
-    my_rho[0]   = max(0.0, rho[0]);
+    dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
+    my_rho[0] = max(p->dens_threshold, rho[0]);
     /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
     my_tau[0]   = max(1e-40, tau[0]);
     /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
@@ -87,7 +89,7 @@ work_mgga(const XC(func_type) *p, size_t np,
     if(p->nspin == XC_POLARIZED){
       double s_ave = 0.5*(sigma[0] + sigma[2]);
 
-      my_rho[1]   = max(0.0, rho[1]);
+      my_rho[1] = max(p->dens_threshold, rho[1]);
       my_tau[1]   = max(1e-40, tau[1]);
 
       my_sigma[2] = min(max(1e-40, sigma[2]), 8.0*my_rho[1]*my_tau[1]);
@@ -99,7 +101,6 @@ work_mgga(const XC(func_type) *p, size_t np,
     }
 
     /* Screen low densities */
-    dens = (p->nspin == XC_POLARIZED) ? my_rho[0]+my_rho[1] : my_rho[0];
     if(dens >= p->dens_threshold) {
       if(p->nspin == XC_UNPOLARIZED)
         func_unpol(p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
@@ -179,7 +180,8 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
                                 &zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
 
   /* sanity check of input parameters */
-  my_rho[0]   = max(0.0, rho[0]);
+  dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
+  my_rho[0]   = max(p->dens_threshold, rho[0]);
   /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
   my_tau[0]   = max(1e-40, tau[0]);
   /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
@@ -188,7 +190,7 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
   if(p->nspin == XC_POLARIZED){
     double s_ave = 0.5*(sigma[0] + sigma[2]);
 
-    my_rho[1]   = max(0.0, rho[1]);
+    my_rho[1] = max(p->dens_threshold, rho[1]);
     my_tau[1]   = max(1e-40, tau[1]);
 
     my_sigma[2] = min(max(1e-40, sigma[2]), 8.0*my_rho[1]*my_tau[1]);
@@ -200,7 +202,6 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
   }
 
   /* Screen low densities */
-  dens = (p->nspin == XC_POLARIZED) ? my_rho[0]+my_rho[1] : my_rho[0];
   if(dens >= p->dens_threshold) {
     if(p->nspin == XC_UNPOLARIZED)
       func_unpol(p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);

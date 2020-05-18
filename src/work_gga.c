@@ -55,7 +55,8 @@ work_gga(const XC(func_type) *p, size_t np,
   if(order < 0) return;
 
 #ifdef XC_DEBUG
-  feenableexcept(FE_DIVBYZERO | FE_INVALID);
+  /* This throws an exception when floating point errors are encountered */
+  /*feenableexcept(FE_DIVBYZERO | FE_INVALID);*/
 #endif
 
 #ifdef HAVE_CUDA
@@ -77,12 +78,14 @@ work_gga(const XC(func_type) *p, size_t np,
 
   for(ip = 0; ip < np; ip++){
     /* sanity check of input parameters */
-    my_rho[0]   = max(0.0, rho[0]);
+    dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
+
+    my_rho[0] = max(p->dens_threshold, rho[0]);
     my_sigma[0] = max(1e-40, sigma[0]);
     if(p->nspin == XC_POLARIZED){
       double s_ave = 0.5*(sigma[0] + sigma[2]);
 
-      my_rho[1]   = max(0.0, rho[1]);
+      my_rho[1] = max(p->dens_threshold, rho[1]);
       my_sigma[2] = max(1e-40, sigma[2]);
       my_sigma[1] = sigma[1];
       /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
@@ -92,7 +95,6 @@ work_gga(const XC(func_type) *p, size_t np,
     }
 
     /* Screen low density */
-    dens = (p->nspin == XC_POLARIZED) ? my_rho[0]+my_rho[1] : my_rho[0];
     if(dens >= p->dens_threshold) {
       if(p->nspin == XC_UNPOLARIZED)
         func_unpol(p, order, my_rho, my_sigma OUT_PARAMS);
@@ -154,12 +156,13 @@ work_gga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, co
                                &zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
 
   /* sanity check on input parameters */
-  my_rho[0]   = max(0.0, rho[0]);
+  dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
+  my_rho[0]   = max(p->dens_threshold, rho[0]);
   my_sigma[0] = max(1e-40, sigma[0]);
   if(p->nspin == XC_POLARIZED){
     double s_ave = 0.5*(sigma[0] + sigma[2]);
 
-    my_rho[1]   = max(0.0, rho[1]);
+    my_rho[1]   = max(p->dens_threshold, rho[1]);
     my_sigma[2] = max(1e-40, sigma[2]);
     my_sigma[1] = sigma[1];
     /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
@@ -168,7 +171,6 @@ work_gga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, co
     my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
   }
 
-  dens = (p->nspin == XC_POLARIZED) ? my_rho[0]+my_rho[1] : my_rho[0];
   if(dens >= p->dens_threshold) {
     if(p->nspin == XC_UNPOLARIZED)
       func_unpol(p, order, my_rho, my_sigma OUT_PARAMS);

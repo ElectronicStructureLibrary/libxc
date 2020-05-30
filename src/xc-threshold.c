@@ -503,9 +503,9 @@ void compute_input(xc_values_type *values, int *nspin, testcase_t testcase,
    * spin-polarized system).  This avoids problems with MGGA's, as
    * some terms vanish for one state systems.
    *
-   * The following parameters control the exponential decay of the states
-   * densities: rho_1^a(r) = e^{- 2 a1 r} rho_1^b(r) = e^{- 2 b1 r} rho_2^a(r) =
-   * e^{- 2 a2 r} rho_2^b(r) = e^{- 2 b2 r}
+   * The following parameters control the exponential decay of the
+   * states densities: rho_1^a(r) = e^{- 2 a1 r}, rho_1^b(r) = e^{- 2
+   * b1 r}, rho_2^a(r) = e^{- 2 a2 r}, rho_2^b(r) = e^{- 2 b2 r}.
    */
   const double a1 = 1.0;
   const double a2 = 0.75;
@@ -880,8 +880,10 @@ int main(int argc, char *argv[]) {
   /* since we use an exponential density with zeta = 1.0, the
      necessary maximal radius is */
   const double rmax = -log(nmin) / 2;
+  /* the closest point should be at */
+  const double rmin = 1.0e-9;
   /* this leads to the number of radial points as */
-  const double nrad = ceil(log(rmax) / h);
+  const double nrad = ceil(log(rmax/rmin) / h);
 
   /* radial point id */
   int irad;
@@ -899,8 +901,8 @@ int main(int argc, char *argv[]) {
 #if 0
   printf("logarithmic spacing h = %e yields %lu radial points\n", h,
          (long unsigned)nrad);
-  printf("rmax = %e, nmin = %e\n", exp(h * (nrad - 1)),
-         exp(-2 * exp(h * (nrad - 1))));
+  printf("rmax = %e, nmin = %e\n", rmin*exp(h * (nrad - 1)),
+         exp(-2 * rmin * exp(h * (nrad - 1))));
 #endif
 
   /* Is functional defined by a string constant? */
@@ -924,7 +926,7 @@ int main(int argc, char *argv[]) {
       for (irad = 0; irad < nrad; irad++) {
         size_t rfail;
         /* Calculate radius */
-        r = exp(h * irad);
+        r = rmin*exp(h * irad);
         /* Compute the input data */
         compute_input(&values, &nspin, testcase, r);
         /* Compute the functional */

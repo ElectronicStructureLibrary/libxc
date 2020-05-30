@@ -16,7 +16,7 @@
 #include <xc.h>
 
 /* Get debug info by uncommenting the following line */
-/* #define XC_DEBUG */
+#define XC_DEBUG
 
 typedef struct {
   /* Input */
@@ -98,6 +98,378 @@ typedef struct {
   double v4tau4[5];
 } xc_values_type;
 
+void index_lookup(int idx, char *legend) {
+  int offset = 0;
+  xc_dimensions dim;
+  internal_counters_set_mgga(XC_POLARIZED, &dim);
+  if (idx < offset + dim.rho) {
+    sprintf(legend, "rho[%i]", idx - offset);
+    return;
+  }
+  offset += dim.rho;
+  if (idx < offset + dim.sigma) {
+    sprintf(legend, "sigma[%i]", idx - offset);
+    return;
+  }
+  offset += dim.sigma;
+  if (idx < offset + dim.lapl) {
+    sprintf(legend, "lapl[%i]", idx - offset);
+    return;
+  }
+  offset += dim.lapl;
+  if (idx < offset + dim.tau) {
+    sprintf(legend, "tau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.tau;
+
+  if (idx < offset + dim.vrho) {
+    sprintf(legend, "vrho[%i]", idx - offset);
+    return;
+  }
+  offset += dim.vrho;
+  if (idx < offset + dim.vsigma) {
+    sprintf(legend, "vsigma[%i]", idx - offset);
+    return;
+  }
+  offset += dim.vsigma;
+  if (idx < offset + dim.vlapl) {
+    sprintf(legend, "vlapl[%i]", idx - offset);
+    return;
+  }
+  offset += dim.vlapl;
+  if (idx < offset + dim.vtau) {
+    sprintf(legend, "vtau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.vtau;
+  if (idx < offset + dim.v2rho2) {
+    sprintf(legend, "v2rho2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v2rho2;
+  if (idx < offset + dim.v2rhosigma) {
+    sprintf(legend, "v2rhosigma[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v2rhosigma;
+  if (idx < offset + dim.v2sigma2) {
+    sprintf(legend, "v2sigma2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v2sigma2;
+  if (idx < offset + dim.v2rholapl) {
+    sprintf(legend, "v2rholapl[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v2rholapl;
+  if (idx < offset + dim.v2sigmalapl) {
+    sprintf(legend, "v2sigmalapl[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v2sigmalapl;
+  if (idx < offset + dim.v2lapl2) {
+    sprintf(legend, "v2lapl2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v2lapl2;
+  if (idx < offset + dim.v2rhotau) {
+    sprintf(legend, "v2rhotau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v2rhotau;
+  if (idx < offset + dim.v2sigmatau) {
+    sprintf(legend, "v2sigmatau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v2sigmatau;
+  if (idx < offset + dim.v2lapltau) {
+    sprintf(legend, "v2lapltau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v2lapltau;
+  if (idx < offset + dim.v2tau2) {
+    sprintf(legend, "v2tau2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v2tau2;
+  if (idx < offset + dim.v3rho3) {
+    sprintf(legend, "v3rho3[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3rho3;
+  if (idx < offset + dim.v3rho2sigma) {
+    sprintf(legend, "v3rho2sigma[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3rho2sigma;
+  if (idx < offset + dim.v3rhosigma2) {
+    sprintf(legend, "v3rhosigma2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3rhosigma2;
+  if (idx < offset + dim.v3sigma3) {
+    sprintf(legend, "v3sigma3[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3sigma3;
+  if (idx < offset + dim.v3rho2lapl) {
+    sprintf(legend, "v3rho2lapl[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3rho2lapl;
+  if (idx < offset + dim.v3rhosigmalapl) {
+    sprintf(legend, "v3rhosigmalapl[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3rhosigmalapl;
+  if (idx < offset + dim.v3sigma2lapl) {
+    sprintf(legend, "v3sigma2lapl[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3sigma2lapl;
+  if (idx < offset + dim.v3rholapl2) {
+    sprintf(legend, "v3rholapl2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3rholapl2;
+  if (idx < offset + dim.v3sigmalapl2) {
+    sprintf(legend, "v3sigmalapl2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3sigmalapl2;
+  if (idx < offset + dim.v3lapl3) {
+    sprintf(legend, "v3lapl3[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3lapl3;
+  if (idx < offset + dim.v3rho2tau) {
+    sprintf(legend, "v3rho2tau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3rho2tau;
+  if (idx < offset + dim.v3rhosigmatau) {
+    sprintf(legend, "v3rhosigmatau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3rhosigmatau;
+  if (idx < offset + dim.v3sigma2tau) {
+    sprintf(legend, "v3sigma2tau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3sigma2tau;
+  if (idx < offset + dim.v3rholapltau) {
+    sprintf(legend, "v3rholapltau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3rholapltau;
+  if (idx < offset + dim.v3sigmalapltau) {
+    sprintf(legend, "v3sigmalapltau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3sigmalapltau;
+  if (idx < offset + dim.v3lapl2tau) {
+    sprintf(legend, "v3lapl2tau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3lapl2tau;
+  if (idx < offset + dim.v3rhotau2) {
+    sprintf(legend, "v3rhotau2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3rhotau2;
+  if (idx < offset + dim.v3sigmatau2) {
+    sprintf(legend, "v3sigmatau2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3sigmatau2;
+  if (idx < offset + dim.v3lapltau2) {
+    sprintf(legend, "v3lapltau2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3lapltau2;
+  if (idx < offset + dim.v3tau3) {
+    sprintf(legend, "v3tau3[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v3tau3;
+  if (idx < offset + dim.v4rho4) {
+    sprintf(legend, "v4rho4[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rho4;
+  if (idx < offset + dim.v4rho3sigma) {
+    sprintf(legend, "v4rho3sigma[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rho3sigma;
+  if (idx < offset + dim.v4rho2sigma2) {
+    sprintf(legend, "v4rho2sigma2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rho2sigma2;
+  if (idx < offset + dim.v4rhosigma3) {
+    sprintf(legend, "v4rhosigma3[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rhosigma3;
+  if (idx < offset + dim.v4sigma4) {
+    sprintf(legend, "v4sigma4[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4sigma4;
+  if (idx < offset + dim.v4rho3lapl) {
+    sprintf(legend, "v4rho3lapl[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rho3lapl;
+  if (idx < offset + dim.v4rho2sigmalapl) {
+    sprintf(legend, "v4rho2sigmalapl[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rho2sigmalapl;
+  if (idx < offset + dim.v4rhosigma2lapl) {
+    sprintf(legend, "v4rhosigma2lapl[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rhosigma2lapl;
+  if (idx < offset + dim.v4sigma3lapl) {
+    sprintf(legend, "v4sigma3lapl[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4sigma3lapl;
+  if (idx < offset + dim.v4rho2lapl2) {
+    sprintf(legend, "v4rho2lapl2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rho2lapl2;
+  if (idx < offset + dim.v4rhosigmalapl2) {
+    sprintf(legend, "v4rhosigmalapl2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rhosigmalapl2;
+  if (idx < offset + dim.v4sigma2lapl2) {
+    sprintf(legend, "v4sigma2lapl2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4sigma2lapl2;
+  if (idx < offset + dim.v4rholapl3) {
+    sprintf(legend, "v4rholapl3[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rholapl3;
+  if (idx < offset + dim.v4sigmalapl3) {
+    sprintf(legend, "v4sigmalapl3[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4sigmalapl3;
+  if (idx < offset + dim.v4lapl4) {
+    sprintf(legend, "v4lapl4[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4lapl4;
+  if (idx < offset + dim.v4rho3tau) {
+    sprintf(legend, "v4rho3tau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rho3tau;
+  if (idx < offset + dim.v4rho2sigmatau) {
+    sprintf(legend, "v4rho2sigmatau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rho2sigmatau;
+  if (idx < offset + dim.v4rhosigma2tau) {
+    sprintf(legend, "v4rhosigma2tau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rhosigma2tau;
+  if (idx < offset + dim.v4sigma3tau) {
+    sprintf(legend, "v4sigma3tau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4sigma3tau;
+  if (idx < offset + dim.v4rho2lapltau) {
+    sprintf(legend, "v4rho2lapltau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rho2lapltau;
+  if (idx < offset + dim.v4rhosigmalapltau) {
+    sprintf(legend, "v4rhosigmalapltau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rhosigmalapltau;
+  if (idx < offset + dim.v4sigma2lapltau) {
+    sprintf(legend, "v4sigma2lapltau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4sigma2lapltau;
+  if (idx < offset + dim.v4rholapl2tau) {
+    sprintf(legend, "v4rholapl2tau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rholapl2tau;
+  if (idx < offset + dim.v4sigmalapl2tau) {
+    sprintf(legend, "v4sigmalapl2tau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4sigmalapl2tau;
+  if (idx < offset + dim.v4lapl3tau) {
+    sprintf(legend, "v4lapl3tau[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4lapl3tau;
+  if (idx < offset + dim.v4rho2tau2) {
+    sprintf(legend, "v4rho2tau2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rho2tau2;
+  if (idx < offset + dim.v4rhosigmatau2) {
+    sprintf(legend, "v4rhosigmatau2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rhosigmatau2;
+  if (idx < offset + dim.v4sigma2tau2) {
+    sprintf(legend, "v4sigma2tau2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4sigma2tau2;
+  if (idx < offset + dim.v4rholapltau2) {
+    sprintf(legend, "v4rholapltau2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rholapltau2;
+  if (idx < offset + dim.v4sigmalapltau2) {
+    sprintf(legend, "v4sigmalapltau2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4sigmalapltau2;
+  if (idx < offset + dim.v4lapl2tau2) {
+    sprintf(legend, "v4lapl2tau2[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4lapl2tau2;
+  if (idx < offset + dim.v4rhotau3) {
+    sprintf(legend, "v4rhotau3[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4rhotau3;
+  if (idx < offset + dim.v4sigmatau3) {
+    sprintf(legend, "v4sigmatau3[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4sigmatau3;
+  if (idx < offset + dim.v4lapltau3) {
+    sprintf(legend, "v4lapltau3[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4lapltau3;
+  if (idx < offset + dim.v4tau4) {
+    sprintf(legend, "v4tau4[%i]", idx - offset);
+    return;
+  }
+  offset += dim.v4tau4;
+}
+
 void init_values(xc_values_type *xc_values) {
   memset(xc_values, 0, sizeof(xc_values_type));
 }
@@ -119,6 +491,11 @@ typedef enum {
   /* Fallthrough */
   NOSUCH_TEST
 } testcase_t;
+
+const char testcases[][80] = {
+    "spin-unpolarized atom",       "spin-polarized atom",
+    "ferromagnetic atom",          "spin-unpolarized electron gas",
+    "spin-polarized electron gas", "ferromagnetic electron gas"};
 
 void compute_input(xc_values_type *values, int *nspin, testcase_t testcase,
                    double r) {
@@ -223,6 +600,9 @@ void compute_input(xc_values_type *values, int *nspin, testcase_t testcase,
 
 size_t check_xc(int id, int nspin, xc_values_type values, double threshold) {
   size_t nfail = 0;
+#ifdef XC_DEBUG
+  int initprint = 0;
+#endif
   xc_func_type func;
 
   double *prho = values.rho;
@@ -429,10 +809,25 @@ size_t check_xc(int id, int nspin, xc_values_type values, double threshold) {
     /* We have encountered an infinity or NaN */
     if (!isfinite(ptr[i])) {
 #ifdef XC_DEBUG
-      printf("values[%i] = %e\n", i, ptr[i]);
+      char legend[80];
+      if (!initprint) {
+        int j;
+        for (j = 0; j < 9; j++) {
+          index_lookup(j, legend);
+          printf("%s = %e\n", legend, ptr[j]);
+        }
+        initprint = 1;
+      }
+      index_lookup(i, legend);
+      printf("%s = %e\n", legend, ptr[i]);
 #endif
       nfail++;
     }
+#ifdef XC_DEBUG
+  /* Separate entries by blank line */
+  if (initprint)
+    printf("\n");
+#endif
 
   /* Deallocate functional */
   xc_func_end(&func);
@@ -448,6 +843,19 @@ double get_threshold(int id) {
     exit(1);
   }
   thr = func.dens_threshold;
+
+  printf("Functional supports:\n");
+  if (func.info->flags & XC_FLAGS_HAVE_EXC)
+    printf(" - energy\n");
+  if (func.info->flags & XC_FLAGS_HAVE_VXC)
+    printf(" - first derivative\n");
+  if (func.info->flags & XC_FLAGS_HAVE_FXC)
+    printf(" - second derivative\n");
+  if (func.info->flags & XC_FLAGS_HAVE_KXC)
+    printf(" - third derivative\n");
+  if (func.info->flags & XC_FLAGS_HAVE_LXC)
+    printf(" - fourth derivative\n");
+
   xc_func_end(&func);
   return thr;
 }
@@ -494,7 +902,7 @@ int main(int argc, char *argv[]) {
   printf("rmax = %e, nmin = %e\n", exp(h * (nrad - 1)),
          exp(-2 * exp(h * (nrad - 1))));
 #endif
-  
+
   /* Is functional defined by a string constant? */
   if (isalpha(argv[1][0]))
     id = xc_functional_get_number(argv[1]);
@@ -524,8 +932,8 @@ int main(int argc, char *argv[]) {
         nfail += rfail;
 #ifdef XC_DEBUG
         if (rfail) {
-          printf("%lu failures for testcase = %i at r = %e\n", rfail,
-                 (long unsigned)testcase, r);
+          printf("%lu failures for %s at r = %e\n", rfail, testcases[testcase],
+                 r);
         }
 #endif
       }
@@ -536,10 +944,10 @@ int main(int argc, char *argv[]) {
       threshold /= 10.0;
     } else {
       /* Working threshold */
-      double ok_thresh = threshold*10.0;
+      double ok_thresh = threshold * 10.0;
       /* Current threshold */
       double cur_thresh = get_threshold(id);
-      
+
 #ifdef XC_DEBUG
       printf("%lu non-finite values encountered for threshold=%e\n",
              (long unsigned)nfail, threshold);
@@ -549,13 +957,17 @@ int main(int argc, char *argv[]) {
       /* We got numerical instabilities, so the threshold is the previous one */
       printf("Estimated working threshold: %e\n", ok_thresh);
 
-      if(cur_thresh < ok_thresh) {
-        printf("WARNING: FUNCTIONAL THRESHOLD FOR %s (ID = %i) SHOULD BE INCREASED TO %e!\n",fname,id,ok_thresh);
+      if (cur_thresh < ok_thresh) {
+        printf("WARNING: FUNCTIONAL THRESHOLD FOR %s (ID = %i) SHOULD BE "
+               "INCREASED TO %e!\n",
+               fname, id, ok_thresh);
       }
-      if(cur_thresh > ok_thresh) {
-        printf("FUNCTIONAL THRESHOLD FOR %s (ID = %i) COULD BE DECREASED FROM %e TO %e!\n",fname,id,cur_thresh,ok_thresh);
+      if (cur_thresh > ok_thresh) {
+        printf("FUNCTIONAL THRESHOLD FOR %s (ID = %i) COULD BE DECREASED FROM "
+               "%e TO %e!\n",
+               fname, id, cur_thresh, ok_thresh);
       }
-      
+
       break;
     }
   }

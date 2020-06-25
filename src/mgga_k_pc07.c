@@ -40,7 +40,7 @@ const xc_func_info_type xc_func_info_mgga_k_pc07 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Perdew2007_155109, NULL, NULL, NULL, NULL},
   XC_FLAGS_DEVELOPMENT | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1.0e-23,
+  1e-15,
   {PC07_N_PAR, pc07_names, pc07_desc, pc07_values, set_ext_params_cpy},
   mgga_k_pc07_init, NULL,
   NULL, NULL, work_mgga,

@@ -124,7 +124,7 @@ const xc_func_info_type xc_func_info_lda_c_1d_csc = {
   XC_FAMILY_LDA,
   {&xc_ref_Casula2006_245427, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D | MAPLE2C_FLAGS,
-  5e-26,
+  1e-25,
   {2, csc_names, csc_desc, csc_values, csc_set_ext_params},
   lda_c_1d_csc_init, NULL,
   work_lda, NULL, NULL

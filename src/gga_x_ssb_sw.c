@@ -50,7 +50,7 @@ const xc_func_info_type xc_func_info_gga_x_ssb_sw = {
   XC_FAMILY_GGA,
   {&xc_ref_Swart2009_69, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-22,
+  1e-15,
   {SSB_N_PAR, ssb_names, ssb_desc, ssb_values, set_ext_params_cpy},
   gga_x_ssb_sw_init, NULL, 
   NULL, work_gga, NULL
@@ -85,7 +85,7 @@ const xc_func_info_type xc_func_info_gga_x_ssb = {
   XC_FAMILY_GGA,
   {&xc_ref_Swart2009_094103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_x_ssb_init, NULL, 
   NULL, NULL, NULL
@@ -121,7 +121,7 @@ const xc_func_info_type xc_func_info_gga_x_ssb_d = {
   XC_FAMILY_GGA,
   {&xc_ref_Swart2009_094103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-23,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_x_ssb_d_init, NULL, 
   NULL, NULL, NULL

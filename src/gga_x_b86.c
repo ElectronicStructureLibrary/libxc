@@ -56,7 +56,7 @@ const xc_func_info_type xc_func_info_gga_x_b86 = {
   XC_FAMILY_GGA,
   {&xc_ref_Becke1986_4524, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {B86_N_PAR, b86_names, b86_desc, b86_values, set_ext_params_cpy},
   gga_x_b86_init, NULL, 
   NULL, work_gga, NULL
@@ -72,7 +72,7 @@ const xc_func_info_type xc_func_info_gga_x_b86_mgc = {
   XC_FAMILY_GGA,
   {&xc_ref_Becke1986_4524, &xc_ref_Becke1986_7184, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {B86_N_PAR, b86_names, b86_desc, b86_mgc_values, set_ext_params_cpy},
   gga_x_b86_init, NULL, 
   NULL, work_gga, NULL
@@ -88,7 +88,7 @@ const xc_func_info_type xc_func_info_gga_x_b86_r = {
   XC_FAMILY_GGA,
   {&xc_ref_Hamada2014_121103, &xc_ref_Becke1986_4524, &xc_ref_Becke1986_7184, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {B86_N_PAR, b86_names, b86_desc, b86_r_values, set_ext_params_cpy},
   gga_x_b86_init, NULL, 
   NULL, work_gga, NULL
@@ -105,7 +105,7 @@ const xc_func_info_type xc_func_info_gga_x_optb86b_vdw = {
   XC_FAMILY_GGA,
   {&xc_ref_Klimes2011_195131, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {B86_N_PAR, b86_names, b86_desc, b86_optb86b_values, set_ext_params_cpy},
   gga_x_b86_init, NULL,
   NULL, work_gga, NULL

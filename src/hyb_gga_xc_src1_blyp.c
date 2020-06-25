@@ -83,7 +83,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_src1_blyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Besley2009_10350, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {SRC1_N_PAR, src1_names, src1_desc, src1_values, src1_set_ext_params},
   hyb_gga_xc_src1_init, NULL,
   NULL, NULL, NULL
@@ -99,7 +99,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_src2_blyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Besley2009_10350, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {SRC1_N_PAR, src1_names, src1_desc, src2_values, src1_set_ext_params},
   hyb_gga_xc_src1_init, NULL,
   NULL, NULL, NULL

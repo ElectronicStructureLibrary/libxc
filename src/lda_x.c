@@ -61,7 +61,7 @@ const xc_func_info_type xc_func_info_lda_x = {
   XC_FAMILY_LDA,
   {&xc_ref_Dirac1930_376, &xc_ref_Bloch1929_545, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   lda_x_init, NULL,
   work_lda, NULL, NULL
@@ -92,7 +92,7 @@ const xc_func_info_type xc_func_info_lda_c_xalpha = {
   XC_FAMILY_LDA,
   {&xc_ref_Slater1951_385, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {1, xalpha_names, xalpha_desc, xalpha_values, set_ext_params},
   lda_x_init, NULL,
   work_lda, NULL, NULL
@@ -128,7 +128,7 @@ const xc_func_info_type xc_func_info_lda_x_rae = {
   XC_FAMILY_LDA,
   {&xc_ref_Rae1973_574, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   lda_x_init, NULL,
   work_lda, NULL, NULL
@@ -156,7 +156,7 @@ const xc_func_info_type xc_func_info_hyb_lda_xc_lda0 = {
   XC_FAMILY_LDA,
   {&xc_ref_Rinke2012_126404, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_lda_xc_lda0_init, NULL,
   NULL, NULL, NULL /* this is taken care of by the generic routine */

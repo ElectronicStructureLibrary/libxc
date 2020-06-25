@@ -75,7 +75,7 @@ const xc_func_info_type xc_func_info_gga_x_fd_lb94 = {
   XC_FAMILY_GGA,
   {&xc_ref_Gaiduk2011_012509, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-26,
+  1e-15,
   {N_PAR, names, desc, lb94_par, set_ext_params_cpy},
   gga_x_fd_lb94_init, NULL,
   NULL, work_gga, NULL
@@ -91,7 +91,7 @@ const xc_func_info_type xc_func_info_gga_x_fd_revlb94 = {
   XC_FAMILY_GGA,
   {&xc_ref_Gaiduk2011_012509, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-26,
+  1e-15,
   {N_PAR, names, desc, revlb94_par, set_ext_params_cpy},
   gga_x_fd_lb94_init, NULL,
   NULL, work_gga, NULL

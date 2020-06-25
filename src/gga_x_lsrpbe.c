@@ -62,7 +62,7 @@ const xc_func_info_type xc_func_info_gga_x_lsrpbe = {
   XC_FAMILY_GGA,
   {&xc_ref_PachecoKato2016_268, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {LSRPBE_N_PAR, lsrpbe_names, lsrpbe_desc, lsrpbe_values, lsrpbe_set_ext_params},
   gga_x_lsrpbe_init, NULL, 
   NULL, work_gga, NULL

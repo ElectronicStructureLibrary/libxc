@@ -78,7 +78,7 @@ const xc_func_info_type xc_func_info_gga_k_apbe = {
   XC_FAMILY_GGA,
   {&xc_ref_Constantin2011_186406, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL, 
   NULL, work_gga, NULL
@@ -94,7 +94,7 @@ const xc_func_info_type xc_func_info_gga_k_revapbe = {
   XC_FAMILY_GGA,
   {&xc_ref_Constantin2011_186406, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL, 
   NULL, work_gga, NULL
@@ -110,7 +110,7 @@ const xc_func_info_type xc_func_info_gga_k_tw1 = {
   XC_FAMILY_GGA,
   {&xc_ref_Tran2002_441, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL, 
   NULL, work_gga, NULL
@@ -126,7 +126,7 @@ const xc_func_info_type xc_func_info_gga_k_tw2 = {
   XC_FAMILY_GGA,
   {&xc_ref_Tran2002_441, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL, 
   NULL, work_gga, NULL
@@ -142,7 +142,7 @@ const xc_func_info_type xc_func_info_gga_k_tw3 = {
   XC_FAMILY_GGA,
   {&xc_ref_Tran2002_441, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL, 
   NULL, work_gga, NULL
@@ -158,7 +158,7 @@ const xc_func_info_type xc_func_info_gga_k_tw4 = {
   XC_FAMILY_GGA,
   {&xc_ref_Tran2002_441, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL, 
   NULL, work_gga, NULL

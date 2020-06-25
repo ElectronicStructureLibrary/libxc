@@ -40,7 +40,7 @@ const xc_func_info_type xc_func_info_gga_k_lkt = {
   XC_FAMILY_GGA,
   {&xc_ref_Luo2018_041111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-21,
+  1e-15,
   {N_PAR, names, desc, lkt_val, set_ext_params_cpy},
   gga_k_lkt_init, NULL,
   NULL, work_gga, NULL

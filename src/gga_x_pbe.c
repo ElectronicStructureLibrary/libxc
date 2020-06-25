@@ -86,7 +86,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe = {
   XC_FAMILY_GGA,
   {&xc_ref_Perdew1996_3865, &xc_ref_Perdew1996_3865_err, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
@@ -102,7 +102,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_r = {
   XC_FAMILY_GGA,
   {&xc_ref_Zhang1998_890, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_r_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
@@ -118,7 +118,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_sol = {
   XC_FAMILY_GGA,
   {&xc_ref_Perdew2008_136406, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_sol_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
@@ -134,7 +134,7 @@ const xc_func_info_type xc_func_info_gga_x_xpbe = {
   XC_FAMILY_GGA,
   {&xc_ref_Xu2004_4068, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_xpbe_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
@@ -150,7 +150,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_jsjr = {
   XC_FAMILY_GGA,
   {&xc_ref_Pedroza2009_201106, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_jsjr_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
@@ -166,7 +166,7 @@ const xc_func_info_type xc_func_info_gga_x_pbek1_vdw = {
   XC_FAMILY_GGA,
   {&xc_ref_Klimes2010_022201, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_k1_vdw_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
@@ -182,7 +182,7 @@ const xc_func_info_type xc_func_info_gga_x_apbe = {
   XC_FAMILY_GGA,
   {&xc_ref_Constantin2011_186406, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_apbe_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
@@ -198,7 +198,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_tca = {
   XC_FAMILY_GGA,
   {&xc_ref_Tognetti2008_536, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_tca_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
@@ -214,7 +214,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_mol = {
   XC_FAMILY_GGA,
   {&xc_ref_delCampo2012_104108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_mol_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
@@ -230,7 +230,7 @@ const xc_func_info_type xc_func_info_gga_x_bcgp = {
   XC_FAMILY_GGA,
   {&xc_ref_Burke2014_4834, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_bcgp_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
@@ -246,7 +246,7 @@ const xc_func_info_type xc_func_info_gga_x_pbefe = {
   XC_FAMILY_GGA,
   {&xc_ref_Perez2015_3844, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_fe_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
@@ -295,7 +295,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_lo_n = {
   XC_FAMILY_GGA,
   {&xc_ref_Odashima2009_798, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {PBEL_N_PAR, pbe_lambda_names, pbe_lambda_desc, pbe_lambda_lo_n_values, pbe_lambda_set_ext_params},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
@@ -311,7 +311,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_ch_n = {
   XC_FAMILY_GGA,
   {&xc_ref_Odashima2009_798, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {PBEL_N_PAR, pbe_lambda_names, pbe_lambda_desc, pbe_lambda_ch_n_values, pbe_lambda_set_ext_params},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL
@@ -327,7 +327,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_oc2_n = {
   XC_FAMILY_GGA,
   {&xc_ref_Odashima2009_798, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {PBEL_N_PAR, pbe_lambda_names, pbe_lambda_desc, pbe_lambda_oc2_n_values, pbe_lambda_set_ext_params},
   gga_x_pbe_init, NULL, 
   NULL, work_gga, NULL

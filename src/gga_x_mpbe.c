@@ -53,7 +53,7 @@ const xc_func_info_type xc_func_info_gga_x_mpbe = {
   XC_FAMILY_GGA,
   {&xc_ref_Adamo2002_5933, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-21,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_x_mpbe_init, NULL,
   NULL, work_gga, NULL

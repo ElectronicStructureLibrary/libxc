@@ -49,7 +49,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_camy_blyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Akinaga2008_348, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_camy_blyp_init, NULL,
   NULL, NULL, NULL

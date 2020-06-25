@@ -59,7 +59,7 @@ const xc_func_info_type xc_func_info_gga_x_b88 = {
   XC_FAMILY_GGA,
   {&xc_ref_Becke1988_3098, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_values, set_ext_params_cpy},
   gga_x_b88_init, NULL, 
   NULL, work_gga, NULL
@@ -75,7 +75,7 @@ const xc_func_info_type xc_func_info_gga_x_optb88_vdw = {
   XC_FAMILY_GGA,
   {&xc_ref_Klimes2010_022201, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_optb88_values, set_ext_params_cpy},
   gga_x_b88_init, NULL, 
   NULL, work_gga, NULL
@@ -91,7 +91,7 @@ const xc_func_info_type xc_func_info_gga_x_mb88 = {
   XC_FAMILY_GGA,
   {&xc_ref_Tognetti2009_14415, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_mb88_values, set_ext_params_cpy},
   gga_x_b88_init, NULL, 
   NULL, work_gga, NULL
@@ -107,7 +107,7 @@ const xc_func_info_type xc_func_info_gga_x_eb88 = {
   XC_FAMILY_GGA,
   {&xc_ref_Elliott2009_1485, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_eb88_values, set_ext_params_cpy},
   gga_x_b88_init,  NULL, 
   NULL, work_gga, NULL
@@ -123,7 +123,7 @@ const xc_func_info_type xc_func_info_gga_x_b88m = {
   XC_FAMILY_GGA,
   {&xc_ref_Proynov2000_10013, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_b88m_values, set_ext_params_cpy},
   gga_x_b88_init,  NULL, 
   NULL, work_gga, NULL
@@ -139,7 +139,7 @@ const xc_func_info_type xc_func_info_gga_x_b88_6311g = {
   XC_FAMILY_GGA,
   {&xc_ref_Ugalde1994_423, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_6311g_values, set_ext_params_cpy},
   gga_x_b88_init,  NULL, 
   NULL, work_gga, NULL

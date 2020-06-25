@@ -80,7 +80,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3pw91 = {
   XC_FAMILY_GGA,
   {&xc_ref_Becke1993_5648, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b3lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_b3pw91_init, NULL,
   NULL, NULL, NULL
@@ -107,7 +107,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Stephens1994_11623, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b3lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_b3lyp_init, NULL,
   NULL, NULL, NULL
@@ -134,7 +134,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp5 = {
   XC_FAMILY_GGA,
   {&xc_ref_Stephens1994_11623, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b3lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_b3lyp5_init, NULL,
   NULL, NULL, NULL
@@ -161,7 +161,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3p86 = {
   XC_FAMILY_GGA,
   {&xc_ref_gaussianimplementation, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b3lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_b3p86_init, NULL,
   NULL, NULL, NULL
@@ -188,7 +188,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mpw3pw = {
   XC_FAMILY_GGA,
   {&xc_ref_Adamo1998_664, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b3lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_mpw3pw_init, NULL,
   NULL, NULL, NULL
@@ -215,7 +215,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mpw3lyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Zhao2004_6908, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, mpw3lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_mpw3lyp_init, NULL,
   NULL, NULL, NULL
@@ -272,7 +272,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mb3lyp_rc04 = {
   XC_FAMILY_GGA,
   {&xc_ref_Tognetti2007_381, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-24,
+  1e-15,
   {RC04_N_PAR, rc04_names, rc04_desc, rc04_values, rc04_set_ext_params},
   xc_hyb_gga_xc_mb3lyp_rc04_init, NULL,
   NULL, NULL, NULL
@@ -289,7 +289,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_revb3lyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Lu2013_64, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, revb3lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_b3lyp_init, NULL,
   NULL, NULL, NULL
@@ -307,7 +307,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyps = {
   XC_FAMILY_GGA,
   {&xc_ref_Reiher2001_48, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b3lyps_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_b3lyp_init, NULL,
   NULL, NULL, NULL
@@ -335,7 +335,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b5050lyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Shao2003_4807, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b5050lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_b5050lyp_init, NULL,
   NULL, NULL, NULL
@@ -390,7 +390,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_kmlyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Kang2001_11040, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {KMLYP_N_PAR, kmlyp_names, kmlyp_desc, kmlyp_values, kmlyp_set_ext_params},
   xc_hyb_gga_xc_kmlyp_init, NULL,
   NULL, NULL, NULL
@@ -408,7 +408,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_qtp17 = {
   XC_FAMILY_GGA,
   {&xc_ref_Jin2018_064111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {KMLYP_N_PAR, kmlyp_names, kmlyp_desc, qtp17_values, kmlyp_set_ext_params},
   xc_hyb_gga_xc_kmlyp_init, NULL,
   NULL, NULL, NULL
@@ -453,7 +453,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_apf = {
   XC_FAMILY_GGA,
   {&xc_ref_Austin2012_4989, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_apf_init, NULL,
   NULL, NULL, NULL
@@ -489,7 +489,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wc04 = {
   XC_FAMILY_GGA,
   {&xc_ref_Wiitala2006_1085, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_wc04_init, NULL,
   NULL, NULL, NULL
@@ -526,7 +526,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wp04 = {
   XC_FAMILY_GGA,
   {&xc_ref_Wiitala2006_1085, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_wp04_init, NULL,
   NULL, NULL, NULL
@@ -593,7 +593,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp_mcm1 = {
   XC_FAMILY_GGA,
   {&xc_ref_Caldeira2019_62, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {MCM1_N_PAR, mcm1_names, mcm1_desc, mcm1_values, mcm1_set_ext_params},
   xc_hyb_gga_xc_b3lyp_mcm_init, NULL,
   NULL, NULL, NULL
@@ -609,7 +609,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp_mcm2 = {
   XC_FAMILY_GGA,
   {&xc_ref_Caldeira2019_62, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {MCM1_N_PAR, mcm1_names, mcm1_desc, mcm2_values, mcm1_set_ext_params},
   xc_hyb_gga_xc_b3lyp_mcm_init, NULL,
   NULL, NULL, NULL

@@ -68,7 +68,7 @@ const xc_func_info_type xc_func_info_gga_k_tfvw = {
   XC_FAMILY_GGA,
   {&xc_ref_Weizsacker1935_431, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
@@ -84,7 +84,7 @@ const xc_func_info_type xc_func_info_gga_k_vw = {
   XC_FAMILY_GGA,
   {&xc_ref_Weizsacker1935_431, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_vw_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
@@ -100,7 +100,7 @@ const xc_func_info_type xc_func_info_gga_k_ge2 = {
   XC_FAMILY_GGA,
   {&xc_ref_Kompaneets1956_427, &xc_ref_Kirznits1957_115, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_ge2_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
@@ -116,7 +116,7 @@ const xc_func_info_type xc_func_info_gga_k_golden = {
   XC_FAMILY_GGA,
   {&xc_ref_Golden1957_604, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_golden_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
@@ -132,7 +132,7 @@ const xc_func_info_type xc_func_info_gga_k_yt65 = {
   XC_FAMILY_GGA,
   {&xc_ref_Yonei1965_1051, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_yt65_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
@@ -148,7 +148,7 @@ const xc_func_info_type xc_func_info_gga_k_baltin = {
   XC_FAMILY_GGA,
   {&xc_ref_Baltin1972_1176, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_baltin_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
@@ -164,7 +164,7 @@ const xc_func_info_type xc_func_info_gga_k_lieb = {
   XC_FAMILY_GGA,
   {&xc_ref_Lieb1981_603, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_lieb_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
@@ -228,7 +228,7 @@ const xc_func_info_type xc_func_info_gga_k_absp1 = {
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
@@ -244,7 +244,7 @@ const xc_func_info_type xc_func_info_gga_k_absp2 = {
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
@@ -260,7 +260,7 @@ const xc_func_info_type xc_func_info_gga_k_absp3 = {
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
@@ -276,7 +276,7 @@ const xc_func_info_type xc_func_info_gga_k_absp4 = {
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
@@ -292,7 +292,7 @@ const xc_func_info_type xc_func_info_gga_k_gr = {
   XC_FAMILY_GGA,
   {&xc_ref_Gazquez1982_1467, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
@@ -308,7 +308,7 @@ const xc_func_info_type xc_func_info_gga_k_ludena = {
   XC_FAMILY_GGA,
   {&xc_ref_Ludena1986, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL
@@ -324,7 +324,7 @@ const xc_func_info_type xc_func_info_gga_k_gp85 = {
   XC_FAMILY_GGA,
   {&xc_ref_Ghosh1985_3307, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL, 
   NULL, work_gga, NULL

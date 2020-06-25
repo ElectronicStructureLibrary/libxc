@@ -55,7 +55,7 @@ const xc_func_info_type xc_func_info_lda_c_chachiyo = {
   XC_FAMILY_LDA,
   {&xc_ref_Chachiyo2016_021101, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   lda_c_chachiyo_init, NULL,
   work_lda, NULL, NULL
@@ -71,7 +71,7 @@ const xc_func_info_type xc_func_info_lda_c_karasiev = {
   XC_FAMILY_LDA,
   {&xc_ref_Karasiev2016_157101, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   lda_c_chachiyo_init, NULL,
   work_lda, NULL, NULL

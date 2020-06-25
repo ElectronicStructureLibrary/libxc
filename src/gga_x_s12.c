@@ -90,7 +90,7 @@ const xc_func_info_type xc_func_info_gga_x_s12g = {
   XC_FAMILY_GGA,
   {&xc_ref_Swart2013_166, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {S12G_N_PAR, s12g_names, s12g_desc, s12g_values, set_ext_params_cpy},
   gga_x_s12_init, NULL, 
   NULL, work_gga, NULL
@@ -106,7 +106,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_s12h = {
   XC_FAMILY_GGA,
   {&xc_ref_Swart2013_166, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {S12H_N_PAR, s12h_names, s12h_desc, s12h_values, s12h_set_ext_params},
   gga_x_s12_init, NULL, 
   NULL, work_gga, NULL

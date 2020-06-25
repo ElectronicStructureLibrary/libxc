@@ -116,7 +116,7 @@ const xc_func_info_type xc_func_info_lda_xc_ksdt = {
   XC_FAMILY_LDA,
   {&xc_ref_Karasiev2014_076403, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {1, T_names, T_desc, T_values, T_set_ext_params},
   lda_xc_ksdt_init, NULL,
   work_lda, NULL, NULL
@@ -132,7 +132,7 @@ const xc_func_info_type xc_func_info_lda_xc_gdsmfb = {
   XC_FAMILY_LDA,
   {&xc_ref_Groth2017_135001, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {1, T_names, T_desc, T_values, T_set_ext_params},
   lda_xc_ksdt_init, NULL,
   work_lda, NULL, NULL

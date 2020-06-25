@@ -45,7 +45,7 @@ const xc_func_info_type xc_func_info_lda_c_ml1 = {
   XC_FAMILY_LDA,
   {&xc_ref_Proynov1994_7874, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {N_PAR, names, desc, par_ml1, set_ext_params_cpy},
   lda_c_ml1_init, NULL,
   work_lda, NULL, NULL
@@ -61,7 +61,7 @@ const xc_func_info_type xc_func_info_lda_c_ml2 = {
   XC_FAMILY_LDA,
   {&xc_ref_Proynov1994_7874, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {N_PAR, names, desc, par_ml2, set_ext_params_cpy},
   lda_c_ml1_init, NULL,
   work_lda, NULL, NULL

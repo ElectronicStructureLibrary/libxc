@@ -16,7 +16,7 @@
 #include <xc.h>
 
 /* Get debug info by uncommenting the following line */
-#define XC_DEBUG
+//#define XC_DEBUG
 
 typedef struct {
   /* Input */

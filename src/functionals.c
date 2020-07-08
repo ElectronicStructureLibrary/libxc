@@ -324,7 +324,7 @@ xc_func_set_ext_params_name(xc_func_type *p, const char *name, double par)
 
   assert(p != NULL && p->info->ext_params.n > 0);
   
-  ext_params = libxc_malloc(p->info->ext_params.n*sizeof(double));
+  ext_params = (double *) libxc_malloc(p->info->ext_params.n*sizeof(double));
   for(ii=0; ii<p->info->ext_params.n; ii++){
     if(strcmp(p->info->ext_params.names[ii], name) == 0)
       ext_params[ii] = par;

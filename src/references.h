@@ -13,6 +13,7 @@
 
 #include <xc.h>
 
+extern func_reference_type xc_ref_Lehtola2020;
 extern func_reference_type xc_ref_Luo2018_041111;
 extern func_reference_type xc_ref_Acharya1980_6978;
 extern func_reference_type xc_ref_Adamo1997_242;

@@ -10,9 +10,10 @@
 
 #define XC_MGGA_X_LTA          201 /* Local tau approximation of Ernzerhof & Scuseria */
 #define XC_MGGA_X_TLDA         685 /* LDA-type exchange with tau-dependent potential */
+#define XC_MGGA_X_HLTA         698 /* Half-and-half by Lehtola and Marques */
 
 typedef struct{
-  double power;
+  double ltafrac;
 } mgga_x_lta_params;
 
 static void 
@@ -23,10 +24,11 @@ mgga_x_lta_init(xc_func_type *p)
 }
 
 #define LTA_N_PAR 1
-static const char  *lta_names[LTA_N_PAR]   = {"_power"};
-static const char  *lta_desc[LTA_N_PAR]    = {"power of t"};
-static const double lta_values[LTA_N_PAR]  = {4.0/5.0};
-static const double tlda_values[LTA_N_PAR] = {1.0/5.0};
+static const char  *lta_names[LTA_N_PAR]   = {"_ltafrac"};
+static const char  *lta_desc[LTA_N_PAR]    = {"Fraction of LTA density"};
+static const double lta_values[LTA_N_PAR]  = {1.0};
+static const double tlda_values[LTA_N_PAR] = {0.25};
+static const double hlta_values[LTA_N_PAR] = {0.5};
 
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_lta.c"
@@ -57,6 +59,22 @@ const xc_func_info_type xc_func_info_mgga_x_tlda = {
   "LDA-type exchange with tau-dependent potential",
   XC_FAMILY_MGGA,
   {&xc_ref_Eich2014_224107, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-15,
+  {LTA_N_PAR, lta_names, lta_desc, tlda_values, set_ext_params_cpy},
+  mgga_x_lta_init, NULL,
+  NULL, NULL, work_mgga,
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_mgga_x_hlta = {
+  XC_MGGA_X_HLTA,
+  XC_EXCHANGE,
+  "Half-and-half meta-LDAized LDA exchange by Lehtola and Marques",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Lehtola2020, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {LTA_N_PAR, lta_names, lta_desc, tlda_values, set_ext_params_cpy},

@@ -15,7 +15,7 @@
   params = (mgga_x_lta_params * )(p->params);
 *)
 
-lta_f := (x, u, t) -> (t/K_FACTOR_C)^params_a_ltafrac:
+lta_f := (x, u, t) -> (t/K_FACTOR_C)^(4*params_a_ltafrac/5):
 
 f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->
   mgga_exchange(lta_f, rs, z, xs0, xs1, u0, u1, t0, t1):

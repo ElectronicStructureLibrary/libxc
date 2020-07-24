@@ -5,8 +5,7 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
-mgga_order_4 = \
-  mgga_x_lta.mpl mgga_c_ltapw.mpl mgga_x_th.mpl
+mgga_order_4 = mgga_x_lta.mpl mgga_c_ltapw.mpl mgga_x_th.mpl		\
   mgga_x_mbeefvdw.mpl hyb_mgga_x_dldf.mpl mgga_k_pc07.mpl		\
   mgga_x_2d_prhg07.mpl hyb_mgga_x_m05.mpl mgga_x_br89_explicit.mpl	\
   mgga_x_mn12.mpl mgga_x_msb.mpl mgga_x_ms.mpl mgga_x_mvsb.mpl		\

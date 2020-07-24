@@ -77,7 +77,7 @@ const xc_func_info_type xc_func_info_mgga_x_hlta = {
   {&xc_ref_Lehtola2020, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
-  {LTA_N_PAR, lta_names, lta_desc, tlda_values, set_ext_params_cpy},
+  {LTA_N_PAR, lta_names, lta_desc, hlta_values, set_ext_params_cpy},
   mgga_x_lta_init, NULL,
   NULL, NULL, work_mgga,
 };

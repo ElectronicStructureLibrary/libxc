@@ -29,6 +29,8 @@
 
 #include "config.h"
 
+#include "util.h"
+
 #include <math.h>
 
 /* erfcx(x) = exp(x^2) erfc(x) function, for real x, written by
@@ -477,6 +479,7 @@ return 0.97771701335885035464e0 + (0.22000938572830479551e-1 + (0.27951610702682
   return 1.0;
 }
 
+GPU_FUNCTION
 double xc_erfcx(double x)
 {
   if (x >= 0) {

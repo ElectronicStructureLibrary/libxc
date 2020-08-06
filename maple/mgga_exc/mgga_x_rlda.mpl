@@ -15,10 +15,11 @@
 *)
 
 (* the extra factor of 1/2 comes from the spin sum rule *)
-rlda_a1 := (5/4) * 3*Pi * params_a_prefactor/(2 * X_FACTOR_C):
+rlda_a1 := (5/4) * 3*Pi * params_a_prefactor/X_FACTOR_C:
 
-rlda_f := (x, u, t) -> my_piecewise3(2*t - u/4 > 1e-10, 
-  rlda_a1/(2*t - u/4), 0):
+(*rlda_f := (x, u, t) -> my_piecewise3(2*t - u/4 > 1e-10, 
+  rlda_a1/(2*t - u/4), 0):*)
+rlda_f := (x, u, t) -> rlda_a1/(2*t - u/4):
 
 f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->
   mgga_exchange(rlda_f, rs, z, xs0, xs1, u0, u1, t0, t1):

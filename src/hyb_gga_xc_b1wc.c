@@ -15,7 +15,7 @@
 #define XC_HYB_GGA_XC_MPW1PBE   484  /* Becke 1-parameter mixture of mPW91 and PBE       */
 #define XC_HYB_GGA_XC_MPW1PW    418  /* Becke 1-parameter mixture of mPW91 and PW91      */
 #define XC_HYB_GGA_XC_MPW1K     405  /* mixture of mPW91 and PW91 optimized for kinetics */
-#define XC_HYB_GGA_XC_BHANDH    435  /* Becke half-and-half                              */
+#define XC_HYB_GGA_XC_BHANDH    435  /* Becke half-and-half or BHLYP                     */
 #define XC_HYB_GGA_XC_BHANDHLYP 436  /* Becke half-and-half with B88 exchange            */
 #define XC_HYB_GGA_XC_MPWLYP1M  453  /* MPW with 1 par. for metals/LYP                   */
 #define XC_HYB_GGA_XC_BLYP35    499  /* Becke 1-parameter mixture for mixed-valence systems */
@@ -219,7 +219,7 @@ extern "C"
 const xc_func_info_type xc_func_info_hyb_gga_xc_bhandh = {
   XC_HYB_GGA_XC_BHANDH,
   XC_EXCHANGE_CORRELATION,
-  "BHandH",
+  "BHandH i.e. BHLYP",
   XC_FAMILY_GGA,
   {&xc_ref_Becke1993_1372, &xc_ref_gaussianimplementation, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,

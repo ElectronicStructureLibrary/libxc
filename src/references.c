@@ -391,17 +391,17 @@ func_reference_type xc_ref_Chachiyo2016_021101 = {
 };
 
 
-func_reference_type xc_ref_Chachiyo2017 = {
-  "T. Chachiyo and H. Chachiyo, ArXiv e-prints (2017), arXiv:1706.01343 [cond-mat.mtrl-sci]",
-  "",
-  "@article{Chachiyo2017,\nauthor = {Chachiyo, T. and Chachiyo, H.},\ntitle = \"{Simple and accurate exchange energy for density functional theory}\",\njournal = {ArXiv e-prints},\narchivePrefix = \"arXiv\",\neprint = {1706.01343},\nprimaryClass = \"cond-mat.mtrl-sci\",\nkeywords = {Condensed Matter - Materials Science},\nyear = 2017,\nmonth = jun,\nadsurl = {http://adsabs.harvard.edu/abs/2017arXiv170601343C},\nadsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
-};
-
-
 func_reference_type xc_ref_Chachiyo2018_00712 = {
   "T. Chachiyo and H. Chachiyo, arXiv e-prints (2018), arXiv:1811.00712 [cond-mat.mtrl-sci]",
   "",
   "@article{Chachiyo2018_00712,\n       author = {Chachiyo, Teepanis and Chachiyo, Hathaithip},\n        title = \"{Understanding electron correlation energy through density functional theory}\",\n      journal = {arXiv e-prints},\n     keywords = {Condensed Matter - Materials Science, Physics - Chemical Physics},\n         year = \"2018\",\n        month = \"Nov\",\n          _eid = {arXiv:1811.00712},\n        _pages = {arXiv:1811.00712},\narchivePrefix = {arXiv},\n       eprint = {1811.00712},\n primaryClass = {cond-mat.mtrl-sci}\n}"
+};
+
+
+func_reference_type xc_ref_Chachiyo2020_3485 = {
+  "T. Chachiyo and H. Chachiyo, Molecules 25, 3485 (2020), arXiv:1706.01343",
+  "10.3390/molecules25153485",
+  "@article{Chachiyo2020_3485,\n  archivePrefix = {arXiv},\n  arxivId = {1706.01343},\n  author = {Chachiyo, Teepanis and Chachiyo, Hathaithip},\n  doi = {10.3390/molecules25153485},\n  eprint = {1706.01343},\n  issn = {1420-3049},\n  journal = {Molecules},\n  pages = {3485},\n  title = {{Simple and Accurate Exchange Energy for Density Functional Theory}},\n  url = {https://www.mdpi.com/1420-3049/25/15/3485},\n  volume = {25},\n  year = {2020}\n}"
 };
 
 

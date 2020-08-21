@@ -330,15 +330,15 @@ func_reference_type xc_ref_Caldeira2019_62 = {
 
 func_reference_type xc_ref_Campi1978_263 = {
   "X. Campi and A. Bouyssy, Phys. Lett. B 73, 263 (1978)",
-  "https://doi.org/10.1016/0370-2693(78)90509-9",
-  "@article{Campi1978_263,\ntitle = \"A simple approximation for the nuclear density matrix\",\njournal = \"Phys. Lett. B\",\nvolume = \"73\",\nnumber = \"3\",\npages = \"263 - 266\",\nyear = \"1978\",\nissn = \"0370-2693\",\ndoi = \"https://doi.org/10.1016/0370-2693(78)90509-9\",\nurl = \"http://www.sciencedirect.com/science/article/pii/0370269378905099\",\nauthor = \"X. Campi and A. Bouyssy\",\n}"
+  "10.1016/0370-2693(78)90509-9",
+  "@article{Campi1978_263,\n  author = \"X. Campi and A. Bouyssy\",\n  title = \"A simple approximation for the nuclear density matrix\",\n  journal = \"Phys. Lett. B\",\n  volume = \"73\",\n  number = \"3\",\n  pages = \"263 - 266\",\n  year = \"1978\",\n  issn = \"0370-2693\",\n  doi = \"10.1016/0370-2693(78)90509-9\",\n  url = \"http://www.sciencedirect.com/science/article/pii/0370269378905099\"\n}"
 };
 
 
 func_reference_type xc_ref_Campo2012_179 = {
   "J. M. del Campo, J. L. Gázquez, S. Trickey, and A. Vela, Chem. Phys. Lett. 543, 179 (2012)",
   "10.1016/j.cplett.2012.06.025",
-  "@article{Campo2012_179,\n  title = \"A new meta-GGA exchange functional based on an improved constraint-based \\{GGA\\} \",\n  journal = \"Chemical Physics Letters \",\n  volume = \"543\",\n  number = \"\",\n  pages = \"179 - 183\",\n  year = \"2012\",\n  note = \"\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/j.cplett.2012.06.025\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261412007117\",\n  author = \"Jorge M. del Campo and José L. Gázquez and S.B. Trickey and Alberto Vela\",\n}"
+  "@article{Campo2012_179,\n  author = \"Jorge M. del Campo and José L. Gázquez and S.B. Trickey and Alberto Vela\",\n  title = \"A new meta-GGA exchange functional based on an improved constraint-based \\{GGA\\} \",\n  journal = \"Chemical Physics Letters \",\n  volume = \"543\",\n  number = \"\",\n  pages = \"179 - 183\",\n  year = \"2012\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/j.cplett.2012.06.025\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261412007117\"\n}"
 };
 
 
@@ -393,8 +393,8 @@ func_reference_type xc_ref_Chachiyo2016_021101 = {
 
 func_reference_type xc_ref_Chachiyo2020_112669 = {
   "T. Chachiyo and H. Chachiyo, Comput. Theor. Chem. 1172, 112669 (2020)",
-  "https://doi.org/10.1016/j.comptc.2019.112669",
-  "@article{Chachiyo2020_112669,\n  author = \"Teepanis Chachiyo and Hathaithip Chachiyo\",\n  title = \"Understanding electron correlation energy through density functional theory\",\n  journal = \"Computational and Theoretical Chemistry\",\n  volume = \"1172\",\n  pages = \"112669\",\n  year = \"2020\",\n  issn = \"2210-271X\",\n  doi = \"https://doi.org/10.1016/j.comptc.2019.112669\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S2210271X19303652\"\n}"
+  "10.1016/j.comptc.2019.112669",
+  "@article{Chachiyo2020_112669,\n  author = \"Teepanis Chachiyo and Hathaithip Chachiyo\",\n  title = \"Understanding electron correlation energy through density functional theory\",\n  journal = \"Computational and Theoretical Chemistry\",\n  volume = \"1172\",\n  pages = \"112669\",\n  year = \"2020\",\n  issn = \"2210-271X\",\n  doi = \"10.1016/j.comptc.2019.112669\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S2210271X19303652\"\n}"
 };
 
 
@@ -765,7 +765,7 @@ func_reference_type xc_ref_Ghosh1985_3307 = {
 func_reference_type xc_ref_Gilbert1999_511 = {
   "A. T. Gilbert and P. M. Gill, Chem. Phys. Lett. 312, 511 (1999)",
   "10.1016/S0009-2614(99)00836-2",
-  "@article{Gilbert1999_511,\n  title = \"Decomposition of exchange-correlation energies \",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"312\",\n  number = \"5-6\",\n  pages = \"511 - 521\",\n  year = \"1999\",\n  note = \"\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/S0009-2614(99)00836-2\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261499008362\",\n  author = \"Andrew T.B. Gilbert and Peter M.W. Gill\"\n}"
+  "@article{Gilbert1999_511,\n  title = \"Decomposition of exchange-correlation energies \",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"312\",\n  number = \"5-6\",\n  pages = \"511 - 521\",\n  year = \"1999\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/S0009-2614(99)00836-2\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261499008362\",\n  author = \"Andrew T.B. Gilbert and Peter M.W. Gill\"\n}"
 };
 
 
@@ -994,7 +994,7 @@ func_reference_type xc_ref_Iikura2001_3540 = {
 
 
 func_reference_type xc_ref_Jana2017_4804 = {
-  "S. Jana and P. Samal, J. Phys. Chem. A 121, 4804 (2017)",
+  "S. Jana and P. Samal, J. Phys. Chem A 121, 4804 (2017)",
   "10.1021/acs.jpca.7b03686",
   "@article{Jana2017_4804,\nauthor = {Jana, Subrata and Samal, Prasanjit},\ntitle = {Semilocal Exchange Energy Functional for Two-Dimensional Quantum Systems: A Step Beyond Generalized Gradient Approximations},\njournal = {The Journal of Physical Chemistry A},\nvolume = {121},\nnumber = {25},\npages = {4804-4811},\nyear = {2017},\ndoi = {10.1021/acs.jpca.7b03686},\nURL = {https://doi.org/10.1021/acs.jpca.7b03686},\n}"
 };
@@ -1008,7 +1008,7 @@ func_reference_type xc_ref_Jana2018_8999 = {
 
 
 func_reference_type xc_ref_Jana2019_6356 = {
-  "S. Jana, K. Sharma, and P. Samal, J. Phys. Chem. A 123, 6356 (2019), pMID: 31241950",
+  "S. Jana, K. Sharma, and P. Samal, J. Phys. Chem A 123, 6356 (2019), pMID: 31241950",
   "10.1021/acs.jpca.9b02921",
   "@article{Jana2019_6356,\n author = {Jana, Subrata and Sharma, Kedar and Samal, Prasanjit},\n title = {Improving the Performance of Tao--Mo Non-empirical Density Functional with Broader Applicability in Quantum Chemistry and Materials Science},\n journal = {The Journal of Physical Chemistry A},\n volume = {123},\n number = {29},\n pages = {6356-6369},\n year = {2019},\n doi = {10.1021/acs.jpca.9b02921},\n note ={PMID: 31241950},\n URL = {https://doi.org/10.1021/acs.jpca.9b02921}\n}"
 };
@@ -1255,7 +1255,7 @@ func_reference_type xc_ref_Liu1996_2211 = {
 func_reference_type xc_ref_Liu2000_29 = {
   "S. Liu and R. Parr, J. Mol. Struct.: THEOCHEM 501--502, 29 (2000)",
   "10.1016/S0166-1280(99)00410-8",
-  "@article{Liu2000_29,\n  title = \"Homogeneities in density of various {LDA} energy functionals \",\n  journal = \"Journal of Molecular Structure: THEOCHEM \",\n  volume = \"501--502\",\n  number = \"\",\n  pages = \"29 - 34\",\n  year = \"2000\",\n  note = \"\",\n  issn = \"0166-1280\",\n  doi = \"10.1016/S0166-1280(99)00410-8\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0166128099004108\",\n  author = \"S Liu and R.G Parr\",\n  keywords = \"Thomas-Fermi-Dirac model\",\n  keywords = \"Dirac exchange functional\",\n  keywords = \"Liu-Parr correlation functional \"\n}"
+  "@article{Liu2000_29,\n  title = \"Homogeneities in density of various {LDA} energy functionals \",\n  journal = \"Journal of Molecular Structure: THEOCHEM \",\n  volume = \"501--502\",\n  number = \"\",\n  pages = \"29 - 34\",\n  year = \"2000\",\n  issn = \"0166-1280\",\n  doi = \"10.1016/S0166-1280(99)00410-8\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0166128099004108\",\n  author = \"S Liu and R.G Parr\",\n  keywords = \"Thomas-Fermi-Dirac model\",\n  keywords = \"Dirac exchange functional\",\n  keywords = \"Liu-Parr correlation functional \"\n}"
 };
 
 
@@ -1421,7 +1421,7 @@ func_reference_type xc_ref_Mortensen2005_216401 = {
 
 
 func_reference_type xc_ref_Mosquera2016_1605 = {
-  "M. A. Mosquera, C. H. Borca, M. A. Ratner, and G. C. Schatz, J. Phys. Chem. A 120, 1605 (2016), pMID: 26901359",
+  "M. A. Mosquera, C. H. Borca, M. A. Ratner, and G. C. Schatz, J. Phys. Chem A 120, 1605 (2016), pMID: 26901359",
   "10.1021/acs.jpca.5b10864",
   "@article{Mosquera2016_1605,\n  author = {Mosquera, Martín A. and Borca, Carlos H. and Ratner, Mark A. and Schatz, George C.},\n  title = {Connection between Hybrid Functionals and Importance of the Local Density Approximation},\n  journal = {The Journal of Physical Chemistry A},\n  volume = {120},\n  number = {9},\n  pages = {1605-1612},\n  year = {2016},\n  doi = {10.1021/acs.jpca.5b10864},\n  note ={PMID: 26901359},\n  URL = {https://doi.org/10.1021/acs.jpca.5b10864}\n}"
 };
@@ -1800,8 +1800,8 @@ func_reference_type xc_ref_Proynov2006_436 = {
 
 func_reference_type xc_ref_Proynov2008_103 = {
   "E. Proynov, Z. Gan, and J. Kong, Chem. Phys. Lett. 455, 103 (2008)",
-  "https://doi.org/10.1016/j.cplett.2008.02.039",
-  "@article{Proynov2008_103,\ntitle = \"Analytical representation of the Becke--Roussel exchange functional\",\njournal = \"Chem. Phys. Lett.\",\nvolume = \"455\",\nnumber = \"1\",\npages = \"103 - 109\",\nyear = \"2008\",\nissn = \"0009-2614\",\ndoi = \"https://doi.org/10.1016/j.cplett.2008.02.039\",\nurl = \"http://www.sciencedirect.com/science/article/pii/S0009261408002285\",\nauthor = \"Emil Proynov and Zhenting Gan and Jing Kong\"\n}"
+  "10.1016/j.cplett.2008.02.039",
+  "@article{Proynov2008_103,\n  author = \"Emil Proynov and Zhenting Gan and Jing Kong\",\n  title = \"Analytical representation of the Becke--Roussel exchange functional\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"455\",\n  number = \"1\",\n  pages = \"103 - 109\",\n  year = \"2008\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/j.cplett.2008.02.039\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261408002285\",\n}"
 };
 
 
@@ -1822,7 +1822,7 @@ func_reference_type xc_ref_Proynov2017_059904 = {
 func_reference_type xc_ref_Rae1973_574 = {
   "A. Rae, Chem. Phys. Lett. 18, 574 (1973)",
   "10.1016/0009-2614(73)80469-5",
-  "@article{Rae1973_574,\n title = \"A theory for the interactions between closed shell systems \",\n journal = \"Chemical Physics Letters \",\n volume = \"18\",\n number = \"4\",\n pages = \"574 - 577\",\n year = \"1973\",\n note = \"\",\n issn = \"0009-2614\",\n doi = \"10.1016/0009-2614(73)80469-5\",\n url = \"//www.sciencedirect.com/science/article/pii/0009261473804695\",\n author = \"A.I.M. Rae\",\n}"
+  "@article{Rae1973_574,\n title = \"A theory for the interactions between closed shell systems \",\n journal = \"Chemical Physics Letters \",\n volume = \"18\",\n number = \"4\",\n pages = \"574 - 577\",\n year = \"1973\",\n issn = \"0009-2614\",\n doi = \"10.1016/0009-2614(73)80469-5\",\n url = \"//www.sciencedirect.com/science/article/pii/0009261473804695\",\n author = \"A.I.M. Rae\",\n}"
 };
 
 
@@ -2052,8 +2052,8 @@ func_reference_type xc_ref_Swart2009_69 = {
 
 func_reference_type xc_ref_Swart2013_166 = {
   "M. Swart, Chem. Phys. Lett. 580, 166 (2013)",
-  "https://doi.org/10.1016/j.cplett.2013.06.045",
-  "@article{Swart2013_166,\n  title = \"A new family of hybrid density functionals\",\n  author = \"Marcel Swart\",\n  journal = \"Chemical Physics Letters\",\n  volume = \"580\",\n  pages = \"166 - 171\",\n  year = \"2013\",\n  issn = \"0009-2614\",\n  doi = \"https://doi.org/10.1016/j.cplett.2013.06.045\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261413008221\"\n}"
+  "10.1016/j.cplett.2013.06.045",
+  "@article{Swart2013_166,\n  title = \"A new family of hybrid density functionals\",\n  author = \"Marcel Swart\",\n  journal = \"Chemical Physics Letters\",\n  volume = \"580\",\n  pages = \"166 - 171\",\n  year = \"2013\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/j.cplett.2013.06.045\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261413008221\"\n}"
 };
 
 
@@ -2261,7 +2261,7 @@ func_reference_type xc_ref_Verma2014_18A534 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn--Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };
@@ -2275,7 +2275,7 @@ func_reference_type xc_ref_Verma2017_7144 = {
 
 
 func_reference_type xc_ref_Verma2019_2966 = {
-  "P. Verma, Y. Wang, S. Ghosh, X. He, and D. G. Truhlar, J. Phys. Chem. A 123, 2966 (2019), pMID: 30707029",
+  "P. Verma, Y. Wang, S. Ghosh, X. He, and D. G. Truhlar, J. Phys. Chem A 123, 2966 (2019), pMID: 30707029",
   "10.1021/acs.jpca.8b11499",
   "@article{Verma2019_2966,\n author = {Verma, Pragya and Wang, Ying and Ghosh, Soumen and He, Xiao and Truhlar, Donald G.},\n title = {Revised M11 Exchange-Correlation Functional for Electronic Excitation Energies and Ground-State Properties},\n journal = {The Journal of Physical Chemistry A},\n volume = {123},\n number = {13},\n pages = {2966-2990},\n year = {2019},\n doi = {10.1021/acs.jpca.8b11499},\n note ={PMID: 30707029},\n URL = {https://doi.org/10.1021/acs.jpca.8b11499}\n}"
 };
@@ -2396,14 +2396,14 @@ func_reference_type xc_ref_Wilson1990_12930 = {
 func_reference_type xc_ref_Wilson1994_337 = {
   "L. C. Wilson, Chemical Physics 181, 337 (1994)",
   "10.1016/0301-0104(93)E0444-Z",
-  "@article{Wilson1994_337,\ntitle = \"Development of non-local Wigner-like correlation-energy density functionals through coordinate scaling requirements and evaluation of contraint obedience in the construction of density functionals\",\njournal = \"Chemical Physics\",\nvolume = \"181\",\nnumber = \"3\",\npages = \"337 - 353\",\nyear = \"1994\",\nnote = \"\",\nissn = \"0301-0104\",\ndoi = \"http://dx.doi.org/10.1016/0301-0104(93)E0444-Z\",\nurl = \"http://www.sciencedirect.com/science/article/pii/0301010493E0444Z\",\nauthor = \"Leslie C. Wilson\",\n}"
+  "@article{Wilson1994_337,\n  author = \"Leslie C. Wilson\",\n  title = \"Development of non-local Wigner-like correlation-energy density functionals through coordinate scaling requirements and evaluation of contraint obedience in the construction of density functionals\",\n  journal = \"Chemical Physics\",\n  volume = \"181\",\n  number = \"3\",\n  pages = \"337 - 353\",\n  year = \"1994\",\n  issn = \"0301-0104\",\n  doi = \"10.1016/0301-0104(93)E0444-Z\",\n  url = \"http://www.sciencedirect.com/science/article/pii/0301010493E0444Z\"\n}"
 };
 
 
 func_reference_type xc_ref_Wilson1998_523 = {
   "L. C. Wilson and S. Ivanov, Int. J. Quantum Chem. 69, 523 (1998)",
   "10.1002/(SICI)1097-461X(1998)69:4<523::AID-QUA9>3.0.CO;2-X",
-  "@article{Wilson1998_523,\n  title = {A new Wigner-like correlation-energy functional from coordinate scaling requirements},\n  author = {L. C. Wilson and S. Ivanov},\n  journal = {Int. J. Quantum Chem.},\n  volume = {69},\n  number = {4},\n  pages = {523},\n  year = {1998},\n  publisher = {John Wiley & Sons, Inc.},\n  issn = {1097-461X},\n  doi = {10.1002/(SICI)1097-461X(1998)69:4<523::AID-QUA9>3.0.CO;2-X},\n  url = {http://onlinelibrary.wiley.com/doi/10.1002/(SICI)1097-461X(1998)69:4<523::AID-QUA9>3.0.CO;2-X/abstract}\n}"
+  "@article{Wilson1998_523,\n  author = {L. C. Wilson and S. Ivanov},\n  title = {A new Wigner-like correlation-energy functional from coordinate scaling requirements},\n  journal = {Int. J. Quantum Chem.},\n  volume = {69},\n  number = {4},\n  pages = {523},\n  year = {1998},\n  publisher = {John Wiley & Sons, Inc.},\n  issn = {1097-461X},\n  doi = {10.1002/(SICI)1097-461X(1998)69:4<523::AID-QUA9>3.0.CO;2-X},\n  url = {http://onlinelibrary.wiley.com/doi/10.1002/(SICI)1097-461X(1998)69:4<523::AID-QUA9>3.0.CO;2-X/abstract}\n}"
 };
 
 
@@ -2506,7 +2506,7 @@ func_reference_type xc_ref_Zhao2005_161103 = {
 
 
 func_reference_type xc_ref_Zhao2005_2012 = {
-  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem. A 109, 2012 (2005), pMID: 16833536",
+  "Y. Zhao, N. González-García, and D. G. Truhlar, J. Phys. Chem A 109, 2012 (2005), pMID: 16833536",
   "10.1021/jp045141s",
   "@article{Zhao2005_2012,\nauthor = {Zhao, Yan and González-García, Núria and Truhlar, Donald G.},\ntitle = {Benchmark Database of Barrier Heights for Heavy Atom Transfer, Nucleophilic Substitution, Association, and Unimolecular Reactions and Its Use to Test Theoretical Methods},\njournal = {The Journal of Physical Chemistry A},\nvolume = {109},\nnumber = {9},\npages = {2012-2018},\nyear = {2005},\ndoi = {10.1021/jp045141s},\nnote ={PMID: 16833536},\nURL = {http://dx.doi.org/10.1021/jp045141s}\n}"
 };

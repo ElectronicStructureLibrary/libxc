@@ -391,17 +391,17 @@ func_reference_type xc_ref_Chachiyo2016_021101 = {
 };
 
 
-func_reference_type xc_ref_Chachiyo2018_00712 = {
-  "T. Chachiyo and H. Chachiyo, arXiv e-prints (2018), arXiv:1811.00712 [cond-mat.mtrl-sci]",
-  "",
-  "@article{Chachiyo2018_00712,\n       author = {Chachiyo, Teepanis and Chachiyo, Hathaithip},\n        title = \"{Understanding electron correlation energy through density functional theory}\",\n      journal = {arXiv e-prints},\n     keywords = {Condensed Matter - Materials Science, Physics - Chemical Physics},\n         year = \"2018\",\n        month = \"Nov\",\n          _eid = {arXiv:1811.00712},\n        _pages = {arXiv:1811.00712},\narchivePrefix = {arXiv},\n       eprint = {1811.00712},\n primaryClass = {cond-mat.mtrl-sci}\n}"
+func_reference_type xc_ref_Chachiyo2020_112669 = {
+  "T. Chachiyo and H. Chachiyo, Comput. Theor. Chem. 1172, 112669 (2020)",
+  "https://doi.org/10.1016/j.comptc.2019.112669",
+  "@article{Chachiyo2020_112669,\n  author = \"Teepanis Chachiyo and Hathaithip Chachiyo\",\n  title = \"Understanding electron correlation energy through density functional theory\",\n  journal = \"Computational and Theoretical Chemistry\",\n  volume = \"1172\",\n  pages = \"112669\",\n  year = \"2020\",\n  issn = \"2210-271X\",\n  doi = \"https://doi.org/10.1016/j.comptc.2019.112669\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S2210271X19303652\"\n}"
 };
 
 
 func_reference_type xc_ref_Chachiyo2020_3485 = {
-  "T. Chachiyo and H. Chachiyo, Molecules 25, 3485 (2020), arXiv:1706.01343",
+  "T. Chachiyo and H. Chachiyo, Molecules 25, 3485 (2020), 1706.01343",
   "10.3390/molecules25153485",
-  "@article{Chachiyo2020_3485,\n  archivePrefix = {arXiv},\n  arxivId = {1706.01343},\n  author = {Chachiyo, Teepanis and Chachiyo, Hathaithip},\n  doi = {10.3390/molecules25153485},\n  eprint = {1706.01343},\n  issn = {1420-3049},\n  journal = {Molecules},\n  pages = {3485},\n  title = {{Simple and Accurate Exchange Energy for Density Functional Theory}},\n  url = {https://www.mdpi.com/1420-3049/25/15/3485},\n  volume = {25},\n  year = {2020}\n}"
+  "@article{Chachiyo2020_3485,\n  author = {Chachiyo, Teepanis and Chachiyo, Hathaithip},\n  doi = {10.3390/molecules25153485},\n  eprint = {1706.01343},\n  issn = {1420-3049},\n  journal = {Molecules},\n  pages = {3485},\n  title = {{Simple and Accurate Exchange Energy for Density Functional Theory}},\n  url = {https://www.mdpi.com/1420-3049/25/15/3485},\n  volume = {25},\n  year = {2020}\n}"
 };
 
 
@@ -2261,7 +2261,7 @@ func_reference_type xc_ref_Verma2014_18A534 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn--Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };

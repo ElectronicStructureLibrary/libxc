@@ -67,7 +67,7 @@ extern func_reference_type xc_ref_Carmona2016_120;
 extern func_reference_type xc_ref_Carmona2019_303;
 extern func_reference_type xc_ref_Casula2006_245427;
 extern func_reference_type xc_ref_Chachiyo2016_021101;
-extern func_reference_type xc_ref_Chachiyo2018_00712;
+extern func_reference_type xc_ref_Chachiyo2020_112669;
 extern func_reference_type xc_ref_Chachiyo2020_3485;
 extern func_reference_type xc_ref_Chai2008_084106;
 extern func_reference_type xc_ref_Chai2008_6615;

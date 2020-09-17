@@ -1217,6 +1217,13 @@ func_reference_type xc_ref_Lee1991_768 = {
 };
 
 
+func_reference_type xc_ref_Lehtola2018_1 = {
+  "S. Lehtola, C. Steigemann, M. J. Oliveira, and M. A. Marques, SoftwareX 7, 1 (2018)",
+  "https://doi.org/10.1016/j.softx.2017.11.002",
+  "@article{Lehtola2018_1,\n title = \"Recent developments in libxc — A comprehensive library of functionals for density functional theory\",\n journal = \"SoftwareX\",\n volume = \"7\",\n pages = \"1--5\",\n year = \"2018\",\n issn = \"2352-7110\",\n doi = \"https://doi.org/10.1016/j.softx.2017.11.002\",\n url = \"http://www.sciencedirect.com/science/article/pii/S2352711017300602\",\n author = \"Susi Lehtola and Conrad Steigemann and Micael J.T. Oliveira and Miguel A.L. Marques\",\n keywords = \"Density functional theory, Exchange–correlation, Local density approximations, Generalized gradient approximations, meta-GGA approximations\",\n}"
+};
+
+
 func_reference_type xc_ref_Lehtola2020 = {
   "S. Lehtola and M. A. L. Marques, Simple meta-generalization of local density functionals-, (2020), arXiv:2006.16835 [physics.chem-ph]",
   "",
@@ -1354,6 +1361,13 @@ func_reference_type xc_ref_Mardirossian2016_214110 = {
   "N. Mardirossian and M. Head-Gordon, J. Chem. Phys. 144, 214110 (2016)",
   "10.1063/1.4952647",
   "@article{Mardirossian2016_214110,\n   author = \"Mardirossian, Narbe and Head-Gordon, Martin\",\n   title = \"ωB97M-V: A combinatorially optimized, range-separated hybrid, meta-GGA density functional with VV10 nonlocal correlation\",\n   journal = \"J. Chem. Phys.\",\n   year = \"2016\",\n   volume = \"144\",\n   number = \"21\",\n   pages = \"214110\",\n   url = \"http://scitation.aip.org/content/aip/journal/jcp/144/21/10.1063/1.4952647\",\n   doi = \"10.1063/1.4952647\"\n}"
+};
+
+
+func_reference_type xc_ref_Marques2012_2272 = {
+  "M. A. Marques, M. J. Oliveira, and T. Burnus, Computer Physics Communications 183, 2272 (2012)",
+  "https://doi.org/10.1016/j.cpc.2012.05.007",
+  "@article{Marques2012_2272,\n title = \"Libxc: A library of exchange and correlation functionals for density functional theory\",\n journal = \"Computer Physics Communications\",\n volume = \"183\",\n number = \"10\",\n pages = \"2272--2281\",\n year = \"2012\",\n issn = \"0010-4655\",\n doi = \"https://doi.org/10.1016/j.cpc.2012.05.007\",\n url = \"http://www.sciencedirect.com/science/article/pii/S0010465512001750\",\n author = \"Miguel A.L. Marques and Micael J.T. Oliveira and Tobias Burnus\",\n keywords = \"Density functional theory, Density functionals, Local density approximation, Generalized gradient approximation, Hybrid functionals\",\n}"
 };
 
 
@@ -2261,7 +2275,7 @@ func_reference_type xc_ref_Verma2014_18A534 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn--Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };

@@ -8,6 +8,23 @@ can be used by a variety of programs.
 For more information, please check the manual at
 http://www.tddft.org/programs/Libxc
 
+## CITATION
+
+To cite Libxc, the up-to-date reference is
+
+Susi Lehtola, Conrad Steigemann, Micael J.T. Oliveira, and Miguel
+A.L. Marques, Recent developments in Libxc - A comprehensive library
+of functionals for density functional theory, Software X 7, 1 (2018).
+doi: 10.1016/j.softx.2017.11.002
+
+The reference for older versions of libxc, before the switch to Maple
+in version 4 (released in 2017), is
+
+Miguel A. L. Marques, Micael J. T. Oliveira, and Tobias Burnus, Libxc:
+a library of exchange and correlation functionals for density
+functional theory, Comput. Phys. Commun. 183, 2272 (2012).
+doi: 10.1016/j.cpc.2012.05.007
+
 ## INSTALLATION
 
 ### Autotools

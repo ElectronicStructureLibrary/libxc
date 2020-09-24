@@ -1014,6 +1014,13 @@ func_reference_type xc_ref_Jana2019_6356 = {
 };
 
 
+func_reference_type xc_ref_Jemmer1995_3571 = {
+  "P. Jemmer and P. J. Knowles, Phys. Rev. A 51, 3571 (1995)",
+  "10.1103/PhysRevA.51.3571",
+  "@article{Jemmer1995_3571,\n  title = {Exchange energy in Kohn-Sham density-functional theory},\n  author = {Jemmer, Patrick and Knowles, Peter J.},\n  journal = {Phys. Rev. A},\n  volume = {51},\n  issue = {5},\n  pages = {3571--3575},\n  numpages = {0},\n  year = {1995},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.51.3571},\n  url = {https://link.aps.org/doi/10.1103/PhysRevA.51.3571}\n}"
+};
+
+
 func_reference_type xc_ref_Jin2016_034107 = {
   "Y. Jin and R. J. Bartlett, J. Chem. Phys. 145, 034107 (2016)",
   "10.1063/1.4955497",
@@ -2261,7 +2268,7 @@ func_reference_type xc_ref_Verma2014_18A534 = {
 
 
 func_reference_type xc_ref_Verma2017_380 = {
-  "P. Verma and D. G. Truhlar, J. Phys. Chem Letters 8, 380 (2017), pMID: 28033712",
+  "P. Verma and D. G. Truhlar, J. Phys. Chem. Lett. 8, 380 (2017), pMID: 28033712",
   "10.1021/acs.jpclett.6b02757",
   "@article{Verma2017_380,\nauthor = {Verma, Pragya and Truhlar, Donald G.},\ntitle = {HLE16: A Local Kohn--Sham Gradient Approximation with Good Performance for Semiconductor Band Gaps and Molecular Excitation Energies},\njournal = {The Journal of Physical Chemistry Letters},\nvolume = {8},\nnumber = {2},\npages = {380-387},\nyear = {2017},\ndoi = {10.1021/acs.jpclett.6b02757},\nnote ={PMID: 28033712},\nURL = {http://dx.doi.org/10.1021/acs.jpclett.6b02757}\n}"
 };

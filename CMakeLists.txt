@@ -338,6 +338,7 @@ set(raw_sources_list
   mgga_x_tb09.c
   mgga_x_gvt4.c
   mgga_x_gx.c
+  mgga_x_jk.c
   mgga_x_lta.c
   mgga_x_m06l.c
   mgga_x_m08.c

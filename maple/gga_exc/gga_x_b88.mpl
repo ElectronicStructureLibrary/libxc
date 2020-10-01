@@ -19,6 +19,6 @@ params_a_beta  := 0.0042:
 params_a_gamma := 6.0:
 $endif
 
-b88_f := x -> 1.0 + params_a_beta/X_FACTOR_C*x^2/(1.0 + params_a_gamma*params_a_beta*x*arcsinh(x)):
+b88_f := x -> 1 + params_a_beta/X_FACTOR_C*x^2/(1 + params_a_gamma*params_a_beta*x*arcsinh(x)):
 
 f := (rs, zeta, xt, xs0, xs1) -> gga_exchange(b88_f, rs, zeta, xs0, xs1):

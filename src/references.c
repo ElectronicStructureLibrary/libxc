@@ -1014,6 +1014,13 @@ func_reference_type xc_ref_Jana2019_6356 = {
 };
 
 
+func_reference_type xc_ref_Jemmer1995_3571 = {
+  "P. Jemmer and P. J. Knowles, Phys. Rev. A 51, 3571 (1995)",
+  "10.1103/PhysRevA.51.3571",
+  "@article{Jemmer1995_3571,\n  title = {Exchange energy in Kohn-Sham density-functional theory},\n  author = {Jemmer, Patrick and Knowles, Peter J.},\n  journal = {Phys. Rev. A},\n  volume = {51},\n  issue = {5},\n  pages = {3571--3575},\n  numpages = {0},\n  year = {1995},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.51.3571},\n  url = {https://link.aps.org/doi/10.1103/PhysRevA.51.3571}\n}"
+};
+
+
 func_reference_type xc_ref_Jin2016_034107 = {
   "Y. Jin and R. J. Bartlett, J. Chem. Phys. 145, 034107 (2016)",
   "10.1063/1.4955497",

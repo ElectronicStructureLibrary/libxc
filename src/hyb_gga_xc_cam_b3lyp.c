@@ -70,7 +70,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_b3lyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Yanai2004_51, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-12,
+  1e-11,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_cam_b3lyp_init, NULL,
   NULL, NULL, NULL
@@ -86,7 +86,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_tuned_cam_b3lyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Okuno2012_29, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-12,
+  1e-11,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_cam_b3lyp_init, NULL,
   NULL, NULL, NULL
@@ -134,7 +134,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_rcam_b3lyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Cohen2007_191109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-12,
+  1e-11,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_rcam_b3lyp_init, NULL,
   NULL, NULL, NULL

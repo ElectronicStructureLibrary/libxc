@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
   /* Input tolerance */
   double tol;
   /* Verbose operation? */
-  int verbose=0;
+  int verbose;
 
   if(argc!=4 && argc!=5) {
     printf("Usage: %s file reference tolerance (verbose)\n",argv[0]);
@@ -100,7 +100,7 @@ int main(int argc, char **argv) {
 
   /* Set tolerance and verbosity */
   tol=atof(argv[3]);
-  verbose=atoi(argv[4]);
+  verbose=(argc==5) ? atoi(argv[4]) : 0;
 
   /* Read first line: functional id and file length */
   in_line();

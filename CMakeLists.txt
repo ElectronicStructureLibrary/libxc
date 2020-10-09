@@ -506,6 +506,9 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PN}Config.cmake
 install(EXPORT "${PN}Targets"
   NAMESPACE "${PN}::"
   DESTINATION ${CMAKECONFIG_INSTALL_DIR})
+export(EXPORT "${PN}Targets"
+    NAMESPACE "${PN}::"
+    FILE "${PROJECT_BINARY_DIR}/${PN}Targets.cmake")
 
 install(FILES ${PROJECT_BINARY_DIR}/libxc.pc
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/)

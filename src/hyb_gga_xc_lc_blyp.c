@@ -38,7 +38,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_blyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Anderson2017_1656, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-11,
+  1e-10,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_lc_blyp_init, NULL,
   NULL, NULL, NULL

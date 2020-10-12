@@ -117,6 +117,8 @@ int main(int argc, char **argv)
   if(func.info->flags & XC_FLAGS_HAVE_KXC)
     printf("  *) fourth derivative\n");
 
+  printf("\nDefault density threshold: %e\n",func.dens_threshold);
+
   /* Query parameters */
   npar = xc_func_info_get_n_ext_params(func.info);
   if(npar > 0) {

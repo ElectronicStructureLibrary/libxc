@@ -9,7 +9,10 @@
 (* type: gga_exc *)
 
 (* eqn (5) *)
-meyer_lambda := y -> 1/2*(1 + (1 - y^2)*log((1 + y)/abs(1 - y))/(2*y)):
+meyer_feta := y -> 1/2*(1 + (1 - y^2)*log((1 + y)/abs(1 - y))/(2*y)):
+
+(* eqn (7) *)
+meyer_lambda := y -> (1 - meyer_feta(y)) / (3 * y^2 * meyer_feta(y)):
 
 (* enhancement factor from eqn (1) *)
 meyer_f := x -> 1 + meyer_lambda(X2S*x/6)*x^2/(8*K_FACTOR_C):

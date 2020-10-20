@@ -31,10 +31,8 @@ attenuation_erf_f3 := a ->
     You can recover the result in Int. J. of Quant. Chem. 100, 1047 (2004)
     by putting a = a/sqrt(3) and multiplying the whole attenuation function by -sqrt(3)
 *)
-att_gau_aux1 := (a) -> sqrt(Pi)*erf(1/(2*a)):
-att_gau_aux2 := (a) -> exp(-1/(4*a^2)) - 1:
 attenuation_gau := (a) ->
-  -8/3*a*(att_gau_aux1(a) + 2*a*att_gau_aux2(a)*(1 - 8*a^2) - 4*a):
+  -8/3*a*(att_erf_aux1(a) + 2*a*att_erf_aux2(a)*(1 - 8*a^2) - 4*a):
 
 (* yukawa
     Akinaga and Ten-no, Chem. Phys. Lett. 462, 348 (2008); doi:10.1016/j.cplett.2008.07.103

@@ -1716,6 +1716,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t52 = t51 * t46;
   t54 = erf(t52 * t25);
   t58 = t48 * t49 / 0.2e1 < 0.1e7;
+  printf("up: %lf\n", t48 * t49 / 0.2e1);
   t59 = p->hyb_omega[0] * p->hyb_omega[0];
   t61 = 0.1e1 / t59 * M_PI;
   t62 = t61 * t18;
@@ -1760,6 +1761,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t119 = t51 * t115;
   t121 = erf(t119 * t94);
   t125 = t117 * t118 / 0.2e1 < 0.1e7;
+  printf("dn: %lf\n", t117 * t118 / 0.2e1);
   t128 = t62 * t21 * t112 * t95;
   t129 = exp(-t128);
   t131 = my_piecewise3(t125, t129 - 0.1e1, -t128);

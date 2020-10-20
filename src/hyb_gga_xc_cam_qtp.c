@@ -26,7 +26,7 @@ xc_hyb_gga_xc_cam_qtp_init(xc_func_type *p)
   static int funcs_id[4] = {XC_GGA_X_B88, XC_GGA_X_ITYH, XC_GGA_C_LYP, XC_LDA_C_VWN};
   double funcs_coef[4];
   int nfuncs;
-  
+
   switch(p->info->number){
   case XC_HYB_GGA_XC_CAM_QTP_00:
     alpha = 0.54;
@@ -63,13 +63,13 @@ xc_hyb_gga_xc_cam_qtp_init(xc_func_type *p)
 
      In Yanai's convention, at short range there is a total of alpha
      exact exchange, and at long range, alpha+beta.
-     
+
      alpha_libxc = alpha_Yanai + beta_Yanai
      beta_libxc  = - beta_Yanai
   */
   cam_alpha = alpha + beta;
   cam_beta = -beta;
-    
+
   funcs_coef[0] = 1.0 - cam_alpha;
   funcs_coef[1] = -cam_beta;
   funcs_coef[2] = flyp;

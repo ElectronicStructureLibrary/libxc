@@ -225,7 +225,7 @@ hyb_gga_xc_pbemolb0_init(xc_func_type *p)
 
   /* 0.06288 ~ 3/4 beta_PBEmol */
   static double par_c_pbe[] = {0.06288, XC_EXT_PARAMS_DEFAULT, XC_EXT_PARAMS_DEFAULT};
-  
+
   /* Note that the value of funcs_coef[0] and cam_alpha will be set by
       set_ext_params */
   xc_mix_init(p, 2, funcs_id, funcs_coef);

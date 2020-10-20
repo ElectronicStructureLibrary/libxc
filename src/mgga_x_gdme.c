@@ -20,7 +20,7 @@ typedef struct{
 } mgga_x_gdme_params;
 
 
-static void 
+static void
 mgga_x_gdme_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);

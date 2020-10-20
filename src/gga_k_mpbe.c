@@ -22,7 +22,7 @@ static const char  *desc[N_PAR]   = {"a", "c1", "c2", "c3"};
 static const double kpbe3_val[N_PAR] = {4.1355, -3.7425, 50.258, 0.0};
 static const double kpbe4_val[N_PAR] = {1.7107, -7.2333, 61.645, -93.683};
 
-static void 
+static void
 gga_k_mpbe_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);

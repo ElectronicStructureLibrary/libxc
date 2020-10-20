@@ -31,7 +31,7 @@ static const char  *am05_names[AM05_N_PAR]  = {"_alpha", "_c"};
 static const char  *am05_desc[AM05_N_PAR]   = {
   "alpha",
   "c"};
-static const double am05_values[AM05_N_PAR] = 
+static const double am05_values[AM05_N_PAR] =
   {2.804L, 0.7168L};
 
 #ifdef __cplusplus

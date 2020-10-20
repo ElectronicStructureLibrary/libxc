@@ -17,7 +17,7 @@ xc_hyb_gga_xc_lcy_blyp_init(xc_func_type *p)
   static double funcs_coef[2];
 
   double gamma = 0.75;
-  
+
   funcs_coef[0] = 1.0;
   funcs_coef[1] = 1.0;
 

@@ -10,8 +10,8 @@
 #include "util.h"
 
 /***********************************************************************
-  Exchange and correlation free energy density and potential as 
-  parametrized by 
+  Exchange and correlation free energy density and potential as
+  parametrized by
     Valentin V. Karasiev, Travis Sjostrom, James Dufty, and S. B. Trickey
   Ported to C and libxc by Lazaro Calderin and Miguel Marques
 ************************************************************************/
@@ -61,11 +61,11 @@ static const lda_xc_ksdt_params par_gdsmfb = {
     {0.25388214, 0.815795138599, 0.0646844410481, 15.0984620477, 0.230761357474},
     {0.27454097, 0.400994856555, 2.88773194962, 6.33499237092, 24.823008753}
   }
-}; 
+};
 
-static void 
+static void
 lda_xc_ksdt_init(xc_func_type *p)
-{  
+{
   lda_xc_ksdt_params *params;
 
   assert(p!=NULL && p->params == NULL);
@@ -93,7 +93,7 @@ static const char  *T_names[]  = {"T"};
 static const char  *T_desc[]   = {"Temperature"};
 static const double T_values[] = {0.0};
 
-static void 
+static void
 T_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   lda_xc_ksdt_params *params;

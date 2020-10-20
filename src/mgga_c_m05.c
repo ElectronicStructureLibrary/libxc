@@ -19,7 +19,7 @@ typedef struct{
   double Fermi_D_cnst; /* correction term similar to 10.1063/1.2800011 */
 } mgga_c_m05_params;
 
-static void 
+static void
 mgga_c_vsxc_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
@@ -74,7 +74,7 @@ const xc_func_info_type xc_func_info_mgga_c_m05 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1.0e-15,
   {M05_N_PAR, m05_names, m05_desc, m05_values, set_ext_params_cpy},
-  mgga_c_vsxc_init, NULL, 
+  mgga_c_vsxc_init, NULL,
   NULL, NULL, work_mgga
 };
 
@@ -91,7 +91,7 @@ const xc_func_info_type xc_func_info_mgga_c_m05_2x = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1.0e-15,
   {M05_N_PAR, m05_names, m05_desc, m05_2x_values, set_ext_params_cpy},
-  mgga_c_vsxc_init, NULL, 
+  mgga_c_vsxc_init, NULL,
   NULL, NULL, work_mgga
 };
 

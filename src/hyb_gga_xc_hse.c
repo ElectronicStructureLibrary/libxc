@@ -487,7 +487,7 @@ hyb_gga_xc_hiss_init(xc_func_type *p)
   static int    hyb_type[2]   = {XC_HYB_ERF_SR, XC_HYB_ERF_SR};
   static double hyb_omega[2]  = {0.20,  0.84};
   static double hyb_coeff[2]  = {0.60, -0.60};
-  
+
   xc_mix_init(p, 3, funcs_id, funcs_coef);
   xc_hyb_init(p, 2, hyb_type, hyb_coeff, hyb_omega);
 

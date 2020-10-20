@@ -33,7 +33,7 @@ xc_hyb_gga_xc_camy_b3lyp_init(xc_func_type *p)
   funcs_coef[1] = -beta;
   funcs_coef[2] = 1.0 - ac;
   funcs_coef[3] = ac;
-  
+
   xc_mix_init(p, 4, funcs_id, funcs_coef);
 
   xc_func_set_ext_params(p->func_aux[1], &omega);

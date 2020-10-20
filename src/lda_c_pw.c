@@ -10,12 +10,12 @@
 #include "util.h"
 
 /************************************************************************
- Correlation energy per-particle and potential of a HEG as parameterized 
- by 
+ Correlation energy per-particle and potential of a HEG as parameterized
+ by
    J.P. Perdew & Y. Wang
    Ortiz & Ballone
 
-Note that the PW modified corresponds to the version of PW used in the 
+Note that the PW modified corresponds to the version of PW used in the
 original PBE routine. This amounts to adding some more digits in some of
 the constants of PW.
 ************************************************************************/
@@ -71,8 +71,8 @@ static const double par_ob[PW_N_PAR] = {
   1.709921
 };
 
-/* The parameters fixed by the low and high-density limits were 
-   taken from the pw_mod functional, i.e. they contain more 
+/* The parameters fixed by the low and high-density limits were
+   taken from the pw_mod functional, i.e. they contain more
    significant digits than the vanilla pw */
 static const double par_pw_rpa[PW_N_PAR] = {
   0.75, 0.75, 1.0,
@@ -107,9 +107,9 @@ static const double par_rpw92[PW_N_PAR] = {
   1.709920934161365617563962776245
 };
 
-static void 
+static void
 lda_c_pw_init(xc_func_type *p)
-{  
+{
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(lda_c_pw_params));
 }

@@ -20,7 +20,7 @@ gga_k_gds08_init(xc_func_type *p)
   static int    funcs_id  [2] = {XC_GGA_K_VW, XC_LDA_K_GDS08_WORKER};
   static double funcs_coef[2] = {1.0, 1.0};
 
-  xc_mix_init(p, 2, funcs_id, funcs_coef);  
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
 }
 
 #ifdef __cplusplus
@@ -46,7 +46,7 @@ gga_k_ghds10_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0, 1.0};
 
   static double par_k_gds08[] = {1.02, 0.163, 0.0};
-  
+
   xc_mix_init(p, 2, funcs_id, funcs_coef);
 
   xc_func_set_ext_params(p->func_aux[1], par_k_gds08);
@@ -75,7 +75,7 @@ gga_k_ghds10r_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0, 1.0};
 
   static double par_k_gds08[] = {0.61434e-1, 0.61317e-2, 0.0};
-  
+
   xc_mix_init(p, 2, funcs_id, funcs_coef);
 
   xc_func_set_ext_params(p->func_aux[1], par_k_gds08);
@@ -104,7 +104,7 @@ gga_k_tkvln_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0, 1.0};
 
   static double par_k_gds08[] = {0.45960e-1, 0.65545e-2, 0.23131e-3};
-  
+
   xc_mix_init(p, 2, funcs_id, funcs_coef);
 
   xc_func_set_ext_params(p->func_aux[1], par_k_gds08);

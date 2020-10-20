@@ -35,6 +35,6 @@ const xc_func_info_type xc_func_info_mgga_xc_b97m_v = {
   XC_FLAGS_3D | XC_FLAGS_VV10 | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  mgga_xc_b97mv_init, NULL, 
+  mgga_xc_b97mv_init, NULL,
   NULL, NULL, work_mgga,
 };

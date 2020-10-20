@@ -19,7 +19,7 @@ typedef struct {
 static lda_c_chachiyo_params par_chachiyo = {-0.01554535, 20.4562557, -0.007772675, 27.4203609};
 static lda_c_chachiyo_params par_karasiev = {-0.01554535, 21.7392245, -0.007772675, 28.3559732};
 
-static void 
+static void
 lda_c_chachiyo_init(xc_func_type *p)
 {
   lda_c_chachiyo_params *params;

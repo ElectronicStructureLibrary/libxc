@@ -18,7 +18,7 @@ typedef struct{
   double prefactor;
 } mgga_x_rlda_params;
 
-static void 
+static void
 mgga_x_rlda_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
@@ -77,8 +77,8 @@ mgga_x_mk00b_init(xc_func_type *p)
   static double funcs_coef[3] = {-1.0, 1.0, 1.0};
 
   static double par_x_b88[] = {0.0016, 6.0};
-  
-  xc_mix_init(p, 3, funcs_id, funcs_coef);  
+
+  xc_mix_init(p, 3, funcs_id, funcs_coef);
 
   xc_func_set_ext_params(p->func_aux[1], par_x_b88);
 }

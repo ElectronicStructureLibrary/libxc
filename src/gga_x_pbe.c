@@ -29,7 +29,7 @@ typedef struct{
 } gga_x_pbe_params;
 
 
-static void 
+static void
 gga_x_pbe_init(xc_func_type *p)
 {
   gga_x_pbe_params *params;
@@ -88,7 +88,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_values, set_ext_params_cpy},
-  gga_x_pbe_init, NULL, 
+  gga_x_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -104,7 +104,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_r = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_r_values, set_ext_params_cpy},
-  gga_x_pbe_init, NULL, 
+  gga_x_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -120,7 +120,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_sol = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_sol_values, set_ext_params_cpy},
-  gga_x_pbe_init, NULL, 
+  gga_x_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -136,7 +136,7 @@ const xc_func_info_type xc_func_info_gga_x_xpbe = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_xpbe_values, set_ext_params_cpy},
-  gga_x_pbe_init, NULL, 
+  gga_x_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -152,7 +152,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_jsjr = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_jsjr_values, set_ext_params_cpy},
-  gga_x_pbe_init, NULL, 
+  gga_x_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -168,7 +168,7 @@ const xc_func_info_type xc_func_info_gga_x_pbek1_vdw = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_k1_vdw_values, set_ext_params_cpy},
-  gga_x_pbe_init, NULL, 
+  gga_x_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -184,7 +184,7 @@ const xc_func_info_type xc_func_info_gga_x_apbe = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_apbe_values, set_ext_params_cpy},
-  gga_x_pbe_init, NULL, 
+  gga_x_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -200,7 +200,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_tca = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_tca_values, set_ext_params_cpy},
-  gga_x_pbe_init, NULL, 
+  gga_x_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -216,7 +216,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_mol = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_mol_values, set_ext_params_cpy},
-  gga_x_pbe_init, NULL, 
+  gga_x_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -232,7 +232,7 @@ const xc_func_info_type xc_func_info_gga_x_bcgp = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_bcgp_values, set_ext_params_cpy},
-  gga_x_pbe_init, NULL, 
+  gga_x_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -248,7 +248,7 @@ const xc_func_info_type xc_func_info_gga_x_pbefe = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_fe_values, set_ext_params_cpy},
-  gga_x_pbe_init, NULL, 
+  gga_x_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -265,7 +265,7 @@ static const double pbe_lambda_ch_n_values[PBEL_N_PAR] =
 static const double pbe_lambda_oc2_n_values[PBEL_N_PAR] =
   {1e23, MU_PBE, 2.00};
 
-static void 
+static void
 pbe_lambda_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   const double lambda_1 = 1.48;
@@ -279,7 +279,7 @@ pbe_lambda_set_ext_params(xc_func_type *p, const double *ext_params)
   N              = get_ext_param(p, ext_params, 0);
   params->mu     = get_ext_param(p, ext_params, 1);
   params->lambda = get_ext_param(p, ext_params, 2);
-  
+
   lambda = (1.0 - 1.0/N)*params->lambda + lambda_1/N;
   params->kappa = lambda/M_CBRT2 - 1.0;
 }
@@ -297,7 +297,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_lo_n = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {PBEL_N_PAR, pbe_lambda_names, pbe_lambda_desc, pbe_lambda_lo_n_values, pbe_lambda_set_ext_params},
-  gga_x_pbe_init, NULL, 
+  gga_x_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -313,7 +313,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_ch_n = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {PBEL_N_PAR, pbe_lambda_names, pbe_lambda_desc, pbe_lambda_ch_n_values, pbe_lambda_set_ext_params},
-  gga_x_pbe_init, NULL, 
+  gga_x_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -329,7 +329,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_oc2_n = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {PBEL_N_PAR, pbe_lambda_names, pbe_lambda_desc, pbe_lambda_oc2_n_values, pbe_lambda_set_ext_params},
-  gga_x_pbe_init, NULL, 
+  gga_x_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 

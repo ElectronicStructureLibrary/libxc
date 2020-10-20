@@ -16,7 +16,7 @@ typedef struct{
 } mgga_c_bc95_params;
 
 
-static void 
+static void
 mgga_c_bc95_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);

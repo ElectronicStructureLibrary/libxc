@@ -33,7 +33,7 @@ static const double lyp_values[LYP_N_PAR] =
   {0.04918, 0.132, 0.2533, 0.349};
 static const double lyp_tm_values[LYP_N_PAR] =
   {0.0393, 0.21, 0.41, 0.15};
-  
+
 #include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_lyp.c"
 #include "work_gga.c"

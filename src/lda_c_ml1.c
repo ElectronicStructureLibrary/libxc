@@ -24,7 +24,7 @@ static const char  *desc[N_PAR]   = {"fc", "q"};
 static const double par_ml1[N_PAR] = {0.2026, 0.084};
 static const double par_ml2[N_PAR] = {0.266, 0.5};
 
-static void 
+static void
 lda_c_ml1_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);

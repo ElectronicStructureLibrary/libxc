@@ -31,7 +31,7 @@ static const double par_revscanl[N_PAR_SCANL] = {
   1.784720, 0.258304
 };
 
-static void 
+static void
 mgga_x_scanl_init(xc_func_type *p)
 {
   xc_deorbitalize_init(p, XC_MGGA_X_SCAN, XC_MGGA_K_PC07);

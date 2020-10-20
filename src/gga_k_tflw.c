@@ -34,7 +34,7 @@ typedef struct{
 } gga_k_tflw_params;
 
 
-static void 
+static void
 gga_k_tflw_init(xc_func_type *p)
 {
   assert(p->params == NULL);
@@ -70,7 +70,7 @@ const xc_func_info_type xc_func_info_gga_k_tfvw = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_values, set_ext_params_cpy},
-  gga_k_tflw_init, NULL, 
+  gga_k_tflw_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -86,7 +86,7 @@ const xc_func_info_type xc_func_info_gga_k_vw = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_vw_values, set_ext_params_cpy},
-  gga_k_tflw_init, NULL, 
+  gga_k_tflw_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -102,7 +102,7 @@ const xc_func_info_type xc_func_info_gga_k_ge2 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_ge2_values, set_ext_params_cpy},
-  gga_k_tflw_init, NULL, 
+  gga_k_tflw_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -118,7 +118,7 @@ const xc_func_info_type xc_func_info_gga_k_golden = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_golden_values, set_ext_params_cpy},
-  gga_k_tflw_init, NULL, 
+  gga_k_tflw_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -134,7 +134,7 @@ const xc_func_info_type xc_func_info_gga_k_yt65 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_yt65_values, set_ext_params_cpy},
-  gga_k_tflw_init, NULL, 
+  gga_k_tflw_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -150,7 +150,7 @@ const xc_func_info_type xc_func_info_gga_k_baltin = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_baltin_values, set_ext_params_cpy},
-  gga_k_tflw_init, NULL, 
+  gga_k_tflw_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -166,7 +166,7 @@ const xc_func_info_type xc_func_info_gga_k_lieb = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_lieb_values, set_ext_params_cpy},
-  gga_k_tflw_init, NULL, 
+  gga_k_tflw_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -174,7 +174,7 @@ static const char  *N_names[]  = {"N"};
 static const char  *N_desc[]   = {"Number of electrons"};
 static const double N_values[] = {1.0};
 
-static void 
+static void
 N_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   double C0 = CBRT(M_PI/3.0);
@@ -186,7 +186,7 @@ N_set_ext_params(xc_func_type *p, const double *ext_params)
   params = (gga_k_tflw_params *) (p->params);
 
   N = get_ext_param(p, ext_params, 0);
-  
+
   params->gamma = 1.0;
   params->lambda = 1.0;
 
@@ -230,7 +230,7 @@ const xc_func_info_type xc_func_info_gga_k_absp1 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
-  gga_k_tflw_init, NULL, 
+  gga_k_tflw_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -246,7 +246,7 @@ const xc_func_info_type xc_func_info_gga_k_absp2 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
-  gga_k_tflw_init, NULL, 
+  gga_k_tflw_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -262,7 +262,7 @@ const xc_func_info_type xc_func_info_gga_k_absp3 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
-  gga_k_tflw_init, NULL, 
+  gga_k_tflw_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -278,7 +278,7 @@ const xc_func_info_type xc_func_info_gga_k_absp4 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
-  gga_k_tflw_init, NULL, 
+  gga_k_tflw_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -294,7 +294,7 @@ const xc_func_info_type xc_func_info_gga_k_gr = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
-  gga_k_tflw_init, NULL, 
+  gga_k_tflw_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -310,7 +310,7 @@ const xc_func_info_type xc_func_info_gga_k_ludena = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
-  gga_k_tflw_init, NULL, 
+  gga_k_tflw_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -326,6 +326,6 @@ const xc_func_info_type xc_func_info_gga_k_gp85 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
-  gga_k_tflw_init, NULL, 
+  gga_k_tflw_init, NULL,
   NULL, work_gga, NULL
 };

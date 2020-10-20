@@ -15,7 +15,7 @@ typedef struct{
   double beta, alpha;
 } gga_c_zpbeint_params;
 
-static void 
+static void
 gga_c_zpbeint_init(xc_func_type *p)
 {
   gga_c_zpbeint_params *params;
@@ -23,7 +23,7 @@ gga_c_zpbeint_init(xc_func_type *p)
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_c_zpbeint_params));
   params = (gga_c_zpbeint_params *) (p->params);
- 
+
   switch(p->info->number){
   case XC_GGA_C_ZPBEINT:
     params->beta  = 0.052;
@@ -55,7 +55,7 @@ const xc_func_info_type xc_func_info_gga_c_zpbeint = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {0, NULL, NULL, NULL, NULL},
-  gga_c_zpbeint_init, NULL, 
+  gga_c_zpbeint_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -71,6 +71,6 @@ const xc_func_info_type xc_func_info_gga_c_zpbesol = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {0, NULL, NULL, NULL, NULL},
-  gga_c_zpbeint_init, NULL, 
+  gga_c_zpbeint_init, NULL,
   NULL, work_gga, NULL
 };

@@ -16,7 +16,7 @@ typedef struct{
 } gga_x_mpbe_params;
 
 
-static void 
+static void
 gga_x_mpbe_init(xc_func_type *p)
 {
   gga_x_mpbe_params *params;
@@ -24,7 +24,7 @@ gga_x_mpbe_init(xc_func_type *p)
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_mpbe_params));
   params = (gga_x_mpbe_params *) (p->params);
- 
+
   switch(p->info->number){
   case XC_GGA_X_MPBE:
     params->a  =  0.157;

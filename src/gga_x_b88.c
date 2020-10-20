@@ -20,7 +20,7 @@ typedef struct{
 } gga_x_b88_params;
 
 
-static void 
+static void
 gga_x_b88_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
@@ -61,7 +61,7 @@ const xc_func_info_type xc_func_info_gga_x_b88 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_values, set_ext_params_cpy},
-  gga_x_b88_init, NULL, 
+  gga_x_b88_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -77,7 +77,7 @@ const xc_func_info_type xc_func_info_gga_x_optb88_vdw = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_optb88_values, set_ext_params_cpy},
-  gga_x_b88_init, NULL, 
+  gga_x_b88_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -93,7 +93,7 @@ const xc_func_info_type xc_func_info_gga_x_mb88 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_mb88_values, set_ext_params_cpy},
-  gga_x_b88_init, NULL, 
+  gga_x_b88_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -109,7 +109,7 @@ const xc_func_info_type xc_func_info_gga_x_eb88 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_eb88_values, set_ext_params_cpy},
-  gga_x_b88_init,  NULL, 
+  gga_x_b88_init,  NULL,
   NULL, work_gga, NULL
 };
 
@@ -125,7 +125,7 @@ const xc_func_info_type xc_func_info_gga_x_b88m = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_b88m_values, set_ext_params_cpy},
-  gga_x_b88_init,  NULL, 
+  gga_x_b88_init,  NULL,
   NULL, work_gga, NULL
 };
 
@@ -141,6 +141,6 @@ const xc_func_info_type xc_func_info_gga_x_b88_6311g = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_6311g_values, set_ext_params_cpy},
-  gga_x_b88_init,  NULL, 
+  gga_x_b88_init,  NULL,
   NULL, work_gga, NULL
 };

@@ -33,7 +33,7 @@ hyb_gga_xc_src1_init(xc_func_type *p)
   int    hyb_type[]  = {XC_HYB_ERF_SR, XC_HYB_ERF_SR, XC_HYB_FOCK};
   double hyb_coeff[] = {0.0, 0.0, 0.0};
   double hyb_omega[] = {0.0, 0.0, 0.0};
-  
+
   /* Note that the value of funcs_coef will be set by set_ext_params */
   xc_mix_init(p, 5, funcs_id, funcs_coef);
   xc_hyb_init(p, 3, hyb_type, hyb_coeff, hyb_omega);
@@ -68,7 +68,7 @@ src1_set_ext_params(xc_func_type *p, const double *ext_params)
   p->hyb_coeff[0] = C_SR;
   p->hyb_coeff[1] =-C_LR;
   p->hyb_coeff[2] = C_LR; /* Normal Fock */
-  
+
   xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_omega[0]); /* mu_SR */
   xc_func_set_ext_params_name(p->func_aux[2], "_omega", p->hyb_omega[1]); /* mu_LR */
 }

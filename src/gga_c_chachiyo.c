@@ -17,7 +17,7 @@ typedef struct {
 
 static gga_c_chachiyo_params par_chachiyo = {-0.01554535, 20.4562557, -0.007772675, 27.4203609, 0.06672632};
 
-static void 
+static void
 gga_c_chachiyo_init(xc_func_type *p)
 {
   gga_c_chachiyo_params *params;

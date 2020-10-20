@@ -10,8 +10,8 @@
 #include "util.h"
 
 /************************************************************************
- Correlation energy per particle and potential of a HEG as parametrized 
- by 
+ Correlation energy per particle and potential of a HEG as parametrized
+ by
    Perdew & Zunger
    Ortiz & Ballone
 ************************************************************************/
@@ -38,11 +38,11 @@ static lda_c_pz_params pz_original = {
 };
 
 static lda_c_pz_params pz_modified = {
-  {-0.1423, -0.0843},   
-  { 1.0529,  1.3981}, 
-  { 0.3334,  0.2611}, 
+  {-0.1423, -0.0843},
+  { 1.0529,  1.3981},
+  { 0.3334,  0.2611},
   { 0.0311,  0.01555},
-  {-0.048,  -0.0269},   
+  {-0.048,  -0.0269},
   { 0.0020191519406228,  0.00069255121311694},
   {-0.0116320663789130, -0.00480126353790614}
 };
@@ -58,7 +58,7 @@ static lda_c_pz_params pz_ob = {
   {-0.00983,  -0.00300}
 };
 
-static void 
+static void
 lda_c_pz_init(xc_func_type *p)
 {
   lda_c_pz_params *params;

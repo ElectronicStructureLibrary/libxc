@@ -16,7 +16,7 @@ typedef struct{
   double ltafrac;
 } mgga_x_lta_params;
 
-static void 
+static void
 mgga_x_lta_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);

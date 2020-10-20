@@ -58,7 +58,7 @@ static const double s12h_values[S12H_N_PAR] = {
   1.02543951, 1.757-1.02543951, 0.00761554, 0.00211063, 0.00604672, 0.25
 };
 
-static void 
+static void
 s12h_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   gga_x_s12_params *params;
@@ -92,7 +92,7 @@ const xc_func_info_type xc_func_info_gga_x_s12g = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {S12G_N_PAR, s12g_names, s12g_desc, s12g_values, set_ext_params_cpy},
-  gga_x_s12_init, NULL, 
+  gga_x_s12_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -108,6 +108,6 @@ const xc_func_info_type xc_func_info_hyb_gga_x_s12h = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {S12H_N_PAR, s12h_names, s12h_desc, s12h_values, s12h_set_ext_params},
-  gga_x_s12_init, NULL, 
+  gga_x_s12_init, NULL,
   NULL, work_gga, NULL
 };

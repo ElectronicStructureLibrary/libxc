@@ -29,7 +29,7 @@ const xc_func_info_type xc_func_info_mgga_c_scan = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  NULL, NULL, 
+  NULL, NULL,
   NULL, NULL, work_mgga,
 };
 

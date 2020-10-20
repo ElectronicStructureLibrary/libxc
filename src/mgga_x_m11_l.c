@@ -44,7 +44,7 @@ static const char *desc[N_PAR] = {
 };
 
 static const double par_m11_l[N_PAR] = {
-  8.121131e-01,  1.738124e+01,  1.154007e+00,  6.869556e+01,  1.016864e+02, -5.887467e+00, 
+  8.121131e-01,  1.738124e+01,  1.154007e+00,  6.869556e+01,  1.016864e+02, -5.887467e+00,
   4.517409e+01, -2.773149e+00, -2.617211e+01,  0.000000e+00,  0.000000e+00,  0.000000e+00,
   1.878869e-01, -1.653877e+01,  6.755753e-01, -7.567572e+01, -1.040272e+02,  1.831853e+01,
   -5.573352e+01, -3.520210e+00,  3.724276e+01,  0.000000e+00,  0.000000e+00,  0.000000e+00,
@@ -81,6 +81,6 @@ const xc_func_info_type xc_func_info_mgga_x_m11_l = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-13,
   {N_PAR, names, desc, par_m11_l, set_ext_params_cpy_omega},
-  mgga_x_m11_l_init, NULL, 
+  mgga_x_m11_l_init, NULL,
   NULL, NULL, work_mgga,
 };

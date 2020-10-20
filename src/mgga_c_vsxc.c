@@ -26,7 +26,7 @@ static const double par_vsxc[N_PAR] = {
   7.035010e-01,  7.694574e-03,  5.152765e-02,  3.394308e-05, -1.269420e-03,  1.296118e-03
 };
 
-static void 
+static void
 mgga_c_vsxc_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);

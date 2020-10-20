@@ -22,7 +22,7 @@ static const double a_m06l[12] = {
 static const double d_m06l[6] = {0.6012244, 0.004748822, -0.008635108, -0.000009308062, 0.00004482811, 0.0};
 
 static const double a_m06hf[12] = {
-   1.179732e-01, -1.066708e+00, -1.462405e-01,  7.481848e+00,  3.776679e+00, -4.436118e+01, 
+   1.179732e-01, -1.066708e+00, -1.462405e-01,  7.481848e+00,  3.776679e+00, -4.436118e+01,
   -1.830962e+01,  1.003903e+02,  3.864360e+01, -9.806018e+01, -2.557716e+01,  3.590404e+01
 };
 static const double d_m06hf[6] = {-1.179732e-01, -2.500000e-03, -1.180065e-02, 0.0, 0.0, 0.0};
@@ -138,7 +138,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m06 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  mgga_x_m06l_init, NULL, 
+  mgga_x_m06l_init, NULL,
   NULL, NULL, work_mgga,
 };
 
@@ -170,6 +170,6 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_revm06 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  mgga_x_m06l_init, NULL, 
+  mgga_x_m06l_init, NULL,
   NULL, NULL, work_mgga,
 };

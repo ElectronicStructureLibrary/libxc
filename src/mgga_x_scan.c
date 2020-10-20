@@ -26,7 +26,7 @@ static const char *scan_desc[N_PAR_SCAN] = {"c1 parameter", "c2 parameter", "d p
 static const double par_scan[N_PAR_SCAN] = {0.667, 0.8, 1.24, 0.065};
 static const double par_revscan[N_PAR_SCAN] = {0.607, 0.7, 1.37, 0.065};
 
-static void 
+static void
 mgga_x_scan_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);

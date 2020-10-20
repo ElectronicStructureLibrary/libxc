@@ -16,7 +16,7 @@ typedef struct{
   double alpha;
 } gga_x_vmt84_params;
 
-static void 
+static void
 gga_x_vmt84_init(xc_func_type *p)
 {
   gga_x_vmt84_params *params;
@@ -56,7 +56,7 @@ const xc_func_info_type xc_func_info_gga_x_vmt84_pbe = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_x_vmt84_init, NULL, 
+  gga_x_vmt84_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -72,6 +72,6 @@ const xc_func_info_type xc_func_info_gga_x_vmt84_ge = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_x_vmt84_init, NULL, 
+  gga_x_vmt84_init, NULL,
   NULL, work_gga, NULL
 };

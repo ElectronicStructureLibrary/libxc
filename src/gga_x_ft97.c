@@ -16,7 +16,7 @@ typedef struct{
   double beta0, beta1, beta2;
 } gga_x_ft97_params;
 
-static void 
+static void
 gga_x_ft97_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
@@ -28,7 +28,7 @@ static const char  *ft97_names[FT97_N_PAR]  = {"_beta0", "_beta1", "_beta2"};
 static const char  *ft97_desc[FT97_N_PAR]   = {
   "beta0", "beta1", "beta2"
 };
-static const double ft97a_values[FT97_N_PAR] = 
+static const double ft97a_values[FT97_N_PAR] =
   {0.00293, 0.0, 0.0};
 /* These parameters are what Filatov and Thiel actually used, not
    the ones they published in the paper... the differences being that
@@ -53,7 +53,7 @@ const xc_func_info_type xc_func_info_gga_x_ft97_a = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {FT97_N_PAR, ft97_names, ft97_desc, ft97a_values, set_ext_params_cpy},
-  gga_x_ft97_init, NULL, 
+  gga_x_ft97_init, NULL,
   NULL, work_gga, NULL
 };
 

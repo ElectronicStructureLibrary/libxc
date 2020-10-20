@@ -16,7 +16,7 @@ typedef struct {
   double ax;
 } lda_k_tf_params;
 
-static void 
+static void
 lda_k_tf_init(xc_func_type *p)
 {
   lda_k_tf_params *params;

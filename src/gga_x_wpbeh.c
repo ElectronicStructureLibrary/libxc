@@ -27,7 +27,7 @@
 
    Also the whole mess with the rescaling of s is explained in
 
-   *) TM Henderson, AF Izmaylov, G Scalmani, and GE Scuseria, 
+   *) TM Henderson, AF Izmaylov, G Scalmani, and GE Scuseria,
       J. Chem. Phys. 131, 044108 (2009)
 */
 
@@ -59,6 +59,6 @@ const xc_func_info_type xc_func_info_gga_x_wpbeh = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
   {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
-  xc_gga_x_wpbeh_init, NULL, 
+  xc_gga_x_wpbeh_init, NULL,
   NULL, work_gga, NULL
 };

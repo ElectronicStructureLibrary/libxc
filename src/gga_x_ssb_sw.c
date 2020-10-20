@@ -17,7 +17,7 @@ typedef struct{
 } gga_x_ssb_sw_params;
 
 
-static void 
+static void
 gga_x_ssb_sw_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
@@ -52,7 +52,7 @@ const xc_func_info_type xc_func_info_gga_x_ssb_sw = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {SSB_N_PAR, ssb_names, ssb_desc, ssb_values, set_ext_params_cpy},
-  gga_x_ssb_sw_init, NULL, 
+  gga_x_ssb_sw_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -67,8 +67,8 @@ gga_x_ssb_init(xc_func_type *p)
   static double par_x_ssb_sw[] = {1.071769, 0.137574, 0.187883, 0.137574*(1.0 + 1.205643), 6.635315};
   static double par_x_kt[] = {-1, 0.1};
   par_x_kt[0] = u*F*X_FACTOR_C*B*(X2S*X2S);
-  
-  xc_mix_init(p, 3, funcs_id, funcs_coef);  
+
+  xc_mix_init(p, 3, funcs_id, funcs_coef);
 
   xc_func_set_ext_params(p->func_aux[1], par_x_ssb_sw);
   xc_func_set_ext_params(p->func_aux[2], par_x_kt);
@@ -87,7 +87,7 @@ const xc_func_info_type xc_func_info_gga_x_ssb = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_x_ssb_init, NULL, 
+  gga_x_ssb_init, NULL,
   NULL, NULL, NULL
 };
 
@@ -102,10 +102,10 @@ gga_x_ssb_d_init(xc_func_type *p)
 
   static double par_x_ssb_sw[] = {1.079966, 0.197465, 0.272729, 0.197465*(1.0 + 0.749940), 5.873645};
   static double par_x_kt[] = {-1, 0.1};
-  
+
   par_x_kt[0] = u*F*X_FACTOR_C*B*(X2S*X2S);
-  
-  xc_mix_init(p, 3, funcs_id, funcs_coef);  
+
+  xc_mix_init(p, 3, funcs_id, funcs_coef);
 
   xc_func_set_ext_params(p->func_aux[1], par_x_ssb_sw);
   xc_func_set_ext_params(p->func_aux[2], par_x_kt);
@@ -123,7 +123,7 @@ const xc_func_info_type xc_func_info_gga_x_ssb_d = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_x_ssb_d_init, NULL, 
+  gga_x_ssb_d_init, NULL,
   NULL, NULL, NULL
 };
 

@@ -18,7 +18,7 @@ typedef struct {
 static lda_c_lp96_params c_lp96 = {-0.0603,   0.0175, -0.00053};
 static lda_c_lp96_params k_lp96 = { 0.03777, -0.01002, 0.00039};
 
-static void 
+static void
 lda_c_lp96_init(xc_func_type *p)
 {
   lda_c_lp96_params *params;

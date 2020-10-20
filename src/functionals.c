@@ -17,7 +17,7 @@
 #include <strings.h>
 #endif
 
-extern xc_func_info_type 
+extern xc_func_info_type
   *xc_lda_known_funct[],
   *xc_hyb_lda_known_funct[],
   *xc_gga_known_funct[],
@@ -48,7 +48,7 @@ int xc_functional_get_number(const char *name)
       break;
     }
   }
-  
+
   return key;
 }
 
@@ -206,7 +206,7 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
   // host memory (libxc_malloc instead returns memory than can be read
   // from GPU and CPU).
   xc_func_info_type * finfo = (xc_func_info_type *) libxc_malloc(sizeof(xc_func_info_type));
-  
+
   switch(xc_family_from_id(functional, NULL, &number)){
   case(XC_FAMILY_LDA):
     *finfo = *xc_lda_known_funct[number];
@@ -228,7 +228,7 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
   }
 
   func->info = finfo;
-  
+
   /* see if we need to initialize the functional */
   if(func->info->init != NULL)
     func->info->init(func);
@@ -277,7 +277,7 @@ void xc_func_end(xc_func_type *func)
   /* deallocate any used parameter */
   if(func->params != NULL)
     libxc_free(func->params);
-  
+
   libxc_free((void *) func->info);
 
   xc_func_nullify(func);
@@ -323,7 +323,7 @@ xc_func_set_ext_params_name(xc_func_type *p, const char *name, double par)
   double *ext_params;
 
   assert(p != NULL && p->info->ext_params.n > 0);
-  
+
   ext_params = (double *) libxc_malloc(p->info->ext_params.n*sizeof(double));
   for(ii=0; ii<p->info->ext_params.n; ii++){
     if(strcmp(p->info->ext_params.names[ii], name) == 0)

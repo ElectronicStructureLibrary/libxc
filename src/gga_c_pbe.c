@@ -45,34 +45,34 @@ static const char  *pbe_desc[PBE_N_PAR]   = {
   "beta constant",
   "(1 - ln(2))/Pi^2 in the PBE",
   "Multiplies the A t^2 term. Used in the SPBE functional"};
-static const double pbe_values[PBE_N_PAR] = 
+static const double pbe_values[PBE_N_PAR] =
   {0.06672455060314922, 0.031090690869654895034, 1.0};
-static const double pbe_sol_values[PBE_N_PAR] = 
+static const double pbe_sol_values[PBE_N_PAR] =
   {0.046, 0.031090690869654895034, 1.0};
 /* gamma = beta^2/(2.0*0.197363) */
-static const double pbe_xpbe_values[PBE_N_PAR] = 
+static const double pbe_xpbe_values[PBE_N_PAR] =
   {0.089809, 0.02043355766025040154, 1.0};
 /* beta = 3*10/(2*Pi^2) */
-static const double pbe_jrgx_values[PBE_N_PAR] = 
-  {0.037526364314979061530, 0.031090690869654895034, 1.0}; 
-static const double pbe_rge2_values[PBE_N_PAR] = 
+static const double pbe_jrgx_values[PBE_N_PAR] =
+  {0.037526364314979061530, 0.031090690869654895034, 1.0};
+static const double pbe_rge2_values[PBE_N_PAR] =
   {0.053, 0.031090690869654895034, 1.0};
 /* beta = 3.0*0.260/(Pi^2) */
 static const double pbe_apbe_values[PBE_N_PAR] =
   {0.079030523241023461723, 0.031090690869654895034, 1.0};
-/* the sPBE functional contains one term less than the original 
+/* the sPBE functional contains one term less than the original
    PBE, so we set it to zero with b=0*/
-static const double pbe_spbe_values[PBE_N_PAR] = 
+static const double pbe_spbe_values[PBE_N_PAR] =
   {0.06672455060314922, 0.031090690869654895034, 0.0};
-static const double pbe_int_values[PBE_N_PAR] = 
+static const double pbe_int_values[PBE_N_PAR] =
   {0.052, 0.031090690869654895034, 1.0};
-static const double pbe_fe_values[PBE_N_PAR] = 
+static const double pbe_fe_values[PBE_N_PAR] =
   {0.043, 0.031090690869654895034, 1.0};
-static const double pbe_mol_values[PBE_N_PAR] = 
+static const double pbe_mol_values[PBE_N_PAR] =
   {0.08384, 0.031090690869654895034, 1.0};
-static const double pbe_tm_values[PBE_N_PAR] = 
+static const double pbe_tm_values[PBE_N_PAR] =
   {-0.052728, -0.0156, 1.0};
-static const double pbe_mggac_values[PBE_N_PAR] = 
+static const double pbe_mggac_values[PBE_N_PAR] =
   {0.030, 0.031090690869654895034, 1.0};
 
 #include "decl_gga.h"
@@ -91,7 +91,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_values, set_ext_params_cpy},
-  gga_c_pbe_init, NULL, 
+  gga_c_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -107,7 +107,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe_sol = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_sol_values, set_ext_params_cpy},
-  gga_c_pbe_init, NULL, 
+  gga_c_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -123,7 +123,7 @@ const xc_func_info_type xc_func_info_gga_c_xpbe = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_xpbe_values, set_ext_params_cpy},
-  gga_c_pbe_init, NULL, 
+  gga_c_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -139,7 +139,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe_jrgx = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_jrgx_values, set_ext_params_cpy},
-  gga_c_pbe_init, NULL, 
+  gga_c_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -155,7 +155,7 @@ const xc_func_info_type xc_func_info_gga_c_rge2 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_rge2_values, set_ext_params_cpy},
-  gga_c_pbe_init, NULL, 
+  gga_c_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -171,7 +171,7 @@ const xc_func_info_type xc_func_info_gga_c_apbe = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_apbe_values, set_ext_params_cpy},
-  gga_c_pbe_init, NULL, 
+  gga_c_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -187,7 +187,7 @@ const xc_func_info_type xc_func_info_gga_c_spbe = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_spbe_values, set_ext_params_cpy},
-  gga_c_pbe_init, NULL, 
+  gga_c_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -203,7 +203,7 @@ const xc_func_info_type xc_func_info_gga_c_pbeint = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_int_values, set_ext_params_cpy},
-  gga_c_pbe_init, NULL, 
+  gga_c_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -219,7 +219,7 @@ const xc_func_info_type xc_func_info_gga_c_pbefe = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_fe_values, set_ext_params_cpy},
-  gga_c_pbe_init, NULL, 
+  gga_c_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -235,7 +235,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe_mol = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_mol_values, set_ext_params_cpy},
-  gga_c_pbe_init, NULL, 
+  gga_c_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -251,7 +251,7 @@ const xc_func_info_type xc_func_info_gga_c_tm_pbe = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_tm_values, set_ext_params_cpy},
-  gga_c_pbe_init, NULL, 
+  gga_c_pbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -267,6 +267,6 @@ const xc_func_info_type xc_func_info_gga_c_mggac = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1.0e-12,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_mggac_values, set_ext_params_cpy},
-  gga_c_pbe_init, NULL, 
+  gga_c_pbe_init, NULL,
   NULL, work_gga, NULL
 };

@@ -14,7 +14,7 @@ typedef struct{
   double a, b;
 } mgga_k_pc07_params;
 
-static void 
+static void
 mgga_k_pc07_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);

@@ -40,7 +40,7 @@ static double ai02_data[22] = {
   -.00000000000000027,  .00000000000000003
 };
 
-/* 
+/*
    Compute the exponentially scaled modified (hyperbolic)
    Bessel function of the first kind of order zero.
 
@@ -86,7 +86,7 @@ double xc_bessel_I0(const double x)
     fprintf(stderr, "Overflow in bessel_I0\n");
 #endif
   }
-  
+
   return r;
 }
 

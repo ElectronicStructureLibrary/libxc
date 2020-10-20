@@ -22,7 +22,7 @@ typedef struct{
   double Fermi_D_cnst; /* correction term similar to 10.1063/1.2800011 */
 } mgga_c_m06l_params;
 
-static void 
+static void
 mgga_c_m06l_init(xc_func_type *p)
 {
   assert(p != NULL);
@@ -71,7 +71,7 @@ static const double m06hf_values[M06L_N_PAR] = {
   1e-10
 };
 static const double m06_values[M06L_N_PAR] = {
-  0.06, 0.0031, 0.00515088, 0.00304966,  
+  0.06, 0.0031, 0.00515088, 0.00304966,
   5.094055e-01, -1.491085e+00,  1.723922e+01, -3.859018e+01,  2.845044e+01,
   3.741539e+00,  2.187098e+02, -4.531252e+02,  2.936479e+02, -6.287470e+01,
   4.905945e-01, -1.437348e-01,  2.357824e-01,  1.871015e-03, -3.788963e-03,  0.000000e+00,
@@ -79,7 +79,7 @@ static const double m06_values[M06L_N_PAR] = {
   1e-10
 };
 static const double m062x_values[M06L_N_PAR] = {
-  0.06, 0.0031, 0.00515088, 0.00304966,  
+  0.06, 0.0031, 0.00515088, 0.00304966,
   3.097855e-01, -5.528642e+00,  1.347420e+01, -3.213623e+01,  2.846742e+01,
   8.833596e-01,  3.357972e+01, -7.043548e+01,  4.978271e+01, -1.852891e+01,
   6.902145e-01,  9.847204e-02,  2.214797e-01, -1.968264e-03, -6.775479e-03,  0.000000e+00,
@@ -135,7 +135,7 @@ const xc_func_info_type xc_func_info_mgga_c_m06_hf = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1.0e-12,
   {M06L_N_PAR, m06l_names, m06l_desc, m06hf_values, set_ext_params_cpy},
-  mgga_c_m06l_init, NULL, 
+  mgga_c_m06l_init, NULL,
   NULL, NULL, work_mgga,
 };
 

@@ -17,7 +17,7 @@ typedef struct{
   double alpha;
 } gga_x_lsrpbe_params;
 
-static void 
+static void
 gga_x_lsrpbe_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
@@ -34,7 +34,7 @@ static const char  *lsrpbe_desc[LSRPBE_N_PAR]   = {
 static const double lsrpbe_values[LSRPBE_N_PAR] =
   {0.8040, MU_PBE, 0.00680892};
 
-static void 
+static void
 lsrpbe_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   gga_x_lsrpbe_params *params;
@@ -64,6 +64,6 @@ const xc_func_info_type xc_func_info_gga_x_lsrpbe = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {LSRPBE_N_PAR, lsrpbe_names, lsrpbe_desc, lsrpbe_values, lsrpbe_set_ext_params},
-  gga_x_lsrpbe_init, NULL, 
+  gga_x_lsrpbe_init, NULL,
   NULL, work_gga, NULL
 };

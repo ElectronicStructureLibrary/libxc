@@ -23,7 +23,7 @@ static const char *desc[N_PAR] = {"beta parameter"};
 static const double lb94_par[N_PAR] = {0.05};
 static const double revlb94_par[N_PAR] = {0.004};
 
-static void 
+static void
 gga_x_fd_lb94_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
@@ -38,7 +38,7 @@ static inline double FT_inter(int n, double x)
   double mlog;
 
   mlog = (n == 0) ? 1 : log(x);
-  
+
   return -3/4 * fd_beta*fd_csi*mlog /
     (1 + 3*fd_beta*fd_csi*x*log(fd_csi*x + sqrt(fd_csi*fd_csi*x*x + 1)));
 }
@@ -47,7 +47,7 @@ GPU_FUNCTION
 static void func0(double *x, int n, void *dummy)
 {
   int ii;
-  
+
   for(ii=0; ii<n; ii++)
     x[ii] = FT_inter(0, x[ii]);
 }
@@ -56,7 +56,7 @@ GPU_FUNCTION
 static void func1(double *x, int n, void *dummy)
 {
   int ii;
-  
+
   for(ii=0; ii<n; ii++)
     x[ii] = FT_inter(1, x[ii]);
 }

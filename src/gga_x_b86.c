@@ -58,7 +58,7 @@ const xc_func_info_type xc_func_info_gga_x_b86 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {B86_N_PAR, b86_names, b86_desc, b86_values, set_ext_params_cpy},
-  gga_x_b86_init, NULL, 
+  gga_x_b86_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -74,7 +74,7 @@ const xc_func_info_type xc_func_info_gga_x_b86_mgc = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {B86_N_PAR, b86_names, b86_desc, b86_mgc_values, set_ext_params_cpy},
-  gga_x_b86_init, NULL, 
+  gga_x_b86_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -90,7 +90,7 @@ const xc_func_info_type xc_func_info_gga_x_b86_r = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {B86_N_PAR, b86_names, b86_desc, b86_r_values, set_ext_params_cpy},
-  gga_x_b86_init, NULL, 
+  gga_x_b86_init, NULL,
   NULL, work_gga, NULL
 
 };

@@ -19,8 +19,8 @@ hyb_gga_xc_edf2_init(xc_func_type *p)
 
   static double par_x_b88[] = {0.0035, 6.0};
   static double par_c_lyp[] = {0.055, 0.158, 0.25, 0.3505};
-  
-  xc_mix_init(p, 6, funcs_id, funcs_coef);  
+
+  xc_mix_init(p, 6, funcs_id, funcs_coef);
   xc_func_set_ext_params(p->func_aux[2], par_x_b88);
   xc_func_set_ext_params(p->func_aux[5], par_c_lyp);
 
@@ -39,6 +39,6 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_edf2 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_gga_xc_edf2_init, 
+  hyb_gga_xc_edf2_init,
   NULL, NULL, NULL, NULL
 };

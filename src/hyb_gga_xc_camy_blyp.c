@@ -21,13 +21,13 @@ xc_hyb_gga_xc_camy_blyp_init(xc_func_type *p)
      HF exchange, which in the original reference is alpha+beta.
   */
   double alpha, beta, omega;
-  
+
   alpha = 1.00;
   beta  =-0.80;
   omega = 0.44;	/* we use omega for gamma here, 'cause
                    both denote dampening parameters for
                    range related interactions */
-  
+
   funcs_coef[0] = 1.0 - alpha;
   funcs_coef[1] =-beta;
   funcs_coef[2] = 1.0;
@@ -35,7 +35,7 @@ xc_hyb_gga_xc_camy_blyp_init(xc_func_type *p)
   xc_mix_init(p, 3, funcs_id, funcs_coef);
 
   xc_func_set_ext_params(p->func_aux[1], &omega);
-  
+
   xc_hyb_init_camy(p, omega, alpha, beta);
 }
 

@@ -19,7 +19,7 @@ static const char  *names[N_PAR]  = {"_a"};
 static const char  *desc[N_PAR]   = {"a"};
 static const double lkt_val[N_PAR] = {1.3};
 
-static void 
+static void
 gga_k_lkt_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);

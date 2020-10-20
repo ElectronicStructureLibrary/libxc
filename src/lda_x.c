@@ -16,13 +16,13 @@
 #define XC_LDA_X_RAE       549   /* Rae self-energy corrected exchange  */
 #define XC_HYB_LDA_XC_LDA0 177   /* LDA0: hybrid LDA exchange           */
 
-/*  
+/*
     Slater's Xalpha functional (Exc = alpha Ex)
-    
+
     Note: this is to be added to the exchange
 
     This correlation functional, added to the exchange functional, produces
-    a total exchange-correlation functional, Exc, equal to 3/2 * alpha * Ex 
+    a total exchange-correlation functional, Exc, equal to 3/2 * alpha * Ex
     Setting alpha equal to one gives the *usual* Slater Xalpha functional,
     whereas alpha equal to 2/3 just leaves the exchange functional unchanged.
 */
@@ -35,7 +35,7 @@ typedef struct{
   double alpha;       /* parameter for Xalpha functional */
 } lda_x_params;
 
-static void 
+static void
 lda_x_init(xc_func_type *p)
 {
   lda_x_params *params;
@@ -71,7 +71,7 @@ static const char  *xalpha_names[]  = {"alpha"};
 static const char  *xalpha_desc[]   = {"X-alpha multiplicative parameter"};
 static const double xalpha_values[] = {1.0};
 
-static void 
+static void
 set_ext_params(xc_func_type *p, const double *ext_params)
 {
   lda_x_params *params;
@@ -102,7 +102,7 @@ static const char  *N_names[]  = {"N"};
 static const char  *N_desc[]   = {"Number of electrons"};
 static const double N_values[] = {1.0};
 
-static void 
+static void
 N_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   lda_x_params *params;

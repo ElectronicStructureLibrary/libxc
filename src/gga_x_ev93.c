@@ -35,7 +35,7 @@ static const double ev93_values[EV93_N_PAR] =
   {1.647127, 0.980118, 0.017399, 1.523671, 0.367229, 0.011282};
 static const double ecmv92_values[EV93_N_PAR] =
   {27.8428, 11.7683, 0.0, 27.5026, 5.7728, 0.0};
-  
+
 #ifdef __cplusplus
 extern "C"
 #endif

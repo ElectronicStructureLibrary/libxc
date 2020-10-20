@@ -13,7 +13,7 @@
 
 /* Note: Do not forget to add a correlation (LDA) functional to the
    LB94.
-   
+
    Note 2: The 160 value is hardcoded in xc.h and libxc_master.F90 to
    define XC_GGA_XC_LB to keep backwards compatibility.
 
@@ -39,7 +39,7 @@ gga_lb_init(xc_func_type *p)
   assert(p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_lb_params));
   params = (gga_x_lb_params *) (p->params);
-  
+
   switch(p->info->number){
   case XC_GGA_X_LB:
     params->alpha = 1.0;

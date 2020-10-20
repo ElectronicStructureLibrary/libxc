@@ -17,7 +17,7 @@ typedef struct{
   double C0_c[4];
 } mgga_c_tpss_params;
 
-static void 
+static void
 mgga_c_tpss_init(xc_func_type *p)
 {
   assert(p != NULL && p->params == NULL);

@@ -15,7 +15,7 @@ typedef struct{
   double ltafrac;
 } mgga_c_ltapw_params;
 
-static void 
+static void
 mgga_c_ltapw_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);

@@ -29,8 +29,6 @@ xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix
     p->mix_coef[ii] = mix_coef[ii];
     p->func_aux[ii] = (xc_func_type *) libxc_malloc(sizeof(xc_func_type));
     xc_func_init (p->func_aux[ii], funcs_id[ii], p->nspin);
-    /* Ensure all components are evaluated with the same threshold */
-    xc_func_set_dens_threshold(p->func_aux[ii], p->dens_threshold);
   }
 
   /* initialize variables */

@@ -93,7 +93,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_00 = {
   XC_FAMILY_GGA,
   {&xc_ref_Verma2014_18A534, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-10,
+  1e-8,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_cam_qtp_init,
   NULL, NULL, NULL, NULL
@@ -109,7 +109,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_01 = {
   XC_FAMILY_GGA,
   {&xc_ref_Jin2016_034107, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-10,
+  1e-8,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_cam_qtp_init,
   NULL, NULL, NULL, NULL
@@ -125,7 +125,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_02 = {
   XC_FAMILY_GGA,
   {&xc_ref_Haiduke2018_184106, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-10,
+  1e-8,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_cam_qtp_init,
   NULL, NULL, NULL, NULL
@@ -141,7 +141,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_qtp = {
   XC_FAMILY_GGA,
   {&xc_ref_Haiduke2018_184106, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-10,
+  1e-8,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_cam_qtp_init,
   NULL, NULL, NULL, NULL

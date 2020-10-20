@@ -20,7 +20,7 @@ xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix
   assert(p != NULL);
   assert(p->func_aux == NULL && p->mix_coef == NULL);
 
-  /* allocate structures needed for */
+  /* allocate structures needed for mixed functional */
   p->n_func_aux = n_funcs;
   p->mix_coef   = (double *) libxc_malloc(n_funcs*sizeof(double));
   p->func_aux   = (xc_func_type **) libxc_malloc(n_funcs*sizeof(xc_func_type *));
@@ -29,6 +29,8 @@ xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix
     p->mix_coef[ii] = mix_coef[ii];
     p->func_aux[ii] = (xc_func_type *) libxc_malloc(sizeof(xc_func_type));
     xc_func_init (p->func_aux[ii], funcs_id[ii], p->nspin);
+    /* Ensure all components are evaluated with the same threshold */
+    xc_func_set_dens_threshold(p->func_aux[ii], p->dens_threshold);
   }
 
   /* initialize variables */

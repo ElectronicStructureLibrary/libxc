@@ -11,7 +11,8 @@
     Tawada et al, J. Chem. Phys. 120, 8425 (2004); doi:10.1063/1.1688752
 *)
 att_erf_aux1 := a -> sqrt(Pi)*erf(1/(2*a)):
-att_erf_aux2 := a -> exp(-1/(4*a^2)) - 1:
+att_erf_a_cutoff := 1e6:
+att_erf_aux2 := a -> my_piecewise3(a < att_erf_a_cutoff, exp(-1/(4*a^2)) - 1, -1/(4*a^2)):
 att_erf_aux3 := a -> 2*a^2*att_erf_aux2(a) + 1/2:
 attenuation_erf := a ->
   1 - 8/3*a*(att_erf_aux1(a) + 2*a*(att_erf_aux2(a) - att_erf_aux3(a))):

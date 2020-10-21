@@ -19,4 +19,4 @@ mgga_c_m05.c          mgga_x_2d_js17.c        mgga_x_lta.c     mgga_x_mvs.c     
 mgga_c_m06l.c         mgga_x_2d_prhg07.c      mgga_x_m06l.c    mgga_x_pbe_gx.c    mgga_x_tpss.c     \
 mgga_c_m08.c          mgga_x_br89.c           mgga_x_m08.c     mgga_x_pkzb.c      mgga_x_vt84.c     \
 mgga_c_pkzb.c         mgga_x_br89_explicit.c  mgga_x_m11.c     mgga_x_regtpss.c   mgga_x_mggac.c    \
-mgga_x_th.c           mgga_x_mbr.c            mgga_c_ltapw.c   mgga_x_jk.c
+mgga_x_th.c           mgga_x_mbr.c            mgga_c_ltapw.c   mgga_x_jk.c        mgga_x_r2scan.c

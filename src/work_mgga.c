@@ -80,32 +80,32 @@ work_mgga(const XC(func_type) *p, size_t np,
 
 #else
   for(ip = 0; ip < np; ip++){
-    /* sanity check of input parameters */
-    dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
-    my_rho[0] = max(p->dens_threshold, rho[0]);
-    /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
-    my_tau[0]   = max(MIN_SIGMA, tau[0]);
-    /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
-    my_sigma[0] = min(max(MIN_SIGMA, sigma[0]), 8.0*my_rho[0]*my_tau[0]);
-    /* lapl can have any values */
-    if(p->nspin == XC_POLARIZED){
-      double s_ave;
-
-      my_rho[1] = max(p->dens_threshold, rho[1]);
-      my_tau[1]   = max(MIN_SIGMA, tau[1]);
-
-      my_sigma[2] = min(max(MIN_SIGMA, sigma[2]), 8.0*my_rho[1]*my_tau[1]);
-
-      my_sigma[1] = sigma[1];
-      s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
-      /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
-      my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
-      /* Since |grad n_up - grad n_down|^2 > 0 we also have */
-      my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
-    }
-
     /* Screen low densities */
+    dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
     if(dens >= p->dens_threshold) {
+      /* sanity check of input parameters */
+      my_rho[0] = max(p->dens_threshold, rho[0]);
+      /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
+      my_tau[0]   = max(MIN_SIGMA, tau[0]);
+      /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
+      my_sigma[0] = min(max(MIN_SIGMA, sigma[0]), 8.0*my_rho[0]*my_tau[0]);
+      /* lapl can have any values */
+      if(p->nspin == XC_POLARIZED){
+        double s_ave;
+
+        my_rho[1] = max(p->dens_threshold, rho[1]);
+        my_tau[1]   = max(MIN_SIGMA, tau[1]);
+
+        my_sigma[2] = min(max(MIN_SIGMA, sigma[2]), 8.0*my_rho[1]*my_tau[1]);
+
+        my_sigma[1] = sigma[1];
+        s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
+        /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
+        my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
+        /* Since |grad n_up - grad n_down|^2 > 0 we also have */
+        my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
+      }
+
       if(p->nspin == XC_UNPOLARIZED)
         func_unpol(p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
       else if(p->nspin == XC_POLARIZED)
@@ -183,32 +183,32 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
   internal_counters_mgga_random(&(p->dim), ip, 0, &rho, &sigma, &lapl, &tau,
                                 &zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
 
-  /* sanity check of input parameters */
-  dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
-  my_rho[0]   = max(p->dens_threshold, rho[0]);
-  /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
-  my_tau[0]   = max(MIN_SIGMA, tau[0]);
-  /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
-  my_sigma[0] = min(max(MIN_SIGMA, sigma[0]), 8.0*my_rho[0]*my_tau[0]);
-  /* lapl can have any values */
-  if(p->nspin == XC_POLARIZED){
-    double s_ave;
-
-    my_rho[1] = max(p->dens_threshold, rho[1]);
-    my_tau[1]   = max(MIN_SIGMA, tau[1]);
-
-    my_sigma[2] = min(max(MIN_SIGMA, sigma[2]), 8.0*my_rho[1]*my_tau[1]);
-
-    my_sigma[1] = sigma[1];
-    s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
-    /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
-    my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
-    /* Since |grad n_up - grad n_down|^2 > 0 we also have */
-    my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
-  }
-
   /* Screen low densities */
+  dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
   if(dens >= p->dens_threshold) {
+    /* sanity check of input parameters */
+    my_rho[0]   = max(p->dens_threshold, rho[0]);
+    /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
+    my_tau[0]   = max(MIN_SIGMA, tau[0]);
+    /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
+    my_sigma[0] = min(max(MIN_SIGMA, sigma[0]), 8.0*my_rho[0]*my_tau[0]);
+    /* lapl can have any values */
+    if(p->nspin == XC_POLARIZED){
+      double s_ave;
+
+      my_rho[1] = max(p->dens_threshold, rho[1]);
+      my_tau[1]   = max(MIN_SIGMA, tau[1]);
+
+      my_sigma[2] = min(max(MIN_SIGMA, sigma[2]), 8.0*my_rho[1]*my_tau[1]);
+
+      my_sigma[1] = sigma[1];
+      s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
+      /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
+      my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
+      /* Since |grad n_up - grad n_down|^2 > 0 we also have */
+      my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
+    }
+
     if(p->nspin == XC_UNPOLARIZED)
       func_unpol(p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
     else if(p->nspin == XC_POLARIZED)

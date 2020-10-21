@@ -174,7 +174,7 @@ static void
 hyb_gga_xc_cam_pbeh_init(xc_func_type *p)
 {
   static int   funcs_id  [3] = {XC_GGA_X_PBE, XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
-  static double funcs_coef[3] = {1.0-0.2, 0.8, 1.0};
+  static double funcs_coef[3] = {0.0, 0.0, 1.0}; /* the first two get set by ext_params */
 
   xc_mix_init(p, 3, funcs_id, funcs_coef);
 }

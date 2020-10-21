@@ -91,9 +91,9 @@ libxc_la_FUNC_SOURCES = \
 	hyb_gga_xc_src1_blyp.c gga_k_lkt.c \
 	mgga.c \
 	mgga_x_lta.c mgga_x_tpss.c mgga_x_br89.c mgga_x_gvt4.c		\
-	mgga_x_m06l.c mgga_x_tau_hcth.c mgga_x_2d_prhg07.c mgga_x_2d_prp10.c	\
-	mgga_x_pkzb.c hyb_mgga_x_m05.c mgga_x_m08.c mgga_x_ms.c		\
-	mgga_x_mn12.c mgga_c_vsxc.c mgga_c_pkzb.c		\
+	mgga_x_m06l.c mgga_x_tau_hcth.c mgga_x_2d_prhg07.c		\
+	mgga_x_2d_prp10.c mgga_x_pkzb.c hyb_mgga_x_m05.c mgga_x_m08.c	\
+	mgga_x_ms.c mgga_x_mn12.c mgga_c_vsxc.c mgga_c_pkzb.c		\
 	mgga_c_bc95.c mgga_c_m08.c mgga_xc_cc06.c mgga_c_cs.c		\
 	mgga_xc_otpss_d.c mgga_xc_zlp.c hyb_mgga_xc_b88b95.c		\
 	mgga_x_mbeef.c mgga_xc_b97mv.c mgga_x_scan.c mgga_c_scan.c	\
@@ -108,9 +108,10 @@ libxc_la_FUNC_SOURCES = \
 	mgga_x_rtpss.c mgga_x_msb.c mgga_x_mvsb.c mgga_x_regtpss.c	\
 	mgga_x_rscan.c mgga_c_rscan.c mgga_x_2d_js17.c mgga_x_tb09.c	\
 	mgga_x_edmgga.c mgga_x_gdme.c mgga_x_rlda.c mgga_x_revtm.c	\
-	mgga_x_scanl.c mgga_c_scanl.c hyb_mgga_x_js18.c hyb_mgga_x_pjs18.c \
-	mgga_x_mbrxh_bg.c mgga_x_mbrxc_bg.c mgga_x_task.c mgga_x_mggac.c \
-	mgga_x_th.c mgga_x_mbr.c mgga_c_ltapw.c mgga_x_jk.c
+	mgga_x_scanl.c mgga_c_scanl.c hyb_mgga_x_js18.c			\
+	hyb_mgga_x_pjs18.c mgga_x_mbrxh_bg.c mgga_x_mbrxc_bg.c		\
+	mgga_x_task.c mgga_x_mggac.c mgga_x_th.c mgga_x_mbr.c		\
+	mgga_c_ltapw.c mgga_x_jk.c mgga_x_r2scan.c
 
 libxc_la_SOURCES = references.c $(libxc_la_FUNC_SOURCES)
 libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)

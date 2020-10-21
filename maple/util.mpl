@@ -16,8 +16,9 @@ m_abs := (x)      -> my_piecewise3(x > 0, x, -x):
 
 `diff/my_piecewise3` :=
     proc(c, x1, x2, x) my_piecewise3(c, diff(x1, x), diff(x2, x)) end proc:
+
 `diff/my_piecewise5` :=
-    proc(c1, x1, c2, x2, x3, x) my_piecewise5(c1, diff(x1, x), c2, diff(x2, x), diff(x3, x)) end proc:
+    proc(c1, x1, c2, x2, x3, x) my_piecewise5(c1, diff(x1, x), c2, diff(x2, x), diff(x3,x)) end proc:
 
 # This is the derivative of xc_E1_scaled = -exp(x)*Ei(-x) = exp(x)E1(x)
 

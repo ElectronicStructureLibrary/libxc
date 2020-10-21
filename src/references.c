@@ -713,6 +713,20 @@ func_reference_type xc_ref_Furness2019_041119 = {
 };
 
 
+func_reference_type xc_ref_Furness2020_8208 = {
+  "J. W. Furness, A. D. Kaplan, J. Ning, J. P. Perdew, and J. Sun, J. Phys. Chem. Lett. 11, 8208 (2020), pMID: 32876454",
+  "10.1021/acs.jpclett.0c02405",
+  "@article{Furness2020_8208,\n  author = {Furness, James W. and Kaplan, Aaron D. and Ning, Jinliang and Perdew, John P. and Sun, Jianwei},\n  title = {Accurate and Numerically Efficient r2SCAN Meta-Generalized Gradient Approximation},\n  journal = {The Journal of Physical Chemistry Letters},\n  volume = {11},\n  number = {19},\n  pages = {8208-8215},\n  year = {2020},\n  doi = {10.1021/acs.jpclett.0c02405},\n  note ={PMID: 32876454},\n  URL = {https://doi.org/10.1021/acs.jpclett.0c02405}\n}"
+};
+
+
+func_reference_type xc_ref_Furness2020_9248 = {
+  "J. W. Furness, A. D. Kaplan, J. Ning, J. P. Perdew, and J. Sun, J. Phys. Chem. Lett. 11, 9248 (0), pMID: 33073997",
+  "10.1021/acs.jpclett.0c03077",
+  "@article{Furness2020_9248,\n  author = {Furness, James W. and Kaplan, Aaron D. and Ning, Jinliang and Perdew, John P. and Sun, Jianwei},\n  title = {Correction to “Accurate and Numerically Efficient r2SCAN Meta-Generalized Gradient Approximation”},\n  journal = {The Journal of Physical Chemistry Letters},\n  volume = {11},\n  number = {0},\n  pages = {9248-9248},\n  year = {0},\n  doi = {10.1021/acs.jpclett.0c03077},\n  note ={PMID: 33073997},\n  URL = {https://doi.org/10.1021/acs.jpclett.0c03077}\n}"
+};
+
+
 func_reference_type xc_ref_Gaiduk2011_012509 = {
   "A. P. Gaiduk and V. N. Staroverov, Phys. Rev. A 83, 012509 (2011)",
   "10.1103/PhysRevA.83.012509",

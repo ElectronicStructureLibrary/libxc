@@ -70,7 +70,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_b3lyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Yanai2004_51, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  5e-9,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_cam_b3lyp_init, NULL,
   NULL, NULL, NULL
@@ -86,7 +86,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_tuned_cam_b3lyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Okuno2012_29, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  5e-9,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_cam_b3lyp_init, NULL,
   NULL, NULL, NULL
@@ -99,23 +99,29 @@ xc_hyb_gga_xc_rcam_b3lyp_init(xc_func_type *p)
   static int funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_GGA_X_ITYH, XC_GGA_C_LYP};
   static double funcs_coef[4];
 
-  /* Need temp variables since cam_ parameters are initialized in mix_init */
-  static double omega, alpha, beta, cb88;
+  /* Temp for cam_ parameters */
+  static double omega, alpha, beta;
+  /* Temp parameters for functional */
+  static double a, b, cb88;
 
+  a = 0.18352;
+  b = 0.94979;
   omega = 0.33;
-  alpha = 0.18352 + 0.94979;
-  beta  =-0.94979;
   cb88  = 0.95238;
 
-  funcs_coef[0] = 1.0 - alpha - cb88;
-  funcs_coef[1] = cb88;
-  funcs_coef[2] = -beta;
+  funcs_coef[0] = 1.0 - a - cb88;
+  funcs_coef[1] = cb88 - b;
+  funcs_coef[2] = b;
   funcs_coef[3] = 1.0;
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
   xc_func_set_ext_params(p->func_aux[2], &omega);
 
-  xc_hyb_init_cam(p, alpha, beta, omega);
+  /* Libxc hybrid parameters */
+  alpha = a + b;
+  beta  =-b;
+
+  xc_hyb_init_cam(p, omega, alpha, beta);
 }
 
 #ifdef __cplusplus
@@ -128,7 +134,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_rcam_b3lyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Cohen2007_191109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  5e-9,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_rcam_b3lyp_init, NULL,
   NULL, NULL, NULL
@@ -183,7 +189,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_pbeh = {
   XC_FAMILY_GGA,
   {&xc_ref_Chen2018_073803, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32, 
+  1e-15, 
   {CAM_N_PAR, cam_names, cam_desc, cam_values, cam_set_ext_params},
   hyb_gga_xc_cam_pbeh_init,
   NULL, NULL, NULL, NULL

@@ -10,7 +10,7 @@
 #include "util.h"
 
 /************************************************************************
- Implements Tao, Perdew, Staroverov & Scuseria 
+ Implements Tao, Perdew, Staroverov & Scuseria
    meta-Generalized Gradient Approximation.
 
   Exchange part
@@ -27,7 +27,7 @@ typedef struct{
 } mgga_x_tpss_params;
 
 
-static void 
+static void
 mgga_x_tpss_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
@@ -69,9 +69,9 @@ const xc_func_info_type xc_func_info_mgga_x_tpss = {
   XC_FAMILY_MGGA,
   {&xc_ref_Tao2003_146401, &xc_ref_Perdew2004_6898, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-23,
+  1e-15,
   {TPSS_N_PAR, tpss_names, tpss_desc, tpss_values, set_ext_params_cpy},
-  mgga_x_tpss_init, NULL, 
+  mgga_x_tpss_init, NULL,
   NULL, NULL, work_mgga,
 };
 
@@ -85,9 +85,9 @@ const xc_func_info_type xc_func_info_mgga_x_modtpss = {
   XC_FAMILY_MGGA,
   {&xc_ref_Perdew2007_042506, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-23,
+  1e-15,
   {TPSS_N_PAR, tpss_names, tpss_desc, modtpss_values, set_ext_params_cpy},
-  mgga_x_tpss_init, NULL, 
+  mgga_x_tpss_init, NULL,
   NULL, NULL, work_mgga,
 };
 
@@ -101,9 +101,9 @@ const xc_func_info_type xc_func_info_mgga_x_revtpss = {
   XC_FAMILY_MGGA,
   {&xc_ref_Perdew2009_026403, &xc_ref_Perdew2009_026403_err, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-23,
+  1e-15,
   {TPSS_N_PAR, tpss_names, tpss_desc, revtpss_values, set_ext_params_cpy},
-  mgga_x_tpss_init, NULL, 
+  mgga_x_tpss_init, NULL,
   NULL, NULL, work_mgga,
 };
 
@@ -117,8 +117,8 @@ const xc_func_info_type xc_func_info_mgga_x_bloc = {
   XC_FAMILY_MGGA,
   {&xc_ref_Constantin2013_2256, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-23,
+  1e-15,
   {TPSS_N_PAR, tpss_names, tpss_desc, bloc_values, set_ext_params_cpy},
-  mgga_x_tpss_init, NULL, 
+  mgga_x_tpss_init, NULL,
   NULL, NULL, work_mgga,
 };

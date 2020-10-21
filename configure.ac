@@ -14,6 +14,23 @@ AM_INIT_AUTOMAKE
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
+# Check if libm needs to be explicitly linked
+AC_SEARCH_LIBS([sinh], [m])
+AC_SEARCH_LIBS([sincos], [m])
+AC_SEARCH_LIBS([atan2], [m])
+AC_SEARCH_LIBS([tanh], [m])
+AC_SEARCH_LIBS([cosh], [m])
+AC_SEARCH_LIBS([sin], [m])
+AC_SEARCH_LIBS([atan], [m])
+AC_SEARCH_LIBS([exp], [m])
+AC_SEARCH_LIBS([cbrt], [m])
+AC_SEARCH_LIBS([cos], [m])
+AC_SEARCH_LIBS([log], [m])
+AC_SEARCH_LIBS([pow], [m])
+AC_SEARCH_LIBS([round], [m])
+AC_SEARCH_LIBS([sqrt], [m])
+AC_SEARCH_LIBS([erf], [m])
+
 # Library versioning (C:R:A == current:revision:age)
 # See the libtool manual for an explanation of the numbers
 #

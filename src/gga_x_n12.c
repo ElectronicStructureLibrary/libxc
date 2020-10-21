@@ -55,9 +55,9 @@ gga_x_n12_init(xc_func_type *p)
   params = (gga_x_n12_params *) (p->params);
 
   const double (*pCC)[4];
-  
+
   switch(p->info->number){
-  case XC_GGA_X_N12: 
+  case XC_GGA_X_N12:
     pCC = CC_N12;
     break;
   case XC_HYB_GGA_X_N12_SX:
@@ -77,7 +77,7 @@ gga_x_n12_init(xc_func_type *p)
       params->CC[ii][jj] = pCC[ii][jj];
     }
   }
-  
+
 }
 
 #include "decl_gga.h"

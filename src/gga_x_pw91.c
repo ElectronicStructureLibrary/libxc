@@ -81,7 +81,7 @@ const xc_func_info_type xc_func_info_gga_x_pw91 = {
   XC_FAMILY_GGA,
   {&xc_ref_Perdew1991, &xc_ref_Perdew1992_6671, &xc_ref_Perdew1992_6671_err, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {PW91_N_PAR, pw91_names, pw91_desc, pw91_values, set_ext_params_cpy},
   gga_x_pw91_init, NULL,
   NULL, work_gga, NULL
@@ -97,7 +97,7 @@ const xc_func_info_type xc_func_info_gga_x_mpw91 = {
   XC_FAMILY_GGA,
   {&xc_ref_Adamo1998_664, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-31,
+  1e-15,
   {MPW91_N_PAR, mpw91_names, mpw91_desc, mpw91_values, mpw91_set_ext_params},
   gga_x_pw91_init, NULL,
   NULL, work_gga, NULL

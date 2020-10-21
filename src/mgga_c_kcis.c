@@ -27,7 +27,7 @@ const xc_func_info_type xc_func_info_mgga_c_kcis = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
   {0, NULL, NULL, NULL, NULL},
-  NULL, NULL, 
+  NULL, NULL,
   NULL, NULL, work_mgga
 };
 
@@ -54,6 +54,6 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_b0kcis = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
   {0, NULL, NULL, NULL, NULL},
-  xc_hyb_mgga_xc_b0kcis_init, NULL, 
+  xc_hyb_mgga_xc_b0kcis_init, NULL,
   NULL, NULL, work_mgga
 };

@@ -22,9 +22,9 @@ const xc_func_info_type xc_func_info_gga_x_chachiyo = {
   XC_EXCHANGE,
   "Chachiyo exchange",
   XC_FAMILY_GGA,
-  {&xc_ref_Chachiyo2017, NULL, NULL, NULL, NULL},
+  {&xc_ref_Chachiyo2020_3485, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   NULL, work_gga, NULL

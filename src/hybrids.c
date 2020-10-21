@@ -12,7 +12,7 @@ void xc_hyb_init(xc_func_type *p, int n_terms, const int *type,
                  const double *coeff, const double *omega)
 {
   int ii;
-  
+
   p->hyb_number_terms = n_terms;
 
   p->hyb_type  = (int    *) libxc_malloc(n_terms*sizeof(int));
@@ -116,7 +116,7 @@ xc_hyb_type(const xc_func_type *p)
 
   return XC_HYB_MIXTURE;
 }
-  
+
 
 /*------------------------------------------------------*/
 /* returns the mixing coefficient for the hybrid functions */
@@ -125,7 +125,7 @@ xc_hyb_exx_coef(const xc_func_type *p)
 {
   assert(p!=NULL);
   assert(xc_hyb_type(p) == XC_HYB_HYBRID);
-  
+
   return p->hyb_coeff[0];
 }
 

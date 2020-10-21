@@ -17,7 +17,7 @@ typedef struct{
 } gga_k_apbeint_params;
 
 
-static void 
+static void
 gga_k_apbe_init(xc_func_type *p)
 {
   gga_k_apbeint_params *params;
@@ -25,7 +25,7 @@ gga_k_apbe_init(xc_func_type *p)
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_k_apbeint_params));
   params = (gga_k_apbeint_params *) (p->params);
- 
+
   switch(p->info->number){
   case XC_GGA_K_APBEINT:
     params->kappa = 0.8040;
@@ -59,9 +59,9 @@ const xc_func_info_type xc_func_info_gga_k_apbeint = {
   XC_FAMILY_GGA,
   {&xc_ref_Laricchia2011_2439, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_k_apbe_init, NULL, 
+  gga_k_apbe_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -75,8 +75,8 @@ const xc_func_info_type xc_func_info_gga_k_revapbeint = {
   XC_FAMILY_GGA,
   {&xc_ref_Laricchia2011_2439, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_k_apbe_init, NULL, 
+  gga_k_apbe_init, NULL,
   NULL, work_gga, NULL
 };

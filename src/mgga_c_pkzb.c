@@ -27,7 +27,7 @@ const xc_func_info_type xc_func_info_mgga_c_pkzb = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-13, /* densities smaller than 1e-26 give NaNs */
   {0, NULL, NULL, NULL, NULL},
-  NULL, NULL, 
+  NULL, NULL,
   NULL, NULL, work_mgga,
 };
 

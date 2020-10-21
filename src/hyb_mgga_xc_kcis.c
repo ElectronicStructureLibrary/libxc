@@ -52,7 +52,7 @@ hyb_mgga_xc_kcis_init(xc_func_type *p)
 
   funcs_id[1] = XC_MGGA_C_KCIS;
   funcs_coef[1] = 1.0;
-  
+
   xc_mix_init(p, 2, funcs_id, funcs_coef);
   xc_hyb_init_hybrid(p, exx);
 }
@@ -67,7 +67,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_mpw1kcis = {
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2005_2012, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_mgga_xc_kcis_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
@@ -83,7 +83,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_mpwkcis1k = {
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2005_2012, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_mgga_xc_kcis_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
@@ -99,7 +99,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_pbe1kcis = {
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2005_415, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_mgga_xc_kcis_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
@@ -115,7 +115,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_tpss1kcis = {
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2005_43, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_mgga_xc_kcis_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */

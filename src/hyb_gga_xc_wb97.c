@@ -41,7 +41,7 @@ static const gga_xc_wb97_params par_wb97x_d = {
   { 1.00000e+00,  1.79413e+00, -1.20477e+01,  1.40847e+01, -8.50809e+00}
 };
 
-static void 
+static void
 gga_xc_wb97_init(xc_func_type *p)
 {
   gga_xc_wb97_params *params;
@@ -57,7 +57,7 @@ gga_xc_wb97_init(xc_func_type *p)
     break;
   case XC_HYB_GGA_XC_WB97X:
     memcpy(params, &par_wb97x, sizeof(gga_xc_wb97_params));
-    xc_hyb_init_cam(p, 0.3, 1.0, -(1.0 - 1.57706e-01)); 
+    xc_hyb_init_cam(p, 0.3, 1.0, -(1.0 - 1.57706e-01));
     break;
   case XC_HYB_GGA_XC_WB97X_V:
     memcpy(params, &par_wb97x_v, sizeof(gga_xc_wb97_params));

@@ -14,7 +14,7 @@ typedef struct{
   double gamma, beta, lambda;
 } mgga_x_mbr_params;
 
-static void 
+static void
 mgga_x_mbr_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
@@ -40,8 +40,8 @@ const xc_func_info_type xc_func_info_mgga_x_mbr = {
   XC_FAMILY_MGGA,
   {&xc_ref_Patra2019_19639, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-23,
+  1e-15,
   {MBR_N_PAR, mbr_names, mbr_desc, mbr_values, set_ext_params_cpy},
-  mgga_x_mbr_init, NULL, 
+  mgga_x_mbr_init, NULL,
   NULL, NULL, work_mgga,
 };

@@ -16,7 +16,7 @@ typedef struct{
 } gga_k_llp_params;
 
 
-static void 
+static void
 gga_k_llp_init(xc_func_type *p)
 {
   gga_k_llp_params *params;
@@ -24,7 +24,7 @@ gga_k_llp_init(xc_func_type *p)
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_k_llp_params));
   params = (gga_k_llp_params *) (p->params);
-  
+
   /* value of beta in standard Becke 88 functional */
   switch(p->info->number){
   case XC_GGA_K_LLP:
@@ -55,7 +55,7 @@ const xc_func_info_type xc_func_info_gga_k_llp = {
   XC_FAMILY_GGA,
   {&xc_ref_Lee1991_768, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_llp_init, NULL,
   NULL, work_gga, NULL
@@ -71,7 +71,7 @@ const xc_func_info_type xc_func_info_gga_k_fr_b88 = {
   XC_FAMILY_GGA,
   {&xc_ref_Fuentealba1995_31, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_llp_init, NULL,
   NULL, work_gga, NULL

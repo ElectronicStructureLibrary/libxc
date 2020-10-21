@@ -26,7 +26,7 @@ const xc_func_info_type xc_func_info_mgga_x_2d_js17 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Jana2017_4804, NULL, NULL, NULL, NULL},
   XC_FLAGS_2D | MAPLE2C_FLAGS,
-  1.0e-23,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   NULL, NULL, work_mgga,

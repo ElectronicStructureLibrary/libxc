@@ -10,12 +10,12 @@
 #include "util.h"
 
 /************************************************************************
- Correlation energy per-particle and potential of a HEG as parameterized 
- by 
+ Correlation energy per-particle and potential of a HEG as parameterized
+ by
    J.P. Perdew & Y. Wang
    Ortiz & Ballone
 
-Note that the PW modified corresponds to the version of PW used in the 
+Note that the PW modified corresponds to the version of PW used in the
 original PBE routine. This amounts to adding some more digits in some of
 the constants of PW.
 ************************************************************************/
@@ -71,8 +71,8 @@ static const double par_ob[PW_N_PAR] = {
   1.709921
 };
 
-/* The parameters fixed by the low and high-density limits were 
-   taken from the pw_mod functional, i.e. they contain more 
+/* The parameters fixed by the low and high-density limits were
+   taken from the pw_mod functional, i.e. they contain more
    significant digits than the vanilla pw */
 static const double par_pw_rpa[PW_N_PAR] = {
   0.75, 0.75, 1.0,
@@ -107,9 +107,9 @@ static const double par_rpw92[PW_N_PAR] = {
   1.709920934161365617563962776245
 };
 
-static void 
+static void
 lda_c_pw_init(xc_func_type *p)
-{  
+{
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(lda_c_pw_params));
 }
@@ -128,7 +128,7 @@ const xc_func_info_type xc_func_info_lda_c_pw = {
   XC_FAMILY_LDA,
   {&xc_ref_Perdew1992_13244, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {PW_N_PAR, pw_names, pw_desc, par_pw, set_ext_params_cpy},
   lda_c_pw_init, NULL,
   work_lda, NULL, NULL
@@ -144,7 +144,7 @@ const xc_func_info_type xc_func_info_lda_c_pw_mod = {
   XC_FAMILY_LDA,
   {&xc_ref_Perdew1992_13244_mod, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {PW_N_PAR, pw_names, pw_desc, par_pw_mod, set_ext_params_cpy},
   lda_c_pw_init, NULL,
   work_lda, NULL, NULL
@@ -160,7 +160,7 @@ const xc_func_info_type xc_func_info_lda_c_ob_pw = {
   XC_FAMILY_LDA,
   {&xc_ref_Ortiz1994_1391, &xc_ref_Ortiz1994_1391_err, &xc_ref_Perdew1992_13244_mod, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {PW_N_PAR, pw_names, pw_desc, par_ob, set_ext_params_cpy},
   lda_c_pw_init, NULL,
   work_lda, NULL, NULL
@@ -176,7 +176,7 @@ const xc_func_info_type xc_func_info_lda_c_pw_rpa = {
   XC_FAMILY_LDA,
   {&xc_ref_Perdew1992_13244, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {PW_N_PAR, pw_names, pw_desc, par_pw_rpa, set_ext_params_cpy},
   lda_c_pw_init, NULL,
   work_lda, NULL, NULL
@@ -192,7 +192,7 @@ const xc_func_info_type xc_func_info_lda_c_upw92 = {
   XC_FAMILY_LDA,
   {&xc_ref_Ruggeri2018_161105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {PW_N_PAR, pw_names, pw_desc, par_upw92, set_ext_params_cpy},
   lda_c_pw_init, NULL,
   work_lda, NULL, NULL
@@ -208,7 +208,7 @@ const xc_func_info_type xc_func_info_lda_c_rpw92 = {
   XC_FAMILY_LDA,
   {&xc_ref_Ruggeri2018_161105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {PW_N_PAR, pw_names, pw_desc, par_rpw92, set_ext_params_cpy},
   lda_c_pw_init, NULL,
   work_lda, NULL, NULL

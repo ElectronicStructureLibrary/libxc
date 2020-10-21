@@ -17,7 +17,7 @@ typedef struct{
 static gga_k_lc94_params par_k_lc94 =
   {0.093907, 76.320, 0.26608, -0.0809615, 0.000057767, 100.0, 4.0};
 
-static void 
+static void
 gga_k_lc94_init(xc_func_type *p)
 {
   gga_k_lc94_params *params;
@@ -33,7 +33,7 @@ gga_k_lc94_init(xc_func_type *p)
   default:
     fprintf(stderr, "Internal error in gga_k_lc94\n");
     exit(1);
-  } 
+  }
 }
 
 #include "decl_gga.h"
@@ -50,7 +50,7 @@ const xc_func_info_type xc_func_info_gga_k_lc94 = {
   XC_FAMILY_GGA,
   {&xc_ref_Lembarki1994_5328, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-21,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_lc94_init, NULL,
   NULL, work_gga, NULL

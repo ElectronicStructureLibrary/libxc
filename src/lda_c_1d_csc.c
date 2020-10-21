@@ -36,7 +36,7 @@ static const double par_ferro[][10] = { /* ferromagnetic */
   { 5.24, 0.0,   1.568, 0.12856, 0.003201, 2.0, 3.0, 0.0538, 1.56e-5, 2.958}
 };
 
-static void 
+static void
 lda_c_1d_csc_init(xc_func_type *p)
 {
   assert(p != NULL && p->params == NULL);
@@ -51,7 +51,7 @@ static const char  *csc_names[]  = {"interaction", "beta"};
 static const char  *csc_desc[]   = {"0 (exponentially screened) | 1 (soft-Coulomb)", "Screening parameter"};
 static const double csc_values[] = {1, 1.0};
 
-static void 
+static void
 csc_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   lda_c_1d_csc_params *params;
@@ -100,11 +100,11 @@ csc_set_ext_params(xc_func_type *p, const double *ext_params)
   }
 
   if(ppara == NULL){
-    fprintf(stderr, "Invalid value of parameters (inter,b) = (%d,%f) in lda_c_1d_csc_set_params", 
+    fprintf(stderr, "Invalid value of parameters (inter,b) = (%d,%f) in lda_c_1d_csc_set_params",
 	    params->interaction, params->bb);
     exit(1);
   }
-  
+
   //we must copy the values (instead of pointing to them) so that they are available on the GPU
   for(ii = 0; ii < 10; ii++){
     params->para[ii] = ppara[ii];
@@ -124,7 +124,7 @@ const xc_func_info_type xc_func_info_lda_c_1d_csc = {
   XC_FAMILY_LDA,
   {&xc_ref_Casula2006_245427, NULL, NULL, NULL, NULL},
   XC_FLAGS_1D | MAPLE2C_FLAGS,
-  5e-26,
+  1e-25,
   {2, csc_names, csc_desc, csc_values, csc_set_ext_params},
   lda_c_1d_csc_init, NULL,
   work_lda, NULL, NULL

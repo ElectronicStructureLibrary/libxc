@@ -29,10 +29,9 @@ rscan_alpha0 := (rs, z, x, t) -> (np53(rs,z)*m_max(t - x^2/8, 0))/(np53(rs,z)*K_
 rscan_alpha := (rs, z, x, t) -> rscan_alpha0(rs, z, x, t)^3/(rscan_alpha0(rs, z, x ,t)^2 + params_a_alphar):
 
 (* f(alpha) replaced with a polynomial for alpha in [0, 2.5] *)
-rscan_f_alpha := (a, ff) -> my_piecewise3(
-  a <= 2.5, add(ff[8-i]*a^i, i=0..7), -params_a_d*exp(params_a_c2/(1 - a))
-  ):
-
+rscan_f_alpha_small := (a, ff) -> add(ff[8-i]*a^i, i=0..7):
+rscan_f_alpha_large := a -> -params_a_d*exp(params_a_c2/(1 - a)):
+rscan_f_alpha := (a, ff) -> my_piecewise3(a <= 2.5, rscan_f_alpha_small(a, ff), rscan_f_alpha_large(a)):
 rscan_f   := (rs, z, x, u, t) -> (scan_h1x(scan_y(x, rscan_alpha(rs, z, x, t)))*(1 - rscan_f_alpha(rscan_alpha(rs, z, x, t), rscan_fx))
   + scan_h0x*rscan_f_alpha(rscan_alpha(rs, z, x, t), rscan_fx))*scan_gx(x):
 

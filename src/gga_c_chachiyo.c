@@ -17,7 +17,7 @@ typedef struct {
 
 static gga_c_chachiyo_params par_chachiyo = {-0.01554535, 20.4562557, -0.007772675, 27.4203609, 0.06672632};
 
-static void 
+static void
 gga_c_chachiyo_init(xc_func_type *p)
 {
   gga_c_chachiyo_params *params;
@@ -48,7 +48,7 @@ const xc_func_info_type xc_func_info_gga_c_chachiyo = {
   XC_CORRELATION,
   "Chachiyo simple GGA correlation",
   XC_FAMILY_GGA,
-  {&xc_ref_Chachiyo2018_00712, NULL, NULL, NULL, NULL},
+  {&xc_ref_Chachiyo2020_112669, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
   {0, NULL, NULL, NULL, NULL},

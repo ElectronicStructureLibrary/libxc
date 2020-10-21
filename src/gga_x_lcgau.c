@@ -12,13 +12,13 @@
 #define XC_HYB_GGA_X_LCGAU_CORE 709 /* Long-range Gaussian fitted to core excitations */
 #define XC_HYB_GGA_X_LC2GAU 710     /* Long-range Gaussian 2 */
 
-static void 
+static void
 hyb_gga_x_lgau_init(xc_func_type *p)
 {
   int hyb_type[4] = {XC_HYB_ERF_SR, XC_HYB_FOCK, XC_HYB_GAUSSIAN_SR, XC_HYB_GAUSSIAN_SR};
   double hyb_coeff[4] = {-1.0, 1.0, 0.0, 0.0};
   double hyb_omega[4] = {0.0,  0.0, 0.0, 0.0};
-  
+
   xc_hyb_init(p, 4, hyb_type, hyb_coeff, hyb_omega);
 }
 
@@ -41,11 +41,11 @@ static const double lc2gau_values[LCGAU_N_PAR] = {
   0.012, 100.0, 0.01046, -101.0, 0.42
 };
 
-static void 
+static void
 lcgau_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   double a1, a2, k1, k2, omega;
-  
+
   a1    = get_ext_param(p, ext_params, 0);
   k1    = get_ext_param(p, ext_params, 1);
   a2    = get_ext_param(p, ext_params, 2);
@@ -74,9 +74,9 @@ const xc_func_info_type xc_func_info_hyb_gga_x_lcgau = {
   XC_FAMILY_GGA,
   {&xc_ref_Song2007_154109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
-  1e-8,
+  1e-10,
   {LCGAU_N_PAR, lcgau_names, lcgau_desc, lcgau_values, lcgau_set_ext_params},
-  hyb_gga_x_lgau_init, NULL, 
+  hyb_gga_x_lgau_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -93,7 +93,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_lcgau_core = {
   XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1e-8,
   {LCGAU_N_PAR, lcgau_names, lcgau_desc, lcgau_core_values, lcgau_set_ext_params},
-  hyb_gga_x_lgau_init, NULL, 
+  hyb_gga_x_lgau_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -110,6 +110,6 @@ const xc_func_info_type xc_func_info_hyb_gga_x_lc2gau = {
   XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1e-8,
   {LCGAU_N_PAR, lcgau_names, lcgau_desc, lc2gau_values, lcgau_set_ext_params},
-  hyb_gga_x_lgau_init, NULL, 
+  hyb_gga_x_lgau_init, NULL,
   NULL, work_gga, NULL
 };

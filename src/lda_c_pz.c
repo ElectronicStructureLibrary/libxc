@@ -10,8 +10,8 @@
 #include "util.h"
 
 /************************************************************************
- Correlation energy per particle and potential of a HEG as parametrized 
- by 
+ Correlation energy per particle and potential of a HEG as parametrized
+ by
    Perdew & Zunger
    Ortiz & Ballone
 ************************************************************************/
@@ -38,11 +38,11 @@ static lda_c_pz_params pz_original = {
 };
 
 static lda_c_pz_params pz_modified = {
-  {-0.1423, -0.0843},   
-  { 1.0529,  1.3981}, 
-  { 0.3334,  0.2611}, 
+  {-0.1423, -0.0843},
+  { 1.0529,  1.3981},
+  { 0.3334,  0.2611},
   { 0.0311,  0.01555},
-  {-0.048,  -0.0269},   
+  {-0.048,  -0.0269},
   { 0.0020191519406228,  0.00069255121311694},
   {-0.0116320663789130, -0.00480126353790614}
 };
@@ -58,7 +58,7 @@ static lda_c_pz_params pz_ob = {
   {-0.00983,  -0.00300}
 };
 
-static void 
+static void
 lda_c_pz_init(xc_func_type *p)
 {
   lda_c_pz_params *params;
@@ -97,7 +97,7 @@ const xc_func_info_type xc_func_info_lda_c_pz = {
   XC_FAMILY_LDA,
   {&xc_ref_Perdew1981_5048, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   lda_c_pz_init, NULL,
   work_lda, NULL, NULL
@@ -113,7 +113,7 @@ const xc_func_info_type xc_func_info_lda_c_pz_mod = {
   XC_FAMILY_LDA,
   {&xc_ref_Perdew1981_5048_mod, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   lda_c_pz_init, NULL,
   work_lda, NULL, NULL
@@ -129,7 +129,7 @@ const xc_func_info_type xc_func_info_lda_c_ob_pz = {
   XC_FAMILY_LDA,
   {&xc_ref_Ortiz1994_1391, &xc_ref_Ortiz1994_1391_err, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   lda_c_pz_init, NULL,
   work_lda, NULL, NULL

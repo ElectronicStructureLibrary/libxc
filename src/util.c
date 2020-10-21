@@ -399,7 +399,7 @@ internal_counters_lda_prev
   (const xc_dimensions *dim, int offset, const double **rho,
    double **zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ))
 {
-  if(*rho != NULL)    *rho    -= dim->rho    + offset;  
+  if(*rho != NULL)    *rho    -= dim->rho    + offset;
   if(*zk != NULL)     *zk     -= dim->zk     + offset;
 #ifndef XC_DONT_COMPILE_VXC
   if(*vrho != NULL)   *vrho   -= dim->vrho   + offset;

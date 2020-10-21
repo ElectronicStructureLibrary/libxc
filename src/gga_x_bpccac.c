@@ -24,9 +24,9 @@ const xc_func_info_type xc_func_info_gga_x_bpccac = {
   XC_FAMILY_GGA,
   {&xc_ref_Bremond2012_1184, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
-  NULL, NULL, 
+  NULL, NULL,
   NULL, work_gga, NULL
 };
 

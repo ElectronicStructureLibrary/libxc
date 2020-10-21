@@ -16,7 +16,7 @@ typedef struct {
   double ax;
 } lda_k_tf_params;
 
-static void 
+static void
 lda_k_tf_init(xc_func_type *p)
 {
   lda_k_tf_params *params;
@@ -54,7 +54,7 @@ const xc_func_info_type xc_func_info_lda_k_tf = {
   XC_FAMILY_LDA,
   {&xc_ref_Thomas1927_542, &xc_ref_Fermi1927_602, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   lda_k_tf_init, NULL,
   work_lda, NULL, NULL
@@ -70,7 +70,7 @@ const xc_func_info_type xc_func_info_lda_k_lp = {
   XC_FAMILY_LDA,
   {&xc_ref_Lee1987_2377, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   lda_k_tf_init, NULL,
   work_lda, NULL, NULL

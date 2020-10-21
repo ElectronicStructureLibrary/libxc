@@ -65,7 +65,7 @@ const xc_func_info_type xc_func_info_gga_x_ak13 = {
   XC_FAMILY_GGA,
   {&xc_ref_Armiento2013_036402, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {2, ak13_names, ak13_desc, ak13_values, set_ext_params_cpy},
   gga_x_ak13_init, NULL,
   NULL, work_gga, NULL

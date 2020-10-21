@@ -25,7 +25,7 @@ const xc_func_info_type xc_func_info_lda_x_2d = {
   XC_FAMILY_LDA,
   {&xc_ref_Dirac1930_376, &xc_ref_Bloch1929_545, NULL, NULL, NULL},
   XC_FLAGS_2D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   work_lda, NULL,  NULL

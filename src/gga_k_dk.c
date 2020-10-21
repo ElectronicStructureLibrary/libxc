@@ -18,7 +18,7 @@ typedef struct{
   double aa[5], bb[5];
 } gga_k_dk_params;
 
-static void 
+static void
 gga_k_dk_init(xc_func_type *p)
 {
   int i;

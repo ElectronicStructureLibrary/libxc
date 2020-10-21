@@ -24,7 +24,7 @@ const xc_func_info_type xc_func_info_gga_k_exp4 = {
   XC_FAMILY_GGA,
   {&xc_ref_Karasiev2006_111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   NULL, work_gga, NULL

@@ -25,8 +25,8 @@ const xc_func_info_type xc_func_info_gga_c_op_pbe = {
   XC_FAMILY_GGA,
   {&xc_ref_Tsuneda1999_10664, &xc_ref_Tsuneda1999_5656, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-14,
   {0, NULL, NULL, NULL, NULL},
-  NULL, NULL, 
+  NULL, NULL,
   NULL, work_gga, NULL
 };

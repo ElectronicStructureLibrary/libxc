@@ -33,10 +33,10 @@ int main(void) {
     char kind[5], family[10];
 
     printf("Checking functional %i -> %i\n", i, flist[i]);
-    
+
     func_id = flist[i];
     fname = xc_functional_get_name(func_id);
-    
+
     /* Initialize functional */
     error = xc_func_init(&func, func_id, XC_UNPOLARIZED);
     if(error) {
@@ -50,7 +50,7 @@ int main(void) {
     case(XC_EXCHANGE):
       strcpy(kind, "_x_");
       break;
-      
+
     case(XC_CORRELATION):
       strcpy(kind, "_c_");
       break;
@@ -77,17 +77,17 @@ int main(void) {
          func.hyb_coeff == NULL || func.hyb_omega == NULL)
         printf("Hybrid does not seem to be initialized\n");
     }
-    
+
     /* Check family is consistent with name */
     family[0] = '\0';
     if(xc_hyb_type(&func) != XC_HYB_NONE)
       strcpy(family, "hyb_");
-    
+
     switch(func.info->family) {
     case(XC_FAMILY_LDA):
       strcat(family, "lda_");
       break;
-      
+
     case(XC_FAMILY_GGA):
       strcat(family, "gga_");
       break;
@@ -100,16 +100,16 @@ int main(void) {
       fprintf(stderr, "Family %i not handled.\n", func.info->family);
       return 2;
     }
-      
+
     p = strstr(fname, family);
     if(p != fname)
       printf("Functional %i '%s' name may be inconsistent with its family '%s'.\n",func_id, fname, family);
-    
+
     /* Check non-local correlation parameters */
     {
       double b, C;
       xc_nlc_coef(&func, &b, &C);
-      
+
       if(func.info->flags & XC_FLAGS_VV10) {
         if(b == 0.0)
           printf("Functional %i '%s' is supposed to have VV10 but has zero b.\n",func_id, fname);
@@ -122,7 +122,7 @@ int main(void) {
           printf("Functional %i '%s' isn't supposed to long-range correlation but has non-zero C.\n",func_id, fname);
       }
     }
-    
+
     /* Free memory */
     free(fname);
     xc_func_end(&func);

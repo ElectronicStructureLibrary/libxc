@@ -20,7 +20,7 @@ typedef struct{
 } mgga_x_gdme_params;
 
 
-static void 
+static void
 mgga_x_gdme_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
@@ -53,7 +53,7 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_nv = {
   XC_FAMILY_MGGA,
   {&xc_ref_Negele1972_1472, &xc_ref_Koehl1996_835, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
-  1.0e-23,
+  1e-15,
   {GDME_N_PAR, gdme_names, gdme_desc, gdme_nv_values, set_ext_params_cpy},
   mgga_x_gdme_init, NULL,
   NULL, NULL, work_mgga,
@@ -69,7 +69,7 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_0 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Koehl1996_835, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
-  1.0e-23,
+  1e-15,
   {GDME_N_PAR, gdme_names, gdme_desc, gdme_0_values, set_ext_params_cpy},
   mgga_x_gdme_init, NULL,
   NULL, NULL, work_mgga,
@@ -85,7 +85,7 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_kos = {
   XC_FAMILY_MGGA,
   {&xc_ref_Koehl1996_835, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
-  1.0e-23,
+  1e-15,
   {GDME_N_PAR, gdme_names, gdme_desc, gdme_kos_values, set_ext_params_cpy},
   mgga_x_gdme_init, NULL,
   NULL, NULL, work_mgga,
@@ -101,7 +101,7 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_vt = {
   XC_FAMILY_MGGA,
   {&xc_ref_Koehl1996_835, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
-  1.0e-23,
+  1e-15,
   {GDME_N_PAR, gdme_names, gdme_desc, gdme_vt_values, set_ext_params_cpy},
   mgga_x_gdme_init, NULL,
   NULL, NULL, work_mgga,

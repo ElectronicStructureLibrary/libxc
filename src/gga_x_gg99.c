@@ -27,7 +27,7 @@ const xc_func_info_type xc_func_info_gga_x_gg99 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   5e-7,
   {0, NULL, NULL, NULL, NULL},
-  NULL, NULL, 
+  NULL, NULL,
   NULL, work_gga, NULL
 };
 
@@ -55,7 +55,7 @@ const xc_func_info_type xc_func_info_gga_x_kgg99 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   5e-7,
   {0, NULL, NULL, NULL, NULL},
-  gga_x_kgg_init, NULL, 
+  gga_x_kgg_init, NULL,
   NULL, NULL, NULL
 };
 

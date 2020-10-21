@@ -50,7 +50,7 @@ const xc_func_info_type xc_func_info_gga_c_p86 = {
   XC_FAMILY_GGA,
   {&xc_ref_Perdew1986_8822, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {N_PAR, names, desc, p86_val, set_ext_params_cpy},
   gga_c_p86_init, NULL,
   NULL, work_gga, NULL
@@ -66,7 +66,7 @@ const xc_func_info_type xc_func_info_gga_c_p86_ft = {
   XC_FAMILY_GGA,
   {&xc_ref_Perdew1986_8822, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {N_PAR, names, desc, p86ft_val, set_ext_params_cpy},
   gga_c_p86_init, NULL,
   NULL, work_gga, NULL

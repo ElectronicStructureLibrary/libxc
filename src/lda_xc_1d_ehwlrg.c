@@ -19,7 +19,7 @@ typedef struct {
   double a1, a2, a3;
 } lda_xc_1d_ehwlrg_params;
 
-static void 
+static void
 lda_xc_1d_ehwlrg_init(xc_func_type *p)
 {
   lda_xc_1d_ehwlrg_params *params;

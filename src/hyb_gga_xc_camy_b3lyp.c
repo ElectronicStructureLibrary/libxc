@@ -33,7 +33,7 @@ xc_hyb_gga_xc_camy_b3lyp_init(xc_func_type *p)
   funcs_coef[1] = -beta;
   funcs_coef[2] = 1.0 - ac;
   funcs_coef[3] = ac;
-  
+
   xc_mix_init(p, 4, funcs_id, funcs_coef);
 
   xc_func_set_ext_params(p->func_aux[1], &omega);
@@ -51,7 +51,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_camy_b3lyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Seth2012_901, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_camy_b3lyp_init, NULL,
   NULL, NULL, NULL
@@ -109,7 +109,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_camy_pbeh = {
   XC_FAMILY_GGA,
   {&xc_ref_Chen2018_073803, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {CAM_N_PAR, cam_names, cam_desc, cam_values, cam_set_ext_params},
   hyb_gga_xc_camy_pbeh_init,
   NULL, NULL, NULL, NULL

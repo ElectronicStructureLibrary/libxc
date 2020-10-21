@@ -42,13 +42,13 @@ xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix
 }
 
 #ifdef HAVE_CUDA
-__global__ static void add_to_mix_gpu(size_t np, double * dst, double coeff, double *src){
+__global__ static void add_to_mix_gpu(size_t np, double * dst, double coeff, const double *src){
   size_t ip = blockIdx.x * blockDim.x + threadIdx.x;
   if(ip < np) dst[ip] += coeff*src[ip];
 }
 #endif
 
-static void add_to_mix(size_t np, double * dst, double coeff, double *src){
+static void add_to_mix(size_t np, double * dst, double coeff, const double *src){
 #ifndef HAVE_CUDA
   size_t ip;
   for(ip = 0; ip < np; ip++) dst[ip] += coeff*src[ip];

@@ -34,10 +34,16 @@ tp   := (rs, z, xt) -> tt(rs, z, xt):
 A := (rs, z, t) ->
   mbeta(rs, t)/(mgamma*(exp(-f_pw(rs, z)/(mgamma*mphi(z)^3)) - 1)):
 
-(* Equation (7) *)
+(* Helpers for equation (7)
+
+   This is the factor in the numerator of the second term, once you
+   pull in the t^2 factor in front of the fraction
+*)
 f1 := (rs, z, t) -> t^2 + BB*A(rs, z, t)*t^4:
+(* and this is the whole second term *)
 f2 := (rs, z, t) -> mbeta(rs, t)*f1(rs, z, t)/(mgamma*(1 + A(rs, z, t)*f1(rs, z, t))):
 
+(* Equation (7) *)
 fH := (rs, z, t) -> mgamma*mphi(z)^3*log(1 + f2(rs, z, t)):
 
 f_pbe  := (rs, z, xt, xs0, xs1) ->

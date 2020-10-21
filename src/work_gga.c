@@ -79,27 +79,26 @@ work_gga(const XC(func_type) *p, size_t np,
 #else
 
   for(ip = 0; ip < np; ip++){
-    /* sanity check of input parameters */
-    dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
-
-    my_rho[0] = max(p->dens_threshold, rho[0]);
-    my_sigma[0] = max(MIN_SIGMA, sigma[0]);
-    if(p->nspin == XC_POLARIZED){
-      double s_ave;
-
-      my_rho[1] = max(p->dens_threshold, rho[1]);
-      my_sigma[2] = max(MIN_SIGMA, sigma[2]);
-
-      my_sigma[1] = sigma[1];
-      s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
-      /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
-      my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
-      /* Since |grad n_up - grad n_down|^2 > 0 we also have */
-      my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
-    }
-
     /* Screen low density */
+    dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
     if(dens >= p->dens_threshold) {
+      /* sanity check of input parameters */
+      my_rho[0] = max(p->dens_threshold, rho[0]);
+      my_sigma[0] = max(MIN_SIGMA, sigma[0]);
+      if(p->nspin == XC_POLARIZED){
+        double s_ave;
+
+        my_rho[1] = max(p->dens_threshold, rho[1]);
+        my_sigma[2] = max(MIN_SIGMA, sigma[2]);
+
+        my_sigma[1] = sigma[1];
+        s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
+        /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
+        my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
+        /* Since |grad n_up - grad n_down|^2 > 0 we also have */
+        my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
+      }
+
       if(p->nspin == XC_UNPOLARIZED)
         func_unpol(p, order, my_rho, my_sigma OUT_PARAMS);
       else if(p->nspin == XC_POLARIZED)
@@ -159,25 +158,26 @@ work_gga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, co
   internal_counters_gga_random(&(p->dim), ip, 0, &rho, &sigma,
                                &zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
 
-  /* sanity check on input parameters */
+  /* Density screening */
   dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
-  my_rho[0]   = max(p->dens_threshold, rho[0]);
-  my_sigma[0] = max(MIN_SIGMA, sigma[0]);
-  if(p->nspin == XC_POLARIZED){
-    double s_ave;
-
-    my_rho[1]   = max(p->dens_threshold, rho[1]);
-    my_sigma[2] = max(MIN_SIGMA, sigma[2]);
-
-    my_sigma[1] = sigma[1];
-    s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
-    /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
-    my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
-    /* Since |grad n_up - grad n_down|^2 > 0 we also have */
-    my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
-  }
-
   if(dens >= p->dens_threshold) {
+    /* sanity check on input parameters */
+    my_rho[0]   = max(p->dens_threshold, rho[0]);
+    my_sigma[0] = max(MIN_SIGMA, sigma[0]);
+    if(p->nspin == XC_POLARIZED){
+      double s_ave;
+      
+      my_rho[1]   = max(p->dens_threshold, rho[1]);
+      my_sigma[2] = max(MIN_SIGMA, sigma[2]);
+      
+      my_sigma[1] = sigma[1];
+      s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
+      /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
+      my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
+      /* Since |grad n_up - grad n_down|^2 > 0 we also have */
+      my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
+    }
+    
     if(p->nspin == XC_UNPOLARIZED)
       func_unpol(p, order, my_rho, my_sigma OUT_PARAMS);
     else if(p->nspin == XC_POLARIZED)

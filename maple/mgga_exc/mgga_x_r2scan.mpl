@@ -7,14 +7,12 @@
 *)
 
 (* type: mgga_exc *)
+(* prefix:
+  mgga_x_r2scan_params *params;
 
-(* New constants *)
-params_a_eta := 0.001:
-params_a_dp2 := 0.361:
-(* Old ones *)
-params_a_k1 := 0.065:
-params_a_c2 := 0.8:
-params_a_d := 1.24:
+  assert(p->params != NULL);
+  params = (mgga_x_r2scan_params * )(p->params);
+*)
 
 $include "mgga_x_rscan.mpl"
 $include "mgga_x_scan.mpl"
@@ -24,7 +22,7 @@ r2scan_alpha := (x, t) -> (t - x^2/8)/(K_FACTOR_C + params_a_eta*x^2/8):
 
 (* f(alpha) replaced with a polynomial for alpha in [0, 2.5], eqn S7 *)
 r2scan_f_alpha_neg := a -> exp(-params_a_c1*a/(1 - a)):
-r2scan_f_alpha := (a, ff) -> my_piecewise5(a <= 0, f2scan_f_alpha_neg(a), a <= 2.5, rscan_f_alpha_small(a, ff), rscan_f_alpha_large(a)):
+r2scan_f_alpha := (a, ff) -> my_piecewise5(a <= 0, r2scan_f_alpha_neg(a), a <= 2.5, rscan_f_alpha_small(a, ff), rscan_f_alpha_large(a)):
 
 (* eqn S11 *)
 Cn := 20/27 + params_a_eta*5/3:

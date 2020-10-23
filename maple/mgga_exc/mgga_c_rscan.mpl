@@ -17,7 +17,7 @@ np53 := rs -> n_total(rs)^(5/3):
 (* First regularization: tau^u -> tau^u + tau^r *)
 
 rscan_alpha0 := (rs, z, xt, ts0, ts1) ->
-(np53(rs)*m_max(t_total(z, ts0, ts1) - xt^2/8, 0))/(K_FACTOR_C*np53(rs)*t_total(z, 1, 1) + params_a_taur):
+  (np53(rs)*m_max(t_total(z, ts0, ts1) - xt^2/8, 0))/((K_FACTOR_C*np53(rs) + 2^(2/3)*params_a_taur)*t_total(z, 1, 1)):
 
 (* Second regularization: alpha -> alpha^3/(alpha^2 + alpha_r) *)
 rscan_alpha := (rs, z, xt, ts0, ts1) -> rscan_alpha0(rs, z, xt, ts0, ts1)^3/(rscan_alpha0(rs, z, xt, ts0, ts1)^2 + params_a_alphar):

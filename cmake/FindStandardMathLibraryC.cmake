@@ -2,6 +2,8 @@
 # * changed CXX to C
 # * note that full path to libm *not* detected
 
+# SL 2020-10-23: Added more necessary functions for libxc, and changed to a version using standard input
+
 # - Try to find how to link to the standard math library, if anything at all is needed to do.
 # On most platforms this is automatic, but for example it's not automatic on QNX.
 #
@@ -18,9 +20,32 @@
 include(CheckCSourceCompiles)
 # a little test program for c++ math functions.
 # notice the std:: is required on some platforms such as QNX
+
+# The test program needs to read in the arguments from standard input,
+# since otherwise the compiler might optimize away the calls altogether!
 set(find_standard_math_library_test_program
-"#include<math.h>
-int main() { sin(0.0); log(0.0f); }")
+"
+#include<math.h>
+#include<stdio.h>
+#include<stdlib.h>
+int main(int argc, char **argv) {
+  double x=atof(argv[1]);
+  double y=atof(argv[2]);
+  printf(\"sinh(x)=% e\",sinh(x));
+  printf(\"atan2(x,y)=% e\",atan2(x,y));
+  printf(\"tanh(x)=% e\",tanh(x));
+  printf(\"cosh(x)=% e\",cosh(x));
+  printf(\"sin(x)=% e\",sin(x));
+  printf(\"atan(x)=% e\",atan(x));
+  printf(\"exp(x)=% e\",exp(x));
+  printf(\"cos(y)=% e\",cos(y));
+  printf(\"log(x)=% e\",log(x));
+  printf(\"pow(x,y)=% e\",pow(x,y));
+  printf(\"round(x)=% e\",round(x));
+  printf(\"sqrt(x)=% e\",sqrt(x));
+  printf(\"erf(x)=% e\",erf(x));
+  return 0;
+}")
 # C++ test program
 # "#include<cmath>
 # int main() { std::sin(0.0); std::log(0.0f); }")
@@ -32,6 +57,7 @@ CHECK_C_SOURCE_COMPILES(
   standard_math_library_linked_to_automatically
 )
 if(standard_math_library_linked_to_automatically)
+  message("Test program linked without flags")
   # the test program linked successfully without any linker flag.
   set(STANDARD_MATH_LIBRARY "")
   set(STANDARD_MATH_LIBRARY_FOUND TRUE)
@@ -47,8 +73,12 @@ else()
     # the test program linked successfully when linking to the 'm' library
     set(STANDARD_MATH_LIBRARY "m")
     set(STANDARD_MATH_LIBRARY_FOUND TRUE)
+
+    message("Test program linked with -m")
   else()
     # the test program still doesn't link successfully
+
+    message("Test program did not link with -m")
     set(STANDARD_MATH_LIBRARY_FOUND FALSE)
   endif()
 endif()

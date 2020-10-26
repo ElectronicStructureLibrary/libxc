@@ -63,37 +63,6 @@ close(TEX);
 # run latex and bibtex
 system "cd $dir && latex $$.tex && bibtex $$.aux && latex $$.tex && latex $$.tex && /bin/mv -f $$.dvi libxc.dvi";
 
-%journal_abbreviations =
-  (
-   "Mathematical Proceedings of the Cambridge Philosophical Society" => "Math. Proc. Cambridge Philos. Soc.",
-   "Zeitschrift für Physik" => "Z. Phys.",
-   "Journal of Physics C: Solid State Physics" => "J. Phys. C: Solid State Phys.",
-   "Canadian Journal of Physics" => "Can. J. Phys.",
-   "The Journal of Chemical Physics" => "J. Chem. Phys.",
-   "Rendiconti dell'Accademia Nazionale dei Lincei" => "Rend. Accad. Naz. Lincei ",
-   "Journal of Chemical Theory and Computation" => "J. Chem. Theory Comput.",
-   "Journal of Physics: Condensed Matter" => "J. Phys.: Condens. Matter",
-   "Chemical Physics Letters" => "Chem. Phys. Lett.",
-   "International Journal of Quantum Chemistry" => "Int. J. Quantum Chem.",
-   "The Journal of Physical Chemistry A" => "J. Phys. Chem. A",
-   "The Journal of Physical Chemistry B" => "J. Phys. Chem. B",
-   "The Journal of Physical Chemistry Letters" => "J. Phys. Chem. Lett.",
-   "The Journal of Physical Chemistry" => "J. Phys. Chem",
-   "Molecular Physics" => "Mol. Phys.",
-   "Physica Scripta" => "Phys. Scr.",
-   "Journal of Computational Chemistry" => "J. Comput. Chem.",
-   "Proceedings of the National Academy of Sciences of the U. S. A." => "Proc. Natl. Acad. Sci. U. S. A.",
-   "Theoretical Chemistry Accounts" => "Theor. Chem. Acc.",
-   "Theoretica chimica acta" => "Theor. Chim. Acta",
-   "Journal of Computational Methods in Science and Engineering" => "J. Comput. Methods Sci. Eng.",
-   "Journal of the Physical Society of Japan" => "J. Phys. Soc. Jpn.",
-   "Physics Letters A" => "Phys. Lett. A",
-   "Journal of the American Chemical Society" => "J. Am. Chem. Soc.",
-   "Journal of Molecular Structure: THEOCHEM" => "J. Mol. Struct.: THEOCHEM",
-   "Computational and Theoretical Chemistry" => "Comput. Theor. Chem.",
-   "Journal of Photochemistry and Photobiology A: Chemistry" => "J. Photochem. Photobiol., A",
-  );
-
 # now we parse the bbl file
 open(BBL, "<$dir/$$.bbl");
 $item = "";
@@ -143,12 +112,6 @@ while($_=<BBL>){
       if($item =~ /\{/ || $item =~ /\}/) {
 	  print STDERR "WARNING: braces remain.\n";
 	  print STDERR $item . "\n";
-      }
-
-      # and now we abbreviate the journal names
-      foreach $key ( keys %journal_abbreviations ){
-	$item =~ s/$key/$journal_abbreviations{$key}/;
-	
       }
 
       $bibitem{$label} = $item;

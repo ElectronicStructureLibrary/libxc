@@ -67,7 +67,7 @@ const xc_func_info_type xc_func_info_mgga_x_scanl = {
   1e-15,
   {N_PAR_SCANL, scanl_names, scanl_desc, par_scanl, scanl_set_ext_params},
   mgga_x_scanl_init, NULL,
-  NULL, NULL, xc_deorbitalize_func,
+  NULL, NULL, xc_deorbitalize_func
 };
 
 #ifdef __cplusplus
@@ -83,8 +83,5 @@ const xc_func_info_type xc_func_info_mgga_x_revscanl = {
   1e-15,
   {N_PAR_SCANL, scanl_names, scanl_desc, par_revscanl, scanl_set_ext_params},
   mgga_x_scanl_init, NULL,
-  NULL, NULL, xc_deorbitalize_func,
+  NULL, NULL, xc_deorbitalize_func
 };
-
-
-

@@ -223,6 +223,7 @@ extern func_reference_type xc_ref_Mattsson2008_084714;
 extern func_reference_type xc_ref_McWeeny1976_3;
 extern func_reference_type xc_ref_Mejia2017_052512;
 extern func_reference_type xc_ref_Mejia2018_115161;
+extern func_reference_type xc_ref_Mejia2020_121109;
 extern func_reference_type xc_ref_Menconi2001_3958;
 extern func_reference_type xc_ref_Meyer1976_898;
 extern func_reference_type xc_ref_Mezei2018_2469;

@@ -259,7 +259,6 @@ AC_CONFIG_FILES([Makefile
   packaging/libxc.pc
   packaging/libxcf90.pc
   packaging/libxcf03.pc
-  packaging/libxc.spec
   scripts/Makefile
   maple/Makefile
   maple/lda_exc/Makefile

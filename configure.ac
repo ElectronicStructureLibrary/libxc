@@ -255,11 +255,10 @@ AC_CONFIG_FILES([Makefile
   src/maple2c/mgga_vxc/Makefile
   testsuite/Makefile
   testsuite/pytest/Makefile
-  build/Makefile
-  build/libxc.pc
-  build/libxcf90.pc
-  build/libxcf03.pc
-  build/libxc.spec
+  packaging/Makefile
+  packaging/libxc.pc
+  packaging/libxcf90.pc
+  packaging/libxcf03.pc
   scripts/Makefile
   maple/Makefile
   maple/lda_exc/Makefile

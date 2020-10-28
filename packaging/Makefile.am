@@ -8,10 +8,10 @@
 ##
 
 EXTRA_DIST =                   \
-	libxc.spec.in libxc.pc.in libxcf90.pc.in libxcf03.pc.in
+	libxc.pc.in libxcf90.pc.in libxcf03.pc.in
 
 DISTCLEANFILES = \
-	libxc.spec libxc.pc libxcf90.pc libxcf03.pc
+	libxc.pc libxcf90.pc libxcf03.pc
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libxc.pc libxcf90.pc libxcf03.pc

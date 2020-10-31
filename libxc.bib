@@ -2,6 +2,11 @@
 % To check for abbreviations, see http://cassi.cas.org/.
 % To alphabetize list, use M-x bibtex-sort-buffer in emacs.
 
+% Use only ASCII characters so that the file works with bibtex.
+% Special characters are input with {}, e.g. \'{e} and \l{}.
+% To find out any non-ASCII characters use e.g.
+% $ grep --color='auto' -P -n "[^\x00-\x7F]" libxc.bib
+
 @article{Acharya1980_6978,
   title = {An atomic kinetic energy functional with full Weizsacker correction},
   author = {P. K. Acharya and L. J. Bartolotti and S. B. Sears and R. G. Parr},
@@ -90,7 +95,7 @@
 }
 
 @article{Anderson2017_1656,
-  author = {Anderson, Lindsey N. and Oviedo, M. Belén and Wong, Bryan M.},
+  author = {Anderson, Lindsey N. and Oviedo, M. Bel\'{e}n and Wong, Bryan M.},
   title = {Accurate Electron Affinities and Orbital Energies of Anions from a Nonempirically Tuned Range-Separated Density Functional Theory Approach},
   journal = {J. Chem. Theory Comput.},
   volume = {13},
@@ -119,7 +124,7 @@
 
 @article{Armiento2013_036402,
   title = {Orbital Localization, Charge Transfer, and Band Gaps in Semilocal Density-Functional Theory},
-  author = {R. Armiento and S. Kümmel},
+  author = {R. Armiento and S. K\"{u}mmel},
   journal = {Phys. Rev. Lett.},
   volume = {111},
   issue = {3},
@@ -134,7 +139,7 @@
 
 @article{Aschebrock2019_033082,
   title = {Ultranonlocality and accurate band gaps from a meta-generalized gradient approximation},
-  author = {Aschebrock, Thilo and Kümmel, Stephan},
+  author = {Aschebrock, Thilo and K\"{u}mmel, Stephan},
   journal = {Phys. Rev. Res.},
   volume = {1},
   issue = {3},
@@ -205,7 +210,7 @@
 }
 
 @article{Bartok2019_161101,
-  author = {Bartók, Albert P. and Yates, Jonathan R.},
+  author = {Bart\'{o}k, Albert P. and Yates, Jonathan R.},
   title = {Regularized SCAN functional},
   journal = {J. Chem. Phys.},
   volume = {150},
@@ -242,7 +247,7 @@
 
 @article{Becke1988_1053,
   author = {A. D. Becke},
-  title = {Correlation energy of an inhomogeneous electron gas: A coordinate‐space model},
+  title = {Correlation energy of an inhomogeneous electron gas: A coordinate-space model},
   journal = {J. Chem. Phys.},
   volume = {88},
   number = {2},
@@ -406,7 +411,7 @@
 
 @article{Bilc2008_165107,
   title = {Hybrid exchange-correlation functional for accurate prediction of the electronic and structural properties of ferroelectric oxides},
-  author = {D. I. Bilc and R. Orlando and R. Shaltaf and G.-M. Rignanese and J. Íñiguez and Ph. Ghosez},
+  author = {D. I. Bilc and R. Orlando and R. Shaltaf and G.-M. Rignanese and J. \'{I}\~{n}iguez and Ph. Ghosez},
   journal = {Phys. Rev. B},
   volume = {77},
   issue = {16},
@@ -420,7 +425,7 @@
 }
 
 @article{Bloch1929_545,
-  title = {Bemerkung zur Elektronentheorie des Ferromagnetismus und der elektrischen Leitfähigkeit},
+  title = {Bemerkung zur Elektronentheorie des Ferromagnetismus und der elektrischen Leitf\"{a}higkeit},
   author = {F. Bloch},
   journal = {Z. Phys.},
   volume = {57},
@@ -511,7 +516,7 @@
 
 @article{Bremond2012_1184,
   title = {Generalized gradient exchange functionals based on the gradient-regulated connection: a new member of the TCA family},
-  author = {E. Brémond and D. Pilard and I. Ciofini and H. Chermette and C. Adamo and P. Cortona},
+  author = {E. Br\'{e}mond and D. Pilard and I. Ciofini and H. Chermette and C. Adamo and P. Cortona},
   journal = {Theor. Chem. Acc.},
   volume = {131},
   number = {3},
@@ -525,7 +530,7 @@
 }
 
 @article{Bremond2016_1059,
-  author = {Éric Brémond and Ilaria Ciofini and Carlo Adamo},
+  author = {\'{E}ric Br\'{e}mond and Ilaria Ciofini and Carlo Adamo},
   title = {Gradient-regulated connection-based correction for the PBE exchange: the PBEtrans model},
   journal = {Mol. Phys.},
   volume = {114},
@@ -537,7 +542,7 @@
 }
 
 @article{Bremond2016_244102,
-  author = {Éric Brémond},
+  author = {\'{E}ric Br\'{e}mond},
   title = {A power series revisit of the PBE exchange density-functional approximation: The PBEpow model},
   journal = {J. Chem. Phys.},
   volume = {145},
@@ -574,7 +579,7 @@
 }
 
 @article{Caldeira2019_62,
-  author = "Caldeira, Mariana Toretti and Custodio, Rog{\'e}rio",
+  author = "Caldeira, Mariana Toretti and Custodio, Rog\'{e}rio",
   title = "Partial combination of composite strategy and the B3LYP functional for the calculation of enthalpies of formation",
   journal = "J. Mol. Model.",
   year = "2019",
@@ -602,8 +607,8 @@
 }
 
 @article{Campo2012_179,
-  author = "Jorge M. del Campo and José L. Gázquez and S.B. Trickey and Alberto Vela",
-  title = "A new meta-GGA exchange functional based on an improved constraint-based \{GGA\} ",
+  author = "Jorge M. del Campo and Jos\'{e} L. G\'{a}zquez and S.B. Trickey and Alberto Vela",
+  title = "A new meta-GGA exchange functional based on an improved constraint-based {GGA}",
   journal = "Chem. Phys. Lett.",
   volume = "543",
   number = "",
@@ -642,7 +647,7 @@
 }
 
 @article{Carmona2015_054105,
-  author = "Carmona-Espíndola, Javier and Gázquez, José L. and Vela, Alberto and Trickey, S. B.",
+  author = "Carmona-Esp\'{i}ndola, Javier and G\'{a}zquez, Jos\'{e} L. and Vela, Alberto and Trickey, S. B.",
   title = "Generalized gradient approximation exchange energy functional with correct asymptotic behavior of the corresponding potential",
   journal = "J. Chem. Phys.",
   year = "2015",
@@ -655,7 +660,7 @@
 }
 
 @article{Carmona2016_120,
-  author = "Carmona-Espíndola, Javier and Gázquez, José L. and Vela, Alberto and Trickey, S. B.",
+  author = "Carmona-Esp\'{i}ndola, Javier and G\'{a}zquez, Jos\'{e} L. and Vela, Alberto and Trickey, S. B.",
   title = "Global hybrid exchange energy functional with correct asymptotic behavior of the corresponding potential",
   journal = "Theor. Chem. Acc.",
   year = "2016",
@@ -668,7 +673,7 @@
 }
 
 @article{Carmona2019_303,
-  author = {Carmona-Espíndola, Javier and Gázquez, José L. and Vela, Alberto and Trickey, S. B.},
+  author = {Carmona-Esp\'{i}ndola, Javier and G\'{a}zquez, Jos\'{e} L. and Vela, Alberto and Trickey, S. B.},
   title = {Generalized Gradient Approximation Exchange Energy Functional with Near-Best Semilocal Performance},
   journal = {J. Chem. Theory Comput.},
   volume = {15},
@@ -812,7 +817,7 @@
 }
 
 @article{Cohen2007_191109,
-  author = {Cohen, Aron J. and Mori-Sánchez, Paula and Yang, Weitao},
+  author = {Cohen, Aron J. and Mori-S\'{a}nchez, Paula and Yang, Weitao},
   title = {Development of exchange-correlation functionals with minimal many-electron self-interaction error},
   journal = {J. Chem. Phys.},
   volume = {126},
@@ -1016,7 +1021,7 @@
 }
 
 @article{DePristo1987_438,
-  title = {Kinetic-energy functionals via Pad\'e approximations},
+  title = {Kinetic-energy functionals via Pad\'{e} approximations},
   author = {A. E. DePristo and J. D. Kress},
   journal = {Phys. Rev. A},
   volume = {35},
@@ -1100,7 +1105,7 @@
 
 @article{Engel1995_2750,
   title = {Local and nonlocal relativistic exchange-correlation energy functionals: Comparison to relativistic optimized-potential-model results},
-  author = {Engel, E. and Keller, S. and Bonetti, A. Facco and Müller, H. and Dreizler, R. M.},
+  author = {Engel, E. and Keller, S. and Bonetti, A. Facco and M\"{u}ller, H. and Dreizler, R. M.},
   journal = {Phys. Rev. A},
   volume = {52},
   issue = {4},
@@ -1232,7 +1237,7 @@
 }
 
 @article{Fermi1927_602,
-  title = "Un metodo statistico per la determinazione di alcune propriet\'a dell'atomo. ({Italian}) [{A} Statistical Method for the Determination of Some Atomic Properties]",
+  title = "Un metodo statistico per la determinazione di alcune propriet\'{a} dell'atomo. ({Italian}) [{A} Statistical Method for the Determination of Some Atomic Properties]",
   author = "E. Fermi",
   journal = {Rendiconti dell'Accademia Nazionale dei Lincei},
   volume = "6",
@@ -1338,7 +1343,7 @@
 
 @article{Furness2020_9248,
   author = {Furness, James W. and Kaplan, Aaron D. and Ning, Jinliang and Perdew, John P. and Sun, Jianwei},
-  title = {Correction to “Accurate and Numerically Efficient r2SCAN Meta-Generalized Gradient Approximation”},
+  title = {Correction to "Accurate and Numerically Efficient r2SCAN Meta-Generalized Gradient Approximation"},
   journal = {J. Phys. Chem. Lett.},
   volume = {11},
   number = {0},
@@ -1379,7 +1384,7 @@
 
 @article{Gazquez1982_1467,
   title = "On the atomic kinetic energy functionals with full Weizsacker correction",
-  author = "J. L. Gázquez and J. Robles",
+  author = "J. L. G\'{a}zquez and J. Robles",
   journal = "J. Chem. Phys.",
   year = "1982",
   volume = "76",
@@ -1522,7 +1527,7 @@
 }
 
 @article{Gombas1965_137,
-  author = {Gombás, P.},
+  author = {Gomb\'{a}s, P.},
   title = {Pseudopotentiale},
   journal = {Fortschr. Phys.},
   volume = {13},
@@ -1535,7 +1540,7 @@
 
 @article{Gordon1972_3122,
   author = {Roy G. Gordon and Yung Sik Kim},
-  title = {Theory for the Forces between Closed‐Shell Atoms and Molecules},
+  title = {Theory for the Forces between Closed-Shell Atoms and Molecules},
   journal = {J. Chem. Phys.},
   volume = {56},
   number = {6},
@@ -1644,7 +1649,7 @@
 
 @article{Hammer1999_7413,
   title = {Improved adsorption energetics within density-functional theory using revised Perdew--Burke--Ernzerhof functionals},
-  author = {B. Hammer and L. B. Hansen and J. K. Nørskov},
+  author = {B. Hammer and L. B. Hansen and J. K. N\o{}rskov},
   journal = {Phys. Rev. B},
   volume = {59},
   issue = {11},
@@ -1989,7 +1994,7 @@
 
 @article{Karasiev2016_157101,
   author = {Valentin V. Karasiev},
-  title = {Comment on “Communication: Simple and accurate uniform electron gas correlation energy for the full range of densities” [J. Chem. Phys. 145, 021101 (2016)]},
+  title = {Comment on "Communication: Simple and accurate uniform electron gas correlation energy for the full range of densities" [J. Chem. Phys. 145, 021101 (2016)]},
   journal = {J. Chem. Phys.},
   volume = {145},
   number = {15},
@@ -2000,16 +2005,16 @@
 }
 
 @article{Kaupp2011_16973,
-  author = "Kaupp, Martin and Renz, Manuel and Parthey, Matthias and Stolte, Matthias and Würthner, Frank and Lambert, Christoph",
-  title  = "Computational and spectroscopic studies of organic mixed-valence compounds: where is the charge?",
-  journal = "Phys. Chem. Chem. Phys.",
-  year = "2011",
-  volume = "13",
-  issue = "38",
-  pages = "16973-16986",
-  publisher = "The Royal Society of Chemistry",
-  doi = "10.1039/C1CP21772K",
-  url = "http://doi.org/10.1039/C1CP21772K"
+  author = {Kaupp, Martin and Renz, Manuel and Parthey, Matthias and Stolte, Matthias and W\"{u}rthner, Frank and Lambert, Christoph},
+  title  = {Computational and spectroscopic studies of organic mixed-valence compounds: where is the charge?},
+  journal = {Phys. Chem. Chem. Phys.},
+  year = {2011},
+  volume = {13},
+  issue = {38},
+  pages = {16973-16986},
+  publisher = {The Royal Society of Chemistry},
+  doi = {10.1039/C1CP21772K},
+  url = {http://doi.org/10.1039/C1CP21772K}
 }
 
 @article{Keal2003_3015,
@@ -2060,7 +2065,7 @@
 
 @article{Klimes2010_022201,
   title = {Chemical accuracy for the van der Waals density functional},
-  author = {J. Klimeš and D. R. Bowler and A. Michaelides},
+  author = {J. Klime\v{s} and D. R. Bowler and A. Michaelides},
   journal = {J. Phys.: Condens. Matter},
   volume = {22},
   number = {2},
@@ -2072,7 +2077,7 @@
 
 @article{Klimes2011_195131,
   title = {Van der Waals density functionals applied to solids},
-  author = {Klimeš, Jiří and Bowler, David R. and Michaelides, Angelos},
+  author = {Klime\v{s}, Ji\v{r}\'{i} and Bowler, David R. and Michaelides, Angelos},
   journal = {Phys. Rev. B},
   volume = {83},
   issue = {19},
@@ -2180,7 +2185,7 @@
   title = {Molecular and solid-state tests of density functional approximations: LSD, GGAs, and meta-GGAs},
   journal = {Int. J. Quantum Chem.},
   volume = {75},
-  number = {4‐5},
+  number = {4-5},
   pages = {889-909},
   doi = {10.1002/(SICI)1097-461X(1999)75:4/5<889::AID-QUA54>3.0.CO;2-8},
   url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/%28SICI%291097-461X%281999%2975%3A4/5%3C889%3A%3AAID-QUA54%3E3.0.CO%3B2-8},
@@ -2297,7 +2302,7 @@
 }
 
 @article{Lehtola2018_1,
-  title = "Recent developments in libxc — A comprehensive library of functionals for density functional theory",
+  title = "Recent developments in libxc -- A comprehensive library of functionals for density functional theory",
   journal = "SoftwareX",
   volume = "7",
   pages = "1--5",
@@ -2411,7 +2416,7 @@
 }
 
 @article{Loos2017_114108,
-  author = {Pierre-François Loos},
+  author = {Pierre-Fran\c{c}ois Loos},
   title = {Exchange functionals based on finite uniform electron gases},
   journal = {J. Chem. Phys.},
   volume = {146},
@@ -2435,7 +2440,7 @@
 }
 
 @inproceedings{Ludena1986,
-  author = {E. V. Ludeña},
+  author = {E. V. Lude\~{n}a},
   title = {},
   booktitle = {Cond. Matt. Theor.},
   pages = {183},
@@ -2558,7 +2563,7 @@
 
 @article{Mardirossian2016_214110,
   author = "Mardirossian, Narbe and Head-Gordon, Martin",
-  title = "ωB97M-V: A combinatorially optimized, range-separated hybrid, meta-GGA density functional with VV10 nonlocal correlation",
+  title = "$\omega$B97M-V: A combinatorially optimized, range-separated hybrid, meta-GGA density functional with VV10 nonlocal correlation",
   journal = "J. Chem. Phys.",
   year = "2016",
   volume = "144",
@@ -2648,7 +2653,7 @@
 }
 
 @article{Meyer1976_898,
-  title = {The von Weizsäcker Coefficient in Density Functional Theory},
+  title = {The von Weizs\"acker Coefficient in Density Functional Theory},
   author = {A. Meyer and G. C. Wang and W. H. Young},
   journal = {Z. Naturforsch. A},
   year = {1976},
@@ -2659,7 +2664,7 @@
 }
 
 @article{Mezei2018_2469,
-  author = {Mezei, Pál D. and Csonka, Gábor I. and Kállay, Mihály},
+  author = {Mezei, P\'{a}l D. and Csonka, G\'{a}bor I. and K\'{a}llay, Mih\'{a}ly},
   title = {Simple Modifications of the SCAN Meta-Generalized Gradient Approximation Functional},
   journal = {J. Chem. Theory Comput.},
   volume = {14},
@@ -2686,7 +2691,7 @@
 
 @article{Mortensen2005_216401,
   title = {Bayesian Error Estimation in Density-Functional Theory},
-  author = {J. J. Mortensen and K. Kaasbjerg and S. L. Frederiksen and J. K. Nørskov and J. P. Sethna and K. W. Jacobsen},
+  author = {J. J. Mortensen and K. Kaasbjerg and S. L. Frederiksen and J. K. N\o{}rskov and J. P. Sethna and K. W. Jacobsen},
   journal = {Phys. Rev. Lett.},
   volume = {95},
   issue = {21},
@@ -2700,7 +2705,7 @@
 }
 
 @article{Mosquera2016_1605,
-  author = {Mosquera, Martín A. and Borca, Carlos H. and Ratner, Mark A. and Schatz, George C.},
+  author = {Mosquera, Mart\'{i}n A. and Borca, Carlos H. and Ratner, Mark A. and Schatz, George C.},
   title = {Connection between Hybrid Functionals and Importance of the Local Density Approximation},
   journal = {J. Phys. Chem. A},
   volume = {120},
@@ -2826,7 +2831,7 @@
   issn = "0009-2614",
   doi = "10.1016/j.cplett.2016.03.028",
   url = "http://www.sciencedirect.com/science/article/pii/S0009261416301373",
-  author = "Juan C. Pacheco-Kato and Jorge M. del Campo and José L. Gázquez and S.B. Trickey and Alberto Vela"
+  author = "Juan C. Pacheco-Kato and Jorge M. del Campo and Jos\'{e} L. G\'{a}zquez and S.B. Trickey and Alberto Vela"
 }
 
 @article{Patra2018_8991,
@@ -3218,7 +3223,7 @@
 }
 
 @article{Perez2015_3844,
-  author = {Rafael Sarmiento-Pérez and Silvana Botti and Miguel A. L. Marques},
+  author = {Rafael Sarmiento-P\'erez and Silvana Botti and Miguel A. L. Marques},
   title = {Optimized Exchange and Correlation Semilocal Functional for the Calculation of Energies of Formation},
   journal = {J. Chem. Theory Comput.},
   volume = {11},
@@ -3332,7 +3337,7 @@
 
 @article{Pittalis2007_235314,
   title = {Exchange-energy functionals for finite two-dimensional systems},
-  author = {S. Pittalis and E. Räsänen and N. Helbig and E. K. U. Gross},
+  author = {S. Pittalis and E. R\"as\"anen and N. Helbig and E. K. U. Gross},
   journal = {Phys. Rev. B},
   volume = {76},
   issue = {23},
@@ -3347,7 +3352,7 @@
 
 @article{Pittalis2008_195322,
   title = {Local correlation functional for electrons in two dimensions},
-  author = {S. Pittalis and E. Räsänen and M. A. L. Marques},
+  author = {S. Pittalis and E. R\"as\"anen and M. A. L. Marques},
   journal = {Phys. Rev. B},
   volume = {78},
   issue = {19},
@@ -3362,7 +3367,7 @@
 
 @article{Pittalis2009_012503,
   title = {Density gradients for the exchange energy of electrons in two dimensions},
-  author = {S. Pittalis and E. Räsänen and J. G. Vilhena and M. A. L. Marques},
+  author = {S. Pittalis and E. R\"as\"anen and J. G. Vilhena and M. A. L. Marques},
   journal = {Phys. Rev. A},
   volume = {79},
   issue = {1},
@@ -3377,7 +3382,7 @@
 
 @article{Pittalis2010_115108,
   title = {Becke--Johnson-type exchange potential for two-dimensional systems},
-  author = {S. Pittalis and E. Räsänen and C. R. Proetto},
+  author = {S. Pittalis and E. R\"as\"anen and C. R. Proetto},
   journal = {Phys. Rev. B},
   volume = {81},
   issue = {11},
@@ -3512,7 +3517,7 @@
 
 @article{Rasanen2010_044112,
   title = {Universal correction for the Becke--Johnson exchange potential},
-  author = {E. Räsänen and S. Pittalis and C. R. Proetto},
+  author = {E. R\"as\"anen and S. Pittalis and C. R. Proetto},
   journal = {J. Chem. Phys.},
   year = {2010},
   volume = {132},
@@ -3551,7 +3556,7 @@
 }
 
 @article {Rey1998_581,
-  author = {Rey, Jérôme and Savin, Andreas},
+  author = {Rey, J\'{e}r\^{o}me and Savin, Andreas},
   title = {Virtual space level shifting and correlation energies},
   journal = {Int. J. Quantum Chem.},
   volume = {69},
@@ -3566,7 +3571,7 @@
 
 @article{Rinke2012_126404,
   title = {First-Principles Optical Spectra for $F$ Centers in MgO},
-  author = {Rinke, Patrick and Schleife, André and Kioupakis, Emmanouil and Janotti, Anderson and Rödl, Claudia and Bechstedt, Friedhelm and Scheffler, Matthias and Van de Walle, Chris G.},
+  author = {Rinke, Patrick and Schleife, Andr\'e and Kioupakis, Emmanouil and Janotti, Anderson and R\"odl, Claudia and Bechstedt, Friedhelm and Scheffler, Matthias and Van de Walle, Chris G.},
   journal = {Phys. Rev. Lett.},
   volume = {108},
   issue = {12},
@@ -3594,7 +3599,7 @@
 
 @article{Ruggeri2018_161105,
   title = {Correlation energies of the high-density spin-polarized electron gas to meV accuracy},
-  author = {Ruggeri, Michele and Ríos, Pablo López and Alavi, Ali},
+  author = {Ruggeri, Michele and R\'{i}os, Pablo L\'opez and Alavi, Ali},
   journal = {Phys. Rev. B},
   volume = {98},
   issue = {16},
@@ -3620,7 +3625,7 @@
 }
 
 @article{Ruzsinszky2012_2078,
-  author = {Ruzsinszky, Adrienn and Sun, Jianwei and Xiao, Bing and Csonka, Gábor I.},
+  author = {Ruzsinszky, Adrienn and Sun, Jianwei and Xiao, Bing and Csonka, G\'{a}bor I.},
   title = {A meta-GGA Made Free of the Order of Limits Anomaly},
   journal = {J. Chem. Theory Comput.},
   volume = {8},
@@ -3869,7 +3874,7 @@
 
 @article{Swart2009_094103,
   title = "A new all-round density functional based on spin states and SN2 barriers",
-  author = "M. Swart and M. Solá and F. M. Bickelhaupt",
+  author = "M. Swart and M. Sol\'{a} and F. M. Bickelhaupt",
   journal = "J. Chem. Phys.",
   year = "2009",
   volume = "131",
@@ -3881,7 +3886,7 @@
 
 @article{Swart2009_69,
   title = {Switching between OPTX and PBE exchange functionals},
-  author = {M. Swart and M. Solá and F. M. Bickelhaupt},
+  author = {M. Swart and M. Sol\'{a} and F. M. Bickelhaupt},
   journal = {J. Comput. Methods Sci. Eng.},
   volume = {9},
   issue = {1},
@@ -4073,7 +4078,7 @@
 }
 
 @article {Toulouse2004_1047,
-  author = {Toulouse, Julien and Savin, Andreas and Flad, Heinz-Jürgen},
+  author = {Toulouse, Julien and Savin, Andreas and Flad, Heinz-J\"urgen},
   title = {Short-range exchange-correlation energy of a uniform electron gas with modified electron-electron interaction},
   journal = {Int. J. Quantum Chem.},
   volume = {100},
@@ -4088,7 +4093,7 @@
 
 @article{Tozer1996_9200,
   author = {Tozer, David J. and Ingamells, Victoria E. and Handy, Nicholas C.},
-  title = {Exchange‐correlation potentials},
+  title = {Exchange-correlation potentials},
   journal = {J. Chem. Phys.},
   volume = {105},
   number = {20},
@@ -4138,7 +4143,7 @@
 
 @article{Tran2002_441,
   title = {Link between the kinetic- and exchange-energy functionals in the generalized gradient approximation},
-  author = {F. Tran and T. A. Wesołowski},
+  author = {F. Tran and T. A. Weso\l{}owski},
   journal = {Int. J. Quantum Chem.},
   volume = {89},
   number = {5},
@@ -4259,7 +4264,7 @@
 
 @article{Vela2012_144115,
   title = "Improved constraint satisfaction in a simple generalized gradient approximation exchange functional",
-  author = "A. Vela and J. C. Pacheco-Kato and J. L. Gázquez and J. M. del Campo and S. B. Trickey",
+  author = "A. Vela and J. C. Pacheco-Kato and J. L. G\'{a}zquez and J. M. del Campo and S. B. Trickey",
   journal = "J. Chem. Phys.",
   year = "2012",
   volume = "136",
@@ -4320,7 +4325,7 @@
 }
 
 @article{Vilhena2014,
-  author = {Vilhena, J. G. and Räsänen, E. and Marques, M. A. L. and Pittalis, S.},
+  author = {Vilhena, J. G. and R\"as\"anen, E. and Marques, M. A. L. and Pittalis, S.},
   title = {Construction of the B88 Exchange-Energy Functional in Two Dimensions},
   journal = {J. Chem. Theory Comput.},
   volume = {10},
@@ -4333,7 +4338,7 @@
 
 @article{Vitos1998_12611,
   title = {Kinetic-energy functionals studied by surface calculations},
-  author = {L. Vitos and H. L. Skriver and J. Kollár},
+  author = {L. Vitos and H. L. Skriver and J. Koll\'{a}r},
   journal = {Phys. Rev. B},
   volume = {57},
   issue = {19},
@@ -4347,7 +4352,7 @@
 
 @article{Vitos2000_052511,
   title = {Local kinetic-energy density of the Airy gas},
-  author = {L. Vitos and B. Johansson and J. Kollár and H. L. Skriver},
+  author = {L. Vitos and B. Johansson and J. Koll\'{a}r and H. L. Skriver},
   journal = {Phys. Rev. A},
   volume = {61},
   issue = {5},
@@ -4362,7 +4367,7 @@
 
 @article{Vitos2000_10046,
   title = {Exchange energy in the local Airy gas approximation},
-  author = {L. Vitos and B. Johansson and J. Kollár and H. L. Skriver},
+  author = {L. Vitos and B. Johansson and J. Koll\'{a}r and H. L. Skriver},
   journal = {Phys. Rev. B},
   volume = {62},
   issue = {15},
@@ -4452,7 +4457,7 @@
 
 @article{Weizsacker1935_431,
   title = {Zur Theorie der Kernmassen},
-  author = {C. F. von Weizsäcker},
+  author = {C. F. von Weizs\"acker},
   journal = {Z. Phys.},
   volume = {96},
   number = {7-8},
@@ -4467,7 +4472,7 @@
 
 @article{Wellendorff2012_235149,
   title = {Density functionals for surface science: Exchange-correlation model development with Bayesian error estimation},
-  author = {Wellendorff, Jess and Lundgaard, Keld T. and Møgelhøj, Andreas and Petzold, Vivien and Landis, David D. and Nørskov, Jens K. and Bligaard, Thomas and Jacobsen, Karsten W.},
+  author = {Wellendorff, Jess and Lundgaard, Keld T. and M\o{}gelh\o{}j, Andreas and Petzold, Vivien and Landis, David D. and N\o{}rskov, Jens K. and Bligaard, Thomas and Jacobsen, Karsten W.},
   journal = {Phys. Rev. B},
   volume = {85},
   issue = {23},
@@ -4622,7 +4627,7 @@
 }
 
 @article{Yonei1965_1051,
-  title = {On the Weizsäcker Correction to the Thomas--Fermi Theory of the Atom},
+  title = {On the Weizs\"acker Correction to the Thomas--Fermi Theory of the Atom},
   author = {K. Yonei and Y. Tomishima},
   journal = {J. Phys. Soc. Jpn.},
   volume = {20},
@@ -4713,7 +4718,7 @@
 }
 
 @article{Zhao2004_6908,
-  title = {Hybrid Meta Density Functional Theory Methods for Thermochemistry, Thermochemical Kinetics, and Noncovalent Interactions:  The MPW1B95 and MPWB1K Models and Comparative Assessments for Hydrogen Bonding and van der Waals Interactions},
+  title = {Hybrid Meta Density Functional Theory Methods for Thermochemistry, Thermochemical Kinetics, and Noncovalent Interactoins: The MPW1B95 and MPWB1K Models and Comparative Assessments for Hydrogen Bonding and van der Waals Interactions},
   author = {Y. Zhao and D. G. Truhlar},
   journal = {J. Phys. Chem. A},
   volume = {108},
@@ -4737,7 +4742,7 @@
 }
 
 @article{Zhao2005_2012,
-  author = {Zhao, Yan and González-García, Núria and Truhlar, Donald G.},
+  author = {Zhao, Yan and Gonz\'{a}lez-Garc\'{i}a, N\'{u}ria and Truhlar, Donald G.},
   title = {Benchmark Database of Barrier Heights for Heavy Atom Transfer, Nucleophilic Substitution, Association, and Unimolecular Reactions and Its Use to Test Theoretical Methods},
   journal = {J. Phys. Chem. A},
   volume = {109},
@@ -4876,7 +4881,7 @@
 
 @article{delCampo2012_104108,
   title = "Non-empirical improvement of PBE and its hybrid PBE0 for general description of molecular properties",
-  author = "J. M. del Campo and J. L. Gázquez and S. B. Trickey and A. Vela",
+  author = "J. M. del Campo and J. L. G\'{a}zquez and S. B. Trickey and A. Vela",
   journal = "J. Chem. Phys.",
   year = "2012",
   volume = "136",
@@ -4887,7 +4892,7 @@
 }
 
 @misc{gaussianimplementation,
-  note = 	 {Defined through Gaussian implementation},
+  note = {Defined through Gaussian implementation},
 }
 
 @article{vanLeeuwen1994_2421,

@@ -96,6 +96,18 @@ int main(int argc, char **argv)
     }
   }
 
+  if(hybrid_type == XC_HYB_CAM || hybrid_type == XC_HYB_CAMY) {
+    /* Determine amount of sr and lr exchange */
+    double alpha, beta, omega;
+    assert(func.hyb_type[0] == XC_HYB_ERF_SR || func.hyb_type[0] == XC_HYB_YUKAWA_SR);
+    omega=func.hyb_omega[0];
+    beta=func.hyb_coeff[0];
+    assert(func.hyb_type[1] == XC_HYB_FOCK);
+    alpha=func.hyb_coeff[1];
+    printf("\nFunctional has a range-separation constant % .3f,\n",omega);
+    printf("and %4.1f%% short-range and %4.1f%% long-range exact exchange,\n",(alpha+beta)*100,(alpha)*100);
+  }
+
   printf("\nReference(s):\n");
   for(i = 0; i < 5; i++){
     if(func.info->refs[i] == NULL) break;

@@ -33,8 +33,8 @@ while($_=<BIB>){
       $bibtex{$ref} .= $_;
 
       if($_ =~ /doi\s*=\s*[{\"]([^}\"]*)[}\"]*/){
-	$doi{$ref} = $1;
-	$doi{$ref} =~ s/http:\/\/dx.doi.org\///;
+        $doi{$ref} = $1;
+        $doi{$ref} =~ s/http:\/\/doi.org\///;
       }
     }
     $bibtex{$ref} .= "}";
@@ -75,6 +75,12 @@ while($_=<BBL>){
       # we now clean and parse the bibitem
       $item =~ s/\n//gm;
       $item =~ s/%//gm;
+
+      # remove accents
+      $item =~ s/\\o({})?/o/g;
+      $item =~ s/\\["'`~olv]{(.?)}/$1/g;
+      $item =~ s/\\["'`~]//g;
+      
       $item =~ s/\{\\natexlab\{.\}(.*?)\}/$1/g;
 
       $item =~ s/^\\bibitem\s*\[.*\]\{(.*?)\}//;
@@ -87,14 +93,15 @@ while($_=<BBL>){
       $item =~ s/\\bibinfo\s*\{.*?\}\s*\{(.*?)\}/$1/g;
       $item =~ s/\\bibinfo\s*\{editor\s+\{(.*?)\}(.*?)\}/$1$2/g; # result of nested bibinfos for book with editor
       $item =~ s/\\bibfield\s*\{.*?\}\s*\{(.*?)\}/$1/g;
-      $item =~ s/\\href.*?\{.*?\}\s*\{(.*?)\}/$1/g;
-      $item =~ s/,\\ \\Eprint.*?\{.*?\}\s*\{(http:\/\/.*?)\}\s*//g; # wipe URL that is not arxiv
-      $item =~ s/\\Eprint.*?\{.*?\}\s*\{(.*?)\}\s*/$1/g; # arxiv
-      $item =~ s/\\v\{(.)(.*?)\}/\\v{$1}$2/g; # special rule for haceks \v{ } in names
 
       $item =~ s/\\textbf\s*\{(.*?)\}/$1/g;
       $item =~ s/\\emph\s*\{(.*?)\}/$1/g;
       $item =~ s/\\enquote\s*\{(.*?)\}/$1/g;
+
+      $item =~ s/\\href.*?\{.*?\}\s*\{(.*?)\}/$1/g;
+      $item =~ s/,\\ \\Eprint.*?\{.*?\}\s*\{(http:\/\/.*?)\}\s*//g; # wipe URL that is not arxiv
+      $item =~ s/\\Eprint.*?\{.*?\}\s*\{(.*?)\}\s*/$1/g; # arxiv
+      $item =~ s/\\v\{(.)(.*?)\}/\\v{$1}$2/g; # special rule for haceks \v{ } in names
 
       $item =~ s/\\ / /g;
       $item =~ s/~/ /g;
@@ -106,13 +113,17 @@ while($_=<BBL>){
 
       # check if things seem ok
       if($item =~ /\\/) {
-	  print STDERR "WARNING: backslashes remain.\n";
-	  print STDERR $item . "\n";
+        print STDERR "WARNING: backslashes remain.\n";
+        print STDERR $item . "\n";
       }
       if($item =~ /\{/ || $item =~ /\}/) {
-	  print STDERR "WARNING: braces remain.\n";
-	  print STDERR $item . "\n";
+        print STDERR "WARNING: braces remain.\n";
+        print STDERR $item . "\n";
       }
+
+      # remove remaining braces and backslashes
+      $item =~ s/{(.*?)}/$1/g;
+      $item =~ s/\\//g;
 
       $bibitem{$label} = $item;
       $item = "";

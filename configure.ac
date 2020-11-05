@@ -109,17 +109,17 @@ LT_INIT
 # enable cuda first, since this is required for the compiler selection
 AC_ARG_ENABLE(cuda, AS_HELP_STRING([--enable-cuda], [Cuda support (experimental)]))
 
-if test x"${enable_cuda}" == x"yes" ; then
+if test x"${enable_cuda}" = x"yes" ; then
   AC_DEFINE(HAVE_CUDA, 1, [defined if cuda support is enabled])
 fi
 
-AM_CONDITIONAL([HAVE_CUDA], [test x"${enable_cuda}" == x"yes"])
+AM_CONDITIONAL([HAVE_CUDA], [test x"${enable_cuda}" = x"yes"])
 
 # Checks for programs.
 AC_PROG_CC
 
 #we may need to set the linker for the cuda case, so pass that to automake
-if test x"$CCLD" == x ; then
+if test x"$CCLD" = x ; then
    CCLD=$CC
 fi
 AC_SUBST(CCLD)
@@ -153,7 +153,7 @@ AC_ARG_ENABLE([vxc],
 	      AS_HELP_STRING([--disable-vxc], [don't build first derivatives]),
 	      [ac_cv_build_vxc=$enableval],
 	      [ac_cv_build_vxc=yes])
-if test x"${ac_cv_build_vxc}" == x"no"; then
+if test x"${ac_cv_build_vxc}" = x"no"; then
   AC_DEFINE(XC_DONT_COMPILE_VXC, 1, [defined if first derivatives are disabled])
   AC_DEFINE(XC_DONT_COMPILE_FXC, 1, [defined if second derivatives are disabled])
   AC_DEFINE(XC_DONT_COMPILE_KXC, 1, [defined if third derivatives are disabled])
@@ -164,7 +164,7 @@ AC_ARG_ENABLE([fxc],
 	      AS_HELP_STRING([--disable-fxc], [don't build second derivatives]),
 	      [ac_cv_build_fxc=$enableval],
 	      [ac_cv_build_fxc=yes])
-if test x"${ac_cv_build_fxc}" == x"no"; then
+if test x"${ac_cv_build_fxc}" = x"no"; then
   AC_DEFINE(XC_DONT_COMPILE_FXC, 1, [defined if second derivatives are disabled])
   AC_DEFINE(XC_DONT_COMPILE_KXC, 1, [defined if third derivatives are disabled])
   AC_DEFINE(XC_DONT_COMPILE_LXC, 1, [defined if fourth derivatives are disabled])
@@ -174,7 +174,7 @@ AC_ARG_ENABLE([kxc],
 	      AS_HELP_STRING([--disable-kxc], [don't build third derivatives]),
 	      [ac_cv_build_kxc=$enableval],
 	      [ac_cv_build_kxc=no])
-if test x"${ac_cv_build_kxc}" == x"no"; then
+if test x"${ac_cv_build_kxc}" = x"no"; then
   AC_DEFINE(XC_DONT_COMPILE_KXC, 1, [defined if third derivatives are disabled])
   AC_DEFINE(XC_DONT_COMPILE_LXC, 1, [defined if fourth derivatives are disabled])
 fi
@@ -183,7 +183,7 @@ AC_ARG_ENABLE([lxc],
 	      AS_HELP_STRING([--disable-lxc], [don't build fourth derivatives]),
 	      [ac_cv_build_lxc=$enableval],
 	      [ac_cv_build_lxc=no])
-if test x"${ac_cv_build_lxc}" == x"no"; then
+if test x"${ac_cv_build_lxc}" = x"no"; then
   AC_DEFINE(XC_DONT_COMPILE_LXC, 1, [defined if fourth derivatives are disabled])
 fi
 
@@ -255,11 +255,10 @@ AC_CONFIG_FILES([Makefile
   src/maple2c/mgga_vxc/Makefile
   testsuite/Makefile
   testsuite/pytest/Makefile
-  build/Makefile
-  build/libxc.pc
-  build/libxcf90.pc
-  build/libxcf03.pc
-  build/libxc.spec
+  packaging/Makefile
+  packaging/libxc.pc
+  packaging/libxcf90.pc
+  packaging/libxcf03.pc
   scripts/Makefile
   maple/Makefile
   maple/lda_exc/Makefile

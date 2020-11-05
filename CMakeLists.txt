@@ -421,9 +421,9 @@ endif()
 
 if(ENABLE_FORTRAN)
   enable_language(Fortran)
-  add_library(xcf90 ${raw_sources_list_f90})
-  target_link_libraries(xcf90 xc)
-  set_target_properties(xcf90 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
+  add_library(xcf03 ${raw_sources_list_f90})
+  target_link_libraries(xcf03 xc)
+  set_target_properties(xcf03 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
 endif()
 
 # run get_funcs.pl to generate headers for xc inclusion
@@ -477,7 +477,7 @@ install(TARGETS xc xc-info xc-threshold
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 if(ENABLE_FORTRAN)
-  install(TARGETS xcf90
+  install(TARGETS xcf03
     EXPORT "${PN}Targets"
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}

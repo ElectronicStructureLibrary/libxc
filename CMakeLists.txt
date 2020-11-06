@@ -22,9 +22,14 @@ if((${BUILD_SHARED_LIBS}) AND NOT ${BUILD_FPIC})
 endif()
 option_with_default(NAMESPACE_INSTALL_INCLUDEDIR "Location within CMAKE_INSTALL_INCLUDEDIR to which headers are installed. Psi4 wants namespace (e.g., /libxc)" /)
 option_with_print(ENABLE_GENERIC "Enable mostly static linking in shared library" OFF)
-option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON
-  "-xHost" "-march=native")
 option_with_print(ENABLE_FORTRAN "Build Fortran 2003 interface" OFF)
+
+# GCC appears to be catching -xHost as "-x Host" which breaks the detection
+if(CMAKE_C_COMPILER_ID MATCHES Intel)
+  option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON "-xHost" "-march=native" "/arch:AVX2")
+else()
+  option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON  "-march=native" "-xHost" "/arch:AVX2")
+endif()
 
 option_with_print(DISABLE_VXC "Don't compile first derivative code" OFF)
 option_with_print(DISABLE_FXC "Don't compile second derivative code" OFF)

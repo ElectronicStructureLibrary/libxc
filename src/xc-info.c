@@ -23,8 +23,12 @@ void print_rangesep(xc_func_type *func) {
   assert(func->hyb_type[0] == XC_HYB_ERF_SR || func->hyb_type[0] == XC_HYB_YUKAWA_SR);
   omega=func->hyb_omega[0];
   beta=func->hyb_coeff[0];
-  assert(func->hyb_type[1] == XC_HYB_FOCK);
-  alpha=func->hyb_coeff[1];
+  if(func->hyb_number_terms>1) {
+    assert(func->hyb_type[1] == XC_HYB_FOCK);
+    alpha=func->hyb_coeff[1];
+  } else {
+    alpha=0.0;
+  }
   printf("\nFunctional has a range-separation constant % .3f,\n",omega);
   printf("and %4.1f%% short-range and %4.1f%% long-range exact exchange,\n",(alpha+beta)*100,(alpha)*100);
 }

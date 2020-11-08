@@ -357,9 +357,9 @@ func_reference_type xc_ref_Cancio2018_084116 = {
 
 
 func_reference_type xc_ref_Carmona2015_054105 = {
-  "J. Carmona-Espindola, J. L. Gazquez, A. Vela, and S. B. Trickey, J. Chem. Phys. 142, 054105 (2015), 10.1063/1.4906606",
+  "J. Carmona-Espindola, J. L. Gazquez, A. Vela, and S. B. Trickey, J. Chem. Phys. 142, 054105 (2015)",
   "10.1063/1.4906606",
-  "@article{Carmona2015_054105,\n  author = \"Carmona-Esp\\'{i}ndola, Javier and G\\'{a}zquez, Jos\\'{e} L. and Vela, Alberto and Trickey, S. B.\",\n  title = \"Generalized gradient approximation exchange energy functional with correct asymptotic behavior of the corresponding potential\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2015\",\n  volume = \"142\",\n  number = \"5\",\n  eid = 054105,\n  pages = \"\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/142/5/10.1063/1.4906606\",\n  doi = \"10.1063/1.4906606\"\n}"
+  "@article{Carmona2015_054105,\n  author = \"Carmona-Esp\\'{i}ndola, Javier and G\\'{a}zquez, Jos\\'{e} L. and Vela, Alberto and Trickey, S. B.\",\n  title = {Generalized gradient approximation exchange energy functional with correct asymptotic behavior of the corresponding potential},\n  journal = {J. Chem. Phys.},\n  volume = {142},\n  number = {5},\n  pages = {054105},\n  year = {2015},\n  doi = {10.1063/1.4906606},\n  url = {https://doi.org/10.1063/1.4906606}\n}"
 };
 
 
@@ -994,9 +994,9 @@ func_reference_type xc_ref_Hu1985_391 = {
 
 
 func_reference_type xc_ref_Hui2016_044114 = {
-  "K. Hui and J.-D. Chai, J. Chem. Phys. 144, 044114 (2016), 10.1063/1.4940734",
+  "K. Hui and J.-D. Chai, The Journal of Chemical Physics 144, 044114 (2016)",
   "10.1063/1.4940734",
-  "@article{Hui2016_044114,\n  author = \"Hui, Kerwin and Chai, Jeng-Da\",\n  title = \"SCAN-based hybrid and double-hybrid density functionals from models without fitted parameters\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2016\",\n  volume = \"144\",\n  number = \"4\",\n  eid = 044114,\n  pages = \"\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/144/4/10.1063/1.4940734\",\n  doi = \"10.1063/1.4940734\"\n}"
+  "@article{Hui2016_044114,\n  author = {Hui, Kerwin and Chai, Jeng-Da },\n  title = {SCAN-based hybrid and double-hybrid density functionals from models without fitted parameters},\n  journal = {The Journal of Chemical Physics},\n  volume = {144},\n  number = {4},\n  pages = {044114},\n  year = {2016},\n  doi = {10.1063/1.4940734},\n  url = {https://doi.org/10.1063/1.4940734}\n}"
 };
 
 
@@ -1374,7 +1374,7 @@ func_reference_type xc_ref_Mardirossian2014_9904 = {
 func_reference_type xc_ref_Mardirossian2015_074111 = {
   "N. Mardirossian and M. Head-Gordon, J. Chem. Phys. 142, 074111 (2015)",
   "10.1063/1.4907719",
-  "@article{Mardirossian2015_074111,\n  author = \"Mardirossian, Narbe and Head-Gordon, Martin\",\n  title = \"Mapping the genome of meta-generalized gradient approximation density functionals: The search for B97M-V\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2015\",\n  volume = \"142\",\n  number = \"7\",\n  eid = 074111,\n  pages = \"-\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/142/7/10.1063/1.4907719\",\n  doi = \"10.1063/1.4907719\"\n}"
+  "@article{Mardirossian2015_074111,\n  author = {Mardirossian, Narbe and Head-Gordon, Martin},\n  title = {Mapping the genome of meta-generalized gradient approximation density functionals: The search for B97M-V},\n  journal = {J. Chem. Phys.},\n  volume = {142},\n  number = {7},\n  pages = {074111},\n  year = {2015},\n  doi = {10.1063/1.4907719},\n  url = {https://doi.org/10.1063/1.4907719}\n}"
 };
 
 
@@ -2352,16 +2352,16 @@ func_reference_type xc_ref_Vosko1980_1200 = {
 
 
 func_reference_type xc_ref_Vydrov2006_234109 = {
-  "O. A. Vydrov and G. E. Scuseria, J. Chem. Phys. 125, 234109 (2006), 10.1063/1.2409292",
+  "O. A. Vydrov and G. E. Scuseria, J. Chem. Phys. 125, 234109 (2006)",
   "10.1063/1.2409292",
-  "@article{Vydrov2006_234109,\n  author = \"Vydrov, Oleg A. and Scuseria, Gustavo E.\",\n  title = \"Assessment of a long-range corrected hybrid functional\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2006\",\n  volume = \"125\",\n  number = \"23\",\n  eid = 234109,\n  pages = \"\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/125/23/10.1063/1.2409292\",\n  doi = \"10.1063/1.2409292\"\n}"
+  "@article{Vydrov2006_234109,\n  author = {Vydrov, Oleg A. and Scuseria, Gustavo E.},\n  title = {Assessment of a long-range corrected hybrid functional},\n  journal = {J. Chem. Phys.},\n  volume = {125},\n  number = {23},\n  pages = {234109},\n  year = {2006},\n  doi = {10.1063/1.2409292},\n  url = {https://doi.org/10.1063/1.2409292}\n}"
 };
 
 
 func_reference_type xc_ref_Vydrov2010_244103 = {
   "O. A. Vydrov and T. Van Voorhis, J. Chem. Phys. 133, 244103 (2010)",
   "10.1063/1.3521275",
-  "@article{Vydrov2010_244103,\n  author = \"Vydrov, Oleg A. and Van Voorhis, Troy\",\n  title = \"Nonlocal van der Waals density functional: The simpler the better\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2010\",\n  volume = \"133\",\n  number = \"24\",\n  eid = 244103,\n  pages = \"-\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/133/24/10.1063/1.3521275\",\n  doi = \"10.1063/1.3521275\"\n}"
+  "@article{Vydrov2010_244103,\n  author = {Vydrov, Oleg A. and Van Voorhis, Troy},\n  title = {Nonlocal van der Waals density functional: The simpler the better},\n  journal = {J. Chem. Phys.},\n  volume = {133},\n  number = {24},\n  pages = {244103},\n  year = {2010},\n  doi = {10.1063/1.3521275},\n  url = {https://doi.org/10.1063/1.3521275}\n}"
 };
 
 

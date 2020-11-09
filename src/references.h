@@ -193,6 +193,7 @@ extern func_reference_type xc_ref_Lehtola2020;
 extern func_reference_type xc_ref_Lembarki1994_5328;
 extern func_reference_type xc_ref_Lieb1981_603;
 extern func_reference_type xc_ref_Lin2004_365;
+extern func_reference_type xc_ref_Lin2013_263;
 extern func_reference_type xc_ref_Liu1996_2211;
 extern func_reference_type xc_ref_Liu2000_29;
 extern func_reference_type xc_ref_Livshits2007_2932;

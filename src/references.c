@@ -51,14 +51,14 @@ func_reference_type xc_ref_Adamo2002_5933 = {
 func_reference_type xc_ref_Adamson1998_6 = {
   "R. D. Adamson, P. M. W. Gill, and J. A. Pople, Chem. Phys. Lett. 284, 6 (1998)",
   "10.1016/S0009-2614(97)01282-7",
-  "@article{Adamson1998_6,\n  title = \"Empirical density functionals \",\n  author = \"R. D. Adamson and P. M. W. Gill and J. A. Pople\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"284\",\n  number = \"1--2\",\n  pages = \"6\",\n  year = \"1998\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/S0009-2614(97)01282-7\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261497012827\"\n}"
+  "@article{Adamson1998_6,\n  title = \"Empirical density functionals\",\n  author = \"R. D. Adamson and P. M. W. Gill and J. A. Pople\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"284\",\n  number = \"1--2\",\n  pages = \"6\",\n  year = \"1998\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/S0009-2614(97)01282-7\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261497012827\"\n}"
 };
 
 
 func_reference_type xc_ref_Akinaga2008_348 = {
   "Y. Akinaga and S. Ten-no, Chem. Phys. Lett. 462, 348 (2008)",
   "10.1016/j.cplett.2008.07.103",
-  "@article{Akinaga2008_348,\n  title = \"Range-separation by the Yukawa potential in long-range corrected density functional theory with Gaussian-type basis functions \",\n  author = \"Y. Akinaga and S. Ten-no\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"462\",\n  number = \"4--6\",\n  pages = \"348\",\n  year = \"2008\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/j.cplett.2008.07.103\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261408010609\"\n}"
+  "@article{Akinaga2008_348,\n  title = \"Range-separation by the Yukawa potential in long-range corrected density functional theory with Gaussian-type basis functions\",\n  author = \"Y. Akinaga and S. Ten-no\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"462\",\n  number = \"4--6\",\n  pages = \"348\",\n  year = \"2008\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/j.cplett.2008.07.103\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261408010609\"\n}"
 };
 
 
@@ -436,7 +436,7 @@ func_reference_type xc_ref_Chiodo2012_126402 = {
 func_reference_type xc_ref_Cohen2000_160 = {
   "A. J. Cohen and N. C. Handy, Chem. Phys. Lett. 316, 160 (2000)",
   "10.1016/S0009-2614(99)01273-7",
-  "@article{Cohen2000_160,\n  title = \"Assessment of exchange correlation functionals \",\n  author = \"A. J. Cohen and N. C. Handy\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"316\",\n  number = \"1--2\",\n  pages = \"160\",\n  year = \"2000\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/S0009-2614(99)01273-7\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261499012737\",\n}"
+  "@article{Cohen2000_160,\n  title = \"Assessment of exchange correlation functionals\",\n  author = \"A. J. Cohen and N. C. Handy\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"316\",\n  number = \"1--2\",\n  pages = \"160\",\n  year = \"2000\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/S0009-2614(99)01273-7\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261499012737\",\n}"
 };
 
 
@@ -695,7 +695,7 @@ func_reference_type xc_ref_Finzel2017_40 = {
 func_reference_type xc_ref_Fuentealba1995_31 = {
   "P. Fuentealba and O. Reyes, Chem. Phys. Lett. 232, 31 (1995)",
   "10.1016/0009-2614(94)01321-L",
-  "@article{Fuentealba1995_31,\n  title = \"Further evidence of the conjoint correction to the local kinetic and exchange energy density functionals \",\n  author = \"P. Fuentealba and O. Reyes\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"232\",\n  number = \"1--2\",\n  pages = \"31\",\n  year = \"1995\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/0009-2614(94)01321-L\",\n  url = \"http://www.sciencedirect.com/science/article/pii/000926149401321L\",\n}"
+  "@article{Fuentealba1995_31,\n  title = \"Further evidence of the conjoint correction to the local kinetic and exchange energy density functionals\",\n  author = \"P. Fuentealba and O. Reyes\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"232\",\n  number = \"1--2\",\n  pages = \"31\",\n  year = \"1995\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/0009-2614(94)01321-L\",\n  url = \"http://www.sciencedirect.com/science/article/pii/000926149401321L\",\n}"
 };
 
 
@@ -779,7 +779,7 @@ func_reference_type xc_ref_Ghosh1985_3307 = {
 func_reference_type xc_ref_Gilbert1999_511 = {
   "A. T. Gilbert and P. M. Gill, Chem. Phys. Lett. 312, 511 (1999)",
   "10.1016/S0009-2614(99)00836-2",
-  "@article{Gilbert1999_511,\n  title = \"Decomposition of exchange-correlation energies \",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"312\",\n  number = \"5-6\",\n  pages = \"511 - 521\",\n  year = \"1999\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/S0009-2614(99)00836-2\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261499008362\",\n  author = \"Andrew T.B. Gilbert and Peter M.W. Gill\"\n}"
+  "@article{Gilbert1999_511,\n  title = \"Decomposition of exchange-correlation energies\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"312\",\n  number = \"5-6\",\n  pages = \"511 - 521\",\n  year = \"1999\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/S0009-2614(99)00836-2\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261499008362\",\n  author = \"Andrew T.B. Gilbert and Peter M.W. Gill\"\n}"
 };
 
 
@@ -996,7 +996,7 @@ func_reference_type xc_ref_Hu1985_391 = {
 func_reference_type xc_ref_Hui2016_044114 = {
   "K. Hui and J.-D. Chai, The Journal of Chemical Physics 144, 044114 (2016)",
   "10.1063/1.4940734",
-  "@article{Hui2016_044114,\n  author = {Hui, Kerwin and Chai, Jeng-Da },\n  title = {SCAN-based hybrid and double-hybrid density functionals from models without fitted parameters},\n  journal = {The Journal of Chemical Physics},\n  volume = {144},\n  number = {4},\n  pages = {044114},\n  year = {2016},\n  doi = {10.1063/1.4940734},\n  url = {https://doi.org/10.1063/1.4940734}\n}"
+  "@article{Hui2016_044114,\n  author = {Hui, Kerwin and Chai, Jeng-Da},\n  title = {SCAN-based hybrid and double-hybrid density functionals from models without fitted parameters},\n  journal = {The Journal of Chemical Physics},\n  volume = {144},\n  number = {4},\n  pages = {044114},\n  year = {2016},\n  doi = {10.1063/1.4940734},\n  url = {https://doi.org/10.1063/1.4940734}\n}"
 };
 
 
@@ -1273,6 +1273,13 @@ func_reference_type xc_ref_Lin2004_365 = {
 };
 
 
+func_reference_type xc_ref_Lin2013_263 = {
+  "Y.-S. Lin, G.-D. Li, S.-P. Mao, and J.-D. Chai, J. Chem. Theory Comput. 9, 263 (2013), pMID: 26589028",
+  "10.1021/ct300715s",
+  "@article{Lin2013_263,\n  author = {Lin, You-Sheng and Li, Guan-De and Mao, Shan-Ping and Chai, Jeng-Da},\n  title = {Long-Range Corrected Hybrid Density Functionals with Improved Dispersion Corrections},\n  journal = {J. Chem. Theory Comput.},\n  volume = {9},\n  number = {1},\n  pages = {263-272},\n  year = {2013},\n  doi = {10.1021/ct300715s},\n  note ={PMID: 26589028},\n  URL = {https://doi.org/10.1021/ct300715s}\n}"
+};
+
+
 func_reference_type xc_ref_Liu1996_2211 = {
   "S. Liu and R. G. Parr, Phys. Rev. A 53, 2211 (1996)",
   "10.1103/PhysRevA.53.2211",
@@ -1283,7 +1290,7 @@ func_reference_type xc_ref_Liu1996_2211 = {
 func_reference_type xc_ref_Liu2000_29 = {
   "S. Liu and R. Parr, J. Mol. Struct.: THEOCHEM 501--502, 29 (2000)",
   "10.1016/S0166-1280(99)00410-8",
-  "@article{Liu2000_29,\n  title = \"Homogeneities in density of various {LDA} energy functionals \",\n  journal = \"J. Mol. Struct.: THEOCHEM\",\n  volume = \"501--502\",\n  number = \"\",\n  pages = \"29 - 34\",\n  year = \"2000\",\n  issn = \"0166-1280\",\n  doi = \"10.1016/S0166-1280(99)00410-8\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0166128099004108\",\n  author = \"S Liu and R.G Parr\"\n}"
+  "@article{Liu2000_29,\n  title = \"Homogeneities in density of various {LDA} energy functionals\",\n  journal = \"J. Mol. Struct.: THEOCHEM\",\n  volume = \"501--502\",\n  number = \"\",\n  pages = \"29 - 34\",\n  year = \"2000\",\n  issn = \"0166-1280\",\n  doi = \"10.1016/S0166-1280(99)00410-8\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0166128099004108\",\n  author = \"S Liu and R.G Parr\"\n}"
 };
 
 
@@ -1654,7 +1661,7 @@ func_reference_type xc_ref_Perdew1992_6671_err = {
 func_reference_type xc_ref_Perdew1992_79 = {
   "J. P. Perdew, Phys. Lett. A 165, 79 (1992)",
   "10.1016/0375-9601(92)91058-Y",
-  "@article{Perdew1992_79,\n  title = \"Generalized gradient approximation for the fermion kinetic energy as a functional of the density \",\n  author = \"J. P. Perdew\",\n  journal = \"Phys. Lett. A\",\n  volume = \"165\",\n  number = \"1\",\n  pages = \"79\",\n  year = \"1992\",\n  issn = \"0375-9601\",\n  doi = \"10.1016/0375-9601(92)91058-Y\",\n  url = \"http://www.sciencedirect.com/science/article/pii/037596019291058Y\",\n}"
+  "@article{Perdew1992_79,\n  title = \"Generalized gradient approximation for the fermion kinetic energy as a functional of the density\",\n  author = \"J. P. Perdew\",\n  journal = \"Phys. Lett. A\",\n  volume = \"165\",\n  number = \"1\",\n  pages = \"79\",\n  year = \"1992\",\n  issn = \"0375-9601\",\n  doi = \"10.1016/0375-9601(92)91058-Y\",\n  url = \"http://www.sciencedirect.com/science/article/pii/037596019291058Y\",\n}"
 };
 
 
@@ -1857,7 +1864,7 @@ func_reference_type xc_ref_Proynov2017_059904 = {
 func_reference_type xc_ref_Rae1973_574 = {
   "A. Rae, Chem. Phys. Lett. 18, 574 (1973)",
   "10.1016/0009-2614(73)80469-5",
-  "@article{Rae1973_574,\n  title = \"A theory for the interactions between closed shell systems \",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"18\",\n  number = \"4\",\n  pages = \"574 - 577\",\n  year = \"1973\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/0009-2614(73)80469-5\",\n  url = \"//www.sciencedirect.com/science/article/pii/0009261473804695\",\n  author = \"A.I.M. Rae\",\n}"
+  "@article{Rae1973_574,\n  title = \"A theory for the interactions between closed shell systems\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"18\",\n  number = \"4\",\n  pages = \"574 - 577\",\n  year = \"1973\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/0009-2614(73)80469-5\",\n  url = \"//www.sciencedirect.com/science/article/pii/0009261473804695\",\n  author = \"A.I.M. Rae\",\n}"
 };
 
 

@@ -216,6 +216,24 @@ set_ext_params_cpy_camy(xc_func_type *p, const double *ext_params)
   p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
 }
 
+/*
+  Short-range-only version
+*/
+void
+set_ext_params_cpy_cam_sr(xc_func_type *p, const double *ext_params)
+{
+  int nparams;
+  assert(p != NULL);
+  nparams = p->info->ext_params.n - 2;
+  copy_params(p, ext_params, p->info->ext_params.n - 2);
+
+  assert(p->hyb_number_terms == 1);
+  p->hyb_type[0]  = XC_HYB_ERF_SR;
+  p->hyb_coeff[0] = get_ext_param(p, ext_params, nparams);
+  p->hyb_omega[0] = get_ext_param(p, ext_params, nparams + 1);
+}
+
+
 /* these functional handle the internal counters
    used to move along the input and output arrays.
    We have to pay particular attention to the spin,

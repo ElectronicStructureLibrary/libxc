@@ -102,7 +102,7 @@ extern "C"
 const xc_func_info_type xc_func_info_hyb_gga_x_s12h = {
   XC_HYB_GGA_X_S12H,
   XC_EXCHANGE,
-  "Swart 2012 hybrid exchange",
+  "Swart 2012 hybrid GGA exchange",
   XC_FAMILY_GGA,
   {&xc_ref_Swart2013_166, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,

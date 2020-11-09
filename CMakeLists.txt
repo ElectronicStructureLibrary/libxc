@@ -288,6 +288,7 @@ set(raw_sources_list
   hyb_mgga_x_js18.c
   hyb_mgga_x_pjs18.c
   hyb_gga_xc_cam_o3lyp.c
+  hyb_gga_x_cam_s12.c
   integrate.c
   lda.c
   lda_c_1d_csc.c

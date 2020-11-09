@@ -15,6 +15,7 @@
 #define XC_MGGA_C_M06_2X        236 /* M06-2X correlation functional from Minnesota         */
 #define XC_MGGA_C_REVM06_L      294 /* Revised M06-L correlation functional from Minnesota  */
 #define XC_MGGA_C_REVM06        306 /* Revised M06 correlation functional from Minnesota    */
+#define XC_MGGA_C_M06_SX        311 /* M06-SX correlation functional from Minnesota    */
 
 typedef struct{
   double gamma_ss, gamma_ab, alpha_ss, alpha_ab;
@@ -100,6 +101,14 @@ static const double revm06_values[M06L_N_PAR] = {
   1.222401598,  0.6613907336, -1.884581043, -2.780360568, -3.068579344,
   -0.1467095900, -0.0001832187007, 0.08484372430, 0.0, 0.0,  0.0002280677172,
   -0.3390666720,  0.003790156384, -0.02762485975, 0.0, 0.0,  0.0004076285162,
+  1e-10
+};
+static const double m06sx_values[M06L_N_PAR] = {
+  0.06, 0.0031, 0.00515088, 0.00304966,
+  1.17575011057022E+00,  6.58083496678423E-01, -2.78913774852905E+00, -1.18597601856255E+00,  1.16439928209688E+00,
+  1.63738167314691E-01, -4.36481171027951E-01, -1.90232628449712E+00, -1.42432902881841E+00, -9.05909137360893E-01,
+  8.17322574473352E-02, -2.88531085759385E-02,  9.05917734868130E-02, 0.0, 0.0, -4.86297499082106E-04,
+  7.40594619832397E-01,  1.23306511345974E-02, -1.88253421850249E-02, 0.0, 0.0,  4.87276242162303E-04,
   1e-10
 };
 
@@ -199,6 +208,22 @@ const xc_func_info_type xc_func_info_mgga_c_revm06 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1.0e-12,
   {M06L_N_PAR, m06l_names, m06l_desc, revm06_values, set_ext_params_cpy},
+  mgga_c_m06l_init, NULL,
+  NULL, NULL, work_mgga,
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_mgga_c_m06_sx = {
+  XC_MGGA_C_M06_SX,
+  XC_CORRELATION,
+  "Minnesota M06-SX correlation functional",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Wang2020_2294, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1.0e-14,
+  {M06L_N_PAR, m06l_names, m06l_desc, m06sx_values, set_ext_params_cpy},
   mgga_c_m06l_init, NULL,
   NULL, NULL, work_mgga,
 };

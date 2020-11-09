@@ -2379,6 +2379,13 @@ func_reference_type xc_ref_Wang2018_10257 = {
 };
 
 
+func_reference_type xc_ref_Wang2020_2294 = {
+  "Y. Wang, P. Verma, L. Zhang, Y. Li, Z. Liu, D. G. Truhlar, and X. He, Proc. Natl. Acad. Sci. U. S. A. 117, 2294 (2020), https://www.pnas.org/content/117/5/2294.full.pdf",
+  "10.1073/pnas.1913699117",
+  "@article{Wang2020_2294,\n  author = {Wang, Ying and Verma, Pragya and Zhang, Lujia and Li, Yaqi and Liu, Zhonghua and Truhlar, Donald G. and He, Xiao},\n  title = {M06-SX screened-exchange density functional for chemistry and solid-state physics},\n  volume = {117},\n  number = {5},\n  pages = {2294--2301},\n  year = {2020},\n  doi = {10.1073/pnas.1913699117},\n  publisher = {National Academy of Sciences},\n  issn = {0027-8424},\n  url = {https://www.pnas.org/content/117/5/2294},\n  eprint = {https://www.pnas.org/content/117/5/2294.full.pdf},\n  journal = {Proc. Natl. Acad. Sci. U. S. A.}\n}"
+};
+
+
 func_reference_type xc_ref_Weintraub2009_754 = {
   "E. Weintraub, T. M. Henderson, and G. E. Scuseria, J. Chem. Theory Comput. 5, 754 (2009)",
   "10.1021/ct800530u",

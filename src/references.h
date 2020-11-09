@@ -351,6 +351,7 @@ extern func_reference_type xc_ref_Vydrov2006_234109;
 extern func_reference_type xc_ref_Vydrov2010_244103;
 extern func_reference_type xc_ref_Wang2017_8487;
 extern func_reference_type xc_ref_Wang2018_10257;
+extern func_reference_type xc_ref_Wang2020_2294;
 extern func_reference_type xc_ref_Weintraub2009_754;
 extern func_reference_type xc_ref_Weizsacker1935_431;
 extern func_reference_type xc_ref_Wellendorff2012_235149;

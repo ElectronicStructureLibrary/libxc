@@ -33,8 +33,8 @@ while($_=<BIB>){
       $bibtex{$ref} .= $_;
 
       if($_ =~ /doi\s*=\s*[{\"]([^}\"]*)[}\"]*/){
-	$doi{$ref} = $1;
-	$doi{$ref} =~ s/http:\/\/dx.doi.org\///;
+        $doi{$ref} = $1;
+        $doi{$ref} =~ s/http:\/\/doi.org\///;
       }
     }
     $bibtex{$ref} .= "}";
@@ -63,37 +63,6 @@ close(TEX);
 # run latex and bibtex
 system "cd $dir && latex $$.tex && bibtex $$.aux && latex $$.tex && latex $$.tex && /bin/mv -f $$.dvi libxc.dvi";
 
-%journal_abbreviations =
-  (
-   "Mathematical Proceedings of the Cambridge Philosophical Society" => "Math. Proc. Cambridge Philos. Soc.",
-   "Zeitschrift für Physik" => "Z. Phys.",
-   "Journal of Physics C: Solid State Physics" => "J. Phys. C: Solid State Phys.",
-   "Canadian Journal of Physics" => "Can. J. Phys.",
-   "The Journal of Chemical Physics" => "J. Chem. Phys.",
-   "Rendiconti dell'Accademia Nazionale dei Lincei" => "Rend. Accad. Naz. Lincei ",
-   "Journal of Chemical Theory and Computation" => "J. Chem. Theory Comput.",
-   "Journal of Physics: Condensed Matter" => "J. Phys.: Condens. Matter",
-   "Chemical Physics Letters" => "Chem. Phys. Lett.",
-   "International Journal of Quantum Chemistry" => "Int. J. Quantum Chem.",
-   "The Journal of Physical Chemistry A" => "J. Phys. Chem. A",
-   "The Journal of Physical Chemistry B" => "J. Phys. Chem. B",
-   "The Journal of Physical Chemistry Letters" => "J. Phys. Chem. Lett.",
-   "The Journal of Physical Chemistry" => "J. Phys. Chem",
-   "Molecular Physics" => "Mol. Phys.",
-   "Physica Scripta" => "Phys. Scr.",
-   "Journal of Computational Chemistry" => "J. Comput. Chem.",
-   "Proceedings of the National Academy of Sciences of the U. S. A." => "Proc. Natl. Acad. Sci. U. S. A.",
-   "Theoretical Chemistry Accounts" => "Theor. Chem. Acc.",
-   "Theoretica chimica acta" => "Theor. Chim. Acta",
-   "Journal of Computational Methods in Science and Engineering" => "J. Comput. Methods Sci. Eng.",
-   "Journal of the Physical Society of Japan" => "J. Phys. Soc. Jpn.",
-   "Physics Letters A" => "Phys. Lett. A",
-   "Journal of the American Chemical Society" => "J. Am. Chem. Soc.",
-   "Journal of Molecular Structure: THEOCHEM" => "J. Mol. Struct.: THEOCHEM",
-   "Computational and Theoretical Chemistry" => "Comput. Theor. Chem.",
-   "Journal of Photochemistry and Photobiology A: Chemistry" => "J. Photochem. Photobiol., A",
-  );
-
 # now we parse the bbl file
 open(BBL, "<$dir/$$.bbl");
 $item = "";
@@ -106,6 +75,12 @@ while($_=<BBL>){
       # we now clean and parse the bibitem
       $item =~ s/\n//gm;
       $item =~ s/%//gm;
+
+      # remove accents
+      $item =~ s/\\o({})?/o/g;
+      $item =~ s/\\["'`~olv]{(.?)}/$1/g;
+      $item =~ s/\\["'`~]//g;
+      
       $item =~ s/\{\\natexlab\{.\}(.*?)\}/$1/g;
 
       $item =~ s/^\\bibitem\s*\[.*\]\{(.*?)\}//;
@@ -118,14 +93,15 @@ while($_=<BBL>){
       $item =~ s/\\bibinfo\s*\{.*?\}\s*\{(.*?)\}/$1/g;
       $item =~ s/\\bibinfo\s*\{editor\s+\{(.*?)\}(.*?)\}/$1$2/g; # result of nested bibinfos for book with editor
       $item =~ s/\\bibfield\s*\{.*?\}\s*\{(.*?)\}/$1/g;
-      $item =~ s/\\href.*?\{.*?\}\s*\{(.*?)\}/$1/g;
-      $item =~ s/,\\ \\Eprint.*?\{.*?\}\s*\{(http:\/\/.*?)\}\s*//g; # wipe URL that is not arxiv
-      $item =~ s/\\Eprint.*?\{.*?\}\s*\{(.*?)\}\s*/$1/g; # arxiv
-      $item =~ s/\\v\{(.)(.*?)\}/\\v{$1}$2/g; # special rule for haceks \v{ } in names
 
       $item =~ s/\\textbf\s*\{(.*?)\}/$1/g;
       $item =~ s/\\emph\s*\{(.*?)\}/$1/g;
       $item =~ s/\\enquote\s*\{(.*?)\}/$1/g;
+
+      $item =~ s/\\href.*?\{.*?\}\s*\{(.*?)\}/$1/g;
+      $item =~ s/,\\ \\Eprint.*?\{.*?\}\s*\{(http:\/\/.*?)\}\s*//g; # wipe URL that is not arxiv
+      $item =~ s/\\Eprint.*?\{.*?\}\s*\{(.*?)\}\s*/$1/g; # arxiv
+      $item =~ s/\\v\{(.)(.*?)\}/\\v{$1}$2/g; # special rule for haceks \v{ } in names
 
       $item =~ s/\\ / /g;
       $item =~ s/~/ /g;
@@ -137,19 +113,17 @@ while($_=<BBL>){
 
       # check if things seem ok
       if($item =~ /\\/) {
-	  print STDERR "WARNING: backslashes remain.\n";
-	  print STDERR $item . "\n";
+        print STDERR "WARNING: backslashes remain.\n";
+        print STDERR $item . "\n";
       }
       if($item =~ /\{/ || $item =~ /\}/) {
-	  print STDERR "WARNING: braces remain.\n";
-	  print STDERR $item . "\n";
+        print STDERR "WARNING: braces remain.\n";
+        print STDERR $item . "\n";
       }
 
-      # and now we abbreviate the journal names
-      foreach $key ( keys %journal_abbreviations ){
-	$item =~ s/$key/$journal_abbreviations{$key}/;
-	
-      }
+      # remove remaining braces and backslashes
+      $item =~ s/{(.*?)}/$1/g;
+      $item =~ s/\\//g;
 
       $bibitem{$label} = $item;
       $item = "";

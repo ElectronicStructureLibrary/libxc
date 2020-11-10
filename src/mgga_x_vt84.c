@@ -27,6 +27,6 @@ const xc_func_info_type xc_func_info_mgga_x_vt84 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
   {0, NULL, NULL, NULL, NULL},
-  NULL, NULL, 
+  NULL, NULL,
   NULL, NULL, work_mgga,
 };

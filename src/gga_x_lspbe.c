@@ -17,7 +17,7 @@ typedef struct{
   double alpha; /* alpha parameter, solved automatically */
 } gga_x_lspbe_params;
 
-static void 
+static void
 gga_x_lspbe_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
@@ -34,7 +34,7 @@ static const char  *lspbe_desc[LSPBE_N_PAR]   = {
 static const double lspbe_values[LSPBE_N_PAR] =
   {0.8040, MU_PBE, 0.00145165};
 
-static void 
+static void
 lspbe_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   gga_x_lspbe_params *params;
@@ -62,8 +62,8 @@ const xc_func_info_type xc_func_info_gga_x_lspbe = {
   XC_FAMILY_GGA,
   {&xc_ref_PachecoKato2016_268, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {LSPBE_N_PAR, lspbe_names, lspbe_desc, lspbe_values, lspbe_set_ext_params},
-  gga_x_lspbe_init, NULL, 
+  gga_x_lspbe_init, NULL,
   NULL, work_gga, NULL
 };

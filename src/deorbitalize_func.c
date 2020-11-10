@@ -24,7 +24,7 @@ xc_mgga_vars_allocate_all(int family, size_t np, const xc_dimensions *dim,
   /* allocate buffers */
   if(do_zk)
     *zk = (double *) libxc_malloc(sizeof(double)*np*dim->zk);
-  
+
 #ifndef XC_DONT_COMPILE_VXC
   if(do_vrho){
     *vrho = (double *) libxc_malloc(sizeof(double)*np*dim->vrho);
@@ -141,12 +141,12 @@ xc_mgga_vars_free_all(double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
   safe_free(vsigma);
   safe_free(vlapl);
   safe_free(vtau);
-  
+
 #ifndef XC_DONT_COMPILE_FXC
   safe_free(v2rho2); safe_free(v2rhosigma); safe_free(v2rholapl); safe_free(v2rhotau);
   safe_free(v2sigma2); safe_free(v2sigmalapl); safe_free(v2sigmatau);
   safe_free(v2lapl2); safe_free(v2lapltau); safe_free(v2tau2);
-  
+
 #ifndef XC_DONT_COMPILE_KXC
   safe_free(v3rho3); safe_free(v3rho2sigma); safe_free(v3rho2lapl); safe_free(v3rho2tau);
   safe_free(v3rhosigma2); safe_free(v3rhosigmalapl); safe_free(v3rhosigmatau);
@@ -154,7 +154,7 @@ xc_mgga_vars_free_all(double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
   safe_free(v3sigma3); safe_free(v3sigma2lapl); safe_free(v3sigma2tau);
   safe_free(v3sigmalapl2); safe_free(v3sigmalapltau); safe_free(v3sigmatau2);
   safe_free(v3lapl3); safe_free(v3lapl2tau); safe_free(v3lapltau2); safe_free(v3tau3);
-  
+
 #ifndef XC_DONT_COMPILE_LXC
   safe_free(v4rho4); safe_free(v4rho3sigma); safe_free(v4rho3lapl); safe_free(v4rho3tau);
   safe_free(v4rho2sigma2); safe_free(v4rho2sigmalapl); safe_free(v4rho2sigmatau);
@@ -180,7 +180,7 @@ xc_mgga_evaluate_functional(const xc_func_type *func, size_t np,
   double *mzk = NULL;
   if(func->info->flags & XC_FLAGS_HAVE_EXC)
     mzk = zk;
-  
+
   /* Evaluate the functional */
   switch(func->info->family){
   case XC_FAMILY_LDA:
@@ -227,7 +227,7 @@ xc_deorbitalize_func(const xc_func_type *func, size_t np,
   double *ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA *, ked2_);
   size_t ii;
   int order = -1;
-  
+
   if(zk     != NULL) order = 0;
   if(vrho   != NULL) order = 1;
   if(v2rho2 != NULL) order = 2;
@@ -240,8 +240,8 @@ xc_deorbitalize_func(const xc_func_type *func, size_t np,
   mgga_zk MGGA_OUT_PARAMS_NO_EXC(=, mgga_ ) = NULL;
   ked1_zk MGGA_OUT_PARAMS_NO_EXC(=, ked1_ ) = NULL;
   ked2_zk MGGA_OUT_PARAMS_NO_EXC(=, ked2_ ) = NULL;
-  
-  /* allocate buffers */  
+
+  /* allocate buffers */
   xc_mgga_vars_allocate_all(func->func_aux[0]->info->family, np, &(func->func_aux[0]->dim),
                        order >= 0, order >= 1, order >= 2, order >= 3, order >= 4,
                        &mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, mgga_));
@@ -274,7 +274,7 @@ xc_deorbitalize_func(const xc_func_type *func, size_t np,
     }
     xc_mgga_evaluate_functional(func->func_aux[1], np, mrho, msigma, mlapl, mtau,
                            ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ked1_));
-    
+
     for(ii=0; ii<np; ii++){
       mrho  [2*ii] = rho  [2*ii + 1];
       msigma[3*ii] = sigma[3*ii + 2];
@@ -298,7 +298,7 @@ xc_deorbitalize_func(const xc_func_type *func, size_t np,
   }
   xc_mgga_evaluate_functional(func->func_aux[0], np, rho, sigma, lapl, mtau,
                          mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, mgga_));
-  
+
   /* now we have to combine the results */
   for(ii=0; ii<np; ii++){
     if(zk != NULL){
@@ -334,7 +334,7 @@ xc_deorbitalize_func(const xc_func_type *func, size_t np,
                                 &ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked1_));
     if(func->nspin == XC_POLARIZED){
       internal_counters_mgga_next(&(func->func_aux[1]->dim), 0, &null, &null, &null, &null,
-                                  &ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked2_));    
+                                  &ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked2_));
     }
   }
 
@@ -344,11 +344,11 @@ xc_deorbitalize_func(const xc_func_type *func, size_t np,
   xc_mgga_vars_free_all(mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, mgga_));
 
   internal_counters_mgga_random(&(func->func_aux[1]->dim), -np, 0, &null, &null, &null, &null,
-                                &ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked1_));  
+                                &ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked1_));
   xc_mgga_vars_free_all(ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ked1_));
   if(func->nspin == XC_POLARIZED){
     internal_counters_mgga_random(&(func->func_aux[1]->dim), -np, 0, &null, &null, &null, &null,
-                                  &ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked2_));      
+                                  &ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked2_));
     xc_mgga_vars_free_all(ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ked2_));
 
     free(mrho); free(msigma); free(mlapl);

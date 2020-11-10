@@ -1,7 +1,7 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
  Copyright (C) 2019 X. Andrade
- 
+
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -10,11 +10,11 @@
 #include "util.h"
 
 /*
-  Lambert W function. 
+  Lambert W function.
   adapted from the Fortran code of Rickard Armiento
 
-  Corless, Gonnet, Hare, Jeffrey, and Knuth (1996), 
-         Adv. in Comp. Math. 5(4):329-359. 
+  Corless, Gonnet, Hare, Jeffrey, and Knuth (1996),
+         Adv. in Comp. Math. 5(4):329-359.
 */
 
 GPU_FUNCTION double LambertW(double z)
@@ -31,7 +31,7 @@ GPU_FUNCTION double LambertW(double z)
   } else if(z < -1.0/M_E)
     /* Value of W(x) at x=-1/e is -1 */
     return -1.0;
-  
+
   /* If z is small, go with the first terms of the power expansion
      (if z smaller than cube root of epsilon, z^4 will be zero to
      machine precision).
@@ -43,7 +43,7 @@ GPU_FUNCTION double LambertW(double z)
   if(z <= -0.3140862435046707) { /* Point where sqrt and Taylor polynomials match */
     /* Near the branching point: first terms in eqn (4.22) */
     w = sqrt(2.0*M_E*z + 2.0) - 1.0;
-    
+
   } else if(z <= 1.149876485041417) { /* Point where Taylor and log expansion match */
 
     /* Taylor series around origin */
@@ -60,7 +60,7 @@ GPU_FUNCTION double LambertW(double z)
   for(i=0; i<10; i++){
     double expmw, dw;
     expmw = exp(-w);
-    
+
     /* Halley's equation, (5.9) in Corless et al */
     if( w != -1.0 )
       dw = - (w - z*expmw) / ( w + 1.0 - (w + 2.0)/(2.0*w + 2.0)*(w - z*expmw) );
@@ -71,7 +71,7 @@ GPU_FUNCTION double LambertW(double z)
     if(fabs(dw) < 10*DBL_EPSILON*(1.0 + fabs(w)))
       return w;
   }
-  
+
 #ifndef HAVE_CUDA
   /* This should never happen! */
   fprintf(stderr, "%s\n%s\n", "lambert_w: iteration limit reached",
@@ -95,7 +95,7 @@ static const double pi26 = 1.644934066848226436472415166646025189219;
 #ifdef HAVE_CUDA
 __device__
 #endif
-static const double spencs[38] = 
+static const double spencs[38] =
   {
     +.1527365598892405872946684910028e+0,
     +.8169658058051014403501838185271e-1,
@@ -147,7 +147,7 @@ double xc_dilogarithm(const double x)
   if (x > 2.0){
     aux = log(x);
     dspenc = 2.0*pi26 - 0.5*aux*aux;
-    if(x < FLT_RADIX/DBL_EPSILON) 
+    if(x < FLT_RADIX/DBL_EPSILON)
       dspenc -= (1.0 + xc_cheb_eval(4.0/x - 1.0, spencs, nspenc))/x;
 
   }else if (x > 1.0){

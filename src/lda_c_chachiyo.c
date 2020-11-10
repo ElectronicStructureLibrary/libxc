@@ -19,7 +19,7 @@ typedef struct {
 static lda_c_chachiyo_params par_chachiyo = {-0.01554535, 20.4562557, -0.007772675, 27.4203609};
 static lda_c_chachiyo_params par_karasiev = {-0.01554535, 21.7392245, -0.007772675, 28.3559732};
 
-static void 
+static void
 lda_c_chachiyo_init(xc_func_type *p)
 {
   lda_c_chachiyo_params *params;
@@ -55,7 +55,7 @@ const xc_func_info_type xc_func_info_lda_c_chachiyo = {
   XC_FAMILY_LDA,
   {&xc_ref_Chachiyo2016_021101, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   lda_c_chachiyo_init, NULL,
   work_lda, NULL, NULL
@@ -71,7 +71,7 @@ const xc_func_info_type xc_func_info_lda_c_karasiev = {
   XC_FAMILY_LDA,
   {&xc_ref_Karasiev2016_157101, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   lda_c_chachiyo_init, NULL,
   work_lda, NULL, NULL

@@ -26,7 +26,7 @@ double xc_math_brent
   double tmp;
   double c, fc, s, d;
   int mflag, iter;
-  
+
   a = lower_bound;
   b = upper_bound;
   fa = f(a, f_params);

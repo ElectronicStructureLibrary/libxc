@@ -59,7 +59,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b2plyp = {
   XC_FAMILY_GGA,
   {&xc_ref_Grimme2006_034108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {B2PLYP_N_PAR, b2plyp_names, b2plyp_desc, b2plyp_values, b2plyp_set_ext_params},
   hyb_gga_xc_b2plyp_init, NULL,
   NULL, NULL, NULL /* this is taken care of by the generic routine */

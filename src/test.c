@@ -41,14 +41,14 @@ void test_expi()
     //r2 = gsl_sf_bessel_K0(b);
     //r3 = bessi1(b);
     printf("%5.3lf %12.10lf %12.10lf %12.10lf\n", b, r1, r2, r3);
-  }  
+  }
 }
 
 void test_lda()
 {
   xc_func_type l1, l2, l3;
   int i;
-  
+
   //xc_func_init(&l1, XC_LDA_XC_KSDT2, XC_POLARIZED);
   //xc_func_init(&l1, XC_LDA_C_PW, XC_UNPOLARIZED);
   xc_func_init(&l3, XC_LDA_X, XC_UNPOLARIZED);
@@ -61,7 +61,7 @@ void test_lda()
     double ec1, vc1[2], fxc1[3], kxc1[4];
     double ec2, vc2[2], fxc2[3], kxc2[4];
     double ec3, vc3[2], fxc3[3], kxc3[4];
-    
+
     //rs   = 0.5 + i/500.0;
     //zeta = -1.0 + 2.0*i/1000000000.0;
 
@@ -109,14 +109,14 @@ void test_ak13()
     x = 500.0*i/(10000.0);
     rho[0]   = 0.12*exp(-beta * x);
     sigma[0] = 0.12*0.12*beta*beta * rho[0]*rho[0];
-    
+
     xc_gga_exc_vxc(&gga,  1, rho, sigma, &zk, vrho, vsigma);
 
     tmp2 = 1.74959015598863046792081721182*beta*x/3.0- 1.62613336586517367779736042170*log(x);
-    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\t%16.10lf\n", x, vrho[0], vsigma[0]*sqrt(sigma[0]), 
+    fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\t%16.10lf\n", x, vrho[0], vsigma[0]*sqrt(sigma[0]),
 	    -X_FACTOR_C*X2S*tmp2/2.0);
   }
-  
+
 }
 
 void test_enhance()
@@ -160,7 +160,7 @@ void test_gga()
   v3rhosigma2 = libxc_malloc(12*npoints*sizeof(double));
   v3sigma3    = libxc_malloc(10*npoints*sizeof(double));
 
-  
+
   xc_func_init(&gga,  XC_GGA_C_PW91,  XC_POLARIZED);
 
   /*
@@ -199,7 +199,7 @@ void test_gga()
 
   xc_gga(&gga,  npoints, rho, sigma, zk,  vrho,  vsigma,  v2rho2,  v2rhosigma,  v2sigma2, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3);
 
-  for(i=0; i<npoints; i++){    
+  for(i=0; i<npoints; i++){
     fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", rho[2*i + 0], vrho[2*i + 0], v2rho2[3*i + 0]);
   }
   */
@@ -221,7 +221,7 @@ void test_mgga()
   xc_func_init(&mgga1, XC_GGA_C_LYP, XC_POLARIZED);
   xc_func_init(&mgga2, XC_MGGA_X_SCAN, XC_POLARIZED);
   //xc_mgga_c_tpss_init(tpss2.mgga);
-  
+
   for(i=0; i<=1000; i++){
     double rho[2], sigma[3], tau[2], lapl[2];
     double zk,   vrho[2],  vsigma[3],  vtau[2],  vlapl[2];
@@ -240,19 +240,19 @@ void test_mgga()
     lapl[0]  = -0.1518421131246519;
     lapl[1]  = 0.12;
 
-    //xc_mgga(&mgga1, 1, rho, sigma, lapl, tau, 
-    //	     &zk,  vrho, vsigma, vlapl, vtau, 
+    //xc_mgga(&mgga1, 1, rho, sigma, lapl, tau,
+    //	     &zk,  vrho, vsigma, vlapl, vtau,
     //	     v2rho2, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
     //	     v2sigmalapl, v2sigmatau, v2lapltau);
-    //xc_mgga(&mgga2, 1, rho, sigma, lapl, tau, 
-    //	     &zk2,  vrho2, vsigma2, vlapl2, vtau2, 
+    //xc_mgga(&mgga2, 1, rho, sigma, lapl, tau,
+    //	     &zk2,  vrho2, vsigma2, vlapl2, vtau2,
     // 	     NULL, v2sigma2, v2lapl2, v2tau2, v2rhosigma, v2rholapl, v2rhotau,
     //	     v2sigmalapl, v2sigmatau, v2lapltau);
-    //xc_mgga_exc(&mgga2, 1, rho, sigma, lapl, tau, 
+    //xc_mgga_exc(&mgga2, 1, rho, sigma, lapl, tau,
     //		 &zk2);
-    xc_gga_exc_vxc(&mgga1, 1, rho, sigma, 
+    xc_gga_exc_vxc(&mgga1, 1, rho, sigma,
 		     &zk,  vrho, vsigma);
-    xc_mgga_exc_vxc(&mgga2, 1, rho, sigma, lapl, tau, 
+    xc_mgga_exc_vxc(&mgga2, 1, rho, sigma, lapl, tau,
 		     &zk2,  vrho2, vsigma2, vlapl2, vtau2);
 
     fprintf(stderr, "%16.10lf\t%16.10lf\t%16.10lf\n", sigma[2], zk2*(rho[0]+rho[1]), vsigma2[2]);
@@ -266,17 +266,17 @@ void test_neg_rho()
 {
   xc_func_type func;
   double rho[5][2] = {
-    {9.03897273e-06, -1.00463992e-06}, 
-    {8.48383564e-06, -3.51231267e-07}, 
-    {1.45740621e-08, -2.94546705e-09}, 
-    {2.62778445e-07, -1.00191745e-07}, 
+    {9.03897273e-06, -1.00463992e-06},
+    {8.48383564e-06, -3.51231267e-07},
+    {1.45740621e-08, -2.94546705e-09},
+    {2.62778445e-07, -1.00191745e-07},
     {2.55745103e-06, -1.54789964e-06}
   };
   double sigma[5][3] = {
-    {1.20122271e-08, 4.83240746e-09, 6.24774836e-09}, 
-    {1.54146602e-07, 1.41584609e-07, 1.36663204e-07}, 
-    {2.75312438e-08, 2.75224049e-08, 2.75135719e-08}, 
-    {1.90251649e-07, 1.91241798e-07, 1.92240989e-07}, 
+    {1.20122271e-08, 4.83240746e-09, 6.24774836e-09},
+    {1.54146602e-07, 1.41584609e-07, 1.36663204e-07},
+    {2.75312438e-08, 2.75224049e-08, 2.75135719e-08},
+    {1.90251649e-07, 1.91241798e-07, 1.92240989e-07},
     {9.29562712e-09, 7.83940082e-09, 8.05714636e-09}
   };
   double vsigma[5][3];
@@ -301,17 +301,17 @@ void test_neg_rho()
     switch(func.info->family){
     case XC_FAMILY_LDA:
       for(i=0; i<5; i+=1)
-        printf("%.8e %.8e %.8e %.8e %.8e\n", 
+        printf("%.8e %.8e %.8e %.8e %.8e\n",
                rho[i][0], rho[i][1], zk[i], vk[i][0], vk[i][1]);
       break;
     case XC_FAMILY_GGA:
       for(i=0; i<5; i+=1)
-        printf("%.8e %.8e %.8e %.8e %.8e %.8e %.8e %.8e %.8e %.8e %.8e\n", 
-               rho[i][0], rho[i][1], sigma[i][0], sigma[i][1], sigma[i][2], 
+        printf("%.8e %.8e %.8e %.8e %.8e %.8e %.8e %.8e %.8e %.8e %.8e\n",
+               rho[i][0], rho[i][1], sigma[i][0], sigma[i][1], sigma[i][2],
                zk[i], vk[i][0], vk[i][1], vsigma[i][0], vsigma[i][1], vsigma[i][2]);
       break;
     }
-    
+
   end:
     xc_func_end(&func);
   }
@@ -346,11 +346,11 @@ int main()
 
   //test_lda();
   //test_enhance();
-  //test_gga(); 
+  //test_gga();
   //test_ak13();
   //test_mgga();
   test_mbrxc();
-  
+
   //printf("number = '%d'; key = '%s'", 25, xc_functional_get_name(25));
 
   return 0;

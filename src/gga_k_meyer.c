@@ -24,7 +24,7 @@ const xc_func_info_type xc_func_info_gga_k_meyer = {
   XC_FAMILY_GGA,
   {&xc_ref_Meyer1976_898, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  5e-14,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   NULL, work_gga, NULL

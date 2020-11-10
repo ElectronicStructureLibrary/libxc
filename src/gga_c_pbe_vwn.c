@@ -47,6 +47,6 @@ const xc_func_info_type xc_func_info_gga_c_pbe_vwn = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {PBEVWN_N_PAR, pbevwn_names, pbevwn_desc, pbevwn_values, set_ext_params_cpy},
-  gga_c_pbe_vwn_init, NULL, 
+  gga_c_pbe_vwn_init, NULL,
   NULL, work_gga, NULL
 };

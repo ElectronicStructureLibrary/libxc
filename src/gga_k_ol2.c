@@ -14,7 +14,7 @@ typedef struct{
   double aa, bb, cc;
 } gga_k_ol2_params;
 
-static void 
+static void
 gga_k_ol2_init(xc_func_type *p)
 {
   gga_k_ol2_params *params;
@@ -46,8 +46,8 @@ const xc_func_info_type xc_func_info_gga_k_ol2 = {
   XC_FAMILY_GGA,
   {&xc_ref_OuYang1991_379, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  5e-26,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_k_ol2_init, NULL, 
+  gga_k_ol2_init, NULL,
   NULL, work_gga, NULL
 };

@@ -24,7 +24,7 @@ static const double par_scanl[N_PAR_SCANL] = {
   1.784720, 0.258304
 };
 
-static void 
+static void
 mgga_c_scanl_init(xc_func_type *p)
 {
   xc_deorbitalize_init(p, XC_MGGA_C_SCAN, XC_MGGA_K_PC07);
@@ -36,7 +36,7 @@ scanl_set_ext_params(xc_func_type *p, const double *ext_params)
   const double *par;
 
   par = (ext_params == NULL) ? par_scanl : ext_params;
-  
+
   xc_func_set_ext_params(p->func_aux[1], &par[0]);
 }
 
@@ -50,9 +50,9 @@ const xc_func_info_type xc_func_info_mgga_c_scanl = {
   XC_FAMILY_MGGA,
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161,&xc_ref_Sun2015_036402, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
-  1e-20,
+  1e-15,
   {N_PAR_SCANL, scanl_names, scanl_desc, par_scanl, scanl_set_ext_params},
-  mgga_c_scanl_init, NULL, 
+  mgga_c_scanl_init, NULL,
   NULL, NULL, xc_deorbitalize_func,
 };
 
@@ -79,7 +79,7 @@ const xc_func_info_type xc_func_info_mgga_c_scanl_rvv10 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161, &xc_ref_Peng2016_041005, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_VV10 | XC_FLAGS_I_HAVE_ALL,
-  1e-20,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   mgga_c_scan_rvv10_init, NULL,
   NULL, NULL, NULL
@@ -107,7 +107,7 @@ const xc_func_info_type xc_func_info_mgga_c_scanl_vv10 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161, &xc_ref_Brandenburg2016_115144, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_VV10 | XC_FLAGS_I_HAVE_ALL,
-  1e-20,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   mgga_c_scan_vv10_init, NULL,
   NULL, NULL, NULL

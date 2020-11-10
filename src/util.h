@@ -105,7 +105,7 @@
 
 /* this is the piecewise function used in maple */
 #define my_piecewise3(c, x1, x2) ((c) ? (x1) : (x2))
-#define my_piecewise5(c1, x1, c2, x2, x3) ((c) ? (x1) : ((c2) ? (x2) : (x3)))
+#define my_piecewise5(c1, x1, c2, x2, x3) ((c1) ? (x1) : ((c2) ? (x2) : (x3)))
 
 #define M_SQRTPI        1.772453850905516027298167483341145182798L
 #define M_CBRTPI        1.464591887561523263020142527263790391739L
@@ -309,6 +309,7 @@ void set_ext_params_cpy  (xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_omega(xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_cam(xc_func_type *p, const double *ext_params);
+void set_ext_params_cpy_cam_sr(xc_func_type *p, const double *ext_params);
 
 GPU_FUNCTION
 double xc_mgga_x_br89_get_x(double Q);

@@ -17,7 +17,7 @@ typedef struct{
   double C0_c[4];
 } mgga_c_tpss_params;
 
-static void 
+static void
 mgga_c_tpss_init(xc_func_type *p)
 {
   assert(p != NULL && p->params == NULL);
@@ -48,7 +48,7 @@ const xc_func_info_type xc_func_info_mgga_c_tpss = {
   XC_FAMILY_MGGA,
   {&xc_ref_Tao2003_146401, &xc_ref_Perdew2004_6898, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-23, /* densities smaller than 1e-26 give NaNs */
+  1e-15, /* densities smaller than 1e-26 give NaNs */
   {TPSS_N_PAR, tpss_names, tpss_desc, tpss_values, set_ext_params_cpy},
   mgga_c_tpss_init, NULL,
   NULL, NULL, work_mgga,
@@ -64,7 +64,7 @@ const xc_func_info_type xc_func_info_mgga_c_tm = {
   XC_FAMILY_MGGA,
   {&xc_ref_Tao2016_073001, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-23, /* densities smaller than 1e-26 give NaNs */
+  1e-15, /* densities smaller than 1e-26 give NaNs */
   {TPSS_N_PAR, tpss_names, tpss_desc, tm_values, set_ext_params_cpy},
   mgga_c_tpss_init, NULL,
   NULL, NULL, work_mgga,

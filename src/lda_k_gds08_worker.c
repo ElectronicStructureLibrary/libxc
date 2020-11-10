@@ -15,7 +15,7 @@ typedef struct {
   double A, B, C;
 } lda_k_gds08_params;
 
-static void 
+static void
 lda_k_gds08_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);

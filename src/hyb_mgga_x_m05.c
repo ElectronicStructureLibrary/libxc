@@ -46,7 +46,7 @@ mgga_x_m05_init(xc_func_type *p)
   params = (mgga_x_m05_params *) (p->params);
 
   switch(p->info->number){
-  case XC_HYB_MGGA_X_M05: 
+  case XC_HYB_MGGA_X_M05:
     memcpy(params, &par_m05, sizeof(mgga_x_m05_params));
     xc_hyb_init_hybrid(p, 0.28);
     break;
@@ -80,9 +80,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m05 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2005_161103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-20,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
-  mgga_x_m05_init, NULL, 
+  mgga_x_m05_init, NULL,
   NULL, NULL, work_mgga,
 };
 
@@ -97,9 +97,9 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m05_2x = {
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2006_364, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-20,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
-  mgga_x_m05_init, NULL, 
+  mgga_x_m05_init, NULL,
   NULL, NULL, work_mgga,
 };
 
@@ -113,7 +113,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m06_2x = {
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1.0e-20,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   mgga_x_m05_init, NULL,
   NULL, NULL, work_mgga,

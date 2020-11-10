@@ -31,7 +31,7 @@ static const char  *am05_names[AM05_N_PAR]  = {"_alpha", "_c"};
 static const char  *am05_desc[AM05_N_PAR]   = {
   "alpha",
   "c"};
-static const double am05_values[AM05_N_PAR] = 
+static const double am05_values[AM05_N_PAR] =
   {2.804L, 0.7168L};
 
 #ifdef __cplusplus
@@ -44,7 +44,7 @@ const xc_func_info_type xc_func_info_gga_x_am05 = {
   XC_FAMILY_GGA,
   {&xc_ref_Armiento2005_085108, &xc_ref_Mattsson2008_084714, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {AM05_N_PAR, am05_names, am05_desc, am05_values, set_ext_params_cpy},
   gga_x_am05_init, NULL,
   NULL, work_gga, NULL

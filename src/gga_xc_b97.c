@@ -153,7 +153,7 @@ static const double b97_hcth_p14_values[B97_N_PAR] =
 static const double b97_hcth_p76_values[B97_N_PAR] =
   {1.16525, -0.583033, 2.51769, 3.81278, -5.45906,
    -3.92143, -1.10098, -0.091405, -0.859723, 2.07184,
-   0.192949, -5.73335, 50.8757, 135.475, 101.268,
+   0.192949, -5.73335, 50.8757, -135.475, 101.268,
    0.0};
 static const double b97_hcth_407p_values[B97_N_PAR] =
   {1.08018, -0.4117, 2.4368, 1.389, -1.3529,
@@ -192,7 +192,7 @@ gga_xc_b97_init(xc_func_type *p)
      p->info->number == XC_HYB_GGA_XC_B97_1P){
     xc_hyb_init_hybrid(p, 0.0);
   }
-     
+
 }
 
 #include "decl_gga.h"

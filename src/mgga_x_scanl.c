@@ -31,7 +31,7 @@ static const double par_revscanl[N_PAR_SCANL] = {
   1.784720, 0.258304
 };
 
-static void 
+static void
 mgga_x_scanl_init(xc_func_type *p)
 {
   xc_deorbitalize_init(p, XC_MGGA_X_SCAN, XC_MGGA_K_PC07);
@@ -64,7 +64,7 @@ const xc_func_info_type xc_func_info_mgga_x_scanl = {
   XC_FAMILY_MGGA,
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161, &xc_ref_Sun2015_036402, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
-  1e-20,
+  1e-15,
   {N_PAR_SCANL, scanl_names, scanl_desc, par_scanl, scanl_set_ext_params},
   mgga_x_scanl_init, NULL,
   NULL, NULL, xc_deorbitalize_func,
@@ -80,7 +80,7 @@ const xc_func_info_type xc_func_info_mgga_x_revscanl = {
   XC_FAMILY_MGGA,
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161, &xc_ref_Mezei2018_2469, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
-  1e-20,
+  1e-15,
   {N_PAR_SCANL, scanl_names, scanl_desc, par_revscanl, scanl_set_ext_params},
   mgga_x_scanl_init, NULL,
   NULL, NULL, xc_deorbitalize_func,

@@ -20,7 +20,7 @@ typedef struct {
 static lda_c_chachiyo_mod_params par_chachiyo = {-0.01554535, 20.4562557, -0.007772675, 27.4203609};
 static lda_c_chachiyo_mod_params par_karasiev = {-0.01554535, 21.7392245, -0.007772675, 28.3559732};
 
-static void 
+static void
 lda_c_chachiyo_mod_init(xc_func_type *p)
 {
   lda_c_chachiyo_mod_params *params;
@@ -54,7 +54,7 @@ const xc_func_info_type xc_func_info_lda_c_chachiyo_mod = {
   XC_CORRELATION,
   "Chachiyo simple 2 parameter correlation with modified spin scaling",
   XC_FAMILY_LDA,
-  {&xc_ref_Chachiyo2018_00712, &xc_ref_Chachiyo2016_021101, NULL, NULL, NULL},
+  {&xc_ref_Chachiyo2020_112669, &xc_ref_Chachiyo2016_021101, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
   {0, NULL, NULL, NULL, NULL},
@@ -70,7 +70,7 @@ const xc_func_info_type xc_func_info_lda_c_karasiev_mod = {
   XC_CORRELATION,
   "Karasiev reparameterization of Chachiyo",
   XC_FAMILY_LDA,
-  {&xc_ref_Chachiyo2018_00712, &xc_ref_Karasiev2016_157101, NULL, NULL, NULL},
+  {&xc_ref_Chachiyo2020_112669, &xc_ref_Karasiev2016_157101, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
   {0, NULL, NULL, NULL, NULL},

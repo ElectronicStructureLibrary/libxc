@@ -32,7 +32,7 @@ static const double val_br78[N_PAR] = {-RS_FACTOR/21.437, RS_FACTOR*9.810/21.437
 static const double val_ow_lyp[N_PAR] = {-0.04918*RS_FACTOR/0.349, RS_FACTOR/0.349};
 static const double val_ow[N_PAR] = {-0.0526*RS_FACTOR/0.349, RS_FACTOR/0.349};
 
-static void 
+static void
 lda_c_wigner_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);

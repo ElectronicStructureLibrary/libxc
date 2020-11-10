@@ -38,6 +38,6 @@ const xc_func_info_type xc_func_info_lda_c_pmgb06 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1e-13,
   {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
-  xc_lda_x_pmgb06_init, NULL, 
+  xc_lda_x_pmgb06_init, NULL,
   work_lda, NULL, NULL
 };

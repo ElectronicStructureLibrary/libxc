@@ -23,9 +23,9 @@ rscan_alpha0 := (rs, z, xt, ts0, ts1) ->
 rscan_alpha := (rs, z, xt, ts0, ts1) -> rscan_alpha0(rs, z, xt, ts0, ts1)^3/(rscan_alpha0(rs, z, xt, ts0, ts1)^2 + params_a_alphar):
 
 (* f(alpha) replaced with a polynomial for alpha in [0, 2.5] *)
-rscan_f_alpha := (a, ff) -> my_piecewise3(
-  a <= 2.5, add(ff[8-i]*a^i, i=0..7), -params_a_d*exp(params_a_c2/(1 - a))
-  ):
+rscan_f_alpha_small := (a,ff) -> add(ff[8-i]*a^i, i=0..7):
+rscan_f_alpha_large := a -> -params_a_d*exp(params_a_c2/(1 - a)):
+rscan_f_alpha := (a, ff) -> my_piecewise3( a <= 2.5, rscan_f_alpha_small(a,ff), rscan_f_alpha_large(a) ):
 
 (* set parameters of f_alpha *)
 params_a_alphar := 1e-3:

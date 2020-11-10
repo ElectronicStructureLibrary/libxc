@@ -16,7 +16,7 @@ typedef struct {
   double b, c, e, kappa, mu;
 } mgga_x_rtpss_params;
 
-static void 
+static void
 mgga_x_rtpss_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
@@ -48,8 +48,8 @@ const xc_func_info_type xc_func_info_mgga_x_rtpss = {
   XC_FAMILY_MGGA,
   {&xc_ref_Garza2018_3083, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-23,
+  1e-15,
   {RTPSS_N_PAR, rtpss_names, rtpss_desc, rtpss_values, set_ext_params_cpy},
-  mgga_x_rtpss_init, NULL, 
+  mgga_x_rtpss_init, NULL,
   NULL, NULL, work_mgga,
 };

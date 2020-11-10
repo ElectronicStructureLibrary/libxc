@@ -18,7 +18,7 @@ typedef struct{
   double prefactor;
 } mgga_x_rlda_params;
 
-static void 
+static void
 mgga_x_rlda_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
@@ -47,7 +47,7 @@ const xc_func_info_type xc_func_info_mgga_x_rlda = {
   XC_FAMILY_MGGA,
   {&xc_ref_Campi1978_263, &xc_ref_Koehl1996_835, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
-  1.0e-23,
+  1e-15,
   {RLDA_N_PAR, rlda_names, rlda_desc, rlda_values, set_ext_params_cpy},
   mgga_x_rlda_init, NULL,
   NULL, NULL, work_mgga,
@@ -63,7 +63,7 @@ const xc_func_info_type xc_func_info_mgga_x_mk00 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Manby2000_7002, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
-  1.0e-23,
+  1e-15,
   {RLDA_N_PAR, rlda_names, rlda_desc, mk00_values, set_ext_params_cpy},
   mgga_x_rlda_init, NULL,
   NULL, NULL, work_mgga,
@@ -77,8 +77,8 @@ mgga_x_mk00b_init(xc_func_type *p)
   static double funcs_coef[3] = {-1.0, 1.0, 1.0};
 
   static double par_x_b88[] = {0.0016, 6.0};
-  
-  xc_mix_init(p, 3, funcs_id, funcs_coef);  
+
+  xc_mix_init(p, 3, funcs_id, funcs_coef);
 
   xc_func_set_ext_params(p->func_aux[1], par_x_b88);
 }
@@ -93,7 +93,7 @@ const xc_func_info_type xc_func_info_mgga_x_mk00b = {
   XC_FAMILY_MGGA,
   {&xc_ref_Manby2000_7002, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
-  1.0e-23,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   mgga_x_mk00b_init, NULL,
   NULL, NULL, NULL,

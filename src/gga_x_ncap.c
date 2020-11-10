@@ -43,7 +43,7 @@ const xc_func_info_type xc_func_info_gga_x_ncap = {
   XC_FAMILY_GGA,
   {&xc_ref_Carmona2019_303, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {NCAP_N_PAR, ncap_names, ncap_desc, ncap_values, set_ext_params_cpy},
   gga_x_ncap_init, NULL,
   NULL, work_gga, NULL
@@ -69,7 +69,7 @@ const xc_func_info_type xc_func_info_gga_xc_ncap = {
   XC_FAMILY_GGA,
   {&xc_ref_Carmona2019_303, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   xc_gga_xc_ncap_init, NULL,
   NULL, NULL, NULL

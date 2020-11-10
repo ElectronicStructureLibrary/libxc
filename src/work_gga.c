@@ -12,6 +12,8 @@
  * @brief This file is to be included in GGA functionals.
  */
 
+#define MIN_SIGMA 1e-20
+
 #ifdef XC_DEBUG
 #define __USE_GNU
 #include <fenv.h>
@@ -27,7 +29,7 @@
 #endif
 
 #ifdef HAVE_CUDA
-__global__ static void 
+__global__ static void
 work_gga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, const double *sigma,
              double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
 #endif
@@ -41,6 +43,11 @@ work_gga(const XC(func_type) *p, size_t np,
          double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
   int order = -1;
+  size_t ip;
+  double dens;
+  double my_rho[2] = {0.0, 0.0};
+  double my_sigma[3] = {0.0, 0.0, 0.0};
+
   if(zk     != NULL) order = 0;
   if(vrho   != NULL) order = 1;
   if(v2rho2 != NULL) order = 2;
@@ -50,7 +57,8 @@ work_gga(const XC(func_type) *p, size_t np,
   if(order < 0) return;
 
 #ifdef XC_DEBUG
-  feenableexcept(FE_DIVBYZERO | FE_INVALID);
+  /* This throws an exception when floating point errors are encountered */
+  /*feenableexcept(FE_DIVBYZERO | FE_INVALID);*/
 #endif
 
 #ifdef HAVE_CUDA
@@ -62,7 +70,7 @@ work_gga(const XC(func_type) *p, size_t np,
 
   auto nblocks = np/CUDA_BLOCK_SIZE;
   if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
-    
+
   work_gga_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(pcuda, order, np, rho, sigma,
                                              zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
 
@@ -70,29 +78,31 @@ work_gga(const XC(func_type) *p, size_t np,
 
 #else
 
-  size_t ip;
-  double my_rho[2] = {0.0, 0.0}, my_sigma[3] = {0.0, 0.0, 0.0};
-
   for(ip = 0; ip < np; ip++){
-    /* sanity check of input parameters */
-    my_rho[0]   = max(p->dens_threshold, rho[0]);
-    my_sigma[0] = max(1e-40, sigma[0]);
-    if(p->nspin == XC_POLARIZED){
-      double s_ave = 0.5*(sigma[0] + sigma[2]);
+    /* Screen low density */
+    dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
+    if(dens >= p->dens_threshold) {
+      /* sanity check of input parameters */
+      my_rho[0] = max(p->dens_threshold, rho[0]);
+      my_sigma[0] = max(MIN_SIGMA, sigma[0]);
+      if(p->nspin == XC_POLARIZED){
+        double s_ave;
 
-      my_rho[1]   = max(p->dens_threshold, rho[1]);
-      my_sigma[2] = max(1e-40, sigma[2]);
-      my_sigma[1] = sigma[1];
-      /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
-      my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
-      /* Since |grad n_up - grad n_down|^2 > 0 we also have */
-      my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
-    }
+        my_rho[1] = max(p->dens_threshold, rho[1]);
+        my_sigma[2] = max(MIN_SIGMA, sigma[2]);
 
-    if(p->nspin == XC_UNPOLARIZED){
-      func_unpol(p, order, my_rho, my_sigma OUT_PARAMS);      
-    }else{
-      func_pol  (p, order, my_rho, my_sigma OUT_PARAMS);
+        my_sigma[1] = sigma[1];
+        s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
+        /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
+        my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
+        /* Since |grad n_up - grad n_down|^2 > 0 we also have */
+        my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
+      }
+
+      if(p->nspin == XC_UNPOLARIZED)
+        func_unpol(p, order, my_rho, my_sigma OUT_PARAMS);
+      else if(p->nspin == XC_POLARIZED)
+        func_pol  (p, order, my_rho, my_sigma OUT_PARAMS);
     }
 
     /* check for NaNs */
@@ -138,33 +148,40 @@ __global__ static void
 work_gga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, const double *sigma,
              double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
-  double my_rho[2] = {0.0, 0.0}, my_sigma[3] = {0.0, 0.0, 0.0};
   size_t ip = blockIdx.x*blockDim.x + threadIdx.x;
+  double dens;
+  double my_rho[2] = {0.0, 0.0};
+  double my_sigma[3] = {0.0, 0.0, 0.0};
 
   if(ip >= np) return;
 
   internal_counters_gga_random(&(p->dim), ip, 0, &rho, &sigma,
                                &zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
-  
-  /* sanity check on input parameters */
-  my_rho[0]   = max(p->dens_threshold, rho[0]);
-  my_sigma[0] = max(1e-40, sigma[0]);
-  if(p->nspin == XC_POLARIZED){
-    double s_ave = 0.5*(sigma[0] + sigma[2]);
 
-    my_rho[1]   = max(p->dens_threshold, rho[1]);
-    my_sigma[2] = max(1e-40, sigma[2]);
-    my_sigma[1] = sigma[1];
-    /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
-    my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
-    /* Since |grad n_up - grad n_down|^2 > 0 we also have */
-    my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
-  }
-
-  if(p->nspin == XC_UNPOLARIZED){
-    func_unpol(p, order, my_rho, my_sigma OUT_PARAMS);
-  } else {                                      /* polarized (general) case */
-    func_pol  (p, order, my_rho, my_sigma OUT_PARAMS);
+  /* Density screening */
+  dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
+  if(dens >= p->dens_threshold) {
+    /* sanity check on input parameters */
+    my_rho[0]   = max(p->dens_threshold, rho[0]);
+    my_sigma[0] = max(MIN_SIGMA, sigma[0]);
+    if(p->nspin == XC_POLARIZED){
+      double s_ave;
+      
+      my_rho[1]   = max(p->dens_threshold, rho[1]);
+      my_sigma[2] = max(MIN_SIGMA, sigma[2]);
+      
+      my_sigma[1] = sigma[1];
+      s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
+      /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
+      my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
+      /* Since |grad n_up - grad n_down|^2 > 0 we also have */
+      my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
+    }
+    
+    if(p->nspin == XC_UNPOLARIZED)
+      func_unpol(p, order, my_rho, my_sigma OUT_PARAMS);
+    else if(p->nspin == XC_POLARIZED)
+      func_pol  (p, order, my_rho, my_sigma OUT_PARAMS);
   }
 }
 

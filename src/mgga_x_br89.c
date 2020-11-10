@@ -116,7 +116,7 @@ const xc_func_info_type xc_func_info_mgga_x_b00 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Becke2000_4020, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
-  1.0e-23,
+  1e-15,
   {BR89_N_PAR, br89_names, br89_desc, b00_values, set_ext_params_cpy},
   mgga_x_br89_init, NULL,
   NULL, NULL, work_mgga,

@@ -15,7 +15,7 @@ typedef struct{
 } gga_x_pbeint_params;
 
 
-static void 
+static void
 gga_x_pbe_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
@@ -48,6 +48,6 @@ const xc_func_info_type xc_func_info_gga_x_pbeint = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {PBEINT_N_PAR, pbeint_names, pbeint_desc, pbeint_values, set_ext_params_cpy},
-  gga_x_pbe_init, NULL, 
+  gga_x_pbe_init, NULL,
   NULL, work_gga, NULL
 };

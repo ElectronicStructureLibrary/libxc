@@ -7,6 +7,7 @@
 */
 
 #include <math.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -18,11 +19,11 @@ void printVar(int nspin, int nn, const char *cvar, double *dvar)
   const char *format = "%3d: %20s[%2d] = %#19.12E\n";
   static int n =0;
   int ii;
-  
+
   printf(format, n++, cvar, 0, dvar[0]);
   if(nspin == XC_UNPOLARIZED)
     return;
-  
+
   for(ii=1; ii<nn; ii++)
     printf(format, n++, cvar, ii, dvar[ii]);
 }
@@ -50,8 +51,23 @@ int main(int argc, char *argv[])
     return 1;
   }
 
-  functional = atoi(argv[1]);
+  /* Is functional defined by a string constant? */
+  if(isalpha(argv[1][0]))
+    functional = xc_functional_get_number(argv[1]);
+  else
+    functional = atoi(argv[1]);
+
   nspin      = atoi(argv[2]);
+  if(nspin == XC_UNPOLARIZED)
+    printf("Unpolarized calculation\n");
+  else if(nspin == XC_POLARIZED)
+    printf("Polarized calculation\n");
+  else {
+    printf("Invalid value for pol input.\n");
+    exit(1);
+  }
+
+
   rho[0]     = atof(argv[3]);
   rho[1]     = atof(argv[4]);
   sigma[0]   = atof(argv[5]);
@@ -71,7 +87,7 @@ int main(int argc, char *argv[])
 
   if(xc_func_init(&func, functional, nspin) != 0){
     fprintf(stderr, "Functional '%d' not found\n", functional);
-    exit(1);  
+    exit(1);
   }
   info = func.info;
 
@@ -80,7 +96,7 @@ int main(int argc, char *argv[])
   xc_mgga_vars_allocate_all(info->family, 1, &(func.dim),
                             1, 1, 1, 1, 1,
                             &zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
-  
+
   xc_mgga_evaluate_functional(&func, 1, rho, sigma, lapl, tau,
                               zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
 
@@ -105,26 +121,26 @@ int main(int argc, char *argv[])
     if(nspin == XC_POLARIZED) printf(" taub= %#0.2E", tau[1]);
   }
   printf("\n\n");
-  
+
   if(info->flags & XC_FLAGS_HAVE_EXC){
     printVar(nspin, func.dim.zk, "zk", zk);
     printf("\n");
   }
-  
+
   if(info->flags & XC_FLAGS_HAVE_VXC){
     printVar(nspin, func.dim.vrho, "vrho", vrho);
 
     if(info->family == XC_FAMILY_GGA || info->family == XC_FAMILY_MGGA){
       printVar(nspin, func.dim.vsigma, "vsigma", vsigma);
     }
-    
+
     if(info->family == XC_FAMILY_MGGA){
       printVar(nspin, func.dim.vlapl, "vlapl", vlapl);
       printVar(nspin, func.dim.vtau, "vtau", vtau);
     }
     printf("\n");
   }
-    
+
   if(info->flags & XC_FLAGS_HAVE_FXC){
     printVar(nspin, func.dim.v2rho2, "v2rho2", v2rho2);
 
@@ -178,7 +194,7 @@ int main(int argc, char *argv[])
     if(info->family == XC_FAMILY_GGA || info->family == XC_FAMILY_MGGA){
       printVar(nspin, func.dim.v3sigma3, "v3sigma3", v3sigma3);
     }
-    
+
     if(info->family == XC_FAMILY_MGGA){
       printVar(nspin, func.dim.v3sigma2lapl, "v3sigma2lapl", v3sigma2lapl);
       printVar(nspin, func.dim.v3sigma2tau, "v3sigma2tau", v3sigma2tau);
@@ -195,7 +211,7 @@ int main(int argc, char *argv[])
 
   if(info->flags & XC_FLAGS_HAVE_LXC){
     printVar(nspin, func.dim.v4rho4, "v4rho4", v4rho4);
-    
+
     if(info->family == XC_FAMILY_GGA || info->family == XC_FAMILY_MGGA){
       printVar(nspin, func.dim.v4rho3sigma, "v4rho3sigma", v4rho3sigma);
     }
@@ -257,7 +273,6 @@ int main(int argc, char *argv[])
 
   xc_mgga_vars_free_all(zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
   xc_func_end(&func);
-  
+
   return 0;
 }
-

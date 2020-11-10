@@ -841,7 +841,7 @@ module xc_f03_lib_m
     type(c_ptr) :: next_ref
 
     reference%ptr = xc_func_info_get_references(info%ptr, number)
-    next_ref = xc_func_info_get_references(info%ptr, number + 1)
+    next_ref = xc_func_info_get_references(info%ptr, INT(number + 1, c_int))
     if (c_associated(next_ref)) then
       number = number + 1
     else
@@ -882,21 +882,21 @@ module xc_f03_lib_m
   end function xc_f03_func_info_get_ext_params_default_value
 
   !----------------------------------------------------------------
-  character(len=120) function xc_f03_func_reference_get_ref(reference) result(ref)
+  character(len=1024) function xc_f03_func_reference_get_ref(reference) result(ref)
     type(xc_f03_func_reference_t), intent(in) :: reference
 
     call c_to_f_string_ptr(xc_func_reference_get_ref(reference%ptr), ref)
 
   end function xc_f03_func_reference_get_ref
 
-  character(len=120) function xc_f03_func_reference_get_doi(reference) result(doi)
+  character(len=1024) function xc_f03_func_reference_get_doi(reference) result(doi)
     type(xc_f03_func_reference_t), intent(in) :: reference
 
     call c_to_f_string_ptr(xc_func_reference_get_doi(reference%ptr), doi)
 
   end function xc_f03_func_reference_get_doi
 
-  character(len=120) function xc_f03_func_reference_get_bibtex(reference) result(bibtex)
+  character(len=1024) function xc_f03_func_reference_get_bibtex(reference) result(bibtex)
     type(xc_f03_func_reference_t), intent(in) :: reference
 
     call c_to_f_string_ptr(xc_func_reference_get_bibtex(reference%ptr), bibtex)

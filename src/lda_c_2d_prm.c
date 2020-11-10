@@ -39,7 +39,7 @@ static const char  *N_names[]  = {"N"};
 static const char  *N_desc[]   = {"Number of electrons"};
 static const double N_values[] = {2.0};
 
-static void 
+static void
 N_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   static double prm_q = 3.9274; /* 2.258 */

@@ -10,6 +10,29 @@
 #include <ctype.h>
 #include "util.h"
 
+void print_hybrid(xc_func_type *func) {
+  double alpha;
+  assert(func->hyb_type[0] == XC_HYB_FOCK);
+  alpha=func->hyb_coeff[0];
+  printf("\nThis is a global hybrid functional with %4.1f%% of exact exchange.\n",alpha*100);
+}
+
+void print_rangesep(xc_func_type *func) {
+  /* Determine amount of sr and lr exchange */
+  double alpha, beta, omega;
+  assert(func->hyb_type[0] == XC_HYB_ERF_SR || func->hyb_type[0] == XC_HYB_YUKAWA_SR);
+  omega=func->hyb_omega[0];
+  beta=func->hyb_coeff[0];
+  if(func->hyb_number_terms>1) {
+    assert(func->hyb_type[1] == XC_HYB_FOCK);
+    alpha=func->hyb_coeff[1];
+  } else {
+    alpha=0.0;
+  }
+  printf("\nFunctional has a range-separation constant % .3f,\n",omega);
+  printf("and %4.1f%% short-range and %4.1f%% long-range exact exchange,\n",(alpha+beta)*100,(alpha)*100);
+}
+
 int main(int argc, char **argv)
 {
   int i, func_id, error, npar, hybrid_type;
@@ -46,19 +69,22 @@ int main(int argc, char **argv)
   hybrid_type = xc_hyb_type(&func);
   switch(hybrid_type){
   case XC_HYB_SEMILOCAL:
-    printf("\nThis is a semi-local functional.\n");
+    printf("\nThis is a semi-local functional with no exact exchange.\n");
     break;
   case XC_HYB_HYBRID:
-    printf("\nThis is a hybrid functional.\n");
+    print_hybrid(&func);
     break;
   case XC_HYB_CAM:
-    printf("\nThis is a CAM functional.\n");
+    printf("\nThis is a range-separated functional, based on the error function kernel.\n");
+    print_rangesep(&func);
     break;
   case XC_HYB_CAMY:
-    printf("\nThis is a CAMY functional.\n");
+    printf("\nThis is a range-separated functional, based on the Yukawa kernel.\n");
+    print_rangesep(&func);
     break;
   case XC_HYB_CAMG:
-    printf("\nThis is a CAMG functional.\n");
+    printf("\nThis is a range-separated functional, based on the Gaussian attenuation scheme.\n");
+    print_rangesep(&func);
     break;
   case XC_HYB_DOUBLE_HYBRID:
     printf("\nThis is a double hybrid functional.\n");
@@ -70,30 +96,6 @@ int main(int argc, char **argv)
   default:
     printf("\nThis is functional of unknown type, please report this problem to the libxc tracker!\n");
     break;
-  }
-
-  if(hybrid_type != XC_HYB_NONE) {
-    printf("The calling program must add the following terms:\n");
-    for(i=0; i<func.hyb_number_terms; i++){
-      switch(func.hyb_type[i]){
-      case XC_HYB_FOCK:
-        printf("  *) Fock integral: mixing = %.3f\n", func.hyb_coeff[i]);
-        break;
-      case XC_HYB_ERF_SR:
-        printf("  *) Short range Fock (erf): mixing = %.3f; mu = %.3f\n", func.hyb_coeff[i], func.hyb_omega[i]);
-        break;
-      case XC_HYB_YUKAWA_SR:
-        printf("  *) Short range Fock (Yukawa): mixing = %.3f; mu = %.3f\n", func.hyb_coeff[i], func.hyb_omega[i]);
-        break;
-      case XC_HYB_GAUSSIAN_SR:
-        printf("  *) Short range Fock (gaussian): mixing = %.3f; mu = %.3f\n", func.hyb_coeff[i], func.hyb_omega[i]);
-        break;
-      case XC_HYB_PT2:
-        printf("  *) Second order perturbation theory: mixing = %.3f", func.hyb_coeff[i]);
-        break;
-
-      }
-    }
   }
 
   printf("\nReference(s):\n");
@@ -117,6 +119,8 @@ int main(int argc, char **argv)
   if(func.info->flags & XC_FLAGS_HAVE_KXC)
     printf("  *) fourth derivative\n");
 
+  printf("\nDefault density threshold: %e\n",func.dens_threshold);
+
   /* Query parameters */
   npar = xc_func_info_get_n_ext_params(func.info);
   if(npar > 0) {
@@ -129,6 +133,29 @@ int main(int argc, char **argv)
              xc_func_info_get_ext_params_description(func.info, i));
   } else {
     printf("\nFunctional has no external parameters.\n");
+  }
+
+  if(hybrid_type != XC_HYB_NONE) {
+    printf("\nTo use the functional, the calling program must add in the following terms:\n");
+    for(i=0; i<func.hyb_number_terms; i++){
+      switch(func.hyb_type[i]){
+      case XC_HYB_FOCK:
+        printf("  *) Hartree-Fock exchange\n");
+        break;
+      case XC_HYB_ERF_SR:
+        printf("  *) Short-range (erf) exact exchange\n");
+        break;
+      case XC_HYB_YUKAWA_SR:
+        printf("  *) Short-range (Yukawa) exact exchange\n");
+        break;
+      case XC_HYB_GAUSSIAN_SR:
+        printf("  *) Short-range (Gau) exact exchange\n");
+        break;
+      case XC_HYB_PT2:
+        printf("  *) Second-order perturbation theory\n");
+        break;
+      }
+    }
   }
 
   /* Free memory */

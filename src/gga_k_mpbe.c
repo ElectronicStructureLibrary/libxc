@@ -22,7 +22,7 @@ static const char  *desc[N_PAR]   = {"a", "c1", "c2", "c3"};
 static const double kpbe3_val[N_PAR] = {4.1355, -3.7425, 50.258, 0.0};
 static const double kpbe4_val[N_PAR] = {1.7107, -7.2333, 61.645, -93.683};
 
-static void 
+static void
 gga_k_mpbe_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
@@ -43,7 +43,7 @@ const xc_func_info_type xc_func_info_gga_k_pbe3 = {
   XC_FAMILY_GGA,
   {&xc_ref_Karasiev2006_111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-21,
+  1e-15,
   {N_PAR, names, desc, kpbe3_val, set_ext_params_cpy},
   gga_k_mpbe_init, NULL,
   NULL, work_gga, NULL
@@ -59,7 +59,7 @@ const xc_func_info_type xc_func_info_gga_k_pbe4 = {
   XC_FAMILY_GGA,
   {&xc_ref_Karasiev2006_111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-21,
+  1e-15,
   {N_PAR, names, desc, kpbe4_val, set_ext_params_cpy},
   gga_k_mpbe_init, NULL,
   NULL, work_gga, NULL

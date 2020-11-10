@@ -102,7 +102,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hse03 = {
   XC_FAMILY_GGA,
   {&xc_ref_Heyd2003_8207, &xc_ref_Heyd2003_8207_err, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {HSE03_N_PAR, hse03_names, hse03_desc, hse03_values, hse03_set_ext_params},
   hyb_gga_xc_hse_init, NULL,
   NULL, NULL, NULL
@@ -118,7 +118,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hse06 = {
   XC_FAMILY_GGA,
   {&xc_ref_Heyd2003_8207, &xc_ref_Heyd2003_8207_err, &xc_ref_Krukau2006_224106, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {HSE03_N_PAR, hse03_names, hse03_desc, hse06_values, hse03_set_ext_params},
   hyb_gga_xc_hse_init, NULL,
   NULL, NULL, NULL
@@ -134,7 +134,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hse12 = {
   XC_FAMILY_GGA,
   {&xc_ref_Moussa2012_204117, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {HSE03_N_PAR, hse03_names, hse03_desc, hse12_values, hse03_set_ext_params},
   hyb_gga_xc_hse_init, NULL,
   NULL, NULL, NULL
@@ -150,7 +150,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hse12s = {
   XC_FAMILY_GGA,
   {&xc_ref_Moussa2012_204117, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {HSE03_N_PAR, hse03_names, hse03_desc, hse12s_values, hse03_set_ext_params},
   hyb_gga_xc_hse_init,
   NULL, NULL, NULL, NULL
@@ -180,7 +180,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hse_sol = {
   XC_FAMILY_GGA,
   {&xc_ref_Schimka2011_024116, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_gga_xc_hse_sol_init,
   NULL, NULL, NULL, NULL
@@ -208,7 +208,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe = {
   XC_FAMILY_GGA,
   {&xc_ref_Vydrov2006_234109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_gga_xc_lc_wpbe_init, NULL,
   NULL, NULL, NULL
@@ -249,7 +249,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lrc_wpbeh = {
   XC_FAMILY_GGA,
   {&xc_ref_Rohrdanz2009_054112, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_gga_xc_lrc_wpbeh_init, NULL,
   NULL, NULL, NULL
@@ -265,7 +265,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lrc_wpbe = {
   XC_FAMILY_GGA,
   {&xc_ref_Rohrdanz2009_054112, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_gga_xc_lrc_wpbe_init, NULL,
   NULL, NULL, NULL
@@ -329,7 +329,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe_whs = {
   XC_FAMILY_GGA,
   {&xc_ref_Weintraub2009_754, &xc_ref_Henderson2008_194105, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_gga_xc_lc_wpbe_whs_init, NULL,
   NULL, NULL, NULL
@@ -345,7 +345,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbeh_whs = {
   XC_FAMILY_GGA,
   {&xc_ref_Weintraub2009_754, &xc_ref_Henderson2008_194105, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_gga_xc_lc_wpbeh_whs_init, NULL,
   NULL, NULL, NULL
@@ -361,7 +361,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe08_whs = {
   XC_FAMILY_GGA,
   {&xc_ref_Weintraub2009_754, &xc_ref_Henderson2008_194105, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_gga_xc_lc_wpbe08_whs_init, NULL,
   NULL, NULL, NULL
@@ -377,7 +377,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbesol_whs = {
   XC_FAMILY_GGA,
   {&xc_ref_Weintraub2009_754, &xc_ref_Henderson2008_194105, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_gga_xc_lc_wpbesol_whs_init, NULL,
   NULL, NULL, NULL
@@ -424,7 +424,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_pbe = {
   XC_FAMILY_GGA,
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_gga_xc_hjs_init, NULL,
   NULL, NULL, NULL
@@ -440,7 +440,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_pbe_sol = {
   XC_FAMILY_GGA,
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_gga_xc_hjs_init, NULL,
   NULL, NULL, NULL
@@ -456,7 +456,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_b88 = {
   XC_FAMILY_GGA,
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_gga_xc_hjs_init, NULL,
   NULL, NULL, NULL
@@ -472,7 +472,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_b97x = {
   XC_FAMILY_GGA,
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_gga_xc_hjs_init, NULL,
   NULL, NULL, NULL
@@ -487,7 +487,7 @@ hyb_gga_xc_hiss_init(xc_func_type *p)
   static int    hyb_type[2]   = {XC_HYB_ERF_SR, XC_HYB_ERF_SR};
   static double hyb_omega[2]  = {0.20,  0.84};
   static double hyb_coeff[2]  = {0.60, -0.60};
-  
+
   xc_mix_init(p, 3, funcs_id, funcs_coef);
   xc_hyb_init(p, 2, hyb_type, hyb_coeff, hyb_omega);
 
@@ -505,7 +505,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hiss = {
   XC_FAMILY_GGA,
   {&xc_ref_Henderson2007_221103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_gga_xc_hiss_init, NULL,
   NULL, NULL, NULL

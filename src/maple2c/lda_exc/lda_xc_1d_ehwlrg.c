@@ -6,7 +6,7 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-  Maple version     : Maple 2016 (X86 64 LINUX)
+  Maple version     : Maple 2020 (X86 64 LINUX)
   Maple source      : ./maple/lda_exc/lda_xc_1d_ehwlrg.mpl
   Type of functional: lda_exc
 */
@@ -16,7 +16,7 @@
 
 
 static inline void
-func_unpol(const xc_func_type *p, int order, const double *rho, double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
+func_unpol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -50,7 +50,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk LDA_O
   params = (lda_xc_1d_ehwlrg_params * )(p->params);
 
   t1 = rho[0] * rho[0];
-  t4 = rho[0] * params->a2 + t1 * params->a3 + params->a1;
+  t4 = params->a2 * rho[0] + params->a3 * t1 + params->a1;
   t5 = pow(rho[0], params->alpha);
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     zk[0] = t4 * t5;
@@ -121,7 +121,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk LDA_O
 
 
 static inline void
-func_pol(const xc_func_type *p, int order, const double *rho, double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
+func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
 
 #ifndef XC_DONT_COMPILE_EXC

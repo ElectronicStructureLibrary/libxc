@@ -15,6 +15,7 @@
 #define XC_MGGA_C_M06_2X        236 /* M06-2X correlation functional from Minnesota         */
 #define XC_MGGA_C_REVM06_L      294 /* Revised M06-L correlation functional from Minnesota  */
 #define XC_MGGA_C_REVM06        306 /* Revised M06 correlation functional from Minnesota    */
+#define XC_MGGA_C_M06_SX        311 /* M06-SX correlation functional from Minnesota    */
 
 typedef struct{
   double gamma_ss, gamma_ab, alpha_ss, alpha_ab;
@@ -22,7 +23,7 @@ typedef struct{
   double Fermi_D_cnst; /* correction term similar to 10.1063/1.2800011 */
 } mgga_c_m06l_params;
 
-static void 
+static void
 mgga_c_m06l_init(xc_func_type *p)
 {
   assert(p != NULL);
@@ -71,7 +72,7 @@ static const double m06hf_values[M06L_N_PAR] = {
   1e-10
 };
 static const double m06_values[M06L_N_PAR] = {
-  0.06, 0.0031, 0.00515088, 0.00304966,  
+  0.06, 0.0031, 0.00515088, 0.00304966,
   5.094055e-01, -1.491085e+00,  1.723922e+01, -3.859018e+01,  2.845044e+01,
   3.741539e+00,  2.187098e+02, -4.531252e+02,  2.936479e+02, -6.287470e+01,
   4.905945e-01, -1.437348e-01,  2.357824e-01,  1.871015e-03, -3.788963e-03,  0.000000e+00,
@@ -79,7 +80,7 @@ static const double m06_values[M06L_N_PAR] = {
   1e-10
 };
 static const double m062x_values[M06L_N_PAR] = {
-  0.06, 0.0031, 0.00515088, 0.00304966,  
+  0.06, 0.0031, 0.00515088, 0.00304966,
   3.097855e-01, -5.528642e+00,  1.347420e+01, -3.213623e+01,  2.846742e+01,
   8.833596e-01,  3.357972e+01, -7.043548e+01,  4.978271e+01, -1.852891e+01,
   6.902145e-01,  9.847204e-02,  2.214797e-01, -1.968264e-03, -6.775479e-03,  0.000000e+00,
@@ -102,6 +103,14 @@ static const double revm06_values[M06L_N_PAR] = {
   -0.3390666720,  0.003790156384, -0.02762485975, 0.0, 0.0,  0.0004076285162,
   1e-10
 };
+static const double m06sx_values[M06L_N_PAR] = {
+  0.06, 0.0031, 0.00515088, 0.00304966,
+  1.17575011057022E+00,  6.58083496678423E-01, -2.78913774852905E+00, -1.18597601856255E+00,  1.16439928209688E+00,
+  1.63738167314691E-01, -4.36481171027951E-01, -1.90232628449712E+00, -1.42432902881841E+00, -9.05909137360893E-01,
+  8.17322574473352E-02, -2.88531085759385E-02,  9.05917734868130E-02, 0.0, 0.0, -4.86297499082106E-04,
+  7.40594619832397E-01,  1.23306511345974E-02, -1.88253421850249E-02, 0.0, 0.0,  4.87276242162303E-04,
+  1e-10
+};
 
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_m06l.c"
@@ -117,7 +126,7 @@ const xc_func_info_type xc_func_info_mgga_c_m06_l = {
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2006_194101, &xc_ref_Zhao2008_215, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1.0e-14,
+  1.0e-12,
   {M06L_N_PAR, m06l_names, m06l_desc, m06l_values, set_ext_params_cpy},
   mgga_c_m06l_init, NULL,
   NULL, NULL, work_mgga,
@@ -133,9 +142,9 @@ const xc_func_info_type xc_func_info_mgga_c_m06_hf = {
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2006_13126, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1.0e-14,
+  1.0e-12,
   {M06L_N_PAR, m06l_names, m06l_desc, m06hf_values, set_ext_params_cpy},
-  mgga_c_m06l_init, NULL, 
+  mgga_c_m06l_init, NULL,
   NULL, NULL, work_mgga,
 };
 
@@ -149,7 +158,7 @@ const xc_func_info_type xc_func_info_mgga_c_m06 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1.0e-14,
+  1.0e-12,
   {M06L_N_PAR, m06l_names, m06l_desc, m06_values, set_ext_params_cpy},
   mgga_c_m06l_init, NULL,
   NULL, NULL, work_mgga,
@@ -165,7 +174,7 @@ const xc_func_info_type xc_func_info_mgga_c_m06_2x = {
   XC_FAMILY_MGGA,
   {&xc_ref_Zhao2008_215, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1.0e-14,
+  1.0e-12,
   {M06L_N_PAR, m06l_names, m06l_desc, m062x_values, set_ext_params_cpy},
   mgga_c_m06l_init, NULL,
   NULL, NULL, work_mgga,
@@ -181,7 +190,7 @@ const xc_func_info_type xc_func_info_mgga_c_revm06_l = {
   XC_FAMILY_MGGA,
   {&xc_ref_Wang2017_8487, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1.0e-14,
+  1.0e-12,
   {M06L_N_PAR, m06l_names, m06l_desc, revm06l_values, set_ext_params_cpy},
   mgga_c_m06l_init, NULL,
   NULL, NULL, work_mgga,
@@ -197,8 +206,24 @@ const xc_func_info_type xc_func_info_mgga_c_revm06 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Wang2018_10257, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1.0e-14,
+  1.0e-12,
   {M06L_N_PAR, m06l_names, m06l_desc, revm06_values, set_ext_params_cpy},
+  mgga_c_m06l_init, NULL,
+  NULL, NULL, work_mgga,
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_mgga_c_m06_sx = {
+  XC_MGGA_C_M06_SX,
+  XC_CORRELATION,
+  "Minnesota M06-SX correlation functional",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Wang2020_2294, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1.0e-14,
+  {M06L_N_PAR, m06l_names, m06l_desc, m06sx_values, set_ext_params_cpy},
   mgga_c_m06l_init, NULL,
   NULL, NULL, work_mgga,
 };

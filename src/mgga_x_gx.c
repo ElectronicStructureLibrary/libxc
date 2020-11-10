@@ -41,7 +41,7 @@ const xc_func_info_type xc_func_info_mgga_x_gx = {
   XC_FAMILY_MGGA,
   {&xc_ref_Loos2017_114108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-20,
+  1e-15,
   {GX_N_PAR, gx_names, gx_desc, gx_values, set_ext_params_cpy},
   mgga_x_gx_init, NULL,
   NULL, NULL, work_mgga,

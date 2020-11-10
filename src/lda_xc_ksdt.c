@@ -10,8 +10,8 @@
 #include "util.h"
 
 /***********************************************************************
-  Exchange and correlation free energy density and potential as 
-  parametrized by 
+  Exchange and correlation free energy density and potential as
+  parametrized by
     Valentin V. Karasiev, Travis Sjostrom, James Dufty, and S. B. Trickey
   Ported to C and libxc by Lazaro Calderin and Miguel Marques
 ************************************************************************/
@@ -61,11 +61,11 @@ static const lda_xc_ksdt_params par_gdsmfb = {
     {0.25388214, 0.815795138599, 0.0646844410481, 15.0984620477, 0.230761357474},
     {0.27454097, 0.400994856555, 2.88773194962, 6.33499237092, 24.823008753}
   }
-}; 
+};
 
-static void 
+static void
 lda_xc_ksdt_init(xc_func_type *p)
-{  
+{
   lda_xc_ksdt_params *params;
 
   assert(p!=NULL && p->params == NULL);
@@ -93,7 +93,7 @@ static const char  *T_names[]  = {"T"};
 static const char  *T_desc[]   = {"Temperature"};
 static const double T_values[] = {0.0};
 
-static void 
+static void
 T_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   lda_xc_ksdt_params *params;
@@ -116,7 +116,7 @@ const xc_func_info_type xc_func_info_lda_xc_ksdt = {
   XC_FAMILY_LDA,
   {&xc_ref_Karasiev2014_076403, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {1, T_names, T_desc, T_values, T_set_ext_params},
   lda_xc_ksdt_init, NULL,
   work_lda, NULL, NULL
@@ -132,7 +132,7 @@ const xc_func_info_type xc_func_info_lda_xc_gdsmfb = {
   XC_FAMILY_LDA,
   {&xc_ref_Groth2017_135001, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {1, T_names, T_desc, T_values, T_set_ext_params},
   lda_xc_ksdt_init, NULL,
   work_lda, NULL, NULL

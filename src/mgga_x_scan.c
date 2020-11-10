@@ -26,7 +26,7 @@ static const char *scan_desc[N_PAR_SCAN] = {"c1 parameter", "c2 parameter", "d p
 static const double par_scan[N_PAR_SCAN] = {0.667, 0.8, 1.24, 0.065};
 static const double par_revscan[N_PAR_SCAN] = {0.607, 0.7, 1.37, 0.065};
 
-static void 
+static void
 mgga_x_scan_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
@@ -47,7 +47,7 @@ const xc_func_info_type xc_func_info_mgga_x_scan = {
   XC_FAMILY_MGGA,
   {&xc_ref_Sun2015_036402, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-23,
+  1e-15,
   {N_PAR_SCAN, scan_names, scan_desc, par_scan, set_ext_params_cpy},
   mgga_x_scan_init, NULL,
   NULL, NULL, work_mgga
@@ -63,7 +63,7 @@ const xc_func_info_type xc_func_info_mgga_x_revscan = {
   XC_FAMILY_MGGA,
   {&xc_ref_Mezei2018_2469, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-23,
+  1e-15,
   {N_PAR_SCAN, scan_names, scan_desc, par_revscan, set_ext_params_cpy},
   mgga_x_scan_init, NULL,
   NULL, NULL, work_mgga
@@ -113,7 +113,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_scan0 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Hui2016_044114, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {N_PAR_SCAN0, scan0_names, scan0_desc, scan0_pars, scan0_set_ext_params},
   hyb_mgga_x_scan0_init, NULL,
   NULL, NULL, NULL /* this is taken care of by the generic routine */
@@ -142,7 +142,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_revscan0 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Mezei2018_2469, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {N_PAR_SCAN0, scan0_names, scan0_desc, scan0_pars, scan0_set_ext_params},
   hyb_mgga_x_revscan0_init, NULL,
   NULL, NULL, NULL /* this is taken care of by the generic routine */

@@ -22,9 +22,14 @@ if((${BUILD_SHARED_LIBS}) AND NOT ${BUILD_FPIC})
 endif()
 option_with_default(NAMESPACE_INSTALL_INCLUDEDIR "Location within CMAKE_INSTALL_INCLUDEDIR to which headers are installed. Psi4 wants namespace (e.g., /libxc)" /)
 option_with_print(ENABLE_GENERIC "Enable mostly static linking in shared library" OFF)
-option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON
-  "-xHost" "-march=native")
 option_with_print(ENABLE_FORTRAN "Build Fortran 2003 interface" OFF)
+
+# GCC appears to be catching -xHost as "-x Host" which breaks the detection
+if(CMAKE_C_COMPILER_ID MATCHES Intel)
+  option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON "-xHost" "-march=native" "/arch:AVX2")
+else()
+  option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON  "-march=native" "-xHost" "/arch:AVX2")
+endif()
 
 option_with_print(DISABLE_VXC "Don't compile first derivative code" OFF)
 option_with_print(DISABLE_FXC "Don't compile second derivative code" OFF)
@@ -338,6 +343,7 @@ set(raw_sources_list
   mgga_x_tb09.c
   mgga_x_gvt4.c
   mgga_x_gx.c
+  mgga_x_jk.c
   mgga_x_lta.c
   mgga_x_m06l.c
   mgga_x_m08.c
@@ -381,6 +387,9 @@ set(raw_sources_list
   mgga_x_mggac.c
   mgga_x_th.c
   mgga_x_mbr.c
+  mgga_c_ltapw.c
+  mgga_x_r2scan.c
+  mgga_c_r2scan.c
   mix_func.c
   deorbitalize_func.c
   references.c
@@ -417,9 +426,9 @@ endif()
 
 if(ENABLE_FORTRAN)
   enable_language(Fortran)
-  add_library(xcf90 ${raw_sources_list_f90})
-  target_link_libraries(xcf90 xc)
-  set_target_properties(xcf90 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
+  add_library(xcf03 ${raw_sources_list_f90})
+  target_link_libraries(xcf03 xc)
+  set_target_properties(xcf03 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
 endif()
 
 # run get_funcs.pl to generate headers for xc inclusion
@@ -473,7 +482,7 @@ install(TARGETS xc xc-info xc-threshold
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 if(ENABLE_FORTRAN)
-  install(TARGETS xcf90
+  install(TARGETS xcf03
     EXPORT "${PN}Targets"
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -497,7 +506,7 @@ configure_package_config_file(cmake/${PN}Config.cmake.in
   INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR})
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/${PN}ConfigVersion.cmake
   VERSION ${${PN}_VERSION}
-  COMPATIBILITY AnyNewerVersion)
+  COMPATIBILITY SameMajorVersion)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PN}Config.cmake
   ${CMAKE_CURRENT_BINARY_DIR}/${PN}ConfigVersion.cmake
   DESTINATION ${CMAKECONFIG_INSTALL_DIR})

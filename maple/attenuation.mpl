@@ -7,11 +7,12 @@
 *)
 
 (* error function:
-    Int. J. of Quant. Chem. 100, 1047-1056 (2004)
-    J. Chem. Phys. 120, 8425 (2004)
+    Toulouse et al, Int. J. of Quant. Chem. 100, 1047 (2004); doi:10.1002/qua.20259
+    Tawada et al, J. Chem. Phys. 120, 8425 (2004); doi:10.1063/1.1688752
 *)
 att_erf_aux1 := a -> sqrt(Pi)*erf(1/(2*a)):
-att_erf_aux2 := a -> exp(-1/(4*a^2)) - 1:
+att_erf_a_cutoff := 1e6:
+att_erf_aux2 := a -> my_piecewise3(a < att_erf_a_cutoff, exp(-1/(4*a^2)) - 1, -1/(4*a^2)):
 att_erf_aux3 := a -> 2*a^2*att_erf_aux2(a) + 1/2:
 attenuation_erf := a ->
   1 - 8/3*a*(att_erf_aux1(a) + 2*a*(att_erf_aux2(a) - att_erf_aux3(a))):
@@ -26,17 +27,15 @@ attenuation_erf_f3 := a ->
       + 2*sqrt(Pi)*(-2 + 60*a^2)*erf(1/(2*a))):
 
 (* erf_gau - screening function = + 2 mu/sqrt(pi) exp(-mu^2 r^2)
-    J. Chem. Phys. 127, 154109 (2007)
-    You can recover the result in Int. J. of Quant. Chem. 100, 1047-1056 (2004)
+    Song et al, J. Chem. Phys. 127, 154109 (2007); doi:10.1063/1.2790017
+    You can recover the result in Int. J. of Quant. Chem. 100, 1047 (2004)
     by putting a = a/sqrt(3) and multiplying the whole attenuation function by -sqrt(3)
 *)
-att_gau_aux1 := (a) -> sqrt(Pi)*erf(1/(2*a)):
-att_gau_aux2 := (a) -> exp(-1/(4*a^2)) - 1:
 attenuation_gau := (a) ->
-  -8/3*a*(att_gau_aux1(a) + 2*a*att_gau_aux2(a)*(1 - 8*a^2) - 4*a):
+  -8/3*a*(att_erf_aux1(a) + 2*a*att_erf_aux2(a)*(1 - 8*a^2) - 4*a):
 
 (* yukawa
-    Chem. Phys. Lett. 462(2008) 348-351
+    Akinaga and Ten-no, Chem. Phys. Lett. 462, 348 (2008); doi:10.1016/j.cplett.2008.07.103
 *)
 att_yuk_aux1 := a -> arctan(1, a):
 att_yuk_aux2 := a -> log(1.0 + 1.0/a^2):

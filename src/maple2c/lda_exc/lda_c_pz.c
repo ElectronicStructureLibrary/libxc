@@ -6,7 +6,7 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-  Maple version     : Maple 2016 (X86 64 LINUX)
+  Maple version     : Maple 2020 (X86 64 LINUX)
   Maple source      : ./maple/lda_exc/lda_c_pz.mpl
   Type of functional: lda_exc
 */
@@ -16,7 +16,7 @@
 
 
 static inline void
-func_unpol(const xc_func_type *p, int order, const double *rho, double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
+func_unpol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -167,7 +167,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, double *zk LDA_O
 
 
 static inline void
-func_pol(const xc_func_type *p, int order, const double *rho, double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
+func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -208,7 +208,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk LDA_OUT
   double t553, t558, t562, t563, t574, t582, t586, t592;
   double t622, t625, t627, t630, t633, t635, t637, t638;
   double t644, t649, t651, t654, t656, t657, t663, t678;
-  double t683, t685, t686, t688, t713, t731, t740, t757;
+  double t683, t685, t686, t688, t707, t725, t740, t757;
   double t759, t770, t773, t812, t824, t843, t865, t876;
   double t881, t887, t890, t895;
 #endif
@@ -504,9 +504,9 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk LDA_OUT
   t685 = t229 * t274 * t84;
   t686 = 0.3e1 * t685;
   t688 = t132 * t455 * t84;
-  t713 = 0.32e2 * t265 * t552;
-  t731 = 0.32e2 * t271 * t552;
-  t740 = -0.8e1 * t432 * t321 * t138 + 0.8e1 * t445 * t321 * t140 + 0.40e2 / 0.81e2 * t637 * t148 * t394 - 0.8e1 / 0.9e1 * t429 * t138 * t244 - 0.16e2 / 0.9e1 * t393 * t70 * t241 * t237 + 0.8e1 / 0.3e1 * t236 * t241 * t138 + 0.8e1 / 0.3e1 * t432 * t241 * t244 + t713 + 0.40e2 / 0.81e2 * t656 * t150 * t407 - 0.8e1 / 0.9e1 * t442 * t140 * t252 + 0.16e2 / 0.9e1 * t406 * t70 * t241 * t249 - 0.8e1 / 0.3e1 * t248 * t241 * t140 - 0.8e1 / 0.3e1 * t445 * t241 * t252 - t731 + 0.4e1 / 0.9e1 * t262 * t402 - 0.16e2 * t74 * t321 + 0.4e1 / 0.9e1 * t268 * t413 + 0.16e2 * t77 * t321;
+  t707 = 0.32e2 * t265 * t552;
+  t725 = 0.32e2 * t271 * t552;
+  t740 = 0.40e2 / 0.81e2 * t637 * t148 * t394 - 0.8e1 / 0.9e1 * t429 * t138 * t244 - 0.16e2 / 0.9e1 * t393 * t70 * t241 * t237 + 0.8e1 / 0.3e1 * t236 * t241 * t138 + 0.8e1 / 0.3e1 * t432 * t241 * t244 + t707 + 0.40e2 / 0.81e2 * t656 * t150 * t407 - 0.8e1 / 0.9e1 * t442 * t140 * t252 + 0.16e2 / 0.9e1 * t406 * t70 * t241 * t249 - 0.8e1 / 0.3e1 * t248 * t241 * t140 - 0.8e1 / 0.3e1 * t445 * t241 * t252 - t725 - 0.8e1 * t432 * t321 * t138 + 0.8e1 * t445 * t321 * t140 + 0.4e1 / 0.9e1 * t262 * t402 - 0.16e2 * t74 * t321 + 0.4e1 / 0.9e1 * t268 * t413 + 0.16e2 * t77 * t321;
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho4[1] = t519 + t520 + 0.9e1 * t387 + 0.6e1 * t390 + t418 + t495 + t678 + 0.3e1 * t457 + t7 * (t69 * t740 * t84 + t582 + t625 + 0.3e1 * t627 + 0.3e1 * t630 + t633 + t683 + t686 + 0.3e1 * t688);
 
@@ -514,7 +514,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, double *zk LDA_OUT
   t759 = t132 * t488 * t84;
   t770 = t70 * t70;
   t773 = 0.1e1 / t320 / t135;
-  t812 = 0.40e2 / 0.81e2 * t637 * t281 * t237 - 0.64e2 / 0.27e2 * t429 * t138 * t70 * t241 - 0.8e1 / 0.27e2 * t464 * t244 + 0.32e2 / 0.9e1 * t236 * t770 * t773 + 0.16e2 / 0.9e1 * t262 * t241 - 0.16e2 / 0.3e1 * t262 * t400 - 0.8e1 / 0.27e2 * t393 * t285 * t237 + 0.8e1 / 0.9e1 * t236 * t474 * t138 + 0.4e1 / 0.9e1 * t469 * t244 + t713 + 0.40e2 / 0.81e2 * t656 * t288 * t249 + 0.64e2 / 0.27e2 * t442 * t140 * t70 * t241 - 0.8e1 / 0.27e2 * t477 * t252 + 0.32e2 / 0.9e1 * t248 * t770 * t773 - 0.16e2 / 0.9e1 * t268 * t241 + 0.16e2 / 0.3e1 * t268 * t400 - 0.8e1 / 0.27e2 * t406 * t291 * t249 + 0.8e1 / 0.9e1 * t248 * t485 * t140 + 0.4e1 / 0.9e1 * t482 * t252 - t731;
+  t812 = 0.40e2 / 0.81e2 * t637 * t281 * t237 - 0.64e2 / 0.27e2 * t429 * t138 * t70 * t241 - 0.8e1 / 0.27e2 * t464 * t244 + 0.32e2 / 0.9e1 * t236 * t770 * t773 + 0.16e2 / 0.9e1 * t262 * t241 - 0.16e2 / 0.3e1 * t262 * t400 - 0.8e1 / 0.27e2 * t393 * t285 * t237 + 0.8e1 / 0.9e1 * t236 * t474 * t138 + 0.4e1 / 0.9e1 * t469 * t244 + t707 + 0.40e2 / 0.81e2 * t656 * t288 * t249 + 0.64e2 / 0.27e2 * t442 * t140 * t70 * t241 - 0.8e1 / 0.27e2 * t477 * t252 + 0.32e2 / 0.9e1 * t248 * t770 * t773 - 0.16e2 / 0.9e1 * t268 * t241 + 0.16e2 / 0.3e1 * t268 * t400 - 0.8e1 / 0.27e2 * t406 * t291 * t249 + 0.8e1 / 0.9e1 * t248 * t485 * t140 + 0.4e1 / 0.9e1 * t482 * t252 - t725;
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho4[2] = t519 + t520 + 0.6e1 * t387 + 0.2e1 * t390 + 0.6e1 * t425 + 0.8e1 * t427 + 0.2e1 * t457 + 0.2e1 * t463 + 0.2e1 * t490 + t7 * (t69 * t812 * t84 + t582 + t625 + 0.2e1 * t627 + t630 + 0.2e1 * t683 + 0.4e1 * t685 + 0.2e1 * t688 + t757 + 0.2e1 * t759);
 

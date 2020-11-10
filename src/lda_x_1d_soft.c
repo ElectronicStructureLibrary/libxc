@@ -15,7 +15,7 @@ typedef struct{
   double beta;         /* screening parameter beta */
 } lda_x_1d_exponential_params;
 
-static void 
+static void
 lda_x_1d_exponential_init(xc_func_type *p)
 {
   assert(p->params == NULL);
@@ -32,7 +32,7 @@ GPU_FUNCTION
 static void func1(double *x, int n, void *dummy)
 {
   int ii;
-  
+
   for(ii=0; ii<n; ii++)
     x[ii] = FT_inter(x[ii]);
 }
@@ -41,7 +41,7 @@ GPU_FUNCTION
 static void func2(double *x, int n, void *dummy)
 {
   int ii;
-  
+
   for(ii=0; ii<n; ii++)
     x[ii] = x[ii]*FT_inter(x[ii]);
 }

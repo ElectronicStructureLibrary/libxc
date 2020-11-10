@@ -26,7 +26,7 @@ xc_hyb_gga_xc_cam_qtp_init(xc_func_type *p)
   static int funcs_id[4] = {XC_GGA_X_B88, XC_GGA_X_ITYH, XC_GGA_C_LYP, XC_LDA_C_VWN};
   double funcs_coef[4];
   int nfuncs;
-  
+
   switch(p->info->number){
   case XC_HYB_GGA_XC_CAM_QTP_00:
     alpha = 0.54;
@@ -63,13 +63,13 @@ xc_hyb_gga_xc_cam_qtp_init(xc_func_type *p)
 
      In Yanai's convention, at short range there is a total of alpha
      exact exchange, and at long range, alpha+beta.
-     
+
      alpha_libxc = alpha_Yanai + beta_Yanai
      beta_libxc  = - beta_Yanai
   */
   cam_alpha = alpha + beta;
   cam_beta = -beta;
-    
+
   funcs_coef[0] = 1.0 - cam_alpha;
   funcs_coef[1] = -cam_beta;
   funcs_coef[2] = flyp;
@@ -93,7 +93,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_00 = {
   XC_FAMILY_GGA,
   {&xc_ref_Verma2014_18A534, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  5e-9,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_cam_qtp_init,
   NULL, NULL, NULL, NULL
@@ -109,7 +109,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_01 = {
   XC_FAMILY_GGA,
   {&xc_ref_Jin2016_034107, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  5e-9,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_cam_qtp_init,
   NULL, NULL, NULL, NULL
@@ -125,7 +125,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_02 = {
   XC_FAMILY_GGA,
   {&xc_ref_Haiduke2018_184106, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  5e-9,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_cam_qtp_init,
   NULL, NULL, NULL, NULL
@@ -141,7 +141,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_qtp = {
   XC_FAMILY_GGA,
   {&xc_ref_Haiduke2018_184106, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
-  1e-32,
+  5e-9,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_cam_qtp_init,
   NULL, NULL, NULL, NULL

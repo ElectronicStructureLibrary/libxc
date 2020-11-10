@@ -17,7 +17,7 @@ typedef struct{
 } gga_x_vmt_params;
 
 
-static void 
+static void
 gga_x_vmt_init(xc_func_type *p)
 {
   gga_x_vmt_params *params;
@@ -56,9 +56,9 @@ const xc_func_info_type xc_func_info_gga_x_vmt_pbe = {
   XC_FAMILY_GGA,
   {&xc_ref_Vela2009_244103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_x_vmt_init, NULL, 
+  gga_x_vmt_init, NULL,
   NULL, work_gga, NULL
 };
 
@@ -72,8 +72,8 @@ const xc_func_info_type xc_func_info_gga_x_vmt_ge = {
   XC_FAMILY_GGA,
   {&xc_ref_Vela2009_244103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-32,
+  1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_x_vmt_init, NULL, 
+  gga_x_vmt_init, NULL,
   NULL, work_gga, NULL
 };

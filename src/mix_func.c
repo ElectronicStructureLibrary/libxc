@@ -20,7 +20,7 @@ xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix
   assert(p != NULL);
   assert(p->func_aux == NULL && p->mix_coef == NULL);
 
-  /* allocate structures needed for */
+  /* allocate structures needed for mixed functional */
   p->n_func_aux = n_funcs;
   p->mix_coef   = (double *) libxc_malloc(n_funcs*sizeof(double));
   p->func_aux   = (xc_func_type **) libxc_malloc(n_funcs*sizeof(xc_func_type *));
@@ -42,13 +42,13 @@ xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix
 }
 
 #ifdef HAVE_CUDA
-__global__ static void add_to_mix_gpu(size_t np, double * dst, double coeff, double *src){
+__global__ static void add_to_mix_gpu(size_t np, double * dst, double coeff, const double *src){
   size_t ip = blockIdx.x * blockDim.x + threadIdx.x;
   if(ip < np) dst[ip] += coeff*src[ip];
 }
 #endif
 
-static void add_to_mix(size_t np, double * dst, double coeff, double *src){
+static void add_to_mix(size_t np, double * dst, double coeff, const double *src){
 #ifndef HAVE_CUDA
   size_t ip;
   for(ip = 0; ip < np; ip++) dst[ip] += coeff*src[ip];
@@ -110,7 +110,7 @@ xc_mix_func(const xc_func_type *func, size_t np,
       need_laplacian = XC_FLAGS_NEEDS_LAPLACIAN;
   }
   assert((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) == need_laplacian);
-  
+
   /* Check compatibility of the individual components */
   for(ii=0; ii<func->n_func_aux; ii++){
     aux = func->func_aux[ii];
@@ -172,7 +172,7 @@ xc_mix_func(const xc_func_type *func, size_t np,
       if(is_gga(aux->info->family)) {
         sum_var(vsigma);
       }
-      
+
       if(is_mgga(aux->info->family)) {
         if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) {
           sum_var(vlapl);
@@ -196,14 +196,14 @@ xc_mix_func(const xc_func_type *func, size_t np,
           sum_var(v2sigmalapl);
           sum_var(v2lapl2);
           sum_var(v2lapltau);
-        }          
+        }
         sum_var(v2rhotau);
         sum_var(v2sigmatau);
         sum_var(v2tau2);
       }
     }
 
-#ifndef XC_DONT_COMPILE_KXC    
+#ifndef XC_DONT_COMPILE_KXC
     if(v3rho3 != NULL){
       sum_var(v3rho3);
 
@@ -212,7 +212,7 @@ xc_mix_func(const xc_func_type *func, size_t np,
         sum_var(v3rhosigma2);
         sum_var(v3sigma3);
       }
-      
+
       if(is_mgga(aux->info->family)) {
         if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) {
           sum_var(v3rho2lapl);

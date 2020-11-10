@@ -41,7 +41,7 @@ const xc_func_info_type xc_func_info_lda_x_sloc = {
   XC_FAMILY_LDA,
   {&xc_ref_Finzel2017_40, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {2, sloc_names, sloc_desc, sloc_values, set_ext_params_cpy},
   lda_x_sloc_init, NULL,
   work_lda, NULL, NULL

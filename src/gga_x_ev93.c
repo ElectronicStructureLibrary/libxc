@@ -35,7 +35,7 @@ static const double ev93_values[EV93_N_PAR] =
   {1.647127, 0.980118, 0.017399, 1.523671, 0.367229, 0.011282};
 static const double ecmv92_values[EV93_N_PAR] =
   {27.8428, 11.7683, 0.0, 27.5026, 5.7728, 0.0};
-  
+
 #ifdef __cplusplus
 extern "C"
 #endif
@@ -46,7 +46,7 @@ const xc_func_info_type xc_func_info_gga_x_ev93 = {
   XC_FAMILY_GGA,
   {&xc_ref_Engel1993_13164, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {6, ev93_names, ev93_desc, ev93_values, set_ext_params_cpy},
   gga_x_ev93_init, NULL,
   NULL, work_gga, NULL
@@ -62,7 +62,7 @@ const xc_func_info_type xc_func_info_gga_x_ecmv92 = {
   XC_FAMILY_GGA,
   {&xc_ref_Engel1992_7, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-25,
+  1e-15,
   {6, ev93_names, ev93_desc, ecmv92_values, set_ext_params_cpy},
   gga_x_ev93_init, NULL,
   NULL, work_gga, NULL

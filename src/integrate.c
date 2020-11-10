@@ -58,7 +58,7 @@ GPU_FUNCTION static void rdqpsrt(int *, int *, int *, double *, double *, int *,
 
 GPU_FUNCTION static void rdqelg(int *, double *, double *, double *, double *, int *);
 
-GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b, 
+GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
 	     double *epsabs, double *epsrel, int *limit, double *result,
 	     double *abserr, int *neval, int *ier, double *alist__,
 	     double *blist, double *rlist, double *elist, int *iord, int *last)
@@ -78,7 +78,7 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
   double abseps, area, area1, area2, area12, dres, epmach;
   double a1, a2, b1, b2, defabs, defab1, defab2, oflow, uflow, resabs, reseps;
   double error1, error2, erro12, errbnd, erlast, errmax, errsum;
-  
+
   double correc = 0.0, erlarg = 0.0, ertest = 0.0, small = 0.0;
   /*
  ***begin prologue  dqagse
@@ -308,17 +308,17 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
     *ier = 6;
     return;
   }
-  
+
   /*           first approximation to the integral */
   /*           ----------------------------------- */
-  
+
   uflow = DBL_MIN;
   oflow = DBL_MAX;
   ierro = 0;
   rdqk21(f, ex, a, b, result, abserr, &defabs, &resabs);
-  
+
   /*           test on accuracy. */
-  
+
   dres = fabs(*result);
   errbnd = max(*epsabs, *epsrel * dres);
   *last = 1;
@@ -331,10 +331,10 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
     *ier = 1;
   if (*ier != 0 || (*abserr <= errbnd && *abserr != resabs)
       || *abserr == 0.) goto L140;
-  
+
   /*           initialization */
   /*           -------------- */
-  
+
   rlist2[0] = *result;
   errmax = *abserr;
   maxerr = 1;
@@ -357,11 +357,11 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
 
   /*           main do-loop */
   /*           ------------ */
-  
+
   for (*last = 2; *last <= *limit; ++(*last)) {
 
     /*           bisect the subinterval with the nrmax-th largest error estimate. */
-    
+
     a1 = alist__[maxerr];
     b1 = (alist__[maxerr] + blist[maxerr]) * .5;
     a2 = b1;
@@ -369,10 +369,10 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
     erlast = errmax;
     rdqk21(f, ex, &a1, &b1, &area1, &error1, &resabs, &defab1);
     rdqk21(f, ex, &a2, &b2, &area2, &error2, &resabs, &defab2);
-    
+
     /*           improve previous approximations to integral
 		 and error and test for accuracy. */
-    
+
     area12 = area1 + area2;
     erro12 = error1 + error2;
     errsum = errsum + erro12 - errmax;
@@ -398,28 +398,28 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
     rlist[maxerr] = area1;
     rlist[*last] = area2;
     errbnd = max(*epsabs, *epsrel * fabs(area));
-    
+
     /*           test for roundoff error and eventually set error flag. */
-    
+
     if (iroff1 + iroff2 >= 10 || iroff3 >= 20)
       *ier = 2;
     if (iroff2 >= 5)
       ierro = 3;
-    
+
     /* set error flag in the case that the number of subintervals equals limit. */
     if (*last == *limit)
       *ier = 1;
-    
+
     /*           set error flag in the case of bad integrand behaviour
 		 at a point of the integration range. */
-    
+
     if (max(fabs(a1), fabs(b2)) <=
 	(epmach * 100. + 1.) * (fabs(a2) + uflow * 1e3)) {
       *ier = 4;
     }
-    
+
     /*           append the newly-created intervals to the list. */
-    
+
     if (error2 > error1) {
       alist__[maxerr] = a2;
       alist__[*last] = a1;
@@ -435,20 +435,20 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
       elist[maxerr] = error1;
       elist[*last] = error2;
     }
-    
+
     /*           call subroutine dqpsrt to maintain the descending ordering
 		 in the list of error estimates and select the subinterval
 		 with nrmax-th largest error estimate (to be bisected next). */
-    
+
     /*L30:*/
     rdqpsrt(limit, last, &maxerr, &errmax, &elist[1], &iord[1], &nrmax);
-    
+
     if (errsum <= errbnd)   goto L115;/* ***jump out of do-loop */
     if (*ier != 0)	    goto L100;/* ***jump out of do-loop */
-    
+
     if (*last == 2)	    goto L80;
     if (noext)		    goto L90;
-    
+
     erlarg -= erlast;
     if (fabs(b1 - a1) > small) {
       erlarg += erro12;
@@ -459,7 +459,7 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
 
     /*           test whether the interval to be bisected next is the
 		 smallest interval. */
-    
+
     if (fabs(blist[maxerr] - alist__[maxerr]) > small) {
       goto L90;
     }
@@ -469,11 +469,11 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
     if (ierro == 3 || erlarg <= ertest) {
       goto L60;
     }
-    
+
     /*           the smallest interval has the largest error.
 		 before bisecting decrease the sum of the errors over the
 		 larger intervals (erlarg) and perform extrapolation. */
-    
+
     id = nrmax;
     jupbnd = *last;
     if (*last > *limit / 2 + 2) {
@@ -488,9 +488,9 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
       ++nrmax;
       /* L50: */
     }
-    
+
     /*           perform extrapolation. */
-    
+
   L60:
     ++numrl2;
     rlist2[numrl2 - 1] = area;
@@ -510,9 +510,9 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
     if (*abserr <= ertest) {
       goto L100;/* ***jump out of do-loop */
     }
-    
+
     /*           prepare bisection of the smallest interval. */
-    
+
   L70:
     if (numrl2 == 1) {
       noext = TRUE;
@@ -535,8 +535,8 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
   L90:
     ;
   }
-  
-  
+
+
  L100:/*		set final result and error estimate. */
       /*		------------------------------------ */
   if (*abserr == oflow) 	goto L115;
@@ -549,12 +549,12 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
   if (*abserr > errsum) 	goto L115;
   if (area == 0.) 		goto L130;
   goto L110;
-  
+
  L105:
   if (*abserr / fabs(*result) > errsum / fabs(area)) {
     goto L115;
   }
-  
+
  L110:/*		test on divergence. */
   if (ksgn == -1 && max(fabs(*result), fabs(area)) <= defabs * .01) {
     goto L130;
@@ -563,7 +563,7 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
     *ier = 5;
   }
   goto L130;
-  
+
  L115:/*		compute global integral sum. */
   *result = 0.;
   for (k = 1; k <= *last; ++k)
@@ -586,7 +586,7 @@ GPU_FUNCTION static void rdqelg(int *n, double *epstab, double *
   double delta1, delta2, delta3, e0, e1, e1abs, e2, e3, epmach, epsinf;
   double oflow, ss, res;
   double errA, err1, err2, err3, tol1, tol2, tol3;
-  
+
   /* ***begin prologue  dqelg
  ***refer to  dqagie,dqagoe,dqagpe,dqagse
  ***revision date  830518   (yymmdd)
@@ -698,37 +698,37 @@ GPU_FUNCTION static void rdqelg(int *n, double *epstab, double *
 		   accuracy, convergence is assumed. */
       *result = res;/*		result = e2 */
       *abserr = err2 + err3;/*	abserr = fabs(e1-e0)+fabs(e2-e1) */
-      
+
       goto L100;	/* ***jump out of do-loop */
     }
-    
+
     e3 = epstab[k1];
     epstab[k1] = e1;
     delta1 = e1 - e3;
     err1 = fabs(delta1);
     tol1 = max(e1abs, fabs(e3)) * epmach;
-    
+
     /*           if two elements are very close to each other, omit
 		 a part of the table by adjusting the value of n */
-    
+
     if (err1 > tol1 && err2 > tol2 && err3 > tol3) {
       ss = 1. / delta1 + 1. / delta2 - 1. / delta3;
       epsinf = fabs(ss * e1);
-      
+
       /*           test to detect irregular behaviour in the table, and
 		   eventually omit a part of the table adjusting the value of n. */
-      
+
       if (epsinf > 1e-4) {
 	goto L30;
       }
     }
-    
+
     *n = i__ + i__ - 1;
     goto L50;/* ***jump out of do-loop */
-    
-    
+
+
   L30:/* compute a new element and eventually adjust the value of result. */
-    
+
     res = e1 + 1. / ss;
     epstab[k1] = res;
     k1 += -2;
@@ -738,14 +738,14 @@ GPU_FUNCTION static void rdqelg(int *n, double *epstab, double *
       *result = res;
     }
   }
-  
+
   /*           shift the table. */
-  
+
  L50:
   if (*n == limexp) {
     *n = (limexp / 2 << 1) - 1;
   }
-  
+
   if (num / 2 << 1 == num) ib = 2; else ib = 1;
   ie = newelm + 1;
   for (i__ = 1; i__ <= ie; ++i__) {
@@ -773,7 +773,7 @@ GPU_FUNCTION static void rdqelg(int *n, double *epstab, double *
     res3la[*nres] = *result;
     *abserr = oflow;
   }
-  
+
  L100:/* compute error estimate */
   *abserr = max(*abserr, epmach * 5. * fabs(*result));
   return;
@@ -783,7 +783,7 @@ GPU_FUNCTION static void  rdqk21(integr_fn f, void *ex, double *a, double *b, do
 		    double *abserr, double *resabs, double *resasc)
 {
   /* Initialized data */
-  
+
   static double wg[5] = { .066671344308688137593568809893332,
 			  .149451349150580593145776339657697,
 			  .219086362515982043995534934228163,
@@ -818,7 +818,7 @@ GPU_FUNCTION static void  rdqk21(integr_fn f, void *ex, double *a, double *b, do
   double hlgth, centr, reskh, uflow;
   double fc, epmach, dhlgth;
   int j, jtw, jtwm1;
-  
+
 /* ***begin prologue  dqk21
 ***date written   800101   (yymmdd)
 ***revision date  830518   (yymmdd)
@@ -916,14 +916,14 @@ bell labs, nov. 1981.
 /* ***first executable statement  dqk21 */
   epmach = DBL_EPSILON;
   uflow = DBL_MIN;
-  
+
   centr = (*a + *b) * .5;
   hlgth = (*b - *a) * .5;
   dhlgth = fabs(hlgth);
 
   /*           compute the 21-point kronrod approximation to
 	       the integral, and estimate the absolute error. */
-  
+
   resg = 0.;
   vec[0] = centr;
   for (j = 1; j <= 5; ++j) {
@@ -1054,9 +1054,9 @@ static void rdqpsrt(int *limit, int *last, int *maxerr,
   /* Parameter adjustments */
   --iord;
   --elist;
-  
+
   /* Function Body */
-  
+
   /*           check whether the list contains more than
 	       two error estimates. */
   if (*last <= 2) {
@@ -1068,7 +1068,7 @@ static void rdqpsrt(int *limit, int *last, int *maxerr,
 	       difficult integrand, subdivision increased the error
 	       estimate. in the normal case the insert procedure should
 	       start after the nrmax-th largest error estimate. */
-  
+
   errmax = elist[*maxerr];
   if (*nrmax > 1) {
     ido = *nrmax - 1;
@@ -1081,7 +1081,7 @@ static void rdqpsrt(int *limit, int *last, int *maxerr,
       /* L20: */
     }
   }
-  
+
   /*L30:       compute the number of elements in the list to be maintained
     in descending order. this number depends on the number of
     subdivisions still allowed. */
@@ -1089,12 +1089,12 @@ static void rdqpsrt(int *limit, int *last, int *maxerr,
     jupbn = *limit + 3 - *last;
   else
     jupbn = *last;
-  
+
   errmin = elist[*last];
-  
+
   /*           insert errmax by traversing the list top-down,
 	       starting comparison from the element elist(iord(nrmax+1)). */
-  
+
   jbnd = jupbn - 1;
   for (i = *nrmax + 1; i <= jbnd; ++i) {
     isucc = iord[i];
@@ -1115,12 +1115,12 @@ static void rdqpsrt(int *limit, int *last, int *maxerr,
     }
     iord[i - 1] = isucc;
   }
-  
+
   iord[jbnd] = *maxerr;
   iord[jupbn] = *last;
-  
+
  Last:/* set maxerr and ermax. */
-  
+
   *maxerr = iord[*nrmax];
   *ermax = elist[*maxerr];
   return;

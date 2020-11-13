@@ -74,8 +74,7 @@ GPU_FUNCTION double LambertW(double z)
 
 #ifndef HAVE_CUDA
   /* This should never happen! */
-  fprintf(stderr, "%s\n%s\n", "lambert_w: iteration limit reached",
-	  "Should never happen!");
+  fprintf(stderr, "lambert_w: iteration limit i=%i reached for z= %.16e\nShould never happen!\n", i, z);
 #endif
 
   return 0.0;

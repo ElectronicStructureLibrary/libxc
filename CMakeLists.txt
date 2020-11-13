@@ -319,6 +319,7 @@ set(raw_sources_list
   lda_x_sloc.c
   mgga.c
   mgga_c_b88.c
+  mgga_c_b94.c
   mgga_c_bc95.c
   mgga_c_cs.c
   mgga_c_kcis.c

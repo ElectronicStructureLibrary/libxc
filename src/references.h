@@ -36,6 +36,7 @@ extern func_reference_type xc_ref_Becke1988_3098;
 extern func_reference_type xc_ref_Becke1989_3761;
 extern func_reference_type xc_ref_Becke1993_1372;
 extern func_reference_type xc_ref_Becke1993_5648;
+extern func_reference_type xc_ref_Becke1994_625;
 extern func_reference_type xc_ref_Becke1996_1040;
 extern func_reference_type xc_ref_Becke1997_8554;
 extern func_reference_type xc_ref_Becke1998_2092;

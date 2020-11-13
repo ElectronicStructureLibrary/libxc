@@ -174,6 +174,13 @@ func_reference_type xc_ref_Becke1993_5648 = {
 };
 
 
+func_reference_type xc_ref_Becke1994_625 = {
+  "A. D. Becke, Int. J. Quantum Chem. 52, 625 (1994)",
+  "https://doi.org/10.1002/qua.560520855",
+  "@article{Becke1994_625,\n  author = {Becke, Axel D.},\n  title = {Thermochemical tests of a kinetic-energy dependent exchange-correlation approximation},\n  journal = {Int. J. Quantum Chem.},\n  volume = {52},\n  number = {S28},\n  pages = {625-632},\n  doi = {https://doi.org/10.1002/qua.560520855},\n  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560520855},\n  year = {1994}\n}"
+};
+
+
 func_reference_type xc_ref_Becke1996_1040 = {
   "A. D. Becke, J. Chem. Phys. 104, 1040 (1996)",
   "10.1063/1.470829",

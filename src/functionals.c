@@ -186,7 +186,11 @@ void xc_func_nullify(xc_func_type *func)
   func->nlc_b = func->nlc_C = 0.0;
 
   func->params     = NULL;
-  func->dens_threshold = 0.0;
+
+  func->dens_threshold  = 0.0;
+  func->zeta_threshold  = 0.0;
+  func->sigma_threshold = 0.0;
+  func->tau_threshold   = 0.0;
 }
 
 /*------------------------------------------------------*/
@@ -237,7 +241,13 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
   if(func->info->ext_params.n > 0)
     func->info->ext_params.set(func, NULL);
 
+  /* this is initialized for each functional from the info */
   func->dens_threshold = func->info->dens_threshold;
+
+  /* these are reasonable defaults */
+  func->zeta_threshold  = DBL_EPSILON;
+  func->sigma_threshold = 1e-10;
+  func->tau_threshold   = 1e-20;
 
   return 0;
 }
@@ -296,15 +306,60 @@ const xc_func_info_type *xc_func_get_info(const xc_func_type *p)
 }
 
 /*------------------------------------------------------*/
-void xc_func_set_dens_threshold(xc_func_type *p, double dens_threshold)
+void xc_func_set_dens_threshold(xc_func_type *p, double t_dens)
 {
   int ii;
 
-  p->dens_threshold = dens_threshold;
+  if(t_dens  > 0.0)
+    p->dens_threshold = t_dens;
 
   for(ii=0; ii<p->n_func_aux; ii++) {
-    xc_func_set_dens_threshold(p->func_aux[ii], dens_threshold);
+    xc_func_set_dens_threshold(p->func_aux[ii], t_dens);
   }
+}
+/*------------------------------------------------------*/
+void xc_func_set_zeta_threshold(xc_func_type *p, double t_zeta)
+{
+  int ii;
+
+  if(t_zeta  > 0.0)
+    p->zeta_threshold = t_zeta;
+
+  for(ii=0; ii<p->n_func_aux; ii++) {
+    xc_func_set_zeta_threshold(p->func_aux[ii], t_zeta);
+  }
+}
+/*------------------------------------------------------*/
+void xc_func_set_sigma_threshold(xc_func_type *p, double t_sigma)
+{
+  int ii;
+
+  if(t_sigma  > 0.0)
+    p->sigma_threshold = t_sigma;
+
+  for(ii=0; ii<p->n_func_aux; ii++) {
+    xc_func_set_sigma_threshold(p->func_aux[ii], t_sigma);
+  }
+}
+/*------------------------------------------------------*/
+void xc_func_set_tau_threshold(xc_func_type *p, double t_tau)
+{
+  int ii;
+
+  if(t_tau  > 0.0)
+    p->tau_threshold = t_tau;
+
+  for(ii=0; ii<p->n_func_aux; ii++) {
+    xc_func_set_tau_threshold(p->func_aux[ii], t_tau);
+  }
+}
+/*------------------------------------------------------*/
+void xc_func_set_thresholds(xc_func_type *p, double t_dens, double t_zeta, double t_sigma, double t_tau)
+{
+  xc_func_set_dens_threshold(p, t_dens);
+  xc_func_set_zeta_threshold(p, t_zeta);
+  xc_func_set_sigma_threshold(p, t_sigma);
+  xc_func_set_tau_threshold(p, t_tau);
 }
 
 /*------------------------------------------------------*/

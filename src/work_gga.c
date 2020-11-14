@@ -12,8 +12,6 @@
  * @brief This file is to be included in GGA functionals.
  */
 
-#define MIN_SIGMA 1e-20
-
 #ifdef XC_DEBUG
 #define __USE_GNU
 #include <fenv.h>
@@ -80,16 +78,16 @@ work_gga(const XC(func_type) *p, size_t np,
 
   for(ip = 0; ip < np; ip++){
     /* Screen low density */
-    dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
+    dens = (p->nspin == XC_POLARIZED) ? rho[0] + rho[1] : rho[0];
     if(dens >= p->dens_threshold) {
       /* sanity check of input parameters */
       my_rho[0] = max(p->dens_threshold, rho[0]);
-      my_sigma[0] = max(MIN_SIGMA, sigma[0]);
+      my_sigma[0] = max(p->sigma_threshold * p->sigma_threshold, sigma[0]);
       if(p->nspin == XC_POLARIZED){
         double s_ave;
 
         my_rho[1] = max(p->dens_threshold, rho[1]);
-        my_sigma[2] = max(MIN_SIGMA, sigma[2]);
+        my_sigma[2] = max(p->sigma_threshold * p->sigma_threshold, sigma[2]);
 
         my_sigma[1] = sigma[1];
         s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
@@ -163,12 +161,12 @@ work_gga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, co
   if(dens >= p->dens_threshold) {
     /* sanity check on input parameters */
     my_rho[0]   = max(p->dens_threshold, rho[0]);
-    my_sigma[0] = max(MIN_SIGMA, sigma[0]);
+    my_sigma[0] = max(p->sigma_threshold * p->sigma_threshold, sigma[0]);
     if(p->nspin == XC_POLARIZED){
       double s_ave;
       
       my_rho[1]   = max(p->dens_threshold, rho[1]);
-      my_sigma[2] = max(MIN_SIGMA, sigma[2]);
+      my_sigma[2] = max(p->sigma_threshold * p->sigma_threshold, sigma[2]);
       
       my_sigma[1] = sigma[1];
       s_ave = 0.5*(my_sigma[0] + my_sigma[2]);

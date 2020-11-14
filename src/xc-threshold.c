@@ -928,7 +928,7 @@ int main(int argc, char *argv[]) {
         /* Calculate radius */
         r = rmin*exp(h * irad);
         /* Compute the input data */
-        compute_input(&values, &nspin, testcase, r);
+        compute_input(&values, &nspin, (testcase_t) testcase, r);
         /* Compute the functional */
         rfail = check_xc(id, nspin, values, threshold);
         nfail += rfail;

@@ -392,7 +392,7 @@ class LibXCFunctional(object):
 
     def get_cam_coef(self):
         """
-        Returns the (omega, alpha, beta) quantites
+        Returns the (omega, alpha, beta) quantities
         """
 
         if self._hyb_type != flags.XC_HYB_CAM:
@@ -414,7 +414,7 @@ class LibXCFunctional(object):
 
     def get_ext_param_names(self):
         """
-        Gets the description of all external parameters
+        Gets the names of all external parameters
         """
         num_param = core.xc_func_info_get_n_ext_params(self.xc_func_info)
 
@@ -427,7 +427,7 @@ class LibXCFunctional(object):
 
     def get_ext_param_descriptions(self):
         """
-        Gets the description of all external parameters
+        Gets the descriptions of all external parameters
         """
         num_param = core.xc_func_info_get_n_ext_params(self.xc_func_info)
 
@@ -440,7 +440,7 @@ class LibXCFunctional(object):
 
     def get_ext_param_default_values(self):
         """
-        Gets the default value of all external parameters.
+        Gets the default values of all external parameters.
         """
         num_param = core.xc_func_info_get_n_ext_params(self.xc_func_info)
 
@@ -457,7 +457,7 @@ class LibXCFunctional(object):
         """
         num_param = core.xc_func_info_get_n_ext_params(self.xc_func_info)
         if num_param == 0:
-            raise ValueError("The LibXCFunctional '%s' has no extermal parameters to set." % self.get_name())
+            raise ValueError("The LibXCFunctional '%s' has no external parameters to set." % self.get_name())
 
         if len(ext_params) != num_param:
             raise ValueError(
@@ -468,7 +468,7 @@ class LibXCFunctional(object):
 
     def set_dens_threshold(self, dens_threshold):
         """
-        Sets the density threshold in which densities will not longer be computer.
+        Sets the density threshold below which the functional will not be evaluated.
         """
 
         if dens_threshold < 0:

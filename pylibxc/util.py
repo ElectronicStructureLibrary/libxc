@@ -90,7 +90,8 @@ def xc_functional_get_number(name):
     >>> pylibxc.util.xc_functional_get_number("XC_GGA_X_GAM")
     32
     """
-
+    if not isinstance(name, str):
+        raise TypeError("name must be a string.")
     return core.xc_functional_get_number(ctypes.c_char_p(name.encode()))
 
 
@@ -113,13 +114,12 @@ def xc_functional_get_name(func_id):
     >>> pylibxc.util.xc_functional_get_name(32)
     "gga_x_gam"
     """
-
+    if not isinstance(func_id, (int, np.integer)):
+        raise TypeError("func_id must be an int.")
     ret = core.xc_functional_get_name(func_id)
-    if ret is None:
-        return ret
-    else:
-        return ret.decode("UTF-8")
-
+    if ret is not None:
+        ret = ret.decode("UTF-8")
+    return ret
 
 def xc_family_from_id(func_id):
     """
@@ -143,6 +143,8 @@ def xc_family_from_id(func_id):
     (4, 4)
 
     """
+    if not isinstance(func_id, (int, np.integer)):
+        raise TypeError("func_id must be an int.")
     family = ctypes.c_int()
     number = ctypes.c_int()
     core.xc_family_from_id(func_id, ctypes.pointer(family), ctypes.pointer(number))
@@ -161,8 +163,8 @@ def xc_number_of_functionals():
 
     Examples
     --------
-    >>> pylibxc.util.xc_family_from_id(72)
-    (4, 3)
+    >>> pylibxc.util.xc_number_of_functionals()
+    447
     """
 
     return core.xc_number_of_functionals()
@@ -203,7 +205,7 @@ def xc_available_functional_names():
     Examples
     --------
     >>> xc_func_list = pylibxc.util.xc_available_functional_names()
-    [1, 2, ..., 568, 569]
+    ['lda_x', 'lda_c_wigner', ..., 'hyb_mgga_x_revscan0', 'hyb_mgga_xc_b98']
     """
 
     # I give up trying to get char** working, someone else can pick it up.

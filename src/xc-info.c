@@ -10,6 +10,10 @@
 #include <ctype.h>
 #include "util.h"
 
+#define is_mgga(id)   ((id) == XC_FAMILY_MGGA)
+#define is_gga(id)    ((id) == XC_FAMILY_GGA || is_mgga(id))
+#define is_lda(id)    ((id) == XC_FAMILY_LDA ||  is_gga(id))
+
 void print_hybrid(xc_func_type *func) {
   double alpha;
   assert(func->hyb_type[0] == XC_HYB_FOCK);
@@ -119,7 +123,13 @@ int main(int argc, char **argv)
   if(func.info->flags & XC_FLAGS_HAVE_KXC)
     printf("  *) fourth derivative\n");
 
-  printf("\nDefault density threshold: %e\n",func.dens_threshold);
+  printf("\nDefault thresholds:\n");
+  printf("density: %e\n",func.dens_threshold);
+  printf("   zeta: %e\n",func.zeta_threshold);
+  if(is_gga(func.info->family))
+    printf("  sigma: %e\n",func.sigma_threshold);
+  if(is_mgga(func.info->family))
+    printf("    tau: %e\n",func.tau_threshold);
 
   /* Query parameters */
   npar = xc_func_info_get_n_ext_params(func.info);

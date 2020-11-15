@@ -211,5 +211,6 @@ def xc_available_functional_names():
     # I give up trying to get char** working, someone else can pick it up.
 
     func_ids = xc_available_functional_numbers()
-    return [xc_functional_get_name(x) for x in func_ids]
-
+    available_names = [xc_functional_get_name(x) for x in func_ids]
+    available_names.sort()
+    return available_names

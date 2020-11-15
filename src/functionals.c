@@ -138,6 +138,10 @@ int xc_maximum_name_length()
 }
 
 /*------------------------------------------------------*/
+static int compare_int(const void *a, const void *b) {
+  return *(int *)a - *(int *) b;
+}
+
 void xc_available_functional_numbers(int *list)
 {
   int ii, N;
@@ -145,6 +149,8 @@ void xc_available_functional_numbers(int *list)
   for(ii=0;ii<N;ii++){
     list[ii]=xc_functional_keys[ii].number;
   }
+  /* Sort list by id */
+  qsort(list, N, sizeof(int), compare_int);
 }
 
 void xc_available_functional_names(char **list)

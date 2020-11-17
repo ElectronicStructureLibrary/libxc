@@ -21,7 +21,7 @@ alpha := (t, rs) ->
       2 - (g[1] + g[2]*rs)/(1 + g[3]*rs)*exp(-t*(l[1] + l[2]*t*sqrt(rs))):
 
 
-phi := (malpha, z) -> ((1 + z)^malpha + (1 - z)^malpha - 2)/(2^malpha - 2):
+phi := (malpha, z) -> (opz_pow_n(z,malpha) + opz_pow_n(-z,malpha) - 2)/(2^malpha - 2):
 
 
 lambda := (4/(9*Pi))^(1/3):
@@ -38,7 +38,7 @@ cc := (c, e, t) -> (c[1] + c[2]*exp(-c[3]/t))*ee(e, t):
 fxc := (omega, b, c, d, e, rs, t) ->
     -(omega*aa(t) + bb(b, t)*sqrt(rs) + cc(c, e, t)*rs)/(rs*(1 + dd(d, t)*sqrt(rs) + ee(e, t)*rs)):
 
-# (T/T_F)*(1+z)^(2/3)
+# (T/T_F)*opz_pow_n(z,2/3)
 mtt := (rs, z) ->
     2*(4/(9*Pi))^(2/3)*params_a_T*rs^2*(1 + params_a_thetaParam*z)^(2/3):
 

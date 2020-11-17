@@ -10,7 +10,7 @@
 (* type: gga_exc *)
 (* prefix:
   gga_x_lspbe_params *params;
- 
+
   assert(p->params != NULL);
   params = (gga_x_lspbe_params * )(p->params);
 *)

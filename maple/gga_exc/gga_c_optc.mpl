@@ -17,13 +17,9 @@
 
 $include "gga_c_pw91.mpl"
 
-if evalb(Polarization = "ferr") then
-    optc_f2 := (rs, z, xt, xs0, xs1) -> f_pw91(rs,  1, xs0, xs0, 0):
-else
-    optc_f2 := (rs, z, xt, xs0, xs1) ->
-      + f_pw91(rs*(2/(1 + z))^(1/3),  1, xs0, xs0, 0)*(1 + z)/2
-      + f_pw91(rs*(2/(1 - z))^(1/3), -1, xs1, 0, xs1)*(1 - z)/2:
-end if:
+optc_f2 := (rs, z, xt, xs0, xs1) ->
+  + f_pw91(rs*(2/(1 + z))^(1/3),  1, xs0, xs0, 0)*opz_pow_n( z,1)/2
+  + f_pw91(rs*(2/(1 - z))^(1/3), -1, xs1, 0, xs1)*opz_pow_n(-z,1)/2:
 
 f  := (rs, z, xt, xs0, xs1) ->
   + params_a_c1*f_pw91(rs, z, xt, xs0, xs1) + (params_a_c2 - params_a_c1)*optc_f2(rs, z, xt, xs0, xs1):

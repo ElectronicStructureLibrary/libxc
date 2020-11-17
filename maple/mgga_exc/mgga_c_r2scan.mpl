@@ -32,7 +32,7 @@ r2scan_f_alpha := (a, ff) -> my_piecewise5(
   rscan_f_alpha_large(a)):
 
 (* Equation (S28) *)
-r2scan_d := z -> ((1+z)^(5/3) + (1-z)^(5/3))/2:
+r2scan_d := z -> (opz_pow_n(z,5/3) + opz_pow_n(-z,5/3))/2:
 
 (* Equation (S33): beta(rs), this is the same as in gga_c_regtpss *)
 beta_a := 0.066724550603149220:

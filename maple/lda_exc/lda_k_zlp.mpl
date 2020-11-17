@@ -8,7 +8,7 @@
 
 (* type: lda_exc *)
 
-f_zeta_k := z -> 1/2*((1 + z)^(5/3) + (1 - z)^(5/3)):
+f_zeta_k := z -> 1/2*(opz_pow_n(z,5/3) + opz_pow_n(-z,5/3)):
 
 c1 := 3.2372*RS_FACTOR:
 c2 := 0.00196*RS_FACTOR:

@@ -34,7 +34,7 @@ br89_cQ := Q -> my_piecewise3(abs(Q) < br89_min_Q,
 br89_v := x ->
   -2*Pi^(1/3)/X_FACTOR_C * exp(x/3)*(1 - exp(-x)*(1 + x/2))/x:
 
-br89_f := (x, u, t) -> 
+br89_f := (x, u, t) ->
   - br89_v(br89_x(br89_cQ(br89_Q(x, u, t))))/2 *
   (1 + params_a_at*mgga_series_w([0, 1, 0, -2, 0, 1], 6, t)):
 

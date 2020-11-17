@@ -17,7 +17,7 @@ cs1_C4    :=  0.007953:
 
 (* Equation (24) corrected in Equation (8) in Proynov2006_436 *)
 cs1_ess := (rs, z, xs) ->
-  + (1 + z)/2 * n_spin(rs, z)^(1/3)/(n_spin(rs, z)^(1/3) + cs1_d)
+  + opz_pow_n(z,1)/2 * n_spin(rs, z)^(1/3)/(n_spin(rs, z)^(1/3) + cs1_d)
   * (cs1_C1 + cs1_C2*cs1_gamma^2*xs^4/(1 + cs1_gamma*xs^2)^2):
 
 (* Equation (25) corrected in Equation (6) in Proynov2006_436 *)

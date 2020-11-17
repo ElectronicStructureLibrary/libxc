@@ -20,11 +20,11 @@ $include "gga_c_pbe.mpl"
 
 zvpbeint_nu := (rs, z, t) ->
   t*mphi(z)*(3/rs)^(1/6):
-  
+
 (* we write (z^2)^(omega/2) instead of z^omega in order to
    avoid the use of abs(z). Max is required not to get float
    exceptions for z->0 *)
-zvpbeint_ff := (rs, z, t) -> 
+zvpbeint_ff := (rs, z, t) ->
   exp(-params_a_alpha*zvpbeint_nu(rs, z, t)^3*m_max(z^2, 1e-20)^(params_a_omega/2)):
 
 f  := (rs, z, xt, xs0, xs1) ->

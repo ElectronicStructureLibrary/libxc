@@ -17,7 +17,7 @@
 (* Functional is based on Chachiyo correlation *)
 $include "lda_c_chachiyo.mpl"
 (* .. but with a different scaling function *)
-g := z -> ((1+z)^(2/3) + (1-z)^(2/3))/2:
+g := z -> (opz_pow_n(z,2/3) + opz_pow_n(-z,2/3))/2:
 g_zeta := zeta -> 2*(1 - g(zeta)^3):
 
 f_chachiyo := (rs, zeta) -> e0(rs) + (e1(rs) - e0(rs))*g_zeta(zeta):

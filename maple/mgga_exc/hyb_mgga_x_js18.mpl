@@ -12,7 +12,7 @@ $include "hyb_mgga_x_pjs18.mpl"
 
 (* This expression (10) has \tilde A, and not A *)
 js18_f_SR := (rs, z, x, t) -> tm_w(x, t)*js18_DME_SR(rs, z, x, t)
-  + (1 - tm_w(x, t))*attenuation_erf(a_cnst*rs/(1 + z)^(1/3))*tm_fx_SC(x, t):
+  + (1 - tm_w(x, t))*attenuation_erf(a_cnst*rs/opz_pow_n(z,1/3))*tm_fx_SC(x, t):
 
 js18_f := (rs, z, x, u, t) -> -p_a_hyb_coeff_0_*js18_f_SR(rs, z, x, t) + tm_f(x, u, t):
 

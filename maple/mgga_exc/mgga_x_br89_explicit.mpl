@@ -46,7 +46,7 @@ pgk_x_lower := y -> (-arctan(pgk_a1*y + pgk_a2) + pgk_a3) *
 
 pgk_x_upper := y -> (arccsch(pgk_UB*y) + 2) *
             add(pgk_d[i]*y^(i-1), i=1..6)/add(pgk_e[i]*y^(i-1), i=1..6):
-            
+
 pgk_x := (x, u, t) -> my_piecewise3(
   br89_y(x, u, t) <= 0, pgk_x_lower(br89_y(x, u, t)), pgk_x_upper(br89_y(x, u, t))):
 

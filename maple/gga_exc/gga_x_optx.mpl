@@ -9,7 +9,7 @@
 (* type: gga_exc *)
 (* prefix:
   gga_x_optx_params *params;
- 
+
   assert(p->params != NULL);
   params = (gga_x_optx_params * )(p->params);
 *)

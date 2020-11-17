@@ -10,7 +10,7 @@
 (* type: mgga_exc *)
 (* prefix:
   mgga_x_rtpss_params *params;
- 
+
   assert(p->params != NULL);
   params = (mgga_x_rtpss_params * ) (p->params);
 *)

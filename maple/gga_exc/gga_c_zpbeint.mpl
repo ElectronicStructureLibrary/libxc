@@ -9,7 +9,7 @@
 (* type: gga_exc *)
 (* prefix:
   gga_c_zpbeint_params *params;
- 
+
   assert(p->params != NULL);
   params = (gga_c_zpbeint_params * )(p->params);
 *)

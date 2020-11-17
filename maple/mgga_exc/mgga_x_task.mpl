@@ -26,5 +26,5 @@ task_f0 := (s, a) -> task_h0x*task_gx(s^2) +
 
 task_f := (x, u, t) -> task_f0(X2S*x, task_alpha(x, t)):
 
-f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) -> 
+f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->
   mgga_exchange(task_f, rs, z, xs0, xs1, u0, u1, t0, t1):

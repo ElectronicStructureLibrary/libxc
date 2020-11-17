@@ -43,16 +43,11 @@ b97mv_par_os := [
 $include "lda_x_erf.mpl"
 $include "b97mv.mpl"
 
-if evalb(Polarization = "ferr") then
-  wb97mv_f := (rs, z, xs0, xs1, ts0, ts1) ->
-    + lda_x_erf_spin(rs,  1) * b97mv_g(b97mv_gamma_x,  b97mv_wx_ss, b97mv_par_x,  b97mv_par_n, xs0, ts0, 0):
-else
-  wb97mv_f := (rs, z, xs0, xs1, ts0, ts1) ->
-    + (1 + z)/2 * lda_x_erf_spin(rs*(2/(1 + z))^(1/3),  1)
-      * b97mv_g(b97mv_gamma_x,  b97mv_wx_ss, b97mv_par_x,  b97mv_par_n, xs0, ts0, 0)
-    + (1 - z)/2 * lda_x_erf_spin(rs*(2/(1 - z))^(1/3),  1)
-      * b97mv_g(b97mv_gamma_x,  b97mv_wx_ss, b97mv_par_x,  b97mv_par_n, xs1, ts1, 0):
-end if:
+wb97mv_f := (rs, z, xs0, xs1, ts0, ts1) ->
+  + (1 + z)/2 * lda_x_erf_spin(rs*(2/(1 + z))^(1/3),  1)
+    * b97mv_g(b97mv_gamma_x,  b97mv_wx_ss, b97mv_par_x,  b97mv_par_n, xs0, ts0, 0)
+  + (1 - z)/2 * lda_x_erf_spin(rs*(2/(1 - z))^(1/3),  1)
+    * b97mv_g(b97mv_gamma_x,  b97mv_wx_ss, b97mv_par_x,  b97mv_par_n, xs1, ts1, 0):
 
 f :=  (rs, z, xt, xs0, xs1, us0, us1, ts0, ts1) ->
   wb97mv_f(rs, z, xs0, xs1, ts0, ts1) +

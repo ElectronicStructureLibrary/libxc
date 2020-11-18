@@ -8,23 +8,24 @@
 
 #include "util.h"
 
-#define XC_HYB_GGA_XC_HSE03       427 /* the 2003 version of the screened hybrid HSE */
-#define XC_HYB_GGA_XC_HSE06       428 /* the 2006 version of the screened hybrid HSE */
-#define XC_HYB_GGA_XC_HJS_PBE     429 /* HJS hybrid screened exchange PBE version */
-#define XC_HYB_GGA_XC_HJS_PBE_SOL 430 /* HJS hybrid screened exchange PBE_SOL version */
-#define XC_HYB_GGA_XC_HJS_B88     431 /* HJS hybrid screened exchange B88 version */
-#define XC_HYB_GGA_XC_HJS_B97X    432 /* HJS hybrid screened exchange B97x version */
-#define XC_HYB_GGA_XC_LRC_WPBEH   465 /* Long-range corrected functional by Rorhdanz et al */
-#define XC_HYB_GGA_XC_LRC_WPBE    473 /* Long-range corrected functional by Rorhdanz et al */
-#define XC_HYB_GGA_XC_LC_WPBE     478 /* Long-range corrected functional by Vydrov and Scuseria */
-#define XC_HYB_GGA_XC_HSE12       479 /* HSE12 by Moussa, Schultz and Chelikowsky */
-#define XC_HYB_GGA_XC_HSE12S      480 /* Short-range HSE12 by Moussa, Schultz, and Chelikowsky */
-#define XC_HYB_GGA_XC_HSE_SOL     481 /* HSEsol functional by Schimka, Harl, and Kresse */
-#define XC_HYB_GGA_XC_LC_WPBE_WHS 486 /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
-#define XC_HYB_GGA_XC_LC_WPBEH_WHS 487 /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
-#define XC_HYB_GGA_XC_LC_WPBE08_WHS 488 /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
+#define XC_HYB_GGA_XC_HSE03          427 /* the 2003 version of the screened hybrid HSE */
+#define XC_HYB_GGA_XC_HSE06          428 /* the 2006 version of the screened hybrid HSE */
+#define XC_HYB_GGA_XC_HJS_PBE        429 /* HJS hybrid screened exchange PBE version */
+#define XC_HYB_GGA_XC_HJS_PBE_SOL    430 /* HJS hybrid screened exchange PBE_SOL version */
+#define XC_HYB_GGA_XC_HJS_B88        431 /* HJS hybrid screened exchange B88 version */
+#define XC_HYB_GGA_XC_HJS_B97X       432 /* HJS hybrid screened exchange B97x version */
+#define XC_HYB_GGA_XC_LRC_WPBEH      465 /* Long-range corrected functional by Rorhdanz et al */
+#define XC_HYB_GGA_XC_LRC_WPBE       473 /* Long-range corrected functional by Rorhdanz et al */
+#define XC_HYB_GGA_XC_LC_WPBE        478 /* Long-range corrected functional by Vydrov and Scuseria */
+#define XC_HYB_GGA_XC_HSE12          479 /* HSE12 by Moussa, Schultz and Chelikowsky */
+#define XC_HYB_GGA_XC_HSE12S         480 /* Short-range HSE12 by Moussa, Schultz, and Chelikowsky */
+#define XC_HYB_GGA_XC_HSE_SOL        481 /* HSEsol functional by Schimka, Harl, and Kresse */
+#define XC_HYB_GGA_XC_LC_WPBE_WHS    486 /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
+#define XC_HYB_GGA_XC_LC_WPBEH_WHS   487 /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
+#define XC_HYB_GGA_XC_LC_WPBE08_WHS  488 /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
 #define XC_HYB_GGA_XC_LC_WPBESOL_WHS 489 /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
-#define XC_HYB_GGA_XC_HISS        717 /* Middle-range hybrid from Henderson, Izmaylov, Scuseria, and Savin */
+#define XC_HYB_GGA_XC_HISS           717 /* Middle-range hybrid from Henderson, Izmaylov, Scuseria, and Savin */
+#define XC_HYB_GGA_XC_WHPBE0         615 /* Long-range corrected functional by Shao et al */
 
 /* Note that there is an enormous mess in the literature concerning
    the values of omega in HSE. This is due to an error in the
@@ -186,6 +187,52 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hse_sol = {
   NULL, NULL, NULL, NULL
 };
 
+/* Some of the functionals below have different components, but the
+   external parameters are just related to range separation and the
+   fraction of sr and lr exchange. */
+#define LRC_N_PAR 3
+static const char  *lrc_names[LRC_N_PAR] = {"_alpha", "_beta","_omega" };
+static const char  *lrc_desc[LRC_N_PAR]  = {
+  "Fraction of Hartree-Fock exchange",
+  "Fraction of short-range exact exchange",
+  "Range separation constant"
+};
+
+static const double par_lc_wpbe[LRC_N_PAR]        = {1.00, -1.00, 0.40};
+static const double par_lrc_wpbe[LRC_N_PAR]       = {1.00, -1.00, 0.30};
+static const double par_lrc_wpbeh[LRC_N_PAR]      = {1.00, -0.80, 0.20};
+static const double par_whpbe0[LRC_N_PAR]         = {0.50, -0.25, 0.20};
+static const double par_lc_wpbe_whs[LRC_N_PAR]    = {1.00, -1.00, 0.40};
+static const double par_lc_wpbe08_whs[LRC_N_PAR]  = {1.00, -1.00, 0.45};
+static const double par_lc_wpbeh_whs[LRC_N_PAR]   = {1.00, -0.75, 0.40};
+static const double par_lc_wpbesol_whs[LRC_N_PAR] = {1.00, -1.00, 0.60};
+
+static void
+lrc_set_ext_params(xc_func_type *p, const double *ext_params)
+{
+  double alpha, beta, omega;
+
+  assert(p != NULL);
+
+  alpha = get_ext_param(p, ext_params, 0);
+  beta  = get_ext_param(p, ext_params, 1);
+  omega = get_ext_param(p, ext_params, 2);
+
+  /* DFT part */
+  p->mix_coef[0] = -beta;
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", omega);
+
+  /* Set the hybrid flags */
+  assert(p->hyb_number_terms == 2);
+  p->hyb_type[0]  = XC_HYB_ERF_SR;
+  p->hyb_coeff[0] = beta;
+  p->hyb_omega[0] = omega;
+
+  p->hyb_type[1]  = XC_HYB_FOCK;
+  p->hyb_coeff[1] = alpha;
+  p->hyb_omega[1] = 0.0;
+}
+
 static void
 hyb_gga_xc_lc_wpbe_init(xc_func_type *p)
 {
@@ -193,9 +240,7 @@ hyb_gga_xc_lc_wpbe_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_cam(p, 0.4, 1.0, -1.0);
-
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
+  xc_hyb_init_cam(p, 0.0, 0.0, 0.0);
 }
 
 #ifdef __cplusplus
@@ -209,34 +254,19 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe = {
   {&xc_ref_Vydrov2006_234109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {LRC_N_PAR, lrc_names, lrc_desc, par_lc_wpbe, lrc_set_ext_params},
   hyb_gga_xc_lc_wpbe_init, NULL,
   NULL, NULL, NULL
 };
 
-
 static void
-hyb_gga_xc_lrc_wpbeh_init(xc_func_type *p)
-{
-  static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
-  static double funcs_coef[2] = {0.8, 1.0};
-
-  xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_cam(p, 0.2, 1.0, -0.8);
-
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
-}
-
-static void
-hyb_gga_xc_lrc_wpbe_init(xc_func_type *p)
+hyb_gga_xc_hjs_pbe_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
   static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_cam(p, 0.3, 1.0, -1.0);
-
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
+  xc_hyb_init_cam(p, 0.0, 0.0, 0.0);
 }
 
 #ifdef __cplusplus
@@ -250,8 +280,8 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lrc_wpbeh = {
   {&xc_ref_Rohrdanz2009_054112, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
-  hyb_gga_xc_lrc_wpbeh_init, NULL,
+  {LRC_N_PAR, lrc_names, lrc_desc, par_lrc_wpbeh, lrc_set_ext_params},
+  hyb_gga_xc_hjs_pbe_init, NULL,
   NULL, NULL, NULL
 };
 
@@ -266,58 +296,26 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lrc_wpbe = {
   {&xc_ref_Rohrdanz2009_054112, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
-  hyb_gga_xc_lrc_wpbe_init, NULL,
+  {LRC_N_PAR, lrc_names, lrc_desc, par_lrc_wpbe, lrc_set_ext_params},
+  hyb_gga_xc_hjs_pbe_init, NULL,
   NULL, NULL, NULL
 };
 
-static void
-hyb_gga_xc_lc_wpbe_whs_init(xc_func_type *p)
-{
-  static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
-  static double funcs_coef[2] = {1.0, 1.0};
-
-  xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_cam(p, 0.4, 1.0, -1.0);
-
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
-}
-
-static void
-hyb_gga_xc_lc_wpbe08_whs_init(xc_func_type *p)
-{
-  static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
-  static double funcs_coef[2] = {1.0, 1.0};
-
-  xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_cam(p, 0.45, 1.0, -1.0);
-
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
-}
-
-static void
-hyb_gga_xc_lc_wpbesol_whs_init(xc_func_type *p)
-{
-  static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE_SOL, XC_GGA_C_PBE_SOL};
-  static double funcs_coef[2] = {1.0, 1.0};
-
-  xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_cam(p, 0.60, 1.0, -1.0);
-
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
-}
-
-static void
-hyb_gga_xc_lc_wpbeh_whs_init(xc_func_type *p)
-{
-  static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
-  static double funcs_coef[2] = {0.75, 1.0};
-
-  xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_cam(p, 0.4, 1.0, -0.75);
-
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
-}
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_hyb_gga_xc_whpbe0 = {
+  XC_HYB_GGA_XC_WHPBE0,
+  XC_EXCHANGE_CORRELATION,
+  "Long-range corrected short-range hybrid PBE (whPBE0) by Shao et al",
+  XC_FAMILY_GGA,
+  {&xc_ref_Shao2020_587, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-15,
+  {LRC_N_PAR, lrc_names, lrc_desc, par_whpbe0, lrc_set_ext_params},
+  hyb_gga_xc_hjs_pbe_init, NULL,
+  NULL, NULL, NULL
+};
 
 #ifdef __cplusplus
 extern "C"
@@ -330,8 +328,8 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe_whs = {
   {&xc_ref_Weintraub2009_754, &xc_ref_Henderson2008_194105, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
-  hyb_gga_xc_lc_wpbe_whs_init, NULL,
+  {LRC_N_PAR, lrc_names, lrc_desc, par_lc_wpbe_whs, lrc_set_ext_params},
+  hyb_gga_xc_hjs_pbe_init, NULL,
   NULL, NULL, NULL
 };
 
@@ -346,8 +344,8 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbeh_whs = {
   {&xc_ref_Weintraub2009_754, &xc_ref_Henderson2008_194105, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
-  hyb_gga_xc_lc_wpbeh_whs_init, NULL,
+  {LRC_N_PAR, lrc_names, lrc_desc, par_lc_wpbeh_whs, lrc_set_ext_params},
+  hyb_gga_xc_hjs_pbe_init, NULL,
   NULL, NULL, NULL
 };
 
@@ -362,10 +360,20 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe08_whs = {
   {&xc_ref_Weintraub2009_754, &xc_ref_Henderson2008_194105, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
-  hyb_gga_xc_lc_wpbe08_whs_init, NULL,
+  {LRC_N_PAR, lrc_names, lrc_desc, par_lc_wpbe08_whs, lrc_set_ext_params},
+  hyb_gga_xc_hjs_pbe_init, NULL,
   NULL, NULL, NULL
 };
+
+static void
+hyb_gga_xc_lc_wpbesol_whs_init(xc_func_type *p)
+{
+  static int   funcs_id  [2] = {XC_GGA_X_HJS_PBE_SOL, XC_GGA_C_PBE_SOL};
+  static double funcs_coef[2] = {1.0, 1.0};
+
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+  xc_hyb_init_cam(p, 0.0, 0.0, 0.0);
+}
 
 #ifdef __cplusplus
 extern "C"
@@ -378,7 +386,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbesol_whs = {
   {&xc_ref_Weintraub2009_754, &xc_ref_Henderson2008_194105, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {LRC_N_PAR, lrc_names, lrc_desc, par_lc_wpbesol_whs, lrc_set_ext_params},
   hyb_gga_xc_lc_wpbesol_whs_init, NULL,
   NULL, NULL, NULL
 };

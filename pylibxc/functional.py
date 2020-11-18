@@ -74,7 +74,11 @@ core.xc_func_info_get_ext_params_default_value.restype = ctypes.c_double
 # Setters
 core.xc_func_set_ext_params.argtypes = (_xc_func_p, _ndptr)
 
-core.xc_func_set_dens_threshold.argtypes = (_xc_func_p, ctypes.c_double)
+# Setters for thresholds
+core.xc_func_set_dens_threshold.argtypes  = (_xc_func_p, ctypes.c_double)
+core.xc_func_set_zeta_threshold.argtypes  = (_xc_func_p, ctypes.c_double)
+core.xc_func_set_sigma_threshold.argtypes = (_xc_func_p, ctypes.c_double)
+core.xc_func_set_tau_threshold.argtypes   = (_xc_func_p, ctypes.c_double)
 
 
 # Bind computers
@@ -475,6 +479,38 @@ class LibXCFunctional(object):
             raise ValueError("The density threshold cannot be smaller than 0.")
 
         core.xc_func_set_dens_threshold(self.xc_func, ctypes.c_double(dens_threshold))
+
+    def set_zeta_threshold(self, zeta_threshold):
+        """
+        Sets the spin polarization threshold below which components will not be evaluated.
+        """
+
+        if zeta_threshold < 0:
+            raise ValueError("The spin polarization threshold cannot be smaller than 0.")
+
+        core.xc_func_set_zeta_threshold(self.xc_func, ctypes.c_double(zeta_threshold))
+
+    def set_sigma_threshold(self, sigma_threshold):
+        """Sets the smallest value allowed for sigma = \sqrt(\gamma). Smaller
+        values than this get overwritten in the evaluation.
+
+        """
+
+        if sigma_threshold < 0:
+            raise ValueError("The sigmaity threshold cannot be smaller than 0.")
+
+        core.xc_func_set_sigma_threshold(self.xc_func, ctypes.c_double(sigma_threshold))
+
+    def set_tau_threshold(self, tau_threshold):
+        """Sets the smallest value allowed for tau. Smaller values than this
+        get overwritten in the evaluation.
+
+        """
+
+        if tau_threshold < 0:
+            raise ValueError("The tauity threshold cannot be smaller than 0.")
+
+        core.xc_func_set_tau_threshold(self.xc_func, ctypes.c_double(tau_threshold))
 
     def compute(self, inp, output=None, do_exc=True, do_vxc=True, do_fxc=False, do_kxc=False, do_lxc=False):
         """

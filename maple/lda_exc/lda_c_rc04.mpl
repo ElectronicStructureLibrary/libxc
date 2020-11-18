@@ -13,7 +13,7 @@ BB :=  4.888270:
 CC :=  3.177037:
 DD :=  0.897889:
 
-phi := z -> 1/2*((1 + z)^(2/3) + (1 - z)^(2/3)):
+phi := z -> 1/2*(opz_pow_n(z,2/3) + opz_pow_n(-z,2/3)):
 
 f_rc04 := (rs, zeta) -> phi(zeta)^3 * (AA*arctan(BB + CC*rs) + DD)/rs:
 

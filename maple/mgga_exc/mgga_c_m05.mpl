@@ -21,27 +21,18 @@ $include "lda_c_pw.mpl"
 $include "b97.mpl"
 
 (* The parallel and perpendicular components of the energy *)
-if evalb(Polarization = "ferr") then
-  m05_fpar  := (rs, z, xs0, xs1, t0, t1) ->
-    + f_pw(rs, 1)
-    * b97_g(params_a_gamma_ss, params_a_css, xs0)
-    * Fermi_D_corrected(xs0, t0):
+m05_comp := (rs, z, spin, xs, t) ->
+  + lda_stoll_par(f_pw, rs,  z,  1)
+  * b97_g(params_a_gamma_ss, params_a_css, xs)
+  * Fermi_D_corrected(xs, t):
 
-  m05_fperp := 0:
-else
-  m05_comp := (rs, z, spin, xs, t) ->
-    + lda_stoll_par(f_pw, rs,  z,  1)
-    * b97_g(params_a_gamma_ss, params_a_css, xs)
-    * Fermi_D_corrected(xs, t):
+m05_fpar  := (rs, z, xs0, xs1, t0, t1) ->
+  + m05_comp(rs,  z,  1, xs0, t0)
+  + m05_comp(rs, -z, -1, xs1, t1):
 
-  m05_fpar  := (rs, z, xs0, xs1, t0, t1) ->
-    + m05_comp(rs,  z,  1, xs0, t0)
-    + m05_comp(rs, -z, -1, xs1, t1):
-
-  m05_fperp := (rs, z, xs0, xs1, t0, t1) ->
-    + lda_stoll_perp(f_pw, rs,  z)
-    * b97_g(params_a_gamma_ab, params_a_cab, sqrt(xs0^2 + xs1^2)):
-end if:
+m05_fperp := (rs, z, xs0, xs1, t0, t1) ->
+  + lda_stoll_perp(f_pw, rs,  z)
+  * b97_g(params_a_gamma_ab, params_a_cab, sqrt(xs0^2 + xs1^2)):
 
 m05_f := (rs, z, xs0, xs1, t0, t1) ->
   + m05_fpar (rs, z, xs0, xs1, t0, t1)

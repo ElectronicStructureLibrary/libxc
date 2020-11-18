@@ -30,7 +30,7 @@ f_s := z -> add(c_25_i[i]*z^(i-1), i=1..5)/add(d_25_i[i]*z^(i-1), i=1..4):
 ss := (rs, z) -> f_r(rs)*f_s(z)*1.28:
 
 (* Equation (22) *)
-alpha_z := (rs, z) -> 2/((1 + z)^ss(rs, z) + (1 - z)^ss(rs, z)):
+alpha_z := (rs, z) -> 2/(opz_pow_n(z,ss(rs, z)) + opz_pow_n(-z,ss(rs, z))):
 
 (* Equation (21) *)
 eta6  := 0.41081146652128:
@@ -61,7 +61,7 @@ beta_eff := rs ->
 
 (* Equation (15), see erratum *)
 ax   := (3*Pi^2)^(1/3):
-k_fs := (rs, z) -> ax*RS_FACTOR/rs * (1 + z)^(1/3):
+k_fs := (rs, z) -> ax*RS_FACTOR/rs * opz_pow_n(z,1/3):
 
 (* Equation (17) *)
 k_uu := (rs, z) -> alpha_eff(rs,  z)*k_fs(rs,  z):
@@ -153,13 +153,7 @@ ec_opp := (rs, z) ->
 
 (* Equation (13) *)
 ec_par := (rs, z) ->
-  + (1 + z)^2/8*(Q_1ud(k_uu(rs, z)) + Q_2ud(k_uu(rs, z)) + Q_3ud(k_uu(rs, z)))
-  + (1 - z)^2/8*(Q_1ud(k_dd(rs, z)) + Q_2ud(k_dd(rs, z)) + Q_3ud(k_dd(rs, z))):
+  + opz_pow_n( z,2)/8*(Q_1ud(k_uu(rs, z)) + Q_2ud(k_uu(rs, z)) + Q_3ud(k_uu(rs, z)))
+  + opz_pow_n(-z,2)/8*(Q_1ud(k_dd(rs, z)) + Q_2ud(k_dd(rs, z)) + Q_3ud(k_dd(rs, z))):
 
-# This avoids divisions by zero for the ferromagnetic case
-pk09_m_z := z -> m_max(m_min(z, 1 - 1e-10), -1 + 1e-10):
-if evalb(Polarization = "ferr") then
-  f := (rs, z) -> n_total(rs)*ec_par(rs, 1 - 1e-10):
-else
-  f := (rs, z) -> n_total(rs)*(ec_opp(rs, pk09_m_z(z)) + ec_par(rs, pk09_m_z(z))):
-fi:
+f := (rs, z) -> n_total(rs)*(ec_opp(rs, z) + ec_par(rs, z)):

@@ -25,7 +25,15 @@ const xc_func_info_type xc_func_info_gga_c_op_pw91 = {
   XC_FAMILY_GGA,
   {&xc_ref_Tsuneda1999_10664, &xc_ref_Tsuneda1999_5656, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-14,
+  /* This functional is ridiculously sensitive to the density
+     threshold and will give ridiculously low or high energies for too
+     low thresholds. Due to the sensitivity, it's not clear what the
+     cutoff should even be, since the energy doesn't converge at any
+     point. 1e-10 is a decent lower limit, since anything below that
+     blows up atomic correlation energies, even though Li is already
+     wrong with this value.
+   */
+  1e-10,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
   NULL, work_gga, NULL

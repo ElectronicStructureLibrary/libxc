@@ -46,16 +46,10 @@ gap_f := (rs, z, xt) ->
   + f_zeta(z)*(kcis_eps_1(rs, xt) - kcis_eps_0(rs, xt)):
 
 (* Eq. (A1) *)
-if evalb(Polarization = "ferr") then
-  kcis_f := (rs, z, xt, xs0, xs1, ts0, ts1) ->
-    + gap_f(rs, z, xt)
-    - xs0^2/(8*ts0) * gap_f(rs,  1, xs0):
-else
-  kcis_f := (rs, z, xt, xs0, xs1, ts0, ts1) ->
-    + gap_f(rs, z, xt)
-    - xs0^2/(8*ts0) * (1 + z)/2 * gap_f(rs*(2/(1+z))^(1/3),  1, xs0)
-    - xs1^2/(8*ts1) * (1 - z)/2 * gap_f(rs*(2/(1-z))^(1/3), -1, xs1):
-end if:
+kcis_f := (rs, z, xt, xs0, xs1, ts0, ts1) ->
+  + gap_f(rs, z, xt)
+  - xs0^2/(8*ts0) * opz_pow_n( z,1)/2 * gap_f(rs*(2/(1 + z))^(1/3),  1, xs0)
+  - xs1^2/(8*ts1) * opz_pow_n(-z,1)/2 * gap_f(rs*(2/(1 - z))^(1/3), -1, xs1):
 
 f  := (rs, z, xt, xs0, xs1, us0, us1, ts0, ts1) ->
   kcis_f(rs, z, xt, xs0, xs1, ts0, ts1):

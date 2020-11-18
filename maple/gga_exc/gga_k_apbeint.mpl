@@ -9,7 +9,7 @@
 (* type: gga_exc *)
 (* prefix:
   gga_k_apbeint_params *params;
- 
+
   assert(p->params != NULL);
   params = (gga_k_apbeint_params * )(p->params);
 *)

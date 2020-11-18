@@ -14,13 +14,10 @@ $include "attenuation.mpl"
 
 a_cnst := (4/(9*Pi))^(1/3)*p_a_hyb_omega_0_/2:
 
-lda_x_erf_spin := (rs, z) -> 
-  lda_x_ax*(1 + z)^(4/3)/rs * attenuation_erf(a_cnst*rs/(1 + z)^(1/3)):
+lda_x_ax := -RS_FACTOR*X_FACTOR_C/2^(4/3):
+lda_x_erf_spin := (rs, z) ->
+  lda_x_ax*opz_pow_n(z,4/3)/rs * attenuation_erf(a_cnst*rs/opz_pow_n(z,1/3)):
 
-if evalb(Polarization = "ferr") then
-  f_lda_x_erf := (rs, z) -> lda_x_erf_spin(rs, 1)
-else
-  f_lda_x_erf := (rs, z) -> lda_x_erf_spin(rs, z) + lda_x_erf_spin(rs, -z):
-end if:
+f_lda_x_erf := (rs, z) -> lda_x_erf_spin(rs, z) + lda_x_erf_spin(rs, -z):
 
 f := (rs, z) -> f_lda_x_erf(rs, z):

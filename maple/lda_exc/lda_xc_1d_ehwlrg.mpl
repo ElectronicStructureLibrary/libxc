@@ -9,7 +9,7 @@
 (* type: lda_exc *)
 (* prefix:
   lda_xc_1d_ehwlrg_params *params;
- 
+
   assert(p->params != NULL);
   params = (lda_xc_1d_ehwlrg_params * )(p->params);
 *)

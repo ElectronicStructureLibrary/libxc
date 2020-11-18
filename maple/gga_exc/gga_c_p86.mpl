@@ -19,7 +19,7 @@ $define lda_c_pz_params
 $include "lda_c_pz.mpl"
 
 (* Equation (4) *)
-DD := z  -> sqrt((1 + z)^(5/3) + (1 - z)^(5/3))/sqrt(2):
+DD := z  -> sqrt(opz_pow_n(z,5/3) + opz_pow_n(-z,5/3))/sqrt(2):
 
 (* Equation (6) *)
 CC := rs ->

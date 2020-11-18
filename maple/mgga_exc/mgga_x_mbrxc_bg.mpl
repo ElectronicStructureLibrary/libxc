@@ -31,7 +31,7 @@ mbrxc_cQ := Q -> my_piecewise3(abs(Q) < mbrxc_min_Q,
 mbrxc_v := x ->
   - (32*Pi)^(1/3)/(8*X_FACTOR_C) * exp(x/3)*(8 - exp(-x)*(x^2 + 5*x + 8))/(x*(1 + x)^(1/3)):
 
-mbrxc_f := (x, u, t) -> 
+mbrxc_f := (x, u, t) ->
   - mbrxc_v(mbrxc_x(mbrxc_cQ(mbrxc_Q(x, t))))/2:
 
 f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->

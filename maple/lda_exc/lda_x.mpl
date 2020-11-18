@@ -18,7 +18,7 @@ $ifdef lda_x_params
 params_a_alpha := 1:
 $endif
 
-lda_x_ax := -params_a_alpha*RS_FACTOR*X_FACTOR_C/2^(4/3):
-
-f_lda_x := (rs, z) -> lda_x_ax*((1 + z)^(4/3) + (1 - z)^(4/3))/rs:
+f_lda_x := (rs, z) ->
+  + params_a_alpha*my_piecewise3(screen_dens(rs,  z), 0, lda_x_spin(rs,  z))
+  + params_a_alpha*my_piecewise3(screen_dens(rs, -z), 0, lda_x_spin(rs, -z)):
 f       := (rs, z) -> f_lda_x(rs, z):

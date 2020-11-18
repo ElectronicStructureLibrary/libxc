@@ -6,7 +6,7 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-XX := (z, xs) -> xs*((1 + z)/2)^(4/3):
+XX := (z, xs) -> xs*opz_pow_n(z,4/3)*2^(-4/3):
 YY := (z, xt, xs0, xs1) -> 2*(XX(z, xs0)^2 + XX(-z, xs1)^2) - xt^2:
 
 f_th := (rs, z, xt, xs0, xs1) -> add(params_a_omega[i]

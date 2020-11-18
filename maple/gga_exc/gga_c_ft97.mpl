@@ -83,8 +83,4 @@ f_ft97 := (rs, z, xs) ->
   + term1(rs*(2/(1 + z))^(1/3), z, C3^2*xs^2)
   + term2(rs*(2/(1 + z))^(1/3), z, C3^2*xs^2):
 
-if evalb(Polarization = "ferr") then
-    f  := (rs, z, xt, xs0, xs1) -> term2(rs, 1, C3^2*xs0^2):
-else
-    f  := (rs, z, xt, xs0, xs1) -> f_ft97(rs, z, xs0) + f_ft97(rs, -z, xs1):
-end if:
+f  := (rs, z, xt, xs0, xs1) -> f_ft97(rs, z, xs0) + f_ft97(rs, -z, xs1):

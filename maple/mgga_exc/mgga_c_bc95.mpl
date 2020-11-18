@@ -23,19 +23,12 @@ bc95_gpar  := (xs, ts) -> ts*Fermi_D(xs, ts)/(K_FACTOR_C*(1 + params_a_css*xs^2)
 bc95_gperp := (xs0, xs1) -> 1/(1 + params_a_copp*(xs0^2 + xs1^2)):
 
 (* The parallel and perpendicular components of the energy *)
-if evalb(Polarization = "ferr") then
-  bc95_fpar  := (rs, z, xs0, xs1, ts0, ts1) ->
-    f_pw(rs, 1)*bc95_gpar(xs0, ts0):
+bc95_fpar  := (rs, z, xs0, xs1, ts0, ts1) ->
+  + lda_stoll_par(f_pw, rs,  z,  1) * bc95_gpar(xs0, ts0)
+  + lda_stoll_par(f_pw, rs, -z, -1) * bc95_gpar(xs1, ts1):
 
-  bc95_fperp := (rs, z, xs0, xs1) -> 0:
-else
-  bc95_fpar  := (rs, z, xs0, xs1, ts0, ts1) ->
-    + lda_stoll_par(f_pw, rs,  z,  1) * bc95_gpar(xs0, ts0)
-    + lda_stoll_par(f_pw, rs, -z, -1) * bc95_gpar(xs1, ts1):
-
-  bc95_fperp := (rs, z, xs0, xs1) ->
-    lda_stoll_perp(f_pw, rs, z) * bc95_gperp(xs0, xs1):
-end if:
+bc95_fperp := (rs, z, xs0, xs1) ->
+  lda_stoll_perp(f_pw, rs, z) * bc95_gperp(xs0, xs1):
 
 f_bc95 := (rs, z, xs0, xs1, ts0, ts1) ->
   + bc95_fpar (rs, z, xs0, xs1, ts0, ts1)

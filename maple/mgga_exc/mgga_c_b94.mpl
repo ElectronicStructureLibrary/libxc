@@ -22,24 +22,31 @@ $include "mgga_x_br89.mpl"
 (* This is a fake parameter in libxc *)
 params_a_at := 0:
 
+(* Equation 9, same-spin correlation *)
 b94_css := (rs, z, xs, us, ts) ->
-  - 0.01 * (1 + z)/2 * n_spin(rs, z)^(5/3) * 2*ts * Fermi_D(xs, ts)
+  my_piecewise3(screen_dens(rs,  z), 0,
+  - 0.01 * (1+z)^(8/3) * 2^(-8/3) * n_total(rs)^(5/3) * (2*ts - xs^2/4)
   * b94_zss(params_a_css, br89_f, rs, z, xs, us, ts)^4 * (
     1 - 2*log(1 + b94_zss(params_a_css, br89_f, rs, z, xs, us, ts)/2)
       / b94_zss(params_a_css, br89_f, rs, z, xs, us, ts)
-    ):
-
+    )
+  ):
+(* Same-spin correlation overall *)
 b94_par := (rs, z, xs0, xs1, us0, us1, ts0, ts1) ->
   + b94_css(rs,  z, xs0, us0, ts0)
   + b94_css(rs, -z, xs1, us1, ts1):
 
+(* Equation 8, opposite-spin correlation *)
 b94_cab := (rs, z, xs0, xs1, us0, us1, ts0, ts1) ->
+  my_piecewise3(screen_dens(rs, z) and screen_dens(rs, -z), 0,
   - 0.8 * (1 - z^2)/4 * n_total(rs)
   * b94_zab(params_a_cab, br89_f, rs, z, xs0, xs1, us0, us1, ts0, ts1)^2 * (
     1 - log(1 + b94_zab(params_a_cab, br89_f, rs, z, xs0, xs1, us0, us1, ts0, ts1))
       / b94_zab(params_a_cab, br89_f, rs, z, xs0, xs1, us0, us1, ts0, ts1)
-    ):
+    )
+  ):
 
+(* Whole functional *)
 b94_c_f := (rs, z, xs0, xs1, us0, us1, ts0, ts1) ->
   + b94_cab(rs,  z, xs0, xs1, us0, us1, ts0, ts1)
   + b94_par(rs,  z, xs0, xs1, us0, us1, ts0, ts1):

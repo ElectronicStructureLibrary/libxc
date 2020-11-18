@@ -14,7 +14,7 @@ cs_c :=  0.2533/RS_FACTOR:
 cs_d :=  0.349/RS_FACTOR:
 
 cs_thf := (z, u, t) ->
-  ((1 + z)/2)^(8/3)*(t - u/8):
+  opz_pow_n(z,8/3)*2^(-8/3)*(t - u/8):
 
 (* This is Equation (15) of Lee1988_785 *)
 (* Note that gamma = (1 - z^2) *)

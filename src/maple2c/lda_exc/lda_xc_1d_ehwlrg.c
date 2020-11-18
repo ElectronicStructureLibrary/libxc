@@ -45,7 +45,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho , double *zk LDA_
 
 
   lda_xc_1d_ehwlrg_params *params;
- 
+
   assert(p->params != NULL);
   params = (lda_xc_1d_ehwlrg_params * )(p->params);
 
@@ -150,7 +150,7 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
 
 
   lda_xc_1d_ehwlrg_params *params;
- 
+
   assert(p->params != NULL);
   params = (lda_xc_1d_ehwlrg_params * )(p->params);
 

@@ -15,8 +15,8 @@ lv_alpha := 0.02178:
 lv_beta  := 1.15:
 lv_muLV   := 0.8491/9:
 
-lv_f0 := s -> 
-   + (1 + lv_muLV*s^2)/(1 + lv_alpha*s^6) 
+lv_f0 := s ->
+   + (1 + lv_muLV*s^2)/(1 + lv_alpha*s^6)
    + lv_alpha*s^6*pw86_f0(s)/(lv_beta + lv_alpha*s^6):
 
 lv_f  := x -> lv_f0(X2S*x):

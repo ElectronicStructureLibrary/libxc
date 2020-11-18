@@ -13,6 +13,6 @@ $include "mgga_x_tm.mpl"
 
 (* revtm uses the tpss definition of qtilde *)
 tm_b := 0.4:
-tm_qtilde := (x, t) -> 
-     9/20 * (tm_alpha(x, t) - 1)/sqrt(1 + tm_b*tm_alpha(x, t)*(tm_alpha(x, t) - 1)) 
+tm_qtilde := (x, t) ->
+     9/20 * (tm_alpha(x, t) - 1)/sqrt(1 + tm_b*tm_alpha(x, t)*(tm_alpha(x, t) - 1))
      + 2*tm_p(x)/3:

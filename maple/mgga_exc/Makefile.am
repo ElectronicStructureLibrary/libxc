@@ -24,12 +24,18 @@ mgga_order_4 = mgga_x_lta.mpl mgga_c_ltapw.mpl mgga_x_th.mpl		\
   mgga_c_revtpss.mpl mgga_c_scan.mpl mgga_c_tpssloc.mpl			\
   mgga_c_tpss.mpl mgga_c_rscan.mpl mgga_x_br89.mpl mgga_x_2d_js17.mpl	\
   mgga_x_mggac.mpl mgga_x_mbr.mpl mgga_x_jk.mpl mgga_x_r2scan.mpl	\
-  mgga_c_r2scan.mpl mgga_c_b94.mpl
+  mgga_c_r2scan.mpl
 
-dist_noinst_HEADERS = $(mgga_order_4)
+mgga_order_3 = mgga_c_b94.mpl
+
+dist_noinst_HEADERS = $(mgga_order_4) $(mgga_order_3)
 
 maple2c:
 	@for funct in $(mgga_order_4); do \
 	  echo Processing: $${funct%.*}; \
 	  $(top_srcdir)/scripts/maple2c.pl $(top_srcdir) $${funct%.*} 4; \
+	done
+	@for funct in $(mgga_order_3); do \
+	  echo Processing: $${funct%.*}; \
+	  $(top_srcdir)/scripts/maple2c.pl $(top_srcdir) $${funct%.*} 3; \
 	done

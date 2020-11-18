@@ -18,13 +18,13 @@ a1     := Pi/(16*(3*Pi^2)^(4/3)):
 a2     := -0.262:
 a3     := -7/(9*2^(5/3)):
 
-t1 := (rs, z, xt) -> 
-  + xt^2*exp(a2*xt/(malpha*sqrt(rs))) 
-  * sqrt(2)/sqrt((1 + z)^(5/3) + (1 - z)^(5/3)):
-t2 := (z, xs0, xs1) -> 
-  + a3*(xs0^2*(1 + z)^(4/3) + xs1^2*(1 - z)^(4/3)):
+t1 := (rs, z, xt) ->
+  + xt^2*exp(a2*xt/(malpha*sqrt(rs)))
+  * sqrt(2)/sqrt(opz_pow_n(z,5/3) + opz_pow_n(-z,5/3)):
+t2 := (z, xs0, xs1) ->
+  + a3*(xs0^2*opz_pow_n(z,4/3) + xs1^2*opz_pow_n(-z,4/3)):
 
-f := (rs, z, xt, xs0, xs1) -> 
+f := (rs, z, xt, xs0, xs1) ->
   + f_hl(rs, z)
   + a1/(malpha^2*rs)*(t1(rs, z, xt) + t2(z, xs0, xs1)):
 

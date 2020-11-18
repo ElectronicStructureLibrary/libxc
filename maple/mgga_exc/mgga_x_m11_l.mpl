@@ -18,8 +18,8 @@ $include "mgga_x_m08.mpl"
 $include "lda_x_erf.mpl"
 
 m11_l_f := (rs, z, x, u, t) ->
-    + attenuation_erf(a_cnst*rs/(1 + z)^(1/3)) * m08_f0(params_a_a, params_a_b, x, t)
-    + (1 - attenuation_erf(a_cnst*rs/(1 + z)^(1/3))) * m08_f0(params_a_c, params_a_d, x, t):
+    + attenuation_erf(a_cnst*rs/opz_pow_n(z,1/3)) * m08_f0(params_a_a, params_a_b, x, t)
+    + (1 - attenuation_erf(a_cnst*rs/opz_pow_n(z,1/3))) * m08_f0(params_a_c, params_a_d, x, t):
 
 f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->
   mgga_exchange_nsp(m11_l_f, rs, z, xs0, xs1, u0, u1, t0, t1):

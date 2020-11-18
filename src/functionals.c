@@ -402,18 +402,23 @@ xc_func_set_ext_params_name(xc_func_type *p, const char *name, double par)
 {
   int ii;
   double *ext_params;
+  int name_found=0;
 
   assert(p != NULL && p->info->ext_params.n > 0);
 
   ext_params = (double *) libxc_malloc(p->info->ext_params.n*sizeof(double));
   for(ii=0; ii<p->info->ext_params.n; ii++){
-    if(strcmp(p->info->ext_params.names[ii], name) == 0)
+    if(strcmp(p->info->ext_params.names[ii], name) == 0) {
       ext_params[ii] = par;
-    else
+      name_found=1;
+    } else {
       ext_params[ii] = XC_EXT_PARAMS_DEFAULT;
+    }
   }
   xc_func_set_ext_params(p, ext_params);
   libxc_free(ext_params);
+  /* Check that we found the parameter */
+  assert(name_found);
 }
 
 

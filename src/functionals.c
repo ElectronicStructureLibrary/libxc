@@ -153,14 +153,34 @@ void xc_available_functional_numbers(int *list)
   qsort(list, N, sizeof(int), compare_int);
 }
 
+static int compare_func_names(const void *a, const void *b) {
+  int ia, ib;
+  ia = *(int *)a;
+  ib = *(int *)b;
+
+  return strcmp(xc_functional_keys[ia].name, xc_functional_keys[ib].name);
+}
+
 void xc_available_functional_names(char **list)
 {
   int ii, N;
+  int *idlist;
 
+  /* Arrange list of functional IDs by name */
   N=xc_number_of_functionals();
+  idlist=libxc_malloc(N*sizeof(int));
   for(ii=0;ii<N;ii++) {
-    strcpy(list[ii],xc_functional_keys[ii].name);
+    idlist[ii]=ii;
   }
+  qsort(idlist, N, sizeof(int), compare_func_names);
+
+  /* Now store the correctly ordered output */
+  for(ii=0;ii<N;ii++) {
+    strcpy(list[ii],xc_functional_keys[idlist[ii]].name);
+  }
+
+  /* Deallocate work array */
+  libxc_free(idlist);
 }
 
 /*------------------------------------------------------*/

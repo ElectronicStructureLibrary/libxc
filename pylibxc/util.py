@@ -212,5 +212,4 @@ def xc_available_functional_names():
 
     func_ids = xc_available_functional_numbers()
     available_names = [xc_functional_get_name(x) for x in func_ids]
-    available_names.sort()
     return available_names

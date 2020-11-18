@@ -9,10 +9,10 @@
 #include "util.h"
 
 #define XC_HYB_GGA_XC_CAM_B3LYP        433 /* CAM version of B3LYP */
+#define XC_HYB_GGA_XC_CAMH_B3LYP       614 /* CAM version of B3LYP tuned for tddft */
 #define XC_HYB_GGA_XC_TUNED_CAM_B3LYP  434 /* CAM version of B3LYP tuned for excitations */
 #define XC_HYB_GGA_XC_RCAM_B3LYP       610 /* Similar to CAM-B3LYP, but trying to reduce the many-electron self-interaction */
 #define XC_HYB_GGA_XC_CAM_PBEH         681 /* CAM version of PBEH */
-
 
 void
 xc_hyb_gga_xc_cam_b3lyp_init(xc_func_type *p)
@@ -36,6 +36,12 @@ xc_hyb_gga_xc_cam_b3lyp_init(xc_func_type *p)
     omega = 0.33;
     alpha = 0.65;
     beta  =-0.46;
+    break;
+  case XC_HYB_GGA_XC_CAMH_B3LYP:
+    /* The same note applies here. */
+    omega = 0.33;
+    alpha = 0.50;
+    beta  = -0.31;
     break;
   case XC_HYB_GGA_XC_TUNED_CAM_B3LYP:
     /* The same note applies here. */
@@ -69,6 +75,22 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_b3lyp = {
   "CAM version of B3LYP",
   XC_FAMILY_GGA,
   {&xc_ref_Yanai2004_51, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  5e-9,
+  {0, NULL, NULL, NULL, NULL},
+  xc_hyb_gga_xc_cam_b3lyp_init, NULL,
+  NULL, NULL, NULL
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_hyb_gga_xc_camh_b3lyp = {
+  XC_HYB_GGA_XC_CAMH_B3LYP,
+  XC_EXCHANGE_CORRELATION,
+  "CAM version of B3LYP, tuned for TDDFT",
+  XC_FAMILY_GGA,
+  {&xc_ref_Shao2020_587, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   5e-9,
   {0, NULL, NULL, NULL, NULL},

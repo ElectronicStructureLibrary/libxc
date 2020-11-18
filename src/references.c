@@ -2008,6 +2008,13 @@ func_reference_type xc_ref_Shao2003_4807 = {
 };
 
 
+func_reference_type xc_ref_Shao2020_587 = {
+  "Y. Shao, Y. Mei, D. Sundholm, and V. R. I. Kaila, J. Chem. Theory Comput. 16, 587 (2020), pMID: 31815476, https://doi.org/10.1021/acs.jctc.9b00823",
+  "10.1021/acs.jctc.9b00823",
+  "@article{Shao2020_587,\n  author = {Shao, Yihan and Mei, Ye and Sundholm, Dage and Kaila, Ville R. I.},\n  title = {Benchmarking the Performance of Time-Dependent Density Functional Theory Methods on Biochromophores},\n  journal = {J. Chem. Theory Comput.},\n  volume = {16},\n  number = {1},\n  pages = {587-600},\n  year = {2020},\n  doi = {10.1021/acs.jctc.9b00823},\n  note ={PMID: 31815476},\n  URL = {https://doi.org/10.1021/acs.jctc.9b00823},\n  eprint = {https://doi.org/10.1021/acs.jctc.9b00823}\n}"
+};
+
+
 func_reference_type xc_ref_Slater1951_385 = {
   "J. C. Slater, Phys. Rev. 81, 385 (1951)",
   "10.1103/PhysRev.81.385",

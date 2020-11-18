@@ -8,7 +8,7 @@
 
 #include "util.h"
 
-#define XC_MGGA_X_MBR 716 /* modified Becke-Roussel */
+#define XC_MGGA_X_MBR 716 /* modified Becke-Roussel by Patra et al */
 
 typedef struct{
   double gamma, beta, lambda;
@@ -24,7 +24,7 @@ mgga_x_mbr_init(xc_func_type *p)
 #define MBR_N_PAR 3
 static const char  *mbr_names[MBR_N_PAR]  = {"_gamma", "_beta", "_lambda"};
 static const char  *mbr_desc[MBR_N_PAR]   = { "gamma",  "beta",  "lambda"};
-static const double mbr_values[MBR_N_PAR] = { 1.9, 20.0, 0.877};
+static const double mbr_values[MBR_N_PAR] = { 1.0, 20.0, 0.877};
 
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_mbr.c"
@@ -36,7 +36,7 @@ extern "C"
 const xc_func_info_type xc_func_info_mgga_x_mbr = {
   XC_MGGA_X_MBR,
   XC_EXCHANGE,
-  "modified Becke-Roussel",
+  "modified Becke-Roussel by Patra et al",
   XC_FAMILY_MGGA,
   {&xc_ref_Patra2019_19639, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,

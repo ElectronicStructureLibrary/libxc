@@ -1,5 +1,6 @@
 (*
- Copyright (C) 2017 M.A.L. Marques
+ Copyright (C) 2020 M.A.L. Marques
+               2020 Susi Lehtola
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -21,15 +22,26 @@ $include "mgga_x_br89.mpl"
 
 params_a_at := 0:
 
-(* the three equations below are copied from mgga_x_tm.mpl *)
+(*Equation 15. The three equations below are from mgga_x_tm.mpl; note
+that the numerical factors in the denominator in eqn 15 just
+correspond to going from 'x' to 's'.*)
 tm_p  := x -> (X2S*x)^2:
 tm_y  := x -> (2*params_a_lambda - 1)^2 * tm_p(x):
-tm_f0 := x -> (1 + 10*(70*tm_y(x)/27) + params_a_beta*tm_y(x)^2)^(1/10):
+tm_f0 := x -> (1 + 10*(70/27)*tm_y(x) + params_a_beta*tm_y(x)^2)^(1/10):
 
-mbr_D := (ts, xs) -> 2*ts - (2*params_a_lambda - 1)^2/4 * xs^2:
+(* definition below equation 16 *)
+mbr_D := (ts, xs) -> 2*ts - 1/4 * (2*params_a_lambda - 1)^2 * xs^2:
 
-br89_Q := (x, u, t) -> (
-  + 6*(params_a_lambda^2 - params_a_lambda + 1/2)*(2*t - K_FACTOR_C - x^2/36)
-  + 6/5*(6*Pi^2)^(2/3)*(tm_f0(x)^2 - 1)
+(* k_\sigma is not defined in the paper, but Subrata Jana
+said on GitLab that k_\sigma = (6\pi^2\rho_\sigma)^{1/3} *)
+k_sigma := (6*Pi^2)^(1/3):
+
+(* Equation 18. Note that there's a typo in the paper: since Becke's
+tau is two times the kinetic energy density, there should be a factor
+of two in front of tau uniform as well. *)
+br89_Q := (x, u, t) ->
+  1/6*(
+  + 6*(params_a_lambda^2 - params_a_lambda + 1/2)*(2*t - 2*K_FACTOR_C - 1/36*x^2)
+  + 6/5*k_sigma^2*(tm_f0(x)^2 - 1)
   - 2*params_a_gamma*mbr_D(t, x)
-  )/6:
+  ):

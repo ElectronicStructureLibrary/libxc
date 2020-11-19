@@ -38,7 +38,7 @@ xc_hyb_gga_xc_camy_b3lyp_init(xc_func_type *p)
 
   xc_func_set_ext_params(p->func_aux[1], &omega);
 
-  xc_hyb_init_camy(p, omega, alpha, beta);
+  xc_hyb_init_camy(p, alpha, beta, omega);
 }
 
 #ifdef __cplusplus
@@ -57,36 +57,34 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_camy_b3lyp = {
   NULL, NULL, NULL
 };
 
-#define CAM_N_PAR 4
-static const char  *cam_names[CAM_N_PAR]  = {"_alpha", "_beta", "_omega_HF", "_omega_PBE"};
+#define CAM_N_PAR 3
+static const char  *cam_names[CAM_N_PAR]  = {"_alpha", "_beta", "_omega"};
 static const char  *cam_desc[CAM_N_PAR]   = {
-  "Mixing parameter",
-  "Mixing parameter in the SR",
-  "Screening parameter for HF",
-  "Screening parameter for PBE"
+  "Fraction of exact exchange",
+  "Fraction of short-range exchange",
+  "Range separation parameter"
 };
-static const double cam_values[CAM_N_PAR] = {0.2, 0.8, 0.7, 0.7};
+static const double cam_values[CAM_N_PAR] = {0.2, 0.8, 0.7};
 
 static void
 cam_set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  double alpha, beta, omega_HF, omega_PBE;
+  double alpha, beta, omega;
 
   assert(p != NULL);
 
   alpha     = get_ext_param(p, ext_params, 0);
   beta      = get_ext_param(p, ext_params, 1);
-  omega_HF  = get_ext_param(p, ext_params, 2);
-  omega_PBE = get_ext_param(p, ext_params, 3);
+  omega     = get_ext_param(p, ext_params, 2);
 
   p->mix_coef[0] = 1.0 - alpha;
   p->mix_coef[1] = -beta;
 
   p->hyb_coeff[0] = beta;
-  p->hyb_omega[0] = omega_HF;
+  p->hyb_omega[0] = omega;
   p->hyb_coeff[1] = alpha;
 
-  xc_func_set_ext_params(p->func_aux[1], &omega_PBE);
+  xc_func_set_ext_params(p->func_aux[1], &omega);
 }
 
 static void

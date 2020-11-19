@@ -252,7 +252,6 @@ set(raw_sources_list
   hyb_gga_xc_b1wc.c
   hyb_gga_xc_b3lyp.c
   hyb_gga_xc_cam_b3lyp.c
-  hyb_gga_xc_cam_qtp.c
   hyb_gga_xc_camy_b3lyp.c
   hyb_gga_xc_camy_blyp.c
   hyb_gga_xc_edf2.c

@@ -36,7 +36,7 @@ xc_hyb_gga_xc_camy_blyp_init(xc_func_type *p)
 
   xc_func_set_ext_params(p->func_aux[1], &omega);
 
-  xc_hyb_init_camy(p, omega, alpha, beta);
+  xc_hyb_init_camy(p, alpha, beta, omega);
 }
 
 #ifdef __cplusplus

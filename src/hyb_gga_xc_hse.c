@@ -164,7 +164,7 @@ hyb_gga_xc_hse_sol_init(xc_func_type *p)
   double funcs_coef[3] = {1.0, -0.25, 1.0};
 
   xc_mix_init(p, 3, funcs_id, funcs_coef);
-  xc_hyb_init_sr(p, 0.11, 0.25);
+  xc_hyb_init_sr(p, 0.25, 0.11);
 
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", 0.0);
   xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_omega[0]);
@@ -416,7 +416,7 @@ hyb_gga_xc_hjs_init(xc_func_type *p)
   }
 
   xc_mix_init(p, 3, funcs_id, funcs_coef);
-  xc_hyb_init_sr(p, 0.11, 0.25);
+  xc_hyb_init_sr(p, 0.25, 0.11);
 
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", 0.0);
   xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_omega[0]);

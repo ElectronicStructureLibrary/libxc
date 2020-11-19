@@ -1283,7 +1283,7 @@ func_reference_type xc_ref_Lin2004_365 = {
 func_reference_type xc_ref_Lin2013_263 = {
   "Y.-S. Lin, G.-D. Li, S.-P. Mao, and J.-D. Chai, J. Chem. Theory Comput. 9, 263 (2013), pMID: 26589028",
   "10.1021/ct300715s",
-  "@article{Lin2013_263,\n  author = {Lin, You-Sheng and Li, Guan-De and Mao, Shan-Ping and Chai, Jeng-Da},\n  title = {Long-Range Corrected Hybrid Density Functionals with Improved Dispersion Corrections},\n  journal = {J. Chem. Theory Comput.},\n  volume = {9},\n  number = {1},\n  pages = {263-272},\n  year = {2013},\n  doi = {10.1021/ct300715s},\n  note ={PMID: 26589028},\n  URL = {https://doi.org/10.1021/ct300715s}\n}"
+  "@article{Lin2013_263,\n  author = {Lin, You-Sheng and Li, Guan-De and Mao, Shan-Ping and Chai, Jeng-Da},\n  title = {Long-Range Corrected Hybrid Density Functionals with Improved Dispersion Corrections},\n  journal = {J. Chem. Theory Comput.},\n  volume = {9},\n  number = {1},\n  pages = {263-272},\n  year = {2013},\n  doi = {10.1021/ct300715s},\n  note ={PMID: 26589028},\n  url = {https://doi.org/10.1021/ct300715s}\n}"
 };
 
 
@@ -2005,6 +2005,13 @@ func_reference_type xc_ref_Shao2003_4807 = {
   "Y. Shao, M. Head-Gordon, and A. I. Krylov, J. Chem. Phys. 118, 4807 (2003)",
   "10.1063/1.1545679",
   "@article{Shao2003_4807,\n  author = {Yihan Shao and Martin Head-Gordon and Anna I. Krylov},\n  title = {The spin--flip approach within time-dependent density functional theory: Theory and applications to diradicals},\n  journal = {J. Chem. Phys.},\n  volume = {118},\n  number = {11},\n  pages = {4807-4818},\n  year = {2003},\n  doi = {10.1063/1.1545679},\n  url = {http://doi.org/10.1063/1.1545679}\n}"
+};
+
+
+func_reference_type xc_ref_Shao2020_587 = {
+  "Y. Shao, Y. Mei, D. Sundholm, and V. R. I. Kaila, J. Chem. Theory Comput. 16, 587 (2020), pMID: 31815476, https://doi.org/10.1021/acs.jctc.9b00823",
+  "10.1021/acs.jctc.9b00823",
+  "@article{Shao2020_587,\n  author = {Shao, Yihan and Mei, Ye and Sundholm, Dage and Kaila, Ville R. I.},\n  title = {Benchmarking the Performance of Time-Dependent Density Functional Theory Methods on Biochromophores},\n  journal = {J. Chem. Theory Comput.},\n  volume = {16},\n  number = {1},\n  pages = {587-600},\n  year = {2020},\n  doi = {10.1021/acs.jctc.9b00823},\n  note ={PMID: 31815476},\n  url = {https://doi.org/10.1021/acs.jctc.9b00823},\n  eprint = {https://doi.org/10.1021/acs.jctc.9b00823}\n}"
 };
 
 

@@ -298,6 +298,7 @@ extern func_reference_type xc_ref_Schultz2005_11127;
 extern func_reference_type xc_ref_Seth2012_901;
 extern func_reference_type xc_ref_Seth2013_2286;
 extern func_reference_type xc_ref_Shao2003_4807;
+extern func_reference_type xc_ref_Shao2020_587;
 extern func_reference_type xc_ref_Slater1951_385;
 extern func_reference_type xc_ref_Song2007_154109;
 extern func_reference_type xc_ref_Song2008_184113;

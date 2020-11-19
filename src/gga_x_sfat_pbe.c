@@ -27,7 +27,7 @@ xc_gga_x_sfat_pbe_init(xc_func_type *p)
 }
 
 
-static const char  *omega_names[]  = {"omega"};
+static const char  *omega_names[]  = {"_omega"};
 static const char  *omega_desc[]   = {"screening parameter"};
 static const double omega_values[] = {0.44};
 

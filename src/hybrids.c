@@ -38,7 +38,7 @@ xc_hyb_init_hybrid(xc_func_type *p, double alpha)
 }
 
 void
-xc_hyb_init_sr(xc_func_type *p, double omega, double beta)
+xc_hyb_init_sr(xc_func_type *p, double beta, double omega)
 {
   int    hyb_type[1]  = {XC_HYB_ERF_SR};
   double hyb_omega[1] = {omega};
@@ -48,7 +48,7 @@ xc_hyb_init_sr(xc_func_type *p, double omega, double beta)
 }
 
 void
-xc_hyb_init_cam(xc_func_type *p, double omega, double alpha, double beta)
+xc_hyb_init_cam(xc_func_type *p, double alpha, double beta, double omega)
 {
   int hyb_type[2]     = {XC_HYB_ERF_SR, XC_HYB_FOCK};
   double hyb_omega[2] = {omega, 0.0};
@@ -58,7 +58,7 @@ xc_hyb_init_cam(xc_func_type *p, double omega, double alpha, double beta)
 }
 
 void
-xc_hyb_init_camy(xc_func_type *p, double omega, double alpha, double beta)
+xc_hyb_init_camy(xc_func_type *p, double alpha, double beta, double omega)
 {
   int hyb_type[2]     = {XC_HYB_YUKAWA_SR, XC_HYB_FOCK};
   double hyb_omega[2] = {omega, 0.0};
@@ -68,7 +68,7 @@ xc_hyb_init_camy(xc_func_type *p, double omega, double alpha, double beta)
 }
 
 void
-xc_hyb_init_camg(xc_func_type *p, double omega, double alpha, double beta)
+xc_hyb_init_camg(xc_func_type *p, double alpha, double beta, double omega)
 {
   int hyb_type[2]     = {XC_HYB_GAUSSIAN_SR, XC_HYB_FOCK};
   double hyb_omega[2] = {omega, 0.0};

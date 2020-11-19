@@ -13,6 +13,10 @@
 #define XC_HYB_GGA_XC_TUNED_CAM_B3LYP  434 /* CAM version of B3LYP tuned for excitations */
 #define XC_HYB_GGA_XC_RCAM_B3LYP       610 /* Similar to CAM-B3LYP, but trying to reduce the many-electron self-interaction */
 #define XC_HYB_GGA_XC_CAM_PBEH         681 /* CAM version of PBEH */
+#define XC_HYB_GGA_XC_CAM_QTP_00       490 /* CAM-QTP-00 */
+#define XC_HYB_GGA_XC_CAM_QTP_01       482 /* CAM-QTP-01 */
+#define XC_HYB_GGA_XC_CAM_QTP_02       491 /* CAM-QTP-02 */
+#define XC_HYB_GGA_XC_LC_QTP           492 /* LC-QTP     */
 
 #define CAMB3_N_PAR 4
 static const char  *camb3_names[CAMB3_N_PAR]  = {"_alpha", "_beta", "_omega", "_ac"};
@@ -23,9 +27,13 @@ static const char  *camb3_desc[CAMB3_N_PAR]   = {
   "Fraction of LYP correlation"
 };
 
-static const double par_cam_b3lyp[CAMB3_N_PAR]  = {0.65, -0.46, 0.33, 0.81};
-static const double par_camh_b3lyp[CAMB3_N_PAR] = {0.50, -0.31, 0.33, 0.81};
-static const double par_tuned_cam_b3lyp[CAMB3_N_PAR] = {1.0, -0.9201, 0.15, 0.81};
+static const double par_cam_b3lyp[CAMB3_N_PAR]       = {0.65, -0.46,   0.33,  0.81};
+static const double par_camh_b3lyp[CAMB3_N_PAR]      = {0.50, -0.31,   0.33,  0.81};
+static const double par_tuned_cam_b3lyp[CAMB3_N_PAR] = {1.00, -0.9201, 0.15,  0.81};
+static const double par_cam_qtp_00[CAMB3_N_PAR]      = {0.91, -0.37,   0.29,  0.8};
+static const double par_cam_qtp_01[CAMB3_N_PAR]      = {1.00, -0.77,   0.31,  0.8};
+static const double par_cam_qtp_02[CAMB3_N_PAR]      = {1.00, -0.72,   0.335, 1.0};
+static const double par_lc_qtp[CAMB3_N_PAR]          = {1.00, -1.00,   0.475, 1.0};
 
 static void
 set_cam_params(xc_func_type *p, const double *ext_params) {
@@ -112,6 +120,70 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_tuned_cam_b3lyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   5e-9,
   {CAMB3_N_PAR, camb3_names, camb3_desc, par_tuned_cam_b3lyp, camb3_set_ext_params},
+  xc_hyb_gga_xc_cam_b3lyp_init, NULL,
+  NULL, NULL, NULL
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_00 = {
+  XC_HYB_GGA_XC_CAM_QTP_00,
+  XC_EXCHANGE_CORRELATION,
+  "CAM-B3LYP retuned using ionization potentials of water",
+  XC_FAMILY_GGA,
+  {&xc_ref_Verma2014_18A534, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  5e-9,
+  {CAMB3_N_PAR, camb3_names, camb3_desc, par_cam_qtp_00, camb3_set_ext_params},
+  xc_hyb_gga_xc_cam_b3lyp_init, NULL,
+  NULL, NULL, NULL
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_01 = {
+  XC_HYB_GGA_XC_CAM_QTP_01,
+  XC_EXCHANGE_CORRELATION,
+  "CAM-B3LYP retuned using ionization potentials of water",
+  XC_FAMILY_GGA,
+  {&xc_ref_Jin2016_034107, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  5e-9,
+  {CAMB3_N_PAR, camb3_names, camb3_desc, par_cam_qtp_01, camb3_set_ext_params},
+  xc_hyb_gga_xc_cam_b3lyp_init, NULL,
+  NULL, NULL, NULL
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_02 = {
+  XC_HYB_GGA_XC_CAM_QTP_02,
+  XC_EXCHANGE_CORRELATION,
+  "CAM-B3LYP retuned using ionization potentials of water",
+  XC_FAMILY_GGA,
+  {&xc_ref_Haiduke2018_184106, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  5e-9,
+  {CAMB3_N_PAR, camb3_names, camb3_desc, par_cam_qtp_02, camb3_set_ext_params},
+  xc_hyb_gga_xc_cam_b3lyp_init, NULL,
+  NULL, NULL, NULL
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_hyb_gga_xc_lc_qtp = {
+  XC_HYB_GGA_XC_LC_QTP,
+  XC_EXCHANGE_CORRELATION,
+  "CAM-B3LYP retuned using ionization potentials of water",
+  XC_FAMILY_GGA,
+  {&xc_ref_Haiduke2018_184106, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  5e-9,
+  {CAMB3_N_PAR, camb3_names, camb3_desc, par_lc_qtp, camb3_set_ext_params},
   xc_hyb_gga_xc_cam_b3lyp_init, NULL,
   NULL, NULL, NULL
 };

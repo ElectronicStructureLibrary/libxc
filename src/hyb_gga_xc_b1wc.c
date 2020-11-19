@@ -20,14 +20,42 @@
 #define XC_HYB_GGA_XC_MPWLYP1M  453  /* MPW with 1 par. for metals/LYP                   */
 #define XC_HYB_GGA_XC_BLYP35    499  /* Becke 1-parameter mixture for mixed-valence systems */
 
+#define N_PAR 1
+static const char  *names[N_PAR] = {"_cx"};
+static const char  *desc[N_PAR]  = {
+  "Fraction of exact exchange"
+};
+
+static void
+set_ext_params(xc_func_type *p, const double *ext_params)
+{
+  double cx;
+
+  assert(p != NULL);
+
+  cx = get_ext_param(p, ext_params, 0);
+
+  p->mix_coef[0] = 1-cx;
+
+  p->hyb_coeff[0] = cx;
+  p->hyb_omega[0] = 0.0;
+}
+
+static const double par_b1wc[N_PAR] = {0.16};
+static const double par_quarter[N_PAR] = {0.25};
+static const double par_mpw1k[N_PAR] = {0.428};
+static const double par_half[N_PAR] = {0.50};
+static const double par_b35[N_PAR] = {0.35};
+static const double par_mpwlyp1m[N_PAR] = {0.05};
+
 void
 xc_hyb_gga_xc_b1wc_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_WC, XC_GGA_C_PBE};
-  static double funcs_coef[2] = {1.0 - 0.16, 1.0};
+  static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.16);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -41,7 +69,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b1wc = {
   {&xc_ref_Bilc2008_165107, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_b1wc, set_ext_params},
   xc_hyb_gga_xc_b1wc_init,
   NULL, NULL, NULL, NULL
 };
@@ -51,10 +79,10 @@ void
 xc_hyb_gga_xc_b1lyp_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_LYP};
-  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.25);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -68,20 +96,19 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b1lyp = {
   {&xc_ref_Adamo1997_242, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_quarter, set_ext_params},
   xc_hyb_gga_xc_b1lyp_init,
   NULL, NULL, NULL, NULL
 };
-
 
 void
 xc_hyb_gga_xc_b1pw91_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_PW91};
-  static double funcs_coef[2] = {1.0 - 0.25, 1.0};
+  static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.25);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -95,7 +122,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b1pw91 = {
   {&xc_ref_Adamo1997_242, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_quarter, set_ext_params},
   xc_hyb_gga_xc_b1pw91_init,
   NULL, NULL, NULL, NULL
 };
@@ -105,7 +132,7 @@ void
 xc_hyb_gga_xc_mpw1pw_init(xc_func_type *p)
 {
   int   funcs_id  [2] = {XC_GGA_X_MPW91, 0};
-  double funcs_coef[2] = {1.0 - 0.25, 1.0};
+  double funcs_coef[2] = {1.0, 1.0};
 
   switch(p->info->number) {
   case(XC_HYB_GGA_XC_MPW1LYP):
@@ -124,7 +151,7 @@ xc_hyb_gga_xc_mpw1pw_init(xc_func_type *p)
   }
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.25);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -138,7 +165,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mpw1lyp = {
   {&xc_ref_Adamo1998_664, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_quarter, set_ext_params},
   xc_hyb_gga_xc_mpw1pw_init,
   NULL, NULL, NULL, NULL
 };
@@ -154,7 +181,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mpw1pbe = {
   {&xc_ref_Adamo1998_664, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_quarter, set_ext_params},
   xc_hyb_gga_xc_mpw1pw_init,
   NULL, NULL, NULL, NULL
 };
@@ -170,7 +197,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mpw1pw = {
   {&xc_ref_Adamo1998_664, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_quarter, set_ext_params},
   xc_hyb_gga_xc_mpw1pw_init,
   NULL, NULL, NULL, NULL
 };
@@ -180,10 +207,10 @@ void
 xc_hyb_gga_xc_mpw1k_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_MPW91, XC_GGA_C_PW91};
-  static double funcs_coef[2] = {1.0 - 0.428, 1.0};
+  static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.428);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -197,7 +224,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mpw1k = {
   {&xc_ref_Lynch2000_4811, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_mpw1k, set_ext_params},
   xc_hyb_gga_xc_mpw1k_init,
   NULL, NULL, NULL, NULL
 };
@@ -207,10 +234,10 @@ void
 xc_hyb_gga_xc_bhandh_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_LDA_X, XC_GGA_C_LYP};
-  static double funcs_coef[2] = {0.5, 1.0};
+  static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.5);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -224,7 +251,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_bhandh = {
   {&xc_ref_Becke1993_1372, &xc_ref_gaussianimplementation, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_half, set_ext_params},
   xc_hyb_gga_xc_bhandh_init,
   NULL, NULL, NULL, NULL
 };
@@ -234,10 +261,10 @@ void
 xc_hyb_gga_xc_bhandhlyp_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_LYP};
-  static double funcs_coef[2] = {0.5, 1.0};
+  static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.5);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -251,7 +278,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_bhandhlyp = {
   {&xc_ref_Becke1993_1372, &xc_ref_gaussianimplementation, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_half, set_ext_params},
   xc_hyb_gga_xc_bhandhlyp_init,
   NULL, NULL, NULL, NULL
 };
@@ -261,10 +288,10 @@ void
 xc_hyb_gga_xc_blyp35_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_LYP};
-  static double funcs_coef[2] = {0.65, 1.0};
+  static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.35);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -278,7 +305,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_blyp35 = {
   {&xc_ref_Renz2009_16292, &xc_ref_Kaupp2011_16973, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_b35, set_ext_params},
   xc_hyb_gga_xc_blyp35_init,
   NULL, NULL, NULL, NULL
 };
@@ -288,10 +315,10 @@ void
 xc_hyb_gga_xc_mpwlyp1m_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_MPW91, XC_GGA_C_LYP};
-  static double funcs_coef[2] = {1.0 - 0.05, 1.0};
+  static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.05);
+  xc_hyb_init_hybrid(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -305,7 +332,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mpwlyp1m = {
   {&xc_ref_Schultz2005_11127, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_mpwlyp1m, set_ext_params},
   xc_hyb_gga_xc_mpwlyp1m_init,
   NULL, NULL, NULL, NULL
 };

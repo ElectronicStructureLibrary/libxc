@@ -293,13 +293,15 @@ void xc_mix_func
    const double *rho, const double *sigma, const double *lapl, const double *tau,
    double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
 
-/* Hybrid functionals */
+/* Hybrid functional intializers. The order of arguments is the same
+   as in the external parameter setters.
+ */
 void xc_hyb_init(xc_func_type *p, int n_terms, const int *type, const double *coeff, const double *omega);
 void xc_hyb_init_hybrid(xc_func_type *p, double alpha);
-void xc_hyb_init_sr  (xc_func_type *p, double omega, double beta);
-void xc_hyb_init_cam (xc_func_type *p, double omega, double alpha, double beta);
-void xc_hyb_init_camy(xc_func_type *p, double omega, double alpha, double beta);
-void xc_hyb_init_camg(xc_func_type *p, double omega, double alpha, double beta);
+void xc_hyb_init_sr  (xc_func_type *p, double beta, double omega);
+void xc_hyb_init_cam (xc_func_type *p, double alpha, double beta, double omega);
+void xc_hyb_init_camy(xc_func_type *p, double alpha, double beta, double omega);
+void xc_hyb_init_camg(xc_func_type *p, double alpha, double beta, double omega);
 
 /* Some useful functions */
 const char *get_kind(const xc_func_type *func);

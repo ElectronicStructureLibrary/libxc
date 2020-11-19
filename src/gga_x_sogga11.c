@@ -15,40 +15,49 @@ typedef struct{
   double kappa, mu, a[6], b[6];
 } gga_x_sogga11_params;
 
-static const gga_x_sogga11_params par_sogga11 = {
+#define N_PAR_PURE 14
+static const char  *pure_names[N_PAR_PURE]  = {
+  "_kappa", "_mu", "_a0", "_a1", "_a2", "_a3", "_a4",
+  "_a5", "_b0", "_b1", "_b2", "_b3", "_b4", "_b5"
+};
+static const char  *pure_desc[N_PAR_PURE]   = {
+  "kappa", "mu", "a0", "a1", "a2", "a3", "a4",
+  "a5", "b0", "b1", "b2", "b3", "b4", "b5"
+};
+
+#define N_PAR_HYB 15
+static const char  *hyb_names[N_PAR_HYB]  = {
+  "_kappa", "_mu", "_a0", "_a1", "_a2", "_a3", "_a4",
+  "_a5", "_b0", "_b1", "_b2", "_b3", "_b4", "_b5", "_cx"
+};
+static const char  *hyb_desc[N_PAR_HYB]   = {
+  "kappa", "mu", "a0", "a1", "a2", "a3", "a4",
+  "a5", "b0", "b1", "b2", "b3", "b4", "b5",
+  "Fraction of exact exchange"
+};
+
+static const double par_sogga11[N_PAR_PURE] = {
   0.552, MU_GE,
-  {0.50000, -2.95535,  15.7974, -91.1804,  96.2030, 0.18683},
-  {0.50000,  3.50743, -12.9523,  49.7870, -33.2545, -11.1396}
+  0.50000, -2.95535,  15.7974, -91.1804,  96.2030,  0.18683,
+  0.50000,  3.50743, -12.9523,  49.7870, -33.2545, -11.1396
 };
 
 /* These coefficients include the factor (1-X) in the functional definition. */
-static const gga_x_sogga11_params par_sogga11_x = {
+static const double par_sogga11_x[N_PAR_HYB] = {
   0.552, MU_GE,
-  {0.29925,  3.21638, -3.55605,  7.65852, -11.2830, 5.25813},
-  {0.29925, -2.88595,  3.23617, -2.45393, -3.75495,  3.96613}
+  0.29925,  3.21638, -3.55605,  7.65852, -11.2830, 5.25813,
+  0.29925, -2.88595,  3.23617, -2.45393, -3.75495,  3.96613,
+  0.4015
 };
 
 static void
 gga_x_sogga11_init(xc_func_type *p)
 {
-  gga_x_sogga11_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_sogga11_params));
-  params = (gga_x_sogga11_params *) (p->params);
 
-  switch(p->info->number){
-  case XC_GGA_X_SOGGA11:
-    memcpy(params, &par_sogga11, sizeof(gga_x_sogga11_params));
-    break;
-  case XC_HYB_GGA_X_SOGGA11_X:
-    memcpy(params, &par_sogga11_x, sizeof(gga_x_sogga11_params));
-    xc_hyb_init_hybrid(p, 0.4015);
-    break;
-  default:
-    fprintf(stderr, "Internal error in gga_x_sogga11\n");
-    exit(1);
-  }
+  if(p->info->number == XC_HYB_GGA_X_SOGGA11_X)
+    xc_hyb_init_hybrid(p, 0.0);
 }
 
 #include "decl_gga.h"
@@ -67,7 +76,7 @@ const xc_func_info_type xc_func_info_gga_x_sogga11 = {
   {&xc_ref_Peverati2011_1991, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR_PURE, pure_names, pure_desc, par_sogga11, set_ext_params_cpy},
   gga_x_sogga11_init, NULL,
   NULL, work_gga, NULL
 };
@@ -83,7 +92,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_sogga11_x = {
   {&xc_ref_Peverati2011_191102, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR_HYB, hyb_names, hyb_desc, par_sogga11_x, set_ext_params_cpy_exx},
   gga_x_sogga11_init, NULL,
   NULL, work_gga, NULL
 };

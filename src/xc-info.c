@@ -156,19 +156,19 @@ int main(int argc, char **argv)
     for(i=0; i<func.hyb_number_terms; i++){
       switch(func.hyb_type[i]){
       case XC_HYB_FOCK:
-        printf("  *) Hartree-Fock exchange\n");
+        printf("  *) Hartree-Fock exchange, weight = % .3f\n", func.hyb_coeff[i]);
         break;
       case XC_HYB_ERF_SR:
-        printf("  *) Short-range (erf) exact exchange\n");
+        printf("  *) Short-range (erf) exact exchange, weight = % .3f omega = %.3f\n", func.hyb_coeff[i], func.hyb_omega[i]);
         break;
       case XC_HYB_YUKAWA_SR:
-        printf("  *) Short-range (Yukawa) exact exchange\n");
+        printf("  *) Short-range (Yukawa) exact exchange, weight = % .3f omega = %.3f\n", func.hyb_coeff[i], func.hyb_omega[i]);
         break;
       case XC_HYB_GAUSSIAN_SR:
-        printf("  *) Short-range (Gau) exact exchange\n");
+        printf("  *) Short-range (Gau) exact exchange, weight = % .3f omega = %.3f\n", func.hyb_coeff[i], func.hyb_omega[i]);
         break;
       case XC_HYB_PT2:
-        printf("  *) Second-order perturbation theory\n");
+        printf("  *) Second-order perturbation theory, weight = % .3f\n", func.hyb_coeff[i]);
         break;
       }
     }

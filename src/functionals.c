@@ -168,7 +168,7 @@ void xc_available_functional_names(char **list)
 
   /* Arrange list of functional IDs by name */
   N=xc_number_of_functionals();
-  idlist=libxc_malloc(N*sizeof(int));
+  idlist=(int *) libxc_malloc(N*sizeof(int));
   for(ii=0;ii<N;ii++) {
     idlist[ii]=ii;
   }

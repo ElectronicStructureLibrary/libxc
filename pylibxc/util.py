@@ -25,6 +25,7 @@ core.xc_family_from_id.argtypes = (ctypes.c_int, ctypes.POINTER(ctypes.c_int), c
 core.xc_family_from_id.restype = ctypes.c_int
 
 core.xc_available_functional_numbers.argtypes = (np.ctypeslib.ndpointer(dtype=np.intc, ndim=1, flags=("W", "C", "A")), )
+core.xc_available_functional_numbers_by_name.argtypes = (np.ctypeslib.ndpointer(dtype=np.intc, ndim=1, flags=("W", "C", "A")), )
 
 core.xc_available_functional_names.argtypes = (ctypes.POINTER(ctypes.c_char_p), )
 
@@ -91,7 +92,7 @@ def xc_functional_get_number(name):
     32
     """
     if not isinstance(name, str):
-        raise TypeError("name must be a string.")
+        raise TypeError("xc_functional_get_number: name must be a string. Got {}".format(name))
     return core.xc_functional_get_number(ctypes.c_char_p(name.encode()))
 
 
@@ -115,7 +116,7 @@ def xc_functional_get_name(func_id):
     "gga_x_gam"
     """
     if not isinstance(func_id, (int, np.integer)):
-        raise TypeError("func_id must be an int.")
+        raise TypeError("xc_functional_get_name: func_id must be an int. Got {}".format(func_id))
     ret = core.xc_functional_get_name(func_id)
     if ret is not None:
         ret = ret.decode("UTF-8")
@@ -144,7 +145,7 @@ def xc_family_from_id(func_id):
 
     """
     if not isinstance(func_id, (int, np.integer)):
-        raise TypeError("func_id must be an int.")
+        raise TypeError("xc_family_from_id: func_id must be an int. Got {}".format(func_id))
     family = ctypes.c_int()
     number = ctypes.c_int()
     core.xc_family_from_id(func_id, ctypes.pointer(family), ctypes.pointer(number))
@@ -209,7 +210,8 @@ def xc_available_functional_names():
     """
 
     # I give up trying to get char** working, someone else can pick it up.
-
-    func_ids = xc_available_functional_numbers()
+    nfunc = xc_number_of_functionals()
+    func_ids = np.zeros(nfunc, dtype=np.intc)
+    core.xc_available_functional_numbers_by_name(func_ids)
     available_names = [xc_functional_get_name(x) for x in func_ids]
     return available_names

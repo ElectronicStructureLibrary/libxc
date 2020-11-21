@@ -155,10 +155,46 @@ void xc_available_functional_numbers(int *list)
 
 static int compare_func_names(const void *a, const void *b) {
   int ia, ib;
+  int fama, famb;
+  int hyba, hybb;
+
   ia = *(int *)a;
   ib = *(int *)b;
 
+  /* First we sort by the family: LDAs, GGAs, meta-GGAs */
+  fama = xc_family_from_id(xc_functional_keys[ia].number, NULL, NULL);
+  famb = xc_family_from_id(xc_functional_keys[ib].number, NULL, NULL);
+  if(fama < famb)
+    return -1;
+  else if(fama > famb)
+    return 1;
+
+  /* Then we sort by hybrid type: non-hybrids go first */
+  hyba = (strncmp(xc_functional_keys[ia].name, "hyb_", 4) == 0);
+  hybb = (strncmp(xc_functional_keys[ib].name, "hyb_", 4) == 0);
+  if(!hyba && hybb)
+    return -1;
+  else if(hyba && !hybb)
+    return 1;
+
+  /* Last we sort by name */
   return strcmp(xc_functional_keys[ia].name, xc_functional_keys[ib].name);
+}
+
+void xc_available_functional_numbers_by_name(int *list)
+{
+  int ii, N;
+
+  /* Arrange list of functional IDs by name */
+  N=xc_number_of_functionals();
+  for(ii=0;ii<N;ii++) {
+    list[ii]=ii;
+  }
+  qsort(list, N, sizeof(int), compare_func_names);
+  /* Map the internal list to functional IDs */
+  for(ii=0;ii<N;ii++){
+    list[ii]=xc_functional_keys[list[ii]].number;
+  }
 }
 
 void xc_available_functional_names(char **list)
@@ -378,14 +414,6 @@ void xc_func_set_tau_threshold(xc_func_type *p, double t_tau)
   for(ii=0; ii<p->n_func_aux; ii++) {
     xc_func_set_tau_threshold(p->func_aux[ii], t_tau);
   }
-}
-/*------------------------------------------------------*/
-void xc_func_set_thresholds(xc_func_type *p, double t_dens, double t_zeta, double t_sigma, double t_tau)
-{
-  xc_func_set_dens_threshold(p, t_dens);
-  xc_func_set_zeta_threshold(p, t_zeta);
-  xc_func_set_sigma_threshold(p, t_sigma);
-  xc_func_set_tau_threshold(p, t_tau);
 }
 
 /*------------------------------------------------------*/

@@ -1217,6 +1217,13 @@ func_reference_type xc_ref_Laricchia2011_2439 = {
 };
 
 
+func_reference_type xc_ref_Laricchia2014_164 = {
+  "S. Laricchia, L. A. Constantin, E. Fabiano, and F. Della Sala, Journal of Chemical Theory and Computation 10, 164 (2014), pMID: 26579900",
+  "10.1021/ct400836s",
+  "@article{Laricchia2014_164,\n  author = {Laricchia, Savio and Constantin, Lucian A. and Fabiano, Eduardo and Della Sala, Fabio},\n  title = {Laplacian-Level Kinetic Energy Approximations Based on the Fourth-Order Gradient Expansion: Global Assessment and Application to the Subsystem Formulation of Density Functional Theory},\n  journal = {Journal of Chemical Theory and Computation},\n  volume = {10},\n  number = {1},\n  pages = {164-179},\n  year = {2014},\n  doi = {10.1021/ct400836s},\n  note ={PMID: 26579900},\n  url = {https://doi.org/10.1021/ct400836s}\n}"
+};
+
+
 func_reference_type xc_ref_Lee1987_2377 = {
   "C. Lee and R. G. Parr, Phys. Rev. A 35, 2377 (1987)",
   "10.1103/PhysRevA.35.2377",

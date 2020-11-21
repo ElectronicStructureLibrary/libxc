@@ -185,6 +185,7 @@ extern func_reference_type xc_ref_Lacks1993_4681;
 extern func_reference_type xc_ref_Lacks1994_4446;
 extern func_reference_type xc_ref_Langreth1981_446;
 extern func_reference_type xc_ref_Laricchia2011_2439;
+extern func_reference_type xc_ref_Laricchia2014_164;
 extern func_reference_type xc_ref_Lee1987_2377;
 extern func_reference_type xc_ref_Lee1988_785;
 extern func_reference_type xc_ref_Lee1990_193;

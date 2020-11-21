@@ -390,6 +390,7 @@ set(raw_sources_list
   mgga_c_ltapw.c
   mgga_x_r2scan.c
   mgga_c_r2scan.c
+  mgga_k_lk.c
   mix_func.c
   deorbitalize_func.c
   references.c

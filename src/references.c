@@ -1000,6 +1000,13 @@ func_reference_type xc_ref_Heyd2004_7274 = {
 };
 
 
+func_reference_type xc_ref_Hodges1973_1428 = {
+  "C. H. Hodges, Can. J. Phys. 51, 1428 (1973)",
+  "10.1139/p73-189",
+  "@article{Hodges1973_1428,\n  author = {Hodges, C. H.},\n  title = {Quantum Corrections to the Thomas--Fermi Approximation---The Kirzhnits Method},\n  journal = {Can. J. Phys.},\n  volume = {51},\n  number = {13},\n  pages = {1428-1437},\n  year = {1973},\n  doi = {10.1139/p73-189},\n  url = {https://doi.org/10.1139/p73-189}\n}"
+};
+
+
 func_reference_type xc_ref_Hu1985_391 = {
   "C. D. Hu and D. C. Langreth, Phys. Scr. 32, 391 (1985)",
   "10.1088/0031-8949/32/4/024",

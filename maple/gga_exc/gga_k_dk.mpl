@@ -15,7 +15,7 @@
 *)
 
 dk_f := x ->
-  add(1*params_a_aa[i]*x^(2*(i-1)), i=1..5) /
-  add(1*params_a_bb[i]*x^(2*(i-1)), i=1..5):
+  add(params_a_aa[i]*x^(2*(i-1)), i=1..5) /
+  add(params_a_bb[i]*x^(2*(i-1)), i=1..5):
 
 f := (rs, zeta, xt, xs0, xs1) -> gga_kinetic(dk_f, rs, zeta, xs0, xs1):

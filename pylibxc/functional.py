@@ -194,13 +194,13 @@ class LibXCFunctional(object):
         if isinstance(func_name, str):
             func_id = util.xc_functional_get_number(func_name)
             if func_id == -1:
-                raise KeyError("LibXC Functional name '%s' not found." % func_name)
-        elif isinstance(func_name, int):
+                raise KeyError("LibXCFunctional: name '%s' not found." % func_name)
+        elif isinstance(func_name, (int, np.integer)):
             func_id = func_name
             if util.xc_functional_get_name(func_name) is None:
-                raise KeyError("LibXC Functional ID '%d' not found." % func_name)
+                raise KeyError("LibXCFunctional: ID '%d' not found." % func_name)
         else:
-            raise TypeError("func_name must either be a string or int.")
+            raise TypeError("LibXCFunctional: func_name must either be a string or int. Got {}".format(func_name))
 
         self._xc_func_name = util.xc_functional_get_name(func_id)
 
@@ -212,12 +212,12 @@ class LibXCFunctional(object):
             elif spin == "unpolarized":
                 self._spin = 1
             else:
-                raise KeyError("Spin must either be 'polarized' or 'unpolarized' if represented by a string.")
+                raise KeyError("LibXCFunctional: spin must either be 'polarized' or 'unpolarized' if represented by a string. Got {}".format(spin))
         else:
             self._spin = spin
 
         if self._spin not in [1, 2]:
-            raise KeyError("Spin must either be 1 or 2 if represented by a integer.")
+            raise KeyError("LibXCFunctional: spin must either be 1 or 2 if represented by a integer. Got {}".format(self._spin))
 
         # Build the LibXC functional
         self.xc_func = core.xc_func_alloc()
@@ -390,7 +390,7 @@ class LibXCFunctional(object):
         """
 
         if self._hyb_type != flags.XC_HYB_HYBRID:
-            raise ValueError("Can only be called on Hybrid functionals.")
+            raise ValueError("get_hyb_exx_coeff can only be called on Hybrid functionals.")
 
         return self._hyb_coeff[0]
 
@@ -400,7 +400,7 @@ class LibXCFunctional(object):
         """
 
         if self._hyb_type != flags.XC_HYB_CAM:
-            raise ValueError("Can only be called on CAM functionals.")
+            raise ValueError("get_cam_coeff can only be called on CAM functionals.")
 
         return (self._hyb_omega[0], self._hyb_coeff[1], self._hyb_coeff[0])
 
@@ -410,7 +410,7 @@ class LibXCFunctional(object):
         """
 
         if self._nlc_b is False:
-            raise ValueError("Can only be called on -V functionals.")
+            raise ValueError("get_vv10_coeff can only be called on -V functionals.")
 
         return (self._nlc_b, self._nlc_C)
 
@@ -461,11 +461,11 @@ class LibXCFunctional(object):
         """
         num_param = core.xc_func_info_get_n_ext_params(self.xc_func_info)
         if num_param == 0:
-            raise ValueError("The LibXCFunctional '%s' has no external parameters to set." % self.get_name())
+            raise ValueError("LibXCFunctional '%s' has no external parameters to set." % self.get_name())
 
         if len(ext_params) != num_param:
             raise ValueError(
-                "The length of the input external parameters (%d) does not match the length of the Functionals external parameters (%d)."
+                "The length of the input external parameters (%d) does not match the length of the functional's external parameters (%d)."
                 % (len(ext_params), num_param))
 
         core.xc_func_set_ext_params(self.xc_func, np.asarray(ext_params, dtype=np.double))
@@ -497,7 +497,7 @@ class LibXCFunctional(object):
         """
 
         if sigma_threshold < 0:
-            raise ValueError("The sigmaity threshold cannot be smaller than 0.")
+            raise ValueError("The sigma threshold cannot be smaller than 0.")
 
         core.xc_func_set_sigma_threshold(self.xc_func, ctypes.c_double(sigma_threshold))
 

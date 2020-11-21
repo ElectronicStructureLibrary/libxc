@@ -524,6 +524,13 @@ func_reference_type xc_ref_Constantin2016_115127 = {
 };
 
 
+func_reference_type xc_ref_Constantin2017_115153 = {
+  "L. A. Constantin, E. Fabiano, S. Smiga, and F. Della Sala, Phys. Rev. B 95, 115153 (2017)",
+  "10.1103/PhysRevB.95.115153",
+  "@article{Constantin2017_115153,\n  title = {Jellium-with-gap model applied to semilocal kinetic functionals},\n  author = {Constantin, Lucian A. and Fabiano, Eduardo and \\'{S}miga, Szymon and Della Sala, Fabio},\n  journal = {Phys. Rev. B},\n  volume = {95},\n  issue = {11},\n  pages = {115153},\n  numpages = {8},\n  year = {2017},\n  month = {Mar},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.95.115153},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.95.115153}\n}"
+};
+
+
 func_reference_type xc_ref_Cooper2010_161104 = {
   "V. R. Cooper, Phys. Rev. B 81, 161104 (2010)",
   "10.1103/PhysRevB.81.161104",

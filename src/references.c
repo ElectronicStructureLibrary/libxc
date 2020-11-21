@@ -1077,6 +1077,13 @@ func_reference_type xc_ref_Karasiev2006_111 = {
 };
 
 
+func_reference_type xc_ref_Karasiev2009_245120 = {
+  "V. V. Karasiev, R. S. Jones, S. B. Trickey, and F. E. Harris, Phys. Rev. B 80, 245120 (2009)",
+  "10.1103/PhysRevB.80.245120",
+  "@article{Karasiev2009_245120,\n  title = {Properties of constraint-based single-point approximate kinetic energy functionals},\n  author = {Karasiev, V. V. and Jones, R. S. and Trickey, S. B. and Harris, Frank E.},\n  journal = {Phys. Rev. B},\n  volume = {80},\n  issue = {24},\n  pages = {245120},\n  numpages = {17},\n  year = {2009},\n  month = {Dec},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.80.245120},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.80.245120}\n}"
+};
+
+
 func_reference_type xc_ref_Karasiev2014_076403 = {
   "V. V. Karasiev, T. Sjostrom, J. Dufty, and S. B. Trickey, Phys. Rev. Lett. 112, 076403 (2014)",
   "10.1103/PhysRevLett.112.076403",

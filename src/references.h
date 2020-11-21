@@ -165,6 +165,7 @@ extern func_reference_type xc_ref_Jin2016_034107;
 extern func_reference_type xc_ref_Jin2018_064111;
 extern func_reference_type xc_ref_Kang2001_11040;
 extern func_reference_type xc_ref_Karasiev2006_111;
+extern func_reference_type xc_ref_Karasiev2009_245120;
 extern func_reference_type xc_ref_Karasiev2014_076403;
 extern func_reference_type xc_ref_Karasiev2016_157101;
 extern func_reference_type xc_ref_Kaupp2011_16973;

@@ -24,7 +24,7 @@ mgga_order_4 = mgga_x_lta.mpl mgga_c_ltapw.mpl mgga_x_th.mpl		\
   mgga_c_revtpss.mpl mgga_c_scan.mpl mgga_c_tpssloc.mpl			\
   mgga_c_tpss.mpl mgga_c_rscan.mpl mgga_x_br89.mpl mgga_x_2d_js17.mpl	\
   mgga_x_mggac.mpl mgga_x_mbr.mpl mgga_x_jk.mpl mgga_x_r2scan.mpl	\
-  mgga_c_r2scan.mpl mgga_k_lk.mpl
+  mgga_c_r2scan.mpl mgga_k_lk.mpl mgga_k_rda.mpl
 
 mgga_order_3 = mgga_c_b94.mpl
 

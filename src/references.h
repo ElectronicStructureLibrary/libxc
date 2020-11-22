@@ -154,6 +154,7 @@ extern func_reference_type xc_ref_Herman1969_827;
 extern func_reference_type xc_ref_Heyd2003_8207;
 extern func_reference_type xc_ref_Heyd2003_8207_err;
 extern func_reference_type xc_ref_Heyd2004_7274;
+extern func_reference_type xc_ref_Hodges1973_1428;
 extern func_reference_type xc_ref_Hu1985_391;
 extern func_reference_type xc_ref_Hui2016_044114;
 extern func_reference_type xc_ref_Iikura2001_3540;

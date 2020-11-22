@@ -62,6 +62,8 @@ extern func_reference_type xc_ref_Caldeira2019_62;
 extern func_reference_type xc_ref_Campi1978_263;
 extern func_reference_type xc_ref_Campo2012_179;
 extern func_reference_type xc_ref_Cancio2006_081202;
+extern func_reference_type xc_ref_Cancio2016_084107;
+extern func_reference_type xc_ref_Cancio2017_618;
 extern func_reference_type xc_ref_Cancio2018_084116;
 extern func_reference_type xc_ref_Carmona2015_054105;
 extern func_reference_type xc_ref_Carmona2016_120;

@@ -12,7 +12,7 @@ csk_p := x -> X2S^2*x^2:
 csk_q := u -> X2S^2*u:
 
 (* Equation (21) *)
-csk_z := (p, q) -> 20/9*q + 40/27*p:
+csk_z := (p, q) -> 20/9*q - 40/27*p:
 
 (* Equation (22) *)
 csk_f0 := (p, q, z) -> 1 + 5*p/3 + z*(1 - exp(1/z)*(1-Heaviside(z))):

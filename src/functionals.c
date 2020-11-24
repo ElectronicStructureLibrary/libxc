@@ -295,14 +295,6 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
 
   func->info = finfo;
 
-  /* see if we need to initialize the functional */
-  if(func->info->init != NULL)
-    func->info->init(func);
-
-  /* see if we need to initialize the external parameters */
-  if(func->info->ext_params.n > 0)
-    func->info->ext_params.set(func, NULL);
-
   /* this is initialized for each functional from the info */
   func->dens_threshold = func->info->dens_threshold;
 
@@ -310,6 +302,14 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
   func->zeta_threshold  = DBL_EPSILON;
   func->sigma_threshold = 1e-10;
   func->tau_threshold   = 1e-20;
+
+  /* see if we need to initialize the functional */
+  if(func->info->init != NULL)
+    func->info->init(func);
+
+  /* see if we need to initialize the external parameters */
+  if(func->info->ext_params.n > 0)
+    func->info->ext_params.set(func, NULL);
 
   return 0;
 }

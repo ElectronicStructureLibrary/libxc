@@ -80,6 +80,9 @@ module xc_f03_lib_m
     xc_f03_available_functional_numbers, &
     xc_f03_available_functional_names, &
     xc_f03_func_set_dens_threshold, &
+    xc_f03_func_set_zeta_threshold, &
+    xc_f03_func_set_sigma_threshold, &
+    xc_f03_func_set_tau_threshold, &
     xc_f03_func_set_ext_params, &
     ! lda
     xc_f03_lda, &
@@ -354,6 +357,24 @@ module xc_f03_lib_m
       type(c_ptr), value :: p
       real(c_double), value :: dens_threshold
     end subroutine xc_func_set_dens_threshold
+
+    subroutine xc_func_set_zeta_threshold(p, zeta_threshold) bind(c)
+      import
+      type(c_ptr), value :: p
+      real(c_double), value :: zeta_threshold
+    end subroutine xc_func_set_zeta_threshold
+
+    subroutine xc_func_set_sigma_threshold(p, sigma_threshold) bind(c)
+      import
+      type(c_ptr), value :: p
+      real(c_double), value :: sigma_threshold
+    end subroutine xc_func_set_sigma_threshold
+
+    subroutine xc_func_set_tau_threshold(p, tau_threshold) bind(c)
+      import
+      type(c_ptr), value :: p
+      real(c_double), value :: tau_threshold
+    end subroutine xc_func_set_tau_threshold
 
     subroutine xc_func_set_ext_params(p, ext_params) bind(c)
       import
@@ -1002,15 +1023,39 @@ module xc_f03_lib_m
 
   subroutine xc_f03_func_set_dens_threshold(p, dens_threshold)
     type(xc_f03_func_t), intent(in) :: p
-    real(c_double),       intent(in) :: dens_threshold
+    real(c_double),      intent(in) :: dens_threshold
 
     call xc_func_set_dens_threshold(p%ptr, dens_threshold)
 
   end subroutine xc_f03_func_set_dens_threshold
 
+  subroutine xc_f03_func_set_zeta_threshold(p, zeta_threshold)
+    type(xc_f03_func_t), intent(in) :: p
+    real(c_double),      intent(in) :: zeta_threshold
+
+    call xc_func_set_zeta_threshold(p%ptr, zeta_threshold)
+
+  end subroutine xc_f03_func_set_zeta_threshold
+
+  subroutine xc_f03_func_set_sigma_threshold(p, sigma_threshold)
+    type(xc_f03_func_t), intent(in) :: p
+    real(c_double),      intent(in) :: sigma_threshold
+
+    call xc_func_set_sigma_threshold(p%ptr, sigma_threshold)
+
+  end subroutine xc_f03_func_set_sigma_threshold
+
+  subroutine xc_f03_func_set_tau_threshold(p, tau_threshold)
+    type(xc_f03_func_t), intent(in) :: p
+    real(c_double),      intent(in) :: tau_threshold
+
+    call xc_func_set_tau_threshold(p%ptr, tau_threshold)
+
+  end subroutine xc_f03_func_set_tau_threshold
+
   subroutine xc_f03_func_set_ext_params(p, ext_params)
     type(xc_f03_func_t), intent(in) :: p
-    real(c_double),       intent(in) :: ext_params(*)
+    real(c_double),      intent(in) :: ext_params(*)
 
     call xc_func_set_ext_params(p%ptr, ext_params)
 

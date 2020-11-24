@@ -1091,6 +1091,13 @@ func_reference_type xc_ref_Karasiev2009_245120 = {
 };
 
 
+func_reference_type xc_ref_Karasiev2013_161108 = {
+  "V. V. Karasiev, D. Chakraborty, O. A. Shukruto, and S. B. Trickey, Phys. Rev. B 88, 161108 (2013)",
+  "10.1103/PhysRevB.88.161108",
+  "@article{Karasiev2013_161108,\n  title = {Nonempirical generalized gradient approximation free-energy functional for orbital-free simulations},\n  author = {Karasiev, Valentin V. and Chakraborty, Debajit and Shukruto, Olga A. and Trickey, S. B.},\n  journal = {Phys. Rev. B},\n  volume = {88},\n  issue = {16},\n  pages = {161108},\n  numpages = {5},\n  year = {2013},\n  month = {Oct},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.88.161108},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.88.161108}\n}"
+};
+
+
 func_reference_type xc_ref_Karasiev2014_076403 = {
   "V. V. Karasiev, T. Sjostrom, J. Dufty, and S. B. Trickey, Phys. Rev. Lett. 112, 076403 (2014)",
   "10.1103/PhysRevLett.112.076403",

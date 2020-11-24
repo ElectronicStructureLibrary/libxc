@@ -2275,7 +2275,7 @@ func_reference_type xc_ref_Tozer1998_3162 = {
 
 
 func_reference_type xc_ref_Tran2002_441 = {
-  "F. Tran and T. A. Wesoowski, Int. J. Quantum Chem. 89, 441 (2002)",
+  "F. Tran and T. A. Wesolowski, Int. J. Quantum Chem. 89, 441 (2002)",
   "10.1002/qua.10306",
   "@article{Tran2002_441,\n  title = {Link between the kinetic- and exchange-energy functionals in the generalized gradient approximation},\n  author = {F. Tran and T. A. Weso\\l{}owski},\n  journal = {Int. J. Quantum Chem.},\n  volume = {89},\n  number = {5},\n  pages = {441},\n  year = {2002},\n  publisher = {Wiley Subscription Services, Inc., A Wiley Company},\n  issn = {1097-461X},\n  doi = {10.1002/qua.10306},\n  url = {http://onlinelibrary.wiley.com/doi/10.1002/qua.10306/abstract}\n}"
 };

@@ -8,9 +8,10 @@
 
 (* type: gga_exc *)
 
-ol1_c4 := 0.00677:
+ol1_c2 := 5/27:
+ol1_c4 := 0.00677*2*(10/3)/(3*Pi)^(1/3):
 
-ol1_f0 := s -> 1 + (s^2/72 + ol1_c4*s)/K_FACTOR_C:
-ol1_f  := x -> ol1_f0(x/2^(1/3)):
+ol1_f0 := s -> 1 + ol1_c2*s^2 + ol1_c4*s:
+ol1_f  := x -> ol1_f0(X2S*x):
 
 f := (rs, zeta, xt, xs0, xs1) -> gga_kinetic(ol1_f, rs, zeta, xs0, xs1):

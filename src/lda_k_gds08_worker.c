@@ -41,7 +41,7 @@ const xc_func_info_type xc_func_info_lda_k_gds08_worker = {
   XC_FAMILY_LDA,
   {&xc_ref_Ghiringhelli2008_073104, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-24,
+  1e-15,
   {GDS08_N_PAR, gds08_names, gds08_desc, gds08_values, set_ext_params_cpy},
   lda_k_gds08_init, NULL,
   work_lda, NULL, NULL

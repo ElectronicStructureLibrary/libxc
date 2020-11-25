@@ -27,7 +27,7 @@ gga_k_ol2_init(xc_func_type *p)
   case XC_GGA_K_OL2:
     params->aa = 1.0;
     params->bb = 1.0/K_FACTOR_C;
-    params->cc = 0.00887/K_FACTOR_C;
+    params->cc = 0.0887*M_CBRT4/K_FACTOR_C;
     break;
   }
 }

@@ -297,10 +297,13 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
 
   /* this is initialized for each functional from the info */
   func->dens_threshold = func->info->dens_threshold;
+  /* the density and sigma cutoffs should be connected, especially in
+     the case of kinetic energy functionals. This is the correct
+     scaling */
+  func->sigma_threshold = pow(func->info->dens_threshold, 4.0/3.0);
 
   /* these are reasonable defaults */
   func->zeta_threshold  = DBL_EPSILON;
-  func->sigma_threshold = 1e-10;
   func->tau_threshold   = 1e-20;
 
   /* see if we need to initialize the functional */

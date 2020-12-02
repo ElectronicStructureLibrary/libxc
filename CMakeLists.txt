@@ -338,6 +338,8 @@ set(raw_sources_list
   mgga_c_tpssloc.c
   mgga_c_vsxc.c
   mgga_k_pc07.c
+  mgga_k_csk.c
+  mgga_k_csk_loc.c
   mgga_x_2d_prhg07.c
   mgga_x_2d_prp10.c
   mgga_x_br89.c

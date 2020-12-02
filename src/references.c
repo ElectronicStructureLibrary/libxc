@@ -356,6 +356,20 @@ func_reference_type xc_ref_Cancio2006_081202 = {
 };
 
 
+func_reference_type xc_ref_Cancio2016_084107 = {
+  "A. C. Cancio, D. Stewart, and A. Kuna, J. Chem. Phys. 144, 084107 (2016)",
+  "10.1063/1.4942016",
+  "@article{Cancio2016_084107,\n  author = {Cancio, Antonio C. and Stewart, Dane and Kuna, Aeryk},\n  title = {Visualization and analysis of the Kohn-Sham kinetic energy density and its orbital-free description in molecules},\n  journal = {J. Chem. Phys.},\n  volume = {144},\n  number = {8},\n  pages = {084107},\n  year = {2016},\n  doi = {10.1063/1.4942016},\n  url = {https://doi.org/10.1063/1.4942016}\n}"
+};
+
+
+func_reference_type xc_ref_Cancio2017_618 = {
+  "A. C. Cancio and J. J. Redd, Molecular Physics 115, 618 (2017)",
+  "10.1080/00268976.2016.1246757",
+  "@article{Cancio2017_618,\n  author = {Antonio C. Cancio and Jeremy J. Redd},\n  title = {Visualisation and orbital-free parametrisation of the large-Z scaling of the kinetic energy density of atoms},\n  journal = {Molecular Physics},\n  volume = {115},\n  number = {5},\n  pages = {618-635},\n  year  = {2017},\n  publisher = {Taylor & Francis},\n  doi = {10.1080/00268976.2016.1246757},\n  url = {https://doi.org/10.1080/00268976.2016.1246757}\n}"
+};
+
+
 func_reference_type xc_ref_Cancio2018_084116 = {
   "A. Cancio, G. P. Chen, B. T. Krull, and K. Burke, J. Chem. Phys. 149, 084116 (2018)",
   "10.1063/1.5021597",

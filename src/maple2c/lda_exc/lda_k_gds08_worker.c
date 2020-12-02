@@ -6,7 +6,7 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-  Maple version     : Maple 2020 (X86 64 LINUX)
+  Maple version     : Maple 2016 (X86 64 LINUX)
   Maple source      : ./maple/lda_exc/lda_k_gds08_worker.mpl
   Type of functional: lda_exc
 */
@@ -20,19 +20,19 @@ func_unpol(const xc_func_type *p, int order, const double *rho , double *zk LDA_
 {
 
 #ifndef XC_DONT_COMPILE_EXC
-  double t1, t2, t3, t4;
+  double t2, t3, t5, t8;
 
 #ifndef XC_DONT_COMPILE_VXC
-  double t5, t6, t7, t8;
+  double t9, t11, t15;
 
 #ifndef XC_DONT_COMPILE_FXC
-  double t14, t15, t16, t17, t19;
+  double t19, t20, t27;
 
 #ifndef XC_DONT_COMPILE_KXC
-  double t27, t28, t30, t32;
+  double t32, t40;
 
 #ifndef XC_DONT_COMPILE_LXC
-  double t39, t40;
+  double t44, t45, t53;
 #endif
 
 #endif
@@ -49,59 +49,55 @@ func_unpol(const xc_func_type *p, int order, const double *rho , double *zk LDA_
   assert(p->params != NULL);
   params = (lda_k_gds08_params * )(p->params);
 
-  t1 = log(rho[0]);
-  t2 = params->B * t1;
-  t3 = t1 * t1;
-  t4 = params->C * t3;
+  t2 = rho[0] / 0.2e1 <= p->dens_threshold;
+  t3 = log(rho[0]);
+  t5 = t3 * t3;
+  t8 = my_piecewise3(t2, 0, params->B * t3 + params->C * t5 + params->A);
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    zk[0] = params->A + t2 + t4;
+    zk[0] = 0.2e1 * t8;
 
 #ifndef XC_DONT_COMPILE_VXC
 
   if(order < 1) return;
 
 
-  t5 = 0.1e1 / rho[0];
-  t6 = params->B * t5;
-  t7 = params->C * t1;
-  t8 = t7 * t5;
+  t9 = 0.1e1 / rho[0];
+  t11 = params->C * t3;
+  t15 = my_piecewise3(t2, 0, 0.2e1 * t11 * t9 + params->B * t9);
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[0] = params->A + t2 + t4 + rho[0] * (t6 + 0.2e1 * t8);
+    vrho[0] = 0.2e1 * rho[0] * t15 + 0.2e1 * t8;
 
 #ifndef XC_DONT_COMPILE_FXC
 
   if(order < 2) return;
 
 
-  t14 = rho[0] * rho[0];
-  t15 = 0.1e1 / t14;
-  t16 = params->B * t15;
-  t17 = params->C * t15;
-  t19 = t7 * t15;
+  t19 = rho[0] * rho[0];
+  t20 = 0.1e1 / t19;
+  t27 = my_piecewise3(t2, 0, -0.2e1 * t11 * t20 - params->B * t20 + 0.2e1 * params->C * t20);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = 0.2e1 * t6 + 0.4e1 * t8 + rho[0] * (-t16 + 0.2e1 * t17 - 0.2e1 * t19);
+    v2rho2[0] = 0.2e1 * rho[0] * t27 + 0.4e1 * t15;
 
 #ifndef XC_DONT_COMPILE_KXC
 
   if(order < 3) return;
 
 
-  t27 = 0.1e1 / t14 / rho[0];
-  t28 = params->B * t27;
-  t30 = params->C * t27;
-  t32 = t7 * t27;
+  t32 = 0.1e1 / t19 / rho[0];
+  t40 = my_piecewise3(t2, 0, 0.4e1 * t11 * t32 + 0.2e1 * params->B * t32 - 0.6e1 * params->C * t32);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = -0.3e1 * t16 + 0.6e1 * t17 - 0.6e1 * t19 + rho[0] * (0.2e1 * t28 - 0.6e1 * t30 + 0.4e1 * t32);
+    v3rho3[0] = 0.2e1 * rho[0] * t40 + 0.6e1 * t27;
 
 #ifndef XC_DONT_COMPILE_LXC
 
   if(order < 4) return;
 
 
-  t39 = t14 * t14;
-  t40 = 0.1e1 / t39;
+  t44 = t19 * t19;
+  t45 = 0.1e1 / t44;
+  t53 = my_piecewise3(t2, 0, -0.12e2 * t11 * t45 - 0.6e1 * params->B * t45 + 0.22e2 * params->C * t45);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[0] = 0.8e1 * t28 - 0.24e2 * t30 + 0.16e2 * t32 + rho[0] * (-0.12e2 * t7 * t40 - 0.6e1 * params->B * t40 + 0.22e2 * params->C * t40);
+    v4rho4[0] = 0.2e1 * rho[0] * t53 + 0.8e1 * t40;
 
 #ifndef XC_DONT_COMPILE_MXC
 
@@ -127,19 +123,19 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
 {
 
 #ifndef XC_DONT_COMPILE_EXC
-  double t1, t2, t3, t4, t5;
+  double t1, t3, t5, t8, t9, t11, t13, t16;
 
 #ifndef XC_DONT_COMPILE_VXC
-  double t6, t7, t8, t9;
+  double t17, t18, t20, t24, t26, t28, t32;
 
 #ifndef XC_DONT_COMPILE_FXC
-  double t15, t16, t17, t18, t20;
+  double t35, t36, t43, t46, t47, t54;
 
 #ifndef XC_DONT_COMPILE_KXC
-  double t28, t29, t31, t33;
+  double t58, t66, t70, t78;
 
 #ifndef XC_DONT_COMPILE_LXC
-  double t40, t41;
+  double t81, t82, t90, t93, t94, t102;
 #endif
 
 #endif
@@ -156,90 +152,101 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
   assert(p->params != NULL);
   params = (lda_k_gds08_params * )(p->params);
 
-  t1 = rho[0] + rho[1];
-  t2 = log(t1);
-  t3 = params->B * t2;
-  t4 = t2 * t2;
-  t5 = params->C * t4;
+  t1 = rho[0] <= p->dens_threshold;
+  t3 = log(0.2e1 * rho[0]);
+  t5 = t3 * t3;
+  t8 = my_piecewise3(t1, 0, params->B * t3 + params->C * t5 + params->A);
+  t9 = rho[1] <= p->dens_threshold;
+  t11 = log(0.2e1 * rho[1]);
+  t13 = t11 * t11;
+  t16 = my_piecewise3(t9, 0, params->B * t11 + params->C * t13 + params->A);
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    zk[0] = params->A + t3 + t5;
+    zk[0] = t8 + t16;
 
 #ifndef XC_DONT_COMPILE_VXC
 
   if(order < 1) return;
 
 
-  t6 = 0.1e1 / t1;
-  t7 = params->B * t6;
-  t8 = params->C * t2;
-  t9 = t8 * t6;
+  t17 = rho[0] + rho[1];
+  t18 = 0.1e1 / rho[0];
+  t20 = params->C * t3;
+  t24 = my_piecewise3(t1, 0, 0.2e1 * t20 * t18 + params->B * t18);
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[0] = params->A + t3 + t5 + t1 * (t7 + 0.2e1 * t9);
+    vrho[0] = t17 * t24 + t16 + t8;
 
+  t26 = 0.1e1 / rho[1];
+  t28 = params->C * t11;
+  t32 = my_piecewise3(t9, 0, 0.2e1 * t28 * t26 + params->B * t26);
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[1] = vrho[0];
+    vrho[1] = t17 * t32 + t16 + t8;
 
 #ifndef XC_DONT_COMPILE_FXC
 
   if(order < 2) return;
 
 
-  t15 = t1 * t1;
-  t16 = 0.1e1 / t15;
-  t17 = params->B * t16;
-  t18 = params->C * t16;
-  t20 = t8 * t16;
+  t35 = rho[0] * rho[0];
+  t36 = 0.1e1 / t35;
+  t43 = my_piecewise3(t1, 0, -0.2e1 * t20 * t36 - params->B * t36 + 0.2e1 * params->C * t36);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = 0.2e1 * t7 + 0.4e1 * t9 + t1 * (-t17 + 0.2e1 * t18 - 0.2e1 * t20);
+    v2rho2[0] = t17 * t43 + 0.2e1 * t24;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[1] = v2rho2[0];
+    v2rho2[1] = t24 + t32;
 
+  t46 = rho[1] * rho[1];
+  t47 = 0.1e1 / t46;
+  t54 = my_piecewise3(t9, 0, -0.2e1 * t28 * t47 - params->B * t47 + 0.2e1 * params->C * t47);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[2] = v2rho2[1];
+    v2rho2[2] = t17 * t54 + 0.2e1 * t32;
 
 #ifndef XC_DONT_COMPILE_KXC
 
   if(order < 3) return;
 
 
-  t28 = 0.1e1 / t15 / t1;
-  t29 = params->B * t28;
-  t31 = params->C * t28;
-  t33 = t8 * t28;
+  t58 = 0.1e1 / t35 / rho[0];
+  t66 = my_piecewise3(t1, 0, 0.4e1 * t20 * t58 + 0.2e1 * params->B * t58 - 0.6e1 * params->C * t58);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = -0.3e1 * t17 + 0.6e1 * t18 - 0.6e1 * t20 + t1 * (0.2e1 * t29 - 0.6e1 * t31 + 0.4e1 * t33);
+    v3rho3[0] = t17 * t66 + 0.3e1 * t43;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[1] = v3rho3[0];
+    v3rho3[1] = t43;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[2] = v3rho3[1];
+    v3rho3[2] = t54;
 
+  t70 = 0.1e1 / t46 / rho[1];
+  t78 = my_piecewise3(t9, 0, 0.4e1 * t28 * t70 + 0.2e1 * params->B * t70 - 0.6e1 * params->C * t70);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[3] = v3rho3[2];
+    v3rho3[3] = t17 * t78 + 0.3e1 * v3rho3[2];
 
 #ifndef XC_DONT_COMPILE_LXC
 
   if(order < 4) return;
 
 
-  t40 = t15 * t15;
-  t41 = 0.1e1 / t40;
+  t81 = t35 * t35;
+  t82 = 0.1e1 / t81;
+  t90 = my_piecewise3(t1, 0, -0.12e2 * t20 * t82 - 0.6e1 * params->B * t82 + 0.22e2 * params->C * t82);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[0] = 0.8e1 * t29 - 0.24e2 * t31 + 0.16e2 * t33 + t1 * (-0.12e2 * t8 * t41 - 0.6e1 * params->B * t41 + 0.22e2 * params->C * t41);
+    v4rho4[0] = t17 * t90 + 0.4e1 * t66;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[1] = v4rho4[0];
+    v4rho4[1] = t66;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[2] = v4rho4[1];
+    v4rho4[2] = 0.0e0;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[3] = v4rho4[2];
+    v4rho4[3] = t78;
 
+  t93 = t46 * t46;
+  t94 = 0.1e1 / t93;
+  t102 = my_piecewise3(t9, 0, -0.12e2 * t28 * t94 - 0.6e1 * params->B * t94 + 0.22e2 * params->C * t94);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[4] = v4rho4[3];
+    v4rho4[4] = t17 * t102 + 0.4e1 * v4rho4[3];
 
 #ifndef XC_DONT_COMPILE_MXC
 

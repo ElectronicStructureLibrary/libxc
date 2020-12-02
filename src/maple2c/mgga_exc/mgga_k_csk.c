@@ -61,14 +61,14 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   double t869, t874, t877, t882, t883, t890, t912, t922;
   double t924, t927, t928, t929, t930, t931, t935, t938;
   double t956, t957, t958, t960, t967, t994, t997, t1020;
-  double t1031, t1033, t1040, t1060, t1068, t1074, t1078, t1083;
-  double t1084, t1092, t1094, t1101, t1120, t1121, t1123, t1125;
+  double t1031, t1033, t1040, t1060, t1067, t1073, t1077, t1082;
+  double t1085, t1092, t1094, t1101, t1120, t1121, t1123, t1125;
   double t1132, t1134, t1140, t1141, t1148, t1165, t1167, t1168;
   double t1172, t1184, t1189, t1193, t1195, t1200, t1202, t1209;
   double t1228, t1245, t1254, t1256, t1263, t1285, t1292, t1294;
   double t1295, t1302, t1308, t1312, t1317, t1320, t1321, t1330;
   double t1331, t1335, t1336, t1342, t1350, t1351, t1352, t1353;
-  double t1354, t1355, t1356, t1357, t1368, t1369, t1375, t1383;
+  double t1354, t1355, t1358, t1359, t1368, t1369, t1375, t1383;
   double t1385, t1389, t1400, t1401, t1407, t1425, t1426, t1432;
   double t1437, t1454, t1455, t1461;
 #endif
@@ -481,13 +481,13 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
     v4rho2sigmatau[0] = 0.0e0;
 
   t1060 = t179 * t211;
-  t1068 = t723 * t270;
-  t1074 = t211 * t211;
-  t1078 = t41 * t428;
-  t1083 = -0.4e1 * t142 * t1074 * t41 + 0.24e2 * t214 * t1060 + 0.24e2 * t422 * t1060 + 0.4e1 * t435 * t1060 - t1068 * t370 - 0.4e1 * t207 * t1078 + 0.6e1 * t274 * t319 + 0.6e1 * t536 * t319 + t541 * t319 - 0.24e2 * t536 * t370 - 0.36e2 * t541 * t370;
-  t1084 = t706 * t270;
-  t1092 = -0.2e1 * t151 * t1074 * t41 - 0.2e1 * t214 * t1078 - 0.12e2 * t1084 * t370 + t236 + t922 - t924 + t927 - t928 + t930 - t956 - t957;
-  t1094 = my_piecewise3(t37, 0, t1083 + t1092);
+  t1067 = t723 * t270;
+  t1073 = t211 * t211;
+  t1077 = t41 * t428;
+  t1082 = t706 * t270;
+  t1085 = -0.4e1 * t142 * t1073 * t41 + 0.24e2 * t214 * t1060 + 0.24e2 * t422 * t1060 + 0.4e1 * t435 * t1060 - t1067 * t370 - 0.4e1 * t207 * t1077 - 0.12e2 * t1082 * t370 + 0.6e1 * t274 * t319 + 0.6e1 * t536 * t319 - 0.24e2 * t536 * t370 - 0.36e2 * t541 * t370;
+  t1092 = -0.2e1 * t151 * t1073 * t41 - 0.2e1 * t214 * t1077 + t541 * t319 + t236 + t922 - t924 + t927 - t928 + t930 - t956 - t957;
+  t1094 = my_piecewise3(t37, 0, t1085 + t1092);
   t1101 = my_piecewise3(t3, 0, -t8 * t120 * t279 / 0.30e2 + t8 * t51 * t546 / 0.5e1 + 0.3e1 / 0.20e2 * t8 * t13 * (0.200e3 / 0.243e3 * t494 - 0.50e2 / 0.81e2 * t497 + 0.5e1 / 0.27e2 * t19 * t100 * t438 + t137 * t277 + 0.2e1 * t65 * t544 + t36 * t1094));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2lapl2[0] = 0.2e1 * rho[0] * t1101 + 0.4e1 * t551;
@@ -528,7 +528,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
     v4rhosigma2tau[0] = 0.0e0;
 
   t1228 = t254 * t211;
-  t1245 = -t1068 * t500 - 0.12e2 * t1084 * t500 + 0.12e2 * t214 * t1228 + 0.12e2 * t422 * t1228 + 0.2e1 * t435 * t1228 - 0.24e2 * t536 * t500 - 0.36e2 * t541 * t500 + 0.6e1 * t1121 + 0.6e1 * t1125 + t1134 + 0.12e2 * t1165 + 0.2e1 * t1167 + 0.12e2 * t1184;
+  t1245 = -t1067 * t500 - 0.12e2 * t1082 * t500 + 0.12e2 * t214 * t1228 + 0.12e2 * t422 * t1228 + 0.2e1 * t435 * t1228 - 0.24e2 * t536 * t500 - 0.36e2 * t541 * t500 + 0.6e1 * t1121 + 0.6e1 * t1125 + t1134 + 0.12e2 * t1165 + 0.2e1 * t1167 + 0.12e2 * t1184;
   t1254 = 0.6e1 * t274 * t460 + 0.6e1 * t536 * t460 + t541 * t460 - 0.2e1 * t1123 - t1132 - 0.4e1 * t1193 - 0.2e1 * t1195 + t236 - t468 - t470 - t567 - t614 - t617 - t618;
   t1256 = my_piecewise3(t37, 0, t1245 + t1254);
   t1263 = my_piecewise3(t3, 0, t8 * t51 * t623 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * (-0.25e2 / 0.81e2 * t584 + 0.5e1 / 0.27e2 * t19 * t100 * t513 + 0.40e2 / 0.243e3 * t19 * t168 * t277 - 0.5e1 / 0.81e2 * t19 * t82 * t544 + t65 * t621 + t36 * t1256));
@@ -572,14 +572,14 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
     v4sigma4[0] = 0.2e1 * rho[0] * t1342;
 
   t1350 = t254 * t234;
-  t1351 = t214 * t1350;
+  t1351 = t422 * t1350;
   t1352 = 0.18e2 * t1351;
-  t1353 = t422 * t1350;
-  t1354 = 0.18e2 * t1353;
-  t1355 = t435 * t1350;
-  t1356 = 0.3e1 * t1355;
-  t1357 = t41 * t557;
-  t1368 = -0.24e2 * t422 * t1357 - 0.36e2 * t435 * t1357 - t863 * t1357 - 0.12e2 * t877 * t1357 + 0.18e2 * t1312 - t1320 + 0.18e2 * t1321 - t1330 + 0.3e1 * t1331 + t1352 + t1354 + t1356 + t236 - t563 - t568 - t593 - t595;
+  t1353 = t435 * t1350;
+  t1354 = 0.3e1 * t1353;
+  t1355 = t41 * t557;
+  t1358 = t214 * t1350;
+  t1359 = 0.18e2 * t1358;
+  t1368 = -0.24e2 * t422 * t1355 - 0.36e2 * t435 * t1355 - t863 * t1355 - 0.12e2 * t877 * t1355 + 0.18e2 * t1312 - t1320 + 0.18e2 * t1321 - t1330 + 0.3e1 * t1331 + t1352 + t1354 + t1359 + t236 - t563 - t568 - t593 - t595;
   t1369 = my_piecewise3(t37, 0, t1368);
   t1375 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * (0.5e1 / 0.54e2 * t19 * t100 * t572 - 0.5e1 / 0.27e2 * t19 * t82 * t598 + t36 * t1369));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
@@ -591,7 +591,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t1383 = t541 * t561;
   t1385 = t274 * t561;
   t1389 = t536 * t561;
-  t1400 = -t1068 * t586 - 0.12e2 * t1084 * t586 - 0.24e2 * t536 * t586 - 0.36e2 * t541 * t586 + 0.6e1 * t1312 - t1320 + 0.6e1 * t1321 - t1330 + t1331 + 0.24e2 * t1351 + 0.24e2 * t1353 + 0.4e1 * t1355 + t1383 + 0.6e1 * t1385 + 0.6e1 * t1389 + t236 - t589 - t594 - t614 - t618;
+  t1400 = -t1067 * t586 - 0.12e2 * t1082 * t586 - 0.24e2 * t536 * t586 - 0.36e2 * t541 * t586 + 0.6e1 * t1312 - t1320 + 0.6e1 * t1321 - t1330 + t1331 + 0.24e2 * t1351 + 0.4e1 * t1353 + 0.24e2 * t1358 + t1383 + 0.6e1 * t1385 + 0.6e1 * t1389 + t236 - t589 - t594 - t614 - t618;
   t1401 = my_piecewise3(t37, 0, t1400);
   t1407 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * (0.5e1 / 0.27e2 * t19 * t100 * t598 - 0.10e2 / 0.81e2 * t19 * t82 * t621 + t36 * t1401));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
@@ -603,7 +603,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigma2tau2[0] = 0.0e0;
 
-  t1425 = -0.12e2 * t1285 * t254 - t1292 * t254 - 0.24e2 * t637 * t254 - 0.36e2 * t641 * t254 - t1320 - t1330 + t1352 + t1354 + t1356 + 0.3e1 * t1383 + 0.18e2 * t1385 + 0.18e2 * t1389 + t236 - t567 - t617 - t636 - t640;
+  t1425 = -0.12e2 * t1285 * t254 - t1292 * t254 - 0.24e2 * t637 * t254 - 0.36e2 * t641 * t254 - t1320 - t1330 + t1352 + t1354 + t1359 + 0.3e1 * t1383 + 0.18e2 * t1385 + 0.18e2 * t1389 + t236 - t567 - t617 - t636 - t640;
   t1426 = my_piecewise3(t37, 0, t1425);
   t1432 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * (0.5e1 / 0.18e2 * t19 * t100 * t621 - 0.5e1 / 0.81e2 * t19 * t82 * t644 + t36 * t1426));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))

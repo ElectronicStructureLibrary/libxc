@@ -78,7 +78,8 @@ while($_=<BBL>){
 
       # remove accents
       $item =~ s/\\o({})?/o/g;
-      $item =~ s/\\["'`~olv]{(.?)}/$1/g;
+      $item =~ s/\\l({})?/l/g;
+      $item =~ s/\\["'`~ov]{(.?)}/$1/g;
       $item =~ s/\\["'`~]//g;
       
       $item =~ s/\{\\natexlab\{.\}(.*?)\}/$1/g;

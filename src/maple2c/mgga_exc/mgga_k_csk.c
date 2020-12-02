@@ -23,54 +23,117 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   double t3, t4, t5, t6, t8, t10, t11, t12;
   double t13, t14, t15, t16, t17, t19, t20, t21;
   double t22, t23, t25, t27, t29, t31, t36, t37;
-  double t38, t39, t41, t43, t45, t49;
+  double t38, t39, t40, t41, t42, t43, t45, t46;
+  double t47, t48, t49, t53;
 
 #ifndef XC_DONT_COMPILE_VXC
-  double t51, t55, t57, t59, t65, t67, t68, t69;
-  double t72, t74, t79, t82, t83, t86, t89, t92;
-  double t94, t98, t100, t106, t109, t111, t115;
+  double t55, t59, t61, t63, t69, t70, t71, t73;
+  double t74, t78, t80, t81, t83, t88, t91, t92;
+  double t95, t98, t102, t104, t106, t110, t112, t114;
+  double t116, t118, t122, t123, t124, t126, t130;
 
 #ifndef XC_DONT_COMPILE_FXC
-  double t120, t127, t129, t131, t137, t141, t142, t143;
-  double t147, t150, t151, t152, t155, t157, t162, t168;
-  double t169, t172, t175, t178, t179, t183, t186, t189;
-  double t191, t196, t207, t211, t214, t217, t219, t224;
-  double t228, t230, t234, t236, t237, t240, t242, t246;
-  double t252, t254, t259, t261, t265, t270, t274, t277;
-  double t279, t283;
+  double t135, t142, t144, t146, t152, t153, t156, t157;
+  double t158, t160, t161, t162, t164, t165, t166, t167;
+  double t169, t172, t177, t178, t179, t182, t184, t187;
+  double t189, t194, t200, t201, t204, t206, t208, t209;
+  double t212, t213, t214, t216, t217, t218, t221, t225;
+  double t227, t230, t232, t234, t236, t241, t251, t253;
+  double t256, t260, t262, t265, t267, t270, t275, t279;
+  double t280, t282, t284, t286, t288, t290, t293, t297;
+  double t299, t302, t304, t308, t313, t314, t316, t317;
+  double t319, t324, t326, t329, t333, t337, t339, t341;
+  double t343, t348, t350, t353, t355, t359;
 
 #ifndef XC_DONT_COMPILE_KXC
-  double t288, t300, t302, t308, t314, t318, t319, t323;
-  double t327, t334, t338, t340, t345, t355, t356, t359;
-  double t362, t365, t370, t373, t376, t382, t385, t389;
-  double t392, t394, t399, t419, t422, t428, t431, t435;
-  double t438, t440, t445, t452, t455, t460, t463, t466;
-  double t467, t468, t469, t470, t473, t476, t478, t483;
-  double t494, t497, t500, t513, t515, t520, t533, t536;
-  double t541, t544, t546, t551, t555, t557, t561, t562;
-  double t563, t564, t567, t568, t569, t572, t574, t578;
-  double t584, t586, t589, t592, t593, t594, t595, t598;
-  double t600, t604, t610, t614, t617, t618, t621, t623;
-  double t627, t632, t636, t637, t640, t641, t644, t646;
-  double t650;
+  double t364, t376, t378, t384, t385, t394, t395, t396;
+  double t399, t400, t402, t406, t409, t410, t412, t414;
+  double t416, t417, t422, t426, t430, t433, t441, t442;
+  double t445, t447, t452, t455, t460, t470, t472, t474;
+  double t476, t480, t485, t486, t487, t489, t494, t498;
+  double t500, t504, t507, t516, t518, t519, t521, t526;
+  double t527, t532, t533, t534, t536, t538, t539, t540;
+  double t542, t545, t546, t548, t552, t557, t582, t584;
+  double t585, t589, t592, t594, t599, t604, t608, t611;
+  double t620, t622, t623, t625, t632, t637, t643, t645;
+  double t646, t649, t650, t652, t653, t656, t657, t659;
+  double t665, t667, t668, t670, t673, t676, t679, t680;
+  double t681, t682, t683, t684, t687, t690, t695, t697;
+  double t698, t700, t708, t713, t726, t728, t729, t732;
+  double t733, t735, t736, t739, t740, t743, t744, t748;
+  double t751, t753, t754, t771, t772, t774, t782, t783;
+  double t788, t802, t804, t805, t811, t813, t815, t818;
+  double t821, t826, t829, t834, t836, t837, t839, t847;
+  double t852, t855, t856, t857, t860, t861, t863, t864;
+  double t866, t868, t870, t874, t877, t879, t881, t882;
+  double t883, t888, t889, t890, t891, t898, t900, t905;
+  double t908, t912, t920, t921, t924, t925, t927, t928;
+  double t930, t931, t934, t938, t941, t943, t948, t949;
+  double t950, t955, t956, t958, t959, t961, t968, t972;
+  double t980, t981, t982, t984, t985, t987, t993, t994;
+  double t996, t998, t1000, t1005, t1010, t1012, t1013, t1015;
+  double t1018, t1019, t1025, t1029, t1037, t1039, t1041, t1045;
+  double t1048, t1050, t1052, t1057, t1058, t1065, t1067, t1072;
+  double t1075, t1079;
 
 #ifndef XC_DONT_COMPILE_LXC
-  double t672, t678, t686, t695, t702, t706, t710, t722;
-  double t723, t726, t727, t734, t747, t748, t768, t772;
-  double t801, t810, t811, t818, t843, t854, t859, t863;
-  double t869, t874, t877, t882, t883, t890, t912, t922;
-  double t924, t927, t928, t929, t930, t931, t935, t938;
-  double t956, t957, t958, t960, t967, t994, t997, t1020;
-  double t1031, t1033, t1040, t1060, t1067, t1073, t1077, t1082;
-  double t1085, t1092, t1094, t1101, t1120, t1121, t1123, t1125;
-  double t1132, t1134, t1140, t1141, t1148, t1165, t1167, t1168;
-  double t1172, t1184, t1189, t1193, t1195, t1200, t1202, t1209;
-  double t1228, t1245, t1254, t1256, t1263, t1285, t1292, t1294;
-  double t1295, t1302, t1308, t1312, t1317, t1320, t1321, t1330;
-  double t1331, t1335, t1336, t1342, t1350, t1351, t1352, t1353;
-  double t1354, t1355, t1358, t1359, t1368, t1369, t1375, t1383;
-  double t1385, t1389, t1400, t1401, t1407, t1425, t1426, t1432;
-  double t1437, t1454, t1455, t1461;
+  double t1097, t1102, t1104, t1105, t1109, t1110, t1117, t1138;
+  double t1148, t1150, t1153, t1156, t1157, t1158, t1160, t1163;
+  double t1165, t1168, t1183, t1190, t1193, t1194, t1196, t1201;
+  double t1211, t1213, t1223, t1225, t1244, t1248, t1254, t1267;
+  double t1270, t1273, t1274, t1276, t1277, t1286, t1289, t1295;
+  double t1300, t1301, t1310, t1314, t1318, t1321, t1324, t1326;
+  double t1348, t1349, t1362, t1363, t1388, t1421, t1425, t1427;
+  double t1435, t1436, t1444, t1447, t1450, t1451, t1454, t1461;
+  double t1483, t1484, t1495, t1496, t1500, t1514, t1517, t1519;
+  double t1524, t1554, t1557, t1560, t1566, t1573, t1576, t1578;
+  double t1580, t1583, t1588, t1593, t1609, t1613, t1615, t1632;
+  double t1638, t1652, t1655, t1658, t1661, t1664, t1667, t1670;
+  double t1673, t1674, t1679, t1680, t1682, t1683, t1693, t1695;
+  double t1700, t1701, t1703, t1706, t1729, t1730, t1740, t1747;
+  double t1748, t1749, t1757, t1775, t1778, t1780, t1781, t1782;
+  double t1783, t1789, t1791, t1798, t1800, t1809, t1810, t1823;
+  double t1824, t1825, t1826, t1829, t1844, t1849, t1856, t1868;
+  double t1873, t1876, t1879, t1888, t1897, t1902, t1903, t1917;
+  double t1923, t1926, t1928, t1933, t1941, t1944, t1945, t1967;
+  double t1969, t1982, t1991, t2008, t2027, t2030, t2035, t2043;
+  double t2046, t2047, t2050, t2054, t2079, t2082, t2089, t2117;
+  double t2118, t2129, t2131, t2134, t2141, t2151, t2152, t2155;
+  double t2156, t2167, t2174, t2186, t2188, t2190, t2195, t2204;
+  double t2223, t2224, t2226, t2235, t2248, t2251, t2256, t2265;
+  double t2272, t2278, t2281, t2284, t2287, t2290, t2293, t2296;
+  double t2299, t2301, t2302, t2308, t2315, t2318, t2323, t2333;
+  double t2334, t2344, t2348, t2351, t2360, t2362, t2380, t2394;
+  double t2395, t2397, t2399, t2401, t2403, t2405, t2407, t2409;
+  double t2423, t2426, t2432, t2438, t2453, t2456, t2459, t2462;
+  double t2471, t2472, t2477, t2481, t2486, t2489, t2492, t2496;
+  double t2504, t2507, t2512, t2517, t2518, t2530, t2533, t2538;
+  double t2540, t2547, t2550, t2551, t2564, t2565, t2572, t2577;
+  double t2580, t2589, t2590, t2596, t2599, t2602, t2604, t2618;
+  double t2624, t2627, t2632, t2635, t2648, t2651, t2658, t2666;
+  double t2669, t2678, t2681, t2684, t2687, t2690, t2698, t2706;
+  double t2709, t2713, t2716, t2724, t2726, t2728, t2758, t2760;
+  double t2763, t2784, t2801, t2805, t2808, t2813, t2816, t2820;
+  double t2824, t2827, t2854, t2857, t2864, t2885, t2887, t2891;
+  double t2894, t2897, t2898, t2908, t2925, t2928, t2933, t2940;
+  double t2947, t2949, t2952, t2955, t2958, t2961, t2964, t2965;
+  double t2976, t2978, t2982, t2983, t2995, t3001, t3004, t3006;
+  double t3021, t3023, t3025, t3029, t3030, t3032, t3035, t3036;
+  double t3038, t3040, t3042, t3044, t3046, t3051, t3053, t3057;
+  double t3062, t3068, t3071, t3093, t3099, t3102, t3103, t3106;
+  double t3109, t3112, t3115, t3119, t3121, t3124, t3127, t3130;
+  double t3137, t3140, t3143, t3146, t3151, t3154, t3157, t3160;
+  double t3163, t3177, t3184, t3208, t3211, t3212, t3213, t3214;
+  double t3215, t3216, t3217, t3218, t3219, t3220, t3221, t3222;
+  double t3223, t3224, t3226, t3237, t3242, t3247, t3249, t3252;
+  double t3259, t3262, t3275, t3278, t3281, t3284, t3286, t3294;
+  double t3300, t3302, t3305, t3311, t3312, t3321, t3328, t3333;
+  double t3337, t3339, t3341, t3342, t3343, t3345, t3364, t3373;
+  double t3375, t3386, t3389, t3394, t3398, t3405, t3417, t3419;
+  double t3424, t3427, t3430, t3431, t3446, t3453, t3477, t3479;
+  double t3481, t3485, t3486, t3489, t3493, t3496, t3501, t3506;
+  double t3508, t3510, t3530, t3539, t3541, t3545, t3550, t3556;
+  double t3559, t3595, t3599;
 #endif
 
 #endif
@@ -82,6 +145,10 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
 #endif
 
 
+  mgga_k_csk_params *params;
+
+  assert(p->params != NULL);
+  params = (mgga_k_csk_params * )(p->params);
 
   t3 = rho[0] / 0.2e1 <= p->dens_threshold;
   t4 = M_CBRT3;
@@ -106,52 +173,66 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t29 = lapl[0] * t21;
   t31 = 0.1e1 / t12 / rho[0];
   t36 = 0.5e1 / 0.54e2 * t19 * t29 * t31 - 0.5e1 / 0.81e2 * t27;
-  t37 = -0.1e-9 <= t36;
-  t38 = t36 < -0.1e-9;
-  t39 = my_piecewise3(t38, t36, -0.1e-9);
-  t41 = exp(0.1e1 / t39);
-  t43 = my_piecewise3(t37, 1, 0.1e1 - t41);
-  t45 = 0.1e1 + 0.5e1 / 0.72e2 * t27 + t36 * t43;
-  t49 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t45);
+  t37 = -t36;
+  t38 = t37 <= 0.1e-9;
+  t39 = t37 < 0.1e-9;
+  t40 = my_piecewise3(t39, 0.1e-9, t37);
+  t41 = pow(t40, params->csk_a);
+  t42 = 0.1e1 / t41;
+  t43 = exp(-t42);
+  t45 = my_piecewise3(t38, 1, 0.1e1 - t43);
+  t46 = 0.1e1 / params->csk_a;
+  t47 = pow(t45, t46);
+  t48 = t36 * t47;
+  t49 = 0.1e1 + 0.5e1 / 0.72e2 * t27 + t48;
+  t53 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t49);
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    zk[0] = 0.2e1 * t49;
+    zk[0] = 0.2e1 * t53;
 
 #ifndef XC_DONT_COMPILE_VXC
 
   if(order < 1) return;
 
 
-  t51 = t10 / t11;
-  t55 = t23 * rho[0];
-  t57 = 0.1e1 / t12 / t55;
-  t59 = t19 * t22 * t57;
-  t65 = -0.25e2 / 0.162e3 * t19 * t29 * t25 + 0.40e2 / 0.243e3 * t59;
-  t67 = t39 * t39;
-  t68 = 0.1e1 / t67;
-  t69 = my_piecewise3(t38, t65, 0);
-  t72 = my_piecewise3(t37, 0, t68 * t69 * t41);
-  t74 = -0.5e1 / 0.27e2 * t59 + t65 * t43 + t36 * t72;
-  t79 = my_piecewise3(t3, 0, t8 * t51 * t45 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * t74);
+  t55 = t10 / t11;
+  t59 = t23 * rho[0];
+  t61 = 0.1e1 / t12 / t59;
+  t63 = t19 * t22 * t61;
+  t69 = -0.25e2 / 0.162e3 * t19 * t29 * t25 + 0.40e2 / 0.243e3 * t63;
+  t70 = t69 * t47;
+  t71 = t42 * params->csk_a;
+  t73 = my_piecewise3(t39, 0, -t69);
+  t74 = 0.1e1 / t40;
+  t78 = my_piecewise3(t38, 0, -t71 * t73 * t74 * t43);
+  t80 = 0.1e1 / t45;
+  t81 = t46 * t78 * t80;
+  t83 = -0.5e1 / 0.27e2 * t63 + t70 + t48 * t81;
+  t88 = my_piecewise3(t3, 0, t8 * t55 * t49 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * t83);
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[0] = 0.2e1 * rho[0] * t79 + 0.2e1 * t49;
+    vrho[0] = 0.2e1 * rho[0] * t88 + 0.2e1 * t53;
 
-  t82 = t21 * t25;
-  t83 = t19 * t82;
-  t86 = t19 * t82 * t43;
-  t89 = my_piecewise3(t38, -0.5e1 / 0.81e2 * t83, 0);
-  t92 = my_piecewise3(t37, 0, t68 * t89 * t41);
-  t94 = 0.5e1 / 0.72e2 * t83 - 0.5e1 / 0.81e2 * t86 + t36 * t92;
-  t98 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t94);
+  t91 = t21 * t25;
+  t92 = t19 * t91;
+  t95 = t19 * t91 * t47;
+  t98 = my_piecewise3(t39, 0, 0.5e1 / 0.81e2 * t92);
+  t102 = my_piecewise3(t38, 0, -t71 * t98 * t74 * t43);
+  t104 = t46 * t102 * t80;
+  t106 = 0.5e1 / 0.72e2 * t92 - 0.5e1 / 0.81e2 * t95 + t48 * t104;
+  t110 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t106);
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vsigma[0] = 0.2e1 * rho[0] * t98;
+    vsigma[0] = 0.2e1 * rho[0] * t110;
 
-  t100 = t21 * t31;
-  t106 = my_piecewise3(t38, 0.5e1 / 0.54e2 * t19 * t100, 0);
-  t109 = my_piecewise3(t37, 0, t68 * t106 * t41);
-  t111 = 0.5e1 / 0.54e2 * t19 * t100 * t43 + t36 * t109;
-  t115 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t111);
+  t112 = t21 * t31;
+  t114 = t19 * t112 * t47;
+  t116 = t19 * t112;
+  t118 = my_piecewise3(t39, 0, -0.5e1 / 0.54e2 * t116);
+  t122 = my_piecewise3(t38, 0, -t71 * t118 * t74 * t43);
+  t123 = t46 * t122;
+  t124 = t123 * t80;
+  t126 = 0.5e1 / 0.54e2 * t114 + t48 * t124;
+  t130 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t126);
   if(vrho != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vlapl[0] = 0.2e1 * rho[0] * t115;
+    vlapl[0] = 0.2e1 * rho[0] * t130;
 
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vtau[0] = 0.0e0;
@@ -161,79 +242,115 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   if(order < 2) return;
 
 
-  t120 = t10 / t11 / rho[0];
-  t127 = t23 * t23;
-  t129 = 0.1e1 / t12 / t127;
-  t131 = t19 * t22 * t129;
-  t137 = 0.100e3 / 0.243e3 * t19 * t29 * t57 - 0.440e3 / 0.729e3 * t131;
-  t141 = t67 * t39;
-  t142 = 0.1e1 / t141;
-  t143 = t69 * t69;
-  t147 = my_piecewise3(t38, t137, 0);
-  t150 = t67 * t67;
-  t151 = 0.1e1 / t150;
-  t152 = t151 * t143;
-  t155 = my_piecewise3(t37, 0, -0.2e1 * t142 * t143 * t41 + t68 * t147 * t41 - t152 * t41);
-  t157 = 0.55e2 / 0.81e2 * t131 + t137 * t43 + 0.2e1 * t65 * t72 + t36 * t155;
-  t162 = my_piecewise3(t3, 0, -t8 * t120 * t45 / 0.30e2 + t8 * t51 * t74 / 0.5e1 + 0.3e1 / 0.20e2 * t8 * t13 * t157);
+  t135 = t10 / t11 / rho[0];
+  t142 = t23 * t23;
+  t144 = 0.1e1 / t12 / t142;
+  t146 = t19 * t22 * t144;
+  t152 = 0.100e3 / 0.243e3 * t19 * t29 * t61 - 0.440e3 / 0.729e3 * t146;
+  t153 = t152 * t47;
+  t156 = params->csk_a * params->csk_a;
+  t157 = 0.1e1 / t156;
+  t158 = t78 * t78;
+  t160 = t45 * t45;
+  t161 = 0.1e1 / t160;
+  t162 = t157 * t158 * t161;
+  t164 = t42 * t156;
+  t165 = t73 * t73;
+  t166 = t40 * t40;
+  t167 = 0.1e1 / t166;
+  t169 = t165 * t167 * t43;
+  t172 = my_piecewise3(t39, 0, -t152);
+  t177 = t41 * t41;
+  t178 = 0.1e1 / t177;
+  t179 = t178 * t156;
+  t182 = my_piecewise3(t38, 0, -t71 * t172 * t74 * t43 + t164 * t169 - t179 * t169 + t71 * t169);
+  t184 = t46 * t182 * t80;
+  t187 = t46 * t158 * t161;
+  t189 = 0.55e2 / 0.81e2 * t146 + t153 + 0.2e1 * t70 * t81 + t48 * t162 + t48 * t184 - t48 * t187;
+  t194 = my_piecewise3(t3, 0, -t8 * t135 * t49 / 0.30e2 + t8 * t55 * t83 / 0.5e1 + 0.3e1 / 0.20e2 * t8 * t13 * t189);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = 0.2e1 * rho[0] * t162 + 0.4e1 * t79;
+    v2rho2[0] = 0.2e1 * rho[0] * t194 + 0.4e1 * t88;
 
-  t168 = t21 * t57;
-  t169 = t19 * t168;
-  t172 = t19 * t168 * t43;
-  t175 = t19 * t82 * t72;
-  t178 = t142 * t89;
-  t179 = t41 * t69;
-  t183 = my_piecewise3(t38, 0.40e2 / 0.243e3 * t169, 0);
-  t186 = t151 * t89;
-  t189 = my_piecewise3(t37, 0, t68 * t183 * t41 - 0.2e1 * t178 * t179 - t186 * t179);
-  t191 = -0.5e1 / 0.27e2 * t169 + 0.40e2 / 0.243e3 * t172 - 0.5e1 / 0.81e2 * t175 + t65 * t92 + t36 * t189;
-  t196 = my_piecewise3(t3, 0, t8 * t51 * t94 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * t191);
+  t200 = t21 * t61;
+  t201 = t19 * t200;
+  t204 = t19 * t200 * t47;
+  t206 = t47 * t46;
+  t208 = t206 * t78 * t80;
+  t209 = t92 * t208;
+  t212 = t48 * t157;
+  t213 = t78 * t161;
+  t214 = t213 * t102;
+  t216 = t164 * t98;
+  t217 = t167 * t43;
+  t218 = t217 * t73;
+  t221 = my_piecewise3(t39, 0, -0.40e2 / 0.243e3 * t201);
+  t225 = t71 * t98;
+  t227 = t179 * t98;
+  t230 = my_piecewise3(t38, 0, -t71 * t221 * t74 * t43 + t216 * t218 + t225 * t218 - t227 * t218);
+  t232 = t46 * t230 * t80;
+  t234 = t48 * t46;
+  t236 = -0.5e1 / 0.27e2 * t201 + 0.40e2 / 0.243e3 * t204 - 0.5e1 / 0.81e2 * t209 + t70 * t104 + t212 * t214 + t48 * t232 - t234 * t214;
+  t241 = my_piecewise3(t3, 0, t8 * t55 * t106 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * t236);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rhosigma[0] = 0.2e1 * rho[0] * t196 + 0.2e1 * t98;
+    v2rhosigma[0] = 0.2e1 * rho[0] * t241 + 0.2e1 * t110;
 
-  t207 = t142 * t106;
-  t211 = my_piecewise3(t38, -0.25e2 / 0.162e3 * t83, 0);
-  t214 = t151 * t106;
-  t217 = my_piecewise3(t37, 0, t68 * t211 * t41 - 0.2e1 * t207 * t179 - t214 * t179);
-  t219 = -0.25e2 / 0.162e3 * t86 + 0.5e1 / 0.54e2 * t19 * t100 * t72 + t65 * t109 + t36 * t217;
-  t224 = my_piecewise3(t3, 0, t8 * t51 * t111 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * t219);
+  t251 = t213 * t122;
+  t253 = t164 * t118;
+  t256 = my_piecewise3(t39, 0, 0.25e2 / 0.162e3 * t92);
+  t260 = t71 * t118;
+  t262 = t179 * t118;
+  t265 = my_piecewise3(t38, 0, -t71 * t256 * t74 * t43 + t253 * t218 + t260 * t218 - t262 * t218);
+  t267 = t46 * t265 * t80;
+  t270 = -0.25e2 / 0.162e3 * t95 + 0.5e1 / 0.54e2 * t116 * t208 + t70 * t124 + t212 * t251 + t48 * t267 - t234 * t251;
+  t275 = my_piecewise3(t3, 0, t8 * t55 * t126 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * t270);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rholapl[0] = 0.2e1 * rho[0] * t224 + 0.2e1 * t115;
+    v2rholapl[0] = 0.2e1 * rho[0] * t275 + 0.2e1 * t130;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rhotau[0] = 0.0e0;
 
-  t228 = t19 * t82 * t92;
-  t230 = t89 * t89;
-  t234 = my_piecewise3(t38, 0, 0);
-  t236 = t68 * t234 * t41;
-  t237 = t151 * t230;
-  t240 = my_piecewise3(t37, 0, -0.2e1 * t142 * t230 * t41 - t237 * t41 + t236);
-  t242 = -0.10e2 / 0.81e2 * t228 + t36 * t240;
-  t246 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t242);
+  t279 = t206 * t102 * t80;
+  t280 = t92 * t279;
+  t282 = t102 * t102;
+  t284 = t157 * t282 * t161;
+  t286 = t98 * t98;
+  t288 = t286 * t167 * t43;
+  t290 = my_piecewise3(t39, 0, 0);
+  t293 = t71 * t290 * t74 * t43;
+  t297 = my_piecewise3(t38, 0, t164 * t288 - t179 * t288 + t71 * t288 - t293);
+  t299 = t46 * t297 * t80;
+  t302 = t46 * t282 * t161;
+  t304 = -0.10e2 / 0.81e2 * t280 + t48 * t284 + t48 * t299 - t48 * t302;
+  t308 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t304);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2sigma2[0] = 0.2e1 * rho[0] * t246;
+    v2sigma2[0] = 0.2e1 * rho[0] * t308;
 
-  t252 = t19 * t82 * t109;
-  t254 = t41 * t89;
-  t259 = my_piecewise3(t37, 0, -0.2e1 * t207 * t254 - t214 * t254 + t236);
-  t261 = 0.5e1 / 0.54e2 * t19 * t100 * t92 - 0.5e1 / 0.81e2 * t252 + t36 * t259;
-  t265 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t261);
+  t313 = t206 * t122 * t80;
+  t314 = t92 * t313;
+  t316 = t102 * t161;
+  t317 = t316 * t122;
+  t319 = t217 * t98;
+  t324 = my_piecewise3(t38, 0, t253 * t319 + t260 * t319 - t262 * t319 - t293);
+  t326 = t46 * t324 * t80;
+  t329 = 0.5e1 / 0.54e2 * t116 * t279 - 0.5e1 / 0.81e2 * t314 + t212 * t317 + t48 * t326 - t234 * t317;
+  t333 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t329);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2sigmalapl[0] = 0.2e1 * rho[0] * t265;
+    v2sigmalapl[0] = 0.2e1 * rho[0] * t333;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigmatau[0] = 0.0e0;
 
-  t270 = t106 * t106;
-  t274 = t151 * t270;
-  t277 = my_piecewise3(t37, 0, -0.2e1 * t142 * t270 * t41 - t274 * t41 + t236);
-  t279 = 0.5e1 / 0.27e2 * t19 * t100 * t109 + t36 * t277;
-  t283 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t279);
+  t337 = t122 * t122;
+  t339 = t157 * t337 * t161;
+  t341 = t118 * t118;
+  t343 = t341 * t167 * t43;
+  t348 = my_piecewise3(t38, 0, t164 * t343 - t179 * t343 + t71 * t343 - t293);
+  t350 = t46 * t348 * t80;
+  t353 = t46 * t337 * t161;
+  t355 = 0.5e1 / 0.27e2 * t116 * t313 + t48 * t339 + t48 * t350 - t48 * t353;
+  t359 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t355);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2lapl2[0] = 0.2e1 * rho[0] * t283;
+    v2lapl2[0] = 0.2e1 * rho[0] * t359;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2lapltau[0] = 0.0e0;
@@ -246,89 +363,174 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   if(order < 3) return;
 
 
-  t288 = t10 / t11 / t23;
-  t300 = 0.1e1 / t12 / t127 / rho[0];
-  t302 = t19 * t22 * t300;
-  t308 = -0.1100e4 / 0.729e3 * t19 * t29 * t129 + 0.6160e4 / 0.2187e4 * t302;
-  t314 = t143 * t69;
-  t318 = t142 * t69;
-  t319 = t41 * t147;
-  t323 = 0.1e1 / t150 / t39;
-  t327 = my_piecewise3(t38, t308, 0);
-  t334 = 0.1e1 / t150 / t67;
-  t338 = my_piecewise3(t37, 0, -0.3e1 * t151 * t147 * t179 + 0.6e1 * t151 * t314 * t41 + 0.6e1 * t323 * t314 * t41 + t334 * t314 * t41 + t68 * t327 * t41 - 0.6e1 * t318 * t319);
-  t340 = -0.770e3 / 0.243e3 * t302 + t308 * t43 + 0.3e1 * t137 * t72 + 0.3e1 * t65 * t155 + t36 * t338;
-  t345 = my_piecewise3(t3, 0, 0.2e1 / 0.45e2 * t8 * t288 * t45 - t8 * t120 * t74 / 0.10e2 + 0.3e1 / 0.10e2 * t8 * t51 * t157 + 0.3e1 / 0.20e2 * t8 * t13 * t340);
+  t364 = t10 / t11 / t23;
+  t376 = 0.1e1 / t12 / t142 / rho[0];
+  t378 = t19 * t22 * t376;
+  t384 = -0.1100e4 / 0.729e3 * t19 * t29 * t144 + 0.6160e4 / 0.2187e4 * t378;
+  t385 = t384 * t47;
+  t394 = t156 * params->csk_a;
+  t395 = 0.1e1 / t394;
+  t396 = t158 * t78;
+  t399 = 0.1e1 / t160 / t45;
+  t400 = t395 * t396 * t399;
+  t402 = t213 * t182;
+  t406 = t157 * t396 * t399;
+  t409 = t42 * t394;
+  t410 = t165 * t73;
+  t412 = 0.1e1 / t166 / t40;
+  t414 = t410 * t412 * t43;
+  t416 = t164 * t73;
+  t417 = t217 * t172;
+  t422 = t178 * t394;
+  t426 = my_piecewise3(t39, 0, -t384);
+  t430 = t71 * t172;
+  t433 = t179 * t172;
+  t441 = 0.1e1 / t177 / t41;
+  t442 = t441 * t394;
+  t445 = my_piecewise3(t38, 0, -t71 * t426 * t74 * t43 - 0.3e1 * t164 * t414 + 0.3e1 * t179 * t414 + 0.3e1 * t430 * t218 - 0.3e1 * t433 * t218 - t409 * t414 + 0.3e1 * t422 * t414 - t442 * t414 - 0.2e1 * t71 * t414 + 0.3e1 * t416 * t417);
+  t447 = t46 * t445 * t80;
+  t452 = t46 * t396 * t399;
+  t455 = -0.770e3 / 0.243e3 * t378 + t385 + 0.3e1 * t153 * t81 + 0.3e1 * t70 * t162 + 0.3e1 * t70 * t184 - 0.3e1 * t70 * t187 + t48 * t400 + 0.3e1 * t212 * t402 - 0.3e1 * t48 * t406 + t48 * t447 - 0.3e1 * t234 * t402 + 0.2e1 * t48 * t452;
+  t460 = my_piecewise3(t3, 0, 0.2e1 / 0.45e2 * t8 * t364 * t49 - t8 * t135 * t83 / 0.10e2 + 0.3e1 / 0.10e2 * t8 * t55 * t189 + 0.3e1 / 0.20e2 * t8 * t13 * t455);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = 0.2e1 * rho[0] * t345 + 0.6e1 * t162;
+    v3rho3[0] = 0.2e1 * rho[0] * t460 + 0.6e1 * t194;
 
-  t355 = t21 * t129;
-  t356 = t19 * t355;
-  t359 = t19 * t355 * t43;
-  t362 = t19 * t168 * t72;
-  t365 = t19 * t82 * t155;
-  t370 = t41 * t143;
-  t373 = t142 * t183;
-  t376 = t323 * t89;
-  t382 = my_piecewise3(t38, -0.440e3 / 0.729e3 * t356, 0);
-  t385 = t151 * t183;
-  t389 = t334 * t89;
-  t392 = my_piecewise3(t37, 0, t68 * t382 * t41 - 0.2e1 * t178 * t319 - 0.4e1 * t373 * t179 - 0.2e1 * t385 * t179 - t186 * t319 + 0.6e1 * t186 * t370 + 0.6e1 * t376 * t370 + t389 * t370);
-  t394 = 0.55e2 / 0.81e2 * t356 - 0.440e3 / 0.729e3 * t359 + 0.80e2 / 0.243e3 * t362 - 0.5e1 / 0.81e2 * t365 + t137 * t92 + 0.2e1 * t65 * t189 + t36 * t392;
-  t399 = my_piecewise3(t3, 0, -t8 * t120 * t94 / 0.30e2 + t8 * t51 * t191 / 0.5e1 + 0.3e1 / 0.20e2 * t8 * t13 * t394);
+  t470 = t316 * t182;
+  t472 = t21 * t144;
+  t474 = t19 * t472 * t47;
+  t476 = t70 * t46;
+  t480 = t213 * t230;
+  t485 = t409 * t98;
+  t486 = t412 * t43;
+  t487 = t486 * t165;
+  t489 = t164 * t221;
+  t494 = t422 * t98;
+  t498 = t19 * t472;
+  t500 = my_piecewise3(t39, 0, 0.440e3 / 0.729e3 * t498);
+  t504 = t71 * t221;
+  t507 = t179 * t221;
+  t516 = t442 * t98;
+  t518 = -t71 * t500 * t74 * t43 + t216 * t417 - 0.3e1 * t216 * t487 + 0.2e1 * t489 * t218 + 0.2e1 * t504 * t218 - 0.2e1 * t507 * t218 + t225 * t417 - 0.2e1 * t225 * t487 - t227 * t417 + 0.3e1 * t227 * t487 - t485 * t487 + 0.3e1 * t494 * t487 - t516 * t487;
+  t519 = my_piecewise3(t38, 0, t518);
+  t521 = t46 * t519 * t80;
+  t526 = t158 * t399;
+  t527 = t526 * t102;
+  t532 = t158 * t161;
+  t533 = t206 * t532;
+  t534 = t92 * t533;
+  t536 = t48 * t395;
+  t538 = t47 * t157;
+  t539 = t538 * t532;
+  t540 = t92 * t539;
+  t542 = t201 * t208;
+  t545 = t206 * t182 * t80;
+  t546 = t92 * t545;
+  t548 = t70 * t157;
+  t552 = -t234 * t470 - 0.440e3 / 0.729e3 * t474 - 0.2e1 * t476 * t214 + t212 * t470 + 0.2e1 * t212 * t480 - 0.2e1 * t234 * t480 + t48 * t521 + t153 * t104 + 0.2e1 * t70 * t232 - 0.3e1 * t212 * t527 + 0.2e1 * t234 * t527 + 0.5e1 / 0.81e2 * t534 + t536 * t527 - 0.5e1 / 0.81e2 * t540 + 0.80e2 / 0.243e3 * t542 - 0.5e1 / 0.81e2 * t546 + 0.2e1 * t548 * t214 + 0.55e2 / 0.81e2 * t498;
+  t557 = my_piecewise3(t3, 0, -t8 * t135 * t106 / 0.30e2 + t8 * t55 * t236 / 0.5e1 + 0.3e1 / 0.20e2 * t8 * t13 * t552);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho2sigma[0] = 0.2e1 * rho[0] * t399 + 0.4e1 * t196;
+    v3rho2sigma[0] = 0.2e1 * rho[0] * t557 + 0.4e1 * t241;
 
-  t419 = t142 * t211;
-  t422 = t323 * t106;
-  t428 = my_piecewise3(t38, 0.100e3 / 0.243e3 * t169, 0);
-  t431 = t151 * t211;
-  t435 = t334 * t106;
-  t438 = my_piecewise3(t37, 0, t68 * t428 * t41 - 0.4e1 * t419 * t179 - 0.2e1 * t431 * t179 - 0.2e1 * t207 * t319 - t214 * t319 + 0.6e1 * t214 * t370 + 0.6e1 * t422 * t370 + t435 * t370);
-  t440 = 0.100e3 / 0.243e3 * t172 - 0.25e2 / 0.81e2 * t175 + 0.5e1 / 0.54e2 * t19 * t100 * t155 + t137 * t109 + 0.2e1 * t65 * t217 + t36 * t438;
-  t445 = my_piecewise3(t3, 0, -t8 * t120 * t111 / 0.30e2 + t8 * t51 * t219 / 0.5e1 + 0.3e1 / 0.20e2 * t8 * t13 * t440);
+  t582 = t526 * t122;
+  t584 = t182 * t161;
+  t585 = t584 * t122;
+  t589 = t213 * t265;
+  t592 = t409 * t118;
+  t594 = t164 * t256;
+  t599 = t422 * t118;
+  t604 = my_piecewise3(t39, 0, -0.100e3 / 0.243e3 * t201);
+  t608 = t71 * t256;
+  t611 = t179 * t256;
+  t620 = t442 * t118;
+  t622 = -t71 * t604 * t74 * t43 + 0.2e1 * t594 * t218 + 0.2e1 * t608 * t218 - 0.2e1 * t611 * t218 + t253 * t417 - 0.3e1 * t253 * t487 + t260 * t417 - 0.2e1 * t260 * t487 - t262 * t417 + 0.3e1 * t262 * t487 - t592 * t487 + 0.3e1 * t599 * t487 - t620 * t487;
+  t623 = my_piecewise3(t38, 0, t622);
+  t625 = t46 * t623 * t80;
+  t632 = 0.100e3 / 0.243e3 * t204 - 0.25e2 / 0.81e2 * t209 + 0.5e1 / 0.54e2 * t116 * t539 + 0.5e1 / 0.54e2 * t116 * t545 - 0.5e1 / 0.54e2 * t116 * t533 + t153 * t124 + 0.2e1 * t548 * t251 + 0.2e1 * t70 * t267 - 0.2e1 * t476 * t251 + t536 * t582 + t212 * t585 - 0.3e1 * t212 * t582 + 0.2e1 * t212 * t589 + t48 * t625 - 0.2e1 * t234 * t589 + 0.2e1 * t234 * t582 - t234 * t585;
+  t637 = my_piecewise3(t3, 0, -t8 * t135 * t126 / 0.30e2 + t8 * t55 * t270 / 0.5e1 + 0.3e1 / 0.20e2 * t8 * t13 * t632);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho2lapl[0] = 0.2e1 * rho[0] * t445 + 0.4e1 * t224;
+    v3rho2lapl[0] = 0.2e1 * rho[0] * t637 + 0.4e1 * t275;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho2tau[0] = 0.0e0;
 
-  t452 = t19 * t168 * t92;
-  t455 = t19 * t82 * t189;
-  t460 = t41 * t183;
-  t463 = t323 * t230;
-  t466 = t142 * t234;
-  t467 = t466 * t179;
-  t468 = 0.2e1 * t467;
-  t469 = t151 * t234;
-  t470 = t469 * t179;
-  t473 = t334 * t230;
-  t476 = my_piecewise3(t37, 0, -0.4e1 * t178 * t460 + 0.6e1 * t237 * t179 + 0.6e1 * t463 * t179 + t473 * t179 - 0.2e1 * t186 * t460 + t236 - t468 - t470);
-  t478 = 0.80e2 / 0.243e3 * t452 - 0.10e2 / 0.81e2 * t455 + t65 * t240 + t36 * t476;
-  t483 = my_piecewise3(t3, 0, t8 * t51 * t242 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * t478);
+  t643 = t201 * t279;
+  t645 = t538 * t214;
+  t646 = t92 * t645;
+  t649 = t206 * t230 * t80;
+  t650 = t92 * t649;
+  t652 = t206 * t214;
+  t653 = t92 * t652;
+  t656 = t78 * t399;
+  t657 = t656 * t282;
+  t659 = t316 * t230;
+  t665 = t213 * t297;
+  t667 = t409 * t286;
+  t668 = t486 * t73;
+  t670 = t217 * t221;
+  t673 = t164 * t286;
+  t676 = t422 * t286;
+  t679 = t164 * t290;
+  t680 = t679 * t218;
+  t681 = t71 * t290;
+  t682 = t681 * t218;
+  t683 = t179 * t290;
+  t684 = t683 * t218;
+  t687 = t71 * t286;
+  t690 = t179 * t286;
+  t695 = t442 * t286;
+  t697 = 0.2e1 * t216 * t670 + 0.2e1 * t225 * t670 - 0.2e1 * t227 * t670 - t667 * t668 - 0.3e1 * t673 * t668 + 0.3e1 * t676 * t668 - 0.2e1 * t687 * t668 + 0.3e1 * t690 * t668 - t695 * t668 - t293 + t680 + t682 - t684;
+  t698 = my_piecewise3(t38, 0, t697);
+  t700 = t46 * t698 * t80;
+  t708 = 0.80e2 / 0.243e3 * t643 - 0.10e2 / 0.81e2 * t646 - 0.10e2 / 0.81e2 * t650 + 0.10e2 / 0.81e2 * t653 + t70 * t284 + t536 * t657 + 0.2e1 * t212 * t659 - 0.3e1 * t212 * t657 + t70 * t299 + t212 * t665 + t48 * t700 - t234 * t665 - t70 * t302 - 0.2e1 * t234 * t659 + 0.2e1 * t234 * t657;
+  t713 = my_piecewise3(t3, 0, t8 * t55 * t304 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * t708);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rhosigma2[0] = 0.2e1 * rho[0] * t483 + 0.2e1 * t246;
+    v3rhosigma2[0] = 0.2e1 * rho[0] * t713 + 0.2e1 * t308;
 
-  t494 = t19 * t168 * t109;
-  t497 = t19 * t82 * t217;
-  t500 = t254 * t69;
-  t513 = my_piecewise3(t37, 0, -0.2e1 * t207 * t460 - t214 * t460 + 0.6e1 * t214 * t500 - 0.2e1 * t419 * t254 - t431 * t254 + 0.6e1 * t422 * t500 + t435 * t500 + t236 - t468 - t470);
-  t515 = -0.25e2 / 0.162e3 * t228 + 0.5e1 / 0.54e2 * t19 * t100 * t189 + 0.40e2 / 0.243e3 * t494 - 0.5e1 / 0.81e2 * t497 + t65 * t259 + t36 * t513;
-  t520 = my_piecewise3(t3, 0, t8 * t51 * t261 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * t515);
+  t726 = t201 * t313;
+  t728 = t538 * t251;
+  t729 = t92 * t728;
+  t732 = t206 * t265 * t80;
+  t733 = t92 * t732;
+  t735 = t206 * t251;
+  t736 = t92 * t735;
+  t739 = t102 * t122;
+  t740 = t656 * t739;
+  t743 = t230 * t161;
+  t744 = t743 * t122;
+  t748 = t316 * t265;
+  t751 = t213 * t324;
+  t753 = t98 * t73;
+  t754 = t486 * t753;
+  t771 = t253 * t670 - 0.3e1 * t253 * t754 + t260 * t670 - 0.2e1 * t260 * t754 - t262 * t670 + 0.3e1 * t262 * t754 + t594 * t319 + t608 * t319 - t611 * t319 - t592 * t754 + 0.3e1 * t599 * t754 - t620 * t754 - t293 + t680 + t682 - t684;
+  t772 = my_piecewise3(t38, 0, t771);
+  t774 = t46 * t772 * t80;
+  t782 = -0.3e1 * t212 * t740 + t212 * t744 + t212 * t748 + t212 * t751 + 0.2e1 * t234 * t740 - t234 * t744 - t234 * t748 - t234 * t751 - t476 * t317 + t70 * t326 + t48 * t774;
+  t783 = -0.25e2 / 0.162e3 * t280 + 0.5e1 / 0.54e2 * t116 * t645 + 0.5e1 / 0.54e2 * t116 * t649 - 0.5e1 / 0.54e2 * t116 * t652 + 0.40e2 / 0.243e3 * t726 - 0.5e1 / 0.81e2 * t729 - 0.5e1 / 0.81e2 * t733 + 0.5e1 / 0.81e2 * t736 + t548 * t317 + t536 * t740 + t782;
+  t788 = my_piecewise3(t3, 0, t8 * t55 * t329 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * t783);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rhosigmalapl[0] = 0.2e1 * rho[0] * t520 + 0.2e1 * t265;
+    v3rhosigmalapl[0] = 0.2e1 * rho[0] * t788 + 0.2e1 * t333;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmatau[0] = 0.0e0;
 
-  t533 = t41 * t211;
-  t536 = t323 * t270;
-  t541 = t334 * t270;
-  t544 = my_piecewise3(t37, 0, 0.6e1 * t274 * t179 + 0.6e1 * t536 * t179 + t541 * t179 - 0.4e1 * t207 * t533 - 0.2e1 * t214 * t533 + t236 - t468 - t470);
-  t546 = -0.25e2 / 0.81e2 * t252 + 0.5e1 / 0.27e2 * t19 * t100 * t217 + t65 * t277 + t36 * t544;
-  t551 = my_piecewise3(t3, 0, t8 * t51 * t279 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * t546);
+  t802 = t656 * t337;
+  t804 = t122 * t161;
+  t805 = t804 * t265;
+  t811 = t213 * t348;
+  t813 = t409 * t341;
+  t815 = t217 * t256;
+  t818 = t164 * t341;
+  t821 = t422 * t341;
+  t826 = t71 * t341;
+  t829 = t179 * t341;
+  t834 = t442 * t341;
+  t836 = 0.2e1 * t253 * t815 + 0.2e1 * t260 * t815 - 0.2e1 * t262 * t815 - t813 * t668 - 0.3e1 * t818 * t668 + 0.3e1 * t821 * t668 - 0.2e1 * t826 * t668 + 0.3e1 * t829 * t668 - t834 * t668 - t293 + t680 + t682 - t684;
+  t837 = my_piecewise3(t38, 0, t836);
+  t839 = t46 * t837 * t80;
+  t847 = -0.25e2 / 0.81e2 * t314 + 0.5e1 / 0.27e2 * t116 * t728 + 0.5e1 / 0.27e2 * t116 * t732 - 0.5e1 / 0.27e2 * t116 * t735 + t70 * t339 + t536 * t802 + 0.2e1 * t212 * t805 - 0.3e1 * t212 * t802 + t70 * t350 + t212 * t811 + t48 * t839 - t234 * t811 - t70 * t353 - 0.2e1 * t234 * t805 + 0.2e1 * t234 * t802;
+  t852 = my_piecewise3(t3, 0, t8 * t55 * t355 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * t847);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rholapl2[0] = 0.2e1 * rho[0] * t551 + 0.2e1 * t283;
+    v3rholapl2[0] = 0.2e1 * rho[0] * t852 + 0.2e1 * t359;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapltau[0] = 0.0e0;
@@ -336,46 +538,84 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhotau2[0] = 0.0e0;
 
-  t555 = t19 * t82 * t240;
-  t557 = t230 * t89;
-  t561 = t41 * t234;
-  t562 = t178 * t561;
-  t563 = 0.6e1 * t562;
-  t564 = t323 * t557;
-  t567 = t469 * t254;
-  t568 = 0.3e1 * t567;
-  t569 = t334 * t557;
-  t572 = my_piecewise3(t37, 0, 0.6e1 * t151 * t557 * t41 + 0.6e1 * t564 * t41 + t569 * t41 + t236 - t563 - t568);
-  t574 = -0.5e1 / 0.27e2 * t555 + t36 * t572;
-  t578 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t574);
+  t855 = t282 * t161;
+  t856 = t538 * t855;
+  t857 = t92 * t856;
+  t860 = t206 * t297 * t80;
+  t861 = t92 * t860;
+  t863 = t206 * t855;
+  t864 = t92 * t863;
+  t866 = t282 * t102;
+  t868 = t395 * t866 * t399;
+  t870 = t316 * t297;
+  t874 = t157 * t866 * t399;
+  t877 = t286 * t98;
+  t879 = t877 * t412 * t43;
+  t881 = t217 * t290;
+  t882 = t216 * t881;
+  t883 = 0.3e1 * t882;
+  t888 = t681 * t319;
+  t889 = 0.3e1 * t888;
+  t890 = t683 * t319;
+  t891 = 0.3e1 * t890;
+  t898 = my_piecewise3(t38, 0, -0.3e1 * t164 * t879 + 0.3e1 * t179 * t879 - t409 * t879 + 0.3e1 * t422 * t879 - t442 * t879 - 0.2e1 * t71 * t879 - t293 + t883 + t889 - t891);
+  t900 = t46 * t898 * t80;
+  t905 = t46 * t866 * t399;
+  t908 = -0.5e1 / 0.27e2 * t857 - 0.5e1 / 0.27e2 * t861 + 0.5e1 / 0.27e2 * t864 + t48 * t868 + 0.3e1 * t212 * t870 - 0.3e1 * t48 * t874 + t48 * t900 - 0.3e1 * t234 * t870 + 0.2e1 * t48 * t905;
+  t912 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t908);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3sigma3[0] = 0.2e1 * rho[0] * t578;
+    v3sigma3[0] = 0.2e1 * rho[0] * t912;
 
-  t584 = t19 * t82 * t259;
-  t586 = t41 * t230;
-  t589 = 0.4e1 * t562;
-  t592 = t207 * t561;
-  t593 = 0.2e1 * t592;
-  t594 = 0.2e1 * t567;
-  t595 = t214 * t561;
-  t598 = my_piecewise3(t37, 0, 0.6e1 * t214 * t586 + 0.6e1 * t422 * t586 + t435 * t586 + t236 - t589 - t593 - t594 - t595);
-  t600 = 0.5e1 / 0.54e2 * t19 * t100 * t240 - 0.10e2 / 0.81e2 * t584 + t36 * t598;
-  t604 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t600);
+  t920 = t538 * t317;
+  t921 = t92 * t920;
+  t924 = t206 * t324 * t80;
+  t925 = t92 * t924;
+  t927 = t206 * t317;
+  t928 = t92 * t927;
+  t930 = t282 * t399;
+  t931 = t930 * t122;
+  t934 = t297 * t161 * t122;
+  t938 = t316 * t324;
+  t941 = t486 * t286;
+  t943 = 0.2e1 * t882;
+  t948 = t253 * t881;
+  t949 = 0.2e1 * t888;
+  t950 = 0.2e1 * t890;
+  t955 = t260 * t881;
+  t956 = t262 * t881;
+  t958 = -0.3e1 * t253 * t941 - 0.2e1 * t260 * t941 + 0.3e1 * t262 * t941 - t592 * t941 + 0.3e1 * t599 * t941 - t620 * t941 - t293 + t943 + t948 + t949 - t950 + t955 - t956;
+  t959 = my_piecewise3(t38, 0, t958);
+  t961 = t46 * t959 * t80;
+  t968 = 0.5e1 / 0.54e2 * t116 * t856 + 0.5e1 / 0.54e2 * t116 * t860 - 0.5e1 / 0.54e2 * t116 * t863 - 0.10e2 / 0.81e2 * t921 - 0.10e2 / 0.81e2 * t925 + 0.10e2 / 0.81e2 * t928 + t536 * t931 + t212 * t934 - 0.3e1 * t212 * t931 + 0.2e1 * t212 * t938 + t48 * t961 - 0.2e1 * t234 * t938 + 0.2e1 * t234 * t931 - t234 * t934;
+  t972 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t968);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3sigma2lapl[0] = 0.2e1 * rho[0] * t604;
+    v3sigma2lapl[0] = 0.2e1 * rho[0] * t972;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2tau[0] = 0.0e0;
 
-  t610 = t19 * t82 * t277;
-  t614 = 0.4e1 * t592;
-  t617 = 0.2e1 * t562;
-  t618 = 0.2e1 * t595;
-  t621 = my_piecewise3(t37, 0, 0.6e1 * t274 * t254 + 0.6e1 * t536 * t254 + t541 * t254 + t236 - t567 - t614 - t617 - t618);
-  t623 = 0.5e1 / 0.27e2 * t19 * t100 * t259 - 0.5e1 / 0.81e2 * t610 + t36 * t621;
-  t627 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t623);
+  t980 = t337 * t161;
+  t981 = t538 * t980;
+  t982 = t92 * t981;
+  t984 = t102 * t399;
+  t985 = t984 * t337;
+  t987 = t804 * t324;
+  t993 = t206 * t348 * t80;
+  t994 = t92 * t993;
+  t996 = t316 * t348;
+  t998 = t486 * t98;
+  t1000 = 0.2e1 * t948;
+  t1005 = 0.2e1 * t955;
+  t1010 = 0.2e1 * t956;
+  t1012 = -t813 * t998 - 0.3e1 * t818 * t998 + 0.3e1 * t821 * t998 - 0.2e1 * t826 * t998 + 0.3e1 * t829 * t998 - t834 * t998 + t1000 + t1005 - t1010 - t293 + t882 + t888 - t890;
+  t1013 = my_piecewise3(t38, 0, t1012);
+  t1015 = t46 * t1013 * t80;
+  t1018 = t206 * t980;
+  t1019 = t92 * t1018;
+  t1025 = 0.5e1 / 0.27e2 * t116 * t920 + 0.5e1 / 0.27e2 * t116 * t924 - 0.5e1 / 0.27e2 * t116 * t927 - 0.5e1 / 0.81e2 * t982 + t536 * t985 + 0.2e1 * t212 * t987 - 0.3e1 * t212 * t985 - 0.5e1 / 0.81e2 * t994 + t212 * t996 + t48 * t1015 - t234 * t996 + 0.5e1 / 0.81e2 * t1019 - 0.2e1 * t234 * t987 + 0.2e1 * t234 * t985;
+  t1029 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t1025);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3sigmalapl2[0] = 0.2e1 * rho[0] * t627;
+    v3sigmalapl2[0] = 0.2e1 * rho[0] * t1029;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapltau[0] = 0.0e0;
@@ -383,16 +623,22 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmatau2[0] = 0.0e0;
 
-  t632 = t270 * t106;
-  t636 = 0.6e1 * t592;
-  t637 = t323 * t632;
-  t640 = 0.3e1 * t595;
-  t641 = t334 * t632;
-  t644 = my_piecewise3(t37, 0, 0.6e1 * t151 * t632 * t41 + 0.6e1 * t637 * t41 + t641 * t41 + t236 - t636 - t640);
-  t646 = 0.5e1 / 0.18e2 * t19 * t100 * t277 + t36 * t644;
-  t650 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t646);
+  t1037 = t337 * t122;
+  t1039 = t395 * t1037 * t399;
+  t1041 = t804 * t348;
+  t1045 = t157 * t1037 * t399;
+  t1048 = t341 * t118;
+  t1050 = t1048 * t412 * t43;
+  t1052 = 0.3e1 * t948;
+  t1057 = 0.3e1 * t955;
+  t1058 = 0.3e1 * t956;
+  t1065 = my_piecewise3(t38, 0, -0.3e1 * t164 * t1050 + 0.3e1 * t179 * t1050 - t409 * t1050 + 0.3e1 * t422 * t1050 - t442 * t1050 - 0.2e1 * t71 * t1050 + t1052 + t1057 - t1058 - t293);
+  t1067 = t46 * t1065 * t80;
+  t1072 = t46 * t1037 * t399;
+  t1075 = 0.5e1 / 0.18e2 * t116 * t981 + 0.5e1 / 0.18e2 * t116 * t993 - 0.5e1 / 0.18e2 * t116 * t1018 + t48 * t1039 + 0.3e1 * t212 * t1041 - 0.3e1 * t48 * t1045 + t48 * t1067 - 0.3e1 * t234 * t1041 + 0.2e1 * t48 * t1072;
+  t1079 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t1075);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3lapl3[0] = 0.2e1 * rho[0] * t650;
+    v3lapl3[0] = 0.2e1 * rho[0] * t1079;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl2tau[0] = 0.0e0;
@@ -408,89 +654,222 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   if(order < 4) return;
 
 
-  t672 = t19 * t22 / t12 / t127 / t23;
-  t678 = 0.15400e5 / 0.2187e4 * t19 * t29 * t300 - 0.104720e6 / 0.6561e4 * t672;
-  t686 = t143 * t143;
-  t695 = t147 * t147;
-  t702 = t41 * t327;
-  t706 = 0.1e1 / t150 / t141;
-  t710 = my_piecewise3(t38, t678, 0);
-  t722 = t150 * t150;
-  t723 = 0.1e1 / t722;
-  t726 = -0.6e1 * t142 * t695 * t41 + 0.36e2 * t323 * t143 * t319 + 0.6e1 * t334 * t147 * t370 - 0.4e1 * t151 * t327 * t179 - 0.3e1 * t151 * t695 * t41 - 0.24e2 * t323 * t686 * t41 - 0.36e2 * t334 * t686 * t41 + t68 * t710 * t41 - 0.12e2 * t706 * t686 * t41 - t723 * t686 * t41 + 0.36e2 * t152 * t319 - 0.8e1 * t318 * t702;
-  t727 = my_piecewise3(t37, 0, t726);
-  t734 = my_piecewise3(t3, 0, -0.14e2 / 0.135e3 * t8 * t10 / t11 / t55 * t45 + 0.8e1 / 0.45e2 * t8 * t288 * t74 - t8 * t120 * t157 / 0.5e1 + 0.2e1 / 0.5e1 * t8 * t51 * t340 + 0.3e1 / 0.20e2 * t8 * t13 * (0.13090e5 / 0.729e3 * t672 + t678 * t43 + 0.4e1 * t308 * t72 + 0.6e1 * t137 * t155 + 0.4e1 * t65 * t338 + t36 * t727));
+  t1097 = t182 * t182;
+  t1102 = t158 * t158;
+  t1104 = t160 * t160;
+  t1105 = 0.1e1 / t1104;
+  t1109 = t445 * t161;
+  t1110 = t1109 * t78;
+  t1117 = t526 * t182;
+  t1138 = 0.3e1 * t48 * t157 * t1097 * t161 - 0.3e1 * t48 * t46 * t1097 * t161 + 0.11e2 * t48 * t157 * t1102 * t1105 - 0.6e1 * t48 * t395 * t1102 * t1105 - 0.6e1 * t48 * t46 * t1102 * t1105 + 0.4e1 * t212 * t1110 - 0.4e1 * t234 * t1110 + 0.6e1 * t536 * t1117 - 0.6e1 * t153 * t187 - 0.12e2 * t476 * t402 + 0.12e2 * t548 * t402 + 0.8e1 * t70 * t452;
+  t1148 = t19 * t22 / t12 / t142 / t23;
+  t1150 = 0.15400e5 / 0.2187e4 * t19 * t29 * t376 - 0.104720e6 / 0.6561e4 * t1148;
+  t1153 = t486 * t172;
+  t1156 = t165 * t165;
+  t1157 = t166 * t166;
+  t1158 = 0.1e1 / t1157;
+  t1160 = t1156 * t1158 * t43;
+  t1163 = t172 * t172;
+  t1165 = t1163 * t167 * t43;
+  t1168 = t217 * t426;
+  t1183 = my_piecewise3(t39, 0, -t1150);
+  t1190 = -t71 * t1183 * t74 * t43 - 0.18e2 * t164 * t165 * t1153 - 0.6e1 * t409 * t165 * t1153 + 0.4e1 * t71 * t426 * t218 + 0.11e2 * t164 * t1160 + 0.6e1 * t409 * t1160 + 0.6e1 * t71 * t1160 + 0.3e1 * t164 * t1165 - 0.3e1 * t179 * t1165 + 0.3e1 * t71 * t1165 + 0.4e1 * t416 * t1168;
+  t1193 = t156 * t156;
+  t1194 = t42 * t1193;
+  t1196 = t178 * t1193;
+  t1201 = t441 * t1193;
+  t1211 = t177 * t177;
+  t1213 = 0.1e1 / t1211 * t1193;
+  t1223 = 0.18e2 * t422 * t165 * t1153 - 0.6e1 * t442 * t172 * t487 - 0.4e1 * t179 * t426 * t218 + t1194 * t1160 - 0.7e1 * t1196 * t1160 + 0.6e1 * t1201 * t1160 - t1213 * t1160 - 0.11e2 * t179 * t1160 - 0.18e2 * t422 * t1160 + 0.6e1 * t442 * t1160 - 0.12e2 * t430 * t487 + 0.18e2 * t433 * t487;
+  t1225 = my_piecewise3(t38, 0, t1190 + t1223);
+  t1244 = 0.1e1 / t1193;
+  t1248 = -0.12e2 * t70 * t406 + t1150 * t47 + t48 * t46 * t1225 * t80 + 0.4e1 * t70 * t447 + 0.13090e5 / 0.729e3 * t1148 + 0.4e1 * t385 * t81 + 0.6e1 * t153 * t184 - 0.18e2 * t212 * t1117 + 0.12e2 * t234 * t1117 + 0.6e1 * t153 * t162 + 0.4e1 * t70 * t400 + t48 * t1244 * t1102 * t1105;
+  t1254 = my_piecewise3(t3, 0, -0.14e2 / 0.135e3 * t8 * t10 / t11 / t59 * t49 + 0.8e1 / 0.45e2 * t8 * t364 * t83 - t8 * t135 * t189 / 0.5e1 + 0.2e1 / 0.5e1 * t8 * t55 * t455 + 0.3e1 / 0.20e2 * t8 * t13 * (t1138 + t1248));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[0] = 0.2e1 * rho[0] * t734 + 0.8e1 * t345;
+    v4rho4[0] = 0.2e1 * rho[0] * t1254 + 0.8e1 * t460;
 
-  t747 = t21 * t300;
-  t748 = t19 * t747;
-  t768 = t147 * t69 * t41;
-  t772 = t314 * t41;
-  t801 = my_piecewise3(t38, 0.6160e4 / 0.2187e4 * t748, 0);
-  t810 = -0.6e1 * t142 * t382 * t179 - 0.3e1 * t151 * t382 * t179 + 0.18e2 * t323 * t183 * t370 + 0.3e1 * t334 * t183 * t370 + t68 * t801 * t41 - 0.12e2 * t706 * t89 * t772 - t723 * t89 * t772 - 0.2e1 * t178 * t702 - t186 * t702 + 0.18e2 * t186 * t768 - 0.6e1 * t373 * t319 - 0.3e1 * t385 * t319 + 0.18e2 * t385 * t370 + 0.18e2 * t376 * t768 - 0.24e2 * t376 * t772 + 0.3e1 * t389 * t768 - 0.36e2 * t389 * t772;
-  t811 = my_piecewise3(t37, 0, t810);
-  t818 = my_piecewise3(t3, 0, 0.2e1 / 0.45e2 * t8 * t288 * t94 - t8 * t120 * t191 / 0.10e2 + 0.3e1 / 0.10e2 * t8 * t51 * t394 + 0.3e1 / 0.20e2 * t8 * t13 * (-0.770e3 / 0.243e3 * t748 + 0.6160e4 / 0.2187e4 * t19 * t747 * t43 - 0.440e3 / 0.243e3 * t19 * t355 * t72 + 0.40e2 / 0.81e2 * t19 * t168 * t155 - 0.5e1 / 0.81e2 * t19 * t82 * t338 + t308 * t92 + 0.3e1 * t137 * t189 + 0.3e1 * t65 * t392 + t36 * t811));
+  t1267 = t538 * t402;
+  t1270 = t206 * t402;
+  t1273 = t21 * t376;
+  t1274 = t19 * t1273;
+  t1276 = t182 * t78;
+  t1277 = t984 * t1276;
+  t1286 = t153 * t157;
+  t1289 = t153 * t46;
+  t1295 = t396 * t1105 * t102;
+  t1300 = t230 * t399;
+  t1301 = t1300 * t158;
+  t1310 = t48 * t1244;
+  t1314 = t70 * t395;
+  t1318 = t519 * t161 * t78;
+  t1321 = -0.5e1 / 0.27e2 * t92 * t1267 + 0.5e1 / 0.27e2 * t92 * t1270 - 0.770e3 / 0.243e3 * t1274 + 0.6e1 * t234 * t1277 + 0.3e1 * t536 * t1277 - 0.9e1 * t212 * t1277 - 0.9e1 * t548 * t527 + 0.3e1 * t1286 * t214 - 0.3e1 * t1289 * t214 - 0.6e1 * t476 * t480 + 0.11e2 * t212 * t1295 - 0.6e1 * t234 * t1295 + 0.6e1 * t234 * t1301 + 0.6e1 * t476 * t527 - 0.9e1 * t212 * t1301 - 0.6e1 * t536 * t1295 + t1310 * t1295 + 0.3e1 * t536 * t1301 + 0.3e1 * t1314 * t527 - 0.3e1 * t234 * t1318;
+  t1324 = t1109 * t102;
+  t1326 = t584 * t230;
+  t1348 = t73 * t43;
+  t1349 = t412 * t172 * t1348;
+  t1362 = t1158 * t43;
+  t1363 = t1362 * t410;
+  t1388 = 0.6e1 * t1201 * t98 * t1363 - t1213 * t98 * t1363 - 0.3e1 * t179 * t500 * t218 + 0.9e1 * t422 * t221 * t487 - 0.3e1 * t442 * t221 * t487 - 0.9e1 * t216 * t1349 - 0.6e1 * t225 * t1349 + 0.9e1 * t227 * t1349 - 0.3e1 * t485 * t1349 + 0.9e1 * t494 * t1349 - 0.3e1 * t516 * t1349 + 0.6e1 * t225 * t1363 - 0.11e2 * t227 * t1363 - 0.18e2 * t494 * t1363 + 0.6e1 * t516 * t1363 + 0.9e1 * t507 * t487;
+  t1421 = my_piecewise3(t39, 0, -0.6160e4 / 0.2187e4 * t1274);
+  t1425 = -t71 * t1421 * t74 * t43 + t1194 * t98 * t1363 - 0.7e1 * t1196 * t98 * t1363 + 0.3e1 * t164 * t500 * t218 + 0.3e1 * t71 * t500 * t218 - 0.3e1 * t409 * t221 * t487 + t216 * t1168 + t225 * t1168 - t227 * t1168 + 0.11e2 * t216 * t1363 + 0.6e1 * t485 * t1363 + 0.3e1 * t489 * t417 + 0.3e1 * t504 * t417 - 0.3e1 * t507 * t417 - 0.9e1 * t489 * t487 - 0.6e1 * t504 * t487;
+  t1427 = my_piecewise3(t38, 0, t1388 + t1425);
+  t1435 = t396 * t399;
+  t1436 = t206 * t1435;
+  t1444 = t206 * t445 * t80;
+  t1447 = t538 * t1435;
+  t1450 = t47 * t395;
+  t1451 = t1450 * t1435;
+  t1454 = t385 * t104 + 0.3e1 * t70 * t521 + t48 * t46 * t1427 * t80 + 0.40e2 / 0.81e2 * t201 * t539 - 0.40e2 / 0.81e2 * t201 * t533 - 0.10e2 / 0.81e2 * t92 * t1436 - 0.440e3 / 0.243e3 * t498 * t208 + 0.40e2 / 0.81e2 * t201 * t545 - 0.5e1 / 0.81e2 * t92 * t1444 + 0.5e1 / 0.27e2 * t92 * t1447 - 0.5e1 / 0.81e2 * t92 * t1451;
+  t1461 = my_piecewise3(t3, 0, 0.2e1 / 0.45e2 * t8 * t364 * t106 - t8 * t135 * t236 / 0.10e2 + 0.3e1 / 0.10e2 * t8 * t55 * t552 + 0.3e1 / 0.20e2 * t8 * t13 * (t1321 + 0.3e1 * t548 * t470 + t212 * t1324 + 0.3e1 * t212 * t1326 + 0.6e1 * t548 * t480 + 0.3e1 * t212 * t1318 - 0.3e1 * t476 * t470 - 0.3e1 * t234 * t1326 - t234 * t1324 + 0.6160e4 / 0.2187e4 * t19 * t1273 * t47 + 0.3e1 * t153 * t232 + t1454));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3sigma[0] = 0.2e1 * rho[0] * t818 + 0.6e1 * t399;
+    v4rho3sigma[0] = 0.2e1 * rho[0] * t1461 + 0.6e1 * t557;
 
-  t843 = my_piecewise3(t38, -0.1100e4 / 0.729e3 * t356, 0);
-  t854 = t151 * t428;
-  t859 = t334 * t211;
-  t863 = t723 * t106;
-  t869 = t142 * t428;
-  t874 = t323 * t211;
-  t877 = t706 * t106;
-  t882 = t68 * t843 * t41 - 0.3e1 * t854 * t179 - 0.6e1 * t869 * t179 - 0.2e1 * t207 * t702 - t214 * t702 + 0.18e2 * t214 * t768 - 0.6e1 * t419 * t319 - 0.3e1 * t431 * t319 + 0.18e2 * t431 * t370 + 0.3e1 * t859 * t370 + 0.18e2 * t874 * t370 + 0.18e2 * t422 * t768 - 0.24e2 * t422 * t772 + 0.3e1 * t435 * t768 - 0.36e2 * t435 * t772 - t863 * t772 - 0.12e2 * t877 * t772;
-  t883 = my_piecewise3(t37, 0, t882);
-  t890 = my_piecewise3(t3, 0, 0.2e1 / 0.45e2 * t8 * t288 * t111 - t8 * t120 * t219 / 0.10e2 + 0.3e1 / 0.10e2 * t8 * t51 * t440 + 0.3e1 / 0.20e2 * t8 * t13 * (-0.1100e4 / 0.729e3 * t359 + 0.100e3 / 0.81e2 * t362 - 0.25e2 / 0.54e2 * t365 + 0.5e1 / 0.54e2 * t19 * t100 * t338 + t308 * t109 + 0.3e1 * t137 * t217 + 0.3e1 * t65 * t438 + t36 * t883));
+  t1483 = t122 * t399;
+  t1484 = t1483 * t1276;
+  t1495 = t265 * t399;
+  t1496 = t1495 * t158;
+  t1500 = t122 * t1105 * t396;
+  t1514 = -0.1100e4 / 0.729e3 * t474 + 0.25e2 / 0.54e2 * t534 - 0.25e2 / 0.54e2 * t540 + 0.100e3 / 0.81e2 * t542 - 0.25e2 / 0.54e2 * t546 + 0.5e1 / 0.18e2 * t116 * t1267 - 0.5e1 / 0.18e2 * t116 * t1270 + 0.6e1 * t234 * t1484 + 0.3e1 * t536 * t1484 - 0.9e1 * t212 * t1484 - 0.3e1 * t1289 * t251 + 0.3e1 * t548 * t585 + 0.6e1 * t234 * t1496 - 0.6e1 * t234 * t1500 + 0.11e2 * t212 * t1500 - 0.9e1 * t548 * t582 + 0.6e1 * t476 * t582 - 0.6e1 * t536 * t1500 + 0.3e1 * t1286 * t251 + t1310 * t1500;
+  t1517 = t1109 * t122;
+  t1519 = t584 * t265;
+  t1524 = t213 * t623;
+  t1554 = t179 * t604;
+  t1557 = t409 * t256;
+  t1560 = t164 * t604;
+  t1566 = t71 * t604;
+  t1573 = t253 * t1168 + t260 * t1168 - t262 * t1168 - 0.9e1 * t253 * t1349 - 0.6e1 * t260 * t1349 + 0.9e1 * t262 * t1349 - 0.3e1 * t592 * t1349 + 0.9e1 * t599 * t1349 - 0.3e1 * t620 * t1349 - 0.3e1 * t1554 * t218 - 0.3e1 * t1557 * t487 + 0.3e1 * t1560 * t218 + 0.3e1 * t1566 * t218 + 0.3e1 * t594 * t417 + 0.3e1 * t608 * t417 - 0.3e1 * t611 * t417;
+  t1576 = t1213 * t118;
+  t1578 = t1194 * t118;
+  t1580 = t1196 * t118;
+  t1583 = t422 * t256;
+  t1588 = t1201 * t118;
+  t1593 = t442 * t256;
+  t1609 = my_piecewise3(t39, 0, 0.1100e4 / 0.729e3 * t498);
+  t1613 = -t71 * t1609 * t74 * t43 - t1576 * t1363 + t1578 * t1363 - 0.7e1 * t1580 * t1363 + 0.6e1 * t1588 * t1363 + 0.11e2 * t253 * t1363 + 0.6e1 * t260 * t1363 - 0.11e2 * t262 * t1363 + 0.6e1 * t592 * t1363 - 0.18e2 * t599 * t1363 + 0.6e1 * t620 * t1363 + 0.9e1 * t1583 * t487 - 0.3e1 * t1593 * t487 - 0.9e1 * t594 * t487 - 0.6e1 * t608 * t487 + 0.9e1 * t611 * t487;
+  t1615 = my_piecewise3(t38, 0, t1573 + t1613);
+  t1632 = 0.3e1 * t1314 * t582 + t212 * t1517 + 0.3e1 * t212 * t1519 - 0.9e1 * t212 * t1496 + 0.3e1 * t212 * t1524 + 0.6e1 * t548 * t589 - 0.6e1 * t476 * t589 - 0.3e1 * t476 * t585 + 0.3e1 * t536 * t1496 - t234 * t1517 - 0.3e1 * t234 * t1524 - 0.3e1 * t234 * t1519 + t48 * t46 * t1615 * t80 + 0.3e1 * t70 * t625 + t385 * t124 + 0.3e1 * t153 * t267 + 0.5e1 / 0.54e2 * t116 * t1451 + 0.5e1 / 0.54e2 * t116 * t1444 + 0.5e1 / 0.27e2 * t116 * t1436 - 0.5e1 / 0.18e2 * t116 * t1447;
+  t1638 = my_piecewise3(t3, 0, 0.2e1 / 0.45e2 * t8 * t364 * t126 - t8 * t135 * t270 / 0.10e2 + 0.3e1 / 0.10e2 * t8 * t55 * t632 + 0.3e1 / 0.20e2 * t8 * t13 * (t1514 + t1632));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3lapl[0] = 0.2e1 * rho[0] * t890 + 0.6e1 * t445;
+    v4rho3lapl[0] = 0.2e1 * rho[0] * t1638 + 0.6e1 * t637;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho3tau[0] = 0.0e0;
 
-  t912 = t179 * t183;
-  t922 = 0.6e1 * t469 * t370;
-  t924 = 0.2e1 * t466 * t319;
-  t927 = 0.6e1 * t323 * t234 * t370;
-  t928 = t469 * t319;
-  t929 = t334 * t234;
-  t930 = t929 * t370;
-  t931 = t183 * t183;
-  t935 = t41 * t382;
-  t938 = -0.2e1 * t151 * t931 * t41 + 0.24e2 * t186 * t912 - 0.2e1 * t186 * t935 - 0.24e2 * t463 * t370 + 0.24e2 * t376 * t912 + 0.4e1 * t389 * t912 + t922 - t924 + t927 - t928 + t930;
-  t956 = 0.4e1 * t467;
-  t957 = 0.2e1 * t470;
-  t958 = -0.4e1 * t142 * t931 * t41 - 0.12e2 * t706 * t230 * t370 - t723 * t230 * t370 - 0.4e1 * t178 * t935 + 0.6e1 * t237 * t319 + 0.6e1 * t463 * t319 + t473 * t319 - 0.36e2 * t473 * t370 + t236 - t956 - t957;
-  t960 = my_piecewise3(t37, 0, t938 + t958);
-  t967 = my_piecewise3(t3, 0, -t8 * t120 * t242 / 0.30e2 + t8 * t51 * t478 / 0.5e1 + 0.3e1 / 0.20e2 * t8 * t13 * (-0.880e3 / 0.729e3 * t19 * t355 * t92 + 0.160e3 / 0.243e3 * t19 * t168 * t189 - 0.10e2 / 0.81e2 * t19 * t82 * t392 + t137 * t240 + 0.2e1 * t65 * t476 + t36 * t960));
+  t1652 = t538 * t470;
+  t1655 = t538 * t480;
+  t1658 = t206 * t480;
+  t1661 = t206 * t470;
+  t1664 = t206 * t527;
+  t1667 = t538 * t527;
+  t1670 = t1450 * t527;
+  t1673 = t230 * t78;
+  t1674 = t984 * t1673;
+  t1679 = 0.160e3 / 0.243e3 * t201 * t645 - 0.160e3 / 0.243e3 * t201 * t652 - 0.10e2 / 0.81e2 * t92 * t1652 - 0.20e2 / 0.81e2 * t92 * t1655 + 0.20e2 / 0.81e2 * t92 * t1658 + 0.10e2 / 0.81e2 * t92 * t1661 - 0.20e2 / 0.81e2 * t92 * t1664 + 0.10e2 / 0.27e2 * t92 * t1667 - 0.10e2 / 0.81e2 * t92 * t1670 + 0.8e1 * t234 * t1674 + 0.2e1 * t548 * t665;
+  t1680 = t526 * t297;
+  t1682 = t158 * t1105;
+  t1683 = t1682 * t282;
+  t1693 = t584 * t297;
+  t1695 = t213 * t698;
+  t1700 = t182 * t399;
+  t1701 = t1700 * t282;
+  t1703 = t316 * t519;
+  t1706 = t1310 * t1683 - 0.3e1 * t212 * t1680 + t536 * t1680 + 0.11e2 * t212 * t1683 - 0.6e1 * t536 * t1683 + t212 * t1693 + 0.2e1 * t212 * t1695 + t536 * t1701 + 0.2e1 * t212 * t1703 - 0.2e1 * t476 * t665 - 0.6e1 * t548 * t657;
+  t1729 = 0.2e1 * t1314 * t657 + 0.2e1 * t234 * t1680 - 0.6e1 * t234 * t1683 - t234 * t1693 - 0.2e1 * t234 * t1695 - 0.3e1 * t212 * t1701 + 0.2e1 * t234 * t1701 - 0.2e1 * t234 * t1703 + 0.4e1 * t476 * t657 - 0.4e1 * t476 * t659 + 0.4e1 * t548 * t659;
+  t1730 = t230 * t230;
+  t1740 = t217 * t500;
+  t1747 = t679 * t417;
+  t1748 = t681 * t417;
+  t1749 = t683 * t417;
+  t1757 = t1158 * t165 * t43;
+  t1775 = t409 * t290 * t487;
+  t1778 = 0.3e1 * t422 * t290 * t487;
+  t1780 = 0.3e1 * t683 * t487;
+  t1781 = t1194 * t286 * t1757 - 0.7e1 * t1196 * t286 * t1757 + 0.6e1 * t1201 * t286 * t1757 - t1213 * t286 * t1757 - 0.3e1 * t673 * t1153 + 0.3e1 * t676 * t1153 - 0.2e1 * t687 * t1153 + 0.3e1 * t690 * t1153 + 0.2e1 * t216 * t1740 + 0.2e1 * t225 * t1740 - 0.18e2 * t676 * t1757 - 0.11e2 * t690 * t1757 + 0.6e1 * t695 * t1757 + t1747 + t1748 - t1749 - t1775 + t1778 + t1780 - t293;
+  t1782 = t442 * t290;
+  t1783 = t1782 * t487;
+  t1789 = 0.3e1 * t679 * t487;
+  t1791 = 0.2e1 * t681 * t487;
+  t1798 = t221 * t221;
+  t1800 = t1798 * t167 * t43;
+  t1809 = t43 * t221;
+  t1810 = t412 * t73 * t1809;
+  t1823 = 0.2e1 * t682;
+  t1824 = 0.2e1 * t684;
+  t1825 = 0.2e1 * t680;
+  t1826 = 0.2e1 * t164 * t1800 + 0.2e1 * t71 * t1800 - 0.12e2 * t216 * t1810 - 0.8e1 * t225 * t1810 + 0.12e2 * t227 * t1810 - 0.4e1 * t485 * t1810 + 0.12e2 * t494 * t1810 - 0.4e1 * t516 * t1810 + t1823 - t1824 + t1825;
+  t1829 = my_piecewise3(t38, 0, -t667 * t1153 - t695 * t1153 - 0.2e1 * t227 * t1740 + 0.6e1 * t667 * t1757 + 0.11e2 * t673 * t1757 + 0.6e1 * t687 * t1757 - 0.2e1 * t179 * t1800 + t1781 - t1783 - t1789 - t1791 + t1826);
+  t1844 = t206 * t519 * t80;
+  t1849 = 0.2e1 * t48 * t157 * t1730 * t161 - 0.2e1 * t48 * t46 * t1730 * t161 - t153 * t302 + t48 * t46 * t1829 * t80 + t153 * t299 + 0.2e1 * t70 * t700 + t153 * t284 + 0.4e1 * t536 * t1674 - 0.12e2 * t212 * t1674 + 0.160e3 / 0.243e3 * t201 * t649 - 0.10e2 / 0.81e2 * t92 * t1844 - 0.880e3 / 0.729e3 * t498 * t279;
+  t1856 = my_piecewise3(t3, 0, -t8 * t135 * t304 / 0.30e2 + t8 * t55 * t708 / 0.5e1 + 0.3e1 / 0.20e2 * t8 * t13 * (t1679 + t1706 + t1729 + t1849));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2sigma2[0] = 0.2e1 * rho[0] * t967 + 0.4e1 * t483;
+    v4rho2sigma2[0] = 0.2e1 * rho[0] * t1856 + 0.4e1 * t713;
 
-  t994 = t254 * t143;
-  t997 = t319 * t89;
-  t1020 = 0.12e2 * t214 * t912 + 0.6e1 * t214 * t997 + 0.12e2 * t422 * t912 - 0.24e2 * t422 * t994 + 0.6e1 * t422 * t997 + 0.12e2 * t431 * t500 + 0.2e1 * t435 * t912 - 0.36e2 * t435 * t994 + t435 * t997 + 0.2e1 * t859 * t500 + 0.12e2 * t874 * t500 - t863 * t994 - 0.12e2 * t877 * t994;
-  t1031 = -0.2e1 * t207 * t935 - t214 * t935 - t854 * t254 - 0.2e1 * t869 * t254 - 0.4e1 * t419 * t460 - 0.2e1 * t431 * t460 + t236 + t922 - t924 + t927 - t928 + t930 - t956 - t957;
-  t1033 = my_piecewise3(t37, 0, t1020 + t1031);
-  t1040 = my_piecewise3(t3, 0, -t8 * t120 * t261 / 0.30e2 + t8 * t51 * t515 / 0.5e1 + 0.3e1 / 0.20e2 * t8 * t13 * (0.100e3 / 0.243e3 * t452 - 0.25e2 / 0.81e2 * t455 + 0.5e1 / 0.54e2 * t19 * t100 * t392 - 0.440e3 / 0.729e3 * t19 * t355 * t109 + 0.80e2 / 0.243e3 * t19 * t168 * t217 - 0.5e1 / 0.81e2 * t19 * t82 * t438 + t137 * t259 + 0.2e1 * t65 * t513 + t36 * t1033));
+  t1868 = t538 * t582;
+  t1873 = t538 * t589;
+  t1876 = t206 * t589;
+  t1879 = t206 * t585;
+  t1888 = t538 * t585;
+  t1897 = t1450 * t582;
+  t1902 = 0.100e3 / 0.243e3 * t643 - 0.25e2 / 0.81e2 * t650 + 0.5e1 / 0.27e2 * t92 * t1868 - 0.5e1 / 0.18e2 * t116 * t1667 - 0.10e2 / 0.81e2 * t92 * t1873 + 0.10e2 / 0.81e2 * t92 * t1876 + 0.5e1 / 0.81e2 * t92 * t1879 - 0.5e1 / 0.27e2 * t116 * t1658 - 0.5e1 / 0.54e2 * t116 * t1661 - 0.80e2 / 0.243e3 * t201 * t735 - 0.5e1 / 0.81e2 * t92 * t1888 + 0.5e1 / 0.54e2 * t116 * t1652 + 0.5e1 / 0.27e2 * t116 * t1655 + 0.5e1 / 0.54e2 * t116 * t1670 - 0.5e1 / 0.81e2 * t92 * t1897 + 0.80e2 / 0.243e3 * t201 * t728;
+  t1903 = t206 * t582;
+  t1917 = t526 * t324;
+  t1923 = t743 * t265;
+  t1926 = t316 * t623;
+  t1928 = t804 * t519;
+  t1933 = -0.10e2 / 0.81e2 * t92 * t1903 + 0.5e1 / 0.27e2 * t116 * t1664 - 0.25e2 / 0.81e2 * t646 + 0.25e2 / 0.81e2 * t653 + t1286 * t317 + 0.2e1 * t548 * t744 + 0.2e1 * t548 * t748 + 0.2e1 * t548 * t751 + t536 * t1917 + 0.2e1 * t234 * t1917 - 0.3e1 * t212 * t1917 + 0.2e1 * t212 * t1923 + t212 * t1926 - t234 * t1928 - t1289 * t317 - 0.2e1 * t476 * t748;
+  t1941 = t772 * t161 * t78;
+  t1944 = t324 * t161;
+  t1945 = t1944 * t182;
+  t1967 = -t1554 * t319 + t1560 * t319 + t1566 * t319 + t253 * t1740 + t260 * t1740 - t262 * t1740 + 0.2e1 * t594 * t670 + 0.2e1 * t608 * t670 - 0.2e1 * t611 * t670 + t1747 + t1748 - t293;
+  t1969 = t1362 * t98 * t165;
+  t1982 = 0.6e1 * t1583 * t754 - 0.2e1 * t1593 * t754 + 0.11e2 * t253 * t1969 + 0.6e1 * t260 * t1969 + 0.6e1 * t592 * t1969 + 0.6e1 * t611 * t754 - t1749 - t1775 + t1778 + t1780 - t1783 - t1789 - t1791;
+  t1991 = t486 * t98 * t172;
+  t2008 = -0.2e1 * t1557 * t754 - 0.6e1 * t253 * t1810 - 0.4e1 * t260 * t1810 + 0.6e1 * t262 * t1810 - 0.2e1 * t592 * t1810 - 0.2e1 * t620 * t1810 - 0.2e1 * t260 * t1991 + 0.3e1 * t262 * t1991 - t592 * t1991 - t620 * t1991 - 0.6e1 * t594 * t754 - 0.4e1 * t608 * t754;
+  t2027 = -t1576 * t1969 + t1578 * t1969 - 0.7e1 * t1580 * t1969 + 0.6e1 * t1588 * t1969 + 0.6e1 * t599 * t1810 - 0.11e2 * t262 * t1969 - 0.18e2 * t599 * t1969 + 0.6e1 * t620 * t1969 - 0.3e1 * t253 * t1991 + 0.3e1 * t599 * t1991 + t1823 - t1824 + t1825;
+  t2030 = my_piecewise3(t38, 0, t1967 + t1982 + t2008 + t2027);
+  t2035 = t1682 * t739;
+  t2043 = t48 * t46 * t2030 * t80 + t1310 * t2035 + 0.2e1 * t1314 * t740 + t153 * t326 - 0.2e1 * t234 * t1923 - t234 * t1926 + t212 * t1928 + 0.2e1 * t212 * t1941 - 0.2e1 * t234 * t1941 + t212 * t1945 - t234 * t1945 + 0.11e2 * t212 * t2035 - 0.6e1 * t536 * t2035 - 0.2e1 * t476 * t744 - 0.2e1 * t476 * t751 + 0.2e1 * t70 * t774;
+  t2046 = t102 * t78;
+  t2047 = t1495 * t2046;
+  t2050 = t1483 * t1673;
+  t2054 = t1483 * t102 * t182;
+  t2079 = t206 * t623 * t80;
+  t2082 = 0.4e1 * t476 * t740 + 0.4e1 * t234 * t2047 + 0.4e1 * t234 * t2050 + 0.2e1 * t234 * t2054 - 0.6e1 * t212 * t2050 - 0.6e1 * t212 * t2047 - 0.3e1 * t212 * t2054 - 0.6e1 * t548 * t740 + t536 * t2054 + 0.2e1 * t536 * t2050 + 0.2e1 * t536 * t2047 - 0.6e1 * t234 * t2035 - 0.440e3 / 0.729e3 * t498 * t313 + 0.5e1 / 0.54e2 * t116 * t1844 + 0.80e2 / 0.243e3 * t201 * t732 - 0.5e1 / 0.81e2 * t92 * t2079;
+  t2089 = my_piecewise3(t3, 0, -t8 * t135 * t329 / 0.30e2 + t8 * t55 * t783 / 0.5e1 + 0.3e1 / 0.20e2 * t8 * t13 * (t1902 + t1933 + t2043 + t2082));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2sigmalapl[0] = 0.2e1 * rho[0] * t1040 + 0.4e1 * t520;
+    v4rho2sigmalapl[0] = 0.2e1 * rho[0] * t2089 + 0.4e1 * t788;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2sigmatau[0] = 0.0e0;
 
-  t1060 = t179 * t211;
-  t1067 = t723 * t270;
-  t1073 = t211 * t211;
-  t1077 = t41 * t428;
-  t1082 = t706 * t270;
-  t1085 = -0.4e1 * t142 * t1073 * t41 + 0.24e2 * t214 * t1060 + 0.24e2 * t422 * t1060 + 0.4e1 * t435 * t1060 - t1067 * t370 - 0.4e1 * t207 * t1077 - 0.12e2 * t1082 * t370 + 0.6e1 * t274 * t319 + 0.6e1 * t536 * t319 - 0.24e2 * t536 * t370 - 0.36e2 * t541 * t370;
-  t1092 = -0.2e1 * t151 * t1073 * t41 - 0.2e1 * t214 * t1077 + t541 * t319 + t236 + t922 - t924 + t927 - t928 + t930 - t956 - t957;
-  t1094 = my_piecewise3(t37, 0, t1085 + t1092);
-  t1101 = my_piecewise3(t3, 0, -t8 * t120 * t279 / 0.30e2 + t8 * t51 * t546 / 0.5e1 + 0.3e1 / 0.20e2 * t8 * t13 * (0.200e3 / 0.243e3 * t494 - 0.50e2 / 0.81e2 * t497 + 0.5e1 / 0.27e2 * t19 * t100 * t438 + t137 * t277 + 0.2e1 * t65 * t544 + t36 * t1094));
+  t2117 = 0.200e3 / 0.243e3 * t726 - 0.50e2 / 0.81e2 * t733 - 0.5e1 / 0.9e1 * t116 * t1868 + 0.10e2 / 0.27e2 * t116 * t1903 + 0.10e2 / 0.27e2 * t116 * t1873 - 0.10e2 / 0.27e2 * t116 * t1876 - 0.5e1 / 0.27e2 * t116 * t1879 + 0.5e1 / 0.27e2 * t116 * t1888 + 0.5e1 / 0.27e2 * t116 * t1897 - 0.50e2 / 0.81e2 * t729 + 0.50e2 / 0.81e2 * t736;
+  t2118 = t1682 * t337;
+  t2129 = t1700 * t337;
+  t2131 = t804 * t623;
+  t2134 = t526 * t348;
+  t2141 = t1310 * t2118 + 0.2e1 * t1314 * t802 - 0.6e1 * t234 * t2118 - 0.6e1 * t536 * t2118 + 0.2e1 * t212 * t2131 + t536 * t2129 + 0.2e1 * t234 * t2134 + t536 * t2134 - 0.6e1 * t548 * t802 + 0.4e1 * t548 * t805 + 0.2e1 * t548 * t811;
+  t2151 = t837 * t161;
+  t2152 = t2151 * t78;
+  t2155 = t348 * t161;
+  t2156 = t2155 * t182;
+  t2167 = 0.11e2 * t212 * t2118 - 0.3e1 * t212 * t2129 - 0.3e1 * t212 * t2134 + t212 * t2156 + 0.2e1 * t234 * t2129 - 0.2e1 * t234 * t2131 - 0.2e1 * t234 * t2152 - t234 * t2156 + 0.4e1 * t476 * t802 - 0.4e1 * t476 * t805 - 0.2e1 * t476 * t811;
+  t2174 = t265 * t265;
+  t2186 = t1213 * t341;
+  t2188 = t1194 * t341;
+  t2190 = t1196 * t341;
+  t2195 = t1201 * t341;
+  t2204 = t217 * t604;
+  t2223 = -t813 * t1153 - 0.3e1 * t818 * t1153 + 0.3e1 * t821 * t1153 - 0.2e1 * t826 * t1153 + 0.3e1 * t829 * t1153 - t834 * t1153 - t2186 * t1757 + t2188 * t1757 - 0.7e1 * t2190 * t1757 + 0.6e1 * t2195 * t1757 + 0.6e1 * t813 * t1757 + 0.11e2 * t818 * t1757 - 0.18e2 * t821 * t1757 + 0.6e1 * t826 * t1757 - 0.11e2 * t829 * t1757 + 0.6e1 * t834 * t1757 + 0.2e1 * t253 * t2204 + 0.2e1 * t260 * t2204 - 0.2e1 * t262 * t2204 - t293;
+  t2224 = t256 * t256;
+  t2226 = t2224 * t167 * t43;
+  t2235 = t486 * t256 * t73;
+  t2248 = 0.2e1 * t164 * t2226 + 0.2e1 * t71 * t2226 - 0.12e2 * t253 * t2235 - 0.8e1 * t260 * t2235 + 0.12e2 * t262 * t2235 - 0.4e1 * t592 * t2235 + 0.12e2 * t599 * t2235 - 0.4e1 * t620 * t2235 + t1823 - t1824 + t1825;
+  t2251 = my_piecewise3(t38, 0, -0.2e1 * t179 * t2226 + t1747 + t1748 - t1749 - t1775 + t1778 + t1780 - t1783 - t1789 - t1791 + t2223 + t2248);
+  t2256 = t656 * t122 * t265;
+  t2265 = 0.2e1 * t212 * t2152 + t153 * t350 + 0.2e1 * t70 * t839 + t153 * t339 - 0.2e1 * t48 * t46 * t2174 * t161 + 0.2e1 * t48 * t157 * t2174 * t161 - t153 * t353 + t48 * t46 * t2251 * t80 + 0.4e1 * t536 * t2256 + 0.8e1 * t234 * t2256 - 0.12e2 * t212 * t2256 + 0.5e1 / 0.27e2 * t116 * t2079;
+  t2272 = my_piecewise3(t3, 0, -t8 * t135 * t355 / 0.30e2 + t8 * t55 * t847 / 0.5e1 + 0.3e1 / 0.20e2 * t8 * t13 * (t2117 + t2141 + t2167 + t2265));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2lapl2[0] = 0.2e1 * rho[0] * t1101 + 0.4e1 * t551;
+    v4rho2lapl2[0] = 0.2e1 * rho[0] * t2272 + 0.4e1 * t852;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2lapltau[0] = 0.0e0;
@@ -498,42 +877,125 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2tau2[0] = 0.0e0;
 
-  t1120 = t561 * t69;
-  t1121 = t186 * t1120;
-  t1123 = t373 * t561;
-  t1125 = t376 * t1120;
-  t1132 = t469 * t460;
-  t1134 = t929 * t500;
-  t1140 = -0.12e2 * t706 * t557 * t179 - t723 * t557 * t179 - 0.24e2 * t564 * t179 - 0.36e2 * t569 * t179 + 0.18e2 * t237 * t460 + 0.18e2 * t463 * t460 + 0.3e1 * t473 * t460 + 0.18e2 * t1121 - 0.6e1 * t1123 + 0.18e2 * t1125 - 0.3e1 * t1132 + 0.3e1 * t1134 + t236 - t468 - t470 - t563 - t568;
-  t1141 = my_piecewise3(t37, 0, t1140);
-  t1148 = my_piecewise3(t3, 0, t8 * t51 * t574 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * (0.40e2 / 0.81e2 * t19 * t168 * t240 - 0.5e1 / 0.27e2 * t19 * t82 * t476 + t65 * t572 + t36 * t1141));
+  t2278 = t538 * t657;
+  t2281 = t206 * t665;
+  t2284 = t206 * t659;
+  t2287 = t206 * t657;
+  t2290 = t538 * t659;
+  t2293 = t1450 * t657;
+  t2296 = t538 * t665;
+  t2299 = t213 * t898;
+  t2301 = t866 * t1105;
+  t2302 = t2301 * t78;
+  t2308 = t930 * t230;
+  t2315 = t743 * t297;
+  t2318 = t316 * t698;
+  t2323 = 0.5e1 / 0.9e1 * t92 * t2278 + 0.5e1 / 0.27e2 * t92 * t2281 + 0.10e2 / 0.27e2 * t92 * t2284 - 0.10e2 / 0.27e2 * t92 * t2287 - 0.10e2 / 0.27e2 * t92 * t2290 - 0.5e1 / 0.27e2 * t92 * t2293 - 0.5e1 / 0.27e2 * t92 * t2296 + t212 * t2299 - 0.6e1 * t234 * t2302 - t234 * t2299 - 0.3e1 * t476 * t870 + 0.3e1 * t536 * t2308 - 0.6e1 * t536 * t2302 + 0.3e1 * t548 * t870 + 0.3e1 * t212 * t2315 + 0.3e1 * t212 * t2318 - 0.9e1 * t212 * t2308;
+  t2333 = t297 * t78;
+  t2334 = t984 * t2333;
+  t2344 = t486 * t221;
+  t2348 = t1362 * t73;
+  t2351 = t489 * t881;
+  t2360 = t681 * t670;
+  t2362 = t683 * t670;
+  t2380 = t1194 * t877 * t2348 - 0.7e1 * t1196 * t877 * t2348 - t1213 * t877 * t2348 + 0.11e2 * t164 * t877 * t2348 + 0.6e1 * t409 * t877 * t2348 + 0.6e1 * t71 * t877 * t2348 - 0.3e1 * t667 * t2344 - 0.9e1 * t673 * t2344 + 0.9e1 * t676 * t2344 - 0.6e1 * t687 * t2344 + 0.9e1 * t690 * t2344 - 0.3e1 * t695 * t2344 + 0.3e1 * t2351 + 0.3e1 * t2360 - 0.3e1 * t2362 - t293;
+  t2394 = t486 * t290 * t73;
+  t2395 = t485 * t2394;
+  t2397 = t494 * t2394;
+  t2399 = t683 * t754;
+  t2401 = t1782 * t754;
+  t2403 = t216 * t2394;
+  t2405 = t681 * t754;
+  t2407 = 0.6e1 * t1201 * t877 * t2348 - 0.11e2 * t179 * t877 * t2348 - 0.18e2 * t422 * t877 * t2348 + 0.6e1 * t442 * t877 * t2348 - 0.3e1 * t2395 + 0.9e1 * t2397 + 0.9e1 * t2399 - 0.3e1 * t2401 - 0.9e1 * t2403 - 0.6e1 * t2405 + t680 + t682 - t684 + t883 + t889 - t891;
+  t2409 = my_piecewise3(t38, 0, t2380 + t2407);
+  t2423 = t206 * t698 * t80;
+  t2426 = 0.11e2 * t212 * t2302 + t1310 * t2302 - 0.3e1 * t234 * t2318 - 0.3e1 * t234 * t2315 + 0.6e1 * t234 * t2308 - 0.9e1 * t212 * t2334 + 0.6e1 * t234 * t2334 + 0.2e1 * t70 * t905 - 0.3e1 * t70 * t874 + t70 * t900 + t48 * t46 * t2409 * t80 + t70 * t868 + 0.3e1 * t536 * t2334 + 0.40e2 / 0.81e2 * t201 * t860 - 0.40e2 / 0.81e2 * t201 * t863 + 0.40e2 / 0.81e2 * t201 * t856 - 0.5e1 / 0.27e2 * t92 * t2423;
+  t2432 = my_piecewise3(t3, 0, t8 * t55 * t908 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * (t2323 + t2426));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rhosigma3[0] = 0.2e1 * rho[0] * t1148 + 0.2e1 * t578;
+    v4rhosigma3[0] = 0.2e1 * rho[0] * t2432 + 0.2e1 * t912;
 
-  t1165 = t422 * t1120;
-  t1167 = t435 * t1120;
-  t1168 = t254 * t183;
-  t1172 = t230 * t69 * t41;
-  t1184 = t214 * t1120;
-  t1189 = 0.12e2 * t214 * t1168 + 0.12e2 * t422 * t1168 + 0.2e1 * t435 * t1168 - 0.24e2 * t422 * t1172 - 0.36e2 * t435 * t1172 - t863 * t1172 - 0.12e2 * t877 * t1172 + 0.12e2 * t1121 + 0.12e2 * t1125 + 0.2e1 * t1134 + 0.6e1 * t1165 + t1167 + 0.6e1 * t1184;
-  t1193 = t419 * t561;
-  t1195 = t431 * t561;
-  t1200 = 0.6e1 * t431 * t586 + t859 * t586 + 0.6e1 * t874 * t586 - 0.4e1 * t1123 - 0.2e1 * t1132 - 0.2e1 * t1193 - t1195 + t236 - t468 - t470 - t589 - t593 - t594 - t595;
-  t1202 = my_piecewise3(t37, 0, t1189 + t1200);
-  t1209 = my_piecewise3(t3, 0, t8 * t51 * t600 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * (-0.25e2 / 0.162e3 * t555 + 0.5e1 / 0.54e2 * t19 * t100 * t476 + 0.80e2 / 0.243e3 * t19 * t168 * t259 - 0.10e2 / 0.81e2 * t19 * t82 * t513 + t65 * t598 + t36 * t1202));
+  t2438 = t538 * t748;
+  t2453 = t538 * t751;
+  t2456 = t206 * t751;
+  t2459 = t206 * t748;
+  t2462 = t206 * t744;
+  t2471 = -0.10e2 / 0.81e2 * t92 * t2438 + 0.5e1 / 0.27e2 * t116 * t2290 - 0.5e1 / 0.18e2 * t116 * t2278 + 0.80e2 / 0.243e3 * t201 * t920 - 0.80e2 / 0.243e3 * t201 * t927 + 0.5e1 / 0.54e2 * t116 * t2293 + 0.5e1 / 0.54e2 * t116 * t2296 - 0.10e2 / 0.81e2 * t92 * t2453 + 0.10e2 / 0.81e2 * t92 * t2456 + 0.10e2 / 0.81e2 * t92 * t2459 + 0.10e2 / 0.81e2 * t92 * t2462 - 0.5e1 / 0.54e2 * t116 * t2281 - 0.5e1 / 0.27e2 * t116 * t2284 + 0.5e1 / 0.27e2 * t116 * t2287;
+  t2472 = t538 * t744;
+  t2477 = t157 * t102 * t1483 * t78;
+  t2481 = t123 * t984 * t78;
+  t2486 = t395 * t78 * t984 * t122;
+  t2489 = t213 * t959;
+  t2492 = t930 * t265;
+  t2496 = t698 * t161 * t122;
+  t2504 = t743 * t324;
+  t2507 = t316 * t772;
+  t2512 = -0.10e2 / 0.81e2 * t92 * t2472 + 0.10e2 / 0.27e2 * t95 * t2477 - 0.20e2 / 0.81e2 * t95 * t2481 - 0.10e2 / 0.81e2 * t95 * t2486 + t212 * t2489 + t1314 * t931 + t536 * t2492 + t548 * t934 + t212 * t2496 - 0.3e1 * t548 * t931 - 0.3e1 * t212 * t2492 + 0.2e1 * t548 * t938 + 0.2e1 * t212 * t2504 + 0.2e1 * t212 * t2507 + 0.2e1 * t476 * t931;
+  t2517 = t265 * t161;
+  t2518 = t2517 * t297;
+  t2530 = t1483 * t102 * t230;
+  t2533 = t1483 * t2333;
+  t2538 = t282 * t1105;
+  t2540 = t2538 * t122 * t78;
+  t2547 = t212 * t2518 - 0.6e1 * t212 * t2530 - 0.3e1 * t212 * t2533 - t234 * t2489 + 0.2e1 * t234 * t2492 - t234 * t2496 - 0.2e1 * t234 * t2504 - 0.2e1 * t234 * t2507 - t234 * t2518 + 0.4e1 * t234 * t2530 + 0.2e1 * t234 * t2533 + 0.2e1 * t536 * t2530 - 0.6e1 * t536 * t2540 - t476 * t934 - 0.2e1 * t476 * t938;
+  t2550 = t324 * t78;
+  t2551 = t984 * t2550;
+  t2564 = t608 * t881;
+  t2565 = t611 * t881;
+  t2572 = t594 * t881;
+  t2577 = -t1557 * t941 + 0.3e1 * t1583 * t941 - t1593 * t941 - 0.3e1 * t594 * t941 - 0.2e1 * t608 * t941 + 0.3e1 * t611 * t941 + 0.2e1 * t2351 + 0.2e1 * t2360 + t2564 - t2565 + t2572 - t293;
+  t2580 = t1158 * t286 * t1348;
+  t2589 = t592 * t2394;
+  t2590 = t599 * t2394;
+  t2596 = t262 * t2394;
+  t2599 = t412 * t98 * t1809;
+  t2602 = t260 * t2394;
+  t2604 = -t1576 * t2580 + t1578 * t2580 - 0.7e1 * t1580 * t2580 + 0.6e1 * t1588 * t2580 - 0.11e2 * t262 * t2580 - 0.18e2 * t599 * t2580 + 0.6e1 * t620 * t2580 + 0.6e1 * t262 * t2599 - 0.2e1 * t2362 - t2589 + 0.3e1 * t2590 + 0.3e1 * t2596 - 0.2e1 * t2602;
+  t2618 = t253 * t2394;
+  t2624 = t620 * t2394;
+  t2627 = 0.11e2 * t253 * t2580 - 0.6e1 * t253 * t2599 + 0.6e1 * t260 * t2580 + 0.6e1 * t592 * t2580 - 0.4e1 * t260 * t2599 - 0.2e1 * t592 * t2599 + 0.6e1 * t599 * t2599 - 0.2e1 * t620 * t2599 - 0.2e1 * t2395 + 0.6e1 * t2397 - 0.3e1 * t2618 - t2624;
+  t2632 = 0.6e1 * t2399 - 0.2e1 * t2401 - 0.6e1 * t2403 - 0.4e1 * t2405 + t948 + t955 - t956 + t943 + t949 - t950 + t682 - t684 + t680;
+  t2635 = my_piecewise3(t38, 0, t2577 + t2604 + t2627 + t2632);
+  t2648 = t206 * t772 * t80;
+  t2651 = 0.11e2 * t212 * t2540 - 0.6e1 * t212 * t2551 + t536 * t2533 + 0.2e1 * t536 * t2551 + t1310 * t2540 + 0.4e1 * t234 * t2551 - 0.6e1 * t234 * t2540 + t48 * t46 * t2635 * t80 + t70 * t961 - 0.25e2 / 0.162e3 * t857 - 0.25e2 / 0.162e3 * t861 + 0.25e2 / 0.162e3 * t864 + 0.80e2 / 0.243e3 * t201 * t924 + 0.5e1 / 0.54e2 * t116 * t2423 - 0.10e2 / 0.81e2 * t92 * t2648;
+  t2658 = my_piecewise3(t3, 0, t8 * t55 * t968 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * (t2471 + t2512 + t2547 + t2651));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rhosigma2lapl[0] = 0.2e1 * rho[0] * t1209 + 0.2e1 * t604;
+    v4rhosigma2lapl[0] = 0.2e1 * rho[0] * t2658 + 0.2e1 * t972;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigma2tau[0] = 0.0e0;
 
-  t1228 = t254 * t211;
-  t1245 = -t1067 * t500 - 0.12e2 * t1082 * t500 + 0.12e2 * t214 * t1228 + 0.12e2 * t422 * t1228 + 0.2e1 * t435 * t1228 - 0.24e2 * t536 * t500 - 0.36e2 * t541 * t500 + 0.6e1 * t1121 + 0.6e1 * t1125 + t1134 + 0.12e2 * t1165 + 0.2e1 * t1167 + 0.12e2 * t1184;
-  t1254 = 0.6e1 * t274 * t460 + 0.6e1 * t536 * t460 + t541 * t460 - 0.2e1 * t1123 - t1132 - 0.4e1 * t1193 - 0.2e1 * t1195 + t236 - t468 - t470 - t567 - t614 - t617 - t618;
-  t1256 = my_piecewise3(t37, 0, t1245 + t1254);
-  t1263 = my_piecewise3(t3, 0, t8 * t51 * t623 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * (-0.25e2 / 0.81e2 * t584 + 0.5e1 / 0.27e2 * t19 * t100 * t513 + 0.40e2 / 0.243e3 * t19 * t168 * t277 - 0.5e1 / 0.81e2 * t19 * t82 * t544 + t65 * t621 + t36 * t1256));
+  t2666 = t538 * t805;
+  t2669 = t538 * t802;
+  t2678 = t1450 * t802;
+  t2681 = t538 * t811;
+  t2684 = t206 * t802;
+  t2687 = t206 * t805;
+  t2690 = t206 * t811;
+  t2698 = -0.5e1 / 0.27e2 * t116 * t2462 - 0.10e2 / 0.81e2 * t92 * t2666 + 0.5e1 / 0.27e2 * t92 * t2669 + 0.5e1 / 0.27e2 * t116 * t2472 + 0.5e1 / 0.27e2 * t116 * t2438 + 0.5e1 / 0.27e2 * t116 * t2453 - 0.5e1 / 0.81e2 * t92 * t2678 - 0.5e1 / 0.81e2 * t92 * t2681 - 0.10e2 / 0.81e2 * t92 * t2684 + 0.10e2 / 0.81e2 * t92 * t2687 + 0.5e1 / 0.81e2 * t92 * t2690 - 0.5e1 / 0.27e2 * t116 * t2456 - 0.5e1 / 0.27e2 * t116 * t2459 - 0.25e2 / 0.81e2 * t921;
+  t2706 = t213 * t1013;
+  t2709 = t1300 * t337;
+  t2713 = t2517 * t324;
+  t2716 = t804 * t772;
+  t2724 = t743 * t348;
+  t2726 = t316 * t837;
+  t2728 = 0.25e2 / 0.81e2 * t928 - 0.5e1 / 0.9e1 * t114 * t2477 + 0.10e2 / 0.27e2 * t114 * t2481 + 0.5e1 / 0.27e2 * t114 * t2486 + t212 * t2706 + t1314 * t985 + t536 * t2709 + 0.2e1 * t548 * t987 + 0.2e1 * t212 * t2713 + 0.2e1 * t212 * t2716 - 0.3e1 * t548 * t985 - 0.3e1 * t212 * t2709 + t548 * t996 + t212 * t2724 + t212 * t2726;
+  t2758 = -t813 * t2344 - 0.3e1 * t818 * t2344 + 0.3e1 * t821 * t2344 - 0.2e1 * t826 * t2344 + 0.3e1 * t829 * t2344 - t834 * t2344 + t2351 + t2360 + 0.2e1 * t2564 - 0.2e1 * t2565 + 0.2e1 * t2572 - t293;
+  t2760 = t486 * t98 * t256;
+  t2763 = t1362 * t753;
+  t2784 = -t2186 * t2763 + t2188 * t2763 - 0.6e1 * t253 * t2760 - 0.4e1 * t260 * t2760 + 0.6e1 * t262 * t2760 - 0.2e1 * t592 * t2760 + 0.6e1 * t599 * t2760 - 0.2e1 * t620 * t2760 + 0.6e1 * t813 * t2763 + 0.11e2 * t818 * t2763 + 0.6e1 * t826 * t2763 + 0.6e1 * t834 * t2763 - t2362;
+  t2801 = -0.7e1 * t2190 * t2763 + 0.6e1 * t2195 * t2763 - 0.18e2 * t821 * t2763 - 0.11e2 * t829 * t2763 - t2395 + 0.3e1 * t2397 - 0.2e1 * t2589 + 0.6e1 * t2590 + 0.6e1 * t2596 - 0.4e1 * t2602 - 0.6e1 * t2618 - 0.2e1 * t2624;
+  t2805 = 0.3e1 * t2399 - t2401 - 0.3e1 * t2403 - 0.2e1 * t2405 + t1000 + t1005 - t1010 + t882 + t888 - t890 + t682 - t684 + t680;
+  t2808 = my_piecewise3(t38, 0, t2758 + t2784 + t2801 + t2805);
+  t2813 = t348 * t399 * t2046;
+  t2816 = t1483 * t2550;
+  t2820 = t1483 * t102 * t265;
+  t2824 = t337 * t1105 * t2046;
+  t2827 = t48 * t46 * t2808 * t80 + t70 * t1015 - t234 * t2706 + 0.2e1 * t234 * t2709 - 0.2e1 * t234 * t2713 - 0.2e1 * t234 * t2716 - t234 * t2724 - t234 * t2726 + 0.2e1 * t234 * t2813 + 0.4e1 * t234 * t2816 + 0.4e1 * t234 * t2820 - 0.6e1 * t234 * t2824 + 0.2e1 * t476 * t985 - 0.2e1 * t476 * t987 - t476 * t996;
+  t2854 = t206 * t837 * t80;
+  t2857 = -0.6e1 * t212 * t2816 - 0.6e1 * t212 * t2820 + 0.11e2 * t212 * t2824 - 0.3e1 * t212 * t2813 - 0.6e1 * t536 * t2824 + 0.2e1 * t536 * t2820 + t1310 * t2824 + t536 * t2813 + 0.2e1 * t536 * t2816 - 0.25e2 / 0.81e2 * t925 - 0.40e2 / 0.243e3 * t201 * t1018 + 0.40e2 / 0.243e3 * t201 * t993 + 0.40e2 / 0.243e3 * t201 * t981 + 0.5e1 / 0.27e2 * t116 * t2648 - 0.5e1 / 0.81e2 * t92 * t2854;
+  t2864 = my_piecewise3(t3, 0, t8 * t55 * t1025 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * (t2698 + t2728 + t2827 + t2857));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rhosigmalapl2[0] = 0.2e1 * rho[0] * t1263 + 0.2e1 * t627;
+    v4rhosigmalapl2[0] = 0.2e1 * rho[0] * t2864 + 0.2e1 * t1029;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigmalapltau[0] = 0.0e0;
@@ -541,13 +1003,33 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigmatau2[0] = 0.0e0;
 
-  t1285 = t706 * t632;
-  t1292 = t723 * t632;
-  t1294 = -0.12e2 * t1285 * t179 - t1292 * t179 - 0.24e2 * t637 * t179 - 0.36e2 * t641 * t179 + 0.18e2 * t274 * t533 + 0.18e2 * t536 * t533 + 0.3e1 * t541 * t533 + 0.18e2 * t1165 + 0.3e1 * t1167 + 0.18e2 * t1184 - 0.6e1 * t1193 - 0.3e1 * t1195 + t236 - t468 - t470 - t636 - t640;
-  t1295 = my_piecewise3(t37, 0, t1294);
-  t1302 = my_piecewise3(t3, 0, t8 * t51 * t646 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * (-0.25e2 / 0.54e2 * t610 + 0.5e1 / 0.18e2 * t19 * t100 * t544 + t65 * t644 + t36 * t1295));
+  t2885 = t78 * t1105 * t1037;
+  t2887 = t213 * t1065;
+  t2891 = t2151 * t122;
+  t2894 = t2155 * t265;
+  t2897 = t337 * t399;
+  t2898 = t2897 * t265;
+  t2908 = -0.5e1 / 0.18e2 * t116 * t2690 - 0.5e1 / 0.9e1 * t116 * t2687 + 0.5e1 / 0.9e1 * t116 * t2684 + 0.5e1 / 0.9e1 * t116 * t2666 - 0.5e1 / 0.6e1 * t116 * t2669 + 0.5e1 / 0.18e2 * t116 * t2678 + 0.5e1 / 0.18e2 * t116 * t2681 + t1310 * t2885 + t212 * t2887 + 0.11e2 * t212 * t2885 - 0.3e1 * t234 * t2891 - 0.3e1 * t234 * t2894 + 0.6e1 * t234 * t2898 - 0.6e1 * t234 * t2885 - t234 * t2887 - 0.3e1 * t476 * t1041 + 0.3e1 * t536 * t2898;
+  t2925 = t486 * t256;
+  t2928 = t409 * t1048;
+  t2933 = t164 * t1048;
+  t2940 = t71 * t1048;
+  t2947 = t1194 * t1048;
+  t2949 = t1196 * t1048;
+  t2952 = t422 * t1048;
+  t2955 = t1201 * t1048;
+  t2958 = t179 * t1048;
+  t2961 = t442 * t1048;
+  t2964 = 0.6e1 * t2928 * t2348 + 0.11e2 * t2933 * t2348 + 0.6e1 * t2940 * t2348 + t2947 * t2348 - 0.7e1 * t2949 * t2348 - 0.18e2 * t2952 * t2348 + 0.6e1 * t2955 * t2348 - 0.11e2 * t2958 * t2348 + 0.6e1 * t2961 * t2348 - 0.3e1 * t813 * t2925 - 0.9e1 * t818 * t2925 + 0.9e1 * t821 * t2925 - 0.6e1 * t826 * t2925 + 0.9e1 * t829 * t2925 - 0.3e1 * t834 * t2925 - t293;
+  t2965 = t1213 * t1048;
+  t2976 = -t2965 * t2348 + t1052 + t1057 - t1058 + 0.3e1 * t2564 - 0.3e1 * t2565 + 0.3e1 * t2572 - 0.3e1 * t2589 + 0.9e1 * t2590 + 0.9e1 * t2596 - 0.6e1 * t2602 - 0.9e1 * t2618 - 0.3e1 * t2624 + t680 + t682 - t684;
+  t2978 = my_piecewise3(t38, 0, t2964 + t2976);
+  t2982 = t122 * t348;
+  t2983 = t656 * t2982;
+  t2995 = -0.6e1 * t536 * t2885 + 0.3e1 * t548 * t1041 + 0.3e1 * t212 * t2894 + 0.3e1 * t212 * t2891 - 0.9e1 * t212 * t2898 - 0.3e1 * t70 * t1045 + t70 * t1039 + 0.2e1 * t70 * t1072 + t70 * t1067 + t48 * t46 * t2978 * t80 + 0.3e1 * t536 * t2983 - 0.9e1 * t212 * t2983 + 0.6e1 * t234 * t2983 - 0.25e2 / 0.54e2 * t982 - 0.25e2 / 0.54e2 * t994 + 0.25e2 / 0.54e2 * t1019 + 0.5e1 / 0.18e2 * t116 * t2854;
+  t3001 = my_piecewise3(t3, 0, t8 * t55 * t1075 / 0.10e2 + 0.3e1 / 0.20e2 * t8 * t13 * (t2908 + t2995));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rholapl3[0] = 0.2e1 * rho[0] * t1302 + 0.2e1 * t650;
+    v4rholapl3[0] = 0.2e1 * rho[0] * t3001 + 0.2e1 * t1079;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rholapl2tau[0] = 0.0e0;
@@ -558,44 +1040,111 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhotau3[0] = 0.0e0;
 
-  t1308 = t230 * t230;
-  t1312 = t237 * t561;
-  t1317 = t234 * t234;
-  t1320 = 0.6e1 * t142 * t1317 * t41;
-  t1321 = t463 * t561;
-  t1330 = 0.3e1 * t151 * t1317 * t41;
-  t1331 = t929 * t586;
-  t1335 = -0.24e2 * t323 * t1308 * t41 - 0.36e2 * t334 * t1308 * t41 - 0.12e2 * t706 * t1308 * t41 - t723 * t1308 * t41 + 0.36e2 * t1312 - t1320 + 0.36e2 * t1321 - t1330 + 0.6e1 * t1331 + t236 - 0.8e1 * t562 - 0.4e1 * t567;
-  t1336 = my_piecewise3(t37, 0, t1335);
-  t1342 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * (-0.20e2 / 0.81e2 * t19 * t82 * t572 + t36 * t1336));
+  t3004 = t286 * t286;
+  t3006 = t3004 * t1158 * t43;
+  t3021 = t290 * t290;
+  t3023 = t3021 * t167 * t43;
+  t3025 = 0.3e1 * t164 * t3023;
+  t3029 = 0.3e1 * t71 * t3023;
+  t3030 = t1194 * t3006 - 0.7e1 * t1196 * t3006 + 0.6e1 * t1201 * t3006 - t1213 * t3006 + 0.11e2 * t164 * t3006 - 0.11e2 * t179 * t3006 + 0.6e1 * t409 * t3006 - 0.18e2 * t422 * t3006 + 0.6e1 * t442 * t3006 + t3025 + t3029;
+  t3032 = 0.3e1 * t179 * t3023;
+  t3035 = t486 * t290;
+  t3036 = t667 * t3035;
+  t3038 = t673 * t3035;
+  t3040 = t681 * t941;
+  t3042 = t676 * t3035;
+  t3044 = t683 * t941;
+  t3046 = t1782 * t941;
+  t3051 = 0.6e1 * t71 * t3006 - t293 - t3032 - 0.6e1 * t3036 - 0.18e2 * t3038 - 0.12e2 * t3040 + 0.18e2 * t3042 + 0.18e2 * t3044 - 0.6e1 * t3046 + 0.4e1 * t882 + 0.4e1 * t888 - 0.4e1 * t890;
+  t3053 = my_piecewise3(t38, 0, t3030 + t3051);
+  t3057 = t297 * t297;
+  t3062 = t282 * t282;
+  t3068 = t898 * t161 * t102;
+  t3071 = t930 * t297;
+  t3093 = t206 * t898 * t80;
+  t3099 = t206 * t870;
+  t3102 = t866 * t399;
+  t3103 = t206 * t3102;
+  t3106 = t538 * t870;
+  t3109 = t538 * t3102;
+  t3112 = t1450 * t3102;
+  t3115 = t48 * t46 * t3053 * t80 - 0.3e1 * t48 * t46 * t3057 * t161 - 0.6e1 * t48 * t46 * t3062 * t1105 - 0.4e1 * t234 * t3068 + 0.6e1 * t536 * t3071 - 0.6e1 * t48 * t395 * t3062 * t1105 + 0.3e1 * t48 * t157 * t3057 * t161 + 0.4e1 * t212 * t3068 + 0.11e2 * t48 * t157 * t3062 * t1105 - 0.18e2 * t212 * t3071 + 0.12e2 * t234 * t3071 - 0.20e2 / 0.81e2 * t92 * t3093 + t48 * t1244 * t3062 * t1105 + 0.20e2 / 0.27e2 * t92 * t3099 - 0.40e2 / 0.81e2 * t92 * t3103 - 0.20e2 / 0.27e2 * t92 * t3106 + 0.20e2 / 0.27e2 * t92 * t3109 - 0.20e2 / 0.81e2 * t92 * t3112;
+  t3119 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t3115);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4sigma4[0] = 0.2e1 * rho[0] * t1342;
+    v4sigma4[0] = 0.2e1 * rho[0] * t3119;
 
-  t1350 = t254 * t234;
-  t1351 = t422 * t1350;
-  t1352 = 0.18e2 * t1351;
-  t1353 = t435 * t1350;
-  t1354 = 0.3e1 * t1353;
-  t1355 = t41 * t557;
-  t1358 = t214 * t1350;
-  t1359 = 0.18e2 * t1358;
-  t1368 = -0.24e2 * t422 * t1355 - 0.36e2 * t435 * t1355 - t863 * t1355 - 0.12e2 * t877 * t1355 + 0.18e2 * t1312 - t1320 + 0.18e2 * t1321 - t1330 + 0.3e1 * t1331 + t1352 + t1354 + t1359 + t236 - t563 - t568 - t593 - t595;
-  t1369 = my_piecewise3(t37, 0, t1368);
-  t1375 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * (0.5e1 / 0.54e2 * t19 * t100 * t572 - 0.5e1 / 0.27e2 * t19 * t82 * t598 + t36 * t1369));
+  t3121 = t206 * t934;
+  t3124 = t538 * t934;
+  t3127 = t538 * t938;
+  t3130 = t206 * t938;
+  t3137 = t1450 * t931;
+  t3140 = t206 * t931;
+  t3143 = t538 * t931;
+  t3146 = t2301 * t122;
+  t3151 = t1944 * t297;
+  t3154 = t804 * t898;
+  t3157 = t959 * t161 * t102;
+  t3160 = t930 * t324;
+  t3163 = 0.5e1 / 0.27e2 * t92 * t3121 - 0.5e1 / 0.27e2 * t92 * t3124 - 0.10e2 / 0.27e2 * t92 * t3127 + 0.10e2 / 0.27e2 * t92 * t3130 + 0.5e1 / 0.18e2 * t116 * t3106 - 0.5e1 / 0.18e2 * t116 * t3099 - 0.5e1 / 0.27e2 * t92 * t3137 - 0.10e2 / 0.27e2 * t92 * t3140 + 0.5e1 / 0.9e1 * t92 * t3143 - 0.6e1 * t536 * t3146 + 0.11e2 * t212 * t3146 - 0.3e1 * t234 * t3151 - t234 * t3154 - 0.3e1 * t234 * t3157 - 0.9e1 * t212 * t3160;
+  t3177 = t1483 * t102 * t297;
+  t3184 = t1362 * t877;
+  t3208 = -t1576 * t3184 + t1578 * t3184 - 0.7e1 * t1580 * t3184 + 0.6e1 * t1588 * t3184 + 0.11e2 * t253 * t3184 + 0.6e1 * t260 * t3184 - 0.11e2 * t262 * t3184 + 0.6e1 * t592 * t3184 - 0.18e2 * t599 * t3184 + 0.6e1 * t620 * t3184 - t293 - 0.3e1 * t3036 - 0.9e1 * t3038 + 0.9e1 * t3042 + 0.9e1 * t3044 - 0.3e1 * t3046;
+  t3211 = t486 * t98 * t290;
+  t3212 = t592 * t3211;
+  t3213 = 0.3e1 * t3212;
+  t3214 = t253 * t3211;
+  t3215 = 0.9e1 * t3214;
+  t3216 = t599 * t3211;
+  t3217 = 0.9e1 * t3216;
+  t3218 = t260 * t3211;
+  t3219 = 0.6e1 * t3218;
+  t3220 = t262 * t3211;
+  t3221 = 0.9e1 * t3220;
+  t3222 = t620 * t3211;
+  t3223 = 0.3e1 * t3222;
+  t3224 = -0.6e1 * t3040 + t3025 + t3029 - t3032 - t3213 - t3215 + t3217 - t3219 + t3221 - t3223 + t948 + t955 - t956 + t883 + t889 - t891;
+  t3226 = my_piecewise3(t38, 0, t3208 + t3224);
+  t3237 = t206 * t959 * t80;
+  t3242 = 0.3e1 * t212 * t3157 + 0.3e1 * t536 * t3160 + t212 * t3154 + 0.3e1 * t212 * t3151 + t1310 * t3146 + 0.6e1 * t234 * t3160 - 0.6e1 * t234 * t3146 + 0.6e1 * t234 * t3177 + 0.3e1 * t536 * t3177 - 0.9e1 * t212 * t3177 + t48 * t46 * t3226 * t80 + 0.5e1 / 0.27e2 * t116 * t3103 - 0.5e1 / 0.18e2 * t116 * t3109 + 0.5e1 / 0.54e2 * t116 * t3093 - 0.5e1 / 0.27e2 * t92 * t3237 + 0.5e1 / 0.54e2 * t116 * t3112;
+  t3247 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * (t3163 + t3242));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4sigma3lapl[0] = 0.2e1 * rho[0] * t1375;
+    v4sigma3lapl[0] = 0.2e1 * rho[0] * t3247;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigma3tau[0] = 0.0e0;
 
-  t1383 = t541 * t561;
-  t1385 = t274 * t561;
-  t1389 = t536 * t561;
-  t1400 = -t1067 * t586 - 0.12e2 * t1082 * t586 - 0.24e2 * t536 * t586 - 0.36e2 * t541 * t586 + 0.6e1 * t1312 - t1320 + 0.6e1 * t1321 - t1330 + t1331 + 0.24e2 * t1351 + 0.4e1 * t1353 + 0.24e2 * t1358 + t1383 + 0.6e1 * t1385 + 0.6e1 * t1389 + t236 - t589 - t594 - t614 - t618;
-  t1401 = my_piecewise3(t37, 0, t1400);
-  t1407 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * (0.5e1 / 0.27e2 * t19 * t100 * t598 - 0.10e2 / 0.81e2 * t19 * t82 * t621 + t36 * t1401));
+  t3249 = t206 * t985;
+  t3252 = t206 * t996;
+  t3259 = t538 * t987;
+  t3262 = t538 * t985;
+  t3275 = t1450 * t985;
+  t3278 = t538 * t996;
+  t3281 = t206 * t987;
+  t3284 = t930 * t348;
+  t3286 = t2538 * t337;
+  t3294 = -0.20e2 / 0.81e2 * t92 * t3249 + 0.10e2 / 0.81e2 * t92 * t3252 - 0.10e2 / 0.27e2 * t116 * t3130 - 0.5e1 / 0.27e2 * t116 * t3121 - 0.20e2 / 0.81e2 * t92 * t3259 + 0.10e2 / 0.27e2 * t92 * t3262 + 0.5e1 / 0.27e2 * t116 * t3124 + 0.10e2 / 0.27e2 * t116 * t3127 + 0.5e1 / 0.27e2 * t116 * t3137 + 0.10e2 / 0.27e2 * t116 * t3140 - 0.5e1 / 0.9e1 * t116 * t3143 - 0.10e2 / 0.81e2 * t92 * t3275 - 0.10e2 / 0.81e2 * t92 * t3278 + 0.20e2 / 0.81e2 * t92 * t3281 + t536 * t3284 + t1310 * t3286 - 0.6e1 * t234 * t3286 + 0.2e1 * t234 * t3284 + 0.11e2 * t212 * t3286;
+  t3300 = t297 * t399 * t337;
+  t3302 = t804 * t959;
+  t3305 = t2155 * t297;
+  t3311 = t1013 * t161;
+  t3312 = t3311 * t102;
+  t3321 = t984 * t122 * t324;
+  t3328 = t324 * t324;
+  t3333 = t1362 * t286;
+  t3337 = t826 * t3035;
+  t3339 = t829 * t3035;
+  t3341 = t834 * t3035;
+  t3342 = t813 * t3035;
+  t3343 = t818 * t3035;
+  t3345 = t821 * t3035;
+  t3364 = -t2186 * t3333 + t2188 * t3333 - 0.7e1 * t2190 * t3333 + 0.6e1 * t2195 * t3333 + 0.6e1 * t813 * t3333 + 0.11e2 * t818 * t3333 - 0.18e2 * t821 * t3333 + 0.6e1 * t826 * t3333 - 0.11e2 * t829 * t3333 + 0.6e1 * t834 * t3333 - t293 + 0.3e1 * t3042 + 0.3e1 * t3044 - 0.2e1 * t3337 + 0.3e1 * t3339 - t3341 - t3342 - 0.3e1 * t3343 + 0.3e1 * t3345;
+  t3373 = -t3046 - t3036 - 0.3e1 * t3038 - 0.2e1 * t3040 + t3025 + t3029 - t3032 - 0.4e1 * t3212 - 0.12e2 * t3214 + 0.12e2 * t3216 - 0.8e1 * t3218 + 0.12e2 * t3220 - 0.4e1 * t3222 + t1000 + t1005 - t1010 + t943 + t949 - t950;
+  t3375 = my_piecewise3(t38, 0, t3364 + t3373);
+  t3386 = t206 * t1013 * t80;
+  t3389 = -0.3e1 * t212 * t3284 - 0.6e1 * t536 * t3286 + t536 * t3300 + 0.2e1 * t212 * t3302 - t234 * t3305 - 0.2e1 * t234 * t3302 + 0.2e1 * t234 * t3300 - 0.2e1 * t234 * t3312 + 0.2e1 * t212 * t3312 - 0.3e1 * t212 * t3300 + t212 * t3305 + 0.4e1 * t536 * t3321 - 0.12e2 * t212 * t3321 + 0.8e1 * t234 * t3321 + 0.2e1 * t48 * t157 * t3328 * t161 + t48 * t46 * t3375 * t80 - 0.2e1 * t48 * t46 * t3328 * t161 + 0.5e1 / 0.27e2 * t116 * t3237 - 0.10e2 / 0.81e2 * t92 * t3386;
+  t3394 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * (t3294 + t3389));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4sigma2lapl2[0] = 0.2e1 * rho[0] * t1407;
+    v4sigma2lapl2[0] = 0.2e1 * rho[0] * t3394;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigma2lapltau[0] = 0.0e0;
@@ -603,11 +1152,28 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigma2tau2[0] = 0.0e0;
 
-  t1425 = -0.12e2 * t1285 * t254 - t1292 * t254 - 0.24e2 * t637 * t254 - 0.36e2 * t641 * t254 - t1320 - t1330 + t1352 + t1354 + t1359 + 0.3e1 * t1383 + 0.18e2 * t1385 + 0.18e2 * t1389 + t236 - t567 - t617 - t636 - t640;
-  t1426 = my_piecewise3(t37, 0, t1425);
-  t1432 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * (0.5e1 / 0.18e2 * t19 * t100 * t621 - 0.5e1 / 0.81e2 * t19 * t82 * t644 + t36 * t1426));
+  t3398 = t206 * t1041;
+  t3405 = t538 * t1041;
+  t3417 = t102 * t1105 * t1037;
+  t3419 = t316 * t1065;
+  t3424 = t3311 * t122;
+  t3427 = t2155 * t324;
+  t3430 = 0.5e1 / 0.18e2 * t116 * t3278 + 0.5e1 / 0.27e2 * t92 * t3398 - 0.5e1 / 0.9e1 * t116 * t3281 + 0.5e1 / 0.9e1 * t116 * t3249 - 0.5e1 / 0.27e2 * t92 * t3405 + 0.5e1 / 0.9e1 * t116 * t3259 - 0.5e1 / 0.6e1 * t116 * t3262 - 0.5e1 / 0.18e2 * t116 * t3252 + 0.5e1 / 0.18e2 * t116 * t3275 + t1310 * t3417 + t212 * t3419 - 0.6e1 * t234 * t3417 - t234 * t3419 - 0.3e1 * t234 * t3424 - 0.3e1 * t234 * t3427;
+  t3431 = t2897 * t324;
+  t3446 = t984 * t2982;
+  t3453 = t1362 * t98;
+  t3477 = 0.6e1 * t2928 * t3453 + 0.11e2 * t2933 * t3453 + 0.6e1 * t2940 * t3453 + t2947 * t3453 - 0.7e1 * t2949 * t3453 - 0.18e2 * t2952 * t3453 + 0.6e1 * t2955 * t3453 - 0.11e2 * t2958 * t3453 + 0.6e1 * t2961 * t3453 - t2965 * t3453 - t293 - 0.6e1 * t3337 + 0.9e1 * t3339 - 0.3e1 * t3341 - 0.3e1 * t3342 - 0.9e1 * t3343;
+  t3479 = 0.9e1 * t3345 + t3025 + t3029 - t3032 - t3213 - t3215 + t3217 - t3219 + t3221 - t3223 + t1052 + t1057 - t1058 + t882 + t888 - t890;
+  t3481 = my_piecewise3(t38, 0, t3477 + t3479);
+  t3485 = t1037 * t399;
+  t3486 = t1450 * t3485;
+  t3489 = t538 * t3485;
+  t3493 = t206 * t1065 * t80;
+  t3496 = t206 * t3485;
+  t3501 = 0.6e1 * t234 * t3431 - 0.9e1 * t212 * t3431 + 0.11e2 * t212 * t3417 + 0.3e1 * t536 * t3431 - 0.6e1 * t536 * t3417 + 0.3e1 * t212 * t3427 + 0.3e1 * t212 * t3424 + 0.3e1 * t536 * t3446 - 0.9e1 * t212 * t3446 + 0.6e1 * t234 * t3446 + t48 * t46 * t3481 * t80 - 0.5e1 / 0.81e2 * t92 * t3486 + 0.5e1 / 0.27e2 * t92 * t3489 - 0.5e1 / 0.81e2 * t92 * t3493 - 0.10e2 / 0.81e2 * t92 * t3496 + 0.5e1 / 0.18e2 * t116 * t3386;
+  t3506 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * (t3430 + t3501));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4sigmalapl3[0] = 0.2e1 * rho[0] * t1432;
+    v4sigmalapl3[0] = 0.2e1 * rho[0] * t3506;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigmalapl2tau[0] = 0.0e0;
@@ -618,12 +1184,19 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigmatau3[0] = 0.0e0;
 
-  t1437 = t270 * t270;
-  t1454 = -0.24e2 * t323 * t1437 * t41 - 0.36e2 * t334 * t1437 * t41 - 0.12e2 * t706 * t1437 * t41 - t723 * t1437 * t41 - t1320 - t1330 + 0.6e1 * t1383 + 0.36e2 * t1385 + 0.36e2 * t1389 + t236 - 0.8e1 * t592 - 0.4e1 * t595;
-  t1455 = my_piecewise3(t37, 0, t1454);
-  t1461 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * (0.10e2 / 0.27e2 * t19 * t100 * t644 + t36 * t1455));
+  t3508 = t341 * t341;
+  t3510 = t3508 * t1158 * t43;
+  t3530 = t1194 * t3510 - 0.7e1 * t1196 * t3510 + 0.6e1 * t1201 * t3510 - t1213 * t3510 + 0.11e2 * t164 * t3510 - 0.11e2 * t179 * t3510 + 0.6e1 * t409 * t3510 - 0.18e2 * t422 * t3510 + 0.6e1 * t442 * t3510 + 0.6e1 * t71 * t3510 - 0.12e2 * t3337;
+  t3539 = 0.18e2 * t3339 - 0.6e1 * t3341 - 0.6e1 * t3342 - 0.18e2 * t3343 + 0.18e2 * t3345 + t3025 + t3029 - t3032 + 0.4e1 * t948 + 0.4e1 * t955 - 0.4e1 * t956 - t293;
+  t3541 = my_piecewise3(t38, 0, t3530 + t3539);
+  t3545 = t348 * t348;
+  t3550 = t337 * t337;
+  t3556 = t1065 * t161 * t122;
+  t3559 = t2897 * t348;
+  t3595 = t48 * t46 * t3541 * t80 - 0.3e1 * t48 * t46 * t3545 * t161 - 0.6e1 * t48 * t46 * t3550 * t1105 - 0.4e1 * t234 * t3556 + 0.6e1 * t536 * t3559 - 0.6e1 * t48 * t395 * t3550 * t1105 + 0.3e1 * t48 * t157 * t3545 * t161 + 0.4e1 * t212 * t3556 + 0.11e2 * t48 * t157 * t3550 * t1105 + 0.10e2 / 0.27e2 * t116 * t3493 + t48 * t1244 * t3550 * t1105 + 0.12e2 * t234 * t3559 - 0.18e2 * t212 * t3559 + 0.20e2 / 0.27e2 * t116 * t3496 + 0.10e2 / 0.9e1 * t116 * t3405 - 0.10e2 / 0.9e1 * t116 * t3489 - 0.10e2 / 0.9e1 * t116 * t3398 + 0.10e2 / 0.27e2 * t116 * t3486;
+  t3599 = my_piecewise3(t3, 0, 0.3e1 / 0.20e2 * t8 * t13 * t3595);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4lapl4[0] = 0.2e1 * rho[0] * t1461;
+    v4lapl4[0] = 0.2e1 * rho[0] * t3599;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4lapl3tau[0] = 0.0e0;
@@ -665,158 +1238,286 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   double t12, t13, t14, t15, t16, t17, t21, t22;
   double t23, t24, t25, t26, t27, t28, t30, t31;
   double t32, t33, t35, t37, t40, t45, t46, t47;
-  double t48, t50, t52, t54, t58, t59, t60, t62;
-  double t63, t64, t65, t69, t70, t71, t72, t73;
-  double t75, t77, t80, t85, t86, t87, t88, t90;
-  double t92, t94, t98;
+  double t48, t49, t50, t51, t52, t54, t55, t56;
+  double t57, t58, t62, t63, t64, t66, t67, t68;
+  double t69, t73, t74, t75, t76, t77, t79, t81;
+  double t84, t89, t90, t91, t92, t93, t94, t95;
+  double t96, t98, t99, t100, t101, t105;
 
 #ifndef XC_DONT_COMPILE_VXC
-  double t99, t102, t103, t106, t107, t108, t110, t115;
-  double t116, t120, t121, t124, t125, t127, t129, t135;
-  double t137, t138, t139, t142, t144, t149, t152, t153;
-  double t154, t155, t156, t157, t161, t162, t166, t169;
-  double t171, t174, t175, t179, t180, t185, t188, t190;
-  double t195, t196, t200, t202, t204, t210, t212, t213;
-  double t214, t217, t219, t224, t227, t230, t233, t236;
-  double t238, t242, t243, t246, t249, t252, t254, t258;
-  double t264, t267, t269, t273, t279, t282, t284, t288;
+  double t106, t109, t110, t113, t114, t115, t117, t122;
+  double t123, t127, t128, t131, t132, t134, t136, t142;
+  double t143, t144, t146, t147, t151, t153, t154, t156;
+  double t161, t164, t165, t166, t167, t168, t169, t173;
+  double t174, t178, t181, t183, t186, t187, t191, t192;
+  double t197, t200, t202, t207, t208, t212, t214, t216;
+  double t222, t223, t224, t226, t227, t231, t233, t234;
+  double t236, t241, t244, t247, t250, t254, t255, t256;
+  double t258, t262, t263, t266, t269, t273, t274, t275;
+  double t277, t281, t283, t285, t287, t291, t292, t293;
+  double t295, t299, t301, t303, t305, t309, t310, t311;
+  double t313, t317;
 
 #ifndef XC_DONT_COMPILE_FXC
-  double t291, t292, t294, t299, t300, t302, t305, t306;
-  double t307, t313, t318, t319, t323, t325, t331, t332;
-  double t335, t337, t339, t341, t343, t349, t353, t354;
-  double t355, t359, t362, t363, t364, t367, t369, t374;
-  double t377, t378, t379, t380, t381, t383, t385, t387;
-  double t388, t392, t393, t397, t399, t401, t404, t406;
-  double t413, t414, t416, t417, t421, t422, t426, t428;
-  double t436, t437, t439, t440, t444, t446, t448, t452;
-  double t454, t459, t460, t464, t466, t473, t476, t482;
-  double t483, t487, t488, t494, t496, t500, t501, t506;
-  double t511, t512, t521, t523, t525, t531, t535, t536;
-  double t537, t541, t544, t545, t546, t549, t551, t556;
-  double t564, t565, t568, t571, t574, t575, t579, t582;
-  double t585, t587, t592, t599, t601, t607, t612, t615;
-  double t618, t621, t622, t626, t629, t632, t634, t639;
-  double t646, t652, t656, t659, t662, t664, t669, t676;
-  double t678, t684, t694, t698, t701, t704, t706, t711;
-  double t714, t716, t720, t722, t723, t726, t728, t732;
-  double t734, t736, t740, t742, t743, t746, t748, t752;
-  double t757, t759, t764, t766, t770, t775, t777, t782;
-  double t784, t788, t792, t796, t799, t801, t805, t809;
-  double t813, t816, t818, t822;
+  double t320, t321, t323, t328, t329, t331, t334, t335;
+  double t336, t342, t347, t348, t352, t354, t360, t361;
+  double t364, t366, t368, t370, t372, t378, t379, t382;
+  double t383, t384, t385, t386, t387, t388, t390, t391;
+  double t392, t393, t395, t398, t403, t404, t405, t408;
+  double t409, t410, t413, t415, t420, t423, t424, t425;
+  double t426, t427, t429, t431, t433, t434, t438, t439;
+  double t443, t445, t447, t450, t452, t459, t460, t462;
+  double t463, t467, t468, t472, t474, t482, t483, t485;
+  double t486, t490, t492, t494, t498, t500, t505, t506;
+  double t510, t512, t519, t522, t528, t529, t533, t534;
+  double t540, t542, t546, t547, t552, t557, t558, t567;
+  double t569, t571, t577, t578, t581, t582, t583, t584;
+  double t585, t587, t588, t589, t590, t592, t595, t600;
+  double t601, t602, t605, t606, t607, t610, t612, t617;
+  double t625, t626, t629, t631, t633, t634, t637, t638;
+  double t639, t641, t642, t643, t646, t650, t652, t655;
+  double t656, t657, t659, t661, t666, t673, t675, t681;
+  double t686, t689, t691, t693, t694, t697, t698, t699;
+  double t701, t702, t703, t706, t710, t712, t715, t716;
+  double t717, t719, t721, t726, t733, t738, t740, t743;
+  double t747, t749, t752, t753, t754, t757, t762, t769;
+  double t771, t777, t786, t788, t791, t795, t797, t800;
+  double t801, t802, t805, t810, t813, t814, t816, t817;
+  double t818, t820, t822, t824, t827, t831, t832, t833;
+  double t835, t836, t838, t842, t844, t845, t847, t848;
+  double t849, t851, t853, t855, t858, t862, t863, t864;
+  double t866, t867, t869, t873, t877, t878, t880, t881;
+  double t883, t888, t889, t890, t893, t897, t901, t902;
+  double t904, t905, t907, t912, t913, t914, t917, t921;
+  double t924, t925, t926, t928, t930, t935, t936, t937;
+  double t939, t940, t942, t946, t949, t950, t951, t953;
+  double t955, t960, t961, t962, t964, t965, t967, t971;
 
 #ifndef XC_DONT_COMPILE_KXC
-  double t825, t827, t829, t832, t837, t839, t843, t846;
-  double t850, t852, t856, t857, t858, t863, t867, t868;
-  double t869, t873, t875, t880, t882, t885, t891, t892;
-  double t895, t897, t900, t902, t904, t906, t912, t918;
-  double t922, t923, t927, t931, t938, t942, t944, t949;
-  double t952, t954, t957, t959, t961, t963, t966, t971;
-  double t972, t976, t978, t980, t982, t984, t987, t989;
-  double t992, t993, t1001, t1005, t1006, t1008, t1009, t1010;
-  double t1013, t1016, t1019, t1020, t1021, t1025, t1028, t1032;
-  double t1034, t1038, t1047, t1048, t1049, t1051, t1052, t1054;
-  double t1055, t1061, t1063, t1065, t1069, t1070, t1078, t1079;
-  double t1080, t1084, t1085, t1086, t1090, t1093, t1094, t1096;
-  double t1105, t1107, t1110, t1120, t1121, t1123, t1124, t1128;
-  double t1129, t1133, t1135, t1144, t1147, t1149, t1150, t1153;
-  double t1161, t1167, t1168, t1172, t1178, t1182, t1183, t1184;
-  double t1188, t1190, t1197, t1205, t1207, t1208, t1215, t1216;
-  double t1220, t1221, t1228, t1231, t1234, t1241, t1245, t1249;
-  double t1253, t1254, t1255, t1270, t1272, t1274, t1280, t1286;
-  double t1290, t1291, t1295, t1299, t1306, t1310, t1312, t1317;
-  double t1325, t1332, t1334, t1336, t1339, t1342, t1345, t1350;
-  double t1353, t1356, t1362, t1365, t1369, t1372, t1374, t1379;
-  double t1386, t1390, t1392, t1398, t1406, t1412, t1419, t1422;
-  double t1430, t1441, t1444, t1447, t1450, t1455, t1458, t1461;
-  double t1467, t1470, t1474, t1477, t1479, t1484, t1491, t1498;
-  double t1500, t1512, t1515, t1521, t1524, t1528, t1531, t1533;
-  double t1538, t1545, t1549, t1551, t1557, t1565, t1571, t1578;
-  double t1581, t1589, t1610, t1613, t1619, t1622, t1626, t1629;
-  double t1631, t1636, t1643, t1645, t1648, t1653, t1656, t1659;
-  double t1660, t1661, t1662, t1663, t1666, t1669, t1671, t1676;
-  double t1683, t1685, t1691, t1697, t1700, t1705, t1708, t1711;
-  double t1712, t1713, t1714, t1715, t1718, t1721, t1723, t1728;
-  double t1735, t1741, t1744, t1747, t1760, t1762, t1767, t1774;
-  double t1776, t1782, t1792, t1795, t1798, t1811, t1813, t1818;
-  double t1825, t1833, t1836, t1841, t1844, t1846, t1851, t1858;
-  double t1860, t1866, t1878, t1881, t1886, t1889, t1891, t1896;
-  double t1899, t1901, t1905, t1906, t1907, t1908, t1911, t1912;
-  double t1913, t1916, t1918, t1922, t1924, t1926, t1930, t1931;
-  double t1932, t1933, t1936, t1937, t1938, t1941, t1943, t1947;
-  double t1952, t1954, t1957, t1960, t1961, t1962, t1963, t1966;
-  double t1968, t1972, t1977, t1979, t1982, t1985, t1986, t1987;
-  double t1988, t1991, t1993, t1997, t2002, t2006, t2009, t2010;
-  double t2013, t2015, t2019, t2024, t2028, t2031, t2032, t2035;
-  double t2037, t2041, t2045, t2049, t2050, t2053, t2054, t2057;
-  double t2059, t2063, t2067, t2071, t2072, t2075, t2076, t2079;
-  double t2081, t2085;
+  double t974, t976, t978, t981, t986, t988, t992, t995;
+  double t999, t1001, t1005, t1006, t1007, t1012, t1016, t1017;
+  double t1018, t1022, t1024, t1029, t1031, t1034, t1040, t1041;
+  double t1044, t1046, t1049, t1051, t1053, t1055, t1061, t1062;
+  double t1071, t1072, t1073, t1076, t1077, t1079, t1083, t1086;
+  double t1087, t1089, t1091, t1093, t1094, t1099, t1103, t1107;
+  double t1110, t1118, t1119, t1122, t1124, t1129, t1132, t1137;
+  double t1140, t1142, t1145, t1147, t1149, t1151, t1154, t1159;
+  double t1160, t1164, t1166, t1168, t1170, t1172, t1175, t1177;
+  double t1180, t1181, t1189, t1193, t1194, t1196, t1197, t1198;
+  double t1201, t1204, t1207, t1208, t1209, t1213, t1216, t1220;
+  double t1222, t1226, t1235, t1236, t1237, t1239, t1240, t1242;
+  double t1243, t1249, t1251, t1253, t1257, t1258, t1266, t1267;
+  double t1268, t1272, t1273, t1274, t1278, t1281, t1282, t1284;
+  double t1293, t1295, t1298, t1308, t1309, t1311, t1312, t1316;
+  double t1317, t1321, t1323, t1332, t1335, t1337, t1338, t1341;
+  double t1349, t1355, t1356, t1360, t1366, t1370, t1371, t1372;
+  double t1376, t1378, t1385, t1393, t1395, t1396, t1403, t1404;
+  double t1408, t1409, t1416, t1419, t1422, t1429, t1433, t1437;
+  double t1441, t1442, t1443, t1458, t1460, t1462, t1468, t1469;
+  double t1478, t1481, t1482, t1484, t1488, t1491, t1492, t1494;
+  double t1496, t1498, t1499, t1504, t1508, t1512, t1515, t1523;
+  double t1524, t1527, t1529, t1534, t1537, t1542, t1550, t1557;
+  double t1559, t1561, t1562, t1565, t1567, t1575, t1576, t1577;
+  double t1579, t1584, t1588, t1590, t1594, t1597, t1606, t1608;
+  double t1609, t1611, t1614, t1619, t1620, t1622, t1623, t1628;
+  double t1630, t1632, t1633, t1634, t1635, t1637, t1638, t1640;
+  double t1643, t1648, t1655, t1659, t1661, t1667, t1675, t1681;
+  double t1688, t1691, t1699, t1710, t1711, t1712, t1714, t1719;
+  double t1723, t1725, t1729, t1732, t1741, t1743, t1744, t1746;
+  double t1749, t1754, t1757, t1758, t1760, t1767, t1770, t1771;
+  double t1773, t1774, t1779, t1781, t1782, t1783, t1784, t1786;
+  double t1787, t1789, t1792, t1797, t1804, t1811, t1813, t1830;
+  double t1832, t1833, t1837, t1840, t1842, t1847, t1852, t1856;
+  double t1859, t1868, t1870, t1871, t1873, t1880, t1885, t1892;
+  double t1896, t1898, t1904, t1912, t1918, t1925, t1928, t1936;
+  double t1962, t1964, t1968, t1971, t1973, t1978, t1983, t1987;
+  double t1990, t1999, t2001, t2002, t2004, t2011, t2016, t2023;
+  double t2024, t2026, t2027, t2028, t2031, t2032, t2034, t2035;
+  double t2038, t2039, t2041, t2047, t2049, t2050, t2052, t2055;
+  double t2058, t2061, t2062, t2063, t2064, t2065, t2066, t2069;
+  double t2072, t2077, t2079, t2080, t2082, t2090, t2095, t2102;
+  double t2104, t2110, t2115, t2117, t2118, t2119, t2122, t2123;
+  double t2125, t2126, t2129, t2130, t2132, t2138, t2140, t2141;
+  double t2143, t2146, t2149, t2152, t2153, t2154, t2155, t2156;
+  double t2157, t2160, t2163, t2168, t2170, t2171, t2173, t2181;
+  double t2186, t2193, t2201, t2203, t2204, t2205, t2208, t2209;
+  double t2211, t2212, t2215, t2216, t2219, t2223, t2226, t2229;
+  double t2246, t2247, t2249, t2257, t2258, t2263, t2270, t2272;
+  double t2278, t2290, t2292, t2293, t2294, t2297, t2298, t2300;
+  double t2301, t2305, t2308, t2309, t2313, t2316, t2319, t2336;
+  double t2337, t2339, t2347, t2348, t2353, t2360, t2369, t2371;
+  double t2377, t2379, t2381, t2384, t2387, t2392, t2395, t2400;
+  double t2402, t2403, t2405, t2413, t2418, t2425, t2427, t2433;
+  double t2446, t2448, t2454, t2456, t2458, t2461, t2464, t2469;
+  double t2472, t2477, t2479, t2480, t2482, t2490, t2495, t2497;
+  double t2498, t2499, t2502, t2503, t2505, t2506, t2508, t2510;
+  double t2512, t2516, t2519, t2521, t2523, t2524, t2525, t2530;
+  double t2531, t2532, t2533, t2540, t2542, t2547, t2550, t2554;
+  double t2555, t2556, t2557, t2560, t2561, t2563, t2564, t2566;
+  double t2568, t2570, t2574, t2577, t2579, t2581, t2582, t2583;
+  double t2588, t2589, t2590, t2591, t2598, t2600, t2605, t2608;
+  double t2612, t2619, t2620, t2621, t2624, t2625, t2627, t2628;
+  double t2630, t2631, t2633, t2634, t2638, t2641, t2643, t2648;
+  double t2649, t2650, t2655, t2656, t2658, t2659, t2661, t2668;
+  double t2672, t2679, t2680, t2681, t2684, t2685, t2687, t2688;
+  double t2690, t2691, t2693, t2694, t2698, t2701, t2703, t2708;
+  double t2709, t2710, t2715, t2716, t2718, t2719, t2721, t2728;
+  double t2732, t2739, t2740, t2741, t2743, t2744, t2746, t2752;
+  double t2753, t2755, t2757, t2759, t2764, t2769, t2771, t2772;
+  double t2774, t2777, t2778, t2784, t2788, t2795, t2796, t2797;
+  double t2799, t2800, t2802, t2808, t2809, t2811, t2813, t2815;
+  double t2820, t2825, t2827, t2828, t2830, t2833, t2834, t2840;
+  double t2844, t2851, t2853, t2855, t2859, t2862, t2864, t2866;
+  double t2871, t2872, t2879, t2881, t2886, t2889, t2893, t2900;
+  double t2902, t2904, t2908, t2911, t2913, t2915, t2920, t2921;
+  double t2928, t2930, t2935, t2938, t2942;
 
 #ifndef XC_DONT_COMPILE_LXC
-  double t2089, t2093, t2096, t2100, t2104, t2107, t2110, t2116;
-  double t2119, t2122, t2128, t2134, t2142, t2151, t2158, t2162;
-  double t2166, t2178, t2179, t2182, t2183, t2190, t2194, t2197;
-  double t2201, t2203, t2211, t2218, t2227, t2229, t2232, t2235;
-  double t2243, t2245, t2247, t2252, t2253, t2262, t2267, t2268;
-  double t2271, t2273, t2276, t2278, t2279, t2281, t2285, t2288;
-  double t2293, t2300, t2304, t2308, t2313, t2315, t2322, t2326;
-  double t2327, t2330, t2336, t2342, t2343, t2345, t2354, t2368;
-  double t2370, t2375, t2378, t2380, t2382, t2391, t2398, t2400;
-  double t2414, t2415, t2417, t2420, t2421, t2423, t2426, t2430;
-  double t2433, t2446, t2447, t2452, t2454, t2457, t2466, t2467;
-  double t2474, t2478, t2479, t2482, t2491, t2494, t2495, t2497;
-  double t2499, t2500, t2509, t2513, t2528, t2533, t2537, t2552;
-  double t2553, t2562, t2573, t2574, t2575, t2577, t2583, t2597;
-  double t2599, t2604, t2606, t2608, t2612, t2618, t2624, t2626;
-  double t2638, t2639, t2641, t2649, t2651, t2658, t2662, t2671;
-  double t2674, t2685, t2688, t2690, t2691, t2707, t2713, t2714;
-  double t2721, t2732, t2733, t2734, t2756, t2759, t2763, t2765;
-  double t2775, t2783, t2799, t2801, t2808, t2816, t2825, t2835;
-  double t2837, t2838, t2851, t2860, t2871, t2877, t2885, t2894;
-  double t2901, t2905, t2909, t2921, t2922, t2925, t2926, t2943;
-  double t2950, t2979, t2980, t2988, t2989, t2997, t3003, t3006;
-  double t3013, t3015, t3018, t3020, t3039, t3042, t3050, t3081;
-  double t3082, t3089, t3096, t3099, t3103, t3105, t3107, t3113;
-  double t3118, t3122, t3131, t3132, t3134, t3140, t3142, t3151;
-  double t3153, t3156, t3162, t3171, t3177, t3184, t3192, t3194;
-  double t3195, t3204, t3221, t3242, t3271, t3279, t3282, t3283;
-  double t3290, t3297, t3303, t3306, t3313, t3315, t3318, t3332;
-  double t3339, t3344, t3347, t3352, t3357, t3361, t3371, t3372;
-  double t3379, t3386, t3389, t3393, t3395, t3397, t3403, t3408;
-  double t3412, t3421, t3422, t3424, t3430, t3432, t3441, t3443;
-  double t3446, t3452, t3461, t3467, t3474, t3482, t3484, t3485;
-  double t3494, t3524, t3528, t3534, t3539, t3542, t3547, t3559;
-  double t3562, t3563, t3570, t3577, t3584, t3586, t3604, t3608;
-  double t3617, t3620, t3621, t3622, t3623, t3627, t3633, t3637;
-  double t3644, t3645, t3646, t3648, t3655, t3662, t3666, t3668;
-  double t3674, t3682, t3688, t3695, t3698, t3706, t3729, t3733;
-  double t3740, t3741, t3742, t3743, t3747, t3753, t3769, t3772;
-  double t3773, t3774, t3775, t3777, t3784, t3791, t3798, t3800;
-  double t3819, t3824, t3845, t3856, t3858, t3865, t3872, t3876;
-  double t3878, t3884, t3892, t3898, t3905, t3908, t3916, t3945;
-  double t3951, t3971, t3982, t3984, t3991, t3998, t4005, t4007;
-  double t4021, t4025, t4030, t4039, t4041, t4044, t4051, t4053;
-  double t4060, t4067, t4071, t4073, t4079, t4087, t4093, t4100;
-  double t4103, t4111, t4132, t4136, t4141, t4150, t4156, t4157;
-  double t4164, t4166, t4173, t4180, t4194, t4195, t4197, t4199;
-  double t4206, t4208, t4214, t4215, t4222, t4229, t4231, t4237;
-  double t4255, t4256, t4258, t4260, t4267, t4269, t4275, t4276;
-  double t4283, t4290, t4306, t4308, t4310, t4311, t4315, t4327;
-  double t4328, t4330, t4337, t4339, t4346, t4353, t4355, t4361;
-  double t4377, t4383, t4386, t4390, t4399, t4401, t4403, t4404;
-  double t4412, t4414, t4421, t4428, t4449, t4462, t4468, t4470;
-  double t4477, t4484, t4486, t4492, t4515, t4530, t4536, t4538;
-  double t4545, t4552, t4569, t4576, t4578, t4579, t4586, t4593;
-  double t4595, t4601, t4622, t4629, t4631, t4632, t4639, t4644;
-  double t4648, t4653, t4656, t4657, t4666, t4667, t4671, t4672;
-  double t4678, t4682, t4686, t4691, t4694, t4695, t4704, t4705;
-  double t4709, t4710, t4716, t4723, t4731, t4732, t4733, t4734;
-  double t4735, t4736, t4737, t4741, t4742, t4748, t4756, t4757;
-  double t4758, t4759, t4762, t4763, t4764, t4765, t4774, t4775;
-  double t4781, t4788, t4792, t4796, t4805, t4806, t4812, t4821;
-  double t4823, t4827, t4836, t4837, t4843, t4860, t4861, t4867;
-  double t4884, t4885, t4891, t4895, t4912, t4913, t4919, t4923;
-  double t4940, t4941, t4947;
+  double t2952, t2954, t2955, t2959, t2960, t2961, t2963, t2966;
+  double t2968, t2969, t2971, t2973, t2978, t2986, t2988, t2993;
+  double t2997, t3004, t3025, t3027, t3039, t3041, t3042, t3047;
+  double t3050, t3065, t3070, t3092, t3096, t3102, t3105, t3108;
+  double t3117, t3120, t3123, t3127, t3130, t3134, t3138, t3142;
+  double t3144, t3152, t3160, t3164, t3167, t3169, t3178, t3180;
+  double t3183, t3186, t3194, t3196, t3198, t3203, t3204, t3213;
+  double t3215, t3216, t3219, t3221, t3224, t3226, t3227, t3229;
+  double t3233, t3236, t3241, t3248, t3252, t3256, t3261, t3263;
+  double t3269, t3278, t3284, t3285, t3287, t3292, t3294, t3299;
+  double t3302, t3313, t3319, t3321, t3334, t3336, t3343, t3347;
+  double t3348, t3351, t3362, t3363, t3365, t3366, t3368, t3371;
+  double t3375, t3378, t3391, t3392, t3398, t3400, t3402, t3405;
+  double t3414, t3415, t3422, t3426, t3427, t3430, t3439, t3442;
+  double t3443, t3445, t3447, t3448, t3457, t3462, t3466, t3487;
+  double t3488, t3497, t3507, t3511, t3521, t3522, t3523, t3528;
+  double t3531, t3533, t3535, t3539, t3545, t3552, t3555, t3570;
+  double t3576, t3583, t3584, t3586, t3588, t3597, t3599, t3606;
+  double t3610, t3619, t3622, t3633, t3636, t3638, t3639, t3655;
+  double t3661, t3662, t3669, t3680, t3681, t3686, t3690, t3694;
+  double t3718, t3721, t3736, t3738, t3747, t3749, t3756, t3764;
+  double t3773, t3783, t3785, t3786, t3799, t3808, t3809, t3810;
+  double t3813, t3818, t3820, t3821, t3830, t3833, t3834, t3835;
+  double t3837, t3840, t3842, t3845, t3866, t3868, t3869, t3873;
+  double t3875, t3876, t3881, t3891, t3893, t3908, t3910, t3927;
+  double t3928, t3958, t3988, t3995, t4010, t4011, t4025, t4026;
+  double t4034, t4040, t4043, t4050, t4052, t4055, t4058, t4060;
+  double t4065, t4097, t4124, t4137, t4139, t4147, t4150, t4154;
+  double t4157, t4162, t4169, t4171, t4181, t4184, t4186, t4193;
+  double t4196, t4207, t4215, t4216, t4217, t4222, t4225, t4233;
+  double t4241, t4248, t4255, t4258, t4262, t4264, t4266, t4272;
+  double t4277, t4281, t4290, t4291, t4293, t4299, t4301, t4310;
+  double t4312, t4315, t4321, t4330, t4336, t4343, t4351, t4353;
+  double t4354, t4363, t4380, t4383, t4386, t4388, t4389, t4390;
+  double t4394, t4413, t4414, t4415, t4418, t4419, t4425, t4432;
+  double t4435, t4438, t4441, t4444, t4447, t4452, t4453, t4456;
+  double t4470, t4480, t4481, t4513, t4518, t4551, t4555, t4557;
+  double t4564, t4571, t4578, t4584, t4587, t4594, t4596, t4599;
+  double t4606, t4610, t4626, t4627, t4630, t4633, t4647, t4656;
+  double t4658, t4679, t4688, t4691, t4706, t4711, t4712, t4717;
+  double t4724, t4726, t4728, t4731, t4747, t4751, t4753, t4762;
+  double t4768, t4775, t4778, t4782, t4784, t4786, t4792, t4797;
+  double t4801, t4810, t4811, t4813, t4819, t4821, t4830, t4832;
+  double t4835, t4841, t4850, t4856, t4863, t4871, t4873, t4874;
+  double t4883, t4908, t4911, t4921, t4939, t4942, t4943, t4944;
+  double t4953, t4955, t4974, t4977, t4983, t4992, t4995, t5008;
+  double t5011, t5018, t5020, t5022, t5025, t5043, t5047, t5049;
+  double t5059, t5065, t5072, t5079, t5081, t5085, t5086, t5089;
+  double t5092, t5095, t5100, t5101, t5104, t5107, t5112, t5115;
+  double t5116, t5117, t5120, t5126, t5139, t5145, t5147, t5148;
+  double t5164, t5166, t5176, t5179, t5190, t5200, t5201, t5212;
+  double t5215, t5217, t5218, t5219, t5229, t5231, t5236, t5238;
+  double t5245, t5246, t5247, t5262, t5263, t5264, t5265, t5267;
+  double t5274, t5277, t5285, t5292, t5299, t5303, t5305, t5311;
+  double t5319, t5325, t5332, t5335, t5343, t5354, t5355, t5361;
+  double t5371, t5374, t5383, t5388, t5390, t5394, t5396, t5407;
+  double t5423, t5433, t5436, t5450, t5466, t5469, t5471, t5472;
+  double t5473, t5482, t5484, t5486, t5491, t5492, t5493, t5494;
+  double t5508, t5509, t5510, t5511, t5513, t5520, t5523, t5530;
+  double t5533, t5540, t5541, t5544, t5547, t5550, t5553, t5554;
+  double t5557, t5564, t5571, t5578, t5580, t5585, t5589, t5597;
+  double t5600, t5618, t5621, t5632, t5636, t5638, t5641, t5650;
+  double t5654, t5669, t5670, t5678, t5702, t5705, t5730, t5749;
+  double t5750, t5753, t5760, t5771, t5774, t5777, t5780, t5783;
+  double t5788, t5797, t5800, t5807, t5814, t5818, t5820, t5826;
+  double t5834, t5840, t5847, t5850, t5858, t5871, t5874, t5880;
+  double t5881, t5902, t5905, t5906, t5908, t5920, t5922, t5925;
+  double t5928, t5930, t5937, t5941, t5975, t5988, t5990, t5992;
+  double t6018, t6038, t6039, t6042, t6046, t6047, t6050, t6059;
+  double t6062, t6065, t6068, t6083, t6086, t6093, t6100, t6107;
+  double t6109, t6116, t6123, t6124, t6129, t6131, t6136, t6140;
+  double t6143, t6145, t6159, t6177, t6182, t6189, t6202, t6229;
+  double t6230, t6232, t6234, t6239, t6243, t6245, t6252, t6255;
+  double t6276, t6283, t6290, t6294, t6296, t6302, t6310, t6316;
+  double t6323, t6326, t6334, t6348, t6357, t6358, t6361, t6362;
+  double t6371, t6372, t6375, t6376, t6392, t6393, t6395, t6404;
+  double t6414, t6420, t6422, t6437, t6448, t6450, t6452, t6457;
+  double t6464, t6476, t6478, t6485, t6488, t6514, t6521, t6528;
+  double t6529, t6530, t6540, t6547, t6550, t6551, t6554, t6555;
+  double t6559, t6562, t6573, t6583, t6584, t6586, t6588, t6590;
+  double t6592, t6594, t6597, t6598, t6614, t6616, t6618, t6624;
+  double t6634, t6646, t6648, t6658, t6659, t6662, t6665, t6668;
+  double t6671, t6674, t6677, t6680, t6686, t6693, t6695, t6701;
+  double t6706, t6707, t6719, t6724, t6727, t6731, t6734, t6735;
+  double t6739, t6740, t6751, t6767, t6768, t6770, t6772, t6774;
+  double t6776, t6778, t6781, t6784, t6786, t6808, t6814, t6816;
+  double t6829, t6831, t6835, t6836, t6839, t6842, t6845, t6848;
+  double t6851, t6854, t6857, t6863, t6870, t6871, t6873, t6876;
+  double t6881, t6882, t6888, t6896, t6909, t6915, t6920, t6925;
+  double t6931, t6934, t6936, t6942, t6955, t6959, t6963, t6969;
+  double t6970, t6973, t6978, t6980, t6983, t6986, t6996, t7001;
+  double t7018, t7023, t7028, t7029, t7036, t7040, t7043, t7048;
+  double t7057, t7065, t7068, t7071, t7074, t7077, t7086, t7093;
+  double t7100, t7102, t7108, t7116, t7120, t7124, t7128, t7146;
+  double t7150, t7154, t7156, t7159, t7161, t7169, t7179, t7188;
+  double t7194, t7198, t7202, t7208, t7211, t7215, t7220, t7236;
+  double t7241, t7242, t7248, t7250, t7256, t7265, t7266, t7273;
+  double t7274, t7278, t7281, t7286, t7295, t7296, t7304, t7307;
+  double t7310, t7313, t7316, t7325, t7332, t7339, t7346, t7347;
+  double t7351, t7355, t7359, t7373, t7378, t7387, t7392, t7395;
+  double t7396, t7399, t7400, t7402, t7403, t7407, t7410, t7435;
+  double t7438, t7443, t7464, t7481, t7498, t7499, t7502, t7506;
+  double t7511, t7514, t7517, t7520, t7533, t7534, t7537, t7540;
+  double t7547, t7554, t7556, t7562, t7573, t7578, t7582, t7586;
+  double t7594, t7604, t7616, t7620, t7622, t7628, t7631, t7633;
+  double t7636, t7659, t7663, t7674, t7689, t7705, t7722, t7723;
+  double t7726, t7732, t7735, t7738, t7739, t7742, t7745, t7748;
+  double t7751, t7764, t7771, t7778, t7779, t7781, t7786, t7789;
+  double t7792, t7813, t7826, t7829, t7832, t7835, t7837, t7842;
+  double t7847, t7852, t7855, t7860, t7862, t7865, t7871, t7873;
+  double t7895, t7902, t7908, t7915, t7917, t7923, t7928, t7931;
+  double t7932, t7937, t7940, t7944, t7963, t7973, t7976, t7983;
+  double t7988, t7993, t7996, t7999, t8000, t8003, t8006, t8008;
+  double t8010, t8018, t8020, t8043, t8052, t8058, t8060, t8065;
+  double t8070, t8073, t8090, t8092, t8094, t8095, t8097, t8101;
+  double t8103, t8106, t8107, t8111, t8113, t8115, t8117, t8119;
+  double t8120, t8137, t8139, t8143, t8146, t8147, t8150, t8153;
+  double t8162, t8167, t8170, t8174, t8175, t8177, t8190, t8191;
+  double t8195, t8197, t8199, t8202, t8204, t8206, t8209, t8211;
+  double t8213, t8215, t8217, t8222, t8224, t8228, t8231, t8236;
+  double t8245, t8258, t8259, t8265, t8268, t8271, t8277, t8282;
+  double t8285, t8289, t8290, t8295, t8298, t8303, t8305, t8318;
+  double t8343, t8345, t8346, t8347, t8348, t8349, t8350, t8351;
+  double t8352, t8353, t8354, t8355, t8356, t8357, t8358, t8360;
+  double t8364, t8367, t8368, t8376, t8379, t8382, t8386, t8389;
+  double t8396, t8402, t8411, t8416, t8417, t8420, t8423, t8426;
+  double t8438, t8447, t8472, t8474, t8475, t8476, t8477, t8478;
+  double t8479, t8480, t8481, t8482, t8483, t8484, t8485, t8486;
+  double t8487, t8489, t8495, t8497, t8500, t8503, t8506, t8511;
+  double t8514, t8518, t8521, t8527, t8540, t8545, t8546, t8549;
+  double t8552, t8554, t8563, t8565, t8580, t8589, t8597, t8599;
+  double t8601, t8603, t8604, t8605, t8620, t8629, t8631, t8635;
+  double t8636, t8639, t8650, t8653, t8656, t8660, t8663, t8675;
+  double t8683, t8686, t8691, t8692, t8696, t8699, t8702, t8709;
+  double t8712, t8726, t8731, t8733, t8735, t8736, t8737, t8739;
+  double t8741, t8762, t8771, t8773, t8781, t8785, t8788, t8799;
+  double t8802, t8805, t8808, t8811, t8819, t8827, t8832, t8837;
+  double t8839, t8841, t8846, t8849, t8852, t8867, t8892, t8893;
+  double t8895, t8901, t8914, t8917, t8920, t8923, t8924, t8929;
+  double t8934, t8938, t8943, t8948, t8949, t8952, t8957, t8960;
+  double t8966, t8977, t9002, t9003, t9005, t9011, t9024, t9027;
+  double t9032, t9033, t9037, t9040, t9044, t9049, t9054, t9059;
+  double t9060, t9062, t9074, t9091, t9093, t9097, t9103, t9106;
+  double t9115, t9147, t9151, t9152, t9154, t9167, t9183, t9185;
+  double t9189, t9194, t9200, t9213, t9239, t9243;
 #endif
 
 #endif
@@ -828,6 +1529,10 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
 #endif
 
 
+  mgga_k_csk_params *params;
+
+  assert(p->params != NULL);
+  params = (mgga_k_csk_params * )(p->params);
 
   t2 = rho[0] <= p->dens_threshold;
   t3 = M_CBRT3;
@@ -859,135 +1564,164 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t37 = t30 * sigma[0] * t35;
   t40 = 0.1e1 / t33 / rho[0];
   t45 = 0.5e1 / 0.54e2 * t30 * lapl[0] * t40 - 0.5e1 / 0.81e2 * t37;
-  t46 = -0.1e-9 <= t45;
-  t47 = t45 < -0.1e-9;
-  t48 = my_piecewise3(t47, t45, -0.1e-9);
-  t50 = exp(0.1e1 / t48);
-  t52 = my_piecewise3(t46, 1, 0.1e1 - t50);
-  t54 = 0.1e1 + 0.5e1 / 0.72e2 * t37 + t45 * t52;
-  t58 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t54);
-  t59 = rho[1] <= p->dens_threshold;
-  t60 = rho[1] * t9;
-  t62 = 0.2e1 * t60 <= p->zeta_threshold;
-  t63 = t14 * rho[1];
-  t64 = POW_1_3(t60);
-  t65 = t64 * t64;
-  t69 = my_piecewise3(t62, 0, 0.2e1 * t63 * t9 * t65);
-  t70 = t69 * t23;
-  t71 = rho[1] * rho[1];
-  t72 = POW_1_3(rho[1]);
-  t73 = t72 * t72;
-  t75 = 0.1e1 / t73 / t71;
-  t77 = t30 * sigma[2] * t75;
-  t80 = 0.1e1 / t73 / rho[1];
-  t85 = 0.5e1 / 0.54e2 * t30 * lapl[1] * t80 - 0.5e1 / 0.81e2 * t77;
-  t86 = -0.1e-9 <= t85;
-  t87 = t85 < -0.1e-9;
-  t88 = my_piecewise3(t87, t85, -0.1e-9);
-  t90 = exp(0.1e1 / t88);
-  t92 = my_piecewise3(t86, 1, 0.1e1 - t90);
-  t94 = 0.1e1 + 0.5e1 / 0.72e2 * t77 + t85 * t92;
-  t98 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t70 * t94);
+  t46 = -t45;
+  t47 = t46 <= 0.1e-9;
+  t48 = t46 < 0.1e-9;
+  t49 = my_piecewise3(t48, 0.1e-9, t46);
+  t50 = pow(t49, params->csk_a);
+  t51 = 0.1e1 / t50;
+  t52 = exp(-t51);
+  t54 = my_piecewise3(t47, 1, 0.1e1 - t52);
+  t55 = 0.1e1 / params->csk_a;
+  t56 = pow(t54, t55);
+  t57 = t45 * t56;
+  t58 = 0.1e1 + 0.5e1 / 0.72e2 * t37 + t57;
+  t62 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t58);
+  t63 = rho[1] <= p->dens_threshold;
+  t64 = rho[1] * t9;
+  t66 = 0.2e1 * t64 <= p->zeta_threshold;
+  t67 = t14 * rho[1];
+  t68 = POW_1_3(t64);
+  t69 = t68 * t68;
+  t73 = my_piecewise3(t66, 0, 0.2e1 * t67 * t9 * t69);
+  t74 = t73 * t23;
+  t75 = rho[1] * rho[1];
+  t76 = POW_1_3(rho[1]);
+  t77 = t76 * t76;
+  t79 = 0.1e1 / t77 / t75;
+  t81 = t30 * sigma[2] * t79;
+  t84 = 0.1e1 / t77 / rho[1];
+  t89 = 0.5e1 / 0.54e2 * t30 * lapl[1] * t84 - 0.5e1 / 0.81e2 * t81;
+  t90 = -t89;
+  t91 = t90 <= 0.1e-9;
+  t92 = t90 < 0.1e-9;
+  t93 = my_piecewise3(t92, 0.1e-9, t90);
+  t94 = pow(t93, params->csk_a);
+  t95 = 0.1e1 / t94;
+  t96 = exp(-t95);
+  t98 = my_piecewise3(t91, 1, 0.1e1 - t96);
+  t99 = pow(t98, t55);
+  t100 = t89 * t99;
+  t101 = 0.1e1 + 0.5e1 / 0.72e2 * t81 + t100;
+  t105 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t74 * t101);
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    zk[0] = t58 + t98;
+    zk[0] = t62 + t105;
 
 #ifndef XC_DONT_COMPILE_VXC
 
   if(order < 1) return;
 
 
-  t99 = t14 * t9;
-  t102 = t8 * t8;
-  t103 = 0.1e1 / t102;
-  t106 = 0.2e1 * t15 * t103 * t17;
-  t107 = 0.1e1 / t16;
-  t108 = t9 * t107;
-  t110 = -rho[0] * t103 + t9;
-  t115 = my_piecewise3(t12, 0, 0.2e1 * t99 * t17 - t106 + 0.4e1 / 0.3e1 * t15 * t108 * t110);
-  t116 = t115 * t23;
-  t120 = 0.1e1 / t22;
-  t121 = t21 * t120;
-  t124 = t7 * t121 * t54 / 0.10e2;
-  t125 = t31 * rho[0];
-  t127 = 0.1e1 / t33 / t125;
-  t129 = t30 * sigma[0] * t127;
-  t135 = -0.25e2 / 0.162e3 * t30 * lapl[0] * t35 + 0.40e2 / 0.243e3 * t129;
-  t137 = t48 * t48;
-  t138 = 0.1e1 / t137;
-  t139 = my_piecewise3(t47, t135, 0);
-  t142 = my_piecewise3(t46, 0, t138 * t139 * t50);
-  t144 = -0.5e1 / 0.27e2 * t129 + t135 * t52 + t45 * t142;
-  t149 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t116 * t54 + t124 + 0.3e1 / 0.20e2 * t7 * t24 * t144);
-  t152 = 0.2e1 * t63 * t103 * t65;
-  t153 = t14 * t71;
-  t154 = t102 * t8;
-  t155 = 0.1e1 / t154;
-  t156 = 0.1e1 / t64;
-  t157 = t155 * t156;
-  t161 = my_piecewise3(t62, 0, -t152 - 0.4e1 / 0.3e1 * t153 * t157);
-  t162 = t161 * t23;
-  t166 = t69 * t120;
-  t169 = t7 * t166 * t94 / 0.10e2;
-  t171 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t162 * t94 + t169);
+  t106 = t14 * t9;
+  t109 = t8 * t8;
+  t110 = 0.1e1 / t109;
+  t113 = 0.2e1 * t15 * t110 * t17;
+  t114 = 0.1e1 / t16;
+  t115 = t9 * t114;
+  t117 = -rho[0] * t110 + t9;
+  t122 = my_piecewise3(t12, 0, 0.2e1 * t106 * t17 - t113 + 0.4e1 / 0.3e1 * t15 * t115 * t117);
+  t123 = t122 * t23;
+  t127 = 0.1e1 / t22;
+  t128 = t21 * t127;
+  t131 = t7 * t128 * t58 / 0.10e2;
+  t132 = t31 * rho[0];
+  t134 = 0.1e1 / t33 / t132;
+  t136 = t30 * sigma[0] * t134;
+  t142 = -0.25e2 / 0.162e3 * t30 * lapl[0] * t35 + 0.40e2 / 0.243e3 * t136;
+  t143 = t142 * t56;
+  t144 = t51 * params->csk_a;
+  t146 = my_piecewise3(t48, 0, -t142);
+  t147 = 0.1e1 / t49;
+  t151 = my_piecewise3(t47, 0, -t144 * t146 * t147 * t52);
+  t153 = 0.1e1 / t54;
+  t154 = t55 * t151 * t153;
+  t156 = -0.5e1 / 0.27e2 * t136 + t143 + t57 * t154;
+  t161 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t123 * t58 + t131 + 0.3e1 / 0.20e2 * t7 * t24 * t156);
+  t164 = 0.2e1 * t67 * t110 * t69;
+  t165 = t14 * t75;
+  t166 = t109 * t8;
+  t167 = 0.1e1 / t166;
+  t168 = 0.1e1 / t68;
+  t169 = t167 * t168;
+  t173 = my_piecewise3(t66, 0, -t164 - 0.4e1 / 0.3e1 * t165 * t169);
+  t174 = t173 * t23;
+  t178 = t73 * t127;
+  t181 = t7 * t178 * t101 / 0.10e2;
+  t183 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t174 * t101 + t181);
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[0] = t58 + t98 + t8 * (t149 + t171);
+    vrho[0] = t62 + t105 + t8 * (t161 + t183);
 
-  t174 = t14 * t31;
-  t175 = t155 * t107;
-  t179 = my_piecewise3(t12, 0, -t106 - 0.4e1 / 0.3e1 * t174 * t175);
-  t180 = t179 * t23;
-  t185 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t180 * t54 + t124);
-  t188 = t9 * t156;
-  t190 = -rho[1] * t103 + t9;
-  t195 = my_piecewise3(t62, 0, 0.2e1 * t99 * t65 - t152 + 0.4e1 / 0.3e1 * t63 * t188 * t190);
-  t196 = t195 * t23;
-  t200 = t71 * rho[1];
-  t202 = 0.1e1 / t73 / t200;
-  t204 = t30 * sigma[2] * t202;
-  t210 = -0.25e2 / 0.162e3 * t30 * lapl[1] * t75 + 0.40e2 / 0.243e3 * t204;
-  t212 = t88 * t88;
-  t213 = 0.1e1 / t212;
-  t214 = my_piecewise3(t87, t210, 0);
-  t217 = my_piecewise3(t86, 0, t213 * t214 * t90);
-  t219 = -0.5e1 / 0.27e2 * t204 + t210 * t92 + t85 * t217;
-  t224 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t196 * t94 + t169 + 0.3e1 / 0.20e2 * t7 * t70 * t219);
+  t186 = t14 * t31;
+  t187 = t167 * t114;
+  t191 = my_piecewise3(t12, 0, -t113 - 0.4e1 / 0.3e1 * t186 * t187);
+  t192 = t191 * t23;
+  t197 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t192 * t58 + t131);
+  t200 = t9 * t168;
+  t202 = -rho[1] * t110 + t9;
+  t207 = my_piecewise3(t66, 0, 0.2e1 * t106 * t69 - t164 + 0.4e1 / 0.3e1 * t67 * t200 * t202);
+  t208 = t207 * t23;
+  t212 = t75 * rho[1];
+  t214 = 0.1e1 / t77 / t212;
+  t216 = t30 * sigma[2] * t214;
+  t222 = -0.25e2 / 0.162e3 * t30 * lapl[1] * t79 + 0.40e2 / 0.243e3 * t216;
+  t223 = t222 * t99;
+  t224 = t95 * params->csk_a;
+  t226 = my_piecewise3(t92, 0, -t222);
+  t227 = 0.1e1 / t93;
+  t231 = my_piecewise3(t91, 0, -t224 * t226 * t227 * t96);
+  t233 = 0.1e1 / t98;
+  t234 = t55 * t231 * t233;
+  t236 = -0.5e1 / 0.27e2 * t216 + t223 + t100 * t234;
+  t241 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t208 * t101 + t181 + 0.3e1 / 0.20e2 * t7 * t74 * t236);
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[1] = t58 + t98 + t8 * (t185 + t224);
+    vrho[1] = t62 + t105 + t8 * (t197 + t241);
 
-  t227 = t30 * t35;
-  t230 = t30 * t35 * t52;
-  t233 = my_piecewise3(t47, -0.5e1 / 0.81e2 * t227, 0);
-  t236 = my_piecewise3(t46, 0, t138 * t233 * t50);
-  t238 = 0.5e1 / 0.72e2 * t227 - 0.5e1 / 0.81e2 * t230 + t45 * t236;
-  t242 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t238);
+  t244 = t30 * t35;
+  t247 = t30 * t35 * t56;
+  t250 = my_piecewise3(t48, 0, 0.5e1 / 0.81e2 * t244);
+  t254 = my_piecewise3(t47, 0, -t144 * t250 * t147 * t52);
+  t255 = t55 * t254;
+  t256 = t255 * t153;
+  t258 = 0.5e1 / 0.72e2 * t244 - 0.5e1 / 0.81e2 * t247 + t57 * t256;
+  t262 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t258);
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vsigma[0] = t8 * t242;
+    vsigma[0] = t8 * t262;
 
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vsigma[1] = 0.0e0;
 
-  t243 = t30 * t75;
-  t246 = t30 * t75 * t92;
-  t249 = my_piecewise3(t87, -0.5e1 / 0.81e2 * t243, 0);
-  t252 = my_piecewise3(t86, 0, t213 * t249 * t90);
-  t254 = 0.5e1 / 0.72e2 * t243 - 0.5e1 / 0.81e2 * t246 + t85 * t252;
-  t258 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t70 * t254);
+  t263 = t30 * t79;
+  t266 = t30 * t79 * t99;
+  t269 = my_piecewise3(t92, 0, 0.5e1 / 0.81e2 * t263);
+  t273 = my_piecewise3(t91, 0, -t224 * t269 * t227 * t96);
+  t274 = t55 * t273;
+  t275 = t274 * t233;
+  t277 = 0.5e1 / 0.72e2 * t263 - 0.5e1 / 0.81e2 * t266 + t100 * t275;
+  t281 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t74 * t277);
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vsigma[2] = t8 * t258;
+    vsigma[2] = t8 * t281;
 
-  t264 = my_piecewise3(t47, 0.5e1 / 0.54e2 * t30 * t40, 0);
-  t267 = my_piecewise3(t46, 0, t138 * t264 * t50);
-  t269 = 0.5e1 / 0.54e2 * t30 * t40 * t52 + t45 * t267;
-  t273 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t269);
+  t283 = t30 * t40 * t56;
+  t285 = t30 * t40;
+  t287 = my_piecewise3(t48, 0, -0.5e1 / 0.54e2 * t285);
+  t291 = my_piecewise3(t47, 0, -t144 * t287 * t147 * t52);
+  t292 = t55 * t291;
+  t293 = t292 * t153;
+  t295 = 0.5e1 / 0.54e2 * t283 + t57 * t293;
+  t299 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t295);
   if(vrho != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vlapl[0] = t8 * t273;
+    vlapl[0] = t8 * t299;
 
-  t279 = my_piecewise3(t87, 0.5e1 / 0.54e2 * t30 * t80, 0);
-  t282 = my_piecewise3(t86, 0, t213 * t279 * t90);
-  t284 = 0.5e1 / 0.54e2 * t30 * t80 * t92 + t85 * t282;
-  t288 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t70 * t284);
+  t301 = t30 * t84 * t99;
+  t303 = t30 * t84;
+  t305 = my_piecewise3(t92, 0, -0.5e1 / 0.54e2 * t303);
+  t309 = my_piecewise3(t91, 0, -t224 * t305 * t227 * t96);
+  t310 = t55 * t309;
+  t311 = t310 * t233;
+  t313 = 0.5e1 / 0.54e2 * t301 + t100 * t311;
+  t317 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t74 * t313);
   if(vrho != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vlapl[1] = t8 * t288;
+    vlapl[1] = t8 * t317;
 
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vtau[0] = 0.0e0;
@@ -1000,180 +1734,232 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(order < 2) return;
 
 
-  t291 = t14 * t103;
-  t292 = t291 * t17;
-  t294 = t107 * t110;
-  t299 = 0.4e1 * t15 * t155 * t17;
-  t300 = t103 * t107;
-  t302 = t15 * t300 * t110;
-  t305 = 0.1e1 / t16 / t10;
-  t306 = t9 * t305;
-  t307 = t110 * t110;
-  t313 = 0.2e1 * rho[0] * t155 - 0.2e1 * t103;
-  t318 = my_piecewise3(t12, 0, -0.4e1 * t292 + 0.8e1 / 0.3e1 * t99 * t294 + t299 - 0.8e1 / 0.3e1 * t302 - 0.4e1 / 0.9e1 * t15 * t306 * t307 + 0.4e1 / 0.3e1 * t15 * t108 * t313);
-  t319 = t318 * t23;
-  t323 = t115 * t120;
-  t325 = t7 * t323 * t54;
-  t331 = 0.1e1 / t22 / t8;
-  t332 = t21 * t331;
-  t335 = t7 * t332 * t54 / 0.30e2;
-  t337 = t7 * t121 * t144;
-  t339 = t31 * t31;
-  t341 = 0.1e1 / t33 / t339;
-  t343 = t30 * sigma[0] * t341;
-  t349 = 0.100e3 / 0.243e3 * t30 * lapl[0] * t127 - 0.440e3 / 0.729e3 * t343;
-  t353 = t137 * t48;
-  t354 = 0.1e1 / t353;
-  t355 = t139 * t139;
-  t359 = my_piecewise3(t47, t349, 0);
-  t362 = t137 * t137;
-  t363 = 0.1e1 / t362;
-  t364 = t363 * t355;
-  t367 = my_piecewise3(t46, 0, t138 * t359 * t50 - 0.2e1 * t354 * t355 * t50 - t364 * t50);
-  t369 = 0.55e2 / 0.81e2 * t343 + t349 * t52 + 0.2e1 * t135 * t142 + t45 * t367;
-  t374 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t319 * t54 + t325 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t116 * t144 - t335 + t337 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t24 * t369);
-  t377 = 0.4e1 * t63 * t155 * t65;
-  t378 = t102 * t102;
-  t379 = 0.1e1 / t378;
-  t380 = t379 * t156;
-  t381 = t153 * t380;
-  t383 = t14 * t200;
-  t385 = 0.1e1 / t378 / t8;
-  t387 = 0.1e1 / t64 / t60;
+  t320 = t14 * t110;
+  t321 = t320 * t17;
+  t323 = t114 * t117;
+  t328 = 0.4e1 * t15 * t167 * t17;
+  t329 = t110 * t114;
+  t331 = t15 * t329 * t117;
+  t334 = 0.1e1 / t16 / t10;
+  t335 = t9 * t334;
+  t336 = t117 * t117;
+  t342 = 0.2e1 * rho[0] * t167 - 0.2e1 * t110;
+  t347 = my_piecewise3(t12, 0, -0.4e1 * t321 + 0.8e1 / 0.3e1 * t106 * t323 + t328 - 0.8e1 / 0.3e1 * t331 - 0.4e1 / 0.9e1 * t15 * t335 * t336 + 0.4e1 / 0.3e1 * t15 * t115 * t342);
+  t348 = t347 * t23;
+  t352 = t122 * t127;
+  t354 = t7 * t352 * t58;
+  t360 = 0.1e1 / t22 / t8;
+  t361 = t21 * t360;
+  t364 = t7 * t361 * t58 / 0.30e2;
+  t366 = t7 * t128 * t156;
+  t368 = t31 * t31;
+  t370 = 0.1e1 / t33 / t368;
+  t372 = t30 * sigma[0] * t370;
+  t378 = 0.100e3 / 0.243e3 * t30 * lapl[0] * t134 - 0.440e3 / 0.729e3 * t372;
+  t379 = t378 * t56;
+  t382 = params->csk_a * params->csk_a;
+  t383 = 0.1e1 / t382;
+  t384 = t151 * t151;
+  t385 = t383 * t384;
+  t386 = t54 * t54;
+  t387 = 0.1e1 / t386;
   t388 = t385 * t387;
-  t392 = my_piecewise3(t62, 0, t377 + 0.16e2 / 0.3e1 * t381 - 0.4e1 / 0.9e1 * t383 * t388);
-  t393 = t392 * t23;
-  t397 = t161 * t120;
-  t399 = t7 * t397 * t94;
-  t401 = t69 * t331;
-  t404 = t7 * t401 * t94 / 0.30e2;
-  t406 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t393 * t94 + t399 / 0.5e1 - t404);
+  t390 = t51 * t382;
+  t391 = t146 * t146;
+  t392 = t49 * t49;
+  t393 = 0.1e1 / t392;
+  t395 = t391 * t393 * t52;
+  t398 = my_piecewise3(t48, 0, -t378);
+  t403 = t50 * t50;
+  t404 = 0.1e1 / t403;
+  t405 = t404 * t382;
+  t408 = my_piecewise3(t47, 0, -t144 * t398 * t147 * t52 + t144 * t395 + t390 * t395 - t405 * t395);
+  t409 = t55 * t408;
+  t410 = t409 * t153;
+  t413 = t55 * t384 * t387;
+  t415 = 0.55e2 / 0.81e2 * t372 + t379 + 0.2e1 * t143 * t154 + t57 * t388 + t57 * t410 - t57 * t413;
+  t420 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t348 * t58 + t354 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t123 * t156 - t364 + t366 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t24 * t415);
+  t423 = 0.4e1 * t67 * t167 * t69;
+  t424 = t109 * t109;
+  t425 = 0.1e1 / t424;
+  t426 = t425 * t168;
+  t427 = t165 * t426;
+  t429 = t14 * t212;
+  t431 = 0.1e1 / t424 / t8;
+  t433 = 0.1e1 / t68 / t64;
+  t434 = t431 * t433;
+  t438 = my_piecewise3(t66, 0, t423 + 0.16e2 / 0.3e1 * t427 - 0.4e1 / 0.9e1 * t429 * t434);
+  t439 = t438 * t23;
+  t443 = t173 * t127;
+  t445 = t7 * t443 * t101;
+  t447 = t73 * t360;
+  t450 = t7 * t447 * t101 / 0.30e2;
+  t452 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t439 * t101 + t445 / 0.5e1 - t450);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = 0.2e1 * t149 + 0.2e1 * t171 + t8 * (t374 + t406);
+    v2rho2[0] = 0.2e1 * t161 + 0.2e1 * t183 + t8 * (t420 + t452);
 
-  t413 = t379 * t107;
-  t414 = t174 * t413;
-  t416 = t155 * t305;
-  t417 = t416 * t110;
-  t421 = my_piecewise3(t12, 0, -0.2e1 * t292 + t299 - 0.4e1 / 0.3e1 * t302 - 0.8e1 / 0.3e1 * t15 * t175 + 0.4e1 * t414 + 0.4e1 / 0.9e1 * t174 * t417);
-  t422 = t421 * t23;
-  t426 = t179 * t120;
-  t428 = t7 * t426 * t54;
-  t436 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t422 * t54 + t428 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t180 * t144 + t325 / 0.10e2 - t335 + t337 / 0.10e2);
-  t437 = t291 * t65;
-  t439 = t14 * t155;
-  t440 = t156 * rho[1];
-  t444 = t103 * t156;
-  t446 = t63 * t444 * t190;
-  t448 = t155 * t387;
-  t452 = rho[1] * t155;
-  t454 = -t103 + 0.2e1 * t452;
-  t459 = my_piecewise3(t62, 0, -0.2e1 * t437 - 0.4e1 / 0.3e1 * t439 * t440 + t377 + 0.4e1 / 0.3e1 * t381 - 0.4e1 / 0.3e1 * t446 + 0.4e1 / 0.9e1 * t153 * t448 * t190 + 0.4e1 / 0.3e1 * t63 * t188 * t454);
-  t460 = t459 * t23;
-  t464 = t195 * t120;
-  t466 = t7 * t464 * t94;
-  t473 = t7 * t166 * t219;
-  t476 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t460 * t94 + t466 / 0.10e2 + t399 / 0.10e2 - t404 + 0.3e1 / 0.20e2 * t7 * t162 * t219 + t473 / 0.10e2);
+  t459 = t425 * t114;
+  t460 = t186 * t459;
+  t462 = t167 * t334;
+  t463 = t462 * t117;
+  t467 = my_piecewise3(t12, 0, -0.2e1 * t321 + t328 - 0.4e1 / 0.3e1 * t331 - 0.8e1 / 0.3e1 * t15 * t187 + 0.4e1 * t460 + 0.4e1 / 0.9e1 * t186 * t463);
+  t468 = t467 * t23;
+  t472 = t191 * t127;
+  t474 = t7 * t472 * t58;
+  t482 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t468 * t58 + t474 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t192 * t156 + t354 / 0.10e2 - t364 + t366 / 0.10e2);
+  t483 = t320 * t69;
+  t485 = t14 * t167;
+  t486 = t168 * rho[1];
+  t490 = t110 * t168;
+  t492 = t67 * t490 * t202;
+  t494 = t167 * t433;
+  t498 = rho[1] * t167;
+  t500 = -t110 + 0.2e1 * t498;
+  t505 = my_piecewise3(t66, 0, -0.2e1 * t483 - 0.4e1 / 0.3e1 * t485 * t486 + t423 + 0.4e1 / 0.3e1 * t427 - 0.4e1 / 0.3e1 * t492 + 0.4e1 / 0.9e1 * t165 * t494 * t202 + 0.4e1 / 0.3e1 * t67 * t200 * t500);
+  t506 = t505 * t23;
+  t510 = t207 * t127;
+  t512 = t7 * t510 * t101;
+  t519 = t7 * t178 * t236;
+  t522 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t506 * t101 + t512 / 0.10e2 + t445 / 0.10e2 - t450 + 0.3e1 / 0.20e2 * t7 * t174 * t236 + t519 / 0.10e2);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[1] = t149 + t171 + t185 + t224 + t8 * (t436 + t476);
+    v2rho2[1] = t161 + t183 + t197 + t241 + t8 * (t482 + t522);
 
-  t482 = t14 * t125;
-  t483 = t385 * t305;
-  t487 = my_piecewise3(t12, 0, t299 + 0.16e2 / 0.3e1 * t414 - 0.4e1 / 0.9e1 * t482 * t483);
-  t488 = t487 * t23;
-  t494 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t488 * t54 + t428 / 0.5e1 - t335);
-  t496 = t156 * t190;
-  t500 = t9 * t387;
-  t501 = t190 * t190;
-  t506 = -0.2e1 * t103 + 0.2e1 * t452;
-  t511 = my_piecewise3(t62, 0, -0.4e1 * t437 + 0.8e1 / 0.3e1 * t99 * t496 + t377 - 0.8e1 / 0.3e1 * t446 - 0.4e1 / 0.9e1 * t63 * t500 * t501 + 0.4e1 / 0.3e1 * t63 * t188 * t506);
-  t512 = t511 * t23;
-  t521 = t71 * t71;
-  t523 = 0.1e1 / t73 / t521;
-  t525 = t30 * sigma[2] * t523;
-  t531 = 0.100e3 / 0.243e3 * t30 * lapl[1] * t202 - 0.440e3 / 0.729e3 * t525;
-  t535 = t212 * t88;
-  t536 = 0.1e1 / t535;
-  t537 = t214 * t214;
-  t541 = my_piecewise3(t87, t531, 0);
-  t544 = t212 * t212;
-  t545 = 0.1e1 / t544;
-  t546 = t545 * t537;
-  t549 = my_piecewise3(t86, 0, t213 * t541 * t90 - 0.2e1 * t536 * t537 * t90 - t546 * t90);
-  t551 = 0.55e2 / 0.81e2 * t525 + t531 * t92 + 0.2e1 * t210 * t217 + t85 * t549;
-  t556 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t512 * t94 + t466 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t196 * t219 - t404 + t473 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t70 * t551);
+  t528 = t14 * t132;
+  t529 = t431 * t334;
+  t533 = my_piecewise3(t12, 0, t328 + 0.16e2 / 0.3e1 * t460 - 0.4e1 / 0.9e1 * t528 * t529);
+  t534 = t533 * t23;
+  t540 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t534 * t58 + t474 / 0.5e1 - t364);
+  t542 = t168 * t202;
+  t546 = t9 * t433;
+  t547 = t202 * t202;
+  t552 = -0.2e1 * t110 + 0.2e1 * t498;
+  t557 = my_piecewise3(t66, 0, -0.4e1 * t483 + 0.8e1 / 0.3e1 * t106 * t542 + t423 - 0.8e1 / 0.3e1 * t492 - 0.4e1 / 0.9e1 * t67 * t546 * t547 + 0.4e1 / 0.3e1 * t67 * t200 * t552);
+  t558 = t557 * t23;
+  t567 = t75 * t75;
+  t569 = 0.1e1 / t77 / t567;
+  t571 = t30 * sigma[2] * t569;
+  t577 = 0.100e3 / 0.243e3 * t30 * lapl[1] * t214 - 0.440e3 / 0.729e3 * t571;
+  t578 = t577 * t99;
+  t581 = t231 * t231;
+  t582 = t383 * t581;
+  t583 = t98 * t98;
+  t584 = 0.1e1 / t583;
+  t585 = t582 * t584;
+  t587 = t95 * t382;
+  t588 = t226 * t226;
+  t589 = t93 * t93;
+  t590 = 0.1e1 / t589;
+  t592 = t588 * t590 * t96;
+  t595 = my_piecewise3(t92, 0, -t577);
+  t600 = t94 * t94;
+  t601 = 0.1e1 / t600;
+  t602 = t601 * t382;
+  t605 = my_piecewise3(t91, 0, -t224 * t595 * t227 * t96 + t224 * t592 + t587 * t592 - t602 * t592);
+  t606 = t55 * t605;
+  t607 = t606 * t233;
+  t610 = t55 * t581 * t584;
+  t612 = 0.55e2 / 0.81e2 * t571 + t578 + 0.2e1 * t223 * t234 + t100 * t585 + t100 * t607 - t100 * t610;
+  t617 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t558 * t101 + t512 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t208 * t236 - t450 + t519 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t74 * t612);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[2] = 0.2e1 * t185 + 0.2e1 * t224 + t8 * (t494 + t556);
+    v2rho2[2] = 0.2e1 * t197 + 0.2e1 * t241 + t8 * (t540 + t617);
 
-  t564 = t7 * t121 * t238 / 0.10e2;
-  t565 = t30 * t127;
-  t568 = t30 * t127 * t52;
-  t571 = t30 * t35 * t142;
-  t574 = t354 * t233;
-  t575 = t50 * t139;
-  t579 = my_piecewise3(t47, 0.40e2 / 0.243e3 * t565, 0);
-  t582 = t363 * t233;
-  t585 = my_piecewise3(t46, 0, t138 * t579 * t50 - 0.2e1 * t574 * t575 - t582 * t575);
-  t587 = -0.5e1 / 0.27e2 * t565 + 0.40e2 / 0.243e3 * t568 - 0.5e1 / 0.81e2 * t571 + t135 * t236 + t45 * t585;
-  t592 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t116 * t238 + t564 + 0.3e1 / 0.20e2 * t7 * t24 * t587);
+  t625 = t7 * t128 * t258 / 0.10e2;
+  t626 = t30 * t134;
+  t629 = t30 * t134 * t56;
+  t631 = t56 * t55;
+  t633 = t631 * t151 * t153;
+  t634 = t244 * t633;
+  t637 = t57 * t383;
+  t638 = t151 * t387;
+  t639 = t638 * t254;
+  t641 = t390 * t250;
+  t642 = t393 * t52;
+  t643 = t642 * t146;
+  t646 = my_piecewise3(t48, 0, -0.40e2 / 0.243e3 * t626);
+  t650 = t144 * t250;
+  t652 = t405 * t250;
+  t655 = my_piecewise3(t47, 0, -t144 * t646 * t147 * t52 + t641 * t643 + t650 * t643 - t652 * t643);
+  t656 = t55 * t655;
+  t657 = t656 * t153;
+  t659 = t57 * t55;
+  t661 = -0.5e1 / 0.27e2 * t626 + 0.40e2 / 0.243e3 * t629 - 0.5e1 / 0.81e2 * t634 + t143 * t256 + t637 * t639 + t57 * t657 - t659 * t639;
+  t666 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t123 * t258 + t625 + 0.3e1 / 0.20e2 * t7 * t24 * t661);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rhosigma[0] = t8 * t592 + t242;
+    v2rhosigma[0] = t8 * t666 + t262;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rhosigma[1] = 0.0e0;
 
-  t599 = t7 * t166 * t254 / 0.10e2;
-  t601 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t162 * t254 + t599);
+  t673 = t7 * t178 * t277 / 0.10e2;
+  t675 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t174 * t277 + t673);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rhosigma[2] = t8 * t601 + t258;
+    v2rhosigma[2] = t8 * t675 + t281;
 
-  t607 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t180 * t238 + t564);
+  t681 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t192 * t258 + t625);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rhosigma[3] = t8 * t607 + t242;
+    v2rhosigma[3] = t8 * t681 + t262;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rhosigma[4] = 0.0e0;
 
-  t612 = t30 * t202;
-  t615 = t30 * t202 * t92;
-  t618 = t30 * t75 * t217;
-  t621 = t536 * t249;
-  t622 = t90 * t214;
-  t626 = my_piecewise3(t87, 0.40e2 / 0.243e3 * t612, 0);
-  t629 = t545 * t249;
-  t632 = my_piecewise3(t86, 0, t213 * t626 * t90 - 0.2e1 * t621 * t622 - t629 * t622);
-  t634 = -0.5e1 / 0.27e2 * t612 + 0.40e2 / 0.243e3 * t615 - 0.5e1 / 0.81e2 * t618 + t210 * t252 + t85 * t632;
-  t639 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t196 * t254 + t599 + 0.3e1 / 0.20e2 * t7 * t70 * t634);
+  t686 = t30 * t214;
+  t689 = t30 * t214 * t99;
+  t691 = t99 * t55;
+  t693 = t691 * t231 * t233;
+  t694 = t263 * t693;
+  t697 = t100 * t383;
+  t698 = t231 * t584;
+  t699 = t698 * t273;
+  t701 = t587 * t269;
+  t702 = t590 * t96;
+  t703 = t702 * t226;
+  t706 = my_piecewise3(t92, 0, -0.40e2 / 0.243e3 * t686);
+  t710 = t224 * t269;
+  t712 = t602 * t269;
+  t715 = my_piecewise3(t91, 0, -t224 * t706 * t227 * t96 + t701 * t703 + t710 * t703 - t712 * t703);
+  t716 = t55 * t715;
+  t717 = t716 * t233;
+  t719 = t100 * t55;
+  t721 = -0.5e1 / 0.27e2 * t686 + 0.40e2 / 0.243e3 * t689 - 0.5e1 / 0.81e2 * t694 + t223 * t275 + t697 * t699 + t100 * t717 - t719 * t699;
+  t726 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t208 * t277 + t673 + 0.3e1 / 0.20e2 * t7 * t74 * t721);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rhosigma[5] = t8 * t639 + t258;
+    v2rhosigma[5] = t8 * t726 + t281;
 
-  t646 = t7 * t121 * t269 / 0.10e2;
-  t652 = t354 * t264;
-  t656 = my_piecewise3(t47, -0.25e2 / 0.162e3 * t227, 0);
-  t659 = t363 * t264;
-  t662 = my_piecewise3(t46, 0, t138 * t656 * t50 - 0.2e1 * t652 * t575 - t659 * t575);
-  t664 = -0.25e2 / 0.162e3 * t230 + 0.5e1 / 0.54e2 * t30 * t40 * t142 + t135 * t267 + t45 * t662;
-  t669 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t116 * t269 + t646 + 0.3e1 / 0.20e2 * t7 * t24 * t664);
+  t733 = t7 * t128 * t295 / 0.10e2;
+  t738 = t638 * t291;
+  t740 = t390 * t287;
+  t743 = my_piecewise3(t48, 0, 0.25e2 / 0.162e3 * t244);
+  t747 = t144 * t287;
+  t749 = t405 * t287;
+  t752 = my_piecewise3(t47, 0, -t144 * t743 * t147 * t52 + t740 * t643 + t747 * t643 - t749 * t643);
+  t753 = t55 * t752;
+  t754 = t753 * t153;
+  t757 = -0.25e2 / 0.162e3 * t247 + 0.5e1 / 0.54e2 * t285 * t633 + t143 * t293 + t637 * t738 + t57 * t754 - t659 * t738;
+  t762 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t123 * t295 + t733 + 0.3e1 / 0.20e2 * t7 * t24 * t757);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rholapl[0] = t8 * t669 + t273;
+    v2rholapl[0] = t8 * t762 + t299;
 
-  t676 = t7 * t166 * t284 / 0.10e2;
-  t678 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t162 * t284 + t676);
+  t769 = t7 * t178 * t313 / 0.10e2;
+  t771 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t174 * t313 + t769);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rholapl[1] = t8 * t678 + t288;
+    v2rholapl[1] = t8 * t771 + t317;
 
-  t684 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t180 * t269 + t646);
+  t777 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t192 * t295 + t733);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rholapl[2] = t8 * t684 + t273;
+    v2rholapl[2] = t8 * t777 + t299;
 
-  t694 = t536 * t279;
-  t698 = my_piecewise3(t87, -0.25e2 / 0.162e3 * t243, 0);
-  t701 = t545 * t279;
-  t704 = my_piecewise3(t86, 0, t213 * t698 * t90 - 0.2e1 * t694 * t622 - t701 * t622);
-  t706 = -0.25e2 / 0.162e3 * t246 + 0.5e1 / 0.54e2 * t30 * t80 * t217 + t210 * t282 + t85 * t704;
-  t711 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t196 * t284 + t676 + 0.3e1 / 0.20e2 * t7 * t70 * t706);
+  t786 = t698 * t309;
+  t788 = t587 * t305;
+  t791 = my_piecewise3(t92, 0, 0.25e2 / 0.162e3 * t263);
+  t795 = t224 * t305;
+  t797 = t602 * t305;
+  t800 = my_piecewise3(t91, 0, -t224 * t791 * t227 * t96 + t788 * t703 + t795 * t703 - t797 * t703);
+  t801 = t55 * t800;
+  t802 = t801 * t233;
+  t805 = -0.25e2 / 0.162e3 * t266 + 0.5e1 / 0.54e2 * t303 * t693 + t223 * t311 + t697 * t786 + t100 * t802 - t719 * t786;
+  t810 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t208 * t313 + t769 + 0.3e1 / 0.20e2 * t7 * t74 * t805);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rholapl[3] = t8 * t711 + t288;
+    v2rholapl[3] = t8 * t810 + t317;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rhotau[0] = 0.0e0;
@@ -1187,16 +1973,24 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rhotau[3] = 0.0e0;
 
-  t714 = t30 * t35 * t236;
-  t716 = t233 * t233;
-  t720 = my_piecewise3(t47, 0, 0);
-  t722 = t138 * t720 * t50;
-  t723 = t363 * t716;
-  t726 = my_piecewise3(t46, 0, -0.2e1 * t354 * t716 * t50 - t723 * t50 + t722);
-  t728 = -0.10e2 / 0.81e2 * t714 + t45 * t726;
-  t732 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t728);
+  t813 = t631 * t254 * t153;
+  t814 = t244 * t813;
+  t816 = t254 * t254;
+  t817 = t383 * t816;
+  t818 = t817 * t387;
+  t820 = t250 * t250;
+  t822 = t820 * t393 * t52;
+  t824 = my_piecewise3(t48, 0, 0);
+  t827 = t144 * t824 * t147 * t52;
+  t831 = my_piecewise3(t47, 0, t144 * t822 + t390 * t822 - t405 * t822 - t827);
+  t832 = t55 * t831;
+  t833 = t832 * t153;
+  t835 = t55 * t816;
+  t836 = t835 * t387;
+  t838 = -0.10e2 / 0.81e2 * t814 + t57 * t818 + t57 * t833 - t57 * t836;
+  t842 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t838);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2sigma2[0] = t8 * t732;
+    v2sigma2[0] = t8 * t842;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigma2[1] = 0.0e0;
@@ -1210,24 +2004,37 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigma2[4] = 0.0e0;
 
-  t734 = t30 * t75 * t252;
-  t736 = t249 * t249;
-  t740 = my_piecewise3(t87, 0, 0);
-  t742 = t213 * t740 * t90;
-  t743 = t545 * t736;
-  t746 = my_piecewise3(t86, 0, -0.2e1 * t536 * t736 * t90 - t743 * t90 + t742);
-  t748 = -0.10e2 / 0.81e2 * t734 + t85 * t746;
-  t752 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t70 * t748);
+  t844 = t691 * t273 * t233;
+  t845 = t263 * t844;
+  t847 = t273 * t273;
+  t848 = t383 * t847;
+  t849 = t848 * t584;
+  t851 = t269 * t269;
+  t853 = t851 * t590 * t96;
+  t855 = my_piecewise3(t92, 0, 0);
+  t858 = t224 * t855 * t227 * t96;
+  t862 = my_piecewise3(t91, 0, t224 * t853 + t587 * t853 - t602 * t853 - t858);
+  t863 = t55 * t862;
+  t864 = t863 * t233;
+  t866 = t55 * t847;
+  t867 = t866 * t584;
+  t869 = -0.10e2 / 0.81e2 * t845 + t100 * t849 + t100 * t864 - t100 * t867;
+  t873 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t74 * t869);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2sigma2[5] = t8 * t752;
+    v2sigma2[5] = t8 * t873;
 
-  t757 = t30 * t35 * t267;
-  t759 = t50 * t233;
-  t764 = my_piecewise3(t46, 0, -0.2e1 * t652 * t759 - t659 * t759 + t722);
-  t766 = 0.5e1 / 0.54e2 * t30 * t40 * t236 - 0.5e1 / 0.81e2 * t757 + t45 * t764;
-  t770 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t766);
+  t877 = t631 * t291 * t153;
+  t878 = t244 * t877;
+  t880 = t254 * t387;
+  t881 = t880 * t291;
+  t883 = t642 * t250;
+  t888 = my_piecewise3(t47, 0, t740 * t883 + t747 * t883 - t749 * t883 - t827);
+  t889 = t55 * t888;
+  t890 = t889 * t153;
+  t893 = 0.5e1 / 0.54e2 * t285 * t813 - 0.5e1 / 0.81e2 * t878 + t637 * t881 + t57 * t890 - t659 * t881;
+  t897 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t893);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2sigmalapl[0] = t8 * t770;
+    v2sigmalapl[0] = t8 * t897;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigmalapl[1] = 0.0e0;
@@ -1241,13 +2048,18 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigmalapl[4] = 0.0e0;
 
-  t775 = t30 * t75 * t282;
-  t777 = t90 * t249;
-  t782 = my_piecewise3(t86, 0, -0.2e1 * t694 * t777 - t701 * t777 + t742);
-  t784 = 0.5e1 / 0.54e2 * t30 * t80 * t252 - 0.5e1 / 0.81e2 * t775 + t85 * t782;
-  t788 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t70 * t784);
+  t901 = t691 * t309 * t233;
+  t902 = t263 * t901;
+  t904 = t273 * t584;
+  t905 = t904 * t309;
+  t907 = t702 * t269;
+  t912 = my_piecewise3(t91, 0, t788 * t907 + t795 * t907 - t797 * t907 - t858);
+  t913 = t55 * t912;
+  t914 = t913 * t233;
+  t917 = 0.5e1 / 0.54e2 * t303 * t844 - 0.5e1 / 0.81e2 * t902 + t697 * t905 + t100 * t914 - t719 * t905;
+  t921 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t74 * t917);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2sigmalapl[5] = t8 * t788;
+    v2sigmalapl[5] = t8 * t921;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigmatau[0] = 0.0e0;
@@ -1267,24 +2079,38 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2sigmatau[5] = 0.0e0;
 
-  t792 = t264 * t264;
-  t796 = t363 * t792;
-  t799 = my_piecewise3(t46, 0, -0.2e1 * t354 * t792 * t50 - t796 * t50 + t722);
-  t801 = 0.5e1 / 0.27e2 * t30 * t40 * t267 + t45 * t799;
-  t805 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t801);
+  t924 = t291 * t291;
+  t925 = t383 * t924;
+  t926 = t925 * t387;
+  t928 = t287 * t287;
+  t930 = t928 * t393 * t52;
+  t935 = my_piecewise3(t47, 0, t144 * t930 + t390 * t930 - t405 * t930 - t827);
+  t936 = t55 * t935;
+  t937 = t936 * t153;
+  t939 = t55 * t924;
+  t940 = t939 * t387;
+  t942 = 0.5e1 / 0.27e2 * t285 * t877 + t57 * t926 + t57 * t937 - t57 * t940;
+  t946 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t942);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2lapl2[0] = t8 * t805;
+    v2lapl2[0] = t8 * t946;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2lapl2[1] = 0.0e0;
 
-  t809 = t279 * t279;
-  t813 = t545 * t809;
-  t816 = my_piecewise3(t86, 0, -0.2e1 * t536 * t809 * t90 - t813 * t90 + t742);
-  t818 = 0.5e1 / 0.27e2 * t30 * t80 * t282 + t85 * t816;
-  t822 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t70 * t818);
+  t949 = t309 * t309;
+  t950 = t383 * t949;
+  t951 = t950 * t584;
+  t953 = t305 * t305;
+  t955 = t953 * t590 * t96;
+  t960 = my_piecewise3(t91, 0, t224 * t955 + t587 * t955 - t602 * t955 - t858);
+  t961 = t55 * t960;
+  t962 = t961 * t233;
+  t964 = t55 * t949;
+  t965 = t964 * t584;
+  t967 = 0.5e1 / 0.27e2 * t303 * t901 + t100 * t951 + t100 * t962 - t100 * t965;
+  t971 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t74 * t967);
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2lapl2[2] = t8 * t822;
+    v2lapl2[2] = t8 * t971;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2lapltau[0] = 0.0e0;
@@ -1312,280 +2138,365 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(order < 3) return;
 
 
-  t825 = t439 * t17;
-  t827 = t291 * t294;
-  t829 = t305 * t307;
-  t832 = t107 * t313;
-  t837 = 0.12e2 * t15 * t379 * t17;
-  t839 = t15 * t175 * t110;
-  t843 = t15 * t103 * t305 * t307;
-  t846 = t15 * t300 * t313;
-  t850 = 0.1e1 / t16 / t31 / t103;
-  t852 = t307 * t110;
-  t856 = t15 * t9;
-  t857 = t305 * t110;
-  t858 = t857 * t313;
-  t863 = -0.6e1 * rho[0] * t379 + 0.6e1 * t155;
-  t867 = 0.12e2 * t825 - 0.8e1 * t827 - 0.4e1 / 0.3e1 * t99 * t829 + 0.4e1 * t99 * t832 - t837 + 0.8e1 * t839 + 0.4e1 / 0.3e1 * t843 - 0.4e1 * t846 + 0.16e2 / 0.27e2 * t15 * t9 * t850 * t852 - 0.4e1 / 0.3e1 * t856 * t858 + 0.4e1 / 0.3e1 * t15 * t108 * t863;
-  t868 = my_piecewise3(t12, 0, t867);
-  t869 = t868 * t23;
-  t873 = t318 * t120;
-  t875 = t7 * t873 * t54;
-  t880 = t115 * t331;
-  t882 = t7 * t880 * t54;
-  t885 = t7 * t323 * t144;
-  t891 = 0.1e1 / t22 / t102;
-  t892 = t21 * t891;
-  t895 = 0.2e1 / 0.45e2 * t7 * t892 * t54;
-  t897 = t7 * t332 * t144;
-  t900 = t7 * t121 * t369;
-  t902 = t339 * rho[0];
-  t904 = 0.1e1 / t33 / t902;
-  t906 = t30 * sigma[0] * t904;
-  t912 = -0.1100e4 / 0.729e3 * t30 * lapl[0] * t341 + 0.6160e4 / 0.2187e4 * t906;
-  t918 = t355 * t139;
-  t922 = t354 * t139;
-  t923 = t50 * t359;
-  t927 = 0.1e1 / t362 / t48;
-  t931 = my_piecewise3(t47, t912, 0);
-  t938 = 0.1e1 / t362 / t137;
-  t942 = my_piecewise3(t46, 0, t138 * t931 * t50 - 0.3e1 * t363 * t359 * t575 + 0.6e1 * t363 * t918 * t50 + 0.6e1 * t927 * t918 * t50 + t938 * t918 * t50 - 0.6e1 * t922 * t923);
-  t944 = -0.770e3 / 0.243e3 * t906 + t912 * t52 + 0.3e1 * t349 * t142 + 0.3e1 * t135 * t367 + t45 * t942;
-  t949 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t869 * t54 + 0.3e1 / 0.10e2 * t875 + 0.9e1 / 0.20e2 * t7 * t319 * t144 - t882 / 0.10e2 + 0.3e1 / 0.5e1 * t885 + 0.9e1 / 0.20e2 * t7 * t116 * t369 + t895 - t897 / 0.10e2 + 0.3e1 / 0.10e2 * t900 + 0.3e1 / 0.20e2 * t7 * t24 * t944);
-  t952 = 0.12e2 * t63 * t379 * t65;
-  t954 = t153 * t385 * t156;
-  t957 = 0.1e1 / t378 / t102;
-  t959 = t383 * t957 * t387;
-  t961 = t14 * t521;
-  t963 = 0.1e1 / t378 / t154;
-  t966 = 0.1e1 / t64 / t71 / t103;
-  t971 = my_piecewise3(t62, 0, -t952 - 0.24e2 * t954 + 0.4e1 * t959 - 0.16e2 / 0.27e2 * t961 * t963 * t966);
-  t972 = t971 * t23;
-  t976 = t392 * t120;
-  t978 = t7 * t976 * t94;
-  t980 = t161 * t331;
-  t982 = t7 * t980 * t94;
-  t984 = t69 * t891;
-  t987 = 0.2e1 / 0.45e2 * t7 * t984 * t94;
-  t989 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t972 * t94 + 0.3e1 / 0.10e2 * t978 - t982 / 0.10e2 + t987);
+  t974 = t485 * t17;
+  t976 = t320 * t323;
+  t978 = t334 * t336;
+  t981 = t114 * t342;
+  t986 = 0.12e2 * t15 * t425 * t17;
+  t988 = t15 * t187 * t117;
+  t992 = t15 * t110 * t334 * t336;
+  t995 = t15 * t329 * t342;
+  t999 = 0.1e1 / t16 / t31 / t110;
+  t1001 = t336 * t117;
+  t1005 = t15 * t9;
+  t1006 = t334 * t117;
+  t1007 = t1006 * t342;
+  t1012 = -0.6e1 * rho[0] * t425 + 0.6e1 * t167;
+  t1016 = 0.12e2 * t974 - 0.8e1 * t976 - 0.4e1 / 0.3e1 * t106 * t978 + 0.4e1 * t106 * t981 - t986 + 0.8e1 * t988 + 0.4e1 / 0.3e1 * t992 - 0.4e1 * t995 + 0.16e2 / 0.27e2 * t15 * t9 * t999 * t1001 - 0.4e1 / 0.3e1 * t1005 * t1007 + 0.4e1 / 0.3e1 * t15 * t115 * t1012;
+  t1017 = my_piecewise3(t12, 0, t1016);
+  t1018 = t1017 * t23;
+  t1022 = t347 * t127;
+  t1024 = t7 * t1022 * t58;
+  t1029 = t122 * t360;
+  t1031 = t7 * t1029 * t58;
+  t1034 = t7 * t352 * t156;
+  t1040 = 0.1e1 / t22 / t109;
+  t1041 = t21 * t1040;
+  t1044 = 0.2e1 / 0.45e2 * t7 * t1041 * t58;
+  t1046 = t7 * t361 * t156;
+  t1049 = t7 * t128 * t415;
+  t1051 = t368 * rho[0];
+  t1053 = 0.1e1 / t33 / t1051;
+  t1055 = t30 * sigma[0] * t1053;
+  t1061 = -0.1100e4 / 0.729e3 * t30 * lapl[0] * t370 + 0.6160e4 / 0.2187e4 * t1055;
+  t1062 = t1061 * t56;
+  t1071 = t382 * params->csk_a;
+  t1072 = 0.1e1 / t1071;
+  t1073 = t384 * t151;
+  t1076 = 0.1e1 / t386 / t54;
+  t1077 = t1072 * t1073 * t1076;
+  t1079 = t638 * t408;
+  t1083 = t383 * t1073 * t1076;
+  t1086 = t51 * t1071;
+  t1087 = t391 * t146;
+  t1089 = 0.1e1 / t392 / t49;
+  t1091 = t1087 * t1089 * t52;
+  t1093 = t390 * t146;
+  t1094 = t642 * t398;
+  t1099 = t404 * t1071;
+  t1103 = my_piecewise3(t48, 0, -t1061);
+  t1107 = t144 * t398;
+  t1110 = t405 * t398;
+  t1118 = 0.1e1 / t403 / t50;
+  t1119 = t1118 * t1071;
+  t1122 = my_piecewise3(t47, 0, -t1103 * t144 * t147 * t52 - t1086 * t1091 + 0.3e1 * t1091 * t1099 - t1091 * t1119 - 0.2e1 * t1091 * t144 - 0.3e1 * t1091 * t390 + 0.3e1 * t1091 * t405 + 0.3e1 * t1093 * t1094 + 0.3e1 * t1107 * t643 - 0.3e1 * t1110 * t643);
+  t1124 = t55 * t1122 * t153;
+  t1129 = t55 * t1073 * t1076;
+  t1132 = -0.770e3 / 0.243e3 * t1055 + t1062 + 0.3e1 * t379 * t154 + 0.3e1 * t143 * t388 + 0.3e1 * t143 * t410 - 0.3e1 * t143 * t413 + t57 * t1077 + 0.3e1 * t637 * t1079 - 0.3e1 * t57 * t1083 + t57 * t1124 - 0.3e1 * t659 * t1079 + 0.2e1 * t57 * t1129;
+  t1137 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t1018 * t58 + 0.3e1 / 0.10e2 * t1024 + 0.9e1 / 0.20e2 * t7 * t348 * t156 - t1031 / 0.10e2 + 0.3e1 / 0.5e1 * t1034 + 0.9e1 / 0.20e2 * t7 * t123 * t415 + t1044 - t1046 / 0.10e2 + 0.3e1 / 0.10e2 * t1049 + 0.3e1 / 0.20e2 * t7 * t24 * t1132);
+  t1140 = 0.12e2 * t67 * t425 * t69;
+  t1142 = t165 * t431 * t168;
+  t1145 = 0.1e1 / t424 / t109;
+  t1147 = t429 * t1145 * t433;
+  t1149 = t14 * t567;
+  t1151 = 0.1e1 / t424 / t166;
+  t1154 = 0.1e1 / t68 / t75 / t110;
+  t1159 = my_piecewise3(t66, 0, -t1140 - 0.24e2 * t1142 + 0.4e1 * t1147 - 0.16e2 / 0.27e2 * t1149 * t1151 * t1154);
+  t1160 = t1159 * t23;
+  t1164 = t438 * t127;
+  t1166 = t7 * t1164 * t101;
+  t1168 = t173 * t360;
+  t1170 = t7 * t1168 * t101;
+  t1172 = t73 * t1040;
+  t1175 = 0.2e1 / 0.45e2 * t7 * t1172 * t101;
+  t1177 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t1160 * t101 + 0.3e1 / 0.10e2 * t1166 - t1170 / 0.10e2 + t1175);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = 0.3e1 * t374 + 0.3e1 * t406 + t8 * (t949 + t989);
+    v3rho3[0] = 0.3e1 * t420 + 0.3e1 * t452 + t8 * (t1137 + t1177);
 
-  t992 = 0.2e1 * t436;
-  t993 = 0.2e1 * t476;
-  t1001 = t15 * t413;
-  t1005 = t385 * t107;
-  t1006 = t174 * t1005;
-  t1008 = t379 * t305;
-  t1009 = t1008 * t110;
-  t1010 = t174 * t1009;
-  t1013 = t155 * t850 * t307;
-  t1016 = t416 * t313;
-  t1019 = 0.8e1 * t825 - 0.8e1 / 0.3e1 * t827 - t837 + 0.16e2 / 0.3e1 * t839 + 0.4e1 / 0.9e1 * t843 - 0.4e1 / 0.3e1 * t846 - 0.8e1 / 0.3e1 * t439 * t107 + 0.16e2 * t1001 + 0.16e2 / 0.9e1 * t15 * t417 - 0.16e2 * t1006 - 0.8e1 / 0.3e1 * t1010 - 0.16e2 / 0.27e2 * t174 * t1013 + 0.4e1 / 0.9e1 * t174 * t1016;
-  t1020 = my_piecewise3(t12, 0, t1019);
-  t1021 = t1020 * t23;
-  t1025 = t421 * t120;
-  t1028 = t7 * t1025 * t54 / 0.5e1;
-  t1032 = t179 * t331;
-  t1034 = t7 * t1032 * t54;
-  t1038 = t7 * t426 * t144 / 0.5e1;
-  t1047 = 0.3e1 / 0.20e2 * t7 * t1021 * t54 + t1028 + 0.3e1 / 0.10e2 * t7 * t422 * t144 - t1034 / 0.30e2 + t1038 + 0.3e1 / 0.20e2 * t7 * t180 * t369 + t875 / 0.10e2 - t882 / 0.15e2 + t885 / 0.5e1 + t895 - t897 / 0.15e2 + t900 / 0.10e2;
-  t1048 = my_piecewise3(t2, 0, t1047);
-  t1049 = t439 * t65;
-  t1051 = t14 * t379;
-  t1052 = t1051 * t440;
-  t1054 = t14 * t385;
-  t1055 = t387 * t71;
-  t1061 = t63 * t157 * t190;
-  t1063 = t379 * t387;
-  t1065 = t153 * t1063 * t190;
-  t1069 = 0.8e1 / 0.3e1 * t63 * t444 * t454;
-  t1070 = t385 * t966;
-  t1078 = rho[1] * t379;
-  t1079 = 0.6e1 * t1078;
-  t1080 = 0.2e1 * t155 - t1079;
-  t1084 = 0.4e1 * t1049 + 0.16e2 / 0.3e1 * t1052 - 0.4e1 / 0.9e1 * t1054 * t1055 - t952 - 0.8e1 * t954 + 0.4e1 / 0.9e1 * t959 + 0.8e1 / 0.3e1 * t1061 - 0.16e2 / 0.9e1 * t1065 - t1069 + 0.16e2 / 0.27e2 * t383 * t1070 * t190 + 0.8e1 / 0.9e1 * t153 * t448 * t454 + 0.4e1 / 0.3e1 * t63 * t188 * t1080;
-  t1085 = my_piecewise3(t62, 0, t1084);
-  t1086 = t1085 * t23;
-  t1090 = t459 * t120;
-  t1093 = t7 * t1090 * t94 / 0.5e1;
-  t1094 = t195 * t331;
-  t1096 = t7 * t1094 * t94;
-  t1105 = t7 * t397 * t219 / 0.5e1;
-  t1107 = t7 * t401 * t219;
-  t1110 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t1086 * t94 + t1093 - t1096 / 0.30e2 + t978 / 0.10e2 - t982 / 0.15e2 + t987 + 0.3e1 / 0.20e2 * t7 * t393 * t219 + t1105 - t1107 / 0.30e2);
+  t1180 = 0.2e1 * t482;
+  t1181 = 0.2e1 * t522;
+  t1189 = t15 * t459;
+  t1193 = t431 * t114;
+  t1194 = t186 * t1193;
+  t1196 = t425 * t334;
+  t1197 = t1196 * t117;
+  t1198 = t186 * t1197;
+  t1201 = t167 * t999 * t336;
+  t1204 = t462 * t342;
+  t1207 = 0.8e1 * t974 - 0.8e1 / 0.3e1 * t976 - t986 + 0.16e2 / 0.3e1 * t988 + 0.4e1 / 0.9e1 * t992 - 0.4e1 / 0.3e1 * t995 - 0.8e1 / 0.3e1 * t485 * t114 + 0.16e2 * t1189 + 0.16e2 / 0.9e1 * t15 * t463 - 0.16e2 * t1194 - 0.8e1 / 0.3e1 * t1198 - 0.16e2 / 0.27e2 * t186 * t1201 + 0.4e1 / 0.9e1 * t186 * t1204;
+  t1208 = my_piecewise3(t12, 0, t1207);
+  t1209 = t1208 * t23;
+  t1213 = t467 * t127;
+  t1216 = t7 * t1213 * t58 / 0.5e1;
+  t1220 = t191 * t360;
+  t1222 = t7 * t1220 * t58;
+  t1226 = t7 * t472 * t156 / 0.5e1;
+  t1235 = 0.3e1 / 0.20e2 * t7 * t1209 * t58 + t1216 + 0.3e1 / 0.10e2 * t7 * t468 * t156 - t1222 / 0.30e2 + t1226 + 0.3e1 / 0.20e2 * t7 * t192 * t415 + t1024 / 0.10e2 - t1031 / 0.15e2 + t1034 / 0.5e1 + t1044 - t1046 / 0.15e2 + t1049 / 0.10e2;
+  t1236 = my_piecewise3(t2, 0, t1235);
+  t1237 = t485 * t69;
+  t1239 = t14 * t425;
+  t1240 = t1239 * t486;
+  t1242 = t14 * t431;
+  t1243 = t433 * t75;
+  t1249 = t67 * t169 * t202;
+  t1251 = t425 * t433;
+  t1253 = t165 * t1251 * t202;
+  t1257 = 0.8e1 / 0.3e1 * t67 * t490 * t500;
+  t1258 = t431 * t1154;
+  t1266 = rho[1] * t425;
+  t1267 = 0.6e1 * t1266;
+  t1268 = 0.2e1 * t167 - t1267;
+  t1272 = 0.4e1 * t1237 + 0.16e2 / 0.3e1 * t1240 - 0.4e1 / 0.9e1 * t1242 * t1243 - t1140 - 0.8e1 * t1142 + 0.4e1 / 0.9e1 * t1147 + 0.8e1 / 0.3e1 * t1249 - 0.16e2 / 0.9e1 * t1253 - t1257 + 0.16e2 / 0.27e2 * t429 * t1258 * t202 + 0.8e1 / 0.9e1 * t165 * t494 * t500 + 0.4e1 / 0.3e1 * t67 * t200 * t1268;
+  t1273 = my_piecewise3(t66, 0, t1272);
+  t1274 = t1273 * t23;
+  t1278 = t505 * t127;
+  t1281 = t7 * t1278 * t101 / 0.5e1;
+  t1282 = t207 * t360;
+  t1284 = t7 * t1282 * t101;
+  t1293 = t7 * t443 * t236 / 0.5e1;
+  t1295 = t7 * t447 * t236;
+  t1298 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t1274 * t101 + t1281 - t1284 / 0.30e2 + t1166 / 0.10e2 - t1170 / 0.15e2 + t1175 + 0.3e1 / 0.20e2 * t7 * t439 * t236 + t1293 - t1295 / 0.30e2);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[1] = t374 + t406 + t992 + t993 + t8 * (t1048 + t1110);
+    v3rho3[1] = t420 + t452 + t1180 + t1181 + t8 * (t1236 + t1298);
 
-  t1120 = t957 * t305;
-  t1121 = t482 * t1120;
-  t1123 = t385 * t850;
-  t1124 = t1123 * t110;
-  t1128 = my_piecewise3(t12, 0, 0.4e1 * t825 - t837 + 0.8e1 / 0.3e1 * t839 + 0.32e2 / 0.3e1 * t1001 - 0.64e2 / 0.3e1 * t1006 - 0.16e2 / 0.9e1 * t1010 - 0.4e1 / 0.3e1 * t174 * t483 + 0.20e2 / 0.9e1 * t1121 + 0.16e2 / 0.27e2 * t482 * t1124);
-  t1129 = t1128 * t23;
-  t1133 = t487 * t120;
-  t1135 = t7 * t1133 * t54;
-  t1144 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t1129 * t54 + t1135 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t488 * t144 + t1028 - t1034 / 0.15e2 + t1038 - t882 / 0.30e2 + t895 - t897 / 0.30e2);
-  t1147 = t291 * t496;
-  t1149 = t387 * t190;
-  t1150 = t1149 * rho[1];
-  t1153 = t156 * t454;
-  t1161 = t63 * t103 * t387 * t501;
-  t1167 = t63 * t9;
-  t1168 = t1149 * t454;
-  t1172 = t63 * t444 * t506;
-  t1178 = 0.4e1 * t155 - t1079;
-  t1182 = 0.8e1 * t1049 + 0.8e1 / 0.3e1 * t1052 - 0.8e1 / 0.3e1 * t1147 + 0.8e1 / 0.9e1 * t439 * t1150 + 0.8e1 / 0.3e1 * t99 * t1153 - t952 - 0.8e1 / 0.3e1 * t954 + 0.16e2 / 0.3e1 * t1061 - 0.8e1 / 0.9e1 * t1065 - t1069 + 0.4e1 / 0.9e1 * t1161 - 0.16e2 / 0.27e2 * t153 * t155 * t966 * t501 - 0.8e1 / 0.9e1 * t1167 * t1168 - 0.4e1 / 0.3e1 * t1172 + 0.4e1 / 0.9e1 * t153 * t448 * t506 + 0.4e1 / 0.3e1 * t63 * t188 * t1178;
-  t1183 = my_piecewise3(t62, 0, t1182);
-  t1184 = t1183 * t23;
-  t1188 = t511 * t120;
-  t1190 = t7 * t1188 * t94;
-  t1197 = t7 * t464 * t219;
-  t1205 = t7 * t166 * t551;
-  t1207 = 0.3e1 / 0.20e2 * t7 * t1184 * t94 + t1190 / 0.10e2 + t1093 - t1096 / 0.15e2 + 0.3e1 / 0.10e2 * t7 * t460 * t219 + t1197 / 0.5e1 - t982 / 0.30e2 + t987 + t1105 - t1107 / 0.15e2 + 0.3e1 / 0.20e2 * t7 * t162 * t551 + t1205 / 0.10e2;
-  t1208 = my_piecewise3(t59, 0, t1207);
+  t1308 = t1145 * t334;
+  t1309 = t528 * t1308;
+  t1311 = t431 * t999;
+  t1312 = t1311 * t117;
+  t1316 = my_piecewise3(t12, 0, 0.4e1 * t974 - t986 + 0.8e1 / 0.3e1 * t988 + 0.32e2 / 0.3e1 * t1189 - 0.64e2 / 0.3e1 * t1194 - 0.16e2 / 0.9e1 * t1198 - 0.4e1 / 0.3e1 * t186 * t529 + 0.20e2 / 0.9e1 * t1309 + 0.16e2 / 0.27e2 * t528 * t1312);
+  t1317 = t1316 * t23;
+  t1321 = t533 * t127;
+  t1323 = t7 * t1321 * t58;
+  t1332 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t1317 * t58 + t1323 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t534 * t156 + t1216 - t1222 / 0.15e2 + t1226 - t1031 / 0.30e2 + t1044 - t1046 / 0.30e2);
+  t1335 = t320 * t542;
+  t1337 = t433 * t202;
+  t1338 = t1337 * rho[1];
+  t1341 = t168 * t500;
+  t1349 = t67 * t110 * t433 * t547;
+  t1355 = t67 * t9;
+  t1356 = t1337 * t500;
+  t1360 = t67 * t490 * t552;
+  t1366 = 0.4e1 * t167 - t1267;
+  t1370 = 0.8e1 * t1237 + 0.8e1 / 0.3e1 * t1240 - 0.8e1 / 0.3e1 * t1335 + 0.8e1 / 0.9e1 * t485 * t1338 + 0.8e1 / 0.3e1 * t106 * t1341 - t1140 - 0.8e1 / 0.3e1 * t1142 + 0.16e2 / 0.3e1 * t1249 - 0.8e1 / 0.9e1 * t1253 - t1257 + 0.4e1 / 0.9e1 * t1349 - 0.16e2 / 0.27e2 * t165 * t167 * t1154 * t547 - 0.8e1 / 0.9e1 * t1355 * t1356 - 0.4e1 / 0.3e1 * t1360 + 0.4e1 / 0.9e1 * t165 * t494 * t552 + 0.4e1 / 0.3e1 * t67 * t200 * t1366;
+  t1371 = my_piecewise3(t66, 0, t1370);
+  t1372 = t1371 * t23;
+  t1376 = t557 * t127;
+  t1378 = t7 * t1376 * t101;
+  t1385 = t7 * t510 * t236;
+  t1393 = t7 * t178 * t612;
+  t1395 = 0.3e1 / 0.20e2 * t7 * t1372 * t101 + t1378 / 0.10e2 + t1281 - t1284 / 0.15e2 + 0.3e1 / 0.10e2 * t7 * t506 * t236 + t1385 / 0.5e1 - t1170 / 0.30e2 + t1175 + t1293 - t1295 / 0.15e2 + 0.3e1 / 0.20e2 * t7 * t174 * t612 + t1393 / 0.10e2;
+  t1396 = my_piecewise3(t63, 0, t1395);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[2] = t992 + t993 + t494 + t556 + t8 * (t1144 + t1208);
+    v3rho3[2] = t1180 + t1181 + t540 + t617 + t8 * (t1332 + t1396);
 
-  t1215 = t14 * t339;
-  t1216 = t963 * t850;
-  t1220 = my_piecewise3(t12, 0, -t837 - 0.24e2 * t1006 + 0.4e1 * t1121 - 0.16e2 / 0.27e2 * t1215 * t1216);
-  t1221 = t1220 * t23;
-  t1228 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t1221 * t54 + 0.3e1 / 0.10e2 * t1135 - t1034 / 0.10e2 + t895);
-  t1231 = t387 * t501;
-  t1234 = t156 * t506;
-  t1241 = t501 * t190;
-  t1245 = t1149 * t506;
-  t1249 = 0.6e1 * t155 - 0.6e1 * t1078;
-  t1253 = 0.12e2 * t1049 - 0.8e1 * t1147 - 0.4e1 / 0.3e1 * t99 * t1231 + 0.4e1 * t99 * t1234 - t952 + 0.8e1 * t1061 + 0.4e1 / 0.3e1 * t1161 - 0.4e1 * t1172 + 0.16e2 / 0.27e2 * t63 * t9 * t966 * t1241 - 0.4e1 / 0.3e1 * t1167 * t1245 + 0.4e1 / 0.3e1 * t63 * t188 * t1249;
-  t1254 = my_piecewise3(t62, 0, t1253);
-  t1255 = t1254 * t23;
-  t1270 = t521 * rho[1];
-  t1272 = 0.1e1 / t73 / t1270;
-  t1274 = t30 * sigma[2] * t1272;
-  t1280 = -0.1100e4 / 0.729e3 * t30 * lapl[1] * t523 + 0.6160e4 / 0.2187e4 * t1274;
-  t1286 = t537 * t214;
-  t1290 = t536 * t214;
-  t1291 = t90 * t541;
-  t1295 = 0.1e1 / t544 / t88;
-  t1299 = my_piecewise3(t87, t1280, 0);
-  t1306 = 0.1e1 / t544 / t212;
-  t1310 = my_piecewise3(t86, 0, 0.6e1 * t1295 * t1286 * t90 + t1306 * t1286 * t90 + 0.6e1 * t545 * t1286 * t90 + t213 * t1299 * t90 - 0.3e1 * t545 * t541 * t622 - 0.6e1 * t1290 * t1291);
-  t1312 = -0.770e3 / 0.243e3 * t1274 + t1280 * t92 + 0.3e1 * t531 * t217 + 0.3e1 * t210 * t549 + t85 * t1310;
-  t1317 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t1255 * t94 + 0.3e1 / 0.10e2 * t1190 + 0.9e1 / 0.20e2 * t7 * t512 * t219 - t1096 / 0.10e2 + 0.3e1 / 0.5e1 * t1197 + 0.9e1 / 0.20e2 * t7 * t196 * t551 + t987 - t1107 / 0.10e2 + 0.3e1 / 0.10e2 * t1205 + 0.3e1 / 0.20e2 * t7 * t70 * t1312);
+  t1403 = t14 * t368;
+  t1404 = t1151 * t999;
+  t1408 = my_piecewise3(t12, 0, -t986 - 0.24e2 * t1194 + 0.4e1 * t1309 - 0.16e2 / 0.27e2 * t1403 * t1404);
+  t1409 = t1408 * t23;
+  t1416 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t1409 * t58 + 0.3e1 / 0.10e2 * t1323 - t1222 / 0.10e2 + t1044);
+  t1419 = t433 * t547;
+  t1422 = t168 * t552;
+  t1429 = t547 * t202;
+  t1433 = t1337 * t552;
+  t1437 = 0.6e1 * t167 - 0.6e1 * t1266;
+  t1441 = 0.12e2 * t1237 - 0.8e1 * t1335 - 0.4e1 / 0.3e1 * t106 * t1419 + 0.4e1 * t106 * t1422 - t1140 + 0.8e1 * t1249 + 0.4e1 / 0.3e1 * t1349 - 0.4e1 * t1360 + 0.16e2 / 0.27e2 * t67 * t9 * t1154 * t1429 - 0.4e1 / 0.3e1 * t1355 * t1433 + 0.4e1 / 0.3e1 * t67 * t200 * t1437;
+  t1442 = my_piecewise3(t66, 0, t1441);
+  t1443 = t1442 * t23;
+  t1458 = t567 * rho[1];
+  t1460 = 0.1e1 / t77 / t1458;
+  t1462 = t30 * sigma[2] * t1460;
+  t1468 = -0.1100e4 / 0.729e3 * t30 * lapl[1] * t569 + 0.6160e4 / 0.2187e4 * t1462;
+  t1469 = t1468 * t99;
+  t1478 = t581 * t231;
+  t1481 = 0.1e1 / t583 / t98;
+  t1482 = t1072 * t1478 * t1481;
+  t1484 = t698 * t605;
+  t1488 = t383 * t1478 * t1481;
+  t1491 = t95 * t1071;
+  t1492 = t588 * t226;
+  t1494 = 0.1e1 / t589 / t93;
+  t1496 = t1492 * t1494 * t96;
+  t1498 = t587 * t226;
+  t1499 = t702 * t595;
+  t1504 = t601 * t1071;
+  t1508 = my_piecewise3(t92, 0, -t1468);
+  t1512 = t224 * t595;
+  t1515 = t602 * t595;
+  t1523 = 0.1e1 / t600 / t94;
+  t1524 = t1523 * t1071;
+  t1527 = my_piecewise3(t91, 0, -t1508 * t224 * t227 * t96 - t1491 * t1496 + 0.3e1 * t1496 * t1504 - t1496 * t1524 - 0.2e1 * t1496 * t224 - 0.3e1 * t1496 * t587 + 0.3e1 * t1496 * t602 + 0.3e1 * t1498 * t1499 + 0.3e1 * t1512 * t703 - 0.3e1 * t1515 * t703);
+  t1529 = t55 * t1527 * t233;
+  t1534 = t55 * t1478 * t1481;
+  t1537 = -0.770e3 / 0.243e3 * t1462 + t1469 + 0.3e1 * t578 * t234 + 0.3e1 * t223 * t585 + 0.3e1 * t223 * t607 - 0.3e1 * t223 * t610 + t100 * t1482 + 0.3e1 * t697 * t1484 - 0.3e1 * t100 * t1488 + t100 * t1529 - 0.3e1 * t719 * t1484 + 0.2e1 * t100 * t1534;
+  t1542 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t1443 * t101 + 0.3e1 / 0.10e2 * t1378 + 0.9e1 / 0.20e2 * t7 * t558 * t236 - t1284 / 0.10e2 + 0.3e1 / 0.5e1 * t1385 + 0.9e1 / 0.20e2 * t7 * t208 * t612 + t1175 - t1295 / 0.10e2 + 0.3e1 / 0.10e2 * t1393 + 0.3e1 / 0.20e2 * t7 * t74 * t1537);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[3] = 0.3e1 * t494 + 0.3e1 * t556 + t8 * (t1228 + t1317);
+    v3rho3[3] = 0.3e1 * t540 + 0.3e1 * t617 + t8 * (t1416 + t1542);
 
-  t1325 = t7 * t323 * t238;
-  t1332 = t7 * t332 * t238 / 0.30e2;
-  t1334 = t7 * t121 * t587;
-  t1336 = t30 * t341;
-  t1339 = t30 * t341 * t52;
-  t1342 = t30 * t127 * t142;
-  t1345 = t30 * t35 * t367;
-  t1350 = t50 * t355;
-  t1353 = t354 * t579;
-  t1356 = t927 * t233;
-  t1362 = my_piecewise3(t47, -0.440e3 / 0.729e3 * t1336, 0);
-  t1365 = t363 * t579;
-  t1369 = t938 * t233;
-  t1372 = my_piecewise3(t46, 0, t138 * t1362 * t50 + 0.6e1 * t1356 * t1350 + t1369 * t1350 + 0.6e1 * t582 * t1350 - 0.4e1 * t1353 * t575 - 0.2e1 * t1365 * t575 - 0.2e1 * t574 * t923 - t582 * t923);
-  t1374 = 0.55e2 / 0.81e2 * t1336 - 0.440e3 / 0.729e3 * t1339 + 0.80e2 / 0.243e3 * t1342 - 0.5e1 / 0.81e2 * t1345 + t349 * t236 + 0.2e1 * t135 * t585 + t45 * t1372;
-  t1379 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t319 * t238 + t1325 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t116 * t587 - t1332 + t1334 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t24 * t1374);
+  t1550 = t7 * t352 * t258;
+  t1557 = t7 * t361 * t258 / 0.30e2;
+  t1559 = t7 * t128 * t661;
+  t1561 = t655 * t387;
+  t1562 = t1561 * t151;
+  t1565 = t880 * t408;
+  t1567 = t143 * t55;
+  t1575 = t1086 * t250;
+  t1576 = t1089 * t52;
+  t1577 = t1576 * t391;
+  t1579 = t390 * t646;
+  t1584 = t1099 * t250;
+  t1588 = t30 * t370;
+  t1590 = my_piecewise3(t48, 0, 0.440e3 / 0.729e3 * t1588);
+  t1594 = t144 * t646;
+  t1597 = t405 * t646;
+  t1606 = t1119 * t250;
+  t1608 = -t144 * t147 * t1590 * t52 + t1094 * t641 + t1094 * t650 - t1094 * t652 - t1575 * t1577 + 0.3e1 * t1577 * t1584 - t1577 * t1606 - 0.3e1 * t1577 * t641 - 0.2e1 * t1577 * t650 + 0.3e1 * t1577 * t652 + 0.2e1 * t1579 * t643 + 0.2e1 * t1594 * t643 - 0.2e1 * t1597 * t643;
+  t1609 = my_piecewise3(t47, 0, t1608);
+  t1611 = t55 * t1609 * t153;
+  t1614 = t30 * t370 * t56;
+  t1619 = t631 * t408 * t153;
+  t1620 = t244 * t1619;
+  t1622 = t384 * t1076;
+  t1623 = t1622 * t254;
+  t1628 = t626 * t633;
+  t1630 = t57 * t1072;
+  t1632 = t56 * t383;
+  t1633 = t384 * t387;
+  t1634 = t1632 * t1633;
+  t1635 = t244 * t1634;
+  t1637 = t631 * t1633;
+  t1638 = t244 * t1637;
+  t1640 = t143 * t383;
+  t1643 = -0.2e1 * t659 * t1562 - t659 * t1565 - 0.2e1 * t1567 * t639 + t637 * t1565 + 0.2e1 * t637 * t1562 + 0.2e1 * t143 * t657 + t57 * t1611 - 0.440e3 / 0.729e3 * t1614 + t379 * t256 + 0.55e2 / 0.81e2 * t1588 - 0.5e1 / 0.81e2 * t1620 - 0.3e1 * t637 * t1623 + 0.2e1 * t659 * t1623 + 0.80e2 / 0.243e3 * t1628 + t1630 * t1623 - 0.5e1 / 0.81e2 * t1635 + 0.5e1 / 0.81e2 * t1638 + 0.2e1 * t1640 * t639;
+  t1648 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t348 * t258 + t1550 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t123 * t661 - t1557 + t1559 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t24 * t1643);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho2sigma[0] = t8 * t1379 + 0.2e1 * t592;
+    v3rho2sigma[0] = t1648 * t8 + 0.2e1 * t666;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho2sigma[1] = 0.0e0;
 
-  t1386 = t7 * t397 * t254;
-  t1390 = t7 * t401 * t254 / 0.30e2;
-  t1392 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t393 * t254 + t1386 / 0.5e1 - t1390);
+  t1655 = t7 * t443 * t277;
+  t1659 = t7 * t447 * t277 / 0.30e2;
+  t1661 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t439 * t277 + t1655 / 0.5e1 - t1659);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho2sigma[2] = t8 * t1392 + 0.2e1 * t601;
+    v3rho2sigma[2] = t1661 * t8 + 0.2e1 * t675;
 
-  t1398 = t7 * t426 * t238;
-  t1406 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t422 * t238 + t1398 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t180 * t587 + t1325 / 0.10e2 - t1332 + t1334 / 0.10e2);
+  t1667 = t7 * t472 * t258;
+  t1675 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t468 * t258 + t1667 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t192 * t661 + t1550 / 0.10e2 - t1557 + t1559 / 0.10e2);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho2sigma[3] = t8 * t1406 + t592 + t607;
+    v3rho2sigma[3] = t1675 * t8 + t666 + t681;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho2sigma[4] = 0.0e0;
 
-  t1412 = t7 * t464 * t254;
-  t1419 = t7 * t166 * t634;
-  t1422 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t460 * t254 + t1412 / 0.10e2 + t1386 / 0.10e2 - t1390 + 0.3e1 / 0.20e2 * t7 * t162 * t634 + t1419 / 0.10e2);
+  t1681 = t7 * t510 * t277;
+  t1688 = t7 * t178 * t721;
+  t1691 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t506 * t277 + t1681 / 0.10e2 + t1655 / 0.10e2 - t1659 + 0.3e1 / 0.20e2 * t7 * t174 * t721 + t1688 / 0.10e2);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho2sigma[5] = t8 * t1422 + t601 + t639;
+    v3rho2sigma[5] = t1691 * t8 + t675 + t726;
 
-  t1430 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t488 * t238 + t1398 / 0.5e1 - t1332);
+  t1699 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t534 * t258 + t1667 / 0.5e1 - t1557);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho2sigma[6] = t8 * t1430 + 0.2e1 * t607;
+    v3rho2sigma[6] = t1699 * t8 + 0.2e1 * t681;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho2sigma[7] = 0.0e0;
 
-  t1441 = t30 * t523;
-  t1444 = t30 * t523 * t92;
-  t1447 = t30 * t202 * t217;
-  t1450 = t30 * t75 * t549;
-  t1455 = t90 * t537;
-  t1458 = t536 * t626;
-  t1461 = t1295 * t249;
-  t1467 = my_piecewise3(t87, -0.440e3 / 0.729e3 * t1441, 0);
-  t1470 = t545 * t626;
-  t1474 = t1306 * t249;
-  t1477 = my_piecewise3(t86, 0, t213 * t1467 * t90 - 0.2e1 * t621 * t1291 - t629 * t1291 + 0.6e1 * t1461 * t1455 + t1474 * t1455 + 0.6e1 * t629 * t1455 - 0.4e1 * t1458 * t622 - 0.2e1 * t1470 * t622);
-  t1479 = 0.55e2 / 0.81e2 * t1441 - 0.440e3 / 0.729e3 * t1444 + 0.80e2 / 0.243e3 * t1447 - 0.5e1 / 0.81e2 * t1450 + t531 * t252 + 0.2e1 * t210 * t632 + t85 * t1477;
-  t1484 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t512 * t254 + t1412 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t196 * t634 - t1390 + t1419 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t70 * t1479);
+  t1710 = t1491 * t269;
+  t1711 = t1494 * t96;
+  t1712 = t1711 * t588;
+  t1714 = t587 * t706;
+  t1719 = t1504 * t269;
+  t1723 = t30 * t569;
+  t1725 = my_piecewise3(t92, 0, 0.440e3 / 0.729e3 * t1723);
+  t1729 = t224 * t706;
+  t1732 = t602 * t706;
+  t1741 = t1524 * t269;
+  t1743 = -t1725 * t224 * t227 * t96 + t1499 * t701 + t1499 * t710 - t1499 * t712 - t1710 * t1712 + 0.3e1 * t1712 * t1719 - t1712 * t1741 - 0.3e1 * t1712 * t701 - 0.2e1 * t1712 * t710 + 0.3e1 * t1712 * t712 + 0.2e1 * t1714 * t703 + 0.2e1 * t1729 * t703 - 0.2e1 * t1732 * t703;
+  t1744 = my_piecewise3(t91, 0, t1743);
+  t1746 = t55 * t1744 * t233;
+  t1749 = t30 * t569 * t99;
+  t1754 = t223 * t55;
+  t1757 = t605 * t584;
+  t1758 = t1757 * t273;
+  t1760 = t698 * t715;
+  t1767 = t686 * t693;
+  t1770 = t691 * t605 * t233;
+  t1771 = t263 * t1770;
+  t1773 = t581 * t1481;
+  t1774 = t1773 * t273;
+  t1779 = t100 * t1072;
+  t1781 = t99 * t383;
+  t1782 = t581 * t584;
+  t1783 = t1781 * t1782;
+  t1784 = t263 * t1783;
+  t1786 = t691 * t1782;
+  t1787 = t263 * t1786;
+  t1789 = t223 * t383;
+  t1792 = t100 * t1746 - 0.440e3 / 0.729e3 * t1749 + t578 * t275 + 0.2e1 * t223 * t717 - 0.2e1 * t1754 * t699 + t697 * t1758 + 0.2e1 * t697 * t1760 - 0.2e1 * t719 * t1760 - t719 * t1758 + 0.55e2 / 0.81e2 * t1723 + 0.80e2 / 0.243e3 * t1767 - 0.5e1 / 0.81e2 * t1771 - 0.3e1 * t697 * t1774 + 0.2e1 * t719 * t1774 + t1779 * t1774 - 0.5e1 / 0.81e2 * t1784 + 0.5e1 / 0.81e2 * t1787 + 0.2e1 * t1789 * t699;
+  t1797 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t558 * t277 + t1681 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t208 * t721 - t1659 + t1688 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t74 * t1792);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho2sigma[8] = t8 * t1484 + 0.2e1 * t639;
+    v3rho2sigma[8] = t1797 * t8 + 0.2e1 * t726;
 
-  t1491 = t7 * t323 * t269;
-  t1498 = t7 * t332 * t269 / 0.30e2;
-  t1500 = t7 * t121 * t664;
-  t1512 = t354 * t656;
-  t1515 = t927 * t264;
-  t1521 = my_piecewise3(t47, 0.100e3 / 0.243e3 * t565, 0);
-  t1524 = t363 * t656;
-  t1528 = t938 * t264;
-  t1531 = my_piecewise3(t46, 0, t138 * t1521 * t50 + 0.6e1 * t1515 * t1350 + t1528 * t1350 + 0.6e1 * t659 * t1350 - 0.4e1 * t1512 * t575 - 0.2e1 * t1524 * t575 - 0.2e1 * t652 * t923 - t659 * t923);
-  t1533 = 0.100e3 / 0.243e3 * t568 - 0.25e2 / 0.81e2 * t571 + 0.5e1 / 0.54e2 * t30 * t40 * t367 + t349 * t267 + 0.2e1 * t135 * t662 + t45 * t1531;
-  t1538 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t319 * t269 + t1491 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t116 * t664 - t1498 + t1500 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t24 * t1533);
+  t1804 = t7 * t352 * t295;
+  t1811 = t7 * t361 * t295 / 0.30e2;
+  t1813 = t7 * t128 * t757;
+  t1830 = t1622 * t291;
+  t1832 = t408 * t387;
+  t1833 = t1832 * t291;
+  t1837 = t638 * t752;
+  t1840 = t1086 * t287;
+  t1842 = t390 * t743;
+  t1847 = t1099 * t287;
+  t1852 = my_piecewise3(t48, 0, -0.100e3 / 0.243e3 * t626);
+  t1856 = t144 * t743;
+  t1859 = t405 * t743;
+  t1868 = t1119 * t287;
+  t1870 = -t144 * t147 * t1852 * t52 + t1094 * t740 + t1094 * t747 - t1094 * t749 - t1577 * t1840 + 0.3e1 * t1577 * t1847 - t1577 * t1868 - 0.3e1 * t1577 * t740 - 0.2e1 * t1577 * t747 + 0.3e1 * t1577 * t749 + 0.2e1 * t1842 * t643 + 0.2e1 * t1856 * t643 - 0.2e1 * t1859 * t643;
+  t1871 = my_piecewise3(t47, 0, t1870);
+  t1873 = t55 * t1871 * t153;
+  t1880 = 0.100e3 / 0.243e3 * t629 - 0.25e2 / 0.81e2 * t634 + 0.5e1 / 0.54e2 * t285 * t1634 + 0.5e1 / 0.54e2 * t285 * t1619 - 0.5e1 / 0.54e2 * t285 * t1637 + t379 * t293 + 0.2e1 * t1640 * t738 + 0.2e1 * t143 * t754 - 0.2e1 * t1567 * t738 + t1630 * t1830 + t637 * t1833 - 0.3e1 * t637 * t1830 + 0.2e1 * t637 * t1837 + t57 * t1873 - 0.2e1 * t659 * t1837 + 0.2e1 * t659 * t1830 - t659 * t1833;
+  t1885 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t348 * t295 + t1804 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t123 * t757 - t1811 + t1813 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t24 * t1880);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho2lapl[0] = t8 * t1538 + 0.2e1 * t669;
+    v3rho2lapl[0] = t1885 * t8 + 0.2e1 * t762;
 
-  t1545 = t7 * t397 * t284;
-  t1549 = t7 * t401 * t284 / 0.30e2;
-  t1551 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t393 * t284 + t1545 / 0.5e1 - t1549);
+  t1892 = t7 * t443 * t313;
+  t1896 = t7 * t447 * t313 / 0.30e2;
+  t1898 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t439 * t313 + t1892 / 0.5e1 - t1896);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho2lapl[1] = t8 * t1551 + 0.2e1 * t678;
+    v3rho2lapl[1] = t1898 * t8 + 0.2e1 * t771;
 
-  t1557 = t7 * t426 * t269;
-  t1565 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t422 * t269 + t1557 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t180 * t664 + t1491 / 0.10e2 - t1498 + t1500 / 0.10e2);
+  t1904 = t7 * t472 * t295;
+  t1912 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t468 * t295 + t1904 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t192 * t757 + t1804 / 0.10e2 - t1811 + t1813 / 0.10e2);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho2lapl[2] = t8 * t1565 + t669 + t684;
+    v3rho2lapl[2] = t1912 * t8 + t762 + t777;
 
-  t1571 = t7 * t464 * t284;
-  t1578 = t7 * t166 * t706;
-  t1581 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t460 * t284 + t1571 / 0.10e2 + t1545 / 0.10e2 - t1549 + 0.3e1 / 0.20e2 * t7 * t162 * t706 + t1578 / 0.10e2);
+  t1918 = t7 * t510 * t313;
+  t1925 = t7 * t178 * t805;
+  t1928 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t506 * t313 + t1918 / 0.10e2 + t1892 / 0.10e2 - t1896 + 0.3e1 / 0.20e2 * t7 * t174 * t805 + t1925 / 0.10e2);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho2lapl[3] = t8 * t1581 + t678 + t711;
+    v3rho2lapl[3] = t1928 * t8 + t771 + t810;
 
-  t1589 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t488 * t269 + t1557 / 0.5e1 - t1498);
+  t1936 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t534 * t295 + t1904 / 0.5e1 - t1811);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho2lapl[4] = t8 * t1589 + 0.2e1 * t684;
+    v3rho2lapl[4] = t1936 * t8 + 0.2e1 * t777;
 
-  t1610 = t536 * t698;
-  t1613 = t1295 * t279;
-  t1619 = my_piecewise3(t87, 0.100e3 / 0.243e3 * t612, 0);
-  t1622 = t545 * t698;
-  t1626 = t1306 * t279;
-  t1629 = my_piecewise3(t86, 0, t213 * t1619 * t90 - 0.2e1 * t694 * t1291 - t701 * t1291 + 0.6e1 * t1613 * t1455 + t1626 * t1455 + 0.6e1 * t701 * t1455 - 0.4e1 * t1610 * t622 - 0.2e1 * t1622 * t622);
-  t1631 = 0.100e3 / 0.243e3 * t615 - 0.25e2 / 0.81e2 * t618 + 0.5e1 / 0.54e2 * t30 * t80 * t549 + t531 * t282 + 0.2e1 * t210 * t704 + t85 * t1629;
-  t1636 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t512 * t284 + t1571 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t196 * t706 - t1549 + t1578 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t70 * t1631);
+  t1962 = t1773 * t309;
+  t1964 = t1757 * t309;
+  t1968 = t698 * t800;
+  t1971 = t1491 * t305;
+  t1973 = t587 * t791;
+  t1978 = t1504 * t305;
+  t1983 = my_piecewise3(t92, 0, -0.100e3 / 0.243e3 * t686);
+  t1987 = t224 * t791;
+  t1990 = t602 * t791;
+  t1999 = t1524 * t305;
+  t2001 = -t1983 * t224 * t227 * t96 + t1499 * t788 + t1499 * t795 - t1499 * t797 - t1712 * t1971 + 0.3e1 * t1712 * t1978 - t1712 * t1999 - 0.3e1 * t1712 * t788 - 0.2e1 * t1712 * t795 + 0.3e1 * t1712 * t797 + 0.2e1 * t1973 * t703 + 0.2e1 * t1987 * t703 - 0.2e1 * t1990 * t703;
+  t2002 = my_piecewise3(t91, 0, t2001);
+  t2004 = t55 * t2002 * t233;
+  t2011 = 0.100e3 / 0.243e3 * t689 - 0.25e2 / 0.81e2 * t694 + 0.5e1 / 0.54e2 * t303 * t1783 + 0.5e1 / 0.54e2 * t303 * t1770 - 0.5e1 / 0.54e2 * t303 * t1786 + t578 * t311 + 0.2e1 * t1789 * t786 + 0.2e1 * t223 * t802 - 0.2e1 * t1754 * t786 + t1779 * t1962 + t697 * t1964 - 0.3e1 * t697 * t1962 + 0.2e1 * t697 * t1968 + t100 * t2004 - 0.2e1 * t719 * t1968 + 0.2e1 * t719 * t1962 - t719 * t1964;
+  t2016 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t558 * t313 + t1918 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t208 * t805 - t1896 + t1925 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t74 * t2011);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho2lapl[5] = t8 * t1636 + 0.2e1 * t711;
+    v3rho2lapl[5] = t2016 * t8 + 0.2e1 * t810;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho2tau[0] = 0.0e0;
@@ -1605,22 +2516,40 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho2tau[5] = 0.0e0;
 
-  t1643 = t7 * t121 * t728 / 0.10e2;
-  t1645 = t30 * t127 * t236;
-  t1648 = t30 * t35 * t585;
-  t1653 = t50 * t579;
-  t1656 = t927 * t716;
-  t1659 = t354 * t720;
-  t1660 = t1659 * t575;
-  t1661 = 0.2e1 * t1660;
-  t1662 = t363 * t720;
-  t1663 = t1662 * t575;
-  t1666 = t938 * t716;
-  t1669 = my_piecewise3(t46, 0, -0.4e1 * t574 * t1653 - 0.2e1 * t582 * t1653 + 0.6e1 * t1656 * t575 + t1666 * t575 + 0.6e1 * t723 * t575 - t1661 - t1663 + t722);
-  t1671 = 0.80e2 / 0.243e3 * t1645 - 0.10e2 / 0.81e2 * t1648 + t135 * t726 + t45 * t1669;
-  t1676 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t116 * t728 + t1643 + 0.3e1 / 0.20e2 * t7 * t24 * t1671);
+  t2023 = t7 * t128 * t838 / 0.10e2;
+  t2024 = t626 * t813;
+  t2026 = t383 * t151;
+  t2027 = t2026 * t880;
+  t2028 = t247 * t2027;
+  t2031 = t631 * t655 * t153;
+  t2032 = t244 * t2031;
+  t2034 = t255 * t638;
+  t2035 = t247 * t2034;
+  t2038 = t151 * t1076;
+  t2039 = t2038 * t816;
+  t2041 = t880 * t655;
+  t2047 = t638 * t831;
+  t2049 = t1086 * t820;
+  t2050 = t1576 * t146;
+  t2052 = t642 * t646;
+  t2055 = t390 * t820;
+  t2058 = t1099 * t820;
+  t2061 = t390 * t824;
+  t2062 = t2061 * t643;
+  t2063 = t144 * t824;
+  t2064 = t2063 * t643;
+  t2065 = t405 * t824;
+  t2066 = t2065 * t643;
+  t2069 = t144 * t820;
+  t2072 = t405 * t820;
+  t2077 = t1119 * t820;
+  t2079 = -t2049 * t2050 - 0.3e1 * t2050 * t2055 + 0.3e1 * t2050 * t2058 - 0.2e1 * t2050 * t2069 + 0.3e1 * t2050 * t2072 - t2050 * t2077 + 0.2e1 * t2052 * t641 + 0.2e1 * t2052 * t650 - 0.2e1 * t2052 * t652 + t2062 + t2064 - t2066 - t827;
+  t2080 = my_piecewise3(t47, 0, t2079);
+  t2082 = t55 * t2080 * t153;
+  t2090 = 0.80e2 / 0.243e3 * t2024 - 0.10e2 / 0.81e2 * t2028 - 0.10e2 / 0.81e2 * t2032 + 0.10e2 / 0.81e2 * t2035 + t143 * t818 + t1630 * t2039 + 0.2e1 * t637 * t2041 - 0.3e1 * t637 * t2039 + t143 * t833 + t637 * t2047 + t57 * t2082 - t659 * t2047 - t143 * t836 - 0.2e1 * t659 * t2041 + 0.2e1 * t659 * t2039;
+  t2095 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t123 * t838 + t2023 + 0.3e1 / 0.20e2 * t7 * t24 * t2090);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rhosigma2[0] = t8 * t1676 + t732;
+    v3rhosigma2[0] = t2095 * t8 + t842;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigma2[1] = 0.0e0;
@@ -1634,14 +2563,14 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigma2[4] = 0.0e0;
 
-  t1683 = t7 * t166 * t748 / 0.10e2;
-  t1685 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t162 * t748 + t1683);
+  t2102 = t7 * t178 * t869 / 0.10e2;
+  t2104 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t174 * t869 + t2102);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rhosigma2[5] = t8 * t1685 + t752;
+    v3rhosigma2[5] = t2104 * t8 + t873;
 
-  t1691 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t180 * t728 + t1643);
+  t2110 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t192 * t838 + t2023);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rhosigma2[6] = t8 * t1691 + t732;
+    v3rhosigma2[6] = t2110 * t8 + t842;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigma2[7] = 0.0e0;
@@ -1655,31 +2584,63 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigma2[10] = 0.0e0;
 
-  t1697 = t30 * t202 * t252;
-  t1700 = t30 * t75 * t632;
-  t1705 = t90 * t626;
-  t1708 = t1295 * t736;
-  t1711 = t536 * t740;
-  t1712 = t1711 * t622;
-  t1713 = 0.2e1 * t1712;
-  t1714 = t545 * t740;
-  t1715 = t1714 * t622;
-  t1718 = t1306 * t736;
-  t1721 = my_piecewise3(t86, 0, -0.4e1 * t621 * t1705 - 0.2e1 * t629 * t1705 + 0.6e1 * t1708 * t622 + t1718 * t622 + 0.6e1 * t743 * t622 - t1713 - t1715 + t742);
-  t1723 = 0.80e2 / 0.243e3 * t1697 - 0.10e2 / 0.81e2 * t1700 + t210 * t746 + t85 * t1721;
-  t1728 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t196 * t748 + t1683 + 0.3e1 / 0.20e2 * t7 * t70 * t1723);
+  t2115 = t686 * t844;
+  t2117 = t383 * t231;
+  t2118 = t2117 * t904;
+  t2119 = t266 * t2118;
+  t2122 = t691 * t715 * t233;
+  t2123 = t263 * t2122;
+  t2125 = t274 * t698;
+  t2126 = t266 * t2125;
+  t2129 = t231 * t1481;
+  t2130 = t2129 * t847;
+  t2132 = t904 * t715;
+  t2138 = t698 * t862;
+  t2140 = t1491 * t851;
+  t2141 = t1711 * t226;
+  t2143 = t702 * t706;
+  t2146 = t587 * t851;
+  t2149 = t1504 * t851;
+  t2152 = t587 * t855;
+  t2153 = t2152 * t703;
+  t2154 = t224 * t855;
+  t2155 = t2154 * t703;
+  t2156 = t602 * t855;
+  t2157 = t2156 * t703;
+  t2160 = t224 * t851;
+  t2163 = t602 * t851;
+  t2168 = t1524 * t851;
+  t2170 = -t2140 * t2141 - 0.3e1 * t2141 * t2146 + 0.3e1 * t2141 * t2149 - 0.2e1 * t2141 * t2160 + 0.3e1 * t2141 * t2163 - t2141 * t2168 + 0.2e1 * t2143 * t701 + 0.2e1 * t2143 * t710 - 0.2e1 * t2143 * t712 + t2153 + t2155 - t2157 - t858;
+  t2171 = my_piecewise3(t91, 0, t2170);
+  t2173 = t55 * t2171 * t233;
+  t2181 = 0.80e2 / 0.243e3 * t2115 - 0.10e2 / 0.81e2 * t2119 - 0.10e2 / 0.81e2 * t2123 + 0.10e2 / 0.81e2 * t2126 + t223 * t849 + t1779 * t2130 + 0.2e1 * t697 * t2132 - 0.3e1 * t697 * t2130 + t223 * t864 + t697 * t2138 + t100 * t2173 - t719 * t2138 - t223 * t867 - 0.2e1 * t719 * t2132 + 0.2e1 * t719 * t2130;
+  t2186 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t208 * t869 + t2102 + 0.3e1 / 0.20e2 * t7 * t74 * t2181);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rhosigma2[11] = t8 * t1728 + t752;
+    v3rhosigma2[11] = t2186 * t8 + t873;
 
-  t1735 = t7 * t121 * t766 / 0.10e2;
-  t1741 = t30 * t127 * t267;
-  t1744 = t30 * t35 * t662;
-  t1747 = t759 * t139;
-  t1760 = my_piecewise3(t46, 0, -0.2e1 * t1512 * t759 + 0.6e1 * t1515 * t1747 - t1524 * t759 + t1528 * t1747 - 0.2e1 * t652 * t1653 - t659 * t1653 + 0.6e1 * t659 * t1747 - t1661 - t1663 + t722);
-  t1762 = -0.25e2 / 0.162e3 * t714 + 0.5e1 / 0.54e2 * t30 * t40 * t585 + 0.40e2 / 0.243e3 * t1741 - 0.5e1 / 0.81e2 * t1744 + t135 * t764 + t45 * t1760;
-  t1767 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t116 * t766 + t1735 + 0.3e1 / 0.20e2 * t7 * t24 * t1762);
+  t2193 = t7 * t128 * t893 / 0.10e2;
+  t2201 = t626 * t877;
+  t2203 = t387 * t291;
+  t2204 = t2026 * t2203;
+  t2205 = t247 * t2204;
+  t2208 = t631 * t752 * t153;
+  t2209 = t244 * t2208;
+  t2211 = t292 * t638;
+  t2212 = t247 * t2211;
+  t2215 = t254 * t291;
+  t2216 = t2038 * t2215;
+  t2219 = t1561 * t291;
+  t2223 = t880 * t752;
+  t2226 = t638 * t888;
+  t2229 = t1576 * t250 * t146;
+  t2246 = -t1840 * t2229 + t1842 * t883 + 0.3e1 * t1847 * t2229 + t1856 * t883 - t1859 * t883 - t1868 * t2229 + t2052 * t740 + t2052 * t747 - t2052 * t749 - 0.3e1 * t2229 * t740 - 0.2e1 * t2229 * t747 + 0.3e1 * t2229 * t749 + t2062 + t2064 - t2066 - t827;
+  t2247 = my_piecewise3(t47, 0, t2246);
+  t2249 = t55 * t2247 * t153;
+  t2257 = t143 * t890 - t1567 * t881 - 0.3e1 * t2216 * t637 + 0.2e1 * t2216 * t659 + t2219 * t637 - t2219 * t659 + t2223 * t637 - t2223 * t659 + t2226 * t637 - t2226 * t659 + t2249 * t57;
+  t2258 = -0.25e2 / 0.162e3 * t814 + 0.5e1 / 0.54e2 * t283 * t2027 + 0.5e1 / 0.54e2 * t285 * t2031 - 0.5e1 / 0.54e2 * t283 * t2034 + 0.40e2 / 0.243e3 * t2201 - 0.5e1 / 0.81e2 * t2205 - 0.5e1 / 0.81e2 * t2209 + 0.5e1 / 0.81e2 * t2212 + t1640 * t881 + t1630 * t2216 + t2257;
+  t2263 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t123 * t893 + t2193 + 0.3e1 / 0.20e2 * t7 * t24 * t2258);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rhosigmalapl[0] = t8 * t1767 + t770;
+    v3rhosigmalapl[0] = t2263 * t8 + t897;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[1] = 0.0e0;
@@ -1693,14 +2654,14 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[4] = 0.0e0;
 
-  t1774 = t7 * t166 * t784 / 0.10e2;
-  t1776 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t162 * t784 + t1774);
+  t2270 = t7 * t178 * t917 / 0.10e2;
+  t2272 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t174 * t917 + t2270);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rhosigmalapl[5] = t8 * t1776 + t788;
+    v3rhosigmalapl[5] = t2272 * t8 + t921;
 
-  t1782 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t180 * t766 + t1735);
+  t2278 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t192 * t893 + t2193);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rhosigmalapl[6] = t8 * t1782 + t770;
+    v3rhosigmalapl[6] = t2278 * t8 + t897;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[7] = 0.0e0;
@@ -1714,14 +2675,28 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmalapl[10] = 0.0e0;
 
-  t1792 = t30 * t202 * t282;
-  t1795 = t30 * t75 * t704;
-  t1798 = t777 * t214;
-  t1811 = my_piecewise3(t86, 0, -0.2e1 * t1610 * t777 + 0.6e1 * t1613 * t1798 - t1622 * t777 + t1626 * t1798 - 0.2e1 * t694 * t1705 - t701 * t1705 + 0.6e1 * t701 * t1798 - t1713 - t1715 + t742);
-  t1813 = -0.25e2 / 0.162e3 * t734 + 0.5e1 / 0.54e2 * t30 * t80 * t632 + 0.40e2 / 0.243e3 * t1792 - 0.5e1 / 0.81e2 * t1795 + t210 * t782 + t85 * t1811;
-  t1818 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t196 * t784 + t1774 + 0.3e1 / 0.20e2 * t7 * t70 * t1813);
+  t2290 = t686 * t901;
+  t2292 = t584 * t309;
+  t2293 = t2117 * t2292;
+  t2294 = t266 * t2293;
+  t2297 = t691 * t800 * t233;
+  t2298 = t263 * t2297;
+  t2300 = t310 * t698;
+  t2301 = t266 * t2300;
+  t2305 = t2129 * t273 * t309;
+  t2308 = t715 * t584;
+  t2309 = t2308 * t309;
+  t2313 = t904 * t800;
+  t2316 = t698 * t912;
+  t2319 = t1711 * t269 * t226;
+  t2336 = -t1971 * t2319 + t1973 * t907 + 0.3e1 * t1978 * t2319 + t1987 * t907 - t1990 * t907 - t1999 * t2319 + t2143 * t788 + t2143 * t795 - t2143 * t797 - 0.3e1 * t2319 * t788 - 0.2e1 * t2319 * t795 + 0.3e1 * t2319 * t797 + t2153 + t2155 - t2157 - t858;
+  t2337 = my_piecewise3(t91, 0, t2336);
+  t2339 = t55 * t2337 * t233;
+  t2347 = t100 * t2339 - t1754 * t905 + t223 * t914 - 0.3e1 * t2305 * t697 + 0.2e1 * t2305 * t719 + t2309 * t697 - t2309 * t719 + t2313 * t697 - t2313 * t719 + t2316 * t697 - t2316 * t719;
+  t2348 = -0.25e2 / 0.162e3 * t845 + 0.5e1 / 0.54e2 * t301 * t2118 + 0.5e1 / 0.54e2 * t303 * t2122 - 0.5e1 / 0.54e2 * t301 * t2125 + 0.40e2 / 0.243e3 * t2290 - 0.5e1 / 0.81e2 * t2294 - 0.5e1 / 0.81e2 * t2298 + 0.5e1 / 0.81e2 * t2301 + t1789 * t905 + t1779 * t2305 + t2347;
+  t2353 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t208 * t917 + t2270 + 0.3e1 / 0.20e2 * t7 * t74 * t2348);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rhosigmalapl[11] = t8 * t1818 + t788;
+    v3rhosigmalapl[11] = t2353 * t8 + t921;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmatau[0] = 0.0e0;
@@ -1759,39 +2734,57 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhosigmatau[11] = 0.0e0;
 
-  t1825 = t7 * t121 * t801 / 0.10e2;
-  t1833 = t50 * t656;
-  t1836 = t927 * t792;
-  t1841 = t938 * t792;
-  t1844 = my_piecewise3(t46, 0, -0.4e1 * t652 * t1833 - 0.2e1 * t659 * t1833 + 0.6e1 * t1836 * t575 + t1841 * t575 + 0.6e1 * t796 * t575 - t1661 - t1663 + t722);
-  t1846 = -0.25e2 / 0.81e2 * t757 + 0.5e1 / 0.27e2 * t30 * t40 * t662 + t135 * t799 + t45 * t1844;
-  t1851 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t116 * t801 + t1825 + 0.3e1 / 0.20e2 * t7 * t24 * t1846);
+  t2360 = t7 * t128 * t942 / 0.10e2;
+  t2369 = t2038 * t924;
+  t2371 = t2203 * t752;
+  t2377 = t638 * t935;
+  t2379 = t1086 * t928;
+  t2381 = t642 * t743;
+  t2384 = t390 * t928;
+  t2387 = t1099 * t928;
+  t2392 = t144 * t928;
+  t2395 = t405 * t928;
+  t2400 = t1119 * t928;
+  t2402 = -t2050 * t2379 - 0.3e1 * t2050 * t2384 + 0.3e1 * t2050 * t2387 - 0.2e1 * t2050 * t2392 + 0.3e1 * t2050 * t2395 - t2050 * t2400 + 0.2e1 * t2381 * t740 + 0.2e1 * t2381 * t747 - 0.2e1 * t2381 * t749 + t2062 + t2064 - t2066 - t827;
+  t2403 = my_piecewise3(t47, 0, t2402);
+  t2405 = t55 * t2403 * t153;
+  t2413 = -0.25e2 / 0.81e2 * t878 + 0.5e1 / 0.27e2 * t283 * t2204 + 0.5e1 / 0.27e2 * t285 * t2208 - 0.5e1 / 0.27e2 * t283 * t2211 + t143 * t926 + t1630 * t2369 + 0.2e1 * t637 * t2371 - 0.3e1 * t637 * t2369 + t143 * t937 + t637 * t2377 + t57 * t2405 - t659 * t2377 - t143 * t940 - 0.2e1 * t659 * t2371 + 0.2e1 * t659 * t2369;
+  t2418 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t123 * t942 + t2360 + 0.3e1 / 0.20e2 * t7 * t24 * t2413);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rholapl2[0] = t8 * t1851 + t805;
+    v3rholapl2[0] = t2418 * t8 + t946;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapl2[1] = 0.0e0;
 
-  t1858 = t7 * t166 * t818 / 0.10e2;
-  t1860 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t162 * t818 + t1858);
+  t2425 = t7 * t178 * t967 / 0.10e2;
+  t2427 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t174 * t967 + t2425);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rholapl2[2] = t8 * t1860 + t822;
+    v3rholapl2[2] = t2427 * t8 + t971;
 
-  t1866 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t180 * t801 + t1825);
+  t2433 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t192 * t942 + t2360);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rholapl2[3] = t8 * t1866 + t805;
+    v3rholapl2[3] = t2433 * t8 + t946;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapl2[4] = 0.0e0;
 
-  t1878 = t90 * t698;
-  t1881 = t1295 * t809;
-  t1886 = t1306 * t809;
-  t1889 = my_piecewise3(t86, 0, -0.4e1 * t694 * t1878 - 0.2e1 * t701 * t1878 + 0.6e1 * t1881 * t622 + t1886 * t622 + 0.6e1 * t813 * t622 - t1713 - t1715 + t742);
-  t1891 = -0.25e2 / 0.81e2 * t775 + 0.5e1 / 0.27e2 * t30 * t80 * t704 + t210 * t816 + t85 * t1889;
-  t1896 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t196 * t818 + t1858 + 0.3e1 / 0.20e2 * t7 * t70 * t1891);
+  t2446 = t2129 * t949;
+  t2448 = t2292 * t800;
+  t2454 = t698 * t960;
+  t2456 = t1491 * t953;
+  t2458 = t702 * t791;
+  t2461 = t587 * t953;
+  t2464 = t1504 * t953;
+  t2469 = t224 * t953;
+  t2472 = t602 * t953;
+  t2477 = t1524 * t953;
+  t2479 = -t2141 * t2456 - 0.3e1 * t2141 * t2461 + 0.3e1 * t2141 * t2464 - 0.2e1 * t2141 * t2469 + 0.3e1 * t2141 * t2472 - t2141 * t2477 + 0.2e1 * t2458 * t788 + 0.2e1 * t2458 * t795 - 0.2e1 * t2458 * t797 + t2153 + t2155 - t2157 - t858;
+  t2480 = my_piecewise3(t91, 0, t2479);
+  t2482 = t55 * t2480 * t233;
+  t2490 = -0.25e2 / 0.81e2 * t902 + 0.5e1 / 0.27e2 * t301 * t2293 + 0.5e1 / 0.27e2 * t303 * t2297 - 0.5e1 / 0.27e2 * t301 * t2300 + t223 * t951 + t1779 * t2446 + 0.2e1 * t697 * t2448 - 0.3e1 * t697 * t2446 + t223 * t962 + t697 * t2454 + t100 * t2482 - t719 * t2454 - t223 * t965 - 0.2e1 * t719 * t2448 + 0.2e1 * t719 * t2446;
+  t2495 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t208 * t967 + t2425 + 0.3e1 / 0.20e2 * t7 * t74 * t2490);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rholapl2[5] = t8 * t1896 + t822;
+    v3rholapl2[5] = t2495 * t8 + t971;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rholapltau[0] = 0.0e0;
@@ -1835,20 +2828,33 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rhotau2[5] = 0.0e0;
 
-  t1899 = t30 * t35 * t726;
-  t1901 = t716 * t233;
-  t1905 = t50 * t720;
-  t1906 = t574 * t1905;
-  t1907 = 0.6e1 * t1906;
-  t1908 = t927 * t1901;
-  t1911 = t1662 * t759;
-  t1912 = 0.3e1 * t1911;
-  t1913 = t938 * t1901;
-  t1916 = my_piecewise3(t46, 0, 0.6e1 * t363 * t1901 * t50 + 0.6e1 * t1908 * t50 + t1913 * t50 - t1907 - t1912 + t722);
-  t1918 = -0.5e1 / 0.27e2 * t1899 + t45 * t1916;
-  t1922 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t1918);
+  t2497 = t816 * t387;
+  t2498 = t1632 * t2497;
+  t2499 = t244 * t2498;
+  t2502 = t631 * t831 * t153;
+  t2503 = t244 * t2502;
+  t2505 = t631 * t2497;
+  t2506 = t244 * t2505;
+  t2508 = t816 * t254;
+  t2510 = t1072 * t2508 * t1076;
+  t2512 = t880 * t831;
+  t2516 = t383 * t2508 * t1076;
+  t2519 = t820 * t250;
+  t2521 = t2519 * t1089 * t52;
+  t2523 = t642 * t824;
+  t2524 = t641 * t2523;
+  t2525 = 0.3e1 * t2524;
+  t2530 = t2063 * t883;
+  t2531 = 0.3e1 * t2530;
+  t2532 = t2065 * t883;
+  t2533 = 0.3e1 * t2532;
+  t2540 = my_piecewise3(t47, 0, -t1086 * t2521 + 0.3e1 * t1099 * t2521 - t1119 * t2521 - 0.2e1 * t144 * t2521 - 0.3e1 * t2521 * t390 + 0.3e1 * t2521 * t405 + t2525 + t2531 - t2533 - t827);
+  t2542 = t55 * t2540 * t153;
+  t2547 = t55 * t2508 * t1076;
+  t2550 = -0.5e1 / 0.27e2 * t2499 - 0.5e1 / 0.27e2 * t2503 + 0.5e1 / 0.27e2 * t2506 + t57 * t2510 + 0.3e1 * t637 * t2512 - 0.3e1 * t57 * t2516 + t57 * t2542 - 0.3e1 * t659 * t2512 + 0.2e1 * t57 * t2547;
+  t2554 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t2550);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3sigma3[0] = t8 * t1922;
+    v3sigma3[0] = t8 * t2554;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma3[1] = 0.0e0;
@@ -1874,33 +2880,60 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma3[8] = 0.0e0;
 
-  t1924 = t30 * t75 * t746;
-  t1926 = t736 * t249;
-  t1930 = t90 * t740;
-  t1931 = t621 * t1930;
-  t1932 = 0.6e1 * t1931;
-  t1933 = t1295 * t1926;
-  t1936 = t1714 * t777;
-  t1937 = 0.3e1 * t1936;
-  t1938 = t1306 * t1926;
-  t1941 = my_piecewise3(t86, 0, 0.6e1 * t545 * t1926 * t90 + 0.6e1 * t1933 * t90 + t1938 * t90 - t1932 - t1937 + t742);
-  t1943 = -0.5e1 / 0.27e2 * t1924 + t85 * t1941;
-  t1947 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t70 * t1943);
+  t2555 = t847 * t584;
+  t2556 = t1781 * t2555;
+  t2557 = t263 * t2556;
+  t2560 = t691 * t862 * t233;
+  t2561 = t263 * t2560;
+  t2563 = t691 * t2555;
+  t2564 = t263 * t2563;
+  t2566 = t847 * t273;
+  t2568 = t1072 * t2566 * t1481;
+  t2570 = t904 * t862;
+  t2574 = t383 * t2566 * t1481;
+  t2577 = t851 * t269;
+  t2579 = t2577 * t1494 * t96;
+  t2581 = t702 * t855;
+  t2582 = t701 * t2581;
+  t2583 = 0.3e1 * t2582;
+  t2588 = t2154 * t907;
+  t2589 = 0.3e1 * t2588;
+  t2590 = t2156 * t907;
+  t2591 = 0.3e1 * t2590;
+  t2598 = my_piecewise3(t91, 0, -t1491 * t2579 + 0.3e1 * t1504 * t2579 - t1524 * t2579 - 0.2e1 * t224 * t2579 - 0.3e1 * t2579 * t587 + 0.3e1 * t2579 * t602 + t2583 + t2589 - t2591 - t858);
+  t2600 = t55 * t2598 * t233;
+  t2605 = t55 * t2566 * t1481;
+  t2608 = -0.5e1 / 0.27e2 * t2557 - 0.5e1 / 0.27e2 * t2561 + 0.5e1 / 0.27e2 * t2564 + t100 * t2568 + 0.3e1 * t697 * t2570 - 0.3e1 * t100 * t2574 + t100 * t2600 - 0.3e1 * t719 * t2570 + 0.2e1 * t100 * t2605;
+  t2612 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t74 * t2608);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3sigma3[9] = t8 * t1947;
+    v3sigma3[9] = t8 * t2612;
 
-  t1952 = t30 * t35 * t764;
-  t1954 = t50 * t716;
-  t1957 = 0.4e1 * t1906;
-  t1960 = t652 * t1905;
-  t1961 = 0.2e1 * t1960;
-  t1962 = 0.2e1 * t1911;
-  t1963 = t659 * t1905;
-  t1966 = my_piecewise3(t46, 0, 0.6e1 * t1515 * t1954 + t1528 * t1954 + 0.6e1 * t659 * t1954 - t1957 - t1961 - t1962 - t1963 + t722);
-  t1968 = 0.5e1 / 0.54e2 * t30 * t40 * t726 - 0.10e2 / 0.81e2 * t1952 + t45 * t1966;
-  t1972 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t1968);
+  t2619 = t383 * t254;
+  t2620 = t2619 * t2203;
+  t2621 = t247 * t2620;
+  t2624 = t631 * t888 * t153;
+  t2625 = t244 * t2624;
+  t2627 = t292 * t880;
+  t2628 = t247 * t2627;
+  t2630 = t816 * t1076;
+  t2631 = t2630 * t291;
+  t2633 = t831 * t387;
+  t2634 = t2633 * t291;
+  t2638 = t880 * t888;
+  t2641 = t1576 * t820;
+  t2643 = 0.2e1 * t2524;
+  t2648 = t740 * t2523;
+  t2649 = 0.2e1 * t2530;
+  t2650 = 0.2e1 * t2532;
+  t2655 = t747 * t2523;
+  t2656 = t749 * t2523;
+  t2658 = -t1840 * t2641 + 0.3e1 * t1847 * t2641 - t1868 * t2641 - 0.3e1 * t2641 * t740 - 0.2e1 * t2641 * t747 + 0.3e1 * t2641 * t749 + t2643 + t2648 + t2649 - t2650 + t2655 - t2656 - t827;
+  t2659 = my_piecewise3(t47, 0, t2658);
+  t2661 = t55 * t2659 * t153;
+  t2668 = 0.5e1 / 0.54e2 * t285 * t2498 + 0.5e1 / 0.54e2 * t285 * t2502 - 0.5e1 / 0.54e2 * t285 * t2505 - 0.10e2 / 0.81e2 * t2621 - 0.10e2 / 0.81e2 * t2625 + 0.10e2 / 0.81e2 * t2628 + t1630 * t2631 + t637 * t2634 - 0.3e1 * t637 * t2631 + 0.2e1 * t637 * t2638 + t57 * t2661 - 0.2e1 * t659 * t2638 + 0.2e1 * t659 * t2631 - t659 * t2634;
+  t2672 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t2668);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3sigma2lapl[0] = t8 * t1972;
+    v3sigma2lapl[0] = t8 * t2672;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2lapl[1] = 0.0e0;
@@ -1932,18 +2965,32 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2lapl[10] = 0.0e0;
 
-  t1977 = t30 * t75 * t782;
-  t1979 = t90 * t736;
-  t1982 = 0.4e1 * t1931;
-  t1985 = t694 * t1930;
-  t1986 = 0.2e1 * t1985;
-  t1987 = 0.2e1 * t1936;
-  t1988 = t701 * t1930;
-  t1991 = my_piecewise3(t86, 0, 0.6e1 * t1613 * t1979 + t1626 * t1979 + 0.6e1 * t701 * t1979 - t1982 - t1986 - t1987 - t1988 + t742);
-  t1993 = 0.5e1 / 0.54e2 * t30 * t80 * t746 - 0.10e2 / 0.81e2 * t1977 + t85 * t1991;
-  t1997 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t70 * t1993);
+  t2679 = t383 * t273;
+  t2680 = t2679 * t2292;
+  t2681 = t266 * t2680;
+  t2684 = t691 * t912 * t233;
+  t2685 = t263 * t2684;
+  t2687 = t310 * t904;
+  t2688 = t266 * t2687;
+  t2690 = t847 * t1481;
+  t2691 = t2690 * t309;
+  t2693 = t862 * t584;
+  t2694 = t2693 * t309;
+  t2698 = t904 * t912;
+  t2701 = t1711 * t851;
+  t2703 = 0.2e1 * t2582;
+  t2708 = t788 * t2581;
+  t2709 = 0.2e1 * t2588;
+  t2710 = 0.2e1 * t2590;
+  t2715 = t795 * t2581;
+  t2716 = t797 * t2581;
+  t2718 = -t1971 * t2701 + 0.3e1 * t1978 * t2701 - t1999 * t2701 - 0.3e1 * t2701 * t788 - 0.2e1 * t2701 * t795 + 0.3e1 * t2701 * t797 + t2703 + t2708 + t2709 - t2710 + t2715 - t2716 - t858;
+  t2719 = my_piecewise3(t91, 0, t2718);
+  t2721 = t55 * t2719 * t233;
+  t2728 = 0.5e1 / 0.54e2 * t303 * t2556 + 0.5e1 / 0.54e2 * t303 * t2560 - 0.5e1 / 0.54e2 * t303 * t2563 - 0.10e2 / 0.81e2 * t2681 - 0.10e2 / 0.81e2 * t2685 + 0.10e2 / 0.81e2 * t2688 + t1779 * t2691 + t697 * t2694 - 0.3e1 * t697 * t2691 + 0.2e1 * t697 * t2698 + t100 * t2721 - 0.2e1 * t719 * t2698 + 0.2e1 * t719 * t2691 - t719 * t2694;
+  t2732 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t74 * t2728);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3sigma2lapl[11] = t8 * t1997;
+    v3sigma2lapl[11] = t8 * t2732;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2tau[0] = 0.0e0;
@@ -1981,15 +3028,28 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigma2tau[11] = 0.0e0;
 
-  t2002 = t30 * t35 * t799;
-  t2006 = 0.4e1 * t1960;
-  t2009 = 0.2e1 * t1906;
-  t2010 = 0.2e1 * t1963;
-  t2013 = my_piecewise3(t46, 0, 0.6e1 * t1836 * t759 + t1841 * t759 + 0.6e1 * t796 * t759 - t1911 - t2006 - t2009 - t2010 + t722);
-  t2015 = 0.5e1 / 0.27e2 * t30 * t40 * t764 - 0.5e1 / 0.81e2 * t2002 + t45 * t2013;
-  t2019 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t2015);
+  t2739 = t924 * t387;
+  t2740 = t1632 * t2739;
+  t2741 = t244 * t2740;
+  t2743 = t254 * t1076;
+  t2744 = t2743 * t924;
+  t2746 = t2203 * t888;
+  t2752 = t631 * t935 * t153;
+  t2753 = t244 * t2752;
+  t2755 = t880 * t935;
+  t2757 = t1576 * t250;
+  t2759 = 0.2e1 * t2648;
+  t2764 = 0.2e1 * t2655;
+  t2769 = 0.2e1 * t2656;
+  t2771 = -t2379 * t2757 - 0.3e1 * t2384 * t2757 + 0.3e1 * t2387 * t2757 - 0.2e1 * t2392 * t2757 + 0.3e1 * t2395 * t2757 - t2400 * t2757 + t2524 + t2530 - t2532 + t2759 + t2764 - t2769 - t827;
+  t2772 = my_piecewise3(t47, 0, t2771);
+  t2774 = t55 * t2772 * t153;
+  t2777 = t631 * t2739;
+  t2778 = t244 * t2777;
+  t2784 = 0.5e1 / 0.27e2 * t283 * t2620 + 0.5e1 / 0.27e2 * t285 * t2624 - 0.5e1 / 0.27e2 * t283 * t2627 - 0.5e1 / 0.81e2 * t2741 + t1630 * t2744 + 0.2e1 * t637 * t2746 - 0.3e1 * t637 * t2744 - 0.5e1 / 0.81e2 * t2753 + t637 * t2755 + t57 * t2774 - t659 * t2755 + 0.5e1 / 0.81e2 * t2778 - 0.2e1 * t659 * t2746 + 0.2e1 * t659 * t2744;
+  t2788 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t2784);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3sigmalapl2[0] = t8 * t2019;
+    v3sigmalapl2[0] = t8 * t2788;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapl2[1] = 0.0e0;
@@ -2012,15 +3072,28 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapl2[7] = 0.0e0;
 
-  t2024 = t30 * t75 * t816;
-  t2028 = 0.4e1 * t1985;
-  t2031 = 0.2e1 * t1931;
-  t2032 = 0.2e1 * t1988;
-  t2035 = my_piecewise3(t86, 0, 0.6e1 * t1881 * t777 + t1886 * t777 + 0.6e1 * t813 * t777 - t1936 - t2028 - t2031 - t2032 + t742);
-  t2037 = 0.5e1 / 0.27e2 * t30 * t80 * t782 - 0.5e1 / 0.81e2 * t2024 + t85 * t2035;
-  t2041 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t70 * t2037);
+  t2795 = t949 * t584;
+  t2796 = t1781 * t2795;
+  t2797 = t263 * t2796;
+  t2799 = t273 * t1481;
+  t2800 = t2799 * t949;
+  t2802 = t2292 * t912;
+  t2808 = t691 * t960 * t233;
+  t2809 = t263 * t2808;
+  t2811 = t904 * t960;
+  t2813 = t1711 * t269;
+  t2815 = 0.2e1 * t2708;
+  t2820 = 0.2e1 * t2715;
+  t2825 = 0.2e1 * t2716;
+  t2827 = -t2456 * t2813 - 0.3e1 * t2461 * t2813 + 0.3e1 * t2464 * t2813 - 0.2e1 * t2469 * t2813 + 0.3e1 * t2472 * t2813 - t2477 * t2813 + t2582 + t2588 - t2590 + t2815 + t2820 - t2825 - t858;
+  t2828 = my_piecewise3(t91, 0, t2827);
+  t2830 = t55 * t2828 * t233;
+  t2833 = t691 * t2795;
+  t2834 = t263 * t2833;
+  t2840 = 0.5e1 / 0.27e2 * t301 * t2680 + 0.5e1 / 0.27e2 * t303 * t2684 - 0.5e1 / 0.27e2 * t301 * t2687 - 0.5e1 / 0.81e2 * t2797 + t1779 * t2800 + 0.2e1 * t697 * t2802 - 0.3e1 * t697 * t2800 - 0.5e1 / 0.81e2 * t2809 + t697 * t2811 + t100 * t2830 - t719 * t2811 + 0.5e1 / 0.81e2 * t2834 - 0.2e1 * t719 * t2802 + 0.2e1 * t719 * t2800;
+  t2844 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t74 * t2840);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3sigmalapl2[8] = t8 * t2041;
+    v3sigmalapl2[8] = t8 * t2844;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmalapltau[0] = 0.0e0;
@@ -2085,16 +3158,22 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3sigmatau2[8] = 0.0e0;
 
-  t2045 = t792 * t264;
-  t2049 = 0.6e1 * t1960;
-  t2050 = t927 * t2045;
-  t2053 = 0.3e1 * t1963;
-  t2054 = t938 * t2045;
-  t2057 = my_piecewise3(t46, 0, 0.6e1 * t363 * t2045 * t50 + 0.6e1 * t2050 * t50 + t2054 * t50 - t2049 - t2053 + t722);
-  t2059 = 0.5e1 / 0.18e2 * t30 * t40 * t799 + t45 * t2057;
-  t2063 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t2059);
+  t2851 = t924 * t291;
+  t2853 = t1072 * t2851 * t1076;
+  t2855 = t2203 * t935;
+  t2859 = t383 * t2851 * t1076;
+  t2862 = t928 * t287;
+  t2864 = t2862 * t1089 * t52;
+  t2866 = 0.3e1 * t2648;
+  t2871 = 0.3e1 * t2655;
+  t2872 = 0.3e1 * t2656;
+  t2879 = my_piecewise3(t47, 0, -t1086 * t2864 + 0.3e1 * t1099 * t2864 - t1119 * t2864 - 0.2e1 * t144 * t2864 - 0.3e1 * t2864 * t390 + 0.3e1 * t2864 * t405 + t2866 + t2871 - t2872 - t827);
+  t2881 = t55 * t2879 * t153;
+  t2886 = t55 * t2851 * t1076;
+  t2889 = 0.5e1 / 0.18e2 * t285 * t2740 + 0.5e1 / 0.18e2 * t285 * t2752 - 0.5e1 / 0.18e2 * t285 * t2777 + t57 * t2853 + 0.3e1 * t637 * t2855 - 0.3e1 * t57 * t2859 + t57 * t2881 - 0.3e1 * t659 * t2855 + 0.2e1 * t57 * t2886;
+  t2893 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t2889);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3lapl3[0] = t8 * t2063;
+    v3lapl3[0] = t8 * t2893;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl3[1] = 0.0e0;
@@ -2102,16 +3181,22 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl3[2] = 0.0e0;
 
-  t2067 = t809 * t279;
-  t2071 = 0.6e1 * t1985;
-  t2072 = t1295 * t2067;
-  t2075 = 0.3e1 * t1988;
-  t2076 = t1306 * t2067;
-  t2079 = my_piecewise3(t86, 0, 0.6e1 * t545 * t2067 * t90 + 0.6e1 * t2072 * t90 + t2076 * t90 - t2071 - t2075 + t742);
-  t2081 = 0.5e1 / 0.18e2 * t30 * t80 * t816 + t85 * t2079;
-  t2085 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t70 * t2081);
+  t2900 = t949 * t309;
+  t2902 = t1072 * t2900 * t1481;
+  t2904 = t2292 * t960;
+  t2908 = t383 * t2900 * t1481;
+  t2911 = t953 * t305;
+  t2913 = t2911 * t1494 * t96;
+  t2915 = 0.3e1 * t2708;
+  t2920 = 0.3e1 * t2715;
+  t2921 = 0.3e1 * t2716;
+  t2928 = my_piecewise3(t91, 0, -t1491 * t2913 + 0.3e1 * t1504 * t2913 - t1524 * t2913 - 0.2e1 * t224 * t2913 - 0.3e1 * t2913 * t587 + 0.3e1 * t2913 * t602 + t2915 + t2920 - t2921 - t858);
+  t2930 = t55 * t2928 * t233;
+  t2935 = t55 * t2900 * t1481;
+  t2938 = 0.5e1 / 0.18e2 * t303 * t2796 + 0.5e1 / 0.18e2 * t303 * t2808 - 0.5e1 / 0.18e2 * t303 * t2833 + t100 * t2902 + 0.3e1 * t697 * t2904 - 0.3e1 * t100 * t2908 + t100 * t2930 - 0.3e1 * t719 * t2904 + 0.2e1 * t100 * t2935;
+  t2942 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t74 * t2938);
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3lapl3[3] = t8 * t2085;
+    v3lapl3[3] = t8 * t2942;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3lapl2tau[0] = 0.0e0;
@@ -2166,347 +3251,458 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(order < 4) return;
 
 
-  t2089 = 0.1e1 / t22 / t154;
-  t2093 = 0.14e2 / 0.135e3 * t7 * t21 * t2089 * t54;
-  t2096 = t7 * t868 * t120 * t54;
-  t2100 = t7 * t318 * t331 * t54;
-  t2104 = t7 * t115 * t891 * t54;
-  t2107 = t7 * t880 * t144;
-  t2110 = t7 * t323 * t369;
-  t2116 = t7 * t892 * t144;
-  t2119 = t7 * t332 * t369;
-  t2122 = t7 * t121 * t944;
-  t2128 = t30 * sigma[0] / t33 / t339 / t31;
-  t2134 = 0.15400e5 / 0.2187e4 * t30 * lapl[0] * t904 - 0.104720e6 / 0.6561e4 * t2128;
-  t2142 = t355 * t355;
-  t2151 = t359 * t359;
-  t2158 = t50 * t931;
-  t2162 = 0.1e1 / t362 / t353;
-  t2166 = my_piecewise3(t47, t2134, 0);
-  t2178 = t362 * t362;
-  t2179 = 0.1e1 / t2178;
-  t2182 = 0.6e1 * t938 * t359 * t1350 + t138 * t2166 * t50 - 0.12e2 * t2162 * t2142 * t50 - t2179 * t2142 * t50 - 0.24e2 * t927 * t2142 * t50 - 0.36e2 * t938 * t2142 * t50 - 0.6e1 * t354 * t2151 * t50 - 0.3e1 * t363 * t2151 * t50 + 0.36e2 * t927 * t355 * t923 - 0.4e1 * t363 * t931 * t575 - 0.8e1 * t922 * t2158 + 0.36e2 * t364 * t923;
-  t2183 = my_piecewise3(t46, 0, t2182);
-  t2190 = t15 * t416 * t307;
-  t2194 = t15 * t103 * t850 * t852;
-  t2197 = t15 * t103 * t858;
-  t2201 = 0.1e1 / t16 / t125 / t155;
-  t2203 = t307 * t307;
-  t2211 = t313 * t313;
-  t2218 = t291 * t829;
-  t2227 = 0.48e2 * t15 * t385 * t17;
-  t2229 = t15 * t413 * t110;
-  t2232 = t15 * t175 * t313;
-  t2235 = t15 * t300 * t863;
-  t2243 = t1051 * t17;
-  t2245 = t439 * t294;
-  t2247 = t291 * t832;
-  t2252 = -0.16e2 / 0.3e1 * t2190 - 0.64e2 / 0.27e2 * t2194 + 0.16e2 / 0.3e1 * t2197 - 0.112e3 / 0.81e2 * t15 * t9 * t2201 * t2203 + 0.32e2 / 0.9e1 * t856 * t850 * t307 * t313 - 0.4e1 / 0.3e1 * t15 * t306 * t2211 - 0.16e2 / 0.9e1 * t856 * t857 * t863 + 0.16e2 / 0.3e1 * t2218 + 0.64e2 / 0.27e2 * t99 * t850 * t852 - 0.16e2 / 0.3e1 * t99 * t858 + t2227 - 0.32e2 * t2229 + 0.16e2 * t2232 - 0.16e2 / 0.3e1 * t2235 + 0.4e1 / 0.3e1 * t15 * t108 * (0.24e2 * rho[0] * t385 - 0.24e2 * t379) - 0.48e2 * t2243 + 0.32e2 * t2245 - 0.16e2 * t2247 + 0.16e2 / 0.3e1 * t99 * t107 * t863;
-  t2253 = my_piecewise3(t12, 0, t2252);
-  t2262 = t7 * t873 * t144;
-  t2267 = -t2093 + 0.2e1 / 0.5e1 * t2096 - t2100 / 0.5e1 + 0.8e1 / 0.45e2 * t2104 - 0.2e1 / 0.5e1 * t2107 + 0.6e1 / 0.5e1 * t2110 + 0.3e1 / 0.5e1 * t7 * t116 * t944 + 0.8e1 / 0.45e2 * t2116 - t2119 / 0.5e1 + 0.2e1 / 0.5e1 * t2122 + 0.3e1 / 0.20e2 * t7 * t24 * (0.13090e5 / 0.729e3 * t2128 + t2134 * t52 + 0.4e1 * t912 * t142 + 0.6e1 * t349 * t367 + 0.4e1 * t135 * t942 + t45 * t2183) + 0.3e1 / 0.20e2 * t7 * t2253 * t23 * t54 + 0.3e1 / 0.5e1 * t7 * t869 * t144 + 0.6e1 / 0.5e1 * t2262 + 0.9e1 / 0.10e2 * t7 * t319 * t369;
-  t2268 = my_piecewise3(t2, 0, t2267);
-  t2271 = 0.48e2 * t63 * t385 * t65;
-  t2273 = t153 * t957 * t156;
-  t2276 = t383 * t963 * t387;
-  t2278 = t378 * t378;
-  t2279 = 0.1e1 / t2278;
-  t2281 = t961 * t2279 * t966;
-  t2285 = 0.1e1 / t2278 / t8;
-  t2288 = 0.1e1 / t64 / t200 / t155;
-  t2293 = my_piecewise3(t62, 0, t2271 + 0.128e3 * t2273 - 0.32e2 * t2276 + 0.256e3 / 0.27e2 * t2281 - 0.112e3 / 0.81e2 * t14 * t1270 * t2285 * t2288);
-  t2300 = t7 * t971 * t120 * t94;
-  t2304 = t7 * t392 * t331 * t94;
-  t2308 = t7 * t161 * t891 * t94;
-  t2313 = 0.14e2 / 0.135e3 * t7 * t69 * t2089 * t94;
-  t2315 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t2293 * t23 * t94 + 0.2e1 / 0.5e1 * t2300 - t2304 / 0.5e1 + 0.8e1 / 0.45e2 * t2308 - t2313);
+  t2952 = t30 * sigma[0] / t33 / t368 / t31;
+  t2954 = -0.15400e5 / 0.2187e4 * t30 * lapl[0] * t1053 + 0.104720e6 / 0.6561e4 * t2952;
+  t2955 = my_piecewise3(t48, 0, t2954);
+  t2959 = t391 * t391;
+  t2960 = t392 * t392;
+  t2961 = 0.1e1 / t2960;
+  t2963 = t2959 * t2961 * t52;
+  t2966 = t403 * t403;
+  t2968 = t382 * t382;
+  t2969 = 0.1e1 / t2966 * t2968;
+  t2971 = t51 * t2968;
+  t2973 = t404 * t2968;
+  t2978 = t1118 * t2968;
+  t2986 = t398 * t398;
+  t2988 = t2986 * t393 * t52;
+  t2993 = -t144 * t147 * t2955 * t52 - 0.4e1 * t1103 * t405 * t643 - 0.18e2 * t1099 * t2963 + 0.6e1 * t1119 * t2963 + 0.3e1 * t144 * t2988 - t2963 * t2969 + t2963 * t2971 - 0.7e1 * t2963 * t2973 + 0.6e1 * t2963 * t2978 - 0.11e2 * t2963 * t405 - 0.3e1 * t2988 * t405;
+  t2997 = t1576 * t398;
+  t3004 = t642 * t1103;
+  t3025 = -0.6e1 * t1086 * t2997 * t391 + 0.18e2 * t1099 * t2997 * t391 + 0.4e1 * t1103 * t144 * t643 - 0.6e1 * t1119 * t1577 * t398 - 0.18e2 * t2997 * t390 * t391 + 0.6e1 * t1086 * t2963 + 0.4e1 * t1093 * t3004 - 0.12e2 * t1107 * t1577 + 0.18e2 * t1110 * t1577 + 0.6e1 * t144 * t2963 + 0.11e2 * t2963 * t390 + 0.3e1 * t2988 * t390;
+  t3027 = my_piecewise3(t47, 0, t2993 + t3025);
+  t3039 = t384 * t384;
+  t3041 = t386 * t386;
+  t3042 = 0.1e1 / t3041;
+  t3047 = t1122 * t387 * t151;
+  t3050 = t408 * t408;
+  t3065 = t153 * t3027 * t55 * t57 + 0.11e2 * t3039 * t3042 * t383 * t57 - 0.6e1 * t3039 * t3042 * t55 * t57 - 0.3e1 * t3050 * t387 * t55 * t57 + 0.4e1 * t1062 * t154 + 0.12e2 * t1079 * t1640 - 0.12e2 * t1083 * t143 + 0.4e1 * t1124 * t143 - t2954 * t56 - 0.4e1 * t3047 * t659 + 0.6e1 * t379 * t410 - 0.6e1 * t379 * t413;
+  t3070 = t1622 * t408;
+  t3092 = 0.1e1 / t2968;
+  t3096 = -0.12e2 * t1567 * t1079 + 0.8e1 * t143 * t1129 + 0.6e1 * t1630 * t3070 - 0.6e1 * t57 * t1072 * t3039 * t3042 + 0.3e1 * t57 * t383 * t3050 * t387 + 0.4e1 * t637 * t3047 - 0.18e2 * t637 * t3070 + 0.12e2 * t659 * t3070 + 0.13090e5 / 0.729e3 * t2952 + 0.6e1 * t379 * t388 + 0.4e1 * t143 * t1077 + t57 * t3092 * t3039 * t3042;
+  t3102 = t7 * t1041 * t156;
+  t3105 = t7 * t361 * t415;
+  t3108 = t7 * t128 * t1132;
+  t3117 = t7 * t1029 * t156;
+  t3120 = t7 * t352 * t415;
+  t3123 = 0.1e1 / t22 / t166;
+  t3127 = 0.14e2 / 0.135e3 * t7 * t21 * t3123 * t58;
+  t3130 = t7 * t1017 * t127 * t58;
+  t3134 = t7 * t347 * t360 * t58;
+  t3138 = t7 * t122 * t1040 * t58;
+  t3142 = 0.1e1 / t16 / t132 / t167;
+  t3144 = t336 * t336;
+  t3152 = t342 * t342;
+  t3160 = t15 * t462 * t336;
+  t3164 = t15 * t110 * t999 * t1001;
+  t3167 = t15 * t110 * t1007;
+  t3169 = t320 * t978;
+  t3178 = 0.48e2 * t15 * t431 * t17;
+  t3180 = t15 * t459 * t117;
+  t3183 = t15 * t187 * t342;
+  t3186 = t15 * t329 * t1012;
+  t3194 = t1239 * t17;
+  t3196 = t485 * t323;
+  t3198 = t320 * t981;
+  t3203 = -0.112e3 / 0.81e2 * t15 * t9 * t3142 * t3144 + 0.32e2 / 0.9e1 * t1005 * t999 * t336 * t342 - 0.4e1 / 0.3e1 * t15 * t335 * t3152 - 0.16e2 / 0.9e1 * t1005 * t1006 * t1012 - 0.16e2 / 0.3e1 * t3160 - 0.64e2 / 0.27e2 * t3164 + 0.16e2 / 0.3e1 * t3167 + 0.16e2 / 0.3e1 * t3169 + 0.64e2 / 0.27e2 * t106 * t999 * t1001 - 0.16e2 / 0.3e1 * t106 * t1007 + t3178 - 0.32e2 * t3180 + 0.16e2 * t3183 - 0.16e2 / 0.3e1 * t3186 + 0.4e1 / 0.3e1 * t15 * t115 * (0.24e2 * rho[0] * t431 - 0.24e2 * t425) - 0.48e2 * t3194 + 0.32e2 * t3196 - 0.16e2 * t3198 + 0.16e2 / 0.3e1 * t106 * t114 * t1012;
+  t3204 = my_piecewise3(t12, 0, t3203);
+  t3213 = t7 * t1022 * t156;
+  t3215 = 0.3e1 / 0.20e2 * t7 * t24 * (t3065 + t3096) + 0.8e1 / 0.45e2 * t3102 - t3105 / 0.5e1 + 0.2e1 / 0.5e1 * t3108 + 0.3e1 / 0.5e1 * t7 * t123 * t1132 + 0.9e1 / 0.10e2 * t7 * t348 * t415 - 0.2e1 / 0.5e1 * t3117 + 0.6e1 / 0.5e1 * t3120 - t3127 + 0.2e1 / 0.5e1 * t3130 - t3134 / 0.5e1 + 0.8e1 / 0.45e2 * t3138 + 0.3e1 / 0.20e2 * t7 * t3204 * t23 * t58 + 0.3e1 / 0.5e1 * t7 * t1018 * t156 + 0.6e1 / 0.5e1 * t3213;
+  t3216 = my_piecewise3(t2, 0, t3215);
+  t3219 = 0.48e2 * t67 * t431 * t69;
+  t3221 = t165 * t1145 * t168;
+  t3224 = t429 * t1151 * t433;
+  t3226 = t424 * t424;
+  t3227 = 0.1e1 / t3226;
+  t3229 = t1149 * t3227 * t1154;
+  t3233 = 0.1e1 / t3226 / t8;
+  t3236 = 0.1e1 / t68 / t212 / t167;
+  t3241 = my_piecewise3(t66, 0, t3219 + 0.128e3 * t3221 - 0.32e2 * t3224 + 0.256e3 / 0.27e2 * t3229 - 0.112e3 / 0.81e2 * t14 * t1458 * t3233 * t3236);
+  t3248 = t7 * t1159 * t127 * t101;
+  t3252 = t7 * t438 * t360 * t101;
+  t3256 = t7 * t173 * t1040 * t101;
+  t3261 = 0.14e2 / 0.135e3 * t7 * t73 * t3123 * t101;
+  t3263 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t3241 * t23 * t101 + 0.2e1 / 0.5e1 * t3248 - t3252 / 0.5e1 + 0.8e1 / 0.45e2 * t3256 - t3261);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[0] = 0.4e1 * t949 + 0.4e1 * t989 + t8 * (t2268 + t2315);
+    v4rho4[0] = 0.4e1 * t1137 + 0.4e1 * t1177 + t8 * (t3216 + t3263);
 
-  t2322 = t7 * t1020 * t120 * t54;
-  t2326 = t7 * t421 * t331 * t54;
-  t2327 = t2326 / 0.10e2;
-  t2330 = t7 * t179 * t891 * t54;
-  t2336 = t7 * t1025 * t144;
-  t2342 = t7 * t1032 * t144;
-  t2343 = t2342 / 0.10e2;
-  t2345 = t7 * t426 * t369;
-  t2354 = t174 * t379 * t850 * t307;
-  t2368 = t15 * t1005;
-  t2370 = t15 * t1009;
-  t2375 = t174 * t957 * t107;
-  t2378 = t174 * t483 * t110;
-  t2380 = -0.32e2 / 0.9e1 * t15 * t1013 + 0.16e2 / 0.3e1 * t2354 + 0.112e3 / 0.81e2 * t174 * t155 * t2201 * t852 - 0.16e2 / 0.9e1 * t174 * t155 * t850 * t110 * t313 - 0.8e1 / 0.3e1 * t2190 - 0.16e2 / 0.27e2 * t2194 + 0.4e1 / 0.3e1 * t2197 - 0.96e2 * t2368 - 0.16e2 * t2370 + 0.8e1 / 0.3e1 * t15 * t1016 + 0.80e2 * t2375 + 0.16e2 * t2378;
-  t2382 = t174 * t1008 * t313;
-  t2391 = t1051 * t107;
-  t2398 = -0.4e1 * t2382 + 0.4e1 / 0.9e1 * t174 * t416 * t863 + 0.4e1 / 0.3e1 * t2218 + t2227 - 0.24e2 * t2229 + 0.8e1 * t2232 - 0.4e1 / 0.3e1 * t2235 + 0.24e2 * t2391 + 0.8e1 / 0.3e1 * t439 * t857 - 0.36e2 * t2243 + 0.16e2 * t2245 - 0.4e1 * t2247;
-  t2400 = my_piecewise3(t12, 0, t2380 + t2398);
-  t2414 = 0.3e1 / 0.10e2 * t2322 - t2327 + 0.2e1 / 0.45e2 * t2330 - t2093 + t2096 / 0.10e2 - t2100 / 0.10e2 + 0.2e1 / 0.15e2 * t2104 + 0.3e1 / 0.5e1 * t2336 + 0.9e1 / 0.20e2 * t7 * t422 * t369 - t2343 + 0.3e1 / 0.10e2 * t2345 + 0.3e1 / 0.20e2 * t7 * t180 * t944 + 0.3e1 / 0.20e2 * t7 * t2400 * t23 * t54 + 0.9e1 / 0.20e2 * t7 * t1021 * t144 - t2107 / 0.5e1 + 0.3e1 / 0.10e2 * t2110 + 0.2e1 / 0.15e2 * t2116 - t2119 / 0.10e2 + t2122 / 0.10e2 + 0.3e1 / 0.10e2 * t2262;
-  t2415 = my_piecewise3(t2, 0, t2414);
-  t2417 = t63 * t380 * t190;
-  t2420 = t63 * t157 * t454;
-  t2421 = 0.8e1 * t2420;
-  t2423 = t153 * t388 * t190;
-  t2426 = t153 * t1063 * t454;
-  t2430 = t383 * t957 * t966 * t190;
-  t2433 = t63 * t444 * t1080;
-  t2446 = rho[1] * t385;
-  t2447 = 0.24e2 * t2446;
-  t2452 = t1051 * t65;
-  t2454 = t1054 * t440;
-  t2457 = t14 * t957 * t1055;
-  t2466 = -0.8e1 * t2417 + t2421 + 0.8e1 * t2423 - 0.16e2 / 0.3e1 * t2426 - 0.16e2 / 0.3e1 * t2430 - 0.4e1 * t2433 + 0.16e2 / 0.9e1 * t383 * t1070 * t454 + 0.112e3 / 0.81e2 * t961 * t963 * t2288 * t190 + 0.4e1 / 0.3e1 * t153 * t448 * t1080 + 0.4e1 / 0.3e1 * t63 * t188 * (-0.6e1 * t379 + t2447) + t2271 - 0.12e2 * t2452 - 0.24e2 * t2454 + 0.4e1 * t2457 - 0.16e2 / 0.27e2 * t14 * t963 * t966 * t200 + 0.48e2 * t2273 - 0.16e2 / 0.3e1 * t2276 + 0.16e2 / 0.27e2 * t2281;
-  t2467 = my_piecewise3(t62, 0, t2466);
-  t2474 = t7 * t1085 * t120 * t94;
-  t2478 = t7 * t459 * t331 * t94;
-  t2479 = t2478 / 0.10e2;
-  t2482 = t7 * t195 * t891 * t94;
-  t2491 = t7 * t976 * t219;
-  t2494 = t7 * t980 * t219;
-  t2495 = t2494 / 0.10e2;
-  t2497 = t7 * t984 * t219;
-  t2499 = 0.3e1 / 0.20e2 * t7 * t2467 * t23 * t94 + 0.3e1 / 0.10e2 * t2474 - t2479 + 0.2e1 / 0.45e2 * t2482 + t2300 / 0.10e2 - t2304 / 0.10e2 + 0.2e1 / 0.15e2 * t2308 - t2313 + 0.3e1 / 0.20e2 * t7 * t972 * t219 + 0.3e1 / 0.10e2 * t2491 - t2495 + 0.2e1 / 0.45e2 * t2497;
-  t2500 = my_piecewise3(t59, 0, t2499);
+  t3269 = t7 * t472 * t415;
+  t3278 = t7 * t1213 * t156;
+  t3284 = t7 * t1220 * t156;
+  t3285 = t3284 / 0.10e2;
+  t3287 = t186 * t1196 * t342;
+  t3292 = t15 * t1193;
+  t3294 = t15 * t1197;
+  t3299 = t186 * t1145 * t114;
+  t3302 = t186 * t529 * t117;
+  t3313 = t186 * t425 * t999 * t336;
+  t3319 = t1239 * t114;
+  t3321 = -0.4e1 * t3287 + 0.4e1 / 0.9e1 * t186 * t462 * t1012 - 0.96e2 * t3292 - 0.16e2 * t3294 + 0.8e1 / 0.3e1 * t15 * t1204 + 0.80e2 * t3299 + 0.16e2 * t3302 - 0.16e2 / 0.9e1 * t186 * t167 * t999 * t117 * t342 - 0.32e2 / 0.9e1 * t15 * t1201 + 0.16e2 / 0.3e1 * t3313 + 0.112e3 / 0.81e2 * t186 * t167 * t3142 * t1001 + 0.24e2 * t3319;
+  t3334 = 0.8e1 / 0.3e1 * t485 * t1006 - 0.8e1 / 0.3e1 * t3160 - 0.16e2 / 0.27e2 * t3164 + 0.4e1 / 0.3e1 * t3167 + 0.4e1 / 0.3e1 * t3169 + t3178 - 0.24e2 * t3180 + 0.8e1 * t3183 - 0.4e1 / 0.3e1 * t3186 - 0.36e2 * t3194 + 0.16e2 * t3196 - 0.4e1 * t3198;
+  t3336 = my_piecewise3(t12, 0, t3321 + t3334);
+  t3343 = t7 * t1208 * t127 * t58;
+  t3347 = t7 * t467 * t360 * t58;
+  t3348 = t3347 / 0.10e2;
+  t3351 = t7 * t191 * t1040 * t58;
+  t3362 = 0.3e1 / 0.10e2 * t3269 + 0.3e1 / 0.20e2 * t7 * t192 * t1132 + 0.9e1 / 0.20e2 * t7 * t1209 * t156 + 0.3e1 / 0.5e1 * t3278 + 0.9e1 / 0.20e2 * t7 * t468 * t415 - t3285 + 0.3e1 / 0.20e2 * t7 * t3336 * t23 * t58 + 0.3e1 / 0.10e2 * t3343 - t3348 + 0.2e1 / 0.45e2 * t3351 + 0.2e1 / 0.15e2 * t3102 - t3105 / 0.10e2 + t3108 / 0.10e2 - t3117 / 0.5e1 + 0.3e1 / 0.10e2 * t3120 - t3127 + t3130 / 0.10e2 - t3134 / 0.10e2 + 0.2e1 / 0.15e2 * t3138 + 0.3e1 / 0.10e2 * t3213;
+  t3363 = my_piecewise3(t2, 0, t3362);
+  t3365 = t67 * t169 * t500;
+  t3366 = 0.8e1 * t3365;
+  t3368 = t165 * t434 * t202;
+  t3371 = t165 * t1251 * t500;
+  t3375 = t429 * t1145 * t1154 * t202;
+  t3378 = t67 * t490 * t1268;
+  t3391 = rho[1] * t431;
+  t3392 = 0.24e2 * t3391;
+  t3398 = t67 * t426 * t202;
+  t3400 = t1239 * t69;
+  t3402 = t1242 * t486;
+  t3405 = t14 * t1145 * t1243;
+  t3414 = t3366 + 0.8e1 * t3368 - 0.16e2 / 0.3e1 * t3371 - 0.16e2 / 0.3e1 * t3375 - 0.4e1 * t3378 + 0.16e2 / 0.9e1 * t429 * t1258 * t500 + 0.112e3 / 0.81e2 * t1149 * t1151 * t3236 * t202 + 0.4e1 / 0.3e1 * t165 * t494 * t1268 + 0.4e1 / 0.3e1 * t67 * t200 * (-0.6e1 * t425 + t3392) - 0.8e1 * t3398 - 0.12e2 * t3400 - 0.24e2 * t3402 + 0.4e1 * t3405 - 0.16e2 / 0.27e2 * t14 * t1151 * t1154 * t212 + t3219 + 0.48e2 * t3221 - 0.16e2 / 0.3e1 * t3224 + 0.16e2 / 0.27e2 * t3229;
+  t3415 = my_piecewise3(t66, 0, t3414);
+  t3422 = t7 * t1273 * t127 * t101;
+  t3426 = t7 * t505 * t360 * t101;
+  t3427 = t3426 / 0.10e2;
+  t3430 = t7 * t207 * t1040 * t101;
+  t3439 = t7 * t1164 * t236;
+  t3442 = t7 * t1168 * t236;
+  t3443 = t3442 / 0.10e2;
+  t3445 = t7 * t1172 * t236;
+  t3447 = 0.3e1 / 0.20e2 * t7 * t3415 * t23 * t101 + 0.3e1 / 0.10e2 * t3422 - t3427 + 0.2e1 / 0.45e2 * t3430 + t3248 / 0.10e2 - t3252 / 0.10e2 + 0.2e1 / 0.15e2 * t3256 - t3261 + 0.3e1 / 0.20e2 * t7 * t1160 * t236 + 0.3e1 / 0.10e2 * t3439 - t3443 + 0.2e1 / 0.45e2 * t3445;
+  t3448 = my_piecewise3(t63, 0, t3447);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[1] = t949 + t989 + 0.3e1 * t1048 + 0.3e1 * t1110 + t8 * (t2415 + t2500);
+    v4rho4[1] = t1137 + t1177 + 0.3e1 * t1236 + 0.3e1 * t1298 + t8 * (t3363 + t3448);
 
-  t2509 = t7 * t1128 * t120 * t54;
-  t2513 = t7 * t487 * t331 * t54;
-  t2528 = t174 * t1120;
-  t2533 = t482 * t963 * t305;
-  t2537 = t482 * t957 * t850 * t110;
-  t2552 = -0.112e3 / 0.81e2 * t482 * t385 * t2201 * t307 + 0.64e2 / 0.27e2 * t2354 - 0.8e1 / 0.9e1 * t2190 - 0.8e1 / 0.3e1 * t15 * t483 + 0.40e2 / 0.3e1 * t2528 + 0.32e2 / 0.9e1 * t174 * t1124 - 0.40e2 / 0.3e1 * t2533 - 0.160e3 / 0.27e2 * t2537 + 0.16e2 / 0.27e2 * t482 * t1123 * t313 - 0.256e3 / 0.3e1 * t2368 - 0.64e2 / 0.9e1 * t2370 + 0.320e3 / 0.3e1 * t2375 + 0.128e3 / 0.9e1 * t2378 - 0.16e2 / 0.9e1 * t2382 + t2227 - 0.16e2 * t2229 + 0.8e1 / 0.3e1 * t2232 + 0.32e2 / 0.3e1 * t2391 - 0.24e2 * t2243 + 0.16e2 / 0.3e1 * t2245;
-  t2553 = my_piecewise3(t12, 0, t2552);
-  t2562 = t7 * t1133 * t144;
-  t2573 = t2509 / 0.5e1 - t2513 / 0.30e2 + t2322 / 0.5e1 - 0.2e1 / 0.15e2 * t2326 + 0.4e1 / 0.45e2 * t2330 - t2093 - t2100 / 0.30e2 + 0.4e1 / 0.45e2 * t2104 + 0.3e1 / 0.20e2 * t7 * t2553 * t23 * t54 + 0.3e1 / 0.10e2 * t7 * t1129 * t144 + t2562 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t488 * t369 + 0.2e1 / 0.5e1 * t2336 - 0.2e1 / 0.15e2 * t2342 + t2345 / 0.5e1 - t2107 / 0.15e2 + 0.4e1 / 0.45e2 * t2116 - t2119 / 0.30e2;
-  t2574 = my_piecewise3(t2, 0, t2573);
-  t2575 = t439 * t496;
-  t2577 = t291 * t1153;
-  t2583 = t153 * t1063 * t506;
-  t2597 = t63 * t448 * t501;
-  t2599 = t454 * t454;
-  t2604 = t63 * t157 * t506;
-  t2606 = t1051 * t1150;
-  t2608 = t387 * t454;
-  t2612 = t966 * t190;
-  t2618 = t153 * t379 * t966 * t501;
-  t2624 = 0.16e2 / 0.3e1 * t2575 - 0.16e2 / 0.3e1 * t2577 + 0.8e1 / 0.3e1 * t99 * t156 * t1080 - 0.16e2 / 0.9e1 * t2583 + 0.8e1 / 0.9e1 * t153 * t448 * t1178 + 0.16e2 / 0.27e2 * t383 * t1070 * t506 + 0.4e1 / 0.3e1 * t63 * t188 * (-0.12e2 * t379 + t2447) - 0.8e1 / 0.9e1 * t2597 - 0.8e1 / 0.9e1 * t63 * t500 * t2599 + 0.8e1 / 0.3e1 * t2604 - 0.32e2 / 0.9e1 * t2606 + 0.16e2 / 0.9e1 * t439 * t2608 * rho[1] + 0.32e2 / 0.27e2 * t1054 * t2612 * t71 + 0.64e2 / 0.27e2 * t2618 - 0.112e3 / 0.81e2 * t383 * t385 * t2288 * t501;
-  t2626 = t63 * t444 * t1178;
-  t2638 = t63 * t103;
-  t2639 = t2638 * t1168;
-  t2641 = t153 * t155;
-  t2649 = -0.8e1 / 0.3e1 * t2626 - 0.16e2 * t2417 + 0.32e2 / 0.3e1 * t2420 + 0.16e2 / 0.3e1 * t2423 - 0.16e2 / 0.9e1 * t2426 - 0.32e2 / 0.27e2 * t2430 - 0.8e1 / 0.3e1 * t2433 - 0.16e2 * t2454 + 0.8e1 / 0.9e1 * t2457 + t2271 + 0.64e2 / 0.3e1 * t2273 - 0.8e1 / 0.9e1 * t2276 + 0.16e2 / 0.9e1 * t2639 - 0.64e2 / 0.27e2 * t2641 * t2612 * t454 - 0.8e1 / 0.9e1 * t1167 * t1149 * t1080 - 0.24e2 * t2452;
-  t2651 = my_piecewise3(t62, 0, t2624 + t2649);
-  t2658 = t7 * t1183 * t120 * t94;
-  t2662 = t7 * t511 * t331 * t94;
-  t2671 = t7 * t1090 * t219;
-  t2674 = t7 * t1094 * t219;
-  t2685 = t7 * t397 * t551;
-  t2688 = t7 * t401 * t551;
-  t2690 = 0.3e1 / 0.20e2 * t7 * t2651 * t23 * t94 + t2658 / 0.5e1 - t2662 / 0.30e2 + t2474 / 0.5e1 - 0.2e1 / 0.15e2 * t2478 + 0.4e1 / 0.45e2 * t2482 + 0.3e1 / 0.10e2 * t7 * t1086 * t219 + 0.2e1 / 0.5e1 * t2671 - t2674 / 0.15e2 - t2304 / 0.30e2 + 0.4e1 / 0.45e2 * t2308 - t2313 + t2491 / 0.5e1 - 0.2e1 / 0.15e2 * t2494 + 0.4e1 / 0.45e2 * t2497 + 0.3e1 / 0.20e2 * t7 * t393 * t551 + t2685 / 0.5e1 - t2688 / 0.30e2;
-  t2691 = my_piecewise3(t59, 0, t2690);
+  t3457 = t186 * t1308;
+  t3462 = t528 * t1151 * t334;
+  t3466 = t528 * t1145 * t999 * t117;
+  t3487 = -0.8e1 / 0.3e1 * t15 * t529 + 0.40e2 / 0.3e1 * t3457 + 0.32e2 / 0.9e1 * t186 * t1312 - 0.40e2 / 0.3e1 * t3462 - 0.160e3 / 0.27e2 * t3466 + 0.16e2 / 0.27e2 * t528 * t1311 * t342 - 0.16e2 / 0.9e1 * t3287 - 0.256e3 / 0.3e1 * t3292 - 0.64e2 / 0.9e1 * t3294 + 0.320e3 / 0.3e1 * t3299 + 0.128e3 / 0.9e1 * t3302 - 0.112e3 / 0.81e2 * t528 * t431 * t3142 * t336 + 0.64e2 / 0.27e2 * t3313 + 0.32e2 / 0.3e1 * t3319 - 0.8e1 / 0.9e1 * t3160 + t3178 - 0.16e2 * t3180 + 0.8e1 / 0.3e1 * t3183 - 0.24e2 * t3194 + 0.16e2 / 0.3e1 * t3196;
+  t3488 = my_piecewise3(t12, 0, t3487);
+  t3497 = t7 * t1321 * t156;
+  t3507 = t7 * t1316 * t127 * t58;
+  t3511 = t7 * t533 * t360 * t58;
+  t3521 = 0.3e1 / 0.20e2 * t7 * t3488 * t23 * t58 + 0.3e1 / 0.10e2 * t7 * t1317 * t156 + t3497 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t534 * t415 + t3269 / 0.5e1 + 0.2e1 / 0.5e1 * t3278 - 0.2e1 / 0.15e2 * t3284 + t3507 / 0.5e1 - t3511 / 0.30e2 + t3343 / 0.5e1 - 0.2e1 / 0.15e2 * t3347 + 0.4e1 / 0.45e2 * t3351 + 0.4e1 / 0.45e2 * t3102 - t3105 / 0.30e2 - t3117 / 0.15e2 - t3127 - t3134 / 0.30e2 + 0.4e1 / 0.45e2 * t3138;
+  t3522 = my_piecewise3(t2, 0, t3521);
+  t3523 = t500 * t500;
+  t3528 = t67 * t169 * t552;
+  t3531 = t67 * t494 * t547;
+  t3533 = t1239 * t1338;
+  t3535 = t433 * t500;
+  t3539 = t1154 * t202;
+  t3545 = t165 * t425 * t1154 * t547;
+  t3552 = t67 * t490 * t1366;
+  t3555 = t165 * t1251 * t552;
+  t3570 = -0.8e1 / 0.9e1 * t67 * t546 * t3523 + 0.8e1 / 0.3e1 * t3528 - 0.8e1 / 0.9e1 * t3531 - 0.32e2 / 0.9e1 * t3533 + 0.16e2 / 0.9e1 * t485 * t3535 * rho[1] + 0.32e2 / 0.27e2 * t1242 * t3539 * t75 + 0.64e2 / 0.27e2 * t3545 - 0.112e3 / 0.81e2 * t429 * t431 * t3236 * t547 - 0.8e1 / 0.3e1 * t3552 - 0.16e2 / 0.9e1 * t3555 + 0.8e1 / 0.9e1 * t165 * t494 * t1366 + 0.16e2 / 0.27e2 * t429 * t1258 * t552 + 0.4e1 / 0.3e1 * t67 * t200 * (-0.12e2 * t425 + t3392) + 0.32e2 / 0.3e1 * t3365 + 0.16e2 / 0.3e1 * t3368;
+  t3576 = t165 * t167;
+  t3583 = t67 * t110;
+  t3584 = t3583 * t1356;
+  t3586 = t485 * t542;
+  t3588 = t320 * t1341;
+  t3597 = -0.16e2 / 0.9e1 * t3371 - 0.32e2 / 0.27e2 * t3375 - 0.8e1 / 0.3e1 * t3378 - 0.16e2 * t3398 - 0.24e2 * t3400 - 0.64e2 / 0.27e2 * t3576 * t3539 * t500 - 0.8e1 / 0.9e1 * t1355 * t1337 * t1268 + 0.16e2 / 0.9e1 * t3584 + 0.16e2 / 0.3e1 * t3586 - 0.16e2 / 0.3e1 * t3588 + 0.8e1 / 0.3e1 * t106 * t168 * t1268 - 0.16e2 * t3402 + 0.8e1 / 0.9e1 * t3405 + t3219 + 0.64e2 / 0.3e1 * t3221 - 0.8e1 / 0.9e1 * t3224;
+  t3599 = my_piecewise3(t66, 0, t3570 + t3597);
+  t3606 = t7 * t1371 * t127 * t101;
+  t3610 = t7 * t557 * t360 * t101;
+  t3619 = t7 * t1278 * t236;
+  t3622 = t7 * t1282 * t236;
+  t3633 = t7 * t443 * t612;
+  t3636 = t7 * t447 * t612;
+  t3638 = 0.3e1 / 0.20e2 * t7 * t3599 * t23 * t101 + t3606 / 0.5e1 - t3610 / 0.30e2 + t3422 / 0.5e1 - 0.2e1 / 0.15e2 * t3426 + 0.4e1 / 0.45e2 * t3430 + 0.3e1 / 0.10e2 * t7 * t1274 * t236 + 0.2e1 / 0.5e1 * t3619 - t3622 / 0.15e2 - t3252 / 0.30e2 + 0.4e1 / 0.45e2 * t3256 - t3261 + t3439 / 0.5e1 - 0.2e1 / 0.15e2 * t3442 + 0.4e1 / 0.45e2 * t3445 + 0.3e1 / 0.20e2 * t7 * t439 * t612 + t3633 / 0.5e1 - t3636 / 0.30e2;
+  t3639 = my_piecewise3(t63, 0, t3638);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[2] = 0.2e1 * t1048 + 0.2e1 * t1110 + 0.2e1 * t1144 + 0.2e1 * t1208 + t8 * (t2574 + t2691);
+    v4rho4[2] = 0.2e1 * t1236 + 0.2e1 * t1298 + 0.2e1 * t1332 + 0.2e1 * t1396 + t8 * (t3522 + t3639);
 
-  t2707 = t1215 * t2279 * t850;
-  t2713 = -0.12e2 * t2243 + t2227 - 0.8e1 * t2229 - 0.48e2 * t2368 + 0.120e3 * t2375 + 0.8e1 * t2378 + 0.12e2 * t2528 - 0.24e2 * t2533 - 0.16e2 / 0.3e1 * t2537 - 0.64e2 / 0.27e2 * t482 * t1216 + 0.112e3 / 0.27e2 * t2707 + 0.112e3 / 0.81e2 * t1215 * t963 * t2201 * t110;
-  t2714 = my_piecewise3(t12, 0, t2713);
-  t2721 = t7 * t1220 * t120 * t54;
-  t2732 = 0.3e1 / 0.20e2 * t7 * t2714 * t23 * t54 + t2721 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t1221 * t144 + 0.3e1 / 0.10e2 * t2509 - t2513 / 0.10e2 + 0.3e1 / 0.10e2 * t2562 - t2327 + 0.2e1 / 0.15e2 * t2330 - t2343 + 0.2e1 / 0.45e2 * t2104 - t2093 + 0.2e1 / 0.45e2 * t2116;
-  t2733 = my_piecewise3(t2, 0, t2732);
-  t2734 = t966 * t501;
-  t2756 = t63 * t103 * t966 * t1241;
-  t2759 = t63 * t444 * t1249;
-  t2763 = t291 * t1231;
-  t2765 = t291 * t1234;
-  t2775 = -0.16e2 / 0.9e1 * t439 * t2734 * rho[1] + 0.4e1 / 0.3e1 * t439 * t387 * t506 * rho[1] + 0.112e3 / 0.81e2 * t153 * t155 * t2288 * t1241 + 0.4e1 / 0.3e1 * t63 * t188 * (-0.18e2 * t379 + t2447) + 0.4e1 / 0.9e1 * t153 * t448 * t1249 - 0.16e2 / 0.27e2 * t2756 - 0.4e1 / 0.3e1 * t2759 - 0.8e1 / 0.3e1 * t99 * t1168 + 0.4e1 / 0.3e1 * t2763 - 0.4e1 * t2765 + 0.4e1 * t99 * t156 * t1178 + 0.16e2 * t2575 - 0.8e1 * t2577 - 0.4e1 / 0.3e1 * t2583 - 0.8e1 / 0.3e1 * t2597 + 0.8e1 * t2604;
-  t2783 = t2638 * t1245;
-  t2799 = -0.8e1 / 0.3e1 * t2606 + 0.16e2 / 0.9e1 * t2618 - 0.4e1 * t2626 - 0.24e2 * t2417 + t2421 + 0.8e1 / 0.3e1 * t2423 - 0.8e1 * t2454 + t2271 + 0.8e1 * t2273 + 0.4e1 / 0.3e1 * t2783 + 0.16e2 / 0.9e1 * t1167 * t2734 * t454 - 0.4e1 / 0.3e1 * t1167 * t2608 * t506 - 0.4e1 / 0.3e1 * t1167 * t1149 * t1178 - 0.16e2 / 0.9e1 * t2641 * t2612 * t506 + 0.8e1 / 0.3e1 * t2639 - 0.36e2 * t2452;
-  t2801 = my_piecewise3(t62, 0, t2775 + t2799);
-  t2808 = t7 * t1254 * t120 * t94;
-  t2816 = t7 * t1188 * t219;
-  t2825 = t7 * t464 * t551;
-  t2835 = t7 * t166 * t1312;
-  t2837 = 0.3e1 / 0.20e2 * t7 * t2801 * t23 * t94 + t2808 / 0.10e2 + 0.3e1 / 0.10e2 * t2658 - t2662 / 0.10e2 + 0.9e1 / 0.20e2 * t7 * t1184 * t219 + 0.3e1 / 0.10e2 * t2816 - t2479 + 0.2e1 / 0.15e2 * t2482 + 0.3e1 / 0.5e1 * t2671 - t2674 / 0.5e1 + 0.9e1 / 0.20e2 * t7 * t460 * t551 + 0.3e1 / 0.10e2 * t2825 + 0.2e1 / 0.45e2 * t2308 - t2313 - t2495 + 0.2e1 / 0.15e2 * t2497 + 0.3e1 / 0.10e2 * t2685 - t2688 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t162 * t1312 + t2835 / 0.10e2;
-  t2838 = my_piecewise3(t59, 0, t2837);
+  t3655 = t1403 * t3227 * t999;
+  t3661 = -0.12e2 * t3194 + t3178 - 0.8e1 * t3180 - 0.48e2 * t3292 + 0.120e3 * t3299 + 0.8e1 * t3302 + 0.12e2 * t3457 - 0.24e2 * t3462 - 0.16e2 / 0.3e1 * t3466 - 0.64e2 / 0.27e2 * t528 * t1404 + 0.112e3 / 0.27e2 * t3655 + 0.112e3 / 0.81e2 * t1403 * t1151 * t3142 * t117;
+  t3662 = my_piecewise3(t12, 0, t3661);
+  t3669 = t7 * t1408 * t127 * t58;
+  t3680 = 0.3e1 / 0.20e2 * t7 * t3662 * t23 * t58 + t3669 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t1409 * t156 + 0.3e1 / 0.10e2 * t3507 - t3511 / 0.10e2 + 0.3e1 / 0.10e2 * t3497 - t3348 + 0.2e1 / 0.15e2 * t3351 - t3285 + 0.2e1 / 0.45e2 * t3138 - t3127 + 0.2e1 / 0.45e2 * t3102;
+  t3681 = my_piecewise3(t2, 0, t3680);
+  t3686 = t67 * t490 * t1437;
+  t3690 = t67 * t110 * t1154 * t1429;
+  t3694 = t1154 * t547;
+  t3718 = 0.4e1 / 0.9e1 * t165 * t494 * t1437 - 0.4e1 / 0.3e1 * t3686 - 0.16e2 / 0.27e2 * t3690 - 0.8e1 / 0.3e1 * t106 * t1356 - 0.16e2 / 0.9e1 * t485 * t3694 * rho[1] + 0.4e1 / 0.3e1 * t485 * t433 * t552 * rho[1] + 0.112e3 / 0.81e2 * t165 * t167 * t3236 * t1429 + 0.4e1 / 0.3e1 * t67 * t200 * (-0.18e2 * t425 + t3392) + 0.8e1 * t3528 - 0.8e1 / 0.3e1 * t3531 - 0.8e1 / 0.3e1 * t3533 + 0.16e2 / 0.9e1 * t3545 - 0.4e1 * t3552 - 0.4e1 / 0.3e1 * t3555 + t3366 + 0.8e1 / 0.3e1 * t3368;
+  t3721 = t3583 * t1433;
+  t3736 = t320 * t1419;
+  t3738 = t320 * t1422;
+  t3747 = -0.24e2 * t3398 - 0.36e2 * t3400 + 0.4e1 / 0.3e1 * t3721 + 0.16e2 / 0.9e1 * t1355 * t3694 * t500 - 0.4e1 / 0.3e1 * t1355 * t3535 * t552 - 0.4e1 / 0.3e1 * t1355 * t1337 * t1366 - 0.16e2 / 0.9e1 * t3576 * t3539 * t552 + 0.8e1 / 0.3e1 * t3584 + 0.4e1 / 0.3e1 * t3736 - 0.4e1 * t3738 + 0.4e1 * t106 * t168 * t1366 + 0.16e2 * t3586 - 0.8e1 * t3588 - 0.8e1 * t3402 + t3219 + 0.8e1 * t3221;
+  t3749 = my_piecewise3(t66, 0, t3718 + t3747);
+  t3756 = t7 * t1442 * t127 * t101;
+  t3764 = t7 * t1376 * t236;
+  t3773 = t7 * t510 * t612;
+  t3783 = t7 * t178 * t1537;
+  t3785 = 0.3e1 / 0.20e2 * t7 * t3749 * t23 * t101 + t3756 / 0.10e2 + 0.3e1 / 0.10e2 * t3606 - t3610 / 0.10e2 + 0.9e1 / 0.20e2 * t7 * t1372 * t236 + 0.3e1 / 0.10e2 * t3764 - t3427 + 0.2e1 / 0.15e2 * t3430 + 0.3e1 / 0.5e1 * t3619 - t3622 / 0.5e1 + 0.9e1 / 0.20e2 * t7 * t506 * t612 + 0.3e1 / 0.10e2 * t3773 + 0.2e1 / 0.45e2 * t3256 - t3261 - t3443 + 0.2e1 / 0.15e2 * t3445 + 0.3e1 / 0.10e2 * t3633 - t3636 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t174 * t1537 + t3783 / 0.10e2;
+  t3786 = my_piecewise3(t63, 0, t3785);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[3] = 0.3e1 * t1144 + 0.3e1 * t1208 + t1228 + t1317 + t8 * (t2733 + t2838);
+    v4rho4[3] = 0.3e1 * t1332 + 0.3e1 * t1396 + t1416 + t1542 + t8 * (t3681 + t3786);
 
-  t2851 = my_piecewise3(t12, 0, t2227 + 0.128e3 * t2375 - 0.32e2 * t2533 + 0.256e3 / 0.27e2 * t2707 - 0.112e3 / 0.81e2 * t14 * t902 * t2285 * t2201);
-  t2860 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t2851 * t23 * t54 + 0.2e1 / 0.5e1 * t2721 - t2513 / 0.5e1 + 0.8e1 / 0.45e2 * t2330 - t2093);
-  t2871 = t30 * sigma[2] / t73 / t521 / t71;
-  t2877 = 0.15400e5 / 0.2187e4 * t30 * lapl[1] * t1272 - 0.104720e6 / 0.6561e4 * t2871;
-  t2885 = t537 * t537;
-  t2894 = t541 * t541;
-  t2901 = t90 * t1299;
-  t2905 = 0.1e1 / t544 / t535;
-  t2909 = my_piecewise3(t87, t2877, 0);
-  t2921 = t544 * t544;
-  t2922 = 0.1e1 / t2921;
-  t2925 = 0.36e2 * t1295 * t537 * t1291 - 0.24e2 * t1295 * t2885 * t90 - 0.4e1 * t545 * t1299 * t622 + 0.6e1 * t1306 * t541 * t1455 - 0.36e2 * t1306 * t2885 * t90 + t213 * t2909 * t90 - 0.12e2 * t2905 * t2885 * t90 - t2922 * t2885 * t90 - 0.6e1 * t536 * t2894 * t90 - 0.3e1 * t545 * t2894 * t90 - 0.8e1 * t1290 * t2901 + 0.36e2 * t546 * t1291;
-  t2926 = my_piecewise3(t86, 0, t2925);
-  t2943 = t501 * t501;
-  t2950 = t506 * t506;
-  t2979 = 0.16e2 / 0.3e1 * t2783 - 0.112e3 / 0.81e2 * t63 * t9 * t2288 * t2943 + 0.32e2 / 0.9e1 * t1167 * t2734 * t506 - 0.4e1 / 0.3e1 * t63 * t500 * t2950 - 0.16e2 / 0.9e1 * t1167 * t1149 * t1249 - 0.64e2 / 0.27e2 * t2756 - 0.16e2 / 0.3e1 * t2759 + 0.4e1 / 0.3e1 * t63 * t188 * (-0.24e2 * t379 + 0.24e2 * t2446) + 0.64e2 / 0.27e2 * t99 * t966 * t1241 - 0.16e2 / 0.3e1 * t99 * t1245 + 0.16e2 / 0.3e1 * t2763 - 0.16e2 * t2765 - 0.16e2 / 0.3e1 * t2597 + 0.16e2 * t2604 - 0.32e2 * t2417 + 0.32e2 * t2575 + t2271 + 0.16e2 / 0.3e1 * t99 * t156 * t1249 - 0.48e2 * t2452;
-  t2980 = my_piecewise3(t62, 0, t2979);
-  t2988 = 0.2e1 / 0.5e1 * t2835 + 0.2e1 / 0.5e1 * t2808 + 0.6e1 / 0.5e1 * t2816 + 0.6e1 / 0.5e1 * t2825 - 0.2e1 / 0.5e1 * t2674 - t2688 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t70 * (0.13090e5 / 0.729e3 * t2871 + t2877 * t92 + 0.4e1 * t1280 * t217 + 0.6e1 * t531 * t549 + 0.4e1 * t210 * t1310 + t85 * t2926) + 0.3e1 / 0.5e1 * t7 * t1255 * t219 + 0.9e1 / 0.10e2 * t7 * t512 * t551 + 0.3e1 / 0.5e1 * t7 * t196 * t1312 + 0.3e1 / 0.20e2 * t7 * t2980 * t23 * t94 - t2662 / 0.5e1 + 0.8e1 / 0.45e2 * t2497 + 0.8e1 / 0.45e2 * t2482 - t2313;
-  t2989 = my_piecewise3(t59, 0, t2988);
+  t3799 = my_piecewise3(t12, 0, t3178 + 0.128e3 * t3299 - 0.32e2 * t3462 + 0.256e3 / 0.27e2 * t3655 - 0.112e3 / 0.81e2 * t14 * t1051 * t3233 * t3142);
+  t3808 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t3799 * t23 * t58 + 0.2e1 / 0.5e1 * t3669 - t3511 / 0.5e1 + 0.8e1 / 0.45e2 * t3351 - t3127);
+  t3809 = t1527 * t584;
+  t3810 = t3809 * t231;
+  t3813 = t605 * t605;
+  t3818 = t581 * t581;
+  t3820 = t583 * t583;
+  t3821 = 0.1e1 / t3820;
+  t3830 = t1711 * t595;
+  t3833 = t588 * t588;
+  t3834 = t589 * t589;
+  t3835 = 0.1e1 / t3834;
+  t3837 = t3833 * t3835 * t96;
+  t3840 = t595 * t595;
+  t3842 = t3840 * t590 * t96;
+  t3845 = t702 * t1508;
+  t3866 = t30 * sigma[2] / t77 / t567 / t75;
+  t3868 = -0.15400e5 / 0.2187e4 * t30 * lapl[1] * t1460 + 0.104720e6 / 0.6561e4 * t3866;
+  t3869 = my_piecewise3(t92, 0, t3868);
+  t3873 = t95 * t2968;
+  t3875 = -t224 * t227 * t3869 * t96 - 0.6e1 * t1491 * t3830 * t588 + 0.4e1 * t1508 * t224 * t703 + 0.6e1 * t1491 * t3837 + 0.4e1 * t1498 * t3845 + 0.6e1 * t224 * t3837 + 0.3e1 * t224 * t3842 + t3837 * t3873 + 0.11e2 * t3837 * t587 + 0.3e1 * t3842 * t587 - 0.3e1 * t3842 * t602;
+  t3876 = t601 * t2968;
+  t3881 = t1523 * t2968;
+  t3891 = t600 * t600;
+  t3893 = 0.1e1 / t3891 * t2968;
+  t3908 = 0.18e2 * t1504 * t3830 * t588 - 0.4e1 * t1508 * t602 * t703 - 0.6e1 * t1524 * t1712 * t595 - 0.18e2 * t3830 * t587 * t588 - 0.18e2 * t1504 * t3837 - 0.12e2 * t1512 * t1712 + 0.18e2 * t1515 * t1712 + 0.6e1 * t1524 * t3837 - 0.7e1 * t3837 * t3876 + 0.6e1 * t3837 * t3881 - t3837 * t3893 - 0.11e2 * t3837 * t602;
+  t3910 = my_piecewise3(t91, 0, t3875 + t3908);
+  t3927 = -0.4e1 * t719 * t3810 - 0.3e1 * t100 * t55 * t3813 * t584 - 0.6e1 * t100 * t55 * t3818 * t3821 + 0.11e2 * t100 * t383 * t3818 * t3821 + t100 * t55 * t3910 * t233 + 0.4e1 * t223 * t1529 + 0.4e1 * t1469 * t234 + 0.6e1 * t578 * t607 - t3868 * t99 + 0.13090e5 / 0.729e3 * t3866 - 0.12e2 * t1754 * t1484 + 0.8e1 * t223 * t1534;
+  t3928 = t1773 * t605;
+  t3958 = -0.6e1 * t100 * t1072 * t3818 * t3821 + t100 * t3092 * t3818 * t3821 + 0.3e1 * t100 * t3813 * t383 * t584 + 0.4e1 * t1482 * t223 + 0.12e2 * t1484 * t1789 - 0.12e2 * t1488 * t223 + 0.6e1 * t1779 * t3928 + 0.4e1 * t3810 * t697 - 0.18e2 * t3928 * t697 + 0.12e2 * t3928 * t719 + 0.6e1 * t578 * t585 - 0.6e1 * t578 * t610;
+  t3988 = t547 * t547;
+  t3995 = t552 * t552;
+  t4010 = 0.16e2 / 0.3e1 * t106 * t168 * t1437 + 0.64e2 / 0.27e2 * t106 * t1154 * t1429 - 0.16e2 / 0.3e1 * t106 * t1433 + 0.4e1 / 0.3e1 * t67 * t200 * (-0.24e2 * t425 + 0.24e2 * t3391) + 0.16e2 / 0.3e1 * t3736 - 0.16e2 * t3738 - 0.112e3 / 0.81e2 * t67 * t9 * t3236 * t3988 + 0.32e2 / 0.9e1 * t1355 * t3694 * t552 - 0.4e1 / 0.3e1 * t67 * t546 * t3995 - 0.16e2 / 0.9e1 * t1355 * t1337 * t1437 - 0.16e2 / 0.3e1 * t3686 - 0.64e2 / 0.27e2 * t3690 + 0.32e2 * t3586 + 0.16e2 * t3528 - 0.16e2 / 0.3e1 * t3531 - 0.32e2 * t3398 - 0.48e2 * t3400 + t3219 + 0.16e2 / 0.3e1 * t3721;
+  t4011 = my_piecewise3(t66, 0, t4010);
+  t4025 = 0.3e1 / 0.20e2 * t7 * t74 * (t3927 + t3958) + 0.3e1 / 0.5e1 * t7 * t208 * t1537 + 0.3e1 / 0.5e1 * t7 * t1443 * t236 + 0.9e1 / 0.10e2 * t7 * t558 * t612 + 0.3e1 / 0.20e2 * t7 * t4011 * t23 * t101 + 0.2e1 / 0.5e1 * t3756 + 0.6e1 / 0.5e1 * t3764 + 0.6e1 / 0.5e1 * t3773 + 0.2e1 / 0.5e1 * t3783 - t3636 / 0.5e1 - t3610 / 0.5e1 - 0.2e1 / 0.5e1 * t3622 + 0.8e1 / 0.45e2 * t3445 + 0.8e1 / 0.45e2 * t3430 - t3261;
+  t4026 = my_piecewise3(t63, 0, t4025);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[4] = 0.4e1 * t1228 + 0.4e1 * t1317 + t8 * (t2860 + t2989);
+    v4rho4[4] = 0.4e1 * t1416 + 0.4e1 * t1542 + t8 * (t3808 + t4026);
 
-  t2997 = t7 * t873 * t238;
-  t3003 = t7 * t880 * t238;
-  t3006 = t7 * t323 * t587;
-  t3013 = 0.2e1 / 0.45e2 * t7 * t892 * t238;
-  t3015 = t7 * t332 * t587;
-  t3018 = t7 * t121 * t1374;
-  t3020 = t30 * t904;
-  t3039 = t50 * t918;
-  t3042 = t575 * t359;
-  t3050 = my_piecewise3(t47, 0.6160e4 / 0.2187e4 * t3020, 0);
-  t3081 = 0.18e2 * t927 * t579 * t1350 + 0.3e1 * t938 * t579 * t1350 - 0.6e1 * t354 * t1362 * t575 - 0.3e1 * t363 * t1362 * t575 + t138 * t3050 * t50 - 0.12e2 * t2162 * t233 * t3039 - t2179 * t233 * t3039 + 0.18e2 * t1365 * t1350 - 0.6e1 * t1353 * t923 - 0.24e2 * t1356 * t3039 + 0.18e2 * t1356 * t3042 - 0.3e1 * t1365 * t923 - 0.36e2 * t1369 * t3039 + 0.3e1 * t1369 * t3042 - 0.2e1 * t574 * t2158 - t582 * t2158 + 0.18e2 * t582 * t3042;
-  t3082 = my_piecewise3(t46, 0, t3081);
-  t3089 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t869 * t238 + 0.3e1 / 0.10e2 * t2997 + 0.9e1 / 0.20e2 * t7 * t319 * t587 - t3003 / 0.10e2 + 0.3e1 / 0.5e1 * t3006 + 0.9e1 / 0.20e2 * t7 * t116 * t1374 + t3013 - t3015 / 0.10e2 + 0.3e1 / 0.10e2 * t3018 + 0.3e1 / 0.20e2 * t7 * t24 * (-0.770e3 / 0.243e3 * t3020 + 0.6160e4 / 0.2187e4 * t30 * t904 * t52 - 0.440e3 / 0.243e3 * t30 * t341 * t142 + 0.40e2 / 0.81e2 * t30 * t127 * t367 - 0.5e1 / 0.81e2 * t30 * t35 * t942 + t912 * t236 + 0.3e1 * t349 * t585 + 0.3e1 * t135 * t1372 + t45 * t3082));
+  t4034 = t7 * t1022 * t258;
+  t4040 = t7 * t1029 * t258;
+  t4043 = t7 * t352 * t661;
+  t4050 = 0.2e1 / 0.45e2 * t7 * t1041 * t258;
+  t4052 = t7 * t361 * t661;
+  t4055 = t7 * t128 * t1643;
+  t4058 = t30 * t1053;
+  t4060 = my_piecewise3(t48, 0, -0.6160e4 / 0.2187e4 * t4058);
+  t4065 = t2961 * t1087 * t52;
+  t4097 = -t144 * t147 * t4060 * t52 - 0.3e1 * t1086 * t1577 * t646 + 0.3e1 * t1590 * t390 * t643 + 0.6e1 * t250 * t2978 * t4065 + 0.3e1 * t1094 * t1579 + 0.3e1 * t1094 * t1594 - 0.3e1 * t1094 * t1597 + 0.6e1 * t1575 * t4065 - 0.9e1 * t1577 * t1579 - 0.6e1 * t1577 * t1594 + 0.9e1 * t1577 * t1597 - 0.18e2 * t1584 * t4065 + t3004 * t650 - t3004 * t652 + 0.11e2 * t4065 * t641 + 0.6e1 * t4065 * t650;
+  t4124 = t1089 * t146 * t52 * t398;
+  t4137 = 0.9e1 * t1099 * t1577 * t646 - 0.3e1 * t1119 * t1577 * t646 + 0.3e1 * t144 * t1590 * t643 - 0.3e1 * t1590 * t405 * t643 - t250 * t2969 * t4065 + t250 * t2971 * t4065 - 0.7e1 * t250 * t2973 * t4065 - 0.3e1 * t1575 * t4124 + 0.9e1 * t1584 * t4124 + 0.6e1 * t1606 * t4065 - 0.3e1 * t1606 * t4124 + t3004 * t641 - 0.11e2 * t4065 * t652 - 0.9e1 * t4124 * t641 - 0.6e1 * t4124 * t650 + 0.9e1 * t4124 * t652;
+  t4139 = my_piecewise3(t47, 0, t4097 + t4137);
+  t4147 = t2026 * t1832;
+  t4150 = t409 * t638;
+  t4154 = t143 * t1072;
+  t4157 = t1832 * t655;
+  t4162 = t638 * t1609;
+  t4169 = t880 * t1122;
+  t4171 = t379 * t55;
+  t4181 = t1622 * t655;
+  t4184 = t1062 * t256 + t57 * t55 * t4139 * t153 + 0.3e1 * t379 * t657 + 0.3e1 * t143 * t1611 - 0.5e1 / 0.27e2 * t247 * t4147 + 0.5e1 / 0.27e2 * t247 * t4150 - 0.770e3 / 0.243e3 * t4058 + 0.3e1 * t4154 * t1623 + 0.3e1 * t637 * t4157 + 0.6e1 * t1640 * t1562 + 0.3e1 * t637 * t4162 - 0.3e1 * t659 * t4157 - 0.3e1 * t1567 * t1565 - t659 * t4169 - 0.3e1 * t4171 * t639 + 0.3e1 * t1640 * t1565 + t637 * t4169 - 0.6e1 * t1567 * t1562 - 0.3e1 * t659 * t4162 + 0.3e1 * t1630 * t4181;
+  t4186 = t1073 * t3042 * t254;
+  t4193 = t379 * t383;
+  t4196 = t57 * t3092;
+  t4207 = t2038 * t254 * t408;
+  t4215 = t56 * t1072;
+  t4216 = t1073 * t1076;
+  t4217 = t4215 * t4216;
+  t4222 = t1632 * t4216;
+  t4225 = t631 * t4216;
+  t4233 = t631 * t1122 * t153;
+  t4241 = 0.3e1 * t1630 * t4207 + 0.40e2 / 0.81e2 * t626 * t1634 - 0.5e1 / 0.81e2 * t244 * t4217 - 0.40e2 / 0.81e2 * t626 * t1637 + 0.5e1 / 0.27e2 * t244 * t4222 - 0.10e2 / 0.81e2 * t244 * t4225 + 0.40e2 / 0.81e2 * t626 * t1619 - 0.440e3 / 0.243e3 * t1588 * t633 - 0.5e1 / 0.81e2 * t244 * t4233 + 0.6e1 * t659 * t4207 + 0.6160e4 / 0.2187e4 * t30 * t1053 * t56;
+  t4248 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t1018 * t258 + 0.3e1 / 0.10e2 * t4034 + 0.9e1 / 0.20e2 * t7 * t348 * t661 - t4040 / 0.10e2 + 0.3e1 / 0.5e1 * t4043 + 0.9e1 / 0.20e2 * t7 * t123 * t1643 + t4050 - t4052 / 0.10e2 + 0.3e1 / 0.10e2 * t4055 + 0.3e1 / 0.20e2 * t7 * t24 * (0.6e1 * t1567 * t1623 - 0.9e1 * t1623 * t1640 - 0.6e1 * t1630 * t4186 - 0.9e1 * t4181 * t637 + 0.6e1 * t4181 * t659 + t4186 * t4196 + 0.11e2 * t4186 * t637 - 0.6e1 * t4186 * t659 + 0.3e1 * t4193 * t639 - 0.9e1 * t4207 * t637 + t4184 + t4241));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3sigma[0] = t8 * t3089 + 0.3e1 * t1379;
+    v4rho3sigma[0] = t4248 * t8 + 0.3e1 * t1648;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho3sigma[1] = 0.0e0;
 
-  t3096 = t7 * t976 * t254;
-  t3099 = t7 * t980 * t254;
-  t3103 = 0.2e1 / 0.45e2 * t7 * t984 * t254;
-  t3105 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t972 * t254 + 0.3e1 / 0.10e2 * t3096 - t3099 / 0.10e2 + t3103);
+  t4255 = t7 * t1164 * t277;
+  t4258 = t7 * t1168 * t277;
+  t4262 = 0.2e1 / 0.45e2 * t7 * t1172 * t277;
+  t4264 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t1160 * t277 + 0.3e1 / 0.10e2 * t4255 - t4258 / 0.10e2 + t4262);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3sigma[2] = t8 * t3105 + 0.3e1 * t1392;
+    v4rho3sigma[2] = t4264 * t8 + 0.3e1 * t1661;
 
-  t3107 = 0.2e1 * t1406;
-  t3113 = t7 * t1025 * t238 / 0.5e1;
-  t3118 = t7 * t1032 * t238;
-  t3122 = t7 * t426 * t587 / 0.5e1;
-  t3131 = 0.3e1 / 0.20e2 * t7 * t1021 * t238 + t3113 + 0.3e1 / 0.10e2 * t7 * t422 * t587 - t3118 / 0.30e2 + t3122 + 0.3e1 / 0.20e2 * t7 * t180 * t1374 + t2997 / 0.10e2 - t3003 / 0.15e2 + t3006 / 0.5e1 + t3013 - t3015 / 0.15e2 + t3018 / 0.10e2;
-  t3132 = my_piecewise3(t2, 0, t3131);
+  t4266 = 0.2e1 * t1675;
+  t4272 = t7 * t1213 * t258 / 0.5e1;
+  t4277 = t7 * t1220 * t258;
+  t4281 = t7 * t472 * t661 / 0.5e1;
+  t4290 = 0.3e1 / 0.20e2 * t7 * t1209 * t258 + t4272 + 0.3e1 / 0.10e2 * t7 * t468 * t661 - t4277 / 0.30e2 + t4281 + 0.3e1 / 0.20e2 * t7 * t192 * t1643 + t4034 / 0.10e2 - t4040 / 0.15e2 + t4043 / 0.5e1 + t4050 - t4052 / 0.15e2 + t4055 / 0.10e2;
+  t4291 = my_piecewise3(t2, 0, t4290);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3sigma[3] = t8 * t3132 + t1379 + t3107;
+    v4rho3sigma[3] = t4291 * t8 + t1648 + t4266;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho3sigma[4] = 0.0e0;
 
-  t3134 = 0.2e1 * t1422;
-  t3140 = t7 * t1090 * t254 / 0.5e1;
-  t3142 = t7 * t1094 * t254;
-  t3151 = t7 * t397 * t634 / 0.5e1;
-  t3153 = t7 * t401 * t634;
-  t3156 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t1086 * t254 + t3140 - t3142 / 0.30e2 + t3096 / 0.10e2 - t3099 / 0.15e2 + t3103 + 0.3e1 / 0.20e2 * t7 * t393 * t634 + t3151 - t3153 / 0.30e2);
+  t4293 = 0.2e1 * t1691;
+  t4299 = t7 * t1278 * t277 / 0.5e1;
+  t4301 = t7 * t1282 * t277;
+  t4310 = t7 * t443 * t721 / 0.5e1;
+  t4312 = t7 * t447 * t721;
+  t4315 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t1274 * t277 + t4299 - t4301 / 0.30e2 + t4255 / 0.10e2 - t4258 / 0.15e2 + t4262 + 0.3e1 / 0.20e2 * t7 * t439 * t721 + t4310 - t4312 / 0.30e2);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3sigma[5] = t8 * t3156 + t1392 + t3134;
+    v4rho3sigma[5] = t4315 * t8 + t1661 + t4293;
 
-  t3162 = t7 * t1133 * t238;
-  t3171 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t1129 * t238 + t3162 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t488 * t587 + t3113 - t3118 / 0.15e2 + t3122 - t3003 / 0.30e2 + t3013 - t3015 / 0.30e2);
+  t4321 = t7 * t1321 * t258;
+  t4330 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t1317 * t258 + t4321 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t534 * t661 + t4272 - t4277 / 0.15e2 + t4281 - t4040 / 0.30e2 + t4050 - t4052 / 0.30e2);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3sigma[6] = t8 * t3171 + t1430 + t3107;
+    v4rho3sigma[6] = t4330 * t8 + t1699 + t4266;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho3sigma[7] = 0.0e0;
 
-  t3177 = t7 * t1188 * t254;
-  t3184 = t7 * t464 * t634;
-  t3192 = t7 * t166 * t1479;
-  t3194 = 0.3e1 / 0.20e2 * t7 * t1184 * t254 + t3177 / 0.10e2 + t3140 - t3142 / 0.15e2 + 0.3e1 / 0.10e2 * t7 * t460 * t634 + t3184 / 0.5e1 - t3099 / 0.30e2 + t3103 + t3151 - t3153 / 0.15e2 + 0.3e1 / 0.20e2 * t7 * t162 * t1479 + t3192 / 0.10e2;
-  t3195 = my_piecewise3(t59, 0, t3194);
+  t4336 = t7 * t1376 * t277;
+  t4343 = t7 * t510 * t721;
+  t4351 = t7 * t178 * t1792;
+  t4353 = 0.3e1 / 0.20e2 * t7 * t1372 * t277 + t4336 / 0.10e2 + t4299 - t4301 / 0.15e2 + 0.3e1 / 0.10e2 * t7 * t506 * t721 + t4343 / 0.5e1 - t4258 / 0.30e2 + t4262 + t4310 - t4312 / 0.15e2 + 0.3e1 / 0.20e2 * t7 * t174 * t1792 + t4351 / 0.10e2;
+  t4354 = my_piecewise3(t63, 0, t4353);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3sigma[8] = t8 * t3195 + t1484 + t3134;
+    v4rho3sigma[8] = t4354 * t8 + t1797 + t4293;
 
-  t3204 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t1221 * t238 + 0.3e1 / 0.10e2 * t3162 - t3118 / 0.10e2 + t3013);
+  t4363 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t1409 * t258 + 0.3e1 / 0.10e2 * t4321 - t4277 / 0.10e2 + t4050);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3sigma[9] = t8 * t3204 + 0.3e1 * t1430;
+    v4rho3sigma[9] = t4363 * t8 + 0.3e1 * t1699;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho3sigma[10] = 0.0e0;
 
-  t3221 = t30 * t1272;
-  t3242 = t1286 * t90;
-  t3271 = t622 * t541;
-  t3279 = my_piecewise3(t87, 0.6160e4 / 0.2187e4 * t3221, 0);
-  t3282 = 0.18e2 * t1295 * t626 * t1455 + 0.3e1 * t1306 * t626 * t1455 - 0.6e1 * t536 * t1467 * t622 - 0.3e1 * t545 * t1467 * t622 + t213 * t3279 * t90 - 0.12e2 * t2905 * t249 * t3242 - t2922 * t249 * t3242 - 0.6e1 * t1458 * t1291 - 0.3e1 * t1470 * t1291 + 0.18e2 * t1470 * t1455 - 0.24e2 * t1461 * t3242 + 0.18e2 * t1461 * t3271 - 0.36e2 * t1474 * t3242 + 0.3e1 * t1474 * t3271 - 0.2e1 * t621 * t2901 - t629 * t2901 + 0.18e2 * t629 * t3271;
-  t3283 = my_piecewise3(t86, 0, t3282);
-  t3290 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t1255 * t254 + 0.3e1 / 0.10e2 * t3177 + 0.9e1 / 0.20e2 * t7 * t512 * t634 - t3142 / 0.10e2 + 0.3e1 / 0.5e1 * t3184 + 0.9e1 / 0.20e2 * t7 * t196 * t1479 + t3103 - t3153 / 0.10e2 + 0.3e1 / 0.10e2 * t3192 + 0.3e1 / 0.20e2 * t7 * t70 * (-0.770e3 / 0.243e3 * t3221 + 0.6160e4 / 0.2187e4 * t30 * t1272 * t92 - 0.440e3 / 0.243e3 * t30 * t523 * t217 + 0.40e2 / 0.81e2 * t30 * t202 * t549 - 0.5e1 / 0.81e2 * t30 * t75 * t1310 + t1280 * t252 + 0.3e1 * t531 * t632 + 0.3e1 * t210 * t1477 + t85 * t3283));
+  t4380 = t2117 * t1757;
+  t4383 = t606 * t698;
+  t4386 = t30 * t1460;
+  t4388 = t100 * t3092;
+  t4389 = t1478 * t3821;
+  t4390 = t4389 * t273;
+  t4394 = t1773 * t715;
+  t4413 = t99 * t1072;
+  t4414 = t1478 * t1481;
+  t4415 = t4413 * t4414;
+  t4418 = t605 * t273;
+  t4419 = t2129 * t4418;
+  t4425 = t691 * t1527 * t233;
+  t4432 = -0.5e1 / 0.27e2 * t266 * t4380 + 0.5e1 / 0.27e2 * t266 * t4383 - 0.770e3 / 0.243e3 * t4386 + t4388 * t4390 - 0.6e1 * t1779 * t4390 + 0.3e1 * t1779 * t4394 - 0.9e1 * t1789 * t1774 + 0.11e2 * t697 * t4390 - 0.6e1 * t719 * t4390 + 0.6e1 * t1754 * t1774 - 0.9e1 * t697 * t4394 + 0.6e1 * t719 * t4394 - 0.440e3 / 0.243e3 * t1723 * t693 + 0.40e2 / 0.81e2 * t686 * t1783 - 0.5e1 / 0.81e2 * t263 * t4415 + 0.3e1 * t1779 * t4419 + 0.40e2 / 0.81e2 * t686 * t1770 - 0.5e1 / 0.81e2 * t263 * t4425 - 0.9e1 * t697 * t4419 + 0.6e1 * t719 * t4419;
+  t4435 = t1781 * t4414;
+  t4438 = t691 * t4414;
+  t4441 = t223 * t1072;
+  t4444 = t2308 * t605;
+  t4447 = t904 * t1527;
+  t4452 = t1744 * t584;
+  t4453 = t4452 * t231;
+  t4456 = t578 * t55;
+  t4470 = t578 * t383;
+  t4480 = t3835 * t96;
+  t4481 = t4480 * t1492;
+  t4513 = t1711 * t226 * t595;
+  t4518 = 0.9e1 * t1504 * t1712 * t706 - 0.3e1 * t1524 * t1712 * t706 + t269 * t3873 * t4481 - 0.7e1 * t269 * t3876 * t4481 + 0.6e1 * t269 * t3881 * t4481 - t269 * t3893 * t4481 + 0.6e1 * t1710 * t4481 - 0.3e1 * t1710 * t4513 - 0.9e1 * t1712 * t1714 - 0.6e1 * t1712 * t1729 + 0.9e1 * t1712 * t1732 - 0.18e2 * t1719 * t4481 + 0.6e1 * t1741 * t4481 - 0.3e1 * t1741 * t4513 + 0.6e1 * t4481 * t710 - 0.11e2 * t4481 * t712;
+  t4551 = my_piecewise3(t92, 0, -0.6160e4 / 0.2187e4 * t4386);
+  t4555 = -t224 * t227 * t4551 * t96 - 0.3e1 * t1491 * t1712 * t706 + 0.3e1 * t1725 * t224 * t703 + 0.3e1 * t1725 * t587 * t703 - 0.3e1 * t1725 * t602 * t703 + 0.3e1 * t1499 * t1714 + 0.3e1 * t1499 * t1729 - 0.3e1 * t1499 * t1732 + 0.9e1 * t1719 * t4513 + t3845 * t701 + t3845 * t710 - t3845 * t712 + 0.11e2 * t4481 * t701 - 0.9e1 * t4513 * t701 - 0.6e1 * t4513 * t710 + 0.9e1 * t4513 * t712;
+  t4557 = my_piecewise3(t91, 0, t4518 + t4555);
+  t4564 = -0.6e1 * t1754 * t1760 - 0.3e1 * t1754 * t1758 + 0.3e1 * t1789 * t1758 + 0.6e1 * t1789 * t1760 + 0.3e1 * t697 * t4453 + 0.3e1 * t4470 * t699 + t1469 * t275 + 0.3e1 * t578 * t717 + 0.3e1 * t223 * t1746 + t100 * t55 * t4557 * t233 + 0.6160e4 / 0.2187e4 * t30 * t1460 * t99;
+  t4571 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t1443 * t277 + 0.3e1 / 0.10e2 * t4336 + 0.9e1 / 0.20e2 * t7 * t558 * t721 - t4301 / 0.10e2 + 0.3e1 / 0.5e1 * t4343 + 0.9e1 / 0.20e2 * t7 * t208 * t1792 + t4262 - t4312 / 0.10e2 + 0.3e1 / 0.10e2 * t4351 + 0.3e1 / 0.20e2 * t7 * t74 * (t4432 - 0.40e2 / 0.81e2 * t686 * t1786 + 0.5e1 / 0.27e2 * t263 * t4435 - 0.10e2 / 0.81e2 * t263 * t4438 + 0.3e1 * t4441 * t1774 - 0.3e1 * t719 * t4444 - t719 * t4447 + t697 * t4447 + 0.3e1 * t697 * t4444 - 0.3e1 * t719 * t4453 - 0.3e1 * t4456 * t699 + t4564));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3sigma[11] = t8 * t3290 + 0.3e1 * t1484;
+    v4rho3sigma[11] = t4571 * t8 + 0.3e1 * t1797;
 
-  t3297 = t7 * t873 * t269;
-  t3303 = t7 * t880 * t269;
-  t3306 = t7 * t323 * t664;
-  t3313 = 0.2e1 / 0.45e2 * t7 * t892 * t269;
-  t3315 = t7 * t332 * t664;
-  t3318 = t7 * t121 * t1533;
-  t3332 = my_piecewise3(t47, -0.1100e4 / 0.729e3 * t1336, 0);
-  t3339 = t354 * t1521;
-  t3344 = t927 * t656;
-  t3347 = t2162 * t264;
-  t3352 = t363 * t1521;
-  t3357 = t938 * t656;
-  t3361 = t2179 * t264;
-  t3371 = t138 * t3332 * t50 + 0.18e2 * t1524 * t1350 + 0.18e2 * t3344 * t1350 + 0.3e1 * t3357 * t1350 - 0.6e1 * t1512 * t923 - 0.24e2 * t1515 * t3039 + 0.18e2 * t1515 * t3042 - 0.3e1 * t1524 * t923 - 0.36e2 * t1528 * t3039 + 0.3e1 * t1528 * t3042 - 0.2e1 * t652 * t2158 - t659 * t2158 - 0.12e2 * t3347 * t3039 - t3361 * t3039 + 0.18e2 * t659 * t3042 - 0.6e1 * t3339 * t575 - 0.3e1 * t3352 * t575;
-  t3372 = my_piecewise3(t46, 0, t3371);
-  t3379 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t869 * t269 + 0.3e1 / 0.10e2 * t3297 + 0.9e1 / 0.20e2 * t7 * t319 * t664 - t3303 / 0.10e2 + 0.3e1 / 0.5e1 * t3306 + 0.9e1 / 0.20e2 * t7 * t116 * t1533 + t3313 - t3315 / 0.10e2 + 0.3e1 / 0.10e2 * t3318 + 0.3e1 / 0.20e2 * t7 * t24 * (-0.1100e4 / 0.729e3 * t1339 + 0.100e3 / 0.81e2 * t1342 - 0.25e2 / 0.54e2 * t1345 + 0.5e1 / 0.54e2 * t30 * t40 * t942 + t912 * t267 + 0.3e1 * t349 * t662 + 0.3e1 * t135 * t1531 + t45 * t3372));
+  t4578 = t7 * t1022 * t295;
+  t4584 = t7 * t1029 * t295;
+  t4587 = t7 * t352 * t757;
+  t4594 = 0.2e1 / 0.45e2 * t7 * t1041 * t295;
+  t4596 = t7 * t361 * t757;
+  t4599 = t7 * t128 * t1880;
+  t4606 = t752 * t1076 * t384;
+  t4610 = t291 * t3042 * t1073;
+  t4626 = t752 * t387;
+  t4627 = t4626 * t408;
+  t4630 = t2203 * t1122;
+  t4633 = t1871 * t387 * t151;
+  t4647 = 0.5e1 / 0.18e2 * t283 * t4147 - 0.5e1 / 0.18e2 * t283 * t4150 + 0.6e1 * t659 * t4606 - 0.6e1 * t659 * t4610 + 0.11e2 * t637 * t4610 - 0.9e1 * t1640 * t1830 + 0.6e1 * t1567 * t1830 - 0.6e1 * t1630 * t4610 + 0.3e1 * t4193 * t738 + t4196 * t4610 + 0.3e1 * t4154 * t1830 - 0.3e1 * t659 * t4627 - t659 * t4630 - 0.3e1 * t659 * t4633 - 0.9e1 * t637 * t4606 + 0.3e1 * t637 * t4633 - 0.3e1 * t1567 * t1833 + 0.3e1 * t1630 * t4606 + t637 * t4630 + 0.3e1 * t637 * t4627;
+  t4656 = t291 * t1076;
+  t4658 = t4656 * t151 * t408;
+  t4679 = t144 * t1852;
+  t4688 = t1086 * t743;
+  t4691 = t390 * t1852;
+  t4706 = t405 * t1852;
+  t4711 = 0.3e1 * t1094 * t1842 + 0.3e1 * t1094 * t1856 - 0.3e1 * t1094 * t1859 - 0.9e1 * t1577 * t1842 - 0.6e1 * t1577 * t1856 - 0.3e1 * t1577 * t4688 + 0.6e1 * t1840 * t4065 - 0.18e2 * t1847 * t4065 + t3004 * t740 + t3004 * t747 - t3004 * t749 + 0.11e2 * t4065 * t740 + 0.6e1 * t4065 * t747 + 0.3e1 * t4679 * t643 + 0.3e1 * t4691 * t643 - 0.3e1 * t4706 * t643;
+  t4712 = t2978 * t287;
+  t4717 = t1119 * t743;
+  t4724 = t2969 * t287;
+  t4726 = t2971 * t287;
+  t4728 = t2973 * t287;
+  t4731 = t1099 * t743;
+  t4747 = my_piecewise3(t48, 0, 0.1100e4 / 0.729e3 * t1588);
+  t4751 = -t144 * t147 * t4747 * t52 + 0.9e1 * t1577 * t1859 - 0.3e1 * t1577 * t4717 + 0.9e1 * t1577 * t4731 - 0.3e1 * t1840 * t4124 + 0.9e1 * t1847 * t4124 + 0.6e1 * t1868 * t4065 - 0.3e1 * t1868 * t4124 + 0.6e1 * t4065 * t4712 - t4065 * t4724 + t4065 * t4726 - 0.7e1 * t4065 * t4728 - 0.11e2 * t4065 * t749 - 0.9e1 * t4124 * t740 - 0.6e1 * t4124 * t747 + 0.9e1 * t4124 * t749;
+  t4753 = my_piecewise3(t47, 0, t4711 + t4751);
+  t4762 = -0.3e1 * t4171 * t738 + 0.3e1 * t1640 * t1833 + 0.6e1 * t1640 * t1837 - 0.6e1 * t1567 * t1837 + 0.6e1 * t659 * t4658 - 0.9e1 * t637 * t4658 + 0.5e1 / 0.54e2 * t285 * t4233 + 0.3e1 * t1630 * t4658 - 0.5e1 / 0.18e2 * t285 * t4222 + 0.5e1 / 0.27e2 * t285 * t4225 + 0.5e1 / 0.54e2 * t285 * t4217 - 0.25e2 / 0.54e2 * t1620 + 0.100e3 / 0.81e2 * t1628 - 0.25e2 / 0.54e2 * t1635 + 0.25e2 / 0.54e2 * t1638 - 0.1100e4 / 0.729e3 * t1614 + t57 * t55 * t4753 * t153 + 0.3e1 * t143 * t1873 + t1062 * t293 + 0.3e1 * t379 * t754;
+  t4768 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t1018 * t295 + 0.3e1 / 0.10e2 * t4578 + 0.9e1 / 0.20e2 * t7 * t348 * t757 - t4584 / 0.10e2 + 0.3e1 / 0.5e1 * t4587 + 0.9e1 / 0.20e2 * t7 * t123 * t1880 + t4594 - t4596 / 0.10e2 + 0.3e1 / 0.10e2 * t4599 + 0.3e1 / 0.20e2 * t7 * t24 * (t4647 + t4762));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3lapl[0] = t8 * t3379 + 0.3e1 * t1538;
+    v4rho3lapl[0] = t4768 * t8 + 0.3e1 * t1885;
 
-  t3386 = t7 * t976 * t284;
-  t3389 = t7 * t980 * t284;
-  t3393 = 0.2e1 / 0.45e2 * t7 * t984 * t284;
-  t3395 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t972 * t284 + 0.3e1 / 0.10e2 * t3386 - t3389 / 0.10e2 + t3393);
+  t4775 = t7 * t1164 * t313;
+  t4778 = t7 * t1168 * t313;
+  t4782 = 0.2e1 / 0.45e2 * t7 * t1172 * t313;
+  t4784 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t1160 * t313 + 0.3e1 / 0.10e2 * t4775 - t4778 / 0.10e2 + t4782);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3lapl[1] = t8 * t3395 + 0.3e1 * t1551;
+    v4rho3lapl[1] = t4784 * t8 + 0.3e1 * t1898;
 
-  t3397 = 0.2e1 * t1565;
-  t3403 = t7 * t1025 * t269 / 0.5e1;
-  t3408 = t7 * t1032 * t269;
-  t3412 = t7 * t426 * t664 / 0.5e1;
-  t3421 = 0.3e1 / 0.20e2 * t7 * t1021 * t269 + t3403 + 0.3e1 / 0.10e2 * t7 * t422 * t664 - t3408 / 0.30e2 + t3412 + 0.3e1 / 0.20e2 * t7 * t180 * t1533 + t3297 / 0.10e2 - t3303 / 0.15e2 + t3306 / 0.5e1 + t3313 - t3315 / 0.15e2 + t3318 / 0.10e2;
-  t3422 = my_piecewise3(t2, 0, t3421);
+  t4786 = 0.2e1 * t1912;
+  t4792 = t7 * t1213 * t295 / 0.5e1;
+  t4797 = t7 * t1220 * t295;
+  t4801 = t7 * t472 * t757 / 0.5e1;
+  t4810 = 0.3e1 / 0.20e2 * t7 * t1209 * t295 + t4792 + 0.3e1 / 0.10e2 * t7 * t468 * t757 - t4797 / 0.30e2 + t4801 + 0.3e1 / 0.20e2 * t7 * t192 * t1880 + t4578 / 0.10e2 - t4584 / 0.15e2 + t4587 / 0.5e1 + t4594 - t4596 / 0.15e2 + t4599 / 0.10e2;
+  t4811 = my_piecewise3(t2, 0, t4810);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3lapl[2] = t8 * t3422 + t1538 + t3397;
+    v4rho3lapl[2] = t4811 * t8 + t1885 + t4786;
 
-  t3424 = 0.2e1 * t1581;
-  t3430 = t7 * t1090 * t284 / 0.5e1;
-  t3432 = t7 * t1094 * t284;
-  t3441 = t7 * t397 * t706 / 0.5e1;
-  t3443 = t7 * t401 * t706;
-  t3446 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t1086 * t284 + t3430 - t3432 / 0.30e2 + t3386 / 0.10e2 - t3389 / 0.15e2 + t3393 + 0.3e1 / 0.20e2 * t7 * t393 * t706 + t3441 - t3443 / 0.30e2);
+  t4813 = 0.2e1 * t1928;
+  t4819 = t7 * t1278 * t313 / 0.5e1;
+  t4821 = t7 * t1282 * t313;
+  t4830 = t7 * t443 * t805 / 0.5e1;
+  t4832 = t7 * t447 * t805;
+  t4835 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t1274 * t313 + t4819 - t4821 / 0.30e2 + t4775 / 0.10e2 - t4778 / 0.15e2 + t4782 + 0.3e1 / 0.20e2 * t7 * t439 * t805 + t4830 - t4832 / 0.30e2);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3lapl[3] = t8 * t3446 + t1551 + t3424;
+    v4rho3lapl[3] = t4835 * t8 + t1898 + t4813;
 
-  t3452 = t7 * t1133 * t269;
-  t3461 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t1129 * t269 + t3452 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t488 * t664 + t3403 - t3408 / 0.15e2 + t3412 - t3303 / 0.30e2 + t3313 - t3315 / 0.30e2);
+  t4841 = t7 * t1321 * t295;
+  t4850 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t1317 * t295 + t4841 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t534 * t757 + t4792 - t4797 / 0.15e2 + t4801 - t4584 / 0.30e2 + t4594 - t4596 / 0.30e2);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3lapl[4] = t8 * t3461 + t1589 + t3397;
+    v4rho3lapl[4] = t4850 * t8 + t1936 + t4786;
 
-  t3467 = t7 * t1188 * t284;
-  t3474 = t7 * t464 * t706;
-  t3482 = t7 * t166 * t1631;
-  t3484 = 0.3e1 / 0.20e2 * t7 * t1184 * t284 + t3467 / 0.10e2 + t3430 - t3432 / 0.15e2 + 0.3e1 / 0.10e2 * t7 * t460 * t706 + t3474 / 0.5e1 - t3389 / 0.30e2 + t3393 + t3441 - t3443 / 0.15e2 + 0.3e1 / 0.20e2 * t7 * t162 * t1631 + t3482 / 0.10e2;
-  t3485 = my_piecewise3(t59, 0, t3484);
+  t4856 = t7 * t1376 * t313;
+  t4863 = t7 * t510 * t805;
+  t4871 = t7 * t178 * t2011;
+  t4873 = 0.3e1 / 0.20e2 * t7 * t1372 * t313 + t4856 / 0.10e2 + t4819 - t4821 / 0.15e2 + 0.3e1 / 0.10e2 * t7 * t506 * t805 + t4863 / 0.5e1 - t4778 / 0.30e2 + t4782 + t4830 - t4832 / 0.15e2 + 0.3e1 / 0.20e2 * t7 * t174 * t2011 + t4871 / 0.10e2;
+  t4874 = my_piecewise3(t63, 0, t4873);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3lapl[5] = t8 * t3485 + t1636 + t3424;
+    v4rho3lapl[5] = t4874 * t8 + t2016 + t4813;
 
-  t3494 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t1221 * t269 + 0.3e1 / 0.10e2 * t3452 - t3408 / 0.10e2 + t3313);
+  t4883 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t1409 * t295 + 0.3e1 / 0.10e2 * t4841 - t4797 / 0.10e2 + t4594);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3lapl[6] = t8 * t3494 + 0.3e1 * t1589;
+    v4rho3lapl[6] = t4883 * t8 + 0.3e1 * t1936;
 
-  t3524 = t1306 * t698;
-  t3528 = t2922 * t279;
-  t3534 = t536 * t1619;
-  t3539 = t1295 * t698;
-  t3542 = t2905 * t279;
-  t3547 = t545 * t1619;
-  t3559 = my_piecewise3(t87, -0.1100e4 / 0.729e3 * t1441, 0);
-  t3562 = t213 * t3559 * t90 - 0.6e1 * t1610 * t1291 - 0.3e1 * t1622 * t1291 + 0.18e2 * t1622 * t1455 + 0.3e1 * t3524 * t1455 + 0.18e2 * t3539 * t1455 - 0.24e2 * t1613 * t3242 + 0.18e2 * t1613 * t3271 - 0.36e2 * t1626 * t3242 + 0.3e1 * t1626 * t3271 - 0.2e1 * t694 * t2901 - t701 * t2901 - t3528 * t3242 - 0.12e2 * t3542 * t3242 + 0.18e2 * t701 * t3271 - 0.6e1 * t3534 * t622 - 0.3e1 * t3547 * t622;
-  t3563 = my_piecewise3(t86, 0, t3562);
-  t3570 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t1255 * t284 + 0.3e1 / 0.10e2 * t3467 + 0.9e1 / 0.20e2 * t7 * t512 * t706 - t3432 / 0.10e2 + 0.3e1 / 0.5e1 * t3474 + 0.9e1 / 0.20e2 * t7 * t196 * t1631 + t3393 - t3443 / 0.10e2 + 0.3e1 / 0.10e2 * t3482 + 0.3e1 / 0.20e2 * t7 * t70 * (-0.1100e4 / 0.729e3 * t1444 + 0.100e3 / 0.81e2 * t1447 - 0.25e2 / 0.54e2 * t1450 + 0.5e1 / 0.54e2 * t30 * t80 * t1310 + t1280 * t282 + 0.3e1 * t531 * t704 + 0.3e1 * t210 * t1629 + t85 * t3563));
+  t4908 = t1773 * t800;
+  t4911 = t3809 * t309;
+  t4921 = t4389 * t309;
+  t4939 = t2002 * t584 * t231;
+  t4942 = 0.5e1 / 0.18e2 * t301 * t4380 - 0.5e1 / 0.18e2 * t301 * t4383 - 0.6e1 * t1754 * t1968 - 0.3e1 * t1754 * t1964 + 0.3e1 * t1779 * t4908 + t697 * t4911 - 0.3e1 * t4456 * t786 + 0.3e1 * t1789 * t1964 + 0.6e1 * t1789 * t1968 + 0.3e1 * t4441 * t1962 + t4388 * t4921 + 0.6e1 * t719 * t4908 - 0.6e1 * t719 * t4921 - 0.9e1 * t1789 * t1962 + 0.6e1 * t1754 * t1962 - 0.6e1 * t1779 * t4921 + 0.11e2 * t697 * t4921 + 0.3e1 * t4470 * t786 - t719 * t4911 - 0.3e1 * t719 * t4939;
+  t4943 = t800 * t584;
+  t4944 = t4943 * t605;
+  t4953 = t309 * t1481;
+  t4955 = t4953 * t231 * t605;
+  t4974 = t3881 * t305;
+  t4977 = t587 * t1983;
+  t4983 = t224 * t1983;
+  t4992 = t1491 * t791;
+  t4995 = t602 * t1983;
+  t5008 = 0.3e1 * t1499 * t1973 + 0.3e1 * t1499 * t1987 - 0.3e1 * t1499 * t1990 - 0.9e1 * t1712 * t1973 - 0.6e1 * t1712 * t1987 - 0.3e1 * t1712 * t4992 + 0.6e1 * t1971 * t4481 + t3845 * t788 + t3845 * t795 - t3845 * t797 + 0.6e1 * t4481 * t4974 + 0.11e2 * t4481 * t788 + 0.6e1 * t4481 * t795 + 0.3e1 * t4977 * t703 + 0.3e1 * t4983 * t703 - 0.3e1 * t4995 * t703;
+  t5011 = t1524 * t791;
+  t5018 = t3893 * t305;
+  t5020 = t3873 * t305;
+  t5022 = t3876 * t305;
+  t5025 = t1504 * t791;
+  t5043 = my_piecewise3(t92, 0, 0.1100e4 / 0.729e3 * t1723);
+  t5047 = -t224 * t227 * t5043 * t96 + 0.9e1 * t1712 * t1990 - 0.3e1 * t1712 * t5011 + 0.9e1 * t1712 * t5025 - 0.3e1 * t1971 * t4513 - 0.18e2 * t1978 * t4481 + 0.9e1 * t1978 * t4513 + 0.6e1 * t1999 * t4481 - 0.3e1 * t1999 * t4513 - t4481 * t5018 + t4481 * t5020 - 0.7e1 * t4481 * t5022 - 0.11e2 * t4481 * t797 - 0.9e1 * t4513 * t788 - 0.6e1 * t4513 * t795 + 0.9e1 * t4513 * t797;
+  t5049 = my_piecewise3(t91, 0, t5008 + t5047);
+  t5059 = -0.3e1 * t719 * t4944 + 0.3e1 * t697 * t4944 - 0.9e1 * t697 * t4908 + 0.3e1 * t697 * t4939 + 0.6e1 * t719 * t4955 + 0.5e1 / 0.54e2 * t303 * t4425 + 0.3e1 * t1779 * t4955 - 0.9e1 * t697 * t4955 - 0.5e1 / 0.18e2 * t303 * t4435 + 0.5e1 / 0.27e2 * t303 * t4438 + 0.5e1 / 0.54e2 * t303 * t4415 - 0.25e2 / 0.54e2 * t1771 - 0.25e2 / 0.54e2 * t1784 + 0.25e2 / 0.54e2 * t1787 + 0.100e3 / 0.81e2 * t1767 + t100 * t55 * t5049 * t233 + 0.3e1 * t223 * t2004 + t1469 * t311 + 0.3e1 * t578 * t802 - 0.1100e4 / 0.729e3 * t1749;
+  t5065 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t1443 * t313 + 0.3e1 / 0.10e2 * t4856 + 0.9e1 / 0.20e2 * t7 * t558 * t805 - t4821 / 0.10e2 + 0.3e1 / 0.5e1 * t4863 + 0.9e1 / 0.20e2 * t7 * t208 * t2011 + t4782 - t4832 / 0.10e2 + 0.3e1 / 0.10e2 * t4871 + 0.3e1 / 0.20e2 * t7 * t74 * (t4942 + t5059));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho3lapl[7] = t8 * t3570 + 0.3e1 * t1636;
+    v4rho3lapl[7] = t5065 * t8 + 0.3e1 * t2016;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho3tau[0] = 0.0e0;
@@ -2532,26 +3728,58 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho3tau[7] = 0.0e0;
 
-  t3577 = t7 * t323 * t728;
-  t3584 = t7 * t332 * t728 / 0.30e2;
-  t3586 = t7 * t121 * t1671;
-  t3604 = t579 * t579;
-  t3608 = t50 * t1362;
-  t3617 = 0.2e1 * t1659 * t923;
-  t3620 = 0.6e1 * t927 * t720 * t1350;
-  t3621 = t1662 * t923;
-  t3622 = t938 * t720;
-  t3623 = t3622 * t1350;
-  t3627 = -0.12e2 * t2162 * t716 * t1350 - 0.4e1 * t354 * t3604 * t50 - 0.2e1 * t363 * t3604 * t50 - 0.36e2 * t1666 * t1350 + 0.6e1 * t1656 * t923 - 0.4e1 * t574 * t3608 + 0.6e1 * t723 * t923 - t3617 + t3620 - t3621 + t3623;
-  t3633 = t575 * t579;
-  t3637 = 0.6e1 * t1662 * t1350;
-  t3644 = 0.4e1 * t1660;
-  t3645 = 0.2e1 * t1663;
-  t3646 = -t2179 * t716 * t1350 - 0.24e2 * t1656 * t1350 + 0.24e2 * t1356 * t3633 + 0.4e1 * t1369 * t3633 + t1666 * t923 - 0.2e1 * t582 * t3608 + 0.24e2 * t582 * t3633 + t3637 - t3644 - t3645 + t722;
-  t3648 = my_piecewise3(t46, 0, t3627 + t3646);
-  t3655 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t319 * t728 + t3577 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t116 * t1671 - t3584 + t3586 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t24 * (-0.880e3 / 0.729e3 * t30 * t341 * t236 + 0.160e3 / 0.243e3 * t30 * t127 * t585 - 0.10e2 / 0.81e2 * t30 * t35 * t1372 + t349 * t726 + 0.2e1 * t135 * t1669 + t45 * t3648));
+  t5072 = t7 * t352 * t838;
+  t5079 = t7 * t361 * t838 / 0.30e2;
+  t5081 = t7 * t128 * t2090;
+  t5085 = t383 * t408;
+  t5086 = t5085 * t880;
+  t5089 = t2026 * t1561;
+  t5092 = t656 * t638;
+  t5095 = t255 * t1832;
+  t5100 = t1072 * t384;
+  t5101 = t5100 * t2743;
+  t5104 = t255 * t1622;
+  t5107 = t385 * t2743;
+  t5112 = t2630 * t408;
+  t5115 = -0.160e3 / 0.243e3 * t629 * t2034 - 0.10e2 / 0.81e2 * t247 * t5086 - 0.20e2 / 0.81e2 * t247 * t5089 + 0.20e2 / 0.81e2 * t247 * t5092 + 0.10e2 / 0.81e2 * t247 * t5095 + 0.160e3 / 0.243e3 * t629 * t2027 - 0.10e2 / 0.81e2 * t247 * t5101 - 0.20e2 / 0.81e2 * t247 * t5104 + 0.10e2 / 0.27e2 * t247 * t5107 - 0.880e3 / 0.729e3 * t1588 * t813 + 0.2e1 * t659 * t5112;
+  t5116 = t2080 * t387;
+  t5117 = t5116 * t151;
+  t5120 = t2633 * t408;
+  t5126 = t880 * t1609;
+  t5139 = 0.4e1 * t1567 * t2039 - 0.4e1 * t1567 * t2041 - 0.2e1 * t1567 * t2047 + t1630 * t5112 - 0.3e1 * t5112 * t637 + 0.2e1 * t5117 * t637 - 0.2e1 * t5117 * t659 + t5120 * t637 - t5120 * t659 + 0.2e1 * t5126 * t637 - 0.2e1 * t5126 * t659;
+  t5145 = t1622 * t831;
+  t5147 = t384 * t3042;
+  t5148 = t5147 * t816;
+  t5164 = t1630 * t5145 - 0.6e1 * t1630 * t5148 - 0.6e1 * t1640 * t2039 + 0.4e1 * t1640 * t2041 + 0.2e1 * t1640 * t2047 + 0.2e1 * t2039 * t4154 + t4196 * t5148 - 0.3e1 * t5145 * t637 + 0.2e1 * t5145 * t659 + 0.11e2 * t5148 * t637 - 0.6e1 * t5148 * t659;
+  t5166 = t2743 * t655 * t151;
+  t5176 = t631 * t1609 * t153;
+  t5179 = t655 * t655;
+  t5190 = t1576 * t646 * t146;
+  t5200 = t2961 * t52;
+  t5201 = t5200 * t391;
+  t5212 = t1086 * t824 * t1577;
+  t5215 = 0.3e1 * t1099 * t824 * t1577;
+  t5217 = 0.3e1 * t2065 * t1577;
+  t5218 = t1119 * t824;
+  t5219 = t5218 * t1577;
+  t5229 = 0.3e1 * t2061 * t1577;
+  t5231 = 0.2e1 * t2063 * t1577;
+  t5236 = -t2969 * t5201 * t820 + t2971 * t5201 * t820 - 0.7e1 * t2973 * t5201 * t820 + 0.6e1 * t2978 * t5201 * t820 - 0.4e1 * t1575 * t5190 + 0.12e2 * t1584 * t5190 + 0.6e1 * t2049 * t5201 + 0.11e2 * t2055 * t5201 - 0.18e2 * t2058 * t5201 + 0.6e1 * t2069 * t5201 - 0.11e2 * t2072 * t5201 + 0.6e1 * t2077 * t5201 - 0.12e2 * t5190 * t641 - 0.8e1 * t5190 * t650 - t5212 + t5215 + t5217 - t5219 - t5229 - t5231;
+  t5238 = t642 * t1590;
+  t5245 = t2061 * t1094;
+  t5246 = t2063 * t1094;
+  t5247 = t2065 * t1094;
+  t5262 = 0.2e1 * t2062;
+  t5263 = 0.2e1 * t2064;
+  t5264 = 0.2e1 * t2066;
+  t5265 = t646 * t646;
+  t5267 = t5265 * t393 * t52;
+  t5274 = 0.2e1 * t144 * t5267 - 0.4e1 * t1606 * t5190 - t2049 * t2997 + 0.2e1 * t390 * t5267 - 0.2e1 * t405 * t5267 + 0.12e2 * t5190 * t652 - 0.2e1 * t5238 * t652 + t5262 + t5263 - t5264 - t827;
+  t5277 = my_piecewise3(t47, 0, -0.3e1 * t2055 * t2997 + 0.3e1 * t2058 * t2997 - 0.2e1 * t2069 * t2997 + 0.3e1 * t2072 * t2997 - t2077 * t2997 + 0.2e1 * t5238 * t641 + 0.2e1 * t5238 * t650 + t5236 + t5245 + t5246 - t5247 + t5274);
+  t5285 = 0.8e1 * t659 * t5166 + 0.4e1 * t1630 * t5166 - 0.12e2 * t637 * t5166 + 0.160e3 / 0.243e3 * t626 * t2031 - 0.10e2 / 0.81e2 * t244 * t5176 - 0.2e1 * t57 * t55 * t5179 * t387 + 0.2e1 * t57 * t383 * t5179 * t387 - t379 * t836 + t57 * t55 * t5277 * t153 + t379 * t833 + 0.2e1 * t143 * t2082 + t379 * t818;
+  t5292 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t348 * t838 + t5072 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t123 * t2090 - t5079 + t5081 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t24 * (t5115 + t5139 + t5164 + t5285));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2sigma2[0] = t8 * t3655 + 0.2e1 * t1676;
+    v4rho2sigma2[0] = t5292 * t8 + 0.2e1 * t2095;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2sigma2[1] = 0.0e0;
@@ -2565,16 +3793,16 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2sigma2[4] = 0.0e0;
 
-  t3662 = t7 * t397 * t748;
-  t3666 = t7 * t401 * t748 / 0.30e2;
-  t3668 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t393 * t748 + t3662 / 0.5e1 - t3666);
+  t5299 = t7 * t443 * t869;
+  t5303 = t7 * t447 * t869 / 0.30e2;
+  t5305 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t439 * t869 + t5299 / 0.5e1 - t5303);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2sigma2[5] = t8 * t3668 + 0.2e1 * t1685;
+    v4rho2sigma2[5] = t5305 * t8 + 0.2e1 * t2104;
 
-  t3674 = t7 * t426 * t728;
-  t3682 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t422 * t728 + t3674 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t180 * t1671 + t3577 / 0.10e2 - t3584 + t3586 / 0.10e2);
+  t5311 = t7 * t472 * t838;
+  t5319 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t468 * t838 + t5311 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t192 * t2090 + t5072 / 0.10e2 - t5079 + t5081 / 0.10e2);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2sigma2[6] = t8 * t3682 + t1676 + t1691;
+    v4rho2sigma2[6] = t5319 * t8 + t2095 + t2110;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2sigma2[7] = 0.0e0;
@@ -2588,15 +3816,15 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2sigma2[10] = 0.0e0;
 
-  t3688 = t7 * t464 * t748;
-  t3695 = t7 * t166 * t1723;
-  t3698 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t460 * t748 + t3688 / 0.10e2 + t3662 / 0.10e2 - t3666 + 0.3e1 / 0.20e2 * t7 * t162 * t1723 + t3695 / 0.10e2);
+  t5325 = t7 * t510 * t869;
+  t5332 = t7 * t178 * t2181;
+  t5335 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t506 * t869 + t5325 / 0.10e2 + t5299 / 0.10e2 - t5303 + 0.3e1 / 0.20e2 * t7 * t174 * t2181 + t5332 / 0.10e2);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2sigma2[11] = t8 * t3698 + t1685 + t1728;
+    v4rho2sigma2[11] = t5335 * t8 + t2104 + t2186;
 
-  t3706 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t488 * t728 + t3674 / 0.5e1 - t3584);
+  t5343 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t534 * t838 + t5311 / 0.5e1 - t5079);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2sigma2[12] = t8 * t3706 + 0.2e1 * t1691;
+    v4rho2sigma2[12] = t5343 * t8 + 0.2e1 * t2110;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2sigma2[13] = 0.0e0;
@@ -2610,35 +3838,90 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2sigma2[16] = 0.0e0;
 
-  t3729 = t622 * t626;
-  t3733 = 0.6e1 * t1714 * t1455;
-  t3740 = t1714 * t1291;
-  t3741 = t1306 * t740;
-  t3742 = t3741 * t1455;
-  t3743 = t626 * t626;
-  t3747 = t90 * t1467;
-  t3753 = -t2922 * t736 * t1455 - 0.2e1 * t545 * t3743 * t90 + t1718 * t1291 - 0.24e2 * t1708 * t1455 + 0.24e2 * t1461 * t3729 + 0.4e1 * t1474 * t3729 + 0.24e2 * t629 * t3729 - 0.2e1 * t629 * t3747 + t3733 - t3740 + t3742;
-  t3769 = 0.2e1 * t1711 * t1291;
-  t3772 = 0.6e1 * t1295 * t740 * t1455;
-  t3773 = 0.4e1 * t1712;
-  t3774 = 0.2e1 * t1715;
-  t3775 = -0.12e2 * t2905 * t736 * t1455 - 0.4e1 * t536 * t3743 * t90 + 0.6e1 * t1708 * t1291 + 0.6e1 * t743 * t1291 - 0.36e2 * t1718 * t1455 - 0.4e1 * t621 * t3747 - t3769 + t3772 - t3773 - t3774 + t742;
-  t3777 = my_piecewise3(t86, 0, t3753 + t3775);
-  t3784 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t512 * t748 + t3688 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t196 * t1723 - t3666 + t3695 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t70 * (-0.880e3 / 0.729e3 * t30 * t523 * t252 + 0.160e3 / 0.243e3 * t30 * t202 * t632 - 0.10e2 / 0.81e2 * t30 * t75 * t1477 + t531 * t746 + 0.2e1 * t210 * t1721 + t85 * t3777));
+  t5354 = t715 * t231;
+  t5355 = t2799 * t5354;
+  t5361 = t691 * t1744 * t233;
+  t5371 = t847 * t3821 * t581;
+  t5374 = t1773 * t862;
+  t5383 = 0.8e1 * t719 * t5355 + 0.160e3 / 0.243e3 * t686 * t2122 - 0.10e2 / 0.81e2 * t263 * t5361 + 0.4e1 * t1779 * t5355 - 0.12e2 * t697 * t5355 - 0.880e3 / 0.729e3 * t1723 * t844 + 0.11e2 * t697 * t5371 - 0.3e1 * t697 * t5374 - 0.6e1 * t1779 * t5371 + 0.2e1 * t4441 * t2130 + 0.2e1 * t1789 * t2138;
+  t5388 = t1757 * t862;
+  t5390 = t698 * t2171;
+  t5394 = t605 * t1481 * t847;
+  t5396 = t904 * t1744;
+  t5407 = -0.2e1 * t1754 * t2138 + t1779 * t5374 + t1779 * t5394 - 0.6e1 * t1789 * t2130 + 0.4e1 * t1789 * t2132 + t4388 * t5371 + 0.2e1 * t5374 * t719 + t5388 * t697 + 0.2e1 * t5390 * t697 - 0.3e1 * t5394 * t697 + 0.2e1 * t5396 * t697;
+  t5423 = t715 * t715;
+  t5433 = 0.2e1 * t100 * t383 * t5423 * t584 - 0.2e1 * t100 * t5423 * t55 * t584 + 0.4e1 * t1754 * t2130 - 0.4e1 * t1754 * t2132 - 0.6e1 * t5371 * t719 - t5388 * t719 - 0.2e1 * t5390 * t719 + 0.2e1 * t5394 * t719 - 0.2e1 * t5396 * t719 + t578 * t849 - t578 * t867;
+  t5436 = t1494 * t226 * t96 * t706;
+  t5450 = t3835 * t588 * t96;
+  t5466 = t1491 * t855 * t1712;
+  t5469 = 0.3e1 * t1504 * t855 * t1712;
+  t5471 = 0.3e1 * t2156 * t1712;
+  t5472 = t1524 * t855;
+  t5473 = t5472 * t1712;
+  t5482 = t3873 * t5450 * t851 - 0.7e1 * t3876 * t5450 * t851 + 0.6e1 * t3881 * t5450 * t851 - t3893 * t5450 * t851 - 0.4e1 * t1710 * t5436 + 0.12e2 * t1719 * t5436 - 0.4e1 * t1741 * t5436 + 0.6e1 * t2140 * t5450 + 0.11e2 * t2146 * t5450 - 0.18e2 * t2149 * t5450 + 0.6e1 * t2160 * t5450 - 0.11e2 * t2163 * t5450 + 0.6e1 * t2168 * t5450 - 0.12e2 * t5436 * t701 - 0.8e1 * t5436 * t710 + 0.12e2 * t5436 * t712 - t5466 + t5469 + t5471 - t5473;
+  t5484 = 0.3e1 * t2152 * t1712;
+  t5486 = 0.2e1 * t2154 * t1712;
+  t5491 = t2152 * t1499;
+  t5492 = t2154 * t1499;
+  t5493 = t2156 * t1499;
+  t5494 = t702 * t1725;
+  t5508 = 0.2e1 * t2153;
+  t5509 = 0.2e1 * t2155;
+  t5510 = 0.2e1 * t2157;
+  t5511 = t706 * t706;
+  t5513 = t5511 * t590 * t96;
+  t5520 = -t2140 * t3830 - t2168 * t3830 + 0.2e1 * t224 * t5513 + 0.2e1 * t5494 * t701 - 0.2e1 * t5494 * t712 + 0.2e1 * t5513 * t587 - 0.2e1 * t5513 * t602 + t5508 + t5509 - t5510 - t858;
+  t5523 = my_piecewise3(t91, 0, -0.3e1 * t2146 * t3830 + 0.3e1 * t2149 * t3830 - 0.2e1 * t2160 * t3830 + 0.3e1 * t2163 * t3830 + 0.2e1 * t5494 * t710 + t5482 - t5484 - t5486 + t5491 + t5492 - t5493 + t5520);
+  t5530 = t274 * t1773;
+  t5533 = t582 * t2799;
+  t5540 = t383 * t605;
+  t5541 = t5540 * t904;
+  t5544 = t2117 * t2308;
+  t5547 = t716 * t698;
+  t5550 = t274 * t1757;
+  t5553 = t1072 * t581;
+  t5554 = t5553 * t2799;
+  t5557 = t100 * t55 * t5523 * t233 + t578 * t864 + 0.2e1 * t223 * t2173 - 0.20e2 / 0.81e2 * t266 * t5530 + 0.10e2 / 0.27e2 * t266 * t5533 + 0.160e3 / 0.243e3 * t689 * t2118 - 0.160e3 / 0.243e3 * t689 * t2125 - 0.10e2 / 0.81e2 * t266 * t5541 - 0.20e2 / 0.81e2 * t266 * t5544 + 0.20e2 / 0.81e2 * t266 * t5547 + 0.10e2 / 0.81e2 * t266 * t5550 - 0.10e2 / 0.81e2 * t266 * t5554;
+  t5564 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t558 * t869 + t5325 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t208 * t2181 - t5303 + t5332 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t74 * (t5383 + t5407 + t5433 + t5557));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2sigma2[17] = t8 * t3784 + 0.2e1 * t1728;
+    v4rho2sigma2[17] = t5564 * t8 + 0.2e1 * t2186;
 
-  t3791 = t7 * t323 * t766;
-  t3798 = t7 * t332 * t766 / 0.30e2;
-  t3800 = t7 * t121 * t1762;
-  t3819 = t759 * t355;
-  t3824 = t923 * t233;
-  t3845 = 0.12e2 * t1515 * t3633 - 0.24e2 * t1515 * t3819 + 0.6e1 * t1515 * t3824 + 0.12e2 * t1524 * t1747 + 0.2e1 * t1528 * t3633 - 0.36e2 * t1528 * t3819 + t1528 * t3824 + 0.12e2 * t3344 * t1747 + 0.2e1 * t3357 * t1747 - 0.12e2 * t3347 * t3819 - t3361 * t3819 + 0.12e2 * t659 * t3633 + 0.6e1 * t659 * t3824;
-  t3856 = -0.4e1 * t1512 * t1653 - 0.2e1 * t1524 * t1653 - 0.2e1 * t3339 * t759 - t3352 * t759 - 0.2e1 * t652 * t3608 - t659 * t3608 - t3617 + t3620 - t3621 + t3623 + t3637 - t3644 - t3645 + t722;
-  t3858 = my_piecewise3(t46, 0, t3845 + t3856);
-  t3865 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t319 * t766 + t3791 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t116 * t1762 - t3798 + t3800 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t24 * (0.100e3 / 0.243e3 * t1645 - 0.25e2 / 0.81e2 * t1648 + 0.5e1 / 0.54e2 * t30 * t40 * t1372 - 0.440e3 / 0.729e3 * t30 * t341 * t267 + 0.80e2 / 0.243e3 * t30 * t127 * t662 - 0.5e1 / 0.81e2 * t30 * t35 * t1531 + t349 * t764 + 0.2e1 * t135 * t1760 + t45 * t3858));
+  t5571 = t7 * t352 * t893;
+  t5578 = t7 * t361 * t893 / 0.30e2;
+  t5580 = t7 * t128 * t2258;
+  t5585 = t2743 * t752 * t151;
+  t5589 = t2743 * t291 * t408;
+  t5597 = t631 * t1871 * t153;
+  t5600 = t5147 * t2215;
+  t5618 = -0.25e2 / 0.81e2 * t2028 + 0.25e2 / 0.81e2 * t2035 - 0.6e1 * t637 * t5585 - 0.3e1 * t637 * t5589 + 0.5e1 / 0.54e2 * t285 * t5176 + 0.80e2 / 0.243e3 * t626 * t2208 - 0.5e1 / 0.81e2 * t244 * t5597 - 0.6e1 * t1630 * t5600 + 0.11e2 * t637 * t5600 - 0.6e1 * t659 * t5600 - 0.440e3 / 0.729e3 * t1588 * t877 + 0.2e1 * t4154 * t2216 + t4196 * t5600 + 0.4e1 * t1567 * t2216 + 0.4e1 * t659 * t5585 - 0.6e1 * t1640 * t2216;
+  t5621 = t2038 * t655 * t291;
+  t5632 = t638 * t2247;
+  t5636 = t1609 * t387 * t291;
+  t5638 = t1561 * t752;
+  t5641 = t880 * t1871;
+  t5650 = t1622 * t888;
+  t5654 = 0.2e1 * t1630 * t5585 + t1630 * t5589 + 0.2e1 * t1630 * t5621 + t1630 * t5650 + 0.2e1 * t1640 * t2219 + 0.2e1 * t1640 * t2223 + 0.2e1 * t1640 * t2226 + t4193 * t881 + 0.2e1 * t5589 * t659 - 0.6e1 * t5621 * t637 + 0.4e1 * t5621 * t659 + 0.2e1 * t5632 * t637 + t5636 * t637 + 0.2e1 * t5638 * t637 + t5641 * t637 + 0.2e1 * t5650 * t659;
+  t5669 = t888 * t387;
+  t5670 = t5669 * t408;
+  t5678 = t1576 * t250 * t398;
+  t5702 = -0.2e1 * t1840 * t5190 - t1840 * t5678 - 0.6e1 * t1842 * t2229 + 0.6e1 * t1847 * t5190 + 0.3e1 * t1847 * t5678 - 0.4e1 * t1856 * t2229 - 0.2e1 * t2229 * t4688 - 0.4e1 * t5190 * t747 + 0.6e1 * t5190 * t749 - 0.3e1 * t5678 * t740 - 0.2e1 * t5678 * t747 + 0.3e1 * t5678 * t749;
+  t5705 = t2961 * t391 * t52 * t250;
+  t5730 = 0.6e1 * t1840 * t5705 - 0.18e2 * t1847 * t5705 + 0.6e1 * t1859 * t2229 - 0.2e1 * t1868 * t5190 + 0.6e1 * t1868 * t5705 - 0.2e1 * t2229 * t4717 + 0.6e1 * t4712 * t5705 - t4724 * t5705 + t4726 * t5705 - 0.7e1 * t4728 * t5705 + 0.11e2 * t5705 * t740 + 0.6e1 * t5705 * t747 - 0.11e2 * t5705 * t749;
+  t5749 = 0.2e1 * t1842 * t2052 + 0.2e1 * t1856 * t2052 - 0.2e1 * t1859 * t2052 - t1868 * t5678 + 0.6e1 * t2229 * t4731 + t4679 * t883 + t4691 * t883 - t4706 * t883 - 0.6e1 * t5190 * t740 + t5238 * t740 + t5238 * t747 - t5238 * t749;
+  t5750 = -t5212 + t5215 + t5217 - t5219 - t5229 - t5231 + t5245 + t5246 - t5247 - t827 + t5262 + t5263 - t5264;
+  t5753 = my_piecewise3(t47, 0, t5702 + t5730 + t5749 + t5750);
+  t5760 = -0.3e1 * t637 * t5650 - t659 * t5636 - t4171 * t881 - 0.2e1 * t1567 * t2223 - 0.2e1 * t1567 * t2219 - t659 * t5641 - 0.2e1 * t659 * t5638 - 0.2e1 * t659 * t5632 - t659 * t5670 - 0.2e1 * t1567 * t2226 + t637 * t5670 + 0.100e3 / 0.243e3 * t2024 - 0.25e2 / 0.81e2 * t2032 + t57 * t55 * t5753 * t153 + t379 * t890 + 0.2e1 * t143 * t2249;
+  t5771 = t5085 * t2203;
+  t5774 = t2026 * t4626;
+  t5777 = t753 * t638;
+  t5780 = t292 * t1832;
+  t5783 = t292 * t1622;
+  t5788 = t385 * t4656;
+  t5797 = t5100 * t4656;
+  t5800 = 0.5e1 / 0.54e2 * t283 * t5086 + 0.5e1 / 0.27e2 * t283 * t5089 - 0.5e1 / 0.27e2 * t283 * t5092 - 0.5e1 / 0.54e2 * t283 * t5095 - 0.80e2 / 0.243e3 * t629 * t2211 - 0.5e1 / 0.81e2 * t247 * t5771 - 0.10e2 / 0.81e2 * t247 * t5774 + 0.10e2 / 0.81e2 * t247 * t5777 + 0.5e1 / 0.81e2 * t247 * t5780 - 0.10e2 / 0.81e2 * t247 * t5783 + 0.5e1 / 0.27e2 * t283 * t5104 + 0.5e1 / 0.27e2 * t247 * t5788 - 0.5e1 / 0.18e2 * t283 * t5107 + 0.80e2 / 0.243e3 * t629 * t2204 + 0.5e1 / 0.54e2 * t283 * t5101 - 0.5e1 / 0.81e2 * t247 * t5797;
+  t5807 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t348 * t893 + t5571 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t123 * t2258 - t5578 + t5580 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t24 * (t5618 + t5654 + t5760 + t5800));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2sigmalapl[0] = t8 * t3865 + 0.2e1 * t1767;
+    v4rho2sigmalapl[0] = t5807 * t8 + 0.2e1 * t2263;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2sigmalapl[1] = 0.0e0;
@@ -2652,16 +3935,16 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2sigmalapl[4] = 0.0e0;
 
-  t3872 = t7 * t397 * t784;
-  t3876 = t7 * t401 * t784 / 0.30e2;
-  t3878 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t393 * t784 + t3872 / 0.5e1 - t3876);
+  t5814 = t7 * t443 * t917;
+  t5818 = t7 * t447 * t917 / 0.30e2;
+  t5820 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t439 * t917 + t5814 / 0.5e1 - t5818);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2sigmalapl[5] = t8 * t3878 + 0.2e1 * t1776;
+    v4rho2sigmalapl[5] = t5820 * t8 + 0.2e1 * t2272;
 
-  t3884 = t7 * t426 * t766;
-  t3892 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t422 * t766 + t3884 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t180 * t1762 + t3791 / 0.10e2 - t3798 + t3800 / 0.10e2);
+  t5826 = t7 * t472 * t893;
+  t5834 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t468 * t893 + t5826 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t192 * t2258 + t5571 / 0.10e2 - t5578 + t5580 / 0.10e2);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2sigmalapl[6] = t8 * t3892 + t1767 + t1782;
+    v4rho2sigmalapl[6] = t5834 * t8 + t2263 + t2278;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2sigmalapl[7] = 0.0e0;
@@ -2675,15 +3958,15 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2sigmalapl[10] = 0.0e0;
 
-  t3898 = t7 * t464 * t784;
-  t3905 = t7 * t166 * t1813;
-  t3908 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t460 * t784 + t3898 / 0.10e2 + t3872 / 0.10e2 - t3876 + 0.3e1 / 0.20e2 * t7 * t162 * t1813 + t3905 / 0.10e2);
+  t5840 = t7 * t510 * t917;
+  t5847 = t7 * t178 * t2348;
+  t5850 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t506 * t917 + t5840 / 0.10e2 + t5814 / 0.10e2 - t5818 + 0.3e1 / 0.20e2 * t7 * t174 * t2348 + t5847 / 0.10e2);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2sigmalapl[11] = t8 * t3908 + t1776 + t1818;
+    v4rho2sigmalapl[11] = t5850 * t8 + t2272 + t2353;
 
-  t3916 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t488 * t766 + t3884 / 0.5e1 - t3798);
+  t5858 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t534 * t893 + t5826 / 0.5e1 - t5578);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2sigmalapl[12] = t8 * t3916 + 0.2e1 * t1782;
+    v4rho2sigmalapl[12] = t5858 * t8 + 0.2e1 * t2278;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2sigmalapl[13] = 0.0e0;
@@ -2697,14 +3980,41 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2sigmalapl[16] = 0.0e0;
 
-  t3945 = t249 * t537 * t90;
-  t3951 = t777 * t541;
-  t3971 = 0.12e2 * t1613 * t3729 - 0.24e2 * t1613 * t3945 + 0.6e1 * t1613 * t3951 + 0.12e2 * t1622 * t1798 + 0.2e1 * t1626 * t3729 - 0.36e2 * t1626 * t3945 + t1626 * t3951 + 0.2e1 * t3524 * t1798 + 0.12e2 * t3539 * t1798 - t3528 * t3945 - 0.12e2 * t3542 * t3945 + 0.12e2 * t701 * t3729 + 0.6e1 * t701 * t3951;
-  t3982 = -0.4e1 * t1610 * t1705 - 0.2e1 * t1622 * t1705 - 0.2e1 * t3534 * t777 - t3547 * t777 - 0.2e1 * t694 * t3747 - t701 * t3747 + t3733 - t3740 + t3742 - t3769 + t3772 - t3773 - t3774 + t742;
-  t3984 = my_piecewise3(t86, 0, t3971 + t3982);
-  t3991 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t512 * t784 + t3898 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t196 * t1813 - t3876 + t3905 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t70 * (0.100e3 / 0.243e3 * t1697 - 0.25e2 / 0.81e2 * t1700 + 0.5e1 / 0.54e2 * t30 * t80 * t1477 - 0.440e3 / 0.729e3 * t30 * t523 * t282 + 0.80e2 / 0.243e3 * t30 * t202 * t704 - 0.5e1 / 0.81e2 * t30 * t75 * t1629 + t531 * t782 + 0.2e1 * t210 * t1811 + t85 * t3984));
+  t5871 = t4953 * t5354;
+  t5874 = t4953 * t4418;
+  t5880 = t273 * t231;
+  t5881 = t800 * t1481 * t5880;
+  t5902 = t691 * t2002 * t233;
+  t5905 = -0.25e2 / 0.81e2 * t2119 + 0.25e2 / 0.81e2 * t2126 + 0.4e1 * t719 * t5871 + 0.2e1 * t719 * t5874 + 0.4e1 * t1754 * t2305 + 0.4e1 * t719 * t5881 - 0.6e1 * t1789 * t2305 + t1779 * t5874 + 0.2e1 * t1779 * t5871 + 0.2e1 * t1779 * t5881 - 0.6e1 * t697 * t5871 - 0.6e1 * t697 * t5881 - 0.3e1 * t697 * t5874 + 0.5e1 / 0.54e2 * t303 * t5361 + 0.80e2 / 0.243e3 * t686 * t2297 - 0.5e1 / 0.81e2 * t263 * t5902;
+  t5906 = t309 * t3821;
+  t5908 = t5906 * t273 * t581;
+  t5920 = t1757 * t912;
+  t5922 = t698 * t2337;
+  t5925 = t2308 * t800;
+  t5928 = t904 * t2002;
+  t5930 = t1773 * t912;
+  t5937 = t4452 * t309;
+  t5941 = -0.6e1 * t719 * t5908 - 0.440e3 / 0.729e3 * t1723 * t901 - 0.6e1 * t1779 * t5908 + 0.11e2 * t697 * t5908 + t4388 * t5908 + 0.2e1 * t4441 * t2305 + t697 * t5920 + 0.2e1 * t697 * t5922 + 0.2e1 * t697 * t5925 + t697 * t5928 + t1779 * t5930 + t4470 * t905 + 0.2e1 * t1789 * t2309 + 0.2e1 * t1789 * t2313 + t697 * t5937 + 0.2e1 * t719 * t5930;
+  t5975 = t4480 * t269 * t588;
+  t5988 = t1494 * t269;
+  t5990 = t5988 * t595 * t96;
+  t5992 = -0.18e2 * t1978 * t5975 + 0.6e1 * t1990 * t2319 - 0.2e1 * t1999 * t5436 + 0.6e1 * t1999 * t5975 - t1999 * t5990 - 0.2e1 * t2319 * t5011 + 0.6e1 * t2319 * t5025 + 0.6e1 * t4974 * t5975 - t5018 * t5975 + t5020 * t5975 - 0.7e1 * t5022 * t5975 - 0.11e2 * t5975 * t797;
+  t6018 = -0.2e1 * t1971 * t5436 - t1971 * t5990 - 0.6e1 * t1973 * t2319 + 0.6e1 * t1978 * t5436 + 0.3e1 * t1978 * t5990 - 0.4e1 * t1987 * t2319 - 0.2e1 * t2319 * t4992 - 0.6e1 * t5436 * t788 - 0.4e1 * t5436 * t795 + 0.6e1 * t5436 * t797 - 0.3e1 * t5990 * t788 - 0.2e1 * t5990 * t795 + 0.3e1 * t5990 * t797;
+  t6038 = 0.6e1 * t1971 * t5975 + 0.2e1 * t1973 * t2143 + 0.2e1 * t1987 * t2143 - 0.2e1 * t1990 * t2143 + t4977 * t907 + t4983 * t907 - t4995 * t907 + t5494 * t788 + t5494 * t795 - t5494 * t797 + 0.11e2 * t5975 * t788 + 0.6e1 * t5975 * t795;
+  t6039 = -t5466 + t5469 + t5471 - t5473 - t5484 - t5486 + t5491 + t5492 - t5493 - t858 + t5508 + t5509 - t5510;
+  t6042 = my_piecewise3(t91, 0, t5992 + t6018 + t6038 + t6039);
+  t6046 = -0.3e1 * t697 * t5930 + 0.2e1 * t1789 * t2316 - t719 * t5928 - 0.2e1 * t719 * t5925 - t719 * t5937 - 0.2e1 * t719 * t5922 - t719 * t5920 - t4456 * t905 - 0.2e1 * t1754 * t2313 - 0.2e1 * t1754 * t2309 - 0.2e1 * t1754 * t2316 + 0.100e3 / 0.243e3 * t2115 - 0.25e2 / 0.81e2 * t2123 + t578 * t914 + 0.2e1 * t223 * t2339 + t100 * t55 * t6042 * t233;
+  t6047 = t582 * t4953;
+  t6050 = t310 * t1773;
+  t6059 = t5540 * t2292;
+  t6062 = t2117 * t4943;
+  t6065 = t801 * t698;
+  t6068 = t310 * t1757;
+  t6083 = t5553 * t4953;
+  t6086 = 0.5e1 / 0.27e2 * t266 * t6047 - 0.10e2 / 0.81e2 * t266 * t6050 - 0.5e1 / 0.18e2 * t301 * t5533 + 0.5e1 / 0.27e2 * t301 * t5530 - 0.80e2 / 0.243e3 * t689 * t2300 - 0.5e1 / 0.81e2 * t266 * t6059 - 0.10e2 / 0.81e2 * t266 * t6062 + 0.10e2 / 0.81e2 * t266 * t6065 + 0.5e1 / 0.81e2 * t266 * t6068 + 0.5e1 / 0.54e2 * t301 * t5541 + 0.5e1 / 0.27e2 * t301 * t5544 - 0.5e1 / 0.27e2 * t301 * t5547 - 0.5e1 / 0.54e2 * t301 * t5550 + 0.80e2 / 0.243e3 * t689 * t2293 + 0.5e1 / 0.54e2 * t301 * t5554 - 0.5e1 / 0.81e2 * t266 * t6083;
+  t6093 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t558 * t917 + t5840 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t208 * t2348 - t5818 + t5847 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t74 * (t5905 + t5941 + t6046 + t6086));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2sigmalapl[17] = t8 * t3991 + 0.2e1 * t1818;
+    v4rho2sigmalapl[17] = t6093 * t8 + 0.2e1 * t2353;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2sigmatau[0] = 0.0e0;
@@ -2760,62 +4070,97 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2sigmatau[17] = 0.0e0;
 
-  t3998 = t7 * t323 * t801;
-  t4005 = t7 * t332 * t801 / 0.30e2;
-  t4007 = t7 * t121 * t1846;
-  t4021 = t656 * t656;
-  t4025 = t50 * t1521;
-  t4030 = t2162 * t792;
-  t4039 = t2179 * t792;
-  t4041 = t575 * t656;
-  t4044 = -0.4e1 * t354 * t4021 * t50 - 0.2e1 * t363 * t4021 * t50 - 0.36e2 * t1841 * t1350 - 0.12e2 * t4030 * t1350 - t4039 * t1350 + 0.4e1 * t1528 * t4041 + 0.6e1 * t1836 * t923 + t1841 * t923 - 0.4e1 * t652 * t4025 - 0.2e1 * t659 * t4025 + 0.6e1 * t796 * t923;
-  t4051 = -0.24e2 * t1836 * t1350 + 0.24e2 * t1515 * t4041 + 0.24e2 * t659 * t4041 - t3617 + t3620 - t3621 + t3623 + t3637 - t3644 - t3645 + t722;
-  t4053 = my_piecewise3(t46, 0, t4044 + t4051);
-  t4060 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t319 * t801 + t3998 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t116 * t1846 - t4005 + t4007 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t24 * (0.200e3 / 0.243e3 * t1741 - 0.50e2 / 0.81e2 * t1744 + 0.5e1 / 0.27e2 * t30 * t40 * t1531 + t349 * t799 + 0.2e1 * t135 * t1844 + t45 * t4053));
+  t6100 = t7 * t352 * t942;
+  t6107 = t7 * t361 * t942 / 0.30e2;
+  t6109 = t7 * t128 * t2413;
+  t6116 = t2038 * t291 * t752;
+  t6123 = t924 * t1076;
+  t6124 = t6123 * t408;
+  t6129 = t1832 * t935;
+  t6131 = t638 * t2403;
+  t6136 = -0.50e2 / 0.81e2 * t2205 + 0.50e2 / 0.81e2 * t2212 + 0.5e1 / 0.27e2 * t285 * t5597 + 0.4e1 * t1630 * t6116 - 0.12e2 * t637 * t6116 + 0.8e1 * t659 * t6116 - 0.3e1 * t637 * t6124 - 0.2e1 * t1567 * t2377 + t637 * t6129 + 0.2e1 * t637 * t6131 + 0.4e1 * t1640 * t2371;
+  t6140 = t2203 * t1871;
+  t6143 = t1622 * t935;
+  t6145 = t5147 * t924;
+  t6159 = t1630 * t6124 + t1630 * t6143 - 0.6e1 * t1630 * t6145 - 0.6e1 * t1640 * t2369 + 0.2e1 * t1640 * t2377 + 0.2e1 * t2369 * t4154 + t4196 * t6145 + 0.2e1 * t6140 * t637 - 0.3e1 * t6143 * t637 + 0.2e1 * t6143 * t659 + 0.11e2 * t6145 * t637;
+  t6177 = t752 * t752;
+  t6182 = -0.6e1 * t659 * t6145 - 0.4e1 * t1567 * t2371 + 0.4e1 * t1567 * t2369 - 0.2e1 * t659 * t6140 + 0.2e1 * t659 * t6124 - 0.2e1 * t659 * t6131 - t659 * t6129 + 0.200e3 / 0.243e3 * t2201 - 0.50e2 / 0.81e2 * t2209 + t379 * t926 + 0.2e1 * t57 * t383 * t6177 * t387;
+  t6189 = t1576 * t146 * t743;
+  t6202 = t642 * t1852;
+  t6229 = -0.4e1 * t1840 * t6189 + 0.12e2 * t1847 * t6189 - 0.4e1 * t1868 * t6189 - t2379 * t2997 + 0.6e1 * t2379 * t5201 - 0.3e1 * t2384 * t2997 + 0.11e2 * t2384 * t5201 + 0.3e1 * t2387 * t2997 - 0.2e1 * t2392 * t2997 + 0.6e1 * t2392 * t5201 + 0.3e1 * t2395 * t2997 - 0.11e2 * t2395 * t5201 - t2400 * t2997 + 0.6e1 * t2400 * t5201 - 0.12e2 * t6189 * t740 - 0.8e1 * t6189 * t747 + 0.12e2 * t6189 * t749 + 0.2e1 * t6202 * t740 + 0.2e1 * t6202 * t747 - 0.2e1 * t6202 * t749;
+  t6230 = t2969 * t928;
+  t6232 = t2971 * t928;
+  t6234 = t2973 * t928;
+  t6239 = t2978 * t928;
+  t6243 = t743 * t743;
+  t6245 = t6243 * t393 * t52;
+  t6252 = 0.2e1 * t144 * t6245 + 0.2e1 * t390 * t6245 - 0.2e1 * t405 * t6245 - t5231 + t5245 + t5246 - t5247 + t5262 + t5263 - t5264 - t827;
+  t6255 = my_piecewise3(t47, 0, -0.18e2 * t2387 * t5201 - t5201 * t6230 + t5201 * t6232 - 0.7e1 * t5201 * t6234 + 0.6e1 * t5201 * t6239 - t5212 + t5215 + t5217 - t5219 - t5229 + t6229 + t6252);
+  t6276 = -0.2e1 * t57 * t55 * t6177 * t387 - t379 * t940 + t57 * t55 * t6255 * t153 + t379 * t937 + 0.2e1 * t143 * t2405 - 0.5e1 / 0.9e1 * t283 * t5788 + 0.10e2 / 0.27e2 * t283 * t5783 + 0.5e1 / 0.27e2 * t283 * t5771 + 0.10e2 / 0.27e2 * t283 * t5774 - 0.10e2 / 0.27e2 * t283 * t5777 - 0.5e1 / 0.27e2 * t283 * t5780 + 0.5e1 / 0.27e2 * t283 * t5797;
+  t6283 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t348 * t942 + t6100 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t123 * t2413 - t6107 + t6109 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t24 * (t6136 + t6159 + t6182 + t6276));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2lapl2[0] = t8 * t4060 + 0.2e1 * t1851;
+    v4rho2lapl2[0] = t6283 * t8 + 0.2e1 * t2418;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2lapl2[1] = 0.0e0;
 
-  t4067 = t7 * t397 * t818;
-  t4071 = t7 * t401 * t818 / 0.30e2;
-  t4073 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t393 * t818 + t4067 / 0.5e1 - t4071);
+  t6290 = t7 * t443 * t967;
+  t6294 = t7 * t447 * t967 / 0.30e2;
+  t6296 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t439 * t967 + t6290 / 0.5e1 - t6294);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2lapl2[2] = t8 * t4073 + 0.2e1 * t1860;
+    v4rho2lapl2[2] = t6296 * t8 + 0.2e1 * t2427;
 
-  t4079 = t7 * t426 * t801;
-  t4087 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t422 * t801 + t4079 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t180 * t1846 + t3998 / 0.10e2 - t4005 + t4007 / 0.10e2);
+  t6302 = t7 * t472 * t942;
+  t6310 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t468 * t942 + t6302 / 0.10e2 + 0.3e1 / 0.20e2 * t7 * t192 * t2413 + t6100 / 0.10e2 - t6107 + t6109 / 0.10e2);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2lapl2[3] = t8 * t4087 + t1851 + t1866;
+    v4rho2lapl2[3] = t6310 * t8 + t2418 + t2433;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2lapl2[4] = 0.0e0;
 
-  t4093 = t7 * t464 * t818;
-  t4100 = t7 * t166 * t1891;
-  t4103 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t460 * t818 + t4093 / 0.10e2 + t4067 / 0.10e2 - t4071 + 0.3e1 / 0.20e2 * t7 * t162 * t1891 + t4100 / 0.10e2);
+  t6316 = t7 * t510 * t967;
+  t6323 = t7 * t178 * t2490;
+  t6326 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t506 * t967 + t6316 / 0.10e2 + t6290 / 0.10e2 - t6294 + 0.3e1 / 0.20e2 * t7 * t174 * t2490 + t6323 / 0.10e2);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2lapl2[5] = t8 * t4103 + t1860 + t1896;
+    v4rho2lapl2[5] = t6326 * t8 + t2427 + t2495;
 
-  t4111 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t488 * t801 + t4079 / 0.5e1 - t4005);
+  t6334 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t534 * t942 + t6302 / 0.5e1 - t6107);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2lapl2[6] = t8 * t4111 + 0.2e1 * t1866;
+    v4rho2lapl2[6] = t6334 * t8 + 0.2e1 * t2433;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2lapl2[7] = 0.0e0;
 
-  t4132 = t698 * t698;
-  t4136 = t90 * t1619;
-  t4141 = t2905 * t809;
-  t4150 = t2922 * t809;
-  t4156 = -0.4e1 * t536 * t4132 * t90 - 0.2e1 * t545 * t4132 * t90 + 0.6e1 * t1881 * t1291 + t1886 * t1291 + 0.6e1 * t813 * t1291 - 0.24e2 * t1881 * t1455 - 0.36e2 * t1886 * t1455 - 0.12e2 * t4141 * t1455 - t4150 * t1455 - 0.4e1 * t694 * t4136 - 0.2e1 * t701 * t4136;
-  t4157 = t622 * t698;
-  t4164 = 0.24e2 * t1613 * t4157 + 0.4e1 * t1626 * t4157 + 0.24e2 * t701 * t4157 + t3733 - t3740 + t3742 - t3769 + t3772 - t3773 - t3774 + t742;
-  t4166 = my_piecewise3(t86, 0, t4156 + t4164);
-  t4173 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t512 * t818 + t4093 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t196 * t1891 - t4071 + t4100 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t70 * (0.200e3 / 0.243e3 * t1792 - 0.50e2 / 0.81e2 * t1795 + 0.5e1 / 0.27e2 * t30 * t80 * t1629 + t531 * t816 + 0.2e1 * t210 * t1889 + t85 * t4166));
+  t6348 = t4953 * t800 * t231;
+  t6357 = t960 * t1481;
+  t6358 = t6357 * t581;
+  t6361 = t949 * t3821;
+  t6362 = t6361 * t581;
+  t6371 = -0.50e2 / 0.81e2 * t2294 + 0.50e2 / 0.81e2 * t2301 + 0.8e1 * t719 * t6348 + 0.5e1 / 0.27e2 * t303 * t5902 + 0.4e1 * t1779 * t6348 - 0.12e2 * t697 * t6348 + 0.2e1 * t719 * t6358 - 0.6e1 * t719 * t6362 + 0.11e2 * t697 * t6362 - 0.3e1 * t697 * t6358 - 0.6e1 * t1779 * t6362;
+  t6372 = t2292 * t2002;
+  t6375 = t949 * t1481;
+  t6376 = t6375 * t605;
+  t6392 = t960 * t584;
+  t6393 = t6392 * t605;
+  t6395 = t1779 * t6358 + t1779 * t6376 - 0.6e1 * t1789 * t2446 + 0.4e1 * t1789 * t2448 + 0.2e1 * t1789 * t2454 + 0.2e1 * t2446 * t4441 + t4388 * t6362 + 0.2e1 * t6372 * t697 - 0.3e1 * t6376 * t697 + 0.2e1 * t6376 * t719 - t6393 * t719;
+  t6404 = t2480 * t584 * t231;
+  t6414 = t800 * t800;
+  t6420 = -0.4e1 * t1754 * t2448 + 0.4e1 * t1754 * t2446 - 0.2e1 * t719 * t6372 - 0.2e1 * t719 * t6404 - 0.2e1 * t1754 * t2454 + t697 * t6393 + 0.2e1 * t697 * t6404 + 0.200e3 / 0.243e3 * t2290 - 0.50e2 / 0.81e2 * t2298 + 0.2e1 * t100 * t383 * t6414 * t584 - t578 * t965;
+  t6422 = t1711 * t791 * t226;
+  t6437 = t702 * t1983;
+  t6448 = t3893 * t953;
+  t6450 = t3873 * t953;
+  t6452 = t3876 * t953;
+  t6457 = t3881 * t953;
+  t6464 = -0.4e1 * t1971 * t6422 + 0.12e2 * t1978 * t6422 - 0.4e1 * t1999 * t6422 - t2456 * t3830 + 0.6e1 * t2456 * t5450 - 0.3e1 * t2461 * t3830 - 0.18e2 * t2464 * t5450 + 0.3e1 * t2472 * t3830 - 0.11e2 * t2472 * t5450 - t2477 * t3830 + 0.6e1 * t2477 * t5450 - t5450 * t6448 + t5450 * t6450 - 0.7e1 * t5450 * t6452 + 0.6e1 * t5450 * t6457 - 0.12e2 * t6422 * t788 - 0.8e1 * t6422 * t795 + 0.12e2 * t6422 * t797 + 0.2e1 * t6437 * t788 - 0.2e1 * t6437 * t797;
+  t6476 = t791 * t791;
+  t6478 = t6476 * t590 * t96;
+  t6485 = 0.2e1 * t224 * t6478 + 0.2e1 * t587 * t6478 - 0.2e1 * t602 * t6478 - t5486 + t5491 + t5492 - t5493 + t5508 + t5509 - t5510 - t858;
+  t6488 = my_piecewise3(t91, 0, 0.11e2 * t2461 * t5450 + 0.3e1 * t2464 * t3830 - 0.2e1 * t2469 * t3830 + 0.6e1 * t2469 * t5450 + 0.2e1 * t6437 * t795 - t5466 + t5469 + t5471 - t5473 - t5484 + t6464 + t6485);
+  t6514 = t100 * t55 * t6488 * t233 + t578 * t962 + 0.2e1 * t223 * t2482 + t578 * t951 - 0.2e1 * t100 * t55 * t6414 * t584 - 0.5e1 / 0.9e1 * t301 * t6047 + 0.10e2 / 0.27e2 * t301 * t6050 + 0.5e1 / 0.27e2 * t301 * t6059 + 0.10e2 / 0.27e2 * t301 * t6062 - 0.10e2 / 0.27e2 * t301 * t6065 - 0.5e1 / 0.27e2 * t301 * t6068 + 0.5e1 / 0.27e2 * t301 * t6083;
+  t6521 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t558 * t967 + t6316 / 0.5e1 + 0.3e1 / 0.10e2 * t7 * t208 * t2490 - t6294 + t6323 / 0.5e1 + 0.3e1 / 0.20e2 * t7 * t74 * (t6371 + t6395 + t6420 + t6514));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho2lapl2[8] = t8 * t4173 + 0.2e1 * t1896;
+    v4rho2lapl2[8] = t6521 * t8 + 0.2e1 * t2495;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2lapltau[0] = 0.0e0;
@@ -2880,18 +4225,46 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho2tau2[8] = 0.0e0;
 
-  t4180 = t7 * t121 * t1918 / 0.10e2;
-  t4194 = t1905 * t139;
-  t4195 = t582 * t4194;
-  t4197 = t1353 * t1905;
-  t4199 = t1356 * t4194;
-  t4206 = t1662 * t1653;
-  t4208 = t3622 * t1747;
-  t4214 = -0.12e2 * t2162 * t1901 * t575 - t2179 * t1901 * t575 + 0.18e2 * t1656 * t1653 + 0.3e1 * t1666 * t1653 + 0.18e2 * t723 * t1653 - 0.24e2 * t1908 * t575 - 0.36e2 * t1913 * t575 - t1661 - t1663 - t1907 - t1912 + 0.18e2 * t4195 - 0.6e1 * t4197 + 0.18e2 * t4199 - 0.3e1 * t4206 + 0.3e1 * t4208 + t722;
-  t4215 = my_piecewise3(t46, 0, t4214);
-  t4222 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t116 * t1918 + t4180 + 0.3e1 / 0.20e2 * t7 * t24 * (0.40e2 / 0.81e2 * t30 * t127 * t726 - 0.5e1 / 0.27e2 * t30 * t35 * t1669 + t135 * t1916 + t45 * t4215));
+  t6528 = t7 * t128 * t2550 / 0.10e2;
+  t6529 = t254 * t831;
+  t6530 = t2038 * t6529;
+  t6540 = t631 * t2080 * t153;
+  t6547 = t2630 * t655;
+  t6550 = t2508 * t3042;
+  t6551 = t6550 * t151;
+  t6554 = t2540 * t387;
+  t6555 = t6554 * t151;
+  t6559 = t5116 * t254;
+  t6562 = t2633 * t655;
+  t6573 = 0.3e1 * t1630 * t6530 + 0.40e2 / 0.81e2 * t626 * t2498 + 0.40e2 / 0.81e2 * t626 * t2502 - 0.40e2 / 0.81e2 * t626 * t2505 - 0.5e1 / 0.27e2 * t244 * t6540 - 0.9e1 * t637 * t6530 + 0.6e1 * t659 * t6530 + 0.6e1 * t659 * t6547 - 0.6e1 * t659 * t6551 - t659 * t6555 - 0.3e1 * t1567 * t2512 - 0.3e1 * t659 * t6559 - 0.3e1 * t659 * t6562 + 0.3e1 * t637 * t6559 - 0.9e1 * t637 * t6547 + 0.11e2 * t637 * t6551 + 0.3e1 * t1630 * t6547;
+  t6583 = t1576 * t824 * t146;
+  t6584 = t1575 * t6583;
+  t6586 = t1584 * t6583;
+  t6588 = t2065 * t2229;
+  t6590 = t5218 * t2229;
+  t6592 = t641 * t6583;
+  t6594 = t2063 * t2229;
+  t6597 = t2961 * t146;
+  t6598 = t6597 * t52;
+  t6614 = t2063 * t2052;
+  t6616 = t2065 * t2052;
+  t6618 = t1576 * t646;
+  t6624 = -0.18e2 * t1099 * t2519 * t6598 + 0.6e1 * t1119 * t2519 * t6598 + 0.6e1 * t144 * t2519 * t6598 - t2519 * t2969 * t6598 + t2519 * t2971 * t6598 - 0.7e1 * t2519 * t2973 * t6598 - 0.11e2 * t2519 * t405 * t6598 - 0.6e1 * t2069 * t6618 - 0.3e1 * t6584 + 0.9e1 * t6586 + 0.9e1 * t6588 - 0.3e1 * t6590 - 0.9e1 * t6592 - 0.6e1 * t6594 + 0.3e1 * t6614 - 0.3e1 * t6616;
+  t6634 = t1579 * t2523;
+  t6646 = 0.6e1 * t1086 * t2519 * t6598 + 0.6e1 * t2519 * t2978 * t6598 + 0.11e2 * t2519 * t390 * t6598 - 0.3e1 * t2049 * t6618 - 0.9e1 * t2055 * t6618 + 0.9e1 * t2058 * t6618 + 0.9e1 * t2072 * t6618 - 0.3e1 * t2077 * t6618 + t2062 + t2064 - t2066 + t2525 + t2531 - t2533 + 0.3e1 * t6634 - t827;
+  t6648 = my_piecewise3(t47, 0, t6624 + t6646);
+  t6658 = t1072 * t151;
+  t6659 = t6658 * t2630;
+  t6662 = t2026 * t2633;
+  t6665 = t2619 * t1561;
+  t6668 = t817 * t2038;
+  t6671 = t832 * t638;
+  t6674 = t255 * t1561;
+  t6677 = t835 * t2038;
+  t6680 = -0.6e1 * t1630 * t6551 + 0.3e1 * t1640 * t2512 + 0.3e1 * t637 * t6562 + t4196 * t6551 + t637 * t6555 + t57 * t55 * t6648 * t153 + t143 * t2510 + 0.2e1 * t143 * t2547 - 0.3e1 * t143 * t2516 + t143 * t2542 - 0.5e1 / 0.27e2 * t247 * t6659 - 0.5e1 / 0.27e2 * t247 * t6662 - 0.10e2 / 0.27e2 * t247 * t6665 + 0.5e1 / 0.9e1 * t247 * t6668 + 0.5e1 / 0.27e2 * t247 * t6671 + 0.10e2 / 0.27e2 * t247 * t6674 - 0.10e2 / 0.27e2 * t247 * t6677;
+  t6686 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t123 * t2550 + t6528 + 0.3e1 / 0.20e2 * t7 * t24 * (t6573 + t6680));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rhosigma3[0] = t8 * t4222 + t1922;
+    v4rhosigma3[0] = t6686 * t8 + t2554;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigma3[1] = 0.0e0;
@@ -2917,14 +4290,14 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigma3[8] = 0.0e0;
 
-  t4229 = t7 * t166 * t1943 / 0.10e2;
-  t4231 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t162 * t1943 + t4229);
+  t6693 = t7 * t178 * t2608 / 0.10e2;
+  t6695 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t174 * t2608 + t6693);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rhosigma3[9] = t8 * t4231 + t1947;
+    v4rhosigma3[9] = t6695 * t8 + t2612;
 
-  t4237 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t180 * t1918 + t4180);
+  t6701 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t192 * t2550 + t6528);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rhosigma3[10] = t8 * t4237 + t1922;
+    v4rhosigma3[10] = t6701 * t8 + t2554;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigma3[11] = 0.0e0;
@@ -2950,32 +4323,91 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigma3[18] = 0.0e0;
 
-  t4255 = t1930 * t214;
-  t4256 = t629 * t4255;
-  t4258 = t1458 * t1930;
-  t4260 = t1461 * t4255;
-  t4267 = t1714 * t1705;
-  t4269 = t3741 * t1798;
-  t4275 = -0.12e2 * t2905 * t1926 * t622 - t2922 * t1926 * t622 + 0.18e2 * t1708 * t1705 + 0.3e1 * t1718 * t1705 + 0.18e2 * t743 * t1705 - 0.24e2 * t1933 * t622 - 0.36e2 * t1938 * t622 - t1713 - t1715 - t1932 - t1937 + 0.18e2 * t4256 - 0.6e1 * t4258 + 0.18e2 * t4260 - 0.3e1 * t4267 + 0.3e1 * t4269 + t742;
-  t4276 = my_piecewise3(t86, 0, t4275);
-  t4283 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t196 * t1943 + t4229 + 0.3e1 / 0.20e2 * t7 * t70 * (0.40e2 / 0.81e2 * t30 * t202 * t746 - 0.5e1 / 0.27e2 * t30 * t75 * t1721 + t210 * t1941 + t85 * t4276));
+  t6706 = t273 * t862;
+  t6707 = t2129 * t6706;
+  t6719 = t691 * t2171 * t233;
+  t6724 = t2693 * t715;
+  t6727 = t2690 * t715;
+  t6731 = t2566 * t3821 * t231;
+  t6734 = t2598 * t584;
+  t6735 = t6734 * t231;
+  t6739 = t2171 * t584;
+  t6740 = t6739 * t273;
+  t6751 = 0.3e1 * t1779 * t6707 + 0.40e2 / 0.81e2 * t686 * t2556 + 0.40e2 / 0.81e2 * t686 * t2560 - 0.40e2 / 0.81e2 * t686 * t2563 + 0.6e1 * t719 * t6707 - 0.5e1 / 0.27e2 * t263 * t6719 - 0.9e1 * t697 * t6707 - 0.3e1 * t719 * t6724 + 0.6e1 * t719 * t6727 - 0.6e1 * t719 * t6731 - t719 * t6735 - 0.3e1 * t1754 * t2570 - 0.3e1 * t719 * t6740 + 0.3e1 * t1789 * t2570 + 0.3e1 * t697 * t6724 + 0.3e1 * t697 * t6740 - 0.9e1 * t697 * t6727;
+  t6767 = t1711 * t855 * t226;
+  t6768 = t1710 * t6767;
+  t6770 = t1719 * t6767;
+  t6772 = t2156 * t2319;
+  t6774 = t5472 * t2319;
+  t6776 = t701 * t6767;
+  t6778 = t2154 * t2319;
+  t6781 = t4480 * t226;
+  t6784 = t1714 * t2581;
+  t6786 = t1711 * t706;
+  t6808 = 0.6e1 * t1491 * t2577 * t6781 - 0.18e2 * t1504 * t2577 * t6781 + 0.6e1 * t1524 * t2577 * t6781 + t2577 * t3873 * t6781 - 0.7e1 * t2577 * t3876 * t6781 - t2577 * t3893 * t6781 + 0.11e2 * t2577 * t587 * t6781 - 0.11e2 * t2577 * t602 * t6781 - 0.9e1 * t2146 * t6786 - 0.3e1 * t6768 + 0.9e1 * t6770 + 0.9e1 * t6772 - 0.3e1 * t6774 - 0.9e1 * t6776 - 0.6e1 * t6778 + 0.3e1 * t6784;
+  t6814 = t2154 * t2143;
+  t6816 = t2156 * t2143;
+  t6829 = 0.6e1 * t224 * t2577 * t6781 + 0.6e1 * t2577 * t3881 * t6781 - 0.3e1 * t2140 * t6786 + 0.9e1 * t2149 * t6786 - 0.6e1 * t2160 * t6786 + 0.9e1 * t2163 * t6786 - 0.3e1 * t2168 * t6786 + t2153 + t2155 - t2157 + t2583 + t2589 - t2591 + 0.3e1 * t6814 - 0.3e1 * t6816 - t858;
+  t6831 = my_piecewise3(t91, 0, t6808 + t6829);
+  t6835 = t1072 * t231;
+  t6836 = t6835 * t2690;
+  t6839 = t2117 * t2693;
+  t6842 = t2679 * t2308;
+  t6845 = t848 * t2129;
+  t6848 = t863 * t698;
+  t6851 = t274 * t2308;
+  t6854 = t866 * t2129;
+  t6857 = 0.11e2 * t697 * t6731 + 0.3e1 * t1779 * t6727 - 0.6e1 * t1779 * t6731 + t4388 * t6731 + t697 * t6735 + t223 * t2568 + 0.2e1 * t223 * t2605 - 0.3e1 * t223 * t2574 + t223 * t2600 + t100 * t55 * t6831 * t233 - 0.5e1 / 0.27e2 * t266 * t6836 - 0.5e1 / 0.27e2 * t266 * t6839 - 0.10e2 / 0.27e2 * t266 * t6842 + 0.5e1 / 0.9e1 * t266 * t6845 + 0.5e1 / 0.27e2 * t266 * t6848 + 0.10e2 / 0.27e2 * t266 * t6851 - 0.10e2 / 0.27e2 * t266 * t6854;
+  t6863 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t208 * t2608 + t6693 + 0.3e1 / 0.20e2 * t7 * t74 * (t6751 + t6857));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rhosigma3[19] = t8 * t4283 + t1947;
+    v4rhosigma3[19] = t6863 * t8 + t2612;
 
-  t4290 = t7 * t121 * t1968 / 0.10e2;
-  t4306 = t1512 * t1905;
-  t4308 = t1524 * t1905;
-  t4310 = t1528 * t4194;
-  t4311 = t759 * t579;
-  t4315 = t716 * t139 * t50;
-  t4327 = 0.12e2 * t1515 * t4311 - 0.24e2 * t1515 * t4315 + 0.6e1 * t1524 * t1954 + 0.2e1 * t1528 * t4311 - 0.36e2 * t1528 * t4315 + 0.6e1 * t3344 * t1954 + t3357 * t1954 - 0.12e2 * t3347 * t4315 - t3361 * t4315 + 0.12e2 * t659 * t4311 - 0.2e1 * t4306 - t4308 + t4310;
-  t4328 = t659 * t4194;
-  t4330 = t1515 * t4194;
-  t4337 = 0.6e1 * t4328 + 0.6e1 * t4330 - 0.4e1 * t4197 - 0.2e1 * t4206 + 0.12e2 * t4195 + 0.12e2 * t4199 + 0.2e1 * t4208 - t1957 - t1962 - t1961 - t1963 - t1661 - t1663 + t722;
-  t4339 = my_piecewise3(t46, 0, t4327 + t4337);
-  t4346 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t116 * t1968 + t4290 + 0.3e1 / 0.20e2 * t7 * t24 * (-0.25e2 / 0.162e3 * t1899 + 0.5e1 / 0.54e2 * t30 * t40 * t1669 + 0.80e2 / 0.243e3 * t30 * t127 * t764 - 0.10e2 / 0.81e2 * t30 * t35 * t1760 + t135 * t1966 + t45 * t4339));
+  t6870 = t7 * t128 * t2668 / 0.10e2;
+  t6871 = t151 * t3042;
+  t6873 = t6871 * t816 * t291;
+  t6876 = t2038 * t831 * t291;
+  t6881 = t254 * t151;
+  t6882 = t888 * t1076 * t6881;
+  t6888 = t4656 * t254 * t655;
+  t6896 = t631 * t2247 * t153;
+  t6909 = t4196 * t6873 + t1630 * t6876 + 0.80e2 / 0.243e3 * t626 * t2624 + 0.4e1 * t659 * t6882 - 0.6e1 * t659 * t6873 + 0.4e1 * t659 * t6888 + 0.2e1 * t659 * t6876 + 0.5e1 / 0.54e2 * t285 * t6540 - 0.10e2 / 0.81e2 * t244 * t6896 + 0.2e1 * t1630 * t6888 - 0.6e1 * t1630 * t6873 - 0.3e1 * t637 * t6876 - 0.6e1 * t637 * t6888 + 0.11e2 * t637 * t6873;
+  t6915 = t2659 * t387 * t151;
+  t6920 = t2247 * t387 * t254;
+  t6925 = t1561 * t888;
+  t6931 = t2630 * t752;
+  t6934 = t5116 * t291;
+  t6936 = t2633 * t752;
+  t6942 = -0.2e1 * t1567 * t2638 + 0.2e1 * t1630 * t6882 + t1630 * t6931 - 0.3e1 * t1640 * t2631 + t1640 * t2634 + 0.2e1 * t1640 * t2638 + t2631 * t4154 - 0.6e1 * t637 * t6882 + 0.2e1 * t637 * t6920 + 0.2e1 * t637 * t6925 - 0.3e1 * t637 * t6931 + t637 * t6934 + t637 * t6936 - t659 * t6915 - 0.2e1 * t659 * t6920;
+  t6955 = t6658 * t2743 * t291;
+  t6959 = t292 * t2743 * t151;
+  t6963 = t2619 * t4656 * t151;
+  t6969 = t1840 * t6583;
+  t6970 = t1847 * t6583;
+  t6973 = t6597 * t52 * t820;
+  t6978 = t749 * t6583;
+  t6980 = t1868 * t6583;
+  t6983 = t1089 * t250 * t52 * t646;
+  t6986 = t747 * t6583;
+  t6996 = 0.6e1 * t1840 * t6973 - 0.2e1 * t1840 * t6983 + 0.6e1 * t1868 * t6973 - 0.2e1 * t1868 * t6983 + 0.11e2 * t6973 * t740 - 0.11e2 * t6973 * t749 + 0.6e1 * t6983 * t749 - t6969 + 0.3e1 * t6970 + 0.3e1 * t6978 - t6980 - 0.2e1 * t6986;
+  t7001 = t740 * t6583;
+  t7018 = -0.18e2 * t1847 * t6973 + 0.6e1 * t1847 * t6983 + 0.6e1 * t4712 * t6973 - t4724 * t6973 + t4726 * t6973 - 0.7e1 * t4728 * t6973 + 0.6e1 * t6973 * t747 - 0.6e1 * t6983 * t740 - 0.4e1 * t6983 * t747 - 0.2e1 * t6584 + 0.6e1 * t6586 + 0.6e1 * t6588 - 0.3e1 * t7001;
+  t7023 = t1842 * t2523;
+  t7028 = t1856 * t2523;
+  t7029 = t1859 * t2523;
+  t7036 = -0.3e1 * t1842 * t2641 - 0.2e1 * t1856 * t2641 + 0.3e1 * t1859 * t2641 - t2641 * t4688 - t2641 * t4717 + 0.3e1 * t2641 * t4731 - 0.2e1 * t6590 - 0.6e1 * t6592 - 0.4e1 * t6594 + t7023 + t7028 - t7029;
+  t7040 = 0.2e1 * t6614 - 0.2e1 * t6616 + 0.2e1 * t6634 - t827 + t2648 + t2655 - t2656 + t2643 + t2649 - t2650 + t2062 + t2064 - t2066;
+  t7043 = my_piecewise3(t47, 0, t6996 + t7018 + t7036 + t7040);
+  t7048 = t637 * t6915 - 0.2e1 * t659 * t6925 + 0.2e1 * t1567 * t2631 + 0.2e1 * t659 * t6931 - t1567 * t2634 - t659 * t6936 - t659 * t6934 - 0.10e2 / 0.81e2 * t247 * t6955 - 0.20e2 / 0.81e2 * t247 * t6959 + 0.10e2 / 0.27e2 * t247 * t6963 - 0.25e2 / 0.162e3 * t2499 - 0.25e2 / 0.162e3 * t2503 + 0.25e2 / 0.162e3 * t2506 + t57 * t55 * t7043 * t153 + t143 * t2661;
+  t7057 = t2026 * t5669;
+  t7065 = t383 * t655 * t2203;
+  t7068 = t2619 * t4626;
+  t7071 = t889 * t638;
+  t7074 = t753 * t880;
+  t7077 = t292 * t1561;
+  t7086 = 0.80e2 / 0.243e3 * t629 * t2620 - 0.80e2 / 0.243e3 * t629 * t2627 + 0.5e1 / 0.54e2 * t283 * t6659 + 0.5e1 / 0.54e2 * t283 * t6662 - 0.10e2 / 0.81e2 * t247 * t7057 - 0.5e1 / 0.27e2 * t283 * t6674 + 0.5e1 / 0.27e2 * t283 * t6677 - 0.10e2 / 0.81e2 * t247 * t7065 - 0.10e2 / 0.81e2 * t247 * t7068 + 0.10e2 / 0.81e2 * t247 * t7071 + 0.10e2 / 0.81e2 * t247 * t7074 + 0.10e2 / 0.81e2 * t247 * t7077 + 0.5e1 / 0.27e2 * t283 * t6665 - 0.5e1 / 0.18e2 * t283 * t6668 - 0.5e1 / 0.54e2 * t283 * t6671;
+  t7093 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t123 * t2668 + t6870 + 0.3e1 / 0.20e2 * t7 * t24 * (t6909 + t6942 + t7048 + t7086));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rhosigma2lapl[0] = t8 * t4346 + t1972;
+    v4rhosigma2lapl[0] = t7093 * t8 + t2672;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigma2lapl[1] = 0.0e0;
@@ -3007,14 +4439,14 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigma2lapl[10] = 0.0e0;
 
-  t4353 = t7 * t166 * t1993 / 0.10e2;
-  t4355 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t162 * t1993 + t4353);
+  t7100 = t7 * t178 * t2728 / 0.10e2;
+  t7102 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t174 * t2728 + t7100);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rhosigma2lapl[11] = t8 * t4355 + t1997;
+    v4rhosigma2lapl[11] = t7102 * t8 + t2732;
 
-  t4361 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t180 * t1968 + t4290);
+  t7108 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t192 * t2668 + t6870);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rhosigma2lapl[12] = t8 * t4361 + t1972;
+    v4rhosigma2lapl[12] = t7108 * t8 + t2672;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigma2lapl[13] = 0.0e0;
@@ -3046,19 +4478,50 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigma2lapl[22] = 0.0e0;
 
-  t4377 = t1622 * t1930;
-  t4383 = t1610 * t1930;
-  t4386 = t736 * t214 * t90;
-  t4390 = t777 * t626;
-  t4399 = t701 * t4255;
-  t4401 = t1613 * t4255;
-  t4403 = -0.24e2 * t1613 * t4386 + 0.12e2 * t1613 * t4390 + 0.6e1 * t1622 * t1979 - 0.36e2 * t1626 * t4386 + t3524 * t1979 + 0.6e1 * t3539 * t1979 - t3528 * t4386 - 0.12e2 * t3542 * t4386 + 0.12e2 * t701 * t4390 - t4377 - 0.2e1 * t4383 + 0.6e1 * t4399 + 0.6e1 * t4401;
-  t4404 = t1626 * t4255;
-  t4412 = 0.2e1 * t1626 * t4390 - t1713 - t1715 - t1982 - t1986 - t1987 - t1988 + 0.12e2 * t4256 - 0.4e1 * t4258 + 0.12e2 * t4260 - 0.2e1 * t4267 + 0.2e1 * t4269 + t4404 + t742;
-  t4414 = my_piecewise3(t86, 0, t4403 + t4412);
-  t4421 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t196 * t1993 + t4353 + 0.3e1 / 0.20e2 * t7 * t70 * (-0.25e2 / 0.162e3 * t1924 + 0.5e1 / 0.54e2 * t30 * t80 * t1721 + 0.80e2 / 0.243e3 * t30 * t202 * t782 - 0.10e2 / 0.81e2 * t30 * t75 * t1811 + t210 * t1991 + t85 * t4414));
+  t7116 = t4953 * t273 * t715;
+  t7120 = t4953 * t862 * t231;
+  t7124 = t912 * t1481 * t5880;
+  t7128 = t5906 * t847 * t231;
+  t7146 = t691 * t2337 * t233;
+  t7150 = 0.80e2 / 0.243e3 * t686 * t2684 + 0.4e1 * t719 * t7116 + 0.2e1 * t719 * t7120 + 0.4e1 * t719 * t7124 - 0.6e1 * t719 * t7128 + 0.2e1 * t1779 * t7116 - 0.6e1 * t1779 * t7128 - 0.3e1 * t697 * t7120 - 0.6e1 * t697 * t7116 + 0.11e2 * t697 * t7128 - 0.6e1 * t697 * t7124 + 0.5e1 / 0.54e2 * t303 * t6719 - 0.10e2 / 0.81e2 * t263 * t7146 + t4388 * t7128;
+  t7154 = t698 * t2719;
+  t7156 = t2690 * t800;
+  t7159 = t6739 * t309;
+  t7161 = t2693 * t800;
+  t7169 = t2308 * t912;
+  t7179 = 0.2e1 * t1754 * t2691 + t1779 * t7120 + 0.2e1 * t1779 * t7124 + t1779 * t7156 - 0.3e1 * t1789 * t2691 + t1789 * t2694 + 0.2e1 * t1789 * t2698 + t2691 * t4441 + t697 * t7154 - 0.3e1 * t697 * t7156 + t697 * t7159 + t697 * t7161 + 0.2e1 * t697 * t7169 + 0.2e1 * t7156 * t719 - 0.2e1 * t7169 * t719;
+  t7188 = t2337 * t584 * t273;
+  t7194 = t2679 * t4953 * t231;
+  t7198 = t310 * t2799 * t231;
+  t7202 = t6835 * t2799 * t309;
+  t7208 = t788 * t6767;
+  t7211 = t4480 * t851 * t226;
+  t7215 = t1711 * t269 * t706;
+  t7220 = t795 * t6767;
+  t7236 = 0.6e1 * t1971 * t7211 - 0.2e1 * t1971 * t7215 + 0.6e1 * t1978 * t7215 - 0.2e1 * t1999 * t7215 - 0.7e1 * t5022 * t7211 + 0.11e2 * t7211 * t788 + 0.6e1 * t7211 * t795 - 0.6e1 * t7215 * t788 - 0.4e1 * t7215 * t795 + 0.6e1 * t7215 * t797 - 0.3e1 * t7208 - 0.2e1 * t7220;
+  t7241 = t1971 * t6767;
+  t7242 = t1978 * t6767;
+  t7248 = t797 * t6767;
+  t7250 = t1999 * t6767;
+  t7256 = -0.18e2 * t1978 * t7211 + 0.6e1 * t1999 * t7211 + 0.6e1 * t4974 * t7211 - t5018 * t7211 + t5020 * t7211 - 0.11e2 * t7211 * t797 - 0.2e1 * t6768 + 0.6e1 * t6770 + 0.6e1 * t6772 - t7241 + 0.3e1 * t7242 + 0.3e1 * t7248 - t7250;
+  t7265 = t1987 * t2581;
+  t7266 = t1990 * t2581;
+  t7273 = t1973 * t2581;
+  t7274 = -0.3e1 * t1973 * t2701 - 0.2e1 * t1987 * t2701 + 0.3e1 * t1990 * t2701 - t2701 * t4992 - t2701 * t5011 + 0.3e1 * t2701 * t5025 - 0.2e1 * t6774 - 0.6e1 * t6776 - 0.4e1 * t6778 + t7265 - t7266 + t7273;
+  t7278 = 0.2e1 * t6784 + 0.2e1 * t6814 - 0.2e1 * t6816 - t858 + t2708 + t2715 - t2716 + t2709 - t2710 + t2703 + t2153 + t2155 - t2157;
+  t7281 = my_piecewise3(t91, 0, t7236 + t7256 + t7274 + t7278);
+  t7286 = -t1754 * t2694 - t719 * t7161 - t719 * t7159 - t719 * t7154 - 0.2e1 * t1754 * t2698 - 0.2e1 * t719 * t7188 + 0.2e1 * t697 * t7188 + 0.10e2 / 0.27e2 * t266 * t7194 - 0.20e2 / 0.81e2 * t266 * t7198 - 0.10e2 / 0.81e2 * t266 * t7202 - 0.25e2 / 0.162e3 * t2557 - 0.25e2 / 0.162e3 * t2561 + 0.25e2 / 0.162e3 * t2564 + t100 * t55 * t7281 * t233 + t223 * t2721;
+  t7295 = t584 * t912;
+  t7296 = t2117 * t7295;
+  t7304 = t383 * t715 * t2292;
+  t7307 = t2679 * t4943;
+  t7310 = t913 * t698;
+  t7313 = t801 * t904;
+  t7316 = t310 * t2308;
+  t7325 = 0.80e2 / 0.243e3 * t689 * t2680 - 0.80e2 / 0.243e3 * t689 * t2687 + 0.5e1 / 0.54e2 * t301 * t6836 + 0.5e1 / 0.54e2 * t301 * t6839 - 0.10e2 / 0.81e2 * t266 * t7296 - 0.5e1 / 0.27e2 * t301 * t6851 + 0.5e1 / 0.27e2 * t301 * t6854 - 0.10e2 / 0.81e2 * t266 * t7304 - 0.10e2 / 0.81e2 * t266 * t7307 + 0.10e2 / 0.81e2 * t266 * t7310 + 0.10e2 / 0.81e2 * t266 * t7313 + 0.10e2 / 0.81e2 * t266 * t7316 + 0.5e1 / 0.27e2 * t301 * t6842 - 0.5e1 / 0.18e2 * t301 * t6845 - 0.5e1 / 0.54e2 * t301 * t6848;
+  t7332 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t208 * t2728 + t7100 + 0.3e1 / 0.20e2 * t7 * t74 * (t7150 + t7179 + t7286 + t7325));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rhosigma2lapl[23] = t8 * t4421 + t1997;
+    v4rhosigma2lapl[23] = t7332 * t8 + t2732;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigma2tau[0] = 0.0e0;
@@ -3132,14 +4595,44 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigma2tau[23] = 0.0e0;
 
-  t4428 = t7 * t121 * t2015 / 0.10e2;
-  t4449 = t759 * t656;
-  t4462 = 0.12e2 * t1515 * t4449 + 0.2e1 * t1528 * t4449 + 0.6e1 * t1836 * t1653 + t1841 * t1653 + 0.6e1 * t796 * t1653 - 0.24e2 * t1836 * t1747 - 0.36e2 * t1841 * t1747 - 0.12e2 * t4030 * t1747 - t4039 * t1747 + 0.12e2 * t659 * t4449 - 0.4e1 * t4306 - 0.2e1 * t4308 + 0.2e1 * t4310;
-  t4468 = 0.12e2 * t4328 + 0.12e2 * t4330 - 0.2e1 * t4197 - t4206 + 0.6e1 * t4195 + 0.6e1 * t4199 + t4208 - t2009 - t1911 - t2006 - t2010 - t1661 - t1663 + t722;
-  t4470 = my_piecewise3(t46, 0, t4462 + t4468);
-  t4477 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t116 * t2015 + t4428 + 0.3e1 / 0.20e2 * t7 * t24 * (-0.25e2 / 0.81e2 * t1952 + 0.5e1 / 0.27e2 * t30 * t40 * t1760 + 0.40e2 / 0.243e3 * t30 * t127 * t799 - 0.5e1 / 0.81e2 * t30 * t35 * t1844 + t135 * t2013 + t45 * t4470));
+  t7339 = t7 * t128 * t2784 / 0.10e2;
+  t7346 = t935 * t1076;
+  t7347 = t7346 * t6881;
+  t7351 = t4656 * t888 * t151;
+  t7355 = t4656 * t254 * t752;
+  t7359 = t924 * t3042 * t6881;
+  t7373 = t631 * t2403 * t153;
+  t7378 = 0.40e2 / 0.243e3 * t626 * t2752 - 0.40e2 / 0.243e3 * t626 * t2777 + 0.40e2 / 0.243e3 * t626 * t2740 + 0.2e1 * t659 * t7347 + 0.4e1 * t659 * t7351 + 0.4e1 * t659 * t7355 - 0.6e1 * t659 * t7359 - 0.6e1 * t1630 * t7359 + 0.2e1 * t1630 * t7355 - 0.6e1 * t637 * t7351 - 0.6e1 * t637 * t7355 + 0.11e2 * t637 * t7359 - 0.5e1 / 0.81e2 * t244 * t7373 - 0.3e1 * t637 * t7347;
+  t7387 = t2203 * t2247;
+  t7392 = t6123 * t655;
+  t7395 = t2772 * t387;
+  t7396 = t7395 * t151;
+  t7399 = t2403 * t387;
+  t7400 = t7399 * t254;
+  t7402 = t935 * t387;
+  t7403 = t7402 * t655;
+  t7407 = t4626 * t888;
+  t7410 = 0.5e1 / 0.27e2 * t285 * t6896 + t1630 * t7347 + t4196 * t7359 + 0.2e1 * t1630 * t7351 - 0.25e2 / 0.81e2 * t2621 + 0.25e2 / 0.81e2 * t2628 - 0.2e1 * t659 * t7387 + 0.2e1 * t1567 * t2744 + 0.2e1 * t659 * t7392 - t659 * t7396 - t1567 * t2755 - t659 * t7400 - t659 * t7403 - 0.2e1 * t1567 * t2746 - 0.2e1 * t659 * t7407;
+  t7435 = -0.3e1 * t1640 * t2744 - 0.3e1 * t637 * t7392 + t1640 * t2755 + t637 * t7403 + t637 * t7400 + t4154 * t2744 + t1630 * t7392 + 0.2e1 * t1640 * t2746 + 0.2e1 * t637 * t7407 + 0.2e1 * t637 * t7387 + t637 * t7396 + 0.10e2 / 0.27e2 * t283 * t6959 - 0.5e1 / 0.9e1 * t283 * t6963 + 0.5e1 / 0.27e2 * t283 * t6955 - 0.25e2 / 0.81e2 * t2625;
+  t7438 = t1576 * t250 * t743;
+  t7443 = t2961 * t250 * t146 * t52;
+  t7464 = -0.2e1 * t1840 * t7438 - 0.2e1 * t1868 * t7438 + 0.6e1 * t2379 * t7443 + 0.11e2 * t2384 * t7443 - 0.18e2 * t2387 * t7443 - 0.11e2 * t2395 * t7443 + 0.6e1 * t2400 * t7443 - t6230 * t7443 + t6232 * t7443 - 0.7e1 * t6234 * t7443 + 0.6e1 * t6239 * t7443 - 0.6e1 * t740 * t7438;
+  t7481 = 0.6e1 * t1847 * t7438 + 0.6e1 * t2392 * t7443 - 0.4e1 * t7438 * t747 + 0.6e1 * t7438 * t749 - t6584 + 0.3e1 * t6586 + 0.3e1 * t6588 - 0.2e1 * t6969 + 0.6e1 * t6970 + 0.6e1 * t6978 - 0.2e1 * t6980 - 0.4e1 * t6986 - 0.6e1 * t7001;
+  t7498 = -t2379 * t6618 - 0.3e1 * t2384 * t6618 + 0.3e1 * t2387 * t6618 - 0.2e1 * t2392 * t6618 + 0.3e1 * t2395 * t6618 - t2400 * t6618 - t6590 - 0.3e1 * t6592 - 0.2e1 * t6594 + 0.2e1 * t7023 + 0.2e1 * t7028 - 0.2e1 * t7029;
+  t7499 = t6614 - t6616 + t6634 - t827 + t2759 + t2764 - t2769 + t2524 + t2530 - t2532 + t2062 + t2064 - t2066;
+  t7502 = my_piecewise3(t47, 0, t7464 + t7481 + t7498 + t7499);
+  t7506 = t2026 * t7402;
+  t7511 = t6658 * t6123;
+  t7514 = t936 * t638;
+  t7517 = t292 * t4626;
+  t7520 = t939 * t2038;
+  t7533 = t383 * t291;
+  t7534 = t7533 * t4626;
+  t7537 = t925 * t2038;
+  t7540 = t143 * t2774 + t57 * t55 * t7502 * t153 - 0.5e1 / 0.81e2 * t247 * t7506 + 0.5e1 / 0.27e2 * t283 * t7057 - 0.5e1 / 0.81e2 * t247 * t7511 + 0.5e1 / 0.81e2 * t247 * t7514 + 0.10e2 / 0.81e2 * t247 * t7517 - 0.10e2 / 0.81e2 * t247 * t7520 + 0.5e1 / 0.27e2 * t283 * t7065 + 0.5e1 / 0.27e2 * t283 * t7068 - 0.5e1 / 0.27e2 * t283 * t7071 - 0.5e1 / 0.27e2 * t283 * t7074 - 0.5e1 / 0.27e2 * t283 * t7077 - 0.10e2 / 0.81e2 * t247 * t7534 + 0.5e1 / 0.27e2 * t247 * t7537;
+  t7547 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t123 * t2784 + t7339 + 0.3e1 / 0.20e2 * t7 * t24 * (t7378 + t7410 + t7435 + t7540));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rhosigmalapl2[0] = t8 * t4477 + t2019;
+    v4rhosigmalapl2[0] = t7547 * t8 + t2788;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigmalapl2[1] = 0.0e0;
@@ -3162,14 +4655,14 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigmalapl2[7] = 0.0e0;
 
-  t4484 = t7 * t166 * t2037 / 0.10e2;
-  t4486 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t162 * t2037 + t4484);
+  t7554 = t7 * t178 * t2840 / 0.10e2;
+  t7556 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t174 * t2840 + t7554);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rhosigmalapl2[8] = t8 * t4486 + t2041;
+    v4rhosigmalapl2[8] = t7556 * t8 + t2844;
 
-  t4492 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t180 * t2015 + t4428);
+  t7562 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t192 * t2784 + t7339);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rhosigmalapl2[9] = t8 * t4492 + t2019;
+    v4rhosigmalapl2[9] = t7562 * t8 + t2788;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigmalapl2[10] = 0.0e0;
@@ -3192,13 +4685,39 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigmalapl2[16] = 0.0e0;
 
-  t4515 = t777 * t698;
-  t4530 = 0.12e2 * t1613 * t4515 + 0.2e1 * t1626 * t4515 + 0.6e1 * t1881 * t1705 + t1886 * t1705 + 0.6e1 * t813 * t1705 - 0.24e2 * t1881 * t1798 - 0.36e2 * t1886 * t1798 - 0.12e2 * t4141 * t1798 - t4150 * t1798 + 0.12e2 * t701 * t4515 - 0.2e1 * t4377 - 0.4e1 * t4383 + 0.12e2 * t4399;
-  t4536 = 0.12e2 * t4401 + 0.2e1 * t4404 - 0.2e1 * t4258 - t4267 + 0.6e1 * t4256 + 0.6e1 * t4260 + t4269 - t2031 - t1936 - t2028 - t2032 - t1713 - t1715 + t742;
-  t4538 = my_piecewise3(t86, 0, t4530 + t4536);
-  t4545 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t196 * t2037 + t4484 + 0.3e1 / 0.20e2 * t7 * t70 * (-0.25e2 / 0.81e2 * t1977 + 0.5e1 / 0.27e2 * t30 * t80 * t1811 + 0.40e2 / 0.243e3 * t30 * t202 * t816 - 0.5e1 / 0.81e2 * t30 * t75 * t1889 + t210 * t2035 + t85 * t4538));
+  t7573 = t6357 * t5880;
+  t7578 = t273 * t3821 * t949 * t231;
+  t7582 = t2799 * t309 * t800;
+  t7586 = t4953 * t912 * t231;
+  t7594 = t691 * t2480 * t233;
+  t7604 = 0.40e2 / 0.243e3 * t686 * t2796 + 0.40e2 / 0.243e3 * t686 * t2808 - 0.40e2 / 0.243e3 * t686 * t2833 + 0.2e1 * t719 * t7573 - 0.6e1 * t1779 * t7578 + 0.2e1 * t1779 * t7582 - 0.6e1 * t697 * t7586 - 0.6e1 * t697 * t7582 + 0.11e2 * t697 * t7578 - 0.5e1 / 0.81e2 * t263 * t7594 - 0.3e1 * t697 * t7573 + 0.5e1 / 0.27e2 * t303 * t7146 - 0.6e1 * t719 * t7578 + t1779 * t7573;
+  t7616 = t6375 * t715;
+  t7620 = t2308 * t960;
+  t7622 = t904 * t2480;
+  t7628 = t4943 * t912;
+  t7631 = t4388 * t7578 + 0.2e1 * t1779 * t7586 + 0.4e1 * t719 * t7586 + 0.4e1 * t719 * t7582 - 0.25e2 / 0.81e2 * t2681 + 0.25e2 / 0.81e2 * t2688 - 0.3e1 * t1789 * t2800 - 0.3e1 * t697 * t7616 + t1789 * t2811 + t697 * t7620 + t697 * t7622 + t4441 * t2800 + t1779 * t7616 + 0.2e1 * t1789 * t2802 + 0.2e1 * t697 * t7628;
+  t7633 = t2292 * t2337;
+  t7636 = t698 * t2828;
+  t7659 = 0.2e1 * t697 * t7633 + t697 * t7636 - 0.2e1 * t719 * t7633 + 0.2e1 * t1754 * t2800 + 0.2e1 * t719 * t7616 - t719 * t7636 - t1754 * t2811 - t719 * t7622 - t719 * t7620 - 0.2e1 * t1754 * t2802 - 0.2e1 * t719 * t7628 + 0.10e2 / 0.27e2 * t301 * t7198 - 0.5e1 / 0.9e1 * t301 * t7194 + 0.5e1 / 0.27e2 * t301 * t7202 - 0.25e2 / 0.81e2 * t2685;
+  t7663 = t3835 * t226 * t96 * t269;
+  t7674 = t1711 * t269 * t791;
+  t7689 = 0.6e1 * t1978 * t7674 - 0.2e1 * t1999 * t7674 + 0.11e2 * t2461 * t7663 - 0.18e2 * t2464 * t7663 + 0.6e1 * t2469 * t7663 - 0.11e2 * t2472 * t7663 + 0.6e1 * t2477 * t7663 - t6448 * t7663 + 0.6e1 * t6457 * t7663 - 0.6e1 * t7674 * t788 - 0.4e1 * t7674 * t795 + 0.6e1 * t7674 * t797;
+  t7705 = -0.2e1 * t1971 * t7674 + 0.6e1 * t2456 * t7663 + t6450 * t7663 - 0.7e1 * t6452 * t7663 - t6768 + 0.3e1 * t6770 + 0.3e1 * t6772 - 0.6e1 * t7208 - 0.4e1 * t7220 - 0.2e1 * t7241 + 0.6e1 * t7242 + 0.6e1 * t7248 - 0.2e1 * t7250;
+  t7722 = -t2456 * t6786 - 0.3e1 * t2461 * t6786 + 0.3e1 * t2464 * t6786 - 0.2e1 * t2469 * t6786 + 0.3e1 * t2472 * t6786 - t2477 * t6786 - t6774 - 0.3e1 * t6776 - 0.2e1 * t6778 + 0.2e1 * t7265 - 0.2e1 * t7266 + 0.2e1 * t7273;
+  t7723 = t6784 + t6814 - t6816 - t858 + t2815 + t2820 - t2825 + t2588 - t2590 + t2582 + t2153 + t2155 - t2157;
+  t7726 = my_piecewise3(t91, 0, t7689 + t7705 + t7722 + t7723);
+  t7732 = t6835 * t6375;
+  t7735 = t2117 * t6392;
+  t7738 = t383 * t309;
+  t7739 = t7738 * t4943;
+  t7742 = t950 * t2129;
+  t7745 = t961 * t698;
+  t7748 = t310 * t4943;
+  t7751 = t964 * t2129;
+  t7764 = t223 * t2830 + t100 * t55 * t7726 * t233 + 0.5e1 / 0.27e2 * t301 * t7296 - 0.5e1 / 0.81e2 * t266 * t7732 - 0.5e1 / 0.81e2 * t266 * t7735 - 0.10e2 / 0.81e2 * t266 * t7739 + 0.5e1 / 0.27e2 * t266 * t7742 + 0.5e1 / 0.81e2 * t266 * t7745 + 0.10e2 / 0.81e2 * t266 * t7748 - 0.10e2 / 0.81e2 * t266 * t7751 + 0.5e1 / 0.27e2 * t301 * t7304 + 0.5e1 / 0.27e2 * t301 * t7307 - 0.5e1 / 0.27e2 * t301 * t7310 - 0.5e1 / 0.27e2 * t301 * t7313 - 0.5e1 / 0.27e2 * t301 * t7316;
+  t7771 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t208 * t2840 + t7554 + 0.3e1 / 0.20e2 * t7 * t74 * (t7604 + t7631 + t7659 + t7764));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rhosigmalapl2[17] = t8 * t4545 + t2041;
+    v4rhosigmalapl2[17] = t7771 * t8 + t2844;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigmalapltau[0] = 0.0e0;
@@ -3326,14 +4845,32 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhosigmatau2[17] = 0.0e0;
 
-  t4552 = t7 * t121 * t2059 / 0.10e2;
-  t4569 = t2162 * t2045;
-  t4576 = t2179 * t2045;
-  t4578 = 0.18e2 * t1836 * t1833 + 0.3e1 * t1841 * t1833 + 0.18e2 * t796 * t1833 - 0.24e2 * t2050 * t575 - 0.36e2 * t2054 * t575 - 0.12e2 * t4569 * t575 - t4576 * t575 - t1661 - t1663 - t2049 - t2053 - 0.6e1 * t4306 - 0.3e1 * t4308 + 0.3e1 * t4310 + 0.18e2 * t4328 + 0.18e2 * t4330 + t722;
-  t4579 = my_piecewise3(t46, 0, t4578);
-  t4586 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t116 * t2059 + t4552 + 0.3e1 / 0.20e2 * t7 * t24 * (-0.25e2 / 0.54e2 * t2002 + 0.5e1 / 0.18e2 * t30 * t40 * t1844 + t135 * t2057 + t45 * t4579));
+  t7778 = t7 * t128 * t2889 / 0.10e2;
+  t7779 = t6871 * t2851;
+  t7781 = t638 * t2879;
+  t7786 = t7399 * t291;
+  t7789 = t7402 * t752;
+  t7792 = t6123 * t752;
+  t7813 = t4196 * t7779 + t637 * t7781 - t659 * t7781 - 0.3e1 * t1567 * t2855 - 0.3e1 * t659 * t7786 - 0.3e1 * t659 * t7789 + 0.6e1 * t659 * t7792 - 0.6e1 * t659 * t7779 - 0.9e1 * t637 * t7792 + 0.11e2 * t637 * t7779 + 0.3e1 * t1630 * t7792 - 0.6e1 * t1630 * t7779 + 0.3e1 * t1640 * t2855 + 0.3e1 * t637 * t7789 + 0.3e1 * t637 * t7786 + 0.25e2 / 0.54e2 * t2778 - 0.25e2 / 0.54e2 * t2741;
+  t7826 = t2978 * t2862;
+  t7829 = t405 * t2862;
+  t7832 = t1119 * t2862;
+  t7835 = t2969 * t2862;
+  t7837 = t1576 * t743;
+  t7842 = t1086 * t2862;
+  t7847 = t390 * t2862;
+  t7852 = -0.3e1 * t2379 * t7837 - 0.9e1 * t2384 * t7837 + 0.9e1 * t2387 * t7837 - 0.3e1 * t2400 * t7837 + 0.6e1 * t6598 * t7826 - 0.11e2 * t6598 * t7829 + 0.6e1 * t6598 * t7832 - t6598 * t7835 + 0.6e1 * t6598 * t7842 + 0.11e2 * t6598 * t7847 - 0.3e1 * t6969 + 0.9e1 * t6970 + 0.9e1 * t6978 - 0.3e1 * t6980 - 0.6e1 * t6986 - 0.9e1 * t7001;
+  t7855 = t144 * t2862;
+  t7860 = t2971 * t2862;
+  t7862 = t2973 * t2862;
+  t7865 = t1099 * t2862;
+  t7871 = -0.6e1 * t2392 * t7837 + 0.9e1 * t2395 * t7837 + 0.6e1 * t6598 * t7855 + t6598 * t7860 - 0.7e1 * t6598 * t7862 - 0.18e2 * t6598 * t7865 + t2062 + t2064 - t2066 + t2866 + t2871 - t2872 + 0.3e1 * t7023 + 0.3e1 * t7028 - 0.3e1 * t7029 - t827;
+  t7873 = my_piecewise3(t47, 0, t7852 + t7871);
+  t7895 = t4656 * t935 * t151;
+  t7902 = -0.25e2 / 0.54e2 * t2753 + 0.2e1 * t143 * t2886 - 0.3e1 * t143 * t2859 + t143 * t2881 + t57 * t55 * t7873 * t153 + t143 * t2853 - 0.5e1 / 0.18e2 * t283 * t7514 - 0.5e1 / 0.9e1 * t283 * t7517 + 0.5e1 / 0.9e1 * t283 * t7520 + 0.5e1 / 0.9e1 * t283 * t7534 - 0.5e1 / 0.6e1 * t283 * t7537 + 0.5e1 / 0.18e2 * t283 * t7511 + 0.5e1 / 0.18e2 * t283 * t7506 + 0.5e1 / 0.18e2 * t285 * t7373 - 0.9e1 * t637 * t7895 + 0.6e1 * t659 * t7895 + 0.3e1 * t1630 * t7895;
+  t7908 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t123 * t2889 + t7778 + 0.3e1 / 0.20e2 * t7 * t24 * (t7813 + t7902));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rholapl3[0] = t8 * t4586 + t2063;
+    v4rholapl3[0] = t7908 * t8 + t2893;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rholapl3[1] = 0.0e0;
@@ -3341,14 +4878,14 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rholapl3[2] = 0.0e0;
 
-  t4593 = t7 * t166 * t2081 / 0.10e2;
-  t4595 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t162 * t2081 + t4593);
+  t7915 = t7 * t178 * t2938 / 0.10e2;
+  t7917 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t174 * t2938 + t7915);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rholapl3[3] = t8 * t4595 + t2085;
+    v4rholapl3[3] = t7917 * t8 + t2942;
 
-  t4601 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t180 * t2059 + t4552);
+  t7923 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t192 * t2889 + t7778);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rholapl3[4] = t8 * t4601 + t2063;
+    v4rholapl3[4] = t7923 * t8 + t2893;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rholapl3[5] = 0.0e0;
@@ -3356,13 +4893,32 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rholapl3[6] = 0.0e0;
 
-  t4622 = t2905 * t2067;
-  t4629 = t2922 * t2067;
-  t4631 = 0.18e2 * t1881 * t1878 + 0.3e1 * t1886 * t1878 + 0.18e2 * t813 * t1878 - 0.24e2 * t2072 * t622 - 0.36e2 * t2076 * t622 - 0.12e2 * t4622 * t622 - t4629 * t622 - t1713 - t1715 - t2071 - t2075 - 0.3e1 * t4377 - 0.6e1 * t4383 + 0.18e2 * t4399 + 0.18e2 * t4401 + 0.3e1 * t4404 + t742;
-  t4632 = my_piecewise3(t86, 0, t4631);
-  t4639 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t196 * t2081 + t4593 + 0.3e1 / 0.20e2 * t7 * t70 * (-0.25e2 / 0.54e2 * t2024 + 0.5e1 / 0.18e2 * t30 * t80 * t1889 + t210 * t2079 + t85 * t4632));
+  t7928 = t6375 * t800;
+  t7931 = t2900 * t3821;
+  t7932 = t7931 * t231;
+  t7937 = t4943 * t960;
+  t7940 = t2292 * t2480;
+  t7944 = t698 * t2928;
+  t7963 = 0.3e1 * t1779 * t7928 - 0.6e1 * t1779 * t7932 + 0.3e1 * t1789 * t2904 + 0.3e1 * t697 * t7937 + 0.3e1 * t697 * t7940 + t4388 * t7932 + t697 * t7944 - t719 * t7944 - 0.3e1 * t1754 * t2904 - 0.3e1 * t719 * t7940 - 0.3e1 * t719 * t7937 + 0.6e1 * t719 * t7928 - 0.6e1 * t719 * t7932 - 0.9e1 * t697 * t7928 + 0.11e2 * t697 * t7932 - 0.25e2 / 0.54e2 * t2797 - 0.25e2 / 0.54e2 * t2809;
+  t7973 = t224 * t2911;
+  t7976 = t1711 * t791;
+  t7983 = t1491 * t2911;
+  t7988 = t587 * t2911;
+  t7993 = t1504 * t2911;
+  t7996 = t3881 * t2911;
+  t7999 = -0.3e1 * t2456 * t7976 - 0.9e1 * t2461 * t7976 + 0.9e1 * t2464 * t7976 + 0.9e1 * t2472 * t7976 - 0.3e1 * t2477 * t7976 + 0.6e1 * t6781 * t7973 + 0.6e1 * t6781 * t7983 + 0.11e2 * t6781 * t7988 - 0.18e2 * t6781 * t7993 + 0.6e1 * t6781 * t7996 - 0.9e1 * t7208 - 0.6e1 * t7220 - 0.3e1 * t7241 + 0.9e1 * t7242 + 0.9e1 * t7248 - 0.3e1 * t7250;
+  t8000 = t602 * t2911;
+  t8003 = t1524 * t2911;
+  t8006 = t3893 * t2911;
+  t8008 = t3873 * t2911;
+  t8010 = t3876 * t2911;
+  t8018 = -0.6e1 * t2469 * t7976 - 0.11e2 * t6781 * t8000 + 0.6e1 * t6781 * t8003 - t6781 * t8006 + t6781 * t8008 - 0.7e1 * t6781 * t8010 + t2153 + t2155 - t2157 + t2915 + t2920 - t2921 + 0.3e1 * t7265 - 0.3e1 * t7266 + 0.3e1 * t7273 - t858;
+  t8020 = my_piecewise3(t91, 0, t7999 + t8018);
+  t8043 = t6357 * t309 * t231;
+  t8052 = 0.25e2 / 0.54e2 * t2834 + 0.2e1 * t223 * t2935 + t100 * t55 * t8020 * t233 - 0.3e1 * t223 * t2908 + t223 * t2930 + t223 * t2902 + 0.5e1 / 0.18e2 * t301 * t7732 + 0.5e1 / 0.18e2 * t301 * t7735 - 0.5e1 / 0.18e2 * t301 * t7745 - 0.5e1 / 0.9e1 * t301 * t7748 + 0.5e1 / 0.9e1 * t301 * t7751 + 0.5e1 / 0.9e1 * t301 * t7739 - 0.5e1 / 0.6e1 * t301 * t7742 + 0.6e1 * t719 * t8043 + 0.5e1 / 0.18e2 * t303 * t7594 - 0.9e1 * t697 * t8043 + 0.3e1 * t1779 * t8043;
+  t8058 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t208 * t2938 + t7915 + 0.3e1 / 0.20e2 * t7 * t74 * (t7963 + t8052));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rholapl3[7] = t8 * t4639 + t2085;
+    v4rholapl3[7] = t8 * t8058 + t2942;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rholapl2tau[0] = 0.0e0;
@@ -3460,18 +5016,38 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rhotau3[7] = 0.0e0;
 
-  t4644 = t716 * t716;
-  t4648 = t723 * t1905;
-  t4653 = t720 * t720;
-  t4656 = 0.6e1 * t354 * t4653 * t50;
-  t4657 = t1656 * t1905;
-  t4666 = 0.3e1 * t363 * t4653 * t50;
-  t4667 = t3622 * t1954;
-  t4671 = -0.12e2 * t2162 * t4644 * t50 - t2179 * t4644 * t50 - 0.24e2 * t927 * t4644 * t50 - 0.36e2 * t938 * t4644 * t50 - 0.8e1 * t1906 - 0.4e1 * t1911 + 0.36e2 * t4648 - t4656 + 0.36e2 * t4657 - t4666 + 0.6e1 * t4667 + t722;
-  t4672 = my_piecewise3(t46, 0, t4671);
-  t4678 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * (-0.20e2 / 0.81e2 * t30 * t35 * t1916 + t45 * t4672));
+  t8060 = t831 * t831;
+  t8065 = t816 * t816;
+  t8070 = t6554 * t254;
+  t8073 = t2630 * t831;
+  t8090 = t824 * t824;
+  t8092 = t8090 * t393 * t52;
+  t8094 = 0.3e1 * t390 * t8092;
+  t8095 = t820 * t820;
+  t8097 = t8095 * t2961 * t52;
+  t8101 = 0.3e1 * t144 * t8092;
+  t8103 = 0.3e1 * t405 * t8092;
+  t8106 = t1576 * t824;
+  t8107 = t2049 * t8106;
+  t8111 = t2055 * t8106;
+  t8113 = t2063 * t2641;
+  t8115 = t2058 * t8106;
+  t8117 = t2065 * t2641;
+  t8119 = 0.6e1 * t1086 * t8097 + 0.6e1 * t144 * t8097 + 0.11e2 * t390 * t8097 + t8094 + t8101 - t8103 - 0.6e1 * t8107 - 0.18e2 * t8111 - 0.12e2 * t8113 + 0.18e2 * t8115 + 0.18e2 * t8117;
+  t8120 = t5218 * t2641;
+  t8137 = -0.18e2 * t1099 * t8097 + 0.6e1 * t1119 * t8097 - t2969 * t8097 + t2971 * t8097 - 0.7e1 * t2973 * t8097 + 0.6e1 * t2978 * t8097 - 0.11e2 * t405 * t8097 + 0.4e1 * t2524 + 0.4e1 * t2530 - 0.4e1 * t2532 - 0.6e1 * t8120 - t827;
+  t8139 = my_piecewise3(t47, 0, t8119 + t8137);
+  t8143 = t2619 * t2633;
+  t8146 = t2508 * t1076;
+  t8147 = t1632 * t8146;
+  t8150 = t832 * t880;
+  t8153 = t631 * t8146;
+  t8162 = t631 * t2540 * t153;
+  t8167 = t4215 * t8146;
+  t8170 = -0.3e1 * t57 * t55 * t8060 * t387 - 0.6e1 * t57 * t55 * t8065 * t3042 - 0.4e1 * t659 * t8070 + 0.6e1 * t1630 * t8073 - 0.6e1 * t57 * t1072 * t8065 * t3042 + 0.3e1 * t57 * t383 * t8060 * t387 + 0.4e1 * t637 * t8070 + 0.11e2 * t57 * t383 * t8065 * t3042 + t57 * t55 * t8139 * t153 - 0.20e2 / 0.27e2 * t247 * t8143 + 0.20e2 / 0.27e2 * t244 * t8147 + 0.20e2 / 0.27e2 * t247 * t8150 - 0.40e2 / 0.81e2 * t244 * t8153 + t57 * t3092 * t8065 * t3042 + 0.12e2 * t659 * t8073 - 0.20e2 / 0.81e2 * t244 * t8162 - 0.18e2 * t637 * t8073 - 0.20e2 / 0.81e2 * t244 * t8167;
+  t8174 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t8170);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4sigma4[0] = t8 * t4678;
+    v4sigma4[0] = t8 * t8174;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigma4[1] = 0.0e0;
@@ -3512,32 +5088,75 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigma4[13] = 0.0e0;
 
-  t4682 = t736 * t736;
-  t4686 = t743 * t1930;
-  t4691 = t740 * t740;
-  t4694 = 0.6e1 * t536 * t4691 * t90;
-  t4695 = t1708 * t1930;
-  t4704 = 0.3e1 * t545 * t4691 * t90;
-  t4705 = t3741 * t1979;
-  t4709 = -0.24e2 * t1295 * t4682 * t90 - 0.36e2 * t1306 * t4682 * t90 - 0.12e2 * t2905 * t4682 * t90 - t2922 * t4682 * t90 - 0.8e1 * t1931 - 0.4e1 * t1936 + 0.36e2 * t4686 - t4694 + 0.36e2 * t4695 - t4704 + 0.6e1 * t4705 + t742;
-  t4710 = my_piecewise3(t86, 0, t4709);
-  t4716 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t70 * (-0.20e2 / 0.81e2 * t30 * t75 * t1941 + t85 * t4710));
+  t8175 = t851 * t851;
+  t8177 = t8175 * t3835 * t96;
+  t8190 = t1711 * t855;
+  t8191 = t2140 * t8190;
+  t8195 = t855 * t855;
+  t8197 = t8195 * t590 * t96;
+  t8199 = 0.3e1 * t587 * t8197;
+  t8202 = 0.6e1 * t1491 * t8177 - 0.18e2 * t1504 * t8177 + 0.6e1 * t1524 * t8177 + t3873 * t8177 - 0.7e1 * t3876 * t8177 + 0.6e1 * t3881 * t8177 - t3893 * t8177 + 0.11e2 * t587 * t8177 - 0.11e2 * t602 * t8177 - 0.6e1 * t8191 + t8199;
+  t8204 = 0.3e1 * t224 * t8197;
+  t8206 = 0.3e1 * t602 * t8197;
+  t8209 = t2146 * t8190;
+  t8211 = t2154 * t2701;
+  t8213 = t2149 * t8190;
+  t8215 = t2156 * t2701;
+  t8217 = t5472 * t2701;
+  t8222 = 0.6e1 * t224 * t8177 + 0.4e1 * t2582 + 0.4e1 * t2588 - 0.4e1 * t2590 + t8204 - t8206 - 0.18e2 * t8209 - 0.12e2 * t8211 + 0.18e2 * t8213 + 0.18e2 * t8215 - 0.6e1 * t8217 - t858;
+  t8224 = my_piecewise3(t91, 0, t8202 + t8222);
+  t8228 = t6734 * t273;
+  t8231 = t862 * t862;
+  t8236 = t847 * t847;
+  t8245 = t2690 * t862;
+  t8258 = t2566 * t1481;
+  t8259 = t691 * t8258;
+  t8265 = t2679 * t2693;
+  t8268 = t1781 * t8258;
+  t8271 = t863 * t904;
+  t8277 = t691 * t2598 * t233;
+  t8282 = t4413 * t8258;
+  t8285 = t100 * t55 * t8224 * t233 - 0.4e1 * t719 * t8228 - 0.3e1 * t100 * t55 * t8231 * t584 - 0.6e1 * t100 * t55 * t8236 * t3821 + 0.11e2 * t100 * t383 * t8236 * t3821 + 0.6e1 * t1779 * t8245 - 0.6e1 * t100 * t1072 * t8236 * t3821 + 0.3e1 * t100 * t383 * t8231 * t584 + 0.4e1 * t697 * t8228 - 0.40e2 / 0.81e2 * t263 * t8259 + t100 * t3092 * t8236 * t3821 - 0.20e2 / 0.27e2 * t266 * t8265 + 0.20e2 / 0.27e2 * t263 * t8268 + 0.20e2 / 0.27e2 * t266 * t8271 + 0.12e2 * t719 * t8245 - 0.20e2 / 0.81e2 * t263 * t8277 - 0.18e2 * t697 * t8245 - 0.20e2 / 0.81e2 * t263 * t8282;
+  t8289 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t74 * t8285);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4sigma4[14] = t8 * t4716;
+    v4sigma4[14] = t8 * t8289;
 
-  t4723 = t1901 * t50;
-  t4731 = t759 * t720;
-  t4732 = t659 * t4731;
-  t4733 = 0.18e2 * t4732;
-  t4734 = t1515 * t4731;
-  t4735 = 0.18e2 * t4734;
-  t4736 = t1528 * t4731;
-  t4737 = 0.3e1 * t4736;
-  t4741 = -0.24e2 * t1515 * t4723 - 0.36e2 * t1528 * t4723 - 0.12e2 * t3347 * t4723 - t3361 * t4723 - t1907 - t1912 - t1961 - t1963 + 0.18e2 * t4648 - t4656 + 0.18e2 * t4657 - t4666 + 0.3e1 * t4667 + t4733 + t4735 + t4737 + t722;
-  t4742 = my_piecewise3(t46, 0, t4741);
-  t4748 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * (0.5e1 / 0.54e2 * t30 * t40 * t1916 - 0.5e1 / 0.27e2 * t30 * t35 * t1966 + t45 * t4742));
+  t8290 = t5669 * t831;
+  t8295 = t2630 * t888;
+  t8298 = t880 * t2659;
+  t8303 = t6554 * t291;
+  t8305 = t6550 * t291;
+  t8318 = t5200 * t2519;
+  t8343 = 0.6e1 * t1840 * t8318 - 0.18e2 * t1847 * t8318 + 0.6e1 * t1868 * t8318 + 0.6e1 * t4712 * t8318 - t4724 * t8318 + t4726 * t8318 - 0.7e1 * t4728 * t8318 + 0.11e2 * t740 * t8318 + 0.6e1 * t747 * t8318 - 0.11e2 * t749 * t8318 - 0.3e1 * t8107 - 0.9e1 * t8111 - 0.6e1 * t8113 + 0.9e1 * t8115 + 0.9e1 * t8117 - 0.3e1 * t8120;
+  t8345 = t1576 * t250 * t824;
+  t8346 = t740 * t8345;
+  t8347 = 0.9e1 * t8346;
+  t8348 = t1847 * t8345;
+  t8349 = 0.9e1 * t8348;
+  t8350 = t747 * t8345;
+  t8351 = 0.6e1 * t8350;
+  t8352 = t1868 * t8345;
+  t8353 = 0.3e1 * t8352;
+  t8354 = t749 * t8345;
+  t8355 = 0.9e1 * t8354;
+  t8356 = t1840 * t8345;
+  t8357 = 0.3e1 * t8356;
+  t8358 = -t827 + t2648 + t2655 - t2656 + t2525 + t2531 - t2533 + t8094 + t8101 - t8103 - t8347 + t8349 - t8351 - t8353 + t8355 - t8357;
+  t8360 = my_piecewise3(t47, 0, t8343 + t8358);
+  t8364 = t292 * t2630;
+  t8367 = -0.3e1 * t659 * t8290 + 0.3e1 * t637 * t8290 - 0.9e1 * t637 * t8295 + 0.3e1 * t637 * t8298 + 0.3e1 * t1630 * t8295 + t637 * t8303 + t4196 * t8305 + 0.6e1 * t659 * t8295 - 0.6e1 * t659 * t8305 - 0.6e1 * t1630 * t8305 + 0.11e2 * t637 * t8305 - t659 * t8303 - 0.3e1 * t659 * t8298 + t57 * t55 * t8360 * t153 - 0.10e2 / 0.27e2 * t247 * t8364;
+  t8368 = t817 * t4656;
+  t8376 = t383 * t831 * t2203;
+  t8379 = t2619 * t5669;
+  t8382 = t889 * t880;
+  t8386 = t1072 * t816 * t4656;
+  t8389 = t292 * t2633;
+  t8396 = t4656 * t6529;
+  t8402 = t631 * t2659 * t153;
+  t8411 = 0.5e1 / 0.9e1 * t247 * t8368 + 0.5e1 / 0.18e2 * t283 * t8143 - 0.5e1 / 0.18e2 * t283 * t8150 - 0.5e1 / 0.27e2 * t247 * t8376 - 0.10e2 / 0.27e2 * t247 * t8379 + 0.10e2 / 0.27e2 * t247 * t8382 - 0.5e1 / 0.27e2 * t247 * t8386 + 0.5e1 / 0.27e2 * t247 * t8389 - 0.5e1 / 0.18e2 * t285 * t8147 + 0.5e1 / 0.27e2 * t285 * t8153 + 0.6e1 * t659 * t8396 + 0.5e1 / 0.54e2 * t285 * t8162 - 0.5e1 / 0.27e2 * t244 * t8402 + 0.3e1 * t1630 * t8396 - 0.9e1 * t637 * t8396 + 0.5e1 / 0.54e2 * t285 * t8167;
+  t8416 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * (t8367 + t8411));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4sigma3lapl[0] = t8 * t4748;
+    v4sigma3lapl[0] = t8 * t8416;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigma3lapl[1] = 0.0e0;
@@ -3593,19 +5212,42 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigma3lapl[18] = 0.0e0;
 
-  t4756 = t740 * t249 * t90;
-  t4757 = t1626 * t4756;
-  t4758 = 0.3e1 * t4757;
-  t4759 = t90 * t1926;
-  t4762 = t701 * t4756;
-  t4763 = 0.18e2 * t4762;
-  t4764 = t1613 * t4756;
-  t4765 = 0.18e2 * t4764;
-  t4774 = -0.24e2 * t1613 * t4759 - 0.36e2 * t1626 * t4759 - t3528 * t4759 - 0.12e2 * t3542 * t4759 - t1932 - t1937 - t1986 - t1988 + 0.18e2 * t4686 - t4694 + 0.18e2 * t4695 - t4704 + 0.3e1 * t4705 + t4758 + t4763 + t4765 + t742;
-  t4775 = my_piecewise3(t86, 0, t4774);
-  t4781 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t70 * (0.5e1 / 0.54e2 * t30 * t80 * t1941 - 0.5e1 / 0.27e2 * t30 * t75 * t1991 + t85 * t4775));
+  t8417 = t7295 * t862;
+  t8420 = t2292 * t2598;
+  t8423 = t2719 * t584 * t273;
+  t8426 = t2690 * t912;
+  t8438 = t5906 * t2566;
+  t8447 = t3835 * t2577 * t96;
+  t8472 = 0.6e1 * t1971 * t8447 - 0.18e2 * t1978 * t8447 + 0.6e1 * t1999 * t8447 + 0.6e1 * t4974 * t8447 - t5018 * t8447 + t5020 * t8447 - 0.7e1 * t5022 * t8447 + 0.11e2 * t788 * t8447 + 0.6e1 * t795 * t8447 - 0.11e2 * t797 * t8447 - 0.3e1 * t8191 - 0.9e1 * t8209 - 0.6e1 * t8211 + 0.9e1 * t8213 + 0.9e1 * t8215 - 0.3e1 * t8217;
+  t8474 = t5988 * t96 * t855;
+  t8475 = t1978 * t8474;
+  t8476 = 0.9e1 * t8475;
+  t8477 = t1999 * t8474;
+  t8478 = 0.3e1 * t8477;
+  t8479 = t795 * t8474;
+  t8480 = 0.6e1 * t8479;
+  t8481 = t797 * t8474;
+  t8482 = 0.9e1 * t8481;
+  t8483 = t1971 * t8474;
+  t8484 = 0.3e1 * t8483;
+  t8485 = t788 * t8474;
+  t8486 = 0.9e1 * t8485;
+  t8487 = -t858 + t2708 + t2715 - t2716 + t2589 - t2591 + t2583 + t8199 + t8204 - t8206 + t8476 - t8478 - t8480 + t8482 - t8484 - t8486;
+  t8489 = my_piecewise3(t91, 0, t8472 + t8487);
+  t8495 = -0.3e1 * t719 * t8417 - t719 * t8420 - 0.3e1 * t719 * t8423 + 0.3e1 * t1779 * t8426 + t697 * t8420 + 0.3e1 * t697 * t8417 - 0.9e1 * t697 * t8426 + 0.3e1 * t697 * t8423 + 0.6e1 * t719 * t8426 - 0.6e1 * t719 * t8438 - 0.6e1 * t1779 * t8438 + 0.11e2 * t697 * t8438 + t4388 * t8438 + t100 * t55 * t8489 * t233 - 0.5e1 / 0.18e2 * t301 * t8271;
+  t8497 = t383 * t862 * t2292;
+  t8500 = t2679 * t7295;
+  t8503 = t913 * t904;
+  t8506 = t310 * t2693;
+  t8511 = t310 * t2690;
+  t8514 = t848 * t4953;
+  t8518 = t1072 * t847 * t4953;
+  t8521 = t4953 * t6706;
+  t8527 = t691 * t2719 * t233;
+  t8540 = -0.5e1 / 0.27e2 * t266 * t8497 - 0.10e2 / 0.27e2 * t266 * t8500 + 0.10e2 / 0.27e2 * t266 * t8503 + 0.5e1 / 0.27e2 * t266 * t8506 + 0.5e1 / 0.18e2 * t301 * t8265 - 0.10e2 / 0.27e2 * t266 * t8511 + 0.5e1 / 0.9e1 * t266 * t8514 - 0.5e1 / 0.27e2 * t266 * t8518 + 0.6e1 * t719 * t8521 + 0.5e1 / 0.54e2 * t303 * t8277 - 0.5e1 / 0.27e2 * t263 * t8527 + 0.3e1 * t1779 * t8521 - 0.9e1 * t697 * t8521 + 0.5e1 / 0.27e2 * t303 * t8259 - 0.5e1 / 0.18e2 * t303 * t8268 + 0.5e1 / 0.54e2 * t303 * t8282;
+  t8545 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t74 * (t8495 + t8540));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4sigma3lapl[19] = t8 * t4781;
+    v4sigma3lapl[19] = t8 * t8545;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigma3tau[0] = 0.0e0;
@@ -3667,14 +5309,37 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigma3tau[19] = 0.0e0;
 
-  t4788 = t796 * t1905;
-  t4792 = t1836 * t1905;
-  t4796 = t1841 * t1905;
-  t4805 = -0.24e2 * t1836 * t1954 - 0.36e2 * t1841 * t1954 - 0.12e2 * t4030 * t1954 - t4039 * t1954 - t1957 - t1962 - t2006 - t2010 + 0.6e1 * t4648 - t4656 + 0.6e1 * t4657 - t4666 + t4667 + 0.24e2 * t4732 + 0.24e2 * t4734 + 0.4e1 * t4736 + 0.6e1 * t4788 + 0.6e1 * t4792 + t4796 + t722;
-  t4806 = my_piecewise3(t46, 0, t4805);
-  t4812 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * (0.5e1 / 0.27e2 * t30 * t40 * t1966 - 0.10e2 / 0.81e2 * t30 * t35 * t2013 + t45 * t4806));
+  t8546 = t6123 * t831;
+  t8549 = t7395 * t254;
+  t8552 = t7402 * t831;
+  t8554 = t2203 * t2659;
+  t8563 = t816 * t3042 * t924;
+  t8565 = t2630 * t935;
+  t8580 = t888 * t888;
+  t8589 = t5200 * t820;
+  t8597 = t2387 * t8106;
+  t8599 = t2392 * t8106;
+  t8601 = t2395 * t8106;
+  t8603 = t2400 * t8106;
+  t8604 = t2379 * t8106;
+  t8605 = t2384 * t8106;
+  t8620 = 0.6e1 * t2379 * t8589 + 0.11e2 * t2384 * t8589 - 0.18e2 * t2387 * t8589 + 0.6e1 * t2392 * t8589 - 0.11e2 * t2395 * t8589 + 0.6e1 * t2400 * t8589 - t6230 * t8589 + t6232 * t8589 - 0.7e1 * t6234 * t8589 + 0.6e1 * t6239 * t8589 - t8107 - 0.3e1 * t8111 - 0.2e1 * t8113 + 0.3e1 * t8597 - 0.2e1 * t8599 + 0.3e1 * t8601 - t8603 - t8604 - 0.3e1 * t8605;
+  t8629 = 0.3e1 * t8115 + 0.3e1 * t8117 - t8120 - t827 + t2759 + t2764 - t2769 + t2643 + t2649 - t2650 + t8094 + t8101 - t8103 - 0.12e2 * t8346 + 0.12e2 * t8348 - 0.8e1 * t8350 - 0.4e1 * t8352 + 0.12e2 * t8354 - 0.4e1 * t8356;
+  t8631 = my_piecewise3(t47, 0, t8620 + t8629);
+  t8635 = t153 * t55 * t57 * t8631 + 0.2e1 * t383 * t387 * t57 * t8580 - 0.2e1 * t387 * t55 * t57 * t8580 + t1630 * t8546 - 0.6e1 * t1630 * t8563 + t1630 * t8565 + t4196 * t8563 - 0.3e1 * t637 * t8546 + 0.2e1 * t637 * t8549 + t637 * t8552 + 0.2e1 * t637 * t8554 + 0.11e2 * t637 * t8563 - 0.3e1 * t637 * t8565 + 0.2e1 * t659 * t8546 - 0.2e1 * t659 * t8549 - t659 * t8552 - 0.2e1 * t659 * t8554 - 0.6e1 * t659 * t8563 + 0.2e1 * t659 * t8565;
+  t8636 = t292 * t5669;
+  t8639 = t939 * t2743;
+  t8650 = t7533 * t5669;
+  t8653 = t925 * t2743;
+  t8656 = t936 * t880;
+  t8660 = t1072 * t254 * t6123;
+  t8663 = t2619 * t7402;
+  t8675 = t4656 * t888 * t254;
+  t8683 = t631 * t2772 * t153;
+  t8686 = 0.20e2 / 0.81e2 * t247 * t8636 - 0.20e2 / 0.81e2 * t247 * t8639 + 0.5e1 / 0.27e2 * t283 * t8376 + 0.10e2 / 0.27e2 * t283 * t8379 - 0.10e2 / 0.27e2 * t283 * t8382 - 0.5e1 / 0.27e2 * t283 * t8389 - 0.20e2 / 0.81e2 * t247 * t8650 + 0.10e2 / 0.27e2 * t247 * t8653 + 0.10e2 / 0.81e2 * t247 * t8656 - 0.10e2 / 0.81e2 * t247 * t8660 - 0.10e2 / 0.81e2 * t247 * t8663 + 0.5e1 / 0.27e2 * t283 * t8386 - 0.5e1 / 0.9e1 * t283 * t8368 + 0.10e2 / 0.27e2 * t283 * t8364 + 0.5e1 / 0.27e2 * t285 * t8402 + 0.8e1 * t659 * t8675 + 0.4e1 * t1630 * t8675 - 0.12e2 * t637 * t8675 - 0.10e2 / 0.81e2 * t244 * t8683;
+  t8691 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * (t8635 + t8686));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4sigma2lapl2[0] = t8 * t4812;
+    v4sigma2lapl2[0] = t8 * t8691;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigma2lapl2[1] = 0.0e0;
@@ -3724,14 +5389,37 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigma2lapl2[16] = 0.0e0;
 
-  t4821 = t1886 * t1930;
-  t4823 = t813 * t1930;
-  t4827 = t1881 * t1930;
-  t4836 = -0.24e2 * t1881 * t1979 - 0.36e2 * t1886 * t1979 - 0.12e2 * t4141 * t1979 - t4150 * t1979 - t1982 - t1987 - t2028 - t2032 + 0.6e1 * t4686 - t4694 + 0.6e1 * t4695 - t4704 + t4705 + 0.4e1 * t4757 + 0.24e2 * t4762 + 0.24e2 * t4764 + t4821 + 0.6e1 * t4823 + 0.6e1 * t4827 + t742;
-  t4837 = my_piecewise3(t86, 0, t4836);
-  t4843 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t70 * (0.5e1 / 0.27e2 * t30 * t80 * t1991 - 0.10e2 / 0.81e2 * t30 * t75 * t2035 + t85 * t4837));
+  t8692 = t2292 * t2719;
+  t8696 = t2828 * t584 * t273;
+  t8699 = t6375 * t862;
+  t8702 = t2693 * t960;
+  t8709 = t6361 * t847;
+  t8712 = t6357 * t847;
+  t8726 = t912 * t912;
+  t8731 = t2469 * t8190;
+  t8733 = t2472 * t8190;
+  t8735 = t2477 * t8190;
+  t8736 = t2456 * t8190;
+  t8737 = t2461 * t8190;
+  t8739 = t2464 * t8190;
+  t8741 = t4480 * t851;
+  t8762 = 0.6e1 * t2456 * t8741 + 0.11e2 * t2461 * t8741 - 0.18e2 * t2464 * t8741 + 0.6e1 * t2469 * t8741 - 0.11e2 * t2472 * t8741 + 0.6e1 * t2477 * t8741 - t6448 * t8741 + t6450 * t8741 - 0.7e1 * t6452 * t8741 + 0.6e1 * t6457 * t8741 - t8191 - 0.3e1 * t8209 - 0.2e1 * t8211 - 0.2e1 * t8731 + 0.3e1 * t8733 - t8735 - t8736 - 0.3e1 * t8737 + 0.3e1 * t8739;
+  t8771 = 0.3e1 * t8213 + 0.3e1 * t8215 - t8217 - t858 + t2815 + t2820 - t2825 + t2709 - t2710 + t2703 + t8199 + t8204 - t8206 + 0.12e2 * t8475 - 0.4e1 * t8477 - 0.8e1 * t8479 + 0.12e2 * t8481 - 0.4e1 * t8483 - 0.12e2 * t8485;
+  t8773 = my_piecewise3(t91, 0, t8762 + t8771);
+  t8781 = t100 * t233 * t55 * t8773 + 0.2e1 * t100 * t383 * t584 * t8726 - 0.2e1 * t100 * t55 * t584 * t8726 + t1779 * t8699 - 0.6e1 * t1779 * t8709 + t1779 * t8712 + t4388 * t8709 + 0.2e1 * t697 * t8692 + 0.2e1 * t697 * t8696 - 0.3e1 * t697 * t8699 + t697 * t8702 + 0.11e2 * t697 * t8709 - 0.3e1 * t697 * t8712 - 0.2e1 * t719 * t8692 - 0.2e1 * t719 * t8696 + 0.2e1 * t719 * t8699 - t719 * t8702 - 0.6e1 * t719 * t8709 + 0.2e1 * t719 * t8712;
+  t8785 = t1072 * t273 * t6375;
+  t8788 = t2679 * t6392;
+  t8799 = t7738 * t7295;
+  t8802 = t950 * t2799;
+  t8805 = t961 * t904;
+  t8808 = t310 * t7295;
+  t8811 = t964 * t2799;
+  t8819 = t4953 * t912 * t273;
+  t8827 = t691 * t2828 * t233;
+  t8832 = 0.5e1 / 0.27e2 * t301 * t8518 - 0.10e2 / 0.81e2 * t266 * t8785 - 0.10e2 / 0.81e2 * t266 * t8788 + 0.5e1 / 0.27e2 * t301 * t8497 + 0.10e2 / 0.27e2 * t301 * t8500 - 0.10e2 / 0.27e2 * t301 * t8503 - 0.5e1 / 0.27e2 * t301 * t8506 - 0.20e2 / 0.81e2 * t266 * t8799 + 0.10e2 / 0.27e2 * t266 * t8802 + 0.10e2 / 0.81e2 * t266 * t8805 + 0.20e2 / 0.81e2 * t266 * t8808 - 0.20e2 / 0.81e2 * t266 * t8811 - 0.5e1 / 0.9e1 * t301 * t8514 + 0.10e2 / 0.27e2 * t301 * t8511 + 0.8e1 * t719 * t8819 + 0.4e1 * t1779 * t8819 - 0.12e2 * t697 * t8819 - 0.10e2 / 0.81e2 * t263 * t8827 + 0.5e1 / 0.27e2 * t303 * t8527;
+  t8837 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t74 * (t8781 + t8832));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4sigma2lapl2[17] = t8 * t4843;
+    v4sigma2lapl2[17] = t8 * t8837;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigma2lapltau[0] = 0.0e0;
@@ -3859,11 +5547,28 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigma2tau2[17] = 0.0e0;
 
-  t4860 = -0.24e2 * t2050 * t759 - 0.36e2 * t2054 * t759 - 0.12e2 * t4569 * t759 - t4576 * t759 - t1911 - t2009 - t2049 - t2053 - t4656 - t4666 + t4733 + t4735 + t4737 + 0.18e2 * t4788 + 0.18e2 * t4792 + 0.3e1 * t4796 + t722;
-  t4861 = my_piecewise3(t46, 0, t4860);
-  t4867 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * (0.5e1 / 0.18e2 * t30 * t40 * t2013 - 0.5e1 / 0.81e2 * t30 * t35 * t2057 + t45 * t4861));
+  t8839 = t254 * t3042 * t2851;
+  t8841 = t880 * t2879;
+  t8846 = t7395 * t291;
+  t8849 = t7402 * t888;
+  t8852 = t6123 * t888;
+  t8867 = t5200 * t250;
+  t8892 = 0.6e1 * t7826 * t8867 - 0.11e2 * t7829 * t8867 + 0.6e1 * t7832 * t8867 - t7835 * t8867 + 0.6e1 * t7842 * t8867 + 0.11e2 * t7847 * t8867 + 0.6e1 * t7855 * t8867 + t7860 * t8867 - 0.7e1 * t7862 * t8867 - 0.18e2 * t7865 * t8867 + 0.9e1 * t8597 - 0.6e1 * t8599 + 0.9e1 * t8601 - 0.3e1 * t8603 - 0.3e1 * t8604 - 0.9e1 * t8605;
+  t8893 = -t827 + t2866 + t2871 - t2872 + t2524 + t2530 - t2532 + t8094 + t8101 - t8103 - t8347 + t8349 - t8351 - t8353 + t8355 - t8357;
+  t8895 = my_piecewise3(t47, 0, t8892 + t8893);
+  t8901 = t4196 * t8839 + t637 * t8841 - 0.6e1 * t659 * t8839 - t659 * t8841 - 0.3e1 * t659 * t8846 - 0.3e1 * t659 * t8849 + 0.6e1 * t659 * t8852 - 0.9e1 * t637 * t8852 + 0.11e2 * t637 * t8839 + 0.3e1 * t1630 * t8852 - 0.6e1 * t1630 * t8839 + 0.3e1 * t637 * t8849 + 0.3e1 * t637 * t8846 + t57 * t55 * t8895 * t153 + 0.5e1 / 0.18e2 * t283 * t8660;
+  t8914 = t7533 * t7402;
+  t8917 = t936 * t2203;
+  t8920 = t7346 * t2215;
+  t8923 = t2851 * t1076;
+  t8924 = t631 * t8923;
+  t8929 = t4215 * t8923;
+  t8934 = t1632 * t8923;
+  t8938 = t631 * t2879 * t153;
+  t8943 = 0.5e1 / 0.18e2 * t283 * t8663 + 0.5e1 / 0.9e1 * t283 * t8650 - 0.5e1 / 0.6e1 * t283 * t8653 - 0.5e1 / 0.18e2 * t283 * t8656 - 0.5e1 / 0.9e1 * t283 * t8636 + 0.5e1 / 0.9e1 * t283 * t8639 - 0.5e1 / 0.27e2 * t247 * t8914 + 0.5e1 / 0.27e2 * t247 * t8917 + 0.6e1 * t659 * t8920 - 0.10e2 / 0.81e2 * t244 * t8924 + 0.5e1 / 0.18e2 * t285 * t8683 - 0.5e1 / 0.81e2 * t244 * t8929 - 0.9e1 * t637 * t8920 + 0.5e1 / 0.27e2 * t244 * t8934 - 0.5e1 / 0.81e2 * t244 * t8938 + 0.3e1 * t1630 * t8920;
+  t8948 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * (t8901 + t8943));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4sigmalapl3[0] = t8 * t4867;
+    v4sigmalapl3[0] = t8 * t8948;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigmalapl3[1] = 0.0e0;
@@ -3895,11 +5600,28 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigmalapl3[10] = 0.0e0;
 
-  t4884 = -0.24e2 * t2072 * t777 - 0.36e2 * t2076 * t777 - 0.12e2 * t4622 * t777 - t4629 * t777 - t1936 - t2031 - t2071 - t2075 - t4694 - t4704 + t4758 + t4763 + t4765 + 0.3e1 * t4821 + 0.18e2 * t4823 + 0.18e2 * t4827 + t742;
-  t4885 = my_piecewise3(t86, 0, t4884);
-  t4891 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t70 * (0.5e1 / 0.18e2 * t30 * t80 * t2035 - 0.5e1 / 0.81e2 * t30 * t75 * t2079 + t85 * t4885));
+  t8949 = t7931 * t273;
+  t8952 = t6375 * t912;
+  t8957 = t7295 * t960;
+  t8960 = t2292 * t2828;
+  t8966 = t904 * t2928;
+  t8977 = t4480 * t269;
+  t9002 = 0.6e1 * t7973 * t8977 + 0.6e1 * t7983 * t8977 + 0.11e2 * t7988 * t8977 - 0.18e2 * t7993 * t8977 + 0.6e1 * t7996 * t8977 - 0.11e2 * t8000 * t8977 + 0.6e1 * t8003 * t8977 - t8006 * t8977 + t8008 * t8977 - 0.7e1 * t8010 * t8977 - 0.6e1 * t8731 + 0.9e1 * t8733 - 0.3e1 * t8735 - 0.3e1 * t8736 - 0.9e1 * t8737 + 0.9e1 * t8739;
+  t9003 = -t858 + t2915 + t2920 - t2921 + t2588 - t2590 + t2582 + t8199 + t8204 - t8206 + t8476 - t8478 - t8480 + t8482 - t8484 - t8486;
+  t9005 = my_piecewise3(t91, 0, t9002 + t9003);
+  t9011 = 0.11e2 * t697 * t8949 + 0.3e1 * t1779 * t8952 - 0.6e1 * t1779 * t8949 + 0.3e1 * t697 * t8957 + 0.3e1 * t697 * t8960 - 0.9e1 * t697 * t8952 + t4388 * t8949 + t697 * t8966 - 0.3e1 * t719 * t8957 + 0.6e1 * t719 * t8952 - 0.6e1 * t719 * t8949 - t719 * t8966 - 0.3e1 * t719 * t8960 + t100 * t55 * t9005 * t233 + 0.5e1 / 0.18e2 * t301 * t8785;
+  t9024 = t7738 * t6392;
+  t9027 = t961 * t2292;
+  t9032 = t2900 * t1481;
+  t9033 = t4413 * t9032;
+  t9037 = t4953 * t960 * t273;
+  t9040 = t1781 * t9032;
+  t9044 = t691 * t2928 * t233;
+  t9049 = t691 * t9032;
+  t9054 = 0.5e1 / 0.18e2 * t301 * t8788 + 0.5e1 / 0.9e1 * t301 * t8799 - 0.5e1 / 0.6e1 * t301 * t8802 - 0.5e1 / 0.18e2 * t301 * t8805 - 0.5e1 / 0.9e1 * t301 * t8808 + 0.5e1 / 0.9e1 * t301 * t8811 - 0.5e1 / 0.27e2 * t266 * t9024 + 0.5e1 / 0.27e2 * t266 * t9027 + 0.5e1 / 0.18e2 * t303 * t8827 - 0.5e1 / 0.81e2 * t263 * t9033 - 0.9e1 * t697 * t9037 + 0.5e1 / 0.27e2 * t263 * t9040 - 0.5e1 / 0.81e2 * t263 * t9044 + 0.6e1 * t719 * t9037 - 0.10e2 / 0.81e2 * t263 * t9049 + 0.3e1 * t1779 * t9037;
+  t9059 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t74 * (t9011 + t9054));
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4sigmalapl3[11] = t8 * t4891;
+    v4sigmalapl3[11] = t8 * t9059;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigmalapl2tau[0] = 0.0e0;
@@ -4045,12 +5767,19 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4sigmatau3[11] = 0.0e0;
 
-  t4895 = t792 * t792;
-  t4912 = -0.12e2 * t2162 * t4895 * t50 - t2179 * t4895 * t50 - 0.24e2 * t927 * t4895 * t50 - 0.36e2 * t938 * t4895 * t50 - 0.8e1 * t1960 - 0.4e1 * t1963 - t4656 - t4666 + 0.36e2 * t4788 + 0.36e2 * t4792 + 0.6e1 * t4796 + t722;
-  t4913 = my_piecewise3(t46, 0, t4912);
-  t4919 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * (0.10e2 / 0.27e2 * t30 * t40 * t2057 + t45 * t4913));
+  t9060 = t928 * t928;
+  t9062 = t9060 * t2961 * t52;
+  t9074 = 0.6e1 * t1086 * t9062 + 0.6e1 * t1119 * t9062 + 0.6e1 * t144 * t9062 + 0.11e2 * t390 * t9062 + 0.4e1 * t2648 + 0.4e1 * t2655 - 0.4e1 * t2656 + t8094 + t8101 - t8103 - t827;
+  t9091 = -0.18e2 * t1099 * t9062 - t2969 * t9062 + t2971 * t9062 - 0.7e1 * t2973 * t9062 + 0.6e1 * t2978 * t9062 - 0.11e2 * t405 * t9062 + 0.18e2 * t8597 - 0.12e2 * t8599 + 0.18e2 * t8601 - 0.6e1 * t8603 - 0.6e1 * t8604 - 0.18e2 * t8605;
+  t9093 = my_piecewise3(t47, 0, t9074 + t9091);
+  t9097 = t924 * t924;
+  t9103 = t2879 * t387 * t291;
+  t9106 = t935 * t935;
+  t9115 = t6123 * t935;
+  t9147 = t57 * t55 * t9093 * t153 - 0.6e1 * t57 * t55 * t9097 * t3042 - 0.4e1 * t659 * t9103 - 0.3e1 * t57 * t55 * t9106 * t387 + 0.11e2 * t57 * t383 * t9097 * t3042 + 0.6e1 * t1630 * t9115 - 0.6e1 * t57 * t1072 * t9097 * t3042 + 0.3e1 * t57 * t383 * t9106 * t387 + 0.4e1 * t637 * t9103 + 0.10e2 / 0.27e2 * t285 * t8929 + 0.10e2 / 0.9e1 * t283 * t8914 - 0.10e2 / 0.9e1 * t285 * t8934 - 0.10e2 / 0.9e1 * t283 * t8917 + 0.20e2 / 0.27e2 * t285 * t8924 + t57 * t3092 * t9097 * t3042 - 0.18e2 * t637 * t9115 + 0.12e2 * t659 * t9115 + 0.10e2 / 0.27e2 * t285 * t8938;
+  t9151 = my_piecewise3(t2, 0, 0.3e1 / 0.20e2 * t7 * t24 * t9147);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4lapl4[0] = t8 * t4919;
+    v4lapl4[0] = t8 * t9151;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4lapl4[1] = 0.0e0;
@@ -4061,12 +5790,19 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4lapl4[3] = 0.0e0;
 
-  t4923 = t809 * t809;
-  t4940 = -0.24e2 * t1295 * t4923 * t90 - 0.36e2 * t1306 * t4923 * t90 - 0.12e2 * t2905 * t4923 * t90 - t2922 * t4923 * t90 - 0.8e1 * t1985 - 0.4e1 * t1988 - t4694 - t4704 + 0.6e1 * t4821 + 0.36e2 * t4823 + 0.36e2 * t4827 + t742;
-  t4941 = my_piecewise3(t86, 0, t4940);
-  t4947 = my_piecewise3(t59, 0, 0.3e1 / 0.20e2 * t7 * t70 * (0.10e2 / 0.27e2 * t30 * t80 * t2079 + t85 * t4941));
+  t9152 = t953 * t953;
+  t9154 = t9152 * t3835 * t96;
+  t9167 = 0.6e1 * t1491 * t9154 + 0.6e1 * t224 * t9154 + t3873 * t9154 - 0.7e1 * t3876 * t9154 + 0.11e2 * t587 * t9154 + 0.4e1 * t2708 + 0.4e1 * t2715 - 0.4e1 * t2716 + t8199 + t8204 - t8206;
+  t9183 = -0.18e2 * t1504 * t9154 + 0.6e1 * t1524 * t9154 + 0.6e1 * t3881 * t9154 - t3893 * t9154 - 0.11e2 * t602 * t9154 - t858 - 0.12e2 * t8731 + 0.18e2 * t8733 - 0.6e1 * t8735 - 0.6e1 * t8736 - 0.18e2 * t8737 + 0.18e2 * t8739;
+  t9185 = my_piecewise3(t91, 0, t9167 + t9183);
+  t9189 = t960 * t960;
+  t9194 = t949 * t949;
+  t9200 = t2928 * t584 * t309;
+  t9213 = t6375 * t960;
+  t9239 = t100 * t55 * t9185 * t233 - 0.3e1 * t100 * t55 * t9189 * t584 - 0.6e1 * t100 * t55 * t9194 * t3821 - 0.4e1 * t719 * t9200 + 0.3e1 * t100 * t383 * t9189 * t584 + 0.4e1 * t697 * t9200 + 0.11e2 * t100 * t383 * t9194 * t3821 + 0.6e1 * t1779 * t9213 - 0.6e1 * t100 * t1072 * t9194 * t3821 + 0.10e2 / 0.27e2 * t303 * t9033 - 0.10e2 / 0.9e1 * t301 * t9027 + 0.20e2 / 0.27e2 * t303 * t9049 + t100 * t3092 * t9194 * t3821 + 0.10e2 / 0.9e1 * t301 * t9024 - 0.10e2 / 0.9e1 * t303 * t9040 - 0.18e2 * t697 * t9213 + 0.12e2 * t719 * t9213 + 0.10e2 / 0.27e2 * t303 * t9044;
+  t9243 = my_piecewise3(t63, 0, 0.3e1 / 0.20e2 * t7 * t74 * t9239);
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4lapl4[4] = t8 * t4947;
+    v4lapl4[4] = t8 * t9243;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4lapl3tau[0] = 0.0e0;

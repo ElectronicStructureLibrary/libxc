@@ -251,6 +251,7 @@ set(raw_sources_list
   gga_xc_th3.c
   gga_xc_vv10.c
   gga_k_lgap.c
+  gga_k_lgap_ge.c
   hyb_gga_xc_b1wc.c
   hyb_gga_xc_b3lyp.c
   hyb_gga_xc_cam_b3lyp.c

@@ -553,9 +553,9 @@ func_reference_type xc_ref_Constantin2017_115153 = {
 
 
 func_reference_type xc_ref_Constantin2018_4385 = {
-  "L. A. Constantin, E. Fabiano, and F. Della Sala, The Journal of Physical Chemistry Letters 9, 4385 (2018), pMID: 30019904",
+  "L. A. Constantin, E. Fabiano, and F. Della Sala, J. Phys. Chem. Lett. 9, 4385 (2018), pMID: 30019904",
   "10.1021/acs.jpclett.8b01926",
-  "@article{Constantin2018_4385,\n  author = {Constantin, Lucian A. and Fabiano, Eduardo and Della Sala, Fabio},\n  title = {Semilocal Pauli–Gaussian Kinetic Functionals for Orbital-Free Density Functional Theory Calculations of Solids},\n  journal = {The Journal of Physical Chemistry Letters},\n  volume = {9},\n  number = {15},\n  pages = {4385-4390},\n  year = {2018},\n  doi = {10.1021/acs.jpclett.8b01926},\n  note ={PMID: 30019904},\n  URL = {https://doi.org/10.1021/acs.jpclett.8b01926}\n}"
+  "@article{Constantin2018_4385,\n  author = {Constantin, Lucian A. and Fabiano, Eduardo and Della Sala, Fabio},\n  title = {Semilocal Pauli--Gaussian Kinetic Functionals for Orbital-Free Density Functional Theory Calculations of Solids},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {9},\n  number = {15},\n  pages = {4385-4390},\n  year = {2018},\n  doi = {10.1021/acs.jpclett.8b01926},\n  note ={PMID: 30019904},\n  URL = {https://doi.org/10.1021/acs.jpclett.8b01926}\n}"
 };
 
 

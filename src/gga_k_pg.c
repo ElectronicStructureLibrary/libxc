@@ -11,7 +11,7 @@
 #define XC_GGA_K_PG1      219 /* PG1 functional by Constantin, Fabiano, and Della Sala */
 
 typedef struct{
-  double mu;
+  double pg_mu;
 } gga_k_pg_params;
 
 static void
@@ -24,7 +24,6 @@ gga_k_pg_init(xc_func_type *p)
 #define N_PAR 1
 static const char  *names[N_PAR]  = {"_mu"};
 static const char  *desc[N_PAR]   = {"Prefactor in exponent"};
-
 static const double par_pg1[N_PAR] = {1.0};
 
 #include "decl_gga.h"

@@ -14,7 +14,7 @@
   params = (gga_k_pg_params * )(p->params);
 *)
 
-pg_f0 := s -> exp(-params_a_mu * s^2):
+pg_f0 := s -> 5/3*s^2 + exp(-params_a_pg_mu * s^2):
 pg_f := x -> pg_f0(X2S*x):
 
 f := (rs, z, xt, xs0, xs1) -> gga_kinetic(pg_f, rs, z, xs0, xs1):

@@ -7,8 +7,8 @@
 *)
 
 (* type: lda_exc *)
-(* replace: "int1\(" -> "xc_integrate(func1, NULL, 0.0, " *)
-(* replace: "int2\(" -> "xc_integrate(func2, NULL, 0.0, " *)
+(* replace: "int1\(" -> "xc_integrate(func1, NULL, 1e-20, " *)
+(* replace: "int2\(" -> "xc_integrate(func2, NULL, 1e-20, " *)
 (* prefix:
   lda_x_1d_exponential_params *params;
 

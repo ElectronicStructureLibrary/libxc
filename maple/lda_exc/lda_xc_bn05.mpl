@@ -7,12 +7,6 @@
 *)
 
 (* type: lda_exc *)
-(* prefix:
-  lda_xc_bn05_params *params;
-
-  assert(p->params != NULL);
-  params = (lda_xc_bn05_params * )(p->params);
-*)
 
 $include "lda_x_erf.mpl"
 $define lda_c_pw_params
@@ -20,8 +14,9 @@ $define lda_c_pw_modified_params
 $include "lda_c_pw.mpl"
 
 p_a_hyb_omega_0_ := 1:
+bn05_A  := 3.4602:
+bn05_C0 := 3.2:
+bn05_C1 := -0.9:
 
-bn05_f := (rs, z) -> xerf_f(rs, z)
-  + f_pw(rs, z)*params_a_bn05_A/(params_a_bn05_C0 + params_a_bn05_C1*rs + rs^2):
-
-f := (rs, z) -> bn05_f(rs, z):
+f := (rs, z) ->
+  f_lda_x_erf(rs, z) + f_pw(rs, z)*bn05_A/(bn05_C0 + bn05_C1*rs + rs^2):

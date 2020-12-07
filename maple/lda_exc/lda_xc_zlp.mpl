@@ -7,16 +7,8 @@
 *)
 
 (* type: lda_exc *)
-(* prefix:
-  lda_xc_zlp_params *params;
 
-  assert(p->params != NULL);
-  params = (lda_xc_zlp_params * )(p->params);
-*)
+a0 := 0.93222*RS_FACTOR:
+kk := 9.47362e-3*RS_FACTOR:
 
-zlp_a0 := params_a_zlp_a0*RS_FACTOR:
-zlp_k  := params_a_zlp_k *RS_FACTOR:
-
-zlp_f := (rs, z) -> -zlp_a0*(1 - zlp_k*log(1 + rs/zlp_k)/rs)/rs:
-
-f := (rs, z) -> zlp_f(rs, z):
+f := (rs, zeta) -> -a0*(1 - kk*log(1 + rs/kk)/rs)/rs:

@@ -16,7 +16,5 @@
 
 $define xc_dimensions_1d
 
-ehwlrg_f := (rs, z) -> n_total(rs)^params_a_ehwlrg_alpha *
-  (params_a_ehwlrg_a1 + params_a_ehwlrg_a2*n_total(rs) + params_a_ehwlrg_a3*n_total(rs)^2):
-
-f := (rs, z) -> ehwlrg_f(rs, z):
+f := (rs, zeta) -> \
+ (params_a_a1 + params_a_a2*n_total(rs) + params_a_a3*n_total(rs)^2) * n_total(rs)^params_a_alpha:

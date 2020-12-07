@@ -15,12 +15,10 @@
 *)
 
 $ifdef lda_x_params
-params_a_lda_x_alpha := 1:
+params_a_alpha := 1:
 $endif
 
-lda_x_f := (rs, z) -> params_a_lda_x_alpha*(
-  + my_piecewise3(screen_dens(rs,  z), 0, lda_x_spin(rs,  z))
-  + my_piecewise3(screen_dens(rs, -z), 0, lda_x_spin(rs, -z))
-  ):
-
-f := (rs, z) -> lda_x_f(rs, z):
+f_lda_x := (rs, z) ->
+  + params_a_alpha*my_piecewise3(screen_dens(rs,  z), 0, lda_x_spin(rs,  z))
+  + params_a_alpha*my_piecewise3(screen_dens(rs, -z), 0, lda_x_spin(rs, -z)):
+f       := (rs, z) -> f_lda_x(rs, z):

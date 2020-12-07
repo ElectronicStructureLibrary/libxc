@@ -39,11 +39,8 @@ Makefile.in
 /lib
 
 # /build/
-/build/libxc.pc
-/build/libxcf90.pc
-/build/libxcf03.pc
-/build/libxc.spec
-/objdir/*
+/build
+/objdir
 
 # /m4/
 /m4/ltsugar.m4

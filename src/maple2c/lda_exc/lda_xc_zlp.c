@@ -6,7 +6,7 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-  Maple version     : Maple 2016 (X86 64 LINUX)
+  Maple version     : Maple 2020 (X86 64 LINUX)
   Maple source      : ./maple/lda_exc/lda_xc_zlp.mpl
   Type of functional: lda_exc
 */
@@ -20,19 +20,19 @@ func_unpol(const xc_func_type *p, int order, const double *rho , double *zk LDA_
 {
 
 #ifndef XC_DONT_COMPILE_EXC
-  double t1, t3, t5, t6, t7, t10, t11;
+  double t1, t4, t5, t8, t9;
 
 #ifndef XC_DONT_COMPILE_VXC
-  double t14, t16, t18, t19, t22;
+  double t12, t14, t17, t18, t21;
 
 #ifndef XC_DONT_COMPILE_FXC
-  double t24, t29, t35, t36, t41, t44;
+  double t28, t34, t35, t39, t42;
 
 #ifndef XC_DONT_COMPILE_KXC
-  double t46, t53, t63, t65, t67, t68, t72, t75;
+  double t51, t60, t62, t66, t69;
 
 #ifndef XC_DONT_COMPILE_LXC
-  double t86, t102;
+  double t80, t94;
 #endif
 
 #endif
@@ -44,73 +44,63 @@ func_unpol(const xc_func_type *p, int order, const double *rho , double *zk LDA_
 #endif
 
 
-  lda_xc_zlp_params *params;
-
-  assert(p->params != NULL);
-  params = (lda_xc_zlp_params * )(p->params);
 
   t1 = POW_1_3(rho[0]);
-  t3 = 0.1e1 / params->zlp_k;
-  t5 = 0.1e1 + 0.1e1 / t1 * t3;
-  t6 = log(t5);
-  t7 = params->zlp_k * t6;
-  t10 = params->zlp_a0 * (-t7 * t1 + 0.1e1);
-  t11 = t10 * t1;
+  t4 = 0.1e1 + 0.10555627099250339363e3 / t1;
+  t5 = log(t4);
+  t8 = 0.1e1 - 0.94736200000000000000e-2 * t5 * t1;
+  t9 = t8 * t1;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    zk[0] = -t11;
+    zk[0] = -0.93222000000000000000e0 * t9;
 
 #ifndef XC_DONT_COMPILE_VXC
 
   if(order < 1) return;
 
 
-  t14 = t1 * rho[0] * params->zlp_a0;
-  t16 = 0.1e1 / t5;
-  t18 = t1 * t1;
-  t19 = 0.1e1 / t18;
-  t22 = 0.1e1 / rho[0] * t16 / 0.3e1 - t7 * t19 / 0.3e1;
+  t12 = t1 * rho[0];
+  t14 = 0.1e1 / t4;
+  t17 = t1 * t1;
+  t18 = 0.1e1 / t17;
+  t21 = 0.33333333333333333332e0 / rho[0] * t14 - 0.31578733333333333333e-2 * t5 * t18;
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[0] = -0.4e1 / 0.3e1 * t11 - t14 * t22;
+    vrho[0] = -0.12429600000000000000e1 * t9 - 0.93222000000000000000e0 * t12 * t21;
 
 #ifndef XC_DONT_COMPILE_FXC
 
   if(order < 2) return;
 
 
-  t24 = params->zlp_a0 * t22;
-  t29 = rho[0] * rho[0];
-  t35 = t5 * t5;
-  t36 = 0.1e1 / t35;
-  t41 = 0.1e1 / t18 / rho[0];
-  t44 = -0.2e1 / 0.9e1 / t29 * t16 + 0.1e1 / t1 / t29 * t36 * t3 / 0.9e1 + 0.2e1 / 0.9e1 * t7 * t41;
+  t28 = rho[0] * rho[0];
+  t34 = t4 * t4;
+  t35 = 0.1e1 / t34;
+  t39 = 0.1e1 / t17 / rho[0];
+  t42 = -0.22222222222222222221e0 / t28 * t14 + 0.11728474554722599292e2 / t1 / t28 * t35 + 0.21052488888888888889e-2 * t5 * t39;
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = -0.8e1 / 0.3e1 * t24 * t1 - 0.4e1 / 0.9e1 * t10 * t19 - t14 * t44;
+    v2rho2[0] = -0.24859200000000000000e1 * t21 * t1 - 0.41432000000000000000e0 * t8 * t18 - 0.93222000000000000000e0 * t12 * t42;
 
 #ifndef XC_DONT_COMPILE_KXC
 
   if(order < 3) return;
 
 
-  t46 = params->zlp_a0 * t44;
-  t53 = t29 * rho[0];
-  t63 = 0.1e1 / t18 / t53;
-  t65 = 0.1e1 / t35 / t5;
-  t67 = params->zlp_k * params->zlp_k;
-  t68 = 0.1e1 / t67;
-  t72 = 0.1e1 / t18 / t29;
-  t75 = 0.10e2 / 0.27e2 / t53 * t16 - 0.1e1 / t1 / t53 * t36 * t3 / 0.3e1 + 0.2e1 / 0.27e2 * t63 * t65 * t68 - 0.10e2 / 0.27e2 * t7 * t72;
+  t51 = t28 * rho[0];
+  t60 = 0.1e1 / t17 / t51;
+  t62 = 0.1e1 / t34 / t4;
+  t66 = 0.1e1 / t17 / t28;
+  t69 = 0.37037037037037037035e0 / t51 * t14 - 0.35185423664167797876e2 / t1 / t51 * t35 + 0.82534269228465284243e3 * t60 * t62 - 0.35087481481481481482e-2 * t5 * t66;
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = -0.4e1 * t46 * t1 - 0.4e1 / 0.3e1 * t24 * t19 + 0.8e1 / 0.27e2 * t10 * t41 - t14 * t75;
+    v3rho3[0] = -0.37288800000000000000e1 * t42 * t1 - 0.12429600000000000000e1 * t21 * t18 + 0.27621333333333333333e0 * t8 * t39 - 0.93222000000000000000e0 * t12 * t69;
 
 #ifndef XC_DONT_COMPILE_LXC
 
   if(order < 4) return;
 
 
-  t86 = t29 * t29;
-  t102 = t35 * t35;
+  t80 = t28 * t28;
+  t94 = t34 * t34;
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[0] = -0.16e2 / 0.3e1 * params->zlp_a0 * t75 * t1 - 0.8e1 / 0.3e1 * t46 * t19 + 0.32e2 / 0.27e2 * t24 * t41 - 0.40e2 / 0.81e2 * t10 * t72 - t14 * (-0.80e2 / 0.81e2 / t86 * t16 + 0.100e3 / 0.81e2 / t1 / t86 * t36 * t3 - 0.40e2 / 0.81e2 / t18 / t86 * t65 * t68 + 0.2e1 / 0.27e2 / t86 / rho[0] / t102 / t67 / params->zlp_k + 0.80e2 / 0.81e2 * t7 * t63);
+    v4rho4[0] = -0.49718400000000000000e1 * t69 * t1 - 0.24859200000000000000e1 * t42 * t18 + 0.11048533333333333333e1 * t21 * t39 - 0.46035555555555555555e0 * t8 * t66 - 0.93222000000000000000e0 * t12 * (-0.98765432098765432088e0 / t80 * t14 + 0.13031638394136221436e3 / t1 / t80 * t35 - 0.55022846152310189495e4 / t17 / t80 * t62 + 0.87120096888481155292e5 / t80 / rho[0] / t94 + 0.93566617283950617285e-2 * t5 * t60);
 
 #ifndef XC_DONT_COMPILE_MXC
 
@@ -136,19 +126,19 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
 {
 
 #ifndef XC_DONT_COMPILE_EXC
-  double t1, t2, t4, t6, t7, t8, t11, t12;
+  double t1, t2, t5, t6, t9, t10;
 
 #ifndef XC_DONT_COMPILE_VXC
-  double t15, t17, t19, t20, t23;
+  double t13, t15, t18, t19, t22;
 
 #ifndef XC_DONT_COMPILE_FXC
-  double t25, t30, t36, t37, t42, t45;
+  double t29, t35, t36, t40, t43;
 
 #ifndef XC_DONT_COMPILE_KXC
-  double t47, t54, t64, t66, t68, t69, t73, t76;
+  double t52, t61, t63, t67, t70;
 
 #ifndef XC_DONT_COMPILE_LXC
-  double t87, t103;
+  double t81, t95;
 #endif
 
 #endif
@@ -160,34 +150,28 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
 #endif
 
 
-  lda_xc_zlp_params *params;
-
-  assert(p->params != NULL);
-  params = (lda_xc_zlp_params * )(p->params);
 
   t1 = rho[0] + rho[1];
   t2 = POW_1_3(t1);
-  t4 = 0.1e1 / params->zlp_k;
-  t6 = 0.1e1 + 0.1e1 / t2 * t4;
-  t7 = log(t6);
-  t8 = params->zlp_k * t7;
-  t11 = params->zlp_a0 * (-t8 * t2 + 0.1e1);
-  t12 = t11 * t2;
+  t5 = 0.1e1 + 0.10555627099250339363e3 / t2;
+  t6 = log(t5);
+  t9 = 0.1e1 - 0.94736200000000000000e-2 * t6 * t2;
+  t10 = t9 * t2;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    zk[0] = -t12;
+    zk[0] = -0.93222000000000000000e0 * t10;
 
 #ifndef XC_DONT_COMPILE_VXC
 
   if(order < 1) return;
 
 
-  t15 = t2 * t1 * params->zlp_a0;
-  t17 = 0.1e1 / t6;
-  t19 = t2 * t2;
-  t20 = 0.1e1 / t19;
-  t23 = 0.1e1 / t1 * t17 / 0.3e1 - t8 * t20 / 0.3e1;
+  t13 = t2 * t1;
+  t15 = 0.1e1 / t5;
+  t18 = t2 * t2;
+  t19 = 0.1e1 / t18;
+  t22 = 0.33333333333333333332e0 / t1 * t15 - 0.31578733333333333333e-2 * t6 * t19;
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[0] = -0.4e1 / 0.3e1 * t12 - t15 * t23;
+    vrho[0] = -0.12429600000000000000e1 * t10 - 0.93222000000000000000e0 * t13 * t22;
 
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vrho[1] = vrho[0];
@@ -197,14 +181,13 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
   if(order < 2) return;
 
 
-  t25 = params->zlp_a0 * t23;
-  t30 = t1 * t1;
-  t36 = t6 * t6;
-  t37 = 0.1e1 / t36;
-  t42 = 0.1e1 / t19 / t1;
-  t45 = -0.2e1 / 0.9e1 / t30 * t17 + 0.1e1 / t2 / t30 * t37 * t4 / 0.9e1 + 0.2e1 / 0.9e1 * t8 * t42;
+  t29 = t1 * t1;
+  t35 = t5 * t5;
+  t36 = 0.1e1 / t35;
+  t40 = 0.1e1 / t18 / t1;
+  t43 = -0.22222222222222222221e0 / t29 * t15 + 0.11728474554722599292e2 / t2 / t29 * t36 + 0.21052488888888888889e-2 * t6 * t40;
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = -0.8e1 / 0.3e1 * t25 * t2 - 0.4e1 / 0.9e1 * t11 * t20 - t15 * t45;
+    v2rho2[0] = -0.24859200000000000000e1 * t22 * t2 - 0.41432000000000000000e0 * t9 * t19 - 0.93222000000000000000e0 * t13 * t43;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rho2[1] = v2rho2[0];
@@ -217,16 +200,13 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
   if(order < 3) return;
 
 
-  t47 = params->zlp_a0 * t45;
-  t54 = t30 * t1;
-  t64 = 0.1e1 / t19 / t54;
-  t66 = 0.1e1 / t36 / t6;
-  t68 = params->zlp_k * params->zlp_k;
-  t69 = 0.1e1 / t68;
-  t73 = 0.1e1 / t19 / t30;
-  t76 = 0.10e2 / 0.27e2 / t54 * t17 - 0.1e1 / t2 / t54 * t37 * t4 / 0.3e1 + 0.2e1 / 0.27e2 * t64 * t66 * t69 - 0.10e2 / 0.27e2 * t8 * t73;
+  t52 = t29 * t1;
+  t61 = 0.1e1 / t18 / t52;
+  t63 = 0.1e1 / t35 / t5;
+  t67 = 0.1e1 / t18 / t29;
+  t70 = 0.37037037037037037035e0 / t52 * t15 - 0.35185423664167797876e2 / t2 / t52 * t36 + 0.82534269228465284243e3 * t61 * t63 - 0.35087481481481481482e-2 * t6 * t67;
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = -0.4e1 * t47 * t2 - 0.4e1 / 0.3e1 * t25 * t20 + 0.8e1 / 0.27e2 * t11 * t42 - t15 * t76;
+    v3rho3[0] = -0.37288800000000000000e1 * t43 * t2 - 0.12429600000000000000e1 * t22 * t19 + 0.27621333333333333333e0 * t9 * t40 - 0.93222000000000000000e0 * t13 * t70;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho3[1] = v3rho3[0];
@@ -242,10 +222,10 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
   if(order < 4) return;
 
 
-  t87 = t30 * t30;
-  t103 = t36 * t36;
+  t81 = t29 * t29;
+  t95 = t35 * t35;
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[0] = -0.16e2 / 0.3e1 * params->zlp_a0 * t76 * t2 - 0.8e1 / 0.3e1 * t47 * t20 + 0.32e2 / 0.27e2 * t25 * t42 - 0.40e2 / 0.81e2 * t11 * t73 - t15 * (-0.80e2 / 0.81e2 / t87 * t17 + 0.100e3 / 0.81e2 / t2 / t87 * t37 * t4 - 0.40e2 / 0.81e2 / t19 / t87 * t66 * t69 + 0.2e1 / 0.27e2 / t87 / t1 / t103 / t68 / params->zlp_k + 0.80e2 / 0.81e2 * t8 * t64);
+    v4rho4[0] = -0.49718400000000000000e1 * t70 * t2 - 0.24859200000000000000e1 * t43 * t19 + 0.11048533333333333333e1 * t22 * t40 - 0.46035555555555555555e0 * t9 * t67 - 0.93222000000000000000e0 * t13 * (-0.98765432098765432088e0 / t81 * t15 + 0.13031638394136221436e3 / t2 / t81 * t36 - 0.55022846152310189495e4 / t18 / t81 * t63 + 0.87120096888481155292e5 / t81 / t1 / t95 + 0.93566617283950617285e-2 * t6 * t61);
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho4[1] = v4rho4[0];

@@ -20,10 +20,10 @@
 #define XC_LDA_XC_GDSMFB  577    /* Groth et al. parametrization */
 
 typedef struct{
-  double T;            /* In units of k_B */
-  double thetaParam;  /* This takes into account the difference between t and theta_0 */
+  double ksdt_T;           /* In units of k_B */
+  double ksdt_thetaParam;  /* This takes into account the difference between t and theta_0 */
 
-  double b[2][5], c[2][3], d[2][5],  e[2][5];
+  double ksdt_pb[2][5], ksdt_pc[2][3], ksdt_pd[2][5],  ksdt_pe[2][5];
 } lda_xc_ksdt_params;
 
 static const lda_xc_ksdt_params par_ksdt = {
@@ -102,8 +102,8 @@ T_set_ext_params(xc_func_type *p, const double *ext_params)
   params = (lda_xc_ksdt_params *) (p->params);
 
   /* the temperature is in units of k_B */
-  params->T = get_ext_param(p, ext_params, 0);
-  if(params->T < 1e-8) params->T = 1e-8;
+  params->ksdt_T = get_ext_param(p, ext_params, 0);
+  if(params->ksdt_T < 1e-8) params->ksdt_T = 1e-8;
 }
 
 #ifdef __cplusplus

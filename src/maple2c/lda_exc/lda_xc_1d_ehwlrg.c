@@ -6,7 +6,7 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-  Maple version     : Maple 2020 (X86 64 LINUX)
+  Maple version     : Maple 2016 (X86 64 LINUX)
   Maple source      : ./maple/lda_exc/lda_xc_1d_ehwlrg.mpl
   Type of functional: lda_exc
 */
@@ -20,19 +20,19 @@ func_unpol(const xc_func_type *p, int order, const double *rho , double *zk LDA_
 {
 
 #ifndef XC_DONT_COMPILE_EXC
-  double t1, t4, t5;
+  double t1, t2, t5;
 
 #ifndef XC_DONT_COMPILE_VXC
-  double t6, t8;
+  double t6, t8, t11;
 
 #ifndef XC_DONT_COMPILE_FXC
-  double t13, t15, t16, t22, t23;
+  double t13, t14, t18, t19;
 
 #ifndef XC_DONT_COMPILE_KXC
-  double t25, t29, t30, t36, t37;
+  double t25, t26, t28, t34;
 
 #ifndef XC_DONT_COMPILE_LXC
-  double t44, t54;
+  double t42, t46, t49, t52;
 #endif
 
 #endif
@@ -49,57 +49,58 @@ func_unpol(const xc_func_type *p, int order, const double *rho , double *zk LDA_
   assert(p->params != NULL);
   params = (lda_xc_1d_ehwlrg_params * )(p->params);
 
-  t1 = rho[0] * rho[0];
-  t4 = params->a2 * rho[0] + params->a3 * t1 + params->a1;
-  t5 = pow(rho[0], params->alpha);
+  t1 = pow(rho[0], params->ehwlrg_alpha);
+  t2 = rho[0] * rho[0];
+  t5 = rho[0] * params->ehwlrg_a2 + t2 * params->ehwlrg_a3 + params->ehwlrg_a1;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    zk[0] = t4 * t5;
+    zk[0] = t1 * t5;
 
 #ifndef XC_DONT_COMPILE_VXC
 
   if(order < 1) return;
 
 
-  t6 = rho[0] * params->a3;
-  t8 = 0.2e1 * t6 + params->a2;
+  t6 = t1 * params->ehwlrg_alpha;
+  t8 = rho[0] * t1;
+  t11 = 0.2e1 * rho[0] * params->ehwlrg_a3 + params->ehwlrg_a2;
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[0] = rho[0] * t8 * t5 + t4 * t5 * params->alpha + (t4 * t5);
+    vrho[0] = t8 * t11 + t6 * t5 + (t1 * t5);
 
 #ifndef XC_DONT_COMPILE_FXC
 
   if(order < 2) return;
 
 
-  t13 = t8 * t5;
-  t15 = 0.1e1 / rho[0];
-  t16 = params->alpha * t15;
-  t22 = params->alpha * params->alpha;
-  t23 = t22 * t15;
+  t13 = 0.1e1 / rho[0];
+  t14 = t13 * t5;
+  t18 = params->ehwlrg_alpha * params->ehwlrg_alpha;
+  t19 = t1 * t18;
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = 0.2e1 * t13 * params->alpha + (t4 * t5) * t16 + (t4 * t5) * t23 + 0.2e1 * t6 * t5 + 0.2e1 * t13;
+    v2rho2[0] = 0.2e1 * t1 * t11 + 0.2e1 * t6 * t11 + t19 * t14 + t6 * t14 + 0.2e1 * t8 * params->ehwlrg_a3;
 
 #ifndef XC_DONT_COMPILE_KXC
 
   if(order < 3) return;
 
 
-  t25 = params->a3 * t5;
-  t29 = 0.1e1 / t1;
-  t30 = params->alpha * t29;
-  t36 = t22 * params->alpha;
-  t37 = t36 * t29;
+  t25 = 0.1e1 / t2;
+  t26 = t25 * t5;
+  t28 = t13 * t11;
+  t34 = t1 * t18 * params->ehwlrg_alpha;
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = 0.3e1 * t13 * t16 + 0.3e1 * t13 * t23 + 0.6e1 * t25 * params->alpha - (t4 * t5) * t30 + (t4 * t5) * t37 + 0.6e1 * t25;
+    v3rho3[0] = 0.6e1 * t1 * params->ehwlrg_a3 + 0.3e1 * t19 * t28 + t34 * t26 - t6 * t26 + 0.3e1 * t6 * t28 + 0.6e1 * t6 * params->ehwlrg_a3;
 
 #ifndef XC_DONT_COMPILE_LXC
 
   if(order < 4) return;
 
 
-  t44 = 0.1e1 / t1 / rho[0];
-  t54 = t22 * t22;
+  t42 = 0.1e1 / t2 / rho[0] * t5;
+  t46 = t25 * t11;
+  t49 = t13 * params->ehwlrg_a3;
+  t52 = t18 * t18;
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[0] = -(t4 * t5) * t22 * t44 - 0.2e1 * (t4 * t5) * t36 * t44 + (t4 * t5) * t54 * t44 + 0.2e1 * (t4 * t5) * params->alpha * t44 - 0.4e1 * t13 * t30 + 0.4e1 * t13 * t37 + 0.12e2 * t25 * t16 + 0.12e2 * t25 * t23;
+    v4rho4[0] = t1 * t52 * t42 - t19 * t42 + 0.12e2 * t19 * t49 - 0.2e1 * t34 * t42 + 0.4e1 * t34 * t46 + 0.2e1 * t6 * t42 - 0.4e1 * t6 * t46 + 0.12e2 * t6 * t49;
 
 #ifndef XC_DONT_COMPILE_MXC
 
@@ -125,19 +126,19 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
 {
 
 #ifndef XC_DONT_COMPILE_EXC
-  double t1, t3, t5, t6;
+  double t1, t2, t4, t6;
 
 #ifndef XC_DONT_COMPILE_VXC
-  double t7, t9;
+  double t7, t9, t12;
 
 #ifndef XC_DONT_COMPILE_FXC
-  double t14, t16, t17, t23, t24;
+  double t14, t15, t19, t20;
 
 #ifndef XC_DONT_COMPILE_KXC
-  double t26, t30, t31, t37, t38;
+  double t26, t27, t29, t35;
 
 #ifndef XC_DONT_COMPILE_LXC
-  double t45, t55;
+  double t43, t47, t50, t53;
 #endif
 
 #endif
@@ -155,21 +156,22 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
   params = (lda_xc_1d_ehwlrg_params * )(p->params);
 
   t1 = rho[0] + rho[1];
-  t3 = t1 * t1;
-  t5 = params->a2 * t1 + params->a3 * t3 + params->a1;
-  t6 = pow(t1, params->alpha);
+  t2 = pow(t1, params->ehwlrg_alpha);
+  t4 = t1 * t1;
+  t6 = params->ehwlrg_a2 * t1 + params->ehwlrg_a3 * t4 + params->ehwlrg_a1;
   if(zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
-    zk[0] = t5 * t6;
+    zk[0] = t2 * t6;
 
 #ifndef XC_DONT_COMPILE_VXC
 
   if(order < 1) return;
 
 
-  t7 = params->a3 * t1;
-  t9 = params->a2 + 0.2e1 * t7;
+  t7 = t2 * params->ehwlrg_alpha;
+  t9 = t1 * t2;
+  t12 = 0.2e1 * params->ehwlrg_a3 * t1 + params->ehwlrg_a2;
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
-    vrho[0] = t1 * t9 * t6 + t5 * t6 * params->alpha + (t5 * t6);
+    vrho[0] = t9 * t12 + t7 * t6 + (t2 * t6);
 
   if(vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     vrho[1] = vrho[0];
@@ -179,13 +181,12 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
   if(order < 2) return;
 
 
-  t14 = t9 * t6;
-  t16 = 0.1e1 / t1;
-  t17 = params->alpha * t16;
-  t23 = params->alpha * params->alpha;
-  t24 = t23 * t16;
+  t14 = 0.1e1 / t1;
+  t15 = t14 * t6;
+  t19 = params->ehwlrg_alpha * params->ehwlrg_alpha;
+  t20 = t2 * t19;
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
-    v2rho2[0] = 0.2e1 * t14 * params->alpha + (t5 * t6) * t17 + (t5 * t6) * t24 + 0.2e1 * t7 * t6 + 0.2e1 * t14;
+    v2rho2[0] = 0.2e1 * t2 * t12 + 0.2e1 * t7 * t12 + t20 * t15 + t7 * t15 + 0.2e1 * t9 * params->ehwlrg_a3;
 
   if(v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     v2rho2[1] = v2rho2[0];
@@ -198,13 +199,12 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
   if(order < 3) return;
 
 
-  t26 = params->a3 * t6;
-  t30 = 0.1e1 / t3;
-  t31 = params->alpha * t30;
-  t37 = t23 * params->alpha;
-  t38 = t37 * t30;
+  t26 = 0.1e1 / t4;
+  t27 = t26 * t6;
+  t29 = t14 * t12;
+  t35 = t2 * t19 * params->ehwlrg_alpha;
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
-    v3rho3[0] = 0.3e1 * t14 * t17 + 0.3e1 * t14 * t24 + 0.6e1 * t26 * params->alpha - (t5 * t6) * t31 + (t5 * t6) * t38 + 0.6e1 * t26;
+    v3rho3[0] = 0.6e1 * t2 * params->ehwlrg_a3 + 0.3e1 * t20 * t29 + t35 * t27 - t7 * t27 + 0.3e1 * t7 * t29 + 0.6e1 * t7 * params->ehwlrg_a3;
 
   if(v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     v3rho3[1] = v3rho3[0];
@@ -220,10 +220,12 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
   if(order < 4) return;
 
 
-  t45 = 0.1e1 / t3 / t1;
-  t55 = t23 * t23;
+  t43 = 0.1e1 / t4 / t1 * t6;
+  t47 = t26 * t12;
+  t50 = t14 * params->ehwlrg_a3;
+  t53 = t19 * t19;
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
-    v4rho4[0] = -(t5 * t6) * t23 * t45 - 0.2e1 * (t5 * t6) * t37 * t45 + (t5 * t6) * t55 * t45 + 0.2e1 * (t5 * t6) * params->alpha * t45 - 0.4e1 * t14 * t31 + 0.4e1 * t14 * t38 + 0.12e2 * t26 * t17 + 0.12e2 * t26 * t24;
+    v4rho4[0] = t2 * t53 * t43 - t20 * t43 + 0.12e2 * t20 * t50 - 0.2e1 * t35 * t43 + 0.4e1 * t35 * t47 + 0.2e1 * t7 * t43 - 0.4e1 * t7 * t47 + 0.12e2 * t7 * t50;
 
   if(v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     v4rho4[1] = v4rho4[0];

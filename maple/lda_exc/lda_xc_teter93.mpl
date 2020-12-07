@@ -7,12 +7,15 @@
 *)
 
 (* type: lda_exc *)
+(* prefix:
+  lda_xc_teter_params *params;
 
-a  := [0.4581652932831429, 2.217058676663745,  0.7405551735357053, 0.01968227878617998 ]:
-ap := [0.119086804055547,  0.6157402568883345, 0.1574201515892867, 0.003532336663397157]:
-b  := [1.0000000000000000, 4.504130959426697,  1.110667363742916,  0.02359291751427506 ]:
-bp := [0.000000000000000,  0.2673612973836267, 0.2052004607777787, 0.004200005045691381]:
+  assert(p->params != NULL);
+  params = (lda_xc_teter_params * )(p->params);
+*)
 
-f  := (rs, zeta) ->
-  - add((a[i] + f_zeta(zeta)*ap[i])*rs^(i-1), i=1..4) /
-    add((b[i] + f_zeta(zeta)*bp[i])*rs^i,     i=1..4):
+teter_f  := (rs, z) ->
+  - add((params_a_teter_a[i] + f_zeta(z)*params_a_teter_ap[i])*rs^(i-1), i=1..4) /
+    add((params_a_teter_b[i] + f_zeta(z)*params_a_teter_bp[i])*rs^i,     i=1..4):
+
+f := (rs, z) -> teter_f(rs, z):

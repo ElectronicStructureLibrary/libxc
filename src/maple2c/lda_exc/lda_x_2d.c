@@ -6,7 +6,7 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-  Maple version     : Maple 2020 (X86 64 LINUX)
+  Maple version     : Maple 2016 (X86 64 LINUX)
   Maple source      : ./maple/lda_exc/lda_x_2d.mpl
   Type of functional: lda_exc
 */

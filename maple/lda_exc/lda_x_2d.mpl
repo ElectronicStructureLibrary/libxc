@@ -10,6 +10,7 @@
 
 $define xc_dimensions_2d
 
-ax := -4/3*sqrt(2)/Pi:
+x2d_ax := -4/3*sqrt(2)/Pi:
+x2d_f  := (rs, z) -> x2d_ax*f_zeta_2d(z)/rs:
 
-f := (rs, z) -> ax*f_zeta_2d(z)/rs:
+f := (rs, z) -> x2d_f(rs, z):

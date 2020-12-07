@@ -14,9 +14,6 @@
   params = (mgga_x_mn12_params * ) (p->params);
 *)
 
-$define lda_x_params
-$include "lda_x.mpl"
-
 mn12_omega_x := 2.5:
 mn12_gamma_x := 0.004:
 

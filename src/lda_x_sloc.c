@@ -12,8 +12,7 @@
 #define XC_LDA_X_SLOC   692   /* simple local model for Slater potential */
 
 typedef struct{
-  double a;       /* prefactor */
-  double b;       /* exponent */
+  double sloc_a, sloc_b;
 } lda_x_sloc_params;
 
 static void

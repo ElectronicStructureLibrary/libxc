@@ -11,9 +11,6 @@
 $define lda_c_pw_params
 $include "lda_c_pw.mpl"
 
-$define lda_x_params
-$include "lda_x.mpl"
-
 b98_gamma_x  := 0.11:
 b98_gamma_ss := 1.6:
 b98_gamma_ab := 0.14:

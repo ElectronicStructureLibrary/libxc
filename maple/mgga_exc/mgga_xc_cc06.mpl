@@ -21,7 +21,7 @@ cc06_beta  :=  0.0080*cc06_cnst:
 cc06_gamma :=  0.026 *cc06_cnst:
 
 cc06_f := (rs, z, us0, us1) ->
-  (f_lda_x(rs, z) + f_pw(rs, z))*(1 +
+  (lda_x_f(rs, z) + f_pw(rs, z))*(1 +
     (cc06_alpha + cc06_beta*u_total(z, us0, us1))/(1 + cc06_gamma*u_total(z, us0, us1))
   ):
 

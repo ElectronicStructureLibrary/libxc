@@ -32,7 +32,7 @@
 */
 
 typedef struct{
-  double lda_x_alpha;       /* parameter for Xalpha functional */
+  double alpha;       /* parameter for Xalpha functional */
 } lda_x_params;
 
 static void
@@ -44,7 +44,7 @@ lda_x_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(lda_x_params));
   params = (lda_x_params *) (p->params);
 
-  params->lda_x_alpha = 1.0;
+  params->alpha = 1.0;
 }
 
 #include "decl_lda.h"
@@ -79,7 +79,7 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   assert(p != NULL && p->params != NULL);
   params = (lda_x_params *)(p->params);
 
-  params->lda_x_alpha = 1.5*get_ext_param(p, ext_params, 0) - 1.0;
+  params->alpha = 1.5*get_ext_param(p, ext_params, 0) - 1.0;
 }
 
 #ifdef __cplusplus
@@ -115,7 +115,7 @@ N_set_ext_params(xc_func_type *p, const double *ext_params)
 
   dx  = 1.0/CBRT(4.0*N);
   dx2 = dx*dx;
-  params->lda_x_alpha = 1.0 - 8.0/3.0*dx + 2.0*dx2 - dx2*dx2/3.0;
+  params->alpha = 1.0 - 8.0/3.0*dx + 2.0*dx2 - dx2*dx2/3.0;
 }
 
 #ifdef __cplusplus

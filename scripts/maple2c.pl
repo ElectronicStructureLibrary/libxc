@@ -229,13 +229,11 @@ sub work_lda_exc {
   $input_args  = "const double *rho";
   $output_args = ", double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, )";
 
-  my ($der_def_unpol, @out_c_unpol) = 
-      maple2c_create_derivatives($variables, $derivatives, "mf", "unpol");
-  my $out_c_unpol = join(", ", @out_c_unpol);
-  my ($der_def_pol, @out_c_pol) = 
-      maple2c_create_derivatives($variables, $derivatives, "mf", "pol");
-  my $out_c_pol = join(", ", @out_c_pol);
-
+  my ($der_def_unpol, @out_c) = 
+      maple2c_create_derivatives($variables, $derivatives, "mf");
+  my $out_c = join(", ", @out_c);
+  $out_c = ", $out_c" if ($out_c ne "");
+  
   # we join all the pieces
   my $maple_code = "
 # zk is energy per unit particle
@@ -257,7 +255,7 @@ zeta := (r0, r1) -> 0:
 $der_def_unpol
 
 $maple_code
-C([$maple_zk, $out_c_unpol], optimize, deducetypes=false):
+C([$maple_zk$out_c], optimize, deducetypes=false):
 ",
 
     "pol", "
@@ -267,7 +265,7 @@ zeta := (r0, r1) -> (r0 - r1)/(r0 + r1):
 $der_def_pol
 
 $maple_code
-C([$maple_zk, $out_c_pol], optimize, deducetypes=false):
+C([$maple_zk$out_c], optimize, deducetypes=false):
 \n",
       );
 
@@ -292,6 +290,7 @@ sub work_lda_vxc {
   my ($der_def_unpol, @out_c_unpol) = 
       maple2c_create_derivatives($variables, $derivatives1, "mf0", "unpol");
   my $out_c_unpol = join(", ", @out_c_unpol);
+  $out_c_unpol = ", ".$out_c_unpol if (! $out_c_unpol =~ /^ *$/);
   
   # polarized calculation
   my ($der_def_pol, @out_c_pol1) = 
@@ -303,6 +302,7 @@ sub work_lda_vxc {
   
   push(@out_c_pol1, @out_c_pol2);
   my $out_c_pol = join(", ", sort sort_alphanumerically @out_c_pol1);
+  $out_c_pol = ", ".$out_c_pol if (! $out_c_pol =~ /^ *$/);
 
   # we join all the pieces
   my $maple_code1 = "
@@ -326,7 +326,7 @@ zeta := (r0, r1) -> 0:
 $der_def_unpol
 
 $maple_code1
-C([$maple_vrho0, $out_c_unpol], optimize, deducetypes=false):
+C([$maple_vrho0$out_c_unpol], optimize, deducetypes=false):
 ",
 
     "pol", "
@@ -336,7 +336,7 @@ zeta := (r0, r1) -> (r0 - r1)/(r0 + r1):
 $der_def_pol
 
 $maple_code1
-C([$maple_vrho0, $maple_vrho1, $out_c_pol], optimize, deducetypes=false):
+C([$maple_vrho0, $maple_vrho1$out_c_pol], optimize, deducetypes=false):
 "
       );
 
@@ -425,7 +425,8 @@ sub work_gga_vxc {
   my ($der_def_unpol, @out_c_unpol) = 
       maple2c_create_derivatives($variables, $derivatives1, "mf0", "unpol");
   my $out_c_unpol = join(", ", @out_c_unpol);
-
+  $out_c_unpol = ", ".$out_c_unpol if (! $out_c_unpol =~ /^ *$/);
+  
   # polarized calculation
   my ($der_def_pol, @out_c_pol1) = 
       maple2c_create_derivatives($variables, $derivatives1, "mf0", "pol");
@@ -436,7 +437,8 @@ sub work_gga_vxc {
   
   push(@out_c_pol1, @out_c_pol2);
   my $out_c_pol = join(", ", sort sort_alphanumerically @out_c_pol1);
-
+  $out_c_pol = ", ".$out_c_pol if (! $out_c_pol =~ /^ *$/);
+  
   # we join all the pieces
   my $maple_code1 = "
 (* mf is the up potential *)
@@ -465,7 +467,7 @@ xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0)/r0^(1 + 1/DIMENSIONS):
 $der_def_unpol
 
 $maple_code1
-C([$maple_vrho0, $out_c_unpol], optimize, deducetypes=false):
+C([$maple_vrho0$out_c_unpol], optimize, deducetypes=false):
 ",
 
     "pol", "
@@ -478,7 +480,7 @@ xt   := (r0, r1, sigma0, sigma1, sigma2) -> sqrt(sigma0 + 2*sigma1 + sigma2)/(r0
 $der_def_pol
 
 $maple_code1
-C([$maple_vrho0, $maple_vrho1, $out_c_pol], optimize, deducetypes=false):
+C([$maple_vrho0, $maple_vrho1$out_c_pol], optimize, deducetypes=false):
 "
       );
 
@@ -574,7 +576,8 @@ sub work_mgga_vxc {
   my ($der_def_unpol, @out_c_unpol) = 
       maple2c_create_derivatives($variables, $derivatives1, "mf0", "unpol");
   my $out_c_unpol = join(", ", @out_c_unpol);
-
+  $out_c_unpol = ", ".$out_c_unpol if (! $out_c_unpol =~ /^ *$/);
+  
   # polarized calculation
   my ($der_def_pol, @out_c_pol1) = 
       maple2c_create_derivatives($variables, $derivatives1, "mf0", "pol");
@@ -585,7 +588,8 @@ sub work_mgga_vxc {
   
   push(@out_c_pol1, @out_c_pol2);
   my $out_c_pol = join(", ", sort sort_alphanumerically @out_c_pol1);
-
+  $out_c_pol = ", ".$out_c_pol if (! $out_c_pol =~ /^ *$/);
+  
   # we join all the pieces
   my $maple_code1 = "
 (* mf is the up potential *)
@@ -618,7 +622,7 @@ t1   := (r0, r1, tau0, tau1) -> (tau0/2)/((r0/2)^(1 + 2/DIMENSIONS)):
 $der_def_unpol
 
 $maple_code1
-C([$maple_vrho0, $out_c_unpol], optimize, deducetypes=false):
+C([$maple_vrho0$out_c_unpol], optimize, deducetypes=false):
 ",
 
     "pol", "
@@ -635,7 +639,7 @@ t1   := (r0, r1, tau0, tau1) -> tau1/(r1^(1 + 2/DIMENSIONS)):
 $der_def_pol
 
 $maple_code1
-C([$maple_vrho0, $maple_vrho1, $out_c_pol], optimize, deducetypes=false):
+C([$maple_vrho0, $maple_vrho1$out_c_pol], optimize, deducetypes=false):
 "
       );
 

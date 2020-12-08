@@ -75,7 +75,8 @@ u_total    := (z, us0, us1) -> t_total(z, us0, us1):
 t_vw := (z, xt, us0, us1) -> (xt^2 - u_total(z, us0, us1))/8:
 
 # Screening for extreme values of zeta
-opz_pow_n     := (z,n) -> my_piecewise3(1+z <= p_a_zeta_threshold, 0, (1+z)^n):
+z_thr     := z -> my_piecewise3(1 + z <= p_a_zeta_threshold, p_a_zeta_threshold - 1, z):
+opz_pow_n := (z, n) -> my_piecewise3(1 + z <= p_a_zeta_threshold, 0, (1 + z)^n):
 
 # See Eq. (9) of Perdew1992_13244
 f_zeta    := z -> (opz_pow_n(z,4/3) + opz_pow_n(-z,4/3) - 2)/(2^(4/3) - 2):

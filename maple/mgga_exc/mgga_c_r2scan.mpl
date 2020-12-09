@@ -27,9 +27,9 @@ r2scan_alpha := (z, xt, ts0, ts1) -> (t_total(z, ts0, ts1) - xt^2/8) / (K_FACTOR
 (* Equation (S26) *)
 r2scan_f_alpha_neg := a -> exp(-params_a_c1*a/(1 - a)):
 r2scan_f_alpha := (a, ff) -> my_piecewise5(
-  a <= 0, r2scan_f_alpha_neg(a),
-  a <= 2.5, rscan_f_alpha_small(a, ff),
-  rscan_f_alpha_large(a)):
+  a <= 0, r2scan_f_alpha_neg(m_min(a, 0)),
+  a <= 2.5, rscan_f_alpha_small(m_min(a, 2.5), ff),
+  rscan_f_alpha_large(m_max(a, 2.5))):
 
 (* Equation (S28) *)
 r2scan_d := z -> (opz_pow_n(z,5/3) + opz_pow_n(-z,5/3))/2:

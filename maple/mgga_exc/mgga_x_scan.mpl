@@ -17,8 +17,10 @@
 scan_p     := x -> X2S^2*x^2:
 scan_alpha := (x, t) -> (t - x^2/8)/K_FACTOR_C:
 
+scan_f_alpha_left := a -> exp(-params_a_c1*a/(1 - a)):
+scan_f_alpha_right := a -> -params_a_d*exp(params_a_c2/(1 - a)):
 scan_f_alpha := a -> my_piecewise3(
-  a <= 1, exp(-params_a_c1*a/(1 - a)), -params_a_d*exp(params_a_c2/(1 - a))
+  a <= 1, scan_f_alpha_left(m_min(a, 1)), scan_f_alpha_right(m_max(a, 1))
   ):
 
 scan_h1x := x -> 1 + params_a_k1*(1 - params_a_k1/(params_a_k1 + x)):

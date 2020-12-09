@@ -18,10 +18,10 @@ pc07_p := x -> X2S^2*x^2:
 pc07_q := u -> X2S^2*u:
 
 (* Equation (15) *)
+pc07_fab0 := z -> exp(-params_a_a*params_a_b/z) * (1+exp(-params_a_a/(params_a_a-z)))^params_a_b/(exp(-params_a_a/z) + exp(-params_a_a/(params_a_a-z)))^params_a_b:
 (* Redefined with decaying exponentials to avoid inf/inf situations *)
 pc07_fab := z -> my_piecewise3(
-    z<=0, 0, my_piecewise3(z>=params_a_a, 1,
-    exp(-params_a_a*params_a_b/z) * (1+exp(-params_a_a/(params_a_a-z)))^params_a_b/(exp(-params_a_a/z) + exp(-params_a_a/(params_a_a-z)))^params_a_b)
+    z<=0, 0, my_piecewise3(z>=params_a_a, 1, pc07_fab0( m_min(1, m_max(0, z)) ) )
 ):
 
 (* Equation (7) *)

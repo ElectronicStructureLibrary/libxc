@@ -14,7 +14,7 @@ throw_out_large_n := proc(X,n) select(t -> abs(degree(t,{b}))<=n, X); end proc:
 (* Function that makes f(a) smooth for a->infty *)
 enforce_smooth_lr := proc(f, a);
 
-  (* The order to use for the expansion: 50th order.
+  (* The order to use for the expansion: 80th order.
 
      I know this sounds ridiculously high, but it turns out to be
      necessary to avoid numerical difficulties in the *original*
@@ -33,14 +33,17 @@ enforce_smooth_lr := proc(f, a);
      expansions appear to only use (1/a)^2, the actual number of terms
      in the Taylor series is half of this...
 
+     erf and Yukawa are fine at order 50, but f30 is still too
+     unstable and needs 80...
+
      2020-12-07 Susi Lehtola
   *)
-  local expansion_order := 50:
+  local expansion_order := 80:
 
   (* Due to a bug in Maple 2020, series aren't being computed to the
      requested order. So, we need to use a larger expansion order and
      then truncate it back. Pad the expansion by this order *)
-   local padding_order := 10:
+   local padding_order := 30:
 
   (* Calculate large-a expansion *)
   f_large := a -> eval(throw_out_large_n(convert(series(f(b), b=infinity, expansion_order+padding_order), polynom), expansion_order), b=a):

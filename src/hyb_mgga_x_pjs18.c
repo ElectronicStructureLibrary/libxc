@@ -31,7 +31,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_pjs18 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Patra2018_8991, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1e-11,
+  1e-14,
   {0, NULL, NULL, NULL, NULL},
   hyb_mgga_x_pjs18_init, NULL,
   NULL, NULL, work_mgga

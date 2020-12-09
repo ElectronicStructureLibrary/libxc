@@ -60,10 +60,10 @@ func_unpol(const xc_func_type *p, int order, const double *rho , double *zk LDA_
   assert(p->params != NULL);
   params = (lda_c_hl_params * )(p->params);
 
-  t1 = params->c[0];
+  t1 = params->hl_c[0];
   t2 = 0.1e1 / M_PI;
   t4 = t2 / rho[0];
-  t5 = params->r[0];
+  t5 = params->hl_r[0];
   t6 = t5 * t5;
   t7 = t6 * t5;
   t8 = 0.1e1 / t7;
@@ -91,8 +91,8 @@ func_unpol(const xc_func_type *p, int order, const double *rho , double *zk LDA_
   t46 = my_piecewise3(0.1e1 <= p->zeta_threshold, 0, 1);
   t49 = M_CBRT2;
   t53 = (0.2e1 * t46 - 0.2e1) / (0.2e1 * t49 - 0.2e1);
-  t54 = params->c[1];
-  t55 = params->r[1];
+  t54 = params->hl_c[1];
+  t55 = params->hl_r[1];
   t56 = t55 * t55;
   t57 = t56 * t55;
   t58 = 0.1e1 / t57;
@@ -286,12 +286,12 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
   assert(p->params != NULL);
   params = (lda_c_hl_params * )(p->params);
 
-  t1 = params->c[0];
+  t1 = params->hl_c[0];
   t2 = 0.1e1 / M_PI;
   t3 = rho[0] + rho[1];
   t4 = 0.1e1 / t3;
   t5 = t2 * t4;
-  t6 = params->r[0];
+  t6 = params->hl_r[0];
   t7 = t6 * t6;
   t8 = t7 * t6;
   t9 = 0.1e1 / t8;
@@ -329,8 +329,8 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
   t59 = M_CBRT2;
   t62 = 0.1e1 / (0.2e1 * t59 - 0.2e1);
   t63 = (t52 + t57 - 0.2e1) * t62;
-  t64 = params->c[1];
-  t65 = params->r[1];
+  t64 = params->hl_c[1];
+  t65 = params->hl_r[1];
   t66 = t65 * t65;
   t67 = t66 * t65;
   t68 = 0.1e1 / t67;

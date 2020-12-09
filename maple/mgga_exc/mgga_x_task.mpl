@@ -10,7 +10,8 @@
 
 task_alpha := (x, t) -> (t/K_FACTOR_C) * m_max(1 - x^2/(8*t), 1e-10):
 
-task_gx := x -> my_piecewise3(x > 0, 1 - exp(-4.9479*x^(-1/4)), 0):
+task_gx0 := x -> 1 - exp(-4.9479*x^(-1/4)):
+task_gx := x -> my_piecewise3(x > 0, task_gx0(m_max(x, 0)), 0):
 
 task_a_coeff := [0.938719, -0.076371, -0.0150899]:
 task_hx1 := r -> simplify(add(task_a_coeff[i+1]*ChebyshevT(i, (r - 1)/(r + 1)), i=0..2)):

@@ -19,7 +19,7 @@ vt84f_f0_orig := s -> 1 - params_a_mu*s^2*exp(-params_a_alpha*s^2)/(1+params_a_m
 (* Since there's a term that looks hairy at small s, do a series expansion up to s^4 *)
 vt84f_f0_series := s -> eval(convert(taylor(vt84f_f0_orig(st), st = 0, 5), polynom), st=s):
 (* Glue the functions together *)
-vt84f_f0 := s-> my_piecewise3(s <= sqrt(DBL_EPSILON), vt84f_f0_series(s), vt84f_f0_orig(s)):
+vt84f_f0 := s-> my_piecewise3(s <= sqrt(DBL_EPSILON), vt84f_f0_series(s), vt84f_f0_orig(m_max(s, sqrt(DBL_EPSILON)))):
 
 (* Convert from x to s *)
 vt84f_f := x -> vt84f_f0(X2S*x):

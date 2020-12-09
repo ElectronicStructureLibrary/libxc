@@ -13,7 +13,7 @@
 #define XC_LDA_C_VBH 17 /* von Barth & Hedin            */
 
 typedef struct {
-  double r[2], c[2];
+  double hl_r[2], hl_c[2];
 } lda_c_hl_params;
 
 #define N_PAR 4

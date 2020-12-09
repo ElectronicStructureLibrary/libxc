@@ -25,8 +25,12 @@ z_thr2 := z -> my_piecewise5(
   1 - z <= p_a_zeta_threshold, p_a_zeta_threshold + 1,
   z):
 
-ml1_k := (rs, z) -> ml1_C*RS_FACTOR/rs * ml1_alpha(z)*ml1_beta(z):
-   
+(* From the paper: "Note that the antiparailel-spin correlation length
+   diverges when the spin-polarization parameter tends to 1", which means
+   that Q diverges for a ferromagnetic density *)
+ml1_k := (rs, z) -> ml1_C*n_total(rs)^(1/3) * ml1_alpha(z)*ml1_beta(z):
+
+(* Eq. 32 *)
 ml1_Q := (rs, z) ->
   - ml1_b[1]/(1 + ml1_b[2]*ml1_k(rs, z))
   + ml1_b[3]*log(1 + ml1_b[4]/ml1_k(rs, z))/ml1_k(rs, z)
@@ -38,8 +42,14 @@ ml1_Q := (rs, z) ->
   the whole expression for alpha*beta is symmetric in z.  Note also
   that in the expression for Q one divides by k that is zero for
   ferromagnetic densities. *)
-  
-ml1_f := (rs, z) -> 1/2*(RS_FACTOR/rs)^3 *
+
+(* there is a factor of 1/2 wrong in Eq. 31 as explained in the Erratum *)
+(* I believe that there is also a factor of n(R) missing in the
+   denominator of Eq. 31a. In fact, with the formula below we can reproduce
+   exactly the values of Table I. Note that in the Erratum the authors
+   afirm that all the results are correct, and only the formulas had
+   misspells. *)
+ml1_f := (rs, z) -> 
   my_piecewise3(1 - abs(z) <= p_a_zeta_threshold, 0, (1 - z^2)/4 * ml1_Q(rs, z_thr2(z))):
 
 f := (rs, z) -> ml1_f(rs, z):

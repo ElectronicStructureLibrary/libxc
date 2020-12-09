@@ -20,4 +20,4 @@
 
 $include "lda_x_1d_exponential.mpl"
 
-f_inter := x -> 2.0*BesselK(0, x):
+x1d_inter := x -> 2.0*BesselK(0, x):

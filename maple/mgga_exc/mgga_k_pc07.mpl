@@ -17,12 +17,16 @@
 pc07_p := x -> X2S^2*x^2:
 pc07_q := u -> X2S^2*u:
 
-(* Equation (15) *)
+(* Equation (15) redefined with decaying exponentials to avoid inf/inf situations *)
 pc07_fab0 := z -> exp(-params_a_a*params_a_b/z) * (1+exp(-params_a_a/(params_a_a-z)))^params_a_b/(exp(-params_a_a/z) + exp(-params_a_a/(params_a_a-z)))^params_a_b:
-(* Redefined with decaying exponentials to avoid inf/inf situations *)
-pc07_fab := z -> my_piecewise3(
-    z<=0, 0, my_piecewise3(z>=params_a_a, 1, pc07_fab0( m_min(1, m_max(0, z)) ) )
-):
+(* The function is ill-behaving at z=0 and z=a.
+   However, it also goes to 0 and 1 very quickly near these points.
+   pc07_fab0(params_a_a/40) is ~ 1.6e-17, which is smaller than machine epsilon.
+*)
+pc07_thr := 1/40:
+pc07_zlo := pc07_thr*params_a_a:
+pc07_zhi := (1-pc07_thr)*params_a_a:
+pc07_fab := z -> my_piecewise5(z<=pc07_zlo, 0, z>=pc07_zhi, 1, pc07_fab0( m_min(pc07_zhi, m_max(pc07_zlo, z)) ) ):
 
 (* Equation (7) *)
 pc07_Delta := (x, u) ->

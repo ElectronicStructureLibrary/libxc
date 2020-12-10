@@ -229,7 +229,7 @@ sub work_lda_exc {
   $input_args  = "const double *rho";
   $output_args = ", double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, )";
 
-  my ($der_def_unpol, @out_c) = 
+  my ($der_def, @out_c) = 
       maple2c_create_derivatives($variables, $derivatives, "mf");
   my $out_c = join(", ", @out_c);
   $out_c = ", $out_c" if ($out_c ne "");
@@ -237,7 +237,10 @@ sub work_lda_exc {
   # we join all the pieces
   my $maple_code = "
 # zk is energy per unit particle
-mzk  := (r0, r1) -> $config{'simplify_begin'} f(r_ws(dens(r0, r1)), zeta(r0, r1)) $config{'simplify_end'}:
+mzk  := (r0, r1) -> \\
+  $config{'simplify_begin'} \\
+    f(r_ws(dens(r0, r1)), zeta(r0, r1)) \\
+  $config{'simplify_end'}:
 
 (* mf is energy per unit volume *)
 mf   := (r0, r1) -> eval(dens(r0, r1)*mzk(r0, r1)):
@@ -252,7 +255,7 @@ mf   := (r0, r1) -> eval(dens(r0, r1)*mzk(r0, r1)):
 dens := (r0, r1) -> r0:
 zeta := (r0, r1) -> 0:
 
-$der_def_unpol
+$der_def
 
 $maple_code
 C([$maple_zk$out_c], optimize, deducetypes=false):
@@ -262,7 +265,7 @@ C([$maple_zk$out_c], optimize, deducetypes=false):
 dens := (r0, r1) -> r0 + r1:
 zeta := (r0, r1) -> (r0 - r1)/(r0 + r1):
 
-$der_def_pol
+$der_def
 
 $maple_code
 C([$maple_zk$out_c], optimize, deducetypes=false):

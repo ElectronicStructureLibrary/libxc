@@ -364,9 +364,9 @@ func_reference_type xc_ref_Cancio2016_084107 = {
 
 
 func_reference_type xc_ref_Cancio2017_618 = {
-  "A. C. Cancio and J. J. Redd, Molecular Physics 115, 618 (2017)",
+  "A. C. Cancio and J. J. Redd, Mol. Phys. 115, 618 (2017)",
   "10.1080/00268976.2016.1246757",
-  "@article{Cancio2017_618,\n  author = {Antonio C. Cancio and Jeremy J. Redd},\n  title = {Visualisation and orbital-free parametrisation of the large-Z scaling of the kinetic energy density of atoms},\n  journal = {Molecular Physics},\n  volume = {115},\n  number = {5},\n  pages = {618-635},\n  year  = {2017},\n  publisher = {Taylor & Francis},\n  doi = {10.1080/00268976.2016.1246757},\n  url = {https://doi.org/10.1080/00268976.2016.1246757}\n}"
+  "@article{Cancio2017_618,\n  author = {Antonio C. Cancio and Jeremy J. Redd},\n  title = {Visualisation and orbital-free parametrisation of the large-Z scaling of the kinetic energy density of atoms},\n  journal = {Mol. Phys.},\n  volume = {115},\n  number = {5},\n  pages = {618-635},\n  year  = {2017},\n  publisher = {Taylor & Francis},\n  doi = {10.1080/00268976.2016.1246757},\n  url = {https://doi.org/10.1080/00268976.2016.1246757}\n}"
 };
 
 
@@ -436,7 +436,7 @@ func_reference_type xc_ref_Chai2008_084106 = {
 func_reference_type xc_ref_Chai2008_6615 = {
   "J.-D. Chai and M. Head-Gordon, Phys. Chem. Chem. Phys. 10, 6615 (2008)",
   "10.1039/B810189B",
-  "@article{Chai2008_6615,\n  author   = \"Chai, Jeng-Da and Head-Gordon, Martin\",\n  title    = \"Long-range corrected hybrid density functionals with damped atom-atom dispersion corrections\",\n  journal  = \"Phys. Chem. Chem. Phys.\",\n  publisher = \"The Royal Society of Chemistry\",\n  year    = \"2008\",\n  volume   = \"10\",\n  issue    = \"44\",\n  pages    = \"6615-6620\",\n  doi     = \"10.1039/B810189B\",\n  url     = \"http://doi.org/10.1039/B810189B\",\n}"
+  "@article{Chai2008_6615,\n  author = \"Chai, Jeng-Da and Head-Gordon, Martin\",\n  title = \"Long-range corrected hybrid density functionals with damped atom-atom dispersion corrections\",\n  journal = \"Phys. Chem. Chem. Phys.\",\n  publisher = \"The Royal Society of Chemistry\",\n  year = \"2008\",\n  volume = \"10\",\n  issue = \"44\",\n  pages = \"6615-6620\",\n  doi = \"10.1039/B810189B\",\n  url = \"http://doi.org/10.1039/B810189B\"\n}"
 };
 
 
@@ -1483,6 +1483,13 @@ func_reference_type xc_ref_Mejia2018_115161 = {
 };
 
 
+func_reference_type xc_ref_Mejia2020_121109 = {
+  "D. Mejia-Rodriguez and S. B. Trickey, Phys. Rev. B 102, 121109 (2020)",
+  "10.1103/PhysRevB.102.121109",
+  "@article{Mejia2020_121109,\n  title = {Meta-GGA performance in solids at almost GGA cost},\n  author = {Mej\\'{i}a-Rodr\\'{i}guez, Daniel and Trickey, S. B.},\n  journal = {Phys. Rev. B},\n  volume = {102},\n  issue = {12},\n  pages = {121109},\n  numpages = {4},\n  year = {2020},\n  month = {Sep},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.102.121109},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.102.121109}\n}"
+};
+
+
 func_reference_type xc_ref_Menconi2001_3958 = {
   "G. Menconi, P. J. Wilson, and D. J. Tozer, J. Chem. Phys. 114, 3958 (2001)",
   "10.1063/1.1342776",
@@ -1535,7 +1542,7 @@ func_reference_type xc_ref_Moussa2012_204117 = {
 func_reference_type xc_ref_Murray2009_2754 = {
   "E. D. Murray, K. Lee, and D. C. Langreth, J. Chem. Theory Comput. 5, 2754 (2009)",
   "10.1021/ct900365q",
-  "@article{Murray2009_2754,\n  title = {Investigation of Exchange Energy Density Functional Accuracy for Interacting Molecules},\n  author = {\\'E. D. Murray and K. Lee and D. C. Langreth},\n  journal = {J. Chem. Theory Comput.},\n  volume = {5},\n  number = {10},\n  pages = {2754},\n  year = {2009},\n  doi = {10.1021/ct900365q},\n  url = {http://pubs.acs.org/doi/abs/10.1021/ct900365q},\n}"
+  "@article{Murray2009_2754,\n  title = {Investigation of Exchange Energy Density Functional Accuracy for Interacting Molecules},\n  author = {\\'{E}. D. Murray and K. Lee and D. C. Langreth},\n  journal = {J. Chem. Theory Comput.},\n  volume = {5},\n  number = {10},\n  pages = {2754},\n  year = {2009},\n  doi = {10.1021/ct900365q},\n  url = {http://pubs.acs.org/doi/abs/10.1021/ct900365q},\n}"
 };
 
 
@@ -1787,7 +1794,7 @@ func_reference_type xc_ref_Perdew2009_026403_err = {
 func_reference_type xc_ref_Perez2015_3844 = {
   "R. Sarmiento-Perez, S. Botti, and M. A. L. Marques, J. Chem. Theory Comput. 11, 3844 (2015)",
   "10.1021/acs.jctc.5b00529",
-  "@article{Perez2015_3844,\n  author = {Rafael Sarmiento-P\\'erez and Silvana Botti and Miguel A. L. Marques},\n  title = {Optimized Exchange and Correlation Semilocal Functional for the Calculation of Energies of Formation},\n  journal = {J. Chem. Theory Comput.},\n  volume = {11},\n  number = {8},\n  pages = {3844-3850},\n  year = {2015},\n  doi = {10.1021/acs.jctc.5b00529},\n  url = {http://doi.org/10.1021/acs.jctc.5b00529},\n}"
+  "@article{Perez2015_3844,\n  author = {Rafael Sarmiento-P\\'{e}rez and Silvana Botti and Miguel A. L. Marques},\n  title = {Optimized Exchange and Correlation Semilocal Functional for the Calculation of Energies of Formation},\n  journal = {J. Chem. Theory Comput.},\n  volume = {11},\n  number = {8},\n  pages = {3844-3850},\n  year = {2015},\n  doi = {10.1021/acs.jctc.5b00529},\n  url = {http://doi.org/10.1021/acs.jctc.5b00529},\n}"
 };
 
 
@@ -1969,7 +1976,7 @@ func_reference_type xc_ref_Rey1998_581 = {
 func_reference_type xc_ref_Rinke2012_126404 = {
   "P. Rinke, A. Schleife, E. Kioupakis, A. Janotti, C. Rodl, F. Bechstedt, M. Scheffler, and C. G. Van de Walle, Phys. Rev. Lett. 108, 126404 (2012)",
   "10.1103/PhysRevLett.108.126404",
-  "@article{Rinke2012_126404,\n  title = {First-Principles Optical Spectra for $F$ Centers in MgO},\n  author = {Rinke, Patrick and Schleife, Andr\\'e and Kioupakis, Emmanouil and Janotti, Anderson and R\\\"odl, Claudia and Bechstedt, Friedhelm and Scheffler, Matthias and Van de Walle, Chris G.},\n  journal = {Phys. Rev. Lett.},\n  volume = {108},\n  issue = {12},\n  pages = {126404},\n  year = {2012},\n  month = {Mar},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.108.126404},\n  url = {https://link.aps.org/doi/10.1103/PhysRevLett.108.126404}\n}"
+  "@article{Rinke2012_126404,\n  title = {First-Principles Optical Spectra for $F$ Centers in MgO},\n  author = {Rinke, Patrick and Schleife, Andr\\'{e} and Kioupakis, Emmanouil and Janotti, Anderson and R\\\"odl, Claudia and Bechstedt, Friedhelm and Scheffler, Matthias and Van de Walle, Chris G.},\n  journal = {Phys. Rev. Lett.},\n  volume = {108},\n  issue = {12},\n  pages = {126404},\n  year = {2012},\n  month = {Mar},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.108.126404},\n  url = {https://link.aps.org/doi/10.1103/PhysRevLett.108.126404}\n}"
 };
 
 

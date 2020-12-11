@@ -281,6 +281,7 @@ extern func_reference_type xc_ref_Pittalis2008_195322;
 extern func_reference_type xc_ref_Pittalis2009_012503;
 extern func_reference_type xc_ref_Pittalis2010_115108;
 extern func_reference_type xc_ref_Proynov1994_7874;
+extern func_reference_type xc_ref_Proynov1998_12616;
 extern func_reference_type xc_ref_Proynov2000_10013;
 extern func_reference_type xc_ref_Proynov2006_436;
 extern func_reference_type xc_ref_Proynov2008_103;

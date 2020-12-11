@@ -1889,6 +1889,13 @@ func_reference_type xc_ref_Proynov1994_7874 = {
 };
 
 
+func_reference_type xc_ref_Proynov1998_12616 = {
+  "E. I. Proynov and D. R. Salahub, Phys. Rev. B 57, 12616 (1998)",
+  "10.1103/PhysRevB.57.12616",
+  "@article{Proynov1998_12616,\n  title = {Erratum: Simple but efficient correlation functional from a model pair-correlation function [Phys. Rev. B 49, 7874 (1994)]},\n  author = {Proynov, Emil I. and Salahub, Dennis R.},\n  journal = {Phys. Rev. B},\n  volume = {57},\n  issue = {19},\n  pages = {12616--12616},\n  numpages = {0},\n  year = {1998},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.57.12616},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.57.12616}\n}"
+};
+
+
 func_reference_type xc_ref_Proynov2000_10013 = {
   "E. Proynov, H. Chermette, and D. R. Salahub, J. Chem. Phys. 113, 10013 (2000)",
   "10.1063/1.1321309",

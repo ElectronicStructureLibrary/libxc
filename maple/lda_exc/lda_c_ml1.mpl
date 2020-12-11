@@ -44,12 +44,10 @@ ml1_Q := (rs, z) ->
   ferromagnetic densities. *)
 
 (* there is a factor of 1/2 wrong in Eq. 31 as explained in the Erratum *)
-(* I believe that there is also a factor of n(R) missing in the
-   denominator of Eq. 31a. In fact, with the formula below we can reproduce
-   exactly the values of Table I. Note that in the Erratum the authors
-   afirm that all the results are correct, and only the formulas had
-   misspells. *)
-ml1_f := (rs, z) -> 
+(* With the formula below we can reproduce exactly the values of Table I.
+   Note that in the Erratum the authors afirm that all the results are correct,
+   and only the formulas had misspells. *)
+ml1_f := (rs, z) -> n_total(rs) *
   my_piecewise3(1 - abs(z) <= p_a_zeta_threshold, 0, (1 - z^2)/4 * ml1_Q(rs, z_thr2(z))):
 
 f := (rs, z) -> ml1_f(rs, z):

@@ -2169,6 +2169,13 @@ func_reference_type xc_ref_Swart2009_69 = {
 };
 
 
+func_reference_type xc_ref_Swart2011_1117 = {
+  "M. Swart, M. Sola, and F. M. Bickelhaupt, J. Comput. Chem. 32, 1117 (2011)",
+  "10.1002/jcc.21693",
+  "@article{Swart2011_1117,\n  author = {Swart, Marcel and Sol\\'{a}, Miquel and Bickelhaupt, F. Matthias},\n  title = {Inter- and intramolecular dispersion interactions},\n  journal = {J. Comput. Chem.},\n  volume = {32},\n  number = {6},\n  pages = {1117-1127},\n  doi = {10.1002/jcc.21693},\n  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.21693},\n  year = {2011}\n}"
+};
+
+
 func_reference_type xc_ref_Swart2013_166 = {
   "M. Swart, Chem. Phys. Lett. 580, 166 (2013)",
   "10.1016/j.cplett.2013.06.045",

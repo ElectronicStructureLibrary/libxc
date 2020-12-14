@@ -321,6 +321,7 @@ extern func_reference_type xc_ref_Sun2015_036402;
 extern func_reference_type xc_ref_Sun2015_685;
 extern func_reference_type xc_ref_Swart2009_094103;
 extern func_reference_type xc_ref_Swart2009_69;
+extern func_reference_type xc_ref_Swart2011_1117;
 extern func_reference_type xc_ref_Swart2013_166;
 extern func_reference_type xc_ref_Tao2001_3519;
 extern func_reference_type xc_ref_Tao2002_2335;

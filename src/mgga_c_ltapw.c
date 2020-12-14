@@ -39,7 +39,7 @@ const xc_func_info_type xc_func_info_mgga_c_hltapw = {
   XC_CORRELATION,
   "Half-and-half meta-LDAized PW correlation by Lehtola and Marques",
   XC_FAMILY_MGGA,
-  {NULL, NULL, NULL, NULL, NULL},
+  {&xc_ref_Lehtola2020, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {1, names, desc, ltapw_values, set_ext_params_cpy},

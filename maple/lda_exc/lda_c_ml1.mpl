@@ -20,11 +20,6 @@ ml1_b := [2.763169, 1.757515, 1.741397, 0.568985, 1.572202, 1.885389]:
 ml1_alpha := z -> params_a_fc*((1 + z)^params_a_q + (1 - z)^params_a_q):
 ml1_beta  := z -> (1 - z^2)^(1/3)/((1 + z)^(1/3) + (1 - z)^(1/3)):
 
-z_thr2 := z -> my_piecewise5(
-  1 + z <= p_a_zeta_threshold, p_a_zeta_threshold - 1,
-  1 - z <= p_a_zeta_threshold, p_a_zeta_threshold + 1,
-  z):
-
 (* From the paper: "Note that the antiparailel-spin correlation length
    diverges when the spin-polarization parameter tends to 1", which means
    that Q diverges for a ferromagnetic density *)

@@ -21,8 +21,17 @@ csk_q := u -> X2S^2*u:
 csk_z  := (p, q) -> 20/9*q - 40/27*p:
 
 (* Equation (22) *)
-csk_f0 := (p, q, z) ->  1 + 5*p/3
-  + z*my_piecewise3(-z <= 1e-10, 1, 1 - exp(-1/m_max(1e-10, -z)^params_a_csk_a))^(1/params_a_csk_a):
+csk_f0 := (p, q, z) ->  1 + 5*p/3 + z*csk_I(z):
+
+(*
+   The function I(z) contains exp(-1/|z|^a) which is numerically
+   challenging for small |z|. Because of this, we truncate the term
+   close to z=0 for negative z, since I(z) -> 1 for small |z|.
+   For positive z, I(z)=1 identically, because of the step function.
+*)
+csk_I_negz := z -> (1 - exp(-1/abs(z)^params_a_csk_a))^(1/params_a_csk_a):
+csk_I_cutoff := (-log(DBL_EPSILON))^(-1/params_a_csk_a):
+csk_I := z -> my_piecewise3(z < -csk_I_cutoff, csk_I_negz(m_min(z, -csk_I_cutoff)), 1):
 
 csk_f := (x, u) -> 
   csk_f0(csk_p(x), csk_q(u), csk_z(csk_p(x), csk_q(u))):

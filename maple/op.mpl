@@ -14,12 +14,15 @@ op_b2 := 0.3183:
 op_beta := (rs, z, xs0, xs1) ->
   op_qab/b88_zab(1, op_enhancement, rs, z, xs0, xs1):
 
+op_f_s := (rs, z, xt, xs0, xs1) ->
+  - (1 - z^2)*n_total(rs)/4.0
+  * (op_a1*op_beta(rs, z, xs0, xs1) + op_a2)
+  / (op_beta(rs, z, xs0, xs1)^4 + op_b1*op_beta(rs, z, xs0, xs1)^3 + op_b2*op_beta(rs, z, xs0, xs1)^2)
+:
+
 op_f := (rs, z, xt, xs0, xs1) ->
-  my_piecewise3(screen_dens(rs, z) and screen_dens(rs, -z), 0,
-    - (1 - z^2)*n_total(rs)/4.0
-    * (op_a1*op_beta(rs, z, xs0, xs1) + op_a2)
-    / (op_beta(rs, z, xs0, xs1)^4 + op_b1*op_beta(rs, z, xs0, xs1)^3 + op_b2*op_beta(rs, z, xs0, xs1)^2)
-  ):
+   my_piecewise3(1 - abs(z) <= p_a_zeta_threshold, 0,
+                 op_f_s(rs, z_thr2(z), xt, xs0, xs1)):
 
 f := (rs, z, xt, xs0, xs1) ->
   op_f(rs, z, xt, xs0, xs1):

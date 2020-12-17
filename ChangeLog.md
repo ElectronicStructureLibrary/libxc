@@ -1,13 +1,30 @@
-## [5.0.1] to be released
+## [5.1.0] - to be released
+
+### Added
+- GGA functionals: C_P86_FT, K_LGAP, K_LGAP_GE, K_LKT, K_PBE2, K_VT84F, X_REVSSB_D
+- HYB_GGA functionals: XC_CAMH_B3LYP, XC_WB97X_D3, XC_WHPBE0
+- MGGA functionals: C_B94, C_HLTAPW, C_M06_SX, X_R2SCAN, C_R2SCAN, X_R2SCANL, C_R2SCANL, K_CSK1, K_CSK4, K_CSK_LOC1, K_CSK_LOC4, K_GEA2, K_GEA4, K_L04, K_L06, K_PC07_OPT, K_RDA, X_HLTA, X_JK, X_MBR, X_MS2_REV, X_TH
+- HYB_MGGA functionals:  XC_B94_HYB, M06_SX,
 
 ### Fixed
 - Bugs in worker functions affecting all GGAs and meta-GGAs.
+- Several issues affecting kinetic energy functionals due to the use of inconsistent thresholds.
 - Incorrect definition of GGA_XC_KT3.
+- Incorrect implementation of GGA_X_OL1 and GGA_X_OL2.
+- Incorrect implementation of GGA_K_PERDEW.
 - Incorrect calculation of opposite-spin potentials for the ferromagnetic case.
 - Implementation of MGGA_X_MS2B still corresponded to the original preprint, not the final published version.
+- Numerical stability of range-separated functionals.
+- Several numerical overflow errors, affecting especially the SCAN family of functionals.
+- Incorrect definition of MGGA_C_B88, which was using B88 exchange instead of B86 exchange as supposed.
+- Missing minus sign in a coefficient of GGA_XC_HCTH_P76.
+- HYB_MGGA_X_PJS18 and HYB_MGGA_X_JS18 due to typo in the original publications.
+- Functional form of GGA_C_LM.
 
 ### Changed
 - The renaming libxcf03 -> libxcf90 of 5.0.0 was reverted, as it proved to be problematic in downstream codes.
+- All numerical thresholds are now adjustable.
+- The threshold for the reduced gradient is now initialized based on the density threshold, instead of a hard-coded definition.
 
 ## [5.0.0] - 2020-04-06
 

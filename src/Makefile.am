@@ -121,20 +121,23 @@ libxc_la_SOURCES = references.c $(libxc_la_FUNC_SOURCES)
 libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)
 
 if COMPILE_FORTRAN
-  lib_LTLIBRARIES += libxcf03.la
+  lib_LTLIBRARIES += libxcf03.la libxcf90.la
 
-  nodist_libxcf03_la_SOURCES = libxcf03.f90
+  nodist_libxcf03_la_SOURCES = libxcf03.f90 libxcf90.f90
 
   # libtool stuff
   libxcf03_la_LDFLAGS = -version-info $(XC_LT_VERSION)
   libxcf03_la_LIBADD = libxc.la
+  # libtool stuff
+  libxcf90_la_LDFLAGS = -version-info $(XC_LT_VERSION)
+  libxcf90_la_LIBADD = libxc.la
 endif
 
 noinst_HEADERS = \
 	string_f.h references.h util.h \
 	decl_lda.h decl_gga.h decl_mgga.h \
   work_lda.c work_gga.c work_mgga.c \
-	libxc_master.F90
+	libxc_master.F90 libxc_master_f90.F90
 include_HEADERS = xc.h xc_funcs_removed.h
 nodist_include_HEADERS = xc_funcs.h xc_funcs_worker.h
 
@@ -158,7 +161,7 @@ endif # COMPILE_FORTRAN
 
 
 CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
-  libxc_inc.f90 libxcf03.f90 xc_funcs.h xc_funcs_worker.h \
+  libxc_inc.f90 libxcf03.f90 libxcf90.f90 xc_funcs.h xc_funcs_worker.h \
   xc_f_inc.c libxc_docs.txt
 
 xc_f.o : xc_f_inc.c
@@ -186,3 +189,13 @@ libxcf03.f90 : libxc_master.F90 libxc_inc.f90
 	fi
 
 $(XCF03LIBMODS) : $(LTPREF03)libxcf03.lo
+
+LTPREF90 = $(subst libxcf90.lo,,$(firstword $(nodist_libxcf90_la_OBJECTS)))
+libxcf90.f90 : libxc_master_f90.F90 libxc_inc.f90
+	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) -I$(top_builddir)/src $(srcdir)/libxc_master_f90.F90 > $(top_builddir)/src/libxcf90.f90
+	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \
+		grep -v "^#" $(top_builddir)/src/libxcf90.f90 > $(top_builddir)/src/libxcf90.f91; \
+		mv -f $(top_builddir)/src/libxcf90.f91 $(top_builddir)/src/libxcf90.f90; \
+	fi
+
+$(XCF90LIBMODS) : $(LTPREF90)libxcf90.lo

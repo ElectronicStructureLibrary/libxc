@@ -410,8 +410,11 @@ set(raw_sources_list
 set(src_prefix "src/")
 string(REGEX REPLACE "([^;]+)" "${src_prefix}\\1" sources_list "${raw_sources_list}")
 
-set(raw_sources_list_f90
+set(raw_sources_list_f03
   src/libxc_master.F90
+  )
+set(raw_sources_list_f90
+  src/libxc_master_f90.F90
   )
 
 # when headers namespaced, xc_version include in xc.h needs to be local, not
@@ -434,9 +437,12 @@ endif()
 
 if(ENABLE_FORTRAN)
   enable_language(Fortran)
-  add_library(xcf03 ${raw_sources_list_f90})
+  add_library(xcf03 ${raw_sources_list_f03})
   target_link_libraries(xcf03 xc)
   set_target_properties(xcf03 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
+  add_library(xcf90 ${raw_sources_list_f90})
+  target_link_libraries(xcf90 xc)
+  set_target_properties(xcf90 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
 endif()
 
 # run get_funcs.pl to generate headers for xc inclusion

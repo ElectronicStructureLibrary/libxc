@@ -40,7 +40,7 @@ br89_x_Q(double x, void *_rhs)
 
   xm2 = x - 2.0;
   arg = 2.0*x/3.0;
-  eee = exp(-arg);
+  eee = arg > log(1e50) ? 0 : exp(-arg);
 
   return x*eee - rhs*xm2;
 }

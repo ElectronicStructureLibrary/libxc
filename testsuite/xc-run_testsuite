@@ -39,8 +39,14 @@ echo -e "=======================================================================
 echo -e "   Functional                    System      NSpin   Quantity    Result"
 echo -e "========================================================================="
 
+if [ "z$1" != "z" ]; then
+  selfunc="${1}.*.bz2"
+else
+  selfunc="*.bz2"
+fi
+
 for dir in $(ls -d $srcdir/regression/*); do
-  for i in $(ls $dir/*.bz2 | LANG=C sort); do
+  for i in $(ls $dir/$selfunc | LANG=C sort); do
     refname=$(basename ${i} .bz2)
     func=${refname%%.*}
     #if [ $func != "gga_x_wpbeh" ]; then

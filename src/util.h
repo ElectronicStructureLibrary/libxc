@@ -296,7 +296,6 @@ void xc_mix_func
 /* Hybrid functional intializers. The order of arguments is the same
    as in the external parameter setters.
  */
-void xc_hyb_init(xc_func_type *p, int n_terms, const int *type, const double *coeff, const double *omega);
 void xc_hyb_init_hybrid(xc_func_type *p, double alpha);
 void xc_hyb_init_sr  (xc_func_type *p, double beta, double omega);
 void xc_hyb_init_cam (xc_func_type *p, double alpha, double beta, double omega);

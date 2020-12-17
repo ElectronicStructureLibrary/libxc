@@ -153,7 +153,7 @@ const xc_func_info_type xc_func_info_hyb_lda_xc_lda0 = {
   XC_HYB_LDA_XC_LDA0,
   XC_EXCHANGE_CORRELATION,
   "LDA hybrid exchange (LDA0)",
-  XC_FAMILY_LDA,
+  XC_FAMILY_HYB_LDA,
   {&xc_ref_Rinke2012_126404, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,

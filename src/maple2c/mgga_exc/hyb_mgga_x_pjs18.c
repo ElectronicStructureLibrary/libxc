@@ -327,7 +327,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t15 = POW_1_3(0.1e1 / M_PI);
   t16 = t15 * t15;
   t17 = t13 * t16;
-  t18 = t17 * p->hyb_omega[0];
+  t18 = t17 * p->cam_omega;
   t19 = 0.1e1 / t10;
   t21 = M_CBRT6;
   t22 = M_PI * M_PI;
@@ -503,7 +503,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t335 = t63 * t62;
   t336 = 0.1e1 / t335;
   t338 = 0.1e1 / t10 / rho[0];
-  t343 = p->hyb_omega[0] * t4;
+  t343 = p->cam_omega * t4;
   t344 = t17 * t343;
   t346 = 0.1e1 / t51 / t50;
   t347 = t19 * t346;
@@ -4213,7 +4213,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t24 = POW_1_3(0.1e1 / M_PI);
   t25 = t24 * t24;
   t26 = t22 * t25;
-  t27 = t26 * p->hyb_omega[0];
+  t27 = t26 * p->cam_omega;
   t28 = 0.1e1 / t19;
   t29 = t3 * t28;
   t30 = M_CBRT6;
@@ -4569,7 +4569,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t677 = 0.1e1 / t19 / t7;
   t678 = t3 * t677;
   t681 = t27 * t678 * t66 / 0.54e2;
-  t682 = p->hyb_omega[0] * t3;
+  t682 = p->cam_omega * t3;
   t683 = t26 * t682;
   t685 = 0.1e1 / t57 / t56;
   t686 = t28 * t685;

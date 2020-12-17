@@ -11,6 +11,26 @@
 #include <string.h>
 #include "xc.h"
 
+static int is_cam(xc_func_type *p) {
+  return (p->info->flags & XC_FLAGS_HYB_CAM)
+    || (p->info->flags & XC_FLAGS_HYB_LC);
+}
+
+static int is_yukawa(xc_func_type *p) {
+  return (p->info->flags & XC_FLAGS_HYB_CAMY)
+    || (p->info->flags & XC_FLAGS_HYB_LCY);
+}
+
+static int is_rangesep(xc_func_type *p) {
+  return is_cam(p) || is_yukawa(p);
+}
+
+int is_hybrid(xc_func_type *p) {
+  return (p->info->family == XC_FAMILY_HYB_LDA) ||
+    (p->info->family == XC_FAMILY_HYB_GGA) ||
+    (p->info->family == XC_FAMILY_HYB_MGGA);
+}
+
 int main(void) {
   int i, N, error;
   xc_func_type func;
@@ -72,17 +92,31 @@ int main(void) {
       printf("Functional %i '%s' name may be inconsistent with its kind '%s'.\n",func_id, fname, kind);
 
     /* check if hybrid is initialized */
-    if(strncmp(fname, "hyb_", 4) == 0){
-      if(func.hyb_number_terms == 0 || func.hyb_type == NULL ||
-         func.hyb_coeff == NULL || func.hyb_omega == NULL)
-        printf("Hybrid does not seem to be initialized\n");
+    if(is_rangesep(&func)) {
+      if(func.cam_omega == 0.0)
+        printf("Range-separated hybrid does not seem to be initialized: omega is zero\n");
+      if(func.cam_alpha == 0.0 && func.cam_beta == 0.0)
+        printf("Range-separated hybrid does not seem to be initialized: alpha and beta are zero\n");
+    } else if(strncmp(fname, "hyb_", 4) == 0) {
+      if(func.cam_alpha == 0.0)
+        printf("Hybrid does not seem to be initialized: alpha is zero\n");
+      if(func.cam_beta != 0.0)
+        printf("Hybrid has non-zero beta\n");
+      if(func.cam_omega != 0.0)
+        printf("Hybrid has non-zero omega\n");
+    } else {
+      if(func.cam_alpha != 0.0)
+        printf("Non-hybrid functional has non-zero alpha\n");
+      if(func.cam_beta != 0.0)
+        printf("Non-hybrid functional has non-zero beta\n");
+      if(func.cam_omega != 0.0)
+        printf("Non-hybrid functional '%s' has non-zero omega\n", fname);
     }
+    if(is_rangesep(&func) && !is_hybrid(&func))
+      printf("Fuctional is range-separated but is not marked hybrid\n");
 
     /* Check family is consistent with name */
     family[0] = '\0';
-    if(xc_hyb_type(&func) != XC_HYB_NONE)
-      strcpy(family, "hyb_");
-
     switch(func.info->family) {
     case(XC_FAMILY_LDA):
       strcat(family, "lda_");
@@ -94,6 +128,18 @@ int main(void) {
 
     case(XC_FAMILY_MGGA):
       strcat(family, "mgga_");
+      break;
+
+    case(XC_FAMILY_HYB_LDA):
+      strcat(family, "hyb_lda_");
+      break;
+
+    case(XC_FAMILY_HYB_GGA):
+      strcat(family, "hyb_gga_");
+      break;
+
+    case(XC_FAMILY_HYB_MGGA):
+      strcat(family, "hyb_mgga_");
       break;
 
     default:

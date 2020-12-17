@@ -48,9 +48,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_camy_b3lyp = {
   XC_HYB_GGA_XC_CAMY_B3LYP,
   XC_EXCHANGE_CORRELATION,
   "CAMY version of B3LYP",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Seth2012_901, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAMY | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_gga_xc_camy_b3lyp_init, NULL,
@@ -80,9 +80,9 @@ cam_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[0] = 1.0 - alpha;
   p->mix_coef[1] = -beta;
 
-  p->hyb_coeff[0] = beta;
-  p->hyb_omega[0] = omega;
-  p->hyb_coeff[1] = alpha;
+  p->cam_omega = omega;
+  p->cam_alpha = alpha;
+  p->cam_beta  = beta;
 
   xc_func_set_ext_params(p->func_aux[1], &omega);
 }
@@ -104,9 +104,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_camy_pbeh = {
   XC_HYB_GGA_XC_CAMY_PBEH,
   XC_EXCHANGE_CORRELATION,
   "CAMY hybrid screened exchange PBE version",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Chen2018_073803, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAMY | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {CAM_N_PAR, cam_names, cam_desc, cam_values, cam_set_ext_params},
   hyb_gga_xc_camy_pbeh_init,

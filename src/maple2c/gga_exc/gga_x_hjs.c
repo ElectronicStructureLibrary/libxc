@@ -285,7 +285,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t9 = POW_1_3(rho[0]);
   t10 = t8 * t9;
   t11 = t3 * t3;
-  t12 = p->hyb_omega[0] * t11;
+  t12 = p->cam_omega * t11;
   t13 = M_PI * M_PI;
   t14 = POW_1_3(t13);
   t15 = 0.1e1 / t14;
@@ -374,7 +374,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t165 = t24 * t31 * t162 / 0.24e2;
   t166 = 0.1e-9 < t165;
   t167 = my_piecewise3(t166, t165, 0.1e-9);
-  t168 = p->hyb_omega[0] * p->hyb_omega[0];
+  t168 = p->cam_omega * p->cam_omega;
   t169 = t168 * t3;
   t170 = t8 * t8;
   t172 = t22 / t170;
@@ -392,7 +392,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t191 = 0.1e1 / t190;
   t192 = t31 * t191;
   t196 = 0.1e1 + 0.13006513974354692214e-1 * t24 * t192 + 0.42141105276909202774e1 * t167;
-  t198 = t168 * p->hyb_omega[0] * t40;
+  t198 = t168 * p->cam_omega * t40;
   t200 = 0.1e1 / t170 / t8;
   t201 = 0.1e1 / rho[0];
   t202 = t200 * t201;
@@ -413,7 +413,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t231 = 0.4e1 / 0.5e1 * t221 + 0.12e2 / 0.5e1 * t223 - 0.12e2 / 0.5e1 * t229;
   t233 = 0.47459600000000000000e-1 * t196 * t184 + 0.28363733333333333333e-1 * t210 - 0.90865320000000000000e0 * t217 - t220 * t231;
   t236 = t168 * t168;
-  t238 = t236 * p->hyb_omega[0] * t3;
+  t238 = t236 * p->cam_omega * t3;
   t239 = t238 * t66;
   t240 = t170 * t170;
   t242 = 0.1e1 / t240 / t8;
@@ -3673,7 +3673,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t18 = POW_1_3(t6);
   t19 = t17 * t18;
   t20 = t2 * t2;
-  t21 = p->hyb_omega[0] * t20;
+  t21 = p->cam_omega * t20;
   t22 = M_PI * M_PI;
   t23 = POW_1_3(t22);
   t24 = 0.1e1 / t23;
@@ -3762,7 +3762,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t168 = t39 * t166 / 0.24e2;
   t169 = 0.1e-9 < t168;
   t170 = my_piecewise3(t169, t168, 0.1e-9);
-  t171 = p->hyb_omega[0] * p->hyb_omega[0];
+  t171 = p->cam_omega * p->cam_omega;
   t172 = t171 * t2;
   t173 = t31 * t31;
   t174 = 0.1e1 / t173;
@@ -3782,7 +3782,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t195 = 0.1e1 + t193 / 0.96e2;
   t196 = 0.1e1 / t195;
   t201 = 0.1e1 + 0.13006513974354692214e-1 * t38 * t192 * t196 + 0.42141105276909202774e1 * t170;
-  t203 = t171 * p->hyb_omega[0] * t52;
+  t203 = t171 * p->cam_omega * t52;
   t204 = t173 * t31;
   t205 = 0.1e1 / t204;
   t206 = t205 * t7;
@@ -3804,7 +3804,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t235 = t226 + 0.12e2 / 0.5e1 * t227 - 0.12e2 / 0.5e1 * t233;
   t237 = 0.47459600000000000000e-1 * t201 * t188 + 0.28363733333333333333e-1 * t214 - 0.90865320000000000000e0 * t221 - t224 * t235;
   t240 = t171 * t171;
-  t242 = t240 * p->hyb_omega[0] * t2;
+  t242 = t240 * p->cam_omega * t2;
   t243 = t242 * t77;
   t244 = t173 * t173;
   t246 = 0.1e1 / t244 / t31;

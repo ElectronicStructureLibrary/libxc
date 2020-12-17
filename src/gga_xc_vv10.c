@@ -84,14 +84,9 @@ lc_set_ext_params(xc_func_type *p, const double *ext_params)
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", omega);
 
   /* Set the hybrid flags */
-  assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_coeff[0] = beta;
-  p->hyb_omega[0] = omega;
-
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_coeff[1] = alpha;
-  p->hyb_omega[1] = 0.0;
+  p->cam_alpha = alpha;
+  p->cam_beta  = beta;
+  p->cam_omega = omega;
 
   /* Non-local correlation part */
   p->nlc_b = b;
@@ -115,9 +110,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_vv10 = {
   XC_HYB_GGA_XC_LC_VV10,
   XC_EXCHANGE_CORRELATION,
   "Vydrov and Van Voorhis",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Vydrov2010_244103, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_VV10 | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {LC_N_PAR, lc_names, lc_desc, par_lc_vv10, lc_set_ext_params},
   hyb_gga_xc_lc_vv10_init,

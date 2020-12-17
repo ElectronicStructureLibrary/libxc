@@ -10,36 +10,13 @@
 #include <ctype.h>
 #include "util.h"
 
-#define is_mgga(id)   ((id) == XC_FAMILY_MGGA)
-#define is_gga(id)    ((id) == XC_FAMILY_GGA || is_mgga(id))
-#define is_lda(id)    ((id) == XC_FAMILY_LDA ||  is_gga(id))
-
-void print_hybrid(xc_func_type *func) {
-  double alpha;
-  assert(func->hyb_type[0] == XC_HYB_FOCK);
-  alpha=func->hyb_coeff[0];
-  printf("\nThis is a global hybrid functional with %4.1f%% of exact exchange.\n",alpha*100);
-}
-
-void print_rangesep(xc_func_type *func) {
-  /* Determine amount of sr and lr exchange */
-  double alpha, beta, omega;
-  assert(func->hyb_type[0] == XC_HYB_ERF_SR || func->hyb_type[0] == XC_HYB_YUKAWA_SR);
-  omega=func->hyb_omega[0];
-  beta=func->hyb_coeff[0];
-  if(func->hyb_number_terms>1) {
-    assert(func->hyb_type[1] == XC_HYB_FOCK);
-    alpha=func->hyb_coeff[1];
-  } else {
-    alpha=0.0;
-  }
-  printf("\nFunctional has a range-separation constant % .3f,\n",omega);
-  printf("and %4.1f%% short-range and %4.1f%% long-range exact exchange,\n",(alpha+beta)*100,(alpha)*100);
-}
+#define is_mgga(id)   ((id) == XC_FAMILY_MGGA || (id) == XC_FAMILY_HYB_MGGA)
+#define is_gga(id)    ((id) == XC_FAMILY_GGA || (id) == XC_FAMILY_HYB_GGA || is_mgga(id))
+#define is_lda(id)    ((id) == XC_FAMILY_LDA || (id) == XC_FAMILY_HYB_LDA ||  is_gga(id))
 
 int main(int argc, char **argv)
 {
-  int i, func_id, error, npar, hybrid_type;
+  int i, func_id, error, npar;
   xc_func_type func;
   char *fname;
 
@@ -76,36 +53,35 @@ int main(int argc, char **argv)
   printf("%10s: %s\n", "comment", func.info->name);
 
   /* Print out hybrid exchange info */
-  hybrid_type = xc_hyb_type(&func);
-  switch(hybrid_type){
-  case XC_HYB_SEMILOCAL:
-    printf("\nThis is a semi-local functional with no exact exchange.\n");
-    break;
-  case XC_HYB_HYBRID:
-    print_hybrid(&func);
-    break;
-  case XC_HYB_CAM:
-    printf("\nThis is a range-separated functional, based on the error function kernel.\n");
-    print_rangesep(&func);
-    break;
-  case XC_HYB_CAMY:
-    printf("\nThis is a range-separated functional, based on the Yukawa kernel.\n");
-    print_rangesep(&func);
-    break;
-  case XC_HYB_CAMG:
-    printf("\nThis is a range-separated functional, based on the Gaussian attenuation scheme.\n");
-    print_rangesep(&func);
-    break;
-  case XC_HYB_DOUBLE_HYBRID:
-    printf("\nThis is a double hybrid functional.\n");
-    break;
-  case XC_HYB_MIXTURE:
-    printf("\nThis is a complicated functional ;)\n");
-    break;
+  if(func.info->family==XC_FAMILY_HYB_LDA || func.info->family==XC_FAMILY_HYB_GGA || func.info->family==XC_FAMILY_HYB_MGGA) {
+    /* Range separation? */
+    int rangesep=0;
+    if(func.info->flags & XC_FLAGS_HYB_CAM)
+      rangesep++;
+    if(func.info->flags & XC_FLAGS_HYB_CAMY)
+      rangesep++;
+    if(func.info->flags & XC_FLAGS_HYB_LC)
+      rangesep++;
+    if(func.info->flags & XC_FLAGS_HYB_LCY)
+      rangesep++;
 
-  default:
-    printf("\nThis is functional of unknown type, please report this problem to the libxc tracker!\n");
-    break;
+    if(rangesep) {
+      double alpha, beta, omega;
+      xc_hyb_cam_coef(&func,&omega,&alpha,&beta);
+      printf("\nThis is a range-separated hybrid functional with range-separation constant % .3f,\n",omega);
+      printf("and %4.1f%% short-range and %4.1f%% long-range exact exchange,\n",(alpha+beta)*100,(alpha)*100);
+
+      if(func.info->flags & XC_FLAGS_HYB_CAM || func.info->flags & XC_FLAGS_HYB_LC)
+        printf("using the error function kernel.\n");
+      else if(func.info->flags & XC_FLAGS_HYB_CAMY || func.info->flags & XC_FLAGS_HYB_LCY)
+        printf("using the Yukawa kernel.\n");
+    } else {
+      double alpha=xc_hyb_exx_coef(&func);
+      printf("\nThis is a global hybrid functional with %4.1f%% of exact exchange.\n",alpha*100);
+    }
+  } else {
+    if(func.info->kind == XC_EXCHANGE || func.info->kind == XC_EXCHANGE_CORRELATION)
+      printf("\nThis is a pure functional with no exact exchange.\n");
   }
 
   printf("\nReference(s):\n");
@@ -117,7 +93,7 @@ int main(int argc, char **argv)
     }
   }
 
-  printf("\nCompilation has support for:\n");
+  printf("\nImplementation has support for:\n");
   if(func.info->flags & XC_FLAGS_HAVE_EXC)
     printf("  *) energy\n");
   if(func.info->flags & XC_FLAGS_HAVE_VXC)
@@ -136,7 +112,7 @@ int main(int argc, char **argv)
     printf("  sigma: %e\n",func.sigma_threshold);
   if(is_mgga(func.info->family))
     printf("    tau: %e\n",func.tau_threshold);
-
+  
   /* Query parameters */
   npar = xc_func_info_get_n_ext_params(func.info);
   if(npar > 0) {
@@ -149,29 +125,6 @@ int main(int argc, char **argv)
              xc_func_info_get_ext_params_description(func.info, i));
   } else {
     printf("\nFunctional has no external parameters.\n");
-  }
-
-  if(hybrid_type != XC_HYB_NONE) {
-    printf("\nTo use the functional, the calling program must add in the following terms:\n");
-    for(i=0; i<func.hyb_number_terms; i++){
-      switch(func.hyb_type[i]){
-      case XC_HYB_FOCK:
-        printf("  *) Hartree-Fock exchange, weight = % .3f\n", func.hyb_coeff[i]);
-        break;
-      case XC_HYB_ERF_SR:
-        printf("  *) Short-range (erf) exact exchange, weight = % .3f omega = %.3f\n", func.hyb_coeff[i], func.hyb_omega[i]);
-        break;
-      case XC_HYB_YUKAWA_SR:
-        printf("  *) Short-range (Yukawa) exact exchange, weight = % .3f omega = %.3f\n", func.hyb_coeff[i], func.hyb_omega[i]);
-        break;
-      case XC_HYB_GAUSSIAN_SR:
-        printf("  *) Short-range (Gau) exact exchange, weight = % .3f omega = %.3f\n", func.hyb_coeff[i], func.hyb_omega[i]);
-        break;
-      case XC_HYB_PT2:
-        printf("  *) Second-order perturbation theory, weight = % .3f\n", func.hyb_coeff[i]);
-        break;
-      }
-    }
   }
 
   /* Free memory */

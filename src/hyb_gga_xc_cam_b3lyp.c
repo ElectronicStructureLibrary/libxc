@@ -37,14 +37,9 @@ static const double par_lc_qtp[CAMB3_N_PAR]          = {1.00, -1.00,   0.475, 1.
 
 static void
 set_cam_params(xc_func_type *p, const double *ext_params) {
-  assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_coeff[0] = get_ext_param(p, ext_params, 1);
-  p->hyb_omega[0] = get_ext_param(p, ext_params, 2);
-
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_coeff[1] = get_ext_param(p, ext_params, 0);
-  p->hyb_omega[1] = 0.0;
+  p->cam_alpha = get_ext_param(p, ext_params, 0);
+  p->cam_beta  = get_ext_param(p, ext_params, 1);
+  p->cam_omega = get_ext_param(p, ext_params, 2);
 }
 
 static void
@@ -83,9 +78,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_b3lyp = {
   XC_HYB_GGA_XC_CAM_B3LYP,
   XC_EXCHANGE_CORRELATION,
   "CAM version of B3LYP",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Yanai2004_51, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-14,
   {CAMB3_N_PAR, camb3_names, camb3_desc, par_cam_b3lyp, camb3_set_ext_params},
   xc_hyb_gga_xc_cam_b3lyp_init, NULL,
@@ -99,9 +94,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_camh_b3lyp = {
   XC_HYB_GGA_XC_CAMH_B3LYP,
   XC_EXCHANGE_CORRELATION,
   "CAM version of B3LYP, tuned for TDDFT",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Shao2020_587, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-14,
   {CAMB3_N_PAR, camb3_names, camb3_desc, par_camh_b3lyp, camb3_set_ext_params},
   xc_hyb_gga_xc_cam_b3lyp_init, NULL,
@@ -115,9 +110,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_tuned_cam_b3lyp = {
   XC_HYB_GGA_XC_TUNED_CAM_B3LYP,
   XC_EXCHANGE_CORRELATION,
   "CAM version of B3LYP, tuned for excitations and properties",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Okuno2012_29, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-14,
   {CAMB3_N_PAR, camb3_names, camb3_desc, par_tuned_cam_b3lyp, camb3_set_ext_params},
   xc_hyb_gga_xc_cam_b3lyp_init, NULL,
@@ -131,9 +126,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_00 = {
   XC_HYB_GGA_XC_CAM_QTP_00,
   XC_EXCHANGE_CORRELATION,
   "CAM-B3LYP retuned using ionization potentials of water",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Verma2014_18A534, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-14,
   {CAMB3_N_PAR, camb3_names, camb3_desc, par_cam_qtp_00, camb3_set_ext_params},
   xc_hyb_gga_xc_cam_b3lyp_init, NULL,
@@ -147,9 +142,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_01 = {
   XC_HYB_GGA_XC_CAM_QTP_01,
   XC_EXCHANGE_CORRELATION,
   "CAM-B3LYP retuned using ionization potentials of water",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Jin2016_034107, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-14,
   {CAMB3_N_PAR, camb3_names, camb3_desc, par_cam_qtp_01, camb3_set_ext_params},
   xc_hyb_gga_xc_cam_b3lyp_init, NULL,
@@ -163,9 +158,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_qtp_02 = {
   XC_HYB_GGA_XC_CAM_QTP_02,
   XC_EXCHANGE_CORRELATION,
   "CAM-B3LYP retuned using ionization potentials of water",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Haiduke2018_184106, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-14,
   {CAMB3_N_PAR, camb3_names, camb3_desc, par_cam_qtp_02, camb3_set_ext_params},
   xc_hyb_gga_xc_cam_b3lyp_init, NULL,
@@ -179,9 +174,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_qtp = {
   XC_HYB_GGA_XC_LC_QTP,
   XC_EXCHANGE_CORRELATION,
   "CAM-B3LYP retuned using ionization potentials of water",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Haiduke2018_184106, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-14,
   {CAMB3_N_PAR, camb3_names, camb3_desc, par_lc_qtp, camb3_set_ext_params},
   xc_hyb_gga_xc_cam_b3lyp_init, NULL,
@@ -243,9 +238,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_rcam_b3lyp = {
   XC_HYB_GGA_XC_RCAM_B3LYP,
   XC_EXCHANGE_CORRELATION,
   "Similar to CAM-B3LYP, but trying to reduce the many-electron self-interaction",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Cohen2007_191109, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-14,
   {RCAM_N_PAR, rcam_names, rcam_desc, par_rcam_b3lyp, rcam_set_ext_params},
   xc_hyb_gga_xc_rcam_b3lyp_init, NULL,
@@ -296,9 +291,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_pbeh = {
   XC_HYB_GGA_XC_CAM_PBEH,
   XC_EXCHANGE_CORRELATION,
   "CAM hybrid screened exchange PBE version",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Chen2018_073803, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {CAM_N_PAR, cam_names, cam_desc, par_cam_pbeh, cam_set_ext_params},
   hyb_gga_xc_cam_pbeh_init,

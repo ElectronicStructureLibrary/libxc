@@ -240,10 +240,9 @@ void xc_func_nullify(xc_func_type *func)
   func->func_aux   = NULL;
   func->mix_coef   = NULL;
 
-  func->hyb_number_terms = 0;
-  func->hyb_type   = NULL;
-  func->hyb_coeff  = NULL;
-  func->hyb_omega  = NULL;
+  func->cam_omega  = 0.0;
+  func->cam_alpha  = 0.0;
+  func->cam_beta   = 0.0;
 
   func->nlc_b = func->nlc_C = 0.0;
 
@@ -341,13 +340,6 @@ void xc_func_end(xc_func_type *func)
   /* deallocate coefficients for mixed functionals */
   if(func->mix_coef != NULL)
     libxc_free(func->mix_coef);
-
-  /* deallocate hybrid coefficients */
-  if(func->hyb_type != NULL){
-    libxc_free(func->hyb_type);
-    libxc_free(func->hyb_omega);
-    libxc_free(func->hyb_coeff);
-  }
 
   /* deallocate any used parameter */
   if(func->params != NULL)

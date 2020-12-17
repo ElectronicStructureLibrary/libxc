@@ -241,7 +241,6 @@ set(raw_sources_list
   gga_x_wc.c
   gga_x_wpbeh.c
   gga_x_fd_lb94.c
-  gga_x_lcgau.c
   gga_xc_1w.c
   gga_xc_b97.c
   gga_xc_edf1.c
@@ -275,8 +274,6 @@ set(raw_sources_list
   hyb_mgga_xc_wb97mv.c
   hyb_mgga_x_js18.c
   hyb_mgga_x_pjs18.c
-  hyb_gga_xc_b2plyp.c
-  hyb_gga_xc_src1_blyp.c
   integrate.c
   lda.c
   lda_c_1d_csc.c

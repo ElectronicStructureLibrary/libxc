@@ -33,6 +33,9 @@ extern "C" {
 #define XC_FAMILY_MGGA          4
 #define XC_FAMILY_LCA           8
 #define XC_FAMILY_OEP          16
+#define XC_FAMILY_HYB_GGA      32
+#define XC_FAMILY_HYB_MGGA     64
+#define XC_FAMILY_HYB_LDA     128
 
 /* flags that can be used in info.flags. Don't reorder these since it
    will break the ABI of the library. */
@@ -44,47 +47,30 @@ extern "C" {
 #define XC_FLAGS_1D               (1 <<  5) /*    32 */
 #define XC_FLAGS_2D               (1 <<  6) /*    64 */
 #define XC_FLAGS_3D               (1 <<  7) /*   128 */
+/* range separation via error function (usual case) */
+#define XC_FLAGS_HYB_CAM          (1 <<  8) /*   256 */
+/* range separation via Yukawa function (rare) */
+#define XC_FLAGS_HYB_CAMY         (1 <<  9) /*   512 */
 #define XC_FLAGS_VV10             (1 << 10) /*  1024 */
+/* range separation via error function i.e. same as XC_FLAGS_HYB_CAM; deprecated */
+#define XC_FLAGS_HYB_LC           (1 << 11) /*  2048 */
+/* range separation via Yukawa function i.e. same as XC_FLAGS_HYB_CAMY; deprecated */
+#define XC_FLAGS_HYB_LCY          (1 << 12) /*  4096 */
 #define XC_FLAGS_STABLE           (1 << 13) /*  8192 */
 /* functionals marked with the development flag may have significant problems in the implementation */
 #define XC_FLAGS_DEVELOPMENT      (1 << 14) /* 16384 */
 #define XC_FLAGS_NEEDS_LAPLACIAN  (1 << 15) /* 32768 */
 
-/* This is the case for most functionals in libxc */
+  /* This is the case for most functionals in libxc */
 #define XC_FLAGS_HAVE_ALL         (XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | \
                                    XC_FLAGS_HAVE_FXC | XC_FLAGS_HAVE_KXC | \
                                    XC_FLAGS_HAVE_LXC)
 
-/* This magic value means use default parameter */
+  /* This magic value means use default parameter */
 #define XC_EXT_PARAMS_DEFAULT   -999998888
 
-/* Different flavors of many-body terms used in hybrids
-   The Fock term to be added to the Hamiltonian reads
-
-     F = -1/2 <i j| f(r_12)/r_12 |j i>
-
-   where the function f(r) is
-
-   *) XC_HYB_FOCK           f(r) = coeff
-   *) XC_HYB_ERF_SR         f(r) = coeff * (1 - erf(omega r))
-   *) XC_HYB_YUKAWA_SR      f(r) = coeff * exp(-omega r)
-   *) XC_HYB_GAUSSIAN_SR    f(r) = coeff * 2*omega/sqrt(pi) * exp(-omega^2 r^2)
-*/
-#define XC_HYB_NONE             0
-#define XC_HYB_FOCK             1  /* Normal hybrid */
-#define XC_HYB_PT2              2  /* Used for double hybrids */
-#define XC_HYB_ERF_SR           4  /* Short range of range separated - erf version */
-#define XC_HYB_YUKAWA_SR        8  /* Short range of range separated - Yakawa version */
-#define XC_HYB_GAUSSIAN_SR     16  /* Short range of range separated - Gaussian version */
-
-/* Different types of hybrid functionals. */
-#define XC_HYB_SEMILOCAL        0  /* Standard semi-local functional (not a hybrid) */
-#define XC_HYB_HYBRID           1  /* Standard hybrid functional */
-#define XC_HYB_CAM              2  /* Coulomb attenuated hybrid */
-#define XC_HYB_CAMY             3  /* Coulomb attenuated hybrid with a Yukawa screening */
-#define XC_HYB_CAMG             4  /* Coulomb attenuated hybrid with a Gaussian screening */
-#define XC_HYB_DOUBLE_HYBRID    5  /* Double hybrid */
-#define XC_HYB_MIXTURE      32768  /* More complicated mixture (have to check individual terms) */
+#define XC_TAU_EXPLICIT         0
+#define XC_TAU_EXPANSION        1
 
 #define XC_MAX_REFERENCES       5
 
@@ -240,18 +226,18 @@ struct xc_func_type{
 
   /**
      Parameters for range-separated hybrids
-     hyb_type[i]:  XC_HYB_NONE, XC_HYB_FOCK, XC_HYB_ERF_SR, etc.
-     hyb_omega[i]: the range separation constant
-     hyb_coeff[i]: fraction of exchange, used both for
+     cam_omega: the range separation constant
+     cam_alpha: fraction of full Hartree-Fock exchange, used both for
                 usual hybrids as well as range-separated ones
+     cam_beta:  fraction of short-range only(!) exchange in
+                range-separated hybrids
 
      N.B. Different conventions for alpha and beta can be found in
      literature. In the convention used in libxc, at short range the
      fraction of exact exchange is cam_alpha+cam_beta, while at long
      range it is cam_alpha.
   */
-  int hyb_number_terms, *hyb_type;
-  double *hyb_coeff, *hyb_omega;
+  double cam_omega, cam_alpha, cam_beta;
 
   double nlc_b;                /* Non-local correlation, b parameter */
   double nlc_C;                /* Non-local correlation, C parameter */
@@ -485,8 +471,6 @@ double xc_gga_ak13_get_asymptotic (double homo);
 double xc_gga_ak13_pars_get_asymptotic (double homo, const double *ext_params);
 
 
-/* Returns the hybrid type of a functional */
-int xc_hyb_type(const xc_func_type *p);
 /* Returns fraction of Hartree-Fock exchange in a global hybrid functional */
 double xc_hyb_exx_coef(const xc_func_type *p);
 /* Returns fraction of Hartee-Fock exchange and short-range exchange in a range-separated hybrid functional  */

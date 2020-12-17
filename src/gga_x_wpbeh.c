@@ -39,7 +39,6 @@ static void
 xc_gga_x_wpbeh_init(xc_func_type *p)
 {
   xc_hyb_init_hybrid(p, 0.0);
-  p->hyb_type[0] = XC_HYB_NONE;
 }
 
 static const char  *omega_names[]  = {"_omega"};

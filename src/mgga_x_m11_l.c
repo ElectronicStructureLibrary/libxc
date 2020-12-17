@@ -62,7 +62,6 @@ mgga_x_m11_l_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(mgga_x_m11_l_params));
 
   xc_hyb_init_hybrid(p, 0.0);
-  p->hyb_type[0] = XC_HYB_NONE;
 }
 
 #include "decl_mgga.h"

@@ -156,7 +156,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t42 = 0.1e1 + 0.93333333333333333332e-3 * t19 * t22 * t26 * t37;
   t45 = M_PI * t11 * t17 / t42;
   t46 = sqrt(t45);
-  t48 = p->hyb_omega[0] / t46;
+  t48 = p->cam_omega / t46;
   t49 = 0.1e1 / t10;
   t50 = t20 * t49;
   t52 = t48 * t50 / 0.2e1;
@@ -200,7 +200,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t108 = t107 * t101;
   t112 = t56 * t55;
   t113 = 0.1e1 / t112;
-  t116 = p->hyb_omega[0] / t46 / t45;
+  t116 = p->cam_omega / t46 / t45;
   t118 = t116 * t50 * M_PI;
   t119 = t42 * t42;
   t120 = 0.1e1 / t119;
@@ -286,7 +286,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t313 = 0.1e1 / t312;
   t314 = t16 * t16;
   t315 = t313 * t314;
-  t321 = p->hyb_omega[0] / t46 / t310 / t3 / t315 / t120 / 0.3e1;
+  t321 = p->cam_omega / t46 / t310 / t3 / t315 / t120 / 0.3e1;
   t323 = t321 * t50 * t310;
   t324 = t3 * t313;
   t325 = t119 * t119;
@@ -450,7 +450,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t786 = t295 * t215;
   t793 = t107 * t475;
   t803 = t310 * t310;
-  t808 = p->hyb_omega[0] / t46 / t803 / t338 / 0.36e2;
+  t808 = p->cam_omega / t46 / t803 / t338 / 0.36e2;
   t809 = t808 * t20;
   t810 = t49 * t803;
   t812 = 0.1e1 / t325 / t119;
@@ -702,7 +702,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   t1954 = 0.140e3 / 0.81e2 * t48 * t20 * t881 - 0.45e2 * t809 * t1908 * t814 - 0.405e3 * t809 * t810 * t1913 * t1914 + 0.405e3 / 0.2e1 * t1079 * t1080 * t328 * t385 - 0.6e1 * t118 * t18 * t1923 * t1914 + 0.9e1 * t118 * t19 * t326 * t328 * t385 - 0.3e1 / 0.2e1 * t118 * t18 * t339 * t1933 - 0.2e1 * t118 * t19 * t847 * t908 + 0.27e2 / 0.8e1 * t323 * t324 * t327 * t1933 + 0.9e1 / 0.2e1 * t323 * t497 * t829 * t908 - 0.28e2 / 0.27e2 * t1951 * t153;
   t1962 = t321 * t390 * t310;
   t1969 = t314 * t812;
-  t1991 = p->hyb_omega[0] / t46 / t11 * t14 * t13 / t16 / t326 * t50 * M_PI / 0.36e2;
+  t1991 = p->cam_omega / t46 / t11 * t14 * t13 / t16 / t326 * t50 * M_PI / 0.36e2;
   t1992 = t325 * t325;
   t1993 = 0.1e1 / t1992;
   t2003 = 0.1e1 / t24 / t527;
@@ -1195,7 +1195,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t47 = 0.1e1 + 0.93333333333333333332e-3 * t28 * t34 * t43;
   t50 = t21 * t26 / t47;
   t51 = sqrt(t50);
-  t53 = p->hyb_omega[0] / t51;
+  t53 = p->cam_omega / t51;
   t54 = 0.1e1 / t30;
   t56 = t53 * t54 / 0.2e1;
   t57 = 0.135e1 <= t56;
@@ -1248,7 +1248,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t140 = 0.1e1 + 0.93333333333333333332e-3 * t28 * t127 * t136;
   t143 = t21 * t26 / t140;
   t144 = sqrt(t143);
-  t146 = p->hyb_omega[0] / t144;
+  t146 = p->cam_omega / t144;
   t147 = 0.1e1 / t123;
   t149 = t146 * t147 / 0.2e1;
   t150 = 0.135e1 <= t149;
@@ -1304,7 +1304,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t229 = t18 * t227 / 0.8e1;
   t230 = t60 * t59;
   t231 = 0.1e1 / t230;
-  t234 = p->hyb_omega[0] / t51 / t50;
+  t234 = p->cam_omega / t51 / t50;
   t235 = t54 * M_PI;
   t236 = t234 * t235;
   t237 = t47 * t47;
@@ -1373,7 +1373,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t382 = t5 * t381;
   t385 = t153 * t152;
   t386 = 0.1e1 / t385;
-  t389 = p->hyb_omega[0] / t144 / t143;
+  t389 = p->cam_omega / t144 / t143;
   t390 = t147 * M_PI;
   t391 = t389 * t390;
   t392 = t140 * t140;
@@ -1505,7 +1505,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t684 = 0.1e1 / t683;
   t685 = t25 * t25;
   t686 = t684 * t685;
-  t692 = p->hyb_omega[0] / t51 / t682 / t686 / t238 / 0.3e1;
+  t692 = p->cam_omega / t51 / t682 / t686 / t238 / 0.3e1;
   t693 = t54 * t681;
   t694 = t692 * t693;
   t695 = t2 * t684;
@@ -1614,7 +1614,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t988 = my_piecewise3(t114, 0, -0.4e1 * t913 + 0.4e1 / 0.3e1 * t203 * t973 + t857 - 0.4e1 / 0.3e1 * t922 - 0.4e1 / 0.9e1 * t115 * t977 * t978 + 0.2e1 / 0.3e1 * t115 * t374 * t983);
   t989 = t5 * t988;
   t999 = t427 * t427;
-  t1007 = p->hyb_omega[0] / t144 / t682 / t686 / t393 / 0.3e1;
+  t1007 = p->cam_omega / t144 / t682 / t686 / t393 / 0.3e1;
   t1008 = t147 * t681;
   t1009 = t1007 * t1008;
   t1010 = t392 * t392;
@@ -1938,7 +1938,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t1850 = t226 * t753;
   t1851 = t18 * t1850;
   t1853 = t681 * t681;
-  t1858 = p->hyb_omega[0] / t51 / t1853 / t709 / 0.36e2;
+  t1858 = p->cam_omega / t51 / t1853 / t709 / 0.36e2;
   t1859 = t1858 * t54;
   t1861 = 0.1e1 / t696 / t237;
   t1862 = t1853 * t1861;
@@ -2148,7 +2148,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t2473 = t198 * t2472;
   t2476 = t483 * t1067;
   t2479 = t1157 * t419;
-  t2489 = p->hyb_omega[0] / t144 / t1853 / t1023 / 0.36e2;
+  t2489 = p->cam_omega / t144 / t1853 / t1023 / 0.36e2;
   t2490 = t2489 * t147;
   t2492 = 0.1e1 / t1010 / t392;
   t2493 = t1853 * t2492;
@@ -2744,7 +2744,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t4691 = t296 * t678 * t761 / 0.81920e5 - t300 * t678 * t761 / 0.2211840e7 + t82 * t1908 * t272 / 0.53084160e8 + t1950 * t1908 / 0.160e3 - 0.3e1 / 0.40e2 * t284 * t678 * t761 + 0.2e1 / 0.3e1 * t64 * t1908 * t272 - t79 * t1908 * t272 / 0.1720320e7 - t73 * t1908 * t272 / 0.2880e4 + t288 * t678 * t761 / 0.192e3 - t67 * t1908 * t272 / 0.12e2 + t1912 * t678 * t761 / 0.68812800e8 + t76 * t1908 * t272 / 0.64512e5 - t292 * t678 * t761 / 0.3584e4 - t789 * t1908 * t272 / 0.1857945600e10 - 0.4e1 * t276 * t678 * t761 + 0.3e1 / 0.4e1 * t280 * t678 * t761 - t789 * t4681 / 0.2477260800e10 + 0.17e2 / 0.13271040e8 * t789 * t4684 + t82 * t4681 / 0.70778880e8 + 0.3e1 / 0.640e3 * t70 * t4681;
   t4702 = t1853 * t20;
   t4705 = 0.1e1 / t23 / t22 * t25;
-  t4711 = p->hyb_omega[0] / t51 / t4702 / t4705 / t697 / 0.36e2;
+  t4711 = p->cam_omega / t51 / t4702 / t4705 / t697 / 0.36e2;
   t4712 = t1853 * M_PI;
   t4713 = t54 * t4712;
   t4714 = t4711 * t4713;
@@ -2948,7 +2948,7 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   t5797 = t1053 * t1053;
   t5804 = 0.1e1 / t410 / t2462 / t409;
   t5812 = 0.24133004115226337449e0 * t28 * t5740 * t136 + 0.17035061728395061728e0 * t28 * t2421 * t415 + 0.10951111111111111111e0 * t28 * t1032 * t1042 - 0.54755555555555555556e-1 * t28 * t1032 * t1063 + 0.59733333333333333332e-1 * t28 * t398 * t2437 - 0.59733333333333333332e-1 * t1395 * t3155 * t2441 + 0.99555555555555555556e-2 * t28 * t398 * t2468 + 0.22399999999999999999e-1 * t28 * t127 * t5763 * t5764 - 0.33599999999999999998e-1 * t1395 * t3162 * t1041 * t1062 + 0.55999999999999999998e-2 * t28 * t127 * t1040 * t5773 + 0.74666666666666666664e-2 * t1395 * t1396 * t414 * t2467 - 0.93333333333333333332e-3 * t28 * t127 * t403 * (0.11324444444444444444e1 * t128 * t1686 * t132 + 0.53834666666666666666e1 * t5740 * t411 - 0.57891555555555555555e1 * t1053 / t123 / t3898 * t1059 + 0.41813333333333333333e1 * t2458 / t5792 * t2464 - 0.11946666666666666667e1 * t5797 / t124 / t2452 / t1406 * t5804);
-  t5824 = p->hyb_omega[0] / t144 / t4702 / t4705 / t1011 / 0.36e2;
+  t5824 = p->cam_omega / t144 / t4702 / t4705 / t1011 / 0.36e2;
   t5825 = t147 * t4712;
   t5826 = t5824 * t5825;
   t5827 = t1010 * t1010;

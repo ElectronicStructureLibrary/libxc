@@ -87,7 +87,7 @@ scan0_set_ext_params(xc_func_type *p, const double *ext_params)
   a0 = get_ext_param(p, ext_params, 0);
 
   p->mix_coef[0] = 1.0 - a0;
-  p->hyb_coeff[0] = a0;
+  p->cam_alpha = a0;
 }
 
 static void
@@ -110,7 +110,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_scan0 = {
   XC_HYB_MGGA_X_SCAN0,
   XC_EXCHANGE,
   "SCAN hybrid exchange (SCAN0)",
-  XC_FAMILY_MGGA,
+  XC_FAMILY_HYB_MGGA,
   {&xc_ref_Hui2016_044114, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
@@ -139,7 +139,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_revscan0 = {
   XC_HYB_MGGA_X_REVSCAN0,
   XC_EXCHANGE,
   "revised SCAN hybrid exchange (SCAN0)",
-  XC_FAMILY_MGGA,
+  XC_FAMILY_HYB_MGGA,
   {&xc_ref_Mezei2018_2469, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,

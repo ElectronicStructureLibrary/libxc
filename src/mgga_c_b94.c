@@ -87,7 +87,7 @@ hyb_mgga_xc_b94_hyb_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[0] = 1.0 - cx;
   p->mix_coef[1] = 1.0;
 
-  p->hyb_coeff[0] = cx;
+  p->cam_alpha = cx;
 }
 
 
@@ -98,7 +98,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_b94_hyb = {
   XC_HYB_MGGA_XC_B94_HYB,
   XC_EXCHANGE_CORRELATION,
   "Becke 1994 hybrid meta-GGA",
-  XC_FAMILY_MGGA,
+  XC_FAMILY_HYB_MGGA,
   {&xc_ref_Becke1994_625, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-24,

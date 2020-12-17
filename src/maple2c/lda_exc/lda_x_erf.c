@@ -71,7 +71,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho , double *zk LDA_
   t14 = POW_1_3(0.9e1);
   t15 = t14 * t14;
   t16 = t3 * t3;
-  t18 = t15 * t16 * p->hyb_omega[0];
+  t18 = t15 * t16 * p->cam_omega;
   t21 = 0.1e1 / t11;
   t24 = t18 * t1 / t13 * t21 / 0.18e2;
   t25 = 0.135e1 <= t24;
@@ -468,7 +468,7 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
   t22 = t21 * t21;
   t23 = t3 * t3;
   t24 = t22 * t23;
-  t25 = t24 * p->hyb_omega[0];
+  t25 = t24 * p->cam_omega;
   t26 = 0.1e1 / t20;
   t27 = t1 * t26;
   t28 = my_piecewise3(t15, 0, t16);
@@ -806,7 +806,7 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
   t779 = t7 * t19 * t777;
   t781 = t40 * t354;
   t786 = t25 * t171 * t349;
-  t789 = t24 * p->hyb_omega[0] * t1;
+  t789 = t24 * p->cam_omega * t1;
   t790 = t26 * t507;
   t791 = t348 * t181;
   t795 = t514 * t338;

@@ -72,8 +72,8 @@ s12h_set_ext_params(xc_func_type *p, const double *ext_params)
   params->D    = get_ext_param(p, ext_params, 3);
   params->E    = get_ext_param(p, ext_params, 4);
 
-  p->hyb_coeff[0] = get_ext_param(p, ext_params, 5);
-  params->bx   = 1.0 - p->hyb_coeff[0];
+  p->cam_alpha = get_ext_param(p, ext_params, 5);
+  params->bx   = 1.0 - p->cam_alpha;
 }
 
 #include "decl_gga.h"
@@ -103,7 +103,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_s12h = {
   XC_HYB_GGA_X_S12H,
   XC_EXCHANGE,
   "Swart 2012 hybrid exchange",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Swart2013_166, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,

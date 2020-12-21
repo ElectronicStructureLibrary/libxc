@@ -28,16 +28,11 @@ b88_par := (rs, z, xs0, xs1, ts0, ts1) ->
   + my_piecewise3(screen_dens(rs, -z), 0, b88_css(rs, z_thr(-z), xs1, ts1)):
 
 (* Equation 49, opposite-spin correlation *)
-b88_cab_s := (rs, z, xs0, xs1) ->
-  - 0.8 * (1 - z^2)/4 * n_total(rs)
-  * b88_zab(cab, b86_f, rs, z, xs0, xs1)^2 * (
-    1 - log(1 + b88_zab(cab, b86_f, rs, z, xs0, xs1))
-      / b88_zab(cab, b86_f, rs, z, xs0, xs1)
-    ):
-
 b88_cab := (rs, z, xs0, xs1) ->
-  my_piecewise3(1 - abs(z) <= p_a_zeta_threshold, 0,
-                b88_cab_s(rs, z_thr2(z), xs0, xs1)):
+  - 0.8 * (1 - z^2)/4 * n_total(rs)
+  * b88_zab(cab, b86_f, rs, z, xs0, xs1) * (
+      b88_zab(cab, b86_f, rs, z, xs0, xs1) - log(1 + b88_zab(cab, b86_f, rs, z, xs0, xs1))
+  ):
 
 (* Whole functional *)
 b88_c_f := (rs, z, xs0, xs1, ts0, ts1) ->

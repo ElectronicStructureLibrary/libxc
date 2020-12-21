@@ -30,8 +30,14 @@ csk_f0 := (p, q, z) ->  1 + 5*p/3 + z*csk_I(z):
    For positive z, I(z)=1 identically, because of the step function.
 *)
 csk_I_negz := z -> (1 - exp(-1/abs(z)^params_a_csk_a))^(1/params_a_csk_a):
-csk_I_cutoff := (-log(DBL_EPSILON))^(-1/params_a_csk_a):
-csk_I := z -> my_piecewise3(z < -csk_I_cutoff, csk_I_negz(m_min(z, -csk_I_cutoff)), 1):
+csk_I_cutoff_small := (-log(DBL_EPSILON))^(-1/params_a_csk_a):
+csk_I_cutoff_large := (-log(1 - DBL_EPSILON))^(-1/params_a_csk_a):
+
+csk_I := z -> my_piecewise5(
+      z < -csk_I_cutoff_large, 0,
+      z > -csk_I_cutoff_small, 1,
+      csk_I_negz(m_max(m_min(z, -csk_I_cutoff_small), -csk_I_cutoff_large))
+  ):
 
 csk_f := (x, u) -> 
   csk_f0(csk_p(x), csk_q(u), csk_z(csk_p(x), csk_q(u))):

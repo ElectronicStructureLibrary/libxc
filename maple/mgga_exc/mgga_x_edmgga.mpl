@@ -39,12 +39,14 @@ as he has passed away. *)
 edmgga_c4 := 1/edmgga_c3^3 * (edmgga_c3^2 - 0.09834*edmgga_mu):
 
 (* Eq. 46 *)
-edmgga_x := Qb -> edmgga_a*Qb + sqrt(1 + (edmgga_a*Qb)^2):
+(* Apparently, edmgga_x can sometimes be smaller than 0 *)
+edmgga_x := Qb -> m_max(1e-12, edmgga_a*Qb + sqrt(1 + (edmgga_a*Qb)^2)):
 
 (* Eq. 45 *)
 edmgga_f_x :=  x -> edmgga_c1 + edmgga_c2*x/(1 + edmgga_c3*sqrt(x)*arcsinh(edmgga_c4*(x - 1))):
 
-edmgga_f := (x, u, t) -> edmgga_f_x(edmgga_x(b98_q(x, u, t))):
+(* the evalf is absolutely necessary to avoid exceptions *)
+edmgga_f := (x, u, t) -> edmgga_f_x(edmgga_x(evalf(b98_q(x, u, t)))):
 
 f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->
   mgga_exchange(edmgga_f, rs, z, xs0, xs1, u0, u1, t0, t1):

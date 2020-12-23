@@ -256,10 +256,10 @@ AC_CONFIG_FILES([Makefile
   src/maple2c/mgga_vxc/Makefile
   testsuite/Makefile
   testsuite/pytest/Makefile
-  packaging/Makefile
-  packaging/libxc.pc
-  packaging/libxcf90.pc
-  packaging/libxcf03.pc
+  pkgconfig/Makefile
+  pkgconfig/libxc.pc
+  pkgconfig/libxcf90.pc
+  pkgconfig/libxcf03.pc
   scripts/Makefile
   maple/Makefile
   maple/lda_exc/Makefile

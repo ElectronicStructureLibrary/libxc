@@ -57,7 +57,7 @@ GPU_FUNCTION double LambertW(double z)
   }
 
   /* Find result through iteration */
-  for(i=0; i<10; i++){
+  for(i=0; i<15; i++){
     double expmw, dw;
     expmw = exp(-w);
 
@@ -68,7 +68,7 @@ GPU_FUNCTION double LambertW(double z)
       dw = 0.0;
 
     w += dw;
-    if(fabs(dw) < 10*DBL_EPSILON*(1.0 + fabs(w)))
+    if(fabs(dw) < 100*DBL_EPSILON*(1.0 + fabs(w)))
       return w;
   }
 

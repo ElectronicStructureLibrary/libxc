@@ -37,7 +37,7 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, c
  */
 static void
 work_mgga(const XC(func_type) *p, size_t np,
-         const double *rho, const double *sigma, const double *lapl, const double *tau,
+          const double *rho, const double *sigma, const double *lapl, const double *tau,
           double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
 
@@ -58,7 +58,7 @@ work_mgga(const XC(func_type) *p, size_t np,
 
 #ifdef XC_DEBUG
   /* This throws an exception when floating point errors are encountered */
-  /*feenableexcept(FE_DIVBYZERO | FE_INVALID);*/
+  //feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
 #endif
 
 #ifdef HAVE_CUDA
@@ -78,6 +78,11 @@ work_mgga(const XC(func_type) *p, size_t np,
 
 #else
   for(ip = 0; ip < np; ip++){
+    //fprintf(stderr,
+    //        "%14.10le %14.10le %14.10le %14.10le %14.10le %14.10le %14.10le %14.10le %14.10le\n",
+    //        rho[0], rho[1], sigma[0], sigma[1], sigma[2], lapl[0], lapl[1], tau[0], tau[1]);
+    //fflush(stderr);
+  
     /* Screen low densities */
     dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
     if(dens >= p->dens_threshold) {

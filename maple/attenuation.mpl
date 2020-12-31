@@ -7,20 +7,6 @@
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
-(* Maple 2020 has a bug where series aren't computed to the order requested; this circumvents that *)
-padding_order := 30:
-
-(* Cap polynomial expansion to given order (throws out the padded terms, if any) *)
-throw_out_large_n := proc(X,n) select(t -> abs(degree(t,{b}))<=n, X); end proc:
-
-(* Function that makes f(a) smooth for a->infty *)
-enforce_smooth_lr := proc(f, a, a_cutoff, expansion_order);
-  (* Calculate large-a expansion *)
-  f_large := a -> eval(throw_out_large_n(convert(series(f(b), b=infinity, expansion_order+padding_order), polynom), expansion_order), b=a):
-  (* Return the series expansion for large a; also remove any numerical overflows from the original branch  *)
-  my_piecewise3(a >= a_cutoff, f_large(m_max(a, a_cutoff)), f(m_min(a, a_cutoff))):
-end proc:
-
 (* error function:
     Toulouse et al, Int. J. of Quant. Chem. 100, 1047 (2004); doi:10.1002/qua.20259
     Tawada et al, J. Chem. Phys. 120, 8425 (2004); doi:10.1063/1.1688752

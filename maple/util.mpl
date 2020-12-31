@@ -175,3 +175,18 @@ mgga_series_w := (a, n, t) -> add(a[i]*mgga_w(t)^(i-1), i=1..n):
 # Used in screened functionals
 kF := (rs, z) -> (3*Pi^2)^(1/3) * opz_pow_n(z,1/3) * RS_FACTOR/rs:
 nu := (rs, z) -> p_a_hyb_omega_0_/kF(rs, z):
+
+
+(* Maple 2020 has a bug where series aren't computed to the order requested; this circumvents that *)
+padding_order := 30:
+
+(* Cap polynomial expansion to given order (throws out the padded terms, if any) *)
+throw_out_large_n := proc(X,n) select(t -> abs(degree(t,{b}))<=n, X); end proc:
+
+(* Function that makes f(a) smooth for a->infty *)
+enforce_smooth_lr := proc(f, a, a_cutoff, expansion_order);
+  (* Calculate large-a expansion *)
+  f_large := a -> eval(throw_out_large_n(convert(series(f(b), b=infinity, expansion_order+padding_order), polynom), expansion_order), b=a):
+  (* Return the series expansion for large a; also remove any numerical overflows from the original branch  *)
+  my_piecewise3(a >= a_cutoff, f_large(m_max(a, a_cutoff)), f(m_min(a, a_cutoff))):
+end proc:

@@ -218,6 +218,7 @@ extern func_reference_type xc_ref_Manby2000_7002;
 extern func_reference_type xc_ref_Mardirossian2014_9904;
 extern func_reference_type xc_ref_Mardirossian2015_074111;
 extern func_reference_type xc_ref_Mardirossian2016_214110;
+extern func_reference_type xc_ref_Margraf2019_244116;
 extern func_reference_type xc_ref_Marques2012_2272;
 extern func_reference_type xc_ref_Mattsson2008_084714;
 extern func_reference_type xc_ref_McWeeny1976_3;

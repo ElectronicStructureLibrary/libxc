@@ -1448,6 +1448,13 @@ func_reference_type xc_ref_Mardirossian2016_214110 = {
 };
 
 
+func_reference_type xc_ref_Margraf2019_244116 = {
+  "J. T. Margraf, C. Kunkel, and K. Reuter, J. Chem. Phys. 150, 244116 (2019)",
+  "10.1063/1.5094788",
+  "@article{Margraf2019_244116,\n  author = {Margraf, Johannes T. and Kunkel, Christian and Reuter, Karsten},\n  title = {Towards density functional approximations from coupled cluster correlation energy densities},\n  journal = {J. Chem. Phys.},\n  volume = {150},\n  number = {24},\n  pages = {244116},\n  year = {2019},\n  doi = {10.1063/1.5094788},\n  url = {https://doi.org/10.1063/1.5094788}  \n}"
+};
+
+
 func_reference_type xc_ref_Marques2012_2272 = {
   "M. A. Marques, M. J. Oliveira, and T. Burnus, Comput. Phys. Commun. 183, 2272 (2012)",
   "10.1016/j.cpc.2012.05.007",

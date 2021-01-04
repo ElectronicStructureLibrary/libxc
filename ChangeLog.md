@@ -1,10 +1,10 @@
 ## [5.1.0] - to be released
 
 ### Added
-- GGA functionals: C_P86_FT, K_LGAP, K_LGAP_GE, K_LKT, K_PBE2, K_VT84F, X_REVSSB_D
+- GGA functionals: C_P86_FT, C_CCDF, C_P86_FT, K_LGAP, K_LGAP_GE, K_LKT, K_PBE2, K_PG1, K_RATIONAL_P, K_TFVW_OPT, K_VT84F, X_REVSSB_D
 - HYB_GGA functionals: XC_CAMH_B3LYP, XC_WB97X_D3, XC_WHPBE0
-- MGGA functionals: C_B94, C_HLTAPW, C_M06_SX, X_R2SCAN, C_R2SCAN, X_R2SCANL, C_R2SCANL, K_CSK1, K_CSK4, K_CSK_LOC1, K_CSK_LOC4, K_GEA2, K_GEA4, K_L04, K_L06, K_PC07_OPT, K_RDA, X_HLTA, X_JK, X_MBR, X_MS2_REV, X_TH
-- HYB_MGGA functionals:  XC_B94_HYB, M06_SX,
+- MGGA functionals: C_B94, C_HLTAPW, C_M06_SX, X_R2SCAN, C_R2SCAN, X_R2SCANL, C_R2SCANL, K_CSK1, K_CSK4, K_CSK_LOC1, K_CSK_LOC4, K_GEA2, K_GEA4, K_L04, K_L06, K_PC07_OPT, K_PGSL025, K_RDA, X_HLTA, X_JK, X_MBR, X_MS2_REV, X_TH
+- HYB_MGGA functionals:  XC_B94_HYB, M06_SX
 
 ### Fixed
 - Bugs in worker functions affecting all GGAs and meta-GGAs.
@@ -25,6 +25,9 @@
 - The renaming libxcf03 -> libxcf90 of 5.0.0 was reverted, as it proved to be problematic in downstream codes.
 - All numerical thresholds are now adjustable.
 - The threshold for the reduced gradient is now initialized based on the density threshold, instead of a hard-coded definition.
+
+### Removed
+- The GGA functionals LCGAU, LCGAU_CORE, and LC2GAU, since the implementation was not complete; the functionals have range-separation terms that cannot be described by the infrastructure in the version 5 series. The correct implementations are included in the version 6 branch.
 
 ## [5.0.0] - 2020-04-06
 

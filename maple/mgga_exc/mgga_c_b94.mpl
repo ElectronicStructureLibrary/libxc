@@ -36,16 +36,12 @@ b94_par := (rs, z, xs0, xs1, us0, us1, ts0, ts1) ->
   + my_piecewise3(screen_dens(rs, -z), 0, b94_css(rs, z_thr(-z), xs1, us1, ts1)):
 
 (* Equation 8, opposite-spin correlation *)
-b94_cab_s := (rs, z, xs0, xs1, us0, us1, ts0, ts1) ->
-  - 0.8 * (1 - z^2)/4 * n_total(rs)
-  * b94_zab(params_a_cab, br89_f, rs, z, xs0, xs1, us0, us1, ts0, ts1)^2 * (
-    1 - log(1 + b94_zab(params_a_cab, br89_f, rs, z, xs0, xs1, us0, us1, ts0, ts1))
-      / b94_zab(params_a_cab, br89_f, rs, z, xs0, xs1, us0, us1, ts0, ts1)
-  ):
-
 b94_cab := (rs, z, xs0, xs1, us0, us1, ts0, ts1) ->
-  my_piecewise3(1 - abs(z) <= p_a_zeta_threshold, 0,
-                b94_cab_s(rs, z_thr2(z), xs0, xs1, us0, us1, ts0, ts1)):
+  - 0.8 * (1 - z^2)/4 * n_total(rs)
+  * b94_zab(params_a_cab, br89_f, rs, z, xs0, xs1, us0, us1, ts0, ts1) * (
+     b94_zab(params_a_cab, br89_f, rs, z, xs0, xs1, us0, us1, ts0, ts1)
+     - log(1 + b94_zab(params_a_cab, br89_f, rs, z, xs0, xs1, us0, us1, ts0, ts1))
+  ):
 
 (* Whole functional *)
 b94_c_f := (rs, z, xs0, xs1, us0, us1, ts0, ts1) ->

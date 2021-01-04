@@ -13,6 +13,7 @@
 
 #include <xc.h>
 
+extern func_reference_type xc_ref_EspinosaLeal2015_31463;
 extern func_reference_type xc_ref_Acharya1980_6978;
 extern func_reference_type xc_ref_Adamo1997_242;
 extern func_reference_type xc_ref_Adamo1998_664;
@@ -89,6 +90,7 @@ extern func_reference_type xc_ref_Constantin2013_2256;
 extern func_reference_type xc_ref_Constantin2016_045126;
 extern func_reference_type xc_ref_Constantin2016_115127;
 extern func_reference_type xc_ref_Constantin2017_115153;
+extern func_reference_type xc_ref_Constantin2018_4385;
 extern func_reference_type xc_ref_Cooper2010_161104;
 extern func_reference_type xc_ref_Cortona2012_086101;
 extern func_reference_type xc_ref_Csonka2010_3688;
@@ -198,6 +200,7 @@ extern func_reference_type xc_ref_Lee1990_193;
 extern func_reference_type xc_ref_Lee1991_768;
 extern func_reference_type xc_ref_Lehtola2018_1;
 extern func_reference_type xc_ref_Lehtola2020;
+extern func_reference_type xc_ref_Lehtomaki2019_165111;
 extern func_reference_type xc_ref_Lembarki1994_5328;
 extern func_reference_type xc_ref_Lieb1981_603;
 extern func_reference_type xc_ref_Lin2004_365;
@@ -218,6 +221,7 @@ extern func_reference_type xc_ref_Manby2000_7002;
 extern func_reference_type xc_ref_Mardirossian2014_9904;
 extern func_reference_type xc_ref_Mardirossian2015_074111;
 extern func_reference_type xc_ref_Mardirossian2016_214110;
+extern func_reference_type xc_ref_Margraf2019_244116;
 extern func_reference_type xc_ref_Marques2012_2272;
 extern func_reference_type xc_ref_Mattsson2008_084714;
 extern func_reference_type xc_ref_McWeeny1976_3;

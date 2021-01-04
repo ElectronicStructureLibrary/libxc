@@ -6,7 +6,7 @@ use Data::Dumper;
 use Exporter;
 @ISA = qw(Exporter);
 @EXPORT = qw(
-maple2c_derivatives 
+maple2c_derivatives
 );
 
 1; # return true value
@@ -21,18 +21,18 @@ sub maple2c_derivatives
   my %partials = (
     "rho"   => [[[0, 0, 0, 0, 0, 0, 0, 0, 0]],    # 0th-order
                 [[1, 0, 0, 0, 0, 0, 0, 0, 0],     # 1st-order
-                 [0, 1, 0, 0, 0, 0, 0, 0, 0]], 
+                 [0, 1, 0, 0, 0, 0, 0, 0, 0]],
                 [[2, 0, 0, 0, 0, 0, 0, 0, 0],     # 2nd-order
-                 [1, 1, 0, 0, 0, 0, 0, 0, 0], 
+                 [1, 1, 0, 0, 0, 0, 0, 0, 0],
                  [0, 2, 0, 0, 0, 0, 0, 0, 0]],
                 [[3, 0, 0, 0, 0, 0, 0, 0, 0],     # 3rd-order
-                 [2, 1, 0, 0, 0, 0, 0, 0, 0], 
-                 [1, 2, 0, 0, 0, 0, 0, 0, 0], 
+                 [2, 1, 0, 0, 0, 0, 0, 0, 0],
+                 [1, 2, 0, 0, 0, 0, 0, 0, 0],
                  [0, 3, 0, 0, 0, 0, 0, 0, 0]],
                 [[4, 0, 0, 0, 0, 0, 0, 0, 0],     # 4th-order
-                 [3, 1, 0, 0, 0, 0, 0, 0, 0], 
-                 [2, 2, 0, 0, 0, 0, 0, 0, 0], 
-                 [1, 3, 0, 0, 0, 0, 0, 0, 0], 
+                 [3, 1, 0, 0, 0, 0, 0, 0, 0],
+                 [2, 2, 0, 0, 0, 0, 0, 0, 0],
+                 [1, 3, 0, 0, 0, 0, 0, 0, 0],
                  [0, 4, 0, 0, 0, 0, 0, 0, 0]],
     ],
     "sigma" => [[[0, 0, 0, 0, 0, 0, 0, 0, 0]],    # 0th-order
@@ -104,7 +104,7 @@ sub maple2c_derivatives
                  [0, 0, 0, 0, 0, 0, 0, 0, 4]]
                 ]
       );
-  
+
   # finds out the order of each partial
   my %order = ();
   my $total_order = 0;
@@ -118,7 +118,7 @@ sub maple2c_derivatives
 
   my %n_var = ("lda" => 2, "gga" => 5, "mgga" => 9);
   my $max_n = $n_var{$type};
-  
+
   my @all_derivatives = ();
   my $der_n = 0;
   for(my $n_rho=0; $n_rho <= $#{$partials{"rho"}[$order{"rho"}]}; $n_rho++){
@@ -126,7 +126,7 @@ sub maple2c_derivatives
       for(my $n_lapl=0; $n_lapl <= $#{$partials{"lapl"}[$order{"lapl"}]}; $n_lapl++){
         for(my $n_tau=0; $n_tau <= $#{$partials{"tau"}[$order{"tau"}]}; $n_tau++){
           # sum orders in all variables
-          
+
           my @final_der = (0) x $max_n;
           for(my $i=0; $i<$max_n; $i++){
             $final_der[$i] +=

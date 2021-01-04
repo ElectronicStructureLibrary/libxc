@@ -104,37 +104,37 @@ screen_dens := (rs, z) -> (n_spin(rs,  z) <= p_a_dens_threshold):
 
 # For most functionals zeta screening occurs inside the funcitonal,
 #  but for B88 and B94 correlation need to screen out also outside
-screen_dens_zeta := (rs, z) -> screen_dens(rs, z) or (1+z <= p_a_zeta_threshold):
+screen_dens_zeta := (rs, z) -> screen_dens(rs, z) or (1 + z <= p_a_zeta_threshold):
 
 # non-separable GGA exchange
 gga_exchange_nsp := (func, rs, z, xs0, xs1) ->
-  + my_piecewise3(screen_dens(rs,  z), 0, lda_x_spin(rs,  z)*func(rs,  z, xs0))
-  + my_piecewise3(screen_dens(rs, -z), 0, lda_x_spin(rs, -z)*func(rs, -z, xs1)):
+  + my_piecewise3(screen_dens(rs,  z), 0, lda_x_spin(rs, z_thr( z))*func(rs, z_thr( z), xs0))
+  + my_piecewise3(screen_dens(rs, -z), 0, lda_x_spin(rs, z_thr(-z))*func(rs, z_thr(-z), xs1)):
 # GGA exchange
 gga_exchange := (func, rs, z, xs0, xs1) ->
-  + my_piecewise3(screen_dens(rs,  z), 0, lda_x_spin(rs,  z)*func(xs0))
-  + my_piecewise3(screen_dens(rs, -z), 0, lda_x_spin(rs, -z)*func(xs1)):
+  + my_piecewise3(screen_dens(rs,  z), 0, lda_x_spin(rs, z_thr( z))*func(xs0))
+  + my_piecewise3(screen_dens(rs, -z), 0, lda_x_spin(rs, z_thr(-z))*func(xs1)):
 # GGA kinetic energy
 gga_kinetic := (func, rs, z, xs0, xs1) ->
-  + my_piecewise3(screen_dens(rs,  z), 0, lda_k_spin(rs,  z)*func(xs0))
-  + my_piecewise3(screen_dens(rs, -z), 0, lda_k_spin(rs, -z)*func(xs1)):
+  + my_piecewise3(screen_dens(rs,  z), 0, lda_k_spin(rs, z_thr( z))*func(xs0))
+  + my_piecewise3(screen_dens(rs, -z), 0, lda_k_spin(rs, z_thr(-z))*func(xs1)):
 
 # non-separable meta-GGA exchange
 mgga_exchange_nsp := (func, rs, z, xs0, xs1, u0, u1, t0, t1) ->
-  + my_piecewise3(screen_dens(rs,  z), 0, lda_x_spin(rs,  z)*func(rs,  z, xs0, u0, t0))
-  + my_piecewise3(screen_dens(rs, -z), 0, lda_x_spin(rs, -z)*func(rs, -z, xs1, u1, t1)):
+  + my_piecewise3(screen_dens(rs,  z), 0, lda_x_spin(rs, z_thr( z))*func(rs, z_thr( z), xs0, u0, t0))
+  + my_piecewise3(screen_dens(rs, -z), 0, lda_x_spin(rs, z_thr(-z))*func(rs, z_thr(-z), xs1, u1, t1)):
 # meta-GGA exchange
 mgga_exchange := (func, rs, z, xs0, xs1, u0, u1, t0, t1) ->
-  + my_piecewise3(screen_dens(rs,  z), 0, lda_x_spin(rs,  z)*func(xs0, u0, t0))
-  + my_piecewise3(screen_dens(rs, -z), 0, lda_x_spin(rs, -z)*func(xs1, u1, t1)):
+  + my_piecewise3(screen_dens(rs,  z), 0, lda_x_spin(rs, z_thr( z))*func(xs0, u0, t0))
+  + my_piecewise3(screen_dens(rs, -z), 0, lda_x_spin(rs, z_thr(-z))*func(xs1, u1, t1)):
 # meta-GGA kinetic energy
 mgga_kinetic := (func, rs, z, xs0, xs1, u0, u1) ->
-  + my_piecewise3(screen_dens(rs,  z), 0, lda_k_spin(rs,  z)*func(xs0, u0))
-  + my_piecewise3(screen_dens(rs, -z), 0, lda_k_spin(rs, -z)*func(xs1, u1)):
+  + my_piecewise3(screen_dens(rs,  z), 0, lda_k_spin(rs, z_thr( z))*func(xs0, u0))
+  + my_piecewise3(screen_dens(rs, -z), 0, lda_k_spin(rs, z_thr(-z))*func(xs1, u1)):
 
 # This is the Stoll decomposition in our language
 lda_stoll_par  := (lda_func, rs, z) ->
-  my_piecewise3(screen_dens_zeta(rs,  z), 0, opz_pow_n(z,1)/2 * lda_func(rs*2^(1/3)*opz_pow_n(z,-1/3), 1)):
+  my_piecewise3(screen_dens_zeta(rs,  z), 0, opz_pow_n(z, 1)/2 * lda_func(rs*2^(1/3)*opz_pow_n(z, -1/3), 1)):
 
 lda_stoll_perp := (lda_func, rs, z) ->
   + lda_func(rs, z)
@@ -155,12 +155,18 @@ Fermi_D_corrected := (xs, ts) -> (1 - xs^2/(8*ts)) * (1 - exp(-4*ts^2/params_a_F
 # Becke function used in several correlation functionals
 b88_R_F := (f_x, rs, z, xs) -> 1/(2*X_FACTOR_C*n_spin(rs, z)^(1/3)*f_x(xs)):
 b88_zss := (css, f_x, rs, z, xs) -> 2*css*b88_R_F(f_x, rs, z, xs):
-b88_zab := (cab, f_x, rs, z, xs0, xs1) -> cab*(b88_R_F(f_x, rs, z, xs0) + b88_R_F(f_x, rs, -z, xs1)):
+b88_zab := (cab, f_x, rs, z, xs0, xs1) -> cab*(
+  + my_piecewise3(screen_dens(rs,  z), 0, b88_R_F(f_x, rs, z_thr( z), xs0))
+  + my_piecewise3(screen_dens(rs, -z), 0, b88_R_F(f_x, rs, z_thr(-z), xs1))
+  ):
+
 # The meta-GGA version
 b94_R_F := (f_x, rs, z, xs, us, ts) -> 1/(2*X_FACTOR_C*n_spin(rs, z)^(1/3)*f_x(xs,us,ts)):
 b94_zss := (css, f_x, rs, z, xs, us, ts) -> 2*css*b94_R_F(f_x, rs, z, xs, us, ts):
-b94_zab := (cab, f_x, rs, z, xs0, xs1, us0, us1, ts0, ts1) ->
-  cab*(b94_R_F(f_x, rs, z, xs0, us0, ts0) + b94_R_F(f_x, rs, -z, xs1, us1, ts1)):
+b94_zab := (cab, f_x, rs, z, xs0, xs1, us0, us1, ts0, ts1) -> cab*(
+  + my_piecewise3(screen_dens(rs,  z), 0, b94_R_F(f_x, rs, z_thr( z), xs0, us0, ts0))
+  + my_piecewise3(screen_dens(rs, -z), 0, b94_R_F(f_x, rs, z_thr(-z), xs1, us1, ts1))
+  ):
 
 # Power series often used in mggas
 mgga_w := t -> (K_FACTOR_C - t)/(K_FACTOR_C + t):
@@ -169,3 +175,18 @@ mgga_series_w := (a, n, t) -> add(a[i]*mgga_w(t)^(i-1), i=1..n):
 # Used in screened functionals
 kF := (rs, z) -> (3*Pi^2)^(1/3) * opz_pow_n(z,1/3) * RS_FACTOR/rs:
 nu := (rs, z) -> p_a_hyb_omega_0_/kF(rs, z):
+
+
+(* Maple 2020 has a bug where series aren't computed to the order requested; this circumvents that *)
+padding_order := 30:
+
+(* Cap polynomial expansion to given order (throws out the padded terms, if any) *)
+throw_out_large_n := proc(X,n) select(t -> abs(degree(t,{b}))<=n, X); end proc:
+
+(* Function that makes f(a) smooth for a->infty *)
+enforce_smooth_lr := proc(f, a, a_cutoff, expansion_order);
+  (* Calculate large-a expansion *)
+  f_large := a -> eval(throw_out_large_n(convert(series(f(b), b=infinity, expansion_order+padding_order), polynom), expansion_order), b=a):
+  (* Return the series expansion for large a; also remove any numerical overflows from the original branch  *)
+  my_piecewise3(a >= a_cutoff, f_large(m_max(a, a_cutoff)), f(m_min(a, a_cutoff))):
+end proc:

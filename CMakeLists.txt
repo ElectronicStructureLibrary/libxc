@@ -166,6 +166,8 @@ set(raw_sources_list
   gga_c_zvpbeint.c
   gga_c_zvpbeloc.c
   gga_k_dk.c
+  gga_k_pg.c
+  gga_k_rational_p.c
   gga_k_meyer.c
   gga_k_ol1.c
   gga_k_ol2.c
@@ -251,6 +253,7 @@ set(raw_sources_list
   gga_xc_vv10.c
   gga_k_lgap.c
   gga_k_lgap_ge.c
+  gga_c_ccdf.c
   hyb_gga_xc_b1wc.c
   hyb_gga_xc_b3lyp.c
   hyb_gga_xc_cam_b3lyp.c
@@ -338,6 +341,7 @@ set(raw_sources_list
   mgga_k_pc07.c
   mgga_k_csk.c
   mgga_k_csk_loc.c
+  mgga_k_pgslb.c
   mgga_x_2d_prhg07.c
   mgga_x_2d_prp10.c
   mgga_x_br89.c

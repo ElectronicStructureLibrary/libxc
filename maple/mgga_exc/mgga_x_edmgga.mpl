@@ -39,11 +39,21 @@ as he has passed away. *)
 edmgga_c4 := 1/edmgga_c3^3 * (edmgga_c3^2 - 0.09834*edmgga_mu):
 
 (* Eq. 46 *)
-edmgga_x := Qb -> edmgga_a*Qb + sqrt(1 + (edmgga_a*Qb)^2):
+(* Apparently, edmgga_x can sometimes be smaller than 0,
+   as Qb can be very negative. The expansion for -infinity
+   has an error of 1e-13 *)
+edmgga_x_large := y -> -1/(2*y) + 1/(8*y^3):
+
+edmgga_x := Qb -> my_piecewise3(
+  Qb < -1e4/edmgga_a,
+  edmgga_x_large(m_min(edmgga_a*Qb, -1e-4/edmgga_a)),
+  edmgga_a*Qb + sqrt(1 + (edmgga_a*Qb)^2)
+):
 
 (* Eq. 45 *)
 edmgga_f_x :=  x -> edmgga_c1 + edmgga_c2*x/(1 + edmgga_c3*sqrt(x)*arcsinh(edmgga_c4*(x - 1))):
 
+(* the evalf is absolutely necessary to avoid exceptions *)
 edmgga_f := (x, u, t) -> edmgga_f_x(edmgga_x(b98_q(x, u, t))):
 
 f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->

@@ -13,6 +13,13 @@
 
 #include <xc.h>
 
+func_reference_type xc_ref_EspinosaLeal2015_31463 = {
+  "L. A. Espinosa Leal, A. Karpenko, M. A. Caro, and O. Lopez-Acevedo, Phys. Chem. Chem. Phys. 17, 31463 (2015)",
+  "10.1039/C5CP01211B",
+  "@Article{EspinosaLeal2015_31463,\n  author =\"Espinosa Leal, L. A. and Karpenko, A. and Caro, M. A. and Lopez-Acevedo, O.\",\n  title  =\"Optimizing a parametrized {Thomas--Fermi--Dirac--Weizs\\\"{a}cker} density functional for atoms\",\n  journal  =\"Phys. Chem. Chem. Phys.\",\n  year  =\"2015\",\n  volume  =\"17\",\n  issue  =\"47\",\n  pages  =\"31463-31471\",\n  publisher  =\"The Royal Society of Chemistry\",\n  doi  =\"10.1039/C5CP01211B\",\n  url  =\"http://dx.doi.org/10.1039/C5CP01211B\",\n}"
+};
+
+
 func_reference_type xc_ref_Acharya1980_6978 = {
   "P. K. Acharya, L. J. Bartolotti, S. B. Sears, and R. G. Parr, Proc. Natl. Acad. Sci. U. S. A. 77, 6978 (1980)",
   "10.1073/pnas.77.12.6978",
@@ -542,6 +549,13 @@ func_reference_type xc_ref_Constantin2017_115153 = {
   "L. A. Constantin, E. Fabiano, S. Smiga, and F. Della Sala, Phys. Rev. B 95, 115153 (2017)",
   "10.1103/PhysRevB.95.115153",
   "@article{Constantin2017_115153,\n  title = {Jellium-with-gap model applied to semilocal kinetic functionals},\n  author = {Constantin, Lucian A. and Fabiano, Eduardo and \\'{S}miga, Szymon and Della Sala, Fabio},\n  journal = {Phys. Rev. B},\n  volume = {95},\n  issue = {11},\n  pages = {115153},\n  year = {2017},\n  month = {Mar},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.95.115153},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.95.115153}\n}"
+};
+
+
+func_reference_type xc_ref_Constantin2018_4385 = {
+  "L. A. Constantin, E. Fabiano, and F. Della Sala, J. Phys. Chem. Lett. 9, 4385 (2018), pMID: 30019904",
+  "10.1021/acs.jpclett.8b01926",
+  "@article{Constantin2018_4385,\n  author = {Constantin, Lucian A. and Fabiano, Eduardo and Della Sala, Fabio},\n  title = {Semilocal Pauli--Gaussian Kinetic Functionals for Orbital-Free Density Functional Theory Calculations of Solids},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {9},\n  number = {15},\n  pages = {4385-4390},\n  year = {2018},\n  doi = {10.1021/acs.jpclett.8b01926},\n  note ={PMID: 30019904},\n  URL = {https://doi.org/10.1021/acs.jpclett.8b01926}\n}"
 };
 
 
@@ -1302,9 +1316,16 @@ func_reference_type xc_ref_Lehtola2018_1 = {
 
 
 func_reference_type xc_ref_Lehtola2020 = {
-  "S. Lehtola and M. A. L. Marques, Simple meta-generalization of local density functionals-, (2020), arXiv:2006.16835 [physics.chem-ph]",
+  "S. Lehtola and M. A. L. Marques, Meta-local density functionals: a new rung on jacob's ladder, (2020), arXiv:2006.16835 [physics.chem-ph]",
   "",
-  "@misc{Lehtola2020,\n  title = {Simple meta-generalization of local density functionals-},\n  author = {Susi Lehtola and Miguel A. L. Marques},\n  year = {2020},\n  eprint = {2006.16835},\n  archivePrefix = {arXiv},\n  primaryClass = {physics.chem-ph}\n}"
+  "@misc{Lehtola2020,\n  title = {Meta-local density functionals: a new rung on Jacob's ladder},\n  author = {Susi Lehtola and Miguel A. L. Marques},\n  year = {2020},\n  eprint = {2006.16835},\n  archivePrefix = {arXiv},\n  primaryClass = {physics.chem-ph}\n}"
+};
+
+
+func_reference_type xc_ref_Lehtomaki2019_165111 = {
+  "J. Lehtomaki and O. Lopez-Acevedo, Phys. Rev. B 100, 165111 (2019)",
+  "10.1103/PhysRevB.100.165111",
+  "@article{Lehtomaki2019_165111,\n  title = {Semilocal kinetic energy functionals with parameters from neutral atoms},\n  author = {Lehtom\\\"{a}ki, Jouko and Lopez-Acevedo, Olga},\n  journal = {Phys. Rev. B},\n  volume = {100},\n  issue = {16},\n  pages = {165111},\n  numpages = {9},\n  year = {2019},\n  month = {Oct},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.100.165111},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.100.165111}\n}"
 };
 
 
@@ -1445,6 +1466,13 @@ func_reference_type xc_ref_Mardirossian2016_214110 = {
   "N. Mardirossian and M. Head-Gordon, J. Chem. Phys. 144, 214110 (2016)",
   "10.1063/1.4952647",
   "@article{Mardirossian2016_214110,\n  author = \"Mardirossian, Narbe and Head-Gordon, Martin\",\n  title = \"$\\omega$B97M-V: A combinatorially optimized, range-separated hybrid, meta-GGA density functional with VV10 nonlocal correlation\",\n  journal = \"J. Chem. Phys.\",\n  year = \"2016\",\n  volume = \"144\",\n  number = \"21\",\n  pages = \"214110\",\n  url = \"http://scitation.aip.org/content/aip/journal/jcp/144/21/10.1063/1.4952647\",\n  doi = \"10.1063/1.4952647\"\n}"
+};
+
+
+func_reference_type xc_ref_Margraf2019_244116 = {
+  "J. T. Margraf, C. Kunkel, and K. Reuter, J. Chem. Phys. 150, 244116 (2019)",
+  "10.1063/1.5094788",
+  "@article{Margraf2019_244116,\n  author = {Margraf, Johannes T. and Kunkel, Christian and Reuter, Karsten},\n  title = {Towards density functional approximations from coupled cluster correlation energy densities},\n  journal = {J. Chem. Phys.},\n  volume = {150},\n  number = {24},\n  pages = {244116},\n  year = {2019},\n  doi = {10.1063/1.5094788},\n  url = {https://doi.org/10.1063/1.5094788}  \n}"
 };
 
 

@@ -39,7 +39,7 @@ foreach $func (@funcs){
     }else{
       $s6 .= $s;
     }
-    
+
     $t = $deflist_f{$key};
     $t =~ s/XC_(.*)/\L$1/;
 
@@ -134,7 +134,7 @@ sub read_file() {
       if(/^(const |)xc_func_info_type xc_func_info_(?:hyb_)?${type}/){
         $infostr = "";
         while($_=<IN>){
-          if(/([^}])*};/) { 
+          if(/([^}])*};/) {
             $infostr .= $1;
             last;
           }
@@ -150,12 +150,12 @@ sub read_file() {
         $infos0[0] =~ s/^\s*//;
         $infos0[1] =~ s/^\s*//;
         @infos2 = split(',', $infos[2]);
-        
+
         for($ii = 0; $ii <= $#infos2; $ii++) {
           # remove leading spaces
           $infos2[$ii] =~ s/^\s*//;
         }
-        
+
         print DOCS "Number         : $num{$infos0[0]}\n";
         print DOCS "File           : $file\n";
         print DOCS "Codename       : $infos0[0]\n";
@@ -168,7 +168,7 @@ sub read_file() {
         }
         #infos2[0] will be blank
         print DOCS "Family         : $infos2[1]\n";
-        
+
         if(-e "$xc_info_exe" && -x "$xc_info_exe") {
           $xc_info = `$xc_info_exe $num{$infos0[0]}`;
           @refs = split('\n', $xc_info);
@@ -196,41 +196,41 @@ sub read_file() {
           }
           print DOCS "\n";
         }
-        
+
         if(($infos2[7] =~ /XC_FLAGS_(.)D/) != 1) {
           print STDERR $infos2[7], "\n";
           print STDERR "$infos0[0]: Must set exactly one dimensionality flag.\n";
           exit(1);
         }
         print DOCS "Dimensionality : $1\n";
-        
+
         print DOCS "Quantities     : ";
         @quantities = ($infos2[7] =~ /XC_FLAGS_HAVE_(.XC)/g);
         print DOCS join(" ", @quantities) . "\n";
-        
+
         $infos2[7] =~ s/XC_FLAGS_.D//;
         $infos2[7] =~ s/XC_FLAGS_HAVE_.XC//g;
         $infos2[7] =~ s/\|//g;
         $infos2[7] =~ s/^\s*//;
         $infos2[7] =~ s/^s*$//;
-        
+
         print DOCS "Other flags    : $infos2[7]\n";
-        
+
         open(IN, "<$srcdir/$file");
         chomp(my @lines = <IN>);
         close(IN);
-        
+
         $shortname = lc(substr($infos0[0], 3));
         @lines = grep {/xc_${shortname}_set_params\(xc_func_type/} @lines;
         $set_params = shift @lines;
-        
+
         if($set_params ne "") {
           if($set_params !~ /void/) {
             $set_params = "void $set_params";
           }
           print DOCS $set_params . "\n";
         }
-        
+
         print DOCS "min dens       : $infos2[8]\n";
         print DOCS "min grad       : $infos2[9]\n";
         print DOCS "min tau        : $infos2[10]\n";
@@ -242,13 +242,13 @@ sub read_file() {
         print DOCS "work gga       : $infos2[15]\n";
         print DOCS "work mgga      : $infos2[16]\n";
         print DOCS "----------------------------\n";
-        
+
         if($num{$infos0[0]} eq "") {
           print STDERR "ERROR: missing number\n";
           print STDERR $infos0[0], "\n";
           exit(1);
         }
-        
+
         if($deflist_f{$num{$infos0[0]}} ne $infos0[0]) {
           print STDERR $deflist_f{$num{$infos0[0]}} . " " . $infos0[0] . "\n";
           print STDERR "Mismatch of names.\n";

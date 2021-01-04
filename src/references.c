@@ -552,6 +552,13 @@ func_reference_type xc_ref_Constantin2017_115153 = {
 };
 
 
+func_reference_type xc_ref_Constantin2018_4385 = {
+  "L. A. Constantin, E. Fabiano, and F. Della Sala, J. Phys. Chem. Lett. 9, 4385 (2018), pMID: 30019904",
+  "10.1021/acs.jpclett.8b01926",
+  "@article{Constantin2018_4385,\n  author = {Constantin, Lucian A. and Fabiano, Eduardo and Della Sala, Fabio},\n  title = {Semilocal Pauli--Gaussian Kinetic Functionals for Orbital-Free Density Functional Theory Calculations of Solids},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {9},\n  number = {15},\n  pages = {4385-4390},\n  year = {2018},\n  doi = {10.1021/acs.jpclett.8b01926},\n  note ={PMID: 30019904},\n  URL = {https://doi.org/10.1021/acs.jpclett.8b01926}\n}"
+};
+
+
 func_reference_type xc_ref_Cooper2010_161104 = {
   "V. R. Cooper, Phys. Rev. B 81, 161104 (2010)",
   "10.1103/PhysRevB.81.161104",
@@ -1309,9 +1316,16 @@ func_reference_type xc_ref_Lehtola2018_1 = {
 
 
 func_reference_type xc_ref_Lehtola2020 = {
-  "S. Lehtola and M. A. L. Marques, Simple meta-generalization of local density functionals-, (2020), arXiv:2006.16835 [physics.chem-ph]",
+  "S. Lehtola and M. A. L. Marques, Meta-local density functionals: a new rung on jacob's ladder, (2020), arXiv:2006.16835 [physics.chem-ph]",
   "",
-  "@misc{Lehtola2020,\n  title = {Simple meta-generalization of local density functionals-},\n  author = {Susi Lehtola and Miguel A. L. Marques},\n  year = {2020},\n  eprint = {2006.16835},\n  archivePrefix = {arXiv},\n  primaryClass = {physics.chem-ph}\n}"
+  "@misc{Lehtola2020,\n  title = {Meta-local density functionals: a new rung on Jacob's ladder},\n  author = {Susi Lehtola and Miguel A. L. Marques},\n  year = {2020},\n  eprint = {2006.16835},\n  archivePrefix = {arXiv},\n  primaryClass = {physics.chem-ph}\n}"
+};
+
+
+func_reference_type xc_ref_Lehtomaki2019_165111 = {
+  "J. Lehtomaki and O. Lopez-Acevedo, Phys. Rev. B 100, 165111 (2019)",
+  "10.1103/PhysRevB.100.165111",
+  "@article{Lehtomaki2019_165111,\n  title = {Semilocal kinetic energy functionals with parameters from neutral atoms},\n  author = {Lehtom\\\"{a}ki, Jouko and Lopez-Acevedo, Olga},\n  journal = {Phys. Rev. B},\n  volume = {100},\n  issue = {16},\n  pages = {165111},\n  numpages = {9},\n  year = {2019},\n  month = {Oct},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.100.165111},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.100.165111}\n}"
 };
 
 

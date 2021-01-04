@@ -11,7 +11,7 @@ my @replace = (
   '\[n1, s2, u1\]' , "",
   '\[n0, n1, s0, s1, s2, u0, u1, ked1, ked2\]' , "",
   'Derivative' , "",
-  
+
   '\[1, 0, 0\]\[ked1\]' , "ked1_vrho[0]",
   '\[0, 1, 0\]\[ked1\]' , "ked1_vsigma[0]",
   '\[0, 0, 1\]\[ked1\]' , "ked1_vlapl[0]",
@@ -53,10 +53,10 @@ my @replace = (
 
 my @ders = (
   "vrho", "vsigma", "vlapl", "vtau",
-  
-  "v2rho2", "v2rhosigma", "v2rholapl", "v2rhotau", "v2sigma2", 
+
+  "v2rho2", "v2rhosigma", "v2rholapl", "v2rhotau", "v2sigma2",
   "v2sigmalapl", "v2sigmatau", "v2lapl2", "v2lapltau", "v2tau2",
-  
+
   "v3rho3", "v3rho2sigma", "v3rho2lapl", "v3rho2tau",
   "v3rhosigma2", "v3rhosigmalapl", "v3rhosigmatau", "v3rholapl2",
   "v3rholapltau", "v3rhotau2", "v3sigma3", "v3sigma2lapl",
@@ -74,7 +74,7 @@ my @ders = (
   "v4lapl2tau2", "v4lapltau3", "v4tau4"
 );
 my @ders_def = ();
-    
+
 foreach $der (@ders){
   push @ders_def, maple2c_derivatives($der, "mgga");
 }
@@ -91,7 +91,7 @@ my %all_out = ();
 foreach $der (@ders_def){
   # let us do one order each time
   next if(! (${$der}[1] =~ /^v4/));
-  
+
   $mder = "";
   $mder = $mder." {n0, ".${$der}[0][0]."}";
   $mder = $mder.",{n1, ".${$der}[0][1]."}";
@@ -128,7 +128,7 @@ foreach $der (@ders_def){
   ${$der}[1] =~ /(.\d?)(.*?)\[(\d+)\]/;
 
   $out = ${$der}[1]." = ".$out.";\n";
-  
+
   if($3 eq "0"){
     $out1 .= wrap('', '  ', $out);
   }else{

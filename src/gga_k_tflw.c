@@ -28,6 +28,7 @@ Celebration of the Contributions of Robert G. Parr, edited by KD Sen
 #define XC_GGA_K_GR            508 /* gamma-TFvW form by Gazquez and Robles */
 #define XC_GGA_K_LUDENA        509 /* gamma-TFvW form by Ludena */
 #define XC_GGA_K_GP85          510 /* gamma-TFvW form by Ghosh and Parr */
+#define XC_GGA_K_TFVW_OPT      635 /* empirically optimized gamma-TFvW form */
 
 typedef struct{
   double lambda, gamma;
@@ -57,6 +58,7 @@ static const double tfvw_golden_values[TFVW_N_PAR] = {13.0/45.0, 1.0};
 static const double tfvw_yt65_values[TFVW_N_PAR]   = {1.0/5.0, 1.0};
 static const double tfvw_baltin_values[TFVW_N_PAR] = {5.0/9.0, 1.0};
 static const double tfvw_lieb_values[TFVW_N_PAR]   = {0.185909191, 1.0}; /* 1/5.37897... */
+static const double tfvw_opt_values[TFVW_N_PAR]  = {0.599, 0.697};
 
 #ifdef __cplusplus
 extern "C"
@@ -169,6 +171,23 @@ const xc_func_info_type xc_func_info_gga_k_lieb = {
   gga_k_tflw_init, NULL,
   NULL, work_gga, NULL
 };
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_gga_k_tfvw_opt = {
+  XC_GGA_K_TFVW_OPT,
+  XC_KINETIC,
+  "empirically optimized gamma-TFvW form",
+  XC_FAMILY_GGA,
+  {&xc_ref_EspinosaLeal2015_31463, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-15,
+  {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_opt_values, set_ext_params_cpy},
+  gga_k_tflw_init, NULL,
+  NULL, work_gga, NULL
+};
+
 
 static const char  *N_names[]  = {"N"};
 static const char  *N_desc[]   = {"Number of electrons"};

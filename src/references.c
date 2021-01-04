@@ -16,7 +16,7 @@
 func_reference_type xc_ref_EspinosaLeal2015_31463 = {
   "L. A. Espinosa Leal, A. Karpenko, M. A. Caro, and O. Lopez-Acevedo, Phys. Chem. Chem. Phys. 17, 31463 (2015)",
   "10.1039/C5CP01211B",
-  "@Article{EspinosaLeal2015_31463,\n  author =\"Espinosa Leal, L. A. and Karpenko, A. and Caro, M. A. and Lopez-Acevedo, O.\",\n  title  =\"Optimizing a parametrized {Thomas–Fermi–Dirac–Weizs\\\"{a}cker} density functional for atoms\",\n  journal  =\"Phys. Chem. Chem. Phys.\",\n  year  =\"2015\",\n  volume  =\"17\",\n  issue  =\"47\",\n  pages  =\"31463-31471\",\n  publisher  =\"The Royal Society of Chemistry\",\n  doi  =\"10.1039/C5CP01211B\",\n  url  =\"http://dx.doi.org/10.1039/C5CP01211B\",\n}"
+  "@Article{EspinosaLeal2015_31463,\n  author =\"Espinosa Leal, L. A. and Karpenko, A. and Caro, M. A. and Lopez-Acevedo, O.\",\n  title  =\"Optimizing a parametrized {Thomas--Fermi--Dirac--Weizs\\\"{a}cker} density functional for atoms\",\n  journal  =\"Phys. Chem. Chem. Phys.\",\n  year  =\"2015\",\n  volume  =\"17\",\n  issue  =\"47\",\n  pages  =\"31463-31471\",\n  publisher  =\"The Royal Society of Chemistry\",\n  doi  =\"10.1039/C5CP01211B\",\n  url  =\"http://dx.doi.org/10.1039/C5CP01211B\",\n}"
 };
 
 

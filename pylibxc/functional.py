@@ -120,9 +120,6 @@ core.xc_mgga_kxc.argtypes = _build_comute_argtype(4, 20)
 core.xc_mgga_kxc.argtypes = _build_comute_argtype(4, 35)
 
 # hybrid functions
-core.xc_hyb_type.argtypes = (_xc_func_p, )
-core.xc_hyb_type.restype  = ctypes.c_int
-
 core.xc_hyb_exx_coef.argtypes = (_xc_func_p, )
 core.xc_hyb_exx_coef.restype  = ctypes.c_double
 
@@ -256,11 +253,18 @@ class LibXCFunctional(object):
         self._have_lxc = self._flags & flags.XC_FLAGS_HAVE_LXC
 
         # Set omega
-        self._hyb_type = core.xc_hyb_type(self.xc_func)
-        if self._hyb_type != flags.XC_HYB_SEMILOCAL:
-            self._hyb_types = self.xc_func.contents.hyb_type
-            self._hyb_omega = self.xc_func.contents.hyb_omega
-            self._hyb_coeff = self.xc_func.contents.hyb_coeff
+        self._have_cam = self._flags & flags.XC_FLAGS_HYB_CAM
+        self._have_cam |= self._flags & flags.XC_FLAGS_HYB_CAMY
+        self._have_cam |= self._flags & flags.XC_FLAGS_HYB_LC
+        self._have_cam |= self._flags & flags.XC_FLAGS_HYB_LCY
+        self._cam_omega = self._cam_alpha = self._cam_beta = False
+        if self._have_cam:
+            self._cam_omega = self.xc_func.contents.cam_omega
+            self._cam_alpha = self.xc_func.contents.cam_alpha
+            self._cam_beta = self.xc_func.contents.cam_beta
+
+        elif self._family in [flags.XC_FAMILY_HYB_LDA, flags.XC_FAMILY_HYB_GGA, flags.XC_FAMILY_HYB_MGGA]:
+            self._cam_alpha = self.xc_func.contents.cam_alpha
 
         # VV10
         self._have_vv10 = self._flags & flags.XC_FLAGS_VV10
@@ -389,20 +393,20 @@ class LibXCFunctional(object):
         Returns the amount of global exchange to include.
         """
 
-        if self._hyb_type != flags.XC_HYB_HYBRID:
+        if self._cam_alpha is False:
             raise ValueError("get_hyb_exx_coeff can only be called on Hybrid functionals.")
 
-        return self._hyb_coeff[0]
+        return self._cam_alpha
 
     def get_cam_coef(self):
         """
         Returns the (omega, alpha, beta) quantities
         """
 
-        if self._hyb_type != flags.XC_HYB_CAM:
+        if self._cam_omega is False:
             raise ValueError("get_cam_coeff can only be called on CAM functionals.")
 
-        return (self._hyb_omega[0], self._hyb_coeff[1], self._hyb_coeff[0])
+        return (self._cam_omega, self._cam_alpha, self._cam_beta)
 
     def get_vv10_coef(self):
         """
@@ -653,7 +657,7 @@ class LibXCFunctional(object):
 
         # Find the right compute function
         args = [self.xc_func, ctypes.c_size_t(npoints)]
-        if self.get_family() == flags.XC_FAMILY_LDA:
+        if self.get_family() in [flags.XC_FAMILY_LDA, flags.XC_FAMILY_HYB_LDA]:
             input_labels   = ["rho"]
             input_num_args = 1
 
@@ -682,7 +686,7 @@ class LibXCFunctional(object):
 
             core.xc_lda(*args)
 
-        elif self.get_family() == flags.XC_FAMILY_GGA:
+        elif self.get_family() in [flags.XC_FAMILY_GGA, flags.XC_FAMILY_HYB_GGA]:
             input_labels   = ["rho", "sigma"]
             input_num_args = 2
 
@@ -711,7 +715,7 @@ class LibXCFunctional(object):
 
             core.xc_gga(*args)
 
-        elif self.get_family() == flags.XC_FAMILY_MGGA:
+        elif self.get_family() in [flags.XC_FAMILY_MGGA, flags.XC_FAMILY_HYB_MGGA]:
             # Build input args
             if self._needs_laplacian:
                 input_labels = ["rho", "sigma", "lapl", "tau"]

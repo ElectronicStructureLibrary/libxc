@@ -5,6 +5,9 @@ density-functional theory. The aim is to provide a portable, well
 tested and reliable set of exchange and correlation functionals that
 can be used by a variety of programs.
 
+Libxc is free software. It is distributed under the Mozilla Public
+License, version 2.0, see https://www.mozilla.org/en-US/MPL/2.0/.
+
 For more information, please check the manual at
 http://www.tddft.org/programs/Libxc
 

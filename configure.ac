@@ -63,7 +63,7 @@ AC_SEARCH_LIBS([erf], [m])
 # libxc-4.3.3   8:3:3
 # libxc-4.3.4   8:4:3
 # libxc-5.0.0   9:0:0
-# libxc-5.1.0   9:1:1
+# libxc-5.1.0   9:1:0
 # libxc-6.0.0  10:0:0
 # 
 # Note that libtool versioning was not used prior to libxc-2.0.
@@ -83,7 +83,7 @@ AC_SEARCH_LIBS([erf], [m])
 
 XC_CURRENT=9
 XC_REVISION=1
-XC_AGE=1
+XC_AGE=0
 
 XC_LT_VERSION="${XC_CURRENT}:${XC_REVISION}:${XC_AGE}"
 AC_SUBST(XC_LT_VERSION)

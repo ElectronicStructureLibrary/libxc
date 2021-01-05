@@ -14,7 +14,7 @@ if(@ARGV < 2) {
 $srcdir = shift;
 $builddir = shift;
 
-my @funcs = ("lda", "gga", "mgga");
+my @funcs = ("hyb_lda", "lda", "hyb_gga", "gga", "hyb_mgga", "mgga");
 my %all_ids;
 
 open(DOCS, ">$builddir/libxc_docs.txt") or die("Could not open '$builddir/libxc_docs.txt.'\n");
@@ -112,12 +112,14 @@ sub read_file() {
 
   opendir(DIR, "$dir/") || die "cannot opendir '$dir': $!";
   while($_ = readdir(DIR)){
-    next if(!/^(hyb_)?${type}_.*\.c$/);
+    $ftype = ${type};
+    $ftype =~ s/^hyb_//;
+    next if(!/(?:hyb_)?${ftype}_.*\.c$/);
 
-    $file=$_;
+    $file = $_;
     open(IN, "<$dir/$_") or die("Could not open '$dir/$_'.\n");
     while($_=<IN>){
-      if(/#define\s+(XC_((?:HYB_)?${TYPE})_\S+)\s+(\S+)\s+\/\*(.*?)\s*\*\//){
+      if(/#define\s+(XC_(${TYPE})_\S+)\s+(\S+)\s+\/\*(.*?)\s*\*\//){
         $deflist_f{$3} = $1;
         $deflist_c{$3} = $4;
         $num{$1} = $3;
@@ -131,7 +133,7 @@ sub read_file() {
         }
       }
 
-      if(/^(const |)xc_func_info_type xc_func_info_(?:hyb_)?${type}/){
+      if(/^(const |)xc_func_info_type xc_func_info_${type}/){
         $infostr = "";
         while($_=<IN>){
           if(/([^}])*};/) {

@@ -9,6 +9,7 @@
 
 #include "util.h"
 #include "funcs_lda.c"
+#include "funcs_hyb_lda.c"
 
 /* get the lda functional */
 void

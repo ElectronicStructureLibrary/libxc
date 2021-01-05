@@ -9,6 +9,7 @@
 
 #include "util.h"
 #include "funcs_gga.c"
+#include "funcs_hyb_gga.c"
 
 /* Some useful formulas:
 

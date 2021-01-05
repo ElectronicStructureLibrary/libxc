@@ -9,6 +9,7 @@
 
 #include "util.h"
 #include "funcs_mgga.c"
+#include "funcs_hyb_mgga.c"
 
 void
 xc_mgga(const xc_func_type *func, size_t np,

@@ -11,9 +11,9 @@
 
 #include "util.h"
 
-#define is_mgga(id)   ((id) == XC_FAMILY_MGGA)
-#define is_gga(id)    ((id) == XC_FAMILY_GGA || is_mgga(id))
-#define is_lda(id)    ((id) == XC_FAMILY_LDA ||  is_gga(id))
+#define is_mgga(id)   ((id) == XC_FAMILY_MGGA || (id) == XC_FAMILY_HYB_MGGA)
+#define is_gga(id)    ((id) == XC_FAMILY_GGA || (id) == XC_FAMILY_HYB_GGA || is_mgga(id))
+#define is_lda(id)    ((id) == XC_FAMILY_LDA || (id) == XC_FAMILY_HYB_LDA ||  is_gga(id))
 #define safe_free(pt) if(pt != NULL) libxc_free(pt)
 
 void

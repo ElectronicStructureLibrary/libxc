@@ -512,7 +512,7 @@ class LibXCFunctional(object):
         """
 
         if tau_threshold < 0:
-            raise ValueError("The tauity threshold cannot be smaller than 0.")
+            raise ValueError("The tau threshold cannot be smaller than 0.")
 
         core.xc_func_set_tau_threshold(self.xc_func, ctypes.c_double(tau_threshold))
 
@@ -634,13 +634,13 @@ class LibXCFunctional(object):
         if not self._have_exc and do_exc:
             raise ValueError("Functional '%s' does not have EXC capabilities." % self.get_name())
         if not self._have_vxc and do_vxc:
-            raise ValueError("Functional '%s' does not have VXC capabilities." % self.get_name())
+            raise ValueError("Functional '%s' does not have VXC capabilities built in." % self.get_name())
         if not self._have_fxc and do_fxc:
-            raise ValueError("Functional '%s' does not have FXC capabilities." % self.get_name())
+            raise ValueError("Functional '%s' does not have FXC capabilities built in." % self.get_name())
         if not self._have_kxc and do_kxc:
-            raise ValueError("Functional '%s' does not have KXC capabilities." % self.get_name())
+            raise ValueError("Functional '%s' does not have KXC capabilities built in." % self.get_name())
         if not self._have_lxc and do_lxc:
-            raise ValueError("Functional '%s' does not have LXC capabilities." % self.get_name())
+            raise ValueError("Functional '%s' does not have LXC capabilities built in." % self.get_name())
 
         # Parse input arrays
         if isinstance(inp, np.ndarray):

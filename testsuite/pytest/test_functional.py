@@ -52,7 +52,8 @@ def test_libxc_functional_info():
     assert func.get_kind() == 0
     assert func.get_name() == "Slater exchange"
     assert func.get_family() == 1
-    assert func.get_flags() == 143
+    # XC_FLAGS_3D + [HAVE_EXC | HAVE_VXC | HAVE_FXC | HAVE_KXC]
+    assert func.get_flags() in [129, 131, 135, 143, 159]
     assert len(func.get_bibtex()) == 2
     assert len(func.get_references()) == 2
     assert len(func.get_doi()) == 2
@@ -62,7 +63,8 @@ def test_libxc_functional_info():
     assert func.get_kind() == 2
     assert func.get_name() == "wB97M-V exchange-correlation functional"
     assert func.get_family() == 4
-    assert func.get_flags() == 1167
+    # XC_FLAGS_3D + XC_FLAGS_VV10 + [HAVE_EXC | HAVE_VXC | HAVE_FXC | HAVE_KXC]
+    assert func.get_flags() in [1153, 1155, 1159, 1167, 1183]
     assert len(func.get_bibtex()) == 1
     assert len(func.get_references()) == 1
     assert len(func.get_doi()) == 1
@@ -105,25 +107,43 @@ def test_lda_compute(polar):
 
     func = pylibxc.LibXCFunctional("lda_c_vwn", polar)
 
+    # Check capabilities
+    do_l = func._have_lxc
+    do_k = func._have_kxc
+    do_f = func._have_fxc
+    do_v = func._have_vxc
+    do_e = func._have_exc
+
     # Compute
-    ret_full = func.compute(inp, do_exc=True, do_vxc=True, do_fxc=True, do_kxc=True)
-    ret_ev = func.compute(inp, do_exc=True, do_vxc=True, do_fxc=False, do_kxc=False)
-    ret_e = func.compute(inp, do_exc=True, do_vxc=False, do_fxc=False, do_kxc=False)
-    ret_v = func.compute(inp, do_exc=False, do_vxc=True, do_fxc=False, do_kxc=False)
-    ret_f = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=True, do_kxc=False)
-    ret_k = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=False, do_kxc=True)
+    ret_full = func.compute(inp, do_exc=do_e, do_vxc=do_v, do_fxc=do_f, do_kxc=do_k, do_lxc=do_l)
+    ret_ev = func.compute(inp, do_exc=do_e, do_vxc=do_v, do_fxc=False, do_kxc=False, do_lxc=False)
+    ret_e = func.compute(inp, do_exc=do_e, do_vxc=False, do_fxc=False, do_kxc=False, do_lxc=False)
+    ret_v = func.compute(inp, do_exc=False, do_vxc=do_v, do_fxc=False, do_kxc=False, do_lxc=False)
+    ret_f = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=do_f, do_kxc=False, do_lxc=False)
+    ret_k = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=False, do_kxc=do_k, do_lxc=False)
+    ret_l = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=False, do_kxc=False, do_lxc=do_l)
 
     # Test consistency
-    assert ret_full["zk"].size == compute_test_dim
-    assert ret_full["vrho"].size == compute_test_dim * ndim[0]
+    if do_e:
+        assert ret_full["zk"].size == compute_test_dim
+    if do_v:
+        assert ret_full["vrho"].size == compute_test_dim * ndim[0]
 
-    assert np.allclose(ret_full["zk"], ret_ev["zk"])
-    assert np.allclose(ret_full["vrho"], ret_ev["vrho"])
+    if do_e:
+        assert np.allclose(ret_full["zk"], ret_ev["zk"])
+    if do_v:
+        assert np.allclose(ret_full["vrho"], ret_ev["vrho"])
 
-    assert np.allclose(ret_full["zk"], ret_e["zk"])
-    assert np.allclose(ret_full["vrho"], ret_v["vrho"])
-    assert np.allclose(ret_full["v2rho2"], ret_f["v2rho2"])
-    assert np.allclose(ret_full["v3rho3"], ret_k["v3rho3"])
+    if do_e:
+        assert np.allclose(ret_full["zk"], ret_e["zk"])
+    if do_v:
+        assert np.allclose(ret_full["vrho"], ret_v["vrho"])
+    if do_f:
+        assert np.allclose(ret_full["v2rho2"], ret_f["v2rho2"])
+    if do_k:
+        assert np.allclose(ret_full["v3rho3"], ret_k["v3rho3"])
+    if do_l:
+        assert np.allclose(ret_full["v4rho4"], ret_l["v4rho4"])
 
 
 @pytest.mark.parametrize("polar", [("unpolarized"), ("polarized")])
@@ -138,24 +158,42 @@ def test_gga_compute(polar):
     # Compute
     func = pylibxc.LibXCFunctional("gga_c_pbe", polar)
 
-    ret_full = func.compute(inp, do_exc=True, do_vxc=True, do_fxc=True, do_kxc=True)
-    ret_ev = func.compute(inp, do_exc=True, do_vxc=True, do_fxc=False, do_kxc=False)
-    ret_e = func.compute(inp, do_exc=True, do_vxc=False, do_fxc=False, do_kxc=False)
-    ret_v = func.compute(inp, do_exc=False, do_vxc=True, do_fxc=False, do_kxc=False)
-    ret_f = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=True, do_kxc=False)
-    ret_k = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=False, do_kxc=True)
+    # Check capabilities
+    do_l = func._have_lxc
+    do_k = func._have_kxc
+    do_f = func._have_fxc
+    do_v = func._have_vxc
+    do_e = func._have_exc
+
+    # Compute
+    ret_full = func.compute(inp, do_exc=do_e, do_vxc=do_v, do_fxc=do_f, do_kxc=do_k, do_lxc=do_l)
+    ret_ev = func.compute(inp, do_exc=do_e, do_vxc=do_v, do_fxc=False, do_kxc=False, do_lxc=False)
+    ret_e = func.compute(inp, do_exc=do_e, do_vxc=False, do_fxc=False, do_kxc=False, do_lxc=False)
+    ret_v = func.compute(inp, do_exc=False, do_vxc=do_v, do_fxc=False, do_kxc=False, do_lxc=False)
+    ret_f = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=do_f, do_kxc=False, do_lxc=False)
+    ret_k = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=False, do_kxc=do_k, do_lxc=False)
+    ret_l = func.compute(inp, do_exc=False, do_vxc=False, do_fxc=False, do_kxc=False, do_lxc=do_l)
 
     # Test consistency
-    assert ret_full["zk"].size == compute_test_dim
-    assert ret_full["vrho"].size == compute_test_dim * ndim[0]
-    assert ret_full["vsigma"].size == compute_test_dim * ndim[1]
+    if do_e:
+        assert ret_full["zk"].size == compute_test_dim
+    if do_v:
+        assert ret_full["vrho"].size == compute_test_dim * ndim[0]
+        assert ret_full["vsigma"].size == compute_test_dim * ndim[1]
 
-    assert _dict_array_comp(ret_full, ret_ev, ["zk", "vrho", "vsigma"])
+    if do_e and do_v:
+        assert _dict_array_comp(ret_full, ret_ev, ["zk", "vrho", "vsigma"])
 
-    assert _dict_array_comp(ret_full, ret_e, ["zk"])
-    assert _dict_array_comp(ret_full, ret_v, ["vrho", "vsigma"])
-    assert _dict_array_comp(ret_full, ret_f, ["v2rho2", "v2rhosigma", "v2sigma2"])
-    assert _dict_array_comp(ret_full, ret_k, ["v3rho3", "v3rho2sigma", "v3rhosigma2", "v3sigma3"])
+    if do_e:
+        assert _dict_array_comp(ret_full, ret_e, ["zk"])
+    if do_v:
+        assert _dict_array_comp(ret_full, ret_v, ["vrho", "vsigma"])
+    if do_f:
+        assert _dict_array_comp(ret_full, ret_f, ["v2rho2", "v2rhosigma", "v2sigma2"])
+    if do_k:
+        assert _dict_array_comp(ret_full, ret_k, ["v3rho3", "v3rho2sigma", "v3rhosigma2", "v3sigma3"])
+    if do_l:
+        assert _dict_array_comp(ret_full, ret_l, ["v4rho4", "v4rho3sigma", "v4rho2sigma2", "v4rhosigma3", "v4sigma4"])
 
 
 @pytest.mark.parametrize("polar", [("unpolarized"), ("polarized")])

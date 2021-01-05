@@ -219,7 +219,7 @@ class LibXCFunctional(object):
         # Build the LibXC functional
         self.xc_func = core.xc_func_alloc()
         self.xc_func_size_names = [x for x in dir(self.xc_func.contents.dim) if not "_" in x]
-        
+
         # Set all int attributes to zero (not all set to zero in libxc)
         for attr in self.xc_func_size_names:
             setattr(self.xc_func.contents, attr, 0)
@@ -233,7 +233,7 @@ class LibXCFunctional(object):
         self.xc_func_sizes = {}
         for attr in self.xc_func_size_names:
             self.xc_func_sizes[attr] = getattr(self.xc_func.contents.dim, attr)
-            
+
         # Unpack functional info
         self.xc_func_info = core.xc_func_get_info(self.xc_func)
         self._number = core.xc_func_info_get_number(self.xc_func_info)
@@ -393,8 +393,10 @@ class LibXCFunctional(object):
         Returns the amount of global exchange to include.
         """
 
-        if self._cam_alpha is False:
-            raise ValueError("get_hyb_exx_coeff can only be called on Hybrid functionals.")
+        if self._family not in [flags.XC_FAMILY_HYB_LDA, flags.XC_FAMILY_HYB_GGA, flags.XC_FAMILY_HYB_MGGA]:
+            raise ValueError("get_hyb_exx_coef can only be called on hybrid functionals.")
+        if self._have_cam:
+            raise ValueError("get_hyb_exx_coef cannot be called on range-separated functionals.")
 
         return self._cam_alpha
 
@@ -403,8 +405,10 @@ class LibXCFunctional(object):
         Returns the (omega, alpha, beta) quantities
         """
 
-        if self._cam_omega is False:
-            raise ValueError("get_cam_coeff can only be called on CAM functionals.")
+        if self._family not in [flags.XC_FAMILY_HYB_LDA, flags.XC_FAMILY_HYB_GGA, flags.XC_FAMILY_HYB_MGGA]:
+            raise ValueError("get_cam_coef can only be called on hybrid functionals.")
+        if not self._have_cam:
+            raise ValueError("get_cam_coef can only be called on range-separated functionals.")
 
         return (self._cam_omega, self._cam_alpha, self._cam_beta)
 
@@ -570,7 +574,7 @@ class LibXCFunctional(object):
                          v4sigmalapltau2, v4sigmatau3, v4lapl4, v4lapl3tau,
                          v4lapl2tau2, v4lapltau3, v4tau4
 
-            For unpolarized functional the spin pieces are summed together. 
+            For unpolarized functional the spin pieces are summed together.
             However, for polarized functionals the following order will be used for output quantities:
             (The last index is the fastest)
 
@@ -722,7 +726,7 @@ class LibXCFunctional(object):
             else:
                 input_labels = ["rho", "sigma", "tau"]
             input_num_args = 4
-            
+
             output_labels = [
                 "zk",                                                                # 1, 1
                 "vrho", "vsigma", "vlapl", "vtau",                                   # 4, 5
@@ -743,7 +747,7 @@ class LibXCFunctional(object):
                 "v4sigmalapltau2", "v4sigmatau3", "v4lapl4", "v4lapl3tau",
                 "v4lapl2tau2", "v4lapltau3", "v4tau4"
             ]
-            
+
             # Build input args
             output = _check_arrays(output, output_labels[0:1],
                             self.xc_func_sizes, npoints, do_exc)

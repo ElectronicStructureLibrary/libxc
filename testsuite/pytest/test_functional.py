@@ -4,7 +4,7 @@ Tests the LibXCFunctional class.
 
 import pytest
 import numpy as np
-
+import ctypes
 import pylibxc
 
 compute_test_dim = 5
@@ -62,13 +62,12 @@ def test_libxc_functional_info():
     assert func.get_number() == 531
     assert func.get_kind() == 2
     assert func.get_name() == "wB97M-V exchange-correlation functional"
-    assert func.get_family() == 4
-    # XC_FLAGS_3D + XC_FLAGS_VV10 + [HAVE_EXC | HAVE_VXC | HAVE_FXC | HAVE_KXC]
-    assert func.get_flags() in [1153, 1155, 1159, 1167, 1183]
+    assert func.get_family() == 64
+    # XC_FLAGS_3D + XC_FLAGS_HYB_CAM + XC_FLAGS_VV10 + [HAVE_EXC | HAVE_VXC | HAVE_FXC | HAVE_KXC]
+    assert func.get_flags() in [1409, 1411, 1415, 1423, 1439]
     assert len(func.get_bibtex()) == 1
     assert len(func.get_references()) == 1
     assert len(func.get_doi()) == 1
-
 
 def test_ext_params():
 

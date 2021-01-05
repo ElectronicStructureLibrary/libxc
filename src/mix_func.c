@@ -146,14 +146,17 @@ xc_mix_func(const xc_func_type *func, size_t np,
     /* Evaluate the functional */
     switch(aux->info->family){
     case XC_FAMILY_LDA:
+    case XC_FAMILY_HYB_LDA:
       xc_lda(aux, np, rho,
              xzk LDA_OUT_PARAMS_NO_EXC(XC_COMMA, x));
       break;
     case XC_FAMILY_GGA:
+    case XC_FAMILY_HYB_GGA:
       xc_gga(aux, np, rho, sigma,
              xzk GGA_OUT_PARAMS_NO_EXC(XC_COMMA, x));
       break;
     case XC_FAMILY_MGGA:
+    case XC_FAMILY_HYB_MGGA:
       xc_mgga(aux, np, rho, sigma, lapl, tau,
               xzk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, x));
       break;

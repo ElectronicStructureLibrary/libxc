@@ -125,7 +125,7 @@ int xc_family_from_id(int id, int *family, int *number)
     if(xc_hyb_mgga_known_funct[ii]->number == id){
       if(family != NULL) *family = XC_FAMILY_HYB_MGGA;
       if(number != NULL) *number = ii;
-      return XC_FAMILY_MGGA;
+      return XC_FAMILY_HYB_MGGA;
     }
   }
 

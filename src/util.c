@@ -61,11 +61,20 @@ const char *get_family(const xc_func_type *func) {
     case(XC_FAMILY_LDA):
       return "XC_FAMILY_LDA";
 
+    case(XC_FAMILY_HYB_LDA):
+      return "XC_FAMILY_HYB_LDA";
+
     case(XC_FAMILY_GGA):
       return "XC_FAMILY_GGA";
 
+    case(XC_FAMILY_HYB_GGA):
+      return "XC_FAMILY_HYB_GGA";
+
     case(XC_FAMILY_MGGA):
       return "XC_FAMILY_MGGA";
+
+    case(XC_FAMILY_HYB_MGGA):
+      return "XC_FAMILY_HYB_MGGA";
 
     case(XC_FAMILY_LCA):
       return "XC_FAMILY_LCA";

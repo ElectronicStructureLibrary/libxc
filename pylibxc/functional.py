@@ -508,7 +508,7 @@ class LibXCFunctional(object):
         """
 
         if tau_threshold < 0:
-            raise ValueError("The tauity threshold cannot be smaller than 0.")
+            raise ValueError("The tau threshold cannot be smaller than 0.")
 
         core.xc_func_set_tau_threshold(self.xc_func, ctypes.c_double(tau_threshold))
 

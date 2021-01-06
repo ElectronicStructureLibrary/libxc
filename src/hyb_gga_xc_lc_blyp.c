@@ -46,8 +46,6 @@ xc_hyb_gga_xc_lc_blyp_init(xc_func_type *p)
   static int   funcs_id  [2] = {XC_GGA_X_ITYH, XC_GGA_C_LYP};
   static double funcs_coef[2] = {1.0, 1.0};
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-
-  xc_func_set_ext_params(p->func_aux[0], &gamma);
   xc_hyb_init_cam(p, 0.0, 0.0, 0.0); /* Set by parameters */
 }
 

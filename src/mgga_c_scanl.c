@@ -33,11 +33,8 @@ mgga_c_scanl_init(xc_func_type *p)
 static void
 scanl_set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  const double *par;
-
-  par = (ext_params == NULL) ? par_scanl : ext_params;
-
-  xc_func_set_ext_params(p->func_aux[1], &par[0]);
+  assert(p != NULL && p->func_aux != NULL);
+  xc_func_set_ext_params(p->func_aux[1], &ext_params[0]);
 }
 
 #ifdef __cplusplus

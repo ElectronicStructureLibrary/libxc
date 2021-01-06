@@ -21,7 +21,7 @@ static const double par_r2scanl[N_PAR] = {0.667, 0.8, 1.24, 0.065, 1.0e-4, 1.0e-
 static void
 r2scanl_set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  double *par_r2scan = NULL, *par_pc07 = NULL;
+  const double *par_r2scan = NULL, *par_pc07 = NULL;
   if(ext_params != NULL) {
     par_r2scan = ext_params;
     par_pc07 = ext_params+8;

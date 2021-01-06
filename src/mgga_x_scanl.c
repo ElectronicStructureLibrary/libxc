@@ -50,7 +50,7 @@ mgga_x_scanl_init(xc_func_type *p)
 static void
 set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  double *par_scan = NULL, *par_pc07 = NULL;
+  const double *par_scan = NULL, *par_pc07 = NULL;
   if(ext_params != NULL) {
     par_scan = ext_params;
     par_pc07 = ext_params+4;

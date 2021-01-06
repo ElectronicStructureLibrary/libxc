@@ -34,7 +34,17 @@ static const double par_revscanl[N_PAR] = {
 static void
 mgga_x_scanl_init(xc_func_type *p)
 {
-  xc_deorbitalize_init(p, XC_MGGA_X_SCAN, XC_MGGA_K_PC07);
+  switch(p->info->number){
+  case(XC_MGGA_X_SCANL):
+    xc_deorbitalize_init(p, XC_MGGA_X_SCAN, XC_MGGA_K_PC07_OPT);
+    break;
+  case(XC_MGGA_X_REVSCANL):
+    xc_deorbitalize_init(p, XC_MGGA_X_REVSCAN, XC_MGGA_K_PC07_OPT);
+    break;
+  default:
+    fprintf(stderr,"Internal error in mgga_x_scanl_init\n");
+    exit(1);
+  }
 }
 
 static void

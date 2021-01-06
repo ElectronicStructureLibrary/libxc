@@ -26,6 +26,7 @@ static const double par_r2scanl[N_PAR] = {
 static void
 r2scanl_set_ext_params(xc_func_type *p, const double *ext_params)
 {
+  assert(p != NULL && p->func_aux != NULL);
   xc_func_set_ext_params(p->func_aux[1], &ext_params[0]);
 }
 

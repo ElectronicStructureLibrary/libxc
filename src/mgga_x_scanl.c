@@ -12,21 +12,21 @@
 #define XC_MGGA_X_SCANL         700 /* Deorbitalized SCAN exchange */
 #define XC_MGGA_X_REVSCANL      701 /* Deorbitalized revSCAN exchange */
 
-#define N_PAR_SCANL 6
-static const char *scanl_names[N_PAR_SCANL] = {
+#define N_PAR 6
+static const char *names[N_PAR] = {
   "_c1", "_c2", "_d", "_k1", /* parameters of scan */
   "_a", "_b"                 /* parameters of pc07 */
 };
-static const char *scanl_desc[N_PAR_SCANL] = {
+static const char *desc[N_PAR] = {
   "scan c1", "scan c2", "scan d", "scan k1",
   "pc07 a", "pc07 b"
 };
 
-static const double par_scanl[N_PAR_SCANL] = {
+static const double par_scanl[N_PAR] = {
   0.667, 0.8, 1.24, 0.065,
   1.784720, 0.258304
 };
-static const double par_revscanl[N_PAR_SCANL] = {
+static const double par_revscanl[N_PAR] = {
   0.607, 0.7, 1.37, 0.065,
   1.784720, 0.258304
 };
@@ -38,10 +38,16 @@ mgga_x_scanl_init(xc_func_type *p)
 }
 
 static void
-scanl_set_ext_params(xc_func_type *p, const double *ext_params)
+set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  xc_func_set_ext_params(p->func_aux[0], &ext_params[0]);
-  xc_func_set_ext_params(p->func_aux[1], &ext_params[4]);
+  double *par_scan = NULL, *par_pc07 = NULL;
+  if(ext_params != NULL) {
+    par_scan = ext_params;
+    par_pc07 = ext_params+4;
+  }
+  assert(p != NULL && p->func_aux != NULL);
+  xc_func_set_ext_params(p->func_aux[0], par_scan);
+  xc_func_set_ext_params(p->func_aux[1], par_pc07);
 }
 
 #ifdef __cplusplus
@@ -55,7 +61,7 @@ const xc_func_info_type xc_func_info_mgga_x_scanl = {
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161, &xc_ref_Sun2015_036402, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {N_PAR_SCANL, scanl_names, scanl_desc, par_scanl, scanl_set_ext_params},
+  {N_PAR, names, desc, par_scanl, set_ext_params},
   mgga_x_scanl_init, NULL,
   NULL, NULL, xc_deorbitalize_func
 };
@@ -71,7 +77,7 @@ const xc_func_info_type xc_func_info_mgga_x_revscanl = {
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161, &xc_ref_Mezei2018_2469, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {N_PAR_SCANL, scanl_names, scanl_desc, par_revscanl, scanl_set_ext_params},
+  {N_PAR, names, desc, par_revscanl, set_ext_params},
   mgga_x_scanl_init, NULL,
   NULL, NULL, xc_deorbitalize_func
 };

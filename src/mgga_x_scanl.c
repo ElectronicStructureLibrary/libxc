@@ -34,13 +34,23 @@ static const double par_revscanl[N_PAR] = {
 static void
 mgga_x_scanl_init(xc_func_type *p)
 {
-  xc_deorbitalize_init(p, XC_MGGA_X_SCAN, XC_MGGA_K_PC07);
+  switch(p->info->number){
+  case(XC_MGGA_X_SCANL):
+    xc_deorbitalize_init(p, XC_MGGA_X_SCAN, XC_MGGA_K_PC07_OPT);
+    break;
+  case(XC_MGGA_X_REVSCANL):
+    xc_deorbitalize_init(p, XC_MGGA_X_REVSCAN, XC_MGGA_K_PC07_OPT);
+    break;
+  default:
+    fprintf(stderr,"Internal error in mgga_x_scanl_init\n");
+    exit(1);
+  }
 }
 
 static void
 set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  double *par_scan = NULL, *par_pc07 = NULL;
+  const double *par_scan = NULL, *par_pc07 = NULL;
   if(ext_params != NULL) {
     par_scan = ext_params;
     par_pc07 = ext_params+4;

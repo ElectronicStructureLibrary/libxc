@@ -13,13 +13,6 @@
 
 #include <xc.h>
 
-func_reference_type xc_ref_EspinosaLeal2015_31463 = {
-  "L. A. Espinosa Leal, A. Karpenko, M. A. Caro, and O. Lopez-Acevedo, Phys. Chem. Chem. Phys. 17, 31463 (2015)",
-  "10.1039/C5CP01211B",
-  "@Article{EspinosaLeal2015_31463,\n  author =\"Espinosa Leal, L. A. and Karpenko, A. and Caro, M. A. and Lopez-Acevedo, O.\",\n  title  =\"Optimizing a parametrized {Thomas--Fermi--Dirac--Weizs\\\"{a}cker} density functional for atoms\",\n  journal  =\"Phys. Chem. Chem. Phys.\",\n  year  =\"2015\",\n  volume  =\"17\",\n  issue  =\"47\",\n  pages  =\"31463-31471\",\n  publisher  =\"The Royal Society of Chemistry\",\n  doi  =\"10.1039/C5CP01211B\",\n  url  =\"http://dx.doi.org/10.1039/C5CP01211B\",\n}"
-};
-
-
 func_reference_type xc_ref_Acharya1980_6978 = {
   "P. K. Acharya, L. J. Bartolotti, S. B. Sears, and R. G. Parr, Proc. Natl. Acad. Sci. U. S. A. 77, 6978 (1980)",
   "10.1073/pnas.77.12.6978",
@@ -675,6 +668,13 @@ func_reference_type xc_ref_Ernzerhof2000_59 = {
   "M. Ernzerhof, J. Mol. Struct.: THEOCHEM 501--502, 59 (2000)",
   "10.1016/S0166-1280(99)00414-5",
   "@article{Ernzerhof2000_59,\n  title = \"The role of the kinetic energy density in approximations to the exchange energy\",\n  author = \"M. Ernzerhof\",\n  journal = \"J. Mol. Struct.: THEOCHEM\",\n  volume = \"501--502\",\n  number = \"0\",\n  pages = \"59\",\n  year = \"2000\",\n  issn = \"0166-1280\",\n  doi = \"10.1016/S0166-1280(99)00414-5\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0166128099004145\"\n}"
+};
+
+
+func_reference_type xc_ref_EspinosaLeal2015_31463 = {
+  "L. A. Espinosa Leal, A. Karpenko, M. A. Caro, and O. Lopez-Acevedo, Phys. Chem. Chem. Phys. 17, 31463 (2015)",
+  "10.1039/C5CP01211B",
+  "@Article{EspinosaLeal2015_31463,\n  author =\"Espinosa Leal, L. A. and Karpenko, A. and Caro, M. A. and Lopez-Acevedo, O.\",\n  title  =\"Optimizing a parametrized {Thomas--Fermi--Dirac--Weizs\\\"{a}cker} density functional for atoms\",\n  journal  =\"Phys. Chem. Chem. Phys.\",\n  year  =\"2015\",\n  volume  =\"17\",\n  issue  =\"47\",\n  pages  =\"31463-31471\",\n  publisher  =\"The Royal Society of Chemistry\",\n  doi  =\"10.1039/C5CP01211B\",\n  url  =\"http://dx.doi.org/10.1039/C5CP01211B\",\n}"
 };
 
 
@@ -2110,6 +2110,13 @@ func_reference_type xc_ref_Slater1951_385 = {
   "J. C. Slater, Phys. Rev. 81, 385 (1951)",
   "10.1103/PhysRev.81.385",
   "@article{Slater1951_385,\n  title = {A Simplification of the Hartree--Fock Method},\n  author = {J. C. Slater},\n  journal = {Phys. Rev.},\n  volume = {81},\n  issue = {3},\n  pages = {385},\n  year = {1951},\n  month = {Feb},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRev.81.385},\n  url = {http://link.aps.org/doi/10.1103/PhysRev.81.385}\n}"
+};
+
+
+func_reference_type xc_ref_Song2007_154105 = {
+  "J.-W. Song, T. Hirosawa, T. Tsuneda, and K. Hirao, J. Chem. Phys. 126, 154105 (2007)",
+  "10.1063/1.2721532",
+  "@article{Song2007_154105,\n  author = {Song,Jong-Won  and Hirosawa,Tsuyoshi  and Tsuneda,Takao  and Hirao,Kimihiko },\n  title = {Long-range corrected density functional calculations of chemical reactions: Redetermination of parameter},\n  journal = {J. Chem. Phys.},\n  volume = {126},\n  number = {15},\n  pages = {154105},\n  year = {2007},\n  doi = {10.1063/1.2721532},\n}"
 };
 
 

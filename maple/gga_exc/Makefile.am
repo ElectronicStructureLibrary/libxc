@@ -35,7 +35,7 @@ gga_order_4 = gga_k_exp4.mpl gga_x_hjs_b88_v2.mpl gga_k_lc94.mpl	\
   gga_c_wi.mpl gga_xc_th3.mpl gga_c_wl.mpl gga_c_zpbeint.mpl		\
   gga_c_zvpbeint.mpl hyb_gga_xc_wb97.mpl gga_c_zvpbeloc.mpl		\
   gga_c_chachiyo.mpl gga_c_pbe_vwn.mpl gga_x_wpbeh.mpl gga_k_lgap.mpl   \
-  gga_k_vt84f.mpl gga_k_lgap_ge.mpl gga_c_ccdf.mpl
+  gga_k_vt84f.mpl gga_k_lgap_ge.mpl gga_c_ccdf.mpl gga_c_p86vwn.mpl
 
 dist_noinst_SCRIPTS = $(gga_order_4)
 

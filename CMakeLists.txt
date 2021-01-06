@@ -148,6 +148,7 @@ set(raw_sources_list
   gga_c_op_xalpha.c
   gga_c_optc.c
   gga_c_p86.c
+  gga_c_p86vwn.c
   gga_c_pbe.c
   gga_c_pbe_vwn.c
   gga_c_pbeloc.c

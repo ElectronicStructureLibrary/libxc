@@ -14,10 +14,10 @@
 #define XC_MGGA_C_SCANL_VV10     704 /* SCAN correlation +  VV10 correlation */
 
 #define N_PAR_SCANL 2
-static const char *scanl_names[N_PAR_SCANL] = {
+static const char *names[N_PAR_SCANL] = {
   "_a", "_b"                 /* parameters of pc07 */
 };
-static const char *scanl_desc[N_PAR_SCANL] = {
+static const char *desc[N_PAR_SCANL] = {
   "pc07 a", "pc07 b"
 };
 static const double par_scanl[N_PAR_SCANL] = {
@@ -27,17 +27,14 @@ static const double par_scanl[N_PAR_SCANL] = {
 static void
 mgga_c_scanl_init(xc_func_type *p)
 {
-  xc_deorbitalize_init(p, XC_MGGA_C_SCAN, XC_MGGA_K_PC07);
+  xc_deorbitalize_init(p, XC_MGGA_C_SCAN, XC_MGGA_K_PC07_OPT);
 }
 
 static void
 scanl_set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  const double *par;
-
-  par = (ext_params == NULL) ? par_scanl : ext_params;
-
-  xc_func_set_ext_params(p->func_aux[1], &par[0]);
+  assert(p != NULL && p->func_aux != NULL);
+  xc_func_set_ext_params(p->func_aux[1], &ext_params[0]);
 }
 
 #ifdef __cplusplus
@@ -51,7 +48,7 @@ const xc_func_info_type xc_func_info_mgga_c_scanl = {
   {&xc_ref_Mejia2017_052512, &xc_ref_Mejia2018_115161,&xc_ref_Sun2015_036402, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {N_PAR_SCANL, scanl_names, scanl_desc, par_scanl, scanl_set_ext_params},
+  {N_PAR_SCANL, names, desc, par_scanl, scanl_set_ext_params},
   mgga_c_scanl_init, NULL,
   NULL, NULL, xc_deorbitalize_func,
 };

@@ -153,10 +153,12 @@ if COMPILE_FORTRAN
 # Double precision modules are always compiled
 if F90_MOD_UPPERCASE
   XCF03LIBMODS = XC_F03_LIB_M.@ax_cv_f90_modext@
+  XCF90LIBMODS = XC_F90_LIB_M.@ax_cv_f90_modext@
 else
   XCF03LIBMODS = xc_f03_lib_m.@ax_cv_f90_modext@
+  XCF90LIBMODS = xc_f90_lib_m.@ax_cv_f90_modext@
 endif
-fmod_DATA += $(XCF03LIBMODS)
+fmod_DATA += $(XCF03LIBMODS) $(XCF90LIBMODS)
 
 endif # COMPILE_FORTRAN
 

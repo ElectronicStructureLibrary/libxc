@@ -13,7 +13,6 @@
 
 #include <xc.h>
 
-extern func_reference_type xc_ref_EspinosaLeal2015_31463;
 extern func_reference_type xc_ref_Acharya1980_6978;
 extern func_reference_type xc_ref_Adamo1997_242;
 extern func_reference_type xc_ref_Adamo1998_664;
@@ -108,6 +107,7 @@ extern func_reference_type xc_ref_Ernzerhof1998_3313;
 extern func_reference_type xc_ref_Ernzerhof1999_5029;
 extern func_reference_type xc_ref_Ernzerhof1999_911;
 extern func_reference_type xc_ref_Ernzerhof2000_59;
+extern func_reference_type xc_ref_EspinosaLeal2015_31463;
 extern func_reference_type xc_ref_Fabiano2010_113104;
 extern func_reference_type xc_ref_Fabiano2013_673;
 extern func_reference_type xc_ref_Fabiano2014_2016;
@@ -313,6 +313,7 @@ extern func_reference_type xc_ref_Seth2013_2286;
 extern func_reference_type xc_ref_Shao2003_4807;
 extern func_reference_type xc_ref_Shao2020_587;
 extern func_reference_type xc_ref_Slater1951_385;
+extern func_reference_type xc_ref_Song2007_154105;
 extern func_reference_type xc_ref_Song2007_154109;
 extern func_reference_type xc_ref_Song2008_184113;
 extern func_reference_type xc_ref_Song2009_144108;

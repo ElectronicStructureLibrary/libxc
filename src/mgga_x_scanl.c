@@ -40,18 +40,8 @@ mgga_x_scanl_init(xc_func_type *p)
 static void
 scanl_set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  const double *par;
-
-  switch(p->info->number){
-  case(XC_MGGA_X_SCANL):
-    par = (ext_params == NULL) ? par_scanl : ext_params;
-    break;
-  case(XC_MGGA_X_REVSCANL):
-    par = (ext_params == NULL) ? par_revscanl : ext_params;
-    break;
-  }
-  xc_func_set_ext_params(p->func_aux[0], &par[0]);
-  xc_func_set_ext_params(p->func_aux[1], &par[4]);
+  xc_func_set_ext_params(p->func_aux[0], &ext_params[0]);
+  xc_func_set_ext_params(p->func_aux[1], &ext_params[4]);
 }
 
 #ifdef __cplusplus

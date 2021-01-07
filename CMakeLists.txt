@@ -444,10 +444,12 @@ if(ENABLE_FORTRAN)
   enable_language(Fortran)
   add_library(xcf03 ${raw_sources_list_f03})
   target_link_libraries(xcf03 xc)
-  set_target_properties(xcf03 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
+  set_target_properties(xcf03 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC}
+    SOVERSION ${${PROJECT_NAME}_SOMAJOR})
   add_library(xcf90 ${raw_sources_list_f90})
   target_link_libraries(xcf90 xc)
-  set_target_properties(xcf90 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC})
+  set_target_properties(xcf90 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC}
+    SOVERSION ${${PROJECT_NAME}_SOMAJOR})
 endif()
 
 # run get_funcs.pl to generate headers for xc inclusion

@@ -9,8 +9,9 @@
 
 #include "util.h"
 
-#define XC_GGA_C_LYP    131  /* Lee, Yang & Parr */
-#define XC_GGA_C_TM_LYP 559  /* Takkar and McCarthy reparametrization */
+#define XC_GGA_C_LYP         131  /* Lee, Yang & Parr */
+#define XC_GGA_C_TM_LYP      559  /* Takkar and McCarthy reparametrization */
+#define XC_HYB_GGA_XC_HFLYP  314  /* Hartree-Fock + LYP correlation */
 
 typedef struct{
   double A, B, c, d;
@@ -68,4 +69,30 @@ const xc_func_info_type xc_func_info_gga_c_tm_lyp = {
   {LYP_N_PAR, lyp_names, lyp_desc, lyp_tm_values, set_ext_params_cpy},
   xc_gga_c_lyp_init, NULL,
   NULL, work_gga, NULL
+};
+
+void
+xc_hyb_gga_xc_hflyp_init(xc_func_type *p)
+{
+  static int   funcs_id  [1] = {XC_GGA_C_LYP};
+  static double funcs_coef[1] = {1.0};
+
+  xc_mix_init(p, 1, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 1.0);
+}
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_hyb_gga_xc_hflyp = {
+  XC_HYB_GGA_XC_HFLYP,
+  XC_EXCHANGE_CORRELATION,
+  "HF + LYP correlation",
+  XC_FAMILY_GGA,
+  {&xc_ref_Lee1988_785, &xc_ref_Miehlich1989_200, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-15,
+  {0, NULL, NULL, NULL, NULL},
+  xc_hyb_gga_xc_hflyp_init, NULL,
+  NULL, NULL, NULL
 };

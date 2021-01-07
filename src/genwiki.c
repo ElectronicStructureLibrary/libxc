@@ -34,7 +34,7 @@ void sort_funcs(int * list, int nfunc) {
 
 /* Sanitizes links so that they are parsed correctly on the wiki */
 char * sanitize_link(const char * doi) {
-  int i, j, MAXLEN=4096;
+  size_t i, j, MAXLEN=4096;
   char buf[MAXLEN], *r;
 
   for(i=0, j=0; i<strlen(doi); i++) {
@@ -148,7 +148,8 @@ char * sanitize_link(const char * doi) {
 }
 
 int main(void) {
-  int func_id, error, i, ii;
+  int func_id, error, ii;
+  size_t i;
   xc_func_type func;
   char *fname;
 

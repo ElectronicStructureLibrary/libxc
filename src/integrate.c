@@ -304,7 +304,7 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
   blist[1] = *b;
   rlist[1] = 0.;
   elist[1] = 0.;
-  if (*epsabs <= 0. && *epsrel < max(epmach * 50., 5e-29)) {
+  if (*epsabs <= 0. && *epsrel < m_max(epmach * 50., 5e-29)) {
     *ier = 6;
     return;
   }
@@ -320,7 +320,7 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
   /*           test on accuracy. */
 
   dres = fabs(*result);
-  errbnd = max(*epsabs, *epsrel * dres);
+  errbnd = m_max(*epsabs, *epsrel * dres);
   *last = 1;
   rlist[1] = *result;
   elist[1] = *abserr;
@@ -397,7 +397,7 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
   L15:
     rlist[maxerr] = area1;
     rlist[*last] = area2;
-    errbnd = max(*epsabs, *epsrel * fabs(area));
+    errbnd = m_max(*epsabs, *epsrel * fabs(area));
 
     /*           test for roundoff error and eventually set error flag. */
 
@@ -413,7 +413,7 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
     /*           set error flag in the case of bad integrand behaviour
 		 at a point of the integration range. */
 
-    if (max(fabs(a1), fabs(b2)) <=
+    if (m_max(fabs(a1), fabs(b2)) <=
 	(epmach * 100. + 1.) * (fabs(a2) + uflow * 1e3)) {
       *ier = 4;
     }
@@ -506,7 +506,7 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
     *abserr = abseps;
     *result = reseps;
     correc = erlarg;
-    ertest = max(*epsabs, *epsrel * fabs(reseps));
+    ertest = m_max(*epsabs, *epsrel * fabs(reseps));
     if (*abserr <= ertest) {
       goto L100;/* ***jump out of do-loop */
     }
@@ -556,7 +556,7 @@ GPU_FUNCTION void xc_rdqagse(integr_fn f, void *ex, double *a, double *b,
   }
 
  L110:/*		test on divergence. */
-  if (ksgn == -1 && max(fabs(*result), fabs(area)) <= defabs * .01) {
+  if (ksgn == -1 && m_max(fabs(*result), fabs(area)) <= defabs * .01) {
     goto L130;
   }
   if (.01 > *result / area || *result / area > 100. || errsum > fabs(area)) {
@@ -689,10 +689,10 @@ GPU_FUNCTION static void rdqelg(int *n, double *epstab, double *
     e1abs = fabs(e1);
     delta2 = e2 - e1;
     err2 = fabs(delta2);
-    tol2 = max(fabs(e2), e1abs) * epmach;
+    tol2 = m_max(fabs(e2), e1abs) * epmach;
     delta3 = e1 - e0;
     err3 = fabs(delta3);
-    tol3 = max(e1abs, fabs(e0)) * epmach;
+    tol3 = m_max(e1abs, fabs(e0)) * epmach;
     if (err2 <= tol2 && err3 <= tol3) {
       /*           if e0, e1 and e2 are equal to within machine
 		   accuracy, convergence is assumed. */
@@ -706,7 +706,7 @@ GPU_FUNCTION static void rdqelg(int *n, double *epstab, double *
     epstab[k1] = e1;
     delta1 = e1 - e3;
     err1 = fabs(delta1);
-    tol1 = max(e1abs, fabs(e3)) * epmach;
+    tol1 = m_max(e1abs, fabs(e3)) * epmach;
 
     /*           if two elements are very close to each other, omit
 		 a part of the table by adjusting the value of n */
@@ -775,7 +775,7 @@ GPU_FUNCTION static void rdqelg(int *n, double *epstab, double *
   }
 
  L100:/* compute error estimate */
-  *abserr = max(*abserr, epmach * 5. * fabs(*result));
+  *abserr = m_max(*abserr, epmach * 5. * fabs(*result));
   return;
 } /* rdqelg_ */
 
@@ -980,10 +980,10 @@ bell labs, nov. 1981.
   *resasc *= dhlgth;
   *abserr = fabs((resk - resg) * hlgth);
   if (*resasc != 0. && *abserr != 0.) {
-    *abserr = *resasc * min(1., pow(*abserr * 200. / *resasc, 1.5));
+    *abserr = *resasc * m_min(1., pow(*abserr * 200. / *resasc, 1.5));
   }
   if (*resabs > uflow / (epmach * 50.)) {
-    *abserr = max(epmach * 50. * *resabs, *abserr);
+    *abserr = m_max(epmach * 50. * *resabs, *abserr);
   }
   return;
 } /* rdqk21_ */

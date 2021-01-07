@@ -674,7 +674,7 @@ func_reference_type xc_ref_Ernzerhof2000_59 = {
 func_reference_type xc_ref_EspinosaLeal2015_31463 = {
   "L. A. Espinosa Leal, A. Karpenko, M. A. Caro, and O. Lopez-Acevedo, Phys. Chem. Chem. Phys. 17, 31463 (2015)",
   "10.1039/C5CP01211B",
-  "@Article{EspinosaLeal2015_31463,\n  author =\"Espinosa Leal, L. A. and Karpenko, A. and Caro, M. A. and Lopez-Acevedo, O.\",\n  title  =\"Optimizing a parametrized {Thomas--Fermi--Dirac--Weizs\\\"{a}cker} density functional for atoms\",\n  journal  =\"Phys. Chem. Chem. Phys.\",\n  year  =\"2015\",\n  volume  =\"17\",\n  issue  =\"47\",\n  pages  =\"31463-31471\",\n  publisher  =\"The Royal Society of Chemistry\",\n  doi  =\"10.1039/C5CP01211B\",\n  url  =\"http://dx.doi.org/10.1039/C5CP01211B\",\n}"
+  "@Article{EspinosaLeal2015_31463,\n  author = {Espinosa Leal, L. A. and Karpenko, A. and Caro, M. A. and Lopez-Acevedo, O.},\n  title = {Optimizing a parametrized {Thomas--Fermi--Dirac--Weizs\\\"{a}cker} density functional for atoms},\n  journal = {Phys. Chem. Chem. Phys.},\n  year = {2015},\n  volume = {17},\n  issue = {47},\n  pages = {31463-31471},\n  publisher = {The Royal Society of Chemistry},\n  doi = {10.1039/C5CP01211B},\n  url = {http://dx.doi.org/10.1039/C5CP01211B}\n}"
 };
 
 
@@ -871,6 +871,13 @@ func_reference_type xc_ref_Gordon1972_3122 = {
   "R. G. Gordon and Y. S. Kim, J. Chem. Phys. 56, 3122 (1972)",
   "10.1063/1.1677649",
   "@article{Gordon1972_3122,\n  author = {Roy G. Gordon and Yung Sik Kim},\n  title = {Theory for the Forces between Closed-Shell Atoms and Molecules},\n  journal = {J. Chem. Phys.},\n  volume = {56},\n  number = {6},\n  pages = {3122-3133},\n  year = {1972},\n  doi = {10.1063/1.1677649},\n  url = {https://doi.org/10.1063/1.1677649}\n}"
+};
+
+
+func_reference_type xc_ref_Grimme2005_3067 = {
+  "S. Grimme, J. Phys. Chem. A 109, 3067 (2005)",
+  "10.1021/jp050036j",
+  "@article{Grimme2005_3067,\n  author = {Grimme, Stefan},\n  title = {Accurate Calculation of the Heats of Formation for Large Main Group Compounds with Spin-Component Scaled MP2 Methods},\n  journal = {J. Phys. Chem. A},\n  volume = {109},\n  number = {13},\n  pages = {3067-3077},\n  year = {2005},\n  doi = {10.1021/jp050036j},\n  URL = {https://doi.org/10.1021/jp050036j}\n}"
 };
 
 

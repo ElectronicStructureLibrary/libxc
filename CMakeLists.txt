@@ -444,7 +444,7 @@ if(ENABLE_FORTRAN)
   enable_language(Fortran)
   add_library(xcf03 ${raw_sources_list_f90})
   target_link_libraries(xcf03 xc)
-  set_target_properties(xc PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC}
+  set_target_properties(xcf03 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC}
     SOVERSION ${${PROJECT_NAME}_SOMAJOR})
 endif()
 

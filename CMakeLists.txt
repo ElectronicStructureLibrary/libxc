@@ -332,6 +332,7 @@ set(raw_sources_list
   mgga_c_bc95.c
   mgga_c_cs.c
   mgga_c_kcis.c
+  mgga_c_kcisk.c
   mgga_xc_lp90.c
   mgga_c_m05.c
   mgga_c_m06l.c

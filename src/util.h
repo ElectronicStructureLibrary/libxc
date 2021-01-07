@@ -119,11 +119,11 @@
 #define M_CBRT9         2.080083823051904114530056824357885386338L
 
 /* Very useful macros */
-#ifndef min
-#define min(x,y)  (((x)<(y)) ? (x) : (y))
+#ifndef m_min
+#define m_min(x,y)  (((x)<(y)) ? (x) : (y))
 #endif
-#ifndef max
-#define max(x,y)  (((x)<(y)) ? (y) : (x))
+#ifndef m_max
+#define m_max(x,y)  (((x)<(y)) ? (y) : (x))
 #endif
 
 /* some useful constants */

@@ -101,7 +101,7 @@ GPU_FUNCTION double xc_expint_e1_impl(double x, const int scale){
   double e1 = 0.0;
 
   /* this is a workaround not to have argument errors */
-  if(! scale) x = min(x, xmax);
+  if(! scale) x = m_min(x, xmax);
 
   if(x <= -10.0){
     const double s = 1.0/x * ( scale ? 1.0 : exp(-x) );

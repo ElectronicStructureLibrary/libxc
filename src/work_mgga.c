@@ -13,7 +13,7 @@
  */
 
 #ifdef XC_DEBUG
-#define __USE_GNU 1
+#define __USE_GNU
 #include <fenv.h>
 #endif
 
@@ -211,7 +211,7 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
       my_rho[1]   = m_max(p->dens_threshold, rho[1]);
       if(p->info->family != XC_KINETIC)
         my_tau[1]   = m_max(p->tau_threshold, tau[1]);
-      my_sigma[2] = max(p->sigma_threshold * p->sigma_threshold, sigma[2]);
+      my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[2]);
       if(p->info->family != XC_KINETIC)
         my_sigma[2] = m_min(my_sigma[2], 8.0*my_rho[1]*my_tau[1]);
 

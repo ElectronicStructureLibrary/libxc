@@ -34,10 +34,10 @@ void sort_funcs(int * list, int nfunc) {
 
 /* Sanitizes links so that they are parsed correctly on the wiki */
 char * sanitize_link(const char * doi) {
-  size_t i, j, MAXLEN=4096;
+  int i, j, MAXLEN=4096;
   char buf[MAXLEN], *r;
 
-  for(i=0, j=0; i<strlen(doi); i++) {
+  for(i=0, j=0; i<(int) strlen(doi); i++) {
     switch(doi[i]) {
     case('!'):
       buf[j++]='%';
@@ -148,8 +148,7 @@ char * sanitize_link(const char * doi) {
 }
 
 int main(void) {
-  int func_id, error, ii;
-  size_t i;
+  int func_id, error, i, ii;
   xc_func_type func;
   char *fname;
 
@@ -218,7 +217,7 @@ int main(void) {
 	  /* Get functional keyword */
 	  fname = xc_functional_get_name(func_id);
 	  /* Convert functional keyword to upper case */
-	  for(i=0; i<strlen(fname); i++)
+	  for(i=0; i<(int) strlen(fname); i++)
 	    fname[i]=toupper(fname[i]);
 
 	  /* Print out info */

@@ -13,7 +13,7 @@
  */
 
 #ifdef XC_DEBUG
-#define __USE_GNU 1
+#define __USE_GNU
 #include <fenv.h>
 #endif
 
@@ -80,9 +80,9 @@ work_lda(const XC(func_type) *p, size_t np, const double *rho,
     dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
     if(dens >= p->dens_threshold) {
       /* sanity check of input parameters */
-      my_rho[0] = m_max(p->dens_threshold, rho[0]);
+      my_rho[0] = max(p->dens_threshold, rho[0]);
       if(p->nspin == XC_POLARIZED){
-        my_rho[1] = m_max(p->dens_threshold, rho[1]);
+        my_rho[1] = max(p->dens_threshold, rho[1]);
       }
       if(p->nspin == XC_UNPOLARIZED)
         func_unpol(p, order, my_rho OUT_PARAMS);
@@ -141,9 +141,9 @@ work_lda_gpu(const XC(func_type) *p, int order, size_t np, const double *rho,
 
   dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
   if(dens >= p->dens_threshold) {
-    my_rho[0] = m_max(p->dens_threshold, rho[0]);
+    my_rho[0] = max(p->dens_threshold, rho[0]);
     if(p->nspin == XC_POLARIZED){
-      my_rho[1] = m_max(p->dens_threshold, rho[1]);
+      my_rho[1] = max(p->dens_threshold, rho[1]);
     }
     if(p->nspin == XC_UNPOLARIZED)
       func_unpol(p, order, my_rho OUT_PARAMS);

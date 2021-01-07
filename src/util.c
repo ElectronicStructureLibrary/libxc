@@ -11,6 +11,28 @@
 
 #include "util.h"
 
+
+/* this function converts the spin-density into total density and
+	 relative magnetization */
+/* inline */ GPU_FUNCTION void
+xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta)
+{
+  if(nspin==XC_UNPOLARIZED){
+    *d    = max(rho[0], 0.0);
+    *zeta = 0.0;
+  }else{
+    *d = rho[0] + rho[1];
+    if(*d > 0.0){
+      *zeta = (rho[0] - rho[1])/(*d);
+      *zeta = min(*zeta,  1.0);
+      *zeta = max(*zeta, -1.0);
+    }else{
+      *d    = 0.0;
+      *zeta = 0.0;
+    }
+  }
+}
+
 const char *get_kind(const xc_func_type *func) {
   switch(func->info->kind) {
    case(XC_EXCHANGE):

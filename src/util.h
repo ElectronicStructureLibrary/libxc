@@ -119,8 +119,12 @@
 #define M_CBRT9         2.080083823051904114530056824357885386338L
 
 /* Very useful macros */
-#define m_min(x,y)  (((x)<(y)) ? (x) : (y))
-#define m_max(x,y)  (((x)<(y)) ? (y) : (x))
+#ifndef min
+#define min(x,y)  (((x)<(y)) ? (x) : (y))
+#endif
+#ifndef max
+#define max(x,y)  (((x)<(y)) ? (y) : (x))
+#endif
 
 /* some useful constants */
 #define LOG_DBL_MIN        (log(DBL_MIN))
@@ -216,6 +220,9 @@ typedef struct xc_functional_key_t {
 #define D3FZETA(x)     (-(8.0/27.0)/FZETAFACTOR)* \
   (fabs(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -5.0/3.0) - pow(1.0 - (x), -5.0/3.0)))
 
+
+/* The following inlines confuse the xlc compiler */
+GPU_FUNCTION void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
 
 /* Functions to handle the internal counters */
 

@@ -21,5 +21,5 @@ mgga_c_m08.c          mgga_x_br89.c           mgga_x_m08.c     mgga_x_pkzb.c    
 mgga_c_pkzb.c         mgga_x_br89_explicit.c  mgga_x_m11.c     mgga_x_regtpss.c   mgga_x_mggac.c    \
 mgga_x_th.c           mgga_x_mbr.c            mgga_c_ltapw.c   mgga_x_jk.c        mgga_x_r2scan.c   \
 mgga_c_r2scan.c       mgga_c_b94.c            mgga_k_lk.c      mgga_k_rda.c       mgga_k_gea2.c     \
-mgga_k_gea4.c         mgga_k_csk.c            mgga_k_csk_loc.c	mgga_k_pgslb.c
+mgga_k_gea4.c         mgga_k_csk.c            mgga_k_csk_loc.c	mgga_k_pgslb.c    mgga_c_kcisk.c
 

@@ -406,5 +406,6 @@ extern func_reference_type xc_ref_Zhao2008_215;
 extern func_reference_type xc_ref_Zheng2009_808;
 extern func_reference_type xc_ref_delCampo2012_104108;
 extern func_reference_type xc_ref_gaussianimplementation;
+extern func_reference_type xc_ref_nwchemimplementation;
 extern func_reference_type xc_ref_vanLeeuwen1994_2421;
 extern func_reference_type xc_ref_vonBarth1972_1629;

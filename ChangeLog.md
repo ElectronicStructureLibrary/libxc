@@ -1,6 +1,7 @@
 ## [5.1.0] - to be released
 
 ### Added
+- Functions xc_reference() and xc_reference_doi() to get up-to-date citations to Libxc.
 - GGA functionals: C_P86_FT, C_CCDF, C_P86_FT, K_LGAP, K_LGAP_GE, K_LKT, K_PBE2, K_PG1, K_RATIONAL_P, K_TFVW_OPT, K_VT84F, X_REVSSB_D, C_P86VWN, C_P86VWN_FT
 - HYB_GGA functionals: XC_CAMH_B3LYP, XC_WB97X_D3, XC_WHPBE0, XC_LC_BOP
 - MGGA functionals: C_B94, C_HLTAPW, C_M06_SX, X_R2SCAN, C_R2SCAN, X_R2SCANL, C_R2SCANL, K_CSK1, K_CSK4, K_CSK_LOC1, K_CSK_LOC4, K_GEA2, K_GEA4, K_L04, K_L06, K_PC07_OPT, K_PGSL025, K_RDA, X_HLTA, X_JK, X_MBR, X_MS2_REV, X_TH
@@ -20,6 +21,8 @@
 - Missing minus sign in a coefficient of GGA_XC_HCTH_P76.
 - HYB_MGGA_X_PJS18 and HYB_MGGA_X_JS18 due to typo in the original publications.
 - Functional form of GGA_C_LM.
+- Bug in expint_E1 that had a huge effect on GGA_C_FT97.
+
 
 ### Changed
 - The renaming libxcf03 -> libxcf90 of 5.0.0 was reverted, as it proved to be problematic in downstream codes.

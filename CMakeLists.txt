@@ -442,6 +442,8 @@ endif()
 
 if(ENABLE_FORTRAN)
   enable_language(Fortran)
+  configure_file(cmake/libxcf03.pc.in libxcf03.pc @ONLY)
+  configure_file(cmake/libxcf90.pc.in libxcf90.pc @ONLY)
   add_library(xcf03 ${raw_sources_list_f03})
   target_link_libraries(xcf03 xc)
   set_target_properties(xcf03 PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC}
@@ -521,6 +523,9 @@ if(ENABLE_FORTRAN)
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
   install(FILES "${PROJECT_BINARY_DIR}/xc_f90_lib_m.mod"
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}${NAMESPACE_INSTALL_INCLUDEDIR})
+  install(FILES ${PROJECT_BINARY_DIR}/libxcf03.pc
+                ${PROJECT_BINARY_DIR}/libxcf90.pc
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/)
 endif()
 
 # <<<  Export Interface  >>>

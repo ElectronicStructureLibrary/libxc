@@ -88,7 +88,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hflyp = {
   XC_HYB_GGA_XC_HFLYP,
   XC_EXCHANGE_CORRELATION,
   "HF + LYP correlation",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Lee1988_785, &xc_ref_Miehlich1989_200, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,

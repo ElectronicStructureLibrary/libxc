@@ -83,7 +83,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_tpss0 = {
   XC_HYB_MGGA_XC_TPSS0,
   XC_EXCHANGE_CORRELATION,
   "TPSS0 with 25% exact exchange",
-  XC_FAMILY_MGGA,
+  XC_FAMILY_HYB_MGGA,
   {&xc_ref_Grimme2005_3067, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,

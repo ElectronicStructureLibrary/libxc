@@ -10,7 +10,7 @@
 
 #define XC_GGA_X_PW91         109 /* Perdew & Wang 91 */
 #define XC_GGA_X_MPW91        119 /* Modified form of PW91 by Adamo & Barone */
-#define XC_GGA_X_PW91_MOD     314 /* Perdew & Wang 91, alternate version with more digits */
+#define XC_GGA_X_PW91_MOD     316 /* Perdew & Wang 91, alternate version with more digits */
 
 typedef struct{
   double a, b, c, d, f, alpha, expo;

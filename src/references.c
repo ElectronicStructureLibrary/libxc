@@ -2764,6 +2764,13 @@ func_reference_type xc_ref_gaussianimplementation = {
 };
 
 
+func_reference_type xc_ref_nwchemimplementation = {
+  "Defined through NWChem implementation",
+  "",
+  "@misc{nwchemimplementation,\n  note = {Defined through NWChem implementation},\n}"
+};
+
+
 func_reference_type xc_ref_vanLeeuwen1994_2421 = {
   "R. van Leeuwen and E. J. Baerends, Phys. Rev. A 49, 2421 (1994)",
   "10.1103/PhysRevA.49.2421",

@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_PW91         109 /* Perdew & Wang 91 */
 #define XC_GGA_X_MPW91        119 /* Modified form of PW91 by Adamo & Barone */
+#define XC_GGA_X_PW91_MOD     314 /* Perdew & Wang 91, alternate version with more digits */
 
 typedef struct{
   double a, b, c, d, f, alpha, expo;
@@ -45,6 +46,8 @@ static const char  *mpw91_desc[MPW91_N_PAR]   = {
   "exponent of the power in the numerator"};
 static const double mpw91_values[MPW91_N_PAR] =
   {0.00426, 100.0, 3.72};
+static const double pw91_mod_values[MPW91_N_PAR] =
+  {0.0042, 100.0, 4.0};
 
 static void
 mpw91_set_ext_params(xc_func_type *p, const double *ext_params)
@@ -99,6 +102,22 @@ const xc_func_info_type xc_func_info_gga_x_mpw91 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {MPW91_N_PAR, mpw91_names, mpw91_desc, mpw91_values, mpw91_set_ext_params},
+  gga_x_pw91_init, NULL,
+  NULL, work_gga, NULL
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_gga_x_pw91_mod = {
+  XC_GGA_X_PW91_MOD,
+  XC_EXCHANGE,
+  "PW91, alternate version with more digits",
+  XC_FAMILY_GGA,
+  {&xc_ref_Perdew1991, &xc_ref_Perdew1992_6671, &xc_ref_Perdew1992_6671_err, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-15,
+  {MPW91_N_PAR, mpw91_names, mpw91_desc, pw91_mod_values, mpw91_set_ext_params},
   gga_x_pw91_init, NULL,
   NULL, work_gga, NULL
 };

@@ -50,8 +50,8 @@ int main(int argc, char **argv)
 
   /* Print libxc information */
   printf("libxc version %s\n",xc_version_string());
-  printf("%s\n", xc_ref_Lehtola2018_1.ref);
-  printf("doi: %s\n", xc_ref_Lehtola2018_1.doi);
+  printf("%s\n", xc_reference());
+  printf("doi: %s\n", xc_reference_doi());
   printf("\n");
 
   /* Is functional defined by a string constant? */

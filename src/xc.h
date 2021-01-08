@@ -13,6 +13,16 @@
 extern "C" {
 #endif
 
+/* Get the literature reference for libxc */
+const char *xc_reference();
+/* Get the doi for the literature reference for libxc */
+const char *xc_reference_doi();
+
+/* Get the major, minor, and micro version of libxc */
+void xc_version(int *major, int *minor, int *micro);
+/* Get the version of libxc as a string */
+const char *xc_version_string();
+
 #include <xc_version.h>
 #include <stddef.h>
 
@@ -148,9 +158,6 @@ extern "C" {
   P1_ P2_ ## v4lapl2tau2       P1_ P2_ ## v4lapltau3      \
   P1_ P2_ ## v4tau4
 
-
-void xc_version(int *major, int *minor, int *micro);
-const char *xc_version_string();
 
 struct xc_func_type;
 

@@ -15,6 +15,9 @@ module xc_f03_lib_m
     ! version
     xc_f03_version, &
     xc_f03_version_string, &
+    ! literature reference
+    xc_f03_reference, &
+    xc_f03_reference_doi, &
     ! func_info
     xc_f03_func_info_t, &
     xc_f03_func_info_get_number, &
@@ -169,6 +172,14 @@ module xc_f03_lib_m
     type(c_ptr) function xc_version_string() bind(c)
       import
     end function xc_version_string
+
+    type(c_ptr) function xc_reference() bind(c)
+      import
+    end function xc_reference
+
+    type(c_ptr) function xc_reference_doi() bind(c)
+      import
+    end function xc_reference_doi
   end interface
 
 
@@ -790,6 +801,25 @@ module xc_f03_lib_m
 
   end subroutine xc_f03_version_string
 
+  subroutine xc_f03_reference(ref)
+    character(len=*), intent(out) :: ref
+
+    type(c_ptr) :: c_ref
+
+    c_ref = xc_reference()
+    call c_to_f_string_ptr(c_ref, ref)
+
+  end subroutine xc_f03_reference
+
+  subroutine xc_f03_reference_doi(doi)
+    character(len=*), intent(out) :: doi
+
+    type(c_ptr) :: c_doi
+
+    c_doi = xc_reference_doi()
+    call c_to_f_string_ptr(c_doi, doi)
+
+  end subroutine xc_f03_reference_doi
 
   !----------------------------------------------------------------
   integer(c_int) function xc_f03_func_info_get_number(info) result(number)

@@ -11,6 +11,7 @@
 #define XC_HYB_GGA_XC_B3PW91        401 /* The original (ACM) hybrid of Becke    */
 #define XC_HYB_GGA_XC_B3LYP         402 /* The (in)famous B3LYP                  */
 #define XC_HYB_GGA_XC_B3P86         403 /* Perdew 86 hybrid similar to B3PW91    */
+#define XC_HYB_GGA_XC_B3P86_NWCHEM  315 /* Perdew 86 hybrid similar to B3PW91; NWChem version    */
 #define XC_HYB_GGA_XC_MPW3PW        415 /* mixture with the mPW functional       */
 #define XC_HYB_GGA_XC_MPW3LYP       419 /* mixture of mPW and LYP                */
 #define XC_HYB_GGA_XC_MB3LYP_RC04   437 /* B3LYP with RC04 LDA                   */
@@ -190,6 +191,32 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3p86 = {
   1e-15,
   {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b3lyp_values, b3pw91_set_ext_params},
   xc_hyb_gga_xc_b3p86_init, NULL,
+  NULL, NULL, NULL
+};
+
+void
+xc_hyb_gga_xc_b3p86_nwchem_init(xc_func_type *p)
+{
+  static int   funcs_id  [5] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_VWN_RPA, XC_GGA_C_P86, XC_LDA_C_PZ};
+  static double funcs_coef[5] = {0.08, 0.72, 1.0, 0.81, -0.81}; /* set by ext_params */
+
+  xc_mix_init(p, 5, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.2);
+}
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_hyb_gga_xc_b3p86_nwchem = {
+  XC_HYB_GGA_XC_B3P86_NWCHEM,
+  XC_EXCHANGE_CORRELATION,
+  "B3P86, NWChem version",
+  XC_FAMILY_GGA,
+  {&xc_ref_nwchemimplementation, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-15,
+  {0, NULL, NULL, NULL, NULL},
+  xc_hyb_gga_xc_b3p86_nwchem_init, NULL,
   NULL, NULL, NULL
 };
 

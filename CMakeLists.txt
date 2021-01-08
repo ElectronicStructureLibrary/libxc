@@ -503,6 +503,7 @@ install(TARGETS xc-info xc-threshold
   OPTIONAL
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 if(ENABLE_FORTRAN)
+  configure_file(cmake/libxcf03.pc.in libxcf03.pc @ONLY)
   install(TARGETS xcf03
     EXPORT "${PN}Targets"
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -510,6 +511,8 @@ if(ENABLE_FORTRAN)
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
   install(FILES "${PROJECT_BINARY_DIR}/xc_f03_lib_m.mod"
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}${NAMESPACE_INSTALL_INCLUDEDIR})
+  install(FILES ${PROJECT_BINARY_DIR}/libxcf03.pc
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/)
 endif()
 
 # <<<  Export Interface  >>>

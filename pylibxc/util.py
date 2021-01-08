@@ -14,6 +14,8 @@ core.xc_version.argtypes = (ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.
 core.xc_version.restype = None
 
 core.xc_version_string.restype = ctypes.c_char_p
+core.xc_reference.restype = ctypes.c_char_p
+core.xc_reference_doi.restype = ctypes.c_char_p
 
 core.xc_functional_get_number.argtypes = (ctypes.c_char_p, )
 core.xc_functional_get_number.restype = ctypes.c_int
@@ -70,6 +72,42 @@ def xc_version_string():
 
     """
     return core.xc_version_string().decode("UTF-8")
+
+
+def xc_reference():
+    """
+    Returns the reference for the current LibXC version as a string.
+
+    Returns
+    -------
+    reference : str
+        The string representation of the literature reference for LibXC.
+
+    Examples
+    --------
+    >>> pylibxc.util.xc_reference()
+    "S. Lehtola, C. Steigemann, M. J. Oliveira, and M. A. Marques, SoftwareX 7, 1 (2018)"
+
+    """
+    return core.xc_reference().decode("UTF-8")
+
+
+def xc_reference_doi():
+    """
+    Returns the doi of the reference for the current LibXC version as a string.
+
+    Returns
+    -------
+    doi : str
+        The string representation of the doi of the literature reference for LibXC.
+
+    Examples
+    --------
+    >>> pylibxc.util.xc_reference_doi()
+    "10.1016/j.softx.2017.11.002"
+
+    """
+    return core.xc_reference_doi().decode("UTF-8")
 
 
 def xc_functional_get_number(name):

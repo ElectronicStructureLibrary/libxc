@@ -9,6 +9,7 @@
 
 #include "xc.h"
 #include "config.h"
+#include "util.h"
 #include <stdio.h>
 
 static const char * libxc_version = PACKAGE_VERSION;
@@ -24,4 +25,12 @@ void xc_version(int *major, int *minor, int *micro) {
 
 const char *xc_version_string() {
   return libxc_version;
+}
+
+const char *xc_reference() {
+  return xc_ref_Lehtola2018_1.ref;
+}
+
+const char *xc_reference_doi() {
+  return xc_ref_Lehtola2018_1.doi;
 }

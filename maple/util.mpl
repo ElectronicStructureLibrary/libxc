@@ -78,7 +78,7 @@ t_vw := (z, xt, us0, us1) -> (xt^2 - u_total(z, us0, us1))/8:
 z_thr  := z -> my_piecewise3(1 + z <= p_a_zeta_threshold, p_a_zeta_threshold - 1, z):
 z_thr2 := z -> my_piecewise5(
   1 + z <= p_a_zeta_threshold, p_a_zeta_threshold - 1,
-  1 - z <= p_a_zeta_threshold, p_a_zeta_threshold + 1,
+  1 - z <= p_a_zeta_threshold, 1 - p_a_zeta_threshold,
   z):
 
 opz_pow_n := (z, n) -> my_piecewise3(1 + z <= p_a_zeta_threshold, 0, (1 + z)^n):

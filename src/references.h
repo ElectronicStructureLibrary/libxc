@@ -46,6 +46,7 @@ extern func_reference_type xc_ref_Berland2014_035412;
 extern func_reference_type xc_ref_Bernard2012_204103;
 extern func_reference_type xc_ref_Besley2009_10350;
 extern func_reference_type xc_ref_Bilc2008_165107;
+extern func_reference_type xc_ref_Bircher2018_3184;
 extern func_reference_type xc_ref_Bloch1929_545;
 extern func_reference_type xc_ref_Boese2000_1670;
 extern func_reference_type xc_ref_Boese2001_5497;

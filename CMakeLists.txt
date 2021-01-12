@@ -212,6 +212,7 @@ set(raw_sources_list
   gga_x_hjs_b88_v2.c
   gga_x_htbs.c
   gga_x_ityh.c
+  gga_x_ityh_optx.c
   gga_x_kt.c
   gga_x_lag.c
   gga_x_lb.c
@@ -281,6 +282,7 @@ set(raw_sources_list
   hyb_mgga_x_pjs18.c
   hyb_gga_xc_b2plyp.c
   hyb_gga_xc_src1_blyp.c
+  hyb_gga_xc_cam_o3lyp.c
   integrate.c
   lda.c
   lda_c_1d_csc.c

@@ -26,7 +26,6 @@ xc_gga_x_ityh_optx_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_x_ityh_optx_params));
 
   xc_hyb_init_hybrid(p, 0.0);
-  p->hyb_type[0] = XC_HYB_NONE;
 }
 
 #define N_PAR 4

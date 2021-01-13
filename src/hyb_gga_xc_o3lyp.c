@@ -43,7 +43,7 @@ o3lyp_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[2] = 1.0 - clyp;
   p->mix_coef[3] = clyp;
 
-  p->hyb_coeff[0] = a;
+  p->cam_alpha = a;
 }
 
 static void
@@ -102,7 +102,7 @@ x3lyp_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[3] = 1.0 - ac;
   p->mix_coef[4] = ac;
 
-  p->hyb_coeff[0] = a0;
+  p->cam_alpha = a0;
 }
 
 static void

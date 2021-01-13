@@ -54,14 +54,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   xc_func_set_ext_params_name(p->func_aux[1], "_omega", omega);
 
   /* Set hybrid terms */
-  assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_coeff[0] = csr-clr;
-  p->hyb_omega[0] = omega;
-
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_coeff[1] = clr;
-  p->hyb_omega[1] = 0.0;
+  p->cam_beta = csr-clr;
+  p->cam_omega = omega;
+  p->cam_alpha = clr;
 }
 
 static void
@@ -88,3 +83,4 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_o3lyp = {
   hyb_gga_xc_cam_o3lyp_init,
   NULL, NULL, NULL, NULL
 };
+

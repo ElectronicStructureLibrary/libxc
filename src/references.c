@@ -244,6 +244,13 @@ func_reference_type xc_ref_Bilc2008_165107 = {
 };
 
 
+func_reference_type xc_ref_Bircher2018_3184 = {
+  "M. P. Bircher and U. Rothlisberger, J. Chem. Theory Comput. 14, 3184 (2018)",
+  "10.1021/acs.jctc.8b00069",
+  "@article{Bircher2018_3184,\nauthor = {Bircher, Martin P. and Rothlisberger, Ursula},\ntitle = {Plane-Wave Implementation and Performance of \\'{a}-la-Carte {C}oulomb-Attenuated Exchange-Correlation Functionals for Predicting Optical Excitation Energies in Some Notorious Cases},\njournal = {J. Chem. Theory Comput.},\nvolume = {14},\nnumber = {6},\npages = {3184-3195},\nyear = {2018},\ndoi = {10.1021/acs.jctc.8b00069},\nURL = {https://doi.org/10.1021/acs.jctc.8b00069}\n}"
+};
+
+
 func_reference_type xc_ref_Bloch1929_545 = {
   "F. Bloch, Z. Phys. 57, 545 (1929)",
   "10.1007/BF01340281",

@@ -14,7 +14,7 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 ################################### Options ####################################
 include(psi4OptionsTools)
 option_with_default(CMAKE_BUILD_TYPE "Build type" Release)
-option_with_print(BUILD_SHARED_LIBS "Build final library as shared, not static" OFF)
+option_with_print(BUILD_SHARED_LIBS "Build final library as shared, not static. For Windows, also add CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON" OFF)
 option_with_print(BUILD_TESTING "Compile the testing infrastructure" ON)
 option_with_default(BUILD_FPIC "Libraries will be compiled with position independent code" ON)
 if((${BUILD_SHARED_LIBS}) AND NOT ${BUILD_FPIC})
@@ -495,26 +495,30 @@ install(FILES ${PROJECT_BINARY_DIR}/${src_prefix}/xc.h
   ${PROJECT_BINARY_DIR}/xc_version.h
   ${PROJECT_SOURCE_DIR}/${src_prefix}/xc_funcs_removed.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}${NAMESPACE_INSTALL_INCLUDEDIR})
-install(TARGETS xc
-  EXPORT "${PN}Targets"
-  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-install(TARGETS xc-info xc-threshold
-  EXPORT "${PN}Targets"
+install(TARGETS xc-info
   OPTIONAL
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(TARGETS xc
+  EXPORT c_interface
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
 if(ENABLE_FORTRAN)
   configure_file(cmake/libxcf03.pc.in libxcf03.pc @ONLY)
-  install(TARGETS xcf03
-    EXPORT "${PN}Targets"
+  install(TARGETS xc xcf03
+    EXPORT f_interface
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
   install(FILES "${PROJECT_BINARY_DIR}/xc_f03_lib_m.mod"
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}${NAMESPACE_INSTALL_INCLUDEDIR})
-  install(FILES ${PROJECT_BINARY_DIR}/libxcf03.pc
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/)
+  if(NOT MSVC)
+    install(FILES ${PROJECT_BINARY_DIR}/libxcf03.pc
+      DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/)
+  endif()
 endif()
 
 # <<<  Export Interface  >>>
@@ -536,12 +540,22 @@ write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/${PN}ConfigVersion.
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PN}Config.cmake
   ${CMAKE_CURRENT_BINARY_DIR}/${PN}ConfigVersion.cmake
   DESTINATION ${CMAKECONFIG_INSTALL_DIR})
-install(EXPORT "${PN}Targets"
+install(EXPORT c_interface
   NAMESPACE "${PN}::"
+  FILE "${PN}Targets-C.cmake"
   DESTINATION ${CMAKECONFIG_INSTALL_DIR})
-export(EXPORT "${PN}Targets"
+
+if(ENABLE_FORTRAN)
+    install(EXPORT f_interface
+      NAMESPACE "${PN}::"
+      FILE "${PN}Targets-Fortran.cmake"
+      DESTINATION ${CMAKECONFIG_INSTALL_DIR})
+endif()
+export(EXPORT c_interface
     NAMESPACE "${PN}::"
     FILE "${PROJECT_BINARY_DIR}/${PN}Targets.cmake")
 
-install(FILES ${PROJECT_BINARY_DIR}/libxc.pc
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/)
+if(NOT MSVC)
+  install(FILES ${PROJECT_BINARY_DIR}/libxc.pc
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/)
+endif()

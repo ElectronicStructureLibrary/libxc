@@ -63,6 +63,7 @@ module xc_f03_lib_m
     xc_f03_lda_vxc_fxc_kxc, &
     xc_f03_lda_fxc, &
     xc_f03_lda_kxc, &
+    xc_f03_lda_lxc, &
     ! gga
     xc_f03_gga, &
     xc_f03_gga_exc, &
@@ -74,6 +75,7 @@ module xc_f03_lib_m
     xc_f03_gga_vxc_fxc_kxc, &
     xc_f03_gga_fxc, &
     xc_f03_gga_kxc, &
+    xc_f03_gga_lxc, &
     xc_f03_gga_ak13_get_asymptotic, &
     xc_f03_hyb_exx_coef, &
     xc_f03_hyb_cam_coef, &
@@ -88,7 +90,8 @@ module xc_f03_lib_m
     xc_f03_mgga_vxc_fxc, &
     xc_f03_mgga_vxc_fxc_kxc, &
     xc_f03_mgga_fxc, &
-    xc_f03_mgga_kxc
+    xc_f03_mgga_kxc, &
+    xc_f03_mgga_lxc
 
   integer(c_int), parameter, public :: &
     XC_UNPOLARIZED          =   1,     &  ! Spin unpolarized

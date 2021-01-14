@@ -63,6 +63,7 @@ module xc_f90_lib_m
     xc_f90_lda_vxc_fxc_kxc, &
     xc_f90_lda_fxc, &
     xc_f90_lda_kxc, &
+    xc_f90_lda_lxc, &
     ! gga
     xc_f90_gga, &
     xc_f90_gga_exc, &
@@ -74,6 +75,7 @@ module xc_f90_lib_m
     xc_f90_gga_vxc_fxc_kxc, &
     xc_f90_gga_fxc, &
     xc_f90_gga_kxc, &
+    xc_f90_gga_lxc, &
     xc_f90_gga_ak13_get_asymptotic, &
     xc_f90_hyb_exx_coef, &
     xc_f90_hyb_cam_coef, &
@@ -88,7 +90,8 @@ module xc_f90_lib_m
     xc_f90_mgga_vxc_fxc, &
     xc_f90_mgga_vxc_fxc_kxc, &
     xc_f90_mgga_fxc, &
-    xc_f90_mgga_kxc
+    xc_f90_mgga_kxc, &
+    xc_f90_mgga_lxc
 
   integer(c_int), parameter, public :: &
     XC_UNPOLARIZED          =   1,     &  ! Spin unpolarized

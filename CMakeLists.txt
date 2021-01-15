@@ -213,6 +213,7 @@ set(raw_sources_list
   gga_x_htbs.c
   gga_x_ityh.c
   gga_x_ityh_optx.c
+  gga_x_ityh_pbe.c
   gga_x_kt.c
   gga_x_lag.c
   gga_x_lb.c

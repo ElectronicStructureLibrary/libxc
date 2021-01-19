@@ -52,6 +52,7 @@ module xc_f90_lib_m
     xc_f90_func_set_sigma_threshold, &
     xc_f90_func_set_tau_threshold, &
     xc_f90_func_set_ext_params, &
+    xc_f90_func_set_ext_params_name, &
     ! lda
     xc_f90_lda, &
     xc_f90_lda_exc, &
@@ -367,7 +368,14 @@ module xc_f90_lib_m
       type(c_ptr), value      :: p
       real(c_double), intent(in) :: ext_params(*)
     end subroutine xc_func_set_ext_params
-  end interface
+
+    subroutine xc_func_set_ext_params_name(p, name, par) bind(c)
+      import
+      type(c_ptr), value      :: p
+      character(kind=c_char), intent(in) :: name(*)
+      real(c_double), value   :: par
+    end subroutine xc_func_set_ext_params_name
+end interface
     
   ! LDAs
   !----------------------------------------------------------------
@@ -1065,6 +1073,15 @@ module xc_f90_lib_m
     call xc_func_set_ext_params(p%ptr, ext_params)
 
   end subroutine xc_f90_func_set_ext_params
+
+  subroutine xc_f90_func_set_ext_params_name(p, name, par)
+    type(xc_f90_func_t), intent(in) :: p
+    character(len=*), intent(in) :: name
+    real(c_double),      intent(in) :: par
+
+    call xc_func_set_ext_params_name(p%ptr, f_to_c_string(name), par)
+
+  end subroutine xc_f90_func_set_ext_params_name
 
   ! LDAs
   !----------------------------------------------------------------

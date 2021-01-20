@@ -536,19 +536,19 @@ class LibXCFunctional(object):
             A comprehensive list is provided below for each functional family.
                 LDA:
                     EXC: zk
-                    VXС: vrho
+                    VXC: vrho
                     FXC: v2rho2
                     KXC: v3rho3
                     LXC: v4rho4
                 GGA:
                     EXC: zk
-                    VXС: vrho, vsigma
+                    VXC: vrho, vsigma
                     FXC: v2rho2, v2rhosigma, v2sigma2
                     KXC: v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3
                     LXC: v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3, v4sigma4
                 MGGA:
                     EXC: zk
-                    VXС: vrho, vsigma, vlapl (optional), vtau
+                    VXC: vrho, vsigma, vlapl (optional), vtau
                     FXC: v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2,
                          v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2
                     KXC: v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2,

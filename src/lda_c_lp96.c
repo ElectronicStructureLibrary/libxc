@@ -29,10 +29,10 @@ lda_c_lp96_init(xc_func_type *p)
 
   switch(p->info->number){
   case XC_LDA_C_LP96:
-    memcpy(params, &c_lp96, sizeof(lda_c_lp96_params));
+    libxc_memcpy(params, &c_lp96, sizeof(lda_c_lp96_params));
     break;
   case XC_LDA_K_LP96:
-    memcpy(params, &k_lp96, sizeof(lda_c_lp96_params));
+    libxc_memcpy(params, &k_lp96, sizeof(lda_c_lp96_params));
     break;
   default:
     fprintf(stderr, "Internal error in lda_c_lp96\n");

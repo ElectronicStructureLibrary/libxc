@@ -28,7 +28,7 @@ gga_k_lc94_init(xc_func_type *p)
 
   switch(p->info->number){
   case XC_GGA_K_LC94:
-    memcpy(params, &par_k_lc94, sizeof(gga_k_lc94_params));
+    libxc_memcpy(params, &par_k_lc94, sizeof(gga_k_lc94_params));
     break;
   default:
     fprintf(stderr, "Internal error in gga_k_lc94\n");

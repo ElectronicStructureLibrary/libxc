@@ -316,11 +316,15 @@ void set_ext_params_cpy_cam_sr(xc_func_type *p, const double *ext_params);
 GPU_FUNCTION
 double xc_mgga_x_br89_get_x(double Q);
 
+/* We need to be able to free memory allocated in the C code from the
+   Fortran side */
+void libxc_free(void *ptr);
+
 #ifndef HAVE_CUDA
 #define libxc_malloc malloc
 #define libxc_calloc calloc
-#define libxc_free free
 #define libxc_memset memset
+#define libxc_memcpy memcpy
 #else
 
 template <class int_type>
@@ -338,8 +342,12 @@ auto libxc_calloc(const int_type1 size1, const int_type2 size2){
   return mem;
 }
 
-#define libxc_free cudaFree
 #define libxc_memset cudaMemset
+
+template <class int_type>
+void libxc_memcpy(void *dest, void *src, const int_type size){
+  cudaMemcpy(dest, src, size, cudaMemcpyDefault);
+}
 
 #endif
 

@@ -74,10 +74,10 @@ lda_xc_ksdt_init(xc_func_type *p)
 
   switch(p->info->number){
   case XC_LDA_XC_KSDT:
-    memcpy(params, &par_ksdt, sizeof(lda_xc_ksdt_params));
+    libxc_memcpy(params, &par_ksdt, sizeof(lda_xc_ksdt_params));
     break;
   case XC_LDA_XC_GDSMFB:
-    memcpy(params, &par_gdsmfb, sizeof(lda_xc_ksdt_params));
+    libxc_memcpy(params, &par_gdsmfb, sizeof(lda_xc_ksdt_params));
     break;
   default:
     fprintf(stderr, "Internal error in lda_xc_ksdt\n");

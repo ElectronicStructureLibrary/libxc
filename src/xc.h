@@ -265,7 +265,10 @@ struct xc_func_type{
 
   xc_dimensions dim;           /* the dimensions of all input and output arrays */
 
-  void *params;                /* this allows us to fix parameters in the functional */
+  /* This is where the values of the external parameters are stored */
+  double *ext_params;
+  /* This is a placeholder for structs of parameters that are used in the Maple generated sources */
+  void *params;
 
   double dens_threshold;       /* functional is put to zero for spin-densities smaller than this */
   double zeta_threshold;       /* idem for the absolute value of zeta */
@@ -318,9 +321,14 @@ void  xc_func_set_tau_threshold(xc_func_type *p, double t_tau);
 
 /** Sets all external parameters for a functional */
 void  xc_func_set_ext_params(xc_func_type *p, const double *ext_params);
+/** Gets all external parameters for a functional. Array needs to be preallocated  */
+void  xc_func_get_ext_params(const xc_func_type *p, double *ext_params);
 /** Sets an external parameter by name for a functional */
 void  xc_func_set_ext_params_name(xc_func_type *p, const char *name, double par);
-
+/** Gets an external parameter by name for a functional */
+double xc_func_get_ext_params_name(const xc_func_type *p, const char *name);
+/** Gets an external parameter by index */
+double xc_func_get_ext_params_value(const xc_func_type *p, int number);
 
 #include "xc_funcs.h"
 #include "xc_funcs_removed.h"

@@ -15,25 +15,16 @@ typedef struct {
   double ap, bp, af, bf, h;
 } gga_c_chachiyo_params;
 
-static gga_c_chachiyo_params par_chachiyo = {-0.01554535, 20.4562557, -0.007772675, 27.4203609, 0.06672632};
+#define N_PAR 5
+static const char  *names[N_PAR]  = {"_ap", "_bp", "_af", "_bf", "_h"};
+static const char  *desc[N_PAR]   = {"ap parameter", "bp parameter", "af parameter", "bf parameter", "h parameter"};
+static const double par_chachiyo[N_PAR] = {-0.01554535, 20.4562557, -0.007772675, 27.4203609, 0.06672632};
 
 static void
 gga_c_chachiyo_init(xc_func_type *p)
 {
-  gga_c_chachiyo_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_c_chachiyo_params));
-  params = (gga_c_chachiyo_params *) (p->params);
-
-  switch(p->info->number){
-  case XC_GGA_C_CHACHIYO:
-    libxc_memcpy(params, &par_chachiyo, sizeof(gga_c_chachiyo_params));
-    break;
-  default:
-    fprintf(stderr, "Internal error in gga_c_chachiyo\n");
-    exit(1);
-  }
 }
 
 #include "decl_gga.h"
@@ -51,7 +42,7 @@ const xc_func_info_type xc_func_info_gga_c_chachiyo = {
   {&xc_ref_Chachiyo2020_112669, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_chachiyo, set_ext_params_cpy},
   gga_c_chachiyo_init, NULL,
   NULL, work_gga, NULL
 };

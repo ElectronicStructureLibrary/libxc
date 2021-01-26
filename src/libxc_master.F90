@@ -300,6 +300,11 @@ module xc_f03_lib_m
       type(c_ptr), value :: p
     end subroutine xc_func_free
 
+    subroutine libxc_free(p) bind(c)
+      import
+      type(c_ptr), value :: p
+    end subroutine libxc_free
+
     type(c_ptr) function xc_func_get_info(p) bind(c)
       import
       type(c_ptr), value :: p
@@ -970,8 +975,11 @@ end interface
 
   character(len=128) function xc_f03_functional_get_name(number) result(name)
     integer(c_int), intent(in) :: number
+    type(c_ptr) :: cstr
 
-    call c_to_f_string_ptr(xc_functional_get_name(number), name)
+    cstr = xc_functional_get_name(number)
+    call c_to_f_string_ptr(cstr, name)
+    call libxc_free(cstr)
 
   end function xc_f03_functional_get_name
 

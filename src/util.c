@@ -233,6 +233,17 @@ set_ext_params_cpy_cam_sr(xc_func_type *p, const double *ext_params)
   p->hyb_omega[0] = get_ext_param(p, ext_params, nparams + 1);
 }
 
+/* Free pointer */
+void
+libxc_free(void *ptr)
+{
+#ifdef HAVE_CUDA
+  cudaFree(ptr);
+#else
+  free(ptr);
+#endif
+}
+
 
 /* these functional handle the internal counters
    used to move along the input and output arrays.

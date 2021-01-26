@@ -69,13 +69,13 @@ lda_c_pz_init(xc_func_type *p)
 
   switch(p->info->number){
   case XC_LDA_C_PZ:
-    memcpy(params, &pz_original, sizeof(lda_c_pz_params));
+    libxc_memcpy(params, &pz_original, sizeof(lda_c_pz_params));
     break;
   case XC_LDA_C_PZ_MOD:
-    memcpy(params, &pz_modified, sizeof(lda_c_pz_params));
+    libxc_memcpy(params, &pz_modified, sizeof(lda_c_pz_params));
     break;
   case XC_LDA_C_OB_PZ:
-    memcpy(params, &pz_ob, sizeof(lda_c_pz_params));
+    libxc_memcpy(params, &pz_ob, sizeof(lda_c_pz_params));
     break;
   default:
     fprintf(stderr, "Internal error in lda_c_pz\n");

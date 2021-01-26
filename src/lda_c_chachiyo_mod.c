@@ -31,10 +31,10 @@ lda_c_chachiyo_mod_init(xc_func_type *p)
 
   switch(p->info->number){
   case XC_LDA_C_CHACHIYO_MOD:
-    memcpy(params, &par_chachiyo, sizeof(lda_c_chachiyo_mod_params));
+    libxc_memcpy(params, &par_chachiyo, sizeof(lda_c_chachiyo_mod_params));
     break;
   case XC_LDA_C_KARASIEV_MOD:
-    memcpy(params, &par_karasiev, sizeof(lda_c_chachiyo_mod_params));
+    libxc_memcpy(params, &par_karasiev, sizeof(lda_c_chachiyo_mod_params));
     break;
   default:
     fprintf(stderr, "Internal error in lda_c_chachiyo_mod\n");

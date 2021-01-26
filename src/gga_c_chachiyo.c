@@ -28,7 +28,7 @@ gga_c_chachiyo_init(xc_func_type *p)
 
   switch(p->info->number){
   case XC_GGA_C_CHACHIYO:
-    memcpy(params, &par_chachiyo, sizeof(gga_c_chachiyo_params));
+    libxc_memcpy(params, &par_chachiyo, sizeof(gga_c_chachiyo_params));
     break;
   default:
     fprintf(stderr, "Internal error in gga_c_chachiyo\n");

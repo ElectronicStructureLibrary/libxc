@@ -27,60 +27,63 @@ typedef struct {
   double a[2], b[2], c[2], d[2];
 } lda_c_pz_params;
 
-static lda_c_pz_params pz_original = {
-  {-0.1423, -0.0843},  /* gamma */
-  { 1.0529,  1.3981},  /* beta1 */
-  { 0.3334,  0.2611},  /* beta2 */
-  { 0.0311,  0.01555}, /*  a    */
-  {-0.048,  -0.0269},  /*  b    */
-  { 0.0020,  0.0007},  /*  c    */
-  {-0.0116, -0.0048}   /*  d    */
+#define N_PAR 14
+static const char *names[N_PAR]  = {
+  "_gamma0", "_gamma1",
+  "_beta10", "_beta11",
+  "_beta20", "_beta21",
+  "_a0", "_a1",
+  "_b0", "_b1",
+  "_c0", "_c1",
+  "_d0", "_d1"
 };
 
-static lda_c_pz_params pz_modified = {
-  {-0.1423, -0.0843},
-  { 1.0529,  1.3981},
-  { 0.3334,  0.2611},
-  { 0.0311,  0.01555},
-  {-0.048,  -0.0269},
-  { 0.0020191519406228,  0.00069255121311694},
-  {-0.0116320663789130, -0.00480126353790614}
+static const char *desc[N_PAR]  = {
+  "gamma0 parameter", "gamma1 parameter",
+  "beta10 parameter", "beta11 parameter",
+  "beta20 parameter", "beta21 parameter",
+  "a0 parameter", "a1 parameter",
+  "b0 parameter", "b1 parameter",
+  "c0 parameter", "c1 parameter",
+  "d0 parameter", "d1 parameter"
 };
 
-static lda_c_pz_params pz_ob = {
-  {-0.103756, -0.065951},
-  { 0.56371,   1.11846},
-  { 0.27358,   0.18797},
-  { 0.031091,  0.015545},
-  {-0.046644, -0.025599},
-  { 0.00419,   0.00329},  /* the sign of c[0] and c[1] is different from [2], but is consistent
+static const double par_pz[N_PAR] = {
+  -0.1423, -0.0843,  /* gamma */
+   1.0529,  1.3981,  /* beta1 */
+   0.3334,  0.2611,  /* beta2 */
+   0.0311,  0.01555, /*  a    */
+  -0.048,  -0.0269,  /*  b    */
+   0.0020,  0.0007,  /*  c    */
+  -0.0116, -0.0048   /*  d    */
+};
+
+static const double par_pz_mod[N_PAR] = {
+  -0.1423, -0.0843,
+   1.0529,  1.3981,
+   0.3334,  0.2611,
+   0.0311,  0.01555,
+  -0.048,  -0.0269,
+   0.0020191519406228,  0.00069255121311694,
+  -0.0116320663789130, -0.00480126353790614
+};
+
+static const double par_pz_ob[N_PAR] = {
+  -0.103756, -0.065951,
+   0.56371,   1.11846,
+   0.27358,   0.18797,
+   0.031091,  0.015545,
+  -0.046644, -0.025599,
+   0.00419,   0.00329,  /* the sign of c[0] and c[1] is different from [2], but is consistent
                              with the continuity requirement. There is nothing in [3] about this. */
-  {-0.00983,  -0.00300}
+  -0.00983,  -0.00300
 };
 
 static void
 lda_c_pz_init(xc_func_type *p)
 {
-  lda_c_pz_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(lda_c_pz_params));
-  params = (lda_c_pz_params *) (p->params);
-
-  switch(p->info->number){
-  case XC_LDA_C_PZ:
-    libxc_memcpy(params, &pz_original, sizeof(lda_c_pz_params));
-    break;
-  case XC_LDA_C_PZ_MOD:
-    libxc_memcpy(params, &pz_modified, sizeof(lda_c_pz_params));
-    break;
-  case XC_LDA_C_OB_PZ:
-    libxc_memcpy(params, &pz_ob, sizeof(lda_c_pz_params));
-    break;
-  default:
-    fprintf(stderr, "Internal error in lda_c_pz\n");
-    exit(1);
-  }
 }
 
 #include "decl_lda.h"
@@ -98,7 +101,7 @@ const xc_func_info_type xc_func_info_lda_c_pz = {
   {&xc_ref_Perdew1981_5048, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_pz, set_ext_params_cpy},
   lda_c_pz_init, NULL,
   work_lda, NULL, NULL
 };
@@ -114,7 +117,7 @@ const xc_func_info_type xc_func_info_lda_c_pz_mod = {
   {&xc_ref_Perdew1981_5048_mod, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_pz_mod, set_ext_params_cpy},
   lda_c_pz_init, NULL,
   work_lda, NULL, NULL
 };
@@ -130,7 +133,7 @@ const xc_func_info_type xc_func_info_lda_c_ob_pz = {
   {&xc_ref_Ortiz1994_1391, &xc_ref_Ortiz1994_1391_err, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_pz_ob, set_ext_params_cpy},
   lda_c_pz_init, NULL,
   work_lda, NULL, NULL
 };

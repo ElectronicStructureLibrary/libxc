@@ -210,19 +210,8 @@ typedef struct xc_functional_key_t {
 #define MU_PBE         0.2195149727645171 /* mu = beta*pi^2/3, beta = 0.06672455060314922 */
 #define X2S            0.1282782438530421943003109254455883701296     /* 1/(2*(6*pi^2)^(1/3))  */
 #define X2S_2D         0.1410473958869390717370198628901931464610     /* 1/(2*(4*pi)^(1/2))    */
-#define FZETAFACTOR    0.5198420997897463295344212145564567011405     /* 2^(4/3) - 2           */
 
-#define RS(x)          (RS_FACTOR/CBRT(x))
-#define FZETA(x)       ((pow(1.0 + (x),  4.0/3.0) + pow(1.0 - (x),  4.0/3.0) - 2.0)/FZETAFACTOR)
-#define DFZETA(x)      ((CBRT(1.0 + (x)) - CBRT(1.0 - (x)))*(4.0/3.0)/FZETAFACTOR)
-#define D2FZETA(x)     ((4.0/9.0)/FZETAFACTOR)* \
-  (fabs(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -2.0/3.0) + pow(1.0 - (x), -2.0/3.0)))
-#define D3FZETA(x)     (-(8.0/27.0)/FZETAFACTOR)* \
-  (fabs(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -5.0/3.0) - pow(1.0 - (x), -5.0/3.0)))
-
-
-/* The following inlines confuse the xlc compiler */
-GPU_FUNCTION void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
+#define VDW_DF1_ZAB    -0.8491 /* Zab that is used in the vdw_df1 functional of Dion2004_246401 */
 
 /* Functions to handle the internal counters */
 
@@ -302,6 +291,7 @@ void xc_hyb_init_sr  (xc_func_type *p, double beta, double omega);
 void xc_hyb_init_cam (xc_func_type *p, double alpha, double beta, double omega);
 void xc_hyb_init_camy(xc_func_type *p, double alpha, double beta, double omega);
 void xc_hyb_init_camg(xc_func_type *p, double alpha, double beta, double omega);
+void xc_hyb_init_vdw_df(xc_func_type *p, double Zab);
 
 /* Some useful functions */
 const char *get_kind(const xc_func_type *func);

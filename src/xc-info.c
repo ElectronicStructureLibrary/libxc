@@ -37,6 +37,13 @@ void print_rangesep(xc_func_type *func) {
   printf("and %4.1f%% short-range and %4.1f%% long-range exact exchange,\n",(alpha+beta)*100,(alpha)*100);
 }
 
+void print_vdw(xc_func_type *func) {
+  double Zab;
+  assert(func->hyb_type[0] == XC_HYB_VDW_DF);
+  Zab = func->hyb_coeff[0];
+  printf("\nThis is a vdW-DF functional with Z_ab=%8.4f.\n", Zab);
+}
+
 int main(int argc, char **argv)
 {
   int i, func_id, error, npar, hybrid_type;
@@ -98,6 +105,10 @@ int main(int argc, char **argv)
     break;
   case XC_HYB_DOUBLE_HYBRID:
     printf("\nThis is a double hybrid functional.\n");
+    break;
+  case XC_HYB_VDW:
+    printf("\nThis is a van der Waals functional.\n");
+    print_vdw(&func);
     break;
   case XC_HYB_MIXTURE:
     printf("\nThis is a complicated functional ;)\n");

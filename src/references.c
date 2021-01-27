@@ -615,6 +615,13 @@ func_reference_type xc_ref_DePristo1987_438 = {
 };
 
 
+func_reference_type xc_ref_Dion2004_246401 = {
+  "M. Dion, H. Rydberg, E. Schroder, D. C. Langreth, and B. I. Lundqvist, Phys. Rev. Lett. 92, 246401 (2004)",
+  "10.1103/PhysRevLett.92.246401",
+  "@article{Dion2004_246401,\n  title = {Van der Waals Density Functional for General Geometries},\n  author = {Dion, M. and Rydberg, H. and Schr\\\"oder, E. and Langreth, D. C. and Lundqvist, B. I.},\n  journal = {Phys. Rev. Lett.},\n  volume = {92},\n  issue = {24},\n  pages = {246401},\n  numpages = {4},\n  year = {2004},\n  month = {Jun},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.92.246401},\n  url = {https://link.aps.org/doi/10.1103/PhysRevLett.92.246401}\n}"
+};
+
+
 func_reference_type xc_ref_Dirac1930_376 = {
   "P. A. M. Dirac, Math. Proc. Cambridge Philos. Soc. 26, 376 (1930)",
   "10.1017/S0305004100016108",
@@ -1284,6 +1291,13 @@ func_reference_type xc_ref_Kurth1999_889 = {
   "S. Kurth, J. P. Perdew, and P. Blaha, Int. J. Quantum Chem. 75, 889 (1999)",
   "10.1002/(SICI)1097-461X(1999)75:4/5<889::AID-QUA54>3.0.CO;2-8",
   "@article{Kurth1999_889,\n  author = {Kurth, Stefan and Perdew, John P. and Blaha, Peter},\n  title = {Molecular and solid-state tests of density functional approximations: LSD, GGAs, and meta-GGAs},\n  journal = {Int. J. Quantum Chem.},\n  volume = {75},\n  number = {4-5},\n  pages = {889-909},\n  doi = {10.1002/(SICI)1097-461X(1999)75:4/5<889::AID-QUA54>3.0.CO;2-8},\n  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/%28SICI%291097-461X%281999%2975%3A4/5%3C889%3A%3AAID-QUA54%3E3.0.CO%3B2-8},\n  year = {1999}\n}"
+};
+
+
+func_reference_type xc_ref_Kyuho2010_081101 = {
+  "K. Lee, E. D. Murray, L. Kong, B. I. Lundqvist, and D. C. Langreth, Phys. Rev. B 82, 081101 (2010)",
+  "10.1103/PhysRevB.82.081101",
+  "@article{Kyuho2010_081101,\n  title = {Higher-accuracy van der Waals density functional},\n  author = {Lee, Kyuho and Murray, \\'Eamonn D. and Kong, Lingzhu and Lundqvist, Bengt I. and Langreth, David C.},\n  journal = {Phys. Rev. B},\n  volume = {82},\n  issue = {8},\n  pages = {081101},\n  numpages = {4},\n  year = {2010},\n  month = {Aug},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.82.081101},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.82.081101}\n}"
 };
 
 

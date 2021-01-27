@@ -77,6 +77,16 @@ xc_hyb_init_camg(xc_func_type *p, double alpha, double beta, double omega)
   xc_hyb_init(p, 2, hyb_type, hyb_coeff, hyb_omega);
 }
 
+void
+xc_hyb_init_vdw_df(xc_func_type *p, double Zab)
+{
+  int    hyb_type[1]  = {XC_HYB_VDW_DF};
+  double hyb_omega[1] = {0.0};
+  double hyb_coeff[1] = {Zab};
+
+  xc_hyb_init(p, 1, hyb_type, hyb_coeff, hyb_omega);
+}
+
 /* checks and returns the type of hybrid function */
 int
 xc_hyb_type(const xc_func_type *p)
@@ -101,6 +111,10 @@ xc_hyb_type(const xc_func_type *p)
       return XC_HYB_CAMY;
     if(p->hyb_type[0] == XC_HYB_GAUSSIAN_SR)
       return XC_HYB_CAMG;
+
+    /* van der Waals functional */
+    if(p->hyb_type[0] == XC_HYB_VDW_DF)
+      return XC_HYB_VDW;
   }
 
   if(p->hyb_number_terms == 2) {

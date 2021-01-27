@@ -14,26 +14,18 @@ typedef struct{
   double a, b, c, d, f, alpha, expo;
 } gga_k_lc94_params;
 
-static gga_k_lc94_params par_k_lc94 =
+#define N_PAR 7
+static const char *names[N_PAR]  = {"_a", "_b", "_c", "_d", "_f", "_alpha", "_expo"};
+static const char *desc[N_PAR]   = {"a parameter", "b parameter", "c parameter", "d parameter", "f parameter", "alpha parameter", "exponent"};
+
+static const double par_k_lc94[N_PAR] =
   {0.093907, 76.320, 0.26608, -0.0809615, 0.000057767, 100.0, 4.0};
 
 static void
 gga_k_lc94_init(xc_func_type *p)
 {
-  gga_k_lc94_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_k_lc94_params));
-  params = (gga_k_lc94_params *) (p->params);
-
-  switch(p->info->number){
-  case XC_GGA_K_LC94:
-    libxc_memcpy(params, &par_k_lc94, sizeof(gga_k_lc94_params));
-    break;
-  default:
-    fprintf(stderr, "Internal error in gga_k_lc94\n");
-    exit(1);
-  }
 }
 
 #include "decl_gga.h"
@@ -51,7 +43,7 @@ const xc_func_info_type xc_func_info_gga_k_lc94 = {
   {&xc_ref_Lembarki1994_5328, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_k_lc94, set_ext_params_cpy},
   gga_k_lc94_init, NULL,
   NULL, work_gga, NULL
 };

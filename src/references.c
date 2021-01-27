@@ -2114,9 +2114,9 @@ func_reference_type xc_ref_Shao2003_4807 = {
 
 
 func_reference_type xc_ref_Shao2020_587 = {
-  "Y. Shao, Y. Mei, D. Sundholm, and V. R. I. Kaila, J. Chem. Theory Comput. 16, 587 (2020), https://doi.org/10.1021/acs.jctc.9b00823",
+  "Y. Shao, Y. Mei, D. Sundholm, and V. R. I. Kaila, J. Chem. Theory Comput. 16, 587 (2020)",
   "10.1021/acs.jctc.9b00823",
-  "@article{Shao2020_587,\n  author = {Shao, Yihan and Mei, Ye and Sundholm, Dage and Kaila, Ville R. I.},\n  title = {Benchmarking the Performance of Time-Dependent Density Functional Theory Methods on Biochromophores},\n  journal = {J. Chem. Theory Comput.},\n  volume = {16},\n  number = {1},\n  pages = {587-600},\n  year = {2020},\n  doi = {10.1021/acs.jctc.9b00823},\n  url = {https://doi.org/10.1021/acs.jctc.9b00823},\n  eprint = {https://doi.org/10.1021/acs.jctc.9b00823}\n}"
+  "@article{Shao2020_587,\n  author = {Shao, Yihan and Mei, Ye and Sundholm, Dage and Kaila, Ville R. I.},\n  title = {Benchmarking the Performance of Time-Dependent Density Functional Theory Methods on Biochromophores},\n  journal = {J. Chem. Theory Comput.},\n  volume = {16},\n  number = {1},\n  pages = {587-600},\n  year = {2020},\n  doi = {10.1021/acs.jctc.9b00823},\n  url = {https://doi.org/10.1021/acs.jctc.9b00823}\n}"
 };
 
 
@@ -2520,9 +2520,9 @@ func_reference_type xc_ref_Wang2018_10257 = {
 
 
 func_reference_type xc_ref_Wang2020_2294 = {
-  "Y. Wang, P. Verma, L. Zhang, Y. Li, Z. Liu, D. G. Truhlar, and X. He, Proc. Natl. Acad. Sci. U. S. A. 117, 2294 (2020), https://www.pnas.org/content/117/5/2294.full.pdf",
+  "Y. Wang, P. Verma, L. Zhang, Y. Li, Z. Liu, D. G. Truhlar, and X. He, Proc. Natl. Acad. Sci. U. S. A. 117, 2294 (2020)",
   "10.1073/pnas.1913699117",
-  "@article{Wang2020_2294,\n  author = {Wang, Ying and Verma, Pragya and Zhang, Lujia and Li, Yaqi and Liu, Zhonghua and Truhlar, Donald G. and He, Xiao},\n  title = {M06-SX screened-exchange density functional for chemistry and solid-state physics},\n  volume = {117},\n  number = {5},\n  pages = {2294--2301},\n  year = {2020},\n  doi = {10.1073/pnas.1913699117},\n  publisher = {National Academy of Sciences},\n  issn = {0027-8424},\n  url = {https://www.pnas.org/content/117/5/2294},\n  eprint = {https://www.pnas.org/content/117/5/2294.full.pdf},\n  journal = {Proc. Natl. Acad. Sci. U. S. A.}\n}"
+  "@article{Wang2020_2294,\n  author = {Wang, Ying and Verma, Pragya and Zhang, Lujia and Li, Yaqi and Liu, Zhonghua and Truhlar, Donald G. and He, Xiao},\n  title = {M06-SX screened-exchange density functional for chemistry and solid-state physics},\n  volume = {117},\n  number = {5},\n  pages = {2294--2301},\n  year = {2020},\n  doi = {10.1073/pnas.1913699117},\n  publisher = {National Academy of Sciences},\n  issn = {0027-8424},\n  url = {https://www.pnas.org/content/117/5/2294},\n  journal = {Proc. Natl. Acad. Sci. U. S. A.}\n}"
 };
 
 

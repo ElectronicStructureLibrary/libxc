@@ -16,29 +16,18 @@ typedef struct {
   double ap, bp, af, bf;
 } lda_c_chachiyo_params;
 
-static lda_c_chachiyo_params par_chachiyo = {-0.01554535, 20.4562557, -0.007772675, 27.4203609};
-static lda_c_chachiyo_params par_karasiev = {-0.01554535, 21.7392245, -0.007772675, 28.3559732};
+#define N_PAR 4
+static const char  *names[N_PAR]  = {"_ap", "_bp", "_af", "_bf"};
+static const char  *desc[N_PAR]   = {"ap parameter", "bp parameter", "af parameter", "bf parameter"};
+
+static const double par_chachiyo[N_PAR] = {-0.01554535, 20.4562557, -0.007772675, 27.4203609};
+static const double par_karasiev[N_PAR] = {-0.01554535, 21.7392245, -0.007772675, 28.3559732};
 
 static void
 lda_c_chachiyo_init(xc_func_type *p)
 {
-  lda_c_chachiyo_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(lda_c_chachiyo_params));
-  params = (lda_c_chachiyo_params *) (p->params);
-
-  switch(p->info->number){
-  case XC_LDA_C_CHACHIYO:
-    libxc_memcpy(params, &par_chachiyo, sizeof(lda_c_chachiyo_params));
-    break;
-  case XC_LDA_C_KARASIEV:
-    libxc_memcpy(params, &par_karasiev, sizeof(lda_c_chachiyo_params));
-    break;
-  default:
-    fprintf(stderr, "Internal error in lda_c_chachiyo\n");
-    exit(1);
-  }
 }
 
 #include "decl_lda.h"
@@ -56,7 +45,7 @@ const xc_func_info_type xc_func_info_lda_c_chachiyo = {
   {&xc_ref_Chachiyo2016_021101, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_chachiyo, set_ext_params_cpy},
   lda_c_chachiyo_init, NULL,
   work_lda, NULL, NULL
 };
@@ -72,7 +61,7 @@ const xc_func_info_type xc_func_info_lda_c_karasiev = {
   {&xc_ref_Karasiev2016_157101, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_karasiev, set_ext_params_cpy},
   lda_c_chachiyo_init, NULL,
   work_lda, NULL, NULL
 };

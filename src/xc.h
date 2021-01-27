@@ -86,7 +86,8 @@ const char *xc_version_string();
 #define XC_HYB_ERF_SR           4  /* Short range of range separated - erf version */
 #define XC_HYB_YUKAWA_SR        8  /* Short range of range separated - Yakawa version */
 #define XC_HYB_GAUSSIAN_SR     16  /* Short range of range separated - Gaussian version */
-
+#define XC_HYB_VDW             32  /* This is a semi-local + van der Waals functional */
+  
 /* Different types of hybrid functionals. */
 #define XC_HYB_SEMILOCAL        0  /* Standard semi-local functional (not a hybrid) */
 #define XC_HYB_HYBRID           1  /* Standard hybrid functional */
@@ -94,6 +95,7 @@ const char *xc_version_string();
 #define XC_HYB_CAMY             3  /* Coulomb attenuated hybrid with a Yukawa screening */
 #define XC_HYB_CAMG             4  /* Coulomb attenuated hybrid with a Gaussian screening */
 #define XC_HYB_DOUBLE_HYBRID    5  /* Double hybrid */
+#define XC_HYB_VDW_DF           6  /* van der Waals correction according to Dion2004_246401 */
 #define XC_HYB_MIXTURE      32768  /* More complicated mixture (have to check individual terms) */
 
 #define XC_MAX_REFERENCES       5

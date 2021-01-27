@@ -26,16 +26,16 @@ gga_x_ak13_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_x_ak13.c"
 #include "work_gga.c"
 
-#define AK13_N_PAR 2
-static const char  *ak13_names[AK13_N_PAR]  = {"_B1", "_B2"};
-static const char  *ak13_desc[AK13_N_PAR]   = {"B1", "B2"};
+#define N_PAR 2
+static const char  *names[N_PAR]  = {"_B1", "_B2"};
+static const char  *desc[N_PAR]   = {"B1", "B2"};
 /* B1 = 3*muGE/5 + 8 pi/15   B2 = muGE - B1 */
-static const double ak13_values[AK13_N_PAR] =
+static const double par_ak13[N_PAR] =
   {1.74959015598863046792081721182, -1.62613336586517367779736042170};
 
 double xc_gga_ak13_get_asymptotic (double homo)
 {
-  return xc_gga_ak13_pars_get_asymptotic(homo, ak13_values);
+  return xc_gga_ak13_pars_get_asymptotic(homo, par_ak13);
 }
 
 double xc_gga_ak13_pars_get_asymptotic (double homo, const double *ext_params)
@@ -66,7 +66,7 @@ const xc_func_info_type xc_func_info_gga_x_ak13 = {
   {&xc_ref_Armiento2013_036402, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
-  {2, ak13_names, ak13_desc, ak13_values, set_ext_params_cpy},
+  {N_PAR, names, desc, par_ak13, set_ext_params_cpy},
   gga_x_ak13_init, NULL,
   NULL, work_gga, NULL
 };

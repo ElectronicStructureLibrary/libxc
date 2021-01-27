@@ -1,7 +1,7 @@
 /*
- Copyright (C) 2006-2007 M.A.L. Marques
+ Copyright (C) 2006-2021 M.A.L. Marques
+               2015-2021 Susi Lehtola
                2019 X. Andrade
-               2020 Susi Lehtola
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -84,44 +84,9 @@ const char *get_family(const xc_func_type *func) {
 double
 get_ext_param(const xc_func_type *func, const double *values, int index)
 {
-  /*
-     If libxc finds a file in the current directory name
-     "libxc.params", it will try to read the parameters for the
-     current functional from it. This file should contain one
-     parameter per line. E.g., for the x_pbe functional:
-
-       ------------------ <start libxc.params>
-       0.8040              # _kappa
-       0.2195149727645171  # _mu (PBE)
-       ------------------ <end libxc.params>
-
-     Note that this only works for functionals whose parameters can be
-     set by set_ext_params.
-  */
-
-  /* Commented as considered dangerous ;)
-  FILE *par_in;
-  int ii, nn;
-  double dd;
-
-  if((par_in = fopen("libxc.params","rb"))){
-    for(ii=0; ii<index; ii++)
-      fscanf(par_in, "%*[^\n]\n", NULL);
-
-    nn = fscanf(par_in, "%lf", &dd);
-    fclose(par_in);
-
-    if(nn == 1)
-      return dd;
-  }
-  */
-
-  if(values == NULL || values[index] == XC_EXT_PARAMS_DEFAULT)
-    return func->info->ext_params.values[index]; /* return default value */
-  else
-    return values[index]; /* return user assigned value */
+  assert(index >= 0 && index < func->info->ext_params.n);
+  return func->ext_params[index];
 }
-
 
 /* Copy n parameters, assumes that p->params is just a series of doubles
    so it can be accessed as a array, and and copies

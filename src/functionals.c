@@ -1,6 +1,7 @@
 /*
- Copyright (C) 2006-2007 M.A.L. Marques
- Copyright (C) 2019 X. Andrade
+ Copyright (C) 2006-2021 M.A.L. Marques
+               2015-2021 Susi Lehtola
+               2019 X. Andrade
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -247,6 +248,7 @@ void xc_func_nullify(xc_func_type *func)
 
   func->nlc_b = func->nlc_C = 0.0;
 
+  func->ext_params = NULL;
   func->params     = NULL;
 
   func->dens_threshold  = 0.0;
@@ -311,8 +313,10 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
     func->info->init(func);
 
   /* see if we need to initialize the external parameters */
-  if(func->info->ext_params.n > 0)
-    func->info->ext_params.set(func, NULL);
+  if(func->info->ext_params.n > 0) {
+    func->ext_params = (double *) libxc_malloc(func->info->ext_params.n * sizeof(double));
+    xc_func_set_ext_params(func, func->info->ext_params.values);
+  }
 
   return 0;
 }
@@ -350,6 +354,8 @@ void xc_func_end(xc_func_type *func)
   }
 
   /* deallocate any used parameter */
+  if(func->ext_params != NULL)
+    libxc_free(func->ext_params);
   if(func->params != NULL)
     libxc_free(func->params);
 
@@ -424,34 +430,64 @@ void xc_func_set_tau_threshold(xc_func_type *p, double t_tau)
 void
 xc_func_set_ext_params(xc_func_type *p, const double *ext_params)
 {
+  int ii;
+
   assert(p->info->ext_params.n > 0);
-  p->info->ext_params.set(p, ext_params);
+  /* We always store the current parameters in the functional instance */
+  for(ii=0; ii<p->info->ext_params.n; ii++)
+    p->ext_params[ii] = (ext_params[ii] == XC_EXT_PARAMS_DEFAULT) ? p->info->ext_params.values[ii] : ext_params[ii];
+  /* Update the parameters */
+  p->info->ext_params.set(p, p->ext_params);
+}
+
+void
+xc_func_get_ext_params(const xc_func_type *p, double *ext_params)
+{
+  int ii;
+  assert(p->info->ext_params.n > 0);
+  assert(ext_params != NULL);
+  for(ii=0; ii<p->info->ext_params.n; ii++)
+    ext_params[ii] = p->ext_params[ii];
+}
+
+static int
+xc_func_find_ext_params_name(const xc_func_type *p, const char *name) {
+  int ii;
+  assert(p != NULL && p->info->ext_params.n > 0);
+  for(ii=0; ii<p->info->ext_params.n; ii++){
+    if(strcmp(p->info->ext_params.names[ii], name) == 0) {
+      return ii;
+    }
+  }
+  return -1;
 }
 
 void
 xc_func_set_ext_params_name(xc_func_type *p, const char *name, double par)
 {
   int ii;
-  double *ext_params;
-  int name_found=0;
 
-  assert(p != NULL && p->info->ext_params.n > 0);
-
-  ext_params = (double *) libxc_malloc(p->info->ext_params.n*sizeof(double));
-  for(ii=0; ii<p->info->ext_params.n; ii++){
-    if(strcmp(p->info->ext_params.names[ii], name) == 0) {
-      ext_params[ii] = par;
-      name_found=1;
-    } else {
-      ext_params[ii] = XC_EXT_PARAMS_DEFAULT;
-    }
-  }
-  xc_func_set_ext_params(p, ext_params);
-  libxc_free(ext_params);
-  /* Check that we found the parameter */
-  assert(name_found);
+  ii = xc_func_find_ext_params_name(p, name);
+  assert(ii>=0);
+  p->ext_params[ii] = par;
+  xc_func_set_ext_params(p, p->ext_params);
 }
 
+double
+xc_func_get_ext_params_name(const xc_func_type *p, const char *name)
+{
+  int ii;
+
+  ii = xc_func_find_ext_params_name(p, name);
+  assert(ii>=0);
+  return p->ext_params[ii];
+}
+
+double
+xc_func_get_ext_params_value(const xc_func_type *p, int index)
+{
+  return p->ext_params[index];
+}
 
 /* returns the NLC parameters */
 void xc_nlc_coef(const xc_func_type *p, double *nlc_b, double *nlc_C)

@@ -15,29 +15,22 @@ typedef struct {
   double C1, C2, C3;
 } lda_c_lp96_params;
 
-static lda_c_lp96_params c_lp96 = {-0.0603,   0.0175, -0.00053};
-static lda_c_lp96_params k_lp96 = { 0.03777, -0.01002, 0.00039};
+#define N_PAR 3
+static const char *names[N_PAR]  = {
+  "_C1", "_C2", "_C3"
+};
+static const char *desc[N_PAR]  = {
+  "C1 parameter", "C2 parameter", "C3 parameter"
+};
+
+static const double par_c_lp96[N_PAR] = {-0.0603,   0.0175, -0.00053};
+static const double par_k_lp96[N_PAR] = { 0.03777, -0.01002, 0.00039};
 
 static void
 lda_c_lp96_init(xc_func_type *p)
 {
-  lda_c_lp96_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(lda_c_lp96_params));
-  params = (lda_c_lp96_params *) (p->params);
-
-  switch(p->info->number){
-  case XC_LDA_C_LP96:
-    libxc_memcpy(params, &c_lp96, sizeof(lda_c_lp96_params));
-    break;
-  case XC_LDA_K_LP96:
-    libxc_memcpy(params, &k_lp96, sizeof(lda_c_lp96_params));
-    break;
-  default:
-    fprintf(stderr, "Internal error in lda_c_lp96\n");
-    exit(1);
-  }
 }
 
 #include "decl_lda.h"
@@ -55,7 +48,7 @@ const xc_func_info_type xc_func_info_lda_c_lp96 = {
   {&xc_ref_Liu1996_2211, &xc_ref_Liu2000_29, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-16,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_c_lp96, set_ext_params_cpy},
   lda_c_lp96_init, NULL,
   work_lda, NULL, NULL
 };
@@ -71,7 +64,7 @@ const xc_func_info_type xc_func_info_lda_k_lp96 = {
   {&xc_ref_Liu1996_2211, &xc_ref_Liu2000_29, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-16,
-  {0, NULL, NULL, NULL, NULL},
+  {N_PAR, names, desc, par_k_lp96, set_ext_params_cpy},
   lda_c_lp96_init, NULL,
   work_lda, NULL, NULL
 };

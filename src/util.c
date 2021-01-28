@@ -232,6 +232,20 @@ set_ext_params_cpy_cam_sr(xc_func_type *p, const double *ext_params)
   p->cam_omega = get_ext_param(p, ext_params, nparams + 1);
 }
 
+/* Long-range corrected functionals typically only have one parameter: the range separation parameter */
+void
+set_ext_params_cpy_lc(xc_func_type *p, const double *ext_params)
+{
+  int nparams;
+  assert(p != NULL);
+  nparams = p->info->ext_params.n - 1;
+  copy_params(p, ext_params, p->info->ext_params.n - 1);
+
+  p->cam_alpha = 1.0;
+  p->cam_beta = -1.0;
+  p->cam_omega = get_ext_param(p, ext_params, nparams);
+}
+
 /* Free pointer */
 void
 libxc_free(void *ptr)

@@ -36,13 +36,13 @@ static void
 hyb_gga_xc_b2plyp_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_LYP};
-  static double funcs_coef[2] = {1.0 - 0.53, 1.0 - 0.27};
+  static double funcs_coef[2] = {0.0, 0.0};
 
   int hyb_type[2]     = {XC_HYB_PT2, XC_HYB_FOCK};
   double hyb_omega[2] = {0.0, 0.0};
   double hyb_coeff[2] = {0.0, 0.0};
 
-  /* Note that the value of funcs_coef[0] and hyb_coeff will be set
+  /* Note that the values of funcs_coef and hyb_coeff will be set
       by set_ext_params */
   xc_mix_init(p, 2, funcs_id, funcs_coef);
   xc_hyb_init(p, 2, hyb_type, hyb_coeff, hyb_omega);

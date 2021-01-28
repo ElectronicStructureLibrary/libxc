@@ -198,6 +198,25 @@ set_ext_params_cpy_cam_sr(xc_func_type *p, const double *ext_params)
   p->hyb_omega[0] = get_ext_param(p, ext_params, nparams + 1);
 }
 
+/* Long-range corrected functionals typically only have one parameter: the range separation parameter */
+void
+set_ext_params_cpy_lc(xc_func_type *p, const double *ext_params)
+{
+  int nparams;
+  assert(p != NULL);
+  nparams = p->info->ext_params.n - 1;
+  copy_params(p, ext_params, p->info->ext_params.n - 1);
+
+  assert(p->hyb_number_terms == 2);
+  p->hyb_type[0]  = XC_HYB_ERF_SR;
+  p->hyb_coeff[0] = -1.0;
+  p->hyb_omega[0] = get_ext_param(p, ext_params, nparams);
+
+  p->hyb_type[1]  = XC_HYB_FOCK;
+  p->hyb_coeff[1] = 1.0;
+  p->hyb_omega[1] = 0.0;
+}
+
 /* Free pointer */
 void
 libxc_free(void *ptr)

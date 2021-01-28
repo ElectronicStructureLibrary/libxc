@@ -1077,6 +1077,13 @@ func_reference_type xc_ref_Jana2017_4804 = {
 };
 
 
+func_reference_type xc_ref_Jana2018_1 = {
+  "S. Jana, B. Patra, H. Myneni, and P. Samal, Chem. Phys. Lett. 713, 1 (2018)",
+  "https://doi.org/10.1016/j.cplett.2018.10.007",
+  "@article{Jana2018_1,\n  title = \"On the many-electron self-interaction error of the semilocal exchange hole based meta-GGA level range-separated hybrid with the B88 hybrids\",\n  author = \"Subrata Jana and Bikash Patra and Hemanadhan Myneni and Prasanjit Samal\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"713\",\n  pages = \"1--9\",\n  year = \"2018\",\n  issn = \"0009-2614\",\n  doi = \"https://doi.org/10.1016/j.cplett.2018.10.007\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261418308194\",\n}"
+};
+
+
 func_reference_type xc_ref_Jana2018_8999 = {
   "S. Jana and P. Samal, Phys. Chem. Chem. Phys. 20, 8999 (2018)",
   "10.1039/C8CP00333E",

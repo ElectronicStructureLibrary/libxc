@@ -384,6 +384,7 @@ extern func_reference_type xc_ref_Wilson1994_337;
 extern func_reference_type xc_ref_Wilson1998_523;
 extern func_reference_type xc_ref_Wilson2001_9233;
 extern func_reference_type xc_ref_Wu2006_235116;
+extern func_reference_type xc_ref_Xie2021_045130;
 extern func_reference_type xc_ref_Xu2004_2673;
 extern func_reference_type xc_ref_Xu2004_4068;
 extern func_reference_type xc_ref_Yanai2004_51;

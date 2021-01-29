@@ -2610,6 +2610,13 @@ func_reference_type xc_ref_Wu2006_235116 = {
 };
 
 
+func_reference_type xc_ref_Xie2021_045130 = {
+  "Q.-X. Xie, J. Wu, and Y. Zhao, Phys. Rev. B 103, 045130 (2021)",
+  "10.1103/PhysRevB.103.045130",
+  "@article{Xie2021_045130,\n  title = {Accurate correlation energy functional for uniform electron gas from an interpolation ansatz without fitting parameters},\n  author = {Xie, Qing-Xing and Wu, Jiashun and Zhao, Yan},\n  journal = {Phys. Rev. B},\n  volume = {103},\n  issue = {4},\n  pages = {045130},\n  numpages = {6},\n  year = {2021},\n  month = {Jan},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.103.045130},\n  url = {https://link.aps.org/doi/10.1103/PhysRevB.103.045130}\n}"
+};
+
+
 func_reference_type xc_ref_Xu2004_2673 = {
   "X. Xu and W. A. Goddard, Proc. Natl. Acad. Sci. U. S. A. 101, 2673 (2004)",
   "10.1073/pnas.0308730100",

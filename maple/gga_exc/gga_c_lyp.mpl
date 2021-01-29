@@ -14,33 +14,35 @@
   params = (gga_c_lyp_params * )(p->params);
 *)
 
-Cf := 3/10 * (3*Pi^2)^(2/3):
+lyp_Cf := 3/10 * (3*Pi^2)^(2/3):
 
-omega := rs -> params_a_B*exp(-params_a_c*rs)/(1 + params_a_d*rs):
-delta := rs -> (params_a_c + params_a_d/(1 + params_a_d*rs))*rs:
+lyp_omega := rr -> params_a_b*exp(-params_a_c*rr)/(1 + params_a_d*rr):
+lyp_delta := rr -> (params_a_c + params_a_d/(1 + params_a_d*rr))*rr:
 
-aux6 := 1/2^(8/3):
-aux4 := aux6/4:
-aux5 := aux4/(9*2):
+lyp_aux6 := 1/2^(8/3):
+lyp_aux4 := lyp_aux6/4:
+lyp_aux5 := lyp_aux4/(9*2):
 
-t1 := (rs, z) ->
-  -(1 - z^2)/(1 + params_a_d*rs):
-t2 := (rs, z, xt) ->
-  -xt^2*((1 - z^2)*(47 - 7*delta(rs))/(4*18) - 2/3):
-t3 := (z) ->
-  -Cf/2*(1 - z^2)*(opz_pow_n(z,8/3) + opz_pow_n(-z,8/3)):
-t4 := (rs, z, xs0, xs1) ->
-  aux4*(1 - z^2)*(5/2 - delta(rs)/18)*(xs0^2*opz_pow_n(z,8/3) + xs1^2*opz_pow_n(-z,8/3)):
-t5 := (rs, z, xs0, xs1) ->
-  aux5*(1 - z^2)*(delta(rs) - 11)*(xs0^2*opz_pow_n(z,11/3) + xs1^2*opz_pow_n(-z,11/3)):
-t6 := (z, xs0, xs1) ->
-  -aux6*(2/3*(xs0^2*opz_pow_n(z,8/3) + xs1^2*opz_pow_n(-z,8/3))
+lyp_t1 := (rr, z) ->
+  -(1 - z^2)/(1 + params_a_d*rr):
+lyp_t2 := (rr, z, xt) ->
+  -xt^2*((1 - z^2)*(47 - 7*lyp_delta(rr))/(4*18) - 2/3):
+lyp_t3 := (z) ->
+  -lyp_Cf/2*(1 - z^2)*(opz_pow_n(z,8/3) + opz_pow_n(-z,8/3)):
+lyp_t4 := (rr, z, xs0, xs1) ->
+  lyp_aux4*(1 - z^2)*(5/2 - lyp_delta(rr)/18)*(xs0^2*opz_pow_n(z,8/3) + xs1^2*opz_pow_n(-z,8/3)):
+lyp_t5 := (rr, z, xs0, xs1) ->
+  lyp_aux5*(1 - z^2)*(lyp_delta(rr) - 11)*(xs0^2*opz_pow_n(z,11/3) + xs1^2*opz_pow_n(-z,11/3)):
+lyp_t6 := (z, xs0, xs1) ->
+  -lyp_aux6*(2/3*(xs0^2*opz_pow_n(z,8/3) + xs1^2*opz_pow_n(-z,8/3))
   -opz_pow_n(z,2)*xs1^2*opz_pow_n(-z,8/3)/4 - opz_pow_n(-z,2)*xs0^2*opz_pow_n(z,8/3)/4):
 
-f_lyp := (rs, z, xt, xs0, xs1) -> params_a_A*(t1(rs/RS_FACTOR, z) + omega(rs/RS_FACTOR)*(
-  + t2(rs/RS_FACTOR, z, xt) + t3(z) + t4(rs/RS_FACTOR, z, xs0, xs1)
-  + t5(rs/RS_FACTOR, z, xs0, xs1) + t6(z, xs0, xs1)
+f_lyp_rr := (rr, z, xt, xs0, xs1) -> params_a_a*(lyp_t1(rr, z) + lyp_omega(rr)*(
+  + lyp_t2(rr, z, xt) + lyp_t3(z) + lyp_t4(rr, z, xs0, xs1)
+  + lyp_t5(rr, z, xs0, xs1) + lyp_t6(z, xs0, xs1)
 )):
 
-f  := (rs, z, xt, xs0, xs1) -> f_lyp(rs, z, xt, xs0, xs1):
+(* rr = rs/RS_FACTOR is equal to n_total(rs)^(-1/3) *)
+f_lyp := (rs, z, xt, xs0, xs1) -> f_lyp_rr(rs/RS_FACTOR, z, xt, xs0, xs1):
 
+f  := (rs, z, xt, xs0, xs1) -> f_lyp(rs, z, xt, xs0, xs1):

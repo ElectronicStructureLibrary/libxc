@@ -141,6 +141,7 @@ set(raw_sources_list
   gga_c_hcth_a.c
   gga_c_lm.c
   gga_c_lyp.c
+  gga_c_lypr.c
   gga_c_op_b88.c
   gga_c_op_g96.c
   gga_c_op_pbe.c

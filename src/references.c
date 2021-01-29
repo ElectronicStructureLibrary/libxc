@@ -247,7 +247,7 @@ func_reference_type xc_ref_Bilc2008_165107 = {
 func_reference_type xc_ref_Bircher2018_3184 = {
   "M. P. Bircher and U. Rothlisberger, J. Chem. Theory Comput. 14, 3184 (2018)",
   "10.1021/acs.jctc.8b00069",
-  "@article{Bircher2018_3184,\nauthor = {Bircher, Martin P. and Rothlisberger, Ursula},\ntitle = {Plane-Wave Implementation and Performance of \\'{a}-la-Carte {C}oulomb-Attenuated Exchange-Correlation Functionals for Predicting Optical Excitation Energies in Some Notorious Cases},\njournal = {J. Chem. Theory Comput.},\nvolume = {14},\nnumber = {6},\npages = {3184-3195},\nyear = {2018},\ndoi = {10.1021/acs.jctc.8b00069},\nURL = {https://doi.org/10.1021/acs.jctc.8b00069}\n}"
+  "@article{Bircher2018_3184,\nauthor = {Bircher, Martin P. and Rothlisberger, Ursula},\ntitle = {Plane-Wave Implementation and Performance of \\'{a}-la-Carte {C}oulomb-Attenuated Exchange-Correlation Functionals for Predicting Optical Excitation Energies in Some Notorious Cases},\njournal = {J. Chem. Theory Comput.},\nvolume = {14},\nnumber = {6},\npages = {3184-3195},\nyear = {2018},\ndoi = {10.1021/acs.jctc.8b00069},\nurl = {https://doi.org/10.1021/acs.jctc.8b00069}\n}"
 };
 
 
@@ -555,7 +555,7 @@ func_reference_type xc_ref_Constantin2017_115153 = {
 func_reference_type xc_ref_Constantin2018_4385 = {
   "L. A. Constantin, E. Fabiano, and F. Della Sala, J. Phys. Chem. Lett. 9, 4385 (2018), pMID: 30019904",
   "10.1021/acs.jpclett.8b01926",
-  "@article{Constantin2018_4385,\n  author = {Constantin, Lucian A. and Fabiano, Eduardo and Della Sala, Fabio},\n  title = {Semilocal Pauli--Gaussian Kinetic Functionals for Orbital-Free Density Functional Theory Calculations of Solids},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {9},\n  number = {15},\n  pages = {4385-4390},\n  year = {2018},\n  doi = {10.1021/acs.jpclett.8b01926},\n  note ={PMID: 30019904},\n  URL = {https://doi.org/10.1021/acs.jpclett.8b01926}\n}"
+  "@article{Constantin2018_4385,\n  author = {Constantin, Lucian A. and Fabiano, Eduardo and Della Sala, Fabio},\n  title = {Semilocal Pauli--Gaussian Kinetic Functionals for Orbital-Free Density Functional Theory Calculations of Solids},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {9},\n  number = {15},\n  pages = {4385-4390},\n  year = {2018},\n  doi = {10.1021/acs.jpclett.8b01926},\n  note ={PMID: 30019904},\n  url = {https://doi.org/10.1021/acs.jpclett.8b01926}\n}"
 };
 
 
@@ -884,7 +884,7 @@ func_reference_type xc_ref_Gordon1972_3122 = {
 func_reference_type xc_ref_Grimme2005_3067 = {
   "S. Grimme, J. Phys. Chem. A 109, 3067 (2005)",
   "10.1021/jp050036j",
-  "@article{Grimme2005_3067,\n  author = {Grimme, Stefan},\n  title = {Accurate Calculation of the Heats of Formation for Large Main Group Compounds with Spin-Component Scaled MP2 Methods},\n  journal = {J. Phys. Chem. A},\n  volume = {109},\n  number = {13},\n  pages = {3067-3077},\n  year = {2005},\n  doi = {10.1021/jp050036j},\n  URL = {https://doi.org/10.1021/jp050036j}\n}"
+  "@article{Grimme2005_3067,\n  author = {Grimme, Stefan},\n  title = {Accurate Calculation of the Heats of Formation for Large Main Group Compounds with Spin-Component Scaled MP2 Methods},\n  journal = {J. Phys. Chem. A},\n  volume = {109},\n  number = {13},\n  pages = {3067-3077},\n  year = {2005},\n  doi = {10.1021/jp050036j},\n  url = {https://doi.org/10.1021/jp050036j}\n}"
 };
 
 
@@ -1669,6 +1669,13 @@ func_reference_type xc_ref_Patra2019_19639 = {
   "A. Patra, S. Jana, H. Myneni, and P. Samal, Phys. Chem. Chem. Phys. 21, 19639 (2019)",
   "10.1039/C9CP03356D",
   "@Article{Patra2019_19639,\n  author = \"Patra, Abhilash and Jana, Subrata and Myneni, Hemanadhan and Samal, Prasanjit\",\n  title = \"Laplacian free and asymptotic corrected semilocal exchange potential applied to the band gap of solids\",\n  journal = \"Phys. Chem. Chem. Phys.\",\n  year = \"2019\",\n  volume = \"21\",\n  issue = \"35\",\n  pages = \"19639-19650\",\n  publisher = \"The Royal Society of Chemistry\",\n  doi = \"10.1039/C9CP03356D\",\n  url = \"http://doi.org/10.1039/C9CP03356D\",\n}"
+};
+
+
+func_reference_type xc_ref_Patra2020_184112 = {
+  "A. Patra, S. Jana, and P. Samal, J. Chem. Phys. 153, 184112 (2020)",
+  "10.1063/5.0025173",
+  "@article{Patra2020_184112,\n  author = {Patra, Abhilash and Jana, Subrata and Samal, Prasanjit },\n  title = {A way of resolving the order-of-limit problem of Tao--Mo semilocal functional},\n  journal = {J. Chem. Phys.},\n  volume = {153},\n  number = {18},\n  pages = {184112},\n  year = {2020},\n  doi = {10.1063/5.0025173},\n  url = {https://doi.org/10.1063/5.0025173}\n}"
 };
 
 

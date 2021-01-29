@@ -250,6 +250,7 @@ extern func_reference_type xc_ref_Patra2018_8991;
 extern func_reference_type xc_ref_Patra2019_045147;
 extern func_reference_type xc_ref_Patra2019_155140;
 extern func_reference_type xc_ref_Patra2019_19639;
+extern func_reference_type xc_ref_Patra2020_184112;
 extern func_reference_type xc_ref_Paziani2006_155111;
 extern func_reference_type xc_ref_Pearson1983;
 extern func_reference_type xc_ref_Pearson1985_881;

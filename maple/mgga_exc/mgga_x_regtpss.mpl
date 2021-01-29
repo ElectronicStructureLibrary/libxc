@@ -14,7 +14,7 @@ $include "mgga_x_tpss.mpl"
 reg_c := 3:
 reg_d := 1.475:
 
-reg_f_a :=  a -> (1 - a)^3/sqrt(1 + (reg_d*a)^2):
+reg_f_a :=  a -> (1 - a)^3/(1 + (reg_d*a)^2)^(3/2):
 
 (* Eq. (12). Note that alpha = 0 => t = x^2/8 *)
 reg_f := (x, u, t) ->

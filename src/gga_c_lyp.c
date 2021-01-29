@@ -14,7 +14,7 @@
 #define XC_HYB_GGA_XC_HFLYP  314  /* Hartree-Fock + LYP correlation */
 
 typedef struct{
-  double A, B, c, d;
+  double a, b, c, d;
 } gga_c_lyp_params;
 
 void xc_gga_c_lyp_init(xc_func_type *p)
@@ -24,10 +24,10 @@ void xc_gga_c_lyp_init(xc_func_type *p)
 }
 
 #define LYP_N_PAR 4
-static const char  *lyp_names[LYP_N_PAR]  = {"_A", "_B", "_c", "_d"};
+static const char  *lyp_names[LYP_N_PAR]  = {"_a", "_b", "_c", "_d"};
 static const char  *lyp_desc[LYP_N_PAR]   = {
-  "Parameter A of LYP",
-  "Parameter B of LYP",
+  "Parameter a of LYP",
+  "Parameter b of LYP",
   "Parameter c of LYP",
   "Parameter d of LYP"};
 static const double lyp_values[LYP_N_PAR] =

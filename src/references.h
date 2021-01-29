@@ -19,6 +19,7 @@ extern func_reference_type xc_ref_Adamo1998_664;
 extern func_reference_type xc_ref_Adamo1999_6158;
 extern func_reference_type xc_ref_Adamo2002_5933;
 extern func_reference_type xc_ref_Adamson1998_6;
+extern func_reference_type xc_ref_Ai2021_1207;
 extern func_reference_type xc_ref_Akinaga2008_348;
 extern func_reference_type xc_ref_Anderson2017_1656;
 extern func_reference_type xc_ref_Armiento2005_085108;

@@ -55,6 +55,13 @@ func_reference_type xc_ref_Adamson1998_6 = {
 };
 
 
+func_reference_type xc_ref_Ai2021_1207 = {
+  "W. Ai, W.-H. Fang, and N. Q. Su, J. Phys. Chem. Lett. 12, 1207 (2021)",
+  "10.1021/acs.jpclett.0c03621",
+  "@article{Ai2021_1207,\n  author = {Ai, Wenna and Fang, Wei-Hai and Su, Neil Qiang},\n  title = {The Role of Range-Separated Correlation in Long-Range Corrected Hybrid Functionals},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {12},\n  pages = {1207-1213},\n  year = {2021},\n  doi = {10.1021/acs.jpclett.0c03621},\n  URL = {https://doi.org/10.1021/acs.jpclett.0c03621}\n}"
+};
+
+
 func_reference_type xc_ref_Akinaga2008_348 = {
   "Y. Akinaga and S. Ten-no, Chem. Phys. Lett. 462, 348 (2008)",
   "10.1016/j.cplett.2008.07.103",

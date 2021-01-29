@@ -309,6 +309,7 @@ set(raw_sources_list
   lda_c_vwn_rpa.c
   lda_c_wigner.c
   lda_c_gk72.c
+  lda_c_w20.c
   lda_k_tf.c
   lda_k_zlp.c
   lda_k_gds08_worker.c

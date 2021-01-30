@@ -379,6 +379,7 @@ set(raw_sources_list
   mgga_x_scanl.c
   mgga_x_tau_hcth.c
   mgga_x_tm.c
+  mgga_x_regtm.c
   mgga_x_revtm.c
   mgga_x_tpss.c
   mgga_x_regtpss.c

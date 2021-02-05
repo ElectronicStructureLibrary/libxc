@@ -1,3 +1,18 @@
+## [5.1.1] - 2021-02-09
+
+### Added
+- LDA functionals: C_W20
+- GGA functionals: C_LYPR
+- HYB_GGA functionals: XC_LC_BLYP_EA, XC_LC_BLYPR
+- MGGA functionals: X_REGTM
+- HYB_MGGA functionals: XC_LC_TMLYP
+
+### Fixed
+- A memory leak in the Fortran interface
+- MGGA_X_REGTPSS was implemented incorrectly
+- HYB_GGA_XC_LC_BLYP used a range separation parameter of 0.3 instead of 0.33; HYB_GGA_XC_LC_BLYP_EA corresponds to the earlier implementation
+- Improvements to numerical stability of TPSS correlation functionals
+
 ## [5.1.0] - 2021-01-19
 
 ### Added

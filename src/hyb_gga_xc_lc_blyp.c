@@ -8,10 +8,11 @@
 
 #include "util.h"
 
-#define  XC_HYB_GGA_XC_LC_BLYP   400  /* Long-range corrected BLYP */
-#define  XC_HYB_GGA_XC_LC_BOP    636  /* Long-range corrected B88 with B88OP correlation */
-#define  XC_HYB_GGA_XC_LC_PBEOP  637  /* Long-range corrected PBE with PBEOP correlation */
-#define  XC_HYB_GGA_XC_LC_BLYPR  639  /* Long-range corrected BLYP with correlation only in short-range */
+#define  XC_HYB_GGA_XC_LC_BLYP    400  /* Long-range corrected BLYP */
+#define  XC_HYB_GGA_XC_LC_BLYP_EA 625  /* Long-range corrected BLYP, tuned for electron affinities */
+#define  XC_HYB_GGA_XC_LC_BOP     636  /* Long-range corrected B88 with B88OP correlation */
+#define  XC_HYB_GGA_XC_LC_PBEOP   637  /* Long-range corrected PBE with PBEOP correlation */
+#define  XC_HYB_GGA_XC_LC_BLYPR   639  /* Long-range corrected BLYP with correlation only in short-range */
 
 #define N_PAR 1
 static const char *names[N_PAR] = {"_omega"};
@@ -19,7 +20,8 @@ static const char *desc[N_PAR] = {
   "Range separation parameter"
 };
 
-static const double par_lc_blyp[N_PAR] = {0.3};
+static const double par_lc_blyp[N_PAR] = {0.33};
+static const double par_lc_blyp_ea[N_PAR] = {0.30};
 static const double par_lc_bop[N_PAR] = {0.47};
 static const double par_lc_pbeop[N_PAR] = {0.33};
 static const double par_lc_blypr[N_PAR] = {0.33};
@@ -60,10 +62,26 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_blyp = {
   XC_EXCHANGE_CORRELATION,
   "LC version of BLYP",
   XC_FAMILY_GGA,
-  {&xc_ref_Anderson2017_1656, NULL, NULL, NULL, NULL},
+  {&xc_ref_Tawada2004_8425, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-14,
   {N_PAR, names, desc, par_lc_blyp, set_ext_params},
+  xc_hyb_gga_xc_lc_blyp_init, NULL,
+  NULL, NULL, NULL
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_hyb_gga_xc_lc_blyp_ea = {
+  XC_HYB_GGA_XC_LC_BLYP_EA,
+  XC_EXCHANGE_CORRELATION,
+  "LC version of BLYP for electron affinities",
+  XC_FAMILY_GGA,
+  {&xc_ref_Anderson2017_1656, &xc_ref_Tawada2004_8425, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-14,
+  {N_PAR, names, desc, par_lc_blyp_ea, set_ext_params},
   xc_hyb_gga_xc_lc_blyp_init, NULL,
   NULL, NULL, NULL
 };

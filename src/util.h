@@ -220,6 +220,9 @@ typedef struct xc_functional_key_t {
 #define D3FZETA(x)     (-(8.0/27.0)/FZETAFACTOR)* \
   (fabs(x)==1.0 ? (FLT_MAX) : (pow(1.0 + (x), -5.0/3.0) - pow(1.0 - (x), -5.0/3.0)))
 
+#define is_mgga(id)   ((id) == XC_FAMILY_MGGA)
+#define is_gga(id)    ((id) == XC_FAMILY_GGA || is_mgga(id))
+#define is_lda(id)    ((id) == XC_FAMILY_LDA ||  is_gga(id))
 
 /* The following inlines confuse the xlc compiler */
 GPU_FUNCTION void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);

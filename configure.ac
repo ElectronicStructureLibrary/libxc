@@ -63,6 +63,8 @@ AC_SEARCH_LIBS([erf], [m])
 # libxc-4.3.3   8:3:3
 # libxc-4.3.4   8:4:3
 # libxc-5.0.0   9:0:0
+# libxc-5.1.0  10:0:1
+# libxc-5.1.1  10:1:1
 # libxc-6.0.0  10:0:0
 # 
 # Note that libtool versioning was not used prior to libxc-2.0.

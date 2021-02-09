@@ -58,7 +58,7 @@ func_reference_type xc_ref_Adamson1998_6 = {
 func_reference_type xc_ref_Ai2021_1207 = {
   "W. Ai, W.-H. Fang, and N. Q. Su, J. Phys. Chem. Lett. 12, 1207 (2021)",
   "10.1021/acs.jpclett.0c03621",
-  "@article{Ai2021_1207,\n  author = {Ai, Wenna and Fang, Wei-Hai and Su, Neil Qiang},\n  title = {The Role of Range-Separated Correlation in Long-Range Corrected Hybrid Functionals},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {12},\n  pages = {1207-1213},\n  year = {2021},\n  doi = {10.1021/acs.jpclett.0c03621},\n  URL = {https://doi.org/10.1021/acs.jpclett.0c03621}\n}"
+  "@article{Ai2021_1207,\n  author = {Ai, Wenna and Fang, Wei-Hai and Su, Neil Qiang},\n  title = {The Role of Range-Separated Correlation in Long-Range Corrected Hybrid Functionals},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {12},\n  pages = {1207-1213},\n  year = {2021},\n  doi = {10.1021/acs.jpclett.0c03621},\n  url = {https://doi.org/10.1021/acs.jpclett.0c03621}\n}"
 };
 
 
@@ -1343,10 +1343,10 @@ func_reference_type xc_ref_Lehtola2018_1 = {
 };
 
 
-func_reference_type xc_ref_Lehtola2020 = {
-  "S. Lehtola and M. A. L. Marques, Meta-local density functionals: a new rung on jacob's ladder, (2020), arXiv:2006.16835 [physics.chem-ph]",
-  "",
-  "@misc{Lehtola2020,\n  title = {Meta-local density functionals: a new rung on Jacob's ladder},\n  author = {Susi Lehtola and Miguel A. L. Marques},\n  year = {2020},\n  eprint = {2006.16835},\n  archivePrefix = {arXiv},\n  primaryClass = {physics.chem-ph}\n}"
+func_reference_type xc_ref_Lehtola2021_943 = {
+  "S. Lehtola and M. A. L. Marques, J. Chem. Theory Comput. 17, 943 (2021)",
+  "10.1021/acs.jctc.0c01147",
+  "@article{Lehtola2021_943,\n  author = {Lehtola, Susi and Marques, Miguel A. L.},\n  title = {Meta-Local Density Functionals: A New Rung on Jacob's Ladder},\n  journal = {J. Chem. Theory Comput.},\n  volume = {17},\n  number = {2},\n  pages = {943-948},\n  year = {2021},\n  doi = {10.1021/acs.jctc.0c01147},\n  url = {https://doi.org/10.1021/acs.jctc.0c01147}\n}"
 };
 
 

@@ -124,6 +124,9 @@ or, to install locally for development:
 The Python bindings require the CMake compilation pathway and the Python
 Numerical Python library. A short usage example is provided below:
 ```python
+# Import pylibxc and numpy
+>>> import pylibxc
+>>> import numpy as np
 # Build functional
 >>> func = pylibxc.LibXCFunctional("gga_c_pbe", "unpolarized")
 
@@ -137,9 +140,15 @@ Numerical Python library. A short usage example is provided below:
 >>> for k, v in ret.items():
 >>>     print(k, v)
 
-zk [[-0.06782171 -0.05452743 -0.04663709]]
-vrho [[-0.08349967 -0.0824188  -0.08054892]]
-vsigma [[ 0.00381277  0.00899967  0.01460601]]
+zk [[-0.02150768]
+ [-0.02897835]
+ [-0.07031054]]
+vrho [[-0.06756716]
+ [-0.07525754]
+ [-0.08021595]]
+vsigma [[0.00547993]
+ [0.01114585]
+ [0.00425432]]
 ```
 
 ## FILE ORGANIZATION

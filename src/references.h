@@ -203,7 +203,7 @@ extern func_reference_type xc_ref_Lee1988_785;
 extern func_reference_type xc_ref_Lee1990_193;
 extern func_reference_type xc_ref_Lee1991_768;
 extern func_reference_type xc_ref_Lehtola2018_1;
-extern func_reference_type xc_ref_Lehtola2020;
+extern func_reference_type xc_ref_Lehtola2021_943;
 extern func_reference_type xc_ref_Lehtomaki2019_165111;
 extern func_reference_type xc_ref_Lembarki1994_5328;
 extern func_reference_type xc_ref_Lieb1981_603;

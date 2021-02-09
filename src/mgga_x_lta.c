@@ -74,7 +74,7 @@ const xc_func_info_type xc_func_info_mgga_x_hlta = {
   XC_EXCHANGE,
   "Half-and-half meta-LDAized LDA exchange by Lehtola and Marques",
   XC_FAMILY_MGGA,
-  {&xc_ref_Lehtola2020, NULL, NULL, NULL, NULL},
+  {&xc_ref_Lehtola2021_943, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {LTA_N_PAR, lta_names, lta_desc, hlta_values, set_ext_params_cpy},

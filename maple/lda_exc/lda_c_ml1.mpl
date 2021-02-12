@@ -43,6 +43,6 @@ ml1_Q := (rs, z) ->
    Note that in the Erratum the authors afirm that all the results are correct,
    and only the formulas had misspells. *)
 ml1_f := (rs, z) -> n_total(rs) *
-  my_piecewise3(1 - abs(z) <= p_a_zeta_threshold, 0, (1 - z^2)/4 * ml1_Q(rs, z_thr2(z))):
+  my_piecewise3(1 - abs(z) <= p_a_zeta_threshold, 0, (1 - z^2)/4 * ml1_Q(rs, z_thr(z))):
 
 f := (rs, z) -> ml1_f(rs, z):

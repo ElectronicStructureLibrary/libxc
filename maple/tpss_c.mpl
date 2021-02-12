@@ -24,7 +24,7 @@ tpss_C0_den := (z, xt, xs0, xs1) ->
   1 + tpss_xi2(z, xt, xs0, xs1)*((1 + z)^(-4/3) + (1 - z)^(-4/3))/2:
 tpss_C0 := (cc, z, xt, xs0, xs1) -> my_piecewise3(1 - m_abs(z) <= 1e-12,
   add(cc[i], i=1..4),
-  tpss_C00(cc, z) / tpss_C0_den(z_thr2(z), xt, xs0, xs1)^4):
+  tpss_C00(cc, z) / tpss_C0_den(z_thr(z), xt, xs0, xs1)^4):
 
 (* Equation 11, with tau_W from Equation 12 *)
 tpss_aux := (z, xt, ts0, ts1) ->

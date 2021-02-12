@@ -1,3 +1,10 @@
+## [5.1.2] - 2021-02-12
+
+### Fixed
+- A memory leak in libxcf90
+- NaNs and overflows in GGA_C_OP_* introduced in 5.1.1 due to inconsistent screening of the density
+- Missing CMake files from the tddft.org tarball
+
 ## [5.1.1] - 2021-02-09
 
 ### Added

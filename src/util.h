@@ -347,7 +347,7 @@ auto libxc_calloc(const int_type1 size1, const int_type2 size2){
 #define libxc_memset cudaMemset
 
 template <class int_type>
-void libxc_memcpy(void *dest, void *src, const int_type size){
+void libxc_memcpy(void *dest, void const *src, const int_type size){
   cudaMemcpy(dest, src, size, cudaMemcpyDefault);
 }
 

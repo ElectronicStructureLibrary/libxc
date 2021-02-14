@@ -151,6 +151,103 @@ void allocate_memory(values_t *data, int nspin, int order)
   }
 }
 
+#define TO_GPU 0
+#define TO_CPU 1
+
+#ifdef HAVE_CUDA
+void cuda_alloc_and_copy(double ** ptr, long const size, int const direction){
+  double * old_ptr = *ptr;
+  if(direction == TO_GPU){
+    cudaMalloc(ptr, size);
+  } else {
+    *ptr = (double *) libxc_malloc(size);
+  }
+  cudaMemcpy(*ptr, old_ptr, size, cudaMemcpyDefault);
+  libxc_free(old_ptr);
+}
+
+void gpu_copy(values_t *data, int nspin, int order, int const direction)
+{
+
+  switch(nspin) {
+    case (XC_UNPOLARIZED):
+      cuda_alloc_and_copy(&data->rho, data->n*sizeof(double), direction);
+      cuda_alloc_and_copy(&data->sigma, data->n*sizeof(double), direction);
+      cuda_alloc_and_copy(&data->lapl, data->n*sizeof(double), direction);
+      cuda_alloc_and_copy(&data->tau, data->n*sizeof(double), direction);
+      switch (order) {
+        case (0):
+          cuda_alloc_and_copy(&data->zk, data->n*sizeof(double), direction);
+          break;
+        case (1):
+          cuda_alloc_and_copy(&data->vrho, data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->vsigma, data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->vlapl, data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->vtau, data->n*sizeof(double), direction);
+          break;
+        case (2):
+          cuda_alloc_and_copy(&data->v2rho2, data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2tau2, data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2lapl2, data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2rhotau, data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2rholapl, data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2lapltau, data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2sigma2, data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2rhosigma, data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2sigmatau, data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2sigmalapl, data->n*sizeof(double), direction);
+          break;
+        case (3):
+          cuda_alloc_and_copy(&data->v3rho3, data->n*sizeof(double), direction);
+          break;
+        default:
+          fprintf(stderr, "order = %i not recognized.\n", order);
+          exit(2);
+      }
+      break;
+
+    case (XC_POLARIZED):
+      cuda_alloc_and_copy(&data->rho, 2*data->n*sizeof(double), direction);
+      cuda_alloc_and_copy(&data->sigma, 3*data->n*sizeof(double), direction);
+      cuda_alloc_and_copy(&data->lapl, 2*data->n*sizeof(double), direction);
+      cuda_alloc_and_copy(&data->tau, 2*data->n*sizeof(double), direction);
+      switch (order) {
+        case (0):
+          cuda_alloc_and_copy(&data->zk, data->n*sizeof(double), direction);
+          break;
+        case (1):
+          cuda_alloc_and_copy(&data->vrho, 2*data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->vsigma, 3*data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->vlapl, 2*data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->vtau, 2*data->n*sizeof(double), direction);
+          break;
+        case (2):
+          cuda_alloc_and_copy(&data->v2rho2, 3*data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2tau2, 3*data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2lapl2, 3*data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2rhotau, 4*data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2rholapl, 4*data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2lapltau, 4*data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2sigma2, 6*data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2rhosigma, 6*data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2sigmatau, 6*data->n*sizeof(double), direction);
+          cuda_alloc_and_copy(&data->v2sigmalapl, 6*data->n*sizeof(double), direction);
+          break;
+        case (3):
+          cuda_alloc_and_copy(&data->v3rho3, 4*data->n*sizeof(double), direction);
+          break;
+        default:
+          fprintf(stderr, "order = %i not recognized.\n", order);
+          exit(2);
+      }
+      break;
+
+    default:
+      fprintf(stderr, "nspin = %i not recognized.\n", nspin);
+      exit(2);
+  }
+}
+#endif
 
 #define FREE_NULL(p) {if(p!=NULL) {libxc_free(p);}; p=NULL;}
 
@@ -385,6 +482,10 @@ int main(int argc, char *argv[])
     plapl2 = print02;
     plapl3 = print03;
   }
+
+#ifdef HAVE_CUDA
+  gpu_copy(&d, nspin, order, TO_GPU);
+#endif
   
   /* Evaluate xc functional */
   switch(family) {
@@ -415,6 +516,10 @@ int main(int argc, char *argv[])
     exit(1);
   }
 
+#ifdef HAVE_CUDA
+  gpu_copy(&d, nspin, order, TO_CPU);
+#endif
+  
   /* Open output file */
   fname = argv[5];
   out = fopen(fname,"w");

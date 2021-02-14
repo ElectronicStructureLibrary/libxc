@@ -1,0 +1,13 @@
+# Copyright (C) 2019-2020 Xavier Andrade, Alfredo A. Correa
+
+image: debian:stable-backports
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  CXXFLAGS: "-O3 -pipe"
+
+gcc:
+    stage: build
+    script:
+      - time apt update -qq
+      - time apt install --no-install-recommends -y -qq autoconf automake make gcc

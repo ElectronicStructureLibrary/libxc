@@ -10,7 +10,7 @@ gcc:
     stage: build
     script:
       - time apt update -qq
-      - time apt install --no-install-recommends -y -qq autoconf automake make gcc
+      - time apt install --no-install-recommends -y -qq autoconf automake make gcc libtool bzip2
       - autoreconf -i
       - mkdir build/
       - ../configure --prefix=$HOME

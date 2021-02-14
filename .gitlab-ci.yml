@@ -68,7 +68,6 @@ nvcc_nocuda:
       - export CCLD="nvcc"
       - ../configure --prefix=$HOME
       - make
-      - make check      
       - make install
 
 #can't run since the gitlab machines don't have gpus

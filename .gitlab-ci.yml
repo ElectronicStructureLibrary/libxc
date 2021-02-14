@@ -44,7 +44,7 @@ clang++:
       - autoreconf -i
       - mkdir build/
       - cd build/
-      - export CFLAGS="-O3 -pipe -Wall"
+      - export CFLAGS="-O3 -pipe -Wall -Wno-deprecated"
       - export CC=clang++
       - ../configure --prefix=$HOME
       - make

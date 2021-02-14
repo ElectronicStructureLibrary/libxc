@@ -46,6 +46,12 @@ work_gga(const XC(func_type) *p, size_t np,
   double my_rho[2] = {0.0, 0.0};
   double my_sigma[3] = {0.0, 0.0, 0.0};
 
+  //avoid unused variable warnings
+  (void) ip;
+  (void) dens;
+  (void) my_rho[0];
+  (void) my_sigma[0];
+  
   if(zk     != NULL) order = 0;
   if(vrho   != NULL) order = 1;
   if(v2rho2 != NULL) order = 2;

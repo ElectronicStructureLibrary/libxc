@@ -54,6 +54,9 @@ clang++:
 nvcc_nocuda:
     image: nvidia/cuda:11.2.0-devel
     stage: build
+    artifacts:
+        paths:
+          - build/testsuite/test-suite.log
     script:
       - apt update -qq
       - DEBIAN_FRONTEND="noninteractive" apt install --no-install-recommends -y -qq autoconf automake make gcc gfortran libtool bzip2 

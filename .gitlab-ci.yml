@@ -13,6 +13,7 @@ gcc:
       - time apt install --no-install-recommends -y -qq autoconf automake make gcc libtool bzip2
       - autoreconf -i
       - mkdir build/
+      - cd build/
       - ../configure --prefix=$HOME
       - make
       - make check

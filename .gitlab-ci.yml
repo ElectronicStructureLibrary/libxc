@@ -11,3 +11,9 @@ gcc:
     script:
       - time apt update -qq
       - time apt install --no-install-recommends -y -qq autoconf automake make gcc
+      - autoreconf -i
+      - mkdir build/
+      - ../configure --prefix=$HOME
+      - make
+      - make check
+      - make install

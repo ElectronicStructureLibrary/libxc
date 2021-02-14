@@ -13,6 +13,8 @@ gcc:
       - autoreconf -i
       - mkdir build/
       - cd build/
+      - export CC=gcc
+      - export CFLAGS="-O3 -pipe -Wall"      
       - ../configure --prefix=$HOME
       - make
       - make check
@@ -26,8 +28,24 @@ g++:
       - autoreconf -i
       - mkdir build/
       - cd build/
-      - export CFLAGS="-O3 -pipe"
+      - export CFLAGS="-O3 -pipe -Wall"
       - export CC=g++
+      - ../configure --prefix=$HOME
+      - make
+      - make check
+      - make install
+
+
+clang++:
+    stage: build
+    script:
+      - time apt update -qq
+      - time apt install --no-install-recommends -y -qq autoconf automake make clang gfortran libtool bzip2 
+      - autoreconf -i
+      - mkdir build/
+      - cd build/
+      - export CFLAGS="-O3 -pipe -Wall"
+      - export CC=clang++
       - ../configure --prefix=$HOME
       - make
       - make check

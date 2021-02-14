@@ -50,3 +50,20 @@ clang++:
       - make
       - make check
       - make install
+
+cuda_compile_only:
+    image: nvidia/cuda:11.2.0-devel
+    stage: build
+    script:
+      - time apt update -qq
+      - DEBIAN_FRONTEND="noninteractive" time apt install --no-install-recommends -y -qq autoconf automake make gcc gfortran libtool bzip2 
+      - autoreconf -i
+      - mkdir build/
+      - cd build/
+      - export CC="nvcc -x cu"
+      - export CFLAGS="-g -O3 --std=c++14 --compiler-options -g,-Wall"
+      - export CCLD="nvcc"
+      - ../configure --prefix=$HOME
+      - make
+      - make install
+

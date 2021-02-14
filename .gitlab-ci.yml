@@ -71,7 +71,7 @@ nvcc_nocuda:
       - make install
 
 #can't run since the gitlab machines don't have gpus
-nvcc_cuda_norun:
+cuda_norun:
     image: nvidia/cuda:11.2.0-devel
     stage: build
     script:
@@ -87,3 +87,15 @@ nvcc_cuda_norun:
       - make
       - make install
 
+#can't run since the gitlab machines don't have gpus
+cuda_cmake_norun:
+    image: nvidia/cuda:11.2.0-devel
+    stage: build
+    script:
+      - apt update -qq
+      - DEBIAN_FRONTEND="noninteractive" apt install --no-install-recommends -y -qq autoconf automake make gcc gfortran libtool bzip2 cmake
+      - export CUDAFLAGS="-g -O3 --std=c++14 --compiler-options -g,-Wall"
+      - mkdir build
+      - cd build
+      - cmake -DENABLE_CUDA=ON ../
+      - make

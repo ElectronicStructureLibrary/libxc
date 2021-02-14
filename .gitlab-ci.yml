@@ -1,4 +1,4 @@
-# Copyright (C) 2019-2020 Xavier Andrade, Alfredo A. Correa
+# Copyright (C) 2019-2021 Xavier Andrade, Alfredo A. Correa
 
 image: debian:stable-backports
 
@@ -51,7 +51,7 @@ clang++:
       - make check
       - make install
 
-cuda_compile_only:
+nvcc_nocuda:
     image: nvidia/cuda:11.2.0-devel
     stage: build
     script:
@@ -64,6 +64,24 @@ cuda_compile_only:
       - export CFLAGS="-g -O3 --std=c++14 --compiler-options -g,-Wall"
       - export CCLD="nvcc"
       - ../configure --prefix=$HOME
+      - make
+      - make check      
+      - make install
+
+#can't run since the gitlab machines don't have gpus
+nvcc_cuda_norun:
+    image: nvidia/cuda:11.2.0-devel
+    stage: build
+    script:
+      - apt update -qq
+      - DEBIAN_FRONTEND="noninteractive" apt install --no-install-recommends -y -qq autoconf automake make gcc gfortran libtool bzip2 
+      - autoreconf -i
+      - mkdir build/
+      - cd build/
+      - export CC="nvcc -x cu"
+      - export CFLAGS="-g -O3 --std=c++14 --compiler-options -g,-Wall"
+      - export CCLD="nvcc"
+      - ../configure --enable-cuda --prefix=$HOME
       - make
       - make install
 

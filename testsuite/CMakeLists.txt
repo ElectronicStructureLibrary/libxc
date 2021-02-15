@@ -42,7 +42,7 @@ foreach(_sdir ${_sdirs})
         set(test "${func}-${system}-${spin}-${order}")
         add_test(NAME ${test}-run
                  COMMAND xc-regression ${func} ${nspin} ${order} ${CMAKE_CURRENT_SOURCE_DIR}/input/${system} ${CMAKE_CURRENT_BINARY_DIR}/workdir/${_sdir}/${refname})
-        set_tests_properties(${test}-run PROPERTIES TIMEOUT 1)
+        set_tests_properties(${test}-run PROPERTIES TIMEOUT 3)
 
         # checke the tests values against the reference values
         add_test(NAME ${test}-check

@@ -70,7 +70,7 @@
    with the help of Maple and a little shell script.   This allows
    the Chebyshev polynomials to be of significantly lower degree (about 1/4)
    compared to fitting the whole [0,1] interval with a single polynomial. */
-static double erfcx_y100(double y100)
+GPU_FUNCTION static double erfcx_y100(double y100)
 {
   switch ((int) y100) {
 case 0: {

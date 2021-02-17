@@ -81,7 +81,7 @@ cuda_norun:
       - mkdir build/
       - cd build/
       - export CC="nvcc -x cu"
-      - export CFLAGS="-g -O3 --std=c++14 --compiler-options -g,-Wall"
+      - export CFLAGS="-g -O3 --extended-lambda --std=c++14 --compiler-options -g,-Wall,--std=c++14"
       - export CCLD="nvcc"
       - ../configure --enable-cuda --prefix=$HOME
       - make

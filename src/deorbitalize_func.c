@@ -1,7 +1,7 @@
 /*
   Copyright (C) 2006-2007 M.A.L. Marques
                 2018-2019 Susi Lehtola
-                2019 X. Andrade
+                2019-2021 X. Andrade
 
   This Source Code Form is subject to the terms of the Mozilla Public
   License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -215,6 +215,15 @@ xc_deorbitalize_init(xc_func_type *p, int mgga_id, int ked_id)
   xc_func_init (p->func_aux[1], ked_id,  p->nspin);
 }
 
+#ifdef HAVE_CUDA
+template <typename KernelType>
+__global__ void deorbitalize_kernel(size_t const np, KernelType kernel){
+  size_t ip = blockIdx.x*blockDim.x + threadIdx.x;
+
+  if(ip < np) kernel(ip);
+}
+#endif
+                
 void
 xc_deorbitalize_func(const xc_func_type *func, size_t np,
                      const double *rho, const double *sigma, const double *lapl, const double *tau,
@@ -248,6 +257,14 @@ xc_deorbitalize_func(const xc_func_type *func, size_t np,
   xc_mgga_vars_allocate_all(func->func_aux[1]->info->family, np, &(func->func_aux[1]->dim),
                        order >= 0, order >= 1, order >= 2, order >= 3, order >= 4,
                        &ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked1_));
+
+#ifdef HAVE_CUDA
+  (void) ii;
+  (void) null;
+  auto nblocks = np/CUDA_BLOCK_SIZE;
+  if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
+#endif   
+  
   if(func->nspin == XC_UNPOLARIZED){
     mtau   = (double *) libxc_malloc(sizeof(double)*np);
   }else{
@@ -266,25 +283,46 @@ xc_deorbitalize_func(const xc_func_type *func, size_t np,
     xc_mgga_evaluate_functional(func->func_aux[1], np, rho, sigma, lapl, tau,
                            ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ked1_));
   }else{
+
+#ifndef HAVE_CUDA
     for(ii=0; ii<np; ii++){
       mrho  [2*ii] = rho  [2*ii]; mrho  [2*ii+1] = 0.0;
       msigma[3*ii] = sigma[3*ii]; msigma[3*ii+1] = 0.0; msigma[3*ii+2] = 0.0;
       mlapl [2*ii] = lapl [2*ii]; mlapl [2*ii+1] = 0.0;
       mtau  [2*ii] = tau  [2*ii]; mtau  [2*ii+1] = 0.0;
     }
+#else
+    deorbitalize_kernel<<<nblocks, CUDA_BLOCK_SIZE>>>(np, [=] __device__ (auto ii){
+        mrho  [2*ii] = rho  [2*ii]; mrho  [2*ii+1] = 0.0;
+        msigma[3*ii] = sigma[3*ii]; msigma[3*ii+1] = 0.0; msigma[3*ii+2] = 0.0;
+        mlapl [2*ii] = lapl [2*ii]; mlapl [2*ii+1] = 0.0;
+        mtau  [2*ii] = tau  [2*ii]; mtau  [2*ii+1] = 0.0;
+      });
+#endif
+    
     xc_mgga_evaluate_functional(func->func_aux[1], np, mrho, msigma, mlapl, mtau,
                            ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ked1_));
-
+#ifndef HAVE_CUDA
     for(ii=0; ii<np; ii++){
       mrho  [2*ii] = rho  [2*ii + 1];
       msigma[3*ii] = sigma[3*ii + 2];
       mlapl [2*ii] = lapl [2*ii + 1];
       mtau  [2*ii] = tau  [2*ii + 1];
     }
+#else
+    deorbitalize_kernel<<<nblocks, CUDA_BLOCK_SIZE>>>(np, [=] __device__ (auto ii){
+        mrho  [2*ii] = rho  [2*ii + 1];
+        msigma[3*ii] = sigma[3*ii + 2];
+        mlapl [2*ii] = lapl [2*ii + 1];
+        mtau  [2*ii] = tau  [2*ii + 1];
+      });
+#endif       
+
     xc_mgga_evaluate_functional(func->func_aux[1], np, mrho, msigma, mlapl, mtau,
                            ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ked2_));
   }
 
+#ifndef HAVE_CUDA
   /* now evaluate the mgga functional */
   if(func->nspin == XC_UNPOLARIZED){
     for(ii=0; ii<np; ii++){
@@ -296,9 +334,21 @@ xc_deorbitalize_func(const xc_func_type *func, size_t np,
       mtau[2*ii + 1] = rho[2*ii + 1]*ked2_zk[ii];
     }
   }
+#else
+  deorbitalize_kernel<<<nblocks, CUDA_BLOCK_SIZE>>>(np, [=] __device__ (auto ii){
+      if(func->nspin == XC_UNPOLARIZED){
+        mtau[ii] = rho[ii]*ked1_zk[ii];
+      }else{
+        mtau[2*ii    ] = rho[2*ii    ]*ked1_zk[ii];
+        mtau[2*ii + 1] = rho[2*ii + 1]*ked2_zk[ii];
+      }
+    });
+#endif
+  
   xc_mgga_evaluate_functional(func->func_aux[0], np, rho, sigma, lapl, mtau,
                          mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, mgga_));
 
+#ifndef HAVE_CUDA
   /* now we have to combine the results */
   for(ii=0; ii<np; ii++){
     if(zk != NULL){
@@ -338,7 +388,7 @@ xc_deorbitalize_func(const xc_func_type *func, size_t np,
     }
   }
 
-  /* move the counters back to zero and deallocate the memory */
+  /* move the counters back to zero */
   internal_counters_mgga_random(&(func->func_aux[0]->dim), -np, 0, &null, &null, &null, &null,
                                 &mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, mgga_));
   xc_mgga_vars_free_all(mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, mgga_));
@@ -349,10 +399,58 @@ xc_deorbitalize_func(const xc_func_type *func, size_t np,
   if(func->nspin == XC_POLARIZED){
     internal_counters_mgga_random(&(func->func_aux[1]->dim), -np, 0, &null, &null, &null, &null,
                                   &ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked2_));
-    xc_mgga_vars_free_all(ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ked2_));
-
-    free(mrho); free(msigma); free(mlapl);
   }
-  free(mtau);
+
+#else
+  deorbitalize_kernel<<<nblocks, CUDA_BLOCK_SIZE>>>(np, [=] __device__ (auto ii) mutable {
+
+      const double *null = NULL;
+      
+      internal_counters_mgga_random(&(func->dim), ii, 0, &null, &null, &null, &null,
+                                    &zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
+
+      internal_counters_mgga_random(&(func->func_aux[0]->dim), ii, 0, &null, &null, &null, &null,
+                                    &mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, mgga_));
+      internal_counters_mgga_random(&(func->func_aux[1]->dim), ii, 0, &null, &null, &null, &null,
+                                    &ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked1_));
+
+      if(func->nspin == XC_POLARIZED){
+        internal_counters_mgga_random(&(func->func_aux[1]->dim), ii, 0, &null, &null, &null, &null,
+                                      &ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked2_));
+      }
+
+      if(zk != NULL){
+        *zk = *mgga_zk;
+      }
+      
+#ifndef XC_DONT_COMPILE_VXC
+      if(vrho != NULL){
+#include "maple2c/deorbitalize_1.c"
+      }
+#ifndef XC_DONT_COMPILE_FXC
+      if(v2rho2 != NULL){
+#include "maple2c/deorbitalize_2.c"
+      }
+#ifndef XC_DONT_COMPILE_KXC
+      if(v3rho3 != NULL){
+#include "maple2c/deorbitalize_3.c"
+      }
+#ifndef XC_DONT_COMPILE_LXC
+      if(v4rho4 != NULL){
+#include "maple2c/deorbitalize_4.c"
+      }
+#endif
+#endif
+#endif
+#endif      
+    });
+#endif
+
+  /* deallocate the memory */
+  if(func->nspin == XC_POLARIZED){
+    xc_mgga_vars_free_all(ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ked2_));
+    libxc_free(mrho); libxc_free(msigma); libxc_free(mlapl);
+  }
+  libxc_free(mtau);
 }
 

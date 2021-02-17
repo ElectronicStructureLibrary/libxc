@@ -11,6 +11,14 @@ cmake_minimum_required(VERSION 3.1)
 set(CMAKE_C_STANDARD 99)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
+if(ENABLE_CUDA)
+  set(CMAKE_VERBOSE_MAKEFILE ON)
+  enable_language(CUDA)
+  if(POLICY CMP0104)
+    cmake_policy(SET CMP0104 OLD)
+  endif()
+endif()
+
 ################################### Options ####################################
 include(psi4OptionsTools)
 option_with_default(CMAKE_BUILD_TYPE "Build type" Release)
@@ -425,6 +433,11 @@ set(raw_sources_list
 set(src_prefix "src/")
 string(REGEX REPLACE "([^;]+)" "${src_prefix}\\1" sources_list "${raw_sources_list}")
 
+
+if(ENABLE_CUDA)
+  set_source_files_properties(${sources_list} PROPERTIES LANGUAGE CUDA)
+endif()
+
 set(raw_sources_list_f90
   src/libxc_master.F90
   )
@@ -437,6 +450,7 @@ file(WRITE ${PROJECT_BINARY_DIR}/${src_prefix}xc.h "${_quoted_src}")
 
 # STATIC/SHARED on below governed by BUILD_SHARED_LIBS
 add_library(xc ${sources_list})
+set_target_properties(xc PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 target_link_libraries(xc INTERFACE ${STANDARD_MATH_LIBRARY})
 set_target_properties(xc PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_FPIC}
   SOVERSION ${${PROJECT_NAME}_SOMAJOR})
@@ -468,9 +482,15 @@ execute_process(
   WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 
 add_executable(xc-info "${src_prefix}/xc-info.c")
+if(ENABLE_CUDA)
+  set_source_files_properties("${src_prefix}/xc-info.c" PROPERTIES LANGUAGE CUDA)
+endif()
 target_link_libraries(xc-info xc)
 
 add_executable(xc-threshold "${src_prefix}/xc-threshold.c")
+if(ENABLE_CUDA)
+  set_source_files_properties("${src_prefix}/xc-threshold.c" PROPERTIES LANGUAGE CUDA)
+endif()
 target_link_libraries(xc-threshold xc)
 
 

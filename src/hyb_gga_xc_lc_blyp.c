@@ -72,7 +72,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_blyp_ea = {
   XC_HYB_GGA_XC_LC_BLYP_EA,
   XC_EXCHANGE_CORRELATION,
   "LC version of BLYP for electron affinities",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Anderson2017_1656, &xc_ref_Tawada2004_8425, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-14,

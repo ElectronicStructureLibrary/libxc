@@ -1,3 +1,10 @@
+## [5.1.3] - 2021-03-30
+
+### Fixed
+- Some fixes to CUDA compilation.
+- HYB_GGA_XC_LC_BLYP_EA was not tagged as a hybrid functional.
+- The automatically generated list of functionals on the webpage was missing hybrid functionals for the 5.1.x series.
+
 ## [5.1.2] - 2021-02-12
 
 ### Fixed
@@ -264,15 +271,15 @@
 - MGGA functionals: X_BMK, X_B00, C_SCAN, C_SCAN_RVV10, C_REVM06_L.
 - HYB_MGGA functionals: X_TAU_HCTH.
 - New generic function `xc_func_set_ext_params` to set external parameters. This replaces the functional specific functions `xc_*_set_par`.
-- CMake based build system. It is not intended to replace the Autotools based build system, but rather to make it easier to integrate Libxc in projects that use CMake. 
+- CMake based build system. It is not intended to replace the Autotools based build system, but rather to make it easier to integrate Libxc in projects that use CMake.
 - New interface to hybrid Minnesota exchange functionals HYB_MGGA_X_M05, HYB_MGGA_X_M05_2X, HYB_MGGA_X_M06_2X, HYB_MGGA_X_M06_HF, HYB_MGGA_X_M06, HYB_MGGA_X_M08_SO, HYB_MGGA_X_M08_HF, HYB_MGGA_X_M11.
-- Function `xc_func_set_dens_threshold` to set the threshold for small densities. All quantities  are evaluated to zero when the density is smaller than this threshold. 
+- Function `xc_func_set_dens_threshold` to set the threshold for small densities. All quantities  are evaluated to zero when the density is smaller than this threshold.
 - New utility `xc-threshold` to evaluate the behavior of a given functional in the limit of small densities for a variety of test cases. This is particularly useful in choosing the appropriate density threshold to be set by `xc_func_set_dens_threshold`.
 - File **KNOWN_ISSUES** with a list of issues affecting some functionals that we are aware of.
 - XC_FLAGS_NEEDS_LAPLACIAN flag to signal MGGA functionals that depend on the laplacian of the density.
 - New **xc_funcs_removed.h** header file containing the ID's of removed functionals for backward compatibility.
 - Several missing functions and flags from the Fortran interfaces.
-- Functions to get the list of available functionals (`xc_number_of_functionals`, `xc_maximum_name_length`, `xc_available_functional_numbers`, and `xc_available_functional_names`). 
+- Functions to get the list of available functionals (`xc_number_of_functionals`, `xc_maximum_name_length`, `xc_available_functional_numbers`, and `xc_available_functional_names`).
 
 ### Changed
 - All functionals have been reimplemented using Maple to generate the corresponding C code.
@@ -294,11 +301,11 @@
 
 ## [3.0.0] - 2016-04-21
 ### Added
-- Micro version number to version function and version header file. 
+- Micro version number to version function and version header file.
 - Version_string function, which returns the version number in the following format: `major.minor.micro`
 - Fortran 2003 interface using the iso_c_bindings module.
 - lda_vxc_fxc, gga_vxc_fxc, and mgga_vxc_fxc functions to Fortran 90 interface.
-- LDA functionals: XC_ZLP, XC_KSDT. 
+- LDA functionals: XC_ZLP, XC_KSDT.
 - GGA functionals: X_LAMBDA_LO_N, X_LAMBDA_CH_N, X_LAMBDA_OC2_N, X_EV93, C_BGCP, X_BGCP, X_GAM, X_PBEFE, X_HCTH_A, C_GAM, C_PBEFE, C_OP_PW91, X_CAP.
 - HYB_GGA functionals: XC_B3LYPs, XC_LRC_WPBEH, XC_LRC_WPBE, XC_WB97, XC_WB97X, XC_WB97X_V, XC_CAMY_B3LYP, XC_LC_VV10, XC_HPBEINT, XC_EDF2, XC_B3LYP5, XC_LCY_PBE, XC_LCY_BLYP, XC_CAP0.
 - MGGA functionals: X_MBEEF, X_MBEEFVDW, X_MVS, X_SCAN, C_TPSSLOC, C_DLDF, X_MN15_L, C_MN15_L, C_MN15 XC_ZLP, XC_B97M_V.

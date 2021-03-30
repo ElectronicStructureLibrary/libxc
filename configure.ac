@@ -7,7 +7,7 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
-AC_INIT([libxc],[5.1.2],[libxc@tddft.org],[libxc],[http://www.tddft.org/programs/Libxc])
+AC_INIT([libxc],[5.1.3],[libxc@tddft.org],[libxc],[http://www.tddft.org/programs/Libxc])
 AC_CONFIG_SRCDIR([src/xc.h])
 AM_INIT_AUTOMAKE
 
@@ -66,6 +66,7 @@ AC_SEARCH_LIBS([erf], [m])
 # libxc-5.1.0  10:0:1
 # libxc-5.1.1  10:1:1
 # libxc-5.1.2  10:2:1
+# libxc-5.1.3  10:3:1
 # libxc-6.0.0  11:0:0
 # 
 # Note that libtool versioning was not used prior to libxc-2.0.
@@ -84,7 +85,7 @@ AC_SEARCH_LIBS([erf], [m])
 # so set to 0 if both happened.
 
 XC_CURRENT=10
-XC_REVISION=2
+XC_REVISION=3
 XC_AGE=1
 
 XC_LT_VERSION="${XC_CURRENT}:${XC_REVISION}:${XC_AGE}"

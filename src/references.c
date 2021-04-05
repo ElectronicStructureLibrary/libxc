@@ -254,7 +254,7 @@ func_reference_type xc_ref_Bilc2008_165107 = {
 func_reference_type xc_ref_Bircher2018_3184 = {
   "M. P. Bircher and U. Rothlisberger, J. Chem. Theory Comput. 14, 3184 (2018)",
   "10.1021/acs.jctc.8b00069",
-  "@article{Bircher2018_3184,\nauthor = {Bircher, Martin P. and Rothlisberger, Ursula},\ntitle = {Plane-Wave Implementation and Performance of \\'{a}-la-Carte {C}oulomb-Attenuated Exchange-Correlation Functionals for Predicting Optical Excitation Energies in Some Notorious Cases},\njournal = {J. Chem. Theory Comput.},\nvolume = {14},\nnumber = {6},\npages = {3184-3195},\nyear = {2018},\ndoi = {10.1021/acs.jctc.8b00069},\nurl = {https://doi.org/10.1021/acs.jctc.8b00069}\n}"
+  "@article{Bircher2018_3184,\n  author = {Bircher, Martin P. and Rothlisberger, Ursula},\n  title = {Plane-Wave Implementation and Performance of \\'{a}-la-Carte {C}oulomb-Attenuated Exchange-Correlation Functionals for Predicting Optical Excitation Energies in Some Notorious Cases},\n  journal = {J. Chem. Theory Comput.},\n  volume = {14},\n  number = {6},\n  pages = {3184-3195},\n  year = {2018},\n  doi = {10.1021/acs.jctc.8b00069},\n  url = {https://doi.org/10.1021/acs.jctc.8b00069}\n}"
 };
 
 
@@ -594,6 +594,13 @@ func_reference_type xc_ref_Dahlke2005_15677 = {
 };
 
 
+func_reference_type xc_ref_Day2006_094103 = {
+  "P. N. Day, K. A. Nguyen, and R. Pachter, J. Chem. Phys. 125, 094103 (2006)",
+  "10.1063/1.2338031",
+  "@article{Day2006_094103,\n  author = {Day, Paul N. and Nguyen, Kiet A. and Pachter, Ruth},\n  title = {Calculation of two-photon absorption spectra of donor-$\\pi$-acceptor compounds in solution using quadratic response time-dependent density functional theory},\n  journal = {J. Chem. Phys.},\n  volume = {125},\n  number = {9},\n  pages = {094103},\n  year = {2006},\n  doi = {10.1063/1.2338031},\n  url = {https://doi.org/10.1063/1.2338031}\n}"
+};
+
+
 func_reference_type xc_ref_DePristo1987_1425 = {
   "A. E. DePristo and J. D. Kress, J. Chem. Phys. 86, 1425 (1987)",
   "10.1063/1.452230",
@@ -906,6 +913,13 @@ func_reference_type xc_ref_Grimme2006_1787 = {
   "S. Grimme, J. Comput. Chem. 27, 1787 (2006)",
   "10.1002/jcc.20495",
   "@article{Grimme2006_1787,\n  title = {Semiempirical GGA-type density functional constructed with a long-range dispersion correction},\n  author = {S. Grimme},\n  journal = {J. Comput. Chem.},\n  volume = {27},\n  number = {15},\n  pages = {1787},\n  year = {2006},\n  publisher = {Wiley Subscription Services, Inc., A Wiley Company},\n  issn = {1096-987X},\n  doi = {10.1002/jcc.20495},\n  url = {http://onlinelibrary.wiley.com/doi/10.1002/jcc.20495/abstract}\n}"
+};
+
+
+func_reference_type xc_ref_Grimme2010_154104 = {
+  "S. Grimme, J. Antony, S. Ehrlich, and H. Krieg, J. Chem. Phys. 132, 154104 (2010)",
+  "10.1063/1.3382344",
+  "@article{Grimme2010_154104,\n  author = {Grimme, Stefan and Antony, Jens and Ehrlich, Stephan and Krieg, Helge},\n  title = {A consistent and accurate ab initio parametrization of density functional dispersion correction (DFT-D) for the 94 elements H-Pu},\n  journal = {J. Chem. Phys.},\n  volume = {132},\n  number = {15},\n  pages = {154104},\n  year = {2010},\n  doi = {10.1063/1.3382344},\n  url = {https://doi.org/10.1063/1.3382344}\n}"
 };
 
 
@@ -2250,6 +2264,13 @@ func_reference_type xc_ref_Swart2013_166 = {
   "M. Swart, Chem. Phys. Lett. 580, 166 (2013)",
   "10.1016/j.cplett.2013.06.045",
   "@article{Swart2013_166,\n  title = \"A new family of hybrid density functionals\",\n  author = \"Marcel Swart\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"580\",\n  pages = \"166 - 171\",\n  year = \"2013\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/j.cplett.2013.06.045\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261413008221\"\n}"
+};
+
+
+func_reference_type xc_ref_Tahchieva2018_4806 = {
+  "D. N. Tahchieva, D. Bakowies, R. Ramakrishnan, and O. A. von Lilienfeld, J. Chem. Theory Comput. 14, 4806 (2018)",
+  "10.1021/acs.jctc.8b00174",
+  "@article{Tahchieva2018_4806,\n  author = {Tahchieva, Diana N. and Bakowies, Dirk and Ramakrishnan, Raghunathan and von Lilienfeld, O. Anatole},\n  title = {Torsional Potentials of Glyoxal, Oxalyl Halides, and Their Thiocarbonyl Derivatives: Challenges for Popular Density Functional Approximations},\n  journal = {J. Chem. Theory Comput.},\n  volume = {14},\n  number = {9},\n  pages = {4806-4817},\n  year = {2018},\n  doi = {10.1021/acs.jctc.8b00174},\n  url = {https://doi.org/10.1021/acs.jctc.8b00174}\n}"
 };
 
 

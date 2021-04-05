@@ -17,6 +17,7 @@
 #define XC_HYB_GGA_XC_CAM_QTP_01       482 /* CAM-QTP-01 */
 #define XC_HYB_GGA_XC_CAM_QTP_02       491 /* CAM-QTP-02 */
 #define XC_HYB_GGA_XC_LC_QTP           492 /* LC-QTP     */
+#define XC_HYB_GGA_XC_MCAM_B3LYP       640 /* Modified CAM-B3LYP */
 
 #define CAMB3_N_PAR 4
 static const char  *camb3_names[CAMB3_N_PAR]  = {"_alpha", "_beta", "_omega", "_ac"};
@@ -34,6 +35,7 @@ static const double par_cam_qtp_00[CAMB3_N_PAR]      = {0.91, -0.37,   0.29,  0.
 static const double par_cam_qtp_01[CAMB3_N_PAR]      = {1.00, -0.77,   0.31,  0.8};
 static const double par_cam_qtp_02[CAMB3_N_PAR]      = {1.00, -0.72,   0.335, 1.0};
 static const double par_lc_qtp[CAMB3_N_PAR]          = {1.00, -1.00,   0.475, 1.0};
+static const double par_mcam_b3lyp[CAMB3_N_PAR]      = {0.38, -0.19,   0.33,  0.81};
 
 static void
 set_cam_params(xc_func_type *p, const double *ext_params) {
@@ -182,6 +184,23 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_qtp = {
   xc_hyb_gga_xc_cam_b3lyp_init, NULL,
   NULL, NULL, NULL
 };
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_hyb_gga_xc_mcam_b3lyp = {
+  XC_HYB_GGA_XC_MCAM_B3LYP,
+  XC_EXCHANGE_CORRELATION,
+  "Modified CAM-B3LYP by Day, Nguyen and Pachter",
+  XC_FAMILY_GGA,
+  {&xc_ref_Day2006_094103, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-14,
+  {CAMB3_N_PAR, camb3_names, camb3_desc, par_mcam_b3lyp, camb3_set_ext_params},
+  xc_hyb_gga_xc_cam_b3lyp_init, NULL,
+  NULL, NULL, NULL
+};
+
 
 #define RCAM_N_PAR 4
 static const char  *rcam_names[RCAM_N_PAR]  = {"_alpha", "_beta", "_omega", "_ab88"};

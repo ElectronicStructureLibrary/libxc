@@ -18,6 +18,7 @@
 #define XC_HYB_GGA_XC_REVB3LYP      454 /* Revised B3LYP                         */
 #define XC_HYB_GGA_XC_B3LYPS        459 /* B3LYP* functional                     */
 #define XC_HYB_GGA_XC_B3LYP5        475 /* B3LYP with VWN functional 5 instead of RPA */
+#define XC_HYB_GGA_XC_B3LYP3        394 /* B3LYP with VWN functional 3 instead of RPA */
 #define XC_HYB_GGA_XC_B5050LYP      572 /* Like B3LYP but more exact exchange    */
 #define XC_HYB_GGA_XC_KMLYP         485 /* Kang-Musgrave hybrid                  */
 #define XC_HYB_GGA_XC_APF           409 /* APF hybrid density functional         */
@@ -141,6 +142,31 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp5 = {
   NULL, NULL, NULL
 };
 
+void
+xc_hyb_gga_xc_b3lyp3_init(xc_func_type *p)
+{
+  static int   funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_LDA_C_VWN_3, XC_GGA_C_LYP};
+  static double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0}; /* set by ext_params */
+
+  xc_mix_init(p, 4, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
+}
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_hyb_gga_xc_b3lyp3 = {
+  XC_HYB_GGA_XC_B3LYP3,
+  XC_EXCHANGE_CORRELATION,
+  "B3LYP with VWN functional 3 instead of RPA",
+  XC_FAMILY_GGA,
+  {&xc_ref_Stephens1994_11623, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-15,
+  {B3LYP_N_PAR, b3lyp_names, b3lyp_desc, b3lyp_values, b3pw91_set_ext_params},
+  xc_hyb_gga_xc_b3lyp3_init, NULL,
+  NULL, NULL, NULL
+};
 
 void
 xc_hyb_gga_xc_b3p86_init(xc_func_type *p)

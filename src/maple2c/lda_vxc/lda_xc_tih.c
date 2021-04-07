@@ -6,7 +6,7 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-  Maple version     : Maple 2020 (X86 64 LINUX)
+  Maple version     : Maple 2019 (X86 64 LINUX)
   Maple source      : ./maple/lda_vxc/lda_xc_tih.mpl
   Type of functional: lda_vxc
 */
@@ -38,6 +38,11 @@ func_unpol(const xc_func_type *p, int order, const double *rho LDA_OUT_PARAMS_NO
 
 #endif
 
+
+
+#ifndef XC_DONT_COMPILE_VXC
+
+  if(order < 1) return;
 
 
   t3 = tanh(0.10953e1 + 0.334789e-1 * rho[0]);
@@ -112,6 +117,8 @@ func_unpol(const xc_func_type *p, int order, const double *rho LDA_OUT_PARAMS_NO
 
 #endif
 
+#endif
+
 
 }
 
@@ -139,6 +146,11 @@ func_pol(const xc_func_type *p, int order, const double *rho LDA_OUT_PARAMS_NO_E
 
 #endif
 
+
+
+#ifndef XC_DONT_COMPILE_VXC
+
+  if(order < 1) return;
 
 
   t4 = tanh(0.10953e1 + 0.334789e-1 * rho[0] + 0.334789e-1 * rho[1]);
@@ -234,6 +246,8 @@ func_pol(const xc_func_type *p, int order, const double *rho LDA_OUT_PARAMS_NO_E
 
   if(order < 5) return;
 
+
+#endif
 
 #endif
 

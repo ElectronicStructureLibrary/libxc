@@ -6,7 +6,7 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-  Maple version     : Maple 2020 (X86 64 LINUX)
+  Maple version     : Maple 2019 (X86 64 LINUX)
   Maple source      : ./maple/gga_vxc/gga_x_lb.mpl
   Type of functional: gga_vxc
 */
@@ -57,6 +57,11 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
 
   assert(p->params != NULL);
   params = (gga_x_lb_params * )(p->params);
+
+#ifndef XC_DONT_COMPILE_VXC
+
+  if(order < 1) return;
+
 
   t1 = M_CBRT3;
   t4 = POW_1_3(0.1e1 / M_PI);
@@ -246,6 +251,8 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
 
 #endif
 
+#endif
+
 
 }
 
@@ -304,6 +311,11 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
 
   assert(p->params != NULL);
   params = (gga_x_lb_params * )(p->params);
+
+#ifndef XC_DONT_COMPILE_VXC
+
+  if(order < 1) return;
+
 
   t1 = M_CBRT3;
   t4 = POW_1_3(0.1e1 / M_PI);
@@ -818,6 +830,8 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
 
   if(order < 5) return;
 
+
+#endif
 
 #endif
 

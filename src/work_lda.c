@@ -65,7 +65,7 @@ work_lda(const XC(func_type) *p, size_t np, const double *rho,
 
   *pcuda = *p;
 
-  auto nblocks = np/CUDA_BLOCK_SIZE;
+  size_t nblocks = np/CUDA_BLOCK_SIZE;
   if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
 
   work_lda_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(pcuda, order, np, rho,

@@ -53,7 +53,7 @@ static void add_to_mix(size_t np, double * dst, double coeff, const double *src)
   size_t ip;
   for(ip = 0; ip < np; ip++) dst[ip] += coeff*src[ip];
 #else
-  auto nblocks = np/CUDA_BLOCK_SIZE;
+  size_t nblocks = np/CUDA_BLOCK_SIZE;
   if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
   add_to_mix_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(np, dst, coeff, src);
 #endif

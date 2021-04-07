@@ -41,9 +41,6 @@ work_lda(const XC(func_type) *p, size_t np, const double *rho,
          double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
   int order = -1;
-  size_t ip;
-  double dens;
-  double my_rho[2] = {0.0, 0.0};
 
   if(zk     != NULL) order = 0;
   if(vrho   != NULL) order = 1;
@@ -74,6 +71,9 @@ work_lda(const XC(func_type) *p, size_t np, const double *rho,
   libxc_free(pcuda);
 
 #else
+  size_t ip;
+  double dens;
+  double my_rho[2] = {0.0, 0.0};
 
   for(ip = 0; ip < np; ip++){
     /* Screen low density */

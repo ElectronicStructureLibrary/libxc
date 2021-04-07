@@ -27,6 +27,7 @@ static inline double FT_inter(double x)
   return xc_E1_scaled(x*x);
 }
 
+GPU_FUNCTION
 static void func1(double *x, int n, void *dummy)
 {
   int ii;
@@ -35,6 +36,7 @@ static void func1(double *x, int n, void *dummy)
     x[ii] = FT_inter(x[ii]);
 }
 
+GPU_FUNCTION
 static void func2(double *x, int n, void *dummy)
 {
   int ii;

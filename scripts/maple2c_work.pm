@@ -103,6 +103,13 @@ $code
   my $new_c_code = "";
 
   my $total_order = $start_order;
+
+  # for avoiding compilation when high order derivatives are enabled
+  if($start_order != 0) {
+    $new_c_code .= "#ifndef XC_DONT_COMPILE_".$test_2[$start_order]."\n\n";
+    $new_c_code .= "  if(order < ".($start_order).") return;\n\n\n";
+  }
+
   for (split /^/, $c_code) {
     my $found = 0;
 
@@ -169,6 +176,9 @@ $code
   }
 
   for(my $i=$start_order; $i<$total_order; $i++){
+    $new_c_code .= "#endif\n\n";
+  }
+  if($start_order != 0){
     $new_c_code .= "#endif\n\n";
   }
 

@@ -68,7 +68,7 @@ work_mgga(const XC(func_type) *p, size_t np,
 
   *pcuda = *p;
 
-  auto nblocks = np/CUDA_BLOCK_SIZE;
+  size_t nblocks = np/CUDA_BLOCK_SIZE;
   if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
 
   work_mgga_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(pcuda, order, np, rho, sigma, lapl, tau,

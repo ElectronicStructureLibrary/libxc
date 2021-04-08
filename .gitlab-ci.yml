@@ -14,12 +14,12 @@ gcc:
       - mkdir build/
       - cd build/
       - export CC=gcc
-      - export CFLAGS="-O3 -pipe -Wall"      
+      - export CFLAGS="-O3 -pipe -Wall"
       - ../configure --prefix=$HOME
       - make
       - make check
       - make install
-      
+
 g++:
     stage: build
     script:
@@ -64,7 +64,7 @@ nvcc_nocuda:
       - mkdir build/
       - cd build/
       - export CC="nvcc -x cu"
-      - export CFLAGS="-g -O3 --std=c++14 --compiler-options -g,-Wall"
+      - export CFLAGS="-g -O3 --std=c++03 --compiler-options -g,-Wall"
       - export CCLD="nvcc"
       - ../configure --prefix=$HOME
       - make
@@ -81,7 +81,7 @@ cuda_norun:
       - mkdir build/
       - cd build/
       - export CC="nvcc -x cu"
-      - export CFLAGS="-g -O3 --std=c++14 --compiler-options -g,-Wall"
+      - export CFLAGS="-g -O3 --std=c++03 --compiler-options -g,-Wall"
       - export CCLD="nvcc"
       - ../configure --enable-cuda --prefix=$HOME
       - make
@@ -94,7 +94,6 @@ cuda_cmake_norun:
     script:
       - apt update -qq
       - DEBIAN_FRONTEND="noninteractive" apt install --no-install-recommends -y -qq autoconf automake make gcc gfortran libtool bzip2 cmake
-      - export CUDAFLAGS="-g -O3 --std=c++14 --compiler-options -g,-Wall"
       - mkdir build
       - cd build
       - cmake -DENABLE_CUDA=ON ../

@@ -104,7 +104,7 @@ This is an example of configuring libxc with cuda support (note that you have to
 
 ```bash
 export CC="/usr/local/cuda/bin/nvcc -x cu"
-export CFLAGS="-arch=sm_70 -g -O3 --std=c++14 --compiler-options -g,-Wall,-Wfatal-errors,-Wno-unused-variable,-Wno-unused-but-set-variable"
+export CFLAGS="-arch=sm_70 -g -O3 --std=c++03 --compiler-options -g,-Wall,-Wfatal-errors,-Wno-unused-variable,-Wno-unused-but-set-variable"
 export CCLD="/usr/local/cuda/bin/nvcc"
 ./configure --enable-cuda
 ```

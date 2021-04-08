@@ -22,6 +22,7 @@ lda_x_1d_exponential_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(lda_x_1d_exponential_params));
 }
 
+GPU_FUNCTION
 static inline double FT_inter(double x)
 {
   return xc_E1_scaled(x*x);

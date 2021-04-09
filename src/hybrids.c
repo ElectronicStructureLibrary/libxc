@@ -92,6 +92,16 @@ xc_hyb_init_vdw_vv10(xc_func_type *p, double b, double C)
   p->hyb_params[0][1] = C;
 }
 
+void
+xc_hyb_init_vdw_df(xc_func_type *p, double Zab)
+{
+  int    hyb_type[1]  = {XC_HYB_VDW_DF};
+  double hyb_omega[1] = {0.0};
+  double hyb_coeff[1] = {Zab};
+
+  xc_hyb_init(p, 1, hyb_type, hyb_coeff, hyb_omega);
+}
+
 /* checks and returns the type of hybrid function */
 int
 xc_hyb_type(const xc_func_type *p)

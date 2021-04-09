@@ -16,11 +16,18 @@
 
 typedef struct{
   double a[6], b[9]; /* pointers to the a and b parameters */
+  double omega;
 } gga_x_hjs_params;
 
 #define N_PARS 16
-static const char  *names[N_PARS]  = {"_a0", "_a1", "_a2", "_a3", "_a4", "_a5", "_b0", "_b1", "_b2", "_b3", "_b4", "_b5", "_b6", "_b7", "_b8", "_omega"};
-static const char  *desc[N_PARS]   = {"a0", "a1", "a2", "a3", "a4", "a5", "b0", "b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "omega"};
+static const char  *names[N_PARS]  = {
+  "_a0", "_a1", "_a2", "_a3", "_a4", "_a5",
+  "_b0", "_b1", "_b2", "_b3", "_b4", "_b5", "_b6", "_b7", "_b8",
+  "_omega"};
+static const char  *desc[N_PARS]   = {
+  "a0", "a1", "a2", "a3", "a4", "a5",
+  "b0", "b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8",
+  "omega"};
 
 static const double pars_PBE[N_PARS] =
   {0.0159941, 0.0852995, -0.160368, 0.152645, -0.0971263, 0.0422061,
@@ -42,9 +49,6 @@ gga_x_hjs_init(xc_func_type *p)
 {
   assert(p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_hjs_params));
-
-  xc_hyb_init_hybrid(p, 0.0);
-  p->hyb_type[0] = XC_HYB_NONE;
 }
 
 #include "decl_gga.h"
@@ -62,7 +66,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_pbe = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   5e-12,
-  {N_PARS, names, desc, pars_PBE, set_ext_params_cpy_omega},
+  {N_PARS, names, desc, pars_PBE, set_ext_params_cpy},
   gga_x_hjs_init, NULL,
   NULL, work_gga, NULL
 };
@@ -78,7 +82,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_pbe_sol = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   5e-12,
-  {N_PARS, names, desc, pars_PBE_sol, set_ext_params_cpy_omega},
+  {N_PARS, names, desc, pars_PBE_sol, set_ext_params_cpy},
   gga_x_hjs_init, NULL,
   NULL, work_gga, NULL
 };
@@ -94,7 +98,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b88 = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-7, /* densities smaller than 1e-7 yield NaNs */
-  {N_PARS, names, desc, pars_B88, set_ext_params_cpy_omega},
+  {N_PARS, names, desc, pars_B88, set_ext_params_cpy},
   gga_x_hjs_init, NULL,
   NULL,  work_gga, NULL
 };
@@ -110,7 +114,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b97x = {
   {&xc_ref_Henderson2008_194105, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-10,
-  {N_PARS, names, desc, pars_B97x, set_ext_params_cpy_omega},
+  {N_PARS, names, desc, pars_B97x, set_ext_params_cpy},
   gga_x_hjs_init, NULL,
   NULL, work_gga, NULL
 };

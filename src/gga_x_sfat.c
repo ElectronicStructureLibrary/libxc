@@ -15,17 +15,20 @@
    Akinaga, Ten-no, Chem. Phys. Lett. 462 (2008) 348-351
 */
 
-#include "decl_gga.h"
-#include "maple2c/gga_exc/gga_x_sfat.c"
-#include "work_gga.c"
+typedef struct{
+  double omega;
+} gga_x_sfat_params;
 
 static void
 xc_gga_x_sfat_init(xc_func_type *p)
 {
-  xc_hyb_init_hybrid(p, 0.0);
-  p->hyb_type[0] = XC_HYB_NONE;
+  assert(p!=NULL && p->params == NULL);
+  p->params = libxc_malloc(sizeof(gga_x_sfat_params));
 }
 
+#include "decl_gga.h"
+#include "maple2c/gga_exc/gga_x_sfat.c"
+#include "work_gga.c"
 
 static const char  *omega_names[]  = {"_omega"};
 static const char  *omega_desc[]   = {"screening parameter"};

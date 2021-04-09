@@ -30,15 +30,6 @@ xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix
     p->func_aux[ii] = (xc_func_type *) libxc_malloc(sizeof(xc_func_type));
     xc_func_init (p->func_aux[ii], funcs_id[ii], p->nspin);
   }
-
-  /* initialize variables */
-  p->hyb_number_terms = 0;
-  p->hyb_type  = NULL;
-  p->hyb_coeff = NULL;
-  p->hyb_omega = NULL;
-
-  p->nlc_b     = 0.0;
-  p->nlc_C     = 0.0;
 }
 
 #ifdef HAVE_CUDA

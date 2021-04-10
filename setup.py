@@ -49,7 +49,13 @@ class CMakeBuild(build_ext):
             build_args += ['--', '/m']
         else:
             cmake_args += ['-DCMAKE_BUILD_TYPE=' + cfg]
-            build_args += ['--', '-j8']
+            nprocs = 1
+            try:
+                import multiprocessing as mp
+                nprocs = mp.cpu_count()
+            except ImportError:
+                pass
+            build_args += ['--', '-j{}'.format(nprocs)]
 
         env = os.environ.copy()
         env['CXXFLAGS'] = '{} -DVERSION_INFO=\\"{}\\"'.format(

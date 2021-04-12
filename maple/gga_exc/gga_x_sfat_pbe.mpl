@@ -7,6 +7,12 @@
 *)
 
 (* type: gga_exc *)
+(* prefix:
+  gga_x_sfat_pbe_params *params;
+
+  assert(p->params != NULL);
+  params = (gga_x_sfat_pbe_params * )(p->params);
+*)
 
 $define gga_x_pbe_params
 $include "gga_x_pbe.mpl"

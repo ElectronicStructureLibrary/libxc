@@ -7,6 +7,13 @@
 *)
 
 (* type: gga_exc *)
+(* prefix:
+  gga_x_sfat_params *params;
+
+  assert(p->params != NULL);
+  params = (gga_x_sfat_params * )(p->params);
+*)
+
 
 $include "gga_x_ityh.mpl"
 

@@ -13,7 +13,7 @@
  */
 
 #ifdef XC_DEBUG
-#define __USE_GNU
+#define __USE_GNU 1
 #include <fenv.h>
 #endif
 

@@ -10,13 +10,16 @@
 
 #define XC_LDA_C_PMGB06   590   /* Long-range LDA correlation functional */
 
+typedef struct{
+  double omega;
+} lda_c_pmgb06_params;
+
 static void
 xc_lda_x_pmgb06_init(xc_func_type *p)
 {
-  xc_hyb_init_hybrid(p, 0.0);
-  p->hyb_type[0] = XC_HYB_NONE;
+  assert(p!=NULL && p->params == NULL);
+  p->params = libxc_malloc(sizeof(lda_c_pmgb06_params));
 }
-
 
 static const char  *omega_names[]  = {"_omega"};
 static const char  *omega_desc[]   = {"screening parameter"};
@@ -37,7 +40,7 @@ const xc_func_info_type xc_func_info_lda_c_pmgb06 = {
   {&xc_ref_Paziani2006_155111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1e-13,
-  {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
+  {1, omega_names, omega_desc, omega_values, set_ext_params_cpy},
   xc_lda_x_pmgb06_init, NULL,
   work_lda, NULL, NULL
 };

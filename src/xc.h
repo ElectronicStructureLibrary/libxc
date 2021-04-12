@@ -96,6 +96,10 @@ const char *xc_version_string();
 #define XC_HYB_CAMG             4  /* Coulomb attenuated hybrid with a Gaussian screening */
 #define XC_HYB_DOUBLE_HYBRID    5  /* Double hybrid */
 #define XC_HYB_VDW_DF           6  /* van der Waals correction according to Dion2004_246401 */
+<<<<<<< HEAD
+=======
+#define XC_HYB_VDW_VV10         7  /* van der Waals correction according to Vydrov2010_244103 */
+>>>>>>> 2dfd71d804137729aeb061c171d558d9fdd939b8
 #define XC_HYB_MIXTURE      32768  /* More complicated mixture (have to check individual terms) */
 
 #define XC_MAX_REFERENCES       5
@@ -232,8 +236,8 @@ double xc_func_info_get_ext_params_default_value(const xc_func_info_type *info, 
 
 
 struct xc_dimensions{
-  int rho, sigma, lapl, tau;       /* spin dimensions of the arrays */
-  int zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, );
+  size_t rho, sigma, lapl, tau;       /* spin dimensions of the arrays */
+  size_t zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, );
 };
 
 typedef struct xc_dimensions xc_dimensions;
@@ -247,23 +251,11 @@ struct xc_func_type{
   struct xc_func_type **func_aux;      /* most GGAs are based on a LDA or other GGAs  */
   double *mix_coef;                    /* coefficients for the mixing */
 
-  /**
-     Parameters for range-separated hybrids
-     hyb_type[i]:  XC_HYB_NONE, XC_HYB_FOCK, XC_HYB_ERF_SR, etc.
-     hyb_omega[i]: the range separation constant
-     hyb_coeff[i]: fraction of exchange, used both for
-                usual hybrids as well as range-separated ones
-
-     N.B. Different conventions for alpha and beta can be found in
-     literature. In the convention used in libxc, at short range the
-     fraction of exact exchange is cam_alpha+cam_beta, while at long
-     range it is cam_alpha.
-  */
-  int hyb_number_terms, *hyb_type;
-  double *hyb_coeff, *hyb_omega;
-
-  double nlc_b;                /* Non-local correlation, b parameter */
-  double nlc_C;                /* Non-local correlation, C parameter */
+  /* Parameters for functional containing external contributions (such
+     as a Fock, PT2, or a VDW term) */
+  int hyb_number_terms;    /* number of external contibutions to the functional (max 5) */
+  int hyb_type[5];         /* type of external contibutions, such as XC_HYB_NONE, XC_HYB_FOCK, etc. */
+  double hyb_params[5][5]; /* Parameters defining the external contibution. This depends on the type */
 
   xc_dimensions dim;           /* the dimensions of all input and output arrays */
 
@@ -509,7 +501,7 @@ double xc_hyb_exx_coef(const xc_func_type *p);
 /* Returns fraction of Hartee-Fock exchange and short-range exchange in a range-separated hybrid functional  */
 void xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *beta);
 /* Returns the b and C coefficients for a non-local VV10 correlation kernel */
-void xc_nlc_coef(const xc_func_type *p, double *nlc_b, double *nlc_C);
+void xc_hyb_vdw_vv10_coef(const xc_func_type *p, double *b, double *C);
 
 #ifdef __cplusplus
 }

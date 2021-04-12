@@ -232,6 +232,8 @@ xc_func_type *xc_func_alloc()
 /*------------------------------------------------------*/
 void xc_func_nullify(xc_func_type *func)
 {
+  int ii, jj;
+  
   assert(func != NULL);
 
   func->info       = NULL;
@@ -241,12 +243,14 @@ void xc_func_nullify(xc_func_type *func)
   func->func_aux   = NULL;
   func->mix_coef   = NULL;
 
+  /* the number of hybrid external components is by now limited to
+     5 */
   func->hyb_number_terms = 0;
-  func->hyb_type   = NULL;
-  func->hyb_coeff  = NULL;
-  func->hyb_omega  = NULL;
-
-  func->nlc_b = func->nlc_C = 0.0;
+  for(ii=0; ii<5; ii++){
+    func->hyb_type[ii] = 0;
+    for(jj=0; jj<5; jj++)
+      func->hyb_params[ii][jj] = 0.0;
+  }
 
   func->ext_params = NULL;
   func->params     = NULL;
@@ -345,13 +349,6 @@ void xc_func_end(xc_func_type *func)
   /* deallocate coefficients for mixed functionals */
   if(func->mix_coef != NULL)
     libxc_free(func->mix_coef);
-
-  /* deallocate hybrid coefficients */
-  if(func->hyb_type != NULL){
-    libxc_free(func->hyb_type);
-    libxc_free(func->hyb_omega);
-    libxc_free(func->hyb_coeff);
-  }
 
   /* deallocate any used parameter */
   if(func->ext_params != NULL)
@@ -487,13 +484,4 @@ double
 xc_func_get_ext_params_value(const xc_func_type *p, int index)
 {
   return p->ext_params[index];
-}
-
-/* returns the NLC parameters */
-void xc_nlc_coef(const xc_func_type *p, double *nlc_b, double *nlc_C)
-{
-  assert(p!=NULL);
-
-  *nlc_b = p->nlc_b;
-  *nlc_C = p->nlc_C;
 }

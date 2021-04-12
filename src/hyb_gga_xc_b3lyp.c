@@ -69,7 +69,7 @@ b3pw91_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[2] = 1.0 - ac;
   p->mix_coef[3] = ac;
 
-  p->hyb_coeff[0] = a0;
+  p->hyb_params[0][0] = a0;
 }
 
 #ifdef __cplusplus
@@ -302,7 +302,7 @@ rc04_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[2] = 1.0 - d*ac;
   p->mix_coef[3] = ac;
 
-  p->hyb_coeff[0] = a0;
+  p->hyb_params[0][0] = a0;
 }
 
 void
@@ -419,7 +419,7 @@ kmlyp_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[1] = 1.0 - ac;
   p->mix_coef[2] = ac;
 
-  p->hyb_coeff[0] = a0;
+  p->hyb_params[0][0] = a0;
 
 }
 
@@ -485,12 +485,12 @@ xc_hyb_gga_xc_apf_init(xc_func_type *p)
   /* Used C standard doesn't allow initializer list, even with const
      variables */
   double funcs_coef[6];
-  funcs_coef[0]=(1.0 - xb3pw91 - 0.72)*fb3pw91;
-  funcs_coef[1]=0.72*fb3pw91;
-  funcs_coef[2]=(1.0 - 0.81)*fb3pw91;
-  funcs_coef[3]=0.81*fb3pw91;
-  funcs_coef[4]=(1.0 - xpbe0)*fpbe0;
-  funcs_coef[5]=fpbe0;
+  funcs_coef[0] = (1.0 - xb3pw91 - 0.72)*fb3pw91;
+  funcs_coef[1] = 0.72*fb3pw91;
+  funcs_coef[2] = (1.0 - 0.81)*fb3pw91;
+  funcs_coef[3] = 0.81*fb3pw91;
+  funcs_coef[4] = (1.0 - xpbe0)*fpbe0;
+  funcs_coef[5] = fpbe0;
 
   xc_mix_init(p, 6, funcs_id, funcs_coef);
   xc_hyb_init_hybrid(p, fb3pw91*xb3pw91 + fpbe0*xpbe0);
@@ -623,7 +623,7 @@ mcm1_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[2] = p6 - p5;
   p->mix_coef[3] = p5;
 
-  p->hyb_coeff[0] = p2;
+  p->hyb_params[0][0] = p2;
 }
 
 void

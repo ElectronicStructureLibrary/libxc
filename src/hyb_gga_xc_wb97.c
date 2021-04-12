@@ -16,6 +16,7 @@
 
 typedef struct {
   double c_x[5], c_ss[5], c_ab[5];
+  double omega;
 } gga_xc_wb97_params;
 
 #define N_PAR 18
@@ -87,11 +88,11 @@ gga_xc_wb97_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_xc_wb97_params));
   xc_hyb_init_cam(p, 0.0, 0.0, 0.0);
   
-  switch(p->info->number){
-  case XC_HYB_GGA_XC_WB97X_V:
-    p->nlc_b = 6.0;
-    p->nlc_C = 0.01;
-    break;
+  /* this particular functional has an extra vdw component */
+  if(p->info->number ==  XC_HYB_GGA_XC_WB97X_V){
+    p->hyb_number_terms = 3;
+    p->hyb_params[2][0] = 6.0;
+    p->hyb_params[2][1] = 0.01;
   }
 }
 
@@ -140,7 +141,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x_v = {
   "wB97X-V range-separated functional",
   XC_FAMILY_GGA,
   {&xc_ref_Mardirossian2014_9904, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_VV10 | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
   {N_PAR, names, desc, par_wb97x_v, set_ext_params_cpy_cam},
   gga_xc_wb97_init, NULL,

@@ -41,9 +41,7 @@ mgga_c_scan_rvv10_init(xc_func_type *p)
   static double funcs_coef[1] = {1.0};
 
   xc_mix_init(p, 1, funcs_id, funcs_coef);
-
-  p->nlc_b = 15.7;
-  p->nlc_C = 0.0093;
+  xc_hyb_init_vdw_vv10(p, 15.7, 0.0093);
 }
 
 #ifdef __cplusplus
@@ -55,7 +53,7 @@ const xc_func_info_type xc_func_info_mgga_c_scan_rvv10 = {
   "SCAN + rVV10 correlation",
   XC_FAMILY_MGGA,
   {&xc_ref_Peng2016_041005, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_VV10 | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   mgga_c_scan_rvv10_init, NULL,
@@ -69,9 +67,7 @@ mgga_c_scan_vv10_init(xc_func_type *p)
   static double funcs_coef[1] = {1.0};
 
   xc_mix_init(p, 1, funcs_id, funcs_coef);
-
-  p->nlc_b = 14.0;
-  p->nlc_C = 0.0093;
+  xc_hyb_init_vdw_vv10(p, 14.0, 0.0093);
 }
 
 #ifdef __cplusplus
@@ -83,7 +79,7 @@ const xc_func_info_type xc_func_info_mgga_c_scan_vv10 = {
   "SCAN + VV10 correlation",
   XC_FAMILY_MGGA,
   {&xc_ref_Brandenburg2016_115144, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_VV10 | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   mgga_c_scan_vv10_init, NULL,

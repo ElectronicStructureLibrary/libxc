@@ -14,6 +14,7 @@
 typedef struct{
   double kappa, mu;
   double lambda; /* parameter used in the Odashima & Capelle versions */
+  double omega;
 } gga_x_ityh_pbe_params;
 
 #define N_PAR 3
@@ -40,9 +41,6 @@ gga_x_ityh_pbe_init(xc_func_type *p)
 
   /* This has to be explicitly initialized here */
   params->lambda = 0.0;
-
-  xc_hyb_init_hybrid(p, 0.0);
-  p->hyb_type[0] = XC_HYB_NONE;
 }
 
 #ifdef __cplusplus
@@ -56,7 +54,7 @@ const xc_func_info_type xc_func_info_gga_x_ityh_pbe = {
   {&xc_ref_Perdew1996_3865, &xc_ref_Perdew1996_3865_err, &xc_ref_Iikura2001_3540, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
-  {N_PAR, names, desc, par_pbe, set_ext_params_cpy_omega},
+  {N_PAR, names, desc, par_pbe, set_ext_params_cpy},
   gga_x_ityh_pbe_init, NULL,
   NULL, work_gga, NULL
 };

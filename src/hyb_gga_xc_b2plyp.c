@@ -16,36 +16,31 @@ static const char  *b2plyp_desc[B2PLYP_N_PAR]   = {"Fock fraction", "PT2 fractio
 static const double b2plyp_values[B2PLYP_N_PAR] = {0.53, 0.27};
 
 static void
-b2plyp_set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  double ax, c;
-
-  assert(p != NULL);
-  ax = get_ext_param(p, ext_params, 0);
-  c  = get_ext_param(p, ext_params, 1);
-
-  p->mix_coef[0] = 1.0 - ax;
-  p->mix_coef[1] = 1.0 - c;
-
-  p->hyb_coeff[0] = ax;
-  p->hyb_coeff[1] = c;
-}
-
-
-static void
 hyb_gga_xc_b2plyp_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_LYP};
   static double funcs_coef[2] = {0.0, 0.0};
 
-  int hyb_type[2]     = {XC_HYB_PT2, XC_HYB_FOCK};
-  double hyb_omega[2] = {0.0, 0.0};
-  double hyb_coeff[2] = {0.0, 0.0};
-
   /* Note that the values of funcs_coef and hyb_coeff will be set
       by set_ext_params */
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init(p, 2, hyb_type, hyb_coeff, hyb_omega);
+
+  p->hyb_number_terms = 2;
+  p->hyb_type[0] = XC_HYB_FOCK;
+  p->hyb_type[0] = XC_HYB_PT2;
+}
+
+static void
+b2plyp_set_ext_params(xc_func_type *p, const double *ext_params)
+{
+  double ax, c;
+
+  assert(p != NULL);
+  p->hyb_params[0][0] = get_ext_param(p, ext_params, 0);
+  p->hyb_params[1][0] = get_ext_param(p, ext_params, 1);
+
+  p->mix_coef[0] = 1.0 - p->hyb_params[0][0];
+  p->mix_coef[1] = 1.0 - p->hyb_params[1][0];
 }
 
 

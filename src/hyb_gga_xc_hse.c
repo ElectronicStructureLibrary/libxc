@@ -73,6 +73,8 @@ hyb_gga_xc_hse_init(xc_func_type *p)
   xc_hyb_init_sr(p, 0.0, 0.0);
 }
 
+/* This requires a special treatment as HSE can have a different
+   values of the screening length for the DFT and HF parts */
 static void
 hse03_set_ext_params(xc_func_type *p, const double *ext_params)
 {
@@ -86,8 +88,8 @@ hse03_set_ext_params(xc_func_type *p, const double *ext_params)
 
   p->mix_coef[1] = -beta;
 
-  p->hyb_coeff[0] = beta;
-  p->hyb_omega[0] = omega_HF;
+  p->hyb_params[0][0] = beta;
+  p->hyb_params[0][1] = omega_HF;
 
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", 0.0);
   xc_func_set_ext_params_name(p->func_aux[1], "_omega", omega_PBE);
@@ -167,7 +169,7 @@ hyb_gga_xc_hse_sol_init(xc_func_type *p)
   xc_hyb_init_sr(p, 0.25, 0.11);
 
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", 0.0);
-  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_omega[0]);
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_params[0][1]);
 }
 
 
@@ -210,27 +212,10 @@ static const double par_lc_wpbesol_whs[LRC_N_PAR] = {1.00, -1.00, 0.60};
 static void
 lrc_set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  double alpha, beta, omega;
+  set_ext_params_cpy_cam(p, ext_params);
 
-  assert(p != NULL);
-
-  alpha = get_ext_param(p, ext_params, 0);
-  beta  = get_ext_param(p, ext_params, 1);
-  omega = get_ext_param(p, ext_params, 2);
-
-  /* DFT part */
-  p->mix_coef[0] = -beta;
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", omega);
-
-  /* Set the hybrid flags */
-  assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_coeff[0] = beta;
-  p->hyb_omega[0] = omega;
-
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_coeff[1] = alpha;
-  p->hyb_omega[1] = 0.0;
+  p->mix_coef[0] = -p->hyb_params[1][0]; /* beta */
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_params[1][1]);
 }
 
 static void
@@ -419,7 +404,7 @@ hyb_gga_xc_hjs_init(xc_func_type *p)
   xc_hyb_init_sr(p, 0.25, 0.11);
 
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", 0.0);
-  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_omega[0]);
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_params[1][1]);
 }
 
 #ifdef __cplusplus
@@ -492,15 +477,21 @@ hyb_gga_xc_hiss_init(xc_func_type *p)
   /* C_MR = 0.60 */
   static int    funcs_id  [3] = {XC_GGA_X_HJS_PBE, XC_GGA_X_HJS_PBE, XC_GGA_C_PBE};
   static double funcs_coef[3] = {1.0 - 0.60, -(1.0 - 0.60), 1.0};
-  static int    hyb_type[2]   = {XC_HYB_ERF_SR, XC_HYB_ERF_SR};
-  static double hyb_omega[2]  = {0.20,  0.84};
-  static double hyb_coeff[2]  = {0.60, -0.60};
 
   xc_mix_init(p, 3, funcs_id, funcs_coef);
-  xc_hyb_init(p, 2, hyb_type, hyb_coeff, hyb_omega);
 
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", hyb_omega[0]);
-  xc_func_set_ext_params_name(p->func_aux[1], "_omega", hyb_omega[1]);
+  p->hyb_number_terms = 2;
+  
+  p->hyb_type[0] = XC_HYB_ERF_SR;
+  p->hyb_params[0][0] = 0.60;
+  p->hyb_params[0][1] = 0.20;
+
+  p->hyb_type[1] = XC_HYB_ERF_SR;
+  p->hyb_params[1][0] =-0.60;
+  p->hyb_params[1][1] = 0.84;
+  
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_params[0][1]);
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_params[1][1]);
 }
 
 #ifdef __cplusplus

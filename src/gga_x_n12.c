@@ -62,12 +62,25 @@ static const double par_gam[N_PAR_PURE] = {
 static void
 gga_x_n12_init(xc_func_type *p)
 {
-  assert(p != NULL);
-  assert(p->params == NULL);
+  assert(p != NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_n12_params));
 
   if(p->info->number == XC_HYB_GGA_X_N12_SX)
     xc_hyb_init_sr(p, 0.0, 0.0);
+}
+
+static void
+gga_x_n12_sx_set_params(xc_func_type *p, const double *ext_params)
+{
+  int nparams;
+  gga_x_n12_params *params;
+
+  set_ext_params_cpy(p, ext_params);
+
+  params = (gga_x_n12_params * )(p->params);
+  nparams = p->info->ext_params.n;
+  p->hyb_params[0][0] = get_ext_param(p, ext_params, nparams - 2);
+  p->hyb_params[0][1] = get_ext_param(p, ext_params, nparams - 1);
 }
 
 #include "decl_gga.h"
@@ -101,7 +114,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_n12_sx = {
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
-  {N_PAR_SX, sx_names, sx_desc, par_n12_sx, set_ext_params_cpy_cam_sr},
+  {N_PAR_SX, sx_names, sx_desc, par_n12_sx, gga_x_n12_sx_set_params},
   gga_x_n12_init, NULL,
   NULL, work_gga, NULL
 };

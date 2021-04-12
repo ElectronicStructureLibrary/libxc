@@ -8,7 +8,7 @@
 
 #include "util.h"
 
-#define XC_GGA_XC_VDW_DF1   639 /* original vdw_df functional of Dion et al */
+#define XC_GGA_XC_VDW_DF1   641 /* original vdw_df functional of Dion et al */
 
 #define VDW_DF1_N_PAR 1
 static const char  *vdw_df1_names[VDW_DF1_N_PAR]  = {"_Z_ab"};
@@ -32,7 +32,7 @@ vdw_df1_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   assert(p != NULL);
 
-  p->hyb_coeff[0] = get_ext_param(p, ext_params, 0);
+  p->hyb_params[0][0] = get_ext_param(p, ext_params, 0);
 }
 
 #ifdef __cplusplus

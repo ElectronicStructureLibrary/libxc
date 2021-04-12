@@ -26,32 +26,20 @@ static const double par_lc_bop[N_PAR] = {0.47};
 static const double par_lc_pbeop[N_PAR] = {0.33};
 static const double par_lc_blypr[N_PAR] = {0.33};
 
-static void
-set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  double omega;
-
-  assert(p != NULL);
-  omega  = get_ext_param(p, ext_params, 0);
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", omega);
-
-  assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_coeff[0] = -1.0;
-  p->hyb_omega[0] = omega;
-
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_coeff[1] = 1.0;
-  p->hyb_omega[1] = 0.0;
-}
-
 void
 xc_hyb_gga_xc_lc_blyp_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_ITYH, XC_GGA_C_LYP};
   static double funcs_coef[2] = {1.0, 1.0};
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_cam(p, 0.0, 0.0, 0.0); /* Set by parameters */
+  xc_hyb_init_cam(p, 1.0, -1.0, 0.0); /* Set by parameters */
+}
+
+static void
+set_ext_params(xc_func_type *p, const double *ext_params)
+{
+  p->hyb_params[1][1]  = get_ext_param(p, ext_params, 0);
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_params[1][1]);
 }
 
 #ifdef __cplusplus
@@ -142,27 +130,15 @@ xc_hyb_gga_xc_lc_blypr_init(xc_func_type *p)
   static int   funcs_id  [2] = {XC_GGA_X_ITYH, XC_GGA_C_LYPR};
   static double funcs_coef[2] = {1.0, 1.0};
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_cam(p, 0.0, 0.0, 0.0); /* Set by parameters */
+  xc_hyb_init_cam(p, 1.0, -1.0, 0.0); /* Set by parameters */
 }
 
 static void
 set_ext_params_blypr(xc_func_type *p, const double *ext_params)
 {
-  double omega;
-
-  assert(p != NULL);
-  omega  = get_ext_param(p, ext_params, 0);
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", omega);
-  xc_func_set_ext_params_name(p->func_aux[1], "_omega", omega);
-
-  assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_coeff[0] = -1.0;
-  p->hyb_omega[0] = omega;
-
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_coeff[1] = 1.0;
-  p->hyb_omega[1] = 0.0;
+  p->hyb_params[1][1] = get_ext_param(p, ext_params, 0);
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_params[1][1]);
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_params[1][1]);
 }
 
 #ifdef __cplusplus

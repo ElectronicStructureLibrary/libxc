@@ -12,14 +12,28 @@
 #define XC_HYB_GGA_X_LCGAU_CORE 709 /* Long-range Gaussian fitted to core excitations */
 #define XC_HYB_GGA_X_LC2GAU 710     /* Long-range Gaussian 2 */
 
+typedef struct{
+  double alpha1, alpha2;
+  double omega0, omega1, omega2;
+} gga_x_lcgau_params;
+
+
 static void
 hyb_gga_x_lgau_init(xc_func_type *p)
 {
-  int hyb_type[4] = {XC_HYB_ERF_SR, XC_HYB_FOCK, XC_HYB_GAUSSIAN_SR, XC_HYB_GAUSSIAN_SR};
-  double hyb_coeff[4] = {-1.0, 1.0, 0.0, 0.0};
-  double hyb_omega[4] = {0.0,  0.0, 0.0, 0.0};
+  assert(p!=NULL && p->params == NULL);
+  p->params = libxc_malloc(sizeof(gga_x_lcgau_params));
 
-  xc_hyb_init(p, 4, hyb_type, hyb_coeff, hyb_omega);
+  p->hyb_number_terms = 4;
+
+  p->hyb_type[0] = XC_HYB_FOCK;
+  p->hyb_params[0][0] = 1.0;
+
+  p->hyb_type[1] = XC_HYB_ERF_SR;
+  p->hyb_params[1][0] = -1.0;
+
+  p->hyb_type[2] = XC_HYB_GAUSSIAN_SR;
+  p->hyb_type[3] = XC_HYB_GAUSSIAN_SR;
 }
 
 #define LCGAU_N_PAR 5
@@ -44,20 +58,23 @@ static const double lc2gau_values[LCGAU_N_PAR] = {
 static void
 lcgau_set_ext_params(xc_func_type *p, const double *ext_params)
 {
+  gga_x_lcgau_params *params;
   double a1, a2, k1, k2, omega;
-
+  
+  assert(p->params != NULL);
+  params = (gga_x_lcgau_params * )(p->params);
+ 
   a1    = get_ext_param(p, ext_params, 0);
   k1    = get_ext_param(p, ext_params, 1);
   a2    = get_ext_param(p, ext_params, 2);
   k2    = get_ext_param(p, ext_params, 3);
   omega = get_ext_param(p, ext_params, 4);
 
-  p->hyb_omega[0] = omega;
-  p->hyb_omega[2] = omega/sqrt(a1);
-  p->hyb_omega[3] = omega/sqrt(a2);
-
-  p->hyb_coeff[2] = k1*sqrt(a1);
-  p->hyb_coeff[3] = k2*sqrt(a2);
+  params->alpha1 = p->hyb_params[2][0] = k1*sqrt(a1);
+  params->alpha2 = p->hyb_params[3][0] = k2*sqrt(a2);
+  params->omega0 = p->hyb_params[1][1] = omega;
+  params->omega1 = p->hyb_params[2][1] = omega/sqrt(a1);
+  params->omega2 = p->hyb_params[3][1] = omega/sqrt(a2);
 }
 
 #include "decl_gga.h"

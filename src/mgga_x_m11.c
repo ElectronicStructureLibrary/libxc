@@ -15,11 +15,22 @@
 
 typedef struct{
   const double a[12], b[12];
+  double omega;
 } mgga_x_m11_params;
 
 #define N_PAR 27
-static const char *names[N_PAR] = {"_a0", "_a1", "_a2", "_a3", "_a4", "_a5", "_a6", "_a7", "_a8", "_a9", "_a10", "_a11", "_b0", "_b1", "_b2", "_b3", "_b4", "_b5", "_b6", "_b7", "_b8", "_b9", "_b10", "_b11", "_alpha", "_beta", "_omega"};
-static const char *desc[N_PAR] = {"a0 parameter", "a1 parameter", "a2 parameter", "a3 parameter", "a4 parameter", "a5 parameter", "a6 parameter", "a7 parameter", "a8 parameter", "a9 parameter", "a10 parameter", "a11 parameter", "b0 parameter", "b1 parameter", "b2 parameter", "b3 parameter", "b4 parameter", "b5 parameter", "b6 parameter", "b7 parameter", "b8 parameter", "b9 parameter", "b10 parameter", "b11 parameter", "exact exchange", "short-range exchange", "range-separation"};
+static const char *names[N_PAR] = {
+  "_a0", "_a1", "_a2", "_a3", "_a4", "_a5",
+  "_a6", "_a7", "_a8", "_a9", "_a10", "_a11",
+  "_b0", "_b1", "_b2", "_b3", "_b4", "_b5",
+  "_b6", "_b7", "_b8", "_b9", "_b10", "_b11",
+  "_alpha", "_beta", "_omega"};
+static const char *desc[N_PAR] = {
+  "a0 parameter", "a1 parameter", "a2 parameter", "a3 parameter", "a4 parameter", "a5 parameter",
+  "a6 parameter", "a7 parameter", "a8 parameter", "a9 parameter", "a10 parameter", "a11 parameter",
+  "b0 parameter", "b1 parameter", "b2 parameter", "b3 parameter", "b4 parameter", "b5 parameter",
+  "b6 parameter", "b7 parameter", "b8 parameter", "b9 parameter", "b10 parameter", "b11 parameter",
+  "exact exchange", "short-range exchange", "range-separation"};
 
 static const double par_m11[N_PAR] = {
     -0.18399900e+00, -1.39046703e+01,  1.18206837e+01,  3.10098465e+01, -5.19625696e+01,  1.55750312e+01,
@@ -46,6 +57,17 @@ mgga_x_m11_init(xc_func_type *p)
   xc_hyb_init_cam(p, 0.0, 0.0, 0.0);
 }
 
+static void
+mgga_x_m11_set_ext_params(xc_func_type *p,  const double *ext_params)
+{
+  mgga_x_m11_params *params;
+
+  set_ext_params_cpy_cam(p, ext_params);
+
+  params = (mgga_x_m11_params *) (p->params);
+  params->omega = p->hyb_params[1][1];
+}
+
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_m11.c"
 #include "work_mgga.c"
@@ -61,7 +83,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m11 = {
   {&xc_ref_Peverati2011_2810, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-11,
-  {N_PAR, names, desc, par_m11, set_ext_params_cpy_cam},
+  {N_PAR, names, desc, par_m11, mgga_x_m11_set_ext_params},
   mgga_x_m11_init, NULL,
   NULL, NULL, work_mgga,
 };
@@ -77,7 +99,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_revm11 = {
   {&xc_ref_Verma2019_2966, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-11,
-  {N_PAR, names, desc, par_revm11, set_ext_params_cpy_cam},
+  {N_PAR, names, desc, par_revm11, mgga_x_m11_set_ext_params},
   mgga_x_m11_init, NULL,
   NULL, NULL, work_mgga,
 };

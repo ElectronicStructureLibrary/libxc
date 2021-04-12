@@ -32,13 +32,8 @@ static const double pbe38_values[PBEH_N_PAR] = {3.0/8.0};
 static void
 pbeh_set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  double beta;
-
-  assert(p != NULL);
-  beta = get_ext_param(p, ext_params, 0);
-
-  p->mix_coef[0] = 1.0 - beta;
-  p->hyb_coeff[0] = beta;
+  set_ext_params_cpy_exx(p, ext_params);
+  p->mix_coef[0] = 1 - p->hyb_params[0][0];
 }
 
 

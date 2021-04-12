@@ -38,35 +38,23 @@ static const double par_lc_qtp[CAMB3_N_PAR]          = {1.00, -1.00,   0.475, 1.
 static const double par_mcam_b3lyp[CAMB3_N_PAR]      = {0.38, -0.19,   0.33,  0.81};
 
 static void
-set_cam_params(xc_func_type *p, const double *ext_params) {
-  assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_coeff[0] = get_ext_param(p, ext_params, 1);
-  p->hyb_omega[0] = get_ext_param(p, ext_params, 2);
-
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_coeff[1] = get_ext_param(p, ext_params, 0);
-  p->hyb_omega[1] = 0.0;
-}
-
-static void
 camb3_set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  double alpha, beta, omega, ac;
+  double ac;
 
   assert(p != NULL);
-  alpha  = get_ext_param(p, ext_params, 0);
-  beta   = get_ext_param(p, ext_params, 1);
-  omega  = get_ext_param(p, ext_params, 2);
-  ac     = get_ext_param(p, ext_params, 3);
+  
+  p->hyb_params[0][0] = get_ext_param(p, ext_params, 0); /* alpha */
+  p->hyb_params[1][0] = get_ext_param(p, ext_params, 1); /* beta  */
+  p->hyb_params[1][1] = get_ext_param(p, ext_params, 2); /* omega */
+  ac = get_ext_param(p, ext_params, 3);
 
-  p->mix_coef[0] = 1.0 - alpha;
-  p->mix_coef[1] = -beta;
+  p->mix_coef[0] = 1.0 - p->hyb_params[0][0];
+  p->mix_coef[1] = -p->hyb_params[1][0];
   p->mix_coef[2] = 1.0 - ac;
   p->mix_coef[3] = ac;
 
-  xc_func_set_ext_params_name(p->func_aux[1], "_omega", omega);
-  set_cam_params(p, ext_params);
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_params[1][1]);
 }
 
 void
@@ -230,8 +218,7 @@ xc_hyb_gga_xc_rcam_b3lyp_init(xc_func_type *p)
 static void
 rcam_set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  double alpha_libxc, beta_libxc;
-  double alpha, beta, omega, cb88;
+  double alpha, beta, cb88;
 
   assert(p != NULL);
   /* connection is
@@ -239,11 +226,12 @@ rcam_set_ext_params(xc_func_type *p, const double *ext_params)
      libxc_alpha = alpha + beta
      libxc_beta = -beta
   */
-  alpha_libxc = get_ext_param(p, ext_params, 0);
-  beta_libxc = get_ext_param(p, ext_params, 1);
-  alpha  =  alpha_libxc + beta_libxc;
-  beta   = -beta_libxc;
-  omega  =  get_ext_param(p, ext_params, 2);
+  p->hyb_params[0][0] = get_ext_param(p, ext_params, 0); /* alpha libxc */
+  p->hyb_params[1][0] = get_ext_param(p, ext_params, 1); /* beta libxc  */
+  p->hyb_params[1][1] = get_ext_param(p, ext_params, 2); /* omega */
+
+  alpha  =  p->hyb_params[0][0] + p->hyb_params[1][0];
+  beta   = -p->hyb_params[1][1];
   cb88   =  get_ext_param(p, ext_params, 3);
 
   p->mix_coef[0] = 1.0 - alpha - cb88;
@@ -251,8 +239,7 @@ rcam_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[2] = beta;
   p->mix_coef[3] = 1.0;
 
-  xc_func_set_ext_params_name(p->func_aux[2], "_omega", omega);
-  set_cam_params(p, ext_params);
+  xc_func_set_ext_params_name(p->func_aux[2], "_omega", p->hyb_params[1][1]);
 }
 
 #ifdef __cplusplus
@@ -284,18 +271,12 @@ static const double par_cam_pbeh[CAM_N_PAR] = {0.2, 0.8, 0.7};
 static void
 cam_set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  double alpha, beta, omega;
+  set_ext_params_cpy_cam(p, ext_params);
 
-  assert(p != NULL);
-  alpha  = get_ext_param(p, ext_params, 0);
-  beta   = get_ext_param(p, ext_params, 1);
-  omega  = get_ext_param(p, ext_params, 2);
+  p->mix_coef[0] = 1.0 - p->hyb_params[0][0];
+  p->mix_coef[1] = -p->hyb_params[1][0];
 
-  p->mix_coef[0] = 1.0 - alpha;
-  p->mix_coef[1] = -beta;
-
-  xc_func_set_ext_params_name(p->func_aux[1], "_omega", omega);
-  set_cam_params(p, ext_params);
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_params[1][1]);
 }
 
 static void

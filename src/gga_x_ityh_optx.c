@@ -13,6 +13,7 @@
 
 typedef struct{
   double a, b, gamma;
+  double omega;
 } gga_x_ityh_optx_params;
 
 #include "decl_gga.h"
@@ -24,9 +25,6 @@ xc_gga_x_ityh_optx_init(xc_func_type *p)
 {
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_ityh_optx_params));
-
-  xc_hyb_init_hybrid(p, 0.0);
-  p->hyb_type[0] = XC_HYB_NONE;
 }
 
 #define N_PAR 4
@@ -50,7 +48,7 @@ const xc_func_info_type xc_func_info_gga_x_ityh_optx = {
   {&xc_ref_Handy2001_403, &xc_ref_Iikura2001_3540, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
-  {N_PAR, names, desc, values, set_ext_params_cpy_omega},
+  {N_PAR, names, desc, values, set_ext_params_cpy},
   xc_gga_x_ityh_optx_init, NULL,
   NULL, work_gga, NULL
 };

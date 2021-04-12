@@ -28,8 +28,8 @@ xc_hyb_init_sr(xc_func_type *p, double beta, double omega)
   p->hyb_number_terms = 1;
 
   p->hyb_type[0] = XC_HYB_ERF_SR;
-  p->hyb_params[0][0] = omega; /* for convenience omega is always the first */
-  p->hyb_params[0][1] = beta;
+  p->hyb_params[0][0] = beta;
+  p->hyb_params[0][1] = omega;
 }
 
 /* Coulomb attenuated hybrid, based on the erf attenuation function.
@@ -42,12 +42,12 @@ xc_hyb_init_cam(xc_func_type *p, double alpha, double beta, double omega)
 {
   p->hyb_number_terms = 2;
   
-  p->hyb_type[0] = XC_HYB_ERF_SR;
-  p->hyb_params[0][0] = omega; /* for convenience omega is always the first */
-  p->hyb_params[0][1] = beta;
+  p->hyb_type[0] = XC_HYB_FOCK;
+  p->hyb_params[0][0] = alpha;
 
-  p->hyb_type[1] = XC_HYB_FOCK;
-  p->hyb_params[1][0] = alpha;
+  p->hyb_type[1] = XC_HYB_ERF_SR;
+  p->hyb_params[1][0] = beta;
+  p->hyb_params[1][1] = omega;
 }
 
 /* Coulomb attenuated hybrid, based on the yukawa attenuation
@@ -92,26 +92,6 @@ xc_hyb_init_vdw_vv10(xc_func_type *p, double b, double C)
   p->hyb_params[0][1] = C;
 }
 
-void
-xc_hyb_init_vdw_df(xc_func_type *p, double Zab)
-{
-  int    hyb_type[1]  = {XC_HYB_VDW_DF};
-  double hyb_omega[1] = {0.0};
-  double hyb_coeff[1] = {Zab};
-
-  xc_hyb_init(p, 1, hyb_type, hyb_coeff, hyb_omega);
-}
-
-void
-xc_hyb_init_vdw_df(xc_func_type *p, double Zab)
-{
-  int    hyb_type[1]  = {XC_HYB_VDW_DF};
-  double hyb_omega[1] = {0.0};
-  double hyb_coeff[1] = {Zab};
-
-  xc_hyb_init(p, 1, hyb_type, hyb_coeff, hyb_omega);
-}
-
 /* checks and returns the type of hybrid function */
 int
 xc_hyb_type(const xc_func_type *p)
@@ -139,14 +119,14 @@ xc_hyb_type(const xc_func_type *p)
   }
 
   if(p->hyb_number_terms == 2) {
-    if(p->hyb_type[0] == XC_HYB_ERF_SR      && p->hyb_type[1] == XC_HYB_FOCK)
+    if(p->hyb_type[0] == XC_HYB_FOCK && p->hyb_type[1] == XC_HYB_ERF_SR)
       return XC_HYB_CAM;
-    if(p->hyb_type[0] == XC_HYB_YUKAWA_SR   && p->hyb_type[1] == XC_HYB_FOCK)
+    if(p->hyb_type[0] == XC_HYB_FOCK && p->hyb_type[1] == XC_HYB_YUKAWA_SR)
       return XC_HYB_CAMY;
-    if(p->hyb_type[0] == XC_HYB_GAUSSIAN_SR && p->hyb_type[1] == XC_HYB_FOCK)
+    if(p->hyb_type[0] == XC_HYB_FOCK && p->hyb_type[1] == XC_HYB_GAUSSIAN_SR)
       return XC_HYB_CAMG;
     
-    if(p->hyb_type[0] == XC_HYB_PT2         && p->hyb_type[1] == XC_HYB_FOCK)
+    if(p->hyb_type[0] == XC_HYB_FOCK && p->hyb_type[1] == XC_HYB_PT2)
       return XC_HYB_DOUBLE_HYBRID;
   }
 
@@ -173,21 +153,21 @@ xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *bet
 
   switch(xc_hyb_type(p)){
   case XC_HYB_HYBRID:
-    *omega = 0.0;
-    *beta  = 0.0;
     *alpha = p->hyb_params[0][0];
+    *beta  = 0.0;
+    *omega = 0.0;
     break;
   case XC_HYB_CAM:
   case XC_HYB_CAMY:
   case XC_HYB_CAMG:
     if(p->hyb_number_terms == 1){ /* Short-range only hybrid */
-      *omega = p->hyb_params[0][0];
-      *beta  = p->hyb_params[0][1];
       *alpha = 0.0;
+      *beta  = p->hyb_params[0][0];
+      *omega = p->hyb_params[0][1];
     }else{                        /* includes both short-range and normal hybrid */
-      *omega = p->hyb_params[0][0];
-      *beta  = p->hyb_params[0][1];
-      *alpha = p->hyb_params[1][0];
+      *alpha = p->hyb_params[0][0];
+      *beta  = p->hyb_params[1][0];
+      *omega = p->hyb_params[1][1];
     }
     break;
   default:

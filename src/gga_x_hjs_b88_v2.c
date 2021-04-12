@@ -12,6 +12,7 @@
 
 typedef struct{
   double a[6], b[9]; /* pointers to the a and b parameters */
+  double omega;
 } gga_x_hjs_params;
 
 #define N_PARS 16
@@ -27,9 +28,6 @@ gga_x_hjs_init(xc_func_type *p)
 {
   assert(p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_hjs_params));
-
-  xc_hyb_init_hybrid(p, 0.0);
-  p->hyb_type[0] = XC_HYB_NONE;
 }
 
 #include "decl_gga.h"
@@ -47,7 +45,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b88_v2 = {
   {&xc_ref_Weintraub2009_754, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-6, /* densities smaller than 1e-6 yield NaNs */
-  {N_PARS, names, desc, pars_B88_V2, set_ext_params_cpy_omega},
+  {N_PARS, names, desc, pars_B88_V2, set_ext_params_cpy},
   gga_x_hjs_init, NULL,
   NULL, work_gga, NULL
 };

@@ -253,7 +253,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m06_sx = {
   {&xc_ref_Wang2020_2294, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
-  {N_PAR_SR, sr_names, sr_desc, par_m06_sx, set_ext_params_cpy_cam_sr},
+  {N_PAR_SR, sr_names, sr_desc, par_m06_sx, set_ext_params_cpy_sr},
   mgga_x_m06l_init, NULL,
   NULL, NULL, work_mgga
 };

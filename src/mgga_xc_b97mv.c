@@ -15,8 +15,7 @@ static void
 mgga_xc_b97mv_init(xc_func_type *p)
 {
   /* Non-local correlation parameters */
-  p->nlc_b = 6.0;
-  p->nlc_C = 0.01;
+  xc_hyb_init_vdw_vv10(p, 6.0, 0.01);
 }
 
 #include "decl_mgga.h"
@@ -32,7 +31,7 @@ const xc_func_info_type xc_func_info_mgga_xc_b97m_v = {
   "B97M-V exchange-correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Mardirossian2015_074111, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_VV10 | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   mgga_xc_b97mv_init, NULL,

@@ -30,13 +30,13 @@ hyb_gga_xc_src1_init(xc_func_type *p)
   int    funcs_id  [5] = {XC_GGA_X_B88, XC_GGA_X_ITYH, XC_GGA_X_ITYH, XC_GGA_C_LYP, XC_LDA_C_VWN};
   double funcs_coef[5] = {0.0, 0.0, 0.0, 0.0, 0.0};
 
-  int    hyb_type[]  = {XC_HYB_ERF_SR, XC_HYB_ERF_SR, XC_HYB_FOCK};
-  double hyb_coeff[] = {0.0, 0.0, 0.0};
-  double hyb_omega[] = {0.0, 0.0, 0.0};
-
   /* Note that the value of funcs_coef will be set by set_ext_params */
   xc_mix_init(p, 5, funcs_id, funcs_coef);
-  xc_hyb_init(p, 3, hyb_type, hyb_coeff, hyb_omega);
+
+  p->hyb_number_terms = 3;
+  p->hyb_type[0] = XC_HYB_FOCK;
+  p->hyb_type[1] = XC_HYB_ERF_SR;
+  p->hyb_type[2] = XC_HYB_ERF_SR;
 }
 
 static void
@@ -46,10 +46,11 @@ src1_set_ext_params(xc_func_type *p, const double *ext_params)
 
   assert(p != NULL);
 
-  C_SR            = get_ext_param(p, ext_params, 0);
-  p->hyb_omega[0] = get_ext_param(p, ext_params, 1); /* omega SR */
-  C_LR            = get_ext_param(p, ext_params, 2);
-  p->hyb_omega[1] = get_ext_param(p, ext_params, 3); /* omega_LR */
+  C_SR = get_ext_param(p, ext_params, 0);
+  C_LR = get_ext_param(p, ext_params, 2);
+
+  p->hyb_params[1][1] = get_ext_param(p, ext_params, 1); /* omega SR */
+  p->hyb_params[2][1] = get_ext_param(p, ext_params, 3); /* omega_LR */
   p->mix_coef[3]  = get_ext_param(p, ext_params, 4); /* LYP mixing */
   p->mix_coef[4]  = get_ext_param(p, ext_params, 5); /* VWN mixing */
 
@@ -65,12 +66,12 @@ src1_set_ext_params(xc_func_type *p, const double *ext_params)
     p->mix_coef[2] = C_LR - 1.0;
     break;
   }
-  p->hyb_coeff[0] = C_SR;
-  p->hyb_coeff[1] =-C_LR;
-  p->hyb_coeff[2] = C_LR; /* Normal Fock */
+  p->hyb_params[0][0] = C_LR; /* Normal Fock */
+  p->hyb_params[1][0] = C_SR;
+  p->hyb_params[2][0] =-C_LR;
 
-  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_omega[0]); /* mu_SR */
-  xc_func_set_ext_params_name(p->func_aux[2], "_omega", p->hyb_omega[1]); /* mu_LR */
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_params[1][1]); /* mu_SR */
+  xc_func_set_ext_params_name(p->func_aux[2], "_omega", p->hyb_params[2][1]); /* mu_LR */
 }
 
 #ifdef __cplusplus

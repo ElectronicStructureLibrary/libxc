@@ -39,9 +39,7 @@ mgga_c_revscan_vv10_init(xc_func_type *p)
   static double funcs_coef[1] = {1.0};
 
   xc_mix_init(p, 1, funcs_id, funcs_coef);
-
-  p->nlc_b = 9.8;
-  p->nlc_C = 0.0093;
+  xc_hyb_init_vdw_vv10(p, 9.8, 0.0093);
 }
 
 #ifdef __cplusplus
@@ -53,7 +51,7 @@ const xc_func_info_type xc_func_info_mgga_c_revscan_vv10 = {
   "REVSCAN + VV10 correlation",
   XC_FAMILY_MGGA,
   {&xc_ref_Mezei2018_2469, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_VV10 | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   mgga_c_revscan_vv10_init, NULL,

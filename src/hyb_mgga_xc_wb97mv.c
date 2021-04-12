@@ -11,13 +11,27 @@
 
 #define XC_HYB_MGGA_XC_WB97M_V   531 /* Mardirossian and Head-Gordon */
 
+typedef struct{
+  double omega;
+} mgga_xc_wb97mv_params;
+
+
 static void
 hyb_mgga_xc_wb97mv_init(xc_func_type *p)
 {
+  mgga_xc_wb97mv_params *params;
+  
+  assert(p!=NULL && p->params == NULL);
+  p->params = libxc_malloc(sizeof(mgga_xc_wb97mv_params));
+  params = (mgga_xc_wb97mv_params *)(p->params);
+  
   xc_hyb_init_cam(p, 1.0, -(1.0 - 0.15), 0.3);
-
-  p->nlc_b = 6.0;
-  p->nlc_C = 0.01;
+  params->omega = p->hyb_params[1][1];
+  
+  p->hyb_number_terms = 3; /* we add a vv10 term */
+  p->hyb_type[2] = XC_HYB_VDW_VV10;
+  p->hyb_params[2][0] = 6.0;
+  p->hyb_params[2][1] = 0.01;
 }
 
 #include "decl_mgga.h"
@@ -33,7 +47,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_wb97m_v = {
   "wB97M-V exchange-correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Mardirossian2016_214110, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_VV10 | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-13,
   {0, NULL, NULL, NULL, NULL},
   hyb_mgga_xc_wb97mv_init, NULL,

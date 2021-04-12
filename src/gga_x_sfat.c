@@ -45,7 +45,7 @@ const xc_func_info_type xc_func_info_gga_x_sfat = {
   {&xc_ref_Savin1995_327, &xc_ref_Akinaga2008_348, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
-  {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
+  {1, omega_names, omega_desc, omega_values, set_ext_params_cpy},
   xc_gga_x_sfat_init, NULL,
   NULL, work_gga, NULL
 };

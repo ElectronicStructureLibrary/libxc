@@ -29,6 +29,16 @@ static const char *desc[N_PAR] = {
 static const double par_cam_o3lyp[N_PAR] = {0.1161, 0.9262, 0.8133, 0.81, 0.80, 0.33};
 
 static void
+hyb_gga_xc_cam_o3lyp_init(xc_func_type *p)
+{
+  static int funcs_id[4] = {XC_LDA_X_ERF, XC_GGA_X_ITYH_OPTX, XC_LDA_C_VWN, XC_GGA_C_LYP};
+  double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0};
+
+  xc_mix_init(p, 4, funcs_id, funcs_coef);
+  xc_hyb_init_cam(p, 0.0, 0.0, 0.0);
+}
+
+static void
 set_ext_params(xc_func_type *p, const double *ext_params)
 {
   /* This is the fraction of LDA exchange in OPTX */
@@ -54,23 +64,8 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   xc_func_set_ext_params_name(p->func_aux[1], "_omega", omega);
 
   /* Set hybrid terms */
-  assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_coeff[0] = csr-clr;
-  p->hyb_omega[0] = omega;
-
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_coeff[1] = clr;
-  p->hyb_omega[1] = 0.0;
-}
-
-static void
-hyb_gga_xc_cam_o3lyp_init(xc_func_type *p)
-{
-  static int funcs_id[4] = {XC_LDA_X_ERF, XC_GGA_X_ITYH_OPTX, XC_LDA_C_VWN, XC_GGA_C_LYP};
-  double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0};
-  xc_mix_init(p, 4, funcs_id, funcs_coef);
-  xc_hyb_init_cam(p, 0.0, 0.0, 0.0);
+  p->hyb_params[0][0] = clr;
+  p->hyb_params[1][0] = csr - clr;
 }
 
 #ifdef __cplusplus

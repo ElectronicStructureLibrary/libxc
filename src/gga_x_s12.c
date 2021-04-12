@@ -72,8 +72,8 @@ s12h_set_ext_params(xc_func_type *p, const double *ext_params)
   params->D    = get_ext_param(p, ext_params, 3);
   params->E    = get_ext_param(p, ext_params, 4);
 
-  p->hyb_coeff[0] = get_ext_param(p, ext_params, 5);
-  params->bx   = 1.0 - p->hyb_coeff[0];
+  p->hyb_params[0][0] = get_ext_param(p, ext_params, 5);
+  params->bx   = 1.0 - p->hyb_params[0][0];
 }
 
 #include "decl_gga.h"

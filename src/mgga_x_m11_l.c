@@ -13,6 +13,7 @@
 
 typedef struct{
   const double a[12], b[12], c[12], d[12];
+  double omega;
 } mgga_x_m11_l_params;
 
 #define N_PAR 49
@@ -60,9 +61,6 @@ mgga_x_m11_l_init(xc_func_type *p)
 {
   assert(p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_m11_l_params));
-
-  xc_hyb_init_hybrid(p, 0.0);
-  p->hyb_type[0] = XC_HYB_NONE;
 }
 
 #include "decl_mgga.h"
@@ -80,7 +78,7 @@ const xc_func_info_type xc_func_info_mgga_x_m11_l = {
   {&xc_ref_Peverati2012_117, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-13,
-  {N_PAR, names, desc, par_m11_l, set_ext_params_cpy_omega},
+  {N_PAR, names, desc, par_m11_l, set_ext_params_cpy},
   mgga_x_m11_l_init, NULL,
   NULL, NULL, work_mgga,
 };

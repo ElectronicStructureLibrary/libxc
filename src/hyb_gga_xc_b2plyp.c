@@ -8,12 +8,14 @@
 
 #include "util.h"
 
-#define XC_HYB_GGA_XC_B2PLYP    713 /* Double hybrid of Grimme */
+#define XC_HYB_GGA_XC_B2PLYP     713 /* Double hybrid of Grimme */
+#define XC_HYB_GGA_XC_B2GPPLYP   721 /* Double hybrid of Karton et al */
 
-#define B2PLYP_N_PAR 2
-static const char  *b2plyp_names[B2PLYP_N_PAR]  = {"_ax", "_c"};
-static const char  *b2plyp_desc[B2PLYP_N_PAR]   = {"Fock fraction", "PT2 fraction"};
-static const double b2plyp_values[B2PLYP_N_PAR] = {0.53, 0.27};
+#define N_PAR 2
+static const char  *names[N_PAR]  = {"_ax", "_c"};
+static const char  *desc[N_PAR]   = {"Fock fraction", "PT2 fraction"};
+static const double b2plyp_values[N_PAR]   = {0.53, 0.27};
+static const double b2gpplyp_values[N_PAR] = {0.65, 0.36};
 
 static void
 b2plyp_set_ext_params(xc_func_type *p, const double *ext_params)
@@ -31,14 +33,13 @@ b2plyp_set_ext_params(xc_func_type *p, const double *ext_params)
   p->hyb_coeff[1] = c;
 }
 
-
 static void
 hyb_gga_xc_b2plyp_init(xc_func_type *p)
 {
   static int   funcs_id  [2] = {XC_GGA_X_B88, XC_GGA_C_LYP};
   static double funcs_coef[2] = {0.0, 0.0};
 
-  int hyb_type[2]     = {XC_HYB_PT2, XC_HYB_FOCK};
+  int hyb_type[2]     = {XC_HYB_FOCK, XC_HYB_PT2};
   double hyb_omega[2] = {0.0, 0.0};
   double hyb_coeff[2] = {0.0, 0.0};
 
@@ -60,7 +61,23 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b2plyp = {
   {&xc_ref_Grimme2006_034108, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {B2PLYP_N_PAR, b2plyp_names, b2plyp_desc, b2plyp_values, b2plyp_set_ext_params},
+  {N_PAR, names, desc, b2plyp_values, b2plyp_set_ext_params},
+  hyb_gga_xc_b2plyp_init, NULL,
+  NULL, NULL, NULL /* this is taken care of by the generic routine */
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_hyb_gga_xc_b2gpplyp = {
+  XC_HYB_GGA_XC_B2GPPLYP,
+  XC_EXCHANGE_CORRELATION,
+  "Double hybrid of Karton et al",
+  XC_FAMILY_GGA,
+  {&xc_ref_Karton2008_12868, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-15,
+  {N_PAR, names, desc, b2gpplyp_values, b2plyp_set_ext_params},
   hyb_gga_xc_b2plyp_init, NULL,
   NULL, NULL, NULL /* this is taken care of by the generic routine */
 };

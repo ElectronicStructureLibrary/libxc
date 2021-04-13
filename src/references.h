@@ -180,6 +180,7 @@ extern func_reference_type xc_ref_Karasiev2009_245120;
 extern func_reference_type xc_ref_Karasiev2013_161108;
 extern func_reference_type xc_ref_Karasiev2014_076403;
 extern func_reference_type xc_ref_Karasiev2016_157101;
+extern func_reference_type xc_ref_Karton2008_12868;
 extern func_reference_type xc_ref_Kaupp2011_16973;
 extern func_reference_type xc_ref_Keal2003_3015;
 extern func_reference_type xc_ref_Keal2004_5654;

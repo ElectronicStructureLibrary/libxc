@@ -70,6 +70,7 @@ extern func_reference_type xc_ref_Cancio2018_084116;
 extern func_reference_type xc_ref_Carmona2015_054105;
 extern func_reference_type xc_ref_Carmona2016_120;
 extern func_reference_type xc_ref_Carmona2019_303;
+extern func_reference_type xc_ref_CasanovaPaez2019_4735;
 extern func_reference_type xc_ref_Casula2006_245427;
 extern func_reference_type xc_ref_Chachiyo2016_021101;
 extern func_reference_type xc_ref_Chachiyo2020_112669;

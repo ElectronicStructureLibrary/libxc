@@ -412,6 +412,13 @@ func_reference_type xc_ref_Carmona2019_303 = {
 };
 
 
+func_reference_type xc_ref_CasanovaPaez2019_4735 = {
+  "M. Casanova-Paez, M. B. Dardis, and L. Goerigk, J. Chem. Theory Comput. 15, 4735 (2019)",
+  "10.1021/acs.jctc.9b00013",
+  "@article{CasanovaPaez2019_4735,\n  author = {Casanova-P\\'{a}ez, Marcos and Dardis, Michael B. and Goerigk, Lars},\n  title = {$\\omega$B2PLYP and $\\omega$B2GPPLYP: The First Two Double-Hybrid Density Functionals with Long-Range Correction Optimized for Excitation Energies},\n  journal = {J. Chem. Theory Comput.},\n  volume = {15},\n  number = {9},\n  pages = {4735-4744},\n  year = {2019},\n  doi = {10.1021/acs.jctc.9b00013},\n  url = {https://doi.org/10.1021/acs.jctc.9b00013},\n}"
+};
+
+
 func_reference_type xc_ref_Casula2006_245427 = {
   "M. Casula, S. Sorella, and G. Senatore, Phys. Rev. B 74, 245427 (2006)",
   "10.1103/PhysRevB.74.245427",

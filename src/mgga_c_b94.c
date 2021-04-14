@@ -87,7 +87,7 @@ hyb_mgga_xc_b94_hyb_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[0] = 1.0 - cx;
   p->mix_coef[1] = 1.0;
 
-  p->hyb_coeff[0] = cx;
+  p->hyb_params[0][0] = cx;
 }
 
 

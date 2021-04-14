@@ -67,17 +67,6 @@ static const char  *cam_desc[CAM_N_PAR]   = {
 static const double cam_values[CAM_N_PAR] = {0.2, 0.8, 0.7};
 
 static void
-cam_set_ext_params(xc_func_type *p, const double *ext_params)
-{
-  set_ext_params_cpy_cam(p, ext_params);
-
-  p->mix_coef[0] = 1.0 - p->hyb_params[0][0];
-  p->mix_coef[1] = -p->hyb_params[1][0];
-
-  xc_func_set_ext_params_name(p->func_aux[1], "omega_", p->hyb_params[1][1]);
-}
-
-static void
 hyb_gga_xc_camy_pbeh_init(xc_func_type *p)
 {
   static int   funcs_id  [3] = {XC_GGA_X_PBE, XC_GGA_X_SFAT, XC_GGA_C_PBE};
@@ -85,6 +74,17 @@ hyb_gga_xc_camy_pbeh_init(xc_func_type *p)
 
   xc_mix_init(p, 3, funcs_id, funcs_coef);
   xc_hyb_init_camy(p, 0.0, 0.0, 0.0);
+}
+
+static void
+cam_set_ext_params(xc_func_type *p, const double *ext_params)
+{
+  set_ext_params_cpy_cam(p, ext_params);
+
+  p->mix_coef[0] = 1.0 - p->hyb_params[0][0];
+  p->mix_coef[1] = -p->hyb_params[1][0];
+
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_params[1][1]);
 }
 
 #ifdef __cplusplus

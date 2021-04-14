@@ -73,8 +73,7 @@ int main(void) {
 
     /* check if hybrid is initialized */
     if(strncmp(fname, "hyb_", 4) == 0){
-      if(func.hyb_number_terms == 0 || func.hyb_type == NULL ||
-         func.hyb_coeff == NULL || func.hyb_omega == NULL)
+      if(func.hyb_number_terms == 0)
         printf("Hybrid does not seem to be initialized\n");
     }
 
@@ -108,18 +107,13 @@ int main(void) {
     /* Check non-local correlation parameters */
     {
       double b, C;
-      xc_nlc_coef(&func, &b, &C);
+      xc_hyb_vdw_vv10_coef(&func, &b, &C);
 
-      if(func.info->flags & XC_FLAGS_VV10) {
+      if(func.hyb_type[0] == XC_HYB_VDW_VV10) {
         if(b == 0.0)
           printf("Functional %i '%s' is supposed to have VV10 but has zero b.\n",func_id, fname);
         if(C == 0.0)
           printf("Functional %i '%s' is supposed to have VV10 but has zero b.\n",func_id, fname);
-      } else {
-        if(b != 0.0)
-          printf("Functional %i '%s' isn't supposed to long-range correlation but has non-zero b.\n",func_id, fname);
-        if(C != 0.0)
-          printf("Functional %i '%s' isn't supposed to long-range correlation but has non-zero C.\n",func_id, fname);
       }
     }
 

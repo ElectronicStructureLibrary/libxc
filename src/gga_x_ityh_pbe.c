@@ -13,7 +13,6 @@
 
 typedef struct{
   double kappa, mu;
-  double lambda; /* parameter used in the Odashima & Capelle versions */
   double omega;
 } gga_x_ityh_pbe_params;
 
@@ -33,14 +32,8 @@ static const double par_pbe[N_PAR] = {0.8040, MU_PBE, 0.33};
 static void
 gga_x_ityh_pbe_init(xc_func_type *p)
 {
-  gga_x_ityh_pbe_params *params;
-
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(gga_x_ityh_pbe_params));
-  params = (gga_x_ityh_pbe_params *) (p->params);
-
-  /* This has to be explicitly initialized here */
-  params->lambda = 0.0;
 }
 
 #ifdef __cplusplus

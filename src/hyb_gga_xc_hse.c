@@ -404,7 +404,7 @@ hyb_gga_xc_hjs_init(xc_func_type *p)
   xc_hyb_init_sr(p, 0.25, 0.11);
 
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", 0.0);
-  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_params[1][1]);
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_params[0][1]);
 }
 
 #ifdef __cplusplus

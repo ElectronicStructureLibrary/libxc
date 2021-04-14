@@ -10,20 +10,39 @@
 #include "util.h"
 
 #define XC_HYB_MGGA_X_PJS18       706 /* a screened version of TM */
-#define XC_HYB_MGGA_XC_LC_TMLYP  720 /* long-range corrected TM-LYP */
+#define XC_HYB_MGGA_XC_LC_TMLYP   720 /* long-range corrected TM-LYP */
+
+typedef struct{
+  double omega;
+} mgga_x_pjs18_params;
 
 static void
 hyb_mgga_x_pjs18_init(xc_func_type *p)
 {
-  xc_hyb_init_cam(p, 0.0, 0.0, 0.0);
+  assert(p!=NULL && p->params == NULL);
+  p->params = libxc_malloc(sizeof(mgga_x_pjs18_params));
+
+  xc_hyb_init_sr(p, 0.0, 0.0);
 }
 
-#define PJS18_N_PAR 1
-static const char  *pjs18_names[PJS18_N_PAR]  = {"_omega"};
+static void
+pjs18_set_ext_params(xc_func_type *p, const double *ext_params)
+{
+  mgga_x_pjs18_params *params;
+
+  params = (mgga_x_pjs18_params *) (p->params);
+
+  p->hyb_params[0][0] = get_ext_param(p, ext_params, 0);
+  p->hyb_params[0][1] = params->omega = get_ext_param(p, ext_params, 1);
+}
+
+#define PJS18_N_PAR 2
+static const char  *pjs18_names[PJS18_N_PAR]  = {"_beta", "_omega"};
 static const char  *pjs18_desc[PJS18_N_PAR]   = {
+  "Fraction of short-range Hartree-Fock exchange",  
   "Range separation parameter"
 };
-static const double par_pjs18[PJS18_N_PAR] = {0.33};
+static const double par_pjs18[PJS18_N_PAR] = {1.0, 0.33};
 
 #include "decl_mgga.h"
 #include "maple2c/mgga_exc/hyb_mgga_x_pjs18.c"
@@ -40,45 +59,36 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_pjs18 = {
   {&xc_ref_Patra2018_8991, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
-  {PJS18_N_PAR, pjs18_names, pjs18_desc, par_pjs18, set_ext_params_cpy_lc},
+  {PJS18_N_PAR, pjs18_names, pjs18_desc, par_pjs18, pjs18_set_ext_params},
   hyb_mgga_x_pjs18_init, NULL,
   NULL, NULL, work_mgga
 };
 
 
-#define LC_TMLYP_N_PAR 1
-static const char  *lc_tmlyp_names[LC_TMLYP_N_PAR]  = {"_omega"};
+#define LC_TMLYP_N_PAR 2
+static const char  *lc_tmlyp_names[LC_TMLYP_N_PAR]  = {"beta", "_omega"};
 static const char  *lc_tmlyp_desc[LC_TMLYP_N_PAR]   = {
+  "Fraction of short-range Hartree-Fock exchange",  
   "Range separation parameter"
 };
-static const double par_lc_tmlyp[LC_TMLYP_N_PAR] = {0.28};
+static const double par_lc_tmlyp[LC_TMLYP_N_PAR] = {1.0, 0.28};
 
 static void
 hyb_mgga_xc_lc_tmlyp_init(xc_func_type *p)
 {
   static int    funcs_id  [2] = {XC_HYB_MGGA_X_PJS18, XC_GGA_C_LYP};
   static double funcs_coef[2] = {1.0, 1.0};
+  
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_cam(p, 0.0, 0.0, 0.0);
+  xc_hyb_init_sr(p, 0.0, 0.0);
 }
 
-static void lc_tmlyp_set_ext_params(xc_func_type *p, const double *ext_params) {
-  double omega;
-
-  omega = get_ext_param(p, ext_params, 0);
-
-  /* 100% long-range exact exchange */
-  assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_coeff[0] = -1.0;
-  p->hyb_omega[0] = omega;
-
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_coeff[1] = 1.0;
-  p->hyb_omega[1] = omega;
+static void
+lc_tmlyp_set_ext_params(xc_func_type *p, const double *ext_params) {
+  set_ext_params_cpy_sr(p, ext_params);
 
   /* Set the parameters for js18 */
-  xc_func_set_ext_params(p->func_aux[0], &omega);
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_params[1][1]);
 }
 
 #ifdef __cplusplus

@@ -8,6 +8,12 @@
 *)
 
 (* type: mgga_exc *)
+(* prefix:
+  mgga_x_pjs18_params *params;
+
+  assert(p->params != NULL);
+  params = (mgga_x_pjs18_params * )(p->params);
+*)
 
 $include "mgga_x_tm.mpl"
 $include "lda_x_erf.mpl"

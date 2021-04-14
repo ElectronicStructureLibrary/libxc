@@ -27,7 +27,7 @@ hyb_gga_xc_b2plyp_init(xc_func_type *p)
 
   p->hyb_number_terms = 2;
   p->hyb_type[0] = XC_HYB_FOCK;
-  p->hyb_type[0] = XC_HYB_PT2;
+  p->hyb_type[1] = XC_HYB_PT2;
 }
 
 static void

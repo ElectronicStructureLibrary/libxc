@@ -64,8 +64,9 @@ set_ext_params(xc_func_type *p, const double *ext_params)
   xc_func_set_ext_params_name(p->func_aux[1], "_omega", omega);
 
   /* Set hybrid terms */
-  p->hyb_params[0][0] = clr;
-  p->hyb_params[1][0] = csr - clr;
+  p->hyb_params[0].fock.alpha = clr;
+  p->hyb_params[1].sr.beta   = csr - clr;
+  p->hyb_params[1].sr.omega  = omega;
 }
 
 #ifdef __cplusplus

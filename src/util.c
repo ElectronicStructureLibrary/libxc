@@ -110,7 +110,7 @@ set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params)
 
   assert(p->hyb_number_terms == 1);
   
-  p->hyb_params[0][0] = get_ext_param(p, ext_params, nparams - 1);
+  p->hyb_params[0].fock.alpha = get_ext_param(p, ext_params, nparams - 1);
 }
 
 /* Copies parameters and sets the hybrid parameters, which should be
@@ -127,9 +127,9 @@ set_ext_params_cpy_cam(xc_func_type *p, const double *ext_params)
 
   assert(p->hyb_number_terms >= 2);
   
-  p->hyb_params[0][0] = get_ext_param(p, ext_params, nparams - 3); /* alpha */
-  p->hyb_params[1][0] = get_ext_param(p, ext_params, nparams - 2); /* beta  */
-  p->hyb_params[1][1] = get_ext_param(p, ext_params, nparams - 1); /* omega */
+  p->hyb_params[0].fock.alpha = get_ext_param(p, ext_params, nparams - 3); /* alpha */
+  p->hyb_params[1].sr.beta   = get_ext_param(p, ext_params, nparams - 2); /* beta  */
+  p->hyb_params[1].sr.omega  = get_ext_param(p, ext_params, nparams - 1); /* omega */
 }
 
 /* Copies parameters and sets the hybrid parameters, which should be
@@ -146,8 +146,8 @@ set_ext_params_cpy_sr(xc_func_type *p, const double *ext_params)
 
   assert(p->hyb_number_terms >= 1);
   
-  p->hyb_params[0][0] = get_ext_param(p, ext_params, nparams - 2); /* beta  */
-  p->hyb_params[0][1] = get_ext_param(p, ext_params, nparams - 1); /* omega */
+  p->hyb_params[0].sr.beta = get_ext_param(p, ext_params, nparams - 2); /* beta  */
+  p->hyb_params[0].sr.omega = get_ext_param(p, ext_params, nparams - 1); /* omega */
 }
 
 /* Free pointer */

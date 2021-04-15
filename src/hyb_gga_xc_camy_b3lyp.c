@@ -81,10 +81,10 @@ cam_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   set_ext_params_cpy_cam(p, ext_params);
 
-  p->mix_coef[0] = 1.0 - p->hyb_params[0][0];
-  p->mix_coef[1] = -p->hyb_params[1][0];
+  p->mix_coef[0] = 1.0 - p->hyb_params[0].fock.alpha;
+  p->mix_coef[1] = -p->hyb_params[1].sr.beta;
 
-  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_params[1][1]);
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_params[1].sr.omega);
 }
 
 #ifdef __cplusplus

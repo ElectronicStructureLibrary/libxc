@@ -16,7 +16,7 @@ xc_hyb_init_hybrid(xc_func_type *p, double alpha)
   p->hyb_number_terms = 1;
   
   p->hyb_type[0] = XC_HYB_FOCK;
-  p->hyb_params[0][0] = alpha;
+  p->hyb_params[0].fock.alpha = alpha;
 }
 
 /* short-range hybrid. There are two parameters, the coefficient in
@@ -28,8 +28,8 @@ xc_hyb_init_sr(xc_func_type *p, double beta, double omega)
   p->hyb_number_terms = 1;
 
   p->hyb_type[0] = XC_HYB_ERF_SR;
-  p->hyb_params[0][0] = beta;
-  p->hyb_params[0][1] = omega;
+  p->hyb_params[0].sr.beta  = beta;
+  p->hyb_params[0].sr.omega = omega;
 }
 
 /* Coulomb attenuated hybrid, based on the erf attenuation function.
@@ -43,11 +43,11 @@ xc_hyb_init_cam(xc_func_type *p, double alpha, double beta, double omega)
   p->hyb_number_terms = 2;
   
   p->hyb_type[0] = XC_HYB_FOCK;
-  p->hyb_params[0][0] = alpha;
+  p->hyb_params[0].fock.alpha = alpha;
 
   p->hyb_type[1] = XC_HYB_ERF_SR;
-  p->hyb_params[1][0] = beta;
-  p->hyb_params[1][1] = omega;
+  p->hyb_params[1].sr.beta  = beta;
+  p->hyb_params[1].sr.omega = omega;
 }
 
 /* Coulomb attenuated hybrid, based on the yukawa attenuation
@@ -78,7 +78,7 @@ xc_hyb_init_vdw_df(xc_func_type *p, double Zab)
   p->hyb_number_terms = 1;
 
   p->hyb_type[0] = XC_HYB_VDW_DF;
-  p->hyb_params[0][0] = Zab;
+  p->hyb_params[0].df.Zab = Zab;
 }
 
 /* van der Waals correction according to Vydrov2010_244103. Two parameters, b and C */
@@ -88,8 +88,8 @@ xc_hyb_init_vdw_vv10(xc_func_type *p, double b, double C)
   p->hyb_number_terms = 1;
 
   p->hyb_type[0] = XC_HYB_VDW_VV10;
-  p->hyb_params[0][0] = b;
-  p->hyb_params[0][1] = C;
+  p->hyb_params[0].vv10.b = b;
+  p->hyb_params[0].vv10.C = C;
 }
 
 /* checks and returns the type of hybrid function */
@@ -142,7 +142,7 @@ xc_hyb_exx_coef(const xc_func_type *p)
   assert(p!=NULL);
   assert(xc_hyb_type(p) == XC_HYB_HYBRID);
 
-  return p->hyb_params[0][0];
+  return p->hyb_params[0].fock.alpha;
 }
 
 /* returns the CAM parameters for (screened) hybrids */
@@ -153,7 +153,7 @@ xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *bet
 
   switch(xc_hyb_type(p)){
   case XC_HYB_HYBRID:
-    *alpha = p->hyb_params[0][0];
+    *alpha = p->hyb_params[0].fock.alpha;
     *beta  = 0.0;
     *omega = 0.0;
     break;
@@ -162,12 +162,12 @@ xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *bet
   case XC_HYB_CAMG:
     if(p->hyb_number_terms == 1){ /* Short-range only hybrid */
       *alpha = 0.0;
-      *beta  = p->hyb_params[0][0];
-      *omega = p->hyb_params[0][1];
+      *beta  = p->hyb_params[0].sr.beta;
+      *omega = p->hyb_params[0].sr.omega;
     }else{                        /* includes both short-range and normal hybrid */
-      *alpha = p->hyb_params[0][0];
-      *beta  = p->hyb_params[1][0];
-      *omega = p->hyb_params[1][1];
+      *alpha = p->hyb_params[0].fock.alpha;
+      *beta  = p->hyb_params[1].sr.beta;
+      *omega = p->hyb_params[1].sr.omega;
     }
     break;
   default:
@@ -176,13 +176,22 @@ xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *bet
   }
 }
 
-/* returns the NLC parameters */
+/* returns the vdw parameters */
+void
+xc_hyb_vdw_df_coef(const xc_func_type *p, double *Zab)
+{
+  assert(p!=NULL);
+  assert(p->hyb_type[0] == XC_HYB_VDW_DF);
+  
+  *Zab = p->hyb_params[0].df.Zab;
+}
+
 void
 xc_hyb_vdw_vv10_coef(const xc_func_type *p, double *b, double *C)
 {
   assert(p!=NULL);
   assert(p->hyb_type[0] == XC_HYB_VDW_VV10);
   
-  *b = p->hyb_params[0][0];
-  *C = p->hyb_params[0][1];;
+  *b = p->hyb_params[0].vv10.b;
+  *C = p->hyb_params[0].vv10.C;;
 }

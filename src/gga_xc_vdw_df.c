@@ -32,7 +32,7 @@ vdw_df1_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   assert(p != NULL);
 
-  p->hyb_params[0][0] = get_ext_param(p, ext_params, 0);
+  p->hyb_params[0].df.Zab = get_ext_param(p, ext_params, 0);
 }
 
 #ifdef __cplusplus

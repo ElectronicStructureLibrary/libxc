@@ -65,7 +65,7 @@ mgga_x_m11_set_ext_params(xc_func_type *p,  const double *ext_params)
   set_ext_params_cpy_cam(p, ext_params);
 
   params = (mgga_x_m11_params *) (p->params);
-  params->omega = p->hyb_params[1][1];
+  params->omega = p->hyb_params[1].sr.omega;
 }
 
 #include "decl_mgga.h"

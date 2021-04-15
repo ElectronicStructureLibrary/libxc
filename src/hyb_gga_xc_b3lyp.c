@@ -69,7 +69,7 @@ b3pw91_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[2] = 1.0 - ac;
   p->mix_coef[3] = ac;
 
-  p->hyb_params[0][0] = a0;
+  p->hyb_params[0].fock.alpha = a0;
 }
 
 #ifdef __cplusplus
@@ -302,7 +302,7 @@ rc04_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[2] = 1.0 - d*ac;
   p->mix_coef[3] = ac;
 
-  p->hyb_params[0][0] = a0;
+  p->hyb_params[0].fock.alpha = a0;
 }
 
 void
@@ -419,7 +419,7 @@ kmlyp_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[1] = 1.0 - ac;
   p->mix_coef[2] = ac;
 
-  p->hyb_params[0][0] = a0;
+  p->hyb_params[0].fock.alpha = a0;
 
 }
 
@@ -623,7 +623,7 @@ mcm1_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[2] = p6 - p5;
   p->mix_coef[3] = p5;
 
-  p->hyb_params[0][0] = p2;
+  p->hyb_params[0].fock.alpha = p2;
 }
 
 void

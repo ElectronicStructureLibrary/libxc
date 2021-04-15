@@ -91,8 +91,8 @@ gga_xc_wb97_init(xc_func_type *p)
   /* this particular functional has an extra vdw component */
   if(p->info->number ==  XC_HYB_GGA_XC_WB97X_V){
     p->hyb_number_terms = 3;
-    p->hyb_params[2][0] = 6.0;
-    p->hyb_params[2][1] = 0.01;
+    p->hyb_params[2].vv10.b = 6.0;
+    p->hyb_params[2].vv10.C = 0.01;
   }
 }
 
@@ -104,7 +104,7 @@ gga_xc_wb97_set_ext_params(xc_func_type *p,  const double *ext_params)
   set_ext_params_cpy_cam(p, ext_params);
 
   params = (gga_xc_wb97_params *) (p->params);
-  params->omega = p->hyb_params[1][1];
+  params->omega = p->hyb_params[1].sr.omega;
 }
 
 #include "decl_gga.h"

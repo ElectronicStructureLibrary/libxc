@@ -27,10 +27,10 @@ hyb_gga_x_lgau_init(xc_func_type *p)
   p->hyb_number_terms = 4;
 
   p->hyb_type[0] = XC_HYB_FOCK;
-  p->hyb_params[0][0] = 1.0;
+  p->hyb_params[0].fock.alpha = 1.0;
 
   p->hyb_type[1] = XC_HYB_ERF_SR;
-  p->hyb_params[1][0] = -1.0;
+  p->hyb_params[1].sr.beta = -1.0;
 
   p->hyb_type[2] = XC_HYB_GAUSSIAN_SR;
   p->hyb_type[3] = XC_HYB_GAUSSIAN_SR;
@@ -70,11 +70,11 @@ lcgau_set_ext_params(xc_func_type *p, const double *ext_params)
   k2    = get_ext_param(p, ext_params, 3);
   omega = get_ext_param(p, ext_params, 4);
 
-  params->alpha1 = p->hyb_params[2][0] = k1*sqrt(a1);
-  params->alpha2 = p->hyb_params[3][0] = k2*sqrt(a2);
-  params->omega0 = p->hyb_params[1][1] = omega;
-  params->omega1 = p->hyb_params[2][1] = omega/sqrt(a1);
-  params->omega2 = p->hyb_params[3][1] = omega/sqrt(a2);
+  params->alpha1 = p->hyb_params[2].sr.beta  = k1*sqrt(a1);
+  params->alpha2 = p->hyb_params[3].sr.beta  = k2*sqrt(a2);
+  params->omega0 = p->hyb_params[1].sr.omega = omega;
+  params->omega1 = p->hyb_params[2].sr.omega = omega/sqrt(a1);
+  params->omega2 = p->hyb_params[3].sr.omega = omega/sqrt(a2);
 }
 
 #include "decl_gga.h"

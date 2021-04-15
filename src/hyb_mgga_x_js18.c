@@ -40,8 +40,8 @@ mgga_x_js18_set_params(xc_func_type *p, const double *ext_params)
   set_ext_params_cpy_sr(p, ext_params);
 
   params = (mgga_x_js18_params * )(p->params);
-  params->ax = p->hyb_params[0][0];
-  params->omega = p->hyb_params[0][1];
+  params->ax = p->hyb_params[0].sr.beta;
+  params->omega = p->hyb_params[0].sr.omega;
 }
 
 #include "decl_mgga.h"

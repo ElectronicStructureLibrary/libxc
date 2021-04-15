@@ -38,11 +38,11 @@ static void
 b2plyp_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   assert(p != NULL);
-  p->hyb_params[0][0] = get_ext_param(p, ext_params, 0);
-  p->hyb_params[1][0] = get_ext_param(p, ext_params, 1);
+  p->hyb_params[0].fock.alpha = get_ext_param(p, ext_params, 0);
+  p->hyb_params[1].pt2.gamma = get_ext_param(p, ext_params, 1);
 
-  p->mix_coef[0] = 1.0 - p->hyb_params[0][0];
-  p->mix_coef[1] = 1.0 - p->hyb_params[1][0];
+  p->mix_coef[0] = 1.0 - p->hyb_params[0].fock.alpha;
+  p->mix_coef[1] = 1.0 - p->hyb_params[1].pt2.gamma;
 }
 
 
@@ -113,12 +113,12 @@ wb2plyp_set_ext_params(xc_func_type *p, const double *ext_params)
 
   /* Range-separation parameter */
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", omega);
-  p->hyb_params[2][1] = omega;
+  p->hyb_params[2].sr.omega = omega;
 
   /* Long-range coefficient is always 1 */
-  p->hyb_params[0][0] = 1.0;
-  p->hyb_params[1][0] = c;
-  p->hyb_params[2][0] = ax - 1.0;
+  p->hyb_params[0].fock.alpha = 1.0;
+  p->hyb_params[1].pt2.gamma = c;
+  p->hyb_params[2].sr.beta    = ax - 1.0;
 
   /* Mixing coefficients */
   p->mix_coef[0] = 1.0 - ax;

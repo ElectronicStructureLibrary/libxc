@@ -29,11 +29,10 @@ static void
 pjs18_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   mgga_x_pjs18_params *params;
-
   params = (mgga_x_pjs18_params *) (p->params);
 
-  p->hyb_params[0][0] = get_ext_param(p, ext_params, 0);
-  p->hyb_params[0][1] = params->omega = get_ext_param(p, ext_params, 1);
+  set_ext_params_cpy_sr(p, ext_params);
+  params->omega = p->hyb_params[0].sr.omega;
 }
 
 #define PJS18_N_PAR 2
@@ -88,7 +87,7 @@ lc_tmlyp_set_ext_params(xc_func_type *p, const double *ext_params) {
   set_ext_params_cpy_sr(p, ext_params);
 
   /* Set the parameters for js18 */
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_params[0][1]);
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_params[0].sr.omega);
 }
 
 #ifdef __cplusplus

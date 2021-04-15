@@ -78,8 +78,8 @@ gga_x_n12_sx_set_params(xc_func_type *p, const double *ext_params)
   set_ext_params_cpy(p, ext_params);
 
   params = (gga_x_n12_params * )(p->params);
-  p->hyb_params[0][0] = params->beta;
-  p->hyb_params[0][1] = params->omega;
+  p->hyb_params[0].sr.beta = params->beta;
+  p->hyb_params[0].sr.omega = params->omega;
 }
 
 #include "decl_gga.h"

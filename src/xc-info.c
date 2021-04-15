@@ -102,29 +102,29 @@ int main(int argc, char **argv)
       printf("  %d:", i);
       switch(func.hyb_type[i]){
       case XC_HYB_FOCK:
-        printf("  Hartree-Fock exchange, weight = % .3f\n", func.hyb_params[i][0]);
+        printf("  Hartree-Fock exchange, weight = % .3f\n", func.hyb_params[i].fock.alpha);
         break;
       case XC_HYB_PT2:
-        printf("  Second-order perturbation theory, weight = %.3f", func.hyb_params[i][0]);
+        printf("  Second-order perturbation theory, weight = %.3f", func.hyb_params[i].pt2.gamma);
         break;
       case XC_HYB_ERF_SR:
         printf("  Short-range (erf) exact exchange, weight = % .3f omega = %.3f\n",
-               func.hyb_params[i][0], func.hyb_params[i][1]);
+               func.hyb_params[i].sr.beta, func.hyb_params[i].sr.omega);
         break;
       case XC_HYB_YUKAWA_SR:
         printf("  Short-range (Yukawa) exact exchange, weight = % .3f omega = %.3f\n",
-               func.hyb_params[i][0], func.hyb_params[i][1]);
+               func.hyb_params[i].sr.beta, func.hyb_params[i].sr.omega);
         break;
       case XC_HYB_GAUSSIAN_SR:
         printf("  Short-range (Gaussian) exact exchange, weight = % .3f omega = %.3f\n",
-               func.hyb_params[i][0], func.hyb_params[i][1]);
+               func.hyb_params[i].sr.beta, func.hyb_params[i].sr.omega);
         break;
       case XC_HYB_VDW_DF:
-        printf("  van der Waals (DF) with Zab = %.3f", func.hyb_params[i][0]);
+        printf("  van der Waals (DF) with Zab = %.3f", func.hyb_params[i].df.Zab);
         break;
       case XC_HYB_VDW_VV10:
         printf("  van der Waals (VV10) with b = %.3f and c = %.3f",
-               func.hyb_params[i][0], func.hyb_params[i][1]);
+               func.hyb_params[i].vv10.b, func.hyb_params[i].vv10.C);
         break;
       default:
         printf("\nThis term of unknown type, please report this problem to the libxc tracker!\n");

@@ -231,14 +231,23 @@ char const *xc_func_info_get_ext_params_description(const xc_func_info_type *inf
 double xc_func_info_get_ext_params_default_value(const xc_func_info_type *info, int number);
 
 
-struct xc_dimensions{
+typedef struct {
   size_t rho, sigma, lapl, tau;       /* spin dimensions of the arrays */
   size_t zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, );
-};
+} xc_dimensions;
 
-typedef struct xc_dimensions xc_dimensions;
-
-
+/* These are all possible parameters for the different hybrids that we
+   support. This information should be used by the caller program to
+   setup the extra terms in the energy */
+typedef union {
+  double raw[2]; /* used to access directly the parameters */
+  struct {double alpha;} fock;     /* amount of Fock */
+  struct {double gamma;} pt2;      /* amount of PT2  */
+  struct {double beta, omega;} sr; /* amount of short-range Fock and screening parameter */
+  struct {double Zab;} df;
+  struct {double b, C;} vv10;
+} xc_hybrid_params_type;
+  
 struct xc_func_type{
   const xc_func_info_type *info;       /* all the information concerning this functional */
   int nspin;                           /* XC_UNPOLARIZED or XC_POLARIZED  */
@@ -251,7 +260,7 @@ struct xc_func_type{
      as a Fock, PT2, or a VDW term) */
   int hyb_number_terms;    /* number of external contibutions to the functional (max 5) */
   int hyb_type[5];         /* type of external contibutions, such as XC_HYB_NONE, XC_HYB_FOCK, etc. */
-  double hyb_params[5][5]; /* Parameters defining the external contibution. This depends on the type */
+  xc_hybrid_params_type hyb_params[5]; /* Parameters defining the external contibution. This depends on the type */
 
   xc_dimensions dim;           /* the dimensions of all input and output arrays */
 
@@ -406,7 +415,8 @@ void xc_mgga_fxc(const xc_func_type *p, size_t np,
 
 #ifndef XC_DONT_COMPILE_KXC
 /** Evaluates the energy density and its first, second, and third derivatives for an     LDA functional */
-void xc_lda_exc_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3);
+void xc_lda_exc_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho,
+                             double *zk, double *vrho, double *v2rho2, double *v3rho3);
 /** Evaluates the energy density and its first, second, and third derivatives for a      GGA functional */
 void xc_gga_exc_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
                              double *zk, double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2,
@@ -429,21 +439,21 @@ void xc_mgga_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np,
 void xc_lda_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, double *vrho, double *v2rho2, double *v3rho3);
 /** Evaluates the first, second, and third derivatives for a      GGA functional */
 void xc_gga_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
-                             double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2,
-                             double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
+                         double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2,
+                         double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
 /** Evaluates the first, second, and third derivatives for a meta-GGA functional */
 void xc_mgga_vxc_fxc_kxc(const xc_func_type *p, size_t np,
-                             const double *rho, const double *sigma, const double *lapl, const double *tau,
-                             double *vrho, double *vsigma, double *vlapl, double *vtau,
-                             double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
-                             double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
-                             double *v2lapltau, double *v2tau2,
-                             double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
-                             double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
-                             double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
-                             double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
-                             double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
-                             double *v3tau3);
+                         const double *rho, const double *sigma, const double *lapl, const double *tau,
+                         double *vrho, double *vsigma, double *vlapl, double *vtau,
+                         double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+                         double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
+                         double *v2lapltau, double *v2tau2,
+                         double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
+                         double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
+                         double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
+                         double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
+                         double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
+                         double *v3tau3);
 
 /** Evaluates the third derivative for an     LDA functional */
 void xc_lda_kxc (const xc_func_type *p, size_t np, const double *rho, double *v3rho3);
@@ -492,11 +502,17 @@ double xc_gga_ak13_pars_get_asymptotic (double homo, const double *ext_params);
 
 /* Returns the hybrid type of a functional */
 int xc_hyb_type(const xc_func_type *p);
-/* Returns fraction of Hartree-Fock exchange in a global hybrid functional */
+/* Returns fraction of Hartree-Fock exchange in a global hybrid
+   functional */
 double xc_hyb_exx_coef(const xc_func_type *p);
-/* Returns fraction of Hartee-Fock exchange and short-range exchange in a range-separated hybrid functional  */
+/* Returns fraction of Hartee-Fock exchange and short-range exchange
+   in a range-separated hybrid functional */
 void xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *beta);
-/* Returns the b and C coefficients for a non-local VV10 correlation kernel */
+/* Returns the Zab coefficients for a non-local DF correlation
+   kernel */
+void xc_hyb_vdw_df_coef(const xc_func_type *p, double *Zab);
+/* Returns the b and C coefficients for a non-local VV10 correlation
+   kernel */
 void xc_hyb_vdw_vv10_coef(const xc_func_type *p, double *b, double *C);
 
 #ifdef __cplusplus

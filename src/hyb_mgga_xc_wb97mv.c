@@ -26,12 +26,12 @@ hyb_mgga_xc_wb97mv_init(xc_func_type *p)
   params = (mgga_xc_wb97mv_params *)(p->params);
   
   xc_hyb_init_cam(p, 1.0, -(1.0 - 0.15), 0.3);
-  params->omega = p->hyb_params[1][1];
+  params->omega = p->hyb_params[1].sr.omega;
   
   p->hyb_number_terms = 3; /* we add a vv10 term */
   p->hyb_type[2] = XC_HYB_VDW_VV10;
-  p->hyb_params[2][0] = 6.0;
-  p->hyb_params[2][1] = 0.01;
+  p->hyb_params[2].vv10.b = 6.0;
+  p->hyb_params[2].vv10.C = 0.01;
 }
 
 #include "decl_mgga.h"

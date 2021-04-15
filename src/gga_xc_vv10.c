@@ -36,8 +36,8 @@ vv10_set_ext_params(xc_func_type *p, const double *ext_params)
   assert(p != NULL);
 
   /* Non-local correlation part */
-  p->hyb_params[0][0] = get_ext_param(p, ext_params, 0);
-  p->hyb_params[0][1] = get_ext_param(p, ext_params, 1);
+  p->hyb_params[0].vv10.b = get_ext_param(p, ext_params, 0);
+  p->hyb_params[0].vv10.C = get_ext_param(p, ext_params, 1);
 }
 
 #ifdef __cplusplus
@@ -86,15 +86,15 @@ lc_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   assert(p != NULL);
 
-  p->hyb_params[0][0] = get_ext_param(p, ext_params, 0); /* alpha */
-  p->hyb_params[1][0] = get_ext_param(p, ext_params, 1); /* beta  */
-  p->hyb_params[1][1] = get_ext_param(p, ext_params, 2); /* omega */
-  p->hyb_params[2][0] = get_ext_param(p, ext_params, 3); /* b */
-  p->hyb_params[2][1] = get_ext_param(p, ext_params, 4); /* C */
+  p->hyb_params[0].fock.alpha = get_ext_param(p, ext_params, 0);
+  p->hyb_params[1].sr.beta   = get_ext_param(p, ext_params, 1);
+  p->hyb_params[1].sr.omega  = get_ext_param(p, ext_params, 2);
+  p->hyb_params[2].vv10.b    = get_ext_param(p, ext_params, 3);
+  p->hyb_params[2].vv10.C    = get_ext_param(p, ext_params, 4);
 
   /* DFT part */
-  p->mix_coef[0] = -p->hyb_params[1][0];
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_params[1][1]);
+  p->mix_coef[0] = -p->hyb_params[1].sr.beta;
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_params[1].sr.omega);
 }
 
 

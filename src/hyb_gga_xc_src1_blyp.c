@@ -49,8 +49,9 @@ src1_set_ext_params(xc_func_type *p, const double *ext_params)
   C_SR = get_ext_param(p, ext_params, 0);
   C_LR = get_ext_param(p, ext_params, 2);
 
-  p->hyb_params[1][1] = get_ext_param(p, ext_params, 1); /* omega SR */
-  p->hyb_params[2][1] = get_ext_param(p, ext_params, 3); /* omega_LR */
+  p->hyb_params[1].sr.omega = get_ext_param(p, ext_params, 1); /* omega SR */
+  p->hyb_params[2].sr.omega = get_ext_param(p, ext_params, 3); /* omega_LR */
+  
   p->mix_coef[3]  = get_ext_param(p, ext_params, 4); /* LYP mixing */
   p->mix_coef[4]  = get_ext_param(p, ext_params, 5); /* VWN mixing */
 
@@ -66,12 +67,12 @@ src1_set_ext_params(xc_func_type *p, const double *ext_params)
     p->mix_coef[2] = C_LR - 1.0;
     break;
   }
-  p->hyb_params[0][0] = C_LR; /* Normal Fock */
-  p->hyb_params[1][0] = C_SR;
-  p->hyb_params[2][0] =-C_LR;
+  p->hyb_params[0].fock.alpha = C_LR; /* Normal Fock */
+  p->hyb_params[1].sr.beta   = C_SR;
+  p->hyb_params[2].sr.beta   =-C_LR;
 
-  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_params[1][1]); /* mu_SR */
-  xc_func_set_ext_params_name(p->func_aux[2], "_omega", p->hyb_params[2][1]); /* mu_LR */
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", p->hyb_params[1].sr.omega); /* mu_SR */
+  xc_func_set_ext_params_name(p->func_aux[2], "_omega", p->hyb_params[2].sr.omega); /* mu_LR */
 }
 
 #ifdef __cplusplus

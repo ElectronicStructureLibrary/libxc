@@ -412,6 +412,13 @@ func_reference_type xc_ref_Carmona2019_303 = {
 };
 
 
+func_reference_type xc_ref_CasanovaPaez2019_4735 = {
+  "M. Casanova-Paez, M. B. Dardis, and L. Goerigk, J. Chem. Theory Comput. 15, 4735 (2019)",
+  "10.1021/acs.jctc.9b00013",
+  "@article{CasanovaPaez2019_4735,\n  author = {Casanova-P\\'{a}ez, Marcos and Dardis, Michael B. and Goerigk, Lars},\n  title = {$\\omega$B2PLYP and $\\omega$B2GPPLYP: The First Two Double-Hybrid Density Functionals with Long-Range Correction Optimized for Excitation Energies},\n  journal = {J. Chem. Theory Comput.},\n  volume = {15},\n  number = {9},\n  pages = {4735-4744},\n  year = {2019},\n  doi = {10.1021/acs.jctc.9b00013},\n  url = {https://doi.org/10.1021/acs.jctc.9b00013},\n}"
+};
+
+
 func_reference_type xc_ref_Casula2006_245427 = {
   "M. Casula, S. Sorella, and G. Senatore, Phys. Rev. B 74, 245427 (2006)",
   "10.1103/PhysRevB.74.245427",
@@ -1179,6 +1186,13 @@ func_reference_type xc_ref_Karasiev2016_157101 = {
   "V. V. Karasiev, J. Chem. Phys. 145, 157101 (2016)",
   "10.1063/1.4964758",
   "@article{Karasiev2016_157101,\n  author = {Valentin V. Karasiev},\n  title = {Comment on \"Communication: Simple and accurate uniform electron gas correlation energy for the full range of densities\" [J. Chem. Phys. 145, 021101 (2016)]},\n  journal = {J. Chem. Phys.},\n  volume = {145},\n  number = {15},\n  pages = {157101},\n  year = {2016},\n  doi = {10.1063/1.4964758},\n  url = {https://doi.org/10.1063/1.4964758}\n}"
+};
+
+
+func_reference_type xc_ref_Karton2008_12868 = {
+  "A. Karton, A. Tarnopolsky, J.-F. Lamère, G. C. Schatz, and J. M. L. Martin, J. Phys. Chem. A 112, 12868 (2008)",
+  "10.1021/jp801805p",
+  "@article{Karton2008_12868,\n  author = {Karton, Amir and Tarnopolsky, Alex and Lamère, Jean-François and Schatz, George C. and Martin, Jan M. L.},\n  title = {Highly Accurate First-Principles Benchmark Data Sets for the Parametrization and Validation of Density Functional and Other Approximate Methods. Derivation of a Robust, Generally Applicable, Double-Hybrid Functional for Thermochemistry and Thermochemical Kinetics},\n  journal = {J. Phys. Chem. A},\n  volume = {112},\n  number = {50},\n  pages = {12868-12886},\n  year = {2008},\n  doi = {10.1021/jp801805p},\n  url = {https://doi.org/10.1021/jp801805p}\n}"
 };
 
 

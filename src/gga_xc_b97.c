@@ -193,6 +193,10 @@ gga_xc_b97_init(xc_func_type *p)
     xc_hyb_init_fock(p, 0.0);
   }
 
+  if((p->info->number == XC_GGA_XC_B97_D)){
+    xc_hyb_init_vdw_d(p, 1.0);
+  }
+
 }
 
 #include "decl_gga.h"

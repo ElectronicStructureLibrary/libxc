@@ -88,11 +88,19 @@ gga_xc_wb97_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_xc_wb97_params));
   xc_hyb_init_cam(p, 0.0, 0.0, 0.0);
   
-  /* this particular functional has an extra vdw component */
+  /* this particular functionals has an extra vdw component */
+  if(p->info->number ==  XC_HYB_GGA_XC_WB97X_D){
+    p->hyb_number_terms = 3;
+    p->hyb_type[2] = XC_HYB_VDW_D;
+    p->hyb_params[2].d.delta = 1.0;
+  }
+  
   if(p->info->number ==  XC_HYB_GGA_XC_WB97X_V){
     p->hyb_number_terms = 3;
-    p->hyb_params[2].vv10.b = 6.0;
-    p->hyb_params[2].vv10.C = 0.01;
+    p->hyb_type[2] = XC_HYB_VDW_VV10;
+    p->hyb_params[2].vv10.delta = 1.0;
+    p->hyb_params[2].vv10.b     = 6.0;
+    p->hyb_params[2].vv10.C     = 0.01;
   }
 }
 

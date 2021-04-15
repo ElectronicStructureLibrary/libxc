@@ -82,6 +82,9 @@ gga_x_ssb_init(xc_func_type *p) {
   static int    funcs_id  [3] = {XC_LDA_X, XC_GGA_X_SSB_SW, XC_GGA_X_KT1};
   static double funcs_coef[3] = {-1.0, 1.0, 1.0};
   xc_mix_init(p, 3, funcs_id, funcs_coef);
+
+  if((p->info->number == XC_GGA_X_SSB_D) || (p->info->number == XC_GGA_X_REVSSB_D))
+    xc_hyb_init_vdw_d(p, 1.0);
 }
 
 static void

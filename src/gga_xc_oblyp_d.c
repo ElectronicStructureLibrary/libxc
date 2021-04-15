@@ -24,6 +24,8 @@ gga_xc_oblyp_d_init(xc_func_type *p)
   xc_mix_init(p, 2, funcs_id, funcs_coef);
   xc_func_set_ext_params(p->func_aux[0], par_x_b88);
   xc_func_set_ext_params(p->func_aux[1], par_c_lyp);
+
+  xc_hyb_init_vdw_d(p, 1.0);
 }
 
 #ifdef __cplusplus
@@ -55,6 +57,8 @@ gga_xc_opwlyp_d_init(xc_func_type *p)
   xc_mix_init(p, 2, funcs_id, funcs_coef);
   xc_func_set_ext_params(p->func_aux[0], par_x_pw91);
   xc_func_set_ext_params(p->func_aux[1], par_c_lyp);
+
+  xc_hyb_init_vdw_d(p, 1.0);
 }
 
 #ifdef __cplusplus
@@ -86,6 +90,8 @@ gga_xc_opbe_d_init(xc_func_type *p)
   xc_mix_init(p, 2, funcs_id, funcs_coef);
   xc_func_set_ext_params(p->func_aux[0], par_x_pbe);
   xc_func_set_ext_params(p->func_aux[1], par_c_pbe);
+
+  xc_hyb_init_vdw_d(p, 1.0);
 }
 
 #ifdef __cplusplus

@@ -22,6 +22,8 @@ mgga_xc_otpss_d_init(xc_func_type *p)
   xc_mix_init(p, 2, funcs_id, funcs_coef);
   xc_func_set_ext_params(p->func_aux[0], par_x_tpss);
   xc_func_set_ext_params(p->func_aux[1], par_c_tpss);
+
+  xc_hyb_init_vdw_d(p, 1.0);
 }
 
 #ifdef __cplusplus

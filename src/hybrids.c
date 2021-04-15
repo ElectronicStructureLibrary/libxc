@@ -72,7 +72,7 @@ xc_hyb_init_camg(xc_func_type *p, double alpha, double beta, double omega)
 
 /* van der Waals correction according to Grimme */
 void
-xc_hyb_init_vdw_df(xc_func_type *p, double delta)
+xc_hyb_init_vdw_d(xc_func_type *p, double delta)
 {
   p->hyb_number_terms = 1;
 

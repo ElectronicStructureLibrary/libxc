@@ -26,6 +26,9 @@ static const double par_js18[JS18_N_PAR] = {0.1, 0.33};
 static void
 hyb_mgga_x_js18_init(xc_func_type *p)
 {
+  assert(p!=NULL && p->params == NULL);
+  p->params = libxc_malloc(sizeof(mgga_x_js18_params));
+
   xc_hyb_init_sr(p, 0.0, 0.0);
 }
 

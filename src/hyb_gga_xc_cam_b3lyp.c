@@ -211,6 +211,7 @@ xc_hyb_gga_xc_rcam_b3lyp_init(xc_func_type *p)
 {
   static int funcs_id  [4] = {XC_LDA_X, XC_GGA_X_B88, XC_GGA_X_ITYH, XC_GGA_C_LYP};
   static double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0};
+  
   xc_mix_init(p, 4, funcs_id, funcs_coef);
   xc_hyb_init_cam(p, 0.0, 0.0, 0.0);
 }
@@ -222,7 +223,6 @@ rcam_set_ext_params(xc_func_type *p, const double *ext_params)
 
   assert(p != NULL);
   /* connection is
-
      libxc_alpha = alpha + beta
      libxc_beta = -beta
   */
@@ -231,7 +231,7 @@ rcam_set_ext_params(xc_func_type *p, const double *ext_params)
   p->hyb_params[1][1] = get_ext_param(p, ext_params, 2); /* omega */
 
   alpha  =  p->hyb_params[0][0] + p->hyb_params[1][0];
-  beta   = -p->hyb_params[1][1];
+  beta   = -p->hyb_params[1][0];
   cb88   =  get_ext_param(p, ext_params, 3);
 
   p->mix_coef[0] = 1.0 - alpha - cb88;

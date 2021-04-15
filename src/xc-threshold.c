@@ -98,7 +98,7 @@ typedef struct {
   double v4tau4[5];
 } xc_values_type;
 
-void index_lookup(int idx, char *legend) {
+void index_lookup(size_t idx, char *legend) {
   int offset = 0;
   xc_dimensions dim;
   internal_counters_set_mgga(XC_POLARIZED, &dim);
@@ -811,7 +811,7 @@ size_t check_xc(int id, int nspin, xc_values_type values, double threshold) {
 #ifdef XC_DEBUG
       char legend[80];
       if (!initprint) {
-        int j;
+        size_t j;
         for (j = 0; j < 9; j++) {
           index_lookup(j, legend);
           printf("%s = %e\n", legend, ptr[j]);

@@ -16,6 +16,7 @@
 
 typedef struct{
   double CC[4][4];
+  double beta, omega; /* only used in sx functional */
 } gga_x_n12_params;
 
 #define N_PAR_PURE 16
@@ -72,15 +73,13 @@ gga_x_n12_init(xc_func_type *p)
 static void
 gga_x_n12_sx_set_params(xc_func_type *p, const double *ext_params)
 {
-  int nparams;
   gga_x_n12_params *params;
 
   set_ext_params_cpy(p, ext_params);
 
   params = (gga_x_n12_params * )(p->params);
-  nparams = p->info->ext_params.n;
-  p->hyb_params[0][0] = get_ext_param(p, ext_params, nparams - 2);
-  p->hyb_params[0][1] = get_ext_param(p, ext_params, nparams - 1);
+  p->hyb_params[0][0] = params->beta;
+  p->hyb_params[0][1] = params->omega;
 }
 
 #include "decl_gga.h"

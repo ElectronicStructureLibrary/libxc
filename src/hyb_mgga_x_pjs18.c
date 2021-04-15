@@ -88,7 +88,7 @@ lc_tmlyp_set_ext_params(xc_func_type *p, const double *ext_params) {
   set_ext_params_cpy_sr(p, ext_params);
 
   /* Set the parameters for js18 */
-  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_params[1][1]);
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_params[0][1]);
 }
 
 #ifdef __cplusplus

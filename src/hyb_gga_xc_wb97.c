@@ -96,6 +96,17 @@ gga_xc_wb97_init(xc_func_type *p)
   }
 }
 
+static void
+gga_xc_wb97_set_ext_params(xc_func_type *p,  const double *ext_params)
+{
+  gga_xc_wb97_params *params;
+
+  set_ext_params_cpy_cam(p, ext_params);
+
+  params = (gga_xc_wb97_params *) (p->params);
+  params->omega = p->hyb_params[1][1];
+}
+
 #include "decl_gga.h"
 #include "maple2c/gga_exc/hyb_gga_xc_wb97.c"
 #include "work_gga.c"
@@ -111,7 +122,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97 = {
   {&xc_ref_Chai2008_084106, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
-  {N_PAR, names, desc, par_wb97, set_ext_params_cpy_cam},
+  {N_PAR, names, desc, par_wb97, gga_xc_wb97_set_ext_params},
   gga_xc_wb97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -127,7 +138,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x = {
   {&xc_ref_Chai2008_084106, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
-  {N_PAR, names, desc, par_wb97x, set_ext_params_cpy_cam},
+  {N_PAR, names, desc, par_wb97x, gga_xc_wb97_set_ext_params},
   gga_xc_wb97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -143,7 +154,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x_v = {
   {&xc_ref_Mardirossian2014_9904, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
-  {N_PAR, names, desc, par_wb97x_v, set_ext_params_cpy_cam},
+  {N_PAR, names, desc, par_wb97x_v, gga_xc_wb97_set_ext_params},
   gga_xc_wb97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -159,7 +170,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x_d = {
   {&xc_ref_Chai2008_6615, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
-  {N_PAR, names, desc, par_wb97x_d, set_ext_params_cpy_cam},
+  {N_PAR, names, desc, par_wb97x_d, gga_xc_wb97_set_ext_params},
   gga_xc_wb97_init, NULL,
   NULL, work_gga, NULL
 };
@@ -175,7 +186,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x_d3 = {
   {&xc_ref_Lin2013_263, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
-  {N_PAR, names, desc, par_wb97x_d3, set_ext_params_cpy_cam},
+  {N_PAR, names, desc, par_wb97x_d3, gga_xc_wb97_set_ext_params},
   gga_xc_wb97_init, NULL,
   NULL, work_gga, NULL
 };

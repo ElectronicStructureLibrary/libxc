@@ -69,7 +69,8 @@ get_ext_param(const xc_func_type *func, const double *values, int index)
 /* Copy n parameters, assumes that p->params is just a series of doubles
    so it can be accessed as a array, and and copies
    ext_params to this. */
-static void copy_params(xc_func_type *p, const double *ext_params, int nparams) {
+static void
+copy_params(xc_func_type *p, const double *ext_params, int nparams) {
   double *params;
   int ii;
 

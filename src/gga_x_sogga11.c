@@ -57,7 +57,7 @@ gga_x_sogga11_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_x_sogga11_params));
 
   if(p->info->number == XC_HYB_GGA_X_SOGGA11_X)
-    xc_hyb_init_hybrid(p, 0.0);
+    xc_hyb_init_fock(p, 0.0);
 }
 
 #include "decl_gga.h"

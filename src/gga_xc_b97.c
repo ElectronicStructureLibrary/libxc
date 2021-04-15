@@ -190,7 +190,7 @@ gga_xc_b97_init(xc_func_type *p)
      p->info->number == XC_HYB_GGA_XC_SB98_2B ||
      p->info->number == XC_HYB_GGA_XC_SB98_2C ||
      p->info->number == XC_HYB_GGA_XC_B97_1P){
-    xc_hyb_init_hybrid(p, 0.0);
+    xc_hyb_init_fock(p, 0.0);
   }
 
 }

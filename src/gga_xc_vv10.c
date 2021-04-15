@@ -27,7 +27,7 @@ gga_xc_vv10_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0, 1.0};
   
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_vdw_vv10(p, 0.0, 0.0);
+  xc_hyb_init_vdw_vv10(p, 0.0, 0.0, 0.0);
 }
 
 static void
@@ -36,6 +36,7 @@ vv10_set_ext_params(xc_func_type *p, const double *ext_params)
   assert(p != NULL);
 
   /* Non-local correlation part */
+  p->hyb_params[0].vv10.delta = 1.0;
   p->hyb_params[0].vv10.b = get_ext_param(p, ext_params, 0);
   p->hyb_params[0].vv10.C = get_ext_param(p, ext_params, 1);
 }

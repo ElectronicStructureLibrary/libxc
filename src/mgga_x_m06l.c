@@ -149,7 +149,7 @@ mgga_x_m06l_init(xc_func_type *p)
   case(XC_HYB_MGGA_X_M06):
   case(XC_HYB_MGGA_X_M06_HF):
   case(XC_HYB_MGGA_X_REVM06):
-    xc_hyb_init_hybrid(p, 0.0);
+    xc_hyb_init_fock(p, 0.0);
     break;
 
   case(XC_HYB_MGGA_X_M06_SX):

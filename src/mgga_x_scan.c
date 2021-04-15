@@ -89,7 +89,7 @@ hyb_mgga_x_scan0_init(xc_func_type *p)
   static double funcs_coef[1] = {0.0}; /* set by ext_params */
 
   xc_mix_init(p, 1, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.0); /* set by ext_params */
+  xc_hyb_init_fock(p, 0.0); /* set by ext_params */
 }
 
 static void
@@ -126,7 +126,7 @@ hyb_mgga_x_revscan0_init(xc_func_type *p)
   static double funcs_coef[1] = {0.0}; /* set by ext_params */
 
   xc_mix_init(p, 1, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.0); /* set by ext_params */
+  xc_hyb_init_fock(p, 0.0); /* set by ext_params */
 }
 
 #ifdef __cplusplus

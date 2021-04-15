@@ -52,7 +52,7 @@ hyb_gga_xc_o3lyp_init(xc_func_type *p)
   static int funcs_id[4] = {XC_LDA_X, XC_GGA_X_OPTX, XC_LDA_C_VWN, XC_GGA_C_LYP};
   double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0};
   xc_mix_init(p, 4, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.0);
+  xc_hyb_init_fock(p, 0.0);
 }
 
 #ifdef __cplusplus
@@ -112,7 +112,7 @@ hyb_gga_xc_x3lyp_init(xc_func_type *p)
   double funcs_coef[5] = {0.0, 0.0, 0.0, 0.0, 0.0};
 
   xc_mix_init(p, 5, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.0);
+  xc_hyb_init_fock(p, 0.0);
 }
 
 #ifdef __cplusplus

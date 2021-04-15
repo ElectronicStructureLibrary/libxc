@@ -113,7 +113,7 @@ hyb_mgga_x_ms2h_init(xc_func_type *p)
   static double funcs_coef[1] = {0.91};
 
   xc_mix_init(p, 1, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.09);
+  xc_hyb_init_fock(p, 0.09);
 }
 
 #ifdef __cplusplus

@@ -35,11 +35,7 @@ const xc_func_info_type xc_func_info_mgga_c_revscan = {
 static void
 mgga_c_revscan_vv10_init(xc_func_type *p)
 {
-  static int   funcs_id  [1] = {XC_MGGA_C_REVSCAN};
-  static double funcs_coef[1] = {1.0};
-
-  xc_mix_init(p, 1, funcs_id, funcs_coef);
-  xc_hyb_init_vdw_vv10(p, 9.8, 0.0093);
+  xc_hyb_init_vdw_vv10(p, 1.0, 9.8, 0.0093);
 }
 
 #ifdef __cplusplus
@@ -55,5 +51,5 @@ const xc_func_info_type xc_func_info_mgga_c_revscan_vv10 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   mgga_c_revscan_vv10_init, NULL,
-  NULL, NULL, NULL
+  NULL, NULL, work_mgga
 };

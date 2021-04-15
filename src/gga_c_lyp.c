@@ -78,7 +78,7 @@ xc_hyb_gga_xc_hflyp_init(xc_func_type *p)
   static double funcs_coef[1] = {1.0};
 
   xc_mix_init(p, 1, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 1.0);
+  xc_hyb_init_fock(p, 1.0);
 }
 
 #ifdef __cplusplus

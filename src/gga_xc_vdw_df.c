@@ -23,7 +23,7 @@ vdw_df1_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_vdw_df(p, 0); /* set by set_ext_params */
+  xc_hyb_init_vdw_df(p, 0.0, 0.0); /* set by set_ext_params */
 }
 
 
@@ -32,7 +32,8 @@ vdw_df1_set_ext_params(xc_func_type *p, const double *ext_params)
 {
   assert(p != NULL);
 
-  p->hyb_params[0].df.Zab = get_ext_param(p, ext_params, 0);
+  p->hyb_params[0].df.delta = 1.0;
+  p->hyb_params[0].df.Zab   = get_ext_param(p, ext_params, 0);
 }
 
 #ifdef __cplusplus

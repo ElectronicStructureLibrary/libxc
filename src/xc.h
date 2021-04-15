@@ -74,19 +74,20 @@ const char *xc_version_string();
 
    where the function f(r) is
 
-   *) XC_HYB_FOCK           f(r) = coeff
-   *) XC_HYB_ERF_SR         f(r) = coeff * (1 - erf(omega r))
-   *) XC_HYB_YUKAWA_SR      f(r) = coeff * exp(-omega r)
-   *) XC_HYB_GAUSSIAN_SR    f(r) = coeff * 2*omega/sqrt(pi) * exp(-omega^2 r^2)
+   *) XC_HYB_FOCK           f(r) = alpha
+   *) XC_HYB_ERF_SR         f(r) = beta * (1 - erf(omega r))
+   *) XC_HYB_YUKAWA_SR      f(r) = beta * exp(-omega r)
+   *) XC_HYB_GAUSSIAN_SR    f(r) = beta * 2*omega/sqrt(pi) * exp(-omega^2 r^2)
 */
 #define XC_HYB_NONE             0
 #define XC_HYB_FOCK             1  /* Normal hybrid */
 #define XC_HYB_PT2              2  /* Used for double hybrids */
-#define XC_HYB_ERF_SR           4  /* Short range of range separated - erf version */
-#define XC_HYB_YUKAWA_SR        8  /* Short range of range separated - Yakawa version */
-#define XC_HYB_GAUSSIAN_SR     16  /* Short range of range separated - Gaussian version */
-#define XC_HYB_VDW_DF          32  /* This is a semi-local + van der Waals functional */
-#define XC_HYB_VDW_VV10        64  /* van der Waals correction according to Vydrov2010_244103 */
+#define XC_HYB_ERF_SR           3  /* Short range of range separated - erf version */
+#define XC_HYB_YUKAWA_SR        4  /* Short range of range separated - Yakawa version */
+#define XC_HYB_GAUSSIAN_SR      5  /* Short range of range separated - Gaussian version */
+#define XC_HYB_VDW_D            6  /* van der Waals correction of Grimme */
+#define XC_HYB_VDW_DF           7  /* van der Waals correction of Dion2004_246401 */
+#define XC_HYB_VDW_VV10         8  /* van der Waals correction of Vydrov2010_244103 */
   
 /* Different types of hybrid functionals. */
 #define XC_HYB_SEMILOCAL        0  /* Standard semi-local functional (not a hybrid) */
@@ -240,13 +241,15 @@ typedef struct {
    support. This information should be used by the caller program to
    setup the extra terms in the energy */
 typedef union {
-  double raw[2]; /* used to access directly the parameters */
-  struct {double alpha;} fock;     /* amount of Fock */
-  struct {double gamma;} pt2;      /* amount of PT2  */
-  struct {double beta, omega;} sr; /* amount of short-range Fock and screening parameter */
-  struct {double Zab;} df;
-  struct {double b, C;} vv10;
+  double raw[3]; /* used to access directly the parameters */
+  struct {double alpha;} fock;       /* amount of Fock */
+  struct {double gamma;} pt2;        /* amount of PT2  */
+  struct {double beta, omega;} sr;   /* amount of short-range Fock and screening parameter */
+  struct {double delta;} d;          /* amount of non-local term */
+  struct {double delta, Zab;} df;    /* amount of non-local term and Zab parameter */
+  struct {double delta, b, C;} vv10; /* amount of non-local term and b, C parameters */
 } xc_hybrid_params_type;
+
   
 struct xc_func_type{
   const xc_func_info_type *info;       /* all the information concerning this functional */
@@ -510,10 +513,10 @@ double xc_hyb_exx_coef(const xc_func_type *p);
 void xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *beta);
 /* Returns the Zab coefficients for a non-local DF correlation
    kernel */
-void xc_hyb_vdw_df_coef(const xc_func_type *p, double *Zab);
+void xc_hyb_vdw_df_coef(const xc_func_type *p, double *delta, double *Zab);
 /* Returns the b and C coefficients for a non-local VV10 correlation
    kernel */
-void xc_hyb_vdw_vv10_coef(const xc_func_type *p, double *b, double *C);
+void xc_hyb_vdw_vv10_coef(const xc_func_type *p, double *delta, double *b, double *C);
 
 #ifdef __cplusplus
 }

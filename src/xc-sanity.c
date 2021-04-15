@@ -106,14 +106,14 @@ int main(void) {
 
     /* Check non-local correlation parameters */
     {
-      double b, C;
-      xc_hyb_vdw_vv10_coef(&func, &b, &C);
+      double delta, b, C;
+      xc_hyb_vdw_vv10_coef(&func, &delta, &b, &C);
 
       if(func.hyb_type[0] == XC_HYB_VDW_VV10) {
         if(b == 0.0)
           printf("Functional %i '%s' is supposed to have VV10 but has zero b.\n",func_id, fname);
         if(C == 0.0)
-          printf("Functional %i '%s' is supposed to have VV10 but has zero b.\n",func_id, fname);
+          printf("Functional %i '%s' is supposed to have VV10 but has zero C.\n",func_id, fname);
       }
     }
 

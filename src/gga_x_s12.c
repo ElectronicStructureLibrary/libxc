@@ -28,7 +28,7 @@ gga_x_s12_init(xc_func_type *p)
   params->bx  = 1.0; /* we initialize it here */
 
   if(p->info->number == XC_HYB_GGA_X_S12H)
-    xc_hyb_init_hybrid(p, 0.0);
+    xc_hyb_init_fock(p, 0.0);
 }
 
 #define S12G_N_PAR 5

@@ -79,7 +79,7 @@ mgga_x_m05_init(xc_func_type *p)
 {
   assert(p->params == NULL);
   p->params = libxc_malloc(sizeof(mgga_x_m05_params));
-  xc_hyb_init_hybrid(p, 0.0);
+  xc_hyb_init_fock(p, 0.0);
 }
 
 #include "decl_mgga.h"

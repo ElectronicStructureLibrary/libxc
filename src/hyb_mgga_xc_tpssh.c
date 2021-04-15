@@ -19,7 +19,7 @@ hyb_mgga_xc_tpssh_init(xc_func_type *p)
   static double funcs_coef[2] = {0.9, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.10);
+  xc_hyb_init_fock(p, 0.10);
 }
 
 #ifdef __cplusplus
@@ -46,7 +46,7 @@ hyb_mgga_xc_revtpssh_init(xc_func_type *p)
   static double funcs_coef[2] = {0.9, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.10);
+  xc_hyb_init_fock(p, 0.10);
 }
 
 
@@ -73,7 +73,7 @@ hyb_mgga_xc_tpss0_init(xc_func_type *p)
   static double funcs_coef[2] = {0.75, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_hybrid(p, 0.25);
+  xc_hyb_init_fock(p, 0.25);
 }
 
 #ifdef __cplusplus

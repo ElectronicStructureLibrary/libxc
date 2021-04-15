@@ -248,7 +248,7 @@ void xc_func_nullify(xc_func_type *func)
   func->hyb_number_terms = 0;
   for(ii=0; ii<5; ii++){
     func->hyb_type[ii] = 0;
-    for(jj=0; jj<2; jj++) /* and the number of parameters per type is 2 */
+    for(jj=0; jj<3; jj++) /* and the number of parameters per type is 3 */
       func->hyb_params[ii].raw[jj] = 0.0;
   }
 

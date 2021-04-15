@@ -176,7 +176,7 @@ mgga_x_mn12_init(xc_func_type *p)
   if(p->info->number == XC_HYB_MGGA_X_MN12_SX)
     xc_hyb_init_cam(p, 0.0, 0.0, 0.0);
   else if(p->info->number == XC_HYB_MGGA_X_MN15)
-    xc_hyb_init_hybrid(p, 0.0);
+    xc_hyb_init_fock(p, 0.0);
 }
 
 #include "decl_mgga.h"

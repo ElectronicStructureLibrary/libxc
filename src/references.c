@@ -307,10 +307,24 @@ func_reference_type xc_ref_Brandenburg2016_115144 = {
 };
 
 
+func_reference_type xc_ref_Bremond2011_024106 = {
+  "E. Bremond and C. Adamo, J. Chem. Phys. 135, 024106 (2011)",
+  "10.1063/1.3604569",
+  "@article{Bremond2011_024106,\n  author = {Br\\'{e}mond, Eric and Adamo, Carlo},\n  title = {{Seeking for parameter-free double-hybrid functionals: The PBE0-DH model}},\n  journal = {J. Chem. Phys.},\n  volume = {135},\n  number = {2},\n  pages = {024106},\n  year = {2011},\n  doi = {10.1063/1.3604569},\n  url = {https://doi.org/10.1063/1.3604569}\n}"
+};
+
+
 func_reference_type xc_ref_Bremond2012_1184 = {
   "E. Bremond, D. Pilard, I. Ciofini, H. Chermette, C. Adamo, and P. Cortona, Theor. Chem. Acc. 131, 1184 (2012)",
   "10.1007/s00214-012-1184-0",
   "@article{Bremond2012_1184,\n  title = {Generalized gradient exchange functionals based on the gradient-regulated connection: a new member of the TCA family},\n  author = {E. Br\\'{e}mond and D. Pilard and I. Ciofini and H. Chermette and C. Adamo and P. Cortona},\n  journal = {Theor. Chem. Acc.},\n  volume = {131},\n  number = {3},\n  pages = {1184},\n  year = {2012},\n  issn = {1432-881X},\n  doi = {10.1007/s00214-012-1184-0},\n  url = {http://link.springer.com/article/10.1007\\%2Fs00214-012-1184-0},\n  publisher = {Springer-Verlag},\n  language = {English}\n}"
+};
+
+
+func_reference_type xc_ref_Bremond2014_031101 = {
+  "E. Bremond, J. C. Sancho-Garcia, A. J. Perez-Jimenez, and C. Adamo, J. Chem. Phys. 141, 031101 (2014)",
+  "10.1063/1.4890314",
+  "@article{Bremond2014_031101,\n  author = {Br\\'{e}mond, \\'{E}ric and Sancho-Garc\\'{i}a, Juan Carlos and P\\'{e}rez-Jim\\'{e}nez, \\'{A}ngel Jos\\'{e} and Adamo, Carlo},\n  title = {Communication: Double-hybrid functionals from adiabatic-connection: The {QIDH} model},\n  journal = {J. Chem. Phys.},\n  volume = {141},\n  number = {3},\n  pages = {031101},\n  year = {2014},\n  doi = {10.1063/1.4890314},\n  url = {https://doi.org/10.1063/1.4890314}\n}"
 };
 
 
@@ -458,6 +472,13 @@ func_reference_type xc_ref_Chai2008_6615 = {
   "J.-D. Chai and M. Head-Gordon, Phys. Chem. Chem. Phys. 10, 6615 (2008)",
   "10.1039/B810189B",
   "@article{Chai2008_6615,\n  author = \"Chai, Jeng-Da and Head-Gordon, Martin\",\n  title = \"Long-range corrected hybrid density functionals with damped atom-atom dispersion corrections\",\n  journal = \"Phys. Chem. Chem. Phys.\",\n  publisher = \"The Royal Society of Chemistry\",\n  year = \"2008\",\n  volume = \"10\",\n  issue = \"44\",\n  pages = \"6615-6620\",\n  doi = \"10.1039/B810189B\",\n  url = \"http://doi.org/10.1039/B810189B\"\n}"
+};
+
+
+func_reference_type xc_ref_Chai2012_121 = {
+  "J.-D. Chai and S.-P. Mao, Chem. Phys. Lett. 538, 121 (2012)",
+  "10.1016/j.cplett.2012.04.045",
+  "@article{Chai2012_121,\n  author = {Jeng-Da Chai and Shan-Ping Mao},\n  title = {Seeking for reliable double-hybrid density functionals without fitting parameters: The {PBE}0-2 functional},\n  journal = {Chem. Phys. Lett.},\n  volume = {538},\n  pages = {121-125},\n  year = {2012},\n  doi = {10.1016/j.cplett.2012.04.045},\n  url = {https://www.sciencedirect.com/science/article/pii/S000926141200526X},\n}"
 };
 
 
@@ -2383,6 +2404,13 @@ func_reference_type xc_ref_Toulouse2004_1047 = {
   "J. Toulouse, A. Savin, and H.-J. Flad, Int. J. Quantum Chem. 100, 1047 (2004)",
   "10.1002/qua.20259",
   "@article {Toulouse2004_1047,\n  author = {Toulouse, Julien and Savin, Andreas and Flad, Heinz-J\\\"urgen},\n  title = {Short-range exchange-correlation energy of a uniform electron gas with modified electron-electron interaction},\n  journal = {Int. J. Quantum Chem.},\n  volume = {100},\n  number = {6},\n  publisher = {John Wiley & Sons, Inc.},\n  issn = {1097-461X},\n  url = {http://doi.org/10.1002/qua.20259},\n  doi = {10.1002/qua.20259},\n  pages = {1047--1056},\n  year = {2004}\n}"
+};
+
+
+func_reference_type xc_ref_Toulouse2011_101102 = {
+  "J. Toulouse, K. Sharkas, E. Bremond, and C. Adamo, J. Chem. Phys. 135, 101102 (2011)",
+  "10.1063/1.3640019",
+  "@article{Toulouse2011_101102,\n  author = {Toulouse, Julien and Sharkas, Kamal and Br\\'{e}mond, Eric and Adamo, Carlo},\n  title = {Communication: Rationale for a new class of double-hybrid approximations in density-functional theory},\n  journal = {J. Chem. Phys.},\n  volume = {135},\n  number = {10},\n  pages = {101102},\n  year = {2011},\n  doi = {10.1063/1.3640019},\n  url = {https://doi.org/10.1063/1.3640019}\n}"
 };
 
 

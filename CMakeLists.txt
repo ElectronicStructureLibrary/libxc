@@ -295,6 +295,7 @@ set(raw_sources_list
   hyb_gga_xc_b2plyp.c
   hyb_gga_xc_src1_blyp.c
   hyb_gga_xc_cam_o3lyp.c
+  hyb_gga_xc_pbe_dh.c
   integrate.c
   lda.c
   lda_c_1d_csc.c

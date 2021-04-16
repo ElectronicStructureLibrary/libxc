@@ -248,6 +248,7 @@ extern func_reference_type xc_ref_Mosquera2016_1605;
 extern func_reference_type xc_ref_Moussa2012_204117;
 extern func_reference_type xc_ref_Murray2009_2754;
 extern func_reference_type xc_ref_Negele1972_1472;
+extern func_reference_type xc_ref_Neupane2021_;
 extern func_reference_type xc_ref_Odashima2009_798;
 extern func_reference_type xc_ref_Okuno2012_29;
 extern func_reference_type xc_ref_Ortiz1994_1391;

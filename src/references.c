@@ -1658,6 +1658,13 @@ func_reference_type xc_ref_Negele1972_1472 = {
 };
 
 
+func_reference_type xc_ref_Neupane2021_ = {
+  "B. Neupane, H. Tang, N. K. Nepal, S. Adhikari, and A. Ruzsinszky, Opening band gaps of low-dimensional materials at the meta-gga level of density functional approximations, (2021), arXiv:2104.04053 [cond-mat.mtrl-sci]",
+  "",
+  "@misc{Neupane2021_,\n  title={Opening band gaps of low-dimensional materials at the meta-GGA level of density functional approximations}, \n  author={Bimal Neupane and Hong Tang and Niraj K. Nepal and Santosh Adhikari and Adrienn Ruzsinszky},\n  year={2021},\n  eprint={2104.04053},\n  archivePrefix={arXiv},\n  primaryClass={cond-mat.mtrl-sci}\n}"
+};
+
+
 func_reference_type xc_ref_Odashima2009_798 = {
   "M. M. Odashima, K. Capelle, and S. B. Trickey, J. Chem. Theory Comput. 5, 798 (2009)",
   "10.1021/ct8005634",

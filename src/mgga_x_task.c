@@ -33,13 +33,13 @@ static const char  *task_desc[TASK_N_PAR]   = {
   "Value of the constant in the exponent of g_x",
   "Value of the exponent of g_x(s^2)^c",
   "Value of h_x^0",
-  "Coefficient 0 of the Chebyshev expansion for h_x^1"
-  "Coefficient 1 of the Chebyshev expansion for h_x^1"
-  "Coefficient 2 of the Chebyshev expansion for h_x^1"
-  "Coefficient 0 of the Chebyshev expansion for fx(a)"
-  "Coefficient 1 of the Chebyshev expansion for fx(a)"
-  "Coefficient 2 of the Chebyshev expansion for fx(a)"
-  "Coefficient 3 of the Chebyshev expansion for fx(a)"
+  "Coefficient 0 of the Chebyshev expansion for h_x^1",
+  "Coefficient 1 of the Chebyshev expansion for h_x^1",
+  "Coefficient 2 of the Chebyshev expansion for h_x^1",
+  "Coefficient 0 of the Chebyshev expansion for fx(a)",
+  "Coefficient 1 of the Chebyshev expansion for fx(a)",
+  "Coefficient 2 of the Chebyshev expansion for fx(a)",
+  "Coefficient 3 of the Chebyshev expansion for fx(a)",
   "Coefficient 4 of the Chebyshev expansion for fx(a)"
 };
 

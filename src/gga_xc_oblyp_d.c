@@ -11,6 +11,10 @@
 #define XC_GGA_XC_OBLYP_D       67  /* oBLYP-D functional of Goerigk and Grimme  */
 #define XC_GGA_XC_OPWLYP_D      66  /* oPWLYP-D functional of Goerigk and Grimme */
 #define XC_GGA_XC_OPBE_D        65  /* oPBE_D functional of Goerigk and Grimme   */
+#define XC_GGA_XC_BLYP_D       729  /* DFT-D-BLYP functional of Grimme  */
+#define XC_GGA_XC_BP86_D       730  /* DFT-D-BP86 functional of Grimme  */
+#define XC_GGA_XC_PBE_D        731  /* DFT-D-PBE functional of Grimme   */
+#define XC_GGA_XC_PBE_SOL_D    732  /* PBEsol plus D2 vdW corrections   */
 
 static void
 gga_xc_oblyp_d_init(xc_func_type *p)
@@ -25,7 +29,7 @@ gga_xc_oblyp_d_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[0], par_x_b88);
   xc_func_set_ext_params(p->func_aux[1], par_c_lyp);
 
-  xc_hyb_init_vdw_d(p, 1.0);
+  xc_hyb_init_vdw_d(p, XC_HYB_VDW_D2, 1.0, VDW_D2_ALPHA, 1.15);
 }
 
 #ifdef __cplusplus
@@ -58,7 +62,7 @@ gga_xc_opwlyp_d_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[0], par_x_pw91);
   xc_func_set_ext_params(p->func_aux[1], par_c_lyp);
 
-  xc_hyb_init_vdw_d(p, 1.0);
+  xc_hyb_init_vdw_d(p, XC_HYB_VDW_D2, 1.0, VDW_D2_ALPHA, 1.15);
 }
 
 #ifdef __cplusplus
@@ -91,7 +95,7 @@ gga_xc_opbe_d_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[0], par_x_pbe);
   xc_func_set_ext_params(p->func_aux[1], par_c_pbe);
 
-  xc_hyb_init_vdw_d(p, 1.0);
+  xc_hyb_init_vdw_d(p, XC_HYB_VDW_D2, 1.0, VDW_D2_ALPHA, 1.15);
 }
 
 #ifdef __cplusplus
@@ -107,6 +111,116 @@ const xc_func_info_type xc_func_info_gga_xc_opbe_d = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_xc_opbe_d_init,
+  NULL, NULL, NULL, NULL
+};
+
+
+static void
+gga_xc_blyp_d_init(xc_func_type *p)
+{
+  static int    funcs_id  [4] = {XC_GGA_X_B88, XC_GGA_C_LYP};
+  static double funcs_coef[4] = {1.0, 1.0};
+
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+
+  xc_hyb_init_vdw_d(p, XC_HYB_VDW_D1, 1.4, VDW_D1_ALPHA, 1.22);
+}
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_gga_xc_blyp_d = {
+  XC_GGA_XC_BLYP_D,
+  XC_EXCHANGE_CORRELATION,
+  "original DFT-D-BLYP functional of Grimme",
+  XC_FAMILY_GGA,
+  {&xc_ref_Grimme2004_1463, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-15,
+  {0, NULL, NULL, NULL, NULL},
+  gga_xc_blyp_d_init,
+  NULL, NULL, NULL, NULL
+};
+
+static void
+gga_xc_bp86_d_init(xc_func_type *p)
+{
+  static int    funcs_id  [4] = {XC_GGA_X_B88, XC_GGA_C_P86};
+  static double funcs_coef[4] = {1.0, 1.0};
+
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+
+  xc_hyb_init_vdw_d(p, XC_HYB_VDW_D1, 1.3, VDW_D1_ALPHA, 1.22);
+}
+
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_gga_xc_bp86_d = {
+  XC_GGA_XC_BP86_D,
+  XC_EXCHANGE_CORRELATION,
+  "original DFT-D-BP86 functional of Grimme",
+  XC_FAMILY_GGA,
+  {&xc_ref_Grimme2004_1463, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-15,
+  {0, NULL, NULL, NULL, NULL},
+  gga_xc_bp86_d_init,
+  NULL, NULL, NULL, NULL
+};
+
+static void
+gga_xc_pbe_d_init(xc_func_type *p)
+{
+  static int    funcs_id  [4] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
+  static double funcs_coef[4] = {1.0, 1.0};
+
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+
+  xc_hyb_init_vdw_d(p, XC_HYB_VDW_D1, 0.75, VDW_D1_ALPHA, 1.22);
+}
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_gga_xc_pbe_d = {
+  XC_GGA_XC_PBE_D,
+  XC_EXCHANGE_CORRELATION,
+  "original DFT-D-PBE functional of Grimme",
+  XC_FAMILY_GGA,
+  {&xc_ref_Grimme2004_1463, &xc_ref_Csonka2008_888, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-15,
+  {0, NULL, NULL, NULL, NULL},
+  gga_xc_pbe_d_init,
+  NULL, NULL, NULL, NULL
+};
+
+static void
+gga_xc_pbesol_d_init(xc_func_type *p)
+{
+  static int    funcs_id  [4] = {XC_GGA_X_PBE_SOL, XC_GGA_C_PBE_SOL};
+  static double funcs_coef[4] = {1.0, 1.0};
+
+  xc_mix_init(p, 2, funcs_id, funcs_coef);
+
+  xc_hyb_init_vdw_d(p, XC_HYB_VDW_D2, 1.0, VDW_D1_ALPHA, 1.42);
+}
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_gga_xc_pbe_sol_d = {
+  XC_GGA_XC_PBE_SOL_D,
+  XC_EXCHANGE_CORRELATION,
+  "PBEsol plus D2 vdW corrections",
+  XC_FAMILY_GGA,
+  {&xc_ref_Csonka2008_888, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-15,
+  {0, NULL, NULL, NULL, NULL},
+  gga_xc_pbesol_d_init,
   NULL, NULL, NULL, NULL
 };
 

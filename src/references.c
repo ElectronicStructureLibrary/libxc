@@ -13,6 +13,13 @@
 
 #include <xc.h>
 
+func_reference_type xc_ref_Csonka2008_888 = {
+  "G. I. Csonka, A. Ruzsinszky, J. P. Perdew, and S. Grimme, J. Chem. Theory Comput. 4, 888 (2008)",
+  "10.1021/ct800003n",
+  "@article{Csonka2008_888,\n  author = {Csonka, {G\\'abor} I. and Ruzsinszky, Adrienn and Perdew, John P. and Grimme, Stefan},\n  title = {Improved Description of Stereoelectronic Effects in Hydrocarbons Using Semilocal Density Functional Theory},\n  journal = {J. Chem. Theory Comput.},\n  volume = {4},\n  number = {6},\n  pages = {888-891},\n  year = {2008},\n  doi = {10.1021/ct800003n},\n  URL = {https://doi.org/10.1021/ct800003n}\n}"
+};
+
+
 func_reference_type xc_ref_Acharya1980_6978 = {
   "P. K. Acharya, L. J. Bartolotti, S. B. Sears, and R. G. Parr, Proc. Natl. Acad. Sci. U. S. A. 77, 6978 (1980)",
   "10.1073/pnas.77.12.6978",
@@ -346,6 +353,13 @@ func_reference_type xc_ref_Caldeira2019_62 = {
   "M. T. Caldeira and R. Custodio, J. Mol. Model. 25, 62 (2019)",
   "10.1007/s00894-019-3952-4",
   "@article{Caldeira2019_62,\n  author = \"Caldeira, Mariana Toretti and Custodio, Rog\\'{e}rio\",\n  title = \"Partial combination of composite strategy and the B3LYP functional for the calculation of enthalpies of formation\",\n  journal = \"J. Mol. Model.\",\n  year = \"2019\",\n  month = \"Feb\",\n  day = \"12\",\n  volume = \"25\",\n  number = \"3\",\n  pages = \"62\",\n  issn = \"0948-5023\",\n  doi = \"10.1007/s00894-019-3952-4\",\n  url = \"https://doi.org/10.1007/s00894-019-3952-4\"\n}"
+};
+
+
+func_reference_type xc_ref_Caldeweyher2019_154122 = {
+  "E. Caldeweyher, S. Ehlert, A. Hansen, H. Neugebauer, S. Spicher, C. Bannwarth, and S. Grimme, J. Chem. Phys. 150, 154122 (2019)",
+  "10.1063/1.5090222",
+  "@article{Caldeweyher2019_154122,\n  author = {Caldeweyher,Eike  and Ehlert,Sebastian  and Hansen,Andreas  and Neugebauer,Hagen  and Spicher,Sebastian  and Bannwarth,Christoph  and Grimme,Stefan },\n  title = {A generally applicable atomic-charge dependent London dispersion correction},\n  journal = {J. Chem. Phys.},\n  volume = {150},\n  number = {15},\n  pages = {154122},\n  year = {2019},\n  doi = {10.1063/1.5090222},\n  URL = {https://doi.org/10.1063/1.5090222},\n}"
 };
 
 
@@ -906,6 +920,13 @@ func_reference_type xc_ref_Gordon1972_3122 = {
   "R. G. Gordon and Y. S. Kim, J. Chem. Phys. 56, 3122 (1972)",
   "10.1063/1.1677649",
   "@article{Gordon1972_3122,\n  author = {Roy G. Gordon and Yung Sik Kim},\n  title = {Theory for the Forces between Closed-Shell Atoms and Molecules},\n  journal = {J. Chem. Phys.},\n  volume = {56},\n  number = {6},\n  pages = {3122-3133},\n  year = {1972},\n  doi = {10.1063/1.1677649},\n  url = {https://doi.org/10.1063/1.1677649}\n}"
+};
+
+
+func_reference_type xc_ref_Grimme2004_1463 = {
+  "S. Grimme, J. Comput. Chem. 25, 1463 (2004)",
+  "https://doi.org/10.1002/jcc.20078",
+  "@article{Grimme2004_1463,\n  author = {Grimme, Stefan},\n  title = {Accurate description of van der Waals complexes by density functional theory including empirical corrections},\n  journal = {J. Comput. Chem.},\n  volume = {25},\n  number = {12},\n  pages = {1463-1473},\n  doi = {https://doi.org/10.1002/jcc.20078},\n  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.20078},\n  year = {2004}\n}"
 };
 
 

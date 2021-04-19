@@ -82,12 +82,17 @@ const char *xc_version_string();
 #define XC_HYB_NONE             0
 #define XC_HYB_FOCK             1  /* Normal hybrid */
 #define XC_HYB_PT2              2  /* Used for double hybrids */
-#define XC_HYB_ERF_SR           3  /* Short range of range separated - erf version */
-#define XC_HYB_YUKAWA_SR        4  /* Short range of range separated - Yakawa version */
-#define XC_HYB_GAUSSIAN_SR      5  /* Short range of range separated - Gaussian version */
-#define XC_HYB_VDW_D            6  /* van der Waals correction of Grimme */
-#define XC_HYB_VDW_DF           7  /* van der Waals correction of Dion2004_246401 */
-#define XC_HYB_VDW_VV10         8  /* van der Waals correction of Vydrov2010_244103 */
+#define XC_HYB_RPA              4  /* Used for double hybrids */
+#define XC_HYB_ERF_SR           8  /* Short range of range separated - erf version */
+#define XC_HYB_YUKAWA_SR       16  /* Short range of range separated - Yakawa version */
+#define XC_HYB_GAUSSIAN_SR     32  /* Short range of range separated - Gaussian version */
+#define XC_HYB_VDW_D1          64  /* van der Waals correction of Grimme2004_1463 */
+#define XC_HYB_VDW_D2         128  /* van der Waals correction of Grimme2006_1787 */
+#define XC_HYB_VDW_D3         256  /* van der Waals correction of Grimme2010_154104 */
+#define XC_HYB_VDW_D4         512  /* van der Waals correction of Caldeweyher2019_154122 */
+#define XC_HYB_VDW_WB97      1024  /* van der Waals correction of Chai2008_6615 */
+#define XC_HYB_VDW_DF        1024  /* van der Waals correction of Dion2004_246401 */
+#define XC_HYB_VDW_VV10      2048  /* van der Waals correction of Vydrov2010_244103 */
   
 /* Different types of hybrid functionals. */
 #define XC_HYB_SEMILOCAL        0  /* Standard semi-local functional (not a hybrid) */
@@ -245,7 +250,8 @@ typedef union {
   struct {double alpha;} fock;       /* amount of Fock */
   struct {double gamma;} pt2;        /* amount of PT2  */
   struct {double beta, omega;} sr;   /* amount of short-range Fock and screening parameter */
-  struct {double delta;} d;          /* amount of non-local term */
+  struct {double s6, alpha, r0;} d;  /* (minus) amount of non-local term, damping parameter, and scaling of radius */
+  struct {double delta, a;} wb97;    /* (minus) amount of non-local term, damping parameter */
   struct {double delta, Zab;} df;    /* amount of non-local term and Zab parameter */
   struct {double delta, b, C;} vv10; /* amount of non-local term and b, C parameters */
 } xc_hybrid_params_type;

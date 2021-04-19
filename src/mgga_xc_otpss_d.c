@@ -23,7 +23,7 @@ mgga_xc_otpss_d_init(xc_func_type *p)
   xc_func_set_ext_params(p->func_aux[0], par_x_tpss);
   xc_func_set_ext_params(p->func_aux[1], par_c_tpss);
 
-  xc_hyb_init_vdw_d(p, 1.0);
+  xc_hyb_init_vdw_d(p, XC_HYB_VDW_D2, 1.0, VDW_D1_ALPHA, 1.10);
 }
 
 #ifdef __cplusplus

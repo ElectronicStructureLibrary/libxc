@@ -211,8 +211,6 @@ typedef struct xc_functional_key_t {
 #define X2S            0.1282782438530421943003109254455883701296     /* 1/(2*(6*pi^2)^(1/3))  */
 #define X2S_2D         0.1410473958869390717370198628901931464610     /* 1/(2*(4*pi)^(1/2))    */
 
-#define VDW_DF1_ZAB    -0.8491 /* Zab that is used in the vdw_df1 functional of Dion2004_246401 */
-
 /* Functions to handle the internal counters */
 
 void internal_counters_set_lda (int nspin, xc_dimensions *dim);
@@ -284,13 +282,17 @@ void xc_mix_func
 
 /* Hybrid functional intializers. The order of arguments is the same
    as in the external parameter setters. */
+#define VDW_DF1_ZAB    (-0.8491) /* Zab that is used in the vdw_df1 functional of Dion2004_246401 */
+#define VDW_D1_ALPHA   23.0      /* Value used in the vdw_d1 functional of Grimme2004_1463 */
+#define VDW_D2_ALPHA   20.0      /* Value used in the vdw_d2 functional of Grimme2006_1787 */
+
 void xc_hyb_init(xc_func_type *p, int n_terms, const int *type, const double *coeff, const double *omega);
 void xc_hyb_init_fock(xc_func_type *p, double alpha);
 void xc_hyb_init_sr  (xc_func_type *p, double beta, double omega);
 void xc_hyb_init_cam (xc_func_type *p, double alpha, double beta, double omega);
 void xc_hyb_init_camy(xc_func_type *p, double alpha, double beta, double omega);
 void xc_hyb_init_camg(xc_func_type *p, double alpha, double beta, double omega);
-void xc_hyb_init_vdw_d   (xc_func_type *p, double delta);
+void xc_hyb_init_vdw_d   (xc_func_type *p, int type, double s6, double alpha, double r0);
 void xc_hyb_init_vdw_df  (xc_func_type *p, double delta, double Zab);
 void xc_hyb_init_vdw_vv10(xc_func_type *p, double delta, double b, double C);
 

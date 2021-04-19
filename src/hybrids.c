@@ -72,12 +72,14 @@ xc_hyb_init_camg(xc_func_type *p, double alpha, double beta, double omega)
 
 /* van der Waals correction according to Grimme */
 void
-xc_hyb_init_vdw_d(xc_func_type *p, double delta)
+xc_hyb_init_vdw_d(xc_func_type *p, int type, double s6, double alpha, double r0)
 {
   p->hyb_number_terms = 1;
 
-  p->hyb_type[0] = XC_HYB_VDW_D;
-  p->hyb_params[0].d.delta = delta;
+  p->hyb_type[0] = type;
+  p->hyb_params[0].d.s6    = s6;
+  p->hyb_params[0].d.alpha = alpha;
+  p->hyb_params[0].d.r0    = r0;
 }
 
 /* van der Waals correction according to Dion2004_246401. One
@@ -128,7 +130,9 @@ xc_hyb_type(const xc_func_type *p)
       return XC_HYB_CAMG;
 
     /* van der Waals functional */
-    if(p->hyb_type[0] == XC_HYB_VDW_D || p->hyb_type[0] == XC_HYB_VDW_DF || p->hyb_type[0] == XC_HYB_VDW_VV10)
+    if(p->hyb_type[0] == XC_HYB_VDW_D1 || p->hyb_type[0] == XC_HYB_VDW_D2 ||
+       p->hyb_type[0] == XC_HYB_VDW_D3 || p->hyb_type[0] == XC_HYB_VDW_D4 ||
+       p->hyb_type[0] == XC_HYB_VDW_DF || p->hyb_type[0] == XC_HYB_VDW_VV10)
       return XC_HYB_VDW;
   }
 

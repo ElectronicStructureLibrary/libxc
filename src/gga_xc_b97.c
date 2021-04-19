@@ -194,7 +194,7 @@ gga_xc_b97_init(xc_func_type *p)
   }
 
   if((p->info->number == XC_GGA_XC_B97_D)){
-    xc_hyb_init_vdw_d(p, 1.0);
+    xc_hyb_init_vdw_d(p, XC_HYB_VDW_D2, 1.25, VDW_D2_ALPHA, 1.10);
   }
 
 }

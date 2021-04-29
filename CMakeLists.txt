@@ -33,6 +33,10 @@ endif()
 option_with_default(NAMESPACE_INSTALL_INCLUDEDIR "Location within CMAKE_INSTALL_INCLUDEDIR to which headers are installed. Psi4 wants namespace (e.g., /libxc)" /)
 option_with_print(ENABLE_GENERIC "Enable mostly static linking in shared library" OFF)
 option_with_print(ENABLE_FORTRAN "Build Fortran 2003 interface" OFF)
+option_with_print(ENABLE_PYTHON "Install Python API interface" OFF)
+if(${ENABLE_PYTHON} AND NOT ${BUILD_SHARED_LIBS})
+  message(FATAL_ERROR "ENABLE_PYTHON ON requires BUILD_SHARED_LIBS ON because only shared libraries can be dynamically loaded")
+endif()
 
 # GCC appears to be catching -xHost as "-x Host" which breaks the detection
 if(CMAKE_C_COMPILER_ID MATCHES Intel)
@@ -579,6 +583,28 @@ if(ENABLE_FORTRAN)
       FILE "${PN}Targets-Fortran.cmake"
       DESTINATION ${CMAKECONFIG_INSTALL_DIR})
 endif()
+
+if(ENABLE_PYTHON)
+  set(SOURCE_PYTHON_API
+    pylibxc/__init__.py
+    pylibxc/core.py
+    pylibxc/flags.py
+    pylibxc/functional.py
+    pylibxc/structs.py
+    pylibxc/util.py
+    pylibxc/version.py
+  )
+  install(
+    FILES ${SOURCE_PYTHON_API}
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pylibxc
+  )
+  if(UNIX)
+    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink \
+      ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/libxc.so.${${PROJECT_NAME}_SOMAJOR} \
+      ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/pylibxc/libxc.so)")
+  endif()
+endif()
+
 export(EXPORT c_interface
     NAMESPACE "${PN}::"
     FILE "${PROJECT_BINARY_DIR}/${PN}Targets.cmake")

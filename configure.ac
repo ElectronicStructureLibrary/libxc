@@ -7,7 +7,7 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
-AC_INIT([libxc],[5.1.3],[libxc@tddft.org],[libxc],[http://www.tddft.org/programs/Libxc])
+AC_INIT([libxc],[5.1.4],[libxc@tddft.org],[libxc],[http://www.tddft.org/programs/Libxc])
 AC_CONFIG_SRCDIR([src/xc.h])
 AM_INIT_AUTOMAKE
 

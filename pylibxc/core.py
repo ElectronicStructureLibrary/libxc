@@ -9,11 +9,12 @@ import os
 
 # Attempt to load the compiled C code
 core = None
+__libxc_path = None
 
 # First check the local folder
 try:
-    dirpath = os.path.abspath(os.path.dirname(__file__))
-    core = np.ctypeslib.load_library("libxc", dirpath)
+    __libxc_path = os.path.abspath(os.path.dirname(__file__))
+    core = np.ctypeslib.load_library("libxc", __libxc_path)
 except OSError:
     # If no libxc is local, check LD_LIBRARY_PATHS's
     __libxc_path = ctypes.util.find_library("xc")

@@ -1,5 +1,6 @@
 /*
  Copyright (C) 2006-2007 M.A.L. Marques
+               2021 Susi Lehtola
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,7 +14,7 @@
 #define XC_GGA_XC_MOHLYP      194 /* Functional for organometallic chemistry */
 #define XC_GGA_XC_MOHLYP2     195 /* Functional for barrier heights */
 #define XC_GGA_X_SOGGA        150 /* Second-order generalized gradient approximation */
-#define XC_GGA_XC_LB07        589   /* Livshits and Baer, empirical functional */
+#define XC_HYB_GGA_XC_LB07    589 /* Livshits and Baer, empirical functional also used for IP tuning */
 
 static void
 gga_xc_edf1_init(xc_func_type *p)
@@ -166,32 +167,61 @@ const xc_func_info_type xc_func_info_gga_x_sogga = {
   NULL, NULL, NULL, NULL
 };
 
+#define LB07_N_PAR 2
+static const char  *lb07_names[LB07_N_PAR]  = {"_w", "_omega"};
+static const char  *lb07_desc[LB07_N_PAR]   = {
+  "Fraction of short-range LDA exchange",
+  "Range separation parameter"
+};
+
+static const double par_lb07[LB07_N_PAR]    = {0.9, 0.5};
 
 static void
-gga_xc_lb07_init(xc_func_type *p)
+lb07_set_ext_params(xc_func_type *p, const double *ext_params)
+{
+  double w, omega;
+
+  assert(p != NULL);
+  w     = get_ext_param(p, ext_params, 0);
+  omega = get_ext_param(p, ext_params, 1);
+
+  /* Short-range LDA */
+  p->mix_coef[0] = w;
+  xc_func_set_ext_params_name(p->func_aux[0], "_omega", omega);
+
+  /* 100% long-range exchange */
+  assert(p->hyb_number_terms == 2);
+  p->hyb_type[0]  = XC_HYB_ERF_SR;
+  p->hyb_coeff[0] = -1.0;
+  p->hyb_omega[0] = omega;
+
+  p->hyb_type[1]  = XC_HYB_FOCK;
+  p->hyb_coeff[1] = 1.0;
+  p->hyb_omega[1] = 0.0;
+}
+
+static void
+hyb_gga_xc_lb07_init(xc_func_type *p)
 {
   int    funcs_id  [2] = {XC_LDA_X_ERF, XC_GGA_C_LYP};
-  double funcs_coef[2] = {1.0 - 0.1, 1.0}; /* w = 0.1 */
-
-  static double par_x_erf[] = {0.5}; /* gamma = 0.5 */
+  double funcs_coef[2] = {0.0, 1.0}; /* set by set_ext_params */
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-
-  xc_func_set_ext_params(p->func_aux[0], par_x_erf);
+  xc_hyb_init_cam(p, 0.0, 0.0, 0.0);
 }
 
 #ifdef __cplusplus
 extern "C"
 #endif
-const xc_func_info_type xc_func_info_gga_xc_lb07 = {
-  XC_GGA_XC_LB07,
+const xc_func_info_type xc_func_info_hyb_gga_xc_lb07 = {
+  XC_HYB_GGA_XC_LB07,
   XC_EXCHANGE_CORRELATION,
-  "Livshits and Baer, empirical functional",
+  "Livshits and Baer, empirical functional also used for IP tuning",
   XC_FAMILY_GGA,
   {&xc_ref_Livshits2007_2932, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
-  gga_xc_lb07_init, NULL,
+  {LB07_N_PAR, lb07_names, lb07_desc, par_lb07, lb07_set_ext_params},
+  hyb_gga_xc_lb07_init, NULL,
   NULL, NULL, NULL
 };

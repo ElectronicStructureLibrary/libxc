@@ -1,3 +1,18 @@
+## [5.1.4] - 2021-05-10
+
+### Fixed
+- Implementation of GGA_XC_LB07 which lacked 100% long-range exact exchange since it was introduced; functional is now called HYB_GGA_XC_LB07
+- HYB_MGGA_X_JS18 was broken in 5.1.2 and 5.1.3 due to bug in port of Maple code from master branch
+- HYB_GGA_XC_CAP0 erroneously had 75% of exact exchange instead of 25% since libxc 5.0.0
+- MGGA_X_2D_PRHG07 was marked as a 3D functional instead of a 2D functional
+- Libxc can now be compiled as energy-only without any derivatives
+- More CUDA build fixes
+
+### Added
+- HYB_GGA functionals: XC_B3LYP3, XC_PBE_2X, XC_PBE38, XC_MCAM_B3LYP
+- MGGA functionals: X_MTASK
+- pylibxc can now be installed directly by CMake
+
 ## [5.1.3] - 2021-03-30
 
 ### Fixed

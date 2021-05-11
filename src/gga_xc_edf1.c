@@ -190,14 +190,9 @@ lb07_set_ext_params(xc_func_type *p, const double *ext_params)
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", omega);
 
   /* 100% long-range exchange */
-  assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_coeff[0] = -1.0;
-  p->hyb_omega[0] = omega;
-
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_coeff[1] = 1.0;
-  p->hyb_omega[1] = 0.0;
+  p->cam_alpha =  1.0;
+  p->cam_beta  = -1.0;
+  p->cam_omega = omega;
 }
 
 static void
@@ -217,9 +212,9 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lb07 = {
   XC_HYB_GGA_XC_LB07,
   XC_EXCHANGE_CORRELATION,
   "Livshits and Baer, empirical functional also used for IP tuning",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Livshits2007_2932, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAM | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {LB07_N_PAR, lb07_names, lb07_desc, par_lb07, lb07_set_ext_params},
   hyb_gga_xc_lb07_init, NULL,

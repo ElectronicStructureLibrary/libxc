@@ -276,6 +276,7 @@ set(raw_sources_list
   hyb_gga_xc_pbeh.c
   hyb_gga_xc_wb97.c
   hyb_lda_xc_cam_lda0.c
+  hyb_lda_xc_bn05.c
   hyb_mgga_x_dldf.c
   hyb_mgga_x_m05.c
   hyb_mgga_x_mvsh.c
@@ -325,7 +326,6 @@ set(raw_sources_list
   lda_xc_ksdt.c
   lda_xc_teter93.c
   lda_xc_zlp.c
-  lda_xc_bn05.c
   lda_c_pmgb06.c
   lda_xc_tih.c
   lda_x_sloc.c

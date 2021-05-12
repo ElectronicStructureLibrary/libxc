@@ -26,7 +26,7 @@ static const double par_bn05[N_PAR] = {1.0};
 static void
 hyb_lda_xc_bn05_init(xc_func_type *p)
 {
-  xc_hyb_init_cam(p, 0.0, 0.0, 0.0);
+  xc_hyb_init_camy(p, 0.0, 0.0, 0.0);
 }
 
 static void
@@ -39,7 +39,7 @@ bn05_set_ext_params(xc_func_type *p, const double *ext_params)
 
   /* 100% long-range exchange */
   assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
+  p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
   p->hyb_coeff[0] = -1.0;
   p->hyb_omega[0] = omega;
 

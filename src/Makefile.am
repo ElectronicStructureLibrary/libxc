@@ -48,7 +48,7 @@ libxc_la_FUNC_SOURCES = \
 	lda_c_2d_amgb.c lda_c_2d_prm.c lda_k_tf.c lda_xc_zlp.c		\
 	lda_xc_ksdt.c lda_c_chachiyo.c lda_c_chachiyo_mod.c		\
 	lda_xc_1d_ehwlrg.c lda_x_rel.c lda_x_erf.c lda_k_zlp.c		\
-	lda_c_gk72.c lda_xc_bn05.c lda_c_pmgb06.c			\
+	lda_c_gk72.c hyb_lda_xc_bn05.c lda_c_pmgb06.c			\
 	lda_k_gds08_worker.c lda_xc_tih.c lda_x_1d_exponential.c	\
 	lda_x_1d_soft.c hyb_lda_xc_cam_lda0.c lda_x_sloc.c lda_c_w20.c  \
 	gga.c \

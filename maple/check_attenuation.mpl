@@ -6,6 +6,7 @@
 *)
 
 $include "attenuation.mpl"
+$include "util.mpl"
 
 (* For exact results we use 1000 digit *)
 exact_digits := 1000:
@@ -14,10 +15,10 @@ double_digits := 15:
 (* An acceptable relative error at double precision is 1e-13 *)
 error_thr := 1e-13:
 
-check_asymptotics := proc(f, a);
+check_asymptotics := proc(f, fname, a);
     (* Grid spacing *)
     da := 0.01:
-    (* Value for a to start with *)
+    (* Maximum value of a *)
     amax := 5:
 
     (* First, we compare we find a point where to make the cutoff *)
@@ -29,6 +30,7 @@ check_asymptotics := proc(f, a);
         Digits := double_digits:
         local doubleprec := evalf(f(acut)):
         (* Error *)
+        Digits := exact_digits:
         local err := doubleprec/exact-1:
         #printf("Cutoff %e exact % e double % e error % e\n", acut, exact, doubleprec, err):
         if (abs(err) < error_thr) then
@@ -67,22 +69,22 @@ check_asymptotics := proc(f, a);
         end if:
     end do:
 
-    printf("Cutoff should be at a= %.2f and use a series expansion of "
-           "order %d\n", acut, expord):
+    printf("Suitable truncation:\n"):
+    printf("%s := a -> enforce_smooth_lr(%s0, a, %.2f, %d):\n", fname, fname, acut, expord):
 end proc:
 
 printf("attenuation_erf\n"):
-check_asymptotics(attenuation_erf0, a):
+check_asymptotics(attenuation_erf0, "attenuation_erf", a):
 
 printf("\nattenuation_erf_f2\n"):
-check_asymptotics(attenuation_erf_f20, a):
+check_asymptotics(attenuation_erf_f20, "attenuation_erf_f2", a):
 
 printf("\nattenuation_erf_f3\n"):
-check_asymptotics(attenuation_erf_f30, a):
+check_asymptotics(attenuation_erf_f30, "attenuation_erf_f3", a):
 
 printf("\nattenuation_gau\n"):
-check_asymptotics(attenuation_gau0, a):
+check_asymptotics(attenuation_gau0, "attenuation_gau", a):
 
 printf("\nattenuation_yukawa\n"):
-check_asymptotics(attenuation_yukawa0, a):
+check_asymptotics(attenuation_yukawa0, "attenuation_yukawa", a):
 

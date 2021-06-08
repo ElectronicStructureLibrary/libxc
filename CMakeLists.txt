@@ -105,7 +105,7 @@ message(STATUS "Version: Full ${PROJECT_VERSION}")
 set(VERSION ${PROJECT_VERSION})
 set(XC_MAJOR_VERSION ${PROJECT_VERSION_MAJOR})
 set(XC_MINOR_VERSION ${PROJECT_VERSION_MINOR})
-set(XC_MICRO_VERSION ${PROJECT_VERSION_PATCH})
+set(XC_MICRO_VERSION ${PROJECT_VERSION_MICRO})
 configure_file(xc_version.h.in xc_version.h @ONLY)
 
 # create dummy config.h

@@ -1,3 +1,12 @@
+## [5.1.5] - 2021-06-10
+
+### Fixed
+- Implementation of LDA_XC_BN05 which lacked 100% long-range exact exchange since it was introduced; functional is now called HYB_LDA_XC_BN05
+- CMake did not generate XC_MICRO_VERSION macro
+
+### Added
+- LDA functionals: X_YUKAWA
+
 ## [5.1.4] - 2021-05-10
 
 ### Fixed

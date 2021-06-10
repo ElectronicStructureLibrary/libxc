@@ -81,7 +81,7 @@ func_unpol(const xc_func_type *p, int order, const double *rho , double *zk LDA_
   t16 = POW_1_3(0.9e1);
   t17 = t16 * t16;
   t18 = t3 * t3;
-  t20 = p->hyb_omega[0] * t18 * t17;
+  t20 = p->cam_omega * t18 * t17;
   t23 = my_piecewise3(t10, t11, 1);
   t24 = 0.1e1 / t23;
   t27 = t24 / t15 * t1 * t20 / 0.18e2;
@@ -589,7 +589,7 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
   t24 = t23 * t23;
   t25 = t3 * t3;
   t26 = t25 * t24;
-  t27 = p->hyb_omega[0] * t26;
+  t27 = p->cam_omega * t26;
   t28 = 0.1e1 / t22;
   t29 = t28 * t1;
   t30 = my_piecewise3(t15, t16, t18);
@@ -1046,7 +1046,7 @@ func_pol(const xc_func_type *p, int order, const double *rho , double *zk LDA_OU
   t1095 = t485 * t699;
   t1098 = 0.2e1 / 0.3e1 * t240 * t1044 - 0.2e1 / 0.3e1 * t240 * t1047 + 0.3e1 / 0.5e1 * t240 * t1050 - 0.8e1 / 0.15e2 * t240 * t1053 + 0.10e2 / 0.21e2 * t240 * t1056 - 0.3e1 / 0.7e1 * t240 * t1059 + 0.7e1 / 0.18e2 * t240 * t1062 - 0.16e2 / 0.45e2 * t240 * t1065 + 0.18e2 / 0.55e2 * t240 * t1068 - 0.10e2 / 0.33e2 * t240 * t1071 + 0.11e2 / 0.39e2 * t240 * t1074 - 0.24e2 / 0.91e2 * t240 * t1077 + 0.26e2 / 0.105e3 * t240 * t1080 - 0.7e1 / 0.30e2 * t240 * t1083 + 0.15e2 / 0.68e2 * t240 * t1086 - 0.32e2 / 0.153e3 * t240 * t1089 + 0.34e2 / 0.171e3 * t240 * t1092 - 0.18e2 / 0.95e2 * t240 * t1095;
   t1101 = t480 * t224 * t27;
-  t1104 = t1 * p->hyb_omega[0] * t26;
+  t1104 = t1 * p->cam_omega * t26;
   t1105 = t713 * t28;
   t1106 = t234 * t479;
   t1110 = t469 * t720;

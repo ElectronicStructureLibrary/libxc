@@ -38,16 +38,10 @@ bn05_set_ext_params(xc_func_type *p, const double *ext_params)
   omega = get_ext_param(p, ext_params, 0);
 
   /* 100% long-range exchange */
-  assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
-  p->hyb_coeff[0] = -1.0;
-  p->hyb_omega[0] = omega;
-
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_coeff[1] = 1.0;
-  p->hyb_omega[1] = 0.0;
+  p->cam_alpha =  1.0;
+  p->cam_beta  = -1.0;
+  p->cam_omega = omega;
 }
-
 
 #ifdef __cplusplus
 extern "C"
@@ -56,9 +50,9 @@ const xc_func_info_type xc_func_info_hyb_lda_xc_bn05 = {
   XC_HYB_LDA_XC_BN05,
   XC_EXCHANGE_CORRELATION,
   "Baer and Neuhauser, gamma=1",
-  XC_FAMILY_LDA,
+  XC_FAMILY_HYB_LDA,
   {&xc_ref_Baer2005_043002, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | XC_FLAGS_HYB_CAMY | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, par_bn05, bn05_set_ext_params},
   hyb_lda_xc_bn05_init, NULL,

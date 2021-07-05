@@ -173,6 +173,7 @@ extern func_reference_type xc_ref_Jana2018_1;
 extern func_reference_type xc_ref_Jana2018_8999;
 extern func_reference_type xc_ref_Jana2019_6356;
 extern func_reference_type xc_ref_Jana2021_024103;
+extern func_reference_type xc_ref_Jana2021_063007;
 extern func_reference_type xc_ref_Jemmer1995_3571;
 extern func_reference_type xc_ref_Jin2016_034107;
 extern func_reference_type xc_ref_Jin2018_064111;

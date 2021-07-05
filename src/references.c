@@ -1133,6 +1133,13 @@ func_reference_type xc_ref_Jana2021_024103 = {
 };
 
 
+func_reference_type xc_ref_Jana2021_063007 = {
+  "S. Jana, S. K. Behera, S. Smiga, L. A. Constantin, and P. Samal, New J. Phys. 23, 063007 (2021)",
+  "10.1088/1367-2630/abfd4d",
+  "@article{Jana2021_063007,\n	doi = {10.1088/1367-2630/abfd4d},\n	url = {https://doi.org/10.1088/1367-2630/abfd4d},\n	year = 2021,\n	month = {apr},\n	publisher = {{IOP} Publishing},\n	author = {Subrata Jana and Sushant Kumar Behera and Szymon {\\'{S}}miga and Lucian A. Constantin and Prasanjit Samal},\n	title = {Improving the applicability of the Pauli kinetic energy density based semilocal functional for solids},\n	journal = {New J. Phys.},\n  volume = {23},\n  pages = {063007}\n}"
+};
+
+
 func_reference_type xc_ref_Jemmer1995_3571 = {
   "P. Jemmer and P. J. Knowles, Phys. Rev. A 51, 3571 (1995)",
   "10.1103/PhysRevA.51.3571",

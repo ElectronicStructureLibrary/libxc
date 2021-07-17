@@ -415,6 +415,7 @@ set(raw_sources_list
   mgga_k_gea4.c
   mgga_x_r2scanl.c
   mgga_c_r2scanl.c
+  mgga_c_rregtm.c
   mix_func.c
   deorbitalize_func.c
   references.c

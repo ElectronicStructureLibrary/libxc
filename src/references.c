@@ -1147,6 +1147,13 @@ func_reference_type xc_ref_Jana2019_6356 = {
 };
 
 
+func_reference_type xc_ref_Jana2021_024103 = {
+  "S. Jana, S. K. Behera, S. Smiga, L. A. Constantin, and P. Samal, J. Chem. Phys. 155, 024103 (2021)",
+  "10.1063/5.0051331",
+  "@article{Jana2021_024103,\n  author = {Jana, Subrata and Behera, Sushant Kumar and \\'{S}miga, Szymon and Constantin, Lucian A. and Samal, Prasanjit},\n  title = {Accurate density functional made more versatile},\n  journal = {J. Chem. Phys.},\n  volume = {155},\n  number = {2},\n  pages = {024103},\n  year = {2021},\n  doi = {10.1063/5.0051331},\n  url = {https://doi.org/10.1063/5.0051331}\n}"
+};
+
+
 func_reference_type xc_ref_Jemmer1995_3571 = {
   "P. Jemmer and P. J. Knowles, Phys. Rev. A 51, 3571 (1995)",
   "10.1103/PhysRevA.51.3571",

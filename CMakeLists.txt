@@ -33,6 +33,10 @@ endif()
 option_with_default(NAMESPACE_INSTALL_INCLUDEDIR "Location within CMAKE_INSTALL_INCLUDEDIR to which headers are installed. Psi4 wants namespace (e.g., /libxc)" /)
 option_with_print(ENABLE_GENERIC "Enable mostly static linking in shared library" OFF)
 option_with_print(ENABLE_FORTRAN "Build Fortran 2003 interface" OFF)
+option_with_print(ENABLE_PYTHON "Install Python API interface" OFF)
+if(${ENABLE_PYTHON} AND NOT ${BUILD_SHARED_LIBS})
+  message(FATAL_ERROR "ENABLE_PYTHON ON requires BUILD_SHARED_LIBS ON because only shared libraries can be dynamically loaded")
+endif()
 
 # GCC appears to be catching -xHost as "-x Host" which breaks the detection
 if(CMAKE_C_COMPILER_ID MATCHES Intel)
@@ -111,7 +115,7 @@ message(STATUS "Version: Full ${PROJECT_VERSION}")
 set(VERSION ${PROJECT_VERSION})
 set(XC_MAJOR_VERSION ${PROJECT_VERSION_MAJOR})
 set(XC_MINOR_VERSION ${PROJECT_VERSION_MINOR})
-set(XC_MICRO_VERSION ${PROJECT_VERSION_PATCH})
+set(XC_MICRO_VERSION ${PROJECT_VERSION_MICRO})
 configure_file(xc_version.h.in xc_version.h @ONLY)
 
 # create dummy config.h
@@ -284,6 +288,7 @@ set(raw_sources_list
   hyb_gga_xc_pbeh.c
   hyb_gga_xc_wb97.c
   hyb_lda_xc_cam_lda0.c
+  hyb_lda_xc_bn05.c
   hyb_mgga_x_dldf.c
   hyb_mgga_x_m05.c
   hyb_mgga_x_mvsh.c
@@ -296,6 +301,7 @@ set(raw_sources_list
   hyb_gga_xc_b2plyp.c
   hyb_gga_xc_src1_blyp.c
   hyb_gga_xc_cam_o3lyp.c
+  hyb_gga_xc_pbe_dh.c
   integrate.c
   lda.c
   lda_c_1d_csc.c
@@ -335,10 +341,10 @@ set(raw_sources_list
   lda_xc_ksdt.c
   lda_xc_teter93.c
   lda_xc_zlp.c
-  lda_xc_bn05.c
   lda_c_pmgb06.c
   lda_xc_tih.c
   lda_x_sloc.c
+  lda_x_yukawa.c
   mgga.c
   mgga_c_b88.c
   mgga_c_b94.c
@@ -424,6 +430,7 @@ set(raw_sources_list
   mgga_k_gea4.c
   mgga_x_r2scanl.c
   mgga_c_r2scanl.c
+  mgga_c_rregtm.c
   mix_func.c
   deorbitalize_func.c
   references.c
@@ -579,6 +586,28 @@ if(ENABLE_FORTRAN)
       FILE "${PN}Targets-Fortran.cmake"
       DESTINATION ${CMAKECONFIG_INSTALL_DIR})
 endif()
+
+if(ENABLE_PYTHON)
+  set(SOURCE_PYTHON_API
+    pylibxc/__init__.py
+    pylibxc/core.py
+    pylibxc/flags.py
+    pylibxc/functional.py
+    pylibxc/structs.py
+    pylibxc/util.py
+    pylibxc/version.py
+  )
+  install(
+    FILES ${SOURCE_PYTHON_API}
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pylibxc
+  )
+  if(UNIX)
+    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink \
+      ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/libxc.so.${${PROJECT_NAME}_SOMAJOR} \
+      ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/pylibxc/libxc.so)")
+  endif()
+endif()
+
 export(EXPORT c_interface
     NAMESPACE "${PN}::"
     FILE "${PROJECT_BINARY_DIR}/${PN}Targets.cmake")

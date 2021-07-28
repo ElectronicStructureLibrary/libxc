@@ -190,14 +190,7 @@ lb07_set_ext_params(xc_func_type *p, const double *ext_params)
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", omega);
 
   /* 100% long-range exchange */
-  assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_coeff[0] = -1.0;
-  p->hyb_omega[0] = omega;
-
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_coeff[1] = 1.0;
-  p->hyb_omega[1] = 0.0;
+  xc_hyb_init_cam(p, 1.0, -1.0, omega);
 }
 
 static void

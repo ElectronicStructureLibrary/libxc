@@ -33,8 +33,8 @@ pbe0_dh_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[0] = 1.0 - ax;
   p->mix_coef[1] = 1.0 - c;
 
-  p->hyb_coeff[0] = ax;
-  p->hyb_coeff[1] = c;
+  p->hyb_params[0].fock.alpha = ax;
+  p->hyb_params[0].pt2.gamma  = c;
 }
 
 static void
@@ -43,14 +43,13 @@ hyb_gga_xc_pbe0_dh_init(xc_func_type *p)
   static int   funcs_id  [2] = {XC_GGA_X_PBE, XC_GGA_C_PBE};
   static double funcs_coef[2] = {0.0, 0.0};
 
-  int hyb_type[2]     = {XC_HYB_FOCK, XC_HYB_PT2};
-  double hyb_omega[2] = {0.0, 0.0};
-  double hyb_coeff[2] = {0.0, 0.0};
-
   /* Note that the values of funcs_coef and hyb_coeff will be set
       by set_ext_params */
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init(p, 2, hyb_type, hyb_coeff, hyb_omega);
+
+  p->hyb_number_terms = 2;
+  p->hyb_type[0] = XC_HYB_FOCK;
+  p->hyb_type[0] = XC_HYB_PT2;
 }
 
 #ifdef __cplusplus

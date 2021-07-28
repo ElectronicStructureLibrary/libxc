@@ -11,6 +11,10 @@
 
 #define XC_HYB_LDA_XC_BN05   588   /* Baer and Neuhauser, gamma=1 */
 
+typedef struct{
+  double omega;
+} hyb_lda_xc_bn05_params;
+
 #include "decl_lda.h"
 #include "maple2c/lda_exc/hyb_lda_xc_bn05.c"
 #include "work_lda.c"
@@ -26,26 +30,22 @@ static const double par_bn05[N_PAR] = {1.0};
 static void
 hyb_lda_xc_bn05_init(xc_func_type *p)
 {
-  xc_hyb_init_camy(p, 0.0, 0.0, 0.0);
+  assert(p!=NULL && p->params == NULL);
+  p->params = libxc_malloc(sizeof(hyb_lda_xc_bn05_params));
+
+  xc_hyb_init_camy(p, 1.0, -1.0, par_bn05[0]);
 }
 
 static void
 bn05_set_ext_params(xc_func_type *p, const double *ext_params)
 {
-  double omega;
+  hyb_lda_xc_bn05_params *params;
 
-  assert(p != NULL);
-  omega = get_ext_param(p, ext_params, 0);
+  assert(p->params != NULL);
+  params = (hyb_lda_xc_bn05_params * )(p->params);
 
-  /* 100% long-range exchange */
-  assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
-  p->hyb_coeff[0] = -1.0;
-  p->hyb_omega[0] = omega;
-
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_coeff[1] = 1.0;
-  p->hyb_omega[1] = 0.0;
+  set_ext_params_cpy(p, ext_params);
+  p->hyb_params[1].sr.omega = params->omega;
 }
 
 

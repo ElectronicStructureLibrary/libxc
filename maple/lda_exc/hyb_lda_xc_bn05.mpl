@@ -8,6 +8,12 @@
 *)
 
 (* type: lda_exc *)
+(* prefix:
+  hyb_lda_xc_bn05_params *params;
+
+  assert(p->params != NULL);
+  params = (hyb_lda_xc_bn05_params * )(p->params);
+*)
 
 $include "lda_x_yukawa.mpl"
 $define lda_c_pw_params

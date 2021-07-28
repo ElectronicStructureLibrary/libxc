@@ -10,6 +10,10 @@
 
 #define XC_LDA_X_YUKAWA   641   /* Attenuated exchange LDA (Yukawa) */
 
+typedef struct{
+  double omega;
+} lda_x_yukawa_params;
+
 #include "decl_lda.h"
 #include "maple2c/lda_exc/lda_x_yukawa.c"
 #include "work_lda.c"
@@ -17,8 +21,8 @@
 static void
 xc_lda_x_yukawa_init(xc_func_type *p)
 {
-  xc_hyb_init_hybrid(p, 0.0);
-  p->hyb_type[0] = XC_HYB_NONE;
+  assert(p!=NULL && p->params == NULL);
+  p->params = libxc_malloc(sizeof(lda_x_yukawa_params)); 
 }
 
 static const char  *omega_names[]  = {"_omega"};
@@ -36,7 +40,7 @@ const xc_func_info_type xc_func_info_lda_x_yukawa = {
   {&xc_ref_Savin1995_327, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-13,
-  {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
+  {1, omega_names, omega_desc, omega_values, set_ext_params_cpy},
   xc_lda_x_yukawa_init, NULL,
   work_lda, NULL, NULL
 };

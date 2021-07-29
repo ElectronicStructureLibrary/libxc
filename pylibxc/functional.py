@@ -277,9 +277,6 @@ class LibXCFunctional(object):
         self._stable = self._flags & flags.XC_FLAGS_STABLE
         self._dev = self._flags & flags.XC_FLAGS_DEVELOPMENT
 
-        # Laplacian
-        self._dev = self._flags & flags.XC_FLAGS_NEEDS_LAPLACIAN
-
         # Pull out references
         self._refs = []
         self._bibtexs = []

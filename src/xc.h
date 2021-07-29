@@ -246,7 +246,7 @@ typedef union {
   struct {double delta, b, C;} vv10; /* amount of non-local term and b, C parameters */
 } xc_hybrid_params_type;
 
-  
+
 struct xc_func_type{
   const xc_func_info_type *info;       /* all the information concerning this functional */
   int nspin;                           /* XC_UNPOLARIZED or XC_POLARIZED  */

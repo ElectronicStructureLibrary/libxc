@@ -257,24 +257,13 @@ class LibXCFunctional(object):
 
         # Set omega
         self._hyb_type = core.xc_hyb_type(self.xc_func)
-        if self._hyb_type != flags.XC_HYB_SEMILOCAL:
+        if self._hyb_type != 0:
             self._hyb_types = self.xc_func.contents.hyb_type
-            self._hyb_omega = self.xc_func.contents.hyb_omega
-            self._hyb_coeff = self.xc_func.contents.hyb_coeff
-
-        # VV10
-        self._have_vv10 = self._flags & flags.XC_FLAGS_VV10
-        self._nlc_b = self._nlc_C = False
-        if self._have_vv10:
-            self._nlc_b = self.xc_func.contents.nlc_b
-            self._nlc_C = self.xc_func.contents.nlc_C
+            self._hyb_params = self.xc_func.contents.hyb_params
 
         # Stable
         self._stable = self._flags & flags.XC_FLAGS_STABLE
         self._dev = self._flags & flags.XC_FLAGS_DEVELOPMENT
-
-        # Laplacian
-        self._dev = self._flags & flags.XC_FLAGS_NEEDS_LAPLACIAN
 
         # Pull out references
         self._refs = []

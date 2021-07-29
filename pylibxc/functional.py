@@ -82,7 +82,7 @@ core.xc_func_set_tau_threshold.argtypes   = (_xc_func_p, ctypes.c_double)
 
 
 # Bind computers
-def _build_comute_argtype(num_nd, num_nd_write):
+def _build_compute_argtype(num_nd, num_nd_write):
     """
     Small function to build the correct argtypes for the LibXC computers
     """
@@ -93,31 +93,31 @@ def _build_comute_argtype(num_nd, num_nd_write):
 
 
 # LDA computers
-core.xc_lda.argtypes = _build_comute_argtype(1, 5)
-core.xc_lda_exc_vxc.argtypes = _build_comute_argtype(1, 2)
-core.xc_lda_exc.argtypes = _build_comute_argtype(1, 1)
-core.xc_lda_vxc.argtypes = _build_comute_argtype(1, 1)
-core.xc_lda_fxc.argtypes = _build_comute_argtype(1, 1)
-core.xc_lda_kxc.argtypes = _build_comute_argtype(1, 1)
-core.xc_lda_lxc.argtypes = _build_comute_argtype(1, 1)
+core.xc_lda.argtypes = _build_compute_argtype(1, 5)
+core.xc_lda_exc_vxc.argtypes = _build_compute_argtype(1, 2)
+core.xc_lda_exc.argtypes = _build_compute_argtype(1, 1)
+core.xc_lda_vxc.argtypes = _build_compute_argtype(1, 1)
+core.xc_lda_fxc.argtypes = _build_compute_argtype(1, 1)
+core.xc_lda_kxc.argtypes = _build_compute_argtype(1, 1)
+core.xc_lda_lxc.argtypes = _build_compute_argtype(1, 1)
 
 # GGA computers
-core.xc_gga.argtypes = _build_comute_argtype(2, 15)
-core.xc_gga_exc_vxc.argtypes = _build_comute_argtype(2, 3)
-core.xc_gga_exc.argtypes = _build_comute_argtype(2, 1)
-core.xc_gga_vxc.argtypes = _build_comute_argtype(2, 2)
-core.xc_gga_fxc.argtypes = _build_comute_argtype(2, 3)
-core.xc_gga_kxc.argtypes = _build_comute_argtype(2, 4)
-core.xc_gga_lxc.argtypes = _build_comute_argtype(2, 5)
+core.xc_gga.argtypes = _build_compute_argtype(2, 15)
+core.xc_gga_exc_vxc.argtypes = _build_compute_argtype(2, 3)
+core.xc_gga_exc.argtypes = _build_compute_argtype(2, 1)
+core.xc_gga_vxc.argtypes = _build_compute_argtype(2, 2)
+core.xc_gga_fxc.argtypes = _build_compute_argtype(2, 3)
+core.xc_gga_kxc.argtypes = _build_compute_argtype(2, 4)
+core.xc_gga_lxc.argtypes = _build_compute_argtype(2, 5)
 
 # MGGA computers
-core.xc_mgga.argtypes = _build_comute_argtype(4, 70)
-core.xc_mgga_exc_vxc.argtypes = _build_comute_argtype(4, 5)
-core.xc_mgga_exc.argtypes = _build_comute_argtype(4, 1)
-core.xc_mgga_vxc.argtypes = _build_comute_argtype(4, 4)
-core.xc_mgga_fxc.argtypes = _build_comute_argtype(4, 10)
-core.xc_mgga_kxc.argtypes = _build_comute_argtype(4, 20)
-core.xc_mgga_kxc.argtypes = _build_comute_argtype(4, 35)
+core.xc_mgga.argtypes = _build_compute_argtype(4, 70)
+core.xc_mgga_exc_vxc.argtypes = _build_compute_argtype(4, 5)
+core.xc_mgga_exc.argtypes = _build_compute_argtype(4, 1)
+core.xc_mgga_vxc.argtypes = _build_compute_argtype(4, 4)
+core.xc_mgga_fxc.argtypes = _build_compute_argtype(4, 10)
+core.xc_mgga_kxc.argtypes = _build_compute_argtype(4, 20)
+core.xc_mgga_kxc.argtypes = _build_compute_argtype(4, 35)
 
 # hybrid functions
 core.xc_hyb_type.argtypes = (_xc_func_p, )

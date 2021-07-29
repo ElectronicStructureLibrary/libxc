@@ -112,43 +112,11 @@ xc_hyb_init_vdw_vv10(xc_func_type *p, double delta, double b, double C)
 int
 xc_hyb_type(const xc_func_type *p)
 {
-  /* we check several specific types */
-  if(p->hyb_number_terms == 0)
-    return XC_HYB_NONE;
-
-  if(p->hyb_number_terms == 1){
-    /* normal hybrid */
-    if(p->hyb_type[0] == XC_HYB_FOCK)
-      return XC_HYB_HYBRID;
-
-    /* range-separated hybrids */
-    if(p->hyb_type[0] == XC_HYB_ERF_SR)
-      return XC_HYB_CAM;
-    if(p->hyb_type[0] == XC_HYB_YUKAWA_SR)
-      return XC_HYB_CAMY;
-    if(p->hyb_type[0] == XC_HYB_GAUSSIAN_SR)
-      return XC_HYB_CAMG;
-
-    /* van der Waals functional */
-    if(p->hyb_type[0] == XC_HYB_VDW_D1 || p->hyb_type[0] == XC_HYB_VDW_D2 ||
-       p->hyb_type[0] == XC_HYB_VDW_D3 || p->hyb_type[0] == XC_HYB_VDW_D4 ||
-       p->hyb_type[0] == XC_HYB_VDW_DF || p->hyb_type[0] == XC_HYB_VDW_VV10)
-      return XC_HYB_VDW;
+  int result = 0;
+  for(int i=0; i < p->hyb_number_terms; i++) {
+    result = result | p->hyb_type[i];
   }
-
-  if(p->hyb_number_terms == 2) {
-    if(p->hyb_type[0] == XC_HYB_FOCK && p->hyb_type[1] == XC_HYB_ERF_SR)
-      return XC_HYB_CAM;
-    if(p->hyb_type[0] == XC_HYB_FOCK && p->hyb_type[1] == XC_HYB_YUKAWA_SR)
-      return XC_HYB_CAMY;
-    if(p->hyb_type[0] == XC_HYB_FOCK && p->hyb_type[1] == XC_HYB_GAUSSIAN_SR)
-      return XC_HYB_CAMG;
-    
-    if(p->hyb_type[0] == XC_HYB_FOCK && p->hyb_type[1] == XC_HYB_PT2)
-      return XC_HYB_DOUBLE_HYBRID;
-  }
-
-  return XC_HYB_MIXTURE;
+  return result;
 }
 
 
@@ -157,8 +125,8 @@ xc_hyb_type(const xc_func_type *p)
 double
 xc_hyb_exx_coef(const xc_func_type *p)
 {
+  double cx=0.0;
   assert(p!=NULL);
-  assert(xc_hyb_type(p) == XC_HYB_HYBRID);
 
   return p->hyb_params[0].fock.alpha;
 }
@@ -167,30 +135,42 @@ xc_hyb_exx_coef(const xc_func_type *p)
 void
 xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *beta)
 {
+  /* Flags to check that the functional doesn't have duplicate contributions */
+  int nfock=0;
+  int nrangesep=0;
+  /* Check pointer */
   assert(p != NULL);
+  /* Initialize */
+  *alpha = 0.0;
+  *beta = 0.0;
+  *omega = 0.0;
 
-  switch(xc_hyb_type(p)){
-  case XC_HYB_HYBRID:
-    *alpha = p->hyb_params[0].fock.alpha;
-    *beta  = 0.0;
-    *omega = 0.0;
-    break;
-  case XC_HYB_CAM:
-  case XC_HYB_CAMY:
-  case XC_HYB_CAMG:
-    if(p->hyb_number_terms == 1){ /* Short-range only hybrid */
-      *alpha = 0.0;
-      *beta  = p->hyb_params[0].sr.beta;
-      *omega = p->hyb_params[0].sr.omega;
-    }else{                        /* includes both short-range and normal hybrid */
-      *alpha = p->hyb_params[0].fock.alpha;
-      *beta  = p->hyb_params[1].sr.beta;
-      *omega = p->hyb_params[1].sr.omega;
+  /* Collect the parameters */
+  for(int i=0;i<p->hyb_number_terms;i++) {
+    switch(p->hyb_type[i]){
+    case XC_HYB_FOCK:
+      *alpha = p->hyb_params[i].fock.alpha;
+      nfock++;
+      break;
+    case XC_HYB_ERF_SR:
+    case XC_HYB_YUKAWA_SR:
+    case XC_HYB_GAUSSIAN_SR:
+      *beta  = p->hyb_params[i].sr.beta;
+      *omega = p->hyb_params[i].sr.omega;
+      nrangesep++;
+      break;
     }
-    break;
-  default:
-    fprintf(stderr, "Error in xc_hyb_cam_coef: unknown hybrid type");
-    exit(1);
+  }
+
+  /* Ensure the functional did not have multiple components of the
+     same type (this case needs to be handled by specialized code in
+     the calling program as xc_hyb_cam_coef is mainly for backwards
+     compatibility) */
+  if(nfock>1) {
+    fprintf(stderr, "Error in xc_hyb_cam_coef: functional contains multiple Fock matrix contributions\n");
+  }
+  if(nrangesep>1) {
+    fprintf(stderr, "Error in xc_hyb_cam_coef: functional contains multiple range-separated contributions\n");
   }
 }
 

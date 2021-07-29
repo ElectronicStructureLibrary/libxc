@@ -93,16 +93,6 @@ const char *xc_version_string();
 #define XC_HYB_VDW_WB97      1024  /* van der Waals correction of Chai2008_6615 */
 #define XC_HYB_VDW_DF        1024  /* van der Waals correction of Dion2004_246401 */
 #define XC_HYB_VDW_VV10      2048  /* van der Waals correction of Vydrov2010_244103 */
-  
-/* Different types of hybrid functionals. */
-#define XC_HYB_SEMILOCAL        0  /* Standard semi-local functional (not a hybrid) */
-#define XC_HYB_HYBRID           1  /* Standard hybrid functional */
-#define XC_HYB_CAM              2  /* Coulomb attenuated hybrid */
-#define XC_HYB_CAMY             3  /* Coulomb attenuated hybrid with a Yukawa screening */
-#define XC_HYB_CAMG             4  /* Coulomb attenuated hybrid with a Gaussian screening */
-#define XC_HYB_DOUBLE_HYBRID    5  /* Double hybrid */
-#define XC_HYB_VDW              6  /* van der Waals correction according to Dion2004_246401 */
-#define XC_HYB_MIXTURE      32768  /* More complicated mixture (have to check individual terms) */
 
 #define XC_MAX_REFERENCES       5
 
@@ -509,7 +499,7 @@ double xc_gga_ak13_get_asymptotic (double homo);
 double xc_gga_ak13_pars_get_asymptotic (double homo, const double *ext_params);
 
 
-/* Returns the hybrid type of a functional */
+/* Computes the "type" of a functional by bitwise OR of the flags */
 int xc_hyb_type(const xc_func_type *p);
 /* Returns fraction of Hartree-Fock exchange in a global hybrid
    functional */

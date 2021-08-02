@@ -499,8 +499,13 @@ double xc_gga_ak13_get_asymptotic (double homo);
 double xc_gga_ak13_pars_get_asymptotic (double homo, const double *ext_params);
 
 
-/* Computes the "type" of a functional by bitwise OR of the flags */
-int xc_hyb_type(const xc_func_type *p);
+/* Computes the "type" of a functional by bitwise OR of the flags.
+
+   If the functional features any flag more than once (e.g. two
+   different range separation constants), then the return value is
+   complicated=1, otherwise complicated=0.
+*/
+int xc_hyb_type(const xc_func_type *p, int *is_complicated);
 /* Returns fraction of Hartree-Fock exchange in a global hybrid
    functional */
 double xc_hyb_exx_coef(const xc_func_type *p);

@@ -108,17 +108,22 @@ xc_hyb_init_vdw_vv10(xc_func_type *p, double delta, double b, double C)
   p->hyb_params[0].vv10.C     = C;
 }
 
-/* checks and returns the type of hybrid function */
+/* checks and returns the type of hybrid function. */
 int
-xc_hyb_type(const xc_func_type *p)
+xc_hyb_type(const xc_func_type *p, int *is_complicated)
 {
+  /* Initialize return values */
   int result = 0;
+  *is_complicated = 0;
   for(int i=0; i < p->hyb_number_terms; i++) {
+    /* Check whether this flag has already been set in the result */
+    if(result & p->hyb_type[i]) {
+      *is_complicated = 1;
+    }
     result = result | p->hyb_type[i];
   }
   return result;
 }
-
 
 /*------------------------------------------------------*/
 /* returns the mixing coefficient for the hybrid functions */

@@ -43,7 +43,7 @@ foreach(_sdir ${_sdirs})
         # this is properly the real test, but presumably it'll get rebuilt if libxc changes
 
         # generate test values
-        set(test "${func}-${system}-${spin}-${order}")
+        set(test "${PN}-${func}-${system}-${spin}-${order}")
         add_test(NAME ${test}-run
                  COMMAND xc-regression ${func} ${nspin} ${order} ${CMAKE_CURRENT_SOURCE_DIR}/input/${system} ${CMAKE_CURRENT_BINARY_DIR}/workdir/${_sdir}/${refname})
         set_tests_properties(${test}-run PROPERTIES TIMEOUT 3)

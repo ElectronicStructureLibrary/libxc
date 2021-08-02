@@ -90,9 +90,9 @@ const char *xc_version_string();
 #define XC_HYB_VDW_D2         128  /* van der Waals correction of Grimme2006_1787 */
 #define XC_HYB_VDW_D3         256  /* van der Waals correction of Grimme2010_154104 */
 #define XC_HYB_VDW_D4         512  /* van der Waals correction of Caldeweyher2019_154122 */
-#define XC_HYB_VDW_WB97      1024  /* van der Waals correction of Chai2008_6615 */
 #define XC_HYB_VDW_DF        1024  /* van der Waals correction of Dion2004_246401 */
 #define XC_HYB_VDW_VV10      2048  /* van der Waals correction of Vydrov2010_244103 */
+#define XC_HYB_VDW_WB97      4096  /* van der Waals correction of Chai2008_6615 */
 
 #define XC_MAX_REFERENCES       5
 

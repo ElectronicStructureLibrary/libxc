@@ -108,9 +108,9 @@ xc_hyb_init_vdw_vv10(xc_func_type *p, double delta, double b, double C)
   p->hyb_params[0].vv10.C     = C;
 }
 
-/* checks and returns the type of hybrid function. */
-int
-xc_hyb_type(const xc_func_type *p, int *is_complicated)
+/* worker function for the two functions below */
+static int
+xc_hyb_work(const xc_func_type *p, int *is_complicated)
 {
   /* Initialize return values */
   int result = 0;
@@ -123,6 +123,21 @@ xc_hyb_type(const xc_func_type *p, int *is_complicated)
     result = result | p->hyb_type[i];
   }
   return result;
+}
+
+/* checks and returns the type of hybrid function. */
+int
+xc_hyb_type(const xc_func_type *p) {
+  int is_complicated;
+  return xc_hyb_work(p, &is_complicated);
+}
+
+/* checks if hybrid is complicated i.e. it has repeating flags */
+int
+xc_hyb_is_complicated(const xc_func_type *p) {
+  int is_complicated;
+  xc_hyb_work(p, &is_complicated);
+  return is_complicated;
 }
 
 /*------------------------------------------------------*/

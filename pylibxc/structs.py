@@ -59,7 +59,7 @@ class xc_dimensions(ctypes.Structure):
          ("vrho", ctypes.c_size_t),
          ("vsigma", ctypes.c_size_t),
          ("vlapl", ctypes.c_size_t),
-         ("vtau", ctypes.c_size_t), 
+         ("vtau", ctypes.c_size_t),
 
          ("v2rho2", ctypes.c_size_t),
          ("v2rhosigma", ctypes.c_size_t),
@@ -129,7 +129,7 @@ class xc_dimensions(ctypes.Structure):
          ("v4lapltau3", ctypes.c_size_t),
          ("v4tau4", ctypes.c_size_t),
      ]
-   
+
 class xc_hybrid_params_type(ctypes.Structure):
     """
     Holds user defined parameters and their description.
@@ -155,7 +155,7 @@ class xc_func_type(ctypes.Structure):
         ("hyb_type", ctypes.POINTER(ctypes.c_int)),
         ("hyb_params", ctypes.POINTER(xc_hybrid_params_type)),
         ("dim", xc_dimensions),
-        
+
         # parameters
         ("ext_params", ctypes.POINTER(ctypes.c_double)),
         ("params", ctypes.c_void_p),  # void *params;

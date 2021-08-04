@@ -236,8 +236,6 @@ class LibXCFunctional(object):
         self.xc_func_sizes = {}
         for attr in self.xc_func_size_names:
             self.xc_func_sizes[attr] = getattr(self.xc_func.contents.dim, attr)
-            #print('printf("{} size %i\\n",func.dim.{});'.format(attr,attr))
-            print('{} size {}'.format(attr,getattr(self.xc_func.contents.dim, attr)))
             
         # Unpack functional info
         self.xc_func_info = core.xc_func_get_info(self.xc_func)

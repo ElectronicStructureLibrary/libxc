@@ -175,12 +175,14 @@ class xc_func_type(ctypes.Structure):
 
         # Hybrids
         ("hyb_number_terms", ctypes.c_int),
-        ("hyb_type", ctypes.POINTER(ctypes.c_int)),
-        ("hyb_params", ctypes.POINTER(xc_hybrid_params_type)),
+        ("hyb_type", ctypes.c_int*5),
+        ("hyb_params", xc_hybrid_params_type*5),
         ("dim", xc_dimensions),
 
         # parameters
         ("ext_params", ctypes.POINTER(ctypes.c_double)),
         ("params", ctypes.c_void_p),  # void *params;
         ("dens_threshold", ctypes.c_double),
+        ("sigma_threshold", ctypes.c_double),
+        ("tau_threshold", ctypes.c_double),
     ]

@@ -130,13 +130,36 @@ class xc_dimensions(ctypes.Structure):
          ("v4tau4", ctypes.c_size_t),
      ]
 
-class xc_hybrid_params_type(ctypes.Structure):
+# Evaluate the data types in the union
+class xc_hybrid_params_type_raw(ctypes.Structure):
+    _fields_ = [("raw", ctypes.c_double*3)]
+class xc_hybrid_params_type_fock(ctypes.Structure):
+    _fields_ = [("alpha", ctypes.c_double)]
+class xc_hybrid_params_type_pt2(ctypes.Structure):
+    _fields_ = [("gamma", ctypes.c_double)]
+class xc_hybrid_params_type_sr(ctypes.Structure):
+    _fields_ = [("beta", ctypes.c_double), ("omega", ctypes.c_double)]
+class xc_hybrid_params_type_d(ctypes.Structure):
+    _fields_ = [("s6", ctypes.c_double), ("alpha", ctypes.c_double), ("r0", ctypes.c_double)]
+class xc_hybrid_params_type_wb97(ctypes.Structure):
+    _fields_ = [("delta", ctypes.c_double), ("a", ctypes.c_double)]
+class xc_hybrid_params_type_df(ctypes.Structure):
+    _fields_ = [("delta", ctypes.c_double), ("Zab", ctypes.c_double)]
+class xc_hybrid_params_type_vv10(ctypes.Structure):
+    _fields_ = [("b", ctypes.c_double), ("C", ctypes.c_double)]
+
+class xc_hybrid_params_type(ctypes.Union):
     """
     Holds user defined parameters and their description.
     """
-    # The data is stored in an union but it's easier to just use it as raw
-    _fields_ = [("raw0", ctypes.c_double), ("raw1", ctypes.c_double), ("raw2", ctypes.c_double)]
-
+    _fields_ = [("raw", xc_hybrid_params_type_raw),
+                ("fock", xc_hybrid_params_type_fock),
+                ("pt2", xc_hybrid_params_type_pt2),
+                ("sr", xc_hybrid_params_type_sr),
+                ("d", xc_hybrid_params_type_d),
+                ("wb97", xc_hybrid_params_type_wb97),
+                ("df", xc_hybrid_params_type_df),
+                ("vv10", xc_hybrid_params_type_vv10)]
 
 class xc_func_type(ctypes.Structure):
     """

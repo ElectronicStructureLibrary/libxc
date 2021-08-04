@@ -97,13 +97,12 @@ xc_hyb_init_vdw_df(xc_func_type *p, double delta, double Zab)
 /* van der Waals correction according to Vydrov2010_244103. Two
    parameters, b and C */
 void
-xc_hyb_init_vdw_vv10(xc_func_type *p, double delta, double b, double C)
+xc_hyb_init_vdw_vv10(xc_func_type *p, double b, double C)
 {
   p->hyb_number_terms = 1;
 
   p->hyb_type[0] = XC_HYB_VDW_VV10;
 
-  p->hyb_params[0].vv10.delta = delta;
   p->hyb_params[0].vv10.b     = b;
   p->hyb_params[0].vv10.C     = C;
 }
@@ -206,12 +205,11 @@ xc_hyb_vdw_df_coef(const xc_func_type *p, double *delta, double *Zab)
 }
 
 void
-xc_hyb_vdw_vv10_coef(const xc_func_type *p, double *delta, double *b, double *C)
+xc_hyb_vdw_vv10_coef(const xc_func_type *p, double *b, double *C)
 {
   assert(p!=NULL);
   assert(p->hyb_type[0] == XC_HYB_VDW_VV10);
   
-  *delta = p->hyb_params[0].vv10.delta;
   *b     = p->hyb_params[0].vv10.b;
   *C     = p->hyb_params[0].vv10.C;
 }

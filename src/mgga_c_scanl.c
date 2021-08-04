@@ -57,7 +57,7 @@ const xc_func_info_type xc_func_info_mgga_c_scanl = {
 static void
 mgga_c_scan_rvv10_init(xc_func_type *p)
 {
-  xc_hyb_init_vdw_vv10(p, 1.0, 15.7, 0.0093);
+  xc_hyb_init_vdw_vv10(p, 15.7, 0.0093);
 }
 
 #ifdef __cplusplus
@@ -79,7 +79,7 @@ const xc_func_info_type xc_func_info_mgga_c_scanl_rvv10 = {
 static void
 mgga_c_scan_vv10_init(xc_func_type *p)
 {
-  xc_hyb_init_vdw_vv10(p, 1.0, 14.0, 0.0093);
+  xc_hyb_init_vdw_vv10(p, 14.0, 0.0093);
 }
 
 #ifdef __cplusplus

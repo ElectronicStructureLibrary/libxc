@@ -107,7 +107,6 @@ gga_xc_wb97_init(xc_func_type *p)
   if(p->info->number ==  XC_HYB_GGA_XC_WB97X_V){
     p->hyb_number_terms = 3;
     p->hyb_type[2] = XC_HYB_VDW_VV10;
-    p->hyb_params[2].vv10.delta = 1.0;
     p->hyb_params[2].vv10.b     = 6.0;
     p->hyb_params[2].vv10.C     = 0.01;
   }

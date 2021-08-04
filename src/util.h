@@ -294,7 +294,7 @@ void xc_hyb_init_camy(xc_func_type *p, double alpha, double beta, double omega);
 void xc_hyb_init_camg(xc_func_type *p, double alpha, double beta, double omega);
 void xc_hyb_init_vdw_d   (xc_func_type *p, int type, double s6, double alpha, double r0);
 void xc_hyb_init_vdw_df  (xc_func_type *p, double delta, double Zab);
-void xc_hyb_init_vdw_vv10(xc_func_type *p, double delta, double b, double C);
+void xc_hyb_init_vdw_vv10(xc_func_type *p, double b, double C);
 
 /* Some useful functions */
 const char *get_kind(const xc_func_type *func);

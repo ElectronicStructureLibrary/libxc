@@ -15,7 +15,7 @@ static void
 mgga_xc_b97mv_init(xc_func_type *p)
 {
   /* Non-local correlation parameters */
-  xc_hyb_init_vdw_vv10(p, 1.0, 6.0, 0.01);
+  xc_hyb_init_vdw_vv10(p, 6.0, 0.01);
 }
 
 #include "decl_mgga.h"

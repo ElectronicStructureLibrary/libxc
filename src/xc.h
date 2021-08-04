@@ -243,7 +243,7 @@ typedef union {
   struct {double s6, alpha, r0;} d;  /* (minus) amount of non-local term, damping parameter, and scaling of radius */
   struct {double delta, a;} wb97;    /* (minus) amount of non-local term, damping parameter */
   struct {double delta, Zab;} df;    /* amount of non-local term and Zab parameter */
-  struct {double delta, b, C;} vv10; /* amount of non-local term and b, C parameters */
+  struct {double b, C;} vv10; /* amount of non-local term and b, C parameters */
 } xc_hybrid_params_type;
 
 
@@ -520,7 +520,7 @@ void xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double
 void xc_hyb_vdw_df_coef(const xc_func_type *p, double *delta, double *Zab);
 /* Returns the b and C coefficients for a non-local VV10 correlation
    kernel */
-void xc_hyb_vdw_vv10_coef(const xc_func_type *p, double *delta, double *b, double *C);
+void xc_hyb_vdw_vv10_coef(const xc_func_type *p, double *b, double *C);
 
 #ifdef __cplusplus
 }

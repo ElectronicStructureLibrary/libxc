@@ -279,6 +279,8 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
   // from GPU and CPU).
   xc_func_info_type * finfo = (xc_func_info_type *) libxc_malloc(sizeof(xc_func_info_type));
 
+  // initialize the dimension structure
+  libxc_memset(&(func->dim), 0, sizeof(xc_dimensions));
   switch(xc_family_from_id(functional, NULL, &number)){
   case(XC_FAMILY_LDA):
     *finfo = *xc_lda_known_funct[number];

@@ -247,6 +247,7 @@ set(raw_sources_list
   gga_x_pbetrans.c
   gga_x_pw86.c
   gga_x_pw91.c
+  gga_x_q1d.c
   gga_x_q2d.c
   gga_x_rge2.c
   gga_x_rpbe.c

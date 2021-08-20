@@ -41,8 +41,6 @@ const char *xc_version_string();
 #define XC_FAMILY_LDA           1
 #define XC_FAMILY_GGA           2
 #define XC_FAMILY_MGGA          4
-#define XC_FAMILY_LCA           8
-#define XC_FAMILY_OEP          16
 
 /* flags that can be used in info.flags. Don't reorder these since it
    will break the ABI of the library. */

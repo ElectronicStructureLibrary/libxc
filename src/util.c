@@ -45,12 +45,6 @@ const char *get_family(const xc_func_type *func) {
     case(XC_FAMILY_MGGA):
       return "XC_FAMILY_MGGA";
 
-    case(XC_FAMILY_LCA):
-      return "XC_FAMILY_LCA";
-
-    case(XC_FAMILY_OEP):
-      return "XC_FAMILY_OEP";
-
     default:
       printf("Internal error in get_family.\n");
       return "";

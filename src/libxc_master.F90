@@ -80,7 +80,6 @@ module xc_f03_lib_m
     xc_f03_gga_ak13_get_asymptotic, &
     xc_f03_hyb_exx_coef, &
     xc_f03_hyb_cam_coef, &
-    xc_f03_nlc_coef, &
     ! mgga
     xc_f03_mgga, &
     xc_f03_mgga_exc, &
@@ -115,9 +114,7 @@ module xc_f03_lib_m
     XC_FAMILY_NONE          =   0,     &
     XC_FAMILY_LDA           =   1,     &
     XC_FAMILY_GGA           =   2,     &
-    XC_FAMILY_MGGA          =   4,     &
-    XC_FAMILY_LCA           =   8,     &
-    XC_FAMILY_OEP           =  16
+    XC_FAMILY_MGGA          =   4
 
   integer(c_int), parameter, public :: &
     XC_FLAGS_HAVE_EXC        =     1,   &
@@ -601,11 +598,6 @@ end interface
       real(c_double), intent(out) :: omega, alpha, beta
     end subroutine xc_hyb_cam_coef
 
-    subroutine xc_nlc_coef(p, nlc_b, nlc_c) bind(c)
-      import
-      type(c_ptr), value       :: p
-      real(c_double), intent(out) :: nlc_b, nlc_c
-    end subroutine xc_nlc_coef
   end interface
 
 
@@ -1357,14 +1349,6 @@ end interface
     call xc_hyb_cam_coef(p%ptr, omega, alpha, beta)
 
   end subroutine xc_f03_hyb_cam_coef
-
-  subroutine xc_f03_nlc_coef(p, nlc_b, nlc_c)
-    type(xc_f03_func_t), intent(in)  :: p
-    real(c_double),       intent(out) :: nlc_b, nlc_c
-
-    call xc_nlc_coef(p%ptr, nlc_b, nlc_c)
-
-  end subroutine xc_f03_nlc_coef
 
 
   ! the meta-GGAs

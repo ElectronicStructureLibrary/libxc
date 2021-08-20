@@ -393,15 +393,6 @@ class LibXCFunctional(object):
 
         return (self._hyb_omega[0], self._hyb_coeff[1], self._hyb_coeff[0])
 
-    def get_vv10_coef(self):
-        """
-        Returns the VV10 (b, C) coefficients
-        """
-
-        if self._nlc_b is False:
-            raise ValueError("get_vv10_coeff can only be called on -V functionals.")
-
-        return (self._nlc_b, self._nlc_C)
 
     ### Setters
 

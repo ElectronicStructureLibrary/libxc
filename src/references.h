@@ -364,6 +364,7 @@ extern func_reference_type xc_ref_Tsuneda1999_10664;
 extern func_reference_type xc_ref_Tsuneda1999_5656;
 extern func_reference_type xc_ref_Tsuneda2000_15527;
 extern func_reference_type xc_ref_Ugalde1994_423;
+extern func_reference_type xc_ref_Urso2021_1;
 extern func_reference_type xc_ref_VanVoorhis1998_400;
 extern func_reference_type xc_ref_Vela2009_244103;
 extern func_reference_type xc_ref_Vela2012_144115;

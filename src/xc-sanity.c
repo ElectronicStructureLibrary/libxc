@@ -107,7 +107,7 @@ int main(void) {
     /* Check non-local correlation parameters */
     {
       double delta, b, C;
-      xc_hyb_vdw_vv10_coef(&func, &delta, &b, &C);
+      xc_hyb_vdw_vv10_coef(&func, &b, &C);
 
       if(func.hyb_type[0] == XC_HYB_VDW_VV10) {
         if(b == 0.0)

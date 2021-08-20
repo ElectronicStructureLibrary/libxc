@@ -117,27 +117,39 @@ module xc_f03_lib_m
     XC_FAMILY_MGGA          =   4
 
   integer(c_int), parameter, public :: &
-    XC_FLAGS_HAVE_EXC        =     1,   &
-    XC_FLAGS_HAVE_VXC        =     2,   &
-    XC_FLAGS_HAVE_FXC        =     4,   &
-    XC_FLAGS_HAVE_KXC        =     8,   &
-    XC_FLAGS_HAVE_LXC        =    16,   &
-    XC_FLAGS_HAVE_ALL        =    31,   & ! The most common case
-    XC_FLAGS_1D              =    32,   &
-    XC_FLAGS_2D              =    64,   &
-    XC_FLAGS_3D              =   128,   &
-    XC_FLAGS_VV10            =  1024,   &
-    XC_FLAGS_STABLE          =  8192,   &
-    XC_FLAGS_DEVELOPMENT     = 16384,   &
+    XC_FLAGS_HAVE_EXC        =     1,  &
+    XC_FLAGS_HAVE_VXC        =     2,  &
+    XC_FLAGS_HAVE_FXC        =     4,  &
+    XC_FLAGS_HAVE_KXC        =     8,  &
+    XC_FLAGS_HAVE_LXC        =    16,  &
+    XC_FLAGS_HAVE_ALL        =    31,  & ! The most common case
+    XC_FLAGS_1D              =    32,  &
+    XC_FLAGS_2D              =    64,  &
+    XC_FLAGS_3D              =   128,  &
+    XC_FLAGS_VV10            =  1024,  &
+    XC_FLAGS_STABLE          =  8192,  &
+    XC_FLAGS_DEVELOPMENT     = 16384,  &
     XC_FLAGS_NEEDS_LAPLACIAN = 32768
 
   integer(c_int), parameter, public :: &
-    XC_TAU_EXPLICIT         =     0,   &
-    XC_TAU_EXPANSION        =     1
-
+    XC_HYB_NONE              =     0,  &
+    XC_HYB_FOCK              =     1,  &
+    XC_HYB_PT2               =     2,  &
+    XC_HYB_RPA               =     4,  &
+    XC_HYB_ERF_SR            =     8,  &
+    XC_HYB_YUKAWA_SR         =    16,  &
+    XC_HYB_GAUSSIAN_SR       =    32,  &
+    XC_HYB_VDW_D1            =    64,  &
+    XC_HYB_VDW_D2            =   128,  &
+    XC_HYB_VDW_D3            =   256,  &
+    XC_HYB_VDW_D4            =   512,  &
+    XC_HYB_VDW_DF            =  1024,  &
+    XC_HYB_VDW_VV10          =  2048,  &
+    XC_HYB_VDW_WB97          =  4096
+  
   integer(c_int), parameter, public :: &
     XC_MAX_REFERENCES       =     5
-
+  
   ! List of functionals
 #include "libxc_inc.f90"
 
@@ -587,6 +599,16 @@ end interface
 
 
   interface
+    integer(c_int) function xc_hyb_is_complicated(p) bind(c)
+      import
+      type(c_ptr), value :: p
+    end function xc_hyb_is_complicated
+    
+    integer(c_int) function xc_hyb_type(p) bind(c)
+      import
+      type(c_ptr), value :: p
+    end function xc_hyb_type
+
     real(c_double) function xc_hyb_exx_coef(p) bind(c)
       import
       type(c_ptr), value :: p
@@ -594,10 +616,22 @@ end interface
 
     subroutine xc_hyb_cam_coef(p, omega, alpha, beta) bind(c)
       import
-      type(c_ptr), value       :: p
+      type(c_ptr), value          :: p
       real(c_double), intent(out) :: omega, alpha, beta
     end subroutine xc_hyb_cam_coef
 
+    subroutine xc_hyb_vdw_df_coef(p, delta, Zab) bind(c)
+      import
+      type(c_ptr), value          :: p
+      real(c_double), intent(out) :: delta, Zab
+    end subroutine xc_hyb_vdw_df_coef
+
+    subroutine xc_hyb_vdw_vv10_coef(p, b, C) bind(c)
+      import
+      type(c_ptr), value          :: p
+      real(c_double), intent(out) :: b, C
+    end subroutine xc_hyb_vdw_vv10_coef
+    
   end interface
 
 
@@ -1335,6 +1369,20 @@ end interface
 
   end function xc_f03_gga_ak13_get_asymptotic
 
+  integer(c_int) function xc_f03_hyb_is_complicated(p) result(coef)
+    type(xc_f03_func_t), intent(in) :: p
+
+    coef = xc_hyb_is_complicated(p%ptr)
+    
+  end function xc_f03_hyb_is_complicated
+
+  integer(c_int) function xc_f03_hyb_type(p) result(coef)
+    type(xc_f03_func_t), intent(in) :: p
+
+    coef = xc_hyb_type(p%ptr)
+    
+  end function xc_f03_hyb_type
+ 
   real(c_double) function xc_f03_hyb_exx_coef(p) result(coef)
     type(xc_f03_func_t), intent(in) :: p
 
@@ -1344,12 +1392,28 @@ end interface
 
   subroutine xc_f03_hyb_cam_coef(p, omega, alpha, beta)
     type(xc_f03_func_t), intent(in)  :: p
-    real(c_double),       intent(out) :: omega, alpha, beta
+    real(c_double),      intent(out) :: omega, alpha, beta
 
     call xc_hyb_cam_coef(p%ptr, omega, alpha, beta)
 
   end subroutine xc_f03_hyb_cam_coef
 
+  subroutine xc_f03_hyb_vdw_df_coef(p, delta, Zab)
+    type(xc_f03_func_t), intent(in)  :: p
+    real(c_double),      intent(out) :: delta, Zab
+
+    call xc_hyb_vdw_df_coef(p%ptr, delta, Zab)
+
+  end subroutine xc_f03_hyb_vdw_df_coef
+
+  subroutine xc_f03_hyb_vdw_vv10_coef(p, b, C)
+    type(xc_f03_func_t), intent(in)  :: p
+    real(c_double),      intent(out) :: b, C
+
+    call xc_hyb_vdw_vv10_coef(p%ptr, b, C)
+
+  end subroutine xc_f03_hyb_vdw_vv10_coef
+  
 
   ! the meta-GGAs
   !----------------------------------------------------------------

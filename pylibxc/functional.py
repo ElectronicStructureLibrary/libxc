@@ -378,7 +378,7 @@ class LibXCFunctional(object):
         Returns the amount of global exchange to include.
         """
 
-        if self._hyb_type != flags.XC_HYB_HYBRID:
+        if self._hyb_type != flags.XC_HYB_FOCK:
             raise ValueError("get_hyb_exx_coeff can only be called on Hybrid functionals.")
 
         return self._hyb_coeff[0]

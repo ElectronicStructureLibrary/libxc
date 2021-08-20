@@ -279,8 +279,6 @@ def test_hyb_getters():
 
     with pytest.raises(ValueError):
         func.get_cam_coef()
-    with pytest.raises(ValueError):
-        func.get_vv10_coef()
 
 
 def test_cam_getters():
@@ -294,21 +292,3 @@ def test_cam_getters():
     assert pytest.approx(0.33) == omega
     assert pytest.approx(0.65) == alpha
     assert pytest.approx(-0.46) == beta
-
-    with pytest.raises(ValueError):
-        func.get_vv10_coef()
-
-
-def test_vv10_getters():
-
-    func = pylibxc.LibXCFunctional("gga_xc_vv10", "unpolarized")
-
-    b, C = func.get_vv10_coef()
-    assert pytest.approx(5.9) == b
-    assert pytest.approx(0.0093) == C
-
-    with pytest.raises(ValueError):
-        func.get_cam_coef()
-
-    with pytest.raises(ValueError):
-        func.get_hyb_exx_coef()

@@ -564,7 +564,7 @@ target_include_directories(xc INTERFACE
 # <<<  Export Config  >>>
 
 # GNUInstallDirs "DATADIR" wrong here; CMake search path wants "share".
-set(CMAKECONFIG_INSTALL_DIR "share/cmake/${PN}")
+set(CMAKECONFIG_INSTALL_DIR "lib/cmake/${PN}")
 configure_package_config_file(cmake/${PN}Config.cmake.in
   "${CMAKE_CURRENT_BINARY_DIR}/${PN}Config.cmake"
   INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR})

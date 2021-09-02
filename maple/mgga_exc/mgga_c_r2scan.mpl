@@ -7,6 +7,12 @@
 *)
 
 (* type: mgga_exc *)
+(* prefix:
+  mgga_c_r2scan_params *params;
+
+  assert(p->params != NULL);
+  params = (mgga_c_r2scan_params * )(p->params);
+*)
 
 $include "mgga_c_rscan.mpl"
 $define lda_c_pw_params
@@ -18,7 +24,6 @@ params_a_gamma := (1 - log(2))/Pi^2:
 mgamma := params_a_gamma:
 
 (* r2scan values *)
-params_a_eta := 0.001:
 params_a_dp2 := 0.361:
 
 (* Equation (S6) *)

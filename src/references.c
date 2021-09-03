@@ -342,6 +342,13 @@ func_reference_type xc_ref_Bremond2016_244102 = {
 };
 
 
+func_reference_type xc_ref_Brown2021 = {
+  "K. Brown, Y. Maimaiti, K. Trepte, T. Bligaard, and J. Voss, J. Comput. Chem. n/a, https://doi.org/10.1002/jcc.26732",
+  "https://doi.org/10.1002/jcc.26732",
+  "@article{Brown2021,\n  author = {Brown, Kristopher and Maimaiti, Yasheng and Trepte, Kai and Bligaard, Thomas and Voss, Johannes},\n  title = {{MCML: Combining physical constraints with experimental data for a multi-purpose meta-generalized gradient approximation}},\n  journal = {J. Comput. Chem.},\n  volume = {n/a},\n  number = {n/a},\n  pages = {},\n  doi = {https://doi.org/10.1002/jcc.26732},\n  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.26732}\n}"
+};
+
+
 func_reference_type xc_ref_Brual1978_1177 = {
   "G. B. Jr. and S. M. Rothstein, J. Chem. Phys. 69, 1177 (1978)",
   "10.1063/1.436705",

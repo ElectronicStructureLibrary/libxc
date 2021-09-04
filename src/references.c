@@ -2512,6 +2512,13 @@ func_reference_type xc_ref_Ugalde1994_423 = {
 };
 
 
+func_reference_type xc_ref_Urso2021_1 = {
+  "V. Urso and L. A. Constantin, Eur. Phys. J. B 94, 1 (2021)",
+  "",
+  "@article{Urso2021_1,\n  title={Quasi-dimensional models applied to kinetic and exchange energy density functionals},\n  author={Urso, Vittoria and Constantin, Lucian A},\n  journal={Eur. Phys. J. B},\n  volume={94},\n  number={7},\n  pages={1--9},\n  year={2021},\n  publisher={Springer}\n}"
+};
+
+
 func_reference_type xc_ref_VanVoorhis1998_400 = {
   "T. V. Voorhis and G. E. Scuseria, J. Chem. Phys. 109, 400 (1998)",
   "10.1063/1.476577",

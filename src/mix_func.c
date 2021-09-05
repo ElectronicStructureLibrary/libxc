@@ -211,7 +211,7 @@ xc_mix_func(const xc_func_type *func, size_t np,
           sum_var(v2sigmatau);
           sum_var(v2tau2);
         }
-        if(aux->info->flags & (XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU)) {
+        if((aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (aux->info->flags & XC_FLAGS_NEEDS_TAU)) {
           sum_var(v2lapltau);
         }
       }
@@ -244,7 +244,7 @@ xc_mix_func(const xc_func_type *func, size_t np,
           sum_var(v3sigmatau2);
           sum_var(v3tau3);
         }
-        if(aux->info->flags & (XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU)) {
+        if((aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (aux->info->flags & XC_FLAGS_NEEDS_TAU)) {
           sum_var(v3rholapltau);
           sum_var(v3sigmalapltau);
           sum_var(v3lapl2tau);
@@ -288,7 +288,7 @@ xc_mix_func(const xc_func_type *func, size_t np,
           sum_var(v4sigmatau3);
           sum_var(v4tau4);
         }
-        if(aux->info->flags & (XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU)) {
+        if((aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (aux->info->flags & XC_FLAGS_NEEDS_TAU)) {
           sum_var(v4rho2lapltau);
           sum_var(v4rhosigmalapltau);
           sum_var(v4rholapl2tau);

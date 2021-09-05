@@ -93,7 +93,7 @@ xc_mgga(const xc_func_type *func, size_t np,
       libxc_memset(v2sigmatau, 0, dim->v2sigmatau *np*sizeof(double));
       libxc_memset(v2tau2,     0, dim->v2tau2     *np*sizeof(double));
     }
-    if(func->info->flags & (XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU)) {
+    if((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (func->info->flags & XC_FLAGS_NEEDS_TAU)) {
       assert(v2lapltau   != NULL);
       libxc_memset(v2lapltau,   0, dim->v2lapltau  *np*sizeof(double));
     }
@@ -139,7 +139,7 @@ xc_mgga(const xc_func_type *func, size_t np,
       libxc_memset(v3lapl3,        0, dim->v3lapl3       *np*sizeof(double));
     }
 
-    if(func->info->flags & (XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU)) {
+    if((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (func->info->flags & XC_FLAGS_NEEDS_TAU)) {
       assert(v3rholapltau   != NULL);
       assert(v3sigmalapltau != NULL);
       assert(v3lapl2tau     != NULL);
@@ -207,7 +207,7 @@ xc_mgga(const xc_func_type *func, size_t np,
       libxc_memset(v4tau4,         0, dim->v4tau4        *np*sizeof(double));
     }
 
-    if(func->info->flags & (XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU)) {
+    if((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (func->info->flags & XC_FLAGS_NEEDS_TAU)) {
       assert(v4rho2lapltau     != NULL);
       assert(v4rhosigmalapltau != NULL);
       assert(v4rholapl2tau     != NULL);

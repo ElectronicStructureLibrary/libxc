@@ -110,6 +110,14 @@ xc_mix_func(const xc_func_type *func, size_t np,
       need_laplacian = XC_FLAGS_NEEDS_LAPLACIAN;
   }
   assert((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) == need_laplacian);
+  /* Same for tau */
+  int need_tau = 0;
+  for(ii=0; ii<func->n_func_aux; ii++){
+    aux = func->func_aux[ii];
+    if(aux->info->flags & XC_FLAGS_NEEDS_TAU)
+      need_tau = XC_FLAGS_NEEDS_TAU;
+  }
+  assert((func->info->flags & XC_FLAGS_NEEDS_TAU) == need_tau);
 
   /* Check compatibility of the individual components */
   for(ii=0; ii<func->n_func_aux; ii++){
@@ -177,7 +185,9 @@ xc_mix_func(const xc_func_type *func, size_t np,
         if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) {
           sum_var(vlapl);
         }
-        sum_var(vtau);
+        if(aux->info->flags & XC_FLAGS_NEEDS_TAU) {
+          sum_var(vtau);
+        }
       }
     }
 
@@ -197,9 +207,11 @@ xc_mix_func(const xc_func_type *func, size_t np,
           sum_var(v2lapl2);
           sum_var(v2lapltau);
         }
-        sum_var(v2rhotau);
-        sum_var(v2sigmatau);
-        sum_var(v2tau2);
+        if(aux->info->flags & XC_FLAGS_NEEDS_TAU) {
+          sum_var(v2rhotau);
+          sum_var(v2sigmatau);
+          sum_var(v2tau2);
+        }
       }
     }
 
@@ -226,12 +238,14 @@ xc_mix_func(const xc_func_type *func, size_t np,
           sum_var(v3lapl2tau);
           sum_var(v3lapltau2);
         }
-        sum_var(v3rho2tau);
-        sum_var(v3rhosigmatau);
-        sum_var(v3rhotau2);
-        sum_var(v3sigma2tau);
-        sum_var(v3sigmatau2);
-        sum_var(v3tau3);
+        if(aux->info->flags & XC_FLAGS_NEEDS_TAU) {
+          sum_var(v3rho2tau);
+          sum_var(v3rhosigmatau);
+          sum_var(v3rhotau2);
+          sum_var(v3sigma2tau);
+          sum_var(v3sigmatau2);
+          sum_var(v3tau3);
+        }
       }
     }
 
@@ -268,16 +282,18 @@ xc_mix_func(const xc_func_type *func, size_t np,
           sum_var(v4lapl2tau2);
           sum_var(v4lapltau3);
         }
-        sum_var(v4rho3tau);
-        sum_var(v4rho2sigmatau);
-        sum_var(v4rho2tau2);
-        sum_var(v4rhosigma2tau);
-        sum_var(v4rhosigmatau2);
-        sum_var(v4rhotau3);
-        sum_var(v4sigma3tau);
-        sum_var(v4sigma2tau2);
-        sum_var(v4sigmatau3);
-        sum_var(v4tau4);
+        if(aux->info->flags & XC_FLAGS_NEEDS_TAU) {
+          sum_var(v4rho3tau);
+          sum_var(v4rho2sigmatau);
+          sum_var(v4rho2tau2);
+          sum_var(v4rhosigma2tau);
+          sum_var(v4rhosigmatau2);
+          sum_var(v4rhotau3);
+          sum_var(v4sigma3tau);
+          sum_var(v4sigma2tau2);
+          sum_var(v4sigmatau3);
+          sum_var(v4tau4);
+        }
       }
     }
 #endif

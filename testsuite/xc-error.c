@@ -203,10 +203,10 @@ int main(int argc, char **argv) {
     for(j=0;j<cin;j++){
       l_err = error(din[j], dref[j]);
       if(l_err > maxdiff[j])
-	      maxdiff[j] = l_err;
+        maxdiff[j] = l_err;
       if(l_err > tol){
         fprintf(stderr, "\n%i %i %14.10le %14.10le %le\n", 
-                i+2, j, din[j], dref[j], error(din[j], dref[j]));
+                i+2, j, din[j], dref[j], l_err);
       }
     }
 

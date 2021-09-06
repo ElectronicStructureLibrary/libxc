@@ -90,8 +90,12 @@ foreach $der (@ders_def){
 my %all_out = ();
 foreach $der (@ders_def){
   # let us do one order each time
+  #next if(! (${$der}[1] =~ /^v[a-z]/));
   next if(! (${$der}[1] =~ /^v4/));
 
+  # no need to calculate tau derivatives
+  next if(${$der}[1] =~ /tau/);
+  
   $mder = "";
   $mder = $mder." {n0, ".${$der}[0][0]."}";
   $mder = $mder.",{n1, ".${$der}[0][1]."}";

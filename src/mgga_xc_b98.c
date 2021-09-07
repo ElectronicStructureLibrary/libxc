@@ -30,7 +30,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_b98 = {
   "Becke 98",
   XC_FAMILY_MGGA,
   {&xc_ref_Becke1998_2092, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_mgga_xc_b98_init, NULL,

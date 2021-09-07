@@ -45,7 +45,7 @@ const xc_func_info_type xc_func_info_mgga_x_r2scan = {
   "Re-regularized SCAN exchange by Furness et al",
   XC_FAMILY_MGGA,
   {&xc_ref_Furness2020_8208, &xc_ref_Furness2020_9248, NULL, NULL, NULL},
-  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-11,
   {N_PAR, names, desc, par_r2scan, set_ext_params_cpy},
   mgga_x_r2scan_init, NULL,

@@ -22,7 +22,6 @@ v4rho3lapl[0] = ked1_v4rho3lapl[0]*mgga_vtau[0] + ked1_vlapl[0]*ked1_v3rho3[0]*m
   3*ked1_vrho[0]*(ked1_v3rho2lapl[0]*mgga_v2tau2[0] + ked1_v2rho2[0]*mgga_v3lapltau2[0] +
   ked1_vlapl[0]*(ked1_v2rho2[0]*mgga_v3tau3[0] + mgga_v4rho2tau2[0]) + mgga_v4rho2lapltau[0]) +
   ked1_vlapl[0]*mgga_v4rho3tau[0] + mgga_v4rho3lapl[0];
-v4rho3tau[0] = 0;
 v4rho2sigma2[0] = ked1_v4rho2sigma2[0]*mgga_vtau[0] + 2*ked1_v2rhosigma[0]*ked1_v2rhosigma[0]*mgga_v2tau2[0] +
   ked1_v2sigma2[0]*ked1_v2rho2[0]*mgga_v2tau2[0] + 2*ked1_vsigma[0]*ked1_v3rho2sigma[0]*mgga_v2tau2[0] +
   ked1_vsigma[0]*ked1_vsigma[0]*ked1_v2rho2[0]*mgga_v3tau3[0] + 2*ked1_v3rho2sigma[0]*mgga_v2sigmatau[0] +
@@ -49,7 +48,6 @@ v4rho2sigmalapl[0] = ked1_v4rho2sigmalapl[0]*mgga_vtau[0] + ked1_v2sigmalapl[0]*
   + ked1_vlapl[0]*(ked1_v2rhosigma[0]*mgga_v3tau3[0] + ked1_vsigma[0]*mgga_v4rhotau3[0] + mgga_v4rhosigmatau2[0]) +
   mgga_v4rhosigmalapltau[0]) + ked1_v2sigmalapl[0]*mgga_v3rho2tau[0] + ked1_vlapl[0]*ked1_vsigma[0]*mgga_v4rho2tau2[0]
   + ked1_vsigma[0]*mgga_v4rho2lapltau[0] + ked1_vlapl[0]*mgga_v4rho2sigmatau[0] + mgga_v4rho2sigmalapl[0];
-v4rho2sigmatau[0] = 0;
 v4rho2lapl2[0] = ked1_v4rho2lapl2[0]*mgga_vtau[0] + 2*ked1_v2rholapl[0]*ked1_v2rholapl[0]*mgga_v2tau2[0] +
   ked1_v2lapl2[0]*ked1_v2rho2[0]*mgga_v2tau2[0] + 2*ked1_vlapl[0]*ked1_v3rho2lapl[0]*mgga_v2tau2[0] +
   ked1_vlapl[0]*ked1_vlapl[0]*ked1_v2rho2[0]*mgga_v3tau3[0] + 2*ked1_v3rho2lapl[0]*mgga_v2lapltau[0] +
@@ -61,8 +59,6 @@ v4rho2lapl2[0] = ked1_v4rho2lapl2[0]*mgga_vtau[0] + 2*ked1_v2rholapl[0]*ked1_v2r
   ked1_v2lapl2[0]*mgga_v3rhotau2[0] + ked1_vlapl[0]*ked1_vlapl[0]*mgga_v4rhotau3[0] +
   2*ked1_vlapl[0]*mgga_v4rholapltau2[0] + mgga_v4rholapl2tau[0]) + ked1_v2lapl2[0]*mgga_v3rho2tau[0] +
   ked1_vlapl[0]*ked1_vlapl[0]*mgga_v4rho2tau2[0] + 2*ked1_vlapl[0]*mgga_v4rho2lapltau[0] + mgga_v4rho2lapl2[0];
-v4rho2lapltau[0] = 0;
-v4rho2tau2[0] = 0;
 v4rhosigma3[0] = ked1_v4rhosigma3[0]*mgga_vtau[0] + 3*ked1_vsigma[0]*ked1_v3rhosigma2[0]*mgga_v2tau2[0] +
   3*ked1_vsigma[0]*ked1_vsigma[0]*ked1_v2rhosigma[0]*mgga_v3tau3[0] +
   ked1_vsigma[0]*ked1_vsigma[0]*ked1_vsigma[0]*ked1_vrho[0]*mgga_v4tau4[0] + 3*ked1_v3rhosigma2[0]*mgga_v2sigmatau[0] +
@@ -95,7 +91,6 @@ v4rhosigma2lapl[0] = ked1_v4rhosigma2lapl[0]*mgga_vtau[0] + 2*ked1_v2sigmalapl[0
   mgga_v3rholapltau[0]) + ked1_vsigma[0]*ked1_vsigma[0]*mgga_v4rholapltau2[0] +
   2*ked1_v2sigmalapl[0]*mgga_v3rhosigmatau[0] + 2*ked1_vlapl[0]*ked1_vsigma[0]*mgga_v4rhosigmatau2[0] +
   2*ked1_vsigma[0]*mgga_v4rhosigmalapltau[0] + ked1_vlapl[0]*mgga_v4rhosigma2tau[0] + mgga_v4rhosigma2lapl[0];
-v4rhosigma2tau[0] = 0;
 v4rhosigmalapl2[0] = ked1_v4rhosigmalapl2[0]*mgga_vtau[0] + 2*ked1_v3rhosigmalapl[0]*(ked1_vlapl[0]*mgga_v2tau2[0] +
   mgga_v2lapltau[0]) + ked1_v2rhosigma[0]*(ked1_v2lapl2[0]*mgga_v2tau2[0] + ked1_vlapl[0]*ked1_vlapl[0]*mgga_v3tau3[0]
   + 2*ked1_vlapl[0]*mgga_v3lapltau2[0] + mgga_v3lapl2tau[0]) + ked1_v3rholapl2[0]*(ked1_vsigma[0]*mgga_v2tau2[0] +
@@ -111,8 +106,6 @@ v4rhosigmalapl2[0] = ked1_v4rhosigmalapl2[0]*mgga_vtau[0] + 2*ked1_v3rhosigmalap
   2*ked1_vlapl[0]*mgga_v4rholapltau2[0] + mgga_v4rholapl2tau[0]) + ked1_v2lapl2[0]*mgga_v3rhosigmatau[0] +
   ked1_vlapl[0]*mgga_v4rhosigmalapltau[0] + ked1_vlapl[0]*(ked1_vlapl[0]*mgga_v4rhosigmatau2[0] +
   mgga_v4rhosigmalapltau[0]) + mgga_v4rhosigmalapl2[0];
-v4rhosigmalapltau[0] = 0;
-v4rhosigmatau2[0] = 0;
 v4rholapl3[0] = ked1_v4rholapl3[0]*mgga_vtau[0] + 3*ked1_vlapl[0]*ked1_v3rholapl2[0]*mgga_v2tau2[0] +
   3*ked1_vlapl[0]*ked1_vlapl[0]*ked1_v2rholapl[0]*mgga_v3tau3[0] +
   ked1_vlapl[0]*ked1_vlapl[0]*ked1_vlapl[0]*ked1_vrho[0]*mgga_v4tau4[0] + 3*ked1_v3rholapl2[0]*mgga_v2lapltau[0] +
@@ -123,9 +116,6 @@ v4rholapl3[0] = ked1_v4rholapl3[0]*mgga_vtau[0] + 3*ked1_vlapl[0]*ked1_v3rholapl
   ked1_vrho[0]*mgga_v3lapltau2[0] + ked1_vlapl[0]*(ked1_vrho[0]*mgga_v3tau3[0] + mgga_v3rhotau2[0]) +
   mgga_v3rholapltau[0]) + 3*ked1_vlapl[0]*ked1_vlapl[0]*mgga_v4rholapltau2[0] + 3*ked1_vlapl[0]*mgga_v4rholapl2tau[0] +
   mgga_v4rholapl3[0];
-v4rholapl2tau[0] = 0;
-v4rholapltau2[0] = 0;
-v4rhotau3[0] = 0;
 v4sigma4[0] = ked1_v4sigma4[0]*mgga_vtau[0] + 3*ked1_v2sigma2[0]*ked1_v2sigma2[0]*mgga_v2tau2[0] +
   ked1_vsigma[0]*ked1_vsigma[0]*ked1_vsigma[0]*ked1_vsigma[0]*mgga_v4tau4[0] + 4*ked1_v3sigma3[0]*mgga_v2sigmatau[0] +
   4*ked1_vsigma[0]*ked1_vsigma[0]*ked1_vsigma[0]*mgga_v4sigmatau3[0] +
@@ -141,7 +131,6 @@ v4sigma3lapl[0] = ked1_v4sigma3lapl[0]*mgga_vtau[0] + ked1_vlapl[0]*ked1_v3sigma
   2*ked1_vsigma[0]*mgga_v3sigmatau2[0] + mgga_v3sigma2tau[0]) + 3*ked1_vsigma[0]*(ked1_v3sigma2lapl[0]*mgga_v2tau2[0] +
   ked1_v2sigma2[0]*mgga_v3lapltau2[0] + ked1_vlapl[0]*(ked1_v2sigma2[0]*mgga_v3tau3[0] + mgga_v4sigma2tau2[0]) +
   mgga_v4sigma2lapltau[0]) + ked1_vlapl[0]*mgga_v4sigma3tau[0] + mgga_v4sigma3lapl[0];
-v4sigma3tau[0] = 0;
 v4sigma2lapl2[0] = ked1_v4sigma2lapl2[0]*mgga_vtau[0] + 2*ked1_v2sigmalapl[0]*ked1_v2sigmalapl[0]*mgga_v2tau2[0] +
   ked1_v2lapl2[0]*ked1_v2sigma2[0]*mgga_v2tau2[0] + 2*ked1_vlapl[0]*ked1_v3sigma2lapl[0]*mgga_v2tau2[0] +
   ked1_vlapl[0]*ked1_vlapl[0]*ked1_v2sigma2[0]*mgga_v3tau3[0] + 2*ked1_v3sigma2lapl[0]*mgga_v2lapltau[0] +
@@ -153,8 +142,6 @@ v4sigma2lapl2[0] = ked1_v4sigma2lapl2[0]*mgga_vtau[0] + 2*ked1_v2sigmalapl[0]*ke
   ked1_v2lapl2[0]*mgga_v3sigmatau2[0] + ked1_vlapl[0]*ked1_vlapl[0]*mgga_v4sigmatau3[0] +
   2*ked1_vlapl[0]*mgga_v4sigmalapltau2[0] + mgga_v4sigmalapl2tau[0]) + ked1_v2lapl2[0]*mgga_v3sigma2tau[0] +
   ked1_vlapl[0]*ked1_vlapl[0]*mgga_v4sigma2tau2[0] + 2*ked1_vlapl[0]*mgga_v4sigma2lapltau[0] + mgga_v4sigma2lapl2[0];
-v4sigma2lapltau[0] = 0;
-v4sigma2tau2[0] = 0;
 v4sigmalapl3[0] = ked1_v4sigmalapl3[0]*mgga_vtau[0] + 3*ked1_vlapl[0]*ked1_v3sigmalapl2[0]*mgga_v2tau2[0] +
   3*ked1_vlapl[0]*ked1_vlapl[0]*ked1_v2sigmalapl[0]*mgga_v3tau3[0] +
   ked1_vlapl[0]*ked1_vlapl[0]*ked1_vlapl[0]*ked1_vsigma[0]*mgga_v4tau4[0] + 3*ked1_v3sigmalapl2[0]*mgga_v2lapltau[0] +
@@ -166,19 +153,12 @@ v4sigmalapl3[0] = ked1_v4sigmalapl3[0]*mgga_vtau[0] + 3*ked1_vlapl[0]*ked1_v3sig
   + ked1_vsigma[0]*mgga_v3lapltau2[0] + ked1_vlapl[0]*(ked1_vsigma[0]*mgga_v3tau3[0] + mgga_v3sigmatau2[0]) +
   mgga_v3sigmalapltau[0]) + 3*ked1_vlapl[0]*ked1_vlapl[0]*mgga_v4sigmalapltau2[0] +
   3*ked1_vlapl[0]*mgga_v4sigmalapl2tau[0] + mgga_v4sigmalapl3[0];
-v4sigmalapl2tau[0] = 0;
-v4sigmalapltau2[0] = 0;
-v4sigmatau3[0] = 0;
 v4lapl4[0] = ked1_v4lapl4[0]*mgga_vtau[0] + 3*ked1_v2lapl2[0]*ked1_v2lapl2[0]*mgga_v2tau2[0] +
   ked1_vlapl[0]*ked1_vlapl[0]*ked1_vlapl[0]*ked1_vlapl[0]*mgga_v4tau4[0] + 4*ked1_v3lapl3[0]*mgga_v2lapltau[0] +
   4*ked1_vlapl[0]*ked1_vlapl[0]*ked1_vlapl[0]*mgga_v4lapltau3[0] +
   6*ked1_v2lapl2[0]*(ked1_vlapl[0]*ked1_vlapl[0]*mgga_v3tau3[0] + 2*ked1_vlapl[0]*mgga_v3lapltau2[0] +
   mgga_v3lapl2tau[0]) + 6*ked1_vlapl[0]*ked1_vlapl[0]*mgga_v4lapl2tau2[0] +
   4*ked1_vlapl[0]*(ked1_v3lapl3[0]*mgga_v2tau2[0] + mgga_v4lapl3tau[0]) + mgga_v4lapl4[0];
-v4lapl3tau[0] = 0;
-v4lapl2tau2[0] = 0;
-v4lapltau3[0] = 0;
-v4tau4[0] = 0;
 
 if(func->nspin == XC_POLARIZED){
   v4rho4[1] = ked1_v3rho3[0]*mgga_v2rhotau[2] + ked1_vrho[0]*ked1_vrho[0]*ked1_vrho[0]*mgga_v4rhotau3[4] +
@@ -331,13 +311,6 @@ if(func->nspin == XC_POLARIZED){
     3*ked2_vrho[0]*(ked2_v3rho2lapl[0]*mgga_v2tau2[2] + ked2_v2rho2[0]*mgga_v3lapltau2[5] +
     ked2_vlapl[0]*(ked2_v2rho2[0]*mgga_v3tau3[3] + mgga_v4rho2tau2[8]) + mgga_v4rho2lapltau[11]) +
     ked2_vlapl[0]*mgga_v4rho3tau[7] + mgga_v4rho3lapl[7];
-  v4rho3tau[1] = 0;
-  v4rho3tau[2] = 0;
-  v4rho3tau[3] = 0;
-  v4rho3tau[4] = 0;
-  v4rho3tau[5] = 0;
-  v4rho3tau[6] = 0;
-  v4rho3tau[7] = 0;
   v4rho2sigma2[1] = ked1_v3rho2sigma[0]*mgga_v2sigmatau[2] + ked1_v2rho2[0]*(ked1_vsigma[0]*mgga_v3sigmatau2[3] +
     mgga_v3sigma2tau[2]) + ked1_vrho[0]*ked1_vrho[0]*(ked1_vsigma[0]*mgga_v4sigmatau3[4] + mgga_v4sigma2tau2[3]) +
     2*ked1_v2rhosigma[0]*mgga_v3rhosigmatau[2] + 2*ked1_vrho[0]*(ked1_v2rhosigma[0]*mgga_v3sigmatau2[3] +
@@ -587,23 +560,6 @@ if(func->nspin == XC_POLARIZED){
     ked2_vsigma[0]*mgga_v4rhotau3[7] + mgga_v4rhosigmatau2[17]) + mgga_v4rhosigmalapltau[23]) +
     ked2_v2sigmalapl[0]*mgga_v3rho2tau[5] + ked2_vlapl[0]*ked2_vsigma[0]*mgga_v4rho2tau2[8] +
     ked2_vsigma[0]*mgga_v4rho2lapltau[11] + ked2_vlapl[0]*mgga_v4rho2sigmatau[17] + mgga_v4rho2sigmalapl[17];
-  v4rho2sigmatau[1] = 0;
-  v4rho2sigmatau[2] = 0;
-  v4rho2sigmatau[3] = 0;
-  v4rho2sigmatau[4] = 0;
-  v4rho2sigmatau[5] = 0;
-  v4rho2sigmatau[6] = 0;
-  v4rho2sigmatau[7] = 0;
-  v4rho2sigmatau[8] = 0;
-  v4rho2sigmatau[9] = 0;
-  v4rho2sigmatau[10] = 0;
-  v4rho2sigmatau[11] = 0;
-  v4rho2sigmatau[12] = 0;
-  v4rho2sigmatau[13] = 0;
-  v4rho2sigmatau[14] = 0;
-  v4rho2sigmatau[15] = 0;
-  v4rho2sigmatau[16] = 0;
-  v4rho2sigmatau[17] = 0;
   v4rho2lapl2[1] = ked1_v3rho2lapl[0]*mgga_v2lapltau[2] + ked1_v2rho2[0]*(ked1_vlapl[0]*mgga_v3lapltau2[3] +
     mgga_v3lapl2tau[2]) + ked1_vrho[0]*ked1_vrho[0]*(ked1_vlapl[0]*mgga_v4lapltau3[4] + mgga_v4lapl2tau2[3]) +
     2*ked1_v2rholapl[0]*mgga_v3rholapltau[2] + 2*ked1_vrho[0]*(ked1_v2rholapl[0]*mgga_v3lapltau2[3] +
@@ -674,25 +630,6 @@ if(func->nspin == XC_POLARIZED){
     ked2_v2lapl2[0]*mgga_v3rhotau2[5] + ked2_vlapl[0]*ked2_vlapl[0]*mgga_v4rhotau3[7] +
     2*ked2_vlapl[0]*mgga_v4rholapltau2[11] + mgga_v4rholapl2tau[11]) + ked2_v2lapl2[0]*mgga_v3rho2tau[5] +
     ked2_vlapl[0]*ked2_vlapl[0]*mgga_v4rho2tau2[8] + 2*ked2_vlapl[0]*mgga_v4rho2lapltau[11] + mgga_v4rho2lapl2[8];
-  v4rho2lapltau[1] = 0;
-  v4rho2lapltau[2] = 0;
-  v4rho2lapltau[3] = 0;
-  v4rho2lapltau[4] = 0;
-  v4rho2lapltau[5] = 0;
-  v4rho2lapltau[6] = 0;
-  v4rho2lapltau[7] = 0;
-  v4rho2lapltau[8] = 0;
-  v4rho2lapltau[9] = 0;
-  v4rho2lapltau[10] = 0;
-  v4rho2lapltau[11] = 0;
-  v4rho2tau2[1] = 0;
-  v4rho2tau2[2] = 0;
-  v4rho2tau2[3] = 0;
-  v4rho2tau2[4] = 0;
-  v4rho2tau2[5] = 0;
-  v4rho2tau2[6] = 0;
-  v4rho2tau2[7] = 0;
-  v4rho2tau2[8] = 0;
   v4rhosigma3[1] = ked1_v3rhosigma2[0]*mgga_v2sigmatau[2] + 2*ked1_v2rhosigma[0]*mgga_v3sigma2tau[2] +
     ked1_vrho[0]*mgga_v4sigma3tau[2] + ked1_v2sigma2[0]*(ked1_vrho[0]*mgga_v3sigmatau2[3] + mgga_v3rhosigmatau[2]) +
     ked1_vsigma[0]*ked1_vsigma[0]*(ked1_vrho[0]*mgga_v4sigmatau3[4] + mgga_v4rhosigmatau2[3]) +
@@ -954,29 +891,6 @@ if(func->nspin == XC_POLARIZED){
     mgga_v3rholapltau[7]) + ked2_vsigma[0]*ked2_vsigma[0]*mgga_v4rholapltau2[11] +
     2*ked2_v2sigmalapl[0]*mgga_v3rhosigmatau[11] + 2*ked2_vlapl[0]*ked2_vsigma[0]*mgga_v4rhosigmatau2[17] +
     2*ked2_vsigma[0]*mgga_v4rhosigmalapltau[23] + ked2_vlapl[0]*mgga_v4rhosigma2tau[23] + mgga_v4rhosigma2lapl[23];
-  v4rhosigma2tau[1] = 0;
-  v4rhosigma2tau[2] = 0;
-  v4rhosigma2tau[3] = 0;
-  v4rhosigma2tau[4] = 0;
-  v4rhosigma2tau[5] = 0;
-  v4rhosigma2tau[6] = 0;
-  v4rhosigma2tau[7] = 0;
-  v4rhosigma2tau[8] = 0;
-  v4rhosigma2tau[9] = 0;
-  v4rhosigma2tau[10] = 0;
-  v4rhosigma2tau[11] = 0;
-  v4rhosigma2tau[12] = 0;
-  v4rhosigma2tau[13] = 0;
-  v4rhosigma2tau[14] = 0;
-  v4rhosigma2tau[15] = 0;
-  v4rhosigma2tau[16] = 0;
-  v4rhosigma2tau[17] = 0;
-  v4rhosigma2tau[18] = 0;
-  v4rhosigma2tau[19] = 0;
-  v4rhosigma2tau[20] = 0;
-  v4rhosigma2tau[21] = 0;
-  v4rhosigma2tau[22] = 0;
-  v4rhosigma2tau[23] = 0;
   v4rhosigmalapl2[1] = ked1_v3rhosigmalapl[0]*(ked2_vlapl[0]*mgga_v2tau2[1] + mgga_v2lapltau[2]) +
     ked1_v2rhosigma[0]*(ked1_vlapl[0]*(ked2_vlapl[0]*mgga_v3tau3[1] + mgga_v3lapltau2[3]) +
     ked2_vlapl[0]*mgga_v3lapltau2[1] + mgga_v3lapl2tau[2]) + ked1_v2rholapl[0]*(ked1_vsigma[0]*mgga_v3lapltau2[3] +
@@ -1118,46 +1032,6 @@ if(func->nspin == XC_POLARIZED){
     2*ked2_vlapl[0]*mgga_v4rholapltau2[11] + mgga_v4rholapl2tau[11]) + ked2_v2lapl2[0]*mgga_v3rhosigmatau[11] +
     ked2_vlapl[0]*mgga_v4rhosigmalapltau[23] + ked2_vlapl[0]*(ked2_vlapl[0]*mgga_v4rhosigmatau2[17] +
     mgga_v4rhosigmalapltau[23]) + mgga_v4rhosigmalapl2[17];
-  v4rhosigmalapltau[1] = 0;
-  v4rhosigmalapltau[2] = 0;
-  v4rhosigmalapltau[3] = 0;
-  v4rhosigmalapltau[4] = 0;
-  v4rhosigmalapltau[5] = 0;
-  v4rhosigmalapltau[6] = 0;
-  v4rhosigmalapltau[7] = 0;
-  v4rhosigmalapltau[8] = 0;
-  v4rhosigmalapltau[9] = 0;
-  v4rhosigmalapltau[10] = 0;
-  v4rhosigmalapltau[11] = 0;
-  v4rhosigmalapltau[12] = 0;
-  v4rhosigmalapltau[13] = 0;
-  v4rhosigmalapltau[14] = 0;
-  v4rhosigmalapltau[15] = 0;
-  v4rhosigmalapltau[16] = 0;
-  v4rhosigmalapltau[17] = 0;
-  v4rhosigmalapltau[18] = 0;
-  v4rhosigmalapltau[19] = 0;
-  v4rhosigmalapltau[20] = 0;
-  v4rhosigmalapltau[21] = 0;
-  v4rhosigmalapltau[22] = 0;
-  v4rhosigmalapltau[23] = 0;
-  v4rhosigmatau2[1] = 0;
-  v4rhosigmatau2[2] = 0;
-  v4rhosigmatau2[3] = 0;
-  v4rhosigmatau2[4] = 0;
-  v4rhosigmatau2[5] = 0;
-  v4rhosigmatau2[6] = 0;
-  v4rhosigmatau2[7] = 0;
-  v4rhosigmatau2[8] = 0;
-  v4rhosigmatau2[9] = 0;
-  v4rhosigmatau2[10] = 0;
-  v4rhosigmatau2[11] = 0;
-  v4rhosigmatau2[12] = 0;
-  v4rhosigmatau2[13] = 0;
-  v4rhosigmatau2[14] = 0;
-  v4rhosigmatau2[15] = 0;
-  v4rhosigmatau2[16] = 0;
-  v4rhosigmatau2[17] = 0;
   v4rholapl3[1] = ked1_v3rholapl2[0]*mgga_v2lapltau[2] + 2*ked1_vlapl[0]*ked1_v2rholapl[0]*mgga_v3lapltau2[3] +
     ked1_vlapl[0]*ked1_vlapl[0]*ked1_vrho[0]*mgga_v4lapltau3[4] + 2*ked1_v2rholapl[0]*mgga_v3lapl2tau[2] +
     2*ked1_vlapl[0]*ked1_vrho[0]*mgga_v4lapl2tau2[3] + ked1_vrho[0]*mgga_v4lapl3tau[2] +
@@ -1216,35 +1090,6 @@ if(func->nspin == XC_POLARIZED){
     ked2_vrho[0]*mgga_v3lapltau2[5] + ked2_vlapl[0]*(ked2_vrho[0]*mgga_v3tau3[3] + mgga_v3rhotau2[5]) +
     mgga_v3rholapltau[7]) + 3*ked2_vlapl[0]*ked2_vlapl[0]*mgga_v4rholapltau2[11] +
     3*ked2_vlapl[0]*mgga_v4rholapl2tau[11] + mgga_v4rholapl3[7];
-  v4rholapl2tau[1] = 0;
-  v4rholapl2tau[2] = 0;
-  v4rholapl2tau[3] = 0;
-  v4rholapl2tau[4] = 0;
-  v4rholapl2tau[5] = 0;
-  v4rholapl2tau[6] = 0;
-  v4rholapl2tau[7] = 0;
-  v4rholapl2tau[8] = 0;
-  v4rholapl2tau[9] = 0;
-  v4rholapl2tau[10] = 0;
-  v4rholapl2tau[11] = 0;
-  v4rholapltau2[1] = 0;
-  v4rholapltau2[2] = 0;
-  v4rholapltau2[3] = 0;
-  v4rholapltau2[4] = 0;
-  v4rholapltau2[5] = 0;
-  v4rholapltau2[6] = 0;
-  v4rholapltau2[7] = 0;
-  v4rholapltau2[8] = 0;
-  v4rholapltau2[9] = 0;
-  v4rholapltau2[10] = 0;
-  v4rholapltau2[11] = 0;
-  v4rhotau3[1] = 0;
-  v4rhotau3[2] = 0;
-  v4rhotau3[3] = 0;
-  v4rhotau3[4] = 0;
-  v4rhotau3[5] = 0;
-  v4rhotau3[6] = 0;
-  v4rhotau3[7] = 0;
   v4sigma4[1] = ked1_v3sigma3[0]*mgga_v2sigmatau[2] + ked1_vsigma[0]*ked1_vsigma[0]*ked1_vsigma[0]*mgga_v4sigmatau3[4]
     + 3*ked1_v2sigma2[0]*mgga_v3sigma2tau[2] + 3*ked1_vsigma[0]*ked1_vsigma[0]*mgga_v4sigma2tau2[3] +
     3*ked1_vsigma[0]*(ked1_v2sigma2[0]*mgga_v3sigmatau2[3] + mgga_v4sigma3tau[2]) + mgga_v4sigma4[1];
@@ -1396,25 +1241,6 @@ if(func->nspin == XC_POLARIZED){
     3*ked2_vsigma[0]*(ked2_v3sigma2lapl[0]*mgga_v2tau2[2] + ked2_v2sigma2[0]*mgga_v3lapltau2[5] +
     ked2_vlapl[0]*(ked2_v2sigma2[0]*mgga_v3tau3[3] + mgga_v4sigma2tau2[17]) + mgga_v4sigma2lapltau[23]) +
     ked2_vlapl[0]*mgga_v4sigma3tau[19] + mgga_v4sigma3lapl[19];
-  v4sigma3tau[1] = 0;
-  v4sigma3tau[2] = 0;
-  v4sigma3tau[3] = 0;
-  v4sigma3tau[4] = 0;
-  v4sigma3tau[5] = 0;
-  v4sigma3tau[6] = 0;
-  v4sigma3tau[7] = 0;
-  v4sigma3tau[8] = 0;
-  v4sigma3tau[9] = 0;
-  v4sigma3tau[10] = 0;
-  v4sigma3tau[11] = 0;
-  v4sigma3tau[12] = 0;
-  v4sigma3tau[13] = 0;
-  v4sigma3tau[14] = 0;
-  v4sigma3tau[15] = 0;
-  v4sigma3tau[16] = 0;
-  v4sigma3tau[17] = 0;
-  v4sigma3tau[18] = 0;
-  v4sigma3tau[19] = 0;
   v4sigma2lapl2[1] = ked1_v3sigma2lapl[0]*mgga_v2lapltau[2] + ked1_v2sigma2[0]*(ked1_vlapl[0]*mgga_v3lapltau2[3] +
     mgga_v3lapl2tau[2]) + ked1_vsigma[0]*ked1_vsigma[0]*(ked1_vlapl[0]*mgga_v4lapltau3[4] + mgga_v4lapl2tau2[3]) +
     2*ked1_v2sigmalapl[0]*mgga_v3sigmalapltau[2] + 2*ked1_vsigma[0]*(ked1_v2sigmalapl[0]*mgga_v3lapltau2[3] +
@@ -1521,46 +1347,6 @@ if(func->nspin == XC_POLARIZED){
     2*ked2_vlapl[0]*mgga_v4sigmalapltau2[17] + mgga_v4sigmalapl2tau[17]) + ked2_v2lapl2[0]*mgga_v3sigma2tau[11] +
     ked2_vlapl[0]*ked2_vlapl[0]*mgga_v4sigma2tau2[17] + 2*ked2_vlapl[0]*mgga_v4sigma2lapltau[23] +
     mgga_v4sigma2lapl2[17];
-  v4sigma2lapltau[1] = 0;
-  v4sigma2lapltau[2] = 0;
-  v4sigma2lapltau[3] = 0;
-  v4sigma2lapltau[4] = 0;
-  v4sigma2lapltau[5] = 0;
-  v4sigma2lapltau[6] = 0;
-  v4sigma2lapltau[7] = 0;
-  v4sigma2lapltau[8] = 0;
-  v4sigma2lapltau[9] = 0;
-  v4sigma2lapltau[10] = 0;
-  v4sigma2lapltau[11] = 0;
-  v4sigma2lapltau[12] = 0;
-  v4sigma2lapltau[13] = 0;
-  v4sigma2lapltau[14] = 0;
-  v4sigma2lapltau[15] = 0;
-  v4sigma2lapltau[16] = 0;
-  v4sigma2lapltau[17] = 0;
-  v4sigma2lapltau[18] = 0;
-  v4sigma2lapltau[19] = 0;
-  v4sigma2lapltau[20] = 0;
-  v4sigma2lapltau[21] = 0;
-  v4sigma2lapltau[22] = 0;
-  v4sigma2lapltau[23] = 0;
-  v4sigma2tau2[1] = 0;
-  v4sigma2tau2[2] = 0;
-  v4sigma2tau2[3] = 0;
-  v4sigma2tau2[4] = 0;
-  v4sigma2tau2[5] = 0;
-  v4sigma2tau2[6] = 0;
-  v4sigma2tau2[7] = 0;
-  v4sigma2tau2[8] = 0;
-  v4sigma2tau2[9] = 0;
-  v4sigma2tau2[10] = 0;
-  v4sigma2tau2[11] = 0;
-  v4sigma2tau2[12] = 0;
-  v4sigma2tau2[13] = 0;
-  v4sigma2tau2[14] = 0;
-  v4sigma2tau2[15] = 0;
-  v4sigma2tau2[16] = 0;
-  v4sigma2tau2[17] = 0;
   v4sigmalapl3[1] = ked1_v3sigmalapl2[0]*mgga_v2lapltau[2] + 2*ked1_vlapl[0]*ked1_v2sigmalapl[0]*mgga_v3lapltau2[3] +
     ked1_vlapl[0]*ked1_vlapl[0]*ked1_vsigma[0]*mgga_v4lapltau3[4] + 2*ked1_v2sigmalapl[0]*mgga_v3lapl2tau[2] +
     2*ked1_vlapl[0]*ked1_vsigma[0]*mgga_v4lapl2tau2[3] + ked1_vsigma[0]*mgga_v4lapl3tau[2] +
@@ -1636,51 +1422,6 @@ if(func->nspin == XC_POLARIZED){
     ked2_vlapl[0]*(ked2_vsigma[0]*mgga_v3tau3[3] + mgga_v3sigmatau2[8]) + mgga_v3sigmalapltau[11]) +
     3*ked2_vlapl[0]*ked2_vlapl[0]*mgga_v4sigmalapltau2[17] + 3*ked2_vlapl[0]*mgga_v4sigmalapl2tau[17] +
     mgga_v4sigmalapl3[11];
-  v4sigmalapl2tau[1] = 0;
-  v4sigmalapl2tau[2] = 0;
-  v4sigmalapl2tau[3] = 0;
-  v4sigmalapl2tau[4] = 0;
-  v4sigmalapl2tau[5] = 0;
-  v4sigmalapl2tau[6] = 0;
-  v4sigmalapl2tau[7] = 0;
-  v4sigmalapl2tau[8] = 0;
-  v4sigmalapl2tau[9] = 0;
-  v4sigmalapl2tau[10] = 0;
-  v4sigmalapl2tau[11] = 0;
-  v4sigmalapl2tau[12] = 0;
-  v4sigmalapl2tau[13] = 0;
-  v4sigmalapl2tau[14] = 0;
-  v4sigmalapl2tau[15] = 0;
-  v4sigmalapl2tau[16] = 0;
-  v4sigmalapl2tau[17] = 0;
-  v4sigmalapltau2[1] = 0;
-  v4sigmalapltau2[2] = 0;
-  v4sigmalapltau2[3] = 0;
-  v4sigmalapltau2[4] = 0;
-  v4sigmalapltau2[5] = 0;
-  v4sigmalapltau2[6] = 0;
-  v4sigmalapltau2[7] = 0;
-  v4sigmalapltau2[8] = 0;
-  v4sigmalapltau2[9] = 0;
-  v4sigmalapltau2[10] = 0;
-  v4sigmalapltau2[11] = 0;
-  v4sigmalapltau2[12] = 0;
-  v4sigmalapltau2[13] = 0;
-  v4sigmalapltau2[14] = 0;
-  v4sigmalapltau2[15] = 0;
-  v4sigmalapltau2[16] = 0;
-  v4sigmalapltau2[17] = 0;
-  v4sigmatau3[1] = 0;
-  v4sigmatau3[2] = 0;
-  v4sigmatau3[3] = 0;
-  v4sigmatau3[4] = 0;
-  v4sigmatau3[5] = 0;
-  v4sigmatau3[6] = 0;
-  v4sigmatau3[7] = 0;
-  v4sigmatau3[8] = 0;
-  v4sigmatau3[9] = 0;
-  v4sigmatau3[10] = 0;
-  v4sigmatau3[11] = 0;
   v4lapl4[1] = ked1_v3lapl3[0]*mgga_v2lapltau[2] + ked1_vlapl[0]*ked1_vlapl[0]*ked1_vlapl[0]*mgga_v4lapltau3[4] +
     3*ked1_v2lapl2[0]*mgga_v3lapl2tau[2] + 3*ked1_vlapl[0]*ked1_vlapl[0]*mgga_v4lapl2tau2[3] +
     3*ked1_vlapl[0]*(ked1_v2lapl2[0]*mgga_v3lapltau2[3] + mgga_v4lapl3tau[2]) +
@@ -1706,30 +1447,4 @@ if(func->nspin == XC_POLARIZED){
     6*ked2_v2lapl2[0]*(ked2_vlapl[0]*ked2_vlapl[0]*mgga_v3tau3[3] + 2*ked2_vlapl[0]*mgga_v3lapltau2[5] +
     mgga_v3lapl2tau[5]) + 6*ked2_vlapl[0]*ked2_vlapl[0]*mgga_v4lapl2tau2[8] +
     4*ked2_vlapl[0]*(ked2_v3lapl3[0]*mgga_v2tau2[2] + mgga_v4lapl3tau[7]) + mgga_v4lapl4[4];
-  v4lapl3tau[1] = 0;
-  v4lapl3tau[2] = 0;
-  v4lapl3tau[3] = 0;
-  v4lapl3tau[4] = 0;
-  v4lapl3tau[5] = 0;
-  v4lapl3tau[6] = 0;
-  v4lapl3tau[7] = 0;
-  v4lapl2tau2[1] = 0;
-  v4lapl2tau2[2] = 0;
-  v4lapl2tau2[3] = 0;
-  v4lapl2tau2[4] = 0;
-  v4lapl2tau2[5] = 0;
-  v4lapl2tau2[6] = 0;
-  v4lapl2tau2[7] = 0;
-  v4lapl2tau2[8] = 0;
-  v4lapltau3[1] = 0;
-  v4lapltau3[2] = 0;
-  v4lapltau3[3] = 0;
-  v4lapltau3[4] = 0;
-  v4lapltau3[5] = 0;
-  v4lapltau3[6] = 0;
-  v4lapltau3[7] = 0;
-  v4tau4[1] = 0;
-  v4tau4[2] = 0;
-  v4tau4[3] = 0;
-  v4tau4[4] = 0;
 }

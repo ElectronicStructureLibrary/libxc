@@ -91,21 +91,21 @@ work_mgga(const XC(func_type) *p, size_t np,
       my_rho[0] = m_max(p->dens_threshold, rho[0]);
       /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
       /* skip all checks on tau for the kinetic functionals */
-      if(p->info->family != XC_KINETIC)
+      if(p->info->flags & XC_FLAGS_NEEDS_TAU)
         my_tau[0] = m_max(p->tau_threshold, tau[0]);
       my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[0]);
       /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
-      if(p->info->family != XC_KINETIC)
+      if(p->info->flags & XC_FLAGS_NEEDS_TAU)
         my_sigma[0] = m_min(my_sigma[0], 8.0*my_rho[0]*my_tau[0]);
       /* lapl can have any values */
       if(p->nspin == XC_POLARIZED){
         double s_ave;
 
         my_rho[1] = m_max(p->dens_threshold, rho[1]);
-        if(p->info->family != XC_KINETIC)
+        if(p->info->flags & XC_FLAGS_NEEDS_TAU)
           my_tau[1] = m_max(p->tau_threshold, tau[1]);
         my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[2]);
-        if(p->info->family != XC_KINETIC)
+        if(p->info->flags & XC_FLAGS_NEEDS_TAU)
           my_sigma[2] = m_min(my_sigma[2], 8.0*my_rho[1]*my_tau[1]);
 
         my_sigma[1] = sigma[1];
@@ -140,25 +140,32 @@ work_mgga(const XC(func_type) *p, size_t np,
         if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
           for(ii=0; ii < dim->vlapl; ii++)
             is_OK = is_OK && isfinite(vlapl[ii]);
-        for(ii=0; ii < dim->vtau; ii++)
-          is_OK = is_OK && isfinite(vtau[ii]);
+        if(p->info->flags & XC_FLAGS_NEEDS_TAU)
+          for(ii=0; ii < dim->vtau; ii++)
+            is_OK = is_OK && isfinite(vtau[ii]);
       }
 
       if(!is_OK){
         printf("Problem in the evaluation of the functional\n");
         if(p->nspin == XC_UNPOLARIZED){
           printf("./xc-get_data %d 1 ", p->info->number);
-          if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+          if(p->info->flags & (XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU))
             printf("%le 0.0 %le 0.0 0.0 %le 0.0 %le 0.0\n",
                    *rho, *sigma, *lapl, *tau);
+          else if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+            printf("%le 0.0 %le 0.0 0.0 %le 0.0 0.0 0.0\n",
+                  *rho, *sigma, *lapl);
           else
             printf("%le 0.0 %le 0.0 0.0 0.0 0.0 %le 0.0\n",
                   *rho, *sigma, *tau);
         }else{
           printf("./xc-get_data %d 2 ", p->info->number);
-          if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+          if(p->info->flags & (XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU))
             printf("%le %le %le %le %le %le %le %le %le\n",
                    rho[0], rho[1], sigma[0], sigma[1], sigma[2], lapl[0], lapl[1], tau[0], tau[1]);
+          else if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+            printf("%le %le %le %le %le %le %le 0.0 0.0\n",
+                   rho[0], rho[1], sigma[0], sigma[1], sigma[2], lapl[0], lapl[1]);
           else
             printf("%le %le %le %le %le 0.0 0.0 %le %le\n",
                    rho[0], rho[1], sigma[0], sigma[1], sigma[2], tau[0], tau[1]);
@@ -199,21 +206,21 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
     /* sanity check of input parameters */
     my_rho[0] = m_max(p->dens_threshold, rho[0]);
     /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
-    if(p->info->family != XC_KINETIC)
+    if(p->info->flags & XC_FLAGS_NEEDS_TAU)
       my_tau[0] = m_max(p->tau_threshold, tau[0]);
     /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
     my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[0]);
-    if(p->info->family != XC_KINETIC)
+    if(p->info->flags & XC_FLAGS_NEEDS_TAU)
       my_sigma[0] = m_min(my_sigma[0], 8.0*my_rho[0]*my_tau[0]);
     /* lapl can have any values */
     if(p->nspin == XC_POLARIZED){
       double s_ave;
 
       my_rho[1]   = m_max(p->dens_threshold, rho[1]);
-      if(p->info->family != XC_KINETIC)
-        my_tau[1]   = m_max(p->tau_threshold, tau[1]);
+      if(p->info->flags & XC_FLAGS_NEEDS_TAU)
+        my_tau[1] = m_max(p->tau_threshold, tau[1]);
       my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[2]);
-      if(p->info->family != XC_KINETIC)
+      if(p->info->flags & XC_FLAGS_NEEDS_TAU)
         my_sigma[2] = m_min(my_sigma[2], 8.0*my_rho[1]*my_tau[1]);
 
       my_sigma[1] = sigma[1];

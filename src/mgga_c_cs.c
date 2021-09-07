@@ -34,7 +34,7 @@ const xc_func_info_type xc_func_info_mgga_c_cs = {
   "Colle and Salvetti",
   XC_FAMILY_MGGA,
   {&xc_ref_Colle1975_329, &xc_ref_Lee1988_785, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,

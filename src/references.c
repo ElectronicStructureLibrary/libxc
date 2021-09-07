@@ -183,8 +183,8 @@ func_reference_type xc_ref_Becke1993_5648 = {
 
 func_reference_type xc_ref_Becke1994_625 = {
   "A. D. Becke, Int. J. Quantum Chem. 52, 625 (1994)",
-  "https://doi.org/10.1002/qua.560520855",
-  "@article{Becke1994_625,\n  author = {Becke, Axel D.},\n  title = {Thermochemical tests of a kinetic-energy dependent exchange-correlation approximation},\n  journal = {Int. J. Quantum Chem.},\n  volume = {52},\n  number = {S28},\n  pages = {625-632},\n  doi = {https://doi.org/10.1002/qua.560520855},\n  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560520855},\n  year = {1994}\n}"
+  "10.1002/qua.560520855",
+  "@article{Becke1994_625,\n  author = {Becke, Axel D.},\n  title = {Thermochemical tests of a kinetic-energy dependent exchange-correlation approximation},\n  journal = {Int. J. Quantum Chem.},\n  volume = {52},\n  number = {S28},\n  pages = {625-632},\n  doi = {10.1002/qua.560520855},\n  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560520855},\n  year = {1994}\n}"
 };
 
 
@@ -329,9 +329,9 @@ func_reference_type xc_ref_Bremond2016_244102 = {
 
 
 func_reference_type xc_ref_Brown2021 = {
-  "K. Brown, Y. Maimaiti, K. Trepte, T. Bligaard, and J. Voss, J. Comput. Chem. n/a, https://doi.org/10.1002/jcc.26732",
-  "https://doi.org/10.1002/jcc.26732",
-  "@article{Brown2021,\n  author = {Brown, Kristopher and Maimaiti, Yasheng and Trepte, Kai and Bligaard, Thomas and Voss, Johannes},\n  title = {{MCML: Combining physical constraints with experimental data for a multi-purpose meta-generalized gradient approximation}},\n  journal = {J. Comput. Chem.},\n  volume = {n/a},\n  number = {n/a},\n  pages = {},\n  doi = {https://doi.org/10.1002/jcc.26732},\n  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.26732}\n}"
+  "K. Brown, Y. Maimaiti, K. Trepte, T. Bligaard, and J. Voss, J. Comput. Chem. n/a (2021), 10.1002/jcc.26732",
+  "10.1002/jcc.26732",
+  "@article{Brown2021,\n  author = {Brown, Kristopher and Maimaiti, Yasheng and Trepte, Kai and Bligaard, Thomas and Voss, Johannes},\n  title = {{MCML: Combining physical constraints with experimental data for a multi-purpose meta-generalized gradient approximation}},\n  journal = {J. Comput. Chem.},\n  volume = {n/a},\n  number = {n/a},\n  pages = {},\n  year = {2021},\n  doi = {10.1002/jcc.26732},\n  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.26732}\n}"
 };
 
 
@@ -1107,8 +1107,8 @@ func_reference_type xc_ref_Jana2017_4804 = {
 
 func_reference_type xc_ref_Jana2018_1 = {
   "S. Jana, B. Patra, H. Myneni, and P. Samal, Chem. Phys. Lett. 713, 1 (2018)",
-  "https://doi.org/10.1016/j.cplett.2018.10.007",
-  "@article{Jana2018_1,\n  title = \"On the many-electron self-interaction error of the semilocal exchange hole based meta-GGA level range-separated hybrid with the B88 hybrids\",\n  author = \"Subrata Jana and Bikash Patra and Hemanadhan Myneni and Prasanjit Samal\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"713\",\n  pages = \"1--9\",\n  year = \"2018\",\n  issn = \"0009-2614\",\n  doi = \"https://doi.org/10.1016/j.cplett.2018.10.007\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261418308194\",\n}"
+  "10.1016/j.cplett.2018.10.007",
+  "@article{Jana2018_1,\n  title = \"On the many-electron self-interaction error of the semilocal exchange hole based meta-GGA level range-separated hybrid with the B88 hybrids\",\n  author = \"Subrata Jana and Bikash Patra and Hemanadhan Myneni and Prasanjit Samal\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"713\",\n  pages = \"1--9\",\n  year = \"2018\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/j.cplett.2018.10.007\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261418308194\",\n}"
 };
 
 

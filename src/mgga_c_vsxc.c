@@ -46,7 +46,7 @@ const xc_func_info_type xc_func_info_mgga_c_vsxc = {
   "VSXC (correlation part)",
   XC_FAMILY_MGGA,
   {&xc_ref_VanVoorhis1998_400, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, par_vsxc, set_ext_params_cpy},
   mgga_c_vsxc_init, NULL,

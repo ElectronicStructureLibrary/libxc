@@ -188,6 +188,16 @@ void drop_laplacian(values_t *val)
   FREE_NULL(val->v2sigmalapl);
 }
 
+void drop_tau(values_t *val)
+{
+  FREE_NULL(val->tau);
+  FREE_NULL(val->vtau);
+  FREE_NULL(val->v2tau2);
+  FREE_NULL(val->v2rhotau);
+  FREE_NULL(val->v2lapltau);
+  FREE_NULL(val->v2sigmatau);
+}
+
 values_t read_data(const char *file, int nspin, int order) {
   /* Format string */
   static const char fmt[]="%lf %lf %lf %lf %lf %lf %lf %lf %lf";
@@ -334,7 +344,15 @@ int main(int argc, char *argv[])
   void (*plapl1)(FILE *out, double *x, size_t idx);
   void (*plapl2)(FILE *out, double *x, size_t idx);
   void (*plapl3)(FILE *out, double *x, size_t idx);
-  
+  /* Tau data print functions */
+  void (*ptau1)(FILE *out, double *x, size_t idx);
+  void (*ptau2)(FILE *out, double *x, size_t idx);
+  void (*ptau3)(FILE *out, double *x, size_t idx);
+  /* Tau data print functions */
+  void (*plapltau1)(FILE *out, double *x, size_t idx);
+  void (*plapltau2)(FILE *out, double *x, size_t idx);
+  void (*plapltau3)(FILE *out, double *x, size_t idx);
+
   if(argc != 6) {
     fprintf(stderr, "Usage:\n%s funct nspin order input output\n", argv[0]);
     exit(1);
@@ -372,10 +390,16 @@ int main(int argc, char *argv[])
   v3rho3 = (flags & XC_FLAGS_HAVE_KXC) ? d.v3rho3 : NULL;
   print1 = printe1;
   print2 = printe2;
-  print3 = printe3; 
+  print3 = printe3;
   plapl1 = printe1;
   plapl2 = printe2;
-  plapl3 = printe3; 
+  plapl3 = printe3;
+  ptau1 = printe1;
+  ptau2 = printe2;
+  ptau3 = printe3;
+  plapltau1 = printe1;
+  plapltau2 = printe2;
+  plapltau3 = printe3;
 
   /* If functional doesn't need laplacian, drop the values and print
      out zeros for the functional value */
@@ -384,8 +408,20 @@ int main(int argc, char *argv[])
     plapl1 = print01;
     plapl2 = print02;
     plapl3 = print03;
+    plapltau1 = print01;
+    plapltau2 = print02;
+    plapltau3 = print03;
   }
-  
+  if(!(flags & XC_FLAGS_NEEDS_TAU)) {
+    drop_tau(&d);
+    ptau1 = print01;
+    ptau2 = print02;
+    ptau3 = print03;
+    plapltau1 = print01;
+    plapltau2 = print02;
+    plapltau3 = print03;
+  }
+
   /* Evaluate xc functional */
   switch(family) {
   case XC_FAMILY_LDA:
@@ -404,9 +440,9 @@ int main(int argc, char *argv[])
             NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
             NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
             NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-            NULL, NULL, NULL, NULL, NULL            
+            NULL, NULL, NULL, NULL, NULL
             );
-            
+
     break;
 
   default:
@@ -510,7 +546,7 @@ int main(int argc, char *argv[])
             print3(out, d.vsigma, 3 * i);
           if (family & (XC_FAMILY_MGGA)) {
             plapl2(out, d.vlapl, 2 * i);
-            print2(out, d.vtau, 2 * i);
+            ptau2(out, d.vtau, 2 * i);
           }
         } else {
           print1(out, d.vrho, i);
@@ -518,7 +554,7 @@ int main(int argc, char *argv[])
             print1(out, d.vsigma, i);
           if (family & (XC_FAMILY_MGGA)) {
             plapl1(out, d.vlapl, i);
-            print1(out, d.vtau, i);
+            ptau1(out, d.vtau, i);
           }
         }
         break;
@@ -534,12 +570,12 @@ int main(int argc, char *argv[])
           }
           if(family & (XC_FAMILY_MGGA)) {
             plapl3(out, d.v2lapl2, 3*i);
-            print3(out, d.v2tau2, 3*i);
+            ptau3(out, d.v2tau2, 3*i);
             plapl3(out, d.v2rholapl, 3*i);
-            print3(out, d.v2rhotau, 3*i);
-            plapl3(out, d.v2lapltau, 3*i);
-            print3(out, d.v2sigmatau, 3*i);
-            print3(out, d.v2sigmatau, 3*i + 3);
+            ptau3(out, d.v2rhotau, 3*i);
+            plapltau3(out, d.v2lapltau, 3*i);
+            ptau3(out, d.v2sigmatau, 3*i);
+            ptau3(out, d.v2sigmatau, 3*i + 3);
             plapl3(out, d.v2sigmalapl, 3*i);
             plapl3(out, d.v2sigmalapl, 3*i + 3);
           }
@@ -551,10 +587,10 @@ int main(int argc, char *argv[])
           }
           if(family & (XC_FAMILY_MGGA)) {
             plapl1(out, d.v2lapl2, i);
-            print1(out, d.v2tau2, i);
+            ptau1(out, d.v2tau2, i);
             plapl1(out, d.v2rholapl, i);
-            print1(out, d.v2rhotau, i);
-            plapl1(out, d.v2lapltau, i);
+            ptau1(out, d.v2rhotau, i);
+            plapltau1(out, d.v2lapltau, i);
             print1(out, d.v2sigmatau, i);
             plapl1(out, d.v2sigmalapl, i);
           }

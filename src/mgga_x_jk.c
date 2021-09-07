@@ -44,7 +44,7 @@ const xc_func_info_type xc_func_info_mgga_x_jk = {
   "Jemmer-Knowles meta-GGA exchange",
   XC_FAMILY_MGGA,
   {&xc_ref_Jemmer1995_3571, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, jk_values, set_ext_params_cpy},
   mgga_x_jk_init, NULL,

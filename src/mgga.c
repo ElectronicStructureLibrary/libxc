@@ -59,78 +59,57 @@ xc_mgga(const xc_func_type *func, size_t np,
     assert(vsigma != NULL);
     libxc_memset(vsigma, 0, dim->vsigma*np*sizeof(double));
 
-    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) {
-      assert(vlapl != NULL);
+    if(vlapl != NULL) {
       libxc_memset(vlapl,  0, dim->vlapl *np*sizeof(double));
     }
-    if(func->info->flags & XC_FLAGS_NEEDS_TAU) {
-      assert(vtau   != NULL);
+    if(vtau != NULL) {
       libxc_memset(vtau,   0, dim->vtau  *np*sizeof(double));
     }
   }
 
   if(v2rho2 != NULL){
-    libxc_memset(v2rho2,     0, dim->v2rho2     *np*sizeof(double));
-
     assert(v2rhosigma != NULL);
     assert(v2sigma2   != NULL);
+    libxc_memset(v2rho2,     0, dim->v2rho2     *np*sizeof(double));
     libxc_memset(v2rhosigma, 0, dim->v2rhosigma *np*sizeof(double));
     libxc_memset(v2sigma2,   0, dim->v2sigma2   *np*sizeof(double));
 
-    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+    if(v2lapl2 != NULL){
       assert(v2rholapl   != NULL);
       assert(v2sigmalapl != NULL);
-      assert(v2lapl2     != NULL);
       libxc_memset(v2rholapl,   0, dim->v2rholapl  *np*sizeof(double));
       libxc_memset(v2sigmalapl, 0, dim->v2sigmalapl*np*sizeof(double));
       libxc_memset(v2lapl2,     0, dim->v2lapl2    *np*sizeof(double));
     }
-    if(func->info->flags & XC_FLAGS_NEEDS_TAU){
+    
+    if(v2tau2 != NULL){
       assert(v2rhotau   != NULL);
       assert(v2sigmatau != NULL);
-      assert(v2tau2     != NULL);
       libxc_memset(v2rhotau,   0, dim->v2rhotau   *np*sizeof(double));
       libxc_memset(v2sigmatau, 0, dim->v2sigmatau *np*sizeof(double));
       libxc_memset(v2tau2,     0, dim->v2tau2     *np*sizeof(double));
     }
-    if((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (func->info->flags & XC_FLAGS_NEEDS_TAU)) {
-      assert(v2lapltau   != NULL);
+    
+    if(v2lapltau != NULL) {
       libxc_memset(v2lapltau,   0, dim->v2lapltau  *np*sizeof(double));
     }
   }
 
   if(v3rho3 != NULL){
-    libxc_memset(v3rho3,        0, dim->v3rho3       *np*sizeof(double));
-
     assert(v3rho2sigma   != NULL);
     assert(v3rhosigma2   != NULL);
     assert(v3sigma3      != NULL);
+    libxc_memset(v3rho3,        0, dim->v3rho3       *np*sizeof(double));
     libxc_memset(v3rho2sigma,   0, dim->v3rho2sigma  *np*sizeof(double));
     libxc_memset(v3rhosigma2,   0, dim->v3rhosigma2  *np*sizeof(double));
     libxc_memset(v3sigma3,      0, dim->v3sigma3     *np*sizeof(double));
 
-    if(func->info->flags & XC_FLAGS_NEEDS_TAU){
-      assert(v3rho2tau     != NULL);
-      assert(v3rhosigmatau != NULL);
-      assert(v3rhotau2     != NULL);
-      assert(v3sigma2tau   != NULL);
-      assert(v3sigmatau2   != NULL);
-      assert(v3tau3        != NULL);
-      libxc_memset(v3rho2tau,     0, dim->v3rho2tau    *np*sizeof(double));
-      libxc_memset(v3rhosigmatau, 0, dim->v3rhosigmatau*np*sizeof(double));
-      libxc_memset(v3rhotau2,     0, dim->v3rhotau2    *np*sizeof(double));
-      libxc_memset(v3sigma2tau,   0, dim->v3sigma2tau  *np*sizeof(double));
-      libxc_memset(v3sigmatau2,   0, dim->v3sigmatau2  *np*sizeof(double));
-      libxc_memset(v3tau3,        0, dim->v3tau3       *np*sizeof(double));
-    }
-
-    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+    if(v3lapl3 != NULL){
       assert(v3rho2lapl     != NULL);
       assert(v3rhosigmalapl != NULL);
       assert(v3rholapl2     != NULL);
       assert(v3sigma2lapl   != NULL);
       assert(v3sigmalapl2   != NULL);
-      assert(v3lapl3        != NULL);
       libxc_memset(v3rho2lapl,     0, dim->v3rho2lapl    *np*sizeof(double));
       libxc_memset(v3rhosigmalapl, 0, dim->v3rhosigmalapl*np*sizeof(double));
       libxc_memset(v3rholapl2,     0, dim->v3rholapl2    *np*sizeof(double));
@@ -139,29 +118,44 @@ xc_mgga(const xc_func_type *func, size_t np,
       libxc_memset(v3lapl3,        0, dim->v3lapl3       *np*sizeof(double));
     }
 
-    if((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (func->info->flags & XC_FLAGS_NEEDS_TAU)) {
+    if(v3tau3 != NULL){
+      assert(v3rho2tau     != NULL);
+      assert(v3rhosigmatau != NULL);
+      assert(v3rhotau2     != NULL);
+      assert(v3sigma2tau   != NULL);
+      assert(v3sigmatau2   != NULL);
+      libxc_memset(v3rho2tau,     0, dim->v3rho2tau    *np*sizeof(double));
+      libxc_memset(v3rhosigmatau, 0, dim->v3rhosigmatau*np*sizeof(double));
+      libxc_memset(v3rhotau2,     0, dim->v3rhotau2    *np*sizeof(double));
+      libxc_memset(v3sigma2tau,   0, dim->v3sigma2tau  *np*sizeof(double));
+      libxc_memset(v3sigmatau2,   0, dim->v3sigmatau2  *np*sizeof(double));
+      libxc_memset(v3tau3,        0, dim->v3tau3       *np*sizeof(double));
+    }
+
+    if(v3rholapltau != NULL) {
       assert(v3rholapltau   != NULL);
       assert(v3sigmalapltau != NULL);
       assert(v3lapl2tau     != NULL);
+      assert(v3lapltau2     != NULL);
       libxc_memset(v3rholapltau,   0, dim->v3rholapltau  *np*sizeof(double));
       libxc_memset(v3sigmalapltau, 0, dim->v3sigmalapltau*np*sizeof(double));
       libxc_memset(v3lapl2tau,     0, dim->v3lapl2tau    *np*sizeof(double));
+      libxc_memset(v3lapltau2,     0, dim->v3lapltau2    *np*sizeof(double));
     }
   }
 
   if(v4rho4 != NULL){
-    libxc_memset(v4rho4,         0, dim->v4rho4        *np*sizeof(double));
-
     assert(v4rho3sigma    != NULL);
     assert(v4rho2sigma2   != NULL);
     assert(v4rhosigma3    != NULL);
     assert(v4sigma4       != NULL);
+    libxc_memset(v4rho4,         0, dim->v4rho4        *np*sizeof(double));
     libxc_memset(v4rho3sigma,    0, dim->v4rho3sigma   *np*sizeof(double));
     libxc_memset(v4rho2sigma2,   0, dim->v4rho2sigma2  *np*sizeof(double));
     libxc_memset(v4rhosigma3,    0, dim->v4rhosigma3   *np*sizeof(double));
     libxc_memset(v4sigma4,       0, dim->v4sigma4      *np*sizeof(double));
 
-    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+    if(v4lapl4 != NULL){
       assert(v4rho3lapl        != NULL);
       assert(v4rho2sigmalapl   != NULL);
       assert(v4rho2lapl2       != NULL);
@@ -171,7 +165,6 @@ xc_mgga(const xc_func_type *func, size_t np,
       assert(v4sigma3lapl      != NULL);
       assert(v4sigma2lapl2     != NULL);
       assert(v4sigmalapl3      != NULL);
-      assert(v4lapl4           != NULL);
       libxc_memset(v4rho3lapl,        0, dim->v4rho3lapl       *np*sizeof(double));
       libxc_memset(v4rho2sigmalapl,   0, dim->v4rho2sigmalapl  *np*sizeof(double));
       libxc_memset(v4rho2lapl2,       0, dim->v4rho2lapl2      *np*sizeof(double));
@@ -184,7 +177,7 @@ xc_mgga(const xc_func_type *func, size_t np,
       libxc_memset(v4lapl4,           0, dim->v4lapl4          *np*sizeof(double));
     }
 
-    if(func->info->flags & XC_FLAGS_NEEDS_TAU){
+    if(v4tau4 != NULL){
       assert(v4rho3tau      != NULL);
       assert(v4rho2sigmatau != NULL);
       assert(v4rho2tau2     != NULL);
@@ -194,7 +187,6 @@ xc_mgga(const xc_func_type *func, size_t np,
       assert(v4sigma3tau    != NULL);
       assert(v4sigma2tau2   != NULL);
       assert(v4sigmatau3    != NULL);
-      assert(v4tau4         != NULL);
       libxc_memset(v4rho3tau,      0, dim->v4rho3tau     *np*sizeof(double));
       libxc_memset(v4rho2sigmatau, 0, dim->v4rho2sigmatau*np*sizeof(double));
       libxc_memset(v4rho2tau2,     0, dim->v4rho2tau2    *np*sizeof(double));
@@ -207,7 +199,7 @@ xc_mgga(const xc_func_type *func, size_t np,
       libxc_memset(v4tau4,         0, dim->v4tau4        *np*sizeof(double));
     }
 
-    if((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (func->info->flags & XC_FLAGS_NEEDS_TAU)) {
+    if(v4lapltau3 != NULL) {
       assert(v4rho2lapltau     != NULL);
       assert(v4rhosigmalapltau != NULL);
       assert(v4rholapl2tau     != NULL);
@@ -217,7 +209,6 @@ xc_mgga(const xc_func_type *func, size_t np,
       assert(v4sigmalapltau2   != NULL);
       assert(v4lapl3tau        != NULL);
       assert(v4lapl2tau2       != NULL);
-      assert(v4lapltau3        != NULL);
       libxc_memset(v4rho2lapltau,     0, dim->v4rho2lapltau    *np*sizeof(double));
       libxc_memset(v4rhosigmalapltau, 0, dim->v4rhosigmalapltau*np*sizeof(double));
       libxc_memset(v4rholapl2tau,     0, dim->v4rholapl2tau    *np*sizeof(double));

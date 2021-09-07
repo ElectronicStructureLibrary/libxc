@@ -46,7 +46,7 @@ else
 fi
 
 for dir in $(ls -d $srcdir/regression/*); do
-  for i in $(ls $dir/$selfunc | LANG=C sort); do
+  for i in $(ls $dir/$selfunc 2> /dev/null | LANG=C sort); do
     refname=$(basename ${i} .bz2)
     func=${refname%%.*}
     #if [ $func != "gga_x_wpbeh" ]; then

@@ -64,7 +64,7 @@ libxc_la_FUNC_SOURCES = \
 	gga_c_tca.c gga_x_bpccac.c gga_x_sogga11.c gga_c_sogga11.c	\
 	gga_xc_th1.c gga_x_wpbeh.c gga_x_hjs.c gga_x_ityh.c		\
 	gga_x_sfat.c gga_x_sfat_pbe.c gga_x_ev93.c gga_x_ak13.c		\
-	gga_x_q2d.c gga_c_q2d.c gga_x_ssb_sw.c gga_c_ft97.c		\
+	gga_x_q1d.c gga_x_q2d.c gga_c_q2d.c gga_x_ssb_sw.c gga_c_ft97.c		\
 	gga_x_n12.c gga_x_lv_rpw86.c gga_x_2d_b86.c gga_k_llp.c		\
 	gga_x_2d_b86_mgc.c gga_x_2d_b88.c gga_x_2d_pbe.c		\
 	gga_x_lspbe.c gga_x_lsrpbe.c gga_k_tflw.c gga_k_pearson.c	\
@@ -119,7 +119,7 @@ libxc_la_FUNC_SOURCES = \
 	mgga_c_b94.c mgga_k_lk.c mgga_k_rda.c mgga_k_gea2.c             \
 	mgga_k_gea4.c mgga_k_csk.c mgga_k_csk_loc.c mgga_x_r2scanl.c    \
         mgga_c_r2scanl.c mgga_k_pgslb.c mgga_c_kcisk.c mgga_x_regtm.c   \
-	mgga_c_rregtm.c mgga_x_mcml.c
+	mgga_c_rregtm.c mgga_x_mcml.c mgga_c_rmggac.c
 
 libxc_la_SOURCES = references.c $(libxc_la_FUNC_SOURCES)
 libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)

@@ -1161,6 +1161,13 @@ func_reference_type xc_ref_Jana2021_024103 = {
 };
 
 
+func_reference_type xc_ref_Jana2021_063007 = {
+  "S. Jana, S. K. Behera, S. Smiga, L. A. Constantin, and P. Samal, New J. Phys. 23, 063007 (2021)",
+  "10.1088/1367-2630/abfd4d",
+  "@article{Jana2021_063007,\n	doi = {10.1088/1367-2630/abfd4d},\n	url = {https://doi.org/10.1088/1367-2630/abfd4d},\n	year = 2021,\n	month = {apr},\n	publisher = {{IOP} Publishing},\n	author = {Subrata Jana and Sushant Kumar Behera and Szymon {\\'{S}}miga and Lucian A. Constantin and Prasanjit Samal},\n	title = {Improving the applicability of the Pauli kinetic energy density based semilocal functional for solids},\n	journal = {New J. Phys.},\n  volume = {23},\n  pages = {063007}\n}"
+};
+
+
 func_reference_type xc_ref_Jemmer1995_3571 = {
   "P. Jemmer and P. J. Knowles, Phys. Rev. A 51, 3571 (1995)",
   "10.1103/PhysRevA.51.3571",
@@ -2509,6 +2516,13 @@ func_reference_type xc_ref_Ugalde1994_423 = {
   "J. M. Ugalde, C. Sarasola, and M. Aguado, J. Phys. B: At., Mol. Opt. Phys. 27, 423 (1994)",
   "10.1088/0953-4075/27/3/009",
   "@article{Ugalde1994_423,\n  doi = {10.1088/0953-4075/27/3/009},\n  url = {https://doi.org/10.1088%2F0953-4075%2F27%2F3%2F009},\n  year = 1994,\n  month = {feb},\n  publisher = {{IOP} Publishing},\n  volume = {27},\n  number = {3},\n  pages = {423--427},\n  author = {J M Ugalde and C Sarasola and M Aguado},\n  title = {Exchange energy from Gaussian-type basis sets},\n  journal = {J. Phys. B: At., Mol. Opt. Phys.},\n}"
+};
+
+
+func_reference_type xc_ref_Urso2021_1 = {
+  "V. Urso and L. A. Constantin, Eur. Phys. J. B 94, 1 (2021)",
+  "",
+  "@article{Urso2021_1,\n  title={Quasi-dimensional models applied to kinetic and exchange energy density functionals},\n  author={Urso, Vittoria and Constantin, Lucian A},\n  journal={Eur. Phys. J. B},\n  volume={94},\n  number={7},\n  pages={1--9},\n  year={2021},\n  publisher={Springer}\n}"
 };
 
 

@@ -9,7 +9,7 @@
 
 #include "util.h"
 
-#define XC_MGGA_X_MGGAC  711 /* MGGAC of Patras et al */
+#define XC_MGGA_X_MGGAC  711 /* MGGAC exchange of Patra et al */
 
 GPU_FUNCTION double xc_mgga_x_mbrxc_get_x(double Q);
 
@@ -23,10 +23,10 @@ extern "C"
 const xc_func_info_type xc_func_info_mgga_x_mggac = {
   XC_MGGA_X_MGGAC,
   XC_EXCHANGE,
-  "MGGAC of Patras et al",
+  "MGGAC exchange of Patra et al",
   XC_FAMILY_MGGA,
   {&xc_ref_Patra2019_155140, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1.0e-12,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,

@@ -23,7 +23,7 @@ const xc_func_info_type xc_func_info_mgga_c_kcisk = {
   "Krieger, Chen, and Kurth",
   XC_FAMILY_MGGA,
   {&xc_ref_Rey1998_581, &xc_ref_Krieger1999_463, &xc_ref_Krieger2001_48, &xc_ref_Kurth1999_889, &xc_ref_Toulouse2002_10465},
-  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-14,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,

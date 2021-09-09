@@ -63,8 +63,8 @@ def test_libxc_functional_info():
     assert func.get_kind() == 2
     assert func.get_name() == "wB97M-V exchange-correlation functional"
     assert func.get_family() == 4
-    # XC_FLAGS_3D + XC_FLAGS_VV10 + [HAVE_EXC | HAVE_VXC | HAVE_FXC | HAVE_KXC]
-    assert func.get_flags() in [1153, 1155, 1159, 1167, 1183]
+    # XC_FLAGS_NEEDS_TAU + XC_FLAGS_3D + XC_FLAGS_VV10 + [HAVE_EXC | HAVE_VXC | HAVE_FXC | HAVE_KXC]
+    assert func.get_flags() in [65536+1153, 65536+1155, 65536+1159, 65536+1167, 65536+1183]
     assert len(func.get_bibtex()) == 1
     assert len(func.get_references()) == 1
     assert len(func.get_doi()) == 1

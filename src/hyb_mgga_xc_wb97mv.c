@@ -47,7 +47,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_wb97m_v = {
   "wB97M-V exchange-correlation functional",
   XC_FAMILY_MGGA,
   {&xc_ref_Mardirossian2016_214110, NULL, NULL, NULL, NULL},
-  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-13,
   {0, NULL, NULL, NULL, NULL},
   hyb_mgga_xc_wb97mv_init, NULL,

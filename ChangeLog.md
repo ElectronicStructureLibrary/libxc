@@ -1,3 +1,24 @@
+## [5.1.6] - 2021-09-07
+
+### Fixed
+- Setting of _dev flag in pylibxc frontend
+- CMake tests are now prefixed with the project name
+- All elements of xc_dimensions are now properly initialized
+- xc-run_testsuite no longer prints out garbage when run on a single functional
+
+### Added
+- GGA functionals: X_Q1D
+- MGGA functionals: C_R2SCAN01, C_RREGTM, X_MCML, C_RMGGAC
+
+## [5.1.5] - 2021-06-10
+
+### Fixed
+- Implementation of LDA_XC_BN05 which lacked 100% long-range exact exchange since it was introduced; functional is now called HYB_LDA_XC_BN05
+- CMake did not generate XC_MICRO_VERSION macro
+
+### Added
+- LDA functionals: X_YUKAWA
+
 ## [5.1.4] - 2021-05-10
 
 ### Fixed

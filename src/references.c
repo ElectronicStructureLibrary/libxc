@@ -190,8 +190,8 @@ func_reference_type xc_ref_Becke1993_5648 = {
 
 func_reference_type xc_ref_Becke1994_625 = {
   "A. D. Becke, Int. J. Quantum Chem. 52, 625 (1994)",
-  "https://doi.org/10.1002/qua.560520855",
-  "@article{Becke1994_625,\n  author = {Becke, Axel D.},\n  title = {Thermochemical tests of a kinetic-energy dependent exchange-correlation approximation},\n  journal = {Int. J. Quantum Chem.},\n  volume = {52},\n  number = {S28},\n  pages = {625-632},\n  doi = {https://doi.org/10.1002/qua.560520855},\n  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560520855},\n  year = {1994}\n}"
+  "10.1002/qua.560520855",
+  "@article{Becke1994_625,\n  author = {Becke, Axel D.},\n  title = {Thermochemical tests of a kinetic-energy dependent exchange-correlation approximation},\n  journal = {Int. J. Quantum Chem.},\n  volume = {52},\n  number = {S28},\n  pages = {625-632},\n  doi = {10.1002/qua.560520855},\n  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.560520855},\n  year = {1994}\n}"
 };
 
 
@@ -346,6 +346,13 @@ func_reference_type xc_ref_Bremond2016_244102 = {
   "Eric Bremond, J. Chem. Phys. 145, 244102 (2016)",
   "10.1063/1.4972815",
   "@article{Bremond2016_244102,\n  author = {\\'{E}ric Br\\'{e}mond},\n  title = {A power series revisit of the PBE exchange density-functional approximation: The PBEpow model},\n  journal = {J. Chem. Phys.},\n  volume = {145},\n  number = {24},\n  pages = {244102},\n  year = {2016},\n  doi = {10.1063/1.4972815},\n  url = {http://doi.org/10.1063/1.4972815}\n}"
+};
+
+
+func_reference_type xc_ref_Brown2021 = {
+  "K. Brown, Y. Maimaiti, K. Trepte, T. Bligaard, and J. Voss, J. Comput. Chem. n/a (2021), 10.1002/jcc.26732",
+  "10.1002/jcc.26732",
+  "@article{Brown2021,\n  author = {Brown, Kristopher and Maimaiti, Yasheng and Trepte, Kai and Bligaard, Thomas and Voss, Johannes},\n  title = {{MCML: Combining physical constraints with experimental data for a multi-purpose meta-generalized gradient approximation}},\n  journal = {J. Comput. Chem.},\n  volume = {n/a},\n  number = {n/a},\n  pages = {},\n  year = {2021},\n  doi = {10.1002/jcc.26732},\n  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.26732}\n}"
 };
 
 
@@ -1156,8 +1163,8 @@ func_reference_type xc_ref_Jana2017_4804 = {
 
 func_reference_type xc_ref_Jana2018_1 = {
   "S. Jana, B. Patra, H. Myneni, and P. Samal, Chem. Phys. Lett. 713, 1 (2018)",
-  "https://doi.org/10.1016/j.cplett.2018.10.007",
-  "@article{Jana2018_1,\n  title = \"On the many-electron self-interaction error of the semilocal exchange hole based meta-GGA level range-separated hybrid with the B88 hybrids\",\n  author = \"Subrata Jana and Bikash Patra and Hemanadhan Myneni and Prasanjit Samal\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"713\",\n  pages = \"1--9\",\n  year = \"2018\",\n  issn = \"0009-2614\",\n  doi = \"https://doi.org/10.1016/j.cplett.2018.10.007\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261418308194\",\n}"
+  "10.1016/j.cplett.2018.10.007",
+  "@article{Jana2018_1,\n  title = \"On the many-electron self-interaction error of the semilocal exchange hole based meta-GGA level range-separated hybrid with the B88 hybrids\",\n  author = \"Subrata Jana and Bikash Patra and Hemanadhan Myneni and Prasanjit Samal\",\n  journal = \"Chem. Phys. Lett.\",\n  volume = \"713\",\n  pages = \"1--9\",\n  year = \"2018\",\n  issn = \"0009-2614\",\n  doi = \"10.1016/j.cplett.2018.10.007\",\n  url = \"http://www.sciencedirect.com/science/article/pii/S0009261418308194\",\n}"
 };
 
 
@@ -1179,6 +1186,13 @@ func_reference_type xc_ref_Jana2021_024103 = {
   "S. Jana, S. K. Behera, S. Smiga, L. A. Constantin, and P. Samal, J. Chem. Phys. 155, 024103 (2021)",
   "10.1063/5.0051331",
   "@article{Jana2021_024103,\n  author = {Jana, Subrata and Behera, Sushant Kumar and \\'{S}miga, Szymon and Constantin, Lucian A. and Samal, Prasanjit},\n  title = {Accurate density functional made more versatile},\n  journal = {J. Chem. Phys.},\n  volume = {155},\n  number = {2},\n  pages = {024103},\n  year = {2021},\n  doi = {10.1063/5.0051331},\n  url = {https://doi.org/10.1063/5.0051331}\n}"
+};
+
+
+func_reference_type xc_ref_Jana2021_063007 = {
+  "S. Jana, S. K. Behera, S. Smiga, L. A. Constantin, and P. Samal, New J. Phys. 23, 063007 (2021)",
+  "10.1088/1367-2630/abfd4d",
+  "@article{Jana2021_063007,\n	doi = {10.1088/1367-2630/abfd4d},\n	url = {https://doi.org/10.1088/1367-2630/abfd4d},\n	year = 2021,\n	month = {apr},\n	publisher = {{IOP} Publishing},\n	author = {Subrata Jana and Sushant Kumar Behera and Szymon {\\'{S}}miga and Lucian A. Constantin and Prasanjit Samal},\n	title = {Improving the applicability of the Pauli kinetic energy density based semilocal functional for solids},\n	journal = {New J. Phys.},\n  volume = {23},\n  pages = {063007}\n}"
 };
 
 
@@ -2537,6 +2551,13 @@ func_reference_type xc_ref_Ugalde1994_423 = {
   "J. M. Ugalde, C. Sarasola, and M. Aguado, J. Phys. B: At., Mol. Opt. Phys. 27, 423 (1994)",
   "10.1088/0953-4075/27/3/009",
   "@article{Ugalde1994_423,\n  doi = {10.1088/0953-4075/27/3/009},\n  url = {https://doi.org/10.1088%2F0953-4075%2F27%2F3%2F009},\n  year = 1994,\n  month = {feb},\n  publisher = {{IOP} Publishing},\n  volume = {27},\n  number = {3},\n  pages = {423--427},\n  author = {J M Ugalde and C Sarasola and M Aguado},\n  title = {Exchange energy from Gaussian-type basis sets},\n  journal = {J. Phys. B: At., Mol. Opt. Phys.},\n}"
+};
+
+
+func_reference_type xc_ref_Urso2021_1 = {
+  "V. Urso and L. A. Constantin, Eur. Phys. J. B 94, 1 (2021)",
+  "",
+  "@article{Urso2021_1,\n  title={Quasi-dimensional models applied to kinetic and exchange energy density functionals},\n  author={Urso, Vittoria and Constantin, Lucian A},\n  journal={Eur. Phys. J. B},\n  volume={94},\n  number={7},\n  pages={1--9},\n  year={2021},\n  publisher={Springer}\n}"
 };
 
 

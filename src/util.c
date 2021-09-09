@@ -474,7 +474,8 @@ internal_counters_mgga_random
   if(*vrho != NULL) {
     if (*vlapl != NULL)
       *vlapl += pos*dim->vlapl + offset;
-    *vtau  += pos*dim->vtau  + offset;
+    if (*vtau != NULL)
+      *vtau  += pos*dim->vtau  + offset;
   }
 
 #ifndef XC_DONT_COMPILE_FXC
@@ -483,11 +484,15 @@ internal_counters_mgga_random
       *v2rholapl   += pos*dim->v2rholapl   + offset;
       *v2sigmalapl += pos*dim->v2sigmalapl + offset;
       *v2lapl2     += pos*dim->v2lapl2     + offset;
+    }
+    if(*v2tau2 != NULL){
+      *v2rhotau    += pos*dim->v2rhotau    + offset;
+      *v2sigmatau  += pos*dim->v2sigmatau  + offset;
+      *v2tau2      += pos*dim->v2tau2      + offset;
+    }
+    if(*v2lapltau != NULL){
       *v2lapltau   += pos*dim->v2lapltau   + offset;
     }
-    *v2rhotau    += pos*dim->v2rhotau    + offset;
-    *v2sigmatau  += pos*dim->v2sigmatau  + offset;
-    *v2tau2      += pos*dim->v2tau2      + offset;
   }
 
 #ifndef XC_DONT_COMPILE_KXC
@@ -496,20 +501,24 @@ internal_counters_mgga_random
       *v3rho2lapl     += pos*dim->v3rho2lapl     + offset;
       *v3rhosigmalapl += pos*dim->v3rhosigmalapl + offset;
       *v3rholapl2     += pos*dim->v3rholapl2     + offset;
-      *v3rholapltau   += pos*dim->v3rholapltau   + offset;
       *v3sigma2lapl   += pos*dim->v3sigma2lapl   + offset;
       *v3sigmalapl2   += pos*dim->v3sigmalapl2   + offset;
-      *v3sigmalapltau += pos*dim->v3sigmalapltau + offset;
       *v3lapl3        += pos*dim->v3lapl3        + offset;
+    }
+    if(*v3tau3 != NULL){
+      *v3rho2tau      += pos*dim->v3rho2tau      + offset;
+      *v3rhosigmatau  += pos*dim->v3rhosigmatau  + offset;
+      *v3rhotau2      += pos*dim->v3rhotau2      + offset;
+      *v3sigma2tau    += pos*dim->v3sigma2tau    + offset;
+      *v3sigmatau2    += pos*dim->v3sigmatau2    + offset;
+      *v3tau3         += pos*dim->v3tau3         + offset;
+    }
+    if(*v3rholapltau != NULL){
+      *v3rholapltau   += pos*dim->v3rholapltau   + offset;
+      *v3sigmalapltau += pos*dim->v3sigmalapltau + offset;
       *v3lapl2tau     += pos*dim->v3lapl2tau     + offset;
       *v3lapltau2     += pos*dim->v3lapltau2     + offset;
     }
-    *v3rho2tau      += pos*dim->v3rho2tau      + offset;
-    *v3rhosigmatau  += pos*dim->v3rhosigmatau  + offset;
-    *v3rhotau2      += pos*dim->v3rhotau2      + offset;
-    *v3sigma2tau    += pos*dim->v3sigma2tau    + offset;
-    *v3sigmatau2    += pos*dim->v3sigmatau2    + offset;
-    *v3tau3         += pos*dim->v3tau3         + offset;
   }
 #ifndef XC_DONT_COMPILE_LXC
   if(*v4rho4 != NULL) {
@@ -517,34 +526,38 @@ internal_counters_mgga_random
       *v4rho3lapl        += pos*dim->v4rho3lapl        + offset;
       *v4rho2sigmalapl   += pos*dim->v4rho2sigmalapl   + offset;
       *v4rho2lapl2       += pos*dim->v4rho2lapl2       + offset;
-      *v4rho2lapltau     += pos*dim->v4rho2lapltau     + offset;
       *v4rhosigma2lapl   += pos*dim->v4rhosigma2lapl   + offset;
       *v4rhosigmalapl2   += pos*dim->v4rhosigmalapl2   + offset;
-      *v4rhosigmalapltau += pos*dim->v4rhosigmalapltau + offset;
       *v4rholapl3        += pos*dim->v4rholapl3        + offset;
-      *v4rholapl2tau     += pos*dim->v4rholapl2tau     + offset;
-      *v4rholapltau2     += pos*dim->v4rholapltau2     + offset;
       *v4sigma3lapl      += pos*dim->v4sigma3lapl      + offset;
       *v4sigma2lapl2     += pos*dim->v4sigma2lapl2     + offset;
-      *v4sigma2lapltau   += pos*dim->v4sigma2lapltau   + offset;
       *v4sigmalapl3      += pos*dim->v4sigmalapl3      + offset;
+      *v4lapl4           += pos*dim->v4lapl4           + offset;
+    }
+    if(*v4tau4 != NULL){
+      *v4rho3tau         += pos*dim->v4rho3tau         + offset;
+      *v4rho2sigmatau    += pos*dim->v4rho2sigmatau    + offset;
+      *v4rho2tau2        += pos*dim->v4rho2tau2        + offset;
+      *v4rhosigma2tau    += pos*dim->v4rhosigma2tau    + offset;
+      *v4rhosigmatau2    += pos*dim->v4rhosigmatau2    + offset;
+      *v4rhotau3         += pos*dim->v4rhotau3         + offset;
+      *v4sigma3tau       += pos*dim->v4sigma3tau       + offset;
+      *v4sigma2tau2      += pos*dim->v4sigma2tau2      + offset;
+      *v4sigmatau3       += pos*dim->v4sigmatau3       + offset;
+      *v4tau4            += pos*dim->v4tau4            + offset;
+    }
+    if(*v4rho2lapltau != NULL){
+      *v4rho2lapltau     += pos*dim->v4rho2lapltau     + offset;
+      *v4rhosigmalapltau += pos*dim->v4rhosigmalapltau + offset;
+      *v4rholapl2tau     += pos*dim->v4rholapl2tau     + offset;
+      *v4rholapltau2     += pos*dim->v4rholapltau2     + offset;
+      *v4sigma2lapltau   += pos*dim->v4sigma2lapltau   + offset;
       *v4sigmalapl2tau   += pos*dim->v4sigmalapl2tau   + offset;
       *v4sigmalapltau2   += pos*dim->v4sigmalapltau2   + offset;
-      *v4lapl4           += pos*dim->v4lapl4           + offset;
       *v4lapl3tau        += pos*dim->v4lapl3tau        + offset;
       *v4lapl2tau2       += pos*dim->v4lapl2tau2       + offset;
       *v4lapltau3        += pos*dim->v4lapltau3        + offset;
     }
-    *v4rho3tau         += pos*dim->v4rho3tau         + offset;
-    *v4rho2sigmatau    += pos*dim->v4rho2sigmatau    + offset;
-    *v4rho2tau2        += pos*dim->v4rho2tau2        + offset;
-    *v4rhosigma2tau    += pos*dim->v4rhosigma2tau    + offset;
-    *v4rhosigmatau2    += pos*dim->v4rhosigmatau2    + offset;
-    *v4rhotau3         += pos*dim->v4rhotau3         + offset;
-    *v4sigma3tau       += pos*dim->v4sigma3tau       + offset;
-    *v4sigma2tau2      += pos*dim->v4sigma2tau2      + offset;
-    *v4sigmatau3       += pos*dim->v4sigmatau3       + offset;
-    *v4tau4            += pos*dim->v4tau4            + offset;
   }
 #endif
 #endif
@@ -567,7 +580,8 @@ internal_counters_mgga_next
   if(*vrho != NULL) {
     if (*vlapl != NULL)
       *vlapl += dim->vlapl + offset;
-    *vtau  += dim->vtau  + offset;
+    if (*vtau != NULL)
+      *vtau  += dim->vtau  + offset;
   }
 
 #ifndef XC_DONT_COMPILE_FXC
@@ -576,11 +590,15 @@ internal_counters_mgga_next
       *v2rholapl   += dim->v2rholapl   + offset;
       *v2sigmalapl += dim->v2sigmalapl + offset;
       *v2lapl2     += dim->v2lapl2     + offset;
+    }
+    if (*v2tau2 != NULL){
+      *v2rhotau    += dim->v2rhotau    + offset;
+      *v2sigmatau  += dim->v2sigmatau  + offset;
+      *v2tau2      += dim->v2tau2      + offset;
+    }
+    if (*v2lapltau != NULL){
       *v2lapltau   += dim->v2lapltau   + offset;
     }
-    *v2rhotau    += dim->v2rhotau    + offset;
-    *v2sigmatau  += dim->v2sigmatau  + offset;
-    *v2tau2      += dim->v2tau2      + offset;
   }
 
 #ifndef XC_DONT_COMPILE_KXC
@@ -589,20 +607,24 @@ internal_counters_mgga_next
       *v3rho2lapl     += dim->v3rho2lapl     + offset;
       *v3rhosigmalapl += dim->v3rhosigmalapl + offset;
       *v3rholapl2     += dim->v3rholapl2     + offset;
-      *v3rholapltau   += dim->v3rholapltau   + offset;
       *v3sigma2lapl   += dim->v3sigma2lapl   + offset;
       *v3sigmalapl2   += dim->v3sigmalapl2   + offset;
-      *v3sigmalapltau += dim->v3sigmalapltau + offset;
       *v3lapl3        += dim->v3lapl3        + offset;
+    }
+    if (*v3tau3 != NULL){
+      *v3rho2tau      += dim->v3rho2tau      + offset;
+      *v3rhosigmatau  += dim->v3rhosigmatau  + offset;
+      *v3rhotau2      += dim->v3rhotau2      + offset;
+      *v3sigma2tau    += dim->v3sigma2tau    + offset;
+      *v3sigmatau2    += dim->v3sigmatau2    + offset;
+      *v3tau3         += dim->v3tau3         + offset;
+    }
+    if(*v3rholapltau != NULL){
+      *v3rholapltau   += dim->v3rholapltau   + offset;
+      *v3sigmalapltau += dim->v3sigmalapltau + offset;
       *v3lapl2tau     += dim->v3lapl2tau     + offset;
       *v3lapltau2     += dim->v3lapltau2     + offset;
     }
-    *v3rho2tau      += dim->v3rho2tau      + offset;
-    *v3rhosigmatau  += dim->v3rhosigmatau  + offset;
-    *v3rhotau2      += dim->v3rhotau2      + offset;
-    *v3sigma2tau    += dim->v3sigma2tau    + offset;
-    *v3sigmatau2    += dim->v3sigmatau2    + offset;
-    *v3tau3         += dim->v3tau3         + offset;
   }
 #ifndef XC_DONT_COMPILE_LXC
   if(*v4rho4 != NULL) {
@@ -610,34 +632,38 @@ internal_counters_mgga_next
       *v4rho3lapl        += dim->v4rho3lapl        + offset;
       *v4rho2sigmalapl   += dim->v4rho2sigmalapl   + offset;
       *v4rho2lapl2       += dim->v4rho2lapl2       + offset;
-      *v4rho2lapltau     += dim->v4rho2lapltau     + offset;
       *v4rhosigma2lapl   += dim->v4rhosigma2lapl   + offset;
       *v4rhosigmalapl2   += dim->v4rhosigmalapl2   + offset;
-      *v4rhosigmalapltau += dim->v4rhosigmalapltau + offset;
       *v4rholapl3        += dim->v4rholapl3        + offset;
-      *v4rholapl2tau     += dim->v4rholapl2tau     + offset;
-      *v4rholapltau2     += dim->v4rholapltau2     + offset;
       *v4sigma3lapl      += dim->v4sigma3lapl      + offset;
       *v4sigma2lapl2     += dim->v4sigma2lapl2     + offset;
-      *v4sigma2lapltau   += dim->v4sigma2lapltau   + offset;
       *v4sigmalapl3      += dim->v4sigmalapl3      + offset;
+      *v4lapl4           += dim->v4lapl4           + offset;
+    }
+    if (*v4tau4 != NULL){
+      *v4rho3tau         += dim->v4rho3tau         + offset;
+      *v4rho2sigmatau    += dim->v4rho2sigmatau    + offset;
+      *v4rho2tau2        += dim->v4rho2tau2        + offset;
+      *v4rhosigma2tau    += dim->v4rhosigma2tau    + offset;
+      *v4rhosigmatau2    += dim->v4rhosigmatau2    + offset;
+      *v4rhotau3         += dim->v4rhotau3         + offset;
+      *v4sigma3tau       += dim->v4sigma3tau       + offset;
+      *v4sigma2tau2      += dim->v4sigma2tau2      + offset;
+      *v4sigmatau3       += dim->v4sigmatau3       + offset;
+      *v4tau4            += dim->v4tau4            + offset;
+    }
+    if(*v4rho2lapltau != NULL){
+      *v4rho2lapltau     += dim->v4rho2lapltau     + offset;
+      *v4rhosigmalapltau += dim->v4rhosigmalapltau + offset;
+      *v4rholapl2tau     += dim->v4rholapl2tau     + offset;
+      *v4rholapltau2     += dim->v4rholapltau2     + offset;
+      *v4sigma2lapltau   += dim->v4sigma2lapltau   + offset;
       *v4sigmalapl2tau   += dim->v4sigmalapl2tau   + offset;
       *v4sigmalapltau2   += dim->v4sigmalapltau2   + offset;
-      *v4lapl4           += dim->v4lapl4           + offset;
       *v4lapl3tau        += dim->v4lapl3tau        + offset;
       *v4lapl2tau2       += dim->v4lapl2tau2       + offset;
       *v4lapltau3        += dim->v4lapltau3        + offset;
     }
-    *v4rho3tau         += dim->v4rho3tau         + offset;
-    *v4rho2sigmatau    += dim->v4rho2sigmatau    + offset;
-    *v4rho2tau2        += dim->v4rho2tau2        + offset;
-    *v4rhosigma2tau    += dim->v4rhosigma2tau    + offset;
-    *v4rhosigmatau2    += dim->v4rhosigmatau2    + offset;
-    *v4rhotau3         += dim->v4rhotau3         + offset;
-    *v4sigma3tau       += dim->v4sigma3tau       + offset;
-    *v4sigma2tau2      += dim->v4sigma2tau2      + offset;
-    *v4sigmatau3       += dim->v4sigmatau3       + offset;
-    *v4tau4            += dim->v4tau4            + offset;
   }
 #endif
 #endif
@@ -660,7 +686,8 @@ internal_counters_mgga_prev
   if(*vrho != NULL) {
     if(*vlapl != NULL)
       *vlapl -= dim->vlapl + offset;
-    *vtau  -= dim->vtau  + offset;
+    if(*vtau != NULL)
+      *vtau  -= dim->vtau  + offset;
   }
 
 #ifndef XC_DONT_COMPILE_FXC
@@ -669,33 +696,41 @@ internal_counters_mgga_prev
       *v2rholapl   -= dim->v2rholapl   + offset;
       *v2sigmalapl -= dim->v2sigmalapl + offset;
       *v2lapl2     -= dim->v2lapl2     + offset;
+    }
+    if(*v2tau2 != NULL){
+      *v2rhotau    -= dim->v2rhotau    + offset;
+      *v2sigmatau  -= dim->v2sigmatau  + offset;
+      *v2tau2      -= dim->v2tau2      + offset;
+    }
+    if(*v2lapltau){
       *v2lapltau   -= dim->v2lapltau   + offset;
     }
-    *v2rhotau    -= dim->v2rhotau    + offset;
-    *v2sigmatau  -= dim->v2sigmatau  + offset;
-    *v2tau2      -= dim->v2tau2      + offset;
   }
 
 #ifndef XC_DONT_COMPILE_KXC
   if(*v3rho3 != NULL) {
-    if (*v3lapl3 != NULL){
+    if(*v3lapl3 != NULL){
       *v3rho2lapl     -= dim->v3rho2lapl     + offset;
       *v3rhosigmalapl -= dim->v3rhosigmalapl + offset;
       *v3rholapl2     -= dim->v3rholapl2     + offset;
-      *v3rholapltau   -= dim->v3rholapltau   + offset;
       *v3sigma2lapl   -= dim->v3sigma2lapl   + offset;
       *v3sigmalapl2   -= dim->v3sigmalapl2   + offset;
-      *v3sigmalapltau -= dim->v3sigmalapltau + offset;
       *v3lapl3        -= dim->v3lapl3        + offset;
+    }
+    if(*v3tau3 != NULL){
+      *v3rho2tau      -= dim->v3rho2tau      + offset;
+      *v3rhosigmatau  -= dim->v3rhosigmatau  + offset;
+      *v3rhotau2      -= dim->v3rhotau2      + offset;
+      *v3sigma2tau    -= dim->v3sigma2tau    + offset;
+      *v3sigmatau2    -= dim->v3sigmatau2    + offset;
+      *v3tau3         -= dim->v3tau3         + offset;
+    }
+    if(*v3rholapltau){
+      *v3rholapltau   -= dim->v3rholapltau   + offset;
+      *v3sigmalapltau -= dim->v3sigmalapltau + offset;
       *v3lapl2tau     -= dim->v3lapl2tau     + offset;
       *v3lapltau2     -= dim->v3lapltau2     + offset;
     }
-    *v3rho2tau      -= dim->v3rho2tau      + offset;
-    *v3rhosigmatau  -= dim->v3rhosigmatau  + offset;
-    *v3rhotau2      -= dim->v3rhotau2      + offset;
-    *v3sigma2tau    -= dim->v3sigma2tau    + offset;
-    *v3sigmatau2    -= dim->v3sigmatau2    + offset;
-    *v3tau3         -= dim->v3tau3         + offset;
   }
 #ifndef XC_DONT_COMPILE_LXC
   if(*v4rho4 != NULL) {
@@ -703,34 +738,38 @@ internal_counters_mgga_prev
       *v4rho3lapl        -= dim->v4rho3lapl        + offset;
       *v4rho2sigmalapl   -= dim->v4rho2sigmalapl   + offset;
       *v4rho2lapl2       -= dim->v4rho2lapl2       + offset;
-      *v4rho2lapltau     -= dim->v4rho2lapltau     + offset;
       *v4rhosigma2lapl   -= dim->v4rhosigma2lapl   + offset;
       *v4rhosigmalapl2   -= dim->v4rhosigmalapl2   + offset;
-      *v4rhosigmalapltau -= dim->v4rhosigmalapltau + offset;
       *v4rholapl3        -= dim->v4rholapl3        + offset;
-      *v4rholapl2tau     -= dim->v4rholapl2tau     + offset;
-      *v4rholapltau2     -= dim->v4rholapltau2     + offset;
       *v4sigma3lapl      -= dim->v4sigma3lapl      + offset;
       *v4sigma2lapl2     -= dim->v4sigma2lapl2     + offset;
-      *v4sigma2lapltau   -= dim->v4sigma2lapltau   + offset;
       *v4sigmalapl3      -= dim->v4sigmalapl3      + offset;
+      *v4lapl4           -= dim->v4lapl4           + offset;
+    }
+    if(*v4tau4 != NULL){
+      *v4rho3tau         -= dim->v4rho3tau         + offset;
+      *v4rho2sigmatau    -= dim->v4rho2sigmatau    + offset;
+      *v4rho2tau2        -= dim->v4rho2tau2        + offset;
+      *v4rhosigma2tau    -= dim->v4rhosigma2tau    + offset;
+      *v4rhosigmatau2    -= dim->v4rhosigmatau2    + offset;
+      *v4rhotau3         -= dim->v4rhotau3         + offset;
+      *v4sigma3tau       -= dim->v4sigma3tau       + offset;
+      *v4sigma2tau2      -= dim->v4sigma2tau2      + offset;
+      *v4sigmatau3       -= dim->v4sigmatau3       + offset;
+      *v4tau4            -= dim->v4tau4            + offset;
+    }
+    if(*v4rho2lapltau != NULL){
+      *v4rho2lapltau     -= dim->v4rho2lapltau     + offset;
+      *v4rhosigmalapltau -= dim->v4rhosigmalapltau + offset;
+      *v4rholapl2tau     -= dim->v4rholapl2tau     + offset;
+      *v4rholapltau2     -= dim->v4rholapltau2     + offset;
+      *v4sigma2lapltau   -= dim->v4sigma2lapltau   + offset;
       *v4sigmalapl2tau   -= dim->v4sigmalapl2tau   + offset;
       *v4sigmalapltau2   -= dim->v4sigmalapltau2   + offset;
-      *v4lapl4           -= dim->v4lapl4           + offset;
       *v4lapl3tau        -= dim->v4lapl3tau        + offset;
       *v4lapl2tau2       -= dim->v4lapl2tau2       + offset;
       *v4lapltau3        -= dim->v4lapltau3        + offset;
     }
-    *v4rho3tau         -= dim->v4rho3tau         + offset;
-    *v4rho2sigmatau    -= dim->v4rho2sigmatau    + offset;
-    *v4rho2tau2        -= dim->v4rho2tau2        + offset;
-    *v4rhosigma2tau    -= dim->v4rhosigma2tau    + offset;
-    *v4rhosigmatau2    -= dim->v4rhosigmatau2    + offset;
-    *v4rhotau3         -= dim->v4rhotau3         + offset;
-    *v4sigma3tau       -= dim->v4sigma3tau       + offset;
-    *v4sigma2tau2      -= dim->v4sigma2tau2      + offset;
-    *v4sigmatau3       -= dim->v4sigmatau3       + offset;
-    *v4tau4            -= dim->v4tau4            + offset;
   }
 #endif
 #endif

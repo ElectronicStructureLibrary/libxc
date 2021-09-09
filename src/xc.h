@@ -56,6 +56,7 @@ const char *xc_version_string();
 /* functionals marked with the development flag may have significant problems in the implementation */
 #define XC_FLAGS_DEVELOPMENT      (1 << 14) /* 16384 */
 #define XC_FLAGS_NEEDS_LAPLACIAN  (1 << 15) /* 32768 */
+#define XC_FLAGS_NEEDS_TAU        (1 << 16) /* 65536 */
 
 /* This is the case for most functionals in libxc */
 #define XC_FLAGS_HAVE_ALL         (XC_FLAGS_HAVE_EXC | XC_FLAGS_HAVE_VXC | \

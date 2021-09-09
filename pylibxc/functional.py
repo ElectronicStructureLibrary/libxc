@@ -247,6 +247,7 @@ class LibXCFunctional(object):
 
         # Set needed flags
         self._needs_laplacian = self._flags & flags.XC_FLAGS_NEEDS_LAPLACIAN
+        self._needs_tau = self._flags & flags.XC_FLAGS_NEEDS_TAU
 
         # Set derivatives
         self._have_exc = self._flags & flags.XC_FLAGS_HAVE_EXC

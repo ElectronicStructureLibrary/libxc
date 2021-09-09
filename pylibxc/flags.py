@@ -32,6 +32,7 @@ XC_FLAGS_3D = (1 << 7)  # = 128
 XC_FLAGS_STABLE = (1 << 13)  #  8192
 XC_FLAGS_DEVELOPMENT = (1 << 14)  # 16384
 XC_FLAGS_NEEDS_LAPLACIAN = (1 << 15)  # 32768
+XC_FLAGS_NEEDS_TAU = (1 << 16) # 65536 
 
 # possible terms in a hybrid functional
 XC_HYB_NONE = 0

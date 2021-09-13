@@ -13,9 +13,9 @@
 #define XC_GGA_X_HJS_PBE_SOL 526 /* HJS screened exchange PBE_SOL version */
 #define XC_GGA_X_HJS_B88     527 /* HJS screened exchange B88 version */
 #define XC_GGA_X_HJS_B97X    528 /* HJS screened exchange B97x version */
-#define XC_GGA_X_HJS_APBE    717 /* HJS screened exchange APBE version */
-#define XC_GGA_X_HJS_PBEINT  718 /* HJS screened exchange PBEint version */
-#define XC_GGA_X_HJS_SG4     719 /* HJS screened exchange SG4 version */
+#define XC_GGA_X_HJS_APBE    648 /* HJS screened exchange APBE version */
+#define XC_GGA_X_HJS_PBEINT  649 /* HJS screened exchange PBEint version */
+#define XC_GGA_X_HJS_SG4     650 /* HJS screened exchange SG4 version */
 
 typedef struct{
   double a[6], b[9]; /* pointers to the a and b parameters */

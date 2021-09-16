@@ -15,8 +15,8 @@
 #define XC_HYB_GGA_XC_LC_OSG4     724 /* LC hybrid based on SG4 */
 
 typedef struct{
-  double a1, a2, a3, a4, a5;
-  double mux, omega;
+  double bfit_a1, bfit_a2, bfit_a3, bfit_a4, bfit_a5;
+  double bfit_mux, bfit_omega;
 } gga_c_apbe_bfit_params;
 
 
@@ -27,10 +27,17 @@ static void gga_c_apbe_bfit_init(xc_func_type *p)
 }
 
 #define APBE_BFIT_N_PAR 7
-static const char  *apbe_bfit_names[APBE_BFIT_N_PAR]  = {"_mux", "_omega"};
-static const char  *apbe_bfit_desc[APBE_BFIT_N_PAR]   = {
-  "mu of the corresponding exchange functional",
-  "range separation parameter"};
+static const char  *apbe_bfit_names[APBE_BFIT_N_PAR]  =
+  {
+   "a1", "a2", "a3", "a4", "a5",
+   "_mux", "_omega"
+  };
+static const char  *apbe_bfit_desc[APBE_BFIT_N_PAR]   =
+  {
+   "Pade fit: a1", "Pade fit: a2", "Pade fit: a3", "Pade fit: a4", "Pade fit: a5",
+   "mu of the corresponding exchange functional",
+   "range separation parameter"
+  };
 static const double apbe_bfit_values[APBE_BFIT_N_PAR] = 
   {0.06929609, 0.02090877, 73.63025684, 3.84513730, 0.00000049, 0.26, 0.37};
 static const double pbeint_bfit_values[APBE_BFIT_N_PAR] = 

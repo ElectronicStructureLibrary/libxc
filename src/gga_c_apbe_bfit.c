@@ -87,7 +87,7 @@ hyb_gga_xc_lc_oapbe_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_cam(p, 0.37, 1.0, -1.0);
+  xc_hyb_init_cam(p, 1.0, -1.0, 0.37);
 
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
 }
@@ -115,7 +115,7 @@ hyb_gga_xc_lc_opbeint_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_cam(p, 0.52, 1.0, -1.0);
+  xc_hyb_init_cam(p, 1.0, -1.0, 0.52);
 
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
 }
@@ -143,7 +143,7 @@ hyb_gga_xc_lc_osg4_init(xc_func_type *p)
   static double funcs_coef[2] = {1.0, 1.0};
 
   xc_mix_init(p, 2, funcs_id, funcs_coef);
-  xc_hyb_init_cam(p, 0.50, 1.0, -1.0);
+  xc_hyb_init_cam(p, 1.0, -1.0, 0.50);
 
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", p->hyb_omega[0]);
 }

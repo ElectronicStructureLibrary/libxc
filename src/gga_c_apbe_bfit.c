@@ -8,11 +8,11 @@
 
 #include "util.h"
 
-#define XC_GGA_C_APBE_BFIT        720 /* APBE with a fit of beta */
-#define XC_GGA_C_PBEINT_BFIT      721 /* PBEINT with a fit of beta */
-#define XC_HYB_GGA_XC_LC_OAPBE    722 /* LC hybrid based on APBE */
-#define XC_HYB_GGA_XC_LC_OPBEINT  723 /* LC hybrid based on PBEINT */
-#define XC_HYB_GGA_XC_LC_OSG4     724 /* LC hybrid based on SG4 */
+#define XC_GGA_C_APBE_BFIT        830 /* APBE with a fit of beta */
+#define XC_GGA_C_PBEINT_BFIT      831 /* PBEINT with a fit of beta */
+#define XC_HYB_GGA_XC_LC_OAPBE    832 /* LC hybrid based on APBE */
+#define XC_HYB_GGA_XC_LC_OPBEINT  833 /* LC hybrid based on PBEINT */
+#define XC_HYB_GGA_XC_LC_OSG4     834 /* LC hybrid based on SG4 */
 
 typedef struct{
   double bfit_a1, bfit_a2, bfit_a3, bfit_a4, bfit_a5;

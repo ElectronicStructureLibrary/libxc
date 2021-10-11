@@ -14,17 +14,16 @@
 
 typedef struct{
   double c1, c2, d, k1;
-  double taur, alphar;
   double eta, dp2;
 } mgga_x_r2scan_params;
 
-#define N_PAR 8
-static const char *names[N_PAR] = {"_c1", "_c2", "_d", "_k1", "_taur", "_alphar", "_eta", "_dp2"};
+#define N_PAR 6
+static const char *names[N_PAR] = {"_c1", "_c2", "_d", "_k1", "_eta", "_dp2"};
 static const char *desc[N_PAR] = {"c1 parameter", "c2 parameter", "d parameter",
-  "k1 parameter", "taur parameter", "alphar parameter", "eta parameter", "dp2 parameter"};
+  "k1 parameter", "eta parameter", "dp2 parameter"};
 
-static const double par_r2scan[N_PAR] = {0.667, 0.8, 1.24, 0.065, 1.0e-4, 1.0e-3, 0.001, 0.361};
-static const double par_r2scan01[N_PAR] = {0.667, 0.8, 1.24, 0.065, 1.0e-4, 1.0e-3, 0.01, 0.361};
+static const double par_r2scan[N_PAR] = {0.667, 0.8, 1.24, 0.065, 0.001, 0.361};
+static const double par_r2scan01[N_PAR] = {0.667, 0.8, 1.24, 0.065, 0.01, 0.361};
 
 static void
 mgga_x_r2scan_init(xc_func_type *p)

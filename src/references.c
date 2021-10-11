@@ -328,10 +328,10 @@ func_reference_type xc_ref_Bremond2016_244102 = {
 };
 
 
-func_reference_type xc_ref_Brown2021 = {
-  "K. Brown, Y. Maimaiti, K. Trepte, T. Bligaard, and J. Voss, J. Comput. Chem. n/a (2021), 10.1002/jcc.26732",
+func_reference_type xc_ref_Brown2021_2004 = {
+  "K. Brown, Y. Maimaiti, K. Trepte, T. Bligaard, and J. Voss, J. Comput. Chem. 42, 2004 (2021)",
   "10.1002/jcc.26732",
-  "@article{Brown2021,\n  author = {Brown, Kristopher and Maimaiti, Yasheng and Trepte, Kai and Bligaard, Thomas and Voss, Johannes},\n  title = {{MCML: Combining physical constraints with experimental data for a multi-purpose meta-generalized gradient approximation}},\n  journal = {J. Comput. Chem.},\n  volume = {n/a},\n  number = {n/a},\n  pages = {},\n  year = {2021},\n  doi = {10.1002/jcc.26732},\n  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.26732}\n}"
+  "@article{Brown2021_2004,\n  author = {Brown, Kristopher and Maimaiti, Yasheng and Trepte, Kai and Bligaard, Thomas and Voss, Johannes},\n  title = {{MCML}: Combining physical constraints with experimental data for a multi-purpose meta-generalized gradient approximation},\n  journal = {J. Comput. Chem.},\n  volume = {42},\n  number = {28},\n  pages = {2004--2013},\n  year = {2021},\n  doi = {10.1002/jcc.26732},\n  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.26732}\n}"
 };
 
 

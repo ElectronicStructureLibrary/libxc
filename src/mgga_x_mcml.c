@@ -23,7 +23,7 @@ const xc_func_info_type xc_func_info_mgga_x_mcml = {
   XC_EXCHANGE,
   "MCML exchange",
   XC_FAMILY_MGGA,
-  {&xc_ref_Brown2021, NULL, NULL, NULL, NULL},
+  {&xc_ref_Brown2021_2004, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
   {0, NULL, NULL, NULL, NULL},

@@ -797,6 +797,13 @@ func_reference_type xc_ref_Furness2020_9248 = {
 };
 
 
+func_reference_type xc_ref_Furness2021 = {
+  "J. W. Furness, A. D. Kaplan, J. Ning, J. P. Perdew, and J. Sun, (2021), arXiv:2110.00647 [cond-mat.mtrl-sci]",
+  "",
+  "@article{Furness2021,\n  title={Construction of meta-GGA functionals through restoration of exact constraint adherence to regularized SCAN functionals},\n  author={James W. Furness and Aaron D. Kaplan and Jinliang Ning and John P. Perdew and Jianwei Sun},\n  year={2021},\n  eprint={2110.00647},\n  archivePrefix={arXiv},\n  primaryClass={cond-mat.mtrl-sci}\n}"
+};
+
+
 func_reference_type xc_ref_Gaiduk2011_012509 = {
   "A. P. Gaiduk and V. N. Staroverov, Phys. Rev. A 83, 012509 (2011)",
   "10.1103/PhysRevA.83.012509",
@@ -1535,7 +1542,7 @@ func_reference_type xc_ref_Mardirossian2016_214110 = {
 func_reference_type xc_ref_Margraf2019_244116 = {
   "J. T. Margraf, C. Kunkel, and K. Reuter, J. Chem. Phys. 150, 244116 (2019)",
   "10.1063/1.5094788",
-  "@article{Margraf2019_244116,\n  author = {Margraf, Johannes T. and Kunkel, Christian and Reuter, Karsten},\n  title = {Towards density functional approximations from coupled cluster correlation energy densities},\n  journal = {J. Chem. Phys.},\n  volume = {150},\n  number = {24},\n  pages = {244116},\n  year = {2019},\n  doi = {10.1063/1.5094788},\n  url = {https://doi.org/10.1063/1.5094788}  \n}"
+  "@article{Margraf2019_244116,\n  author = {Margraf, Johannes T. and Kunkel, Christian and Reuter, Karsten},\n  title = {Towards density functional approximations from coupled cluster correlation energy densities},\n  journal = {J. Chem. Phys.},\n  volume = {150},\n  number = {24},\n  pages = {244116},\n  year = {2019},\n  doi = {10.1063/1.5094788},\n  url = {https://doi.org/10.1063/1.5094788}\n}"
 };
 
 
@@ -1647,7 +1654,7 @@ func_reference_type xc_ref_Negele1972_1472 = {
 func_reference_type xc_ref_Neupane2021_ = {
   "B. Neupane, H. Tang, N. K. Nepal, S. Adhikari, and A. Ruzsinszky, Opening band gaps of low-dimensional materials at the meta-gga level of density functional approximations, (2021), arXiv:2104.04053 [cond-mat.mtrl-sci]",
   "",
-  "@misc{Neupane2021_,\n  title={Opening band gaps of low-dimensional materials at the meta-GGA level of density functional approximations}, \n  author={Bimal Neupane and Hong Tang and Niraj K. Nepal and Santosh Adhikari and Adrienn Ruzsinszky},\n  year={2021},\n  eprint={2104.04053},\n  archivePrefix={arXiv},\n  primaryClass={cond-mat.mtrl-sci}\n}"
+  "@misc{Neupane2021_,\n  title={Opening band gaps of low-dimensional materials at the meta-GGA level of density functional approximations},\n  author={Bimal Neupane and Hong Tang and Niraj K. Nepal and Santosh Adhikari and Adrienn Ruzsinszky},\n  year={2021},\n  eprint={2104.04053},\n  archivePrefix={arXiv},\n  primaryClass={cond-mat.mtrl-sci}\n}"
 };
 
 

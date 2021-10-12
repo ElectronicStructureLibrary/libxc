@@ -12,16 +12,16 @@
 #define XC_MGGA_X_RSCAN         493 /* Regularized SCAN exchange */
 
 typedef struct{
-  double c1, c2, d, k1;
+  double c2, d, k1;
   double taur, alphar;
 } mgga_x_rscan_params;
 
-#define N_PAR 6
-static const char *names[N_PAR] = {"_c1", "_c2", "_d", "_k1", "_taur", "_alphar"};
-static const char *desc[N_PAR] = {"c1 parameter", "c2 parameter", "d parameter",
+#define N_PAR 5
+static const char *names[N_PAR] = {"_c2", "_d", "_k1", "_taur", "_alphar"};
+static const char *desc[N_PAR] = {"c2 parameter", "d parameter",
                                   "k1 parameter", "taur parameter", "alphar parameter"};
 
-static const double par_rscan[N_PAR] = {0.667, 0.8, 1.24, 0.065, 1.0e-4, 1.0e-3};
+static const double par_rscan[N_PAR] = {0.8, 1.24, 0.065, 1.0e-4, 1.0e-3};
 
 static void
 mgga_x_rscan_init(xc_func_type *p)

@@ -172,8 +172,8 @@ CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc*
 
 xc_f.o : xc_f_inc.c
 
-funcs: $(srcdir)/../scripts/get_funcs.pl
-	$(srcdir)/../scripts/get_funcs.pl $(srcdir) $(top_builddir)/src
+funcs: $(srcdir)/../scripts/get_functional_info.py
+	$(srcdir)/../scripts/get_functional_info.py --srcdir=$(srcdir) --builddir=$(top_builddir)/src
 
 LTPREF = $(subst xc_f.lo,,$(firstword $(am_libxcf03_la_OBJECTS)))
 # Surprisingly, libtool/automake do not seem to provide a macro or variable for what the object names will be,

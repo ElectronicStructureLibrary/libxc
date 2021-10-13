@@ -435,7 +435,8 @@ set(raw_sources_list
   mgga_x_mcml.c
   mgga_c_rmggac.c
   mgga_x_rppscan.c
-  mgga_c_rppscan.c  
+  mgga_c_rppscan.c
+  mgga_x_r4scan.c
   mix_func.c
   deorbitalize_func.c
   references.c

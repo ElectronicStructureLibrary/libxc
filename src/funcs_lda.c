@@ -71,7 +71,6 @@ extern xc_func_info_type xc_func_info_lda_c_rpw92;
 extern xc_func_info_type xc_func_info_lda_x_sloc;
 extern xc_func_info_type xc_func_info_lda_k_gds08_worker;
 
-
 const xc_func_info_type *xc_lda_known_funct[] = {
   &xc_func_info_lda_x,
   &xc_func_info_lda_c_wigner,

@@ -5,5 +5,6 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
-dist_noinst_SCRIPTS = get_funcs.pl get_references.pl maple2c.pl \
-  maple2c_work.pm maple2c_derivatives.pm
+dist_noinst_SCRIPTS = get_functional_info.py get_references.py	\
+  maple2c.py maple2c_lib/lda.py maple2c_lib/gga.py		\
+  maple2c_lib/mgga.py maple2c_lib/utils.py math_deorbitalize.py

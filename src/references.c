@@ -359,7 +359,7 @@ func_reference_type xc_ref_Brual1978_1177 = {
 func_reference_type xc_ref_Burke2014_4834 = {
   "K. Burke, A. Cancio, T. Gould, and S. Pittalis, ArXiv e-prints (2014), arXiv:1409.4834 [cond-mat.mtrl-sci]",
   "",
-  "@article{Burke2014_4834,\n  author = {Burke, K. and Cancio, A. and Gould, T. and Pittalis, S.},\n  title = \"{Atomic correlation energies and the generalized gradient approximation}\",\n  journal = {ArXiv e-prints},\n  archivePrefix = \"arXiv\",\n  eprint = {1409.4834},\n  primaryClass = \"cond-mat.mtrl-sci\",\n  year = 2014,\n  month = sep,\n  adsurl = {http://adsabs.harvard.edu/abs/2014arXiv1409.4834B},\n  adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
+  "@article{Burke2014_4834,\n  author = {Burke, K. and Cancio, A. and Gould, T. and Pittalis, S.},\n  title = \"{Atomic correlation energies and the generalized gradient approximation}\",\n  journal = {ArXiv e-prints},\n  archivePrefix = \"arXiv\",\n  eprint = {1409.4834},\n  primaryClass = \"cond-mat.mtrl-sci\",\n  year = 2014,\n  month = sep\n}"
 };
 
 
@@ -595,9 +595,9 @@ func_reference_type xc_ref_Constantin2017_115153 = {
 
 
 func_reference_type xc_ref_Constantin2018_4385 = {
-  "L. A. Constantin, E. Fabiano, and F. Della Sala, J. Phys. Chem. Lett. 9, 4385 (2018), pMID: 30019904",
+  "L. A. Constantin, E. Fabiano, and F. Della Sala, J. Phys. Chem. Lett. 9, 4385 (2018)",
   "10.1021/acs.jpclett.8b01926",
-  "@article{Constantin2018_4385,\n  author = {Constantin, Lucian A. and Fabiano, Eduardo and Della Sala, Fabio},\n  title = {Semilocal Pauli--Gaussian Kinetic Functionals for Orbital-Free Density Functional Theory Calculations of Solids},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {9},\n  number = {15},\n  pages = {4385-4390},\n  year = {2018},\n  doi = {10.1021/acs.jpclett.8b01926},\n  note ={PMID: 30019904},\n  url = {https://doi.org/10.1021/acs.jpclett.8b01926}\n}"
+  "@article{Constantin2018_4385,\n  author = {Constantin, Lucian A. and Fabiano, Eduardo and Della Sala, Fabio},\n  title = {Semilocal Pauli--Gaussian Kinetic Functionals for Orbital-Free Density Functional Theory Calculations of Solids},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {9},\n  number = {15},\n  pages = {4385-4390},\n  year = {2018},\n  doi = {10.1021/acs.jpclett.8b01926},\n  url = {https://doi.org/10.1021/acs.jpclett.8b01926}\n}"
 };
 
 
@@ -800,7 +800,7 @@ func_reference_type xc_ref_Fuentealba1995_31 = {
 func_reference_type xc_ref_Furness2018 = {
   "J. W. Furness and J. Sun, ArXiv e-prints (2018), arXiv:1805.11707v1 [physics.chem-ph]",
   "",
-  "@article{Furness2018,\n  author = {Furness, J. W. and Sun, J.},\n  title = \"{Enhancing the efficiency of density functionals with a novel iso-orbital indicator}\",\n  journal = {ArXiv e-prints},\n  archivePrefix = \"arXiv\",\n  eprint = {1805.11707v1},\n  primaryClass = \"physics.chem-ph\",\n  year = 2018,\n  month = may,\n  adsurl = {http://adsabs.harvard.edu/abs/2018arXiv180511707F},\n  adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
+  "@article{Furness2018,\n  author = {Furness, J. W. and Sun, J.},\n  title = \"{Enhancing the efficiency of density functionals with a novel iso-orbital indicator}\",\n  journal = {ArXiv e-prints},\n  archivePrefix = \"arXiv\",\n  eprint = {1805.11707v1},\n  primaryClass = \"physics.chem-ph\",\n  year = 2018,\n  month = may,\n}"
 };
 
 
@@ -1235,6 +1235,13 @@ func_reference_type xc_ref_Karasiev2016_157101 = {
   "V. V. Karasiev, J. Chem. Phys. 145, 157101 (2016)",
   "10.1063/1.4964758",
   "@article{Karasiev2016_157101,\n  author = {Valentin V. Karasiev},\n  title = {Comment on \"Communication: Simple and accurate uniform electron gas correlation energy for the full range of densities\" [J. Chem. Phys. 145, 021101 (2016)]},\n  journal = {J. Chem. Phys.},\n  volume = {145},\n  number = {15},\n  pages = {157101},\n  year = {2016},\n  doi = {10.1063/1.4964758},\n  url = {https://doi.org/10.1063/1.4964758}\n}"
+};
+
+
+func_reference_type xc_ref_Karasiev2018_076401 = {
+  "V. V. Karasiev, J. W. Dufty, and S. B. Trickey, Phys. Rev. Lett. 120, 076401 (2018)",
+  "10.1103/PhysRevLett.120.076401",
+  "@article{Karasiev2018_076401,\n  title = {Nonempirical Semilocal Free-Energy Density Functional for Matter under Extreme Conditions},\n  author = {Karasiev, Valentin V. and Dufty, James W. and Trickey, S. B.},\n  journal = {Phys. Rev. Lett.},\n  volume = {120},\n  issue = {7},\n  pages = {076401},\n  numpages = {7},\n  year = {2018},\n  month = {Feb},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.120.076401},\n  url = {https://link.aps.org/doi/10.1103/PhysRevLett.120.076401}\n}"
 };
 
 
@@ -2915,6 +2922,13 @@ func_reference_type xc_ref_nwchemimplementation = {
   "Defined through NWChem implementation",
   "",
   "@misc{nwchemimplementation,\n  note = {Defined through NWChem implementation},\n}"
+};
+
+
+func_reference_type xc_ref_lda_xc_corrksdt_note = {
+  "",
+  "",
+  "@misc{lda_xc_corrksdt_note,\n  note = {Karasiev has stated that the functional would need reparameterisation for spin-polarized functionals, so it should in principle be only used for spin-unpolarized calculations; see discussion in https://gitlab.com/libxc/libxc/-/merge\\_requests/465.},\n}"
 };
 
 

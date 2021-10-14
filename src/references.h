@@ -331,6 +331,7 @@ extern func_reference_type xc_ref_Song2007_154105;
 extern func_reference_type xc_ref_Song2007_154109;
 extern func_reference_type xc_ref_Song2008_184113;
 extern func_reference_type xc_ref_Song2009_144108;
+extern func_reference_type xc_ref_Sparrow2021;
 extern func_reference_type xc_ref_Staroverov2003_12129;
 extern func_reference_type xc_ref_Stephens1994_11623;
 extern func_reference_type xc_ref_Stewart1995_4337;

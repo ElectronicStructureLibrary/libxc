@@ -839,3 +839,99 @@ internal_counters_mgga_prev
 #endif
 #endif
 }
+
+/** Computes nderiv derivatives of B-spline Nip(u)
+
+    The algorithm follows the textbook presentation in the NURBS
+    book, 2nd edition, by Les Piegl and Wayne Tiller.
+
+    Input variables:
+    - i: function index
+    - p: spline order
+    - u: argument
+    - nderiv: number of derivatives to calculate (zero for just the function itself)
+    - U: knots
+    Output variables:
+    - ders: array [Nip(u), Nip'(u), Nip''(u), ..., Nip^(nderiv)(u)]
+*/
+GPU_FUNCTION void
+xc_bspline(int i, int p, double u, int nderiv, const double *U, double *ders) {
+
+  /* Initialize output array */
+  libxc_memset(ders, 0, (nderiv+1)*sizeof(double));
+
+  /* Check locality of support */
+  if(u < U[i] || u >= U[i+p+1]) {
+    return;
+  }
+
+  /* Arrays need static sizes for stack allocation */
+#define PMAX 8
+  assert(p<PMAX);
+
+  /* Array of normalized B splines, use dense storage for simpler code */
+  double N[PMAX][PMAX];
+  libxc_memset(N, 0, PMAX*PMAX*sizeof(double));
+
+  /* Initialize zeroth-degree functions: piecewise constants */
+  for(int j=0; j<=p; j++) {
+    N[0][j] = (u >= U[i+j] && u < U[i+j+1]) ? 1.0 : 0.0;
+  }
+
+  /* Fill out table of B splines */
+  for(int k=1; k<=p; k++) {
+    double saved = (N[k-1][0] == 0.0) ? 0.0 : ((u-U[i])*N[k-1][0])/(U[i+k]-U[i]);
+
+    for(int j=0; j<=p-k; j++) {
+      double Ul = U[i+j+1];
+      double Ur = U[i+j+k+1];
+      if(N[k-1][j+1] == 0.0) {
+        N[k][j] = saved;
+        saved = 0.0;
+      } else {
+        double temp = N[k-1][j+1] / (Ur-Ul);
+        N[k][j] = saved + (Ur-u)*temp;
+        saved = (u-Ul)*temp;
+      }
+    }
+  }
+
+  /* Function value */
+  ders[0] = N[p][0];
+  if(nderiv==0)
+    return;
+
+  /* Helper memory */
+  assert(nderiv<=4);
+  double ND[5]; /* dimension nderiv+1 */
+  int maxk = (nderiv < p) ? nderiv : p;
+
+  /* Compute derivatives */
+  for(int k=1; k<=maxk; k++) {
+    /* Load appropriate column */
+    libxc_memset(ND, 0, (nderiv+1)*sizeof(double));
+    for(int j=0; j<=k; j++)
+      ND[j] = N[p-k][j];
+
+    /* Compute table */
+    for(int jj=1; jj<=k; jj++) {
+      double saved = (ND[0] == 0.0) ? 0.0 : ND[0]/(U[i+p-k+jj]-U[i]);
+
+      for(int j=0; j<=k-jj; j++) {
+        double Ul = U[i+j+1];
+        /* the -k term is missing in the book */
+        double Ur = U[i+j+p-k+jj+1];
+        if(ND[j+1] == 0.0) {
+          ND[j] = (p-k+jj)*saved;
+          saved = 0.0;
+        } else {
+          double temp = ND[j+1]/(Ur-Ul);
+          ND[j] = (p-k+jj)*(saved-temp);
+          saved = temp;
+        }
+      }
+    }
+    /* k:th derivative is */
+    ders[k] = ND[0];
+  }
+}

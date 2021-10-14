@@ -107,6 +107,9 @@
 #define my_piecewise3(c, x1, x2) ((c) ? (x1) : (x2))
 #define my_piecewise5(c1, x1, c2, x2, x3) ((c1) ? (x1) : ((c2) ? (x2) : (x3)))
 
+/* Computes nderiv derivatives of B-spline Nip(u) */
+GPU_FUNCTION void xc_bspline(int i, int p, double u, int nderiv, const double *U, double *ders);
+
 #define M_SQRTPI        1.772453850905516027298167483341145182798L
 #define M_CBRTPI        1.464591887561523263020142527263790391739L
 #define M_SQRT3         1.732050807568877293527446341505872366943L

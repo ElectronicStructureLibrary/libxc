@@ -178,9 +178,6 @@ xc_funcs.h xc_funcs_worker.h libxc_inc.f90 \
 funcs_lda.c funcs_gga.c funcs_mgga.c funcs_key.c: $(srcdir)/../scripts/get_funcs.pl
 	$(srcdir)/../scripts/get_funcs.pl $(srcdir) $(top_builddir)/src
 
-references.h references.c: $(srcdir)/../scripts/get_references.pl $(srcdir)/../libxc.bib
-	(cd $(top_builddir)/src && $(srcdir)/../scripts/get_references.pl $(srcdir)/../libxc.bib)
-
 LTPREF = $(subst xc_f.lo,,$(firstword $(am_libxcf03_la_OBJECTS)))
 # Surprisingly, libtool/automake do not seem to provide a macro or variable for what the object names will be,
 # so we have to extract it ourselves. LTPREF=libxcf03_la-, or blank for older libtool/automake versions.

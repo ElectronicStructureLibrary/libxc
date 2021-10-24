@@ -45,8 +45,10 @@ static const double case21_values[N_PAR]     = {
 };
 
 static double xbspline(double u, int ider, const hyb_gga_xc_case21_params * params) {
+  assert(ider<=4);
+
   double result=0.0;
-  double temp[ider+1];
+  double temp[5]; /* dimension ider+1 */
   for(int i=0;i<params->Nsp;i++) {
     xc_bspline(i, params->k, u, ider, params->knots, temp);
     result += params->cx[i]*temp[ider];
@@ -56,8 +58,10 @@ static double xbspline(double u, int ider, const hyb_gga_xc_case21_params * para
 }
 
 static double cbspline(double u, int ider, const hyb_gga_xc_case21_params * params) {
+  assert(ider<=4);
+
   double result=0.0;
-  double temp[ider+1];
+  double temp[5]; /* dimension ider+1 */
   for(int i=0;i<params->Nsp;i++) {
     xc_bspline(i, params->k, u, ider, params->knots, temp);
     result += params->cc[i]*temp[ider];
@@ -83,14 +87,16 @@ case21_set_ext_params(xc_func_type *p, const double *ext_params)
     params->knots[k] = qmin+k*dq;
   }
 
+  const double *ep = (ext_params != NULL) ? ext_params: p->info->ext_params.values;
+
   /* External parameters */
   for(int i=0;i<params->Nsp;i++)
-    params->cx[i] = ext_params[i];
+    params->cx[i] = ep[i];
   for(int i=0;i<params->Nsp;i++)
-    params->cc[i] = ext_params[i + params->Nsp];
-  params->gammax = ext_params[2*params->Nsp];
-  params->gammac = ext_params[2*params->Nsp+1];
-  params->ax = ext_params[2*params->Nsp+2];
+    params->cc[i] = ep[i + params->Nsp];
+  params->gammax = ep[2*params->Nsp];
+  params->gammac = ep[2*params->Nsp+1];
+  params->ax = ep[2*params->Nsp+2];
 
   /* Exact exchange */
   p->cam_alpha = params->ax;
@@ -116,7 +122,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_case21 = {
   XC_HYB_GGA_XC_CASE21,
   XC_EXCHANGE_CORRELATION,
   "CASE21: Constrained And Smoothed semi-Empirical 2021 functional",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Sparrow2021, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,

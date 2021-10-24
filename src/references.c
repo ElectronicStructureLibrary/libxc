@@ -2267,6 +2267,13 @@ func_reference_type xc_ref_Song2009_144108 = {
 };
 
 
+func_reference_type xc_ref_Sparrow2021 = {
+  "Z. M. Sparrow, B. G. Ernst, T. K. Quady, and R. A. D. Jr, Case21: Uniting non-empirical and semi-empirical density functional approximation strategies using constraint-based regularization, (2021), arXiv:2109.12560 [physics.chem-ph]",
+  "",
+  "@misc{Sparrow2021,\n  title={CASE21: Uniting Non-Empirical and Semi-Empirical Density Functional Approximation Strategies using Constraint-Based Regularization},\n  author={Zachary M. Sparrow and Brian G. Ernst and Trine K. Quady and Robert A. DiStasio Jr},\n  year={2021},\n  eprint={2109.12560},\n  archivePrefix={arXiv},\n  primaryClass={physics.chem-ph}\n}"
+};
+
+
 func_reference_type xc_ref_Staroverov2003_12129 = {
   "V. N. Staroverov, G. E. Scuseria, J. Tao, and J. P. Perdew, J. Chem. Phys. 119, 12129 (2003)",
   "10.1063/1.1626543",
@@ -2918,17 +2925,17 @@ func_reference_type xc_ref_gaussianimplementation = {
 };
 
 
-func_reference_type xc_ref_nwchemimplementation = {
-  "Defined through NWChem implementation",
-  "",
-  "@misc{nwchemimplementation,\n  note = {Defined through NWChem implementation},\n}"
-};
-
-
 func_reference_type xc_ref_lda_xc_corrksdt_note = {
   "",
   "",
   "@misc{lda_xc_corrksdt_note,\n  note = {Karasiev has stated that the functional would need reparameterisation for spin-polarized functionals, so it should in principle be only used for spin-unpolarized calculations; see discussion in https://gitlab.com/libxc/libxc/-/merge\\_requests/465.},\n}"
+};
+
+
+func_reference_type xc_ref_nwchemimplementation = {
+  "Defined through NWChem implementation",
+  "",
+  "@misc{nwchemimplementation,\n  note = {Defined through NWChem implementation},\n}"
 };
 
 

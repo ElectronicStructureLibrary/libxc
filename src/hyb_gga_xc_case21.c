@@ -45,8 +45,10 @@ static const double case21_values[N_PAR]     = {
 };
 
 static double xbspline(double u, int ider, const hyb_gga_xc_case21_params * params) {
+  assert(ider<=4);
+
   double result=0.0;
-  double temp[ider+1];
+  double temp[5]; /* dimension ider+1 */
   for(int i=0;i<params->Nsp;i++) {
     xc_bspline(i, params->k, u, ider, params->knots, temp);
     result += params->cx[i]*temp[ider];
@@ -56,8 +58,10 @@ static double xbspline(double u, int ider, const hyb_gga_xc_case21_params * para
 }
 
 static double cbspline(double u, int ider, const hyb_gga_xc_case21_params * params) {
+  assert(ider<=4);
+
   double result=0.0;
-  double temp[ider+1];
+  double temp[5]; /* dimension ider+1 */
   for(int i=0;i<params->Nsp;i++) {
     xc_bspline(i, params->k, u, ider, params->knots, temp);
     result += params->cc[i]*temp[ider];

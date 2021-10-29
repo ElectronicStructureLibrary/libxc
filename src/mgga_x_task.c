@@ -78,7 +78,7 @@ const xc_func_info_type xc_func_info_mgga_x_mtask = {
   XC_EXCHANGE,
   "modified TASK exchange",
   XC_FAMILY_MGGA,
-  {&xc_ref_Neupane2021_, NULL, NULL, NULL, NULL},
+  {&xc_ref_Neupane2021_063803, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {TASK_N_PAR, task_names, task_desc, mtask_values, set_ext_params_cpy},

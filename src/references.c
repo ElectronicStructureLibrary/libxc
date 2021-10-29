@@ -1665,10 +1665,10 @@ func_reference_type xc_ref_Negele1972_1472 = {
 };
 
 
-func_reference_type xc_ref_Neupane2021_ = {
-  "B. Neupane, H. Tang, N. K. Nepal, S. Adhikari, and A. Ruzsinszky, Opening band gaps of low-dimensional materials at the meta-gga level of density functional approximations, (2021), arXiv:2104.04053 [cond-mat.mtrl-sci]",
-  "",
-  "@misc{Neupane2021_,\n  title={Opening band gaps of low-dimensional materials at the meta-GGA level of density functional approximations},\n  author={Bimal Neupane and Hong Tang and Niraj K. Nepal and Santosh Adhikari and Adrienn Ruzsinszky},\n  year={2021},\n  eprint={2104.04053},\n  archivePrefix={arXiv},\n  primaryClass={cond-mat.mtrl-sci}\n}"
+func_reference_type xc_ref_Neupane2021_063803 = {
+  "B. Neupane, H. Tang, N. K. Nepal, S. Adhikari, and A. Ruzsinszky, Phys. Rev. Materials 5, 063803 (2021)",
+  "10.1103/PhysRevMaterials.5.063803",
+  "@article{Neupane2021_063803,\n  title = {Opening band gaps of low-dimensional materials at the meta-{GGA} level of density functional approximations},\n  author = {Neupane, Bimal and Tang, Hong and Nepal, Niraj K. and Adhikari, Santosh and Ruzsinszky, Adrienn},\n  journal = {Phys. Rev. Materials},\n  volume = {5},\n  issue = {6},\n  pages = {063803},\n  numpages = {12},\n  year = {2021},\n  month = {Jun},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevMaterials.5.063803},\n  url = {https://link.aps.org/doi/10.1103/PhysRevMaterials.5.063803}\n}"
 };
 
 

@@ -349,10 +349,10 @@ func_reference_type xc_ref_Bremond2016_244102 = {
 };
 
 
-func_reference_type xc_ref_Brown2021 = {
-  "K. Brown, Y. Maimaiti, K. Trepte, T. Bligaard, and J. Voss, J. Comput. Chem. n/a (2021), 10.1002/jcc.26732",
+func_reference_type xc_ref_Brown2021_2004 = {
+  "K. Brown, Y. Maimaiti, K. Trepte, T. Bligaard, and J. Voss, J. Comput. Chem. 42, 2004 (2021)",
   "10.1002/jcc.26732",
-  "@article{Brown2021,\n  author = {Brown, Kristopher and Maimaiti, Yasheng and Trepte, Kai and Bligaard, Thomas and Voss, Johannes},\n  title = {{MCML: Combining physical constraints with experimental data for a multi-purpose meta-generalized gradient approximation}},\n  journal = {J. Comput. Chem.},\n  volume = {n/a},\n  number = {n/a},\n  pages = {},\n  year = {2021},\n  doi = {10.1002/jcc.26732},\n  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.26732}\n}"
+  "@article{Brown2021_2004,\n  author = {Brown, Kristopher and Maimaiti, Yasheng and Trepte, Kai and Bligaard, Thomas and Voss, Johannes},\n  title = {{MCML}: Combining physical constraints with experimental data for a multi-purpose meta-generalized gradient approximation},\n  journal = {J. Comput. Chem.},\n  volume = {42},\n  number = {28},\n  pages = {2004--2013},\n  year = {2021},\n  doi = {10.1002/jcc.26732},\n  url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.26732}\n}"
 };
 
 
@@ -366,7 +366,7 @@ func_reference_type xc_ref_Brual1978_1177 = {
 func_reference_type xc_ref_Burke2014_4834 = {
   "K. Burke, A. Cancio, T. Gould, and S. Pittalis, ArXiv e-prints (2014), arXiv:1409.4834 [cond-mat.mtrl-sci]",
   "",
-  "@article{Burke2014_4834,\n  author = {Burke, K. and Cancio, A. and Gould, T. and Pittalis, S.},\n  title = \"{Atomic correlation energies and the generalized gradient approximation}\",\n  journal = {ArXiv e-prints},\n  archivePrefix = \"arXiv\",\n  eprint = {1409.4834},\n  primaryClass = \"cond-mat.mtrl-sci\",\n  year = 2014,\n  month = sep,\n  adsurl = {http://adsabs.harvard.edu/abs/2014arXiv1409.4834B},\n  adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
+  "@article{Burke2014_4834,\n  author = {Burke, K. and Cancio, A. and Gould, T. and Pittalis, S.},\n  title = \"{Atomic correlation energies and the generalized gradient approximation}\",\n  journal = {ArXiv e-prints},\n  archivePrefix = \"arXiv\",\n  eprint = {1409.4834},\n  primaryClass = \"cond-mat.mtrl-sci\",\n  year = 2014,\n  month = sep\n}"
 };
 
 
@@ -609,9 +609,9 @@ func_reference_type xc_ref_Constantin2017_115153 = {
 
 
 func_reference_type xc_ref_Constantin2018_4385 = {
-  "L. A. Constantin, E. Fabiano, and F. Della Sala, J. Phys. Chem. Lett. 9, 4385 (2018), pMID: 30019904",
+  "L. A. Constantin, E. Fabiano, and F. Della Sala, J. Phys. Chem. Lett. 9, 4385 (2018)",
   "10.1021/acs.jpclett.8b01926",
-  "@article{Constantin2018_4385,\n  author = {Constantin, Lucian A. and Fabiano, Eduardo and Della Sala, Fabio},\n  title = {Semilocal Pauli--Gaussian Kinetic Functionals for Orbital-Free Density Functional Theory Calculations of Solids},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {9},\n  number = {15},\n  pages = {4385-4390},\n  year = {2018},\n  doi = {10.1021/acs.jpclett.8b01926},\n  note ={PMID: 30019904},\n  url = {https://doi.org/10.1021/acs.jpclett.8b01926}\n}"
+  "@article{Constantin2018_4385,\n  author = {Constantin, Lucian A. and Fabiano, Eduardo and Della Sala, Fabio},\n  title = {Semilocal Pauli--Gaussian Kinetic Functionals for Orbital-Free Density Functional Theory Calculations of Solids},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {9},\n  number = {15},\n  pages = {4385-4390},\n  year = {2018},\n  doi = {10.1021/acs.jpclett.8b01926},\n  url = {https://doi.org/10.1021/acs.jpclett.8b01926}\n}"
 };
 
 
@@ -821,7 +821,7 @@ func_reference_type xc_ref_Fuentealba1995_31 = {
 func_reference_type xc_ref_Furness2018 = {
   "J. W. Furness and J. Sun, ArXiv e-prints (2018), arXiv:1805.11707v1 [physics.chem-ph]",
   "",
-  "@article{Furness2018,\n  author = {Furness, J. W. and Sun, J.},\n  title = \"{Enhancing the efficiency of density functionals with a novel iso-orbital indicator}\",\n  journal = {ArXiv e-prints},\n  archivePrefix = \"arXiv\",\n  eprint = {1805.11707v1},\n  primaryClass = \"physics.chem-ph\",\n  year = 2018,\n  month = may,\n  adsurl = {http://adsabs.harvard.edu/abs/2018arXiv180511707F},\n  adsnote = {Provided by the SAO/NASA Astrophysics Data System}\n}"
+  "@article{Furness2018,\n  author = {Furness, J. W. and Sun, J.},\n  title = \"{Enhancing the efficiency of density functionals with a novel iso-orbital indicator}\",\n  journal = {ArXiv e-prints},\n  archivePrefix = \"arXiv\",\n  eprint = {1805.11707v1},\n  primaryClass = \"physics.chem-ph\",\n  year = 2018,\n  month = may,\n}"
 };
 
 
@@ -843,6 +843,13 @@ func_reference_type xc_ref_Furness2020_9248 = {
   "J. W. Furness, A. D. Kaplan, J. Ning, J. P. Perdew, and J. Sun, J. Phys. Chem. Lett. 11, 9248 (2020)",
   "10.1021/acs.jpclett.0c03077",
   "@article{Furness2020_9248,\n  author = {Furness, James W. and Kaplan, Aaron D. and Ning, Jinliang and Perdew, John P. and Sun, Jianwei},\n  title = {Correction to \"Accurate and Numerically Efficient r2SCAN Meta-Generalized Gradient Approximation\"},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {11},\n  number = {21},\n  pages = {9248-9248},\n  year = {2020},\n  doi = {10.1021/acs.jpclett.0c03077},\n  url = {https://doi.org/10.1021/acs.jpclett.0c03077}\n}"
+};
+
+
+func_reference_type xc_ref_Furness2021 = {
+  "J. W. Furness, A. D. Kaplan, J. Ning, J. P. Perdew, and J. Sun, (2021), arXiv:2110.00647 [cond-mat.mtrl-sci]",
+  "",
+  "@article{Furness2021,\n  title={Construction of meta-GGA functionals through restoration of exact constraint adherence to regularized SCAN functionals},\n  author={James W. Furness and Aaron D. Kaplan and Jinliang Ning and John P. Perdew and Jianwei Sun},\n  year={2021},\n  eprint={2110.00647},\n  archivePrefix={arXiv},\n  primaryClass={cond-mat.mtrl-sci}\n}"
 };
 
 
@@ -1259,10 +1266,17 @@ func_reference_type xc_ref_Karasiev2016_157101 = {
 };
 
 
+func_reference_type xc_ref_Karasiev2018_076401 = {
+  "V. V. Karasiev, J. W. Dufty, and S. B. Trickey, Phys. Rev. Lett. 120, 076401 (2018)",
+  "10.1103/PhysRevLett.120.076401",
+  "@article{Karasiev2018_076401,\n  title = {Nonempirical Semilocal Free-Energy Density Functional for Matter under Extreme Conditions},\n  author = {Karasiev, Valentin V. and Dufty, James W. and Trickey, S. B.},\n  journal = {Phys. Rev. Lett.},\n  volume = {120},\n  issue = {7},\n  pages = {076401},\n  numpages = {7},\n  year = {2018},\n  month = {Feb},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.120.076401},\n  url = {https://link.aps.org/doi/10.1103/PhysRevLett.120.076401}\n}"
+};
+
+
 func_reference_type xc_ref_Karton2008_12868 = {
-  "A. Karton, A. Tarnopolsky, J.-F. Lamère, G. C. Schatz, and J. M. L. Martin, J. Phys. Chem. A 112, 12868 (2008)",
+  "A. Karton, A. Tarnopolsky, J.-F. Lamere, G. C. Schatz, and J. M. L. Martin, J. Phys. Chem. A 112, 12868 (2008)",
   "10.1021/jp801805p",
-  "@article{Karton2008_12868,\n  author = {Karton, Amir and Tarnopolsky, Alex and Lamère, Jean-François and Schatz, George C. and Martin, Jan M. L.},\n  title = {Highly Accurate First-Principles Benchmark Data Sets for the Parametrization and Validation of Density Functional and Other Approximate Methods. Derivation of a Robust, Generally Applicable, Double-Hybrid Functional for Thermochemistry and Thermochemical Kinetics},\n  journal = {J. Phys. Chem. A},\n  volume = {112},\n  number = {50},\n  pages = {12868-12886},\n  year = {2008},\n  doi = {10.1021/jp801805p},\n  url = {https://doi.org/10.1021/jp801805p}\n}"
+  "@article{Karton2008_12868,\n  author = {Karton, Amir and Tarnopolsky, Alex and Lam\\'{e}re, Jean-Fran\\c{c}ois and Schatz, George C. and Martin, Jan M. L.},\n  title = {Highly Accurate First-Principles Benchmark Data Sets for the Parametrization and Validation of Density Functional and Other Approximate Methods. Derivation of a Robust, Generally Applicable, Double-Hybrid Functional for Thermochemistry and Thermochemical Kinetics},\n  journal = {J. Phys. Chem. A},\n  volume = {112},\n  number = {50},\n  pages = {12868--12886},\n  year = {2008},\n  doi = {10.1021/jp801805p},\n  url = {https://doi.org/10.1021/jp801805p}\n}"
 };
 
 
@@ -1605,7 +1619,7 @@ func_reference_type xc_ref_Mardirossian2016_214110 = {
 func_reference_type xc_ref_Margraf2019_244116 = {
   "J. T. Margraf, C. Kunkel, and K. Reuter, J. Chem. Phys. 150, 244116 (2019)",
   "10.1063/1.5094788",
-  "@article{Margraf2019_244116,\n  author = {Margraf, Johannes T. and Kunkel, Christian and Reuter, Karsten},\n  title = {Towards density functional approximations from coupled cluster correlation energy densities},\n  journal = {J. Chem. Phys.},\n  volume = {150},\n  number = {24},\n  pages = {244116},\n  year = {2019},\n  doi = {10.1063/1.5094788},\n  url = {https://doi.org/10.1063/1.5094788}  \n}"
+  "@article{Margraf2019_244116,\n  author = {Margraf, Johannes T. and Kunkel, Christian and Reuter, Karsten},\n  title = {Towards density functional approximations from coupled cluster correlation energy densities},\n  journal = {J. Chem. Phys.},\n  volume = {150},\n  number = {24},\n  pages = {244116},\n  year = {2019},\n  doi = {10.1063/1.5094788},\n  url = {https://doi.org/10.1063/1.5094788}\n}"
 };
 
 
@@ -1714,10 +1728,10 @@ func_reference_type xc_ref_Negele1972_1472 = {
 };
 
 
-func_reference_type xc_ref_Neupane2021_ = {
-  "B. Neupane, H. Tang, N. K. Nepal, S. Adhikari, and A. Ruzsinszky, Opening band gaps of low-dimensional materials at the meta-gga level of density functional approximations, (2021), arXiv:2104.04053 [cond-mat.mtrl-sci]",
-  "",
-  "@misc{Neupane2021_,\n  title={Opening band gaps of low-dimensional materials at the meta-GGA level of density functional approximations}, \n  author={Bimal Neupane and Hong Tang and Niraj K. Nepal and Santosh Adhikari and Adrienn Ruzsinszky},\n  year={2021},\n  eprint={2104.04053},\n  archivePrefix={arXiv},\n  primaryClass={cond-mat.mtrl-sci}\n}"
+func_reference_type xc_ref_Neupane2021_063803 = {
+  "B. Neupane, H. Tang, N. K. Nepal, S. Adhikari, and A. Ruzsinszky, Phys. Rev. Materials 5, 063803 (2021)",
+  "10.1103/PhysRevMaterials.5.063803",
+  "@article{Neupane2021_063803,\n  title = {Opening band gaps of low-dimensional materials at the meta-{GGA} level of density functional approximations},\n  author = {Neupane, Bimal and Tang, Hong and Nepal, Niraj K. and Adhikari, Santosh and Ruzsinszky, Adrienn},\n  journal = {Phys. Rev. Materials},\n  volume = {5},\n  issue = {6},\n  pages = {063803},\n  numpages = {12},\n  year = {2021},\n  month = {Jun},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevMaterials.5.063803},\n  url = {https://link.aps.org/doi/10.1103/PhysRevMaterials.5.063803}\n}"
 };
 
 
@@ -2285,6 +2299,13 @@ func_reference_type xc_ref_Song2009_144108 = {
   "J.-W. Song, M. A. Watson, and K. Hirao, J. Chem. Phys. 131, 144108 (2009)",
   "10.1063/1.3243819",
   "@article{Song2009_144108,\n  author = {Song, Jong-Won and Watson, Mark A. and Hirao, Kimihiko},\n  title = {An improved long-range corrected hybrid functional with vanishing Hartree--Fock exchange at zero interelectronic distance (LC2gau-BOP)},\n  journal = {J. Chem. Phys.},\n  volume = {131},\n  number = {14},\n  pages = {144108},\n  year = {2009},\n  doi = {10.1063/1.3243819},\n  url = {https://doi.org/10.1063/1.3243819},\n}"
+};
+
+
+func_reference_type xc_ref_Sparrow2021 = {
+  "Z. M. Sparrow, B. G. Ernst, T. K. Quady, and R. A. D. Jr, Case21: Uniting non-empirical and semi-empirical density functional approximation strategies using constraint-based regularization, (2021), arXiv:2109.12560 [physics.chem-ph]",
+  "",
+  "@misc{Sparrow2021,\n  title={CASE21: Uniting Non-Empirical and Semi-Empirical Density Functional Approximation Strategies using Constraint-Based Regularization},\n  author={Zachary M. Sparrow and Brian G. Ernst and Trine K. Quady and Robert A. DiStasio Jr},\n  year={2021},\n  eprint={2109.12560},\n  archivePrefix={arXiv},\n  primaryClass={physics.chem-ph}\n}"
 };
 
 
@@ -2936,6 +2957,13 @@ func_reference_type xc_ref_gaussianimplementation = {
   "Defined through Gaussian implementation",
   "",
   "@misc{gaussianimplementation,\n  note = {Defined through Gaussian implementation},\n}"
+};
+
+
+func_reference_type xc_ref_lda_xc_corrksdt_note = {
+  "",
+  "",
+  "@misc{lda_xc_corrksdt_note,\n  note = {Karasiev has stated that the functional would need reparameterisation for spin-polarized functionals, so it should in principle be only used for spin-unpolarized calculations; see discussion in https://gitlab.com/libxc/libxc/-/merge\\_requests/465.},\n}"
 };
 
 

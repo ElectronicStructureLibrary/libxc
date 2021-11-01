@@ -11,12 +11,12 @@
 
 #define XC_MGGA_X_R2SCANL       718 /* Deorbitalized r^2SCAN exchange */
 
-#define N_PAR 10
-static const char *names[N_PAR] = {"_c1", "_c2", "_d", "_k1", "_taur", "_alphar", "_eta", "_dp2", "_a", "_b"};
+#define N_PAR 8
+static const char *names[N_PAR] = {"_c1", "_c2", "_d", "_k1", "_eta", "_dp2", "_a", "_b"};
 static const char *desc[N_PAR] = {"c1 parameter", "c2 parameter", "d parameter",
-  "k1 parameter", "taur parameter", "alphar parameter", "eta parameter", "dp2 parameter", "a parameter", "b parameter"};
+  "k1 parameter", "eta parameter", "dp2 parameter", "a parameter", "b parameter"};
 
-static const double par_r2scanl[N_PAR] = {0.667, 0.8, 1.24, 0.065, 1.0e-4, 1.0e-3, 0.001, 0.361, 1.784720, 0.258304};
+static const double par_r2scanl[N_PAR] = {0.667, 0.8, 1.24, 0.065, 0.001, 0.361, 1.784720, 0.258304};
 
 static void
 r2scanl_set_ext_params(xc_func_type *p, const double *ext_params)
@@ -24,7 +24,7 @@ r2scanl_set_ext_params(xc_func_type *p, const double *ext_params)
   const double *par_r2scan = NULL, *par_pc07 = NULL;
   if(ext_params != NULL) {
     par_r2scan = ext_params;
-    par_pc07 = ext_params+8;
+    par_pc07 = ext_params+6;
   }
   assert(p != NULL && p->func_aux != NULL);
   xc_func_set_ext_params(p->func_aux[0], par_r2scan);

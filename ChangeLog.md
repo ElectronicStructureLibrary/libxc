@@ -1,3 +1,15 @@
+## [5.1.7] - 2021-10-25
+
+### Fixed
+- References should not be updated automatically
+- xc_version.h is now usable in Fortran
+- Unnecessary external parameters removed from MGGA_X_RSCAN, MGGA_X_R2SCAN, and MGGA_X_R2SCANL
+
+### Added
+- LDA functionals: XC_CORRKSDT
+- HYB_GGA functionals: X_CAM_S12G, X_CAM_S12H, XC_CASE21
+- MGGA functionals: X_R2SCAN01, X_R4SCAN, X_RPPSCAN, C_RPPSCAN
+
 ## [5.1.6] - 2021-09-07
 
 ### Fixed

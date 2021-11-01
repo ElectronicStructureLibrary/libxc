@@ -93,7 +93,7 @@ libxc_la_FUNC_SOURCES = \
 	gga_k_lgap_ge.c	gga_c_ccdf.c gga_k_rational_p.c gga_k_pg.c      \
 	gga_c_p86vwn.c gga_x_ityh_optx.c hyb_gga_xc_cam_o3lyp.c \
 	gga_x_ityh_pbe.c gga_c_lypr.c hyb_gga_xc_pbe_dh.c \
-        hyb_gga_x_cam_s12.c gga_xc_vdw_df.c \
+        hyb_gga_x_cam_s12.c gga_xc_vdw_df.c hyb_gga_xc_case21.c \
 	mgga.c \
 	mgga_x_lta.c mgga_x_tpss.c mgga_x_br89.c mgga_x_gvt4.c		\
 	mgga_x_m06l.c mgga_x_tau_hcth.c mgga_x_2d_prhg07.c		\
@@ -120,7 +120,8 @@ libxc_la_FUNC_SOURCES = \
 	mgga_c_b94.c mgga_k_lk.c mgga_k_rda.c mgga_k_gea2.c             \
 	mgga_k_gea4.c mgga_k_csk.c mgga_k_csk_loc.c mgga_x_r2scanl.c    \
         mgga_c_r2scanl.c mgga_k_pgslb.c mgga_c_kcisk.c mgga_x_regtm.c   \
-	mgga_c_rregtm.c mgga_x_mcml.c mgga_c_rmggac.c
+	mgga_c_rregtm.c mgga_x_mcml.c mgga_c_rmggac.c mgga_x_rppscan.c  \
+	mgga_c_rppscan.c mgga_x_r4scan.c
 
 libxc_la_SOURCES = references.c $(libxc_la_FUNC_SOURCES)
 libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)
@@ -171,9 +172,6 @@ xc_f.o : xc_f_inc.c
 xc_funcs.h xc_funcs_worker.h libxc_inc.f90 \
 funcs_lda.c funcs_gga.c funcs_mgga.c funcs_key.c: $(srcdir)/../scripts/get_funcs.pl
 	$(srcdir)/../scripts/get_funcs.pl $(srcdir) $(top_builddir)/src
-
-references.h references.c: $(srcdir)/../scripts/get_references.pl $(srcdir)/../libxc.bib
-	(cd $(top_builddir)/src && $(srcdir)/../scripts/get_references.pl $(srcdir)/../libxc.bib)
 
 LTPREF = $(subst xc_f.lo,,$(firstword $(am_libxcf03_la_OBJECTS)))
 # Surprisingly, libtool/automake do not seem to provide a macro or variable for what the object names will be,

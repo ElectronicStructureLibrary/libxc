@@ -31,4 +31,4 @@ gga_c_pbe_vwn.c    gga_k_ol1.c       gga_xc_th2.c        gga_x_ncap.c        hyb
 gga_c_pw91.c       gga_k_ol2.c       gga_xc_th3.c        gga_x_ol2.c         gga_x_lcgau.c     \
 gga_k_lkt.c        gga_k_lgap.c      gga_k_vt84f.c       gga_k_lgap_ge.c     gga_c_ccdf.c      \
 gga_k_rational_p.c gga_k_pg.c        gga_c_p86vwn.c      gga_x_ityh_optx.c   gga_x_ityh_pbe.c  \
-gga_c_lypr.c       gga_x_q1d.c       hyb_gga_x_cam_s12.c
+gga_c_lypr.c       gga_x_q1d.c       hyb_gga_x_cam_s12.c hyb_gga_xc_case21.c

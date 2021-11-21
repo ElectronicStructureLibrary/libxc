@@ -228,7 +228,7 @@ int main(void) {
 	    if(func.info->refs[i]==NULL) break;
 	    if(strlen(func.info->refs[i]->doi) > 0) {
 	      char *h = sanitize_link(func.info->refs[i]->doi);
-	      printf("  - [%s](http://doi.org/%s) (doi: `%s`)\n", func.info->refs[i]->ref, h, func.info->refs[i]->doi);
+	      printf("  - [%s](https://doi.org/%s) (doi: `%s`)\n", func.info->refs[i]->ref, h, func.info->refs[i]->doi);
 	      libxc_free(h);
 	    } else
 	      printf("  - %s\n", func.info->refs[i]->ref);

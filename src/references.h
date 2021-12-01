@@ -119,6 +119,7 @@ extern func_reference_type xc_ref_Fabiano2015_122;
 extern func_reference_type xc_ref_Fermi1927_602;
 extern func_reference_type xc_ref_Filatov1997_603;
 extern func_reference_type xc_ref_Filatov1997_847;
+extern func_reference_type xc_ref_Filatov1998_189;
 extern func_reference_type xc_ref_Finzel2017_40;
 extern func_reference_type xc_ref_Fuentealba1995_31;
 extern func_reference_type xc_ref_Furness2018;

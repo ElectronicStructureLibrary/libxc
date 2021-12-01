@@ -99,8 +99,7 @@ case21_set_ext_params(xc_func_type *p, const double *ext_params)
   /* Exact exchange */
   assert(p->hyb_number_terms == 1);
   p->hyb_type[0]  = XC_HYB_FOCK;
-  p->hyb_coeff[0] = params->ax;
-  p->hyb_omega[0] = 0.0;
+  p->hyb_params[0].fock.alpha = params->ax;
 }
 
 static void
@@ -109,7 +108,7 @@ hyb_gga_xc_case21_init(xc_func_type *p)
   assert(p!=NULL && p->params == NULL);
   p->params = libxc_malloc(sizeof(hyb_gga_xc_case21_params));
 
-  xc_hyb_init_hybrid(p, 0.0);
+  xc_hyb_init_fock(p, 0.0);
 }
 
 #include "decl_gga.h"

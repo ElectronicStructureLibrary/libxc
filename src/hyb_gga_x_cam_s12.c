@@ -54,7 +54,7 @@ s12h_set_ext_params(xc_func_type *p, const double *ext_params)
   params = (hyb_gga_x_cam_s12_params *) (p->params);
 
   /* In the short range, the total fraction of exact exchange is */
-  sr_exx = p->hyb_coeff[0] + p->hyb_coeff[1];
+  sr_exx = p->hyb_params[0].fock.alpha + p->hyb_params[1].sr.beta;
   /* so the fraction of short-range DFT is */
   params->bx = 1.0 - sr_exx;
 }

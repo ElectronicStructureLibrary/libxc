@@ -783,6 +783,13 @@ func_reference_type xc_ref_Filatov1997_847 = {
 };
 
 
+func_reference_type xc_ref_Filatov1998_189 = {
+  "M. Filatov and W. Thiel, Phys. Rev. A 57, 189 (1998)",
+  "10.1103/PhysRevA.57.189",
+  "@article{Filatov1998_189,\n  title = {Exchange-correlation density functional beyond the gradient approximation},\n  author = {Filatov, Michael and Thiel, Walter},\n  journal = {Phys. Rev. A},\n  volume = {57},\n  issue = {1},\n  pages = {189--199},\n  year = {1998},\n  month = {Jan},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevA.57.189},\n  url = {https://link.aps.org/doi/10.1103/PhysRevA.57.189}\n}"
+};
+
+
 func_reference_type xc_ref_Finzel2017_40 = {
   "K. Finzel and A. I. Baranov, Int. J. Quantum Chem. 117, 40 (2017)",
   "10.1002/qua.25312",
@@ -1248,7 +1255,7 @@ func_reference_type xc_ref_Karasiev2018_076401 = {
 func_reference_type xc_ref_Karton2008_12868 = {
   "A. Karton, A. Tarnopolsky, J.-F. Lamere, G. C. Schatz, and J. M. L. Martin, J. Phys. Chem. A 112, 12868 (2008)",
   "10.1021/jp801805p",
-  "@article{Karton2008_12868,\n  author = {Karton, Amir and Tarnopolsky, Alex and Lam\\'{e}re, Jean-Fran\\c{c}ois and Schatz, George C. and Martin, Jan M. L.},\n  title = {Highly Accurate First-Principles Benchmark Data Sets for the Parametrization and Validation of Density Functional and Other Approximate Methods. Derivation of a Robust, Generally Applicable, Double-Hybrid Functional for Thermochemistry and Thermochemical Kinetics},\n  journal = {J. Phys. Chem. A},\n  volume = {112},\n  number = {50},\n  pages = {12868--12886},\n  year = {2008},\n  doi = {10.1021/jp801805p},\n  url = {https://doi.org/10.1021/jp801805p}\n}"
+  "@article{Karton2008_12868,\n  author = {Karton, Amir and Tarnopolsky, Alex and Lam\\`{e}re, Jean-Fran\\c{c}ois and Schatz, George C. and Martin, Jan M. L.},\n  title = {Highly Accurate First-Principles Benchmark Data Sets for the Parametrization and Validation of Density Functional and Other Approximate Methods. Derivation of a Robust, Generally Applicable, Double-Hybrid Functional for Thermochemistry and Thermochemical Kinetics},\n  journal = {J. Phys. Chem. A},\n  volume = {112},\n  number = {50},\n  pages = {12868--12886},\n  year = {2008},\n  doi = {10.1021/jp801805p},\n  url = {https://doi.org/10.1021/jp801805p}\n}"
 };
 
 

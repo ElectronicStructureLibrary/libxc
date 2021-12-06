@@ -50,8 +50,8 @@ foreach $func (@funcs){
       $s3 .= sprintf "  %s %-30s = %3s  ! %s\n", "integer, parameter ::",
         $deflist_f{$key}, $key, $deflist_c{$key};
 
-      $s5 .= sprintf "  %s %-30s = %3s  ! %s\n", "integer(c_int), parameter, public ::",
-      $deflist_f{$key}, $key, $deflist_c{$key};
+      $s5 .= sprintf "\n! %s\n  %s %-30s = %3s\n", $deflist_c{$key}, "integer(c_int), parameter, public ::",
+      $deflist_f{$key}, $key;
     }
 
     $s1 .= "extern xc_func_info_type xc_func_info_$t;\n";

@@ -26,7 +26,8 @@ g0_B    := -2*g0_aHD - g0_dd:
 pmgb_g0 := rs ->
         (1 - g0_B*rs + g0_C*rs^2 + g0_D*rs^3 + g0_E*rs^4)*exp(-g0_dd*rs)/2:
 
-pmgb_gc0 := rs -> pmgb_g0(rs) - 1/2:
+# text between eqs (23) and (24)
+pmgb_gc0 := (rs, z) -> pmgb_g0(rs) - 1/2*(1-z^2):
 
 # Eq. (14)
 pmgb_phi := (n, z) ->
@@ -72,7 +73,7 @@ pmgb_cc5 := (rs, z) ->
 
 # Eq. (30)
 pmgb_C2 := (rs, z) ->
-        -3*(1 - z^2)*pmgb_gc0(rs)/(8*rs^3):
+        -3*(1 - z^2)*pmgb_gc0(rs,z)/(8*rs^3):
 
 pmgb_C3 := (rs, z) ->
         -(1 - z^2)*pmgb_g0(rs)/(sqrt(2*Pi)*rs^3):

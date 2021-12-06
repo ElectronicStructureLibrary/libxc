@@ -873,11 +873,13 @@ end interface
     type(c_ptr) :: next_ref
 
     reference%ptr = xc_func_info_get_references(info%ptr, number)
-    next_ref = xc_func_info_get_references(info%ptr, INT(number + 1, c_int))
-    if (c_associated(next_ref)) then
-      number = number + 1
+    if (.not. c_associated(reference%ptr)) then
+       number = -1
     else
-      number = -1
+       next_ref = xc_func_info_get_references(info%ptr, INT(number + 1, c_int))
+       if (c_associated(next_ref)) then
+          number = number + 1
+       end if
     end if
 
   end function xc_f03_func_info_get_references

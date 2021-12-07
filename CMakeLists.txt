@@ -38,11 +38,17 @@ if(${ENABLE_PYTHON} AND NOT ${BUILD_SHARED_LIBS})
   message(FATAL_ERROR "ENABLE_PYTHON ON requires BUILD_SHARED_LIBS ON because only shared libraries can be dynamically loaded")
 endif()
 
-# GCC appears to be catching -xHost as "-x Host" which breaks the detection
+# Need to check things per compiler brand since they're different
 if(CMAKE_C_COMPILER_ID MATCHES Intel)
-  option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON "-xHost" "-march=native" "/arch:AVX2")
-else()
-  option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON  "-march=native" "-xHost" "/arch:AVX2")
+  option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON "-xHost")
+elseif(CMAKE_C_COMPILER_ID MATCHES GNU)
+  option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON  "-march=native")
+elseif(CMAKE_C_COMPILER_ID MATCHES Clang)
+  option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON  "-march=native")
+elseif(CMAKE_C_COMPILER_ID MATCHES PGI)
+  option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON  "-tp host")
+elseif(CMAKE_C_COMPILER_ID MATCHES MSVC)
+  option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON  "/arch:AVX2")
 endif()
 
 option_with_print(DISABLE_VXC "Don't compile first derivative code" OFF)

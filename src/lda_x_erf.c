@@ -8,7 +8,7 @@
 
 #include "util.h"
 
-#define XC_LDA_X_ERF   546   /* Attenuated exchange LDA (erf) */
+#define XC_LDA_X_ERF   546   /* Short-range LDA exchange with error function kernel (erfc) */
 
 #include "decl_lda.h"
 #include "maple2c/lda_exc/lda_x_erf.c"
@@ -30,7 +30,7 @@ extern "C"
 const xc_func_info_type xc_func_info_lda_x_erf = {
   XC_LDA_X_ERF,
   XC_EXCHANGE,
-  "Attenuated exchange LDA (erf)",
+  "Short-range LDA exchange with error function kernel (erfc)",
   XC_FAMILY_LDA,
   {&xc_ref_Gill1996_1005, &xc_ref_Toulouse2004_1047, &xc_ref_Tawada2004_8425, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,

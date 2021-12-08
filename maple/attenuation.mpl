@@ -1,15 +1,21 @@
 (*
  Copyright (C) 2017 M.A.L. Marques
-               2020 Susi Lehtola
+               2020-2021 Susi Lehtola
 
  This Source Code Form is subject to the terms of the Mozilla Public
  License, v. 2.0. If a copy of the MPL was not distributed with this
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 *)
 
+(* NOTE: the implementations in this file are for short-range exchange functionals.
+   The naming merely implicates which type of kernel is used.
+*)
+
 (* error function:
-    Toulouse et al, Int. J. of Quant. Chem. 100, 1047 (2004); doi:10.1002/qua.20259
+    Toulouse et al, Int. J. Quantum Chem. 100, 1047 (2004); doi:10.1002/qua.20259
     Tawada et al, J. Chem. Phys. 120, 8425 (2004); doi:10.1063/1.1688752
+
+    The implementation follows Tawada et al.
 *)
 att_erf_aux1 := a -> sqrt(Pi)*erf(1/(2*a)):
 att_erf_aux2 := a -> exp(-1/(4*a^2)) - 1:
@@ -40,7 +46,7 @@ attenuation_erf_f3 := a -> enforce_smooth_lr(attenuation_erf_f30, a, 0.32, 38):
 
 (* erf_gau - screening function = + 2 mu/sqrt(pi) exp(-mu^2 r^2)
     Song et al, J. Chem. Phys. 127, 154109 (2007); doi:10.1063/1.2790017
-    You can recover the result in Int. J. of Quant. Chem. 100, 1047 (2004)
+    You can recover the result in Int. J. Quantum Chem. 100, 1047 (2004)
     by putting a = a/sqrt(3) and multiplying the whole attenuation function by -sqrt(3)
 *)
 attenuation_gau0 := a -> -8/3*a*(att_erf_aux1(a) + 2*a*att_erf_aux2(a)*(1 - 8*a^2) - 4*a):

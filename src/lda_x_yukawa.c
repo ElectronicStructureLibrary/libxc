@@ -8,7 +8,7 @@
 
 #include "util.h"
 
-#define XC_LDA_X_YUKAWA   641   /* Attenuated exchange LDA (Yukawa) */
+#define XC_LDA_X_YUKAWA   641   /* Short-range LDA exchange with Yukawa attenuation */
 
 #include "decl_lda.h"
 #include "maple2c/lda_exc/lda_x_yukawa.c"
@@ -31,7 +31,7 @@ extern "C"
 const xc_func_info_type xc_func_info_lda_x_yukawa = {
   XC_LDA_X_YUKAWA,
   XC_EXCHANGE,
-  "Attenuated exchange LDA (Yukawa)",
+  "Short-range LDA exchange with Yukawa attenuation",
   XC_FAMILY_LDA,
   {&xc_ref_Savin1995_327, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,

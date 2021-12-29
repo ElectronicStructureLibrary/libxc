@@ -40,9 +40,9 @@ static const char  *desc[N_PAR]   = {
   "u^2 coefficient for opposite-spin correlation",
   "u^3 coefficient for opposite-spin correlation",
   "u^4 coefficient for opposite-spin correlation",
-  "range-separation constant",
   "fraction of HF exchange",
-  "fraction of short-range exchange"
+  "fraction of short-range exchange",
+  "range-separation constant"
 };
 
 static const double par_wb97[N_PAR] = {

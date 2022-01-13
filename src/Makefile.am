@@ -142,9 +142,6 @@ noinst_HEADERS = \
   work_lda.c work_gga.c work_mgga.c \
 	libxc_master.F90
 include_HEADERS = xc.h xc_funcs_removed.h
-nodist_include_HEADERS = xc_funcs.h xc_funcs_worker.h
-
-BUILT_SOURCES = xc_funcs.h
 
 ## declare fortran modules so they are installed
 fmoddir = @FMODDIR@
@@ -163,14 +160,11 @@ fmod_DATA += $(XCF03LIBMODS)
 endif # COMPILE_FORTRAN
 
 
-CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc* funcs_*.c funcs.h \
-  libxc_inc.f90 libxcf03.f90 xc_funcs.h xc_funcs_worker.h \
-  xc_f_inc.c libxc_docs.txt
+CLEANFILES = *~ *.bak *.mod *.il *.d *.pc* ifc*
 
 xc_f.o : xc_f_inc.c
 
-xc_funcs.h xc_funcs_worker.h libxc_inc.f90 \
-funcs_lda.c funcs_gga.c funcs_mgga.c funcs_key.c: $(srcdir)/../scripts/get_funcs.pl
+funcs: $(srcdir)/../scripts/get_funcs.pl
 	$(srcdir)/../scripts/get_funcs.pl $(srcdir) $(top_builddir)/src
 
 LTPREF = $(subst xc_f.lo,,$(firstword $(am_libxcf03_la_OBJECTS)))

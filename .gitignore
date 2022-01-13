@@ -52,27 +52,11 @@ Makefile.in
 # /src/
 /src/.deps
 /src/*.mod
-/src/funcs_mgga.c
-/src/funcs_lda.c
-/src/funcs_gga.c
-/src/funcs_lca.c
-/src/funcs_hyb_lda.c
-/src/funcs_hyb_gga.c
-/src/funcs_hyb_mgga.c
-/src/xc_funcs.h
 /src/xc_set_params.h
-/src/libxc_set_par_inc.f90
-/src/libxc_set_params_inc.f03
-/src/xc_f_inc.c
-/src/libxc_funcs.f90
-/src/libxc.f90
 /src/.libs
-/src/funcs_key.c
 /src/xc-info
 /src/genwiki
-/src/libxcf03.f90
 /src/libxc_inc.f03
-/src/libxc_docs.txt
 /src/xc-threshold
 
 # /testsuite/

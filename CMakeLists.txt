@@ -487,18 +487,6 @@ if(ENABLE_FORTRAN)
     SOVERSION ${${PROJECT_NAME}_SOMAJOR})
 endif()
 
-# run get_funcs.pl to generate headers for xc inclusion
-find_package(Perl REQUIRED)
-set(gen_dir "${PROJECT_BINARY_DIR}/gen_funcidx")
-execute_process(
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${gen_dir}
-  TIMEOUT 5
-  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
-execute_process(
-  COMMAND ${PERL_EXECUTABLE} scripts/get_funcs.pl ${src_prefix} ${gen_dir}
-  TIMEOUT 60
-  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
-
 add_executable(xc-info "${src_prefix}/xc-info.c")
 if(ENABLE_CUDA)
   set_source_files_properties("${src_prefix}/xc-info.c" PROPERTIES LANGUAGE CUDA)
@@ -515,7 +503,7 @@ target_link_libraries(xc-threshold xc)
 include_directories(${PROJECT_SOURCE_DIR}/${src_prefix}  # for util.h
   ${PROJECT_BINARY_DIR}/${src_prefix}  # for xc.h
   ${PROJECT_BINARY_DIR}  # for xc_version.h, config.h
-  ${gen_dir})  # for xc_funcs.h
+)
 
 if(BUILD_TESTING)
   find_program(BZip2_EXECUTABLE
@@ -533,10 +521,10 @@ endif()
 
 # by default, headers NOT namespace protected
 install(FILES ${PROJECT_BINARY_DIR}/${src_prefix}/xc.h
-  ${gen_dir}/xc_funcs.h
-  ${gen_dir}/xc_funcs_worker.h
-  ${PROJECT_BINARY_DIR}/xc_version.h
+  ${PROJECT_SOURCE_DIR}/${src_prefix}/xc_funcs.h
+  ${PROJECT_SOURCE_DIR}/${src_prefix}/xc_funcs_worker.h
   ${PROJECT_SOURCE_DIR}/${src_prefix}/xc_funcs_removed.h
+  ${PROJECT_BINARY_DIR}/xc_version.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}${NAMESPACE_INSTALL_INCLUDEDIR})
 install(TARGETS xc-info
   OPTIONAL

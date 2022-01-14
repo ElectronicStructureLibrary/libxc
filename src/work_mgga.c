@@ -83,8 +83,8 @@ work_mgga(const XC(func_type) *p, size_t np,
     //        "%14.10le %14.10le %14.10le %14.10le %14.10le %14.10le %14.10le %14.10le %14.10le\n",
     //        rho[0], rho[1], sigma[0], sigma[1], sigma[2], lapl[0], lapl[1], tau[0], tau[1]);
     //fflush(stderr);
-  
-    /* Screen low densities */
+
+    /* Screen small densities */
     dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
     if(dens >= p->dens_threshold) {
       /* sanity check of input parameters */
@@ -94,9 +94,11 @@ work_mgga(const XC(func_type) *p, size_t np,
       if(p->info->flags & XC_FLAGS_NEEDS_TAU)
         my_tau[0] = m_max(p->tau_threshold, tau[0]);
       my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[0]);
+#ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
       /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
       if(p->info->flags & XC_FLAGS_NEEDS_TAU)
         my_sigma[0] = m_min(my_sigma[0], 8.0*my_rho[0]*my_tau[0]);
+#endif
       /* lapl can have any values */
       if(p->nspin == XC_POLARIZED){
         double s_ave;
@@ -105,8 +107,11 @@ work_mgga(const XC(func_type) *p, size_t np,
         if(p->info->flags & XC_FLAGS_NEEDS_TAU)
           my_tau[1] = m_max(p->tau_threshold, tau[1]);
         my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[2]);
+#ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
+        /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
         if(p->info->flags & XC_FLAGS_NEEDS_TAU)
           my_sigma[2] = m_min(my_sigma[2], 8.0*my_rho[1]*my_tau[1]);
+#endif
 
         my_sigma[1] = sigma[1];
         s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
@@ -200,7 +205,7 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
   internal_counters_mgga_random(&(p->dim), ip, 0, &rho, &sigma, &lapl, &tau,
                                 &zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
 
-  /* Screen low densities */
+  /* Screen small densities */
   dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
   if(dens >= p->dens_threshold) {
     /* sanity check of input parameters */
@@ -208,10 +213,12 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
     /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
     if(p->info->flags & XC_FLAGS_NEEDS_TAU)
       my_tau[0] = m_max(p->tau_threshold, tau[0]);
-    /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
     my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[0]);
+#ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
+    /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
     if(p->info->flags & XC_FLAGS_NEEDS_TAU)
       my_sigma[0] = m_min(my_sigma[0], 8.0*my_rho[0]*my_tau[0]);
+#endif
     /* lapl can have any values */
     if(p->nspin == XC_POLARIZED){
       double s_ave;
@@ -220,8 +227,11 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
       if(p->info->flags & XC_FLAGS_NEEDS_TAU)
         my_tau[1] = m_max(p->tau_threshold, tau[1]);
       my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[2]);
+#ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
+      /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
       if(p->info->flags & XC_FLAGS_NEEDS_TAU)
         my_sigma[2] = m_min(my_sigma[2], 8.0*my_rho[1]*my_tau[1]);
+#endif
 
       my_sigma[1] = sigma[1];
       s_ave = 0.5*(my_sigma[0] + my_sigma[2]);

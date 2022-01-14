@@ -49,6 +49,7 @@ option_with_print(DISABLE_VXC "Don't compile first derivative code" OFF)
 option_with_print(DISABLE_FXC "Don't compile second derivative code" OFF)
 option_with_print(DISABLE_KXC "Don't compile third derivative code" ON)
 option_with_print(DISABLE_LXC "Don't compile fourth derivative code" ON)
+option_with_print(DISABLE_FHC "Disable enforcement of Fermi hole curvature?" OFF)
 
 ######################### Process & Validate Options ###########################
 include(autocmake_safeguards)
@@ -94,6 +95,9 @@ endif(DISABLE_KXC)
 if(DISABLE_LXC)
   add_definitions (-DXC_DONT_COMPILE_LXC)
 endif(DISABLE_LXC)
+if(NOT DISABLE_FHC)
+  add_definitions (-DXC_ENFORCE_FERMI_HOLE_CURVATURE)
+endif(NOT DISABLE_FHC)
 
 # <<<  Build  >>>
 

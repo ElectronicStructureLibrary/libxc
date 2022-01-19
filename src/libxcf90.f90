@@ -1,108 +1,104 @@
-# 0 "./libxc_master.F90"
+# 0 "./libxc_master_f90.F90"
 # 0 "<built-in>"
 # 0 "<command-line>"
 # 1 "/usr/include/stdc-predef.h" 1 3 4
 # 0 "<command-line>" 2
-# 1 "./libxc_master.F90"
+# 1 "./libxc_master_f90.F90"
 !! Copyright (C) 2016 Micael Oliveira
-!! 2020-2022 Susi Lehtola
+!! 2020 Susi Lehtola
 !! All rights reserved.
 !!
 !! This Source Code Form is subject to the terms of the Mozilla Public
 !! License, v. 2.0. If a copy of the MPL was not distributed with this
 !! file, You can obtain one at mozilla.org/MPL/2.0/.
 
-module xc_f03_lib_m
+module xc_f90_lib_m
   use, intrinsic :: iso_c_binding
   implicit none
 
   private
   public :: &
     ! version
-    xc_f03_version, &
-    xc_f03_version_string, &
+    xc_f90_version, &
+    xc_f90_version_string, &
     ! literature reference
-    xc_f03_reference, &
-    xc_f03_reference_doi, &
+    xc_f90_reference, &
+    xc_f90_reference_doi, &
     ! func_info
-    xc_f03_func_info_t, &
-    xc_f03_func_info_get_number, &
-    xc_f03_func_info_get_kind, &
-    xc_f03_func_info_get_name, &
-    xc_f03_func_info_get_family, &
-    xc_f03_func_info_get_references, &
-    xc_f03_func_info_get_flags, &
-    xc_f03_func_info_get_n_ext_params, &
-    xc_f03_func_info_get_ext_params_name, &
-    xc_f03_func_info_get_ext_params_description, &
-    xc_f03_func_info_get_ext_params_default_value, &
+    xc_f90_func_info_t, &
+    xc_f90_func_info_get_number, &
+    xc_f90_func_info_get_kind, &
+    xc_f90_func_info_get_name, &
+    xc_f90_func_info_get_family, &
+    xc_f90_func_info_get_references, &
+    xc_f90_func_info_get_flags, &
+    xc_f90_func_info_get_n_ext_params, &
+    xc_f90_func_info_get_ext_params_name, &
+    xc_f90_func_info_get_ext_params_description, &
+    xc_f90_func_info_get_ext_params_default_value, &
     ! func_reference
-    xc_f03_func_reference_t, &
-    xc_f03_func_reference_get_ref, &
-    xc_f03_func_reference_get_doi, &
-    xc_f03_func_reference_get_bibtex, &
+    xc_f90_func_reference_t, &
+    xc_f90_func_reference_get_ref, &
+    xc_f90_func_reference_get_doi, &
+    xc_f90_func_reference_get_bibtex, &
     ! func
-    xc_f03_func_t, &
-    xc_f03_func_init, &
-    xc_f03_func_end, &
-    xc_f03_func_get_info, &
-    xc_f03_functional_get_name, &
-    xc_f03_functional_get_number, &
-    xc_f03_family_from_id, &
-    xc_f03_number_of_functionals, &
-    xc_f03_maximum_name_length, &
-    xc_f03_available_functional_numbers, &
-    xc_f03_available_functional_names, &
-    xc_f03_func_set_dens_threshold, &
-    xc_f03_func_set_zeta_threshold, &
-    xc_f03_func_set_sigma_threshold, &
-    xc_f03_func_set_tau_threshold, &
-    xc_f03_func_set_ext_params, &
-    xc_f03_func_set_ext_params_name, &
-    ! mixed functional interfaces
-    xc_f03_num_aux_funcs, &
-    xc_f03_aux_func_ids, &
-    xc_f03_aux_func_weights, &
+    xc_f90_func_t, &
+    xc_f90_func_init, &
+    xc_f90_func_end, &
+    xc_f90_func_get_info, &
+    xc_f90_functional_get_name, &
+    xc_f90_functional_get_number, &
+    xc_f90_family_from_id, &
+    xc_f90_number_of_functionals, &
+    xc_f90_maximum_name_length, &
+    xc_f90_available_functional_numbers, &
+    xc_f90_available_functional_names, &
+    xc_f90_func_set_dens_threshold, &
+    xc_f90_func_set_zeta_threshold, &
+    xc_f90_func_set_sigma_threshold, &
+    xc_f90_func_set_tau_threshold, &
+    xc_f90_func_set_ext_params, &
+    xc_f90_func_set_ext_params_name, &
     ! lda
-    xc_f03_lda, &
-    xc_f03_lda_exc, &
-    xc_f03_lda_exc_vxc, &
-    xc_f03_lda_exc_vxc_fxc, &
-    xc_f03_lda_exc_vxc_fxc_kxc, &
-    xc_f03_lda_vxc, &
-    xc_f03_lda_vxc_fxc, &
-    xc_f03_lda_vxc_fxc_kxc, &
-    xc_f03_lda_fxc, &
-    xc_f03_lda_kxc, &
-    xc_f03_lda_lxc, &
+    xc_f90_lda, &
+    xc_f90_lda_exc, &
+    xc_f90_lda_exc_vxc, &
+    xc_f90_lda_exc_vxc_fxc, &
+    xc_f90_lda_exc_vxc_fxc_kxc, &
+    xc_f90_lda_vxc, &
+    xc_f90_lda_vxc_fxc, &
+    xc_f90_lda_vxc_fxc_kxc, &
+    xc_f90_lda_fxc, &
+    xc_f90_lda_kxc, &
+    xc_f90_lda_lxc, &
     ! gga
-    xc_f03_gga, &
-    xc_f03_gga_exc, &
-    xc_f03_gga_exc_vxc, &
-    xc_f03_gga_exc_vxc_fxc, &
-    xc_f03_gga_exc_vxc_fxc_kxc, &
-    xc_f03_gga_vxc, &
-    xc_f03_gga_vxc_fxc, &
-    xc_f03_gga_vxc_fxc_kxc, &
-    xc_f03_gga_fxc, &
-    xc_f03_gga_kxc, &
-    xc_f03_gga_lxc, &
-    xc_f03_gga_ak13_get_asymptotic, &
-    xc_f03_hyb_exx_coef, &
-    xc_f03_hyb_cam_coef, &
-    xc_f03_nlc_coef, &
+    xc_f90_gga, &
+    xc_f90_gga_exc, &
+    xc_f90_gga_exc_vxc, &
+    xc_f90_gga_exc_vxc_fxc, &
+    xc_f90_gga_exc_vxc_fxc_kxc, &
+    xc_f90_gga_vxc, &
+    xc_f90_gga_vxc_fxc, &
+    xc_f90_gga_vxc_fxc_kxc, &
+    xc_f90_gga_fxc, &
+    xc_f90_gga_kxc, &
+    xc_f90_gga_lxc, &
+    xc_f90_gga_ak13_get_asymptotic, &
+    xc_f90_hyb_exx_coef, &
+    xc_f90_hyb_cam_coef, &
+    xc_f90_nlc_coef, &
     ! mgga
-    xc_f03_mgga, &
-    xc_f03_mgga_exc, &
-    xc_f03_mgga_exc_vxc, &
-    xc_f03_mgga_exc_vxc_fxc, &
-    xc_f03_mgga_exc_vxc_fxc_kxc, &
-    xc_f03_mgga_vxc, &
-    xc_f03_mgga_vxc_fxc, &
-    xc_f03_mgga_vxc_fxc_kxc, &
-    xc_f03_mgga_fxc, &
-    xc_f03_mgga_kxc, &
-    xc_f03_mgga_lxc
+    xc_f90_mgga, &
+    xc_f90_mgga_exc, &
+    xc_f90_mgga_exc_vxc, &
+    xc_f90_mgga_exc_vxc_fxc, &
+    xc_f90_mgga_exc_vxc_fxc_kxc, &
+    xc_f90_mgga_vxc, &
+    xc_f90_mgga_vxc_fxc, &
+    xc_f90_mgga_vxc_fxc_kxc, &
+    xc_f90_mgga_fxc, &
+    xc_f90_mgga_kxc, &
+    xc_f90_mgga_lxc
 
   integer(c_int), parameter, public :: &
     XC_UNPOLARIZED = 1, & ! Spin unpolarized
@@ -2002,7 +1998,7 @@ module xc_f03_lib_m
 
 ! modified TASK exchange
   integer(c_int), parameter, public :: XC_MGGA_X_MTASK = 724
-# 150 "./libxc_master.F90" 2
+# 153 "./libxc_master_f90.F90" 2
 
   ! These are old names kept for compatibility
   integer(c_int), parameter, public :: &
@@ -2041,10 +2037,10 @@ module xc_f03_lib_m
 
 
   !----------------------------------------------------------------
-  type :: xc_f03_func_info_t
+  type :: xc_f90_func_info_t
     private
     type(c_ptr) :: ptr = C_NULL_PTR
-  end type xc_f03_func_info_t
+  end type xc_f90_func_info_t
 
   interface
     integer(c_int) function xc_func_info_get_number(info) bind(c)
@@ -2104,10 +2100,10 @@ module xc_f03_lib_m
   end interface
 
   !----------------------------------------------------------------
-  type :: xc_f03_func_reference_t
+  type :: xc_f90_func_reference_t
     private
     type(c_ptr) :: ptr = C_NULL_PTR
-  end type xc_f03_func_reference_t
+  end type xc_f90_func_reference_t
 
   interface
     type(c_ptr) function xc_func_reference_get_ref(reference) bind(c)
@@ -2127,10 +2123,10 @@ module xc_f03_lib_m
   end interface
 
   !----------------------------------------------------------------
-  type :: xc_f03_func_t
+  type :: xc_f90_func_t
     private
     type(c_ptr) :: ptr = C_NULL_PTR
-  end type xc_f03_func_t
+  end type xc_f90_func_t
 
   interface
     type(c_ptr) function xc_func_alloc() bind(c)
@@ -2179,18 +2175,18 @@ module xc_f03_lib_m
       type(c_ptr), value :: family, number
     end function xc_family_from_id
 
-    integer(c_int) function xc_f03_number_of_functionals() bind(c, name="xc_number_of_functionals")
+    integer(c_int) function xc_f90_number_of_functionals() bind(c, name="xc_number_of_functionals")
       import
-    end function xc_f03_number_of_functionals
+    end function xc_f90_number_of_functionals
 
-    integer(c_int) function xc_f03_maximum_name_length() bind(c, name="xc_maximum_name_length")
+    integer(c_int) function xc_f90_maximum_name_length() bind(c, name="xc_maximum_name_length")
       import
-    end function xc_f03_maximum_name_length
+    end function xc_f90_maximum_name_length
 
-    subroutine xc_f03_available_functional_numbers(list) bind(c, name="xc_available_functional_numbers")
+    subroutine xc_f90_available_functional_numbers(list) bind(c, name="xc_available_functional_numbers")
       import
       integer(c_int), intent(out) :: list(*)
-    end subroutine xc_f03_available_functional_numbers
+    end subroutine xc_f90_available_functional_numbers
 
     subroutine xc_available_functional_names(list) bind(c)
       import
@@ -2466,23 +2462,6 @@ end interface
       type(c_ptr), value :: p
       real(c_double), intent(out) :: nlc_b, nlc_c
     end subroutine xc_nlc_coef
-
-    integer(c_int) function xc_num_aux_funcs(p) bind(c, name="xc_num_aux_funcs")
-      import
-      type(c_ptr), intent(in) :: p
-    end function xc_num_aux_funcs
-
-    subroutine xc_aux_func_ids(p, ids) bind(c, name="xc_aux_func_ids")
-      import
-      type(c_ptr), intent(in) :: p
-      type(c_ptr) :: ids(*)
-    end subroutine xc_aux_func_ids
-
-    subroutine xc_aux_func_weights(p, weights) bind(c, name="xc_aux_func_weights")
-      import
-      type(c_ptr), intent(in) :: p
-      type(c_ptr) :: weights(*)
-    end subroutine xc_aux_func_weights
   end interface
 
 
@@ -2670,14 +2649,14 @@ end interface
   contains
 
   !----------------------------------------------------------------
-  subroutine xc_f03_version(major, minor, micro)
+  subroutine xc_f90_version(major, minor, micro)
     integer(c_int), intent(out) :: major, minor, micro
 
     call xc_version(major, minor, micro)
 
-  end subroutine xc_f03_version
+  end subroutine xc_f90_version
 
-  subroutine xc_f03_version_string(version)
+  subroutine xc_f90_version_string(version)
     character(len=*), intent(out) :: version
 
     type(c_ptr) :: c_version
@@ -2685,9 +2664,9 @@ end interface
     c_version = xc_version_string()
     call c_to_f_string_ptr(c_version, version)
 
-  end subroutine xc_f03_version_string
+  end subroutine xc_f90_version_string
 
-  subroutine xc_f03_reference(ref)
+  subroutine xc_f90_reference(ref)
     character(len=*), intent(out) :: ref
 
     type(c_ptr) :: c_ref
@@ -2695,9 +2674,9 @@ end interface
     c_ref = xc_reference()
     call c_to_f_string_ptr(c_ref, ref)
 
-  end subroutine xc_f03_reference
+  end subroutine xc_f90_reference
 
-  subroutine xc_f03_reference_doi(doi)
+  subroutine xc_f90_reference_doi(doi)
     character(len=*), intent(out) :: doi
 
     type(c_ptr) :: c_doi
@@ -2705,119 +2684,117 @@ end interface
     c_doi = xc_reference_doi()
     call c_to_f_string_ptr(c_doi, doi)
 
-  end subroutine xc_f03_reference_doi
+  end subroutine xc_f90_reference_doi
 
   !----------------------------------------------------------------
-  integer(c_int) function xc_f03_func_info_get_number(info) result(number)
-    type(xc_f03_func_info_t), intent(in) :: info
+  integer(c_int) function xc_f90_func_info_get_number(info) result(number)
+    type(xc_f90_func_info_t), intent(in) :: info
 
     number = xc_func_info_get_number(info%ptr)
 
-  end function xc_f03_func_info_get_number
+  end function xc_f90_func_info_get_number
 
-  integer(c_int) function xc_f03_func_info_get_kind(info) result(kind)
-    type(xc_f03_func_info_t), intent(in) :: info
+  integer(c_int) function xc_f90_func_info_get_kind(info) result(kind)
+    type(xc_f90_func_info_t), intent(in) :: info
 
     kind = xc_func_info_get_kind(info%ptr)
 
-  end function xc_f03_func_info_get_kind
+  end function xc_f90_func_info_get_kind
 
-  character(len=128) function xc_f03_func_info_get_name(info) result(name)
-    type(xc_f03_func_info_t), intent(in) :: info
+  character(len=128) function xc_f90_func_info_get_name(info) result(name)
+    type(xc_f90_func_info_t), intent(in) :: info
 
     call c_to_f_string_ptr(xc_func_info_get_name(info%ptr), name)
 
-  end function xc_f03_func_info_get_name
+  end function xc_f90_func_info_get_name
 
-  integer(c_int) function xc_f03_func_info_get_family(info) result(family)
-    type(xc_f03_func_info_t), intent(in) :: info
+  integer(c_int) function xc_f90_func_info_get_family(info) result(family)
+    type(xc_f90_func_info_t), intent(in) :: info
 
     family = xc_func_info_get_family(info%ptr)
 
-  end function xc_f03_func_info_get_family
+  end function xc_f90_func_info_get_family
 
-  integer(c_int) function xc_f03_func_info_get_flags(info) result(flags)
-    type(xc_f03_func_info_t), intent(in) :: info
+  integer(c_int) function xc_f90_func_info_get_flags(info) result(flags)
+    type(xc_f90_func_info_t), intent(in) :: info
 
     flags = xc_func_info_get_flags(info%ptr)
 
-  end function xc_f03_func_info_get_flags
+  end function xc_f90_func_info_get_flags
 
-  type(xc_f03_func_reference_t) function xc_f03_func_info_get_references(info, number) result(reference)
-    type(xc_f03_func_info_t), intent(in) :: info
+  type(xc_f90_func_reference_t) function xc_f90_func_info_get_references(info, number) result(reference)
+    type(xc_f90_func_info_t), intent(in) :: info
     integer(c_int), intent(inout) :: number ! number of the reference. Must be 0 in the first call
 
     type(c_ptr) :: next_ref
 
     reference%ptr = xc_func_info_get_references(info%ptr, number)
-    if (.not. c_associated(reference%ptr)) then
-       number = -1
+    next_ref = xc_func_info_get_references(info%ptr, INT(number + 1, c_int))
+    if (c_associated(next_ref)) then
+      number = number + 1
     else
-       next_ref = xc_func_info_get_references(info%ptr, INT(number + 1, c_int))
-       if (c_associated(next_ref)) then
-          number = number + 1
-       end if
+      number = -1
     end if
 
-  end function xc_f03_func_info_get_references
+  end function xc_f90_func_info_get_references
 
-  integer(c_int) function xc_f03_func_info_get_n_ext_params(info) result(n_ext_params)
-    type(xc_f03_func_info_t), intent(in) :: info
+  integer(c_int) function xc_f90_func_info_get_n_ext_params(info) result(n_ext_params)
+    type(xc_f90_func_info_t), intent(in) :: info
 
     n_ext_params = xc_func_info_get_n_ext_params(info%ptr)
 
-  end function xc_f03_func_info_get_n_ext_params
+  end function xc_f90_func_info_get_n_ext_params
 
-  character(len=128) function xc_f03_func_info_get_ext_params_name(info, number) result(name)
-    type(xc_f03_func_info_t), intent(in) :: info
+  character(len=128) function xc_f90_func_info_get_ext_params_name(info, number) result(name)
+    type(xc_f90_func_info_t), intent(in) :: info
     integer(c_int), intent(in) :: number
 
     call c_to_f_string_ptr(xc_func_info_get_ext_params_name(info%ptr, number), name)
 
-  end function xc_f03_func_info_get_ext_params_name
+  end function xc_f90_func_info_get_ext_params_name
 
-  character(len=128) function xc_f03_func_info_get_ext_params_description(info, number) result(description)
-    type(xc_f03_func_info_t), intent(in) :: info
+  character(len=128) function xc_f90_func_info_get_ext_params_description(info, number) result(description)
+    type(xc_f90_func_info_t), intent(in) :: info
     integer(c_int), intent(in) :: number
 
     call c_to_f_string_ptr(xc_func_info_get_ext_params_description(info%ptr, number), description)
 
-  end function xc_f03_func_info_get_ext_params_description
+  end function xc_f90_func_info_get_ext_params_description
 
-  real(c_double) function xc_f03_func_info_get_ext_params_default_value(info, number) result(val)
-    type(xc_f03_func_info_t), intent(in) :: info
+  real(c_double) function xc_f90_func_info_get_ext_params_default_value(info, number) result(val)
+    type(xc_f90_func_info_t), intent(in) :: info
     integer(c_int), intent(in) :: number
 
     val = xc_func_info_get_ext_params_default_value(info%ptr, number)
 
-  end function xc_f03_func_info_get_ext_params_default_value
+  end function xc_f90_func_info_get_ext_params_default_value
 
   !----------------------------------------------------------------
-  character(len=1024) function xc_f03_func_reference_get_ref(reference) result(ref)
-    type(xc_f03_func_reference_t), intent(in) :: reference
+  character(len=1024) function xc_f90_func_reference_get_ref(reference) result(ref)
+    type(xc_f90_func_reference_t), intent(in) :: reference
 
     call c_to_f_string_ptr(xc_func_reference_get_ref(reference%ptr), ref)
 
-  end function xc_f03_func_reference_get_ref
+  end function xc_f90_func_reference_get_ref
 
-  character(len=1024) function xc_f03_func_reference_get_doi(reference) result(doi)
-    type(xc_f03_func_reference_t), intent(in) :: reference
+  character(len=1024) function xc_f90_func_reference_get_doi(reference) result(doi)
+    type(xc_f90_func_reference_t), intent(in) :: reference
 
     call c_to_f_string_ptr(xc_func_reference_get_doi(reference%ptr), doi)
 
-  end function xc_f03_func_reference_get_doi
+  end function xc_f90_func_reference_get_doi
 
-  character(len=1024) function xc_f03_func_reference_get_bibtex(reference) result(bibtex)
-    type(xc_f03_func_reference_t), intent(in) :: reference
+  character(len=1024) function xc_f90_func_reference_get_bibtex(reference) result(bibtex)
+    type(xc_f90_func_reference_t), intent(in) :: reference
 
     call c_to_f_string_ptr(xc_func_reference_get_bibtex(reference%ptr), bibtex)
 
-  end function xc_f03_func_reference_get_bibtex
+  end function xc_f90_func_reference_get_bibtex
 
 
   !----------------------------------------------------------------
-  subroutine xc_f03_func_init(p, functional, nspin, err)
-    type(xc_f03_func_t), intent(inout) :: p
+  subroutine xc_f90_func_init(p, functional, nspin, err)
+    type(xc_f90_func_t), intent(inout) :: p
     integer(c_int), intent(in) :: functional
     integer(c_int), intent(in) :: nspin
     integer(c_int), optional, intent(out) :: err
@@ -2828,24 +2805,24 @@ end interface
     ierr = xc_func_init(p%ptr, functional, nspin)
 
     if(present(err)) err = ierr
-  end subroutine xc_f03_func_init
+  end subroutine xc_f90_func_init
 
-  subroutine xc_f03_func_end(p)
-    type(xc_f03_func_t), intent(inout) :: p
+  subroutine xc_f90_func_end(p)
+    type(xc_f90_func_t), intent(inout) :: p
 
     call xc_func_end(p%ptr)
     call xc_func_free(p%ptr)
 
-  end subroutine xc_f03_func_end
+  end subroutine xc_f90_func_end
 
-  type(xc_f03_func_info_t) function xc_f03_func_get_info(p) result(info)
-    type(xc_f03_func_t), intent(in) :: p
+  type(xc_f90_func_info_t) function xc_f90_func_get_info(p) result(info)
+    type(xc_f90_func_t), intent(in) :: p
 
     info%ptr = xc_func_get_info(p%ptr)
 
-  end function xc_f03_func_get_info
+  end function xc_f90_func_get_info
 
-  character(len=128) function xc_f03_functional_get_name(number) result(name)
+  character(len=128) function xc_f90_functional_get_name(number) result(name)
     integer(c_int), intent(in) :: number
     type(c_ptr) :: cstr
 
@@ -2853,16 +2830,16 @@ end interface
     call c_to_f_string_ptr(cstr, name)
     call libxc_free(cstr)
 
-  end function xc_f03_functional_get_name
+  end function xc_f90_functional_get_name
 
-  integer(c_int) function xc_f03_functional_get_number(func_string) result(number)
+  integer(c_int) function xc_f90_functional_get_number(func_string) result(number)
     character(len=*), intent(in) :: func_string
 
     number = xc_functional_get_number(f_to_c_string(func_string))
 
-  end function xc_f03_functional_get_number
+  end function xc_f90_functional_get_number
 
-  integer(c_int) function xc_f03_family_from_id(id, family, number)
+  integer(c_int) function xc_f90_family_from_id(id, family, number)
     integer(c_int), intent(in) :: id
     integer(c_int), intent(out), optional, target :: family, number
 
@@ -2882,19 +2859,19 @@ end interface
       c_number = C_NULL_PTR
     end if
 
-    xc_f03_family_from_id = xc_family_from_id(id, c_family, c_number)
+    xc_f90_family_from_id = xc_family_from_id(id, c_family, c_number)
 
-  end function xc_f03_family_from_id
+  end function xc_f90_family_from_id
 
-  subroutine xc_f03_available_functional_names(list)
+  subroutine xc_f90_available_functional_names(list)
     character(len=*), intent(out) :: list(*)
 
     integer(c_int) :: n, i, maxlen
     character(kind=c_char), allocatable, target :: names(:,:)
     type(c_ptr), allocatable :: c_list(:)
 
-    n = xc_f03_number_of_functionals()
-    maxlen = xc_f03_maximum_name_length()
+    n = xc_f90_number_of_functionals()
+    maxlen = xc_f90_maximum_name_length()
 
     allocate(names(maxlen, n))
     allocate(c_list(n))
@@ -2911,178 +2888,178 @@ end interface
     deallocate(c_list)
     deallocate(names)
 
-  end subroutine xc_f03_available_functional_names
+  end subroutine xc_f90_available_functional_names
 
 
-  subroutine xc_f03_func_set_dens_threshold(p, dens_threshold)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_func_set_dens_threshold(p, dens_threshold)
+    type(xc_f90_func_t), intent(in) :: p
     real(c_double), intent(in) :: dens_threshold
 
     call xc_func_set_dens_threshold(p%ptr, dens_threshold)
 
-  end subroutine xc_f03_func_set_dens_threshold
+  end subroutine xc_f90_func_set_dens_threshold
 
-  subroutine xc_f03_func_set_zeta_threshold(p, zeta_threshold)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_func_set_zeta_threshold(p, zeta_threshold)
+    type(xc_f90_func_t), intent(in) :: p
     real(c_double), intent(in) :: zeta_threshold
 
     call xc_func_set_zeta_threshold(p%ptr, zeta_threshold)
 
-  end subroutine xc_f03_func_set_zeta_threshold
+  end subroutine xc_f90_func_set_zeta_threshold
 
-  subroutine xc_f03_func_set_sigma_threshold(p, sigma_threshold)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_func_set_sigma_threshold(p, sigma_threshold)
+    type(xc_f90_func_t), intent(in) :: p
     real(c_double), intent(in) :: sigma_threshold
 
     call xc_func_set_sigma_threshold(p%ptr, sigma_threshold)
 
-  end subroutine xc_f03_func_set_sigma_threshold
+  end subroutine xc_f90_func_set_sigma_threshold
 
-  subroutine xc_f03_func_set_tau_threshold(p, tau_threshold)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_func_set_tau_threshold(p, tau_threshold)
+    type(xc_f90_func_t), intent(in) :: p
     real(c_double), intent(in) :: tau_threshold
 
     call xc_func_set_tau_threshold(p%ptr, tau_threshold)
 
-  end subroutine xc_f03_func_set_tau_threshold
+  end subroutine xc_f90_func_set_tau_threshold
 
-  subroutine xc_f03_func_set_ext_params(p, ext_params)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_func_set_ext_params(p, ext_params)
+    type(xc_f90_func_t), intent(in) :: p
     real(c_double), intent(in) :: ext_params(*)
 
     call xc_func_set_ext_params(p%ptr, ext_params)
 
-  end subroutine xc_f03_func_set_ext_params
+  end subroutine xc_f90_func_set_ext_params
 
-  subroutine xc_f03_func_set_ext_params_name(p, name, par)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_func_set_ext_params_name(p, name, par)
+    type(xc_f90_func_t), intent(in) :: p
     character(len=*), intent(in) :: name
     real(c_double), intent(in) :: par
 
     call xc_func_set_ext_params_name(p%ptr, f_to_c_string(name), par)
 
-  end subroutine xc_f03_func_set_ext_params_name
+  end subroutine xc_f90_func_set_ext_params_name
 
   ! LDAs
   !----------------------------------------------------------------
-  subroutine xc_f03_lda(p, np, rho, zk, vrho, v2rho2, v3rho3, v4rho4)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_lda(p, np, rho, zk, vrho, v2rho2, v3rho3, v4rho4)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*)
     real(c_double), intent(out) :: zk(*), vrho(*), v2rho2(*), v3rho3(*), v4rho4(*)
 
     call xc_lda(p%ptr, np, rho, zk, vrho, v2rho2, v3rho3, v4rho4)
 
-  end subroutine xc_f03_lda
+  end subroutine xc_f90_lda
 
-  subroutine xc_f03_lda_exc(p, np, rho, zk)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_lda_exc(p, np, rho, zk)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*)
     real(c_double), intent(out) :: zk(*)
 
     call xc_lda_exc(p%ptr, np, rho, zk)
 
-  end subroutine xc_f03_lda_exc
+  end subroutine xc_f90_lda_exc
 
-  subroutine xc_f03_lda_exc_vxc(p, np, rho, zk, vrho)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_lda_exc_vxc(p, np, rho, zk, vrho)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*)
     real(c_double), intent(out) :: zk(*), vrho(*)
 
     call xc_lda_exc_vxc(p%ptr, np, rho, zk, vrho)
 
-  end subroutine xc_f03_lda_exc_vxc
+  end subroutine xc_f90_lda_exc_vxc
 
-  subroutine xc_f03_lda_exc_vxc_fxc(p, np, rho, zk, vrho, v2rho2)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_lda_exc_vxc_fxc(p, np, rho, zk, vrho, v2rho2)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*)
     real(c_double), intent(out) :: zk(*), vrho(*), v2rho2(*)
 
     call xc_lda_exc_vxc_fxc(p%ptr, np, rho, zk, vrho, v2rho2)
 
-  end subroutine xc_f03_lda_exc_vxc_fxc
+  end subroutine xc_f90_lda_exc_vxc_fxc
 
-  subroutine xc_f03_lda_exc_vxc_fxc_kxc(p, np, rho, zk, vrho, v2rho2, v3rho3)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_lda_exc_vxc_fxc_kxc(p, np, rho, zk, vrho, v2rho2, v3rho3)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*)
     real(c_double), intent(out) :: zk(*), vrho(*), v2rho2(*), v3rho3(*)
 
     call xc_lda_exc_vxc_fxc_kxc(p%ptr, np, rho, zk, vrho, v2rho2, v3rho3)
 
-  end subroutine xc_f03_lda_exc_vxc_fxc_kxc
+  end subroutine xc_f90_lda_exc_vxc_fxc_kxc
 
-  subroutine xc_f03_lda_vxc(p, np, rho, vrho)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_lda_vxc(p, np, rho, vrho)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*)
     real(c_double), intent(out) :: vrho(*)
 
     call xc_lda_vxc(p%ptr, np, rho, vrho)
 
-  end subroutine xc_f03_lda_vxc
+  end subroutine xc_f90_lda_vxc
 
-  subroutine xc_f03_lda_vxc_fxc(p, np, rho, vrho, v2rho2)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_lda_vxc_fxc(p, np, rho, vrho, v2rho2)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*)
     real(c_double), intent(out) :: vrho(*), v2rho2(*)
 
     call xc_lda_vxc_fxc(p%ptr, np, rho, vrho, v2rho2)
 
-  end subroutine xc_f03_lda_vxc_fxc
+  end subroutine xc_f90_lda_vxc_fxc
 
-  subroutine xc_f03_lda_vxc_fxc_kxc(p, np, rho, vrho, v2rho2, v3rho3)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_lda_vxc_fxc_kxc(p, np, rho, vrho, v2rho2, v3rho3)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*)
     real(c_double), intent(out) :: vrho(*), v2rho2(*), v3rho3(*)
 
     call xc_lda_vxc_fxc_kxc(p%ptr, np, rho, vrho, v2rho2, v3rho3)
 
-  end subroutine xc_f03_lda_vxc_fxc_kxc
+  end subroutine xc_f90_lda_vxc_fxc_kxc
 
-  subroutine xc_f03_lda_fxc(p, np, rho, v2rho2)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_lda_fxc(p, np, rho, v2rho2)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*)
     real(c_double), intent(out) :: v2rho2(*)
 
     call xc_lda_fxc(p%ptr, np, rho, v2rho2)
 
-  end subroutine xc_f03_lda_fxc
+  end subroutine xc_f90_lda_fxc
 
-  subroutine xc_f03_lda_kxc(p, np, rho, v3rho3)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_lda_kxc(p, np, rho, v3rho3)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*)
     real(c_double), intent(out) :: v3rho3(*)
 
     call xc_lda_kxc(p%ptr, np, rho, v3rho3)
 
-  end subroutine xc_f03_lda_kxc
+  end subroutine xc_f90_lda_kxc
 
-  subroutine xc_f03_lda_lxc(p, np, rho, v4rho4)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_lda_lxc(p, np, rho, v4rho4)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*)
     real(c_double), intent(out) :: v4rho4(*)
 
     call xc_lda_lxc(p%ptr, np, rho, v4rho4)
 
-  end subroutine xc_f03_lda_lxc
+  end subroutine xc_f90_lda_lxc
 
   ! GGAs
   !----------------------------------------------------------------
-  subroutine xc_f03_gga(p, np, rho, sigma, zk, vrho, vsigma, &
+  subroutine xc_f90_gga(p, np, rho, sigma, zk, vrho, vsigma, &
        v2rho2, v2rhosigma, v2sigma2, &
        v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3, &
        v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3, v4sigma4 &
     )
-    type(xc_f03_func_t), intent(in) :: p
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*)
     real(c_double), intent(out) :: zk(*), vrho(*), vsigma(*)
@@ -3096,31 +3073,31 @@ end interface
          v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3, v4sigma4 &
          )
 
-  end subroutine xc_f03_gga
+  end subroutine xc_f90_gga
 
-  subroutine xc_f03_gga_exc(p, np, rho, sigma, zk)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_gga_exc(p, np, rho, sigma, zk)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*)
     real(c_double), intent(out) :: zk(*)
 
     call xc_gga_exc(p%ptr, np, rho, sigma, zk)
 
-  end subroutine xc_f03_gga_exc
+  end subroutine xc_f90_gga_exc
 
-  subroutine xc_f03_gga_exc_vxc(p, np, rho, sigma, zk, vrho, vsigma)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_gga_exc_vxc(p, np, rho, sigma, zk, vrho, vsigma)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*)
     real(c_double), intent(out) :: zk(*), vrho(*), vsigma(*)
 
     call xc_gga_exc_vxc(p%ptr, np, rho, sigma, zk, vrho, vsigma)
 
-  end subroutine xc_f03_gga_exc_vxc
+  end subroutine xc_f90_gga_exc_vxc
 
-  subroutine xc_f03_gga_exc_vxc_fxc(p, np, rho, sigma, zk, vrho, vsigma, &
+  subroutine xc_f90_gga_exc_vxc_fxc(p, np, rho, sigma, zk, vrho, vsigma, &
        v2rho2, v2rhosigma, v2sigma2)
-    type(xc_f03_func_t), intent(in) :: p
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*)
     real(c_double), intent(out) :: zk(*), vrho(*), vsigma(*)
@@ -3129,12 +3106,12 @@ end interface
     call xc_gga_exc_vxc_fxc(p%ptr, np, rho, sigma, zk, vrho, vsigma, &
          v2rho2, v2rhosigma, v2sigma2)
 
-  end subroutine xc_f03_gga_exc_vxc_fxc
+  end subroutine xc_f90_gga_exc_vxc_fxc
 
-  subroutine xc_f03_gga_exc_vxc_fxc_kxc(p, np, rho, sigma, zk, vrho, vsigma, &
+  subroutine xc_f90_gga_exc_vxc_fxc_kxc(p, np, rho, sigma, zk, vrho, vsigma, &
        v2rho2, v2rhosigma, v2sigma2, &
        v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
-    type(xc_f03_func_t), intent(in) :: p
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*)
     real(c_double), intent(out) :: zk(*), vrho(*), vsigma(*)
@@ -3145,21 +3122,21 @@ end interface
          v2rho2, v2rhosigma, v2sigma2, &
          v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
 
-  end subroutine xc_f03_gga_exc_vxc_fxc_kxc
+  end subroutine xc_f90_gga_exc_vxc_fxc_kxc
 
-  subroutine xc_f03_gga_vxc(p, np, rho, sigma, vrho, vsigma)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_gga_vxc(p, np, rho, sigma, vrho, vsigma)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*)
     real(c_double), intent(out) :: vrho(*), vsigma(*)
 
     call xc_gga_vxc(p%ptr, np, rho, sigma, vrho, vsigma)
 
-  end subroutine xc_f03_gga_vxc
+  end subroutine xc_f90_gga_vxc
 
-  subroutine xc_f03_gga_vxc_fxc(p, np, rho, sigma, vrho, vsigma, &
+  subroutine xc_f90_gga_vxc_fxc(p, np, rho, sigma, vrho, vsigma, &
        v2rho2, v2rhosigma, v2sigma2)
-    type(xc_f03_func_t), intent(in) :: p
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*)
     real(c_double), intent(out) :: vrho(*), vsigma(*)
@@ -3168,12 +3145,12 @@ end interface
     call xc_gga_vxc_fxc(p%ptr, np, rho, sigma, vrho, vsigma, &
          v2rho2, v2rhosigma, v2sigma2)
 
-  end subroutine xc_f03_gga_vxc_fxc
+  end subroutine xc_f90_gga_vxc_fxc
 
-  subroutine xc_f03_gga_vxc_fxc_kxc(p, np, rho, sigma, vrho, vsigma, &
+  subroutine xc_f90_gga_vxc_fxc_kxc(p, np, rho, sigma, vrho, vsigma, &
        v2rho2, v2rhosigma, v2sigma2, &
        v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
-    type(xc_f03_func_t), intent(in) :: p
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*)
     real(c_double), intent(out) :: vrho(*), vsigma(*)
@@ -3184,91 +3161,71 @@ end interface
          v2rho2, v2rhosigma, v2sigma2, &
          v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
 
-  end subroutine xc_f03_gga_vxc_fxc_kxc
+  end subroutine xc_f90_gga_vxc_fxc_kxc
 
-  subroutine xc_f03_gga_fxc(p, np, rho, sigma, v2rho2, v2rhosigma, v2sigma2)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_gga_fxc(p, np, rho, sigma, v2rho2, v2rhosigma, v2sigma2)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*)
     real(c_double), intent(out) :: v2rho2(*), v2rhosigma(*), v2sigma2(*)
 
     call xc_gga_fxc(p%ptr, np, rho, sigma, v2rho2, v2rhosigma, v2sigma2)
 
-  end subroutine xc_f03_gga_fxc
+  end subroutine xc_f90_gga_fxc
 
-  subroutine xc_f03_gga_kxc(p, np, rho, sigma, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_gga_kxc(p, np, rho, sigma, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*)
     real(c_double), intent(out) :: v3rho3(*), v3rho2sigma(*), v3rhosigma2(*), v3sigma3(*)
 
     call xc_gga_kxc(p%ptr, np, rho, sigma, v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
 
-  end subroutine xc_f03_gga_kxc
+  end subroutine xc_f90_gga_kxc
 
-  subroutine xc_f03_gga_lxc(p, np, rho, sigma, v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3, v4sigma4)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_gga_lxc(p, np, rho, sigma, v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3, v4sigma4)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*)
     real(c_double), intent(out) :: v4rho4(*), v4rho3sigma(*), v4rho2sigma2(*), v4rhosigma3(*), v4sigma4(*)
 
     call xc_gga_lxc(p%ptr, np, rho, sigma, v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3, v4sigma4)
-  end subroutine xc_f03_gga_lxc
+  end subroutine xc_f90_gga_lxc
 
-  real(c_double) function xc_f03_gga_ak13_get_asymptotic(homo) result(asymptotic)
+  real(c_double) function xc_f90_gga_ak13_get_asymptotic(homo) result(asymptotic)
     real(c_double), intent(in) :: homo
 
     asymptotic = xc_gga_ak13_get_asymptotic(homo)
 
-  end function xc_f03_gga_ak13_get_asymptotic
+  end function xc_f90_gga_ak13_get_asymptotic
 
-  real(c_double) function xc_f03_hyb_exx_coef(p) result(coef)
-    type(xc_f03_func_t), intent(in) :: p
+  real(c_double) function xc_f90_hyb_exx_coef(p) result(coef)
+    type(xc_f90_func_t), intent(in) :: p
 
     coef = xc_hyb_exx_coef(p%ptr)
 
-  end function xc_f03_hyb_exx_coef
+  end function xc_f90_hyb_exx_coef
 
-  subroutine xc_f03_hyb_cam_coef(p, omega, alpha, beta)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_hyb_cam_coef(p, omega, alpha, beta)
+    type(xc_f90_func_t), intent(in) :: p
     real(c_double), intent(out) :: omega, alpha, beta
 
     call xc_hyb_cam_coef(p%ptr, omega, alpha, beta)
 
-  end subroutine xc_f03_hyb_cam_coef
+  end subroutine xc_f90_hyb_cam_coef
 
-  subroutine xc_f03_nlc_coef(p, nlc_b, nlc_c)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_nlc_coef(p, nlc_b, nlc_c)
+    type(xc_f90_func_t), intent(in) :: p
     real(c_double), intent(out) :: nlc_b, nlc_c
 
     call xc_nlc_coef(p%ptr, nlc_b, nlc_c)
 
-  end subroutine xc_f03_nlc_coef
-
-  integer(c_int) function xc_f03_num_aux_funcs(p) result(naux)
-    type(xc_f03_func_t), intent(in) :: p
-
-    naux = xc_num_aux_funcs(p%ptr)
-  end function xc_f03_num_aux_funcs
-
-  subroutine xc_f03_aux_func_ids(p, ids)
-    type(xc_f03_func_t), intent(in) :: p
-    integer(c_int), intent(out) :: ids(:)
-
-    call xc_aux_func_ids(p%ptr, c_loc(ids(1)))
-  end subroutine xc_f03_aux_func_ids
-
-  subroutine xc_f03_aux_func_weights(p, weights)
-    type(xc_f03_func_t), intent(in) :: p
-    real(c_double), intent(out) :: weights(:)
-
-    call xc_aux_func_weights(p%ptr, c_loc(weights(1)))
-  end subroutine xc_f03_aux_func_weights
+  end subroutine xc_f90_nlc_coef
 
 
   ! the meta-GGAs
   !----------------------------------------------------------------
-  subroutine xc_f03_mgga(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
+  subroutine xc_f90_mgga(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
          v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau, &
          v2lapl2, v2lapltau, v2tau2, &
          v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl, &
@@ -3283,7 +3240,7 @@ end interface
          v4sigmalapl3, v4sigmalapl2tau, v4sigmalapltau2, v4sigmatau3, v4lapl4, &
          v4lapl3tau, v4lapl2tau2, v4lapltau3, v4tau4 &
          )
-    type(xc_f03_func_t), intent(in) :: p
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*), lapl(*), tau(*)
     real(c_double), intent(out) :: zk(*), vrho(*), vsigma(*), vlapl(*), vtau(*)
@@ -3318,32 +3275,32 @@ end interface
          v4sigmalapl3, v4sigmalapl2tau, v4sigmalapltau2, v4sigmatau3, v4lapl4, &
          v4lapl3tau, v4lapl2tau2, v4lapltau3, v4tau4 &
          )
-  end subroutine xc_f03_mgga
+  end subroutine xc_f90_mgga
 
-  subroutine xc_f03_mgga_exc(p, np, rho, sigma, lapl, tau, zk)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_mgga_exc(p, np, rho, sigma, lapl, tau, zk)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*), lapl(*), tau(*)
     real(c_double), intent(out) :: zk(*)
 
     call xc_mgga_exc(p%ptr, np, rho, sigma, lapl, tau, zk)
 
-  end subroutine xc_f03_mgga_exc
+  end subroutine xc_f90_mgga_exc
 
-  subroutine xc_f03_mgga_exc_vxc(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_mgga_exc_vxc(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*), lapl(*), tau(*)
     real(c_double), intent(out) :: zk(*), vrho(*), vsigma(*), vlapl(*), vtau(*)
 
     call xc_mgga_exc_vxc(p%ptr, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau)
 
-  end subroutine xc_f03_mgga_exc_vxc
+  end subroutine xc_f90_mgga_exc_vxc
 
-  subroutine xc_f03_mgga_exc_vxc_fxc(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
+  subroutine xc_f90_mgga_exc_vxc_fxc(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
          v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau, &
          v2lapl2, v2lapltau, v2tau2)
-    type(xc_f03_func_t), intent(in) :: p
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*), lapl(*), tau(*)
     real(c_double), intent(out) :: zk(*), vrho(*), vsigma(*), vlapl(*), vtau(*)
@@ -3353,16 +3310,16 @@ end interface
     call xc_mgga_exc_vxc_fxc(p%ptr, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
          v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau, &
          v2lapl2, v2lapltau, v2tau2)
-  end subroutine xc_f03_mgga_exc_vxc_fxc
+  end subroutine xc_f90_mgga_exc_vxc_fxc
 
-  subroutine xc_f03_mgga_exc_vxc_fxc_kxc(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
+  subroutine xc_f90_mgga_exc_vxc_fxc_kxc(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau, &
          v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau, &
          v2lapl2, v2lapltau, v2tau2, &
          v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl, &
          v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl, &
          v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau, &
          v3lapltau2, v3tau3)
-    type(xc_f03_func_t), intent(in) :: p
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*), lapl(*), tau(*)
     real(c_double), intent(out) :: zk(*), vrho(*), vsigma(*), vlapl(*), vtau(*)
@@ -3381,22 +3338,22 @@ end interface
          v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl, &
          v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau, &
          v3lapltau2, v3tau3)
-  end subroutine xc_f03_mgga_exc_vxc_fxc_kxc
+  end subroutine xc_f90_mgga_exc_vxc_fxc_kxc
 
-  subroutine xc_f03_mgga_vxc(p, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau)
-    type(xc_f03_func_t), intent(in) :: p
+  subroutine xc_f90_mgga_vxc(p, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau)
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*), lapl(*), tau(*)
     real(c_double), intent(out) :: vrho(*), vsigma(*), vlapl(*), vtau(*)
 
     call xc_mgga_vxc(p%ptr, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau)
 
-  end subroutine xc_f03_mgga_vxc
+  end subroutine xc_f90_mgga_vxc
 
-  subroutine xc_f03_mgga_vxc_fxc(p, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau, &
+  subroutine xc_f90_mgga_vxc_fxc(p, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau, &
          v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau, &
          v2lapl2, v2lapltau, v2tau2)
-    type(xc_f03_func_t), intent(in) :: p
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*), lapl(*), tau(*)
     real(c_double), intent(out) :: vrho(*), vsigma(*), vlapl(*), vtau(*)
@@ -3406,16 +3363,16 @@ end interface
     call xc_mgga_vxc_fxc(p%ptr, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau, &
          v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau, &
          v2lapl2, v2lapltau, v2tau2)
-  end subroutine xc_f03_mgga_vxc_fxc
+  end subroutine xc_f90_mgga_vxc_fxc
 
-  subroutine xc_f03_mgga_vxc_fxc_kxc(p, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau, &
+  subroutine xc_f90_mgga_vxc_fxc_kxc(p, np, rho, sigma, lapl, tau, vrho, vsigma, vlapl, vtau, &
          v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau, &
          v2lapl2, v2lapltau, v2tau2, &
          v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl, &
          v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl, &
          v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau, &
          v3lapltau2, v3tau3)
-    type(xc_f03_func_t), intent(in) :: p
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*), lapl(*), tau(*)
     real(c_double), intent(out) :: vrho(*), vsigma(*), vlapl(*), vtau(*)
@@ -3434,12 +3391,12 @@ end interface
          v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl, &
          v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau, &
          v3lapltau2, v3tau3)
-  end subroutine xc_f03_mgga_vxc_fxc_kxc
+  end subroutine xc_f90_mgga_vxc_fxc_kxc
 
-  subroutine xc_f03_mgga_fxc(p, np, rho, sigma, lapl, tau, &
+  subroutine xc_f90_mgga_fxc(p, np, rho, sigma, lapl, tau, &
        v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2, v2sigmalapl, v2sigmatau, &
        v2lapl2, v2lapltau, v2tau2)
-    type(xc_f03_func_t), intent(in) :: p
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*), lapl(*), tau(*)
     real(c_double), intent(out) :: v2rho2(*), v2rhosigma(*), v2rholapl(*), v2rhotau(*), &
@@ -3449,14 +3406,14 @@ end interface
       v2rho2, v2rhosigma, v2rholapl, v2rhotau, &
       v2sigma2, v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2)
 
-  end subroutine xc_f03_mgga_fxc
+  end subroutine xc_f90_mgga_fxc
 
-  subroutine xc_f03_mgga_kxc(p, np, rho, sigma, lapl, tau, &
+  subroutine xc_f90_mgga_kxc(p, np, rho, sigma, lapl, tau, &
        v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl, &
        v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl, &
        v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau, &
        v3lapltau2, v3tau3)
-    type(xc_f03_func_t), intent(in) :: p
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*), lapl(*), tau(*)
     real(c_double), intent(out) :: v3rho3(*), v3rho2sigma(*), v3rho2lapl(*), v3rho2tau(*), &
@@ -3470,9 +3427,9 @@ end interface
          v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl, &
          v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau, &
          v3lapltau2, v3tau3)
-  end subroutine xc_f03_mgga_kxc
+  end subroutine xc_f90_mgga_kxc
 
-  subroutine xc_f03_mgga_lxc(p, np, rho, sigma, lapl, tau, &
+  subroutine xc_f90_mgga_lxc(p, np, rho, sigma, lapl, tau, &
        v4rho4, v4rho3sigma, v4rho3lapl, v4rho3tau, v4rho2sigma2, v4rho2sigmalapl, &
        v4rho2sigmatau, v4rho2lapl2, v4rho2lapltau, v4rho2tau2, v4rhosigma3, &
        v4rhosigma2lapl, v4rhosigma2tau, v4rhosigmalapl2, v4rhosigmalapltau, &
@@ -3481,7 +3438,7 @@ end interface
        v4sigmalapl3, v4sigmalapl2tau, v4sigmalapltau2, v4sigmatau3, v4lapl4, &
        v4lapl3tau, v4lapl2tau2, v4lapltau3, v4tau4 &
        )
-    type(xc_f03_func_t), intent(in) :: p
+    type(xc_f90_func_t), intent(in) :: p
     integer(c_size_t), intent(in) :: np
     real(c_double), intent(in) :: rho(*), sigma(*), lapl(*), tau(*)
     real(c_double), intent(out) :: &
@@ -3502,7 +3459,7 @@ end interface
          v4sigmalapl3, v4sigmalapl2tau, v4sigmalapltau2, v4sigmatau3, v4lapl4, &
          v4lapl3tau, v4lapl2tau2, v4lapltau3, v4tau4 &
          )
-  end subroutine xc_f03_mgga_lxc
+  end subroutine xc_f90_mgga_lxc
 
 
   ! Helper functions to convert between C and Fortran strings
@@ -3558,7 +3515,7 @@ end interface
 
   end subroutine c_to_f_string_ptr
 
-end module xc_f03_lib_m
+end module xc_f90_lib_m
 
 !! Local Variables:
 !! mode: f90

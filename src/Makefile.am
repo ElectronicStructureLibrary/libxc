@@ -129,8 +129,8 @@ libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)
 if COMPILE_FORTRAN
   lib_LTLIBRARIES += libxcf03.la libxcf90.la
 
-  nodist_libxcf03_la_SOURCES = libxcf03.f90
-  nodist_libxcf90_la_SOURCES = libxcf90.f90
+  libxcf03_la_SOURCES = libxcf03.f90
+  libxcf90_la_SOURCES = libxcf90.f90
 
   # libtool stuff
   libxcf03_la_LDFLAGS = -version-info $(XC_LT_VERSION)
@@ -179,7 +179,7 @@ LTPREF = $(subst xc_f.lo,,$(firstword $(am_libxcf03_la_OBJECTS)))
 #src/Makefile.am:140: subst xc_f.lo,,$(firstword $(am_libxcf03_la_OBJECTS: non-POSIX variable name
 #src/Makefile.am:140: (probably a GNU make extension)
 
-LTPREF03 = $(subst libxcf03.lo,,$(firstword $(nodist_libxcf03_la_OBJECTS)))
+LTPREF03 = $(subst libxcf03.lo,,$(firstword $(libxcf03_la_OBJECTS)))
 libxcf03.f90 : libxc_master.F90 libxc_inc.f90
 	@FCCPP@ @CPPFLAGS@ $(AM_CPPFLAGS) -I$(top_builddir)/src $(srcdir)/libxc_master.F90 > $(top_builddir)/src/libxcf03.f90
 	@if [ "@F90_ACCEPTS_LINE_NUMBERS@" = "no" ]; then \

@@ -195,6 +195,14 @@ if test x"${ac_cv_build_lxc}" = x"no"; then
   AC_DEFINE(XC_DONT_COMPILE_LXC, 1, [defined if fourth derivatives are disabled])
 fi
 
+AC_ARG_ENABLE([fhc],
+	      AS_HELP_STRING([--disable-fhc], [do not enforce Fermi hole curvature]),
+	      [ac_cv_build_fhc=$enableval],
+	      [ac_cv_build_fhc=yes])
+if test x"${ac_cv_build_fhc}" = x"yes"; then
+  AC_DEFINE(XC_ENFORCE_FERMI_HOLE_CURVATURE, 1, [defined if Fermi hole curvature is enforced])
+fi
+
 # build/install fortran bits unless --disable-fortran is used
 AC_ARG_ENABLE([fortran],
 	      AS_HELP_STRING([--disable-fortran], [don't build/install fortran components]),

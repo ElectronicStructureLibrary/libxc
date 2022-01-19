@@ -7,7 +7,7 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
-AC_INIT([libxc],[5.1.7],[libxc@tddft.org],[libxc],[http://www.tddft.org/programs/Libxc])
+AC_INIT([libxc],[5.2.0],[libxc@tddft.org],[libxc],[http://www.tddft.org/programs/Libxc])
 AC_CONFIG_SRCDIR([src/xc.h])
 AM_INIT_AUTOMAKE
 
@@ -71,7 +71,8 @@ AC_SEARCH_LIBS([erf], [m])
 # libxc-5.1.5  10:5:1
 # libxc-5.1.6  10:6:1
 # libxc-5.1.7  10:7:1
-# libxc-6.0.0  11:0:0
+# libxc-5.2.0  11:0:2
+# libxc-6.0.0  12:0:0
 # 
 # Note that libtool versioning was not used prior to libxc-2.0.
 # Because of this, we will start counting at 1.
@@ -88,9 +89,9 @@ AC_SEARCH_LIBS([erf], [m])
 # interfaces have been removed. removal has precedence over adding,
 # so set to 0 if both happened.
 
-XC_CURRENT=10
-XC_REVISION=7
-XC_AGE=1
+XC_CURRENT=11
+XC_REVISION=0
+XC_AGE=2
 
 XC_LT_VERSION="${XC_CURRENT}:${XC_REVISION}:${XC_AGE}"
 AC_SUBST(XC_LT_VERSION)

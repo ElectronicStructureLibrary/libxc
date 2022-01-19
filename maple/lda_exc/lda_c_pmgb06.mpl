@@ -102,12 +102,12 @@ pmgb_a5 := (rs, z) ->
 
 # Eq. (26)
 pmgb_ec_LR := (rs, z) -> (
-           + pmgb_phi(2, z)^3*pmgb_Q(p_a_hyb_omega_0_*sqrt(rs)/pmgb_phi(2, z))
-           + pmgb_a1(rs, z)*p_a_hyb_omega_0_^3
-           + pmgb_a2(rs, z)*p_a_hyb_omega_0_^4
-           + pmgb_a3(rs, z)*p_a_hyb_omega_0_^5
-           + pmgb_a4(rs, z)*p_a_hyb_omega_0_^6
-           + pmgb_a5(rs, z)*p_a_hyb_omega_0_^8
-           )/(1 + pmgb_b0(rs)^2*p_a_hyb_omega_0_^2)^4:
+           + pmgb_phi(2, z)^3*pmgb_Q(p_a_cam_omega*sqrt(rs)/pmgb_phi(2, z))
+           + pmgb_a1(rs, z)*p_a_cam_omega^3
+           + pmgb_a2(rs, z)*p_a_cam_omega^4
+           + pmgb_a3(rs, z)*p_a_cam_omega^5
+           + pmgb_a4(rs, z)*p_a_cam_omega^6
+           + pmgb_a5(rs, z)*p_a_cam_omega^8
+           )/(1 + pmgb_b0(rs)^2*p_a_cam_omega^2)^4:
 
 f := (rs, z) -> pmgb_ec_LR(rs, z):

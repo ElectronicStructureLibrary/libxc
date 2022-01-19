@@ -1,3 +1,6 @@
+#define  XC_HYB_LDA_XC_LDA0             177  /*LDA0: hybrid LDA exchange                                             */
+#define  XC_HYB_LDA_XC_CAM_LDA0         178  /*CAM version of LDA0                                                   */
+#define  XC_HYB_LDA_XC_BN05             588  /*Baer and Neuhauser, gamma=1                                           */
 #define  XC_LDA_X                         1  /*Exchange                                                              */
 #define  XC_LDA_C_WIGNER                  2  /*Wigner parametrization                                                */
 #define  XC_LDA_C_RPA                     3  /*Random Phase Approximation                                            */
@@ -32,8 +35,6 @@
 #define  XC_LDA_XC_ZLP                   43  /*Zhao, Levy & Parr, Eq. (20)                                           */
 #define  XC_LDA_K_TF                     50  /*Thomas-Fermi kinetic energy functional                                */
 #define  XC_LDA_K_LP                     51  /* Lee and Parr Gaussian ansatz                                         */
-#define  XC_HYB_LDA_XC_LDA0             177  /* LDA0: hybrid LDA exchange                                            */
-#define  XC_HYB_LDA_XC_CAM_LDA0         178  /*CAM version of LDA0                                                   */
 #define  XC_LDA_XC_KSDT                 259  /*Karasiev et al. parametrization                                       */
 #define  XC_LDA_C_CHACHIYO              287  /*Chachiyo simple 2 parameter correlation                               */
 #define  XC_LDA_C_LP96                  289  /*Liu-Parr correlation                                                  */
@@ -59,7 +60,6 @@
 #define  XC_LDA_C_GK72                  578  /*Gordon and Kim 1972                                                   */
 #define  XC_LDA_C_KARASIEV              579  /* Karasiev reparameterization of Chachiyo                              */
 #define  XC_LDA_K_LP96                  580  /* Liu-Parr kinetic                                                     */
-#define  XC_HYB_LDA_XC_BN05             588  /*Baer and Neuhauser, gamma=1                                           */
 #define  XC_LDA_C_PMGB06                590  /*Long-range LDA correlation functional                                 */
 #define  XC_LDA_XC_TIH                  599  /*Neural network LDA from Tozer et al                                   */
 #define  XC_LDA_X_1D_EXPONENTIAL        600  /*Exchange in 1D for an exponentially screened interaction              */
@@ -67,6 +67,115 @@
 #define  XC_LDA_C_UPW92                 683  /* Ruggeri, Rios, and Alavi unrestricted fit                            */
 #define  XC_LDA_C_RPW92                 684  /* Ruggeri, Rios, and Alavi restricted fit                              */
 #define  XC_LDA_X_SLOC                  692  /*simple local model for Slater potential                               */
+#define  XC_HYB_GGA_X_N12_SX             81  /*N12-SX functional from Minnesota                                      */
+#define  XC_HYB_GGA_XC_B97_1P           266  /* version of B97 by Cohen and Handy                                    */
+#define  XC_HYB_GGA_XC_PBE_MOL0         273  /* PBEmol0                                                              */
+#define  XC_HYB_GGA_XC_PBE_SOL0         274  /* PBEsol0                                                              */
+#define  XC_HYB_GGA_XC_PBEB0            275  /* PBEbeta0                                                             */
+#define  XC_HYB_GGA_XC_PBE_MOLB0        276  /* PBEmolbeta0                                                          */
+#define  XC_HYB_GGA_XC_PBE50            290  /* PBE0 with 50% exx                                                    */
+#define  XC_HYB_GGA_XC_HFLYP            314  /*Hartree-Fock + LYP correlation                                        */
+#define  XC_HYB_GGA_XC_CASE21           390  /*CASE21                                                                */
+#define  XC_HYB_GGA_XC_PBE_2X           392  /* PBE0 with 56% exx                                                    */
+#define  XC_HYB_GGA_XC_PBE38            393  /* PBE0 with 3/8 = 37.5% exx                                            */
+#define  XC_HYB_GGA_XC_B3LYP3           394  /* B3LYP with VWN functional 3 instead of RPA                           */
+#define  XC_HYB_GGA_XC_CAM_O3LYP        395  /*range separated hybrid based on the optx functional                   */
+#define  XC_HYB_GGA_XC_WB97X_D3         399  /* Lin et al                                                            */
+#define  XC_HYB_GGA_XC_LC_BLYP          400  /*Long-range corrected BLYP                                             */
+#define  XC_HYB_GGA_XC_B3PW91           401  /*The original (ACM) hybrid of Becke                                    */
+#define  XC_HYB_GGA_XC_B3LYP            402  /* The (in)famous B3LYP                                                 */
+#define  XC_HYB_GGA_XC_B3P86            403  /* Perdew 86 hybrid similar to B3PW91                                   */
+#define  XC_HYB_GGA_XC_O3LYP            404  /*hybrid using the optx functional                                      */
+#define  XC_HYB_GGA_XC_MPW1K            405  /* mixture of mPW91 and PW91 optimized for kinetics                     */
+#define  XC_HYB_GGA_XC_PBEH             406  /*aka PBE0 or PBE1PBE                                                   */
+#define  XC_HYB_GGA_XC_B97              407  /*Becke 97                                                              */
+#define  XC_HYB_GGA_XC_B97_1            408  /* Becke 97-1                                                           */
+#define  XC_HYB_GGA_XC_APF              409  /* APF hybrid density functional                                        */
+#define  XC_HYB_GGA_XC_B97_2            410  /* Becke 97-2                                                           */
+#define  XC_HYB_GGA_XC_X3LYP            411  /* hybrid by Xu and Goddard                                             */
+#define  XC_HYB_GGA_XC_B1WC             412  /*Becke 1-parameter mixture of WC and PBE                               */
+#define  XC_HYB_GGA_XC_B97_K            413  /* Boese-Martin for Kinetics                                            */
+#define  XC_HYB_GGA_XC_B97_3            414  /* Becke 97-3                                                           */
+#define  XC_HYB_GGA_XC_MPW3PW           415  /* mixture with the mPW functional                                      */
+#define  XC_HYB_GGA_XC_B1LYP            416  /* Becke 1-parameter mixture of B88 and LYP                             */
+#define  XC_HYB_GGA_XC_B1PW91           417  /* Becke 1-parameter mixture of B88 and PW91                            */
+#define  XC_HYB_GGA_XC_MPW1PW           418  /* Becke 1-parameter mixture of mPW91 and PW91                          */
+#define  XC_HYB_GGA_XC_MPW3LYP          419  /* mixture of mPW and LYP                                               */
+#define  XC_HYB_GGA_XC_SB98_1A          420  /* Schmider-Becke 98 parameterization 1a                                */
+#define  XC_HYB_GGA_XC_SB98_1B          421  /* Schmider-Becke 98 parameterization 1b                                */
+#define  XC_HYB_GGA_XC_SB98_1C          422  /* Schmider-Becke 98 parameterization 1c                                */
+#define  XC_HYB_GGA_XC_SB98_2A          423  /* Schmider-Becke 98 parameterization 2a                                */
+#define  XC_HYB_GGA_XC_SB98_2B          424  /* Schmider-Becke 98 parameterization 2b                                */
+#define  XC_HYB_GGA_XC_SB98_2C          425  /* Schmider-Becke 98 parameterization 2c                                */
+#define  XC_HYB_GGA_X_SOGGA11_X         426  /*Hybrid based on SOGGA11 form                                          */
+#define  XC_HYB_GGA_XC_HSE03            427  /*the 2003 version of the screened hybrid HSE                           */
+#define  XC_HYB_GGA_XC_HSE06            428  /* the 2006 version of the screened hybrid HSE                          */
+#define  XC_HYB_GGA_XC_HJS_PBE          429  /* HJS hybrid screened exchange PBE version                             */
+#define  XC_HYB_GGA_XC_HJS_PBE_SOL      430  /* HJS hybrid screened exchange PBE_SOL version                         */
+#define  XC_HYB_GGA_XC_HJS_B88          431  /* HJS hybrid screened exchange B88 version                             */
+#define  XC_HYB_GGA_XC_HJS_B97X         432  /* HJS hybrid screened exchange B97x version                            */
+#define  XC_HYB_GGA_XC_CAM_B3LYP        433  /*CAM version of B3LYP                                                  */
+#define  XC_HYB_GGA_XC_TUNED_CAM_B3LYP  434  /* CAM version of B3LYP tuned for excitations                           */
+#define  XC_HYB_GGA_XC_BHANDH           435  /* Becke half-and-half or BHLYP                                         */
+#define  XC_HYB_GGA_XC_BHANDHLYP        436  /* Becke half-and-half with B88 exchange                                */
+#define  XC_HYB_GGA_XC_MB3LYP_RC04      437  /* B3LYP with RC04 LDA                                                  */
+#define  XC_HYB_GGA_XC_MPWLYP1M         453  /* MPW with 1 par. for metals/LYP                                       */
+#define  XC_HYB_GGA_XC_REVB3LYP         454  /* Revised B3LYP                                                        */
+#define  XC_HYB_GGA_XC_CAMY_BLYP        455  /*BLYP with yukawa screening                                            */
+#define  XC_HYB_GGA_XC_PBE0_13          456  /* PBE0-1/3                                                             */
+#define  XC_HYB_GGA_XC_B3LYPS           459  /* B3LYP* functional                                                    */
+#define  XC_HYB_GGA_XC_QTP17            460  /* global hybrid for vertical ionization potentials                     */
+#define  XC_HYB_GGA_XC_B3LYP_MCM1       461  /* B3LYP reoptimized in 6-31+G(2df,p) for enthalpies of formation       */
+#define  XC_HYB_GGA_XC_B3LYP_MCM2       462  /* B3LYP reoptimized in 6-31+G(2df,p) for enthalpies of formation       */
+#define  XC_HYB_GGA_XC_WB97             463  /*Chai and Head-Gordon                                                  */
+#define  XC_HYB_GGA_XC_WB97X            464  /* Chai and Head-Gordon                                                 */
+#define  XC_HYB_GGA_XC_LRC_WPBEH        465  /* Long-range corrected functional by Rorhdanz et al                    */
+#define  XC_HYB_GGA_XC_WB97X_V          466  /* Mardirossian and Head-Gordon                                         */
+#define  XC_HYB_GGA_XC_LCY_PBE          467  /*PBE with yukawa screening                                             */
+#define  XC_HYB_GGA_XC_LCY_BLYP         468  /*BLYP with yukawa screening                                            */
+#define  XC_HYB_GGA_XC_LC_VV10          469  /*Vydrov and Van Voorhis                                                */
+#define  XC_HYB_GGA_XC_CAMY_B3LYP       470  /*B3LYP with Yukawa screening                                           */
+#define  XC_HYB_GGA_XC_WB97X_D          471  /* Chai and Head-Gordon                                                 */
+#define  XC_HYB_GGA_XC_HPBEINT          472  /* hPBEint                                                              */
+#define  XC_HYB_GGA_XC_LRC_WPBE         473  /* Long-range corrected functional by Rorhdanz et al                    */
+#define  XC_HYB_GGA_XC_B3LYP5           475  /* B3LYP with VWN functional 5 instead of RPA                           */
+#define  XC_HYB_GGA_XC_EDF2             476  /*Empirical functional from Lin, George and Gill                        */
+#define  XC_HYB_GGA_XC_CAP0             477  /*Correct Asymptotic Potential hybrid                                   */
+#define  XC_HYB_GGA_XC_LC_WPBE          478  /* Long-range corrected functional by Vydrov and Scuseria               */
+#define  XC_HYB_GGA_XC_HSE12            479  /* HSE12 by Moussa, Schultz and Chelikowsky                             */
+#define  XC_HYB_GGA_XC_HSE12S           480  /* Short-range HSE12 by Moussa, Schultz, and Chelikowsky                */
+#define  XC_HYB_GGA_XC_HSE_SOL          481  /* HSEsol functional by Schimka, Harl, and Kresse                       */
+#define  XC_HYB_GGA_XC_CAM_QTP_01       482  /* CAM-QTP-01                                                           */
+#define  XC_HYB_GGA_XC_MPW1LYP          483  /* Becke 1-parameter mixture of mPW91 and LYP                           */
+#define  XC_HYB_GGA_XC_MPW1PBE          484  /* Becke 1-parameter mixture of mPW91 and PBE                           */
+#define  XC_HYB_GGA_XC_KMLYP            485  /* Kang-Musgrave hybrid                                                 */
+#define  XC_HYB_GGA_XC_LC_WPBE_WHS      486  /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
+#define  XC_HYB_GGA_XC_LC_WPBEH_WHS     487  /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
+#define  XC_HYB_GGA_XC_LC_WPBE08_WHS    488  /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
+#define  XC_HYB_GGA_XC_LC_WPBESOL_WHS   489  /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
+#define  XC_HYB_GGA_XC_CAM_QTP_00       490  /* CAM-QTP-00                                                           */
+#define  XC_HYB_GGA_XC_CAM_QTP_02       491  /* CAM-QTP-02                                                           */
+#define  XC_HYB_GGA_XC_LC_QTP           492  /* LC-QTP                                                               */
+#define  XC_HYB_GGA_X_S12H              496  /*Swart 2012 GGA hybrid exchange                                        */
+#define  XC_HYB_GGA_XC_BLYP35           499  /* Becke 1-parameter mixture for mixed-valence systems                  */
+#define  XC_HYB_GGA_XC_B5050LYP         572  /* Like B3LYP but more exact exchange                                   */
+#define  XC_HYB_GGA_XC_LB07             589  /*Livshits and Baer, empirical functional also used for IP tuning       */
+#define  XC_HYB_GGA_XC_APBE0            607  /*Hybrid based on APBE                                                  */
+#define  XC_HYB_GGA_XC_HAPBE            608  /* Hybrid based in APBE and zvPBEloc                                    */
+#define  XC_HYB_GGA_XC_RCAM_B3LYP       610  /* Similar to CAM-B3LYP, but trying to reduce the many-electron self-interaction*/
+#define  XC_HYB_GGA_XC_WC04             611  /* hybrid fitted to carbon NMR shifts                                   */
+#define  XC_HYB_GGA_XC_WP04             612  /* hybrid fitted to proton NMR shifts                                   */
+#define  XC_HYB_GGA_XC_CAMH_B3LYP       614  /* CAM version of B3LYP tuned for tddft                                 */
+#define  XC_HYB_GGA_XC_WHPBE0           615  /* Long-range corrected functional by Shao et al                        */
+#define  XC_HYB_GGA_XC_LC_BLYP_EA       625  /* Long-range corrected BLYP, tuned for electron affinities             */
+#define  XC_HYB_GGA_XC_LC_BOP           636  /* Long-range corrected B88 with B88OP correlation                      */
+#define  XC_HYB_GGA_XC_LC_PBEOP         637  /* Long-range corrected PBE with PBEOP correlation                      */
+#define  XC_HYB_GGA_XC_LC_BLYPR         639  /* Long-range corrected BLYP with correlation only in short-range       */
+#define  XC_HYB_GGA_XC_MCAM_B3LYP       640  /* Modified CAM-B3LYP                                                   */
+#define  XC_HYB_GGA_X_CAM_S12G          646  /*Swart 2012 range-separated GGA exchange                               */
+#define  XC_HYB_GGA_X_CAM_S12H          647  /* Swart 2012 range-separated GGA exchange                              */
+#define  XC_HYB_GGA_XC_CAM_PBEH         681  /* CAM version of PBEH                                                  */
+#define  XC_HYB_GGA_XC_CAMY_PBEH        682  /* PBEH with Yukawa screening                                           */
 #define  XC_GGA_X_GAM                    32  /* GAM functional from Minnesota                                        */
 #define  XC_GGA_C_GAM                    33  /* GAM functional from Minnesota                                        */
 #define  XC_GGA_X_HCTH_A                 34  /*HCTH-A                                                                */
@@ -102,7 +211,6 @@
 #define  XC_GGA_X_VMT_PBE                71  /*Vela, Medel, and Trickey with mu = mu_PBE                             */
 #define  XC_GGA_C_N12_SX                 79  /* N12-SX functional from Minnesota                                     */
 #define  XC_GGA_C_N12                    80  /*N12 functional from Minnesota                                         */
-#define  XC_HYB_GGA_X_N12_SX             81  /* N12-SX functional from Minnesota                                     */
 #define  XC_GGA_X_N12                    82  /*N12 functional from Minnesota                                         */
 #define  XC_GGA_C_REGTPSS                83  /*Regularized TPSS correlation (ex-VPBE)                                */
 #define  XC_GGA_C_OP_XALPHA              84  /*one-parameter progressive functional (XALPHA version)                 */
@@ -191,7 +299,7 @@
 #define  XC_GGA_XC_KT1                  167  /* Keal and Tozer version 1                                             */
 #define  XC_GGA_X_LSPBE                 168  /*PW91-like exchange with simple analytical form                        */
 #define  XC_GGA_X_LSRPBE                169  /*PW91-like modification of RPBE                                        */
-#define  XC_GGA_XC_B97_D                170  /* Grimme functional to be used with C6 vdW term                        */
+#define  XC_GGA_XC_B97_D                170  /*Grimme functional to be used with C6 vdW term                         */
 #define  XC_GGA_X_OPTB86B_VDW           171  /* Becke 86 reoptimized for use with vdW functional of Dion et al       */
 #define  XC_GGA_XC_PBE1W                173  /* Functionals fitted for water                                         */
 #define  XC_GGA_XC_MPWLYP1W             174  /* Functionals fitted for water                                         */
@@ -231,14 +339,9 @@
 #define  XC_GGA_C_PBEFE                 258  /* PBE for formation energies                                           */
 #define  XC_GGA_C_OP_PW91               262  /*one-parameter progressive functional (PW91 version)                   */
 #define  XC_GGA_X_PBEFE                 265  /* PBE for formation energies                                           */
-#define  XC_HYB_GGA_XC_B97_1P           266  /* version of B97 by Cohen and Handy                                    */
 #define  XC_GGA_X_CAP                   270  /*Correct Asymptotic Potential                                          */
 #define  XC_GGA_X_EB88                  271  /* Non-empirical (excogitated) B88 functional of Becke and Elliott      */
 #define  XC_GGA_C_PBE_MOL               272  /* Del Campo, Gazquez, Trickey and Vela (PBE-like)                      */
-#define  XC_HYB_GGA_XC_PBE_MOL0         273  /* PBEmol0                                                              */
-#define  XC_HYB_GGA_XC_PBE_SOL0         274  /* PBEsol0                                                              */
-#define  XC_HYB_GGA_XC_PBEB0            275  /* PBEbeta0                                                             */
-#define  XC_HYB_GGA_XC_PBE_MOLB0        276  /* PBEmolbeta0                                                          */
 #define  XC_GGA_K_ABSP3                 277  /* gamma-TFvW form by Acharya et al [g = 1 - 1.513/N^0.35]              */
 #define  XC_GGA_K_ABSP4                 278  /* gamma-TFvW form by Acharya et al [g = l = 1/(1 + 1.332/N^(1/3))]     */
 #define  XC_GGA_C_BMK                   280  /* Boese-Martin for kinetics                                            */
@@ -246,99 +349,13 @@
 #define  XC_GGA_C_HYB_TAU_HCTH          283  /* correlation part of hyb_tau-hcth                                     */
 #define  XC_GGA_X_BEEFVDW               285  /*BEEF-vdW exchange                                                     */
 #define  XC_GGA_XC_BEEFVDW              286  /* BEEF-vdW exchange-correlation                                        */
-#define  XC_HYB_GGA_XC_PBE50            290  /* PBE0 with 50% exx                                                    */
 #define  XC_GGA_X_PBETRANS              291  /*Gradient-based interpolation between PBE and revPBE                   */
 #define  XC_GGA_X_CHACHIYO              298  /*Chachiyo exchange                                                     */
 #define  XC_GGA_C_CHACHIYO              309  /*Chachiyo simple GGA correlation                                       */
 #define  XC_GGA_X_REVSSB_D              312  /* Revised Swart, Sola and Bickelhaupt dispersion                       */
 #define  XC_GGA_C_CCDF                  313  /*ccDF, coupled-cluster based density functional                        */
-#define  XC_HYB_GGA_XC_HFLYP            314  /* Hartree-Fock + LYP correlation                                       */
-#define  XC_HYB_GGA_XC_B3P86_NWCHEM     315  /* Perdew 86 hybrid similar to B3PW91; NWChem version                   */
 #define  XC_GGA_X_PW91_MOD              316  /* Perdew & Wang 91, alternate version with more digits                 */
-#define  XC_HYB_GGA_XC_CASE21           390  /*CASE21                                                                */
-#define  XC_HYB_GGA_XC_PBE_2X           392  /* PBE0 with 56% exx                                                    */
-#define  XC_HYB_GGA_XC_PBE38            393  /* PBE0 with 3/8 = 37.5% exx                                            */
-#define  XC_HYB_GGA_XC_B3LYP3           394  /* B3LYP with VWN functional 3 instead of RPA                           */
-#define  XC_HYB_GGA_XC_CAM_O3LYP        395  /*range separated hybrid based on the optx functional                   */
-#define  XC_HYB_GGA_XC_WB97X_D3         399  /* Lin et al                                                            */
-#define  XC_HYB_GGA_XC_LC_BLYP          400  /*Long-range corrected BLYP                                             */
-#define  XC_HYB_GGA_XC_B3PW91           401  /*The original (ACM) hybrid of Becke                                    */
-#define  XC_HYB_GGA_XC_B3LYP            402  /* The (in)famous B3LYP                                                 */
-#define  XC_HYB_GGA_XC_B3P86            403  /* Perdew 86 hybrid similar to B3PW91                                   */
-#define  XC_HYB_GGA_XC_O3LYP            404  /*hybrid using the optx functional                                      */
-#define  XC_HYB_GGA_XC_MPW1K            405  /* mixture of mPW91 and PW91 optimized for kinetics                     */
-#define  XC_HYB_GGA_XC_PBEH             406  /*aka PBE0 or PBE1PBE                                                   */
-#define  XC_HYB_GGA_XC_B97              407  /*Becke 97                                                              */
-#define  XC_HYB_GGA_XC_B97_1            408  /* Becke 97-1                                                           */
-#define  XC_HYB_GGA_XC_APF              409  /* APF hybrid density functional                                        */
-#define  XC_HYB_GGA_XC_B97_2            410  /* Becke 97-2                                                           */
-#define  XC_HYB_GGA_XC_X3LYP            411  /* hybrid by Xu and Goddard                                             */
-#define  XC_HYB_GGA_XC_B1WC             412  /*Becke 1-parameter mixture of WC and PBE                               */
-#define  XC_HYB_GGA_XC_B97_K            413  /* Boese-Martin for Kinetics                                            */
-#define  XC_HYB_GGA_XC_B97_3            414  /* Becke 97-3                                                           */
-#define  XC_HYB_GGA_XC_MPW3PW           415  /* mixture with the mPW functional                                      */
-#define  XC_HYB_GGA_XC_B1LYP            416  /* Becke 1-parameter mixture of B88 and LYP                             */
-#define  XC_HYB_GGA_XC_B1PW91           417  /* Becke 1-parameter mixture of B88 and PW91                            */
-#define  XC_HYB_GGA_XC_MPW1PW           418  /* Becke 1-parameter mixture of mPW91 and PW91                          */
-#define  XC_HYB_GGA_XC_MPW3LYP          419  /* mixture of mPW and LYP                                               */
-#define  XC_HYB_GGA_XC_SB98_1A          420  /* Schmider-Becke 98 parameterization 1a                                */
-#define  XC_HYB_GGA_XC_SB98_1B          421  /* Schmider-Becke 98 parameterization 1b                                */
-#define  XC_HYB_GGA_XC_SB98_1C          422  /* Schmider-Becke 98 parameterization 1c                                */
-#define  XC_HYB_GGA_XC_SB98_2A          423  /* Schmider-Becke 98 parameterization 2a                                */
-#define  XC_HYB_GGA_XC_SB98_2B          424  /* Schmider-Becke 98 parameterization 2b                                */
-#define  XC_HYB_GGA_XC_SB98_2C          425  /* Schmider-Becke 98 parameterization 2c                                */
-#define  XC_HYB_GGA_X_SOGGA11_X         426  /* Hybrid based on SOGGA11 form                                         */
-#define  XC_HYB_GGA_XC_HSE03            427  /*the 2003 version of the screened hybrid HSE                           */
-#define  XC_HYB_GGA_XC_HSE06            428  /* the 2006 version of the screened hybrid HSE                          */
-#define  XC_HYB_GGA_XC_HJS_PBE          429  /* HJS hybrid screened exchange PBE version                             */
-#define  XC_HYB_GGA_XC_HJS_PBE_SOL      430  /* HJS hybrid screened exchange PBE_SOL version                         */
-#define  XC_HYB_GGA_XC_HJS_B88          431  /* HJS hybrid screened exchange B88 version                             */
-#define  XC_HYB_GGA_XC_HJS_B97X         432  /* HJS hybrid screened exchange B97x version                            */
-#define  XC_HYB_GGA_XC_CAM_B3LYP        433  /*CAM version of B3LYP                                                  */
-#define  XC_HYB_GGA_XC_TUNED_CAM_B3LYP  434  /* CAM version of B3LYP tuned for excitations                           */
-#define  XC_HYB_GGA_XC_BHANDH           435  /* Becke half-and-half or BHLYP                                         */
-#define  XC_HYB_GGA_XC_BHANDHLYP        436  /* Becke half-and-half with B88 exchange                                */
-#define  XC_HYB_GGA_XC_MB3LYP_RC04      437  /* B3LYP with RC04 LDA                                                  */
-#define  XC_HYB_GGA_XC_MPWLYP1M         453  /* MPW with 1 par. for metals/LYP                                       */
-#define  XC_HYB_GGA_XC_REVB3LYP         454  /* Revised B3LYP                                                        */
-#define  XC_HYB_GGA_XC_CAMY_BLYP        455  /*BLYP with yukawa screening                                            */
-#define  XC_HYB_GGA_XC_PBE0_13          456  /* PBE0-1/3                                                             */
-#define  XC_HYB_GGA_XC_B3LYPS           459  /* B3LYP* functional                                                    */
-#define  XC_HYB_GGA_XC_QTP17            460  /* global hybrid for vertical ionization potentials                     */
-#define  XC_HYB_GGA_XC_B3LYP_MCM1       461  /* B3LYP reoptimized in 6-31+G(2df,p) for enthalpies of formation       */
-#define  XC_HYB_GGA_XC_B3LYP_MCM2       462  /* B3LYP reoptimized in 6-31+G(2df,p) for enthalpies of formation       */
-#define  XC_HYB_GGA_XC_WB97             463  /*Chai and Head-Gordon                                                  */
-#define  XC_HYB_GGA_XC_WB97X            464  /* Chai and Head-Gordon                                                 */
-#define  XC_HYB_GGA_XC_LRC_WPBEH        465  /* Long-range corrected functional by Rorhdanz et al                    */
-#define  XC_HYB_GGA_XC_WB97X_V          466  /* Mardirossian and Head-Gordon                                         */
-#define  XC_HYB_GGA_XC_LCY_PBE          467  /*PBE with yukawa screening                                             */
-#define  XC_HYB_GGA_XC_LCY_BLYP         468  /*BLYP with yukawa screening                                            */
-#define  XC_HYB_GGA_XC_LC_VV10          469  /* Vydrov and Van Voorhis                                               */
-#define  XC_HYB_GGA_XC_CAMY_B3LYP       470  /*B3LYP with Yukawa screening                                           */
-#define  XC_HYB_GGA_XC_WB97X_D          471  /* Chai and Head-Gordon                                                 */
-#define  XC_HYB_GGA_XC_HPBEINT          472  /* hPBEint                                                              */
-#define  XC_HYB_GGA_XC_LRC_WPBE         473  /* Long-range corrected functional by Rorhdanz et al                    */
-#define  XC_HYB_GGA_XC_B3LYP5           475  /* B3LYP with VWN functional 5 instead of RPA                           */
-#define  XC_HYB_GGA_XC_EDF2             476  /*Empirical functional from Lin, George and Gill                        */
-#define  XC_HYB_GGA_XC_CAP0             477  /* Correct Asymptotic Potential hybrid                                  */
-#define  XC_HYB_GGA_XC_LC_WPBE          478  /* Long-range corrected functional by Vydrov and Scuseria               */
-#define  XC_HYB_GGA_XC_HSE12            479  /* HSE12 by Moussa, Schultz and Chelikowsky                             */
-#define  XC_HYB_GGA_XC_HSE12S           480  /* Short-range HSE12 by Moussa, Schultz, and Chelikowsky                */
-#define  XC_HYB_GGA_XC_HSE_SOL          481  /* HSEsol functional by Schimka, Harl, and Kresse                       */
-#define  XC_HYB_GGA_XC_CAM_QTP_01       482  /* CAM-QTP-01                                                           */
-#define  XC_HYB_GGA_XC_MPW1LYP          483  /* Becke 1-parameter mixture of mPW91 and LYP                           */
-#define  XC_HYB_GGA_XC_MPW1PBE          484  /* Becke 1-parameter mixture of mPW91 and PBE                           */
-#define  XC_HYB_GGA_XC_KMLYP            485  /* Kang-Musgrave hybrid                                                 */
-#define  XC_HYB_GGA_XC_LC_WPBE_WHS      486  /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
-#define  XC_HYB_GGA_XC_LC_WPBEH_WHS     487  /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
-#define  XC_HYB_GGA_XC_LC_WPBE08_WHS    488  /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
-#define  XC_HYB_GGA_XC_LC_WPBESOL_WHS   489  /* Long-range corrected functional by Weintraub, Henderson and Scuseria */
-#define  XC_HYB_GGA_XC_CAM_QTP_00       490  /* CAM-QTP-00                                                           */
-#define  XC_HYB_GGA_XC_CAM_QTP_02       491  /* CAM-QTP-02                                                           */
-#define  XC_HYB_GGA_XC_LC_QTP           492  /* LC-QTP                                                               */
 #define  XC_GGA_X_S12G                  495  /*Swart 2012 GGA exchange                                               */
-#define  XC_HYB_GGA_X_S12H              496  /* Swart 2012 GGA hybrid exchange                                       */
-#define  XC_HYB_GGA_XC_BLYP35           499  /* Becke 1-parameter mixture for mixed-valence systems                  */
 #define  XC_GGA_K_VW                    500  /* von Weiszaecker functional                                           */
 #define  XC_GGA_K_GE2                   501  /* Second-order gradient expansion (l = 1/9)                            */
 #define  XC_GGA_K_GOLDEN                502  /* TF-lambda-vW form by Golden (l = 13/45)                              */
@@ -386,9 +403,7 @@
 #define  XC_GGA_C_W94                   561  /*Wilson 94 (Eq. 25)                                                    */
 #define  XC_GGA_C_CS1                   565  /*A dynamical correlation functional                                    */
 #define  XC_GGA_X_B88M                  570  /* Becke 88 reoptimized to be used with mgga_c_tau1                     */
-#define  XC_HYB_GGA_XC_B5050LYP         572  /* Like B3LYP but more exact exchange                                   */
 #define  XC_GGA_XC_KT3                  587  /* Keal and Tozer version 3                                             */
-#define  XC_HYB_GGA_XC_LB07             589  /* Livshits and Baer, empirical functional also used for IP tuning      */
 #define  XC_GGA_K_GDS08                 591  /*Combined analytical theory with Monte Carlo sampling                  */
 #define  XC_GGA_K_GHDS10                592  /* As GDS08 but for an electron gas with spin                           */
 #define  XC_GGA_K_GHDS10R               593  /* Reparametrized GHDS10                                                */
@@ -400,48 +415,62 @@
 #define  XC_GGA_X_FD_LB94               604  /*Functional derivative recovered from the stray LB94 potential         */
 #define  XC_GGA_X_FD_REVLB94            605  /* Revised FD_LB94                                                      */
 #define  XC_GGA_C_ZVPBELOC              606  /*PBEloc variation with enhanced compatibility with exact exchange      */
-#define  XC_HYB_GGA_XC_APBE0            607  /* Hybrid based on APBE                                                 */
-#define  XC_HYB_GGA_XC_HAPBE            608  /* Hybrid based in APBE and zvPBEloc                                    */
-#define  XC_HYB_GGA_XC_RCAM_B3LYP       610  /* Similar to CAM-B3LYP, but trying to reduce the many-electron self-interaction*/
-#define  XC_HYB_GGA_XC_WC04             611  /* hybrid fitted to carbon NMR shifts                                   */
-#define  XC_HYB_GGA_XC_WP04             612  /* hybrid fitted to proton NMR shifts                                   */
 #define  XC_GGA_K_LKT                   613  /*Luo-Karasiev-Trickey kinetic GGA                                      */
-#define  XC_HYB_GGA_XC_CAMH_B3LYP       614  /* CAM version of B3LYP tuned for tddft                                 */
-#define  XC_HYB_GGA_XC_WHPBE0           615  /* Long-range corrected functional by Shao et al                        */
 #define  XC_GGA_K_PBE2                  616  /*Two   parameter PBE-like expansion                                    */
 #define  XC_GGA_K_VT84F                 619  /*VT84F by Karasiev et al                                               */
 #define  XC_GGA_K_LGAP                  620  /*LGAP by Constantin et al                                              */
 #define  XC_GGA_X_ITYH_OPTX             622  /*short-range OPTX functional                                           */
 #define  XC_GGA_X_ITYH_PBE              623  /*short-range PBE functional                                            */
 #define  XC_GGA_C_LYPR                  624  /*Short-range LYP of Ai, Fang and Su                                    */
-#define  XC_HYB_GGA_XC_LC_BLYP_EA       625  /* Long-range corrected BLYP, tuned for electron affinities             */
 #define  XC_GGA_K_LGAP_GE               633  /*LGAP_GE by Constantin et al                                           */
 #define  XC_GGA_K_TFVW_OPT              635  /* empirically optimized gamma-TFvW form                                */
-#define  XC_HYB_GGA_XC_LC_BOP           636  /* Long-range corrected B88 with B88OP correlation                      */
-#define  XC_HYB_GGA_XC_LC_PBEOP         637  /* Long-range corrected PBE with PBEOP correlation                      */
-#define  XC_HYB_GGA_XC_LC_BLYPR         639  /* Long-range corrected BLYP with correlation only in short-range       */
-#define  XC_HYB_GGA_XC_MCAM_B3LYP       640  /* Modified CAM-B3LYP                                                   */
-#define  XC_HYB_GGA_X_CAM_S12G          646  /*Swart 2012 range-separated GGA exchange                               */
-#define  XC_HYB_GGA_X_CAM_S12H          647  /* Swart 2012 range-separated GGA exchange                              */
-#define  XC_HYB_GGA_XC_CAM_PBEH         681  /* CAM version of PBEH                                                  */
-#define  XC_HYB_GGA_XC_CAMY_PBEH        682  /* PBEH with Yukawa screening                                           */
-#define  XC_HYB_GGA_X_LCGAU             708  /*Long-range Gaussian                                                   */
-#define  XC_HYB_GGA_X_LCGAU_CORE        709  /* Long-range Gaussian fitted to core excitations                       */
-#define  XC_HYB_GGA_X_LC2GAU            710  /* Long-range Gaussian 2                                                */
 #define  XC_GGA_C_MGGAC                 712  /* beta fitted to LC20 to be used with MGGAC                            */
-#define  XC_HYB_GGA_XC_B2PLYP           713  /*Double hybrid of Grimme                                               */
-#define  XC_HYB_GGA_XC_SRC1_BLYP        714  /*Hybrid with two range separations (form 1)                            */
-#define  XC_HYB_GGA_XC_SRC2_BLYP        715  /* Hybrid with two range separations (form 2)                           */
-#define  XC_HYB_GGA_XC_HISS             717  /* Middle-range hybrid from Henderson, Izmaylov, Scuseria, and Savin    */
-#define  XC_HYB_GGA_XC_B2GPPLYP         721  /* Double hybrid of Karton et al                                        */
-#define  XC_HYB_GGA_XC_WB2PLYP          722  /* Double hybrid of Casanova-Paez, Dardis and Goerigk                   */
-#define  XC_HYB_GGA_XC_WB2GPPLYP        723  /* Double hybrid of Casanova-Paez, Dardis and Goerigk                   */
-#define  XC_HYB_GGA_XC_PBE0_DH          725  /*Double hybrid by Bremond and Adamo                                    */
-#define  XC_HYB_GGA_XC_PBE0_2           726  /* Double hybrid by Chai and Mao                                        */
-#define  XC_HYB_GGA_XC_PBE_QIDH         727  /* Double hybrid by Bremond et al                                       */
-#define  XC_HYB_GGA_XC_LS1DH_PBE        728  /* Double hybrid by Toulouse et al                                      */
 #define  XC_GGA_X_Q1D                   734  /*Functional for quasi-1D systems                                       */
 #define  XC_HYB_MGGA_X_DLDF              36  /*Dispersionless Density Functional                                     */
+#define  XC_HYB_MGGA_X_MS2H             224  /*MS2 hybrid exchange of Sun, et al                                     */
+#define  XC_HYB_MGGA_X_MN12_SX          248  /*MN12-SX hybrid exchange functional from Minnesota                     */
+#define  XC_HYB_MGGA_X_SCAN0            264  /*SCAN hybrid exchange                                                  */
+#define  XC_HYB_MGGA_X_MN15             268  /* MN15 hybrid exchange functional from Minnesota                       */
+#define  XC_HYB_MGGA_X_BMK              279  /*Boese-Martin for kinetics                                             */
+#define  XC_HYB_MGGA_X_TAU_HCTH         282  /* Hybrid version of tau-HCTH                                           */
+#define  XC_HYB_MGGA_X_M08_HX           295  /*M08-HX exchange functional from Minnesota                             */
+#define  XC_HYB_MGGA_X_M08_SO           296  /* M08-SO exchange functional from Minnesota                            */
+#define  XC_HYB_MGGA_X_M11              297  /*M11 hybrid exchange functional from Minnesota                         */
+#define  XC_HYB_MGGA_X_REVM11           304  /* revM11 hybrid exchange functional from Minnesota                     */
+#define  XC_HYB_MGGA_X_REVM06           305  /* revised M06 hybrid exchange functional from Minnesota                */
+#define  XC_HYB_MGGA_X_M06_SX           310  /* M06-SX exchange functional from Minnesota                            */
+#define  XC_HYB_MGGA_XC_TPSS0           396  /* TPSS hybrid with 25% exact exchange                                  */
+#define  XC_HYB_MGGA_XC_B94_HYB         398  /*Hybrid meta-GGA by Becke                                              */
+#define  XC_HYB_MGGA_X_M05              438  /*M05 hybrid exchange functional from Minnesota                         */
+#define  XC_HYB_MGGA_X_M05_2X           439  /* M05-2X hybrid exchange functional from Minnesota                     */
+#define  XC_HYB_MGGA_XC_B88B95          440  /*Mixture of B88 with BC95 (B1B95)                                      */
+#define  XC_HYB_MGGA_XC_B86B95          441  /* Mixture of B86 with BC95                                             */
+#define  XC_HYB_MGGA_XC_PW86B95         442  /* Mixture of PW86 with BC95                                            */
+#define  XC_HYB_MGGA_XC_BB1K            443  /* Mixture of B88 with BC95 from Zhao and Truhlar                       */
+#define  XC_HYB_MGGA_X_M06_HF           444  /*M06-HF hybrid exchange functional from Minnesota                      */
+#define  XC_HYB_MGGA_XC_MPW1B95         445  /* Mixture of mPW91 with BC95 from Zhao and Truhlar                     */
+#define  XC_HYB_MGGA_XC_MPWB1K          446  /* Mixture of mPW91 with BC95 for kinetics                              */
+#define  XC_HYB_MGGA_XC_X1B95           447  /* Mixture of X with BC95                                               */
+#define  XC_HYB_MGGA_XC_XB1K            448  /* Mixture of X with BC95 for kinetics                                  */
+#define  XC_HYB_MGGA_X_M06              449  /* M06 hybrid exchange functional from Minnesota                        */
+#define  XC_HYB_MGGA_X_M06_2X           450  /* M06-2X hybrid exchange functional from Minnesota                     */
+#define  XC_HYB_MGGA_XC_PW6B95          451  /* Mixture of PW91 with BC95 from Zhao and Truhlar                      */
+#define  XC_HYB_MGGA_XC_PWB6K           452  /* Mixture of PW91 with BC95 from Zhao and Truhlar for kinetics         */
+#define  XC_HYB_MGGA_XC_TPSSH           457  /*TPSS hybrid                                                           */
+#define  XC_HYB_MGGA_XC_REVTPSSH        458  /* revTPSS hybrid                                                       */
+#define  XC_HYB_MGGA_X_MVSH             474  /*MVSh hybrid                                                           */
+#define  XC_HYB_MGGA_XC_WB97M_V         531  /*Mardirossian and Head-Gordon                                          */
+#define  XC_HYB_MGGA_XC_B0KCIS          563  /*Hybrid based on KCIS                                                  */
+#define  XC_HYB_MGGA_XC_MPW1KCIS        566  /*Modified Perdew-Wang + KCIS hybrid                                    */
+#define  XC_HYB_MGGA_XC_MPWKCIS1K       567  /* Modified Perdew-Wang + KCIS hybrid with more exact exchange          */
+#define  XC_HYB_MGGA_XC_PBE1KCIS        568  /* Perdew-Burke-Ernzerhof + KCIS hybrid                                 */
+#define  XC_HYB_MGGA_XC_TPSS1KCIS       569  /* TPSS hybrid with KCIS correlation                                    */
+#define  XC_HYB_MGGA_X_REVSCAN0         583  /* revised SCAN hybrid exchange                                         */
+#define  XC_HYB_MGGA_XC_B98             598  /*Becke 98                                                              */
+#define  XC_HYB_MGGA_XC_EDMGGAH         695  /*Tao 2001 hybrid                                                       */
+#define  XC_HYB_MGGA_X_JS18             705  /*a screened version of TM                                              */
+#define  XC_HYB_MGGA_X_PJS18            706  /*a screened version of TM                                              */
+#define  XC_HYB_MGGA_XC_LC_TMLYP        720  /* long-range corrected TM-LYP                                          */
 #define  XC_MGGA_C_DLDF                  37  /* Dispersionless Density Functional                                    */
 #define  XC_MGGA_XC_ZLP                  42  /*Zhao, Levy & Parr, Eq. (21)                                           */
 #define  XC_MGGA_XC_OTPSS_D              64  /*oTPSS_D functional of Goerigk and Grimme                              */
@@ -471,7 +500,6 @@
 #define  XC_MGGA_X_MS0                  221  /*MS exchange of Sun, Xiao, and Ruzsinszky                              */
 #define  XC_MGGA_X_MS1                  222  /* MS1 exchange of Sun, et al                                           */
 #define  XC_MGGA_X_MS2                  223  /* MS2 exchange of Sun, et al                                           */
-#define  XC_HYB_MGGA_X_MS2H             224  /* MS2 hybrid exchange of Sun, et al                                    */
 #define  XC_MGGA_X_TH                   225  /*Tsuneda and Hirao                                                     */
 #define  XC_MGGA_X_M11_L                226  /*M11-L exchange functional from Minnesota                              */
 #define  XC_MGGA_X_MN12_L               227  /*MN12-L exchange functional from Minnesota                             */
@@ -489,12 +517,11 @@
 #define  XC_MGGA_C_PKZB                 239  /*Perdew, Kurth, Zupan, and Blaha                                       */
 #define  XC_MGGA_C_BC95                 240  /*Becke correlation 95                                                  */
 #define  XC_MGGA_C_REVTPSS              241  /*revised TPSS correlation                                              */
-#define  XC_MGGA_XC_TPSSLYP1W           242  /* Functionals fitted for water                                         */
+#define  XC_MGGA_XC_TPSSLYP1W           242  /*Functionals fitted for water                                          */
 #define  XC_MGGA_X_MK00B                243  /* Exchange for accurate virtual orbital energies (v. B)                */
 #define  XC_MGGA_X_BLOC                 244  /* functional with balanced localization                                */
 #define  XC_MGGA_X_MODTPSS              245  /* Modified Tao, Perdew, Staroverov & Scuseria exchange                 */
 #define  XC_MGGA_C_TPSSLOC              247  /*Semilocal dynamical correlation                                       */
-#define  XC_HYB_MGGA_X_MN12_SX          248  /* MN12-SX hybrid exchange functional from Minnesota                    */
 #define  XC_MGGA_X_MBEEF                249  /*mBEEF exchange                                                        */
 #define  XC_MGGA_X_MBEEFVDW             250  /*mBEEF-vdW exchange                                                    */
 #define  XC_MGGA_C_TM                   251  /* Tao and Mo 2016 correlation                                          */
@@ -504,79 +531,41 @@
 #define  XC_MGGA_X_MN15_L               260  /* MN15-L exhange functional from Minnesota                             */
 #define  XC_MGGA_C_MN15_L               261  /* MN15-L correlation functional from Minnesota                         */
 #define  XC_MGGA_X_SCAN                 263  /*SCAN exchange of Sun, Ruzsinszky, and Perdew                          */
-#define  XC_HYB_MGGA_X_SCAN0            264  /* SCAN hybrid exchange                                                 */
 #define  XC_MGGA_C_SCAN                 267  /*SCAN correlation                                                      */
-#define  XC_HYB_MGGA_X_MN15             268  /* MN15 hybrid exchange functional from Minnesota                       */
 #define  XC_MGGA_C_MN15                 269  /* MN15 correlation functional from Minnesota                           */
-#define  XC_HYB_MGGA_X_BMK              279  /* Boese-Martin for kinetics                                            */
-#define  XC_HYB_MGGA_X_TAU_HCTH         282  /* Hybrid version of tau-HCTH                                           */
 #define  XC_MGGA_X_B00                  284  /* Becke 2000                                                           */
 #define  XC_MGGA_XC_HLE17               288  /*high local exchange 2017                                              */
 #define  XC_MGGA_C_SCAN_RVV10           292  /* SCAN correlation + rVV10 correlation                                 */
 #define  XC_MGGA_X_REVM06_L             293  /* revised M06-L exchange functional from Minnesota                     */
 #define  XC_MGGA_C_REVM06_L             294  /* Revised M06-L correlation functional from Minnesota                  */
-#define  XC_HYB_MGGA_X_M08_HX           295  /*M08-HX exchange functional from Minnesota                             */
-#define  XC_HYB_MGGA_X_M08_SO           296  /* M08-SO exchange functional from Minnesota                            */
-#define  XC_HYB_MGGA_X_M11              297  /*M11 hybrid exchange functional from Minnesota                         */
 #define  XC_MGGA_X_RTPSS                299  /*Revised TPSS exchange by Garza, Bell and Head-Gordon                  */
 #define  XC_MGGA_X_MS2B                 300  /*MS2beta exchange by Furness and Sun                                   */
 #define  XC_MGGA_X_MS2BS                301  /* MS2beta* exchange by Furness and Sun                                 */
 #define  XC_MGGA_X_MVSB                 302  /*MVSBeta exchange of Furness and Sun                                   */
 #define  XC_MGGA_X_MVSBS                303  /* MVSBeta* exchange of Furness and Sun                                 */
-#define  XC_HYB_MGGA_X_REVM11           304  /* revM11 hybrid exchange functional from Minnesota                     */
-#define  XC_HYB_MGGA_X_REVM06           305  /* revised M06 hybrid exchange functional from Minnesota                */
 #define  XC_MGGA_C_REVM06               306  /* Revised M06 correlation functional from Minnesota                    */
-#define  XC_HYB_MGGA_X_M06_SX           310  /* M06-SX exchange functional from Minnesota                            */
 #define  XC_MGGA_C_M06_SX               311  /* M06-SX correlation functional from Minnesota                         */
 #define  XC_MGGA_X_FT98                 319  /*Filatov and Thiel 1998                                                */
 #define  XC_MGGA_C_RREGTM               391  /*revised regTM by Jana et al                                           */
-#define  XC_HYB_MGGA_XC_TPSS0           396  /* TPSS hybrid with 25% exact exchange                                  */
 #define  XC_MGGA_C_B94                  397  /*Meta-GGA correlation by Becke                                         */
-#define  XC_HYB_MGGA_XC_B94_HYB         398  /* Hybrid meta-GGA by Becke                                             */
-#define  XC_HYB_MGGA_X_M05              438  /*M05 hybrid exchange functional from Minnesota                         */
-#define  XC_HYB_MGGA_X_M05_2X           439  /* M05-2X hybrid exchange functional from Minnesota                     */
-#define  XC_HYB_MGGA_XC_B88B95          440  /*Mixture of B88 with BC95 (B1B95)                                      */
-#define  XC_HYB_MGGA_XC_B86B95          441  /* Mixture of B86 with BC95                                             */
-#define  XC_HYB_MGGA_XC_PW86B95         442  /* Mixture of PW86 with BC95                                            */
-#define  XC_HYB_MGGA_XC_BB1K            443  /* Mixture of B88 with BC95 from Zhao and Truhlar                       */
-#define  XC_HYB_MGGA_X_M06_HF           444  /* M06-HF hybrid exchange functional from Minnesota                     */
-#define  XC_HYB_MGGA_XC_MPW1B95         445  /* Mixture of mPW91 with BC95 from Zhao and Truhlar                     */
-#define  XC_HYB_MGGA_XC_MPWB1K          446  /* Mixture of mPW91 with BC95 for kinetics                              */
-#define  XC_HYB_MGGA_XC_X1B95           447  /* Mixture of X with BC95                                               */
-#define  XC_HYB_MGGA_XC_XB1K            448  /* Mixture of X with BC95 for kinetics                                  */
-#define  XC_HYB_MGGA_X_M06              449  /* M06 hybrid exchange functional from Minnesota                        */
-#define  XC_HYB_MGGA_X_M06_2X           450  /* M06-2X hybrid exchange functional from Minnesota                     */
-#define  XC_HYB_MGGA_XC_PW6B95          451  /* Mixture of PW91 with BC95 from Zhao and Truhlar                      */
-#define  XC_HYB_MGGA_XC_PWB6K           452  /* Mixture of PW91 with BC95 from Zhao and Truhlar for kinetics         */
-#define  XC_HYB_MGGA_XC_TPSSH           457  /*TPSS hybrid                                                           */
-#define  XC_HYB_MGGA_XC_REVTPSSH        458  /* revTPSS hybrid                                                       */
-#define  XC_HYB_MGGA_X_MVSH             474  /*MVSh hybrid                                                           */
 #define  XC_MGGA_X_RSCAN                493  /*Regularized SCAN exchange                                             */
 #define  XC_MGGA_C_RSCAN                494  /*Regularized SCAN correlation                                          */
 #define  XC_MGGA_X_R2SCAN               497  /*Re-regularized SCAN exchange                                          */
 #define  XC_MGGA_C_R2SCAN               498  /*Re-regularized SCAN correlation                                       */
-#define  XC_HYB_MGGA_XC_WB97M_V         531  /*Mardirossian and Head-Gordon                                          */
 #define  XC_MGGA_X_TM                   540  /*Tao and Mo 2016 exchange                                              */
 #define  XC_MGGA_X_VT84                 541  /*meta-GGA version of VT{8,4} GGA                                       */
 #define  XC_MGGA_X_SA_TPSS              542  /*TPSS with correct surface asymptotics                                 */
 #define  XC_MGGA_K_PC07                 543  /*Perdew and Constantin 2007                                            */
 #define  XC_MGGA_C_KCIS                 562  /*Krieger, Chen, Iafrate, and Savin                                     */
-#define  XC_HYB_MGGA_XC_B0KCIS          563  /* Hybrid based on KCIS                                                 */
 #define  XC_MGGA_XC_LP90                564  /*Lee & Parr, Eq. (56)                                                  */
-#define  XC_HYB_MGGA_XC_MPW1KCIS        566  /*Modified Perdew-Wang + KCIS hybrid                                    */
-#define  XC_HYB_MGGA_XC_MPWKCIS1K       567  /* Modified Perdew-Wang + KCIS hybrid with more exact exchange          */
-#define  XC_HYB_MGGA_XC_PBE1KCIS        568  /* Perdew-Burke-Ernzerhof + KCIS hybrid                                 */
-#define  XC_HYB_MGGA_XC_TPSS1KCIS       569  /* TPSS hybrid with KCIS correlation                                    */
 #define  XC_MGGA_C_B88                  571  /*Meta-GGA correlation by Becke                                         */
 #define  XC_MGGA_X_GX                   575  /*GX functional of Loos                                                 */
 #define  XC_MGGA_X_PBE_GX               576  /*PBE-GX functional of Loos                                             */
 #define  XC_MGGA_X_REVSCAN              581  /* revised SCAN                                                         */
 #define  XC_MGGA_C_REVSCAN              582  /*revised SCAN correlation                                              */
-#define  XC_HYB_MGGA_X_REVSCAN0         583  /* revised SCAN hybrid exchange                                         */
 #define  XC_MGGA_C_SCAN_VV10            584  /* SCAN correlation +  VV10 correlation                                 */
 #define  XC_MGGA_C_REVSCAN_VV10         585  /* revised SCAN correlation                                             */
 #define  XC_MGGA_X_BR89_EXPLICIT        586  /*Becke-Roussel 89 with an explicit inversion of x(y), gamma = 0.8      */
-#define  XC_HYB_MGGA_XC_B98             598  /*Becke 98                                                              */
 #define  XC_MGGA_X_BR89_EXPLICIT_1      602  /* Becke-Roussel 89 with an explicit inversion of x(y), gamma = 1.0     */
 #define  XC_MGGA_X_REGTPSS              603  /*Regularized TPSS                                                      */
 #define  XC_MGGA_X_2D_JS17              609  /*JS17 meta-GGA for 2D                                                  */
@@ -608,7 +597,6 @@
 #define  XC_MGGA_X_GDME_VT              691  /*  Varied-terms (VT) mGGA of Koehl, Odom, and Scuseria                 */
 #define  XC_MGGA_X_REVTM                693  /*revised Tao and Mo 2016 exchange                                      */
 #define  XC_MGGA_C_REVTM                694  /* revised Tao and Mo 2016 correlation                                  */
-#define  XC_HYB_MGGA_XC_EDMGGAH         695  /* Tao 2001 hybrid                                                      */
 #define  XC_MGGA_X_MBRXC_BG             696  /*Modified Becke-Roussel for band gaps - cuspless hole                  */
 #define  XC_MGGA_X_MBRXH_BG             697  /*Modified Becke-Roussel for band gaps - hydrogen hole                  */
 #define  XC_MGGA_X_HLTA                 698  /* Half-and-half by Lehtola and Marques                                 */
@@ -618,12 +606,9 @@
 #define  XC_MGGA_C_SCANL                702  /*SCAN correlation                                                      */
 #define  XC_MGGA_C_SCANL_RVV10          703  /* SCAN correlation + rVV10 correlation                                 */
 #define  XC_MGGA_C_SCANL_VV10           704  /* SCAN correlation +  VV10 correlation                                 */
-#define  XC_HYB_MGGA_X_JS18             705  /*a screened version of TM                                              */
-#define  XC_HYB_MGGA_X_PJS18            706  /*a screened version of TM                                              */
 #define  XC_MGGA_X_TASK                 707  /*TASK exchange of Aschebrock and Kuemmel                               */
 #define  XC_MGGA_X_MGGAC                711  /*MGGAC exchange of Patra et al                                         */
 #define  XC_MGGA_X_MBR                  716  /*modified Becke-Roussel by Patra et al                                 */
 #define  XC_MGGA_X_R2SCANL              718  /*Deorbitalized r^2SCAN exchange                                        */
 #define  XC_MGGA_C_R2SCANL              719  /*Deorbitalized r^2SCAN correlation                                     */
-#define  XC_HYB_MGGA_XC_LC_TMLYP        720  /* long-range corrected TM-LYP                                          */
 #define  XC_MGGA_X_MTASK                724  /* modified TASK exchange                                               */

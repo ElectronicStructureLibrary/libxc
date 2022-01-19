@@ -355,7 +355,6 @@ void xc_mgga_exc(const xc_func_type *p, size_t np,
      const double *rho, const double *sigma, const double *lapl, const double *tau,
      double *zk);
 
-#ifndef XC_DONT_COMPILE_VXC
 /** Evaluates the energy density and its first derivative for an     LDA functional */
 void xc_lda_exc_vxc (const xc_func_type *p, size_t np, const double *rho, double *zk, double *vrho);
 /** Evaluates the energy density and its first derivative for a      GGA functional */
@@ -376,7 +375,6 @@ void xc_mgga_vxc(const xc_func_type *p, size_t np,
      const double *rho, const double *sigma, const double *lapl, const double *tau,
      double *vrho, double *vsigma, double *vlapl, double *vtau);
 
-#ifndef XC_DONT_COMPILE_FXC
 /** Evaluates the energy density and its first and second derivatives for an     LDA functional */
 void xc_lda_exc_vxc_fxc (const xc_func_type *p, size_t np, const double *rho, double *zk, double *vrho, double *v2rho2);
 /** Evaluates the energy density and its first and second derivatives for a      GGA functional */
@@ -415,7 +413,6 @@ void xc_mgga_fxc(const xc_func_type *p, size_t np,
      double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
      double *v2lapltau, double *v2tau2);
 
-#ifndef XC_DONT_COMPILE_KXC
 /** Evaluates the energy density and its first, second, and third derivatives for an     LDA functional */
 void xc_lda_exc_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3);
 /** Evaluates the energy density and its first, second, and third derivatives for a      GGA functional */
@@ -471,7 +468,6 @@ void xc_mgga_kxc(const xc_func_type *p, size_t np,
      double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
      double *v3tau3);
 
-#ifndef XC_DONT_COMPILE_LXC
 /** Evaluates the fourth derivative for an     LDA functional */
 void xc_lda_lxc (const xc_func_type *p, size_t np, const double *rho, double *v4rho4);
 /** Evaluates the fourth derivative for a      GGA functional */
@@ -490,10 +486,6 @@ void xc_mgga_lxc(const xc_func_type *p, size_t np,
      double *v4sigma2lapltau, double *v4sigma2tau2, double *v4sigmalapl3, double *v4sigmalapl2tau,
      double *v4sigmalapltau2, double *v4sigmatau3, double *v4lapl4, double *v4lapl3tau,
      double *v4lapl2tau2, double *v4lapltau3, double *v4tau4);
-#endif
-#endif
-#endif
-#endif
 
 /* Calculate asymptotic value of the AK13 potential */
 double xc_gga_ak13_get_asymptotic (double homo);

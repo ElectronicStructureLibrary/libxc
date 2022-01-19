@@ -123,7 +123,10 @@ module xc_f03_lib_m
     XC_FAMILY_GGA = 2, &
     XC_FAMILY_MGGA = 4, &
     XC_FAMILY_LCA = 8, &
-    XC_FAMILY_OEP = 16
+    XC_FAMILY_OEP = 16, &
+    XC_FAMILY_HYB_GGA = 32, &
+    XC_FAMILY_HYB_MGGA = 64, &
+    XC_FAMILY_HYB_LDA = 128
 
   integer(c_int), parameter, public :: &
     XC_FLAGS_HAVE_EXC = 1, &
@@ -135,7 +138,11 @@ module xc_f03_lib_m
     XC_FLAGS_1D = 32, &
     XC_FLAGS_2D = 64, &
     XC_FLAGS_3D = 128, &
+    XC_FLAGS_HYB_CAM = 256, &
+    XC_FLAGS_HYB_CAMY = 512, &
     XC_FLAGS_VV10 = 1024, &
+    XC_FLAGS_HYB_LC = 2048, &
+    XC_FLAGS_HYB_LCY = 4096, &
     XC_FLAGS_STABLE = 8192, &
     XC_FLAGS_DEVELOPMENT = 16384, &
     XC_FLAGS_NEEDS_LAPLACIAN = 32768
@@ -149,6 +156,15 @@ module xc_f03_lib_m
 
   ! List of functionals
 # 1 "./libxc_inc.f90" 1
+
+! LDA0: hybrid LDA exchange
+  integer(c_int), parameter, public :: XC_HYB_LDA_XC_LDA0 = 177
+
+! CAM version of LDA0
+  integer(c_int), parameter, public :: XC_HYB_LDA_XC_CAM_LDA0 = 178
+
+! Baer and Neuhauser, gamma=1
+  integer(c_int), parameter, public :: XC_HYB_LDA_XC_BN05 = 588
 
 ! Exchange
   integer(c_int), parameter, public :: XC_LDA_X = 1
@@ -252,12 +268,6 @@ module xc_f03_lib_m
 ! Lee and Parr Gaussian ansatz
   integer(c_int), parameter, public :: XC_LDA_K_LP = 51
 
-! LDA0: hybrid LDA exchange
-  integer(c_int), parameter, public :: XC_HYB_LDA_XC_LDA0 = 177
-
-! CAM version of LDA0
-  integer(c_int), parameter, public :: XC_HYB_LDA_XC_CAM_LDA0 = 178
-
 ! Karasiev et al. parametrization
   integer(c_int), parameter, public :: XC_LDA_XC_KSDT = 259
 
@@ -333,9 +343,6 @@ module xc_f03_lib_m
 ! Liu-Parr kinetic
   integer(c_int), parameter, public :: XC_LDA_K_LP96 = 580
 
-! Baer and Neuhauser, gamma=1
-  integer(c_int), parameter, public :: XC_HYB_LDA_XC_BN05 = 588
-
 ! Long-range LDA correlation functional
   integer(c_int), parameter, public :: XC_LDA_C_PMGB06 = 590
 
@@ -356,6 +363,333 @@ module xc_f03_lib_m
 
 ! simple local model for Slater potential
   integer(c_int), parameter, public :: XC_LDA_X_SLOC = 692
+
+! N12-SX functional from Minnesota
+  integer(c_int), parameter, public :: XC_HYB_GGA_X_N12_SX = 81
+
+! version of B97 by Cohen and Handy
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B97_1P = 266
+
+! PBEmol0
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE_MOL0 = 273
+
+! PBEsol0
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE_SOL0 = 274
+
+! PBEbeta0
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBEB0 = 275
+
+! PBEmolbeta0
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE_MOLB0 = 276
+
+! PBE0 with 50% exx
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE50 = 290
+
+! Hartree-Fock + LYP correlation
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HFLYP = 314
+
+! CASE21
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CASE21 = 390
+
+! PBE0 with 56% exx
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE_2X = 392
+
+! PBE0 with 3/8 = 37.5% exx
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE38 = 393
+
+! B3LYP with VWN functional 3 instead of RPA
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3LYP3 = 394
+
+! range separated hybrid based on the optx functional
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_O3LYP = 395
+
+! Lin et al
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WB97X_D3 = 399
+
+! Long-range corrected BLYP
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_BLYP = 400
+
+! The original (ACM) hybrid of Becke
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3PW91 = 401
+
+! The (in)famous B3LYP
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3LYP = 402
+
+! Perdew 86 hybrid similar to B3PW91
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3P86 = 403
+
+! hybrid using the optx functional
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_O3LYP = 404
+
+! mixture of mPW91 and PW91 optimized for kinetics
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MPW1K = 405
+
+! aka PBE0 or PBE1PBE
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBEH = 406
+
+! Becke 97
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B97 = 407
+
+! Becke 97-1
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B97_1 = 408
+
+! APF hybrid density functional
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_APF = 409
+
+! Becke 97-2
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B97_2 = 410
+
+! hybrid by Xu and Goddard
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_X3LYP = 411
+
+! Becke 1-parameter mixture of WC and PBE
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B1WC = 412
+
+! Boese-Martin for Kinetics
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B97_K = 413
+
+! Becke 97-3
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B97_3 = 414
+
+! mixture with the mPW functional
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MPW3PW = 415
+
+! Becke 1-parameter mixture of B88 and LYP
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B1LYP = 416
+
+! Becke 1-parameter mixture of B88 and PW91
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B1PW91 = 417
+
+! Becke 1-parameter mixture of mPW91 and PW91
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MPW1PW = 418
+
+! mixture of mPW and LYP
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MPW3LYP = 419
+
+! Schmider-Becke 98 parameterization 1a
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_SB98_1A = 420
+
+! Schmider-Becke 98 parameterization 1b
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_SB98_1B = 421
+
+! Schmider-Becke 98 parameterization 1c
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_SB98_1C = 422
+
+! Schmider-Becke 98 parameterization 2a
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_SB98_2A = 423
+
+! Schmider-Becke 98 parameterization 2b
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_SB98_2B = 424
+
+! Schmider-Becke 98 parameterization 2c
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_SB98_2C = 425
+
+! Hybrid based on SOGGA11 form
+  integer(c_int), parameter, public :: XC_HYB_GGA_X_SOGGA11_X = 426
+
+! the 2003 version of the screened hybrid HSE
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HSE03 = 427
+
+! the 2006 version of the screened hybrid HSE
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HSE06 = 428
+
+! HJS hybrid screened exchange PBE version
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HJS_PBE = 429
+
+! HJS hybrid screened exchange PBE_SOL version
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HJS_PBE_SOL = 430
+
+! HJS hybrid screened exchange B88 version
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HJS_B88 = 431
+
+! HJS hybrid screened exchange B97x version
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HJS_B97X = 432
+
+! CAM version of B3LYP
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_B3LYP = 433
+
+! CAM version of B3LYP tuned for excitations
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_TUNED_CAM_B3LYP = 434
+
+! Becke half-and-half or BHLYP
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_BHANDH = 435
+
+! Becke half-and-half with B88 exchange
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_BHANDHLYP = 436
+
+! B3LYP with RC04 LDA
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MB3LYP_RC04 = 437
+
+! MPW with 1 par. for metals/LYP
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MPWLYP1M = 453
+
+! Revised B3LYP
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_REVB3LYP = 454
+
+! BLYP with yukawa screening
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAMY_BLYP = 455
+
+! PBE0-1/3
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE0_13 = 456
+
+! B3LYP* functional
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3LYPS = 459
+
+! global hybrid for vertical ionization potentials
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_QTP17 = 460
+
+! B3LYP reoptimized in 6-31+G(2df,p) for enthalpies of formation
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3LYP_MCM1 = 461
+
+! B3LYP reoptimized in 6-31+G(2df,p) for enthalpies of formation
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3LYP_MCM2 = 462
+
+! Chai and Head-Gordon
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WB97 = 463
+
+! Chai and Head-Gordon
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WB97X = 464
+
+! Long-range corrected functional by Rorhdanz et al
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LRC_WPBEH = 465
+
+! Mardirossian and Head-Gordon
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WB97X_V = 466
+
+! PBE with yukawa screening
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LCY_PBE = 467
+
+! BLYP with yukawa screening
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LCY_BLYP = 468
+
+! Vydrov and Van Voorhis
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_VV10 = 469
+
+! B3LYP with Yukawa screening
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAMY_B3LYP = 470
+
+! Chai and Head-Gordon
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WB97X_D = 471
+
+! hPBEint
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HPBEINT = 472
+
+! Long-range corrected functional by Rorhdanz et al
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LRC_WPBE = 473
+
+! B3LYP with VWN functional 5 instead of RPA
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3LYP5 = 475
+
+! Empirical functional from Lin, George and Gill
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_EDF2 = 476
+
+! Correct Asymptotic Potential hybrid
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAP0 = 477
+
+! Long-range corrected functional by Vydrov and Scuseria
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_WPBE = 478
+
+! HSE12 by Moussa, Schultz and Chelikowsky
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HSE12 = 479
+
+! Short-range HSE12 by Moussa, Schultz, and Chelikowsky
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HSE12S = 480
+
+! HSEsol functional by Schimka, Harl, and Kresse
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HSE_SOL = 481
+
+! CAM-QTP-01
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_QTP_01 = 482
+
+! Becke 1-parameter mixture of mPW91 and LYP
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MPW1LYP = 483
+
+! Becke 1-parameter mixture of mPW91 and PBE
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MPW1PBE = 484
+
+! Kang-Musgrave hybrid
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_KMLYP = 485
+
+! Long-range corrected functional by Weintraub, Henderson and Scuseria
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_WPBE_WHS = 486
+
+! Long-range corrected functional by Weintraub, Henderson and Scuseria
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_WPBEH_WHS = 487
+
+! Long-range corrected functional by Weintraub, Henderson and Scuseria
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_WPBE08_WHS = 488
+
+! Long-range corrected functional by Weintraub, Henderson and Scuseria
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_WPBESOL_WHS = 489
+
+! CAM-QTP-00
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_QTP_00 = 490
+
+! CAM-QTP-02
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_QTP_02 = 491
+
+! LC-QTP
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_QTP = 492
+
+! Swart 2012 GGA hybrid exchange
+  integer(c_int), parameter, public :: XC_HYB_GGA_X_S12H = 496
+
+! Becke 1-parameter mixture for mixed-valence systems
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_BLYP35 = 499
+
+! Like B3LYP but more exact exchange
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B5050LYP = 572
+
+! Livshits and Baer, empirical functional also used for IP tuning
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LB07 = 589
+
+! Hybrid based on APBE
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_APBE0 = 607
+
+! Hybrid based in APBE and zvPBEloc
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HAPBE = 608
+
+! Similar to CAM-B3LYP, but trying to reduce the many-electron self-interaction
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_RCAM_B3LYP = 610
+
+! hybrid fitted to carbon NMR shifts
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WC04 = 611
+
+! hybrid fitted to proton NMR shifts
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WP04 = 612
+
+! CAM version of B3LYP tuned for tddft
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAMH_B3LYP = 614
+
+! Long-range corrected functional by Shao et al
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WHPBE0 = 615
+
+! Long-range corrected BLYP, tuned for electron affinities
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_BLYP_EA = 625
+
+! Long-range corrected B88 with B88OP correlation
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_BOP = 636
+
+! Long-range corrected PBE with PBEOP correlation
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_PBEOP = 637
+
+! Long-range corrected BLYP with correlation only in short-range
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_BLYPR = 639
+
+! Modified CAM-B3LYP
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MCAM_B3LYP = 640
+
+! Swart 2012 range-separated GGA exchange
+  integer(c_int), parameter, public :: XC_HYB_GGA_X_CAM_S12G = 646
+
+! Swart 2012 range-separated GGA exchange
+  integer(c_int), parameter, public :: XC_HYB_GGA_X_CAM_S12H = 647
+
+! CAM version of PBEH
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_PBEH = 681
+
+! PBEH with Yukawa screening
+  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAMY_PBEH = 682
 
 ! GAM functional from Minnesota
   integer(c_int), parameter, public :: XC_GGA_X_GAM = 32
@@ -461,9 +795,6 @@ module xc_f03_lib_m
 
 ! N12 functional from Minnesota
   integer(c_int), parameter, public :: XC_GGA_C_N12 = 80
-
-! N12-SX functional from Minnesota
-  integer(c_int), parameter, public :: XC_HYB_GGA_X_N12_SX = 81
 
 ! N12 functional from Minnesota
   integer(c_int), parameter, public :: XC_GGA_X_N12 = 82
@@ -849,9 +1180,6 @@ module xc_f03_lib_m
 ! PBE for formation energies
   integer(c_int), parameter, public :: XC_GGA_X_PBEFE = 265
 
-! version of B97 by Cohen and Handy
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B97_1P = 266
-
 ! Correct Asymptotic Potential
   integer(c_int), parameter, public :: XC_GGA_X_CAP = 270
 
@@ -860,18 +1188,6 @@ module xc_f03_lib_m
 
 ! Del Campo, Gazquez, Trickey and Vela (PBE-like)
   integer(c_int), parameter, public :: XC_GGA_C_PBE_MOL = 272
-
-! PBEmol0
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE_MOL0 = 273
-
-! PBEsol0
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE_SOL0 = 274
-
-! PBEbeta0
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBEB0 = 275
-
-! PBEmolbeta0
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE_MOLB0 = 276
 
 ! gamma-TFvW form by Acharya et al [g = 1 - 1.513/N^0.35]
   integer(c_int), parameter, public :: XC_GGA_K_ABSP3 = 277
@@ -894,9 +1210,6 @@ module xc_f03_lib_m
 ! BEEF-vdW exchange-correlation
   integer(c_int), parameter, public :: XC_GGA_XC_BEEFVDW = 286
 
-! PBE0 with 50% exx
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE50 = 290
-
 ! Gradient-based interpolation between PBE and revPBE
   integer(c_int), parameter, public :: XC_GGA_X_PBETRANS = 291
 
@@ -912,266 +1225,11 @@ module xc_f03_lib_m
 ! ccDF, coupled-cluster based density functional
   integer(c_int), parameter, public :: XC_GGA_C_CCDF = 313
 
-! Hartree-Fock + LYP correlation
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HFLYP = 314
-
-! Perdew 86 hybrid similar to B3PW91; NWChem version
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3P86_NWCHEM = 315
-
 ! Perdew & Wang 91, alternate version with more digits
   integer(c_int), parameter, public :: XC_GGA_X_PW91_MOD = 316
 
-! CASE21
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CASE21 = 390
-
-! PBE0 with 56% exx
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE_2X = 392
-
-! PBE0 with 3/8 = 37.5% exx
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE38 = 393
-
-! B3LYP with VWN functional 3 instead of RPA
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3LYP3 = 394
-
-! range separated hybrid based on the optx functional
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_O3LYP = 395
-
-! Lin et al
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WB97X_D3 = 399
-
-! Long-range corrected BLYP
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_BLYP = 400
-
-! The original (ACM) hybrid of Becke
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3PW91 = 401
-
-! The (in)famous B3LYP
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3LYP = 402
-
-! Perdew 86 hybrid similar to B3PW91
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3P86 = 403
-
-! hybrid using the optx functional
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_O3LYP = 404
-
-! mixture of mPW91 and PW91 optimized for kinetics
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MPW1K = 405
-
-! aka PBE0 or PBE1PBE
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBEH = 406
-
-! Becke 97
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B97 = 407
-
-! Becke 97-1
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B97_1 = 408
-
-! APF hybrid density functional
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_APF = 409
-
-! Becke 97-2
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B97_2 = 410
-
-! hybrid by Xu and Goddard
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_X3LYP = 411
-
-! Becke 1-parameter mixture of WC and PBE
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B1WC = 412
-
-! Boese-Martin for Kinetics
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B97_K = 413
-
-! Becke 97-3
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B97_3 = 414
-
-! mixture with the mPW functional
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MPW3PW = 415
-
-! Becke 1-parameter mixture of B88 and LYP
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B1LYP = 416
-
-! Becke 1-parameter mixture of B88 and PW91
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B1PW91 = 417
-
-! Becke 1-parameter mixture of mPW91 and PW91
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MPW1PW = 418
-
-! mixture of mPW and LYP
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MPW3LYP = 419
-
-! Schmider-Becke 98 parameterization 1a
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_SB98_1A = 420
-
-! Schmider-Becke 98 parameterization 1b
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_SB98_1B = 421
-
-! Schmider-Becke 98 parameterization 1c
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_SB98_1C = 422
-
-! Schmider-Becke 98 parameterization 2a
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_SB98_2A = 423
-
-! Schmider-Becke 98 parameterization 2b
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_SB98_2B = 424
-
-! Schmider-Becke 98 parameterization 2c
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_SB98_2C = 425
-
-! Hybrid based on SOGGA11 form
-  integer(c_int), parameter, public :: XC_HYB_GGA_X_SOGGA11_X = 426
-
-! the 2003 version of the screened hybrid HSE
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HSE03 = 427
-
-! the 2006 version of the screened hybrid HSE
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HSE06 = 428
-
-! HJS hybrid screened exchange PBE version
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HJS_PBE = 429
-
-! HJS hybrid screened exchange PBE_SOL version
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HJS_PBE_SOL = 430
-
-! HJS hybrid screened exchange B88 version
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HJS_B88 = 431
-
-! HJS hybrid screened exchange B97x version
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HJS_B97X = 432
-
-! CAM version of B3LYP
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_B3LYP = 433
-
-! CAM version of B3LYP tuned for excitations
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_TUNED_CAM_B3LYP = 434
-
-! Becke half-and-half or BHLYP
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_BHANDH = 435
-
-! Becke half-and-half with B88 exchange
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_BHANDHLYP = 436
-
-! B3LYP with RC04 LDA
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MB3LYP_RC04 = 437
-
-! MPW with 1 par. for metals/LYP
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MPWLYP1M = 453
-
-! Revised B3LYP
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_REVB3LYP = 454
-
-! BLYP with yukawa screening
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAMY_BLYP = 455
-
-! PBE0-1/3
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE0_13 = 456
-
-! B3LYP* functional
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3LYPS = 459
-
-! global hybrid for vertical ionization potentials
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_QTP17 = 460
-
-! B3LYP reoptimized in 6-31+G(2df,p) for enthalpies of formation
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3LYP_MCM1 = 461
-
-! B3LYP reoptimized in 6-31+G(2df,p) for enthalpies of formation
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3LYP_MCM2 = 462
-
-! Chai and Head-Gordon
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WB97 = 463
-
-! Chai and Head-Gordon
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WB97X = 464
-
-! Long-range corrected functional by Rorhdanz et al
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LRC_WPBEH = 465
-
-! Mardirossian and Head-Gordon
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WB97X_V = 466
-
-! PBE with yukawa screening
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LCY_PBE = 467
-
-! BLYP with yukawa screening
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LCY_BLYP = 468
-
-! Vydrov and Van Voorhis
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_VV10 = 469
-
-! B3LYP with Yukawa screening
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAMY_B3LYP = 470
-
-! Chai and Head-Gordon
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WB97X_D = 471
-
-! hPBEint
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HPBEINT = 472
-
-! Long-range corrected functional by Rorhdanz et al
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LRC_WPBE = 473
-
-! B3LYP with VWN functional 5 instead of RPA
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3LYP5 = 475
-
-! Empirical functional from Lin, George and Gill
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_EDF2 = 476
-
-! Correct Asymptotic Potential hybrid
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAP0 = 477
-
-! Long-range corrected functional by Vydrov and Scuseria
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_WPBE = 478
-
-! HSE12 by Moussa, Schultz and Chelikowsky
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HSE12 = 479
-
-! Short-range HSE12 by Moussa, Schultz, and Chelikowsky
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HSE12S = 480
-
-! HSEsol functional by Schimka, Harl, and Kresse
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HSE_SOL = 481
-
-! CAM-QTP-01
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_QTP_01 = 482
-
-! Becke 1-parameter mixture of mPW91 and LYP
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MPW1LYP = 483
-
-! Becke 1-parameter mixture of mPW91 and PBE
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MPW1PBE = 484
-
-! Kang-Musgrave hybrid
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_KMLYP = 485
-
-! Long-range corrected functional by Weintraub, Henderson and Scuseria
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_WPBE_WHS = 486
-
-! Long-range corrected functional by Weintraub, Henderson and Scuseria
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_WPBEH_WHS = 487
-
-! Long-range corrected functional by Weintraub, Henderson and Scuseria
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_WPBE08_WHS = 488
-
-! Long-range corrected functional by Weintraub, Henderson and Scuseria
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_WPBESOL_WHS = 489
-
-! CAM-QTP-00
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_QTP_00 = 490
-
-! CAM-QTP-02
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_QTP_02 = 491
-
-! LC-QTP
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_QTP = 492
-
 ! Swart 2012 GGA exchange
   integer(c_int), parameter, public :: XC_GGA_X_S12G = 495
-
-! Swart 2012 GGA hybrid exchange
-  integer(c_int), parameter, public :: XC_HYB_GGA_X_S12H = 496
-
-! Becke 1-parameter mixture for mixed-valence systems
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_BLYP35 = 499
 
 ! von Weiszaecker functional
   integer(c_int), parameter, public :: XC_GGA_K_VW = 500
@@ -1314,14 +1372,8 @@ module xc_f03_lib_m
 ! Becke 88 reoptimized to be used with mgga_c_tau1
   integer(c_int), parameter, public :: XC_GGA_X_B88M = 570
 
-! Like B3LYP but more exact exchange
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B5050LYP = 572
-
 ! Keal and Tozer version 3
   integer(c_int), parameter, public :: XC_GGA_XC_KT3 = 587
-
-! Livshits and Baer, empirical functional also used for IP tuning
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LB07 = 589
 
 ! Combined analytical theory with Monte Carlo sampling
   integer(c_int), parameter, public :: XC_GGA_K_GDS08 = 591
@@ -1356,29 +1408,8 @@ module xc_f03_lib_m
 ! PBEloc variation with enhanced compatibility with exact exchange
   integer(c_int), parameter, public :: XC_GGA_C_ZVPBELOC = 606
 
-! Hybrid based on APBE
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_APBE0 = 607
-
-! Hybrid based in APBE and zvPBEloc
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HAPBE = 608
-
-! Similar to CAM-B3LYP, but trying to reduce the many-electron self-interaction
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_RCAM_B3LYP = 610
-
-! hybrid fitted to carbon NMR shifts
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WC04 = 611
-
-! hybrid fitted to proton NMR shifts
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WP04 = 612
-
 ! Luo-Karasiev-Trickey kinetic GGA
   integer(c_int), parameter, public :: XC_GGA_K_LKT = 613
-
-! CAM version of B3LYP tuned for tddft
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAMH_B3LYP = 614
-
-! Long-range corrected functional by Shao et al
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WHPBE0 = 615
 
 ! Two parameter PBE-like expansion
   integer(c_int), parameter, public :: XC_GGA_K_PBE2 = 616
@@ -1398,89 +1429,152 @@ module xc_f03_lib_m
 ! Short-range LYP of Ai, Fang and Su
   integer(c_int), parameter, public :: XC_GGA_C_LYPR = 624
 
-! Long-range corrected BLYP, tuned for electron affinities
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_BLYP_EA = 625
-
 ! LGAP_GE by Constantin et al
   integer(c_int), parameter, public :: XC_GGA_K_LGAP_GE = 633
 
 ! empirically optimized gamma-TFvW form
   integer(c_int), parameter, public :: XC_GGA_K_TFVW_OPT = 635
 
-! Long-range corrected B88 with B88OP correlation
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_BOP = 636
-
-! Long-range corrected PBE with PBEOP correlation
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_PBEOP = 637
-
-! Long-range corrected BLYP with correlation only in short-range
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_BLYPR = 639
-
-! Modified CAM-B3LYP
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MCAM_B3LYP = 640
-
-! Swart 2012 range-separated GGA exchange
-  integer(c_int), parameter, public :: XC_HYB_GGA_X_CAM_S12G = 646
-
-! Swart 2012 range-separated GGA exchange
-  integer(c_int), parameter, public :: XC_HYB_GGA_X_CAM_S12H = 647
-
-! CAM version of PBEH
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_PBEH = 681
-
-! PBEH with Yukawa screening
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAMY_PBEH = 682
-
-! Long-range Gaussian
-  integer(c_int), parameter, public :: XC_HYB_GGA_X_LCGAU = 708
-
-! Long-range Gaussian fitted to core excitations
-  integer(c_int), parameter, public :: XC_HYB_GGA_X_LCGAU_CORE = 709
-
-! Long-range Gaussian 2
-  integer(c_int), parameter, public :: XC_HYB_GGA_X_LC2GAU = 710
-
 ! beta fitted to LC20 to be used with MGGAC
   integer(c_int), parameter, public :: XC_GGA_C_MGGAC = 712
-
-! Double hybrid of Grimme
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B2PLYP = 713
-
-! Hybrid with two range separations (form 1)
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_SRC1_BLYP = 714
-
-! Hybrid with two range separations (form 2)
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_SRC2_BLYP = 715
-
-! Middle-range hybrid from Henderson, Izmaylov, Scuseria, and Savin
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HISS = 717
-
-! Double hybrid of Karton et al
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B2GPPLYP = 721
-
-! Double hybrid of Casanova-Paez, Dardis and Goerigk
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WB2PLYP = 722
-
-! Double hybrid of Casanova-Paez, Dardis and Goerigk
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WB2GPPLYP = 723
-
-! Double hybrid by Bremond and Adamo
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE0_DH = 725
-
-! Double hybrid by Chai and Mao
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE0_2 = 726
-
-! Double hybrid by Bremond et al
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE_QIDH = 727
-
-! Double hybrid by Toulouse et al
-  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LS1DH_PBE = 728
 
 ! Functional for quasi-1D systems
   integer(c_int), parameter, public :: XC_GGA_X_Q1D = 734
 
 ! Dispersionless Density Functional
   integer(c_int), parameter, public :: XC_HYB_MGGA_X_DLDF = 36
+
+! MS2 hybrid exchange of Sun, et al
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_MS2H = 224
+
+! MN12-SX hybrid exchange functional from Minnesota
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_MN12_SX = 248
+
+! SCAN hybrid exchange
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_SCAN0 = 264
+
+! MN15 hybrid exchange functional from Minnesota
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_MN15 = 268
+
+! Boese-Martin for kinetics
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_BMK = 279
+
+! Hybrid version of tau-HCTH
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_TAU_HCTH = 282
+
+! M08-HX exchange functional from Minnesota
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M08_HX = 295
+
+! M08-SO exchange functional from Minnesota
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M08_SO = 296
+
+! M11 hybrid exchange functional from Minnesota
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M11 = 297
+
+! revM11 hybrid exchange functional from Minnesota
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_REVM11 = 304
+
+! revised M06 hybrid exchange functional from Minnesota
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_REVM06 = 305
+
+! M06-SX exchange functional from Minnesota
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M06_SX = 310
+
+! TPSS hybrid with 25% exact exchange
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_TPSS0 = 396
+
+! Hybrid meta-GGA by Becke
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_B94_HYB = 398
+
+! M05 hybrid exchange functional from Minnesota
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M05 = 438
+
+! M05-2X hybrid exchange functional from Minnesota
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M05_2X = 439
+
+! Mixture of B88 with BC95 (B1B95)
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_B88B95 = 440
+
+! Mixture of B86 with BC95
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_B86B95 = 441
+
+! Mixture of PW86 with BC95
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_PW86B95 = 442
+
+! Mixture of B88 with BC95 from Zhao and Truhlar
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_BB1K = 443
+
+! M06-HF hybrid exchange functional from Minnesota
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M06_HF = 444
+
+! Mixture of mPW91 with BC95 from Zhao and Truhlar
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_MPW1B95 = 445
+
+! Mixture of mPW91 with BC95 for kinetics
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_MPWB1K = 446
+
+! Mixture of X with BC95
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_X1B95 = 447
+
+! Mixture of X with BC95 for kinetics
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_XB1K = 448
+
+! M06 hybrid exchange functional from Minnesota
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M06 = 449
+
+! M06-2X hybrid exchange functional from Minnesota
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M06_2X = 450
+
+! Mixture of PW91 with BC95 from Zhao and Truhlar
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_PW6B95 = 451
+
+! Mixture of PW91 with BC95 from Zhao and Truhlar for kinetics
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_PWB6K = 452
+
+! TPSS hybrid
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_TPSSH = 457
+
+! revTPSS hybrid
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_REVTPSSH = 458
+
+! MVSh hybrid
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_MVSH = 474
+
+! Mardirossian and Head-Gordon
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_WB97M_V = 531
+
+! Hybrid based on KCIS
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_B0KCIS = 563
+
+! Modified Perdew-Wang + KCIS hybrid
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_MPW1KCIS = 566
+
+! Modified Perdew-Wang + KCIS hybrid with more exact exchange
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_MPWKCIS1K = 567
+
+! Perdew-Burke-Ernzerhof + KCIS hybrid
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_PBE1KCIS = 568
+
+! TPSS hybrid with KCIS correlation
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_TPSS1KCIS = 569
+
+! revised SCAN hybrid exchange
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_REVSCAN0 = 583
+
+! Becke 98
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_B98 = 598
+
+! Tao 2001 hybrid
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_EDMGGAH = 695
+
+! a screened version of TM
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_JS18 = 705
+
+! a screened version of TM
+  integer(c_int), parameter, public :: XC_HYB_MGGA_X_PJS18 = 706
+
+! long-range corrected TM-LYP
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_LC_TMLYP = 720
 
 ! Dispersionless Density Functional
   integer(c_int), parameter, public :: XC_MGGA_C_DLDF = 37
@@ -1569,9 +1663,6 @@ module xc_f03_lib_m
 ! MS2 exchange of Sun, et al
   integer(c_int), parameter, public :: XC_MGGA_X_MS2 = 223
 
-! MS2 hybrid exchange of Sun, et al
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_MS2H = 224
-
 ! Tsuneda and Hirao
   integer(c_int), parameter, public :: XC_MGGA_X_TH = 225
 
@@ -1638,9 +1729,6 @@ module xc_f03_lib_m
 ! Semilocal dynamical correlation
   integer(c_int), parameter, public :: XC_MGGA_C_TPSSLOC = 247
 
-! MN12-SX hybrid exchange functional from Minnesota
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_MN12_SX = 248
-
 ! mBEEF exchange
   integer(c_int), parameter, public :: XC_MGGA_X_MBEEF = 249
 
@@ -1668,23 +1756,11 @@ module xc_f03_lib_m
 ! SCAN exchange of Sun, Ruzsinszky, and Perdew
   integer(c_int), parameter, public :: XC_MGGA_X_SCAN = 263
 
-! SCAN hybrid exchange
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_SCAN0 = 264
-
 ! SCAN correlation
   integer(c_int), parameter, public :: XC_MGGA_C_SCAN = 267
 
-! MN15 hybrid exchange functional from Minnesota
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_MN15 = 268
-
 ! MN15 correlation functional from Minnesota
   integer(c_int), parameter, public :: XC_MGGA_C_MN15 = 269
-
-! Boese-Martin for kinetics
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_BMK = 279
-
-! Hybrid version of tau-HCTH
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_TAU_HCTH = 282
 
 ! Becke 2000
   integer(c_int), parameter, public :: XC_MGGA_X_B00 = 284
@@ -1701,15 +1777,6 @@ module xc_f03_lib_m
 ! Revised M06-L correlation functional from Minnesota
   integer(c_int), parameter, public :: XC_MGGA_C_REVM06_L = 294
 
-! M08-HX exchange functional from Minnesota
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M08_HX = 295
-
-! M08-SO exchange functional from Minnesota
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M08_SO = 296
-
-! M11 hybrid exchange functional from Minnesota
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M11 = 297
-
 ! Revised TPSS exchange by Garza, Bell and Head-Gordon
   integer(c_int), parameter, public :: XC_MGGA_X_RTPSS = 299
 
@@ -1725,17 +1792,8 @@ module xc_f03_lib_m
 ! MVSBeta* exchange of Furness and Sun
   integer(c_int), parameter, public :: XC_MGGA_X_MVSBS = 303
 
-! revM11 hybrid exchange functional from Minnesota
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_REVM11 = 304
-
-! revised M06 hybrid exchange functional from Minnesota
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_REVM06 = 305
-
 ! Revised M06 correlation functional from Minnesota
   integer(c_int), parameter, public :: XC_MGGA_C_REVM06 = 306
-
-! M06-SX exchange functional from Minnesota
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M06_SX = 310
 
 ! M06-SX correlation functional from Minnesota
   integer(c_int), parameter, public :: XC_MGGA_C_M06_SX = 311
@@ -1746,68 +1804,8 @@ module xc_f03_lib_m
 ! revised regTM by Jana et al
   integer(c_int), parameter, public :: XC_MGGA_C_RREGTM = 391
 
-! TPSS hybrid with 25% exact exchange
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_TPSS0 = 396
-
 ! Meta-GGA correlation by Becke
   integer(c_int), parameter, public :: XC_MGGA_C_B94 = 397
-
-! Hybrid meta-GGA by Becke
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_B94_HYB = 398
-
-! M05 hybrid exchange functional from Minnesota
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M05 = 438
-
-! M05-2X hybrid exchange functional from Minnesota
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M05_2X = 439
-
-! Mixture of B88 with BC95 (B1B95)
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_B88B95 = 440
-
-! Mixture of B86 with BC95
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_B86B95 = 441
-
-! Mixture of PW86 with BC95
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_PW86B95 = 442
-
-! Mixture of B88 with BC95 from Zhao and Truhlar
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_BB1K = 443
-
-! M06-HF hybrid exchange functional from Minnesota
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M06_HF = 444
-
-! Mixture of mPW91 with BC95 from Zhao and Truhlar
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_MPW1B95 = 445
-
-! Mixture of mPW91 with BC95 for kinetics
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_MPWB1K = 446
-
-! Mixture of X with BC95
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_X1B95 = 447
-
-! Mixture of X with BC95 for kinetics
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_XB1K = 448
-
-! M06 hybrid exchange functional from Minnesota
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M06 = 449
-
-! M06-2X hybrid exchange functional from Minnesota
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_M06_2X = 450
-
-! Mixture of PW91 with BC95 from Zhao and Truhlar
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_PW6B95 = 451
-
-! Mixture of PW91 with BC95 from Zhao and Truhlar for kinetics
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_PWB6K = 452
-
-! TPSS hybrid
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_TPSSH = 457
-
-! revTPSS hybrid
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_REVTPSSH = 458
-
-! MVSh hybrid
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_MVSH = 474
 
 ! Regularized SCAN exchange
   integer(c_int), parameter, public :: XC_MGGA_X_RSCAN = 493
@@ -1820,9 +1818,6 @@ module xc_f03_lib_m
 
 ! Re-regularized SCAN correlation
   integer(c_int), parameter, public :: XC_MGGA_C_R2SCAN = 498
-
-! Mardirossian and Head-Gordon
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_WB97M_V = 531
 
 ! Tao and Mo 2016 exchange
   integer(c_int), parameter, public :: XC_MGGA_X_TM = 540
@@ -1839,23 +1834,8 @@ module xc_f03_lib_m
 ! Krieger, Chen, Iafrate, and Savin
   integer(c_int), parameter, public :: XC_MGGA_C_KCIS = 562
 
-! Hybrid based on KCIS
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_B0KCIS = 563
-
 ! Lee & Parr, Eq. (56)
   integer(c_int), parameter, public :: XC_MGGA_XC_LP90 = 564
-
-! Modified Perdew-Wang + KCIS hybrid
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_MPW1KCIS = 566
-
-! Modified Perdew-Wang + KCIS hybrid with more exact exchange
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_MPWKCIS1K = 567
-
-! Perdew-Burke-Ernzerhof + KCIS hybrid
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_PBE1KCIS = 568
-
-! TPSS hybrid with KCIS correlation
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_TPSS1KCIS = 569
 
 ! Meta-GGA correlation by Becke
   integer(c_int), parameter, public :: XC_MGGA_C_B88 = 571
@@ -1872,9 +1852,6 @@ module xc_f03_lib_m
 ! revised SCAN correlation
   integer(c_int), parameter, public :: XC_MGGA_C_REVSCAN = 582
 
-! revised SCAN hybrid exchange
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_REVSCAN0 = 583
-
 ! SCAN correlation + VV10 correlation
   integer(c_int), parameter, public :: XC_MGGA_C_SCAN_VV10 = 584
 
@@ -1883,9 +1860,6 @@ module xc_f03_lib_m
 
 ! Becke-Roussel 89 with an explicit inversion of x(y), gamma = 0.8
   integer(c_int), parameter, public :: XC_MGGA_X_BR89_EXPLICIT = 586
-
-! Becke 98
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_B98 = 598
 
 ! Becke-Roussel 89 with an explicit inversion of x(y), gamma = 1.0
   integer(c_int), parameter, public :: XC_MGGA_X_BR89_EXPLICIT_1 = 602
@@ -1980,9 +1954,6 @@ module xc_f03_lib_m
 ! revised Tao and Mo 2016 correlation
   integer(c_int), parameter, public :: XC_MGGA_C_REVTM = 694
 
-! Tao 2001 hybrid
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_EDMGGAH = 695
-
 ! Modified Becke-Roussel for band gaps - cuspless hole
   integer(c_int), parameter, public :: XC_MGGA_X_MBRXC_BG = 696
 
@@ -2010,12 +1981,6 @@ module xc_f03_lib_m
 ! SCAN correlation + VV10 correlation
   integer(c_int), parameter, public :: XC_MGGA_C_SCANL_VV10 = 704
 
-! a screened version of TM
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_JS18 = 705
-
-! a screened version of TM
-  integer(c_int), parameter, public :: XC_HYB_MGGA_X_PJS18 = 706
-
 ! TASK exchange of Aschebrock and Kuemmel
   integer(c_int), parameter, public :: XC_MGGA_X_TASK = 707
 
@@ -2031,12 +1996,9 @@ module xc_f03_lib_m
 ! Deorbitalized r^2SCAN correlation
   integer(c_int), parameter, public :: XC_MGGA_C_R2SCANL = 719
 
-! long-range corrected TM-LYP
-  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_LC_TMLYP = 720
-
 ! modified TASK exchange
   integer(c_int), parameter, public :: XC_MGGA_X_MTASK = 724
-# 146 "./libxc_master.F90" 2
+# 153 "./libxc_master.F90" 2
 
   ! These are old names kept for compatibility
   integer(c_int), parameter, public :: &

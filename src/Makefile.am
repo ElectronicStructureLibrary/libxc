@@ -141,7 +141,7 @@ noinst_HEADERS = \
 	decl_lda.h decl_gga.h decl_mgga.h \
   work_lda.c work_gga.c work_mgga.c \
 	libxc_master.F90
-include_HEADERS = xc.h xc_funcs_removed.h
+include_HEADERS = xc.h xc_funcs.h xc_funcs_removed.h xc_funcs_worker.h
 
 ## declare fortran modules so they are installed
 fmoddir = @FMODDIR@

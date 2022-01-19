@@ -140,7 +140,8 @@ noinst_HEADERS = \
 	string_f.h references.h util.h \
 	decl_lda.h decl_gga.h decl_mgga.h \
   work_lda.c work_gga.c work_mgga.c \
-	libxc_master.F90
+	libxc_master.F90 \
+        funcs_lda.c funcs_gga.c funcs_mgga.c funcs_key.c
 include_HEADERS = xc.h xc_funcs.h xc_funcs_removed.h xc_funcs_worker.h
 
 ## declare fortran modules so they are installed

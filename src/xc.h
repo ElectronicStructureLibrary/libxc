@@ -492,7 +492,6 @@ double xc_gga_ak13_get_asymptotic (double homo);
 /* Calculate asymptotic value of the AK13 potential with customized parameter values */
 double xc_gga_ak13_pars_get_asymptotic (double homo, const double *ext_params);
 
-
 /* Returns the hybrid type of a functional */
 int xc_hyb_type(const xc_func_type *p);
 /* Returns fraction of Hartree-Fock exchange in a global hybrid functional */
@@ -501,6 +500,13 @@ double xc_hyb_exx_coef(const xc_func_type *p);
 void xc_hyb_cam_coef(const xc_func_type *p, double *omega, double *alpha, double *beta);
 /* Returns the b and C coefficients for a non-local VV10 correlation kernel */
 void xc_nlc_coef(const xc_func_type *p, double *nlc_b, double *nlc_C);
+
+/* If this is a mixed functional, returns the number of auxiliary functions. Otherwise returns zero. */
+int xc_num_aux_funcs(const xc_func_type *p);
+/* Gets the IDs of the auxiliary functions */
+void xc_aux_func_ids(const xc_func_type *p, int *ids);
+/* Gets the weights of the auxiliary functions */
+void xc_aux_func_weights(const xc_func_type *p, double *weights);
 
 #ifdef __cplusplus
 }

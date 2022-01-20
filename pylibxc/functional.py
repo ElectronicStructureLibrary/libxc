@@ -71,6 +71,13 @@ core.xc_func_info_get_ext_params_description.restype = ctypes.c_char_p
 core.xc_func_info_get_ext_params_default_value.argtypes = (_xc_func_info_p, ctypes.c_int)
 core.xc_func_info_get_ext_params_default_value.restype = ctypes.c_double
 
+core.xc_num_aux_funcs.argtypes = (_xc_func_p, )
+core.xc_num_aux_funcs.restype = ctypes.c_int
+
+core.xc_aux_func_ids.argtypes = (_xc_func_p, ctypes.POINTER(ctypes.c_int))
+
+core.xc_aux_func_weights.argtypes = (_xc_func_p, ctypes.POINTER(ctypes.c_double))
+
 # Setters
 core.xc_func_set_ext_params.argtypes = (_xc_func_p, _ndptr)
 
@@ -222,7 +229,7 @@ class LibXCFunctional(object):
         # Build the LibXC functional
         self.xc_func = core.xc_func_alloc()
         self.xc_func_size_names = [x for x in dir(self.xc_func.contents.dim) if not "_" in x]
-        
+
         # Set all int attributes to zero (not all set to zero in libxc)
         for attr in self.xc_func_size_names:
             setattr(self.xc_func.contents, attr, 0)
@@ -236,7 +243,7 @@ class LibXCFunctional(object):
         self.xc_func_sizes = {}
         for attr in self.xc_func_size_names:
             self.xc_func_sizes[attr] = getattr(self.xc_func.contents.dim, attr)
-            
+
         # Unpack functional info
         self.xc_func_info = core.xc_func_get_info(self.xc_func)
         self._number = core.xc_func_info_get_number(self.xc_func_info)
@@ -415,6 +422,32 @@ class LibXCFunctional(object):
 
         return (self._nlc_b, self._nlc_C)
 
+    def aux_funcs(self, return_ids=False):
+        """Gets any auxiliary functionals used by this functional.
+
+        Returns None if the functional is not a mixed functional,
+        otherwise an array of tuples of functional identifiers and
+        weights.
+
+        return_ids: return numerical IDs instead of names. False by
+        default, so that names are returned.
+        """
+
+        naux = core.xc_num_aux_funcs(self.xc_func)
+        if naux == 0:
+            return None
+
+        ids = (ctypes.c_int*naux)()
+        core.xc_aux_func_ids(self.xc_func, ctypes.cast(ids, ctypes.POINTER(ctypes.c_int)))
+        weights = (ctypes.c_double*naux)()
+        core.xc_aux_func_weights(self.xc_func, ctypes.cast(weights, ctypes.POINTER(ctypes.c_double)))
+
+        if return_ids:
+            return list(zip(ids, weights))
+        else:
+            names = [util.xc_functional_get_name(id) for id in ids]
+            return list(zip(names, weights))
+
     ### Setters
 
     def get_ext_param_names(self):
@@ -567,7 +600,7 @@ class LibXCFunctional(object):
                          v4sigmalapltau2, v4sigmatau3, v4lapl4, v4lapl3tau,
                          v4lapl2tau2, v4lapltau3, v4tau4
 
-            For unpolarized functional the spin pieces are summed together. 
+            For unpolarized functional the spin pieces are summed together.
             However, for polarized functionals the following order will be used for output quantities:
             (The last index is the fastest)
 
@@ -719,7 +752,7 @@ class LibXCFunctional(object):
             else:
                 input_labels = ["rho", "sigma", "tau"]
             input_num_args = 4
-            
+
             output_labels = [
                 "zk",                                                                # 1, 1
                 "vrho", "vsigma", "vlapl", "vtau",                                   # 4, 5
@@ -740,7 +773,7 @@ class LibXCFunctional(object):
                 "v4sigmalapltau2", "v4sigmatau3", "v4lapl4", "v4lapl3tau",
                 "v4lapl2tau2", "v4lapltau3", "v4tau4"
             ]
-            
+
             # Build input args
             output = _check_arrays(output, output_labels[0:1],
                             self.xc_func_sizes, npoints, do_exc)

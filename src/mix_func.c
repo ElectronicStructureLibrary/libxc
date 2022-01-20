@@ -311,3 +311,23 @@ xc_mix_func(const xc_func_type *func, size_t np,
   /* deallocate internal buffers */
   xc_mgga_vars_free_all(xzk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, x));
 }
+
+int
+xc_num_aux_funcs(const xc_func_type *p) {
+  assert(p != NULL);
+  return p->n_func_aux;
+}
+
+void
+xc_aux_func_ids(const xc_func_type *p, int *ids) {
+  int i;
+  for(i=0; i<p->n_func_aux;i++)
+    ids[i] = p->func_aux[i]->info->number;
+}
+
+void
+xc_aux_func_weights(const xc_func_type *p, double *weights) {
+  int i;
+  for(i=0; i<p->n_func_aux;i++)
+    weights[i] = p->mix_coef[i];
+}

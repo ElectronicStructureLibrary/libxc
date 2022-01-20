@@ -5,7 +5,7 @@
 # 0 "<command-line>" 2
 # 1 "./libxc_master.F90"
 !! Copyright (C) 2016 Micael Oliveira
-!! 2020 Susi Lehtola
+!! 2020-2022 Susi Lehtola
 !! All rights reserved.
 !!
 !! This Source Code Form is subject to the terms of the Mozilla Public
@@ -59,6 +59,10 @@ module xc_f03_lib_m
     xc_f03_func_set_tau_threshold, &
     xc_f03_func_set_ext_params, &
     xc_f03_func_set_ext_params_name, &
+    ! mixed functional interfaces
+    xc_f03_num_aux_funcs, &
+    xc_f03_aux_func_ids, &
+    xc_f03_aux_func_weights, &
     ! lda
     xc_f03_lda, &
     xc_f03_lda_exc, &
@@ -2036,7 +2040,7 @@ module xc_f03_lib_m
 
 ! modified TASK exchange
   integer(c_int), parameter, public :: XC_MGGA_X_MTASK = 724
-# 146 "./libxc_master.F90" 2
+# 150 "./libxc_master.F90" 2
 
   ! These are old names kept for compatibility
   integer(c_int), parameter, public :: &
@@ -2500,6 +2504,23 @@ end interface
       type(c_ptr), value :: p
       real(c_double), intent(out) :: nlc_b, nlc_c
     end subroutine xc_nlc_coef
+
+    integer(c_int) function xc_num_aux_funcs(p) bind(c, name="xc_num_aux_funcs")
+      import
+      type(c_ptr), value :: p
+    end function xc_num_aux_funcs
+
+    subroutine xc_aux_func_ids(p, ids) bind(c, name="xc_aux_func_ids")
+      import
+      type(c_ptr), value :: p
+      integer(c_int), intent(out) :: ids(*)
+    end subroutine xc_aux_func_ids
+
+    subroutine xc_aux_func_weights(p, weights) bind(c, name="xc_aux_func_weights")
+      import
+      type(c_ptr), value :: p
+      real(c_double), intent(in) :: weights(*)
+    end subroutine xc_aux_func_weights
   end interface
 
 
@@ -3261,6 +3282,26 @@ end interface
     call xc_nlc_coef(p%ptr, nlc_b, nlc_c)
 
   end subroutine xc_f03_nlc_coef
+
+  integer(c_int) function xc_f03_num_aux_funcs(p) result(naux)
+    type(xc_f03_func_t), intent(in) :: p
+
+    naux = xc_num_aux_funcs(p%ptr)
+  end function xc_f03_num_aux_funcs
+
+  subroutine xc_f03_aux_func_ids(p, ids)
+    type(xc_f03_func_t), intent(in) :: p
+    integer(c_int), intent(out) :: ids(:)
+
+    call xc_aux_func_ids(p%ptr, ids)
+  end subroutine xc_f03_aux_func_ids
+
+  subroutine xc_f03_aux_func_weights(p, weights)
+    type(xc_f03_func_t), intent(in) :: p
+    real(c_double), intent(out) :: weights(:)
+
+    call xc_aux_func_weights(p%ptr, weights)
+  end subroutine xc_f03_aux_func_weights
 
 
   ! the meta-GGAs

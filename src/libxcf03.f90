@@ -2469,19 +2469,19 @@ end interface
 
     integer(c_int) function xc_num_aux_funcs(p) bind(c, name="xc_num_aux_funcs")
       import
-      type(c_ptr), intent(in) :: p
+      type(c_ptr), value :: p
     end function xc_num_aux_funcs
 
     subroutine xc_aux_func_ids(p, ids) bind(c, name="xc_aux_func_ids")
       import
-      type(c_ptr), intent(in) :: p
-      type(c_ptr) :: ids(*)
+      type(c_ptr), value :: p
+      integer(c_int), intent(out) :: ids(*)
     end subroutine xc_aux_func_ids
 
     subroutine xc_aux_func_weights(p, weights) bind(c, name="xc_aux_func_weights")
       import
-      type(c_ptr), intent(in) :: p
-      type(c_ptr) :: weights(*)
+      type(c_ptr), value :: p
+      real(c_double), intent(in) :: weights(*)
     end subroutine xc_aux_func_weights
   end interface
 
@@ -3255,14 +3255,14 @@ end interface
     type(xc_f03_func_t), intent(in) :: p
     integer(c_int), intent(out) :: ids(:)
 
-    call xc_aux_func_ids(p%ptr, c_loc(ids(1)))
+    call xc_aux_func_ids(p%ptr, ids)
   end subroutine xc_f03_aux_func_ids
 
   subroutine xc_f03_aux_func_weights(p, weights)
     type(xc_f03_func_t), intent(in) :: p
     real(c_double), intent(out) :: weights(:)
 
-    call xc_aux_func_weights(p%ptr, c_loc(weights(1)))
+    call xc_aux_func_weights(p%ptr, weights)
   end subroutine xc_f03_aux_func_weights
 
 

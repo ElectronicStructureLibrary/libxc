@@ -71,6 +71,13 @@ core.xc_func_info_get_ext_params_description.restype = ctypes.c_char_p
 core.xc_func_info_get_ext_params_default_value.argtypes = (_xc_func_info_p, ctypes.c_int)
 core.xc_func_info_get_ext_params_default_value.restype = ctypes.c_double
 
+core.xc_num_aux_funcs.argtypes = (_xc_func_p, )
+core.xc_num_aux_funcs.restype = ctypes.c_int
+
+core.xc_aux_func_ids.argtypes = (_xc_func_p, ctypes.POINTER(ctypes.c_int))
+
+core.xc_aux_func_weights.argtypes = (_xc_func_p, ctypes.POINTER(ctypes.c_double))
+
 # Setters
 core.xc_func_set_ext_params.argtypes = (_xc_func_p, _ndptr)
 
@@ -418,6 +425,32 @@ class LibXCFunctional(object):
             raise ValueError("get_vv10_coeff can only be called on -V functionals.")
 
         return (self._nlc_b, self._nlc_C)
+
+    def aux_funcs(self, return_ids=False):
+        """Gets any auxiliary functionals used by this functional.
+
+        Returns None if the functional is not a mixed functional,
+        otherwise an array of tuples of functional identifiers and
+        weights.
+
+        return_ids: return numerical IDs instead of names. False by
+        default, so that names are returned.
+        """
+
+        naux = core.xc_num_aux_funcs(self.xc_func)
+        if naux == 0:
+            return None
+
+        ids = (ctypes.c_int*naux)()
+        core.xc_aux_func_ids(self.xc_func, ctypes.cast(ids, ctypes.POINTER(ctypes.c_int)))
+        weights = (ctypes.c_double*naux)()
+        core.xc_aux_func_weights(self.xc_func, ctypes.cast(weights, ctypes.POINTER(ctypes.c_double)))
+
+        if return_ids:
+            return list(zip(ids, weights))
+        else:
+            names = [util.xc_functional_get_name(id) for id in ids]
+            return list(zip(names, weights))
 
     ### Setters
 

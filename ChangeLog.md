@@ -10,6 +10,7 @@
 - Interchanged parameter descriptions in wB97 style functionals (#363)
 - lda_c_pmgb06 functional was missing a factor 1-z^2 (#360)
 - Long lines in f90 include files (!517)
+- Improved handling of null pointers in Fortran frontend (!515)
 
 ### Added
 - MGGA functionals: x_ft98 (!512)

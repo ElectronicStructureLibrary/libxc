@@ -81,7 +81,7 @@ extern "C"
 #endif
 const xc_func_info_type xc_func_info_hyb_mgga_xc_lc_tmlyp = {
   XC_HYB_MGGA_XC_LC_TMLYP,
-  XC_EXCHANGE,
+  XC_EXCHANGE_CORRELATION,
   "Long-range corrected TM-LYP by Jana et al",
   XC_FAMILY_HYB_MGGA,
   {&xc_ref_Jana2018_1, NULL, NULL, NULL, NULL},

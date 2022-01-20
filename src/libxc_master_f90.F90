@@ -1,5 +1,5 @@
 !! Copyright (C) 2016 Micael Oliveira
-!!               2020 Susi Lehtola
+!!               2020-2022 Susi Lehtola
 !! All rights reserved.
 !!
 !! This Source Code Form is subject to the terms of the Mozilla Public
@@ -53,6 +53,10 @@ module xc_f90_lib_m
     xc_f90_func_set_tau_threshold, &
     xc_f90_func_set_ext_params, &
     xc_f90_func_set_ext_params_name, &
+    ! mixed functional interfaces
+    xc_f90_num_aux_funcs, &
+    xc_f90_aux_func_ids, &
+    xc_f90_aux_func_weights, &
     ! lda
     xc_f90_lda, &
     xc_f90_lda_exc, &
@@ -381,7 +385,7 @@ module xc_f90_lib_m
       real(c_double), value   :: par
     end subroutine xc_func_set_ext_params_name
 end interface
-    
+
   ! LDAs
   !----------------------------------------------------------------
   interface
@@ -560,7 +564,7 @@ end interface
       real(c_double),    intent(out) :: v2rho2(*), v2rhosigma(*), v2sigma2(*)
       real(c_double),    intent(out) :: v3rho3(*), v3rho2sigma(*), v3rhosigma2(*), v3sigma3(*)
     end subroutine xc_gga_vxc_fxc_kxc
-    
+
     subroutine xc_gga_fxc(p, np, rho, sigma, v2rho2, v2rhosigma, v2sigma2) bind(c)
       import
       type(c_ptr),       value       :: p
@@ -613,6 +617,23 @@ end interface
       type(c_ptr), value       :: p
       real(c_double), intent(out) :: nlc_b, nlc_c
     end subroutine xc_nlc_coef
+
+    integer(c_int) function xc_num_aux_funcs(p) bind(c, name="xc_num_aux_funcs")
+      import
+      type(c_ptr), value :: p
+    end function xc_num_aux_funcs
+
+    subroutine xc_aux_func_ids(p, ids) bind(c, name="xc_aux_func_ids")
+      import
+      type(c_ptr), value :: p
+      integer(c_int), intent(out) :: ids(*)
+    end subroutine xc_aux_func_ids
+
+    subroutine xc_aux_func_weights(p, weights) bind(c, name="xc_aux_func_weights")
+      import
+      type(c_ptr), value :: p
+      real(c_double), intent(in) :: weights(*)
+    end subroutine xc_aux_func_weights
   end interface
 
 
@@ -796,7 +817,7 @@ end interface
            v4lapl3tau(*), v4lapl2tau2(*), v4lapltau3(*), v4tau4(*)
     end subroutine xc_mgga_lxc
   end interface
-    
+
   contains
 
   !----------------------------------------------------------------
@@ -880,11 +901,13 @@ end interface
     type(c_ptr) :: next_ref
 
     reference%ptr = xc_func_info_get_references(info%ptr, number)
-    next_ref = xc_func_info_get_references(info%ptr, INT(number + 1, c_int))
-    if (c_associated(next_ref)) then
-      number = number + 1
+    if (.not. c_associated(reference%ptr)) then
+       number = -1
     else
-      number = -1
+       next_ref = xc_func_info_get_references(info%ptr, INT(number + 1, c_int))
+       if (c_associated(next_ref)) then
+          number = number + 1
+       end if
     end if
 
   end function xc_f90_func_info_get_references
@@ -1217,7 +1240,7 @@ end interface
     real(c_double),      intent(out) :: v2rho2(*), v2rhosigma(*), v2sigma2(*)
     real(c_double),      intent(out) :: v3rho3(*), v3rho2sigma(*), v3rhosigma2(*), v3sigma3(*)
     real(c_double),      intent(out) :: v4rho4(*), v4rho3sigma(*), v4rho2sigma2(*), v4rhosigma3(*), v4sigma4(*)
-    
+
     call xc_gga(p%ptr, np, rho, sigma, zk, vrho, vsigma,          &
          v2rho2, v2rhosigma, v2sigma2,                            &
          v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3,              &
@@ -1253,7 +1276,7 @@ end interface
     real(c_double),      intent(in)  :: rho(*), sigma(*)
     real(c_double),      intent(out) :: zk(*), vrho(*), vsigma(*)
     real(c_double),      intent(out) :: v2rho2(*), v2rhosigma(*), v2sigma2(*)
-    
+
     call xc_gga_exc_vxc_fxc(p%ptr, np, rho, sigma, zk, vrho, vsigma,          &
          v2rho2, v2rhosigma, v2sigma2)
 
@@ -1268,13 +1291,13 @@ end interface
     real(c_double),      intent(out) :: zk(*), vrho(*), vsigma(*)
     real(c_double),      intent(out) :: v2rho2(*), v2rhosigma(*), v2sigma2(*)
     real(c_double),      intent(out) :: v3rho3(*), v3rho2sigma(*), v3rhosigma2(*), v3sigma3(*)
-    
+
     call xc_gga_exc_vxc_fxc_kxc(p%ptr, np, rho, sigma, zk, vrho, vsigma,          &
          v2rho2, v2rhosigma, v2sigma2,                            &
          v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
 
   end subroutine xc_f90_gga_exc_vxc_fxc_kxc
-  
+
   subroutine xc_f90_gga_vxc(p, np, rho, sigma, vrho, vsigma)
     type(xc_f90_func_t), intent(in)  :: p
     integer(c_size_t),   intent(in)  :: np
@@ -1292,7 +1315,7 @@ end interface
     real(c_double),      intent(in)  :: rho(*), sigma(*)
     real(c_double),      intent(out) :: vrho(*), vsigma(*)
     real(c_double),      intent(out) :: v2rho2(*), v2rhosigma(*), v2sigma2(*)
-    
+
     call xc_gga_vxc_fxc(p%ptr, np, rho, sigma, vrho, vsigma, &
          v2rho2, v2rhosigma, v2sigma2)
 
@@ -1307,7 +1330,7 @@ end interface
     real(c_double),      intent(out) :: vrho(*), vsigma(*)
     real(c_double),      intent(out) :: v2rho2(*), v2rhosigma(*), v2sigma2(*)
     real(c_double),      intent(out) :: v3rho3(*), v3rho2sigma(*), v3rhosigma2(*), v3sigma3(*)
-    
+
     call xc_gga_vxc_fxc_kxc(p%ptr, np, rho, sigma, vrho, vsigma,  &
          v2rho2, v2rhosigma, v2sigma2,                            &
          v3rho3, v3rho2sigma, v3rhosigma2, v3sigma3)
@@ -1342,7 +1365,7 @@ end interface
 
     call xc_gga_lxc(p%ptr, np, rho, sigma, v4rho4, v4rho3sigma, v4rho2sigma2, v4rhosigma3, v4sigma4)
   end subroutine xc_f90_gga_lxc
-  
+
   real(c_double) function xc_f90_gga_ak13_get_asymptotic(homo) result(asymptotic)
     real(c_double), intent(in) :: homo
 
@@ -1372,6 +1395,26 @@ end interface
     call xc_nlc_coef(p%ptr, nlc_b, nlc_c)
 
   end subroutine xc_f90_nlc_coef
+
+  integer(c_int) function xc_f90_num_aux_funcs(p) result(naux)
+    type(xc_f90_func_t), intent(in)  :: p
+
+    naux = xc_num_aux_funcs(p%ptr)
+  end function xc_f90_num_aux_funcs
+
+  subroutine xc_f90_aux_func_ids(p, ids)
+    type(xc_f90_func_t), intent(in)  :: p
+    integer(c_int), intent(out) :: ids(:)
+
+    call xc_aux_func_ids(p%ptr, ids)
+  end subroutine xc_f90_aux_func_ids
+
+  subroutine xc_f90_aux_func_weights(p, weights)
+    type(xc_f90_func_t), intent(in)  :: p
+    real(c_double), intent(out) :: weights(:)
+
+    call xc_aux_func_weights(p%ptr, weights)
+  end subroutine xc_f90_aux_func_weights
 
 
   ! the meta-GGAs

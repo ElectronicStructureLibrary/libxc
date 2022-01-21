@@ -1,4 +1,4 @@
-## [5.2.0] - 2022-01-20
+## [5.2.0] - 2022-01-21
 
 ### Fixed
 - Clarified documentation of lda_x_erf and lda_x_yukawa (#362)

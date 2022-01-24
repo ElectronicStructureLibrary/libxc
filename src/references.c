@@ -821,21 +821,21 @@ func_reference_type xc_ref_Furness2019_041119 = {
 func_reference_type xc_ref_Furness2020_8208 = {
   "J. W. Furness, A. D. Kaplan, J. Ning, J. P. Perdew, and J. Sun, J. Phys. Chem. Lett. 11, 8208 (2020)",
   "10.1021/acs.jpclett.0c02405",
-  "@article{Furness2020_8208,\n  author = {Furness, James W. and Kaplan, Aaron D. and Ning, Jinliang and Perdew, John P. and Sun, Jianwei},\n  title = {Accurate and Numerically Efficient r2SCAN Meta-Generalized Gradient Approximation},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {11},\n  number = {19},\n  pages = {8208-8215},\n  year = {2020},\n  doi = {10.1021/acs.jpclett.0c02405},\n  url = {https://doi.org/10.1021/acs.jpclett.0c02405}\n}"
+  "@article{Furness2020_8208,\n  author = {Furness, James W. and Kaplan, Aaron D. and Ning, Jinliang and Perdew, John P. and Sun, Jianwei},\n  title = {Accurate and Numerically Efficient r$^2$SCAN Meta-Generalized Gradient Approximation},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {11},\n  number = {19},\n  pages = {8208-8215},\n  year = {2020},\n  doi = {10.1021/acs.jpclett.0c02405},\n  url = {https://doi.org/10.1021/acs.jpclett.0c02405}\n}"
 };
 
 
 func_reference_type xc_ref_Furness2020_9248 = {
   "J. W. Furness, A. D. Kaplan, J. Ning, J. P. Perdew, and J. Sun, J. Phys. Chem. Lett. 11, 9248 (2020)",
   "10.1021/acs.jpclett.0c03077",
-  "@article{Furness2020_9248,\n  author = {Furness, James W. and Kaplan, Aaron D. and Ning, Jinliang and Perdew, John P. and Sun, Jianwei},\n  title = {Correction to \"Accurate and Numerically Efficient r2SCAN Meta-Generalized Gradient Approximation\"},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {11},\n  number = {21},\n  pages = {9248-9248},\n  year = {2020},\n  doi = {10.1021/acs.jpclett.0c03077},\n  url = {https://doi.org/10.1021/acs.jpclett.0c03077}\n}"
+  "@article{Furness2020_9248,\n  author = {Furness, James W. and Kaplan, Aaron D. and Ning, Jinliang and Perdew, John P. and Sun, Jianwei},\n  title = {Correction to \"Accurate and Numerically Efficient r$^2$SCAN Meta-Generalized Gradient Approximation\"},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {11},\n  number = {21},\n  pages = {9248-9248},\n  year = {2020},\n  doi = {10.1021/acs.jpclett.0c03077},\n  url = {https://doi.org/10.1021/acs.jpclett.0c03077}\n}"
 };
 
 
-func_reference_type xc_ref_Furness2021 = {
-  "J. W. Furness, A. D. Kaplan, J. Ning, J. P. Perdew, and J. Sun, (2021), arXiv:2110.00647 [cond-mat.mtrl-sci]",
-  "",
-  "@article{Furness2021,\n  title={Construction of meta-GGA functionals through restoration of exact constraint adherence to regularized SCAN functionals},\n  author={James W. Furness and Aaron D. Kaplan and Jinliang Ning and John P. Perdew and Jianwei Sun},\n  year={2021},\n  eprint={2110.00647},\n  archivePrefix={arXiv},\n  primaryClass={cond-mat.mtrl-sci}\n}"
+func_reference_type xc_ref_Furness2022_034109 = {
+  "J. W. Furness, A. D. Kaplan, J. Ning, J. P. Perdew, and J. Sun, J. Chem. Phys. 156, 034109 (2022)",
+  "10.1063/5.0073623",
+  "@article{Furness2022_034109,\n  author = {Furness, James W. and Kaplan, Aaron D. and Ning, Jinliang and Perdew, John P. and Sun, Jianwei},\n  title = {Construction of meta-GGA functionals through restoration of exact constraint adherence to regularized SCAN functionals},\n  journal = {J. Chem. Phys.},\n  volume = {156},\n  number = {3},\n  pages = {034109},\n  year = {2022},\n  doi = {10.1063/5.0073623},\n  url = {https://doi.org/10.1063/5.0073623}\n}"
 };
 
 

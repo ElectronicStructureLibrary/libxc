@@ -130,7 +130,7 @@ extern func_reference_type xc_ref_Furness2018;
 extern func_reference_type xc_ref_Furness2019_041119;
 extern func_reference_type xc_ref_Furness2020_8208;
 extern func_reference_type xc_ref_Furness2020_9248;
-extern func_reference_type xc_ref_Furness2021;
+extern func_reference_type xc_ref_Furness2022_034109;
 extern func_reference_type xc_ref_Gaiduk2011_012509;
 extern func_reference_type xc_ref_Garza2018_3083;
 extern func_reference_type xc_ref_Gazquez1982_1467;

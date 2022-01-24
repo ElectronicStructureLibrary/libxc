@@ -41,7 +41,7 @@ const xc_func_info_type xc_func_info_mgga_x_rppscan = {
   XC_EXCHANGE,
   "r++SCAN: rSCAN with uniform density limit and coordinate scaling behavior",
   XC_FAMILY_MGGA,
-  {&xc_ref_Furness2021, NULL, NULL, NULL, NULL},
+  {&xc_ref_Furness2022_034109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-11,
   {N_PAR, names, desc, par_rppscan, set_ext_params_cpy},

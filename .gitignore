@@ -42,6 +42,8 @@ Makefile.in
 /build
 /objdir
 
+/pkgconfig/*.pc
+
 # /m4/
 /m4/ltsugar.m4
 /m4/libtool.m4
@@ -58,6 +60,8 @@ Makefile.in
 /src/genwiki
 /src/libxc_inc.f03
 /src/xc-threshold
+/src/libxc_docs.txt
+/src/xc-sanity
 
 # /testsuite/
 /testsuite/.deps

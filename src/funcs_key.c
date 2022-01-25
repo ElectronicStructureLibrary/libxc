@@ -443,6 +443,7 @@ xc_functional_key_t xc_functional_keys[] = {
 {"hyb_mgga_x_revm11", 304},
 {"hyb_mgga_x_revm06", 305},
 {"hyb_mgga_x_m06_sx", 310},
+{"hyb_mgga_xc_br3p86", 389},
 {"hyb_mgga_xc_tpss0", 396},
 {"hyb_mgga_xc_b94_hyb", 398},
 {"hyb_mgga_x_m05", 438},

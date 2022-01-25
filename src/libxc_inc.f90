@@ -1322,6 +1322,9 @@
 !  M06-SX exchange functional from Minnesota
   integer(c_int), parameter, public :: XC_HYB_MGGA_X_M06_SX           = 310
 
+! BR3P86 hybrid meta-GGA from Neumann and Handy
+  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_BR3P86          = 389
+
 !  TPSS hybrid with 25% exact exchange
   integer(c_int), parameter, public :: XC_HYB_MGGA_XC_TPSS0           = 396
 

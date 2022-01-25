@@ -1672,6 +1672,13 @@ func_reference_type xc_ref_Negele1972_1472 = {
 };
 
 
+func_reference_type xc_ref_Neumann1995_381 = {
+  "R. Neumann and N. C. Handy, Chem. Phys. Lett. 246, 381 (1995)",
+  "10.1016/0009-2614(95)01143-2",
+  "@article{Neumann1995_381,\n  title = {Investigations using the {Becke}--{Roussel} exchange functional},\n  author = {Ralf Neumann and Nicholas C. Handy},\n  journal = {Chem. Phys. Lett.},\n  volume = {246},\n  number = {4},\n  pages = {381--386},\n  year = {1995},\n  doi = {10.1016/0009-2614(95)01143-2},\n  url = {https://www.sciencedirect.com/science/article/pii/0009261495011432}\n}"
+};
+
+
 func_reference_type xc_ref_Neupane2021_063803 = {
   "B. Neupane, H. Tang, N. K. Nepal, S. Adhikari, and A. Ruzsinszky, Phys. Rev. Materials 5, 063803 (2021)",
   "10.1103/PhysRevMaterials.5.063803",

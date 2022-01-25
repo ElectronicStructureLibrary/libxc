@@ -439,6 +439,7 @@
 #define  XC_HYB_MGGA_X_REVM11           304  /* revM11 hybrid exchange functional from Minnesota                     */
 #define  XC_HYB_MGGA_X_REVM06           305  /* revised M06 hybrid exchange functional from Minnesota                */
 #define  XC_HYB_MGGA_X_M06_SX           310  /* M06-SX exchange functional from Minnesota                            */
+#define  XC_HYB_MGGA_XC_BR3P86          389  /*BR3P86 hybrid meta-GGA from Neumann and Handy                         */
 #define  XC_HYB_MGGA_XC_TPSS0           396  /* TPSS hybrid with 25% exact exchange                                  */
 #define  XC_HYB_MGGA_XC_B94_HYB         398  /*Hybrid meta-GGA by Becke                                              */
 #define  XC_HYB_MGGA_X_M05              438  /*M05 hybrid exchange functional from Minnesota                         */

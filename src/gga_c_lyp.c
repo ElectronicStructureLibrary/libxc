@@ -10,7 +10,7 @@
 #include "util.h"
 
 #define XC_GGA_C_LYP         131  /* Lee, Yang & Parr */
-#define XC_GGA_C_TM_LYP      559  /* Takkar and McCarthy reparametrization */
+#define XC_GGA_C_TM_LYP      559  /* Takkar and McCarthy reparametrization, also known as reLYP in the literature */
 #define XC_HYB_GGA_XC_HFLYP  314  /* Hartree-Fock + LYP correlation */
 
 typedef struct{
@@ -61,7 +61,7 @@ extern "C"
 const xc_func_info_type xc_func_info_gga_c_tm_lyp = {
   XC_GGA_C_TM_LYP,
   XC_CORRELATION,
-  "Takkar and McCarthy reparametrization",
+  "Takkar and McCarthy reparametrization, also known as reLYP",
   XC_FAMILY_GGA,
   {&xc_ref_Thakkar2009_134109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,

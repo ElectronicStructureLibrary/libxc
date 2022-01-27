@@ -17,4 +17,10 @@
 $include "gga_x_s12.mpl"
 $include "gga_x_ityh.mpl"
 
-ityh_enhancement := xs  -> s12g_f(xs):
+(* we remove the params_a_bx parameter from the definition of s12g_f *)
+ityh_enhancement := xs  -> s12g_f(xs)/params_a_bx:
+
+cam_s12_f := (rs, z, xs) -> ityh_enhancement(xs) *
+  (1 - p_a_hyb_coeff_1_ - p_a_hyb_coeff_0_*ityh_f_aa(rs, z, xs)):
+
+f := (rs, z, xt, xs0, xs1) -> gga_exchange_nsp(cam_s12_f, rs, z, xs0, xs1):

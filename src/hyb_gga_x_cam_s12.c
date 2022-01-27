@@ -13,7 +13,6 @@
 
 typedef struct {
   double A, B, C, D, E;
-  double bx;
 } hyb_gga_x_cam_s12_params;
 
 static void
@@ -52,11 +51,6 @@ s12h_set_ext_params(xc_func_type *p, const double *ext_params)
   hyb_gga_x_cam_s12_params *params;
   set_ext_params_cpy_cam(p, ext_params);
   params = (hyb_gga_x_cam_s12_params *) (p->params);
-
-  /* In the short range, the total fraction of exact exchange is */
-  sr_exx = p->hyb_coeff[0] + p->hyb_coeff[1];
-  /* so the fraction of short-range DFT is */
-  params->bx = 1.0 - sr_exx;
 }
 
 #include "decl_gga.h"

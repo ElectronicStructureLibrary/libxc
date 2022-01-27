@@ -1,0 +1,159 @@
+#!/usr/bin/env python3
+
+# Copyright (C) 2021 M.A.L. Marques
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+import sys, re, os, json
+from argparse import ArgumentParser
+
+mparser = ArgumentParser(usage="Get information on all functionals")
+mparser.add_argument('--srcdir', type = str, default = ".", 
+                     help='Directory where to find the source code')
+mparser.add_argument('--builddir', type = str, default = "src", 
+                     help='Directory where to the code is being build')
+params = mparser.parse_args()
+
+def read_infos(srcdir, family, all_ids):
+  '''Parses a list of files of type family_*.c and hyb_family_*.c,
+  reads the list of functionals, ids, and the info structures,
+  and returns the information as a dictionary
+  '''
+  import glob
+
+  # find all files that belong to this family, for example should
+  # returns all files of the type gga_*.c and hyb_gga_*.c for GGAs
+  glob_files  = glob.glob(srcdir + "/" + family + "_*.c")
+  glob_files += glob.glob(srcdir + "/hyb_" + family + "_*.c")
+
+  # pattern that matches "#define FUNC number /* comment */"
+  pattern_def = re.compile(r'#define\s+XC_(((?:HYB_)?' + family.upper() + ")_\S+)\s+(\S+)\s+\/\*\s*(.*?)\s*\*\/")
+  # pattern that matches "xc_func_info_type xc_func_info_"
+  pattern_inf = re.compile(r'^(const |)xc_func_info_type xc_func_info_((?:hyb_)?' + family.lower() + "\S+)")
+  
+  numbers  = {}
+  infos    = {}
+  
+  for mfile in glob_files:
+    lines = open(mfile).readlines()
+    nline = 0
+    
+    while nline < len(lines):
+      # match the #define line
+      res = pattern_def.match(lines[nline])
+      if res is not None:
+        name, number = (res.group(1), int(res.group(3)))
+        name = name.lower()
+        
+        # check if functional number is repeated
+        if(number in all_ids):
+          print("Error: ID '" + number +'" repeated in')
+          print("\n" + name + " and in " + all_ids(number))
+          sys.exit()
+
+        numbers[name] = number
+        
+      # match the xc_func_info_type line
+      res = pattern_inf.match(lines[nline])
+      if res is not None:
+        name = res.group(2)
+        
+        struct = ""
+        nline += 1
+        while nline < len(lines) and lines[nline][0] != "}":
+          # remove spaces
+          new_line = lines[nline].strip()
+          # remove // C comments from line
+          new_line = re.sub(r'//.*?', '', new_line)
+          # replace commas in braces by |
+          new_line = ''.join(m.replace(',', '|') if m.startswith('{') else m
+                  for m in re.split('(\{[^}]+\})', new_line))
+          # replace commas in string by |
+          new_line = ''.join(m.replace(',', '|') if m.startswith('"') else m
+                  for m in re.split('("[^"]+")', new_line))
+          struct += new_line
+          nline += 1
+
+        # remove /* ... */ C comments from line
+        struct = re.sub(r'/\*.*?\*/', '', struct)
+        
+        # split by command not inside braces. This does not work if we have nested braces
+        info = struct.split(",")
+        
+        # build info dictionary
+        infos[name] = {}
+        infos[name]["number"]   = numbers[name]
+        infos[name]["file"]     = os.path.basename(mfile)
+        infos[name]["codename"] = name
+        infos[name]["kind"]     = info[1]
+        infos[name]["description"] = info[2].replace('"', '')
+        infos[name]["family"]   = info[3]
+        infos[name]["references"] = [i.strip().replace('&xc_ref_', '') for i in re.sub("[{}]", "", info[4]).split('|')]
+        infos[name]["dimensionality"] = int(re.sub(r'.*XC_FLAGS_(.)D.*', r'\1', info[5]))
+        infos[name]["other_flags"] = [i.strip() for i in info[5].split("|") if not re.search("XC_FLAGS_.D", i)]
+        infos[name]["min_dens"] = float(info[6])
+        infos[name]["ext_params"] = [i.strip() for i in re.sub("[{}]", "", info[7]).split('|')]
+        infos[name]["f_init"]   = info[8]
+        infos[name]["f_end"]    = info[9]
+        infos[name]["f_lda"]    = info[10]
+        infos[name]["f_gga"]    = info[11]
+        infos[name]["f_mgga"]   = info[12]
+      nline += 1
+  
+  return infos
+
+families = ("lda", "gga", "mgga")
+all_ids   = {}
+all_infos = {}
+
+for family in families:
+  infos = read_infos(params.srcdir, family, all_ids)
+  all_infos.update(infos)
+
+  # create funcs_family.c file
+  fh =  open(params.builddir + "/funcs_" + family + ".c", "w")
+  fh.write('#include "util.h"\n\n')
+  for info in sorted(infos.values(), key=lambda item: item["number"]):
+    fh.write('extern xc_func_info_type xc_func_info_' + info["codename"] + ';\n')
+  fh.write('\nconst xc_func_info_type *xc_' + family + '_known_funct[] = {\n')
+  for info in sorted(infos.values(), key=lambda item: item["number"]):
+    fh.write('  &xc_func_info_' + info["codename"] + ',\n')
+  fh.write('  NULL\n};\n')
+  fh.close()
+
+# create funcs_key.c file
+fh =  open(params.builddir + "/funcs_key.c", "w")
+fh.write('#include "util.h"\n\nxc_functional_key_t xc_functional_keys[] = {\n')
+for info in sorted(all_infos.values(), key=lambda item: item["number"]):
+  fh.write('  {"' + info["codename"] + '", ' + str(info["number"]) + '},\n')
+fh.write('{"", -1}\n};\n')
+fh.close()
+
+# create C and F90 files with list of functionals
+fh1 =  open(params.builddir + "/xc_funcs.h", "w")
+fh2 =  open(params.builddir + "/xc_funcs_worker.h", "w")
+fh3 =  open(params.builddir + "/libxc_inc.f90", "w")
+for info in sorted(all_infos.values(), key=lambda item: item["number"]):
+  line_c = '{:40s} {:5d} {:s}'.format(
+    '#define  XC_' + info["codename"].upper(), 
+    info["number"],
+    '/* ' + info["description"] + ' */\n')
+  line_f90 = '{:s}\n{:40s} {:s} {:5d}\n\n'.format(
+    ' ! ' + re.sub(r'["\']', '', info["description"]),
+    ' integer(c_int), parameter, public :: XC_' + info["codename"].upper(),
+    " = ",
+    info["number"])
+  if info["number"] < 100000:
+    fh1.write(line_c)
+    fh3.write(line_f90)
+  else:
+    fh2.write(line_c)
+fh1.close()
+fh2.close()
+
+# dump all information to a json file
+with open(params.builddir + "/libxc_docs.json", "w") as fh:
+  json.dump(all_infos, fh, indent=2)
+

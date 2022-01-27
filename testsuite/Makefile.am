@@ -10,7 +10,7 @@
 SUBDIRS = pytest
 
 noinst_PROGRAMS = xc-get_data xc-consistency xc-regression xc-error
-dist_noinst_SCRIPTS = xc-run_testsuite xc-reference.pl
+dist_noinst_SCRIPTS = xc-run_testsuite
 TESTS = xc-run_testsuite
 TESTS_ENVIRONMENT = buildir=$(top_builddir)/testsuite
 

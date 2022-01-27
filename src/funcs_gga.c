@@ -375,7 +375,6 @@ extern xc_func_info_type xc_func_info_hyb_gga_xc_pbe_qidh;
 extern xc_func_info_type xc_func_info_hyb_gga_xc_ls1dh_pbe;
 extern xc_func_info_type xc_func_info_gga_x_q1d;
 
-
 const xc_func_info_type *xc_gga_known_funct[] = {
   &xc_func_info_gga_x_gam,
   &xc_func_info_gga_c_gam,

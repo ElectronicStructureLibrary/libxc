@@ -29,9 +29,9 @@ def read_infos(srcdir, family, all_ids):
   glob_files += glob.glob(srcdir + "/hyb_" + family + "_*.c")
 
   # pattern that matches "#define FUNC number /* comment */"
-  pattern_def = re.compile(r'#define\s+XC_(((?:HYB_)?' + family.upper() + ")_\S+)\s+(\S+)\s+\/\*\s*(.*?)\s*\*\/")
+  pattern_def = re.compile(r'#define\s+XC_(((?:HYB_)?' + family.upper() + r")_\S+)\s+(\S+)\s+\/\*\s*(.*?)\s*\*\/")
   # pattern that matches "xc_func_info_type xc_func_info_"
-  pattern_inf = re.compile(r'^(const |)xc_func_info_type xc_func_info_((?:hyb_)?' + family.lower() + "\S+)")
+  pattern_inf = re.compile(r'^(const |)xc_func_info_type xc_func_info_((?:hyb_)?' + family.lower() + r"\S+)")
   
   numbers  = {}
   infos    = {}
@@ -69,7 +69,7 @@ def read_infos(srcdir, family, all_ids):
           new_line = re.sub(r'//.*?', '', new_line)
           # replace commas in braces by |
           new_line = ''.join(m.replace(',', '|') if m.startswith('{') else m
-                  for m in re.split('(\{[^}]+\})', new_line))
+                  for m in re.split(r'(\{[^}]+\})', new_line))
           # replace commas in string by |
           new_line = ''.join(m.replace(',', '|') if m.startswith('"') else m
                   for m in re.split('("[^"]+")', new_line))

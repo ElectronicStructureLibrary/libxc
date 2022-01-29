@@ -50,7 +50,7 @@ def filter_vxc_derivatives(all_derivatives):
         derivatives2[order].append(der)
         derivatives [order].append(der)
 
-  return derivatives, derivatives1, derivatives2;
+  return derivatives, derivatives1, derivatives2
 
 
 def enumerate_spin_partials(derivative, func_type):
@@ -159,7 +159,7 @@ def enumerate_spin_partials(derivative, func_type):
     order[word] = 0
   
     m = re.match(r'.*' + word + r'([0-9]*)', derivative)
-    if not m is None:
+    if m is not None:
       order[word] = 1 if m.group(1) == "" else int(m.group(1))
 
   # and this is the order of the derivative
@@ -168,20 +168,20 @@ def enumerate_spin_partials(derivative, func_type):
   max_n = {"lda": 2, "gga": 5, "mgga": 9}[func_type]
 
   all_derivatives = []
-  der_n = 0;
+  der_n = 0
   for n_rho, p_rho in enumerate(partials["rho"][order["rho"]]):
     for n_sigma, p_sigma in enumerate(partials["sigma"][order["sigma"]]):
       for n_lapl, p_lapl in enumerate(partials["lapl"][order["lapl"]]):
         for n_tau, p_tau in enumerate(partials["tau"][order["tau"]]):
           # sum orders in all variables
             
-          final_der = [0] * max_n;
+          final_der = [0] * max_n
           for i in range(max_n):
             final_der[i] += \
                 partials["rho"][order["rho"]][n_rho][i] + \
                 partials["sigma"][order["sigma"]][n_sigma][i] + \
                 partials["lapl"][order["lapl"]][n_lapl][i] + \
-                partials["tau"][order["tau"]][n_tau][i];
+                partials["tau"][order["tau"]][n_tau][i]
 
           all_derivatives.append([final_der, derivative + "_" + str(der_n) + "_"])
           der_n += 1
@@ -247,7 +247,7 @@ dmfd01 := (v0, v1) ->  eval(diff(mf(v0, v1), v1)):
 
 def print_c_header(params, out):
   cmd = "echo -e 'quit;' | maple 2>&1 | head -n 1 | sed 's/^.*Maple/Maple/'"
-  maple_version = subprocess.check_output(cmd, shell=True).strip();
+  maple_version = subprocess.check_output(cmd, shell=True).strip()
 
   out.write('''/*
   This file was generated automatically with {}.
@@ -368,18 +368,18 @@ $include <{}.mpl>
   os.remove(mfilename)
   c_code = run.stdout
 
-  variables  = ["", "", "", "", "", ""];
-  n_var = [0, 0, 0, 0, 0, 0];
-  test_1 = ("zk", "vrho", "v2rho2", "v3rho3", "v4rho4", "v5rho5");
-  test_2 = ("EXC", "VXC", "FXC", "KXC", "LXC", "MXC");
+  variables  = ["", "", "", "", "", ""]
+  n_var = [0, 0, 0, 0, 0, 0]
+  test_1 = ("zk", "vrho", "v2rho2", "v3rho3", "v4rho4", "v5rho5")
+  test_2 = ("EXC", "VXC", "FXC", "KXC", "LXC", "MXC")
 
   new_c_code = ""
   total_order = start_order
 
   # for avoiding compilation when high order derivatives are enabled
   if start_order != 0:
-    new_c_code += "\n#ifndef XC_DONT_COMPILE_" + test_2[start_order] + "\n\n";
-    new_c_code += "  if(order < " + str(start_order) + ") return;\n\n\n";
+    new_c_code += "\n#ifndef XC_DONT_COMPILE_" + test_2[start_order] + "\n\n"
+    new_c_code += "  if(order < " + str(start_order) + ") return;\n\n\n"
 
   # we check for strings like 'vrho_0_ = ' and put some
   # relevant if conditions in front
@@ -405,7 +405,7 @@ $include <{}.mpl>
             new_c_code += "  if(" + test + ")\n"
             new_c_code += "    " + line + "\n\n"
 
-          found = True;
+          found = True
           break
 
       # Search the last derivative for each order
@@ -414,7 +414,7 @@ $include <{}.mpl>
         last_derivative = re.sub(r"_\d+_", "_0_", last_derivative)
 
       if re.match(r"\s*" + last_derivative + r"\s*=", line):
-        total_order += 1;
+        total_order += 1
         new_c_code += "#ifndef XC_DONT_COMPILE_" + test_2[total_order] + "\n\n"
         new_c_code += "  if(order < " + str(total_order) + ") return;\n\n\n"
 
@@ -426,7 +426,7 @@ $include <{}.mpl>
         if n_var[total_order] % 8 == 0:
           if n_var[total_order] != 0:
             variables[total_order] += ";\n"
-          variables[total_order] += "  double ";
+          variables[total_order] += "  double "
         else:
           variables[total_order] += ", "
         n_var[total_order] += 1
@@ -467,7 +467,7 @@ def maple2c_run(params, variables, derivatives, variants, start_order, input_arg
     
   print_c_header(params, out)
 
-  test_2 = ("EXC", "VXC", "FXC", "KXC", "LXC", "MXC");
+  test_2 = ("EXC", "VXC", "FXC", "KXC", "LXC", "MXC")
 
   out.write("#define MAPLE2C_FLAGS (")
   for i in range(start_order, params['maxorder'] + 1):

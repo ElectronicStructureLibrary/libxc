@@ -50,7 +50,7 @@ def maple2c_init():
       params["maple_file"] = p + ".mpl"
       break
 
-  if not "maple_file" in params:
+  if "maple_file" not in params:
     print("File '" + params["functional"] + ".mpl" + "' not found")
     sys.exit(1)
 
@@ -74,7 +74,7 @@ def maple2c_init():
         else:
           params["prefix"] += line
 
-  if not "functype" in params:
+  if "functype" not in params:
     print("Could not determine type of functional")
     print("Please add something like '(* type: lda_exc *)' to the maple file")
     sys.exit(1)

@@ -12,7 +12,7 @@
 #define XC_MGGA_C_CS          72 /* Colle and Salvetti */
 
 /*
-    [1] Eq. (15) in http://dx.doi.org/10.1103/PhysRevB.37.785
+    [1] Eq. (15) in https://doi.org/10.1103/PhysRevB.37.785
     [2] CS2 in http://www.molpro.net/info/2012.1/doc/manual/node192.html
 
   there is a gamma(r) in [1] absent in [2]. This should be irrelevant

@@ -147,7 +147,7 @@ gga_stoll_par  := (gga_func, rs, z, xs, spin) ->
 Fermi_D := (xs, ts) -> 1 - xs^2/(8*ts):
 
 # correction to Fermi_D similar to the one found in
-#  JCP 127, 214103 (2007); doi: http://dx.doi.org/10.1063/1.2800011
+#  JCP 127, 214103 (2007); doi: https://doi.org/10.1063/1.2800011
 Fermi_D_corrected := (xs, ts) -> (1 - xs^2/(8*ts)) * (1 - exp(-4*ts^2/params_a_Fermi_D_cnst^2)):
 
 # Becke function used in several correlation functionals

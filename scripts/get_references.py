@@ -52,7 +52,7 @@ class LibxcWriter(BibWriter):
     
 # Code starts here
 if len(sys.argv) != 2:
-  print("Usage: " + sys.argv[0] + "BIBFILE\n");
+  print("Usage: " + sys.argv[0] + "BIBFILE\n")
   sys.exit(1)
 
 # Load bibtex file
@@ -112,7 +112,7 @@ for item in formatted_bibliography:
              '  "' + doi + '",\n' +
              '  "' + bibtex + '"\n' +
              '};\n\n'
-             );
+             )
   fh_h.write('extern func_reference_type xc_ref_' + item.key + ';\n')
 
 fh_c.close()

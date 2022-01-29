@@ -228,7 +228,7 @@ class LibXCFunctional(object):
 
         # Build the LibXC functional
         self.xc_func = core.xc_func_alloc()
-        self.xc_func_size_names = [x for x in dir(self.xc_func.contents.dim) if not "_" in x]
+        self.xc_func_size_names = [x for x in dir(self.xc_func.contents.dim) if "_" not in x]
 
         # Set all int attributes to zero (not all set to zero in libxc)
         for attr in self.xc_func_size_names:
@@ -796,4 +796,4 @@ class LibXCFunctional(object):
         else:
             raise KeyError("Functional kind not recognized! (%d)" % self.get_kind())
 
-        return {k: v for k, v in zip(output_labels, args[2+input_num_args:]) if not v is None}
+        return {k: v for k, v in zip(output_labels, args[2+input_num_args:]) if v is not None}

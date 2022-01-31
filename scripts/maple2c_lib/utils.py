@@ -8,6 +8,9 @@
 
 import sys, os, re, subprocess
 
+# we need this in a couple of places
+der_name = ("EXC", "VXC", "FXC", "KXC", "LXC", "MXC")
+
 #####################################################################
 # sort by character and then by number
 def sort_alphanumerically(x):
@@ -275,6 +278,10 @@ def maple2c_replace(text, extra_replace=()):
     (r"_a_",     r"->"),
     (r"_d_",     r"."),
     (r"_(\d+)_",  r"[\1]"),
+    # convert constants like 0.225000000e-1 to 0.225e-1
+    (r"0+e", r"e"),
+    # convert numerical value of pi to constant
+    (r"0.31415926535897932385e1", r"M_PI"),
     # have to do it here, as both Dirac(x) and Dirac(n, x) can appear
     (r"Dirac\(.*?\)", r"0.0"),
     # the derivative of the signum is 0 for us
@@ -306,7 +313,6 @@ def maple2c_replace(text, extra_replace=()):
     (r"pow\((.*?), *0.2333333333333333333.e1\)",  r"POW_7_3(\1)"),
     (r"pow\((.*?), *-0.2333333333333333333.e1\)", r"0.1e1 / POW_7_3(\1)"),
     # cleaning up constant expressions
-    (r"0.31415926535897932385e1", r"M_PI"),
     (r"sqrt\(0.2e1\)",            r"M_SQRT2"),
     (r"POW_1_3\(0.2e1\)",         r"M_CBRT2"),
     (r"POW_1_3\(0.3e1\)",         r"M_CBRT3"),
@@ -368,18 +374,16 @@ $include <{}.mpl>
   os.remove(mfilename)
   c_code = run.stdout
 
+  test_1 = ("zk", "vrho", "v2rho2", "v3rho3", "v4rho4", "v5rho5")
+  total_order = start_order
+
   variables  = ["", "", "", "", "", ""]
   n_var = [0, 0, 0, 0, 0, 0]
-  test_1 = ("zk", "vrho", "v2rho2", "v3rho3", "v4rho4", "v5rho5")
-  test_2 = ("EXC", "VXC", "FXC", "KXC", "LXC", "MXC")
-
-  new_c_code = ""
-  total_order = start_order
+  new_c_code = ["", "", "", "", "", ""]
 
   # for avoiding compilation when high order derivatives are enabled
   if start_order != 0:
-    new_c_code += "\n#ifndef XC_DONT_COMPILE_" + test_2[start_order] + "\n\n"
-    new_c_code += "  if(order < " + str(start_order) + ") return;\n\n\n"
+    new_c_code[total_order] += "  if(order < " + str(start_order) + ") return;\n\n\n"
 
   # we check for strings like 'vrho_0_ = ' and put some
   # relevant if conditions in front
@@ -390,6 +394,9 @@ $include <{}.mpl>
       # search for a vrho = statement
       for der in der_order:
         if re.match(r"\s*?" + der[1] + r"\s*=", line):
+          # add instead of assigning. We are still missing a global constant
+          # that can be useful in building hybrid combinations
+          line = re.sub(r"=\s*(.*);", r"+= (\1);", line)
           res = re.search(r"_([0-9]+)_", der[1])
           if (mtype == "pol") or (res.group(1) == "0"):
             test = test_1[total_order] + " != NULL"
@@ -401,9 +408,9 @@ $include <{}.mpl>
               test += " && (p->info->flags & XC_FLAGS_NEEDS_TAU)"
 
             test += " && (p->info->flags & XC_FLAGS_HAVE_" + \
-              test_2[total_order] + ")"
-            new_c_code += "  if(" + test + ")\n"
-            new_c_code += "    " + line + "\n\n"
+              der_name[total_order] + ")"
+            new_c_code[total_order] += "  if(" + test + ")\n"
+            new_c_code[total_order] += "    " + line + "\n\n"
 
           found = True
           break
@@ -413,10 +420,9 @@ $include <{}.mpl>
       if mtype != "pol":
         last_derivative = re.sub(r"_\d+_", "_0_", last_derivative)
 
-      if re.match(r"\s*" + last_derivative + r"\s*=", line):
+      if re.match(r"\s*" + last_derivative + r"\s*\+=", line):
         total_order += 1
-        new_c_code += "#ifndef XC_DONT_COMPILE_" + test_2[total_order] + "\n\n"
-        new_c_code += "  if(order < " + str(total_order) + ") return;\n\n\n"
+        new_c_code[total_order] += "  if(order < " + str(total_order) + ") return;\n\n\n"
 
               
     if not found:
@@ -433,25 +439,13 @@ $include <{}.mpl>
 
         variables[total_order] += res.group(1)
 
-      new_c_code += "  " + line + "\n"
+      new_c_code[total_order] += "  " + line + "\n"
 
-  all_variables = ""
-  for i in range(total_order):
-    if n_var[i] != 0:
-      all_variables += "\n#ifndef XC_DONT_COMPILE_" + \
-        test_2[i] + "\n" + variables[i] + ";\n"
+  # perform the necessary replacements
+  for i in range(len(new_c_code)):
+    new_c_code[i] = maple2c_replace(new_c_code[i], params["replace"])
 
-  for i in range(total_order):
-    if n_var[i] != 0:
-      all_variables += "#endif\n\n"
-
-  for i in range(start_order, total_order):
-    new_c_code += "#endif\n\n"
-
-  if start_order != 0:
-    new_c_code += "#endif\n\n"
-
-  return all_variables, maple2c_replace(new_c_code, params["replace"])
+  return variables, new_c_code
 
 
 def maple2c_run(params, variables, derivatives, variants, start_order, input_args, output_args):
@@ -479,14 +473,29 @@ def maple2c_run(params, variables, derivatives, variants, start_order, input_arg
   for mtype, code in variants.items():
     vars_def, c_code = maple_run(params, mtype, code, derivatives, start_order)
 
-    out.write('''static inline void
-func_{}(const xc_func_type *p, int order, {} {})
-{{
-{}
-{}
-{}
-}}
+    for order in range(start_order, params['maxorder'] + 1):
+      out.write('''
+#ifndef XC_DONT_COMPILE_{}
 
-'''.format(mtype, input_args, output_args, vars_def, params["prefix"], c_code))
-              
+static inline void
+func_{}_{}(const xc_func_type *p, int order, {} {}_OUT_PARAMS_{}(XC_COMMA double *, ))
+{{
+'''.format(der_name[order].upper(), der_name[order].lower(), mtype,
+           input_args, output_args, der_name[order].upper()))
+
+      # we first print the declaration of the derivatives
+      for order2 in range(start_order, order + 1):
+         out.write(vars_def[order2] + "\n")
+      
+      # we now print the prefix defined in the .mpl code
+      out.write(params["prefix"] + "\n")
+
+      # and now the c_code
+      for order2 in range(start_order, order + 1):
+         out.write(c_code[order2] + "\n")
+
+      out.write("}\n\n")
+      out.write("#endif\n\n")
+      
+
   out.close()

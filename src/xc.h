@@ -102,10 +102,20 @@ const char *xc_version_string();
 /* This are the derivatives that a functional returns */
 #define XC_NOARG
 #define XC_COMMA ,
-#define LDA_OUT_PARAMS_NO_EXC(P1_, P2_) \
-  P1_ P2_ ## vrho   P1_ P2_ ## v2rho2 \
-  P1_ P2_ ## v3rho3 P1_ P2_ ## v4rho4
 
+/* the following macros *do not* include zk */
+#define LDA_OUT_PARAMS_EXC(P1_, P2_)
+#define LDA_OUT_PARAMS_VXC(P1_, P2_) LDA_OUT_PARAMS_EXC(P1_, P2_) \
+  P1_ P2_ ## vrho
+#define LDA_OUT_PARAMS_FXC(P1_, P2_) LDA_OUT_PARAMS_VXC(P1_, P2_) \
+  P1_ P2_ ## v2rho2
+#define LDA_OUT_PARAMS_KXC(P1_, P2_) LDA_OUT_PARAMS_FXC(P1_, P2_) \
+  P1_ P2_ ## v3rho3
+#define LDA_OUT_PARAMS_LXC(P1_, P2_) LDA_OUT_PARAMS_KXC(P1_, P2_) \
+  P1_ P2_ ## v4rho4
+#define LDA_OUT_PARAMS_NO_EXC(P1_, P2_) LDA_OUT_PARAMS_LXC(P1_, P2_)
+
+  
 #define GGA_OUT_PARAMS_NO_EXC(P1_, P2_) \
   P1_ P2_ ## vrho         P1_ P2_ ## vsigma       \
   P1_ P2_ ## v2rho2       P1_ P2_ ## v2rhosigma   \

@@ -28,7 +28,7 @@ def work_lda_exc(params):
   
   # get arguments of the functions
   input_args  = "const double *rho"
-  output_args = ", double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, )"
+  output_args = ", double *zk LDA"
 
   der_def, out_c = maple_define_derivatives(variables, derivatives, "mf")
   
@@ -89,7 +89,7 @@ def work_lda_vxc(params):
   
   # get arguments of the functions
   input_args  = "const double *rho"
-  output_args = "LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, )"
+  output_args = "LDA"
 
   # we obtain the missing pieces for maple
   # unpolarized calculation

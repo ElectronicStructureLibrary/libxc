@@ -907,6 +907,8 @@ end interface
        next_ref = xc_func_info_get_references(info%ptr, INT(number + 1, c_int))
        if (c_associated(next_ref)) then
           number = number + 1
+       else
+          number = -1
        end if
     end if
 

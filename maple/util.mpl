@@ -172,7 +172,7 @@ mgga_series_w := (a, n, t) -> add(a[i]*mgga_w(t)^(i-1), i=1..n):
 
 # Used in screened functionals
 kF := (rs, z) -> (3*Pi^2)^(1/3) * opz_pow_n(z,1/3) * RS_FACTOR/rs:
-nu := (rs, z) -> p_a_hyb_omega_0_/kF(rs, z):
+nu := (rs, z) -> p_a_cam_omega/kF(rs, z):
 
 
 (* Maple 2020 has a bug where series aren't computed to the order requested; this circumvents that *)

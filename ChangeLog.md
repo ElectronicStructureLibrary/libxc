@@ -1,3 +1,8 @@
+## [5.2.2] - 2022-02-01
+
+### Fixed
+- Some Maple sources had not been properly backported from the changed API in master which caused compile failures in 5.2.1 (#379)
+
 ## [5.2.1] - 2022-01-31
 
 ### Fixed

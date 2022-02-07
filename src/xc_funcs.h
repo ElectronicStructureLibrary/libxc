@@ -589,6 +589,8 @@
 #define  XC_MGGA_X_RPPSCAN              648  /*r++SCAN exchange                                                      */
 #define  XC_MGGA_C_RPPSCAN              649  /*r++SCAN correlation                                                   */
 #define  XC_MGGA_X_R4SCAN               650  /*r4SCAN exchange                                                       */
+#define  XC_MGGA_X_VCML                 651  /*VCML exchange, used in VCML-rVV10 by Trepte and Voss                  */
+#define  XC_MGGA_XC_VCML_RVV10          652  /* VCML-rVV10 exchange-correlation by Trepte and Voss                   */
 #define  XC_MGGA_X_TLDA                 685  /* LDA-type exchange with tau-dependent potential                       */
 #define  XC_MGGA_X_EDMGGA               686  /*Tao 2001                                                              */
 #define  XC_MGGA_X_GDME_NV              687  /*Generalized density-matrix with a=1/2                                 */

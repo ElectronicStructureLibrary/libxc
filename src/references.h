@@ -366,6 +366,7 @@ extern func_reference_type xc_ref_Tozer1998_2545;
 extern func_reference_type xc_ref_Tozer1998_3162;
 extern func_reference_type xc_ref_Tran2002_441;
 extern func_reference_type xc_ref_Tran2009_226401;
+extern func_reference_type xc_ref_Trepte2022;
 extern func_reference_type xc_ref_Trickey2011_075146;
 extern func_reference_type xc_ref_Tsuneda1999_10664;
 extern func_reference_type xc_ref_Tsuneda1999_5656;

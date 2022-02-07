@@ -2484,6 +2484,13 @@ func_reference_type xc_ref_Tran2009_226401 = {
 };
 
 
+func_reference_type xc_ref_Trepte2022 = {
+  "K. Trepte and J. Voss, Data-driven and constrained optimization of semi-local exchange and non-local correlation functionals for materials and surface chemistry, (2022), arXiv:2201.11106 [physics.comp-ph]",
+  "",
+  "@misc{Trepte2022,\n  title={Data-driven and constrained optimization of semi-local exchange and non-local correlation functionals for materials and surface chemistry},\n  author={Kai Trepte and Johannes Voss},\n  year={2022},\n  eprint={2201.11106},\n  archivePrefix={arXiv},\n  primaryClass={physics.comp-ph}\n}"
+};
+
+
 func_reference_type xc_ref_Trickey2011_075146 = {
   "S. B. Trickey, V. V. Karasiev, and A. Vela, Phys. Rev. B 84, 075146 (2011)",
   "10.1103/PhysRevB.84.075146",

@@ -1772,6 +1772,12 @@
 ! r4SCAN exchange
   integer(c_int), parameter, public :: XC_MGGA_X_R4SCAN               = 650
 
+! VCML exchange, used in VCML-rVV10 by Trepte and Voss
+  integer(c_int), parameter, public :: XC_MGGA_X_VCML                 = 651
+
+!  VCML-rVV10 exchange-correlation by Trepte and Voss
+  integer(c_int), parameter, public :: XC_MGGA_XC_VCML_RVV10          = 652
+
 !  LDA-type exchange with tau-dependent potential
   integer(c_int), parameter, public :: XC_MGGA_X_TLDA                 = 685
 

@@ -579,6 +579,8 @@
 #define  XC_MGGA_X_RPPSCAN                 648 /* r++SCAN: rSCAN with uniform density limit and coordinate scaling behavior */
 #define  XC_MGGA_C_RPPSCAN                 649 /* r++SCAN: rSCAN with uniform density limit and coordinate scaling behavior */
 #define  XC_MGGA_X_R4SCAN                  650 /* r^4SCAN| a functional that satisfies the same exact constraints that SCAN does */
+#define  XC_MGGA_X_VCML                    651 /* Exchange part of VCML-rVV10 by Trepte and Voss */
+#define  XC_MGGA_XC_VCML_RVV10             652 /* VCML-rVV10 by Trepte and Voss */
 #define  XC_HYB_GGA_XC_CAM_PBEH            681 /* CAM hybrid screened exchange PBE version */
 #define  XC_HYB_GGA_XC_CAMY_PBEH           682 /* CAMY hybrid screened exchange PBE version */
 #define  XC_LDA_C_UPW92                    683 /* Ruggeri| Rios| and Alavi unrestricted fit */

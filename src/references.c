@@ -1459,6 +1459,12 @@ func_reference_type xc_ref_Negele1972_1472 = {
   "@article{Negele1972_1472,\n  author = {Negele, J. W. and Vautherin, D.},\n  title = {Density-Matrix Expansion for an Effective Nuclear Hamiltonian},\n  journal = {Phys. Rev. C},\n  volume = {5},\n  issue = {5},\n  pages = {1472--1493},\n  year = {1972},\n  month = {May},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevC.5.1472},\n  url = {https://link.aps.org/doi/10.1103/PhysRevC.5.1472}\n}\n"
 };
 
+func_reference_type xc_ref_Neumann1995_381 = {
+  "R. Neumann and N. C. Handy.,  Chem. Phys. Lett. 246, 381–386 (1995)",
+  "10.1016/0009-2614(95)01143-2",
+  "@article{Neumann1995_381,\n  author = {Neumann, Ralf and Handy, Nicholas C.},\n  title = {Investigations using the {Becke}--{Roussel} exchange functional},\n  journal = {Chem. Phys. Lett.},\n  volume = {246},\n  number = {4},\n  pages = {381--386},\n  year = {1995},\n  doi = {10.1016/0009-2614(95)01143-2},\n  url = {https://www.sciencedirect.com/science/article/pii/0009261495011432}\n}\n"
+};
+
 func_reference_type xc_ref_Neupane2021_063803 = {
   "B. Neupane, H. Tang, N. K. Nepal, S. Adhikari, and A. Ruzsinszky.,  Phys. Rev. Materials 5, 063803 (2021)",
   "10.1103/PhysRevMaterials.5.063803",

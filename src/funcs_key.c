@@ -320,6 +320,7 @@ xc_functional_key_t xc_functional_keys[] = {
   {"lda_c_w20", 317},
   {"lda_xc_corrksdt", 318},
   {"mgga_x_ft98", 319},
+  {"hyb_mgga_xc_br3p86", 389},
   {"hyb_gga_xc_case21", 390},
   {"mgga_c_rregtm", 391},
   {"hyb_gga_xc_pbe_2x", 392},

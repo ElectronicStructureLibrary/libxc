@@ -1894,3 +1894,18 @@
  ! Functional for quasi-1D systems
  integer(c_int), parameter, public :: XC_GGA_X_Q1D  =    734
 
+ !Short ranged LDA PW correlation (erfc)
+ integer(c_int), parameter, public :: XC_LDA_C_PW_ERF          = 741
+
+ !Short ranged PBE exchange (erfc)
+ integer(c_int), parameter, public :: XC_GGA_X_PBE_ERF_GWS     = 742
+
+ !Short ranged PBE correlation (erfc)
+ integer(c_int), parameter, public :: XC_GGA_C_PBE_ERF_GWS     = 743
+
+ !Hybrid Functional with short-ranged LDA exchange (erfc)
+ integer(c_int), parameter, public :: XC_HYB_LDA_C_PW_ERF      = 744
+
+ !Hybrid functional with short ranged PBE exchange (erfc)
+ integer(c_int), parameter, public :: XC_HYB_GGA_X_PBE_ERF_GWS = 745
+

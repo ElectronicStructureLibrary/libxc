@@ -9,4 +9,4 @@ SUBDIRS = lda_exc lda_vxc gga_exc gga_vxc mgga_exc mgga_vxc
 
 dist_noinst_SCRIPTS = \
 attenuation.mpl  b97mv.mpl  mbeef.mpl  scaling.mpl  tpss_c.mpl  util.mpl \
-b97.mpl          gvt4.mpl   op.mpl     th.mpl       tpss_x.mpl  vwn.mpl
+b97.mpl          gvt4.mpl   op.mpl     th.mpl       tpss_x.mpl  vwn.mpl  b_expansion.mpl

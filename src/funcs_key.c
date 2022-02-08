@@ -633,6 +633,11 @@ xc_functional_key_t xc_functional_keys[] = {
   {"hyb_gga_xc_pbe_qidh", 727},
   {"hyb_gga_xc_ls1dh_pbe", 728},
   {"gga_x_q1d", 734},
+  {"lda_c_pw_erf", 741},
+  {"gga_x_pbe_erf_gws", 742},
+  {"gga_c_pbe_erf_gws", 743},
+  {"hyb_lda_x_erf", 744},
+  {"hyb_gga_x_pbe_erf_gws", 745},
   {"lda_k_gds08_worker", 100001},
 {"", -1}
 };

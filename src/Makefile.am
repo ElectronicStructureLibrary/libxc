@@ -51,7 +51,7 @@ libxc_la_FUNC_SOURCES = \
 	lda_c_gk72.c hyb_lda_xc_bn05.c lda_c_pmgb06.c			\
 	lda_k_gds08_worker.c lda_xc_tih.c lda_x_1d_exponential.c	\
 	lda_x_1d_soft.c hyb_lda_xc_cam_lda0.c lda_x_sloc.c lda_c_w20.c  \
-	lda_x_yukawa.c 	                                                \
+	lda_x_yukawa.c lda_c_pw_erf	\
 	gga.c \
 	gga_x_lg93.c gga_x_pbe.c gga_x_rpbe.c gga_x_pbea.c		\
 	gga_x_mpbe.c gga_x_herman.c gga_x_b86.c gga_x_b88.c		\
@@ -93,7 +93,8 @@ libxc_la_FUNC_SOURCES = \
 	gga_k_lgap_ge.c	gga_c_ccdf.c gga_k_rational_p.c gga_k_pg.c      \
 	gga_c_p86vwn.c gga_x_ityh_optx.c hyb_gga_xc_cam_o3lyp.c \
 	gga_x_ityh_pbe.c gga_c_lypr.c hyb_gga_xc_pbe_dh.c \
-        hyb_gga_x_cam_s12.c hyb_gga_xc_case21.c \
+  hyb_gga_x_cam_s12.c hyb_gga_xc_case21.c \
+  gga_x_pbe_erf_gws gga_c_pbe_erf_gws \
 	mgga.c \
 	mgga_x_lta.c mgga_x_tpss.c mgga_x_br89.c mgga_x_gvt4.c		\
 	mgga_x_m06l.c mgga_x_tau_hcth.c mgga_x_2d_prhg07.c		\

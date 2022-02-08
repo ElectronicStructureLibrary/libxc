@@ -10,6 +10,10 @@ from maple2c_lib.utils import *
 
 # these are the variables that the functional depends on
 variables = ["rho_0_", "rho_1_"]
+
+# get arguments of the functions
+input_args  = "const double *rho"
+output_args = "xc_lda_out_params *out"
   
 # the definition of the derivatives that libxc transmits to the calling program
 partials = [
@@ -26,10 +30,6 @@ def work_lda_exc(params):
 
   derivatives = partials_to_derivatives(params, "lda", partials)
   
-  # get arguments of the functions
-  input_args  = "const double *rho"
-  output_args = ", double *zk LDA"
-
   der_def, out_c = maple_define_derivatives(variables, derivatives, "mf")
   
   out_c = ", ".join(out_c)
@@ -87,10 +87,6 @@ def work_lda_vxc(params):
 
   derivatives, derivatives1, derivatives2 = filter_vxc_derivatives(all_derivatives)
   
-  # get arguments of the functions
-  input_args  = "const double *rho"
-  output_args = "LDA"
-
   # we obtain the missing pieces for maple
   # unpolarized calculation
   der_def_unpol, out_c_unpol = maple_define_derivatives(variables, derivatives1, "mf0")

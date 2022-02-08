@@ -10,7 +10,6 @@
 
 #define XC_LDA_C_VWN_3   30   /* Vosko, Wilk, & Nusair (3)   */
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_vwn_3.c"
 #include "work_lda.c"
 
@@ -26,6 +25,6 @@ const xc_func_info_type xc_func_info_lda_c_vwn_3 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  NULL, NULL, work_lda,
-  NULL, NULL
+  NULL, NULL, 
+  &work_lda, NULL, NULL
 };

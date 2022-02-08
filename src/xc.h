@@ -102,19 +102,15 @@ const char *xc_version_string();
 /* This are the derivatives that a functional returns */
 #define XC_NOARG
 #define XC_COMMA ,
-
+  
 /* the following macros *do not* include zk */
-#define LDA_OUT_PARAMS_EXC(P1_, P2_)
-#define LDA_OUT_PARAMS_VXC(P1_, P2_) LDA_OUT_PARAMS_EXC(P1_, P2_) \
-  P1_ P2_ ## vrho
-#define LDA_OUT_PARAMS_FXC(P1_, P2_) LDA_OUT_PARAMS_VXC(P1_, P2_) \
-  P1_ P2_ ## v2rho2
-#define LDA_OUT_PARAMS_KXC(P1_, P2_) LDA_OUT_PARAMS_FXC(P1_, P2_) \
-  P1_ P2_ ## v3rho3
-#define LDA_OUT_PARAMS_LXC(P1_, P2_) LDA_OUT_PARAMS_KXC(P1_, P2_) \
-  P1_ P2_ ## v4rho4
-#define LDA_OUT_PARAMS_NO_EXC(P1_, P2_) LDA_OUT_PARAMS_LXC(P1_, P2_)
-
+/* the following macros are probably to DELETE */
+  
+#define LDA_OUT_PARAMS_NO_EXC(P1_, P2_) \
+  P1_ P2_ ## vrho   \
+  P1_ P2_ ## v2rho2 \
+  P1_ P2_ ## v3rho3 \
+  P1_ P2_ ## v4rho4 
   
 #define GGA_OUT_PARAMS_NO_EXC(P1_, P2_) \
   P1_ P2_ ## vrho         P1_ P2_ ## vsigma       \
@@ -193,6 +189,20 @@ typedef struct{
 } func_params_type;
 
 
+typedef struct {
+  double *zk;
+  double *vrho;
+  double *v2rho2;
+  double *v3rho3;
+  double *v4rho4;
+} xc_lda_out_params;
+
+typedef void (*xc_lda_funcs) (const struct xc_func_type *p, size_t np,
+                              const double *rho, xc_lda_out_params *out);
+typedef struct {
+    xc_lda_funcs unpol[5], pol[5];
+} xc_lda_funcs_variants;
+  
 typedef struct{
   int   number;   /* identifier number */
   int   kind;     /* XC_EXCHANGE, XC_CORRELATION, XC_EXCHANGE_CORRELATION, XC_KINETIC */
@@ -210,9 +220,8 @@ typedef struct{
 
   void (*init)(struct xc_func_type *p);
   void (*end) (struct xc_func_type *p);
-  void (*lda) (const struct xc_func_type *p, size_t np,
-               const double *rho,
-               double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
+  xc_lda_funcs_variants *lda;
+
   void (*gga) (const struct xc_func_type *p, size_t np,
                const double *rho, const double *sigma,
                double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
@@ -241,8 +250,8 @@ double xc_func_info_get_ext_params_default_value(const xc_func_info_type *info, 
 
 
 struct xc_dimensions{
-  int rho, sigma, lapl, tau;       /* spin dimensions of the arrays */
-  int zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, );
+  size_t rho, sigma, lapl, tau;       /* spin dimensions of the arrays */
+  size_t zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, );
 };
 
 typedef struct xc_dimensions xc_dimensions;
@@ -346,7 +355,7 @@ double xc_func_get_ext_params_value(const xc_func_type *p, int number);
 
 /** Evaluate an     LDA functional */
 void xc_lda (const xc_func_type *p, size_t np, const double *rho,
-             double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
+             double *zk, xc_lda_out_params *out);
 /** Evaluate a      GGA functional */
 void xc_gga (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
              double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));

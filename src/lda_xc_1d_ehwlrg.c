@@ -50,7 +50,6 @@ lda_xc_1d_ehwlrg_init(xc_func_type *p)
   }
 }
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_xc_1d_ehwlrg.c"
 #include "work_lda.c"
 
@@ -67,7 +66,7 @@ const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_1 = {
   1e-32,
   {0, NULL, NULL, NULL, NULL},
   lda_xc_1d_ehwlrg_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -83,7 +82,7 @@ const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_2 = {
   1e-32,
   {0, NULL, NULL, NULL, NULL},
   lda_xc_1d_ehwlrg_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };
 
 
@@ -100,5 +99,5 @@ const xc_func_info_type xc_func_info_lda_xc_1d_ehwlrg_3 = {
   1e-32,
   {0, NULL, NULL, NULL, NULL},
   lda_xc_1d_ehwlrg_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

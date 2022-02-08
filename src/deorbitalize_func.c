@@ -184,8 +184,8 @@ xc_mgga_evaluate_functional(const xc_func_type *func, size_t np,
   /* Evaluate the functional */
   switch(func->info->family){
   case XC_FAMILY_LDA:
-    xc_lda (func, np, rho,
-            mzk LDA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
+    //xc_lda (func, np, rho,
+    //        mzk LDA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
     break;
   case XC_FAMILY_GGA:
     xc_gga (func, np, rho, sigma,

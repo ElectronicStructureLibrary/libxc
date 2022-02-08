@@ -11,7 +11,6 @@
 #define XC_LDA_XC_TIH   599   /* Neural network LDA from Tozer et al */
 
 #define XC_NO_EXC
-#include "decl_lda.h"
 #include "maple2c/lda_vxc/lda_xc_tih.c"
 #include "work_lda.c"
 
@@ -28,5 +27,5 @@ const xc_func_info_type xc_func_info_lda_xc_tih = {
   5e-24,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

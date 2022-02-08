@@ -10,7 +10,6 @@
 
 #define XC_LDA_X_ERF   546   /* Short-range LDA exchange with error function kernel (erfc) */
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_x_erf.c"
 #include "work_lda.c"
 
@@ -38,5 +37,5 @@ const xc_func_info_type xc_func_info_lda_x_erf = {
   1e-13,
   {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
   xc_lda_x_erf_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

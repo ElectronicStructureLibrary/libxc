@@ -381,25 +381,55 @@ $include <{}.mpl>
   n_var = [0, 0, 0, 0, 0, 0]
   new_c_code = ["", "", "", "", "", ""]
 
+  # this adds a new definition of a local variable
+  def add_variable(to_add):
+    # define 8 variables per line
+    if n_var[total_order] % 8 == 0:
+      if n_var[total_order] != 0:
+        variables[total_order] += ";\n"
+      variables[total_order] += "  double "
+    else:
+      variables[total_order] += ", "
+    n_var[total_order] += 1
+
+    variables[total_order] += to_add
+  
   # for avoiding compilation when high order derivatives are enabled
-  if start_order != 0:
-    new_c_code[total_order] += "  if(order < " + str(start_order) + ") return;\n\n\n"
+  #if start_order != 0:
+  #  new_c_code[total_order] += "  if(order < " + str(start_order) + ") return;\n\n\n"
 
   # we check for strings like 'vrho_0_ = ' and put some
   # relevant if conditions in front
   for line in c_code.splitlines():
 
     found = False
+    # for each order
     for der_order in derivatives:
-      # search for a vrho = statement
+      # Search the last derivative for each order
+      last_derivative = der_order[-1][1]
+      # for unpolarized calculation, last derivative is the '0'
+      if mtype != "pol":
+        last_derivative = re.sub(r"_\d+_", "_0_", last_derivative)
+
+      new_order = re.match(r"\s*" + last_derivative + r"\s*=", line) is not None
+
+      # for each of the derivatives in a given order
       for der in der_order:
+        varname  = re.sub(r"_.*", "", der[1])
+        varorder = re.sub(r".*_(\d+)_", r"\1", der[1])
+        
+        # search for a vrho = statement
         if re.match(r"\s*?" + der[1] + r"\s*=", line):
-          # add instead of assigning. We are still missing a global constant
-          # that can be useful in building hybrid combinations
-          line = re.sub(r"=\s*(.*);", r"+= (\1);", line)
-          res = re.search(r"_([0-9]+)_", der[1])
-          if (mtype == "pol") or (res.group(1) == "0"):
-            test = test_1[total_order] + " != NULL"
+
+          if (mtype == "pol") or (varorder == "0"):
+            # we define a new variable (such as tvrho0) to keep the value
+            add_variable("t" + varname + varorder)
+            line = re.sub(r"(\S+)_(\d+)_\s*=\s*(.*);",
+                          "t" + varname + varorder + r" = \3;", line)
+            new_c_code[total_order] += "  " + line + "\n\n"
+
+            # build the if clause to assign the variable
+            test = "out->" + test_1[total_order] + " != NULL"
 
             if not re.search(r"lapl", der[1]) is None:
               test += " && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)"
@@ -410,34 +440,28 @@ $include <{}.mpl>
             test += " && (p->info->flags & XC_FLAGS_HAVE_" + \
               der_name[total_order] + ")"
             new_c_code[total_order] += "  if(" + test + ")\n"
-            new_c_code[total_order] += "    " + line + "\n\n"
 
+            # add instead of assigning. We are still missing a global constant
+            # that can be useful in building hybrid combinations
+            new_c_code[total_order] += "    out->{}[ip*p->dim.{} + {}] += t{}{};\n\n".format(varname, varname, varorder, varname, varorder)
+            
           found = True
           break
 
-      # Search the last derivative for each order
-      last_derivative = der_order[-1][1]
-      if mtype != "pol":
-        last_derivative = re.sub(r"_\d+_", "_0_", last_derivative)
+        # find if vrho_0_ is on the right of the = sign
+        # this has necessarily to be defined before the
+        # left-hand side of the assignement
+        while re.search(r"=.*" + varname + r"_\d+_", line):
+          line = re.sub(r"(=.*)" + varname + r"_(\d+)_", r"\1t" + varname + r"\2", line)
 
-      if re.match(r"\s*" + last_derivative + r"\s*\+=", line):
+      # if last variable of this order increment total_order
+      if new_order:
+        variables[total_order] += ";\n"
         total_order += 1
-        new_c_code[total_order] += "  if(order < " + str(total_order) + ") return;\n\n\n"
-
-              
+        
     if not found:
       res = re.match(r"(t\d+) =", line)
-      if res:
-        # define 8 variables per line
-        if n_var[total_order] % 8 == 0:
-          if n_var[total_order] != 0:
-            variables[total_order] += ";\n"
-          variables[total_order] += "  double "
-        else:
-          variables[total_order] += ", "
-        n_var[total_order] += 1
-
-        variables[total_order] += res.group(1)
+      if res: add_variable(res.group(1))
 
       new_c_code[total_order] += "  " + line + "\n"
 
@@ -476,12 +500,12 @@ def maple2c_run(params, variables, derivatives, variants, start_order, input_arg
     for order in range(start_order, params['maxorder'] + 1):
       out.write('''
 #ifndef XC_DONT_COMPILE_{}
-
 static inline void
-func_{}_{}(const xc_func_type *p, int order, {} {}_OUT_PARAMS_{}(XC_COMMA double *, ))
+func_{}_{}(const xc_func_type *p, size_t ip, {}, {})
 {{
-'''.format(der_name[order].upper(), der_name[order].lower(), mtype,
-           input_args, output_args, der_name[order].upper()))
+'''.format(der_name[order].upper(),
+           der_name[order].lower(), mtype,
+           input_args, output_args))
 
       # we first print the declaration of the derivatives
       for order2 in range(start_order, order + 1):
@@ -492,7 +516,7 @@ func_{}_{}(const xc_func_type *p, int order, {} {}_OUT_PARAMS_{}(XC_COMMA double
 
       # and now the c_code
       for order2 in range(start_order, order + 1):
-         out.write(c_code[order2] + "\n")
+         out.write(c_code[order2])
 
       out.write("}\n\n")
       out.write("#endif\n\n")

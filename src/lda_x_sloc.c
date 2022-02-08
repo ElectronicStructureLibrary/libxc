@@ -23,7 +23,6 @@ lda_x_sloc_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(lda_x_sloc_params));
 }
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_x_sloc.c"
 #include "work_lda.c"
 
@@ -44,5 +43,5 @@ const xc_func_info_type xc_func_info_lda_x_sloc = {
   1e-15,
   {2, sloc_names, sloc_desc, sloc_values, set_ext_params_cpy},
   lda_x_sloc_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

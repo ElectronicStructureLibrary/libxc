@@ -2161,6 +2161,12 @@ func_reference_type xc_ref_Tran2009_226401 = {
   "@article{Tran2009_226401,\n  author = {Tran, F. and Blaha, P.},\n  title = {Accurate Band Gaps of Semiconductors and Insulators with a Semilocal Exchange-Correlation Potential},\n  journal = {Phys. Rev. Lett.},\n  volume = {102},\n  issue = {22},\n  pages = {226401},\n  year = {2009},\n  month = {Jun},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.102.226401},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.102.226401}\n}\n"
 };
 
+func_reference_type xc_ref_Trepte2022 = {
+  "K. Trepte and J. Voss. Data-driven and constrained optimization of semi-local exchange and non-local correlation functionals for materials and surface chemistry. 2022. arXiv:2201.11106.",
+  "",
+  "@misc{Trepte2022,\n  author = {Trepte, Kai and Voss, Johannes},\n  title = {Data-driven and constrained optimization of semi-local exchange and non-local correlation functionals for materials and surface chemistry},\n  year = {2022},\n  eprint = {2201.11106},\n  archivePrefix = {arXiv},\n  primaryClass = {physics.comp-ph}\n}\n"
+};
+
 func_reference_type xc_ref_Trickey2011_075146 = {
   "S. B. Trickey, V. V. Karasiev, and A. Vela.,  Phys. Rev. B 84, 075146 (2011)",
   "10.1103/PhysRevB.84.075146",

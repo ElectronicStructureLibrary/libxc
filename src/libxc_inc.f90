@@ -1741,6 +1741,12 @@
  ! r^4SCAN| a functional that satisfies the same exact constraints that SCAN does
  integer(c_int), parameter, public :: XC_MGGA_X_R4SCAN  =    650
 
+ ! Exchange part of VCML-rVV10 by Trepte and Voss
+ integer(c_int), parameter, public :: XC_MGGA_X_VCML  =    651
+
+ ! VCML-rVV10 by Trepte and Voss
+ integer(c_int), parameter, public :: XC_MGGA_XC_VCML_RVV10  =    652
+
  ! CAM hybrid screened exchange PBE version
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_PBEH  =    681
 

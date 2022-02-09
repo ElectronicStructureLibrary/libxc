@@ -425,7 +425,7 @@ int main(int argc, char *argv[])
   /* Evaluate xc functional */
   switch(family) {
   case XC_FAMILY_LDA:
-    xc_lda_exc_vxc_fxc_kxc(&func, d.n, d.rho, zk, vrho, v2rho2, v3rho3);
+    xc_lda_exc_vxc_fxc(&func, d.n, d.rho, zk, vrho, v2rho2);
     break;
   case XC_FAMILY_GGA:
     xc_gga(&func, d.n, d.rho, d.sigma, zk, vrho, d.vsigma,

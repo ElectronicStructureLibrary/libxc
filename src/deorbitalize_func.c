@@ -177,15 +177,31 @@ xc_mgga_evaluate_functional(const xc_func_type *func, size_t np,
                             const double *rho, const double *sigma, const double *lapl, const double *tau,
                             double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
+  /* WARNING THIS ROUTINE HAS TO BE REWRITTEN */
+  xc_lda_out_params out;
+  int order;
   double *mzk = NULL;
+
+  order = 0;
+  if(vrho   != 0) order = 1;
+  if(v2rho2 != 0) order = 2;
+  if(v3rho3 != 0) order = 3;
+  if(v4rho4 != 0) order = 4;
+  
   if(func->info->flags & XC_FLAGS_HAVE_EXC)
     mzk = zk;
 
   /* Evaluate the functional */
   switch(func->info->family){
-  case XC_FAMILY_LDA:
-    //xc_lda (func, np, rho,
-    //        mzk LDA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
+  case XC_FAMILY_LDA: {
+    libxc_memset(&out, 0, sizeof(xc_lda_out_params));
+    out.zk     = mzk;
+    out.vrho   = vrho;
+    out.v2rho2 = v2rho2;
+    out.v3rho3 = v3rho3;
+    out.v4rho4 = v4rho4;
+    xc_lda(func, order, np, rho, &out);
+  }
     break;
   case XC_FAMILY_GGA:
     xc_gga (func, np, rho, sigma,

@@ -7,34 +7,40 @@
 *)
 
 (* type: mgga_exc *)
+(* prefix:
+  mgga_xc_b97_mv_params *params;
+
+  assert(p->params != NULL);
+  params = (mgga_xc_b97_mv_params * )(p->params);
+*)
 
 b97mv_par_n := 5:
 
 b97mv_gamma_x := 0.004:
 b97mv_par_x := [
-    [  1.000, 0, 0],
-    [  1.308, 0, 1],
-    [  1.901, 0, 2],
-    [  0.416, 1, 0],
-    [  3.070, 1, 1]
+    [  params_a_c_x[1], 0, 0],
+    [  params_a_c_x[2], 0, 1],
+    [  params_a_c_x[3], 0, 2],
+    [  params_a_c_x[4], 1, 0],
+    [  params_a_c_x[5], 1, 1]
 ]:
 
 b97mv_gamma_ss := 0.2:
 b97mv_par_ss := [
-    [  1.000, 0, 0],
-    [ -1.855, 0, 2],
-    [ -5.668, 1, 0],
-    [-20.497, 3, 2],
-    [-20.364, 4, 2]
+    [  params_a_c_ss[1], 0, 0],
+    [  params_a_c_ss[2], 0, 2],
+    [  params_a_c_ss[3], 1, 0],
+    [  params_a_c_ss[4], 3, 2],
+    [  params_a_c_ss[5], 4, 2]
 ]:
 
 b97mv_gamma_os := 0.006:
 b97mv_par_os := [
-    [  1.000, 0, 0],
-    [  1.573, 0, 1],
-    [ -6.298, 0, 3],
-    [  2.535, 1, 0],
-    [ -6.427, 3, 2]
+    [ params_a_c_os[1], 0, 0],
+    [ params_a_c_os[2], 0, 1],
+    [ params_a_c_os[3], 0, 3],
+    [ params_a_c_os[4], 1, 0],
+    [ params_a_c_os[5], 3, 2]
 ]:
 
 $define lda_x_params

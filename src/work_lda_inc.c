@@ -91,41 +91,47 @@ WORK_LDA(ORDER_TXT, SPIN_TXT)
 #else
 
 __global__ static void
-work_lda_gpu(const XC(func_type) *p, int order, size_t np, const double *rho,
-             double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
+work_lda_gpu(const XC(func_type) *p, int order, size_t np,
+             const double *rho,
+             xc_lda_out_params *out)
 {
-  double my_rho[2] = {0.0, 0.0};
-  double dens;
   size_t ip = blockIdx.x*blockDim.x + threadIdx.x;
+  double dens;
+  double my_rho[2] = {0.0, 0.0};
 
   if(ip >= np) return;
 
-  internal_counters_lda_random(&(p->dim), ip, 0, &rho, &zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
-
-  dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
-  if(dens >= p->dens_threshold) {
-    my_rho[0] = m_max(p->dens_threshold, rho[0]);
-    if(p->nspin == XC_POLARIZED){
-      my_rho[1] = m_max(p->dens_threshold, rho[1]);
-    }
-    if(p->nspin == XC_UNPOLARIZED)
-      func_unpol(p, order, my_rho OUT_PARAMS);
-    else if(p->nspin == XC_POLARIZED)
-      func_pol  (p, order, my_rho OUT_PARAMS);
+  /* Screen low density */
+  dens = (p->nspin == XC_POLARIZED) ? VAR(rho, ip, 0) + VAR(rho, ip, 1) : VAR(rho, ip, 0);
+  if(dens < p->dens_threshold)
+    return;
+  
+  /* sanity check of input parameters */
+  my_rho[0] = m_max(p->dens_threshold, VAR(rho, ip, 0));
+  if(p->nspin == XC_POLARIZED){
+    my_rho[1] = m_max(p->dens_threshold, VAR(rho, ip, 1));
   }
+  
+  FUNC(ORDER_TXT, SPIN_TXT)(p, ip, my_rho, out);
 }
 
+static void
+WORK_LDA(ORDER_TXT, SPIN_TXT)
+(const XC(func_type) *p, size_t np, const double *rho, xc_lda_out_params *out)
+{
   //make a copy of 'p' since it might be in host-only memory
-  XC(func_type) * pcuda = (XC(func_type) *) libxc_malloc(sizeof(XC(func_type)));
+  XC(func_type) *pcuda = (XC(func_type) *) libxc_malloc(sizeof(XC(func_type)));
 
   *pcuda = *p;
 
   size_t nblocks = np/CUDA_BLOCK_SIZE;
   if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
 
-  work_lda_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(pcuda, order, np, rho,
-                                             zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
+  work_lda_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>
+    (pcuda, order, np, rho,
+     out->zk, out->vrho, out->v2rho2, out->v3rho3, out->v4rho4);
 
   libxc_free(pcuda);
+}
 
 #endif

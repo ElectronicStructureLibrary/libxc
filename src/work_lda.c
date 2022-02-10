@@ -14,8 +14,8 @@
 
 /* define auxiliary functions to NULL in case they are not available */
 #if defined(XC_DONT_COMPILE_EXC) || maple2c_order < 0 || defined(XC_NO_EXC)
-static xc_lda_funcs work_lda_exc_unpol = NULL;
-static xc_lda_funcs work_lda_exc_pol = NULL;
+static const xc_lda_funcs work_lda_exc_unpol = NULL;
+static const xc_lda_funcs work_lda_exc_pol = NULL;
 #else
 #define ORDER_TXT exc
 #define SPIN_TXT  unpol
@@ -28,8 +28,8 @@ static xc_lda_funcs work_lda_exc_pol = NULL;
 #endif
 
 #if defined(XC_DONT_COMPILE_VXC) || maple2c_order < 1
-static xc_lda_funcs work_lda_vxc_unpol = NULL;
-static xc_lda_funcs work_lda_vxc_pol = NULL;
+static const xc_lda_funcs work_lda_vxc_unpol = NULL;
+static const xc_lda_funcs work_lda_vxc_pol = NULL;
 #else
 #define ORDER_TXT vxc
 #define SPIN_TXT  unpol
@@ -42,8 +42,8 @@ static xc_lda_funcs work_lda_vxc_pol = NULL;
 #endif
 
 #if defined(XC_DONT_COMPILE_FXC) || maple2c_order < 2
-static xc_lda_funcs work_lda_fxc_unpol = NULL;
-static xc_lda_funcs work_lda_fxc_pol = NULL;
+static const xc_lda_funcs work_lda_fxc_unpol = NULL;
+static const xc_lda_funcs work_lda_fxc_pol = NULL;
 #else
 #define ORDER_TXT fxc
 #define SPIN_TXT  unpol
@@ -56,8 +56,8 @@ static xc_lda_funcs work_lda_fxc_pol = NULL;
 #endif
 
 #if defined(XC_DONT_COMPILE_KXC) || maple2c_order < 3
-static xc_lda_funcs work_lda_kxc_unpol = NULL;
-static xc_lda_funcs work_lda_kxc_pol = NULL;
+static const xc_lda_funcs work_lda_kxc_unpol = NULL;
+static const xc_lda_funcs work_lda_kxc_pol = NULL;
 #else
 #define ORDER_TXT kxc
 #define SPIN_TXT  unpol
@@ -70,8 +70,8 @@ static xc_lda_funcs work_lda_kxc_pol = NULL;
 #endif
 
 #if defined(XC_DONT_COMPILE_LXC) || maple2c_order < 4
-static xc_lda_funcs work_lda_lxc_unpol = NULL;
-static xc_lda_funcs work_lda_lxc_pol = NULL;
+static const xc_lda_funcs work_lda_lxc_unpol = NULL;
+static const xc_lda_funcs work_lda_lxc_pol = NULL;
 #else
 #define ORDER_TXT lxc
 #define SPIN_TXT  unpol
@@ -84,7 +84,7 @@ static xc_lda_funcs work_lda_lxc_pol = NULL;
 #endif
 
 /* we construct a structure containing all variants */
-static xc_lda_funcs_variants work_lda =
+static const xc_lda_funcs_variants work_lda =
   {
    {work_lda_exc_unpol, work_lda_vxc_unpol, work_lda_fxc_unpol, work_lda_kxc_unpol, work_lda_lxc_unpol},
    {work_lda_exc_pol,   work_lda_vxc_pol,   work_lda_fxc_pol,   work_lda_kxc_pol,   work_lda_lxc_pol}

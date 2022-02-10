@@ -220,7 +220,7 @@ typedef struct{
 
   void (*init)(struct xc_func_type *p);
   void (*end) (struct xc_func_type *p);
-  xc_lda_funcs_variants *lda;
+  const xc_lda_funcs_variants *lda;
 
   void (*gga) (const struct xc_func_type *p, size_t np,
                const double *rho, const double *sigma,

@@ -259,8 +259,8 @@ double xc_func_info_get_ext_params_default_value(const xc_func_info_type *info, 
 
 
 struct xc_dimensions{
-  size_t rho, sigma, lapl, tau;       /* spin dimensions of the arrays */
-  size_t zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, );
+  int rho, sigma, lapl, tau;       /* spin dimensions of the arrays */
+  int zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, );
 };
 
 typedef struct xc_dimensions xc_dimensions;

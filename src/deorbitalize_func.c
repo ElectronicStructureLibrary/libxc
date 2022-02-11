@@ -178,7 +178,8 @@ xc_mgga_evaluate_functional(const xc_func_type *func, size_t np,
                             double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
   /* WARNING THIS ROUTINE HAS TO BE REWRITTEN */
-  xc_lda_out_params out;
+  xc_lda_out_params lda_out;
+  xc_gga_out_params gga_out;
   int order;
   double *mzk = NULL;
 
@@ -193,19 +194,23 @@ xc_mgga_evaluate_functional(const xc_func_type *func, size_t np,
 
   /* Evaluate the functional */
   switch(func->info->family){
-  case XC_FAMILY_LDA: {
-    libxc_memset(&out, 0, sizeof(xc_lda_out_params));
-    out.zk     = mzk;
-    out.vrho   = vrho;
-    out.v2rho2 = v2rho2;
-    out.v3rho3 = v3rho3;
-    out.v4rho4 = v4rho4;
-    xc_lda(func, order, np, rho, &out);
-  }
+  case XC_FAMILY_LDA:
+    libxc_memset(&lda_out, 0, sizeof(xc_lda_out_params));
+    lda_out.zk     = mzk;
+    lda_out.vrho   = vrho;
+    lda_out.v2rho2 = v2rho2;
+    lda_out.v3rho3 = v3rho3;
+    lda_out.v4rho4 = v4rho4;
+    xc_lda(func, order, np, rho, &lda_out);
     break;
   case XC_FAMILY_GGA:
-    xc_gga (func, np, rho, sigma,
-            mzk GGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
+    libxc_memset(&gga_out, 0, sizeof(xc_gga_out_params));
+    gga_out.zk     = mzk;
+    gga_out.vrho   = vrho; gga_out.vsigma = vsigma;
+    gga_out.v2rho2 = v2rho2; gga_out.v2rhosigma = v2rhosigma; gga_out.v2sigma2 = v2sigma2;
+    gga_out.v3rho3 = v3rho3; gga_out.v3rho2sigma = v3rho2sigma; gga_out.v3rhosigma2 = v3rhosigma2; gga_out.v3sigma3 = v3sigma3;
+    gga_out.v4rho4 = v4rho4; gga_out.v4rho3sigma = v4rho3sigma; gga_out.v4rho2sigma2 = v4rho2sigma2; gga_out.v4rhosigma3 = v4rhosigma3; gga_out.v4sigma4 = v4sigma4;
+    xc_gga(func, order, np, rho, sigma, &gga_out);
     break;
   case XC_FAMILY_MGGA:
     xc_mgga(func, np, rho, sigma, lapl, tau,

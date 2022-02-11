@@ -197,12 +197,29 @@ typedef struct {
   double *v4rho4;
 } xc_lda_out_params;
 
+typedef struct {
+  double *zk;
+  double *vrho, *vsigma;
+  double *v2rho2, *v2rhosigma, *v2sigma2;
+  double *v3rho3, *v3rho2sigma, *v3rhosigma2, *v3sigma3;
+  double *v4rho4, *v4rho3sigma, *v4rho2sigma2, *v4rhosigma3, *v4sigma4;
+} xc_gga_out_params;
+
+
 typedef void (*xc_lda_funcs) (const struct xc_func_type *p, size_t np,
-                              const double *rho, xc_lda_out_params *out);
+                              const double *rho,
+                              xc_lda_out_params *out);
 typedef struct {
     xc_lda_funcs unpol[5], pol[5];
 } xc_lda_funcs_variants;
   
+typedef void (*xc_gga_funcs) (const struct xc_func_type *p, size_t np,
+                              const double *rho, const double *sigma,
+                              xc_gga_out_params *out);
+typedef struct {
+    xc_gga_funcs unpol[5], pol[5];
+} xc_gga_funcs_variants;
+
 typedef struct{
   int   number;   /* identifier number */
   int   kind;     /* XC_EXCHANGE, XC_CORRELATION, XC_EXCHANGE_CORRELATION, XC_KINETIC */
@@ -221,10 +238,9 @@ typedef struct{
   void (*init)(struct xc_func_type *p);
   void (*end) (struct xc_func_type *p);
   const xc_lda_funcs_variants *lda;
+  const xc_gga_funcs_variants *gga;
 
-  void (*gga) (const struct xc_func_type *p, size_t np,
-               const double *rho, const double *sigma,
-               double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
+
   void (*mgga)(const struct xc_func_type *p, size_t np,
                const double *rho, const double *sigma, const double *lapl_rho, const double *tau,
                double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
@@ -357,8 +373,8 @@ double xc_func_get_ext_params_value(const xc_func_type *p, int number);
 void xc_lda (const xc_func_type *p, int order, size_t np,
              const double *rho, xc_lda_out_params *out);
 /** Evaluate a      GGA functional */
-void xc_gga (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
-             double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
+void xc_gga (const xc_func_type *p, int order, size_t np,
+             const double *rho, const double *sigma, xc_gga_out_params *out);
 /** Evaluate a meta-GGA functional */
 void xc_mgga(const xc_func_type *p, size_t np,
              const double *rho, const double *sigma, const double *lapl_rho, const double *tau,

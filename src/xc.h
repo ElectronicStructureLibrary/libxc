@@ -210,8 +210,15 @@ typedef void (*xc_lda_funcs) (const struct xc_func_type *p, size_t np,
                               const double *rho,
                               xc_lda_out_params *out);
 typedef struct {
-    xc_lda_funcs unpol[5], pol[5];
+  const xc_lda_funcs unpol[5], pol[5];
 } xc_lda_funcs_variants;
+  
+typedef void (*xc_gga_funcs) (const struct xc_func_type *p, size_t np,
+                              const double *rho, const double *sigma,
+                              xc_gga_out_params *out);
+typedef struct {
+  const xc_gga_funcs unpol[5], pol[5];
+} xc_gga_funcs_variants;
 
 typedef struct{
   int   number;   /* identifier number */

@@ -194,14 +194,15 @@ xc_mgga_evaluate_functional(const xc_func_type *func, size_t np,
 
   /* Evaluate the functional */
   switch(func->info->family){
-  case XC_FAMILY_LDA:
-    libxc_memset(&lda_out, 0, sizeof(xc_lda_out_params));
-    lda_out.zk     = mzk;
-    lda_out.vrho   = vrho;
-    lda_out.v2rho2 = v2rho2;
-    lda_out.v3rho3 = v3rho3;
-    lda_out.v4rho4 = v4rho4;
-    xc_lda(func, order, np, rho, &lda_out);
+  case XC_FAMILY_LDA: {
+    libxc_memset(&out, 0, sizeof(xc_lda_out_params));
+    out.zk     = mzk;
+    out.vrho   = vrho;
+    out.v2rho2 = v2rho2;
+    out.v3rho3 = v3rho3;
+    out.v4rho4 = v4rho4;
+    xc_lda_new(func, order, np, rho, &out);
+  }
     break;
   case XC_FAMILY_GGA:
     libxc_memset(&gga_out, 0, sizeof(xc_gga_out_params));

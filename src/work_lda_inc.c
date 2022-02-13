@@ -121,18 +121,21 @@ static void
 WORK_LDA(ORDER_TXT, SPIN_TXT)
 (const XC(func_type) *p, size_t np, const double *rho, xc_lda_out_params *out)
 {
-  //make a copy of 'p' since it might be in host-only memory
+  //make a copy of 'p' and 'out' since they might be in host-only memory
   XC(func_type) *pcuda = (XC(func_type) *) libxc_malloc(sizeof(XC(func_type)));
+  xc_lda_out_params *outcuda = (xc_lda_out_params *) libxc_malloc(sizeof(xc_lda_out_params));
 
-  *pcuda = *p;
+  cudaMemcpy(pcuda, p, sizeof(XC(func_type)), cudaMemcpyHostToDevice);
+  cudaMemcpy(outcuda, out, sizeof(xc_lda_out_params), cudaMemcpyHostToDevice);
 
   size_t nblocks = np/CUDA_BLOCK_SIZE;
   if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
 
   WORK_LDA_GPU(ORDER_TXT, SPIN_TXT)<<<nblocks, CUDA_BLOCK_SIZE>>>
-    (pcuda, np, rho, out);
+    (pcuda, np, rho, outcuda);
 
   libxc_free(pcuda);
+  libxc_free(outcuda);
 }
 
 #endif

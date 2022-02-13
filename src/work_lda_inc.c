@@ -18,13 +18,15 @@
 #endif
 
 /* macro to simpligy accessing the variables */
-#define VAR(var, ip, index)    var[ip*p->dim.var + index]
-#define WORK_LDA_(order, spin) work_lda_ ## order ## _ ## spin
-#define FUNC_(order, spin)     func_     ## order ## _ ## spin
+#define VAR(var, ip, index)        var[ip*p->dim.var + index]
+#define WORK_LDA_(order, spin)     work_lda_ ## order ## _ ## spin
+#define WORK_LDA_GPU_(order, spin) work_lda_gpu_ ## order ## _ ## spin
+#define FUNC_(order, spin)         func_     ## order ## _ ## spin
 
 /* we need double escaping of the preprocessor macros */
-#define WORK_LDA(order, spin) WORK_LDA_(order, spin)
-#define FUNC(order, spin)     FUNC_(order, spin)
+#define WORK_LDA(order, spin)     WORK_LDA_(order, spin)
+#define WORK_LDA_GPU(order, spin) WORK_LDA_GPU_(order, spin)
+#define FUNC(order, spin)         FUNC_(order, spin)
 
 #ifndef HAVE_CUDA
 
@@ -90,7 +92,8 @@ WORK_LDA(ORDER_TXT, SPIN_TXT)
 #else
 
 __global__ static void
-work_lda_gpu(const XC(func_type) *p, int order, size_t np,
+WORK_LDA_GPU(ORDER_TXT, SPIN_TXT)
+(const XC(func_type) *p, size_t np,
              const double *rho,
              xc_lda_out_params *out)
 {
@@ -104,13 +107,13 @@ work_lda_gpu(const XC(func_type) *p, int order, size_t np,
   dens = (p->nspin == XC_POLARIZED) ? VAR(rho, ip, 0) + VAR(rho, ip, 1) : VAR(rho, ip, 0);
   if(dens < p->dens_threshold)
     return;
-  
+
   /* sanity check of input parameters */
   my_rho[0] = m_max(p->dens_threshold, VAR(rho, ip, 0));
   if(p->nspin == XC_POLARIZED){
     my_rho[1] = m_max(p->dens_threshold, VAR(rho, ip, 1));
   }
-  
+
   FUNC(ORDER_TXT, SPIN_TXT)(p, ip, my_rho, out);
 }
 
@@ -126,9 +129,8 @@ WORK_LDA(ORDER_TXT, SPIN_TXT)
   size_t nblocks = np/CUDA_BLOCK_SIZE;
   if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
 
-  work_lda_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>
-    (pcuda, order, np, rho,
-     out->zk, out->vrho, out->v2rho2, out->v3rho3, out->v4rho4);
+  WORK_LDA_GPU(ORDER_TXT, SPIN_TXT)<<<nblocks, CUDA_BLOCK_SIZE>>>
+    (pcuda, np, rho, out);
 
   libxc_free(pcuda);
 }

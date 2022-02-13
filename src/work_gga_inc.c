@@ -18,13 +18,15 @@
 #endif
 
 /* macro to simpligy accessing the variables */
-#define VAR(var, ip, index)    var[ip*p->dim.var + index]
-#define WORK_GGA_(order, spin) work_gga_ ## order ## _ ## spin
-#define FUNC_(order, spin)     func_     ## order ## _ ## spin
+#define VAR(var, ip, index)        var[ip*p->dim.var + index]
+#define WORK_GGA_(order, spin)     work_gga_ ## order ## _ ## spin
+#define WORK_GGA_GPU_(order, spin) work_gga_gpu_ ## order ## _ ## spin
+#define FUNC_(order, spin)         func_     ## order ## _ ## spin
 
 /* we need double escaping of the preprocessor macros */
-#define WORK_GGA(order, spin)  WORK_GGA_(order, spin)
-#define FUNC(order, spin)      FUNC_(order, spin)
+#define WORK_GGA(order, spin)     WORK_GGA_(order, spin)
+#define WORK_GGA_GPU(order, spin) WORK_GGA_GPU_(order, spin)
+#define FUNC(order, spin)         FUNC_(order, spin)
 
 #ifndef HAVE_CUDA
 
@@ -58,7 +60,7 @@ WORK_GGA(ORDER_TXT, SPIN_TXT)
 
       my_rho[1] = m_max(p->dens_threshold, VAR(rho, ip, 1));
       my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, VAR(sigma, ip, 2));
-      
+
       my_sigma[1] = VAR(sigma, ip, 1);
       s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
       /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
@@ -104,22 +106,10 @@ WORK_GGA(ORDER_TXT, SPIN_TXT)
 
 #else
 
-//make a copy of 'p' since it might be in host-only memory
-  XC(func_type) * pcuda = (XC(func_type) *) libxc_malloc(sizeof(XC(func_type)));
-
-  *pcuda = *p;
-
-  size_t nblocks = np/CUDA_BLOCK_SIZE;
-  if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
-
-  work_gga_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(pcuda, order, np, rho, sigma,
-                                             zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
-
-  libxc_free(pcuda);
 
 __global__ static void
-work_gga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, const double *sigma,
-             double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
+WORK_GGA_GPU(ORDER_TXT, SPIN_TXT)(const XC(func_type) *p, size_t np,
+const double *rho, const double *sigma, xc_gga_out_params *out)
 {
   size_t ip = blockIdx.x*blockDim.x + threadIdx.x;
   double dens;
@@ -128,34 +118,49 @@ work_gga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, co
 
   if(ip >= np) return;
 
-  internal_counters_gga_random(&(p->dim), ip, 0, &rho, &sigma,
-                               &zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
+  /* Screen low density */
+  dens = (p->nspin == XC_POLARIZED) ? VAR(rho, ip, 0) + VAR(rho, ip, 1) : VAR(rho, ip, 0);
+  if(dens < p->dens_threshold)
+    return;
 
-  /* Density screening */
-  dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
-  if(dens >= p->dens_threshold) {
-    /* sanity check on input parameters */
-    my_rho[0]   = m_max(p->dens_threshold, rho[0]);
-    my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[0]);
-    if(p->nspin == XC_POLARIZED){
-      double s_ave;
-      
-      my_rho[1]   = m_max(p->dens_threshold, rho[1]);
-      my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[2]);
-      
-      my_sigma[1] = sigma[1];
-      s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
-      /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
-      my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
-      /* Since |grad n_up - grad n_down|^2 > 0 we also have */
-      my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
-    }
-    
-    if(p->nspin == XC_UNPOLARIZED)
-      func_unpol(p, order, my_rho, my_sigma OUT_PARAMS);
-    else if(p->nspin == XC_POLARIZED)
-      func_pol  (p, order, my_rho, my_sigma OUT_PARAMS);
+  /* sanity check of input parameters */
+  my_rho[0] = m_max(p->dens_threshold, VAR(rho, ip, 0));
+  my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, VAR(sigma, ip, 0));
+  if(p->nspin == XC_POLARIZED){
+    double s_ave;
+
+    my_rho[1] = m_max(p->dens_threshold, VAR(rho, ip, 1));
+    my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, VAR(sigma, ip, 2));
+
+    my_sigma[1] = VAR(sigma, ip, 1);
+    s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
+    /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
+    my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
+    /* Since |grad n_up - grad n_down|^2 > 0 we also have */
+    my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
   }
+
+  FUNC(ORDER_TXT, SPIN_TXT)(p, ip, my_rho, my_sigma, out);
+}
+
+
+static void
+WORK_GGA(ORDER_TXT, SPIN_TXT)
+(const XC(func_type) *p, size_t np, const double *rho, const double *sigma,
+         xc_gga_out_params *out)
+{
+  //make a copy of 'p' since it might be in host-only memory
+  XC(func_type) *pcuda = (XC(func_type) *) libxc_malloc(sizeof(XC(func_type)));
+
+  *pcuda = *p;
+
+  size_t nblocks = np/CUDA_BLOCK_SIZE;
+  if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
+
+  WORK_GGA_GPU(ORDER_TXT, SPIN_TXT)<<<nblocks, CUDA_BLOCK_SIZE>>>
+    (pcuda, np, rho, sigma, out);
+
+  libxc_free(pcuda);
 }
 
 #endif

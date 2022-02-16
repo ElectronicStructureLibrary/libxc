@@ -10,6 +10,106 @@
 #include "util.h"
 #include "funcs_gga.c"
 
+/* macro to check is a buffer exists */
+#define check_out_var(VAR) if(out->VAR == NULL){fprintf(stderr, "error: output variable, out->" #VAR ", is a null pointer\n"); exit(1);}
+
+void
+xc_gga_sanity_check(const xc_func_info_type *info, int order, xc_gga_out_params *out)
+{
+  /* sanity check */
+  if(order < 0 || order > 4){
+    fprintf(stderr, "Order of derivatives '%d' not implemented\n",
+	    order);
+    exit(1);
+  }
+  
+  /* sanity check */
+  if(out->zk != NULL && !(info->flags & XC_FLAGS_HAVE_EXC)){
+    fprintf(stderr, "Functional '%s' does not provide an implementation of Exc\n",
+	    info->name);
+    exit(1);
+  }
+
+  if(out->vrho != NULL){
+    if(!(info->flags & XC_FLAGS_HAVE_VXC)){
+      fprintf(stderr, "Functional '%s' does not provide an implementation of vxc\n",
+              info->name);
+      exit(1);
+    }
+    check_out_var(vsigma);
+  }
+
+  if(out->v2rho2 != NULL){
+    if(!(info->flags & XC_FLAGS_HAVE_FXC)){
+      fprintf(stderr, "Functional '%s' does not provide an implementation of fxc\n",
+              info->name);
+      exit(1);
+    }
+    check_out_var(v2rhosigma); 
+    check_out_var(v2sigma2);
+  }
+
+  if(out->v3rho3){
+    if(!(info->flags & XC_FLAGS_HAVE_KXC)){
+      fprintf(stderr, "Functional '%s' does not provide an implementation of kxc\n",
+              info->name);
+      exit(1);
+    }
+    check_out_var(v3rho2sigma);
+    check_out_var(v3rhosigma2);
+    check_out_var(v3sigma3);
+  }
+
+  if(out->v4rho4 != NULL){
+    if(!(info->flags & XC_FLAGS_HAVE_LXC)){
+      fprintf(stderr, "Functional '%s' does not provide an implementation of lxc\n",
+              info->name);
+      exit(1);
+    }
+    check_out_var(v4rho3sigma);
+    check_out_var(v4rho2sigma2);
+    check_out_var(v4rhosigma3);
+    check_out_var(v4sigma4);
+  }
+}
+
+void
+xc_gga_initalize(const xc_func_type *func, size_t np, xc_gga_out_params *out)
+{
+  const xc_dimensions *dim = &(func->dim);
+
+    /* initialize output to zero */
+  if(out->zk != NULL)
+    libxc_memset(out->zk, 0, dim->zk*np*sizeof(double));
+
+  if(out->vrho != NULL){
+    libxc_memset(out->vrho,   0, dim->vrho  *np*sizeof(double));
+    libxc_memset(out->vsigma, 0, dim->vsigma*np*sizeof(double));
+  }
+
+  if(out->v2rho2 != NULL){
+    libxc_memset(out->v2rho2,     0, dim->v2rho2    *np*sizeof(double));
+    libxc_memset(out->v2rhosigma, 0, dim->v2rhosigma*np*sizeof(double));
+    libxc_memset(out->v2sigma2,   0, dim->v2sigma2  *np*sizeof(double));
+  }
+
+  if(out->v3rho3 != NULL){
+    libxc_memset(out->v3rho3,      0, dim->v3rho3     *np*sizeof(double));
+    libxc_memset(out->v3rho2sigma, 0, dim->v3rho2sigma*np*sizeof(double));
+    libxc_memset(out->v3rhosigma2, 0, dim->v3rhosigma2*np*sizeof(double));
+    libxc_memset(out->v3sigma3,    0, dim->v3sigma3   *np*sizeof(double));
+  }
+
+  if(out->v4rho4 != NULL){
+    libxc_memset(out->v4rho4,       0, dim->v4rho4      *np*sizeof(double));
+    libxc_memset(out->v4rho3sigma,  0, dim->v4rho3sigma *np*sizeof(double));
+    libxc_memset(out->v4rho2sigma2, 0, dim->v4rho2sigma2*np*sizeof(double));
+    libxc_memset(out->v4rhosigma3,  0, dim->v4rhosigma3 *np*sizeof(double));
+    libxc_memset(out->v4sigma4,     0, dim->v4sigma4    *np*sizeof(double));
+   }
+
+}
+
 /* Some useful formulas:
 
    sigma_st          = grad rho_s . grad rho_t

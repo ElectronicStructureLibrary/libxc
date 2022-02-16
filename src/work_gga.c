@@ -12,64 +12,59 @@
  * @brief This file is to be included in GGA functionals.
  */
 
-#ifdef XC_DEBUG
-#define __USE_GNU
-#include <fenv.h>
+/* define auxiliary functions to NULL in case they are not available */
+#if defined(XC_DONT_COMPILE_EXC) || maple2c_order < 0 || defined(XC_NO_EXC)
+#define work_gga_exc_unpol NULL
+#define work_gga_exc_pol NULL
+#else
+#define ORDER_TXT exc
+#define SPIN_TXT  unpol
+#include "work_gga_inc.c"
+#undef SPIN_TXT
+#define SPIN_TXT  pol
+#include "work_gga_inc.c"
+#undef SPIN_TXT
+#undef ORDER_TXT
 #endif
 
-/* hack to avoid compiler warnings */
-#define NOARG
-
-#ifdef XC_NO_EXC
-#define OUT_PARAMS GGA_OUT_PARAMS_NO_EXC(XC_COMMA, )
+#if defined(XC_DONT_COMPILE_VXC) || maple2c_order < 1
+#define work_gga_vxc_unpol NULL
+#define work_gga_vxc_pol NULL
 #else
 #define OUT_PARAMS XC_COMMA zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA, )
 #endif
 
-#ifdef HAVE_CUDA
-__global__ static void
-work_gga_gpu(const XC(func_type) *p, int order, size_t np, const double *rho, const double *sigma,
-             double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
+#if defined(XC_DONT_COMPILE_FXC) || maple2c_order < 2
+#define work_gga_fxc_unpol NULL
+#define work_gga_fxc_pol NULL
+#else
+#define ORDER_TXT fxc
+#define SPIN_TXT  unpol
+#include "work_gga_inc.c"
+#undef SPIN_TXT
+#define SPIN_TXT  pol
+#include "work_gga_inc.c"
+#undef SPIN_TXT
+#undef ORDER_TXT
 #endif
 
-/**
- * @param[in,out] func_type: pointer to functional structure
- */
-static void
-work_gga(const XC(func_type) *p, size_t np,
-         const double *rho, const double *sigma,
-         double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
-{
-  int order = -1;
-
-  if(zk     != NULL) order = 0;
-  if(vrho   != NULL) order = 1;
-  if(v2rho2 != NULL) order = 2;
-  if(v3rho3 != NULL) order = 3;
-  if(v4rho4 != NULL) order = 4;
-
-  if(order < 0) return;
-
-#ifdef XC_DEBUG
-  /* This throws an exception when floating point errors are encountered */
-  /*feenableexcept(FE_DIVBYZERO | FE_INVALID);*/
+#if defined(XC_DONT_COMPILE_KXC) || maple2c_order < 3
+#define work_gga_kxc_unpol NULL
+#define work_gga_kxc_pol NULL
+#else
+#define ORDER_TXT kxc
+#define SPIN_TXT  unpol
+#include "work_gga_inc.c"
+#undef SPIN_TXT
+#define SPIN_TXT  pol
+#include "work_gga_inc.c"
+#undef SPIN_TXT
+#undef ORDER_TXT
 #endif
 
-#ifdef HAVE_CUDA
-
-  //make a copy of 'p' since it might be in host-only memory
-  XC(func_type) * pcuda = (XC(func_type) *) libxc_malloc(sizeof(XC(func_type)));
-
-  *pcuda = *p;
-
-  size_t nblocks = np/CUDA_BLOCK_SIZE;
-  if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
-
-  work_gga_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(pcuda, order, np, rho, sigma,
-                                             zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
-
-  libxc_free(pcuda);
-
+#if defined(XC_DONT_COMPILE_LXC) || maple2c_order < 4
+#define work_gga_lxc_unpol NULL
+#define work_gga_lxc_pol NULL
 #else
   size_t ip;
   double dens;

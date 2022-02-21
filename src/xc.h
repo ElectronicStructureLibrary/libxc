@@ -189,6 +189,7 @@ typedef struct{
 } func_params_type;
 
 
+/* In the future these three structures will be unified */
 typedef struct {
   double *zk;
   double *vrho;
@@ -205,20 +206,61 @@ typedef struct {
   double *v4rho4, *v4rho3sigma, *v4rho2sigma2, *v4rhosigma3, *v4sigma4;
 } xc_gga_out_params;
 
-
-typedef void (*xc_lda_funcs) (const struct xc_func_type *p, size_t np,
-                              const double *rho,
-                              xc_lda_out_params *out);
+typedef struct {
+  /* order 0 */
+  double *zk;
+  /* order 1 */
+  double *vrho, *vsigma, *vlapl, *vtau;
+  /* order 2 */
+  double *v2rho2, *v2rhosigma, *v2rholapl, *v2rhotau, *v2sigma2;
+  double *v2sigmalapl, *v2sigmatau, *v2lapl2, *v2lapltau, *v2tau2;
+  /* order 3 */
+  double *v3rho3, *v3rho2sigma, v3rho2lapl, *v3rho2tau, *v3rhosigma2;
+  double *v3rhosigmalapl, *v3rhosigmatau, *v3rholapl2, *v3rholapltau;
+  double *v3rhotau2, *v3sigma3, *v3sigma2lapl, *v3sigma2tau;
+  double *v3sigmalapl2, *v3sigmalapltau, *v3sigmatau2, *v3lapl3;
+  double *v3lapl2tau, *v3lapltau2, *v3tau3;
+  /* order 4 */
+  double *v4rho4, *v4rho3sigma, *v4rho3lapl, *v4rho3tau, *v4rho2sigma2;
+  double *v4rho2sigmalapl, *v4rho2sigmatau, *v4rho2lapl2, *v4rho2lapltau;
+  double *v4rho2tau2, *v4rhosigma3, *v4rhosigma2lapl, *v4rhosigma2tau;
+  double *v4rhosigmalapl2, *v4rhosigmalapltau,  *v4rhosigmatau2;
+  double *v4rholapl3, *v4rholapl2tau, *v4rholapltau2, *v4rhotau3;
+  double *v4sigma4, *v4sigma3lapl, *v4sigma3tau, *v4sigma2lapl2;
+  double *v4sigma2lapltau, *v4sigma2tau2, *v4sigmalapl3, *v4sigmalapl2tau;
+  double *v4sigmalapltau2, *v4sigmatau3, *v4lapl4, *v4lapl3tau;
+  double *v4lapl2tau2, *v4lapltau3, *v4tau4
+} xc_mgga_out_params;
+t
+/* type of the lda function */
+ypedef void (*xc_lda_funcs)
+(const struct xc_func_type *p, size_t np,
+ const double *rho,
+ xc_lda_out_params *out);
+  
 typedef struct {
   const xc_lda_funcs unpol[5], pol[5];
 } xc_lda_funcs_variants;
   
-typedef void (*xc_gga_funcs) (const struct xc_func_type *p, size_t np,
-                              const double *rho, const double *sigma,
-                              xc_gga_out_params *out);
+/* type of the gga function */
+typedef void (*xc_gga_funcs)
+(const struct xc_func_type *p, size_t np,
+ const double *rho, const double *sigma,
+ xc_gga_out_params *out);
+  
 typedef struct {
   const xc_gga_funcs unpol[5], pol[5];
 } xc_gga_funcs_variants;
+
+/* type of the mgga function */
+typedef void (*xc_mgga_funcs)
+(const struct xc_func_type *p, size_t np,
+ const double *rho, const double *sigma, const double *lapl, const double *tau,
+ xc_mgga_out_params *out);
+typedef struct {
+  const xc_mgga_funcs unpol[5], pol[5];
+} xc_mgga_funcs_variants;
+
 
 typedef struct{
   int   number;   /* identifier number */
@@ -237,13 +279,9 @@ typedef struct{
 
   void (*init)(struct xc_func_type *p);
   void (*end) (struct xc_func_type *p);
-  const xc_lda_funcs_variants *lda;
-  const xc_gga_funcs_variants *gga;
-
-
-  void (*mgga)(const struct xc_func_type *p, size_t np,
-               const double *rho, const double *sigma, const double *lapl_rho, const double *tau,
-               double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
+  const xc_lda_funcs_variants  *lda;
+  const xc_gga_funcs_variants  *gga;
+  const xc_mgga_funcs_variants *mgga;
 } xc_func_info_type;
 
 

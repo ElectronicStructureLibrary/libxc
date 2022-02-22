@@ -447,7 +447,7 @@ xc_mgga_exc_vxc(const xc_func_type *p, size_t np,
   SET_ORDER_0;
   SET_ORDER_1;
 
-  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
+  xc_mgga_new(p, 1, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_exc_vxc_fxc(const xc_func_type *p, size_t np,
@@ -463,7 +463,7 @@ void xc_mgga_exc_vxc_fxc(const xc_func_type *p, size_t np,
   SET_ORDER_1;
   SET_ORDER_2;
 
-  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
+  xc_mgga_new(p, 2, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_vxc_fxc(const xc_func_type *p, size_t np,
@@ -478,7 +478,7 @@ void xc_mgga_vxc_fxc(const xc_func_type *p, size_t np,
   SET_ORDER_1;
   SET_ORDER_2;
 
-  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
+  xc_mgga_new(p, 2, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np,
@@ -501,7 +501,7 @@ void xc_mgga_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np,
   SET_ORDER_2;
   SET_ORDER_3;
 
-  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
+  xc_mgga_new(p, 3, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_vxc_fxc_kxc(const xc_func_type *p, size_t np,
@@ -523,7 +523,7 @@ void xc_mgga_vxc_fxc_kxc(const xc_func_type *p, size_t np,
   SET_ORDER_2;
   SET_ORDER_3;
 
-  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
+  xc_mgga_new(p, 3, np, rho, sigma, lapl, tau, &out);
 }
 
 
@@ -536,7 +536,7 @@ xc_mgga_vxc(const xc_func_type *p, size_t np,
   libxc_memset(&out, 0, sizeof(xc_mgga_out_params));
   SET_ORDER_1;
 
-  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
+  xc_mgga_new(p, 1, np, rho, sigma, lapl, tau, &out);
 }
 
 void
@@ -550,7 +550,7 @@ xc_mgga_fxc(const xc_func_type *p, size_t np,
   libxc_memset(&out, 0, sizeof(xc_mgga_out_params));
   SET_ORDER_2;
 
-  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
+  xc_mgga_new(p, 2, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_kxc(const xc_func_type *p, size_t np,
@@ -566,7 +566,7 @@ void xc_mgga_kxc(const xc_func_type *p, size_t np,
   libxc_memset(&out, 0, sizeof(xc_mgga_out_params));
   SET_ORDER_3;
 
-  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
+  xc_mgga_new(p, 3, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_lxc(const xc_func_type *p, size_t np,
@@ -585,5 +585,5 @@ void xc_mgga_lxc(const xc_func_type *p, size_t np,
   libxc_memset(&out, 0, sizeof(xc_mgga_out_params));
   SET_ORDER_4;
 
-  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
+  xc_mgga_new(p, 4, np, rho, sigma, lapl, tau, &out);
 }

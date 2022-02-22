@@ -28,7 +28,6 @@ static const char  *desc[N_PAR]   = {"kappa parameter"};
 static const double par_l04[N_PAR] = {0.402};
 static const double par_l06[N_PAR] = {0.623};
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_k_lk.c"
 #include "work_mgga.c"
 
@@ -45,7 +44,7 @@ const xc_func_info_type xc_func_info_mgga_k_l04 = {
   1e-15,
   {N_PAR, names, desc, par_l04, set_ext_params_cpy},
   mgga_k_lk_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -61,5 +60,5 @@ const xc_func_info_type xc_func_info_mgga_k_l06 = {
   1e-15,
   {N_PAR, names, desc, par_l06, set_ext_params_cpy},
   mgga_k_lk_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };

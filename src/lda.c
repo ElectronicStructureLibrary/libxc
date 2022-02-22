@@ -86,15 +86,15 @@ xc_lda_new(const xc_func_type *func, int order, size_t np, const double *rho,
       func->info->lda->pol[order](func, np, rho, out);
   }
 
-  //if(func->mix_coef != NULL)
-  // xc_mix_func(func, np, rho, NULL, NULL, NULL, out->zk, out->vrho, NULL, NULL, NULL,
-  //              out->v2rho2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-  //              out->v3rho3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-  //              NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-  //              out->v4rho4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-  //              NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-  //              NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-  //              NULL, NULL, NULL, NULL, NULL);
+  if(func->mix_coef != NULL)
+    xc_mix_func(func, np, rho, NULL, NULL, NULL, out->zk, out->vrho, NULL, NULL, NULL,
+                out->v2rho2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                out->v3rho3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                out->v4rho4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                NULL, NULL, NULL, NULL, NULL);
 }
 
 /* old API */

@@ -22,7 +22,6 @@ mgga_x_gx_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(mgga_x_gx_params));
 }
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_gx.c"
 #include "work_mgga.c"
 
@@ -44,5 +43,5 @@ const xc_func_info_type xc_func_info_mgga_x_gx = {
   1e-15,
   {GX_N_PAR, gx_names, gx_desc, gx_values, set_ext_params_cpy},
   mgga_x_gx_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

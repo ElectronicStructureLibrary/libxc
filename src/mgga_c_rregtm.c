@@ -11,7 +11,6 @@
 
 #define XC_MGGA_C_RREGTM         391 /* revised regTM by Jana et al */
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_rregtm.c"
 #include "work_mgga.c"
 
@@ -28,5 +27,5 @@ const xc_func_info_type xc_func_info_mgga_c_rregtm = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

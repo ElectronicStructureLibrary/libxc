@@ -189,20 +189,30 @@ typedef struct{
 } func_params_type;
 
 
-/* In the future these three structures will be unified */
+/* In the future these following three structures might be unified */
 typedef struct {
+  /* order 0 */
   double *zk;
+  /* order 1 */
   double *vrho;
+  /* order 2 */
   double *v2rho2;
+  /* order 3 */
   double *v3rho3;
+  /* order 4 */
   double *v4rho4;
 } xc_lda_out_params;
 
 typedef struct {
+  /* order 0 */
   double *zk;
+  /* order 1 */
   double *vrho, *vsigma;
+  /* order 2 */
   double *v2rho2, *v2rhosigma, *v2sigma2;
+  /* order 3 */
   double *v3rho3, *v3rho2sigma, *v3rhosigma2, *v3sigma3;
+  /* order 4 */
   double *v4rho4, *v4rho3sigma, *v4rho2sigma2, *v4rhosigma3, *v4sigma4;
 } xc_gga_out_params;
 
@@ -215,7 +225,7 @@ typedef struct {
   double *v2rho2, *v2rhosigma, *v2rholapl, *v2rhotau, *v2sigma2;
   double *v2sigmalapl, *v2sigmatau, *v2lapl2, *v2lapltau, *v2tau2;
   /* order 3 */
-  double *v3rho3, *v3rho2sigma, v3rho2lapl, *v3rho2tau, *v3rhosigma2;
+  double *v3rho3, *v3rho2sigma, *v3rho2lapl, *v3rho2tau, *v3rhosigma2;
   double *v3rhosigmalapl, *v3rhosigmatau, *v3rholapl2, *v3rholapltau;
   double *v3rhotau2, *v3sigma3, *v3sigma2lapl, *v3sigma2tau;
   double *v3sigmalapl2, *v3sigmalapltau, *v3sigmatau2, *v3lapl3;
@@ -229,11 +239,11 @@ typedef struct {
   double *v4sigma4, *v4sigma3lapl, *v4sigma3tau, *v4sigma2lapl2;
   double *v4sigma2lapltau, *v4sigma2tau2, *v4sigmalapl3, *v4sigmalapl2tau;
   double *v4sigmalapltau2, *v4sigmatau3, *v4lapl4, *v4lapl3tau;
-  double *v4lapl2tau2, *v4lapltau3, *v4tau4
+  double *v4lapl2tau2, *v4lapltau3, *v4tau4;
 } xc_mgga_out_params;
-t
+
 /* type of the lda function */
-ypedef void (*xc_lda_funcs)
+typedef void (*xc_lda_funcs)
 (const struct xc_func_type *p, size_t np,
  const double *rho,
  xc_lda_out_params *out);

@@ -12,7 +12,6 @@
 #define XC_MGGA_X_2D_PRHG07_PRP10   211   /* PRGH07 with PRP10 correction */
 
 #define XC_NO_EXC
-#include "decl_mgga.h"
 #include "maple2c/mgga_vxc/mgga_x_2d_prp10.c"
 #include "work_mgga.c"
 
@@ -29,6 +28,6 @@ const xc_func_info_type xc_func_info_mgga_x_2d_prhg07_prp10 = {
   1.0e-23,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 

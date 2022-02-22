@@ -28,7 +28,6 @@ mgga_k_csk_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(mgga_k_csk_params));
 }
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_k_csk.c"
 #include "work_mgga.c"
 
@@ -45,7 +44,7 @@ const xc_func_info_type xc_func_info_mgga_k_csk1 = {
   1e-15,
   {CSK_N_PAR, csk_names, csk_desc, csk1_values, set_ext_params_cpy},
   mgga_k_csk_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -61,5 +60,5 @@ const xc_func_info_type xc_func_info_mgga_k_csk4 = {
   1e-15,
   {CSK_N_PAR, csk_names, csk_desc, csk4_values, set_ext_params_cpy},
   mgga_k_csk_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };

@@ -59,9 +59,8 @@ WORK_LDA(ORDER_TXT, SPIN_TXT)
     /* check for NaNs */
 #ifdef XC_DEBUG
     {
-      size_t ii;
       const xc_dimensions *dim = &(p->dim);
-      int is_OK = 1;
+      int ii, is_OK = 1;
 
       if(out->zk != NULL)
         is_OK = is_OK & isfinite(out->VAR(zk, ip, 0));

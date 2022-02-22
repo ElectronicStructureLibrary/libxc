@@ -43,7 +43,6 @@ mgga_x_msb_init(xc_func_type *p)
   }
 }
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_msb.c"
 #include "work_mgga.c"
 
@@ -60,7 +59,7 @@ const xc_func_info_type xc_func_info_mgga_x_ms2b = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   mgga_x_msb_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -76,5 +75,5 @@ const xc_func_info_type xc_func_info_mgga_x_ms2bs = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   mgga_x_msb_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

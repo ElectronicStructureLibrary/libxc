@@ -177,19 +177,19 @@ xc_mgga_initalize(const xc_func_type *func, size_t np, xc_mgga_out_params *out)
     libxc_memset(out->v2rhosigma, 0, dim->v2rhosigma *np*sizeof(double));
     libxc_memset(out->v2sigma2,   0, dim->v2sigma2   *np*sizeof(double));
 
-    if(info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
       libxc_memset(out->v2rholapl,   0, dim->v2rholapl  *np*sizeof(double));
       libxc_memset(out->v2sigmalapl, 0, dim->v2sigmalapl*np*sizeof(double));
       libxc_memset(out->v2lapl2,     0, dim->v2lapl2    *np*sizeof(double));
     }
     
-    if(info->flags & XC_FLAGS_NEEDS_TAU){
+    if(func->info->flags & XC_FLAGS_NEEDS_TAU){
       libxc_memset(out->v2rhotau,   0, dim->v2rhotau   *np*sizeof(double));
       libxc_memset(out->v2sigmatau, 0, dim->v2sigmatau *np*sizeof(double));
       libxc_memset(out->v2tau2,     0, dim->v2tau2     *np*sizeof(double));
     }
     
-    if((info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (info->flags & XC_FLAGS_NEEDS_TAU)) {
+    if((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (func->info->flags & XC_FLAGS_NEEDS_TAU)) {
       libxc_memset(out->v2lapltau,   0, dim->v2lapltau  *np*sizeof(double));
     }
   }
@@ -200,7 +200,7 @@ xc_mgga_initalize(const xc_func_type *func, size_t np, xc_mgga_out_params *out)
     libxc_memset(out->v3rhosigma2,   0, dim->v3rhosigma2  *np*sizeof(double));
     libxc_memset(out->v3sigma3,      0, dim->v3sigma3     *np*sizeof(double));
 
-    if(info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
       libxc_memset(out->v3rho2lapl,     0, dim->v3rho2lapl    *np*sizeof(double));
       libxc_memset(out->v3rhosigmalapl, 0, dim->v3rhosigmalapl*np*sizeof(double));
       libxc_memset(out->v3rholapl2,     0, dim->v3rholapl2    *np*sizeof(double));
@@ -209,7 +209,7 @@ xc_mgga_initalize(const xc_func_type *func, size_t np, xc_mgga_out_params *out)
       libxc_memset(out->v3lapl3,        0, dim->v3lapl3       *np*sizeof(double));
     }
 
-    if(info->flags & XC_FLAGS_NEEDS_TAU){
+    if(func->info->flags & XC_FLAGS_NEEDS_TAU){
       libxc_memset(out->v3rho2tau,     0, dim->v3rho2tau    *np*sizeof(double));
       libxc_memset(out->v3rhosigmatau, 0, dim->v3rhosigmatau*np*sizeof(double));
       libxc_memset(out->v3rhotau2,     0, dim->v3rhotau2    *np*sizeof(double));
@@ -218,7 +218,7 @@ xc_mgga_initalize(const xc_func_type *func, size_t np, xc_mgga_out_params *out)
       libxc_memset(out->v3tau3,        0, dim->v3tau3       *np*sizeof(double));
     }
 
-    if((info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (info->flags & XC_FLAGS_NEEDS_TAU)) {
+    if((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (func->info->flags & XC_FLAGS_NEEDS_TAU)) {
       libxc_memset(out->v3rholapltau,   0, dim->v3rholapltau  *np*sizeof(double));
       libxc_memset(out->v3sigmalapltau, 0, dim->v3sigmalapltau*np*sizeof(double));
       libxc_memset(out->v3lapl2tau,     0, dim->v3lapl2tau    *np*sizeof(double));
@@ -233,7 +233,7 @@ xc_mgga_initalize(const xc_func_type *func, size_t np, xc_mgga_out_params *out)
     libxc_memset(out->v4rhosigma3,    0, dim->v4rhosigma3   *np*sizeof(double));
     libxc_memset(out->v4sigma4,       0, dim->v4sigma4      *np*sizeof(double));
 
-    if(info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
+    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
       libxc_memset(out->v4rho3lapl,        0, dim->v4rho3lapl       *np*sizeof(double));
       libxc_memset(out->v4rho2sigmalapl,   0, dim->v4rho2sigmalapl  *np*sizeof(double));
       libxc_memset(out->v4rho2lapl2,       0, dim->v4rho2lapl2      *np*sizeof(double));
@@ -246,7 +246,7 @@ xc_mgga_initalize(const xc_func_type *func, size_t np, xc_mgga_out_params *out)
       libxc_memset(out->v4lapl4,           0, dim->v4lapl4          *np*sizeof(double));
     }
 
-    if(info->flags & XC_FLAGS_NEEDS_TAU){
+    if(func->info->flags & XC_FLAGS_NEEDS_TAU){
       libxc_memset(out->v4rho3tau,      0, dim->v4rho3tau     *np*sizeof(double));
       libxc_memset(out->v4rho2sigmatau, 0, dim->v4rho2sigmatau*np*sizeof(double));
       libxc_memset(out->v4rho2tau2,     0, dim->v4rho2tau2    *np*sizeof(double));
@@ -259,7 +259,7 @@ xc_mgga_initalize(const xc_func_type *func, size_t np, xc_mgga_out_params *out)
       libxc_memset(out->v4tau4,         0, dim->v4tau4        *np*sizeof(double));
     }
 
-    if((info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (info->flags & XC_FLAGS_NEEDS_TAU)) {
+    if((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (func->info->flags & XC_FLAGS_NEEDS_TAU)) {
       libxc_memset(out->v4rho2lapltau,     0, dim->v4rho2lapltau    *np*sizeof(double));
       libxc_memset(out->v4rhosigmalapltau, 0, dim->v4rhosigmalapltau*np*sizeof(double));
       libxc_memset(out->v4rholapl2tau,     0, dim->v4rholapl2tau    *np*sizeof(double));
@@ -275,7 +275,7 @@ xc_mgga_initalize(const xc_func_type *func, size_t np, xc_mgga_out_params *out)
 
 }
 
-void xc_gga_new(const xc_func_type *func, int order, size_t np,
+void xc_mgga_new(const xc_func_type *func, int order, size_t np,
                 const double *rho, const double *sigma, const double *lapl, const double *tau,
                 xc_mgga_out_params *out)
 {
@@ -297,6 +297,86 @@ void xc_gga_new(const xc_func_type *func, int order, size_t np,
 }
 
 /* old API */
+#define SET_ORDER_0                          \
+  out.zk = zk;
+
+#define SET_ORDER_1                          \
+  out.vrho = vrho;                           \
+  out.vsigma = vsigma;                       \
+  out.vlapl = vlapl;                         \
+  out.vtau = vtau;
+
+#define SET_ORDER_2                          \
+  out.v2rho2 = v2rho2;                       \
+  out.v2rhosigma = v2rhosigma;               \
+  out.v2rholapl = v2rholapl;                 \
+  out.v2rhotau = v2rhotau;                   \
+  out.v2sigma2 = v2sigma2;                   \
+  out.v2sigmalapl = v2sigmalapl;             \
+  out.v2sigmatau = v2sigmatau;               \
+  out.v2lapl2 = v2lapl2;                     \
+  out.v2lapltau = v2lapltau;                 \
+  out.v2tau2 = v2tau2;
+
+#define SET_ORDER_3                          \
+  out.v3rho3 = v3rho3;                       \
+  out.v3rho2sigma = v3rho2sigma;             \
+  out.v3rho2lapl = v3rho2lapl;               \
+  out.v3rho2tau = v3rho2tau;                 \
+  out.v3rhosigma2 = v3rhosigma2;             \
+  out.v3rhosigmalapl = v3rhosigmalapl;       \
+  out.v3rhosigmatau = v3rhosigmatau;         \
+  out.v3rholapl2 = v3rholapl2;               \
+  out.v3rholapltau = v3rholapltau;           \
+  out.v3rhotau2 = v3rhotau2;                 \
+  out.v3sigma3 = v3sigma3;                   \
+  out.v3sigma2lapl = v3sigma2lapl;           \
+  out.v3sigma2tau = v3sigma2tau;             \
+  out.v3sigmalapl2 = v3sigmalapl2;           \
+  out.v3sigmalapltau = v3sigmalapltau;       \
+  out.v3sigmatau2 = v3sigmatau2;             \
+  out.v3lapl3 = v3lapl3;                     \
+  out.v3lapl2tau = v3lapl2tau;               \
+  out.v3lapltau2 = v3lapltau2;               \
+  out.v3tau3 = v3tau3;
+
+#define SET_ORDER_4                          \
+  out.v4rho4 = v4rho4;                       \
+  out.v4rho3sigma = v4rho3sigma;             \
+  out.v4rho3lapl = v4rho3lapl;               \
+  out.v4rho3tau = v4rho3tau;                 \
+  out.v4rho2sigma2 = v4rho2sigma2;           \
+  out.v4rho2sigmalapl = v4rho2sigmalapl;     \
+  out.v4rho2sigmatau = v4rho2sigmatau;       \
+  out.v4rho2lapl2 = v4rho2lapl2;             \
+  out.v4rho2lapltau = v4rho2lapltau;         \
+  out.v4rho2tau2 = v4rho2tau2;               \
+  out.v4rhosigma3 = v4rhosigma3;             \
+  out.v4rhosigma2lapl = v4rhosigma2lapl;     \
+  out.v4rhosigma2tau = v4rhosigma2tau;       \
+  out.v4rhosigmalapl2 = v4rhosigmalapl2;     \
+  out.v4rhosigmalapltau = v4rhosigmalapltau; \
+  out.v4rhosigmatau2 = v4rhosigmatau2;       \
+  out.v4rholapl3 = v4rholapl3;               \
+  out.v4rholapl2tau = v4rholapl2tau;         \
+  out.v4rholapltau2 = v4rholapltau2;         \
+  out.v4rhotau3 = v4rhotau3;                 \
+  out.v4sigma4 = v4sigma4;                   \
+  out.v4sigma3lapl = v4sigma3lapl;           \
+  out.v4sigma3tau = v4sigma3tau;             \
+  out.v4sigma2lapl2 = v4sigma2lapl2;         \
+  out.v4sigma2lapltau = v4sigma2lapltau;     \
+  out.v4sigma2tau2 = v4sigma2tau2;           \
+  out.v4sigmalapl3 = v4sigmalapl3;           \
+  out.v4sigmalapl2tau = v4sigmalapl2tau;     \
+  out.v4sigmalapltau2 = v4sigmalapltau2;     \
+  out.v4sigmatau3 = v4sigmatau3;             \
+  out.v4lapl4 = v4lapl4;                     \
+  out.v4lapl3tau = v4lapl3tau;               \
+  out.v4lapl2tau2 = v4lapl2tau2;             \
+  out.v4lapltau3 = v4lapltau3;               \
+  out.v4tau4 = v4tau4;
+
 void
 xc_mgga(const xc_func_type *p, size_t np,
         const double *rho, const double *sigma, const double *lapl, const double *tau,
@@ -333,88 +413,14 @@ xc_mgga(const xc_func_type *p, size_t np,
   xc_mgga_out_params out;
   libxc_memset(&out, 0, sizeof(xc_mgga_out_params));
 
-  /* order 0 */
-  out.zk     = zk;
-
-  /* order 1 */
-  out.vrho   = vrho;
-  out.vsigma = vsigma;
-  out.vlapl = vlapl;
-  out.vtau = vtau;
-
-  /* order 2 */
-  out.v2rho2 = v2rho2;
-  out.v2rhosigma = v2rhosigma;
-  out.v2rholapl = v2rholapl;
-  out.v2rhotau = v2rhotau;
-  out.v2sigma2 = v2sigma2;
-  out.v2sigmalapl = v2sigmalapl;
-  out.v2sigmatau = v2sigmatau;
-  out.v2lapl2 = v2lapl2;
-  out.v2lapltau = v2lapltau;
-  out.v2tau2 = v2tau2;
-
-  /* order 3 */
-  out.v3rho3 = v3rho3;
-  out.v3rho2sigma = v3rho2sigma; 
-  out.v3rho2lapl = v3rho2lapl;
-  out.v3rho2tau = v3rho2tau;
-  out.v3rhosigma2 = v3rhosigma2;
-  out.v3rhosigmalapl = v3rhosigmalapl;
-  out.v3rhosigmatau = v3rhosigmatau;
-  out.v3rholapl2 = v3rholapl2;
-  out.v3rholapltau = v3rholapltau;
-  out.v3rhotau2 = v3rhotau2;
-  out.v3sigma3 = v3sigma3;
-  out.v3sigma2lapl = v3sigma2lapl;
-  out.v3sigma2tau = v3sigma2tau;
-  out.v3sigmalapl2 = v3sigmalapl2;
-  out.v3sigmalapltau = v3sigmalapltau;
-  out.v3sigmatau2 = v3sigmatau2;
-  out.v3lapl3 = v3lapl3;
-  out.v3lapl2tau = v3lapl2tau;
-  out.v3lapltau2 = v3lapltau2;
-  out.v3tau3 = v3tau3;
-
-  /* order 4 */
-  out.v4rho4 = v4rho4;
-  out.v4rho3sigma = v4rho3sigma; 
-  out.v4rho3lapl = v4rho3lapl;
-  out.v4rho3tau = v4rho3tau;
-  out.v4rho2sigma2 = v4rho2sigma2;
-  out.v4rho2sigmalapl = v4rho2sigmalapl;
-  out.v4rho2sigmatau = v4rho2sigmatau;
-  out.v4rho2lapl2 = v4rho2lapl2;
-  out.v4rho2lapltau = ;
-  out.v4rho2tau2 = v4rho2tau2;
-  out.v4rhosigma3 = v4rhosigma3;
-  out.v4rhosigma2lapl = v4rhosigma2lapl;
-  out.v4rhosigma2tau = v4rhosigma2tau;
-  out.v4rhosigmalapl2 = v4rhosigmalapl2;
-  out.v4rhosigmalapltau = v4rhosigmalapltau;
-  out.v4rhosigmatau2 = v4rhosigmatau2;
-  out.v4rholapl3 = v4rholapl3;
-  out.v4rholapl2tau = v4rholapl2tau;
-  out.v4rholapltau2 = v4rholapltau2;
-  out.v4rhotau3 = v4rhotau3;
-  out.v4sigma4 = v4sigma4;
-  out.v4sigma3lapl = v4sigma3lapl;
-  out.v4sigma3tau = v4sigma3tau;
-  out.v4sigma2lapl2 = v4sigma2lapl2;
-  out.v4sigma2lapltau = v4sigma2lapltau;
-  out.v4sigma2tau2 = v4sigma2tau2;
-  out.v4sigmalapl3 = v4sigmalapl3;
-  out.v4sigmalapl2tau = v4sigmalapl2tau;
-  out.v4sigmalapltau2 = v4sigmalapltau2;
-  out.v4sigmatau3 = v4sigmatau3;
-  out.v4lapl4 = v4lapl4;
-  out.v4lapl3tau = v4lapl3tau;
-  out.v4lapl2tau2 = v4lapl2tau2;
-  out.v4lapltau3 = v4lapltau3;
-  out.v4tau4 = v4tau4;
+  SET_ORDER_0;
+  SET_ORDER_1;
+  SET_ORDER_2;
+  SET_ORDER_3;
+  SET_ORDER_4;
 
   /* call new API */
-  xc_gga_new(p, order, np, rho, sigma, lapl, tau, &out);
+  xc_mgga_new(p, order, np, rho, sigma, lapl, tau, &out);
 }
 
 
@@ -424,15 +430,11 @@ xc_mgga_exc(const xc_func_type *p, size_t np,
             const double *rho, const double *sigma, const double *lapl, const double *tau,
             double *zk)
 {
-  xc_mgga(p, np, rho, sigma, lapl, tau, zk, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL
-          );
+  xc_mgga_out_params out;
+  libxc_memset(&out, 0, sizeof(xc_mgga_out_params));
+  SET_ORDER_0;
+
+  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
 }
 
 void
@@ -440,15 +442,12 @@ xc_mgga_exc_vxc(const xc_func_type *p, size_t np,
                 const double *rho, const double *sigma, const double *lapl, const double *tau,
                 double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau)
 {
-  xc_mgga(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL
-          );
+  xc_mgga_out_params out;
+  libxc_memset(&out, 0, sizeof(xc_mgga_out_params));
+  SET_ORDER_0;
+  SET_ORDER_1;
+
+  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_exc_vxc_fxc(const xc_func_type *p, size_t np,
@@ -456,17 +455,15 @@ void xc_mgga_exc_vxc_fxc(const xc_func_type *p, size_t np,
                          double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
                          double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
                          double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
-                         double *v2lapltau, double *v2tau2) {
-  xc_mgga(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau,
-          v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2,
-          v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL
-          );
+                         double *v2lapltau, double *v2tau2)
+{
+  xc_mgga_out_params out;
+  libxc_memset(&out, 0, sizeof(xc_mgga_out_params));
+  SET_ORDER_0;
+  SET_ORDER_1;
+  SET_ORDER_2;
+
+  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_vxc_fxc(const xc_func_type *p, size_t np,
@@ -474,17 +471,14 @@ void xc_mgga_vxc_fxc(const xc_func_type *p, size_t np,
                          double *vrho, double *vsigma, double *vlapl, double *vtau,
                          double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
                          double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
-                         double *v2lapltau, double *v2tau2) {
-  xc_mgga(p, np, rho, sigma, lapl, tau, NULL, vrho, vsigma, vlapl, vtau,
-          v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2,
-          v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL
-          );
+                         double *v2lapltau, double *v2tau2)
+{
+  xc_mgga_out_params out;
+  libxc_memset(&out, 0, sizeof(xc_mgga_out_params));
+  SET_ORDER_1;
+  SET_ORDER_2;
+
+  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np,
@@ -498,45 +492,38 @@ void xc_mgga_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np,
                              double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
                              double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
                              double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
-                             double *v3tau3) {
-  xc_mgga(p, np, rho, sigma, lapl, tau, zk, vrho, vsigma, vlapl, vtau,
-          v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2,
-          v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2,
-          v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl,
-          v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl,
-          v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau,
-          v3lapltau2, v3tau3,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL
-          );
+                             double *v3tau3)
+{
+  xc_mgga_out_params out;
+  libxc_memset(&out, 0, sizeof(xc_mgga_out_params));
+  SET_ORDER_0;
+  SET_ORDER_1;
+  SET_ORDER_2;
+  SET_ORDER_3;
+
+  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_vxc_fxc_kxc(const xc_func_type *p, size_t np,
-                             const double *rho, const double *sigma, const double *lapl, const double *tau,
-                             double *vrho, double *vsigma, double *vlapl, double *vtau,
-                             double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
-                             double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
-                             double *v2lapltau, double *v2tau2,
-                             double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
-                             double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
-                             double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
-                             double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
-                             double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
-                             double *v3tau3) {
-  xc_mgga(p, np, rho, sigma, lapl, tau, NULL, vrho, vsigma, vlapl, vtau,
-          v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2,
-          v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2,
-          v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl,
-          v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl,
-          v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau,
-          v3lapltau2, v3tau3,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL
-          );
+                         const double *rho, const double *sigma, const double *lapl, const double *tau,
+                         double *vrho, double *vsigma, double *vlapl, double *vtau,
+                         double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+                         double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
+                         double *v2lapltau, double *v2tau2,
+                         double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
+                         double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
+                         double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
+                         double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
+                         double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
+                         double *v3tau3)
+{
+  xc_mgga_out_params out;
+  libxc_memset(&out, 0, sizeof(xc_mgga_out_params));
+  SET_ORDER_1;
+  SET_ORDER_2;
+  SET_ORDER_3;
+
+  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
 }
 
 
@@ -545,15 +532,11 @@ xc_mgga_vxc(const xc_func_type *p, size_t np,
             const double *rho, const double *sigma, const double *lapl, const double *tau,
             double *vrho, double *vsigma, double *vlapl, double *vtau)
 {
-  xc_mgga(p, np, rho, sigma, lapl, tau, NULL, vrho, vsigma, vlapl, vtau,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL
-          );
+  xc_mgga_out_params out;
+  libxc_memset(&out, 0, sizeof(xc_mgga_out_params));
+  SET_ORDER_1;
+
+  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
 }
 
 void
@@ -563,16 +546,11 @@ xc_mgga_fxc(const xc_func_type *p, size_t np,
             double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
             double *v2lapltau, double *v2tau2)
 {
-  xc_mgga(p, np, rho, sigma, lapl, tau, NULL, NULL, NULL, NULL, NULL,
-          v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2sigma2,
-          v2sigmalapl, v2sigmatau, v2lapl2, v2lapltau, v2tau2,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL
-          );
+  xc_mgga_out_params out;
+  libxc_memset(&out, 0, sizeof(xc_mgga_out_params));
+  SET_ORDER_2;
+
+  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_kxc(const xc_func_type *p, size_t np,
@@ -584,17 +562,11 @@ void xc_mgga_kxc(const xc_func_type *p, size_t np,
                  double *v3sigmalapl2, double *v3sigmalapltau, double *v3sigmatau2,
                  double *v3lapl3, double *v3lapl2tau, double *v3lapltau2, double *v3tau3)
 {
-  xc_mgga(p, np, rho, sigma, lapl, tau, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rhosigma2, v3rhosigmalapl,
-          v3rhosigmatau, v3rholapl2, v3rholapltau, v3rhotau2, v3sigma3, v3sigma2lapl,
-          v3sigma2tau, v3sigmalapl2, v3sigmalapltau, v3sigmatau2, v3lapl3, v3lapl2tau,
-          v3lapltau2, v3tau3,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-          NULL, NULL, NULL, NULL, NULL
-          );
+  xc_mgga_out_params out;
+  libxc_memset(&out, 0, sizeof(xc_mgga_out_params));
+  SET_ORDER_3;
+
+  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_lxc(const xc_func_type *p, size_t np,
@@ -609,18 +581,9 @@ void xc_mgga_lxc(const xc_func_type *p, size_t np,
                  double *v4sigmalapltau2, double *v4sigmatau3, double *v4lapl4, double *v4lapl3tau,
                  double *v4lapl2tau2, double *v4lapltau3, double *v4tau4)
 {
-    xc_mgga(p, np, rho, sigma, lapl, tau, NULL, NULL, NULL, NULL, NULL,
-            NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-            NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-            NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-            v4rho4, v4rho3sigma, v4rho3lapl, v4rho3tau, v4rho2sigma2,
-            v4rho2sigmalapl, v4rho2sigmatau, v4rho2lapl2, v4rho2lapltau,
-            v4rho2tau2, v4rhosigma3, v4rhosigma2lapl, v4rhosigma2tau,
-            v4rhosigmalapl2, v4rhosigmalapltau, v4rhosigmatau2,
-            v4rholapl3, v4rholapl2tau, v4rholapltau2, v4rhotau3,
-            v4sigma4, v4sigma3lapl, v4sigma3tau, v4sigma2lapl2,
-            v4sigma2lapltau, v4sigma2tau2, v4sigmalapl3, v4sigmalapl2tau,
-            v4sigmalapltau2, v4sigmatau3, v4lapl4, v4lapl3tau,
-            v4lapl2tau2, v4lapltau3, v4tau4
-            );
+  xc_mgga_out_params out;
+  libxc_memset(&out, 0, sizeof(xc_mgga_out_params));
+  SET_ORDER_4;
+
+  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
 }

@@ -34,7 +34,6 @@ mgga_x_ft98_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(mgga_x_ft98_params));
 }
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_ft98.c"
 #include "work_mgga.c"
 
@@ -51,5 +50,5 @@ const xc_func_info_type xc_func_info_mgga_x_ft98 = {
   1.0e-12,
   {N_PAR, names, desc, ft98_values, set_ext_params_cpy},
   mgga_x_ft98_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

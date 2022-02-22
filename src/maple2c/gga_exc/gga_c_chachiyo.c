@@ -19,6 +19,9 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
 {
 
 #ifndef XC_DONT_COMPILE_EXC
+GPU_DEVICE_FUNCTION static inline void
+func_exc_unpol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
   double t1, t2, t3, t5, t7, t8, t9, t10;
   double t13, t14, t16, t17, t18, t19, t22, t23;
   double t24, t25, t28, t31, t32, t36, t37, t38;
@@ -26,12 +29,35 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   double t54, t55, t56;
 
 #ifndef XC_DONT_COMPILE_VXC
+GPU_DEVICE_FUNCTION static inline void
+func_vxc_unpol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
+  double t1, t2, t3, t5, t7, t8, t9, t10;
+  double t13, t14, t16, t17, t18, t19, t22, t23;
+  double t24, t25, t28, t31, t32, t36, t37, t38;
+  double t39, t42, t44, t45, t46, t47, t49, t53;
+  double t54, t55, t56, tzk0;
+
   double t58, t62, t65, t67, t68, t73, t75, t79;
   double t80, t82, t83, t84, t85, t86, t87, t89;
   double t90, t92, t93, t94, t95, t96, t99, t100;
   double t103, t104, t106;
 
 #ifndef XC_DONT_COMPILE_FXC
+GPU_DEVICE_FUNCTION static inline void
+func_fxc_unpol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
+  double t1, t2, t3, t5, t7, t8, t9, t10;
+  double t13, t14, t16, t17, t18, t19, t22, t23;
+  double t24, t25, t28, t31, t32, t36, t37, t38;
+  double t39, t42, t44, t45, t46, t47, t49, t53;
+  double t54, t55, t56, tzk0;
+
+  double t58, t62, t65, t67, t68, t73, t75, t79;
+  double t80, t82, t83, t84, t85, t86, t87, t89;
+  double t90, t92, t93, t94, t95, t96, t99, t100;
+  double tvrho0, t103, t104, t106, tvsigma0;
+
   double t108, t110, t115, t117, t120, t121, t122, t123;
   double t125, t126, t127, t131, t132, t134, t136, t137;
   double t141, t142, t146, t147, t150, t151, t152, t153;
@@ -41,6 +67,28 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
   double t207, t210, t211, t214;
 
 #ifndef XC_DONT_COMPILE_KXC
+GPU_DEVICE_FUNCTION static inline void
+func_kxc_unpol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
+  double t1, t2, t3, t5, t7, t8, t9, t10;
+  double t13, t14, t16, t17, t18, t19, t22, t23;
+  double t24, t25, t28, t31, t32, t36, t37, t38;
+  double t39, t42, t44, t45, t46, t47, t49, t53;
+  double t54, t55, t56, tzk0;
+
+  double t58, t62, t65, t67, t68, t73, t75, t79;
+  double t80, t82, t83, t84, t85, t86, t87, t89;
+  double t90, t92, t93, t94, t95, t96, t99, t100;
+  double tvrho0, t103, t104, t106, tvsigma0;
+
+  double t108, t110, t115, t117, t120, t121, t122, t123;
+  double t125, t126, t127, t131, t132, t134, t136, t137;
+  double t141, t142, t146, t147, t150, t151, t152, t153;
+  double t158, t159, t162, t164, t166, t169, t170, t171;
+  double t173, t175, t176, t177, t178, t179, t182, t183;
+  double tv2rho20, t185, t192, t197, t198, t199, t201, tv2rhosigma0;
+  double t205, t206, t207, t210, t211, t214, tv2sigma20;
+
   double t217, t227, t230, t234, t235, t236, t238, t242;
   double t244, t250, t252, t258, t263, t264, t272, t273;
   double t275, t278, t280, t281, t289, t295, t301, t304;
@@ -66,6 +114,46 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
 
 #endif
 
+
+#ifndef XC_DONT_COMPILE_LXC
+GPU_DEVICE_FUNCTION static inline void
+func_lxc_unpol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
+  double t1, t2, t3, t5, t7, t8, t9, t10;
+  double t13, t14, t16, t17, t18, t19, t22, t23;
+  double t24, t25, t28, t31, t32, t36, t37, t38;
+  double t39, t42, t44, t45, t46, t47, t49, t53;
+  double t54, t55, t56, tzk0;
+
+  double t58, t62, t65, t67, t68, t73, t75, t79;
+  double t80, t82, t83, t84, t85, t86, t87, t89;
+  double t90, t92, t93, t94, t95, t96, t99, t100;
+  double tvrho0, t103, t104, t106, tvsigma0;
+
+  double t108, t110, t115, t117, t120, t121, t122, t123;
+  double t125, t126, t127, t131, t132, t134, t136, t137;
+  double t141, t142, t146, t147, t150, t151, t152, t153;
+  double t158, t159, t162, t164, t166, t169, t170, t171;
+  double t173, t175, t176, t177, t178, t179, t182, t183;
+  double tv2rho20, t185, t192, t197, t198, t199, t201, tv2rhosigma0;
+  double t205, t206, t207, t210, t211, t214, tv2sigma20;
+
+  double t217, t227, t230, t234, t235, t236, t238, t242;
+  double t244, t250, t252, t258, t263, t264, t272, t273;
+  double t275, t278, t280, t281, t289, t295, t301, t304;
+  double t308, t311, t315, t318, t319, t320, t321, t322;
+  double t325, t329, t330, tv3rho30, t332, t341, t342, t351;
+  double t356, t357, t358, t359, tv3rho2sigma0, t365, t366, t369;
+  double t370, t372, t376, t377, t378, t379, t380, t387;
+  double t391, tv3rhosigma20, t395, t396, t397, t398, t399, t402;
+  double t403, t406, t407, tv3sigma30;
+
+  double t423, t426, t431, t433, t436, t437, t440, t441;
+  double t443, t446, t459, t463, t465, t471, t501, t508;
+  double t527, t532, t534, t535, t536, t551, t557, t569;
+  double t572, tv4rho40, t637, t642, tv4rho3sigma0, t675, t676, t679;
+  double tv4rho2sigma20, t723, t724, t729, t735, t738, tv4rhosigma30, t761;
+  double t762, tv4sigma40;
 
   gga_c_chachiyo_params *params;
 
@@ -375,6 +463,9 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
 {
 
 #ifndef XC_DONT_COMPILE_EXC
+GPU_DEVICE_FUNCTION static inline void
+func_exc_pol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
   double t1, t2, t3, t5, t7, t8, t9, t10;
   double t11, t14, t15, t17, t18, t19, t20, t23;
   double t24, t25, t26, t29, t32, t33, t35, t36;
@@ -384,6 +475,17 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   double t70, t71, t72;
 
 #ifndef XC_DONT_COMPILE_VXC
+GPU_DEVICE_FUNCTION static inline void
+func_vxc_pol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
+  double t1, t2, t3, t5, t7, t8, t9, t10;
+  double t11, t14, t15, t17, t18, t19, t20, t23;
+  double t24, t25, t26, t29, t32, t33, t35, t36;
+  double t37, t38, t39, t40, t41, t42, t43, t44;
+  double t45, t46, t47, t48, t49, t50, t52, t53;
+  double t56, t58, t59, t60, t61, t63, t65, t69;
+  double t70, t71, t72, tzk0;
+
   double t74, t78, t81, t83, t84, t89, t91, t93;
   double t94, t95, t96, t97, t98, t99, t102, t103;
   double t104, t107, t109, t112, t113, t115, t116, t117;
@@ -393,6 +495,25 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   double t157, t159, t160;
 
 #ifndef XC_DONT_COMPILE_FXC
+GPU_DEVICE_FUNCTION static inline void
+func_fxc_pol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
+  double t1, t2, t3, t5, t7, t8, t9, t10;
+  double t11, t14, t15, t17, t18, t19, t20, t23;
+  double t24, t25, t26, t29, t32, t33, t35, t36;
+  double t37, t38, t39, t40, t41, t42, t43, t44;
+  double t45, t46, t47, t48, t49, t50, t52, t53;
+  double t56, t58, t59, t60, t61, t63, t65, t69;
+  double t70, t71, t72, tzk0;
+
+  double t74, t78, t81, t83, t84, t89, t91, t93;
+  double t94, t95, t96, t97, t98, t99, t102, t103;
+  double t104, t107, t109, t112, t113, t115, t116, t117;
+  double t118, t119, t120, t122, t123, t125, t126, t127;
+  double t128, t129, t131, t132, t133, tvrho0, t135, t138;
+  double t139, t142, t144, t147, t148, t150, t152, t153;
+  double tvrho1, t156, t157, t159, t160, tvsigma0, tvsigma1, tvsigma2;
+
   double t161, t163, t164, t168, t170, t173, t174, t175;
   double t176, t178, t179, t180, t184, t185, t187, t189;
   double t190, t192, t193, t194, t195, t197, t198, t202;
@@ -411,6 +532,43 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
   double t403;
 
 #ifndef XC_DONT_COMPILE_KXC
+GPU_DEVICE_FUNCTION static inline void
+func_kxc_pol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
+  double t1, t2, t3, t5, t7, t8, t9, t10;
+  double t11, t14, t15, t17, t18, t19, t20, t23;
+  double t24, t25, t26, t29, t32, t33, t35, t36;
+  double t37, t38, t39, t40, t41, t42, t43, t44;
+  double t45, t46, t47, t48, t49, t50, t52, t53;
+  double t56, t58, t59, t60, t61, t63, t65, t69;
+  double t70, t71, t72, tzk0;
+
+  double t74, t78, t81, t83, t84, t89, t91, t93;
+  double t94, t95, t96, t97, t98, t99, t102, t103;
+  double t104, t107, t109, t112, t113, t115, t116, t117;
+  double t118, t119, t120, t122, t123, t125, t126, t127;
+  double t128, t129, t131, t132, t133, tvrho0, t135, t138;
+  double t139, t142, t144, t147, t148, t150, t152, t153;
+  double tvrho1, t156, t157, t159, t160, tvsigma0, tvsigma1, tvsigma2;
+
+  double t161, t163, t164, t168, t170, t173, t174, t175;
+  double t176, t178, t179, t180, t184, t185, t187, t189;
+  double t190, t192, t193, t194, t195, t197, t198, t202;
+  double t203, t206, t207, t209, t213, t215, t216, t219;
+  double t223, t225, t228, t229, t233, t234, t237, t238;
+  double t239, t240, t245, t246, t247, t249, t251, t252;
+  double t253, t255, t256, t257, t258, t260, t261, t262;
+  double t263, t264, t265, t266, t268, t269, t270, tv2rho20;
+  double t272, t274, t276, t279, t282, t286, t287, t290;
+  double t294, t296, t299, t300, t303, t305, t310, t312;
+  double t313, t314, t317, t318, tv2rho21, t323, t326, t330;
+  double t334, t335, t338, t342, t344, t347, t348, t352;
+  double t353, t355, t356, t359, t362, t363, tv2rho22, t365;
+  double t367, t368, t372, t373, t377, t378, t379, t381;
+  double t382, t383, tv2rhosigma0, t384, t386, tv2rhosigma1, tv2rhosigma2, t388;
+  double tv2rhosigma3, tv2rhosigma4, tv2rhosigma5, t392, t393, t394, t397, t398;
+  double t401, t403, tv2sigma20, tv2sigma21, tv2sigma22, tv2sigma23, tv2sigma24, tv2sigma25;
+
   double t404, t406, t408, t410, t414, t417, t421, t422;
   double t423, t425, t429, t431, t437, t439, t445, t448;
   double t449, t450, t451, t453, t454, t456, t458, t461;
@@ -508,6 +666,144 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
 
 #endif
 
+
+#ifndef XC_DONT_COMPILE_LXC
+GPU_DEVICE_FUNCTION static inline void
+func_lxc_pol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
+  double t1, t2, t3, t5, t7, t8, t9, t10;
+  double t11, t14, t15, t17, t18, t19, t20, t23;
+  double t24, t25, t26, t29, t32, t33, t35, t36;
+  double t37, t38, t39, t40, t41, t42, t43, t44;
+  double t45, t46, t47, t48, t49, t50, t52, t53;
+  double t56, t58, t59, t60, t61, t63, t65, t69;
+  double t70, t71, t72, tzk0;
+
+  double t74, t78, t81, t83, t84, t89, t91, t93;
+  double t94, t95, t96, t97, t98, t99, t102, t103;
+  double t104, t107, t109, t112, t113, t115, t116, t117;
+  double t118, t119, t120, t122, t123, t125, t126, t127;
+  double t128, t129, t131, t132, t133, tvrho0, t135, t138;
+  double t139, t142, t144, t147, t148, t150, t152, t153;
+  double tvrho1, t156, t157, t159, t160, tvsigma0, tvsigma1, tvsigma2;
+
+  double t161, t163, t164, t168, t170, t173, t174, t175;
+  double t176, t178, t179, t180, t184, t185, t187, t189;
+  double t190, t192, t193, t194, t195, t197, t198, t202;
+  double t203, t206, t207, t209, t213, t215, t216, t219;
+  double t223, t225, t228, t229, t233, t234, t237, t238;
+  double t239, t240, t245, t246, t247, t249, t251, t252;
+  double t253, t255, t256, t257, t258, t260, t261, t262;
+  double t263, t264, t265, t266, t268, t269, t270, tv2rho20;
+  double t272, t274, t276, t279, t282, t286, t287, t290;
+  double t294, t296, t299, t300, t303, t305, t310, t312;
+  double t313, t314, t317, t318, tv2rho21, t323, t326, t330;
+  double t334, t335, t338, t342, t344, t347, t348, t352;
+  double t353, t355, t356, t359, t362, t363, tv2rho22, t365;
+  double t367, t368, t372, t373, t377, t378, t379, t381;
+  double t382, t383, tv2rhosigma0, t384, t386, tv2rhosigma1, tv2rhosigma2, t388;
+  double tv2rhosigma3, tv2rhosigma4, tv2rhosigma5, t392, t393, t394, t397, t398;
+  double t401, t403, tv2sigma20, tv2sigma21, tv2sigma22, tv2sigma23, tv2sigma24, tv2sigma25;
+
+  double t404, t406, t408, t410, t414, t417, t421, t422;
+  double t423, t425, t429, t431, t437, t439, t445, t448;
+  double t449, t450, t451, t453, t454, t456, t458, t461;
+  double t464, t466, t467, t470, t473, t474, t476, t480;
+  double t481, t483, t484, t487, t490, t494, t496, t499;
+  double t500, t508, t509, t511, t514, t516, t517, t521;
+  double t525, t526, t531, t532, t534, t537, t538, t540;
+  double t544, t546, t547, t551, t553, t554, t555, t556;
+  double t557, t558, t561, t564, t565, t566, tv3rho30, t571;
+  double t573, t580, t583, t584, t585, t587, t594, t597;
+  double t599, t600, t603, t606, t609, t612, t623, t624;
+  double t627, t638, t640, t643, t644, t646, t647, t649;
+  double t650, t652, t653, t654, t660, t661, t663, t667;
+  double t668, t671, t673, t674, t675, t679, t681, tv3rho31;
+  double t684, t687, t689, t692, t695, t697, t700, t705;
+  double t710, t714, t715, t720, t723, t727, t729, t732;
+  double t733, t736, t744, t746, t748, t751, t753, t761;
+  double t762, t763, t765, t768, t770, t771, t772, t778;
+  double t779, tv3rho32, t788, t791, t794, t800, t804, t805;
+  double t810, t814, t816, t819, t820, t828, t829, t831;
+  double t834, t835, t842, t847, t848, tv3rho33, t850, t852;
+  double t853, t855, t856, t859, t860, t861, t862, t864;
+  double t867, t869, t871, t872, t874, t875, t876, t877;
+  double t878, t879, tv3rho2sigma0, t880, t882, t886, tv3rho2sigma1, tv3rho2sigma2;
+  double t889, t892, t895, t897, t899, tv3rho2sigma3, t902, t905;
+  double tv3rho2sigma4, tv3rho2sigma5, t907, t910, tv3rho2sigma6, tv3rho2sigma7, tv3rho2sigma8, t917;
+  double t918, t919, t920, t921, t923, t924, t926, t927;
+  double t930, t931, t932, t933, t934, t935, t936, t937;
+  double t938, t940, t941, t942, t945, t946, t947, tv3rhosigma20;
+  double t948, t951, t952, t954, tv3rhosigma21, tv3rhosigma22, t955, t958;
+  double t959, t961, tv3rhosigma23, tv3rhosigma24, tv3rhosigma25, t962, t963, t964;
+  double t966, t967, t968, t971, tv3rhosigma26, tv3rhosigma27, tv3rhosigma28, tv3rhosigma29;
+  double tv3rhosigma210, tv3rhosigma211, t979, t980, t981, t982, t983, t984;
+  double t985, t987, t988, t989, t991, t992, t993, tv3sigma30;
+  double tv3sigma31, tv3sigma32, tv3sigma33, tv3sigma34, tv3sigma35, tv3sigma36, tv3sigma37, tv3sigma38;
+  double tv3sigma39;
+
+  double t1004, t1007, t1009, t1018, t1019, t1022, t1023, t1025;
+  double t1028, t1029, t1030, t1032, t1034, t1040, t1043, t1054;
+  double t1058, t1060, t1070, t1073, t1075, t1076, t1077, t1079;
+  double t1081, t1083, t1089, t1090, t1096, t1101, t1102, t1104;
+  double t1108, t1111, t1112, t1118, t1127, t1132, t1137, t1141;
+  double t1145, t1149, t1151, t1158, t1162, t1163, t1170, t1171;
+  double t1176, t1178, t1179, t1180, t1183, t1186, t1187, t1189;
+  double t1191, t1193, t1195, t1200, t1203, t1204, t1211, t1218;
+  double t1221, t1223, t1225, t1227, t1240, t1243, tv4rho40, t1251;
+  double t1253, t1266, t1267, t1270, t1275, t1277, t1279, t1280;
+  double t1281, t1309, t1311, t1336, t1338, t1343, t1344, t1347;
+  double t1349, t1373, t1401, t1404, t1408, t1409, t1410, t1412;
+  double t1413, t1414, t1418, t1424, t1427, t1429, t1434, t1435;
+  double t1437, t1438, t1439, t1446, t1451, t1453, t1454, t1466;
+  double t1468, t1469, t1471, t1472, t1477, t1479, t1481, t1483;
+  double t1485, t1487, tv4rho41, t1488, t1494, t1496, t1498, t1500;
+  double t1502, t1510, t1517, t1518, t1526, t1531, t1534, t1539;
+  double t1541, t1552, t1569, t1595, t1604, t1605, t1613, t1615;
+  double t1617, t1630, t1632, t1633, t1636, t1637, t1640, t1648;
+  double t1666, t1672, t1703, t1709, t1713, t1717, t1719, t1721;
+  double t1726, t1730, t1733, t1740, t1756, tv4rho42, t1758, t1772;
+  double t1773, t1781, t1784, t1804, t1808, t1829, t1835, t1836;
+  double t1869, t1873, t1879, t1892, t1894, t1919, t1927, t1930;
+  double t1944, t1946, t1948, t1950, t1951, t1952, tv4rho43, t1966;
+  double t1978, t1983, t1989, t1993, t1994, t1999, t2008, t2013;
+  double t2026, t2033, t2040, t2056, t2059, tv4rho44, t2067, t2070;
+  double t2075, t2078, t2082, t2086, t2090, t2091, t2093, t2097;
+  double t2098, t2100, t2103, t2107, t2108, t2114, t2117, t2118;
+  double t2119, t2123, t2124, tv4rho3sigma0, t2131, t2133, t2137, t2138;
+  double tv4rho3sigma1, tv4rho3sigma2, t2140, t2144, t2147, t2148, t2150, t2153;
+  double t2156, t2160, t2161, t2162, t2163, t2165, t2167, t2168;
+  double t2170, t2173, t2176, t2181, t2182, t2183, tv4rho3sigma3, t2188;
+  double t2189, t2190, t2193, t2194, t2198, t2200, t2202, t2203;
+  double tv4rho3sigma4, tv4rho3sigma5, t2206, t2208, t2211, t2214, t2218, t2221;
+  double t2224, t2226, t2229, t2234, t2236, tv4rho3sigma6, t2245, t2249;
+  double tv4rho3sigma7, tv4rho3sigma8, t2258, t2261, t2265, tv4rho3sigma9, tv4rho3sigma10, tv4rho3sigma11;
+  double t2278, t2279, t2280, t2281, t2282, t2284, t2285, t2288;
+  double t2291, t2292, t2295, t2297, t2300, t2301, t2304, t2305;
+  double t2308, t2309, t2310, t2312, t2315, t2316, t2317, t2318;
+  double t2320, t2321, t2323, t2326, t2327, t2328, t2330, t2331;
+  double t2332, t2334, t2335, t2339, t2342, t2345, t2347, t2348;
+  double tv4rho2sigma20, t2349, t2350, t2351, t2353, t2355, t2356, t2358;
+  double t2359, t2360, t2362, t2363, t2367, tv4rho2sigma21, tv4rho2sigma22, t2368;
+  double t2375, t2377, t2378, t2382, t2386, tv4rho2sigma23, tv4rho2sigma24, tv4rho2sigma25;
+  double t2388, t2390, t2394, t2397, t2401, t2405, t2407, t2408;
+  double t2414, t2416, t2419, t2424, t2426, t2429, t2433, t2436;
+  double t2437, t2439, tv4rho2sigma26, t2440, t2441, t2443, t2445, t2447;
+  double t2449, t2450, t2455, tv4rho2sigma27, tv4rho2sigma28, t2456, t2457, t2459;
+  double t2461, t2463, t2465, t2466, t2471, tv4rho2sigma29, tv4rho2sigma210, tv4rho2sigma211;
+  double t2474, t2478, t2481, t2484, t2486, t2490, t2494, tv4rho2sigma212;
+  double tv4rho2sigma213, tv4rho2sigma214, tv4rho2sigma215, tv4rho2sigma216, tv4rho2sigma217, t2517, t2518, t2519;
+  double t2520, t2521, t2522, t2524, t2525, t2527, t2531, t2534;
+  double t2535, t2536, t2537, t2538, t2539, t2540, t2543, t2546;
+  double t2547, t2548, t2549, t2550, t2553, t2554, tv4rhosigma30, t2555;
+  double t2558, t2559, t2562, t2563, t2565, tv4rhosigma31, tv4rhosigma32, t2566;
+  double t2569, t2570, t2573, t2574, t2576, tv4rhosigma33, tv4rhosigma34, tv4rhosigma35;
+  double t2577, t2580, t2581, t2584, t2585, t2587, tv4rhosigma36, tv4rhosigma37;
+  double tv4rhosigma38, tv4rhosigma39, t2588, t2589, t2591, t2593, t2595, t2598;
+  double t2600, tv4rhosigma310, tv4rhosigma311, tv4rhosigma312, tv4rhosigma313, tv4rhosigma314, tv4rhosigma315, tv4rhosigma316;
+  double tv4rhosigma317, tv4rhosigma318, tv4rhosigma319, t2619, t2620, t2624, t2629, t2634;
+  double t2638, tv4sigma40, tv4sigma41, tv4sigma42, tv4sigma43, tv4sigma44, tv4sigma45, tv4sigma46;
+  double tv4sigma47, tv4sigma48, tv4sigma49, tv4sigma410, tv4sigma411, tv4sigma412, tv4sigma413, tv4sigma414;
 
   gga_c_chachiyo_params *params;
 

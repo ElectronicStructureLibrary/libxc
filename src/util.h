@@ -33,9 +33,11 @@
 
 #ifdef HAVE_CUDA
 #define GPU_FUNCTION __host__ __device__
+#define GPU_DEVICE_FUNCTION __device__
 #define CUDA_BLOCK_SIZE 256
 #else
 #define GPU_FUNCTION
+#define GPU_DEVICE_FUNCTION
 #endif
 
 /* This takes care of disabling specific derivatives from the info structures */

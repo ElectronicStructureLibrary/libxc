@@ -19,18 +19,43 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
 {
 
 #ifndef XC_DONT_COMPILE_VXC
+GPU_DEVICE_FUNCTION static inline void
+func_vxc_unpol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
   double t1, t4, t5, t6, t10, t11, t12, t13;
   double t15, t17, t18, t19, t20, t21, t23, t24;
   double t25, t26, t28, t29, t30, t33, t34, t38;
   double t39, t40, t43, t45;
 
 #ifndef XC_DONT_COMPILE_FXC
+GPU_DEVICE_FUNCTION static inline void
+func_fxc_unpol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
+  double t1, t4, t5, t6, t10, t11, t12, t13;
+  double t15, t17, t18, t19, t20, t21, t23, t24;
+  double t25, t26, t28, t29, t30, t33, t34, t38;
+  double t39, t40, t43, t45, tvrho0;
+
   double t47, t49, t54, t55, t56, t57, t59, t61;
   double t64, t67, t68, t69, t70, t73, t74, t77;
   double t79, t80, t81, t85, t86, t89, t92, t95;
   double t96, t99, t102, t103, t106, t108, t112, t113;
 
 #ifndef XC_DONT_COMPILE_KXC
+GPU_DEVICE_FUNCTION static inline void
+func_kxc_unpol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
+  double t1, t4, t5, t6, t10, t11, t12, t13;
+  double t15, t17, t18, t19, t20, t21, t23, t24;
+  double t25, t26, t28, t29, t30, t33, t34, t38;
+  double t39, t40, t43, t45, tvrho0;
+
+  double t47, t49, t54, t55, t56, t57, t59, t61;
+  double t64, t67, t68, t69, t70, t73, t74, t77;
+  double t79, t80, t81, t85, t86, t89, tv2rho20, t92;
+  double t95, t96, t99, t102, t103, t106, t108, t112;
+  double t113, tv2rhosigma0;
+
   double t116, t118, t123, t124, t128, t129, t130, t131;
   double t135, t137, t141, t144, t146, t149, t150, t153;
   double t157, t158, t161, t164, t168, t169, t173, t174;
@@ -51,6 +76,34 @@ func_unpol(const xc_func_type *p, int order, const double *rho, const double *si
 
 #endif
 
+
+#ifndef XC_DONT_COMPILE_LXC
+GPU_DEVICE_FUNCTION static inline void
+func_lxc_unpol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
+  double t1, t4, t5, t6, t10, t11, t12, t13;
+  double t15, t17, t18, t19, t20, t21, t23, t24;
+  double t25, t26, t28, t29, t30, t33, t34, t38;
+  double t39, t40, t43, t45, tvrho0;
+
+  double t47, t49, t54, t55, t56, t57, t59, t61;
+  double t64, t67, t68, t69, t70, t73, t74, t77;
+  double t79, t80, t81, t85, t86, t89, tv2rho20, t92;
+  double t95, t96, t99, t102, t103, t106, t108, t112;
+  double t113, tv2rhosigma0;
+
+  double t116, t118, t123, t124, t128, t129, t130, t131;
+  double t135, t137, t141, t144, t146, t149, t150, t153;
+  double t157, t158, t161, t164, t168, t169, t173, t174;
+  double t180, tv3rho30, t187, t190, t198, t201, t204, t207;
+  double t208, t215, t219, t220, tv3rho2sigma0, t227, t228, t232;
+  double t233, t237, t238, t241, t245, t248, t249, t252;
+  double t255, t259, t260, tv3rhosigma20;
+
+  double t264, t269, t273, t280, t282, t292, t301, t312;
+  double t313, t315, t317, t334, t335, t340, tv4rho40, t389;
+  double t396, t407, tv4rho3sigma0, t468, tv4rho2sigma20, t487, t507, t518;
+  double tv4rhosigma30;
 
   gga_x_lb_params *params;
 
@@ -313,6 +366,15 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
 
 
 #ifndef XC_DONT_COMPILE_VXC
+GPU_DEVICE_FUNCTION static inline void
+func_vxc_pol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
+  double t1, t4, t5, t6, t9, t10, t11, t13;
+  double t14, t15, t16, t17, t18, t20, t21, t23;
+  double t24, t25, t28, t29, t33, t34, t37, t38;
+  double tvrho0, t39, t40, t42, t43, t44, t45, t46;
+  double t47, t49, t50, t52, t53, t54, t57, t58;
+  double t62, t63, t66, t67, tvrho1;
 
   if(order < 1) return;
 
@@ -367,6 +429,15 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
     vrho[1] = t67 * t40;
 
 #ifndef XC_DONT_COMPILE_FXC
+GPU_DEVICE_FUNCTION static inline void
+func_fxc_pol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
+  double t1, t4, t5, t6, t9, t10, t11, t13;
+  double t14, t15, t16, t17, t18, t20, t21, t23;
+  double t24, t25, t28, t29, t33, t34, t37, t38;
+  double tvrho0, t39, t40, t42, t43, t44, t45, t46;
+  double t47, t49, t50, t52, t53, t54, t57, t58;
+  double t62, t63, t66, t67, tvrho1;
 
   if(order < 2) return;
 
@@ -448,6 +519,15 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
     v2rhosigma[5] = -t181 * t40;
 
 #ifndef XC_DONT_COMPILE_KXC
+GPU_DEVICE_FUNCTION static inline void
+func_kxc_pol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
+  double t1, t4, t5, t6, t9, t10, t11, t13;
+  double t14, t15, t16, t17, t18, t20, t21, t23;
+  double t24, t25, t28, t29, t33, t34, t37, t38;
+  double tvrho0, t39, t40, t42, t43, t44, t45, t46;
+  double t47, t49, t50, t52, t53, t54, t57, t58;
+  double t62, t63, t66, t67, tvrho1;
 
   if(order < 3) return;
 
@@ -607,6 +687,15 @@ func_pol(const xc_func_type *p, int order, const double *rho, const double *sigm
     v3rhosigma2[11] = -t450 * t40;
 
 #ifndef XC_DONT_COMPILE_LXC
+GPU_DEVICE_FUNCTION static inline void
+func_lxc_pol(const xc_func_type *p, size_t ip, const double *rho, const double *sigma, xc_gga_out_params *out)
+{
+  double t1, t4, t5, t6, t9, t10, t11, t13;
+  double t14, t15, t16, t17, t18, t20, t21, t23;
+  double t24, t25, t28, t29, t33, t34, t37, t38;
+  double tvrho0, t39, t40, t42, t43, t44, t45, t46;
+  double t47, t49, t50, t52, t53, t54, t57, t58;
+  double t62, t63, t66, t67, tvrho1;
 
   if(order < 4) return;
 

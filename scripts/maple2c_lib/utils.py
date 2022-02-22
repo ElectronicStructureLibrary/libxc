@@ -500,7 +500,7 @@ def maple2c_run(params, variables, derivatives, variants, start_order, input_arg
     for order in range(start_order, params['maxorder'] + 1):
       out.write('''
 #ifndef XC_DONT_COMPILE_{}
-static inline void
+GPU_DEVICE_FUNCTION static inline void
 func_{}_{}(const xc_func_type *p, size_t ip, {}, {})
 {{
 '''.format(der_name[order].upper(),

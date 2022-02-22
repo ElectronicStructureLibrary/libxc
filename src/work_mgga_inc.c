@@ -18,13 +18,15 @@
 #endif
 
 /* macro to simpligy accessing the variables */
-#define VAR(var, ip, index)     var[ip*p->dim.var + index]
-#define WORK_MGGA_(order, spin) work_mgga_ ## order ## _ ## spin
-#define FUNC_(order, spin)      func_     ## order ## _ ## spin
+#define VAR(var, ip, index)         var[ip*p->dim.var + index]
+#define WORK_MGGA_(order, spin)     work_mgga_ ## order ## _ ## spin
+#define WORK_MGGA_GPU_(order, spin) work_mgga_ ## order ## _ ## spin
+#define FUNC_(order, spin)          func_     ## order ## _ ## spin
 
 /* we need double escaping of the preprocessor macros */
-#define WORK_MGGA(order, spin)  WORK_MGGA_(order, spin)
-#define FUNC(order, spin)       FUNC_(order, spin)
+#define WORK_MGGA(order, spin)     WORK_MGGA_(order, spin)
+#define WORK_MGGA_GPU(order, spin) WORK_MGGA_GPU_(order, spin)
+#define FUNC(order, spin)          FUNC_(order, spin)
 
 #ifndef HAVE_CUDA
 
@@ -154,24 +156,11 @@ WORK_MGGA(ORDER_TXT, SPIN_TXT)
 
 #else
 
-  //make a copy of 'p' since it might be in host-only memory
-  XC(func_type) * pcuda = (XC(func_type) *) libxc_malloc(sizeof(XC(func_type)));
-
-  *pcuda = *p;
-
-  size_t nblocks = np/CUDA_BLOCK_SIZE;
-  if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
-
-  work_mgga_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(pcuda, order, np, rho, sigma, lapl, tau,
-                                              zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
-
-  libxc_free(pcuda);
-
-
 __global__ static void
-work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
-              const double *rho, const double *sigma, const double *lapl, const double *tau,
-              double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
+WORK_MGGA_GPU(ORDER_TXT, SPIN_TXT)
+(const XC(func_type) *p, size_t np,
+ const double *rho, const double *sigma, const double *lapl, const double *tau,
+ xc_mgga_out_params *out)
 {
 
   size_t ip = blockIdx.x * blockDim.x + threadIdx.x;
@@ -181,9 +170,6 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
   double dens;
 
   if(ip >= np) return;
-
-  internal_counters_mgga_random(&(p->dim), ip, 0, &rho, &sigma, &lapl, &tau,
-                                &zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
 
   /* Screen small densities */
   dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
@@ -221,10 +207,32 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
       my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
     }
 
-    if(p->nspin == XC_UNPOLARIZED)
-      func_unpol(p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
-    else if(p->nspin == XC_POLARIZED)
-      func_pol  (p, order, my_rho, my_sigma, lapl, my_tau OUT_PARAMS);
+    FUNC(ORDER_TXT, SPIN_TXT)(p, ip, my_rho, my_sigma, lapl, my_tau, out);
   }
 }
+
+
+static void
+WORK_MGGA(ORDER_TXT, SPIN_TXT)
+(const XC(func_type) *p, size_t np,
+ const double *rho, const double *sigma, const double *lapl, const double *tau,
+ xc_gga_out_params *out)
+{
+  //make a copy of 'p' and 'out' since they might be in host-only memory
+  XC(func_type) *pcuda = (XC(func_type) *) libxc_malloc(sizeof(XC(func_type)));
+  xc_mgga_out_params *outcuda = (xc_mgga_out_params *) libxc_malloc(sizeof(xc_mgga_out_params));
+
+  cudaMemcpy(pcuda, p, sizeof(XC(func_type)), cudaMemcpyHostToDevice);
+  cudaMemcpy(outcuda, out, sizeof(xc_mgga_out_params), cudaMemcpyHostToDevice);
+
+  size_t nblocks = np/CUDA_BLOCK_SIZE;
+  if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
+
+  WORK_MGGA_GPU(ORDER_TXT, SPIN_TXT)<<<nblocks, CUDA_BLOCK_SIZE>>>
+    (pcuda, np, rho, sigma, lapl, tau, outcuda);
+
+  libxc_free(pcuda);
+  libxc_free(outcuda);
+}
+
 #endif

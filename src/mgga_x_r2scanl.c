@@ -50,6 +50,6 @@ const xc_func_info_type xc_func_info_mgga_x_r2scanl = {
   1e-15,
   {N_PAR, names, desc, par_r2scanl, r2scanl_set_ext_params},
   mgga_x_r2scanl_init, NULL,
-  NULL, NULL, xc_deorbitalize_func
+  NULL, NULL, NULL /* xc_deorbitalize_func */
 };
 

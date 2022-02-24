@@ -25,7 +25,6 @@ static const char  *pjs18_desc[PJS18_N_PAR]   = {
 };
 static const double par_pjs18[PJS18_N_PAR] = {0.33};
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/hyb_mgga_x_pjs18.c"
 #include "work_mgga.c"
 
@@ -42,7 +41,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_pjs18 = {
   1e-14,
   {PJS18_N_PAR, pjs18_names, pjs18_desc, par_pjs18, set_ext_params_cpy_lc},
   hyb_mgga_x_pjs18_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };
 
 

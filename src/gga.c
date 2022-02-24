@@ -156,80 +156,14 @@ void xc_gga(const xc_func_type *func, size_t np, const double *rho, const double
     exit(1);
   }
 
-  if(vrho != NULL && !(func->info->flags & XC_FLAGS_HAVE_VXC)){
-    fprintf(stderr, "Functional '%s' does not provide an implementation of vxc\n",
-	    func->info->name);
-    exit(1);
-  }
-
-  if(v2rho2 != NULL && !(func->info->flags & XC_FLAGS_HAVE_FXC)){
-    fprintf(stderr, "Functional '%s' does not provide an implementation of fxc\n",
-	    func->info->name);
-    exit(1);
-  }
-
-  if(v3rho3 != NULL && !(func->info->flags & XC_FLAGS_HAVE_KXC)){
-    fprintf(stderr, "Functional '%s' does not provide an implementation of kxc\n",
-	    func->info->name);
-    exit(1);
-  }
-
-  if(v4rho4 != NULL && !(func->info->flags & XC_FLAGS_HAVE_LXC)){
-    fprintf(stderr, "Functional '%s' does not provide an implementation of lxc\n",
-	    func->info->name);
-    exit(1);
-  }
-
-  /* initialize output to zero */
-  if(zk != NULL)
-    libxc_memset(zk, 0, dim->zk*np*sizeof(double));
-
-  if(vrho != NULL){
-    assert(vsigma != NULL);
-
-    libxc_memset(vrho,   0, dim->vrho  *np*sizeof(double));
-    libxc_memset(vsigma, 0, dim->vsigma*np*sizeof(double));
-  }
-
-  if(v2rho2 != NULL){
-    assert(v2rhosigma!=NULL && v2sigma2!=NULL);
-
-    libxc_memset(v2rho2,     0, dim->v2rho2    *np*sizeof(double));
-    libxc_memset(v2rhosigma, 0, dim->v2rhosigma*np*sizeof(double));
-    libxc_memset(v2sigma2,   0, dim->v2sigma2  *np*sizeof(double));
-  }
-
-  if(v3rho3 != NULL){
-    assert(v3rho2sigma!=NULL && v3rhosigma2!=NULL && v3sigma3!=NULL);
-
-    libxc_memset(v3rho3,      0, dim->v3rho3     *np*sizeof(double));
-    libxc_memset(v3rho2sigma, 0, dim->v3rho2sigma*np*sizeof(double));
-    libxc_memset(v3rhosigma2, 0, dim->v3rhosigma2*np*sizeof(double));
-    libxc_memset(v3sigma3,    0, dim->v3sigma3   *np*sizeof(double));
-  }
-
-  if(v4rho4 != NULL){
-    assert(v4rho3sigma!=NULL && v4rho2sigma2!=NULL && v4rhosigma3!=NULL && v4sigma4!=NULL);
-
-    libxc_memset(v4rho4,       0, dim->v4rho4      *np*sizeof(double));
-    libxc_memset(v4rho3sigma,  0, dim->v4rho3sigma *np*sizeof(double));
-    libxc_memset(v4rho2sigma2, 0, dim->v4rho2sigma2*np*sizeof(double));
-    libxc_memset(v4rhosigma3,  0, dim->v4rhosigma3 *np*sizeof(double));
-    libxc_memset(v4sigma4,     0, dim->v4sigma4    *np*sizeof(double));
-   }
-
-  /* call functional */
-  if(func->info->gga != NULL)
-    func->info->gga(func, np, rho, sigma, zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
-
   if(func->mix_coef != NULL)
-    xc_mix_func(func, np, rho, sigma, NULL, NULL, zk, vrho, vsigma, NULL, NULL,
-                v2rho2, v2rhosigma, NULL, NULL, v2sigma2, NULL, NULL, NULL, NULL, NULL,
-                v3rho3, v3rho2sigma, NULL, NULL, v3rhosigma2, NULL, NULL, NULL, NULL, NULL,
-                v3sigma3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                v4rho4, v4rho3sigma, NULL, NULL, v4rho2sigma2, NULL, NULL, NULL, NULL, NULL,
-                v4rhosigma3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                v4sigma4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+    xc_mix_func(func, np, rho, sigma, NULL, NULL, out->zk, out->vrho, out->vsigma, NULL, NULL,
+                out->v2rho2, out->v2rhosigma, NULL, NULL, out->v2sigma2, NULL, NULL, NULL, NULL, NULL,
+                out->v3rho3, out->v3rho2sigma, NULL, NULL, out->v3rhosigma2, NULL, NULL, NULL, NULL, NULL,
+                out->v3sigma3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                out->v4rho4, out->v4rho3sigma, NULL, NULL, out->v4rho2sigma2, NULL, NULL, NULL, NULL, NULL,
+                out->v4rhosigma3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                out->v4sigma4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                 NULL, NULL, NULL, NULL, NULL);
 }
 

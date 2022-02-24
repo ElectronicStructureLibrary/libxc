@@ -291,9 +291,29 @@ void xc_mgga_new(const xc_func_type *func, int order, size_t np,
       func->info->mgga->pol[order](func, np, rho, sigma, lapl, tau, out);
   }
 
-  //if(func->mix_coef != NULL)
-  //  xc_mix_func(func, np, rho, sigma, lapl, tau,
-  //              zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
+  if(func->mix_coef != NULL)
+    xc_mix_func(func, np, rho, sigma, lapl, tau,
+                out->zk, out->vrho, out->vsigma, out->vlapl, out->vtau,
+                out->v2rho2, out->v2rhosigma, out->v2rholapl, out->v2rhotau,
+                out->v2sigma2, out->v2sigmalapl, out->v2sigmatau, out->v2lapl2,
+                out->v2lapltau, out->v2tau2,
+                out->v3rho3, out->v3rho2sigma, out->v3rho2lapl, out->v3rho2tau,
+                out->v3rhosigma2, out->v3rhosigmalapl, out->v3rhosigmatau,
+                out->v3rholapl2, out->v3rholapltau, out->v3rhotau2, out->v3sigma3,
+                out->v3sigma2lapl, out->v3sigma2tau, out->v3sigmalapl2, out->v3sigmalapltau,
+                out->v3sigmatau2, out->v3lapl3, out->v3lapl2tau, out->v3lapltau2,
+                out->v3tau3,
+                out->v4rho4, out->v4rho3sigma, out->v4rho3lapl, out->v4rho3tau,
+                out->v4rho2sigma2, out->v4rho2sigmalapl, out->v4rho2sigmatau,
+                out->v4rho2lapl2, out->v4rho2lapltau, out->v4rho2tau2, out->v4rhosigma3,
+                out->v4rhosigma2lapl, out->v4rhosigma2tau, out->v4rhosigmalapl2,
+                out->v4rhosigmalapltau, out->v4rhosigmatau2, out->v4rholapl3,
+                out->v4rholapl2tau, out->v4rholapltau2, out->v4rhotau3, out->v4sigma4,
+                out->v4sigma3lapl, out->v4sigma3tau, out->v4sigma2lapl2, out->v4sigma2lapltau,
+                out->v4sigma2tau2, out->v4sigmalapl3, out->v4sigmalapl2tau,
+                out->v4sigmalapltau2, out->v4sigmatau3, out->v4lapl4, out->v4lapl3tau,
+                out->v4lapl2tau2, out->v4lapltau3, out->v4tau4
+                );
 }
 
 /* old API */

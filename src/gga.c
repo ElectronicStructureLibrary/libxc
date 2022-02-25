@@ -147,13 +147,19 @@ if nspin == 2
 void xc_gga(const xc_func_type *func, size_t np, const double *rho, const double *sigma,
             double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
-  const xc_dimensions *dim = &(func->dim);
 
-  /* sanity check */
-  if(zk != NULL && !(func->info->flags & XC_FLAGS_HAVE_EXC)){
-    fprintf(stderr, "Functional '%s' does not provide an implementation of Exc\n",
-	    func->info->name);
-    exit(1);
+  xc_gga_sanity_check(func->info, order, out);
+  xc_gga_initalize(func, np, out);
+  
+  /* call the GGA routines */
+  if(func->info->gga != NULL){
+    if(func->nspin == XC_UNPOLARIZED){
+      if(func->info->gga->unpol[order] != NULL)
+        func->info->gga->unpol[order](func, np, rho, sigma, out);
+    }else{
+      if(func->info->gga->pol[order] != NULL)
+        func->info->gga->pol[order](func, np, rho, sigma, out);
+    }
   }
 
   if(func->mix_coef != NULL)

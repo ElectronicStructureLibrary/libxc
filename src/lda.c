@@ -78,12 +78,14 @@ xc_lda_new(const xc_func_type *func, int order, size_t np, const double *rho,
   xc_lda_initalize(func, np, out);
 
   /* call the LDA routines */
-  if(func->nspin == XC_UNPOLARIZED){
-    if(func->info->lda->unpol[order] != NULL)
-      func->info->lda->unpol[order](func, np, rho, out);
-  }else{
-    if(func->info->lda->pol[order] != NULL)
-      func->info->lda->pol[order](func, np, rho, out);
+  if(func->info->lda != NULL){
+    if(func->nspin == XC_UNPOLARIZED){
+      if(func->info->lda->unpol[order] != NULL)
+        func->info->lda->unpol[order](func, np, rho, out);
+    }else{
+      if(func->info->lda->pol[order] != NULL)
+        func->info->lda->pol[order](func, np, rho, out);
+    }
   }
 
   if(func->mix_coef != NULL)

@@ -283,14 +283,16 @@ void xc_mgga_new(const xc_func_type *func, int order, size_t np,
   xc_mgga_initalize(func, np, out);
 
   /* call the mGGA routines */
-  if(func->nspin == XC_UNPOLARIZED){
-    if(func->info->mgga->unpol[order] != NULL)
-      func->info->mgga->unpol[order](func, np, rho, sigma, lapl, tau, out);
-  }else{
-    if(func->info->mgga->pol[order] != NULL)
-      func->info->mgga->pol[order](func, np, rho, sigma, lapl, tau, out);
+  if(func->info->mgga != NULL){
+    if(func->nspin == XC_UNPOLARIZED){
+      if(func->info->mgga->unpol[order] != NULL)
+        func->info->mgga->unpol[order](func, np, rho, sigma, lapl, tau, out);
+    }else{
+      if(func->info->mgga->pol[order] != NULL)
+        func->info->mgga->pol[order](func, np, rho, sigma, lapl, tau, out);
+    }
   }
-
+    
   if(func->mix_coef != NULL)
     xc_mix_func(func, np, rho, sigma, lapl, tau,
                 out->zk, out->vrho, out->vsigma, out->vlapl, out->vtau,

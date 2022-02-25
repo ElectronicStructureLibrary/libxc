@@ -177,41 +177,20 @@ xc_mgga_evaluate_functional(const xc_func_type *func, size_t np,
                             const double *rho, const double *sigma, const double *lapl, const double *tau,
                             double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
-  /* WARNING THIS ROUTINE HAS TO BE REWRITTEN */
-  xc_lda_out_params lda_out;
-  xc_gga_out_params gga_out;
-  int order;
   double *mzk = NULL;
 
-  order = 0;
-  if(vrho   != 0) order = 1;
-  if(v2rho2 != 0) order = 2;
-  if(v3rho3 != 0) order = 3;
-  if(v4rho4 != 0) order = 4;
-  
   if(func->info->flags & XC_FLAGS_HAVE_EXC)
     mzk = zk;
 
   /* Evaluate the functional */
   switch(func->info->family){
-  case XC_FAMILY_LDA: {
-    libxc_memset(&out, 0, sizeof(xc_lda_out_params));
-    out.zk     = mzk;
-    out.vrho   = vrho;
-    out.v2rho2 = v2rho2;
-    out.v3rho3 = v3rho3;
-    out.v4rho4 = v4rho4;
-    xc_lda_new(func, order, np, rho, &out);
-  }
+  case XC_FAMILY_LDA:
+    xc_lda(func, np, rho,
+           mzk LDA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
     break;
   case XC_FAMILY_GGA:
-    libxc_memset(&gga_out, 0, sizeof(xc_gga_out_params));
-    gga_out.zk     = mzk;
-    gga_out.vrho   = vrho; gga_out.vsigma = vsigma;
-    gga_out.v2rho2 = v2rho2; gga_out.v2rhosigma = v2rhosigma; gga_out.v2sigma2 = v2sigma2;
-    gga_out.v3rho3 = v3rho3; gga_out.v3rho2sigma = v3rho2sigma; gga_out.v3rhosigma2 = v3rhosigma2; gga_out.v3sigma3 = v3sigma3;
-    gga_out.v4rho4 = v4rho4; gga_out.v4rho3sigma = v4rho3sigma; gga_out.v4rho2sigma2 = v4rho2sigma2; gga_out.v4rhosigma3 = v4rhosigma3; gga_out.v4sigma4 = v4sigma4;
-    xc_gga(func, order, np, rho, sigma, &gga_out);
+    xc_gga(func, np, rho, sigma,
+           mzk GGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
     break;
   case XC_FAMILY_MGGA:
     xc_mgga(func, np, rho, sigma, lapl, tau,
@@ -238,7 +217,7 @@ xc_deorbitalize_init(xc_func_type *p, int mgga_id, int ked_id)
 }
 
 void
-xc_deorbitalize_func(const xc_func_type *func, size_t np,
+xc_deorbitalize_func_work(const xc_func_type *func, size_t np,
                      const double *rho, const double *sigma, const double *lapl, const double *tau,
                      double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
 {
@@ -376,3 +355,38 @@ xc_deorbitalize_func(const xc_func_type *func, size_t np,
   free(mtau);
 }
 
+static void
+deorb_new(const xc_func_type *func, size_t np,
+          const double *rho, const double *sigma, const double *lapl, const double *tau,
+          xc_mgga_out_params *out)
+{
+  xc_deorbitalize_func_work(func, np, rho, sigma, lapl, tau,
+                            out->zk, out->vrho, out->vsigma, out->vlapl, out->vtau,
+                            out->v2rho2, out->v2rhosigma, out->v2rholapl, out->v2rhotau,
+                            out->v2sigma2, out->v2sigmalapl, out->v2sigmatau, out->v2lapl2,
+                            out->v2lapltau, out->v2tau2,
+                            out->v3rho3, out->v3rho2sigma, out->v3rho2lapl, out->v3rho2tau,
+                            out->v3rhosigma2, out->v3rhosigmalapl, out->v3rhosigmatau,
+                            out->v3rholapl2, out->v3rholapltau, out->v3rhotau2, out->v3sigma3,
+                            out->v3sigma2lapl, out->v3sigma2tau, out->v3sigmalapl2, out->v3sigmalapltau,
+                            out->v3sigmatau2, out->v3lapl3, out->v3lapl2tau, out->v3lapltau2,
+                            out->v3tau3,
+                            out->v4rho4, out->v4rho3sigma, out->v4rho3lapl, out->v4rho3tau,
+                            out->v4rho2sigma2, out->v4rho2sigmalapl, out->v4rho2sigmatau,
+                            out->v4rho2lapl2, out->v4rho2lapltau, out->v4rho2tau2, out->v4rhosigma3,
+                            out->v4rhosigma2lapl, out->v4rhosigma2tau, out->v4rhosigmalapl2,
+                            out->v4rhosigmalapltau, out->v4rhosigmatau2, out->v4rholapl3,
+                            out->v4rholapl2tau, out->v4rholapltau2, out->v4rhotau3, out->v4sigma4,
+                            out->v4sigma3lapl, out->v4sigma3tau, out->v4sigma2lapl2, out->v4sigma2lapltau,
+                            out->v4sigma2tau2, out->v4sigmalapl3, out->v4sigmalapl2tau,
+                            out->v4sigmalapltau2, out->v4sigmatau3, out->v4lapl4, out->v4lapl3tau,
+                            out->v4lapl2tau2, out->v4lapltau3, out->v4tau4
+                            );
+}
+
+xc_mgga_funcs_variants xc_deorbitalize_func =
+  {
+   {deorb_new, deorb_new, deorb_new, deorb_new, deorb_new},
+   {deorb_new, deorb_new, deorb_new, deorb_new, deorb_new}
+  };
+                                               

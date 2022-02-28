@@ -12,7 +12,7 @@
 
 #include "util.h"
 
-#define  XC_GGA_C_PBE_ERF_GWS                   743 /* Short ranged PBE correlation (erfc) */
+#define  XC_GGA_C_PBE_ERF_GWS                   657 /* Short ranged PBE correlation (erfc) */
 
 #define N_PAR 4
 
@@ -29,7 +29,6 @@ xc_gga_c_pbe_erf_gws_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_c_pbe_erf_gws_params));
 }
 
-
 static const char  *param_names[N_PAR]  = {"_beta", "_gamma", "_a_c","_omega"};
 static const char  *param_desc[N_PAR]   = {
   "beta constant",
@@ -43,6 +42,9 @@ static const double param_values[N_PAR] =
 #include "maple2c/gga_exc/gga_c_pbe_erf_gws.c"
 #include "work_gga.c"
 
+#ifdef __cplusplus
+extern "C"
+#endif
 const xc_func_info_type xc_func_info_gga_c_pbe_erf_gws = {
   XC_GGA_C_PBE_ERF_GWS,
   XC_CORRELATION,
@@ -53,5 +55,5 @@ const xc_func_info_type xc_func_info_gga_c_pbe_erf_gws = {
   1e-13,
   {N_PAR, param_names, param_desc, param_values, set_ext_params_cpy_omega},
   xc_gga_c_pbe_erf_gws_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

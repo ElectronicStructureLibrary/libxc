@@ -1747,6 +1747,21 @@
  ! VCML-rVV10 by Trepte and Voss
  integer(c_int), parameter, public :: XC_MGGA_XC_VCML_RVV10  =    652
 
+ ! Hybrid Exchange functional with short-range LDA exchange (erf)
+ integer(c_int), parameter, public :: XC_HYB_LDA_X_ERF  =    653
+
+ ! Short ranged correlation LDA (erfc)
+ integer(c_int), parameter, public :: XC_LDA_C_PW_ERF  =    654
+
+ ! Short ranged PBE exchange (erfc)
+ integer(c_int), parameter, public :: XC_GGA_X_PBE_ERF_GWS  =    655
+
+ ! Short-range PBE (GWS) exchange (erfc) + long-range exact exchange
+ integer(c_int), parameter, public :: XC_HYB_GGA_X_PBE_ERF_GWS  =    656
+
+ ! Short ranged PBE correlation (erfc)
+ integer(c_int), parameter, public :: XC_GGA_C_PBE_ERF_GWS  =    657
+
  ! CAM hybrid screened exchange PBE version
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_PBEH  =    681
 
@@ -1893,19 +1908,4 @@
 
  ! Functional for quasi-1D systems
  integer(c_int), parameter, public :: XC_GGA_X_Q1D  =    734
-
- !Short ranged LDA PW correlation (erfc)
- integer(c_int), parameter, public :: XC_LDA_C_PW_ERF          = 741
-
- !Short ranged PBE exchange (erfc)
- integer(c_int), parameter, public :: XC_GGA_X_PBE_ERF_GWS     = 742
-
- !Short ranged PBE correlation (erfc)
- integer(c_int), parameter, public :: XC_GGA_C_PBE_ERF_GWS     = 743
-
- !Hybrid Functional with short-ranged LDA exchange (erfc)
- integer(c_int), parameter, public :: XC_HYB_LDA_C_PW_ERF      = 744
-
- !Hybrid functional with short ranged PBE exchange (erfc)
- integer(c_int), parameter, public :: XC_HYB_GGA_X_PBE_ERF_GWS = 745
 

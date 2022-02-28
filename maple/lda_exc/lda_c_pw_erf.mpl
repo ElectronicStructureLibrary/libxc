@@ -6,7 +6,7 @@
  License, v. 2.0. If a copy of the MPL was not distributed with this
  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
- Short-range (erfc) Perdew Wang correlation functional according to 
+ Short-range (erfc) Perdew Wang correlation functional according to
  S. Paziani, S. Moroni, P. Gori-Giorgi, and G. B. Bachelet.,  Phys. Rev. B 73, 155111 (2006).
  DOI:10.1103/PhysRevB.73.155111
 *)

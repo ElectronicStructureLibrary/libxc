@@ -13,6 +13,8 @@
 
 (* type: gga_exc *)
 
+(* short-range LDA is the basis of short-range PBE*)
+$include "lda_x_erf.mpl"
 
 (*
  in short-range PBE, the constant b is now mu-dependent.
@@ -41,9 +43,9 @@ pbe_x_erf_gws_b_large_mu := mu_t -> 1/(72*mu_t^2) - 1/(17280*mu_t^4) - 23/(35840
  switch between Taylor expansions and exact form with differentiable step function
 *)
 # exp_b explodes otherwise (exp_b(0.5) = 2.7e+43) (we also want some spare-room for derivatives)
-pbe_x_erf_gws_b_thresh_small := 0.05: 
+pbe_x_erf_gws_b_thresh_small := 0.05:
 # Should be fine. largest scaling is O(mu_t^4)=O(1e40) (we also want some spare-room for derivatives)
-pbe_x_erf_gws_b_thresh_large := 1e10:  
+pbe_x_erf_gws_b_thresh_large := 1e10:
 pbe_x_erf_gws_b_piece := mu_t -> my_piecewise5(mu_t < pbe_x_erf_gws_b_thresh_small, pbe_x_erf_gws_b_small_mu(mu_t),
                                           mu_t > pbe_x_erf_gws_b_thresh_large, pbe_x_erf_gws_b_large_mu(mu_t),
                                           pbe_x_erf_gws_b(mu_t)):
@@ -81,7 +83,6 @@ nu_2 := (rs,z) -> nu(rs,z)/2:
 (* second part of eq. (3)*)
 pbe_x_erf_gws_Fx := (rs,z,s) -> 1 + pbe_x_erf_gws_kappa_fx(rs,z)*(1 - pbe_x_erf_gws_kappa_fx(rs,z)/(pbe_x_erf_gws_kappa_fx(rs,z) + pbe_x_erf_gws_b_mod(nu_2(rs,z))*s^2)):
 
-
 $include "lda_x_erf.mpl"
 (* first part of eq. (3)*)
 f_pbe_x_erf_gws_spin := (rs, z, xs) -> lda_x_erf_spin(rs,z)*pbe_x_erf_gws_Fx(rs,z,xs*X2S):
@@ -92,4 +93,3 @@ f := (rs, z, xt, xs0, xs1) -> simplify((
 + my_piecewise3(screen_dens(rs, z),0,f_pbe_x_erf_gws_spin(rs_a(rs,z),1,xs0)*n_spin(rs, z))
 + my_piecewise3(screen_dens(rs,-z),0,f_pbe_x_erf_gws_spin(rs_b(rs,z),1,xs1)*n_spin(rs,-z))
 )/n_total(rs)):
-

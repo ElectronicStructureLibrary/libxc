@@ -13,7 +13,6 @@
 #define XC_MGGA_X_VCML            651 /* VCML exchange, used in VCML-rVV10 by Trepte and Voss */
 #define XC_MGGA_XC_VCML_RVV10     652 /* VCML-rVV10 exchange-correlation by Trepte and Voss */
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_vcml.c"
 #include "work_mgga.c"
 
@@ -30,7 +29,7 @@ const xc_func_info_type xc_func_info_mgga_x_vcml = {
   1e-14,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 static void

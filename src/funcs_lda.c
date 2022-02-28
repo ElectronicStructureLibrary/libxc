@@ -66,12 +66,12 @@ extern xc_func_info_type xc_func_info_lda_c_pmgb06;
 extern xc_func_info_type xc_func_info_lda_xc_tih;
 extern xc_func_info_type xc_func_info_lda_x_1d_exponential;
 extern xc_func_info_type xc_func_info_lda_x_yukawa;
+extern xc_func_info_type xc_func_info_hyb_lda_x_erf;
+extern xc_func_info_type xc_func_info_lda_c_pw_erf;
 extern xc_func_info_type xc_func_info_lda_c_upw92;
 extern xc_func_info_type xc_func_info_lda_c_rpw92;
 extern xc_func_info_type xc_func_info_lda_x_sloc;
 extern xc_func_info_type xc_func_info_lda_k_gds08_worker;
-extern xc_func_info_type xc_func_info_lda_c_pw_erf;
-extern xc_func_info_type xc_func_info_hyb_lda_x_erf;
 
 const xc_func_info_type *xc_lda_known_funct[] = {
   &xc_func_info_lda_x,
@@ -140,11 +140,11 @@ const xc_func_info_type *xc_lda_known_funct[] = {
   &xc_func_info_lda_xc_tih,
   &xc_func_info_lda_x_1d_exponential,
   &xc_func_info_lda_x_yukawa,
+  &xc_func_info_hyb_lda_x_erf,
+  &xc_func_info_lda_c_pw_erf,
   &xc_func_info_lda_c_upw92,
   &xc_func_info_lda_c_rpw92,
   &xc_func_info_lda_x_sloc,
   &xc_func_info_lda_k_gds08_worker,
-  &xc_func_info_lda_c_pw_erf,
-  &xc_func_info_hyb_lda_x_erf,
   NULL
 };

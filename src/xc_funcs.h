@@ -581,6 +581,11 @@
 #define  XC_MGGA_X_R4SCAN                  650 /* r^4SCAN| a functional that satisfies the same exact constraints that SCAN does */
 #define  XC_MGGA_X_VCML                    651 /* Exchange part of VCML-rVV10 by Trepte and Voss */
 #define  XC_MGGA_XC_VCML_RVV10             652 /* VCML-rVV10 by Trepte and Voss */
+#define  XC_HYB_LDA_X_ERF                  653 /* Hybrid Exchange functional with short-range LDA exchange (erf) */
+#define  XC_LDA_C_PW_ERF                   654 /* Short ranged correlation LDA (erfc) */
+#define  XC_GGA_X_PBE_ERF_GWS              655 /* Short ranged PBE exchange (erfc) */
+#define  XC_HYB_GGA_X_PBE_ERF_GWS          656 /* Short-range PBE (GWS) exchange (erfc) + long-range exact exchange */
+#define  XC_GGA_C_PBE_ERF_GWS              657 /* Short ranged PBE correlation (erfc) */
 #define  XC_HYB_GGA_XC_CAM_PBEH            681 /* CAM hybrid screened exchange PBE version */
 #define  XC_HYB_GGA_XC_CAMY_PBEH           682 /* CAMY hybrid screened exchange PBE version */
 #define  XC_LDA_C_UPW92                    683 /* Ruggeri| Rios| and Alavi unrestricted fit */
@@ -630,8 +635,3 @@
 #define  XC_HYB_GGA_XC_PBE_QIDH            727 /* Double hybrid of Bremond et al */
 #define  XC_HYB_GGA_XC_LS1DH_PBE           728 /* Double hybrid of Toulouse et al */
 #define  XC_GGA_X_Q1D                      734 /* Functional for quasi-1D systems */
-#define  XC_LDA_C_PW_ERF                   741 /* Short ranged LDA PW correlation (erfc) */
-#define  XC_GGA_X_PBE_ERF_GWS              742 /* Short ranged PBE exchange (erfc) */
-#define  XC_GGA_C_PBE_ERF_GWS              743 /* Short ranged PBE correlation (erfc) */
-#define  XC_HYB_LDA_X_ERF                  744 /* Hybrid Functional with short-ranged LDA exchange (erfc)*/
-#define  XC_HYB_GGA_X_PBE_ERF_GWS          745 /* Hybrid functional with short ranged PBE exchange (erfc) */

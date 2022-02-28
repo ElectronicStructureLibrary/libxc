@@ -50,8 +50,8 @@ libxc_la_FUNC_SOURCES = \
 	lda_xc_1d_ehwlrg.c lda_x_rel.c lda_x_erf.c lda_k_zlp.c		\
 	lda_c_gk72.c hyb_lda_xc_bn05.c lda_c_pmgb06.c			\
 	lda_k_gds08_worker.c lda_xc_tih.c lda_x_1d_exponential.c	\
-	lda_x_1d_soft.c hyb_lda_xc_cam_lda0.c lda_x_sloc.c lda_c_w20.c  \
-	lda_x_yukawa.c lda_c_pw_erf	\
+	lda_x_1d_soft.c hyb_lda_xc_cam_lda0.c lda_x_sloc.c		\
+	lda_c_w20.c lda_x_yukawa.c lda_c_pw_erf.c \
 	gga.c \
 	gga_x_lg93.c gga_x_pbe.c gga_x_rpbe.c gga_x_pbea.c		\
 	gga_x_mpbe.c gga_x_herman.c gga_x_b86.c gga_x_b88.c		\
@@ -64,9 +64,9 @@ libxc_la_FUNC_SOURCES = \
 	gga_c_tca.c gga_x_bpccac.c gga_x_sogga11.c gga_c_sogga11.c	\
 	gga_xc_th1.c gga_x_wpbeh.c gga_x_hjs.c gga_x_ityh.c		\
 	gga_x_sfat.c gga_x_sfat_pbe.c gga_x_ev93.c gga_x_ak13.c		\
-	gga_x_q1d.c gga_x_q2d.c gga_c_q2d.c gga_x_ssb_sw.c gga_c_ft97.c		\
-	gga_x_n12.c gga_x_lv_rpw86.c gga_x_2d_b86.c gga_k_llp.c		\
-	gga_x_2d_b86_mgc.c gga_x_2d_b88.c gga_x_2d_pbe.c		\
+	gga_x_q1d.c gga_x_q2d.c gga_c_q2d.c gga_x_ssb_sw.c		\
+	gga_c_ft97.c gga_x_n12.c gga_x_lv_rpw86.c gga_x_2d_b86.c	\
+	gga_k_llp.c gga_x_2d_b86_mgc.c gga_x_2d_b88.c gga_x_2d_pbe.c	\
 	gga_x_lspbe.c gga_x_lsrpbe.c gga_k_tflw.c gga_k_pearson.c	\
 	gga_x_ol2.c gga_k_ol1.c gga_k_ol2.c gga_k_dk.c gga_k_meyer.c	\
 	gga_x_vmt.c gga_x_hcth_a.c gga_x_cap.c gga_x_beefvdw.c		\
@@ -82,19 +82,18 @@ libxc_la_FUNC_SOURCES = \
 	gga_c_op_g96.c gga_c_op_pw91.c gga_x_pbetrans.c			\
 	gga_k_apbeint.c gga_x_chachiyo.c gga_k_gds08.c gga_k_exp4.c	\
 	hyb_gga_xc_pbeh.c hyb_gga_xc_b1wc.c hyb_gga_xc_hse.c		\
-	hyb_gga_xc_cam_b3lyp.c  gga_k_lc94.c	                        \
-	gga_c_zvpbeloc.c hyb_gga_xc_camy_blyp.c				\
-	hyb_gga_xc_camy_b3lyp.c hyb_gga_xc_lcy_pbe.c			\
-	hyb_gga_xc_lcy_blyp.c gga_xc_vv10.c hyb_gga_xc_edf2.c		\
-	gga_k_pw86.c gga_k_mpbe.c gga_k_apbe.c gga_x_fd_lb94.c		\
-	gga_x_ncap.c gga_c_chachiyo.c hyb_gga_xc_lc_blyp.c		\
-	gga_c_pbe_vwn.c gga_x_s12.c gga_x_lcgau.c hyb_gga_xc_b2plyp.c   \
-	hyb_gga_xc_src1_blyp.c gga_k_lkt.c gga_k_lgap.c gga_k_vt84f.c   \
-	gga_k_lgap_ge.c	gga_c_ccdf.c gga_k_rational_p.c gga_k_pg.c      \
-	gga_c_p86vwn.c gga_x_ityh_optx.c hyb_gga_xc_cam_o3lyp.c \
-	gga_x_ityh_pbe.c gga_c_lypr.c hyb_gga_xc_pbe_dh.c \
-  hyb_gga_x_cam_s12.c hyb_gga_xc_case21.c \
-  gga_x_pbe_erf_gws gga_c_pbe_erf_gws \
+	hyb_gga_xc_cam_b3lyp.c gga_k_lc94.c gga_c_zvpbeloc.c		\
+	hyb_gga_xc_camy_blyp.c hyb_gga_xc_camy_b3lyp.c			\
+	hyb_gga_xc_lcy_pbe.c hyb_gga_xc_lcy_blyp.c gga_xc_vv10.c	\
+	hyb_gga_xc_edf2.c gga_k_pw86.c gga_k_mpbe.c gga_k_apbe.c	\
+	gga_x_fd_lb94.c gga_x_ncap.c gga_c_chachiyo.c			\
+	hyb_gga_xc_lc_blyp.c gga_c_pbe_vwn.c gga_x_s12.c		\
+	gga_x_lcgau.c hyb_gga_xc_b2plyp.c hyb_gga_xc_src1_blyp.c	\
+	gga_k_lkt.c gga_k_lgap.c gga_k_vt84f.c gga_k_lgap_ge.c		\
+	gga_c_ccdf.c gga_k_rational_p.c gga_k_pg.c gga_c_p86vwn.c	\
+	gga_x_ityh_optx.c hyb_gga_xc_cam_o3lyp.c gga_x_ityh_pbe.c	\
+	gga_c_lypr.c hyb_gga_xc_pbe_dh.c hyb_gga_x_cam_s12.c		\
+	hyb_gga_xc_case21.c gga_x_pbe_erf_gws.c gga_c_pbe_erf_gws.c     \
 	mgga.c \
 	mgga_x_lta.c mgga_x_tpss.c mgga_x_br89.c mgga_x_gvt4.c		\
 	mgga_x_m06l.c mgga_x_tau_hcth.c mgga_x_2d_prhg07.c		\

@@ -37,7 +37,7 @@ func_exc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
   t8 = 0.1e1 / t5 * t7;
   t9 = POW_1_3(rho[0]);
   t10 = t8 * t9;
-  t13 = params->bp * t1;
+  t13 = params->cp * t1;
   t14 = t5 * t5;
   t16 = t7 * t7;
   t17 = 0.1e1 / t14 * t16;
@@ -47,7 +47,7 @@ func_exc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
   t23 = log(t22);
   t24 = params->ap * t23;
   t25 = params->bf * t2;
-  t28 = params->bf * t1;
+  t28 = params->cf * t1;
   t31 = 0.1e1 + t25 * t10 / 0.3e1 + t28 * t19 / 0.3e1;
   t32 = log(t31);
   t36 = POW_1_3(p->zeta_threshold);
@@ -91,7 +91,7 @@ func_vxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
   t8 = 0.1e1 / t5 * t7;
   t9 = POW_1_3(rho[0]);
   t10 = t8 * t9;
-  t13 = params->bp * t1;
+  t13 = params->cp * t1;
   t14 = t5 * t5;
   t16 = t7 * t7;
   t17 = 0.1e1 / t14 * t16;
@@ -101,7 +101,7 @@ func_vxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
   t23 = log(t22);
   t24 = params->ap * t23;
   t25 = params->bf * t2;
-  t28 = params->bf * t1;
+  t28 = params->cf * t1;
   t31 = 0.1e1 + t25 * t10 / 0.3e1 + t28 * t19 / 0.3e1;
   t32 = log(t31);
   t36 = POW_1_3(p->zeta_threshold);
@@ -161,7 +161,7 @@ func_fxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
   t8 = 0.1e1 / t5 * t7;
   t9 = POW_1_3(rho[0]);
   t10 = t8 * t9;
-  t13 = params->bp * t1;
+  t13 = params->cp * t1;
   t14 = t5 * t5;
   t16 = t7 * t7;
   t17 = 0.1e1 / t14 * t16;
@@ -171,7 +171,7 @@ func_fxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
   t23 = log(t22);
   t24 = params->ap * t23;
   t25 = params->bf * t2;
-  t28 = params->bf * t1;
+  t28 = params->cf * t1;
   t31 = 0.1e1 + t25 * t10 / 0.3e1 + t28 * t19 / 0.3e1;
   t32 = log(t31);
   t36 = POW_1_3(p->zeta_threshold);
@@ -254,7 +254,7 @@ func_kxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
   t8 = 0.1e1 / t5 * t7;
   t9 = POW_1_3(rho[0]);
   t10 = t8 * t9;
-  t13 = params->bp * t1;
+  t13 = params->cp * t1;
   t14 = t5 * t5;
   t16 = t7 * t7;
   t17 = 0.1e1 / t14 * t16;
@@ -264,7 +264,7 @@ func_kxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
   t23 = log(t22);
   t24 = params->ap * t23;
   t25 = params->bf * t2;
-  t28 = params->bf * t1;
+  t28 = params->cf * t1;
   t31 = 0.1e1 + t25 * t10 / 0.3e1 + t28 * t19 / 0.3e1;
   t32 = log(t31);
   t36 = POW_1_3(p->zeta_threshold);
@@ -370,7 +370,7 @@ func_lxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
   t8 = 0.1e1 / t5 * t7;
   t9 = POW_1_3(rho[0]);
   t10 = t8 * t9;
-  t13 = params->bp * t1;
+  t13 = params->cp * t1;
   t14 = t5 * t5;
   t16 = t7 * t7;
   t17 = 0.1e1 / t14 * t16;
@@ -380,7 +380,7 @@ func_lxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
   t23 = log(t22);
   t24 = params->ap * t23;
   t25 = params->bf * t2;
-  t28 = params->bf * t1;
+  t28 = params->cf * t1;
   t31 = 0.1e1 + t25 * t10 / 0.3e1 + t28 * t19 / 0.3e1;
   t32 = log(t31);
   t36 = POW_1_3(p->zeta_threshold);
@@ -496,7 +496,7 @@ func_exc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   t9 = rho[0] + rho[1];
   t10 = POW_1_3(t9);
   t11 = t8 * t10;
-  t14 = params->bp * t1;
+  t14 = params->cp * t1;
   t15 = t5 * t5;
   t17 = t7 * t7;
   t18 = 0.1e1 / t15 * t17;
@@ -506,7 +506,7 @@ func_exc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   t24 = log(t23);
   t25 = params->ap * t24;
   t26 = params->bf * t2;
-  t29 = params->bf * t1;
+  t29 = params->cf * t1;
   t32 = 0.1e1 + t26 * t11 / 0.3e1 + t29 * t20 / 0.3e1;
   t33 = log(t32);
   t35 = params->af * t33 - t25;
@@ -567,7 +567,7 @@ func_vxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   t9 = rho[0] + rho[1];
   t10 = POW_1_3(t9);
   t11 = t8 * t10;
-  t14 = params->bp * t1;
+  t14 = params->cp * t1;
   t15 = t5 * t5;
   t17 = t7 * t7;
   t18 = 0.1e1 / t15 * t17;
@@ -577,7 +577,7 @@ func_vxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   t24 = log(t23);
   t25 = params->ap * t24;
   t26 = params->bf * t2;
-  t29 = params->bf * t1;
+  t29 = params->cf * t1;
   t32 = 0.1e1 + t26 * t11 / 0.3e1 + t29 * t20 / 0.3e1;
   t33 = log(t32);
   t35 = params->af * t33 - t25;
@@ -680,7 +680,7 @@ func_fxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   t9 = rho[0] + rho[1];
   t10 = POW_1_3(t9);
   t11 = t8 * t10;
-  t14 = params->bp * t1;
+  t14 = params->cp * t1;
   t15 = t5 * t5;
   t17 = t7 * t7;
   t18 = 0.1e1 / t15 * t17;
@@ -690,7 +690,7 @@ func_fxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   t24 = log(t23);
   t25 = params->ap * t24;
   t26 = params->bf * t2;
-  t29 = params->bf * t1;
+  t29 = params->cf * t1;
   t32 = 0.1e1 + t26 * t11 / 0.3e1 + t29 * t20 / 0.3e1;
   t33 = log(t32);
   t35 = params->af * t33 - t25;
@@ -871,7 +871,7 @@ func_kxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   t9 = rho[0] + rho[1];
   t10 = POW_1_3(t9);
   t11 = t8 * t10;
-  t14 = params->bp * t1;
+  t14 = params->cp * t1;
   t15 = t5 * t5;
   t17 = t7 * t7;
   t18 = 0.1e1 / t15 * t17;
@@ -881,7 +881,7 @@ func_kxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   t24 = log(t23);
   t25 = params->ap * t24;
   t26 = params->bf * t2;
-  t29 = params->bf * t1;
+  t29 = params->cf * t1;
   t32 = 0.1e1 + t26 * t11 / 0.3e1 + t29 * t20 / 0.3e1;
   t33 = log(t32);
   t35 = params->af * t33 - t25;
@@ -1160,7 +1160,7 @@ func_lxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   t9 = rho[0] + rho[1];
   t10 = POW_1_3(t9);
   t11 = t8 * t10;
-  t14 = params->bp * t1;
+  t14 = params->cp * t1;
   t15 = t5 * t5;
   t17 = t7 * t7;
   t18 = 0.1e1 / t15 * t17;
@@ -1170,7 +1170,7 @@ func_lxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   t24 = log(t23);
   t25 = params->ap * t24;
   t26 = params->bf * t2;
-  t29 = params->bf * t1;
+  t29 = params->cf * t1;
   t32 = 0.1e1 + t26 * t11 / 0.3e1 + t29 * t20 / 0.3e1;
   t33 = log(t32);
   t35 = params->af * t33 - t25;

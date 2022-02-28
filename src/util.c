@@ -168,7 +168,7 @@ set_ext_params_cpy_omega(xc_func_type *p, const double *ext_params)
 {
   int nparams;
   assert(p != NULL);
-  nparams = p->info->ext_params.n-1;
+  nparams = p->info->ext_params.n - 1;
   copy_params(p, ext_params, nparams);
 
   p->cam_alpha = 0.0;
@@ -185,7 +185,7 @@ set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params)
 {
   int nparams;
   assert(p != NULL);
-  nparams = p->info->ext_params.n-1;
+  nparams = p->info->ext_params.n - 1;
   copy_params(p, ext_params, nparams);
 
   p->cam_alpha = get_ext_param(p, ext_params, nparams);
@@ -203,7 +203,7 @@ set_ext_params_cpy_cam(xc_func_type *p, const double *ext_params)
   int nparams;
   assert(p != NULL);
   nparams = p->info->ext_params.n - 3;
-  copy_params(p, ext_params, p->info->ext_params.n - 3);
+  copy_params(p, ext_params, nparams);
 
   p->cam_alpha = get_ext_param(p, ext_params, nparams);
   p->cam_beta  = get_ext_param(p, ext_params, nparams + 1);
@@ -225,7 +225,7 @@ set_ext_params_cpy_cam_sr(xc_func_type *p, const double *ext_params)
   int nparams;
   assert(p != NULL);
   nparams = p->info->ext_params.n - 2;
-  copy_params(p, ext_params, p->info->ext_params.n - 2);
+  copy_params(p, ext_params, nparams);
 
   p->cam_alpha = 0.0;
   p->cam_beta  = get_ext_param(p, ext_params, nparams);
@@ -239,7 +239,7 @@ set_ext_params_cpy_lc(xc_func_type *p, const double *ext_params)
   int nparams;
   assert(p != NULL);
   nparams = p->info->ext_params.n - 1;
-  copy_params(p, ext_params, p->info->ext_params.n - 1);
+  copy_params(p, ext_params, nparams);
 
   p->cam_alpha = 1.0;
   p->cam_beta = -1.0;

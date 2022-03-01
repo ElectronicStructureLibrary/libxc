@@ -30,27 +30,14 @@ option_with_default(BUILD_FPIC "Libraries will be compiled with position indepen
 if((${BUILD_SHARED_LIBS}) AND NOT ${BUILD_FPIC})
   message(FATAL_ERROR "BUILD_SHARED_LIBS ON and BUILD_FPIC OFF are incompatible, as shared library requires position independent code")
 endif()
-option_with_default(NAMESPACE_INSTALL_INCLUDEDIR "Location within CMAKE_INSTALL_INCLUDEDIR to which headers are installed. Psi4 wants namespace (e.g., /libxc)" /)
+option_with_default(NAMESPACE_INSTALL_INCLUDEDIR "Location within CMAKE_INSTALL_INCLUDEDIR to which headers are installed (e.g., /libxc)" /)
 option_with_print(ENABLE_GENERIC "Enable mostly static linking in shared library" OFF)
 option_with_print(ENABLE_FORTRAN "Build Fortran 2003 interface" OFF)
 option_with_print(ENABLE_PYTHON "Install Python API interface" OFF)
 if(${ENABLE_PYTHON} AND NOT ${BUILD_SHARED_LIBS})
   message(FATAL_ERROR "ENABLE_PYTHON ON requires BUILD_SHARED_LIBS ON because only shared libraries can be dynamically loaded")
 endif()
-
-# Need to check things per compiler brand since they're different
-if(CMAKE_C_COMPILER_ID MATCHES Intel)
-  option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON "-xHost")
-elseif(CMAKE_C_COMPILER_ID MATCHES GNU)
-  option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON  "-march=native")
-elseif(CMAKE_C_COMPILER_ID MATCHES Clang)
-  option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON  "-march=native")
-elseif(CMAKE_C_COMPILER_ID MATCHES PGI)
-  option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON  "-tp host")
-elseif(CMAKE_C_COMPILER_ID MATCHES MSVC)
-  option_with_flags(ENABLE_XHOST "Enable processor-specific optimization" ON  "/arch:AVX2")
-endif()
-
+include(xhost)  # defines: option(ENABLE_XHOST "Enable processor-specific optimization" ON)
 option_with_print(DISABLE_VXC "Don't compile first derivative code" OFF)
 option_with_print(DISABLE_FXC "Don't compile second derivative code" OFF)
 option_with_print(DISABLE_KXC "Don't compile third derivative code" ON)
@@ -130,6 +117,11 @@ configure_file(xc_version.h.in xc_version.h @ONLY)
 
 # create dummy config.h
 configure_file(config.h.cmake.in config.h @ONLY)
+
+# special substitutions for pkgconfig files
+include(JoinPaths)
+join_paths(libdir_for_pc_file "\${exec_prefix}" "${CMAKE_INSTALL_LIBDIR}")
+join_paths(includedir_for_pc_file "\${prefix}" "${CMAKE_INSTALL_INCLUDEDIR}")
 configure_file(cmake/libxc.pc.in libxc.pc @ONLY)
 
 # extract project soversion from source
@@ -478,6 +470,16 @@ file(READ ${src_prefix}xc.h _src_contents)
 string(REPLACE "<xc_version.h>" "\"xc_version.h\"" _quoted_src "${_src_contents}")
 file(WRITE ${PROJECT_BINARY_DIR}/${src_prefix}xc.h "${_quoted_src}")
 
+# provide basic installed rpath, so Fortran lib can find C lib
+if (APPLE)
+    set(base "@loader_path")
+else()
+    set(base "$ORIGIN")
+endif()
+file(RELATIVE_PATH relDir ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}
+                          ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+set(CMAKE_INSTALL_RPATH ${base} ${base}/${relDir})
+
 # STATIC/SHARED on below governed by BUILD_SHARED_LIBS
 add_library(xc ${sources_list})
 set_target_properties(xc PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
@@ -572,8 +574,7 @@ target_include_directories(xc INTERFACE
 
 # <<<  Export Config  >>>
 
-# GNUInstallDirs "DATADIR" wrong here; CMake search path wants "share".
-set(CMAKECONFIG_INSTALL_DIR "lib/cmake/${PN}")
+set(CMAKECONFIG_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${PN}")
 configure_package_config_file(cmake/${PN}Config.cmake.in
   "${CMAKE_CURRENT_BINARY_DIR}/${PN}Config.cmake"
   INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR})

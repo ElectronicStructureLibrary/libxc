@@ -29,7 +29,7 @@ const xc_func_info_type xc_func_info_mgga_x_vcml = {
   1e-14,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 static void

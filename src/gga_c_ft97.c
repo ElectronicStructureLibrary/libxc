@@ -11,7 +11,6 @@
 
 #define XC_GGA_C_FT97          88 /* Filatov & Thiel correlation */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_ft97.c"
 #include "work_gga.c"
 
@@ -28,5 +27,5 @@ const xc_func_info_type xc_func_info_gga_c_ft97 = {
   1e-14,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

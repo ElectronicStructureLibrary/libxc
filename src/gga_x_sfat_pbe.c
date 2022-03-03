@@ -15,7 +15,6 @@
    Akinaga, Ten-no, Chem. Phys. Lett. 462 (2008) 348-351
 */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_sfat_pbe.c"
 #include "work_gga.c"
 
@@ -44,6 +43,6 @@ const xc_func_info_type xc_func_info_gga_x_sfat_pbe = {
   1e-15,
   {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
   xc_gga_x_sfat_pbe_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 

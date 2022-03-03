@@ -15,7 +15,6 @@
 
 #define XC_LDA_C_VWN      7   /* Vosko, Wilk, & Nusair (5)   */
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_vwn.c"
 #include "work_lda.c"
 
@@ -32,7 +31,7 @@ const xc_func_info_type xc_func_info_lda_c_vwn = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };
 
 

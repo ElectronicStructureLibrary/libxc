@@ -22,7 +22,6 @@ static const char  *omega_names[]  = {"_omega"};
 static const char  *omega_desc[]   = {"screening parameter"};
 static const double omega_values[] = {0.3};
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_pmgb06.c"
 #include "work_lda.c"
 
@@ -39,5 +38,5 @@ const xc_func_info_type xc_func_info_lda_c_pmgb06 = {
   1e-13,
   {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
   xc_lda_x_pmgb06_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

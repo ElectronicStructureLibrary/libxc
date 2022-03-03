@@ -38,7 +38,6 @@ static const double ms1_values[MS0_N_PAR] = {0.404, 0.18150, 1.0};
 static const double ms2_values[MS0_N_PAR] = {0.504, 0.14601, 4.0};
 static const double ms2rev_values[MS0_N_PAR] = {0.504, 0.14607, 4.0};
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_ms.c"
 #include "work_mgga.c"
 
@@ -55,7 +54,7 @@ const xc_func_info_type xc_func_info_mgga_x_ms0 = {
   1e-15,
   {MS0_N_PAR, ms0_names, ms0_desc, ms0_values, set_ext_params_cpy},
   mgga_x_ms_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -71,7 +70,7 @@ const xc_func_info_type xc_func_info_mgga_x_ms1 = {
   1e-15,
   {MS0_N_PAR, ms0_names, ms0_desc, ms1_values, set_ext_params_cpy},
   mgga_x_ms_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -87,7 +86,7 @@ const xc_func_info_type xc_func_info_mgga_x_ms2 = {
   1e-15,
   {MS0_N_PAR, ms0_names, ms0_desc, ms2_values, set_ext_params_cpy},
   mgga_x_ms_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -103,7 +102,7 @@ const xc_func_info_type xc_func_info_mgga_x_ms2_rev = {
   1e-15,
   {MS0_N_PAR, ms0_names, ms0_desc, ms2rev_values, set_ext_params_cpy},
   mgga_x_ms_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 static void

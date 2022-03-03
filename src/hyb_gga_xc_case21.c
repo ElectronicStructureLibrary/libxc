@@ -44,7 +44,7 @@ static const double case21_values[N_PAR]     = {
   MU_PBE/0.8040, 1.0/0.06672455060314922, 0.25
 };
 
-static double xbspline(double u, int ider, const hyb_gga_xc_case21_params * params) {
+GPU_DEVICE_FUNCTION static double xbspline(double u, int ider, const hyb_gga_xc_case21_params * params) {
   assert(ider<=4);
 
   double result=0.0;
@@ -57,7 +57,7 @@ static double xbspline(double u, int ider, const hyb_gga_xc_case21_params * para
   return result;
 }
 
-static double cbspline(double u, int ider, const hyb_gga_xc_case21_params * params) {
+GPU_DEVICE_FUNCTION static double cbspline(double u, int ider, const hyb_gga_xc_case21_params * params) {
   assert(ider<=4);
 
   double result=0.0;
@@ -112,7 +112,6 @@ hyb_gga_xc_case21_init(xc_func_type *p)
   xc_hyb_init_hybrid(p, 0.0);
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/hyb_gga_xc_case21.c"
 #include "work_gga.c"
 
@@ -129,5 +128,5 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_case21 = {
   1e-15,
   {N_PAR, names, desc, case21_values, case21_set_ext_params},
   hyb_gga_xc_case21_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

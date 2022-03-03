@@ -11,7 +11,6 @@
 
 #define XC_MGGA_C_RMGGAC         643 /* Revised correlation energy for MGGAC exchange functional */
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_rmggac.c"
 #include "work_mgga.c"
 
@@ -28,5 +27,5 @@ const xc_func_info_type xc_func_info_mgga_c_rmggac = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

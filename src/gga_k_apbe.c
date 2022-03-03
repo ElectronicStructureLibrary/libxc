@@ -64,7 +64,6 @@ gga_k_apbe_init(xc_func_type *p)
   }
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_apbe.c"
 #include "work_gga.c"
 
@@ -81,7 +80,7 @@ const xc_func_info_type xc_func_info_gga_k_apbe = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -97,7 +96,7 @@ const xc_func_info_type xc_func_info_gga_k_revapbe = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -113,7 +112,7 @@ const xc_func_info_type xc_func_info_gga_k_tw1 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -129,7 +128,7 @@ const xc_func_info_type xc_func_info_gga_k_tw2 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -145,7 +144,7 @@ const xc_func_info_type xc_func_info_gga_k_tw3 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -161,5 +160,5 @@ const xc_func_info_type xc_func_info_gga_k_tw4 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

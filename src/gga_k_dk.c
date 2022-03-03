@@ -56,7 +56,6 @@ static const double par_vjks[N_PAR] = {1.0, 0.8944*KINS, 0.0, -0.0431*KINS*KINS*
 /* Ernzerhof is written in s */
 static const double par_ernzerhof[N_PAR] = {135.0, 28.0*KINS, 5.0*KINS*KINS, 0.0, 0.0, 135.0, 3.0*KINS, 0.0, 0.0, 0.0};
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_dk.c"
 #include "work_gga.c"
 
@@ -73,7 +72,7 @@ const xc_func_info_type xc_func_info_gga_k_dk = {
   1e-14,
   {N_PAR, names, desc, par_dk, set_ext_params_cpy},
   gga_k_dk_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -89,7 +88,7 @@ const xc_func_info_type xc_func_info_gga_k_perdew = {
   1e-14,
   {N_PAR, names, desc, par_perdew, set_ext_params_cpy},
   gga_k_dk_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -105,7 +104,7 @@ const xc_func_info_type xc_func_info_gga_k_vsk = {
   1e-14,
   {N_PAR, names, desc, par_vsk, set_ext_params_cpy},
   gga_k_dk_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -121,7 +120,7 @@ const xc_func_info_type xc_func_info_gga_k_vjks = {
   1e-14,
   {N_PAR, names, desc, par_vjks, set_ext_params_cpy},
   gga_k_dk_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -137,5 +136,5 @@ const xc_func_info_type xc_func_info_gga_k_ernzerhof = {
   1e-14,
   {N_PAR, names, desc, par_ernzerhof, set_ext_params_cpy},
   gga_k_dk_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

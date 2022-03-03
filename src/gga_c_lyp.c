@@ -35,7 +35,6 @@ static const double lyp_values[LYP_N_PAR] =
 static const double lyp_tm_values[LYP_N_PAR] =
   {0.0393, 0.21, 0.41, 0.15};
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_lyp.c"
 #include "work_gga.c"
 
@@ -52,7 +51,7 @@ const xc_func_info_type xc_func_info_gga_c_lyp = {
   1e-14,
   {LYP_N_PAR, lyp_names, lyp_desc, lyp_values, set_ext_params_cpy},
   xc_gga_c_lyp_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -68,7 +67,7 @@ const xc_func_info_type xc_func_info_gga_c_tm_lyp = {
   1e-14,
   {LYP_N_PAR, lyp_names, lyp_desc, lyp_tm_values, set_ext_params_cpy},
   xc_gga_c_lyp_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 void

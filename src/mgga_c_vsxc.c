@@ -33,7 +33,6 @@ mgga_c_vsxc_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(mgga_c_vsxc_params));
 }
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_vsxc.c"
 #include "work_mgga.c"
 
@@ -50,5 +49,5 @@ const xc_func_info_type xc_func_info_mgga_c_vsxc = {
   1e-15,
   {N_PAR, names, desc, par_vsxc, set_ext_params_cpy},
   mgga_c_vsxc_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

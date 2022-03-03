@@ -33,7 +33,6 @@ lda_c_lp96_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(lda_c_lp96_params));
 }
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_lp96.c"
 #include "work_lda.c"
 
@@ -50,7 +49,7 @@ const xc_func_info_type xc_func_info_lda_c_lp96 = {
   1e-16,
   {N_PAR, names, desc, par_c_lp96, set_ext_params_cpy},
   lda_c_lp96_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -66,5 +65,5 @@ const xc_func_info_type xc_func_info_lda_k_lp96 = {
   1e-16,
   {N_PAR, names, desc, par_k_lp96, set_ext_params_cpy},
   lda_c_lp96_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

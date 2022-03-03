@@ -31,7 +31,6 @@ gga_k_mpbe_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_k_mpbe_params));
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_mpbe.c"
 #include "work_gga.c"
 
@@ -48,7 +47,7 @@ const xc_func_info_type xc_func_info_gga_k_pbe2 = {
   1e-15,
   {N_PAR, names, desc, kpbe2_val, set_ext_params_cpy},
   gga_k_mpbe_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -64,7 +63,7 @@ const xc_func_info_type xc_func_info_gga_k_pbe3 = {
   1e-15,
   {N_PAR, names, desc, kpbe3_val, set_ext_params_cpy},
   gga_k_mpbe_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -80,5 +79,5 @@ const xc_func_info_type xc_func_info_gga_k_pbe4 = {
   1e-15,
   {N_PAR, names, desc, kpbe4_val, set_ext_params_cpy},
   gga_k_mpbe_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

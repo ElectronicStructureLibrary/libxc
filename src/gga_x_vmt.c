@@ -41,7 +41,6 @@ gga_x_vmt_init(xc_func_type *p)
   }
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_vmt.c"
 #include "work_gga.c"
 
@@ -59,7 +58,7 @@ const xc_func_info_type xc_func_info_gga_x_vmt_pbe = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_x_vmt_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -75,5 +74,5 @@ const xc_func_info_type xc_func_info_gga_x_vmt_ge = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_x_vmt_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

@@ -37,7 +37,6 @@ static const char  *desc[N_PAR]   = {
 static const double par_ssb_sw[N_PAR] =
   {1.0515, 0.191458, 0.254443, 0.180708, 4.036674};
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_ssb_sw.c"
 #include "work_gga.c"
 
@@ -54,7 +53,7 @@ const xc_func_info_type xc_func_info_gga_x_ssb_sw = {
   1e-15,
   {N_PAR, names, desc, par_ssb_sw, set_ext_params_cpy},
   gga_x_ssb_sw_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #define SSB_N_PAR 8

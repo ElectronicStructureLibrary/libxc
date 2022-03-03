@@ -11,7 +11,6 @@
 
 #define XC_LDA_C_W20  317   /* Xie, Wu, and Zhao correlation  */
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_w20.c"
 #include "work_lda.c"
 
@@ -28,5 +27,5 @@ const xc_func_info_type xc_func_info_lda_c_w20 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

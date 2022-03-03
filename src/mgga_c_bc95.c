@@ -31,7 +31,6 @@ static const char  *bc95_desc[BC95_N_PAR]   = {
 };
 static const double bc95_values[BC95_N_PAR] = {0.038, 0.0031};
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_bc95.c"
 #include "work_mgga.c"
 
@@ -48,6 +47,6 @@ const xc_func_info_type xc_func_info_mgga_c_bc95 = {
   1e-14,
   {BC95_N_PAR, bc95_names, bc95_desc, bc95_values, set_ext_params_cpy},
   mgga_c_bc95_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 

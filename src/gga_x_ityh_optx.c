@@ -15,7 +15,6 @@ typedef struct{
   double a, b, gamma;
 } gga_x_ityh_optx_params;
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_ityh_optx.c"
 #include "work_gga.c"
 
@@ -52,5 +51,5 @@ const xc_func_info_type xc_func_info_gga_x_ityh_optx = {
   1e-15,
   {N_PAR, names, desc, values, set_ext_params_cpy_omega},
   xc_gga_x_ityh_optx_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

@@ -11,7 +11,6 @@
 
 #define XC_GGA_C_OP_G96      85 /* one-parameter progressive functional (G96 version)     */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_op_g96.c"
 #include "work_gga.c"
 
@@ -28,6 +27,6 @@ const xc_func_info_type xc_func_info_gga_c_op_g96 = {
   1e-14,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 

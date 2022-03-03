@@ -10,7 +10,6 @@
 
 #define XC_MGGA_X_REGTM          626 /* Regularized Tao-Mo exchange */
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_regtm.c"
 #include "work_mgga.c"
 
@@ -27,5 +26,5 @@ const xc_func_info_type xc_func_info_mgga_x_regtm = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };

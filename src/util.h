@@ -33,9 +33,11 @@
 
 #ifdef HAVE_CUDA
 #define GPU_FUNCTION __host__ __device__
+#define GPU_DEVICE_FUNCTION __device__
 #define CUDA_BLOCK_SIZE 256
 #else
 #define GPU_FUNCTION
+#define GPU_DEVICE_FUNCTION
 #endif
 
 /* This takes care of disabling specific derivatives from the info structures */
@@ -284,10 +286,7 @@ void xc_mgga_evaluate_functional
    double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
 void xc_deorbitalize_init
   (xc_func_type *p, int mgga_id, int ked_id);
-void xc_deorbitalize_func
-  (const xc_func_type *func, size_t np,
-   const double *rho, const double *sigma, const double *lapl, const double *tau,
-   double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
+extern xc_mgga_funcs_variants xc_deorbitalize_func;
 
 /* Functionals that are defined as mixtures of others */
 void xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix_coef);

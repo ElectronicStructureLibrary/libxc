@@ -11,7 +11,6 @@
 
 #define XC_MGGA_XC_LP90          564 /* Lee & Parr, Eq. (56) */
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_xc_lp90.c"
 #include "work_mgga.c"
 
@@ -28,5 +27,5 @@ const xc_func_info_type xc_func_info_mgga_xc_lp90 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

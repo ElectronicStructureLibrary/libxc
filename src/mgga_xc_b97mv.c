@@ -54,7 +54,6 @@ mgga_xc_b97mv_init(xc_func_type *p)
   p->nlc_C = 0.01;
 }
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_xc_b97mv.c"
 #include "work_mgga.c"
 
@@ -71,5 +70,5 @@ const xc_func_info_type xc_func_info_mgga_xc_b97m_v = {
   1e-15,
   {N_PAR, names, desc, par_b97m_v, set_ext_params_cpy},
   mgga_xc_b97mv_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

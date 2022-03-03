@@ -10,7 +10,6 @@
 
 #define XC_GGA_X_Q1D         734 /* Functional for quasi-1D systems  */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_q1d.c"
 #include "work_gga.c"
 
@@ -27,5 +26,5 @@ const xc_func_info_type xc_func_info_gga_x_q1d = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

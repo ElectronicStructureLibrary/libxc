@@ -10,7 +10,6 @@
 
 #define XC_GGA_X_PBEA  121 /* Madsen (PBE-like) */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_pbea.c"
 #include "work_gga.c"
 
@@ -27,5 +26,5 @@ const xc_func_info_type xc_func_info_gga_x_pbea = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

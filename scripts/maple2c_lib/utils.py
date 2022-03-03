@@ -8,6 +8,9 @@
 
 import sys, os, re, subprocess
 
+# we need this in a couple of places
+der_name = ("EXC", "VXC", "FXC", "KXC", "LXC", "MXC")
+
 #####################################################################
 # sort by character and then by number
 def sort_alphanumerically(x):
@@ -275,6 +278,10 @@ def maple2c_replace(text, extra_replace=()):
     (r"_a_",     r"->"),
     (r"_d_",     r"."),
     (r"_(\d+)_",  r"[\1]"),
+    # convert constants like 0.225000000e-1 to 0.225e-1
+    (r"0+e", r"e"),
+    # convert numerical value of pi to constant
+    (r"0.31415926535897932385e1", r"M_PI"),
     # have to do it here, as both Dirac(x) and Dirac(n, x) can appear
     (r"Dirac\(.*?\)", r"0.0"),
     # the derivative of the signum is 0 for us
@@ -306,7 +313,6 @@ def maple2c_replace(text, extra_replace=()):
     (r"pow\((.*?), *0.2333333333333333333.e1\)",  r"POW_7_3(\1)"),
     (r"pow\((.*?), *-0.2333333333333333333.e1\)", r"0.1e1 / POW_7_3(\1)"),
     # cleaning up constant expressions
-    (r"0.31415926535897932385e1", r"M_PI"),
     (r"sqrt\(0.2e1\)",            r"M_SQRT2"),
     (r"POW_1_3\(0.2e1\)",         r"M_CBRT2"),
     (r"POW_1_3\(0.3e1\)",         r"M_CBRT3"),
@@ -368,31 +374,62 @@ $include <{}.mpl>
   os.remove(mfilename)
   c_code = run.stdout
 
-  variables  = ["", "", "", "", "", ""]
-  n_var = [0, 0, 0, 0, 0, 0]
   test_1 = ("zk", "vrho", "v2rho2", "v3rho3", "v4rho4", "v5rho5")
-  test_2 = ("EXC", "VXC", "FXC", "KXC", "LXC", "MXC")
-
-  new_c_code = ""
   total_order = start_order
 
+  variables  = ["", "", "", "", "", ""]
+  n_var = [0, 0, 0, 0, 0, 0]
+  new_c_code = ["", "", "", "", "", ""]
+
+  # this adds a new definition of a local variable
+  def add_variable(to_add):
+    # define 8 variables per line
+    if n_var[total_order] % 8 == 0:
+      if n_var[total_order] != 0:
+        variables[total_order] += ";\n"
+      variables[total_order] += "  double "
+    else:
+      variables[total_order] += ", "
+    n_var[total_order] += 1
+
+    variables[total_order] += to_add
+  
   # for avoiding compilation when high order derivatives are enabled
-  if start_order != 0:
-    new_c_code += "\n#ifndef XC_DONT_COMPILE_" + test_2[start_order] + "\n\n"
-    new_c_code += "  if(order < " + str(start_order) + ") return;\n\n\n"
+  #if start_order != 0:
+  #  new_c_code[total_order] += "  if(order < " + str(start_order) + ") return;\n\n\n"
 
   # we check for strings like 'vrho_0_ = ' and put some
   # relevant if conditions in front
   for line in c_code.splitlines():
 
     found = False
+    # for each order
     for der_order in derivatives:
-      # search for a vrho = statement
+      # Search the last derivative for each order
+      last_derivative = der_order[-1][1]
+      # for unpolarized calculation, last derivative is the '0'
+      if mtype != "pol":
+        last_derivative = re.sub(r"_\d+_", "_0_", last_derivative)
+
+      new_order = re.match(r"\s*" + last_derivative + r"\s*=", line) is not None
+
+      # for each of the derivatives in a given order
       for der in der_order:
+        varname  = re.sub(r"_.*", "", der[1])
+        varorder = re.sub(r".*_(\d+)_", r"\1", der[1])
+        
+        # search for a vrho = statement
         if re.match(r"\s*?" + der[1] + r"\s*=", line):
-          res = re.search(r"_([0-9]+)_", der[1])
-          if (mtype == "pol") or (res.group(1) == "0"):
-            test = test_1[total_order] + " != NULL"
+
+          if (mtype == "pol") or (varorder == "0"):
+            # we define a new variable (such as tvrho0) to keep the value
+            add_variable("t" + varname + varorder)
+            line = re.sub(r"(\S+)_(\d+)_\s*=\s*(.*);",
+                          "t" + varname + varorder + r" = \3;", line)
+            new_c_code[total_order] += "  " + line + "\n\n"
+
+            # build the if clause to assign the variable
+            test = "out->" + test_1[total_order] + " != NULL"
 
             if not re.search(r"lapl", der[1]) is None:
               test += " && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)"
@@ -401,57 +438,38 @@ $include <{}.mpl>
               test += " && (p->info->flags & XC_FLAGS_NEEDS_TAU)"
 
             test += " && (p->info->flags & XC_FLAGS_HAVE_" + \
-              test_2[total_order] + ")"
-            new_c_code += "  if(" + test + ")\n"
-            new_c_code += "    " + line + "\n\n"
+              der_name[total_order] + ")"
+            new_c_code[total_order] += "  if(" + test + ")\n"
 
+            # add instead of assigning. We are still missing a global constant
+            # that can be useful in building hybrid combinations
+            new_c_code[total_order] += "    out->{}[ip*p->dim.{} + {}] += t{}{};\n\n".format(varname, varname, varorder, varname, varorder)
+            
           found = True
           break
 
-      # Search the last derivative for each order
-      last_derivative = der_order[-1][1]
-      if mtype != "pol":
-        last_derivative = re.sub(r"_\d+_", "_0_", last_derivative)
+        # find if vrho_0_ is on the right of the = sign
+        # this has necessarily to be defined before the
+        # left-hand side of the assignement
+        while re.search(r"=.*" + varname + r"_\d+_", line):
+          line = re.sub(r"(=.*)" + varname + r"_(\d+)_", r"\1t" + varname + r"\2", line)
 
-      if re.match(r"\s*" + last_derivative + r"\s*=", line):
+      # if last variable of this order increment total_order
+      if new_order:
+        variables[total_order] += ";\n"
         total_order += 1
-        new_c_code += "#ifndef XC_DONT_COMPILE_" + test_2[total_order] + "\n\n"
-        new_c_code += "  if(order < " + str(total_order) + ") return;\n\n\n"
-
-              
+        
     if not found:
       res = re.match(r"(t\d+) =", line)
-      if res:
-        # define 8 variables per line
-        if n_var[total_order] % 8 == 0:
-          if n_var[total_order] != 0:
-            variables[total_order] += ";\n"
-          variables[total_order] += "  double "
-        else:
-          variables[total_order] += ", "
-        n_var[total_order] += 1
+      if res: add_variable(res.group(1))
 
-        variables[total_order] += res.group(1)
+      new_c_code[total_order] += "  " + line + "\n"
 
-      new_c_code += "  " + line + "\n"
+  # perform the necessary replacements
+  for i in range(len(new_c_code)):
+    new_c_code[i] = maple2c_replace(new_c_code[i], params["replace"])
 
-  all_variables = ""
-  for i in range(total_order):
-    if n_var[i] != 0:
-      all_variables += "\n#ifndef XC_DONT_COMPILE_" + \
-        test_2[i] + "\n" + variables[i] + ";\n"
-
-  for i in range(total_order):
-    if n_var[i] != 0:
-      all_variables += "#endif\n\n"
-
-  for i in range(start_order, total_order):
-    new_c_code += "#endif\n\n"
-
-  if start_order != 0:
-    new_c_code += "#endif\n\n"
-
-  return all_variables, maple2c_replace(new_c_code, params["replace"])
+  return variables, new_c_code
 
 
 def maple2c_run(params, variables, derivatives, variants, start_order, input_args, output_args):
@@ -479,14 +497,29 @@ def maple2c_run(params, variables, derivatives, variants, start_order, input_arg
   for mtype, code in variants.items():
     vars_def, c_code = maple_run(params, mtype, code, derivatives, start_order)
 
-    out.write('''static inline void
-func_{}(const xc_func_type *p, int order, {} {})
+    for order in range(start_order, params['maxorder'] + 1):
+      out.write('''
+#ifndef XC_DONT_COMPILE_{}
+GPU_DEVICE_FUNCTION static inline void
+func_{}_{}(const xc_func_type *p, size_t ip, {}, {})
 {{
-{}
-{}
-{}
-}}
+'''.format(der_name[order].upper(),
+           der_name[order].lower(), mtype,
+           input_args, output_args))
 
-'''.format(mtype, input_args, output_args, vars_def, params["prefix"], c_code))
-              
+      # we first print the declaration of the derivatives
+      for order2 in range(start_order, order + 1):
+         out.write(vars_def[order2] + "\n")
+      
+      # we now print the prefix defined in the .mpl code
+      out.write(params["prefix"] + "\n")
+
+      # and now the c_code
+      for order2 in range(start_order, order + 1):
+         out.write(c_code[order2])
+
+      out.write("}\n\n")
+      out.write("#endif\n\n")
+      
+
   out.close()

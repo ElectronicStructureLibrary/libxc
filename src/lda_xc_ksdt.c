@@ -107,7 +107,6 @@ lda_xc_ksdt_init(xc_func_type *p)
   }
 }
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_xc_ksdt.c"
 #include "work_lda.c"
 
@@ -141,7 +140,7 @@ const xc_func_info_type xc_func_info_lda_xc_ksdt = {
   1e-15,
   {1, T_names, T_desc, T_values, T_set_ext_params},
   lda_xc_ksdt_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -157,7 +156,7 @@ const xc_func_info_type xc_func_info_lda_xc_gdsmfb = {
   1e-15,
   {1, T_names, T_desc, T_values, T_set_ext_params},
   lda_xc_ksdt_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -173,5 +172,5 @@ const xc_func_info_type xc_func_info_lda_xc_corrksdt = {
   1e-15,
   {1, T_names, T_desc, T_values, T_set_ext_params},
   lda_xc_ksdt_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

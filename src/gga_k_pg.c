@@ -26,7 +26,6 @@ static const char  *names[N_PAR]  = {"_mu"};
 static const char  *desc[N_PAR]   = {"Prefactor in exponent"};
 static const double par_pg1[N_PAR] = {1.0};
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_pg.c"
 #include "work_gga.c"
 
@@ -43,5 +42,5 @@ const xc_func_info_type xc_func_info_gga_k_pg1 = {
   1e-15,
   {N_PAR, names, desc, par_pg1, set_ext_params_cpy},
   gga_k_pg_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

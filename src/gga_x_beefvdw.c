@@ -12,7 +12,6 @@
 #define XC_GGA_X_BEEFVDW          285 /* BEEF-vdW exchange */
 #define XC_GGA_XC_BEEFVDW         286 /* BEEF-vdW exchange-correlation */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_beefvdw.c"
 #include "work_gga.c"
 
@@ -30,7 +29,7 @@ const xc_func_info_type xc_func_info_gga_x_beefvdw = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, work_gga, NULL,
+  NULL, &work_gga, NULL,
 };
 
 

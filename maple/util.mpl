@@ -130,6 +130,11 @@ mgga_kinetic := (func, rs, z, xs0, xs1, u0, u1) ->
   + my_piecewise3(screen_dens(rs,  z), 0, lda_k_spin(rs, z_thr( z))*func(xs0, u0))
   + my_piecewise3(screen_dens(rs, -z), 0, lda_k_spin(rs, z_thr(-z))*func(xs1, u1)):
 
+# hyper-GGA exchange
+hgga_exchange := (func, rs, z, xs0, xs1, u0, u1, t0, t1, ex0, ex1) ->
+  + my_piecewise3(screen_dens(rs,  z), 0, lda_x_spin(rs, z_thr( z))*func(xs0, u0, t0, ex0))
+  + my_piecewise3(screen_dens(rs, -z), 0, lda_x_spin(rs, z_thr(-z))*func(xs1, u1, t1, ex1)):
+
 # This is the Stoll decomposition in our language
 lda_stoll_par  := (lda_func, rs, z) ->
   my_piecewise3(screen_dens_zeta(rs,  z), 0, opz_pow_n(z, 1)/2 * lda_func(rs*2^(1/3)*opz_pow_n(z, -1/3), 1)):

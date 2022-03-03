@@ -87,6 +87,7 @@ params = maple2c_init()
 from maple2c_lib.lda  import work_lda_exc, work_lda_vxc
 from maple2c_lib.gga  import work_gga_exc, work_gga_vxc
 from maple2c_lib.mgga import work_mgga_exc, work_mgga_vxc
+from maple2c_lib.hgga import work_hgga_exc, work_hgga_vxc
 
 if params["functype"] == "lda_exc":
   work_lda_exc(params)
@@ -105,3 +106,9 @@ elif params["functype"] == "mgga_exc":
 
 elif params["functype"] == "mgga_vxc":
   work_mgga_vxc(params)
+
+elif params["functype"] == "hgga_exc":
+  work_hgga_exc(params)
+
+elif params["functype"] == "hgga_vxc":
+  work_hgga_vxc(params)

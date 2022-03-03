@@ -112,7 +112,6 @@ hyb_gga_xc_case21_init(xc_func_type *p)
   xc_hyb_init_hybrid(p, 0.0);
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/hyb_gga_xc_case21.c"
 #include "work_gga.c"
 
@@ -129,5 +128,5 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_case21 = {
   1e-15,
   {N_PAR, names, desc, case21_values, case21_set_ext_params},
   hyb_gga_xc_case21_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

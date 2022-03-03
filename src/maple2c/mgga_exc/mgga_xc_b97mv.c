@@ -11,8 +11,8 @@
   Type of functional: mgga_exc
 */
 
-#define maple2c_order 3
-#define MAPLE2C_FLAGS (XC_FLAGS_I_HAVE_EXC | XC_FLAGS_I_HAVE_VXC | XC_FLAGS_I_HAVE_FXC | XC_FLAGS_I_HAVE_KXC)
+#define maple2c_order 4
+#define MAPLE2C_FLAGS (XC_FLAGS_I_HAVE_EXC | XC_FLAGS_I_HAVE_VXC | XC_FLAGS_I_HAVE_FXC | XC_FLAGS_I_HAVE_KXC | XC_FLAGS_I_HAVE_LXC)
 
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -40,8 +40,6 @@ func_exc_unpol(const xc_func_type *p, size_t ip, const double *rho, const double
   double t255, t256, t257, t258, t259, t260, t263, t264;
   double tzk0;
 
-  assert(p->params != NULL);
-  params = (mgga_xc_b97_mv_params * )(p->params);
 
   t2 = 0.1e1 <= p->zeta_threshold;
   t3 = my_piecewise3(t2, p->zeta_threshold, 1);
@@ -166,24 +164,29 @@ func_exc_unpol(const xc_func_type *p, size_t ip, const double *rho, const double
   t213 = 0.51785e1 * t188 + 0.905775e0 * t185 + 0.1100325e0 * t191 + 0.1241775e0 * t194;
   t216 = 0.1e1 + 0.29608749977793437516e2 / t213;
   t217 = log(t216);
-  t220 = my_piecewise3(t2, t14, 1);
-  t223 = (0.2e1 * t220 - 0.2e1) * t128;
-  t225 = 0.1e1 + 0.27812500000000000000e-1 * t202;
-  t230 = 0.51785000000000000000e1 * t205 + 0.90577500000000000000e0 * t202 + 0.11003250000000000000e0 * t208 + 0.12417750000000000000e0 * t211;
-  t233 = 0.1e1 + 0.29608749977793437516e2 / t230;
-  t234 = log(t233);
-  t239 = -0.621814e-1 * t204 * t217 + 0.19751673498613801407e-1 * t223 * t225 * t234 - 0.2e1 * t163;
-  t241 = params->c_os[1];
-  t242 = t241 * sigma[0];
-  t244 = 0.1e1 + 0.6e-2 * t42;
-  t245 = 0.1e1 / t244;
-  t249 = params->c_os[2];
-  t250 = t50 * sigma[0];
-  t251 = t249 * t250;
-  t252 = t52 * t52;
-  t253 = 0.1e1 / t252;
-  t254 = t244 * t244;
-  t256 = 0.1e1 / t254 / t244;
+  t222 = -0.621814e-1 * t187 * t200 + 0.19751673498613801407e-1 * t206 * t208 * t217 - 0.2e1 * t154;
+  t224 = 0.1e1 + 0.6e-2 * t38;
+  t225 = 0.1e1 / t224;
+  t229 = t45 * sigma[0];
+  t230 = t47 * t47;
+  t231 = 0.1e1 / t230;
+  t233 = t224 * t224;
+  t234 = t233 * t224;
+  t235 = 0.1e1 / t234;
+  t239 = 0.3e1 / 0.5e1 * t61 * t66;
+  t240 = tau[0] * tau[0];
+  t241 = t240 * t10;
+  t242 = t34 * rho[0];
+  t244 = 0.1e1 / t18 / t242;
+  t246 = 0.4e1 * t241 * t244;
+  t247 = t239 - t246;
+  t248 = t239 + t246;
+  t249 = 0.1e1 / t248;
+  t252 = t247 * t247;
+  t253 = t252 * t247;
+  t254 = t248 * t248;
+  t255 = t254 * t248;
+  t256 = 0.1e1 / t255;
   t257 = t253 * t256;
   t258 = t257 * t45;
   t259 = 0.1e1 / t233;
@@ -5759,8 +5762,6 @@ func_exc_pol(const xc_func_type *p, size_t ip, const double *rho, const double *
   double t406, t407, t408, t409, t410, t411, t414, t415;
   double tzk0;
 
-  assert(p->params != NULL);
-  params = (mgga_xc_b97_mv_params * )(p->params);
 
   t2 = rho[0] - rho[1];
   t3 = rho[0] + rho[1];

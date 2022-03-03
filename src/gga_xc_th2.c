@@ -10,7 +10,6 @@
 
 #define XC_GGA_XC_TH2          155 /* Tozer and Handy v. 2 */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_xc_th2.c"
 #include "work_gga.c"
 
@@ -27,5 +26,5 @@ const xc_func_info_type xc_func_info_gga_xc_th2 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

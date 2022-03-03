@@ -11,8 +11,8 @@
   Type of functional: mgga_exc
 */
 
-#define maple2c_order 3
-#define MAPLE2C_FLAGS (XC_FLAGS_I_HAVE_EXC | XC_FLAGS_I_HAVE_VXC | XC_FLAGS_I_HAVE_FXC | XC_FLAGS_I_HAVE_KXC)
+#define maple2c_order 4
+#define MAPLE2C_FLAGS (XC_FLAGS_I_HAVE_EXC | XC_FLAGS_I_HAVE_VXC | XC_FLAGS_I_HAVE_FXC | XC_FLAGS_I_HAVE_KXC | XC_FLAGS_I_HAVE_LXC)
 
 
 #ifndef XC_DONT_COMPILE_EXC
@@ -6429,8 +6429,6 @@ func_exc_pol(const xc_func_type *p, size_t ip, const double *rho, const double *
   double t492, t494, t497, t498, t499, t502, t503, t504;
   double t506, t507, t511, t512, tzk0;
 
-  assert(p->params != NULL);
-  params = (hyb_mgga_xc_wb97_mv_params * )(p->params);
 
   t3 = rho[0] - rho[1];
   t4 = rho[0] + rho[1];

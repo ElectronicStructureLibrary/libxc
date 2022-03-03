@@ -773,7 +773,7 @@ size_t check_xc(int id, int nspin, xc_values_type values, double threshold) {
   /* Evaluate functional */
   switch (func.info->family) {
   case XC_FAMILY_LDA:
-    //xc_lda_exc_vxc_fxc_kxc_lxc(&func, 1, prho, pzk, pvrho, pv2rho2, pv3rho3, pv4rho4);
+    xc_lda(&func, 1, prho, pzk, pvrho, pv2rho2, pv3rho3, pv4rho4);
     break;
   case XC_FAMILY_GGA:
     xc_gga(&func, 1, prho, psigma, pzk, pvrho, pvsigma, pv2rho2, pv2rhosigma,

@@ -70,7 +70,6 @@ mpw91_set_ext_params(xc_func_type *p, const double *ext_params)
   params->f    =  1.0e-6/(X_FACTOR_C*pow(X2S, params->expo));
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_pw91.c"
 #include "work_gga.c"
 
@@ -87,7 +86,7 @@ const xc_func_info_type xc_func_info_gga_x_pw91 = {
   1e-15,
   {PW91_N_PAR, pw91_names, pw91_desc, pw91_values, set_ext_params_cpy},
   gga_x_pw91_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -103,7 +102,7 @@ const xc_func_info_type xc_func_info_gga_x_mpw91 = {
   1e-15,
   {MPW91_N_PAR, mpw91_names, mpw91_desc, mpw91_values, mpw91_set_ext_params},
   gga_x_pw91_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -119,5 +118,5 @@ const xc_func_info_type xc_func_info_gga_x_pw91_mod = {
   1e-15,
   {MPW91_N_PAR, mpw91_names, mpw91_desc, pw91_mod_values, mpw91_set_ext_params},
   gga_x_pw91_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

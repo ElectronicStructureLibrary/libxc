@@ -35,7 +35,6 @@ static const char  *desc[N_PAR]   = {
 
 static const double par_ccdf[N_PAR] = {-0.0468, 0.023, 0.544, 23.401, 0.479};
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_ccdf.c"
 #include "work_gga.c"
 
@@ -52,5 +51,5 @@ const xc_func_info_type xc_func_info_gga_c_ccdf = {
   1e-12,
   {N_PAR, names, desc, par_ccdf, set_ext_params_cpy},
   gga_c_ccdf_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

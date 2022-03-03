@@ -42,7 +42,6 @@ static const double b86_optb86b_values[B86_N_PAR] =
   {MU_GE*X2S*X2S, MU_GE*X2S*X2S, 4.0/5.0};
 
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_b86.c"
 #include "work_gga.c"
 
@@ -59,7 +58,7 @@ const xc_func_info_type xc_func_info_gga_x_b86 = {
   1e-15,
   {B86_N_PAR, b86_names, b86_desc, b86_values, set_ext_params_cpy},
   gga_x_b86_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -75,7 +74,7 @@ const xc_func_info_type xc_func_info_gga_x_b86_mgc = {
   1e-15,
   {B86_N_PAR, b86_names, b86_desc, b86_mgc_values, set_ext_params_cpy},
   gga_x_b86_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -91,7 +90,7 @@ const xc_func_info_type xc_func_info_gga_x_b86_r = {
   1e-15,
   {B86_N_PAR, b86_names, b86_desc, b86_r_values, set_ext_params_cpy},
   gga_x_b86_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 
 };
 
@@ -108,5 +107,5 @@ const xc_func_info_type xc_func_info_gga_x_optb86b_vdw = {
   1e-15,
   {B86_N_PAR, b86_names, b86_desc, b86_optb86b_values, set_ext_params_cpy},
   gga_x_b86_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

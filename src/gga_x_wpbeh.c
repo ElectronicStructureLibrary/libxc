@@ -31,7 +31,6 @@
       J. Chem. Phys. 131, 044108 (2009)
 */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_wpbeh.c"
 #include "work_gga.c"
 
@@ -60,5 +59,5 @@ const xc_func_info_type xc_func_info_gga_x_wpbeh = {
   1e-14,
   {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
   xc_gga_x_wpbeh_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

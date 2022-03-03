@@ -53,7 +53,6 @@ gga_lb_init(xc_func_type *p)
 }
 
 #define XC_NO_EXC
-#include "decl_gga.h"
 #include "maple2c/gga_vxc/gga_x_lb.c"
 #include "work_gga.c"
 
@@ -70,7 +69,7 @@ const xc_func_info_type xc_func_info_gga_x_lb = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_lb_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 
@@ -87,6 +86,6 @@ const xc_func_info_type xc_func_info_gga_x_lbm = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_lb_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 

@@ -53,7 +53,6 @@ s12h_set_ext_params(xc_func_type *p, const double *ext_params)
   params = (hyb_gga_x_cam_s12_params *) (p->params);
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/hyb_gga_x_cam_s12.c"
 #include "work_gga.c"
 
@@ -70,7 +69,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_cam_s12g = {
   1e-15,
   {N_PAR, names, desc, par_cam_s12g, s12h_set_ext_params},
   hyb_gga_x_cam_s12_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -86,5 +85,5 @@ const xc_func_info_type xc_func_info_hyb_gga_x_cam_s12h = {
   1e-15,
   {N_PAR, names, desc, par_cam_s12h, s12h_set_ext_params},
   hyb_gga_x_cam_s12_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

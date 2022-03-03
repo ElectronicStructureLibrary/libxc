@@ -48,7 +48,6 @@ lspbe_set_ext_params(xc_func_type *p, const double *ext_params)
   params-> mu += params->alpha*(1.0 + params->kappa);
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_lspbe.c"
 #include "work_gga.c"
 
@@ -65,5 +64,5 @@ const xc_func_info_type xc_func_info_gga_x_lspbe = {
   1e-15,
   {LSPBE_N_PAR, lspbe_names, lspbe_desc, lspbe_values, lspbe_set_ext_params},
   gga_x_lspbe_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

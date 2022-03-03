@@ -33,7 +33,6 @@ mgga_x_scan_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(mgga_x_scan_params));
 }
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_scan.c"
 #include "work_mgga.c"
 
@@ -50,7 +49,7 @@ const xc_func_info_type xc_func_info_mgga_x_scan = {
   1e-15,
   {N_PAR_SCAN, scan_names, scan_desc, par_scan, set_ext_params_cpy},
   mgga_x_scan_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -66,7 +65,7 @@ const xc_func_info_type xc_func_info_mgga_x_revscan = {
   1e-15,
   {N_PAR_SCAN, scan_names, scan_desc, par_revscan, set_ext_params_cpy},
   mgga_x_scan_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };
 
 typedef struct{

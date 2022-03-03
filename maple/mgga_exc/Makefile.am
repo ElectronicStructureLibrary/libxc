@@ -24,11 +24,11 @@ mgga_order_4 = mgga_x_lta.mpl mgga_c_ltapw.mpl mgga_x_th.mpl		\
   mgga_c_revtpss.mpl mgga_c_scan.mpl mgga_c_tpssloc.mpl			\
   mgga_c_tpss.mpl mgga_c_rscan.mpl mgga_x_br89.mpl mgga_x_2d_js17.mpl	\
   mgga_x_mggac.mpl mgga_x_mbr.mpl mgga_x_jk.mpl mgga_x_r2scan.mpl	\
-  mgga_c_r2scan.mpl mgga_k_lk.mpl mgga_k_rda.mpl mgga_k_gea2.mpl        \
-  mgga_k_gea4.mpl mgga_k_csk.mpl mgga_k_csk_loc.mpl mgga_c_b94.mpl      \
-  mgga_k_pgslb.mpl mgga_c_kcisk.mpl mgga_x_regtm.mpl mgga_c_rregtm.mpl  \
-  mgga_x_mcml.mpl mgga_c_rmggac.mpl mgga_x_rppscan.mpl                  \
-  mgga_c_rppscan.mpl mgga_x_r4scan.mpl mgga_x_ft98.mpl mgga_x_vcml.mpl
+  mgga_c_r2scan.mpl mgga_k_lk.mpl mgga_k_rda.mpl mgga_k_gea2.mpl	\
+  mgga_k_gea4.mpl mgga_k_csk.mpl mgga_k_csk_loc.mpl mgga_k_pgslb.mpl	\
+  mgga_c_kcisk.mpl mgga_x_regtm.mpl mgga_c_rregtm.mpl mgga_x_mcml.mpl	\
+  mgga_c_rmggac.mpl mgga_x_rppscan.mpl mgga_c_rppscan.mpl		\
+  mgga_x_r4scan.mpl mgga_x_ft98.mpl mgga_x_vcml.mpl
 
 mgga_order_3 = mgga_c_b94.mpl
 
@@ -37,9 +37,9 @@ dist_noinst_HEADERS = $(mgga_order_4) $(mgga_order_3)
 maple2c:
 	@for funct in $(mgga_order_4); do \
 	  echo Processing: $${funct%.*}; \
-	  $(top_srcdir)/scripts/maple2c.pl $(top_srcdir) $${funct%.*} 4; \
+	  $(top_srcdir)/scripts/maple2c.py --srcdir $(top_srcdir) --functional $${funct%.*} --maxorder 4; \
 	done
 	@for funct in $(mgga_order_3); do \
 	  echo Processing: $${funct%.*}; \
-	  $(top_srcdir)/scripts/maple2c.pl $(top_srcdir) $${funct%.*} 3; \
+	  $(top_srcdir)/scripts/maple2c.py --srcdir $(top_srcdir) --functional $${funct%.*} --maxorder 3; \
 	done

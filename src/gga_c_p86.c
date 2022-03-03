@@ -36,7 +36,6 @@ static void gga_c_p86_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_c_p86_params));
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_p86.c"
 #include "work_gga.c"
 
@@ -53,7 +52,7 @@ const xc_func_info_type xc_func_info_gga_c_p86 = {
   1e-15,
   {N_PAR, names, desc, p86_val, set_ext_params_cpy},
   gga_c_p86_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -69,5 +68,5 @@ const xc_func_info_type xc_func_info_gga_c_p86_ft = {
   1e-15,
   {N_PAR, names, desc, p86ft_val, set_ext_params_cpy},
   gga_c_p86_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

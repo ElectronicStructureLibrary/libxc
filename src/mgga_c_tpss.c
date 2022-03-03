@@ -34,7 +34,6 @@ static const double tm_values[TPSS_N_PAR]   = {
   0.06672455060314922, 2.8, 0.0, 0.1, 0.32, 0.0
 };
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_tpss.c"
 #include "work_mgga.c"
 
@@ -51,7 +50,7 @@ const xc_func_info_type xc_func_info_mgga_c_tpss = {
   1e-15, /* densities smaller than 1e-26 give NaNs */
   {TPSS_N_PAR, tpss_names, tpss_desc, tpss_values, set_ext_params_cpy},
   mgga_c_tpss_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -67,5 +66,5 @@ const xc_func_info_type xc_func_info_mgga_c_tm = {
   1e-15, /* densities smaller than 1e-26 give NaNs */
   {TPSS_N_PAR, tpss_names, tpss_desc, tm_values, set_ext_params_cpy},
   mgga_c_tpss_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

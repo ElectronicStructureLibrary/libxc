@@ -11,7 +11,6 @@
 
 #define XC_GGA_C_ACGGAP           176 /* Asymptotically corrected GGA +  */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_acggap.c"
 #include "work_gga.c"
 
@@ -28,5 +27,5 @@ const xc_func_info_type xc_func_info_gga_c_acggap = {
   1e-14,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

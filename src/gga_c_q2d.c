@@ -11,7 +11,6 @@
 
 #define XC_GGA_C_Q2D          47 /* Chiodo et al  */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_q2d.c"
 #include "work_gga.c"
 
@@ -28,6 +27,6 @@ const xc_func_info_type xc_func_info_gga_c_q2d = {
   1e-10,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 

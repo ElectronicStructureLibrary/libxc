@@ -24,7 +24,6 @@ static const char  *desc[N_PAR]       = {"gamma", "css", "cab"};
 
 static const double par_b94[N_PAR]    = {1.0, 0.88, 0.63};
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_b94.c"
 #include "work_mgga.c"
 
@@ -48,7 +47,7 @@ const xc_func_info_type xc_func_info_mgga_c_b94 = {
   1e-14,
   {N_PAR, names, desc, par_b94, set_ext_params_cpy},
   mgga_c_b94_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };
 
 #define N_PAR_HYB 4

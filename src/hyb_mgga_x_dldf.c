@@ -17,7 +17,6 @@ mgga_x_dldf_init(xc_func_type *p)
   xc_hyb_init_hybrid(p, 0.6144129);
 }
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/hyb_mgga_x_dldf.c"
 #include "work_mgga.c"
 
@@ -34,5 +33,5 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_dldf = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   mgga_x_dldf_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

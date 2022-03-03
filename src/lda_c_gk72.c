@@ -14,7 +14,6 @@
 
 #define XC_LDA_C_GK72  578   /* Gordon and Kim 1972 */
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_gk72.c"
 #include "work_lda.c"
 
@@ -31,5 +30,5 @@ const xc_func_info_type xc_func_info_lda_c_gk72 = {
   1e-32,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

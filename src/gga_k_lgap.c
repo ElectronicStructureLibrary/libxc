@@ -23,7 +23,6 @@ gga_k_lgap_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_k_lgap_params));
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_lgap.c"
 #include "work_gga.c"
 
@@ -47,5 +46,5 @@ const xc_func_info_type xc_func_info_gga_k_lgap = {
   1e-15,
   {N_PAR, names, desc, par_lgap, set_ext_params_cpy},
   gga_k_lgap_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

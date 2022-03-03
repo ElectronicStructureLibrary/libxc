@@ -11,7 +11,6 @@
 #define XC_MGGA_C_KCIS         562 /* Krieger, Chen, Iafrate, and Savin */
 #define XC_HYB_MGGA_XC_B0KCIS  563 /* Hybrid based on KCIS */
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_kcis.c"
 #include "work_mgga.c"
 
@@ -28,7 +27,7 @@ const xc_func_info_type xc_func_info_mgga_c_kcis = {
   1e-14,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };
 
 /*************************************************************/
@@ -55,5 +54,5 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_b0kcis = {
   1e-14,
   {0, NULL, NULL, NULL, NULL},
   xc_hyb_mgga_xc_b0kcis_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };

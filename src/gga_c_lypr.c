@@ -44,7 +44,6 @@ void xc_gga_c_lypr_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_c_lypr_params));
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_lypr.c"
 #include "work_gga.c"
 
@@ -61,5 +60,5 @@ const xc_func_info_type xc_func_info_gga_c_lypr = {
   1e-14,
   {LYPR_N_PAR, lypr_names, lypr_desc, lypr_values, set_ext_params_cpy},
   xc_gga_c_lypr_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

@@ -39,7 +39,6 @@ static const double gdme_0_values[GDME_N_PAR]   = {0.0, 9.0*M_PI/4.0, 35.0*M_PI/
 static const double gdme_kos_values[GDME_N_PAR] = {0.00638, 9.0*M_PI/4.0, 35.0*M_PI/12.0};
 static const double gdme_vt_values[GDME_N_PAR]  = {0.0, 7.31275, 5.43182};
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_gdme.c"
 #include "work_mgga.c"
 
@@ -56,7 +55,7 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_nv = {
   1e-15,
   {GDME_N_PAR, gdme_names, gdme_desc, gdme_nv_values, set_ext_params_cpy},
   mgga_x_gdme_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -72,7 +71,7 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_0 = {
   1e-15,
   {GDME_N_PAR, gdme_names, gdme_desc, gdme_0_values, set_ext_params_cpy},
   mgga_x_gdme_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -88,7 +87,7 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_kos = {
   1e-15,
   {GDME_N_PAR, gdme_names, gdme_desc, gdme_kos_values, set_ext_params_cpy},
   mgga_x_gdme_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -104,6 +103,6 @@ const xc_func_info_type xc_func_info_mgga_x_gdme_vt = {
   1e-15,
   {GDME_N_PAR, gdme_names, gdme_desc, gdme_vt_values, set_ext_params_cpy},
   mgga_x_gdme_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 

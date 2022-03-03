@@ -86,7 +86,6 @@ lda_c_pz_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(lda_c_pz_params));
 }
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_pz.c"
 #include "work_lda.c"
 
@@ -103,7 +102,7 @@ const xc_func_info_type xc_func_info_lda_c_pz = {
   1e-15,
   {N_PAR, names, desc, par_pz, set_ext_params_cpy},
   lda_c_pz_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -119,7 +118,7 @@ const xc_func_info_type xc_func_info_lda_c_pz_mod = {
   1e-15,
   {N_PAR, names, desc, par_pz_mod, set_ext_params_cpy},
   lda_c_pz_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -135,5 +134,5 @@ const xc_func_info_type xc_func_info_lda_c_ob_pz = {
   1e-15,
   {N_PAR, names, desc, par_pz_ob, set_ext_params_cpy},
   lda_c_pz_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

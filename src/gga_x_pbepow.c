@@ -10,7 +10,6 @@
 
 #define XC_GGA_X_PBEPOW         539 /* PBE power */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_pbepow.c"
 #include "work_gga.c"
 
@@ -27,6 +26,6 @@ const xc_func_info_type xc_func_info_gga_x_pbepow = {
   1e-12,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 

@@ -29,7 +29,6 @@ static void gga_x_dk87_init(xc_func_type *p) {
   p->params = libxc_malloc(sizeof(gga_x_dk87_params));
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_dk87.c"
 #include "work_gga.c"
 
@@ -46,7 +45,7 @@ const xc_func_info_type xc_func_info_gga_x_dk87_r1 = {
   1e-15,
   {N_PAR, names, desc, par_dk87_r1, set_ext_params_cpy},
   gga_x_dk87_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -62,5 +61,5 @@ const xc_func_info_type xc_func_info_gga_x_dk87_r2 = {
   1e-15,
   {N_PAR, names, desc, par_dk87_r2, set_ext_params_cpy},
   gga_x_dk87_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

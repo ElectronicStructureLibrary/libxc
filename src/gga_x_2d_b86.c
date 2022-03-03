@@ -10,7 +10,6 @@
 
 #define XC_GGA_X_2D_B86          128 /* Becke 86 Xalpha, beta, gamma                    */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_2d_b86.c"
 #include "work_gga.c"
 
@@ -27,6 +26,6 @@ const xc_func_info_type xc_func_info_gga_x_2d_b86 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 

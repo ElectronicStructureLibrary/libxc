@@ -33,7 +33,6 @@ mgga_x_r2scan_init(xc_func_type *p)
 }
 
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_r2scan.c"
 #include "work_mgga.c"
 
@@ -50,7 +49,7 @@ const xc_func_info_type xc_func_info_mgga_x_r2scan = {
   1e-11,
   {N_PAR, names, desc, par_r2scan, set_ext_params_cpy},
   mgga_x_r2scan_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -66,5 +65,5 @@ const xc_func_info_type xc_func_info_mgga_x_r2scan01 = {
   1e-11,
   {N_PAR, names, desc, par_r2scan01, set_ext_params_cpy},
   mgga_x_r2scan_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };

@@ -11,7 +11,6 @@
 
 #define XC_MGGA_C_PKZB          239 /* Perdew, Kurth, Zupan, and Blaha */
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_pkzb.c"
 #include "work_mgga.c"
 
@@ -28,6 +27,6 @@ const xc_func_info_type xc_func_info_mgga_c_pkzb = {
   1e-13, /* densities smaller than 1e-26 give NaNs */
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 

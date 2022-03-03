@@ -37,7 +37,6 @@ static const double ft97b_values[FT97_N_PAR] =
   {0.002913644, 0.0009474169, 6255746.320201};
 
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_ft97.c"
 #include "work_gga.c"
 
@@ -54,7 +53,7 @@ const xc_func_info_type xc_func_info_gga_x_ft97_a = {
   1e-15,
   {FT97_N_PAR, ft97_names, ft97_desc, ft97a_values, set_ext_params_cpy},
   gga_x_ft97_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -70,5 +69,5 @@ const xc_func_info_type xc_func_info_gga_x_ft97_b = {
   1e-15,
   {FT97_N_PAR, ft97_names, ft97_desc, ft97b_values, set_ext_params_cpy},
   gga_x_ft97_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

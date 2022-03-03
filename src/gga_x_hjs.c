@@ -46,7 +46,6 @@ gga_x_hjs_init(xc_func_type *p)
   xc_hyb_init_hybrid(p, 0.0);
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_hjs.c"
 #include "work_gga.c"
 
@@ -63,7 +62,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_pbe = {
   5e-12,
   {N_PARS, names, desc, pars_PBE, set_ext_params_cpy_omega},
   gga_x_hjs_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -79,7 +78,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_pbe_sol = {
   5e-12,
   {N_PARS, names, desc, pars_PBE_sol, set_ext_params_cpy_omega},
   gga_x_hjs_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -95,7 +94,7 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b88 = {
   1e-7, /* densities smaller than 1e-7 yield NaNs */
   {N_PARS, names, desc, pars_B88, set_ext_params_cpy_omega},
   gga_x_hjs_init, NULL,
-  NULL,  work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -111,5 +110,5 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b97x = {
   1e-10,
   {N_PARS, names, desc, pars_B97x, set_ext_params_cpy_omega},
   gga_x_hjs_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

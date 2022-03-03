@@ -24,7 +24,6 @@ static const char  *desc[N_PAR]   = {
 static const double r2scan_values[N_PAR] = {0.001};
 static const double r2scan01_values[N_PAR] = {0.01};
   
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_r2scan.c"
 #include "work_mgga.c"
 
@@ -48,7 +47,7 @@ const xc_func_info_type xc_func_info_mgga_c_r2scan = {
   1e-15,
   {N_PAR, names, desc, r2scan_values, set_ext_params_cpy},
   mgga_c_r2scan_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -64,5 +63,5 @@ const xc_func_info_type xc_func_info_mgga_c_r2scan01 = {
   1e-15,
   {N_PAR, names, desc, r2scan01_values, set_ext_params_cpy},
   mgga_c_r2scan_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

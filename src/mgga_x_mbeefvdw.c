@@ -11,7 +11,6 @@
 
 #define XC_MGGA_X_MBEEFVDW       250 /* mBEEF-vdW exchange */
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_mbeefvdw.c"
 #include "work_mgga.c"
 
@@ -28,5 +27,5 @@ const xc_func_info_type xc_func_info_mgga_x_mbeefvdw = {
   1e-10,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

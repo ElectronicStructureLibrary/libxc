@@ -13,6 +13,6 @@ dist_noinst_SCRIPTS = $(mgga_order_4)
 maple2c:
 	@for funct in $(mgga_order_4); do \
 	  echo Processing: $${funct%.*}; \
-	  $(top_srcdir)/scripts/maple2c.pl $(top_srcdir) $${funct%.*} 4; \
+	  $(top_srcdir)/scripts/maple2c.py --srcdir $(top_srcdir) --functional $${funct%.*} --maxorder 4; \
 	done
 

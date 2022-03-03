@@ -30,7 +30,6 @@ static const double lta_values[LTA_N_PAR]  = {1.0};
 static const double tlda_values[LTA_N_PAR] = {0.25};
 static const double hlta_values[LTA_N_PAR] = {0.5};
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_lta.c"
 #include "work_mgga.c"
 
@@ -47,7 +46,7 @@ const xc_func_info_type xc_func_info_mgga_x_lta = {
   1e-15,
   {LTA_N_PAR, lta_names, lta_desc, lta_values, set_ext_params_cpy},
   mgga_x_lta_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -63,7 +62,7 @@ const xc_func_info_type xc_func_info_mgga_x_tlda = {
   1e-15,
   {LTA_N_PAR, lta_names, lta_desc, tlda_values, set_ext_params_cpy},
   mgga_x_lta_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -79,5 +78,5 @@ const xc_func_info_type xc_func_info_mgga_x_hlta = {
   1e-15,
   {LTA_N_PAR, lta_names, lta_desc, hlta_values, set_ext_params_cpy},
   mgga_x_lta_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

@@ -58,7 +58,6 @@ static const double m05_dldf_values[M05_N_PAR] = {
   1e-10
 };
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_m05.c"
 #include "work_mgga.c"
 
@@ -75,7 +74,7 @@ const xc_func_info_type xc_func_info_mgga_c_m05 = {
   1.0e-15,
   {M05_N_PAR, m05_names, m05_desc, m05_values, set_ext_params_cpy},
   mgga_c_vsxc_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };
 
 
@@ -92,7 +91,7 @@ const xc_func_info_type xc_func_info_mgga_c_m05_2x = {
   1.0e-15,
   {M05_N_PAR, m05_names, m05_desc, m05_2x_values, set_ext_params_cpy},
   mgga_c_vsxc_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -108,5 +107,5 @@ const xc_func_info_type xc_func_info_mgga_c_dldf = {
   5.0e-15,
   {M05_N_PAR, m05_names, m05_desc, m05_dldf_values, set_ext_params_cpy},
   mgga_c_vsxc_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };

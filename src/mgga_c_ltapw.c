@@ -27,7 +27,6 @@ static const char  *names[N_PAR]   = {"_ltafrac"};
 static const char  *desc[N_PAR]    = {"Fraction of LTA density"};
 static const double ltapw_values[N_PAR]  = {0.5};
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_ltapw.c"
 #include "work_mgga.c"
 
@@ -44,5 +43,5 @@ const xc_func_info_type xc_func_info_mgga_c_hltapw = {
   1e-15,
   {1, names, desc, ltapw_values, set_ext_params_cpy},
   mgga_c_ltapw_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

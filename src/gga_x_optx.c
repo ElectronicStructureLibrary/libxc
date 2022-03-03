@@ -31,7 +31,6 @@ static const char  *optx_desc[OPTX_N_PAR]   = {
 static const double optx_values[OPTX_N_PAR] =
   {1.05151, 1.43169/X_FACTOR_C, 0.006};
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_optx.c"
 #include "work_gga.c"
 
@@ -48,5 +47,5 @@ const xc_func_info_type xc_func_info_gga_x_optx = {
   1e-15,
   {OPTX_N_PAR, optx_names, optx_desc, optx_values, set_ext_params_cpy},
   gga_x_optx_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

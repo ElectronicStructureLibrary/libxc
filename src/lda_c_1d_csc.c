@@ -43,7 +43,6 @@ lda_c_1d_csc_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(lda_c_1d_csc_params));
 }
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_1d_csc.c"
 #include "work_lda.c"
 
@@ -127,5 +126,5 @@ const xc_func_info_type xc_func_info_lda_c_1d_csc = {
   1e-25,
   {2, csc_names, csc_desc, csc_values, csc_set_ext_params},
   lda_c_1d_csc_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

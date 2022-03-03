@@ -47,7 +47,6 @@ lda_x_init(xc_func_type *p)
   params->alpha = 1.0;
 }
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_x.c"
 #include "work_lda.c"
 
@@ -64,7 +63,7 @@ const xc_func_info_type xc_func_info_lda_x = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   lda_x_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };
 
 static const char  *xalpha_names[]  = {"alpha"};
@@ -95,7 +94,7 @@ const xc_func_info_type xc_func_info_lda_c_xalpha = {
   1e-15,
   {1, xalpha_names, xalpha_desc, xalpha_values, set_ext_params},
   lda_x_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };
 
 static const char  *N_names[]  = {"N"};
@@ -131,7 +130,7 @@ const xc_func_info_type xc_func_info_lda_x_rae = {
   1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   lda_x_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };
 
 /* Patrick Rinke confirmed that this functional only contains

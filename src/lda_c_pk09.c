@@ -10,7 +10,6 @@
 
 #define XC_LDA_C_PK09   554   /* Proynov and Kong 2009 */
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_pk09.c"
 #include "work_lda.c"
 
@@ -27,5 +26,5 @@ const xc_func_info_type xc_func_info_lda_c_pk09 = {
   1e-14,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

@@ -11,7 +11,6 @@
 #define XC_MGGA_X_EDMGGA          686 /* Tao 2001 */
 #define XC_HYB_MGGA_XC_EDMGGAH    695 /* Tao 2001 hybrid */
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_edmgga.c"
 #include "work_mgga.c"
 
@@ -28,7 +27,7 @@ const xc_func_info_type xc_func_info_mgga_x_edmgga = {
   1e-14,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 static void

@@ -55,7 +55,6 @@ static const double bloc_values[TPSS_N_PAR]    = {
   0.40, 1.59096, 1.537, 0.804, 0.21951, 4.0, -3.3
 };
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_tpss.c"
 #include "work_mgga.c"
 
@@ -72,7 +71,7 @@ const xc_func_info_type xc_func_info_mgga_x_tpss = {
   1e-15,
   {TPSS_N_PAR, tpss_names, tpss_desc, tpss_values, set_ext_params_cpy},
   mgga_x_tpss_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -88,7 +87,7 @@ const xc_func_info_type xc_func_info_mgga_x_modtpss = {
   1e-15,
   {TPSS_N_PAR, tpss_names, tpss_desc, modtpss_values, set_ext_params_cpy},
   mgga_x_tpss_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -104,7 +103,7 @@ const xc_func_info_type xc_func_info_mgga_x_revtpss = {
   1e-15,
   {TPSS_N_PAR, tpss_names, tpss_desc, revtpss_values, set_ext_params_cpy},
   mgga_x_tpss_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -120,5 +119,5 @@ const xc_func_info_type xc_func_info_mgga_x_bloc = {
   1e-15,
   {TPSS_N_PAR, tpss_names, tpss_desc, bloc_values, set_ext_params_cpy},
   mgga_x_tpss_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

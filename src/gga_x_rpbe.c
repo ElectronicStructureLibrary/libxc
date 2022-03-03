@@ -31,7 +31,6 @@ static const char  *rpbe_desc[RPBE_N_PAR]   = {
 static const double rpbe_values[RPBE_N_PAR] =
   {0.8040, MU_PBE};
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_rpbe.c"
 #include "work_gga.c"
 
@@ -48,5 +47,5 @@ const xc_func_info_type xc_func_info_gga_x_rpbe = {
   1e-15,
   {RPBE_N_PAR, rpbe_names, rpbe_desc, rpbe_values, set_ext_params_cpy},
   gga_x_rpbe_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

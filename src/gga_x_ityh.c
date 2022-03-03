@@ -10,7 +10,6 @@
 
 #define XC_GGA_X_ITYH 529 /* short-range recipe B88 functionals - erf */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_ityh.c"
 #include "work_gga.c"
 
@@ -37,5 +36,5 @@ const xc_func_info_type xc_func_info_gga_x_ityh = {
   1e-14, /* functional does not seem to be stable below this value */
   {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
   xc_gga_x_ityh_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

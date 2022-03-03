@@ -30,7 +30,6 @@ static const char  *desc[N_PAR]   = {"A0", "A1", "A2", "A3", "beta1", "beta2", "
 static const double par_rda[N_PAR] = {0.50616,  3.04121, -0.34567, -1.89738,
   1.29691,  0.56184, 0.21944, 46.47662, 18.80658, -0.90346};
   
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_k_rda.c"
 #include "work_mgga.c"
 
@@ -47,5 +46,5 @@ const xc_func_info_type xc_func_info_mgga_k_rda = {
   1e-15,
   {N_PAR, names, desc, par_rda, set_ext_params_cpy},
   mgga_k_rda_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };

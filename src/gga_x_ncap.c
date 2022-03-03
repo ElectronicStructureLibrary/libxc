@@ -22,7 +22,6 @@ gga_x_ncap_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_x_ncap_params));
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_ncap.c"
 #include "work_gga.c"
 
@@ -46,7 +45,7 @@ const xc_func_info_type xc_func_info_gga_x_ncap = {
   1e-15,
   {NCAP_N_PAR, ncap_names, ncap_desc, ncap_values, set_ext_params_cpy},
   gga_x_ncap_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 /* This is how the functional was actually used in the paper */

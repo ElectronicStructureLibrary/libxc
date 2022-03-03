@@ -46,7 +46,6 @@ static void func2(double *x, int n, void *dummy)
     x[ii] = x[ii]*FT_inter(x[ii]);
 }
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_x_1d_exponential.c"
 #include "work_lda.c"
 
@@ -67,5 +66,5 @@ const xc_func_info_type xc_func_info_lda_x_1d_exponential = {
   1e-26,
   {1, exp1d_names, exp1d_desc, exp1d_values, set_ext_params_cpy},
   lda_x_1d_exponential_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

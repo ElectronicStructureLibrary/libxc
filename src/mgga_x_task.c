@@ -50,7 +50,6 @@ static const double mtask_values[TASK_N_PAR] = {
   4.9479, 10.0, 1.29, 0.924374, -0.09276847, -0.017143, -0.639572, -2.087488, -0.625, -0.162512, 0.014572
 };
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_task.c"
 #include "work_mgga.c"
 
@@ -67,7 +66,7 @@ const xc_func_info_type xc_func_info_mgga_x_task = {
   1e-15,
   {TASK_N_PAR, task_names, task_desc, task_values, set_ext_params_cpy},
   mgga_x_task_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -83,5 +82,5 @@ const xc_func_info_type xc_func_info_mgga_x_mtask = {
   1e-15,
   {TASK_N_PAR, task_names, task_desc, mtask_values, set_ext_params_cpy},
   mgga_x_task_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };

@@ -31,7 +31,6 @@ static const char  *desc[N_PAR]   = {
 static const double par_p32[N_PAR] =
   {0.7687, 3.0/2.0};
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_rational_p.c"
 #include "work_gga.c"
 
@@ -48,5 +47,5 @@ const xc_func_info_type xc_func_info_gga_k_rational_p = {
   1e-15,
   {N_PAR, names, desc, par_p32, set_ext_params_cpy},
   gga_k_rational_p_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

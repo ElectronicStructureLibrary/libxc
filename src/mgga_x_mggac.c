@@ -13,7 +13,6 @@
 
 GPU_FUNCTION double xc_mgga_x_mbrxc_get_x(double Q);
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_mggac.c"
 #include "work_mgga.c"
 
@@ -30,5 +29,5 @@ const xc_func_info_type xc_func_info_mgga_x_mggac = {
   1.0e-12,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

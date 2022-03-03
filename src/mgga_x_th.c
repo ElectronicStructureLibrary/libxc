@@ -10,7 +10,6 @@
 
 #define XC_MGGA_X_TH          225 /* Tsuneda and Hirao */
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_th.c"
 #include "work_mgga.c"
 
@@ -33,5 +32,5 @@ const xc_func_info_type xc_func_info_mgga_x_th = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

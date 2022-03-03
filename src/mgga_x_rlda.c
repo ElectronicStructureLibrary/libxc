@@ -33,7 +33,6 @@ static const char  *rlda_desc[RLDA_N_PAR]   = {
 static const double rlda_values[RLDA_N_PAR]  = {1.0};
 static const double mk00_values[RLDA_N_PAR]  = {4.0/5.0};
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_rlda.c"
 #include "work_mgga.c"
 
@@ -50,7 +49,7 @@ const xc_func_info_type xc_func_info_mgga_x_rlda = {
   1e-15,
   {RLDA_N_PAR, rlda_names, rlda_desc, rlda_values, set_ext_params_cpy},
   mgga_x_rlda_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -66,7 +65,7 @@ const xc_func_info_type xc_func_info_mgga_x_mk00 = {
   1e-15,
   {RLDA_N_PAR, rlda_names, rlda_desc, mk00_values, set_ext_params_cpy},
   mgga_x_rlda_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 

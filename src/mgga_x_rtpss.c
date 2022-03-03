@@ -34,7 +34,6 @@ static const double rtpss_values[RTPSS_N_PAR] = {
   0.40, 1.59096, 1.537, 0.8040, 0.21951
 };
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_rtpss.c"
 #include "work_mgga.c"
 
@@ -51,5 +50,5 @@ const xc_func_info_type xc_func_info_mgga_x_rtpss = {
   1e-15,
   {RTPSS_N_PAR, rtpss_names, rtpss_desc, rtpss_values, set_ext_params_cpy},
   mgga_x_rtpss_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

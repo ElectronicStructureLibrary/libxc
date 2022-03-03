@@ -30,7 +30,6 @@ mgga_x_r4scan_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(mgga_x_r4scan_params));
 }
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_r4scan.c"
 #include "work_mgga.c"
 
@@ -47,5 +46,5 @@ const xc_func_info_type xc_func_info_mgga_x_r4scan = {
   1e-11,
   {N_PAR, names, desc, par_r4scan, set_ext_params_cpy},
   mgga_x_r4scan_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };

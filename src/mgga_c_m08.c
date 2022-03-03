@@ -99,7 +99,6 @@ mgga_c_m08_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(mgga_c_m08_params));
 }
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_m08.c"
 #include "work_mgga.c"
 
@@ -117,7 +116,7 @@ const xc_func_info_type xc_func_info_mgga_c_m08_hx = {
   1e-15,
   {N_PAR, names, desc, par_m08_hx, set_ext_params_cpy},
   mgga_c_m08_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -133,7 +132,7 @@ const xc_func_info_type xc_func_info_mgga_c_m08_so = {
   1e-15,
   {N_PAR, names, desc, par_m08_so, set_ext_params_cpy},
   mgga_c_m08_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -149,7 +148,7 @@ const xc_func_info_type xc_func_info_mgga_c_m11 = {
   1e-15,
   {N_PAR, names, desc, par_m11, set_ext_params_cpy},
   mgga_c_m08_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -165,7 +164,7 @@ const xc_func_info_type xc_func_info_mgga_c_m11_l = {
   1e-15,
   {N_PAR, names, desc, par_m11_l, set_ext_params_cpy},
   mgga_c_m08_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -181,7 +180,7 @@ const xc_func_info_type xc_func_info_mgga_c_mn12_l = {
   1e-15,
   {N_PAR, names, desc, par_mn12_l, set_ext_params_cpy},
   mgga_c_m08_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -197,7 +196,7 @@ const xc_func_info_type xc_func_info_mgga_c_mn12_sx = {
   1e-15,
   {N_PAR, names, desc, par_mn12_sx, set_ext_params_cpy},
   mgga_c_m08_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -213,7 +212,7 @@ const xc_func_info_type xc_func_info_mgga_c_mn15_l = {
   1e-15,
   {N_PAR, names, desc, par_mn15_l, set_ext_params_cpy},
   mgga_c_m08_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -229,7 +228,7 @@ const xc_func_info_type xc_func_info_mgga_c_mn15 = {
   1e-15,
   {N_PAR, names, desc, par_mn15, set_ext_params_cpy},
   mgga_c_m08_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -245,5 +244,5 @@ const xc_func_info_type xc_func_info_mgga_c_revm11 = {
   1e-15,
   {N_PAR, names, desc, par_revm11, set_ext_params_cpy},
   mgga_c_m08_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

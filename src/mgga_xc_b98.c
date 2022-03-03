@@ -17,7 +17,6 @@ hyb_mgga_xc_b98_init(xc_func_type *p)
   xc_hyb_init_hybrid(p, 0.1985);
 }
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_xc_b98.c"
 #include "work_mgga.c"
 
@@ -34,6 +33,6 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_b98 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   hyb_mgga_xc_b98_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 

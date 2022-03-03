@@ -29,7 +29,6 @@ mgga_x_br89_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(mgga_x_br89_params));
 }
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_br89_explicit.c"
 #include "work_mgga.c"
 
@@ -46,7 +45,7 @@ const xc_func_info_type xc_func_info_mgga_x_br89_explicit = {
   1.0e-12,
   {BR89_N_PAR, br89_names, br89_desc, br89_values, set_ext_params_cpy},
   mgga_x_br89_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -62,5 +61,5 @@ const xc_func_info_type xc_func_info_mgga_x_br89_explicit_1 = {
   1.0e-12,
   {BR89_N_PAR, br89_names, br89_desc, br89_1_values, set_ext_params_cpy},
   mgga_x_br89_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };

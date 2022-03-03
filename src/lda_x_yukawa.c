@@ -10,7 +10,6 @@
 
 #define XC_LDA_X_YUKAWA   641   /* Short-range LDA exchange with Yukawa attenuation */
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_x_yukawa.c"
 #include "work_lda.c"
 
@@ -36,5 +35,5 @@ const xc_func_info_type xc_func_info_lda_x_yukawa = {
   1e-13,
   {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
   xc_lda_x_yukawa_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

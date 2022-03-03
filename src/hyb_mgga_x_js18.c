@@ -25,7 +25,6 @@ hyb_mgga_x_js18_init(xc_func_type *p)
   xc_hyb_init_sr(p, 0.0, 0.0);
 }
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/hyb_mgga_x_js18.c"
 #include "work_mgga.c"
 
@@ -42,5 +41,5 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_js18 = {
   1e-14,
   {JS18_N_PAR, js18_names, js18_desc, par_js18, set_ext_params_cpy_cam_sr},
   hyb_mgga_x_js18_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };

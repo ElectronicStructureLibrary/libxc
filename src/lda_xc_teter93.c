@@ -11,7 +11,6 @@
 
 #define XC_LDA_XC_TETER93     20   /* Teter 93 parametrization                */
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_xc_teter93.c"
 #include "work_lda.c"
 
@@ -28,5 +27,5 @@ const xc_func_info_type xc_func_info_lda_xc_teter93 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

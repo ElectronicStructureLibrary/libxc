@@ -32,7 +32,6 @@ static const char  *names[N_PAR]  = {"_f"};
 static const char  *desc[N_PAR]   = { "f parameter" };
 static const double par_lm[N_PAR] = {0.15};
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_lm.c"
 #include "work_gga.c"
 
@@ -49,5 +48,5 @@ const xc_func_info_type xc_func_info_gga_c_lm = {
   1e-12,
   {N_PAR, names, desc, par_lm, set_ext_params_cpy},
   gga_c_lm_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

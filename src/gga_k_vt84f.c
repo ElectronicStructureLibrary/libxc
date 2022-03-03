@@ -27,7 +27,6 @@ static const char  *names[N_PAR]  = {"_mu", "_alpha"};
 static const char  *desc[N_PAR]   = { "mu parameter", "alpha parameter"};
 static const double par_vt84f[N_PAR] = {2.778, 1.2965};
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_vt84f.c"
 #include "work_gga.c"
 
@@ -44,5 +43,5 @@ const xc_func_info_type xc_func_info_gga_k_vt84f = {
   1e-15,
   {N_PAR, names, desc, par_vt84f, set_ext_params_cpy},
   gga_k_vt84f_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

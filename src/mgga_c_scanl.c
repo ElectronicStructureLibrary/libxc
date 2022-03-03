@@ -50,7 +50,7 @@ const xc_func_info_type xc_func_info_mgga_c_scanl = {
   1e-15,
   {N_PAR_SCANL, names, desc, par_scanl, scanl_set_ext_params},
   mgga_c_scanl_init, NULL,
-  NULL, NULL, xc_deorbitalize_func,
+  NULL, NULL, &xc_deorbitalize_func,
 };
 
 

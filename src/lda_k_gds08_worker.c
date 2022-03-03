@@ -27,7 +27,6 @@ static const char  *gds08_names[]  = {"_A", "_B", "_C"};
 static const char  *gds08_desc[]   = {"linear term", "term proportional to the logarithm of the density", "term proportional to the square of the logarithm"};
 static const double gds08_values[] = {0.860, 0.224, 0.0};
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_k_gds08_worker.c"
 #include "work_lda.c"
 
@@ -44,5 +43,5 @@ const xc_func_info_type xc_func_info_lda_k_gds08_worker = {
   1e-15,
   {GDS08_N_PAR, gds08_names, gds08_desc, gds08_values, set_ext_params_cpy},
   lda_k_gds08_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

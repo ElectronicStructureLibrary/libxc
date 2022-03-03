@@ -26,7 +26,6 @@ gga_k_lkt_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_k_lkt_params));
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_lkt.c"
 #include "work_gga.c"
 
@@ -43,5 +42,5 @@ const xc_func_info_type xc_func_info_gga_k_lkt = {
   1e-15,
   {N_PAR, names, desc, lkt_val, set_ext_params_cpy},
   gga_k_lkt_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

@@ -12,7 +12,6 @@
 #define XC_MGGA_C_REVSCAN       582 /* revised SCAN correlation */
 #define XC_MGGA_C_REVSCAN_VV10  585 /* revised SCAN correlation */
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_revscan.c"
 #include "work_mgga.c"
 
@@ -29,7 +28,7 @@ const xc_func_info_type xc_func_info_mgga_c_revscan = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 static void

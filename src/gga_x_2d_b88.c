@@ -10,7 +10,6 @@
 
 #define XC_GGA_X_2D_B88        127 /* Becke 88 in 2D */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_2d_b88.c"
 #include "work_gga.c"
 
@@ -27,5 +26,5 @@ const xc_func_info_type xc_func_info_gga_x_2d_b88 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

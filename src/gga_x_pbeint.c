@@ -32,7 +32,6 @@ static const char  *pbeint_desc[PBEINT_N_PAR]   = {
 };
 static const double pbeint_values[PBEINT_N_PAR] = {0.8040, 0.197, MU_PBE, MU_GE};
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_pbeint.c"
 #include "work_gga.c"
 
@@ -49,5 +48,5 @@ const xc_func_info_type xc_func_info_gga_x_pbeint = {
   1e-12,
   {PBEINT_N_PAR, pbeint_names, pbeint_desc, pbeint_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

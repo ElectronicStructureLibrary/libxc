@@ -34,7 +34,6 @@ static const char  *mvsb_desc[MVSB_N_PAR]   = {
 static const double mvsb_values[MVSB_N_PAR]  = {-1.6665, 7.8393, 0.174, 0.0233};
 static const double mvsbs_values[MVSB_N_PAR] = {-2.3800, 6.3783, 0.174, 0.0233};
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_mvsb.c"
 #include "work_mgga.c"
 
@@ -51,7 +50,7 @@ const xc_func_info_type xc_func_info_mgga_x_mvsb = {
   1e-15,
   {MVSB_N_PAR, mvsb_names, mvsb_desc, mvsb_values, set_ext_params_cpy},
   mgga_x_mvsb_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -67,5 +66,5 @@ const xc_func_info_type xc_func_info_mgga_x_mvsbs = {
   1e-15,
   {MVSB_N_PAR, mvsb_names, mvsb_desc, mvsbs_values, set_ext_params_cpy},
   mgga_x_mvsb_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

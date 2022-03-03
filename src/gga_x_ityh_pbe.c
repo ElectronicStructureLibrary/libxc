@@ -25,7 +25,6 @@ static const char  *desc[N_PAR]   = {
 
 static const double par_pbe[N_PAR] = {0.8040, MU_PBE, 0.33};
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_ityh_pbe.c"
 #include "work_gga.c"
 
@@ -58,5 +57,5 @@ const xc_func_info_type xc_func_info_gga_x_ityh_pbe = {
   1e-15,
   {N_PAR, names, desc, par_pbe, set_ext_params_cpy_omega},
   gga_x_ityh_pbe_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

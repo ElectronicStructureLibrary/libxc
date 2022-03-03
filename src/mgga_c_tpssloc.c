@@ -11,7 +11,6 @@
 
 #define XC_MGGA_C_TPSSLOC       247 /* Semilocal dynamical correlation */
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_c_tpssloc.c"
 #include "work_mgga.c"
 
@@ -28,6 +27,6 @@ const xc_func_info_type xc_func_info_mgga_c_tpssloc = {
   1e-14, /* densities smaller than 1e-26 give NaNs */
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };
 

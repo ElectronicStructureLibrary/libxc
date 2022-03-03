@@ -11,7 +11,6 @@
 
 #define XC_HYB_LDA_XC_BN05   588   /* Baer and Neuhauser, gamma=1 */
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/hyb_lda_xc_bn05.c"
 #include "work_lda.c"
 
@@ -62,5 +61,5 @@ const xc_func_info_type xc_func_info_hyb_lda_xc_bn05 = {
   1e-15,
   {N_PAR, names, desc, par_bn05, bn05_set_ext_params},
   hyb_lda_xc_bn05_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

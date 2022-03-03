@@ -45,7 +45,6 @@ static const double b88_b88m_values[B88_N_PAR] =
 static const double b88_6311g_values[B88_N_PAR] =
   {0.0051, 6.0};
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_b88.c"
 #include "work_gga.c"
 
@@ -62,7 +61,7 @@ const xc_func_info_type xc_func_info_gga_x_b88 = {
   1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_values, set_ext_params_cpy},
   gga_x_b88_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -78,7 +77,7 @@ const xc_func_info_type xc_func_info_gga_x_optb88_vdw = {
   1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_optb88_values, set_ext_params_cpy},
   gga_x_b88_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -94,7 +93,7 @@ const xc_func_info_type xc_func_info_gga_x_mb88 = {
   1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_mb88_values, set_ext_params_cpy},
   gga_x_b88_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -110,7 +109,7 @@ const xc_func_info_type xc_func_info_gga_x_eb88 = {
   1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_eb88_values, set_ext_params_cpy},
   gga_x_b88_init,  NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -126,7 +125,7 @@ const xc_func_info_type xc_func_info_gga_x_b88m = {
   1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_b88m_values, set_ext_params_cpy},
   gga_x_b88_init,  NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -142,5 +141,5 @@ const xc_func_info_type xc_func_info_gga_x_b88_6311g = {
   1e-15,
   {B88_N_PAR, b88_names, b88_desc, b88_6311g_values, set_ext_params_cpy},
   gga_x_b88_init,  NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

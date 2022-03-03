@@ -425,24 +425,57 @@ int main(int argc, char *argv[])
   /* Evaluate xc functional */
   switch(family) {
   case XC_FAMILY_LDA:
-    xc_lda(&func, d.n, d.rho, zk, vrho, v2rho2, v3rho3, NULL);
+    switch(order) {
+    case(0):
+      xc_lda_exc(&func, d.n, d.rho, zk);
+      break;
+    case(1):
+      xc_lda_exc_vxc(&func, d.n, d.rho, zk, vrho);
+      break;
+    case(2):
+      xc_lda_exc_vxc_fxc(&func, d.n, d.rho, zk, vrho, v2rho2);
+      break;
+    default:
+      fprintf(stderr,"Support for order %i not implemented.\n",order);
+      free_memory(&d);
+      exit(1);
+    }
     break;
   case XC_FAMILY_GGA:
-    xc_gga(&func, d.n, d.rho, d.sigma, zk, vrho, d.vsigma,
-           v2rho2, d.v2rhosigma, d.v2sigma2, NULL, NULL, NULL, NULL,
-           NULL, NULL, NULL, NULL, NULL);
+    switch(order) {
+    case(0):
+      xc_gga_exc(&func, d.n, d.rho, d.sigma, zk);
+      break;
+    case(1):
+      xc_gga_exc_vxc(&func, d.n, d.rho, d.sigma, zk, vrho, d.vsigma);
+      break;
+    case(2):
+      xc_gga_exc_vxc_fxc(&func, d.n, d.rho, d.sigma, zk, vrho, d.vsigma,
+                         v2rho2, d.v2rhosigma, d.v2sigma2);
+      break;
+    default:
+      fprintf(stderr,"Support for order %i not implemented.\n",order);
+      free_memory(&d);
+      exit(1);
+    }
     break;
   case XC_FAMILY_MGGA:
-    xc_mgga(&func, d.n, d.rho, d.sigma, d.lapl, d.tau, zk, vrho, d.vsigma, d.vlapl, d.vtau,
-            v2rho2, d.v2rhosigma, d.v2rholapl, d.v2rhotau, d.v2sigma2, d.v2sigmalapl, d.v2sigmatau, d.v2lapl2, d.v2lapltau, d.v2tau2,
-            NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-            NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-            NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-            NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-            NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-            NULL, NULL, NULL, NULL, NULL
-            );
-
+    switch(order) {
+    case(0):
+      xc_mgga_exc(&func, d.n, d.rho, d.sigma, d.lapl, d.tau, zk);
+      break;
+    case(1):
+      xc_mgga_exc_vxc(&func, d.n, d.rho, d.sigma, d.lapl, d.tau, zk, vrho, d.vsigma, d.vlapl, d.vtau);
+      break;
+    case(2):
+      xc_mgga_exc_vxc_fxc(&func, d.n, d.rho, d.sigma, d.lapl, d.tau, zk, vrho, d.vsigma, d.vlapl, d.vtau,
+                          v2rho2, d.v2rhosigma, d.v2rholapl, d.v2rhotau, d.v2sigma2, d.v2sigmalapl, d.v2sigmatau, d.v2lapl2, d.v2lapltau, d.v2tau2);
+      break;
+    default:
+      fprintf(stderr,"Support for order %i not implemented.\n",order);
+      free_memory(&d);
+      exit(1);
+    }
     break;
 
   default:

@@ -26,7 +26,6 @@ static const char  *names[N_PAR]  = {"_mu", "_beta"};
 static const char  *desc[N_PAR]   = {"Prefactor in exponent", "Coefficient of Laplacian term"};
 static const double par_pgsl025[N_PAR] = {40.0/27.0, 0.25};
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_k_pgslb.c"
 #include "work_mgga.c"
 
@@ -43,5 +42,5 @@ const xc_func_info_type xc_func_info_mgga_k_pgsl025 = {
   1e-15,
   {N_PAR, names, desc, par_pgsl025, set_ext_params_cpy},
   mgga_k_pgslb_init, NULL,
-  NULL, NULL, work_mgga
+  NULL, NULL, &work_mgga
 };

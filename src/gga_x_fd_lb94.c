@@ -61,7 +61,6 @@ static void func1(double *x, int n, void *dummy)
     x[ii] = FT_inter(1, x[ii]);
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_fd_lb94.c"
 #include "work_gga.c"
 
@@ -78,7 +77,7 @@ const xc_func_info_type xc_func_info_gga_x_fd_lb94 = {
   1e-15,
   {N_PAR, names, desc, lb94_par, set_ext_params_cpy},
   gga_x_fd_lb94_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -94,5 +93,5 @@ const xc_func_info_type xc_func_info_gga_x_fd_revlb94 = {
   1e-15,
   {N_PAR, names, desc, revlb94_par, set_ext_params_cpy},
   gga_x_fd_lb94_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

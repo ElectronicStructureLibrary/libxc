@@ -33,7 +33,6 @@ static void lda_c_hl_init(xc_func_type *p) {
   p->params = libxc_malloc(sizeof(lda_c_hl_params));
 }
 
-#include "decl_lda.h"
 #include "maple2c/lda_exc/lda_c_hl.c"
 #include "work_lda.c"
 
@@ -50,7 +49,7 @@ const xc_func_info_type xc_func_info_lda_c_hl = {
   1e-15,
   {N_PAR, names, desc, par_hl, set_ext_params_cpy},
   lda_c_hl_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -66,7 +65,7 @@ const xc_func_info_type xc_func_info_lda_c_gl = {
   1e-15,
   {N_PAR, names, desc, par_gl, set_ext_params_cpy},
   lda_c_hl_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -82,5 +81,5 @@ const xc_func_info_type xc_func_info_lda_c_vbh = {
   1e-15,
   {N_PAR, names, desc, par_vbh, set_ext_params_cpy},
   lda_c_hl_init, NULL,
-  work_lda, NULL, NULL
+  &work_lda, NULL, NULL
 };

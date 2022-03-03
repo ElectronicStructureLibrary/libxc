@@ -10,7 +10,6 @@
 
 #define XC_GGA_K_PEARSON          511 /* Pearson */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_pearson.c"
 #include "work_gga.c"
 
@@ -27,5 +26,5 @@ const xc_func_info_type xc_func_info_gga_k_pearson = {
   1e-14,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

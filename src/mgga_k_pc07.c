@@ -28,7 +28,6 @@ static const char  *pc07_desc[PC07_N_PAR]   = { "a",  "b"};
 static const double pc07_values[PC07_N_PAR] = {0.5389, 3};
 static const double pc07opt_values[PC07_N_PAR] = {1.784720, 0.258304};
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_k_pc07.c"
 #include "work_mgga.c"
 
@@ -45,7 +44,7 @@ const xc_func_info_type xc_func_info_mgga_k_pc07 = {
   1e-15,
   {PC07_N_PAR, pc07_names, pc07_desc, pc07_values, set_ext_params_cpy},
   mgga_k_pc07_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -61,5 +60,5 @@ const xc_func_info_type xc_func_info_mgga_k_pc07_opt = {
   1e-15,
   {PC07_N_PAR, pc07_names, pc07_desc, pc07opt_values, set_ext_params_cpy},
   mgga_k_pc07_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

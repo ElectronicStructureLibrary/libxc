@@ -31,7 +31,6 @@ static const double pbevwn_values[PBEVWN_N_PAR] = {
   0.06672455060314922, 0.031090690869654895034, 1.0
 };
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_pbe_vwn.c"
 #include "work_gga.c"
 
@@ -48,5 +47,5 @@ const xc_func_info_type xc_func_info_gga_c_pbe_vwn = {
   1e-12,
   {PBEVWN_N_PAR, pbevwn_names, pbevwn_desc, pbevwn_values, set_ext_params_cpy},
   gga_c_pbe_vwn_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

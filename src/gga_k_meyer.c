@@ -10,7 +10,6 @@
 
 #define XC_GGA_K_MEYER        57 /* Meyer,  Wang, and Young */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_k_meyer.c"
 #include "work_gga.c"
 
@@ -27,5 +26,5 @@ const xc_func_info_type xc_func_info_gga_k_meyer = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

@@ -17,7 +17,6 @@ typedef struct{
   double b1, b2, b3;  /* denominator */
 } gga_x_ev93_params;
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_ev93.c"
 #include "work_gga.c"
 
@@ -49,7 +48,7 @@ const xc_func_info_type xc_func_info_gga_x_ev93 = {
   1e-15,
   {6, ev93_names, ev93_desc, ev93_values, set_ext_params_cpy},
   gga_x_ev93_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 #ifdef __cplusplus
@@ -65,5 +64,5 @@ const xc_func_info_type xc_func_info_gga_x_ecmv92 = {
   1e-15,
   {6, ev93_names, ev93_desc, ecmv92_values, set_ext_params_cpy},
   gga_x_ev93_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

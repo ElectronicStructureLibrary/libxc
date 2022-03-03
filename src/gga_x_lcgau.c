@@ -60,7 +60,6 @@ lcgau_set_ext_params(xc_func_type *p, const double *ext_params)
   p->hyb_coeff[3] = k2*sqrt(a2);
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_lcgau.c"
 #include "work_gga.c"
 
@@ -77,7 +76,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_lcgau = {
   1e-10,
   {LCGAU_N_PAR, lcgau_names, lcgau_desc, lcgau_values, lcgau_set_ext_params},
   hyb_gga_x_lgau_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 
@@ -94,7 +93,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_lcgau_core = {
   1e-8,
   {LCGAU_N_PAR, lcgau_names, lcgau_desc, lcgau_core_values, lcgau_set_ext_params},
   hyb_gga_x_lgau_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 
@@ -111,5 +110,5 @@ const xc_func_info_type xc_func_info_hyb_gga_x_lc2gau = {
   1e-8,
   {LCGAU_N_PAR, lcgau_names, lcgau_desc, lc2gau_values, lcgau_set_ext_params},
   hyb_gga_x_lgau_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

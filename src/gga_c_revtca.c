@@ -10,7 +10,6 @@
 
 #define XC_GGA_C_REVTCA        99 /* Tognetti, Cortona, Adamo (revised) */
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_c_revtca.c"
 #include "work_gga.c"
 
@@ -27,5 +26,5 @@ const xc_func_info_type xc_func_info_gga_c_revtca = {
   1e-14,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };

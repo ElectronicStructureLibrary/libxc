@@ -22,7 +22,6 @@ gga_x_cap_init(xc_func_type *p)
   p->params = libxc_malloc(sizeof(gga_x_cap_params));
 }
 
-#include "decl_gga.h"
 #include "maple2c/gga_exc/gga_x_cap.c"
 #include "work_gga.c"
 
@@ -47,7 +46,7 @@ const xc_func_info_type xc_func_info_gga_x_cap = {
   1e-15,
   {CAP_N_PAR, cap_names, cap_desc, cap_values, set_ext_params_cpy},
   gga_x_cap_init, NULL,
-  NULL, work_gga, NULL
+  NULL, &work_gga, NULL
 };
 
 void

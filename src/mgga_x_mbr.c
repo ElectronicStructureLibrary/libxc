@@ -26,7 +26,6 @@ static const char  *mbr_names[MBR_N_PAR]  = {"_gamma", "_beta", "_lambda"};
 static const char  *mbr_desc[MBR_N_PAR]   = { "gamma",  "beta",  "lambda"};
 static const double mbr_values[MBR_N_PAR] = { 1.0, 20.0, 0.877};
 
-#include "decl_mgga.h"
 #include "maple2c/mgga_exc/mgga_x_mbr.c"
 #include "work_mgga.c"
 
@@ -43,5 +42,5 @@ const xc_func_info_type xc_func_info_mgga_x_mbr = {
   1e-15,
   {MBR_N_PAR, mbr_names, mbr_desc, mbr_values, set_ext_params_cpy},
   mgga_x_mbr_init, NULL,
-  NULL, NULL, work_mgga,
+  NULL, NULL, &work_mgga,
 };

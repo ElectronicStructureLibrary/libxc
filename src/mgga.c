@@ -41,9 +41,7 @@ xc_mgga_sanity_check(const xc_func_info_type *info, int order, xc_mgga_out_param
     if(info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
       check_out_var(vlapl);
     }
-    if(info->flags & XC_FLAGS_NEEDS_TAU){
-      check_out_var(vtau);
-    }
+    check_out_var(vtau);
   }
 
   if(out->v2rho2 != NULL){
@@ -59,14 +57,11 @@ xc_mgga_sanity_check(const xc_func_info_type *info, int order, xc_mgga_out_param
       check_out_var(v2sigmalapl);
       check_out_var(v2lapl2);
     }
-    if(info->flags & XC_FLAGS_NEEDS_TAU){
-      check_out_var(v2rhotau);
-      check_out_var(v2sigmatau);
-      check_out_var(v2tau2);
-    }
-    if((info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (info->flags & XC_FLAGS_NEEDS_TAU)){
+    check_out_var(v2rhotau);
+    check_out_var(v2sigmatau);
+    check_out_var(v2tau2);
+    if(info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
       check_out_var(v2lapltau);
-    }
   }
 
   if(out->v3rho3 != NULL){
@@ -86,15 +81,13 @@ xc_mgga_sanity_check(const xc_func_info_type *info, int order, xc_mgga_out_param
       check_out_var(v3sigmalapl2);
       check_out_var(v3lapl3);
     }
-    if(info->flags & XC_FLAGS_NEEDS_TAU){
-      check_out_var(v3rho2tau);
-      check_out_var(v3rhosigmatau);
-      check_out_var(v3rhotau2);
-      check_out_var(v3sigma2tau);
-      check_out_var(v3sigmatau2);
-      check_out_var(v3tau3);
-    }
-    if((info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (info->flags & XC_FLAGS_NEEDS_TAU)){
+    check_out_var(v3rho2tau);
+    check_out_var(v3rhosigmatau);
+    check_out_var(v3rhotau2);
+    check_out_var(v3sigma2tau);
+    check_out_var(v3sigmatau2);
+    check_out_var(v3tau3);
+    if(info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
       check_out_var(v3rholapltau);
       check_out_var(v3sigmalapltau);
       check_out_var(v3lapl2tau);
@@ -124,19 +117,17 @@ xc_mgga_sanity_check(const xc_func_info_type *info, int order, xc_mgga_out_param
       check_out_var(v4sigmalapl3);
       check_out_var(v4lapl4);
     }
-    if(info->flags & XC_FLAGS_NEEDS_TAU){
-      check_out_var(v4rho3tau);
-      check_out_var(v4rho2sigmatau);
-      check_out_var(v4rho2tau2);
-      check_out_var(v4rhosigma2tau);
-      check_out_var(v4rhosigmatau2);
-      check_out_var(v4rhotau3);
-      check_out_var(v4sigma3tau);
-      check_out_var(v4sigma2tau2);
-      check_out_var(v4sigmatau3);
-      check_out_var(v4tau4);
-    }
-    if((info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (info->flags & XC_FLAGS_NEEDS_TAU)){
+    check_out_var(v4rho3tau);
+    check_out_var(v4rho2sigmatau);
+    check_out_var(v4rho2tau2);
+    check_out_var(v4rhosigma2tau);
+    check_out_var(v4rhosigmatau2);
+    check_out_var(v4rhotau3);
+    check_out_var(v4sigma3tau);
+    check_out_var(v4sigma2tau2);
+    check_out_var(v4sigmatau3);
+    check_out_var(v4tau4);
+    if(info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
       check_out_var(v4rho2lapltau);
       check_out_var(v4rhosigmalapltau);
       check_out_var(v4rholapl2tau);
@@ -167,9 +158,7 @@ xc_mgga_initalize(const xc_func_type *func, size_t np, xc_mgga_out_params *out)
     if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) {
       libxc_memset(out->vlapl,  0, dim->vlapl *np*sizeof(double));
     }
-    if(func->info->flags & XC_FLAGS_NEEDS_TAU) {
-      libxc_memset(out->vtau,   0, dim->vtau  *np*sizeof(double));
-    }
+    libxc_memset(out->vtau,   0, dim->vtau  *np*sizeof(double));
   }
 
   if(out->v2rho2 != NULL){
@@ -183,13 +172,11 @@ xc_mgga_initalize(const xc_func_type *func, size_t np, xc_mgga_out_params *out)
       libxc_memset(out->v2lapl2,     0, dim->v2lapl2    *np*sizeof(double));
     }
     
-    if(func->info->flags & XC_FLAGS_NEEDS_TAU){
-      libxc_memset(out->v2rhotau,   0, dim->v2rhotau   *np*sizeof(double));
-      libxc_memset(out->v2sigmatau, 0, dim->v2sigmatau *np*sizeof(double));
-      libxc_memset(out->v2tau2,     0, dim->v2tau2     *np*sizeof(double));
-    }
+    libxc_memset(out->v2rhotau,   0, dim->v2rhotau   *np*sizeof(double));
+    libxc_memset(out->v2sigmatau, 0, dim->v2sigmatau *np*sizeof(double));
+    libxc_memset(out->v2tau2,     0, dim->v2tau2     *np*sizeof(double));
     
-    if((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (func->info->flags & XC_FLAGS_NEEDS_TAU)) {
+    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
       libxc_memset(out->v2lapltau,   0, dim->v2lapltau  *np*sizeof(double));
     }
   }
@@ -209,16 +196,14 @@ xc_mgga_initalize(const xc_func_type *func, size_t np, xc_mgga_out_params *out)
       libxc_memset(out->v3lapl3,        0, dim->v3lapl3       *np*sizeof(double));
     }
 
-    if(func->info->flags & XC_FLAGS_NEEDS_TAU){
-      libxc_memset(out->v3rho2tau,     0, dim->v3rho2tau    *np*sizeof(double));
-      libxc_memset(out->v3rhosigmatau, 0, dim->v3rhosigmatau*np*sizeof(double));
-      libxc_memset(out->v3rhotau2,     0, dim->v3rhotau2    *np*sizeof(double));
-      libxc_memset(out->v3sigma2tau,   0, dim->v3sigma2tau  *np*sizeof(double));
-      libxc_memset(out->v3sigmatau2,   0, dim->v3sigmatau2  *np*sizeof(double));
-      libxc_memset(out->v3tau3,        0, dim->v3tau3       *np*sizeof(double));
-    }
+    libxc_memset(out->v3rho2tau,     0, dim->v3rho2tau    *np*sizeof(double));
+    libxc_memset(out->v3rhosigmatau, 0, dim->v3rhosigmatau*np*sizeof(double));
+    libxc_memset(out->v3rhotau2,     0, dim->v3rhotau2    *np*sizeof(double));
+    libxc_memset(out->v3sigma2tau,   0, dim->v3sigma2tau  *np*sizeof(double));
+    libxc_memset(out->v3sigmatau2,   0, dim->v3sigmatau2  *np*sizeof(double));
+    libxc_memset(out->v3tau3,        0, dim->v3tau3       *np*sizeof(double));
 
-    if((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (func->info->flags & XC_FLAGS_NEEDS_TAU)) {
+    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
       libxc_memset(out->v3rholapltau,   0, dim->v3rholapltau  *np*sizeof(double));
       libxc_memset(out->v3sigmalapltau, 0, dim->v3sigmalapltau*np*sizeof(double));
       libxc_memset(out->v3lapl2tau,     0, dim->v3lapl2tau    *np*sizeof(double));
@@ -246,20 +231,18 @@ xc_mgga_initalize(const xc_func_type *func, size_t np, xc_mgga_out_params *out)
       libxc_memset(out->v4lapl4,           0, dim->v4lapl4          *np*sizeof(double));
     }
 
-    if(func->info->flags & XC_FLAGS_NEEDS_TAU){
-      libxc_memset(out->v4rho3tau,      0, dim->v4rho3tau     *np*sizeof(double));
-      libxc_memset(out->v4rho2sigmatau, 0, dim->v4rho2sigmatau*np*sizeof(double));
-      libxc_memset(out->v4rho2tau2,     0, dim->v4rho2tau2    *np*sizeof(double));
-      libxc_memset(out->v4rhosigma2tau, 0, dim->v4rhosigma2tau*np*sizeof(double));
-      libxc_memset(out->v4rhosigmatau2, 0, dim->v4rhosigmatau2*np*sizeof(double));
-      libxc_memset(out->v4rhotau3,      0, dim->v4rhotau3     *np*sizeof(double));
-      libxc_memset(out->v4sigma3tau,    0, dim->v4sigma3tau   *np*sizeof(double));
-      libxc_memset(out->v4sigma2tau2,   0, dim->v4sigma2tau2  *np*sizeof(double));
-      libxc_memset(out->v4sigmatau3,    0, dim->v4sigmatau3   *np*sizeof(double));
-      libxc_memset(out->v4tau4,         0, dim->v4tau4        *np*sizeof(double));
-    }
+    libxc_memset(out->v4rho3tau,      0, dim->v4rho3tau     *np*sizeof(double));
+    libxc_memset(out->v4rho2sigmatau, 0, dim->v4rho2sigmatau*np*sizeof(double));
+    libxc_memset(out->v4rho2tau2,     0, dim->v4rho2tau2    *np*sizeof(double));
+    libxc_memset(out->v4rhosigma2tau, 0, dim->v4rhosigma2tau*np*sizeof(double));
+    libxc_memset(out->v4rhosigmatau2, 0, dim->v4rhosigmatau2*np*sizeof(double));
+    libxc_memset(out->v4rhotau3,      0, dim->v4rhotau3     *np*sizeof(double));
+    libxc_memset(out->v4sigma3tau,    0, dim->v4sigma3tau   *np*sizeof(double));
+    libxc_memset(out->v4sigma2tau2,   0, dim->v4sigma2tau2  *np*sizeof(double));
+    libxc_memset(out->v4sigmatau3,    0, dim->v4sigmatau3   *np*sizeof(double));
+    libxc_memset(out->v4tau4,         0, dim->v4tau4        *np*sizeof(double));
 
-    if((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (func->info->flags & XC_FLAGS_NEEDS_TAU)) {
+    if(func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN){
       libxc_memset(out->v4rho2lapltau,     0, dim->v4rho2lapltau    *np*sizeof(double));
       libxc_memset(out->v4rhosigmalapltau, 0, dim->v4rhosigmalapltau*np*sizeof(double));
       libxc_memset(out->v4rholapl2tau,     0, dim->v4rholapl2tau    *np*sizeof(double));

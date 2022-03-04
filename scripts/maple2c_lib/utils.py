@@ -434,8 +434,9 @@ $include <{}.mpl>
             if not re.search(r"lapl", der[1]) is None:
               test += " && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)"
 
-            if not re.search(r"tau", der[1]) is None:
-              test += " && (p->info->flags & XC_FLAGS_NEEDS_TAU)"
+            # this flag does not exist in older releases
+            #if not re.search(r"tau", der[1]) is None:
+            #  test += " && (p->info->flags & XC_FLAGS_NEEDS_TAU)"
 
             test += " && (p->info->flags & XC_FLAGS_HAVE_" + \
               der_name[total_order] + ")"

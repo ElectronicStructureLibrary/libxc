@@ -47,7 +47,7 @@ br3p86_set_ext_params(xc_func_type *p, const double *ext_params)
   b = get_ext_param(p, ext_params, 1);
   c = get_ext_param(p, ext_params, 2);
 
-  p->hyb_coeff[0] = a;
+  p->cam_alpha = a;
 
   p->mix_coef[0] = 1.0 - a - b;
   p->mix_coef[1] = b;

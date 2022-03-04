@@ -10,8 +10,8 @@
 
 #include "util.h"
 
-#define XC_HYB_MGGA_X_M11       297 /* M11 hybrid exchange functional from Minnesota        */
-#define XC_HYB_MGGA_X_REVM11    304 /* revM11 hybrid exchange functional from Minnesota     */
+#define XC_HYB_MGGA_X_M11       297 /* Minnesota M11 hybrid exchange functional            */
+#define XC_HYB_MGGA_X_REVM11    304 /* Revised Minnesota revM11 hybrid exchange functional */
 
 typedef struct{
   const double a[12], b[12];

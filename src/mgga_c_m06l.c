@@ -9,13 +9,13 @@
 
 #include "util.h"
 
-#define XC_MGGA_C_M06_L         233 /* M06-L correlation functional from Minnesota          */
-#define XC_MGGA_C_M06_HF        234 /* M06-HF correlation functional from Minnesota         */
-#define XC_MGGA_C_M06           235 /* M06 correlation functional from Minnesota            */
-#define XC_MGGA_C_M06_2X        236 /* M06-2X correlation functional from Minnesota         */
-#define XC_MGGA_C_REVM06_L      294 /* Revised M06-L correlation functional from Minnesota  */
-#define XC_MGGA_C_REVM06        306 /* Revised M06 correlation functional from Minnesota    */
-#define XC_MGGA_C_M06_SX        311 /* M06-SX correlation functional from Minnesota    */
+#define XC_MGGA_C_M06_L         233 /* Minnesota M06-L  correlation functional         */
+#define XC_MGGA_C_M06_HF        234 /* Minnesota M06-HF correlation functional         */
+#define XC_MGGA_C_M06           235 /* Minnesota M06    correlation functional         */
+#define XC_MGGA_C_M06_2X        236 /* Minnesota M06-2X correlation functional         */
+#define XC_MGGA_C_REVM06_L      294 /* Revised Minnesota M06-L correlation functional  */
+#define XC_MGGA_C_REVM06        306 /* Revised Minnesota M06 correlation functional    */
+#define XC_MGGA_C_M06_SX        311 /* Minnesota M06-SX correlation functional         */
 
 typedef struct{
   double gamma_ss, gamma_ab, alpha_ss, alpha_ab;

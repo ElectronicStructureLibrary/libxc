@@ -9,9 +9,9 @@
 
 #include "util.h"
 
-#define XC_MGGA_C_M05           237 /* M05 correlation functional from Minnesota     */
-#define XC_MGGA_C_M05_2X        238 /* M05-2X correlation functional from Minnesota  */
-#define XC_MGGA_C_DLDF           37 /* Dispersionless Density Functional             */
+#define XC_MGGA_C_M05           237 /* Minnesota M05 correlation functional     */
+#define XC_MGGA_C_M05_2X        238 /* Minnesota M05-2X correlation functional  */
+#define XC_MGGA_C_DLDF           37 /* Dispersionless Density Functional        */
 
 typedef struct{
   double gamma_ss, gamma_ab;

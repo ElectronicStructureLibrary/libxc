@@ -9,7 +9,7 @@
 
 #include "util.h"
 
-#define XC_MGGA_X_M11_L        226 /* M11-L exchange functional from Minnesota  */
+#define XC_MGGA_X_M11_L        226 /* Minnesota M11-L exchange functional  */
 
 typedef struct{
   const double a[12], b[12], c[12], d[12];

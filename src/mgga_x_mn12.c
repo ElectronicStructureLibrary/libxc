@@ -9,10 +9,10 @@
 
 #include "util.h"
 
-#define XC_MGGA_X_MN12_L        227 /* MN12-L exchange functional from Minnesota          */
-#define XC_HYB_MGGA_X_MN12_SX   248 /* MN12-SX hybrid exchange functional from Minnesota  */
-#define XC_MGGA_X_MN15_L        260 /* MN15-L exhange functional from Minnesota           */
-#define XC_HYB_MGGA_X_MN15      268 /* MN15 hybrid exchange functional from Minnesota     */
+#define XC_MGGA_X_MN12_L        227 /* Minnesota MN12-L exchange functional          */
+#define XC_HYB_MGGA_X_MN12_SX   248 /* Minnesota MN12-SX hybrid exchange functional  */
+#define XC_MGGA_X_MN15_L        260 /* Minnesota MN15-L exhange functional           */
+#define XC_HYB_MGGA_X_MN15      268 /* Minnesota MN15 hybrid exchange functional     */
 
 /* the ordering is
 CC000 [ 0], CC001 [ 1], CC002 [ 2], CC003 [ 3], CC004 [ 4], CC005 [ 5]

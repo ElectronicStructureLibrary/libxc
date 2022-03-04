@@ -16,10 +16,10 @@
  ! Slaters Xalpha
  integer(c_int), parameter, public :: XC_LDA_C_XALPHA  =      6
 
- ! Vosko| Wilk & Nusair (VWN5)
+ ! Vosko, Wilk & Nusair (VWN5)
  integer(c_int), parameter, public :: XC_LDA_C_VWN  =      7
 
- ! Vosko| Wilk & Nusair (VWN5_RPA)
+ ! Vosko, Wilk & Nusair (VWN5_RPA)
  integer(c_int), parameter, public :: XC_LDA_C_VWN_RPA  =      8
 
  ! Perdew & Zunger
@@ -49,7 +49,7 @@
  ! von Barth & Hedin
  integer(c_int), parameter, public :: XC_LDA_C_VBH  =     17
 
- ! Casula| Sorella & Senatore
+ ! Casula, Sorella & Senatore
  integer(c_int), parameter, public :: XC_LDA_C_1D_CSC  =     18
 
  ! Slater exchange
@@ -79,16 +79,16 @@
  ! Ragot-Cortona
  integer(c_int), parameter, public :: XC_LDA_C_RC04  =     27
 
- ! Vosko| Wilk & Nusair (VWN1)
+ ! Vosko, Wilk & Nusair (VWN1)
  integer(c_int), parameter, public :: XC_LDA_C_VWN_1  =     28
 
- ! Vosko| Wilk & Nusair (VWN2)
+ ! Vosko, Wilk & Nusair (VWN2)
  integer(c_int), parameter, public :: XC_LDA_C_VWN_2  =     29
 
- ! Vosko| Wilk & Nusair (VWN3)
+ ! Vosko, Wilk & Nusair (VWN3)
  integer(c_int), parameter, public :: XC_LDA_C_VWN_3  =     30
 
- ! Vosko| Wilk & Nusair (VWN4)
+ ! Vosko, Wilk & Nusair (VWN4)
  integer(c_int), parameter, public :: XC_LDA_C_VWN_4  =     31
 
  ! Minnesota GAM exhange functional
@@ -109,10 +109,10 @@
  ! Dispersionless Density Functional
  integer(c_int), parameter, public :: XC_MGGA_C_DLDF  =     37
 
- ! Burke| Cancio| Gould| and Pittalis
+ ! Burke, Cancio, Gould, and Pittalis
  integer(c_int), parameter, public :: XC_GGA_X_BCGP  =     38
 
- ! acGGA| asymptotically corrected GGA correlation
+ ! acGGA, asymptotically corrected GGA correlation
  integer(c_int), parameter, public :: XC_GGA_C_ACGGA  =     39
 
  ! lambda_OC2(N) version of PBE
@@ -121,10 +121,10 @@
  ! Revised Becke 86 with modified gradient correction
  integer(c_int), parameter, public :: XC_GGA_X_B86_R  =     41
 
- ! Zhao| Levy & Parr| Eq. (21)
+ ! Zhao, Levy & Parr, Eq. (21)
  integer(c_int), parameter, public :: XC_MGGA_XC_ZLP  =     42
 
- ! Zhao| Levy & Parr| Eq. (20)
+ ! Zhao, Levy & Parr, Eq. (20)
  integer(c_int), parameter, public :: XC_LDA_XC_ZLP  =     43
 
  ! lambda_CH(N) version of PBE
@@ -142,7 +142,7 @@
  ! Chiodo et al
  integer(c_int), parameter, public :: XC_GGA_X_Q2D  =     48
 
- ! Reparametrized PBE by del Campo| Gazquez| Trickey & Vela
+ ! Reparametrized PBE by del Campo, Gazquez, Trickey & Vela
  integer(c_int), parameter, public :: XC_GGA_X_PBE_MOL  =     49
 
  ! Thomas-Fermi kinetic energy
@@ -166,7 +166,7 @@
  ! Armiento & Kuemmel 2013
  integer(c_int), parameter, public :: XC_GGA_X_AK13  =     56
 
- ! Meyer|  Wang| and Young
+ ! Meyer,  Wang, and Young
  integer(c_int), parameter, public :: XC_GGA_K_MEYER  =     57
 
  ! Berland and Hyldgaard
@@ -199,16 +199,16 @@
  ! oBLYP-D functional of Goerigk and Grimme
  integer(c_int), parameter, public :: XC_GGA_XC_OBLYP_D  =     67
 
- ! VMT{8|4} with constraint satisfaction with mu = mu_GE
+ ! VMT{8,4} with constraint satisfaction with mu = mu_GE
  integer(c_int), parameter, public :: XC_GGA_X_VMT84_GE  =     68
 
- ! VMT{8|4} with constraint satisfaction with mu = mu_PBE
+ ! VMT{8,4} with constraint satisfaction with mu = mu_PBE
  integer(c_int), parameter, public :: XC_GGA_X_VMT84_PBE  =     69
 
- ! Vela| Medel| and Trickey with mu = mu_GE
+ ! Vela, Medel, and Trickey with mu = mu_GE
  integer(c_int), parameter, public :: XC_GGA_X_VMT_GE  =     70
 
- ! Vela| Medel| and Trickey with mu = mu_PBE
+ ! Vela, Medel, and Trickey with mu = mu_PBE
  integer(c_int), parameter, public :: XC_GGA_X_VMT_PBE  =     71
 
  ! Colle and Salvetti
@@ -265,13 +265,13 @@
  ! PBE correlation to be used with the SSB exchange
  integer(c_int), parameter, public :: XC_GGA_C_SPBE  =     89
 
- ! Swart| Sola and Bickelhaupt correction to PBE
+ ! Swart, Sola and Bickelhaupt correction to PBE
  integer(c_int), parameter, public :: XC_GGA_X_SSB_SW  =     90
 
- ! Swart| Sola and Bickelhaupt
+ ! Swart, Sola and Bickelhaupt
  integer(c_int), parameter, public :: XC_GGA_X_SSB  =     91
 
- ! Swart| Sola and Bickelhaupt dispersion
+ ! Swart, Sola and Bickelhaupt dispersion
  integer(c_int), parameter, public :: XC_GGA_X_SSB_D  =     92
 
  ! HCTH/407+
@@ -292,13 +292,13 @@
  ! BPCCAC (GRAC for the energy)
  integer(c_int), parameter, public :: XC_GGA_X_BPCCAC  =     98
 
- ! Tognetti| Cortona| Adamo (revised)
+ ! Tognetti, Cortona, Adamo (revised)
  integer(c_int), parameter, public :: XC_GGA_C_REVTCA  =     99
 
- ! Tognetti| Cortona| Adamo
+ ! Tognetti, Cortona, Adamo
  integer(c_int), parameter, public :: XC_GGA_C_TCA  =    100
 
- ! Perdew| Burke & Ernzerhof
+ ! Perdew, Burke & Ernzerhof
  integer(c_int), parameter, public :: XC_GGA_X_PBE  =    101
 
  ! Revised PBE from Zhang & Yang
@@ -343,10 +343,10 @@
  ! Filatov & Thiel 97 (version B)
  integer(c_int), parameter, public :: XC_GGA_X_FT97_B  =    115
 
- ! Perdew| Burke & Ernzerhof SOL
+ ! Perdew, Burke & Ernzerhof SOL
  integer(c_int), parameter, public :: XC_GGA_X_PBE_SOL  =    116
 
- ! Hammer| Hansen| and Norskov
+ ! Hammer, Hansen, and Norskov
  integer(c_int), parameter, public :: XC_GGA_X_RPBE  =    117
 
  ! Wu & Cohen
@@ -373,7 +373,7 @@
  ! Bayesian best fit for the enhancement factor
  integer(c_int), parameter, public :: XC_GGA_X_BAYESIAN  =    125
 
- ! Reparametrized PBE by Pedroza| Silva & Capelle
+ ! Reparametrized PBE by Pedroza, Silva & Capelle
  integer(c_int), parameter, public :: XC_GGA_X_PBE_JSJR  =    126
 
  ! Becke 88 in 2D
@@ -382,19 +382,19 @@
  ! Becke 86 in 2D
  integer(c_int), parameter, public :: XC_GGA_X_2D_B86  =    128
 
- ! Perdew| Burke & Ernzerhof in 2D
+ ! Perdew, Burke & Ernzerhof in 2D
  integer(c_int), parameter, public :: XC_GGA_X_2D_PBE  =    129
 
- ! Perdew| Burke & Ernzerhof
+ ! Perdew, Burke & Ernzerhof
  integer(c_int), parameter, public :: XC_GGA_C_PBE  =    130
 
- ! Lee| Yang & Parr
+ ! Lee, Yang & Parr
  integer(c_int), parameter, public :: XC_GGA_C_LYP  =    131
 
  ! Perdew 86
  integer(c_int), parameter, public :: XC_GGA_C_P86  =    132
 
- ! Perdew| Burke & Ernzerhof SOL
+ ! Perdew, Burke & Ernzerhof SOL
  integer(c_int), parameter, public :: XC_GGA_C_PBE_SOL  =    133
 
  ! Perdew & Wang 91
@@ -409,7 +409,7 @@
  ! Langreth & Mehl
  integer(c_int), parameter, public :: XC_GGA_C_LM  =    137
 
- ! Reparametrized PBE by Pedroza| Silva & Capelle
+ ! Reparametrized PBE by Pedroza, Silva & Capelle
  integer(c_int), parameter, public :: XC_GGA_C_PBE_JRGX  =    138
 
  ! opt-Becke 88 for vdW
@@ -433,7 +433,7 @@
  ! Exchange part of Keal and Tozer version 1
  integer(c_int), parameter, public :: XC_GGA_X_KT1  =    145
 
- ! Keal and Tozer| version 2
+ ! Keal and Tozer, version 2
  integer(c_int), parameter, public :: XC_GGA_XC_KT2  =    146
 
  ! Wilson & Levy
@@ -496,13 +496,13 @@
  ! XLYP
  integer(c_int), parameter, public :: XC_GGA_XC_XLYP  =    166
 
- ! Keal and Tozer| version 1
+ ! Keal and Tozer, version 1
  integer(c_int), parameter, public :: XC_GGA_XC_KT1  =    167
 
- ! lsPBE| a PW91-like modification of PBE exchange
+ ! lsPBE, a PW91-like modification of PBE exchange
  integer(c_int), parameter, public :: XC_GGA_X_LSPBE  =    168
 
- ! lsRPBE| a PW91-like modification of RPBE
+ ! lsRPBE, a PW91-like modification of RPBE
  integer(c_int), parameter, public :: XC_GGA_X_LSRPBE  =    169
 
  ! Becke 97-D
@@ -523,7 +523,7 @@
  ! PBELYP1W
  integer(c_int), parameter, public :: XC_GGA_XC_PBELYP1W  =    175
 
- ! acGGA+| asymptotically corrected GGA correlation+
+ ! acGGA+, asymptotically corrected GGA correlation+
  integer(c_int), parameter, public :: XC_GGA_C_ACGGAP  =    176
 
  ! LDA hybrid exchange (LDA0)
@@ -568,7 +568,7 @@
  ! Tran and Wesolowski set 4 (Table II)
  integer(c_int), parameter, public :: XC_GGA_K_TW4  =    190
 
- ! Haas| Tran| Blaha| and Schwarz
+ ! Haas, Tran, Blaha, and Schwarz
  integer(c_int), parameter, public :: XC_GGA_X_HTBS  =    191
 
  ! Constantin et al based on the Airy gas
@@ -601,7 +601,7 @@
  ! Local tau approximation
  integer(c_int), parameter, public :: XC_MGGA_X_LTA  =    201
 
- ! Tao| Perdew| Staroverov & Scuseria
+ ! Tao, Perdew, Staroverov & Scuseria
  integer(c_int), parameter, public :: XC_MGGA_X_TPSS  =    202
 
  ! Minnesota M06-L exchange functional
@@ -613,7 +613,7 @@
  ! tau-HCTH from Boese and Handy
  integer(c_int), parameter, public :: XC_MGGA_X_TAU_HCTH  =    205
 
- ! Becke-Roussel 89| gamma = 0.8
+ ! Becke-Roussel 89, gamma = 0.8
  integer(c_int), parameter, public :: XC_MGGA_X_BR89  =    206
 
  ! Becke & Johnson 06
@@ -622,7 +622,7 @@
  ! Tran & Blaha 09
  integer(c_int), parameter, public :: XC_MGGA_X_TB09  =    208
 
- ! Rasanen| Pittalis & Proetto 09
+ ! Rasanen, Pittalis & Proetto 09
  integer(c_int), parameter, public :: XC_MGGA_X_RPP09  =    209
 
  ! Pittalis-Rasanen-Helbig-Gross 2007
@@ -631,43 +631,43 @@
  ! PRHG07 with Pittalis-Rasanen-Proetto 2010 correction
  integer(c_int), parameter, public :: XC_MGGA_X_2D_PRHG07_PRP10  =    211
 
- ! revised Tao| Perdew| Staroverov & Scuseria
+ ! revised Tao, Perdew, Staroverov & Scuseria
  integer(c_int), parameter, public :: XC_MGGA_X_REVTPSS  =    212
 
- ! Perdew| Kurth| Zupan| and Blaha
+ ! Perdew, Kurth, Zupan, and Blaha
  integer(c_int), parameter, public :: XC_MGGA_X_PKZB  =    213
 
- ! Becke-Roussel 89| gamma = 1.0
+ ! Becke-Roussel 89, gamma = 1.0
  integer(c_int), parameter, public :: XC_MGGA_X_BR89_1  =    214
 
- ! Engel| Chevary| Macdonald and Vosko
+ ! Engel, Chevary, Macdonald and Vosko
  integer(c_int), parameter, public :: XC_GGA_X_ECMV92  =    215
 
- ! Perdew| Burke & Ernzerhof based on VWN correlation
+ ! Perdew, Burke & Ernzerhof based on VWN correlation
  integer(c_int), parameter, public :: XC_GGA_C_PBE_VWN  =    216
 
  ! Perdew 86 with more accurate value for ftilde
  integer(c_int), parameter, public :: XC_GGA_C_P86_FT  =    217
 
- ! RATIONAL^p by Lehtomaki and Lopez-Acevedo (by default p=3/2| C2=0.7687)
+ ! RATIONAL^p by Lehtomaki and Lopez-Acevedo (by default p=3/2, C2=0.7687)
  integer(c_int), parameter, public :: XC_GGA_K_RATIONAL_P  =    218
 
- ! PG1 (Pauli-Gaussian) functional by Constantin| Fabiano| and Della Sala
+ ! PG1 (Pauli-Gaussian) functional by Constantin, Fabiano, and Della Sala
  integer(c_int), parameter, public :: XC_GGA_K_PG1  =    219
 
- ! PGSL025 (Pauli-Gaussian) functional by Constantin| Fabiano| and Della Sala
+ ! PGSL025 (Pauli-Gaussian) functional by Constantin, Fabiano, and Della Sala
  integer(c_int), parameter, public :: XC_MGGA_K_PGSL025  =    220
 
- ! MS exchange of Sun| Xiao| and Ruzsinszky
+ ! MS exchange of Sun, Xiao, and Ruzsinszky
  integer(c_int), parameter, public :: XC_MGGA_X_MS0  =    221
 
- ! MS1 exchange of Sun| et al
+ ! MS1 exchange of Sun, et al
  integer(c_int), parameter, public :: XC_MGGA_X_MS1  =    222
 
- ! MS2 exchange of Sun| et al
+ ! MS2 exchange of Sun, et al
  integer(c_int), parameter, public :: XC_MGGA_X_MS2  =    223
 
- ! MS2 hybrid exchange of Sun| et al
+ ! MS2 hybrid exchange of Sun, et al
  integer(c_int), parameter, public :: XC_HYB_MGGA_X_MS2H  =    224
 
  ! Tsuneda and Hirao
@@ -679,7 +679,7 @@
  ! Minnesota MN12-L exchange functional
  integer(c_int), parameter, public :: XC_MGGA_X_MN12_L  =    227
 
- ! MS2 exchange of Sun| et al with revised value for c
+ ! MS2 exchange of Sun, et al with revised value for c
  integer(c_int), parameter, public :: XC_MGGA_X_MS2_REV  =    228
 
  ! Cancio and Chou 2006
@@ -688,7 +688,7 @@
  ! Exchange for accurate virtual orbital energies
  integer(c_int), parameter, public :: XC_MGGA_X_MK00  =    230
 
- ! Tao| Perdew| Staroverov & Scuseria
+ ! Tao, Perdew, Staroverov & Scuseria
  integer(c_int), parameter, public :: XC_MGGA_C_TPSS  =    231
 
  ! VSXC (correlation part)
@@ -712,7 +712,7 @@
  ! Minnesota M05-2X correlation functional
  integer(c_int), parameter, public :: XC_MGGA_C_M05_2X  =    238
 
- ! Perdew| Kurth| Zupan| and Blaha
+ ! Perdew, Kurth, Zupan, and Blaha
  integer(c_int), parameter, public :: XC_MGGA_C_PKZB  =    239
 
  ! Becke correlation 95
@@ -730,7 +730,7 @@
  ! functional with balanced localization
  integer(c_int), parameter, public :: XC_MGGA_X_BLOC  =    244
 
- ! Modified Tao| Perdew| Staroverov & Scuseria
+ ! Modified Tao, Perdew, Staroverov & Scuseria
  integer(c_int), parameter, public :: XC_MGGA_X_MODTPSS  =    245
 
  ! Semilocal dynamical correlation
@@ -754,7 +754,7 @@
  ! Perdew 86 based on VWN5 correlation
  integer(c_int), parameter, public :: XC_GGA_C_P86VWN  =    252
 
- ! Perdew 86 based on VWN5 correlation| with more accurate value for ftilde
+ ! Perdew 86 based on VWN5 correlation, with more accurate value for ftilde
  integer(c_int), parameter, public :: XC_GGA_C_P86VWN_FT  =    253
 
  ! B97M-V exchange-correlation functional
@@ -766,13 +766,13 @@
  ! Jemmer-Knowles meta-GGA exchange
  integer(c_int), parameter, public :: XC_MGGA_X_JK  =    256
 
- ! MVS exchange of Sun| Perdew| and Ruzsinszky
+ ! MVS exchange of Sun, Perdew, and Ruzsinszky
  integer(c_int), parameter, public :: XC_MGGA_X_MVS  =    257
 
  ! PBE for formation energies
  integer(c_int), parameter, public :: XC_GGA_C_PBEFE  =    258
 
- ! Karasiev| Sjostrom| Dufty & Trickey
+ ! Karasiev, Sjostrom, Dufty & Trickey
  integer(c_int), parameter, public :: XC_LDA_XC_KSDT  =    259
 
  ! Minnesota MN15-L exchange functional
@@ -784,7 +784,7 @@
  ! one-parameter progressive functional (PW91 version)
  integer(c_int), parameter, public :: XC_GGA_C_OP_PW91  =    262
 
- ! SCAN exchange of Sun| Ruzsinszky| and Perdew
+ ! SCAN exchange of Sun, Ruzsinszky, and Perdew
  integer(c_int), parameter, public :: XC_MGGA_X_SCAN  =    263
 
  ! SCAN hybrid exchange (SCAN0)
@@ -796,7 +796,7 @@
  ! version of B97 by Cohen and Handy
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B97_1P  =    266
 
- ! SCAN correlation of Sun| Ruzsinszky| and Perdew
+ ! SCAN correlation of Sun, Ruzsinszky, and Perdew
  integer(c_int), parameter, public :: XC_MGGA_C_SCAN  =    267
 
  ! Minnesota MN15 hybrid exchange functional
@@ -811,7 +811,7 @@
  ! Non-empirical (excogitated) B88 functional of Becke and Elliott
  integer(c_int), parameter, public :: XC_GGA_X_EB88  =    271
 
- ! Reparametrized PBE by del Campo| Gazquez| Trickey & Vela
+ ! Reparametrized PBE by del Campo, Gazquez, Trickey & Vela
  integer(c_int), parameter, public :: XC_GGA_C_PBE_MOL  =    272
 
  ! PBEmol0
@@ -931,7 +931,7 @@
  ! Minnesota M06-SX correlation functional
  integer(c_int), parameter, public :: XC_MGGA_C_M06_SX  =    311
 
- ! Revised Swart| Sola and Bickelhaupt dispersion
+ ! Revised Swart, Sola and Bickelhaupt dispersion
  integer(c_int), parameter, public :: XC_GGA_X_REVSSB_D  =    312
 
  ! ccDF: coupled-cluster motivated density functional
@@ -940,13 +940,16 @@
  ! HF + LYP correlation
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HFLYP  =    314
 
- ! PW91| alternate version with more digits
+ ! B3P86, NWChem version
+ integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3P86_NWCHEM  =    315
+
+ ! PW91, alternate version with more digits
  integer(c_int), parameter, public :: XC_GGA_X_PW91_MOD  =    316
 
- ! Xie| Wu| and Zhao interpolation ansatz without fitting parameters
+ ! Xie, Wu, and Zhao interpolation ansatz without fitting parameters
  integer(c_int), parameter, public :: XC_LDA_C_W20  =    317
 
- ! Corrected KSDT by Karasiev| Dufty and Trickey
+ ! Corrected KSDT by Karasiev, Dufty and Trickey
  integer(c_int), parameter, public :: XC_LDA_XC_CORRKSDT  =    318
 
  ! Filatov and Thiel 1998 meta-GGA exchange
@@ -988,7 +991,7 @@
  ! LC version of BLYP
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_BLYP  =    400
 
- ! The original (ACM| B3PW91) hybrid of Becke
+ ! The original (ACM, B3PW91) hybrid of Becke
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_B3PW91  =    401
 
  ! B3LYP
@@ -1087,7 +1090,7 @@
  ! CAM version of B3LYP
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_B3LYP  =    433
 
- ! CAM version of B3LYP| tuned for excitations and properties
+ ! CAM version of B3LYP, tuned for excitations and properties
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_TUNED_CAM_B3LYP  =    434
 
  ! BHandH i.e. BHLYP
@@ -1180,7 +1183,7 @@
  ! wB97X range-separated functional
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_WB97X  =    464
 
- ! Long-range corrected short-range hybrid PBE (LRC-wPBEh) by Rohrdanz| Martins and Herbert
+ ! Long-range corrected short-range hybrid PBE (LRC-wPBEh) by Rohrdanz, Martins and Herbert
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LRC_WPBEH  =    465
 
  ! wB97X-V range-separated functional
@@ -1204,7 +1207,7 @@
  ! hPBEint
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_HPBEINT  =    472
 
- ! Long-range corrected PBE (LRC-wPBE) by Rohrdanz| Martins and Herbert
+ ! Long-range corrected PBE (LRC-wPBE) by Rohrdanz, Martins and Herbert
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LRC_WPBE  =    473
 
  ! MVSh hybrid exchange functional
@@ -1243,16 +1246,16 @@
  ! Kang-Musgrave hybrid
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_KMLYP  =    485
 
- ! Long-range corrected PBE (LC-wPBE) by Weintraub| Henderson and Scuseria
+ ! Long-range corrected PBE (LC-wPBE) by Weintraub, Henderson and Scuseria
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_WPBE_WHS  =    486
 
- ! Long-range corrected short-range hybrid PBE (LC-wPBE) by Weintraub| Henderson and Scuseria
+ ! Long-range corrected short-range hybrid PBE (LC-wPBE) by Weintraub, Henderson and Scuseria
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_WPBEH_WHS  =    487
 
- ! Long-range corrected PBE (LC-wPBE) by Weintraub| Henderson and Scuseria
+ ! Long-range corrected PBE (LC-wPBE) by Weintraub, Henderson and Scuseria
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_WPBE08_WHS  =    488
 
- ! Long-range corrected PBE (LC-wPBE) by Weintraub| Henderson and Scuseria
+ ! Long-range corrected PBE (LC-wPBE) by Weintraub, Henderson and Scuseria
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_WPBESOL_WHS  =    489
 
  ! CAM-B3LYP retuned using ionization potentials of water
@@ -1339,10 +1342,10 @@
  ! Perdew
  integer(c_int), parameter, public :: XC_GGA_K_PERDEW  =    517
 
- ! Vitos| Skriver| and Kollar
+ ! Vitos, Skriver, and Kollar
  integer(c_int), parameter, public :: XC_GGA_K_VSK  =    518
 
- ! Vitos| Johansson| Kollar| and Skriver
+ ! Vitos, Johansson, Kollar, and Skriver
  integer(c_int), parameter, public :: XC_GGA_K_VJKS  =    519
 
  ! Ernzerhof
@@ -1351,7 +1354,7 @@
  ! Lembarki & Chermette
  integer(c_int), parameter, public :: XC_GGA_K_LC94  =    521
 
- ! Lee| Lee & Parr
+ ! Lee, Lee & Parr
  integer(c_int), parameter, public :: XC_GGA_K_LLP  =    522
 
  ! Thakkar 1992
@@ -1408,7 +1411,7 @@
  ! Tao and Mo 2016 exchange
  integer(c_int), parameter, public :: XC_MGGA_X_TM  =    540
 
- ! meta-GGA version of VT{8|4} GGA
+ ! meta-GGA version of VT{8,4} GGA
  integer(c_int), parameter, public :: XC_MGGA_X_VT84  =    541
 
  ! TPSS with correct surface asymptotics
@@ -1471,13 +1474,13 @@
  ! Wilson 94 (Eq. 25)
  integer(c_int), parameter, public :: XC_GGA_C_W94  =    561
 
- ! Krieger| Chen| Iafrate| and Savin
+ ! Krieger, Chen, Iafrate, and Savin
  integer(c_int), parameter, public :: XC_MGGA_C_KCIS  =    562
 
  ! Hybrid based on KCIS
  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_B0KCIS  =    563
 
- ! Lee & Parr| Eq. (56)
+ ! Lee & Parr, Eq. (56)
  integer(c_int), parameter, public :: XC_MGGA_XC_LP90  =    564
 
  ! A dynamical correlation functional
@@ -1516,7 +1519,7 @@
  ! PBE-GX functional of Loos
  integer(c_int), parameter, public :: XC_MGGA_X_PBE_GX  =    576
 
- ! Groth| Dornheim| Sjostrom| Malone| Foulkes| Bonitz
+ ! Groth, Dornheim, Sjostrom, Malone, Foulkes, Bonitz
  integer(c_int), parameter, public :: XC_LDA_XC_GDSMFB  =    577
 
  ! Gordon and Kim 1972
@@ -1543,16 +1546,16 @@
  ! REVSCAN + VV10 correlation
  integer(c_int), parameter, public :: XC_MGGA_C_REVSCAN_VV10  =    585
 
- ! Becke-Roussel 89 with an explicit inversion of x(y)| gamma = 0.8
+ ! Becke-Roussel 89 with an explicit inversion of x(y), gamma = 0.8
  integer(c_int), parameter, public :: XC_MGGA_X_BR89_EXPLICIT  =    586
 
- ! Keal and Tozer| version 3
+ ! Keal and Tozer, version 3
  integer(c_int), parameter, public :: XC_GGA_XC_KT3  =    587
 
- ! Baer and Neuhauser| gamma=1
+ ! Baer and Neuhauser, gamma=1
  integer(c_int), parameter, public :: XC_HYB_LDA_XC_BN05  =    588
 
- ! Livshits and Baer| empirical functional also used for IP tuning
+ ! Livshits and Baer, empirical functional also used for IP tuning
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LB07  =    589
 
  ! Long-range LDA correlation functional
@@ -1567,7 +1570,7 @@
  ! Reparametrized GHDS10
  integer(c_int), parameter, public :: XC_GGA_K_GHDS10R  =    593
 
- ! Trickey| Karasiev| and Vela
+ ! Trickey, Karasiev, and Vela
  integer(c_int), parameter, public :: XC_GGA_K_TKVLN  =    594
 
  ! Three parameter PBE-like expansion
@@ -1591,7 +1594,7 @@
  ! Short-range recipe for PBE functional - Yukawa
  integer(c_int), parameter, public :: XC_GGA_X_SFAT_PBE  =    601
 
- ! Becke-Roussel 89 with an explicit inversion of x(y)| gamma = 1.0
+ ! Becke-Roussel 89 with an explicit inversion of x(y), gamma = 1.0
  integer(c_int), parameter, public :: XC_MGGA_X_BR89_EXPLICIT_1  =    602
 
  ! Regularized TPSS
@@ -1615,7 +1618,7 @@
  ! JS17 meta-GGA for 2D
  integer(c_int), parameter, public :: XC_MGGA_X_2D_JS17  =    609
 
- ! Similar to CAM-B3LYP| but trying to reduce the many-electron self-interaction
+ ! Similar to CAM-B3LYP, but trying to reduce the many-electron self-interaction
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_RCAM_B3LYP  =    610
 
  ! hybrid fitted to carbon NMR shifts
@@ -1627,7 +1630,7 @@
  ! Luo-Karasiev-Trickey GGA kinetic
  integer(c_int), parameter, public :: XC_GGA_K_LKT  =    613
 
- ! CAM version of B3LYP| tuned for TDDFT
+ ! CAM version of B3LYP, tuned for TDDFT
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAMH_B3LYP  =    614
 
  ! Long-range corrected short-range hybrid PBE (whPBE0) by Shao et al
@@ -1657,7 +1660,7 @@
  ! Short-range recipe for PBE functional
  integer(c_int), parameter, public :: XC_GGA_X_ITYH_PBE  =    623
 
- ! Short-range LYP by Ai| Fang| and Su
+ ! Short-range LYP by Ai, Fang, and Su
  integer(c_int), parameter, public :: XC_GGA_C_LYPR  =    624
 
  ! LC version of BLYP for electron affinities
@@ -1672,16 +1675,16 @@
  ! Fourth-order gradient expansion
  integer(c_int), parameter, public :: XC_MGGA_K_GEA4  =    628
 
- ! mGGA-rev functional by Cancio| Stewart| and Kuna (a=1)
+ ! mGGA-rev functional by Cancio, Stewart, and Kuna (a=1)
  integer(c_int), parameter, public :: XC_MGGA_K_CSK1  =    629
 
- ! mGGA-rev functional by Cancio| Stewart| and Kuna (a=4)
+ ! mGGA-rev functional by Cancio, Stewart, and Kuna (a=4)
  integer(c_int), parameter, public :: XC_MGGA_K_CSK4  =    630
 
- ! mGGAloc-rev functional by Cancio| Stewart| and Kuna (a=1)
+ ! mGGAloc-rev functional by Cancio, Stewart, and Kuna (a=1)
  integer(c_int), parameter, public :: XC_MGGA_K_CSK_LOC1  =    631
 
- ! mGGAloc-rev functional by Cancio| Stewart| and Kuna (a=4)
+ ! mGGAloc-rev functional by Cancio, Stewart, and Kuna (a=4)
  integer(c_int), parameter, public :: XC_MGGA_K_CSK_LOC4  =    632
 
  ! LGAP-GE by Constantin et al
@@ -1699,13 +1702,13 @@
  ! LC version of PBE
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_PBEOP  =    637
 
- ! Krieger| Chen| and Kurth
+ ! Krieger, Chen, and Kurth
  integer(c_int), parameter, public :: XC_MGGA_C_KCISK  =    638
 
  ! LC version of BLYP with correlation only in the short range
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_LC_BLYPR  =    639
 
- ! Modified CAM-B3LYP by Day| Nguyen and Pachter
+ ! Modified CAM-B3LYP by Day, Nguyen and Pachter
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_MCAM_B3LYP  =    640
 
  ! Short-range LDA exchange with Yukawa attenuation
@@ -1735,7 +1738,7 @@
  ! r++SCAN: rSCAN with uniform density limit and coordinate scaling behavior
  integer(c_int), parameter, public :: XC_MGGA_C_RPPSCAN  =    649
 
- ! r^4SCAN| a functional that satisfies the same exact constraints that SCAN does
+ ! r^4SCAN, a functional that satisfies the same exact constraints that SCAN does
  integer(c_int), parameter, public :: XC_MGGA_X_R4SCAN  =    650
 
  ! Exchange part of VCML-rVV10 by Trepte and Voss
@@ -1750,10 +1753,10 @@
  ! CAMY hybrid screened exchange PBE version
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAMY_PBEH  =    682
 
- ! Ruggeri| Rios| and Alavi unrestricted fit
+ ! Ruggeri, Rios, and Alavi unrestricted fit
  integer(c_int), parameter, public :: XC_LDA_C_UPW92  =    683
 
- ! Ruggeri| Rios| and Alavi restricted fit
+ ! Ruggeri, Rios, and Alavi restricted fit
  integer(c_int), parameter, public :: XC_LDA_C_RPW92  =    684
 
  ! LDA-type exchange with tau-dependent potential
@@ -1774,7 +1777,7 @@
  ! Generalized density-matrix with a=0.00638
  integer(c_int), parameter, public :: XC_MGGA_X_GDME_KOS  =    690
 
- ! Varied-terms (VT) mGGA of Koehl| Odom| and Scuseria
+ ! Varied-terms (VT) mGGA of Koehl, Odom, and Scuseria
  integer(c_int), parameter, public :: XC_MGGA_X_GDME_VT  =    691
 
  ! simple local model for Slater potential
@@ -1816,38 +1819,20 @@
  ! SCAN-L + VV10 correlation
  integer(c_int), parameter, public :: XC_MGGA_C_SCANL_VV10  =    704
 
- ! Jana and Samal 2018| screened range-separated TM exchange
+ ! Jana and Samal 2018, screened range-separated TM exchange
  integer(c_int), parameter, public :: XC_HYB_MGGA_X_JS18  =    705
 
- ! Patra| Jana and Samal 2018| screened range-separated TM exchange
+ ! Patra, Jana and Samal 2018, screened range-separated TM exchange
  integer(c_int), parameter, public :: XC_HYB_MGGA_X_PJS18  =    706
 
  ! TASK exchange of Aschebrock and Kuemmel
  integer(c_int), parameter, public :: XC_MGGA_X_TASK  =    707
-
- ! Long-range Gaussian
- integer(c_int), parameter, public :: XC_HYB_GGA_X_LCGAU  =    708
-
- ! Long-range Gaussian fitted to core excitations
- integer(c_int), parameter, public :: XC_HYB_GGA_X_LCGAU_CORE  =    709
-
- ! Long-range Gaussian 2
- integer(c_int), parameter, public :: XC_HYB_GGA_X_LC2GAU  =    710
 
  ! MGGAC exchange of Patra et al
  integer(c_int), parameter, public :: XC_MGGA_X_MGGAC  =    711
 
  ! beta fitted to LC20 to be used with MGGAC
  integer(c_int), parameter, public :: XC_GGA_C_MGGAC  =    712
-
- ! Double hybrid of Grimme
- integer(c_int), parameter, public :: XC_HYB_GGA_XC_B2PLYP  =    713
-
- ! Hybrid with two range separations (form 1)
- integer(c_int), parameter, public :: XC_HYB_GGA_XC_SRC1_BLYP  =    714
-
- ! Hybrid with two range separations (form 2)
- integer(c_int), parameter, public :: XC_HYB_GGA_XC_SRC2_BLYP  =    715
 
  ! modified Becke-Roussel by Patra et al
  integer(c_int), parameter, public :: XC_MGGA_X_MBR  =    716
@@ -1861,29 +1846,8 @@
  ! Long-range corrected TM-LYP by Jana et al
  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_LC_TMLYP  =    720
 
- ! Double hybrid of Karton et al
- integer(c_int), parameter, public :: XC_HYB_GGA_XC_B2GPPLYP  =    721
-
- ! Double hybrid of Casanova-Paez| Dardis and Goerigk
- integer(c_int), parameter, public :: XC_HYB_GGA_XC_WB2PLYP  =    722
-
- ! Double hybrid of Casanova-Paez| Dardis and Goerigk
- integer(c_int), parameter, public :: XC_HYB_GGA_XC_WB2GPPLYP  =    723
-
  ! modified TASK exchange
  integer(c_int), parameter, public :: XC_MGGA_X_MTASK  =    724
-
- ! Double hybrid of Bremond and Adamo
- integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE0_DH  =    725
-
- ! Double hybrid of Chai and Mao
- integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE0_2  =    726
-
- ! Double hybrid of Bremond et al
- integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE_QIDH  =    727
-
- ! Double hybrid of Toulouse et al
- integer(c_int), parameter, public :: XC_HYB_GGA_XC_LS1DH_PBE  =    728
 
  ! Functional for quasi-1D systems
  integer(c_int), parameter, public :: XC_GGA_X_Q1D  =    734

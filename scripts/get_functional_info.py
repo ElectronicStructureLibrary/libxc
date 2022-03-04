@@ -80,7 +80,7 @@ def read_infos(srcdir, family, all_ids):
         struct = re.sub(r'/\*.*?\*/', '', struct)
 
         # split by command not inside braces. This does not work if we have nested braces
-        info = struct.split(",")
+        info = [string.replace('|',',') for string in struct.split(",")]
 
         # build info dictionary
         infos[name] = {}
@@ -104,6 +104,7 @@ def read_infos(srcdir, family, all_ids):
 
   return infos
 
+# hybrids are added automatically
 families = ("lda", "gga", "mgga")
 family_infos = {}
 all_ids   = {}
@@ -127,17 +128,25 @@ for ifun, info in enumerate(info_list):
       sys.exit()
 
 for family in families:
-  infos = family_infos[family]
-  # create funcs_family.c file
-  fh =  open(params.builddir + "/funcs_" + family + ".c", "w")
-  fh.write('#include "util.h"\n\n')
-  for info in sorted(infos.values(), key=lambda item: item["number"]):
-    fh.write('extern xc_func_info_type xc_func_info_' + info["codename"] + ';\n')
-  fh.write('\nconst xc_func_info_type *xc_' + family + '_known_funct[] = {\n')
-  for info in sorted(infos.values(), key=lambda item: item["number"]):
-    fh.write('  &xc_func_info_' + info["codename"] + ',\n')
-  fh.write('  NULL\n};\n')
-  fh.close()
+  full_infos = family_infos[family]
+  for hyb in [False, True]:
+    prefix = "hyb_" if hyb else ""
+
+    infos = {}
+    for func in full_infos:
+      if (func.find("hyb_")!=-1) == hyb:
+        infos[func] = full_infos[func]
+
+    # create funcs_family.c file
+    fh =  open(params.builddir + "/funcs_" + prefix + family + ".c", "w")
+    fh.write('#include "util.h"\n\n')
+    for info in sorted(infos.values(), key=lambda item: item["number"]):
+      fh.write('extern xc_func_info_type xc_func_info_' + info["codename"] + ';\n')
+    fh.write('\nconst xc_func_info_type *xc_' + prefix + family + '_known_funct[] = {\n')
+    for info in sorted(infos.values(), key=lambda item: item["number"]):
+      fh.write('  &xc_func_info_' + info["codename"] + ',\n')
+    fh.write('  NULL\n};\n')
+    fh.close()
 
 # create funcs_key.c file
 fh =  open(params.builddir + "/funcs_key.c", "w")

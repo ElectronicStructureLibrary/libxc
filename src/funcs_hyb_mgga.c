@@ -47,7 +47,6 @@ extern xc_func_info_type xc_func_info_hyb_mgga_x_js18;
 extern xc_func_info_type xc_func_info_hyb_mgga_x_pjs18;
 extern xc_func_info_type xc_func_info_hyb_mgga_xc_lc_tmlyp;
 
-
 const xc_func_info_type *xc_hyb_mgga_known_funct[] = {
   &xc_func_info_hyb_mgga_x_dldf,
   &xc_func_info_hyb_mgga_x_ms2h,

@@ -8,12 +8,12 @@
 
 #include "util.h"
 
-#define XC_GGA_C_N12          80  /* N12 functional from Minnesota            */
-#define XC_GGA_C_N12_SX       79  /* N12-SX functional from Minnesota         */
-#define XC_GGA_C_GAM          33  /* GAM functional from Minnesota            */
-#define XC_GGA_C_BMK          280 /* Boese-Martin for kinetics                */
-#define XC_GGA_C_TAU_HCTH     281 /* correlation part of tau-hcth             */
-#define XC_GGA_C_HYB_TAU_HCTH 283 /* correlation part of hyb_tau-hcth */
+#define XC_GGA_C_N12          80  /* Minnesota N12 correlation functional             */
+#define XC_GGA_C_N12_SX       79  /* Minnesota N12-SX correlation functional          */
+#define XC_GGA_C_GAM          33  /* Minnesota GAM correlation functional             */
+#define XC_GGA_C_BMK          280 /* Boese-Martin correlation functional for kinetics */
+#define XC_GGA_C_TAU_HCTH     281 /* correlation part of tau-hcth                     */
+#define XC_GGA_C_HYB_TAU_HCTH 283 /* correlation part of hyb_tau-hcth                 */
 
 typedef struct {
   double c_ss[5], c_ab[5];
@@ -76,7 +76,7 @@ extern "C"
 const xc_func_info_type xc_func_info_gga_c_n12 = {
   XC_GGA_C_N12,
   XC_CORRELATION,
-  "Minnesota N12 functional",
+  "Minnesota N12 correlation functional",
   XC_FAMILY_GGA,
   {&xc_ref_Peverati2012_2310, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
@@ -92,7 +92,7 @@ extern "C"
 const xc_func_info_type xc_func_info_gga_c_n12_sx = {
   XC_GGA_C_N12_SX,
   XC_CORRELATION,
-  "Minnesota N12-SX functional",
+  "Minnesota N12-SX correlation functional",
   XC_FAMILY_GGA,
   {&xc_ref_Peverati2012_16187, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
@@ -108,7 +108,7 @@ extern "C"
 const xc_func_info_type xc_func_info_gga_c_gam = {
   XC_GGA_C_GAM,
   XC_CORRELATION,
-  "GAM functional from Minnesota",
+  "Minnesota GAM correlation functional",
   XC_FAMILY_GGA,
   {&xc_ref_Yu2015_12146, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
@@ -124,7 +124,7 @@ extern "C"
 const xc_func_info_type xc_func_info_gga_c_bmk = {
   XC_GGA_C_BMK,
   XC_CORRELATION,
-  "Boese-Martin for kinetics",
+  "Boese-Martin correlation for kinetics",
   XC_FAMILY_GGA,
   {&xc_ref_Boese2004_3405, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,

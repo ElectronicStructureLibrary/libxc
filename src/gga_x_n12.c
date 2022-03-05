@@ -10,9 +10,9 @@
 
 #include "util.h"
 
-#define XC_GGA_X_N12          82 /* N12 functional from Minnesota    */
-#define XC_HYB_GGA_X_N12_SX   81 /* N12-SX functional from Minnesota */
-#define XC_GGA_X_GAM          32 /* GAM functional from Minnesota */
+#define XC_GGA_X_N12          82 /* Minnesota N12 exchange functional    */
+#define XC_HYB_GGA_X_N12_SX   81 /* Minnesota N12-SX exchange functional */
+#define XC_GGA_X_GAM          32 /* Minnesota GAM exchange functional    */
 
 typedef struct{
   double CC[4][4];

@@ -10,7 +10,7 @@ from maple2c_lib.utils import *
 
 # these are the variables that the functional depends on
 variables = ["rho_0_", "rho_1_", "sigma_0_", "sigma_1_", "sigma_2_", "lapl_0_", "lapl_1_", "tau_0_", "tau_1_"]
-  
+
 # get arguments of the functions
 input_args  = "const double * const rho, const double * const sigma, const double * const lapl, const double * const tau"
 output_args = "xc_mgga_out_params *out"
@@ -43,9 +43,9 @@ def work_mgga_exc(params):
   '''Process a MGGA functional for the energy'''
 
   derivatives = partials_to_derivatives(params, "mgga", partials)
-  
+
   der_def, out_c = maple_define_derivatives(variables, derivatives, "mf")
-  
+
   out_c = ", ".join(out_c)
   if out_c != "": out_c = ", " + out_c
 
@@ -62,7 +62,7 @@ mzk  := (r0, r1, s0, s1, s2, l0, l1, tau0, tau1) -> \\
 
 $include <util.mpl>
 '''.format(params["simplify_begin"], params["simplify_end"])
-  
+
   maple_zk = " zk_0_ = mzk(" + ", ".join(variables) + ")"
 
   # we build 2 variants of the functional, for unpolarized, and polarized densities
@@ -114,7 +114,7 @@ def work_mgga_vxc(params):
   all_derivatives = partials_to_derivatives(params, "mgga", partials)
 
   derivatives, derivatives1, derivatives2 = filter_vxc_derivatives(all_derivatives)
-  
+
   # we obtain the missing pieces for maple
   # unpolarized calculation
   der_def_unpol, out_c_unpol = maple_define_derivatives(variables, derivatives1, "mf0")
@@ -124,11 +124,11 @@ def work_mgga_vxc(params):
   # polarized calculation
   der_def_pol1, out_c_pol1 = maple_define_derivatives(variables, derivatives1, "mf0")
   der_def_pol2, out_c_pol2 = maple_define_derivatives(variables, derivatives2, "mf1")
-  
+
   der_def_pol = der_def_pol1 + der_def_pol2
   out_c_pol   = ", ".join(sorted(out_c_pol1 + out_c_pol2, key=sort_alphanumerically))
   if out_c_pol != "": out_c_pol = ", " + out_c_pol
-  
+
   # we join all the pieces
   maple_code  = '''
 mzk  := (r0, r1, s0, s1, s2, l0, l1, tau0, tau1) -> \\
@@ -142,7 +142,7 @@ mf1   := (r0, r1, s0, s1, s2, l0, l1, tau0, tau1) -> eval(mzk(r1, r0, s2, s1, s0
 
 $include <util.mpl>
 '''.format(params["simplify_begin"], params["simplify_end"])
-  
+
   maple_vrho0 = " vrho_0_ = mf0(" + ", ".join(variables) + ")"
   maple_vrho1 = " vrho_1_ = mf1(" + ", ".join(variables) + ")"
 

@@ -104,7 +104,7 @@ for der in ders_def:
   # no need to calculate tau derivatives
   if re.search(r"tau", der[1]): # v2, v3, v4
     continue
-  
+
   mvars = ("n0", "n1", "s0", "s1", "s2", "u0", "u1", "t0", "t1")
 
   mder = ",".join(["{{{}, {}}}".format(mvars[i], der[0][i]) for i in range(len(mvars))])
@@ -118,7 +118,7 @@ for der in ders_def:
     ["math", "-script", "/tmp/math.m"],
     stdout=subprocess.PIPE, universal_newlines=True)
   out = run.stdout.strip()
-  
+
   # make the appropriate replacements in mathematica output
   for str1, str2 in replace:
     out = re.sub(str1, str2, out)
@@ -140,7 +140,7 @@ for der in ders_def:
   if res and res.group(3) == "0":
     out1 += "\n".join(wrap(out, initial_indent='', subsequent_indent='  ',
                            expand_tabs=True), width=100) + "\n"
-  else:  
+  else:
     out2 += "\n".join(wrap(out, initial_indent='  ', subsequent_indent='    ',
                            expand_tabs=True), width=100) + "\n"
 

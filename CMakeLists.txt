@@ -169,6 +169,7 @@ set(raw_sources_list
   gga_c_pbe.c
   gga_c_pbe_vwn.c
   gga_c_pbeloc.c
+  gga_c_pbe_erf_gws.c
   gga_c_pw91.c
   gga_c_q2d.c
   gga_c_regtpss.c
@@ -247,6 +248,7 @@ set(raw_sources_list
   gga_x_pbeint.c
   gga_x_pbepow.c
   gga_x_pbetrans.c
+  gga_x_pbe_erf_gws.c
   gga_x_pw86.c
   gga_x_pw91.c
   gga_x_q1d.c
@@ -332,6 +334,7 @@ set(raw_sources_list
   lda_c_wigner.c
   lda_c_gk72.c
   lda_c_w20.c
+  lda_c_pw_erf.c
   lda_k_tf.c
   lda_k_zlp.c
   lda_k_gds08_worker.c

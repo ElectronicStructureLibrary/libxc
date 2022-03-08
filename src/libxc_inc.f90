@@ -1747,6 +1747,21 @@
  ! VCML-rVV10 by Trepte and Voss
  integer(c_int), parameter, public :: XC_MGGA_XC_VCML_RVV10  =    652
 
+ ! Hybrid Exchange functional with short-range LDA exchange (erf)
+ integer(c_int), parameter, public :: XC_HYB_LDA_X_ERF  =    653
+
+ ! Short ranged correlation LDA (erfc)
+ integer(c_int), parameter, public :: XC_LDA_C_PW_ERF  =    654
+
+ ! Short ranged PBE exchange (erfc)
+ integer(c_int), parameter, public :: XC_GGA_X_PBE_ERF_GWS  =    655
+
+ ! Short-range PBE (GWS) exchange (erfc) + long-range exact exchange
+ integer(c_int), parameter, public :: XC_HYB_GGA_X_PBE_ERF_GWS  =    656
+
+ ! Short ranged PBE correlation (erfc)
+ integer(c_int), parameter, public :: XC_GGA_C_PBE_ERF_GWS  =    657
+
  ! CAM hybrid screened exchange PBE version
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_PBEH  =    681
 

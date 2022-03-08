@@ -2551,3 +2551,15 @@ func_reference_type xc_ref_vonBarth1972_1629 = {
   "@article{vonBarth1972_1629,\n  author = {von Barth, U. and Hedin, L.},\n  title = {A local exchange-correlation potential for the spin polarized case. i},\n  journal = {J. Phys. C: Solid State Phys.},\n  volume = {5},\n  number = {13},\n  pages = {1629},\n  year = {1972},\n  doi = {10.1088/0022-3719/5/13/012},\n  url = {http://stacks.iop.org/0022-3719/5/i=13/a=012}\n}\n"
 };
 
+func_reference_type xc_ref_Goll2005_3917 = {
+  "E. Goll, H.-J. Werner, and H. Stoll.,  Phys. Chem. Chem. Phys. 7, 3917–3923 (2005)",
+  "10.1039/B509242F",
+  "@article{Goll2005_3917,\n  author = {Goll, Erich and Werner, Hans-Joachim and Stoll, Hermann},\n  title = {A short-range gradient-corrected density functional in long-range coupled-cluster calculations for rare gas dimers},\n  journal = {Phys. Chem. Chem. Phys.},\n  year = {2005},\n  volume = {7},\n  issue = {23},\n  pages = {3917--3923},\n  publisher = {The Royal Society of Chemistry},\n  doi = {10.1039/B509242F},\n  url = {https://doi.org/10.1039/B509242F}\n}\n"
+};
+
+func_reference_type xc_ref_Goll2006_276 = {
+  "E. Goll, H.-J. Werner, H. Stoll, T. Leininger, P. Gori-Giorgi, and A. Savin.,  Chem. Phys. 329, 276–282 (2006)",
+  "10.1016/j.chemphys.2006.05.020",
+  "@article{Goll2006_276,\n  author = {Goll, Erich and Werner, Hans-Joachim and Stoll, Hermann and Leininger, Thierry and Gori-Giorgi, Paola and Savin, Andreas},\n  title = {A short-range gradient-corrected spin density functional in combination with long-range coupled-cluster methods: Application to alkali-metal rare-gas dimers},\n  journal = {Chem. Phys.},\n  volume = {329},\n  number = {1},\n  pages = {276--282},\n  year = {2006},\n  issn = {0301-0104},\n  doi = {10.1016/j.chemphys.2006.05.020},\n  url = {https://doi.org/10.1016/j.chemphys.2006.05.020}\n}\n"
+};
+

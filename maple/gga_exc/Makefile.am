@@ -38,7 +38,8 @@ gga_order_4 = gga_k_exp4.mpl gga_x_hjs_b88_v2.mpl gga_k_lc94.mpl	\
   gga_k_vt84f.mpl gga_k_lgap_ge.mpl gga_c_ccdf.mpl gga_c_p86vwn.mpl     \
   gga_x_ityh_optx.mpl gga_x_ityh_pbe.mpl gga_c_lypr.mpl gga_x_q1d.mpl   \
   hyb_gga_x_cam_s12.mpl hyb_gga_xc_case21.mpl gga_x_lcgau.mpl           \
-  gga_k_rational_p.mpl gga_k_pg.mpl
+  gga_k_rational_p.mpl gga_k_pg.mpl gga_c_pbe_erf_gws.mpl               \
+  gga_x_pbe_erf_gws.mpl
 
 dist_noinst_SCRIPTS = $(gga_order_4)
 

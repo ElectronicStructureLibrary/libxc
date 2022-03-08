@@ -9,10 +9,8 @@
 
 (* type: lda_exc *)
 (* prefix:
-  lda_x_sloc_params *params;
-
   assert(p->params != NULL);
-  params = (lda_x_sloc_params * )(p->params);
+  const lda_x_sloc_params * const params = (lda_x_sloc_params * const)(p->params);
 *)
 
 # https://onlinelibrary.wiley.com/doi/full/10.1002/qua.25312

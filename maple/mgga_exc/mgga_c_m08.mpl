@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_c_m08_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_c_m08_params * )(p->params);
+  const mgga_c_m08_params * const params = (mgga_c_m08_params * const)(p->params);
 *)
 
 

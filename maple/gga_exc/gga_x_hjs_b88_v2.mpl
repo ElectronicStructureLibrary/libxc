@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_hjs_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_hjs_params * )(p->params);
+  const gga_x_hjs_params * const params = (gga_x_hjs_params * const)(p->params);
 *)
 
 $include "gga_x_hjs.mpl"

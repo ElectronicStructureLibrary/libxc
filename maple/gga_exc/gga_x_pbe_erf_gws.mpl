@@ -16,6 +16,11 @@
 (* short-range LDA is the basis of short-range PBE*)
 $include "lda_x_erf.mpl"
 
+(* prefix:
+  assert(p->params != NULL);
+  const gga_x_pbe_erf_gws_params * const params = (gga_x_pbe_erf_gws_params * const)(p->params);
+*)
+
 (*
  in short-range PBE, the constant b is now mu-dependent.
 *)
@@ -57,11 +62,6 @@ pbe_x_erf_gws_b_piece0 := 7/81:
 
 
 (*fixed (not mu, rs,z dependent) PBE parameters*)
-(* prefix:
-  gga_x_pbe_erf_gws_params *params;
-  assert(p->params != NULL);
-  params = (gga_x_pbe_erf_gws_params * )(p->params);
-*)
 
 (*default parameters*)
 $ifdef gga_x_pbe_erf_gws_params

@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_vmt84_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_vmt84_params * )(p->params);
+  const gga_x_vmt84_params * const params = (gga_x_vmt84_params * const)(p->params);
 *)
 
 $include "gga_x_vmt.mpl"

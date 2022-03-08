@@ -9,10 +9,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_c_pbe_vwn_params *params;
-
   assert(p->params != NULL);
-  params = (gga_c_pbe_vwn_params * )(p->params);
+  const gga_c_pbe_vwn_params * const params = (gga_c_pbe_vwn_params * const)(p->params);
 *)
 
 $include "lda_c_vwn.mpl"

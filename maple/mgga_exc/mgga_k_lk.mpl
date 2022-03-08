@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_k_lk_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_k_lk_params * ) (p->params);
+  const mgga_k_lk_params * const params = (mgga_k_lk_params * const)(p->params);
 *)
 
 lk_p := x -> X2S^2*x^2:

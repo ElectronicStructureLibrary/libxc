@@ -8,11 +8,8 @@
 
 (* type: lda_exc *)
 (* prefix:
-  lda_c_2d_prm_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_2d_prm_params * )(p->params);
-
+  const lda_c_2d_prm_params * const params = (lda_c_2d_prm_params * const)(p->params);
   assert(params->N > 1);
 *)
 

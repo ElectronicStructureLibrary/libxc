@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_ak13_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_ak13_params * )(p->params);
+  const gga_x_ak13_params * const params = (gga_x_ak13_params * const)(p->params);
 *)
 
 ak13_f0 := s -> 1 + params_a_B1*s*log(1 + s) + params_a_B2*s*log(1 + log(1 + s)):

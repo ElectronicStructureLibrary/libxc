@@ -9,10 +9,8 @@
 
 (* type: lda_exc *)
 (* prefix:
-  lda_c_chachiyo_params *params;
-
-  assert(p->params != NULL);
-  params = (lda_c_chachiyo_params * )(p->params);
+  assert(p->params != NULL); 
+  const lda_c_chachiyo_params * const params = (lda_c_chachiyo_params * const)(p->params);
 *)
 
 e0 := rs -> params_a_ap*log(1 + params_a_bp/rs + params_a_cp/rs^2):

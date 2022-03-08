@@ -12,7 +12,7 @@ from maple2c_lib.utils import *
 variables = ["rho_0_", "rho_1_"]
 
 # get arguments of the functions
-input_args  = "const double *rho"
+input_args  = "const double * const rho"
 output_args = "xc_lda_out_params *out"
   
 # the definition of the derivatives that libxc transmits to the calling program

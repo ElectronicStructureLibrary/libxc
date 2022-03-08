@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_ssb_sw_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_ssb_sw_params * )(p->params);
+  const gga_x_ssb_sw_params * const params = (gga_x_ssb_sw_params * const)(p->params);
 *)
 
 ssb_sw_f0 := s -> params_a_A

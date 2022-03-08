@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_pw91_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_pw91_params * )(p->params);
+  const gga_x_pw91_params * const params = (gga_x_pw91_params * const)(p->params);
 *)
 
 $ifdef gga_x_pw91_params

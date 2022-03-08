@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  hyb_gga_xc_case21_params *params;
-
   assert(p->params != NULL);
-  params = (hyb_gga_xc_case21_params * )(p->params);
+  const hyb_gga_xc_case21_params * const params = (hyb_gga_xc_case21_params * const)(p->params);
 *)
 
 $define lda_c_pw_params

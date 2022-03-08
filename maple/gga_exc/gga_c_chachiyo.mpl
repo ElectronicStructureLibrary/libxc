@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_c_chachiyo_params *params;
-
   assert(p->params != NULL);
-  params = (gga_c_chachiyo_params * )(p->params);
+  const gga_c_chachiyo_params * const params = (gga_c_chachiyo_params * const)(p->params);
 *)
 
 (* Functional is based on Chachiyo correlation with modified spin scaling *)

@@ -9,10 +9,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_x_ms_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_x_ms_params * ) (p->params);
+  const mgga_x_ms_params * const params = (mgga_x_ms_params * const)(p->params);
 *)
 
 ms_fa := a -> (1 - a^2)^3 / (1 + a^3 + params_a_b*a^6):

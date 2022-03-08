@@ -8,10 +8,8 @@
 
 (* type: lda_exc *)
 (* prefix:
-  lda_k_gds08_params *params;
-
   assert(p->params != NULL);
-  params = (lda_k_gds08_params * )(p->params);
+  const lda_k_gds08_params * const params = (lda_k_gds08_params * const)(p->params);
 *)
 
 gds08_fs := (rs, z) -> (1 + z)/2 *(

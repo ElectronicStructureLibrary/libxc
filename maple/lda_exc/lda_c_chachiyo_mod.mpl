@@ -8,10 +8,8 @@
 
 (* type: lda_exc *)
 (* prefix:
-  lda_c_chachiyo_mod_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_chachiyo_mod_params * )(p->params);
+  const lda_c_chachiyo_mod_params * const params = (lda_c_chachiyo_mod_params * const)(p->params);
 *)
 
 (* Functional is based on Chachiyo correlation *)

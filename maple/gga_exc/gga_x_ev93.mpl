@@ -9,10 +9,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_ev93_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_ev93_params * )(p->params);
+  const gga_x_ev93_params * const params = (gga_x_ev93_params * const)(p->params);
 *)
 
 ev93_f0 := s -> (1 + params_a_a1*s^2 + params_a_a2*s^4 + params_a_a3*s^6)/(1 + params_a_b1*s^2 + params_a_b2*s^4 + params_a_b3*s^6):

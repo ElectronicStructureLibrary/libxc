@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_k_rational_p_params *params;
-
   assert(p->params != NULL);
-  params = (gga_k_rational_p_params * )(p->params);
+  const gga_k_rational_p_params * const params = (gga_k_rational_p_params * const)(p->params);
 *)
 
 rational_p_f0 := s -> (1 + params_a_C2/params_a_p * s^2)^(-params_a_p):

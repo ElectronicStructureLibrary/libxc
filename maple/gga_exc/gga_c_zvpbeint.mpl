@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_c_zvpbeint_params *params;
-
   assert(p->params != NULL);
-  params = (gga_c_zvpbeint_params * )(p->params);
+  const gga_c_zvpbeint_params * const params = (gga_c_zvpbeint_params * const)(p->params);
 *)
 
 params_a_gamma := (1 - log(2))/Pi^2:

@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_x_mn12_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_x_mn12_params * ) (p->params);
+  const mgga_x_mn12_params * const params = (mgga_x_mn12_params * const)(p->params);
 *)
 
 $define lda_x_params

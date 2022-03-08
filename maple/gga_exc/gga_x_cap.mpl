@@ -9,10 +9,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_cap_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_cap_params * )(p->params);
+  const gga_x_cap_params * const params = (gga_x_cap_params * const)(p->params);
 *)
 
 cap_f0 := s -> 1 - params_a_alphaoAx*s*log(1 + s)/(1 + params_a_c*log(1 + s)):

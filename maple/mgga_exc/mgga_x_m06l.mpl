@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_x_m06l_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_x_m06l_params * )(p->params);
+  const mgga_x_m06l_params * const params = (mgga_x_m06l_params * const)(p->params);
 *)
 
 $define gga_x_pbe_params

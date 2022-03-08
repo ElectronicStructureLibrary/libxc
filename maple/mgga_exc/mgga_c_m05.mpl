@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_c_m05_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_c_m05_params * )(p->params);
+  const mgga_c_m05_params * const params = (mgga_c_m05_params * const)(p->params);
 *)
 
 $define lda_c_pw_params

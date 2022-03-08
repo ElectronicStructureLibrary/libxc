@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_k_csk_loc_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_k_csk_loc_params * )(p->params);
+  const mgga_k_csk_loc_params * const params = (mgga_k_csk_loc_params * const)(p->params);
 *)
 
 $include "mgga_k_csk.mpl"

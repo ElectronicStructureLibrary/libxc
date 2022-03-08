@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_c_tpss_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_c_tpss_params * )(p->params);
+  const mgga_c_tpss_params * const params = (mgga_c_tpss_params * const)(p->params);
 *)
 
 (* beta is taken from the params *)

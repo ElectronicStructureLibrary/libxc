@@ -8,10 +8,8 @@
 
 (* type: lda_exc *)
 (* prefix:
-  lda_c_wigner_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_wigner_params * )(p->params);
+  const lda_c_wigner_params * const params = (lda_c_wigner_params * const)(p->params);
 *)
 
 f := (rs, z) -> (1 - z^2)*params_a_a/(params_a_b + rs):

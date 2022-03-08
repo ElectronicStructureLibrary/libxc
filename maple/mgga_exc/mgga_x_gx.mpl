@@ -9,10 +9,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_x_gx_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_x_gx_params * ) (p->params);
+  const mgga_x_gx_params * const params = (mgga_x_gx_params * const)(p->params);
 *)
 
 $ifdef mgga_x_gx_params

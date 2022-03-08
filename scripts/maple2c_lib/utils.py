@@ -501,7 +501,7 @@ def maple2c_run(params, variables, derivatives, variants, start_order, input_arg
       out.write('''
 #ifndef XC_DONT_COMPILE_{}
 GPU_DEVICE_FUNCTION static inline void
-func_{}_{}(const xc_func_type *p, size_t ip, {}, {})
+func_{}_{}(const xc_func_type * const p, size_t ip, {}, {})
 {{
 '''.format(der_name[order].upper(),
            der_name[order].lower(), mtype,

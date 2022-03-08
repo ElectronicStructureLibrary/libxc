@@ -9,10 +9,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_x_gdme_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_x_gdme_params * )(p->params);
+  const mgga_x_gdme_params * const params = (mgga_x_gdme_params * const)(p->params);
 *)
 
 gdme_at := (params_a_AA + 3/5*params_a_BB)*2^(1/3)/(X_FACTOR_C*(3*Pi^2)^(2/3)):

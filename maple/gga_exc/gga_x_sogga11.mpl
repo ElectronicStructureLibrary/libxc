@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_sogga11_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_sogga11_params * )(p->params);
+  const gga_x_sogga11_params * const params = (gga_x_sogga11_params * const)(p->params);
 *)
 
 sogga11_alpha := params_a_mu*X2S*X2S/params_a_kappa:

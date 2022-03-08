@@ -9,10 +9,8 @@
 (* type: mgga_exc *)
 
 (* prefix:
-  mgga_x_jk_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_x_jk_params * ) (p->params);
+  const mgga_x_jk_params * const params = (mgga_x_jk_params * const)(p->params);
 *)
 
 $include "gga_x_b88.mpl"

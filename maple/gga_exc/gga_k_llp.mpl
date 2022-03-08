@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_k_llp_params *params;
-
   assert(p->params != NULL);
-  params = (gga_k_llp_params * )(p->params);
+  const gga_k_llp_params * const params = (gga_k_llp_params * const)(p->params);
 *)
 
 llp_f := x -> 1.0 + params_a_beta/X_FACTOR_C*x^2/(1.0 + params_a_gamma*params_a_beta*x*arcsinh(x)):

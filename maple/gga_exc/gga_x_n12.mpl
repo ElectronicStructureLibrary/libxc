@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_n12_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_n12_params * )(p->params);
+  const gga_x_n12_params * const params = (gga_x_n12_params * const)(p->params);
 *)
 
 n12_omega_x := 2.5:

@@ -8,10 +8,8 @@
 
 (* type: lda_exc *)
 (* prefix:
-  lda_c_pz_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_pz_params * )(p->params);
+  const lda_c_pz_params * const params = (lda_c_pz_params * const)(p->params);
 *)
 
 $ifdef lda_c_pz_params

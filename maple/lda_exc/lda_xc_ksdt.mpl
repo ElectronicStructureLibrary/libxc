@@ -8,10 +8,8 @@
 
 (* type: lda_exc *)
 (* prefix:
-  lda_xc_ksdt_params *params;
-
   assert(p->params != NULL);
-  params = (lda_xc_ksdt_params * )(p->params);
+  const lda_xc_ksdt_params * const params = (lda_xc_ksdt_params * const)(p->params);
 *)
 
 g := [2/3, -0.0139261, 0.183208]:

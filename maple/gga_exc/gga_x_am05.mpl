@@ -9,10 +9,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_am05_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_am05_params * )(p->params);
+  const gga_x_am05_params * const params = (gga_x_am05_params * const)(p->params);
 *)
 
 am05_d     := 28.23705740248932030511071641312341561894: (* POW(CBRT(4/3) * 2*M_PI/3, 4) *)

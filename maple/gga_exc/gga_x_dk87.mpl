@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_dk87_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_dk87_params * )(p->params);
+  const gga_x_dk87_params * const params = (gga_x_dk87_params * const)(p->params);
 *)
 
 dk87_betag := 7/(432*Pi*(6*Pi^2)^(1/3))/X_FACTOR_C:

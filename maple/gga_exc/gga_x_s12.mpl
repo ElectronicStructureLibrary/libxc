@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_s12_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_s12_params * )(p->params);
+  const gga_x_s12_params * const params = (gga_x_s12_params * const)(p->params);
 *)
 
 s12g_f := x -> params_a_bx*(params_a_A + params_a_B*(1 - 1/(1 + params_a_C*x^2 + params_a_D*x^4))*(1 - 1/(1 + params_a_E*x^2))):

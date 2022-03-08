@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_k_lc94_params *params;
-
   assert(p->params != NULL);
-  params = (gga_k_lc94_params * )(p->params);
+  const gga_k_lc94_params * const params = (gga_k_lc94_params * const)(p->params);
 *)
 
 $include "gga_x_pw91.mpl"

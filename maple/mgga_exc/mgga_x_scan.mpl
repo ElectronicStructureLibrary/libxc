@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_x_scan_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_x_scan_params * )(p->params);
+  const mgga_x_scan_params * const params = (mgga_x_scan_params * const)(p->params);
 *)
 
 scan_p     := x -> X2S^2*x^2:

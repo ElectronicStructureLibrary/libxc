@@ -8,10 +8,8 @@
 
 (* type: lda_exc *)
 (* prefix:
-  lda_k_tf_params *params;
-
   assert(p->params != NULL);
-  params = (lda_k_tf_params * )(p->params);
+  const lda_k_tf_params * const params = (lda_k_tf_params * const)(p->params);
 *)
 
 f_zeta_k := z -> 1/2*(opz_pow_n(z,5/3) + opz_pow_n(-z,5/3)):

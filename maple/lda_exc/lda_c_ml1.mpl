@@ -8,10 +8,8 @@
 
 (* type: lda_exc *)
 (* prefix:
-  lda_c_ml1_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_ml1_params * )(p->params);
+  const lda_c_ml1_params * const params = (lda_c_ml1_params * const)(p->params);
 *)
 
 ml1_C := 6.187335:

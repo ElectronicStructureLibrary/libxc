@@ -9,10 +9,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_x_rtpss_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_x_rtpss_params * ) (p->params);
+  const mgga_x_rtpss_params * const params = (mgga_x_rtpss_params * const)(p->params);
 *)
 
 (* These are used within the tpss_x routine *)

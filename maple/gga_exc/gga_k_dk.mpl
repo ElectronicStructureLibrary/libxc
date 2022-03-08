@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_k_dk_params *params;
-
   assert(p->params != NULL);
-  params = (gga_k_dk_params * )(p->params);
+  const gga_k_dk_params * const params = (gga_k_dk_params * const)(p->params);
 *)
 
 dk_f := x ->

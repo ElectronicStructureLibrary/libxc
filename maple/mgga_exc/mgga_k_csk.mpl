@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_k_csk_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_k_csk_params * )(p->params);
+  const mgga_k_csk_params * const params = (mgga_k_csk_params * const)(p->params);
 *)
 
 csk_p := x -> X2S^2*x^2:

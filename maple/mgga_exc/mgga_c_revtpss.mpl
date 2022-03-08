@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_c_revtpss_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_c_revtpss_params * )(p->params);
+  const mgga_c_revtpss_params * const params = (mgga_c_revtpss_params * const)(p->params);
 *)
 
 $include "gga_c_regtpss.mpl"

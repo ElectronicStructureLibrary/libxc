@@ -8,10 +8,8 @@
 
 (* type: gga_vxc *)
 (* prefix:
-  gga_x_lb_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_lb_params * )(p->params);
+  const gga_x_lb_params * const params = (gga_x_lb_params * const)(p->params);
 *)
 
 lb_f0 := (rs, z, x) -> -my_piecewise3(x < 300,

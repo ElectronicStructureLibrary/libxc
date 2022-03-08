@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_c_lyp_params *params;
-
   assert(p->params != NULL);
-  params = (gga_c_lyp_params * )(p->params);
+  gga_c_lyp_params * const params = (gga_c_lyp_params * const)(p->params);
 *)
 
 lyp_Cf := 3/10 * (3*Pi^2)^(2/3):

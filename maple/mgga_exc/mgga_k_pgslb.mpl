@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_k_pgslb_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_k_pgslb_params * )(p->params);
+  const mgga_k_pgslb_params * const params = (mgga_k_pgslb_params * const)(p->params);
 *)
 
 # Equation (4) and (8)

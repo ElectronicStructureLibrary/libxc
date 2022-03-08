@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_x_rlda_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_x_rlda_params * )(p->params);
+  const mgga_x_rlda_params * const params = (mgga_x_rlda_params * const)(p->params);
 *)
 
 (* the extra factor of 1/2 comes from the spin sum rule *)

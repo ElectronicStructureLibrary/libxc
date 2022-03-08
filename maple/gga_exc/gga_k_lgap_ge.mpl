@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_k_lgap_ge_params *params;
-
   assert(p->params != NULL);
-  params = (gga_k_lgap_ge_params * ) (p->params);
+  const gga_k_lgap_ge_params * const params = (gga_k_lgap_ge_params * const)(p->params);
 *)
 
 (* Equation (20) *)

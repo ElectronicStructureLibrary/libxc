@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_k_lkt_params *params;
-
   assert(p->params != NULL);
-  params = (gga_k_lkt_params * )(p->params);
+  const gga_k_lkt_params * const params = (gga_k_lkt_params * const)(p->params);
 *)
 
 (* The m_min avoids divisions by zero *)

@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_x_m08_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_x_m08_params * ) (p->params);
+  const mgga_x_m08_params * const params = (mgga_x_m08_params * const)(p->params);
 *)
 
 params_a_rpbe_kappa := 0.552:

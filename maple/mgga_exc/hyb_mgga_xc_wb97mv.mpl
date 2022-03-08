@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  hyb_mgga_xc_wb97_mv_params *params;
-
   assert(p->params != NULL);
-  params = (hyb_mgga_xc_wb97_mv_params * )(p->params);
+  const hyb_mgga_xc_wb97_mv_params * const params = (hyb_mgga_xc_wb97_mv_params * const)(p->params);
 *)
 
 b97mv_par_n := 6:

@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_c_b94_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_c_b94_params * ) (p->params);
+  const mgga_c_b94_params * const params = (mgga_c_b94_params * const)(p->params);
 *)
 
 (* replace: "br89_x\(" -> "xc_mgga_x_br89_get_x(" *)

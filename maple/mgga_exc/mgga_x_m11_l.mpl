@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_x_m11_l_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_x_m11_l_params * ) (p->params);
+  const mgga_x_m11_l_params * const params = (mgga_x_m11_l_params * const)(p->params);
 *)
 
 $include "mgga_x_m08.mpl"

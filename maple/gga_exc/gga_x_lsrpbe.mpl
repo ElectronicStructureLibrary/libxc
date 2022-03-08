@@ -9,10 +9,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_lsrpbe_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_lsrpbe_params * )(p->params);
+  const gga_x_lsrpbe_params * const params = (gga_x_lsrpbe_params * const)(p->params);
 *)
 
 lsrpbe_f0 := s -> 1 + params_a_kappa * (

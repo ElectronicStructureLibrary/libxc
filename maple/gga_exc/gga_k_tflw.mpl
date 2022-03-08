@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_k_tflw_params *params;
-
   assert(p->params != NULL);
-  params = (gga_k_tflw_params * )(p->params);
+  const gga_k_tflw_params * const params = (gga_k_tflw_params * const)(p->params);
 *)
 
 tflw_f := x -> params_a_gamma + (params_a_lambda/8)*x^2/K_FACTOR_C:

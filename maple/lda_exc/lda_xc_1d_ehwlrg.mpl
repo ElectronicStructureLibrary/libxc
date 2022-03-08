@@ -8,10 +8,8 @@
 
 (* type: lda_exc *)
 (* prefix:
-  lda_xc_1d_ehwlrg_params *params;
-
   assert(p->params != NULL);
-  params = (lda_xc_1d_ehwlrg_params * )(p->params);
+  const lda_xc_1d_ehwlrg_params * const params = (lda_xc_1d_ehwlrg_params * const)(p->params);
 *)
 
 $define xc_dimensions_1d

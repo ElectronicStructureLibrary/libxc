@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_x_task_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_x_task_params * )(p->params);
+  const mgga_x_task_params * const params = (mgga_x_task_params * const)(p->params);
 *)
 
 task_alpha := (x, t) -> (t/K_FACTOR_C) * m_max(1 - x^2/(8*t), 1e-10):

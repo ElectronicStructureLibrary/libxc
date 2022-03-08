@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_mpbe_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_mpbe_params * )(p->params);
+  const gga_x_mpbe_params * const params = (gga_x_mpbe_params * const)(p->params);
 *)
 
 mpbe_f0 := s -> s^2/(1 + params_a_a*s^2):

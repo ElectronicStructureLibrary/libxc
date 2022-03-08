@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_c_lypr_params *params;
-
   assert(p->params != NULL);
-  params = (gga_c_lypr_params * )(p->params);
+  gga_c_lypr_params * const params = (gga_c_lypr_params * const)(p->params);
 *)
 
 $include "gga_c_lyp.mpl"

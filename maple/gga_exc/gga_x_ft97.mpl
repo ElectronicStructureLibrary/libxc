@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_ft97_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_ft97_params * )(p->params);
+  const gga_x_ft97_params * const params = (gga_x_ft97_params * const)(p->params);
 *)
 
 ft97_beta := (rs, z, xs) -> params_a_beta0

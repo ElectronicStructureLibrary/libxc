@@ -12,10 +12,8 @@
 (* replace: "int1\(" -> "xc_integrate(func1, NULL, 0.0, " *)
 (* replace: "int2\(" -> "xc_integrate(func2, NULL, 0.0, " *)
 (* prefix:
-  lda_x_1d_exponential_params *params;
-
   assert(p->params != NULL);
-  params = (lda_x_1d_exponential_params * )(p->params);
+  const lda_x_1d_exponential_params * const params = (lda_x_1d_exponential_params * const)(p->params);
 *)
 
 $include "lda_x_1d_exponential.mpl"

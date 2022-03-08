@@ -9,10 +9,8 @@
 (* type: mgga_vxc *)
 
 (* prefix:
-  mgga_x_tb09_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_x_tb09_params * ) (p->params);
+  const mgga_x_tb09_params * const params = (mgga_x_tb09_params * const)(p->params);
 *)
 
 (* replace: "br89_x\(" -> "xc_mgga_x_br89_get_x(" *)

@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_fd_lb94_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_fd_lb94_params * )(p->params);
+  const gga_x_fd_lb94_params * const params = (gga_x_fd_lb94_params * const)(p->params);
 *)
 
 (* replace: "fd_int0\(" -> "xc_integrate(func0, NULL, 0.0, " *)

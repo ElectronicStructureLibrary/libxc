@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_x_vmt_params *params;
-
   assert(p->params != NULL);
-  params = (gga_x_vmt_params * )(p->params);
+  const gga_x_vmt_params * const params = (gga_x_vmt_params * const)(p->params);
 *)
 
 vmt_f0 := s -> 1 + params_a_mu*s^2*exp(-params_a_alpha*s^2)/(1 + params_a_mu*s^2):

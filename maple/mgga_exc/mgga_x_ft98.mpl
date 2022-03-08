@@ -9,10 +9,8 @@
 (* type: mgga_exc *)
 
 (* prefix:
-  mgga_x_ft98_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_x_ft98_params * ) (p->params);
+  const mgga_x_ft98_params * const params = (mgga_x_ft98_params * const)(p->params);
 *)
 
 (* eq. 23 *)

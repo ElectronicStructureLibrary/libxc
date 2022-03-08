@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_c_sogga11_params *params;
-
   assert(p->params != NULL);
-  params = (gga_c_sogga11_params * )(p->params);
+  const gga_c_sogga11_params * const params = (gga_c_sogga11_params * const)(p->params);
 *)
 
 $define lda_c_pw_params

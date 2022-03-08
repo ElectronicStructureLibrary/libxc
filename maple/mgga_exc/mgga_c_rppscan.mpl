@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_c_rppscan_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_c_rppscan_params * )(p->params);
+  const mgga_c_rppscan_params * const params = (mgga_c_rppscan_params * const)(p->params);
 *)
 
 $include "mgga_c_scan.mpl"

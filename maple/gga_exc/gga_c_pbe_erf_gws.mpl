@@ -13,10 +13,8 @@
 (* type: gga_exc *)
 
 (* prefix:
-  gga_c_pbe_erf_gws_params *params;
-
   assert(p->params != NULL);
-  params = (gga_c_pbe_erf_gws_params * )(p->params);
+  const gga_c_pbe_erf_gws_params * const params = (gga_c_pbe_erf_gws_params * const)(p->params);
 *)
 
 $define lda_c_pw_params

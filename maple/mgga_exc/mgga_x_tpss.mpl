@@ -8,10 +8,8 @@
 
 (* type: mgga_exc *)
 (* prefix:
-  mgga_x_tpss_params *params;
-
   assert(p->params != NULL);
-  params = (mgga_x_tpss_params * ) (p->params);
+  const mgga_x_tpss_params * const params = (mgga_x_tpss_params * const)(p->params);
 *)
 
 $ifdef mgga_x_revtpss_params

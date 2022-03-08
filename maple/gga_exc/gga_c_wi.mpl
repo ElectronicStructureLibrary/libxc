@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_c_wi_params *params;
-
   assert(p->params != NULL);
-  params = (gga_c_wi_params * )(p->params);
+  const gga_c_wi_params * const params = (gga_c_wi_params * const)(p->params);
 *)
 
 f_num := xt -> params_a_a + params_a_b*xt^2*exp(-params_a_k*xt^2):

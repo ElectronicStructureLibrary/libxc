@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_xc_th1_params *params;
-
   assert(p->params != NULL);
-  params = (gga_xc_th1_params * )(p->params);
+  const gga_xc_th1_params * const params = (gga_xc_th1_params * const)(p->params);
 *)
 
 params_a_n := 21:

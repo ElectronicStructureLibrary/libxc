@@ -8,10 +8,8 @@
 
 (* type: gga_exc *)
 (* prefix:
-  gga_k_pg_params *params;
-
   assert(p->params != NULL);
-  params = (gga_k_pg_params * )(p->params);
+  const gga_k_pg_params * const params = (gga_k_pg_params * const)(p->params);
 *)
 
 pg_f0 := s -> 5/3*s^2 + exp(-params_a_pg_mu * s^2):

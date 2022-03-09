@@ -462,7 +462,7 @@ $include <{}.mpl>
 
             # add instead of assigning. We are still missing a global constant
             # that can be useful in building hybrid combinations
-            new_c_code[total_order] += "    out->{}[ip*p->dim.{} + {}] += t{}{};\n\n".format(varname, varname, varorder, varname, varorder)
+            new_c_code[total_order] += "    out->{}[ip*p->dim->{} + {}] += t{}{};\n\n".format(varname, varname, varorder, varname, varorder)
             
           found = True
           break

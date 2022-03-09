@@ -227,12 +227,13 @@ rcam_set_ext_params(xc_func_type *p, const double *ext_params)
      libxc_alpha = alpha + beta
      libxc_beta = -beta
   */
-  alpha_libxc = get_ext_param(p, ext_params, 0);
-  beta_libxc = get_ext_param(p, ext_params, 1);
+  cb88        = get_ext_param(p, ext_params, 0);
+  alpha_libxc = get_ext_param(p, ext_params, 1);
+  beta_libxc  = get_ext_param(p, ext_params, 2);
+  omega       = get_ext_param(p, ext_params, 3);
+
   alpha  =  alpha_libxc + beta_libxc;
   beta   = -beta_libxc;
-  omega  =  get_ext_param(p, ext_params, 2);
-  cb88   =  get_ext_param(p, ext_params, 3);
 
   p->mix_coef[0] = 1.0 - alpha - cb88;
   p->mix_coef[1] = cb88 - beta;

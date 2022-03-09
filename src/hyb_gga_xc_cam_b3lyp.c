@@ -196,15 +196,15 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_mcam_b3lyp = {
 
 
 #define RCAM_N_PAR 4
-static const char  *rcam_names[RCAM_N_PAR]  = {"_alpha", "_beta", "_omega", "_ab88"};
+static const char  *rcam_names[RCAM_N_PAR]  = {"_ab88", "_alpha", "_beta", "_omega"};
 static const char  *rcam_desc[RCAM_N_PAR]   = {
+  "Fraction of B88 exchange",
   "Fraction of Hartree-Fock exchange",
   "Fraction of short-range exact exchange",
-  "Range separation parameter",
-  "Fraction of B88 exchange"
+  "Range separation parameter"
 };
 
-static const double par_rcam_b3lyp[RCAM_N_PAR] = {0.18352+0.94979, -0.94979, 0.33, 0.95238};
+static const double par_rcam_b3lyp[RCAM_N_PAR] = {0.95238, 0.18352+0.94979, -0.94979, 0.33};
 
 void
 xc_hyb_gga_xc_rcam_b3lyp_init(xc_func_type *p)

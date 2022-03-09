@@ -322,6 +322,8 @@ void set_ext_params_cam_sr(xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_cam_sr(xc_func_type *p, const double *ext_params);
 void set_ext_params_lc(xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_lc(xc_func_type *p, const double *ext_params);
+void set_ext_params_lcy(xc_func_type *p, const double *ext_params);
+void set_ext_params_cpy_lcy(xc_func_type *p, const double *ext_params);
 
 GPU_FUNCTION
 double xc_mgga_x_br89_get_x(double Q);

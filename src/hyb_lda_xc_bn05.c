@@ -37,7 +37,7 @@ bn05_set_ext_params(xc_func_type *p, const double *ext_params)
   omega = get_ext_param(p, ext_params, 0);
 
   /* 100% long-range exchange */
-  set_ext_params_lc(p, ext_params);
+  set_ext_params_lcy(p, ext_params);
 }
 
 

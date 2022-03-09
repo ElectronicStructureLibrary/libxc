@@ -269,6 +269,20 @@ set_ext_params_cpy_lc(xc_func_type *p, const double *ext_params)
   set_ext_params_lc(p, ext_params);
 }
 
+void
+set_ext_params_lcy(xc_func_type *p, const double *ext_params)
+{
+  set_ext_params_lc(p, ext_params);
+  p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
+}
+
+void
+set_ext_params_cpy_lcy(xc_func_type *p, const double *ext_params)
+{
+  set_ext_params_cpy_lc(p, ext_params);
+  p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
+}
+
 /* Free pointer */
 void
 libxc_free(void *ptr)

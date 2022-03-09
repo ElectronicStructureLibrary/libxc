@@ -430,15 +430,6 @@ $include <{}.mpl>
 
             # build the if clause to assign the variable
             test = "out->" + varname + " != NULL"
-
-            if not re.search(r"lapl", der[1]) is None:
-              test += " && (p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)"
-
-            if not re.search(r"tau", der[1]) is None:
-              test += " && (p->info->flags & XC_FLAGS_NEEDS_TAU)"
-
-            test += " && (p->info->flags & XC_FLAGS_HAVE_" + \
-              der_name[total_order] + ")"
             new_c_code[total_order] += "  if(" + test + ")\n"
 
             # add instead of assigning. We are still missing a global constant

@@ -18,7 +18,7 @@
 #endif
 
 /* macro to simpligy accessing the variables */
-#define VAR(var, ip, index)         var[ip*p->dim.var + index]
+#define VAR(var, ip, index)         var[ip*p->dim->var + index]
 #define WORK_MGGA_(order, spin)     work_mgga_ ## order ## _ ## spin
 #define WORK_MGGA_GPU_(order, spin) work_mgga_ ## order ## _ ## spin
 #define FUNC_(order, spin)          func_     ## order ## _ ## spin
@@ -96,7 +96,7 @@ WORK_MGGA(ORDER_TXT, SPIN_TXT)
     /* check for NaNs */
 #ifdef XC_DEBUG
     {
-      const xc_dimensions *dim = &(p->dim);
+      const xc_dimensions *dim = p->dim;
       int ii, is_OK = 1;
 
       if(out->zk != NULL)

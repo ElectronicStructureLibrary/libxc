@@ -63,7 +63,7 @@ const xc_func_info_type xc_func_info_lda_x = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   lda_x_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda, NULL, NULL, NULL
 };
 
 static const char  *xalpha_names[]  = {"alpha"};

@@ -630,3 +630,4 @@
 #define  XC_HYB_GGA_XC_PBE_QIDH            727 /* Double hybrid of Bremond et al */
 #define  XC_HYB_GGA_XC_LS1DH_PBE           728 /* Double hybrid of Toulouse et al */
 #define  XC_GGA_X_Q1D                      734 /* Functional for quasi-1D systems */
+#define  XC_HGGA_X_JSE_B88                 735 /* Local hyrbid functional of Jaramillo et al */

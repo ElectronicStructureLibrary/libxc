@@ -74,7 +74,7 @@ xc_mix_func(const xc_func_type *func, size_t np,
   double *xzk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA *, x);
   int ii;
 
-  const xc_dimensions *dim = &(func->dim);
+  const xc_dimensions *dim = func->dim;
 
   /* Sanity check: have we claimed the highest possible derivatives?
      First, check for the lowest common derivative (also need to make

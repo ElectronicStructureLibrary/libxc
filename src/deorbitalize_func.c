@@ -319,10 +319,10 @@ xc_deorbitalize_func_work(const xc_func_type *func, size_t np,
   ked2_zk MGGA_OUT_PARAMS_NO_EXC(=, ked2_ ) = NULL;
 
   /* allocate buffers */
-  xc_mgga_vars_allocate_all(func->func_aux[0]->info->family, np, &(func->func_aux[0]->dim),
+  xc_mgga_vars_allocate_all(func->func_aux[0]->info->family, np, func->func_aux[0]->dim,
                        order >= 0, order >= 1, order >= 2, order >= 3, order >= 4,
                        &mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, mgga_));
-  xc_mgga_vars_allocate_all(func->func_aux[1]->info->family, np, &(func->func_aux[1]->dim),
+  xc_mgga_vars_allocate_all(func->func_aux[1]->info->family, np, func->func_aux[1]->dim,
                        order >= 0, order >= 1, order >= 2, order >= 3, order >= 4,
                        &ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked1_));
 
@@ -334,7 +334,7 @@ xc_deorbitalize_func_work(const xc_func_type *func, size_t np,
     mlapl  = (double *) libxc_malloc(2*sizeof(double)*np);
     mtau   = (double *) libxc_malloc(2*sizeof(double)*np);
 
-    xc_mgga_vars_allocate_all(func->func_aux[1]->info->family, np, &(func->func_aux[1]->dim),
+    xc_mgga_vars_allocate_all(func->func_aux[1]->info->family, np, func->func_aux[1]->dim,
                          order >= 0, order >= 1, order >= 2, order >= 3, order >= 4,
                          &ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked2_));
   }
@@ -403,28 +403,28 @@ xc_deorbitalize_func_work(const xc_func_type *func, size_t np,
 #endif
 #endif
 
-    internal_counters_mgga_next(&(func->dim), 0, &null, &null, &null, &null,
+    internal_counters_mgga_next(func->dim, 0, &null, &null, &null, &null,
                                 &zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
-    internal_counters_mgga_next(&(func->func_aux[0]->dim), 0, &null, &null, &null, &null,
+    internal_counters_mgga_next(func->func_aux[0]->dim, 0, &null, &null, &null, &null,
                                 &mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, mgga_));
-    internal_counters_mgga_next(&(func->func_aux[1]->dim), 0, &null, &null, &null, &null,
+    internal_counters_mgga_next(func->func_aux[1]->dim, 0, &null, &null, &null, &null,
                                 &ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked1_));
     if(func->nspin == XC_POLARIZED){
-      internal_counters_mgga_next(&(func->func_aux[1]->dim), 0, &null, &null, &null, &null,
+      internal_counters_mgga_next(func->func_aux[1]->dim, 0, &null, &null, &null, &null,
                                   &ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked2_));
     }
   }
 
   /* move the counters back to zero and deallocate the memory */
-  internal_counters_mgga_random(&(func->func_aux[0]->dim), -np, 0, &null, &null, &null, &null,
+  internal_counters_mgga_random(func->func_aux[0]->dim, -np, 0, &null, &null, &null, &null,
                                 &mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, mgga_));
   xc_mgga_vars_free_all(mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, mgga_));
 
-  internal_counters_mgga_random(&(func->func_aux[1]->dim), -np, 0, &null, &null, &null, &null,
+  internal_counters_mgga_random(func->func_aux[1]->dim, -np, 0, &null, &null, &null, &null,
                                 &ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked1_));
   xc_mgga_vars_free_all(ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ked1_));
   if(func->nspin == XC_POLARIZED){
-    internal_counters_mgga_random(&(func->func_aux[1]->dim), -np, 0, &null, &null, &null, &null,
+    internal_counters_mgga_random(func->func_aux[1]->dim, -np, 0, &null, &null, &null, &null,
                                   &ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked2_));
     xc_mgga_vars_free_all(ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ked2_));
 

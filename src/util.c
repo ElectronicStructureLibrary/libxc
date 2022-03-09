@@ -120,11 +120,12 @@ set_ext_params_cpy(xc_func_type *p, const double *ext_params)
    the last parameter of the functional.
 */
 void
-set_ext_params_omega(xc_func_type *p, const double *ext_params)
+set_ext_params_cpy_omega(xc_func_type *p, const double *ext_params)
 {
   int nparams;
   assert(p != NULL);
   nparams = p->info->ext_params.n - 1;
+  copy_params(p, ext_params, nparams);
 
   /* This omega is only meant for internal use */
   assert(p->hyb_number_terms == 1);
@@ -133,33 +134,10 @@ set_ext_params_omega(xc_func_type *p, const double *ext_params)
   p->hyb_omega[0] = get_ext_param(p, ext_params, nparams);
 }
 
-void
-set_ext_params_cpy_omega(xc_func_type *p, const double *ext_params)
-{
-  int nparams;
-  assert(p != NULL);
-  nparams = p->info->ext_params.n - 1;
-  copy_params(p, ext_params, nparams);
-  set_ext_params_omega(p, ext_params);
-}
-
 /*
    Copies parameters and sets the exact exchange coefficient, which
    should be the last parameter of the functional.
 */
-void
-set_ext_params_exx(xc_func_type *p, const double *ext_params)
-{
-  int nparams;
-  assert(p != NULL);
-  nparams = p->info->ext_params.n - 1;
-
-  assert(p->hyb_number_terms == 1);
-  p->hyb_type[0]  = XC_HYB_FOCK;
-  p->hyb_coeff[0] = get_ext_param(p, ext_params, nparams);
-  p->hyb_omega[0] = 0.0;
-}
-
 void
 set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params)
 {
@@ -167,7 +145,11 @@ set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params)
   assert(p != NULL);
   nparams = p->info->ext_params.n - 1;
   copy_params(p, ext_params, nparams);
-  set_ext_params_exx(p, ext_params);
+
+  assert(p->hyb_number_terms == 1);
+  p->hyb_type[0]  = XC_HYB_FOCK;
+  p->hyb_coeff[0] = get_ext_param(p, ext_params, nparams);
+  p->hyb_omega[0] = 0.0;
 }
 
 /*
@@ -175,11 +157,12 @@ set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params)
    should be the three last parameters of the functional.
 */
 void
-set_ext_params_cam(xc_func_type *p, const double *ext_params)
+set_ext_params_cpy_cam(xc_func_type *p, const double *ext_params)
 {
   int nparams;
   assert(p != NULL);
   nparams = p->info->ext_params.n - 3;
+  copy_params(p, ext_params, nparams);
 
   assert(p->hyb_number_terms == 2);
   p->hyb_type[0]  = XC_HYB_ERF_SR;
@@ -189,23 +172,6 @@ set_ext_params_cam(xc_func_type *p, const double *ext_params)
   p->hyb_type[1]  = XC_HYB_FOCK;
   p->hyb_coeff[1] = get_ext_param(p, ext_params, nparams);
   p->hyb_omega[1] = 0.0;
-}
-
-void
-set_ext_params_cpy_cam(xc_func_type *p, const double *ext_params)
-{
-  int nparams;
-  assert(p != NULL);
-  nparams = p->info->ext_params.n - 3;
-  copy_params(p, ext_params, nparams);
-  set_ext_params_cam(p, ext_params);
-}
-
-void
-set_ext_params_camy(xc_func_type *p, const double *ext_params)
-{
-  set_ext_params_cam(p, ext_params);
-  p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
 }
 
 void
@@ -219,11 +185,12 @@ set_ext_params_cpy_camy(xc_func_type *p, const double *ext_params)
   Short-range-only version
 */
 void
-set_ext_params_cam_sr(xc_func_type *p, const double *ext_params)
+set_ext_params_cpy_cam_sr(xc_func_type *p, const double *ext_params)
 {
   int nparams;
   assert(p != NULL);
   nparams = p->info->ext_params.n - 2;
+  copy_params(p, ext_params, nparams);
 
   assert(p->hyb_number_terms == 1);
   p->hyb_type[0]  = XC_HYB_ERF_SR;
@@ -231,23 +198,14 @@ set_ext_params_cam_sr(xc_func_type *p, const double *ext_params)
   p->hyb_omega[0] = get_ext_param(p, ext_params, nparams + 1);
 }
 
-void
-set_ext_params_cpy_cam_sr(xc_func_type *p, const double *ext_params)
-{
-  int nparams;
-  assert(p != NULL);
-  nparams = p->info->ext_params.n - 2;
-  copy_params(p, ext_params, nparams);
-  set_ext_params_cam_sr(p, ext_params);
-}
-
 /* Long-range corrected functionals typically only have one parameter: the range separation parameter */
 void
-set_ext_params_lc(xc_func_type *p, const double *ext_params)
+set_ext_params_cpy_lc(xc_func_type *p, const double *ext_params)
 {
   int nparams;
   assert(p != NULL);
   nparams = p->info->ext_params.n - 1;
+  copy_params(p, ext_params, nparams);
 
   assert(p->hyb_number_terms == 2);
   p->hyb_type[0]  = XC_HYB_ERF_SR;
@@ -257,30 +215,6 @@ set_ext_params_lc(xc_func_type *p, const double *ext_params)
   p->hyb_type[1]  = XC_HYB_FOCK;
   p->hyb_coeff[1] = 1.0;
   p->hyb_omega[1] = 0.0;
-}
-
-void
-set_ext_params_cpy_lc(xc_func_type *p, const double *ext_params)
-{
-  int nparams;
-  assert(p != NULL);
-  nparams = p->info->ext_params.n - 1;
-  copy_params(p, ext_params, nparams);
-  set_ext_params_lc(p, ext_params);
-}
-
-void
-set_ext_params_lcy(xc_func_type *p, const double *ext_params)
-{
-  set_ext_params_lc(p, ext_params);
-  p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
-}
-
-void
-set_ext_params_cpy_lcy(xc_func_type *p, const double *ext_params)
-{
-  set_ext_params_cpy_lc(p, ext_params);
-  p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
 }
 
 /* Free pointer */
@@ -294,142 +228,120 @@ libxc_free(void *ptr)
 #endif
 }
 
-
-/* these functional handle the internal counters
-   used to move along the input and output arrays.
-   We have to pay particular attention to the spin,
-   of course. */
-void
-internal_counters_set_lda(int nspin, xc_dimensions *dim)
+/* these are the dimension of the input and output
+   arrays for spin unpolarized and polarized */
+const xc_dimensions dimensions_unpolarized
 {
-  dim->rho = dim->vrho = nspin;
-  dim->zk  = 1;
-  if(nspin == XC_UNPOLARIZED){
-    dim->v2rho2 = dim->v3rho3 = dim->v4rho4 = 1;
-  }else{
-    dim->v2rho2 = 3;
-    dim->v3rho3 = 4;
-    dim->v4rho4 = 5;
-  }
-}
+  /* inputs */
+  1, 1, 1, 1, 1,    /* rho, sigma, lapl, tau, exx */
+  /* order 0 */
+  1,                /* zk */
+  /* order 1 */
+  1, 1, 1, 1, 1,    /* vrho, vsigma, vlapl, vtau, vexx */
+  /* order 2 */
+  1, 1, 1, 1, 1,    /* v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2rhoexx */
+  1, 1, 1, 1,       /* v2sigma2, v2sigmalapl, v2sigmatau, v2sigmaexx */
+  1, 1, 1,          /* v2lapl2, v2lapltau, v2laplexx */
+  1, 1,             /* v2tau2, v2tauexx */
+  1,                /* v2exx2 */
+  /* order 3 */
+  1, 1, 1, 1, 1,    /* v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rho2exx */
+  1, 1, 1, 1,       /* v3rhosigma2, v3rhosigmalapl, v3rhosigmatau, v3rhosigmaexx */
+  1, 1, 1,          /* v3rholapl2, v3rholapltau, v3rholaplexx */
+  1, 1,             /* v3rhotau2, v3rhotauexx */
+  1,                /* v3rhoexx2 */
+  1, 1, 1, 1,       /* v3sigma3, v3sigma2lapl, v3sigma2tau, v3sigma2exx */
+  1, 1, 1,          /* v3sigmalapl2, v3sigmalapltau, v3sigmalaplexx */
+  1, 1,             /* v3sigmatau2, v3sigmatauexx */
+  1,                /* v3sigmaexx2 */
+  1, 1, 1,          /* v3lapl3, v3lapl2tau, v3lapl2exx */
+  1, 1,             /* v3lapltau2, v3lapltauexx */
+  1,                /* v3laplexx2 */
+  1, 1, 1, 1,       /* v3tau3, v3tau2exx, v3tauexx2, v3exx3 */
+  /* order 4 */
+  1, 1, 1, 1, 1,    /* v4rho4, v4rho3sigma, v4rho3lapl, v4rho3tau, v4rho3exx */
+  1, 1, 1, 1,       /* v4rho2sigma2, v4rho2sigmalapl, v4rho2sigmatau, v4rho2sigmaexx */
+  1, 1, 1,          /* v4rho2lapl2, v4rho2lapltau, v4rho2laplexx */
+  1, 1,             /* v4rho2tau2, v4rho2tauexx */
+  1,                /* v4rho2exx2 */
+  1, 1, 1, 1,       /* v4rhosigma3, v4rhosigma2lapl, v4rhosigma2tau, v4rhosigma2exx */
+  1, 1, 1,          /* v4rhosigmalapl2, v4rhosigmalapltau, v4rhosigmalaplexx */
+  1, 1,             /* v4rhosigmatau2, v4rhosigmatauexx */
+  1,                /* v4rhosigmaexx2 */
+  1, 1, 1,          /* v4rhola1pl3, v4rholapl2tau, v4rholapl2exx */
+  1, 1,             /* v4rholapltau2, v4rholapltauexx */
+  1,                /* v4rholaplexx2 */
+  1, 1, 1,          /* v4rhotau3, v4rhotau2exx, v4rhoexx3 */
+  1, 1, 1, 1,       /* v4sigma4, v4sigma3lapl, v4sigma3tau, v4sigma3exx */
+  1, 1, 1,          /* v4sigma2lapl2, v4sigma2lapltau, v4sigma2laplexx */
+  1, 1,             /* v4sigma2tau2, v4sigma2tauexx */
+  1,                /* v4sigma2exx2 */
+  1, 1, 1,          /* v4sigmalapl3, v4sigmalapl2tau, v4sigmalapl2exx */
+  1, 1,             /* v4sigmalapltau2, v4sigmalapltauexx */
+  1,                /* v4sigmalaplexx2 */
+  1, 1, 1, 1,       /* v4sigmatau3, v4sigmatau2exx, v4sigmatauexx2, v4sigmaexx3 */
+  1, 1, 1,          /* v4lapl4, v4lapl3tau, v4lapl3exx */
+  1, 1, 1,          /* v4lapl2tau2, v4lapl2tauexx, v4lapl2exx2 */
+  1, 1, 1, 1,       /* v4lapltau3, v4lapltau2exx, v4lapltauexx2, v4laplexx3 */
+  1, 1, 1, 1        /* v4tau4, v4tau3exx, v4tauexx3, v4exx4 */
+};
 
-void
-internal_counters_set_gga(int nspin, xc_dimensions *dim)
+const xc_dimensions dimensions_polarized
 {
-  internal_counters_set_lda(nspin, dim);
+  /* inputs */
+  2, 3, 2, 2, 2,    /* rho, sigma, lapl, tau, exx */
+  /* order 0 */
+  1,                /* zk */
+  /* order 1 */
+  2, 3, 2, 2, 2,    /* vrho, vsigma, vlapl, vtau, vexx */
+  /* order 2 */
+  3, 6, 4, 4, 4,    /* v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2rhoexx */
+  6, 6, 6, 6,       /* v2sigma2, v2sigmalapl, v2sigmatau, v2sigmaexx */
+  3, 4, 4,          /* v2lapl2, v2lapltau, v2laplexx */
+  3, 4,             /* v2tau2, v2tauexx */
+  3,                /* v2exx2 */
+  /* order 3 */
+  4, 9, 6, 6, 6,    /* v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rho2exx */
+  12, 12, 12, 12,   /* v3rhosigma2, v3rhosigmalapl, v3rhosigmatau, v3rhosigmaexx */
+  6, 8, 8,          /* v3rholapl2, v3rholapltau, v3rholaplexx */
+  6, 8,             /* v3rhotau2, v3rhotauexx */
+  6,                /* v3rhoexx2 */
+  10, 12, 12, 12,   /* v3sigma3, v3sigma2lapl, v3sigma2tau, v3sigma2exx */
+  9, 12, 12,        /* v3sigmalapl2, v3sigmalapltau, v3sigmalaplexx */
+  9, 12,            /* v3sigmatau2, v3sigmatauexx */
+  9,                /* v3sigmaexx2 */
+  4, 6, 6,          /* v3lapl3, v3lapl2tau, v3lapl2exx */
+  6, 8,             /* v3lapltau2, v3lapltauexx */
+  6,                /* v3laplexx2 */
+  4, 6, 6, 4,       /* v3tau3, v3tau2exx, v3tauexx2, v3exx3 */
+  /* order 4 */
+  5, 12, 8, 8, 8,   /* v4rho4, v4rho3sigma, v4rho3lapl, v4rho3tau, v4rho3exx */
+  18, 18, 18, 18,   /* v4rho2sigma2, v4rho2sigmalapl, v4rho2sigmatau, v4rho2sigmaexx */
+  9, 12, 12,        /* v4rho2lapl2, v4rho2lapltau, v4rho2laplexx */
+  9, 12,            /* v4rho2tau2, v4rho2tauexx */
+  9,                /* v4rho2exx2 */
+  20, 36, 36, 36,   /* v4rhosigma3, v4rhosigma2lapl, v4rhosigma2tau, v4rhosigma2exx */
+  18, 24, 24,       /* v4rhosigmalapl2, v4rhosigmalapltau, v4rhosigmalaplexx */
+  18, 24,           /* v4rhosigmatau2, v4rhosigmatauexx */
+  18,               /* v4rhosigmaexx2 */
+  8, 12, 12,        /* v4rholapl3, v4rholapl2tau, v4rholapl2exx */
+  12, 16,           /* v4rholapltau2, v4rholapltauexx */
+  12,               /* v4rholaplexx2 */
+  8, 12, 8,         /* v4rhotau3, v4rhotau2exx, v4rhoexx3 */
+  15, 20, 20, 20,   /* v4sigma4, v4sigma3lapl, v4sigma3tau, v4sigma3exx */
+  18, 24, 24,       /* v4sigma2lapl2, v4sigma2lapltau, v4sigma2laplexx */
+  18, 24,           /* v4sigma2tau2, v4sigma2tauexx */
+  18,               /* v4sigma2exx2 */
+  12, 18, 18,       /* v4sigmalapl3, v4sigmalapl2tau, v4sigmalapl2exx */
+  18, 24,           /* v4sigmalapltau2, v4sigmalapltauexx */
+  18,               /* v4sigmalaplexx2 */
+  12, 18, 18, 12,   /* v4sigmatau3, v4sigmatau2exx, v4sigmatauexx2, v4sigmaexx3 */
+  5, 8, 8,          /* v4lapl4, v4lapl3tau, v4lapl3exx */
+  9, 12, 9,         /* v4lapl2tau2, v4lapl2tauexx, v4lapl2exx2 */
+  8, 12, 12, 8,     /* v4lapltau3, v4lapltau2exx, v4lapltauexx2, v4laplexx3 */
+  5, 8, 8, 5        /* v4tau4, v4tau3exx, v4tauexx3, v4exx4 */
+};
 
-  if(nspin == XC_UNPOLARIZED){
-    dim->sigma  = dim->vsigma = 1;
-    dim->v2rhosigma  = dim->v2sigma2 = 1;
-    dim->v3rho2sigma = dim->v3rhosigma2 = dim->v3sigma3 = 1;
-    dim->v4rho3sigma = dim->v4rho2sigma2 = dim->v4rhosigma3 = dim->v4sigma4 = 1;
-
-  }else{
-    dim->sigma = 3;
-
-    dim->vsigma = 3;
-
-    dim->v2rhosigma = 2*3;
-    dim->v2sigma2 = 6;
-
-    dim->v3rho2sigma = 3*3;
-    dim->v3rhosigma2 = 2*6;
-    dim->v3sigma3    = 10;
-
-    dim->v4rho3sigma  = 4*3;
-    dim->v4rho2sigma2 = 3*6;
-    dim->v4rhosigma3  = 2*10;
-    dim->v4sigma4     = 15;
-  }
-}
-
-void
-internal_counters_set_mgga(int nspin, xc_dimensions *dim)
-{
-  internal_counters_set_gga(nspin, dim);
-
-  dim->lapl = dim->vlapl = nspin;
-  dim->tau  = dim->vtau  = nspin;
-  if(nspin == XC_UNPOLARIZED){
-    dim->v2lapl2 = dim->v2tau2 = 1;
-    dim->v2rholapl = dim->v2rhotau = dim->v2lapltau = 1;
-    dim->v2sigmalapl = dim->v2sigmatau = 1;
-
-    dim->v3lapl3 = dim->v3tau3 = dim->v3rho2lapl = dim->v3rho2tau = dim->v3rholapl2 = 1;
-    dim->v3rhotau2 = dim->v3lapl2tau = dim->v3lapltau2 = dim->v3rholapltau = 1;
-    dim->v3sigmalapl2 = dim->v3sigmatau2 = dim->v3sigma2lapl = dim->v3sigma2tau = 1;
-    dim->v3rhosigmalapl = dim->v3rhosigmatau = dim->v3sigmalapltau = 1;
-
-    dim->v4rho4 = dim->v4rho3sigma = dim->v4rho3lapl = dim->v4rho3tau = dim->v4rho2sigma2 = 1;
-    dim->v4rho2sigmalapl = dim->v4rho2sigmatau = dim->v4rho2lapl2 = dim->v4rho2lapltau = 1;
-    dim->v4rho2tau2 = dim->v4rhosigma3 = dim->v4rhosigma2lapl = dim->v4rhosigma2tau = 1;
-    dim->v4rhosigmalapl2 = dim->v4rhosigmalapltau = dim->v4rhosigmatau2 = 1;
-    dim->v4rholapl3 = dim->v4rholapl2tau = dim->v4rholapltau2 = dim->v4rhotau3 = 1;
-    dim->v4sigma4 = dim->v4sigma3lapl = dim->v4sigma3tau = dim->v4sigma2lapl2 = 1;
-    dim->v4sigma2lapltau = dim->v4sigma2tau2 = dim->v4sigmalapl3 = dim->v4sigmalapl2tau = 1;
-    dim->v4sigmalapltau2 = dim->v4sigmatau3 = dim->v4lapl4 = dim->v4lapl3tau = 1;
-    dim->v4lapl2tau2 = dim->v4lapltau3 = dim->v4tau4 =1;
-  }else{
-    /* in total: 30 */
-    dim->v2rholapl   = 2*2;
-    dim->v2rhotau    = 2*2;
-    dim->v2sigmalapl = 3*2;
-    dim->v2sigmatau  = 3*2;
-    dim->v2lapl2     = 3;
-    dim->v2lapltau   = 2*2;
-    dim->v2tau2      = 3;
-
-    /* in total: 130 */
-    dim->v3rho2lapl     = 3*2;
-    dim->v3rho2tau      = 3*2;
-    dim->v3rhosigmalapl = 2*3*2;
-    dim->v3rhosigmatau  = 2*3*2;
-    dim->v3rholapl2     = 2*3;
-    dim->v3rholapltau   = 2*2*2;
-    dim->v3rhotau2      = 2*3;
-    dim->v3sigma2lapl   = 6*2;
-    dim->v3sigma2tau    = 6*2;
-    dim->v3sigmalapl2   = 3*3;
-    dim->v3sigmalapltau = 3*2*2;
-    dim->v3sigmatau2    = 3*3;
-    dim->v3lapl3        = 4;
-    dim->v3lapl2tau     = 3*2;
-    dim->v3lapltau2     = 2*3;
-    dim->v3tau3         = 4;
-
-    /* in total: 477 */
-    dim->v4rho3lapl        = 4*2;
-    dim->v4rho3tau         = 4*2;
-    dim->v4rho2sigmalapl   = 3*3*2;
-    dim->v4rho2sigmatau    = 3*3*2;
-    dim->v4rho2lapl2       = 3*3;
-    dim->v4rho2lapltau     = 3*2*2;
-    dim->v4rho2tau2        = 3*3;
-    dim->v4rhosigma2lapl   = 3*6*2;
-    dim->v4rhosigma2tau    = 3*6*2;
-    dim->v4rhosigmalapl2   = 2*3*3;
-    dim->v4rhosigmalapltau = 2*3*2*2;
-    dim->v4rhosigmatau2    = 2*6*3;
-    dim->v4rholapl3        = 2*4;
-    dim->v4rholapl2tau     = 2*3*2;
-    dim->v4rholapltau2     = 2*2*3;
-    dim->v4rhotau3         = 2*4;
-    dim->v4sigma3lapl      = 10*2;
-    dim->v4sigma3tau       = 10*3;
-    dim->v4sigma2lapl2     = 6*3;
-    dim->v4sigma2lapltau   = 6*2*2;
-    dim->v4sigma2tau2      = 6*3;
-    dim->v4sigmalapl3      = 3*4;
-    dim->v4sigmalapl2tau   = 3*3*2;
-    dim->v4sigmalapltau2   = 3*2*3;
-    dim->v4sigmatau3       = 3*4;
-    dim->v4lapl4           = 5;
-    dim->v4lapl3tau        = 4*2;
-    dim->v4lapl2tau2       = 3*3;
-    dim->v4lapltau3        = 2*4;
-    dim->v4tau4            = 5;
-  }
-}
 
 GPU_FUNCTION void
 internal_counters_lda_random

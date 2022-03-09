@@ -80,7 +80,7 @@ def read_infos(srcdir, family, all_ids):
         struct = re.sub(r'/\*.*?\*/', '', struct)
 
         # split by command not inside braces. This does not work if we have nested braces
-        info = [string.replace('|',',') for string in struct.split(",")]
+        info = struct.split(",")
 
         # build info dictionary
         infos[name] = {}
@@ -100,11 +100,15 @@ def read_infos(srcdir, family, all_ids):
         infos[name]["f_lda"]    = info[10]
         infos[name]["f_gga"]    = info[11]
         infos[name]["f_mgga"]   = info[12]
+        if len(info) == 14:
+          infos[name]["f_hgga"] = info[13]
+        else:
+          infos[name]["f_hgga"] = "NULL"
       nline += 1
 
   return infos
 
-families = ("lda", "gga", "mgga")
+families = ("lda", "gga", "mgga", "hgga")
 family_infos = {}
 all_ids   = {}
 all_infos = {}

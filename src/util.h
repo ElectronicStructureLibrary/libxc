@@ -230,8 +230,8 @@ typedef struct xc_functional_key_t {
 GPU_FUNCTION void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
 
 /* Functions to handle the internal counters */
+extern const xc_dimensions dimensions_unpolarized, dimensions_polarized;
 
-void internal_counters_set_lda (int nspin, xc_dimensions *dim);
 GPU_FUNCTION void internal_counters_lda_random
 (const xc_dimensions *dim, int ip, int offset,
  const double **rho,
@@ -245,7 +245,6 @@ GPU_FUNCTION void internal_counters_lda_prev
  const double **rho,
  double **zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double **, XC_NOARG));
 
-void internal_counters_set_gga (int nspin, xc_dimensions *dim);
 GPU_FUNCTION void internal_counters_gga_random
 (const xc_dimensions *dim, int pos, int offset,
  const double **rho, const double **sigma,
@@ -259,7 +258,6 @@ GPU_FUNCTION void internal_counters_gga_prev
  const double **rho, const double **sigma,
  double **zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double **, ));
 
-void internal_counters_set_mgga(int nspin, xc_dimensions *dim);
 GPU_FUNCTION void internal_counters_mgga_random
 (const xc_dimensions *dim, const int pos, int offset,
  const double **rho, const double **sigma, const double **lapl, const double **tau,
@@ -310,20 +308,12 @@ const char *get_kind(const xc_func_type *func);
 const char *get_family(const xc_func_type *func);
 double get_ext_param(const xc_func_type *func, const double *values, int index);
 void set_ext_params_cpy  (xc_func_type *p, const double *ext_params);
-void set_ext_params_omega(xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_omega(xc_func_type *p, const double *ext_params);
-void set_ext_params_exx(xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params);
-void set_ext_params_cam(xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_cam(xc_func_type *p, const double *ext_params);
-void set_ext_params_camy(xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_camy(xc_func_type *p, const double *ext_params);
-void set_ext_params_cam_sr(xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_cam_sr(xc_func_type *p, const double *ext_params);
-void set_ext_params_lc(xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_lc(xc_func_type *p, const double *ext_params);
-void set_ext_params_lcy(xc_func_type *p, const double *ext_params);
-void set_ext_params_cpy_lcy(xc_func_type *p, const double *ext_params);
 
 GPU_FUNCTION
 double xc_mgga_x_br89_get_x(double Q);

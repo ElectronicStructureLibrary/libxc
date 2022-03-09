@@ -17,15 +17,13 @@
 
 #ifndef XC_DONT_COMPILE_EXC
 GPU_DEVICE_FUNCTION static inline void
-func_exc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_exc_unpol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t6, t7, t8;
   double t12, tzk0;
 
-  lda_c_wigner_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_wigner_params * )(p->params);
+  const lda_c_wigner_params * const params = (lda_c_wigner_params * const)(p->params);
 
   t1 = M_CBRT3;
   t2 = 0.1e1 / M_PI;
@@ -48,17 +46,15 @@ func_exc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
 #ifndef XC_DONT_COMPILE_VXC
 GPU_DEVICE_FUNCTION static inline void
-func_vxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_vxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t6, t7, t8;
   double t12, tzk0;
 
   double t15, t16, tvrho0;
 
-  lda_c_wigner_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_wigner_params * )(p->params);
+  const lda_c_wigner_params * const params = (lda_c_wigner_params * const)(p->params);
 
   t1 = M_CBRT3;
   t2 = 0.1e1 / M_PI;
@@ -88,7 +84,7 @@ func_vxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
 #ifndef XC_DONT_COMPILE_FXC
 GPU_DEVICE_FUNCTION static inline void
-func_fxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_fxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t6, t7, t8;
   double t12, tzk0;
@@ -97,10 +93,8 @@ func_fxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
   double t22, t23, t28, t33, t35, t36, tv2rho20;
 
-  lda_c_wigner_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_wigner_params * )(p->params);
+  const lda_c_wigner_params * const params = (lda_c_wigner_params * const)(p->params);
 
   t1 = M_CBRT3;
   t2 = 0.1e1 / M_PI;
@@ -141,7 +135,7 @@ func_fxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
 #ifndef XC_DONT_COMPILE_KXC
 GPU_DEVICE_FUNCTION static inline void
-func_kxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_kxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t6, t7, t8;
   double t12, tzk0;
@@ -152,10 +146,8 @@ func_kxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
   double t42, t43, t44, t55, t58, t59, tv3rho30;
 
-  lda_c_wigner_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_wigner_params * )(p->params);
+  const lda_c_wigner_params * const params = (lda_c_wigner_params * const)(p->params);
 
   t1 = M_CBRT3;
   t2 = 0.1e1 / M_PI;
@@ -207,7 +199,7 @@ func_kxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
 #ifndef XC_DONT_COMPILE_LXC
 GPU_DEVICE_FUNCTION static inline void
-func_lxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t6, t7, t8;
   double t12, tzk0;
@@ -220,10 +212,8 @@ func_lxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
   double t64, tv4rho40;
 
-  lda_c_wigner_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_wigner_params * )(p->params);
+  const lda_c_wigner_params * const params = (lda_c_wigner_params * const)(p->params);
 
   t1 = M_CBRT3;
   t2 = 0.1e1 / M_PI;
@@ -281,16 +271,14 @@ func_lxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
 #ifndef XC_DONT_COMPILE_EXC
 GPU_DEVICE_FUNCTION static inline void
-func_exc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_exc_pol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t7, t8, t9;
   double t10, t11, t12, t13, t14, t15, t16, t20;
   double t21, tzk0;
 
-  lda_c_wigner_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_wigner_params * )(p->params);
+  const lda_c_wigner_params * const params = (lda_c_wigner_params * const)(p->params);
 
   t1 = rho[0] - rho[1];
   t2 = t1 * t1;
@@ -321,7 +309,7 @@ func_exc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
 
 #ifndef XC_DONT_COMPILE_VXC
 GPU_DEVICE_FUNCTION static inline void
-func_vxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_vxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t7, t8, t9;
   double t10, t11, t12, t13, t14, t15, t16, t20;
@@ -330,10 +318,8 @@ func_vxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   double t22, t23, t24, t25, t27, t29, t33, t34;
   double t36, t37, t39, tvrho0, t41, tvrho1;
 
-  lda_c_wigner_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_wigner_params * )(p->params);
+  const lda_c_wigner_params * const params = (lda_c_wigner_params * const)(p->params);
 
   t1 = rho[0] - rho[1];
   t2 = t1 * t1;
@@ -386,7 +372,7 @@ func_vxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
 
 #ifndef XC_DONT_COMPILE_FXC
 GPU_DEVICE_FUNCTION static inline void
-func_fxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_fxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t7, t8, t9;
   double t10, t11, t12, t13, t14, t15, t16, t20;
@@ -400,10 +386,8 @@ func_fxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   double t77, t79, t81, tv2rho20, t82, t83, t84, t89;
   double tv2rho21, t93, tv2rho22;
 
-  lda_c_wigner_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_wigner_params * )(p->params);
+  const lda_c_wigner_params * const params = (lda_c_wigner_params * const)(p->params);
 
   t1 = rho[0] - rho[1];
   t2 = t1 * t1;
@@ -495,7 +479,7 @@ func_fxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
 
 #ifndef XC_DONT_COMPILE_KXC
 GPU_DEVICE_FUNCTION static inline void
-func_kxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t7, t8, t9;
   double t10, t11, t12, t13, t14, t15, t16, t20;
@@ -515,10 +499,8 @@ func_kxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   double t145, t146, t147, t149, t150, t151, t157, t160;
   double tv3rho31, t166, t167, t168, t173, tv3rho32, t179, tv3rho33;
 
-  lda_c_wigner_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_wigner_params * )(p->params);
+  const lda_c_wigner_params * const params = (lda_c_wigner_params * const)(p->params);
 
   t1 = rho[0] - rho[1];
   t2 = t1 * t1;
@@ -666,7 +648,7 @@ func_kxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
 
 #ifndef XC_DONT_COMPILE_LXC
 GPU_DEVICE_FUNCTION static inline void
-func_lxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t7, t8, t9;
   double t10, t11, t12, t13, t14, t15, t16, t20;
@@ -692,10 +674,8 @@ func_lxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   double t273, t274, tv4rho41, t286, t296, t300, t304, t306;
   double tv4rho42, t314, t320, tv4rho43, tv4rho44;
 
-  lda_c_wigner_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_wigner_params * )(p->params);
+  const lda_c_wigner_params * const params = (lda_c_wigner_params * const)(p->params);
 
   t1 = rho[0] - rho[1];
   t2 = t1 * t1;

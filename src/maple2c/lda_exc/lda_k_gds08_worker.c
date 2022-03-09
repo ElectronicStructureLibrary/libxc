@@ -17,15 +17,13 @@
 
 #ifndef XC_DONT_COMPILE_EXC
 GPU_DEVICE_FUNCTION static inline void
-func_exc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_exc_unpol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t2, t3, t4, t6, t7, t9, t11, t16;
   double tzk0;
 
-  lda_k_gds08_params *params;
-
   assert(p->params != NULL);
-  params = (lda_k_gds08_params * )(p->params);
+  const lda_k_gds08_params * const params = (lda_k_gds08_params * const)(p->params);
 
   t2 = rho[0] / 0.2e1 <= p->dens_threshold;
   t3 = 0.1e1 <= p->zeta_threshold;
@@ -47,17 +45,15 @@ func_exc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
 #ifndef XC_DONT_COMPILE_VXC
 GPU_DEVICE_FUNCTION static inline void
-func_vxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_vxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t2, t3, t4, t6, t7, t9, t11, t16;
   double tzk0;
 
   double t17, t19, t25, tvrho0;
 
-  lda_k_gds08_params *params;
-
   assert(p->params != NULL);
-  params = (lda_k_gds08_params * )(p->params);
+  const lda_k_gds08_params * const params = (lda_k_gds08_params * const)(p->params);
 
   t2 = rho[0] / 0.2e1 <= p->dens_threshold;
   t3 = 0.1e1 <= p->zeta_threshold;
@@ -87,7 +83,7 @@ func_vxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
 #ifndef XC_DONT_COMPILE_FXC
 GPU_DEVICE_FUNCTION static inline void
-func_fxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_fxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t2, t3, t4, t6, t7, t9, t11, t16;
   double tzk0;
@@ -96,10 +92,8 @@ func_fxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
   double t29, t30, t39, tv2rho20;
 
-  lda_k_gds08_params *params;
-
   assert(p->params != NULL);
-  params = (lda_k_gds08_params * )(p->params);
+  const lda_k_gds08_params * const params = (lda_k_gds08_params * const)(p->params);
 
   t2 = rho[0] / 0.2e1 <= p->dens_threshold;
   t3 = 0.1e1 <= p->zeta_threshold;
@@ -137,7 +131,7 @@ func_fxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
 #ifndef XC_DONT_COMPILE_KXC
 GPU_DEVICE_FUNCTION static inline void
-func_kxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_kxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t2, t3, t4, t6, t7, t9, t11, t16;
   double tzk0;
@@ -148,10 +142,8 @@ func_kxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
   double t44, t54, tv3rho30;
 
-  lda_k_gds08_params *params;
-
   assert(p->params != NULL);
-  params = (lda_k_gds08_params * )(p->params);
+  const lda_k_gds08_params * const params = (lda_k_gds08_params * const)(p->params);
 
   t2 = rho[0] / 0.2e1 <= p->dens_threshold;
   t3 = 0.1e1 <= p->zeta_threshold;
@@ -196,7 +188,7 @@ func_kxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
 #ifndef XC_DONT_COMPILE_LXC
 GPU_DEVICE_FUNCTION static inline void
-func_lxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t2, t3, t4, t6, t7, t9, t11, t16;
   double tzk0;
@@ -209,10 +201,8 @@ func_lxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
   double t58, t59, t69, tv4rho40;
 
-  lda_k_gds08_params *params;
-
   assert(p->params != NULL);
-  params = (lda_k_gds08_params * )(p->params);
+  const lda_k_gds08_params * const params = (lda_k_gds08_params * const)(p->params);
 
   t2 = rho[0] / 0.2e1 <= p->dens_threshold;
   t3 = 0.1e1 <= p->zeta_threshold;
@@ -265,17 +255,15 @@ func_lxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
 #ifndef XC_DONT_COMPILE_EXC
 GPU_DEVICE_FUNCTION static inline void
-func_exc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_exc_pol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t7, t8, t10;
   double t11, t12, t13, t16, t19, t20, t21, t23;
   double t25, t27, t30, t31, t32, t33, t34, t36;
   double t37, t39, t41, t43, t46, tzk0;
 
-  lda_k_gds08_params *params;
-
   assert(p->params != NULL);
-  params = (lda_k_gds08_params * )(p->params);
+  const lda_k_gds08_params * const params = (lda_k_gds08_params * const)(p->params);
 
   t1 = rho[0] <= p->dens_threshold;
   t2 = rho[0] - rho[1];
@@ -318,7 +306,7 @@ func_exc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
 
 #ifndef XC_DONT_COMPILE_VXC
 GPU_DEVICE_FUNCTION static inline void
-func_vxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_vxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t7, t8, t10;
   double t11, t12, t13, t16, t19, t20, t21, t23;
@@ -332,10 +320,8 @@ func_vxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   double t106, t110, t112, t115, t117, t118, t120, t124;
   double t128, tvrho1;
 
-  lda_k_gds08_params *params;
-
   assert(p->params != NULL);
-  params = (lda_k_gds08_params * )(p->params);
+  const lda_k_gds08_params * const params = (lda_k_gds08_params * const)(p->params);
 
   t1 = rho[0] <= p->dens_threshold;
   t2 = rho[0] - rho[1];
@@ -428,7 +414,7 @@ func_vxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
 
 #ifndef XC_DONT_COMPILE_FXC
 GPU_DEVICE_FUNCTION static inline void
-func_fxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_fxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t7, t8, t10;
   double t11, t12, t13, t16, t19, t20, t21, t23;
@@ -454,10 +440,8 @@ func_fxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   double t308, t312, t314, t320, t323, t324, t326, t328;
   double t329, t332, t338, t342, tv2rho22;
 
-  lda_k_gds08_params *params;
-
   assert(p->params != NULL);
-  params = (lda_k_gds08_params * )(p->params);
+  const lda_k_gds08_params * const params = (lda_k_gds08_params * const)(p->params);
 
   t1 = rho[0] <= p->dens_threshold;
   t2 = rho[0] - rho[1];
@@ -647,7 +631,7 @@ func_fxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
 
 #ifndef XC_DONT_COMPILE_KXC
 GPU_DEVICE_FUNCTION static inline void
-func_kxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t7, t8, t10;
   double t11, t12, t13, t16, t19, t20, t21, t23;
@@ -695,10 +679,8 @@ func_kxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   double t804, t805, t816, t820, t822, t833, t839, t842;
   double t843, t846, t847, t861, t865, t869, tv3rho33;
 
-  lda_k_gds08_params *params;
-
   assert(p->params != NULL);
-  params = (lda_k_gds08_params * )(p->params);
+  const lda_k_gds08_params * const params = (lda_k_gds08_params * const)(p->params);
 
   t1 = rho[0] <= p->dens_threshold;
   t2 = rho[0] - rho[1];
@@ -1071,7 +1053,7 @@ func_kxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
 
 #ifndef XC_DONT_COMPILE_LXC
 GPU_DEVICE_FUNCTION static inline void
-func_lxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t7, t8, t10;
   double t11, t12, t13, t16, t19, t20, t21, t23;
@@ -1155,10 +1137,8 @@ func_lxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   double t2145, t2147, t2158, t2164, t2167, t2175, t2194, t2200;
   double t2227, t2232, tv4rho44;
 
-  lda_k_gds08_params *params;
-
   assert(p->params != NULL);
-  params = (lda_k_gds08_params * )(p->params);
+  const lda_k_gds08_params * const params = (lda_k_gds08_params * const)(p->params);
 
   t1 = rho[0] <= p->dens_threshold;
   t2 = rho[0] - rho[1];

@@ -17,16 +17,14 @@
 
 #ifndef XC_DONT_COMPILE_EXC
 GPU_DEVICE_FUNCTION static inline void
-func_exc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_exc_unpol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t8, t9, t13;
   double t14, t15, t16, t17, t18, t21, t24, t25;
   double t26, t29, t30, t31, t33, t34, tzk0;
 
-  lda_c_1d_csc_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_1d_csc_params * )(p->params);
+  const lda_c_1d_csc_params * const params = (lda_c_1d_csc_params * const)(p->params);
 
   t1 = 0.1e1 / rho[0];
   t2 = t1 / 0.2e1;
@@ -62,7 +60,7 @@ func_exc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
 #ifndef XC_DONT_COMPILE_VXC
 GPU_DEVICE_FUNCTION static inline void
-func_vxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_vxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t8, t9, t13;
   double t14, t15, t16, t17, t18, t21, t24, t25;
@@ -71,10 +69,8 @@ func_vxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
   double t37, t40, t41, t42, t44, t49, t50, t52;
   double t54, t55, t56, t64, t65, tvrho0;
 
-  lda_c_1d_csc_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_1d_csc_params * )(p->params);
+  const lda_c_1d_csc_params * const params = (lda_c_1d_csc_params * const)(p->params);
 
   t1 = 0.1e1 / rho[0];
   t2 = t1 / 0.2e1;
@@ -128,7 +124,7 @@ func_vxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
 #ifndef XC_DONT_COMPILE_FXC
 GPU_DEVICE_FUNCTION static inline void
-func_fxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_fxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t8, t9, t13;
   double t14, t15, t16, t17, t18, t21, t24, t25;
@@ -142,10 +138,8 @@ func_fxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
   double t105, t106, t110, t111, t112, t113, t117, t122;
   double t128, t129, tv2rho20;
 
-  lda_c_1d_csc_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_1d_csc_params * )(p->params);
+  const lda_c_1d_csc_params * const params = (lda_c_1d_csc_params * const)(p->params);
 
   t1 = 0.1e1 / rho[0];
   t2 = t1 / 0.2e1;
@@ -230,7 +224,7 @@ func_fxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
 #ifndef XC_DONT_COMPILE_KXC
 GPU_DEVICE_FUNCTION static inline void
-func_kxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_kxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t8, t9, t13;
   double t14, t15, t16, t17, t18, t21, t24, t25;
@@ -250,10 +244,8 @@ func_kxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
   double t226, t229, t230, t235, t236, t237, t240, t243;
   double t244, t245, t248, t249, t252, t255, tv3rho30;
 
-  lda_c_1d_csc_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_1d_csc_params * )(p->params);
+  const lda_c_1d_csc_params * const params = (lda_c_1d_csc_params * const)(p->params);
 
   t1 = 0.1e1 / rho[0];
   t2 = t1 / 0.2e1;
@@ -381,7 +373,7 @@ func_kxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
 #ifndef XC_DONT_COMPILE_LXC
 GPU_DEVICE_FUNCTION static inline void
-func_lxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t8, t9, t13;
   double t14, t15, t16, t17, t18, t21, t24, t25;
@@ -404,10 +396,8 @@ func_lxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
   double t262, t268, t276, t283, t284, t300, t305, t323;
   double t336, t372, t378, t423, t433, t470, tv4rho40;
 
-  lda_c_1d_csc_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_1d_csc_params * )(p->params);
+  const lda_c_1d_csc_params * const params = (lda_c_1d_csc_params * const)(p->params);
 
   t1 = 0.1e1 / rho[0];
   t2 = t1 / 0.2e1;
@@ -554,7 +544,7 @@ func_lxc_unpol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_p
 
 #ifndef XC_DONT_COMPILE_EXC
 GPU_DEVICE_FUNCTION static inline void
-func_exc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_exc_pol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t6, t9, t10;
   double t14, t15, t16, t17, t18, t19, t22, t25;
@@ -563,10 +553,8 @@ func_exc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   double t50, t53, t56, t57, t58, t61, t62, t63;
   double t65, t66, t68, t69, t70, t71, t72, tzk0;
 
-  lda_c_1d_csc_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_1d_csc_params * )(p->params);
+  const lda_c_1d_csc_params * const params = (lda_c_1d_csc_params * const)(p->params);
 
   t1 = rho[0] + rho[1];
   t2 = 0.1e1 / t1;
@@ -627,7 +615,7 @@ func_exc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
 
 #ifndef XC_DONT_COMPILE_VXC
 GPU_DEVICE_FUNCTION static inline void
-func_vxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_vxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t6, t9, t10;
   double t14, t15, t16, t17, t18, t19, t22, t25;
@@ -642,10 +630,8 @@ func_vxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   double t127, t128, t129, t130, t131, t132, t133, t134;
   double tvrho0, tvrho1;
 
-  lda_c_1d_csc_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_1d_csc_params * )(p->params);
+  const lda_c_1d_csc_params * const params = (lda_c_1d_csc_params * const)(p->params);
 
   t1 = rho[0] + rho[1];
   t2 = 0.1e1 / t1;
@@ -748,7 +734,7 @@ func_vxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
 
 #ifndef XC_DONT_COMPILE_FXC
 GPU_DEVICE_FUNCTION static inline void
-func_fxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_fxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t6, t9, t10;
   double t14, t15, t16, t17, t18, t19, t22, t25;
@@ -774,10 +760,8 @@ func_fxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   double t251, t252, t253, t254, t255, t256, t257, t258;
   double t259, t260, t261, tv2rho20, t263, tv2rho21, t265, tv2rho22;
 
-  lda_c_1d_csc_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_1d_csc_params * )(p->params);
+  const lda_c_1d_csc_params * const params = (lda_c_1d_csc_params * const)(p->params);
 
   t1 = rho[0] + rho[1];
   t2 = 0.1e1 / t1;
@@ -972,7 +956,7 @@ func_fxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
 
 #ifndef XC_DONT_COMPILE_KXC
 GPU_DEVICE_FUNCTION static inline void
-func_kxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t6, t9, t10;
   double t14, t15, t16, t17, t18, t19, t22, t25;
@@ -1016,10 +1000,8 @@ func_kxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   double t491, t492, t493, t494, t495, tv3rho30, t500, t501;
   double t502, t503, t504, tv3rho31, t507, tv3rho32, t510, tv3rho33;
 
-  lda_c_1d_csc_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_1d_csc_params * )(p->params);
+  const lda_c_1d_csc_params * const params = (lda_c_1d_csc_params * const)(p->params);
 
   t1 = rho[0] + rho[1];
   t2 = 0.1e1 / t1;
@@ -1366,7 +1348,7 @@ func_kxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
 
 #ifndef XC_DONT_COMPILE_LXC
 GPU_DEVICE_FUNCTION static inline void
-func_lxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_params *out)
+func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, xc_lda_out_params *out)
 {
   double t1, t2, t3, t4, t5, t6, t9, t10;
   double t14, t15, t16, t17, t18, t19, t22, t25;
@@ -1429,10 +1411,8 @@ func_lxc_pol(const xc_func_type *p, size_t ip, const double *rho, xc_lda_out_par
   double t925, t926, t930, t931, tv4rho42, t932, t934, t938;
   double t939, tv4rho43, t940, t942, t946, t947, tv4rho44;
 
-  lda_c_1d_csc_params *params;
-
   assert(p->params != NULL);
-  params = (lda_c_1d_csc_params * )(p->params);
+  const lda_c_1d_csc_params * const params = (lda_c_1d_csc_params * const)(p->params);
 
   t1 = rho[0] + rho[1];
   t2 = 0.1e1 / t1;

@@ -67,14 +67,7 @@ static void lc_tmlyp_set_ext_params(xc_func_type *p, const double *ext_params) {
   omega = get_ext_param(p, ext_params, 0);
 
   /* 100% long-range exact exchange */
-  assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_coeff[0] = -1.0;
-  p->hyb_omega[0] = omega;
-
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_coeff[1] = 1.0;
-  p->hyb_omega[1] = omega;
+  set_ext_params_lc(p, ext_params);
 
   /* Set the parameters for js18 */
   xc_func_set_ext_params(p->func_aux[0], &omega);

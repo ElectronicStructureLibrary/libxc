@@ -97,10 +97,7 @@ case21_set_ext_params(xc_func_type *p, const double *ext_params)
   params->ax = ext_params[2*params->Nsp+2];
 
   /* Exact exchange */
-  assert(p->hyb_number_terms == 1);
-  p->hyb_type[0]  = XC_HYB_FOCK;
-  p->hyb_coeff[0] = params->ax;
-  p->hyb_omega[0] = 0.0;
+  set_ext_params_exx(p, ext_params);
 }
 
 static void

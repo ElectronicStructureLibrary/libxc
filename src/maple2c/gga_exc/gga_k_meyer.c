@@ -82,6 +82,7 @@ func_exc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t73 = my_piecewise3(t2, 0, 0.3e1 / 0.2e2 * t7 * t23 * t69);
   tzk0 = 0.2e1 * t73;
 
+  if(out->zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     out->zk[ip*p->dim.zk + 0] += tzk0;
 
 }
@@ -163,6 +164,7 @@ func_vxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t73 = my_piecewise3(t2, 0, 0.3e1 / 0.2e2 * t7 * t23 * t69);
   tzk0 = 0.2e1 * t73;
 
+  if(out->zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     out->zk[ip*p->dim.zk + 0] += tzk0;
 
   t75 = t20 / t21;
@@ -195,6 +197,7 @@ func_vxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t125 = my_piecewise3(t2, 0, t7 * t75 * t69 / 0.1e2 + 0.3e1 / 0.2e2 * t7 * t23 * t120);
   tvrho0 = 0.2e1 * rho[0] * t125 + 0.2e1 * t73;
 
+  if(out->vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vrho[ip*p->dim.vrho + 0] += tvrho0;
 
   t128 = t42 * t30;
@@ -216,6 +219,7 @@ func_vxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t162 = my_piecewise3(t2, 0, 0.3e1 / 0.2e2 * t7 * t23 * t158);
   tvsigma0 = 0.2e1 * rho[0] * t162;
 
+  if(out->vsigma != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vsigma[ip*p->dim.vsigma + 0] += tvsigma0;
 
 }
@@ -310,6 +314,7 @@ func_fxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t73 = my_piecewise3(t2, 0, 0.3e1 / 0.2e2 * t7 * t23 * t69);
   tzk0 = 0.2e1 * t73;
 
+  if(out->zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     out->zk[ip*p->dim.zk + 0] += tzk0;
 
   t75 = t20 / t21;
@@ -342,6 +347,7 @@ func_fxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t125 = my_piecewise3(t2, 0, t7 * t75 * t69 / 0.1e2 + 0.3e1 / 0.2e2 * t7 * t23 * t120);
   tvrho0 = 0.2e1 * rho[0] * t125 + 0.2e1 * t73;
 
+  if(out->vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vrho[ip*p->dim.vrho + 0] += tvrho0;
 
   t128 = t42 * t30;
@@ -363,6 +369,7 @@ func_fxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t162 = my_piecewise3(t2, 0, 0.3e1 / 0.2e2 * t7 * t23 * t158);
   tvsigma0 = 0.2e1 * rho[0] * t162;
 
+  if(out->vsigma != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vsigma[ip*p->dim.vsigma + 0] += tvsigma0;
 
   t165 = t20 * t46;
@@ -410,6 +417,7 @@ func_fxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t260 = my_piecewise3(t2, 0, -t7 * t165 * t69 / 0.3e2 + t7 * t75 * t120 / 0.5e1 + 0.3e1 / 0.2e2 * t7 * t23 * t255);
   tv2rho20 = 0.2e1 * rho[0] * t260 + 0.4e1 * t125;
 
+  if(out->v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rho2[ip*p->dim.v2rho2 + 0] += tv2rho20;
 
   t266 = t42 * t134;
@@ -437,6 +445,7 @@ func_fxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t336 = my_piecewise3(t2, 0, t7 * t75 * t158 / 0.1e2 + 0.3e1 / 0.2e2 * t7 * t23 * t331);
   tv2rhosigma0 = 0.2e1 * rho[0] * t336 + 0.2e1 * t162;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 0] += tv2rhosigma0;
 
   t339 = t142 * t99;
@@ -465,6 +474,7 @@ func_fxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t404 = my_piecewise3(t2, 0, 0.3e1 / 0.2e2 * t7 * t23 * t400);
   tv2sigma20 = 0.2e1 * rho[0] * t404;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 0] += tv2sigma20;
 
 }
@@ -585,6 +595,7 @@ func_kxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t73 = my_piecewise3(t2, 0, 0.3e1 / 0.2e2 * t7 * t23 * t69);
   tzk0 = 0.2e1 * t73;
 
+  if(out->zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     out->zk[ip*p->dim.zk + 0] += tzk0;
 
   t75 = t20 / t21;
@@ -617,6 +628,7 @@ func_kxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t125 = my_piecewise3(t2, 0, t7 * t75 * t69 / 0.1e2 + 0.3e1 / 0.2e2 * t7 * t23 * t120);
   tvrho0 = 0.2e1 * rho[0] * t125 + 0.2e1 * t73;
 
+  if(out->vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vrho[ip*p->dim.vrho + 0] += tvrho0;
 
   t128 = t42 * t30;
@@ -638,6 +650,7 @@ func_kxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t162 = my_piecewise3(t2, 0, 0.3e1 / 0.2e2 * t7 * t23 * t158);
   tvsigma0 = 0.2e1 * rho[0] * t162;
 
+  if(out->vsigma != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vsigma[ip*p->dim.vsigma + 0] += tvsigma0;
 
   t165 = t20 * t46;
@@ -685,6 +698,7 @@ func_kxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t260 = my_piecewise3(t2, 0, -t7 * t165 * t69 / 0.3e2 + t7 * t75 * t120 / 0.5e1 + 0.3e1 / 0.2e2 * t7 * t23 * t255);
   tv2rho20 = 0.2e1 * rho[0] * t260 + 0.4e1 * t125;
 
+  if(out->v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rho2[ip*p->dim.v2rho2 + 0] += tv2rho20;
 
   t266 = t42 * t134;
@@ -712,6 +726,7 @@ func_kxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t336 = my_piecewise3(t2, 0, t7 * t75 * t158 / 0.1e2 + 0.3e1 / 0.2e2 * t7 * t23 * t331);
   tv2rhosigma0 = 0.2e1 * rho[0] * t336 + 0.2e1 * t162;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 0] += tv2rhosigma0;
 
   t339 = t142 * t99;
@@ -740,6 +755,7 @@ func_kxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t404 = my_piecewise3(t2, 0, 0.3e1 / 0.2e2 * t7 * t23 * t400);
   tv2sigma20 = 0.2e1 * rho[0] * t404;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 0] += tv2sigma20;
 
   t407 = t20 * t81;
@@ -810,6 +826,7 @@ func_kxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t567 = my_piecewise3(t2, 0, 0.2e1 / 0.45e2 * t7 * t407 * t69 - t7 * t165 * t120 / 0.1e2 + 0.3e1 / 0.1e2 * t7 * t75 * t255 + 0.3e1 / 0.2e2 * t7 * t23 * t562);
   tv3rho30 = 0.2e1 * rho[0] * t567 + 0.6e1 * t260;
 
+  if(out->v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho3[ip*p->dim.v3rho3 + 0] += tv3rho30;
 
   t579 = t98 * t221;
@@ -853,6 +870,7 @@ func_kxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t721 = my_piecewise3(t2, 0, -t7 * t165 * t158 / 0.3e2 + t7 * t75 * t331 / 0.5e1 + 0.3e1 / 0.2e2 * t7 * t23 * t716);
   tv3rho2sigma0 = 0.2e1 * rho[0] * t721 + 0.4e1 * t336;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 0] += tv3rho2sigma0;
 
   t735 = t143 * t99;
@@ -895,6 +913,7 @@ func_kxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t867 = my_piecewise3(t2, 0, t7 * t75 * t400 / 0.1e2 + 0.3e1 / 0.2e2 * t7 * t23 * t862);
   tv3rhosigma20 = 0.2e1 * rho[0] * t867 + 0.2e1 * t404;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 0] += tv3rhosigma20;
 
   t870 = t382 * sigma[0];
@@ -945,6 +964,7 @@ func_kxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t989 = my_piecewise3(t2, 0, 0.3e1 / 0.2e2 * t7 * t23 * t985);
   tv3sigma30 = 0.2e1 * rho[0] * t989;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 0] += tv3sigma30;
 
 }
@@ -1084,6 +1104,7 @@ func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t73 = my_piecewise3(t2, 0, 0.3e1 / 0.2e2 * t7 * t23 * t69);
   tzk0 = 0.2e1 * t73;
 
+  if(out->zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     out->zk[ip*p->dim.zk + 0] += tzk0;
 
   t75 = t20 / t21;
@@ -1116,6 +1137,7 @@ func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t125 = my_piecewise3(t2, 0, t7 * t75 * t69 / 0.1e2 + 0.3e1 / 0.2e2 * t7 * t23 * t120);
   tvrho0 = 0.2e1 * rho[0] * t125 + 0.2e1 * t73;
 
+  if(out->vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vrho[ip*p->dim.vrho + 0] += tvrho0;
 
   t128 = t42 * t30;
@@ -1137,6 +1159,7 @@ func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t162 = my_piecewise3(t2, 0, 0.3e1 / 0.2e2 * t7 * t23 * t158);
   tvsigma0 = 0.2e1 * rho[0] * t162;
 
+  if(out->vsigma != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vsigma[ip*p->dim.vsigma + 0] += tvsigma0;
 
   t165 = t20 * t46;
@@ -1184,6 +1207,7 @@ func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t260 = my_piecewise3(t2, 0, -t7 * t165 * t69 / 0.3e2 + t7 * t75 * t120 / 0.5e1 + 0.3e1 / 0.2e2 * t7 * t23 * t255);
   tv2rho20 = 0.2e1 * rho[0] * t260 + 0.4e1 * t125;
 
+  if(out->v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rho2[ip*p->dim.v2rho2 + 0] += tv2rho20;
 
   t266 = t42 * t134;
@@ -1211,6 +1235,7 @@ func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t336 = my_piecewise3(t2, 0, t7 * t75 * t158 / 0.1e2 + 0.3e1 / 0.2e2 * t7 * t23 * t331);
   tv2rhosigma0 = 0.2e1 * rho[0] * t336 + 0.2e1 * t162;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 0] += tv2rhosigma0;
 
   t339 = t142 * t99;
@@ -1239,6 +1264,7 @@ func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t404 = my_piecewise3(t2, 0, 0.3e1 / 0.2e2 * t7 * t23 * t400);
   tv2sigma20 = 0.2e1 * rho[0] * t404;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 0] += tv2sigma20;
 
   t407 = t20 * t81;
@@ -1309,6 +1335,7 @@ func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t567 = my_piecewise3(t2, 0, 0.2e1 / 0.45e2 * t7 * t407 * t69 - t7 * t165 * t120 / 0.1e2 + 0.3e1 / 0.1e2 * t7 * t75 * t255 + 0.3e1 / 0.2e2 * t7 * t23 * t562);
   tv3rho30 = 0.2e1 * rho[0] * t567 + 0.6e1 * t260;
 
+  if(out->v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho3[ip*p->dim.v3rho3 + 0] += tv3rho30;
 
   t579 = t98 * t221;
@@ -1352,6 +1379,7 @@ func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t721 = my_piecewise3(t2, 0, -t7 * t165 * t158 / 0.3e2 + t7 * t75 * t331 / 0.5e1 + 0.3e1 / 0.2e2 * t7 * t23 * t716);
   tv3rho2sigma0 = 0.2e1 * rho[0] * t721 + 0.4e1 * t336;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 0] += tv3rho2sigma0;
 
   t735 = t143 * t99;
@@ -1394,6 +1422,7 @@ func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t867 = my_piecewise3(t2, 0, t7 * t75 * t400 / 0.1e2 + 0.3e1 / 0.2e2 * t7 * t23 * t862);
   tv3rhosigma20 = 0.2e1 * rho[0] * t867 + 0.2e1 * t404;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 0] += tv3rhosigma20;
 
   t870 = t382 * sigma[0];
@@ -1444,6 +1473,7 @@ func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t989 = my_piecewise3(t2, 0, 0.3e1 / 0.2e2 * t7 * t23 * t985);
   tv3sigma30 = 0.2e1 * rho[0] * t989;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 0] += tv3sigma30;
 
   t1012 = t190 * t215;
@@ -1495,6 +1525,7 @@ func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t1245 = my_piecewise3(t2, 0, -0.14e2 / 0.135e3 * t7 * t20 * t174 * t69 + 0.8e1 / 0.45e2 * t7 * t407 * t120 - t7 * t165 * t255 / 0.5e1 + 0.2e1 / 0.5e1 * t7 * t75 * t562 + 0.3e1 / 0.2e2 * t7 * t23 * t1240);
   tv4rho40 = 0.2e1 * rho[0] * t1245 + 0.8e1 * t567;
 
+  if(out->v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho4[ip*p->dim.v4rho4 + 0] += tv4rho40;
 
   t1258 = t190 * t299;
@@ -1533,6 +1564,7 @@ func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t1535 = my_piecewise3(t2, 0, 0.2e1 / 0.45e2 * t7 * t407 * t158 - t7 * t165 * t331 / 0.1e2 + 0.3e1 / 0.1e2 * t7 * t75 * t716 + 0.3e1 / 0.2e2 * t7 * t23 * (0.48e3 * t1224 * t155 * t553 - 0.36e3 * t552 * t325 * t252 - 0.2e2 * t116 * t1475 - 0.6e2 * t1478 * t117 - 0.2e2 * t1207 * t155 - 0.36e3 * t1215 * t704 - 0.6e2 * t243 * t713 - 0.6e2 * t690 * t252 - 0.2e2 * t320 * t559 - 0.6e2 * t542 * t328 + t1529));
   tv4rho3sigma0 = 0.2e1 * rho[0] * t1535 + 0.6e1 * t721;
 
+  if(out->v4rho3sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho3sigma[ip*p->dim.v4rho3sigma + 0] += tv4rho3sigma0;
 
   t1577 = 0.8e2 * t248 * t859 * t117 + 0.48e3 * t1224 * t394 * t249 + 0.8e2 * t248 * t155 * t713 + 0.4e2 * t248 * t397 * t252 - 0.12e3 * t552 * t397 * t249 - 0.12e3 * t552 * t394 * t252 - 0.24e3 * t1215 * t848 + 0.16e3 * t1503 * t325 - 0.24e3 * t1506 * t704 + 0.16e3 * t545 * t851 + 0.8e2 * t545 * t856 + 0.16e3 * t693 * t707 + 0.8e2 * t693 * t710;
@@ -1562,6 +1594,7 @@ func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t1821 = my_piecewise3(t2, 0, -t7 * t165 * t400 / 0.3e2 + t7 * t75 * t862 / 0.5e1 + 0.3e1 / 0.2e2 * t7 * t23 * (t1577 + t1815));
   tv4rho2sigma20 = 0.2e1 * rho[0] * t1821 + 0.4e1 * t867;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 0] += tv4rho2sigma20;
 
   t1827 = t280 * t368;
@@ -1582,6 +1615,7 @@ func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t2062 = my_piecewise3(t2, 0, t7 * t75 * t985 / 0.1e2 + 0.3e1 / 0.2e2 * t7 * t23 * (-0.2e2 * t2007 * t117 + 0.12e3 * t1503 * t394 - 0.36e3 * t1506 * t848 - 0.6e2 * t1584 * t155 + 0.12e3 * t1578 * t325 + 0.2e2 * t2004 * t66 - 0.6e2 * t837 * t328 - 0.6e2 * t690 * t397 + 0.24e3 * t693 * t851 + 0.12e3 * t693 * t856 + t2056));
   tv4rhosigma30 = 0.2e1 * rho[0] * t2062 + 0.2e1 * t989;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 0] += tv4rhosigma30;
 
   t2065 = t382 * t382;
@@ -1602,6 +1636,7 @@ func_lxc_unpol(const xc_func_type * const p, size_t ip, const double * const rho
   t2262 = my_piecewise3(t2, 0, 0.3e1 / 0.2e2 * t7 * t23 * t2258);
   tv4sigma40 = 0.2e1 * rho[0] * t2262;
 
+  if(out->v4sigma4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4sigma4[ip*p->dim.v4sigma4 + 0] += tv4sigma40;
 
 }
@@ -1717,6 +1752,7 @@ func_exc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t127 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t89 * t123);
   tzk0 = t78 + t127;
 
+  if(out->zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     out->zk[ip*p->dim.zk + 0] += tzk0;
 
 }
@@ -1846,6 +1882,7 @@ func_vxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t127 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t89 * t123);
   tzk0 = t78 + t127;
 
+  if(out->zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     out->zk[ip*p->dim.zk + 0] += tzk0;
 
   t128 = t7 * t7;
@@ -1889,6 +1926,7 @@ func_vxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t205 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t196 * t123 + t203);
   tvrho0 = t78 + t127 + t7 * (t189 + t205);
 
+  if(out->vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vrho[ip*p->dim.vrho + 0] += tvrho0;
 
   t209 = my_piecewise5(t11, 0, t15, 0, -t8 - t130);
@@ -1922,6 +1960,7 @@ func_vxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t271 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t224 * t123 + t203 + 0.3e1 / 0.2e2 * t6 * t89 * t266);
   tvrho1 = t78 + t127 + t7 * (t218 + t271);
 
+  if(out->vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vrho[ip*p->dim.vrho + 1] += tvrho1;
 
   t274 = t52 * t61;
@@ -1939,10 +1978,12 @@ func_vxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t306 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t31 * t302);
   tvsigma0 = t7 * t306;
 
+  if(out->vsigma != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vsigma[ip*p->dim.vsigma + 0] += tvsigma0;
 
   tvsigma1 = 0.e0;
 
+  if(out->vsigma != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vsigma[ip*p->dim.vsigma + 1] += tvsigma1;
 
   t307 = t101 * t110;
@@ -1960,6 +2001,7 @@ func_vxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t339 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t89 * t335);
   tvsigma2 = t7 * t339;
 
+  if(out->vsigma != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vsigma[ip*p->dim.vsigma + 2] += tvsigma2;
 
 }
@@ -2119,6 +2161,7 @@ func_fxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t127 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t89 * t123);
   tzk0 = t78 + t127;
 
+  if(out->zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     out->zk[ip*p->dim.zk + 0] += tzk0;
 
   t128 = t7 * t7;
@@ -2162,6 +2205,7 @@ func_fxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t205 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t196 * t123 + t203);
   tvrho0 = t78 + t127 + t7 * (t189 + t205);
 
+  if(out->vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vrho[ip*p->dim.vrho + 0] += tvrho0;
 
   t209 = my_piecewise5(t11, 0, t15, 0, -t8 - t130);
@@ -2195,6 +2239,7 @@ func_fxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t271 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t224 * t123 + t203 + 0.3e1 / 0.2e2 * t6 * t89 * t266);
   tvrho1 = t78 + t127 + t7 * (t218 + t271);
 
+  if(out->vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vrho[ip*p->dim.vrho + 1] += tvrho1;
 
   t274 = t52 * t61;
@@ -2212,10 +2257,12 @@ func_fxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t306 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t31 * t302);
   tvsigma0 = t7 * t306;
 
+  if(out->vsigma != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vsigma[ip*p->dim.vsigma + 0] += tvsigma0;
 
   tvsigma1 = 0.e0;
 
+  if(out->vsigma != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vsigma[ip*p->dim.vsigma + 1] += tvsigma1;
 
   t307 = t101 * t110;
@@ -2233,6 +2280,7 @@ func_fxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t339 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t89 * t335);
   tvsigma2 = t7 * t339;
 
+  if(out->vsigma != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vsigma[ip*p->dim.vsigma + 2] += tvsigma2;
 
   t342 = 0.1e1 / t25;
@@ -2302,6 +2350,7 @@ func_fxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t489 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t476 * t123 + t482 / 0.5e1 - t487);
   tv2rho20 = 0.2e1 * t189 + 0.2e1 * t205 + t7 * (t463 + t489);
 
+  if(out->v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rho2[ip*p->dim.v2rho2 + 0] += tv2rho20;
 
   t492 = t342 * t209;
@@ -2321,6 +2370,7 @@ func_fxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t541 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t525 * t123 + t531 / 0.1e2 + t482 / 0.1e2 - t487 + 0.3e1 / 0.2e2 * t6 * t196 * t266 + t538 / 0.1e2);
   tv2rho21 = t189 + t205 + t218 + t271 + t7 * (t515 + t541);
 
+  if(out->v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rho2[ip*p->dim.v2rho2 + 1] += tv2rho21;
 
   t546 = t209 * t209;
@@ -2373,6 +2423,7 @@ func_fxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t669 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t573 * t123 + t531 / 0.5e1 + 0.3e1 / 0.1e2 * t6 * t224 * t266 - t487 + t538 / 0.5e1 + 0.3e1 / 0.2e2 * t6 * t89 * t664);
   tv2rho22 = 0.2e1 * t218 + 0.2e1 * t271 + t7 * (t562 + t669);
 
+  if(out->v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rho2[ip*p->dim.v2rho2 + 2] += tv2rho22;
 
   t677 = t6 * t141 * t302 / 0.1e2;
@@ -2396,25 +2447,30 @@ func_fxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t745 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t136 * t302 + t677 + 0.3e1 / 0.2e2 * t6 * t31 * t740);
   tv2rhosigma0 = t7 * t745 + t306;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 0] += tv2rhosigma0;
 
   tv2rhosigma1 = 0.e0;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 1] += tv2rhosigma1;
 
   t752 = t6 * t200 * t335 / 0.1e2;
   t754 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t196 * t335 + t752);
   tv2rhosigma2 = t7 * t754 + t339;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 2] += tv2rhosigma2;
 
   t760 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t213 * t302 + t677);
   tv2rhosigma3 = t7 * t760 + t306;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 3] += tv2rhosigma3;
 
   tv2rhosigma4 = 0.e0;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 4] += tv2rhosigma4;
 
   t765 = t49 * t101;
@@ -2437,6 +2493,7 @@ func_fxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t832 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t224 * t335 + t752 + 0.3e1 / 0.2e2 * t6 * t89 * t827);
   tv2rhosigma5 = t7 * t832 + t339;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 5] += tv2rhosigma5;
 
   t834 = t286 * t165;
@@ -2464,22 +2521,27 @@ func_fxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t900 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t31 * t896);
   tv2sigma20 = t7 * t900;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 0] += tv2sigma20;
 
   tv2sigma21 = 0.e0;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 1] += tv2sigma21;
 
   tv2sigma22 = 0.e0;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 2] += tv2sigma22;
 
   tv2sigma23 = 0.e0;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 3] += tv2sigma23;
 
   tv2sigma24 = 0.e0;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 4] += tv2sigma24;
 
   t901 = t319 * t248;
@@ -2507,6 +2569,7 @@ func_fxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t967 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t89 * t963);
   tv2sigma25 = t7 * t967;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 5] += tv2sigma25;
 
 }
@@ -2729,6 +2792,7 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t127 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t89 * t123);
   tzk0 = t78 + t127;
 
+  if(out->zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     out->zk[ip*p->dim.zk + 0] += tzk0;
 
   t128 = t7 * t7;
@@ -2772,6 +2836,7 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t205 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t196 * t123 + t203);
   tvrho0 = t78 + t127 + t7 * (t189 + t205);
 
+  if(out->vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vrho[ip*p->dim.vrho + 0] += tvrho0;
 
   t209 = my_piecewise5(t11, 0, t15, 0, -t8 - t130);
@@ -2805,6 +2870,7 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t271 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t224 * t123 + t203 + 0.3e1 / 0.2e2 * t6 * t89 * t266);
   tvrho1 = t78 + t127 + t7 * (t218 + t271);
 
+  if(out->vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vrho[ip*p->dim.vrho + 1] += tvrho1;
 
   t274 = t52 * t61;
@@ -2822,10 +2888,12 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t306 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t31 * t302);
   tvsigma0 = t7 * t306;
 
+  if(out->vsigma != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vsigma[ip*p->dim.vsigma + 0] += tvsigma0;
 
   tvsigma1 = 0.e0;
 
+  if(out->vsigma != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vsigma[ip*p->dim.vsigma + 1] += tvsigma1;
 
   t307 = t101 * t110;
@@ -2843,6 +2911,7 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t339 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t89 * t335);
   tvsigma2 = t7 * t339;
 
+  if(out->vsigma != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vsigma[ip*p->dim.vsigma + 2] += tvsigma2;
 
   t342 = 0.1e1 / t25;
@@ -2912,6 +2981,7 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t489 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t476 * t123 + t482 / 0.5e1 - t487);
   tv2rho20 = 0.2e1 * t189 + 0.2e1 * t205 + t7 * (t463 + t489);
 
+  if(out->v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rho2[ip*p->dim.v2rho2 + 0] += tv2rho20;
 
   t492 = t342 * t209;
@@ -2931,6 +3001,7 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t541 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t525 * t123 + t531 / 0.1e2 + t482 / 0.1e2 - t487 + 0.3e1 / 0.2e2 * t6 * t196 * t266 + t538 / 0.1e2);
   tv2rho21 = t189 + t205 + t218 + t271 + t7 * (t515 + t541);
 
+  if(out->v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rho2[ip*p->dim.v2rho2 + 1] += tv2rho21;
 
   t546 = t209 * t209;
@@ -2983,6 +3054,7 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t669 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t573 * t123 + t531 / 0.5e1 + 0.3e1 / 0.1e2 * t6 * t224 * t266 - t487 + t538 / 0.5e1 + 0.3e1 / 0.2e2 * t6 * t89 * t664);
   tv2rho22 = 0.2e1 * t218 + 0.2e1 * t271 + t7 * (t562 + t669);
 
+  if(out->v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rho2[ip*p->dim.v2rho2 + 2] += tv2rho22;
 
   t677 = t6 * t141 * t302 / 0.1e2;
@@ -3006,25 +3078,30 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t745 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t136 * t302 + t677 + 0.3e1 / 0.2e2 * t6 * t31 * t740);
   tv2rhosigma0 = t7 * t745 + t306;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 0] += tv2rhosigma0;
 
   tv2rhosigma1 = 0.e0;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 1] += tv2rhosigma1;
 
   t752 = t6 * t200 * t335 / 0.1e2;
   t754 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t196 * t335 + t752);
   tv2rhosigma2 = t7 * t754 + t339;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 2] += tv2rhosigma2;
 
   t760 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t213 * t302 + t677);
   tv2rhosigma3 = t7 * t760 + t306;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 3] += tv2rhosigma3;
 
   tv2rhosigma4 = 0.e0;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 4] += tv2rhosigma4;
 
   t765 = t49 * t101;
@@ -3047,6 +3124,7 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t832 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t224 * t335 + t752 + 0.3e1 / 0.2e2 * t6 * t89 * t827);
   tv2rhosigma5 = t7 * t832 + t339;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 5] += tv2rhosigma5;
 
   t834 = t286 * t165;
@@ -3074,22 +3152,27 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t900 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t31 * t896);
   tv2sigma20 = t7 * t900;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 0] += tv2sigma20;
 
   tv2sigma21 = 0.e0;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 1] += tv2sigma21;
 
   tv2sigma22 = 0.e0;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 2] += tv2sigma22;
 
   tv2sigma23 = 0.e0;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 3] += tv2sigma23;
 
   tv2sigma24 = 0.e0;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 4] += tv2sigma24;
 
   t901 = t319 * t248;
@@ -3117,6 +3200,7 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t967 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t89 * t963);
   tv2sigma25 = t7 * t967;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 5] += tv2sigma25;
 
   t971 = 0.1e1 / t25 / t20;
@@ -3210,6 +3294,7 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t1199 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t1182 * t123 + 0.3e1 / 0.1e2 * t1188 - t1192 / 0.1e2 + t1197);
   tv3rho30 = 0.3e1 * t463 + 0.3e1 * t489 + t7 * (t1165 + t1199);
 
+  if(out->v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho3[ip*p->dim.v3rho3 + 0] += tv3rho30;
 
   t1202 = 0.2e1 * t515;
@@ -3243,6 +3328,7 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t1287 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t1263 * t123 + t1270 - t1273 / 0.3e2 + t1188 / 0.1e2 - t1192 / 0.15e2 + t1197 + 0.3e1 / 0.2e2 * t6 * t476 * t266 + t1282 - t1284 / 0.3e2);
   tv3rho31 = t463 + t489 + t1202 + t1203 + t7 * (t1247 + t1287);
 
+  if(out->v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho3[ip*p->dim.v3rho3 + 1] += tv3rho31;
 
   t1290 = t971 * t546;
@@ -3266,6 +3352,7 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t1358 = my_piecewise3(t79, 0, t1357);
   tv3rho32 = t1202 + t1203 + t562 + t669 + t7 * (t1319 + t1358);
 
+  if(out->v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho3[ip*p->dim.v3rho3 + 2] += tv3rho32;
 
   t1363 = t546 * t209;
@@ -3334,6 +3421,7 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t1553 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t1395 * t123 + 0.3e1 / 0.1e2 * t1340 + 0.9e1 / 0.2e2 * t6 * t573 * t266 - t1273 / 0.1e2 + 0.3e1 / 0.5e1 * t1347 + 0.9e1 / 0.2e2 * t6 * t224 * t664 + t1197 - t1284 / 0.1e2 + 0.3e1 / 0.1e2 * t1355 + 0.3e1 / 0.2e2 * t6 * t89 * t1548);
   tv3rho33 = 0.3e1 * t562 + 0.3e1 * t669 + t7 * (t1382 + t1553);
 
+  if(out->v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho3[ip*p->dim.v3rho3 + 3] += tv3rho33;
 
   t1561 = t6 * t360 * t302;
@@ -3382,10 +3470,12 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t1718 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t356 * t302 + t1561 / 0.5e1 + 0.3e1 / 0.1e2 * t6 * t136 * t740 - t1568 + t1570 / 0.5e1 + 0.3e1 / 0.2e2 * t6 * t31 * t1713);
   tv3rho2sigma0 = t7 * t1718 + 0.2e1 * t745;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 0] += tv3rho2sigma0;
 
   tv3rho2sigma1 = 0.e0;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 1] += tv3rho2sigma1;
 
   t1725 = t6 * t480 * t335;
@@ -3393,16 +3483,19 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t1731 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t476 * t335 + t1725 / 0.5e1 - t1729);
   tv3rho2sigma2 = t7 * t1731 + 0.2e1 * t754;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 2] += tv3rho2sigma2;
 
   t1737 = t6 * t505 * t302;
   t1745 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t501 * t302 + t1737 / 0.1e2 + 0.3e1 / 0.2e2 * t6 * t213 * t740 + t1561 / 0.1e2 - t1568 + t1570 / 0.1e2);
   tv3rho2sigma3 = t7 * t1745 + t745 + t760;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 3] += tv3rho2sigma3;
 
   tv3rho2sigma4 = 0.e0;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 4] += tv3rho2sigma4;
 
   t1751 = t6 * t529 * t335;
@@ -3410,15 +3503,18 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t1761 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t525 * t335 + t1751 / 0.1e2 + t1725 / 0.1e2 - t1729 + 0.3e1 / 0.2e2 * t6 * t196 * t827 + t1758 / 0.1e2);
   tv3rho2sigma5 = t7 * t1761 + t754 + t832;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 5] += tv3rho2sigma5;
 
   t1769 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t556 * t302 + t1737 / 0.5e1 - t1568);
   tv3rho2sigma6 = t7 * t1769 + 0.2e1 * t760;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 6] += tv3rho2sigma6;
 
   tv3rho2sigma7 = 0.e0;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 7] += tv3rho2sigma7;
 
   t1780 = t37 * t780;
@@ -3464,6 +3560,7 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t1926 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t573 * t335 + t1751 / 0.5e1 + 0.3e1 / 0.1e2 * t6 * t224 * t827 - t1729 + t1758 / 0.5e1 + 0.3e1 / 0.2e2 * t6 * t89 * t1921);
   tv3rho2sigma8 = t7 * t1926 + 0.2e1 * t832;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 8] += tv3rho2sigma8;
 
   t1933 = t6 * t141 * t896 / 0.1e2;
@@ -3506,49 +3603,60 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t2071 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t136 * t896 + t1933 + 0.3e1 / 0.2e2 * t6 * t31 * t2066);
   tv3rhosigma20 = t7 * t2071 + t900;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 0] += tv3rhosigma20;
 
   tv3rhosigma21 = 0.e0;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 1] += tv3rhosigma21;
 
   tv3rhosigma22 = 0.e0;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 2] += tv3rhosigma22;
 
   tv3rhosigma23 = 0.e0;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 3] += tv3rhosigma23;
 
   tv3rhosigma24 = 0.e0;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 4] += tv3rhosigma24;
 
   t2078 = t6 * t200 * t963 / 0.1e2;
   t2080 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t196 * t963 + t2078);
   tv3rhosigma25 = t7 * t2080 + t967;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 5] += tv3rhosigma25;
 
   t2086 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t213 * t896 + t1933);
   tv3rhosigma26 = t7 * t2086 + t900;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 6] += tv3rhosigma26;
 
   tv3rhosigma27 = 0.e0;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 7] += tv3rhosigma27;
 
   tv3rhosigma28 = 0.e0;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 8] += tv3rhosigma28;
 
   tv3rhosigma29 = 0.e0;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 9] += tv3rhosigma29;
 
   tv3rhosigma210 = 0.e0;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 10] += tv3rhosigma210;
 
   t2091 = t320 * t631;
@@ -3590,6 +3698,7 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t2228 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t224 * t963 + t2078 + 0.3e1 / 0.2e2 * t6 * t89 * t2223);
   tv3rhosigma211 = t7 * t2228 + t967;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 11] += tv3rhosigma211;
 
   t2235 = 0.1e1 / t878;
@@ -3636,38 +3745,47 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t2346 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t31 * t2342);
   tv3sigma30 = t7 * t2346;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 0] += tv3sigma30;
 
   tv3sigma31 = 0.e0;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 1] += tv3sigma31;
 
   tv3sigma32 = 0.e0;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 2] += tv3sigma32;
 
   tv3sigma33 = 0.e0;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 3] += tv3sigma33;
 
   tv3sigma34 = 0.e0;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 4] += tv3sigma34;
 
   tv3sigma35 = 0.e0;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 5] += tv3sigma35;
 
   tv3sigma36 = 0.e0;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 6] += tv3sigma36;
 
   tv3sigma37 = 0.e0;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 7] += tv3sigma37;
 
   tv3sigma38 = 0.e0;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 8] += tv3sigma38;
 
   t2347 = t945 * sigma[2];
@@ -3716,6 +3834,7 @@ func_kxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t2463 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t89 * t2459);
   tv3sigma39 = t7 * t2463;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 9] += tv3sigma39;
 
 }
@@ -4000,6 +4119,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t127 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t89 * t123);
   tzk0 = t78 + t127;
 
+  if(out->zk != NULL && (p->info->flags & XC_FLAGS_HAVE_EXC))
     out->zk[ip*p->dim.zk + 0] += tzk0;
 
   t128 = t7 * t7;
@@ -4043,6 +4163,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t205 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t196 * t123 + t203);
   tvrho0 = t78 + t127 + t7 * (t189 + t205);
 
+  if(out->vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vrho[ip*p->dim.vrho + 0] += tvrho0;
 
   t209 = my_piecewise5(t11, 0, t15, 0, -t8 - t130);
@@ -4076,6 +4197,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t271 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t224 * t123 + t203 + 0.3e1 / 0.2e2 * t6 * t89 * t266);
   tvrho1 = t78 + t127 + t7 * (t218 + t271);
 
+  if(out->vrho != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vrho[ip*p->dim.vrho + 1] += tvrho1;
 
   t274 = t52 * t61;
@@ -4093,10 +4215,12 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t306 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t31 * t302);
   tvsigma0 = t7 * t306;
 
+  if(out->vsigma != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vsigma[ip*p->dim.vsigma + 0] += tvsigma0;
 
   tvsigma1 = 0.e0;
 
+  if(out->vsigma != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vsigma[ip*p->dim.vsigma + 1] += tvsigma1;
 
   t307 = t101 * t110;
@@ -4114,6 +4238,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t339 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t89 * t335);
   tvsigma2 = t7 * t339;
 
+  if(out->vsigma != NULL && (p->info->flags & XC_FLAGS_HAVE_VXC))
     out->vsigma[ip*p->dim.vsigma + 2] += tvsigma2;
 
   t342 = 0.1e1 / t25;
@@ -4183,6 +4308,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t489 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t476 * t123 + t482 / 0.5e1 - t487);
   tv2rho20 = 0.2e1 * t189 + 0.2e1 * t205 + t7 * (t463 + t489);
 
+  if(out->v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rho2[ip*p->dim.v2rho2 + 0] += tv2rho20;
 
   t492 = t342 * t209;
@@ -4202,6 +4328,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t541 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t525 * t123 + t531 / 0.1e2 + t482 / 0.1e2 - t487 + 0.3e1 / 0.2e2 * t6 * t196 * t266 + t538 / 0.1e2);
   tv2rho21 = t189 + t205 + t218 + t271 + t7 * (t515 + t541);
 
+  if(out->v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rho2[ip*p->dim.v2rho2 + 1] += tv2rho21;
 
   t546 = t209 * t209;
@@ -4254,6 +4381,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t669 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t573 * t123 + t531 / 0.5e1 + 0.3e1 / 0.1e2 * t6 * t224 * t266 - t487 + t538 / 0.5e1 + 0.3e1 / 0.2e2 * t6 * t89 * t664);
   tv2rho22 = 0.2e1 * t218 + 0.2e1 * t271 + t7 * (t562 + t669);
 
+  if(out->v2rho2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rho2[ip*p->dim.v2rho2 + 2] += tv2rho22;
 
   t677 = t6 * t141 * t302 / 0.1e2;
@@ -4277,25 +4405,30 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t745 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t136 * t302 + t677 + 0.3e1 / 0.2e2 * t6 * t31 * t740);
   tv2rhosigma0 = t7 * t745 + t306;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 0] += tv2rhosigma0;
 
   tv2rhosigma1 = 0.e0;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 1] += tv2rhosigma1;
 
   t752 = t6 * t200 * t335 / 0.1e2;
   t754 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t196 * t335 + t752);
   tv2rhosigma2 = t7 * t754 + t339;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 2] += tv2rhosigma2;
 
   t760 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t213 * t302 + t677);
   tv2rhosigma3 = t7 * t760 + t306;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 3] += tv2rhosigma3;
 
   tv2rhosigma4 = 0.e0;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 4] += tv2rhosigma4;
 
   t765 = t49 * t101;
@@ -4318,6 +4451,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t832 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t224 * t335 + t752 + 0.3e1 / 0.2e2 * t6 * t89 * t827);
   tv2rhosigma5 = t7 * t832 + t339;
 
+  if(out->v2rhosigma != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2rhosigma[ip*p->dim.v2rhosigma + 5] += tv2rhosigma5;
 
   t834 = t286 * t165;
@@ -4345,22 +4479,27 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t900 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t31 * t896);
   tv2sigma20 = t7 * t900;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 0] += tv2sigma20;
 
   tv2sigma21 = 0.e0;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 1] += tv2sigma21;
 
   tv2sigma22 = 0.e0;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 2] += tv2sigma22;
 
   tv2sigma23 = 0.e0;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 3] += tv2sigma23;
 
   tv2sigma24 = 0.e0;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 4] += tv2sigma24;
 
   t901 = t319 * t248;
@@ -4388,6 +4527,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t967 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t89 * t963);
   tv2sigma25 = t7 * t967;
 
+  if(out->v2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_FXC))
     out->v2sigma2[ip*p->dim.v2sigma2 + 5] += tv2sigma25;
 
   t971 = 0.1e1 / t25 / t20;
@@ -4481,6 +4621,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t1199 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t1182 * t123 + 0.3e1 / 0.1e2 * t1188 - t1192 / 0.1e2 + t1197);
   tv3rho30 = 0.3e1 * t463 + 0.3e1 * t489 + t7 * (t1165 + t1199);
 
+  if(out->v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho3[ip*p->dim.v3rho3 + 0] += tv3rho30;
 
   t1202 = 0.2e1 * t515;
@@ -4514,6 +4655,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t1287 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t1263 * t123 + t1270 - t1273 / 0.3e2 + t1188 / 0.1e2 - t1192 / 0.15e2 + t1197 + 0.3e1 / 0.2e2 * t6 * t476 * t266 + t1282 - t1284 / 0.3e2);
   tv3rho31 = t463 + t489 + t1202 + t1203 + t7 * (t1247 + t1287);
 
+  if(out->v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho3[ip*p->dim.v3rho3 + 1] += tv3rho31;
 
   t1290 = t971 * t546;
@@ -4537,6 +4679,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t1358 = my_piecewise3(t79, 0, t1357);
   tv3rho32 = t1202 + t1203 + t562 + t669 + t7 * (t1319 + t1358);
 
+  if(out->v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho3[ip*p->dim.v3rho3 + 2] += tv3rho32;
 
   t1363 = t546 * t209;
@@ -4605,6 +4748,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t1553 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t1395 * t123 + 0.3e1 / 0.1e2 * t1340 + 0.9e1 / 0.2e2 * t6 * t573 * t266 - t1273 / 0.1e2 + 0.3e1 / 0.5e1 * t1347 + 0.9e1 / 0.2e2 * t6 * t224 * t664 + t1197 - t1284 / 0.1e2 + 0.3e1 / 0.1e2 * t1355 + 0.3e1 / 0.2e2 * t6 * t89 * t1548);
   tv3rho33 = 0.3e1 * t562 + 0.3e1 * t669 + t7 * (t1382 + t1553);
 
+  if(out->v3rho3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho3[ip*p->dim.v3rho3 + 3] += tv3rho33;
 
   t1561 = t6 * t360 * t302;
@@ -4653,10 +4797,12 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t1718 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t356 * t302 + t1561 / 0.5e1 + 0.3e1 / 0.1e2 * t6 * t136 * t740 - t1568 + t1570 / 0.5e1 + 0.3e1 / 0.2e2 * t6 * t31 * t1713);
   tv3rho2sigma0 = t7 * t1718 + 0.2e1 * t745;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 0] += tv3rho2sigma0;
 
   tv3rho2sigma1 = 0.e0;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 1] += tv3rho2sigma1;
 
   t1725 = t6 * t480 * t335;
@@ -4664,16 +4810,19 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t1731 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t476 * t335 + t1725 / 0.5e1 - t1729);
   tv3rho2sigma2 = t7 * t1731 + 0.2e1 * t754;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 2] += tv3rho2sigma2;
 
   t1737 = t6 * t505 * t302;
   t1745 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t501 * t302 + t1737 / 0.1e2 + 0.3e1 / 0.2e2 * t6 * t213 * t740 + t1561 / 0.1e2 - t1568 + t1570 / 0.1e2);
   tv3rho2sigma3 = t7 * t1745 + t745 + t760;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 3] += tv3rho2sigma3;
 
   tv3rho2sigma4 = 0.e0;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 4] += tv3rho2sigma4;
 
   t1751 = t6 * t529 * t335;
@@ -4681,15 +4830,18 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t1761 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t525 * t335 + t1751 / 0.1e2 + t1725 / 0.1e2 - t1729 + 0.3e1 / 0.2e2 * t6 * t196 * t827 + t1758 / 0.1e2);
   tv3rho2sigma5 = t7 * t1761 + t754 + t832;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 5] += tv3rho2sigma5;
 
   t1769 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t556 * t302 + t1737 / 0.5e1 - t1568);
   tv3rho2sigma6 = t7 * t1769 + 0.2e1 * t760;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 6] += tv3rho2sigma6;
 
   tv3rho2sigma7 = 0.e0;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 7] += tv3rho2sigma7;
 
   t1780 = t37 * t780;
@@ -4735,6 +4887,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t1926 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t573 * t335 + t1751 / 0.5e1 + 0.3e1 / 0.1e2 * t6 * t224 * t827 - t1729 + t1758 / 0.5e1 + 0.3e1 / 0.2e2 * t6 * t89 * t1921);
   tv3rho2sigma8 = t7 * t1926 + 0.2e1 * t832;
 
+  if(out->v3rho2sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rho2sigma[ip*p->dim.v3rho2sigma + 8] += tv3rho2sigma8;
 
   t1933 = t6 * t141 * t896 / 0.1e2;
@@ -4777,49 +4930,60 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t2071 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t136 * t896 + t1933 + 0.3e1 / 0.2e2 * t6 * t31 * t2066);
   tv3rhosigma20 = t7 * t2071 + t900;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 0] += tv3rhosigma20;
 
   tv3rhosigma21 = 0.e0;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 1] += tv3rhosigma21;
 
   tv3rhosigma22 = 0.e0;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 2] += tv3rhosigma22;
 
   tv3rhosigma23 = 0.e0;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 3] += tv3rhosigma23;
 
   tv3rhosigma24 = 0.e0;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 4] += tv3rhosigma24;
 
   t2078 = t6 * t200 * t963 / 0.1e2;
   t2080 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t196 * t963 + t2078);
   tv3rhosigma25 = t7 * t2080 + t967;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 5] += tv3rhosigma25;
 
   t2086 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t213 * t896 + t1933);
   tv3rhosigma26 = t7 * t2086 + t900;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 6] += tv3rhosigma26;
 
   tv3rhosigma27 = 0.e0;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 7] += tv3rhosigma27;
 
   tv3rhosigma28 = 0.e0;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 8] += tv3rhosigma28;
 
   tv3rhosigma29 = 0.e0;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 9] += tv3rhosigma29;
 
   tv3rhosigma210 = 0.e0;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 10] += tv3rhosigma210;
 
   t2091 = t320 * t631;
@@ -4861,6 +5025,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t2228 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t224 * t963 + t2078 + 0.3e1 / 0.2e2 * t6 * t89 * t2223);
   tv3rhosigma211 = t7 * t2228 + t967;
 
+  if(out->v3rhosigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3rhosigma2[ip*p->dim.v3rhosigma2 + 11] += tv3rhosigma211;
 
   t2235 = 0.1e1 / t878;
@@ -4907,38 +5072,47 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t2346 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t31 * t2342);
   tv3sigma30 = t7 * t2346;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 0] += tv3sigma30;
 
   tv3sigma31 = 0.e0;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 1] += tv3sigma31;
 
   tv3sigma32 = 0.e0;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 2] += tv3sigma32;
 
   tv3sigma33 = 0.e0;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 3] += tv3sigma33;
 
   tv3sigma34 = 0.e0;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 4] += tv3sigma34;
 
   tv3sigma35 = 0.e0;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 5] += tv3sigma35;
 
   tv3sigma36 = 0.e0;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 6] += tv3sigma36;
 
   tv3sigma37 = 0.e0;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 7] += tv3sigma37;
 
   tv3sigma38 = 0.e0;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 8] += tv3sigma38;
 
   t2347 = t945 * sigma[2];
@@ -4987,6 +5161,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t2463 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t89 * t2459);
   tv3sigma39 = t7 * t2463;
 
+  if(out->v3sigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_KXC))
     out->v3sigma3[ip*p->dim.v3sigma3 + 9] += tv3sigma39;
 
   t2466 = t20 * t20;
@@ -5068,6 +5243,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t2815 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t2793 * t30 * t123 + 0.2e1 / 0.5e1 * t2800 - t2804 / 0.5e1 + 0.8e1 / 0.45e2 * t2808 - t2813);
   tv4rho40 = 0.4e1 * t1165 + 0.4e1 * t1199 + t7 * (t2771 + t2815);
 
+  if(out->v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho4[ip*p->dim.v4rho4 + 0] += tv4rho40;
 
   t2822 = t6 * t1219 * t140 * t74;
@@ -5099,6 +5275,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t2944 = my_piecewise3(t79, 0, t2943);
   tv4rho41 = t1165 + t1199 + 0.3e1 * t1247 + 0.3e1 * t1287 + t7 * (t2888 + t2944);
 
+  if(out->v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho4[ip*p->dim.v4rho4 + 1] += tv4rho41;
 
   t2953 = t6 * t1303 * t140 * t74;
@@ -5122,6 +5299,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t3076 = my_piecewise3(t79, 0, t3075);
   tv4rho42 = 0.2e1 * t1247 + 0.2e1 * t1287 + 0.2e1 * t1319 + 0.2e1 * t1358 + t7 * (t3010 + t3076);
 
+  if(out->v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho4[ip*p->dim.v4rho4 + 2] += tv4rho42;
 
   t3097 = my_piecewise5(t11, 0, t15, 0, t2848 + t2849);
@@ -5139,6 +5317,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t3178 = my_piecewise3(t79, 0, t3177);
   tv4rho43 = 0.3e1 * t1319 + 0.3e1 * t1358 + t1382 + t1553 + t7 * (t3120 + t3178);
 
+  if(out->v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho4[ip*p->dim.v4rho4 + 3] += tv4rho43;
 
   t3183 = t546 * t546;
@@ -5197,6 +5376,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t3480 = my_piecewise3(t79, 0, t3479);
   tv4rho44 = 0.4e1 * t1382 + 0.4e1 * t1553 + t7 * (t3208 + t3480);
 
+  if(out->v4rho4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho4[ip*p->dim.v4rho4 + 4] += tv4rho44;
 
   t3488 = t6 * t992 * t302;
@@ -5240,10 +5420,12 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t3787 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t988 * t302 + 0.3e1 / 0.1e2 * t3488 + 0.9e1 / 0.2e2 * t6 * t356 * t740 - t3494 / 0.1e2 + 0.3e1 / 0.5e1 * t3497 + 0.9e1 / 0.2e2 * t6 * t136 * t1713 + t3504 - t3506 / 0.1e2 + 0.3e1 / 0.1e2 * t3509 + 0.3e1 / 0.2e2 * t6 * t31 * (-0.36e3 * t1150 * t734 * t455 + 0.48e3 * t2732 * t299 * t1151 - 0.6e2 * t1140 * t737 - 0.2e2 * t729 * t1157 - 0.6e2 * t1687 * t455 - 0.36e3 * t2723 * t1701 - 0.6e2 * t446 * t1710 - 0.6e2 * t3738 * t181 - 0.2e2 * t2715 * t299 + 0.2e2 * t3735 * t71 + t3781));
   tv4rho3sigma0 = t7 * t3787 + 0.3e1 * t1718;
 
+  if(out->v4rho3sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho3sigma[ip*p->dim.v4rho3sigma + 0] += tv4rho3sigma0;
 
   tv4rho3sigma1 = 0.e0;
 
+  if(out->v4rho3sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho3sigma[ip*p->dim.v4rho3sigma + 1] += tv4rho3sigma1;
 
   t3794 = t6 * t1186 * t335;
@@ -5252,6 +5434,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t3803 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t1182 * t335 + 0.3e1 / 0.1e2 * t3794 - t3797 / 0.1e2 + t3801);
   tv4rho3sigma2 = t7 * t3803 + 0.3e1 * t1731;
 
+  if(out->v4rho3sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho3sigma[ip*p->dim.v4rho3sigma + 2] += tv4rho3sigma2;
 
   t3805 = 0.2e1 * t1745;
@@ -5262,10 +5445,12 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t3830 = my_piecewise3(t1, 0, t3829);
   tv4rho3sigma3 = t7 * t3830 + t1718 + t3805;
 
+  if(out->v4rho3sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho3sigma[ip*p->dim.v4rho3sigma + 3] += tv4rho3sigma3;
 
   tv4rho3sigma4 = 0.e0;
 
+  if(out->v4rho3sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho3sigma[ip*p->dim.v4rho3sigma + 4] += tv4rho3sigma4;
 
   t3832 = 0.2e1 * t1761;
@@ -5276,16 +5461,19 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t3854 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t1263 * t335 + t3838 - t3840 / 0.3e2 + t3794 / 0.1e2 - t3797 / 0.15e2 + t3801 + 0.3e1 / 0.2e2 * t6 * t476 * t827 + t3849 - t3851 / 0.3e2);
   tv4rho3sigma5 = t7 * t3854 + t1731 + t3832;
 
+  if(out->v4rho3sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho3sigma[ip*p->dim.v4rho3sigma + 5] += tv4rho3sigma5;
 
   t3860 = t6 * t1308 * t302;
   t3869 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t1304 * t302 + t3860 / 0.1e2 + 0.3e1 / 0.2e2 * t6 * t556 * t740 + t3811 - t3816 / 0.15e2 + t3820 - t3494 / 0.3e2 + t3504 - t3506 / 0.3e2);
   tv4rho3sigma6 = t7 * t3869 + t1769 + t3805;
 
+  if(out->v4rho3sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho3sigma[ip*p->dim.v4rho3sigma + 6] += tv4rho3sigma6;
 
   tv4rho3sigma7 = 0.e0;
 
+  if(out->v4rho3sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho3sigma[ip*p->dim.v4rho3sigma + 7] += tv4rho3sigma7;
 
   t3875 = t6 * t1338 * t335;
@@ -5295,15 +5483,18 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t3893 = my_piecewise3(t79, 0, t3892);
   tv4rho3sigma8 = t7 * t3893 + t1926 + t3832;
 
+  if(out->v4rho3sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho3sigma[ip*p->dim.v4rho3sigma + 8] += tv4rho3sigma8;
 
   t3902 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t1375 * t302 + 0.3e1 / 0.1e2 * t3860 - t3816 / 0.1e2 + t3504);
   tv4rho3sigma9 = t7 * t3902 + 0.3e1 * t1769;
 
+  if(out->v4rho3sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho3sigma[ip*p->dim.v4rho3sigma + 9] += tv4rho3sigma9;
 
   tv4rho3sigma10 = 0.e0;
 
+  if(out->v4rho3sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho3sigma[ip*p->dim.v4rho3sigma + 10] += tv4rho3sigma10;
 
   t3933 = t113 * t1444;
@@ -5340,6 +5531,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t4198 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t1395 * t335 + 0.3e1 / 0.1e2 * t3875 + 0.9e1 / 0.2e2 * t6 * t573 * t827 - t3840 / 0.1e2 + 0.3e1 / 0.5e1 * t3882 + 0.9e1 / 0.2e2 * t6 * t224 * t1921 + t3801 - t3851 / 0.1e2 + 0.3e1 / 0.1e2 * t3890 + 0.3e1 / 0.2e2 * t6 * t89 * (-0.2e2 * t4146 * t120 - 0.6e2 * t1528 * t824 + 0.24e3 * t1531 * t1912 - 0.2e2 * t816 * t1545 - 0.6e2 * t1895 * t661 - 0.6e2 * t652 * t1918 - 0.2e2 * t262 * t4146 - 0.6e2 * t4149 * t263 - 0.2e2 * t3442 * t332 + 0.12e3 * t3445 * t821 + t4192));
   tv4rho3sigma11 = t7 * t4198 + 0.3e1 * t1926;
 
+  if(out->v4rho3sigma != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho3sigma[ip*p->dim.v4rho3sigma + 11] += tv4rho3sigma11;
 
   t4205 = t6 * t360 * t896;
@@ -5371,22 +5563,27 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t4495 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t356 * t896 + t4205 / 0.5e1 + 0.3e1 / 0.1e2 * t6 * t136 * t2066 - t4212 + t4214 / 0.5e1 + 0.3e1 / 0.2e2 * t6 * t31 * (t4249 + t4489));
   tv4rho2sigma20 = t7 * t4495 + 0.2e1 * t2071;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 0] += tv4rho2sigma20;
 
   tv4rho2sigma21 = 0.e0;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 1] += tv4rho2sigma21;
 
   tv4rho2sigma22 = 0.e0;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 2] += tv4rho2sigma22;
 
   tv4rho2sigma23 = 0.e0;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 3] += tv4rho2sigma23;
 
   tv4rho2sigma24 = 0.e0;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 4] += tv4rho2sigma24;
 
   t4502 = t6 * t480 * t963;
@@ -5394,28 +5591,34 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t4508 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t476 * t963 + t4502 / 0.5e1 - t4506);
   tv4rho2sigma25 = t7 * t4508 + 0.2e1 * t2080;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 5] += tv4rho2sigma25;
 
   t4514 = t6 * t505 * t896;
   t4522 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t501 * t896 + t4514 / 0.1e2 + 0.3e1 / 0.2e2 * t6 * t213 * t2066 + t4205 / 0.1e2 - t4212 + t4214 / 0.1e2);
   tv4rho2sigma26 = t7 * t4522 + t2071 + t2086;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 6] += tv4rho2sigma26;
 
   tv4rho2sigma27 = 0.e0;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 7] += tv4rho2sigma27;
 
   tv4rho2sigma28 = 0.e0;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 8] += tv4rho2sigma28;
 
   tv4rho2sigma29 = 0.e0;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 9] += tv4rho2sigma29;
 
   tv4rho2sigma210 = 0.e0;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 10] += tv4rho2sigma210;
 
   t4528 = t6 * t529 * t963;
@@ -5423,27 +5626,33 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t4538 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t525 * t963 + t4528 / 0.1e2 + t4502 / 0.1e2 - t4506 + 0.3e1 / 0.2e2 * t6 * t196 * t2223 + t4535 / 0.1e2);
   tv4rho2sigma211 = t7 * t4538 + t2080 + t2228;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 11] += tv4rho2sigma211;
 
   t4546 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t556 * t896 + t4514 / 0.5e1 - t4212);
   tv4rho2sigma212 = t7 * t4546 + 0.2e1 * t2086;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 12] += tv4rho2sigma212;
 
   tv4rho2sigma213 = 0.e0;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 13] += tv4rho2sigma213;
 
   tv4rho2sigma214 = 0.e0;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 14] += tv4rho2sigma214;
 
   tv4rho2sigma215 = 0.e0;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 15] += tv4rho2sigma215;
 
   tv4rho2sigma216 = 0.e0;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 16] += tv4rho2sigma216;
 
   t4579 = 0.1e1 / t91 / t1478;
@@ -5473,6 +5682,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t4835 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t573 * t963 + t4528 / 0.5e1 + 0.3e1 / 0.1e2 * t6 * t224 * t2223 - t4506 + t4535 / 0.5e1 + 0.3e1 / 0.2e2 * t6 * t89 * (t4796 + t4829));
   tv4rho2sigma217 = t7 * t4835 + 0.2e1 * t2228;
 
+  if(out->v4rho2sigma2 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rho2sigma2[ip*p->dim.v4rho2sigma2 + 17] += tv4rho2sigma217;
 
   t4842 = t6 * t141 * t2342 / 0.1e2;
@@ -5495,81 +5705,100 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t5080 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t136 * t2342 + t4842 + 0.3e1 / 0.2e2 * t6 * t31 * (-0.6e2 * t1687 * t893 + 0.24e3 * t1690 * t2055 + 0.12e3 * t1690 * t2060 - 0.2e2 * t5025 * t181 - 0.6e2 * t2041 * t737 - 0.36e3 * t3758 * t2052 - 0.6e2 * t4469 * t299 + 0.12e3 * t3755 * t890 + 0.12e3 * t4463 * t734 + 0.2e2 * t5022 * t71 + t5074));
   tv4rhosigma30 = t7 * t5080 + t2346;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 0] += tv4rhosigma30;
 
   tv4rhosigma31 = 0.e0;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 1] += tv4rhosigma31;
 
   tv4rhosigma32 = 0.e0;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 2] += tv4rhosigma32;
 
   tv4rhosigma33 = 0.e0;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 3] += tv4rhosigma33;
 
   tv4rhosigma34 = 0.e0;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 4] += tv4rhosigma34;
 
   tv4rhosigma35 = 0.e0;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 5] += tv4rhosigma35;
 
   tv4rhosigma36 = 0.e0;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 6] += tv4rhosigma36;
 
   tv4rhosigma37 = 0.e0;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 7] += tv4rhosigma37;
 
   tv4rhosigma38 = 0.e0;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 8] += tv4rhosigma38;
 
   t5087 = t6 * t200 * t2459 / 0.1e2;
   t5089 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t196 * t2459 + t5087);
   tv4rhosigma39 = t7 * t5089 + t2463;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 9] += tv4rhosigma39;
 
   t5095 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t213 * t2342 + t4842);
   tv4rhosigma310 = t7 * t5095 + t2346;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 10] += tv4rhosigma310;
 
   tv4rhosigma311 = 0.e0;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 11] += tv4rhosigma311;
 
   tv4rhosigma312 = 0.e0;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 12] += tv4rhosigma312;
 
   tv4rhosigma313 = 0.e0;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 13] += tv4rhosigma313;
 
   tv4rhosigma314 = 0.e0;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 14] += tv4rhosigma314;
 
   tv4rhosigma315 = 0.e0;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 15] += tv4rhosigma315;
 
   tv4rhosigma316 = 0.e0;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 16] += tv4rhosigma316;
 
   tv4rhosigma317 = 0.e0;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 17] += tv4rhosigma317;
 
   tv4rhosigma318 = 0.e0;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 18] += tv4rhosigma318;
 
   t5107 = t947 * t229;
@@ -5591,6 +5820,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t5332 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t224 * t2459 + t5087 + 0.3e1 / 0.2e2 * t6 * t89 * (0.2e2 * t5274 * t120 - 0.6e2 * t1895 * t960 + 0.24e3 * t1898 * t2212 + 0.12e3 * t1898 * t2217 - 0.6e2 * t2198 * t824 - 0.36e3 * t4179 * t2209 - 0.2e2 * t5277 * t263 - 0.6e2 * t4803 * t332 + 0.12e3 * t4176 * t957 + 0.12e3 * t4826 * t821 + t5326));
   tv4rhosigma319 = t7 * t5332 + t2463;
 
+  if(out->v4rhosigma3 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4rhosigma3[ip*p->dim.v4rhosigma3 + 19] += tv4rhosigma319;
 
   t5358 = 0.1e1 / t2243;
@@ -5611,58 +5841,72 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t5528 = my_piecewise3(t1, 0, 0.3e1 / 0.2e2 * t6 * t31 * t5524);
   tv4sigma40 = t7 * t5528;
 
+  if(out->v4sigma4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4sigma4[ip*p->dim.v4sigma4 + 0] += tv4sigma40;
 
   tv4sigma41 = 0.e0;
 
+  if(out->v4sigma4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4sigma4[ip*p->dim.v4sigma4 + 1] += tv4sigma41;
 
   tv4sigma42 = 0.e0;
 
+  if(out->v4sigma4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4sigma4[ip*p->dim.v4sigma4 + 2] += tv4sigma42;
 
   tv4sigma43 = 0.e0;
 
+  if(out->v4sigma4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4sigma4[ip*p->dim.v4sigma4 + 3] += tv4sigma43;
 
   tv4sigma44 = 0.e0;
 
+  if(out->v4sigma4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4sigma4[ip*p->dim.v4sigma4 + 4] += tv4sigma44;
 
   tv4sigma45 = 0.e0;
 
+  if(out->v4sigma4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4sigma4[ip*p->dim.v4sigma4 + 5] += tv4sigma45;
 
   tv4sigma46 = 0.e0;
 
+  if(out->v4sigma4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4sigma4[ip*p->dim.v4sigma4 + 6] += tv4sigma46;
 
   tv4sigma47 = 0.e0;
 
+  if(out->v4sigma4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4sigma4[ip*p->dim.v4sigma4 + 7] += tv4sigma47;
 
   tv4sigma48 = 0.e0;
 
+  if(out->v4sigma4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4sigma4[ip*p->dim.v4sigma4 + 8] += tv4sigma48;
 
   tv4sigma49 = 0.e0;
 
+  if(out->v4sigma4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4sigma4[ip*p->dim.v4sigma4 + 9] += tv4sigma49;
 
   tv4sigma410 = 0.e0;
 
+  if(out->v4sigma4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4sigma4[ip*p->dim.v4sigma4 + 10] += tv4sigma410;
 
   tv4sigma411 = 0.e0;
 
+  if(out->v4sigma4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4sigma4[ip*p->dim.v4sigma4 + 11] += tv4sigma411;
 
   tv4sigma412 = 0.e0;
 
+  if(out->v4sigma4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4sigma4[ip*p->dim.v4sigma4 + 12] += tv4sigma412;
 
   tv4sigma413 = 0.e0;
 
+  if(out->v4sigma4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4sigma4[ip*p->dim.v4sigma4 + 13] += tv4sigma413;
 
   t5544 = t1088 * t2405 * t319;
@@ -5682,6 +5926,7 @@ func_lxc_pol(const xc_func_type * const p, size_t ip, const double * const rho, 
   t5721 = my_piecewise3(t79, 0, 0.3e1 / 0.2e2 * t6 * t89 * t5717);
   tv4sigma414 = t7 * t5721;
 
+  if(out->v4sigma4 != NULL && (p->info->flags & XC_FLAGS_HAVE_LXC))
     out->v4sigma4[ip*p->dim.v4sigma4 + 14] += tv4sigma414;
 
 }

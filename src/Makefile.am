@@ -122,7 +122,8 @@ libxc_la_FUNC_SOURCES = \
         mgga_c_r2scanl.c mgga_k_pgslb.c mgga_c_kcisk.c mgga_x_regtm.c   \
 	mgga_c_rregtm.c mgga_x_mcml.c mgga_c_rmggac.c mgga_x_rppscan.c  \
 	mgga_c_rppscan.c mgga_x_r4scan.c mgga_x_ft98.c                  \
-	hyb_mgga_xc_br3p86.c mgga_x_vcml.c
+	hyb_mgga_xc_br3p86.c mgga_x_vcml.c \
+	hgga.c hgga_x_jse_b88.c
 
 libxc_la_SOURCES = references.c $(libxc_la_FUNC_SOURCES)
 libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)
@@ -142,7 +143,7 @@ noinst_HEADERS = \
 	work_lda.c work_lda_inc.c work_gga.c work_gga_inc.c	\
 	work_mgga.c work_mgga_inc.c \
 	libxc_master.F90 \
-        funcs_lda.c funcs_gga.c funcs_mgga.c funcs_key.c \
+        funcs_lda.c funcs_gga.c funcs_mgga.c funcs_hgga.c funcs_key.c \
 	libxc_inc.f90
 include_HEADERS = xc.h xc_funcs.h xc_funcs_removed.h xc_funcs_worker.h
 

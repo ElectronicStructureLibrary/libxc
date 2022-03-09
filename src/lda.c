@@ -49,7 +49,7 @@ xc_lda_sanity_check(const xc_func_info_type *info, int order, xc_lda_out_params 
 void
 xc_lda_initalize(const xc_func_type *func, size_t np, xc_lda_out_params *out)
 {
-  const xc_dimensions *dim = &(func->dim);
+  const xc_dimensions *dim = func->dim;
 
   /* initialize output */
   if(out->zk != NULL)

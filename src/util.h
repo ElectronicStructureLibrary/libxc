@@ -310,12 +310,20 @@ const char *get_kind(const xc_func_type *func);
 const char *get_family(const xc_func_type *func);
 double get_ext_param(const xc_func_type *func, const double *values, int index);
 void set_ext_params_cpy  (xc_func_type *p, const double *ext_params);
+void set_ext_params_omega(xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_omega(xc_func_type *p, const double *ext_params);
+void set_ext_params_exx(xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params);
+void set_ext_params_cam(xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_cam(xc_func_type *p, const double *ext_params);
+void set_ext_params_camy(xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_camy(xc_func_type *p, const double *ext_params);
+void set_ext_params_cam_sr(xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_cam_sr(xc_func_type *p, const double *ext_params);
+void set_ext_params_lc(xc_func_type *p, const double *ext_params);
 void set_ext_params_cpy_lc(xc_func_type *p, const double *ext_params);
+void set_ext_params_lcy(xc_func_type *p, const double *ext_params);
+void set_ext_params_cpy_lcy(xc_func_type *p, const double *ext_params);
 
 GPU_FUNCTION
 double xc_mgga_x_br89_get_x(double Q);

@@ -213,8 +213,6 @@ lrc_set_ext_params(xc_func_type *p, const double *ext_params)
   double alpha, beta, omega;
 
   assert(p != NULL);
-
-  alpha = get_ext_param(p, ext_params, 0);
   beta  = get_ext_param(p, ext_params, 1);
   omega = get_ext_param(p, ext_params, 2);
 
@@ -223,14 +221,7 @@ lrc_set_ext_params(xc_func_type *p, const double *ext_params)
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", omega);
 
   /* Set the hybrid flags */
-  assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_coeff[0] = beta;
-  p->hyb_omega[0] = omega;
-
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_coeff[1] = alpha;
-  p->hyb_omega[1] = 0.0;
+  set_ext_params_cam(p, ext_params);
 }
 
 static void

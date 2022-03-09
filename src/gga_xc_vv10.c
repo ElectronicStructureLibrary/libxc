@@ -55,16 +55,16 @@ const xc_func_info_type xc_func_info_gga_xc_vv10 = {
 };
 
 #define LC_N_PAR 5
-static const char  *lc_names[LC_N_PAR] = {"_alpha", "_beta", "_omega", "_b", "_C" };
+static const char  *lc_names[LC_N_PAR] = {"_b", "_C", "_alpha", "_beta", "_omega"};
 static const char  *lc_desc[LC_N_PAR]  = {
+  "VV10 b parameter",
+  "VV10 C parameter",
   "Fraction of Hartree-Fock exchange",
   "Fraction of short-range exact exchange",
-  "Range separation constant",
-  "VV10 b parameter",
-  "VV10 C parameter"
+  "Range separation constant"
 };
 
-static const double par_lc_vv10[LC_N_PAR] = {1.00, -1.00, 0.45, 6.3, 0.0089};
+static const double par_lc_vv10[LC_N_PAR] = {6.3, 0.0089, 1.00, -1.00, 0.45};
 
 static void
 lc_set_ext_params(xc_func_type *p, const double *ext_params)
@@ -73,25 +73,18 @@ lc_set_ext_params(xc_func_type *p, const double *ext_params)
 
   assert(p != NULL);
 
-  alpha = get_ext_param(p, ext_params, 0);
-  beta  = get_ext_param(p, ext_params, 1);
-  omega = get_ext_param(p, ext_params, 2);
-  b     = get_ext_param(p, ext_params, 3);
-  C     = get_ext_param(p, ext_params, 4);
+  b     = get_ext_param(p, ext_params, 0);
+  C     = get_ext_param(p, ext_params, 1);
+  alpha = get_ext_param(p, ext_params, 2);
+  beta  = get_ext_param(p, ext_params, 3);
+  omega = get_ext_param(p, ext_params, 4);
 
   /* DFT part */
   p->mix_coef[0] = -beta;
   xc_func_set_ext_params_name(p->func_aux[0], "_omega", omega);
 
   /* Set the hybrid flags */
-  assert(p->hyb_number_terms == 2);
-  p->hyb_type[0]  = XC_HYB_ERF_SR;
-  p->hyb_coeff[0] = beta;
-  p->hyb_omega[0] = omega;
-
-  p->hyb_type[1]  = XC_HYB_FOCK;
-  p->hyb_coeff[1] = alpha;
-  p->hyb_omega[1] = 0.0;
+  set_ext_params_cam(p, ext_params);
 
   /* Non-local correlation part */
   p->nlc_b = b;

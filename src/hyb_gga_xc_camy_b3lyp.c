@@ -11,34 +11,55 @@
 #define XC_HYB_GGA_XC_CAMY_B3LYP        470 /* B3LYP with Yukawa screening */
 #define XC_HYB_GGA_XC_CAMY_PBEH         682 /* PBEH with Yukawa screening */
 
+#define CAM_N_PAR 3
+static const char  *cam_names[CAM_N_PAR]  = {"_alpha", "_beta", "_omega"};
+static const char  *cam_desc[CAM_N_PAR]   = {
+  "Fraction of exact exchange",
+  "Fraction of short-range exchange",
+  "Range separation parameter"
+};
+
+#define CAMYB3_N_PAR 4
+static const char  *camb3_names[CAMYB3_N_PAR]  = {"_ac", "_alpha", "_beta", "_omega"};
+static const char  *camb3_desc[CAMYB3_N_PAR]   = {
+  "Fraction of LYP correlation",
+  "Fraction of Hartree-Fock exchange",
+  "Fraction of short-range exact exchange",
+  "Range separation parameter"
+};
+
+static const double cam_values_PBEH[CAM_N_PAR] = {0.2, 0.8, 0.7};
+static const double cam_values_pbeh[CAM_N_PAR] = {0.2, 0.8, 0.7};
+static const double cam_values_b3lyp[CAMYB3_N_PAR] = {0.81, 0.65, -0.46, 0.34};
+
+static void
+camyb3_set_ext_params(xc_func_type *p, const double *ext_params)
+{
+  double alpha, beta, omega, ac;
+
+  assert(p != NULL);
+  ac     = get_ext_param(p, ext_params, 0);
+  alpha  = get_ext_param(p, ext_params, 1);
+  beta   = get_ext_param(p, ext_params, 2);
+  omega  = get_ext_param(p, ext_params, 3);
+
+  p->mix_coef[0] = 1.0 - alpha;
+  p->mix_coef[1] = -beta;
+  p->mix_coef[2] = 1.0 - ac;
+  p->mix_coef[3] = ac;
+
+  xc_func_set_ext_params_name(p->func_aux[1], "_omega", omega);
+  set_ext_params_camy(p, ext_params);
+}
+
 void
 xc_hyb_gga_xc_camy_b3lyp_init(xc_func_type *p)
 {
-  static double ac = 0.81;
   static int   funcs_id  [4] = {XC_GGA_X_B88, XC_GGA_X_SFAT, XC_LDA_C_VWN, XC_GGA_C_LYP};
-  double funcs_coef[4];
-
-  /* Need temp variables since cam_ parameters are initialized in mix_init */
-  static double omega, alpha, beta;
-
-  /* N.B. The notation used in the original reference uses a different
-     convention for alpha and beta.  In libxc, alpha is the weight for
-     HF exchange, which in the original reference is alpha+beta.
-  */
-  omega = 0.34;
-  alpha = 0.65;
-  beta  = -0.46;
-
-  funcs_coef[0] = 1.0 - alpha;
-  funcs_coef[1] = -beta;
-  funcs_coef[2] = 1.0 - ac;
-  funcs_coef[3] = ac;
+  static double funcs_coef[4] = {0.0, 0.0, 0.0, 0.0};
 
   xc_mix_init(p, 4, funcs_id, funcs_coef);
-
-  xc_func_set_ext_params(p->func_aux[1], &omega);
-
-  xc_hyb_init_camy(p, alpha, beta, omega);
+  xc_hyb_init_camy(p, 0.0, 0.0, 0.0);
 }
 
 #ifdef __cplusplus
@@ -52,19 +73,10 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_camy_b3lyp = {
   {&xc_ref_Seth2012_901, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAMY | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {0, NULL, NULL, NULL, NULL},
-  xc_hyb_gga_xc_camy_b3lyp_init, NULL,
-  NULL, NULL, NULL
+  {CAMYB3_N_PAR, camb3_names, camb3_desc, cam_values_b3lyp, camyb3_set_ext_params},
+  xc_hyb_gga_xc_camy_b3lyp_init,
+  NULL, NULL, NULL, NULL
 };
-
-#define CAM_N_PAR 3
-static const char  *cam_names[CAM_N_PAR]  = {"_alpha", "_beta", "_omega"};
-static const char  *cam_desc[CAM_N_PAR]   = {
-  "Fraction of exact exchange",
-  "Fraction of short-range exchange",
-  "Range separation parameter"
-};
-static const double cam_values[CAM_N_PAR] = {0.2, 0.8, 0.7};
 
 static void
 cam_set_ext_params(xc_func_type *p, const double *ext_params)
@@ -91,7 +103,7 @@ static void
 hyb_gga_xc_camy_pbeh_init(xc_func_type *p)
 {
   static int   funcs_id  [3] = {XC_GGA_X_PBE, XC_GGA_X_SFAT, XC_GGA_C_PBE};
-  static double funcs_coef[3] = {0.2, 0.8, 1.0};
+  static double funcs_coef[3] = {0.0, 0.0, 1.0};
 
   xc_mix_init(p, 3, funcs_id, funcs_coef);
   xc_hyb_init_camy(p, 0.0, 0.0, 0.0);
@@ -108,7 +120,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_camy_pbeh = {
   {&xc_ref_Chen2018_073803, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_HYB_CAMY | XC_FLAGS_I_HAVE_ALL,
   1e-15,
-  {CAM_N_PAR, cam_names, cam_desc, cam_values, cam_set_ext_params},
+  {CAM_N_PAR, cam_names, cam_desc, cam_values_pbeh, cam_set_ext_params},
   hyb_gga_xc_camy_pbeh_init,
   NULL, NULL, NULL, NULL
 };

@@ -22,10 +22,10 @@
 #define CAMB3_N_PAR 4
 static const char  *camb3_names[CAMB3_N_PAR]  = {"_ac", "_alpha", "_beta", "_omega"};
 static const char  *camb3_desc[CAMB3_N_PAR]   = {
+  "Fraction of LYP correlation",
   "Fraction of Hartree-Fock exchange",
   "Fraction of short-range exact exchange",
-  "Range separation parameter",
-  "Fraction of LYP correlation"
+  "Range separation parameter"
 };
 
 static const double par_cam_b3lyp[CAMB3_N_PAR]       = {0.81, 0.65, -0.46,   0.33};

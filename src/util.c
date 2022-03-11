@@ -296,7 +296,7 @@ libxc_free(void *ptr)
 
 /* these are the dimension of the input and output
    arrays for spin unpolarized and polarized */
-const xc_dimensions dimensions_unpolarized
+const xc_dimensions dimensions_unpolarized =
 {
   /* inputs */
   1, 1, 1, 1, 1,    /* rho, sigma, lapl, tau, exx */
@@ -352,7 +352,7 @@ const xc_dimensions dimensions_unpolarized
   1, 1, 1, 1        /* v4tau4, v4tau3exx, v4tauexx3, v4exx4 */
 };
 
-const xc_dimensions dimensions_polarized
+const xc_dimensions dimensions_polarized =
 {
   /* inputs */
   2, 3, 2, 2, 2,    /* rho, sigma, lapl, tau, exx */

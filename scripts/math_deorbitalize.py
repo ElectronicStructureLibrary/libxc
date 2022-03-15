@@ -17,43 +17,43 @@ replace = [
   (r"\[n0, n1, s0, s1, s2, u0, u1, ked1, ked2\]" , ""),
   (r"Derivative", ""),
 
-  (r"\[1, 0, 0\]\[ked1\]", "ked1_vrho[0]"),
-  (r"\[0, 1, 0\]\[ked1\]", "ked1_vsigma[0]"),
-  (r"\[0, 0, 1\]\[ked1\]", "ked1_vlapl[0]"),
+  (r"\[1, 0, 0\]\[ked1\]", "ked1->VAR(vrho, ip, 0)"),
+  (r"\[0, 1, 0\]\[ked1\]", "ked1->VAR(vsigma, ip, 0)"),
+  (r"\[0, 0, 1\]\[ked1\]", "ked1->VAR(vlapl, ip, 0)"),
 
-  (r"\[2, 0, 0\]\[ked1\]", "ked1_v2rho2[0]"),
-  (r"\[1, 1, 0\]\[ked1\]", "ked1_v2rhosigma[0]"),
-  (r"\[1, 0, 1\]\[ked1\]", "ked1_v2rholapl[0]"),
-  (r"\[0, 2, 0\]\[ked1\]", "ked1_v2sigma2[0]"),
-  (r"\[0, 1, 1\]\[ked1\]", "ked1_v2sigmalapl[0]"),
-  (r"\[0, 0, 2\]\[ked1\]", "ked1_v2lapl2[0]"),
+  (r"\[2, 0, 0\]\[ked1\]", "ked1->VAR(v2rho2, ip, 0)"),
+  (r"\[1, 1, 0\]\[ked1\]", "ked1->VAR(v2rhosigma, ip, 0)"),
+  (r"\[1, 0, 1\]\[ked1\]", "ked1->VAR(v2rholapl, ip, 0)"),
+  (r"\[0, 2, 0\]\[ked1\]", "ked1->VAR(v2sigma2, ip, 0)"),
+  (r"\[0, 1, 1\]\[ked1\]", "ked1->VAR(v2sigmalapl, ip, 0)"),
+  (r"\[0, 0, 2\]\[ked1\]", "ked1->VAR(v2lapl2, ip, 0)"),
 
-  (r"\[3, 0, 0\]\[ked1\]", "ked1_v3rho3[0]"),
-  (r"\[2, 1, 0\]\[ked1\]", "ked1_v3rho2sigma[0]"),
-  (r"\[2, 0, 1\]\[ked1\]", "ked1_v3rho2lapl[0]"),
-  (r"\[1, 2, 0\]\[ked1\]", "ked1_v3rhosigma2[0]"),
-  (r"\[1, 1, 1\]\[ked1\]", "ked1_v3rhosigmalapl[0]"),
-  (r"\[1, 0, 2\]\[ked1\]", "ked1_v3rholapl2[0]"),
-  (r"\[0, 3, 0\]\[ked1\]", "ked1_v3sigma3[0]"),
-  (r"\[0, 2, 1\]\[ked1\]", "ked1_v3sigma2lapl[0]"),
-  (r"\[0, 1, 2\]\[ked1\]", "ked1_v3sigmalapl2[0]"),
-  (r"\[0, 0, 3\]\[ked1\]", "ked1_v3lapl3[0]"),
+  (r"\[3, 0, 0\]\[ked1\]", "ked1->VAR(v3rho3, ip, 0)"),
+  (r"\[2, 1, 0\]\[ked1\]", "ked1->VAR(v3rho2sigma, ip, 0)"),
+  (r"\[2, 0, 1\]\[ked1\]", "ked1->VAR(v3rho2lapl, ip, 0)"),
+  (r"\[1, 2, 0\]\[ked1\]", "ked1->VAR(v3rhosigma2, ip, 0)"),
+  (r"\[1, 1, 1\]\[ked1\]", "ked1->VAR(v3rhosigmalapl, ip, 0)"),
+  (r"\[1, 0, 2\]\[ked1\]", "ked1->VAR(v3rholapl2, ip, 0)"),
+  (r"\[0, 3, 0\]\[ked1\]", "ked1->VAR(v3sigma3, ip, 0)"),
+  (r"\[0, 2, 1\]\[ked1\]", "ked1->VAR(v3sigma2lapl, ip, 0)"),
+  (r"\[0, 1, 2\]\[ked1\]", "ked1->VAR(v3sigmalapl2, ip, 0)"),
+  (r"\[0, 0, 3\]\[ked1\]", "ked1->VAR(v3lapl3, ip, 0)"),
 
-  (r"\[4, 0, 0\]\[ked1\]", "ked1_v4rho4[0]"),
-  (r"\[3, 1, 0\]\[ked1\]", "ked1_v4rho3sigma[0]"),
-  (r"\[3, 0, 1\]\[ked1\]", "ked1_v4rho3lapl[0]"),
-  (r"\[2, 2, 0\]\[ked1\]", "ked1_v4rho2sigma2[0]"),
-  (r"\[2, 1, 1\]\[ked1\]", "ked1_v4rho2sigmalapl[0]"),
-  (r"\[2, 0, 2\]\[ked1\]", "ked1_v4rho2lapl2[0]"),
-  (r"\[1, 3, 0\]\[ked1\]", "ked1_v4rhosigma3[0]"),
-  (r"\[1, 2, 1\]\[ked1\]", "ked1_v4rhosigma2lapl[0]"),
-  (r"\[1, 1, 2\]\[ked1\]", "ked1_v4rhosigmalapl2[0]"),
-  (r"\[1, 0, 3\]\[ked1\]", "ked1_v4rholapl3[0]"),
-  (r"\[0, 4, 0\]\[ked1\]", "ked1_v4sigma4[0]"),
-  (r"\[0, 3, 1\]\[ked1\]", "ked1_v4sigma3lapl[0]"),
-  (r"\[0, 2, 2\]\[ked1\]", "ked1_v4sigma2lapl2[0]"),
-  (r"\[0, 1, 3\]\[ked1\]", "ked1_v4sigmalapl3[0]"),
-  (r"\[0, 0, 4\]\[ked1\]", "ked1_v4lapl4[0]"),
+  (r"\[4, 0, 0\]\[ked1\]", "ked1->VAR(v4rho4, ip, 0)"),
+  (r"\[3, 1, 0\]\[ked1\]", "ked1->VAR(v4rho3sigma, ip, 0)"),
+  (r"\[3, 0, 1\]\[ked1\]", "ked1->VAR(v4rho3lapl, ip, 0)"),
+  (r"\[2, 2, 0\]\[ked1\]", "ked1->VAR(v4rho2sigma2, ip, 0)"),
+  (r"\[2, 1, 1\]\[ked1\]", "ked1->VAR(v4rho2sigmalapl, ip, 0)"),
+  (r"\[2, 0, 2\]\[ked1\]", "ked1->VAR(v4rho2lapl2, ip, 0)"),
+  (r"\[1, 3, 0\]\[ked1\]", "ked1->VAR(v4rhosigma3, ip, 0)"),
+  (r"\[1, 2, 1\]\[ked1\]", "ked1->VAR(v4rhosigma2lapl, ip, 0)"),
+  (r"\[1, 1, 2\]\[ked1\]", "ked1->VAR(v4rhosigmalapl2, ip, 0)"),
+  (r"\[1, 0, 3\]\[ked1\]", "ked1->VAR(v4rholapl3, ip, 0)"),
+  (r"\[0, 4, 0\]\[ked1\]", "ked1->VAR(v4sigma4, ip, 0)"),
+  (r"\[0, 3, 1\]\[ked1\]", "ked1->VAR(v4sigma3lapl, ip, 0)"),
+  (r"\[0, 2, 2\]\[ked1\]", "ked1->VAR(v4sigma2lapl2, ip, 0)"),
+  (r"\[0, 1, 3\]\[ked1\]", "ked1->VAR(v4sigmalapl3, ip, 0)"),
+  (r"\[0, 0, 4\]\[ked1\]", "ked1->VAR(v4lapl4, ip, 0)"),
 ]
 
 ders = (
@@ -89,10 +89,10 @@ for der in ders:
 # create replaces. E.g.
 #  ('\[1, 0, 0, 0, 0, 0, 0, 0, 0\]\[mgga\]' , "mgga_vrho[0]")
 for der in ders_def:
-  der[1] = re.sub(r"_(\d+)_", r"[\1]", der[1])
+  der[1] = re.sub(r"_(\d+)_", r", ip, \1)", der[1])
   replace.append(
     (r"\[" + ", ".join([str(i) for i in der[0]]) + r"\]\[mgga\]",
-     "mgga_" + str(der[1])))
+     "mgga->VAR(" + str(der[1])))
 
 out1 = ""
 out2 = ""
@@ -108,7 +108,7 @@ for der in ders_def:
   mvars = ("n0", "n1", "s0", "s1", "s2", "u0", "u1", "t0", "t1")
 
   mder = ",".join(["{{{}, {}}}".format(mvars[i], der[0][i]) for i in range(len(mvars))])
-
+  
   # run mathematica
   fh = open("/tmp/math.m", "w")
   fh.write("Print[ToString[FullSimplify[D[mgga[n0, n1, s0, s1, s2, u0, u1, ked1[n0, s0, u0], ked2[n1, s2, u1]], " + mder + "]], FormatType -> InputForm]]")
@@ -129,19 +129,20 @@ for der in ders_def:
     out = re.sub(str1, str2, out)
 
   # let us get rid of the powers
-  out = re.sub(r"([A-Za-z][A-Za-z_\[\]0-9]*)\^2", r"\1*\1",     out)
-  out = re.sub(r"([A-Za-z][A-Za-z_\[\]0-9]*)\^3", r"\1*\1*\1",   out)
-  out = re.sub(r"([A-Za-z][A-Za-z_\[\]0-9]*)\^4", r"\1*\1*\1*\1", out)
+  out = re.sub(r"(\w+->VAR\(\w*, ip, \d+\))\^2", r"\1*\1",     out)
+  out = re.sub(r"(\w+->VAR\(\w*, ip, \d+\))\^3", r"\1*\1*\1",   out)
+  out = re.sub(r"(\w+->VAR\(\w*, ip, \d+\))\^4", r"\1*\1*\1*\1", out)
 
-  out = der[1] + " = " + out + ";\n"
+  out = "out->VAR(" + der[1] + " = " + out + ";\n"
 
-  res = re.search(r"(.\d?)(.*?)\[(\d+)\]", der[1])
+  # check if this the first derivative
+  res = re.search(r"ip, 0\)", der[1])
 
-  if res and res.group(3) == "0":
+  if res is not None:
     out1 += "\n".join(wrap(out, initial_indent='', subsequent_indent='  ',
-                           expand_tabs=True), width=100) + "\n"
+                           expand_tabs=True, width=100)) + "\n"
   else:  
     out2 += "\n".join(wrap(out, initial_indent='  ', subsequent_indent='    ',
-                           expand_tabs=True), width=100) + "\n"
+                           expand_tabs=True, width=100)) + "\n"
 
-print(out1 + "\nif(func->nspin == XC_POLARIZED){\n" + out2 + "}\n")
+print(out1 + "\nif(p->nspin == XC_POLARIZED){\n" + out2 + "}\n")

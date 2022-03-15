@@ -1,52 +1,81 @@
-v2rho2[0] = ked1_v2rho2[0]*mgga_vtau[0] + ked1_vrho[0]*ked1_vrho[0]*mgga_v2tau2[0] + 2*ked1_vrho[0]*mgga_v2rhotau[0] +
-  mgga_v2rho2[0];
-v2rhosigma[0] = ked1_v2rhosigma[0]*mgga_vtau[0] + ked1_vrho[0]*mgga_v2sigmatau[0] +
-  ked1_vsigma[0]*(ked1_vrho[0]*mgga_v2tau2[0] + mgga_v2rhotau[0]) + mgga_v2rhosigma[0];
-v2rholapl[0] = ked1_v2rholapl[0]*mgga_vtau[0] + ked1_vrho[0]*mgga_v2lapltau[0] +
-  ked1_vlapl[0]*(ked1_vrho[0]*mgga_v2tau2[0] + mgga_v2rhotau[0]) + mgga_v2rholapl[0];
-v2sigma2[0] = ked1_v2sigma2[0]*mgga_vtau[0] + ked1_vsigma[0]*ked1_vsigma[0]*mgga_v2tau2[0] +
-  2*ked1_vsigma[0]*mgga_v2sigmatau[0] + mgga_v2sigma2[0];
-v2sigmalapl[0] = ked1_v2sigmalapl[0]*mgga_vtau[0] + ked1_vsigma[0]*mgga_v2lapltau[0] +
-  ked1_vlapl[0]*(ked1_vsigma[0]*mgga_v2tau2[0] + mgga_v2sigmatau[0]) + mgga_v2sigmalapl[0];
-v2lapl2[0] = ked1_v2lapl2[0]*mgga_vtau[0] + ked1_vlapl[0]*ked1_vlapl[0]*mgga_v2tau2[0] +
-  2*ked1_vlapl[0]*mgga_v2lapltau[0] + mgga_v2lapl2[0];
+out->VAR(v2rho2, ip, 0) = ked1->VAR(v2rho2, ip, 0)*mgga->VAR(vtau, ip, 0) + ked1->VAR(vrho, ip,
+  0)*ked1->VAR(vrho, ip, 0)*mgga->VAR(v2tau2, ip, 0) + 2*ked1->VAR(vrho, ip, 0)*mgga->VAR(v2rhotau,
+  ip, 0) + mgga->VAR(v2rho2, ip, 0);
+out->VAR(v2rhosigma, ip, 0) = ked1->VAR(v2rhosigma, ip, 0)*mgga->VAR(vtau, ip, 0) + ked1->VAR(vrho,
+  ip, 0)*mgga->VAR(v2sigmatau, ip, 0) + ked1->VAR(vsigma, ip, 0)*(ked1->VAR(vrho, ip,
+  0)*mgga->VAR(v2tau2, ip, 0) + mgga->VAR(v2rhotau, ip, 0)) + mgga->VAR(v2rhosigma, ip, 0);
+out->VAR(v2rholapl, ip, 0) = ked1->VAR(v2rholapl, ip, 0)*mgga->VAR(vtau, ip, 0) + ked1->VAR(vrho,
+  ip, 0)*mgga->VAR(v2lapltau, ip, 0) + ked1->VAR(vlapl, ip, 0)*(ked1->VAR(vrho, ip,
+  0)*mgga->VAR(v2tau2, ip, 0) + mgga->VAR(v2rhotau, ip, 0)) + mgga->VAR(v2rholapl, ip, 0);
+out->VAR(v2sigma2, ip, 0) = ked1->VAR(v2sigma2, ip, 0)*mgga->VAR(vtau, ip, 0) + ked1->VAR(vsigma,
+  ip, 0)*ked1->VAR(vsigma, ip, 0)*mgga->VAR(v2tau2, ip, 0) + 2*ked1->VAR(vsigma, ip,
+  0)*mgga->VAR(v2sigmatau, ip, 0) + mgga->VAR(v2sigma2, ip, 0);
+out->VAR(v2sigmalapl, ip, 0) = ked1->VAR(v2sigmalapl, ip, 0)*mgga->VAR(vtau, ip, 0) +
+  ked1->VAR(vsigma, ip, 0)*mgga->VAR(v2lapltau, ip, 0) + ked1->VAR(vlapl, ip, 0)*(ked1->VAR(vsigma,
+  ip, 0)*mgga->VAR(v2tau2, ip, 0) + mgga->VAR(v2sigmatau, ip, 0)) + mgga->VAR(v2sigmalapl, ip, 0);
+out->VAR(v2lapl2, ip, 0) = ked1->VAR(v2lapl2, ip, 0)*mgga->VAR(vtau, ip, 0) + ked1->VAR(vlapl, ip,
+  0)*ked1->VAR(vlapl, ip, 0)*mgga->VAR(v2tau2, ip, 0) + 2*ked1->VAR(vlapl, ip,
+  0)*mgga->VAR(v2lapltau, ip, 0) + mgga->VAR(v2lapl2, ip, 0);
 
-if(func->nspin == XC_POLARIZED){
-  v2rho2[1] = ked1_vrho[0]*(ked2_vrho[0]*mgga_v2tau2[1] + mgga_v2rhotau[2]) + ked2_vrho[0]*mgga_v2rhotau[1] +
-    mgga_v2rho2[1];
-  v2rho2[2] = ked2_v2rho2[0]*mgga_vtau[1] + ked2_vrho[0]*ked2_vrho[0]*mgga_v2tau2[2] + 2*ked2_vrho[0]*mgga_v2rhotau[3]
-    + mgga_v2rho2[2];
-  v2rhosigma[1] = ked1_vrho[0]*mgga_v2sigmatau[2] + mgga_v2rhosigma[1];
-  v2rhosigma[2] = ked1_vrho[0]*mgga_v2sigmatau[4] + ked2_vsigma[0]*(ked1_vrho[0]*mgga_v2tau2[1] + mgga_v2rhotau[1]) +
-    mgga_v2rhosigma[2];
-  v2rhosigma[3] = ked2_vrho[0]*mgga_v2sigmatau[1] + ked1_vsigma[0]*(ked2_vrho[0]*mgga_v2tau2[1] + mgga_v2rhotau[2]) +
-    mgga_v2rhosigma[3];
-  v2rhosigma[4] = ked2_vrho[0]*mgga_v2sigmatau[3] + mgga_v2rhosigma[4];
-  v2rhosigma[5] = ked2_v2rhosigma[0]*mgga_vtau[1] + ked2_vrho[0]*mgga_v2sigmatau[5] +
-    ked2_vsigma[0]*(ked2_vrho[0]*mgga_v2tau2[2] + mgga_v2rhotau[3]) + mgga_v2rhosigma[5];
-  v2rholapl[1] = ked1_vrho[0]*mgga_v2lapltau[2] + ked2_vlapl[0]*(ked1_vrho[0]*mgga_v2tau2[1] + mgga_v2rhotau[1]) +
-    mgga_v2rholapl[1];
-  v2rholapl[2] = ked2_vrho[0]*mgga_v2lapltau[1] + ked1_vlapl[0]*(ked2_vrho[0]*mgga_v2tau2[1] + mgga_v2rhotau[2]) +
-    mgga_v2rholapl[2];
-  v2rholapl[3] = ked2_v2rholapl[0]*mgga_vtau[1] + ked2_vrho[0]*mgga_v2lapltau[3] +
-    ked2_vlapl[0]*(ked2_vrho[0]*mgga_v2tau2[2] + mgga_v2rhotau[3]) + mgga_v2rholapl[3];
-  v2sigma2[1] = ked1_vsigma[0]*mgga_v2sigmatau[2] + mgga_v2sigma2[1];
-  v2sigma2[2] = ked1_vsigma[0]*(ked2_vsigma[0]*mgga_v2tau2[1] + mgga_v2sigmatau[4]) + ked2_vsigma[0]*mgga_v2sigmatau[1]
-    + mgga_v2sigma2[2];
-  v2sigma2[3] = mgga_v2sigma2[3];
-  v2sigma2[4] = ked2_vsigma[0]*mgga_v2sigmatau[3] + mgga_v2sigma2[4];
-  v2sigma2[5] = ked2_v2sigma2[0]*mgga_vtau[1] + ked2_vsigma[0]*ked2_vsigma[0]*mgga_v2tau2[2] +
-    2*ked2_vsigma[0]*mgga_v2sigmatau[5] + mgga_v2sigma2[5];
-  v2sigmalapl[1] = ked1_vsigma[0]*mgga_v2lapltau[2] + ked2_vlapl[0]*(ked1_vsigma[0]*mgga_v2tau2[1] +
-    mgga_v2sigmatau[1]) + mgga_v2sigmalapl[1];
-  v2sigmalapl[2] = ked1_vlapl[0]*mgga_v2sigmatau[2] + mgga_v2sigmalapl[2];
-  v2sigmalapl[3] = ked2_vlapl[0]*mgga_v2sigmatau[3] + mgga_v2sigmalapl[3];
-  v2sigmalapl[4] = ked2_vsigma[0]*mgga_v2lapltau[1] + ked1_vlapl[0]*(ked2_vsigma[0]*mgga_v2tau2[1] +
-    mgga_v2sigmatau[4]) + mgga_v2sigmalapl[4];
-  v2sigmalapl[5] = ked2_v2sigmalapl[0]*mgga_vtau[1] + ked2_vsigma[0]*mgga_v2lapltau[3] +
-    ked2_vlapl[0]*(ked2_vsigma[0]*mgga_v2tau2[2] + mgga_v2sigmatau[5]) + mgga_v2sigmalapl[5];
-  v2lapl2[1] = ked1_vlapl[0]*(ked2_vlapl[0]*mgga_v2tau2[1] + mgga_v2lapltau[2]) + ked2_vlapl[0]*mgga_v2lapltau[1] +
-    mgga_v2lapl2[1];
-  v2lapl2[2] = ked2_v2lapl2[0]*mgga_vtau[1] + ked2_vlapl[0]*ked2_vlapl[0]*mgga_v2tau2[2] +
-    2*ked2_vlapl[0]*mgga_v2lapltau[3] + mgga_v2lapl2[2];
+if(p->nspin == XC_POLARIZED){
+  out->VAR(v2rho2, ip, 1) = ked1->VAR(vrho, ip, 0)*(ked2->VAR(vrho, ip, 0)*mgga->VAR(v2tau2, ip, 1)
+    + mgga->VAR(v2rhotau, ip, 2)) + ked2->VAR(vrho, ip, 0)*mgga->VAR(v2rhotau, ip, 1) +
+    mgga->VAR(v2rho2, ip, 1);
+  out->VAR(v2rho2, ip, 2) = ked2->VAR(v2rho2, ip, 0)*mgga->VAR(vtau, ip, 1) + ked2->VAR(vrho, ip,
+    0)*ked2->VAR(vrho, ip, 0)*mgga->VAR(v2tau2, ip, 2) + 2*ked2->VAR(vrho, ip,
+    0)*mgga->VAR(v2rhotau, ip, 3) + mgga->VAR(v2rho2, ip, 2);
+  out->VAR(v2rhosigma, ip, 1) = ked1->VAR(vrho, ip, 0)*mgga->VAR(v2sigmatau, ip, 2) +
+    mgga->VAR(v2rhosigma, ip, 1);
+  out->VAR(v2rhosigma, ip, 2) = ked1->VAR(vrho, ip, 0)*mgga->VAR(v2sigmatau, ip, 4) +
+    ked2->VAR(vsigma, ip, 0)*(ked1->VAR(vrho, ip, 0)*mgga->VAR(v2tau2, ip, 1) + mgga->VAR(v2rhotau,
+    ip, 1)) + mgga->VAR(v2rhosigma, ip, 2);
+  out->VAR(v2rhosigma, ip, 3) = ked2->VAR(vrho, ip, 0)*mgga->VAR(v2sigmatau, ip, 1) +
+    ked1->VAR(vsigma, ip, 0)*(ked2->VAR(vrho, ip, 0)*mgga->VAR(v2tau2, ip, 1) + mgga->VAR(v2rhotau,
+    ip, 2)) + mgga->VAR(v2rhosigma, ip, 3);
+  out->VAR(v2rhosigma, ip, 4) = ked2->VAR(vrho, ip, 0)*mgga->VAR(v2sigmatau, ip, 3) +
+    mgga->VAR(v2rhosigma, ip, 4);
+  out->VAR(v2rhosigma, ip, 5) = ked2->VAR(v2rhosigma, ip, 0)*mgga->VAR(vtau, ip, 1) +
+    ked2->VAR(vrho, ip, 0)*mgga->VAR(v2sigmatau, ip, 5) + ked2->VAR(vsigma, ip, 0)*(ked2->VAR(vrho,
+    ip, 0)*mgga->VAR(v2tau2, ip, 2) + mgga->VAR(v2rhotau, ip, 3)) + mgga->VAR(v2rhosigma, ip, 5);
+  out->VAR(v2rholapl, ip, 1) = ked1->VAR(vrho, ip, 0)*mgga->VAR(v2lapltau, ip, 2) + ked2->VAR(vlapl,
+    ip, 0)*(ked1->VAR(vrho, ip, 0)*mgga->VAR(v2tau2, ip, 1) + mgga->VAR(v2rhotau, ip, 1)) +
+    mgga->VAR(v2rholapl, ip, 1);
+  out->VAR(v2rholapl, ip, 2) = ked2->VAR(vrho, ip, 0)*mgga->VAR(v2lapltau, ip, 1) + ked1->VAR(vlapl,
+    ip, 0)*(ked2->VAR(vrho, ip, 0)*mgga->VAR(v2tau2, ip, 1) + mgga->VAR(v2rhotau, ip, 2)) +
+    mgga->VAR(v2rholapl, ip, 2);
+  out->VAR(v2rholapl, ip, 3) = ked2->VAR(v2rholapl, ip, 0)*mgga->VAR(vtau, ip, 1) + ked2->VAR(vrho,
+    ip, 0)*mgga->VAR(v2lapltau, ip, 3) + ked2->VAR(vlapl, ip, 0)*(ked2->VAR(vrho, ip,
+    0)*mgga->VAR(v2tau2, ip, 2) + mgga->VAR(v2rhotau, ip, 3)) + mgga->VAR(v2rholapl, ip, 3);
+  out->VAR(v2sigma2, ip, 1) = ked1->VAR(vsigma, ip, 0)*mgga->VAR(v2sigmatau, ip, 2) +
+    mgga->VAR(v2sigma2, ip, 1);
+  out->VAR(v2sigma2, ip, 2) = ked1->VAR(vsigma, ip, 0)*(ked2->VAR(vsigma, ip, 0)*mgga->VAR(v2tau2,
+    ip, 1) + mgga->VAR(v2sigmatau, ip, 4)) + ked2->VAR(vsigma, ip, 0)*mgga->VAR(v2sigmatau, ip, 1) +
+    mgga->VAR(v2sigma2, ip, 2);
+  out->VAR(v2sigma2, ip, 3) = mgga->VAR(v2sigma2, ip, 3);
+  out->VAR(v2sigma2, ip, 4) = ked2->VAR(vsigma, ip, 0)*mgga->VAR(v2sigmatau, ip, 3) +
+    mgga->VAR(v2sigma2, ip, 4);
+  out->VAR(v2sigma2, ip, 5) = ked2->VAR(v2sigma2, ip, 0)*mgga->VAR(vtau, ip, 1) + ked2->VAR(vsigma,
+    ip, 0)*ked2->VAR(vsigma, ip, 0)*mgga->VAR(v2tau2, ip, 2) + 2*ked2->VAR(vsigma, ip,
+    0)*mgga->VAR(v2sigmatau, ip, 5) + mgga->VAR(v2sigma2, ip, 5);
+  out->VAR(v2sigmalapl, ip, 1) = ked1->VAR(vsigma, ip, 0)*mgga->VAR(v2lapltau, ip, 2) +
+    ked2->VAR(vlapl, ip, 0)*(ked1->VAR(vsigma, ip, 0)*mgga->VAR(v2tau2, ip, 1) +
+    mgga->VAR(v2sigmatau, ip, 1)) + mgga->VAR(v2sigmalapl, ip, 1);
+  out->VAR(v2sigmalapl, ip, 2) = ked1->VAR(vlapl, ip, 0)*mgga->VAR(v2sigmatau, ip, 2) +
+    mgga->VAR(v2sigmalapl, ip, 2);
+  out->VAR(v2sigmalapl, ip, 3) = ked2->VAR(vlapl, ip, 0)*mgga->VAR(v2sigmatau, ip, 3) +
+    mgga->VAR(v2sigmalapl, ip, 3);
+  out->VAR(v2sigmalapl, ip, 4) = ked2->VAR(vsigma, ip, 0)*mgga->VAR(v2lapltau, ip, 1) +
+    ked1->VAR(vlapl, ip, 0)*(ked2->VAR(vsigma, ip, 0)*mgga->VAR(v2tau2, ip, 1) +
+    mgga->VAR(v2sigmatau, ip, 4)) + mgga->VAR(v2sigmalapl, ip, 4);
+  out->VAR(v2sigmalapl, ip, 5) = ked2->VAR(v2sigmalapl, ip, 0)*mgga->VAR(vtau, ip, 1) +
+    ked2->VAR(vsigma, ip, 0)*mgga->VAR(v2lapltau, ip, 3) + ked2->VAR(vlapl, ip,
+    0)*(ked2->VAR(vsigma, ip, 0)*mgga->VAR(v2tau2, ip, 2) + mgga->VAR(v2sigmatau, ip, 5)) +
+    mgga->VAR(v2sigmalapl, ip, 5);
+  out->VAR(v2lapl2, ip, 1) = ked1->VAR(vlapl, ip, 0)*(ked2->VAR(vlapl, ip, 0)*mgga->VAR(v2tau2, ip,
+    1) + mgga->VAR(v2lapltau, ip, 2)) + ked2->VAR(vlapl, ip, 0)*mgga->VAR(v2lapltau, ip, 1) +
+    mgga->VAR(v2lapl2, ip, 1);
+  out->VAR(v2lapl2, ip, 2) = ked2->VAR(v2lapl2, ip, 0)*mgga->VAR(vtau, ip, 1) + ked2->VAR(vlapl, ip,
+    0)*ked2->VAR(vlapl, ip, 0)*mgga->VAR(v2tau2, ip, 2) + 2*ked2->VAR(vlapl, ip,
+    0)*mgga->VAR(v2lapltau, ip, 3) + mgga->VAR(v2lapl2, ip, 2);
 }
+

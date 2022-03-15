@@ -13,7 +13,7 @@ variables = ["rho_0_", "rho_1_", "sigma_0_", "sigma_1_", "sigma_2_"]
 
 # get arguments of the functions
 input_args  = "const double *rho, const double *sigma"
-output_args = "xc_gga_out_params *out"
+output_args = "xc_output_variables *out"
 
 # the definition of the derivatives that libxc transmits to the calling program
 partials = [

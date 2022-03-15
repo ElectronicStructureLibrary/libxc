@@ -32,7 +32,7 @@
 
 static void
 WORK_LDA(ORDER_TXT, SPIN_TXT)
-(const XC(func_type) *p, size_t np, const double *rho, xc_lda_out_params *out)
+(const XC(func_type) *p, size_t np, const double *rho, xc_output_variables *out)
 {
 
 #ifdef XC_DEBUG
@@ -95,7 +95,7 @@ __global__ static void
 WORK_LDA_GPU(ORDER_TXT, SPIN_TXT)
 (const XC(func_type) *p, size_t np,
              const double *rho,
-             xc_lda_out_params *out)
+             xc_output_variables *out)
 {
   size_t ip = blockIdx.x*blockDim.x + threadIdx.x;
   double dens;
@@ -119,14 +119,14 @@ WORK_LDA_GPU(ORDER_TXT, SPIN_TXT)
 
 static void
 WORK_LDA(ORDER_TXT, SPIN_TXT)
-(const XC(func_type) *p, size_t np, const double *rho, xc_lda_out_params *out)
+(const XC(func_type) *p, size_t np, const double *rho, xc_output_variables *out)
 {
   //make a copy of 'p' and 'out' since they might be in host-only memory
   XC(func_type) *pcuda = (XC(func_type) *) libxc_malloc(sizeof(XC(func_type)));
-  xc_lda_out_params *outcuda = (xc_lda_out_params *) libxc_malloc(sizeof(xc_lda_out_params));
+  xc_output_variables *outcuda = (xc_lda_out_params *) libxc_malloc(sizeof(xc_lda_out_params));
 
   cudaMemcpy(pcuda, p, sizeof(XC(func_type)), cudaMemcpyHostToDevice);
-  cudaMemcpy(outcuda, out, sizeof(xc_lda_out_params), cudaMemcpyHostToDevice);
+  cudaMemcpy(outcuda, out, sizeof(xc_output_variables), cudaMemcpyHostToDevice);
 
   size_t nblocks = np/CUDA_BLOCK_SIZE;
   if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;

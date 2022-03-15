@@ -15,7 +15,7 @@
 #define check_out_var(VAR) if(out->VAR == NULL){fprintf(stderr, "error: output variable, out->" #VAR ", is a null pointer\n"); exit(1);}
 
 void
-xc_hgga_sanity_check(const xc_func_info_type *info, int order, xc_hgga_out_params *out)
+xc_hgga_sanity_check(const xc_func_info_type *info, int order, xc_output_variables *out)
 {
   /* sanity check */
   if(order < 0 || order > 4){
@@ -153,7 +153,7 @@ xc_hgga_sanity_check(const xc_func_info_type *info, int order, xc_hgga_out_param
 }
 
 void
-xc_hgga_initalize(const xc_func_type *func, size_t np, xc_hgga_out_params *out)
+xc_hgga_initalize(const xc_func_type *func, size_t np, xc_output_variables *out)
 {
   const xc_dimensions *dim = func->dim;
 
@@ -278,7 +278,7 @@ xc_hgga_initalize(const xc_func_type *func, size_t np, xc_hgga_out_params *out)
 
 void xc_hgga_new(const xc_func_type *func, int order, size_t np,
                  const double *rho, const double *sigma, const double *lapl, const double *tau, const double *exx,
-                xc_hgga_out_params *out)
+                xc_output_variables *out)
 {
   xc_hgga_sanity_check(func->info, order, out);
   xc_hgga_initalize(func, np, out);

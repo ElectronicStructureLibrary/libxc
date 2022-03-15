@@ -275,6 +275,25 @@ xc_mgga_evaluate_functional(const xc_func_type *func, size_t np,
   }
 }
 
+void xc_mgga_evaluate_functional_new
+(const xc_func_type *func, int order, size_t np,
+ const double *rho, const double *sigma, const double *lapl, const double *tau,
+ xc_output_variables *out)
+{
+  /* Evaluate the functional */
+  switch(func->info->family){
+  case XC_FAMILY_LDA:
+    xc_lda_new(func, order, np, rho, out);
+    break;
+  case XC_FAMILY_GGA:
+    xc_gga_new(func, order, np, rho, sigma, out);
+    break;
+  case XC_FAMILY_MGGA:
+    xc_mgga_new(func, order, np, rho, sigma, lapl, tau, out);
+    break;
+  }
+}
+
 /* initializes the mixing */
 void
 xc_deorbitalize_init(xc_func_type *p, int mgga_id, int ked_id)
@@ -292,179 +311,131 @@ xc_deorbitalize_init(xc_func_type *p, int mgga_id, int ked_id)
   xc_func_init (p->func_aux[1], ked_id,  p->nspin);
 }
 
-void
-xc_deorbitalize_func_work(const xc_func_type *func, size_t np,
-                     const double *rho, const double *sigma, const double *lapl, const double *tau,
-                     double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
+#define VAR(var, ip, index)        var[ip*p->dim->var + index]
+static void
+deorbitalized_functional_work
+(const xc_func_type *p, size_t np,
+ const double *rho, const double *sigma, const double *lapl, const double *tau,
+ xc_output_variables *out)
 {
   double *mrho, *msigma, *mlapl, *mtau;
-  const double *null = NULL;
-  double *mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA *, mgga_);
-  double *ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA *, ked1_);
-  double *ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA *, ked2_);
-  size_t ii;
-  int order = -1;
+  xc_output_variables *mgga, *ked1, *ked2;
+  size_t ip;
+  
+  int ii, max_order;
+  int orders[XC_MAXIMUM_ORDER+1] =
+    {out->zk != NULL, out->vrho != NULL, out->v2rho2 != NULL,
+     out->v3rho3 != NULL, out->v4rho4 != NULL};
 
-  if(zk     != NULL) order = 0;
-  if(vrho   != NULL) order = 1;
-  if(v2rho2 != NULL) order = 2;
-  if(v3rho3 != NULL) order = 3;
-  if(v4rho4 != NULL) order = 4;
-
-  if(order < 0) return;
-
-  /* prepare buffers that will hold the results from the individual functionals */
-  mgga_zk MGGA_OUT_PARAMS_NO_EXC(=, mgga_ ) = NULL;
-  ked1_zk MGGA_OUT_PARAMS_NO_EXC(=, ked1_ ) = NULL;
-  ked2_zk MGGA_OUT_PARAMS_NO_EXC(=, ked2_ ) = NULL;
-
-  /* allocate buffers */
-  xc_mgga_vars_allocate_all(func->func_aux[0]->info->family, np, func->func_aux[0]->dim,
-                       order >= 0, order >= 1, order >= 2, order >= 3, order >= 4,
-                       &mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, mgga_));
-  xc_mgga_vars_allocate_all(func->func_aux[1]->info->family, np, func->func_aux[1]->dim,
-                       order >= 0, order >= 1, order >= 2, order >= 3, order >= 4,
-                       &ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked1_));
-
-  if(func->nspin == XC_UNPOLARIZED){
-    mtau   = (double *) libxc_malloc(sizeof(double)*np);
-  }else{
-    mrho   = (double *) libxc_malloc(2*sizeof(double)*np);
-    msigma = (double *) libxc_malloc(3*sizeof(double)*np);
-    mlapl  = (double *) libxc_malloc(2*sizeof(double)*np);
-    mtau   = (double *) libxc_malloc(2*sizeof(double)*np);
-
-    xc_mgga_vars_allocate_all(func->func_aux[1]->info->family, np, func->func_aux[1]->dim,
-                         order >= 0, order >= 1, order >= 2, order >= 3, order >= 4,
-                         &ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked2_));
+  max_order = -1;
+  for(ii=0; ii <= XC_MAXIMUM_ORDER; ii++){
+    if(orders[ii]) max_order = ii;
   }
+  /* we actually need all orders <= max_order, so we change orders */
+  for(ii=0; ii <= max_order; ii++)
+    orders[ii] = 1;
+  
+  /* 
+     prepare buffers that will hold the results from the individual functionals 
+     we have to declare them as XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU
+     as the code accesses these values (even if they are zero)
+  */
+  mgga = xc_allocate_output_variables
+    (np, orders, XC_FAMILY_MGGA, XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU, p->nspin);
+                                         
+  ked1 = xc_allocate_output_variables
+    (np, orders, XC_FAMILY_MGGA, XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU, p->nspin);
 
+  mtau   = (double *) libxc_malloc(np*p->dim->tau*sizeof(double));
+  if(p->nspin == XC_POLARIZED){
+    mrho   = (double *) libxc_malloc(np*p->dim->rho*sizeof(double));
+    msigma = (double *) libxc_malloc(np*p->dim->sigma*sizeof(double));
+    mlapl  = (double *) libxc_malloc(np*p->dim->lapl*sizeof(double));
+
+    ked2 = xc_allocate_output_variables
+      (np, orders, XC_FAMILY_MGGA, XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU, p->nspin);
+  }
+  
   /* evaluate the kinetic energy functional */
-  if(func->nspin == XC_UNPOLARIZED){
-    xc_mgga_evaluate_functional(func->func_aux[1], np, rho, sigma, lapl, NULL,
-                           ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ked1_));
+  
+  if(p->nspin == XC_UNPOLARIZED){
+    xc_mgga_evaluate_functional_new
+      (p->func_aux[1], max_order, np, rho, sigma, lapl, NULL, ked1);
   }else{
-    for(ii=0; ii<np; ii++){
-      mrho  [2*ii] = rho  [2*ii]; mrho  [2*ii+1] = 0.0;
-      msigma[3*ii] = sigma[3*ii]; msigma[3*ii+1] = 0.0; msigma[3*ii+2] = 0.0;
-      mlapl [2*ii] = lapl [2*ii]; mlapl [2*ii+1] = 0.0;
+    for(ip=0; ip<np; ip++){
+      mrho  [2*ip] = rho  [2*ip]; mrho  [2*ip+1] = 0.0;
+      msigma[3*ip] = sigma[3*ip]; msigma[3*ip+1] = 0.0; msigma[3*ip+2] = 0.0;
+      mlapl [2*ip] = lapl [2*ip]; mlapl [2*ip+1] = 0.0;
     }
-    xc_mgga_evaluate_functional(func->func_aux[1], np, mrho, msigma, mlapl, NULL,
-                           ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ked1_));
+    xc_mgga_evaluate_functional_new
+      (p->func_aux[1], max_order, np, mrho, msigma, mlapl, NULL, ked1);
 
-    for(ii=0; ii<np; ii++){
-      mrho  [2*ii] = rho  [2*ii + 1];
-      msigma[3*ii] = sigma[3*ii + 2];
-      mlapl [2*ii] = lapl [2*ii + 1];
+    for(ip=0; ip<np; ip++){
+      mrho  [2*ip] = rho  [2*ip + 1];
+      msigma[3*ip] = sigma[3*ip + 2];
+      mlapl [2*ip] = lapl [2*ip + 1];
     }
-    xc_mgga_evaluate_functional(func->func_aux[1], np, mrho, msigma, mlapl, NULL,
-                           ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ked2_));
-
+    xc_mgga_evaluate_functional_new
+      (p->func_aux[1], max_order, np, mrho, msigma, mlapl, NULL, ked2);
   }
-
+  
   /* now evaluate the mgga functional */
-  if(func->nspin == XC_UNPOLARIZED){
-    for(ii=0; ii<np; ii++){
-      mtau[ii] = rho[ii]*ked1_zk[ii];
+  if(p->nspin == XC_UNPOLARIZED){
+    for(ip=0; ip<np; ip++){
+      mtau[ip] = rho[ip]*ked1->zk[ip];
     }
   }else{
-    for(ii=0; ii<np; ii++){
-      mtau[2*ii    ] = rho[2*ii    ]*ked1_zk[ii];
-      mtau[2*ii + 1] = rho[2*ii + 1]*ked2_zk[ii];
+    for(ip=0; ip<np; ip++){
+      mtau[2*ip    ] = rho[2*ip    ]*ked1->zk[ip];
+      mtau[2*ip + 1] = rho[2*ip + 1]*ked2->zk[ip];
     }
   }
-  xc_mgga_evaluate_functional(func->func_aux[0], np, rho, sigma, lapl, mtau,
-                         mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, mgga_));
+
+  xc_mgga_evaluate_functional_new
+    (p->func_aux[0], max_order, np, rho, sigma, lapl, mtau, mgga);
 
   /* now we have to combine the results */
-  for(ii=0; ii<np; ii++){
-    if(zk != NULL){
-      *zk = *mgga_zk;
+  if(out->zk != NULL)
+    for(ip=0; ip<np; ip++){
+      out->VAR(zk, ip, 0) = mgga->VAR(zk, ip, 0);
     }
-
 #ifndef XC_DONT_COMPILE_VXC
-    if(vrho != NULL){
+  if(out->vrho != NULL)
+    for(ip=0; ip<np; ip++){
 #include "maple2c/deorbitalize_1.c"
     }
 #ifndef XC_DONT_COMPILE_FXC
-    if(v2rho2 != NULL){
+  if(out->v2rho2 != NULL)
+    for(ip=0; ip<np; ip++){
 #include "maple2c/deorbitalize_2.c"
     }
 #ifndef XC_DONT_COMPILE_KXC
-    if(v3rho3 != NULL){
+  if(out->v3rho3 != NULL)
+    for(ip=0; ip<np; ip++){
 #include "maple2c/deorbitalize_3.c"
     }
 #ifndef XC_DONT_COMPILE_LXC
-    if(v4rho4 != NULL){
+  if(out->v4rho4 != NULL)
+    for(ip=0; ip<np; ip++){
 #include "maple2c/deorbitalize_4.c"
     }
 #endif
 #endif
 #endif
 #endif
-
-    internal_counters_mgga_next(func->dim, 0, &null, &null, &null, &null,
-                                &zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
-    internal_counters_mgga_next(func->func_aux[0]->dim, 0, &null, &null, &null, &null,
-                                &mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, mgga_));
-    internal_counters_mgga_next(func->func_aux[1]->dim, 0, &null, &null, &null, &null,
-                                &ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked1_));
-    if(func->nspin == XC_POLARIZED){
-      internal_counters_mgga_next(func->func_aux[1]->dim, 0, &null, &null, &null, &null,
-                                  &ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked2_));
-    }
-  }
-
-  /* move the counters back to zero and deallocate the memory */
-  internal_counters_mgga_random(func->func_aux[0]->dim, -np, 0, &null, &null, &null, &null,
-                                &mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, mgga_));
-  xc_mgga_vars_free_all(mgga_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, mgga_));
-
-  internal_counters_mgga_random(func->func_aux[1]->dim, -np, 0, &null, &null, &null, &null,
-                                &ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked1_));
-  xc_mgga_vars_free_all(ked1_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ked1_));
-  if(func->nspin == XC_POLARIZED){
-    internal_counters_mgga_random(func->func_aux[1]->dim, -np, 0, &null, &null, &null, &null,
-                                  &ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ked2_));
-    xc_mgga_vars_free_all(ked2_zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ked2_));
-
+  
+  xc_deallocate_output_variables(mgga);
+  xc_deallocate_output_variables(ked1);
+  free(mtau);
+  if(p->nspin == XC_POLARIZED){
+    xc_deallocate_output_variables(ked2);
     free(mrho); free(msigma); free(mlapl);
   }
-  free(mtau);
 }
-
-static void
-deorb_new(const xc_func_type *func, size_t np,
-          const double *rho, const double *sigma, const double *lapl, const double *tau,
-          xc_mgga_out_params *out)
-{
-  xc_deorbitalize_func_work(func, np, rho, sigma, lapl, tau,
-                            out->zk, out->vrho, out->vsigma, out->vlapl, out->vtau,
-                            out->v2rho2, out->v2rhosigma, out->v2rholapl, out->v2rhotau,
-                            out->v2sigma2, out->v2sigmalapl, out->v2sigmatau, out->v2lapl2,
-                            out->v2lapltau, out->v2tau2,
-                            out->v3rho3, out->v3rho2sigma, out->v3rho2lapl, out->v3rho2tau,
-                            out->v3rhosigma2, out->v3rhosigmalapl, out->v3rhosigmatau,
-                            out->v3rholapl2, out->v3rholapltau, out->v3rhotau2, out->v3sigma3,
-                            out->v3sigma2lapl, out->v3sigma2tau, out->v3sigmalapl2, out->v3sigmalapltau,
-                            out->v3sigmatau2, out->v3lapl3, out->v3lapl2tau, out->v3lapltau2,
-                            out->v3tau3,
-                            out->v4rho4, out->v4rho3sigma, out->v4rho3lapl, out->v4rho3tau,
-                            out->v4rho2sigma2, out->v4rho2sigmalapl, out->v4rho2sigmatau,
-                            out->v4rho2lapl2, out->v4rho2lapltau, out->v4rho2tau2, out->v4rhosigma3,
-                            out->v4rhosigma2lapl, out->v4rhosigma2tau, out->v4rhosigmalapl2,
-                            out->v4rhosigmalapltau, out->v4rhosigmatau2, out->v4rholapl3,
-                            out->v4rholapl2tau, out->v4rholapltau2, out->v4rhotau3, out->v4sigma4,
-                            out->v4sigma3lapl, out->v4sigma3tau, out->v4sigma2lapl2, out->v4sigma2lapltau,
-                            out->v4sigma2tau2, out->v4sigmalapl3, out->v4sigmalapl2tau,
-                            out->v4sigmalapltau2, out->v4sigmatau3, out->v4lapl4, out->v4lapl3tau,
-                            out->v4lapl2tau2, out->v4lapltau3, out->v4tau4
-                            );
-}
-
+  
 xc_mgga_funcs_variants xc_deorbitalize_func =
   {
-   {deorb_new, deorb_new, deorb_new, deorb_new, deorb_new},
-   {deorb_new, deorb_new, deorb_new, deorb_new, deorb_new}
+   {deorbitalized_functional_work, deorbitalized_functional_work, deorbitalized_functional_work, deorbitalized_functional_work, deorbitalized_functional_work},
+   {deorbitalized_functional_work, deorbitalized_functional_work, deorbitalized_functional_work, deorbitalized_functional_work, deorbitalized_functional_work},
   };
                                                

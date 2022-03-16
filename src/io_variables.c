@@ -179,7 +179,7 @@ const int xc_output_variables_flags_key[XC_TOTAL_NUMBER_OUTPUT_VARIABLES] =
   };
 
 xc_output_variables *
-xc_allocate_output_variables(double np, const int *orders, int family, int flags, int nspin){
+xc_output_variables_allocate(double np, const int *orders, int family, int flags, int nspin){
   xc_output_variables *out;
   const xc_dimensions *dim;
   int i;
@@ -216,14 +216,13 @@ xc_allocate_output_variables(double np, const int *orders, int family, int flags
         continue;
     }
     out->fields[i] = (double *) libxc_malloc(sizeof(double)*np*dim->fields[i+5]);
-    libxc_memset(out->fields[i], 0, sizeof(double)*np*dim->fields[i+5]);
   }
     
   return out;
 }
   
 void
-xc_deallocate_output_variables(xc_output_variables *out)
+xc_output_variables_deallocate(xc_output_variables *out)
 {
   int i;
   
@@ -231,4 +230,21 @@ xc_deallocate_output_variables(xc_output_variables *out)
     if(out->fields[i] != NULL)
       libxc_free(out->fields[i]);
   libxc_free(out);
+}
+
+void
+xc_output_variables_initialize(xc_output_variables *out, int np, int nspin)
+{
+  int i;
+  const xc_dimensions *dim;
+
+  // initialize the dimension structure
+  if(nspin == XC_UNPOLARIZED)
+    dim = &dimensions_unpolarized;
+  else
+    dim = &dimensions_polarized;
+  
+  for(i=0; i<XC_TOTAL_NUMBER_OUTPUT_VARIABLES; i++)
+    if(out->fields[i] != NULL)
+      libxc_memset(out->fields[i], 0, sizeof(double)*np*dim->fields[i+5]);
 }

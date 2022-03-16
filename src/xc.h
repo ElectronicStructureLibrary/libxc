@@ -261,9 +261,10 @@ extern const int xc_output_variables_family_key[]; /* mapping output variable ->
 extern const int xc_output_variables_flags_key[];  /* mapping output variable -> flags */
 
 xc_output_variables *
-xc_allocate_output_variables(double np, const int *orders, int family, int flags, int nspin);
-void xc_deallocate_output_variables(xc_output_variables *out);
-  
+xc_output_variables_allocate(double np, const int *orders, int family, int flags, int nspin);
+void xc_output_variables_initialize(xc_output_variables *out, int np, int nspin);
+void xc_output_variables_deallocate(xc_output_variables *out);
+
 /* type of the lda function */
 typedef void (*xc_lda_funcs)
 (const struct xc_func_type *p, size_t np,

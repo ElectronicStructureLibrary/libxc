@@ -44,7 +44,8 @@ int main(int argc, char *argv[])
   double tau[2];         /* taua, taub */
 
   /* Output */
-  double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA *, );
+  xc_output_variables *out;
+  int orders[XC_MAXIMUM_ORDER+1] = {1, 1, 1, 0, 0};
 
   if(argc != 12){
     printf("Usage:\n%s funct pol rhoa rhob sigmaaa sigmaab sigmabb lapla laplb taua taub\n", argv[0]);
@@ -66,7 +67,6 @@ int main(int argc, char *argv[])
     printf("Invalid value for pol input.\n");
     exit(1);
   }
-
 
   rho[0]     = atof(argv[3]);
   rho[1]     = atof(argv[4]);
@@ -92,19 +92,19 @@ int main(int argc, char *argv[])
   info = func.info;
 
   /* allocate buffers */
-  zk MGGA_OUT_PARAMS_NO_EXC(=, ) = NULL;
-  xc_mgga_vars_allocate_all(info->family, 1, func.dim,
-                            1, 1, 1, 1, 1,
-                            &zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, ));
-
-  xc_mgga_evaluate_functional(&func, 1, rho, sigma, lapl, tau,
-                              zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
+  out = xc_output_variables_allocate(1, orders,
+                                     func.info->family,
+                                     XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU,
+                                     func.nspin);
+  xc_output_variables_initialize(out, 1, func.nspin);
+  
+  xc_mgga_evaluate_functional_new(&func, 1, 2, rho, sigma, lapl, tau, out);
 
   /* transform to energy per volume */
   if(nspin == XC_UNPOLARIZED){
-    zk[0] *= rho[0];
+    out->zk[0] *= rho[0];
   }else{
-    zk[0] *= rho[0] + rho[1];
+    out->zk[0] *= rho[0] + rho[1];
   }
 
   printf(" rhoa= %#0.2E", rho[0]);
@@ -123,155 +123,155 @@ int main(int argc, char *argv[])
   printf("\n\n");
 
   if(info->flags & XC_FLAGS_HAVE_EXC){
-    printVar(nspin, func.dim->zk, "zk", zk);
+    printVar(nspin, func.dim->zk, "zk", out->zk);
     printf("\n");
   }
 
   if(info->flags & XC_FLAGS_HAVE_VXC){
-    printVar(nspin, func.dim->vrho, "vrho", vrho);
+    printVar(nspin, func.dim->vrho, "vrho", out->vrho);
 
     if(info->family == XC_FAMILY_GGA || info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->vsigma, "vsigma", vsigma);
+      printVar(nspin, func.dim->vsigma, "vsigma", out->vsigma);
     }
 
     if(info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->vlapl, "vlapl", vlapl);
-      printVar(nspin, func.dim->vtau, "vtau", vtau);
+      printVar(nspin, func.dim->vlapl, "vlapl", out->vlapl);
+      printVar(nspin, func.dim->vtau, "vtau", out->vtau);
     }
     printf("\n");
   }
 
   if(info->flags & XC_FLAGS_HAVE_FXC){
-    printVar(nspin, func.dim->v2rho2, "v2rho2", v2rho2);
+    printVar(nspin, func.dim->v2rho2, "v2rho2", out->v2rho2);
 
     if(info->family == XC_FAMILY_GGA || info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v2rhosigma, "v2rhosigma", v2rhosigma);
+      printVar(nspin, func.dim->v2rhosigma, "v2rhosigma", out->v2rhosigma);
     }
 
     if(info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v2rholapl, "v2rholapl", v2rholapl);
-      printVar(nspin, func.dim->v2rhotau, "v2rhotau", v2rhotau);
+      printVar(nspin, func.dim->v2rholapl, "v2rholapl", out->v2rholapl);
+      printVar(nspin, func.dim->v2rhotau, "v2rhotau", out->v2rhotau);
     }
 
     if(info->family == XC_FAMILY_GGA || info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v2sigma2, "v2sigma2", v2sigma2);
+      printVar(nspin, func.dim->v2sigma2, "v2sigma2", out->v2sigma2);
     }
 
     if(info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v2sigmalapl, "v2sigmalapl", v2sigmalapl);
-      printVar(nspin, func.dim->v2sigmatau, "v2sigmatau", v2sigmatau);
-      printVar(nspin, func.dim->v2lapl2, "v2lapl2", v2lapl2);
-      printVar(nspin, func.dim->v2lapltau, "v2lapltau", v2lapltau);
-      printVar(nspin, func.dim->v2tau2, "v2tau2", v2tau2);
+      printVar(nspin, func.dim->v2sigmalapl, "v2sigmalapl", out->v2sigmalapl);
+      printVar(nspin, func.dim->v2sigmatau, "v2sigmatau", out->v2sigmatau);
+      printVar(nspin, func.dim->v2lapl2, "v2lapl2", out->v2lapl2);
+      printVar(nspin, func.dim->v2lapltau, "v2lapltau", out->v2lapltau);
+      printVar(nspin, func.dim->v2tau2, "v2tau2", out->v2tau2);
      }
     printf("\n");
   }
 
   if(info->flags & XC_FLAGS_HAVE_KXC){
-    printVar(nspin, func.dim->v3rho3, "v3rho3", v3rho3);
+    printVar(nspin, func.dim->v3rho3, "v3rho3", out->v3rho3);
 
     if(info->family == XC_FAMILY_GGA || info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v3rho2sigma, "v3rho2sigma", v3rho2sigma);
+      printVar(nspin, func.dim->v3rho2sigma, "v3rho2sigma", out->v3rho2sigma);
     }
 
     if(info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v3rho2lapl, "v3rho2lapl", v3rho2lapl);
-      printVar(nspin, func.dim->v3rho2tau, "v3rho2tau", v3rho2tau);
+      printVar(nspin, func.dim->v3rho2lapl, "v3rho2lapl", out->v3rho2lapl);
+      printVar(nspin, func.dim->v3rho2tau, "v3rho2tau", out->v3rho2tau);
     }
 
     if(info->family == XC_FAMILY_GGA || info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v3rhosigma2, "v3rhosigma2", v3rhosigma2);
+      printVar(nspin, func.dim->v3rhosigma2, "v3rhosigma2", out->v3rhosigma2);
     }
 
     if(info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v3rhosigmalapl, "v3rhosigmalapl", v3rhosigmalapl);
-      printVar(nspin, func.dim->v3rhosigmatau, "v3rhosigmatau", v3rhosigmatau);
-      printVar(nspin, func.dim->v3rholapl2, "v3rholapl2", v3rholapl2);
-      printVar(nspin, func.dim->v3rholapltau, "v3rholapltau", v3rholapltau);
-      printVar(nspin, func.dim->v3rhotau2, "v3rhotau2", v3rhotau2);
+      printVar(nspin, func.dim->v3rhosigmalapl, "v3rhosigmalapl", out->v3rhosigmalapl);
+      printVar(nspin, func.dim->v3rhosigmatau, "v3rhosigmatau", out->v3rhosigmatau);
+      printVar(nspin, func.dim->v3rholapl2, "v3rholapl2", out->v3rholapl2);
+      printVar(nspin, func.dim->v3rholapltau, "v3rholapltau", out->v3rholapltau);
+      printVar(nspin, func.dim->v3rhotau2, "v3rhotau2", out->v3rhotau2);
     }
 
     if(info->family == XC_FAMILY_GGA || info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v3sigma3, "v3sigma3", v3sigma3);
+      printVar(nspin, func.dim->v3sigma3, "v3sigma3", out->v3sigma3);
     }
 
     if(info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v3sigma2lapl, "v3sigma2lapl", v3sigma2lapl);
-      printVar(nspin, func.dim->v3sigma2tau, "v3sigma2tau", v3sigma2tau);
-      printVar(nspin, func.dim->v3sigmalapl2, "v3sigmalapl2", v3sigmalapl2);
-      printVar(nspin, func.dim->v3sigmalapltau, "v3sigmalapltau", v3sigmalapltau);
-      printVar(nspin, func.dim->v3sigmatau2, "v3sigmatau2", v3sigmatau2);
-      printVar(nspin, func.dim->v3lapl3, "v3lapl3", v3lapl3);
-      printVar(nspin, func.dim->v3lapl2tau, "v3lapl2tau", v3lapl2tau);
-      printVar(nspin, func.dim->v3lapltau2, "v3lapltau2", v3lapltau2);
-      printVar(nspin, func.dim->v3tau3, "v3tau3", v3tau3);
+      printVar(nspin, func.dim->v3sigma2lapl, "v3sigma2lapl", out->v3sigma2lapl);
+      printVar(nspin, func.dim->v3sigma2tau, "v3sigma2tau", out->v3sigma2tau);
+      printVar(nspin, func.dim->v3sigmalapl2, "v3sigmalapl2", out->v3sigmalapl2);
+      printVar(nspin, func.dim->v3sigmalapltau, "v3sigmalapltau", out->v3sigmalapltau);
+      printVar(nspin, func.dim->v3sigmatau2, "v3sigmatau2", out->v3sigmatau2);
+      printVar(nspin, func.dim->v3lapl3, "v3lapl3", out->v3lapl3);
+      printVar(nspin, func.dim->v3lapl2tau, "v3lapl2tau", out->v3lapl2tau);
+      printVar(nspin, func.dim->v3lapltau2, "v3lapltau2", out->v3lapltau2);
+      printVar(nspin, func.dim->v3tau3, "v3tau3", out->v3tau3);
     }
     printf("\n");
   }
 
   if(info->flags & XC_FLAGS_HAVE_LXC){
-    printVar(nspin, func.dim->v4rho4, "v4rho4", v4rho4);
+    printVar(nspin, func.dim->v4rho4, "v4rho4", out->v4rho4);
 
     if(info->family == XC_FAMILY_GGA || info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v4rho3sigma, "v4rho3sigma", v4rho3sigma);
+      printVar(nspin, func.dim->v4rho3sigma, "v4rho3sigma", out->v4rho3sigma);
     }
 
     if(info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v4rho3lapl, "v4rho3lapl", v4rho3lapl);
-      printVar(nspin, func.dim->v4rho3tau, "v4rho3tau", v4rho3tau);
+      printVar(nspin, func.dim->v4rho3lapl, "v4rho3lapl", out->v4rho3lapl);
+      printVar(nspin, func.dim->v4rho3tau, "v4rho3tau", out->v4rho3tau);
     }
 
     if(info->family == XC_FAMILY_GGA || info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v4rho2sigma2, "v4rho2sigma2", v4rho2sigma2);
+      printVar(nspin, func.dim->v4rho2sigma2, "v4rho2sigma2", out->v4rho2sigma2);
     }
 
     if(info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v4rho2sigmalapl, "v4rho2sigmalapl", v4rho2sigmalapl);
-      printVar(nspin, func.dim->v4rho2sigmatau, "v4rho2sigmatau", v4rho2sigmatau);
-      printVar(nspin, func.dim->v4rho2lapl2, "v4rho2lapl2", v4rho2lapl2);
-      printVar(nspin, func.dim->v4rho2lapltau, "v4rho2lapltau", v4rho2lapltau);
-      printVar(nspin, func.dim->v4rho2tau2, "v4rho2tau2", v4rho2tau2);
+      printVar(nspin, func.dim->v4rho2sigmalapl, "v4rho2sigmalapl", out->v4rho2sigmalapl);
+      printVar(nspin, func.dim->v4rho2sigmatau, "v4rho2sigmatau", out->v4rho2sigmatau);
+      printVar(nspin, func.dim->v4rho2lapl2, "v4rho2lapl2", out->v4rho2lapl2);
+      printVar(nspin, func.dim->v4rho2lapltau, "v4rho2lapltau", out->v4rho2lapltau);
+      printVar(nspin, func.dim->v4rho2tau2, "v4rho2tau2", out->v4rho2tau2);
     }
 
     if(info->family == XC_FAMILY_GGA || info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v4rhosigma3, "v4rhosigma3", v4rhosigma3);
+      printVar(nspin, func.dim->v4rhosigma3, "v4rhosigma3", out->v4rhosigma3);
     }
 
     if(info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v4rhosigma2lapl, "v4rhosigma2lapl", v4rhosigma2lapl);
-      printVar(nspin, func.dim->v4rhosigma2tau, "v4rhosigma2tau", v4rhosigma2tau);
-      printVar(nspin, func.dim->v4rhosigmalapl2, "v4rhosigmalapl2", v4rhosigmalapl2);
-      printVar(nspin, func.dim->v4rhosigmalapltau, "v4rhosigmalapltau", v4rhosigmalapltau);
-      printVar(nspin, func.dim->v4rhosigmatau2, "v4rhosigmatau2", v4rhosigmatau2);
-      printVar(nspin, func.dim->v4rholapl3, "v4rholapl3", v4rholapl3);
-      printVar(nspin, func.dim->v4rholapl2tau, "v4rholapl2tau", v4rholapl2tau);
-      printVar(nspin, func.dim->v4rholapltau2, "v4rholapltau2", v4rholapltau2);
-      printVar(nspin, func.dim->v4rhotau3, "v4rhotau3", v4rhotau3);
+      printVar(nspin, func.dim->v4rhosigma2lapl, "v4rhosigma2lapl", out->v4rhosigma2lapl);
+      printVar(nspin, func.dim->v4rhosigma2tau, "v4rhosigma2tau", out->v4rhosigma2tau);
+      printVar(nspin, func.dim->v4rhosigmalapl2, "v4rhosigmalapl2", out->v4rhosigmalapl2);
+      printVar(nspin, func.dim->v4rhosigmalapltau, "v4rhosigmalapltau", out->v4rhosigmalapltau);
+      printVar(nspin, func.dim->v4rhosigmatau2, "v4rhosigmatau2", out->v4rhosigmatau2);
+      printVar(nspin, func.dim->v4rholapl3, "v4rholapl3", out->v4rholapl3);
+      printVar(nspin, func.dim->v4rholapl2tau, "v4rholapl2tau", out->v4rholapl2tau);
+      printVar(nspin, func.dim->v4rholapltau2, "v4rholapltau2", out->v4rholapltau2);
+      printVar(nspin, func.dim->v4rhotau3, "v4rhotau3", out->v4rhotau3);
     }
 
     if(info->family == XC_FAMILY_GGA || info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v4sigma4, "v4sigma4", v4sigma4);
+      printVar(nspin, func.dim->v4sigma4, "v4sigma4", out->v4sigma4);
     }
 
     if(info->family == XC_FAMILY_MGGA){
-      printVar(nspin, func.dim->v4sigma3lapl, "v4sigma3lapl", v4sigma3lapl);
-      printVar(nspin, func.dim->v4sigma3tau, "v4sigma3tau", v4sigma3tau);
-      printVar(nspin, func.dim->v4sigma2lapl2, "v4sigma2lapl2", v4sigma2lapl2);
-      printVar(nspin, func.dim->v4sigma2lapltau, "v4sigma2lapltau", v4sigma2lapltau);
-      printVar(nspin, func.dim->v4sigma2tau2, "v4sigma2tau2", v4sigma2tau2);
-      printVar(nspin, func.dim->v4sigmalapl3, "v4sigmalapl3", v4sigmalapl3);
-      printVar(nspin, func.dim->v4sigmalapl2tau, "v4sigmalapl2tau", v4sigmalapl2tau);
-      printVar(nspin, func.dim->v4sigmalapltau2, "v4sigmalapltau2", v4sigmalapltau2);
-      printVar(nspin, func.dim->v4sigmatau3, "v4sigmatau3", v4sigmatau3);
-      printVar(nspin, func.dim->v4lapl4, "v4lapl4", v4lapl4);
-      printVar(nspin, func.dim->v4lapl3tau, "v4lapl3tau", v4lapl3tau);
-      printVar(nspin, func.dim->v4lapl2tau2, "v4lapl2tau2", v4lapl2tau2);
-      printVar(nspin, func.dim->v4lapltau3, "v4lapltau3", v4lapltau3);
-      printVar(nspin, func.dim->v4tau4, "v4tau4", v4tau4);
+      printVar(nspin, func.dim->v4sigma3lapl, "v4sigma3lapl", out->v4sigma3lapl);
+      printVar(nspin, func.dim->v4sigma3tau, "v4sigma3tau", out->v4sigma3tau);
+      printVar(nspin, func.dim->v4sigma2lapl2, "v4sigma2lapl2", out->v4sigma2lapl2);
+      printVar(nspin, func.dim->v4sigma2lapltau, "v4sigma2lapltau", out->v4sigma2lapltau);
+      printVar(nspin, func.dim->v4sigma2tau2, "v4sigma2tau2", out->v4sigma2tau2);
+      printVar(nspin, func.dim->v4sigmalapl3, "v4sigmalapl3", out->v4sigmalapl3);
+      printVar(nspin, func.dim->v4sigmalapl2tau, "v4sigmalapl2tau", out->v4sigmalapl2tau);
+      printVar(nspin, func.dim->v4sigmalapltau2, "v4sigmalapltau2", out->v4sigmalapltau2);
+      printVar(nspin, func.dim->v4sigmatau3, "v4sigmatau3", out->v4sigmatau3);
+      printVar(nspin, func.dim->v4lapl4, "v4lapl4", out->v4lapl4);
+      printVar(nspin, func.dim->v4lapl3tau, "v4lapl3tau", out->v4lapl3tau);
+      printVar(nspin, func.dim->v4lapl2tau2, "v4lapl2tau2", out->v4lapl2tau2);
+      printVar(nspin, func.dim->v4lapltau3, "v4lapltau3", out->v4lapltau3);
+      printVar(nspin, func.dim->v4tau4, "v4tau4", out->v4tau4);
     }
   }
 
-  xc_mgga_vars_free_all(zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, ));
+  xc_output_variables_deallocate(out);
   xc_func_end(&func);
 
   return 0;

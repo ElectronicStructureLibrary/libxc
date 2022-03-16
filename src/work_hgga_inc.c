@@ -21,7 +21,7 @@
 #define VAR(var, ip, index)         var[ip*p->dim->var + index]
 #define WORK_HGGA_(order, spin)     work_hgga_ ## order ## _ ## spin
 #define WORK_HGGA_GPU_(order, spin) work_hgga_ ## order ## _ ## spin
-#define FUNC_(order, spin)          func_     ## order ## _ ## spin
+#define FUNC_(order, spin)          func_      ## order ## _ ## spin
 
 /* we need double escaping of the preprocessor macros */
 #define WORK_HGGA(order, spin)     WORK_HGGA_(order, spin)
@@ -220,7 +220,7 @@ WORK_HGGA(ORDER_TXT, SPIN_TXT)
 {
   //make a copy of 'p' and 'out' since they might be in host-only memory
   XC(func_type) *pcuda = (XC(func_type) *) libxc_malloc(sizeof(XC(func_type)));
-  xc_output_variables *outcuda = (xc_hgga_out_params *) libxc_malloc(sizeof(xc_hgga_out_params));
+  xc_output_variables *outcuda = (xc_output_variables *) libxc_malloc(sizeof(xc_hgga_out_params));
 
   cudaMemcpy(pcuda, p, sizeof(XC(func_type)), cudaMemcpyHostToDevice);
   cudaMemcpy(outcuda, out, sizeof(xc_output_variables), cudaMemcpyHostToDevice);

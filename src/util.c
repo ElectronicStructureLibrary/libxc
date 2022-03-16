@@ -294,6 +294,7 @@ libxc_free(void *ptr)
 #endif
 }
 
+
 /* these are the dimension of the input and output
    arrays for spin unpolarized and polarized */
 const xc_dimensions dimensions_unpolarized =
@@ -407,7 +408,6 @@ const xc_dimensions dimensions_polarized =
   8, 12, 12, 8,     /* v4lapltau3, v4lapltau2exx, v4lapltauexx2, v4laplexx3 */
   5, 8, 8, 5        /* v4tau4, v4tau3exx, v4tauexx3, v4exx4 */
 };
-
 
 GPU_FUNCTION void
 internal_counters_lda_random

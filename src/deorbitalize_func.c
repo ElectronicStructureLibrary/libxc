@@ -319,6 +319,7 @@ deorbitalized_functional_work
  xc_output_variables *out)
 {
   double *mrho, *msigma, *mlapl, *mtau;
+
   xc_output_variables *mgga, *ked1, *ked2;
   size_t ip;
   

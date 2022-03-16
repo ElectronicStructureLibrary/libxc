@@ -46,36 +46,13 @@ xc_lda_sanity_check(const xc_func_info_type *info, int order, xc_output_variable
 }
 
 
-void
-xc_lda_initalize(const xc_func_type *func, size_t np, xc_output_variables *out)
-{
-  const xc_dimensions *dim = func->dim;
-
-  /* initialize output */
-  if(out->zk != NULL)
-    libxc_memset(out->zk,     0, np*sizeof(double)*dim->zk);
-
-  if(out->vrho != NULL)
-    libxc_memset(out->vrho,   0, np*sizeof(double)*dim->vrho);
-
-  if(out->v2rho2 != NULL)
-    libxc_memset(out->v2rho2, 0, np*sizeof(double)*dim->v2rho2);
-
-  if(out->v3rho3 != NULL)
-    libxc_memset(out->v3rho3, 0, np*sizeof(double)*dim->v3rho3);
-
-  if(out->v4rho4 != NULL)
-    libxc_memset(out->v4rho4, 0, np*sizeof(double)*dim->v4rho4);
-}
-
-
 /* get the lda functional */
 void
 xc_lda_new(const xc_func_type *func, int order, size_t np, const double *rho,
        xc_output_variables *out)
 {
   xc_lda_sanity_check(func->info, order, out);
-  xc_lda_initalize(func, np, out);
+  xc_output_variables_initialize(out, np, func->nspin);
 
   /* call the LDA routines */
   if(func->info->lda != NULL){
@@ -89,14 +66,7 @@ xc_lda_new(const xc_func_type *func, int order, size_t np, const double *rho,
   }
 
   if(func->mix_coef != NULL)
-    xc_mix_func(func, np, rho, NULL, NULL, NULL, out->zk, out->vrho, NULL, NULL, NULL,
-                out->v2rho2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                out->v3rho3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                out->v4rho4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                NULL, NULL, NULL, NULL, NULL);
+    xc_mix_func(func, np, rho, NULL, NULL, NULL, out);
 }
 
 /* old API */

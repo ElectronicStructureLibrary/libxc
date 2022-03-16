@@ -73,43 +73,6 @@ xc_gga_sanity_check(const xc_func_info_type *info, int order, xc_output_variable
   }
 }
 
-void
-xc_gga_initalize(const xc_func_type *func, size_t np, xc_output_variables *out)
-{
-  const xc_dimensions *dim = func->dim;
-
-    /* initialize output to zero */
-  if(out->zk != NULL)
-    libxc_memset(out->zk, 0, dim->zk*np*sizeof(double));
-
-  if(out->vrho != NULL){
-    libxc_memset(out->vrho,   0, dim->vrho  *np*sizeof(double));
-    libxc_memset(out->vsigma, 0, dim->vsigma*np*sizeof(double));
-  }
-
-  if(out->v2rho2 != NULL){
-    libxc_memset(out->v2rho2,     0, dim->v2rho2    *np*sizeof(double));
-    libxc_memset(out->v2rhosigma, 0, dim->v2rhosigma*np*sizeof(double));
-    libxc_memset(out->v2sigma2,   0, dim->v2sigma2  *np*sizeof(double));
-  }
-
-  if(out->v3rho3 != NULL){
-    libxc_memset(out->v3rho3,      0, dim->v3rho3     *np*sizeof(double));
-    libxc_memset(out->v3rho2sigma, 0, dim->v3rho2sigma*np*sizeof(double));
-    libxc_memset(out->v3rhosigma2, 0, dim->v3rhosigma2*np*sizeof(double));
-    libxc_memset(out->v3sigma3,    0, dim->v3sigma3   *np*sizeof(double));
-  }
-
-  if(out->v4rho4 != NULL){
-    libxc_memset(out->v4rho4,       0, dim->v4rho4      *np*sizeof(double));
-    libxc_memset(out->v4rho3sigma,  0, dim->v4rho3sigma *np*sizeof(double));
-    libxc_memset(out->v4rho2sigma2, 0, dim->v4rho2sigma2*np*sizeof(double));
-    libxc_memset(out->v4rhosigma3,  0, dim->v4rhosigma3 *np*sizeof(double));
-    libxc_memset(out->v4sigma4,     0, dim->v4sigma4    *np*sizeof(double));
-   }
-
-}
-
 /* Some useful formulas:
 
    sigma_st          = grad rho_s . grad rho_t
@@ -151,7 +114,7 @@ void xc_gga_new(const xc_func_type *func, int order, size_t np, const double *rh
 {
 
   xc_gga_sanity_check(func->info, order, out);
-  xc_gga_initalize(func, np, out);
+  xc_output_variables_initialize(out, np, func->nspin);
   
   /* call the GGA routines */
   if(func->info->gga != NULL){
@@ -165,14 +128,7 @@ void xc_gga_new(const xc_func_type *func, int order, size_t np, const double *rh
   }
 
   if(func->mix_coef != NULL)
-    xc_mix_func(func, np, rho, sigma, NULL, NULL, out->zk, out->vrho, out->vsigma, NULL, NULL,
-                out->v2rho2, out->v2rhosigma, NULL, NULL, out->v2sigma2, NULL, NULL, NULL, NULL, NULL,
-                out->v3rho3, out->v3rho2sigma, NULL, NULL, out->v3rhosigma2, NULL, NULL, NULL, NULL, NULL,
-                out->v3sigma3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                out->v4rho4, out->v4rho3sigma, NULL, NULL, out->v4rho2sigma2, NULL, NULL, NULL, NULL, NULL,
-                out->v4rhosigma3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                out->v4sigma4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                NULL, NULL, NULL, NULL, NULL);
+    xc_mix_func(func, np, rho, sigma, NULL, NULL, out);
 }
 
 /* old API */

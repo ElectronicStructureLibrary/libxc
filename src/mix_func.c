@@ -48,38 +48,20 @@ __global__ static void add_to_mix_gpu(size_t np, double * dst, double coeff, con
 }
 #endif
 
-static void add_to_mix(size_t np, double * dst, double coeff, const double *src){
-#ifndef HAVE_CUDA
-  size_t ip;
-  for(ip = 0; ip < np; ip++) dst[ip] += coeff*src[ip];
-#else
-  size_t nblocks = np/CUDA_BLOCK_SIZE;
-  if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
-  add_to_mix_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>(np, dst, coeff, src);
-#endif
-}
-
 #define is_mgga(id)   ((id) == XC_FAMILY_MGGA)
 #define is_gga(id)    ((id) == XC_FAMILY_GGA || is_mgga(id))
 #define is_lda(id)    ((id) == XC_FAMILY_LDA ||  is_gga(id))
-#define safe_free(pt) if(pt != NULL) libxc_free(pt)
-#define sum_var(VAR) add_to_mix(np*dim->VAR, VAR, func->mix_coef[ii], x ## VAR);
 
-void
-xc_mix_func(const xc_func_type *func, size_t np,
-            const double *rho, const double *sigma, const double *lapl, const double *tau,
-            double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ))
+/* 
+   Sanity check: have we claimed the highest possible derivatives?
+   First, check for the lowest common derivative (also need to make
+   sure the derivatives have been compiled in!)
+*/
+void mix_func_sanity_check(const xc_func_type *func)
 {
-  const xc_func_type *aux;
-  double *xzk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA *, x);
   int ii;
+  const xc_func_type *aux;
 
-  const xc_dimensions *dim = func->dim;
-
-  /* Sanity check: have we claimed the highest possible derivatives?
-     First, check for the lowest common derivative (also need to make
-     sure the derivatives have been compiled in!)
-  */
   int have_vxc = XC_FLAGS_I_HAVE_VXC;
   int have_fxc = XC_FLAGS_I_HAVE_FXC;
   int have_kxc = XC_FLAGS_I_HAVE_KXC;
@@ -139,177 +121,71 @@ xc_mix_func(const xc_func_type *func, size_t np,
     if(func->info->flags & XC_FLAGS_HAVE_LXC)
       assert(aux->info->flags & XC_FLAGS_HAVE_LXC);
   }
+}
 
-  /* prepare buffers that will hold the results from the individual functionals */
-  xzk MGGA_OUT_PARAMS_NO_EXC(=, x) = NULL;
+void
+xc_mix_func(const xc_func_type *func, size_t np,
+            const double *rho, const double *sigma, const double *lapl, const double *tau,
+            xc_output_variables *out)
+{
+  const xc_func_type *aux;
+  xc_output_variables *xout;
+  size_t ip;
 
-  /* allocate buffers */
-  xc_mgga_vars_allocate_all(func->info->family, np, dim,
-                            zk != NULL, vrho != NULL, v2rho2 != NULL, v3rho3 != NULL, v4rho4 != NULL,
-                            &xzk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA &, x));
+  int ifunc, ii, max_order;  
+  int orders[XC_MAXIMUM_ORDER+1] =
+    {out->zk != NULL, out->vrho != NULL, out->v2rho2 != NULL,
+     out->v3rho3 != NULL, out->v4rho4 != NULL};
+
+  const xc_dimensions *dim = func->dim;
+
+  max_order = -1;
+  for(ii=0; ii <= XC_MAXIMUM_ORDER; ii++){
+    if(orders[ii]) max_order = ii;
+  }
+
+  mix_func_sanity_check(func);
+
+  xout = xc_output_variables_allocate
+    (np, orders, func->info->family, func->info->flags, func->nspin);
 
   /* Proceed by computing the mix */
-  for(ii=0; ii<func->n_func_aux; ii++){
-    aux = func->func_aux[ii];
+  for(ifunc=0; ifunc<func->n_func_aux; ifunc++){
+    aux = func->func_aux[ifunc];
 
+    /* have to clean explicitly the buffers here */
+    xc_output_variables_initialize(xout, np, func->nspin);
+    
     /* Evaluate the functional */
     switch(aux->info->family){
     case XC_FAMILY_LDA:
-      xc_lda(aux, np, rho,
-             xzk LDA_OUT_PARAMS_NO_EXC(XC_COMMA, x));
+      xc_lda_new(aux, max_order, np, rho, xout);
       break;
     case XC_FAMILY_GGA:
-      xc_gga(aux, np, rho, sigma,
-             xzk GGA_OUT_PARAMS_NO_EXC(XC_COMMA, x));
+      xc_gga_new(aux, max_order, np, rho, sigma, xout);
       break;
     case XC_FAMILY_MGGA:
-      xc_mgga(aux, np, rho, sigma, lapl, tau,
-              xzk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, x));
+      xc_mgga_new(aux, max_order, np, rho, sigma, lapl, tau, xout);
       break;
     }
 
     /* Do the mixing */
-    if(zk != NULL) {
-      sum_var(zk);
-    }
-
- #ifndef XC_DONT_COMPILE_VXC
-    if(vrho != NULL) {
-      sum_var(vrho);
-
-      if(is_gga(aux->info->family)) {
-        sum_var(vsigma);
-      }
-
-      if(is_mgga(aux->info->family)) {
-        if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) {
-          sum_var(vlapl);
-        }
-        if(aux->info->flags & XC_FLAGS_NEEDS_TAU) {
-          sum_var(vtau);
-        }
-      }
-    }
-
-#ifndef XC_DONT_COMPILE_FXC
-    if(v2rho2 != NULL){
-      sum_var(v2rho2);
-
-      if(is_gga(aux->info->family)) {
-        sum_var(v2rhosigma);
-        sum_var(v2sigma2);
-      }
-
-      if(is_mgga(aux->info->family)) {
-        if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) {
-          sum_var(v2rholapl);
-          sum_var(v2sigmalapl);
-          sum_var(v2lapl2);
-        }
-        if(aux->info->flags & XC_FLAGS_NEEDS_TAU) {
-          sum_var(v2rhotau);
-          sum_var(v2sigmatau);
-          sum_var(v2tau2);
-        }
-        if((aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (aux->info->flags & XC_FLAGS_NEEDS_TAU)) {
-          sum_var(v2lapltau);
-        }
-      }
-    }
-
-#ifndef XC_DONT_COMPILE_KXC
-    if(v3rho3 != NULL){
-      sum_var(v3rho3);
-
-      if(is_gga(aux->info->family)) {
-        sum_var(v3rho2sigma);
-        sum_var(v3rhosigma2);
-        sum_var(v3sigma3);
-      }
-
-      if(is_mgga(aux->info->family)) {
-        if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) {
-          sum_var(v3rho2lapl);
-          sum_var(v3rhosigmalapl);
-          sum_var(v3rholapl2);
-          sum_var(v3sigma2lapl);
-          sum_var(v3sigmalapl2);
-          sum_var(v3lapl3);
-        }
-        if(aux->info->flags & XC_FLAGS_NEEDS_TAU) {
-          sum_var(v3rho2tau);
-          sum_var(v3rhosigmatau);
-          sum_var(v3rhotau2);
-          sum_var(v3sigma2tau);
-          sum_var(v3sigmatau2);
-          sum_var(v3tau3);
-        }
-        if((aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (aux->info->flags & XC_FLAGS_NEEDS_TAU)) {
-          sum_var(v3rholapltau);
-          sum_var(v3sigmalapltau);
-          sum_var(v3lapl2tau);
-          sum_var(v3lapltau2);
-        }
-      }
-    }
-
-#ifndef XC_DONT_COMPILE_LXC
-    if(v4rho4 != NULL){
-      sum_var(v4rho4);
-
-      if(is_gga(aux->info->family)) {
-        sum_var(v4rho3sigma);
-        sum_var(v4rho2sigma2);
-        sum_var(v4rhosigma3);
-        sum_var(v4sigma4);
-      }
-      if(is_mgga(aux->info->family)) {
-        if(aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) {
-          sum_var(v4rho3lapl);
-          sum_var(v4rho2sigmalapl);
-          sum_var(v4rho2lapl2);
-          sum_var(v4rhosigma2lapl);
-          sum_var(v4rhosigmalapl2);
-          sum_var(v4rholapl3);
-          sum_var(v4sigma3lapl);
-          sum_var(v4sigma2lapl2);
-          sum_var(v4sigmalapl3);
-          sum_var(v4lapl4);
-        }
-        if(aux->info->flags & XC_FLAGS_NEEDS_TAU) {
-          sum_var(v4rho3tau);
-          sum_var(v4rho2sigmatau);
-          sum_var(v4rho2tau2);
-          sum_var(v4rhosigma2tau);
-          sum_var(v4rhosigmatau2);
-          sum_var(v4rhotau3);
-          sum_var(v4sigma3tau);
-          sum_var(v4sigma2tau2);
-          sum_var(v4sigmatau3);
-          sum_var(v4tau4);
-        }
-        if((aux->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) && (aux->info->flags & XC_FLAGS_NEEDS_TAU)) {
-          sum_var(v4rho2lapltau);
-          sum_var(v4rhosigmalapltau);
-          sum_var(v4rholapl2tau);
-          sum_var(v4rholapltau2);
-          sum_var(v4sigma2lapltau);
-          sum_var(v4sigmalapl2tau);
-          sum_var(v4sigmalapltau2);
-          sum_var(v4lapl3tau);
-          sum_var(v4lapl2tau2);
-          sum_var(v4lapltau3);
-        }
-      }
-    }
+    for(ii=0; ii<XC_TOTAL_NUMBER_OUTPUT_VARIABLES; ii++){
+      if(out->fields[ii] == NULL)
+        continue;
+      /* this could be replaced by a daxpy BLAS call */
+#ifndef HAVE_CUDA      
+      for(ip=0; ip<np*dim->fields[ii+5]; ip++)
+        out->fields[ii][ip] += func->mix_coef[ifunc]*xout->fields[ii][ip];
+#else
+      size_t nblocks = np/CUDA_BLOCK_SIZE;
+      if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
+      add_to_mix_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>
+        (np*dim->fields[ii+5], out->fields[ii], func->mix_coef[ifunc], xout->fields[ii]);
 #endif
-#endif
-#endif
-#endif
-  } /* end functional loop */
-
-  /* deallocate internal buffers */
-  xc_mgga_vars_free_all(xzk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, x));
+    }
+  }
+  xc_output_variables_deallocate(xout);
 }
 
 int

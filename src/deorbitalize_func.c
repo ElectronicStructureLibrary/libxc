@@ -11,21 +11,24 @@
 
 #include "util.h"
 
-void xc_mgga_evaluate_functional_new
+void xc_evaluate_func
 (const xc_func_type *func, int order, size_t np,
- const double *rho, const double *sigma, const double *lapl, const double *tau,
+ const double *rho, const double *sigma, const double *lapl, const double *tau, const double *exx,
  xc_output_variables *out)
 {
   /* Evaluate the functional */
   switch(func->info->family){
   case XC_FAMILY_LDA:
-    xc_lda_new(func, order, np, rho, out);
+    xc_evaluate_lda(func, order, np, rho, out);
     break;
   case XC_FAMILY_GGA:
-    xc_gga_new(func, order, np, rho, sigma, out);
+    xc_evaluate_gga(func, order, np, rho, sigma, out);
     break;
   case XC_FAMILY_MGGA:
-    xc_mgga_new(func, order, np, rho, sigma, lapl, tau, out);
+    xc_evaluate_mgga(func, order, np, rho, sigma, lapl, tau, out);
+    break;
+  case XC_FAMILY_HGGA:
+    xc_evaluate_hgga(func, order, np, rho, sigma, lapl, tau, exx, out);
     break;
   }
 }
@@ -97,24 +100,24 @@ deorb_work(const xc_func_type *p, size_t np,
   /* evaluate the kinetic energy functional */
   
   if(p->nspin == XC_UNPOLARIZED){
-    xc_mgga_evaluate_functional_new
-      (p->func_aux[1], max_order, np, rho, sigma, lapl, NULL, ked1);
+    xc_evaluate_func
+      (p->func_aux[1], max_order, np, rho, sigma, lapl, NULL, NULL, ked1);
   }else{
     for(ip=0; ip<np; ip++){
       mrho  [2*ip] = rho  [2*ip]; mrho  [2*ip+1] = 0.0;
       msigma[3*ip] = sigma[3*ip]; msigma[3*ip+1] = 0.0; msigma[3*ip+2] = 0.0;
       mlapl [2*ip] = lapl [2*ip]; mlapl [2*ip+1] = 0.0;
     }
-    xc_mgga_evaluate_functional_new
-      (p->func_aux[1], max_order, np, mrho, msigma, mlapl, NULL, ked1);
+    xc_evaluate_func
+      (p->func_aux[1], max_order, np, mrho, msigma, mlapl, NULL, NULL, ked1);
 
     for(ip=0; ip<np; ip++){
       mrho  [2*ip] = rho  [2*ip + 1];
       msigma[3*ip] = sigma[3*ip + 2];
       mlapl [2*ip] = lapl [2*ip + 1];
     }
-    xc_mgga_evaluate_functional_new
-      (p->func_aux[1], max_order, np, mrho, msigma, mlapl, NULL, ked2);
+    xc_evaluate_func
+      (p->func_aux[1], max_order, np, mrho, msigma, mlapl, NULL, NULL, ked2);
   }
   
   /* now evaluate the mgga functional */
@@ -129,8 +132,8 @@ deorb_work(const xc_func_type *p, size_t np,
     }
   }
 
-  xc_mgga_evaluate_functional_new
-    (p->func_aux[0], max_order, np, rho, sigma, lapl, mtau, mgga);
+  xc_evaluate_func
+    (p->func_aux[0], max_order, np, rho, sigma, lapl, mtau, NULL, mgga);
 
   /* now we have to combine the results */
   if(out->zk != NULL)

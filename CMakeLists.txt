@@ -450,6 +450,7 @@ set(raw_sources_list
   mgga_x_vcml.c
   hgga.c
   hgga_x_jse_b88.c
+  io_variables.c
   mix_func.c
   deorbitalize_func.c
   references.c

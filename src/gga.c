@@ -109,8 +109,9 @@ if nspin == 2
 */
 
 
-void xc_gga_new(const xc_func_type *func, int order, size_t np, const double *rho, const double *sigma,
-            xc_output_variables *out)
+void xc_evaluate_gga(const xc_func_type *func, int order, size_t np,
+       const double *rho, const double *sigma,
+       xc_output_variables *out)
 {
 
   xc_gga_sanity_check(func->info, order, out);
@@ -128,7 +129,7 @@ void xc_gga_new(const xc_func_type *func, int order, size_t np, const double *rh
   }
 
   if(func->mix_coef != NULL)
-    xc_mix_func(func, np, rho, sigma, NULL, NULL, out);
+    xc_mix_func(func, np, rho, sigma, NULL, NULL, NULL, out);
 }
 
 /* old API */
@@ -159,7 +160,7 @@ xc_gga(const xc_func_type *p, size_t np, const double *rho, const double *sigma,
 
   out.v4rho4 = v4rho4; out.v4rho3sigma = v4rho3sigma; out.v4rho2sigma2 = v4rho2sigma2; out.v4rhosigma3 = v4rhosigma3; out.v4sigma4 = v4sigma4;
 
-  xc_gga_new(p, order, np, rho, sigma, &out);
+  xc_evaluate_gga(p, order, np, rho, sigma, &out);
 }
 
 
@@ -172,7 +173,7 @@ xc_gga_exc(const xc_func_type *p, size_t np, const double *rho, const double *si
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   out.zk   = zk;
   
-  xc_gga_new(p, 0, np, rho, sigma, &out);
+  xc_evaluate_gga(p, 0, np, rho, sigma, &out);
 }
 
 void
@@ -184,7 +185,7 @@ xc_gga_exc_vxc(const xc_func_type *p, size_t np, const double *rho, const double
   out.zk   = zk;
   out.vrho = vrho; out.vsigma = vsigma;
   
-  xc_gga_new(p, 1, np, rho, sigma, &out);
+  xc_evaluate_gga(p, 1, np, rho, sigma, &out);
 }
 
 void
@@ -198,7 +199,7 @@ xc_gga_exc_vxc_fxc (const xc_func_type *p, size_t np, const double *rho, const d
   out.vrho   = vrho; out.vsigma = vsigma;
   out.v2rho2 = v2rho2; out.v2rhosigma = v2rhosigma; out.v2sigma2 = v2sigma2;
   
-  xc_gga_new(p, 2, np, rho, sigma, &out);
+  xc_evaluate_gga(p, 2, np, rho, sigma, &out);
 }
 
 void
@@ -211,7 +212,7 @@ xc_gga_vxc_fxc (const xc_func_type *p, size_t np, const double *rho, const doubl
   out.vrho   = vrho; out.vsigma = vsigma;
   out.v2rho2 = v2rho2; out.v2rhosigma = v2rhosigma; out.v2sigma2 = v2sigma2;
   
-  xc_gga_new(p, 2, np, rho, sigma, &out);
+  xc_evaluate_gga(p, 2, np, rho, sigma, &out);
 }
 
 void
@@ -226,7 +227,7 @@ xc_gga_exc_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, con
   out.v2rho2 = v2rho2; out.v2rhosigma = v2rhosigma; out.v2sigma2 = v2sigma2;
   out.v3rho3 = v3rho3; out.v3rho2sigma = v3rho2sigma; out.v3rhosigma2 = v3rhosigma2; out.v3sigma3 = v3sigma3;
   
-  xc_gga_new(p, 3, np, rho, sigma, &out);
+  xc_evaluate_gga(p, 3, np, rho, sigma, &out);
 }
 
 void
@@ -240,7 +241,7 @@ xc_gga_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, const d
   out.v2rho2 = v2rho2; out.v2rhosigma = v2rhosigma; out.v2sigma2 = v2sigma2;
   out.v3rho3 = v3rho3; out.v3rho2sigma = v3rho2sigma; out.v3rhosigma2 = v3rhosigma2; out.v3sigma3 = v3sigma3;
 
-  xc_gga_new(p, 3, np, rho, sigma, &out);
+  xc_evaluate_gga(p, 3, np, rho, sigma, &out);
 }
 
 void
@@ -251,7 +252,7 @@ xc_gga_vxc(const xc_func_type *p, size_t np, const double *rho, const double *si
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   out.vrho   = vrho; out.vsigma = vsigma;
 
-  xc_gga_new(p, 1, np, rho, sigma, &out);
+  xc_evaluate_gga(p, 1, np, rho, sigma, &out);
 }
 
 void
@@ -262,7 +263,7 @@ xc_gga_fxc(const xc_func_type *p, size_t np, const double *rho, const double *si
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   out.v2rho2 = v2rho2; out.v2rhosigma = v2rhosigma; out.v2sigma2 = v2sigma2;
 
-  xc_gga_new(p, 2, np, rho, sigma, &out);
+  xc_evaluate_gga(p, 2, np, rho, sigma, &out);
 }
 
 void
@@ -273,7 +274,7 @@ xc_gga_kxc(const xc_func_type *p, size_t np, const double *rho, const double *si
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   out.v3rho3 = v3rho3; out.v3rho2sigma = v3rho2sigma; out.v3rhosigma2 = v3rhosigma2; out.v3sigma3 = v3sigma3;
 
-  xc_gga_new(p, 3, np, rho, sigma, &out);
+  xc_evaluate_gga(p, 3, np, rho, sigma, &out);
 }
 
 
@@ -285,5 +286,5 @@ xc_gga_lxc(const xc_func_type *p, size_t np, const double *rho, const double *si
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   out.v4rho4 = v4rho4; out.v4rho3sigma = v4rho3sigma; out.v4rho2sigma2 = v4rho2sigma2; out.v4rhosigma3 = v4rhosigma3; out.v4sigma4 = v4sigma4;
 
-  xc_gga_new(p, 4, np, rho, sigma, &out);
+  xc_evaluate_gga(p, 4, np, rho, sigma, &out);
 }

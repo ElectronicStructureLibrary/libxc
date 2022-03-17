@@ -10,58 +10,40 @@
 #include "util.h"
 #include "funcs_lda.c"
 
-void
-xc_lda_sanity_check(const xc_func_info_type *info, int order, xc_output_variables *out)
-{
-  /* sanity check */
-  if(order < 0 || order > 4){
-    fprintf(stderr, "Order of derivatives '%d' not implemented\n",
-	    order);
-    exit(1);
-  }
-
-  if(out->zk != NULL && !(info->flags & XC_FLAGS_HAVE_EXC)){
-    fprintf(stderr, "Functional '%s' does not provide an implementation of Exc\n",
-	    info->name);
-    exit(1);
-  }
-
-  if(out->vrho != NULL && !(info->flags & XC_FLAGS_HAVE_VXC)){
-    fprintf(stderr, "Functional '%s' does not provide an implementation of vxc\n",
-	    info->name);
-    exit(1);
-  }
-
-  if(out->v2rho2 != NULL && !(info->flags & XC_FLAGS_HAVE_FXC)){
-    fprintf(stderr, "Functional '%s' does not provide an implementation of fxc\n",
-	    info->name);
-    exit(1);
-  }
-
-  if(out->v3rho3 != NULL && !(info->flags & XC_FLAGS_HAVE_KXC)){
-    fprintf(stderr, "Functional '%s' does not provide an implementation of kxc\n",
-	    info->name);
-    exit(1);
-  }
-}
-
-
 /* get the lda functional */
 void
-xc_evaluate_lda(const xc_func_type *func, int order, size_t np, const double *rho,
+xc_evaluate_lda(const xc_func_type *func, int max_order, size_t np, const double *rho,
        xc_output_variables *out)
 {
-  xc_lda_sanity_check(func->info, order, out);
+  int ii, check;
+  int orders[XC_MAXIMUM_ORDER+1] =
+    {out->zk != NULL, out->vrho != NULL, out->v2rho2 != NULL,
+     out->v3rho3 != NULL, out->v4rho4 != NULL};
+
+  /* turn off orders smaller than max_order */
+  for(ii=max_order+1; ii <= XC_MAXIMUM_ORDER; ii++)
+    orders[ii] = 0;
+
+  /* check if all variables make sense */
+  check = xc_output_variables_sanity_check(out, orders, func->info->family, func->info->flags);
+  if(check >= 0){ /* error */
+    if(check >= 1000)
+      fprintf(stderr, "Functional does not provide an implementation of the %d-th derivative\n", check-1000);
+    else
+      fprintf(stderr, "Field %s is not allocated\n", xc_output_variables_name[check]);
+    exit(1);
+  }
+  
   xc_output_variables_initialize(out, np, func->nspin);
 
   /* call the LDA routines */
   if(func->info->lda != NULL){
     if(func->nspin == XC_UNPOLARIZED){
-      if(func->info->lda->unpol[order] != NULL)
-        func->info->lda->unpol[order](func, np, rho, out);
+      if(func->info->lda->unpol[max_order] != NULL)
+        func->info->lda->unpol[max_order](func, np, rho, out);
     }else{
-      if(func->info->lda->pol[order] != NULL)
-        func->info->lda->pol[order](func, np, rho, out);
+      if(func->info->lda->pol[max_order] != NULL)
+        func->info->lda->pol[max_order](func, np, rho, out);
     }
   }
 

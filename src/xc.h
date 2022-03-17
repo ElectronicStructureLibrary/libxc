@@ -194,10 +194,8 @@ extern const int xc_output_variables_order_key[];  /* mapping output variable ->
 extern const int xc_output_variables_family_key[]; /* mapping output variable -> family */
 extern const int xc_output_variables_flags_key[];  /* mapping output variable -> flags */
 
-xc_output_variables *
-xc_output_variables_allocate(double np, const int *orders, int family, int flags, int nspin);
-int
-xc_output_variables_is_allocated(xc_output_variables *out, const int *orders, int family, int flags);
+xc_output_variables *xc_output_variables_allocate(double np, const int *orders, int family, int flags, int nspin);
+int xc_output_variables_sanity_check(xc_output_variables *out, const int *orders, int family, int flags);
 void xc_output_variables_initialize(xc_output_variables *out, int np, int nspin);
 void xc_output_variables_deallocate(xc_output_variables *out);
 

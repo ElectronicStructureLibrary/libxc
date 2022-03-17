@@ -80,11 +80,11 @@ deorb_work(const xc_func_type *p, size_t np,
      as the code accesses these values (even if they are zero)
   */
   mgga = xc_output_variables_allocate
-    (np, orders, XC_FAMILY_MGGA, XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU, p->nspin);
+    (np, orders, XC_FAMILY_MGGA, p->info->flags | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU, p->nspin);
   xc_output_variables_initialize(mgga, np, p->nspin);
   
   ked1 = xc_output_variables_allocate
-    (np, orders, XC_FAMILY_MGGA, XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU, p->nspin);
+    (np, orders, XC_FAMILY_MGGA, p->info->flags | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU, p->nspin);
   xc_output_variables_initialize(ked1, np, p->nspin);
 
   mtau   = (double *) libxc_malloc(np*p->dim->tau*sizeof(double));
@@ -94,7 +94,7 @@ deorb_work(const xc_func_type *p, size_t np,
     mlapl  = (double *) libxc_malloc(np*p->dim->lapl*sizeof(double));
 
     ked2 = xc_output_variables_allocate
-      (np, orders, XC_FAMILY_MGGA, XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU, p->nspin);
+      (np, orders, XC_FAMILY_MGGA, p->info->flags | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU, p->nspin);
     xc_output_variables_initialize(ked2, np, p->nspin);
   }
   

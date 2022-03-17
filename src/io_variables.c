@@ -281,12 +281,28 @@ xc_output_variables_allocate(double np, const int *orders, int family, int flags
 /* 
   This function returns -1 if all relevant variables (as determined by
   orders, family, and flags) are allocated, or the number of the first
-  unallocated field otherwise.
+  unallocated field otherwise. It also returns 10000+order if a
+  variable was requested that is not available.
 */
 int
-xc_output_variables_is_allocated(xc_output_variables *out, const int *orders, int family, int flags)
+xc_output_variables_sanity_check(xc_output_variables *out, const int *orders, int family, int flags)
 {
   int ii;
+
+  if(orders[0] && !(flags & XC_FLAGS_HAVE_EXC))
+    return 10000;
+
+  if(orders[1] && !(flags & XC_FLAGS_HAVE_VXC))
+    return 10001;
+
+  if(orders[2] && !(flags & XC_FLAGS_HAVE_FXC))
+    return 10002;
+
+  if(orders[3] && !(flags & XC_FLAGS_HAVE_KXC))
+    return 10003;
+
+  if(orders[4] && !(flags & XC_FLAGS_HAVE_LXC))
+    return 10004;
   
   for(ii=0; ii<XC_TOTAL_NUMBER_OUTPUT_VARIABLES; ii++){
     if(! orders[xc_output_variables_order_key[ii]])

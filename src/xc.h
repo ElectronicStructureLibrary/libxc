@@ -126,8 +126,97 @@ typedef struct{
 } func_params_type;
 
 
+/* All variables that libxc may input */
+#define XC_TOTAL_NUMBER_INPUT_VARIABLES 5
+
+/* spin dimensions of input variables */
+typedef union {
+  struct {
+     int rho, sigma, lapl, tau, exx;
+  };
+  int fields[XC_TOTAL_NUMBER_INPUT_VARIABLES];
+} xc_input_variables_dimensions;
+
+typedef struct {
+  size_t np;                          /* number of spatial points */
+  xc_input_variables_dimensions *dim; /* spin dimensions of the arrays */
+
+  /* can not use the "const" qualifier here as it would render this
+     structure useless */
+  union {
+    struct {
+      double *rho;   /* density */
+      double *sigma; /* reduced density gradient */
+      double *lapl;  /* laplacian of the density */
+      double *tau;   /* kinetic energy density */
+      double *exx;   /* exchange energy density */
+    };
+    double fields[XC_TOTAL_NUMBER_INPUT_VARIABLES];
+  };
+} xc_input_variables;
+  
+  
 /* All derivatives that libxc may output */
 #define XC_TOTAL_NUMBER_OUTPUT_VARIABLES 124
+
+/* spin dimensions of output variables */
+typedef union {
+  struct {
+    int rho, sigma, lapl, tau, exx;       /* spin dimensions of the arrays */
+    /* order 0 */
+    int zk;
+    /* order 1 */
+    int vrho, vsigma, vlapl, vtau, vexx;
+    /* order 2 */
+    int v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2rhoexx;
+    int v2sigma2, v2sigmalapl, v2sigmatau, v2sigmaexx;
+    int v2lapl2, v2lapltau, v2laplexx;
+    int v2tau2, v2tauexx;
+    int v2exx2;
+    /* order 3 */
+    int v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rho2exx;
+    int v3rhosigma2, v3rhosigmalapl, v3rhosigmatau, v3rhosigmaexx;
+    int v3rholapl2, v3rholapltau, v3rholaplexx;
+    int v3rhotau2, v3rhotauexx;
+    int v3rhoexx2;
+    int v3sigma3, v3sigma2lapl, v3sigma2tau, v3sigma2exx;
+    int v3sigmalapl2, v3sigmalapltau, v3sigmalaplexx;
+    int v3sigmatau2, v3sigmatauexx;
+    int v3sigmaexx2;
+    int v3lapl3, v3lapl2tau, v3lapl2exx;
+    int v3lapltau2, v3lapltauexx;
+    int v3laplexx2;
+    int v3tau3, v3tau2exx, v3tauexx2, v3exx3;
+    /* order 4 */
+    int v4rho4, v4rho3sigma, v4rho3lapl, v4rho3tau, v4rho3exx;
+    int v4rho2sigma2, v4rho2sigmalapl, v4rho2sigmatau, v4rho2sigmaexx;
+    int v4rho2lapl2, v4rho2lapltau, v4rho2laplexx;
+    int v4rho2tau2, v4rho2tauexx;
+    int v4rho2exx2;
+    int v4rhosigma3, v4rhosigma2lapl, v4rhosigma2tau, v4rhosigma2exx;
+    int v4rhosigmalapl2, v4rhosigmalapltau, v4rhosigmalaplexx;
+    int v4rhosigmatau2, v4rhosigmatauexx;
+    int v4rhosigmaexx2;
+    int v4rholapl3, v4rholapl2tau, v4rholapl2exx;
+    int v4rholapltau2, v4rholapltauexx;
+    int v4rholaplexx2;
+    int v4rhotau3, v4rhotau2exx, v4rhoexx3;
+    int v4sigma4, v4sigma3lapl, v4sigma3tau, v4sigma3exx;
+    int v4sigma2lapl2, v4sigma2lapltau, v4sigma2laplexx;
+    int v4sigma2tau2, v4sigma2tauexx;
+    int v4sigma2exx2;
+    int v4sigmalapl3, v4sigmalapl2tau, v4sigmalapl2exx;
+    int v4sigmalapltau2, v4sigmalapltauexx;
+    int v4sigmalaplexx2;
+    int v4sigmatau3, v4sigmatau2exx, v4sigmatauexx2, v4sigmaexx3;
+    int v4lapl4, v4lapl3tau, v4lapl3exx;
+    int v4lapl2tau2, v4lapl2tauexx, v4lapl2exx2;
+    int v4lapltau3, v4lapltau2exx, v4lapltauexx2, v4laplexx3;
+    int v4tau4, v4tau3exx, v4tauexx3, v4exx4;
+  };
+  int fields[5 + XC_TOTAL_NUMBER_OUTPUT_VARIABLES];
+} xc_dimensions;
+
 typedef union { /* this is defined as an union so that we can access the fields sequentially */
   struct {
     /* order 0 (1 var) */
@@ -279,65 +368,6 @@ int xc_func_info_get_n_ext_params(const xc_func_info_type *info);
 char const *xc_func_info_get_ext_params_name(const xc_func_info_type *p, int number);
 char const *xc_func_info_get_ext_params_description(const xc_func_info_type *info, int number);
 double xc_func_info_get_ext_params_default_value(const xc_func_info_type *info, int number);
-
-
-typedef union {
-  struct {
-    int rho, sigma, lapl, tau, exx;       /* spin dimensions of the arrays */
-    /* order 0 */
-    int zk;
-    /* order 1 */
-    int vrho, vsigma, vlapl, vtau, vexx;
-    /* order 2 */
-    int v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2rhoexx;
-    int v2sigma2, v2sigmalapl, v2sigmatau, v2sigmaexx;
-    int v2lapl2, v2lapltau, v2laplexx;
-    int v2tau2, v2tauexx;
-    int v2exx2;
-    /* order 3 */
-    int v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rho2exx;
-    int v3rhosigma2, v3rhosigmalapl, v3rhosigmatau, v3rhosigmaexx;
-    int v3rholapl2, v3rholapltau, v3rholaplexx;
-    int v3rhotau2, v3rhotauexx;
-    int v3rhoexx2;
-    int v3sigma3, v3sigma2lapl, v3sigma2tau, v3sigma2exx;
-    int v3sigmalapl2, v3sigmalapltau, v3sigmalaplexx;
-    int v3sigmatau2, v3sigmatauexx;
-    int v3sigmaexx2;
-    int v3lapl3, v3lapl2tau, v3lapl2exx;
-    int v3lapltau2, v3lapltauexx;
-    int v3laplexx2;
-    int v3tau3, v3tau2exx, v3tauexx2, v3exx3;
-    /* order 4 */
-    int v4rho4, v4rho3sigma, v4rho3lapl, v4rho3tau, v4rho3exx;
-    int v4rho2sigma2, v4rho2sigmalapl, v4rho2sigmatau, v4rho2sigmaexx;
-    int v4rho2lapl2, v4rho2lapltau, v4rho2laplexx;
-    int v4rho2tau2, v4rho2tauexx;
-    int v4rho2exx2;
-    int v4rhosigma3, v4rhosigma2lapl, v4rhosigma2tau, v4rhosigma2exx;
-    int v4rhosigmalapl2, v4rhosigmalapltau, v4rhosigmalaplexx;
-    int v4rhosigmatau2, v4rhosigmatauexx;
-    int v4rhosigmaexx2;
-    int v4rholapl3, v4rholapl2tau, v4rholapl2exx;
-    int v4rholapltau2, v4rholapltauexx;
-    int v4rholaplexx2;
-    int v4rhotau3, v4rhotau2exx, v4rhoexx3;
-    int v4sigma4, v4sigma3lapl, v4sigma3tau, v4sigma3exx;
-    int v4sigma2lapl2, v4sigma2lapltau, v4sigma2laplexx;
-    int v4sigma2tau2, v4sigma2tauexx;
-    int v4sigma2exx2;
-    int v4sigmalapl3, v4sigmalapl2tau, v4sigmalapl2exx;
-    int v4sigmalapltau2, v4sigmalapltauexx;
-    int v4sigmalaplexx2;
-    int v4sigmatau3, v4sigmatau2exx, v4sigmatauexx2, v4sigmaexx3;
-    int v4lapl4, v4lapl3tau, v4lapl3exx;
-    int v4lapl2tau2, v4lapl2tauexx, v4lapl2exx2;
-    int v4lapltau3, v4lapltau2exx, v4lapltauexx2, v4laplexx3;
-    int v4tau4, v4tau3exx, v4tauexx3, v4exx4;
-  };
-  int fields[5 + XC_TOTAL_NUMBER_OUTPUT_VARIABLES];
-} xc_dimensions;
-
 
 struct xc_func_type{
   const xc_func_info_type *info;       /* all the information concerning this functional */

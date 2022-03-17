@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
                                      func.nspin);
   xc_output_variables_initialize(out, 1, func.nspin);
   
-  xc_mgga_evaluate_functional_new(&func, 1, 2, rho, sigma, lapl, tau, out);
+  xc_evaluate_func(&func, 1, 2, rho, sigma, lapl, tau, NULL, out);
 
   /* transform to energy per volume */
   if(nspin == XC_UNPOLARIZED){

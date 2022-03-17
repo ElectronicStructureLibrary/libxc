@@ -152,7 +152,7 @@ xc_mgga_sanity_check(const xc_func_info_type *info, int order, xc_output_variabl
 }
 
 
-void xc_mgga_new(const xc_func_type *func, int order, size_t np,
+void xc_evaluate_mgga(const xc_func_type *func, int order, size_t np,
                 const double *rho, const double *sigma, const double *lapl, const double *tau,
                 xc_output_variables *out)
 {
@@ -171,7 +171,7 @@ void xc_mgga_new(const xc_func_type *func, int order, size_t np,
   }
     
   if(func->mix_coef != NULL)
-    xc_mix_func(func, np, rho, sigma, lapl, tau, out);
+    xc_mix_func(func, np, rho, sigma, lapl, tau, NULL, out);
 }
 
 /* old API */
@@ -298,7 +298,7 @@ xc_mgga(const xc_func_type *p, size_t np,
   SET_ORDER_4;
 
   /* call new API */
-  xc_mgga_new(p, order, np, rho, sigma, lapl, tau, &out);
+  xc_evaluate_mgga(p, order, np, rho, sigma, lapl, tau, &out);
 }
 
 
@@ -312,7 +312,7 @@ xc_mgga_exc(const xc_func_type *p, size_t np,
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   SET_ORDER_0;
 
-  xc_mgga_new(p, 0, np, rho, sigma, lapl, tau, &out);
+  xc_evaluate_mgga(p, 0, np, rho, sigma, lapl, tau, &out);
 }
 
 void
@@ -325,7 +325,7 @@ xc_mgga_exc_vxc(const xc_func_type *p, size_t np,
   SET_ORDER_0;
   SET_ORDER_1;
 
-  xc_mgga_new(p, 1, np, rho, sigma, lapl, tau, &out);
+  xc_evaluate_mgga(p, 1, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_exc_vxc_fxc(const xc_func_type *p, size_t np,
@@ -341,7 +341,7 @@ void xc_mgga_exc_vxc_fxc(const xc_func_type *p, size_t np,
   SET_ORDER_1;
   SET_ORDER_2;
 
-  xc_mgga_new(p, 2, np, rho, sigma, lapl, tau, &out);
+  xc_evaluate_mgga(p, 2, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_vxc_fxc(const xc_func_type *p, size_t np,
@@ -356,7 +356,7 @@ void xc_mgga_vxc_fxc(const xc_func_type *p, size_t np,
   SET_ORDER_1;
   SET_ORDER_2;
 
-  xc_mgga_new(p, 2, np, rho, sigma, lapl, tau, &out);
+  xc_evaluate_mgga(p, 2, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np,
@@ -379,7 +379,7 @@ void xc_mgga_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np,
   SET_ORDER_2;
   SET_ORDER_3;
 
-  xc_mgga_new(p, 3, np, rho, sigma, lapl, tau, &out);
+  xc_evaluate_mgga(p, 3, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_vxc_fxc_kxc(const xc_func_type *p, size_t np,
@@ -401,7 +401,7 @@ void xc_mgga_vxc_fxc_kxc(const xc_func_type *p, size_t np,
   SET_ORDER_2;
   SET_ORDER_3;
 
-  xc_mgga_new(p, 3, np, rho, sigma, lapl, tau, &out);
+  xc_evaluate_mgga(p, 3, np, rho, sigma, lapl, tau, &out);
 }
 
 
@@ -414,7 +414,7 @@ xc_mgga_vxc(const xc_func_type *p, size_t np,
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   SET_ORDER_1;
 
-  xc_mgga_new(p, 1, np, rho, sigma, lapl, tau, &out);
+  xc_evaluate_mgga(p, 1, np, rho, sigma, lapl, tau, &out);
 }
 
 void
@@ -428,7 +428,7 @@ xc_mgga_fxc(const xc_func_type *p, size_t np,
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   SET_ORDER_2;
 
-  xc_mgga_new(p, 2, np, rho, sigma, lapl, tau, &out);
+  xc_evaluate_mgga(p, 2, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_kxc(const xc_func_type *p, size_t np,
@@ -444,7 +444,7 @@ void xc_mgga_kxc(const xc_func_type *p, size_t np,
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   SET_ORDER_3;
 
-  xc_mgga_new(p, 3, np, rho, sigma, lapl, tau, &out);
+  xc_evaluate_mgga(p, 3, np, rho, sigma, lapl, tau, &out);
 }
 
 void xc_mgga_lxc(const xc_func_type *p, size_t np,
@@ -463,5 +463,5 @@ void xc_mgga_lxc(const xc_func_type *p, size_t np,
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   SET_ORDER_4;
 
-  xc_mgga_new(p, 4, np, rho, sigma, lapl, tau, &out);
+  xc_evaluate_mgga(p, 4, np, rho, sigma, lapl, tau, &out);
 }

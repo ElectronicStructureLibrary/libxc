@@ -233,18 +233,13 @@ GPU_FUNCTION void xc_rho2dzeta(int nspin, const double *rho, double *d, double *
 extern const xc_dimensions dimensions_unpolarized, dimensions_polarized;
 
 /* Functionals that are defined as deorbitalized */
-void xc_mgga_evaluate_functional_new
-(const xc_func_type *func, int order, size_t np,
- const double *rho, const double *sigma, const double *lapl, const double *tau,
- xc_output_variables *out);
 void xc_deorbitalize_init(xc_func_type *p, int mgga_id, int ked_id);
 extern xc_mgga_funcs_variants xc_deorbitalize_func;
 
 /* Functionals that are defined as mixtures of others */
 void xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix_coef);
-void xc_mix_func
-  (const xc_func_type *func, size_t np,
-   const double *rho, const double *sigma, const double *lapl, const double *tau,
+void xc_mix_func(const xc_func_type *func, size_t np,
+   const double *rho, const double *sigma, const double *lapl, const double *tau, const double *exx,
    xc_output_variables *out);
 
 /* Hybrid functional intializers. The order of arguments is the same

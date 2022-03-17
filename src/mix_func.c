@@ -48,9 +48,10 @@ __global__ static void add_to_mix_gpu(size_t np, double * dst, double coeff, con
 }
 #endif
 
-#define is_mgga(id)   ((id) == XC_FAMILY_MGGA)
-#define is_gga(id)    ((id) == XC_FAMILY_GGA || is_mgga(id))
-#define is_lda(id)    ((id) == XC_FAMILY_LDA ||  is_gga(id))
+#define is_hgga(id)   ((id) == XC_FAMILY_HGGA)
+#define is_mgga(id)   ((id) == XC_FAMILY_MGGA || is_hgga(id))
+#define is_gga(id)    ((id) == XC_FAMILY_GGA  || is_mgga(id))
+#define is_lda(id)    ((id) == XC_FAMILY_LDA  ||  is_gga(id))
 
 /* 
    Sanity check: have we claimed the highest possible derivatives?
@@ -92,6 +93,7 @@ void mix_func_sanity_check(const xc_func_type *func)
       need_laplacian = XC_FLAGS_NEEDS_LAPLACIAN;
   }
   assert((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) == need_laplacian);
+  
   /* Same for tau */
   int need_tau = 0;
   for(ii=0; ii<func->n_func_aux; ii++){
@@ -110,6 +112,9 @@ void mix_func_sanity_check(const xc_func_type *func)
       assert(is_gga(func->info->family));
     if(is_mgga(aux->info->family) && !is_mgga(func->info->family))
       assert(is_mgga(func->info->family));
+    if(is_hgga(aux->info->family) && !is_hgga(func->info->family))
+      assert(is_hgga(func->info->family));
+
     /* Sanity checks: if mix functional has higher derivatives, these
        must also exist in the individual components */
     if(func->info->flags & XC_FLAGS_HAVE_VXC)
@@ -125,7 +130,7 @@ void mix_func_sanity_check(const xc_func_type *func)
 
 void
 xc_mix_func(const xc_func_type *func, size_t np,
-            const double *rho, const double *sigma, const double *lapl, const double *tau,
+            const double *rho, const double *sigma, const double *lapl, const double *tau, const double *exx,
             xc_output_variables *out)
 {
   const xc_func_type *aux;
@@ -155,19 +160,9 @@ xc_mix_func(const xc_func_type *func, size_t np,
 
     /* have to clean explicitly the buffers here */
     xc_output_variables_initialize(xout, np, func->nspin);
-    
+
     /* Evaluate the functional */
-    switch(aux->info->family){
-    case XC_FAMILY_LDA:
-      xc_lda_new(aux, max_order, np, rho, xout);
-      break;
-    case XC_FAMILY_GGA:
-      xc_gga_new(aux, max_order, np, rho, sigma, xout);
-      break;
-    case XC_FAMILY_MGGA:
-      xc_mgga_new(aux, max_order, np, rho, sigma, lapl, tau, xout);
-      break;
-    }
+    xc_evaluate_func(aux, max_order, np, rho, sigma, lapl, tau, exx, xout);
 
     /* Do the mixing */
     for(ii=0; ii<XC_TOTAL_NUMBER_OUTPUT_VARIABLES; ii++){

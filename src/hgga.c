@@ -152,7 +152,7 @@ xc_hgga_sanity_check(const xc_func_info_type *info, int order, xc_output_variabl
   }
 }
 
-void xc_hgga_new(const xc_func_type *func, int order, size_t np,
+void xc_evaluate_hgga(const xc_func_type *func, int order, size_t np,
                  const double *rho, const double *sigma, const double *lapl, const double *tau, const double *exx,
                 xc_output_variables *out)
 {
@@ -170,5 +170,6 @@ void xc_hgga_new(const xc_func_type *func, int order, size_t np,
     }
   }
 
-  /* WARNING no mixed functionals for now */
+  if(func->mix_coef != NULL)
+    xc_mix_func(func, np, rho, sigma, lapl, tau, exx, out);
 }

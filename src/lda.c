@@ -48,7 +48,7 @@ xc_lda_sanity_check(const xc_func_info_type *info, int order, xc_output_variable
 
 /* get the lda functional */
 void
-xc_lda_new(const xc_func_type *func, int order, size_t np, const double *rho,
+xc_evaluate_lda(const xc_func_type *func, int order, size_t np, const double *rho,
        xc_output_variables *out)
 {
   xc_lda_sanity_check(func->info, order, out);
@@ -66,7 +66,7 @@ xc_lda_new(const xc_func_type *func, int order, size_t np, const double *rho,
   }
 
   if(func->mix_coef != NULL)
-    xc_mix_func(func, np, rho, NULL, NULL, NULL, out);
+    xc_mix_func(func, np, rho, NULL, NULL, NULL, NULL, out);
 }
 
 /* old API */
@@ -91,7 +91,7 @@ xc_lda(const xc_func_type *p, size_t np, const double *rho, double *zk, double *
   out.v3rho3 = v3rho3;
   out.v4rho4 = v4rho4;
 
-  xc_lda_new(p, order, np, rho, &out);
+  xc_evaluate_lda(p, order, np, rho, &out);
 }
 
 
@@ -103,7 +103,7 @@ xc_lda_exc(const xc_func_type *p, size_t np, const double *rho, double *zk)
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   out.zk   = zk;
 
-  xc_lda_new(p, 0, np, rho, &out);
+  xc_evaluate_lda(p, 0, np, rho, &out);
 }
 
 void
@@ -114,7 +114,7 @@ xc_lda_exc_vxc(const xc_func_type *p, size_t np, const double *rho, double *zk, 
   out.zk   = zk;
   out.vrho = vrho;
 
-  xc_lda_new(p, 1, np, rho, &out);
+  xc_evaluate_lda(p, 1, np, rho, &out);
 }
 
 void
@@ -126,7 +126,7 @@ xc_lda_exc_vxc_fxc(const xc_func_type *p, size_t np, const double *rho, double *
   out.vrho   = vrho;
   out.v2rho2 = v2rho2;
 
-  xc_lda_new(p, 2, np, rho, &out);
+  xc_evaluate_lda(p, 2, np, rho, &out);
 }
 
 void
@@ -137,7 +137,7 @@ xc_lda_vxc_fxc(const xc_func_type *p, size_t np, const double *rho, double *vrho
   out.vrho   = vrho;
   out.v2rho2 = v2rho2;
 
-  xc_lda_new(p, 2, np, rho, &out);
+  xc_evaluate_lda(p, 2, np, rho, &out);
 }
 
 void
@@ -150,7 +150,7 @@ xc_lda_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np, const double *rho, doub
   out.v2rho2 = v2rho2;
   out.v3rho3 = v3rho3;
 
-  xc_lda_new(p, 3, np, rho, &out);
+  xc_evaluate_lda(p, 3, np, rho, &out);
 }
 
 void
@@ -162,7 +162,7 @@ xc_lda_vxc_fxc_kxc(const xc_func_type *p, size_t np, const double *rho, double *
   out.v2rho2 = v2rho2;
   out.v3rho3 = v3rho3;
 
-  xc_lda_new(p, 3, np, rho, &out);
+  xc_evaluate_lda(p, 3, np, rho, &out);
 }
 
 void
@@ -172,7 +172,7 @@ xc_lda_vxc(const xc_func_type *p, size_t np, const double *rho, double *vrho)
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   out.vrho   = vrho;
 
-  xc_lda_new(p, 1, np, rho, &out);
+  xc_evaluate_lda(p, 1, np, rho, &out);
 }
 
 void
@@ -182,7 +182,7 @@ xc_lda_fxc(const xc_func_type *p, size_t np, const double *rho, double *v2rho2)
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   out.v2rho2 = v2rho2;
 
-  xc_lda_new(p, 2, np, rho, &out);
+  xc_evaluate_lda(p, 2, np, rho, &out);
 }
 
 void
@@ -192,7 +192,7 @@ xc_lda_kxc(const xc_func_type *p, size_t np, const double *rho, double *v3rho3)
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   out.v3rho3 = v3rho3;
 
-  xc_lda_new(p, 3, np, rho, &out);
+  xc_evaluate_lda(p, 3, np, rho, &out);
 }
 
 void
@@ -202,5 +202,5 @@ xc_lda_lxc(const xc_func_type *p, size_t np, const double *rho, double *v4rho4)
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   out.v4rho4 = v4rho4;
 
-  xc_lda_new(p, 4, np, rho, &out);
+  xc_evaluate_lda(p, 4, np, rho, &out);
 }

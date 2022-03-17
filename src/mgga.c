@@ -11,7 +11,7 @@
 #include "util.h"
 #include "funcs_mgga.c"
 
-void xc_evaluate_mgga(const xc_func_type *func, int order, size_t np,
+void xc_evaluate_mgga(const xc_func_type *func, int max_order, size_t np,
                 const double *rho, const double *sigma, const double *lapl, const double *tau,
                 xc_output_variables *out)
 {
@@ -39,11 +39,11 @@ void xc_evaluate_mgga(const xc_func_type *func, int order, size_t np,
   /* call the mGGA routines */
   if(func->info->mgga != NULL){
     if(func->nspin == XC_UNPOLARIZED){
-      if(func->info->mgga->unpol[order] != NULL)
-        func->info->mgga->unpol[order](func, np, rho, sigma, lapl, tau, out);
+      if(func->info->mgga->unpol[max_order] != NULL)
+        func->info->mgga->unpol[max_order](func, np, rho, sigma, lapl, tau, out);
     }else{
-      if(func->info->mgga->pol[order] != NULL)
-        func->info->mgga->pol[order](func, np, rho, sigma, lapl, tau, out);
+      if(func->info->mgga->pol[max_order] != NULL)
+        func->info->mgga->pol[max_order](func, np, rho, sigma, lapl, tau, out);
     }
   }
     

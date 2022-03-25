@@ -11,9 +11,8 @@
 #include "util.h"
 #include "funcs_hgga.c"
 
-void xc_evaluate_hgga(const xc_func_type *func, int max_order, size_t np,
-                 const double *rho, const double *sigma, const double *lapl, const double *tau, const double *exx,
-                xc_output_variables *out)
+void xc_evaluate_hgga(const xc_func_type *func, int max_order,
+                const xc_input_variables *in, xc_output_variables *out)
 {
   int ii, check;
   int orders[XC_MAXIMUM_ORDER+1] =
@@ -25,6 +24,12 @@ void xc_evaluate_hgga(const xc_func_type *func, int max_order, size_t np,
     orders[ii] = 0;
 
   /* check if all variables make sense */
+  check = xc_input_variables_sanity_check(in, func->info->family, func->info->flags);
+  if(check >= 0){ /* error */
+    fprintf(stderr, "Field %s is not allocated\n", xc_input_variables_name[check]);
+    exit(1);
+  }
+  
   check = xc_output_variables_sanity_check(out, orders, func->info->family, func->info->flags);
   if(check >= 0){ /* error */
     if(check >= 1000)
@@ -34,19 +39,19 @@ void xc_evaluate_hgga(const xc_func_type *func, int max_order, size_t np,
     exit(1);
   }
   
-  xc_output_variables_initialize(out, np, func->nspin);
+  xc_output_variables_initialize(out, in->np, func->nspin);
 
   /* call the hGGA routines */
   if(func->info->hgga != NULL){
     if(func->nspin == XC_UNPOLARIZED){
       if(func->info->hgga->unpol[max_order] != NULL)
-        func->info->hgga->unpol[max_order](func, np, rho, sigma, lapl, tau, exx, out);
+        func->info->hgga->unpol[max_order](func, in->np, in->rho, in->sigma, in->lapl, in->tau, in->exx, out);
     }else{
       if(func->info->hgga->pol[max_order] != NULL)
-        func->info->hgga->pol[max_order](func, np, rho, sigma, lapl, tau, exx, out);
+        func->info->hgga->pol[max_order](func, in->np, in->rho, in->sigma, in->lapl, in->tau, in->exx, out);
     }
   }
 
   if(func->mix_coef != NULL)
-    xc_mix_func(func, np, rho, sigma, lapl, tau, exx, out);
+    xc_mix_func(func, in, out);
 }

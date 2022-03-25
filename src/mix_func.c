@@ -129,15 +129,13 @@ void mix_func_sanity_check(const xc_func_type *func)
 }
 
 void
-xc_mix_func(const xc_func_type *func, size_t np,
-            const double *rho, const double *sigma, const double *lapl, const double *tau, const double *exx,
-            xc_output_variables *out)
+xc_mix_func(const xc_func_type *func, const xc_input_variables *in, xc_output_variables *out)
 {
   const xc_func_type *aux;
   xc_output_variables *xout;
   size_t ip;
 
-  int ifunc, ii, max_order;  
+  int ifunc, ii, max_order, check;  
   int orders[XC_MAXIMUM_ORDER+1] =
     {out->zk != NULL, out->vrho != NULL, out->v2rho2 != NULL,
      out->v3rho3 != NULL, out->v4rho4 != NULL};
@@ -151,18 +149,34 @@ xc_mix_func(const xc_func_type *func, size_t np,
 
   mix_func_sanity_check(func);
 
+  /* check if all variables make sense */
+  check = xc_input_variables_sanity_check(in, func->info->family, func->info->flags);
+  if(check >= 0){ /* error */
+    fprintf(stderr, "Field %s is not allocated\n", xc_input_variables_name[check]);
+    exit(1);
+  }
+  
+  check = xc_output_variables_sanity_check(out, orders, func->info->family, func->info->flags);
+  if(check >= 0){ /* error */
+    if(check >= 1000)
+      fprintf(stderr, "Functional does not provide an implementation of the %d-th derivative\n", check-1000);
+    else
+      fprintf(stderr, "Field %s is not allocated\n", xc_output_variables_name[check]);
+    exit(1);
+  }
+  
   xout = xc_output_variables_allocate
-    (np, orders, func->info->family, func->info->flags, func->nspin);
+    (in->np, orders, func->info->family, func->info->flags, func->nspin);
 
   /* Proceed by computing the mix */
   for(ifunc=0; ifunc<func->n_func_aux; ifunc++){
     aux = func->func_aux[ifunc];
 
     /* have to clean explicitly the buffers here */
-    xc_output_variables_initialize(xout, np, func->nspin);
+    xc_output_variables_initialize(xout, in->np, func->nspin);
 
     /* Evaluate the functional */
-    xc_evaluate_func(aux, max_order, np, rho, sigma, lapl, tau, exx, xout);
+    xc_evaluate_func(aux, max_order, in, xout);
 
     /* Do the mixing */
     for(ii=0; ii<XC_TOTAL_NUMBER_OUTPUT_VARIABLES; ii++){
@@ -170,13 +184,13 @@ xc_mix_func(const xc_func_type *func, size_t np,
         continue;
       /* this could be replaced by a daxpy BLAS call */
 #ifndef HAVE_CUDA      
-      for(ip=0; ip<np*dim->fields[ii+5]; ip++)
+      for(ip=0; ip<in->np*dim->fields[ii+5]; ip++)
         out->fields[ii][ip] += func->mix_coef[ifunc]*xout->fields[ii][ip];
 #else
-      size_t nblocks = np/CUDA_BLOCK_SIZE;
-      if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
+      size_t nblocks = in->np/CUDA_BLOCK_SIZE;
+      if(in->np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
       add_to_mix_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>
-        (np*dim->fields[ii+5], out->fields[ii], func->mix_coef[ifunc], xout->fields[ii]);
+        (in->np*dim->fields[ii+5], out->fields[ii], func->mix_coef[ifunc], xout->fields[ii]);
 #endif
     }
   }

@@ -11,9 +11,8 @@
 #include "util.h"
 #include "funcs_mgga.c"
 
-void xc_evaluate_mgga(const xc_func_type *func, int max_order, size_t np,
-                const double *rho, const double *sigma, const double *lapl, const double *tau,
-                xc_output_variables *out)
+void xc_evaluate_mgga(const xc_func_type *func, int max_order,
+                const xc_input_variables *in, xc_output_variables *out)
 {
   int ii, check;
   int orders[XC_MAXIMUM_ORDER+1] =
@@ -25,6 +24,12 @@ void xc_evaluate_mgga(const xc_func_type *func, int max_order, size_t np,
     orders[ii] = 0;
 
   /* check if all variables make sense */
+  check = xc_input_variables_sanity_check(in, func->info->family, func->info->flags);
+  if(check >= 0){ /* error */
+    fprintf(stderr, "Field %s is not allocated\n", xc_input_variables_name[check]);
+    exit(1);
+  }
+
   check = xc_output_variables_sanity_check(out, orders, func->info->family, func->info->flags);
   if(check >= 0){ /* error */
     if(check >= 1000)
@@ -34,21 +39,21 @@ void xc_evaluate_mgga(const xc_func_type *func, int max_order, size_t np,
     exit(1);
   }
   
-  xc_output_variables_initialize(out, np, func->nspin);
+  xc_output_variables_initialize(out, in->np, func->nspin);
 
   /* call the mGGA routines */
   if(func->info->mgga != NULL){
     if(func->nspin == XC_UNPOLARIZED){
       if(func->info->mgga->unpol[max_order] != NULL)
-        func->info->mgga->unpol[max_order](func, np, rho, sigma, lapl, tau, out);
+        func->info->mgga->unpol[max_order](func, in->np, in->rho, in->sigma, in->lapl, in->tau, out);
     }else{
       if(func->info->mgga->pol[max_order] != NULL)
-        func->info->mgga->pol[max_order](func, np, rho, sigma, lapl, tau, out);
+        func->info->mgga->pol[max_order](func, in->np, in->rho, in->sigma, in->lapl, in->tau, out);
     }
   }
     
   if(func->mix_coef != NULL)
-    xc_mix_func(func, np, rho, sigma, lapl, tau, NULL, out);
+    xc_mix_func(func, in, out);
 }
 
 /* old API */
@@ -134,7 +139,7 @@ void xc_evaluate_mgga(const xc_func_type *func, int max_order, size_t np,
 
 void
 xc_mgga(const xc_func_type *p, size_t np,
-        const double *rho, const double *sigma, const double *lapl, const double *tau,
+        double *rho, double *sigma, double *lapl, double *tau,
         double *zk,
         double *vrho, double *vsigma, double *vlapl, double *vtau,
         double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau, double *v2sigma2,
@@ -174,27 +179,34 @@ xc_mgga(const xc_func_type *p, size_t np,
   SET_ORDER_3;
   SET_ORDER_4;
 
-  /* call new API */
-  xc_evaluate_mgga(p, order, np, rho, sigma, lapl, tau, &out);
+  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
+  const xc_input_variables in =
+    {np, idim, rho, sigma, lapl, tau, NULL};
+
+  xc_evaluate_mgga(p, order, &in, &out);
 }
 
 
 /* specializations */
 void
 xc_mgga_exc(const xc_func_type *p, size_t np,
-            const double *rho, const double *sigma, const double *lapl, const double *tau,
+            double *rho, double *sigma, double *lapl, double *tau,
             double *zk)
 {
   xc_output_variables out;
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   SET_ORDER_0;
 
-  xc_evaluate_mgga(p, 0, np, rho, sigma, lapl, tau, &out);
+  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
+  const xc_input_variables in =
+    {np, idim, rho, sigma, lapl, tau, NULL};
+
+  xc_evaluate_mgga(p, 0, &in, &out);
 }
 
 void
 xc_mgga_exc_vxc(const xc_func_type *p, size_t np,
-                const double *rho, const double *sigma, const double *lapl, const double *tau,
+                double *rho, double *sigma, double *lapl, double *tau,
                 double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau)
 {
   xc_output_variables out;
@@ -202,11 +214,15 @@ xc_mgga_exc_vxc(const xc_func_type *p, size_t np,
   SET_ORDER_0;
   SET_ORDER_1;
 
-  xc_evaluate_mgga(p, 1, np, rho, sigma, lapl, tau, &out);
+  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
+  const xc_input_variables in =
+    {np, idim, rho, sigma, lapl, tau, NULL};
+
+  xc_evaluate_mgga(p, 1, &in, &out);
 }
 
 void xc_mgga_exc_vxc_fxc(const xc_func_type *p, size_t np,
-                         const double *rho, const double *sigma, const double *lapl, const double *tau,
+                         double *rho, double *sigma, double *lapl, double *tau,
                          double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
                          double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
                          double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
@@ -218,11 +234,15 @@ void xc_mgga_exc_vxc_fxc(const xc_func_type *p, size_t np,
   SET_ORDER_1;
   SET_ORDER_2;
 
-  xc_evaluate_mgga(p, 2, np, rho, sigma, lapl, tau, &out);
+  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
+  const xc_input_variables in =
+    {np, idim, rho, sigma, lapl, tau, NULL};
+
+  xc_evaluate_mgga(p, 2, &in, &out);
 }
 
 void xc_mgga_vxc_fxc(const xc_func_type *p, size_t np,
-                         const double *rho, const double *sigma, const double *lapl, const double *tau,
+                         double *rho, double *sigma, double *lapl, double *tau,
                          double *vrho, double *vsigma, double *vlapl, double *vtau,
                          double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
                          double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
@@ -233,11 +253,15 @@ void xc_mgga_vxc_fxc(const xc_func_type *p, size_t np,
   SET_ORDER_1;
   SET_ORDER_2;
 
-  xc_evaluate_mgga(p, 2, np, rho, sigma, lapl, tau, &out);
+  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
+  const xc_input_variables in =
+    {np, idim, rho, sigma, lapl, tau, NULL};
+
+  xc_evaluate_mgga(p, 2, &in, &out);
 }
 
 void xc_mgga_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np,
-                             const double *rho, const double *sigma, const double *lapl, const double *tau,
+                             double *rho, double *sigma, double *lapl, double *tau,
                              double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
                              double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
                              double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
@@ -256,11 +280,15 @@ void xc_mgga_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np,
   SET_ORDER_2;
   SET_ORDER_3;
 
-  xc_evaluate_mgga(p, 3, np, rho, sigma, lapl, tau, &out);
+  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
+  const xc_input_variables in =
+    {np, idim, rho, sigma, lapl, tau, NULL};
+
+  xc_evaluate_mgga(p, 3, &in, &out);
 }
 
 void xc_mgga_vxc_fxc_kxc(const xc_func_type *p, size_t np,
-                         const double *rho, const double *sigma, const double *lapl, const double *tau,
+                         double *rho, double *sigma, double *lapl, double *tau,
                          double *vrho, double *vsigma, double *vlapl, double *vtau,
                          double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
                          double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
@@ -278,25 +306,33 @@ void xc_mgga_vxc_fxc_kxc(const xc_func_type *p, size_t np,
   SET_ORDER_2;
   SET_ORDER_3;
 
-  xc_evaluate_mgga(p, 3, np, rho, sigma, lapl, tau, &out);
+  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
+  const xc_input_variables in =
+    {np, idim, rho, sigma, lapl, tau, NULL};
+
+  xc_evaluate_mgga(p, 3, &in, &out);
 }
 
 
 void
 xc_mgga_vxc(const xc_func_type *p, size_t np,
-            const double *rho, const double *sigma, const double *lapl, const double *tau,
+            double *rho, double *sigma, double *lapl, double *tau,
             double *vrho, double *vsigma, double *vlapl, double *vtau)
 {
   xc_output_variables out;
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   SET_ORDER_1;
 
-  xc_evaluate_mgga(p, 1, np, rho, sigma, lapl, tau, &out);
+  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
+  const xc_input_variables in =
+    {np, idim, rho, sigma, lapl, tau, NULL};
+
+  xc_evaluate_mgga(p, 1, &in, &out);
 }
 
 void
 xc_mgga_fxc(const xc_func_type *p, size_t np,
-            const double *rho, const double *sigma, const double *lapl, const double *tau,
+            double *rho, double *sigma, double *lapl, double *tau,
             double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
             double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
             double *v2lapltau, double *v2tau2)
@@ -305,11 +341,15 @@ xc_mgga_fxc(const xc_func_type *p, size_t np,
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   SET_ORDER_2;
 
-  xc_evaluate_mgga(p, 2, np, rho, sigma, lapl, tau, &out);
+  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
+  const xc_input_variables in =
+    {np, idim, rho, sigma, lapl, tau, NULL};
+
+  xc_evaluate_mgga(p, 2, &in, &out);
 }
 
 void xc_mgga_kxc(const xc_func_type *p, size_t np,
-                 const double *rho, const double *sigma, const double *lapl, const double *tau,
+                 double *rho, double *sigma, double *lapl, double *tau,
                  double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
                  double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
                  double *v3rholapl2, double *v3rholapltau,  double *v3rhotau2,
@@ -321,11 +361,15 @@ void xc_mgga_kxc(const xc_func_type *p, size_t np,
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   SET_ORDER_3;
 
-  xc_evaluate_mgga(p, 3, np, rho, sigma, lapl, tau, &out);
+  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
+  const xc_input_variables in =
+    {np, idim, rho, sigma, lapl, tau, NULL};
+
+  xc_evaluate_mgga(p, 3, &in, &out);
 }
 
 void xc_mgga_lxc(const xc_func_type *p, size_t np,
-                 const double *rho, const double *sigma, const double *lapl, const double *tau,
+                 double *rho, double *sigma, double *lapl, double *tau,
                  double *v4rho4, double *v4rho3sigma, double *v4rho3lapl, double *v4rho3tau, double *v4rho2sigma2,
                  double *v4rho2sigmalapl, double *v4rho2sigmatau, double *v4rho2lapl2, double *v4rho2lapltau,
                  double *v4rho2tau2, double *v4rhosigma3, double *v4rhosigma2lapl, double *v4rhosigma2tau,
@@ -340,5 +384,9 @@ void xc_mgga_lxc(const xc_func_type *p, size_t np,
   libxc_memset(&out, 0, sizeof(xc_output_variables));
   SET_ORDER_4;
 
-  xc_evaluate_mgga(p, 4, np, rho, sigma, lapl, tau, &out);
+  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
+  const xc_input_variables in =
+    {np, idim, rho, sigma, lapl, tau, NULL};
+
+  xc_evaluate_mgga(p, 4, &in, &out);
 }

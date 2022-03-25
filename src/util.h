@@ -238,9 +238,7 @@ extern xc_mgga_funcs_variants xc_deorbitalize_func;
 
 /* Functionals that are defined as mixtures of others */
 void xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix_coef);
-void xc_mix_func(const xc_func_type *func, size_t np,
-   const double *rho, const double *sigma, const double *lapl, const double *tau, const double *exx,
-   xc_output_variables *out);
+void xc_mix_func(const xc_func_type *func, const xc_input_variables *in, xc_output_variables *out);
 
 /* Hybrid functional intializers. The order of arguments is the same
    as in the external parameter setters.

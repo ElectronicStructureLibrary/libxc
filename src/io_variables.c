@@ -8,6 +8,133 @@
 
 #include "util.h"
 
+/* Output variables */
+
+/* mapping input variable -> name */
+const char *xc_input_variables_name[XC_TOTAL_NUMBER_INPUT_VARIABLES] =
+  {"rho", "sigma", "lapl", "tau", "exx"};
+
+/* mapping input variable -> family */
+const int xc_input_variables_family_key[XC_TOTAL_NUMBER_INPUT_VARIABLES] =
+  {XC_FAMILY_LDA, XC_FAMILY_GGA, XC_FAMILY_MGGA, XC_FAMILY_MGGA, XC_FAMILY_HGGA};
+
+/* mapping input variable -> flags */
+const int xc_input_variables_flags_key[XC_TOTAL_NUMBER_INPUT_VARIABLES] =
+  {0, 0, XC_FLAGS_NEEDS_LAPLACIAN, XC_FLAGS_NEEDS_TAU, 0};
+
+const xc_input_variables_dimensions input_variables_dimensions_unpolarized = 
+  {1, 1, 1, 1, 1};
+const xc_input_variables_dimensions input_variables_dimensions_polarized = 
+  {2, 3, 2, 2, 2};
+
+const xc_input_variables_dimensions *input_variables_dimensions_get(int nspin)
+{
+  if(nspin == XC_UNPOLARIZED)
+    return &input_variables_dimensions_unpolarized;
+  return &input_variables_dimensions_polarized;
+}
+
+/* allocates the input variables on request from the user. The memory
+   is not initialized. Input parameters are
+  np:     Number of grid points
+  family: Family of functional
+  flags:  Flags of functional. Necessary to know if LAPL or TAU variables should
+          be allocated
+  spin:   XC_UNPOLARIZED, XC_POLARIZED
+*/
+xc_input_variables *
+xc_input_variables_allocate(double np, int family, int flags, int nspin){
+  xc_input_variables *in;
+  int ii;
+
+  /* allocate output structure */
+  in = (xc_input_variables *)libxc_malloc(sizeof(xc_input_variables));
+
+  /* initialize the structure to NULLs */
+  libxc_memset(in, 0, sizeof(xc_input_variables));
+
+  /* determined spin dimensions */
+  in->dim = input_variables_dimensions_get(nspin);
+
+  /* if np == 0 then do not allocate the internal pointers */
+  if (np <= 0)
+    return in;
+  in->np = np;
+
+  for(ii=0; ii<XC_TOTAL_NUMBER_INPUT_VARIABLES; ii++){
+    if(family < xc_input_variables_family_key[ii])
+      continue;
+
+    if(family >= XC_FAMILY_MGGA){
+      if(! (flags & XC_FLAGS_NEEDS_LAPLACIAN) &&
+         (xc_input_variables_flags_key[ii] & XC_FLAGS_NEEDS_LAPLACIAN))
+        continue;
+      if(! (flags & XC_FLAGS_NEEDS_TAU) &&
+         (xc_input_variables_flags_key[ii] & XC_FLAGS_NEEDS_TAU))
+        continue;
+    }
+    in->fields[ii] = (double *) libxc_malloc(sizeof(double)*np*in->dim->fields[ii]);
+  }
+    
+  return in;
+}
+
+/* 
+  This function returns -1 if all relevant variables (as determined by
+  orders, family, and flags) are allocated, or the number of the first
+  unallocated field otherwise.
+*/
+int
+xc_input_variables_sanity_check(const xc_input_variables *in, int family, int flags)
+{
+  int ii;
+
+  for(ii=0; ii<XC_TOTAL_NUMBER_INPUT_VARIABLES; ii++){
+    if(family < xc_input_variables_family_key[ii])
+      continue;
+
+    if(family >= XC_FAMILY_MGGA){
+      if(! (flags & XC_FLAGS_NEEDS_LAPLACIAN) &&
+         (xc_input_variables_flags_key[ii] & XC_FLAGS_NEEDS_LAPLACIAN))
+        continue;
+      if(! (flags & XC_FLAGS_NEEDS_TAU) &&
+         (xc_input_variables_flags_key[ii] & XC_FLAGS_NEEDS_TAU))
+        continue;
+    }
+    if(in->fields[ii] == NULL)
+      return ii; /* the field ii is not allocated */
+  }
+
+  /* all relevant fields are allocated */
+  return -1;
+}
+
+
+void
+xc_input_variables_deallocate(xc_input_variables *in)
+{
+  int ii;
+  
+  for(ii=0; ii<XC_TOTAL_NUMBER_INPUT_VARIABLES; ii++)
+    if(in->fields[ii] != NULL)
+      libxc_free(in->fields[ii]);
+  libxc_free(in);
+}
+
+
+void
+xc_input_variables_initialize(xc_input_variables *in)
+{
+  int ii;
+
+  for(ii=0; ii<XC_TOTAL_NUMBER_INPUT_VARIABLES; ii++)
+    if(in->fields[ii] != NULL)
+      libxc_memset(in->fields[ii], 0, sizeof(double)*in->np*in->dim->fields[ii]);
+}
+
+
+/* Output variables */
+
 /* mapping output variable -> name */
 const char *xc_output_variables_name[XC_TOTAL_NUMBER_OUTPUT_VARIABLES] =
   {
@@ -227,7 +354,7 @@ const int xc_output_variables_flags_key[XC_TOTAL_NUMBER_OUTPUT_VARIABLES] =
 
 
 /* allocates the output variables on request from the user. The memory
-   is initialized to zero. Input parameters are
+   is not initialized. Input parameters are
   np:     Number of grid points
   orders: Array size XC_MAXIMUM_ORDER that determines if orders[i] should be allocated
   family: Family of functional
@@ -285,7 +412,7 @@ xc_output_variables_allocate(double np, const int *orders, int family, int flags
   variable was requested that is not available.
 */
 int
-xc_output_variables_sanity_check(xc_output_variables *out, const int *orders, int family, int flags)
+xc_output_variables_sanity_check(const xc_output_variables *out, const int *orders, int family, int flags)
 {
   int ii;
 
@@ -331,18 +458,18 @@ xc_output_variables_sanity_check(xc_output_variables *out, const int *orders, in
 void
 xc_output_variables_deallocate(xc_output_variables *out)
 {
-  int i;
+  int ii;
   
-  for(i=0; i<XC_TOTAL_NUMBER_OUTPUT_VARIABLES; i++)
-    if(out->fields[i] != NULL)
-      libxc_free(out->fields[i]);
+  for(ii=0; ii<XC_TOTAL_NUMBER_OUTPUT_VARIABLES; ii++)
+    if(out->fields[ii] != NULL)
+      libxc_free(out->fields[ii]);
   libxc_free(out);
 }
 
 void
 xc_output_variables_initialize(xc_output_variables *out, int np, int nspin)
 {
-  int i;
+  int ii;
   const xc_dimensions *dim;
 
   // initialize the dimension structure
@@ -351,7 +478,7 @@ xc_output_variables_initialize(xc_output_variables *out, int np, int nspin)
   else
     dim = &dimensions_polarized;
   
-  for(i=0; i<XC_TOTAL_NUMBER_OUTPUT_VARIABLES; i++)
-    if(out->fields[i] != NULL)
-      libxc_memset(out->fields[i], 0, sizeof(double)*np*dim->fields[i+5]);
+  for(ii=0; ii<XC_TOTAL_NUMBER_OUTPUT_VARIABLES; ii++)
+    if(out->fields[ii] != NULL)
+      libxc_memset(out->fields[ii], 0, sizeof(double)*np*dim->fields[ii+5]);
 }

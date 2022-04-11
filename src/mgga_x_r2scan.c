@@ -46,7 +46,7 @@ const xc_func_info_type xc_func_info_mgga_x_r2scan = {
   XC_FAMILY_MGGA,
   {&xc_ref_Furness2020_8208, &xc_ref_Furness2020_9248, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
-  1e-11,
+  1e-15,
   {N_PAR, names, desc, par_r2scan, set_ext_params_cpy},
   mgga_x_r2scan_init, NULL,
   NULL, NULL, &work_mgga
@@ -62,7 +62,7 @@ const xc_func_info_type xc_func_info_mgga_x_r2scan01 = {
   XC_FAMILY_MGGA,
   {&xc_ref_Furness2020_8208, &xc_ref_Furness2020_9248, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
-  1e-11,
+  1e-15,
   {N_PAR, names, desc, par_r2scan01, set_ext_params_cpy},
   mgga_x_r2scan_init, NULL,
   NULL, NULL, &work_mgga

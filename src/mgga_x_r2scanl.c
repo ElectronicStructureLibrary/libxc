@@ -47,7 +47,7 @@ const xc_func_info_type xc_func_info_mgga_x_r2scanl = {
   XC_FAMILY_MGGA,
   {&xc_ref_Mejia2020_121109, &xc_ref_Furness2020_8208, &xc_ref_Furness2020_9248, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
-  1e-15,
+  1e-14,
   {N_PAR, names, desc, par_r2scanl, r2scanl_set_ext_params},
   mgga_x_r2scanl_init, NULL,
   NULL, NULL, &xc_deorbitalize_func

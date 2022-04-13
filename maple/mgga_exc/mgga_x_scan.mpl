@@ -46,7 +46,16 @@ scan_y  := (x, a) -> MU_GE*scan_p(x) + scan_b4*scan_p(x)^2*exp(-scan_b4*scan_p(x
   + (scan_b1*scan_p(x) + scan_b2*(1 - a)*exp(-scan_b3*(1 - a)^2))^2:
 
 scan_a1 := 4.9479:
-scan_gx := x -> 1 - exp(-scan_a1/sqrt(X2S*x)):
+
+(* This function, in turn, is nasty for x -> 0.
+
+   However, we can cut off the small-x region since the function is
+   there just one.
+*)
+scan_gx_arg := scan_a1/sqrt(X2S):
+scan_gx_cutoff := (scan_gx_arg/(-log(DBL_EPSILON)))^2:
+scan_gx0 := x -> 1 - exp(-scan_gx_arg/sqrt(x)):
+scan_gx := x -> my_piecewise3(x <= scan_gx_cutoff, 1, scan_gx0(m_max(x, scan_gx_cutoff))):
 
 scan_h0x := 1.174:
 scan_f   := (x, u, t) -> (scan_h1x(scan_y(x, scan_alpha(x, t)))*(1 - scan_f_alpha(scan_alpha(x, t)))

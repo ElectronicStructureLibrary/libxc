@@ -53,7 +53,7 @@ const xc_func_info_type xc_func_info_gga_x_ft97_a = {
   1e-15,
   {FT97_N_PAR, ft97_names, ft97_desc, ft97a_values, set_ext_params_cpy},
   gga_x_ft97_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -69,5 +69,5 @@ const xc_func_info_type xc_func_info_gga_x_ft97_b = {
   1e-15,
   {FT97_N_PAR, ft97_names, ft97_desc, ft97b_values, set_ext_params_cpy},
   gga_x_ft97_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

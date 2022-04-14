@@ -43,5 +43,5 @@ const xc_func_info_type xc_func_info_lda_k_gds08_worker = {
   1e-15,
   {GDS08_N_PAR, gds08_names, gds08_desc, gds08_values, set_ext_params_cpy},
   lda_k_gds08_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };

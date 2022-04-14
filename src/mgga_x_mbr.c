@@ -41,6 +41,5 @@ const xc_func_info_type xc_func_info_mgga_x_mbr = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {MBR_N_PAR, mbr_names, mbr_desc, mbr_values, set_ext_params_cpy},
-  mgga_x_mbr_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_mbr_init, NULL, &work_mgga,
 };

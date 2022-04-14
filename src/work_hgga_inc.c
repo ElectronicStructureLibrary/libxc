@@ -32,9 +32,7 @@
 
 static void
 WORK_HGGA(ORDER_TXT, SPIN_TXT)
-(const XC(func_type) *p, size_t np,
- const double *rho, const double *sigma, const double *lapl, const double *tau, const double *exx,
- xc_output_variables *out)
+(const XC(func_type) *p, const xc_input_variables *in, xc_output_variables *out)
 {
 
 #ifdef XC_DEBUG
@@ -48,20 +46,20 @@ WORK_HGGA(ORDER_TXT, SPIN_TXT)
   double my_sigma[3]={0.0, 0.0, 0.0};
   double my_tau[2]={0.0, 0.0};
 
-  for(ip = 0; ip < np; ip++){
+  for(ip = 0; ip < in->np; ip++){
     /* Screen low density */
-    dens = (p->nspin == XC_POLARIZED) ? VAR(rho, ip, 0) + VAR(rho, ip, 1) : VAR(rho, ip, 0);
+    dens = (p->nspin == XC_POLARIZED) ? in->VAR(rho, ip, 0) + in->VAR(rho, ip, 1) : in->VAR(rho, ip, 0);
     if(dens < p->dens_threshold)
       continue;
 
     /* sanity check of input parameters */
-    my_rho[0] = m_max(p->dens_threshold, VAR(rho, ip, 0));
-    my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, VAR(sigma, ip, 0));
+    my_rho[0] = m_max(p->dens_threshold, in->VAR(rho, ip, 0));
+    my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, in->VAR(sigma, ip, 0));
 
     /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
     /* skip all checks on tau for the kinetic functionals */
     if(p->info->flags & XC_FLAGS_NEEDS_TAU){
-      my_tau[0] = m_max(p->tau_threshold, VAR(tau, ip, 0));
+      my_tau[0] = m_max(p->tau_threshold, in->VAR(tau, ip, 0));
 #ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
       /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
       my_sigma[0] = m_min(my_sigma[0], 8.0*my_rho[0]*my_tau[0]);
@@ -72,18 +70,18 @@ WORK_HGGA(ORDER_TXT, SPIN_TXT)
     if(p->nspin == XC_POLARIZED){
       double s_ave;
 
-      my_rho[1] = m_max(p->dens_threshold, VAR(rho, ip, 1));
-      my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, VAR(sigma, ip, 2));
+      my_rho[1] = m_max(p->dens_threshold, in->VAR(rho, ip, 1));
+      my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, in->VAR(sigma, ip, 2));
 
       if(p->info->flags & XC_FLAGS_NEEDS_TAU){
-        my_tau[1] = m_max(p->tau_threshold, VAR(tau, ip, 1));
+        my_tau[1] = m_max(p->tau_threshold, in->VAR(tau, ip, 1));
 #ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
         /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
         my_sigma[2] = m_min(my_sigma[2], 8.0*my_rho[1]*my_tau[1]);
 #endif
       }
       
-      my_sigma[1] = VAR(sigma, ip, 1);
+      my_sigma[1] = in->VAR(sigma, ip, 1);
       s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
       /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
       my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
@@ -91,7 +89,9 @@ WORK_HGGA(ORDER_TXT, SPIN_TXT)
       my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
     }
 
-    FUNC(ORDER_TXT, SPIN_TXT)(p, ip, my_rho, my_sigma, &VAR(lapl, ip, 0), my_tau, exx, out);
+    FUNC(ORDER_TXT, SPIN_TXT)
+      (p, ip, my_rho, my_sigma, &in->VAR(lapl, ip, 0),
+       my_tau, &in->VAR(exx, ip, 0), out);
 
     /* check for NaNs */
 #ifdef XC_DEBUG
@@ -113,6 +113,8 @@ WORK_HGGA(ORDER_TXT, SPIN_TXT)
         if(p->info->flags & XC_FLAGS_NEEDS_TAU)
           for(ii=0; ii < dim->vtau; ii++)
             is_OK = is_OK && isfinite(out->VAR(vtau, ip, ii));
+        for(ii=0; ii < dim->vexx; ii++)
+          is_OK = is_OK && isfinite(out->VAR(vexx, ip, ii));
       }
 
       if(!is_OK){
@@ -120,32 +122,41 @@ WORK_HGGA(ORDER_TXT, SPIN_TXT)
         if(p->nspin == XC_UNPOLARIZED){
           printf("./xc-get_data %d 1 ", p->info->number);
           if(p->info->flags & (XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU))
-            printf("%le 0.0 %le 0.0 0.0 %le 0.0 %le 0.0\n",
-                   VAR(rho, ip, 0), VAR(sigma, ip, 0), VAR(lapl, ip, 0), VAR(tau, ip, 0));
+            printf("%le 0.0 %le 0.0 0.0 %le 0.0 %le 0.0 %le 0.0\n",
+                   in->VAR(rho, ip, 0), in->VAR(sigma, ip, 0),
+                   in->VAR(lapl, ip, 0), in->VAR(tau, ip, 0), in->VAR(exx, ip, 0));
           else if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
-            printf("%le 0.0 %le 0.0 0.0 %le 0.0 0.0 0.0\n",
-                   VAR(rho, ip, 0), VAR(sigma, ip, 0), VAR(lapl, ip, 0));
+            printf("%le 0.0 %le 0.0 0.0 %le 0.0 0.0 0.0 %le 0.0\n",
+                   in->VAR(rho, ip, 0), in->VAR(sigma, ip, 0),
+                   in->VAR(lapl, ip, 0), in->VAR(exx, ip, 0));
           else
-            printf("%le 0.0 %le 0.0 0.0 0.0 0.0 %le 0.0\n",
-                   VAR(rho, ip, 0), VAR(sigma, ip, 0), VAR(tau, ip, 0));
+            printf("%le 0.0 %le 0.0 0.0 0.0 0.0 %le 0.0 %le 0.0\n",
+                   in->VAR(rho, ip, 0), in->VAR(sigma, ip, 0),
+                   in->VAR(tau, ip, 0), in->VAR(exx, ip, 0));
         }else{
           printf("./xc-get_data %d 2 ", p->info->number);
           if(p->info->flags & (XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU))
-            printf("%le %le %le %le %le %le %le %le %le\n",
-                   VAR(rho, ip, 0), VAR(rho, ip, 1),
-                   VAR(sigma, ip, 0), VAR(sigma, ip, 1), VAR(sigma, ip, 2),
-                   VAR(lapl, ip, 0), VAR(lapl, ip, 1),
-                   VAR(tau, ip, 0), VAR(tau, ip, 1));
+            printf("%le %le %le %le %le %le %le %le %le %le %le\n",
+                   in->VAR(rho, ip, 0), in->VAR(rho, ip, 1),
+                   in->VAR(sigma, ip, 0), in->VAR(sigma, ip, 1), in->VAR(sigma, ip, 2),
+                   in->VAR(lapl, ip, 0), in->VAR(lapl, ip, 1),
+                   in->VAR(tau, ip, 0), in->VAR(tau, ip, 1),
+                   in->VAR(exx, ip, 0), in->VAR(exx, ip, 1)
+                   );
           else if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
-            printf("%le %le %le %le %le %le %le 0.0 0.0\n",
-                   VAR(rho, ip, 0), VAR(rho, ip, 1),
-                   VAR(sigma, ip, 0), VAR(sigma, ip, 1), VAR(sigma, ip, 2),
-                   VAR(lapl, ip, 0), VAR(lapl, ip, 1));
+            printf("%le %le %le %le %le %le %le 0.0 0.0 %le %le\n",
+                   in->VAR(rho, ip, 0), in->VAR(rho, ip, 1),
+                   in->VAR(sigma, ip, 0), in->VAR(sigma, ip, 1), in->VAR(sigma, ip, 2),
+                   in->VAR(lapl, ip, 0), in->VAR(lapl, ip, 1),
+                   in->VAR(exx, ip, 0), in->VAR(exx, ip, 1)
+                   );
           else
-            printf("%le %le %le %le %le 0.0 0.0 %le %le\n",
-                   VAR(rho, ip, 0), VAR(rho, ip, 1),
-                   VAR(sigma, ip, 0), VAR(sigma, ip, 1), VAR(sigma, ip, 2),
-                   VAR(tau, ip, 0), VAR(tau, ip, 1));
+            printf("%le %le %le %le %le 0.0 0.0 %le %le %le %le\n",
+                   in->VAR(rho, ip, 0), in->VAR(rho, ip, 1),
+                   in->VAR(sigma, ip, 0), in->VAR(sigma, ip, 1), in->VAR(sigma, ip, 2),
+                   in->VAR(tau, ip, 0), in->VAR(tau, ip, 1),
+                   in->VAR(exx, ip, 0), in->VAR(exx, ip, 1)
+                   );
         }
       }
     }
@@ -157,58 +168,61 @@ WORK_HGGA(ORDER_TXT, SPIN_TXT)
 #else
 
 __global__ static void
-WORK_HGGA_GPU(ORDER_TXT, SPIN_TXT)
-(const XC(func_type) *p, size_t np,
- const double *rho, const double *sigma, const double *lapl, const double *tau, const double *exx,
- xc_output_variables *out)
+WORK_HGGA_GPU(ORDER_TXT, SPIN_TXT)(const XC(func_type) *p,
+      const xc_input_variables *in, xc_output_variables *out)
 {
-
   size_t ip = blockIdx.x * blockDim.x + threadIdx.x;
   double my_rho[2] = {0.0, 0.0};
   double my_sigma[3] = {0.0, 0.0, 0.0};
   double my_tau[2] = {0.0, 0.0};
   double dens;
 
-  if(ip >= np) return;
+  if(ip >= in->np) return;
 
-  /* Screen small densities */
-  dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
-  if(dens >= p->dens_threshold) {
-    /* sanity check of input parameters */
-    my_rho[0] = m_max(p->dens_threshold, rho[0]);
-    /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
-    if(p->info->flags & XC_FLAGS_NEEDS_TAU)
-      my_tau[0] = m_max(p->tau_threshold, tau[0]);
-    my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[0]);
+  /* Screen low density */
+  dens = (p->nspin == XC_POLARIZED) ? in->VAR(rho, ip, 0) + in->VAR(rho, ip, 1) : in->VAR(rho, ip, 0);
+  if(dens < p->dens_threshold)
+    return;
+
+  /* sanity check of input parameters */
+  my_rho[0] = m_max(p->dens_threshold, in->VAR(rho, ip, 0));
+  my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, in->VAR(sigma, ip, 0));
+
+  /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
+  /* skip all checks on tau for the kinetic functionals */
+  if(p->info->flags & XC_FLAGS_NEEDS_TAU){
+    my_tau[0] = m_max(p->tau_threshold, in->VAR(tau, ip, 0));
 #ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
     /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
-    if(p->info->flags & XC_FLAGS_NEEDS_TAU)
-      my_sigma[0] = m_min(my_sigma[0], 8.0*my_rho[0]*my_tau[0]);
+    my_sigma[0] = m_min(my_sigma[0], 8.0*my_rho[0]*my_tau[0]);
 #endif
-    /* lapl can have any values */
-    if(p->nspin == XC_POLARIZED){
-      double s_ave;
+  }
+  /* lapl can have any values */
 
-      my_rho[1]   = m_max(p->dens_threshold, rho[1]);
-      if(p->info->flags & XC_FLAGS_NEEDS_TAU)
-        my_tau[1] = m_max(p->tau_threshold, tau[1]);
-      my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[2]);
+  if(p->nspin == XC_POLARIZED){
+    double s_ave;
+
+    my_rho[1] = m_max(p->dens_threshold, in->VAR(rho, ip, 1));
+    my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, in->VAR(sigma, ip, 2));
+
+    if(p->info->flags & XC_FLAGS_NEEDS_TAU){
+      my_tau[1] = m_max(p->tau_threshold, in->VAR(tau, ip, 1));
 #ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
       /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
-      if(p->info->flags & XC_FLAGS_NEEDS_TAU)
-        my_sigma[2] = m_min(my_sigma[2], 8.0*my_rho[1]*my_tau[1]);
+      my_sigma[2] = m_min(my_sigma[2], 8.0*my_rho[1]*my_tau[1]);
 #endif
-
-      my_sigma[1] = sigma[1];
-      s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
-      /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
-      my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
-      /* Since |grad n_up - grad n_down|^2 > 0 we also have */
-      my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
     }
-
-    FUNC(ORDER_TXT, SPIN_TXT)(p, ip, my_rho, my_sigma, lapl, my_tau, exx, out);
+    
+    my_sigma[1] = in->VAR(sigma, ip, 1);
+    s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
+    /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
+    my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
+    /* Since |grad n_up - grad n_down|^2 > 0 we also have */
+    my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
   }
+  
+  
+  FUNC(ORDER_TXT, SPIN_TXT)(p, ip, my_rho, my_sigma, lapl, my_tau, exx, out);
 }
 
 

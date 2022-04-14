@@ -70,5 +70,5 @@ const xc_func_info_type xc_func_info_lda_c_2d_prm = {
   1e-32,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   lda_c_2d_prm_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };

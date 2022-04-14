@@ -50,8 +50,7 @@ const xc_func_info_type xc_func_info_mgga_x_bj06 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-15,
   {BJ06_N_PAR, bj06_names, bj06_desc, bj06_values, set_ext_params_cpy},
-  mgga_x_tb09_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_tb09_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -66,8 +65,7 @@ const xc_func_info_type xc_func_info_mgga_x_tb09 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-23,
   {BJ06_N_PAR, bj06_names, bj06_desc, bj06_values, set_ext_params_cpy},
-  mgga_x_tb09_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_tb09_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -82,8 +80,7 @@ const xc_func_info_type xc_func_info_mgga_x_rpp09 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-15,
   {BJ06_N_PAR, bj06_names, bj06_desc, rpp09_values, set_ext_params_cpy},
-  mgga_x_tb09_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_tb09_init, NULL, &work_mgga,
 };
 
 

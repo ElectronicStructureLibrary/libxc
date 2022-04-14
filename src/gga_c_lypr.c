@@ -60,5 +60,5 @@ const xc_func_info_type xc_func_info_gga_c_lypr = {
   1e-14,
   {LYPR_N_PAR, lypr_names, lypr_desc, lypr_values, set_ext_params_cpy},
   xc_gga_c_lypr_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

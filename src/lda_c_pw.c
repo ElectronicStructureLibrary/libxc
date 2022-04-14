@@ -130,7 +130,7 @@ const xc_func_info_type xc_func_info_lda_c_pw = {
   1e-15,
   {PW_N_PAR, pw_names, pw_desc, par_pw, set_ext_params_cpy},
   lda_c_pw_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 
 #ifdef __cplusplus
@@ -146,7 +146,7 @@ const xc_func_info_type xc_func_info_lda_c_pw_mod = {
   1e-15,
   {PW_N_PAR, pw_names, pw_desc, par_pw_mod, set_ext_params_cpy},
   lda_c_pw_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 
 #ifdef __cplusplus
@@ -162,7 +162,7 @@ const xc_func_info_type xc_func_info_lda_c_ob_pw = {
   1e-15,
   {PW_N_PAR, pw_names, pw_desc, par_ob, set_ext_params_cpy},
   lda_c_pw_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 
 #ifdef __cplusplus
@@ -178,7 +178,7 @@ const xc_func_info_type xc_func_info_lda_c_pw_rpa = {
   1e-15,
   {PW_N_PAR, pw_names, pw_desc, par_pw_rpa, set_ext_params_cpy},
   lda_c_pw_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 
 #ifdef __cplusplus
@@ -194,7 +194,7 @@ const xc_func_info_type xc_func_info_lda_c_upw92 = {
   1e-15,
   {PW_N_PAR, pw_names, pw_desc, par_upw92, set_ext_params_cpy},
   lda_c_pw_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 
 #ifdef __cplusplus
@@ -210,5 +210,5 @@ const xc_func_info_type xc_func_info_lda_c_rpw92 = {
   1e-15,
   {PW_N_PAR, pw_names, pw_desc, par_rpw92, set_ext_params_cpy},
   lda_c_pw_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };

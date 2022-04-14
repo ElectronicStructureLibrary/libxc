@@ -85,8 +85,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_src1_blyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-14,
   {SRC1_N_PAR, src1_names, src1_desc, src1_values, src1_set_ext_params},
-  hyb_gga_xc_src1_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_src1_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -101,7 +100,6 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_src2_blyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-14,
   {SRC1_N_PAR, src1_names, src1_desc, src2_values, src1_set_ext_params},
-  hyb_gga_xc_src1_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_src1_init, NULL, NULL
 };
 

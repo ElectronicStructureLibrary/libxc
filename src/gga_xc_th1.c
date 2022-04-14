@@ -85,7 +85,7 @@ const xc_func_info_type xc_func_info_gga_xc_th_fl = {
   1e-15,
   {N_PAR, names, desc, omega_TH_FL, set_ext_params_cpy},
   gga_xc_th1_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -101,7 +101,7 @@ const xc_func_info_type xc_func_info_gga_xc_th_fc = {
   1e-15,
   {N_PAR, names, desc, omega_TH_FC, set_ext_params_cpy},
   gga_xc_th1_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -117,7 +117,7 @@ const xc_func_info_type xc_func_info_gga_xc_th_fcfo = {
   1e-15,
   {N_PAR, names, desc, omega_TH_FCFO, set_ext_params_cpy},
   gga_xc_th1_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -133,7 +133,7 @@ const xc_func_info_type xc_func_info_gga_xc_th_fco = {
   1e-15,
   {N_PAR, names, desc, omega_TH_FCO, set_ext_params_cpy},
   gga_xc_th1_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -149,5 +149,5 @@ const xc_func_info_type xc_func_info_gga_xc_th1 = {
   1e-15,
   {N_PAR, names, desc, omega_TH1, set_ext_params_cpy},
   gga_xc_th1_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

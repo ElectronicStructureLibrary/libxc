@@ -298,43 +298,12 @@ void xc_output_variables_initialize(xc_output_variables *out, int np, int nspin)
 void xc_output_variables_deallocate(xc_output_variables *out);
 
 /* type of the lda function */
-typedef void (*xc_lda_funcs)
-(const struct xc_func_type *p, size_t np,
- const double *rho,
- xc_output_variables *out);
+typedef void (*xc_functionals_work)(const struct xc_func_type *p,
+     const xc_input_variables *in, xc_output_variables *out);
   
 typedef struct {
-  const xc_lda_funcs unpol[5], pol[5];
-} xc_lda_funcs_variants;
-  
-/* type of the gga function */
-typedef void (*xc_gga_funcs)
-(const struct xc_func_type *p, size_t np,
- const double *rho, const double *sigma,
- xc_output_variables *out);
-  
-typedef struct {
-  const xc_gga_funcs unpol[5], pol[5];
-} xc_gga_funcs_variants;
-
-/* type of the mgga function */
-typedef void (*xc_mgga_funcs)
-(const struct xc_func_type *p, size_t np,
- const double *rho, const double *sigma, const double *lapl, const double *tau,
- xc_output_variables *out);
-typedef struct {
-  const xc_mgga_funcs unpol[5], pol[5];
-} xc_mgga_funcs_variants;
-
-/* type of the mgga function */
-typedef void (*xc_hgga_funcs)
-(const struct xc_func_type *p, size_t np,
- const double *rho, const double *sigma, const double *lapl, const double *tau, const double *exx,
- xc_output_variables *out);
-typedef struct {
-  const xc_hgga_funcs unpol[5], pol[5];
-} xc_hgga_funcs_variants;
-
+  const xc_functionals_work unpol[5], pol[5];
+} xc_functionals_work_variants;
   
 /* Structure that contains information on the functional */
 typedef struct{
@@ -354,10 +323,7 @@ typedef struct{
 
   void (*init)(struct xc_func_type *p);
   void (*end) (struct xc_func_type *p);
-  const xc_lda_funcs_variants  *lda;
-  const xc_gga_funcs_variants  *gga;
-  const xc_mgga_funcs_variants *mgga;
-  const xc_hgga_funcs_variants *hgga;
+  const xc_functionals_work_variants  *work;
 } xc_func_info_type;
 
 
@@ -476,14 +442,6 @@ double xc_func_get_ext_params_value(const xc_func_type *p, int number);
 
 /* New API */
 void xc_evaluate_func(const xc_func_type *p, int order,
-                      const xc_input_variables *in, xc_output_variables *out);
-void xc_evaluate_lda(const xc_func_type *p, int order,
-                     const xc_input_variables *in, xc_output_variables *out);
-void xc_evaluate_gga(const xc_func_type *p, int order,
-                     const xc_input_variables *in, xc_output_variables *out);
-void xc_evaluate_mgga(const xc_func_type *p, int order,
-                      const xc_input_variables *in, xc_output_variables *out);
-void xc_evaluate_hgga(const xc_func_type *p, int order,
                       const xc_input_variables *in, xc_output_variables *out);
 
 /* This is the old, Fortran friendly interface */

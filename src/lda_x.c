@@ -62,8 +62,7 @@ const xc_func_info_type xc_func_info_lda_x = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  lda_x_init, NULL,
-  &work_lda, NULL, NULL, NULL
+  lda_x_init, NULL, &work_lda
 };
 
 static const char  *xalpha_names[]  = {"alpha"};
@@ -93,8 +92,7 @@ const xc_func_info_type xc_func_info_lda_c_xalpha = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {1, xalpha_names, xalpha_desc, xalpha_values, set_ext_params},
-  lda_x_init, NULL,
-  &work_lda, NULL, NULL
+  lda_x_init, NULL, &work_lda
 };
 
 static const char  *N_names[]  = {"N"};
@@ -129,8 +127,7 @@ const xc_func_info_type xc_func_info_lda_x_rae = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
-  lda_x_init, NULL,
-  &work_lda, NULL, NULL
+  lda_x_init, NULL, &work_lda
 };
 
 /* Patrick Rinke confirmed that this functional only contains
@@ -157,6 +154,5 @@ const xc_func_info_type xc_func_info_hyb_lda_xc_lda0 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_lda_xc_lda0_init, NULL,
-  NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_lda_xc_lda0_init, NULL, NULL
 };

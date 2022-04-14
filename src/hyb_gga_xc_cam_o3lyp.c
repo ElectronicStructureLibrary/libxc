@@ -85,6 +85,5 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cam_o3lyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {N_PAR, names, desc, par_cam_o3lyp, set_ext_params},
-  hyb_gga_xc_cam_o3lyp_init,
-  NULL, NULL, NULL, NULL
+  hyb_gga_xc_cam_o3lyp_init, NULL, NULL
 };

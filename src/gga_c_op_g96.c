@@ -27,6 +27,6 @@ const xc_func_info_type xc_func_info_gga_c_op_g96 = {
   1e-14,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 

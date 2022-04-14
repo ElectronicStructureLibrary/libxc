@@ -54,8 +54,7 @@ const xc_func_info_type xc_func_info_mgga_x_tau_hcth = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR_PURE, pure_names, pure_desc, tHCTH_val, set_ext_params_cpy},
-  mgga_x_tau_hcth_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_tau_hcth_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -70,8 +69,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_bmk = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR_HYB, hyb_names, hyb_desc, BMK_val, set_ext_params_cpy_exx},
-  mgga_x_tau_hcth_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_tau_hcth_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -86,6 +84,5 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_tau_hcth = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR_HYB, hyb_names, hyb_desc, hyb_tHCTH_val, set_ext_params_cpy_exx},
-  mgga_x_tau_hcth_init,  NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_tau_hcth_init, NULL, &work_mgga,
 };

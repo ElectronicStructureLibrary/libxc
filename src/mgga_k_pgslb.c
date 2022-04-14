@@ -41,6 +41,5 @@ const xc_func_info_type xc_func_info_mgga_k_pgsl025 = {
   XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, par_pgsl025, set_ext_params_cpy},
-  mgga_k_pgslb_init, NULL,
-  NULL, NULL, &work_mgga
+  mgga_k_pgslb_init, NULL, &work_mgga
 };

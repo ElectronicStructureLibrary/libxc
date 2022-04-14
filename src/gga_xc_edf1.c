@@ -43,8 +43,7 @@ const xc_func_info_type xc_func_info_gga_xc_edf1 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_xc_edf1_init,
-  NULL, NULL, NULL, NULL
+  gga_xc_edf1_init, NULL, NULL
 };
 
 
@@ -74,8 +73,7 @@ const xc_func_info_type xc_func_info_gga_x_optpbe_vdw = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_x_optpbe_vdw_init,
-  NULL, NULL, NULL, NULL
+  gga_x_optpbe_vdw_init, NULL, NULL
 };
 
 
@@ -104,8 +102,7 @@ const xc_func_info_type xc_func_info_gga_xc_mohlyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_xc_mohlyp_init,
-  NULL, NULL, NULL, NULL
+  gga_xc_mohlyp_init, NULL, NULL
 };
 
 static void
@@ -133,8 +130,7 @@ const xc_func_info_type xc_func_info_gga_xc_mohlyp2 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_xc_mohlyp2_init,
-  NULL, NULL, NULL, NULL
+  gga_xc_mohlyp2_init, NULL, NULL
 };
 
 static void
@@ -163,8 +159,7 @@ const xc_func_info_type xc_func_info_gga_x_sogga = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_x_sogga_init,
-  NULL, NULL, NULL, NULL
+  gga_x_sogga_init, NULL, NULL
 };
 
 #define LB07_N_PAR 2
@@ -215,6 +210,5 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lb07 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {LB07_N_PAR, lb07_names, lb07_desc, par_lb07, lb07_set_ext_params},
-  hyb_gga_xc_lb07_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_lb07_init, NULL, NULL
 };

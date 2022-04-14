@@ -55,5 +55,5 @@ const xc_func_info_type xc_func_info_gga_c_pbe_erf_gws = {
   1e-13,
   {N_PAR, param_names, param_desc, param_values, set_ext_params_cpy_omega},
   xc_gga_c_pbe_erf_gws_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

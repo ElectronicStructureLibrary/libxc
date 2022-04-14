@@ -111,7 +111,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97 = {
   1e-14,
   {N_PAR, names, desc, par_wb97, set_ext_params_cpy_cam},
   gga_xc_wb97_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -127,7 +127,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x = {
   1e-14,
   {N_PAR, names, desc, par_wb97x, set_ext_params_cpy_cam},
   gga_xc_wb97_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -143,7 +143,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x_v = {
   1e-14,
   {N_PAR, names, desc, par_wb97x_v, set_ext_params_cpy_cam},
   gga_xc_wb97_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -159,7 +159,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x_d = {
   1e-14,
   {N_PAR, names, desc, par_wb97x_d, set_ext_params_cpy_cam},
   gga_xc_wb97_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -175,5 +175,5 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb97x_d3 = {
   1e-14,
   {N_PAR, names, desc, par_wb97x_d3, set_ext_params_cpy_cam},
   gga_xc_wb97_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

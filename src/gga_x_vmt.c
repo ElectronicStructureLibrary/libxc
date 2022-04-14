@@ -58,7 +58,7 @@ const xc_func_info_type xc_func_info_gga_x_vmt_pbe = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_x_vmt_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -74,5 +74,5 @@ const xc_func_info_type xc_func_info_gga_x_vmt_ge = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_x_vmt_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

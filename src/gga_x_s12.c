@@ -92,7 +92,7 @@ const xc_func_info_type xc_func_info_gga_x_s12g = {
   1e-15,
   {S12G_N_PAR, s12g_names, s12g_desc, s12g_values, set_ext_params_cpy},
   gga_x_s12_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -108,5 +108,5 @@ const xc_func_info_type xc_func_info_hyb_gga_x_s12h = {
   1e-15,
   {S12H_N_PAR, s12h_names, s12h_desc, s12h_values, s12h_set_ext_params},
   gga_x_s12_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

@@ -43,5 +43,5 @@ const xc_func_info_type xc_func_info_lda_x_sloc = {
   1e-15,
   {2, sloc_names, sloc_desc, sloc_values, set_ext_params_cpy},
   lda_x_sloc_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };

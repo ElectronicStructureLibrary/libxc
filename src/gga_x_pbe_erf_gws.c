@@ -58,7 +58,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_erf_gws = {
   1e-15,
   {N_PAR, param_names, param_desc, param_values, set_ext_params_cpy_omega},
   xc_gga_x_pbe_erf_gws_init,
-  NULL, NULL, &work_gga, NULL
+  NULL, &work_gga
 };
 
 static void xc_hyb_gga_x_pbe_erf_gws_init(xc_func_type *p)
@@ -81,5 +81,5 @@ const xc_func_info_type xc_func_info_hyb_gga_x_pbe_erf_gws = {
   1e-15,
   {N_PAR, param_names, param_desc, param_values, set_ext_params_cpy_lc},
   xc_hyb_gga_x_pbe_erf_gws_init,
-  NULL, NULL, &work_gga, NULL
+  NULL, &work_gga
 };

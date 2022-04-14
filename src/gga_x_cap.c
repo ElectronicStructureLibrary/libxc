@@ -45,8 +45,7 @@ const xc_func_info_type xc_func_info_gga_x_cap = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {CAP_N_PAR, cap_names, cap_desc, cap_values, set_ext_params_cpy},
-  gga_x_cap_init, NULL,
-  NULL, &work_gga, NULL
+  gga_x_cap_init, NULL, &work_gga
 };
 
 void
@@ -75,6 +74,5 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_cap0 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  xc_hyb_gga_xc_cap0_init, NULL,
-  NULL, NULL, NULL
+  xc_hyb_gga_xc_cap0_init, NULL, NULL
 };

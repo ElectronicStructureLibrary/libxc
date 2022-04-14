@@ -45,7 +45,7 @@ const xc_func_info_type xc_func_info_gga_c_wi0 = {
   1e-14,
   {N_PAR, names, desc, wi0_par, set_ext_params_cpy},
   gga_c_wi_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -61,5 +61,5 @@ const xc_func_info_type xc_func_info_gga_c_wi = {
   1e-10,
   {N_PAR, names, desc, wi_par, set_ext_params_cpy},
   gga_c_wi_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

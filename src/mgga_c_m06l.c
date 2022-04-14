@@ -127,8 +127,7 @@ const xc_func_info_type xc_func_info_mgga_c_m06_l = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1.0e-12,
   {M06L_N_PAR, m06l_names, m06l_desc, m06l_values, set_ext_params_cpy},
-  mgga_c_m06l_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_m06l_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -143,8 +142,7 @@ const xc_func_info_type xc_func_info_mgga_c_m06_hf = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1.0e-12,
   {M06L_N_PAR, m06l_names, m06l_desc, m06hf_values, set_ext_params_cpy},
-  mgga_c_m06l_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_m06l_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -159,8 +157,7 @@ const xc_func_info_type xc_func_info_mgga_c_m06 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1.0e-12,
   {M06L_N_PAR, m06l_names, m06l_desc, m06_values, set_ext_params_cpy},
-  mgga_c_m06l_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_m06l_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -175,8 +172,7 @@ const xc_func_info_type xc_func_info_mgga_c_m06_2x = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1.0e-12,
   {M06L_N_PAR, m06l_names, m06l_desc, m062x_values, set_ext_params_cpy},
-  mgga_c_m06l_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_m06l_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -191,8 +187,7 @@ const xc_func_info_type xc_func_info_mgga_c_revm06_l = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1.0e-12,
   {M06L_N_PAR, m06l_names, m06l_desc, revm06l_values, set_ext_params_cpy},
-  mgga_c_m06l_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_m06l_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -207,8 +202,7 @@ const xc_func_info_type xc_func_info_mgga_c_revm06 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1.0e-12,
   {M06L_N_PAR, m06l_names, m06l_desc, revm06_values, set_ext_params_cpy},
-  mgga_c_m06l_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_m06l_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -223,6 +217,5 @@ const xc_func_info_type xc_func_info_mgga_c_m06_sx = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1.0e-14,
   {M06L_N_PAR, m06l_names, m06l_desc, m06sx_values, set_ext_params_cpy},
-  mgga_c_m06l_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_m06l_init, NULL, &work_mgga,
 };

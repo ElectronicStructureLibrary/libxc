@@ -67,8 +67,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbeh = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_values, pbeh_set_ext_params},
-  hyb_gga_xc_pbeh_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_gga_xc_pbeh_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -83,8 +82,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbe50 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_50_values, pbeh_set_ext_params},
-  hyb_gga_xc_pbeh_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_gga_xc_pbeh_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -99,8 +97,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbe0_13 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_13_values, pbeh_set_ext_params},
-  hyb_gga_xc_pbeh_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_gga_xc_pbeh_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -115,8 +112,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbe38 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {PBEH_N_PAR, pbeh_names, pbeh_desc, pbe38_values, pbeh_set_ext_params},
-  hyb_gga_xc_pbeh_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_gga_xc_pbeh_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -131,8 +127,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbe_2x = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {PBEH_N_PAR, pbeh_names, pbeh_desc, pbe_2x_values, pbeh_set_ext_params},
-  hyb_gga_xc_pbeh_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_gga_xc_pbeh_init, NULL, NULL
 };
 
 static void
@@ -159,8 +154,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hpbeint = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_DEVELOPMENT,
   1e-15,
   {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_int_values, pbeh_set_ext_params},
-  hyb_gga_xc_hpbeint_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_gga_xc_hpbeint_init, NULL, NULL
 };
 
 
@@ -188,8 +182,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbe_mol0 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_values, pbeh_set_ext_params},
-  hyb_gga_xc_pbemol0_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_gga_xc_pbemol0_init, NULL, NULL
 };
 
 
@@ -217,8 +210,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbe_sol0 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_values, pbeh_set_ext_params},
-  hyb_gga_xc_pbesol0_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_gga_xc_pbesol0_init, NULL, NULL
 };
 
 
@@ -251,8 +243,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbeb0 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_values, pbeh_set_ext_params},
-  hyb_gga_xc_pbeb0_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_gga_xc_pbeb0_init, NULL, NULL
 };
 
 
@@ -285,6 +276,5 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbe_molb0 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_values, pbeh_set_ext_params},
-  hyb_gga_xc_pbemolb0_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_gga_xc_pbemolb0_init, NULL, NULL
 };

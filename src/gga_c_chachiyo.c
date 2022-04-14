@@ -43,5 +43,5 @@ const xc_func_info_type xc_func_info_gga_c_chachiyo = {
   1e-14,
   {N_PAR, names, desc, par_chachiyo, set_ext_params_cpy},
   gga_c_chachiyo_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

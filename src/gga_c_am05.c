@@ -45,5 +45,5 @@ const xc_func_info_type xc_func_info_gga_c_am05 = {
   1e-14,
   {AM05_N_PAR, am05_names, am05_desc, am05_values, set_ext_params_cpy},
   gga_c_am05_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

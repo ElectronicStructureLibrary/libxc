@@ -105,8 +105,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hse03 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {HSE03_N_PAR, hse03_names, hse03_desc, hse03_values, hse03_set_ext_params},
-  hyb_gga_xc_hse_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_hse_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -121,8 +120,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hse06 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {HSE03_N_PAR, hse03_names, hse03_desc, hse06_values, hse03_set_ext_params},
-  hyb_gga_xc_hse_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_hse_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -137,8 +135,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hse12 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {HSE03_N_PAR, hse03_names, hse03_desc, hse12_values, hse03_set_ext_params},
-  hyb_gga_xc_hse_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_hse_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -153,8 +150,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hse12s = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {HSE03_N_PAR, hse03_names, hse03_desc, hse12s_values, hse03_set_ext_params},
-  hyb_gga_xc_hse_init,
-  NULL, NULL, NULL, NULL
+  hyb_gga_xc_hse_init, NULL, NULL
 };
 
 static void
@@ -183,8 +179,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hse_sol = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_gga_xc_hse_sol_init,
-  NULL, NULL, NULL, NULL
+  hyb_gga_xc_hse_sol_init, NULL, NULL
 };
 
 /* Some of the functionals below have different components, but the
@@ -246,8 +241,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {LRC_N_PAR, lrc_names, lrc_desc, par_lc_wpbe, lrc_set_ext_params},
-  hyb_gga_xc_lc_wpbe_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_lc_wpbe_init, NULL, NULL
 };
 
 static void
@@ -272,8 +266,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lrc_wpbeh = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {LRC_N_PAR, lrc_names, lrc_desc, par_lrc_wpbeh, lrc_set_ext_params},
-  hyb_gga_xc_hjs_pbe_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_hjs_pbe_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -288,8 +281,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lrc_wpbe = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {LRC_N_PAR, lrc_names, lrc_desc, par_lrc_wpbe, lrc_set_ext_params},
-  hyb_gga_xc_hjs_pbe_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_hjs_pbe_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -304,8 +296,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_whpbe0 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {LRC_N_PAR, lrc_names, lrc_desc, par_whpbe0, lrc_set_ext_params},
-  hyb_gga_xc_hjs_pbe_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_hjs_pbe_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -320,8 +311,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe_whs = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {LRC_N_PAR, lrc_names, lrc_desc, par_lc_wpbe_whs, lrc_set_ext_params},
-  hyb_gga_xc_hjs_pbe_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_hjs_pbe_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -336,8 +326,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbeh_whs = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {LRC_N_PAR, lrc_names, lrc_desc, par_lc_wpbeh_whs, lrc_set_ext_params},
-  hyb_gga_xc_hjs_pbe_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_hjs_pbe_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -352,8 +341,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbe08_whs = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {LRC_N_PAR, lrc_names, lrc_desc, par_lc_wpbe08_whs, lrc_set_ext_params},
-  hyb_gga_xc_hjs_pbe_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_hjs_pbe_init, NULL, NULL
 };
 
 static void
@@ -378,8 +366,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_wpbesol_whs = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {LRC_N_PAR, lrc_names, lrc_desc, par_lc_wpbesol_whs, lrc_set_ext_params},
-  hyb_gga_xc_lc_wpbesol_whs_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_lc_wpbesol_whs_init, NULL, NULL
 };
 
 static void
@@ -425,8 +412,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_pbe = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_gga_xc_hjs_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_hjs_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -441,8 +427,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_pbe_sol = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_gga_xc_hjs_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_hjs_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -457,8 +442,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_b88 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_gga_xc_hjs_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_hjs_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -473,8 +457,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hjs_b97x = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_gga_xc_hjs_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_hjs_init, NULL, NULL
 };
 
 static void
@@ -506,6 +489,5 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hiss = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_gga_xc_hiss_init, NULL,
-  NULL, NULL, NULL
+  hyb_gga_xc_hiss_init, NULL, NULL
 };

@@ -69,7 +69,7 @@ const xc_func_info_type xc_func_info_gga_x_lb = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_lb_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 
@@ -86,6 +86,6 @@ const xc_func_info_type xc_func_info_gga_x_lbm = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_lb_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 

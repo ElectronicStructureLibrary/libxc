@@ -86,7 +86,7 @@ const xc_func_info_type xc_func_info_gga_x_n12 = {
   1e-14,
   {N_PAR_PURE, pure_names, pure_desc, par_n12, set_ext_params_cpy},
   gga_x_n12_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -102,7 +102,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_n12_sx = {
   1e-14,
   {N_PAR_SX, sx_names, sx_desc, par_n12_sx, set_ext_params_cpy_cam_sr},
   gga_x_n12_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -118,5 +118,5 @@ const xc_func_info_type xc_func_info_gga_x_gam = {
   1e-14,
   {N_PAR_PURE, pure_names, pure_desc, par_gam, set_ext_params_cpy},
   gga_x_n12_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

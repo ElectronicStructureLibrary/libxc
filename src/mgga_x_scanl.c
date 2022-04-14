@@ -72,8 +72,7 @@ const xc_func_info_type xc_func_info_mgga_x_scanl = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {N_PAR, names, desc, par_scanl, set_ext_params},
-  mgga_x_scanl_init, NULL,
-  NULL, NULL, &xc_deorbitalize_func
+  mgga_x_scanl_init, NULL, &xc_deorbitalize_func
 };
 
 #ifdef __cplusplus
@@ -88,6 +87,5 @@ const xc_func_info_type xc_func_info_mgga_x_revscanl = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {N_PAR, names, desc, par_revscanl, set_ext_params},
-  mgga_x_scanl_init, NULL,
-  NULL, NULL, &xc_deorbitalize_func
+  mgga_x_scanl_init, NULL, &xc_deorbitalize_func
 };

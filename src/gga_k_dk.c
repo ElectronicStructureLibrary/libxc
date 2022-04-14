@@ -72,7 +72,7 @@ const xc_func_info_type xc_func_info_gga_k_dk = {
   1e-14,
   {N_PAR, names, desc, par_dk, set_ext_params_cpy},
   gga_k_dk_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -88,7 +88,7 @@ const xc_func_info_type xc_func_info_gga_k_perdew = {
   1e-14,
   {N_PAR, names, desc, par_perdew, set_ext_params_cpy},
   gga_k_dk_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -104,7 +104,7 @@ const xc_func_info_type xc_func_info_gga_k_vsk = {
   1e-14,
   {N_PAR, names, desc, par_vsk, set_ext_params_cpy},
   gga_k_dk_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -120,7 +120,7 @@ const xc_func_info_type xc_func_info_gga_k_vjks = {
   1e-14,
   {N_PAR, names, desc, par_vjks, set_ext_params_cpy},
   gga_k_dk_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -136,5 +136,5 @@ const xc_func_info_type xc_func_info_gga_k_ernzerhof = {
   1e-14,
   {N_PAR, names, desc, par_ernzerhof, set_ext_params_cpy},
   gga_k_dk_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

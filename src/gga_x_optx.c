@@ -47,5 +47,5 @@ const xc_func_info_type xc_func_info_gga_x_optx = {
   1e-15,
   {OPTX_N_PAR, optx_names, optx_desc, optx_values, set_ext_params_cpy},
   gga_x_optx_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

@@ -59,5 +59,5 @@ const xc_func_info_type xc_func_info_gga_x_wpbeh = {
   1e-14,
   {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
   xc_gga_x_wpbeh_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

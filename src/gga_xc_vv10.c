@@ -50,8 +50,7 @@ const xc_func_info_type xc_func_info_gga_xc_vv10 = {
   XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {N_PAR, names, desc, par_vv10, set_ext_params},
-  gga_xc_vv10_init,
-  NULL, NULL, NULL, NULL
+  gga_xc_vv10_init, NULL, NULL
 };
 
 #define LC_N_PAR 5
@@ -113,6 +112,5 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_vv10 = {
   XC_FLAGS_3D | XC_FLAGS_VV10 | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {LC_N_PAR, lc_names, lc_desc, par_lc_vv10, lc_set_ext_params},
-  hyb_gga_xc_lc_vv10_init,
-  NULL, NULL, NULL, NULL
+  hyb_gga_xc_lc_vv10_init, NULL, NULL
 };

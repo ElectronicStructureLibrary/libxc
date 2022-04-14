@@ -67,5 +67,5 @@ const xc_func_info_type xc_func_info_gga_x_ak13 = {
   1e-15,
   {N_PAR, names, desc, par_ak13, set_ext_params_cpy},
   gga_x_ak13_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

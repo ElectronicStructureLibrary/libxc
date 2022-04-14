@@ -58,8 +58,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_blyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-14,
   {N_PAR, names, desc, par_lc_blyp, set_ext_params},
-  xc_hyb_gga_xc_lc_blyp_init, NULL,
-  NULL, NULL, NULL
+  xc_hyb_gga_xc_lc_blyp_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -74,8 +73,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_blyp_ea = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-14,
   {N_PAR, names, desc, par_lc_blyp_ea, set_ext_params},
-  xc_hyb_gga_xc_lc_blyp_init, NULL,
-  NULL, NULL, NULL
+  xc_hyb_gga_xc_lc_blyp_init, NULL, NULL
 };
 
 void
@@ -99,8 +97,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_bop = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-14,
   {N_PAR, names, desc, par_lc_bop, set_ext_params},
-  xc_hyb_gga_xc_lc_bop_init, NULL,
-  NULL, NULL, NULL
+  xc_hyb_gga_xc_lc_bop_init, NULL, NULL
 };
 
 void
@@ -124,8 +121,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_pbeop = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-14,
   {N_PAR, names, desc, par_lc_pbeop, set_ext_params},
-  xc_hyb_gga_xc_lc_pbeop_init, NULL,
-  NULL, NULL, NULL
+  xc_hyb_gga_xc_lc_pbeop_init, NULL, NULL
 };
 
 void
@@ -161,6 +157,5 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_lc_blypr = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-14,
   {N_PAR, names, desc, par_lc_blypr, set_ext_params_blypr},
-  xc_hyb_gga_xc_lc_blypr_init, NULL,
-  NULL, NULL, NULL
+  xc_hyb_gga_xc_lc_blypr_init, NULL, NULL
 };

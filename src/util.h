@@ -234,7 +234,7 @@ extern const xc_dimensions dimensions_unpolarized, dimensions_polarized;
 
 /* Functionals that are defined as deorbitalized */
 void xc_deorbitalize_init(xc_func_type *p, int mgga_id, int ked_id);
-extern xc_mgga_funcs_variants xc_deorbitalize_func;
+extern xc_functionals_work_variants xc_deorbitalize_func;
 
 /* Functionals that are defined as mixtures of others */
 void xc_mix_init(xc_func_type *p, int n_funcs, const int *funcs_id, const double *mix_coef);

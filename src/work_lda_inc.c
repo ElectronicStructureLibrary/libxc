@@ -32,7 +32,7 @@
 
 static void
 WORK_LDA(ORDER_TXT, SPIN_TXT)
-(const XC(func_type) *p, size_t np, const double *rho, xc_output_variables *out)
+(const XC(func_type) *p, const xc_input_variables *in, xc_output_variables *out)
 {
 
 #ifdef XC_DEBUG
@@ -44,16 +44,17 @@ WORK_LDA(ORDER_TXT, SPIN_TXT)
   double dens;
   double my_rho[2] = {0.0, 0.0};
 
-  for(ip = 0; ip < np; ip++){
+  for(ip = 0; ip < in->np; ip++){
     /* Screen low density */
-    dens = (p->nspin == XC_POLARIZED) ? VAR(rho, ip, 0) + VAR(rho, ip, 1) : VAR(rho, ip, 0);
+    dens = (p->nspin == XC_POLARIZED) ? in->VAR(rho, ip, 0) + in->VAR(rho, ip, 1) :
+      in->VAR(rho, ip, 0);
     if(dens < p->dens_threshold)
       continue;
     
     /* sanity check of input parameters */
-    my_rho[0] = m_max(p->dens_threshold, VAR(rho, ip, 0));
+    my_rho[0] = m_max(p->dens_threshold, in->VAR(rho, ip, 0));
     if(p->nspin == XC_POLARIZED){
-      my_rho[1] = m_max(p->dens_threshold, VAR(rho, ip, 1));
+      my_rho[1] = m_max(p->dens_threshold, in->VAR(rho, ip, 1));
     }
 
     FUNC(ORDER_TXT, SPIN_TXT)(p, ip, my_rho, out);
@@ -76,10 +77,10 @@ WORK_LDA(ORDER_TXT, SPIN_TXT)
         printf("Problem in the evaluation of the functional\n");
         if(p->nspin == XC_UNPOLARIZED){
           printf("./xc-get_data %d 1 %le 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0\n",
-                 p->info->number, VAR(rho, ip, 0));
+                 p->info->number, in->VAR(rho, ip, 0));
         }else{
           printf("./xc-get_data %d 2 %le %le 0.0 0.0 0.0 0.0 0.0 0.0 0.0\n",
-                 p->info->number, VAR(rho, ip, 0), VAR(rho, ip, 1));
+                 p->info->number, in->VAR(rho, ip, 0), in->VAR(rho, ip, 1));
         }
       }
     }
@@ -93,25 +94,24 @@ WORK_LDA(ORDER_TXT, SPIN_TXT)
 
 __global__ static void
 WORK_LDA_GPU(ORDER_TXT, SPIN_TXT)
-(const XC(func_type) *p, size_t np,
-             const double *rho,
-             xc_output_variables *out)
+  (const XC(func_type) *p, const xc_input_variables *in, xc_output_variables *out)
 {
   size_t ip = blockIdx.x*blockDim.x + threadIdx.x;
   double dens;
   double my_rho[2] = {0.0, 0.0};
 
-  if(ip >= np) return;
+  if(ip >= in->np) return;
 
   /* Screen low density */
-  dens = (p->nspin == XC_POLARIZED) ? VAR(rho, ip, 0) + VAR(rho, ip, 1) : VAR(rho, ip, 0);
+  dens = (p->nspin == XC_POLARIZED) ? in->VAR(rho, ip, 0) + in->VAR(rho, ip, 1) :
+    in->VAR(rho, ip, 0);
   if(dens < p->dens_threshold)
     return;
 
   /* sanity check of input parameters */
-  my_rho[0] = m_max(p->dens_threshold, VAR(rho, ip, 0));
+  my_rho[0] = m_max(p->dens_threshold, in->VAR(rho, ip, 0));
   if(p->nspin == XC_POLARIZED){
-    my_rho[1] = m_max(p->dens_threshold, VAR(rho, ip, 1));
+    my_rho[1] = m_max(p->dens_threshold, in->VAR(rho, ip, 1));
   }
 
   FUNC(ORDER_TXT, SPIN_TXT)(p, ip, my_rho, out);
@@ -119,22 +119,25 @@ WORK_LDA_GPU(ORDER_TXT, SPIN_TXT)
 
 static void
 WORK_LDA(ORDER_TXT, SPIN_TXT)
-(const XC(func_type) *p, size_t np, const double *rho, xc_output_variables *out)
+(const XC(func_type) *p, const xc_input_variables *in, xc_output_variables *out)
 {
   //make a copy of 'p' and 'out' since they might be in host-only memory
   XC(func_type) *pcuda = (XC(func_type) *) libxc_malloc(sizeof(XC(func_type)));
-  xc_output_variables *outcuda = (xc_lda_out_params *) libxc_malloc(sizeof(xc_lda_out_params));
-
+  xc_input_variables *incuda = (xc_input_variables *) libxc_malloc(sizeof(xc_input_variables));
+  xc_output_variables *outcuda = (xc_output_variables *) libxc_malloc(sizeof(xc_output_variables));
+  
   cudaMemcpy(pcuda, p, sizeof(XC(func_type)), cudaMemcpyHostToDevice);
+  cudaMemcpy(incuda, in, sizeof(xc_input_variables), cudaMemcpyHostToDevice);
   cudaMemcpy(outcuda, out, sizeof(xc_output_variables), cudaMemcpyHostToDevice);
 
-  size_t nblocks = np/CUDA_BLOCK_SIZE;
-  if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
+  size_t nblocks = in->np/CUDA_BLOCK_SIZE;
+  if(in->np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
 
   WORK_LDA_GPU(ORDER_TXT, SPIN_TXT)<<<nblocks, CUDA_BLOCK_SIZE>>>
-    (pcuda, np, rho, outcuda);
+    (pcuda, incuda, outcuda);
 
   libxc_free(pcuda);
+  libxc_free(incuda);
   libxc_free(outcuda);
 }
 

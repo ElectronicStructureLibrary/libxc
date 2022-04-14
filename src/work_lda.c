@@ -84,7 +84,7 @@
 #endif
 
 /* we construct a structure containing all variants */
-static const xc_lda_funcs_variants work_lda =
+static const xc_functionals_work_variants work_lda =
   {
    {work_lda_exc_unpol, work_lda_vxc_unpol, work_lda_fxc_unpol, work_lda_kxc_unpol, work_lda_lxc_unpol},
    {work_lda_exc_pol,   work_lda_vxc_pol,   work_lda_fxc_pol,   work_lda_kxc_pol,   work_lda_lxc_pol}

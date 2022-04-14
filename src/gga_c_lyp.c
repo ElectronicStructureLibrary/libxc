@@ -50,8 +50,7 @@ const xc_func_info_type xc_func_info_gga_c_lyp = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
   {LYP_N_PAR, lyp_names, lyp_desc, lyp_values, set_ext_params_cpy},
-  xc_gga_c_lyp_init, NULL,
-  NULL, &work_gga, NULL
+  xc_gga_c_lyp_init, NULL, &work_gga
 };
 
 #ifdef __cplusplus
@@ -66,8 +65,7 @@ const xc_func_info_type xc_func_info_gga_c_tm_lyp = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
   {LYP_N_PAR, lyp_names, lyp_desc, lyp_tm_values, set_ext_params_cpy},
-  xc_gga_c_lyp_init, NULL,
-  NULL, &work_gga, NULL
+  xc_gga_c_lyp_init, NULL, &work_gga
 };
 
 void
@@ -92,6 +90,5 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hflyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  xc_hyb_gga_xc_hflyp_init, NULL,
-  NULL, NULL, NULL
+  xc_hyb_gga_xc_hflyp_init, NULL, NULL
 };

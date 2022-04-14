@@ -80,7 +80,7 @@ const xc_func_info_type xc_func_info_gga_k_apbe = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -96,7 +96,7 @@ const xc_func_info_type xc_func_info_gga_k_revapbe = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -112,7 +112,7 @@ const xc_func_info_type xc_func_info_gga_k_tw1 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -128,7 +128,7 @@ const xc_func_info_type xc_func_info_gga_k_tw2 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -144,7 +144,7 @@ const xc_func_info_type xc_func_info_gga_k_tw3 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -160,5 +160,5 @@ const xc_func_info_type xc_func_info_gga_k_tw4 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

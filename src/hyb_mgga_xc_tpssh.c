@@ -34,8 +34,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_tpssh = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_mgga_xc_tpssh_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_mgga_xc_tpssh_init, NULL, NULL
 };
 
 
@@ -62,8 +61,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_revtpssh = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_mgga_xc_revtpssh_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_mgga_xc_revtpssh_init, NULL, NULL
 };
 
 static void
@@ -88,6 +86,5 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_tpss0 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_mgga_xc_tpss0_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_mgga_xc_tpss0_init, NULL, NULL
 };

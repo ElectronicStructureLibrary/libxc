@@ -46,7 +46,7 @@ const xc_func_info_type xc_func_info_gga_x_pw86 = {
   1e-15,
   {N_PAR, names, desc, par_pw86, set_ext_params_cpy},
   gga_x_pw86_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -62,5 +62,5 @@ const xc_func_info_type xc_func_info_gga_x_rpw86 = {
   1e-15,
   {N_PAR, names, desc, par_rpw86, set_ext_params_cpy},
   gga_x_pw86_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

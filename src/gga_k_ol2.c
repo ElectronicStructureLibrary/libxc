@@ -48,5 +48,5 @@ const xc_func_info_type xc_func_info_gga_k_ol2 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_ol2_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

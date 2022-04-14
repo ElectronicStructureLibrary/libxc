@@ -83,7 +83,7 @@ const xc_func_info_type xc_func_info_gga_c_n12 = {
   1e-14,
   {BMK_N_PAR, bmk_names, bmk_desc, par_n12, set_ext_params_cpy},
   gga_c_bmk_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -99,7 +99,7 @@ const xc_func_info_type xc_func_info_gga_c_n12_sx = {
   1e-14,
   {BMK_N_PAR, bmk_names, bmk_desc, par_n12_sx, set_ext_params_cpy},
   gga_c_bmk_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -115,7 +115,7 @@ const xc_func_info_type xc_func_info_gga_c_gam = {
   1e-14,
   {BMK_N_PAR, bmk_names, bmk_desc, par_gam, set_ext_params_cpy},
   gga_c_bmk_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -131,7 +131,7 @@ const xc_func_info_type xc_func_info_gga_c_bmk = {
   1e-14,
   {BMK_N_PAR, bmk_names, bmk_desc, par_bmk, set_ext_params_cpy},
   gga_c_bmk_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -147,7 +147,7 @@ const xc_func_info_type xc_func_info_gga_c_tau_hcth = {
   1e-14,
   {BMK_N_PAR, bmk_names, bmk_desc, par_tau_hcth, set_ext_params_cpy},
   gga_c_bmk_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -163,5 +163,5 @@ const xc_func_info_type xc_func_info_gga_c_hyb_tau_hcth = {
   1e-14,
   {BMK_N_PAR, bmk_names, bmk_desc, par_hyb_tau_hcth, set_ext_params_cpy},
   gga_c_bmk_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

@@ -48,8 +48,7 @@ const xc_func_info_type xc_func_info_mgga_x_rlda = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1e-15,
   {RLDA_N_PAR, rlda_names, rlda_desc, rlda_values, set_ext_params_cpy},
-  mgga_x_rlda_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_rlda_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -64,8 +63,7 @@ const xc_func_info_type xc_func_info_mgga_x_mk00 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1e-15,
   {RLDA_N_PAR, rlda_names, rlda_desc, mk00_values, set_ext_params_cpy},
-  mgga_x_rlda_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_rlda_init, NULL, &work_mgga,
 };
 
 
@@ -94,7 +92,6 @@ const xc_func_info_type xc_func_info_mgga_x_mk00b = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  mgga_x_mk00b_init, NULL,
-  NULL, NULL, NULL,
+  mgga_x_mk00b_init, NULL, NULL,
 };
 

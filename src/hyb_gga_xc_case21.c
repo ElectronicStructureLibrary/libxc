@@ -125,5 +125,5 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_case21 = {
   1e-15,
   {N_PAR, names, desc, case21_values, case21_set_ext_params},
   hyb_gga_xc_case21_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

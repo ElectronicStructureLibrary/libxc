@@ -77,7 +77,7 @@ const xc_func_info_type xc_func_info_gga_x_sogga11 = {
   1e-15,
   {N_PAR_PURE, pure_names, pure_desc, par_sogga11, set_ext_params_cpy},
   gga_x_sogga11_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -93,5 +93,5 @@ const xc_func_info_type xc_func_info_hyb_gga_x_sogga11_x = {
   1e-15,
   {N_PAR_HYB, hyb_names, hyb_desc, par_sogga11_x, set_ext_params_cpy_exx},
   gga_x_sogga11_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

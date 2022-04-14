@@ -32,7 +32,6 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_b98 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_mgga_xc_b98_init, NULL,
-  NULL, NULL, &work_mgga,
+  hyb_mgga_xc_b98_init, NULL, &work_mgga,
 };
 

@@ -27,5 +27,5 @@ const xc_func_info_type xc_func_info_lda_xc_tih = {
   5e-24,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };

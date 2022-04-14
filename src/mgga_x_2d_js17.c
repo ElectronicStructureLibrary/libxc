@@ -27,6 +27,5 @@ const xc_func_info_type xc_func_info_mgga_x_2d_js17 = {
   XC_FLAGS_2D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  NULL, NULL,
   NULL, NULL, &work_mgga,
 };

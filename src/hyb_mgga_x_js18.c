@@ -40,6 +40,5 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_js18 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-14,
   {JS18_N_PAR, js18_names, js18_desc, par_js18, set_ext_params_cpy_cam_sr},
-  hyb_mgga_x_js18_init, NULL,
-  NULL, NULL, &work_mgga
+  hyb_mgga_x_js18_init, NULL, &work_mgga
 };

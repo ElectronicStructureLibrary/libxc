@@ -48,8 +48,7 @@ const xc_func_info_type xc_func_info_mgga_x_scan = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR_SCAN, scan_names, scan_desc, par_scan, set_ext_params_cpy},
-  mgga_x_scan_init, NULL,
-  NULL, NULL, &work_mgga
+  mgga_x_scan_init, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -64,8 +63,7 @@ const xc_func_info_type xc_func_info_mgga_x_revscan = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR_SCAN, scan_names, scan_desc, par_revscan, set_ext_params_cpy},
-  mgga_x_scan_init, NULL,
-  NULL, NULL, &work_mgga
+  mgga_x_scan_init, NULL, &work_mgga
 };
 
 typedef struct{
@@ -114,8 +112,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_scan0 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR_SCAN0, scan0_names, scan0_desc, scan0_pars, scan0_set_ext_params},
-  hyb_mgga_x_scan0_init, NULL,
-  NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_mgga_x_scan0_init, NULL, NULL
 };
 
 static void
@@ -143,6 +140,5 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_revscan0 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR_SCAN0, scan0_names, scan0_desc, scan0_pars, scan0_set_ext_params},
-  hyb_mgga_x_revscan0_init, NULL,
-  NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_mgga_x_revscan0_init, NULL, NULL
 };

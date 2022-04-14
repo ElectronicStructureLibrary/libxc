@@ -27,6 +27,6 @@ const xc_func_info_type xc_func_info_lda_c_rc04 = {
   1e-14,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 

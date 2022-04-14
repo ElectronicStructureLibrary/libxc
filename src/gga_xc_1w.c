@@ -34,8 +34,7 @@ const xc_func_info_type xc_func_info_gga_xc_xlyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_xc_xlyp_init,
-  NULL, NULL, NULL, NULL
+  gga_xc_xlyp_init, NULL, NULL
 };
 
 
@@ -60,8 +59,7 @@ const xc_func_info_type xc_func_info_gga_xc_pbe1w = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_xc_pbe1w_init,
-  NULL, NULL, NULL, NULL
+  gga_xc_pbe1w_init, NULL, NULL
 };
 
 
@@ -86,8 +84,7 @@ const xc_func_info_type xc_func_info_gga_xc_mpwlyp1w = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_xc_mpwlyp1w_init,
-  NULL, NULL, NULL, NULL
+  gga_xc_mpwlyp1w_init, NULL, NULL
 };
 
 
@@ -112,7 +109,6 @@ const xc_func_info_type xc_func_info_gga_xc_pbelyp1w = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_xc_pbelyp1w_init,
-  NULL, NULL, NULL, NULL
+  gga_xc_pbelyp1w_init, NULL, NULL
 };
 

@@ -88,7 +88,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe = {
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -104,7 +104,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_r = {
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_r_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -120,7 +120,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_sol = {
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_sol_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -136,7 +136,7 @@ const xc_func_info_type xc_func_info_gga_x_xpbe = {
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_xpbe_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -152,7 +152,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_jsjr = {
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_jsjr_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -168,7 +168,7 @@ const xc_func_info_type xc_func_info_gga_x_pbek1_vdw = {
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_k1_vdw_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -184,7 +184,7 @@ const xc_func_info_type xc_func_info_gga_x_apbe = {
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_apbe_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -200,7 +200,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_tca = {
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_tca_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -216,7 +216,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_mol = {
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_mol_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -232,7 +232,7 @@ const xc_func_info_type xc_func_info_gga_x_bcgp = {
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_bcgp_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -248,7 +248,7 @@ const xc_func_info_type xc_func_info_gga_x_pbefe = {
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_fe_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #define PBEL_N_PAR 3
@@ -297,7 +297,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_lo_n = {
   1e-15,
   {PBEL_N_PAR, pbe_lambda_names, pbe_lambda_desc, pbe_lambda_lo_n_values, pbe_lambda_set_ext_params},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -313,7 +313,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_ch_n = {
   1e-15,
   {PBEL_N_PAR, pbe_lambda_names, pbe_lambda_desc, pbe_lambda_ch_n_values, pbe_lambda_set_ext_params},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -329,7 +329,7 @@ const xc_func_info_type xc_func_info_gga_x_lambda_oc2_n = {
   1e-15,
   {PBEL_N_PAR, pbe_lambda_names, pbe_lambda_desc, pbe_lambda_oc2_n_values, pbe_lambda_set_ext_params},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 

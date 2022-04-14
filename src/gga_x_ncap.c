@@ -44,8 +44,7 @@ const xc_func_info_type xc_func_info_gga_x_ncap = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {NCAP_N_PAR, ncap_names, ncap_desc, ncap_values, set_ext_params_cpy},
-  gga_x_ncap_init, NULL,
-  NULL, &work_gga, NULL
+  gga_x_ncap_init, NULL, &work_gga
 };
 
 /* This is how the functional was actually used in the paper */
@@ -70,6 +69,5 @@ const xc_func_info_type xc_func_info_gga_xc_ncap = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  xc_gga_xc_ncap_init, NULL,
-  NULL, NULL, NULL
+  xc_gga_xc_ncap_init, NULL, NULL
 };

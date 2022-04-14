@@ -69,7 +69,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_cam_s12g = {
   1e-15,
   {N_PAR, names, desc, par_cam_s12g, s12h_set_ext_params},
   hyb_gga_x_cam_s12_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -85,5 +85,5 @@ const xc_func_info_type xc_func_info_hyb_gga_x_cam_s12h = {
   1e-15,
   {N_PAR, names, desc, par_cam_s12h, s12h_set_ext_params},
   hyb_gga_x_cam_s12_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

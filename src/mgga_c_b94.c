@@ -46,8 +46,7 @@ const xc_func_info_type xc_func_info_mgga_c_b94 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-14,
   {N_PAR, names, desc, par_b94, set_ext_params_cpy},
-  mgga_c_b94_init, NULL,
-  NULL, NULL, &work_mgga
+  mgga_c_b94_init, NULL, &work_mgga
 };
 
 #define N_PAR_HYB 4
@@ -102,6 +101,5 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_b94_hyb = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1e-14,
   {N_PAR_HYB, names_hyb, desc_hyb, par_b94_hyb, hyb_mgga_xc_b94_hyb_set_ext_params},
-  hyb_mgga_xc_b94_hyb_init, NULL,
-  NULL, NULL, NULL
+  hyb_mgga_xc_b94_hyb_init, NULL, NULL
 };

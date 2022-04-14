@@ -55,7 +55,7 @@ const xc_func_info_type xc_func_info_gga_c_zpbeint = {
   1e-12,
   {0, NULL, NULL, NULL, NULL},
   gga_c_zpbeint_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -71,5 +71,5 @@ const xc_func_info_type xc_func_info_gga_c_zpbesol = {
   1e-12,
   {0, NULL, NULL, NULL, NULL},
   gga_c_zpbeint_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

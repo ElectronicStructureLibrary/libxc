@@ -74,6 +74,5 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_wb97m_v = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_VV10 | MAPLE2C_FLAGS,
   1e-13,
   {N_PAR, names, desc, par_wb97m_v, set_ext_params_cpy_cam},
-  hyb_mgga_xc_wb97mv_init, NULL,
-  NULL, NULL, &work_mgga,
+  hyb_mgga_xc_wb97mv_init, NULL, &work_mgga,
 };

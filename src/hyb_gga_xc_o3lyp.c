@@ -67,8 +67,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_o3lyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {N_PAR_O3LYP, names_o3lyp, desc_o3lyp, par_o3lyp, o3lyp_set_ext_params},
-  hyb_gga_xc_o3lyp_init,
-  NULL, NULL, NULL, NULL
+  hyb_gga_xc_o3lyp_init, NULL, NULL
 };
 
 
@@ -127,6 +126,5 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_x3lyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {N_PAR_X3LYP, names_x3lyp, desc_x3lyp, par_x3lyp, x3lyp_set_ext_params},
-  hyb_gga_xc_x3lyp_init,
-  NULL, NULL, NULL, NULL
+  hyb_gga_xc_x3lyp_init, NULL, NULL
 };

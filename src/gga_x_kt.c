@@ -48,7 +48,7 @@ const xc_func_info_type xc_func_info_gga_x_kt1 = {
   1e-15,
   {KT_N_PAR, kt_names, kt_desc, kt_values, set_ext_params_cpy},
   gga_x_kt_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 
@@ -73,8 +73,7 @@ const xc_func_info_type xc_func_info_gga_xc_kt1 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_xc_kt1_init, NULL,
-  NULL, NULL, NULL
+  gga_xc_kt1_init, NULL, NULL
 };
 
 
@@ -99,8 +98,7 @@ const xc_func_info_type xc_func_info_gga_xc_kt2 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_xc_kt2_init, NULL,
-  NULL, NULL, NULL
+  gga_xc_kt2_init, NULL, NULL
 };
 
 
@@ -142,6 +140,5 @@ const xc_func_info_type xc_func_info_gga_xc_kt3 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_xc_kt3_init, NULL,
-  NULL, NULL, NULL
+  gga_xc_kt3_init, NULL, NULL
 };

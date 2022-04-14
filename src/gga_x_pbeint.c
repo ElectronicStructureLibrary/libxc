@@ -48,5 +48,5 @@ const xc_func_info_type xc_func_info_gga_x_pbeint = {
   1e-12,
   {PBEINT_N_PAR, pbeint_names, pbeint_desc, pbeint_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

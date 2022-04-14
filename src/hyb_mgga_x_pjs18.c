@@ -40,8 +40,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_pjs18 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-14,
   {PJS18_N_PAR, pjs18_names, pjs18_desc, par_pjs18, set_ext_params_cpy_lc},
-  hyb_mgga_x_pjs18_init, NULL,
-  NULL, NULL, &work_mgga
+  hyb_mgga_x_pjs18_init, NULL, &work_mgga
 };
 
 
@@ -85,6 +84,5 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_lc_tmlyp = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-14,
   {LC_TMLYP_N_PAR, lc_tmlyp_names, lc_tmlyp_desc, par_lc_tmlyp, lc_tmlyp_set_ext_params},
-  hyb_mgga_xc_lc_tmlyp_init, NULL,
-  NULL, NULL, NULL
+  hyb_mgga_xc_lc_tmlyp_init, NULL, NULL
 };

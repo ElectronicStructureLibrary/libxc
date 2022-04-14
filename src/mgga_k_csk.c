@@ -43,8 +43,7 @@ const xc_func_info_type xc_func_info_mgga_k_csk1 = {
   XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {CSK_N_PAR, csk_names, csk_desc, csk1_values, set_ext_params_cpy},
-  mgga_k_csk_init, NULL,
-  NULL, NULL, &work_mgga
+  mgga_k_csk_init, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -59,6 +58,5 @@ const xc_func_info_type xc_func_info_mgga_k_csk4 = {
   XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {CSK_N_PAR, csk_names, csk_desc, csk4_values, set_ext_params_cpy},
-  mgga_k_csk_init, NULL,
-  NULL, NULL, &work_mgga
+  mgga_k_csk_init, NULL, &work_mgga
 };

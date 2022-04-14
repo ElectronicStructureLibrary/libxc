@@ -27,8 +27,7 @@ const xc_func_info_type xc_func_info_gga_c_zvpbeloc = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-10,
   {0, NULL, NULL, NULL, NULL},
-  NULL, NULL,
-  NULL, &work_gga, NULL
+  NULL, NULL, &work_gga
 };
 
 void
@@ -54,8 +53,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_apbe0 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-10,
   {0, NULL, NULL, NULL, NULL},
-  xc_hyb_gga_xc_apbe0_init, NULL,
-  NULL, NULL, NULL
+  xc_hyb_gga_xc_apbe0_init, NULL, NULL
 };
 
 void
@@ -81,6 +79,5 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_hapbe = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-10,
   {0, NULL, NULL, NULL, NULL},
-  xc_hyb_gga_xc_hapbe_init, NULL,
-  NULL, NULL, NULL
+  xc_hyb_gga_xc_hapbe_init, NULL, NULL
 };

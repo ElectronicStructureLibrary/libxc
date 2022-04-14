@@ -49,8 +49,7 @@ const xc_func_info_type xc_func_info_mgga_c_scanl = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {N_PAR_SCANL, names, desc, par_scanl, scanl_set_ext_params},
-  mgga_c_scanl_init, NULL,
-  NULL, NULL, &xc_deorbitalize_func,
+  mgga_c_scanl_init, NULL, &xc_deorbitalize_func,
 };
 
 
@@ -78,8 +77,7 @@ const xc_func_info_type xc_func_info_mgga_c_scanl_rvv10 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_VV10 | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  mgga_c_scan_rvv10_init, NULL,
-  NULL, NULL, NULL
+  mgga_c_scan_rvv10_init, NULL, NULL
 };
 
 static void
@@ -106,6 +104,5 @@ const xc_func_info_type xc_func_info_mgga_c_scanl_vv10 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_VV10 | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  mgga_c_scan_vv10_init, NULL,
-  NULL, NULL, NULL
+  mgga_c_scan_vv10_init, NULL, NULL
 };

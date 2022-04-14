@@ -61,8 +61,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m11 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-11,
   {N_PAR, names, desc, par_m11, set_ext_params_cpy_cam},
-  mgga_x_m11_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_m11_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -77,6 +76,5 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_revm11 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-11,
   {N_PAR, names, desc, par_revm11, set_ext_params_cpy_cam},
-  mgga_x_m11_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_m11_init, NULL, &work_mgga,
 };

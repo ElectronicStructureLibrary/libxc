@@ -57,7 +57,7 @@ const xc_func_info_type xc_func_info_gga_k_llp = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_llp_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -73,5 +73,5 @@ const xc_func_info_type xc_func_info_gga_k_fr_b88 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_llp_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

@@ -26,6 +26,5 @@ const xc_func_info_type xc_func_info_mgga_x_2d_prhg07 = {
   XC_FLAGS_DEVELOPMENT | XC_FLAGS_2D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_NEEDS_LAPLACIAN | MAPLE2C_FLAGS,
   1.0e-12,
   {0, NULL, NULL, NULL, NULL},
-  NULL, NULL,
   NULL, NULL, &work_mgga,
 };

@@ -30,7 +30,7 @@
 #define  XC_LDA_C_VWN_3                     30 /* Vosko, Wilk & Nusair (VWN3) */
 #define  XC_LDA_C_VWN_4                     31 /* Vosko, Wilk & Nusair (VWN4) */
 #define  XC_GGA_X_GAM                       32 /* Minnesota GAM exhange functional */
-#define  XC_GGA_C_GAM                       33 /* GAM functional from Minnesota */
+#define  XC_GGA_C_GAM                       33 /* Minnesota GAM correlation functional */
 #define  XC_GGA_X_HCTH_A                    34 /* HCTH-A */
 #define  XC_GGA_X_EV93                      35 /* Engel and Vosko */
 #define  XC_HYB_MGGA_X_DLDF                 36 /* Dispersionless Density Functional */
@@ -76,8 +76,8 @@
 #define  XC_MGGA_C_M11                      76 /* Minnesota M11 correlation functional */
 #define  XC_MGGA_C_M08_SO                   77 /* Minnesota M08-SO correlation functional */
 #define  XC_MGGA_C_M08_HX                   78 /* Minnesota M08 correlation functional */
-#define  XC_GGA_C_N12_SX                    79 /* Minnesota N12-SX functional */
-#define  XC_GGA_C_N12                       80 /* Minnesota N12 functional */
+#define  XC_GGA_C_N12_SX                    79 /* Minnesota N12-SX correlation functional */
+#define  XC_GGA_C_N12                       80 /* Minnesota N12 correlation functional */
 #define  XC_HYB_GGA_X_N12_SX                81 /* Minnesota N12-SX exchange functional */
 #define  XC_GGA_X_N12                       82 /* Minnesota N12 exchange functional */
 #define  XC_GGA_C_REGTPSS                   83 /* regularized TPSS correlation */
@@ -277,7 +277,7 @@
 #define  XC_GGA_K_ABSP3                    277 /* gamma-TFvW form by Acharya et al [g = 1 - 1.513/N^0.35] */
 #define  XC_GGA_K_ABSP4                    278 /* gamma-TFvW form by Acharya et al [g = l = 1/(1 + 1.332/N^(1/3))] */
 #define  XC_HYB_MGGA_X_BMK                 279 /* Boese-Martin for kinetics */
-#define  XC_GGA_C_BMK                      280 /* Boese-Martin for kinetics */
+#define  XC_GGA_C_BMK                      280 /* Boese-Martin correlation for kinetics */
 #define  XC_GGA_C_TAU_HCTH                 281 /* correlation part of tau-hcth */
 #define  XC_HYB_MGGA_X_TAU_HCTH            282 /* Hybrid version of tau-HCTH */
 #define  XC_GGA_C_HYB_TAU_HCTH             283 /* correlation part of hyb-tau-hcth */
@@ -317,6 +317,7 @@
 #define  XC_LDA_C_W20                      317 /* Xie, Wu, and Zhao interpolation ansatz without fitting parameters */
 #define  XC_LDA_XC_CORRKSDT                318 /* Corrected KSDT by Karasiev, Dufty and Trickey */
 #define  XC_MGGA_X_FT98                    319 /* Filatov and Thiel 1998 meta-GGA exchange */
+#define  XC_GGA_X_PBE_MOD                  320 /* Perdew, Burke & Ernzerhof with less precise value for beta */
 #define  XC_HYB_MGGA_XC_BR3P86             389 /* BR3P86 hybrid meta-GGA from Neumann and Handy */
 #define  XC_HYB_GGA_XC_CASE21              390 /* CASE21: Constrained And Smoothed semi-Empirical 2021 functional */
 #define  XC_MGGA_C_RREGTM                  391 /* Revised regTM correlation by Jana et al */

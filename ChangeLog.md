@@ -1,3 +1,8 @@
+## [5.2.3] - 2022-05-16
+
+### Fixed
+- Fix compile issue with CUDA.
+
 ## [5.2.2] - 2022-02-01
 
 ### Fixed

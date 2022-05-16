@@ -210,8 +210,7 @@ work_mgga_gpu(const XC(func_type) *p, int order, size_t np,
 #ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
     if(p->info->family != XC_KINETIC)
       /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
-      if(p->info->flags & XC_FLAGS_NEEDS_TAU)
-        my_sigma[0] = m_min(my_sigma[0], 8.0*my_rho[0]*my_tau[0]);
+      my_sigma[0] = m_min(my_sigma[0], 8.0*my_rho[0]*my_tau[0]);
 #endif
     /* lapl can have any values */
     if(p->nspin == XC_POLARIZED){

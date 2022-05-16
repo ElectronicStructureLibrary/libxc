@@ -20,7 +20,7 @@
 /* macro to simpligy accessing the variables */
 #define VAR(var, ip, index)         var[ip*p->dim->var + index]
 #define WORK_HGGA_(order, spin)     work_hgga_ ## order ## _ ## spin
-#define WORK_HGGA_IP_(order, spin)  work_hgga_ ## order ## _ ## spin
+#define WORK_HGGA_IP_(order, spin)  work_hgga_ip_ ## order ## _ ## spin
 #define FUNC_(order, spin)          func_      ## order ## _ ## spin
 
 /* we need double escaping of the preprocessor macros */

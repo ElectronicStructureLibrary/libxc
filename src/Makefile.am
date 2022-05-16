@@ -40,7 +40,7 @@ libxc_la_FUNC_SOURCES = \
 	math_brent.c util.c \
   io_variables.c \
   mix_func.c deorbitalize_func.c func_info.c functionals.c hybrids.c \
-	version.c func_reference.c \
+	version.c func_reference.c old_interface.c \
 	lda.c \
 	lda_x.c lda_x_2d.c lda_c_wigner.c lda_c_gombas.c lda_c_rpa.c	\
 	lda_c_hl.c lda_c_vwn.c lda_c_vwn_1.c lda_c_vwn_2.c		\

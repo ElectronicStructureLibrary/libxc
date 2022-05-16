@@ -168,7 +168,7 @@ WORK_MGGA(ORDER_TXT, SPIN_TXT)
   /* make a copy of 'p' and 'out' since they might be in host-only memory */
   XC(func_type) *pcuda = (XC(func_type) *) libxc_malloc(sizeof(XC(func_type)));
   xc_input_variables *incuda = (xc_input_variables *) libxc_malloc(sizeof(xc_input_variables));
-  xc_output_variables *outcuda = (xc_mgga_out_params *) libxc_malloc(sizeof(xc_mgga_out_params));
+  xc_output_variables *outcuda = (xc_output_variables *) libxc_malloc(sizeof(xc_output_variables));
 
   cudaMemcpy(pcuda, p, sizeof(XC(func_type)), cudaMemcpyHostToDevice);
   cudaMemcpy(incuda, in, sizeof(xc_input_variables), cudaMemcpyHostToDevice);

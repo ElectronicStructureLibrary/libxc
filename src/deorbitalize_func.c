@@ -123,7 +123,6 @@ deorb_work(const xc_func_type *p,
     xc_output_variables_initialize(ked2, in->np, p->nspin);
   }
   
-  
   /* evaluate the kinetic energy functional */
   if(p->nspin == XC_UNPOLARIZED){
     xc_evaluate_func(p->func_aux[1], max_order, in, ked1);
@@ -191,7 +190,8 @@ deorb_work(const xc_func_type *p,
 #endif
 #endif
 #endif
-  
+
+  /* clean up */
   xc_output_variables_deallocate(mgga);
   xc_output_variables_deallocate(ked1);
   libxc_free(in2);

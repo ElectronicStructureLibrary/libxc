@@ -40,7 +40,7 @@ libxc_la_FUNC_SOURCES = \
 	math_brent.c util.c \
   io_variables.c \
   mix_func.c deorbitalize_func.c func_info.c functionals.c hybrids.c \
-	version.c func_reference.c old_interface.c \
+	version.c func_reference.c \
 	lda.c \
 	lda_x.c lda_x_2d.c lda_c_wigner.c lda_c_gombas.c lda_c_rpa.c	\
 	lda_c_hl.c lda_c_vwn.c lda_c_vwn_1.c lda_c_vwn_2.c		\
@@ -141,7 +141,7 @@ if COMPILE_FORTRAN
 endif
 
 noinst_HEADERS = \
-	string_f.h references.h util.h \
+	string_f.h references.h util.h old_interface.c \
 	work_lda.c work_lda_inc.c work_gga.c work_gga_inc.c	\
 	work_mgga.c work_mgga_inc.c work_hgga.c work_hgga_inc.c\
 	libxc_master.F90 \

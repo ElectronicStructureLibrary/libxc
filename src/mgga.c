@@ -11,16 +11,36 @@
 #include "util.h"
 #include "funcs_mgga.c"
 
-/* old API */
+#define FUNC(type)   xc_mgga ## type
+
+#define IN_VARIABLES                         \
+  double *rho, double *sigma, double *lapl, double *tau
+#define INPUT_VARIABLES                      \
+  rho, sigma, lapl, tau, NULL
+
+
+#define OUT_VARIABLES_0                      \
+  double *zk
 #define SET_ORDER_0                          \
   out.zk = zk;
 
+
+#define OUT_VARIABLES_1                      \
+  double *vrho, double *vsigma,              \
+  double *vlapl, double *vtau
 #define SET_ORDER_1                          \
   out.vrho = vrho;                           \
   out.vsigma = vsigma;                       \
   out.vlapl = vlapl;                         \
   out.vtau = vtau;
 
+
+#define OUT_VARIABLES_2                      \
+  double *v2rho2, double *v2rhosigma,        \
+  double *v2rholapl, double *v2rhotau,       \
+  double *v2sigma2, double *v2sigmalapl,     \
+  double *v2sigmatau, double *v2lapl2,       \
+  double *v2lapltau, double *v2tau2
 #define SET_ORDER_2                          \
   out.v2rho2 = v2rho2;                       \
   out.v2rhosigma = v2rhosigma;               \
@@ -33,6 +53,18 @@
   out.v2lapltau = v2lapltau;                 \
   out.v2tau2 = v2tau2;
 
+
+#define OUT_VARIABLES_3                      \
+   double *v3rho3, double *v3rho2sigma,      \
+   double *v3rho2lapl, double *v3rho2tau,    \
+   double *v3rhosigma2, double *v3rhosigmalapl, \
+   double *v3rhosigmatau, double *v3rholapl2,   \
+   double *v3rholapltau, double *v3rhotau2,     \
+   double *v3sigma3, double *v3sigma2lapl,      \
+   double *v3sigma2tau, double *v3sigmalapl2,   \
+   double *v3sigmalapltau, double *v3sigmatau2, \
+   double *v3lapl3, double *v3lapl2tau,         \
+   double *v3lapltau2, double *v3tau3
 #define SET_ORDER_3                          \
   out.v3rho3 = v3rho3;                       \
   out.v3rho2sigma = v3rho2sigma;             \
@@ -55,6 +87,26 @@
   out.v3lapltau2 = v3lapltau2;               \
   out.v3tau3 = v3tau3;
 
+
+#define OUT_VARIABLES_4                              \
+  double *v4rho4, double *v4rho3sigma,               \
+  double *v4rho3lapl, double *v4rho3tau,             \
+  double *v4rho2sigma2, double *v4rho2sigmalapl,     \
+  double *v4rho2sigmatau, double *v4rho2lapl2,       \
+  double *v4rho2lapltau, double *v4rho2tau2,         \
+  double *v4rhosigma3, double *v4rhosigma2lapl,      \
+  double *v4rhosigma2tau, double *v4rhosigmalapl2,   \
+  double *v4rhosigmalapltau, double *v4rhosigmatau2, \
+  double *v4rholapl3, double *v4rholapl2tau,         \
+  double *v4rholapltau2, double *v4rhotau3,          \
+  double *v4sigma4, double *v4sigma3lapl,            \
+  double *v4sigma3tau, double *v4sigma2lapl2,        \
+  double *v4sigma2lapltau, double *v4sigma2tau2,     \
+  double *v4sigmalapl3, double *v4sigmalapl2tau,     \
+  double *v4sigmalapltau2, double *v4sigmatau3,      \
+  double *v4lapl4, double *v4lapl3tau,               \
+  double *v4lapl2tau2, double *v4lapltau3,           \
+  double *v4tau4
 #define SET_ORDER_4                          \
   out.v4rho4 = v4rho4;                       \
   out.v4rho3sigma = v4rho3sigma;             \
@@ -92,256 +144,5 @@
   out.v4lapltau3 = v4lapltau3;               \
   out.v4tau4 = v4tau4;
 
-void
-xc_mgga(const xc_func_type *p, size_t np,
-        double *rho, double *sigma, double *lapl, double *tau,
-        double *zk,
-        double *vrho, double *vsigma, double *vlapl, double *vtau,
-        double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau, double *v2sigma2,
-        double *v2sigmalapl, double *v2sigmatau, double *v2lapl2, double *v2lapltau, double *v2tau2,
-        double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau, double *v3rhosigma2,
-        double *v3rhosigmalapl, double *v3rhosigmatau, double *v3rholapl2, double *v3rholapltau,
-        double *v3rhotau2, double *v3sigma3, double *v3sigma2lapl, double *v3sigma2tau,
-        double *v3sigmalapl2, double *v3sigmalapltau, double *v3sigmatau2, double *v3lapl3,
-        double *v3lapl2tau, double *v3lapltau2, double *v3tau3,
-        double *v4rho4, double *v4rho3sigma, double *v4rho3lapl, double *v4rho3tau, double *v4rho2sigma2,
-        double *v4rho2sigmalapl, double *v4rho2sigmatau, double *v4rho2lapl2, double *v4rho2lapltau,
-        double *v4rho2tau2, double *v4rhosigma3, double *v4rhosigma2lapl, double *v4rhosigma2tau,
-        double *v4rhosigmalapl2, double *v4rhosigmalapltau, double *v4rhosigmatau2,
-        double *v4rholapl3, double *v4rholapl2tau, double *v4rholapltau2, double *v4rhotau3,
-        double *v4sigma4, double *v4sigma3lapl, double *v4sigma3tau, double *v4sigma2lapl2,
-        double *v4sigma2lapltau, double *v4sigma2tau2, double *v4sigmalapl3, double *v4sigmalapl2tau,
-        double *v4sigmalapltau2, double *v4sigmatau3, double *v4lapl4, double *v4lapl3tau,
-        double *v4lapl2tau2, double *v4lapltau3, double *v4tau4
-        )
-{
-  int order = -1;
 
-  if(zk     != NULL) order = 0;
-  if(vrho   != NULL) order = 1;
-  if(v2rho2 != NULL) order = 2;
-  if(v3rho3 != NULL) order = 3;
-  if(v4rho4 != NULL) order = 4;
-
-  if(order < 0) return;
-
-  xc_output_variables out;
-  libxc_memset(&out, 0, sizeof(xc_output_variables));
-
-  SET_ORDER_0;
-  SET_ORDER_1;
-  SET_ORDER_2;
-  SET_ORDER_3;
-  SET_ORDER_4;
-
-  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in =
-    {np, idim, rho, sigma, lapl, tau, NULL};
-
-  xc_evaluate_func(p, order, &in, &out);
-}
-
-
-/* specializations */
-void
-xc_mgga_exc(const xc_func_type *p, size_t np,
-            double *rho, double *sigma, double *lapl, double *tau,
-            double *zk)
-{
-  xc_output_variables out;
-  libxc_memset(&out, 0, sizeof(xc_output_variables));
-  SET_ORDER_0;
-
-  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in =
-    {np, idim, rho, sigma, lapl, tau, NULL};
-
-  xc_evaluate_func(p, 0, &in, &out);
-}
-
-void
-xc_mgga_exc_vxc(const xc_func_type *p, size_t np,
-                double *rho, double *sigma, double *lapl, double *tau,
-                double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau)
-{
-  xc_output_variables out;
-  libxc_memset(&out, 0, sizeof(xc_output_variables));
-  SET_ORDER_0;
-  SET_ORDER_1;
-
-  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in =
-    {np, idim, rho, sigma, lapl, tau, NULL};
-
-  xc_evaluate_func(p, 1, &in, &out);
-}
-
-void xc_mgga_exc_vxc_fxc(const xc_func_type *p, size_t np,
-                         double *rho, double *sigma, double *lapl, double *tau,
-                         double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
-                         double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
-                         double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
-                         double *v2lapltau, double *v2tau2)
-{
-  xc_output_variables out;
-  libxc_memset(&out, 0, sizeof(xc_output_variables));
-  SET_ORDER_0;
-  SET_ORDER_1;
-  SET_ORDER_2;
-
-  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in =
-    {np, idim, rho, sigma, lapl, tau, NULL};
-
-  xc_evaluate_func(p, 2, &in, &out);
-}
-
-void xc_mgga_vxc_fxc(const xc_func_type *p, size_t np,
-                         double *rho, double *sigma, double *lapl, double *tau,
-                         double *vrho, double *vsigma, double *vlapl, double *vtau,
-                         double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
-                         double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
-                         double *v2lapltau, double *v2tau2)
-{
-  xc_output_variables out;
-  libxc_memset(&out, 0, sizeof(xc_output_variables));
-  SET_ORDER_1;
-  SET_ORDER_2;
-
-  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in =
-    {np, idim, rho, sigma, lapl, tau, NULL};
-
-  xc_evaluate_func(p, 2, &in, &out);
-}
-
-void xc_mgga_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np,
-                             double *rho, double *sigma, double *lapl, double *tau,
-                             double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
-                             double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
-                             double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
-                             double *v2lapltau, double *v2tau2,
-                             double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
-                             double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
-                             double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
-                             double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
-                             double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
-                             double *v3tau3)
-{
-  xc_output_variables out;
-  libxc_memset(&out, 0, sizeof(xc_output_variables));
-  SET_ORDER_0;
-  SET_ORDER_1;
-  SET_ORDER_2;
-  SET_ORDER_3;
-
-  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in =
-    {np, idim, rho, sigma, lapl, tau, NULL};
-
-  xc_evaluate_func(p, 3, &in, &out);
-}
-
-void xc_mgga_vxc_fxc_kxc(const xc_func_type *p, size_t np,
-                         double *rho, double *sigma, double *lapl, double *tau,
-                         double *vrho, double *vsigma, double *vlapl, double *vtau,
-                         double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
-                         double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
-                         double *v2lapltau, double *v2tau2,
-                         double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
-                         double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
-                         double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
-                         double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
-                         double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
-                         double *v3tau3)
-{
-  xc_output_variables out;
-  libxc_memset(&out, 0, sizeof(xc_output_variables));
-  SET_ORDER_1;
-  SET_ORDER_2;
-  SET_ORDER_3;
-
-  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in =
-    {np, idim, rho, sigma, lapl, tau, NULL};
-
-  xc_evaluate_func(p, 3, &in, &out);
-}
-
-
-void
-xc_mgga_vxc(const xc_func_type *p, size_t np,
-            double *rho, double *sigma, double *lapl, double *tau,
-            double *vrho, double *vsigma, double *vlapl, double *vtau)
-{
-  xc_output_variables out;
-  libxc_memset(&out, 0, sizeof(xc_output_variables));
-  SET_ORDER_1;
-
-  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in =
-    {np, idim, rho, sigma, lapl, tau, NULL};
-
-  xc_evaluate_func(p, 1, &in, &out);
-}
-
-void
-xc_mgga_fxc(const xc_func_type *p, size_t np,
-            double *rho, double *sigma, double *lapl, double *tau,
-            double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
-            double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
-            double *v2lapltau, double *v2tau2)
-{
-  xc_output_variables out;
-  libxc_memset(&out, 0, sizeof(xc_output_variables));
-  SET_ORDER_2;
-
-  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in =
-    {np, idim, rho, sigma, lapl, tau, NULL};
-
-  xc_evaluate_func(p, 2, &in, &out);
-}
-
-void xc_mgga_kxc(const xc_func_type *p, size_t np,
-                 double *rho, double *sigma, double *lapl, double *tau,
-                 double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
-                 double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
-                 double *v3rholapl2, double *v3rholapltau,  double *v3rhotau2,
-                 double *v3sigma3, double *v3sigma2lapl, double *v3sigma2tau,
-                 double *v3sigmalapl2, double *v3sigmalapltau, double *v3sigmatau2,
-                 double *v3lapl3, double *v3lapl2tau, double *v3lapltau2, double *v3tau3)
-{
-  xc_output_variables out;
-  libxc_memset(&out, 0, sizeof(xc_output_variables));
-  SET_ORDER_3;
-
-  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in =
-    {np, idim, rho, sigma, lapl, tau, NULL};
-
-  xc_evaluate_func(p, 3, &in, &out);
-}
-
-void xc_mgga_lxc(const xc_func_type *p, size_t np,
-                 double *rho, double *sigma, double *lapl, double *tau,
-                 double *v4rho4, double *v4rho3sigma, double *v4rho3lapl, double *v4rho3tau, double *v4rho2sigma2,
-                 double *v4rho2sigmalapl, double *v4rho2sigmatau, double *v4rho2lapl2, double *v4rho2lapltau,
-                 double *v4rho2tau2, double *v4rhosigma3, double *v4rhosigma2lapl, double *v4rhosigma2tau,
-                 double *v4rhosigmalapl2, double *v4rhosigmalapltau, double *v4rhosigmatau2,
-                 double *v4rholapl3, double *v4rholapl2tau, double *v4rholapltau2, double *v4rhotau3,
-                 double *v4sigma4, double *v4sigma3lapl, double *v4sigma3tau, double *v4sigma2lapl2,
-                 double *v4sigma2lapltau, double *v4sigma2tau2, double *v4sigmalapl3, double *v4sigmalapl2tau,
-                 double *v4sigmalapltau2, double *v4sigmatau3, double *v4lapl4, double *v4lapl3tau,
-                 double *v4lapl2tau2, double *v4lapltau3, double *v4tau4)
-{
-  xc_output_variables out;
-  libxc_memset(&out, 0, sizeof(xc_output_variables));
-  SET_ORDER_4;
-
-  const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in =
-    {np, idim, rho, sigma, lapl, tau, NULL};
-
-  xc_evaluate_func(p, 4, &in, &out);
-}
+#include "old_interface.c"

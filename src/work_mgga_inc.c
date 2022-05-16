@@ -175,7 +175,7 @@ WORK_MGGA(ORDER_TXT, SPIN_TXT)
   cudaMemcpy(outcuda, out, sizeof(xc_output_variables), cudaMemcpyHostToDevice);
 
   /* determine number of blocks required */
-  size_t nblocks = np/CUDA_BLOCK_SIZE;
+  size_t nblocks = in->np/CUDA_BLOCK_SIZE;
   if(in->np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
 
   /* execute kernel */

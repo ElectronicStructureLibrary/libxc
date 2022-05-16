@@ -614,6 +614,7 @@ void xc_mgga_lxc(const xc_func_type *p, size_t np,
   */
 void xc_hgga(const xc_func_type *p, size_t np,
        double *rho, double *sigma, double *lapl, double *tau, double *exx,
+       double *zk,
        double *vrho, double *vsigma, double *vlapl, double *vtau, double *vexx,
        double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
        double *v2rhoexx, double *v2sigma2, double *v2sigmalapl, double *v2sigmatau,

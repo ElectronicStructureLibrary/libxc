@@ -168,7 +168,7 @@ void FUNC(_fxc)
   xc_evaluate_func(p, 2, &in, &out);
 }
 
-void FUNC(_mgga_kxc)
+void FUNC(_kxc)
   (const xc_func_type *p, size_t np, IN_VARIABLES,
    OUT_VARIABLES_3)
 {

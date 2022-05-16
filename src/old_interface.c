@@ -31,7 +31,7 @@ void FUNC( )
   SET_ORDER_4;
 
   const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in = {np, idim, INPUT_VARIABLES};
+  const xc_input_variables in = {np, idim, {INPUT_VARIABLES}};
 
   xc_evaluate_func(p, order, &in, &out);
 }
@@ -48,7 +48,7 @@ void FUNC(_exc)
   SET_ORDER_0;
 
   const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in ={np, idim, INPUT_VARIABLES};
+  const xc_input_variables in = {np, idim, {INPUT_VARIABLES}};
 
   xc_evaluate_func(p, 0, &in, &out);
 }
@@ -64,7 +64,7 @@ void FUNC(_exc_vxc)
   SET_ORDER_1;
 
   const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in = {np, idim, INPUT_VARIABLES};
+  const xc_input_variables in = {np, idim, {INPUT_VARIABLES}};
 
   xc_evaluate_func(p, 1, &in, &out);
 }
@@ -81,7 +81,7 @@ void FUNC(_exc_vxc_fxc)
   SET_ORDER_2;
 
   const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in = {np, idim, INPUT_VARIABLES};
+  const xc_input_variables in = {np, idim, {INPUT_VARIABLES}};
 
   xc_evaluate_func(p, 2, &in, &out);
 }
@@ -97,7 +97,7 @@ void FUNC(_vxc_fxc)
   SET_ORDER_2;
 
   const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in = {np, idim, INPUT_VARIABLES};
+  const xc_input_variables in = {np, idim, {INPUT_VARIABLES}};
 
   xc_evaluate_func(p, 2, &in, &out);
 }
@@ -115,7 +115,7 @@ void FUNC(_exc_vxc_fxc_kxc)
   SET_ORDER_3;
 
   const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in = {np, idim, INPUT_VARIABLES};
+  const xc_input_variables in = {np, idim, {INPUT_VARIABLES}};
 
   xc_evaluate_func(p, 3, &in, &out);
 }
@@ -132,7 +132,7 @@ void FUNC(_vxc_fxc_kxc)
   SET_ORDER_3;
 
   const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in = {np, idim, INPUT_VARIABLES};
+  const xc_input_variables in = {np, idim, {INPUT_VARIABLES}};
 
   xc_evaluate_func(p, 3, &in, &out);
 }
@@ -148,7 +148,7 @@ void FUNC(_vxc)
   SET_ORDER_1;
 
   const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in = {np, idim, INPUT_VARIABLES};
+  const xc_input_variables in = {np, idim, {INPUT_VARIABLES}};
 
   xc_evaluate_func(p, 1, &in, &out);
 }
@@ -163,7 +163,7 @@ void FUNC(_fxc)
   SET_ORDER_2;
 
   const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in = {np, idim, INPUT_VARIABLES};
+  const xc_input_variables in = {np, idim, {INPUT_VARIABLES}};
 
   xc_evaluate_func(p, 2, &in, &out);
 }
@@ -178,7 +178,7 @@ void FUNC(_mgga_kxc)
   SET_ORDER_3;
 
   const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in = {np, idim, INPUT_VARIABLES};
+  const xc_input_variables in = {np, idim, {INPUT_VARIABLES}};
 
   xc_evaluate_func(p, 3, &in, &out);
 }
@@ -193,7 +193,7 @@ void FUNC(_lxc)
   SET_ORDER_4;
 
   const xc_input_variables_dimensions *idim = input_variables_dimensions_get(p->nspin);
-  const xc_input_variables in = {np, idim, INPUT_VARIABLES};
+  const xc_input_variables in = {np, idim, {INPUT_VARIABLES}};
 
   xc_evaluate_func(p, 4, &in, &out);
 }

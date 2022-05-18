@@ -958,6 +958,12 @@
  ! Perdew, Burke & Ernzerhof with less precise value for beta
  integer(c_int), parameter, public :: XC_GGA_X_PBE_MOD  =    320
 
+ ! Self-interaction corrected correlation functional by Schmidt et al
+ integer(c_int), parameter, public :: XC_MGGA_C_CC  =    387
+
+ ! Iso-orbital corrected LDA correlation by Lebeda et al
+ integer(c_int), parameter, public :: XC_MGGA_C_CCALDA  =    388
+
  ! BR3P86 hybrid meta-GGA from Neumann and Handy
  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_BR3P86  =    389
 

@@ -1195,6 +1195,12 @@ func_reference_type xc_ref_Laricchia2014_164 = {
   "@article{Laricchia2014_164,\n  author = {Laricchia, Savio and Constantin, Lucian A. and Fabiano, Eduardo and Della Sala, Fabio},\n  title = {Laplacian-Level Kinetic Energy Approximations Based on the Fourth-Order Gradient Expansion: Global Assessment and Application to the Subsystem Formulation of Density Functional Theory},\n  journal = {J. Chem. Theory Comput.},\n  volume = {10},\n  number = {1},\n  pages = {164-179},\n  year = {2014},\n  doi = {10.1021/ct400836s},\n  url = {https://doi.org/10.1021/ct400836s}\n}\n"
 };
 
+func_reference_type xc_ref_Lebeda2022_023061 = {
+  "T. Lebeda, T. Aschebrock, and S. Kümmel.,  Phys. Rev. Research 4, 023061 (2022)",
+  "10.1103/PhysRevResearch.4.023061",
+  "@article{Lebeda2022_023061,\n  author = {Lebeda, Timo and Aschebrock, Thilo and K\\\"ummel, Stephan},\n  title = {First steps towards achieving both ultranonlocality and a reliable description of electronic binding in a meta-generalized gradient approximation},\n  journal = {Phys. Rev. Research},\n  volume = {4},\n  issue = {2},\n  pages = {023061},\n  numpages = {8},\n  year = {2022},\n  month = {Apr},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevResearch.4.023061},\n  url = {https://link.aps.org/doi/10.1103/PhysRevResearch.4.023061}\n}\n"
+};
+
 func_reference_type xc_ref_Lee1987_2377 = {
   "C. Lee and R. G. Parr.,  Phys. Rev. A 35, 2377 (1987)",
   "10.1103/PhysRevA.35.2377",
@@ -1889,6 +1895,12 @@ func_reference_type xc_ref_Schmider1998_9624 = {
   "H. L. Schmider and A. D. Becke.,  J. Chem. Phys. 108, 9624 (1998)",
   "10.1063/1.476438",
   "@article{Schmider1998_9624,\n  author = {Schmider, H. L. and Becke, A. D.},\n  title = {Optimized density functionals from the extended G2 test set},\n  journal = {J. Chem. Phys.},\n  year = {1998},\n  volume = {108},\n  number = {23},\n  pages = {9624},\n  doi = {10.1063/1.476438},\n  url = {http://scitation.aip.org/content/aip/journal/jcp/108/23/10.1063/1.476438}\n}\n"
+};
+
+func_reference_type xc_ref_Schmidt2014_18A510 = {
+  "T. Schmidt, E. Kraisler, A. Makmal, L. Kronik, and S. Kümmel.,  J. Chem. Phys. 140, 18A510 (2014)",
+  "10.1063/1.4865942",
+  "@article{Schmidt2014_18A510,\n  author = {Schmidt, Tobias and Kraisler, Eli and Makmal, Adi and Kronik, Leeor and K\\\"{u}mmel, Stephan},\n  title = {A self-interaction-free local hybrid functional: Accurate binding energies vis-\\'{a}-vis accurate ionization potentials from {Kohn}--{Sham} eigenvalues},\n  journal = {J. Chem. Phys.},\n  volume = {140},\n  number = {18},\n  pages = {18A510},\n  year = {2014},\n  doi = {10.1063/1.4865942},\n  URL = {https://doi.org/10.1063/1.4865942}\n}\n"
 };
 
 func_reference_type xc_ref_Schultz2005_11127 = {

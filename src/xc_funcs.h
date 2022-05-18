@@ -318,6 +318,8 @@
 #define  XC_LDA_XC_CORRKSDT                318 /* Corrected KSDT by Karasiev, Dufty and Trickey */
 #define  XC_MGGA_X_FT98                    319 /* Filatov and Thiel 1998 meta-GGA exchange */
 #define  XC_GGA_X_PBE_MOD                  320 /* Perdew, Burke & Ernzerhof with less precise value for beta */
+#define  XC_MGGA_C_CC                      387 /* Self-interaction corrected correlation functional by Schmidt et al */
+#define  XC_MGGA_C_CCALDA                  388 /* Iso-orbital corrected LDA correlation by Lebeda et al */
 #define  XC_HYB_MGGA_XC_BR3P86             389 /* BR3P86 hybrid meta-GGA from Neumann and Handy */
 #define  XC_HYB_GGA_XC_CASE21              390 /* CASE21: Constrained And Smoothed semi-Empirical 2021 functional */
 #define  XC_MGGA_C_RREGTM                  391 /* Revised regTM correlation by Jana et al */

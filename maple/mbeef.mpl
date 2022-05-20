@@ -17,5 +17,5 @@ with(orthopoly):
 mbeef_expansion := (x, t) -> add(add(
   + mbeef_coefs[i][j]
   * P(j-1, mbeef_xi(X2S^2*x^2))
-  * P(i-1, mbeef_xj((t - x^2/8)/K_FACTOR_C)),
+  * P(i-1, mbeef_xj(mgga_alpha_s(x,t))),
 i=1..mbeef_n), j=1..mbeef_n):

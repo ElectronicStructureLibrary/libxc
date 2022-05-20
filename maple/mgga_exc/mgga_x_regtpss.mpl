@@ -18,7 +18,7 @@ reg_f_a :=  a -> (1 - a)^3/(1 + (reg_d*a)^2)^(3/2):
 
 (* Eq. (12). Note that alpha = 0 => t = x^2/8 *)
 reg_f := (x, u, t) ->
-  tpss_f(x, u, t) + reg_f_a(tpss_alpha(x, t))*exp(-reg_c*X2S^2*x^2)*(tpss_f(x, u, x^2/8) - tpss_f(x, u, t)):
+  tpss_f(x, u, t) + reg_f_a(mgga_alpha_s(x, t))*exp(-reg_c*X2S^2*x^2)*(tpss_f(x, u, x^2/8) - tpss_f(x, u, t)):
 
 f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->
   mgga_exchange(reg_f, rs, z, xs0, xs1, u0, u1, t0, t1):

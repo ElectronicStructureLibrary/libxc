@@ -18,11 +18,8 @@
 (* equation 10 *)
 mvs_fa := a -> (1 - a) / ((1 + params_a_e1*a^2)^2 + params_a_c1*a^4)^(1/4):
 
-(* alpha *)
-mvs_alpha := (t,x) -> (t - x^2/8)/K_FACTOR_C:
-
 (* eq 7 *)
-mvs_f := (x, u, t) -> (1 + params_a_k0*mvs_fa(mvs_alpha(t,x)))
+mvs_f := (x, u, t) -> (1 + params_a_k0*mvs_fa(mgga_alpha_s(x,t)))
       / (1 + params_a_b*(X2S*x)^4)^(1/8):
 
 f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->

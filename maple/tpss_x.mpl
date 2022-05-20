@@ -11,9 +11,8 @@
 tpss_p := x -> X2S^2*x^2:
 tpss_z := (x, t) -> x^2/(8*t):
 
-tpss_alpha := (x, t) -> (t - x^2/8)/K_FACTOR_C:
 tpss_qb    := (x, t) -> \
-      9/20 * (tpss_alpha(x, t) - 1)/sqrt(1 + params_a_b*tpss_alpha(x, t)*(tpss_alpha(x, t) - 1)) \
+      9/20 * (mgga_alpha_s(x, t) - 1)/sqrt(1 + params_a_b*mgga_alpha_s(x, t)*(mgga_alpha_s(x, t) - 1)) \
       + 2*tpss_p(x)/3:
 
 (* Equation (10) in all its glory *)

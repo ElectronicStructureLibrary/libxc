@@ -18,10 +18,8 @@
 ms_fa := a -> (1 - a^2)^3 / (1 + a^3 + params_a_b*a^6):
 ms_f0 := (p, c) -> 1 + params_a_kappa*(1 - params_a_kappa/(params_a_kappa + MU_GE*p + c)):
 
-ms_alpha := (t,x) -> (t - x^2/8)/K_FACTOR_C:
-
 ms_f := (x, u, t) -> ms_f0(X2S^2*x^2, 0) + \
-  ms_fa(ms_alpha(t,x))*(ms_f0(X2S^2*x^2, params_a_c) - ms_f0(X2S^2*x^2, 0)):
+  ms_fa(mgga_alpha_s(x,t))*(ms_f0(X2S^2*x^2, params_a_c) - ms_f0(X2S^2*x^2, 0)):
 
 f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->
   mgga_exchange(ms_f, rs, z, xs0, xs1, u0, u1, t0, t1):

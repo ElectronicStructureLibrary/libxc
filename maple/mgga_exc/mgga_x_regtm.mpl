@@ -23,4 +23,4 @@ regtm_zp := (a, p) -> 1 / (1 + 3/5*(a/(p+regtm_f(a,p)))):
 regtm_w := zp -> (zp^2 + 3*zp^3) / (1 + zp^3)^2:
 
 (* Collect all the pieces together *)
-tm_w := (x, t) -> regtm_w(regtm_zp(tm_alpha(x, t), tm_p(x))):
+tm_w := (x, t) -> regtm_w(regtm_zp(mgga_alpha_s(x, t), tm_p(x))):

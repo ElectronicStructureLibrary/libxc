@@ -89,6 +89,15 @@ f_zeta_2d := z -> 1/2*(opz_pow_n(z,3/2) + opz_pow_n(-z,3/2)):
 mphi := z -> (opz_pow_n(z,2/3) + opz_pow_n(-z,2/3))/2:
 tt   := (rs, z, xt) -> xt/(4*2^(1/3)*mphi(z)*sqrt(rs)):
 
+# meta-GGA alpha, used in several functionals. Spin version
+mgga_alpha_s := (x, t) -> (t - x^2/8)/K_FACTOR_C:
+# total version
+mgga_alpha_t := (z, xt, ts0, ts1) -> (t_total(z, ts0, ts1) - xt^2/8)/(K_FACTOR_C*t_total(z, 1, 1)):
+# spin free total
+mgga_alpha_sf := (z, xt, ts0, ts1) -> (t_total(z, ts0, ts1) - xt^2/8) / K_FACTOR_C * 2^(2/3):
+# spin with positive curvature constraint
+mgga_alpha_s_positive := (x, t) -> t * K_FACTOR_C * m_max(1 - x^2/(8*t), 0.0):
+
 # in the paper it is beta_a = 0.066725
 beta_Hu_Langreth := rs -> 0.066724550603149220*(1 + 0.1*rs)/(1 + 0.1778*rs):
 

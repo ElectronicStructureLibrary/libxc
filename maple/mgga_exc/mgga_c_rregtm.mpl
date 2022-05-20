@@ -17,7 +17,7 @@ rregtm_f2 := a -> rregtm_f2g(rregtm_g(a)):
 
 (* equation 3 *)
 rregtm_f := (rs, z, xt, xs0, xs1, ts0, ts1) ->
-  f_pbe(rs, z, xt, xs0, xs1) + rregtm_f2(scan_alpha(z, xt, ts0, ts1))*(
+  f_pbe(rs, z, xt, xs0, xs1) + rregtm_f2(mgga_alpha_t(z, xt, ts0, ts1))*(
     + scan_e0(rs, z, X2S*2^(1/3)*xt)
     - f_pbe(rs, z, xt, xs0, xs1)
   ):

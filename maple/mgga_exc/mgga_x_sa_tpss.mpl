@@ -16,13 +16,11 @@ params_a_c      := 1.59096:
 params_a_e      := 1.537:
 params_a_mu     := 0.21951:
 
-sa_alpha           := (x, t) -> (t - x^2/8)/K_FACTOR_C:
-
 (* Equation (8) *)
 
 tpss_ff    := z -> 2:
 tpss_kappa := (x, t) -> 2*Pi/(3*sqrt(5)) * \
-          sqrt(sa_alpha(x, t) + 1)/sqrt(sa_a + log(sa_alpha(x, t) + sa_b)):
+          sqrt(mgga_alpha_s(x, t) + 1)/sqrt(sa_a + log(mgga_alpha_s(x, t) + sa_b)):
 
 $include "tpss_x.mpl"
 

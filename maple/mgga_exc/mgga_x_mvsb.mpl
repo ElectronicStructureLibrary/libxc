@@ -17,7 +17,7 @@
 
 $include "mgga_x_mvs.mpl"
 
-mvsb_beta := (t, x) -> mvs_alpha(t, x)*K_FACTOR_C/(t - K_FACTOR_C):
+mvsb_beta := (t, x) -> mgga_alpha_s(x,t)*K_FACTOR_C/(t - K_FACTOR_C):
 
 mvsb_f := (x, u, t) -> (1 + params_a_k0*mvs_fa(mvsb_beta(t,x)))
        / (1 + params_a_b*(X2S*x)^4)^(1/8):

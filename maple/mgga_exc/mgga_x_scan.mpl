@@ -15,7 +15,6 @@
 *)
 
 scan_p     := x -> X2S^2*x^2:
-scan_alpha := (x, t) -> (t - x^2/8)/K_FACTOR_C:
 
 (* The interpolating functions are nasty for a -> 1, so we need to
    truncate them. The natural choice is to cut off the functions to
@@ -49,7 +48,7 @@ scan_a1 := 4.9479:
 scan_gx := x -> 1 - exp(-scan_a1/sqrt(X2S*x)):
 
 scan_h0x := 1.174:
-scan_f   := (x, u, t) -> (scan_h1x(scan_y(x, scan_alpha(x, t)))*(1 - scan_f_alpha(scan_alpha(x, t)))
-  + scan_h0x*scan_f_alpha(scan_alpha(x, t)))*scan_gx(x):
+scan_f   := (x, u, t) -> (scan_h1x(scan_y(x, mgga_alpha_s(x, t)))*(1 - scan_f_alpha(mgga_alpha_s(x, t)))
+  + scan_h0x*scan_f_alpha(mgga_alpha_s(x, t)))*scan_gx(x):
 
 f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) -> mgga_exchange(scan_f, rs, z, xs0, xs1, u0, u1, t0, t1):

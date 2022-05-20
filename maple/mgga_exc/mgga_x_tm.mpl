@@ -25,10 +25,8 @@ tm_R  := (x, t) -> 1 + 595*(2*tm_lambda - 1)^2 * tm_p(x)/54 \
 
 tm_fx_DME := (x, t) -> 1/tm_f0(x)^2 + 7*tm_R(x, t)/(9*tm_f0(x)^4):
 
-tm_alpha := (x, t) -> (t - x^2/8)/K_FACTOR_C:
-
 (* after Equation (11) *)
-tm_qtilde := (x, t) -> 9/20*(tm_alpha(x, t) - 1) + 2*tm_p(x)/3:
+tm_qtilde := (x, t) -> 9/20*(mgga_alpha_s(x, t) - 1) + 2*tm_p(x)/3:
 
 (* Ratio tW/t; we have to make sure it's 1 at maximum *)
 tm_tratio := (x, t) -> m_min(1.0, x^2/(8*t)):

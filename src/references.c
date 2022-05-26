@@ -16,7 +16,7 @@
 func_reference_type xc_ref_Acharya1980_6978 = {
   "P. K. Acharya, L. J. Bartolotti, S. B. Sears, and R. G. Parr.,  Proc. Natl. Acad. Sci. U. S. A. 77, 6978 (1980)",
   "10.1073/pnas.77.12.6978",
-  "@article{Acharya1980_6978,\n  author = {Acharya, P. K. and Bartolotti, L. J. and Sears, S. B. and Parr, R. G.},\n  title = {An atomic kinetic energy functional with full Weizsacker correction},\n  volume = {77},\n  number = {12},\n  pages = {6978},\n  year = {1980},\n  doi = {10.1073/pnas.77.12.6978},\n  url = {http://www.pnas.org/content/77/12/6978.abstract},\n  journal = {Proc. Natl. Acad. Sci. U. S. A.}\n}\n"
+  "@article{Acharya1980_6978,\n  author = {Acharya, P. K. and Bartolotti, L. J. and Sears, S. B. and Parr, R. G.},\n  title = {An atomic kinetic energy functional with full Weizsacker correction},\n  journal = {Proc. Natl. Acad. Sci. U. S. A.},\n  volume = {77},\n  number = {12},\n  pages = {6978},\n  year = {1980},\n  doi = {10.1073/pnas.77.12.6978},\n  url = {http://www.pnas.org/content/77/12/6978.abstract}\n}\n"
 };
 
 func_reference_type xc_ref_Adamo1997_242 = {
@@ -799,6 +799,18 @@ func_reference_type xc_ref_Golden1957_604 = {
   "@article{Golden1957_604,\n  author = {Golden, S.},\n  title = {Statistical Theory of Many-Electron Systems. General Considerations Pertaining to the Thomas--Fermi Theory},\n  journal = {Phys. Rev.},\n  volume = {105},\n  issue = {2},\n  pages = {604},\n  year = {1957},\n  month = {Jan},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRev.105.604},\n  url = {http://link.aps.org/doi/10.1103/PhysRev.105.604}\n}\n"
 };
 
+func_reference_type xc_ref_Goll2005_3917 = {
+  "E. Goll, H.-J. Werner, and H. Stoll.,  Phys. Chem. Chem. Phys. 7, 3917–3923 (2005)",
+  "10.1039/B509242F",
+  "@article{Goll2005_3917,\n  author = {Goll, Erich and Werner, Hans-Joachim and Stoll, Hermann},\n  title = {A short-range gradient-corrected density functional in long-range coupled-cluster calculations for rare gas dimers},\n  journal = {Phys. Chem. Chem. Phys.},\n  year = {2005},\n  volume = {7},\n  issue = {23},\n  pages = {3917--3923},\n  publisher = {The Royal Society of Chemistry},\n  doi = {10.1039/B509242F},\n  url = {https://doi.org/10.1039/B509242F}\n}\n"
+};
+
+func_reference_type xc_ref_Goll2006_276 = {
+  "E. Goll, H.-J. Werner, H. Stoll, T. Leininger, P. Gori-Giorgi, and A. Savin.,  Chem. Phys. 329, 276–282 (2006)",
+  "10.1016/j.chemphys.2006.05.020",
+  "@article{Goll2006_276,\n  author = {Goll, Erich and Werner, Hans-Joachim and Stoll, Hermann and Leininger, Thierry and Gori-Giorgi, Paola and Savin, Andreas},\n  title = {A short-range gradient-corrected spin density functional in combination with long-range coupled-cluster methods: Application to alkali-metal rare-gas dimers},\n  journal = {Chem. Phys.},\n  volume = {329},\n  number = {1},\n  pages = {276--282},\n  year = {2006},\n  issn = {0301-0104},\n  doi = {10.1016/j.chemphys.2006.05.020},\n  url = {https://doi.org/10.1016/j.chemphys.2006.05.020}\n}\n"
+};
+
 func_reference_type xc_ref_Gombas1965_137 = {
   "P. Gombás.,  Fortschr. Phys. 13, 137-156 (1965)",
   "10.1002/prop.19650130402",
@@ -959,6 +971,12 @@ func_reference_type xc_ref_Hodges1973_1428 = {
   "C. H. Hodges.,  Can. J. Phys. 51, 1428-1437 (1973)",
   "10.1139/p73-189",
   "@article{Hodges1973_1428,\n  author = {Hodges, C. H.},\n  title = {Quantum Corrections to the Thomas--Fermi Approximation---The Kirzhnits Method},\n  journal = {Can. J. Phys.},\n  volume = {51},\n  number = {13},\n  pages = {1428-1437},\n  year = {1973},\n  doi = {10.1139/p73-189},\n  url = {https://doi.org/10.1139/p73-189}\n}\n"
+};
+
+func_reference_type xc_ref_Hoe2001_319 = {
+  "W.-M. Hoe, A. J. Cohen, and N. C. Handy.,  Chem. Phys. Lett. 341, 319–328 (2001)",
+  "10.1016/S0009-2614(01)00581-4",
+  "@article{Hoe2001_319,\n  author = {Hoe, Wee-Meng and Cohen, Aron J. and Handy, Nicholas C.},\n  title = {Assessment of a new local exchange functional OPTX},\n  journal = {Chem. Phys. Lett.},\n  volume = {341},\n  number = {3},\n  pages = {319--328},\n  year = {2001},\n  issn = {0009-2614},\n  doi = {10.1016/S0009-2614(01)00581-4},\n  url = {https://www.sciencedirect.com/science/article/pii/S0009261401005814}\n}\n"
 };
 
 func_reference_type xc_ref_Hu1985_391 = {
@@ -2549,17 +2567,5 @@ func_reference_type xc_ref_vonBarth1972_1629 = {
   "U. von Barth and L. Hedin.,  J. Phys. C: Solid State Phys. 5, 1629 (1972)",
   "10.1088/0022-3719/5/13/012",
   "@article{vonBarth1972_1629,\n  author = {von Barth, U. and Hedin, L.},\n  title = {A local exchange-correlation potential for the spin polarized case. i},\n  journal = {J. Phys. C: Solid State Phys.},\n  volume = {5},\n  number = {13},\n  pages = {1629},\n  year = {1972},\n  doi = {10.1088/0022-3719/5/13/012},\n  url = {http://stacks.iop.org/0022-3719/5/i=13/a=012}\n}\n"
-};
-
-func_reference_type xc_ref_Goll2005_3917 = {
-  "E. Goll, H.-J. Werner, and H. Stoll.,  Phys. Chem. Chem. Phys. 7, 3917–3923 (2005)",
-  "10.1039/B509242F",
-  "@article{Goll2005_3917,\n  author = {Goll, Erich and Werner, Hans-Joachim and Stoll, Hermann},\n  title = {A short-range gradient-corrected density functional in long-range coupled-cluster calculations for rare gas dimers},\n  journal = {Phys. Chem. Chem. Phys.},\n  year = {2005},\n  volume = {7},\n  issue = {23},\n  pages = {3917--3923},\n  publisher = {The Royal Society of Chemistry},\n  doi = {10.1039/B509242F},\n  url = {https://doi.org/10.1039/B509242F}\n}\n"
-};
-
-func_reference_type xc_ref_Goll2006_276 = {
-  "E. Goll, H.-J. Werner, H. Stoll, T. Leininger, P. Gori-Giorgi, and A. Savin.,  Chem. Phys. 329, 276–282 (2006)",
-  "10.1016/j.chemphys.2006.05.020",
-  "@article{Goll2006_276,\n  author = {Goll, Erich and Werner, Hans-Joachim and Stoll, Hermann and Leininger, Thierry and Gori-Giorgi, Paola and Savin, Andreas},\n  title = {A short-range gradient-corrected spin density functional in combination with long-range coupled-cluster methods: Application to alkali-metal rare-gas dimers},\n  journal = {Chem. Phys.},\n  volume = {329},\n  number = {1},\n  pages = {276--282},\n  year = {2006},\n  issn = {0301-0104},\n  doi = {10.1016/j.chemphys.2006.05.020},\n  url = {https://doi.org/10.1016/j.chemphys.2006.05.020}\n}\n"
 };
 

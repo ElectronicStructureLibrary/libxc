@@ -168,7 +168,7 @@ extern func_reference_type xc_ref_Henderson2007_221103;
 extern func_reference_type xc_ref_Henderson2008_194105;
 extern func_reference_type xc_ref_Henderson2009_044108;
 extern func_reference_type xc_ref_Herman1969_807;
-extern func_reference_type xc_ref_Herman1969_827;
+extern func_reference_type xc_ref_Herman1970_827;
 extern func_reference_type xc_ref_Heyd2003_8207;
 extern func_reference_type xc_ref_Heyd2003_8207_err;
 extern func_reference_type xc_ref_Heyd2004_7274;

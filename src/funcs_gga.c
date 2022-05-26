@@ -179,6 +179,8 @@ extern xc_func_info_type xc_func_info_gga_x_revssb_d;
 extern xc_func_info_type xc_func_info_gga_c_ccdf;
 extern xc_func_info_type xc_func_info_gga_x_pw91_mod;
 extern xc_func_info_type xc_func_info_gga_x_pbe_mod;
+extern xc_func_info_type xc_func_info_gga_x_pbe_gaussian;
+extern xc_func_info_type xc_func_info_gga_c_pbe_gaussian;
 extern xc_func_info_type xc_func_info_gga_x_s12g;
 extern xc_func_info_type xc_func_info_gga_k_vw;
 extern xc_func_info_type xc_func_info_gga_k_ge2;
@@ -431,6 +433,8 @@ const xc_func_info_type *xc_gga_known_funct[] = {
   &xc_func_info_gga_c_ccdf,
   &xc_func_info_gga_x_pw91_mod,
   &xc_func_info_gga_x_pbe_mod,
+  &xc_func_info_gga_x_pbe_gaussian,
+  &xc_func_info_gga_c_pbe_gaussian,
   &xc_func_info_gga_x_s12g,
   &xc_func_info_gga_k_vw,
   &xc_func_info_gga_k_ge2,

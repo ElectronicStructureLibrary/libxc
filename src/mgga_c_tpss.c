@@ -10,6 +10,7 @@
 #include "util.h"
 
 #define XC_MGGA_C_TPSS          231 /* Tao, Perdew, Staroverov & Scuseria correlation */
+#define XC_MGGA_C_TPSS_GAUSSIAN 323 /* Tao, Perdew, Staroverov & Scuseria correlation with parameters from Gaussian */
 #define XC_MGGA_C_TM            251 /* Tao and Mo 2016 correlation */
 
 typedef struct{
@@ -30,6 +31,12 @@ static const char  *tpss_desc[TPSS_N_PAR]   = {"beta", "d", "C0_c0", "C0_c1", "C
 static const double tpss_values[TPSS_N_PAR] = {
   0.06672455060314922, 2.8, 0.53, 0.87, 0.50, 2.26
 };
+/* The value of beta in Gaussian is the same as in PBE correlation,
+   originating from the PW91 paper where beta = nu * Cc(0) where nu
+   has an exact value which is truncated in Gaussian */
+static const double tpss_gaussian_values[TPSS_N_PAR] = {
+  15.75592*0.004235, 2.8, 0.53, 0.87, 0.50, 2.26
+};
 static const double tm_values[TPSS_N_PAR]   = {
   0.06672455060314922, 2.8, 0.0, 0.1, 0.32, 0.0
 };
@@ -49,6 +56,22 @@ const xc_func_info_type xc_func_info_mgga_c_tpss = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15, /* densities smaller than 1e-26 give NaNs */
   {TPSS_N_PAR, tpss_names, tpss_desc, tpss_values, set_ext_params_cpy},
+  mgga_c_tpss_init, NULL,
+  NULL, NULL, &work_mgga,
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_mgga_c_tpss_gaussian = {
+  XC_MGGA_C_TPSS_GAUSSIAN,
+  XC_CORRELATION,
+  "Tao, Perdew, Staroverov & Scuseria with parameters from Gaussian",
+  XC_FAMILY_MGGA,
+  {&xc_ref_Tao2003_146401, &xc_ref_Perdew2004_6898, &xc_ref_gaussianimplementation, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
+  1e-15, /* densities smaller than 1e-26 give NaNs */
+  {TPSS_N_PAR, tpss_names, tpss_desc, tpss_gaussian_values, set_ext_params_cpy},
   mgga_c_tpss_init, NULL,
   NULL, NULL, &work_mgga,
 };

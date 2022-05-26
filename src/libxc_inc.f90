@@ -958,6 +958,15 @@
  ! Perdew, Burke & Ernzerhof with less precise value for beta
  integer(c_int), parameter, public :: XC_GGA_X_PBE_MOD  =    320
 
+ ! Perdew, Burke & Ernzerhof with parameter values used in Gaussian
+ integer(c_int), parameter, public :: XC_GGA_X_PBE_GAUSSIAN  =    321
+
+ ! Perdew, Burke & Ernzerhof with parameters from Gaussian
+ integer(c_int), parameter, public :: XC_GGA_C_PBE_GAUSSIAN  =    322
+
+ ! Tao, Perdew, Staroverov & Scuseria with parameters from Gaussian
+ integer(c_int), parameter, public :: XC_MGGA_C_TPSS_GAUSSIAN  =    323
+
  ! Self-interaction corrected correlation functional by Schmidt et al
  integer(c_int), parameter, public :: XC_MGGA_C_CC  =    387
 

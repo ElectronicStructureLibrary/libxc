@@ -919,10 +919,10 @@ func_reference_type xc_ref_Herman1969_807 = {
   "@article{Herman1969_807,\n  author = {Herman, F. and Dyke, J. P. Van and Ortenburger, I. B.},\n  title = {Improved Statistical Exchange Approximation for Inhomogeneous Many-Electron Systems},\n  journal = {Phys. Rev. Lett.},\n  volume = {22},\n  issue = {16},\n  pages = {807},\n  year = {1969},\n  month = {Apr},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.22.807},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.22.807}\n}\n"
 };
 
-func_reference_type xc_ref_Herman1969_827 = {
-  "F. Herman, I. B. Ortenburger, and J. P. V. Dyke.,  Int. J. Quantum Chem. 4, 827 (1969)",
+func_reference_type xc_ref_Herman1970_827 = {
+  "F. Herman, I. B. Ortenburger, and J. P. V. Dyke.,  Int. J. Quantum Chem. 4, 827 (1970)",
   "10.1002/qua.560040746",
-  "@article{Herman1969_827,\n  author = {Herman, F. and Ortenburger, I. B. and Dyke, J. P. Van},\n  title = {A method for improving the physical realism of first-principles band structure calculations},\n  journal = {Int. J. Quantum Chem.},\n  volume = {4},\n  number = {S3B},\n  pages = {827},\n  year = {1969},\n  publisher = {John Wiley \\& Sons, Inc.},\n  issn = {1097-461X},\n  doi = {10.1002/qua.560040746},\n  url = {10.1002/qua.560040746}\n}\n"
+  "@article{Herman1970_827,\n  author = {Herman, F. and Ortenburger, I. B. and Dyke, J. P. Van},\n  title = {A method for improving the physical realism of first-principles band structure calculations},\n  journal = {Int. J. Quantum Chem.},\n  volume = {4},\n  number = {S3B},\n  pages = {827},\n  year = {1970},\n  publisher = {John Wiley \\& Sons, Inc.},\n  issn = {1097-461X},\n  doi = {10.1002/qua.560040746},\n  url = {10.1002/qua.560040746}\n}\n"
 };
 
 func_reference_type xc_ref_Heyd2003_8207 = {

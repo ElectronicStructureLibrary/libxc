@@ -1,3 +1,42 @@
+## [5.2.3] - 2022-05-16
+
+### Fixed
+- Fix compile issue with CUDA.
+
+## [5.2.2] - 2022-02-01
+
+### Fixed
+- Some Maple sources had not been properly backported from the changed API in master which caused compile failures in 5.2.1 (#379)
+
+## [5.2.1] - 2022-01-31
+
+### Fixed
+- Maple code in repository was incorrect for hyb_gga_x_cam_s12 (#372)
+- Cleanup of reference handling in Fortran interface caused infinite loop (#374)
+
+## [5.2.0] - 2022-01-21
+
+### Fixed
+- Clarified documentation of lda_x_erf and lda_x_yukawa (#362)
+- C header should not depend on availability of derivatives in
+  binaries (!522)
+- Wrong flags with PGI compiler in CMake (#361)
+- No automatic generation of sources at configure time; no
+  recompilation necessary anymore when sources have not changed (#358)
+- Interchanged parameter descriptions in wB97 style functionals (#363)
+- lda_c_pmgb06 functional was missing a factor 1-z^2 (#360)
+- Long lines in f90 include files (!517)
+- Improved handling of null pointers in Fortran frontend (!515)
+- hyb_mgga_xc_lc_tmlyp was tagged an exchange instead of an
+  exchange-correlation functional (!527)
+
+### Added
+- MGGA functionals: x_ft98 (!512)
+- Enforcement of Fermi curvature can now be turned off as a compile
+  time option (#354)
+- Components of mixed functionals like B3LYP can now be queried from
+  C, Fortran and Python (#369)
+
 ## [5.1.7] - 2021-10-25
 
 ### Fixed

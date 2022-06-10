@@ -100,6 +100,17 @@ static const double b97_hcth_120_values[B97_N_PAR] =
    0.489508, -0.260699, 0.432917, -1.99247, 2.48531,
    0.51473, 6.92982, -24.7073, 23.1098, -11.3234,
    0.0};
+/*
+  SL 2022-06-10
+
+  The c5=-0.0171 parameter of HCTH/147 has the wrong sign in the
+  original paper, doi:10.1063/1.480732. The parameters are given with
+  one more decimal in doi:10.1063/1.1589004; c5=0.01714. The values
+  here have a few more decimals, and possibly originate from the
+  authors' original implementation in CADPAC.
+
+  See also https://gitlab.com/libxc/libxc/-/issues/205
+ */
 static const double b97_hcth_147_values[B97_N_PAR] =
   {1.09025, -0.799194, 5.57212, -5.8676, 3.04544,
    0.562576, 0.0171436, -1.30636, 1.05747, 0.885429,

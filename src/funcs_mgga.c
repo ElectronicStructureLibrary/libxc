@@ -88,6 +88,7 @@ extern xc_func_info_type xc_func_info_mgga_c_revm06;
 extern xc_func_info_type xc_func_info_hyb_mgga_x_m06_sx;
 extern xc_func_info_type xc_func_info_mgga_c_m06_sx;
 extern xc_func_info_type xc_func_info_mgga_x_ft98;
+extern xc_func_info_type xc_func_info_mgga_c_tpss_gaussian;
 extern xc_func_info_type xc_func_info_mgga_c_cc;
 extern xc_func_info_type xc_func_info_mgga_c_ccalda;
 extern xc_func_info_type xc_func_info_hyb_mgga_xc_br3p86;
@@ -281,6 +282,7 @@ const xc_func_info_type *xc_mgga_known_funct[] = {
   &xc_func_info_hyb_mgga_x_m06_sx,
   &xc_func_info_mgga_c_m06_sx,
   &xc_func_info_mgga_x_ft98,
+  &xc_func_info_mgga_c_tpss_gaussian,
   &xc_func_info_mgga_c_cc,
   &xc_func_info_mgga_c_ccalda,
   &xc_func_info_hyb_mgga_xc_br3p86,

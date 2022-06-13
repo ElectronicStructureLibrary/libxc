@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_PBE          101 /* Perdew, Burke & Ernzerhof exchange             */
 #define XC_GGA_X_PBE_MOD      320 /* Perdew, Burke & Ernzerhof exchange with beta = 0.066725 */
+#define XC_GGA_X_PBE_GAUSSIAN 321 /* Perdew, Burke & Ernzerhof exchange, parameters used in Gaussian */
 #define XC_GGA_X_PBE_R        102 /* Perdew, Burke & Ernzerhof exchange (revised)   */
 #define XC_GGA_X_PBE_SOL      116 /* Perdew, Burke & Ernzerhof exchange (solids)    */
 #define XC_GGA_X_XPBE         123 /* xPBE reparametrization by Xu & Goddard         */
@@ -53,6 +54,8 @@ static const double pbe_values[PBE_N_PAR] =
   {0.8040, MU_PBE};
 static const double pbe_mod_values[PBE_N_PAR] =
   {0.8040, 0.066725*M_PI*M_PI/3};
+static const double pbe_gaussian_values[PBE_N_PAR] =
+  {0.804000423825475, 0.219510240580611};
 static const double pbe_r_values[PBE_N_PAR] =
   {1.245, MU_PBE};
 static const double pbe_sol_values[PBE_N_PAR] =
@@ -106,6 +109,22 @@ const xc_func_info_type xc_func_info_gga_x_pbe_mod = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_mod_values, set_ext_params_cpy},
+  gga_x_pbe_init, NULL,
+  NULL, &work_gga, NULL
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_gga_x_pbe_gaussian = {
+  XC_GGA_X_PBE_GAUSSIAN,
+  XC_EXCHANGE,
+  "Perdew, Burke & Ernzerhof with parameter values used in Gaussian",
+  XC_FAMILY_GGA,
+  {&xc_ref_Perdew1996_3865, &xc_ref_Perdew1996_3865_err, &xc_ref_gaussianimplementation, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-15,
+  {PBE_N_PAR, pbe_names, pbe_desc, pbe_gaussian_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL,
   NULL, &work_gga, NULL
 };

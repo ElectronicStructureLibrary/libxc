@@ -17,6 +17,7 @@
 
 #define XC_GGA_C_PBE          130 /* Perdew, Burke & Ernzerhof correlation              */
 #define XC_GGA_C_PBE_SOL      133 /* Perdew, Burke & Ernzerhof correlation SOL          */
+#define XC_GGA_C_PBE_GAUSSIAN 322 /* Perdew, Burke & Ernzerhof correlation, parameters used in Gaussian */
 #define XC_GGA_C_XPBE         136 /* xPBE reparametrization by Xu & Goddard             */
 #define XC_GGA_C_PBE_JRGX     138 /* JRGX reparametrization by Pedroza, Silva & Capelle */
 #define XC_GGA_C_RGE2         143 /* Regularized PBE                                    */
@@ -31,7 +32,6 @@
 typedef struct{
   double beta, gamma, BB;
 } gga_c_pbe_params;
-
 
 static void gga_c_pbe_init(xc_func_type *p)
 {
@@ -49,6 +49,14 @@ static const double pbe_values[PBE_N_PAR] =
   {0.06672455060314922, 0.031090690869654895034, 1.0};
 static const double pbe_sol_values[PBE_N_PAR] =
   {0.046, 0.031090690869654895034, 1.0};
+/* the value of beta in Gaussian is taken from the PW91 paper, see
+   below equation (13). Beta is given as beta = nu*Cc(0) with nu =
+   (16/pi)*(3*pi^2)^(1/3) ~ 15.755920349... and Cc(0) = 0.004235. The
+   original code in Gaussian truncated the exact value before
+   multiplication.
+*/
+static const double pbe_gaussian_values[PBE_N_PAR] =
+  {15.75592*0.004235, 0.031090690869654895034, 1.0};
 /* gamma = beta^2/(2.0*0.197363) */
 static const double pbe_xpbe_values[PBE_N_PAR] =
   {0.089809, 0.02043355766025040154, 1.0};
@@ -106,6 +114,22 @@ const xc_func_info_type xc_func_info_gga_c_pbe_sol = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_sol_values, set_ext_params_cpy},
+  gga_c_pbe_init, NULL,
+  NULL, &work_gga, NULL
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_gga_c_pbe_gaussian = {
+  XC_GGA_C_PBE_GAUSSIAN,
+  XC_CORRELATION,
+  "Perdew, Burke & Ernzerhof with parameters from Gaussian",
+  XC_FAMILY_GGA,
+  {&xc_ref_Perdew1996_3865, &xc_ref_Perdew1996_3865_err, &xc_ref_gaussianimplementation, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-12,
+  {PBE_N_PAR, pbe_names, pbe_desc, pbe_gaussian_values, set_ext_params_cpy},
   gga_c_pbe_init, NULL,
   NULL, &work_gga, NULL
 };
@@ -264,7 +288,7 @@ const xc_func_info_type xc_func_info_gga_c_mggac = {
   XC_FAMILY_GGA,
   {&xc_ref_Patra2019_155140, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
-  1.0e-12,
+  1e-12,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_mggac_values, set_ext_params_cpy},
   gga_c_pbe_init, NULL,
   NULL, &work_gga, NULL

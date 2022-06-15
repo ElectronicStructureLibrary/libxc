@@ -18,6 +18,7 @@
 #define XC_HYB_GGA_XC_PBE50     290 /* PBE0 with 50% exx   */
 #define XC_HYB_GGA_XC_PBE_2X    392 /* PBE0 with 56% exx   */
 #define XC_HYB_GGA_XC_PBE38     393 /* PBE0 with 3/8 = 37.5% exx  */
+#define XC_HYB_GGA_XC_RELPBE0   325 /* PBE0 refitted for actinide compounds */
 
 #define PBEH_N_PAR 1
 static const char  *pbeh_names[PBEH_N_PAR]      = {"_beta"};
@@ -286,5 +287,85 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_pbe_molb0 = {
   1e-15,
   {PBEH_N_PAR, pbeh_names, pbeh_desc, pbeh_values, pbeh_set_ext_params},
   hyb_gga_xc_pbemolb0_init,
+  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+};
+
+#define RELPBE_N_PAR 6
+static const char  *relpbe_names[RELPBE_N_PAR]      = {
+  "_cx",  "_scalggac", "_scalldac",
+  "_xkappa", "_cbetapbe", "_xmuepbe"};
+static const char  *relpbe_desc[RELPBE_N_PAR]       = {
+  "Fraction of HF exchange", "GGA correlation scaling", "LDA correlation scaling",
+  "PBE exchange kappa", "PBE correlation beta", "PBE exchange mu"};
+static const double relpbe_values[RELPBE_N_PAR]     = {
+  0.2311865490779869,  0.39051822098129085, 0.6094817790187091,
+  1.009008835630956,   0.06791249476107648, 0.04102242166916949};
+
+static void
+hyb_gga_xc_relpbe_init(xc_func_type *p)
+{
+  /* Note that the value of funcs_coef[0] and hyb_coeff will be set
+     by set_ext_params */
+  static int   funcs_id   [3] = {XC_GGA_X_PBE, XC_GGA_C_PBE, XC_LDA_C_PW_MOD};
+  static double funcs_coef[3] = {0.0, 0.0, 0.0};
+  xc_mix_init(p, 3, funcs_id, funcs_coef);
+  xc_hyb_init_hybrid(p, 0.0);
+}
+
+static void
+relpbe_set_ext_params(xc_func_type *p, const double *ext_params)
+{
+  /* Input parameters */
+  double cx;
+  double scalggac;
+  double scalldac;
+  double xkappa;
+  double cbetapbe;
+  double xmuepbe;
+
+  /* Arrays to pass parameters to internal PBE functionals */
+  double xpars[2];
+  double cpars[3];
+
+  assert(p != NULL);
+  cx = get_ext_param(p, ext_params, 0);
+  scalggac = get_ext_param(p, ext_params, 1);
+  scalldac = get_ext_param(p, ext_params, 2);
+  xkappa = get_ext_param(p, ext_params, 3);
+  cbetapbe = get_ext_param(p, ext_params, 4);
+  xmuepbe = get_ext_param(p, ext_params, 5);
+
+  /* Collect exchange and correlation parameters */
+  xpars[0] = xkappa;
+  xpars[1] = xmuepbe;
+  cpars[0] = cbetapbe;
+  cpars[1] = 0.031090690869654895034; /* PBE default value */
+  cpars[2] = 1.0; /* PBE default value */
+
+  /* Set x and c parameters */
+  xc_func_set_ext_params(p->func_aux[0], xpars);
+  xc_func_set_ext_params(p->func_aux[1], cpars);
+
+  /* Set mixing parameters */
+  p->mix_coef[0] = 1.0 - cx;
+  p->mix_coef[1] = scalggac;
+  p->mix_coef[2] = scalldac-scalggac;
+
+  p->cam_alpha = cx;
+}
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_hyb_gga_xc_relpbe0 = {
+  XC_HYB_GGA_XC_RELPBE0,
+  XC_EXCHANGE_CORRELATION,
+  "relPBE0 a.k.a. relPBE: PBE0 refitted for actinide compounds",
+  XC_FAMILY_GGA,
+  {&xc_ref_Mitrofanov2021_161103, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
+  1e-15,
+  {RELPBE_N_PAR, relpbe_names, relpbe_desc, relpbe_values, relpbe_set_ext_params},
+  hyb_gga_xc_relpbe_init,
   NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
 };

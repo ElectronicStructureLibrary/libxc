@@ -256,6 +256,7 @@ extern func_reference_type xc_ref_Menconi2001_3958;
 extern func_reference_type xc_ref_Meyer1976_898;
 extern func_reference_type xc_ref_Mezei2018_2469;
 extern func_reference_type xc_ref_Miehlich1989_200;
+extern func_reference_type xc_ref_Mitrofanov2021_161103;
 extern func_reference_type xc_ref_Mortensen2005_216401;
 extern func_reference_type xc_ref_Mosquera2016_1605;
 extern func_reference_type xc_ref_Moussa2012_204117;

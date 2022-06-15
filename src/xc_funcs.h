@@ -322,6 +322,7 @@
 #define  XC_GGA_C_PBE_GAUSSIAN             322 /* Perdew, Burke & Ernzerhof with parameters from Gaussian */
 #define  XC_MGGA_C_TPSS_GAUSSIAN           323 /* Tao, Perdew, Staroverov & Scuseria with parameters from Gaussian */
 #define  XC_GGA_X_NCAPR                    324 /* Nearly correct asymptotic potential revised */
+#define  XC_HYB_GGA_XC_RELPBE0             325 /* relPBE0 a.k.a. relPBE: PBE0 refitted for actinide compounds */
 #define  XC_GGA_XC_B97_3C                  327 /* Becke 97-3c by Grimme et. al. */
 #define  XC_MGGA_C_CC                      387 /* Self-interaction corrected correlation functional by Schmidt et al */
 #define  XC_MGGA_C_CCALDA                  388 /* Iso-orbital corrected LDA correlation by Lebeda et al */

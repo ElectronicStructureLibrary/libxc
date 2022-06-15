@@ -520,6 +520,7 @@ func_{}_{}(const xc_func_type *p, size_t ip, {}, {})
 
       out.write("}\n\n")
       out.write("#endif\n\n")
+      out.flush()
       
 
   out.close()

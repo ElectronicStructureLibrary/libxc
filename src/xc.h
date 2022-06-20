@@ -17,6 +17,8 @@ extern "C" {
 const char *xc_reference();
 /* Get the doi for the literature reference for libxc */
 const char *xc_reference_doi();
+/* Get the key for the literature reference for libxc */
+const char *xc_reference_key();
 
 /* Get the major, minor, and micro version of libxc */
 void xc_version(int *major, int *minor, int *micro);
@@ -154,12 +156,13 @@ const char *xc_version_string();
 struct xc_func_type;
 
 typedef struct{
-  const char *ref, *doi, *bibtex;
+  const char *ref, *doi, *bibtex, *key;
 } func_reference_type;
 
-char const *xc_func_reference_get_ref(const func_reference_type *reference);
-char const *xc_func_reference_get_doi(const func_reference_type *reference);
-char const *xc_func_reference_get_bibtex(const func_reference_type *reference);
+const char *xc_func_reference_get_ref(const func_reference_type *reference);
+const char *xc_func_reference_get_doi(const func_reference_type *reference);
+const char *xc_func_reference_get_bibtex(const func_reference_type *reference);
+const char *xc_func_reference_get_key(const func_reference_type *reference);
 
 
 typedef struct{

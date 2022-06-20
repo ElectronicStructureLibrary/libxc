@@ -11,7 +11,7 @@ class func_reference_type(ctypes.Structure):
     Holds reference data for the LibXC functional
     """
     _fields_ = [("ref", ctypes.c_char_p), ("doi", ctypes.c_char_p),
-                ("bibtex", ctypes.c_char_p)]
+                ("bibtex", ctypes.c_char_p), ("key", ctypes.c_char_p)]
 
 
 class func_params_type(ctypes.Structure):

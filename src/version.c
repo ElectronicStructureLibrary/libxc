@@ -34,3 +34,7 @@ const char *xc_reference() {
 const char *xc_reference_doi() {
   return xc_ref_Lehtola2018_1.doi;
 }
+
+const char *xc_reference_key() {
+  return xc_ref_Lehtola2018_1.key;
+}

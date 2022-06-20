@@ -91,6 +91,7 @@ int main(int argc, char **argv)
     if(strlen(func.info->refs[i]->doi) > 0){
        printf("     doi: %s\n", func.info->refs[i]->doi);
     }
+    printf("     bibtex key: %s\n", func.info->refs[i]->key);
   }
 
   printf("\nImplementation has support for:\n");

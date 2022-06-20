@@ -16,6 +16,7 @@ core.xc_version.restype = None
 core.xc_version_string.restype = ctypes.c_char_p
 core.xc_reference.restype = ctypes.c_char_p
 core.xc_reference_doi.restype = ctypes.c_char_p
+core.xc_reference_key.restype = ctypes.c_char_p
 
 core.xc_functional_get_number.argtypes = (ctypes.c_char_p, )
 core.xc_functional_get_number.restype = ctypes.c_int
@@ -108,6 +109,24 @@ def xc_reference_doi():
 
     """
     return core.xc_reference_doi().decode("UTF-8")
+
+
+def xc_reference_key():
+    """
+    Returns the citation key of the reference for the current LibXC version as a string.
+
+    Returns
+    -------
+    doi : str
+        The string representation of the doi of the literature reference for LibXC.
+
+    Examples
+    --------
+    >>> pylibxc.util.xc_reference_key()
+    "Lehtola2018_1"
+
+    """
+    return core.xc_reference_key().decode("UTF-8")
 
 
 def xc_functional_get_number(name):

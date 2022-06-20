@@ -261,7 +261,7 @@ func_reference_type xc_ref_Bircher2018_3184 = {
 func_reference_type xc_ref_Bloch1929_545 = {
   "F. Bloch.,  Z. Phys. 57, 545 (1929)",
   "10.1007/BF01340281",
-  "@article{Bloch1929_545,\n  author = {Bloch, F.},\n  title = {Bemerkung zur {Elektronentheorie} des {Ferromagnetismus} und der elektrischen {Leitf\\\"{a}higkeit}},\n  journal = {Z. Phys.},\n  volume = {57},\n  number = {7-8},\n  pages = {545},\n  year = {1929},\n  issn = {0044-3328},\n  publisher = {Springer-Verlag},\n  language = {German},\n  doi = {10.1007/BF01340281},\n  url = {http://link.springer.com/article/10.1007\\\\%2FBF01340281}\n}\n",
+  "@article{Bloch1929_545,\n  author = {Bloch, F.},\n  title = {Bemerkung zur {Elektronentheorie} des {Ferromagnetismus} und der elektrischen {Leitf\\\"{a}higkeit}},\n  journal = {Z. Phys.},\n  volume = {57},\n  number = {7-8},\n  pages = {545},\n  year = {1929},\n  issn = {0044-3328},\n  publisher = {{Springer}-{Verlag}},\n  doi = {10.1007/BF01340281},\n  url = {http://link.springer.com/article/10.1007\\\\%2FBF01340281}\n}\n",
   "Bloch1929_545"
 };
 
@@ -317,7 +317,7 @@ func_reference_type xc_ref_Bremond2011_024106 = {
 func_reference_type xc_ref_Bremond2012_1184 = {
   "E. Brémond, D. Pilard, I. Ciofini, H. Chermette, C. Adamo, and P. Cortona.,  Theor. Chem. Acc. 131, 1184 (2012)",
   "10.1007/s00214-012-1184-0",
-  "@article{Bremond2012_1184,\n  author = {Br\\'{e}mond, E. and Pilard, D. and Ciofini, I. and Chermette, H. and Adamo, C. and Cortona, P.},\n  title = {Generalized gradient exchange functionals based on the gradient-regulated connection: a new member of the {TCA} family},\n  journal = {Theor. Chem. Acc.},\n  volume = {131},\n  number = {3},\n  pages = {1184},\n  year = {2012},\n  issn = {1432-881X},\n  doi = {10.1007/s00214-012-1184-0},\n  url = {http://link.springer.com/article/10.1007\\\\%2Fs00214-012-1184-0},\n  publisher = {Springer-Verlag},\n  language = {English}\n}\n",
+  "@article{Bremond2012_1184,\n  author = {Br\\'{e}mond, E. and Pilard, D. and Ciofini, I. and Chermette, H. and Adamo, C. and Cortona, P.},\n  title = {Generalized gradient exchange functionals based on the gradient-regulated connection: a new member of the {TCA} family},\n  journal = {Theor. Chem. Acc.},\n  volume = {131},\n  number = {3},\n  pages = {1184},\n  year = {2012},\n  issn = {1432-881X},\n  doi = {10.1007/s00214-012-1184-0},\n  url = {http://link.springer.com/article/10.1007\\\\%2Fs00214-012-1184-0},\n  publisher = {Springer-Verlag}\n}\n",
   "Bremond2012_1184"
 };
 
@@ -527,7 +527,7 @@ func_reference_type xc_ref_Cohen2007_191109 = {
 func_reference_type xc_ref_Colle1975_329 = {
   "R. Colle and O. Salvetti.,  Theor. Chim. Acta 37, 329 (1975)",
   "10.1007/BF01028401",
-  "@article{Colle1975_329,\n  author = {Colle, R. and Salvetti, O.},\n  title = {Approximate calculation of the correlation energy for the closed shells},\n  journal = {Theor. Chim. Acta},\n  volume = {37},\n  number = {4},\n  pages = {329},\n  year = {1975},\n  issn = {0040-5744},\n  publisher = {Springer-Verlag},\n  language = {English},\n  doi = {10.1007/BF01028401},\n  url = {http://link.springer.com/article/10.1007\\\\%2FBF01028401}\n}\n",
+  "@article{Colle1975_329,\n  author = {Colle, R. and Salvetti, O.},\n  title = {Approximate calculation of the correlation energy for the closed shells},\n  journal = {Theor. Chim. Acta},\n  volume = {37},\n  number = {4},\n  pages = {329},\n  year = {1975},\n  issn = {0040-5744},\n  publisher = {Springer-Verlag},\n  doi = {10.1007/BF01028401},\n  url = {http://link.springer.com/article/10.1007\\\\%2FBF01028401}\n}\n",
   "Colle1975_329"
 };
 
@@ -2158,7 +2158,7 @@ func_reference_type xc_ref_Rasanen2010_044112 = {
 func_reference_type xc_ref_Reiher2001_48 = {
   "M. Reiher, O. Salomon, and B. A. Hess.,  Theor. Chem. Acc. 107, 48-55 (2001)",
   "10.1007/s00214-001-0300-3",
-  "@article{Reiher2001_48,\n  author = {Reiher, M. and Salomon, O. and Hess, B. A.},\n  title = {Reparameterization of hybrid functionals based on energy differences of states of different multiplicity},\n  journal = {Theor. Chem. Acc.},\n  volume = {107},\n  number = {1},\n  pages = {48-55},\n  year = {2001},\n  issn = {1432-881X},\n  publisher = {Springer-Verlag},\n  language = {English},\n  doi = {10.1007/s00214-001-0300-3},\n  url = {https://doi.org/10.1007/s00214-001-0300-3}\n}\n",
+  "@article{Reiher2001_48,\n  author = {Reiher, M. and Salomon, O. and Hess, B. A.},\n  title = {Reparameterization of hybrid functionals based on energy differences of states of different multiplicity},\n  journal = {Theor. Chem. Acc.},\n  volume = {107},\n  number = {1},\n  pages = {48-55},\n  year = {2001},\n  issn = {1432-881X},\n  publisher = {Springer-Verlag},\n  doi = {10.1007/s00214-001-0300-3},\n  url = {https://doi.org/10.1007/s00214-001-0300-3}\n}\n",
   "Reiher2001_48"
 };
 
@@ -2732,7 +2732,7 @@ func_reference_type xc_ref_Weintraub2009_754 = {
 func_reference_type xc_ref_Weizsacker1935_431 = {
   "C. F. von Weizsäcker.,  Z. Phys. 96, 431 (1935)",
   "10.1007/BF01337700",
-  "@article{Weizsacker1935_431,\n  author = {von Weizs\\\"acker, C. F.},\n  title = {Zur {Theorie} der {Kernmassen}},\n  journal = {Z. Phys.},\n  volume = {96},\n  number = {7-8},\n  pages = {431},\n  year = {1935},\n  issn = {0044-3328},\n  publisher = {Springer-Verlag},\n  language = {German},\n  doi = {10.1007/BF01337700},\n  url = {http://link.springer.com/article/10.1007\\\\%2FBF01337700}\n}\n",
+  "@article{Weizsacker1935_431,\n  author = {von Weizs\\\"acker, C. F.},\n  title = {Zur {Theorie} der {Kernmassen}},\n  journal = {Z. Phys.},\n  volume = {96},\n  number = {7-8},\n  pages = {431},\n  year = {1935},\n  issn = {0044-3328},\n  publisher = {Springer-Verlag},\n  doi = {10.1007/BF01337700},\n  url = {http://link.springer.com/article/10.1007\\\\%2FBF01337700}\n}\n",
   "Weizsacker1935_431"
 };
 
@@ -2956,7 +2956,7 @@ func_reference_type xc_ref_Zhao2008_1849 = {
 func_reference_type xc_ref_Zhao2008_215 = {
   "Y. Zhao and D. G. Truhlar.,  Theor. Chem. Acc. 120, 215 (2008)",
   "10.1007/s00214-007-0310-x",
-  "@article{Zhao2008_215,\n  author = {Zhao, Y. and Truhlar, D. G.},\n  title = {The {M06} suite of density functionals for main group thermochemistry, thermochemical kinetics, noncovalent interactions, excited states, and transition elements: two new functionals and systematic testing of four {M06}-class functionals and 12 other functionals},\n  journal = {Theor. Chem. Acc.},\n  volume = {120},\n  number = {1-3},\n  pages = {215},\n  year = {2008},\n  issn = {1432-881X},\n  publisher = {Springer-Verlag},\n  language = {English},\n  doi = {10.1007/s00214-007-0310-x},\n  url = {http://link.springer.com/article/10.1007\\\\%2Fs00214-007-0310-x}\n}\n",
+  "@article{Zhao2008_215,\n  author = {Zhao, Y. and Truhlar, D. G.},\n  title = {The {M06} suite of density functionals for main group thermochemistry, thermochemical kinetics, noncovalent interactions, excited states, and transition elements: two new functionals and systematic testing of four {M06}-class functionals and 12 other functionals},\n  journal = {Theor. Chem. Acc.},\n  volume = {120},\n  number = {1-3},\n  pages = {215},\n  year = {2008},\n  issn = {1432-881X},\n  publisher = {Springer-Verlag},\n  doi = {10.1007/s00214-007-0310-x},\n  url = {http://link.springer.com/article/10.1007\\\\%2Fs00214-007-0310-x}\n}\n",
   "Zhao2008_215"
 };
 

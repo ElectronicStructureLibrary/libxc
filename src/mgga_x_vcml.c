@@ -24,7 +24,7 @@ const xc_func_info_type xc_func_info_mgga_x_vcml = {
   XC_EXCHANGE,
   "Exchange part of VCML-rVV10 by Trepte and Voss",
   XC_FAMILY_MGGA,
-  {&xc_ref_Trepte2022, NULL, NULL, NULL, NULL},
+  {&xc_ref_Trepte2022_1104, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
   {0, NULL, NULL, NULL, NULL},
@@ -51,7 +51,7 @@ const xc_func_info_type xc_func_info_mgga_xc_vcml_rvv10 = {
   XC_EXCHANGE_CORRELATION,
   "VCML-rVV10 by Trepte and Voss",
   XC_FAMILY_MGGA,
-  {&xc_ref_Trepte2022, NULL, NULL, NULL, NULL},
+  {&xc_ref_Trepte2022_1104, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_VV10, /* TBD: this should be rvv10 */
   1e-15,
   {0, NULL, NULL, NULL, NULL},

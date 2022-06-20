@@ -242,7 +242,7 @@ extern "C"
 const xc_func_info_type xc_func_info_gga_k_absp1 = {
   XC_GGA_K_ABSP1,
   XC_KINETIC,
-  "gamma-TFvW form by Acharya et al [g = 1 - 1.412/N^(1/3)]",
+  "gamma-TFvW form by Acharya et al [$g = 1 - 1.412/N^{1/3}$]",
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
@@ -258,7 +258,7 @@ extern "C"
 const xc_func_info_type xc_func_info_gga_k_absp2 = {
   XC_GGA_K_ABSP2,
   XC_KINETIC,
-  "gamma-TFvW form by Acharya et al [g = 1 - 1.332/N^(1/3)]",
+  "gamma-TFvW form by Acharya et al [$g = 1 - 1.332/N^{1/3}$]",
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
@@ -274,7 +274,7 @@ extern "C"
 const xc_func_info_type xc_func_info_gga_k_absp3 = {
   XC_GGA_K_ABSP3,
   XC_KINETIC,
-  "gamma-TFvW form by Acharya et al [g = 1 - 1.513/N^0.35]",
+  "gamma-TFvW form by Acharya et al [$g = 1 - 1.513/N^{0.35}]$",
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
@@ -290,7 +290,7 @@ extern "C"
 const xc_func_info_type xc_func_info_gga_k_absp4 = {
   XC_GGA_K_ABSP4,
   XC_KINETIC,
-  "gamma-TFvW form by Acharya et al [g = l = 1/(1 + 1.332/N^(1/3))]",
+  "gamma-TFvW form by Acharya et al [$g = l = 1/(1 + 1.332/N^{1/3})$]",
   XC_FAMILY_GGA,
   {&xc_ref_Acharya1980_6978, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,

@@ -39,7 +39,7 @@ extern "C"
 const xc_func_info_type xc_func_info_mgga_x_r4scan = {
   XC_MGGA_X_R4SCAN,
   XC_EXCHANGE,
-  "r^4SCAN, a functional that satisfies the same exact constraints that SCAN does",
+  "r$^{4}$SCAN, a functional that satisfies the same exact constraints that SCAN does",
   XC_FAMILY_MGGA,
   {&xc_ref_Furness2022_034109, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,

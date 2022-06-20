@@ -40,7 +40,7 @@ extern "C"
 const xc_func_info_type xc_func_info_gga_k_rational_p = {
   XC_GGA_K_RATIONAL_P,
   XC_KINETIC,
-  "RATIONAL^p by Lehtomaki and Lopez-Acevedo (by default p=3/2, C2=0.7687)",
+  "RATIONAL$^{p}$ by Lehtomaki and Lopez-Acevedo (by default $p=3/2$, $C_{2}=0.7687$)",
   XC_FAMILY_GGA,
   {&xc_ref_Lehtomaki2019_165111, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,

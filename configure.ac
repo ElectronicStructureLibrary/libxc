@@ -136,8 +136,6 @@ AC_LANG_PREPROC
 AM_PROG_CC_C_O
 AC_C_INLINE
 
-# Checks for header files.
-AC_HEADER_STDC
 AC_FUNC_ALLOCA
 
 # Checks for typedefs, structures, and compiler characteristics.
@@ -145,6 +143,12 @@ AC_CHECK_SIZEOF(void*)
 
 # Need BASH to run tests
 AC_CHECK_PROG([BASH_SHELL],[bash],[yes])
+
+# Set C99 standard
+AX_CHECK_COMPILE_FLAG([-std=c99],
+  [AX_APPEND_FLAG([-std=c99])],
+  [AC_MSG_WARN([-std=c99 not supported, you may have to set CFLAGS explicitly to enable C99 support.])
+])
 
 # Check for presence of some C99 libm functions
 AC_CHECK_LIB([m],[cbrt],[AC_DEFINE([HAVE_CBRT],[1],[libm includes cbrt])])

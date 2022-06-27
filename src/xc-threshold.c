@@ -805,7 +805,8 @@ size_t check_xc(int id, int nspin, xc_values_type values, double threshold) {
 
   /* Check the output for NaNs */
   double *ptr = (double *)&values;
-  for (int i = 0; i < (int) (sizeof(xc_values_type) / sizeof(double)); i++)
+  int i;
+  for (i = 0; i < (int) (sizeof(xc_values_type) / sizeof(double)); i++)
     /* We have encountered an infinity or NaN */
     if (!isfinite(ptr[i])) {
 #ifdef XC_DEBUG

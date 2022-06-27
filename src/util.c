@@ -932,6 +932,7 @@ internal_counters_mgga_prev
 */
 GPU_FUNCTION void
 xc_bspline(int i, int p, double u, int nderiv, const double *U, double *ders) {
+  int j, jj, k;
 
   /* Initialize output array */
   libxc_memset(ders, 0, (nderiv+1)*sizeof(double));
@@ -950,15 +951,15 @@ xc_bspline(int i, int p, double u, int nderiv, const double *U, double *ders) {
   libxc_memset(N, 0, PMAX*PMAX*sizeof(double));
 
   /* Initialize zeroth-degree functions: piecewise constants */
-  for(int j=0; j<=p; j++) {
+  for(j=0; j<=p; j++) {
     N[0][j] = (u >= U[i+j] && u < U[i+j+1]) ? 1.0 : 0.0;
   }
 
   /* Fill out table of B splines */
-  for(int k=1; k<=p; k++) {
+  for(k=1; k<=p; k++) {
     double saved = (N[k-1][0] == 0.0) ? 0.0 : ((u-U[i])*N[k-1][0])/(U[i+k]-U[i]);
 
-    for(int j=0; j<=p-k; j++) {
+    for(j=0; j<=p-k; j++) {
       double Ul = U[i+j+1];
       double Ur = U[i+j+k+1];
       if(N[k-1][j+1] == 0.0) {
@@ -983,17 +984,17 @@ xc_bspline(int i, int p, double u, int nderiv, const double *U, double *ders) {
   int maxk = (nderiv < p) ? nderiv : p;
 
   /* Compute derivatives */
-  for(int k=1; k<=maxk; k++) {
+  for(k=1; k<=maxk; k++) {
     /* Load appropriate column */
     libxc_memset(ND, 0, (nderiv+1)*sizeof(double));
-    for(int j=0; j<=k; j++)
+    for(j=0; j<=k; j++)
       ND[j] = N[p-k][j];
 
     /* Compute table */
-    for(int jj=1; jj<=k; jj++) {
+    for(jj=1; jj<=k; jj++) {
       double saved = (ND[0] == 0.0) ? 0.0 : ND[0]/(U[i+p-k+jj]-U[i]);
 
-      for(int j=0; j<=k-jj; j++) {
+      for(j=0; j<=k-jj; j++) {
         double Ul = U[i+j+1];
         /* the -k term is missing in the book */
         double Ur = U[i+j+p-k+jj+1];

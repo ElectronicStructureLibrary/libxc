@@ -49,7 +49,9 @@ GPU_DEVICE_FUNCTION static double xbspline(double u, int ider, const hyb_gga_xc_
 
   double result=0.0;
   double temp[5]; /* dimension ider+1 */
-  for(int i=0;i<params->Nsp;i++) {
+  int i;
+
+  for(i=0;i<params->Nsp;i++) {
     xc_bspline(i, params->k, u, ider, params->knots, temp);
     result += params->cx[i]*temp[ider];
   }
@@ -62,7 +64,8 @@ GPU_DEVICE_FUNCTION static double cbspline(double u, int ider, const hyb_gga_xc_
 
   double result=0.0;
   double temp[5]; /* dimension ider+1 */
-  for(int i=0;i<params->Nsp;i++) {
+  int i;
+  for(i=0;i<params->Nsp;i++) {
     xc_bspline(i, params->k, u, ider, params->knots, temp);
     result += params->cc[i]*temp[ider];
   }
@@ -83,14 +86,16 @@ case21_set_ext_params(xc_func_type *p, const double *ext_params)
   double qmax = params->Nsp*1.0/(params->Nsp - params->k);
   int nknots = params->Nsp + params->k + 1;
   double dq  = (qmax - qmin)/(nknots-1);
-  for(int k=0; k<nknots; k++) {
+  int i, k;
+
+  for(k=0; k<nknots; k++) {
     params->knots[k] = qmin+k*dq;
   }
 
   /* External parameters */
-  for(int i=0;i<params->Nsp;i++)
+  for(i=0;i<params->Nsp;i++)
     params->cx[i] = ext_params[i];
-  for(int i=0;i<params->Nsp;i++)
+  for(i=0;i<params->Nsp;i++)
     params->cc[i] = ext_params[i + params->Nsp];
   params->gammax = ext_params[2*params->Nsp];
   params->gammac = ext_params[2*params->Nsp+1];

@@ -234,10 +234,10 @@ class LibXCFunctional(object):
         self._xc_func_init = True
 
         # Pull out all sizes after init
-        self.xc_func_size_names = [x for x in dir(self.xc_func.contents.dim.contents.named) if "_" not in x]
+        self.xc_func_size_names = [x for x in dir(self.xc_func.contents.out_dim.contents.named) if "_" not in x]
         self.xc_func_sizes = {}
         for attr in self.xc_func_size_names:
-            self.xc_func_sizes[attr] = getattr(self.xc_func.contents.dim.contents.named, attr)
+            self.xc_func_sizes[attr] = getattr(self.xc_func.contents.out_dim.contents.named, attr)
 
         # Unpack functional info
         self.xc_func_info = core.xc_func_get_info(self.xc_func)

@@ -73,7 +73,7 @@ xc_deorbitalize_init(xc_func_type *p, int mgga_id, int ked_id)
   xc_func_init (p->func_aux[1], ked_id,  p->nspin);
 }
 
-#define VAR(var, ip, index)        var[ip*p->dim->var + index]
+#define VAR(var, ip, index)        var[ip*p->out_dim->var + index]
 static void
 deorb_work(const xc_func_type *p,
            const xc_input_variables *in, xc_output_variables *out)
@@ -100,11 +100,11 @@ deorb_work(const xc_func_type *p,
   in2 = xc_input_variables_allocate(-1, XC_FAMILY_MGGA, 0, 0);
   in2->np = in->np;
   
-  mtau = (double *) libxc_malloc(in->np*p->dim->tau*sizeof(double));
+  mtau = (double *) libxc_malloc(in->np*p->inp_dim->tau*sizeof(double));
   if(p->nspin == XC_POLARIZED){
-    mrho   = (double *) libxc_malloc(in->np*p->dim->rho*sizeof(double));
-    msigma = (double *) libxc_malloc(in->np*p->dim->sigma*sizeof(double));
-    mlapl  = (double *) libxc_malloc(in->np*p->dim->lapl*sizeof(double));
+    mrho   = (double *) libxc_malloc(in->np*p->inp_dim->rho*sizeof(double));
+    msigma = (double *) libxc_malloc(in->np*p->inp_dim->sigma*sizeof(double));
+    mlapl  = (double *) libxc_malloc(in->np*p->inp_dim->lapl*sizeof(double));
   }
 
   /* 

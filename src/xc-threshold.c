@@ -100,373 +100,375 @@ typedef struct {
 
 void index_lookup(int idx, char *legend) {
   int offset = 0;
-  const xc_dimensions *dim = &dimensions_polarized;
-  if (idx < offset + dim->rho) {
+  const xc_input_variables_dimensions  *inp_dim =  input_variables_dimensions_get(XC_POLARIZED);
+  const xc_output_variables_dimensions *out_dim = output_variables_dimensions_get(XC_POLARIZED);
+
+  if (idx < offset + inp_dim->rho) {
     sprintf(legend, "rho[%i]", idx - offset);
     return;
   }
-  offset += dim->rho;
-  if (idx < offset + dim->sigma) {
+  offset += inp_dim->rho;
+  if (idx < offset + inp_dim->sigma) {
     sprintf(legend, "sigma[%i]", idx - offset);
     return;
   }
-  offset += dim->sigma;
-  if (idx < offset + dim->lapl) {
+  offset += inp_dim->sigma;
+  if (idx < offset + inp_dim->lapl) {
     sprintf(legend, "lapl[%i]", idx - offset);
     return;
   }
-  offset += dim->lapl;
-  if (idx < offset + dim->tau) {
+  offset += inp_dim->lapl;
+  if (idx < offset + inp_dim->tau) {
     sprintf(legend, "tau[%i]", idx - offset);
     return;
   }
-  offset += dim->tau;
+  offset += inp_dim->tau;
 
-  if (idx < offset + dim->vrho) {
+  if (idx < offset + out_dim->vrho) {
     sprintf(legend, "vrho[%i]", idx - offset);
     return;
   }
-  offset += dim->vrho;
-  if (idx < offset + dim->vsigma) {
+  offset += out_dim->vrho;
+  if (idx < offset + out_dim->vsigma) {
     sprintf(legend, "vsigma[%i]", idx - offset);
     return;
   }
-  offset += dim->vsigma;
-  if (idx < offset + dim->vlapl) {
+  offset += out_dim->vsigma;
+  if (idx < offset + out_dim->vlapl) {
     sprintf(legend, "vlapl[%i]", idx - offset);
     return;
   }
-  offset += dim->vlapl;
-  if (idx < offset + dim->vtau) {
+  offset += out_dim->vlapl;
+  if (idx < offset + out_dim->vtau) {
     sprintf(legend, "vtau[%i]", idx - offset);
     return;
   }
-  offset += dim->vtau;
-  if (idx < offset + dim->v2rho2) {
+  offset += out_dim->vtau;
+  if (idx < offset + out_dim->v2rho2) {
     sprintf(legend, "v2rho2[%i]", idx - offset);
     return;
   }
-  offset += dim->v2rho2;
-  if (idx < offset + dim->v2rhosigma) {
+  offset += out_dim->v2rho2;
+  if (idx < offset + out_dim->v2rhosigma) {
     sprintf(legend, "v2rhosigma[%i]", idx - offset);
     return;
   }
-  offset += dim->v2rhosigma;
-  if (idx < offset + dim->v2sigma2) {
+  offset += out_dim->v2rhosigma;
+  if (idx < offset + out_dim->v2sigma2) {
     sprintf(legend, "v2sigma2[%i]", idx - offset);
     return;
   }
-  offset += dim->v2sigma2;
-  if (idx < offset + dim->v2rholapl) {
+  offset += out_dim->v2sigma2;
+  if (idx < offset + out_dim->v2rholapl) {
     sprintf(legend, "v2rholapl[%i]", idx - offset);
     return;
   }
-  offset += dim->v2rholapl;
-  if (idx < offset + dim->v2sigmalapl) {
+  offset += out_dim->v2rholapl;
+  if (idx < offset + out_dim->v2sigmalapl) {
     sprintf(legend, "v2sigmalapl[%i]", idx - offset);
     return;
   }
-  offset += dim->v2sigmalapl;
-  if (idx < offset + dim->v2lapl2) {
+  offset += out_dim->v2sigmalapl;
+  if (idx < offset + out_dim->v2lapl2) {
     sprintf(legend, "v2lapl2[%i]", idx - offset);
     return;
   }
-  offset += dim->v2lapl2;
-  if (idx < offset + dim->v2rhotau) {
+  offset += out_dim->v2lapl2;
+  if (idx < offset + out_dim->v2rhotau) {
     sprintf(legend, "v2rhotau[%i]", idx - offset);
     return;
   }
-  offset += dim->v2rhotau;
-  if (idx < offset + dim->v2sigmatau) {
+  offset += out_dim->v2rhotau;
+  if (idx < offset + out_dim->v2sigmatau) {
     sprintf(legend, "v2sigmatau[%i]", idx - offset);
     return;
   }
-  offset += dim->v2sigmatau;
-  if (idx < offset + dim->v2lapltau) {
+  offset += out_dim->v2sigmatau;
+  if (idx < offset + out_dim->v2lapltau) {
     sprintf(legend, "v2lapltau[%i]", idx - offset);
     return;
   }
-  offset += dim->v2lapltau;
-  if (idx < offset + dim->v2tau2) {
+  offset += out_dim->v2lapltau;
+  if (idx < offset + out_dim->v2tau2) {
     sprintf(legend, "v2tau2[%i]", idx - offset);
     return;
   }
-  offset += dim->v2tau2;
-  if (idx < offset + dim->v3rho3) {
+  offset += out_dim->v2tau2;
+  if (idx < offset + out_dim->v3rho3) {
     sprintf(legend, "v3rho3[%i]", idx - offset);
     return;
   }
-  offset += dim->v3rho3;
-  if (idx < offset + dim->v3rho2sigma) {
+  offset += out_dim->v3rho3;
+  if (idx < offset + out_dim->v3rho2sigma) {
     sprintf(legend, "v3rho2sigma[%i]", idx - offset);
     return;
   }
-  offset += dim->v3rho2sigma;
-  if (idx < offset + dim->v3rhosigma2) {
+  offset += out_dim->v3rho2sigma;
+  if (idx < offset + out_dim->v3rhosigma2) {
     sprintf(legend, "v3rhosigma2[%i]", idx - offset);
     return;
   }
-  offset += dim->v3rhosigma2;
-  if (idx < offset + dim->v3sigma3) {
+  offset += out_dim->v3rhosigma2;
+  if (idx < offset + out_dim->v3sigma3) {
     sprintf(legend, "v3sigma3[%i]", idx - offset);
     return;
   }
-  offset += dim->v3sigma3;
-  if (idx < offset + dim->v3rho2lapl) {
+  offset += out_dim->v3sigma3;
+  if (idx < offset + out_dim->v3rho2lapl) {
     sprintf(legend, "v3rho2lapl[%i]", idx - offset);
     return;
   }
-  offset += dim->v3rho2lapl;
-  if (idx < offset + dim->v3rhosigmalapl) {
+  offset += out_dim->v3rho2lapl;
+  if (idx < offset + out_dim->v3rhosigmalapl) {
     sprintf(legend, "v3rhosigmalapl[%i]", idx - offset);
     return;
   }
-  offset += dim->v3rhosigmalapl;
-  if (idx < offset + dim->v3sigma2lapl) {
+  offset += out_dim->v3rhosigmalapl;
+  if (idx < offset + out_dim->v3sigma2lapl) {
     sprintf(legend, "v3sigma2lapl[%i]", idx - offset);
     return;
   }
-  offset += dim->v3sigma2lapl;
-  if (idx < offset + dim->v3rholapl2) {
+  offset += out_dim->v3sigma2lapl;
+  if (idx < offset + out_dim->v3rholapl2) {
     sprintf(legend, "v3rholapl2[%i]", idx - offset);
     return;
   }
-  offset += dim->v3rholapl2;
-  if (idx < offset + dim->v3sigmalapl2) {
+  offset += out_dim->v3rholapl2;
+  if (idx < offset + out_dim->v3sigmalapl2) {
     sprintf(legend, "v3sigmalapl2[%i]", idx - offset);
     return;
   }
-  offset += dim->v3sigmalapl2;
-  if (idx < offset + dim->v3lapl3) {
+  offset += out_dim->v3sigmalapl2;
+  if (idx < offset + out_dim->v3lapl3) {
     sprintf(legend, "v3lapl3[%i]", idx - offset);
     return;
   }
-  offset += dim->v3lapl3;
-  if (idx < offset + dim->v3rho2tau) {
+  offset += out_dim->v3lapl3;
+  if (idx < offset + out_dim->v3rho2tau) {
     sprintf(legend, "v3rho2tau[%i]", idx - offset);
     return;
   }
-  offset += dim->v3rho2tau;
-  if (idx < offset + dim->v3rhosigmatau) {
+  offset += out_dim->v3rho2tau;
+  if (idx < offset + out_dim->v3rhosigmatau) {
     sprintf(legend, "v3rhosigmatau[%i]", idx - offset);
     return;
   }
-  offset += dim->v3rhosigmatau;
-  if (idx < offset + dim->v3sigma2tau) {
+  offset += out_dim->v3rhosigmatau;
+  if (idx < offset + out_dim->v3sigma2tau) {
     sprintf(legend, "v3sigma2tau[%i]", idx - offset);
     return;
   }
-  offset += dim->v3sigma2tau;
-  if (idx < offset + dim->v3rholapltau) {
+  offset += out_dim->v3sigma2tau;
+  if (idx < offset + out_dim->v3rholapltau) {
     sprintf(legend, "v3rholapltau[%i]", idx - offset);
     return;
   }
-  offset += dim->v3rholapltau;
-  if (idx < offset + dim->v3sigmalapltau) {
+  offset += out_dim->v3rholapltau;
+  if (idx < offset + out_dim->v3sigmalapltau) {
     sprintf(legend, "v3sigmalapltau[%i]", idx - offset);
     return;
   }
-  offset += dim->v3sigmalapltau;
-  if (idx < offset + dim->v3lapl2tau) {
+  offset += out_dim->v3sigmalapltau;
+  if (idx < offset + out_dim->v3lapl2tau) {
     sprintf(legend, "v3lapl2tau[%i]", idx - offset);
     return;
   }
-  offset += dim->v3lapl2tau;
-  if (idx < offset + dim->v3rhotau2) {
+  offset += out_dim->v3lapl2tau;
+  if (idx < offset + out_dim->v3rhotau2) {
     sprintf(legend, "v3rhotau2[%i]", idx - offset);
     return;
   }
-  offset += dim->v3rhotau2;
-  if (idx < offset + dim->v3sigmatau2) {
+  offset += out_dim->v3rhotau2;
+  if (idx < offset + out_dim->v3sigmatau2) {
     sprintf(legend, "v3sigmatau2[%i]", idx - offset);
     return;
   }
-  offset += dim->v3sigmatau2;
-  if (idx < offset + dim->v3lapltau2) {
+  offset += out_dim->v3sigmatau2;
+  if (idx < offset + out_dim->v3lapltau2) {
     sprintf(legend, "v3lapltau2[%i]", idx - offset);
     return;
   }
-  offset += dim->v3lapltau2;
-  if (idx < offset + dim->v3tau3) {
+  offset += out_dim->v3lapltau2;
+  if (idx < offset + out_dim->v3tau3) {
     sprintf(legend, "v3tau3[%i]", idx - offset);
     return;
   }
-  offset += dim->v3tau3;
-  if (idx < offset + dim->v4rho4) {
+  offset += out_dim->v3tau3;
+  if (idx < offset + out_dim->v4rho4) {
     sprintf(legend, "v4rho4[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rho4;
-  if (idx < offset + dim->v4rho3sigma) {
+  offset += out_dim->v4rho4;
+  if (idx < offset + out_dim->v4rho3sigma) {
     sprintf(legend, "v4rho3sigma[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rho3sigma;
-  if (idx < offset + dim->v4rho2sigma2) {
+  offset += out_dim->v4rho3sigma;
+  if (idx < offset + out_dim->v4rho2sigma2) {
     sprintf(legend, "v4rho2sigma2[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rho2sigma2;
-  if (idx < offset + dim->v4rhosigma3) {
+  offset += out_dim->v4rho2sigma2;
+  if (idx < offset + out_dim->v4rhosigma3) {
     sprintf(legend, "v4rhosigma3[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rhosigma3;
-  if (idx < offset + dim->v4sigma4) {
+  offset += out_dim->v4rhosigma3;
+  if (idx < offset + out_dim->v4sigma4) {
     sprintf(legend, "v4sigma4[%i]", idx - offset);
     return;
   }
-  offset += dim->v4sigma4;
-  if (idx < offset + dim->v4rho3lapl) {
+  offset += out_dim->v4sigma4;
+  if (idx < offset + out_dim->v4rho3lapl) {
     sprintf(legend, "v4rho3lapl[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rho3lapl;
-  if (idx < offset + dim->v4rho2sigmalapl) {
+  offset += out_dim->v4rho3lapl;
+  if (idx < offset + out_dim->v4rho2sigmalapl) {
     sprintf(legend, "v4rho2sigmalapl[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rho2sigmalapl;
-  if (idx < offset + dim->v4rhosigma2lapl) {
+  offset += out_dim->v4rho2sigmalapl;
+  if (idx < offset + out_dim->v4rhosigma2lapl) {
     sprintf(legend, "v4rhosigma2lapl[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rhosigma2lapl;
-  if (idx < offset + dim->v4sigma3lapl) {
+  offset += out_dim->v4rhosigma2lapl;
+  if (idx < offset + out_dim->v4sigma3lapl) {
     sprintf(legend, "v4sigma3lapl[%i]", idx - offset);
     return;
   }
-  offset += dim->v4sigma3lapl;
-  if (idx < offset + dim->v4rho2lapl2) {
+  offset += out_dim->v4sigma3lapl;
+  if (idx < offset + out_dim->v4rho2lapl2) {
     sprintf(legend, "v4rho2lapl2[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rho2lapl2;
-  if (idx < offset + dim->v4rhosigmalapl2) {
+  offset += out_dim->v4rho2lapl2;
+  if (idx < offset + out_dim->v4rhosigmalapl2) {
     sprintf(legend, "v4rhosigmalapl2[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rhosigmalapl2;
-  if (idx < offset + dim->v4sigma2lapl2) {
+  offset += out_dim->v4rhosigmalapl2;
+  if (idx < offset + out_dim->v4sigma2lapl2) {
     sprintf(legend, "v4sigma2lapl2[%i]", idx - offset);
     return;
   }
-  offset += dim->v4sigma2lapl2;
-  if (idx < offset + dim->v4rholapl3) {
+  offset += out_dim->v4sigma2lapl2;
+  if (idx < offset + out_dim->v4rholapl3) {
     sprintf(legend, "v4rholapl3[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rholapl3;
-  if (idx < offset + dim->v4sigmalapl3) {
+  offset += out_dim->v4rholapl3;
+  if (idx < offset + out_dim->v4sigmalapl3) {
     sprintf(legend, "v4sigmalapl3[%i]", idx - offset);
     return;
   }
-  offset += dim->v4sigmalapl3;
-  if (idx < offset + dim->v4lapl4) {
+  offset += out_dim->v4sigmalapl3;
+  if (idx < offset + out_dim->v4lapl4) {
     sprintf(legend, "v4lapl4[%i]", idx - offset);
     return;
   }
-  offset += dim->v4lapl4;
-  if (idx < offset + dim->v4rho3tau) {
+  offset += out_dim->v4lapl4;
+  if (idx < offset + out_dim->v4rho3tau) {
     sprintf(legend, "v4rho3tau[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rho3tau;
-  if (idx < offset + dim->v4rho2sigmatau) {
+  offset += out_dim->v4rho3tau;
+  if (idx < offset + out_dim->v4rho2sigmatau) {
     sprintf(legend, "v4rho2sigmatau[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rho2sigmatau;
-  if (idx < offset + dim->v4rhosigma2tau) {
+  offset += out_dim->v4rho2sigmatau;
+  if (idx < offset + out_dim->v4rhosigma2tau) {
     sprintf(legend, "v4rhosigma2tau[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rhosigma2tau;
-  if (idx < offset + dim->v4sigma3tau) {
+  offset += out_dim->v4rhosigma2tau;
+  if (idx < offset + out_dim->v4sigma3tau) {
     sprintf(legend, "v4sigma3tau[%i]", idx - offset);
     return;
   }
-  offset += dim->v4sigma3tau;
-  if (idx < offset + dim->v4rho2lapltau) {
+  offset += out_dim->v4sigma3tau;
+  if (idx < offset + out_dim->v4rho2lapltau) {
     sprintf(legend, "v4rho2lapltau[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rho2lapltau;
-  if (idx < offset + dim->v4rhosigmalapltau) {
+  offset += out_dim->v4rho2lapltau;
+  if (idx < offset + out_dim->v4rhosigmalapltau) {
     sprintf(legend, "v4rhosigmalapltau[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rhosigmalapltau;
-  if (idx < offset + dim->v4sigma2lapltau) {
+  offset += out_dim->v4rhosigmalapltau;
+  if (idx < offset + out_dim->v4sigma2lapltau) {
     sprintf(legend, "v4sigma2lapltau[%i]", idx - offset);
     return;
   }
-  offset += dim->v4sigma2lapltau;
-  if (idx < offset + dim->v4rholapl2tau) {
+  offset += out_dim->v4sigma2lapltau;
+  if (idx < offset + out_dim->v4rholapl2tau) {
     sprintf(legend, "v4rholapl2tau[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rholapl2tau;
-  if (idx < offset + dim->v4sigmalapl2tau) {
+  offset += out_dim->v4rholapl2tau;
+  if (idx < offset + out_dim->v4sigmalapl2tau) {
     sprintf(legend, "v4sigmalapl2tau[%i]", idx - offset);
     return;
   }
-  offset += dim->v4sigmalapl2tau;
-  if (idx < offset + dim->v4lapl3tau) {
+  offset += out_dim->v4sigmalapl2tau;
+  if (idx < offset + out_dim->v4lapl3tau) {
     sprintf(legend, "v4lapl3tau[%i]", idx - offset);
     return;
   }
-  offset += dim->v4lapl3tau;
-  if (idx < offset + dim->v4rho2tau2) {
+  offset += out_dim->v4lapl3tau;
+  if (idx < offset + out_dim->v4rho2tau2) {
     sprintf(legend, "v4rho2tau2[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rho2tau2;
-  if (idx < offset + dim->v4rhosigmatau2) {
+  offset += out_dim->v4rho2tau2;
+  if (idx < offset + out_dim->v4rhosigmatau2) {
     sprintf(legend, "v4rhosigmatau2[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rhosigmatau2;
-  if (idx < offset + dim->v4sigma2tau2) {
+  offset += out_dim->v4rhosigmatau2;
+  if (idx < offset + out_dim->v4sigma2tau2) {
     sprintf(legend, "v4sigma2tau2[%i]", idx - offset);
     return;
   }
-  offset += dim->v4sigma2tau2;
-  if (idx < offset + dim->v4rholapltau2) {
+  offset += out_dim->v4sigma2tau2;
+  if (idx < offset + out_dim->v4rholapltau2) {
     sprintf(legend, "v4rholapltau2[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rholapltau2;
-  if (idx < offset + dim->v4sigmalapltau2) {
+  offset += out_dim->v4rholapltau2;
+  if (idx < offset + out_dim->v4sigmalapltau2) {
     sprintf(legend, "v4sigmalapltau2[%i]", idx - offset);
     return;
   }
-  offset += dim->v4sigmalapltau2;
-  if (idx < offset + dim->v4lapl2tau2) {
+  offset += out_dim->v4sigmalapltau2;
+  if (idx < offset + out_dim->v4lapl2tau2) {
     sprintf(legend, "v4lapl2tau2[%i]", idx - offset);
     return;
   }
-  offset += dim->v4lapl2tau2;
-  if (idx < offset + dim->v4rhotau3) {
+  offset += out_dim->v4lapl2tau2;
+  if (idx < offset + out_dim->v4rhotau3) {
     sprintf(legend, "v4rhotau3[%i]", idx - offset);
     return;
   }
-  offset += dim->v4rhotau3;
-  if (idx < offset + dim->v4sigmatau3) {
+  offset += out_dim->v4rhotau3;
+  if (idx < offset + out_dim->v4sigmatau3) {
     sprintf(legend, "v4sigmatau3[%i]", idx - offset);
     return;
   }
-  offset += dim->v4sigmatau3;
-  if (idx < offset + dim->v4lapltau3) {
+  offset += out_dim->v4sigmatau3;
+  if (idx < offset + out_dim->v4lapltau3) {
     sprintf(legend, "v4lapltau3[%i]", idx - offset);
     return;
   }
-  offset += dim->v4lapltau3;
-  if (idx < offset + dim->v4tau4) {
+  offset += out_dim->v4lapltau3;
+  if (idx < offset + out_dim->v4tau4) {
     sprintf(legend, "v4tau4[%i]", idx - offset);
     return;
   }
-  offset += dim->v4tau4;
+  offset += out_dim->v4tau4;
 }
 
 void init_values(xc_values_type *xc_values) {

@@ -101,18 +101,33 @@ class xc_func_info_type(ctypes.Structure):
     ]
 
 
-class xc_dimensions_expl(ctypes.Structure):  
+class xc_input_variables_dimensions_expl(ctypes.Structure):  
     """
     Named fields
     """
-    _fields_ = [(i, ctypes.c_int) for i in " ".join(xc_inputs + xc_outputs).split()]
+    _fields_ = [(i, ctypes.c_int) for i in " ".join(xc_inputs).split()]
    
-class xc_dimensions(ctypes.Union):
+class xc_input_variables_dimensions(ctypes.Union):
     """
     Holds dimensions of the several arrays.
     """
 
-    _fields_ = [("named", xc_dimensions_expl), ("vec",  ctypes.POINTER(ctypes.c_int))]
+    _fields_ = [("named", xc_input_variables_dimensions_expl), ("vec",  ctypes.POINTER(ctypes.c_int))]
+
+
+class xc_output_variables_dimensions_expl(ctypes.Structure):  
+    """
+    Named fields
+    """
+    _fields_ = [(i, ctypes.c_int) for i in " ".join(xc_outputs).split()]
+   
+class xc_output_variables_dimensions(ctypes.Union):
+    """
+    Holds dimensions of the several arrays.
+    """
+
+    _fields_ = [("named", xc_output_variables_dimensions_expl), ("vec",  ctypes.POINTER(ctypes.c_int))]
+
 
 class xc_func_type(ctypes.Structure):
     """
@@ -136,7 +151,8 @@ class xc_func_type(ctypes.Structure):
         ("nlc_b", ctypes.c_double),
         ("nlc_C", ctypes.c_double),
 
-        ("dim", ctypes.POINTER(xc_dimensions)),
+        ("inp_dim", ctypes.POINTER(xc_input_variables_dimensions)),
+        ("out_dim", ctypes.POINTER(xc_output_variables_dimensions)),
         
         # parameters
         ("ext_params", ctypes.POINTER(ctypes.c_double)),

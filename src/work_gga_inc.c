@@ -18,7 +18,8 @@
 #endif
 
 /* macro to simpligy accessing the variables */
-#define VAR(var, ip, index)        var[ip*p->dim->var + index]
+#define INP_VAR(var, ip, index)    in->var[ip*p->inp_dim->var + index]
+#define OUT_VAR(var, ip, index)    out->var[ip*p->out_dim->var + index]
 #define WORK_GGA_(order, spin)     work_gga_ ## order ## _ ## spin
 #define WORK_GGA_IP_(order, spin)  work_gga_ip_ ## order ## _ ## spin
 #define FUNC_(order, spin)         func_     ## order ## _ ## spin
@@ -57,21 +58,21 @@ WORK_GGA_IP(ORDER_TXT, SPIN_TXT)
   
   /* screen small densities */
   dens = (p->nspin == XC_POLARIZED) ?
-    in->VAR(rho, ip, 0) + in->VAR(rho, ip, 1) :
-    in->VAR(rho, ip, 0);
+    INP_VAR(rho, ip, 0) + INP_VAR(rho, ip, 1) :
+    INP_VAR(rho, ip, 0);
   if(dens < p->dens_threshold)
     return;
     
   /* sanity check of input parameters */
-  my_rho[0] = m_max(p->dens_threshold, in->VAR(rho, ip, 0));
-  my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, in->VAR(sigma, ip, 0));
+  my_rho[0] = m_max(p->dens_threshold, INP_VAR(rho, ip, 0));
+  my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, INP_VAR(sigma, ip, 0));
   if(p->nspin == XC_POLARIZED){
     double s_ave;
 
-    my_rho[1] = m_max(p->dens_threshold, in->VAR(rho, ip, 1));
-    my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, in->VAR(sigma, ip, 2));
+    my_rho[1] = m_max(p->dens_threshold, INP_VAR(rho, ip, 1));
+    my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, INP_VAR(sigma, ip, 2));
 
-    my_sigma[1] = in->VAR(sigma, ip, 1);
+    my_sigma[1] = INP_VAR(sigma, ip, 1);
     s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
     /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
     my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
@@ -85,28 +86,28 @@ WORK_GGA_IP(ORDER_TXT, SPIN_TXT)
 #ifdef XC_DEBUG
   /* check for NaNs in the output */
   
-  const xc_dimensions *dim = p->dim;
+  const xc_output_variables_dimensions *dim = p->out_dim;
   int ii, is_OK = 1;
 
   if(out->zk != NULL)
-    is_OK = is_OK & isfinite(out->VAR(zk, ip, 0));
+    is_OK = is_OK & isfinite(OUT_VAR(zk, ip, 0));
 
   if(out->vrho != NULL){
     for(ii=0; ii < dim->vrho; ii++)
-      is_OK = is_OK && isfinite(out->VAR(vrho, ip, ii));
+      is_OK = is_OK && isfinite(OUT_VAR(vrho, ip, ii));
     for(ii=0; ii < dim->vsigma; ii++)
-      is_OK = is_OK && isfinite(out->VAR(vsigma, ip, ii));
+      is_OK = is_OK && isfinite(OUT_VAR(vsigma, ip, ii));
   }
 
   if(!is_OK){
     printf("Problem in the evaluation of the functional\n");
     if(p->nspin == XC_UNPOLARIZED){
       printf("./xc-get_data %d 1 %le 0.0 %le 0.0 0.0 0.0 0.0 0.0 0.0\n",
-             p->info->number, in->VAR(rho, ip, 0), in->VAR(sigma, ip, 0));
+             p->info->number, INP_VAR(rho, ip, 0), INP_VAR(sigma, ip, 0));
     }else{
       printf("./xc-get_data %d 2 %le %le %le %le %le 0.0 0.0 0.0 0.0\n",
-             p->info->number, in->VAR(rho, ip, 0), in->VAR(rho, ip, 1),
-             in->VAR(sigma, ip, 0), in->VAR(sigma, ip, 1), in->VAR(sigma, ip, 2));
+             p->info->number, INP_VAR(rho, ip, 0), INP_VAR(rho, ip, 1),
+             INP_VAR(sigma, ip, 0), INP_VAR(sigma, ip, 1), INP_VAR(sigma, ip, 2));
     }
   }
 #endif

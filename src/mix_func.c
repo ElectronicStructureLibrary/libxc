@@ -140,7 +140,7 @@ xc_mix_func(const xc_func_type *func, const xc_input_variables *in, xc_output_va
     {out->zk != NULL, out->vrho != NULL, out->v2rho2 != NULL,
      out->v3rho3 != NULL, out->v4rho4 != NULL};
 
-  const xc_dimensions *dim = func->dim;
+  const xc_output_variables_dimensions *dim = func->out_dim;
 
   max_order = -1;
   for(ii=0; ii <= XC_MAXIMUM_ORDER; ii++){
@@ -184,13 +184,13 @@ xc_mix_func(const xc_func_type *func, const xc_input_variables *in, xc_output_va
         continue;
       /* this could be replaced by a daxpy BLAS call */
 #ifndef HAVE_CUDA      
-      for(ip=0; ip<in->np*dim->fields[ii+5]; ip++)
+      for(ip=0; ip<in->np*dim->fields[ii]; ip++)
         out->fields[ii][ip] += func->mix_coef[ifunc]*xout->fields[ii][ip];
 #else
       size_t nblocks = in->np/CUDA_BLOCK_SIZE;
       if(in->np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
       add_to_mix_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>
-        (in->np*dim->fields[ii+5], out->fields[ii], func->mix_coef[ifunc], xout->fields[ii]);
+        (in->np*dim->fields[ii], out->fields[ii], func->mix_coef[ifunc], xout->fields[ii]);
 #endif
     }
   }

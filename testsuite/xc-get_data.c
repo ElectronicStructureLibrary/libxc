@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
   xc_func_type func;
   xc_input_variables *in;
   xc_output_variables *out;
-  const xc_dimensions *out_dim;
+  const xc_output_variables_dimensions *out_dim;
   
   int functional, nspin, ii, is, ninput;
   int orders[XC_MAXIMUM_ORDER+1] = {1, 1, 1, 0, 0};
@@ -102,11 +102,11 @@ int main(int argc, char *argv[])
   printf("\n");
   
   /* and now we print the output */
-  out_dim = (nspin == XC_UNPOLARIZED) ? &dimensions_unpolarized : &dimensions_polarized;
+  out_dim = output_variables_dimensions_get(nspin);
   for(ninput=0, ii=0; ii<XC_TOTAL_NUMBER_OUTPUT_VARIABLES; ii++){
     if(out->fields[ii] == NULL)
       continue;
-    for(is=0; is<out_dim->fields[5+ii]; is++)
+    for(is=0; is<out_dim->fields[ii]; is++)
       printf("%3d: %20s[%2d] = %#19.12E\n", ninput++,
              xc_output_variables_name[ii], is, out->fields[ii][is]);
   }

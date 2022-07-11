@@ -229,9 +229,6 @@ typedef struct xc_functional_key_t {
 /* The following inlines confuse the xlc compiler */
 GPU_FUNCTION void xc_rho2dzeta(int nspin, const double *rho, double *d, double *zeta);
 
-/* Spin dimensions of the arrays */
-extern const xc_dimensions dimensions_unpolarized, dimensions_polarized;
-
 /* Functionals that are defined as deorbitalized */
 void xc_deorbitalize_init(xc_func_type *p, int mgga_id, int ked_id);
 extern xc_functionals_work_variants xc_deorbitalize_func;

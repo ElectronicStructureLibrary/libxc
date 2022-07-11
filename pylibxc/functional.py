@@ -228,21 +228,16 @@ class LibXCFunctional(object):
 
         # Build the LibXC functional
         self.xc_func = core.xc_func_alloc()
-        self.xc_func_size_names = [x for x in dir(self.xc_func.contents.dim) if "_" not in x]
-
-        # Set all int attributes to zero (not all set to zero in libxc)
-        for attr in self.xc_func_size_names:
-            setattr(self.xc_func.contents, attr, 0)
-
         ret = core.xc_func_init(self.xc_func, func_id, self._spin)
         if ret != 0:
             raise ValueError("LibXC Functional construction did not complete. Error code %d" % ret)
         self._xc_func_init = True
 
         # Pull out all sizes after init
+        self.xc_func_size_names = [x for x in dir(self.xc_func.contents.dim.contents.named) if "_" not in x]
         self.xc_func_sizes = {}
         for attr in self.xc_func_size_names:
-            self.xc_func_sizes[attr] = getattr(self.xc_func.contents.dim, attr)
+            self.xc_func_sizes[attr] = getattr(self.xc_func.contents.dim.contents.named, attr)
 
         # Unpack functional info
         self.xc_func_info = core.xc_func_get_info(self.xc_func)

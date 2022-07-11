@@ -94,7 +94,7 @@
  ! Minnesota GAM exhange functional
  integer(c_int), parameter, public :: XC_GGA_X_GAM  =     32
 
- ! GAM functional from Minnesota
+ ! Minnesota GAM correlation functional
  integer(c_int), parameter, public :: XC_GGA_C_GAM  =     33
 
  ! HCTH-A
@@ -232,10 +232,10 @@
  ! Minnesota M08 correlation functional
  integer(c_int), parameter, public :: XC_MGGA_C_M08_HX  =     78
 
- ! Minnesota N12-SX functional
+ ! Minnesota N12-SX correlation functional
  integer(c_int), parameter, public :: XC_GGA_C_N12_SX  =     79
 
- ! Minnesota N12 functional
+ ! Minnesota N12 correlation functional
  integer(c_int), parameter, public :: XC_GGA_C_N12  =     80
 
  ! Minnesota N12-SX exchange functional
@@ -835,7 +835,7 @@
  ! Boese-Martin for kinetics
  integer(c_int), parameter, public :: XC_HYB_MGGA_X_BMK  =    279
 
- ! Boese-Martin for kinetics
+ ! Boese-Martin correlation for kinetics
  integer(c_int), parameter, public :: XC_GGA_C_BMK  =    280
 
  ! correlation part of tau-hcth
@@ -954,6 +954,24 @@
 
  ! Filatov and Thiel 1998 meta-GGA exchange
  integer(c_int), parameter, public :: XC_MGGA_X_FT98  =    319
+
+ ! Perdew| Burke & Ernzerhof with less precise value for beta
+ integer(c_int), parameter, public :: XC_GGA_X_PBE_MOD  =    320
+
+ ! Perdew| Burke & Ernzerhof with parameter values used in Gaussian
+ integer(c_int), parameter, public :: XC_GGA_X_PBE_GAUSSIAN  =    321
+
+ ! Perdew| Burke & Ernzerhof with parameters from Gaussian
+ integer(c_int), parameter, public :: XC_GGA_C_PBE_GAUSSIAN  =    322
+
+ ! Tao| Perdew| Staroverov & Scuseria with parameters from Gaussian
+ integer(c_int), parameter, public :: XC_MGGA_C_TPSS_GAUSSIAN  =    323
+
+ ! Self-interaction corrected correlation functional by Schmidt et al
+ integer(c_int), parameter, public :: XC_MGGA_C_CC  =    387
+
+ ! Iso-orbital corrected LDA correlation by Lebeda et al
+ integer(c_int), parameter, public :: XC_MGGA_C_CCALDA  =    388
 
  ! BR3P86 hybrid meta-GGA from Neumann and Handy
  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_BR3P86  =    389
@@ -1746,6 +1764,21 @@
 
  ! VCML-rVV10 by Trepte and Voss
  integer(c_int), parameter, public :: XC_MGGA_XC_VCML_RVV10  =    652
+
+ ! Long-range corrected functional based on short-range LDA exchange (erfc)
+ integer(c_int), parameter, public :: XC_HYB_LDA_X_ERF  =    653
+
+ ! Short ranged correlation LDA (erfc)
+ integer(c_int), parameter, public :: XC_LDA_C_PW_ERF  =    654
+
+ ! Short ranged PBE exchange (erfc)
+ integer(c_int), parameter, public :: XC_GGA_X_PBE_ERF_GWS  =    655
+
+ ! Short-range PBE (GWS) exchange (erfc) + long-range exact exchange
+ integer(c_int), parameter, public :: XC_HYB_GGA_X_PBE_ERF_GWS  =    656
+
+ ! Short ranged PBE correlation (erfc)
+ integer(c_int), parameter, public :: XC_GGA_C_PBE_ERF_GWS  =    657
 
  ! CAM hybrid screened exchange PBE version
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_PBEH  =    681

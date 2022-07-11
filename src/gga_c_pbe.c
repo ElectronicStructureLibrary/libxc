@@ -131,7 +131,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe_gaussian = {
   1e-12,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_gaussian_values, set_ext_params_cpy},
   gga_c_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus

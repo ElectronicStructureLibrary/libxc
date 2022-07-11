@@ -16,7 +16,7 @@
 func_reference_type xc_ref_Acharya1980_6978 = {
   "P. K. Acharya, L. J. Bartolotti, S. B. Sears, and R. G. Parr.,  Proc. Natl. Acad. Sci. U. S. A. 77, 6978 (1980)",
   "10.1073/pnas.77.12.6978",
-  "@article{Acharya1980_6978,\n  author = {Acharya, P. K. and Bartolotti, L. J. and Sears, S. B. and Parr, R. G.},\n  title = {An atomic kinetic energy functional with full Weizsacker correction},\n  volume = {77},\n  number = {12},\n  pages = {6978},\n  year = {1980},\n  doi = {10.1073/pnas.77.12.6978},\n  url = {http://www.pnas.org/content/77/12/6978.abstract},\n  journal = {Proc. Natl. Acad. Sci. U. S. A.}\n}\n"
+  "@article{Acharya1980_6978,\n  author = {Acharya, P. K. and Bartolotti, L. J. and Sears, S. B. and Parr, R. G.},\n  title = {An atomic kinetic energy functional with full Weizsacker correction},\n  journal = {Proc. Natl. Acad. Sci. U. S. A.},\n  volume = {77},\n  number = {12},\n  pages = {6978},\n  year = {1980},\n  doi = {10.1073/pnas.77.12.6978},\n  url = {http://www.pnas.org/content/77/12/6978.abstract}\n}\n"
 };
 
 func_reference_type xc_ref_Adamo1997_242 = {
@@ -799,6 +799,18 @@ func_reference_type xc_ref_Golden1957_604 = {
   "@article{Golden1957_604,\n  author = {Golden, S.},\n  title = {Statistical Theory of Many-Electron Systems. General Considerations Pertaining to the Thomas--Fermi Theory},\n  journal = {Phys. Rev.},\n  volume = {105},\n  issue = {2},\n  pages = {604},\n  year = {1957},\n  month = {Jan},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRev.105.604},\n  url = {http://link.aps.org/doi/10.1103/PhysRev.105.604}\n}\n"
 };
 
+func_reference_type xc_ref_Goll2005_3917 = {
+  "E. Goll, H.-J. Werner, and H. Stoll.,  Phys. Chem. Chem. Phys. 7, 3917–3923 (2005)",
+  "10.1039/B509242F",
+  "@article{Goll2005_3917,\n  author = {Goll, Erich and Werner, Hans-Joachim and Stoll, Hermann},\n  title = {A short-range gradient-corrected density functional in long-range coupled-cluster calculations for rare gas dimers},\n  journal = {Phys. Chem. Chem. Phys.},\n  year = {2005},\n  volume = {7},\n  issue = {23},\n  pages = {3917--3923},\n  publisher = {The Royal Society of Chemistry},\n  doi = {10.1039/B509242F},\n  url = {https://doi.org/10.1039/B509242F}\n}\n"
+};
+
+func_reference_type xc_ref_Goll2006_276 = {
+  "E. Goll, H.-J. Werner, H. Stoll, T. Leininger, P. Gori-Giorgi, and A. Savin.,  Chem. Phys. 329, 276–282 (2006)",
+  "10.1016/j.chemphys.2006.05.020",
+  "@article{Goll2006_276,\n  author = {Goll, Erich and Werner, Hans-Joachim and Stoll, Hermann and Leininger, Thierry and Gori-Giorgi, Paola and Savin, Andreas},\n  title = {A short-range gradient-corrected spin density functional in combination with long-range coupled-cluster methods: Application to alkali-metal rare-gas dimers},\n  journal = {Chem. Phys.},\n  volume = {329},\n  number = {1},\n  pages = {276--282},\n  year = {2006},\n  issn = {0301-0104},\n  doi = {10.1016/j.chemphys.2006.05.020},\n  url = {https://doi.org/10.1016/j.chemphys.2006.05.020}\n}\n"
+};
+
 func_reference_type xc_ref_Gombas1965_137 = {
   "P. Gombás.,  Fortschr. Phys. 13, 137-156 (1965)",
   "10.1002/prop.19650130402",
@@ -931,10 +943,10 @@ func_reference_type xc_ref_Herman1969_807 = {
   "@article{Herman1969_807,\n  author = {Herman, F. and Dyke, J. P. Van and Ortenburger, I. B.},\n  title = {Improved Statistical Exchange Approximation for Inhomogeneous Many-Electron Systems},\n  journal = {Phys. Rev. Lett.},\n  volume = {22},\n  issue = {16},\n  pages = {807},\n  year = {1969},\n  month = {Apr},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevLett.22.807},\n  url = {http://link.aps.org/doi/10.1103/PhysRevLett.22.807}\n}\n"
 };
 
-func_reference_type xc_ref_Herman1969_827 = {
-  "F. Herman, I. B. Ortenburger, and J. P. V. Dyke.,  Int. J. Quantum Chem. 4, 827 (1969)",
+func_reference_type xc_ref_Herman1970_827 = {
+  "F. Herman, I. B. Ortenburger, and J. P. V. Dyke.,  Int. J. Quantum Chem. 4, 827 (1970)",
   "10.1002/qua.560040746",
-  "@article{Herman1969_827,\n  author = {Herman, F. and Ortenburger, I. B. and Dyke, J. P. Van},\n  title = {A method for improving the physical realism of first-principles band structure calculations},\n  journal = {Int. J. Quantum Chem.},\n  volume = {4},\n  number = {S3B},\n  pages = {827},\n  year = {1969},\n  publisher = {John Wiley \\& Sons, Inc.},\n  issn = {1097-461X},\n  doi = {10.1002/qua.560040746},\n  url = {10.1002/qua.560040746}\n}\n"
+  "@article{Herman1970_827,\n  author = {Herman, F. and Ortenburger, I. B. and Dyke, J. P. Van},\n  title = {A method for improving the physical realism of first-principles band structure calculations},\n  journal = {Int. J. Quantum Chem.},\n  volume = {4},\n  number = {S3B},\n  pages = {827},\n  year = {1970},\n  publisher = {John Wiley \\& Sons, Inc.},\n  issn = {1097-461X},\n  doi = {10.1002/qua.560040746},\n  url = {10.1002/qua.560040746}\n}\n"
 };
 
 func_reference_type xc_ref_Heyd2003_8207 = {
@@ -1010,9 +1022,9 @@ func_reference_type xc_ref_Jana2021_024103 = {
 };
 
 func_reference_type xc_ref_Jana2021_063007 = {
-  "S. Jana, S. K. Behera, S. Śmiga, L. A. Constantin, and P. Samal.,  New J. Phys. 23, 063007 (2021)",
+  "S. Jana, S. K. Behera, S. Śmiga, L. ian A. Constantin, and P. Samal.,  New J. Phys. 23, 063007 (2021)",
   "10.1088/1367-2630/abfd4d",
-  "@article{Jana2021_063007,\n  author = {Jana, Subrata and Behera, Sushant Kumar and {\\'{S}}miga, Szymon and Constantin, Lucian A. and Samal, Prasanjit},\n  doi = {10.1088/1367-2630/abfd4d},\n  url = {https://doi.org/10.1088/1367-2630/abfd4d},\n  year = {2021},\n  month = {apr},\n  publisher = {{IOP} Publishing},\n  title = {Improving the applicability of the Pauli kinetic energy density based semilocal functional for solids},\n  journal = {New J. Phys.},\n  volume = {23},\n  pages = {063007}\n}\n"
+  "@article{Jana2021_063007,\n  author = {Jana, Subrata and Behera, Sushant Kumar and {\\'{S}}miga, Szymon and ian A. Constantin, Luc and Samal, Prasanjit},\n  title = {Improving the applicability of the Pauli kinetic energy density based semilocal functional for solids},\n  journal = {New J. Phys.},\n  volume = {23},\n  pages = {063007},\n  year = {2021},\n  month = {apr},\n  publisher = {{IOP} Publishing},\n  doi = {10.1088/1367-2630/abfd4d},\n  url = {https://doi.org/10.1088/1367-2630/abfd4d}\n}\n"
 };
 
 func_reference_type xc_ref_Jaramillo2003_1068 = {
@@ -1205,6 +1217,12 @@ func_reference_type xc_ref_Laricchia2014_164 = {
   "S. Laricchia, L. A. Constantin, E. Fabiano, and F. Della Sala.,  J. Chem. Theory Comput. 10, 164-179 (2014)",
   "10.1021/ct400836s",
   "@article{Laricchia2014_164,\n  author = {Laricchia, Savio and Constantin, Lucian A. and Fabiano, Eduardo and Della Sala, Fabio},\n  title = {Laplacian-Level Kinetic Energy Approximations Based on the Fourth-Order Gradient Expansion: Global Assessment and Application to the Subsystem Formulation of Density Functional Theory},\n  journal = {J. Chem. Theory Comput.},\n  volume = {10},\n  number = {1},\n  pages = {164-179},\n  year = {2014},\n  doi = {10.1021/ct400836s},\n  url = {https://doi.org/10.1021/ct400836s}\n}\n"
+};
+
+func_reference_type xc_ref_Lebeda2022_023061 = {
+  "T. Lebeda, T. Aschebrock, and S. Kümmel.,  Phys. Rev. Research 4, 023061 (2022)",
+  "10.1103/PhysRevResearch.4.023061",
+  "@article{Lebeda2022_023061,\n  author = {Lebeda, Timo and Aschebrock, Thilo and K\\\"ummel, Stephan},\n  title = {First steps towards achieving both ultranonlocality and a reliable description of electronic binding in a meta-generalized gradient approximation},\n  journal = {Phys. Rev. Research},\n  volume = {4},\n  issue = {2},\n  pages = {023061},\n  numpages = {8},\n  year = {2022},\n  month = {Apr},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevResearch.4.023061},\n  url = {https://link.aps.org/doi/10.1103/PhysRevResearch.4.023061}\n}\n"
 };
 
 func_reference_type xc_ref_Lee1987_2377 = {
@@ -1901,6 +1919,12 @@ func_reference_type xc_ref_Schmider1998_9624 = {
   "H. L. Schmider and A. D. Becke.,  J. Chem. Phys. 108, 9624 (1998)",
   "10.1063/1.476438",
   "@article{Schmider1998_9624,\n  author = {Schmider, H. L. and Becke, A. D.},\n  title = {Optimized density functionals from the extended G2 test set},\n  journal = {J. Chem. Phys.},\n  year = {1998},\n  volume = {108},\n  number = {23},\n  pages = {9624},\n  doi = {10.1063/1.476438},\n  url = {http://scitation.aip.org/content/aip/journal/jcp/108/23/10.1063/1.476438}\n}\n"
+};
+
+func_reference_type xc_ref_Schmidt2014_18A510 = {
+  "T. Schmidt, E. Kraisler, A. Makmal, L. Kronik, and S. Kümmel.,  J. Chem. Phys. 140, 18A510 (2014)",
+  "10.1063/1.4865942",
+  "@article{Schmidt2014_18A510,\n  author = {Schmidt, Tobias and Kraisler, Eli and Makmal, Adi and Kronik, Leeor and K\\\"{u}mmel, Stephan},\n  title = {A self-interaction-free local hybrid functional: Accurate binding energies vis-\\'{a}-vis accurate ionization potentials from {Kohn}--{Sham} eigenvalues},\n  journal = {J. Chem. Phys.},\n  volume = {140},\n  number = {18},\n  pages = {18A510},\n  year = {2014},\n  doi = {10.1063/1.4865942},\n  URL = {https://doi.org/10.1063/1.4865942}\n}\n"
 };
 
 func_reference_type xc_ref_Schultz2005_11127 = {

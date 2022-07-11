@@ -97,13 +97,7 @@ def read_infos(srcdir, family, all_ids):
         infos[name]["ext_params"] = [i.strip() for i in re.sub("[{}]", "", info[7]).split('|')]
         infos[name]["f_init"]   = info[8]
         infos[name]["f_end"]    = info[9]
-        infos[name]["f_lda"]    = info[10]
-        infos[name]["f_gga"]    = info[11]
-        infos[name]["f_mgga"]   = info[12]
-        if len(info) == 14:
-          infos[name]["f_hgga"] = info[13]
-        else:
-          infos[name]["f_hgga"] = "NULL"
+        infos[name]["f_eval"]   = info[10]
       nline += 1
 
   return infos

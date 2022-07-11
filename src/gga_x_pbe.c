@@ -110,7 +110,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_mod = {
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_mod_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -126,7 +126,7 @@ const xc_func_info_type xc_func_info_gga_x_pbe_gaussian = {
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_gaussian_values, set_ext_params_cpy},
   gga_x_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus

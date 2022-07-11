@@ -120,12 +120,11 @@ set_ext_params_cpy(xc_func_type *p, const double *ext_params)
    the last parameter of the functional.
 */
 void
-set_ext_params_cpy_omega(xc_func_type *p, const double *ext_params)
+set_ext_params_omega(xc_func_type *p, const double *ext_params)
 {
   int nparams;
   assert(p != NULL);
   nparams = p->info->ext_params.n - 1;
-  copy_params(p, ext_params, nparams);
 
   /* This omega is only meant for internal use */
   assert(p->hyb_number_terms == 1);
@@ -134,17 +133,26 @@ set_ext_params_cpy_omega(xc_func_type *p, const double *ext_params)
   p->hyb_omega[0] = get_ext_param(p, ext_params, nparams);
 }
 
-/*
-   Copies parameters and sets the exact exchange coefficient, which
-   should be the last parameter of the functional.
-*/
 void
-set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params)
+set_ext_params_cpy_omega(xc_func_type *p, const double *ext_params)
 {
   int nparams;
   assert(p != NULL);
   nparams = p->info->ext_params.n - 1;
   copy_params(p, ext_params, nparams);
+  set_ext_params_omega(p, ext_params);
+}
+
+/*
+   Copies parameters and sets the exact exchange coefficient, which
+   should be the last parameter of the functional.
+*/
+void
+set_ext_params_exx(xc_func_type *p, const double *ext_params)
+{
+  int nparams;
+  assert(p != NULL);
+  nparams = p->info->ext_params.n - 1;
 
   assert(p->hyb_number_terms == 1);
   p->hyb_type[0]  = XC_HYB_FOCK;
@@ -152,17 +160,26 @@ set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params)
   p->hyb_omega[0] = 0.0;
 }
 
+void
+set_ext_params_cpy_exx(xc_func_type *p, const double *ext_params)
+{
+  int nparams;
+  assert(p != NULL);
+  nparams = p->info->ext_params.n - 1;
+  copy_params(p, ext_params, nparams);
+  set_ext_params_exx(p, ext_params);
+}
+
 /*
    Copies parameters and sets the HYB coefficients, which
    should be the three last parameters of the functional.
 */
 void
-set_ext_params_cpy_cam(xc_func_type *p, const double *ext_params)
+set_ext_params_cam(xc_func_type *p, const double *ext_params)
 {
   int nparams;
   assert(p != NULL);
   nparams = p->info->ext_params.n - 3;
-  copy_params(p, ext_params, nparams);
 
   assert(p->hyb_number_terms == 2);
   p->hyb_type[0]  = XC_HYB_ERF_SR;
@@ -172,6 +189,23 @@ set_ext_params_cpy_cam(xc_func_type *p, const double *ext_params)
   p->hyb_type[1]  = XC_HYB_FOCK;
   p->hyb_coeff[1] = get_ext_param(p, ext_params, nparams);
   p->hyb_omega[1] = 0.0;
+}
+
+void
+set_ext_params_cpy_cam(xc_func_type *p, const double *ext_params)
+{
+  int nparams;
+  assert(p != NULL);
+  nparams = p->info->ext_params.n - 3;
+  copy_params(p, ext_params, nparams);
+  set_ext_params_cam(p, ext_params);
+}
+
+void
+set_ext_params_camy(xc_func_type *p, const double *ext_params)
+{
+  set_ext_params_cam(p, ext_params);
+  p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
 }
 
 void
@@ -185,12 +219,11 @@ set_ext_params_cpy_camy(xc_func_type *p, const double *ext_params)
   Short-range-only version
 */
 void
-set_ext_params_cpy_cam_sr(xc_func_type *p, const double *ext_params)
+set_ext_params_cam_sr(xc_func_type *p, const double *ext_params)
 {
   int nparams;
   assert(p != NULL);
   nparams = p->info->ext_params.n - 2;
-  copy_params(p, ext_params, nparams);
 
   assert(p->hyb_number_terms == 1);
   p->hyb_type[0]  = XC_HYB_ERF_SR;
@@ -198,14 +231,23 @@ set_ext_params_cpy_cam_sr(xc_func_type *p, const double *ext_params)
   p->hyb_omega[0] = get_ext_param(p, ext_params, nparams + 1);
 }
 
+void
+set_ext_params_cpy_cam_sr(xc_func_type *p, const double *ext_params)
+{
+  int nparams;
+  assert(p != NULL);
+  nparams = p->info->ext_params.n - 2;
+  copy_params(p, ext_params, nparams);
+  set_ext_params_cam_sr(p, ext_params);
+}
+
 /* Long-range corrected functionals typically only have one parameter: the range separation parameter */
 void
-set_ext_params_cpy_lc(xc_func_type *p, const double *ext_params)
+set_ext_params_lc(xc_func_type *p, const double *ext_params)
 {
   int nparams;
   assert(p != NULL);
   nparams = p->info->ext_params.n - 1;
-  copy_params(p, ext_params, nparams);
 
   assert(p->hyb_number_terms == 2);
   p->hyb_type[0]  = XC_HYB_ERF_SR;
@@ -215,6 +257,30 @@ set_ext_params_cpy_lc(xc_func_type *p, const double *ext_params)
   p->hyb_type[1]  = XC_HYB_FOCK;
   p->hyb_coeff[1] = 1.0;
   p->hyb_omega[1] = 0.0;
+}
+
+void
+set_ext_params_cpy_lc(xc_func_type *p, const double *ext_params)
+{
+  int nparams;
+  assert(p != NULL);
+  nparams = p->info->ext_params.n - 1;
+  copy_params(p, ext_params, nparams);
+  set_ext_params_lc(p, ext_params);
+}
+
+void
+set_ext_params_lcy(xc_func_type *p, const double *ext_params)
+{
+  set_ext_params_lc(p, ext_params);
+  p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
+}
+
+void
+set_ext_params_cpy_lcy(xc_func_type *p, const double *ext_params)
+{
+  set_ext_params_cpy_lc(p, ext_params);
+  p->hyb_type[0]  = XC_HYB_YUKAWA_SR;
 }
 
 /* Free pointer */

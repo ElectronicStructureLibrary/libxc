@@ -13,6 +13,12 @@
 
 #include <xc.h>
 
+func_reference_type xc_ref_Pitallis2022 = {
+  "S. Pitallis and M. A. L. Marques.,  to be decided  (2022)",
+  "",
+  "@article{Pitallis2022,\n  author = {Pitallis, Stefano and Marques, Miguel A. L.},\n  title = {An ab-initio derivation of a meta-LDA},\n  journal = {to be decided},\n  year = {2022}\n}\n"
+};
+
 func_reference_type xc_ref_Acharya1980_6978 = {
   "P. K. Acharya, L. J. Bartolotti, S. B. Sears, and R. G. Parr.,  Proc. Natl. Acad. Sci. U. S. A. 77, 6978 (1980)",
   "10.1073/pnas.77.12.6978",

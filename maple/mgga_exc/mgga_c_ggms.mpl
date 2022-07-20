@@ -1,9 +1,12 @@
 (* type: mgga_exc *)
 (* prefix:
+  mgga_c_ggms_params *params;
+
+  assert(p->params != NULL);
+  params = (mgga_c_ggms_params * )(p->params);
 *)
 
 $include "mgga_c_ldms.mpl"
-$define gga_c_pbe_params
 $include "gga_c_pbe.mpl"
 
 # the GGA-m* functional

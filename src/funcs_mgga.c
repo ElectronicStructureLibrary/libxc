@@ -193,7 +193,8 @@ extern xc_func_info_type xc_func_info_mgga_c_r2scanl;
 extern xc_func_info_type xc_func_info_hyb_mgga_xc_lc_tmlyp;
 extern xc_func_info_type xc_func_info_mgga_x_mtask;
 extern xc_func_info_type xc_func_info_mgga_c_ldms;
-extern xc_func_info_type xc_func_info_mgga_c_ggms;
+extern xc_func_info_type xc_func_info_mgga_c_ggms_pbe;
+extern xc_func_info_type xc_func_info_mgga_c_ggms_pbe_sol;
 
 const xc_func_info_type *xc_mgga_known_funct[] = {
   &xc_func_info_hyb_mgga_x_dldf,
@@ -389,6 +390,7 @@ const xc_func_info_type *xc_mgga_known_funct[] = {
   &xc_func_info_hyb_mgga_xc_lc_tmlyp,
   &xc_func_info_mgga_x_mtask,
   &xc_func_info_mgga_c_ldms,
-  &xc_func_info_mgga_c_ggms,
+  &xc_func_info_mgga_c_ggms_pbe,
+  &xc_func_info_mgga_c_ggms_pbe_sol,
   NULL
 };

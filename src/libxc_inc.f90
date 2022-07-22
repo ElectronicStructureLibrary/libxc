@@ -1930,6 +1930,9 @@
  ! localized-density mass approximation
  integer(c_int), parameter, public :: XC_MGGA_C_LDMS  =    735
 
- ! localized-density mass approximation
- integer(c_int), parameter, public :: XC_MGGA_C_GGMS  =    736
+ ! localized-density mass approximation (PBE version)
+ integer(c_int), parameter, public :: XC_MGGA_C_GGMS_PBE  =    736
+
+ ! localized-density mass approximation (PBEsol version)
+ integer(c_int), parameter, public :: XC_MGGA_C_GGMS_PBE_SOL  =    737
 

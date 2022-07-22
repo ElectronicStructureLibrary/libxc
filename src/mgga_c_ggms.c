@@ -50,7 +50,7 @@ const xc_func_info_type xc_func_info_mgga_c_ggms_pbe = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_values, set_ext_params_cpy},
-  NULL, NULL,
+  mgga_c_ggms_init, NULL,
   NULL, NULL, &work_mgga,
 };
 
@@ -66,6 +66,6 @@ const xc_func_info_type xc_func_info_mgga_c_ggms_pbe_sol = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {PBE_N_PAR, pbe_names, pbe_desc, pbe_sol_values, set_ext_params_cpy},
-  NULL, NULL,
+  mgga_c_ggms_init, NULL,
   NULL, NULL, &work_mgga,
 };

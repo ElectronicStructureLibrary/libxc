@@ -2295,11 +2295,11 @@ func_reference_type xc_ref_Song2009_144108 = {
   "Song2009_144108"
 };
 
-func_reference_type xc_ref_Sparrow2021 = {
-  "Z. M. Sparrow, B. G. Ernst, T. K. Quady, and R. A. D. Jr. CASE21: uniting non-empirical and semi-empirical density functional approximation strategies using constraint-based regularization. 2021. arXiv:2109.12560.",
-  "",
-  "@misc{Sparrow2021,\n  author = {Sparrow, Zachary M. and Ernst, Brian G. and Quady, Trine K. and Jr, Robert A. DiStasio},\n  title = {{CASE21}: Uniting Non-Empirical and Semi-Empirical Density Functional Approximation Strategies using Constraint-Based Regularization},\n  year = {2021},\n  eprint = {2109.12560},\n  archivePrefix = {arXiv},\n  primaryClass = {physics.chem-ph}\n}\n",
-  "Sparrow2021"
+func_reference_type xc_ref_Sparrow2022_6896 = {
+  "Z. M. Sparrow, B. G. Ernst, T. K. Quady, and R. A. DiStasio.,  J. Phys. Chem. Lett. 13, 6896-6904 (2022)",
+  "10.1021/acs.jpclett.2c00643",
+  "@article{Sparrow2022_6896,\n  author = {Sparrow, Zachary M. and Ernst, Brian G. and Quady, Trine K. and DiStasio, Robert A.},\n  title = {Uniting Nonempirical and Empirical Density Functional Approximation Strategies Using Constraint-Based Regularization},\n  journal = {J. Phys. Chem. Lett.},\n  volume = {13},\n  number = {30},\n  pages = {6896-6904},\n  year = {2022},\n  doi = {10.1021/acs.jpclett.2c00643},\n  url = {https://doi.org/10.1021/acs.jpclett.2c00643}\n}\n",
+  "Sparrow2022_6896"
 };
 
 func_reference_type xc_ref_Staroverov2003_12129 = {

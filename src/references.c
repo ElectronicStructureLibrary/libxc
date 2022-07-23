@@ -307,6 +307,13 @@ func_reference_type xc_ref_Brandenburg2016_115144 = {
   "Brandenburg2016_115144"
 };
 
+func_reference_type xc_ref_Brandenburg2018_064104 = {
+  "J. G. Brandenburg, C. Bannwarth, A. Hansen, and S. Grimme.,  J. Chem. Phys. 148, 064104 (2018)",
+  "10.1063/1.5012601",
+  "@article{Brandenburg2018_064104,\n  author = {Brandenburg, J. G. and Bannwarth, C. and Hansen, A. and Grimme, S.},\n  title = {B97-3c: A revised low-cost variant of the B97-D density functional method},\n  journal = {J. Chem. Phys.},\n  volume = {148},\n  number = {6},\n  pages = {064104},\n  year = {2018},\n  doi = {10.1063/1.5012601},\n  url = {https://doi.org/10.1063/1.5012601}\n}\n",
+  "Brandenburg2018_064104"
+};
+
 func_reference_type xc_ref_Bremond2012_1184 = {
   "E. Brémond, D. Pilard, I. Ciofini, H. Chermette, C. Adamo, and P. Cortona.,  Theor. Chem. Acc. 131, 1184 (2012)",
   "10.1007/s00214-012-1184-0",

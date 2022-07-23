@@ -324,6 +324,7 @@ xc_functional_key_t xc_functional_keys[] = {
   {"gga_x_pbe_gaussian", 321},
   {"gga_c_pbe_gaussian", 322},
   {"mgga_c_tpss_gaussian", 323},
+  {"gga_xc_b97_3c", 327},
   {"mgga_c_cc", 387},
   {"mgga_c_ccalda", 388},
   {"hyb_mgga_xc_br3p86", 389},

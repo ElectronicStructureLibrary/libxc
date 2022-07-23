@@ -55,6 +55,7 @@ extern func_reference_type xc_ref_Boese2002_9559;
 extern func_reference_type xc_ref_Boese2003_5965;
 extern func_reference_type xc_ref_Boese2004_3405;
 extern func_reference_type xc_ref_Brandenburg2016_115144;
+extern func_reference_type xc_ref_Brandenburg2018_064104;
 extern func_reference_type xc_ref_Bremond2012_1184;
 extern func_reference_type xc_ref_Bremond2016_1059;
 extern func_reference_type xc_ref_Bremond2016_244102;

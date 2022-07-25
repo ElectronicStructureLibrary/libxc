@@ -115,8 +115,7 @@ const xc_func_info_type xc_func_info_mgga_c_m08_hx = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, par_m08_hx, set_ext_params_cpy},
-  mgga_c_m08_init, NULL,
-  NULL, NULL, &work_mgga
+  mgga_c_m08_init, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -131,8 +130,7 @@ const xc_func_info_type xc_func_info_mgga_c_m08_so = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, par_m08_so, set_ext_params_cpy},
-  mgga_c_m08_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_m08_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -147,8 +145,7 @@ const xc_func_info_type xc_func_info_mgga_c_m11 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, par_m11, set_ext_params_cpy},
-  mgga_c_m08_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_m08_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -163,8 +160,7 @@ const xc_func_info_type xc_func_info_mgga_c_m11_l = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, par_m11_l, set_ext_params_cpy},
-  mgga_c_m08_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_m08_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -179,8 +175,7 @@ const xc_func_info_type xc_func_info_mgga_c_mn12_l = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, par_mn12_l, set_ext_params_cpy},
-  mgga_c_m08_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_m08_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -195,8 +190,7 @@ const xc_func_info_type xc_func_info_mgga_c_mn12_sx = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, par_mn12_sx, set_ext_params_cpy},
-  mgga_c_m08_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_m08_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -211,8 +205,7 @@ const xc_func_info_type xc_func_info_mgga_c_mn15_l = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, par_mn15_l, set_ext_params_cpy},
-  mgga_c_m08_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_m08_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -227,8 +220,7 @@ const xc_func_info_type xc_func_info_mgga_c_mn15 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, par_mn15, set_ext_params_cpy},
-  mgga_c_m08_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_m08_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -243,6 +235,5 @@ const xc_func_info_type xc_func_info_mgga_c_revm11 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, par_revm11, set_ext_params_cpy},
-  mgga_c_m08_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_m08_init, NULL, &work_mgga,
 };

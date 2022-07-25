@@ -37,7 +37,9 @@ lib_LTLIBRARIES = libxc.la
 
 libxc_la_FUNC_SOURCES = \
 	special_functions.c bessel.c expint_e1.c faddeeva.c integrate.c		\
-	math_brent.c util.c mix_func.c deorbitalize_func.c func_info.c functionals.c hybrids.c \
+	math_brent.c util.c \
+  io_variables.c \
+  mix_func.c deorbitalize_func.c func_info.c functionals.c hybrids.c \
 	version.c func_reference.c \
 	lda.c \
 	lda_x.c lda_x_2d.c lda_c_wigner.c lda_c_gombas.c lda_c_rpa.c	\
@@ -122,7 +124,8 @@ libxc_la_FUNC_SOURCES = \
         mgga_c_r2scanl.c mgga_k_pgslb.c mgga_c_kcisk.c mgga_x_regtm.c   \
 	mgga_c_rregtm.c mgga_x_mcml.c mgga_c_rmggac.c mgga_x_rppscan.c  \
 	mgga_c_rppscan.c mgga_x_r4scan.c mgga_x_ft98.c                  \
-	hyb_mgga_xc_br3p86.c mgga_x_vcml.c mgga_c_cc.c mgga_c_ccalda.c
+	hyb_mgga_xc_br3p86.c mgga_x_vcml.c mgga_c_cc.c mgga_c_ccalda.c  \
+	hgga.c hgga_x_jse_b88.c
 
 libxc_la_SOURCES = references.c $(libxc_la_FUNC_SOURCES)
 libxc_la_LDFLAGS = -version-info $(XC_LT_VERSION)
@@ -138,11 +141,11 @@ if COMPILE_FORTRAN
 endif
 
 noinst_HEADERS = \
-	string_f.h references.h util.h \
+	string_f.h references.h util.h old_interface.c \
 	work_lda.c work_lda_inc.c work_gga.c work_gga_inc.c	\
-	work_mgga.c work_mgga_inc.c \
+	work_mgga.c work_mgga_inc.c work_hgga.c work_hgga_inc.c\
 	libxc_master.F90 \
-        funcs_lda.c funcs_gga.c funcs_mgga.c funcs_key.c \
+        funcs_lda.c funcs_gga.c funcs_mgga.c funcs_hgga.c funcs_key.c \
 	libxc_inc.f90
 include_HEADERS = xc.h xc_funcs.h xc_funcs_removed.h xc_funcs_worker.h
 

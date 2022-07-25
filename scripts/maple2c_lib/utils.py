@@ -42,7 +42,7 @@ def filter_vxc_derivatives(all_derivatives):
     derivatives.append([])
     derivatives1.append([])
     derivatives2.append([])
-    
+
     for der in all_derivatives[order + 1]:
       if der[0][0] > 0:
         der[0][0] -= 1
@@ -58,101 +58,117 @@ def filter_vxc_derivatives(all_derivatives):
 
 def enumerate_spin_partials(derivative, func_type):
   '''Given the name of a derivative (such as 'v2rho2')
-  and a functional type ("lda", "gga", "mgga"), return all spin 
+  and a functional type ("lda", "gga", "mgga", "hgga"), return all spin
   variants such as
 
   [
-    [[2, 0], 'v2rho2_0_'], 
-    [[1, 1], 'v2rho2_1_'], 
+    [[2, 0], 'v2rho2_0_'],
+    [[1, 1], 'v2rho2_1_'],
     [[0, 2], 'v2rho2_2_']
   ]
   '''
 
-  words = ("rho", "sigma", "lapl", "tau")
+  words = ("rho", "sigma", "lapl", "tau", "exx")
   partials = {
-    "rho"   :  [[[0, 0, 0, 0, 0, 0, 0, 0, 0]],    # 0th-order
-                [[1, 0, 0, 0, 0, 0, 0, 0, 0],     # 1st-order
-                 [0, 1, 0, 0, 0, 0, 0, 0, 0]],
-                [[2, 0, 0, 0, 0, 0, 0, 0, 0],     # 2nd-order
-                 [1, 1, 0, 0, 0, 0, 0, 0, 0],
-                 [0, 2, 0, 0, 0, 0, 0, 0, 0]],
-                [[3, 0, 0, 0, 0, 0, 0, 0, 0],     # 3rd-order
-                 [2, 1, 0, 0, 0, 0, 0, 0, 0],
-                 [1, 2, 0, 0, 0, 0, 0, 0, 0],
-                 [0, 3, 0, 0, 0, 0, 0, 0, 0]],
-                [[4, 0, 0, 0, 0, 0, 0, 0, 0],     # 4th-order
-                 [3, 1, 0, 0, 0, 0, 0, 0, 0],
-                 [2, 2, 0, 0, 0, 0, 0, 0, 0],
-                 [1, 3, 0, 0, 0, 0, 0, 0, 0],
-                 [0, 4, 0, 0, 0, 0, 0, 0, 0]],
+    "rho"   :  [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],    # 0th-order
+                [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],     # 1st-order
+                 [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+                [[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],     # 2nd-order
+                 [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+                [[3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],     # 3rd-order
+                 [2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                 [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+                [[4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],     # 4th-order
+                 [3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                 [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                 [1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
     ],
-    "sigma" :  [[[0, 0, 0, 0, 0, 0, 0, 0, 0]],    # 0th-order
-                [[0, 0, 1, 0, 0, 0, 0, 0, 0],     # 1st-order
-                 [0, 0, 0, 1, 0, 0, 0, 0, 0],
-                 [0, 0, 0, 0, 1, 0, 0, 0, 0]],
-                [[0, 0, 2, 0, 0, 0, 0, 0, 0],     # 2nd-order
-                 [0, 0, 1, 1, 0, 0, 0, 0, 0],
-                 [0, 0, 1, 0, 1, 0, 0, 0, 0],
-                 [0, 0, 0, 2, 0, 0, 0, 0, 0],
-                 [0, 0, 0, 1, 1, 0, 0, 0, 0],
-                 [0, 0, 0, 0, 2, 0, 0, 0, 0]],
-                [[0, 0, 3, 0, 0, 0, 0, 0, 0],     # 3rd-order
-                 [0, 0, 2, 1, 0, 0, 0, 0, 0],
-                 [0, 0, 2, 0, 1, 0, 0, 0, 0],
-                 [0, 0, 1, 2, 0, 0, 0, 0, 0],
-                 [0, 0, 1, 1, 1, 0, 0, 0, 0],
-                 [0, 0, 1, 0, 2, 0, 0, 0, 0],
-                 [0, 0, 0, 3, 0, 0, 0, 0, 0],
-                 [0, 0, 0, 2, 1, 0, 0, 0, 0],
-                 [0, 0, 0, 1, 2, 0, 0, 0, 0],
-                 [0, 0, 0, 0, 3, 0, 0, 0, 0]],
-                [[0, 0, 4, 0, 0, 0, 0, 0, 0],     # 4th-order
-                 [0, 0, 3, 1, 0, 0, 0, 0, 0],
-                 [0, 0, 3, 0, 1, 0, 0, 0, 0],
-                 [0, 0, 2, 2, 0, 0, 0, 0, 0],
-                 [0, 0, 2, 1, 1, 0, 0, 0, 0],
-                 [0, 0, 2, 0, 2, 0, 0, 0, 0],
-                 [0, 0, 1, 3, 0, 0, 0, 0, 0],
-                 [0, 0, 1, 2, 1, 0, 0, 0, 0],
-                 [0, 0, 1, 1, 2, 0, 0, 0, 0],
-                 [0, 0, 1, 0, 3, 0, 0, 0, 0],
-                 [0, 0, 0, 4, 0, 0, 0, 0, 0],
-                 [0, 0, 0, 3, 1, 0, 0, 0, 0],
-                 [0, 0, 0, 2, 2, 0, 0, 0, 0],
-                 [0, 0, 0, 1, 3, 0, 0, 0, 0],
-                 [0, 0, 0, 0, 4, 0, 0, 0, 0]]
+    "sigma" :  [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],    # 0th-order
+                [[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],     # 1st-order
+                 [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]],
+                [[0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0],     # 2nd-order
+                 [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0]],
+                [[0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0],     # 3rd-order
+                 [0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0]],
+                [[0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0],     # 4th-order
+                 [0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 3, 0, 1, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 2, 1, 1, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 1, 3, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 1, 1, 2, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 1, 0, 3, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 1, 3, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0]]
     ],
-    "lapl" :   [[[0, 0, 0, 0, 0, 0, 0, 0, 0]],    # 0th-order
-                [[0, 0, 0, 0, 0, 1, 0, 0, 0],     # 1st-order
-                 [0, 0, 0, 0, 0, 0, 1, 0, 0]],
-                [[0, 0, 0, 0, 0, 2, 0, 0, 0],     # 2nd-order
-                 [0, 0, 0, 0, 0, 1, 1, 0, 0],
-                 [0, 0, 0, 0, 0, 0, 2, 0, 0]],
-                [[0, 0, 0, 0, 0, 3, 0, 0, 0],     # 3rd-order
-                 [0, 0, 0, 0, 0, 2, 1, 0, 0],
-                 [0, 0, 0, 0, 0, 1, 2, 0, 0],
-                 [0, 0, 0, 0, 0, 0, 3, 0, 0]],
-                [[0, 0, 0, 0, 0, 4, 0, 0, 0],     # 4th-order
-                 [0, 0, 0, 0, 0, 3, 1, 0, 0],
-                 [0, 0, 0, 0, 0, 2, 2, 0, 0],
-                 [0, 0, 0, 0, 0, 1, 3, 0, 0],
-                 [0, 0, 0, 0, 0, 0, 4, 0, 0]]
+    "lapl" :   [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],    # 0th-order
+                [[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],     # 1st-order
+                 [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]],
+                [[0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0],     # 2nd-order
+                 [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0]],
+                [[0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],     # 3rd-order
+                 [0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0]],
+                [[0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0],     # 4th-order
+                 [0, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 1, 3, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0]]
     ],
-    "tau"  :   [[[0, 0, 0, 0, 0, 0, 0, 0, 0]],    # 0th-order
-                [[0, 0, 0, 0, 0, 0, 0, 1, 0],     # 1st-order
-                 [0, 0, 0, 0, 0, 0, 0, 0, 1]],
-                [[0, 0, 0, 0, 0, 0, 0, 2, 0],     # 2nd-order
-                 [0, 0, 0, 0, 0, 0, 0, 1, 1],
-                 [0, 0, 0, 0, 0, 0, 0, 0, 2]],
-                [[0, 0, 0, 0, 0, 0, 0, 3, 0],     # 3rd-order
-                 [0, 0, 0, 0, 0, 0, 0, 2, 1],
-                 [0, 0, 0, 0, 0, 0, 0, 1, 2],
-                 [0, 0, 0, 0, 0, 0, 0, 0, 3]],
-                [[0, 0, 0, 0, 0, 0, 0, 4, 0],     # 4th-order
-                 [0, 0, 0, 0, 0, 0, 0, 3, 1],
-                 [0, 0, 0, 0, 0, 0, 0, 2, 2],
-                 [0, 0, 0, 0, 0, 0, 0, 1, 3],
-                 [0, 0, 0, 0, 0, 0, 0, 0, 4]]
+    "tau"  :   [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],    # 0th-order
+                [[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],     # 1st-order
+                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]],
+                [[0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0],     # 2nd-order
+                 [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0]],
+                [[0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0],     # 3rd-order
+                 [0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0]],
+                [[0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0],     # 4th-order
+                 [0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 1, 3, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0]]
+                ],
+    "exx"  :   [[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],    # 0th-order
+                [[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],     # 1st-order
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]],
+                [[0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0],     # 2nd-order
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2]],
+                [[0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0],     # 3rd-order
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3]],
+                [[0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0],     # 4th-order
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4]]
                 ]
   }
 
@@ -160,7 +176,7 @@ def enumerate_spin_partials(derivative, func_type):
   order = {}
   for word in words:
     order[word] = 0
-  
+
     m = re.match(r'.*' + word + r'([0-9]*)', derivative)
     if m is not None:
       order[word] = 1 if m.group(1) == "" else int(m.group(1))
@@ -168,7 +184,7 @@ def enumerate_spin_partials(derivative, func_type):
   # and this is the order of the derivative
   total_order = sum(order.values())
 
-  max_n = {"lda": 2, "gga": 5, "mgga": 9}[func_type]
+  max_n = {"lda": 2, "gga": 5, "mgga": 9, "hgga": 11}[func_type]
 
   all_derivatives = []
   der_n = 0
@@ -176,18 +192,20 @@ def enumerate_spin_partials(derivative, func_type):
     for n_sigma, p_sigma in enumerate(partials["sigma"][order["sigma"]]):
       for n_lapl, p_lapl in enumerate(partials["lapl"][order["lapl"]]):
         for n_tau, p_tau in enumerate(partials["tau"][order["tau"]]):
-          # sum orders in all variables
-            
-          final_der = [0] * max_n
-          for i in range(max_n):
-            final_der[i] += \
+          for n_exx, p_exx in enumerate(partials["exx"][order["exx"]]):
+            # sum orders in all variables
+
+            final_der = [0] * max_n
+            for i in range(max_n):
+              final_der[i] += \
                 partials["rho"][order["rho"]][n_rho][i] + \
                 partials["sigma"][order["sigma"]][n_sigma][i] + \
                 partials["lapl"][order["lapl"]][n_lapl][i] + \
-                partials["tau"][order["tau"]][n_tau][i]
+                partials["tau"][order["tau"]][n_tau][i] + \
+                partials["exx"][order["exx"]][n_exx][i]
 
-          all_derivatives.append([final_der, derivative + "_" + str(der_n) + "_"])
-          der_n += 1
+            all_derivatives.append([final_der, derivative + "_" + str(der_n) + "_"])
+            der_n += 1
 
   return all_derivatives
 
@@ -202,13 +220,13 @@ dmfd01 := (v0, v1) ->  eval(diff(mf(v0, v1), v1)):
 ...
 "
   out_cgeneration = "[
-    'vrho_0_ = dmfd10(rho_0_, rho_1_)', 
+    'vrho_0_ = dmfd10(rho_0_, rho_1_)',
     'vrho_1_ = dmfd01(rho_0_, rho_1_)'
     ...
   ]
-  
+
   '''
-  
+
   out_derivatives = ""
   out_cgeneration = []
 
@@ -218,7 +236,7 @@ dmfd01 := (v0, v1) ->  eval(diff(mf(v0, v1), v1)):
     for der in der_order:
       order, name = der
       to_derive = order.copy()
-      
+
       # is there something to do?
       if all([v == 0 for v in to_derive]):
         break
@@ -271,7 +289,7 @@ def print_c_header(params, out):
 
 def maple2c_replace(text, extra_replace=()):
   '''Performs a series of string replacements in the maple generated C code'''
-  
+
   # The replacements have to be made in order
   math_replace = (
     (r"_s_",     r"*"),
@@ -334,7 +352,7 @@ def maple2c_replace(text, extra_replace=()):
   # other specific replacements
   for str1, str2 in extra_replace:
     text = re.sub(str1, str2, text)
-  
+
   return text
 
 
@@ -342,12 +360,12 @@ def maple_run(params, mtype, code, derivatives, start_order):
   '''Creates the maple file, runs maple, and returns the definition
   of the variables and the c-code
   '''
-  
+
   # open maple file
   from tempfile import mkstemp
   fd, mfilename = mkstemp(suffix=".mpl", text=True)
   fh = os.fdopen(fd, "w")
-  
+
   fh.write('''
 Polarization := "{}":
 Digits := 20:             (* constants will have 20 digits *)
@@ -364,7 +382,8 @@ $include <{}.mpl>
   incdirs = ("maple",
              "maple/lda_exc",  "maple/lda_vxc",
              "maple/gga_exc",  "maple/gga_vxc",
-             "maple/mgga_exc", "maple/mgga_vxc"
+             "maple/mgga_exc", "maple/mgga_vxc",
+             "maple/hgga_exc", "maple/hgga_vxc"
   )
   maple_inc = ["-I" + params["srcdir"] + "/" + i for i in incdirs]
 
@@ -393,7 +412,7 @@ $include <{}.mpl>
     n_var[total_order] += 1
 
     variables[total_order] += to_add
-  
+
   # for avoiding compilation when high order derivatives are enabled
   #if start_order != 0:
   #  new_c_code[total_order] += "  if(order < " + str(start_order) + ") return;\n\n\n"
@@ -417,7 +436,7 @@ $include <{}.mpl>
       for der in der_order:
         varname  = re.sub(r"_.*", "", der[1])
         varorder = re.sub(r".*_(\d+)_", r"\1", der[1])
-        
+
         # search for a vrho = statement
         if re.match(r"\s*?" + der[1] + r"\s*=", line):
 
@@ -443,8 +462,8 @@ $include <{}.mpl>
 
             # add instead of assigning. We are still missing a global constant
             # that can be useful in building hybrid combinations
-            new_c_code[total_order] += "    out->{}[ip*p->dim.{} + {}] += t{}{};\n\n".format(varname, varname, varorder, varname, varorder)
-            
+            new_c_code[total_order] += "    out->{}[ip*p->dim->{} + {}] += t{}{};\n\n".format(varname, varname, varorder, varname, varorder)
+
           found = True
           break
 
@@ -458,7 +477,7 @@ $include <{}.mpl>
       if new_order:
         variables[total_order] += ";\n"
         total_order += 1
-        
+
     if not found:
       res = re.match(r"(t\d+) =", line)
       if res: add_variable(res.group(1))
@@ -482,7 +501,7 @@ def maple2c_run(params, variables, derivatives, variants, start_order, input_arg
   if out is None:
     print("Could not open file '" + fname + "' for writing")
     sys.exit(1)
-    
+
   print_c_header(params, out)
 
   test_2 = ("EXC", "VXC", "FXC", "KXC", "LXC", "MXC")
@@ -510,7 +529,7 @@ func_{}_{}(const xc_func_type *p, size_t ip, {}, {})
       # we first print the declaration of the derivatives
       for order2 in range(start_order, order + 1):
          out.write(vars_def[order2] + "\n")
-      
+
       # we now print the prefix defined in the .mpl code
       out.write(params["prefix"] + "\n")
 
@@ -520,6 +539,6 @@ func_{}_{}(const xc_func_type *p, size_t ip, {}, {})
 
       out.write("}\n\n")
       out.write("#endif\n\n")
-      
+
 
   out.close()

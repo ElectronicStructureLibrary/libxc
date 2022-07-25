@@ -72,7 +72,7 @@ const xc_func_info_type xc_func_info_gga_k_tfvw = {
   1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -88,7 +88,7 @@ const xc_func_info_type xc_func_info_gga_k_vw = {
   1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_vw_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -104,7 +104,7 @@ const xc_func_info_type xc_func_info_gga_k_ge2 = {
   1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_ge2_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -120,7 +120,7 @@ const xc_func_info_type xc_func_info_gga_k_golden = {
   1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_golden_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -136,7 +136,7 @@ const xc_func_info_type xc_func_info_gga_k_yt65 = {
   1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_yt65_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -152,7 +152,7 @@ const xc_func_info_type xc_func_info_gga_k_baltin = {
   1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_baltin_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -168,7 +168,7 @@ const xc_func_info_type xc_func_info_gga_k_lieb = {
   1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_lieb_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -184,7 +184,7 @@ const xc_func_info_type xc_func_info_gga_k_tfvw_opt = {
   1e-15,
   {TFVW_N_PAR, tfvw_names, tfvw_desc, tfvw_opt_values, set_ext_params_cpy},
   gga_k_tflw_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 
@@ -249,7 +249,7 @@ const xc_func_info_type xc_func_info_gga_k_absp1 = {
   1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -265,7 +265,7 @@ const xc_func_info_type xc_func_info_gga_k_absp2 = {
   1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -281,7 +281,7 @@ const xc_func_info_type xc_func_info_gga_k_absp3 = {
   1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -297,7 +297,7 @@ const xc_func_info_type xc_func_info_gga_k_absp4 = {
   1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -313,7 +313,7 @@ const xc_func_info_type xc_func_info_gga_k_gr = {
   1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -329,7 +329,7 @@ const xc_func_info_type xc_func_info_gga_k_ludena = {
   1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -345,5 +345,5 @@ const xc_func_info_type xc_func_info_gga_k_gp85 = {
   1e-15,
   {1, N_names, N_desc, N_values, N_set_ext_params},
   gga_k_tflw_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

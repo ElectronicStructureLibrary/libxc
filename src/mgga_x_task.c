@@ -65,8 +65,7 @@ const xc_func_info_type xc_func_info_mgga_x_task = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {TASK_N_PAR, task_names, task_desc, task_values, set_ext_params_cpy},
-  mgga_x_task_init, NULL,
-  NULL, NULL, &work_mgga
+  mgga_x_task_init, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -81,6 +80,5 @@ const xc_func_info_type xc_func_info_mgga_x_mtask = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {TASK_N_PAR, task_names, task_desc, mtask_values, set_ext_params_cpy},
-  mgga_x_task_init, NULL,
-  NULL, NULL, &work_mgga
+  mgga_x_task_init, NULL, &work_mgga
 };

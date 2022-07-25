@@ -37,5 +37,5 @@ const xc_func_info_type xc_func_info_gga_x_ityh = {
   1e-14, /* functional does not seem to be stable below this value */
   {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
   xc_gga_x_ityh_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

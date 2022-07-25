@@ -69,8 +69,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_mpw1kcis = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_mgga_xc_kcis_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_mgga_xc_kcis_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -85,8 +84,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_mpwkcis1k = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_mgga_xc_kcis_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_mgga_xc_kcis_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -101,8 +99,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_pbe1kcis = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_mgga_xc_kcis_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_mgga_xc_kcis_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -117,7 +114,6 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_tpss1kcis = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_mgga_xc_kcis_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_mgga_xc_kcis_init, NULL, NULL
 };
 

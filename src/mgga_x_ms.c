@@ -53,8 +53,7 @@ const xc_func_info_type xc_func_info_mgga_x_ms0 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {MS0_N_PAR, ms0_names, ms0_desc, ms0_values, set_ext_params_cpy},
-  mgga_x_ms_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_ms_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -69,8 +68,7 @@ const xc_func_info_type xc_func_info_mgga_x_ms1 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {MS0_N_PAR, ms0_names, ms0_desc, ms1_values, set_ext_params_cpy},
-  mgga_x_ms_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_ms_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -85,8 +83,7 @@ const xc_func_info_type xc_func_info_mgga_x_ms2 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {MS0_N_PAR, ms0_names, ms0_desc, ms2_values, set_ext_params_cpy},
-  mgga_x_ms_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_ms_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -101,8 +98,7 @@ const xc_func_info_type xc_func_info_mgga_x_ms2_rev = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {MS0_N_PAR, ms0_names, ms0_desc, ms2rev_values, set_ext_params_cpy},
-  mgga_x_ms_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_ms_init, NULL, &work_mgga,
 };
 
 static void
@@ -127,6 +123,5 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_ms2h = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  hyb_mgga_x_ms2h_init, NULL,
-  NULL, NULL, NULL
+  hyb_mgga_x_ms2h_init, NULL, NULL
 };

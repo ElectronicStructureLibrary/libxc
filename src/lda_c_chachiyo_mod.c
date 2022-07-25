@@ -47,7 +47,7 @@ const xc_func_info_type xc_func_info_lda_c_chachiyo_mod = {
   1e-14,
   {N_PAR, names, desc, par_chachiyo, set_ext_params_cpy},
   lda_c_chachiyo_mod_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 
 #ifdef __cplusplus
@@ -63,5 +63,5 @@ const xc_func_info_type xc_func_info_lda_c_karasiev_mod = {
   1e-14,
   {N_PAR, names, desc, par_karasiev, set_ext_params_cpy},
   lda_c_chachiyo_mod_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };

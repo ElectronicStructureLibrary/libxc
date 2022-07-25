@@ -42,6 +42,5 @@ const xc_func_info_type xc_func_info_mgga_x_gx = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {GX_N_PAR, gx_names, gx_desc, gx_values, set_ext_params_cpy},
-  mgga_x_gx_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_gx_init, NULL, &work_mgga,
 };

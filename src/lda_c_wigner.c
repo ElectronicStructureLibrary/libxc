@@ -55,7 +55,7 @@ const xc_func_info_type xc_func_info_lda_c_wigner = {
   1e-24,
   {N_PAR, names, desc, val_wigner, set_ext_params_cpy},
   lda_c_wigner_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 
 #ifdef __cplusplus
@@ -71,7 +71,7 @@ const xc_func_info_type xc_func_info_lda_xc_lp_a = {
   1e-24,
   {N_PAR, names, desc, val_lp_a, set_ext_params_cpy},
   lda_c_wigner_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 
 #ifdef __cplusplus
@@ -87,7 +87,7 @@ const xc_func_info_type xc_func_info_lda_xc_lp_b = {
   1e-24,
   {N_PAR, names, desc, val_lp_b, set_ext_params_cpy},
   lda_c_wigner_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 
 #ifdef __cplusplus
@@ -103,7 +103,7 @@ const xc_func_info_type xc_func_info_lda_c_mcweeny = {
   1e-24,
   {N_PAR, names, desc, val_mcweeny, set_ext_params_cpy},
   lda_c_wigner_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 
 #ifdef __cplusplus
@@ -119,7 +119,7 @@ const xc_func_info_type xc_func_info_lda_c_br78 = {
   1e-24,
   {N_PAR, names, desc, val_br78, set_ext_params_cpy},
   lda_c_wigner_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 
 #ifdef __cplusplus
@@ -135,7 +135,7 @@ const xc_func_info_type xc_func_info_lda_c_ow_lyp = {
   1e-24,
   {N_PAR, names, desc, val_ow_lyp, set_ext_params_cpy},
   lda_c_wigner_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 
 #ifdef __cplusplus
@@ -151,6 +151,6 @@ const xc_func_info_type xc_func_info_lda_c_ow = {
   1e-24,
   {N_PAR, names, desc, val_ow, set_ext_params_cpy},
   lda_c_wigner_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 

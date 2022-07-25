@@ -42,5 +42,5 @@ const xc_func_info_type xc_func_info_lda_c_pw_erf = {
   1e-13,
   {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
   xc_lda_c_pw_erf_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };

@@ -24,7 +24,8 @@ extern xc_func_info_type
   *xc_gga_known_funct[],
   *xc_hyb_gga_known_funct[],
   *xc_mgga_known_funct[],
-  *xc_hyb_mgga_known_funct[];
+  *xc_hyb_mgga_known_funct[],
+  *xc_hgga_known_funct[];
 
 
 /*------------------------------------------------------*/
@@ -103,6 +104,15 @@ int xc_family_from_id(int id, int *family, int *number)
       if(family != NULL) *family = XC_FAMILY_MGGA;
       if(number != NULL) *number = ii;
       return XC_FAMILY_MGGA;
+    }
+  }
+
+  /* or is it a hyper GGA? */
+  for(ii=0; xc_hgga_known_funct[ii]!=NULL; ii++){
+    if(xc_hgga_known_funct[ii]->number == id){
+      if(family != NULL) *family = XC_FAMILY_HGGA;
+      if(number != NULL) *number = ii;
+      return XC_FAMILY_HGGA;
     }
   }
 
@@ -276,23 +286,24 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
   xc_func_info_type * finfo = (xc_func_info_type *) libxc_malloc(sizeof(xc_func_info_type));
 
   // initialize the dimension structure
-  libxc_memset(&(func->dim), 0, sizeof(xc_dimensions));
+  if(func->nspin == XC_UNPOLARIZED)
+    func->dim = &dimensions_unpolarized;
+  else
+    func->dim = &dimensions_polarized;
+
   switch(xc_family_from_id(functional, NULL, &number)){
   case(XC_FAMILY_LDA):
     *finfo = *xc_lda_known_funct[number];
-    internal_counters_set_lda(func->nspin, &(func->dim));
     break;
-
   case(XC_FAMILY_GGA):
     *finfo = *xc_gga_known_funct[number];
-    internal_counters_set_gga(func->nspin, &(func->dim));
     break;
-
   case(XC_FAMILY_MGGA):
     *finfo = *xc_mgga_known_funct[number];
-    internal_counters_set_mgga(func->nspin, &(func->dim));
     break;
-
+  case(XC_FAMILY_HGGA):
+    *finfo = *xc_hgga_known_funct[number];
+    break;
   default:
     return -2; /* family not found */
   }

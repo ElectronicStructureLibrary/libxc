@@ -58,8 +58,7 @@ const xc_func_info_type xc_func_info_mgga_x_ms2b = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  mgga_x_msb_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_msb_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -74,6 +73,5 @@ const xc_func_info_type xc_func_info_mgga_x_ms2bs = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  mgga_x_msb_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_msb_init, NULL, &work_mgga,
 };

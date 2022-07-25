@@ -52,8 +52,7 @@ const xc_func_info_type xc_func_info_gga_x_ssb_sw = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, par_ssb_sw, set_ext_params_cpy},
-  gga_x_ssb_sw_init, NULL,
-  NULL, &work_gga, NULL
+  gga_x_ssb_sw_init, NULL, &work_gga
 };
 
 #define SSB_N_PAR 8
@@ -126,8 +125,7 @@ const xc_func_info_type xc_func_info_gga_x_ssb = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {SSB_N_PAR, ssb_names, ssb_desc, par_ssb, ssb_set_ext_params},
-  gga_x_ssb_init, NULL,
-  NULL, NULL, NULL
+  gga_x_ssb_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -142,8 +140,7 @@ const xc_func_info_type xc_func_info_gga_x_ssb_d = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {SSB_N_PAR, ssb_names, ssb_desc, par_ssb_d, ssb_set_ext_params},
-  gga_x_ssb_init, NULL,
-  NULL, NULL, NULL
+  gga_x_ssb_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -158,6 +155,5 @@ const xc_func_info_type xc_func_info_gga_x_revssb_d = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {SSB_N_PAR, ssb_names, ssb_desc, par_revssb_d, ssb_set_ext_params},
-  gga_x_ssb_init, NULL,
-  NULL, NULL, NULL
+  gga_x_ssb_init, NULL, NULL
 };

@@ -61,7 +61,7 @@ const xc_func_info_type xc_func_info_gga_k_apbeint = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -77,5 +77,5 @@ const xc_func_info_type xc_func_info_gga_k_revapbeint = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_k_apbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

@@ -46,7 +46,6 @@ const xc_func_info_type xc_func_info_mgga_c_bc95 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-14,
   {BC95_N_PAR, bc95_names, bc95_desc, bc95_values, set_ext_params_cpy},
-  mgga_c_bc95_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_bc95_init, NULL, &work_mgga,
 };
 

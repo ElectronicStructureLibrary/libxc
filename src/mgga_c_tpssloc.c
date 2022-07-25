@@ -26,7 +26,6 @@ const xc_func_info_type xc_func_info_mgga_c_tpssloc = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-14, /* densities smaller than 1e-26 give NaNs */
   {0, NULL, NULL, NULL, NULL},
-  NULL, NULL,
   NULL, NULL, &work_mgga
 };
 

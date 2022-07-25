@@ -64,8 +64,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b2plyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {N_PAR, names, desc, b2plyp_values, b2plyp_set_ext_params},
-  hyb_gga_xc_b2plyp_init, NULL,
-  NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_gga_xc_b2plyp_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -80,8 +79,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_b2gpplyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {N_PAR, names, desc, b2gpplyp_values, b2plyp_set_ext_params},
-  hyb_gga_xc_b2plyp_init, NULL,
-  NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_gga_xc_b2plyp_init, NULL, NULL
 };
 
 
@@ -147,8 +145,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb2plyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {N_PARW, wnames, wdesc, wb2plyp_values, wb2plyp_set_ext_params},
-  hyb_gga_xc_wb2plyp_init, NULL,
-  NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_gga_xc_wb2plyp_init, NULL, NULL
 };
 
 #ifdef __cplusplus
@@ -163,6 +160,5 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_wb2gpplyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {N_PARW, wnames, wdesc, wb2gpplyp_values, wb2plyp_set_ext_params},
-  hyb_gga_xc_wb2plyp_init, NULL,
-  NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_gga_xc_wb2plyp_init, NULL, NULL
 };

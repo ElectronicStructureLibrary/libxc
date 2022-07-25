@@ -448,6 +448,9 @@ set(raw_sources_list
   mgga_x_ft98.c
   hyb_mgga_xc_br3p86.c
   mgga_x_vcml.c
+  hgga.c
+  hgga_x_jse_b88.c
+  io_variables.c
   mix_func.c
   deorbitalize_func.c
   references.c

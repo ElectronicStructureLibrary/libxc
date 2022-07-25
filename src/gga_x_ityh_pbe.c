@@ -57,5 +57,5 @@ const xc_func_info_type xc_func_info_gga_x_ityh_pbe = {
   1e-15,
   {N_PAR, names, desc, par_pbe, set_ext_params_cpy_omega},
   gga_x_ityh_pbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

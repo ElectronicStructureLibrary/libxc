@@ -28,7 +28,6 @@ const xc_func_info_type xc_func_info_mgga_x_vcml = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-14,
   {0, NULL, NULL, NULL, NULL},
-  NULL, NULL,
   NULL, NULL, &work_mgga,
 };
 
@@ -55,6 +54,5 @@ const xc_func_info_type xc_func_info_mgga_xc_vcml_rvv10 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_I_HAVE_ALL | XC_FLAGS_VV10, /* TBD: this should be rvv10 */
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  mgga_xc_vcml_rvv10_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  mgga_xc_vcml_rvv10_init, NULL, NULL
 };

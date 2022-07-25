@@ -64,5 +64,5 @@ const xc_func_info_type xc_func_info_gga_x_lsrpbe = {
   1e-15,
   {LSRPBE_N_PAR, lsrpbe_names, lsrpbe_desc, lsrpbe_values, lsrpbe_set_ext_params},
   gga_x_lsrpbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

@@ -35,8 +35,7 @@ const xc_func_info_type xc_func_info_gga_k_gds08 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_k_gds08_init, NULL,
-  NULL, NULL, NULL
+  gga_k_gds08_init, NULL, NULL
 };
 
 static void
@@ -64,8 +63,7 @@ const xc_func_info_type xc_func_info_gga_k_ghds10 = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_k_ghds10_init, NULL,
-  NULL, NULL, NULL
+  gga_k_ghds10_init, NULL, NULL
 };
 
 static void
@@ -93,8 +91,7 @@ const xc_func_info_type xc_func_info_gga_k_ghds10r = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_k_ghds10r_init, NULL,
-  NULL, NULL, NULL
+  gga_k_ghds10r_init, NULL, NULL
 };
 
 static void
@@ -122,6 +119,5 @@ const xc_func_info_type xc_func_info_gga_k_tkvln = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  gga_k_tkvln_init, NULL,
-  NULL, NULL, NULL
+  gga_k_tkvln_init, NULL, NULL
 };

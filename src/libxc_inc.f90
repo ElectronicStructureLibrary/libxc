@@ -1927,3 +1927,6 @@
  ! Functional for quasi-1D systems
  integer(c_int), parameter, public :: XC_GGA_X_Q1D  =    734
 
+ ! Local hyrbid functional of Jaramillo et al
+ integer(c_int), parameter, public :: XC_HGGA_X_JSE_B88  =    735
+

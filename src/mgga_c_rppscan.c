@@ -22,7 +22,7 @@ static const char  *desc[N_PAR]   = {
 
 static const double rppscan_values[N_PAR] = {0.001};
 static const double rppscan01_values[N_PAR] = {0.01};
-  
+
 #include "maple2c/mgga_exc/mgga_c_rppscan.c"
 #include "work_mgga.c"
 
@@ -45,6 +45,5 @@ const xc_func_info_type xc_func_info_mgga_c_rppscan = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, rppscan_values, set_ext_params_cpy},
-  mgga_c_rppscan_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_c_rppscan_init, NULL, &work_mgga,
 };

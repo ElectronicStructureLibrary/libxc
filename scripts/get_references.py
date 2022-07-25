@@ -49,7 +49,7 @@ class LibxcWriter(BibWriter):
     '''We prefer two spaces instead of four'''
     stream.write(u',\n  %s = %s' % (type, self.quote(self._encode(value))))
 
-    
+
 # Code starts here
 if len(sys.argv) != 2:
   print("Usage: " + sys.argv[0] + "BIBFILE\n")

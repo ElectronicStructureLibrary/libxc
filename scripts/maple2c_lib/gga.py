@@ -13,7 +13,7 @@ variables = ["rho_0_", "rho_1_", "sigma_0_", "sigma_1_", "sigma_2_"]
 
 # get arguments of the functions
 input_args  = "const double *rho, const double *sigma"
-output_args = "xc_gga_out_params *out"
+output_args = "xc_output_variables *out"
 
 # the definition of the derivatives that libxc transmits to the calling program
 partials = [
@@ -29,9 +29,9 @@ def work_gga_exc(params):
   '''Process a GGA functional for the energy'''
 
   derivatives = partials_to_derivatives(params, "gga", partials)
-  
+
   der_def, out_c = maple_define_derivatives(variables, derivatives, "mf")
-  
+
   out_c = ", ".join(out_c)
   if out_c != "": out_c = ", " + out_c
 
@@ -48,7 +48,7 @@ mzk  := (r0, r1, s0, s1, s2) -> \\
 
 $include <util.mpl>
 '''.format(params["simplify_begin"], params["simplify_end"])
-  
+
   maple_zk = " zk_0_ = mzk(" + ", ".join(variables) + ")"
 
   # we build 2 variants of the functional, for unpolarized, and polarized densities
@@ -92,7 +92,7 @@ def work_gga_vxc(params):
   all_derivatives = partials_to_derivatives(params, "gga", partials)
 
   derivatives, derivatives1, derivatives2 = filter_vxc_derivatives(all_derivatives)
-  
+
   # we obtain the missing pieces for maple
   # unpolarized calculation
   der_def_unpol, out_c_unpol = maple_define_derivatives(variables, derivatives1, "mf0")
@@ -102,11 +102,11 @@ def work_gga_vxc(params):
   # polarized calculation
   der_def_pol1, out_c_pol1 = maple_define_derivatives(variables, derivatives1, "mf0")
   der_def_pol2, out_c_pol2 = maple_define_derivatives(variables, derivatives2, "mf1")
-  
+
   der_def_pol = der_def_pol1 + der_def_pol2
   out_c_pol   = ", ".join(sorted(out_c_pol1 + out_c_pol2, key=sort_alphanumerically))
   if out_c_pol != "": out_c_pol = ", " + out_c_pol
-  
+
   # we join all the pieces
   maple_code  = '''
 mzk  := (r0, r1, s0, s1, s2) -> \\
@@ -120,7 +120,7 @@ mf1   := (r0, r1, s0, s1, s2) -> eval(mzk(r1, r0, s2, s1, s0)):
 
 $include <util.mpl>
 '''.format(params["simplify_begin"], params["simplify_end"])
-  
+
   maple_vrho0 = " vrho_0_ = mf0(" + ", ".join(variables) + ")"
   maple_vrho1 = " vrho_1_ = mf1(" + ", ".join(variables) + ")"
 

@@ -84,7 +84,7 @@
 #endif
 
 /* we construct a structure containing all variants */
-static xc_gga_funcs_variants work_gga =
+static xc_functionals_work_variants work_gga =
   {
    {work_gga_exc_unpol, work_gga_vxc_unpol, work_gga_fxc_unpol, work_gga_kxc_unpol, work_gga_lxc_unpol},
    {work_gga_exc_pol,   work_gga_vxc_pol,   work_gga_fxc_pol,   work_gga_kxc_pol,   work_gga_lxc_pol}

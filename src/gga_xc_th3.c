@@ -75,7 +75,7 @@ const xc_func_info_type xc_func_info_gga_xc_th3 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_xc_th3_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 #ifdef __cplusplus
@@ -91,5 +91,5 @@ const xc_func_info_type xc_func_info_gga_xc_th4 = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   gga_xc_th3_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

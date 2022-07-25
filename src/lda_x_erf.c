@@ -39,7 +39,7 @@ const xc_func_info_type xc_func_info_lda_x_erf = {
   1e-15,
   {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},
   xc_lda_x_erf_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 
 static void
@@ -62,5 +62,5 @@ const xc_func_info_type xc_func_info_hyb_lda_x_erf = {
   1e-15,
   {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_lc},
   xc_hyb_lda_x_erf_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };

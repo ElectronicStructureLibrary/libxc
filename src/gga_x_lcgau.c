@@ -76,7 +76,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_lcgau = {
   1e-10,
   {LCGAU_N_PAR, lcgau_names, lcgau_desc, lcgau_values, lcgau_set_ext_params},
   hyb_gga_x_lgau_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 
@@ -93,7 +93,7 @@ const xc_func_info_type xc_func_info_hyb_gga_x_lcgau_core = {
   1e-8,
   {LCGAU_N_PAR, lcgau_names, lcgau_desc, lcgau_core_values, lcgau_set_ext_params},
   hyb_gga_x_lgau_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };
 
 
@@ -110,5 +110,5 @@ const xc_func_info_type xc_func_info_hyb_gga_x_lc2gau = {
   1e-8,
   {LCGAU_N_PAR, lcgau_names, lcgau_desc, lc2gau_values, lcgau_set_ext_params},
   hyb_gga_x_lgau_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

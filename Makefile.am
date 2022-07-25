@@ -15,7 +15,7 @@ EXTRA_DIST = ChangeLog.md PACKAGING setup.py config.h.cmake.in CMakeLists.txt CI
 
 CLEANFILES = *~ *.bak
 
-# These files are in the repository, and the command below should be run 
+# These files are in the repository, and the command below should be run
 # to update them whenever references are changed.
 # references.c references.h: get_references.py ../libxc.bib
 references:

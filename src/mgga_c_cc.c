@@ -27,5 +27,5 @@ const xc_func_info_type xc_func_info_mgga_c_cc = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, NULL, &work_mgga
+  &work_mgga
 };

@@ -67,6 +67,5 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_br3p86 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {N_PAR, names, desc, br3p86_values, br3p86_set_ext_params},
-  hyb_mgga_xc_br3p86_init,
-  NULL, NULL, NULL, NULL /* this is taken care of by the generic routine */
+  hyb_mgga_xc_br3p86_init, NULL, NULL
 };

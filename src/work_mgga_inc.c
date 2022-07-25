@@ -18,221 +18,180 @@
 #endif
 
 /* macro to simpligy accessing the variables */
-#define VAR(var, ip, index)         var[ip*p->dim.var + index]
+#define VAR(var, ip, index)         var[ip*p->dim->var + index]
 #define WORK_MGGA_(order, spin)     work_mgga_ ## order ## _ ## spin
-#define WORK_MGGA_GPU_(order, spin) work_mgga_ ## order ## _ ## spin
+#define WORK_MGGA_IP_(order, spin)  work_mgga_ip_ ## order ## _ ## spin
 #define FUNC_(order, spin)          func_     ## order ## _ ## spin
 
 /* we need double escaping of the preprocessor macros */
 #define WORK_MGGA(order, spin)     WORK_MGGA_(order, spin)
-#define WORK_MGGA_GPU(order, spin) WORK_MGGA_GPU_(order, spin)
+#define WORK_MGGA_IP(order, spin)  WORK_MGGA_IP_(order, spin)
 #define FUNC(order, spin)          FUNC_(order, spin)
 
-#ifndef HAVE_CUDA
-
-static void
-WORK_MGGA(ORDER_TXT, SPIN_TXT)
-(const XC(func_type) *p, size_t np,
- const double *rho, const double *sigma, const double *lapl, const double *tau,
- xc_mgga_out_params *out)
-{
-
-#ifdef XC_DEBUG
-  /* This throws an exception when floating point errors are encountered */
-  //feenableexcept(FE_DIVBYZERO | FE_INVALID | FE_OVERFLOW);
-#endif
-
-  size_t ip;
-  double dens;
-  double my_rho[2]={0.0, 0.0};
-  double my_sigma[3]={0.0, 0.0, 0.0};
-  double my_tau[2]={0.0, 0.0};
-
-  for(ip = 0; ip < np; ip++){
-    /* Screen low density */
-    dens = (p->nspin == XC_POLARIZED) ? VAR(rho, ip, 0) + VAR(rho, ip, 1) : VAR(rho, ip, 0);
-    if(dens < p->dens_threshold)
-      continue;
-
-    /* sanity check of input parameters */
-    my_rho[0] = m_max(p->dens_threshold, VAR(rho, ip, 0));
-    my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, VAR(sigma, ip, 0));
-
-    /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
-    /* skip all checks on tau for the kinetic functionals */
-    if(p->info->flags & XC_FLAGS_NEEDS_TAU){
-      my_tau[0] = m_max(p->tau_threshold, VAR(tau, ip, 0));
-#ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
-      /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
-      my_sigma[0] = m_min(my_sigma[0], 8.0*my_rho[0]*my_tau[0]);
-#endif
-    }
-    /* lapl can have any values */
-
-    if(p->nspin == XC_POLARIZED){
-      double s_ave;
-
-      my_rho[1] = m_max(p->dens_threshold, VAR(rho, ip, 1));
-      my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, VAR(sigma, ip, 2));
-
-      if(p->info->flags & XC_FLAGS_NEEDS_TAU){
-        my_tau[1] = m_max(p->tau_threshold, VAR(tau, ip, 1));
-#ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
-        /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
-        my_sigma[2] = m_min(my_sigma[2], 8.0*my_rho[1]*my_tau[1]);
-#endif
-      }
-      
-      my_sigma[1] = VAR(sigma, ip, 1);
-      s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
-      /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
-      my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
-      /* Since |grad n_up - grad n_down|^2 > 0 we also have */
-      my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
-    }
-
-    FUNC(ORDER_TXT, SPIN_TXT)(p, ip, my_rho, my_sigma, &VAR(lapl, ip, 0), my_tau, out);
-
-    /* check for NaNs */
-#ifdef XC_DEBUG
-    {
-      const xc_dimensions *dim = &(p->dim);
-      int ii, is_OK = 1;
-
-      if(out->zk != NULL)
-        is_OK = is_OK & isfinite(out->VAR(zk, ip, 0));
-
-      if(out->vrho != NULL){
-        for(ii=0; ii < dim->vrho; ii++)
-          is_OK = is_OK && isfinite(out->VAR(vrho, ip, ii));
-        for(ii=0; ii < dim->vsigma; ii++)
-          is_OK = is_OK && isfinite(out->VAR(vsigma, ip, ii));
-        if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
-          for(ii=0; ii < dim->vlapl; ii++)
-            is_OK = is_OK && isfinite(out->VAR(vlapl, ip, ii));
-        if(p->info->flags & XC_FLAGS_NEEDS_TAU)
-          for(ii=0; ii < dim->vtau; ii++)
-            is_OK = is_OK && isfinite(out->VAR(vtau, ip, ii));
-      }
-
-      if(!is_OK){
-        printf("Problem in the evaluation of the functional\n");
-        if(p->nspin == XC_UNPOLARIZED){
-          printf("./xc-get_data %d 1 ", p->info->number);
-          if(p->info->flags & (XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU))
-            printf("%le 0.0 %le 0.0 0.0 %le 0.0 %le 0.0\n",
-                   VAR(rho, ip, 0), VAR(sigma, ip, 0), VAR(lapl, ip, 0), VAR(tau, ip, 0));
-          else if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
-            printf("%le 0.0 %le 0.0 0.0 %le 0.0 0.0 0.0\n",
-                   VAR(rho, ip, 0), VAR(sigma, ip, 0), VAR(lapl, ip, 0));
-          else
-            printf("%le 0.0 %le 0.0 0.0 0.0 0.0 %le 0.0\n",
-                   VAR(rho, ip, 0), VAR(sigma, ip, 0), VAR(tau, ip, 0));
-        }else{
-          printf("./xc-get_data %d 2 ", p->info->number);
-          if(p->info->flags & (XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU))
-            printf("%le %le %le %le %le %le %le %le %le\n",
-                   VAR(rho, ip, 0), VAR(rho, ip, 1),
-                   VAR(sigma, ip, 0), VAR(sigma, ip, 1), VAR(sigma, ip, 2),
-                   VAR(lapl, ip, 0), VAR(lapl, ip, 1),
-                   VAR(tau, ip, 0), VAR(tau, ip, 1));
-          else if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
-            printf("%le %le %le %le %le %le %le 0.0 0.0\n",
-                   VAR(rho, ip, 0), VAR(rho, ip, 1),
-                   VAR(sigma, ip, 0), VAR(sigma, ip, 1), VAR(sigma, ip, 2),
-                   VAR(lapl, ip, 0), VAR(lapl, ip, 1));
-          else
-            printf("%le %le %le %le %le 0.0 0.0 %le %le\n",
-                   VAR(rho, ip, 0), VAR(rho, ip, 1),
-                   VAR(sigma, ip, 0), VAR(sigma, ip, 1), VAR(sigma, ip, 2),
-                   VAR(tau, ip, 0), VAR(tau, ip, 1));
-        }
-      }
-    }
-#endif
-  }   /* for(ip) */
-
-}
-
-#else
-
+#ifdef HAVE_CUDA
 __global__ static void
-WORK_MGGA_GPU(ORDER_TXT, SPIN_TXT)
-(const XC(func_type) *p, size_t np,
- const double *rho, const double *sigma, const double *lapl, const double *tau,
- xc_mgga_out_params *out)
+WORK_MGGA_IP(ORDER_TXT, SPIN_TXT)
+(const XC(func_type) *p, const xc_input_variables *in, xc_output_variables *out)
+#else
+inline static void
+WORK_MGGA_IP(ORDER_TXT, SPIN_TXT)
+(const XC(func_type) *p, size_t ip, const xc_input_variables *in, xc_output_variables *out)
+#endif
 {
-
-  size_t ip = blockIdx.x * blockDim.x + threadIdx.x;
+  double dens;
   double my_rho[2] = {0.0, 0.0};
   double my_sigma[3] = {0.0, 0.0, 0.0};
   double my_tau[2] = {0.0, 0.0};
-  double dens;
 
-  if(ip >= np) return;
+#ifdef HAVE_CUDA
+  size_t ip = blockIdx.x*blockDim.x + threadIdx.x;
+#else
+#ifdef XC_DEBUG
+  /* This throws an exception when floating point errors are encountered */
+  /* feenableexcept(FE_DIVBYZERO | FE_INVALID); */
+#endif
+#endif
 
-  /* Screen small densities */
-  dens = (p->nspin == XC_POLARIZED) ? rho[0]+rho[1] : rho[0];
-  if(dens >= p->dens_threshold) {
-    /* sanity check of input parameters */
-    my_rho[0] = m_max(p->dens_threshold, rho[0]);
-    /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
-    if(p->info->flags & XC_FLAGS_NEEDS_TAU)
-      my_tau[0] = m_max(p->tau_threshold, tau[0]);
-    my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[0]);
+  /* this check is required for the GPU kernel */
+  if(ip >= in->np)
+    return;
+
+  /* screen small densities */
+  dens = (p->nspin == XC_POLARIZED) ?
+    in->VAR(rho, ip, 0) + in->VAR(rho, ip, 1) :
+    in->VAR(rho, ip, 0);
+  if(dens < p->dens_threshold)
+    return;
+
+  /* sanity check of input parameters */
+  my_rho[0] = m_max(p->dens_threshold, in->VAR(rho, ip, 0));
+  my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, in->VAR(sigma, ip, 0));
+
+  /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
+  /* skip all checks on tau for the kinetic functionals */
+  if(p->info->flags & XC_FLAGS_NEEDS_TAU){
+    my_tau[0] = m_max(p->tau_threshold, in->VAR(tau, ip, 0));
 #ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
     /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
-    if(p->info->flags & XC_FLAGS_NEEDS_TAU)
-      my_sigma[0] = m_min(my_sigma[0], 8.0*my_rho[0]*my_tau[0]);
+    my_sigma[0] = m_min(my_sigma[0], 8.0*my_rho[0]*my_tau[0]);
 #endif
-    /* lapl can have any values */
-    if(p->nspin == XC_POLARIZED){
-      double s_ave;
+  }
+  /* lapl can have any values */
 
-      my_rho[1]   = m_max(p->dens_threshold, rho[1]);
-      if(p->info->flags & XC_FLAGS_NEEDS_TAU)
-        my_tau[1] = m_max(p->tau_threshold, tau[1]);
-      my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[2]);
+  if(p->nspin == XC_POLARIZED){
+    double s_ave;
+
+    my_rho[1] = m_max(p->dens_threshold, in->VAR(rho, ip, 1));
+    my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, in->VAR(sigma, ip, 2));
+
+    if(p->info->flags & XC_FLAGS_NEEDS_TAU){
+      my_tau[1] = m_max(p->tau_threshold, in->VAR(tau, ip, 1));
 #ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
       /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
-      if(p->info->flags & XC_FLAGS_NEEDS_TAU)
-        my_sigma[2] = m_min(my_sigma[2], 8.0*my_rho[1]*my_tau[1]);
+      my_sigma[2] = m_min(my_sigma[2], 8.0*my_rho[1]*my_tau[1]);
 #endif
-
-      my_sigma[1] = sigma[1];
-      s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
-      /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
-      my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
-      /* Since |grad n_up - grad n_down|^2 > 0 we also have */
-      my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
     }
 
-    FUNC(ORDER_TXT, SPIN_TXT)(p, ip, my_rho, my_sigma, lapl, my_tau, out);
+    my_sigma[1] = in->VAR(sigma, ip, 1);
+    s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
+    /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
+    my_sigma[1] = (my_sigma[1] >= -s_ave ? my_sigma[1] : -s_ave);
+    /* Since |grad n_up - grad n_down|^2 > 0 we also have */
+    my_sigma[1] = (my_sigma[1] <= +s_ave ? my_sigma[1] : +s_ave);
   }
-}
 
+  /* evaluate the functional */
+  FUNC(ORDER_TXT, SPIN_TXT)(p, ip, my_rho, my_sigma, &in->VAR(lapl, ip, 0), my_tau, out);
+
+#ifdef XC_DEBUG
+  /* check for NaNs in the output */
+  const xc_dimensions *dim = p->dim;
+  int ii, is_OK = 1;
+
+  if(out->zk != NULL)
+    is_OK = is_OK & isfinite(out->VAR(zk, ip, 0));
+
+  if(out->vrho != NULL){
+    for(ii=0; ii < dim->vrho; ii++)
+      is_OK = is_OK && isfinite(out->VAR(vrho, ip, ii));
+    for(ii=0; ii < dim->vsigma; ii++)
+      is_OK = is_OK && isfinite(out->VAR(vsigma, ip, ii));
+    if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+      for(ii=0; ii < dim->vlapl; ii++)
+        is_OK = is_OK && isfinite(out->VAR(vlapl, ip, ii));
+    if(p->info->flags & XC_FLAGS_NEEDS_TAU)
+      for(ii=0; ii < dim->vtau; ii++)
+        is_OK = is_OK && isfinite(out->VAR(vtau, ip, ii));
+  }
+
+  if(!is_OK){
+    printf("Problem in the evaluation of the functional\n");
+    if(p->nspin == XC_UNPOLARIZED){
+      printf("./xc-get_data %d 1 ", p->info->number);
+      if(p->info->flags & (XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU))
+        printf("%le 0.0 %le 0.0 0.0 %le 0.0 %le 0.0\n",
+               in->VAR(rho, ip, 0), in->VAR(sigma, ip, 0), in->VAR(lapl, ip, 0), in->VAR(tau, ip, 0));
+      else if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+        printf("%le 0.0 %le 0.0 0.0 %le 0.0 0.0 0.0\n",
+               in->VAR(rho, ip, 0), in->VAR(sigma, ip, 0), in->VAR(lapl, ip, 0));
+      else
+        printf("%le 0.0 %le 0.0 0.0 0.0 0.0 %le 0.0\n",
+               in->VAR(rho, ip, 0), in->VAR(sigma, ip, 0), in->VAR(tau, ip, 0));
+    }else{
+      printf("./xc-get_data %d 2 ", p->info->number);
+      if(p->info->flags & (XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU))
+        printf("%le %le %le %le %le %le %le %le %le\n",
+               in->VAR(rho, ip, 0), in->VAR(rho, ip, 1),
+               in->VAR(sigma, ip, 0), in->VAR(sigma, ip, 1), in->VAR(sigma, ip, 2),
+               in->VAR(lapl, ip, 0), in->VAR(lapl, ip, 1),
+               in->VAR(tau, ip, 0), in->VAR(tau, ip, 1));
+      else if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
+        printf("%le %le %le %le %le %le %le 0.0 0.0\n",
+               in->VAR(rho, ip, 0), in->VAR(rho, ip, 1),
+               in->VAR(sigma, ip, 0), in->VAR(sigma, ip, 1), in->VAR(sigma, ip, 2),
+               in->VAR(lapl, ip, 0), in->VAR(lapl, ip, 1));
+      else
+        printf("%le %le %le %le %le 0.0 0.0 %le %le\n",
+               in->VAR(rho, ip, 0), in->VAR(rho, ip, 1),
+               in->VAR(sigma, ip, 0), in->VAR(sigma, ip, 1), in->VAR(sigma, ip, 2),
+               in->VAR(tau, ip, 0), in->VAR(tau, ip, 1));
+    }
+  }
+#endif
+}
 
 static void
 WORK_MGGA(ORDER_TXT, SPIN_TXT)
-(const XC(func_type) *p, size_t np,
- const double *rho, const double *sigma, const double *lapl, const double *tau,
- xc_gga_out_params *out)
+(const XC(func_type) *p, const xc_input_variables *in, xc_output_variables *out)
 {
-  //make a copy of 'p' and 'out' since they might be in host-only memory
+#ifdef HAVE_CUDA
+  /* make a copy of 'p' and 'out' since they might be in host-only memory */
   XC(func_type) *pcuda = (XC(func_type) *) libxc_malloc(sizeof(XC(func_type)));
-  xc_mgga_out_params *outcuda = (xc_mgga_out_params *) libxc_malloc(sizeof(xc_mgga_out_params));
+  xc_input_variables *incuda = (xc_input_variables *) libxc_malloc(sizeof(xc_input_variables));
+  xc_output_variables *outcuda = (xc_output_variables *) libxc_malloc(sizeof(xc_output_variables));
 
   cudaMemcpy(pcuda, p, sizeof(XC(func_type)), cudaMemcpyHostToDevice);
-  cudaMemcpy(outcuda, out, sizeof(xc_mgga_out_params), cudaMemcpyHostToDevice);
+  cudaMemcpy(incuda, in, sizeof(xc_input_variables), cudaMemcpyHostToDevice);
+  cudaMemcpy(outcuda, out, sizeof(xc_output_variables), cudaMemcpyHostToDevice);
 
-  size_t nblocks = np/CUDA_BLOCK_SIZE;
-  if(np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
+  /* determine number of blocks required */
+  size_t nblocks = in->np/CUDA_BLOCK_SIZE;
+  if(in->np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
 
-  WORK_MGGA_GPU(ORDER_TXT, SPIN_TXT)<<<nblocks, CUDA_BLOCK_SIZE>>>
-    (pcuda, np, rho, sigma, lapl, tau, outcuda);
+  /* execute kernel */
+  WORK_MGGA_IP(ORDER_TXT, SPIN_TXT)<<<nblocks, CUDA_BLOCK_SIZE>>>
+    (pcuda, incuda, outcuda);
 
+  /* clean up memory */
   libxc_free(pcuda);
+  libxc_free(incuda);
   libxc_free(outcuda);
-}
+#else
+  size_t ip;
 
+  /* simply loop over points */
+  for(ip=0; ip<in->np; ip++){
+    WORK_MGGA_IP(ORDER_TXT, SPIN_TXT)(p, ip, in, out);
+  }
 #endif
+}

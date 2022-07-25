@@ -28,13 +28,13 @@
   if(cp!=buf) {							\
   fprintf(stderr,"Error reading line from input file.\n");	\
   error_exit();							\
-  }  
+  }
 
 #define ref_line()   cp=fgets(buf,BUFSIZE,ref);			\
   if(cp!=buf) {							\
   fprintf(stderr,"Error reading line from reference file.\n");	\
   error_exit();							\
-  }  
+  }
 
 double maxabs(double x, double y) {
   return fabs(x)>fabs(y) ? fabs(x) : fabs(y);
@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
 
   /* Loop indices */
   int i, j;
-  
+
   /* Input and reference data */
   double din[MAXCOL], dref[MAXCOL];
   /* Column legends */
@@ -114,7 +114,7 @@ int main(int argc, char **argv) {
     fprintf(stderr,"Error reading func_id and file size from reference file.\n");
     error_exit();
   }
-  
+
   if(fidin!=fidref) {
     fprintf(stderr,"Functional ids %i and %i don't match!\n",fidin,fidref);
     error_exit();
@@ -138,7 +138,7 @@ int main(int argc, char **argv) {
       error_exit();
     }
   }
-  
+
   ref_line();
   cref=0;
   cur=0;
@@ -166,7 +166,7 @@ int main(int argc, char **argv) {
   /* Initialize difference data */
   for(i=0;i<MAXCOL;i++)
     maxdiff[i]=0.0;
-    
+
   /* Read in data */
   for(i=0;i<nin;i++) {
     static const char fmt[]="%lf%n";
@@ -178,11 +178,11 @@ int main(int argc, char **argv) {
     while(sscanf(buf+cur,fmt,&din[j],&nread)==1) {
       j++;
       cur+=nread;
-      
+
       if(j==MAXCOL) {
         fprintf(stderr,"Array overflow. Increase MAXCOL.\n");
 	      error_exit();
-      }	
+      }
     }
 
     /* Reference line */
@@ -192,7 +192,7 @@ int main(int argc, char **argv) {
     while(sscanf(buf+cur,fmt,&dref[j],&nread)==1) {
       j++;
       cur+=nread;
-      
+
       if(j==MAXCOL) {
 	      fprintf(stderr,"Array overflow. Increase MAXCOL.\n");
 	      error_exit();
@@ -205,7 +205,7 @@ int main(int argc, char **argv) {
       if(l_err > maxdiff[j])
         maxdiff[j] = l_err;
       if(l_err > tol){
-        fprintf(stderr, "\n%i %i %14.10le %14.10le %le\n", 
+        fprintf(stderr, "\n%i %i %14.10le %14.10le %le\n",
                 i+2, j, din[j], dref[j], l_err);
       }
     }

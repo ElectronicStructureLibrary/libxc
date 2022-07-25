@@ -51,5 +51,5 @@ const xc_func_info_type xc_func_info_gga_x_ityh_optx = {
   1e-15,
   {N_PAR, names, desc, values, set_ext_params_cpy_omega},
   xc_gga_x_ityh_optx_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

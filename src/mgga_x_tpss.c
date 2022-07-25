@@ -70,8 +70,7 @@ const xc_func_info_type xc_func_info_mgga_x_tpss = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {TPSS_N_PAR, tpss_names, tpss_desc, tpss_values, set_ext_params_cpy},
-  mgga_x_tpss_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_tpss_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -86,8 +85,7 @@ const xc_func_info_type xc_func_info_mgga_x_modtpss = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {TPSS_N_PAR, tpss_names, tpss_desc, modtpss_values, set_ext_params_cpy},
-  mgga_x_tpss_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_tpss_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -102,8 +100,7 @@ const xc_func_info_type xc_func_info_mgga_x_revtpss = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {TPSS_N_PAR, tpss_names, tpss_desc, revtpss_values, set_ext_params_cpy},
-  mgga_x_tpss_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_tpss_init, NULL, &work_mgga,
 };
 
 #ifdef __cplusplus
@@ -118,6 +115,5 @@ const xc_func_info_type xc_func_info_mgga_x_bloc = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {TPSS_N_PAR, tpss_names, tpss_desc, bloc_values, set_ext_params_cpy},
-  mgga_x_tpss_init, NULL,
-  NULL, NULL, &work_mgga,
+  mgga_x_tpss_init, NULL, &work_mgga,
 };

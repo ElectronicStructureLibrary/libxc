@@ -43,6 +43,10 @@ const char *xc_version_string();
 #define XC_FAMILY_MGGA          4
 #define XC_FAMILY_LCA           8
 #define XC_FAMILY_OEP          16
+#define XC_FAMILY_HGGA         32
+
+/* maximum order of derivatives available in libxc */
+#define XC_MAXIMUM_ORDER 4
 
 /* flags that can be used in info.flags. Don't reorder these since it
    will break the ABI of the library. */
@@ -99,73 +103,6 @@ const char *xc_version_string();
 
 #define XC_MAX_REFERENCES       5
 
-/* This are the derivatives that a functional returns */
-#define XC_NOARG
-#define XC_COMMA ,
-
-/* the following macros *do not* include zk */
-/* the following macros are probably to DELETE */
-
-#define LDA_OUT_PARAMS_NO_EXC(P1_, P2_) \
-  P1_ P2_ ## vrho   \
-  P1_ P2_ ## v2rho2 \
-  P1_ P2_ ## v3rho3 \
-  P1_ P2_ ## v4rho4
-
-#define GGA_OUT_PARAMS_NO_EXC(P1_, P2_) \
-  P1_ P2_ ## vrho         P1_ P2_ ## vsigma       \
-  P1_ P2_ ## v2rho2       P1_ P2_ ## v2rhosigma   \
-  P1_ P2_ ## v2sigma2                             \
-  P1_ P2_ ## v3rho3       P1_ P2_ ## v3rho2sigma  \
-  P1_ P2_ ## v3rhosigma2  P1_ P2_ ## v3sigma3     \
-  P1_ P2_ ## v4rho4       P1_ P2_ ## v4rho3sigma  \
-  P1_ P2_ ## v4rho2sigma2 P1_ P2_ ## v4rhosigma3  \
-  P1_ P2_ ## v4sigma4
-
-/* This are the derivatives of a mgga
-       1st order:  4
-       2nd order: 10
-       3rd order: 20
-       4th order: 35
- */
-#define MGGA_OUT_PARAMS_NO_EXC(P1_, P2_) \
-  P1_ P2_ ## vrho              P1_ P2_ ## vsigma          \
-  P1_ P2_ ## vlapl             P1_ P2_ ## vtau            \
-  P1_ P2_ ## v2rho2            P1_ P2_ ## v2rhosigma      \
-  P1_ P2_ ## v2rholapl         P1_ P2_ ## v2rhotau        \
-  P1_ P2_ ## v2sigma2          P1_ P2_ ## v2sigmalapl     \
-  P1_ P2_ ## v2sigmatau        P1_ P2_ ## v2lapl2         \
-  P1_ P2_ ## v2lapltau         P1_ P2_ ## v2tau2          \
-  P1_ P2_ ## v3rho3            P1_ P2_ ## v3rho2sigma     \
-  P1_ P2_ ## v3rho2lapl        P1_ P2_ ## v3rho2tau       \
-  P1_ P2_ ## v3rhosigma2       P1_ P2_ ## v3rhosigmalapl  \
-  P1_ P2_ ## v3rhosigmatau     P1_ P2_ ## v3rholapl2      \
-  P1_ P2_ ## v3rholapltau      P1_ P2_ ## v3rhotau2       \
-  P1_ P2_ ## v3sigma3          P1_ P2_ ## v3sigma2lapl    \
-  P1_ P2_ ## v3sigma2tau       P1_ P2_ ## v3sigmalapl2    \
-  P1_ P2_ ## v3sigmalapltau    P1_ P2_ ## v3sigmatau2     \
-  P1_ P2_ ## v3lapl3           P1_ P2_ ## v3lapl2tau      \
-  P1_ P2_ ## v3lapltau2        P1_ P2_ ## v3tau3          \
-  P1_ P2_ ## v4rho4            P1_ P2_ ## v4rho3sigma     \
-  P1_ P2_ ## v4rho3lapl        P1_ P2_ ## v4rho3tau       \
-  P1_ P2_ ## v4rho2sigma2      P1_ P2_ ## v4rho2sigmalapl \
-  P1_ P2_ ## v4rho2sigmatau    P1_ P2_ ## v4rho2lapl2     \
-  P1_ P2_ ## v4rho2lapltau     P1_ P2_ ## v4rho2tau2      \
-  P1_ P2_ ## v4rhosigma3       P1_ P2_ ## v4rhosigma2lapl \
-  P1_ P2_ ## v4rhosigma2tau    P1_ P2_ ## v4rhosigmalapl2 \
-  P1_ P2_ ## v4rhosigmalapltau P1_ P2_ ## v4rhosigmatau2  \
-  P1_ P2_ ## v4rholapl3        P1_ P2_ ## v4rholapl2tau   \
-  P1_ P2_ ## v4rholapltau2     P1_ P2_ ## v4rhotau3       \
-  P1_ P2_ ## v4sigma4          P1_ P2_ ## v4sigma3lapl    \
-  P1_ P2_ ## v4sigma3tau       P1_ P2_ ## v4sigma2lapl2   \
-  P1_ P2_ ## v4sigma2lapltau   P1_ P2_ ## v4sigma2tau2    \
-  P1_ P2_ ## v4sigmalapl3      P1_ P2_ ## v4sigmalapl2tau \
-  P1_ P2_ ## v4sigmalapltau2   P1_ P2_ ## v4sigmatau3     \
-  P1_ P2_ ## v4lapl4           P1_ P2_ ## v4lapl3tau      \
-  P1_ P2_ ## v4lapl2tau2       P1_ P2_ ## v4lapltau3      \
-  P1_ P2_ ## v4tau4
-
-
 struct xc_func_type;
 
 typedef struct{
@@ -189,89 +126,186 @@ typedef struct{
 } func_params_type;
 
 
-/* In the future these following three structures might be unified */
-typedef struct {
-  /* order 0 */
-  double *zk;
-  /* order 1 */
-  double *vrho;
-  /* order 2 */
-  double *v2rho2;
-  /* order 3 */
-  double *v3rho3;
-  /* order 4 */
-  double *v4rho4;
-} xc_lda_out_params;
+/* All variables that libxc may input */
+#define XC_TOTAL_NUMBER_INPUT_VARIABLES 5
 
-typedef struct {
-  /* order 0 */
-  double *zk;
-  /* order 1 */
-  double *vrho, *vsigma;
-  /* order 2 */
-  double *v2rho2, *v2rhosigma, *v2sigma2;
-  /* order 3 */
-  double *v3rho3, *v3rho2sigma, *v3rhosigma2, *v3sigma3;
-  /* order 4 */
-  double *v4rho4, *v4rho3sigma, *v4rho2sigma2, *v4rhosigma3, *v4sigma4;
-} xc_gga_out_params;
+/* spin dimensions of input variables */
+typedef union {
+  struct {
+     int rho, sigma, lapl, tau, exx;
+  };
+  int fields[XC_TOTAL_NUMBER_INPUT_VARIABLES];
+} xc_input_variables_dimensions;
 
+const xc_input_variables_dimensions *input_variables_dimensions_get(int nspin);
+  
 typedef struct {
-  /* order 0 */
-  double *zk;
-  /* order 1 */
-  double *vrho, *vsigma, *vlapl, *vtau;
-  /* order 2 */
-  double *v2rho2, *v2rhosigma, *v2rholapl, *v2rhotau, *v2sigma2;
-  double *v2sigmalapl, *v2sigmatau, *v2lapl2, *v2lapltau, *v2tau2;
-  /* order 3 */
-  double *v3rho3, *v3rho2sigma, *v3rho2lapl, *v3rho2tau, *v3rhosigma2;
-  double *v3rhosigmalapl, *v3rhosigmatau, *v3rholapl2, *v3rholapltau;
-  double *v3rhotau2, *v3sigma3, *v3sigma2lapl, *v3sigma2tau;
-  double *v3sigmalapl2, *v3sigmalapltau, *v3sigmatau2, *v3lapl3;
-  double *v3lapl2tau, *v3lapltau2, *v3tau3;
-  /* order 4 */
-  double *v4rho4, *v4rho3sigma, *v4rho3lapl, *v4rho3tau, *v4rho2sigma2;
-  double *v4rho2sigmalapl, *v4rho2sigmatau, *v4rho2lapl2, *v4rho2lapltau;
-  double *v4rho2tau2, *v4rhosigma3, *v4rhosigma2lapl, *v4rhosigma2tau;
-  double *v4rhosigmalapl2, *v4rhosigmalapltau,  *v4rhosigmatau2;
-  double *v4rholapl3, *v4rholapl2tau, *v4rholapltau2, *v4rhotau3;
-  double *v4sigma4, *v4sigma3lapl, *v4sigma3tau, *v4sigma2lapl2;
-  double *v4sigma2lapltau, *v4sigma2tau2, *v4sigmalapl3, *v4sigmalapl2tau;
-  double *v4sigmalapltau2, *v4sigmatau3, *v4lapl4, *v4lapl3tau;
-  double *v4lapl2tau2, *v4lapltau3, *v4tau4;
-} xc_mgga_out_params;
+  size_t np; /* number of spatial points */
+  const xc_input_variables_dimensions *dim; /* spin dimensions of the arrays */
+
+  union {
+    struct {
+      double *rho;   /* density */
+      double *sigma; /* reduced density gradient */
+      double *lapl;  /* laplacian of the density */
+      double *tau;   /* kinetic energy density */
+      double *exx;   /* exchange energy density */
+    };
+    double *fields[XC_TOTAL_NUMBER_INPUT_VARIABLES];
+  };
+} xc_input_variables;
+  
+  
+/* All derivatives that libxc may output */
+#define XC_TOTAL_NUMBER_OUTPUT_VARIABLES 124
+
+/* spin dimensions of output variables */
+typedef union {
+  struct {
+    int rho, sigma, lapl, tau, exx;       /* spin dimensions of the arrays */
+    /* order 0 */
+    int zk;
+    /* order 1 */
+    int vrho, vsigma, vlapl, vtau, vexx;
+    /* order 2 */
+    int v2rho2, v2rhosigma, v2rholapl, v2rhotau, v2rhoexx;
+    int v2sigma2, v2sigmalapl, v2sigmatau, v2sigmaexx;
+    int v2lapl2, v2lapltau, v2laplexx;
+    int v2tau2, v2tauexx;
+    int v2exx2;
+    /* order 3 */
+    int v3rho3, v3rho2sigma, v3rho2lapl, v3rho2tau, v3rho2exx;
+    int v3rhosigma2, v3rhosigmalapl, v3rhosigmatau, v3rhosigmaexx;
+    int v3rholapl2, v3rholapltau, v3rholaplexx;
+    int v3rhotau2, v3rhotauexx;
+    int v3rhoexx2;
+    int v3sigma3, v3sigma2lapl, v3sigma2tau, v3sigma2exx;
+    int v3sigmalapl2, v3sigmalapltau, v3sigmalaplexx;
+    int v3sigmatau2, v3sigmatauexx;
+    int v3sigmaexx2;
+    int v3lapl3, v3lapl2tau, v3lapl2exx;
+    int v3lapltau2, v3lapltauexx;
+    int v3laplexx2;
+    int v3tau3, v3tau2exx, v3tauexx2, v3exx3;
+    /* order 4 */
+    int v4rho4, v4rho3sigma, v4rho3lapl, v4rho3tau, v4rho3exx;
+    int v4rho2sigma2, v4rho2sigmalapl, v4rho2sigmatau, v4rho2sigmaexx;
+    int v4rho2lapl2, v4rho2lapltau, v4rho2laplexx;
+    int v4rho2tau2, v4rho2tauexx;
+    int v4rho2exx2;
+    int v4rhosigma3, v4rhosigma2lapl, v4rhosigma2tau, v4rhosigma2exx;
+    int v4rhosigmalapl2, v4rhosigmalapltau, v4rhosigmalaplexx;
+    int v4rhosigmatau2, v4rhosigmatauexx;
+    int v4rhosigmaexx2;
+    int v4rholapl3, v4rholapl2tau, v4rholapl2exx;
+    int v4rholapltau2, v4rholapltauexx;
+    int v4rholaplexx2;
+    int v4rhotau3, v4rhotau2exx, v4rhoexx3;
+    int v4sigma4, v4sigma3lapl, v4sigma3tau, v4sigma3exx;
+    int v4sigma2lapl2, v4sigma2lapltau, v4sigma2laplexx;
+    int v4sigma2tau2, v4sigma2tauexx;
+    int v4sigma2exx2;
+    int v4sigmalapl3, v4sigmalapl2tau, v4sigmalapl2exx;
+    int v4sigmalapltau2, v4sigmalapltauexx;
+    int v4sigmalaplexx2;
+    int v4sigmatau3, v4sigmatau2exx, v4sigmatauexx2, v4sigmaexx3;
+    int v4lapl4, v4lapl3tau, v4lapl3exx;
+    int v4lapl2tau2, v4lapl2tauexx, v4lapl2exx2;
+    int v4lapltau3, v4lapltau2exx, v4lapltauexx2, v4laplexx3;
+    int v4tau4, v4tau3exx, v4tauexx3, v4exx4;
+  };
+  int fields[5 + XC_TOTAL_NUMBER_OUTPUT_VARIABLES];
+} xc_dimensions;
+
+typedef union { /* this is defined as an union so that we can access the fields sequentially */
+  struct {
+    /* order 0 (1 var) */
+    double *zk;
+    
+    /* order 1 (5 vars) */
+    double *vrho, *vsigma, *vlapl, *vtau, *vexx;
+    
+    /* order 2 (15 vars) */
+    double *v2rho2, *v2rhosigma, *v2rholapl, *v2rhotau, *v2rhoexx;
+    double *v2sigma2, *v2sigmalapl, *v2sigmatau, *v2sigmaexx;
+    double *v2lapl2, *v2lapltau, *v2laplexx;
+    double *v2tau2, *v2tauexx;
+    double *v2exx2;
+    
+    /* order 3 (35 vars) */
+    double *v3rho3, *v3rho2sigma, *v3rho2lapl, *v3rho2tau, *v3rho2exx;
+    double *v3rhosigma2, *v3rhosigmalapl, *v3rhosigmatau, *v3rhosigmaexx;
+    double *v3rholapl2, *v3rholapltau, *v3rholaplexx;
+    double *v3rhotau2, *v3rhotauexx;
+    double *v3rhoexx2;
+    double *v3sigma3, *v3sigma2lapl, *v3sigma2tau, *v3sigma2exx;
+    double *v3sigmalapl2, *v3sigmalapltau, *v3sigmalaplexx;
+    double *v3sigmatau2, *v3sigmatauexx;
+    double *v3sigmaexx2;
+    double *v3lapl3, *v3lapl2tau, *v3lapl2exx;
+    double *v3lapltau2, *v3lapltauexx;
+    double *v3laplexx2;
+    double *v3tau3, *v3tau2exx, *v3tauexx2, *v3exx3;
+    
+    /* order 4 (68 vars) */
+    double *v4rho4, *v4rho3sigma, *v4rho3lapl, *v4rho3tau, *v4rho3exx;
+    double *v4rho2sigma2, *v4rho2sigmalapl, *v4rho2sigmatau, *v4rho2sigmaexx;
+    double *v4rho2lapl2, *v4rho2lapltau, *v4rho2laplexx;
+    double *v4rho2tau2, *v4rho2tauexx;
+    double *v4rho2exx2;
+    double *v4rhosigma3, *v4rhosigma2lapl, *v4rhosigma2tau, *v4rhosigma2exx;
+    double *v4rhosigmalapl2, *v4rhosigmalapltau, *v4rhosigmalaplexx;
+    double *v4rhosigmatau2, *v4rhosigmatauexx;
+    double *v4rhosigmaexx2;
+    double *v4rholapl3, *v4rholapl2tau, *v4rholapl2exx;
+    double *v4rholapltau2, *v4rholapltauexx;
+    double *v4rholaplexx2;
+    double *v4rhotau3, *v4rhotau2exx, *v4rhoexx3;
+    double *v4sigma4, *v4sigma3lapl, *v4sigma3tau, *v4sigma3exx;
+    double *v4sigma2lapl2, *v4sigma2lapltau, *v4sigma2laplexx;
+    double *v4sigma2tau2, *v4sigma2tauexx;
+    double *v4sigma2exx2;
+    double *v4sigmalapl3, *v4sigmalapl2tau, *v4sigmalapl2exx;
+    double *v4sigmalapltau2, *v4sigmalapltauexx;
+    double *v4sigmalaplexx2;
+    double *v4sigmatau3, *v4sigmatau2exx, *v4sigmatauexx2, *v4sigmaexx3;
+    double *v4lapl4, *v4lapl3tau, *v4lapl3exx;
+    double *v4lapl2tau2, *v4lapl2tauexx, *v4lapl2exx2;
+    double *v4lapltau3, *v4lapltau2exx, *v4lapltauexx2, *v4laplexx3;
+    double *v4tau4, *v4tau3exx, *v4tauexx3, *v4exx4;
+  };
+  double *fields[XC_TOTAL_NUMBER_OUTPUT_VARIABLES];
+} xc_output_variables;
+
+/* from io_variables.c */
+extern const char *xc_input_variables_name[];     /* mapping input variable -> name */
+extern const int xc_input_variables_family_key[]; /* mapping input variable -> family */
+extern const int xc_input_variables_flags_key[];  /* mapping input variable -> flags */
+
+xc_input_variables *xc_input_variables_allocate(double np, int family, int flags, int nspin);
+int xc_input_variables_sanity_check(const xc_input_variables *out, int family, int flags);
+void xc_input_variables_initialize(xc_input_variables *out);
+void xc_input_variables_deallocate(xc_input_variables *out);
+  
+extern const char *xc_output_variables_name[];     /* mapping output variable -> name */
+extern const int xc_output_variables_order_key[];  /* mapping output variable -> order of derivative */
+extern const int xc_output_variables_family_key[]; /* mapping output variable -> family */
+extern const int xc_output_variables_flags_key[];  /* mapping output variable -> flags */
+
+xc_output_variables *xc_output_variables_allocate(double np, const int *orders, int family, int flags, int nspin);
+int xc_output_variables_sanity_check(const xc_output_variables *out, const int *orders, int family, int flags);
+void xc_output_variables_initialize(xc_output_variables *out, int np, int nspin);
+void xc_output_variables_deallocate(xc_output_variables *out);
 
 /* type of the lda function */
-typedef void (*xc_lda_funcs)
-(const struct xc_func_type *p, size_t np,
- const double *rho,
- xc_lda_out_params *out);
+typedef void (*xc_functionals_work)(const struct xc_func_type *p,
+     const xc_input_variables *in, xc_output_variables *out);
   
 typedef struct {
-  const xc_lda_funcs unpol[5], pol[5];
-} xc_lda_funcs_variants;
+  const xc_functionals_work unpol[5], pol[5];
+} xc_functionals_work_variants;
   
-/* type of the gga function */
-typedef void (*xc_gga_funcs)
-(const struct xc_func_type *p, size_t np,
- const double *rho, const double *sigma,
- xc_gga_out_params *out);
-  
-typedef struct {
-  const xc_gga_funcs unpol[5], pol[5];
-} xc_gga_funcs_variants;
-
-/* type of the mgga function */
-typedef void (*xc_mgga_funcs)
-(const struct xc_func_type *p, size_t np,
- const double *rho, const double *sigma, const double *lapl, const double *tau,
- xc_mgga_out_params *out);
-typedef struct {
-  const xc_mgga_funcs unpol[5], pol[5];
-} xc_mgga_funcs_variants;
-
-
+/* Structure that contains information on the functional */
 typedef struct{
   int   number;   /* identifier number */
   int   kind;     /* XC_EXCHANGE, XC_CORRELATION, XC_EXCHANGE_CORRELATION, XC_KINETIC */
@@ -289,9 +323,7 @@ typedef struct{
 
   void (*init)(struct xc_func_type *p);
   void (*end) (struct xc_func_type *p);
-  const xc_lda_funcs_variants  *lda;
-  const xc_gga_funcs_variants  *gga;
-  const xc_mgga_funcs_variants *mgga;
+  const xc_functionals_work_variants  *work;
 } xc_func_info_type;
 
 
@@ -311,15 +343,6 @@ int xc_func_info_get_n_ext_params(const xc_func_info_type *info);
 char const *xc_func_info_get_ext_params_name(const xc_func_info_type *p, int number);
 char const *xc_func_info_get_ext_params_description(const xc_func_info_type *info, int number);
 double xc_func_info_get_ext_params_default_value(const xc_func_info_type *info, int number);
-
-
-struct xc_dimensions{
-  int rho, sigma, lapl, tau;       /* spin dimensions of the arrays */
-  int zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA, );
-};
-
-typedef struct xc_dimensions xc_dimensions;
-
 
 struct xc_func_type{
   const xc_func_info_type *info;       /* all the information concerning this functional */
@@ -347,7 +370,7 @@ struct xc_func_type{
   double nlc_b;                /* Non-local correlation, b parameter */
   double nlc_C;                /* Non-local correlation, C parameter */
 
-  xc_dimensions dim;           /* the dimensions of all input and output arrays */
+  const xc_dimensions *dim;    /* the dimensions of all input and output arrays */
 
   /* This is where the values of the external parameters are stored */
   double *ext_params;
@@ -417,165 +440,326 @@ double xc_func_get_ext_params_value(const xc_func_type *p, int number);
 #include "xc_funcs.h"
 #include "xc_funcs_removed.h"
 
-/** New API */
-void xc_lda_new (const xc_func_type *p, int order, size_t np,
-             const double *rho, xc_lda_out_params *out);
-void xc_gga_new (const xc_func_type *p, int order, size_t np,
-             const double *rho, const double *sigma, xc_gga_out_params *out);
+/* New API */
+void xc_evaluate_func(const xc_func_type *p, int order,
+                      const xc_input_variables *in, xc_output_variables *out);
+
+/* This is the old, Fortran friendly interface */
+
+/*
+  the LDAs
+*/
+void xc_lda(const xc_func_type *p, size_t np, double *rho,
+       double *zk, double *vrho, double *v2rho2, double *v3rho3, double *v4rho4);
+void xc_lda_exc(const xc_func_type *p, size_t np, double *rho,
+       double *zk);
+void xc_lda_exc_vxc(const xc_func_type *p, size_t np, double *rho,
+       double *zk, double *vrho);
+void xc_lda_exc_vxc(const xc_func_type *p, size_t np, double *rho,
+       double *zk, double *vrho);
+void xc_lda_exc_vxc_fxc(const xc_func_type *p, size_t np, double *rho,
+       double *zk, double *vrho, double *v2rho2);
+void xc_lda_vxc_fxc(const xc_func_type *p, size_t np, double *rho,
+       double *vrho, double *v2rho2);
+void xc_lda_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np, double *rho,
+       double *zk, double *vrho, double *v2rho2, double *v3rho3);
+void xc_lda_vxc_fxc_kxc(const xc_func_type *p, size_t np, double *rho,
+       double *vrho, double *v2rho2, double *v3rho3);
+void xc_lda_vxc(const xc_func_type *p, size_t np, double *rho,
+       double *vrho);
+void xc_lda_fxc(const xc_func_type *p, size_t np, double *rho,
+       double *v2rho2);
+void xc_lda_kxc(const xc_func_type *p, size_t np, double *rho,
+       double *v3rho3);
+void xc_lda_lxc(const xc_func_type *p, size_t np, double *rho,
+       double *v4rho4);
   
-/** Evaluate an     LDA functional */
-void xc_lda (const xc_func_type *p, size_t np, const double *rho,
-             double *zk LDA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
-/** Evaluate a      GGA functional */
-void xc_gga (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
-             double *zk GGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
-/** Evaluate a meta-GGA functional */
+/*
+  the GGAs
+*/
+void xc_gga(const xc_func_type *p, size_t np, double *rho, double *sigma,
+       double *zk,
+       double *vrho, double *vsigma,
+       double *v2rho2, double *v2rhosigma, double *v2sigma2,
+       double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3,
+       double *v4rho4, double *v4rho3sigma, double *v4rho2sigma2, double *v4rhosigma3, double *v4sigma4);
+void xc_gga_exc(const xc_func_type *p, size_t np, double *rho, double *sigma,
+       double *zk);
+void xc_gga_exc_vxc(const xc_func_type *p, size_t np, double *rho, double *sigma,
+       double *zk,
+       double *vrho, double *vsigma);
+void xc_gga_exc_vxc_fxc(const xc_func_type *p, size_t np, double *rho, double *sigma,
+       double *zk,
+       double *vrho, double *vsigma,
+       double *v2rho2, double *v2rhosigma, double *v2sigma2);
+void xc_gga_vxc_fxc(const xc_func_type *p, size_t np, double *rho, double *sigma,
+       double *vrho, double *vsigma,
+       double *v2rho2, double *v2rhosigma, double *v2sigma2);
+void xc_gga_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np, double *rho, double *sigma,
+       double *zk,
+       double *vrho, double *vsigma,
+       double *v2rho2, double *v2rhosigma, double *v2sigma2,
+       double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
+void xc_gga_vxc_fxc_kxc(const xc_func_type *p, size_t np, double *rho, double *sigma,
+       double *vrho, double *vsigma,
+       double *v2rho2, double *v2rhosigma, double *v2sigma2,
+       double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
+void xc_gga_vxc(const xc_func_type *p, size_t np, double *rho, double *sigma,
+		   double *vrho, double *vsigma);
+void xc_gga_fxc(const xc_func_type *p, size_t np, double *rho, double *sigma,
+       double *v2rho2, double *v2rhosigma, double *v2sigma2);
+void xc_gga_kxc (const xc_func_type *p, size_t np, double *rho, double *sigma,
+  		 double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
+void xc_gga_lxc (const xc_func_type *p, size_t np, double *rho, double *sigma,
+       double *v4rho4,  double *v4rho3sigma,  double *v4rho2sigma2,  double *v4rhosigma3,
+       double *v4sigma4);
+
+/*
+  the mGGAs
+*/
 void xc_mgga(const xc_func_type *p, size_t np,
-             const double *rho, const double *sigma, const double *lapl_rho, const double *tau,
-             double *zk MGGA_OUT_PARAMS_NO_EXC(XC_COMMA double *, ));
-
-/** Evaluates the energy density for an     LDA functional */
-void xc_lda_exc (const xc_func_type *p, size_t np, const double *rho, double *zk);
-/** Evaluates the energy density for a      GGA functional */
-void xc_gga_exc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
-		 double *zk);
-/** Evaluates the energy density for a meta-GGA functional */
+       double *rho, double *sigma, double *lapl, double *tau,
+       double *zk,
+       double *vrho, double *vsigma, double *vlapl, double *vtau,
+       double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau, double *v2sigma2,
+       double *v2sigmalapl, double *v2sigmatau, double *v2lapl2, double *v2lapltau, double *v2tau2,
+       double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau, double *v3rhosigma2,
+       double *v3rhosigmalapl, double *v3rhosigmatau, double *v3rholapl2, double *v3rholapltau,
+       double *v3rhotau2, double *v3sigma3, double *v3sigma2lapl, double *v3sigma2tau,
+       double *v3sigmalapl2, double *v3sigmalapltau, double *v3sigmatau2, double *v3lapl3,
+       double *v3lapl2tau, double *v3lapltau2, double *v3tau3,
+       double *v4rho4, double *v4rho3sigma, double *v4rho3lapl, double *v4rho3tau, double *v4rho2sigma2,
+       double *v4rho2sigmalapl, double *v4rho2sigmatau, double *v4rho2lapl2, double *v4rho2lapltau,
+       double *v4rho2tau2, double *v4rhosigma3, double *v4rhosigma2lapl, double *v4rhosigma2tau,
+       double *v4rhosigmalapl2, double *v4rhosigmalapltau, double *v4rhosigmatau2,
+       double *v4rholapl3, double *v4rholapl2tau, double *v4rholapltau2, double *v4rhotau3,
+       double *v4sigma4, double *v4sigma3lapl, double *v4sigma3tau, double *v4sigma2lapl2,
+       double *v4sigma2lapltau, double *v4sigma2tau2, double *v4sigmalapl3, double *v4sigmalapl2tau,
+       double *v4sigmalapltau2, double *v4sigmatau3, double *v4lapl4, double *v4lapl3tau,
+       double *v4lapl2tau2, double *v4lapltau3, double *v4tau4);
 void xc_mgga_exc(const xc_func_type *p, size_t np,
-     const double *rho, const double *sigma, const double *lapl, const double *tau,
-     double *zk);
-
-/** Evaluates the energy density and its first derivative for an     LDA functional */
-void xc_lda_exc_vxc (const xc_func_type *p, size_t np, const double *rho, double *zk, double *vrho);
-/** Evaluates the energy density and its first derivative for a      GGA functional */
-void xc_gga_exc_vxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
-		 double *zk, double *vrho, double *vsigma);
-/** Evaluates the energy density and its first derivative for a meta-GGA functional */
+       double *rho, double *sigma, double *lapl, double *tau,
+       double *zk);
 void xc_mgga_exc_vxc(const xc_func_type *p, size_t np,
-     const double *rho, const double *sigma, const double *lapl, const double *tau,
-     double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau);
-
-/** Evaluates the first derivative of the energy density for an     LDA functional */
-void xc_lda_vxc (const xc_func_type *p, size_t np, const double *rho, double *vrho);
-/** Evaluates the first derivative of the energy density for a      GGA functional */
-void xc_gga_vxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
-		 double *vrho, double *vsigma);
-/** Evaluates the first derivative of the energy density for a meta-GGA functional */
-void xc_mgga_vxc(const xc_func_type *p, size_t np,
-     const double *rho, const double *sigma, const double *lapl, const double *tau,
-     double *vrho, double *vsigma, double *vlapl, double *vtau);
-
-/** Evaluates the energy density and its first and second derivatives for an     LDA functional */
-void xc_lda_exc_vxc_fxc (const xc_func_type *p, size_t np, const double *rho, double *zk, double *vrho, double *v2rho2);
-/** Evaluates the energy density and its first and second derivatives for a      GGA functional */
-void xc_gga_exc_vxc_fxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
-                         double *zk, double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2);
-/** Evaluates the energy density and its first and second derivatives for a meta-GGA functional */
+       double *rho, double *sigma, double *lapl, double *tau,
+       double *zk,
+       double *vrho, double *vsigma, double *vlapl, double *vtau);
 void xc_mgga_exc_vxc_fxc(const xc_func_type *p, size_t np,
-                         const double *rho, const double *sigma, const double *lapl, const double *tau,
-                         double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
-                         double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
-                         double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
-                         double *v2lapltau, double *v2tau2);
-
-/** Evaluates the first and second derivatives for an     LDA functional */
-void xc_lda_vxc_fxc (const xc_func_type *p, size_t np, const double *rho, double *vrho, double *v2rho2);
-/** Evaluates the first and second derivatives for a      GGA functional */
-void xc_gga_vxc_fxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
-                         double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2);
-/** Evaluates the first and second derivatives for a meta-GGA functional */
+       double *rho, double *sigma, double *lapl, double *tau,
+       double *zk,
+       double *vrho, double *vsigma, double *vlapl, double *vtau,
+       double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+       double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
+       double *v2lapltau, double *v2tau2);
 void xc_mgga_vxc_fxc(const xc_func_type *p, size_t np,
-                         const double *rho, const double *sigma, const double *lapl, const double *tau,
-                         double *vrho, double *vsigma, double *vlapl, double *vtau,
-                         double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
-                         double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
-                         double *v2lapltau, double *v2tau2);
-
-/** Evaluates the second derivative for an     LDA functional */
-void xc_lda_fxc (const xc_func_type *p, size_t np, const double *rho, double *v2rho2);
-/** Evaluates the second derivative for a      GGA functional */
-void xc_gga_fxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
-		 double *v2rho2, double *v2rhosigma, double *v2sigma2);
-/** Evaluates the second derivative for a meta-GGA functional */
-void xc_mgga_fxc(const xc_func_type *p, size_t np,
-     const double *rho, const double *sigma, const double *lapl, const double *tau,
-     double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
-     double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
-     double *v2lapltau, double *v2tau2);
-
-/** Evaluates the energy density and its first, second, and third derivatives for an     LDA functional */
-void xc_lda_exc_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, double *zk, double *vrho, double *v2rho2, double *v3rho3);
-/** Evaluates the energy density and its first, second, and third derivatives for a      GGA functional */
-void xc_gga_exc_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
-                             double *zk, double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2,
-                             double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
-/** Evaluates the energy density and its first, second, and third derivatives for a meta-GGA functional */
+       double *rho, double *sigma, double *lapl, double *tau,
+       double *vrho, double *vsigma, double *vlapl, double *vtau,
+       double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+       double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
+       double *v2lapltau, double *v2tau2);
 void xc_mgga_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np,
-                             const double *rho, const double *sigma, const double *lapl, const double *tau,
-                             double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
-                             double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
-                             double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
-                             double *v2lapltau, double *v2tau2,
-                             double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
-                             double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
-                             double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
-                             double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
-                             double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
-                             double *v3tau3);
-
-/** Evaluates the first, second, and third derivatives for an     LDA functional */
-void xc_lda_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, double *vrho, double *v2rho2, double *v3rho3);
-/** Evaluates the first, second, and third derivatives for a      GGA functional */
-void xc_gga_vxc_fxc_kxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
-                             double *vrho, double *vsigma, double *v2rho2, double *v2rhosigma, double *v2sigma2,
-                             double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
-/** Evaluates the first, second, and third derivatives for a meta-GGA functional */
+       double *rho, double *sigma, double *lapl, double *tau,
+       double *zk, double *vrho, double *vsigma, double *vlapl, double *vtau,
+       double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+       double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
+       double *v2lapltau, double *v2tau2,
+       double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
+       double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
+       double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
+       double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
+       double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
+       double *v3tau3);
 void xc_mgga_vxc_fxc_kxc(const xc_func_type *p, size_t np,
-                             const double *rho, const double *sigma, const double *lapl, const double *tau,
-                             double *vrho, double *vsigma, double *vlapl, double *vtau,
-                             double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
-                             double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
-                             double *v2lapltau, double *v2tau2,
-                             double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
-                             double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
-                             double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
-                             double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
-                             double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
-                             double *v3tau3);
-
-/** Evaluates the third derivative for an     LDA functional */
-void xc_lda_kxc (const xc_func_type *p, size_t np, const double *rho, double *v3rho3);
-/** Evaluates the third derivative for a      GGA functional */
-void xc_gga_kxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
-		 double *v3rho3, double *v3rho2sigma, double *v3rhosigma2, double *v3sigma3);
-/** Evaluates the third derivative for a meta-GGA functional */
+       double *rho, double *sigma, double *lapl, double *tau,
+       double *vrho, double *vsigma, double *vlapl, double *vtau,
+       double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+       double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
+       double *v2lapltau, double *v2tau2,
+       double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
+       double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
+       double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
+       double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
+       double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
+       double *v3tau3);
+void xc_mgga_vxc(const xc_func_type *p, size_t np,
+       double *rho, double *sigma, double *lapl, double *tau,
+       double *vrho, double *vsigma, double *vlapl, double *vtau);
+void xc_mgga_fxc(const xc_func_type *p, size_t np,
+       double *rho, double *sigma, double *lapl, double *tau,
+       double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+       double *v2sigma2, double *v2sigmalapl, double *v2sigmatau, double *v2lapl2,
+       double *v2lapltau, double *v2tau2);
 void xc_mgga_kxc(const xc_func_type *p, size_t np,
-     const double *rho, const double *sigma, const double *lapl, const double *tau,
-     double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
-     double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
-     double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
-     double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
-     double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
-     double *v3tau3);
-
-/** Evaluates the fourth derivative for an     LDA functional */
-void xc_lda_lxc (const xc_func_type *p, size_t np, const double *rho, double *v4rho4);
-/** Evaluates the fourth derivative for a      GGA functional */
-void xc_gga_lxc (const xc_func_type *p, size_t np, const double *rho, const double *sigma,
-     double *v4rho4,  double *v4rho3sigma,  double *v4rho2sigma2,  double *v4rhosigma3,
-     double *v4sigma4);
-/** Evaluates the fourth derivative for a meta-GGA functional */
+       double *rho, double *sigma, double *lapl, double *tau,
+       double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
+       double *v3rhosigma2, double *v3rhosigmalapl, double *v3rhosigmatau,
+       double *v3rholapl2, double *v3rholapltau, double *v3rhotau2, double *v3sigma3,
+       double *v3sigma2lapl, double *v3sigma2tau, double *v3sigmalapl2, double *v3sigmalapltau,
+       double *v3sigmatau2, double *v3lapl3, double *v3lapl2tau, double *v3lapltau2,
+       double *v3tau3);
 void xc_mgga_lxc(const xc_func_type *p, size_t np,
-     const double *rho, const double *sigma, const double *lapl, const double *tau,
-     double *v4rho4, double *v4rho3sigma, double *v4rho3lapl, double *v4rho3tau, double *v4rho2sigma2,
-     double *v4rho2sigmalapl, double *v4rho2sigmatau, double *v4rho2lapl2, double *v4rho2lapltau,
-     double *v4rho2tau2, double *v4rhosigma3, double *v4rhosigma2lapl, double *v4rhosigma2tau,
-     double *v4rhosigmalapl2, double *v4rhosigmalapltau, double *v4rhosigmatau2,
-     double *v4rholapl3, double *v4rholapl2tau, double *v4rholapltau2, double *v4rhotau3,
-     double *v4sigma4, double *v4sigma3lapl, double *v4sigma3tau, double *v4sigma2lapl2,
-     double *v4sigma2lapltau, double *v4sigma2tau2, double *v4sigmalapl3, double *v4sigmalapl2tau,
-     double *v4sigmalapltau2, double *v4sigmatau3, double *v4lapl4, double *v4lapl3tau,
-     double *v4lapl2tau2, double *v4lapltau3, double *v4tau4);
+       double *rho, double *sigma, double *lapl, double *tau,
+       double *v4rho4, double *v4rho3sigma, double *v4rho3lapl, double *v4rho3tau, double *v4rho2sigma2,
+       double *v4rho2sigmalapl, double *v4rho2sigmatau, double *v4rho2lapl2, double *v4rho2lapltau,
+       double *v4rho2tau2, double *v4rhosigma3, double *v4rhosigma2lapl, double *v4rhosigma2tau,
+       double *v4rhosigmalapl2, double *v4rhosigmalapltau, double *v4rhosigmatau2,
+       double *v4rholapl3, double *v4rholapl2tau, double *v4rholapltau2, double *v4rhotau3,
+       double *v4sigma4, double *v4sigma3lapl, double *v4sigma3tau, double *v4sigma2lapl2,
+       double *v4sigma2lapltau, double *v4sigma2tau2, double *v4sigmalapl3, double *v4sigmalapl2tau,
+       double *v4sigmalapltau2, double *v4sigmatau3, double *v4lapl4, double *v4lapl3tau,
+       double *v4lapl2tau2, double *v4lapltau3, double *v4tau4);
 
+  /* 
+     the HGGAs 
+  */
+void xc_hgga(const xc_func_type *p, size_t np,
+       double *rho, double *sigma, double *lapl, double *tau, double *exx,
+       double *zk,
+       double *vrho, double *vsigma, double *vlapl, double *vtau, double *vexx,
+       double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+       double *v2rhoexx, double *v2sigma2, double *v2sigmalapl, double *v2sigmatau,
+       double *v2sigmaexx, double *v2lapl2, double *v2lapltau, double *v2laplexx,
+       double *v2tau2, double *v2tauexx, double *v2exx2,
+       double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
+       double *v3rho2exx, double *v3rhosigma2, double *v3rhosigmalapl,
+       double *v3rhosigmatau, double *v3rhosigmaexx, double *v3rholapl2,
+       double *v3rholapltau, double *v3rholaplexx, double *v3rhotau2,
+       double *v3rhotauexx, double *v3rhoexx2, double *v3sigma3, double *v3sigma2lapl,
+       double *v3sigma2tau, double *v3sigma2exx, double *v3sigmalapl2,
+       double *v3sigmalapltau, double *v3sigmalaplexx, double *v3sigmatau2,
+       double *v3sigmatauexx, double *v3sigmaexx2, double *v3lapl3,
+       double *v3lapl2tau, double *v3lapl2exx, double *v3lapltau2,
+       double *v3lapltauexx, double *v3laplexx2, double *v3tau3, double *v3tau2exx,
+       double *v3tauexx2, double *v3exx3,
+       double *v4rho4, double *v4rho3sigma, double *v4rho3lapl, double *v4rho3tau,
+       double *v4rho3exx, double *v4rho2sigma2, double *v4rho2sigmalapl,
+       double *v4rho2sigmatau, double *v4rho2sigmaexx, double *v4rho2lapl2,
+       double *v4rho2lapltau, double *v4rho2laplexx, double *v4rho2tau2,
+       double *v4rho2tauexx, double *v4rho2exx2, double *v4rhosigma3,
+       double *v4rhosigma2lapl, double *v4rhosigma2tau, double *v4rhosigma2exx,
+       double *v4rhosigmalapl2, double *v4rhosigmalapltau, double *v4rhosigmalaplexx,
+       double *v4rhosigmatau2, double *v4rhosigmatauexx, double *v4rhosigmaexx2,
+       double *v4rholapl3, double *v4rholapl2tau, double *v4rholapl2exx,
+       double *v4rholapltau2, double *v4rholapltauexx, double *v4rholaplexx2,
+       double *v4rhotau3, double *v4rhotau2exx, double *v4rhoexx3, double *v4sigma4,
+       double *v4sigma3lapl, double *v4sigma3tau, double *v4sigma3exx,
+       double *v4sigma2lapl2, double *v4sigma2lapltau, double *v4sigma2laplexx,
+       double *v4sigma2tau2, double *v4sigma2tauexx, double *v4sigma2exx2,
+       double *v4sigmalapl3, double *v4sigmalapl2tau, double *v4sigmalapl2exx,
+       double *v4sigmalapltau2, double *v4sigmalapltauexx, double *v4sigmalaplexx2,
+       double *v4sigmatau3, double *v4sigmatau2exx, double *v4sigmatauexx2,
+       double *v4sigmaexx3, double *v4lapl4, double *v4lapl3tau, double *v4lapl3exx,
+       double *v4lapl2tau2, double *v4lapl2tauexx, double *v4lapl2exx2,
+       double *v4lapltau3, double *v4lapltau2exx, double *v4lapltauexx2,
+       double *v4laplexx3, double *v4tau4, double *v4tau3exx, double *v4tauexx3,
+       double *v4exx4);
+void xc_hgga_exc(const xc_func_type *p, size_t np,
+       double *rho, double *sigma, double *lapl, double *tau, double *exx,
+       double *zk);
+void xc_hgga_exc_vxc(const xc_func_type *p, size_t np,
+       double *rho, double *sigma, double *lapl, double *tau, double *exx,
+       double *zk,
+       double *vrho, double *vsigma, double *vlapl, double *vtau, double *vexx);
+void xc_hgga_exc_vxc_fxc(const xc_func_type *p, size_t np,
+       double *rho, double *sigma, double *lapl, double *tau, double *exx,
+       double *zk,
+       double *vrho, double *vsigma, double *vlapl, double *vtau, double *vexx,
+       double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+       double *v2rhoexx, double *v2sigma2, double *v2sigmalapl, double *v2sigmatau,
+       double *v2sigmaexx, double *v2lapl2, double *v2lapltau, double *v2laplexx,
+       double *v2tau2, double *v2tauexx, double *v2exx2);
+void xc_hgga_vxc_fxc(const xc_func_type *p, size_t np,
+       double *rho, double *sigma, double *lapl, double *tau, double *exx,
+       double *vrho, double *vsigma, double *vlapl, double *vtau, double *vexx,
+       double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+       double *v2rhoexx, double *v2sigma2, double *v2sigmalapl, double *v2sigmatau,
+       double *v2sigmaexx, double *v2lapl2, double *v2lapltau, double *v2laplexx,
+       double *v2tau2, double *v2tauexx, double *v2exx2);
+void xc_hgga_exc_vxc_fxc_kxc(const xc_func_type *p, size_t np,
+       double *rho, double *sigma, double *lapl, double *tau, double *exx,
+       double *zk,
+       double *vrho, double *vsigma, double *vlapl, double *vtau, double *vexx,
+       double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+       double *v2rhoexx, double *v2sigma2, double *v2sigmalapl, double *v2sigmatau,
+       double *v2sigmaexx, double *v2lapl2, double *v2lapltau, double *v2laplexx,
+       double *v2tau2, double *v2tauexx, double *v2exx2,
+       double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
+       double *v3rho2exx, double *v3rhosigma2, double *v3rhosigmalapl,
+       double *v3rhosigmatau, double *v3rhosigmaexx, double *v3rholapl2,
+       double *v3rholapltau, double *v3rholaplexx, double *v3rhotau2,
+       double *v3rhotauexx, double *v3rhoexx2, double *v3sigma3, double *v3sigma2lapl,
+       double *v3sigma2tau, double *v3sigma2exx, double *v3sigmalapl2,
+       double *v3sigmalapltau, double *v3sigmalaplexx, double *v3sigmatau2,
+       double *v3sigmatauexx, double *v3sigmaexx2, double *v3lapl3,
+       double *v3lapl2tau, double *v3lapl2exx, double *v3lapltau2,
+       double *v3lapltauexx, double *v3laplexx2, double *v3tau3, double *v3tau2exx,
+       double *v3tauexx2, double *v3exx3);
+void xc_hgga_vxc_fxc_kxc(const xc_func_type *p, size_t np,
+       double *rho, double *sigma, double *lapl, double *tau, double *exx,
+       double *vrho, double *vsigma, double *vlapl, double *vtau, double *vexx,
+       double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+       double *v2rhoexx, double *v2sigma2, double *v2sigmalapl, double *v2sigmatau,
+       double *v2sigmaexx, double *v2lapl2, double *v2lapltau, double *v2laplexx,
+       double *v2tau2, double *v2tauexx, double *v2exx2,
+       double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
+       double *v3rho2exx, double *v3rhosigma2, double *v3rhosigmalapl,
+       double *v3rhosigmatau, double *v3rhosigmaexx, double *v3rholapl2,
+       double *v3rholapltau, double *v3rholaplexx, double *v3rhotau2,
+       double *v3rhotauexx, double *v3rhoexx2, double *v3sigma3, double *v3sigma2lapl,
+       double *v3sigma2tau, double *v3sigma2exx, double *v3sigmalapl2,
+       double *v3sigmalapltau, double *v3sigmalaplexx, double *v3sigmatau2,
+       double *v3sigmatauexx, double *v3sigmaexx2, double *v3lapl3,
+       double *v3lapl2tau, double *v3lapl2exx, double *v3lapltau2,
+       double *v3lapltauexx, double *v3laplexx2, double *v3tau3, double *v3tau2exx,
+       double *v3tauexx2, double *v3exx3);
+void xc_hgga_vxc(const xc_func_type *p, size_t np,
+       double *rho, double *sigma, double *lapl, double *tau, double *exx,
+       double *vrho, double *vsigma, double *vlapl, double *vtau, double *vexx);
+void xc_hgga_fxc(const xc_func_type *p, size_t np,
+       double *rho, double *sigma, double *lapl, double *tau, double *exx,
+       double *v2rho2, double *v2rhosigma, double *v2rholapl, double *v2rhotau,
+       double *v2rhoexx, double *v2sigma2, double *v2sigmalapl, double *v2sigmatau,
+       double *v2sigmaexx, double *v2lapl2, double *v2lapltau, double *v2laplexx,
+       double *v2tau2, double *v2tauexx, double *v2exx2);
+void xc_hgga_mgga_kxc(const xc_func_type *p, size_t np,
+       double *rho, double *sigma, double *lapl, double *tau, double *exx,
+       double *v3rho3, double *v3rho2sigma, double *v3rho2lapl, double *v3rho2tau,
+       double *v3rho2exx, double *v3rhosigma2, double *v3rhosigmalapl,
+       double *v3rhosigmatau, double *v3rhosigmaexx, double *v3rholapl2,
+       double *v3rholapltau, double *v3rholaplexx, double *v3rhotau2,
+       double *v3rhotauexx, double *v3rhoexx2, double *v3sigma3,
+       double *v3sigma2lapl, double *v3sigma2tau, double *v3sigma2exx,
+       double *v3sigmalapl2, double *v3sigmalapltau, double *v3sigmalaplexx,
+       double *v3sigmatau2, double *v3sigmatauexx, double *v3sigmaexx2,
+       double *v3lapl3, double *v3lapl2tau, double *v3lapl2exx, double *v3lapltau2,
+       double *v3lapltauexx, double *v3laplexx2, double *v3tau3, double *v3tau2exx,
+       double *v3tauexx2, double *v3exx3);
+void xc_hgga_lxc(const xc_func_type *p, size_t np,
+       double *rho, double *sigma, double *lapl, double *tau, double *exx,
+       double *v4rho4, double *v4rho3sigma, double *v4rho3lapl, double *v4rho3tau,
+       double *v4rho3exx, double *v4rho2sigma2, double *v4rho2sigmalapl,
+       double *v4rho2sigmatau, double *v4rho2sigmaexx, double *v4rho2lapl2,
+       double *v4rho2lapltau, double *v4rho2laplexx, double *v4rho2tau2,
+       double *v4rho2tauexx, double *v4rho2exx2, double *v4rhosigma3,
+       double *v4rhosigma2lapl, double *v4rhosigma2tau, double *v4rhosigma2exx,
+       double *v4rhosigmalapl2, double *v4rhosigmalapltau, double *v4rhosigmalaplexx,
+       double *v4rhosigmatau2, double *v4rhosigmatauexx, double *v4rhosigmaexx2,
+       double *v4rholapl3, double *v4rholapl2tau, double *v4rholapl2exx,
+       double *v4rholapltau2, double *v4rholapltauexx, double *v4rholaplexx2,
+       double *v4rhotau3, double *v4rhotau2exx, double *v4rhoexx3, double *v4sigma4,
+       double *v4sigma3lapl, double *v4sigma3tau, double *v4sigma3exx,
+       double *v4sigma2lapl2, double *v4sigma2lapltau, double *v4sigma2laplexx,
+       double *v4sigma2tau2, double *v4sigma2tauexx, double *v4sigma2exx2,
+       double *v4sigmalapl3, double *v4sigmalapl2tau, double *v4sigmalapl2exx,
+       double *v4sigmalapltau2, double *v4sigmalapltauexx, double *v4sigmalaplexx2,
+       double *v4sigmatau3, double *v4sigmatau2exx, double *v4sigmatauexx2,
+       double *v4sigmaexx3, double *v4lapl4, double *v4lapl3tau, double *v4lapl3exx,
+       double *v4lapl2tau2, double *v4lapl2tauexx, double *v4lapl2exx2,
+       double *v4lapltau3, double *v4lapltau2exx, double *v4lapltauexx2,
+       double *v4laplexx3, double *v4tau4, double *v4tau3exx, double *v4tauexx3,
+       double *v4exx4);
+
+  
 /* Calculate asymptotic value of the AK13 potential */
 double xc_gga_ak13_get_asymptotic (double homo);
 /* Calculate asymptotic value of the AK13 potential with customized parameter values */

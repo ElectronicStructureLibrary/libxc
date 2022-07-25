@@ -56,7 +56,7 @@ const xc_func_info_type xc_func_info_lda_k_tf = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   lda_k_tf_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 
 #ifdef __cplusplus
@@ -72,6 +72,6 @@ const xc_func_info_type xc_func_info_lda_k_lp = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   lda_k_tf_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };
 

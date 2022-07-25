@@ -53,6 +53,5 @@ const xc_func_info_type xc_func_info_hyb_lda_xc_bn05 = {
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, par_bn05, bn05_set_ext_params},
-  hyb_lda_xc_bn05_init, NULL,
-  &work_lda, NULL, NULL
+  hyb_lda_xc_bn05_init, NULL, &work_lda
 };

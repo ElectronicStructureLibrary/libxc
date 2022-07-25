@@ -136,7 +136,7 @@ void first_derivative(xc_func_type *func, double point[5], double der[5], int wh
 
     double dd, p[5], v[5];
     int j;
-    
+
     if(nspin==1 && (i!=0 && i!=2)){
       der[i] = 0.0;
       continue;
@@ -211,12 +211,12 @@ void print_error(const char *type, const char *what, double diff, xc_func_type *
   const char *color;
 
   color = (diff > 5e-4) ? red : norm;
-  
+
   printf("%s error %s: %s%g%s\n", type, what, color, diff, norm);
 
   if(func == NULL) return;
 
-  printf("   point (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n", 
+  printf("   point (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n",
 	 p[0], p[1], p[2], p[3], p[4]);
 
   if(strcmp(what, "vrho")==0 || strcmp(what, "vsig")==0){
@@ -252,16 +252,16 @@ void print_error(const char *type, const char *what, double diff, xc_func_type *
     }
 
     if(strcmp(what, "v2rhosig") == 0){
-      printf("  analyt (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n", 
+      printf("  analyt (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n",
 	     f_an[2][0], f_an[3][0], f_an[4][0], f_an[2][1], f_an[3][1], f_an[4][1]);
-      printf("      fd (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n", 
+      printf("      fd (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n",
 	     f_fd[2][0], f_fd[3][0], f_fd[4][0], f_fd[2][1], f_fd[3][1], f_fd[4][1]);
     }
 
     if(strcmp(what, "v2sig2") == 0){
-      printf("  analyt (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n", 
+      printf("  analyt (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n",
 	     f_an[2][2], f_an[3][2], f_an[4][2], f_an[3][3], f_an[4][3], f_an[4][4]);
-      printf("      fd (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n", 
+      printf("      fd (% 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e, % 8.2e)\n",
 	     f_fd[2][2], f_fd[3][2], f_fd[4][2], f_fd[3][3], f_fd[4][3], f_fd[4][4]);
     }
   }
@@ -288,7 +288,7 @@ void test_functional(int functional)
   /* initialize functional */
   if(xc_func_init(&func, functional, nspin) != 0){
     fprintf(stderr, "Functional '%d' not found\n", functional);
-    exit(1);    
+    exit(1);
   }
 
   info = func.info;
@@ -296,12 +296,12 @@ void test_functional(int functional)
   if(functional == XC_LDA_C_2D_PRM){
     static double lda_c_2d_prm_params[1] = {10.0};
     xc_func_set_ext_params(&func, lda_c_2d_prm_params);
-  }  
+  }
 
   for(k=0; k<6; k++)
     for(j=0; j<5; j++){
       avg_diff[k][j] = 0.0;
-      
+
       p_max[k][j]    = 0;
       max_diff[k][j] = -1.0;
     }
@@ -407,7 +407,7 @@ void test_functional(int functional)
         if(max_diff[5][1] > max_diff[i][j]) {i=5; j=1;}
         get_val(xc_trial_points[p_max[i][j]], val);
         print_error("Max.", "v2rhosig", max_diff[i][j], &func, val);
-        
+
         diff = avg_diff[3][2] + avg_diff[4][2] + avg_diff[5][2] + avg_diff[4][3] + avg_diff[5][3] + avg_diff[5][4];
         diff = diff/6.0;
         print_error("Avg.", "v2sig2", diff, NULL, NULL);
@@ -432,7 +432,7 @@ int main(int argc, char *argv[])
     printf("Usage:\n%s funct\n", argv[0]);
     return 1;
   }
-  
+
   printf("------------------------\nNspin = 1\n");
   nspin = 1;
   test_functional(atoi(argv[1]));

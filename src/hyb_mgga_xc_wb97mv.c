@@ -19,7 +19,7 @@ typedef struct {
 static const char  *names[N_PAR]  = {
   "_cx00",  "_cx01",  "_cx10",
   "_css00", "_css04", "_css10", "_css20", "_css43",
-  "_cos00", "_cos10", "_cos20", "_cos21", "_cos60", "_cos61", 
+  "_cos00", "_cos10", "_cos20", "_cos21", "_cos60", "_cos61",
   "_alpha", "_beta", "_omega"};
 static const char  *desc[N_PAR]   = {
   "u^00 coefficient for exchange",
@@ -44,7 +44,7 @@ static const char  *desc[N_PAR]   = {
 static const double par_wb97m_v[N_PAR] = {
    0.85,   1.007,  0.259,
    0.443, -1.437, -4.535,    -3.39,          4.278,
-   1.0,         1.358,        2.924,       -8.812,     -1.39,         9.142, 
+   1.0,         1.358,        2.924,       -8.812,     -1.39,         9.142,
    1.0, -(1.0 - 0.15), 0.3
 };
 
@@ -74,6 +74,5 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_wb97m_v = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | XC_FLAGS_VV10 | MAPLE2C_FLAGS,
   1e-13,
   {N_PAR, names, desc, par_wb97m_v, set_ext_params_cpy_cam},
-  hyb_mgga_xc_wb97mv_init, NULL,
-  NULL, NULL, &work_mgga,
+  hyb_mgga_xc_wb97mv_init, NULL, &work_mgga,
 };

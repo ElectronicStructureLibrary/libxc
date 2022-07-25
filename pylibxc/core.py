@@ -24,7 +24,7 @@ except OSError:
         raise ImportError(
             "LibXC Shared object not found, searched Python module local directory and library paths"
         )
-    
+
     # Load the C object
     core = ctypes.CDLL(__libxc_path)
 

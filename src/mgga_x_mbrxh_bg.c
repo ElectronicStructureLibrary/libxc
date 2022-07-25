@@ -26,6 +26,5 @@ const xc_func_info_type xc_func_info_mgga_x_mbrxh_bg = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS | XC_FLAGS_DEVELOPMENT,
   1.0e-12,
   {0, NULL, NULL, NULL, NULL},
-  NULL, NULL,
   NULL, NULL, &work_mgga,
 };

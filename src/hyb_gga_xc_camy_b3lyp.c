@@ -74,8 +74,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_camy_b3lyp = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {CAMYB3_N_PAR, camb3_names, camb3_desc, cam_values_b3lyp, camyb3_set_ext_params},
-  xc_hyb_gga_xc_camy_b3lyp_init,
-  NULL, NULL, NULL, NULL
+  xc_hyb_gga_xc_camy_b3lyp_init, NULL, NULL
 };
 
 static void
@@ -121,7 +120,6 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_camy_pbeh = {
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,
   {CAM_N_PAR, cam_names, cam_desc, cam_values_pbeh, cam_set_ext_params},
-  hyb_gga_xc_camy_pbeh_init,
-  NULL, NULL, NULL, NULL
+  hyb_gga_xc_camy_pbeh_init, NULL, NULL
 };
 

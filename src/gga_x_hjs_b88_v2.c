@@ -48,5 +48,5 @@ const xc_func_info_type xc_func_info_gga_x_hjs_b88_v2 = {
   1e-6, /* densities smaller than 1e-6 yield NaNs */
   {N_PARS, names, desc, pars_B88_V2, set_ext_params_cpy_omega},
   gga_x_hjs_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

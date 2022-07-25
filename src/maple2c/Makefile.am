@@ -5,6 +5,6 @@
 ## file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ##
 
-SUBDIRS = lda_exc lda_vxc gga_exc gga_vxc mgga_exc mgga_vxc
+SUBDIRS = lda_exc lda_vxc gga_exc gga_vxc mgga_exc mgga_vxc hgga_exc
 
 noinst_HEADERS = deorbitalize_1.c deorbitalize_2.c deorbitalize_3.c deorbitalize_4.c

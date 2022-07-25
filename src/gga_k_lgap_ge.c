@@ -42,5 +42,5 @@ const xc_func_info_type xc_func_info_gga_k_lgap_ge = {
   1e-15,
   {N_PAR, names, desc, par_lgap_ge, set_ext_params_cpy},
   gga_k_lgap_ge_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

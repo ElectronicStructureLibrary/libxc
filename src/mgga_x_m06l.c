@@ -173,8 +173,7 @@ const xc_func_info_type xc_func_info_mgga_x_m06_l = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR_PURE, pure_names, pure_desc, par_m06l, set_ext_params_cpy},
-  mgga_x_m06l_init, NULL,
-  NULL, NULL, &work_mgga
+  mgga_x_m06l_init, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -189,8 +188,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m06_hf = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR_HYB, hyb_names, hyb_desc, par_m06hf, set_ext_params_cpy_exx},
-  mgga_x_m06l_init, NULL,
-  NULL, NULL, &work_mgga
+  mgga_x_m06l_init, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -205,8 +203,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m06 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR_HYB, hyb_names, hyb_desc, par_m06, set_ext_params_cpy_exx},
-  mgga_x_m06l_init, NULL,
-  NULL, NULL, &work_mgga
+  mgga_x_m06l_init, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -221,8 +218,7 @@ const xc_func_info_type xc_func_info_mgga_x_revm06_l = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR_PURE, pure_names, pure_desc, par_revm06l, set_ext_params_cpy},
-  mgga_x_m06l_init, NULL,
-  NULL, NULL, &work_mgga
+  mgga_x_m06l_init, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -237,8 +233,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_revm06 = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR_HYB, hyb_names, hyb_desc, par_revm06, set_ext_params_cpy_exx},
-  mgga_x_m06l_init, NULL,
-  NULL, NULL, &work_mgga
+  mgga_x_m06l_init, NULL, &work_mgga
 };
 
 #ifdef __cplusplus
@@ -253,6 +248,5 @@ const xc_func_info_type xc_func_info_hyb_mgga_x_m06_sx = {
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR_SR, sr_names, sr_desc, par_m06_sx, set_ext_params_cpy_cam_sr},
-  mgga_x_m06l_init, NULL,
-  NULL, NULL, &work_mgga
+  mgga_x_m06l_init, NULL, &work_mgga
 };

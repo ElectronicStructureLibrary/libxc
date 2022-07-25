@@ -27,5 +27,5 @@ const xc_func_info_type xc_func_info_lda_xc_zlp = {
   1e-32,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };

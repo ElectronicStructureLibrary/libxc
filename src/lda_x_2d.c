@@ -26,7 +26,6 @@ const xc_func_info_type xc_func_info_lda_x_2d = {
   XC_FLAGS_2D | MAPLE2C_FLAGS,
   1e-15,
   {0, NULL, NULL, NULL, NULL},
-  NULL, NULL,
-  &work_lda, NULL,  NULL
+  NULL, NULL, &work_lda
 };
 

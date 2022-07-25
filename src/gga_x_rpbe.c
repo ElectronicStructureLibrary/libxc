@@ -47,5 +47,5 @@ const xc_func_info_type xc_func_info_gga_x_rpbe = {
   1e-15,
   {RPBE_N_PAR, rpbe_names, rpbe_desc, rpbe_values, set_ext_params_cpy},
   gga_x_rpbe_init, NULL,
-  NULL, &work_gga, NULL
+  &work_gga
 };

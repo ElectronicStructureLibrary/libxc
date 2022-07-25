@@ -126,5 +126,5 @@ const xc_func_info_type xc_func_info_lda_c_1d_csc = {
   1e-25,
   {2, csc_names, csc_desc, csc_values, csc_set_ext_params},
   lda_c_1d_csc_init, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };

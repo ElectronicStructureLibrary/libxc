@@ -32,5 +32,5 @@ const xc_func_info_type xc_func_info_lda_c_2d_amgb = {
   1e-9,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  &work_lda, NULL, NULL
+  &work_lda
 };

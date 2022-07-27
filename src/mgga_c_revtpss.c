@@ -45,7 +45,7 @@ const xc_func_info_type xc_func_info_mgga_c_revtpss = {
   XC_CORRELATION,
   "revised TPSS correlation",
   XC_FAMILY_MGGA,
-  {&xc_ref_Perdew2009_026403, &xc_ref_Perdew2009_026403_err, NULL, NULL, NULL},
+  {&xc_ref_Perdew2009_026403, &xc_ref_Perdew2011_179902, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-13, /* densities smaller than 1e-26 give NaNs */
   {REVTPSS_N_PAR, revtpss_names, revtpss_desc, revtpss_values, set_ext_params_cpy},

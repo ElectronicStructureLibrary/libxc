@@ -98,7 +98,7 @@ const xc_func_info_type xc_func_info_mgga_x_revtpss = {
   XC_EXCHANGE,
   "revised Tao, Perdew, Staroverov & Scuseria",
   XC_FAMILY_MGGA,
-  {&xc_ref_Perdew2009_026403, &xc_ref_Perdew2009_026403_err, NULL, NULL, NULL},
+  {&xc_ref_Perdew2009_026403, &xc_ref_Perdew2011_179902, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
   1e-15,
   {TPSS_N_PAR, tpss_names, tpss_desc, revtpss_values, set_ext_params_cpy},

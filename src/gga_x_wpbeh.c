@@ -53,7 +53,7 @@ const xc_func_info_type xc_func_info_gga_x_wpbeh = {
   XC_EXCHANGE,
   "short-range part of the PBE (default w=0 gives PBEh)",
   XC_FAMILY_GGA,
-  {&xc_ref_Heyd2003_8207, &xc_ref_Heyd2003_8207_err, &xc_ref_Ernzerhof1998_3313, &xc_ref_Heyd2004_7274, &xc_ref_Henderson2009_044108},
+  {&xc_ref_Heyd2003_8207, &xc_ref_Heyd2006_219906, &xc_ref_Ernzerhof1998_3313, &xc_ref_Heyd2004_7274, &xc_ref_Henderson2009_044108},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-14,
   {1, omega_names, omega_desc, omega_values, set_ext_params_cpy_omega},

@@ -129,7 +129,7 @@ const xc_func_info_type xc_func_info_lda_c_ob_pz = {
   XC_CORRELATION,
   "Ortiz & Ballone (PZ parametrization)",
   XC_FAMILY_LDA,
-  {&xc_ref_Ortiz1994_1391, &xc_ref_Ortiz1994_1391_err, NULL, NULL, NULL},
+  {&xc_ref_Ortiz1994_1391, &xc_ref_Ortiz1997_9970, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
   {N_PAR, names, desc, par_pz_ob, set_ext_params_cpy},

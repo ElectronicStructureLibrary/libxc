@@ -42,7 +42,7 @@ const xc_func_info_type xc_func_info_gga_c_pbe_vwn = {
   XC_CORRELATION,
   "Perdew, Burke & Ernzerhof based on VWN correlation",
   XC_FAMILY_GGA,
-  {&xc_ref_Kraisler2010_042516, &xc_ref_Perdew1996_3865, &xc_ref_Perdew1996_3865_err, NULL, NULL},
+  {&xc_ref_Kraisler2010_042516, &xc_ref_Perdew1996_3865, &xc_ref_Perdew1997_1396, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-12,
   {PBEVWN_N_PAR, pbevwn_names, pbevwn_desc, pbevwn_values, set_ext_params_cpy},

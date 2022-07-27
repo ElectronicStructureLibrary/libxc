@@ -110,7 +110,8 @@ for item in formatted_bibliography:
   fh_c.write('func_reference_type xc_ref_' + item.key + ' = {\n' +
              '  "' + item.text.render(backend) + '",\n' +
              '  "' + doi + '",\n' +
-             '  "' + bibtex + '"\n' +
+             '  "' + bibtex + '",\n' +
+             '  "' + item.key + '"\n' +
              '};\n\n'
              )
   fh_h.write('extern func_reference_type xc_ref_' + item.key + ';\n')

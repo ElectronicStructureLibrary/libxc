@@ -18,6 +18,7 @@ module xc_f03_lib_m
     ! literature reference
     xc_f03_reference, &
     xc_f03_reference_doi, &
+    xc_f03_reference_key, &
     ! func_info
     xc_f03_func_info_t, &
     xc_f03_func_info_get_number, &
@@ -34,6 +35,7 @@ module xc_f03_lib_m
     xc_f03_func_reference_t, &
     xc_f03_func_reference_get_ref, &
     xc_f03_func_reference_get_doi, &
+    xc_f03_func_reference_get_key, &
     xc_f03_func_reference_get_bibtex, &
     ! func
     xc_f03_func_t, &
@@ -181,6 +183,10 @@ module xc_f03_lib_m
     type(c_ptr) function xc_reference_doi() bind(c)
       import
     end function xc_reference_doi
+
+    type(c_ptr) function xc_reference_key() bind(c)
+      import
+    end function xc_reference_key
   end interface
 
 
@@ -268,6 +274,11 @@ module xc_f03_lib_m
       import
       type(c_ptr), value :: reference
     end function xc_func_reference_get_bibtex
+
+    type(c_ptr) function xc_func_reference_get_key(reference) bind(c)
+      import
+      type(c_ptr), value :: reference
+    end function xc_func_reference_get_key
   end interface
 
   !----------------------------------------------------------------
@@ -851,6 +862,16 @@ end interface
 
   end subroutine xc_f03_reference_doi
 
+  subroutine xc_f03_reference_key(key)
+    character(len=*), intent(out) :: key
+
+    type(c_ptr) :: c_key
+
+    c_key = xc_reference_key()
+    call c_to_f_string_ptr(c_key, key)
+
+  end subroutine xc_f03_reference_key
+
   !----------------------------------------------------------------
   integer(c_int) function xc_f03_func_info_get_number(info) result(number)
     type(xc_f03_func_info_t), intent(in) :: info
@@ -960,6 +981,12 @@ end interface
 
   end function xc_f03_func_reference_get_bibtex
 
+  character(len=1024) function xc_f03_func_reference_get_key(reference) result(key)
+    type(xc_f03_func_reference_t), intent(in) :: reference
+
+    call c_to_f_string_ptr(xc_func_reference_get_key(reference%ptr), key)
+
+  end function xc_f03_func_reference_get_key
 
   !----------------------------------------------------------------
   subroutine xc_f03_func_init(p, functional, nspin, err)

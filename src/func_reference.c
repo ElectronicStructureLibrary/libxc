@@ -23,3 +23,8 @@ char const *xc_func_reference_get_bibtex(const func_reference_type *reference)
 {
     return reference->bibtex;
 }
+
+char const *xc_func_reference_get_key(const func_reference_type *reference)
+{
+    return reference->key;
+}

@@ -215,7 +215,7 @@
 #define  XC_GGA_X_ECMV92                   215 /* Engel, Chevary, Macdonald and Vosko */
 #define  XC_GGA_C_PBE_VWN                  216 /* Perdew, Burke & Ernzerhof based on VWN correlation */
 #define  XC_GGA_C_P86_FT                   217 /* Perdew 86 with more accurate value for ftilde */
-#define  XC_GGA_K_RATIONAL_P               218 /* RATIONAL^p by Lehtomaki and Lopez-Acevedo (by default p=3/2, C2=0.7687) */
+#define  XC_GGA_K_RATIONAL_P               218 /* RATIONAL$^{p}$ by Lehtomaki and Lopez-Acevedo (by default $p=3/2$, $C_{2}=0.7687$) */
 #define  XC_GGA_K_PG1                      219 /* PG1 (Pauli-Gaussian) functional by Constantin, Fabiano, and Della Sala */
 #define  XC_MGGA_K_PGSL025                 220 /* PGSL025 (Pauli-Gaussian) functional by Constantin, Fabiano, and Della Sala */
 #define  XC_MGGA_X_MS0                     221 /* MS exchange of Sun, Xiao, and Ruzsinszky */
@@ -274,8 +274,8 @@
 #define  XC_HYB_GGA_XC_PBE_SOL0            274 /* PBEsol0 */
 #define  XC_HYB_GGA_XC_PBEB0               275 /* PBEbeta0 */
 #define  XC_HYB_GGA_XC_PBE_MOLB0           276 /* PBEmolbeta0 */
-#define  XC_GGA_K_ABSP3                    277 /* gamma-TFvW form by Acharya et al [g = 1 - 1.513/N^0.35] */
-#define  XC_GGA_K_ABSP4                    278 /* gamma-TFvW form by Acharya et al [g = l = 1/(1 + 1.332/N^(1/3))] */
+#define  XC_GGA_K_ABSP3                    277 /* gamma-TFvW form by Acharya et al [$g = 1 - 1.513/N^{0.35}]$ */
+#define  XC_GGA_K_ABSP4                    278 /* gamma-TFvW form by Acharya et al [$g = l = 1/(1 + 1.332/N^{1/3})$] */
 #define  XC_HYB_MGGA_X_BMK                 279 /* Boese-Martin for kinetics */
 #define  XC_GGA_C_BMK                      280 /* Boese-Martin correlation for kinetics */
 #define  XC_GGA_C_TAU_HCTH                 281 /* correlation part of tau-hcth */
@@ -441,8 +441,8 @@
 #define  XC_GGA_K_YT65                     503 /* TF-lambda-vW form by Yonei and Tomishima (l = 1/5) */
 #define  XC_GGA_K_BALTIN                   504 /* TF-lambda-vW form by Baltin (l = 5/9) */
 #define  XC_GGA_K_LIEB                     505 /* TF-lambda-vW form by Lieb (l = 0.185909191) */
-#define  XC_GGA_K_ABSP1                    506 /* gamma-TFvW form by Acharya et al [g = 1 - 1.412/N^(1/3)] */
-#define  XC_GGA_K_ABSP2                    507 /* gamma-TFvW form by Acharya et al [g = 1 - 1.332/N^(1/3)] */
+#define  XC_GGA_K_ABSP1                    506 /* gamma-TFvW form by Acharya et al [$g = 1 - 1.412/N^{1/3}$] */
+#define  XC_GGA_K_ABSP2                    507 /* gamma-TFvW form by Acharya et al [$g = 1 - 1.332/N^{1/3}$] */
 #define  XC_GGA_K_GR                       508 /* gamma-TFvW form by Gazquez and Robles */
 #define  XC_GGA_K_LUDENA                   509 /* gamma-TFvW form by Ludena */
 #define  XC_GGA_K_GP85                     510 /* gamma-TFvW form by Ghosh and Parr */
@@ -585,7 +585,7 @@
 #define  XC_HYB_GGA_X_CAM_S12H             647 /* Swart 2012 range-separated hybrid GGA exchange */
 #define  XC_MGGA_X_RPPSCAN                 648 /* r++SCAN: rSCAN with uniform density limit and coordinate scaling behavior */
 #define  XC_MGGA_C_RPPSCAN                 649 /* r++SCAN: rSCAN with uniform density limit and coordinate scaling behavior */
-#define  XC_MGGA_X_R4SCAN                  650 /* r^4SCAN, a functional that satisfies the same exact constraints that SCAN does */
+#define  XC_MGGA_X_R4SCAN                  650 /* r$^{4}$SCAN, a functional that satisfies the same exact constraints that SCAN does */
 #define  XC_MGGA_X_VCML                    651 /* Exchange part of VCML-rVV10 by Trepte and Voss */
 #define  XC_MGGA_XC_VCML_RVV10             652 /* VCML-rVV10 by Trepte and Voss */
 #define  XC_HYB_LDA_X_ERF                  653 /* Long-range corrected functional based on short-range LDA exchange (erfc) */

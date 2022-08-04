@@ -649,7 +649,7 @@
  ! Perdew 86 with more accurate value for ftilde
  integer(c_int), parameter, public :: XC_GGA_C_P86_FT  =    217
 
- ! RATIONAL^p by Lehtomaki and Lopez-Acevedo (by default p=3/2, C2=0.7687)
+ ! RATIONAL$^{p}$ by Lehtomaki and Lopez-Acevedo (by default $p=3/2$, $C_{2}=0.7687$)
  integer(c_int), parameter, public :: XC_GGA_K_RATIONAL_P  =    218
 
  ! PG1 (Pauli-Gaussian) functional by Constantin, Fabiano, and Della Sala
@@ -826,10 +826,10 @@
  ! PBEmolbeta0
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_PBE_MOLB0  =    276
 
- ! gamma-TFvW form by Acharya et al [g = 1 - 1.513/N^0.35]
+ ! gamma-TFvW form by Acharya et al [$g = 1 - 1.513/N^{0.35}]$
  integer(c_int), parameter, public :: XC_GGA_K_ABSP3  =    277
 
- ! gamma-TFvW form by Acharya et al [g = l = 1/(1 + 1.332/N^(1/3))]
+ ! gamma-TFvW form by Acharya et al [$g = l = 1/(1 + 1.332/N^{1/3})$]
  integer(c_int), parameter, public :: XC_GGA_K_ABSP4  =    278
 
  ! Boese-Martin for kinetics
@@ -966,6 +966,9 @@
 
  ! Tao, Perdew, Staroverov & Scuseria with parameters from Gaussian
  integer(c_int), parameter, public :: XC_MGGA_C_TPSS_GAUSSIAN  =    323
+
+ ! Becke 97-3c by Grimme et. al.
+ integer(c_int), parameter, public :: XC_GGA_XC_B97_3C  =    327
 
  ! Self-interaction corrected correlation functional by Schmidt et al
  integer(c_int), parameter, public :: XC_MGGA_C_CC  =    387
@@ -1324,10 +1327,10 @@
  ! TF-lambda-vW form by Lieb (l = 0.185909191)
  integer(c_int), parameter, public :: XC_GGA_K_LIEB  =    505
 
- ! gamma-TFvW form by Acharya et al [g = 1 - 1.412/N^(1/3)]
+ ! gamma-TFvW form by Acharya et al [$g = 1 - 1.412/N^{1/3}$]
  integer(c_int), parameter, public :: XC_GGA_K_ABSP1  =    506
 
- ! gamma-TFvW form by Acharya et al [g = 1 - 1.332/N^(1/3)]
+ ! gamma-TFvW form by Acharya et al [$g = 1 - 1.332/N^{1/3}$]
  integer(c_int), parameter, public :: XC_GGA_K_ABSP2  =    507
 
  ! gamma-TFvW form by Gazquez and Robles
@@ -1756,7 +1759,7 @@
  ! r++SCAN: rSCAN with uniform density limit and coordinate scaling behavior
  integer(c_int), parameter, public :: XC_MGGA_C_RPPSCAN  =    649
 
- ! r^4SCAN, a functional that satisfies the same exact constraints that SCAN does
+ ! r$^{4}$SCAN, a functional that satisfies the same exact constraints that SCAN does
  integer(c_int), parameter, public :: XC_MGGA_X_R4SCAN  =    650
 
  ! Exchange part of VCML-rVV10 by Trepte and Voss

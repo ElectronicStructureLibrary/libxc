@@ -285,11 +285,8 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
   // from GPU and CPU).
   xc_func_info_type * finfo = (xc_func_info_type *) libxc_malloc(sizeof(xc_func_info_type));
 
-  // initialize the dimension structure
-  if(func->nspin == XC_UNPOLARIZED)
-    func->dim = &dimensions_unpolarized;
-  else
-    func->dim = &dimensions_polarized;
+  func->inp_dim =  input_variables_dimensions_get(nspin);
+  func->out_dim = output_variables_dimensions_get(nspin);
 
   switch(xc_family_from_id(functional, NULL, &number)){
   case(XC_FAMILY_LDA):
@@ -307,7 +304,7 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
   default:
     return -2; /* family not found */
   }
-
+    
   func->info = finfo;
 
   /* this is initialized for each functional from the info */

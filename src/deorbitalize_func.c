@@ -29,7 +29,7 @@ void xc_evaluate_func(const xc_func_type *func, int max_order,
     fprintf(stderr, "Field %s is not allocated\n", xc_input_variables_name[check]);
     exit(1);
   }
-
+  
   check = xc_output_variables_sanity_check(out, orders, func->info->family, func->info->flags);
   if(check >= 0){ /* error */
     if(check >= 1000)
@@ -38,7 +38,7 @@ void xc_evaluate_func(const xc_func_type *func, int max_order,
       fprintf(stderr, "Field %s is not allocated\n", xc_output_variables_name[check]);
     exit(1);
   }
-
+  
   xc_output_variables_initialize(out, in->np, func->nspin);
 
   /* call the specific work routine */
@@ -73,16 +73,16 @@ xc_deorbitalize_init(xc_func_type *p, int mgga_id, int ked_id)
   xc_func_init (p->func_aux[1], ked_id,  p->nspin);
 }
 
-#define VAR(var, ip, index)        var[ip*p->dim->var + index]
+#define VAR(var, ip, index)        var[ip*p->out_dim->var + index]
 static void
 deorb_work(const xc_func_type *p,
            const xc_input_variables *in, xc_output_variables *out)
 {
-  double *mtau, *mrho, *msigma, *mlapl;
+  double *mrho, *msigma, *mlapl, *mtau;
   xc_input_variables  *in2;
   xc_output_variables *mgga, *ked1, *ked2;
   size_t ip;
-
+  
   int ii, max_order, flags;
   int orders[XC_MAXIMUM_ORDER+1] =
     {out->zk != NULL, out->vrho != NULL, out->v2rho2 != NULL,
@@ -95,41 +95,41 @@ deorb_work(const xc_func_type *p,
   /* we actually need all orders <= max_order, so we change orders */
   for(ii=0; ii <= max_order; ii++)
     orders[ii] = 1;
-
+  
   /* prepare buffers for input variables */
   in2 = xc_input_variables_allocate(-1, XC_FAMILY_MGGA, 0, 0);
   in2->np = in->np;
-
-  mtau = (double *) libxc_malloc(in->np*p->dim->tau*sizeof(double));
+  
+  mtau = (double *) libxc_malloc(in->np*p->inp_dim->tau*sizeof(double));
   if(p->nspin == XC_POLARIZED){
-    mrho   = (double *) libxc_malloc(in->np*p->dim->rho*sizeof(double));
-    msigma = (double *) libxc_malloc(in->np*p->dim->sigma*sizeof(double));
-    mlapl  = (double *) libxc_malloc(in->np*p->dim->lapl*sizeof(double));
+    mrho   = (double *) libxc_malloc(in->np*p->inp_dim->rho*sizeof(double));
+    msigma = (double *) libxc_malloc(in->np*p->inp_dim->sigma*sizeof(double));
+    mlapl  = (double *) libxc_malloc(in->np*p->inp_dim->lapl*sizeof(double));
   }
 
-  /*
-     prepare buffers that will hold the output from the individual functionals
+  /* 
+     prepare buffers that will hold the output from the individual functionals 
      we have to declare them as XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU
      as the code accesses these values (even if they are zero)
   */
   flags = p->info->flags | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU;
   mgga = xc_output_variables_allocate(in->np, orders, XC_FAMILY_MGGA, flags, p->nspin);
   xc_output_variables_initialize(mgga, in->np, p->nspin);
-
+  
   ked1 = xc_output_variables_allocate(in->np, orders, XC_FAMILY_MGGA, flags, p->nspin);
   xc_output_variables_initialize(ked1, in->np, p->nspin);
   if(p->nspin == XC_POLARIZED){
     ked2 = xc_output_variables_allocate(in->np, orders, XC_FAMILY_MGGA, flags, p->nspin);
     xc_output_variables_initialize(ked2, in->np, p->nspin);
   }
-
+  
   /* evaluate the kinetic energy functional */
   if(p->nspin == XC_UNPOLARIZED){
     xc_evaluate_func(p->func_aux[1], max_order, in, ked1);
   }else{
     in2->rho = mrho; in2->sigma = msigma;
     in2->lapl = mlapl;
-
+                       
     for(ip=0; ip<in->np; ip++){
       mrho  [2*ip] = in->rho  [2*ip]; mrho  [2*ip+1] = 0.0;
       msigma[3*ip] = in->sigma[3*ip]; msigma[3*ip+1] = 0.0; msigma[3*ip+2] = 0.0;
@@ -144,7 +144,7 @@ deorb_work(const xc_func_type *p,
     }
     xc_evaluate_func(p->func_aux[1], max_order, in2, ked2);
   }
-
+  
   /* now evaluate the mgga functional */
   in2->rho = in->rho; in2->sigma = in->sigma;
   in2->lapl = in->lapl; in2->tau = mtau;
@@ -201,9 +201,10 @@ deorb_work(const xc_func_type *p,
     libxc_free(mrho); libxc_free(msigma); libxc_free(mlapl);
   }
 }
-
+  
 xc_functionals_work_variants xc_deorbitalize_func =
   {
    {deorb_work, deorb_work, deorb_work, deorb_work, deorb_work},
    {deorb_work, deorb_work, deorb_work, deorb_work, deorb_work},
   };
+                                               

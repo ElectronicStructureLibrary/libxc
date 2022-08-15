@@ -53,7 +53,7 @@ __global__ static void add_to_mix_gpu(size_t np, double * dst, double coeff, con
 #define is_gga(id)    ((id) == XC_FAMILY_GGA  || is_mgga(id))
 #define is_lda(id)    ((id) == XC_FAMILY_LDA  ||  is_gga(id))
 
-/*
+/* 
    Sanity check: have we claimed the highest possible derivatives?
    First, check for the lowest common derivative (also need to make
    sure the derivatives have been compiled in!)
@@ -93,7 +93,7 @@ void mix_func_sanity_check(const xc_func_type *func)
       need_laplacian = XC_FLAGS_NEEDS_LAPLACIAN;
   }
   assert((func->info->flags & XC_FLAGS_NEEDS_LAPLACIAN) == need_laplacian);
-
+  
   /* Same for tau */
   int need_tau = 0;
   for(ii=0; ii<func->n_func_aux; ii++){
@@ -135,12 +135,12 @@ xc_mix_func(const xc_func_type *func, const xc_input_variables *in, xc_output_va
   xc_output_variables *xout;
   size_t ip;
 
-  int ifunc, ii, max_order, check;
+  int ifunc, ii, max_order, check;  
   int orders[XC_MAXIMUM_ORDER+1] =
     {out->zk != NULL, out->vrho != NULL, out->v2rho2 != NULL,
      out->v3rho3 != NULL, out->v4rho4 != NULL};
 
-  const xc_dimensions *dim = func->dim;
+  const xc_output_variables_dimensions *dim = func->out_dim;
 
   max_order = -1;
   for(ii=0; ii <= XC_MAXIMUM_ORDER; ii++){
@@ -155,7 +155,7 @@ xc_mix_func(const xc_func_type *func, const xc_input_variables *in, xc_output_va
     fprintf(stderr, "Field %s is not allocated\n", xc_input_variables_name[check]);
     exit(1);
   }
-
+  
   check = xc_output_variables_sanity_check(out, orders, func->info->family, func->info->flags);
   if(check >= 0){ /* error */
     if(check >= 1000)
@@ -164,7 +164,7 @@ xc_mix_func(const xc_func_type *func, const xc_input_variables *in, xc_output_va
       fprintf(stderr, "Field %s is not allocated\n", xc_output_variables_name[check]);
     exit(1);
   }
-
+  
   xout = xc_output_variables_allocate
     (in->np, orders, func->info->family, func->info->flags, func->nspin);
 
@@ -183,14 +183,14 @@ xc_mix_func(const xc_func_type *func, const xc_input_variables *in, xc_output_va
       if(out->fields[ii] == NULL)
         continue;
       /* this could be replaced by a daxpy BLAS call */
-#ifndef HAVE_CUDA
-      for(ip=0; ip<in->np*dim->fields[ii+5]; ip++)
+#ifndef HAVE_CUDA      
+      for(ip=0; ip<in->np*dim->fields[ii]; ip++)
         out->fields[ii][ip] += func->mix_coef[ifunc]*xout->fields[ii][ip];
 #else
       size_t nblocks = in->np/CUDA_BLOCK_SIZE;
       if(in->np != nblocks*CUDA_BLOCK_SIZE) nblocks++;
       add_to_mix_gpu<<<nblocks, CUDA_BLOCK_SIZE>>>
-        (in->np*dim->fields[ii+5], out->fields[ii], func->mix_coef[ifunc], xout->fields[ii]);
+        (in->np*dim->fields[ii], out->fields[ii], func->mix_coef[ifunc], xout->fields[ii]);
 #endif
     }
   }

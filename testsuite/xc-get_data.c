@@ -19,8 +19,8 @@ int main(int argc, char *argv[])
   xc_func_type func;
   xc_input_variables *in;
   xc_output_variables *out;
-  const xc_dimensions *out_dim;
-
+  const xc_output_variables_dimensions *out_dim;
+  
   int functional, nspin, ii, is, ninput;
   int orders[XC_MAXIMUM_ORDER+1] = {1, 1, 1, 0, 0};
 
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 
   /* define and read input variables */
   in = xc_input_variables_allocate(1, func.info->family, func.info->flags, nspin);
-
+  
   /* let us check how many input parameters our functional has */
   for(ninput=0, ii=0; ii<XC_TOTAL_NUMBER_INPUT_VARIABLES; ii++)
     if(in->fields[ii] != NULL) ninput += in->dim->fields[ii];
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
     }
     exit(1);
   }
-
+  
   /* Read data */
   for(ninput=0, ii=0; ii<XC_TOTAL_NUMBER_INPUT_VARIABLES; ii++){
     if(in->fields[ii] == NULL)
@@ -76,14 +76,14 @@ int main(int argc, char *argv[])
     for(is=0; is<in->dim->fields[ii]; is++)
       in->fields[ii][is] = atof(argv[3 + ninput++]);
   }
-
+  
   /* allocate buffers */
   out = xc_output_variables_allocate(1, orders,
                                      func.info->family,
                                      func.info->flags,
                                      nspin);
   //xc_output_variables_initialize(out, 1, func.nspin);
-
+  
   xc_evaluate_func(&func, 2, in, out);
 
   /* transform to energy per volume */
@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
     out->zk[0] *= in->rho[0];
   else
     out->zk[0] *= in->rho[0] + in->rho[1];
-
+  
   /* let us print the input */
   for(ii=0; ii<XC_TOTAL_NUMBER_INPUT_VARIABLES; ii++){
     if(in->fields[ii] == NULL)
@@ -100,13 +100,13 @@ int main(int argc, char *argv[])
       printf(" %s%d = %#0.2E", xc_input_variables_name[ii], is, in->fields[ii][is]);
   }
   printf("\n");
-
+  
   /* and now we print the output */
-  out_dim = (nspin == XC_UNPOLARIZED) ? &dimensions_unpolarized : &dimensions_polarized;
+  out_dim = output_variables_dimensions_get(nspin);
   for(ninput=0, ii=0; ii<XC_TOTAL_NUMBER_OUTPUT_VARIABLES; ii++){
     if(out->fields[ii] == NULL)
       continue;
-    for(is=0; is<out_dim->fields[5+ii]; is++)
+    for(is=0; is<out_dim->fields[ii]; is++)
       printf("%3d: %20s[%2d] = %#19.12E\n", ninput++,
              xc_output_variables_name[ii], is, out->fields[ii][is]);
   }

@@ -162,7 +162,6 @@ typedef struct {
 /* spin dimensions of output variables */
 typedef union {
   struct {
-    int rho, sigma, lapl, tau, exx;       /* spin dimensions of the arrays */
     /* order 0 */
     int zk;
     /* order 1 */
@@ -214,8 +213,8 @@ typedef union {
     int v4lapltau3, v4lapltau2exx, v4lapltauexx2, v4laplexx3;
     int v4tau4, v4tau3exx, v4tauexx3, v4exx4;
   };
-  int fields[5 + XC_TOTAL_NUMBER_OUTPUT_VARIABLES];
-} xc_dimensions;
+  int fields[XC_TOTAL_NUMBER_OUTPUT_VARIABLES];
+} xc_output_variables_dimensions;
 
 typedef union { /* this is defined as an union so that we can access the fields sequentially */
   struct {
@@ -282,6 +281,8 @@ extern const char *xc_input_variables_name[];     /* mapping input variable -> n
 extern const int xc_input_variables_family_key[]; /* mapping input variable -> family */
 extern const int xc_input_variables_flags_key[];  /* mapping input variable -> flags */
 
+
+const xc_input_variables_dimensions *input_variables_dimensions_get(int nspin);
 xc_input_variables *xc_input_variables_allocate(double np, int family, int flags, int nspin);
 int xc_input_variables_sanity_check(const xc_input_variables *out, int family, int flags);
 void xc_input_variables_initialize(xc_input_variables *out);
@@ -292,6 +293,7 @@ extern const int xc_output_variables_order_key[];  /* mapping output variable ->
 extern const int xc_output_variables_family_key[]; /* mapping output variable -> family */
 extern const int xc_output_variables_flags_key[];  /* mapping output variable -> flags */
 
+const xc_output_variables_dimensions *output_variables_dimensions_get(int nspin);
 xc_output_variables *xc_output_variables_allocate(double np, const int *orders, int family, int flags, int nspin);
 int xc_output_variables_sanity_check(const xc_output_variables *out, const int *orders, int family, int flags);
 void xc_output_variables_initialize(xc_output_variables *out, int np, int nspin);
@@ -370,7 +372,8 @@ struct xc_func_type{
   double nlc_b;                /* Non-local correlation, b parameter */
   double nlc_C;                /* Non-local correlation, C parameter */
 
-  const xc_dimensions *dim;    /* the dimensions of all input and output arrays */
+  const xc_input_variables_dimensions  *inp_dim;    /* the dimensions of all  input arrays */
+  const xc_output_variables_dimensions *out_dim;    /* the dimensions of all output arrays */
 
   /* This is where the values of the external parameters are stored */
   double *ext_params;

@@ -18,7 +18,8 @@
 #endif
 
 /* macro to simplify accessing the variables */
-#define VAR(var, ip, index)        var[ip*p->dim->var + index]
+#define INP_VAR(var, ip, index)    in->var[ip*p->inp_dim->var + index]
+#define OUT_VAR(var, ip, index)    out->var[ip*p->out_dim->var + index]
 #define WORK_LDA_(order, spin)     work_lda_ ## order ## _ ## spin
 #define WORK_LDA_IP_(order, spin)  work_lda_ip_ ## order ## _ ## spin
 #define FUNC_(order, spin)         func_     ## order ## _ ## spin
@@ -53,18 +54,18 @@ WORK_LDA_IP(ORDER_TXT, SPIN_TXT)
   /* this check is required for the GPU kernel */
   if(ip >= in->np)
     return;
-
+  
   /* screen small densities */
   dens = (p->nspin == XC_POLARIZED) ?
-    in->VAR(rho, ip, 0) + in->VAR(rho, ip, 1) :
-    in->VAR(rho, ip, 0);
+    INP_VAR(rho, ip, 0) + INP_VAR(rho, ip, 1) :
+    INP_VAR(rho, ip, 0);
   if(dens < p->dens_threshold)
     return;
-
+    
   /* sanity check of input parameters */
-  my_rho[0] = m_max(p->dens_threshold, in->VAR(rho, ip, 0));
+  my_rho[0] = m_max(p->dens_threshold, INP_VAR(rho, ip, 0));
   if(p->nspin == XC_POLARIZED){
-    my_rho[1] = m_max(p->dens_threshold, in->VAR(rho, ip, 1));
+    my_rho[1] = m_max(p->dens_threshold, INP_VAR(rho, ip, 1));
   }
 
   /* evaluate the functional */
@@ -72,25 +73,25 @@ WORK_LDA_IP(ORDER_TXT, SPIN_TXT)
 
 #ifdef XC_DEBUG
   /* check for NaNs in the output */
-  const xc_dimensions *dim = p->dim;
+  const xc_output_variables_dimensions *dim = p->out_dim;
   int ii, is_OK = 1;
 
   if(out->zk != NULL)
-    is_OK = is_OK & isfinite(out->VAR(zk, ip, 0));
+    is_OK = is_OK & isfinite(OUT_VAR(zk, ip, 0));
 
   if(out->vrho != NULL){
     for(ii=0; ii < dim->vrho; ii++)
-      is_OK = is_OK && isfinite(out->VAR(vrho, ip, ii));
+      is_OK = is_OK && isfinite(OUT_VAR(vrho, ip, ii));
   }
-
+  
   if(!is_OK){
     printf("Problem in the evaluation of the functional\n");
     if(p->nspin == XC_UNPOLARIZED){
       printf("./xc-get_data %d 1 %le 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0\n",
-             p->info->number, in->VAR(rho, ip, 0));
+             p->info->number, INP_VAR(rho, ip, 0));
     }else{
       printf("./xc-get_data %d 2 %le %le 0.0 0.0 0.0 0.0 0.0 0.0 0.0\n",
-             p->info->number, in->VAR(rho, ip, 0), in->VAR(rho, ip, 1));
+             p->info->number, INP_VAR(rho, ip, 0), INP_VAR(rho, ip, 1));
     }
   }
 #endif
@@ -105,7 +106,7 @@ WORK_LDA(ORDER_TXT, SPIN_TXT)
   XC(func_type) *pcuda = (XC(func_type) *) libxc_malloc(sizeof(XC(func_type)));
   xc_input_variables *incuda = (xc_input_variables *) libxc_malloc(sizeof(xc_input_variables));
   xc_output_variables *outcuda = (xc_output_variables *) libxc_malloc(sizeof(xc_output_variables));
-
+  
   cudaMemcpy(pcuda, p, sizeof(XC(func_type)), cudaMemcpyHostToDevice);
   cudaMemcpy(incuda, in, sizeof(xc_input_variables), cudaMemcpyHostToDevice);
   cudaMemcpy(outcuda, out, sizeof(xc_output_variables), cudaMemcpyHostToDevice);
@@ -124,7 +125,7 @@ WORK_LDA(ORDER_TXT, SPIN_TXT)
   libxc_free(outcuda);
 #else
   size_t ip;
-
+  
   /* simply loop over points */
   for(ip=0; ip<in->np; ip++){
     WORK_LDA_IP(ORDER_TXT, SPIN_TXT)(p, ip, in, out);

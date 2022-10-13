@@ -391,7 +391,7 @@ const xc_output_variables_dimensions output_variables_dimensions_unpolarized =
   1, 1, 1,          /* v4rhosigmalapl2, v4rhosigmalapltau, v4rhosigmalaplexx */
   1, 1,             /* v4rhosigmatau2, v4rhosigmatauexx */
   1,                /* v4rhosigmaexx2 */
-  1, 1, 1,          /* v4rhola1pl3, v4rholapl2tau, v4rholapl2exx */
+  1, 1, 1,          /* v4rholapl3, v4rholapl2tau, v4rholapl2exx */
   1, 1,             /* v4rholapltau2, v4rholapltauexx */
   1,                /* v4rholaplexx2 */
   1, 1, 1,          /* v4rhotau3, v4rhotau2exx, v4rhoexx3 */

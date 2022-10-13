@@ -24,14 +24,17 @@ def read_infos(srcdir, family, all_ids):
   import glob
 
   # find all files that belong to this family, for example should
-  # returns all files of the type gga_*.c and hyb_gga_*.c for GGAs
+  # returns all files of the type gga_*.c for GGAs
   glob_files  = glob.glob(srcdir + "/" + family + "_*.c")
-  glob_files += glob.glob(srcdir + "/hyb_" + family + "_*.c")
+  if family.find('hyb_') != -1:
+     glob_files += glob.glob(srcdir + "/" + family.replace('hyb_','') + "_*.c")
+  else:
+     glob_files += glob.glob(srcdir + "/hyb_" + family + "_*.c")
 
   # pattern that matches "#define FUNC number /* comment */"
-  pattern_def = re.compile(r'#define\s+XC_(((?:HYB_)?' + family.upper() + r")_\S+)\s+(\S+)\s+\/\*\s*(.*?)\s*\*\/")
+  pattern_def = re.compile(r'#define\s+XC_((' + family.upper() + r")_\S+)\s+(\S+)\s+\/\*\s*(.*?)\s*\*\/")
   # pattern that matches "xc_func_info_type xc_func_info_"
-  pattern_inf = re.compile(r'^(const |)xc_func_info_type xc_func_info_((?:hyb_)?' + family.lower() + r"\S+)")
+  pattern_inf = re.compile(r'^(const |)xc_func_info_type xc_func_info_(' + family.lower() + r"\S+)")
 
   numbers  = {}
   infos    = {}
@@ -104,8 +107,8 @@ def read_infos(srcdir, family, all_ids):
 
   return infos
 
-# hybrids are added automatically
-families = ("lda", "gga", "mgga")
+# hybrids are not added automatically
+families = ("lda", "hyb_lda", "gga", "hyb_gga", "mgga", "hyb_mgga")
 family_infos = {}
 all_ids   = {}
 all_infos = {}
@@ -129,24 +132,22 @@ for ifun, info in enumerate(info_list):
 
 for family in families:
   full_infos = family_infos[family]
-  for hyb in [False, True]:
-    prefix = "hyb_" if hyb else ""
+  prefix = ""
 
-    infos = {}
-    for func in full_infos:
-      if (func.find("hyb_")!=-1) == hyb:
-        infos[func] = full_infos[func]
+  infos = {}
+  for func in full_infos:
+    infos[func] = full_infos[func]
 
-    # create funcs_family.c file
-    fh =  open(params.builddir + "/funcs_" + prefix + family + ".c", "w")
-    fh.write('#include "util.h"\n\n')
-    for info in sorted(infos.values(), key=lambda item: item["number"]):
-      fh.write('extern xc_func_info_type xc_func_info_' + info["codename"] + ';\n')
-    fh.write('\nconst xc_func_info_type *xc_' + prefix + family + '_known_funct[] = {\n')
-    for info in sorted(infos.values(), key=lambda item: item["number"]):
-      fh.write('  &xc_func_info_' + info["codename"] + ',\n')
-    fh.write('  NULL\n};\n')
-    fh.close()
+  # create funcs_family.c file
+  fh =  open(params.builddir + "/funcs_" + prefix + family + ".c", "w")
+  fh.write('#include "util.h"\n\n')
+  for info in sorted(infos.values(), key=lambda item: item["number"]):
+    fh.write('extern xc_func_info_type xc_func_info_' + info["codename"] + ';\n')
+  fh.write('\nconst xc_func_info_type *xc_' + prefix + family + '_known_funct[] = {\n')
+  for info in sorted(infos.values(), key=lambda item: item["number"]):
+    fh.write('  &xc_func_info_' + info["codename"] + ',\n')
+  fh.write('  NULL\n};\n')
+  fh.close()
 
 # create funcs_key.c file
 fh =  open(params.builddir + "/funcs_key.c", "w")

@@ -426,6 +426,13 @@ func_reference_type xc_ref_Carmona2019_303 = {
   "Carmona2019_303"
 };
 
+func_reference_type xc_ref_Carmona2022_114109 = {
+  "J. Carmona-Espíndola, A. Flores, J. L. Gázquez, A. Vela, and S. B. Trickey.,  J. Chem. Phys 157, 114109 (2022)",
+  "10.1063/5.0096678",
+  "@article{Carmona2022_114109,\n  author = {Carmona-Esp\\'{i}ndola, Javier and Flores, Anaid and G\\'{a}zquez, Jos\\'{e} L. and Vela, Alberto and Trickey, S. B.},\n  title = {Hardness of molecules and bandgap of solids from a generalized gradient approximation exchange energy functional},\n  journal = {J. Chem. Phys},\n  volume = {157},\n  number = {11},\n  pages = {114109},\n  year = {2022},\n  doi = {10.1063/5.0096678},\n  URL = {https://doi.org/10.1063/5.0096678}\n}\n",
+  "Carmona2022_114109"
+};
+
 func_reference_type xc_ref_Casula2006_245427 = {
   "M. Casula, S. Sorella, and G. Senatore.,  Phys. Rev. B 74, 245427 (2006)",
   "10.1103/PhysRevB.74.245427",
@@ -1091,18 +1098,18 @@ func_reference_type xc_ref_Heyd2003_8207 = {
   "Heyd2003_8207"
 };
 
-func_reference_type xc_ref_Heyd2006_219906 = {
-  "J. Heyd, G. E. Scuseria, and M. Ernzerhof.,  J. Chem. Phys. 124, 219906 (2006)",
-  "10.1063/1.2204597",
-  "@article{Heyd2006_219906,\n  author = {Heyd, J. and Scuseria, G. E. and Ernzerhof, M.},\n  title = {Erratum: \"{Hybrid} functionals based on a screened {Coulomb} potential\" [{J.} {Chem.} {Phys.} 118, 8207 (2003)]},\n  journal = {J. Chem. Phys.},\n  year = {2006},\n  volume = {124},\n  number = {21},\n  pages = {219906},\n  doi = {10.1063/1.2204597},\n  url = {http://scitation.aip.org/content/aip/journal/jcp/124/21/10.1063/1.2204597}\n}\n",
-  "Heyd2006_219906"
-};
-
 func_reference_type xc_ref_Heyd2004_7274 = {
   "J. Heyd and G. E. Scuseria.,  J. Chem. Phys. 120, 7274 (2004)",
   "10.1063/1.1668634",
   "@article{Heyd2004_7274,\n  author = {Heyd, J. and Scuseria, G. E.},\n  title = {Assessment and validation of a screened {Coulomb} hybrid density functional},\n  journal = {J. Chem. Phys.},\n  year = {2004},\n  volume = {120},\n  number = {16},\n  pages = {7274},\n  doi = {10.1063/1.1668634},\n  url = {http://scitation.aip.org/content/aip/journal/jcp/120/16/10.1063/1.1668634}\n}\n",
   "Heyd2004_7274"
+};
+
+func_reference_type xc_ref_Heyd2006_219906 = {
+  "J. Heyd, G. E. Scuseria, and M. Ernzerhof.,  J. Chem. Phys. 124, 219906 (2006)",
+  "10.1063/1.2204597",
+  "@article{Heyd2006_219906,\n  author = {Heyd, J. and Scuseria, G. E. and Ernzerhof, M.},\n  title = {Erratum: \"{Hybrid} functionals based on a screened {Coulomb} potential\" [{J.} {Chem.} {Phys.} 118, 8207 (2003)]},\n  journal = {J. Chem. Phys.},\n  year = {2006},\n  volume = {124},\n  number = {21},\n  pages = {219906},\n  doi = {10.1063/1.2204597},\n  url = {http://scitation.aip.org/content/aip/journal/jcp/124/21/10.1063/1.2204597}\n}\n",
+  "Heyd2006_219906"
 };
 
 func_reference_type xc_ref_Hodges1973_1428 = {
@@ -1756,6 +1763,13 @@ func_reference_type xc_ref_OuYang1991_379 = {
   "OuYang1991_379"
 };
 
+func_reference_type xc_ref_PBEdigits = {
+  "Added extra digits to some constants as in the PBE routine (http://dft.rutgers.edu/pubs/PBE.asc).",
+  "",
+  "@misc{PBEdigits,\n  note = {Added extra digits to some constants as in the {PBE} routine (http://dft.rutgers.edu/pubs/PBE.asc)}\n}\n",
+  "PBEdigits"
+};
+
 func_reference_type xc_ref_PachecoKato2016_268 = {
   "J. C. Pacheco-Kato, J. M. del Campo, J. L. Gázquez, S.B. Trickey, and A. Vela.,  Chem. Phys. Lett. 651, 268-273 (2016)",
   "10.1016/j.cplett.2016.03.028",
@@ -1875,13 +1889,6 @@ func_reference_type xc_ref_Perdew1992_13244 = {
   "Perdew1992_13244"
 };
 
-func_reference_type xc_ref_PBEdigits = {
-  "Added extra digits to some constants as in the PBE routine (http://dft.rutgers.edu/pubs/PBE.asc).",
-  "",
-  "@misc{PBEdigits,\n  note = {Added extra digits to some constants as in the {PBE} routine (http://dft.rutgers.edu/pubs/PBE.asc)}\n}\n",
-  "PBEdigits"
-};
-
 func_reference_type xc_ref_Perdew1992_6671 = {
   "J. P. Perdew, J. A. Chevary, S. H. Vosko, K. A. Jackson, M. R. Pederson, D. J. Singh, and C. Fiolhais.,  Phys. Rev. B 46, 6671 (1992)",
   "10.1103/PhysRevB.46.6671",
@@ -1889,18 +1896,18 @@ func_reference_type xc_ref_Perdew1992_6671 = {
   "Perdew1992_6671"
 };
 
-func_reference_type xc_ref_Perdew1993_4978 = {
-  "J. P. Perdew, J. A. Chevary, S. H. Vosko, K. A. Jackson, M. R. Pederson, D. J. Singh, and C. Fiolhais.,  Phys. Rev. B 48, 4978 (1993)",
-  "10.1103/PhysRevB.48.4978.2",
-  "@article{Perdew1993_4978,\n  author = {Perdew, J. P. and Chevary, J. A. and Vosko, S. H. and Jackson, K. A. and Pederson, M. R. and Singh, D. J. and Fiolhais, C.},\n  title = {Erratum: {Atoms}, molecules, solids, and surfaces: Applications of the generalized gradient approximation for exchange and correlation},\n  journal = {Phys. Rev. B},\n  volume = {48},\n  issue = {7},\n  pages = {4978},\n  year = {1993},\n  month = {Aug},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.48.4978.2},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.48.4978.2}\n}\n",
-  "Perdew1993_4978"
-};
-
 func_reference_type xc_ref_Perdew1992_79 = {
   "J. P. Perdew.,  Phys. Lett. A 165, 79 (1992)",
   "10.1016/0375-9601(92)91058-Y",
   "@article{Perdew1992_79,\n  author = {Perdew, J. P.},\n  title = {Generalized gradient approximation for the fermion kinetic energy as a functional of the density},\n  journal = {Phys. Lett. A},\n  volume = {165},\n  number = {1},\n  pages = {79},\n  year = {1992},\n  issn = {0375-9601},\n  doi = {10.1016/0375-9601(92)91058-Y},\n  url = {http://www.sciencedirect.com/science/article/pii/037596019291058Y}\n}\n",
   "Perdew1992_79"
+};
+
+func_reference_type xc_ref_Perdew1993_4978 = {
+  "J. P. Perdew, J. A. Chevary, S. H. Vosko, K. A. Jackson, M. R. Pederson, D. J. Singh, and C. Fiolhais.,  Phys. Rev. B 48, 4978 (1993)",
+  "10.1103/PhysRevB.48.4978.2",
+  "@article{Perdew1993_4978,\n  author = {Perdew, J. P. and Chevary, J. A. and Vosko, S. H. and Jackson, K. A. and Pederson, M. R. and Singh, D. J. and Fiolhais, C.},\n  title = {Erratum: {Atoms}, molecules, solids, and surfaces: Applications of the generalized gradient approximation for exchange and correlation},\n  journal = {Phys. Rev. B},\n  volume = {48},\n  issue = {7},\n  pages = {4978},\n  year = {1993},\n  month = {Aug},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevB.48.4978.2},\n  url = {http://link.aps.org/doi/10.1103/PhysRevB.48.4978.2}\n}\n",
+  "Perdew1993_4978"
 };
 
 func_reference_type xc_ref_Perdew1996_3865 = {

@@ -967,6 +967,9 @@
  ! Tao, Perdew, Staroverov & Scuseria with parameters from Gaussian
  integer(c_int), parameter, public :: XC_MGGA_C_TPSS_GAUSSIAN  =    323
 
+ ! Nearly correct asymptotic potential revised
+ integer(c_int), parameter, public :: XC_GGA_X_NCAPR  =    324
+
  ! Becke 97-3c by Grimme et. al.
  integer(c_int), parameter, public :: XC_GGA_XC_B97_3C  =    327
 

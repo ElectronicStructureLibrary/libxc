@@ -24,8 +24,9 @@ AC_DEFUN([ACX_FCFLAGS],
 [
 AC_REQUIRE([AC_CANONICAL_HOST])
 
+fccompiler=`basename $FC`
 if test -z "${FCFLAGS}"; then
-  case "${FC}" in
+  case "${fccompiler}" in
     gfortran*)
       FCFLAGS="-pipe -O3 -funroll-loops -ffast-math -ffree-line-length-none"
       ;;

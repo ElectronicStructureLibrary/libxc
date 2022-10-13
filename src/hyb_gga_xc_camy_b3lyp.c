@@ -49,7 +49,9 @@ camyb3_set_ext_params(xc_func_type *p, const double *ext_params)
   p->mix_coef[3] = ac;
 
   xc_func_set_ext_params_name(p->func_aux[1], "_omega", omega);
-  set_ext_params_camy(p, ext_params);
+  p->cam_alpha = alpha;
+  p->cam_beta  = beta;
+  p->cam_omega = omega;
 }
 
 void

@@ -14,8 +14,8 @@ if HAVE_CUDA
 CC+="-dc"
 endif
 
-bin_PROGRAMS = xc-info xc-threshold
-noinst_PROGRAMS = genwiki xc-sanity
+bin_PROGRAMS = xc-info
+noinst_PROGRAMS = genwiki xc-sanity xc-threshold
 
 xc_info_SOURCES = xc-info.c
 xc_info_LDADD = libxc.la -lm

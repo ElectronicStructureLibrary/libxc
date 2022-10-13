@@ -69,7 +69,7 @@ const xc_func_info_type xc_func_info_mgga_c_tpss_gaussian = {
   "Tao, Perdew, Staroverov & Scuseria with parameters from Gaussian",
   XC_FAMILY_MGGA,
   {&xc_ref_Tao2003_146401, &xc_ref_Perdew2004_6898, &xc_ref_gaussianimplementation, NULL, NULL},
-  XC_FLAGS_3D | XC_FLAGS_NEEDS_TAU | MAPLE2C_FLAGS,
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15, /* densities smaller than 1e-26 give NaNs */
   {TPSS_N_PAR, tpss_names, tpss_desc, tpss_gaussian_values, set_ext_params_cpy},
   mgga_c_tpss_init, NULL,

@@ -1,3 +1,23 @@
+## [6.0.0] - 2022-10-13
+
+This release changes the internal handling of derivatives in Libxc.
+Instead of the previous code where the same driver was used to
+evaluate all derivatives (controlled by an if statement in the
+innermost loop), in this version specialized versions of the Maple
+kernels are generated for all targeted numbers of derivatives as well
+as spin-polarized vs spin-unpolarized calculations. Moreover, array
+access has been improved, resulting in significant speedups on GPUs.
+
+### Fixed
+- LDA_C_KARASIEV and LDA_C_KARASIEV_MOD were implemented incorrectly (#382).
+
+### Added
+- GGA functionals: XC_B97_3C, X_PBE_GAUSSIAN, C_PBE_GAUSSIAN, X_PBE_MOD
+- HYB_GGA functionals: XC_B3P86_NWCHEM
+- MGGA functionals: C_TPSS_GAUSSIAN, C_CC, C_CCALDA, X_VCML, XC_VCML_RVV10
+- HYB_MGGA functionals: XC_BR3P86
+- functions to extract BibTeX reference keys from functionals
+
 ## [5.2.2] - 2022-02-01
 
 ### Fixed

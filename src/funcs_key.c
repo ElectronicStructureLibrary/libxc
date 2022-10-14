@@ -592,6 +592,7 @@ xc_functional_key_t xc_functional_keys[] = {
   {"mgga_x_r4scan", 650},
   {"mgga_x_vcml", 651},
   {"mgga_xc_vcml_rvv10", 652},
+  {"hyb_mgga_xc_gas22", 658},
   {"hyb_gga_xc_cam_pbeh", 681},
   {"hyb_gga_xc_camy_pbeh", 682},
   {"lda_c_upw92", 683},

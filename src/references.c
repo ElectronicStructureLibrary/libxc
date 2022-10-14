@@ -1560,6 +1560,13 @@ func_reference_type xc_ref_Lynch2000_4811 = {
   "Lynch2000_4811"
 };
 
+func_reference_type xc_ref_Ma2022_eabq0279 = {
+  "H. Ma, A. Narayanaswamy, P. Riley, and L. Li.,  Sci. Adv. 8, eabq0279 (2022)",
+  "10.1126/sciadv.abq0279",
+  "@article{Ma2022_eabq0279,\n  author = {Ma, He and Narayanaswamy, Arunachalam and Riley, Patrick and Li, Li},\n  title = {Evolving symbolic density functionals},\n  journal = {Sci. Adv.},\n  volume = {8},\n  number = {36},\n  pages = {eabq0279},\n  year = {2022},\n  doi = {10.1126/sciadv.abq0279},\n  URL = {https://www.science.org/doi/abs/10.1126/sciadv.abq0279}\n}\n",
+  "Ma2022_eabq0279"
+};
+
 func_reference_type xc_ref_MacDonald1979_2977 = {
   "A. H. MacDonald and S. H. Vosko.,  J. Phys. C: Solid State Phys. 12, 2977 (1979)",
   "10.1088/0022-3719/12/15/007",

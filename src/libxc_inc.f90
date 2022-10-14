@@ -1771,6 +1771,9 @@
  ! VCML-rVV10 by Trepte and Voss
  integer(c_int), parameter, public :: XC_MGGA_XC_VCML_RVV10  =    652
 
+ ! Google Accelerated Science 22
+ integer(c_int), parameter, public :: XC_HYB_MGGA_XC_GAS22  =    658
+
  ! CAM hybrid screened exchange PBE version
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_PBEH  =    681
 

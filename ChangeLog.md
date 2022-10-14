@@ -18,6 +18,11 @@ access has been improved, resulting in significant speedups on GPUs.
 - HYB_MGGA functionals: XC_BR3P86
 - functions to extract BibTeX reference keys from functionals
 
+## [5.2.3] - 2022-05-16
+
+### Fixed
+- Fix compile issue with CUDA.
+
 ## [5.2.2] - 2022-02-01
 
 ### Fixed

@@ -10,6 +10,7 @@
 
 #define XC_GGA_X_NCAP  180 /* Nearly correct asymptotic potential */
 #define XC_GGA_XC_NCAP 181 /* Nearly correct asymptotic potential + P86 correlation */
+#define XC_GGA_X_NCAPR 324 /* Nearly correct asymptotic potential revised */
 
 typedef struct{
   double alpha, beta, mu, zeta;
@@ -25,11 +26,24 @@ gga_x_ncap_init(xc_func_type *p)
 #include "maple2c/gga_exc/gga_x_ncap.c"
 #include "work_gga.c"
 
-#define NCAP_N_PAR 4
-static const char  *ncap_names[NCAP_N_PAR]  = {"_alpha", "_beta", "_mu", "_zeta"};
-static const char  *ncap_desc[NCAP_N_PAR]   = {"alpha", "beta", "mu", "zeta"};
-static const double ncap_values[NCAP_N_PAR] = {
-  0.34511172247159020479L, 0.018085697L, 0.219514973L, 0.304121419L
+#define N_PAR 4
+static const char  *names[N_PAR]  = {"_alpha", "_beta", "_mu", "_zeta"};
+static const char  *desc[N_PAR]   = {"alpha", "beta", "mu", "zeta"};
+/* Precise values of beta, mu and zeta are taken directly from the
+   reference implementation in NWChem, while alpha:=4*Pi/3*beta/mu
+   according to the paper; it's been evaluated in Maple with 16 digit
+   accuracy.
+*/
+static const double ncap_values[N_PAR] = {
+  0.3451117169263783L, 0.01808569669L, 0.2195149727645171L, 0.30412141859531383L
+};
+/* Precise values of beta, mu and zeta are taken directly from the
+   reference implementation obtained from Javier Carmona, while
+   alpha:=4*Pi/3*beta/mu according to the paper; it's been evaluated
+   in Maple with 16 digit accuracy.
+*/
+static const double ncapr_values[N_PAR] = {
+ 0.3431510377915187L, 0.017982946634292535L, 0.2195149727645171L, 0.5L
 };
 
 #ifdef __cplusplus
@@ -43,7 +57,23 @@ const xc_func_info_type xc_func_info_gga_x_ncap = {
   {&xc_ref_Carmona2019_303, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-15,
-  {NCAP_N_PAR, ncap_names, ncap_desc, ncap_values, set_ext_params_cpy},
+  {N_PAR, names, desc, ncap_values, set_ext_params_cpy},
+  gga_x_ncap_init, NULL,
+  NULL, &work_gga, NULL
+};
+
+#ifdef __cplusplus
+extern "C"
+#endif
+const xc_func_info_type xc_func_info_gga_x_ncapr = {
+  XC_GGA_X_NCAPR,
+  XC_EXCHANGE,
+  "Nearly correct asymptotic potential revised",
+  XC_FAMILY_GGA,
+  {&xc_ref_Carmona2022_114109, NULL, NULL, NULL, NULL},
+  XC_FLAGS_3D | MAPLE2C_FLAGS,
+  1e-15,
+  {N_PAR, names, desc, ncapr_values, set_ext_params_cpy},
   gga_x_ncap_init, NULL,
   NULL, &work_gga, NULL
 };

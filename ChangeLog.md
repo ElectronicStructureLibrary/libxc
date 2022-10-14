@@ -12,7 +12,7 @@ access has been improved, resulting in significant speedups on GPUs.
 - LDA_C_KARASIEV and LDA_C_KARASIEV_MOD were implemented incorrectly (#382).
 
 ### Added
-- GGA functionals: XC_B97_3C, X_PBE_GAUSSIAN, C_PBE_GAUSSIAN, X_PBE_MOD
+- GGA functionals: XC_B97_3C, X_PBE_GAUSSIAN, C_PBE_GAUSSIAN, X_PBE_MOD, X_NCAPR
 - HYB_GGA functionals: XC_B3P86_NWCHEM
 - MGGA functionals: C_TPSS_GAUSSIAN, C_CC, C_CCALDA, X_VCML, XC_VCML_RVV10
 - HYB_MGGA functionals: XC_BR3P86

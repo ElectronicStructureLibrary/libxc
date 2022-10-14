@@ -597,6 +597,7 @@ xc_functional_key_t xc_functional_keys[] = {
   {"gga_x_pbe_erf_gws", 655},
   {"hyb_gga_x_pbe_erf_gws", 656},
   {"gga_c_pbe_erf_gws", 657},
+  {"hyb_mgga_xc_gas22", 658},
   {"hyb_gga_xc_cam_pbeh", 681},
   {"hyb_gga_xc_camy_pbeh", 682},
   {"lda_c_upw92", 683},

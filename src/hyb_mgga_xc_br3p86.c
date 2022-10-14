@@ -62,7 +62,7 @@ const xc_func_info_type xc_func_info_hyb_mgga_xc_br3p86 = {
   XC_HYB_MGGA_XC_BR3P86,
   XC_EXCHANGE_CORRELATION,
   "BR3P86 hybrid meta-GGA from Neumann and Handy",
-  XC_FAMILY_MGGA,
+  XC_FAMILY_HYB_MGGA,
   {&xc_ref_Neumann1995_381, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_I_HAVE_ALL,
   1e-15,

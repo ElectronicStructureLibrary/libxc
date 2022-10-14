@@ -1,4 +1,4 @@
-## [6.0.0] - 2022-10-13
+## [6.0.0] - 2022-10-14
 
 This release changes the internal handling of derivatives in Libxc.
 Instead of the previous code where the same driver was used to

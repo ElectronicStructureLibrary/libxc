@@ -18,8 +18,7 @@
 # Copyright (c) 2010 Benoit Jacob <jacob.benoit.1@gmail.com>
 # Redistribution and use is allowed according to the terms of the 2-clause BSD license.
 include(CheckCSourceCompiles)
-# a little test program for c++ math functions.
-# notice the std:: is required on some platforms such as QNX
+# a little test program for C math functions.
 
 # The test program needs to read in the arguments from standard input,
 # since otherwise the compiler might optimize away the calls altogether!
@@ -46,30 +45,26 @@ int main(int argc, char **argv) {
   printf(\"erf(x)=% e\",erf(x));
   return 0;
 }")
-# C++ test program
-# "#include<cmath>
-# int main() { std::sin(0.0); std::log(0.0f); }")
 # first try compiling/linking the test program without any linker flags
 set(CMAKE_REQUIRED_FLAGS "")
 set(CMAKE_REQUIRED_LIBRARIES "")
 CHECK_C_SOURCE_COMPILES(
   "${find_standard_math_library_test_program}"
-  standard_math_library_linked_to_automatically
+  c_standard_math_library_linked_to_automatically
 )
-if(standard_math_library_linked_to_automatically)
+if(c_standard_math_library_linked_to_automatically)
   message("Test program linked without flags")
   # the test program linked successfully without any linker flag.
   set(STANDARD_MATH_LIBRARY "")
   set(STANDARD_MATH_LIBRARY_FOUND TRUE)
 else()
   # the test program did not link successfully without any linker flag.
-  # This is a very uncommon case that so far we only saw on QNX. The next try is the
-  # standard name 'm' for the standard math library.
+  # The next try is the standard name 'm' for the standard math library.
   set(CMAKE_REQUIRED_LIBRARIES "m")
   CHECK_C_SOURCE_COMPILES(
     "${find_standard_math_library_test_program}"
-    standard_math_library_linked_to_as_m)
-  if(standard_math_library_linked_to_as_m)
+    c_standard_math_library_linked_to_as_m)
+  if(c_standard_math_library_linked_to_as_m)
     # the test program linked successfully when linking to the 'm' library
     set(STANDARD_MATH_LIBRARY "m")
     set(STANDARD_MATH_LIBRARY_FOUND TRUE)

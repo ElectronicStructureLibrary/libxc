@@ -42,10 +42,10 @@ gas22_par_ss := [
 gas22_par_nos := 5:
 gas22_par_os := [
     [ params_a_c_os[1], 0, 0],
-    [ params_a_c_os[2], 0, 2],
-    [ params_a_c_os[3], 0, 6],
-    [ params_a_c_os[4], 2/3, 6],
-    [ params_a_c_os[5], 2/3, 2]
+    [ params_a_c_os[2], 2, 0],
+    [ params_a_c_os[3], 6, 0],
+    [ params_a_c_os[4], 6, 2/3],
+    [ params_a_c_os[5], 2, 2/3]
 ]:
 
 (* the peculiarity of GAS22 is that it uses a slightly different expansion for

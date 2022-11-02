@@ -646,6 +646,12 @@ xc_functional_key_t xc_functional_keys[] = {
   {"hyb_gga_xc_pbe_qidh", 727},
   {"hyb_gga_xc_ls1dh_pbe", 728},
   {"gga_x_q1d", 734},
+  {"gga_x_hjs_cx13", 800},
+  {"gga_x_hjs_pw86", 801},
+  {"gga_x_hjs_b86r", 802},
+  {"hyb_gga_xc_vdw_df_ahcx", 803},
+  {"hyb_gga_xc_vdw_df2_ah", 804},
+  {"hyb_gga_xc_vdw_df2_ahbr", 805},
   {"lda_k_gds08_worker", 100001},
 {"", -1}
 };

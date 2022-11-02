@@ -93,7 +93,8 @@ libxc_la_FUNC_SOURCES = \
 	gga_k_lgap_ge.c	gga_c_ccdf.c gga_k_rational_p.c gga_k_pg.c      \
 	gga_c_p86vwn.c gga_x_ityh_optx.c hyb_gga_xc_cam_o3lyp.c \
 	gga_x_ityh_pbe.c gga_c_lypr.c hyb_gga_x_cam_s12.c \
-        hyb_gga_xc_case21.c \
+	hyb_gga_xc_case21.c gga_x_pbe_erf_gws.c gga_c_pbe_erf_gws.c     \
+	hyb_gga_xc_vdw_ah.c                                             \
 	mgga.c \
 	mgga_x_lta.c mgga_x_tpss.c mgga_x_br89.c mgga_x_gvt4.c		\
 	mgga_x_m06l.c mgga_x_tau_hcth.c mgga_x_2d_prhg07.c		\

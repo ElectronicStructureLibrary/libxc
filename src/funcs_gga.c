@@ -255,6 +255,12 @@ extern xc_func_info_type xc_func_info_gga_k_lgap_ge;
 extern xc_func_info_type xc_func_info_gga_k_tfvw_opt;
 extern xc_func_info_type xc_func_info_gga_c_mggac;
 extern xc_func_info_type xc_func_info_gga_x_q1d;
+extern xc_func_info_type xc_func_info_gga_x_hjs_cx13;
+extern xc_func_info_type xc_func_info_gga_x_hjs_rpw86;
+extern xc_func_info_type xc_func_info_gga_x_hjs_b86r;
+extern xc_func_info_type xc_func_info_hyb_gga_xc_vdw_df_ahcx;
+extern xc_func_info_type xc_func_info_hyb_gga_xc_vdw_df2_ah;
+extern xc_func_info_type xc_func_info_hyb_gga_xc_vdw_df2_ahbr;
 
 const xc_func_info_type *xc_gga_known_funct[] = {
   &xc_func_info_gga_x_gam,
@@ -512,5 +518,11 @@ const xc_func_info_type *xc_gga_known_funct[] = {
   &xc_func_info_gga_k_tfvw_opt,
   &xc_func_info_gga_c_mggac,
   &xc_func_info_gga_x_q1d,
+  &xc_func_info_gga_x_hjs_cx13,
+  &xc_func_info_gga_x_hjs_rpw86,
+  &xc_func_info_gga_x_hjs_b86r,
+  &xc_func_info_hyb_gga_xc_vdw_df_ahcx,
+  &xc_func_info_hyb_gga_xc_vdw_df2_ah,
+  &xc_func_info_hyb_gga_xc_vdw_df2_ahbr,
   NULL
 };

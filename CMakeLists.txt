@@ -292,6 +292,7 @@ set(raw_sources_list
   hyb_gga_x_cam_s12.c
   hyb_gga_xc_case21.c
   hyb_mgga_xc_gas22.c
+  hyb_gga_xc_vdw_ah.c
   integrate.c
   lda.c
   lda_c_1d_csc.c

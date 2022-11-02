@@ -2288,6 +2288,20 @@ func_reference_type xc_ref_Shao2020_587 = {
   "Shao2020_587"
 };
 
+func_reference_type xc_ref_Shukla2022_025902 = {
+  "V. Shukla, Y. Jiao, C. M. Frostenson, and P. Hyldgaard.,  J. Phys.: Condens. Matter 34, 025902 (2022)",
+  "10.1088/1361-648X/ac2ad2",
+  "@article{Shukla2022_025902,\n  author = {Shukla, V. and Jiao, Y. and Frostenson, C. M. and Hyldgaard, P.},\n  title = {{vdW}-{DF}-ahcx: a range-separated van der {Waals} density functional hybrid},\n  journal = {J. Phys.: Condens. Matter},\n  volume = {34},\n  number = {42},\n  pages = {025902},\n  year = {2022},\n  doi = {10.1088/1361-648X/ac2ad2},\n  url = {https://iopscience.iop.org/article/10.1088/1361-648X/ac2ad2}\n}\n",
+  "Shukla2022_025902"
+};
+
+func_reference_type xc_ref_Shukla2022_041003 = {
+  "V. Shukla, Y. Jiao, J.-H. Lee, E. Schröder, J. B. Neaton, and P. Hyldgaard.,  Phys. Rev. X 12, 041003 (2022)",
+  "10.1103/PhysRevX.12.041003",
+  "@article{Shukla2022_041003,\n  author = {Shukla, V. and Jiao, Y. and Lee, J.-H. and Schr\\\"{o}der, E. and Neaton, J. B. and Hyldgaard, P.},\n  title = {Accurate Nonempirical Range-Separated hybrid van der {Waals} Density Functional for Complex Molecular Problems, Solids, and Surfaces},\n  journal = {Phys. Rev. X},\n  volume = {12},\n  number = {4},\n  pages = {041003},\n  year = {2022},\n  publisher = {American Physical Society},\n  doi = {10.1103/PhysRevX.12.041003},\n  url = {http://link.aps.org/doi/10.1103/PhysRevX.12.041003}\n}\n",
+  "Shukla2022_041003"
+};
+
 func_reference_type xc_ref_Slater1951_385 = {
   "J. C. Slater.,  Phys. Rev. 81, 385 (1951)",
   "10.1103/PhysRev.81.385",

@@ -628,3 +628,9 @@
 #define  XC_HYB_MGGA_XC_LC_TMLYP           720 /* Long-range corrected TM-LYP by Jana et al */
 #define  XC_MGGA_X_MTASK                   724 /* modified TASK exchange */
 #define  XC_GGA_X_Q1D                      734 /* Functional for quasi-1D systems */
+#define  XC_GGA_X_HJS_CX13                 800 /* HJS screened exchange CX13 version */
+#define  XC_GGA_X_HJS_RPW86                801 /* HJS screened exchange rPW86 version */
+#define  XC_GGA_X_HJS_B86R                 802 /* HJS screened exchange B86r version */
+#define  XC_HYB_GGA_XC_VDW_DF_AHCX         803 /* Hybrid vdW-DF-ahcx functional to be used with vdW-DF nonlocal correlation */
+#define  XC_HYB_GGA_XC_VDW_DF2_AH          804 /* Hybrid vdW-DF2-ah functional to be used with vdW-DF2 nonlocal correlation */
+#define  XC_HYB_GGA_XC_VDW_DF2_AHBR        805 /* Hybrid vdW-DF2-ahbr functional to be used with vdW-DF2 nonlocal correlation */

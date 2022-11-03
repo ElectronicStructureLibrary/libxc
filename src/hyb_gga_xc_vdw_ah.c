@@ -23,7 +23,7 @@ hyb_gga_xc_vdw_ah_init(xc_func_type *p)
     funcs_id[0] = funcs_id[1] = XC_GGA_X_HJS_CX13;
     break;
   case XC_HYB_GGA_XC_VDW_DF2_AH:
-    funcs_id[0] = funcs_id[1] = XC_GGA_X_HJS_PW86;
+    funcs_id[0] = funcs_id[1] = XC_GGA_X_HJS_RPW86;
     break;
   case XC_HYB_GGA_XC_VDW_DF2_AHBR:
     funcs_id[0] = funcs_id[1] = XC_GGA_X_HJS_B86R;

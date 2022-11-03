@@ -14,7 +14,7 @@
 #define XC_GGA_X_HJS_B88     527 /* HJS screened exchange B88 version */
 #define XC_GGA_X_HJS_B97X    528 /* HJS screened exchange B97x version */
 #define XC_GGA_X_HJS_CX13    800 /* HJS screened exchange for cx13 and thus vdW-DF-ahcx */
-#define XC_GGA_X_HJS_PW86    801 /* HJS screened exchange for rPW86 and thus vdW-DF2-ah */
+#define XC_GGA_X_HJS_RPW86   801 /* HJS screened exchange for rPW86 and thus vdW-DF2-ah */
 #define XC_GGA_X_HJS_B86R    802 /* HJS screened exchange for b86r and thus vdW-DF2-ahbr */
 
 
@@ -45,7 +45,7 @@ static const double pars_cx13[N_PARS] =
   { 0.0024387, -0.0041526,  0.0025826,  0.0000012, -0.0007582,  0.0002764,
    -2.2030319,  2.1759315, -1.2997841,  0.5347267, -0.1588798,  0.0367329, -0.0077318,  0.0012667,  0.0000008, 0.106};
 
-static const double pars_pw86[N_PARS] =
+static const double pars_rpw86[N_PARS] =
   { 0.0000006,  0.0402647, -0.0353219,  0.0116112, -0.0001555,  0.0000504,
    -1.8779594,  1.5198811, -0.5383109,  0.1352399, -0.0428465,  0.0117903,  0.0033791, -0.0000493,  0.0000071, 0.106};
 
@@ -149,15 +149,15 @@ const xc_func_info_type xc_func_info_gga_x_hjs_cx13 = {
 #ifdef __cplusplus
 extern "C"
 #endif
-const xc_func_info_type xc_func_info_gga_x_hjs_pw86 = {
-  XC_GGA_X_HJS_PW86,
+const xc_func_info_type xc_func_info_gga_x_hjs_rpw86 = {
+  XC_GGA_X_HJS_RPW86,
   XC_EXCHANGE,
-  "HJS screened exchange PW86 version",
+  "HJS screened exchange rPW86 version",
   XC_FAMILY_GGA,
   {&xc_ref_Shukla2022_025902, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | MAPLE2C_FLAGS,
   1e-11,
-  {N_PARS, names, desc, pars_b86r, set_ext_params_cpy_omega},
+  {N_PARS, names, desc, pars_rpw86, set_ext_params_cpy_omega},
   gga_x_hjs_init, NULL,
   NULL, &work_gga, NULL
 };

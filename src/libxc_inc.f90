@@ -1936,8 +1936,8 @@
  ! HJS screened exchange CX13 version
  integer(c_int), parameter, public :: XC_GGA_X_HJS_CX13  =    800
 
- ! HJS screened exchange PW86 version
- integer(c_int), parameter, public :: XC_GGA_X_HJS_PW86  =    801
+ ! HJS screened exchange rPW86 version
+ integer(c_int), parameter, public :: XC_GGA_X_HJS_RPW86  =    801
 
  ! HJS screened exchange B86r version
  integer(c_int), parameter, public :: XC_GGA_X_HJS_B86R  =    802

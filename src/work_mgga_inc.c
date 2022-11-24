@@ -60,10 +60,12 @@ WORK_MGGA(ORDER_TXT, SPIN_TXT)
 
     /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
     /* skip all checks on tau for the kinetic functionals */
-    my_tau[0] = m_max(p->tau_threshold, VAR(tau, ip, 0));
+    if(p->info->family != XC_KINETIC)
+      my_tau[0] = m_max(p->tau_threshold, VAR(tau, ip, 0));
 #ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
     /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
-    my_sigma[0] = m_min(my_sigma[0], 8.0*my_rho[0]*my_tau[0]);
+    if(p->info->family != XC_KINETIC)
+      my_sigma[0] = m_min(my_sigma[0], 8.0*my_rho[0]*my_tau[0]);
 #endif
     /* lapl can have any values */
 
@@ -73,12 +75,14 @@ WORK_MGGA(ORDER_TXT, SPIN_TXT)
       my_rho[1] = m_max(p->dens_threshold, VAR(rho, ip, 1));
       my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, VAR(sigma, ip, 2));
 
-      my_tau[1] = m_max(p->tau_threshold, VAR(tau, ip, 1));
+      if(p->info->family != XC_KINETIC)
+        my_tau[1] = m_max(p->tau_threshold, VAR(tau, ip, 1));
 #ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
       /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
-      my_sigma[2] = m_min(my_sigma[2], 8.0*my_rho[1]*my_tau[1]);
+      if(p->info->family != XC_KINETIC)
+        my_sigma[2] = m_min(my_sigma[2], 8.0*my_rho[1]*my_tau[1]);
 #endif
-      
+
       my_sigma[1] = VAR(sigma, ip, 1);
       s_ave = 0.5*(my_sigma[0] + my_sigma[2]);
       /* | grad n |^2 = |grad n_up + grad n_down|^2 > 0 */
@@ -114,12 +118,9 @@ WORK_MGGA(ORDER_TXT, SPIN_TXT)
         printf("Problem in the evaluation of the functional\n");
         if(p->nspin == XC_UNPOLARIZED){
           printf("./xc-get_data %d 1 ", p->info->number);
-          if(p->info->flags & (XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU))
+          if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
             printf("%le 0.0 %le 0.0 0.0 %le 0.0 %le 0.0\n",
                    VAR(rho, ip, 0), VAR(sigma, ip, 0), VAR(lapl, ip, 0), VAR(tau, ip, 0));
-          else if(p->info->flags & XC_FLAGS_NEEDS_LAPLACIAN)
-            printf("%le 0.0 %le 0.0 0.0 %le 0.0 0.0 0.0\n",
-                   VAR(rho, ip, 0), VAR(sigma, ip, 0), VAR(lapl, ip, 0));
           else
             printf("%le 0.0 %le 0.0 0.0 0.0 0.0 %le 0.0\n",
                    VAR(rho, ip, 0), VAR(sigma, ip, 0), VAR(tau, ip, 0));
@@ -167,12 +168,12 @@ WORK_MGGA_GPU(ORDER_TXT, SPIN_TXT)
     /* sanity check of input parameters */
     my_rho[0] = m_max(p->dens_threshold, rho[0]);
     /* Many functionals shamelessly divide by tau, so we set a reasonable threshold */
-    if(p->info->flags & XC_FLAGS_NEEDS_TAU)
+    if(p->info->family != XC_KINETIC)
       my_tau[0] = m_max(p->tau_threshold, tau[0]);
     my_sigma[0] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[0]);
 #ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
     /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
-    if(p->info->flags & XC_FLAGS_NEEDS_TAU)
+    if(p->info->family != XC_KINETIC)
       my_sigma[0] = m_min(my_sigma[0], 8.0*my_rho[0]*my_tau[0]);
 #endif
     /* lapl can have any values */
@@ -180,12 +181,12 @@ WORK_MGGA_GPU(ORDER_TXT, SPIN_TXT)
       double s_ave;
 
       my_rho[1]   = m_max(p->dens_threshold, rho[1]);
-      if(p->info->flags & XC_FLAGS_NEEDS_TAU)
+      if(p->info->family != XC_KINETIC)
         my_tau[1] = m_max(p->tau_threshold, tau[1]);
       my_sigma[2] = m_max(p->sigma_threshold * p->sigma_threshold, sigma[2]);
 #ifdef XC_ENFORCE_FERMI_HOLE_CURVATURE
       /* The Fermi hole curvature 1 - xs^2/(8*ts) must be positive */
-      if(p->info->flags & XC_FLAGS_NEEDS_TAU)
+      if(p->info->family != XC_KINETIC)
         my_sigma[2] = m_min(my_sigma[2], 8.0*my_rho[1]*my_tau[1]);
 #endif
 

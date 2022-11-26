@@ -79,15 +79,8 @@ void allocate_memory(values_t *data, int nspin, int order)
       data->lapl = (double*) libxc_calloc(data->n, sizeof(double));
       data->tau = (double*) libxc_calloc(data->n, sizeof(double));
       switch (order) {
-        case (0):
-          data->zk = (double*) libxc_calloc(data->n, sizeof(double));
-          break;
-        case (1):
-          data->vrho = (double*) libxc_calloc(data->n, sizeof(double));
-          data->vsigma = (double*) libxc_calloc(data->n, sizeof(double));
-          data->vlapl = (double*) libxc_calloc(data->n, sizeof(double));
-          data->vtau = (double*) libxc_calloc(data->n, sizeof(double));
-          break;
+        case (3):
+          data->v3rho3 = (double*) libxc_calloc(data->n, sizeof(double));
         case (2):
           data->v2rho2 = (double*) libxc_calloc(data->n, sizeof(double));
           data->v2tau2 = (double*) libxc_calloc(data->n, sizeof(double));
@@ -99,9 +92,13 @@ void allocate_memory(values_t *data, int nspin, int order)
           data->v2rhosigma = (double*) libxc_calloc(data->n, sizeof(double));
           data->v2sigmatau = (double*) libxc_calloc(data->n, sizeof(double));
           data->v2sigmalapl = (double*) libxc_calloc(data->n, sizeof(double));
-          break;
-        case (3):
-          data->v3rho3 = (double*) libxc_calloc(data->n, sizeof(double));
+        case (1):
+          data->vrho = (double*) libxc_calloc(data->n, sizeof(double));
+          data->vsigma = (double*) libxc_calloc(data->n, sizeof(double));
+          data->vlapl = (double*) libxc_calloc(data->n, sizeof(double));
+          data->vtau = (double*) libxc_calloc(data->n, sizeof(double));
+        case (0):
+          data->zk = (double*) libxc_calloc(data->n, sizeof(double));
           break;
         default:
           fprintf(stderr, "order = %i not recognized.\n", order);
@@ -115,15 +112,8 @@ void allocate_memory(values_t *data, int nspin, int order)
       data->lapl = (double*) libxc_calloc(2*data->n, sizeof(double));
       data->tau = (double*) libxc_calloc(2*data->n, sizeof(double));
       switch (order) {
-        case (0):
-          data->zk = (double*) libxc_calloc(data->n, sizeof(double));
-          break;
-        case (1):
-          data->vrho = (double*) libxc_calloc(2*data->n, sizeof(double));
-          data->vsigma = (double*) libxc_calloc(3*data->n, sizeof(double));
-          data->vlapl = (double*) libxc_calloc(2*data->n, sizeof(double));
-          data->vtau = (double*) libxc_calloc(2*data->n, sizeof(double));
-          break;
+        case (3):
+          data->v3rho3 = (double*) libxc_calloc(4*data->n, sizeof(double));
         case (2):
           data->v2rho2 = (double*) libxc_calloc(3*data->n, sizeof(double));
           data->v2tau2 = (double*) libxc_calloc(3*data->n, sizeof(double));
@@ -135,9 +125,13 @@ void allocate_memory(values_t *data, int nspin, int order)
           data->v2rhosigma = (double*) libxc_calloc(6*data->n, sizeof(double));
           data->v2sigmatau = (double*) libxc_calloc(6*data->n, sizeof(double));
           data->v2sigmalapl = (double*) libxc_calloc(6*data->n, sizeof(double));
-          break;
-        case (3):
-          data->v3rho3 = (double*) libxc_calloc(4*data->n, sizeof(double));
+        case (1):
+          data->vrho = (double*) libxc_calloc(2*data->n, sizeof(double));
+          data->vsigma = (double*) libxc_calloc(3*data->n, sizeof(double));
+          data->vlapl = (double*) libxc_calloc(2*data->n, sizeof(double));
+          data->vtau = (double*) libxc_calloc(2*data->n, sizeof(double));
+        case (0):
+          data->zk = (double*) libxc_calloc(data->n, sizeof(double));
           break;
         default:
           fprintf(stderr, "order = %i not recognized.\n", order);

@@ -39,7 +39,7 @@ void xc_evaluate_func(const xc_func_type *func, int max_order,
     exit(1);
   }
   
-  xc_output_variables_initialize(out, in->np, func->nspin);
+  xc_output_variables_initialize(out);
 
   /* call the specific work routine */
   if(func->info->work != NULL){
@@ -114,13 +114,13 @@ deorb_work(const xc_func_type *p,
   */
   flags = p->info->flags | XC_FLAGS_NEEDS_LAPLACIAN | XC_FLAGS_NEEDS_TAU;
   mgga = xc_output_variables_allocate(in->np, orders, XC_FAMILY_MGGA, flags, p->nspin);
-  xc_output_variables_initialize(mgga, in->np, p->nspin);
+  xc_output_variables_initialize(mgga);
   
   ked1 = xc_output_variables_allocate(in->np, orders, XC_FAMILY_MGGA, flags, p->nspin);
-  xc_output_variables_initialize(ked1, in->np, p->nspin);
+  xc_output_variables_initialize(ked1);
   if(p->nspin == XC_POLARIZED){
     ked2 = xc_output_variables_allocate(in->np, orders, XC_FAMILY_MGGA, flags, p->nspin);
-    xc_output_variables_initialize(ked2, in->np, p->nspin);
+    xc_output_variables_initialize(ked2);
   }
   
   /* evaluate the kinetic energy functional */

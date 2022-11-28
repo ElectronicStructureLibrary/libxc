@@ -23,6 +23,8 @@ void FUNC( )
 
   xc_output_variables out;
   libxc_memset(&out, 0, sizeof(xc_output_variables));
+  out.np = np;
+  out.dim = output_variables_dimensions_get(p->nspin);
 
   SET_ORDER_0;
   SET_ORDER_1;
@@ -44,6 +46,8 @@ void FUNC(_exc)
 {
   xc_output_variables out;
   libxc_memset(&out, 0, sizeof(xc_output_variables));
+  out.np = np;
+  out.dim = output_variables_dimensions_get(p->nspin);
 
   SET_ORDER_0;
 
@@ -59,6 +63,8 @@ void FUNC(_exc_vxc)
 {
   xc_output_variables out;
   libxc_memset(&out, 0, sizeof(xc_output_variables));
+  out.np = np;
+  out.dim = output_variables_dimensions_get(p->nspin);
 
   SET_ORDER_0;
   SET_ORDER_1;
@@ -75,6 +81,8 @@ void FUNC(_exc_vxc_fxc)
 {
   xc_output_variables out;
   libxc_memset(&out, 0, sizeof(xc_output_variables));
+  out.np = np;
+  out.dim = output_variables_dimensions_get(p->nspin);
 
   SET_ORDER_0;
   SET_ORDER_1;
@@ -92,6 +100,8 @@ void FUNC(_vxc_fxc)
 {
   xc_output_variables out;
   libxc_memset(&out, 0, sizeof(xc_output_variables));
+  out.np = np;
+  out.dim = output_variables_dimensions_get(p->nspin);
 
   SET_ORDER_1;
   SET_ORDER_2;
@@ -108,6 +118,8 @@ void FUNC(_exc_vxc_fxc_kxc)
 {
   xc_output_variables out;
   libxc_memset(&out, 0, sizeof(xc_output_variables));
+  out.np = np;
+  out.dim = output_variables_dimensions_get(p->nspin);
 
   SET_ORDER_0;
   SET_ORDER_1;
@@ -126,6 +138,8 @@ void FUNC(_vxc_fxc_kxc)
 {
   xc_output_variables out;
   libxc_memset(&out, 0, sizeof(xc_output_variables));
+  out.np = np;
+  out.dim = output_variables_dimensions_get(p->nspin);
 
   SET_ORDER_1;
   SET_ORDER_2;
@@ -144,6 +158,8 @@ void FUNC(_vxc)
 {
   xc_output_variables out;
   libxc_memset(&out, 0, sizeof(xc_output_variables));
+  out.np = np;
+  out.dim = output_variables_dimensions_get(p->nspin);
 
   SET_ORDER_1;
 
@@ -159,6 +175,8 @@ void FUNC(_fxc)
 {
   xc_output_variables out;
   libxc_memset(&out, 0, sizeof(xc_output_variables));
+  out.np = np;
+  out.dim = output_variables_dimensions_get(p->nspin);
 
   SET_ORDER_2;
 
@@ -174,6 +192,8 @@ void FUNC(_kxc)
 {
   xc_output_variables out;
   libxc_memset(&out, 0, sizeof(xc_output_variables));
+  out.np = np;
+  out.dim = output_variables_dimensions_get(p->nspin);
 
   SET_ORDER_3;
 
@@ -189,6 +209,8 @@ void FUNC(_lxc)
 {
   xc_output_variables out;
   libxc_memset(&out, 0, sizeof(xc_output_variables));
+  out.np = np;
+  out.dim = output_variables_dimensions_get(p->nspin);
 
   SET_ORDER_4;
 

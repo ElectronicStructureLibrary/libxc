@@ -482,8 +482,7 @@ const xc_output_variables_dimensions *output_variables_dimensions_get(int nspin)
 xc_output_variables *
 xc_output_variables_allocate(double np, const int *orders, int family, int flags, int nspin){
   xc_output_variables *out;
-  const xc_output_variables_dimensions *dim = output_variables_dimensions_get(nspin);
-  int i;
+  int ii;
   
   /* allocate output structure */
   out = (xc_output_variables *)libxc_malloc(sizeof(xc_output_variables));
@@ -491,26 +490,30 @@ xc_output_variables_allocate(double np, const int *orders, int family, int flags
   /* initialize the structure to NULLs */
   libxc_memset(out, 0, sizeof(xc_output_variables));
 
+  /* determined spin dimensions */
+  out->dim = output_variables_dimensions_get(nspin);
+  
   /* if np == 0 then do not allocate the internal pointers */
   if (np <= 0)
     return out;
-
-  for(i=0; i<XC_TOTAL_NUMBER_OUTPUT_VARIABLES; i++){
-    if(! orders[xc_output_variables_order_key[i]])
+  out->np = np;
+  
+  for(ii=0; ii<XC_TOTAL_NUMBER_OUTPUT_VARIABLES; ii++){
+    if(! orders[xc_output_variables_order_key[ii]])
       continue;
 
-    if(family < xc_output_variables_family_key[i])
+    if(family < xc_output_variables_family_key[ii])
       continue;
 
     if(family >= XC_FAMILY_MGGA){
       if(! (flags & XC_FLAGS_NEEDS_LAPLACIAN) &&
-         (xc_output_variables_flags_key[i] & XC_FLAGS_NEEDS_LAPLACIAN))
+         (xc_output_variables_flags_key[ii] & XC_FLAGS_NEEDS_LAPLACIAN))
         continue;
       if(! (flags & XC_FLAGS_NEEDS_TAU) &&
-         (xc_output_variables_flags_key[i] & XC_FLAGS_NEEDS_TAU))
+         (xc_output_variables_flags_key[ii] & XC_FLAGS_NEEDS_TAU))
         continue;
     }
-    out->fields[i] = (double *) libxc_malloc(sizeof(double)*np*dim->fields[i]);
+    out->fields[ii] = (double *) libxc_malloc(sizeof(double)*out->np*out->dim->fields[ii]);
   }
     
   return out;
@@ -578,12 +581,11 @@ xc_output_variables_deallocate(xc_output_variables *out)
 }
 
 void
-xc_output_variables_initialize(xc_output_variables *out, int np, int nspin)
+xc_output_variables_initialize(xc_output_variables *out)
 {
   int ii;
-  const xc_output_variables_dimensions *dim = output_variables_dimensions_get(nspin);
   
   for(ii=0; ii<XC_TOTAL_NUMBER_OUTPUT_VARIABLES; ii++)
     if(out->fields[ii] != NULL)
-      libxc_memset(out->fields[ii], 0, sizeof(double)*np*dim->fields[ii]);
+      libxc_memset(out->fields[ii], 0, sizeof(double)*out->np*out->dim->fields[ii]);
 }

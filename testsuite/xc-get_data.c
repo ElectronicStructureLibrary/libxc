@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
                                      func.info->family,
                                      func.info->flags,
                                      nspin);
-  //xc_output_variables_initialize(out, 1, func.nspin);
+  /* xc_output_variables_initialize(out); */
   
   xc_evaluate_func(&func, 2, in, out);
 

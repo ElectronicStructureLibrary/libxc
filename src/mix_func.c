@@ -173,7 +173,7 @@ xc_mix_func(const xc_func_type *func, const xc_input_variables *in, xc_output_va
     aux = func->func_aux[ifunc];
 
     /* have to clean explicitly the buffers here */
-    xc_output_variables_initialize(xout, in->np, func->nspin);
+    xc_output_variables_initialize(xout);
 
     /* Evaluate the functional */
     xc_evaluate_func(aux, max_order, in, xout);

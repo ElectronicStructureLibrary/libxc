@@ -138,8 +138,7 @@ module xc_f03_lib_m
     XC_FLAGS_VV10            =  1024,   &
     XC_FLAGS_STABLE          =  8192,   &
     XC_FLAGS_DEVELOPMENT     = 16384,   &
-    XC_FLAGS_NEEDS_LAPLACIAN = 32768,   &
-    XC_FLAGS_NEEDS_TAU       = 65536
+    XC_FLAGS_NEEDS_LAPLACIAN = 32768
 
   integer(c_int), parameter, public :: &
     XC_TAU_EXPLICIT         =     0,   &

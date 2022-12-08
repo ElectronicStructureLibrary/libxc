@@ -11,7 +11,7 @@
 #define XC_MGGA_X_HERMAN          104 /* Herman et al original MGGA                  */
 
 #include "maple2c/mgga_exc/mgga_x_herman.c"
-#include "work_gga.c"
+#include "work_mgga.c"
 
 #ifdef __cplusplus
 extern "C"
@@ -26,5 +26,5 @@ const xc_func_info_type xc_func_info_mgga_x_herman = {
   1e-15,
   {0, NULL, NULL, NULL, NULL},
   NULL, NULL,
-  NULL, &work_gga, NULL
+  NULL, NULL, &work_mgga
 };

@@ -307,8 +307,8 @@
  ! Becke 86
  integer(c_int), parameter, public :: XC_GGA_X_B86  =    103
 
- ! Herman Xalphabeta GGA
- integer(c_int), parameter, public :: XC_GGA_X_HERMAN  =    104
+ ! Herman Xalphabeta mGGA
+ integer(c_int), parameter, public :: XC_MGGA_X_HERMAN  =    104
 
  ! Becke 86 with modified gradient correction
  integer(c_int), parameter, public :: XC_GGA_X_B86_MGC  =    105

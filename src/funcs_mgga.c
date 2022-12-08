@@ -11,6 +11,7 @@ extern xc_func_info_type xc_func_info_mgga_c_m11_l;
 extern xc_func_info_type xc_func_info_mgga_c_m11;
 extern xc_func_info_type xc_func_info_mgga_c_m08_so;
 extern xc_func_info_type xc_func_info_mgga_c_m08_hx;
+extern xc_func_info_type xc_func_info_mgga_x_herman;
 extern xc_func_info_type xc_func_info_mgga_c_revm11;
 extern xc_func_info_type xc_func_info_mgga_x_lta;
 extern xc_func_info_type xc_func_info_mgga_x_tpss;
@@ -205,6 +206,7 @@ const xc_func_info_type *xc_mgga_known_funct[] = {
   &xc_func_info_mgga_c_m11,
   &xc_func_info_mgga_c_m08_so,
   &xc_func_info_mgga_c_m08_hx,
+  &xc_func_info_mgga_x_herman,
   &xc_func_info_mgga_c_revm11,
   &xc_func_info_mgga_x_lta,
   &xc_func_info_mgga_x_tpss,

@@ -101,7 +101,7 @@
 #define  XC_GGA_X_PBE                      101 /* Perdew, Burke & Ernzerhof */
 #define  XC_GGA_X_PBE_R                    102 /* Revised PBE from Zhang & Yang */
 #define  XC_GGA_X_B86                      103 /* Becke 86 */
-#define  XC_GGA_X_HERMAN                   104 /* Herman Xalphabeta GGA */
+#define  XC_MGGA_X_HERMAN                  104 /* Herman Xalphabeta mGGA */
 #define  XC_GGA_X_B86_MGC                  105 /* Becke 86 with modified gradient correction */
 #define  XC_GGA_X_B88                      106 /* Becke 88 */
 #define  XC_GGA_X_G96                      107 /* Gill 96 */

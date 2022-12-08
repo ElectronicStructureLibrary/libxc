@@ -13,7 +13,7 @@ gga_c_bmk.c        gga_c_scan_e0.c   gga_k_thakkar.c     gga_x_ft97.c        gga
 gga_c_chachiyo.c   gga_c_sg4.c       gga_x_2d_b86.c      gga_x_g96.c         gga_x_pbepow.c    \
 gga_c_cs1.c        gga_c_sogga11.c   gga_x_2d_b86_mgc.c  gga_x_gg99.c        gga_x_pbetrans.c  \
 gga_c_ft97.c       gga_c_tca.c       gga_x_2d_b88.c      gga_x_hcth_a.c      gga_x_pw86.c      \
-gga_c_gapc.c       gga_c_w94.c       gga_x_2d_pbe.c      gga_x_herman.c      gga_x_pw91.c      \
+gga_c_gapc.c       gga_c_w94.c       gga_x_2d_pbe.c      gga_x_pw91.c      \
 gga_c_gaploc.c     gga_c_wi.c        gga_x_airy.c        gga_x_hjs_b88_v2.c  gga_x_q2d.c       \
 gga_c_hcth_a.c     gga_c_wl.c        gga_x_ak13.c        gga_x_hjs.c         gga_x_rge2.c      \
 gga_c_lm.c         gga_c_zpbeint.c   gga_x_am05.c        gga_x_htbs.c        gga_x_rpbe.c      \

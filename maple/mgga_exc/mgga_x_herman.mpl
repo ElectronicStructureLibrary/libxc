@@ -15,7 +15,12 @@ herman_beta := 0.00314:
 
     e_xc^LDA = (3/4) alpha V_XS
 
-  where V_XS is defined in Eq. (7) of the IJQC, and alpha = 2/3
+  where V_XS is defined in Eq. (7) of the IJQC, and alpha = 2/3.
+
+  The energy expression is Eq. (8) of the IJQC article, with G(rho)
+  defined in Eq. (9). The exponential damping term has been defined in
+  Eq. (A11) of the Appendix.
+
 *)
 
 herman_f0 := (x, u) -> 1 + 3*herman_beta * (4/3*x^2 - 2*u)*exp(-herman_beta*x^2):

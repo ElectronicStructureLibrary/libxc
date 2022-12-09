@@ -19,11 +19,11 @@ herman_beta := 0.00314:
 
   The energy expression is Eq. (8) of the IJQC article, with G(rho)
   defined in Eq. (9). The exponential damping term has been defined in
-  Eq. (A11) of the Appendix.
+  Eq. (A11) of the Appendix, and the (1+beta*x^2) term in Eq. (A12).
 
 *)
 
-herman_f0 := (x, u) -> 1 + 3*herman_beta * (4/3*x^2 - 2*u)*exp(-herman_beta*x^2):
+herman_f0 := (x, u) -> 1 + 2*herman_beta * (4/3*x^2 - 2*u)*(1+herman_beta*x^2)*exp(-herman_beta*x^2):
 
 (* we have to take care of the spin factors coming out of the spin sum-rule *)
 

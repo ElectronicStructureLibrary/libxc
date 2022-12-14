@@ -17,7 +17,7 @@ typedef struct {
 
 #define N_PAR 15
 static const char  *names[N_PAR]  = {
-  "_cx00",  "_cx01",  "_cx02", "_cx10", "_cx11"
+  "_cx00",  "_cx01",  "_cx02", "_cx10", "_cx11",
   "_css00", "_css02", "_css10", "_css32", "_css42",
   "_cos00", "_cos01", "_cos03", "_cos10", "_cos32"};
 static const char  *desc[N_PAR]   = {

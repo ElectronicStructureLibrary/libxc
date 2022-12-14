@@ -318,6 +318,24 @@ int xc_func_init(xc_func_type *func, int functional, int nspin)
   if(func->info->ext_params.n > 0) {
     func->ext_params = (double *) libxc_malloc(func->info->ext_params.n * sizeof(double));
     xc_func_set_ext_params(func, func->info->ext_params.values);
+
+    /* sanity check external parameter names and descriptions */
+    for(int i=0; i<func->info->ext_params.n; i++) {
+      if(func->info->ext_params.names[i] == NULL) {
+        char * name = xc_functional_get_name(functional);
+        fprintf(stderr,"Internal error in %s: external parameter %i name is NULL\n",name,i);
+        free(name);
+        xc_func_end(func);
+        return -1;
+      }
+      if(func->info->ext_params.descriptions[i] == NULL) {
+        char * name = xc_functional_get_name(functional);
+        fprintf(stderr,"Internal error in %s: external parameter %i description is NULL\n",name,i);
+        free(name);
+        xc_func_end(func);
+        return -1;
+      }
+    }
   }
 
   return 0;

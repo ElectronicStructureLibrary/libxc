@@ -104,7 +104,6 @@ xc_functional_key_t xc_functional_keys[] = {
   {"gga_x_pbe", 101},
   {"gga_x_pbe_r", 102},
   {"gga_x_b86", 103},
-  {"gga_x_herman", 104},
   {"gga_x_b86_mgc", 105},
   {"gga_x_b88", 106},
   {"gga_x_g96", 107},

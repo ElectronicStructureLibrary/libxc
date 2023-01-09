@@ -225,7 +225,6 @@ set(raw_sources_list
   gga_x_g96.c
   gga_x_gg99.c
   gga_x_hcth_a.c
-  gga_x_herman.c
   gga_x_hjs.c
   gga_x_hjs_b88_v2.c
   gga_x_htbs.c

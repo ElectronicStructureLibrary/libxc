@@ -62,6 +62,7 @@ extern func_reference_type xc_ref_Bremond2016_244102;
 extern func_reference_type xc_ref_Brown2021_2004;
 extern func_reference_type xc_ref_Brual1978_1177;
 extern func_reference_type xc_ref_Burke2014_4834;
+extern func_reference_type xc_ref_Bursch2022_134105;
 extern func_reference_type xc_ref_Caldeira2019_62;
 extern func_reference_type xc_ref_Campi1978_263;
 extern func_reference_type xc_ref_Campo2012_179;

@@ -356,6 +356,13 @@ func_reference_type xc_ref_Burke2014_4834 = {
   "Burke2014_4834"
 };
 
+func_reference_type xc_ref_Bursch2022_134105 = {
+  "M. Bursch, H. Neugebauer, S. Ehlert, and S. Grimme.,  J. Chem. Phys. 156, 134105 (2022)",
+  "10.1063/5.0086040",
+  "@article{Bursch2022_134105,\n  author = {Bursch, Markus and Neugebauer, Hagen and Ehlert, Sebastian and Grimme, Stefan},\n  title = {Dispersion corrected r$^2${SCAN} based global hybrid functionals: r$^2${SCAN}h, r$^2${SCAN}0, and r$^2${SCAN}50},\n  journal = {J. Chem. Phys.},\n  volume = {156},\n  number = {13},\n  pages = {134105},\n  year = {2022},\n  doi = {10.1063/5.0086040},\n  URL = {https://doi.org/10.1063/5.0086040}\n}\n",
+  "Bursch2022_134105"
+};
+
 func_reference_type xc_ref_Caldeira2019_62 = {
   "M. T. Caldeira and R. Custodio.,  J. Mol. Model. 25, 62 (2019)",
   "10.1007/s00894-019-3952-4",

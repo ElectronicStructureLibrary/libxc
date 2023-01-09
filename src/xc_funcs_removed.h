@@ -36,6 +36,7 @@
 #define XC_GGA_X_PBEpow       539
 
 /* These are functionals that were removed */
+#define XC_GGA_X_HERMAN        104 /* The real functional is a meta-GGA whose form is not clear */
 #define XC_GGA_XC_B97          167 /* Becke 97                                 */
 #define XC_GGA_XC_B97_1        168 /* Becke 97-1                               */
 #define XC_GGA_XC_B97_2        169 /* Becke 97-2                               */

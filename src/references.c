@@ -1721,6 +1721,13 @@ func_reference_type xc_ref_Miehlich1989_200 = {
   "Miehlich1989_200"
 };
 
+func_reference_type xc_ref_Mitrofanov2021_161103 = {
+  "A. Mitrofanov, N. Andreadi, V. Korolev, and S. Kalmykov.,  J. Chem. Phys. 155, 161103 (2021)",
+  "10.1063/5.0067631",
+  "@article{Mitrofanov2021_161103,\n  author = {Mitrofanov, Artem and Andreadi, Nikolai and Korolev, Vadim and Kalmykov, Stepan},\n  title = {A search for a {DFT} functional for actinide compounds},\n  journal = {J. Chem. Phys.},\n  volume = {155},\n  number = {16},\n  pages = {161103},\n  year = {2021},\n  doi = {10.1063/5.0067631},\n  url = {https://doi.org/10.1063/5.0067631}\n}\n",
+  "Mitrofanov2021_161103"
+};
+
 func_reference_type xc_ref_Mortensen2005_216401 = {
   "J. J. Mortensen, K. Kaasbjerg, S. L. Frederiksen, J. K. Nørskov, J. P. Sethna, and K. W. Jacobsen.,  Phys. Rev. Lett. 95, 216401 (2005)",
   "10.1103/PhysRevLett.95.216401",
@@ -2270,7 +2277,7 @@ func_reference_type xc_ref_Schmider1998_9624 = {
 func_reference_type xc_ref_Schmidt2014_18A510 = {
   "T. Schmidt, E. Kraisler, A. Makmal, L. Kronik, and S. Kümmel.,  J. Chem. Phys. 140, 18A510 (2014)",
   "10.1063/1.4865942",
-  "@article{Schmidt2014_18A510,\n  author = {Schmidt, Tobias and Kraisler, Eli and Makmal, Adi and Kronik, Leeor and K\\\"{u}mmel, Stephan},\n  title = {A self-interaction-free local hybrid functional: Accurate binding energies vis-\\'{a}-vis accurate ionization potentials from {Kohn}--{Sham} eigenvalues},\n  journal = {J. Chem. Phys.},\n  volume = {140},\n  number = {18},\n  pages = {18A510},\n  year = {2014},\n  doi = {10.1063/1.4865942},\n  URL = {https://doi.org/10.1063/1.4865942}\n}\n",
+  "@article{Schmidt2014_18A510,\n  author = {Schmidt, Tobias and Kraisler, Eli and Makmal, Adi and Kronik, Leeor and K\\\"{u}mmel, Stephan},\n  title = {A self-interaction-free local hybrid functional: Accurate binding energies vis-\\'{a}-vis accurate ionization potentials from {Kohn}--{Sham} eigenvalues},\n  journal = {J. Chem. Phys.},\n  volume = {140},\n  number = {18},\n  pages = {18A510},\n  year = {2014},\n  doi = {10.1063/1.4865942},\n  url = {https://doi.org/10.1063/1.4865942}\n}\n",
   "Schmidt2014_18A510"
 };
 

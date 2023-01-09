@@ -970,6 +970,9 @@
  ! Nearly correct asymptotic potential revised
  integer(c_int), parameter, public :: XC_GGA_X_NCAPR  =    324
 
+ ! relPBE0 a.k.a. relPBE: PBE0 refitted for actinide compounds
+ integer(c_int), parameter, public :: XC_HYB_GGA_XC_RELPBE0  =    325
+
  ! Becke 97-3c by Grimme et. al.
  integer(c_int), parameter, public :: XC_GGA_XC_B97_3C  =    327
 

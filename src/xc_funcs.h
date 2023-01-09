@@ -595,6 +595,9 @@
 #define  XC_HYB_GGA_X_PBE_ERF_GWS          656 /* Short-range PBE (GWS) exchange (erfc) + long-range exact exchange */
 #define  XC_GGA_C_PBE_ERF_GWS              657 /* Short ranged PBE correlation (erfc) */
 #define  XC_HYB_MGGA_XC_GAS22              658 /* Google Accelerated Science 22 */
+#define  XC_HYB_MGGA_XC_R2SCANH            659 /* r2SCANh: r2SCAN hybrid like TPSSh with 10% exact exchange */
+#define  XC_HYB_MGGA_XC_R2SCAN0            660 /* r2SCAN0: r2SCAN hybrid like PBE0 with 25% exact exchange */
+#define  XC_HYB_MGGA_XC_R2SCAN50           661 /* r2SCAN50: r2SCAN hybrid like PBE50 with 50% exact exchange */
 #define  XC_HYB_GGA_XC_CAM_PBEH            681 /* CAM hybrid screened exchange PBE version */
 #define  XC_HYB_GGA_XC_CAMY_PBEH           682 /* CAMY hybrid screened exchange PBE version */
 #define  XC_LDA_C_UPW92                    683 /* Ruggeri, Rios, and Alavi unrestricted fit */

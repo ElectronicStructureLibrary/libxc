@@ -165,6 +165,9 @@ extern xc_func_info_type xc_func_info_mgga_x_r4scan;
 extern xc_func_info_type xc_func_info_mgga_x_vcml;
 extern xc_func_info_type xc_func_info_mgga_xc_vcml_rvv10;
 extern xc_func_info_type xc_func_info_hyb_mgga_xc_gas22;
+extern xc_func_info_type xc_func_info_hyb_mgga_xc_r2scanh;
+extern xc_func_info_type xc_func_info_hyb_mgga_xc_r2scan0;
+extern xc_func_info_type xc_func_info_hyb_mgga_xc_r2scan50;
 extern xc_func_info_type xc_func_info_mgga_x_tlda;
 extern xc_func_info_type xc_func_info_mgga_x_edmgga;
 extern xc_func_info_type xc_func_info_mgga_x_gdme_nv;
@@ -360,6 +363,9 @@ const xc_func_info_type *xc_mgga_known_funct[] = {
   &xc_func_info_mgga_x_vcml,
   &xc_func_info_mgga_xc_vcml_rvv10,
   &xc_func_info_hyb_mgga_xc_gas22,
+  &xc_func_info_hyb_mgga_xc_r2scanh,
+  &xc_func_info_hyb_mgga_xc_r2scan0,
+  &xc_func_info_hyb_mgga_xc_r2scan50,
   &xc_func_info_mgga_x_tlda,
   &xc_func_info_mgga_x_edmgga,
   &xc_func_info_mgga_x_gdme_nv,

@@ -1789,6 +1789,15 @@
  ! Google Accelerated Science 22
  integer(c_int), parameter, public :: XC_HYB_MGGA_XC_GAS22  =    658
 
+ ! r2SCANh: r2SCAN hybrid like TPSSh with 10% exact exchange
+ integer(c_int), parameter, public :: XC_HYB_MGGA_XC_R2SCANH  =    659
+
+ ! r2SCAN0: r2SCAN hybrid like PBE0 with 25% exact exchange
+ integer(c_int), parameter, public :: XC_HYB_MGGA_XC_R2SCAN0  =    660
+
+ ! r2SCAN50: r2SCAN hybrid like PBE50 with 50% exact exchange
+ integer(c_int), parameter, public :: XC_HYB_MGGA_XC_R2SCAN50  =    661
+
  ! CAM hybrid screened exchange PBE version
  integer(c_int), parameter, public :: XC_HYB_GGA_XC_CAM_PBEH  =    681
 

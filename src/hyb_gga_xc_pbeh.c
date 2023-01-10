@@ -361,7 +361,7 @@ const xc_func_info_type xc_func_info_hyb_gga_xc_relpbe0 = {
   XC_HYB_GGA_XC_RELPBE0,
   XC_EXCHANGE_CORRELATION,
   "relPBE0 a.k.a. relPBE: PBE0 refitted for actinide compounds",
-  XC_FAMILY_GGA,
+  XC_FAMILY_HYB_GGA,
   {&xc_ref_Mitrofanov2021_161103, NULL, NULL, NULL, NULL},
   XC_FLAGS_3D | XC_FLAGS_I_HAVE_ALL,
   1e-15,

@@ -1,3 +1,20 @@
+## [6.1.0] - 2023-01-10
+
+This is a bugfix release, which also adds some functionals.
+
+### Fixed
+- Memory allocation in xc-regression (!591)
+- MGGA_C_REVSCAN was implemented incorrectly (#429)
+- Missing comma in MGGA_XC_B97M_V (#437)
+
+### Added
+- HYB_GGA functionals: XC_RELPBE0
+- HYB_MGGA functionals: XC_GAS22, XC_R2SCANH, XC_R2SCAN0, XC_R2SCAN50
+
+### Removed
+- GGA_X_HERMAN was incorrect: the functional is really a meta-GGA but its form was unclear and it seems numerically unstable (#399)
+
+
 ## [6.0.0] - 2022-10-14
 
 This release changes the internal handling of derivatives in Libxc.

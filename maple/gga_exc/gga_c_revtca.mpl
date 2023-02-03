@@ -13,9 +13,11 @@ $include "gga_c_tca.mpl"
 
 (* 4th order Taylor expansion of sinc(x) at x=0 *)
 sinc := x -> sin(x)/x:
-sinc_taylor := x -> eval(convert(taylor(sinc(y),y=0,6),polynom),y=x):
+sinc_taylor := x -> eval(convert(taylor(sinc(y),y=0,9),polynom),y=x):
 
-(* Switch to Taylor expansion when x^4 = epsilon *)
+(* Switch to Taylor expansion when x^4 = epsilon. Remember that we
+need further orders in the Taylor series to make the derivatives
+accurate as well. *)
 sinc_cutoff := DBL_EPSILON^(1/4):
 msinc := x -> my_piecewise3(x <= sinc_cutoff, sinc_taylor(x), sinc(m_max(x, sinc_cutoff))):
 

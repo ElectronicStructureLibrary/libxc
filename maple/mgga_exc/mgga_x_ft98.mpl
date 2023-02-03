@@ -33,7 +33,7 @@ ft98_q2_orig := q3 -> 1/(q3 + (1 + q3^2)^(1/2)):
 
    which is accurate to epsilon when q ~ epsilon^(1/4)
 *)
-ft98_q2term_smallq := q3 -> eval(convert(taylor(ft98_q2_orig(qt), qt = 0, 5), polynom), qt=q3):
+ft98_q2term_smallq := q3 -> eval(convert(taylor(ft98_q2_orig(qt), qt = 0, 9), polynom), qt=q3):
 ft98_q2_cutoff_smallq := DBL_EPSILON^(1/4):
 
 (* when q->-infty, there's danger for overflow.
@@ -44,7 +44,7 @@ ft98_q2_cutoff_smallq := DBL_EPSILON^(1/4):
 
    which will be accurate when q < -epsilon^(-1/4)
 *)
-ft98_q2term_minfty := q3 -> eval(convert(taylor(ft98_q2_orig(qt), qt = -infinity, 5), polynom), qt=q3):
+ft98_q2term_minfty := q3 -> eval(convert(taylor(ft98_q2_orig(qt), qt = -infinity, 9), polynom), qt=q3):
 ft98_q2_cutoff_minfty := -DBL_EPSILON^(-1/4):
 
 (* assemble the result. Linting the argument for the original argument

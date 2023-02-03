@@ -24,15 +24,19 @@ end proc:
 mbrxc_Q := (x, t) ->
         mbrxc_a1*(2*t) - K_FACTOR_C + mbrxc_a2*x^2 + mbrxc_a3*x^4:
 
-mbrxc_min_Q := 5.0e-13:
-mbrxc_cQ := Q -> my_piecewise3(abs(Q) < mbrxc_min_Q,
-  my_piecewise3(Q > 0, mbrxc_min_Q, -mbrxc_min_Q), Q):
-
-mbrxc_v := x ->
+(* This is unstable for small x *)
+mbrxc_v0 := x ->
   - (32*Pi)^(1/3)/(8*X_FACTOR_C) * exp(x/3)*(8 - exp(-x)*(x^2 + 5*x + 8))/(x*(1 + x)^(1/3)):
 
+(* so we use a series expansion for small x, remembering that we need
+up to 4th derivatives which means that we need to increase the
+truncation order by 4. *)
+mbrxc_v_smallq := x -> eval(convert(taylor(mbrxc_v0(y), y = 0, 9), polynom), y=x):
+mbrxc_v_cutoff := DBL_EPSILON^(1/4):
+mbrxc_v := x -> my_piecewise3(x < mbrxc_v_cutoff, mbrxc_v_smallq(x), mbrxc_v0(m_max(x, mbrxc_v_cutoff))):
+
 mbrxc_f := (x, u, t) ->
-  - mbrxc_v(mbrxc_x(mbrxc_cQ(mbrxc_Q(x, t))))/2:
+  - mbrxc_v(mbrxc_x(mbrxc_Q(x, t)))/2:
 
 f := (rs, z, xt, xs0, xs1, u0, u1, t0, t1) ->
   mgga_exchange(mbrxc_f, rs, z, xs0, xs1, u0, u1, t0, t1):

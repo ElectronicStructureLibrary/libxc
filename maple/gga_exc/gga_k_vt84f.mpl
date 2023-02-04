@@ -16,8 +16,8 @@
 
 (* Equation (5) *)
 vt84f_f0_orig := s -> 1 - params_a_mu*s^2*exp(-params_a_alpha*s^2)/(1+params_a_mu*s^2) + (1-exp(-params_a_alpha*s^4)) * (s^(-2) - 1) + 5*s^2/3:
-(* Since there's a term that looks hairy at small s, do a series expansion up to s^4 *)
-vt84f_f0_series := s -> eval(convert(taylor(vt84f_f0_orig(st), st = 0, 5), polynom), st=s):
+(* Since there's a term that looks hairy at small s, do a series expansion up to s^4. Since we want derivatives, we need to up the order of the Taylor series. *)
+vt84f_f0_series := s -> eval(convert(taylor(vt84f_f0_orig(st), st = 0, 9), polynom), st=s):
 (* Glue the functions together *)
 vt84f_f0 := s-> my_piecewise3(s <= sqrt(DBL_EPSILON), vt84f_f0_series(s), vt84f_f0_orig(m_max(s, sqrt(DBL_EPSILON)))):
 
